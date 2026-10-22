@@ -1020,14 +1020,22 @@ function applySil(cr,a,col){var r=512,n=r*r,c=mkCanvas(r,r),g=c.getContext('2d')
   if(cnt<n*.01||cnt>n*.6)return a;
   var sm=new Float32Array(n),res=new Float32Array(n);for(i=0;i<n;i++)sm[i]=out[i];segBox(sm,r,r,1,res,t);
   var o2=new Float32Array(n);for(i=0;i<n;i++)o2[i]=a[i]*Math.min(1,res[i]*1.5);return o2}
+function shelfCol(full){var res=200,c=mkCanvas(res,res),g=c.getContext('2d');g.drawImage(full,0,0,res,res);var d=g.getImageData(0,0,res,res).data,R=[],G=[],B=[],x,y,i;
+  for(y=Math.round(res*.2);y<Math.round(res*.8);y+=2)for(x=Math.round(res*.05);x<Math.round(res*.95);x+=2){i=(y*res+x)*4;R.push(d[i]);G.push(d[i+1]);B.push(d[i+2])}
+  var md=function(v){v.sort(function(p,q){return p-q});return v[v.length>>1]};return[md(R),md(G),md(B)]}
+/* quanto da peça recortada ainda parece a prateleira (fração dos pixels não brancos): serve para recusar o recorte quando o fundo ficou junto */
+function shelfShare(cv,full){var col=shelfCol(full),r=400,n=r*r,c=mkCanvas(r,r),g=c.getContext('2d');g.imageSmoothingQuality='high';g.drawImage(cv,0,0,r,r);var d=g.getImageData(0,0,r,r).data,lk=new Uint8Array(n),nw=0,i,x,y;
+  for(i=0;i<n;i++){var R=d[i*4],G=d[i*4+1],B=d[i*4+2];if(R>=245&&G>=245&&B>=245)continue;nw++;if(Math.abs(R-col[0])+Math.abs(G-col[1])+Math.abs(B-col[2])<45)lk[i]=1}
+  if(!nw)return 0;var cnt=0;for(y=1;y<r-1;y++)for(x=1;x<r-1;x++){i=y*r+x;if(lk[i]&&lk[i-1]&&lk[i+1]&&lk[i-r]&&lk[i+r]&&lk[i-r-1]&&lk[i-r+1]&&lk[i+r-1]&&lk[i+r+1])cnt++}return cnt/nw}
+var bp0=true;
 function modelWhiten(full){
   return segLoad().then(function(M){
     var W=full.width,H=full.height;
     segStatus('Achando a armação…');
     return segRun(M,'small',320,full).then(function(a1){
       var bb=segBBox(a1,320);
-      var bp=segPlausible(bb,W,H);window.__bbInfo={bb:bb,bp:bp};
-      try{var db=devBBox(full,a1);window.__devBB=db;if(db&&segPlausible(db,W,H)&&(window.__forceDev||!bb||(bb.x1-bb.x0)*(bb.y1-bb.y0)>(db.x1-db.x0)*(db.y1-db.y0)*(bp?3:1.6))){db.dev=1;return db}}catch(eD){window.__devErr=String(eD)}
+      var bp=segPlausible(bb,W,H);bp0=bp;window.__bbInfo={bb:bb,bp:bp};
+            try{var db=devBBox(full,a1);window.__devBB=db;if(db&&segPlausible(db,W,H)&&(window.__forceDev||!bb||(bb.x1-bb.x0)*(bb.y1-bb.y0)>(db.x1-db.x0)*(db.y1-db.y0)*(bp?3:1.6))){db.dev=1;return db}}catch(eD){window.__devErr=String(eD)}
       if(bp)return bb;
       if(!M.big)return bb;
       return segRun(M,'big',512,full).then(function(a0){var b2=segBBox(a0,512);return segPlausible(b2,W,H)?b2:(bb||b2)})
@@ -1042,7 +1050,8 @@ function modelWhiten(full){
         var f=mkCanvas(S,S),fg=f.getContext('2d');fg.translate(S,0);fg.scale(-1,1);fg.drawImage(cr,0,0);
         return segRun(M,'big',512,f).then(function(b2){var n=512*512,o=new Float32Array(n),yy,xx;for(yy=0;yy<512;yy++)for(xx=0;xx<512;xx++)o[yy*512+xx]=(a2[yy*512+xx]+b2[yy*512+511-xx])/2;return o})
       }).then(function(a2){
-        if(bb.dev&&bb.col){try{a2=applySil(cr,a2,bb.col)}catch(eS){}}var res=compose(cr,a2,S);res.bbox=[Math.max(0,fx0/W),Math.max(0,fy0/H),Math.min(1,fx1/W),Math.min(1,fy1/H)];return res})})})}
+        try{var cv0=0,nn0=a2.length,i0;for(i0=0;i0<nn0;i0++)if(a2[i0]>.5)cv0++;window.__cover=cv0/nn0;if(cv0/nn0>.8&&!window.__noRefuse){var RE2=new Error('REFUSA');RE2.refusa=1;throw RE2}}catch(eR){if(eR&&eR.refusa)throw eR}
+        if(bb.dev&&bb.col){try{a2=applySil(cr,a2,bb.col)}catch(eS){}}var res=compose(cr,a2,S);if(!window.__noRefuse){var sh=0;try{sh=shelfShare(res.canvas,full)}catch(eSh){window.__shErr=String(eSh)}window.__share=sh;if(sh>.3||(!bp0&&sh>.04)){var RE3=new Error('REFUSA');RE3.refusa=1;throw RE3}}res.bbox=[Math.max(0,fx0/W),Math.max(0,fy0/H),Math.min(1,fx1/W),Math.min(1,fy1/H)];return res})})})}
 /* tira a emenda da estante (linha fina, reta e quase vertical) que o modelo confunde com a peça; a armação (grossa) fica */
 function segSeam(A,w){var n=w*w,i,r=Math.max(4,Math.round(w*.012)),bm=new Float32Array(n),tmp=new Float32Array(n),e=new Float32Array(n),d=new Float32Array(n),er=new Float32Array(n);
   for(i=0;i<n;i++)bm[i]=A[i]>.5?1:0;segBox(bm,w,w,r,e,tmp);for(i=0;i<n;i++)er[i]=e[i]>.999?1:0;segBox(er,w,w,r,d,tmp);
@@ -1522,7 +1531,7 @@ $('file').onchange=function(e,keep){var fl=e.target.files,f=fl&&fl[0];if(!f)retu
     var shelfy=false;if(plain&&!window.__NOSEG){try{shelfy=shelfLike(full)}catch(e3){}}
     if(window.__NOSEG){S.msg='Ajustando a foto de catálogo…';render();setTimeout(function(){try{done(classic())}catch(err){S.msg='Não consegui processar essa foto. Tente outra.';render()}},40);return}
     SEG.on=function(t){S.msg=t;render()};S.msg='Recortando a armação…';render();
-    modelWhiten(full).then(function(r){SEG.on=null;S.msg='';done(r);S.msg=shelfy?'Confira o recorte (lentes, bordas, pedaços do fundo) antes de confirmar.':'Atenção: o fundo desta foto não é liso e claro. Confira o recorte (lentes, bordas, pedaços do fundo). Para foto de catálogo, use uma folha branca ou cinza clara por baixo, principalmente em armação transparente.';render()},function(er){SEG.on=null;window.__SEGERR=String(er&&er.message||er);try{var fb;try{fb=flatWhite(full)}catch(e7){fb=classic()}done(fb);S.msg='Não consegui recortar o fundo. Mantive a foto inteira, sem cortar a armação.'+(/fetch|backend|wasm/i.test(String(window.__SEGERR))?' A demo aberta dentro do Claude bloqueia o download do motor de recorte; no site hospedado ou no APK ele funciona.':' Detalhe: '+String(window.__SEGERR||'?').slice(0,90)+'.');render();try{setRead(S.msg,'n-warn')}catch(e8){}}catch(err){S.msg='Não consegui processar essa foto. Tente outra.';render()}})
+    modelWhiten(full).then(function(r){SEG.on=null;S.msg='';done(r);S.msg=shelfy?'Confira o recorte (lentes, bordas, pedaços do fundo) antes de confirmar.':'Atenção: o fundo desta foto não é liso e claro. Confira o recorte (lentes, bordas, pedaços do fundo). Para foto de catálogo, use uma folha branca ou cinza clara por baixo, principalmente em armação transparente.';render()},function(er){SEG.on=null;window.__SEGERR=String(er&&er.message||er);try{var fb;try{fb=flatWhite(full)}catch(e7){fb=classic()}done(fb);S.msg=(er&&er.refusa)?'Não dá para gerar um fundo branco perfeito nesta foto: a armação é parecida com o fundo. Mantive a foto original, sem cortar nada. Para fundo branco, fotografe a peça sobre uma folha branca.':'Não consegui recortar o fundo. Mantive a foto inteira, sem cortar a armação.'+(er&&er.refusa?'':(/fetch|backend|wasm/i.test(String(window.__SEGERR))?' A demo aberta dentro do Claude bloqueia o download do motor de recorte; no site hospedado ou no APK ele funciona.':' Detalhe: '+String(window.__SEGERR||'?').slice(0,90)+'.'));render();try{setRead(S.msg,'n-warn')}catch(e8){}}catch(err){S.msg='Não consegui processar essa foto. Tente outra.';render()}})
     };var PRE0=PRESET;PRESET=null;prePromise=Promise.resolve(PRE0);rest()};
   img.onerror=function(){loadMsg(false);S.msg='Não consegui abrir essa imagem. Tente outra foto.';render()};img.src=url};
 $('fileG').onchange=$('file').onchange;
