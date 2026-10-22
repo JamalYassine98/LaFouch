@@ -1415,13 +1415,6 @@ function skin(c,fallback){var g=c.getContext('2d'),d=g.getImageData(0,0,c.width,
   for(var i=0;i<d.length;i+=16){if(d[i]>238&&d[i+1]>238&&d[i+2]>238)continue;R.push(d[i]);G.push(d[i+1]);B.push(d[i+2])}
   if(R.length<30)return fallback;var m=function(a){a.sort(function(x,y){return x-y});return a[a.length>>1]};return[m(R),m(G),m(B)]}
 // leitura do código da etiqueta/haste
-function parseLabel(t){var o={},T=String(t||'').replace(/[|]/g,'I'),U=T.toUpperCase();
-  var m=U.match(/\b([A-Z]{1,3})\s?(\d{3,6})\b/g)||[];m=m.map(function(x){return x.replace(/\s/g,'')}).filter(function(x){return!/^(ITALY|C)\d?$/.test(x)&&!/^C\d$/.test(x)});if(m.length)o.referencia=m[0];
-  var md=U.match(/\b(\d{2})\s*[-□\[\]xX ]\s*(\d{2})\s*[-–— ]\s*(\d{3})\b/);if(md)o.medidas=md[1]+'□'+md[2]+'-'+md[3];
-  var v=U.match(/\bC\s?([1-6])\b/);if(v)o.variante='C'+v[1];
-  var mat=T.match(/alum[ií]nio|aluminum|acetato|acetate|metal|tr-?90|policarbonato|titanium|tit[aâ]nio|a[cç]o/i);if(mat)o.material=cap1(mat[0].toLowerCase().replace('aluminum','alumínio').replace('aluminio','alumínio'));
-  if(/clip[\s-]?on/i.test(T))o.extras='Clip-on';
-  return o}
 function labelPrompt(){var pr='Esta é a foto de um óculos (armação, solar ou pré-graduado). Se houver duas imagens, a primeira é um recorte ampliado da peça (use para ler textos pequenos, como o código impresso na lente ou na haste, ex. BR44118 53□18-140) e a segunda é a foto inteira. Leia SOMENTE o que estiver escrito na foto (etiqueta, haste, lente). Responda JSON com as chaves: referencia (código do modelo, ex. CX012, SP57765), medidas (ex. "56-18-140"), variante (C1 a C6 se houver), grau (apenas se for pré-graduado, ex. "+1.75"), material (ex. Alumínio), tipo ("pre","sem" ou "solar" pelo aspecto), formato (um de: '+S.formats.join(', ')+'), cor (nome curto em português da cor da peça), extras (ex. Clip-on), pecas. Em pecas, se a foto mostrar VÁRIAS armações/óculos separados (2 ou mais), liste cada um como {caixa:[x0,y0,x1,y1] em milésimos da imagem (0 a 1000, caixa justa em volta SÓ daquela peça), variante (rótulo tipo C4 escrito perto da peça, ou null), cor (nome curto em português), qtd (número escrito ao lado do rótulo, só se existir, senão null)}; ignore logotipos e textos. Se houver só uma peça, pecas=[]. Use null quando não estiver visível. NÃO invente.'}
 function readSample(blobs){return Promise.resolve().then(function(){return window.claude.use('sample')}).then(function(sm){if(!sm)throw{code:'none'};return sm.limits().then(function(l){if(!l||!l.images)throw{code:'none'};
   var pr=labelPrompt();
@@ -1789,11 +1782,6 @@ function gCap(g,qty){return g&&qty>grpFalta(g)?'O lote "'+gLabel(g)+'" só tem '
 function loteChips(id,tipo,sel,setSel){var bx=$(id+'B'),ops=openGrp(tipo);if(!ops.length){bx.hidden=true;return}bx.hidden=false;var h=$(id);h.textContent='';var cur=pickG(tipo,sel);
   h.appendChild(btn('chip'+(!cur.g?' on':''),'Sem lote',function(){setSel('none');render()},!cur.g));
   ops.forEach(function(g){var on=!!(cur.g&&cur.g.id===g.id);h.appendChild(btn('chip'+(on?' on':''),gLabel(g)+((g.tipo===tipo||MIX(g.tipo))?'':' · '+((tipoOf(g.tipo)||{}).label||''))+' · faltam '+grpFalta(g),function(){setSel(g.id);render()},on))});}
-function renderSemCusto(h){var L=S.items.filter(function(i){return i.qty>0&&effCusto(i)==null&&TIPOS.some(function(x){return x.id===i.tipo})});if(!L.length)return;
-  var keys={},pcs=0;L.forEach(function(i){keys[i.tipo+'|'+i.ref]=i;pcs+=i.qty});var ks=Object.keys(keys),c=mk('section','card');c.style.borderLeft='4px solid var(--warn)';
-  c.appendChild(mk('b','','Sem preço de custo detalhado'));var tx=mk('div','hint',ks.length+(ks.length===1?' produto (':' produtos (')+pcs+' peças) ainda sem custo. Abra o produto, toque em Editar e informe o custo de cada variante.');tx.style.margin='4px 0 10px';c.appendChild(tx);
-  var nv=mk('div','nav');ks.slice(0,12).forEach(function(k){var i=keys[k];nv.appendChild(btn('chip',i.ref,function(){S.todos=false;S.lotesView=false;S.tipo=i.tipo;S.fmtF='all';S.corF='all';S.q='';S.open=i.ref;S.det=true;S.selItem=null;S.detCor='';S.detVr=null;S.msg='';render();var d=$('detail');if(d&&!d.hidden)d.scrollIntoView({behavior:'smooth',block:'start'})}))});
-  if(ks.length>12)nv.appendChild(mk('span','hint','+'+(ks.length-12)+' outros'));c.appendChild(nv);h.appendChild(c)}
 function lotCard(g,opt){var f=grpFalta(g),tot=grpTot(g),det=grpDet(g),tp=tipoOf(g.tipo),c=mk('section','card');c.style.borderLeft='4px solid #00c8ff';
     var a=mk('div','');a.style.cssText='display:flex;justify-content:space-between;align-items:flex-start;gap:10px';
     var ta=mk('div','');ta.appendChild(mk('b','',g.forn+' · '+gTipoName(g)+' · '+g.qty+' peças'));var pg=mk('div','hint',gPaid(g));pg.style.margin='2px 0 0';ta.appendChild(pg);a.appendChild(ta);
@@ -2274,7 +2262,6 @@ function bandCrops(src){var o=deskewBand(src),r=rotateCanvas(o.bin,o.deg),w=r.wi
     var y0=Math.max(0,by-bh),y1=Math.min(h,by+bh),c=mkCanvas(w,y1-y0),cg=c.getContext('2d'),dd=cg.createImageData(w,y1-y0),i;for(i=0;i<w*(y1-y0);i++){var vv=ink[(y0*w)+i]?0:255;dd.data[i*4]=dd.data[i*4+1]=dd.data[i*4+2]=vv;dd.data[i*4+3]=255}cg.putImageData(dd,0,0);crops.push(c)}
   window.__bandDeg=o.deg;return crops}
 window.__bandCropsFn=function(c){return bandCrops(c)};
-function bandRead(w){return w.setParameters({tessedit_pageseg_mode:'6'}).then(function(){var cs=[];try{cs=bandCrops(window.__bandSrc)}catch(e){window.__bandErr=String(e)}var res=[],j=0;window.__bandCrops=cs;function nx(){if(j>=cs.length)return res;var c=cs[j++],k=Math.min(2.5,Math.max(1,2400/c.width)),u=mkCanvas(Math.round(c.width*k),Math.round(c.height*k)),g=u.getContext('2d');g.imageSmoothingQuality='high';g.drawImage(c,0,0,u.width,u.height);return w.recognize(u).then(function(r){res.push(r.data.text||'');return nx()})}return nx()})}
 function preRead(full,psm){var old=HADD;HADD=true;psm=psm||'11';var texts=[],i=0,est=0,t0=Date.now(),cs=null,cp=null,anchor=null;window.__lastPrep=[];
   try{est=skewOf(full)}catch(e){}
   /* tentativas: no ângulo estimado, depois sem girar, depois varrendo ângulos */
@@ -2518,19 +2505,6 @@ function saleCard(s){var open=S.hOpen===s.id,dx=S.fx.pyg/s.fx-1,h='';
   if(open)h+='<div class="split" style="border-top:1px solid var(--line);padding-top:10px">'+
    [['Recebido',fmtM(s.recebido,s.moeda)+(s.moeda!=='pyg'?' (cotação '+gs(s.rate)+')':'')],['Câmbio no dia',gs(s.fx)+' por US$ (hoje '+gs(S.fx.pyg)+', '+(dx>=0?'+':'−')+pc(Math.abs(dx))+')'],['Custo pago',usd(s.pago)],['Custo de reposição',usd(s.repUSD)],['Reposição separada',gs(s.rep)],['Contas separadas',gs(s.contas)+' ('+gs(s.cPeca)+' por peça)'],['Colchão ('+pc(s.pct)+')',gs(s.colch)],['Caixa de melhorias',gs(s.melh)],['Lucro livre',gs(s.livre)],['Preço mínimo seguro na hora',gs(s.trava)+' por peça']].map(function(r){return '<div class="sl"><span>'+r[0]+'</span><b style="text-align:right">'+r[1]+'</b></div>'}).join('')+'</div>';
   return h+'</div>'}
-function renderHistList(){var box=$('hlist');if(!box)return;var q=S.hq.trim().toLowerCase(),f=S.hf,items=[];
-  var sales=S.sales.filter(function(s){return (f==='all'||f==='ok'?(f==='all'||!s.estorno):f==='est'?s.estorno:false)&&(!q||(s.ref+' '+s.cor+' '+s.id+' venda').toLowerCase().indexOf(q)>=0)});
-  var dl=(f==='all'||f==='desp')?S.dlog.filter(function(x){return !q||dlogInfo(x).search.indexOf(q)>=0}):[];
-  sales.forEach(function(s){items.push({ts:s.ts,html:saleCard(s)})});if(f==='all')S.elog.filter(function(x){return !q||(x.ref+' '+x.cor+' entrada').toLowerCase().indexOf(q)>=0}).forEach(function(x){items.push({ts:x.ts,html:elogCard(x)})});dl.forEach(function(x){items.push({ts:x.ts,html:dlogCard(x)})});
-  items.sort(function(a,b){return b.ts-a.ts});
-  var tv=sumBy(sales.filter(function(s){return !s.estorno}),'price'),h='';
-  if(f==='desp'||f==='all'){
-    h+='<section class="card col"><div><h2 style="margin:0;font-size:16px">Despesas atuais</h2><div class="hint" style="margin:2px 0 0">Total obrigatório por mês: <b>'+gs(totalMensal())+'</b></div></div><div style="overflow-x:auto"><table class="tb"><thead><tr><th>Despesa</th><th>Grupo</th><th>Tipo</th><th>Valor mensal</th><th>Última mudança</th></tr></thead><tbody>'+
-      S.exp.map(function(e){var l=e.hist[e.hist.length-1];return '<tr><td>'+esc(e.nome)+'</td><td>'+CATS[e.cat]+'</td><td>'+(e.tipo==='fixa'?'fixa':'variável')+'</td><td>'+gs(e.valor)+'</td><td>'+(l?fd(l.ts)+' ('+(l.para>=l.de?'+':'−')+pc(Math.abs(l.para/l.de-1))+')':'sem mudança')+'</td></tr>'}).join('')+'</tbody></table></div></section>'}
-  h+='<div class="hint" style="margin:0">'+sales.length+' venda(s)'+(dl.length?' · '+dl.length+' registro(s) de despesa':'')+' · vendas válidas somam '+gs(tv)+'</div>';
-  items.forEach(function(i){h+=i.html});
-  if(!items.length)h+='<div class="note n-warn">Nada com esse filtro.</div>';
-  box.innerHTML=h}
 
 // ---------- eventos
 var ACT={
