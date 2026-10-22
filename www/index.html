@@ -28,7 +28,8 @@ button,input{font:inherit;color:inherit}
 button{cursor:pointer}
 button:focus-visible,input:focus-visible{outline:2px solid var(--accent-fg);outline-offset:2px}
 .wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
-.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+.top.logo-top{justify-content:center}
 .brand{font-family:var(--display);font-size:26px;letter-spacing:2px;color:var(--accent-fg);line-height:1}
 .brand img.lg-c{display:none}
 .brand img{display:block;height:120px;width:auto;max-width:100%}
@@ -151,7 +152,7 @@ select.in{appearance:auto}
 .tab.deltab{border-color:rgba(239,68,68,.6)!important;border-style:dashed!important}
 .tab.deltab:hover{background:rgba(239,68,68,.16)!important}
 </style><div class="wrap">
-  <div class="top">
+  <div class="top logo-top">
     <div class="brand"><img class="lg-e" src="logo-app.png" alt="La Fouch - Tudo em Óculos"><img class="lg-c" src="logo-app-claro.png" alt="La Fouch - Tudo em Óculos"></div>
   </div>
   <nav class="mainnav" id="mainnav" aria-label="Seções"></nav>
