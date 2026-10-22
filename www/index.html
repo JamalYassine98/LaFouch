@@ -1981,7 +1981,8 @@ function armNative(){if(NATIVE)return;NATIVE=true;
   [['btnLeitor',function(f){leitorFromPhoto(f)}]].forEach(function(d){var b=$(d[0]);if(!b||!b.parentNode)return;
     var w=document.createElement('div');w.style.cssText='position:relative;display:flex;flex:'+(b.style.flex||'1 1 auto')+';'+(b.style.width&&b.style.flex?'width:'+b.style.width+';':'width:100%;');b.parentNode.insertBefore(w,b);w.appendChild(b);b.style.flex='1 1 auto';b.style.width='100%';b.onclick=function(){};w.appendChild(nativeInput(d[1],false,d[0]==='btnLeitor'?'Analisando código':''))})}
 function camOpen(){try{camOpen0.apply(null,arguments)}catch(e){camClose();popErr('Erro ao abrir a câmera: '+(e&&e.message||e))}}
-function camOpen0(done,title,opts){opts=opts||{};camClose();
+var LIVEX=null;
+function camOpen0(done,title,opts){opts=opts||{};LIVEX=null;camClose();
   if(opts.live||opts.liveFallback){try{getWorker().catch(function(){})}catch(e){}} /* aquece o leitor enquanto a câmera abre */
   var blocked=false;try{var fp=document.permissionsPolicy||document.featurePolicy;if(fp&&fp.allowsFeature&&!fp.allowsFeature('camera'))blocked=true}catch(e){}
   if(blocked||NATIVE||!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)){camFallback(opts.liveFallback||done,opts.gallery,opts.live?'Analisando código':'');return}
@@ -2001,9 +2002,10 @@ function camOpen0(done,title,opts){opts=opts||{};camClose();
   function buildBar(trk,caps){bar.textContent='';
     if(caps&&caps.torch){var tb=btn('chip','Lanterna',function(){tb.classList.toggle('on');try{trk.applyConstraints({advanced:[{torch:tb.classList.contains('on')}]})}catch(e){}});tb.style.minHeight='44px';bar.appendChild(tb)}
     if(opts.gallery){var gl=btn('chip','Galeria',function(){var gi=document.createElement('input');gi.type='file';gi.accept='image/*';gi.style.display='none';document.body.appendChild(gi);gi.onchange=function(){var f=gi.files&&gi.files[0];gi.remove();if(f)normFile(f).then(function(nf){camClose();done(nf,{gallery:true})})};gi.click()});gl.style.minHeight='44px';bar.appendChild(gl)}
-    var sh=document.createElement('button');sh.type='button';sh.setAttribute('aria-label','Tirar foto');if(opts.live)sh.style.display='none';sh.style.cssText='width:68px;height:68px;border-radius:50%;border:4px solid #fff;background:#fff;box-shadow:inset 0 0 0 4px #000;cursor:pointer;flex:0 0 auto';bar.appendChild(sh);
+    var sh=document.createElement('button');sh.type='button';sh.setAttribute('aria-label','Tirar foto');sh.style.cssText='width:68px;height:68px;border-radius:50%;border:4px solid #fff;background:#fff;box-shadow:inset 0 0 0 4px #000;cursor:pointer;flex:0 0 auto';bar.appendChild(sh);
     if(caps&&caps.zoom){var zr=document.createElement('input');zr.type='range';zr.min=caps.zoom.min;zr.max=Math.min(caps.zoom.max,caps.zoom.min*5||caps.zoom.max);zr.step=caps.zoom.step||.1;zr.value=caps.zoom.min;zr.style.width='120px';zr.setAttribute('aria-label','Zoom');zr.oninput=function(){try{trk.applyConstraints({advanced:[{zoom:+zr.value}]})}catch(e){}};bar.appendChild(zr)}
     var HR=null,HRtry=false;sh.onclick=function(){
+      if(opts.live){var lc=grabStrip();if(!lc)return;if(LIVEX)LIVEX();lc.toBlob(function(bl){if(!bl)return;camClose();opts.liveFallback(new File([bl],'foto.jpg',{type:'image/jpeg'}))},'image/jpeg',.95);return}
       if(!HR&&!HRtry&&!opts.strip&&window.ImageCapture&&trk){HRtry=true;sh.style.opacity='.5';var fin=function(x){HR=x||null;sh.style.opacity='';sh.onclick();HR=null;HRtry=false};try{new ImageCapture(trk).takePhoto().then(function(bl){return createImageBitmap(bl,{imageOrientation:'from-image'})}).then(function(bm){var cc=mkCanvas(bm.width,bm.height);cc.getContext('2d').drawImage(bm,0,0);try{bm.close()}catch(e){}fin(cc)},function(){fin(null)})}catch(e){fin(null)}return}
       var src=HR||vid,w=HR?HR.width:vid.videoWidth,h=HR?HR.height:vid.videoHeight;if(!w||!h)return;var c=mkCanvas(w,h);c.getContext('2d').drawImage(src,0,0,w,h);
       if(opts.strip){var sr=stg.getBoundingClientRect(),gr=gd.getBoundingClientRect(),SW=sr.width,SH=sr.height,k=Math.min(SW/w,SH/h),ox=(SW-w*k)/2,oy=(SH-h*k)/2,cx=Math.max(0,(gr.left-sr.left-ox)/k),cy=Math.max(0,(gr.top-sr.top-oy)/k),cw=Math.min(w-cx,gr.width/k),ch=Math.min(h-cy,gr.height/k);if(cw>50&&ch>20){var c2=mkCanvas(cw,ch);c2.getContext('2d').drawImage(c,cx,cy,cw,ch,0,0,cw,ch);c=c2}}
@@ -2014,7 +2016,7 @@ function camOpen0(done,title,opts){opts=opts||{};camClose();
         var us=btn('mini','Usar esta foto',function(){var f=new File([bl],'foto.jpg',{type:'image/jpeg'});camClose();done(f)});
         bar.appendChild(re);bar.appendChild(us)},'image/jpeg',.95)}}
   var TIP0=tip.textContent;tip.textContent='Abrindo a câmera…';var gum=setTimeout(function(){if(CAMO&&!CAMS){camClose();camFallback(opts.liveFallback||done,opts.gallery,opts.live?'Analisando código':'')}},25000);
-  navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:4096},height:{ideal:2160}}}).then(function(st){
+  navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:opts.live?1920:4096},height:{ideal:opts.live?1080:2160}}}).then(function(st){
     clearTimeout(gum);if(!CAMO){st.getTracks().forEach(function(t){t.stop()});return}
     CAMS=st;tip.textContent=TIP0;vid.srcObject=st;var trk=st.getVideoTracks()[0],caps={};try{caps=trk.getCapabilities?trk.getCapabilities():{}}catch(e){}
     try{if(caps.focusMode&&caps.focusMode.indexOf('continuous')>=0)trk.applyConstraints({advanced:[{focusMode:'continuous'}]})}catch(e){}
@@ -2022,7 +2024,7 @@ function camOpen0(done,title,opts){opts=opts||{};camClose();
       try{if(caps.focusMode&&caps.focusMode.indexOf('single-shot')>=0){var vr=vid.getBoundingClientRect();trk.applyConstraints({advanced:[{focusMode:'single-shot',pointsOfInterest:[{x:Math.max(0,Math.min(1,(ev.clientX-vr.left)/vr.width)),y:Math.max(0,Math.min(1,(ev.clientY-vr.top)/vr.height))}]}]}).then(function(){setTimeout(function(){try{if(caps.focusMode.indexOf('continuous')>=0)trk.applyConstraints({advanced:[{focusMode:'continuous'}]})}catch(e){}},1500)},function(){})}}catch(e){}});
     buildBar(trk,caps);if(opts.live)startLive()},function(){clearTimeout(gum);camClose();camFallback(opts.liveFallback||done,opts.gallery,opts.live?'Analisando código':'')})
   function grabStrip(){var w=vid.videoWidth,h=vid.videoHeight;if(!w||!h)return null;var sr=stg.getBoundingClientRect(),gr=gd.getBoundingClientRect(),SW=sr.width,SH=sr.height,k=Math.min(SW/w,SH/h),ox=(SW-w*k)/2,oy=(SH-h*k)/2,cx=Math.max(0,(gr.left-sr.left-ox)/k),cy=Math.max(0,(gr.top-sr.top-oy)/k),cw=Math.min(w-cx,gr.width/k),ch=Math.min(h-cy,gr.height/k);if(cw<50||ch<20)return null;var c=mkCanvas(cw,ch);c.getContext('2d').drawImage(vid,cx,cy,cw,ch,0,0,cw,ch);return c}
-  function startLive(){var texts=[],fr=0,t0=Date.now(),stopped=false,LW=null;var dw=busyEl('Analisando código'),dx=document.createElement('span');tip.textContent='';tip.appendChild(dw);tip.appendChild(dx);
+  function startLive(){var texts=[],fr=0,t0=Date.now(),stopped=false,LW=null;LIVEX=function(){stopped=true;try{dw._stop()}catch(e){}};var dw=busyEl('Analisando código'),dx=document.createElement('span');tip.textContent='';tip.appendChild(dw);tip.appendChild(dx);
     var fin=function(v){if(stopped)return;stopped=true;try{dw._stop()}catch(e){}try{if(LW)LW.setParameters({tessedit_pageseg_mode:'11'})}catch(e){}if(!CAMO)return;camClose();opts.live(v)};
     getWorker().then(function(w){LW=w;return w.setParameters({tessedit_pageseg_mode:'6'})}).then(function(){
       (function tick(){if(stopped||!CAMO)return;var sc=grabStrip();if(!sc){setTimeout(tick,200);return}
@@ -2030,7 +2032,7 @@ function camOpen0(done,title,opts){opts=opts||{};camClose();
           dx.textContent=(v.ref?' · '+v.ref:'')+(v.med?' · '+v.med:'');
           if(v.ref&&v.nRef>=2&&(v.nMed>=2||fr>=8)){fin({ref:v.ref,med:v.med,vr:v.vr});return}
           if(Date.now()-t0>30000){fin(v.ref?{ref:v.ref,med:v.med,vr:v.vr}:((v.med||v.vr)?{ref:'',med:v.med,vr:v.vr}:null));return}
-          setTimeout(tick,60)},function(){setTimeout(tick,300)})})()},function(e){HERR=(e&&(e.code||e.message))||String(e);fin(null)})}}
+          setTimeout(tick,220)},function(){setTimeout(tick,400)})})()},function(e){HERR=(e&&(e.code||e.message))||String(e);fin(null)})}}
 var HADD=false,HMED='',HVR='',HERR='';
 function httpsHint(){return /^https?:$/.test(location.protocol)?'':' Dica: você abriu o app pelo gerenciador de arquivos. Abra por um endereço https (ou instale o app), senão a câmera própria e o leitor de texto não funcionam.'}
 /* ===== Câmera em 2 passos: 1) lê o código da haste  2) foto da armação inteira ===== */
