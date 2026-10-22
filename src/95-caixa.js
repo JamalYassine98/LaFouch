@@ -1,12 +1,17 @@
+  // ===== Aba Caixa: carteira, conversão de moedas e reservas. =====
+  // Cotação de uma moeda em guaranis.
   function ratePyg(m) {
     return m === 'pyg' ? 1 : m === 'usd' ? S.fx.pyg : S.fx.pyg / S.fx.brl;
   }
+  // Converte entre moedas.
   function conv(v, a, b) {
     return (v * ratePyg(a)) / ratePyg(b);
   }
+  // Total da carteira em guaranis.
   function walletGs() {
     return S.cash.pyg + S.cash.usd * ratePyg('usd') + S.cash.brl * ratePyg('brl');
   }
+  // Lê um número digitado.
   function parseDec(v, m) {
     var s = String(v).replace(/[^\d,.]/g, '');
     if (m === 'pyg') return Number(s.replace(/\D/g, '')) || 0;
@@ -14,9 +19,11 @@
     var n = parseFloat(s);
     return isNaN(n) ? 0 : n;
   }
+  // Formata um valor para campo.
   function inVal(v, m) {
     return m === 'pyg' ? dots(v) : (Math.round(v * 100) / 100).toFixed(2).replace('.', ',');
   }
+  // Valores reservados (reposição, contas, lucro).
   function reservas() {
     var valid = S.sales.filter(function (s) {
       return !s.estorno;
@@ -61,6 +68,7 @@
       livre: wal - guard - melh
     };
   }
+  // Atualiza o recebimento ao digitar.
   function updateRec() {
     var m = S.moeda,
       t = S._t,
@@ -89,6 +97,7 @@
       (per < trava ? ' Atenção: abaixo da trava de segurança (' + gs(trava) + ' por peça).' : '');
     el.style.color = per < trava ? 'var(--warn)' : 'var(--mute)';
   }
+  // Calculadora de venda por moeda.
   function renderMoeda() {
     var t = S._t || T(),
       q = (S._qty = S.qty),
@@ -151,6 +160,7 @@
       '</select>'
     );
   }
+  // Aba Caixa.
   function renderCaixa() {
     var el = $('v-caixa'),
       r = reservas(),
@@ -369,6 +379,7 @@
     el.innerHTML = html;
     updateTr();
   }
+  // Atualiza a transferência entre moedas.
   function updateTr() {
     var t = S.tr,
       v = parseDec(t.v, t.de),

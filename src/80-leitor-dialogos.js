@@ -1,7 +1,9 @@
+  // ===== Leitor de código: diálogos e fluxo de cadastro por foto. =====
   var HADD = false,
     HMED = '',
     HVR = '',
     HERR = '';
+  // Dica para abrir por https e liberar a câmera.
   function httpsHint() {
     return /^https?:$/.test(location.protocol)
       ? ''
@@ -31,6 +33,7 @@
     document.body.appendChild(ov);
   }
   var LM = null;
+  // Aviso animado de carregamento.
   function loadMsg(on, txt, cap) {
     /* aviso animado padrão (mesmo do leitor) */
     try {
@@ -54,6 +57,7 @@
       }, cap || 20000);
     } catch (e) {}
   }
+  // Nome e custo já conhecidos de um código.
   function refInfo(ref) {
     /* nome e custo já conhecidos de um código do estoque */
     var k = hKey(ref),
@@ -74,6 +78,7 @@
     }
     return r;
   }
+  // Leva os dados lidos para o cadastro.
   function fillAdd(o) {
     /* leva os dados lidos/conhecidos para o formulário de cadastro */
     if (o.tipo && o.tipo !== S.tipo) {
@@ -107,6 +112,7 @@
         $('eRef').scrollIntoView({ behavior: 'smooth', block: 'center' });
       } catch (e) {}
   }
+  // Mostra o resultado da leitura.
   function leitorResult(x) {
     loadMsg(false);
     if (!x || !x.ref) {
@@ -391,6 +397,7 @@
     w.setAttribute('role', 'status');
     return w;
   }
+  // Lê o código de uma foto.
   function leitorFromPhoto(f) {
     loadMsg(true, 'Analisando código', 75000);
     (window.createImageBitmap
@@ -407,6 +414,7 @@
       })
       .then(leitorResult);
   }
+  // Abre a câmera do leitor de código.
   function leitorOpen() {
     camOpen(function () {}, 'Leitor de código', {
       strip: true,
@@ -420,6 +428,7 @@
   try {
     if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) armNative();
   } catch (e) {}
+  // Aplica a leitura prévia ao cartão da foto.
   function applyPre(x, tok) {
     if (!P || P.tok !== tok || !x) return;
     var got = [];
@@ -449,6 +458,7 @@
       );
     render();
   }
+  // Segundo passo: foto da peça após ler o código.
   function step2(pre) {
     PRESET = pre && (pre.ref || pre.med || pre.vr) ? pre : null;
     camOpen(
@@ -463,6 +473,7 @@
       }
     );
   }
+  // Diálogo para confirmar o código lido.
   function codeDialog(res, note) {
     var ov = document.createElement('div');
     ov.id = 'codeDlg';
@@ -530,6 +541,7 @@
     ov.appendChild(bx);
     document.body.appendChild(ov);
   }
+  // Adicionar peça: foto → leitura → cadastro.
   function smartAdd() {
     camOpen(
       function (f) {

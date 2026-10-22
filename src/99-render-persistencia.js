@@ -1,3 +1,5 @@
+  // ===== Render geral e persistência (localStorage + IndexedDB). =====
+  // Redesenha o app e agenda o salvamento.
   function render() {
     try {
       refreshRefList();
@@ -32,6 +34,7 @@
   var IDBOK = false,
     FS = {},
     idbP = null;
+  // Abre o IndexedDB das fotos.
   function idb() {
     if (idbP) return idbP;
     idbP = new Promise(function (ok, no) {
@@ -58,6 +61,7 @@
     });
     return idbP;
   }
+  // Executa uma transação no IndexedDB.
   function idbDo(store, mode, fn) {
     return idb().then(function (d) {
       return new Promise(function (ok, no) {
@@ -76,6 +80,7 @@
       });
     });
   }
+  // Guarda a foto (miniatura + original).
   function setFoto(k, thumb, hq) {
     S.fotos[k] = thumb;
     if (hq && hq !== thumb)
@@ -83,6 +88,7 @@
         return o.put(hq, k);
       }).catch(function () {});
   }
+  // Grava as fotos pendentes no IndexedDB.
   function saveFotos() {
     if (!IDBOK) return;
     var k;
@@ -111,6 +117,7 @@
         })(k);
       }
   }
+  // Carrega as fotos do IndexedDB.
   function loadFotos() {
     idb()
       .then(function (d) {
@@ -177,6 +184,7 @@
       'pnome',
       'cpay'
     ];
+  // Carrega o estado salvo.
   function loadSaved() {
     try {
       var j = localStorage.getItem(SK);
@@ -203,6 +211,7 @@
     } catch (e) {}
   }
   var saveT = 0;
+  // Agenda o salvamento (debounce).
   function saveSoon() {
     clearTimeout(saveT);
     saveT = setTimeout(function () {

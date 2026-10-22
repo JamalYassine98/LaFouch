@@ -1,16 +1,20 @@
+  // ===== Formatadores, constantes e cálculo/registro de vendas. =====
   var DAY = 86400000,
     now0 = Date.now();
+  // Timestamp de d dias e h horas atrás.
   function tAgo(d, h) {
     return now0 - d * DAY - (h || 0) * 3600000;
   }
   var gs = function (n) {
     return 'G$ ' + dots(n);
   };
+  // Formata número conforme a moeda.
   function nf(v, m) {
     return m === 'pyg'
       ? dots(v)
       : v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
+  // Formata valor com símbolo da moeda.
   function fmtM(v, m) {
     return (m === 'pyg' ? 'G$ ' : m === 'usd' ? 'US$ ' : 'R$ ') + nf(v, m);
   }
@@ -130,19 +134,23 @@
   };
   S.fxNext = Date.now() + 5000;
 
+  // Soma das despesas mensais.
   function totalMensal() {
     return S.exp.reduce(function (a, e) {
       return a + e.valor;
     }, 0);
   }
+  // Despesa mensal rateada por peça.
   function contasPeca() {
     return Math.round(totalMensal() / Math.max(1, S.volume));
   }
+  // Tipo pelo id.
   function tipoOf(id) {
     return tipoAll().filter(function (x) {
       return x.id === id;
     })[0];
   }
+  // Colchão cambial calculado pelo histórico do câmbio.
   function colchao() {
     var from = Date.now() - S.janela * DAY,
       h = S.fxHist.filter(function (p) {
@@ -168,6 +176,7 @@
       janela: S.janela
     };
   }
+  // Calcula a divisão da venda: reposição, contas e lucro.
   function calcSale(t, qty, fx, pct, cPeca, melhPeca, priceOv) {
     var price = priceOv != null ? priceOv : t.price * qty,
       repP = Math.round(t.repUSD * fx),
@@ -187,11 +196,13 @@
       trava: repP + cPeca
     };
   }
+  // Descrição curta de uma venda.
   function descOf(x) {
     return x.qty + '× ' + x.ref + ' ' + (x.tipo === 'pre' ? x.grau : x.vr) + ' · ' + x.cor;
   }
   S.sales = [];
   S.saleSeq = 0;
+  // Cria uma venda (usada nos dados de exemplo).
   function mkSale(ts, tipo, ref, cor, grau, vr, qty, fx, pct, cPeca, est) {
     var t = tipoOf(tipo),
       c = calcSale(t, qty, fx, pct, cPeca, 1000);
@@ -247,6 +258,7 @@
   S.sales.sort(function (a, b) {
     return b.ts - a.ts;
   });
+  // Registra a venda e movimenta estoque e caixa.
   function addSale(it, qty, pay) {
     var c = colchao(),
       cp = contasPeca(),
@@ -275,6 +287,7 @@
     S.sales.unshift(s);
     return s;
   }
+  // Mostra como o valor da venda se divide.
   function showSplit(sale) {
     var parts = [
       [

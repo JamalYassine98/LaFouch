@@ -1,3 +1,5 @@
+  // ===== Navegação entre abas e Dashboard. =====
+  // Troca de aba.
   function setView(v) {
     S.view = v;
     S.msg = '';
@@ -7,6 +9,7 @@
     render();
     window.scrollTo(0, 0);
   }
+  // Navegação principal.
   function renderNav() {
     var n = $('mainnav'),
       sl = n.scrollLeft;
@@ -55,12 +58,14 @@
       return x + s[k];
     }, 0);
   }
+  // Vendas de um período.
   function periodSales(days) {
     var from = days === 0 ? new Date().setHours(0, 0, 0, 0) : Date.now() - days * DAY;
     return S.sales.filter(function (s) {
       return !s.estorno && s.ts >= from;
     });
   }
+  // Aba Dashboard.
   function renderDash() {
     var el = $('v-dash'),
       ps = periodSales(S.per),

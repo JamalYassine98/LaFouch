@@ -1,3 +1,5 @@
+  // ===== Ações dos botões (data-act) e eventos globais. =====
+  // Ações dos botões, por data-act.
   var ACT = {
     view: function (id) {
       setView(id);

@@ -1,3 +1,5 @@
+  // ===== Estoque: tela de detalhe de um código. =====
+  // Detalhe de um código: fotos, variações, edição e venda.
   function renderDetail(ref) {
     var det = $('detail'),
       wasHid = det.hidden,

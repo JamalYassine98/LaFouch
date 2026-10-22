@@ -40,3 +40,20 @@ Observações do APK:
 - É um APK de teste (debug). Serve para usar e testar normalmente.
 - Se o ícone sair o padrão do Capacitor, é só estética. Os dados funcionam igual.
 - Os dados ficam no aparelho. Se desinstalar o app, os dados somem.
+
+
+PARA QUEM PROGRAMA (estrutura do código)
+========================================
+  src/*.js          código do app dividido por assunto (estoque, câmera, leitor,
+                    fotos, lotes, vendas, caixa...). A ordem dos arquivos (00, 10,
+                    20...) é a ordem de execução. Cada arquivo começa com uma linha
+                    dizendo do que trata, e cada função principal tem um comentário.
+  build.js          junta os módulos em www/app.js:   node build.js
+                    (node build.js --check confere se app.js está em dia)
+  www/app.js        arquivo GERADO. Não edite à mão: edite src/ e rode o build.
+  www/style.css     estilos (tema claro/escuro automático).
+  www/index.html    estrutura da página.
+  www/sw.js         cache offline (trocar o número da versão a cada entrega).
+O GitHub Actions roda "node build.js" sozinho antes de gerar o APK.
+Todos os módulos compartilham o mesmo escopo (uma única função), então uma função
+de um arquivo pode ser usada em outro sem import/export.

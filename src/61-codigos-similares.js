@@ -1,3 +1,5 @@
+  // ===== Códigos parecidos e utilitários do leitor de haste. =====
+  // Chave normalizada de um código (A–Z, 0–9).
   function hKey(t) {
     return String(t)
       .toUpperCase()
@@ -35,6 +37,7 @@
     } catch (e) {}
     return out;
   }
+  // Mostra o aviso de códigos parecidos.
   function updSim(refId, nomeId, afterId, boxId, skip) {
     var box = $(boxId);
     if (!box) {
@@ -84,6 +87,7 @@
       box.appendChild(b);
     });
   }
+  // Distância de Levenshtein.
   function lev(a, b) {
     var m = a.length,
       n = b.length,
@@ -103,6 +107,7 @@
         );
     return d[m][n];
   }
+  // Cruza o texto lido com os códigos de haste.
   function hMatch(texts) {
     var words = {},
       refs = {};
@@ -149,6 +154,7 @@
     });
     return out;
   }
+  // Gira um canvas.
   function rotCv(src, deg) {
     if (!deg) return src;
     var w = src.width,
@@ -163,6 +169,7 @@
   }
   var HOV = null,
     HT = null;
+  // Fecha o leitor de haste.
   function hasteClose() {
     if (HOV) {
       HOV.remove();

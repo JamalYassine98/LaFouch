@@ -1,3 +1,5 @@
+  // ===== Aba Histórico: dias, vendas e registros. =====
+  // Totais de um dia.
   function dayStats(k) {
     var inDay = function (x) {
         return dayKey(x.ts) === k;
@@ -26,6 +28,7 @@
       fx: fx
     };
   }
+  // Aba Histórico.
   function renderHist() {
     var el = $('v-hist'),
       act = activeDays(),
@@ -85,14 +88,17 @@
       ('0' + d.getDate()).slice(-2)
     );
   }
+  // Fim de um dia.
   function dayEnd(k) {
     var p = k.split('-');
     return new Date(+p[0], +p[1] - 1, +p[2], 23, 59, 59, 999).getTime();
   }
+  // Formata um dia.
   function fmtDay(k) {
     var p = k.split('-');
     return p[2] + '/' + p[1] + '/' + p[0];
   }
+  // Despesa mensal vigente em uma data.
   function monthlyAt(end) {
     var out = [];
     S.exp.forEach(function (e) {
@@ -120,6 +126,7 @@
       });
     return out;
   }
+  // Câmbio de um dia.
   function fxOfDay(k) {
     var end = dayEnd(k),
       ix = -1;
@@ -133,6 +140,7 @@
       exact: dayKey(S.fxHist[ix].ts) === k
     };
   }
+  // Cartão de um registro de peça no histórico.
   function elogCard(x) {
     return (
       '<div class="card" style="padding:14px"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center"><div><span class="cell">Entrada de estoque</span><div style="margin-top:6px">+' +
@@ -151,6 +159,7 @@
       ' un.</b></div></div>'
     );
   }
+  // Dias com movimento.
   function activeDays() {
     var m = {};
     function add(ts, k) {
@@ -172,6 +181,7 @@
     });
     return m;
   }
+  // Detalhe de um dia.
   function renderDay() {
     var box = $('v-dia');
     if (!box) return;
@@ -378,6 +388,7 @@
       '</div></section>';
     box.innerHTML = h;
   }
+  // Rótulo e texto de um registro de despesa.
   function dlogInfo(x) {
     var L = {
         alt: 'Valor alterado',
@@ -421,6 +432,7 @@
     }
     return { label: L, text: t, amount: a, search: (L + ' ' + t).toLowerCase() };
   }
+  // Cartão de um registro de despesa.
   function dlogCard(x) {
     var i = dlogInfo(x);
     return (
@@ -437,6 +449,7 @@
       '</b></div></div>'
     );
   }
+  // Cartão de uma venda no histórico.
   function saleCard(s) {
     var open = S.hOpen === s.id,
       dx = S.fx.pyg / s.fx - 1,

@@ -1,3 +1,5 @@
+  // ===== Estoque: cadastro em lote a partir da foto e paleta de cores. =====
+  // Exclui uma cor da paleta (verifica peças que a usam).
   function delPal(n) {
     var lines = S.items.filter(function (i) {
         return i.cor === n;
@@ -44,6 +46,7 @@
   var P = null;
   // ---- várias peças numa foto
   var B = null;
+  // Abre o cadastro em lote com as peças detectadas na foto.
   function openBatch(boxes, full, meta, info) {
     var items = [],
       i = 0;
@@ -137,6 +140,7 @@
       setTimeout(next, 10);
     })();
   }
+  // Desenha o cartão do cadastro em lote.
   function renderBatch() {
     var c = $('batchCard');
     if (!B) {
@@ -415,6 +419,7 @@
     if (P && P.pieces && P.full) openBatch(P.pieces, P.full, null, {});
   };
 
+  // Cor da paleta mais próxima de um RGB.
   function nearest(r, g, b) {
     var best = '',
       bd = 1e9;

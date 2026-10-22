@@ -1,3 +1,5 @@
+  // ===== Aba Lotes: lista, detalhe, formulário e leitura da nota. =====
+  // Cartão de um lote (resumo e ações).
   function lotCard(g, opt) {
     var f = grpFalta(g),
       tot = grpTot(g),
@@ -668,6 +670,7 @@
     }
     return c;
   }
+  // Aba Lotes.
   function renderLotes() {
     var h = $('lotes');
     h.textContent = '';
@@ -676,6 +679,7 @@
     /* progresso dos lotes só aparece na aba Lotes */
   }
 
+  // Preenche o modal de descrição das peças.
   function descModalFill() {
     var m = $('descModal');
     if (!S.descOpen) {
@@ -752,6 +756,7 @@
       box.appendChild(c);
     });
   }
+  // Tela de lotes: lista, filtros e detalhe.
   function renderLotView() {
     var on = !!S.lotesView,
       h = $('lotView');
@@ -1031,6 +1036,7 @@
     }
     descModalFill();
   }
+  // Texto minúsculo e sem acentos.
   function noAcc(x) {
     try {
       return String(x).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
@@ -1038,6 +1044,7 @@
       return String(x).toLowerCase();
     }
   }
+  // Texto de valor → número (aceita . e ,).
   function numAmt(x) {
     x = String(x)
       .replace(/[^\d.,]/g, '')
@@ -1064,6 +1071,7 @@
     var v = parseFloat(x);
     return isFinite(v) ? v : null;
   }
+  // Interpreta o texto da nota: quantidades e valores do lote.
   function parseLote(t) {
     t = String(t || '');
     var q = {},
@@ -1134,9 +1142,11 @@
     return { qty: qty, usd: usdv, total: total, tipo: tipo, forn: fs.length === 1 ? fs[0] : null };
   }
   window.__parseLote = parseLote;
+  // Novo rascunho do formulário de lote.
   function lfNew() {
     return { forn: '', moeda: 'usd', rows: [{ tipo: '', qty: '', usd: '' }] };
   }
+  // Formulário de novo lote.
   function renderLotForm() {
     var h = $('lotForm');
     h.textContent = '';
@@ -1389,6 +1399,7 @@
     box.appendChild(row);
     h.appendChild(box);
   }
+  // Lê a foto da nota de compra e preenche o lote.
   function readNota(file) {
     var m = $('lotMsg');
     m.style.color = 'var(--mute)';

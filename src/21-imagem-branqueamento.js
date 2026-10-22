@@ -1,3 +1,5 @@
+  // ===== Imagem: fundo branco sem cortar a armação. =====
+  // Monta a imagem final: peça sobre fundo branco.
   function compose(cr, a512, S) {
     var w = 1000,
       n = w * w,
@@ -331,6 +333,7 @@
     og.drawImage(full, cx0, cy0, cw, ch, (S2 - dw) / 2, (S2 - dh) / 2, dw, dh);
     return { canvas: out, pieces: [], bbox: [x0 / w, y0 / h, (x1 + 1) / w, (y1 + 1) / h] };
   }
+  // Detecta fundo de superfície/prateleira.
   function shelfLike(full) {
     var sc = Math.min(1, 120 / Math.max(full.width, full.height)),
       w = Math.max(8, Math.round(full.width * sc)),
@@ -457,6 +460,7 @@
     g.putImageData(sd, 0, 0);
     return lightWhite(c);
   }
+  // Fluxo principal do fundo branco: escolhe o método e recusa quando não é seguro.
   function whiten(full) {
     var W = full.width,
       H = full.height,
@@ -2145,11 +2149,13 @@
     };
   }
 
+  // Canvas → JPEG.
   function toBlob(c, q) {
     return new Promise(function (res) {
       c.toBlob(res, 'image/jpeg', q || 0.9);
     });
   }
+  // Cor típica da peça (ignora o fundo claro).
   function skin(c, fallback) {
     var g = c.getContext('2d'),
       d = g.getImageData(0, 0, c.width, c.height).data,

@@ -1,3 +1,5 @@
+  // ===== Leitor de haste: pré-processamento da imagem para o OCR. =====
+  // Variante pré-processada da imagem para o OCR.
   function prepVar(src, k, mw, mxs) {
     var W = src.width,
       H = src.height,
@@ -125,6 +127,7 @@
       });
     return o;
   }
+  // Refina a leitura de uma linha.
   function refineLine(w, an, tight) {
     var sc = an.src.width / an.pv.width,
       wd = an.wd,
@@ -184,6 +187,7 @@
     for (i = 0; i < n; i++) o[i] = d[i * 4] < 128 ? 1 : 0;
     return o;
   }
+  // Remove linhas longas da tinta.
   function dropRuns(o, w, h, L) {
     var y, x, s;
     for (y = 0; y < h; y++) {
@@ -199,6 +203,7 @@
       }
     }
   }
+  // Abertura morfológica da tinta.
   function openInk(o, w, h, r) {
     function pass(a, v) {
       var t = new Uint8Array(w * h),
@@ -252,6 +257,7 @@
     }
     return pass(pass(o, 1), 0);
   }
+  // Abertura morfológica com reconstrução.
   function openRec(o, w, h, r, it) {
     var c = openInk(o, w, h, r),
       k,
@@ -268,6 +274,7 @@
     }
     return c;
   }
+  // Componentes de caracteres da tinta.
   function charInk(o, w, h, hmin, hmax) {
     var lab = new Int32Array(w * h),
       st = new Int32Array(w * h),
@@ -323,6 +330,7 @@
     }
     return { keep: keep, cs: cs };
   }
+  // Histograma de linhas.
   function rowHist(cs, h) {
     var r = new Float64Array(h);
     cs.forEach(function (c) {
@@ -340,6 +348,7 @@
     }
     return o;
   }
+  // Endireita a faixa de texto.
   function deskewBand(src) {
     var bin = prepVar(src, 4, 1300),
       sm = mkCanvas(Math.round(bin.width / 2), Math.round(bin.height / 2)),
@@ -378,6 +387,7 @@
     }
     return { bin: bin, deg: best.d };
   }
+  // Recortes das faixas de texto.
   function bandCrops(src) {
     var o = deskewBand(src),
       r = rotateCanvas(o.bin, o.deg),
@@ -430,6 +440,7 @@
   window.__bandCropsFn = function (c) {
     return bandCrops(c);
   };
+  // Pré-leitura da haste em várias variantes.
   function preRead(full, psm) {
     var old = HADD;
     HADD = true;

@@ -1,9 +1,12 @@
+  // ===== Imagem: canvas e recorte do objeto (modelo onnxruntime IS-Net/u2netp). =====
+  // Cria um canvas com o tamanho dado.
   function mkCanvas(w, h) {
     var c = document.createElement('canvas');
     c.width = Math.max(1, Math.round(w));
     c.height = Math.max(1, Math.round(h));
     return c;
   }
+  // Reduz a imagem ao lado máximo informado.
   function fitCanvas(img, maxSide) {
     var w = img.naturalWidth || img.width,
       h = img.naturalHeight || img.height,
@@ -26,12 +29,14 @@
     small: 'u2netp.onnx',
     on: null
   };
+  // Informa o andamento do carregamento do recorte.
   function segStatus(t) {
     if (SEG.on)
       try {
         SEG.on(t);
       } catch (e) {}
   }
+  // Carrega o modelo de recorte uma única vez.
   function segLoad() {
     if (window.__segFn) return Promise.resolve({});
     if (SEG.ready) return SEG.ready;
@@ -131,6 +136,7 @@
     });
     return SEG.ready;
   }
+  // Canvas → tensor de entrada do modelo.
   function segTensor(cv, res, imnet) {
     var c = mkCanvas(res, res),
       g = c.getContext('2d');
@@ -149,6 +155,7 @@
       }
     return t;
   }
+  // Executa o modelo e devolve a máscara.
   function segRun(M, kind, res, cv) {
     var data = segTensor(cv, res, kind === 'small');
     var p = window.__segFn
@@ -227,6 +234,7 @@
     }
     return dst;
   }
+  // Filtro guiado: refina as bordas pela imagem.
   function segGuided(I, p, w, h, r, eps) {
     var n = w * h,
       i,
@@ -311,6 +319,7 @@
     for (i = 0; i < n; i++) if (lab[i] && keep[lab[i]]) out[i] = 1;
     return out;
   }
+  // Fecha buracos dentro da máscara.
   function segFill(m, w, h) {
     // fecha buracos: o que não é alcançado a partir da borda pelo "fora"
     var n = w * h,
@@ -345,6 +354,7 @@
     }
     return out;
   }
+  // Percentis de um conjunto de valores.
   function segPct(arr, idx, pcts) {
     var v = new Float32Array(idx.length),
       i;
@@ -354,6 +364,7 @@
       return v[Math.min(v.length - 1, Math.floor((p / 100) * v.length))];
     });
   }
+  // Dilata a máscara em r pixels.
   function segDilate(m, w, h, r) {
     var n = w * h,
       f = new Float32Array(n),
@@ -444,6 +455,7 @@
   }
   window.__bgIsPlain = bgIsPlain;
   window.__fitCanvas = fitCanvas;
+  // Caixa envolvente da máscara.
   function segBBox(a, res) {
     var n = res * res,
       b = new Uint8Array(n),
@@ -466,6 +478,7 @@
     if (x1 < 0) return null;
     return { x0: x0 / res, y0: y0 / res, x1: (x1 + 1) / res, y1: (y1 + 1) / res };
   }
+  // A caixa tem tamanho plausível para um óculos?
   function segPlausible(bb, W, H) {
     if (!bb) return false;
     var w = (bb.x1 - bb.x0) * W,
@@ -473,6 +486,7 @@
       ar = w / Math.max(1, h);
     return (bb.x1 - bb.x0) * (bb.y1 - bb.y0) > 0.04 && ar >= 1.5 && ar <= 4.6;
   }
+  // Amplia a máscara para 512×512.
   function up512(a) {
     var o = new Float32Array(512 * 512),
       y,
@@ -674,6 +688,7 @@
     for (i = 0; i < n; i++) o2[i] = a[i] * Math.min(1, res[i] * 1.5);
     return o2;
   }
+  // Cor da superfície onde o óculos está apoiado.
   function shelfCol(full) {
     var res = 200,
       c = mkCanvas(res, res),
@@ -745,6 +760,7 @@
     return cnt / nw;
   }
   var bp0 = true;
+  // Fundo branco pelo modelo, sem cortar a armação.
   function modelWhiten(full) {
     return segLoad().then(function (M) {
       var W = full.width,

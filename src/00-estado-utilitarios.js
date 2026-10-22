@@ -1,3 +1,5 @@
+  // ===== Estado global (S), tipos de peça, utilitários de DOM/texto e regras de dados (limpeza, lotes no caixa). =====
+  // Tipos de peça base: preço de venda, reposição e custo (US$).
   var TIPOS = [
     {
       id: 'pre',
@@ -19,6 +21,7 @@
   ];
   var FX = 6500,
     LOTE = 400;
+  // Estado único do app; persistido por saveSoon().
   var S = {
     palette: {
       'Preto': '#1f1f1f',
@@ -164,6 +167,7 @@
       return x + i.qty;
     }, 0);
   };
+  // Cor da paleta (hex) pelo nome; cinza se desconhecida.
   function hexOf(n) {
     n = String(n || '')
       .trim()
@@ -173,10 +177,12 @@
     for (k in S.palette) if (n && n.indexOf(k.toLowerCase()) >= 0) return S.palette[k];
     return '#8b9bb0';
   }
+  // Primeira letra maiúscula.
   function cap1(x) {
     x = x.trim();
     return x ? x[0].toUpperCase() + x.slice(1) : x;
   }
+  // Normaliza o grau digitado.
   function normGrau(raw) {
     var t = String(raw || '')
       .replace(',', '.')
@@ -188,12 +194,14 @@
     if (isNaN(n) || n <= 0 || n >= 6) return '';
     return '+' + n.toFixed(2);
   }
+  // Cria elemento DOM com classe e texto.
   function mk(tag, cls, txt) {
     var e = document.createElement(tag);
     if (cls) e.className = cls;
     if (txt != null) e.textContent = txt;
     return e;
   }
+  // Cria botão com classe, texto e ação.
   function btn(cls, txt, fn, pressed) {
     var b = mk('button', cls, txt);
     b.type = 'button';
@@ -201,22 +209,26 @@
     b.onclick = fn;
     return b;
   }
+  // Bolinha colorida (amostra de cor).
   function dot(hex) {
     var d = mk('span', 'dot');
     d.style.background = hex;
     return d;
   }
+  // Tipo de peça selecionado.
   function T() {
     return TIPOS.filter(function (t) {
       return t.id === S.tipo;
     })[0];
   }
+  // Texto minúsculo e sem acentos, para busca.
   function nrm(v) {
     return String(v == null ? '' : v)
       .toLowerCase()
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '');
   }
+  // Monta o filtro de busca por palavras.
   function mkMatch(q) {
     var toks = nrm(q).split(/\s+/).filter(Boolean);
     if (!toks.length) return null;
@@ -247,12 +259,14 @@
       });
     };
   }
+  // O tipo usa referência simples (sem código de haste)?
   function isSimple(id) {
     var t = tipoAll().filter(function (x) {
       return x.id === id;
     })[0];
     return !!(t && t.simple);
   }
+  // Normaliza o código de referência.
   function normRef(v, simple) {
     v = String(v || '');
     return simple
@@ -260,6 +274,7 @@
       : v.replace(/\s+/g, '').toUpperCase();
   }
   var TBASE = TIPOS.slice();
+  // Tipos base + tipos criados.
   function tipoAll() {
     return TBASE.concat(S.tiposX || []);
   }
@@ -448,6 +463,7 @@
       true
     );
   }
+  // Reordena um subconjunto mantendo as posições ocupadas.
   function reorderBy(arr, ks) {
     /* ks = nova ordem de um subconjunto de arr; ocupa as mesmas posições */ var pos = [];
     arr.forEach(function (v, i) {
@@ -459,9 +475,11 @@
     });
     return out;
   }
+  // Nome amigável de um código (ou o próprio código).
   function pn(ref) {
     return (S.pnome && S.pnome[ref]) || ref;
   }
+  // Grava o nome amigável de um código.
   function setPN(ref, n) {
     n = String(n || '').trim();
     if (ref && n) {
@@ -479,9 +497,11 @@
       );
     });
   }
+  // Arredonda para 2 casas.
   function r2(n) {
     return Math.round(n * 100) / 100;
   }
+  // Lança no caixa o pagamento de um lote.
   function lotCharge(g) {
     var cur = g.moeda || 'usd',
       amt = g.custoOrig != null ? g.custoOrig : g.totalUsd;
@@ -504,6 +524,7 @@
           ' ficou negativo após registrar o lote. Corrija o saldo em "Corrigir saldos".'
       );
   }
+  // Estorna do caixa o pagamento de um lote.
   function lotRefund(g) {
     var e = S.compras.filter(function (x) {
       return x.lot === g.id;
@@ -636,6 +657,7 @@
     } catch (e) {}
     return n;
   }
+  // Junta itens duplicados do estoque.
   function dedupeItems() {
     var seen = {},
       out = [],
@@ -665,6 +687,7 @@
     if (n) S.items = out;
     return n;
   }
+  // Ajusta o caixa quando o custo do lote é editado.
   function lotAdjust(g, oM, oO) {
     var e = S.compras.filter(function (x) {
       return x.lot === g.id;
@@ -685,6 +708,7 @@
     e.usd = (e.usd || 0) + 0;
     e.desc = g.forn + ' (' + g.qty + ' peças)';
   }
+  // Atualiza TIPOS (base + criados − removidos).
   function syncTipos() {
     TIPOS.length = 0;
     tipoAll().forEach(function (t) {
@@ -704,10 +728,12 @@
     )
       S.tipo = TIPOS[0] ? TIPOS[0].id : 'sem';
   }
+  // Define a mensagem de aviso.
   function say(t) {
     S.msg = t;
   }
 
+  // Foto de um código (e cor).
   function photoOf(ref, cor) {
     var its = S.items.filter(function (i) {
       return i.ref === ref;
@@ -722,6 +748,7 @@
       })[0];
     return w ? S.fotos[ref + '|' + w.cor] : '';
   }
+  // Quadro de foto (ou vazio).
   function photoBox(src, cls) {
     var d = mk('div', cls + (src ? '' : ' none'));
     if (src) {
@@ -732,6 +759,7 @@
     } else d.textContent = 'Sem foto';
     return d;
   }
+  // Descrição automática de um código.
   function autoDesc(ref) {
     var its = S.items.filter(function (i) {
         return i.ref === ref;
@@ -796,6 +824,7 @@
   try {
     REDUCED = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
   } catch (e) {}
+  // Anima a entrada de um elemento.
   function animEnter(el) {
     if (REDUCED || !el) return;
     try {

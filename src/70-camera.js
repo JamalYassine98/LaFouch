@@ -1,5 +1,7 @@
+  // ===== Câmera do app (visor, galeria, lanterna, prévia) e plano B nativo. =====
   var CAMO = null,
     CAMS = null;
+  // Fecha a câmera e libera o vídeo.
   function camClose() {
     if (CAMS) {
       try {
@@ -14,6 +16,7 @@
       CAMO = null;
     }
   }
+  // Arquivo de foto → imagem com orientação correta.
   function normFile(f) {
     return (
       window.createImageBitmap
@@ -41,6 +44,7 @@
         return f;
       });
   }
+  // Nitidez (foco) de um quadro.
   function sharpOf(cv) {
     try {
       var w = 320,
@@ -76,6 +80,7 @@
     }
   }
   var ARM = 0;
+  // Detecta o retorno da câmera nativa.
   function armReturn(lbl) {
     ARM = Date.now();
     var f = function () {
@@ -95,6 +100,7 @@
     window.addEventListener('focus', f);
     document.addEventListener('visibilitychange', v);
   }
+  // Abre a câmera/galeria nativa do aparelho.
   function nativeInput(onFile, gal, lbl) {
     var i = document.createElement('input');
     i.type = 'file';
@@ -124,6 +130,7 @@
     };
     return i;
   }
+  // Plano B quando a câmera do app não abre.
   function camFallback(done, gal, lbl) {
     armNative();
     var ov = document.createElement('div');
@@ -184,6 +191,7 @@
   }
   var NATIVE = false,
     HCAM = '';
+  // Liga a captura nativa no botão do leitor.
   function armNative() {
     if (NATIVE) return;
     NATIVE = true;
@@ -211,6 +219,7 @@
       w.appendChild(nativeInput(d[1], false, d[0] === 'btnLeitor' ? 'Analisando código' : ''));
     });
   }
+  // Abre a câmera do app (com plano B se falhar).
   function camOpen() {
     try {
       camOpen0.apply(null, arguments);
@@ -220,6 +229,7 @@
     }
   }
   var LIVEX = null;
+  // Câmera do app: visor, disparo, galeria, lanterna e prévia.
   function camOpen0(done, title, opts) {
     opts = opts || {};
     LIVEX = null;

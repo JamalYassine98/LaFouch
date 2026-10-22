@@ -1,9 +1,12 @@
+  // ===== Leitura do código da foto: OCR offline (Tesseract) e IA online. =====
+  // Instrução enviada à IA para ler a etiqueta.
   function labelPrompt() {
     var pr =
       'Esta é a foto de um óculos (armação, solar ou pré-graduado). Se houver duas imagens, a primeira é um recorte ampliado da peça (use para ler textos pequenos, como o código impresso na lente ou na haste, ex. BR44118 53□18-140) e a segunda é a foto inteira. Leia SOMENTE o que estiver escrito na foto (etiqueta, haste, lente). Responda JSON com as chaves: referencia (código do modelo, ex. CX012, SP57765), medidas (ex. "56-18-140"), variante (C1 a C6 se houver), grau (apenas se for pré-graduado, ex. "+1.75"), material (ex. Alumínio), tipo ("pre","sem" ou "solar" pelo aspecto), formato (um de: ' +
       S.formats.join(', ') +
       '), cor (nome curto em português da cor da peça), extras (ex. Clip-on), pecas. Em pecas, se a foto mostrar VÁRIAS armações/óculos separados (2 ou mais), liste cada um como {caixa:[x0,y0,x1,y1] em milésimos da imagem (0 a 1000, caixa justa em volta SÓ daquela peça), variante (rótulo tipo C4 escrito perto da peça, ou null), cor (nome curto em português), qtd (número escrito ao lado do rótulo, só se existir, senão null)}; ignore logotipos e textos. Se houver só uma peça, pecas=[]. Use null quando não estiver visível. NÃO invente.';
   }
+  // Leitura da etiqueta pela IA, quando disponível.
   function readSample(blobs) {
     return Promise.resolve()
       .then(function () {
@@ -38,6 +41,7 @@
       }
     } catch (e) {}
   }, 8000);
+  // Carrega o Tesseract (OCR) uma vez.
   function loadTess() {
     if (window.Tesseract) return Promise.resolve();
     if (tessP) return tessP;
@@ -71,6 +75,7 @@
     return tessP;
   }
   var OCRDEAD = 0;
+  // Worker do OCR (recriado se falhar).
   function getWorker() {
     if (tessW) return tessW;
     if (OCRDEAD && Date.now() - OCRDEAD < 90000) return Promise.reject({ code: 'dead' });
@@ -229,6 +234,7 @@
     G: '6',
     B: '8'
   };
+  // Corrige letras confundidas com dígitos.
   function fixDigits(t) {
     return t
       .split('')
@@ -273,6 +279,7 @@
     });
     return acc;
   }
+  // Os dois itens mais votados.
   function top2(o) {
     var k,
       a = [];
@@ -304,6 +311,7 @@
       maybeMed: md[0] ? md[0][0] : null
     };
   }
+  // Textos iguais ou com no máximo 1 erro?
   function lev1(a, b) {
     if (a === b) return true;
     var la = a.length,
@@ -314,6 +322,7 @@
     if (la === lb) return a.slice(i + 1) === b.slice(i + 1);
     return la > lb ? a.slice(i + 1) === b.slice(i) : a.slice(i) === b.slice(i + 1);
   }
+  // Busca aproximada de um código no texto.
   function fuzzyHas(T, R) {
     var n = R.length,
       L,
@@ -346,6 +355,7 @@
       ? votes[0][0]
       : null;
   }
+  // Lê o texto da foto com OCR offline.
   function readTess(canvas, prog) {
     return getWorker().then(function (w) {
       var W = canvas.width,
@@ -472,6 +482,7 @@
         getWorker().catch(function () {});
     } catch (e) {}
   }, 6000);
+  // Mostra o estado da leitura.
   function setRead(t, cls) {
     if (t && !/…\s*$/.test(t)) loadMsg(false);
     var e = $('phRead');
@@ -479,6 +490,7 @@
     e.className = 'note ' + (cls || 'n-info');
     e.textContent = t || '';
   }
+  // Aplica o resultado da leitura aos campos.
   function applyRead(r, tok, eng) {
     if (!P || P.tok !== tok || !r) return;
     var got = [];
@@ -565,6 +577,7 @@
       );
     render();
   }
+  // Recorta a área da etiqueta para leitura.
   function cropForRead(img, bb) {
     var w = img.naturalWidth || img.width,
       h = img.naturalHeight || img.height,
@@ -582,6 +595,7 @@
     g.drawImage(img, x0, y0, cw, ch, 0, 0, c.width, c.height);
     return c;
   }
+  // Lê o código da foto (IA online; senão OCR offline).
   function readPhoto(full, tok, img, bb) {
     setRead('Lendo o código da foto…', 'n-info');
     var crop = img && bb ? cropForRead(img, bb) : full,

@@ -1,3 +1,4 @@
+  // ===== Estoque: painéis de filtro, lista de códigos e abertura/fechamento do cadastro. =====
   $('mV').onclick = function () {
     S.mode = 'venda';
     S.qty = 1;
@@ -10,6 +11,7 @@
     S.msg = '';
     render();
   };
+  // Campo numérico de quantidade (mín. 1).
   function qIn(id, get, set, cap) {
     var e = $(id);
     e.onchange = function () {
@@ -92,6 +94,7 @@
   $('eRef').setAttribute('autocomplete', 'off');
   $('phRef').setAttribute('autocomplete', 'off');
   var RLSIG = '';
+  // Atualiza a lista de códigos (autocompletar).
   function refreshRefList() {
     var seen = {},
       arr = [];
@@ -125,6 +128,7 @@
         RL.appendChild(o);
       });
   }
+  // Primeira peça do estoque com o código informado.
   function refItem(v) {
     v = normRef(v, false);
     return v
@@ -334,6 +338,7 @@
       'lotesView',
       'repo'
     ];
+  // Fecha os filtros (cancelar restaura o estado).
   function filtClose(cancel) {
     if (cancel && FSNAP) {
       FKEYS.forEach(function (k) {
@@ -457,6 +462,7 @@
   });
   var ASNAP = null,
     AKEYS = ['tipo', 'todos', 'fmtF', 'corF', 'q', 'open', 'det', 'selItem', 'lotesView'];
+  // Fecha o cadastro (cancelar restaura o estado).
   function closeAdd() {
     if (ASNAP) {
       AKEYS.forEach(function (k) {

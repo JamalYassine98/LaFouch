@@ -1,3 +1,5 @@
+  // ===== Aba Vendas. =====
+  // Aba Vendas.
   function renderVendas() {
     renderCatV();
     if (S.view !== 'vendas') return;

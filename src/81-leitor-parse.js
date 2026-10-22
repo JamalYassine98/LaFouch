@@ -1,3 +1,5 @@
+  // ===== Leitor de haste: interpretação do texto lido (código, medida, variação). =====
+  // Interpreta o texto corrido da haste.
   function flatParse(t) {
     var F = String(t)
         .toUpperCase()
@@ -36,6 +38,7 @@
     }
     return best;
   }
+  // Extrai código, medida e variação da haste.
   function parseHaste(texts) {
     var o = { ref: '', med: '', vr: '' };
     for (var a = 0; a < texts.length && !o.med; a++) {
@@ -142,6 +145,7 @@
     }
     return o;
   }
+  // Prefixo de código conhecido?
   function knownPre(p) {
     if (/^(PY|SP|BR|SL|CX)$/.test(p)) return true;
     try {
@@ -152,6 +156,7 @@
       return false;
     }
   }
+  // Votação entre várias leituras.
   function parseVote(texts) {
     var tl = { ref: {}, med: {}, vr: {} },
       fr = 0;
@@ -267,6 +272,7 @@
   window.__rotateCanvas = function (c, d) {
     return rotateCanvas(c, d);
   };
+  // Gira o canvas em graus.
   function rotateCanvas(src, deg) {
     if (!deg) return src;
     var r = (deg * Math.PI) / 180,

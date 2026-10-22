@@ -1,18 +1,24 @@
+  // ===== Lotes de compra: grupos, custos e seleção de lote. =====
+  // É o tipo Variados?
   function MIX(t) {
     return t === 'mix' || (!!t && t === varId());
   }
+  // Tipos disponíveis para lotes.
   function LTIPOS() {
     return varId()
       ? TIPOS.slice()
       : TIPOS.concat([{ id: 'mix', label: 'Variados', full: 'Variados' }]);
   }
+  // Nome do tipo de um lote.
   function gTipoName(g) {
     var tp = tipoOf(g.tipo);
     return tp ? tp.full : MIX(g.tipo) ? 'Variados' : g.tipo;
   }
+  // Custo total do lote.
   function gTot(g) {
     return g.totalUsd != null ? g.totalUsd : (g.usd || 0) * g.qty;
   }
+  // Peças e custo já detalhados do lote.
   function gOwn(g) {
     var q = g.ownQ || 0,
       c = g.ownC || 0;
@@ -24,6 +30,7 @@
     });
     return { q: q, c: c };
   }
+  // Seletor numérico com + e −.
   function qStep(obj, key, lbl, min, ph) {
     var d = mk('div', '');
     d.appendChild(mk('div', 'lbl', lbl));
@@ -58,6 +65,7 @@
     d.appendChild(r);
     return d;
   }
+  // Mostra um erro em aviso flutuante.
   function popErr(t) {
     try {
       var e = $('popErr');
@@ -90,6 +98,7 @@
       }, 7000);
     } catch (x) {}
   }
+  // Valida o custo informado contra o total do lote.
   function gCostErr(g, add, skip, per, qty) {
     if (!g || !(add > 0)) return '';
     var c = gOwn(g).c;
@@ -121,6 +130,7 @@
       );
     return '';
   }
+  // Custo unitário do lote.
   function gUnit(g) {
     if (!(g.qty > 0)) return 0;
     var o = gOwn(g),
@@ -128,6 +138,7 @@
     if (n <= 0) return gTot(g) / g.qty;
     return Math.max(0, (gTot(g) - o.c) / n);
   }
+  // Texto do valor pago do lote.
   function gPaid(g) {
     return (
       'Custo total ' +
@@ -141,6 +152,7 @@
         : '')
     );
   }
+  // Custo efetivo da peça (próprio ou do lote).
   function effCusto(i) {
     if (i.custo != null) return i.custo;
     var g =
@@ -150,6 +162,7 @@
       })[0];
     return g ? gUnit(g) : null;
   }
+  // Peças já detalhadas do lote.
   function grpDet(g) {
     return sum(
       S.items.filter(function (i) {
@@ -157,6 +170,7 @@
       })
     );
   }
+  // Sincroniza as peças a granel com os lotes.
   function syncBulk() {
     var ids = {};
     var vid = varId();
@@ -212,12 +226,15 @@
       }
     });
   }
+  // Peças restantes do lote (total − vendidas).
   function grpTot(g) {
     return Math.max(0, g.qty - (g.sold || 0));
   }
+  // Peças do lote ainda sem detalhar.
   function grpFalta(g) {
     return Math.max(0, grpTot(g) - grpDet(g));
   }
+  // Lotes abertos de um tipo.
   function openGrp(tipo) {
     var a = S.grp.filter(function (g) {
       return grpFalta(g) > 0;
@@ -232,9 +249,11 @@
         })
       );
   }
+  // Rótulo do lote (fornecedor · custo).
   function gLabel(g) {
     return g.forn + ' · ' + usd(gUnit(g));
   }
+  // Lote escolhido na seleção.
   function pickG(tipo, sel) {
     var ops = openGrp(tipo);
     if (!ops.length || !sel || sel === 'none') return { g: null };
@@ -243,11 +262,13 @@
     })[0];
     return { g: g || null };
   }
+  // Aviso quando a quantidade excede o lote.
   function gCap(g, qty) {
     return g && qty > grpFalta(g)
       ? 'O lote "' + gLabel(g) + '" só tem ' + grpFalta(g) + ' peça(s) para detalhar.'
       : '';
   }
+  // Botões para escolher o lote.
   function loteChips(id, tipo, sel, setSel) {
     var bx = $(id + 'B'),
       ops = openGrp(tipo);

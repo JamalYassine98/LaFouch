@@ -1,3 +1,4 @@
+  // ===== Fila de fotos e cartão da foto (cadastro de nova peça). =====
   $('phCodeBtn').onclick = function () {
     if (!P) return;
     var tok = P.tok;
@@ -80,6 +81,7 @@
     im.src = url;
   };
   var Q = [];
+  // Avança para a próxima foto da fila.
   function nextQ() {
     if (Q.length) {
       var nf = Q.shift();
@@ -355,6 +357,7 @@
       render();
     }
   };
+  // Dados digitados no cartão da foto.
   function phInfo() {
     var sm0 = isSimple((P && P.tipo) || S.tipo),
       ref = normRef($('phRef').value, sm0),
@@ -380,6 +383,7 @@
       simple: isSimple(tipo)
     };
   }
+  // Cartão da foto: prévia, leitura e cadastro.
   function renderPhoto() {
     var card = $('photoCard');
     if (!P) {

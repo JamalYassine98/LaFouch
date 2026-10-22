@@ -1,9 +1,11 @@
+  // ===== Aba Despesas. =====
 
   // ---------- despesas
   function ymNow() {
     var d = new Date();
     return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2);
   }
+  // Cartão de uma despesa.
   function expCard(e) {
     var last = e.hist[e.hist.length - 1],
       paid = !!(e.paid && e.paid[ymNow()]);
@@ -75,6 +77,7 @@
         '</div>';
     return h + '</div>';
   }
+  // Aba Despesas.
   function renderDesp() {
     var el = $('v-desp'),
       tm = totalMensal(),

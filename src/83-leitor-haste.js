@@ -1,5 +1,7 @@
+  // ===== Leitor de haste: busca no estoque e tela do leitor. =====
   var PRE = null;
 
+  // Busca a haste lida no estoque.
   function hFind(texts) {
     if (!HADD) return hMatch(texts);
     var ph = parseHaste(texts);
@@ -53,6 +55,7 @@
     });
     return out;
   }
+  // Leitor de haste: foto, leitura e resultado.
   function hasteOpen(inp, add) {
     hasteClose();
     HADD = !!add;

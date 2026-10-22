@@ -1,3 +1,5 @@
+  // ===== Aba Câmbio: cotação, gráfico e atualização. =====
+  // Gráfico de linha em SVG.
   function lineSvg(vals, labs, fmt) {
     var W = 640,
       H = 230,
@@ -77,6 +79,7 @@
       '</svg>'
     );
   }
+  // Aba Câmbio.
   function renderFx() {
     var el = $('v-fx'),
       f = S.fx,
@@ -174,6 +177,7 @@
     el.innerHTML = html;
     tickFx();
   }
+  // Atualiza o contador do câmbio.
   function tickFx() {
     var cd = $('cd');
     if (cd) {
@@ -182,6 +186,7 @@
         String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
     }
   }
+  // Grava a cotação (histórico do dia) e redesenha.
   function setFx(pyg, brl, src, live, status) {
     var last = S.fxHist[S.fxHist.length - 1],
       pt = { ts: Date.now(), pyg: Math.round(pyg), brl: brl };
@@ -195,6 +200,7 @@
     renderHist();
     renderDay();
   }
+  // Busca a cotação online.
   function fetchFx() {
     S.fxNext = Date.now() + 180000;
     var fail = function () {

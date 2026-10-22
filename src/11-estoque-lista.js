@@ -1,3 +1,5 @@
+  // ===== Estoque: lista, filtros e cartões das peças. =====
+  // Aba Estoque.
   function renderEstoque() {
     S.fmtF = 'all';
     var t = T(),

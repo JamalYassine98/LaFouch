@@ -1,6 +1,8 @@
+  // ===== Categorias, formatos, cores, variações (C1–C6) e criação de tipos. =====
 
   // ---------- navegação
 
+  // Data URL → Blob.
   function dataToBlob(u, type) {
     return fetch(u)
       .then(function (r) {
@@ -24,6 +26,7 @@
         });
       });
   }
+  // Categorias em uso.
   function catList() {
     var seen = {},
       out = [];
@@ -49,6 +52,7 @@
     });
     return out;
   }
+  // Tela de categorias por tipo.
   function renderCatV() {
     if (!S.cvTipo) S.cvTipo = 'all';
     if (!S.cvOff) S.cvOff = {};
@@ -177,6 +181,7 @@
       } catch (e) {}
     }
   }
+  // Botões de variação de cor.
   function varChips(cur) {
     ensureVar(cur);
     var a = [],
@@ -185,6 +190,7 @@
     for (k = 1; k <= m; k++) a.push('C' + k);
     return a;
   }
+  // Variações disponíveis.
   function varList() {
     var m = S.maxVar || 6;
     S.items.forEach(function (i) {
@@ -196,6 +202,7 @@
     for (var k = 1; k <= m; k++) a.push('C' + k);
     return a;
   }
+  // Adiciona os botões de variação a um contêiner.
   function addVarChips(host, cur, pick) {
     varList().forEach(function (v) {
       host.appendChild(
@@ -221,6 +228,7 @@
       })
     );
   }
+  // Caixa para criar novo formato/cor.
   function newBox(host, flag, withColor, ph, done) {
     if (S.nf !== flag && S.nc !== flag) {
       host.textContent = '';
@@ -264,6 +272,7 @@
       i.focus();
     } catch (e) {}
   }
+  // Salva um formato novo.
   function fmtDone(setter) {
     return function (n) {
       var ex = S.formats.filter(function (f) {
@@ -275,6 +284,7 @@
       render();
     };
   }
+  // Salva uma cor nova.
   function corDone(setter) {
     return function (n, hex) {
       var ex = Object.keys(S.palette).filter(function (k) {
@@ -286,6 +296,7 @@
       render();
     };
   }
+  // Caixa para criar um tipo.
   function mkTipoBox(host) {
     if (!S.nt) {
       host.textContent = '';
@@ -367,11 +378,13 @@
     } catch (e) {}
   }
 
+  // Tipo com o custo efetivo da peça.
   function tFor(it) {
     var t = tipoOf(it.tipo),
       cu = effCusto(it);
     return cu != null ? Object.assign({}, t, { repUSD: cu, pago: cu }) : t;
   }
+  // Lê um valor digitado conforme a moeda.
   function pm(x, m) {
     var t = String(x == null ? '' : x)
       .trim()
@@ -383,9 +396,11 @@
     }
     return parseFloat(t);
   }
+  // Converte um valor para US$.
   function convUsd(c, m) {
     return (c * ratePyg(m)) / S.fx.pyg;
   }
+  // Cria o tipo se ainda não existir.
   function ensureTipo(nm) {
     nm = String(nm || '')
       .trim()
@@ -410,6 +425,7 @@
     syncTipos();
     return id;
   }
+  // Interface para criar novo tipo.
   function newTipoUI(st, rer, pick, nav, host) {
     if (!st.nt) {
       nav.appendChild(
@@ -462,15 +478,19 @@
   function quickCor(n) {
     return ['azul petroleo', 'vinho', 'bege translucido'].indexOf(nrm(n)) < 0;
   }
+  // A peça passa no filtro de formato?
   function fOk(i) {
     return S.fmtF === 'all' || String(S.fmtF).split('|').indexOf(i.fmt) >= 0;
   }
+  // Formatos selecionados.
   function fSel() {
     return S.fmtF === 'all' ? [] : String(S.fmtF).split('|');
   }
+  // Tipos selecionados.
   function tSel() {
     return S.todos ? S.selSet || [] : S.lotesView ? [] : [S.tipo];
   }
+  // Id do tipo Variados.
   function varId() {
     var t = TIPOS.filter(function (x) {
       return nrm(x.label) === 'variados';

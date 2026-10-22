@@ -1,4 +1,6 @@
 (function () {
+  // ===== Estado global (S), tipos de peça, utilitários de DOM/texto e regras de dados (limpeza, lotes no caixa). =====
+  // Tipos de peça base: preço de venda, reposição e custo (US$).
   var TIPOS = [
     {
       id: 'pre',
@@ -20,6 +22,7 @@
   ];
   var FX = 6500,
     LOTE = 400;
+  // Estado único do app; persistido por saveSoon().
   var S = {
     palette: {
       'Preto': '#1f1f1f',
@@ -165,6 +168,7 @@
       return x + i.qty;
     }, 0);
   };
+  // Cor da paleta (hex) pelo nome; cinza se desconhecida.
   function hexOf(n) {
     n = String(n || '')
       .trim()
@@ -174,10 +178,12 @@
     for (k in S.palette) if (n && n.indexOf(k.toLowerCase()) >= 0) return S.palette[k];
     return '#8b9bb0';
   }
+  // Primeira letra maiúscula.
   function cap1(x) {
     x = x.trim();
     return x ? x[0].toUpperCase() + x.slice(1) : x;
   }
+  // Normaliza o grau digitado.
   function normGrau(raw) {
     var t = String(raw || '')
       .replace(',', '.')
@@ -189,12 +195,14 @@
     if (isNaN(n) || n <= 0 || n >= 6) return '';
     return '+' + n.toFixed(2);
   }
+  // Cria elemento DOM com classe e texto.
   function mk(tag, cls, txt) {
     var e = document.createElement(tag);
     if (cls) e.className = cls;
     if (txt != null) e.textContent = txt;
     return e;
   }
+  // Cria botão com classe, texto e ação.
   function btn(cls, txt, fn, pressed) {
     var b = mk('button', cls, txt);
     b.type = 'button';
@@ -202,22 +210,26 @@
     b.onclick = fn;
     return b;
   }
+  // Bolinha colorida (amostra de cor).
   function dot(hex) {
     var d = mk('span', 'dot');
     d.style.background = hex;
     return d;
   }
+  // Tipo de peça selecionado.
   function T() {
     return TIPOS.filter(function (t) {
       return t.id === S.tipo;
     })[0];
   }
+  // Texto minúsculo e sem acentos, para busca.
   function nrm(v) {
     return String(v == null ? '' : v)
       .toLowerCase()
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '');
   }
+  // Monta o filtro de busca por palavras.
   function mkMatch(q) {
     var toks = nrm(q).split(/\s+/).filter(Boolean);
     if (!toks.length) return null;
@@ -248,12 +260,14 @@
       });
     };
   }
+  // O tipo usa referência simples (sem código de haste)?
   function isSimple(id) {
     var t = tipoAll().filter(function (x) {
       return x.id === id;
     })[0];
     return !!(t && t.simple);
   }
+  // Normaliza o código de referência.
   function normRef(v, simple) {
     v = String(v || '');
     return simple
@@ -261,6 +275,7 @@
       : v.replace(/\s+/g, '').toUpperCase();
   }
   var TBASE = TIPOS.slice();
+  // Tipos base + tipos criados.
   function tipoAll() {
     return TBASE.concat(S.tiposX || []);
   }
@@ -449,6 +464,7 @@
       true
     );
   }
+  // Reordena um subconjunto mantendo as posições ocupadas.
   function reorderBy(arr, ks) {
     /* ks = nova ordem de um subconjunto de arr; ocupa as mesmas posições */ var pos = [];
     arr.forEach(function (v, i) {
@@ -460,9 +476,11 @@
     });
     return out;
   }
+  // Nome amigável de um código (ou o próprio código).
   function pn(ref) {
     return (S.pnome && S.pnome[ref]) || ref;
   }
+  // Grava o nome amigável de um código.
   function setPN(ref, n) {
     n = String(n || '').trim();
     if (ref && n) {
@@ -480,9 +498,11 @@
       );
     });
   }
+  // Arredonda para 2 casas.
   function r2(n) {
     return Math.round(n * 100) / 100;
   }
+  // Lança no caixa o pagamento de um lote.
   function lotCharge(g) {
     var cur = g.moeda || 'usd',
       amt = g.custoOrig != null ? g.custoOrig : g.totalUsd;
@@ -505,6 +525,7 @@
           ' ficou negativo após registrar o lote. Corrija o saldo em "Corrigir saldos".'
       );
   }
+  // Estorna do caixa o pagamento de um lote.
   function lotRefund(g) {
     var e = S.compras.filter(function (x) {
       return x.lot === g.id;
@@ -637,6 +658,7 @@
     } catch (e) {}
     return n;
   }
+  // Junta itens duplicados do estoque.
   function dedupeItems() {
     var seen = {},
       out = [],
@@ -666,6 +688,7 @@
     if (n) S.items = out;
     return n;
   }
+  // Ajusta o caixa quando o custo do lote é editado.
   function lotAdjust(g, oM, oO) {
     var e = S.compras.filter(function (x) {
       return x.lot === g.id;
@@ -686,6 +709,7 @@
     e.usd = (e.usd || 0) + 0;
     e.desc = g.forn + ' (' + g.qty + ' peças)';
   }
+  // Atualiza TIPOS (base + criados − removidos).
   function syncTipos() {
     TIPOS.length = 0;
     tipoAll().forEach(function (t) {
@@ -705,10 +729,12 @@
     )
       S.tipo = TIPOS[0] ? TIPOS[0].id : 'sem';
   }
+  // Define a mensagem de aviso.
   function say(t) {
     S.msg = t;
   }
 
+  // Foto de um código (e cor).
   function photoOf(ref, cor) {
     var its = S.items.filter(function (i) {
       return i.ref === ref;
@@ -723,6 +749,7 @@
       })[0];
     return w ? S.fotos[ref + '|' + w.cor] : '';
   }
+  // Quadro de foto (ou vazio).
   function photoBox(src, cls) {
     var d = mk('div', cls + (src ? '' : ' none'));
     if (src) {
@@ -733,6 +760,7 @@
     } else d.textContent = 'Sem foto';
     return d;
   }
+  // Descrição automática de um código.
   function autoDesc(ref) {
     var its = S.items.filter(function (i) {
         return i.ref === ref;
@@ -797,6 +825,7 @@
   try {
     REDUCED = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
   } catch (e) {}
+  // Anima a entrada de um elemento.
   function animEnter(el) {
     if (REDUCED || !el) return;
     try {
@@ -809,6 +838,8 @@
       });
     } catch (e) {}
   }
+  // ===== Estoque: tela de detalhe de um código. =====
+  // Detalhe de um código: fotos, variações, edição e venda.
   function renderDetail(ref) {
     var det = $('detail'),
       wasHid = det.hidden,
@@ -1552,6 +1583,8 @@
     g.appendChild(right);
     det.appendChild(g);
   }
+  // ===== Estoque: lista, filtros e cartões das peças. =====
+  // Aba Estoque.
   function renderEstoque() {
     S.fmtF = 'all';
     var t = T(),
@@ -2747,6 +2780,7 @@
     S._known = known;
   }
 
+  // ===== Estoque: painéis de filtro, lista de códigos e abertura/fechamento do cadastro. =====
   $('mV').onclick = function () {
     S.mode = 'venda';
     S.qty = 1;
@@ -2759,6 +2793,7 @@
     S.msg = '';
     render();
   };
+  // Campo numérico de quantidade (mín. 1).
   function qIn(id, get, set, cap) {
     var e = $(id);
     e.onchange = function () {
@@ -2841,6 +2876,7 @@
   $('eRef').setAttribute('autocomplete', 'off');
   $('phRef').setAttribute('autocomplete', 'off');
   var RLSIG = '';
+  // Atualiza a lista de códigos (autocompletar).
   function refreshRefList() {
     var seen = {},
       arr = [];
@@ -2874,6 +2910,7 @@
         RL.appendChild(o);
       });
   }
+  // Primeira peça do estoque com o código informado.
   function refItem(v) {
     v = normRef(v, false);
     return v
@@ -3083,6 +3120,7 @@
       'lotesView',
       'repo'
     ];
+  // Fecha os filtros (cancelar restaura o estado).
   function filtClose(cancel) {
     if (cancel && FSNAP) {
       FKEYS.forEach(function (k) {
@@ -3206,6 +3244,7 @@
   });
   var ASNAP = null,
     AKEYS = ['tipo', 'todos', 'fmtF', 'corF', 'q', 'open', 'det', 'selItem', 'lotesView'];
+  // Fecha o cadastro (cancelar restaura o estado).
   function closeAdd() {
     if (ASNAP) {
       AKEYS.forEach(function (k) {
@@ -3371,6 +3410,8 @@
     $('palH').textContent = 'Cor "' + n + '" adicionada.';
     render();
   };
+  // ===== Estoque: cadastro em lote a partir da foto e paleta de cores. =====
+  // Exclui uma cor da paleta (verifica peças que a usam).
   function delPal(n) {
     var lines = S.items.filter(function (i) {
         return i.cor === n;
@@ -3417,6 +3458,7 @@
   var P = null;
   // ---- várias peças numa foto
   var B = null;
+  // Abre o cadastro em lote com as peças detectadas na foto.
   function openBatch(boxes, full, meta, info) {
     var items = [],
       i = 0;
@@ -3510,6 +3552,7 @@
       setTimeout(next, 10);
     })();
   }
+  // Desenha o cartão do cadastro em lote.
   function renderBatch() {
     var c = $('batchCard');
     if (!B) {
@@ -3788,6 +3831,7 @@
     if (P && P.pieces && P.full) openBatch(P.pieces, P.full, null, {});
   };
 
+  // Cor da paleta mais próxima de um RGB.
   function nearest(r, g, b) {
     var best = '',
       bd = 1e9;
@@ -3820,12 +3864,15 @@
     );
   };
   // ---- foto: nitidez e fundo branco
+  // ===== Imagem: canvas e recorte do objeto (modelo onnxruntime IS-Net/u2netp). =====
+  // Cria um canvas com o tamanho dado.
   function mkCanvas(w, h) {
     var c = document.createElement('canvas');
     c.width = Math.max(1, Math.round(w));
     c.height = Math.max(1, Math.round(h));
     return c;
   }
+  // Reduz a imagem ao lado máximo informado.
   function fitCanvas(img, maxSide) {
     var w = img.naturalWidth || img.width,
       h = img.naturalHeight || img.height,
@@ -3848,12 +3895,14 @@
     small: 'u2netp.onnx',
     on: null
   };
+  // Informa o andamento do carregamento do recorte.
   function segStatus(t) {
     if (SEG.on)
       try {
         SEG.on(t);
       } catch (e) {}
   }
+  // Carrega o modelo de recorte uma única vez.
   function segLoad() {
     if (window.__segFn) return Promise.resolve({});
     if (SEG.ready) return SEG.ready;
@@ -3953,6 +4002,7 @@
     });
     return SEG.ready;
   }
+  // Canvas → tensor de entrada do modelo.
   function segTensor(cv, res, imnet) {
     var c = mkCanvas(res, res),
       g = c.getContext('2d');
@@ -3971,6 +4021,7 @@
       }
     return t;
   }
+  // Executa o modelo e devolve a máscara.
   function segRun(M, kind, res, cv) {
     var data = segTensor(cv, res, kind === 'small');
     var p = window.__segFn
@@ -4049,6 +4100,7 @@
     }
     return dst;
   }
+  // Filtro guiado: refina as bordas pela imagem.
   function segGuided(I, p, w, h, r, eps) {
     var n = w * h,
       i,
@@ -4133,6 +4185,7 @@
     for (i = 0; i < n; i++) if (lab[i] && keep[lab[i]]) out[i] = 1;
     return out;
   }
+  // Fecha buracos dentro da máscara.
   function segFill(m, w, h) {
     // fecha buracos: o que não é alcançado a partir da borda pelo "fora"
     var n = w * h,
@@ -4167,6 +4220,7 @@
     }
     return out;
   }
+  // Percentis de um conjunto de valores.
   function segPct(arr, idx, pcts) {
     var v = new Float32Array(idx.length),
       i;
@@ -4176,6 +4230,7 @@
       return v[Math.min(v.length - 1, Math.floor((p / 100) * v.length))];
     });
   }
+  // Dilata a máscara em r pixels.
   function segDilate(m, w, h, r) {
     var n = w * h,
       f = new Float32Array(n),
@@ -4266,6 +4321,7 @@
   }
   window.__bgIsPlain = bgIsPlain;
   window.__fitCanvas = fitCanvas;
+  // Caixa envolvente da máscara.
   function segBBox(a, res) {
     var n = res * res,
       b = new Uint8Array(n),
@@ -4288,6 +4344,7 @@
     if (x1 < 0) return null;
     return { x0: x0 / res, y0: y0 / res, x1: (x1 + 1) / res, y1: (y1 + 1) / res };
   }
+  // A caixa tem tamanho plausível para um óculos?
   function segPlausible(bb, W, H) {
     if (!bb) return false;
     var w = (bb.x1 - bb.x0) * W,
@@ -4295,6 +4352,7 @@
       ar = w / Math.max(1, h);
     return (bb.x1 - bb.x0) * (bb.y1 - bb.y0) > 0.04 && ar >= 1.5 && ar <= 4.6;
   }
+  // Amplia a máscara para 512×512.
   function up512(a) {
     var o = new Float32Array(512 * 512),
       y,
@@ -4496,6 +4554,7 @@
     for (i = 0; i < n; i++) o2[i] = a[i] * Math.min(1, res[i] * 1.5);
     return o2;
   }
+  // Cor da superfície onde o óculos está apoiado.
   function shelfCol(full) {
     var res = 200,
       c = mkCanvas(res, res),
@@ -4567,6 +4626,7 @@
     return cnt / nw;
   }
   var bp0 = true;
+  // Fundo branco pelo modelo, sem cortar a armação.
   function modelWhiten(full) {
     return segLoad().then(function (M) {
       var W = full.width,
@@ -4741,6 +4801,8 @@
     for (i = 0; i < n; i++) if (rd[i]) o[i] = 0;
     return o;
   }
+  // ===== Imagem: fundo branco sem cortar a armação. =====
+  // Monta a imagem final: peça sobre fundo branco.
   function compose(cr, a512, S) {
     var w = 1000,
       n = w * w,
@@ -5074,6 +5136,7 @@
     og.drawImage(full, cx0, cy0, cw, ch, (S2 - dw) / 2, (S2 - dh) / 2, dw, dh);
     return { canvas: out, pieces: [], bbox: [x0 / w, y0 / h, (x1 + 1) / w, (y1 + 1) / h] };
   }
+  // Detecta fundo de superfície/prateleira.
   function shelfLike(full) {
     var sc = Math.min(1, 120 / Math.max(full.width, full.height)),
       w = Math.max(8, Math.round(full.width * sc)),
@@ -5200,6 +5263,7 @@
     g.putImageData(sd, 0, 0);
     return lightWhite(c);
   }
+  // Fluxo principal do fundo branco: escolhe o método e recusa quando não é seguro.
   function whiten(full) {
     var W = full.width,
       H = full.height,
@@ -6888,11 +6952,13 @@
     };
   }
 
+  // Canvas → JPEG.
   function toBlob(c, q) {
     return new Promise(function (res) {
       c.toBlob(res, 'image/jpeg', q || 0.9);
     });
   }
+  // Cor típica da peça (ignora o fundo claro).
   function skin(c, fallback) {
     var g = c.getContext('2d'),
       d = g.getImageData(0, 0, c.width, c.height).data,
@@ -6915,12 +6981,15 @@
     return [m(R), m(G), m(B)];
   }
   // leitura do código da etiqueta/haste
+  // ===== Leitura do código da foto: OCR offline (Tesseract) e IA online. =====
+  // Instrução enviada à IA para ler a etiqueta.
   function labelPrompt() {
     var pr =
       'Esta é a foto de um óculos (armação, solar ou pré-graduado). Se houver duas imagens, a primeira é um recorte ampliado da peça (use para ler textos pequenos, como o código impresso na lente ou na haste, ex. BR44118 53□18-140) e a segunda é a foto inteira. Leia SOMENTE o que estiver escrito na foto (etiqueta, haste, lente). Responda JSON com as chaves: referencia (código do modelo, ex. CX012, SP57765), medidas (ex. "56-18-140"), variante (C1 a C6 se houver), grau (apenas se for pré-graduado, ex. "+1.75"), material (ex. Alumínio), tipo ("pre","sem" ou "solar" pelo aspecto), formato (um de: ' +
       S.formats.join(', ') +
       '), cor (nome curto em português da cor da peça), extras (ex. Clip-on), pecas. Em pecas, se a foto mostrar VÁRIAS armações/óculos separados (2 ou mais), liste cada um como {caixa:[x0,y0,x1,y1] em milésimos da imagem (0 a 1000, caixa justa em volta SÓ daquela peça), variante (rótulo tipo C4 escrito perto da peça, ou null), cor (nome curto em português), qtd (número escrito ao lado do rótulo, só se existir, senão null)}; ignore logotipos e textos. Se houver só uma peça, pecas=[]. Use null quando não estiver visível. NÃO invente.';
   }
+  // Leitura da etiqueta pela IA, quando disponível.
   function readSample(blobs) {
     return Promise.resolve()
       .then(function () {
@@ -6955,6 +7024,7 @@
       }
     } catch (e) {}
   }, 8000);
+  // Carrega o Tesseract (OCR) uma vez.
   function loadTess() {
     if (window.Tesseract) return Promise.resolve();
     if (tessP) return tessP;
@@ -6988,6 +7058,7 @@
     return tessP;
   }
   var OCRDEAD = 0;
+  // Worker do OCR (recriado se falhar).
   function getWorker() {
     if (tessW) return tessW;
     if (OCRDEAD && Date.now() - OCRDEAD < 90000) return Promise.reject({ code: 'dead' });
@@ -7146,6 +7217,7 @@
     G: '6',
     B: '8'
   };
+  // Corrige letras confundidas com dígitos.
   function fixDigits(t) {
     return t
       .split('')
@@ -7190,6 +7262,7 @@
     });
     return acc;
   }
+  // Os dois itens mais votados.
   function top2(o) {
     var k,
       a = [];
@@ -7221,6 +7294,7 @@
       maybeMed: md[0] ? md[0][0] : null
     };
   }
+  // Textos iguais ou com no máximo 1 erro?
   function lev1(a, b) {
     if (a === b) return true;
     var la = a.length,
@@ -7231,6 +7305,7 @@
     if (la === lb) return a.slice(i + 1) === b.slice(i + 1);
     return la > lb ? a.slice(i + 1) === b.slice(i) : a.slice(i) === b.slice(i + 1);
   }
+  // Busca aproximada de um código no texto.
   function fuzzyHas(T, R) {
     var n = R.length,
       L,
@@ -7263,6 +7338,7 @@
       ? votes[0][0]
       : null;
   }
+  // Lê o texto da foto com OCR offline.
   function readTess(canvas, prog) {
     return getWorker().then(function (w) {
       var W = canvas.width,
@@ -7389,6 +7465,7 @@
         getWorker().catch(function () {});
     } catch (e) {}
   }, 6000);
+  // Mostra o estado da leitura.
   function setRead(t, cls) {
     if (t && !/…\s*$/.test(t)) loadMsg(false);
     var e = $('phRead');
@@ -7396,6 +7473,7 @@
     e.className = 'note ' + (cls || 'n-info');
     e.textContent = t || '';
   }
+  // Aplica o resultado da leitura aos campos.
   function applyRead(r, tok, eng) {
     if (!P || P.tok !== tok || !r) return;
     var got = [];
@@ -7482,6 +7560,7 @@
       );
     render();
   }
+  // Recorta a área da etiqueta para leitura.
   function cropForRead(img, bb) {
     var w = img.naturalWidth || img.width,
       h = img.naturalHeight || img.height,
@@ -7499,6 +7578,7 @@
     g.drawImage(img, x0, y0, cw, ch, 0, 0, c.width, c.height);
     return c;
   }
+  // Lê o código da foto (IA online; senão OCR offline).
   function readPhoto(full, tok, img, bb) {
     setRead('Lendo o código da foto…', 'n-info');
     var crop = img && bb ? cropForRead(img, bb) : full,
@@ -7551,6 +7631,7 @@
       );
     });
   }
+  // ===== Fila de fotos e cartão da foto (cadastro de nova peça). =====
   $('phCodeBtn').onclick = function () {
     if (!P) return;
     var tok = P.tok;
@@ -7633,6 +7714,7 @@
     im.src = url;
   };
   var Q = [];
+  // Avança para a próxima foto da fila.
   function nextQ() {
     if (Q.length) {
       var nf = Q.shift();
@@ -7908,6 +7990,7 @@
       render();
     }
   };
+  // Dados digitados no cartão da foto.
   function phInfo() {
     var sm0 = isSimple((P && P.tipo) || S.tipo),
       ref = normRef($('phRef').value, sm0),
@@ -7933,6 +8016,7 @@
       simple: isSimple(tipo)
     };
   }
+  // Cartão da foto: prévia, leitura e cadastro.
   function renderPhoto() {
     var card = $('photoCard');
     if (!P) {
@@ -8272,19 +8356,23 @@
     $('rows').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   };
   // ================= Negócio: câmbio, despesas, vendas =================
+  // ===== Formatadores, constantes e cálculo/registro de vendas. =====
   var DAY = 86400000,
     now0 = Date.now();
+  // Timestamp de d dias e h horas atrás.
   function tAgo(d, h) {
     return now0 - d * DAY - (h || 0) * 3600000;
   }
   var gs = function (n) {
     return 'G$ ' + dots(n);
   };
+  // Formata número conforme a moeda.
   function nf(v, m) {
     return m === 'pyg'
       ? dots(v)
       : v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
+  // Formata valor com símbolo da moeda.
   function fmtM(v, m) {
     return (m === 'pyg' ? 'G$ ' : m === 'usd' ? 'US$ ' : 'R$ ') + nf(v, m);
   }
@@ -8404,19 +8492,23 @@
   };
   S.fxNext = Date.now() + 5000;
 
+  // Soma das despesas mensais.
   function totalMensal() {
     return S.exp.reduce(function (a, e) {
       return a + e.valor;
     }, 0);
   }
+  // Despesa mensal rateada por peça.
   function contasPeca() {
     return Math.round(totalMensal() / Math.max(1, S.volume));
   }
+  // Tipo pelo id.
   function tipoOf(id) {
     return tipoAll().filter(function (x) {
       return x.id === id;
     })[0];
   }
+  // Colchão cambial calculado pelo histórico do câmbio.
   function colchao() {
     var from = Date.now() - S.janela * DAY,
       h = S.fxHist.filter(function (p) {
@@ -8442,6 +8534,7 @@
       janela: S.janela
     };
   }
+  // Calcula a divisão da venda: reposição, contas e lucro.
   function calcSale(t, qty, fx, pct, cPeca, melhPeca, priceOv) {
     var price = priceOv != null ? priceOv : t.price * qty,
       repP = Math.round(t.repUSD * fx),
@@ -8461,11 +8554,13 @@
       trava: repP + cPeca
     };
   }
+  // Descrição curta de uma venda.
   function descOf(x) {
     return x.qty + '× ' + x.ref + ' ' + (x.tipo === 'pre' ? x.grau : x.vr) + ' · ' + x.cor;
   }
   S.sales = [];
   S.saleSeq = 0;
+  // Cria uma venda (usada nos dados de exemplo).
   function mkSale(ts, tipo, ref, cor, grau, vr, qty, fx, pct, cPeca, est) {
     var t = tipoOf(tipo),
       c = calcSale(t, qty, fx, pct, cPeca, 1000);
@@ -8521,6 +8616,7 @@
   S.sales.sort(function (a, b) {
     return b.ts - a.ts;
   });
+  // Registra a venda e movimenta estoque e caixa.
   function addSale(it, qty, pay) {
     var c = colchao(),
       cp = contasPeca(),
@@ -8549,6 +8645,7 @@
     S.sales.unshift(s);
     return s;
   }
+  // Mostra como o valor da venda se divide.
   function showSplit(sale) {
     var parts = [
       [
@@ -8615,9 +8712,11 @@
       ' Esta venda foi gravada no Histórico.';
     $('splitCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
+  // ===== Categorias, formatos, cores, variações (C1–C6) e criação de tipos. =====
 
   // ---------- navegação
 
+  // Data URL → Blob.
   function dataToBlob(u, type) {
     return fetch(u)
       .then(function (r) {
@@ -8641,6 +8740,7 @@
         });
       });
   }
+  // Categorias em uso.
   function catList() {
     var seen = {},
       out = [];
@@ -8666,6 +8766,7 @@
     });
     return out;
   }
+  // Tela de categorias por tipo.
   function renderCatV() {
     if (!S.cvTipo) S.cvTipo = 'all';
     if (!S.cvOff) S.cvOff = {};
@@ -8794,6 +8895,7 @@
       } catch (e) {}
     }
   }
+  // Botões de variação de cor.
   function varChips(cur) {
     ensureVar(cur);
     var a = [],
@@ -8802,6 +8904,7 @@
     for (k = 1; k <= m; k++) a.push('C' + k);
     return a;
   }
+  // Variações disponíveis.
   function varList() {
     var m = S.maxVar || 6;
     S.items.forEach(function (i) {
@@ -8813,6 +8916,7 @@
     for (var k = 1; k <= m; k++) a.push('C' + k);
     return a;
   }
+  // Adiciona os botões de variação a um contêiner.
   function addVarChips(host, cur, pick) {
     varList().forEach(function (v) {
       host.appendChild(
@@ -8838,6 +8942,7 @@
       })
     );
   }
+  // Caixa para criar novo formato/cor.
   function newBox(host, flag, withColor, ph, done) {
     if (S.nf !== flag && S.nc !== flag) {
       host.textContent = '';
@@ -8881,6 +8986,7 @@
       i.focus();
     } catch (e) {}
   }
+  // Salva um formato novo.
   function fmtDone(setter) {
     return function (n) {
       var ex = S.formats.filter(function (f) {
@@ -8892,6 +8998,7 @@
       render();
     };
   }
+  // Salva uma cor nova.
   function corDone(setter) {
     return function (n, hex) {
       var ex = Object.keys(S.palette).filter(function (k) {
@@ -8903,6 +9010,7 @@
       render();
     };
   }
+  // Caixa para criar um tipo.
   function mkTipoBox(host) {
     if (!S.nt) {
       host.textContent = '';
@@ -8984,11 +9092,13 @@
     } catch (e) {}
   }
 
+  // Tipo com o custo efetivo da peça.
   function tFor(it) {
     var t = tipoOf(it.tipo),
       cu = effCusto(it);
     return cu != null ? Object.assign({}, t, { repUSD: cu, pago: cu }) : t;
   }
+  // Lê um valor digitado conforme a moeda.
   function pm(x, m) {
     var t = String(x == null ? '' : x)
       .trim()
@@ -9000,9 +9110,11 @@
     }
     return parseFloat(t);
   }
+  // Converte um valor para US$.
   function convUsd(c, m) {
     return (c * ratePyg(m)) / S.fx.pyg;
   }
+  // Cria o tipo se ainda não existir.
   function ensureTipo(nm) {
     nm = String(nm || '')
       .trim()
@@ -9027,6 +9139,7 @@
     syncTipos();
     return id;
   }
+  // Interface para criar novo tipo.
   function newTipoUI(st, rer, pick, nav, host) {
     if (!st.nt) {
       nav.appendChild(
@@ -9079,36 +9192,46 @@
   function quickCor(n) {
     return ['azul petroleo', 'vinho', 'bege translucido'].indexOf(nrm(n)) < 0;
   }
+  // A peça passa no filtro de formato?
   function fOk(i) {
     return S.fmtF === 'all' || String(S.fmtF).split('|').indexOf(i.fmt) >= 0;
   }
+  // Formatos selecionados.
   function fSel() {
     return S.fmtF === 'all' ? [] : String(S.fmtF).split('|');
   }
+  // Tipos selecionados.
   function tSel() {
     return S.todos ? S.selSet || [] : S.lotesView ? [] : [S.tipo];
   }
+  // Id do tipo Variados.
   function varId() {
     var t = TIPOS.filter(function (x) {
       return nrm(x.label) === 'variados';
     })[0];
     return t ? t.id : '';
   }
+  // ===== Lotes de compra: grupos, custos e seleção de lote. =====
+  // É o tipo Variados?
   function MIX(t) {
     return t === 'mix' || (!!t && t === varId());
   }
+  // Tipos disponíveis para lotes.
   function LTIPOS() {
     return varId()
       ? TIPOS.slice()
       : TIPOS.concat([{ id: 'mix', label: 'Variados', full: 'Variados' }]);
   }
+  // Nome do tipo de um lote.
   function gTipoName(g) {
     var tp = tipoOf(g.tipo);
     return tp ? tp.full : MIX(g.tipo) ? 'Variados' : g.tipo;
   }
+  // Custo total do lote.
   function gTot(g) {
     return g.totalUsd != null ? g.totalUsd : (g.usd || 0) * g.qty;
   }
+  // Peças e custo já detalhados do lote.
   function gOwn(g) {
     var q = g.ownQ || 0,
       c = g.ownC || 0;
@@ -9120,6 +9243,7 @@
     });
     return { q: q, c: c };
   }
+  // Seletor numérico com + e −.
   function qStep(obj, key, lbl, min, ph) {
     var d = mk('div', '');
     d.appendChild(mk('div', 'lbl', lbl));
@@ -9154,6 +9278,7 @@
     d.appendChild(r);
     return d;
   }
+  // Mostra um erro em aviso flutuante.
   function popErr(t) {
     try {
       var e = $('popErr');
@@ -9186,6 +9311,7 @@
       }, 7000);
     } catch (x) {}
   }
+  // Valida o custo informado contra o total do lote.
   function gCostErr(g, add, skip, per, qty) {
     if (!g || !(add > 0)) return '';
     var c = gOwn(g).c;
@@ -9217,6 +9343,7 @@
       );
     return '';
   }
+  // Custo unitário do lote.
   function gUnit(g) {
     if (!(g.qty > 0)) return 0;
     var o = gOwn(g),
@@ -9224,6 +9351,7 @@
     if (n <= 0) return gTot(g) / g.qty;
     return Math.max(0, (gTot(g) - o.c) / n);
   }
+  // Texto do valor pago do lote.
   function gPaid(g) {
     return (
       'Custo total ' +
@@ -9237,6 +9365,7 @@
         : '')
     );
   }
+  // Custo efetivo da peça (próprio ou do lote).
   function effCusto(i) {
     if (i.custo != null) return i.custo;
     var g =
@@ -9246,6 +9375,7 @@
       })[0];
     return g ? gUnit(g) : null;
   }
+  // Peças já detalhadas do lote.
   function grpDet(g) {
     return sum(
       S.items.filter(function (i) {
@@ -9253,6 +9383,7 @@
       })
     );
   }
+  // Sincroniza as peças a granel com os lotes.
   function syncBulk() {
     var ids = {};
     var vid = varId();
@@ -9308,12 +9439,15 @@
       }
     });
   }
+  // Peças restantes do lote (total − vendidas).
   function grpTot(g) {
     return Math.max(0, g.qty - (g.sold || 0));
   }
+  // Peças do lote ainda sem detalhar.
   function grpFalta(g) {
     return Math.max(0, grpTot(g) - grpDet(g));
   }
+  // Lotes abertos de um tipo.
   function openGrp(tipo) {
     var a = S.grp.filter(function (g) {
       return grpFalta(g) > 0;
@@ -9328,9 +9462,11 @@
         })
       );
   }
+  // Rótulo do lote (fornecedor · custo).
   function gLabel(g) {
     return g.forn + ' · ' + usd(gUnit(g));
   }
+  // Lote escolhido na seleção.
   function pickG(tipo, sel) {
     var ops = openGrp(tipo);
     if (!ops.length || !sel || sel === 'none') return { g: null };
@@ -9339,11 +9475,13 @@
     })[0];
     return { g: g || null };
   }
+  // Aviso quando a quantidade excede o lote.
   function gCap(g, qty) {
     return g && qty > grpFalta(g)
       ? 'O lote "' + gLabel(g) + '" só tem ' + grpFalta(g) + ' peça(s) para detalhar.'
       : '';
   }
+  // Botões para escolher o lote.
   function loteChips(id, tipo, sel, setSel) {
     var bx = $(id + 'B'),
       ops = openGrp(tipo);
@@ -9384,6 +9522,8 @@
       );
     });
   }
+  // ===== Aba Lotes: lista, detalhe, formulário e leitura da nota. =====
+  // Cartão de um lote (resumo e ações).
   function lotCard(g, opt) {
     var f = grpFalta(g),
       tot = grpTot(g),
@@ -10054,6 +10194,7 @@
     }
     return c;
   }
+  // Aba Lotes.
   function renderLotes() {
     var h = $('lotes');
     h.textContent = '';
@@ -10062,6 +10203,7 @@
     /* progresso dos lotes só aparece na aba Lotes */
   }
 
+  // Preenche o modal de descrição das peças.
   function descModalFill() {
     var m = $('descModal');
     if (!S.descOpen) {
@@ -10138,6 +10280,7 @@
       box.appendChild(c);
     });
   }
+  // Tela de lotes: lista, filtros e detalhe.
   function renderLotView() {
     var on = !!S.lotesView,
       h = $('lotView');
@@ -10417,6 +10560,7 @@
     }
     descModalFill();
   }
+  // Texto minúsculo e sem acentos.
   function noAcc(x) {
     try {
       return String(x).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
@@ -10424,6 +10568,7 @@
       return String(x).toLowerCase();
     }
   }
+  // Texto de valor → número (aceita . e ,).
   function numAmt(x) {
     x = String(x)
       .replace(/[^\d.,]/g, '')
@@ -10450,6 +10595,7 @@
     var v = parseFloat(x);
     return isFinite(v) ? v : null;
   }
+  // Interpreta o texto da nota: quantidades e valores do lote.
   function parseLote(t) {
     t = String(t || '');
     var q = {},
@@ -10520,9 +10666,11 @@
     return { qty: qty, usd: usdv, total: total, tipo: tipo, forn: fs.length === 1 ? fs[0] : null };
   }
   window.__parseLote = parseLote;
+  // Novo rascunho do formulário de lote.
   function lfNew() {
     return { forn: '', moeda: 'usd', rows: [{ tipo: '', qty: '', usd: '' }] };
   }
+  // Formulário de novo lote.
   function renderLotForm() {
     var h = $('lotForm');
     h.textContent = '';
@@ -10775,6 +10923,7 @@
     box.appendChild(row);
     h.appendChild(box);
   }
+  // Lê a foto da nota de compra e preenche o lote.
   function readNota(file) {
     var m = $('lotMsg');
     m.style.color = 'var(--mute)';
@@ -10857,6 +11006,8 @@
     var f = e.target.files && e.target.files[0];
     if (f) readNota(f);
   };
+  // ===== Aba Vendas. =====
+  // Aba Vendas.
   function renderVendas() {
     renderCatV();
     if (S.view !== 'vendas') return;
@@ -11054,6 +11205,8 @@
     render();
   };
   /* ===== ler o código impresso na haste (OCR no aparelho) ===== */
+  // ===== Códigos parecidos e utilitários do leitor de haste. =====
+  // Chave normalizada de um código (A–Z, 0–9).
   function hKey(t) {
     return String(t)
       .toUpperCase()
@@ -11091,6 +11244,7 @@
     } catch (e) {}
     return out;
   }
+  // Mostra o aviso de códigos parecidos.
   function updSim(refId, nomeId, afterId, boxId, skip) {
     var box = $(boxId);
     if (!box) {
@@ -11140,6 +11294,7 @@
       box.appendChild(b);
     });
   }
+  // Distância de Levenshtein.
   function lev(a, b) {
     var m = a.length,
       n = b.length,
@@ -11159,6 +11314,7 @@
         );
     return d[m][n];
   }
+  // Cruza o texto lido com os códigos de haste.
   function hMatch(texts) {
     var words = {},
       refs = {};
@@ -11205,6 +11361,7 @@
     });
     return out;
   }
+  // Gira um canvas.
   function rotCv(src, deg) {
     if (!deg) return src;
     var w = src.width,
@@ -11219,6 +11376,7 @@
   }
   var HOV = null,
     HT = null;
+  // Fecha o leitor de haste.
   function hasteClose() {
     if (HOV) {
       HOV.remove();
@@ -11227,8 +11385,10 @@
   }
 
   /* ===== câmera própria: o que aparece na tela é exatamente o que é analisado ===== */
+  // ===== Câmera do app (visor, galeria, lanterna, prévia) e plano B nativo. =====
   var CAMO = null,
     CAMS = null;
+  // Fecha a câmera e libera o vídeo.
   function camClose() {
     if (CAMS) {
       try {
@@ -11243,6 +11403,7 @@
       CAMO = null;
     }
   }
+  // Arquivo de foto → imagem com orientação correta.
   function normFile(f) {
     return (
       window.createImageBitmap
@@ -11270,6 +11431,7 @@
         return f;
       });
   }
+  // Nitidez (foco) de um quadro.
   function sharpOf(cv) {
     try {
       var w = 320,
@@ -11305,6 +11467,7 @@
     }
   }
   var ARM = 0;
+  // Detecta o retorno da câmera nativa.
   function armReturn(lbl) {
     ARM = Date.now();
     var f = function () {
@@ -11324,6 +11487,7 @@
     window.addEventListener('focus', f);
     document.addEventListener('visibilitychange', v);
   }
+  // Abre a câmera/galeria nativa do aparelho.
   function nativeInput(onFile, gal, lbl) {
     var i = document.createElement('input');
     i.type = 'file';
@@ -11353,6 +11517,7 @@
     };
     return i;
   }
+  // Plano B quando a câmera do app não abre.
   function camFallback(done, gal, lbl) {
     armNative();
     var ov = document.createElement('div');
@@ -11413,6 +11578,7 @@
   }
   var NATIVE = false,
     HCAM = '';
+  // Liga a captura nativa no botão do leitor.
   function armNative() {
     if (NATIVE) return;
     NATIVE = true;
@@ -11440,6 +11606,7 @@
       w.appendChild(nativeInput(d[1], false, d[0] === 'btnLeitor' ? 'Analisando código' : ''));
     });
   }
+  // Abre a câmera do app (com plano B se falhar).
   function camOpen() {
     try {
       camOpen0.apply(null, arguments);
@@ -11449,6 +11616,7 @@
     }
   }
   var LIVEX = null;
+  // Câmera do app: visor, disparo, galeria, lanterna e prévia.
   function camOpen0(done, title, opts) {
     opts = opts || {};
     LIVEX = null;
@@ -11989,10 +12157,12 @@
         );
     }
   }
+  // ===== Leitor de código: diálogos e fluxo de cadastro por foto. =====
   var HADD = false,
     HMED = '',
     HVR = '',
     HERR = '';
+  // Dica para abrir por https e liberar a câmera.
   function httpsHint() {
     return /^https?:$/.test(location.protocol)
       ? ''
@@ -12022,6 +12192,7 @@
     document.body.appendChild(ov);
   }
   var LM = null;
+  // Aviso animado de carregamento.
   function loadMsg(on, txt, cap) {
     /* aviso animado padrão (mesmo do leitor) */
     try {
@@ -12045,6 +12216,7 @@
       }, cap || 20000);
     } catch (e) {}
   }
+  // Nome e custo já conhecidos de um código.
   function refInfo(ref) {
     /* nome e custo já conhecidos de um código do estoque */
     var k = hKey(ref),
@@ -12065,6 +12237,7 @@
     }
     return r;
   }
+  // Leva os dados lidos para o cadastro.
   function fillAdd(o) {
     /* leva os dados lidos/conhecidos para o formulário de cadastro */
     if (o.tipo && o.tipo !== S.tipo) {
@@ -12098,6 +12271,7 @@
         $('eRef').scrollIntoView({ behavior: 'smooth', block: 'center' });
       } catch (e) {}
   }
+  // Mostra o resultado da leitura.
   function leitorResult(x) {
     loadMsg(false);
     if (!x || !x.ref) {
@@ -12382,6 +12556,7 @@
     w.setAttribute('role', 'status');
     return w;
   }
+  // Lê o código de uma foto.
   function leitorFromPhoto(f) {
     loadMsg(true, 'Analisando código', 75000);
     (window.createImageBitmap
@@ -12398,6 +12573,7 @@
       })
       .then(leitorResult);
   }
+  // Abre a câmera do leitor de código.
   function leitorOpen() {
     camOpen(function () {}, 'Leitor de código', {
       strip: true,
@@ -12411,6 +12587,7 @@
   try {
     if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) armNative();
   } catch (e) {}
+  // Aplica a leitura prévia ao cartão da foto.
   function applyPre(x, tok) {
     if (!P || P.tok !== tok || !x) return;
     var got = [];
@@ -12440,6 +12617,7 @@
       );
     render();
   }
+  // Segundo passo: foto da peça após ler o código.
   function step2(pre) {
     PRESET = pre && (pre.ref || pre.med || pre.vr) ? pre : null;
     camOpen(
@@ -12454,6 +12632,7 @@
       }
     );
   }
+  // Diálogo para confirmar o código lido.
   function codeDialog(res, note) {
     var ov = document.createElement('div');
     ov.id = 'codeDlg';
@@ -12521,6 +12700,7 @@
     ov.appendChild(bx);
     document.body.appendChild(ov);
   }
+  // Adicionar peça: foto → leitura → cadastro.
   function smartAdd() {
     camOpen(
       function (f) {
@@ -12566,6 +12746,8 @@
   }
 
   /* leitura tolerante: junta o texto sem espaços/quebras e procura CÓDIGO + medidas (o quadradinho pode virar 0, 4 ou sumir) */
+  // ===== Leitor de haste: interpretação do texto lido (código, medida, variação). =====
+  // Interpreta o texto corrido da haste.
   function flatParse(t) {
     var F = String(t)
         .toUpperCase()
@@ -12604,6 +12786,7 @@
     }
     return best;
   }
+  // Extrai código, medida e variação da haste.
   function parseHaste(texts) {
     var o = { ref: '', med: '', vr: '' };
     for (var a = 0; a < texts.length && !o.med; a++) {
@@ -12710,6 +12893,7 @@
     }
     return o;
   }
+  // Prefixo de código conhecido?
   function knownPre(p) {
     if (/^(PY|SP|BR|SL|CX)$/.test(p)) return true;
     try {
@@ -12720,6 +12904,7 @@
       return false;
     }
   }
+  // Votação entre várias leituras.
   function parseVote(texts) {
     var tl = { ref: {}, med: {}, vr: {} },
       fr = 0;
@@ -12835,6 +13020,7 @@
   window.__rotateCanvas = function (c, d) {
     return rotateCanvas(c, d);
   };
+  // Gira o canvas em graus.
   function rotateCanvas(src, deg) {
     if (!deg) return src;
     var r = (deg * Math.PI) / 180,
@@ -12858,6 +13044,8 @@
     window.__skewOf = skewOf;
     return c;
   }
+  // ===== Leitor de haste: pré-processamento da imagem para o OCR. =====
+  // Variante pré-processada da imagem para o OCR.
   function prepVar(src, k, mw, mxs) {
     var W = src.width,
       H = src.height,
@@ -12985,6 +13173,7 @@
       });
     return o;
   }
+  // Refina a leitura de uma linha.
   function refineLine(w, an, tight) {
     var sc = an.src.width / an.pv.width,
       wd = an.wd,
@@ -13044,6 +13233,7 @@
     for (i = 0; i < n; i++) o[i] = d[i * 4] < 128 ? 1 : 0;
     return o;
   }
+  // Remove linhas longas da tinta.
   function dropRuns(o, w, h, L) {
     var y, x, s;
     for (y = 0; y < h; y++) {
@@ -13059,6 +13249,7 @@
       }
     }
   }
+  // Abertura morfológica da tinta.
   function openInk(o, w, h, r) {
     function pass(a, v) {
       var t = new Uint8Array(w * h),
@@ -13112,6 +13303,7 @@
     }
     return pass(pass(o, 1), 0);
   }
+  // Abertura morfológica com reconstrução.
   function openRec(o, w, h, r, it) {
     var c = openInk(o, w, h, r),
       k,
@@ -13128,6 +13320,7 @@
     }
     return c;
   }
+  // Componentes de caracteres da tinta.
   function charInk(o, w, h, hmin, hmax) {
     var lab = new Int32Array(w * h),
       st = new Int32Array(w * h),
@@ -13183,6 +13376,7 @@
     }
     return { keep: keep, cs: cs };
   }
+  // Histograma de linhas.
   function rowHist(cs, h) {
     var r = new Float64Array(h);
     cs.forEach(function (c) {
@@ -13200,6 +13394,7 @@
     }
     return o;
   }
+  // Endireita a faixa de texto.
   function deskewBand(src) {
     var bin = prepVar(src, 4, 1300),
       sm = mkCanvas(Math.round(bin.width / 2), Math.round(bin.height / 2)),
@@ -13238,6 +13433,7 @@
     }
     return { bin: bin, deg: best.d };
   }
+  // Recortes das faixas de texto.
   function bandCrops(src) {
     var o = deskewBand(src),
       r = rotateCanvas(o.bin, o.deg),
@@ -13290,6 +13486,7 @@
   window.__bandCropsFn = function (c) {
     return bandCrops(c);
   };
+  // Pré-leitura da haste em várias variantes.
   function preRead(full, psm) {
     var old = HADD;
     HADD = true;
@@ -13479,8 +13676,10 @@
       return 0.3;
     }
   }
+  // ===== Leitor de haste: busca no estoque e tela do leitor. =====
   var PRE = null;
 
+  // Busca a haste lida no estoque.
   function hFind(texts) {
     if (!HADD) return hMatch(texts);
     var ph = parseHaste(texts);
@@ -13534,6 +13733,7 @@
     });
     return out;
   }
+  // Leitor de haste: foto, leitura e resultado.
   function hasteOpen(inp, add) {
     hasteClose();
     HADD = !!add;
@@ -13798,6 +13998,8 @@
     render();
     showSplit(sale);
   };
+  // ===== Navegação entre abas e Dashboard. =====
+  // Troca de aba.
   function setView(v) {
     S.view = v;
     S.msg = '';
@@ -13807,6 +14009,7 @@
     render();
     window.scrollTo(0, 0);
   }
+  // Navegação principal.
   function renderNav() {
     var n = $('mainnav'),
       sl = n.scrollLeft;
@@ -13855,12 +14058,14 @@
       return x + s[k];
     }, 0);
   }
+  // Vendas de um período.
   function periodSales(days) {
     var from = days === 0 ? new Date().setHours(0, 0, 0, 0) : Date.now() - days * DAY;
     return S.sales.filter(function (s) {
       return !s.estorno && s.ts >= from;
     });
   }
+  // Aba Dashboard.
   function renderDash() {
     var el = $('v-dash'),
       ps = periodSales(S.per),
@@ -14076,6 +14281,8 @@
   }
 
   // ---------- câmbio
+  // ===== Aba Câmbio: cotação, gráfico e atualização. =====
+  // Gráfico de linha em SVG.
   function lineSvg(vals, labs, fmt) {
     var W = 640,
       H = 230,
@@ -14155,6 +14362,7 @@
       '</svg>'
     );
   }
+  // Aba Câmbio.
   function renderFx() {
     var el = $('v-fx'),
       f = S.fx,
@@ -14252,6 +14460,7 @@
     el.innerHTML = html;
     tickFx();
   }
+  // Atualiza o contador do câmbio.
   function tickFx() {
     var cd = $('cd');
     if (cd) {
@@ -14260,6 +14469,7 @@
         String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
     }
   }
+  // Grava a cotação (histórico do dia) e redesenha.
   function setFx(pyg, brl, src, live, status) {
     var last = S.fxHist[S.fxHist.length - 1],
       pt = { ts: Date.now(), pyg: Math.round(pyg), brl: brl };
@@ -14273,6 +14483,7 @@
     renderHist();
     renderDay();
   }
+  // Busca a cotação online.
   function fetchFx() {
     S.fxNext = Date.now() + 180000;
     var fail = function () {
@@ -14307,12 +14518,14 @@
     tickFx();
     if (Date.now() >= S.fxNext) fetchFx();
   }, 1000);
+  // ===== Aba Despesas. =====
 
   // ---------- despesas
   function ymNow() {
     var d = new Date();
     return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2);
   }
+  // Cartão de uma despesa.
   function expCard(e) {
     var last = e.hist[e.hist.length - 1],
       paid = !!(e.paid && e.paid[ymNow()]);
@@ -14384,6 +14597,7 @@
         '</div>';
     return h + '</div>';
   }
+  // Aba Despesas.
   function renderDesp() {
     var el = $('v-desp'),
       tm = totalMensal(),
@@ -14511,6 +14725,8 @@
   }
 
   // ---------- histórico
+  // ===== Aba Histórico: dias, vendas e registros. =====
+  // Totais de um dia.
   function dayStats(k) {
     var inDay = function (x) {
         return dayKey(x.ts) === k;
@@ -14539,6 +14755,7 @@
       fx: fx
     };
   }
+  // Aba Histórico.
   function renderHist() {
     var el = $('v-hist'),
       act = activeDays(),
@@ -14598,14 +14815,17 @@
       ('0' + d.getDate()).slice(-2)
     );
   }
+  // Fim de um dia.
   function dayEnd(k) {
     var p = k.split('-');
     return new Date(+p[0], +p[1] - 1, +p[2], 23, 59, 59, 999).getTime();
   }
+  // Formata um dia.
   function fmtDay(k) {
     var p = k.split('-');
     return p[2] + '/' + p[1] + '/' + p[0];
   }
+  // Despesa mensal vigente em uma data.
   function monthlyAt(end) {
     var out = [];
     S.exp.forEach(function (e) {
@@ -14633,6 +14853,7 @@
       });
     return out;
   }
+  // Câmbio de um dia.
   function fxOfDay(k) {
     var end = dayEnd(k),
       ix = -1;
@@ -14646,6 +14867,7 @@
       exact: dayKey(S.fxHist[ix].ts) === k
     };
   }
+  // Cartão de um registro de peça no histórico.
   function elogCard(x) {
     return (
       '<div class="card" style="padding:14px"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center"><div><span class="cell">Entrada de estoque</span><div style="margin-top:6px">+' +
@@ -14664,6 +14886,7 @@
       ' un.</b></div></div>'
     );
   }
+  // Dias com movimento.
   function activeDays() {
     var m = {};
     function add(ts, k) {
@@ -14685,6 +14908,7 @@
     });
     return m;
   }
+  // Detalhe de um dia.
   function renderDay() {
     var box = $('v-dia');
     if (!box) return;
@@ -14891,6 +15115,7 @@
       '</div></section>';
     box.innerHTML = h;
   }
+  // Rótulo e texto de um registro de despesa.
   function dlogInfo(x) {
     var L = {
         alt: 'Valor alterado',
@@ -14934,6 +15159,7 @@
     }
     return { label: L, text: t, amount: a, search: (L + ' ' + t).toLowerCase() };
   }
+  // Cartão de um registro de despesa.
   function dlogCard(x) {
     var i = dlogInfo(x);
     return (
@@ -14950,6 +15176,7 @@
       '</b></div></div>'
     );
   }
+  // Cartão de uma venda no histórico.
   function saleCard(s) {
     var open = S.hOpen === s.id,
       dx = S.fx.pyg / s.fx - 1,
@@ -15031,6 +15258,8 @@
   }
 
   // ---------- eventos
+  // ===== Ações dos botões (data-act) e eventos globais. =====
+  // Ações dos botões, por data-act.
   var ACT = {
     view: function (id) {
       setView(id);
@@ -15519,15 +15748,20 @@
   S.cambios = [{ ts: tAgo(7), de: 'pyg', para: 'usd', dado: 650000, rec: 100, difGs: -2500 }];
   S.tr = { de: 'pyg', para: 'usd', v: '300000', rec: '', edited: false };
   S.cxMsg = '';
+  // ===== Aba Caixa: carteira, conversão de moedas e reservas. =====
+  // Cotação de uma moeda em guaranis.
   function ratePyg(m) {
     return m === 'pyg' ? 1 : m === 'usd' ? S.fx.pyg : S.fx.pyg / S.fx.brl;
   }
+  // Converte entre moedas.
   function conv(v, a, b) {
     return (v * ratePyg(a)) / ratePyg(b);
   }
+  // Total da carteira em guaranis.
   function walletGs() {
     return S.cash.pyg + S.cash.usd * ratePyg('usd') + S.cash.brl * ratePyg('brl');
   }
+  // Lê um número digitado.
   function parseDec(v, m) {
     var s = String(v).replace(/[^\d,.]/g, '');
     if (m === 'pyg') return Number(s.replace(/\D/g, '')) || 0;
@@ -15535,9 +15769,11 @@
     var n = parseFloat(s);
     return isNaN(n) ? 0 : n;
   }
+  // Formata um valor para campo.
   function inVal(v, m) {
     return m === 'pyg' ? dots(v) : (Math.round(v * 100) / 100).toFixed(2).replace('.', ',');
   }
+  // Valores reservados (reposição, contas, lucro).
   function reservas() {
     var valid = S.sales.filter(function (s) {
       return !s.estorno;
@@ -15582,6 +15818,7 @@
       livre: wal - guard - melh
     };
   }
+  // Atualiza o recebimento ao digitar.
   function updateRec() {
     var m = S.moeda,
       t = S._t,
@@ -15610,6 +15847,7 @@
       (per < trava ? ' Atenção: abaixo da trava de segurança (' + gs(trava) + ' por peça).' : '');
     el.style.color = per < trava ? 'var(--warn)' : 'var(--mute)';
   }
+  // Calculadora de venda por moeda.
   function renderMoeda() {
     var t = S._t || T(),
       q = (S._qty = S.qty),
@@ -15672,6 +15910,7 @@
       '</select>'
     );
   }
+  // Aba Caixa.
   function renderCaixa() {
     var el = $('v-caixa'),
       r = reservas(),
@@ -15890,6 +16129,7 @@
     el.innerHTML = html;
     updateTr();
   }
+  // Atualiza a transferência entre moedas.
   function updateTr() {
     var t = S.tr,
       v = parseDec(t.v, t.de),
@@ -15939,6 +16179,8 @@
   S.compras.forEach(function (x) {
     S.dlog.push({ ts: x.ts, kind: 'lote', desc: x.desc, usd: x.usd });
   });
+  // ===== Render geral e persistência (localStorage + IndexedDB). =====
+  // Redesenha o app e agenda o salvamento.
   function render() {
     try {
       refreshRefList();
@@ -15973,6 +16215,7 @@
   var IDBOK = false,
     FS = {},
     idbP = null;
+  // Abre o IndexedDB das fotos.
   function idb() {
     if (idbP) return idbP;
     idbP = new Promise(function (ok, no) {
@@ -15999,6 +16242,7 @@
     });
     return idbP;
   }
+  // Executa uma transação no IndexedDB.
   function idbDo(store, mode, fn) {
     return idb().then(function (d) {
       return new Promise(function (ok, no) {
@@ -16017,6 +16261,7 @@
       });
     });
   }
+  // Guarda a foto (miniatura + original).
   function setFoto(k, thumb, hq) {
     S.fotos[k] = thumb;
     if (hq && hq !== thumb)
@@ -16024,6 +16269,7 @@
         return o.put(hq, k);
       }).catch(function () {});
   }
+  // Grava as fotos pendentes no IndexedDB.
   function saveFotos() {
     if (!IDBOK) return;
     var k;
@@ -16052,6 +16298,7 @@
         })(k);
       }
   }
+  // Carrega as fotos do IndexedDB.
   function loadFotos() {
     idb()
       .then(function (d) {
@@ -16118,6 +16365,7 @@
       'pnome',
       'cpay'
     ];
+  // Carrega o estado salvo.
   function loadSaved() {
     try {
       var j = localStorage.getItem(SK);
@@ -16144,6 +16392,7 @@
     } catch (e) {}
   }
   var saveT = 0;
+  // Agenda o salvamento (debounce).
   function saveSoon() {
     clearTimeout(saveT);
     saveT = setTimeout(function () {
