@@ -46,6 +46,12 @@ jobs:
       - name: Criar projeto Android
         run: npx cap add android
 
+      - name: Permissao da camera
+        run: |
+          M=android/app/src/main/AndroidManifest.xml
+          grep -q 'android.permission.CAMERA' $M || sed -i 's#<application#<uses-permission android:name="android.permission.CAMERA" />\n    <uses-feature android:name="android.hardware.camera" android:required="false" />\n    <application#' $M
+          grep -n 'CAMERA\|hardware.camera' $M
+
       - name: Icone do app (opcional)
         continue-on-error: true
         run: |
