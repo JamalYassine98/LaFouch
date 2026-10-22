@@ -2071,9 +2071,10 @@ function camOpen0(done,title,opts){opts=opts||{};LIVEX=null;camClose();
   var bar=document.createElement('div');bar.style.cssText='display:flex;align-items:center;justify-content:center;gap:18px;padding:14px 14px max(18px,env(safe-area-inset-bottom,0px));flex-wrap:wrap';
   var pv=document.createElement('img');pv.style.cssText='display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000';stg.appendChild(pv);
   CAMO=ov;ov.appendChild(top);ov.appendChild(stg);ov.appendChild(bar);document.body.appendChild(ov);
+  function mkGal(){var gl=btn('chip','Galeria',function(){var gi=document.createElement('input');gi.type='file';gi.accept='image/*';gi.style.display='none';document.body.appendChild(gi);gi.onchange=function(){var f=gi.files&&gi.files[0];gi.remove();if(f)normFile(f).then(function(nf){camClose();(opts.liveFallback||done)(nf,{gallery:true})})};gi.click()});gl.style.minHeight='44px';return gl}
   function buildBar(trk,caps){bar.textContent='';
     if(caps&&caps.torch){var tb=btn('chip','Lanterna',function(){tb.classList.toggle('on');try{trk.applyConstraints({advanced:[{torch:tb.classList.contains('on')}]})}catch(e){}});tb.style.minHeight='44px';bar.appendChild(tb)}
-    if(opts.gallery){var gl=btn('chip','Galeria',function(){var gi=document.createElement('input');gi.type='file';gi.accept='image/*';gi.style.display='none';document.body.appendChild(gi);gi.onchange=function(){var f=gi.files&&gi.files[0];gi.remove();if(f)normFile(f).then(function(nf){camClose();(opts.liveFallback||done)(nf,{gallery:true})})};gi.click()});gl.style.minHeight='44px';bar.appendChild(gl)}
+    if(opts.gallery)bar.appendChild(mkGal());
     var sh=document.createElement('button');sh.type='button';sh.setAttribute('aria-label','Tirar foto');sh.style.cssText='width:68px;height:68px;border-radius:50%;border:4px solid #fff;background:#fff;box-shadow:inset 0 0 0 4px #000;cursor:pointer;flex:0 0 auto';bar.appendChild(sh);
     if(caps&&caps.zoom){var zr=document.createElement('input');zr.type='range';zr.min=caps.zoom.min;zr.max=Math.min(caps.zoom.max,caps.zoom.min*5||caps.zoom.max);zr.step=caps.zoom.step||.1;zr.value=caps.zoom.min;zr.style.width='120px';zr.setAttribute('aria-label','Zoom');zr.oninput=function(){try{trk.applyConstraints({advanced:[{zoom:+zr.value}]})}catch(e){}};bar.appendChild(zr)}
     var HR=null,HRtry=false;sh.onclick=function(){
@@ -2086,7 +2087,7 @@ function camOpen0(done,title,opts){opts=opts||{};LIVEX=null;camClose();
         var wm=mk('div','',sp<25?'A foto parece desfocada. Refaça com mais luz e a peça mais firme.':'Confira se a peça está inteira e nítida.');wm.style.cssText='width:100%;text-align:center;font-size:14px;color:'+(sp<25?'#ffc766':'#fff');bar.appendChild(wm);
         var re=btn('chip','Refazer',function(){URL.revokeObjectURL(url);pv.style.display='none';gd.style.display='';tip.style.display='';vid.play();buildBar(trk,caps)});re.style.minHeight='46px';
         var us=btn('mini','Usar esta foto',function(){var f=new File([bl],'foto.jpg',{type:'image/jpeg'});camClose();done(f)});
-        bar.appendChild(re);bar.appendChild(us)},'image/jpeg',.95)}}
+        bar.appendChild(re);if(opts.gallery)bar.appendChild(mkGal());bar.appendChild(us)},'image/jpeg',.95)}}
   var TIP0=tip.textContent;tip.textContent='Abrindo a câmera…';var gum=setTimeout(function(){if(CAMO&&!CAMS){camClose();camFallback(opts.liveFallback||done,opts.gallery,opts.live?'Analisando código':'')}},25000);
   navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:opts.live?1920:4096},height:{ideal:opts.live?1080:2160}}}).then(function(st){
     clearTimeout(gum);if(!CAMO){st.getTracks().forEach(function(t){t.stop()});return}
@@ -2298,7 +2299,7 @@ function hasteOpen(inp,add){hasteClose();HADD=!!add;
   function apply(v){inp.value=v;inp.dispatchEvent(new Event('input',{bubbles:true}));if(HADD&&HMED&&!$('eMedB').hidden&&!$('eMed').value.trim()){$('eMed').value=HMED;$('eMed').dispatchEvent(new Event('input',{bubbles:true}))}hasteClose()}
   var mb=btn('mini','Buscar',function(){if(mi.value.trim())apply(mi.value.trim())});man.appendChild(mi);man.appendChild(mb);
   var fi=document.createElement('input');fi.type='file';fi.accept='image/*';fi.setAttribute('capture','environment');fi.hidden=true;
-  var tk=btn('mini','Tirar foto da haste',function(){camOpen(function(f){try{var dt=new DataTransfer();dt.items.add(f);fi.files=dt.files;fi.onchange()}catch(e){}},'Foto da haste')});tk.style.width='100%';
+  var tk=btn('mini','Tirar foto da haste',function(){camOpen(function(f){try{var dt=new DataTransfer();dt.items.add(f);fi.files=dt.files;fi.onchange()}catch(e){}},'Foto da haste',{gallery:true})});tk.style.width='100%';
   function showRes(list,raw){rs.textContent='';
     if(list.length){rs.appendChild(mk('div','lbl',HADD?'Qual é o código?':'Qual é o produto?'));list.slice(0,5).forEach(function(c){var it=S.items.filter(function(i){return i.ref===c[0]})[0],t=c[0]+(pn(c[0])!==c[0]?' · '+pn(c[0]):'')+(it&&it.cor?' · '+it.cor:'');var b=btn('chip',t,function(){apply(c[0])});b.style.cssText+=';justify-content:flex-start;width:100%';rs.appendChild(b)})}
     else{rs.appendChild(mk('div','hint',(HADD?'Não consegui achar um código nessa foto.':'Não achei nenhum código do seu estoque nessa foto.')+(raw?' Li: “'+raw+'”.':'')+' Tente de novo mais perto, com a haste reta, ou digite abaixo.'))}}
