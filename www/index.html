@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#a2447c">
+<meta name="theme-color" content="#0f1216" media="(prefers-color-scheme:dark)"><meta name="theme-color" content="#f4f1f4" media="(prefers-color-scheme:light)">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png">
@@ -15,7 +15,12 @@
 .busy{display:inline-flex;align-items:center;gap:.5em}
 .busyPill{display:inline-flex;align-items:center;gap:10px;background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:10px 18px;font-weight:600;box-shadow:0 6px 24px rgba(0,0,0,.35)}
 /* Layout: cabeçalho com abas de tipo, filtros, lista à esquerda, painel de venda/entrada à direita (empilha no celular). Visual escuro roxo, baseado na logo. */
-:root{color-scheme:dark;--bg:#0f1216;--panel:#161a20;--panel2:#1e242e;--line:#2a3441;--fg:#e7edf5;--mute:#8b9bb0;--accent:#a2447c;--accent-soft:#2a1a26;--accent-fg:#e08bc0;--ok:#00ff88;--okbg:#122a1e;--warn:#ffc766;--warnbg:#33270d;--bad:#ff9a9a;--badbg:#3a1515;--info:#7fd8ff;--infobg:#12242e;--display:Georgia,'Times New Roman',serif}
+:root{color-scheme:dark;--line2:#222a35;--sub:#cbd5e1;--bar:#a2447c;--bg:#0f1216;--panel:#161a20;--panel2:#1e242e;--line:#2a3441;--fg:#e7edf5;--mute:#8b9bb0;--accent:#a2447c;--accent-soft:#2a1a26;--accent-fg:#e08bc0;--ok:#00ff88;--okbg:#122a1e;--warn:#ffc766;--warnbg:#33270d;--bad:#ff9a9a;--badbg:#3a1515;--info:#7fd8ff;--infobg:#12242e;--display:Georgia,'Times New Roman',serif}
+:root:not([data-tema="escuro"]){}
+@media (prefers-color-scheme:light){:root{color-scheme:light;--line2:#e6dfe5;--sub:#475569;--bg:#f4f1f4;--panel:#ffffff;--panel2:#f0ebf0;--line:#d9d0d8;--fg:#1f1a22;--mute:#6b6472;--accent:#a2447c;--accent-soft:#f3e1ec;--accent-fg:#8a2f66;--ok:#0a7a45;--okbg:#dff3e8;--warn:#8a5a00;--warnbg:#fdf0d2;--bad:#a12a2a;--badbg:#fbe3e3;--info:#0b6b8f;--infobg:#ddf0f7}
+.brand img.lg-e{display:none!important}.brand img.lg-c{display:block!important}
+.chip.on,.mn.on{color:var(--accent-fg)!important}
+.busyPill{box-shadow:0 6px 24px rgba(0,0,0,.15)}}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 body{background:var(--bg);color:var(--fg);font:15px/1.45 'Segoe UI',system-ui,-apple-system,sans-serif;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
@@ -23,21 +28,22 @@ button,input{font:inherit;color:inherit}
 button{cursor:pointer}
 button:focus-visible,input:focus-visible{outline:2px solid var(--accent-fg);outline-offset:2px}
 .wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
-.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px}
 .brand{font-family:var(--display);font-size:26px;letter-spacing:2px;color:var(--accent-fg);line-height:1}
-.brand img{display:block;height:58px;width:auto}
+.brand img.lg-c{display:none}
+.brand img{display:block;height:120px;width:auto;max-width:100%}
 .brand small{display:block;font:700 10px/1 'Segoe UI',sans-serif;letter-spacing:3px;color:var(--mute);margin-top:6px}
 .demo{font-size:12px;color:var(--mute);border:1px dashed var(--line);border-radius:999px;padding:6px 12px}
 h1{margin:0;font-size:26px}
 .crumb{font-size:13px;color:var(--mute);margin-top:4px}
 .tabs{display:flex;gap:8px;flex-wrap:wrap}
-.tab{min-height:44px;padding:0 18px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);color:#cbd5e1;font-size:14px}
+.tab{min-height:44px;padding:0 18px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);color:var(--sub);font-size:14px}
 #filtPanel{position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:16px}
 #filtPanel[hidden]{display:none}
 #filtBox{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:16px;width:100%;max-width:480px;max-height:85vh;overflow:auto}
 .tab.ibtn{padding:0;min-width:44px;display:inline-flex;align-items:center;justify-content:center}
 .tab.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
-.chip{min-height:40px;padding:0 14px;border-radius:999px;background:var(--panel2);border:1px solid var(--line);color:#cbd5e1;font-size:13px;display:inline-flex;align-items:center;gap:8px}
+.chip{min-height:40px;padding:0 14px;border-radius:999px;background:var(--panel2);border:1px solid var(--line);color:var(--sub);font-size:13px;display:inline-flex;align-items:center;gap:8px}
 .chip.on{background:var(--accent-soft);border-color:var(--accent);color:#fff;font-weight:600}
 .dragging{opacity:.95;box-shadow:0 14px 28px rgba(0,0,0,.55),0 0 0 2px var(--accent);position:relative;z-index:50;cursor:grabbing;transition:none}
 @keyframes enterUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
@@ -48,9 +54,9 @@ h1{margin:0;font-size:26px}
 [data-k]{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
 .chip.add{border-style:dashed;color:var(--accent-fg)}
 .dot{width:14px;height:14px;border-radius:50%;border:1px solid var(--mute);flex:none;display:inline-block}
-.card{background:var(--panel);border:1px solid #222a35;border-radius:14px;padding:18px}
+.card{background:var(--panel);border:1px solid var(--line2);border-radius:14px;padding:18px}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
-.kpi{background:var(--panel);border:1px solid #222a35;border-radius:12px;padding:14px}
+.kpi{background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:14px}
 .kpi b{display:block;font-size:28px;font-variant-numeric:tabular-nums;margin-top:4px}
 .lbl{font-size:11px;letter-spacing:1px;color:var(--mute);font-weight:700;text-transform:uppercase;margin-bottom:8px}
 .hint{font-size:12px;color:var(--mute);margin-top:6px}
@@ -104,7 +110,7 @@ textarea.in{min-height:84px;padding:10px 12px;resize:vertical;font:inherit}
 .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
 .tb{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums;min-width:560px}
 .tb th{text-align:left;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--mute);padding:6px 10px 8px 0;border-bottom:1px solid var(--line)}
-.tb td{padding:10px 10px 10px 0;border-bottom:1px solid #222a35}
+.tb td{padding:10px 10px 10px 0;border-bottom:1px solid var(--line2)}
 select.in{appearance:auto}
 .xb{border:none;background:transparent;color:var(--mute);width:28px;height:28px;border-radius:50%;font-size:16px;line-height:1;padding:0}
 .xb:hover{background:var(--badbg);color:var(--bad)}
@@ -146,8 +152,7 @@ select.in{appearance:auto}
 .tab.deltab:hover{background:rgba(239,68,68,.16)!important}
 </style><div class="wrap">
   <div class="top">
-    <div class="brand"><img src="logo-app.png" alt="La Fouch - Tudo em Óculos"></div>
-    <div class="demo">Versão de teste. Os dados ficam só neste aparelho.</div>
+    <div class="brand"><img class="lg-e" src="logo-app.png" alt="La Fouch - Tudo em Óculos"><img class="lg-c" src="logo-app-claro.png" alt="La Fouch - Tudo em Óculos"></div>
   </div>
   <nav class="mainnav" id="mainnav" aria-label="Seções"></nav>
 <div id="descModal" class="modal" hidden role="dialog" aria-modal="true" aria-label="Descrição das peças"><div class="modal-box" id="descBox" style="max-width:560px"></div></div>
@@ -326,7 +331,7 @@ select.in{appearance:auto}
       <div class="hint" id="tipoSum" hidden style="margin:0"></div>
       <div><div class="lbl">Formato</div><div class="nav" id="fmts"></div>
       <div class="sel" id="fmtAdd" hidden style="margin-top:10px;flex-wrap:wrap"><input class="in" id="newFmt" placeholder="Nome do formato (ex.: Oval)" style="flex:1 1 200px;width:auto"><button class="mini" id="btnAddFmt">Adicionar formato</button></div></div>
-    </section><div style="display:flex;gap:10px;justify-content:flex-end;position:sticky;bottom:0;background:var(--panel2);padding-top:8px"><button id="filtApply" type="button" style="min-height:44px;padding:0 20px;border-radius:10px;background:#3a4556;border:1px solid #4b586c;color:#fff;font-size:14px;font-weight:600">Ok</button><button id="filtCancel" type="button" style="min-height:44px;padding:0 18px;border-radius:10px;background:transparent;border:1px solid var(--line);color:#cbd5e1;font-size:14px">Cancelar</button></div></div></div>
+    </section><div style="display:flex;gap:10px;justify-content:flex-end;position:sticky;bottom:0;background:var(--panel2);padding-top:8px"><button id="filtApply" type="button" style="min-height:44px;padding:0 20px;border-radius:10px;background:#3a4556;border:1px solid #4b586c;color:#fff;font-size:14px;font-weight:600">Ok</button><button id="filtCancel" type="button" style="min-height:44px;padding:0 18px;border-radius:10px;background:transparent;border:1px solid var(--line);color:var(--sub);font-size:14px">Cancelar</button></div></div></div>
     <div hidden id="corFilt"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><div class="lbl" style="margin:0">Cor (nome real da peça)</div><button class="mini" id="btnManCor" type="button">Gerenciar cores</button></div><div class="nav" id="cores" style="margin-top:8px"></div>
       <div id="palMan" hidden><div class="sel" style="margin-top:10px;flex-wrap:wrap"><input type="color" id="palHex" value="#4a6fa5" aria-label="Tom da nova cor" style="width:48px;height:44px;border:2px solid var(--line);border-radius:10px;background:var(--bg);padding:2px"><input class="in" id="palName" placeholder="Nova cor (ex.: Azul marinho)" style="flex:1 1 200px;width:auto"><button class="mini" id="palAdd" type="button">Adicionar cor</button></div>
       <div class="hint" id="palH" role="status">Aqui você cria e remove cores. Uma cor só sai quando não tem nenhuma peça em estoque, em nenhum tipo.</div></div></div>
@@ -1668,7 +1673,7 @@ function showSplit(sale){
   var parts=[['Reposição da mercadoria',usd(sale.repUSD)+' ao câmbio de hoje ('+gs(S.fx.pyg)+'). Obrigatório.',sale.rep,'#00c8ff'],
     ['Contas da loja e de casa','Parte do mês coberta por esta venda. Obrigatório.',sale.contas,'#a2447c'],
     ['Colchão de segurança',pc(sale.pct)+' da reposição, pela alta recente do dólar e do custo.',sale.colch,'#ffc766'],
-    ['Caixa de melhorias','Meta flexível. Não trava a venda.',sale.melh,'#7fd8ff'],
+    ['Caixa de melhorias','Meta flexível. Não trava a venda.',sale.melh,'var(--info)'],
     ['Lucro livre','O que sobra para você.',sale.livre,'#00ff88']];
   $('splitCard').hidden=false;
   $('splitH').textContent='Venda '+sale.id+': '+descOf(sale)+' por '+gs(sale.price)+(sale.moeda!=='pyg'?' (recebido '+fmtM(sale.recebido,sale.moeda)+')':'');
@@ -1826,7 +1831,7 @@ function lotCard(g,opt){var f=grpFalta(g),tot=grpTot(g),det=grpDet(g),tp=tipoOf(
       var mbx=$('lotModalBox');mbx.textContent='';var mh=mk('div','mhead');var mt=mk('h2','','Editar lote');mt.style.cssText='margin:0;font-size:18px';mh.appendChild(mt);mh.appendChild(btn('tab','Fechar',function(){S.gEdit='';render()}));mbx.appendChild(mh);
       var sm=mk('div','hint',gLabel(g)+' · '+gTipoName(g));sm.style.margin='0';mbx.appendChild(sm);mbx.appendChild(eb);$('lotModal').hidden=false}
 
-    if(MIX(g.tipo)&&f>0){var db2=btn('mini','Distribuir por tipo',function(){S.gDist=g.id;S.gEdit='';S.gDel='';var ft=TIPOS.filter(function(x){return !MIX(x.id)})[0];S.dist={rows:[{tipo:ft?ft.id:'',qty:''}]};render()});db2.style.cssText='margin-top:10px;align-self:flex-start;min-height:34px;height:34px;padding:0 12px;font-size:13px;background:var(--panel2);border:1px solid var(--line);color:#cbd5e1';c.appendChild(db2)}
+    if(MIX(g.tipo)&&f>0){var db2=btn('mini','Distribuir por tipo',function(){S.gDist=g.id;S.gEdit='';S.gDel='';var ft=TIPOS.filter(function(x){return !MIX(x.id)})[0];S.dist={rows:[{tipo:ft?ft.id:'',qty:''}]};render()});db2.style.cssText='margin-top:10px;align-self:flex-start;min-height:34px;height:34px;padding:0 12px;font-size:13px;background:var(--panel2);border:1px solid var(--line);color:var(--sub)';c.appendChild(db2)}
     if(S.gDist===g.id&&S.dist){var D=S.dist,db=mk('div','col');db.style.cssText='gap:14px';
       var fal=grpFalta(g),totD=function(){return D.rows.reduce(function(a,r){return a+(parseInt(String(r.qty).replace(/\D/g,''),10)||0)},0)};
       db.appendChild(mk('div','hint','Este lote é Variados. Diga quantas peças são de cada tipo: elas saem do Variados e entram no estoque do tipo escolhido, com o mesmo custo médio ('+usd(gUnit(g))+' por peça). O que não for distribuído continua como Variados.'));
@@ -1890,7 +1895,7 @@ function renderLotView(){var on=!!S.lotesView,h=$('lotView');$('listCard').hidde
         r.appendChild(mk('span','',on2?'☑':'☐'));var lab=(i.tipo==='pre'?i.grau:(isSimple(i.tipo)?'':i.vr))||'';r.appendChild(mk('span','',i.ref+(lab?' · '+lab:'')+' · '+i.cor+(MIX(g.tipo)?' · '+((tipoOf(i.tipo)||{}).label||i.tipo):'')));
         r.appendChild(mk('b','',i.qty+' un.'));r.style.flex='1';r.style.minWidth='0';r.style.width='auto';
         var w=mk('div','');w.style.cssText='display:flex;align-items:center;gap:6px';w.appendChild(r);
-        var eb2=btn('mini'+(S.pEdit===ix?' on':''),'Editar',function(){if(S.pEdit===ix){S.pEdit=-1}else{S.pEdit=ix;S.pDel=-1;S.pe={qty:String(i.qty),custo:i.custo!=null?String(i.custo).replace('.',','):''}}render()});eb2.style.cssText='min-height:34px;height:34px;padding:0 12px;font-size:13px;background:var(--panel2);border:1px solid var(--line);color:#cbd5e1;flex:0 0 auto';w.appendChild(eb2);
+        var eb2=btn('mini'+(S.pEdit===ix?' on':''),'Editar',function(){if(S.pEdit===ix){S.pEdit=-1}else{S.pEdit=ix;S.pDel=-1;S.pe={qty:String(i.qty),custo:i.custo!=null?String(i.custo).replace('.',','):''}}render()});eb2.style.cssText='min-height:34px;height:34px;padding:0 12px;font-size:13px;background:var(--panel2);border:1px solid var(--line);color:var(--sub);flex:0 0 auto';w.appendChild(eb2);
         var tb2=mk('button','trash'+(S.pDel===ix?' on':''));tb2.type='button';tb2.title='Excluir esta peça';tb2.setAttribute('aria-label','Excluir '+i.ref);tb2.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 11v6M14 11v6"/></svg>';tb2.onclick=function(){S.pDel=S.pDel===ix?-1:ix;S.pEdit=-1;render()};w.appendChild(tb2);lst.appendChild(w);
         if(S.pDel===ix){var dz=mk('div','note n-bad');dz.style.cssText='display:flex;flex-wrap:wrap;gap:10px;align-items:center';dz.appendChild(mk('span','','Excluir '+i.ref+' · '+i.cor+' ('+i.qty+' un.)? As peças voltam para "faltam detalhar" deste lote.'));
           dz.appendChild(btn('mini','Sim, excluir',function(){S.items=S.items.filter(function(y){return y!==i});S.pDel=-1;S.lotPick={};S.msg='Peça excluída do lote.';render()}));dz.appendChild(btn('mini','Cancelar',function(){S.pDel=-1;render()}));lst.appendChild(dz)}
@@ -2351,7 +2356,7 @@ function renderDash(){var el=$('v-dash'),ps=periodSales(S.per),c=colchao();
    '<div class="kpi"><div class="lbl">Separar das vendas</div><b style="color:var(--warn)">'+gs(sep)+'</b><div class="hint">'+(tot?pc(sep/tot):'0%')+' do vendido</div></div>'+
    '<div class="kpi"><div class="lbl">Lucro livre</div><b style="color:var(--ok)">'+gs(liv)+'</b><div class="hint">'+(tot?pc(liv/tot):'0%')+' do vendido</div></div>'+
    '<div class="kpi"><div class="lbl">Dólar hoje</div><b>'+gs(S.fx.pyg)+'</b><div class="hint">por US$ 1 · <a href="#fx" data-act="view" data-id="fx" style="color:var(--accent-fg)">ver câmbio</a></div></div></section>';
-  var parts=[['Reposição da mercadoria',usd(repU)+' guardados em dólar',rep,'#00c8ff'],['Contas da loja e de casa','Obrigatório',con,'#a2447c'],['Colchão de segurança','Reserva contra alta do dólar e do custo ('+pc(c.pct)+')',col,'#ffc766'],['Caixa de melhorias','Opcional, nunca trava venda',mel,'#7fd8ff'],['Lucro livre','Seu dinheiro',liv,'#00ff88']];
+  var parts=[['Reposição da mercadoria',usd(repU)+' guardados em dólar',rep,'#00c8ff'],['Contas da loja e de casa','Obrigatório',con,'#a2447c'],['Colchão de segurança','Reserva contra alta do dólar e do custo ('+pc(c.pct)+')',col,'#ffc766'],['Caixa de melhorias','Opcional, nunca trava venda',mel,'var(--info)'],['Lucro livre','Seu dinheiro',liv,'#00ff88']];
   html+='<section class="card col"><div><h2 style="margin:0;font-size:16px">Quanto separar do que você vendeu</h2><div class="hint" style="margin:2px 0 0">Soma de todas as vendas do período, na ordem em que o dinheiro deve ser separado.</div></div>';
   html+='<div class="bar">'+parts.map(function(p){return '<i style="width:'+(tot?Math.max(0,p[2]/tot*100):0)+'%;background:'+p[3]+'"></i>'}).join('')+'</div><div class="split">'+
     parts.map(function(p,i){return '<div class="sl"><span><span class="sp" style="background:'+p[3]+'"></span>'+(i+1)+'. '+p[0]+'<small>'+p[1]+'</small></span><b>'+gs(p[2])+'</b></div>'}).join('')+'</div></section>';
@@ -2415,7 +2420,7 @@ setInterval(function(){tickFx();if(Date.now()>=S.fxNext)fetchFx()},1000);
 // ---------- despesas
 function ymNow(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)}
 function expCard(e){var last=e.hist[e.hist.length-1],paid=!!(e.paid&&e.paid[ymNow()]);
-  var h='<div class="card col" style="background:var(--panel2);padding:14px"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:baseline"><div><b>'+esc(e.nome)+'</b> <span class="cell">'+(e.tipo==='fixa'?'fixa':'variável')+'</span></div><div style="display:flex;align-items:center;gap:10px"><button type="button" data-act="exppay" data-id="'+e.id+'" aria-pressed="'+paid+'" title="'+(paid?'Toque para desfazer':'Marcar como paga neste mês')+'" style="min-height:34px;padding:0 14px;border-radius:999px;font-size:13px;background:'+(paid?'rgba(34,197,94,.2)':'transparent')+';border:1px solid '+(paid?'#22c55e':'var(--line)')+';color:'+(paid?'#86efac':'#cbd5e1')+'">'+(paid?'✓ Pago':'Pagar')+'</button></div></div>';
+  var h='<div class="card col" style="background:var(--panel2);padding:14px"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:baseline"><div><b>'+esc(e.nome)+'</b> <span class="cell">'+(e.tipo==='fixa'?'fixa':'variável')+'</span></div><div style="display:flex;align-items:center;gap:10px"><button type="button" data-act="exppay" data-id="'+e.id+'" aria-pressed="'+paid+'" title="'+(paid?'Toque para desfazer':'Marcar como paga neste mês')+'" style="min-height:34px;padding:0 14px;border-radius:999px;font-size:13px;background:'+(paid?'rgba(34,197,94,.2)':'transparent')+';border:1px solid '+(paid?'#22c55e':'var(--line)')+';color:'+(paid?'#86efac':'var(--sub)')+'">'+(paid?'✓ Pago':'Pagar')+'</button></div></div>';
   h+='<div class="sel" style="flex-wrap:wrap"><input class="in" id="ev-'+e.id+'" inputmode="numeric" data-in="exp" data-id="'+e.id+'" value="'+dots(e.valor)+'" aria-label="Novo valor de '+esc(e.nome)+'" style="flex:1 1 160px;width:auto"><button class="mini" data-act="expsave" data-id="'+e.id+'">Salvar novo valor</button>'+
     '<button class="chip" data-act="exprm" data-id="'+e.id+'">'+(S.confRm===e.id?'Confirmar remoção':'Remover')+'</button></div>';
   h+='<div class="hint" id="pv-'+e.id+'" style="margin:0">'+(e.tipo==='variavel'?'Valor muda todo mês. Atualize quando a conta chegar.':'Altere e veja o efeito antes de salvar.')+'</div>';
@@ -2427,8 +2432,8 @@ function renderDesp(){var el=$('v-desp'),tm=totalMensal(),imp=S.exp.filter(funct
     '<div class="kpi"><div class="lbl">Cada peça vendida separa</div><b id="tmPeca" style="color:var(--warn)">'+gs(contasPeca())+'</b><div class="hint">para pagar as contas</div></div>'+
     '<div class="kpi"><div class="lbl">Vendas esperadas por mês</div><input class="in" id="volIn" inputmode="numeric" data-in="volume" value="'+S.volume+'" aria-label="Peças vendidas por mês" style="margin-top:6px"><div class="hint">peças. Use a média dos últimos meses.</div></div></section>';
   var cats=['loja','casa','pessoal','profissional','imprev'];
-  html+='<section class="card col"><h2 style="margin:0;font-size:16px">Por grupo</h2><div class="bar">'+cats.map(function(c,i){var v=S.exp.filter(function(e){return e.cat===c}).reduce(function(a,e){return a+e.valor},0);return '<i style="width:'+(tm?v/tm*100:0)+'%;background:'+['#00c8ff','#a2447c','#ffc766','#7fd8ff','#00ff88'][i]+'"></i>'}).join('')+'</div><div class="nav">'+
-    cats.map(function(c,i){var v=S.exp.filter(function(e){return e.cat===c}).reduce(function(a,e){return a+e.valor},0);if(!v)return '';return '<span class="cell"><span class="sp" style="background:'+['#00c8ff','#a2447c','#ffc766','#7fd8ff','#00ff88'][i]+'"></span>'+CATS[c]+' · '+gs(v)+'</span>'}).join('')+'</div></section>';
+  html+='<section class="card col"><h2 style="margin:0;font-size:16px">Por grupo</h2><div class="bar">'+cats.map(function(c,i){var v=S.exp.filter(function(e){return e.cat===c}).reduce(function(a,e){return a+e.valor},0);return '<i style="width:'+(tm?v/tm*100:0)+'%;background:'+['#00c8ff','#a2447c','#ffc766','var(--info)','#00ff88'][i]+'"></i>'}).join('')+'</div><div class="nav">'+
+    cats.map(function(c,i){var v=S.exp.filter(function(e){return e.cat===c}).reduce(function(a,e){return a+e.valor},0);if(!v)return '';return '<span class="cell"><span class="sp" style="background:'+['#00c8ff','#a2447c','#ffc766','var(--info)','#00ff88'][i]+'"></span>'+CATS[c]+' · '+gs(v)+'</span>'}).join('')+'</div></section>';
   cats.forEach(function(c){var list=S.exp.filter(function(e){return e.cat===c});if(!list.length)return;
     html+='<section class="col"><div class="lbl" style="margin:6px 0 0">'+CATS[c]+'</div>'+list.map(expCard).join('')+'</section>'});
   html+='<section class="card col"><div><h2 style="margin:0;font-size:16px">Imprevistos do mês</h2><div class="hint" style="margin:2px 0 0">A provisão de '+gs(imp)+' por mês é consumida pelos gastos inesperados que você registrar.</div></div>'+
@@ -2633,7 +2638,7 @@ function renderCaixa(){var el=$('v-caixa'),r=reservas(),c=S.cash;
    '<div class="sl"><span>Colchão de segurança<small>reserva contra alta do dólar e do custo</small></span><b>'+gs(r.colch)+'</b></div>'+
    '<div class="sl"><span>Contas do mês<small>separado nos últimos 30 dias, de '+gs(totalMensal())+' por mês</small></span><b>'+gs(r.con)+'</b></div>'+
    '<div class="sl"><span><b>Total guardado</b></span><b style="color:var(--warn)">'+gs(r.guard)+'</b></div>'+
-   '<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span>Caixa de melhorias da loja<small>opcional, não trava venda</small></span><b style="color:#7fd8ff">'+gs(r.melh)+'</b></div></div></section>';
+   '<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span>Caixa de melhorias da loja<small>opcional, não trava venda</small></span><b style="color:var(--info)">'+gs(r.melh)+'</b></div></div></section>';
   var pmk=ymNow(),pays=(S.cpay||[]).filter(function(x){return x.ym===pmk}).sort(function(a,b){return b.ts-a.ts}),ptot=pays.reduce(function(a,x){return a+x.valor},0);
   html+='<section class="card col"><div><h2 style="margin:0;font-size:16px">Contas pagas neste mês</h2><div class="hint" style="margin:2px 0 0">Cada vez que você toca em Pagar na aba Despesas, o valor sai dos guaranis em caixa e da reserva de contas.</div></div>'+
    (pays.length?pays.map(function(x){return '<div class="sl"><span>'+esc(x.nome)+'<small>'+fd(x.ts)+' às '+fh(x.ts)+'</small></span><b>'+gs(x.valor)+'</b></div>'}).join('')+'<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span><b>Total pago</b></span><b>'+gs(ptot)+'</b></div>':'<div class="hint" style="margin:0">Nenhuma conta paga neste mês ainda.</div>')+'</section>';
