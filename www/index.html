@@ -445,6 +445,20 @@ function lotesHist(){var o=(S.lotes||[]).map(function(l){return{id:l.id,ts:l.ts,
   (S.grp||[]).forEach(function(g){if(g.ts>0&&g.qty>0){var u=gUnit(g);if(u>0)o.push({id:g.id,ts:g.ts,usd:u,txt:g.forn+(g.tipo?'':'')})}});
   o.sort(function(a,b){return a.ts-b.ts});return o}
 /* junta linhas repetidas do estoque (mesmo código, grau, cor, variação, lote e custo): soma as peças */
+/* limpeza do banco: tira registros repetidos (mesmo conteúdo) e sobras sem uso. Roda ao abrir o app e é segura: só remove cópias idênticas. */
+function cleanDb(){var n=0;
+  function uniq(arr,kf){var seen={},o=[];(arr||[]).forEach(function(x){var k;try{k=kf(x)}catch(e){k=null}if(k===null||k===undefined){o.push(x);return}if(seen[k]){n++;return}seen[k]=1;o.push(x)});return o}
+  var js=function(x){return JSON.stringify(x)};
+  ['dlog','elog','cambios','compras','melhUso','imprev','cpay'].forEach(function(k){if(Array.isArray(S[k]))S[k]=uniq(S[k],js)});
+  if(Array.isArray(S.sales))S.sales=uniq(S.sales,function(x){return x.id?String(x.id):null});
+  if(Array.isArray(S.exp))S.exp=uniq(S.exp,function(x){return x.id!=null?'e'+x.id:null});
+  if(Array.isArray(S.grp))S.grp=uniq(S.grp,function(x){return x.id?String(x.id):null});
+  if(Array.isArray(S.lotes)){var gid={};(S.grp||[]).forEach(function(g){gid[g.id]=1});S.lotes=uniq(S.lotes,function(x){return x.id?String(x.id):null});var l0=S.lotes.length;S.lotes=S.lotes.filter(function(x){return !gid[x.id]});n+=l0-S.lotes.length}
+  if(Array.isArray(S.fxHist)){var fs={};S.fxHist=S.fxHist.filter(function(x){var k=js(x);if(fs[k]){n++;return false}fs[k]=1;return true})}
+  /* nomes e descrições de código que não existem mais em lugar nenhum (nem estoque, nem venda) */
+  try{var used={};(S.items||[]).forEach(function(i){if(i.ref)used[i.ref]=1});(S.sales||[]).forEach(function(v){if(v.ref)used[v.ref]=1});(S.elog||[]).forEach(function(v){if(v.ref)used[v.ref]=1});
+    ['pnome','desc'].forEach(function(k){var o=S[k];if(!o)return;Object.keys(o).forEach(function(r){if(!used[r]){delete o[r];n++}else if(!String(o[r]||'').trim()){delete o[r];n++}})})}catch(e){}
+  return n}
 function dedupeItems(){var seen={},out=[],n=0;(S.items||[]).forEach(function(i){var k=[i.tipo,i.ref,i.grau||'',i.cor||'',i.vr||'',i.lote||'',i.fmt||'',i.med||'',i.bulk?1:0,i.custo==null?'':i.custo].join('|'),f=seen[k];if(f){f.qty+=i.qty;n++}else{seen[k]=i;out.push(i)}});if(n)S.items=out;return n}
 function lotAdjust(g,oM,oO){var e=S.compras.filter(function(x){return x.lot===g.id})[0];if(!e)return;var cur=g.moeda||'usd',amt=g.custoOrig!=null?g.custoOrig:g.totalUsd;
   if(cur===oM){var d=amt-oO;S.cash[cur]=r2((S.cash[cur]||0)-d);e.orig=Math.max(0,e.orig+d)}else{S.cash[oM]=r2((S.cash[oM]||0)+Math.min(e.orig,oO));S.cash[cur]=r2((S.cash[cur]||0)-amt);e.cur=cur;e.orig=amt}
@@ -2058,7 +2072,7 @@ function camOpen0(done,title,opts){opts=opts||{};LIVEX=null;camClose();
     if(caps&&caps.zoom){var zr=document.createElement('input');zr.type='range';zr.min=caps.zoom.min;zr.max=Math.min(caps.zoom.max,caps.zoom.min*5||caps.zoom.max);zr.step=caps.zoom.step||.1;zr.value=caps.zoom.min;zr.style.width='120px';zr.setAttribute('aria-label','Zoom');zr.oninput=function(){try{trk.applyConstraints({advanced:[{zoom:+zr.value}]})}catch(e){}};bar.appendChild(zr)}
     var HR=null,HRtry=false;sh.onclick=function(){
       if(opts.live){var lc=grabStrip();if(!lc)return;if(LIVEX)LIVEX();lc.toBlob(function(bl){if(!bl)return;camClose();opts.liveFallback(new File([bl],'foto.jpg',{type:'image/jpeg'}))},'image/jpeg',.95);return}
-      if(!HR&&!HRtry&&!opts.strip&&window.ImageCapture&&trk){HRtry=true;sh.style.opacity='.5';var fin=function(x){HR=x||null;sh.style.opacity='';sh.onclick();HR=null;HRtry=false};try{new ImageCapture(trk).takePhoto().then(function(bl){return createImageBitmap(bl,{imageOrientation:'from-image'})}).then(function(bm){var cc=mkCanvas(bm.width,bm.height);cc.getContext('2d').drawImage(bm,0,0);try{bm.close()}catch(e){}fin(cc)},function(){fin(null)})}catch(e){fin(null)}return}
+      if(!HR&&!HRtry&&!opts.strip&&window.ImageCapture&&trk&&!window.__noIC){HRtry=true;sh.style.opacity='.5';var done0=false,fin=function(x){if(done0)return;done0=true;clearTimeout(tm);if(!x)window.__noIC=true;HR=x||null;sh.style.opacity='';sh.onclick();HR=null;HRtry=false},tm=setTimeout(function(){fin(null)},3500);try{new ImageCapture(trk).takePhoto().then(function(bl){return createImageBitmap(bl,{imageOrientation:'from-image'})}).then(function(bm){var k0=Math.min(1,2600/Math.max(bm.width,bm.height)),cc=mkCanvas(Math.round(bm.width*k0),Math.round(bm.height*k0));cc.getContext('2d').drawImage(bm,0,0,cc.width,cc.height);try{bm.close()}catch(e){}fin(cc)},function(){fin(null)})}catch(e){fin(null)}return}
       var src=HR||vid,w=HR?HR.width:vid.videoWidth,h=HR?HR.height:vid.videoHeight;if(!w||!h)return;var c=mkCanvas(w,h);c.getContext('2d').drawImage(src,0,0,w,h);
       if(opts.strip){var sr=stg.getBoundingClientRect(),gr=gd.getBoundingClientRect(),SW=sr.width,SH=sr.height,k=Math.min(SW/w,SH/h),ox=(SW-w*k)/2,oy=(SH-h*k)/2,cx=Math.max(0,(gr.left-sr.left-ox)/k),cy=Math.max(0,(gr.top-sr.top-oy)/k),cw=Math.min(w-cx,gr.width/k),ch=Math.min(h-cy,gr.height/k);if(cw>50&&ch>20){var c2=mkCanvas(cw,ch);c2.getContext('2d').drawImage(c,cx,cy,cw,ch,0,0,cw,ch);c=c2}}
       var sp=sharpOf(c);
@@ -2664,7 +2678,7 @@ function saveFotos(){if(!IDBOK)return;var k;
   for(k in FS)if(!(k in S.fotos)){(function(kk){delete FS[kk];idbDo('fotos','readwrite',function(o){return o.delete(kk)}).catch(function(){});idbDo('hq','readwrite',function(o){return o.delete(kk)}).catch(function(){})})(k)}}
 function loadFotos(){idb().then(function(d){return new Promise(function(ok,no){var t=d.transaction('fotos','readonly'),o=t.objectStore('fotos'),c=o.openCursor(),got={};c.onsuccess=function(){var cur=c.result;if(cur){got[cur.key]=cur.value;cur.continue()}};t.oncomplete=function(){ok(got)};t.onerror=function(){no(t.error)}})}).then(function(got){var k;for(k in got){FS[k]=got[k];if(!S.fotos[k])S.fotos[k]=got[k]}saveFotos();if(window.__DBG)window.__SF=Object.keys(S.fotos);render()}).catch(function(){})}
 var SK='lafouch_demo_v1',PERSIST=['grp','maxVar','items','sales','saleSeq','exp','nextExp','imprev','dlog','elog','cambios','compras','melhUso','cash','ini','palette','formats','desc','volume','melhPeca','fxHist','sold','lotes','tiposX','tiposDel','tiposOrd','pnome','cpay'];
-function loadSaved(){try{var j=localStorage.getItem(SK);if(!j)return;var d=JSON.parse(j);PERSIST.forEach(function(k){if(d[k]!==undefined)S[k]=d[k]});if(d.grp===undefined)S.grp=[];try{dedupeItems()}catch(e){}if(d.fotos&&typeof d.fotos==='object')S.fotos=d.fotos;
+function loadSaved(){try{var j=localStorage.getItem(SK);if(!j)return;var d=JSON.parse(j);PERSIST.forEach(function(k){if(d[k]!==undefined)S[k]=d[k]});if(d.grp===undefined)S.grp=[];try{dedupeItems()}catch(e){}try{window.__cleanN=cleanDb()}catch(e){window.__cleanErr=String(e)}if(d.fotos&&typeof d.fotos==='object')S.fotos=d.fotos;
   var lp=S.fxHist[S.fxHist.length-1];if(lp){S.fx.pyg=lp.pyg;S.fx.brl=lp.brl}}catch(e){}}
 var saveT=0;function saveSoon(){clearTimeout(saveT);saveT=setTimeout(function(){try{var d={};PERSIST.forEach(function(k){d[k]=S[k]});if(!IDBOK)d.fotos=S.fotos;localStorage.setItem(SK,JSON.stringify(d))}catch(e){}saveFotos()},400)}
 loadSaved();syncTipos();
