@@ -2045,10 +2045,10 @@ function camFallback(done,gal,lbl){armNative();
   var ov=document.createElement('div');ov.style.cssText='position:fixed;inset:0;z-index:330;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;padding:16px';
   var bx=document.createElement('div');bx.style.cssText='background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;width:min(94vw,420px);display:flex;flex-direction:column;gap:10px';
   var w=document.createElement('div');w.style.cssText='position:relative;display:flex';var ok=btn('mini','Abrir a câmera',function(){});ok.style.cssText+=';width:100%;margin:0';w.appendChild(ok);
-  w.appendChild(nativeInput(function(f){ov.remove();done(f)},false,lbl));var ca=btn('chip','Cancelar',function(){ov.remove()});ca.style.cssText+=';width:100%;justify-content:center';bx.appendChild(w);
+  w.appendChild(nativeInput(function(f){ov.remove();done(f)},false,lbl));var ca=btn('chip','Cancelar',function(){ov.remove()});ca.style.cssText+=';width:100%;justify-content:center';bx.appendChild(w);if(HCAM){var rh=mk('div','hint','A câmera do app não abriu ('+HCAM+'). Use a do celular ou a galeria.');bx.insertBefore(rh,w)}
   if(gal){var w2=document.createElement('div');w2.style.cssText='position:relative;display:flex';var g2=btn('chip','Escolher da galeria',function(){});g2.style.cssText+=';width:100%;justify-content:center;min-height:46px';w2.appendChild(g2);w2.appendChild(nativeInput(function(f){ov.remove();done(f,{gallery:true})},true,lbl));bx.appendChild(w2)}
   bx.appendChild(ca);ov.appendChild(bx);document.body.appendChild(ov)}
-var NATIVE=false;
+var NATIVE=false,HCAM='';
 function armNative(){if(NATIVE)return;NATIVE=true;
   [['btnLeitor',function(f){leitorFromPhoto(f)}]].forEach(function(d){var b=$(d[0]);if(!b||!b.parentNode)return;
     var w=document.createElement('div');w.style.cssText='position:relative;display:flex;flex:'+(b.style.flex||'1 1 auto')+';'+(b.style.width&&b.style.flex?'width:'+b.style.width+';':'width:100%;');b.parentNode.insertBefore(w,b);w.appendChild(b);b.style.flex='1 1 auto';b.style.width='100%';b.onclick=function(){};w.appendChild(nativeInput(d[1],false,d[0]==='btnLeitor'?'Analisando código':''))})}
@@ -2057,7 +2057,7 @@ var LIVEX=null;
 function camOpen0(done,title,opts){opts=opts||{};LIVEX=null;camClose();
   if(opts.live||opts.liveFallback){try{getWorker().catch(function(){})}catch(e){}} /* aquece o leitor enquanto a câmera abre */
   var blocked=false;try{var fp=document.permissionsPolicy||document.featurePolicy;if(fp&&fp.allowsFeature&&!fp.allowsFeature('camera'))blocked=true}catch(e){}
-  if(blocked||NATIVE||!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)){camFallback(opts.liveFallback||done,opts.gallery,opts.live?'Analisando código':'');return}
+  if(blocked||!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)){camFallback(opts.liveFallback||done,opts.gallery,opts.live?'Analisando código':'');return}
   var ov=document.createElement('div');ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-label',title||'Câmera');
   ov.style.cssText='position:fixed;inset:0;z-index:300;background:#000;display:flex;flex-direction:column;color:#fff';
   var top=document.createElement('div');top.style.cssText='display:flex;justify-content:space-between;align-items:center;padding:max(10px,env(safe-area-inset-top,0px)) 14px 10px';top.appendChild(mk('b','',title||'Câmera'));
@@ -2089,13 +2089,13 @@ function camOpen0(done,title,opts){opts=opts||{};LIVEX=null;camClose();
         var us=btn('mini','Usar esta foto',function(){var f=new File([bl],'foto.jpg',{type:'image/jpeg'});camClose();done(f)});
         bar.appendChild(re);if(opts.gallery)bar.appendChild(mkGal());bar.appendChild(us)},'image/jpeg',.95)}}
   var TIP0=tip.textContent;tip.textContent='Abrindo a câmera…';var gum=setTimeout(function(){if(CAMO&&!CAMS){camClose();camFallback(opts.liveFallback||done,opts.gallery,opts.live?'Analisando código':'')}},25000);
-  navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:opts.live?1920:4096},height:{ideal:opts.live?1080:2160}}}).then(function(st){
+  var gtry=0,gumC=function(){return navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:opts.live?1920:4096},height:{ideal:opts.live?1080:2160}}}).catch(function(e){if(CAMO&&gtry++<2){return new Promise(function(r){setTimeout(r,700*gtry)}).then(function(){if(!CAMO)throw e;return gumC()})}throw e})};gumC().then(function(st){
     clearTimeout(gum);if(!CAMO){st.getTracks().forEach(function(t){t.stop()});return}
     CAMS=st;tip.textContent=TIP0;vid.srcObject=st;var trk=st.getVideoTracks()[0],caps={};try{caps=trk.getCapabilities?trk.getCapabilities():{}}catch(e){}
     try{if(caps.focusMode&&caps.focusMode.indexOf('continuous')>=0)trk.applyConstraints({advanced:[{focusMode:'continuous'}]})}catch(e){}
     stg.addEventListener('click',function(ev){var rc=stg.getBoundingClientRect(),x=ev.clientX-rc.left,y=ev.clientY-rc.top;ring.style.left=x+'px';ring.style.top=y+'px';ring.style.opacity='1';setTimeout(function(){ring.style.opacity='0'},700);
       try{if(caps.focusMode&&caps.focusMode.indexOf('single-shot')>=0){var vr=vid.getBoundingClientRect();trk.applyConstraints({advanced:[{focusMode:'single-shot',pointsOfInterest:[{x:Math.max(0,Math.min(1,(ev.clientX-vr.left)/vr.width)),y:Math.max(0,Math.min(1,(ev.clientY-vr.top)/vr.height))}]}]}).then(function(){setTimeout(function(){try{if(caps.focusMode.indexOf('continuous')>=0)trk.applyConstraints({advanced:[{focusMode:'continuous'}]})}catch(e){}},1500)},function(){})}}catch(e){}});
-    buildBar(trk,caps);if(opts.live)startLive()},function(){clearTimeout(gum);camClose();camFallback(opts.liveFallback||done,opts.gallery,opts.live?'Analisando código':'')})
+    buildBar(trk,caps);if(opts.live)startLive()},function(e){clearTimeout(gum);camClose();HCAM=(e&&(e.name||e.message))||'';camFallback(opts.liveFallback||done,opts.gallery,opts.live?'Analisando código':'')})
   function grabStrip(){var w=vid.videoWidth,h=vid.videoHeight;if(!w||!h)return null;var sr=stg.getBoundingClientRect(),gr=gd.getBoundingClientRect(),SW=sr.width,SH=sr.height,k=Math.min(SW/w,SH/h),ox=(SW-w*k)/2,oy=(SH-h*k)/2,cx=Math.max(0,(gr.left-sr.left-ox)/k),cy=Math.max(0,(gr.top-sr.top-oy)/k),cw=Math.min(w-cx,gr.width/k),ch=Math.min(h-cy,gr.height/k);if(cw<50||ch<20)return null;var c=mkCanvas(cw,ch);c.getContext('2d').drawImage(vid,cx,cy,cw,ch,0,0,cw,ch);return c}
   function startLive(){var texts=[],fr=0,t0=Date.now(),stopped=false,LW=null;LIVEX=function(){stopped=true;try{dw._stop()}catch(e){}};var dw=busyEl('Analisando código'),dx=document.createElement('span');tip.textContent='';tip.appendChild(dw);tip.appendChild(dx);
     var fin=function(v){if(stopped)return;stopped=true;try{dw._stop()}catch(e){}try{if(LW)LW.setParameters({tessedit_pageseg_mode:'11'})}catch(e){}if(!CAMO)return;camClose();opts.live(v)};
