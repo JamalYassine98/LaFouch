@@ -1,0 +1,343 @@
+  var DAY = 86400000,
+    now0 = Date.now();
+  function tAgo(d, h) {
+    return now0 - d * DAY - (h || 0) * 3600000;
+  }
+  var gs = function (n) {
+    return 'G$ ' + dots(n);
+  };
+  function nf(v, m) {
+    return m === 'pyg'
+      ? dots(v)
+      : v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  function fmtM(v, m) {
+    return (m === 'pyg' ? 'G$ ' : m === 'usd' ? 'US$ ' : 'R$ ') + nf(v, m);
+  }
+  var usd = function (n) {
+    return fmtM(n, 'usd');
+  };
+  var pc = function (n) {
+    return (n * 100).toFixed(1).replace('.', ',') + '%';
+  };
+  var fd = function (ts) {
+    return new Date(ts).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+  };
+  var fh = function (ts) {
+    return new Date(ts).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+  };
+  var esc = function (x) {
+    return String(x).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  };
+  var toNum = function (v) {
+    return Number(String(v).replace(/\D/g, '')) || 0;
+  };
+  var sgn = function (n) {
+    return (n > 0 ? '+' : n < 0 ? '−' : '') + gs(Math.abs(n));
+  };
+  var CATS = {
+    loja: 'Loja',
+    casa: 'Casa',
+    pessoal: 'Salário',
+    profissional: 'Contador',
+    imprev: 'Imprevistos'
+  };
+  var VIEWS = [
+    ['dash', 'Dashboard'],
+    ['estoque', 'Estoque'],
+    ['vendas', 'Vendas'],
+    ['caixa', 'Caixa'],
+    ['desp', 'Despesas'],
+    ['fx', 'Câmbio'],
+    ['hist', 'Histórico']
+  ];
+
+  S.view = 'dash';
+  S.hmode = 'lista';
+  S.day = '';
+  S.dayTab = '';
+  S.elog = [];
+  S.per = 30;
+  S.volume = 350;
+  S.melhPeca = 1000;
+  S.janela = 90;
+  S.hf = 'all';
+  S.hq = '';
+  S.hOpen = '';
+  S.confEst = '';
+  S.confRm = '';
+  S.lotes = [
+    { id: '#3140', ts: tAgo(60), usd: 0.46, txt: 'Pré-graduados' },
+    { id: '#3251', ts: tAgo(19), usd: 0.5, txt: 'Pré-graduados' }
+  ];
+  S.exp = [
+    {
+      id: 1,
+      nome: 'Aluguel da loja',
+      cat: 'loja',
+      tipo: 'fixa',
+      valor: 900000,
+      hist: [{ ts: tAgo(150), de: 850000, para: 900000 }]
+    },
+    {
+      id: 2,
+      nome: 'Luz',
+      cat: 'loja',
+      tipo: 'variavel',
+      valor: 180000,
+      hist: [{ ts: tAgo(40), de: 165000, para: 180000 }]
+    },
+    { id: 3, nome: 'Internet', cat: 'loja', tipo: 'fixa', valor: 120000, hist: [] },
+    {
+      id: 4,
+      nome: 'Contador',
+      cat: 'profissional',
+      tipo: 'fixa',
+      valor: 300000,
+      hist: [{ ts: tAgo(70), de: 250000, para: 300000 }]
+    },
+    { id: 5, nome: 'Salário (retirada)', cat: 'pessoal', tipo: 'fixa', valor: 1500000, hist: [] },
+    {
+      id: 6,
+      nome: 'Contas de casa',
+      cat: 'casa',
+      tipo: 'variavel',
+      valor: 1000000,
+      hist: [{ ts: tAgo(30), de: 1100000, para: 1000000 }]
+    },
+    { id: 7, nome: 'Provisão de imprevistos', cat: 'imprev', tipo: 'fixa', valor: 200000, hist: [] }
+  ];
+  S.nextExp = 8;
+  S.imprev = [{ ts: tAgo(6), desc: 'Conserto da vitrine', valor: 60000 }];
+  S.fxHist = [];
+  for (var fi = 29; fi >= 0; fi--) {
+    var fk = 29 - fi;
+    S.fxHist.push({
+      ts: tAgo(fi),
+      pyg: Math.round(6280 + fk * 7 + 60 * Math.sin(fk / 3.1)),
+      brl: Math.round((5.4 + 0.03 * Math.sin(fk / 4)) * 1000) / 1000
+    });
+  }
+  S.fx = {
+    pyg: S.fxHist[29].pyg,
+    brl: S.fxHist[29].brl,
+    ts: now0,
+    live: false,
+    src: 'Valor de exemplo',
+    status: 'Ainda não buscou a cotação.'
+  };
+  S.fxNext = Date.now() + 5000;
+
+  function totalMensal() {
+    return S.exp.reduce(function (a, e) {
+      return a + e.valor;
+    }, 0);
+  }
+  function contasPeca() {
+    return Math.round(totalMensal() / Math.max(1, S.volume));
+  }
+  function tipoOf(id) {
+    return tipoAll().filter(function (x) {
+      return x.id === id;
+    })[0];
+  }
+  function colchao() {
+    var from = Date.now() - S.janela * DAY,
+      h = S.fxHist.filter(function (p) {
+        return p.ts >= from;
+      }),
+      fx = 0,
+      i,
+      j;
+    for (i = 0; i < h.length; i++)
+      for (j = i + 1; j < h.length; j++) fx = Math.max(fx, h[j].pyg / h[i].pyg - 1);
+    var l = lotesHist().filter(function (x) {
+        return x.ts >= from;
+      }),
+      cost = 0;
+    for (i = 0; i < l.length; i++)
+      for (j = i + 1; j < l.length; j++) cost = Math.max(cost, l[j].usd / l[i].usd - 1);
+    var raw = (1 + fx) * (1 + cost) - 1;
+    return {
+      pct: Math.min(0.25, Math.max(0.05, raw)),
+      fx: fx,
+      cost: cost,
+      raw: raw,
+      janela: S.janela
+    };
+  }
+  function calcSale(t, qty, fx, pct, cPeca, melhPeca, priceOv) {
+    var price = priceOv != null ? priceOv : t.price * qty,
+      repP = Math.round(t.repUSD * fx),
+      rep = repP * qty,
+      contas = cPeca * qty,
+      colch = Math.round(t.repUSD * fx * pct) * qty;
+    var melh = Math.min(melhPeca * qty, Math.max(0, price - rep - contas - colch)),
+      livre = price - rep - contas - colch - melh;
+    return {
+      price: price,
+      rep: rep,
+      repUSD: t.repUSD * qty,
+      contas: contas,
+      colch: colch,
+      melh: melh,
+      livre: livre,
+      trava: repP + cPeca
+    };
+  }
+  function descOf(x) {
+    return x.qty + '× ' + x.ref + ' ' + (x.tipo === 'pre' ? x.grau : x.vr) + ' · ' + x.cor;
+  }
+  S.sales = [];
+  S.saleSeq = 0;
+  function mkSale(ts, tipo, ref, cor, grau, vr, qty, fx, pct, cPeca, est) {
+    var t = tipoOf(tipo),
+      c = calcSale(t, qty, fx, pct, cPeca, 1000);
+    var s = {
+      id: 'V-' + ('000' + ++S.saleSeq).slice(-4),
+      ts: ts,
+      tipo: tipo,
+      ref: ref,
+      cor: cor,
+      grau: grau,
+      vr: vr,
+      qty: qty,
+      fx: fx,
+      pct: pct,
+      pago: t.pago * qty,
+      cPeca: cPeca,
+      estorno: !!est
+    };
+    for (var k in c) s[k] = c[k];
+    s.moeda = 'pyg';
+    s.recebido = s.price;
+    s.rate = 1;
+    return s;
+  }
+  [
+    [0, 2, 'pre', 'SP57765', 'Preto', '+1.00', '', 2],
+    [0, 5, 'sem', 'BR44118', 'Bege translúcido', '', 'C2', 1],
+    [1, 3, 'pre', 'SP60627', 'Bege translúcido', '+1.50', '', 1],
+    [2, 4, 'solar', 'SL2201', 'Preto', '', 'C1', 1],
+    [3, 2, 'pre', 'SP58110', 'Preto', '+1.25', '', 3],
+    [4, 6, 'sem', 'BR44120', 'Preto', '', 'C1', 1, true],
+    [5, 3, 'pre', 'SP57765', 'Preto', '+1.75', '', 2],
+    [6, 1, 'solar', 'SL2210', 'Tartaruga', '', 'C3', 1],
+    [9, 2, 'pre', 'SP59002', 'Tartaruga', '+2.50', '', 1]
+  ].forEach(function (a) {
+    S.sales.unshift(
+      mkSale(
+        tAgo(a[0], a[1]),
+        a[2],
+        a[3],
+        a[4],
+        a[5],
+        a[6],
+        a[7],
+        S.fxHist[29 - a[0]].pyg,
+        0.12,
+        11500,
+        a[8]
+      )
+    );
+  });
+  S.sales.reverse();
+  S.sales.sort(function (a, b) {
+    return b.ts - a.ts;
+  });
+  function addSale(it, qty, pay) {
+    var c = colchao(),
+      cp = contasPeca(),
+      rate = ratePyg(pay.moeda),
+      eff = Math.round(pay.recebido * rate),
+      s = mkSale(
+        Date.now(),
+        it.tipo,
+        it.ref,
+        it.cor,
+        it.grau,
+        it.vr,
+        qty,
+        S.fx.pyg,
+        c.pct,
+        cp,
+        false
+      );
+    var m = calcSale(tFor(it), qty, S.fx.pyg, c.pct, cp, S.melhPeca, eff);
+    for (var k in m) s[k] = m[k];
+    s.moeda = pay.moeda;
+    s.recebido = pay.recebido;
+    s.rate = Math.round(rate);
+    S.cash[pay.moeda] += pay.recebido;
+    s.lote = it.lote || '';
+    S.sales.unshift(s);
+    return s;
+  }
+  function showSplit(sale) {
+    var parts = [
+      [
+        'Reposição da mercadoria',
+        usd(sale.repUSD) + ' ao câmbio de hoje (' + gs(S.fx.pyg) + '). Obrigatório.',
+        sale.rep,
+        '#00c8ff'
+      ],
+      [
+        'Contas da loja e de casa',
+        'Parte do mês coberta por esta venda. Obrigatório.',
+        sale.contas,
+        '#a2447c'
+      ],
+      [
+        'Colchão de segurança',
+        pc(sale.pct) + ' da reposição, pela alta recente do dólar e do custo.',
+        sale.colch,
+        '#ffc766'
+      ],
+      ['Caixa de melhorias', 'Meta flexível. Não trava a venda.', sale.melh, 'var(--info)'],
+      ['Lucro livre', 'O que sobra para você.', sale.livre, '#00ff88']
+    ];
+    $('splitCard').hidden = false;
+    $('splitH').textContent =
+      'Venda ' +
+      sale.id +
+      ': ' +
+      descOf(sale) +
+      ' por ' +
+      gs(sale.price) +
+      (sale.moeda !== 'pyg' ? ' (recebido ' + fmtM(sale.recebido, sale.moeda) + ')' : '');
+    var bar = $('splitBar');
+    bar.textContent = '';
+    var rowsEl = $('splitRows');
+    rowsEl.textContent = '';
+    parts.forEach(function (p) {
+      var i = mk('i');
+      i.style.width = Math.max(0, (p[2] / sale.price) * 100) + '%';
+      i.style.background = p[3];
+      bar.appendChild(i);
+      var r = mk('div', 'sl');
+      var l = mk('span', '');
+      var sp = mk('span', 'sp');
+      sp.style.background = p[3];
+      l.appendChild(sp);
+      l.appendChild(document.createTextNode(p[0]));
+      l.appendChild(mk('small', '', p[1]));
+      r.appendChild(l);
+      r.appendChild(mk('b', '', gs(p[2])));
+      rowsEl.appendChild(r);
+    });
+    var n = $('splitNote');
+    n.className = 'note ' + (sale.livre >= 0 ? 'n-info' : 'n-bad');
+    n.textContent =
+      'Preço mínimo seguro (trava): ' +
+      gs(sale.trava) +
+      ' por peça. Você vendeu a ' +
+      gs(sale.price / sale.qty) +
+      ', ' +
+      (sale.livre >= 0
+        ? 'então o preço está seguro. Subir preço é a última sugestão do app.'
+        : 'abaixo do seguro. Veja a aba Dashboard.') +
+      ' Esta venda foi gravada no Histórico.';
+    $('splitCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }

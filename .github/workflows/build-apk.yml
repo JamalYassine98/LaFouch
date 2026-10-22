@@ -30,6 +30,9 @@ jobs:
       - name: Instalar dependencias
         run: npm install
 
+      - name: Montar o app (junta os modulos de src/ em www/app.js)
+        run: node build.js
+
       - name: Motor do recorte (fica dentro do app e do site)
         run: |
           npm install --no-save onnxruntime-web@1.17.3
