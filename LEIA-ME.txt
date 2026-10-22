@@ -1,0 +1,42 @@
+LAFOUCH - COMO INSTALAR NO CELULAR
+==================================
+
+Esta versão é a de TESTE. Funciona sozinha no aparelho e guarda os dados nele
+(estoque, vendas, despesas, caixa, histórico e fotos). Ela AINDA NÃO sincroniza
+com o computador via Firebase. Isso entra numa próxima etapa.
+
+Ao abrir pela primeira vez aparecem dados de exemplo. Para começar do zero:
+aba Caixa > "Corrigir saldos" > "Apagar dados de exemplo".
+
+O ZIP tem dois caminhos. Escolha UM.
+
+
+CAMINHO A: INSTALAR PELO NAVEGADOR (mais rápido, 5 minutos, sem APK)
+--------------------------------------------------------------------
+1. No computador, abra https://app.netlify.com/drop
+2. Arraste a PASTA "www" para a página.
+3. O Netlify devolve um endereço https. Abra esse endereço no Chrome do celular.
+4. No Chrome: menu (3 pontos) > "Instalar app" ou "Adicionar à tela inicial".
+O ícone LaFouch aparece na tela inicial e abre em tela cheia, como app.
+Neste caminho o câmbio é buscado sozinho na internet a cada 3 minutos.
+
+
+CAMINHO B: GERAR O APK (arquivo .apk para instalar direto)
+-----------------------------------------------------------
+Não precisa instalar Android Studio. O GitHub gera o APK de graça.
+1. Crie uma conta em https://github.com (se ainda não tem).
+2. Crie um repositório novo (pode ser privado), por exemplo "lafouch".
+3. Envie TODO o conteúdo desta pasta "lafouch" para o repositório
+   (botão "Add file" > "Upload files"; inclua a pasta oculta ".github").
+   Atenção: a pasta ".github" precisa subir junto, senão não gera o APK.
+4. No repositório, abra a aba "Actions" > "Gerar APK" > "Run workflow".
+5. Espere uns 5 a 10 minutos. Quando ficar verde, abra a execução e baixe
+   "LaFouch-apk" na parte "Artifacts". Dentro do zip está o app-debug.apk.
+6. Passe o .apk para o celular e abra. O Android pede para permitir
+   "instalar apps desconhecidos". Permita só para esse arquivo.
+Se o passo 5 der erro (vermelho), mande o texto do erro para mim.
+
+Observações do APK:
+- É um APK de teste (debug). Serve para usar e testar normalmente.
+- Se o ícone sair o padrão do Capacitor, é só estética. Os dados funcionam igual.
+- Os dados ficam no aparelho. Se desinstalar o app, os dados somem.

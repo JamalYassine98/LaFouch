@@ -1,0 +1,7 @@
+{
+  "appId": "com.lafouch.app",
+  "appName": "LaFouch",
+  "webDir": "www",
+  "server": { "androidScheme": "https" },
+  "android": { "backgroundColor": "#0f1216" }
+}
