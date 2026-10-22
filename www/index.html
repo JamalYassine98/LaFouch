@@ -709,6 +709,7 @@ function renderEstoque(){S.fmtF="all";
   S._other=ref?S.items.filter(function(i){return i.ref.toUpperCase()===ref&&i.tipo!==S.tipo})[0]:null;
   var fmtUsed=known?known.fmt:(S.formats.indexOf(S.eFmt)>=0?S.eFmt:'');
   $('eRefH').textContent=known?'Já existe no estoque ('+S.items.filter(function(i){return i.ref.toUpperCase()===ref&&i.tipo===S.tipo}).reduce(function(a,i){return a+i.qty},0)+' un.). Formato '+known.fmt+' lembrado. Se a cor e a variante forem iguais, a quantidade é somada.':'';
+  try{updSim('eRef','eNome','eRefH','eSim',!ref||!!known||!!t.simple)}catch(eSm){}
   $('eGrauB').hidden=!isPre;$('eVarB').hidden=!!t.simple;$('eVarL').textContent=isPre?'Classificação de cor (C1 a C6) · opcional':'Classificação de cor (C1 a C6)';$('eMedB').hidden=isPre||!!t.simple;$('eFmtB').hidden=false;$('eRefL').textContent=t.simple?'Nome ou código do item':'Código (o que fica na haste)';$('eNomeB').hidden=!!t.simple;$('eCorL').textContent='Cor real (opcional)';
   var gn=normGrau($('eGrau').value);
   $('eGrauH').textContent=$('eGrau').value?(gn?'Grau lido: '+gn:'Grau inválido. Use algo como +1.75, 175 ou 3.50.'):'Digite como está gravado. O "+175" vira +1.75.';
@@ -1532,7 +1533,7 @@ $('phPl').onclick=function(){if(P){P.qty=Math.min(99,P.qty+1);render()}};
 function phInfo(){var sm0=isSimple((P&&P.tipo)||S.tipo),ref=normRef($('phRef').value,sm0),cor=cap1($('phCor').value)||'Sem cor',known=ref?S.items.filter(function(i){return i.ref.toUpperCase()===ref})[0]:null;
   var tipo=known?known.tipo:((P&&P.tipo)||S.tipo),same=known?S.items.some(function(i){return i.ref.toUpperCase()===ref&&i.cor.toLowerCase()===cor.toLowerCase()}):false;
   return{ref:ref,cor:cor,known:known,tipo:tipo,same:same,isPre:tipo==='pre',simple:isSimple(tipo)}}
-function renderPhoto(){var card=$('photoCard');if(!P){card.hidden=true;return}card.hidden=false;
+function renderPhoto(){var card=$('photoCard');if(!P){card.hidden=true;return}card.hidden=false;try{var pi0=phInfo();updSim('phRef','phNome','phRefH','phSim',!pi0.ref||!!pi0.known||pi0.simple)}catch(eP){}
   var sp=$('phSplit'),np=P.pieces?P.pieces.length:0;sp.hidden=P.photoOnly||np<2;if(!sp.hidden)sp.textContent='Esta foto tem '+np+' peças separadas. Separar em '+np+' fotos';
   var f=phInfo(),m=$('phMatch');$('phImg').src=P.img;{var pgc=pickG(f.tipo,P.g).g;if(pgc)P.qty=Math.max(1,Math.min(P.qty,Math.max(grpFalta(pgc),1)))}$('phQ').value=P.qty;
   if(!f.ref){m.className='note n-info';m.textContent='Digite a referência para o app comparar com o estoque.'}
@@ -1979,6 +1980,15 @@ function renderVendas(){renderCatV();
 $('vq').oninput=function(e){S.vq=e.target.value;S.vRef='';S.vSel=null;S.qty=1;render()};
 /* ===== ler o código impresso na haste (OCR no aparelho) ===== */
 function hKey(t){return String(t).toUpperCase().replace(/[^A-Z0-9]/g,'').replace(/[OQD]/g,'0').replace(/[IL]/g,'1').replace(/Z/g,'2').replace(/S/g,'5').replace(/G/g,'6').replace(/B/g,'8')}
+/* códigos parecidos do mesmo grupo (ex.: PY-566 e PY-568): modelos diferentes que podem dividir o mesmo nome de produto */
+function simRefs(ref){var out=[],seen={};try{var r=String(ref||'').toUpperCase().replace(/[^A-Z0-9]/g,''),m=r.match(/^([A-Z]{2,3})(\d{3,6})$/);if(!m)return out;
+  S.items.forEach(function(i){if(!i.ref)return;var r2=String(i.ref).toUpperCase().replace(/[^A-Z0-9]/g,'');if(r2===r)return;var m2=r2.match(/^([A-Z]{2,3})(\d{3,6})$/);if(!m2||m2[1]!==m[1]||m2[2].length!==m[2].length||lev(m2[2],m[2])>2)return;
+    var nm=S.pnome&&S.pnome[i.ref];if(!nm||seen[nm])return;seen[nm]=1;out.push({ref:i.ref,nome:nm})})}catch(e){}return out}
+function updSim(refId,nomeId,afterId,boxId,skip){var box=$(boxId);if(!box){var af=$(afterId);if(!af||!af.parentNode)return;box=document.createElement('div');box.id=boxId;box.style.cssText='display:flex;flex-direction:column;gap:6px;margin:6px 0';af.parentNode.insertBefore(box,af.nextSibling)}
+  var ref=$(refId)?$(refId).value:'',key=skip?'':ref+'|'+($(nomeId)?$(nomeId).value:'');if(box.__k===key)return;box.__k=key;box.textContent='';if(skip||!ref)return;
+  var ss=simRefs(ref).filter(function(x){return !$(nomeId)||$(nomeId).value.trim()!==x.nome}).slice(0,2);if(!ss.length)return;
+  ss.forEach(function(x){var t=mk('div','hint','Código parecido com '+x.ref+' (“'+x.nome+'”). Se for outro modelo do mesmo grupo, pode usar o mesmo nome de produto.');t.style.color='var(--warn)';box.appendChild(t);
+    var b=btn('chip','Usar o nome “'+x.nome+'”',function(){var ni=$(nomeId);if(ni){ni.value=x.nome;try{ni.dispatchEvent(new Event('input',{bubbles:true}))}catch(e){}}box.__k='';box.textContent=''});b.style.cssText+=';width:100%;justify-content:center;min-height:42px';box.appendChild(b)})}
 function lev(a,b){var m=a.length,n=b.length,d=[],i,j;for(i=0;i<=m;i++){d[i]=[i]}for(j=1;j<=n;j++)d[0][j]=j;for(i=1;i<=m;i++)for(j=1;j<=n;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return d[m][n]}
 function hMatch(texts){var words={},refs={};
   texts.forEach(function(T){T.split(/\n+/).forEach(function(line){var k=hKey(line);if(k.length>=3)words[k]=1;line.split(/\s+/).forEach(function(w){var q=hKey(w);if(q.length>=3)words[q]=1})})});
@@ -2105,11 +2115,12 @@ function leitorResult(x){loadMsg(false);
       var ca=btn('chip','Cancelar',close);ca.style.cssText+=';width:100%;justify-content:center';bx.appendChild(ad);bx.appendChild(ca)});return}
   leitorDlg(function(bx,close){bx.appendChild(mk('b','','Código novo'));
     bx.appendChild(mk('div','hint','Esse código não está no estoque. Quer cadastrar? Confira o que li e corrija se precisar.'));
-    try{var kx=hKey(x.ref),sim=[];S.items.forEach(function(i){if(i.ref&&i.ref!==x.ref&&sim.indexOf(i.ref)<0&&hKey(i.ref).length===kx.length&&lev(hKey(i.ref),kx)<=1)sim.push(i.ref)});if(sim.length){var wn=mk('div','hint','Já existe um código parecido no estoque ('+sim.slice(0,3).join(', ')+'). Se são modelos diferentes do mesmo grupo, siga em frente; se é o mesmo, use o código dele.');wn.style.color='var(--warn)';bx.appendChild(wn)}}catch(e){}
+    var simL=simRefs(x.ref);simL.slice(0,2).forEach(function(z){var wn=mk('div','hint','Código parecido com '+z.ref+' (“'+z.nome+'”). Se for outro modelo do mesmo grupo, cadastre com o mesmo nome de produto.');wn.style.color='var(--warn)';bx.appendChild(wn)});
     function fld(l,v){bx.appendChild(mk('div','lbl',l));var i=document.createElement('input');i.className='in';i.value=v||'';i.autocomplete='off';bx.appendChild(i);return i}
     var fr=fld('Código',x.ref),fm=fld('Medidas',x.med),vr=x.vr||'';bx.appendChild(mk('div','lbl','Cor (C1 a C6)'));var cr=document.createElement('div');cr.style.cssText='display:flex;gap:6px;flex-wrap:wrap';
     function drawC(){cr.textContent='';varChips(vr).forEach(function(c){cr.appendChild(btn('chip'+(vr===c?' on':''),c,function(){vr=(vr===c?'':c);drawC()},vr===c))})}drawC();bx.appendChild(cr);
     var ad=btn('mini','Cadastrar produto',function(){close();fillAdd({ref:fr.value.trim().toUpperCase().replace(/\s+/g,''),med:fm.value.trim(),vr:vr,msg:'Código lido: confira os dados, escolha a quantidade e toque em Adicionar.'})});ad.style.width='100%';
+    simL.slice(0,2).forEach(function(z){var sb=btn('chip','Cadastrar com o nome “'+z.nome+'”',function(){close();fillAdd({ref:fr.value.trim().toUpperCase().replace(/\s+/g,''),med:fm.value.trim(),vr:vr,nome:z.nome,msg:'Mesmo nome de produto que '+z.ref+': confira os dados e toque em Adicionar.'})});sb.style.cssText+=';width:100%;justify-content:center;min-height:44px';bx.appendChild(sb)});
     var ca=btn('chip','Cancelar',close);ca.style.cssText+=';width:100%;justify-content:center';bx.appendChild(ad);bx.appendChild(ca)})}
 /* texto com pontinhos animados: "Analisando código." → ".." → "..." (para sozinho quando o elemento sai da tela) */
 function dotsText(prefix){var w=document.createElement('span'),t=document.createElement('span'),d=document.createElement('span'),n=0;t.textContent=prefix;d.textContent='.';d.style.cssText='display:inline-block;min-width:1.2em;text-align:left';w.appendChild(t);w.appendChild(d);
