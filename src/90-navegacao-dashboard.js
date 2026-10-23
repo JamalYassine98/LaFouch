@@ -86,8 +86,8 @@
       tm = totalMensal(),
       cp = Math.min(100, (con30 / tm) * 100);
     var perLbl = { 0: 'Hoje', 7: '7 dias', 30: '30 dias' };
-    var html =
-      '<div class="top"><div><h1>Dashboard</h1><div class="crumb">Quanto vendeu e quanto separar para manter a loja em ordem</div></div><div class="tabs" role="group" aria-label="Período">' +
+    var perHtml =
+      '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><span class="hint" style="margin:0">Vendas de:</span><div class="tabs" role="group" aria-label="Período">' +
       [0, 7, 30]
         .map(function (d) {
           return (
@@ -104,7 +104,10 @@
         })
         .join('') +
       '</div></div>';
-    html +=
+    var html =
+      '<div class="top"><div><h1>Dashboard</h1><div class="crumb">Quanto vendeu e quanto separar para manter a loja em ordem</div></div></div>' +
+      dTabsHtml();
+    var kpHtml =
       '<section class="kpis" aria-label="Resumo">' +
       '<div class="kpi"><div class="lbl">Vendido</div><b>' +
       gs(tot) +
@@ -126,9 +129,8 @@
       '<div class="kpi"><div class="lbl">Dólar hoje</div><b>' +
       gs(S.fx.pyg) +
       '</b><div class="hint">por US$ 1 · <a href="#fx" data-act="view" data-id="fx" style="color:var(--accent-fg)">ver câmbio</a></div></div></section>';
-    html += avisosHtml();
-    html += dashFin();
-    html += dashExtra();
+    var head = html;
+    html = '';
     var parts = [
       ['Reposição da mercadoria', usd(repU) + ' guardados em dólar', rep, '#00c8ff'],
       ['Contas da loja e de casa', 'Obrigatório', con, '#a2447c'],
@@ -175,6 +177,8 @@
         })
         .join('') +
       '</div></section>';
+    var secSep = html;
+    html = '';
     html += '<div class="two">';
     html +=
       '<section class="card col"><h2 style="margin:0;font-size:16px">Reposição em dólar</h2><div style="font-size:14px">Guardado para repor: <b>' +
@@ -215,6 +219,8 @@
       gs(contasPeca()) +
       ' para as contas. <a href="#desp" data-act="view" data-id="desp" style="color:var(--accent-fg)">Editar despesas</a></div></section>';
     html += '</div>';
+    var secTwo = html;
+    html = '';
     html +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Saúde da margem</h2><div class="hint" style="margin:2px 0 0">Preço atual contra a trava: reposição de hoje mais a parte das contas de cada peça.</div></div><div style="overflow-x:auto"><table class="tb"><thead><tr><th>Tipo</th><th>Preço</th><th>Reposição hoje</th><th>Contas/peça</th><th>Trava</th><th>Folga</th><th>Situação</th></tr></thead><tbody>';
     var worst = null;
@@ -280,7 +286,9 @@
       html +=
         '<div class="note n-ok">Todos os preços têm folga acima de 15% da trava. Nada a mexer. Subir preço é sempre a última sugestão do app.</div>';
     html += '</section>';
-    el.innerHTML = html;
+    el.innerHTML =
+      head +
+      dashCompose({ per: perHtml, kp: kpHtml, sep: secSep, two: secTwo, margem: html });
   }
 
   // ---------- câmbio

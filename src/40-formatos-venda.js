@@ -50,7 +50,7 @@
   };
   var VIEWS = [
     ['dash', 'Dashboard'],
-    ['estoque', 'Estoque'],
+    ['estoque', 'Inventário'],
     ['vendas', 'Vendas'],
     ['caixa', 'Caixa'],
     ['desp', 'Despesas'],

@@ -263,7 +263,8 @@
   }
   // Blocos novos do Dashboard (HTML).
   function dashExtra() {
-    var html = '',
+    var out = {},
+      html = '',
       mi = metaInfo(),
       u0 = function (n) {
         return 'US$ ' + Math.round(n);
@@ -299,6 +300,8 @@
     });
     if (mi.por['']) html += dxRow('Sem faixa', 'lucro livre no mês', u0(mi.por['']));
     html += '</div></section>';
+    out.meta = html;
+    html = '';
     // sugestões de margem
     var sg = sugestoes().filter(function (r) {
       return r.acao !== 'ignorada';
@@ -332,6 +335,8 @@
       });
       html += '</div></section>';
     }
+    out.sug = html;
+    html = '';
     // repor primeiro + lista de compras
     var rp = reposicao().slice(0, 8);
     html +=
@@ -354,6 +359,8 @@
         '</b>.</div>';
     }
     html += '</section>';
+    out.repor = html;
+    html = '';
     // parados
     var pa = parados().slice(0, 8);
     if (pa.length) {
@@ -369,6 +376,8 @@
       });
       html += '</div></section>';
     }
+    out.parados = html;
+    html = '';
     // câmbio x piso
     var ab = abaixoDoPiso().slice(0, 8);
     if (ab.length) {
@@ -379,6 +388,8 @@
       });
       html += '</div></section>';
     }
+    out.abaixo = html;
+    html = '';
     // perdas
     var pr = perdasPropositais();
     if (pr.n) {
@@ -393,6 +404,8 @@
       });
       html += '</div></section>';
     }
+    out.perdasV = html;
+    html = '';
     // perdas e sobras da contagem de estoque (30 dias)
     var ct = S.contagens.filter(function (x) {
       return Date.now() - x.ts <= 30 * DAY;
@@ -423,6 +436,8 @@
         });
       html += '</div></section>';
     }
+    out.perdasC = html;
+    html = '';
     // curva abc
     var ab2 = curvaAbc();
     if (ab2.lista.length || ab2.sem.length) {
@@ -454,5 +469,6 @@
       }
       html += '</section>';
     }
-    return html;
+    out.abc = html;
+    return out;
   }

@@ -277,3 +277,17 @@
       });
     });
   };
+
+  // ---------- Dashboard em abas
+  ACT.dtab = function (id) {
+    S.dTab = id;
+    renderDash();
+  };
+  ACT.dfold = function (id) {
+    S.dfold[id] = !S.dfold[id];
+    renderDash();
+  };
+  ACT.attodos = function () {
+    S.atTodos = !S.atTodos;
+    renderDash();
+  };

@@ -278,7 +278,7 @@ async def main():
                 pg = await pagina()
                 await pg.evaluate(SETUP, FOTO)
                 await pg.evaluate("(t) => { window.__LF.S.tipo = t; window.__LF.S.todos = false; window.__LF.render(); }", tipo)
-                await pg.locator('#mainnav >> text="Estoque"').first.click(); await pg.wait_for_timeout(300)
+                await pg.locator('#mainnav >> text="Inventário"').first.click(); await pg.wait_for_timeout(300)
                 await pg.locator('#listCard >> text=' + nome).first.click(); await pg.wait_for_timeout(400)
                 return pg
 
@@ -485,10 +485,17 @@ async def main():
             await checa('Caixa: ajustar o saldo para o contado', got == [4900000, True, 0], got)
             await pg.locator('#mainnav >> text="Dashboard"').first.click(); await pg.wait_for_timeout(300)
             tx = await pg.inner_text('#v-dash')
-            await checa('Dashboard: resultado do mês e fluxo de caixa aparecem', 'Resultado de' in tx and 'Fluxo de caixa projetado' in tx and not pg.erros, [tx[:120], pg.erros])
+            await checa('Dashboard: abre no Resumo com "Atenção agora" e as 4 partes', 'Atenção agora' in tx and all(t in tx for t in ['Resumo', 'Dinheiro', 'Giro', 'Preços']) and not pg.erros, [tx[:150], pg.erros])
+            await pg.locator('[data-act="dtab"][data-id="din"]').first.click(); await pg.wait_for_timeout(300)
+            tx = await pg.inner_text('#v-dash')
+            await checa('Dashboard Dinheiro: resultado e fluxo em linhas que abrem', 'Resultado do mês' in tx and 'Fluxo de caixa projetado' in tx and 'Retirada do dono' in tx and 'Resultado de outubro' not in tx.lower() and not pg.erros, [tx[:200], pg.erros])
+            await pg.locator('[data-act="dfold"][data-id="flx"]').first.click(); await pg.wait_for_timeout(300)
             await pg.locator('[data-act="fluxod"][data-id="90"]').first.click(); await pg.wait_for_timeout(200)
             got = await pg.evaluate("() => window.__LF.S.fluxoD")
             await checa('Dashboard: fluxo muda para 90 dias', got == 90, got)
+            for tab in ['giro', 'prec']:
+                await pg.locator(f'[data-act="dtab"][data-id="{tab}"]').first.click(); await pg.wait_for_timeout(300)
+            await checa('Dashboard: abas Giro e Preços abrem sem erro', not pg.erros, pg.erros)
             await pg.close()
 
             # PIN: ativar, recarregar e desbloquear; cópia automática
@@ -537,7 +544,7 @@ async def main():
             fundos = {}
             for scheme in ['dark', 'light']:
                 pg = await pagina(scheme)
-                for aba in ['Dashboard', 'Estoque', 'Vendas', 'Caixa', 'Câmbio', 'Despesas', 'Histórico', 'Ajustes']:
+                for aba in ['Dashboard', 'Inventário', 'Vendas', 'Caixa', 'Câmbio', 'Despesas', 'Histórico', 'Ajustes']:
                     total += 1
                     loc = pg.locator(f'#mainnav >> text="{aba}"').first
                     try:
