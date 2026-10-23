@@ -98,6 +98,7 @@
         );
       })[0];
       S.cash[s.moeda] -= s.recebido;
+      estornoBrinde(s);
       if (it) {
         it.qty += s.qty;
         var eg =
@@ -305,6 +306,8 @@
       S.desc = {};
       S.pnome = {};
       S.cpay = [];
+      S.pfaixa = {};
+      S.contagens = [];
       S.exp = [];
       S.lotes = [];
       S.grp = [];

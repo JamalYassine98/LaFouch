@@ -154,6 +154,7 @@
       S.qDraft = {};
       S.cDraft = {};
       S.dDraft = null;
+      S.fDraft = null;
       S.fDel = false;
     }
     var hb = mk('div', '');
@@ -166,6 +167,7 @@
         S.qDraft = {};
         S.cDraft = {};
         S.dDraft = null;
+        S.fDraft = null;
         S.fDel = false;
         S.cdMode = false;
         S.cdCor = '';
@@ -380,6 +382,7 @@
         S.rnN = null;
         S.rnRef = '';
         S.dDraft = null;
+        S.fDraft = null;
         S.fDel = false;
         S.cdMode = false;
         S.cdCor = '';
@@ -451,6 +454,26 @@
         'margin-top:8px;min-height:36px;background:var(--panel2);color:var(--sub);border:1px solid var(--line)';
       df.appendChild(sg);
       bx.appendChild(df);
+      // faixa do produto (só vale ao salvar)
+      if (!smp && !f.bulk && S.faixas.length) {
+        var fcur = S.fDraft != null ? S.fDraft : (faixaOf(ref) || {}).id || '',
+          fb = mk('div', 'nav');
+        fb.id = 'edFaixas';
+        [{ id: '', nome: 'Sem faixa' }].concat(S.faixas).forEach(function (x) {
+          fb.appendChild(
+            btn(
+              'chip' + (fcur === x.id ? ' on' : ''),
+              x.nome,
+              function () {
+                S.fDraft = x.id;
+                render();
+              },
+              fcur === x.id
+            )
+          );
+        });
+        bx.appendChild(fld('Faixa', fb));
+      }
       // foto da cor selecionada
       var ps = mk('div', '');
       ps.appendChild(mk('div', 'lbl', 'Foto · ' + cor));
@@ -696,6 +719,11 @@
         }
         var rm = ni ? renomear(nn, nv0, !!nmi) : '';
         if (rm) partes.push(rm);
+        if (S.fDraft != null) {
+          if (S.fDraft) S.pfaixa[nn] = S.fDraft;
+          else delete S.pfaixa[nn];
+          partes.push('Faixa salva.');
+        }
         zerar();
         S.msg = partes.join(' ') || 'Nada foi alterado.';
         render();
@@ -790,6 +818,10 @@
           } catch (e) {}
         }
       });
+      if (S.pfaixa && S.pfaixa[ref]) {
+        S.pfaixa[nn] = S.pfaixa[ref];
+        delete S.pfaixa[ref];
+      }
       if (S.desc[ref] != null) {
         S.desc[nn] = S.desc[ref];
         delete S.desc[ref];

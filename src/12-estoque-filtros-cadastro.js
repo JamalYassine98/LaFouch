@@ -303,6 +303,8 @@
         qty: qty
       });
     $('eCusto').value = '';
+    if (S.eFaixa) S.pfaixa[ref] = S.eFaixa;
+    S.eFaixa = '';
     entradaEstoque(S.tipo, ref, corN, isPre ? S._gn : '', qty);
     say(
       'Entrada registrada: +' +
@@ -329,7 +331,8 @@
       'open',
       'det',
       'lotesView',
-      'repo'
+      'repo',
+      'faixaF'
     ];
   // Fecha os filtros (cancelar restaura o estado).
   function filtClose(cancel) {

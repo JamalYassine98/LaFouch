@@ -23,16 +23,33 @@
     var q = S.q.trim().toLowerCase();
     var qm = mkMatch(q),
       flAll = ofT.filter(function (i) {
-        return fOk(i) && (S.corF === 'all' || i.cor === S.corF) && (!qm || qm(i));
+        return (
+          fOk(i) &&
+          (S.corF === 'all' || i.cor === S.corF) &&
+          (!S.faixaF || (faixaOf(i.ref) || {}).id === S.faixaF) &&
+          (!qm || qm(i))
+        );
       });
     var REPO_MIN = 5,
       tk = {};
     flAll.forEach(function (i) {
       tk[kOf(i)] = (tk[kOf(i)] || 0) + i.qty;
     });
-    var lowK = Object.keys(tk).filter(function (k) {
-      return tk[k] <= REPO_MIN;
+    /* "Repor": produtos que vendem e vão acabar logo (dias de estoque); sem histórico de venda, vale o corte antigo de 5 peças */
+    var rpSet = {},
+      vendeu = {};
+    prodStats().forEach(function (m) {
+      if (m.sold90 > 0) vendeu[m.key] = 1;
     });
+    reposicao().forEach(function (m) {
+      rpSet[m.key] = 1;
+    });
+    var lowSet = {};
+    flAll.forEach(function (i) {
+      var pk = i.tipo + '|' + i.ref;
+      if (rpSet[pk] || (!vendeu[pk] && tk[kOf(i)] <= REPO_MIN)) lowSet[kOf(i)] = 1;
+    });
+    var lowK = Object.keys(lowSet);
     var fl = S.repo
       ? flAll.filter(function (i) {
           return lowK.indexOf(kOf(i)) >= 0;
@@ -535,6 +552,22 @@
     $('filtPanel').hidden = !S.filtOpen;
     $('btnFilt').setAttribute('aria-pressed', !!S.filtOpen);
     $('btnFilt').classList.toggle('on', !!S.filtOpen || !!S.sortO);
+    var ff = $('fFaixas');
+    ff.textContent = '';
+    $('fFaixaB').hidden = !S.faixas.length;
+    [{ id: '', nome: 'Todas' }].concat(S.faixas).forEach(function (x) {
+      ff.appendChild(
+        btn(
+          'chip' + ((S.faixaF || '') === x.id ? ' on' : ''),
+          x.nome,
+          function () {
+            S.faixaF = x.id;
+            render();
+          },
+          (S.faixaF || '') === x.id
+        )
+      );
+    });
     var sc = $('sortChips');
     sc.textContent = '';
     [
@@ -810,6 +843,12 @@
       }
       card.appendChild(photoBox(photoOf(rr), 'pbox'));
       card.appendChild(mk('b', '', pn(rr)));
+      var fxe = faixaOf(rr);
+      if (fxe) {
+        var fte = faixaTag(fxe);
+        fte.style.alignSelf = 'flex-start';
+        card.appendChild(fte);
+      }
       if (S.pnome && S.pnome[rr]) {
         var cdl = mk('span', 's', 'Código ' + rr);
         if (gk) {

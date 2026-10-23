@@ -27,3 +27,8 @@ Meta mensal de lucro em US$ para a loja toda, com o quanto falta e, por baixo, o
 ## Ordem de entrega
 1. Faixas e estrutura. 2. Pacotes na entrada. 3. Brindes. 4. Desconto com piso. 5. Meta e alertas.
 Cada etapa sai com testes e passa pelo APK antes da seguinte.
+
+## Estado (implementado)
+Tudo acima foi feito, mais: backup (exportar/importar) e aba Ajustes (meta, faixas, estações do ano, contagem de estoque); filtro recolhível nas Vendas; desconto com motivo; alertas por dias de estoque com lista de compras; estoque parado com preço de saída; curva ABC; sugestão de margem por faixa (sobe/desce 3 pontos, o dono aplica ou ignora); aviso de preço abaixo do piso quando o câmbio muda.
+Código novo: src/53-faixas.js, src/54-analises.js, src/96-ajustes.js.
+Limite conhecido: cada venda é de uma peça/variante; o "resultado da venda inteira" é mostrado somando todas as vendas abaixo do piso por motivo contra o lucro total do período.

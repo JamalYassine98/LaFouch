@@ -55,7 +55,8 @@
     ['caixa', 'Caixa'],
     ['desp', 'Despesas'],
     ['fx', 'Câmbio'],
-    ['hist', 'Histórico']
+    ['hist', 'Histórico'],
+    ['ajustes', 'Ajustes']
   ];
 
   S.view = 'dash';
@@ -177,10 +178,11 @@
     };
   }
   // Calcula a divisão da venda: reposição, contas e lucro.
-  function calcSale(t, qty, fx, pct, cPeca, melhPeca, priceOv) {
+  function calcSale(t, qty, fx, pct, cPeca, melhPeca, priceOv, extraUSD) {
     var price = priceOv != null ? priceOv : t.price * qty,
       repP = Math.round(t.repUSD * fx),
-      rep = repP * qty,
+      ex = extraUSD > 0 ? Math.round(extraUSD * fx) : 0,
+      rep = repP * qty + ex,
       contas = cPeca * qty,
       colch = Math.round(t.repUSD * fx * pct) * qty;
     var melh = Math.min(melhPeca * qty, Math.max(0, price - rep - contas - colch)),
@@ -188,7 +190,7 @@
     return {
       price: price,
       rep: rep,
-      repUSD: t.repUSD * qty,
+      repUSD: t.repUSD * qty + (extraUSD > 0 ? extraUSD : 0),
       contas: contas,
       colch: colch,
       melh: melh,
@@ -277,8 +279,18 @@
         cp,
         false
       );
-    var m = calcSale(tFor(it), qty, S.fx.pyg, c.pct, cp, S.melhPeca, eff);
+    var tf = tFor(it),
+      pp = pisoPeca(it),
+      bu = pay.brinde ? pay.brinde.usd : 0,
+      bg = Math.round(bu * S.fx.pyg),
+      m = calcSale(tf, qty, S.fx.pyg, c.pct, cp, S.melhPeca, eff, bu);
     for (var k in m) s[k] = m[k];
+    s.faixa = (faixaOf(it.ref) || {}).id || '';
+    s.lista = tf.price * qty;
+    s.abaixo = eff < pp.piso * qty + bg;
+    s.perde = eff < pp.trava * qty + bg;
+    if (pay.brinde) s.brinde = pay.brinde;
+    if (pay.motivo) s.motivo = pay.motivo;
     s.moeda = pay.moeda;
     s.recebido = pay.recebido;
     s.rate = Math.round(rate);

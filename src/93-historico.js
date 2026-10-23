@@ -143,7 +143,10 @@
   // Cartão de um registro de peça no histórico.
   function elogCard(x) {
     return (
-      '<div class="card" style="padding:14px"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center"><div><span class="cell">Entrada de estoque</span><div style="margin-top:6px">+' +
+      '<div class="card" style="padding:14px"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center"><div><span class="cell">' +
+      (x.contagem ? 'Ajuste de contagem' : 'Entrada de estoque') +
+      '</span><div style="margin-top:6px">' +
+      (x.qty > 0 ? '+' : '') +
       x.qty +
       ' × ' +
       esc(x.ref) +
@@ -154,7 +157,8 @@
       fd(x.ts) +
       ' às ' +
       fh(x.ts) +
-      '</div></div><b>+' +
+      '</div></div><b>' +
+      (x.qty > 0 ? '+' : '') +
       x.qty +
       ' un.</b></div></div>'
     );

@@ -277,6 +277,20 @@
       v.style.flex = '1 1 auto';
       v.style.width = 'auto';
       w.appendChild(mkCam(v));
+      var fb = mk('button', 'chip');
+      fb.type = 'button';
+      fb.id = 'vBtnFilt';
+      fb.setAttribute('aria-label', 'Filtros');
+      fb.title = 'Filtros';
+      fb.style.cssText =
+        'min-height:44px;width:48px;padding:0;justify-content:center;flex:0 0 auto';
+      fb.innerHTML =
+        '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8Z"/></svg>';
+      fb.onclick = function () {
+        S.vFilt = !S.vFilt;
+        render();
+      };
+      w.appendChild(fb);
     }
   })();
 
@@ -300,6 +314,14 @@
       return;
     }
     qty = Math.min(qty, sel.qty);
+    var pv = vendaPrevia();
+    if (pv && pv.abaixo && S.pisoConf !== pv.key) {
+      S.pisoConf = pv.key;
+      renderPiso();
+      return;
+    }
+    var br = pv && pv.br;
+    if (br) br.qty -= 1;
     sel.qty -= qty;
     var sg =
       sel.lote &&
@@ -313,7 +335,26 @@
         sg.ownC = (sg.ownC || 0) + qty * sel.custo;
       }
     }
-    var sale = addSale(sel, qty, { moeda: S.moeda, recebido: S._recv });
+    var sale = addSale(sel, qty, {
+      moeda: S.moeda,
+      recebido: S._recv,
+      brinde: br
+        ? {
+            tipo: br.tipo,
+            ref: br.ref,
+            cor: br.cor,
+            grau: br.grau || '',
+            vr: br.vr || '',
+            lote: br.lote || '',
+            usd: pv.bu
+          }
+        : null,
+      motivo: pv && pv.abaixo ? S.vMotivo || '' : ''
+    });
+    S.pisoConf = '';
+    S.descTxt = '';
+    S.vBrinde = null;
+    S.vMotivo = '';
     say('Venda registrada: ' + qty + ' × ' + sel.ref + ' ' + sel.cor);
     S.qty = 1;
     S.vSel = null;

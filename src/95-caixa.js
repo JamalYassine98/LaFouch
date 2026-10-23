@@ -96,16 +96,18 @@
         : '.') +
       (per < trava ? ' Atenção: abaixo da trava de segurança (' + gs(trava) + ' por peça).' : '');
     el.style.color = per < trava ? 'var(--warn)' : 'var(--mute)';
+    if (typeof renderPiso === 'function' && S._vsel) renderPiso();
   }
   // Calculadora de venda por moeda.
   function renderMoeda() {
     var t = S._t || T(),
       q = (S._qty = S.qty),
       m = S.moeda,
-      listGs = t.price * q,
+      listGs = t.price * q - (S.descGs || 0),
       a = conv(listGs, 'pyg', m);
     a = m === 'pyg' ? Math.round(a) : Math.round(a * 100) / 100;
-    var sig = [t.id, S._selKey, q, m, Math.round(S.fx.pyg)].join('|');
+    var bb = S.vBrinde ? S.vBrinde.ref + S.vBrinde.cor : '',
+      sig = [t.id, S._selKey, q, m, Math.round(S.fx.pyg), S.descGs || 0, bb].join('|');
     if (S.rec != null && S.recSig !== sig) S.rec = null;
     S._sig = sig;
     var v = S.rec != null ? S.rec : a;

@@ -11,9 +11,13 @@
             return x.id === i.tipo;
           }) &&
           (S.vTipo === 'all' || i.tipo === S.vTipo) &&
+          (!S.vFaixa || (faixaOf(i.ref) || {}).id === S.vFaixa) &&
           (!qm || qm(i))
         );
       });
+    $('vFiltPanel').hidden = !S.vFilt;
+    $('vBtnFilt').setAttribute('aria-pressed', !!S.vFilt);
+    $('vBtnFilt').classList.toggle('on', !!S.vFilt || S.vTipo !== 'all' || !!S.vFaixa);
     var vt = $('vTipos');
     vt.textContent = '';
     [{ id: 'all', label: 'Todos' }].concat(TIPOS).forEach(function (x) {
@@ -30,6 +34,25 @@
             render();
           },
           S.vTipo === x.id
+        )
+      );
+    });
+    var vf = $('vFaixas');
+    vf.textContent = '';
+    $('vFaixaB').hidden = !S.faixas.length;
+    [{ id: '', nome: 'Todas' }].concat(S.faixas).forEach(function (x) {
+      vf.appendChild(
+        btn(
+          'chip' + ((S.vFaixa || '') === x.id ? ' on' : ''),
+          x.nome,
+          function () {
+            S.vFaixa = x.id;
+            S.vRef = '';
+            S.vSel = null;
+            S.qty = 1;
+            render();
+          },
+          (S.vFaixa || '') === x.id
         )
       );
     });
@@ -78,6 +101,12 @@
       );
       card.appendChild(photoBox(photoOf(f.ref), 'pbox'));
       card.appendChild(mk('b', '', pn(f.ref)));
+      var fxa = faixaOf(f.ref);
+      if (fxa) {
+        var ft = faixaTag(fxa);
+        ft.style.alignSelf = 'flex-start';
+        card.appendChild(ft);
+      }
       if (S.pnome && S.pnome[f.ref]) card.appendChild(mk('span', 's', 'Código ' + f.ref));
       card.appendChild(
         mk(
@@ -180,15 +209,174 @@
     if (sel) {
       S._t = tFor(sel);
       S._selKey = [sel.tipo, sel.ref, sel.cor, sel.grau, sel.vr].join('/');
-      $('unit').textContent = t.price
-        ? 'Preço unit. G$ ' + dots(t.price) + ' (exemplo)'
+      if (S._descKey !== S._selKey) {
+        S._descKey = S._selKey;
+        S.descTxt = '';
+        S.vBrinde = null;
+        S.vMotivo = '';
+      }
+      var pt = S._t.price,
+        lista = pt * S.qty,
+        dn = parseDec(S.descTxt, S.descMode === 'pct' ? 'usd' : 'pyg');
+      S.descGs = Math.max(
+        0,
+        Math.min(lista, Math.round(S.descMode === 'pct' ? (lista * Math.min(100, dn)) / 100 : dn))
+      );
+      var fxs = faixaOf(sel.ref);
+      $('unit').textContent = pt
+        ? 'Preço unit. G$ ' + dots(pt) + (fxs ? ' (faixa ' + fxs.nome + ')' : ' (exemplo)')
         : 'Preço livre: digite abaixo o valor recebido';
-      $('tot').textContent = t.price ? 'G$ ' + dots(t.price * S.qty) : '';
+      $('tot').textContent = pt ? 'G$ ' + dots(lista - S.descGs) : '';
+      renderDescBrinde(sel);
       renderMoeda();
+      renderPiso();
     }
     $('sgo').disabled = !sel || max <= 0;
     $('vmsg').textContent = S.msg || '';
   }
+  // Desconto, brinde e motivo da venda.
+  function renderDescBrinde(sel) {
+    var dm = $('descModes');
+    dm.textContent = '';
+    [
+      ['pyg', 'G$'],
+      ['pct', '%']
+    ].forEach(function (o) {
+      dm.appendChild(
+        btn(
+          'chip' + ((S.descMode || 'pyg') === o[0] ? ' on' : ''),
+          o[1],
+          function () {
+            S.descMode = o[0];
+            S.descTxt = '';
+            S.rec = null;
+            render();
+          },
+          (S.descMode || 'pyg') === o[0]
+        )
+      );
+    });
+    if ($('descIn').value !== (S.descTxt || '')) $('descIn').value = S.descTxt || '';
+    $('descH').textContent = S.descGs
+      ? 'Desconto de G$ ' + dots(S.descGs) + ' sobre o preço de tabela.'
+      : '';
+    var bl = brindesDisp().filter(function (x) {
+      return x !== sel;
+    });
+    $('brB').hidden = !bl.length;
+    var bc = $('brChips');
+    bc.textContent = '';
+    if (S.vBrinde && bl.indexOf(S.vBrinde) < 0) S.vBrinde = null;
+    bc.appendChild(
+      btn(
+        'chip' + (!S.vBrinde ? ' on' : ''),
+        'Sem brinde',
+        function () {
+          S.vBrinde = null;
+          S.rec = null;
+          render();
+        },
+        !S.vBrinde
+      )
+    );
+    bl.forEach(function (x) {
+      bc.appendChild(
+        btn(
+          'chip' + (S.vBrinde === x ? ' on' : ''),
+          tipoOf(x.tipo).label + ' ' + x.ref + ' · ' + x.cor + ' · ' + usd(brindeUsd(x)),
+          function () {
+            S.vBrinde = x;
+            S.rec = null;
+            render();
+          },
+          S.vBrinde === x
+        )
+      );
+    });
+    var mc = $('motChips');
+    mc.textContent = '';
+    ['Isca ou combo', 'Liquidação', 'Cliente fiel', 'Outro'].forEach(function (m) {
+      mc.appendChild(
+        btn(
+          'chip' + (S.vMotivo === m ? ' on' : ''),
+          m,
+          function () {
+            S.vMotivo = S.vMotivo === m ? '' : m;
+            render();
+          },
+          S.vMotivo === m
+        )
+      );
+    });
+  }
+  // Prévia da venda: custo, trava, piso e lucro com o valor digitado.
+  function vendaPrevia() {
+    var sel = S._vsel,
+      t = S._t;
+    if (!sel || !t) return null;
+    var q = Math.max(1, S.qty),
+      eff = Math.round((S._recv || 0) * ratePyg(S.moeda)),
+      br = S.vBrinde && S.vBrinde.qty > 0 ? S.vBrinde : null,
+      bu = br ? brindeUsd(br) : 0,
+      bg = Math.round(bu * S.fx.pyg),
+      pp = pisoPeca(sel),
+      c = calcSale(t, q, S.fx.pyg, colchao().pct, contasPeca(), S.melhPeca, eff, bu),
+      travaTot = pp.trava * q + bg,
+      pisoTot = pp.piso * q + bg;
+    return {
+      eff: eff,
+      c: c,
+      br: br,
+      bu: bu,
+      pp: pp,
+      travaTot: travaTot,
+      pisoTot: pisoTot,
+      perde: eff < travaTot,
+      abaixo: eff < pisoTot,
+      key: [S._selKey, q, eff, S.moeda, br ? br.ref + br.cor : ''].join('|')
+    };
+  }
+  // Aviso de piso: mostra o lucro ou a perda e pede confirmação se estiver abaixo.
+  function renderPiso() {
+    var el = $('pisoSt'),
+      v = (S._vp = vendaPrevia());
+    el.textContent = '';
+    el.className = '';
+    $('motB').hidden = !(v && v.abaixo);
+    $('sgo').textContent = 'Finalizar venda';
+    if (!v || !(v.eff > 0)) return;
+    var fx = faixaOf(S._vsel.ref),
+      bt = v.br ? ' (já contando o brinde)' : '';
+    if (v.perde) {
+      el.className = 'note n-bad';
+      el.textContent =
+        'Abaixo da trava: você perde ' + gs(v.travaTot - v.eff) + ' nesta venda' + bt + '.';
+    } else if (v.abaixo) {
+      el.className = 'note n-warn';
+      el.textContent =
+        'Abaixo do piso' +
+        (fx ? ' da faixa ' + fx.nome + ' (margem mínima ' + fx.margem + '%)' : '') +
+        ': piso G$ ' +
+        dots(v.pisoTot) +
+        '. Lucro livre estimado ' +
+        gs(v.c.livre) +
+        bt +
+        '.';
+    } else {
+      el.className = 'note n-ok';
+      el.textContent = 'Acima do piso. Lucro livre estimado: ' + gs(v.c.livre) + bt + '.';
+    }
+    if (v.abaixo) {
+      var ok = S.pisoConf === v.key;
+      $('sgo').textContent = ok ? 'Vender mesmo assim' : 'Finalizar venda (abaixo do piso)';
+      if (ok) el.textContent += ' Toque de novo para confirmar.';
+    }
+  }
+  $('descIn').oninput = function (e) {
+    S.descTxt = e.target.value;
+    S.rec = null;
+    render();
+  };
   $('vq').oninput = function (e) {
     S.vq = e.target.value;
     S.vRef = '';

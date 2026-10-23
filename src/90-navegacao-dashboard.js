@@ -126,6 +126,7 @@
       '<div class="kpi"><div class="lbl">Dólar hoje</div><b>' +
       gs(S.fx.pyg) +
       '</b><div class="hint">por US$ 1 · <a href="#fx" data-act="view" data-id="fx" style="color:var(--accent-fg)">ver câmbio</a></div></div></section>';
+    html += dashExtra();
     var parts = [
       ['Reposição da mercadoria', usd(repU) + ' guardados em dólar', rep, '#00c8ff'],
       ['Contas da loja e de casa', 'Obrigatório', con, '#a2447c'],

@@ -112,6 +112,39 @@ TESTES = [
  ("normRef e normGrau", """return [L.normRef(' br 7722 ', false), L.normRef(' br  7722 ', true), L.normGrau('+2,5'), L.normGrau('2.50'), L.normGrau('')]""", ["BR7722", "BR 7722", "+2.50", "+2.50", ""]),
  ("nrm: sem acento e minúsculo", """return L.nrm('Óculos Espelhado')""", "oculos espelhado"),
  ("parseLote: quantidade da nota", """return ['24 pecas US$ 36,00 total 120','Qtd 30 total USD 45.50','10 pcs'].map(t => L.parseLote(t).qty)""", [24, 30, 10]),
+ # ---- faixas, piso, pacotes, brindes ----
+ ("pisoPeca: faixa 30% sobre o preço", """S.fx.pyg=7000; S.pfaixa={X:'f1'}; S.faixas=[{id:'f1',nome:'Eco',margem:30,precos:{}}]; const p=L.pisoPeca({tipo:'pre',ref:'X',custo:1,qty:1}); return [p.trava,p.piso,p.saida,p.lista]""", [7000, 10500, 7000, 25000]),
+ ("pisoPeca: sem faixa o piso é trava + colchão", """S.pfaixa={}; const p=L.pisoPeca({tipo:'pre',ref:'X',custo:1,qty:1}); return [p.trava,p.piso]""", [7000, 7500]),
+ ("pisoPeca: faixa com preço próprio", """S.pfaixa={X:'f1'}; S.faixas=[{id:'f1',nome:'Eco',margem:30,precos:{pre:30000}}]; return L.pisoPeca({tipo:'pre',ref:'X',custo:1,qty:1}).lista""", 30000),
+ ("calcSale: brinde entra na reposição e baixa o lucro", """const c = L.calcSale({price:25000, repUSD:.65}, 1, 7000, .1, 1000, 500, undefined, 0.4); return [c.rep, c.repUSD, c.melh, c.livre]""", [7350, 1.05, 500, 15695]),
+ ("calcPacote: peças e custo por peça", """return [L.calcPacote(24,2,12), L.calcPacote(20,1,0), L.calcPacote(0,3,5)]""", [{"qty":48,"custo":0.5},{"qty":20,"custo":0},{"qty":0,"custo":0}]),
+ ("sazonFator: solar sobe no verão e a curva é editável", """const a=[L.sazonFator('solar',0), L.sazonFator('solar',5), L.sazonFator('pre',0)]; S.sazon={pre:[2,1,1,1,1,1,1,1,1,1,1,1]}; a.push(L.sazonFator('pre',0)); S.sazon={}; return a""", [1.5, 0.6, 1, 2]),
+ ("reposicao: vende rápido e acaba logo", """const n=Date.now(); S.faixas=[{id:'f1',nome:'Eco',margem:30,precos:{}}]; S.pfaixa={}; S.sazon={pre:Array(12).fill(1)};
+   S.items=[{tipo:'pre',ref:'A',grau:'+1.00',cor:'Preto',qty:3,custo:1}];
+   S.sales=[{ts:n-864e5,tipo:'pre',ref:'A',qty:10,livre:7000,fx:7000,estorno:false}];
+   const r=L.reposicao(); return [r.length, Math.round(r[0].dias), r[0].comprar]""", [1, 9, 12]),
+ ("parados: sem venda há 100 dias tem preço de saída", """S.pfaixa={}; S.sazon={pre:Array(12).fill(1)}; S.appStart=Date.now()-100*864e5; S.sales=[];
+   S.items=[{tipo:'pre',ref:'B',grau:'+1.00',cor:'Preto',qty:5,custo:1}]; const p=L.parados(); return [p.length, p[0].pp.saida, Math.round(p[0].diasParado)]""", [1, 7000, 100]),
+ ("parados: baixa estação não conta como parado", """S.sazon={solar:Array(12).fill(0.5)}; S.appStart=Date.now()-100*864e5; S.sales=[];
+   S.items=[{tipo:'solar',ref:'C',vr:'C1',cor:'Preto',qty:5,custo:1}]; return L.parados().length""", 0),
+ ("metaInfo: lucro do mês por faixa", """const n=Date.now(); S.metaUsd=100; S.sales=[{ts:n,tipo:'pre',ref:'A',qty:1,livre:7000,fx:7000,faixa:'f1',estorno:false},{ts:n,tipo:'pre',ref:'A',qty:1,livre:3500,fx:7000,faixa:'',estorno:false},{ts:n,tipo:'pre',ref:'A',qty:1,livre:9999,fx:7000,faixa:'f1',estorno:true}];
+   const m=L.metaInfo(); return [m.meta, m.lucro, m.por.f1, m.por['']]""", [100, 1.5, 1, 0.5]),
+ ("curvaAbc: A, B e C pelo lucro", """const n=Date.now(); S.items=['P1','P2','P3'].map(r=>({tipo:'pre',ref:r,grau:'+1.00',cor:'Preto',qty:1,custo:1}));
+   S.sales=[['P1',80],['P2',15],['P3',5]].map(a=>({ts:n,tipo:'pre',ref:a[0],qty:1,livre:a[1]*7000,fx:7000,estorno:false}));
+   return L.curvaAbc().lista.map(m=>m.abc)""", ["A", "B", "C"]),
+ ("sugestoes: vende muito e o estoque acaba, sugere subir a margem", """const n=Date.now(); S.appStart=n-120*864e5; S.sazon={pre:Array(12).fill(1)}; S.metaUsd=0;
+   S.faixas=[{id:'f1',nome:'Eco',margem:30,precos:{}},{id:'f2',nome:'Lux',margem:50,precos:{}}]; S.pfaixa={P:'f1'}; S.sugIgn={};
+   S.items=[{tipo:'pre',ref:'P',grau:'+1.00',cor:'Preto',qty:5,custo:1}];
+   S.sales=[{ts:n-864e5,qty:40,faixa:'f1',tipo:'pre',ref:'P',livre:1,fx:7000,estorno:false},{ts:n-60*864e5,qty:20,faixa:'f1',tipo:'pre',ref:'P',livre:1,fx:7000,estorno:false}];
+   const r=L.sugestoes(); return [r[0].acao, r[0].para, r[1].acao]""", ["subir", 33, "sem-base"]),
+ ("sugestoes: vende pouco e sobra estoque, sugere descer a margem", """const n=Date.now(); S.appStart=n-120*864e5; S.sazon={pre:Array(12).fill(1)}; S.sugIgn={};
+   S.faixas=[{id:'f1',nome:'Eco',margem:30,precos:{}}]; S.pfaixa={P:'f1'};
+   S.items=[{tipo:'pre',ref:'P',grau:'+1.00',cor:'Preto',qty:100,custo:1}];
+   S.sales=[{ts:n-864e5,qty:3,faixa:'f1',tipo:'pre',ref:'P',livre:1,fx:7000,estorno:false},{ts:n-60*864e5,qty:20,faixa:'f1',tipo:'pre',ref:'P',livre:1,fx:7000,estorno:false}];
+   const r=L.sugestoes(); return [r[0].acao, r[0].para]""", ["descer", 27]),
+ ("sugestoes: sem histórico não sugere nada", """S.appStart=Date.now()-10*864e5; S.sales=[]; S.sugIgn={}; return L.sugestoes()[0].acao""", "sem-base"),
+ ("backup: exporta e restaura tudo", """S.metaUsd=77; S.items=[{tipo:'pre',ref:'K1',grau:'+1.00',cor:'Preto',qty:3}]; S.pfaixa={K1:'f1'}; const txt=L.backupDados();
+   S.metaUsd=1; S.items=[]; S.pfaixa={}; const e=L.restaurarDados(txt); return [e, S.metaUsd, S.items.length, S.pfaixa.K1, L.restaurarDados('lixo').length>0, L.restaurarDados('{"app":"outro"}').length>0]""", ["", 77, 1, "f1", True, True]),
 ]
 
 def igual(a, b):
@@ -276,6 +309,79 @@ async def main():
             got = await pg.evaluate("() => [window.__LF.S.items.filter(i => i.ref === 'Estojo A').map(i => i.cor), !!window.__LF.S.fotos['Estojo A|Preto'], !!document.getElementById('editModal')]")
             await checa('janela Editar: excluir a cor remove peças e foto dela', got == [['Marrom'], False, False], got)
 
+            # venda com desconto, piso, confirmação e brinde (pela tela)
+            pg = await pagina()
+            await pg.evaluate("""() => { const L = window.__LF, S = L.S;
+              S.exp = []; S.volume = 1; S.sales = []; S.cash = {pyg: 0, usd: 0, brl: 0};
+              S.faixas = [{id:'f1', nome:'Eco', margem:30, precos:{}}]; S.pfaixa = {VP1:'f1'};
+              S.tiposX = [{id:'estojo', label:'Estojos', full:'Estojos', price:10000, repUSD:1, pago:1, simple:true}]; L.syncTipos();
+              S.items = [{tipo:'pre', ref:'VP1', grau:'+1.00', med:'', vr:'', fmt:'', cor:'Preto', qty:5, custo:1},
+                         {tipo:'estojo', ref:'Estojo B', grau:'', med:'', vr:'', fmt:'', cor:'Preto', qty:3, custo:0.4}];
+              S.vTipo = 'all'; S.vq = ''; S.vFaixa = ''; S.vRef = 'pre|VP1'; S.vSel = S.items[0]; S.qty = 1; S.moeda = 'pyg'; S.rec = null; S.descTxt = '';
+              L.setView('vendas'); }""")
+            await pg.wait_for_timeout(300)
+            total += 1
+            t1 = await pg.inner_text('#pisoSt')
+            await pg.fill('#descIn', '20000'); await pg.wait_for_timeout(300)
+            t2 = await pg.inner_text('#pisoSt'); b1 = await pg.inner_text('#sgo')
+            await pg.click('#sgo'); await pg.wait_for_timeout(200)
+            n1 = await pg.evaluate("() => window.__LF.S.sales.length")
+            await pg.click('#sgo'); await pg.wait_for_timeout(300)
+            got = await pg.evaluate("() => { const S = window.__LF.S, s = S.sales[0]; return [S.sales.length, s && s.abaixo, s && s.perde, S.items[0].qty, s && s.faixa, s && s.lista] }")
+            ok = 'Acima do piso' in t1 and 'Abaixo da trava' in t2 and 'abaixo do piso' in b1 and n1 == 0 and got == [1, True, True, 4, 'f1', 25000]
+            print(('  ok  ' if ok else ' FALHA ') + 'tela Vendas: desconto abaixo do piso pede confirmação')
+            if not ok: falhas.append('venda abaixo do piso'); print('        veio', t1, '|', t2, '|', b1, n1, got, pg.erros)
+            total += 1
+            await pg.evaluate("() => { const S = window.__LF.S; S.vRef = 'pre|VP1'; S.vSel = S.items[0]; S.qty = 1; S.rec = null; S.descTxt = ''; window.__LF.render(); }")
+            await pg.locator('#brChips button:has-text("Estojo B")').click(); await pg.wait_for_timeout(200)
+            await pg.click('#sgo'); await pg.wait_for_timeout(300)
+            got = await pg.evaluate("() => { const S = window.__LF.S, s = S.sales[0]; return [S.sales.length, S.items[1].qty, s.brinde && s.brinde.usd, s.repUSD, s.abaixo] }")
+            ok = got == [2, 2, 0.4, 1.4, False]
+            await pg.evaluate("() => { const A = window.__LF.ACT, S = window.__LF.S, id = S.sales[0].id; A.estorno(id); A.estorno(id); }")
+            got2 = await pg.evaluate("() => { const S = window.__LF.S; return [S.items[1].qty, S.items[0].qty] }")
+            ok = ok and got2 == [3, 4]
+            print(('  ok  ' if ok else ' FALHA ') + 'tela Vendas: brinde sai do estoque, entra no custo e volta no estorno')
+            if not ok: falhas.append('brinde'); print('        veio', got, got2, pg.erros)
+            await pg.close()
+
+            # aba Ajustes: meta, faixa nova, contagem de estoque e backup
+            pg = await pagina()
+            await pg.evaluate("() => { const L = window.__LF, S = L.S; S.items = [{tipo:'pre', ref:'AJ1', grau:'+1.00', med:'', vr:'', fmt:'', cor:'Preto', qty:6, custo:1}]; L.setView('ajustes'); }")
+            await pg.wait_for_timeout(300)
+            total += 1
+            await pg.fill('[data-aj="meta"]', '600'); await pg.press('[data-aj="meta"]', 'Tab'); await pg.wait_for_timeout(300)
+            await pg.fill('#fnew', 'Premium'); await pg.locator('[data-act="fadd"]').click(); await pg.wait_for_timeout(300)
+            await pg.locator('[data-act="contabrir"]').click(); await pg.wait_for_timeout(300)
+            await pg.fill('[data-aj="cont"]', '4'); await pg.press('[data-aj="cont"]', 'Tab'); await pg.wait_for_timeout(200)
+            await pg.locator('[data-act="contaplicar"]').click(); await pg.wait_for_timeout(300)
+            got = await pg.evaluate("() => { const S = window.__LF.S; return [S.metaUsd, S.faixas.map(f => f.nome).pop(), S.items[0].qty, S.contagens.length, S.contagens[0].difs, S.contagens[0].valorUsd, S.elog.filter(e => e.contagem).length] }")
+            ok = got == [600, 'Premium', 4, 1, 1, -2, 1] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'tela Ajustes: meta, nova faixa e contagem de estoque')
+            if not ok: falhas.append('tela ajustes'); print('        veio', got, pg.erros)
+            total += 1
+            await pg.locator('#mainnav >> text="Dashboard"').first.click(); await pg.wait_for_timeout(300)
+            tx = await pg.inner_text('#v-dash')
+            ok = 'Meta do mês' in tx and 'US$ 600' in tx and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Dashboard: mostra meta do mês')
+            if not ok: falhas.append('dash meta'); print('        veio', tx[:200], pg.erros)
+            await pg.close()
+
+            # edição de faixa pela janela Editar e entrada por pacote
+            pg = await abrir('sem', 'Hexagonal')
+            await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
+            await pg.locator('#edFaixas button:has-text("Luxo")').click(); await pg.wait_for_timeout(200)
+            await pg.locator('#editModal button:text-is("Salvar")').click(); await pg.wait_for_timeout(300)
+            got = await pg.evaluate("() => { const S = window.__LF.S; return S.pfaixa['BR44118'] === S.faixas.filter(f => f.nome === 'Luxo')[0].id }")
+            await checa('janela Editar: escolher a faixa do produto', got is True, got)
+            total += 1
+            await pg.evaluate("""() => { const v = (id, x) => { const e = document.getElementById(id); e.value = x; e.dispatchEvent(new Event('input', {bubbles: true})); };
+              v('pkN', '24'); v('pkQ', '2'); v('pkC', '12'); document.getElementById('pkGo').click(); }""")
+            await pg.wait_for_timeout(200)
+            got = await pg.evaluate("() => [window.__LF.S.qty, document.getElementById('eCusto').value, document.getElementById('pkH').textContent]")
+            ok = got[0] == 48 and got[1] == '0,5' and '48 peças' in got[2]
+            print(('  ok  ' if ok else ' FALHA ') + 'cadastro: entrada por pacote preenche quantidade e custo')
+            if not ok: falhas.append('pacote'); print('        veio', got)
+
             # gravação: o que foi salvo volta depois de recarregar
             total += 1
             ctx = await b.new_context(viewport={'width': 420, 'height': 900}, service_workers='block')
@@ -289,11 +395,11 @@ async def main():
             if not ok: falhas.append('gravação'); print('        veio', got)
             await ctx.close()
 
-            # telas: 7 abas x 2 temas, sem erro e com conteúdo
+            # telas: 8 abas x 2 temas, sem erro e com conteúdo
             fundos = {}
             for scheme in ['dark', 'light']:
                 pg = await pagina(scheme)
-                for aba in ['Dashboard', 'Estoque', 'Vendas', 'Caixa', 'Câmbio', 'Despesas', 'Histórico']:
+                for aba in ['Dashboard', 'Estoque', 'Vendas', 'Caixa', 'Câmbio', 'Despesas', 'Histórico', 'Ajustes']:
                     total += 1
                     loc = pg.locator(f'#mainnav >> text="{aba}"').first
                     try:

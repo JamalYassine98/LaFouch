@@ -1050,6 +1050,7 @@
       S.qDraft = {};
       S.cDraft = {};
       S.dDraft = null;
+      S.fDraft = null;
       S.fDel = false;
     }
     var hb = mk('div', '');
@@ -1062,6 +1063,7 @@
         S.qDraft = {};
         S.cDraft = {};
         S.dDraft = null;
+        S.fDraft = null;
         S.fDel = false;
         S.cdMode = false;
         S.cdCor = '';
@@ -1276,6 +1278,7 @@
         S.rnN = null;
         S.rnRef = '';
         S.dDraft = null;
+        S.fDraft = null;
         S.fDel = false;
         S.cdMode = false;
         S.cdCor = '';
@@ -1347,6 +1350,26 @@
         'margin-top:8px;min-height:36px;background:var(--panel2);color:var(--sub);border:1px solid var(--line)';
       df.appendChild(sg);
       bx.appendChild(df);
+      // faixa do produto (só vale ao salvar)
+      if (!smp && !f.bulk && S.faixas.length) {
+        var fcur = S.fDraft != null ? S.fDraft : (faixaOf(ref) || {}).id || '',
+          fb = mk('div', 'nav');
+        fb.id = 'edFaixas';
+        [{ id: '', nome: 'Sem faixa' }].concat(S.faixas).forEach(function (x) {
+          fb.appendChild(
+            btn(
+              'chip' + (fcur === x.id ? ' on' : ''),
+              x.nome,
+              function () {
+                S.fDraft = x.id;
+                render();
+              },
+              fcur === x.id
+            )
+          );
+        });
+        bx.appendChild(fld('Faixa', fb));
+      }
       // foto da cor selecionada
       var ps = mk('div', '');
       ps.appendChild(mk('div', 'lbl', 'Foto · ' + cor));
@@ -1592,6 +1615,11 @@
         }
         var rm = ni ? renomear(nn, nv0, !!nmi) : '';
         if (rm) partes.push(rm);
+        if (S.fDraft != null) {
+          if (S.fDraft) S.pfaixa[nn] = S.fDraft;
+          else delete S.pfaixa[nn];
+          partes.push('Faixa salva.');
+        }
         zerar();
         S.msg = partes.join(' ') || 'Nada foi alterado.';
         render();
@@ -1686,6 +1714,10 @@
           } catch (e) {}
         }
       });
+      if (S.pfaixa && S.pfaixa[ref]) {
+        S.pfaixa[nn] = S.pfaixa[ref];
+        delete S.pfaixa[ref];
+      }
       if (S.desc[ref] != null) {
         S.desc[nn] = S.desc[ref];
         delete S.desc[ref];
@@ -1732,16 +1764,33 @@
     var q = S.q.trim().toLowerCase();
     var qm = mkMatch(q),
       flAll = ofT.filter(function (i) {
-        return fOk(i) && (S.corF === 'all' || i.cor === S.corF) && (!qm || qm(i));
+        return (
+          fOk(i) &&
+          (S.corF === 'all' || i.cor === S.corF) &&
+          (!S.faixaF || (faixaOf(i.ref) || {}).id === S.faixaF) &&
+          (!qm || qm(i))
+        );
       });
     var REPO_MIN = 5,
       tk = {};
     flAll.forEach(function (i) {
       tk[kOf(i)] = (tk[kOf(i)] || 0) + i.qty;
     });
-    var lowK = Object.keys(tk).filter(function (k) {
-      return tk[k] <= REPO_MIN;
+    /* "Repor": produtos que vendem e vão acabar logo (dias de estoque); sem histórico de venda, vale o corte antigo de 5 peças */
+    var rpSet = {},
+      vendeu = {};
+    prodStats().forEach(function (m) {
+      if (m.sold90 > 0) vendeu[m.key] = 1;
     });
+    reposicao().forEach(function (m) {
+      rpSet[m.key] = 1;
+    });
+    var lowSet = {};
+    flAll.forEach(function (i) {
+      var pk = i.tipo + '|' + i.ref;
+      if (rpSet[pk] || (!vendeu[pk] && tk[kOf(i)] <= REPO_MIN)) lowSet[kOf(i)] = 1;
+    });
+    var lowK = Object.keys(lowSet);
     var fl = S.repo
       ? flAll.filter(function (i) {
           return lowK.indexOf(kOf(i)) >= 0;
@@ -2244,6 +2293,22 @@
     $('filtPanel').hidden = !S.filtOpen;
     $('btnFilt').setAttribute('aria-pressed', !!S.filtOpen);
     $('btnFilt').classList.toggle('on', !!S.filtOpen || !!S.sortO);
+    var ff = $('fFaixas');
+    ff.textContent = '';
+    $('fFaixaB').hidden = !S.faixas.length;
+    [{ id: '', nome: 'Todas' }].concat(S.faixas).forEach(function (x) {
+      ff.appendChild(
+        btn(
+          'chip' + ((S.faixaF || '') === x.id ? ' on' : ''),
+          x.nome,
+          function () {
+            S.faixaF = x.id;
+            render();
+          },
+          (S.faixaF || '') === x.id
+        )
+      );
+    });
     var sc = $('sortChips');
     sc.textContent = '';
     [
@@ -2519,6 +2584,12 @@
       }
       card.appendChild(photoBox(photoOf(rr), 'pbox'));
       card.appendChild(mk('b', '', pn(rr)));
+      var fxe = faixaOf(rr);
+      if (fxe) {
+        var fte = faixaTag(fxe);
+        fte.style.alignSelf = 'flex-start';
+        card.appendChild(fte);
+      }
       if (S.pnome && S.pnome[rr]) {
         var cdl = mk('span', 's', 'Código ' + rr);
         if (gk) {
@@ -3209,6 +3280,8 @@
         qty: qty
       });
     $('eCusto').value = '';
+    if (S.eFaixa) S.pfaixa[ref] = S.eFaixa;
+    S.eFaixa = '';
     entradaEstoque(S.tipo, ref, corN, isPre ? S._gn : '', qty);
     say(
       'Entrada registrada: +' +
@@ -3235,7 +3308,8 @@
       'open',
       'det',
       'lotesView',
-      'repo'
+      'repo',
+      'faixaF'
     ];
   // Fecha os filtros (cancelar restaura o estado).
   function filtClose(cancel) {
@@ -8699,7 +8773,8 @@
     ['caixa', 'Caixa'],
     ['desp', 'Despesas'],
     ['fx', 'Câmbio'],
-    ['hist', 'Histórico']
+    ['hist', 'Histórico'],
+    ['ajustes', 'Ajustes']
   ];
 
   S.view = 'dash';
@@ -8821,10 +8896,11 @@
     };
   }
   // Calcula a divisão da venda: reposição, contas e lucro.
-  function calcSale(t, qty, fx, pct, cPeca, melhPeca, priceOv) {
+  function calcSale(t, qty, fx, pct, cPeca, melhPeca, priceOv, extraUSD) {
     var price = priceOv != null ? priceOv : t.price * qty,
       repP = Math.round(t.repUSD * fx),
-      rep = repP * qty,
+      ex = extraUSD > 0 ? Math.round(extraUSD * fx) : 0,
+      rep = repP * qty + ex,
       contas = cPeca * qty,
       colch = Math.round(t.repUSD * fx * pct) * qty;
     var melh = Math.min(melhPeca * qty, Math.max(0, price - rep - contas - colch)),
@@ -8832,7 +8908,7 @@
     return {
       price: price,
       rep: rep,
-      repUSD: t.repUSD * qty,
+      repUSD: t.repUSD * qty + (extraUSD > 0 ? extraUSD : 0),
       contas: contas,
       colch: colch,
       melh: melh,
@@ -8921,8 +8997,18 @@
         cp,
         false
       );
-    var m = calcSale(tFor(it), qty, S.fx.pyg, c.pct, cp, S.melhPeca, eff);
+    var tf = tFor(it),
+      pp = pisoPeca(it),
+      bu = pay.brinde ? pay.brinde.usd : 0,
+      bg = Math.round(bu * S.fx.pyg),
+      m = calcSale(tf, qty, S.fx.pyg, c.pct, cp, S.melhPeca, eff, bu);
     for (var k in m) s[k] = m[k];
+    s.faixa = (faixaOf(it.ref) || {}).id || '';
+    s.lista = tf.price * qty;
+    s.abaixo = eff < pp.piso * qty + bg;
+    s.perde = eff < pp.trava * qty + bg;
+    if (pay.brinde) s.brinde = pay.brinde;
+    if (pay.motivo) s.motivo = pay.motivo;
     s.moeda = pay.moeda;
     s.recebido = pay.recebido;
     s.rate = Math.round(rate);
@@ -9381,8 +9467,16 @@
   // Tipo com o custo efetivo da peça.
   function tFor(it) {
     var t = tipoOf(it.tipo),
-      cu = effCusto(it);
-    return cu != null ? Object.assign({}, t, { repUSD: cu, pago: cu }) : t;
+      cu = effCusto(it),
+      f = faixaOf(it.ref),
+      pr = f && f.precos && f.precos[it.tipo],
+      o = {};
+    if (cu != null) {
+      o.repUSD = cu;
+      o.pago = cu;
+    }
+    if (pr > 0) o.price = pr;
+    return Object.keys(o).length ? Object.assign({}, t, o) : t;
   }
   // Lê um valor digitado conforme a moeda.
   function pm(x, m) {
@@ -11292,6 +11386,612 @@
     var f = e.target.files && e.target.files[0];
     if (f) readNota(f);
   };
+  // ===== Faixas de qualidade, piso de preço, brindes e sazonalidade. =====
+  var FAIXA_CORES = ['#7fd8ff', '#ffc766', '#e08bc0', '#8be08f', '#b79cff', '#ff9d7a'];
+  // Faixas criadas pelo dono: nome, margem mínima (% de lucro sobre o preço) e preço próprio por tipo (opcional).
+  S.faixas = [
+    { id: 'f1', nome: 'Econômico', margem: 30, precos: {} },
+    { id: 'f2', nome: 'Intermediário', margem: 40, precos: {} },
+    { id: 'f3', nome: 'Luxo', margem: 50, precos: {} }
+  ];
+  S.pfaixa = {}; // código do produto -> id da faixa
+  S.metaUsd = 0; // meta mensal de lucro da loja toda (US$)
+  S.sazon = {}; // curva de vendas por tipo (12 fatores, janeiro a dezembro), editável
+  S.appStart = Date.now();
+  S.sugIgn = {}; // sugestão de margem ignorada: faixa -> mês (AAAA-MM)
+  S.backupTs = 0;
+  S.contagens = [];
+  // Curva padrão: solares vendem mais no verão do Paraguai (outubro a março).
+  var SAZON_PADRAO = { solar: [1.5, 1.4, 1.2, 1.0, 0.8, 0.6, 0.6, 0.7, 0.9, 1.1, 1.3, 1.5] };
+  var MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+  // Faixa de um produto pelo código.
+  function faixaOf(ref) {
+    var id = S.pfaixa && S.pfaixa[ref];
+    return (
+      (id &&
+        S.faixas.filter(function (f) {
+          return f.id === id;
+        })[0]) ||
+      null
+    );
+  }
+  // Cor de uma faixa (pela ordem na lista).
+  function faixaCor(f) {
+    return FAIXA_CORES[Math.max(0, S.faixas.indexOf(f)) % FAIXA_CORES.length];
+  }
+  // Etiqueta colorida da faixa.
+  function faixaTag(f) {
+    var c = faixaCor(f),
+      e = mk('span', 'ftag', f.nome);
+    e.style.cssText =
+      'font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;color:' +
+      c +
+      ';background:color-mix(in srgb,' +
+      c +
+      ' 16%,transparent)';
+    return e;
+  }
+  // Arredonda para cima em múltiplos de 500 guaranis.
+  function up500(v) {
+    return Math.ceil(v / 500) * 500;
+  }
+  // Fator de venda do tipo em um mês (0 = janeiro). 1 = mês normal.
+  function sazonFator(tipo, mes) {
+    var c = (S.sazon && S.sazon[tipo]) || SAZON_PADRAO[tipo];
+    var v = c && Number(c[((mes % 12) + 12) % 12]);
+    return v > 0 ? v : 1;
+  }
+  // Preço de tabela e limites de uma peça: trava (sem prejuízo) e piso (com a margem mínima da faixa).
+  function pisoPeca(it) {
+    var t = tFor(it),
+      fx = S.fx.pyg,
+      rep = Math.round(t.repUSD * fx),
+      cp = contasPeca(),
+      col = Math.round(t.repUSD * fx * colchao().pct),
+      f = faixaOf(it.ref),
+      m = f ? Math.min(0.9, f.margem / 100) : 0,
+      trava = rep + cp;
+    return {
+      lista: t.price,
+      rep: rep,
+      contas: cp,
+      colch: col,
+      trava: trava,
+      piso: up500((trava + col) / (1 - m)),
+      saida: up500(trava),
+      margem: m
+    };
+  }
+  // Brindes: peças de tipos simples (estojo, capinha…) com estoque.
+  function brindesDisp() {
+    return S.items.filter(function (i) {
+      return i.qty > 0 && isSimple(i.tipo);
+    });
+  }
+  // Custo em US$ de uma peça de brinde.
+  function brindeUsd(it) {
+    var c = effCusto(it),
+      t = tipoOf(it.tipo);
+    return c != null ? c : t ? t.repUSD || 0 : 0;
+  }
+  // Procura a peça de brinde gravada numa venda.
+  function brindeItem(b) {
+    return S.items.filter(function (x) {
+      return (
+        x.tipo === b.tipo &&
+        x.ref === b.ref &&
+        x.cor === b.cor &&
+        (x.grau || '') === (b.grau || '') &&
+        (x.vr || '') === (b.vr || '') &&
+        (x.lote || '') === (b.lote || '')
+      );
+    })[0];
+  }
+  // Estorno da venda devolve o brinde ao estoque.
+  function estornoBrinde(s) {
+    if (!s.brinde) return;
+    var it = brindeItem(s.brinde);
+    if (it) it.qty += 1;
+  }
+  // Soma peças por pacote (entrada em pacotes): total de peças e custo por peça.
+  function calcPacote(pecas, pacotes, custoPacote) {
+    var n = Math.max(0, Math.round(pecas * pacotes));
+    return { qty: n, custo: n > 0 && custoPacote > 0 ? (custoPacote * pacotes) / n : 0 };
+  }
+
+  // Campos extras do cadastro: faixa do produto e entrada por pacote.
+  function renderAddExtras() {
+    var fb = $('eFaixas');
+    if (!fb) return;
+    var ref = S._ref,
+      cur = S.eFaixa || (ref && (faixaOf(ref) || {}).id) || '';
+    $('eFaixaB').hidden = !S.faixas.length || isSimple(S.tipo);
+    fb.textContent = '';
+    S.faixas.forEach(function (x) {
+      fb.appendChild(
+        btn(
+          'chip' + (cur === x.id ? ' on' : ''),
+          x.nome,
+          function () {
+            S.eFaixa = S.eFaixa === x.id ? '' : x.id;
+            render();
+          },
+          cur === x.id
+        )
+      );
+    });
+    var pc = $('pkChips');
+    pc.textContent = '';
+    [20, 24, 30].forEach(function (n) {
+      pc.appendChild(
+        btn(
+          'chip' + (S.pkPecas === n ? ' on' : ''),
+          String(n),
+          function () {
+            S.pkPecas = n;
+            $('pkN').value = '';
+            render();
+          },
+          S.pkPecas === n
+        )
+      );
+    });
+    var pk = pkCalc();
+    $('pkH').hidden = !pk.qty;
+    $('pkH').textContent = pk.qty
+      ? pk.qty + ' peças no total' + (pk.custo ? ' · custo US$ ' + pk.custo.toFixed(2).replace('.', ',') + ' por peça' : '')
+      : '';
+    $('pkGo').disabled = !pk.qty;
+  }
+  // Lê os campos do pacote e calcula peças e custo por peça.
+  function pkCalc() {
+    var pecas = toNum($('pkN').value) || S.pkPecas || 0,
+      q = toNum($('pkQ').value) || 1,
+      c = parseFloat(String($('pkC').value).replace(',', '.')) || 0;
+    return calcPacote(pecas, q, c);
+  }
+  ['pkN', 'pkQ', 'pkC'].forEach(function (id) {
+    $(id).addEventListener('input', function () {
+      if (id === 'pkN' && this.value) S.pkPecas = 0;
+      renderAddExtras();
+    });
+  });
+  $('pkGo').onclick = function () {
+    var pk = pkCalc();
+    if (!pk.qty) return;
+    S.qty = pk.qty;
+    if (pk.custo) $('eCusto').value = pk.custo.toFixed(4).replace(/0+$/, '').replace(/\.$/, '').replace('.', ',');
+    S.msg = '';
+    render();
+  };
+  // ===== Análises: meta do mês, reposição, estoque parado, curva ABC, sugestão de margem e câmbio x piso. =====
+  // Lucro livre de uma venda em US$ (ao câmbio da venda).
+  function lucroUsd(s) {
+    return s.livre / (s.fx || S.fx.pyg);
+  }
+  // Estatísticas por produto (tipo + código): estoque, vendas e lucro.
+  function prodStats() {
+    var now = Date.now(),
+      map = {},
+      order = [];
+    S.items.forEach(function (i) {
+      var t = tipoOf(i.tipo);
+      if (!t) return;
+      var k = i.tipo + '|' + i.ref;
+      if (!map[k]) {
+        map[k] = {
+          key: k,
+          tipo: i.tipo,
+          ref: i.ref,
+          it: i,
+          stock: 0,
+          costUsd: 0,
+          cu: 0,
+          sold30: 0,
+          sold90: 0,
+          adj30: 0,
+          profit30: 0,
+          profit90: 0,
+          last: 0
+        };
+        order.push(k);
+      }
+      var m = map[k],
+        c = effCusto(i);
+      if (i.qty > 0 && (m.it.qty <= 0 || !m.stock)) m.it = i;
+      m.stock += i.qty;
+      m.costUsd += i.qty * (c != null ? c : t.repUSD || 0);
+    });
+    S.sales.forEach(function (s) {
+      var m = map[s.tipo + '|' + s.ref];
+      if (!m || s.estorno) return;
+      var age = (now - s.ts) / DAY;
+      if (age <= 90) {
+        m.sold90 += s.qty;
+        m.profit90 += lucroUsd(s);
+      }
+      if (age <= 30) {
+        m.sold30 += s.qty;
+        m.profit30 += lucroUsd(s);
+        m.adj30 += s.qty / sazonFator(s.tipo, new Date(s.ts).getMonth());
+      }
+      if (s.ts > m.last) m.last = s.ts;
+    });
+    return order.map(function (k) {
+      var m = map[k];
+      m.cu = m.stock > 0 ? m.costUsd / m.stock : brindeUsd(m.it);
+      return m;
+    });
+  }
+  // Meta do mês: lucro até agora, por faixa, e dias restantes.
+  function metaInfo() {
+    var d = new Date(),
+      ini = new Date(d.getFullYear(), d.getMonth(), 1).getTime(),
+      dias = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate(),
+      tot = 0,
+      por = {};
+    S.sales.forEach(function (s) {
+      if (s.estorno || s.ts < ini) return;
+      var u = lucroUsd(s),
+        k = s.faixa || '';
+      tot += u;
+      por[k] = (por[k] || 0) + u;
+    });
+    return { meta: S.metaUsd || 0, lucro: tot, por: por, restam: dias - d.getDate() + 1, dias: dias };
+  }
+  // Ritmo de venda esperado para os próximos 30 dias (já corrigido pela estação).
+  function esperado30(m) {
+    var f = sazonFator(m.tipo, new Date(Date.now() + 15 * DAY).getMonth());
+    return m.adj30 * f;
+  }
+  // Produtos que mais dão lucro e estão acabando, com a quantidade sugerida para comprar.
+  function reposicao() {
+    return prodStats()
+      .filter(function (m) {
+        return m.sold30 > 0 && m.stock >= 0;
+      })
+      .map(function (m) {
+        var e = esperado30(m),
+          dias = e > 0 ? m.stock / (e / 30) : Infinity;
+        m.dias = dias;
+        m.comprar = Math.max(0, Math.ceil(e * 1.5 - m.stock));
+        return m;
+      })
+      .filter(function (m) {
+        return m.dias <= 21;
+      })
+      .sort(function (a, b) {
+        return b.profit30 - a.profit30;
+      });
+  }
+  // Estoque parado: sem venda há muito tempo (fora da baixa estação) com preço de saída sem prejuízo.
+  function parados() {
+    var now = Date.now(),
+      mes = new Date().getMonth();
+    return prodStats()
+      .filter(function (m) {
+        if (m.stock <= 0 || isSimple(m.tipo)) return false;
+        var dias = (now - (m.last || S.appStart || now)) / DAY;
+        m.diasParado = dias;
+        return dias >= 60 && sazonFator(m.tipo, mes) >= 0.8;
+      })
+      .map(function (m) {
+        m.pp = pisoPeca(m.it);
+        return m;
+      })
+      .filter(function (m) {
+        return m.pp.lista > 0 && m.pp.saida < m.pp.lista;
+      })
+      .sort(function (a, b) {
+        return b.costUsd - a.costUsd;
+      });
+  }
+  // Curva ABC pelo lucro dos últimos 90 dias.
+  function curvaAbc() {
+    var st = prodStats(),
+      com = st
+        .filter(function (m) {
+          return m.profit90 > 0;
+        })
+        .sort(function (a, b) {
+          return b.profit90 - a.profit90;
+        }),
+      tot = com.reduce(function (a, m) {
+        return a + m.profit90;
+      }, 0),
+      acc = 0;
+    com.forEach(function (m) {
+      acc += m.profit90;
+      m.abc = acc - m.profit90 < tot * 0.8 ? 'A' : acc - m.profit90 < tot * 0.95 ? 'B' : 'C';
+    });
+    var sem = st.filter(function (m) {
+      return m.stock > 0 && m.sold90 === 0;
+    });
+    return { lista: com, total: tot, sem: sem };
+  }
+  // Produtos cujo preço de tabela ficou abaixo do piso com o câmbio de hoje.
+  function abaixoDoPiso() {
+    return prodStats()
+      .map(function (m) {
+        m.pp = pisoPeca(m.it);
+        return m;
+      })
+      .filter(function (m) {
+        return m.stock > 0 && !isSimple(m.tipo) && m.pp.lista > 0 && m.pp.lista < m.pp.piso;
+      });
+  }
+  // Vendas abaixo da trava ou do piso nos últimos 30 dias, por motivo.
+  function perdasPropositais() {
+    var por = {},
+      perda = 0,
+      n = 0;
+    periodSales(30).forEach(function (s) {
+      if (!s.abaixo) return;
+      n++;
+      if (s.livre < 0) perda += s.livre;
+      var k = s.motivo || 'Sem motivo';
+      por[k] = (por[k] || 0) + s.livre;
+    });
+    return { n: n, perda: perda, por: por, total: sumBy(periodSales(30), 'livre') };
+  }
+  // Sugestão de margem por faixa: olha o giro, o estoque e as contas.
+  function sugestoes() {
+    var now = Date.now(),
+      ym = new Date().getFullYear() + '-' + (new Date().getMonth() + 1),
+      oldest = S.sales.reduce(function (a, s) {
+        return Math.min(a, s.ts);
+      }, S.appStart || now),
+      hist = (now - Math.min(oldest, S.appStart || now)) / DAY,
+      st = prodStats(),
+      meta = metaInfo(),
+      contasOk = reservas().livre >= 0;
+    return S.faixas.map(function (f) {
+      var r = { faixa: f, de: f.margem, para: f.margem, acao: 'manter', motivo: '' };
+      if (S.sugIgn[f.id] === ym) {
+        r.acao = 'ignorada';
+        return r;
+      }
+      var cur = 0,
+        prev = 0,
+        stock = 0,
+        exp = 0;
+      S.sales.forEach(function (s) {
+        if (s.estorno || s.faixa !== f.id) return;
+        var age = (now - s.ts) / DAY,
+          adj = s.qty / sazonFator(s.tipo, new Date(s.ts).getMonth());
+        if (age <= 30) cur += adj;
+        else if (age <= 90) prev += adj / 2;
+      });
+      st.forEach(function (m) {
+        if ((faixaOf(m.ref) || {}).id !== f.id) return;
+        stock += m.stock;
+        exp += esperado30(m);
+      });
+      var dias = exp > 0 ? stock / (exp / 30) : Infinity;
+      if (hist < 60 || prev <= 0) {
+        r.acao = 'sem-base';
+        r.motivo = 'Ainda sem histórico suficiente (precisa de 2 meses de vendas desta faixa).';
+        return r;
+      }
+      var ratio = cur / prev,
+        pct = Math.round(ratio * 100);
+      if (ratio >= 1.3 && dias <= 25) {
+        r.acao = 'subir';
+        r.para = Math.min(80, f.margem + 3);
+        r.motivo =
+          'Vendeu ' + pct + '% do ritmo normal e o estoque dura ~' + Math.round(dias) + ' dias. Há espaço para subir a margem.';
+      } else if (ratio <= 0.7 && dias >= 60) {
+        r.acao = 'descer';
+        r.para = Math.max(10, f.margem - 3);
+        r.motivo =
+          'Vendeu só ' + pct + '% do ritmo normal e o estoque dura ~' + Math.min(999, Math.round(dias)) + ' dias. Baixar a margem dá mais giro.';
+      } else {
+        r.motivo =
+          'Vendas em ' +
+          pct +
+          '% do ritmo normal' +
+          (contasOk ? ', contas cobertas' : ', mas o caixa está abaixo do separado') +
+          (meta.meta > 0
+            ? meta.lucro >= meta.meta
+              ? ' e meta cumprida.'
+              : ', meta em ' + Math.round((meta.lucro / meta.meta) * 100) + '%.'
+            : '.');
+      }
+      if (r.para === r.de) r.acao = 'manter';
+      return r;
+    });
+  }
+  // Linha simples de lista: título, apoio e valor à direita.
+  function dxRow(titulo, apoio, dir, extra) {
+    return (
+      '<div class="sl"><span>' +
+      titulo +
+      '<small>' +
+      apoio +
+      '</small></span><b>' +
+      (dir || '') +
+      '</b>' +
+      (extra || '') +
+      '</div>'
+    );
+  }
+  // Nome curto do produto para listas.
+  function dxNome(m) {
+    var f = faixaOf(m.ref),
+      tp = tipoOf(m.tipo);
+    return (
+      esc(pn(m.ref)) +
+      ' <span class="hint" style="display:inline;margin:0">' +
+      esc(tp ? tp.label : '') +
+      (f ? ' · ' + esc(f.nome) : '') +
+      '</span>'
+    );
+  }
+  // Blocos novos do Dashboard (HTML).
+  function dashExtra() {
+    var html = '',
+      mi = metaInfo(),
+      u0 = function (n) {
+        return 'US$ ' + Math.round(n);
+      };
+    // meta
+    html += '<section class="card col"><h2 style="margin:0;font-size:16px">Meta do mês</h2>';
+    if (mi.meta > 0) {
+      var p = Math.min(100, (mi.lucro / mi.meta) * 100);
+      html +=
+        '<div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:26px;color:var(--ok)">' +
+        u0(mi.lucro) +
+        '</b><span class="hint" style="margin:0">meta ' +
+        u0(mi.meta) +
+        '</span></div><div class="bar"><i style="width:' +
+        p +
+        '%;background:var(--ok)"></i></div><div class="hint" style="margin:0">' +
+        (mi.lucro >= mi.meta
+          ? 'Meta cumprida.'
+          : 'Faltam ' + u0(mi.meta - mi.lucro) + ' · ' + mi.restam + ' dia(s) restantes.') +
+        '</div>';
+    } else
+      html +=
+        '<div class="hint" style="margin:0">Lucro livre no mês: <b>' +
+        u0(mi.lucro) +
+        '</b>. Defina a meta em <a href="#ajustes" data-act="view" data-id="ajustes" style="color:var(--accent-fg)">Ajustes</a>.</div>';
+    html += '<div class="split">';
+    S.faixas.forEach(function (f) {
+      html += dxRow(
+        '<span class="sp" style="background:' + faixaCor(f) + '"></span>' + esc(f.nome),
+        'lucro livre no mês',
+        u0(mi.por[f.id] || 0)
+      );
+    });
+    if (mi.por['']) html += dxRow('Sem faixa', 'lucro livre no mês', u0(mi.por['']));
+    html += '</div></section>';
+    // sugestões de margem
+    var sg = sugestoes().filter(function (r) {
+      return r.acao !== 'ignorada';
+    });
+    if (sg.length) {
+      html +=
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Sugestão de margem</h2><div class="hint" style="margin:2px 0 0">Cada faixa é avaliada separada, pelo giro, estoque e contas. Você decide.</div></div><div class="split">';
+      sg.forEach(function (r) {
+        var ap =
+          r.acao === 'subir' || r.acao === 'descer'
+            ? '<div style="display:flex;gap:8px;margin-top:6px"><button class="chip on" data-act="sugap" data-id="' +
+              r.faixa.id +
+              '">Aplicar ' +
+              r.para +
+              '%</button><button class="chip" data-act="sugig" data-id="' +
+              r.faixa.id +
+              '">Ignorar</button></div>'
+            : '';
+        html +=
+          '<div class="sl" style="flex-wrap:wrap"><span>' +
+          esc(r.faixa.nome) +
+          ' · margem ' +
+          r.de +
+          '%<small>' +
+          esc(r.motivo) +
+          '</small></span><b>' +
+          (r.acao === 'subir' ? 'subir' : r.acao === 'descer' ? 'descer' : r.acao === 'sem-base' ? '—' : 'manter') +
+          '</b>' +
+          ap +
+          '</div>';
+      });
+      html += '</div></section>';
+    }
+    // repor primeiro + lista de compras
+    var rp = reposicao().slice(0, 8);
+    html +=
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Repor primeiro</h2><div class="hint" style="margin:2px 0 0">Ordenado pelo lucro que o produto dá. Dias de estoque pelo ritmo de venda, corrigido pela estação.</div></div>';
+    if (!rp.length) html += '<div class="note n-ok">Nada acabando nos próximos 21 dias.</div>';
+    else {
+      html += '<div class="split">';
+      var totC = 0;
+      rp.forEach(function (m) {
+        totC += m.comprar * m.cu;
+        html += dxRow(
+          dxNome(m),
+          'restam ~' + Math.round(m.dias) + ' dias · ' + m.stock + ' un. · comprar ~' + m.comprar,
+          u0(m.profit30)
+        );
+      });
+      html +=
+        '</div><div class="note n-info">Lista de compras (cobre ~45 dias): custo estimado <b>' +
+        usd(totC) +
+        '</b>.</div>';
+    }
+    html += '</section>';
+    // parados
+    var pa = parados().slice(0, 8);
+    if (pa.length) {
+      html +=
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Estoque parado</h2><div class="hint" style="margin:2px 0 0">Sem venda há 60 dias ou mais (fora da baixa estação). Preço de saída = reposição + contas, sem prejuízo e sem meta de lucro.</div></div><div class="split">';
+      pa.forEach(function (m) {
+        html += dxRow(
+          dxNome(m),
+          Math.round(m.diasParado) + ' dias sem vender · ' + m.stock + ' un. · ' + usd(m.costUsd) + ' parados',
+          gs(m.pp.saida),
+          '<button class="chip" data-act="saida" data-id="' + esc(m.key) + '">Vender com saída</button>'
+        );
+      });
+      html += '</div></section>';
+    }
+    // câmbio x piso
+    var ab = abaixoDoPiso().slice(0, 8);
+    if (ab.length) {
+      html +=
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Preço abaixo do piso hoje</h2><div class="hint" style="margin:2px 0 0">Com o câmbio e as contas de hoje, o preço de tabela destes produtos não cobre o piso da faixa.</div></div><div class="split">';
+      ab.forEach(function (m) {
+        html += dxRow(dxNome(m), 'tabela ' + gs(m.pp.lista) + ' · piso ' + gs(m.pp.piso), gs(m.pp.lista - m.pp.piso));
+      });
+      html += '</div></section>';
+    }
+    // perdas
+    var pr = perdasPropositais();
+    if (pr.n) {
+      html +=
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Vendas abaixo do piso (30 dias)</h2><div class="hint" style="margin:2px 0 0">' +
+        pr.n +
+        ' venda(s). O resultado de tudo junto é o que importa: lucro livre total do período <b>' +
+        gs(pr.total) +
+        '</b>.</div></div><div class="split">';
+      Object.keys(pr.por).forEach(function (k) {
+        html += dxRow(esc(k), 'lucro livre dessas vendas', sgn(pr.por[k]));
+      });
+      html += '</div></section>';
+    }
+    // curva abc
+    var ab2 = curvaAbc();
+    if (ab2.lista.length || ab2.sem.length) {
+      var nA = ab2.lista.filter(function (m) {
+          return m.abc === 'A';
+        }),
+        nB = ab2.lista.filter(function (m) {
+          return m.abc === 'B';
+        }).length,
+        nC = ab2.lista.filter(function (m) {
+          return m.abc === 'C';
+        }).length;
+      html +=
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Curva ABC (90 dias)</h2><div class="hint" style="margin:2px 0 0">A: produtos que dão 80% do lucro · B: próximos 15% · C: o resto.</div></div><div class="split">' +
+        dxRow('A', 'dão 80% do lucro', nA.length + ' produto(s)') +
+        dxRow('B', 'próximos 15%', nB + ' produto(s)') +
+        dxRow('C', 'últimos 5%', nC + ' produto(s)') +
+        dxRow('Sem venda', 'têm estoque e não venderam em 90 dias', ab2.sem.length + ' produto(s)') +
+        '</div>';
+      if (nA.length) {
+        html += '<div class="hint" style="margin:0">Campeões: ';
+        html += nA
+          .slice(0, 5)
+          .map(function (m) {
+            return esc(pn(m.ref)) + ' (' + u0(m.profit90) + ')';
+          })
+          .join(', ');
+        html += '.</div>';
+      }
+      html += '</section>';
+    }
+    return html;
+  }
   // ===== Aba Vendas. =====
   // Aba Vendas.
   function renderVendas() {
@@ -11305,9 +12005,13 @@
             return x.id === i.tipo;
           }) &&
           (S.vTipo === 'all' || i.tipo === S.vTipo) &&
+          (!S.vFaixa || (faixaOf(i.ref) || {}).id === S.vFaixa) &&
           (!qm || qm(i))
         );
       });
+    $('vFiltPanel').hidden = !S.vFilt;
+    $('vBtnFilt').setAttribute('aria-pressed', !!S.vFilt);
+    $('vBtnFilt').classList.toggle('on', !!S.vFilt || S.vTipo !== 'all' || !!S.vFaixa);
     var vt = $('vTipos');
     vt.textContent = '';
     [{ id: 'all', label: 'Todos' }].concat(TIPOS).forEach(function (x) {
@@ -11324,6 +12028,25 @@
             render();
           },
           S.vTipo === x.id
+        )
+      );
+    });
+    var vf = $('vFaixas');
+    vf.textContent = '';
+    $('vFaixaB').hidden = !S.faixas.length;
+    [{ id: '', nome: 'Todas' }].concat(S.faixas).forEach(function (x) {
+      vf.appendChild(
+        btn(
+          'chip' + ((S.vFaixa || '') === x.id ? ' on' : ''),
+          x.nome,
+          function () {
+            S.vFaixa = x.id;
+            S.vRef = '';
+            S.vSel = null;
+            S.qty = 1;
+            render();
+          },
+          (S.vFaixa || '') === x.id
         )
       );
     });
@@ -11372,6 +12095,12 @@
       );
       card.appendChild(photoBox(photoOf(f.ref), 'pbox'));
       card.appendChild(mk('b', '', pn(f.ref)));
+      var fxa = faixaOf(f.ref);
+      if (fxa) {
+        var ft = faixaTag(fxa);
+        ft.style.alignSelf = 'flex-start';
+        card.appendChild(ft);
+      }
       if (S.pnome && S.pnome[f.ref]) card.appendChild(mk('span', 's', 'Código ' + f.ref));
       card.appendChild(
         mk(
@@ -11474,15 +12203,174 @@
     if (sel) {
       S._t = tFor(sel);
       S._selKey = [sel.tipo, sel.ref, sel.cor, sel.grau, sel.vr].join('/');
-      $('unit').textContent = t.price
-        ? 'Preço unit. G$ ' + dots(t.price) + ' (exemplo)'
+      if (S._descKey !== S._selKey) {
+        S._descKey = S._selKey;
+        S.descTxt = '';
+        S.vBrinde = null;
+        S.vMotivo = '';
+      }
+      var pt = S._t.price,
+        lista = pt * S.qty,
+        dn = parseDec(S.descTxt, S.descMode === 'pct' ? 'usd' : 'pyg');
+      S.descGs = Math.max(
+        0,
+        Math.min(lista, Math.round(S.descMode === 'pct' ? (lista * Math.min(100, dn)) / 100 : dn))
+      );
+      var fxs = faixaOf(sel.ref);
+      $('unit').textContent = pt
+        ? 'Preço unit. G$ ' + dots(pt) + (fxs ? ' (faixa ' + fxs.nome + ')' : ' (exemplo)')
         : 'Preço livre: digite abaixo o valor recebido';
-      $('tot').textContent = t.price ? 'G$ ' + dots(t.price * S.qty) : '';
+      $('tot').textContent = pt ? 'G$ ' + dots(lista - S.descGs) : '';
+      renderDescBrinde(sel);
       renderMoeda();
+      renderPiso();
     }
     $('sgo').disabled = !sel || max <= 0;
     $('vmsg').textContent = S.msg || '';
   }
+  // Desconto, brinde e motivo da venda.
+  function renderDescBrinde(sel) {
+    var dm = $('descModes');
+    dm.textContent = '';
+    [
+      ['pyg', 'G$'],
+      ['pct', '%']
+    ].forEach(function (o) {
+      dm.appendChild(
+        btn(
+          'chip' + ((S.descMode || 'pyg') === o[0] ? ' on' : ''),
+          o[1],
+          function () {
+            S.descMode = o[0];
+            S.descTxt = '';
+            S.rec = null;
+            render();
+          },
+          (S.descMode || 'pyg') === o[0]
+        )
+      );
+    });
+    if ($('descIn').value !== (S.descTxt || '')) $('descIn').value = S.descTxt || '';
+    $('descH').textContent = S.descGs
+      ? 'Desconto de G$ ' + dots(S.descGs) + ' sobre o preço de tabela.'
+      : '';
+    var bl = brindesDisp().filter(function (x) {
+      return x !== sel;
+    });
+    $('brB').hidden = !bl.length;
+    var bc = $('brChips');
+    bc.textContent = '';
+    if (S.vBrinde && bl.indexOf(S.vBrinde) < 0) S.vBrinde = null;
+    bc.appendChild(
+      btn(
+        'chip' + (!S.vBrinde ? ' on' : ''),
+        'Sem brinde',
+        function () {
+          S.vBrinde = null;
+          S.rec = null;
+          render();
+        },
+        !S.vBrinde
+      )
+    );
+    bl.forEach(function (x) {
+      bc.appendChild(
+        btn(
+          'chip' + (S.vBrinde === x ? ' on' : ''),
+          tipoOf(x.tipo).label + ' ' + x.ref + ' · ' + x.cor + ' · ' + usd(brindeUsd(x)),
+          function () {
+            S.vBrinde = x;
+            S.rec = null;
+            render();
+          },
+          S.vBrinde === x
+        )
+      );
+    });
+    var mc = $('motChips');
+    mc.textContent = '';
+    ['Isca ou combo', 'Liquidação', 'Cliente fiel', 'Outro'].forEach(function (m) {
+      mc.appendChild(
+        btn(
+          'chip' + (S.vMotivo === m ? ' on' : ''),
+          m,
+          function () {
+            S.vMotivo = S.vMotivo === m ? '' : m;
+            render();
+          },
+          S.vMotivo === m
+        )
+      );
+    });
+  }
+  // Prévia da venda: custo, trava, piso e lucro com o valor digitado.
+  function vendaPrevia() {
+    var sel = S._vsel,
+      t = S._t;
+    if (!sel || !t) return null;
+    var q = Math.max(1, S.qty),
+      eff = Math.round((S._recv || 0) * ratePyg(S.moeda)),
+      br = S.vBrinde && S.vBrinde.qty > 0 ? S.vBrinde : null,
+      bu = br ? brindeUsd(br) : 0,
+      bg = Math.round(bu * S.fx.pyg),
+      pp = pisoPeca(sel),
+      c = calcSale(t, q, S.fx.pyg, colchao().pct, contasPeca(), S.melhPeca, eff, bu),
+      travaTot = pp.trava * q + bg,
+      pisoTot = pp.piso * q + bg;
+    return {
+      eff: eff,
+      c: c,
+      br: br,
+      bu: bu,
+      pp: pp,
+      travaTot: travaTot,
+      pisoTot: pisoTot,
+      perde: eff < travaTot,
+      abaixo: eff < pisoTot,
+      key: [S._selKey, q, eff, S.moeda, br ? br.ref + br.cor : ''].join('|')
+    };
+  }
+  // Aviso de piso: mostra o lucro ou a perda e pede confirmação se estiver abaixo.
+  function renderPiso() {
+    var el = $('pisoSt'),
+      v = (S._vp = vendaPrevia());
+    el.textContent = '';
+    el.className = '';
+    $('motB').hidden = !(v && v.abaixo);
+    $('sgo').textContent = 'Finalizar venda';
+    if (!v || !(v.eff > 0)) return;
+    var fx = faixaOf(S._vsel.ref),
+      bt = v.br ? ' (já contando o brinde)' : '';
+    if (v.perde) {
+      el.className = 'note n-bad';
+      el.textContent =
+        'Abaixo da trava: você perde ' + gs(v.travaTot - v.eff) + ' nesta venda' + bt + '.';
+    } else if (v.abaixo) {
+      el.className = 'note n-warn';
+      el.textContent =
+        'Abaixo do piso' +
+        (fx ? ' da faixa ' + fx.nome + ' (margem mínima ' + fx.margem + '%)' : '') +
+        ': piso G$ ' +
+        dots(v.pisoTot) +
+        '. Lucro livre estimado ' +
+        gs(v.c.livre) +
+        bt +
+        '.';
+    } else {
+      el.className = 'note n-ok';
+      el.textContent = 'Acima do piso. Lucro livre estimado: ' + gs(v.c.livre) + bt + '.';
+    }
+    if (v.abaixo) {
+      var ok = S.pisoConf === v.key;
+      $('sgo').textContent = ok ? 'Vender mesmo assim' : 'Finalizar venda (abaixo do piso)';
+      if (ok) el.textContent += ' Toque de novo para confirmar.';
+    }
+  }
+  $('descIn').oninput = function (e) {
+    S.descTxt = e.target.value;
+    S.rec = null;
+    render();
+  };
   $('vq').oninput = function (e) {
     S.vq = e.target.value;
     S.vRef = '';
@@ -14241,6 +15129,20 @@
       v.style.flex = '1 1 auto';
       v.style.width = 'auto';
       w.appendChild(mkCam(v));
+      var fb = mk('button', 'chip');
+      fb.type = 'button';
+      fb.id = 'vBtnFilt';
+      fb.setAttribute('aria-label', 'Filtros');
+      fb.title = 'Filtros';
+      fb.style.cssText =
+        'min-height:44px;width:48px;padding:0;justify-content:center;flex:0 0 auto';
+      fb.innerHTML =
+        '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8Z"/></svg>';
+      fb.onclick = function () {
+        S.vFilt = !S.vFilt;
+        render();
+      };
+      w.appendChild(fb);
     }
   })();
 
@@ -14264,6 +15166,14 @@
       return;
     }
     qty = Math.min(qty, sel.qty);
+    var pv = vendaPrevia();
+    if (pv && pv.abaixo && S.pisoConf !== pv.key) {
+      S.pisoConf = pv.key;
+      renderPiso();
+      return;
+    }
+    var br = pv && pv.br;
+    if (br) br.qty -= 1;
     sel.qty -= qty;
     var sg =
       sel.lote &&
@@ -14277,7 +15187,26 @@
         sg.ownC = (sg.ownC || 0) + qty * sel.custo;
       }
     }
-    var sale = addSale(sel, qty, { moeda: S.moeda, recebido: S._recv });
+    var sale = addSale(sel, qty, {
+      moeda: S.moeda,
+      recebido: S._recv,
+      brinde: br
+        ? {
+            tipo: br.tipo,
+            ref: br.ref,
+            cor: br.cor,
+            grau: br.grau || '',
+            vr: br.vr || '',
+            lote: br.lote || '',
+            usd: pv.bu
+          }
+        : null,
+      motivo: pv && pv.abaixo ? S.vMotivo || '' : ''
+    });
+    S.pisoConf = '';
+    S.descTxt = '';
+    S.vBrinde = null;
+    S.vMotivo = '';
     say('Venda registrada: ' + qty + ' × ' + sel.ref + ' ' + sel.cor);
     S.qty = 1;
     S.vSel = null;
@@ -14412,6 +15341,7 @@
       '<div class="kpi"><div class="lbl">Dólar hoje</div><b>' +
       gs(S.fx.pyg) +
       '</b><div class="hint">por US$ 1 · <a href="#fx" data-act="view" data-id="fx" style="color:var(--accent-fg)">ver câmbio</a></div></div></section>';
+    html += dashExtra();
     var parts = [
       ['Reposição da mercadoria', usd(repU) + ' guardados em dólar', rep, '#00c8ff'],
       ['Contas da loja e de casa', 'Obrigatório', con, '#a2447c'],
@@ -15156,7 +16086,10 @@
   // Cartão de um registro de peça no histórico.
   function elogCard(x) {
     return (
-      '<div class="card" style="padding:14px"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center"><div><span class="cell">Entrada de estoque</span><div style="margin-top:6px">+' +
+      '<div class="card" style="padding:14px"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center"><div><span class="cell">' +
+      (x.contagem ? 'Ajuste de contagem' : 'Entrada de estoque') +
+      '</span><div style="margin-top:6px">' +
+      (x.qty > 0 ? '+' : '') +
       x.qty +
       ' × ' +
       esc(x.ref) +
@@ -15167,7 +16100,8 @@
       fd(x.ts) +
       ' às ' +
       fh(x.ts) +
-      '</div></div><b>+' +
+      '</div></div><b>' +
+      (x.qty > 0 ? '+' : '') +
       x.qty +
       ' un.</b></div></div>'
     );
@@ -15644,6 +16578,7 @@
         );
       })[0];
       S.cash[s.moeda] -= s.recebido;
+      estornoBrinde(s);
       if (it) {
         it.qty += s.qty;
         var eg =
@@ -15851,6 +16786,8 @@
       S.desc = {};
       S.pnome = {};
       S.cpay = [];
+      S.pfaixa = {};
+      S.contagens = [];
       S.exp = [];
       S.lotes = [];
       S.grp = [];
@@ -16091,16 +17028,18 @@
         : '.') +
       (per < trava ? ' Atenção: abaixo da trava de segurança (' + gs(trava) + ' por peça).' : '');
     el.style.color = per < trava ? 'var(--warn)' : 'var(--mute)';
+    if (typeof renderPiso === 'function' && S._vsel) renderPiso();
   }
   // Calculadora de venda por moeda.
   function renderMoeda() {
     var t = S._t || T(),
       q = (S._qty = S.qty),
       m = S.moeda,
-      listGs = t.price * q,
+      listGs = t.price * q - (S.descGs || 0),
       a = conv(listGs, 'pyg', m);
     a = m === 'pyg' ? Math.round(a) : Math.round(a * 100) / 100;
-    var sig = [t.id, S._selKey, q, m, Math.round(S.fx.pyg)].join('|');
+    var bb = S.vBrinde ? S.vBrinde.ref + S.vBrinde.cor : '',
+      sig = [t.id, S._selKey, q, m, Math.round(S.fx.pyg), S.descGs || 0, bb].join('|');
     if (S.rec != null && S.recSig !== sig) S.rec = null;
     S._sig = sig;
     var v = S.rec != null ? S.rec : a;
@@ -16424,6 +17363,414 @@
   S.compras.forEach(function (x) {
     S.dlog.push(dlogLote(x));
   });
+  // ===== Aba Ajustes: faixas, meta, sazonalidade, contagem de estoque e backup dos dados. =====
+  // Gera o texto do backup (dados + fotos em miniatura).
+  function backupDados() {
+    var d = {};
+    PERSIST.forEach(function (k) {
+      d[k] = S[k];
+    });
+    d.fotos = S.fotos;
+    return JSON.stringify({ app: 'lafouch', v: 1, ts: Date.now(), d: d });
+  }
+  // Restaura os dados a partir do texto do backup. Devolve '' se deu certo, ou a mensagem de erro.
+  function restaurarDados(txt) {
+    var o;
+    try {
+      o = JSON.parse(txt);
+    } catch (e) {
+      return 'Arquivo inválido: não é um backup do app.';
+    }
+    if (!o || o.app !== 'lafouch' || !o.d || !Array.isArray(o.d.items))
+      return 'Arquivo inválido: não é um backup do app.';
+    PERSIST.forEach(function (k) {
+      if (o.d[k] !== undefined) S[k] = o.d[k];
+    });
+    if (o.d.fotos && typeof o.d.fotos === 'object') S.fotos = o.d.fotos;
+    try {
+      dedupeItems();
+    } catch (e) {}
+    syncTipos();
+    render();
+    return '';
+  }
+  // Guarda/compartilha o backup: no app usa o compartilhar do celular; no navegador baixa o arquivo.
+  function exportarBackup() {
+    var txt = backupDados(),
+      d = new Date(),
+      nome =
+        'lafouch-backup-' +
+        d.getFullYear() +
+        '-' +
+        ('0' + (d.getMonth() + 1)).slice(-2) +
+        '-' +
+        ('0' + d.getDate()).slice(-2) +
+        '.json';
+    function feito() {
+      S.backupTs = Date.now();
+      S.ajMsg = 'Backup gerado (' + Math.round(txt.length / 1024) + ' KB).';
+      S.bkText = '';
+      render();
+    }
+    function plano() {
+      try {
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(new Blob([txt], { type: 'application/json' }));
+        a.download = nome;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        feito();
+      } catch (e) {
+        S.bkText = txt;
+        S.ajMsg = 'Copie o texto abaixo e guarde onde quiser.';
+        render();
+      }
+    }
+    var P = window.Capacitor && window.Capacitor.Plugins;
+    if (P && P.Filesystem && P.Share) {
+      P.Filesystem.writeFile({ path: nome, data: txt, directory: 'CACHE', encoding: 'utf8' })
+        .then(function (r) {
+          return P.Share.share({ title: nome, url: r.uri, dialogTitle: 'Guardar o backup' });
+        })
+        .then(feito)
+        .catch(plano);
+    } else plano();
+  }
+  // Lê um número digitado (aceita vírgula).
+  function numIn(v) {
+    var n = parseFloat(String(v).replace(',', '.'));
+    return isNaN(n) ? 0 : n;
+  }
+  // Monta a aba Ajustes.
+  function renderAjustes() {
+    var el = $('v-ajustes');
+    if (S.view !== 'ajustes') return;
+    var ae = document.activeElement;
+    if (!S._ajForce && ae && ae.tagName === 'INPUT' && el.contains(ae)) return;
+    S._ajForce = false;
+    var h =
+      '<div class="top"><div><h1>Ajustes</h1><div class="crumb">Faixas, meta do mês, estações do ano, contagem de estoque e backup</div></div></div>';
+    if (S.ajMsg) h += '<div class="note n-ok" role="status">' + esc(S.ajMsg) + '</div>';
+    // meta
+    h +=
+      '<section class="card col"><h2 style="margin:0;font-size:16px">Meta do mês</h2><div><div class="lbl">Lucro livre desejado no mês, loja toda (US$)</div><input class="in" inputmode="decimal" data-aj="meta" value="' +
+      (S.metaUsd || '') +
+      '" placeholder="Ex.: 600" style="max-width:220px"></div></section>';
+    // faixas
+    h +=
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Faixas</h2><div class="hint" style="margin:2px 0 0">Você cria e nomeia. A margem é o lucro mínimo desejado sobre o preço de venda e define o piso. O preço próprio da faixa é opcional (vazio = preço do tipo).</div></div>';
+    S.faixas.forEach(function (f) {
+      var n = Object.keys(S.pfaixa).filter(function (k) {
+        return S.pfaixa[k] === f.id;
+      }).length;
+      h +=
+        '<div class="card col" style="background:var(--panel2);gap:10px"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="dot" style="background:' +
+        faixaCor(f) +
+        '"></span><input class="in" data-aj="fnome" data-id="' +
+        f.id +
+        '" value="' +
+        esc(f.nome) +
+        '" aria-label="Nome da faixa" style="flex:1 1 140px"><span class="hint" style="margin:0">' +
+        n +
+        ' produto(s)</span></div><div><div class="lbl">Margem mínima (%)</div><input class="in" inputmode="decimal" data-aj="fmarg" data-id="' +
+        f.id +
+        '" value="' +
+        f.margem +
+        '" style="max-width:140px"></div><details><summary class="hint" style="cursor:pointer">Preço próprio por tipo (G$)</summary><div class="col" style="gap:8px;margin-top:8px">';
+      tipoAll().forEach(function (t) {
+        if (!t.price) return;
+        h +=
+          '<div style="display:flex;gap:8px;align-items:center"><span style="flex:1 1 140px">' +
+          esc(t.label) +
+          '</span><input class="in" inputmode="numeric" data-aj="fprec" data-id="' +
+          f.id +
+          '" data-tipo="' +
+          t.id +
+          '" value="' +
+          ((f.precos && f.precos[t.id]) || '') +
+          '" placeholder="' +
+          dots(t.price) +
+          '" style="max-width:150px"></div>';
+      });
+      h +=
+        '</div></details><div><button class="chip" data-act="fdel" data-id="' +
+        f.id +
+        '">' +
+        (S.fDelConf === f.id ? 'Confirmar: remover faixa' : 'Remover faixa') +
+        '</button></div></div>';
+    });
+    h +=
+      '<div style="display:flex;gap:8px"><input class="in" id="fnew" placeholder="Nome da nova faixa" style="flex:1" maxlength="30"><button class="chip on" data-act="fadd">+ Nova faixa</button></div></section>';
+    // sazonalidade
+    h +=
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Estações do ano</h2><div class="hint" style="margin:2px 0 0">Quanto cada tipo vende em cada mês, em relação a um mês normal (1 = normal, 1,5 = 50% mais). Usado nos alertas de reposição, estoque parado e sugestão de margem.</div></div>';
+    tipoAll().forEach(function (t) {
+      h +=
+        '<details><summary style="cursor:pointer;font-weight:600">' +
+        esc(t.label) +
+        '</summary><div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:8px">';
+      for (var m = 0; m < 12; m++)
+        h +=
+          '<div><div class="hint" style="margin:0">' +
+          MESES[m] +
+          '</div><input class="in" inputmode="decimal" data-aj="saz" data-tipo="' +
+          t.id +
+          '" data-m="' +
+          m +
+          '" value="' +
+          String(sazonFator(t.id, m)).replace('.', ',') +
+          '" style="min-height:40px;padding:0 8px"></div>';
+      h += '</div></details>';
+    });
+    h += '</section>';
+    // contagem
+    h +=
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Contagem de estoque</h2><div class="hint" style="margin:2px 0 0">Conte a prateleira, digite o que achou e aplique. O app mostra as diferenças e corrige o estoque.</div></div>';
+    if (!S.contOpen) {
+      h += '<div><button class="chip on" data-act="contabrir">Contar estoque</button></div>';
+      if (S.contagens.length) {
+        var u = S.contagens[S.contagens.length - 1];
+        h +=
+          '<div class="hint" style="margin:0">Última contagem: ' +
+          fd(u.ts) +
+          ' · ' +
+          u.difs +
+          ' diferença(s) · ' +
+          (u.valorUsd ? usd(Math.abs(u.valorUsd)) + (u.valorUsd < 0 ? ' a menos' : ' a mais') : 'sem diferença de valor') +
+          '.</div>';
+      }
+    } else {
+      var rows = S.items.filter(function (i) {
+        return tipoOf(i.tipo) && (S.contTipo === 'all' || i.tipo === S.contTipo);
+      });
+      h += '<div class="nav">';
+      [{ id: 'all', label: 'Todos' }].concat(tipoAll()).forEach(function (t) {
+        h +=
+          '<button class="chip' +
+          (S.contTipo === t.id ? ' on' : '') +
+          '" data-act="conttipo" data-id="' +
+          t.id +
+          '">' +
+          esc(t.label) +
+          '</button>';
+      });
+      h += '</div><div class="split">';
+      rows.forEach(function (i) {
+        var k = S.items.indexOf(i),
+          v = S.contVals[k];
+        h +=
+          '<div class="sl"><span>' +
+          esc(pn(i.ref)) +
+          ' · ' +
+          esc(i.cor) +
+          '<small>' +
+          esc((i.tipo === 'pre' ? i.grau : i.vr || '') + ' · no app: ' + i.qty) +
+          '</small></span><input class="in" inputmode="numeric" data-aj="cont" data-k="' +
+          k +
+          '" value="' +
+          (v == null ? '' : v) +
+          '" placeholder="' +
+          i.qty +
+          '" style="max-width:90px;text-align:center"></div>';
+      });
+      h +=
+        '</div><div style="display:flex;gap:8px"><button class="chip on" data-act="contaplicar">Aplicar diferenças</button><button class="chip" data-act="contfechar">Cancelar</button></div>';
+    }
+    h += '</section>';
+    // backup
+    var dias = S.backupTs ? Math.floor((Date.now() - S.backupTs) / DAY) : -1;
+    h +=
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Backup dos dados</h2><div class="hint" style="margin:2px 0 0">Os dados ficam só neste celular. Guarde uma cópia de vez em quando (e antes de trocar de aparelho).</div></div><div class="hint" style="margin:0">' +
+      (dias < 0 ? 'Nenhum backup feito ainda.' : 'Último backup: ' + (dias === 0 ? 'hoje' : 'há ' + dias + ' dia(s)') + '.') +
+      '</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="chip on" data-act="bkexp">Exportar backup</button><button class="chip" data-act="bkimp">Importar backup</button></div>' +
+      (S.bkText
+        ? '<textarea class="in" readonly rows="5" style="width:100%;font-size:12px">' + esc(S.bkText) + '</textarea>'
+        : '') +
+      '</section>';
+    el.innerHTML = h;
+  }
+  // Recalcula e salva uma alteração feita na aba Ajustes.
+  $('v-ajustes').addEventListener('change', function (e) {
+    var t = e.target,
+      k = t.getAttribute && t.getAttribute('data-aj');
+    if (!k) return;
+    var id = t.getAttribute('data-id'),
+      f = S.faixas.filter(function (x) {
+        return x.id === id;
+      })[0];
+    S._ajForce = true;
+    S.ajMsg = '';
+    if (k === 'meta') S.metaUsd = Math.max(0, numIn(t.value));
+    if (k === 'fnome' && f && t.value.trim()) f.nome = t.value.trim();
+    if (k === 'fmarg' && f) f.margem = Math.max(0, Math.min(90, numIn(t.value)));
+    if (k === 'fprec' && f) {
+      var pr = toNum(t.value);
+      f.precos = f.precos || {};
+      if (pr > 0) f.precos[t.getAttribute('data-tipo')] = pr;
+      else delete f.precos[t.getAttribute('data-tipo')];
+    }
+    if (k === 'saz') {
+      var tp = t.getAttribute('data-tipo'),
+        mm = +t.getAttribute('data-m'),
+        cur = [];
+      for (var i = 0; i < 12; i++) cur.push(sazonFator(tp, i));
+      var nv = numIn(t.value);
+      cur[mm] = nv > 0 ? nv : 1;
+      S.sazon[tp] = cur;
+    }
+    if (k === 'cont') S.contVals[+t.getAttribute('data-k')] = t.value.trim() === '' ? null : toNum(t.value);
+    render();
+  });
+  $('v-ajustes').addEventListener('input', function (e) {
+    if (e.target.id === 'fnew') S.fnewTxt = e.target.value;
+  });
+  S.contOpen = false;
+  S.contTipo = 'all';
+  S.contVals = {};
+  S.fDelConf = '';
+  S.ajMsg = '';
+  S.bkText = '';
+  // Importar backup: abre o seletor de arquivo (confirma antes de substituir).
+  var bkFile = document.createElement('input');
+  bkFile.type = 'file';
+  bkFile.accept = '.json,application/json,text/plain';
+  bkFile.hidden = true;
+  document.body.appendChild(bkFile);
+  bkFile.onchange = function () {
+    var f = bkFile.files && bkFile.files[0];
+    bkFile.value = '';
+    if (!f) return;
+    var r = new FileReader();
+    r.onload = function () {
+      var er = restaurarDados(String(r.result));
+      S.ajMsg = er || 'Backup restaurado. Os dados atuais foram substituídos.';
+      S._ajForce = true;
+      render();
+    };
+    r.readAsText(f);
+  };
+  // Ações da aba Ajustes e das análises do Dashboard.
+  ACT.fadd = function () {
+    var n = String(S.fnewTxt || ($('fnew') && $('fnew').value) || '').trim();
+    if (!n) return;
+    S.faixas.push({ id: 'f' + Date.now().toString(36), nome: n, margem: 40, precos: {} });
+    S.fnewTxt = '';
+    S._ajForce = true;
+    render();
+  };
+  ACT.fdel = function (id) {
+    if (S.fDelConf !== id) {
+      S.fDelConf = id;
+      S._ajForce = true;
+      render();
+      return;
+    }
+    S.faixas = S.faixas.filter(function (f) {
+      return f.id !== id;
+    });
+    Object.keys(S.pfaixa).forEach(function (k) {
+      if (S.pfaixa[k] === id) delete S.pfaixa[k];
+    });
+    S.fDelConf = '';
+    S._ajForce = true;
+    render();
+  };
+  ACT.bkexp = exportarBackup;
+  ACT.bkimp = function () {
+    if ((S.sales.length || S.items.length) && !S.bkImpConf) {
+      S.bkImpConf = true;
+      S.ajMsg = 'Importar substitui os dados deste aparelho. Toque de novo em Importar backup para continuar.';
+      S._ajForce = true;
+      render();
+      return;
+    }
+    S.bkImpConf = false;
+    bkFile.click();
+  };
+  ACT.contabrir = function () {
+    S.contOpen = true;
+    S.contVals = {};
+    S.contTipo = 'all';
+    S._ajForce = true;
+    render();
+  };
+  ACT.contfechar = function () {
+    S.contOpen = false;
+    S._ajForce = true;
+    render();
+  };
+  ACT.conttipo = function (id) {
+    S.contTipo = id;
+    S._ajForce = true;
+    render();
+  };
+  ACT.contaplicar = function () {
+    var difs = 0,
+      val = 0,
+      ts = Date.now();
+    Object.keys(S.contVals).forEach(function (k) {
+      var i = S.items[+k],
+        v = S.contVals[k];
+      if (!i || v == null || v === i.qty) return;
+      var c = effCusto(i);
+      val += (v - i.qty) * (c != null ? c : (tipoOf(i.tipo) || {}).repUSD || 0);
+      difs++;
+      S.elog.push({
+        ts: ts,
+        tipo: i.tipo,
+        ref: i.ref,
+        cor: i.cor,
+        grau: i.grau || '',
+        qty: v - i.qty,
+        contagem: true
+      });
+      i.qty = v;
+    });
+    S.contagens.push({ ts: ts, difs: difs, valorUsd: val });
+    S.contOpen = false;
+    S.ajMsg = difs
+      ? 'Contagem aplicada: ' + difs + ' diferença(s), ' + usd(Math.abs(val)) + (val < 0 ? ' a menos.' : ' a mais.')
+      : 'Contagem aplicada: o estoque confere.';
+    S._ajForce = true;
+    render();
+  };
+  ACT.sugap = function (id) {
+    var r = sugestoes().filter(function (x) {
+      return x.faixa.id === id;
+    })[0];
+    if (r && r.para !== r.de) r.faixa.margem = r.para;
+    render();
+  };
+  ACT.sugig = function (id) {
+    var d = new Date();
+    S.sugIgn[id] = d.getFullYear() + '-' + (d.getMonth() + 1);
+    render();
+  };
+  ACT.saida = function (key) {
+    var m = prodStats().filter(function (x) {
+      return x.key === key;
+    })[0];
+    if (!m) return;
+    var it = S.items.filter(function (i) {
+      return i.tipo + '|' + i.ref === key && i.qty > 0;
+    })[0];
+    if (!it) return;
+    var pp = pisoPeca(it);
+    S.vTipo = 'all';
+    S.vq = '';
+    $('vq').value = '';
+    S.vFaixa = '';
+    S.vRef = key;
+    S.vSel = it;
+    S.qty = 1;
+    S._descKey = [it.tipo, it.ref, it.cor, it.grau, it.vr].join('/');
+    S.descMode = 'pyg';
+    S.descTxt = String(Math.max(0, pp.lista - pp.saida));
+    S.vMotivo = 'Liquidação';
+    S.rec = null;
+    setView('vendas');
+  };
   // ===== Render geral e persistência (localStorage + IndexedDB). =====
   // Redesenha o app e agenda o salvamento.
   function render() {
@@ -16433,6 +17780,7 @@
     var sy = window.pageYOffset || 0;
     syncBulk();
     renderEstoque();
+    renderAddExtras();
     renderVendas();
     renderNav();
     renderDash();
@@ -16440,6 +17788,7 @@
     renderDesp();
     renderFx();
     renderHist();
+    renderAjustes();
     renderDay();
     saveSoon();
     if ((window.pageYOffset || 0) !== sy) window.scrollTo(0, sy);
@@ -16608,7 +17957,15 @@
       'tiposDel',
       'tiposOrd',
       'pnome',
-      'cpay'
+      'cpay',
+      'faixas',
+      'pfaixa',
+      'metaUsd',
+      'sazon',
+      'appStart',
+      'sugIgn',
+      'backupTs',
+      'contagens'
     ];
   // Carrega o estado salvo.
   function loadSaved() {
@@ -16668,6 +18025,6 @@
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, whiten: whiten, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos
+      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, vendaPrevia: vendaPrevia, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos
     };
 })();

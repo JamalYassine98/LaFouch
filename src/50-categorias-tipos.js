@@ -381,8 +381,16 @@
   // Tipo com o custo efetivo da peça.
   function tFor(it) {
     var t = tipoOf(it.tipo),
-      cu = effCusto(it);
-    return cu != null ? Object.assign({}, t, { repUSD: cu, pago: cu }) : t;
+      cu = effCusto(it),
+      f = faixaOf(it.ref),
+      pr = f && f.precos && f.precos[it.tipo],
+      o = {};
+    if (cu != null) {
+      o.repUSD = cu;
+      o.pago = cu;
+    }
+    if (pr > 0) o.price = pr;
+    return Object.keys(o).length ? Object.assign({}, t, o) : t;
   }
   // Lê um valor digitado conforme a moeda.
   function pm(x, m) {
