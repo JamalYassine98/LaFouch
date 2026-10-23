@@ -1,6 +1,10 @@
   // ===== Ações dos botões (data-act) e eventos globais. =====
   // Ações dos botões, por data-act.
   var ACT = {
+    notifLimpa: function () {
+      S.notifs = [];
+      render();
+    },
     inicioEd: function () {
       S.inicioEd = !S.inicioEd;
       render();

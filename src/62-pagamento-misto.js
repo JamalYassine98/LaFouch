@@ -17,12 +17,41 @@
   // O real fica pelo valor de mercado em guaranis, então R$ por US$ também sobe pela mesma margem.
   var FX_MARGEM = 0.025;
   // Arredondada para cima para ficar "redonda": dólar de 50 em 50 guaranis (5.885 vira 5.900), real por dólar de 0,10 em 0,10 (4,92 vira 5,00).
+  var FX_TETO = 0.035;
+  // Margem do dia: 2,5% de base. Se o dólar oscilou mais de 3% em 7 dias, a margem passa a ser a oscilação + 0,5%.
+  // Alerta de subida: alta de 1% em 3 dias soma 0,5%; alta de 2% soma 1%. Nunca passa do teto de 3,5%.
+  function fxMargemInfo() {
+    var h = S.fxHist || [],
+      now = Date.now(),
+      D = 86400000,
+      cur = S.fx && S.fx.pyg > 0 ? S.fx.pyg : 0,
+      vals = h
+        .filter(function (p) {
+          return p.ts >= now - 7 * D && p.pyg > 0;
+        })
+        .map(function (p) {
+          return p.pyg;
+        });
+    if (cur) vals.push(cur);
+    var amp = vals.length > 1 ? (Math.max.apply(null, vals) - Math.min.apply(null, vals)) / Math.min.apply(null, vals) : 0,
+      ref = 0,
+      i;
+    for (i = h.length - 1; i >= 0; i--)
+      if (h[i].ts <= now - 3 * D) {
+        ref = h[i].pyg;
+        break;
+      }
+    var alta = ref && cur ? (cur - ref) / ref : 0,
+      reativa = amp > 0.03 ? Math.max(FX_MARGEM, amp + 0.005) : FX_MARGEM,
+      alerta = alta >= 0.02 ? 0.01 : alta >= 0.01 ? 0.005 : 0;
+    return { m: Math.min(FX_TETO, reativa + alerta), amp: amp, alta: alta, reativa: reativa, alerta: alerta };
+  }
   function fxUsdLoja() {
-    return Math.ceil((ratePyg('usd') * (1 + FX_MARGEM)) / 50 - 1e-9) * 50;
+    return Math.ceil((ratePyg('usd') * (1 + fxMargemInfo().m)) / 50 - 1e-9) * 50;
   }
   function fxBrlPorUsd() {
     var b = S.fx && S.fx.brl > 0 ? S.fx.brl : 5;
-    return Math.ceil(b * (1 + FX_MARGEM) * 10 - 1e-9) / 10;
+    return Math.ceil(b * (1 + fxMargemInfo().m) * 10 - 1e-9) / 10;
   }
   function fxLoja(m) {
     return m === 'usd' ? fxUsdLoja() : m === 'brl' ? fxUsdLoja() / fxBrlPorUsd() : 0;

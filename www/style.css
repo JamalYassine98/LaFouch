@@ -111,6 +111,9 @@ body{padding-bottom:86px}
 .tedit button.x{background:#a12a2a;color:#fff;border-color:#a12a2a}.tedit button:disabled{opacity:.3}
 @keyframes wob{from{transform:rotate(-.6deg)}to{transform:rotate(.6deg)}}
 @media (prefers-reduced-motion:reduce){.twrap .tl{animation:none}}
+.logo-top{position:relative}
+.sino{position:absolute;right:0;top:6px;width:46px;height:46px;border-radius:14px;border:1px solid var(--line);background:var(--panel);color:var(--accent-fg);display:flex;align-items:center;justify-content:center;z-index:3}
+.sino i{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;border-radius:10px;background:#d33;color:#fff;font:700 11px/20px system-ui;text-align:center;padding:0 5px}
 .hero{border-radius:16px;padding:16px;color:#fff;background:linear-gradient(120deg,#a2447c,#6e2a63);display:flex;align-items:center;gap:12px;box-shadow:0 8px 22px rgba(162,68,124,.35);cursor:pointer}
 .hero .hi{width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center}
 .hero small{opacity:.85;font-size:12px;display:block}.hero b{font-size:22px}.hero .hg{margin-left:auto;font-size:28px;opacity:.9}

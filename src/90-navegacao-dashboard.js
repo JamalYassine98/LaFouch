@@ -15,6 +15,9 @@
     var n = $('mainnav'),
       sl = n.scrollLeft;
     n.textContent = '';
+    var sn = $('sino'),
+      nn = notifContagem();
+    if (sn) sn.innerHTML = ico('notif', 24) + (nn ? '<i>' + nn + '</i>' : '');
     NAVB.forEach(function (v) {
       var b = btn('mn' + (S.view === v[0] ? ' on' : ''), '', function () {
         setView(v[0]);

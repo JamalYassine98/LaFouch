@@ -570,7 +570,7 @@ async def main():
 
             # cotação da loja: mercado menos a margem fixa; carrinho usa; centavos fora
             pg = await pagina()
-            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.fx.pyg = 8000; S.fx.brl = 5; S.moedaP = 'usd'; const g = L.gs(7000 * 84.78); S.moedaP = 'pyg';
+            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.fx.pyg = 8000; S.fx.brl = 5; S.fxHist = []; S.moedaP = 'usd'; const g = L.gs(7000 * 84.78); S.moedaP = 'pyg';
               const u = Math.round(L.rateDe('usd', 0)), b = Math.round(L.rateDe('brl', 0)), man = L.rateDe('brl', 1300), custo = L.ratePyg ? L.ratePyg('usd') : 8000;
               const it = S.items.filter(i => i.qty >= 1 && L.tFor(i).price > 0)[0];
               S.cart = [{it, qty: 1, preco: null}]; S.cartOpen = true; S.moeda = 'brl'; S.rate1 = ''; S.rec = null; S.descTxt = ''; S.pagMisto = false;
@@ -688,6 +688,37 @@ async def main():
             ok = 'cat' not in l1 and l1[-1] == 'novo' and l1.index('ajustes') < l1.index('prec') + 3 and 'Novo produto' in nomes and 'Catálogo' not in nomes and l2 is None and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Início: personalizar botões')
             if not ok: falhas.append('personalizar inicio'); print('        veio', l1, nomes, l2, pg.erros)
+            await pg.close()
+
+            # cotação da loja: margem dinâmica (base 2,5%, oscilação, alerta, teto 3,5%)
+            pg = await pagina()
+            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S, D = 86400000, h = Date.now();
+              const poe = (arr) => { S.fxHist = arr.map((v, i) => ({ts: h - (arr.length - 1 - i) * D, pyg: v, brl: 5})); S.fx.pyg = arr[arr.length - 1]; S.fx.brl = 5; };
+              poe([5620, 5625, 5618, 5630, 5640, 5655, 5650]); const calmo = [L.fxMargemInfo().m, L.fxLoja('usd')];
+              poe([5620, 5625, 5618, 5630, 5640, 5655, 5760]); const alerta = L.fxMargemInfo();
+              poe([5620, 5625, 5618, 5630, 5640, 5760, 5920]); const salto = [L.fxMargemInfo().m, L.fxLoja('usd')];
+              return [calmo, alerta.m, alerta.alerta, salto]; }""")
+            total += 1
+            ok = abs(r[0][0] - 0.025) < 1e-9 and r[0][1] == 5800 and r[1] > 0.025 and r[2] == 0.01 and abs(r[3][0] - 0.035) < 1e-9 and r[3][1] == 6150 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'cotação da loja: margem dinâmica com alerta e teto de 3,5%')
+            if not ok: falhas.append('margem dinamica'); print('        veio', r, pg.erros)
+            await pg.close()
+
+            # notificações: aviso quando a margem sobe e volta ao normal
+            pg = await pagina()
+            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S, D = 86400000, h = Date.now();
+              const poe = (arr) => { S.fxHist = arr.map((v, i) => ({ts: h - (arr.length - 1 - i) * D, pyg: v, brl: 5})); S.fx.pyg = arr[arr.length - 1]; S.fx.brl = 5; };
+              S.notifs = []; S.fxMgUlt = 0;
+              poe([5620, 5625, 5618, 5630, 5640, 5655, 5650]); L.render();
+              poe([5620, 5625, 5618, 5630, 5640, 5760, 5920]); L.render();
+              const a = S.notifs.map(x => x.t);
+              L.setView('notif'); const txt = document.getElementById('v-notif').innerText; const bolinha = document.getElementById('sino').textContent;
+              poe([5620, 5625, 5618, 5630, 5640, 5655, 5650]); L.render();
+              return [a, txt.includes('Margem da loja'), S.notifs.length, S.notifs.every(x => x.lida), bolinha]; }""")
+            total += 1
+            ok = len(r[0]) == 1 and 'subiu' in r[0][0] and r[1] and r[2] == 2 and r[3] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'notificações: margem sobe e volta, avisos na aba')
+            if not ok: falhas.append('notificacoes'); print('        veio', r, pg.erros)
             await pg.close()
 
             # contagem de estoque no cartão "Em estoque": por valor, com resumo e aplicação

@@ -55,7 +55,7 @@
   ICO_D.cont = '<path d="M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h9"/>';
   ICO_D.lotes = '<path d="M3 7l9-4 9 4-9 4zM3 12l9 4 9-4M3 17l9 4 9-4"/>';
   var INI_PADRAO = ['vendas', 'estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'cat', 'ajustes'];
-  var INI_TODOS = INI_PADRAO.concat(['novo', 'cont', 'lotes']);
+  var INI_TODOS = INI_PADRAO.concat(['novo', 'cont', 'lotes', 'notif']);
   function iniLista() {
     var l = Array.isArray(S.inicioT) ? S.inicioT : INI_PADRAO;
     return l.filter(function (id, i) {
@@ -86,7 +86,8 @@
       ajustes: ['Ajustes', ['Moeda ' + (MN[S.moedaP || 'pyg'] || 'G$'), '']],
       novo: ['Novo produto', ['Cadastrar', '']],
       cont: ['Contagem', ['Conferir estoque', '']],
-      lotes: ['Lotes', ['Compras', '']]
+      lotes: ['Lotes', ['Compras', '']],
+      notif: ['Notificações', [notifContagem() + ' avisos', notifContagem() ? 'w' : '']]
     };
   }
   function renderInicio() {
