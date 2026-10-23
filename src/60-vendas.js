@@ -233,17 +233,13 @@
         S.vMotivo = '';
       }
       var pt = S._t.price,
-        lista = pt * S.qty,
-        dn = parseDec(S.descTxt, S.descMode === 'pct' ? 'usd' : 'pyg');
-      S.descGs = Math.max(
-        0,
-        Math.min(lista, Math.round(S.descMode === 'pct' ? (lista * Math.min(100, dn)) / 100 : dn))
-      );
+        lista = pt * S.qty;
+      S.descGs = descontoGs(lista);
       var fxs = faixaOf(sel.ref);
       $('unit').textContent = pt
-        ? 'Preço unit. G$ ' + dots(pt) + (fxs ? ' (faixa ' + fxs.nome + ')' : ' (exemplo)')
+        ? 'Preço unit. ' + gs(pt) + (fxs ? ' (faixa ' + fxs.nome + ')' : ' (exemplo)')
         : 'Preço livre: digite abaixo o valor recebido';
-      $('tot').textContent = pt ? 'G$ ' + dots(lista - S.descGs) : '';
+      $('tot').textContent = pt ? gs(lista - S.descGs) : '';
       renderDescBrinde(sel);
       renderMoeda();
       renderPiso();
@@ -257,7 +253,7 @@
     var dm = $('descModes');
     dm.textContent = '';
     [
-      ['pyg', 'G$'],
+      ['pyg', mpSim()],
       ['pct', '%']
     ].forEach(function (o) {
       dm.appendChild(
@@ -276,7 +272,7 @@
     });
     if ($('descIn').value !== (S.descTxt || '')) $('descIn').value = S.descTxt || '';
     $('descH').textContent = S.descGs
-      ? 'Desconto de G$ ' + dots(S.descGs) + ' sobre o preço de tabela.'
+      ? 'Desconto de ' + gs(S.descGs) + ' sobre o preço de tabela.'
       : '';
     var bl = brindesDisp().filter(function (x) {
       return x !== sel;

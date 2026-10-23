@@ -282,7 +282,7 @@
       renderDash();
     },
     melhuso: function () {
-      var v = parseDec($('muV').value, 'pyg'),
+      var v = campoParaGs($('muV').value),
         d = $('muD').value.trim() || 'Melhoria da loja',
         r = reservas();
       if (!v) {
@@ -366,7 +366,7 @@
     },
     impadd: function () {
       var d = $('impD').value.trim(),
-        v = toNum($('impV').value);
+        v = campoParaGs($('impV').value);
       if (!d || !v) return;
       lancarImprevisto(d, v);
       renderDesp();
@@ -416,7 +416,7 @@
       $('tmPeca').textContent = gs(contasPeca());
     }
     if (k === 'melh') {
-      S.melhPeca = toNum(t.value);
+      S.melhPeca = campoParaGs(t.value);
     }
 
     if (k === 'day') {

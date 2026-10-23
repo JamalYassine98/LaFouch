@@ -71,9 +71,9 @@
     if (S.ajMsg) h += '<div class="note n-ok" role="status">' + esc(S.ajMsg) + '</div>';
     // meta
     h +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Meta do mês</h2><div><div class="lbl">Lucro livre desejado no mês, loja toda (US$)</div><input class="in" inputmode="decimal" data-aj="meta" value="' +
-      (S.metaUsd || '') +
-      '" placeholder="Ex.: 600" style="max-width:220px"></div></section>';
+      '<section class="card col"><h2 style="margin:0;font-size:16px">Meta do mês</h2><div><div class="lbl">Lucro livre desejado no mês, loja toda (' + mpSim() + ')</div><input class="in" inputmode="decimal" data-aj="meta" value="' +
+      usdParaCampo(S.metaUsd) +
+      '" placeholder="Ex.: ' + usdParaCampo(600) + '" style="max-width:220px"></div></section>';
     // faixas
     h +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Faixas</h2><div class="hint" style="margin:2px 0 0">Você cria e nomeia. A margem é o lucro mínimo desejado sobre o preço de venda e define o piso. O preço próprio da faixa é opcional (vazio = preço do tipo).</div></div>';
@@ -100,14 +100,14 @@
         h +=
           '<div style="display:flex;gap:8px;align-items:center"><span style="flex:1 1 140px">' +
           esc(t.label) +
-          '</span><input class="in" inputmode="numeric" data-aj="fprec" data-id="' +
+          '</span><input class="in" inputmode="' + mpMode() + '" data-aj="fprec" data-id="' +
           f.id +
           '" data-tipo="' +
           t.id +
           '" value="' +
-          ((f.precos && f.precos[t.id]) || '') +
+          (f.precos && f.precos[t.id] ? gsParaCampo(f.precos[t.id]) : '') +
           '" placeholder="' +
-          dots(t.price) +
+          gsParaCampo(t.price) +
           '" style="max-width:150px"></div>';
       });
       h +=
@@ -157,8 +157,8 @@
       '.</div><div style="margin-top:8px"><button class="chip' +
       (S.volAuto !== false ? ' on' : '') +
       '" data-act="volauto">Calcular pelas vendas reais</button></div><div class="hint">Com 2 meses de vendas (pelo menos 20 peças), o app passa a usar a média real.</div></div>' +
-      '<div><div class="lbl">Diferença de contagem tolerada (US$)</div><input class="in" inputmode="decimal" data-aj="tol" value="' +
-      String(S.tolUsd).replace('.', ',') +
+      '<div><div class="lbl">Diferença de contagem tolerada (' + mpSim() + ')</div><input class="in" inputmode="decimal" data-aj="tol" value="' +
+      usdParaCampo(S.tolUsd) +
       '" style="max-width:160px"><div class="hint">Na contagem de estoque, diferenças até esse valor ficam marcadas como perda aceita.</div></div></section>';
     // backup
     var dias = S.backupTs ? Math.floor((Date.now() - S.backupTs) / DAY) : -1;
@@ -184,11 +184,11 @@
       })[0];
     S._ajForce = true;
     S.ajMsg = '';
-    if (k === 'meta') S.metaUsd = Math.max(0, numIn(t.value));
+    if (k === 'meta') S.metaUsd = campoParaUsd(t.value);
     if (k === 'fnome' && f && t.value.trim()) f.nome = t.value.trim();
     if (k === 'fmarg' && f) f.margem = Math.max(0, Math.min(90, numIn(t.value)));
     if (k === 'fprec' && f) {
-      var pr = toNum(t.value);
+      var pr = campoParaGs(t.value);
       f.precos = f.precos || {};
       if (pr > 0) f.precos[t.getAttribute('data-tipo')] = pr;
       else delete f.precos[t.getAttribute('data-tipo')];
@@ -203,7 +203,7 @@
       S.sazon[tp] = cur;
     }
     if (k === 'vol') S.volume = Math.max(1, toNum(t.value) || S.volume);
-    if (k === 'tol') S.tolUsd = Math.max(0, numIn(t.value));
+    if (k === 'tol') S.tolUsd = campoParaUsd(t.value);
     render();
   });
   $('v-ajustes').addEventListener('input', function (e) {

@@ -83,8 +83,8 @@
   function hFiltrar(itens) {
     var f = S.hF,
       q = S.hq.trim().toLowerCase(),
-      vmin = toNum(f.vmin),
-      vmax = toNum(f.vmax);
+      vmin = campoParaGs(f.vmin),
+      vmax = campoParaGs(f.vmax);
     return itens.filter(function (it) {
       if (q && it.txt.indexOf(q) < 0) return false;
       if (f.tipo && it.tipo !== f.tipo) return false;
@@ -110,7 +110,7 @@
     h += '</div><div class="lbl">Faixa</div><div class="nav">';
     (S.faixas || []).forEach(function (x) { h += hChip('faixa', x.id, x.nome || x.id); });
     h += '</div><div class="lbl">Moeda</div><div class="nav">' + hChip('moeda', 'pyg', 'G$') + hChip('moeda', 'usd', 'US$') + hChip('moeda', 'brl', 'R$');
-    h += '</div><div class="lbl">Valor em G$</div><div class="sel"><input class="in" inputmode="numeric" data-in="hvmin" placeholder="De" value="' + esc(f.vmin) + '" aria-label="Valor mínimo" style="flex:1"><input class="in" inputmode="numeric" data-in="hvmax" placeholder="Até" value="' + esc(f.vmax) + '" aria-label="Valor máximo" style="flex:1"></div>';
+    h += '</div><div class="lbl">Valor em ' + mpSim() + '</div><div class="sel"><input class="in" inputmode="' + mpMode() + '" data-in="hvmin" placeholder="De" value="' + esc(f.vmin) + '" aria-label="Valor mínimo" style="flex:1"><input class="in" inputmode="numeric" data-in="hvmax" placeholder="Até" value="' + esc(f.vmax) + '" aria-label="Valor máximo" style="flex:1"></div>';
     return h + '<button type="button" class="chip" data-act="hlimpar">Limpar tudo</button></section>';
   }
   var MES_NOME = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
@@ -198,7 +198,7 @@
       k = t.getAttribute && t.getAttribute('data-in');
     if (k === 'hq' || k === 'hvmin' || k === 'hvmax') {
       if (k === 'hq') S.hq = t.value;
-      else S.hF[k === 'hvmin' ? 'vmin' : 'vmax'] = t.value.replace(/\D/g, '');
+      else S.hF[k === 'hvmin' ? 'vmin' : 'vmax'] = t.value.replace(/[^\d.,]/g, '');
       S.hLim = 30;
       histLista();
     }

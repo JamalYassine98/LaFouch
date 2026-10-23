@@ -527,6 +527,24 @@ async def main():
             if not ok: falhas.append('carrinho tela'); print('        veio', u1, u2, u3, pg.erros)
             await pg.close()
 
+            # campos de digitar seguem a moeda principal
+            pg = await pagina()
+            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.fx.pyg = 7000; S.fx.brl = 5;
+              S.moedaP = 'usd'; S.melhPeca = 14000; S.descMode = 'pyg'; S.descTxt = '2';
+              L.setView('despesas'); L.render();
+              const a = document.getElementById('melhIn').value;
+              document.getElementById('impV').value = '3'; document.getElementById('melhIn').value = '1,5';
+              document.getElementById('melhIn').dispatchEvent(new Event('input', {bubbles: true}));
+              const b = S.melhPeca;
+              document.querySelector('[data-act=impadd]').click(); document.getElementById('impD') ;
+              S.moedaP = 'brl'; L.render(); const c = document.getElementById('melhIn').value;
+              return [a, b, c, document.getElementById('nMoeda').value, L.S.imprev.length]; }""")
+            ok = r[0] == '2,00' and r[1] == 10500 and r[2] == '7,50' and r[3] == 'brl' and not pg.erros
+            total += 1
+            print(('  ok  ' if ok else ' FALHA ') + 'campos de valor seguem a moeda principal')
+            if not ok: falhas.append('campos moeda'); print('        veio', r, pg.erros)
+            await pg.close()
+
             # contagem de estoque no cartão "Em estoque": por valor, com resumo e aplicação
             pg = await pagina()
             await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.items = [
@@ -550,7 +568,7 @@ async def main():
 
             # aba Ajustes: meta, faixa nova, contagem de estoque e backup
             pg = await pagina()
-            await pg.evaluate("() => { const L = window.__LF, S = L.S; S.items = [{tipo:'pre', ref:'AJ1', grau:'+1.00', med:'', vr:'', fmt:'', cor:'Preto', qty:6, custo:1}]; L.setView('ajustes'); }")
+            await pg.evaluate("() => { const L = window.__LF, S = L.S; S.moedaP = 'usd'; S.items = [{tipo:'pre', ref:'AJ1', grau:'+1.00', med:'', vr:'', fmt:'', cor:'Preto', qty:6, custo:1}]; L.setView('ajustes'); }")
             await pg.wait_for_timeout(300)
             total += 1
             await pg.fill('[data-aj="meta"]', '600'); await pg.press('[data-aj="meta"]', 'Tab'); await pg.wait_for_timeout(300)

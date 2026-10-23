@@ -120,7 +120,7 @@
         '<small>Tabela ' + gs(tab) + ' · piso ' + gs(pp.piso * l.qty) + '</small></span>' +
         '<span style="display:flex;gap:6px;align-items:center"><button type="button" class="step" style="min-height:36px;width:36px" data-act="cartmn" data-id="' + i + '" aria-label="Menos uma peça">−</button>' +
         '<button type="button" class="step" style="min-height:36px;width:36px" data-act="cartpl" data-id="' + i + '" aria-label="Mais uma peça">+</button></span>' +
-        '<input class="in" inputmode="numeric" data-in="cartpreco" data-id="' + i + '" value="' + dots(v) + '" aria-label="Preço combinado de ' + esc(cartDesc(l)) + ' em guaranis" style="flex:0 1 130px;width:130px">' +
+        '<input class="in" inputmode="' + mpMode() + '" data-in="cartpreco" data-id="' + i + '" value="' + gsParaCampo(v) + '" aria-label="Preço combinado de ' + esc(cartDesc(l)) + ' em ' + mpSim() + '" style="flex:0 1 130px;width:130px">' +
         '<button type="button" class="chip" data-act="cartrm" data-id="' + i + '" aria-label="Tirar do carrinho">×</button></div>';
     });
     h += '</div><div class="sum"><span class="hint" style="margin:0">Soma dos preços combinados</span><b id="cartSub">' + gs(cartSub()) + '</b></div>' +
@@ -129,17 +129,16 @@
   }
   // Recalcula total, desconto, pagamento e aviso de piso (sem refazer o painel).
   function carrinhoSync() {
-    var sub = cartSub(),
-      dn = parseDec(S.descTxt, S.descMode === 'pct' ? 'usd' : 'pyg');
+    var sub = cartSub();
     S.qty = 1;
     S._vsel = null;
     S._selKey = 'cart';
     S._t = { price: sub, id: 'cart:' + sub + ':' + S.cart.length };
-    S.descGs = Math.max(0, Math.min(sub, Math.round(S.descMode === 'pct' ? (sub * Math.min(100, dn)) / 100 : dn)));
+    S.descGs = descontoGs(sub);
     var cs = $('cartSub');
     if (cs) cs.textContent = gs(sub);
     $('unit').textContent = 'Carrinho · ' + cartPecas() + ' peça(s)';
-    $('tot').textContent = 'G$ ' + dots(sub - S.descGs);
+    $('tot').textContent = gs(sub - S.descGs);
     renderDescBrinde(null);
     renderMoeda();
     renderPiso();
@@ -296,7 +295,7 @@
     if (!t.getAttribute || t.getAttribute('data-in') !== 'cartpreco') return;
     var l = S.cart[+t.getAttribute('data-id')];
     if (!l) return;
-    l.preco = Math.round(toNum(t.value));
+    l.preco = campoParaGs(t.value);
     S.rec = null;
     carrinhoSync();
   });

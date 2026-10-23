@@ -281,6 +281,9 @@
   // ---------- Moeda principal
   ACT.moedap = function (id) {
     S.moedaP = id === 'usd' || id === 'brl' ? id : 'pyg';
+    S.descTxt = '';
+    S.rec = null;
+    S.hF.vmin = S.hF.vmax = '';
     S._ajForce = true;
     saveSoon();
     render();

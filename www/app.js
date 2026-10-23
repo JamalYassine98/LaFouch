@@ -9164,6 +9164,55 @@
       ' Esta venda foi gravada no Histórico.';
     $('splitCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
+  // ===== Campos de valor seguem a moeda principal (Ajustes). Os dados continuam guardados em G$ (ou US$ onde já era). =====
+  // Moeda principal escolhida.
+  function mp() {
+    return S.moedaP === 'usd' || S.moedaP === 'brl' ? S.moedaP : 'pyg';
+  }
+  // Símbolo da moeda principal.
+  function mpSim() {
+    return { pyg: 'G$', usd: 'US$', brl: 'R$' }[mp()];
+  }
+  // Teclado: números inteiros em guarani, decimais nas outras.
+  function mpMode() {
+    return mp() === 'pyg' ? 'numeric' : 'decimal';
+  }
+  // Valor em guaranis -> texto do campo na moeda principal.
+  function gsParaCampo(v) {
+    var m = mp();
+    return m === 'pyg' ? dots(v) : inVal(v / ratePyg(m), m);
+  }
+  // Texto digitado na moeda principal -> guaranis.
+  function campoParaGs(txt) {
+    var m = mp();
+    return m === 'pyg' ? Math.round(toNum(txt)) : Math.round(parseDec(txt, m) * ratePyg(m));
+  }
+  // Valor em dólares -> texto do campo (meta, tolerância).
+  function usdParaCampo(u) {
+    var m = mp();
+    if (m === 'usd') return u ? String(u).replace('.', ',') : '';
+    return u ? gsParaCampo(u * S.fx.pyg) : '';
+  }
+  // Texto digitado -> dólares.
+  function campoParaUsd(txt) {
+    var m = mp();
+    if (m === 'usd') return Math.max(0, parseDec(txt, 'usd'));
+    return Math.max(0, campoParaGs(txt) / S.fx.pyg);
+  }
+  // Desconto em guaranis dentro de uma lista de preços (modo % ou valor na moeda principal).
+  function descontoGs(lista) {
+    var pct = S.descMode === 'pct',
+      g = pct ? Math.round((lista * Math.min(100, parseDec(S.descTxt, 'usd'))) / 100) : campoParaGs(S.descTxt);
+    return Math.max(0, Math.min(lista, g));
+  }
+  // <option>s de moeda com a principal já escolhida.
+  function opcoesMoeda() {
+    return [['pyg', 'G$'], ['usd', 'US$'], ['brl', 'R$']]
+      .map(function (o) {
+        return '<option value="' + o[0] + '"' + (o[0] === mp() ? ' selected' : '') + '>' + o[1] + '</option>';
+      })
+      .join('');
+  }
   // ===== Categorias, formatos, cores, variações (C1–C6) e criação de tipos. =====
 
   // ---------- navegação
@@ -12625,7 +12674,7 @@
         : '.') +
       '</div>';
     h +=
-      '<div class="sel" style="flex-wrap:wrap"><select class="in" id="rtM" aria-label="Moeda da retirada" style="flex:1 1 90px;width:auto"><option value="pyg">G$</option><option value="usd">US$</option><option value="brl">R$</option></select><input class="in" id="rtV" inputmode="decimal" placeholder="Valor" style="flex:1 1 110px;width:auto" aria-label="Valor da retirada"><input class="in" id="rtN" placeholder="Para quê (opcional)" style="flex:2 1 150px;width:auto" aria-label="Motivo da retirada"><button class="mini" data-act="rtgo">Retirar</button></div><div class="hint" id="rtH" role="status" style="margin:0">' +
+      '<div class="sel" style="flex-wrap:wrap"><select class="in" id="rtM" aria-label="Moeda da retirada" style="flex:1 1 90px;width:auto">' + opcoesMoeda() + '</select><input class="in" id="rtV" inputmode="decimal" placeholder="Valor" style="flex:1 1 110px;width:auto" aria-label="Valor da retirada"><input class="in" id="rtN" placeholder="Para quê (opcional)" style="flex:2 1 150px;width:auto" aria-label="Motivo da retirada"><button class="mini" data-act="rtgo">Retirar</button></div><div class="hint" id="rtH" role="status" style="margin:0">' +
       esc(S.rtMsg || '') +
       '</div>';
     S.retiradas.slice(0, 5).forEach(function (x) {
@@ -13514,17 +13563,13 @@
         S.vMotivo = '';
       }
       var pt = S._t.price,
-        lista = pt * S.qty,
-        dn = parseDec(S.descTxt, S.descMode === 'pct' ? 'usd' : 'pyg');
-      S.descGs = Math.max(
-        0,
-        Math.min(lista, Math.round(S.descMode === 'pct' ? (lista * Math.min(100, dn)) / 100 : dn))
-      );
+        lista = pt * S.qty;
+      S.descGs = descontoGs(lista);
       var fxs = faixaOf(sel.ref);
       $('unit').textContent = pt
-        ? 'Preço unit. G$ ' + dots(pt) + (fxs ? ' (faixa ' + fxs.nome + ')' : ' (exemplo)')
+        ? 'Preço unit. ' + gs(pt) + (fxs ? ' (faixa ' + fxs.nome + ')' : ' (exemplo)')
         : 'Preço livre: digite abaixo o valor recebido';
-      $('tot').textContent = pt ? 'G$ ' + dots(lista - S.descGs) : '';
+      $('tot').textContent = pt ? gs(lista - S.descGs) : '';
       renderDescBrinde(sel);
       renderMoeda();
       renderPiso();
@@ -13538,7 +13583,7 @@
     var dm = $('descModes');
     dm.textContent = '';
     [
-      ['pyg', 'G$'],
+      ['pyg', mpSim()],
       ['pct', '%']
     ].forEach(function (o) {
       dm.appendChild(
@@ -13557,7 +13602,7 @@
     });
     if ($('descIn').value !== (S.descTxt || '')) $('descIn').value = S.descTxt || '';
     $('descH').textContent = S.descGs
-      ? 'Desconto de G$ ' + dots(S.descGs) + ' sobre o preço de tabela.'
+      ? 'Desconto de ' + gs(S.descGs) + ' sobre o preço de tabela.'
       : '';
     var bl = brindesDisp().filter(function (x) {
       return x !== sel;
@@ -17966,7 +18011,7 @@
           );
         })
         .join('') +
-      '<div class="sel" style="flex-wrap:wrap"><input class="in" id="impD" placeholder="O que aconteceu" style="flex:2 1 180px;width:auto" aria-label="Descrição do imprevisto"><input class="in" id="impV" inputmode="numeric" placeholder="Valor em G$" style="flex:1 1 120px;width:auto" aria-label="Valor do imprevisto"><button class="mini" data-act="impadd">Registrar imprevisto</button></div></section>';
+      '<div class="sel" style="flex-wrap:wrap"><input class="in" id="impD" placeholder="O que aconteceu" style="flex:2 1 180px;width:auto" aria-label="Descrição do imprevisto"><input class="in" id="impV" inputmode="' + mpMode() + '" placeholder="Valor em ' + mpSim() + '" style="flex:1 1 120px;width:auto" aria-label="Valor do imprevisto"><button class="mini" data-act="impadd">Registrar imprevisto</button></div></section>';
     html +=
       '<section class="card col"><h2 style="margin:0;font-size:16px">Nova despesa</h2><div class="sel" style="flex-wrap:wrap"><input class="in" id="nName" placeholder="Nome (ex.: Água)" style="flex:2 1 160px;width:auto" aria-label="Nome da despesa"><select class="in" id="nCat" aria-label="Grupo" style="flex:1 1 130px;width:auto">' +
       cats
@@ -17974,11 +18019,11 @@
           return '<option value="' + c + '">' + CATS[c] + '</option>';
         })
         .join('') +
-      '</select><select class="in" id="nTipo" aria-label="Tipo" style="flex:1 1 110px;width:auto"><option value="fixa">Fixa</option><option value="variavel">Variável</option></select><select class="in" id="nMoeda" aria-label="Moeda" style="flex:1 1 90px;width:auto"><option value="pyg">G$</option><option value="usd">US$</option><option value="brl">R$</option></select><input class="in" id="nVal" inputmode="decimal" placeholder="Valor" style="flex:1 1 110px;width:auto" aria-label="Valor"><input class="in" id="nDia" inputmode="numeric" maxlength="2" placeholder="Dia do vencimento" style="flex:1 1 90px;width:auto" aria-label="Dia do vencimento"><button class="mini" data-act="expadd">Adicionar</button></div><div class="hint" id="nH" role="status"></div></section>';
+      '</select><select class="in" id="nTipo" aria-label="Tipo" style="flex:1 1 110px;width:auto"><option value="fixa">Fixa</option><option value="variavel">Variável</option></select><select class="in" id="nMoeda" aria-label="Moeda" style="flex:1 1 90px;width:auto">' + opcoesMoeda() + '</select><input class="in" id="nVal" inputmode="decimal" placeholder="Valor" style="flex:1 1 110px;width:auto" aria-label="Valor"><input class="in" id="nDia" inputmode="numeric" maxlength="2" placeholder="Dia do vencimento" style="flex:1 1 90px;width:auto" aria-label="Dia do vencimento"><button class="mini" data-act="expadd">Adicionar</button></div><div class="hint" id="nH" role="status"></div></section>';
     html +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Caixa de melhorias</h2><div class="hint" style="margin:0">Opcional. Não entra nas contas obrigatórias e nunca trava uma venda.</div><div class="sel"><input class="in" id="melhIn" inputmode="numeric" data-in="melh" value="' +
-      dots(S.melhPeca) +
-      '" aria-label="Guaranis por peça para melhorias" style="max-width:180px"><span class="hint" style="margin:0">G$ por peça vendida</span></div></section>';
+      '<section class="card col"><h2 style="margin:0;font-size:16px">Caixa de melhorias</h2><div class="hint" style="margin:0">Opcional. Não entra nas contas obrigatórias e nunca trava uma venda.</div><div class="sel"><input class="in" id="melhIn" inputmode="' + mpMode() + '" data-in="melh" value="' +
+      gsParaCampo(S.melhPeca) +
+      '" aria-label="Valor por peça para melhorias" style="max-width:180px"><span class="hint" style="margin:0">' + mpSim() + ' por peça vendida</span></div></section>';
     el.innerHTML = html;
   }
 
@@ -18779,7 +18824,7 @@
       renderDash();
     },
     melhuso: function () {
-      var v = parseDec($('muV').value, 'pyg'),
+      var v = campoParaGs($('muV').value),
         d = $('muD').value.trim() || 'Melhoria da loja',
         r = reservas();
       if (!v) {
@@ -18863,7 +18908,7 @@
     },
     impadd: function () {
       var d = $('impD').value.trim(),
-        v = toNum($('impV').value);
+        v = campoParaGs($('impV').value);
       if (!d || !v) return;
       lancarImprevisto(d, v);
       renderDesp();
@@ -18913,7 +18958,7 @@
       $('tmPeca').textContent = gs(contasPeca());
     }
     if (k === 'melh') {
-      S.melhPeca = toNum(t.value);
+      S.melhPeca = campoParaGs(t.value);
     }
 
     if (k === 'day') {
@@ -19314,7 +19359,7 @@
     html +=
       '<div class="two">' +
       '<section class="card col"><h2 style="margin:0;font-size:16px">Usar a caixa de melhorias</h2><div class="hint" style="margin:0">Tira do saldo de melhorias e dos guaranis em caixa.</div>' +
-      '<div class="sel" style="flex-wrap:wrap"><input class="in" id="muD" placeholder="No que usou" style="flex:2 1 150px;width:auto" aria-label="Descrição do uso"><input class="in" id="muV" inputmode="numeric" placeholder="G$" style="flex:1 1 110px;width:auto" aria-label="Valor usado em guaranis"><button class="mini" data-act="melhuso">Registrar</button></div>' +
+      '<div class="sel" style="flex-wrap:wrap"><input class="in" id="muD" placeholder="No que usou" style="flex:2 1 150px;width:auto" aria-label="Descrição do uso"><input class="in" id="muV" inputmode="' + mpMode() + '" placeholder="' + mpSim() + '" style="flex:1 1 110px;width:auto" aria-label="Valor usado"><button class="mini" data-act="melhuso">Registrar</button></div>' +
       S.melhUso
         .slice(-3)
         .reverse()
@@ -19505,9 +19550,9 @@
     if (S.ajMsg) h += '<div class="note n-ok" role="status">' + esc(S.ajMsg) + '</div>';
     // meta
     h +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Meta do mês</h2><div><div class="lbl">Lucro livre desejado no mês, loja toda (US$)</div><input class="in" inputmode="decimal" data-aj="meta" value="' +
-      (S.metaUsd || '') +
-      '" placeholder="Ex.: 600" style="max-width:220px"></div></section>';
+      '<section class="card col"><h2 style="margin:0;font-size:16px">Meta do mês</h2><div><div class="lbl">Lucro livre desejado no mês, loja toda (' + mpSim() + ')</div><input class="in" inputmode="decimal" data-aj="meta" value="' +
+      usdParaCampo(S.metaUsd) +
+      '" placeholder="Ex.: ' + usdParaCampo(600) + '" style="max-width:220px"></div></section>';
     // faixas
     h +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Faixas</h2><div class="hint" style="margin:2px 0 0">Você cria e nomeia. A margem é o lucro mínimo desejado sobre o preço de venda e define o piso. O preço próprio da faixa é opcional (vazio = preço do tipo).</div></div>';
@@ -19534,14 +19579,14 @@
         h +=
           '<div style="display:flex;gap:8px;align-items:center"><span style="flex:1 1 140px">' +
           esc(t.label) +
-          '</span><input class="in" inputmode="numeric" data-aj="fprec" data-id="' +
+          '</span><input class="in" inputmode="' + mpMode() + '" data-aj="fprec" data-id="' +
           f.id +
           '" data-tipo="' +
           t.id +
           '" value="' +
-          ((f.precos && f.precos[t.id]) || '') +
+          (f.precos && f.precos[t.id] ? gsParaCampo(f.precos[t.id]) : '') +
           '" placeholder="' +
-          dots(t.price) +
+          gsParaCampo(t.price) +
           '" style="max-width:150px"></div>';
       });
       h +=
@@ -19591,8 +19636,8 @@
       '.</div><div style="margin-top:8px"><button class="chip' +
       (S.volAuto !== false ? ' on' : '') +
       '" data-act="volauto">Calcular pelas vendas reais</button></div><div class="hint">Com 2 meses de vendas (pelo menos 20 peças), o app passa a usar a média real.</div></div>' +
-      '<div><div class="lbl">Diferença de contagem tolerada (US$)</div><input class="in" inputmode="decimal" data-aj="tol" value="' +
-      String(S.tolUsd).replace('.', ',') +
+      '<div><div class="lbl">Diferença de contagem tolerada (' + mpSim() + ')</div><input class="in" inputmode="decimal" data-aj="tol" value="' +
+      usdParaCampo(S.tolUsd) +
       '" style="max-width:160px"><div class="hint">Na contagem de estoque, diferenças até esse valor ficam marcadas como perda aceita.</div></div></section>';
     // backup
     var dias = S.backupTs ? Math.floor((Date.now() - S.backupTs) / DAY) : -1;
@@ -19618,11 +19663,11 @@
       })[0];
     S._ajForce = true;
     S.ajMsg = '';
-    if (k === 'meta') S.metaUsd = Math.max(0, numIn(t.value));
+    if (k === 'meta') S.metaUsd = campoParaUsd(t.value);
     if (k === 'fnome' && f && t.value.trim()) f.nome = t.value.trim();
     if (k === 'fmarg' && f) f.margem = Math.max(0, Math.min(90, numIn(t.value)));
     if (k === 'fprec' && f) {
-      var pr = toNum(t.value);
+      var pr = campoParaGs(t.value);
       f.precos = f.precos || {};
       if (pr > 0) f.precos[t.getAttribute('data-tipo')] = pr;
       else delete f.precos[t.getAttribute('data-tipo')];
@@ -19637,7 +19682,7 @@
       S.sazon[tp] = cur;
     }
     if (k === 'vol') S.volume = Math.max(1, toNum(t.value) || S.volume);
-    if (k === 'tol') S.tolUsd = Math.max(0, numIn(t.value));
+    if (k === 'tol') S.tolUsd = campoParaUsd(t.value);
     render();
   });
   $('v-ajustes').addEventListener('input', function (e) {
@@ -20140,8 +20185,8 @@
   function hFiltrar(itens) {
     var f = S.hF,
       q = S.hq.trim().toLowerCase(),
-      vmin = toNum(f.vmin),
-      vmax = toNum(f.vmax);
+      vmin = campoParaGs(f.vmin),
+      vmax = campoParaGs(f.vmax);
     return itens.filter(function (it) {
       if (q && it.txt.indexOf(q) < 0) return false;
       if (f.tipo && it.tipo !== f.tipo) return false;
@@ -20167,7 +20212,7 @@
     h += '</div><div class="lbl">Faixa</div><div class="nav">';
     (S.faixas || []).forEach(function (x) { h += hChip('faixa', x.id, x.nome || x.id); });
     h += '</div><div class="lbl">Moeda</div><div class="nav">' + hChip('moeda', 'pyg', 'G$') + hChip('moeda', 'usd', 'US$') + hChip('moeda', 'brl', 'R$');
-    h += '</div><div class="lbl">Valor em G$</div><div class="sel"><input class="in" inputmode="numeric" data-in="hvmin" placeholder="De" value="' + esc(f.vmin) + '" aria-label="Valor mínimo" style="flex:1"><input class="in" inputmode="numeric" data-in="hvmax" placeholder="Até" value="' + esc(f.vmax) + '" aria-label="Valor máximo" style="flex:1"></div>';
+    h += '</div><div class="lbl">Valor em ' + mpSim() + '</div><div class="sel"><input class="in" inputmode="' + mpMode() + '" data-in="hvmin" placeholder="De" value="' + esc(f.vmin) + '" aria-label="Valor mínimo" style="flex:1"><input class="in" inputmode="numeric" data-in="hvmax" placeholder="Até" value="' + esc(f.vmax) + '" aria-label="Valor máximo" style="flex:1"></div>';
     return h + '<button type="button" class="chip" data-act="hlimpar">Limpar tudo</button></section>';
   }
   var MES_NOME = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
@@ -20255,7 +20300,7 @@
       k = t.getAttribute && t.getAttribute('data-in');
     if (k === 'hq' || k === 'hvmin' || k === 'hvmax') {
       if (k === 'hq') S.hq = t.value;
-      else S.hF[k === 'hvmin' ? 'vmin' : 'vmax'] = t.value.replace(/\D/g, '');
+      else S.hF[k === 'hvmin' ? 'vmin' : 'vmax'] = t.value.replace(/[^\d.,]/g, '');
       S.hLim = 30;
       histLista();
     }
@@ -20419,7 +20464,7 @@
         '<small>Tabela ' + gs(tab) + ' · piso ' + gs(pp.piso * l.qty) + '</small></span>' +
         '<span style="display:flex;gap:6px;align-items:center"><button type="button" class="step" style="min-height:36px;width:36px" data-act="cartmn" data-id="' + i + '" aria-label="Menos uma peça">−</button>' +
         '<button type="button" class="step" style="min-height:36px;width:36px" data-act="cartpl" data-id="' + i + '" aria-label="Mais uma peça">+</button></span>' +
-        '<input class="in" inputmode="numeric" data-in="cartpreco" data-id="' + i + '" value="' + dots(v) + '" aria-label="Preço combinado de ' + esc(cartDesc(l)) + ' em guaranis" style="flex:0 1 130px;width:130px">' +
+        '<input class="in" inputmode="' + mpMode() + '" data-in="cartpreco" data-id="' + i + '" value="' + gsParaCampo(v) + '" aria-label="Preço combinado de ' + esc(cartDesc(l)) + ' em ' + mpSim() + '" style="flex:0 1 130px;width:130px">' +
         '<button type="button" class="chip" data-act="cartrm" data-id="' + i + '" aria-label="Tirar do carrinho">×</button></div>';
     });
     h += '</div><div class="sum"><span class="hint" style="margin:0">Soma dos preços combinados</span><b id="cartSub">' + gs(cartSub()) + '</b></div>' +
@@ -20428,17 +20473,16 @@
   }
   // Recalcula total, desconto, pagamento e aviso de piso (sem refazer o painel).
   function carrinhoSync() {
-    var sub = cartSub(),
-      dn = parseDec(S.descTxt, S.descMode === 'pct' ? 'usd' : 'pyg');
+    var sub = cartSub();
     S.qty = 1;
     S._vsel = null;
     S._selKey = 'cart';
     S._t = { price: sub, id: 'cart:' + sub + ':' + S.cart.length };
-    S.descGs = Math.max(0, Math.min(sub, Math.round(S.descMode === 'pct' ? (sub * Math.min(100, dn)) / 100 : dn)));
+    S.descGs = descontoGs(sub);
     var cs = $('cartSub');
     if (cs) cs.textContent = gs(sub);
     $('unit').textContent = 'Carrinho · ' + cartPecas() + ' peça(s)';
-    $('tot').textContent = 'G$ ' + dots(sub - S.descGs);
+    $('tot').textContent = gs(sub - S.descGs);
     renderDescBrinde(null);
     renderMoeda();
     renderPiso();
@@ -20595,7 +20639,7 @@
     if (!t.getAttribute || t.getAttribute('data-in') !== 'cartpreco') return;
     var l = S.cart[+t.getAttribute('data-id')];
     if (!l) return;
-    l.preco = Math.round(toNum(t.value));
+    l.preco = campoParaGs(t.value);
     S.rec = null;
     carrinhoSync();
   });
@@ -20920,6 +20964,9 @@
   // ---------- Moeda principal
   ACT.moedap = function (id) {
     S.moedaP = id === 'usd' || id === 'brl' ? id : 'pyg';
+    S.descTxt = '';
+    S.rec = null;
+    S.hF.vmin = S.hF.vmax = '';
     S._ajForce = true;
     saveSoon();
     render();
