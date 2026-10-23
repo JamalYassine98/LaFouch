@@ -18518,9 +18518,9 @@
             esc(x.desc) +
             '<small>' +
             fd(x.ts) +
-            '</small></span><b>' +
+            '</small></span><span style="display:flex;align-items:center;gap:6px"><b>' +
             gs(x.valor) +
-            '</b><button type="button" class="trash" data-act="impdel" data-id="' + o.i + '" aria-label="Remover imprevisto ' + esc(x.desc) + '" title="Remover" style="opacity:.8;margin-left:6px">✕</button></div>'
+            '</b><button type="button" class="trash" data-act="impdel" data-id="' + o.i + '" aria-label="Remover imprevisto ' + esc(x.desc) + '" title="Remover" style="opacity:.8">✕</button></span></div>'
           );
         })
         .join('') +
@@ -19432,7 +19432,7 @@
         var b = document.querySelector('[data-act="impdel"][data-id="' + id + '"]');
         if (b) {
           b.textContent = 'Remover?';
-          b.style.cssText = 'opacity:1;width:auto;padding:0 10px;color:var(--bad);margin-left:6px';
+          b.style.cssText = 'opacity:1;width:auto;padding:0 10px;color:var(--bad)';
         }
         setTimeout(function () {
           if (S._impDel === id) {

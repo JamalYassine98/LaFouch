@@ -376,7 +376,7 @@
         var b = document.querySelector('[data-act="impdel"][data-id="' + id + '"]');
         if (b) {
           b.textContent = 'Remover?';
-          b.style.cssText = 'opacity:1;width:auto;padding:0 10px;color:var(--bad);margin-left:6px';
+          b.style.cssText = 'opacity:1;width:auto;padding:0 10px;color:var(--bad)';
         }
         setTimeout(function () {
           if (S._impDel === id) {
