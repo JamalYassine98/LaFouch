@@ -430,6 +430,9 @@
     S.addOpen = true;
     S.addMode = 'prod';
     S.photoFor = null;
+    try {
+      $('fbCk').checked = S.fundoBranco !== false;
+    } catch (e) {}
     S.msg = '';
     render();
   };

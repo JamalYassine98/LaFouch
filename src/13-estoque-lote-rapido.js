@@ -101,7 +101,7 @@
       c.getContext('2d').drawImage(full, x0, y0, x1 - x0, y1 - y0, 0, 0, c.width, c.height);
       var res;
       try {
-        res = whiten(c);
+        res = S.fundoBranco === false ? { canvas: c } : whiten(c);
       } catch (e) {
         res = { canvas: c };
       }

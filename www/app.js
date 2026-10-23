@@ -3448,6 +3448,9 @@
     S.addOpen = true;
     S.addMode = 'prod';
     S.photoFor = null;
+    try {
+      $('fbCk').checked = S.fundoBranco !== false;
+    } catch (e) {}
     S.msg = '';
     render();
   };
@@ -3745,7 +3748,7 @@
       c.getContext('2d').drawImage(full, x0, y0, x1 - x0, y1 - y0, 0, 0, c.width, c.height);
       var res;
       try {
-        res = whiten(c);
+        res = S.fundoBranco === false ? { canvas: c } : whiten(c);
       } catch (e) {
         res = { canvas: c };
       }
@@ -8148,7 +8151,8 @@
         setTimeout(img.onload, 40);
         return;
       }
-      var GAL0 = !!window.__GAL;
+      var GAL0 = !!window.__GAL,
+        FB0 = S.fundoBranco === false;
       window.__GAL = false;
       var full;
       try {
@@ -8183,10 +8187,18 @@
                 tok: tok,
                 tipo: null,
                 full: full,
-                pieces: res.pieces || []
+                pieces: res.pieces || [],
+                fb0: FB0
               };
+              try {
+                var oc0 = fitCanvas(img, 1800);
+                P.oImg = oc0.toDataURL('image/jpeg', 0.93);
+                P.oThumb = thumbOf(oc0);
+                P.pImg = P.img;
+                P.pThumb = P.thumb;
+              } catch (eo) {}
               var rawMsg = '';
-              if (!S.photoFor && !GAL0) {
+              if (!S.photoFor && !GAL0 && !FB0) {
                 var cov = coverOf(res.canvas),
                   sh = sharpOf(full),
                   bb = res.bbox,
@@ -8260,7 +8272,7 @@
             URL.revokeObjectURL(url);
           };
           /* foto da galeria: entra como está. Fundo já branco: só enquadra, sem recorte nem IA */
-          if (GAL0) {
+          if (GAL0 || FB0) {
             S.msg = '';
             try {
               done({ canvas: fitCanvas(img, 1800), bbox: null, pieces: [] });
@@ -8425,7 +8437,24 @@
     };
   }
   // Cartão da foto: prévia, leitura e cadastro.
+  function syncFB() {
+    var c = $('fbCk');
+    if (c) c.checked = S.fundoBranco !== false;
+  }
+  $('fbCk').onchange = function () {
+    S.fundoBranco = !!this.checked;
+    saveSoon();
+  };
+  $('phOrig').onclick = function () {
+    if (!P || !P.oImg) return;
+    var usaO = P.img === P.oImg;
+    P.img = usaO ? P.pImg : P.oImg;
+    P.thumb = usaO ? P.pThumb : P.oThumb;
+    P.raw = 0;
+    render();
+  };
   function renderPhoto() {
+    syncFB();
     var card = $('photoCard');
     if (!P) {
       card.hidden = true;
@@ -8444,6 +8473,9 @@
     var f = phInfo(),
       m = $('phMatch');
     $('phImg').src = P.img;
+    var ob = $('phOrig');
+    ob.hidden = !(P.oImg && P.pImg && P.oImg !== P.pImg);
+    ob.textContent = P.img === P.oImg ? '↺ Voltar ao fundo branco automático' : '📷 Usar a foto original (sem ajuste)';
     {
       var pgc = pickG(f.tipo, P.g).g;
       if (pgc) P.qty = Math.max(1, Math.min(P.qty, Math.max(grpFalta(pgc), 1)));
@@ -21543,6 +21575,7 @@
       'retiradas',
       'descartes',
       'moedaP',
+      'fundoBranco',
       'confCx',
       'ccLemb',
       'formas',

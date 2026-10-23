@@ -198,6 +198,7 @@
       'retiradas',
       'descartes',
       'moedaP',
+      'fundoBranco',
       'confCx',
       'ccLemb',
       'formas',

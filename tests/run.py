@@ -598,6 +598,24 @@ async def main():
             if not ok: falhas.append('exemplo 14 meses'); print('        veio', r, pg.erros)
             await pg.close()
 
+            # fundo branco automático: desmarcado, a foto entra como foi tirada
+            pg = await pagina()
+            from PIL import Image
+            import random
+            im = Image.new('RGB', (600, 400), (120, 90, 60))
+            for _ in range(4000): im.putpixel((random.randrange(600), random.randrange(400)), (random.randrange(256),) * 3)
+            im.save('/tmp/claude-0/fb.png')
+            await pg.evaluate("() => { const L = window.__LF; L.S.fundoBranco = false; L.setView('estoque'); }")
+            await pg.click('#btnAdd'); await pg.wait_for_timeout(300)
+            ck = await pg.evaluate("() => document.getElementById('fbCk').checked")
+            await pg.set_input_files('#file', '/tmp/claude-0/fb.png'); await pg.wait_for_timeout(2500)
+            r = await pg.evaluate("() => [!document.getElementById('photoCard').hidden, document.getElementById('phOrig').hidden, document.getElementById('phImg').src.length > 1000]")
+            total += 1
+            ok = ck is False and r == [True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'fundo branco desmarcado: foto entra original')
+            if not ok: falhas.append('fundo branco off'); print('        veio', ck, r, pg.erros)
+            await pg.close()
+
             # contagem de estoque no cartão "Em estoque": por valor, com resumo e aplicação
             pg = await pagina()
             await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.items = [
