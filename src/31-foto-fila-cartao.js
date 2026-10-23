@@ -426,8 +426,33 @@
     sp.hidden = P.photoOnly || np < 2;
     if (!sp.hidden)
       sp.textContent = 'Esta foto tem ' + np + ' peças separadas. Separar em ' + np + ' fotos';
+    var ex0 = null;
+    try {
+      var f00 = phInfo();
+      if (!f00.simple && !f00.isPre && f00.ref && P.vr) {
+        var kk = f00.ref + '|' + P.vr;
+        ex0 = S.items.filter(function (i) {
+          return i.ref.toUpperCase() === f00.ref && i.vr === P.vr && !i.bulk;
+        })[0];
+        if (P.corKey !== kk) {
+          P.corKey = kk;
+          if (ex0 && !P.corSet) $('phCor').value = ex0.cor;
+        }
+      }
+    } catch (eC) {}
     var f = phInfo(),
       m = $('phMatch');
+    var pi = $('phIdent');
+    pi.hidden = !!P.photoOnly || f.simple;
+    if (!pi.hidden) {
+      if (P.idRef !== f.ref) {
+        P.idRef = f.ref;
+        P.id = Object.assign({}, attrOf(f.ref));
+      }
+      if (!pi.contains(document.activeElement)) identBox(pi, P.id, null);
+    }
+    $('phCorChips').hidden = true;
+    $('phCorNew').hidden = true;
     $('phImg').src = P.img;
     var ob = $('phOrig');
     ob.hidden = !(P.oImg && P.pImg && P.oImg !== P.pImg);
@@ -467,10 +492,9 @@
         ' com os dados abaixo e a foto.';
     }
     $('phDot').style.background = hexOf(f.cor) === '#8b9bb0' && f.cor ? P.hex : hexOf(f.cor);
-    $('phCorH').textContent =
-      'Cor mais próxima lida da foto: ' +
-      P.guess +
-      '. É uma leitura aproximada, corrija se precisar.';
+    $('phCorH').textContent = ex0
+      ? P.vr + ' deste modelo já é "' + ex0.cor + '". Altere só se for outra cor.'
+      : 'Digite a cor deste ' + (P.vr || 'C') + ' (a cor muda de modelo para modelo). Sugestão da foto: ' + P.guess + '.';
     var cc = $('phCorChips');
     cc.textContent = '';
     Object.keys(S.palette)
@@ -673,6 +697,7 @@
       }
     }
     if (!f.simple) setPN(f.ref, $('phNome').value);
+    if (!f.simple && P.id) setAttr(f.ref, P.id);
     $('phNome').value = '';
     $('phCusto').value = '';
     if (ex) {

@@ -278,7 +278,8 @@
       mk(
         'div',
         'crumb',
-        (named ? ref + ' · ' : '') +
+        (numOf(ref) ? 'Nº ' + numOf(ref) + ' · ' : '') +
+          (named ? ref + ' · ' : '') +
           (tipoOf(f.tipo) || T()).full +
           (isSimple(f.tipo)
             ? f.fmt && !f.bulk
@@ -461,6 +462,17 @@
         };
         ni.oninput = guardar;
         if (nmi) nmi.oninput = guardar;
+      }
+      if (!smp && !f.bulk) {
+        var idh = mk('div', 'col'),
+          idc = Object.assign({}, attrOf(ref));
+        idh.id = 'edIdent';
+        idh.style.gap = '10px';
+        identBox(idh, idc, function () {
+          setAttr(ref, Object.assign({ marca: '', material: '', publico: '', colecao: '' }, idc));
+        });
+        bx.appendChild(idh);
+        if (nmi && !nmi.value) nmi.placeholder = nomeAuto(ref) || nmi.placeholder;
       }
       // descrição (só vale ao salvar)
       var ta = mk('textarea', 'in');
@@ -854,6 +866,7 @@
         S.desc[nn] = S.desc[ref];
         delete S.desc[ref];
       }
+      identMove(ref, nn);
       if (S.pnome && S.pnome[ref]) {
         S.pnome[nn] = S.pnome[ref];
         delete S.pnome[ref];

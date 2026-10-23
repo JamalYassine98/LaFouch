@@ -47,7 +47,7 @@
         ref: i.ref,
         cor: i.cor,
         src: S.fotos[k],
-        cap: i.ref + (i.cor && i.cor !== 'Sem cor' ? ' · ' + i.cor : '')
+        cap: pubNome(i.ref) + (i.cor && i.cor !== 'Sem cor' ? ' · ' + i.cor : '')
       });
     });
     return out;
@@ -126,7 +126,7 @@
         return dataToBlob(o.src, 'image/jpeg').then(function (b) {
           return new File(
             [b],
-            o.ref.replace(/[^\w-]/g, '') + '-' + o.cor.replace(/[^\w-]/g, '') + '.jpg',
+            (slugNome(pubNome(o.ref)) || 'modelo') + '-' + slugNome(o.cor) + '.jpg',
             { type: 'image/jpeg' }
           );
         });
@@ -134,7 +134,16 @@
     )
       .then(function (files) {
         if (navigator.canShare && navigator.canShare({ files: files })) {
-          return navigator.share({ files: files, text: 'La Fouch · Tudo em Óculos' }).then(
+          return navigator.share({
+            files: files,
+            text:
+              'La Fouch · Tudo em Óculos\n' +
+              sel
+                .map(function (o) {
+                  return o.cap;
+                })
+                .join('\n')
+          }).then(
             function () {
               m.textContent = 'Enviado para o compartilhamento.';
             },

@@ -27,6 +27,7 @@
           fOk(i) &&
           (S.corF === 'all' || i.cor === S.corF) &&
           (!S.faixaF || (faixaOf(i.ref) || {}).id === S.faixaF) &&
+          (!S.colF || attrOf(i.ref).colecao === S.colF) &&
           (!qm || qm(i))
         );
       });
@@ -569,6 +570,25 @@
         )
       );
     });
+    var fc = $('fCols'),
+      cl = colecoes();
+    fc.textContent = '';
+    $('fColB').hidden = !cl.length;
+    ['']
+      .concat(cl)
+      .forEach(function (c) {
+        fc.appendChild(
+          btn(
+            'chip' + ((S.colF || '') === c ? ' on' : ''),
+            c || 'Todas',
+            function () {
+              S.colF = c;
+              render();
+            },
+            (S.colF || '') === c
+          )
+        );
+      });
     var sc = $('sortChips');
     sc.textContent = '';
     [

@@ -345,7 +345,7 @@ async def main():
             await pg.fill('#descTa', 'rascunho'); await pg.wait_for_timeout(200)
             await pg.locator('#editModal button:text-is("Cancelar")').last.click(); await pg.wait_for_timeout(300)
             got = await pg.evaluate("() => [window.__LF.S.items.filter(i => i.cor === 'Preto' && i.ref === 'BR44118')[0].qty, window.__LF.S.desc['BR44118'], !!document.getElementById('editModal')]")
-            await checa('janela Editar: Cancelar descarta tudo', got == [4, None, False], got)
+            await checa('janela Editar: Cancelar descarta tudo', got[0] == 4 and got[1] != 'rascunho' and got[2] is False, got)
 
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
             await pg.fill('#descTa', 'Polarizado, mola flexível'); await pg.locator('#editModal button:text-is("Salvar")').click(); await pg.wait_for_timeout(300)
@@ -614,6 +614,28 @@ async def main():
             ok = ck is False and r == [True, True, True] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'fundo branco desmarcado: foto entra original')
             if not ok: falhas.append('fundo branco off'); print('        veio', ck, r, pg.erros)
+            await pg.close()
+
+            # identidade do modelo: nome automático, descrição por cor, nº interno, busca e coleção
+            pg = await pagina()
+            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S;
+              S.items = [
+                {tipo:'sem', ref:'ZZ1', grau:'', med:'55-17-147', vr:'C1', fmt:'Gatinho', cor:'Dourado', qty:3, custo:5},
+                {tipo:'sem', ref:'ZZ2', grau:'', med:'', vr:'C1', fmt:'Redondo', cor:'Preto', qty:2, custo:5}];
+              S.pnome = {}; S.desc = {}; S.attr = {}; S.num = {}; S.numNext = 0; S.pnAuto = {}; S.descAuto = {};
+              L.setAttr('ZZ1', {marca:'Gucci', material:'Metal', publico:'Feminino', colecao:'Clássicos'});
+              L.identSync();
+              const n1 = S.pnome.ZZ1, d1 = S.desc.ZZ1;
+              S.items.push({tipo:'sem', ref:'ZZ1', grau:'', med:'55-17-147', vr:'C2', fmt:'Gatinho', cor:'Verde', qty:1, custo:5});
+              L.identSync();
+              const d2 = S.desc.ZZ1;
+              S.desc.ZZ1 = 'minha descrição'; S.items.push({tipo:'sem', ref:'ZZ1', grau:'', med:'', vr:'C3', fmt:'Gatinho', cor:'Azul', qty:1, custo:5}); L.identSync();
+              const d3 = S.desc.ZZ1;
+              return [n1, d1, d2, d3, L.numOf('ZZ1'), L.numOf('ZZ2'), L.pubNome('ZZ2'), L.identTxt('ZZ1').includes('Gucci')]; }""")
+            total += 1
+            ok = r[0] == 'Armação Gucci de metal feminino' and 'C1 Dourado' in r[1] and 'C2 Verde' in r[2] and r[3] == 'minha descrição' and r[4] == 1 and r[5] == 2 and r[6] == 'ZZ2' and r[7] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'identidade: nome automático, descrição por cor, nº interno')
+            if not ok: falhas.append('identidade'); print('        veio', r, pg.erros)
             await pg.close()
 
             # contagem de estoque no cartão "Em estoque": por valor, com resumo e aplicação

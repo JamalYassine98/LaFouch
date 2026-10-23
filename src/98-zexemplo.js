@@ -77,6 +77,23 @@
     S.grp = JSON.parse(JSON.stringify(EX_BASE.grp));
     S.fotos = exFotos(S.items);
     S.pfaixa = { SP57765: 'f1', SP58110: 'f2', SP60627: 'f2', SP59002: 'f3', BR44118: 'f1', BR44120: 'f2', BR44133: 'f3', SL2201: 'f2', SL2210: 'f3' };
+    S.attr = {
+      SP57765: { material: 'Acetato', publico: 'Unissex', colecao: 'Leitura' },
+      SP58110: { marca: 'Kazwini', material: 'Acetato', publico: 'Masculino', colecao: 'Leitura' },
+      SP60627: { material: 'Plástico', publico: 'Feminino', colecao: 'Leitura' },
+      SP59002: { material: 'Acetato', publico: 'Unissex', colecao: 'Leitura' },
+      BR44118: { marca: 'Gucci', material: 'Metal', publico: 'Feminino', colecao: 'Clássicos' },
+      BR44120: { marca: 'Ray-Ban', material: 'Metal', publico: 'Masculino', colecao: 'Clássicos' },
+      BR44133: { marca: 'Armani', material: 'Acetato', publico: 'Feminino', colecao: 'Clássicos' },
+      SL2201: { marca: 'Ray-Ban', material: 'Metal', publico: 'Masculino', colecao: 'Solares' },
+      SL2210: { marca: 'Kazwini', material: 'TR90', publico: 'Feminino', colecao: 'Solares' }
+    };
+    S.pnome = {};
+    S.pnAuto = {};
+    S.descAuto = {};
+    S.desc = {};
+    S.num = {};
+    S.numNext = 0;
     S.appStart = dia(DIAS, 8);
     // câmbio: 30 dias já existentes + o resto, em sequência suave
     var rec = S.fxHist.slice(),

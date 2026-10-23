@@ -65,6 +65,12 @@
     tiposDel: [],
     tiposOrd: [],
     pnome: {},
+    attr: {},
+    num: {},
+    numNext: 0,
+    pnAuto: {},
+    descAuto: {},
+    colF: '',
     filtOpen: false,
     sortO: '',
     cpay: [],
@@ -251,7 +257,8 @@
             i.vr,
             tl ? tl.label : '',
             S.desc[i.ref] || '',
-            (S.pnome && S.pnome[i.ref]) || ''
+            (S.pnome && S.pnome[i.ref]) || '',
+            identTxt(i.ref)
           ].join(' ')
         ),
         t2 = t1.replace(/[^a-z0-9]/g, '');
@@ -1185,7 +1192,8 @@
       mk(
         'div',
         'crumb',
-        (named ? ref + ' · ' : '') +
+        (numOf(ref) ? 'Nº ' + numOf(ref) + ' · ' : '') +
+          (named ? ref + ' · ' : '') +
           (tipoOf(f.tipo) || T()).full +
           (isSimple(f.tipo)
             ? f.fmt && !f.bulk
@@ -1368,6 +1376,17 @@
         };
         ni.oninput = guardar;
         if (nmi) nmi.oninput = guardar;
+      }
+      if (!smp && !f.bulk) {
+        var idh = mk('div', 'col'),
+          idc = Object.assign({}, attrOf(ref));
+        idh.id = 'edIdent';
+        idh.style.gap = '10px';
+        identBox(idh, idc, function () {
+          setAttr(ref, Object.assign({ marca: '', material: '', publico: '', colecao: '' }, idc));
+        });
+        bx.appendChild(idh);
+        if (nmi && !nmi.value) nmi.placeholder = nomeAuto(ref) || nmi.placeholder;
       }
       // descrição (só vale ao salvar)
       var ta = mk('textarea', 'in');
@@ -1761,6 +1780,7 @@
         S.desc[nn] = S.desc[ref];
         delete S.desc[ref];
       }
+      identMove(ref, nn);
       if (S.pnome && S.pnome[ref]) {
         S.pnome[nn] = S.pnome[ref];
         delete S.pnome[ref];
@@ -1807,6 +1827,7 @@
           fOk(i) &&
           (S.corF === 'all' || i.cor === S.corF) &&
           (!S.faixaF || (faixaOf(i.ref) || {}).id === S.faixaF) &&
+          (!S.colF || attrOf(i.ref).colecao === S.colF) &&
           (!qm || qm(i))
         );
       });
@@ -2349,6 +2370,25 @@
         )
       );
     });
+    var fc = $('fCols'),
+      cl = colecoes();
+    fc.textContent = '';
+    $('fColB').hidden = !cl.length;
+    ['']
+      .concat(cl)
+      .forEach(function (c) {
+        fc.appendChild(
+          btn(
+            'chip' + ((S.colF || '') === c ? ' on' : ''),
+            c || 'Todas',
+            function () {
+              S.colF = c;
+              render();
+            },
+            (S.colF || '') === c
+          )
+        );
+      });
     var sc = $('sortChips');
     sc.textContent = '';
     [
@@ -3350,7 +3390,8 @@
       'det',
       'lotesView',
       'repo',
-      'faixaF'
+      'faixaF',
+      'colF'
     ];
   // Fecha os filtros (cancelar restaura o estado).
   function filtClose(cancel) {
@@ -8470,8 +8511,33 @@
     sp.hidden = P.photoOnly || np < 2;
     if (!sp.hidden)
       sp.textContent = 'Esta foto tem ' + np + ' peças separadas. Separar em ' + np + ' fotos';
+    var ex0 = null;
+    try {
+      var f00 = phInfo();
+      if (!f00.simple && !f00.isPre && f00.ref && P.vr) {
+        var kk = f00.ref + '|' + P.vr;
+        ex0 = S.items.filter(function (i) {
+          return i.ref.toUpperCase() === f00.ref && i.vr === P.vr && !i.bulk;
+        })[0];
+        if (P.corKey !== kk) {
+          P.corKey = kk;
+          if (ex0 && !P.corSet) $('phCor').value = ex0.cor;
+        }
+      }
+    } catch (eC) {}
     var f = phInfo(),
       m = $('phMatch');
+    var pi = $('phIdent');
+    pi.hidden = !!P.photoOnly || f.simple;
+    if (!pi.hidden) {
+      if (P.idRef !== f.ref) {
+        P.idRef = f.ref;
+        P.id = Object.assign({}, attrOf(f.ref));
+      }
+      if (!pi.contains(document.activeElement)) identBox(pi, P.id, null);
+    }
+    $('phCorChips').hidden = true;
+    $('phCorNew').hidden = true;
     $('phImg').src = P.img;
     var ob = $('phOrig');
     ob.hidden = !(P.oImg && P.pImg && P.oImg !== P.pImg);
@@ -8511,10 +8577,9 @@
         ' com os dados abaixo e a foto.';
     }
     $('phDot').style.background = hexOf(f.cor) === '#8b9bb0' && f.cor ? P.hex : hexOf(f.cor);
-    $('phCorH').textContent =
-      'Cor mais próxima lida da foto: ' +
-      P.guess +
-      '. É uma leitura aproximada, corrija se precisar.';
+    $('phCorH').textContent = ex0
+      ? P.vr + ' deste modelo já é "' + ex0.cor + '". Altere só se for outra cor.'
+      : 'Digite a cor deste ' + (P.vr || 'C') + ' (a cor muda de modelo para modelo). Sugestão da foto: ' + P.guess + '.';
     var cc = $('phCorChips');
     cc.textContent = '';
     Object.keys(S.palette)
@@ -8717,6 +8782,7 @@
       }
     }
     if (!f.simple) setPN(f.ref, $('phNome').value);
+    if (!f.simple && P.id) setAttr(f.ref, P.id);
     $('phNome').value = '';
     $('phCusto').value = '';
     if (ex) {
@@ -9305,7 +9371,7 @@
         ref: i.ref,
         cor: i.cor,
         src: S.fotos[k],
-        cap: i.ref + (i.cor && i.cor !== 'Sem cor' ? ' · ' + i.cor : '')
+        cap: pubNome(i.ref) + (i.cor && i.cor !== 'Sem cor' ? ' · ' + i.cor : '')
       });
     });
     return out;
@@ -9384,7 +9450,7 @@
         return dataToBlob(o.src, 'image/jpeg').then(function (b) {
           return new File(
             [b],
-            o.ref.replace(/[^\w-]/g, '') + '-' + o.cor.replace(/[^\w-]/g, '') + '.jpg',
+            (slugNome(pubNome(o.ref)) || 'modelo') + '-' + slugNome(o.cor) + '.jpg',
             { type: 'image/jpeg' }
           );
         });
@@ -9392,7 +9458,16 @@
     )
       .then(function (files) {
         if (navigator.canShare && navigator.canShare({ files: files })) {
-          return navigator.share({ files: files, text: 'La Fouch · Tudo em Óculos' }).then(
+          return navigator.share({
+            files: files,
+            text:
+              'La Fouch · Tudo em Óculos\n' +
+              sel
+                .map(function (o) {
+                  return o.cap;
+                })
+                .join('\n')
+          }).then(
             function () {
               m.textContent = 'Enviado para o compartilhamento.';
             },
@@ -14322,6 +14397,203 @@
     box.appendChild(go);
     box.appendChild(msg);
     return box;
+  }
+  /* ===== Identidade do modelo: nº interno, marca/material/público/coleção, nome e descrição automáticos ===== */
+  var MATERIAIS = ['Metal', 'Acetato', 'Plástico', 'TR90', 'Titânio', 'Nylon'],
+    PUBLICOS = ['Feminino', 'Masculino', 'Infantil', 'Unissex'];
+  function attrOf(ref) {
+    return (S.attr && S.attr[ref]) || {};
+  }
+  function setAttr(ref, patch) {
+    if (!S.attr) S.attr = {};
+    var a = Object.assign({}, S.attr[ref] || {}, patch);
+    Object.keys(a).forEach(function (k) {
+      var v = String(a[k] == null ? '' : a[k]).trim();
+      if (!v) delete a[k];
+      else a[k] = v;
+    });
+    if (Object.keys(a).length) S.attr[ref] = a;
+    else delete S.attr[ref];
+  }
+  /* número interno curto (1, 2, 3…), no lugar do código da haste para falar e achar o modelo */
+  function numOf(ref) {
+    return (S.num && S.num[ref]) || 0;
+  }
+  function baseNome(ref) {
+    var f = S.items.filter(function (i) {
+      return i.ref === ref;
+    })[0];
+    if (!f) return 'Armação';
+    return f.tipo === 'pre' ? 'Óculos de leitura' : f.tipo === 'solar' ? 'Óculos solar' : 'Armação';
+  }
+  /* "Armação Gucci de metal feminino" */
+  function nomeAuto(ref) {
+    var a = attrOf(ref);
+    if (!a.marca && !a.material && !a.publico) return '';
+    return [
+      baseNome(ref),
+      a.marca,
+      a.material ? 'de ' + a.material.toLowerCase() : '',
+      a.publico ? a.publico.toLowerCase() : ''
+    ]
+      .filter(Boolean)
+      .join(' ');
+  }
+  /* nome que o cliente vê: nunca o código da haste quando existe nome ou atributos */
+  function pubNome(ref) {
+    return (S.pnome && S.pnome[ref]) || nomeAuto(ref) || ref;
+  }
+  function descAutoDe(ref, nome) {
+    var seen = {},
+      cs = [],
+      med = '';
+    S.items.forEach(function (i) {
+      if (i.ref !== ref || i.bulk) return;
+      if (i.med && !med) med = i.med;
+      var k = i.vr || i.cor;
+      if (seen[k]) return;
+      seen[k] = 1;
+      cs.push(i.vr ? i.vr + ' ' + i.cor : i.cor);
+    });
+    return nome + (cs.length ? '. Cores: ' + cs.join(', ') : '') + (med ? '. Medidas: ' + med : '') + '.';
+  }
+  function identSync() {
+    if (!S.num) S.num = {};
+    if (!S.pnAuto) S.pnAuto = {};
+    if (!S.descAuto) S.descAuto = {};
+    var seen = {};
+    S.items.forEach(function (i) {
+      if (!i.ref || i.bulk || seen[i.ref]) return;
+      seen[i.ref] = 1;
+      if (!S.num[i.ref]) S.num[i.ref] = S.numNext = (S.numNext || 0) + 1;
+    });
+    Object.keys(S.attr || {}).forEach(function (ref) {
+      if (!seen[ref]) return;
+      var auto = nomeAuto(ref);
+      if (!auto) return;
+      var cur = S.pnome && S.pnome[ref];
+      if (!cur || S.pnAuto[ref] === cur) {
+        if (!S.pnome) S.pnome = {};
+        S.pnome[ref] = auto;
+        S.pnAuto[ref] = auto;
+        cur = auto;
+      }
+      var d = descAutoDe(ref, cur),
+        dc = S.desc[ref];
+      if (dc == null || dc === '' || S.descAuto[ref] === dc) {
+        S.desc[ref] = d;
+        S.descAuto[ref] = d;
+      }
+    });
+  }
+  function identMove(a, b) {
+    ['attr', 'num', 'pnAuto', 'descAuto'].forEach(function (k) {
+      if (S[k] && S[k][a] != null) {
+        S[k][b] = S[k][a];
+        delete S[k][a];
+      }
+    });
+  }
+  /* texto para a busca: nº, marca, material, público, coleção, nome */
+  function identTxt(ref) {
+    var a = attrOf(ref),
+      n = numOf(ref);
+    return [a.marca, a.material, a.publico, a.colecao, nomeAuto(ref), n ? '#' + n + ' n' + n : '']
+      .filter(Boolean)
+      .join(' ');
+  }
+  function colecoes() {
+    var s = {};
+    Object.keys(S.attr || {}).forEach(function (r) {
+      var c = S.attr[r].colecao;
+      if (c) s[c] = 1;
+    });
+    return Object.keys(s).sort();
+  }
+  function slugNome(t) {
+    return String(t || '')
+      .normalize('NFD')
+      .replace(/[̀-ͯ]/g, '')
+      .replace(/[^\w-]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+  /* campos de identificação (cartão da foto e Editar produto): cur é o objeto editado */
+  function identBox(host, cur, onCh) {
+    host.textContent = '';
+    var ch = function () {
+      if (onCh) onCh();
+    };
+    host.appendChild(mk('div', 'lbl', 'Identificação do modelo'));
+    var inp = function (key, ph, list) {
+      var i = mk('input', 'in');
+      i.placeholder = ph;
+      i.value = cur[key] || '';
+      i.setAttribute('aria-label', ph);
+      if (list) i.setAttribute('list', list);
+      i.oninput = function () {
+        cur[key] = i.value;
+        ch();
+      };
+      return i;
+    };
+    var chips = function (key, arr) {
+      var w = mk('div', 'nav');
+      arr.forEach(function (v) {
+        var on = (cur[key] || '').toLowerCase() === v.toLowerCase();
+        w.appendChild(
+          btn(
+            'chip' + (on ? ' on' : ''),
+            v,
+            function () {
+              cur[key] = on ? '' : v;
+              ch();
+              identBox(host, cur, onCh);
+            },
+            on
+          )
+        );
+      });
+      return w;
+    };
+    var dl = mk('datalist', '');
+    dl.id = 'dlIdent' + (host.id || '');
+    var ms = {};
+    Object.keys(S.attr || {}).forEach(function (r) {
+      if (S.attr[r].marca) ms[S.attr[r].marca] = 1;
+    });
+    Object.keys(ms).forEach(function (m) {
+      var o = mk('option', '');
+      o.value = m;
+      dl.appendChild(o);
+    });
+    var dc = mk('datalist', '');
+    dc.id = dl.id + 'C';
+    colecoes().forEach(function (m) {
+      var o = mk('option', '');
+      o.value = m;
+      dc.appendChild(o);
+    });
+    host.appendChild(dl);
+    host.appendChild(dc);
+    host.appendChild(inp('marca', 'Marca (ex.: Gucci, Ray-Ban, Kazwini)', dl.id));
+    host.appendChild(chips('material', MATERIAIS));
+    host.appendChild(chips('publico', PUBLICOS));
+    host.appendChild(inp('colecao', 'Coleção (ex.: Clássicos, Clip-on, Solares)', dc.id));
+    var pv = mk('div', 'hint', '');
+    pv.style.margin = '0';
+    var up = function () {
+      var t = cur.marca || cur.material || cur.publico ? 'Nome automático: ' : '';
+      if (t) {
+        var a = S.attr;
+        S.attr = { __p: cur };
+        var n = nomeAuto('__p');
+        S.attr = a;
+        t += n;
+      }
+      pv.textContent = t;
+    };
+    up();
+    host.appendChild(pv);
   }
   // ===== Câmera do app (visor, galeria, lanterna, prévia) e plano B nativo. =====
   var CAMO = null,
@@ -21184,6 +21456,23 @@
     S.grp = JSON.parse(JSON.stringify(EX_BASE.grp));
     S.fotos = exFotos(S.items);
     S.pfaixa = { SP57765: 'f1', SP58110: 'f2', SP60627: 'f2', SP59002: 'f3', BR44118: 'f1', BR44120: 'f2', BR44133: 'f3', SL2201: 'f2', SL2210: 'f3' };
+    S.attr = {
+      SP57765: { material: 'Acetato', publico: 'Unissex', colecao: 'Leitura' },
+      SP58110: { marca: 'Kazwini', material: 'Acetato', publico: 'Masculino', colecao: 'Leitura' },
+      SP60627: { material: 'Plástico', publico: 'Feminino', colecao: 'Leitura' },
+      SP59002: { material: 'Acetato', publico: 'Unissex', colecao: 'Leitura' },
+      BR44118: { marca: 'Gucci', material: 'Metal', publico: 'Feminino', colecao: 'Clássicos' },
+      BR44120: { marca: 'Ray-Ban', material: 'Metal', publico: 'Masculino', colecao: 'Clássicos' },
+      BR44133: { marca: 'Armani', material: 'Acetato', publico: 'Feminino', colecao: 'Clássicos' },
+      SL2201: { marca: 'Ray-Ban', material: 'Metal', publico: 'Masculino', colecao: 'Solares' },
+      SL2210: { marca: 'Kazwini', material: 'TR90', publico: 'Feminino', colecao: 'Solares' }
+    };
+    S.pnome = {};
+    S.pnAuto = {};
+    S.descAuto = {};
+    S.desc = {};
+    S.num = {};
+    S.numNext = 0;
     S.appStart = dia(DIAS, 8);
     // câmbio: 30 dias já existentes + o resto, em sequência suave
     var rec = S.fxHist.slice(),
@@ -21383,6 +21672,9 @@
     } catch (e) {}
     var sy = window.pageYOffset || 0;
     syncBulk();
+    try {
+      identSync();
+    } catch (e) {}
     renderEstoque();
     renderAddExtras();
     renderVendas();
@@ -21576,6 +21868,11 @@
       'descartes',
       'moedaP',
       'fundoBranco',
+      'attr',
+      'num',
+      'numNext',
+      'pnAuto',
+      'descAuto',
       'confCx',
       'ccLemb',
       'formas',
@@ -21636,7 +21933,7 @@
   // Gancho de teste: expõe funções internas só quando a URL termina em #test (usado por tests/).
   if (/(^|[#&])test\b/.test(location.hash))
     window.__LF = {
-      S: S, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
+      S: S, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,
       grpTot: grpTot, grpFalta: grpFalta, effCusto: effCusto, parseLote: parseLote, parseHaste: parseHaste,
       parseVote: parseVote, flatParse: flatParse, numAmt: numAmt, hKey: hKey, lev: lev, normRef: normRef,

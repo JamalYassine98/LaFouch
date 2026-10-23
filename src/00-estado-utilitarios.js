@@ -64,6 +64,12 @@
     tiposDel: [],
     tiposOrd: [],
     pnome: {},
+    attr: {},
+    num: {},
+    numNext: 0,
+    pnAuto: {},
+    descAuto: {},
+    colF: '',
     filtOpen: false,
     sortO: '',
     cpay: [],
@@ -250,7 +256,8 @@
             i.vr,
             tl ? tl.label : '',
             S.desc[i.ref] || '',
-            (S.pnome && S.pnome[i.ref]) || ''
+            (S.pnome && S.pnome[i.ref]) || '',
+            identTxt(i.ref)
           ].join(' ')
         ),
         t2 = t1.replace(/[^a-z0-9]/g, '');
