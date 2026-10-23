@@ -99,10 +99,9 @@
       '</b></div>' +
       '<div class="kpi"><div class="lbl">Cada peça vendida separa</div><b id="tmPeca" style="color:var(--warn)">' +
       gs(contasPeca()) +
-      '</b><div class="hint">para pagar as contas</div></div>' +
-      '<div class="kpi"><div class="lbl">Vendas esperadas por mês</div><input class="in" id="volIn" inputmode="numeric" data-in="volume" value="' +
-      S.volume +
-      '" aria-label="Peças vendidas por mês" style="margin-top:6px"><div class="hint">peças. Use a média dos últimos meses.</div></div></section>';
+      '</b><div class="hint">para pagar as contas (rateio: ' +
+      volumeEfetivo() +
+      ' peças por mês, ajuste em Ajustes)</div></div></section>';
     var cats = ['loja', 'casa', 'pessoal', 'profissional', 'imprev'];
     html +=
       '<section class="card col"><h2 style="margin:0;font-size:16px">Por grupo</h2><div class="bar">' +

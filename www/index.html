@@ -175,7 +175,7 @@
   <div id="msg" role="status" style="color:var(--ok);font-size:14px"></div>
 
   <section class="kpis" aria-label="Resumo">
-    <div class="kpi"><div class="lbl">Em estoque (filtro)</div><b id="k1" style="color:var(--ok)"></b></div>
+    <button class="kpi" id="kCont" type="button" aria-pressed="false" style="text-align:left;font:inherit;color:inherit;cursor:pointer"><div class="lbl">Em estoque (filtro)</div><b id="k1" style="color:var(--ok)"></b><div class="hint">toque para contar</div></button>
     <div class="kpi"><div class="lbl">Referências</div><b id="k2"></b></div>
     <button class="kpi" id="kRepo" type="button" aria-pressed="false" style="text-align:left;font:inherit;color:inherit;cursor:pointer"><div class="lbl">Pede reposição</div><b id="k3" style="color:var(--warn)"></b><div class="hint" id="k3h">produtos com 5 ou menos no total · toque para ver</div></button>
     <button class="kpi" id="kLot" type="button" aria-pressed="false" style="text-align:left;font:inherit;color:inherit;cursor:pointer"><div class="lbl">Lotes pendentes</div><b id="kLotN" style="color:var(--accent-fg)"></b><div class="hint" id="kLotH">lotes com peças por detalhar · toque para ver</div></button>
@@ -189,6 +189,7 @@
 
 
   <div class="main" style="grid-template-columns:minmax(0,1fr)">
+    <section class="card col" id="contCard" hidden aria-label="Contagem de estoque"></section>
     <section class="card" id="listCard" aria-label="Lista do estoque">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h2 style="margin:0;font-size:16px" id="lt"></h2><button class="trash" id="btnTrashP" type="button" aria-label="Excluir um produto" title="Excluir um produto"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 11v6M14 11v6"/></svg></button></div>
       <div class="hint" id="lh" style="margin:2px 0 0"></div>

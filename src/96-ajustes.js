@@ -1,4 +1,4 @@
-  // ===== Aba Ajustes: faixas, meta, sazonalidade, contagem de estoque e backup dos dados. =====
+  // ===== Aba Ajustes: faixas, meta, sazonalidade, contas e backup dos dados. =====
   // Gera o texto do backup (dados + fotos em miniatura).
   function backupDados() {
     var d = {};
@@ -85,7 +85,7 @@
     if (!S._ajForce && ae && ae.tagName === 'INPUT' && el.contains(ae)) return;
     S._ajForce = false;
     var h =
-      '<div class="top"><div><h1>Ajustes</h1><div class="crumb">Faixas, meta do mês, estações do ano, contagem de estoque e backup</div></div></div>';
+      '<div class="top"><div><h1>Ajustes</h1><div class="crumb">Faixas, meta do mês, estações do ano, contas e backup</div></div></div>';
     if (S.ajMsg) h += '<div class="note n-ok" role="status">' + esc(S.ajMsg) + '</div>';
     // meta
     h +=
@@ -159,60 +159,25 @@
       h += '</div></details>';
     });
     h += '</section>';
-    // contagem
+    // rateio das contas e tolerância da contagem
     h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Contagem de estoque</h2><div class="hint" style="margin:2px 0 0">Conte a prateleira, digite o que achou e aplique. O app mostra as diferenças e corrige o estoque.</div></div>';
-    if (!S.contOpen) {
-      h += '<div><button class="chip on" data-act="contabrir">Contar estoque</button></div>';
-      if (S.contagens.length) {
-        var u = S.contagens[S.contagens.length - 1];
-        h +=
-          '<div class="hint" style="margin:0">Última contagem: ' +
-          fd(u.ts) +
-          ' · ' +
-          u.difs +
-          ' diferença(s) · ' +
-          (u.valorUsd ? usd(Math.abs(u.valorUsd)) + (u.valorUsd < 0 ? ' a menos' : ' a mais') : 'sem diferença de valor') +
-          '.</div>';
-      }
-    } else {
-      var rows = S.items.filter(function (i) {
-        return tipoOf(i.tipo) && (S.contTipo === 'all' || i.tipo === S.contTipo);
-      });
-      h += '<div class="nav">';
-      [{ id: 'all', label: 'Todos' }].concat(tipoAll()).forEach(function (t) {
-        h +=
-          '<button class="chip' +
-          (S.contTipo === t.id ? ' on' : '') +
-          '" data-act="conttipo" data-id="' +
-          t.id +
-          '">' +
-          esc(t.label) +
-          '</button>';
-      });
-      h += '</div><div class="split">';
-      rows.forEach(function (i) {
-        var k = S.items.indexOf(i),
-          v = S.contVals[k];
-        h +=
-          '<div class="sl"><span>' +
-          esc(pn(i.ref)) +
-          ' · ' +
-          esc(i.cor) +
-          '<small>' +
-          esc((i.tipo === 'pre' ? i.grau : i.vr || '') + ' · no app: ' + i.qty) +
-          '</small></span><input class="in" inputmode="numeric" data-aj="cont" data-k="' +
-          k +
-          '" value="' +
-          (v == null ? '' : v) +
-          '" placeholder="' +
-          i.qty +
-          '" style="max-width:90px;text-align:center"></div>';
-      });
-      h +=
-        '</div><div style="display:flex;gap:8px"><button class="chip on" data-act="contaplicar">Aplicar diferenças</button><button class="chip" data-act="contfechar">Cancelar</button></div>';
-    }
-    h += '</section>';
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Contas e contagem</h2><div class="hint" style="margin:2px 0 0">As contas do mês (' +
+      gs(totalMensal()) +
+      ', cerca de US$ ' +
+      Math.round(totalMensal() / S.fx.pyg) +
+      ') já são separadas de cada venda: o lucro livre e a meta são o que sobra depois delas.</div></div>' +
+      '<div><div class="lbl">Peças por mês para ratear as contas</div><input class="in" inputmode="numeric" data-aj="vol" value="' +
+      S.volume +
+      '" style="max-width:160px"><div class="hint">Em uso agora: <b>' +
+      volumeEfetivo() +
+      '</b> ' +
+      (volumeAuto() > 0 && S.volAuto !== false ? '(calculado pelas suas vendas reais)' : '(número manual)') +
+      '.</div><div style="margin-top:8px"><button class="chip' +
+      (S.volAuto !== false ? ' on' : '') +
+      '" data-act="volauto">Calcular pelas vendas reais</button></div><div class="hint">Com 2 meses de vendas (pelo menos 20 peças), o app passa a usar a média real.</div></div>' +
+      '<div><div class="lbl">Diferença de contagem tolerada (US$)</div><input class="in" inputmode="decimal" data-aj="tol" value="' +
+      String(S.tolUsd).replace('.', ',') +
+      '" style="max-width:160px"><div class="hint">Na contagem de estoque, diferenças até esse valor ficam marcadas como perda aceita.</div></div></section>';
     // backup
     var dias = S.backupTs ? Math.floor((Date.now() - S.backupTs) / DAY) : -1;
     h +=
@@ -254,15 +219,13 @@
       cur[mm] = nv > 0 ? nv : 1;
       S.sazon[tp] = cur;
     }
-    if (k === 'cont') S.contVals[+t.getAttribute('data-k')] = t.value.trim() === '' ? null : toNum(t.value);
+    if (k === 'vol') S.volume = Math.max(1, toNum(t.value) || S.volume);
+    if (k === 'tol') S.tolUsd = Math.max(0, numIn(t.value));
     render();
   });
   $('v-ajustes').addEventListener('input', function (e) {
     if (e.target.id === 'fnew') S.fnewTxt = e.target.value;
   });
-  S.contOpen = false;
-  S.contTipo = 'all';
-  S.contVals = {};
   S.fDelConf = '';
   S.ajMsg = '';
   S.bkText = '';
@@ -323,50 +286,8 @@
     S.bkImpConf = false;
     bkFile.click();
   };
-  ACT.contabrir = function () {
-    S.contOpen = true;
-    S.contVals = {};
-    S.contTipo = 'all';
-    S._ajForce = true;
-    render();
-  };
-  ACT.contfechar = function () {
-    S.contOpen = false;
-    S._ajForce = true;
-    render();
-  };
-  ACT.conttipo = function (id) {
-    S.contTipo = id;
-    S._ajForce = true;
-    render();
-  };
-  ACT.contaplicar = function () {
-    var difs = 0,
-      val = 0,
-      ts = Date.now();
-    Object.keys(S.contVals).forEach(function (k) {
-      var i = S.items[+k],
-        v = S.contVals[k];
-      if (!i || v == null || v === i.qty) return;
-      var c = effCusto(i);
-      val += (v - i.qty) * (c != null ? c : (tipoOf(i.tipo) || {}).repUSD || 0);
-      difs++;
-      S.elog.push({
-        ts: ts,
-        tipo: i.tipo,
-        ref: i.ref,
-        cor: i.cor,
-        grau: i.grau || '',
-        qty: v - i.qty,
-        contagem: true
-      });
-      i.qty = v;
-    });
-    S.contagens.push({ ts: ts, difs: difs, valorUsd: val });
-    S.contOpen = false;
-    S.ajMsg = difs
-      ? 'Contagem aplicada: ' + difs + ' diferença(s), ' + usd(Math.abs(val)) + (val < 0 ? ' a menos.' : ' a mais.')
-      : 'Contagem aplicada: o estoque confere.';
+  ACT.volauto = function () {
+    S.volAuto = S.volAuto === false;
     S._ajForce = true;
     render();
   };

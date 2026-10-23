@@ -393,6 +393,36 @@
       });
       html += '</div></section>';
     }
+    // perdas e sobras da contagem de estoque (30 dias)
+    var ct = S.contagens.filter(function (x) {
+      return Date.now() - x.ts <= 30 * DAY;
+    });
+    if (ct.length) {
+      var perd = 0,
+        sob = 0,
+        porP = {};
+      ct.forEach(function (x) {
+        (x.itens || []).forEach(function (it) {
+          if (it.usd < 0) {
+            perd += it.usd;
+            porP[it.ref] = (porP[it.ref] || 0) + it.usd;
+          } else sob += it.usd;
+        });
+      });
+      html +=
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Perdas e sobras de estoque (30 dias)</h2><div class="hint" style="margin:2px 0 0">Diferenças achadas nas contagens, em custo.</div></div><div class="split">' +
+        dxRow('Faltaram', ct.length + ' contagem(ns)', usd(Math.abs(perd))) +
+        dxRow('Sobraram', 'peças a mais que o app', usd(sob));
+      Object.keys(porP)
+        .sort(function (a, b) {
+          return porP[a] - porP[b];
+        })
+        .slice(0, 5)
+        .forEach(function (r) {
+          html += dxRow(esc(pn(r)), 'mais perdido', usd(Math.abs(porP[r])));
+        });
+      html += '</div></section>';
+    }
     // curva abc
     var ab2 = curvaAbc();
     if (ab2.lista.length || ab2.sem.length) {

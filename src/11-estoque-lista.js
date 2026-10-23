@@ -388,6 +388,7 @@
         usd(gUnit(pg0.g)) +
         ' por peça. Preencha só se esta peça custou diferente.'
       : 'Obrigatório: este produto não está em nenhum lote.';
+    S._flAll = flAll;
     $('k1').textContent = sum(fl);
     $('k2').textContent = new Set(
       fl.map(function (i) {
@@ -403,7 +404,7 @@
     $('kLot').style.outline = S.lotesView ? '2px solid var(--accent)' : '';
     $('kRepo').setAttribute('aria-pressed', !!S.repo);
     $('kRepo').style.outline = S.repo ? '2px solid var(--warn)' : '';
-    $('k3h').textContent = 'produtos com ' + REPO_MIN + ' ou menos no total · toque para ver';
+    $('k3h').textContent = 'produtos que vão acabar logo · toque para ver';
 
     var qOk = function (i) {
       return !qm || qm(i);
@@ -1082,6 +1083,7 @@
 
     renderDetail(openRef);
     $('listCard').hidden = !!S.lotesView || !$('detail').hidden;
+    renderContagem();
 
     // entrada
     var ref = normRef($('eRef').value, t.simple);

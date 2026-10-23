@@ -2156,6 +2156,7 @@
         usd(gUnit(pg0.g)) +
         ' por peça. Preencha só se esta peça custou diferente.'
       : 'Obrigatório: este produto não está em nenhum lote.';
+    S._flAll = flAll;
     $('k1').textContent = sum(fl);
     $('k2').textContent = new Set(
       fl.map(function (i) {
@@ -2171,7 +2172,7 @@
     $('kLot').style.outline = S.lotesView ? '2px solid var(--accent)' : '';
     $('kRepo').setAttribute('aria-pressed', !!S.repo);
     $('kRepo').style.outline = S.repo ? '2px solid var(--warn)' : '';
-    $('k3h').textContent = 'produtos com ' + REPO_MIN + ' ou menos no total · toque para ver';
+    $('k3h').textContent = 'produtos que vão acabar logo · toque para ver';
 
     var qOk = function (i) {
       return !qm || qm(i);
@@ -2850,6 +2851,7 @@
 
     renderDetail(openRef);
     $('listCard').hidden = !!S.lotesView || !$('detail').hidden;
+    renderContagem();
 
     // entrada
     var ref = normRef($('eRef').value, t.simple);
@@ -8888,7 +8890,7 @@
   }
   // Despesa mensal rateada por peça.
   function contasPeca() {
-    return Math.round(totalMensal() / Math.max(1, S.volume));
+    return Math.round(totalMensal() / Math.max(1, volumeEfetivo()));
   }
   // Tipo pelo id.
   function tipoOf(id) {
@@ -11428,6 +11430,9 @@
   S.sugIgn = {}; // sugestão de margem ignorada: faixa -> mês (AAAA-MM)
   S.backupTs = 0;
   S.contagens = [];
+  S.conf = {}; // última conferência de estoque por produto (tipo|código) -> data
+  S.tolUsd = 0.5; // diferença de contagem tolerada (US$)
+  S.volAuto = true; // peças por mês calculadas pelas vendas reais (quando há histórico)
   // Curva padrão: solares vendem mais no verão do Paraguai (outubro a março).
   var SAZON_PADRAO = { solar: [1.5, 1.4, 1.2, 1.0, 0.8, 0.6, 0.6, 0.7, 0.9, 1.1, 1.3, 1.5] };
   var MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
@@ -11591,6 +11596,27 @@
     S.msg = '';
     render();
   };
+
+  // Média mensal real de peças vendidas (0 enquanto não há histórico suficiente).
+  function volumeAuto() {
+    var now = Date.now(),
+      first = S.sales.reduce(function (a, s) {
+        return Math.min(a, s.ts);
+      }, S.appStart || now),
+      hist = (now - Math.min(first, S.appStart || now)) / DAY;
+    if (hist < 60) return 0;
+    var win = Math.min(90, hist),
+      units = 0;
+    S.sales.forEach(function (s) {
+      if (!s.estorno && now - s.ts <= win * DAY) units += s.qty;
+    });
+    return units >= 20 ? Math.round(units / (win / 30)) : 0;
+  }
+  // Peças por mês usadas para ratear as contas: real quando há histórico, senão o número manual.
+  function volumeEfetivo() {
+    var a = S.volAuto !== false ? volumeAuto() : 0;
+    return a > 0 ? a : S.volume;
+  }
   // ===== Análises: meta do mês, reposição, estoque parado, curva ABC, sugestão de margem e câmbio x piso. =====
   // Lucro livre de uma venda em US$ (ao câmbio da venda).
   function lucroUsd(s) {
@@ -11984,6 +12010,36 @@
       Object.keys(pr.por).forEach(function (k) {
         html += dxRow(esc(k), 'lucro livre dessas vendas', sgn(pr.por[k]));
       });
+      html += '</div></section>';
+    }
+    // perdas e sobras da contagem de estoque (30 dias)
+    var ct = S.contagens.filter(function (x) {
+      return Date.now() - x.ts <= 30 * DAY;
+    });
+    if (ct.length) {
+      var perd = 0,
+        sob = 0,
+        porP = {};
+      ct.forEach(function (x) {
+        (x.itens || []).forEach(function (it) {
+          if (it.usd < 0) {
+            perd += it.usd;
+            porP[it.ref] = (porP[it.ref] || 0) + it.usd;
+          } else sob += it.usd;
+        });
+      });
+      html +=
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Perdas e sobras de estoque (30 dias)</h2><div class="hint" style="margin:2px 0 0">Diferenças achadas nas contagens, em custo.</div></div><div class="split">' +
+        dxRow('Faltaram', ct.length + ' contagem(ns)', usd(Math.abs(perd))) +
+        dxRow('Sobraram', 'peças a mais que o app', usd(sob));
+      Object.keys(porP)
+        .sort(function (a, b) {
+          return porP[a] - porP[b];
+        })
+        .slice(0, 5)
+        .forEach(function (r) {
+          html += dxRow(esc(pn(r)), 'mais perdido', usd(Math.abs(porP[r])));
+        });
       html += '</div></section>';
     }
     // curva abc
@@ -15462,7 +15518,7 @@
       '% coberto. Vendidas ' +
       sumBy(m30, 'qty') +
       ' de ' +
-      S.volume +
+      volumeEfetivo() +
       ' peças esperadas no mês. Cada peça separa ' +
       gs(contasPeca()) +
       ' para as contas. <a href="#desp" data-act="view" data-id="desp" style="color:var(--accent-fg)">Editar despesas</a></div></section>';
@@ -15874,10 +15930,9 @@
       '</b></div>' +
       '<div class="kpi"><div class="lbl">Cada peça vendida separa</div><b id="tmPeca" style="color:var(--warn)">' +
       gs(contasPeca()) +
-      '</b><div class="hint">para pagar as contas</div></div>' +
-      '<div class="kpi"><div class="lbl">Vendas esperadas por mês</div><input class="in" id="volIn" inputmode="numeric" data-in="volume" value="' +
-      S.volume +
-      '" aria-label="Peças vendidas por mês" style="margin-top:6px"><div class="hint">peças. Use a média dos últimos meses.</div></div></section>';
+      '</b><div class="hint">para pagar as contas (rateio: ' +
+      volumeEfetivo() +
+      ' peças por mês, ajuste em Ajustes)</div></div></section>';
     var cats = ['loja', 'casa', 'pessoal', 'profissional', 'imprev'];
     html +=
       '<section class="card col"><h2 style="margin:0;font-size:16px">Por grupo</h2><div class="bar">' +
@@ -16018,7 +16073,7 @@
     act[today] = act[today] || { v: 0, d: 0, o: 0 };
     var keys = Object.keys(act).sort().reverse();
     var html =
-      '<div class="top"><div><h1>Histórico</h1><div class="crumb">Um cartão por dia. Toque num dia para abrir tudo o que aconteceu nele.</div></div><div class="tabs"><button class="mini" data-act="copyhist">Copiar backup (JSON)</button></div></div><div class="hint" id="hcopied" role="status" style="margin:0"></div><div class="list" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">';
+      '<div class="top"><div><h1>Histórico</h1><div class="crumb">Um cartão por dia. Toque num dia para abrir tudo o que aconteceu nele.</div></div></div><div class="list" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">';
     keys.forEach(function (k) {
       var st = dayStats(k),
         d = new Date(dayEnd(k)),
@@ -16635,22 +16690,6 @@
       }
       render();
     },
-    copyhist: function () {
-      var tx = JSON.stringify({ vendas: S.sales, despesas: S.exp, volume: S.volume }, null, 1),
-        m = $('hcopied');
-      try {
-        navigator.clipboard.writeText(tx).then(
-          function () {
-            m.textContent = 'Backup copiado.';
-          },
-          function () {
-            m.textContent = 'Não consegui copiar aqui.';
-          }
-        );
-      } catch (e) {
-        m.textContent = 'Não consegui copiar aqui.';
-      }
-    },
     exppay: function (id) {
       var e = S.exp.filter(function (x) {
         return String(x.id) === id;
@@ -16825,6 +16864,8 @@
       S.desc = {};
       S.pnome = {};
       S.cpay = [];
+      S.appStart = Date.now();
+      S.conf = {};
       S.pfaixa = {};
       S.contagens = [];
       S.exp = [];
@@ -16883,7 +16924,7 @@
             ' → ' +
             gs(nt) +
             '. Cada peça passa a separar ' +
-            gs(Math.round(nt / S.volume)) +
+            gs(Math.round(nt / volumeEfetivo())) +
             ' (hoje ' +
             gs(contasPeca()) +
             ').'
@@ -17402,7 +17443,7 @@
   S.compras.forEach(function (x) {
     S.dlog.push(dlogLote(x));
   });
-  // ===== Aba Ajustes: faixas, meta, sazonalidade, contagem de estoque e backup dos dados. =====
+  // ===== Aba Ajustes: faixas, meta, sazonalidade, contas e backup dos dados. =====
   // Gera o texto do backup (dados + fotos em miniatura).
   function backupDados() {
     var d = {};
@@ -17489,7 +17530,7 @@
     if (!S._ajForce && ae && ae.tagName === 'INPUT' && el.contains(ae)) return;
     S._ajForce = false;
     var h =
-      '<div class="top"><div><h1>Ajustes</h1><div class="crumb">Faixas, meta do mês, estações do ano, contagem de estoque e backup</div></div></div>';
+      '<div class="top"><div><h1>Ajustes</h1><div class="crumb">Faixas, meta do mês, estações do ano, contas e backup</div></div></div>';
     if (S.ajMsg) h += '<div class="note n-ok" role="status">' + esc(S.ajMsg) + '</div>';
     // meta
     h +=
@@ -17563,60 +17604,25 @@
       h += '</div></details>';
     });
     h += '</section>';
-    // contagem
+    // rateio das contas e tolerância da contagem
     h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Contagem de estoque</h2><div class="hint" style="margin:2px 0 0">Conte a prateleira, digite o que achou e aplique. O app mostra as diferenças e corrige o estoque.</div></div>';
-    if (!S.contOpen) {
-      h += '<div><button class="chip on" data-act="contabrir">Contar estoque</button></div>';
-      if (S.contagens.length) {
-        var u = S.contagens[S.contagens.length - 1];
-        h +=
-          '<div class="hint" style="margin:0">Última contagem: ' +
-          fd(u.ts) +
-          ' · ' +
-          u.difs +
-          ' diferença(s) · ' +
-          (u.valorUsd ? usd(Math.abs(u.valorUsd)) + (u.valorUsd < 0 ? ' a menos' : ' a mais') : 'sem diferença de valor') +
-          '.</div>';
-      }
-    } else {
-      var rows = S.items.filter(function (i) {
-        return tipoOf(i.tipo) && (S.contTipo === 'all' || i.tipo === S.contTipo);
-      });
-      h += '<div class="nav">';
-      [{ id: 'all', label: 'Todos' }].concat(tipoAll()).forEach(function (t) {
-        h +=
-          '<button class="chip' +
-          (S.contTipo === t.id ? ' on' : '') +
-          '" data-act="conttipo" data-id="' +
-          t.id +
-          '">' +
-          esc(t.label) +
-          '</button>';
-      });
-      h += '</div><div class="split">';
-      rows.forEach(function (i) {
-        var k = S.items.indexOf(i),
-          v = S.contVals[k];
-        h +=
-          '<div class="sl"><span>' +
-          esc(pn(i.ref)) +
-          ' · ' +
-          esc(i.cor) +
-          '<small>' +
-          esc((i.tipo === 'pre' ? i.grau : i.vr || '') + ' · no app: ' + i.qty) +
-          '</small></span><input class="in" inputmode="numeric" data-aj="cont" data-k="' +
-          k +
-          '" value="' +
-          (v == null ? '' : v) +
-          '" placeholder="' +
-          i.qty +
-          '" style="max-width:90px;text-align:center"></div>';
-      });
-      h +=
-        '</div><div style="display:flex;gap:8px"><button class="chip on" data-act="contaplicar">Aplicar diferenças</button><button class="chip" data-act="contfechar">Cancelar</button></div>';
-    }
-    h += '</section>';
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Contas e contagem</h2><div class="hint" style="margin:2px 0 0">As contas do mês (' +
+      gs(totalMensal()) +
+      ', cerca de US$ ' +
+      Math.round(totalMensal() / S.fx.pyg) +
+      ') já são separadas de cada venda: o lucro livre e a meta são o que sobra depois delas.</div></div>' +
+      '<div><div class="lbl">Peças por mês para ratear as contas</div><input class="in" inputmode="numeric" data-aj="vol" value="' +
+      S.volume +
+      '" style="max-width:160px"><div class="hint">Em uso agora: <b>' +
+      volumeEfetivo() +
+      '</b> ' +
+      (volumeAuto() > 0 && S.volAuto !== false ? '(calculado pelas suas vendas reais)' : '(número manual)') +
+      '.</div><div style="margin-top:8px"><button class="chip' +
+      (S.volAuto !== false ? ' on' : '') +
+      '" data-act="volauto">Calcular pelas vendas reais</button></div><div class="hint">Com 2 meses de vendas (pelo menos 20 peças), o app passa a usar a média real.</div></div>' +
+      '<div><div class="lbl">Diferença de contagem tolerada (US$)</div><input class="in" inputmode="decimal" data-aj="tol" value="' +
+      String(S.tolUsd).replace('.', ',') +
+      '" style="max-width:160px"><div class="hint">Na contagem de estoque, diferenças até esse valor ficam marcadas como perda aceita.</div></div></section>';
     // backup
     var dias = S.backupTs ? Math.floor((Date.now() - S.backupTs) / DAY) : -1;
     h +=
@@ -17658,15 +17664,13 @@
       cur[mm] = nv > 0 ? nv : 1;
       S.sazon[tp] = cur;
     }
-    if (k === 'cont') S.contVals[+t.getAttribute('data-k')] = t.value.trim() === '' ? null : toNum(t.value);
+    if (k === 'vol') S.volume = Math.max(1, toNum(t.value) || S.volume);
+    if (k === 'tol') S.tolUsd = Math.max(0, numIn(t.value));
     render();
   });
   $('v-ajustes').addEventListener('input', function (e) {
     if (e.target.id === 'fnew') S.fnewTxt = e.target.value;
   });
-  S.contOpen = false;
-  S.contTipo = 'all';
-  S.contVals = {};
   S.fDelConf = '';
   S.ajMsg = '';
   S.bkText = '';
@@ -17727,50 +17731,8 @@
     S.bkImpConf = false;
     bkFile.click();
   };
-  ACT.contabrir = function () {
-    S.contOpen = true;
-    S.contVals = {};
-    S.contTipo = 'all';
-    S._ajForce = true;
-    render();
-  };
-  ACT.contfechar = function () {
-    S.contOpen = false;
-    S._ajForce = true;
-    render();
-  };
-  ACT.conttipo = function (id) {
-    S.contTipo = id;
-    S._ajForce = true;
-    render();
-  };
-  ACT.contaplicar = function () {
-    var difs = 0,
-      val = 0,
-      ts = Date.now();
-    Object.keys(S.contVals).forEach(function (k) {
-      var i = S.items[+k],
-        v = S.contVals[k];
-      if (!i || v == null || v === i.qty) return;
-      var c = effCusto(i);
-      val += (v - i.qty) * (c != null ? c : (tipoOf(i.tipo) || {}).repUSD || 0);
-      difs++;
-      S.elog.push({
-        ts: ts,
-        tipo: i.tipo,
-        ref: i.ref,
-        cor: i.cor,
-        grau: i.grau || '',
-        qty: v - i.qty,
-        contagem: true
-      });
-      i.qty = v;
-    });
-    S.contagens.push({ ts: ts, difs: difs, valorUsd: val });
-    S.contOpen = false;
-    S.ajMsg = difs
-      ? 'Contagem aplicada: ' + difs + ' diferença(s), ' + usd(Math.abs(val)) + (val < 0 ? ' a menos.' : ' a mais.')
-      : 'Contagem aplicada: o estoque confere.';
+  ACT.volauto = function () {
+    S.volAuto = S.volAuto === false;
     S._ajForce = true;
     render();
   };
@@ -17811,6 +17773,313 @@
     S.vMotivo = 'Liquidação';
     S.rec = null;
     setView('vendas');
+  };
+  // ===== Contagem de estoque (aba Estoque): por produto, do mais valioso ao menos, com resumo em dinheiro. =====
+  // Custo em US$ de uma peça (própria, do lote ou do tipo).
+  function custoUn(i) {
+    var c = effCusto(i);
+    return c != null ? c : (tipoOf(i.tipo) || {}).repUSD || 0;
+  }
+  // Produtos da contagem: peças do filtro atual agrupadas por produto, mais valiosos primeiro.
+  function contagemGrupos() {
+    var map = {},
+      ord = [];
+    (S._flAll || []).forEach(function (i) {
+      if (i.bulk || !tipoOf(i.tipo)) return;
+      var k = i.tipo + '|' + i.ref;
+      if (!map[k]) {
+        map[k] = { key: k, ref: i.ref, tipo: i.tipo, itens: [], usd: 0 };
+        ord.push(k);
+      }
+      map[k].itens.push(i);
+      map[k].usd += i.qty * custoUn(i);
+    });
+    return ord
+      .map(function (k) {
+        return map[k];
+      })
+      .sort(function (a, b) {
+        return b.usd - a.usd;
+      });
+  }
+  // Valor contado de uma peça (o digitado, ou o do app se não mexeu).
+  function contado(i) {
+    var v = S.contVals[S.items.indexOf(i)];
+    return v == null ? i.qty : v;
+  }
+  // Diferenças da contagem em andamento, com valor em custo (US$) e em preço de venda (G$).
+  function contagemDifs() {
+    var out = [];
+    contagemGrupos().forEach(function (g) {
+      g.itens.forEach(function (i) {
+        var d = contado(i) - i.qty;
+        if (!d) return;
+        out.push({
+          item: i,
+          key: g.key,
+          dif: d,
+          usd: d * custoUn(i),
+          gs: d * (tFor(i).price || 0)
+        });
+      });
+    });
+    return out;
+  }
+  // Dias desde a última conferência do produto (null = nunca).
+  function diasConf(key) {
+    var t = S.conf && S.conf[key];
+    return t ? Math.floor((Date.now() - t) / DAY) : null;
+  }
+  // Tela de contagem (substitui a lista enquanto está aberta).
+  function renderContagem() {
+    var c = $('contCard');
+    c.hidden = !S.cont;
+    $('kCont').setAttribute('aria-pressed', !!S.cont);
+    $('kCont').style.outline = S.cont ? '2px solid var(--accent)' : '';
+    if (!S.cont) return;
+    $('listCard').hidden = true;
+    $('detail').hidden = true;
+    c.textContent = '';
+    var gr = contagemGrupos(),
+      difs = contagemDifs(),
+      tocados = {};
+    difs.forEach(function (d) {
+      tocados[d.key] = 1;
+    });
+    Object.keys(S.contOk).forEach(function (k) {
+      tocados[k] = 1;
+    });
+    var nConf = gr.filter(function (g) {
+        return tocados[g.key];
+      }).length,
+      corte = Math.max(1, Math.ceil(gr.length * 0.2)),
+      velhos = gr.slice(0, corte).filter(function (g) {
+        var d = diasConf(g.key);
+        return d == null || d > 10;
+      }).length;
+    var hd = mk('div', '');
+    hd.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:8px';
+    var h2 = mk('h2', '', 'Contagem de estoque');
+    h2.style.cssText = 'margin:0;font-size:16px';
+    hd.appendChild(h2);
+    hd.appendChild(
+      btn('tab', 'Fechar', function () {
+        S.cont = false;
+        S.contSum = false;
+        render();
+      })
+    );
+    c.appendChild(hd);
+    var hi = mk(
+      'div',
+      'hint',
+      'Conta só o que está no filtro atual (tipo, faixa, busca). Os mais valiosos vêm primeiro. O que você não tocar não muda. ' +
+        nConf +
+        ' de ' +
+        gr.length +
+        ' produtos conferidos.' +
+        (velhos ? ' ' + velhos + ' dos mais valiosos estão sem conferir há mais de 10 dias.' : '')
+    );
+    hi.style.margin = '0';
+    c.appendChild(hi);
+    if (S.contSum) return resumoContagem(c, difs);
+    if (!gr.length) c.appendChild(mk('div', 'note n-warn', 'Nenhuma peça com esses filtros.'));
+    gr.forEach(function (g) {
+      var box = mk('div', 'card col');
+      box.style.cssText = 'background:var(--panel2);gap:8px;padding:12px';
+      var top = mk('div', '');
+      top.style.cssText = 'display:flex;justify-content:space-between;gap:8px;align-items:center';
+      var nm = mk('b', '', pn(g.ref));
+      top.appendChild(nm);
+      var f = faixaOf(g.ref);
+      if (f) top.appendChild(faixaTag(f));
+      top.appendChild(mk('span', 'hint', usd(g.usd) + ' em custo'));
+      top.lastChild.style.cssText = 'margin:0 0 0 auto';
+      box.appendChild(top);
+      var dc = diasConf(g.key);
+      var sub = mk(
+        'div',
+        'hint',
+        dc == null ? 'Nunca conferido' : dc === 0 ? 'Conferido hoje' : 'Conferido há ' + dc + ' dia(s)'
+      );
+      sub.style.margin = '0';
+      box.appendChild(sub);
+      g.itens.forEach(function (i) {
+        var row = mk('div', 'pl');
+        row.style.gridTemplateColumns = 'minmax(0,1fr) auto';
+        var v = contado(i),
+          lb = mk('span', '', rowLabel(i) + ' · no app: ' + i.qty + ' · ' + usd(custoUn(i)));
+        row.appendChild(lb);
+        var ctl = mk('div', 'sel');
+        var set = function (n) {
+          S.contVals[S.items.indexOf(i)] = Math.max(0, n);
+          render();
+        };
+        ctl.appendChild(
+          btn('step', '−', function () {
+            set(contado(i) - 1);
+          })
+        );
+        var inp = mk('input', 'in');
+        inp.inputMode = 'numeric';
+        inp.value = v;
+        inp.style.cssText =
+          'width:64px;min-height:44px;text-align:center;font-weight:800;' +
+          (v !== i.qty ? 'border-color:var(--warn)' : '');
+        inp.setAttribute('aria-label', 'Contado: ' + rowLabel(i));
+        inp.onchange = function () {
+          set(toNum(inp.value));
+        };
+        ctl.appendChild(inp);
+        ctl.appendChild(
+          btn('step', '+', function () {
+            set(contado(i) + 1);
+          })
+        );
+        row.appendChild(ctl);
+        box.appendChild(row);
+      });
+      var okb = btn(
+        'chip' + (S.contOk[g.key] ? ' on' : ''),
+        S.contOk[g.key] ? 'Conferido ✓' : 'Está tudo certo',
+        function () {
+          if (S.contOk[g.key]) delete S.contOk[g.key];
+          else S.contOk[g.key] = 1;
+          render();
+        },
+        !!S.contOk[g.key]
+      );
+      okb.style.alignSelf = 'flex-start';
+      box.appendChild(okb);
+      c.appendChild(box);
+    });
+    var rv = btn('go', difs.length ? 'Revisar ' + difs.length + ' diferença(s)' : 'Concluir conferência', function () {
+      S.contSum = true;
+      render();
+      window.scrollTo(0, 0);
+    });
+    rv.disabled = !nConf;
+    c.appendChild(rv);
+  }
+  // Resumo antes de aplicar: o que mudou, em custo e em preço de venda.
+  function resumoContagem(c, difs) {
+    var tu = 0,
+      tg = 0,
+      aceitas = 0;
+    var box = mk('div', 'split');
+    difs.forEach(function (d) {
+      var ac = Math.abs(d.usd) <= (S.tolUsd || 0);
+      if (ac) aceitas++;
+      tu += d.usd;
+      tg += d.gs;
+      var r = mk('div', 'sl');
+      var l = mk('span', '', pn(d.item.ref) + ' · ' + rowLabel(d.item));
+      l.appendChild(
+        mk(
+          'small',
+          '',
+          'app ' + d.item.qty + ' → contado ' + contado(d.item) + (ac ? ' · dentro da tolerância' : '')
+        )
+      );
+      r.appendChild(l);
+      r.appendChild(mk('b', '', (d.dif > 0 ? '+' : '') + d.dif + ' · ' + usd(d.usd)));
+      box.appendChild(r);
+    });
+    if (!difs.length) c.appendChild(mk('div', 'note n-ok', 'Tudo confere com o estoque do app.'));
+    else {
+      c.appendChild(box);
+      c.appendChild(
+        mk(
+          'div',
+          'note ' + (tu < 0 ? 'n-bad' : 'n-info'),
+          'Total: ' +
+            (tu < 0 ? 'faltam ' : 'sobram ') +
+            usd(Math.abs(tu)) +
+            ' em custo e ' +
+            gs(Math.abs(tg)) +
+            ' a preço de venda.' +
+            (aceitas ? ' ' + aceitas + ' diferença(s) dentro da tolerância.' : '')
+        )
+      );
+    }
+    var bar = mk('div', '');
+    bar.style.cssText = 'display:flex;gap:8px';
+    var ap = btn('go', 'Aplicar e corrigir o estoque', function () {
+      aplicarContagem(difs, tu, tg);
+    });
+    ap.style.flex = '1';
+    bar.appendChild(ap);
+    bar.appendChild(
+      btn('tab', 'Voltar', function () {
+        S.contSum = false;
+        render();
+      })
+    );
+    c.appendChild(bar);
+  }
+  // Aplica as diferenças: corrige o estoque, grava a conferência e o registro de perdas e sobras.
+  function aplicarContagem(difs, tu, tg) {
+    var ts = Date.now(),
+      conf = {};
+    difs.forEach(function (d) {
+      conf[d.key] = 1;
+    });
+    Object.keys(S.contOk).forEach(function (k) {
+      conf[k] = 1;
+    });
+    difs.forEach(function (d) {
+      var i = d.item;
+      S.elog.push({
+        ts: ts,
+        tipo: i.tipo,
+        ref: i.ref,
+        cor: i.cor,
+        grau: i.grau || '',
+        qty: d.dif,
+        contagem: true
+      });
+      i.qty = contado(i);
+    });
+    Object.keys(conf).forEach(function (k) {
+      S.conf[k] = ts;
+    });
+    S.contagens.push({
+      ts: ts,
+      difs: difs.length,
+      valorUsd: tu,
+      vendaGs: tg,
+      itens: difs.map(function (d) {
+        return { ref: d.item.ref, cor: d.item.cor, dif: d.dif, usd: d.usd };
+      })
+    });
+    S.cont = false;
+    S.contSum = false;
+    S.contVals = {};
+    S.contOk = {};
+    S.msg = difs.length
+      ? 'Contagem aplicada: ' + difs.length + ' diferença(s), ' + usd(Math.abs(tu)) + (tu < 0 ? ' a menos.' : ' a mais.')
+      : 'Conferência registrada: o estoque confere.';
+    render();
+  }
+  S.cont = false;
+  S.contSum = false;
+  S.contVals = {};
+  S.contOk = {};
+  // Tocar no cartão "Em estoque" abre/fecha a contagem.
+  $('kCont').onclick = function () {
+    S.cont = !S.cont;
+    S.contSum = false;
+    S.contVals = {};
+    S.contOk = {};
+    if (S.cont) {
+      S.lotesView = false;
+      S.repo = false;
+      S.open = '';
+      S.det = false;
+      S.selItem = null;
+    }
+    render();
+    window.scrollTo(0, 0);
   };
   // ===== Render geral e persistência (localStorage + IndexedDB). =====
   // Redesenha o app e agenda o salvamento.
@@ -18006,7 +18275,10 @@
       'appStart',
       'sugIgn',
       'backupTs',
-      'contagens'
+      'contagens',
+      'conf',
+      'tolUsd',
+      'volAuto'
     ];
   // Carrega o estado salvo.
   function loadSaved() {
@@ -18066,6 +18338,6 @@
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, whiten: whiten, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, vendaPrevia: vendaPrevia, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos
+      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, vendaPrevia: vendaPrevia, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos
     };
 })();

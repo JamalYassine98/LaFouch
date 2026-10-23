@@ -208,7 +208,7 @@
       '% coberto. Vendidas ' +
       sumBy(m30, 'qty') +
       ' de ' +
-      S.volume +
+      volumeEfetivo() +
       ' peças esperadas no mês. Cada peça separa ' +
       gs(contasPeca()) +
       ' para as contas. <a href="#desp" data-act="view" data-id="desp" style="color:var(--accent-fg)">Editar despesas</a></div></section>';

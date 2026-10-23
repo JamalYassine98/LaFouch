@@ -143,6 +143,9 @@ TESTES = [
    S.sales=[{ts:n-864e5,qty:3,faixa:'f1',tipo:'pre',ref:'P',livre:1,fx:7000,estorno:false},{ts:n-60*864e5,qty:20,faixa:'f1',tipo:'pre',ref:'P',livre:1,fx:7000,estorno:false}];
    const r=L.sugestoes(); return [r[0].acao, r[0].para]""", ["descer", 27]),
  ("sugestoes: sem histórico não sugere nada", """S.appStart=Date.now()-10*864e5; S.sales=[]; S.sugIgn={}; return L.sugestoes()[0].acao""", "sem-base"),
+ ("volumeAuto: usa a média real só com histórico", """const n=Date.now(); S.volume=350; S.volAuto=true; S.appStart=n-10*864e5; S.sales=[{ts:n-864e5,qty:50,estorno:false}]; const a=L.volumeEfetivo();
+   S.appStart=n-120*864e5; S.sales=[{ts:n-10*864e5,qty:60,estorno:false},{ts:n-40*864e5,qty:30,estorno:false},{ts:n-5*864e5,qty:99,estorno:true}]; const b=[L.volumeAuto(), L.volumeEfetivo()];
+   S.volAuto=false; const c=L.volumeEfetivo(); S.volAuto=true; S.sales=[{ts:n-10*864e5,qty:5,estorno:false}]; return [a, b, c, L.volumeEfetivo()]""", [350, [30, 30], 350, 350]),
  ("backup: exporta e restaura tudo", """S.metaUsd=77; S.items=[{tipo:'pre',ref:'K1',grau:'+1.00',cor:'Preto',qty:3}]; S.pfaixa={K1:'f1'}; const txt=L.backupDados();
    S.metaUsd=1; S.items=[]; S.pfaixa={}; const e=L.restaurarDados(txt); return [e, S.metaUsd, S.items.length, S.pfaixa.K1, L.restaurarDados('lixo').length>0, L.restaurarDados('{"app":"outro"}').length>0]""", ["", 77, 1, "f1", True, True]),
 ]
@@ -361,6 +364,27 @@ async def main():
             if not ok: falhas.append('vendas janela'); print('        veio', a, b1, c, d, pg.erros)
             await pg.close()
 
+            # contagem de estoque no cartão "Em estoque": por valor, com resumo e aplicação
+            pg = await pagina()
+            await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.items = [
+                {tipo:'pre', ref:'CT1', grau:'+1.00', med:'', vr:'', fmt:'', cor:'Preto', qty:10, custo:0.5},
+                {tipo:'sem', ref:'CT2', grau:'', med:'', vr:'C1', fmt:'Quadrado', cor:'Preto', qty:3, custo:5}];
+              S.todos = true; S.q = ''; S.faixaF = ''; S.sales = []; S.contagens = []; S.elog = []; S.conf = {}; S.tolUsd = 0.5; L.setView('estoque'); }""")
+            await pg.wait_for_timeout(300)
+            total += 1
+            await pg.click('#kCont'); await pg.wait_for_timeout(300)
+            ordem = await pg.evaluate("() => [...document.querySelectorAll('#contCard .card b')].map(b => b.textContent)")
+            await pg.locator('#contCard input').nth(0).fill('2'); await pg.locator('#contCard input').nth(0).press('Tab'); await pg.wait_for_timeout(300)
+            await pg.locator('#contCard input').nth(1).fill('9'); await pg.locator('#contCard input').nth(1).press('Tab'); await pg.wait_for_timeout(300)
+            await pg.locator('#contCard button:has-text("Revisar")').click(); await pg.wait_for_timeout(300)
+            resumo = await pg.inner_text('#contCard')
+            await pg.locator('#contCard button:has-text("Aplicar")').click(); await pg.wait_for_timeout(300)
+            got = await pg.evaluate("() => { const S = window.__LF.S; return [S.items[1].qty, S.items[0].qty, S.contagens.length, Math.round(S.contagens[0].valorUsd * 100) / 100, S.elog.filter(e => e.contagem).length, !!S.conf['sem|CT2'], !!S.conf['pre|CT1'], document.getElementById('contCard').hidden] }")
+            ok = ordem[:2] == ['CT2', 'CT1'] and 'faltam US$ 5,50' in resumo and got == [2, 9, 1, -5.5, 2, True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'tela Estoque: contagem por valor, resumo em dinheiro e aplicação')
+            if not ok: falhas.append('contagem'); print('        veio', ordem, resumo[-200:], got, pg.erros)
+            await pg.close()
+
             # aba Ajustes: meta, faixa nova, contagem de estoque e backup
             pg = await pagina()
             await pg.evaluate("() => { const L = window.__LF, S = L.S; S.items = [{tipo:'pre', ref:'AJ1', grau:'+1.00', med:'', vr:'', fmt:'', cor:'Preto', qty:6, custo:1}]; L.setView('ajustes'); }")
@@ -368,12 +392,10 @@ async def main():
             total += 1
             await pg.fill('[data-aj="meta"]', '600'); await pg.press('[data-aj="meta"]', 'Tab'); await pg.wait_for_timeout(300)
             await pg.fill('#fnew', 'Premium'); await pg.locator('[data-act="fadd"]').click(); await pg.wait_for_timeout(300)
-            await pg.locator('[data-act="contabrir"]').click(); await pg.wait_for_timeout(300)
-            await pg.fill('[data-aj="cont"]', '4'); await pg.press('[data-aj="cont"]', 'Tab'); await pg.wait_for_timeout(200)
-            await pg.locator('[data-act="contaplicar"]').click(); await pg.wait_for_timeout(300)
-            got = await pg.evaluate("() => { const S = window.__LF.S; return [S.metaUsd, S.faixas.map(f => f.nome).pop(), S.items[0].qty, S.contagens.length, S.contagens[0].difs, S.contagens[0].valorUsd, S.elog.filter(e => e.contagem).length] }")
-            ok = got == [600, 'Premium', 4, 1, 1, -2, 1] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'tela Ajustes: meta, nova faixa e contagem de estoque')
+            await pg.fill('[data-aj="vol"]', '500'); await pg.press('[data-aj="vol"]', 'Tab'); await pg.wait_for_timeout(300)
+            got = await pg.evaluate("() => { const S = window.__LF.S; return [S.metaUsd, S.faixas.map(f => f.nome).pop(), S.volume] }")
+            ok = got == [600, 'Premium', 500] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'tela Ajustes: meta, nova faixa e peças por mês')
             if not ok: falhas.append('tela ajustes'); print('        veio', got, pg.erros)
             total += 1
             await pg.locator('#mainnav >> text="Dashboard"').first.click(); await pg.wait_for_timeout(300)

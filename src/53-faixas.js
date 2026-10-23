@@ -13,6 +13,9 @@
   S.sugIgn = {}; // sugestão de margem ignorada: faixa -> mês (AAAA-MM)
   S.backupTs = 0;
   S.contagens = [];
+  S.conf = {}; // última conferência de estoque por produto (tipo|código) -> data
+  S.tolUsd = 0.5; // diferença de contagem tolerada (US$)
+  S.volAuto = true; // peças por mês calculadas pelas vendas reais (quando há histórico)
   // Curva padrão: solares vendem mais no verão do Paraguai (outubro a março).
   var SAZON_PADRAO = { solar: [1.5, 1.4, 1.2, 1.0, 0.8, 0.6, 0.6, 0.7, 0.9, 1.1, 1.3, 1.5] };
   var MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
@@ -176,3 +179,24 @@
     S.msg = '';
     render();
   };
+
+  // Média mensal real de peças vendidas (0 enquanto não há histórico suficiente).
+  function volumeAuto() {
+    var now = Date.now(),
+      first = S.sales.reduce(function (a, s) {
+        return Math.min(a, s.ts);
+      }, S.appStart || now),
+      hist = (now - Math.min(first, S.appStart || now)) / DAY;
+    if (hist < 60) return 0;
+    var win = Math.min(90, hist),
+      units = 0;
+    S.sales.forEach(function (s) {
+      if (!s.estorno && now - s.ts <= win * DAY) units += s.qty;
+    });
+    return units >= 20 ? Math.round(units / (win / 30)) : 0;
+  }
+  // Peças por mês usadas para ratear as contas: real quando há histórico, senão o número manual.
+  function volumeEfetivo() {
+    var a = S.volAuto !== false ? volumeAuto() : 0;
+    return a > 0 ? a : S.volume;
+  }

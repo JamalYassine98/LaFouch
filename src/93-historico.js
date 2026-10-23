@@ -36,7 +36,7 @@
     act[today] = act[today] || { v: 0, d: 0, o: 0 };
     var keys = Object.keys(act).sort().reverse();
     var html =
-      '<div class="top"><div><h1>Histórico</h1><div class="crumb">Um cartão por dia. Toque num dia para abrir tudo o que aconteceu nele.</div></div><div class="tabs"><button class="mini" data-act="copyhist">Copiar backup (JSON)</button></div></div><div class="hint" id="hcopied" role="status" style="margin:0"></div><div class="list" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">';
+      '<div class="top"><div><h1>Histórico</h1><div class="crumb">Um cartão por dia. Toque num dia para abrir tudo o que aconteceu nele.</div></div></div><div class="list" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">';
     keys.forEach(function (k) {
       var st = dayStats(k),
         d = new Date(dayEnd(k)),

@@ -143,7 +143,7 @@
   }
   // Despesa mensal rateada por peça.
   function contasPeca() {
-    return Math.round(totalMensal() / Math.max(1, S.volume));
+    return Math.round(totalMensal() / Math.max(1, volumeEfetivo()));
   }
   // Tipo pelo id.
   function tipoOf(id) {

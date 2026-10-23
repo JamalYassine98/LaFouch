@@ -116,22 +116,6 @@
       }
       render();
     },
-    copyhist: function () {
-      var tx = JSON.stringify({ vendas: S.sales, despesas: S.exp, volume: S.volume }, null, 1),
-        m = $('hcopied');
-      try {
-        navigator.clipboard.writeText(tx).then(
-          function () {
-            m.textContent = 'Backup copiado.';
-          },
-          function () {
-            m.textContent = 'Não consegui copiar aqui.';
-          }
-        );
-      } catch (e) {
-        m.textContent = 'Não consegui copiar aqui.';
-      }
-    },
     exppay: function (id) {
       var e = S.exp.filter(function (x) {
         return String(x.id) === id;
@@ -306,6 +290,8 @@
       S.desc = {};
       S.pnome = {};
       S.cpay = [];
+      S.appStart = Date.now();
+      S.conf = {};
       S.pfaixa = {};
       S.contagens = [];
       S.exp = [];
@@ -364,7 +350,7 @@
             ' → ' +
             gs(nt) +
             '. Cada peça passa a separar ' +
-            gs(Math.round(nt / S.volume)) +
+            gs(Math.round(nt / volumeEfetivo())) +
             ' (hoje ' +
             gs(contasPeca()) +
             ').'
