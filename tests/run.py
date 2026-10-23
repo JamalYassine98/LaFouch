@@ -344,6 +344,23 @@ async def main():
             if not ok: falhas.append('brinde'); print('        veio', got, got2, pg.erros)
             await pg.close()
 
+            # aba Vendas: tocar no produto abre a mesma tela do catálogo em modo venda
+            pg = await pagina()
+            await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.vRef = ''; S.vSel = null; S.vq = ''; S.vTipo = 'all'; S.vFaixa = ''; S.qty = 1; L.setView('vendas'); }""")
+            await pg.wait_for_timeout(300)
+            total += 1
+            a = await pg.evaluate("() => [document.getElementById('vListCard').hidden, document.getElementById('vDetail').hidden, document.getElementById('vSaleCard').hidden]")
+            await pg.locator('#vRows .pcard:has-text("SP57765")').click(); await pg.wait_for_timeout(400)
+            b1 = await pg.evaluate("() => [document.getElementById('vListCard').hidden, document.getElementById('vDetail').hidden, document.getElementById('vSaleCard').hidden, !!document.querySelector('#vDetail button[aria-label=\\'Editar\\']'), document.querySelectorAll('#vDetail .pl.pick').length]")
+            await pg.locator('#vDetail .pl.pick').nth(1).click(); await pg.wait_for_timeout(300)
+            c = await pg.evaluate("() => { const S = window.__LF.S; return [S.vSel && S.vSel.grau, document.getElementById('spc').textContent.indexOf(S.vSel.grau) >= 0] }")
+            await pg.locator('#vDetail button[aria-label="Voltar"]').click(); await pg.wait_for_timeout(300)
+            d = await pg.evaluate("() => [document.getElementById('vListCard').hidden, document.getElementById('vDetail').hidden, window.__LF.S.vRef]")
+            ok = a == [False, True, True] and b1 == [True, False, False, False, 4] and c == ['+1.00', True] and d == [False, True, ''] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'tela Vendas: produto abre em janela própria, escolhe a variante e volta à lista')
+            if not ok: falhas.append('vendas janela'); print('        veio', a, b1, c, d, pg.erros)
+            await pg.close()
+
             # aba Ajustes: meta, faixa nova, contagem de estoque e backup
             pg = await pagina()
             await pg.evaluate("() => { const L = window.__LF, S = L.S; S.items = [{tipo:'pre', ref:'AJ1', grau:'+1.00', med:'', vr:'', fmt:'', cor:'Preto', qty:6, custo:1}]; L.setView('ajustes'); }")

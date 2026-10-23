@@ -398,6 +398,8 @@
     S.vFaixa = '';
     S.vRef = key;
     S.vSel = it;
+    S.detRow = null;
+    S.detCor = '';
     S.qty = 1;
     S._descKey = [it.tipo, it.ref, it.cor, it.grau, it.vr].join('/');
     S.descMode = 'pyg';

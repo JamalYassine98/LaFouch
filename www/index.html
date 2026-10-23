@@ -120,13 +120,14 @@
   <div id="v-vendas" class="view" hidden>
     <div class="top"><div><h1>Vendas</h1><div class="crumb">Busque a peça, escolha a variante e finalize. O estoque desce sozinho.</div></div></div>
     <div class="main">
-      <section class="card col" aria-label="Escolher a peça">
+      <section class="card col" id="vListCard" aria-label="Escolher a peça">
         <div><div class="lbl">Buscar a peça</div><input class="in" id="vq" placeholder="Código, nome, cor, grau, formato, medida…" style="max-width:420px" autocomplete="off"></div>
         <div id="vFiltPanel" hidden class="col" style="gap:10px"><div><div class="lbl">Tipo de produto</div><div class="nav" id="vTipos" role="group" aria-label="Filtrar por tipo"></div></div><div id="vFaixaB" hidden><div class="lbl">Faixa</div><div class="nav" id="vFaixas" role="group" aria-label="Filtrar por faixa"></div></div></div>
         <div class="list" id="vRows"></div>
         <div id="vLinesB" hidden><div class="lbl" id="vProdL"></div><div class="nav" id="sLines"></div></div>
       </section>
-      <section class="card col" aria-label="Venda">
+      <section class="card col" id="vDetail" hidden aria-label="Produto" style="border-left:4px solid var(--accent)"></section>
+      <section class="card col" id="vSaleCard" hidden aria-label="Venda">
         <div class="hint" id="spc" style="margin:0"></div>
         <div><div class="lbl">Quantidade</div>
           <div class="sel"><button class="step" id="smn" aria-label="Diminuir quantidade">−</button><input class="in" id="sqv" type="text" inputmode="numeric" autocomplete="off" aria-label="Quantidade" style="width:84px;min-height:48px;text-align:center;font-size:24px;font-weight:800;padding:0 6px"><button class="step" id="spl" aria-label="Aumentar quantidade">+</button></div></div>

@@ -16,17 +16,26 @@
     return (isSimple(i.tipo) ? '' : (i.tipo === 'pre' ? i.grau : i.vr) + ' · ') + i.cor;
   }
   // Detalhe de um código: fotos, cores, estoque, venda e janela de edição.
-  function renderDetail(ref) {
-    var det = $('detail'),
+  // opt.venda = true: mesma tela, no modo venda (aba Vendas): sem edição nem custo; devolve a variante escolhida.
+  function renderDetail(ref, opt) {
+    opt = opt || {};
+    var venda = !!opt.venda,
+      det = opt.host || $('detail'),
+      tipoId = venda ? opt.tipo : S.tipo,
       wasHid = det.hidden,
       prevRef = det._ref;
     det.textContent = '';
-    if (S.lotesView) {
+    if (venda) {
+      if (!ref) {
+        det.hidden = true;
+        det._ref = '';
+        return null;
+      }
+    } else if (S.lotesView) {
       det.hidden = true;
       det._ref = '';
       return;
-    }
-    if (!S.det || !ref) {
+    } else if (!S.det || !ref) {
       det.hidden = true;
       det._ref = '';
       if (!wasHid)
@@ -39,12 +48,12 @@
     if (wasHid || prevRef !== ref) animEnter(det);
     det._ref = ref;
     var all = S.items.filter(function (i) {
-        return i.ref === ref && i.tipo === S.tipo;
+        return i.ref === ref && i.tipo === tipoId;
       }),
       f = all[0];
     if (!f) {
       det.hidden = true;
-      return;
+      return null;
     }
     var avail = all.filter(function (i) {
         return i.qty > 0;
@@ -94,6 +103,8 @@
       return rowKey(i) === S.detRow;
     })[0];
     if (sel && S.detCor && sel.cor !== S.detCor) sel = null;
+    if (venda && rows.indexOf(S.vSel) >= 0) sel = S.vSel;
+    if (venda && sel && !(sel.qty > 0)) sel = null;
     if (!sel) {
       var pool = rows.filter(function (i) {
         return i.qty > 0;
@@ -129,6 +140,15 @@
     var hl = mk('div', '');
     hl.style.cssText = 'display:flex;align-items:center;gap:10px';
     var bk0 = btn('tab ibtn', '', function () {
+      if (venda) {
+        S.vRef = '';
+        S.vSel = null;
+        S.qty = 1;
+        S.msg = '';
+        render();
+        window.scrollTo(0, 0);
+        return;
+      }
       S.det = false;
       S.open = '';
       S.qEdit = false;
@@ -144,11 +164,11 @@
     bk0.setAttribute('aria-label', 'Voltar');
     bk0.title = 'Voltar';
     hl.appendChild(bk0);
-    var h20 = mk('h2', '', 'Catálogo do produto');
+    var h20 = mk('h2', '', venda ? 'Vender' : 'Catálogo do produto');
     h20.style.cssText = 'margin:0;font-size:16px';
     hl.appendChild(h20);
     head.appendChild(hl);
-    if (S.qEdRef !== ref) {
+    if (!venda && S.qEdRef !== ref) {
       S.qEdRef = ref;
       S.qEdit = false;
       S.qDraft = {};
@@ -180,7 +200,7 @@
     eb.setAttribute('aria-label', S.qEdit ? 'Sair da edição' : 'Editar');
     eb.title = S.qEdit ? 'Sair da edição' : 'Editar';
     hb.appendChild(eb);
-    head.appendChild(hb);
+    if (!venda) head.appendChild(hb);
     det.appendChild(head);
     var g = mk('div', 'detgrid'),
       left = mk('div', 'col'),
@@ -238,7 +258,7 @@
       });
       left.appendChild(th);
     }
-    if (!src) {
+    if (!src && !venda) {
       left.appendChild(btn('mini', 'Adicionar foto', pickPhoto));
       var nh = mk(
         'div',
@@ -259,7 +279,7 @@
         'div',
         'crumb',
         (named ? ref + ' · ' : '') +
-          T().full +
+          (tipoOf(f.tipo) || T()).full +
           (isSimple(f.tipo)
             ? f.fmt && !f.bulk
               ? ' · formato ' + f.fmt
@@ -274,7 +294,7 @@
       dp.style.cssText = 'font-size:14px;color:var(--sub);white-space:pre-wrap';
       right.appendChild(dp);
     }
-    if (S.cdRef !== ref) {
+    if (!venda && S.cdRef !== ref) {
       S.cdRef = ref;
       S.cdMode = false;
       S.cdCor = '';
@@ -293,6 +313,12 @@
     pl.style.gap = '8px';
     // seleciona uma variante: define a foto mostrada e o que o botão Vender vende
     var choose = function (i) {
+      if (venda) {
+        if (!(i.qty > 0)) return;
+        S.vSel = i;
+        S.qty = 1;
+        S.msg = '';
+      }
       S.detRow = rowKey(i);
       S.detCor = i.cor;
       S.detVr = isVr ? vkey(i) : null;
@@ -319,16 +345,16 @@
       var tx = mk(
         'span',
         '',
-        rowLabel(i) + (effCusto(i) != null ? ' · custo ' + usd(effCusto(i)) : ' · sem custo')
+        rowLabel(i) + (venda ? '' : effCusto(i) != null ? ' · custo ' + usd(effCusto(i)) : ' · sem custo')
       );
-      if (!S.fotos[ref + '|' + i.cor]) {
+      if (!S.fotos[ref + '|' + i.cor] && !venda) {
         var tg = mk('span', 'cell', 'sem foto');
         tg.style.cssText = 'font-size:11px;padding:2px 8px;margin-left:8px';
         tx.appendChild(tg);
       }
       r.appendChild(tx);
       r.appendChild(mk('b', '', i.qty + ' un.'));
-      if (!i.qty) r.style.opacity = '.7';
+      if (!i.qty) r.style.opacity = venda ? '.45' : '.7';
       pl.appendChild(r);
     });
     pv.appendChild(pl);
@@ -357,10 +383,11 @@
     });
     if (!sel.qty) vbtn.disabled = true;
     vbar.appendChild(vbtn);
-    right.appendChild(vbar);
+    if (!venda) right.appendChild(vbar);
     g.appendChild(left);
     g.appendChild(right);
     det.appendChild(g);
+    if (venda) return sel.qty > 0 ? sel : null;
     if (S.qEdit) det.appendChild(editModal());
 
     // Janela Editar produto: nome, código, descrição, foto, estoque/custo e exclusão de cor.

@@ -94,8 +94,10 @@
           S.vSel = null;
           S.qty = 1;
           S.msg = '';
+          S.detRow = null;
+          S.detCor = '';
           render();
-          $('vLinesB').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          window.scrollTo(0, 0);
         },
         k === S.vRef
       );
@@ -134,6 +136,17 @@
             : 'Não há peças em estoque. Dê entrada na aba Estoque.'
         )
       );
+    // produto aberto: a mesma tela do catálogo, em modo venda; a lista some
+    $('vListCard').hidden = !!S.vRef;
+    $('vSaleCard').hidden = !S.vRef;
+    if (S.vRef && groups[S.vRef]) {
+      var dsel = renderDetail(groups[S.vRef][0].ref, {
+        venda: true,
+        host: $('vDetail'),
+        tipo: groups[S.vRef][0].tipo
+      });
+      if (dsel) S.vSel = dsel;
+    } else renderDetail('', { venda: true, host: $('vDetail') });
     var lines = (groups[S.vRef] || []).slice();
     if (lines.length && lines[0].tipo === 'pre')
       lines.sort(function (a, b) {
@@ -148,8 +161,7 @@
           ? i.cor
           : i.vr + ' ' + i.cor;
     };
-    $('vLinesB').hidden = !lines.length;
-    if (lines.length) $('vProdL').textContent = 'Escolha a variante de ' + lines[0].ref;
+    $('vLinesB').hidden = true;
     var vl = $('sLines');
     vl.textContent = '';
     lines.forEach(function (i) {
