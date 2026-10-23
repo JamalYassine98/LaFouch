@@ -207,6 +207,7 @@
       'descartes',
       'moedaP',
       'fundoBranco',
+      'atMin',
       'notifs',
       'fxMgUlt',
       'inicioT',

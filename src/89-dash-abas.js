@@ -121,9 +121,9 @@
     if (!l.length)
       return '<section class="card col" style="border-left:4px solid var(--ok)"><b style="font-size:15px">Atenção agora</b><div class="hint" style="margin:0">Tudo em ordem.</div></section>';
     var h =
-      '<section class="card col" style="border-left:4px solid var(--warn)"><div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:15px">Atenção agora</b><span class="cell">' +
+      '<section class="card col atcard' + (S.atMin ? ' min' : '') + '" id="atCard" style="border-left:4px solid var(--warn)"><button type="button" class="atcab" data-act="atmin" aria-expanded="' + !S.atMin + '" aria-label="' + (S.atMin ? 'Mostrar' : 'Minimizar') + ' atenção agora"><b style="font-size:15px">Atenção agora</b><span style="display:flex;align-items:center;gap:10px"><span class="cell">' +
       l.length +
-      '</span></div><div class="split">';
+      '</span><svg class="atseta" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span></button><div class="atbody"><div class="atin"><div class="split">';
     mostrar.forEach(function (x) {
       h += dxRow(
         esc(x.t),
@@ -137,7 +137,7 @@
         '<button class="chip" data-act="attodos">' +
         (S.atTodos ? 'Mostrar só os principais' : 'Ver mais ' + (l.length - 3) + ' aviso(s)') +
         '</button>';
-    return h + '</section>';
+    return h + '</div></div></section>';
   }
   // Conteúdo da aba escolhida. "o" traz os blocos já montados pelo renderDash.
   function dashCompose(o) {

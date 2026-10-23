@@ -1,6 +1,17 @@
   // ===== Ações dos botões (data-act) e eventos globais. =====
   // Ações dos botões, por data-act.
   var ACT = {
+    atmin: function () {
+      S.atMin = !S.atMin;
+      var c = $('atCard');
+      if (c) {
+        c.classList.toggle('min', !!S.atMin);
+        var b = c.querySelector('.atcab');
+        b.setAttribute('aria-expanded', !S.atMin);
+        b.setAttribute('aria-label', (S.atMin ? 'Mostrar' : 'Minimizar') + ' atenção agora');
+      }
+      saveSoon();
+    },
     notifLimpa: function () {
       S.notifs = [];
       render();

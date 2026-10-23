@@ -721,6 +721,19 @@ async def main():
             if not ok: falhas.append('notificacoes'); print('        veio', r, pg.erros)
             await pg.close()
 
+            # Atenção agora: seta minimiza e reabre
+            pg = await pagina()
+            await pg.evaluate("() => { const L = window.__LF; L.S.atMin = false; L.S.dTab = 'hoje'; L.setView('dash'); }"); await pg.wait_for_timeout(300)
+            await pg.click('.atcab'); await pg.wait_for_timeout(500)
+            a = await pg.evaluate("() => [window.__LF.S.atMin, document.getElementById('atCard').classList.contains('min'), document.querySelector('.atcab').getAttribute('aria-expanded')]")
+            await pg.click('.atcab'); await pg.wait_for_timeout(500)
+            b2 = await pg.evaluate("() => [window.__LF.S.atMin, document.getElementById('atCard').classList.contains('min')]")
+            total += 1
+            ok = a == [True, True, 'false'] and b2 == [False, False] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Atenção agora: seta minimiza e reabre')
+            if not ok: falhas.append('atencao min'); print('        veio', a, b2, pg.erros)
+            await pg.close()
+
             # contagem de estoque no cartão "Em estoque": por valor, com resumo e aplicação
             pg = await pagina()
             await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.items = [
