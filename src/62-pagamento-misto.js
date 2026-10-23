@@ -16,8 +16,16 @@
   // Ex.: peça de US$ 15, mercado 5.900, loja 6.000: quem paga em guaranis entrega 90.000 e não 88.500.
   // O real fica pelo valor de mercado em guaranis, então R$ por US$ também sobe pela mesma margem.
   var FX_MARGEM = 0.025;
+  // Arredondada para cima para ficar "redonda": dólar de 50 em 50 guaranis (5.885 vira 5.900), real por dólar de 0,10 em 0,10 (4,92 vira 5,00).
+  function fxUsdLoja() {
+    return Math.ceil((ratePyg('usd') * (1 + FX_MARGEM)) / 50 - 1e-9) * 50;
+  }
+  function fxBrlPorUsd() {
+    var b = S.fx && S.fx.brl > 0 ? S.fx.brl : 5;
+    return Math.ceil(b * (1 + FX_MARGEM) * 10 - 1e-9) / 10;
+  }
   function fxLoja(m) {
-    return m === 'usd' ? ratePyg(m) * (1 + FX_MARGEM) : m === 'brl' ? ratePyg(m) : 0;
+    return m === 'usd' ? fxUsdLoja() : m === 'brl' ? fxUsdLoja() / fxBrlPorUsd() : 0;
   }
   // Texto "câmbio da loja" ou "cotação de hoje" conforme o que está valendo.
   function fxOrigem(m) {

@@ -576,10 +576,10 @@ async def main():
               S.cart = [{it, qty: 1, preco: null}]; S.cartOpen = true; S.moeda = 'brl'; S.rate1 = ''; S.rec = null; S.descTxt = ''; S.pagMisto = false;
               L.setView('vendas'); L.render();
               const need = L.tFor(it).price, sh = document.getElementById('recIn').value;
-              const esp = (need / (8000 / 5)).toFixed(2).replace('.', ',');
+              const esp = (need / (8200 / 5.2)).toFixed(2).replace('.', ',');
               L.setView('fx'); L.render(); const fx = document.getElementById('v-fx').textContent;
               return [g, u, b, man, custo, sh === esp, document.getElementById('v-fx').textContent.indexOf('Cotação da loja') >= 0, fx.indexOf('G$ 8.200') >= 0]; }""")
-            ok = r[0] == 'US$ 74' and r[1] == 8200 and r[2] == 1600 and r[3] == 1300 and r[4] == 8000 and r[5] and r[6] and r[7] and not pg.erros
+            ok = r[0] == 'US$ 74' and r[1] == 8200 and r[2] == 1577 and r[3] == 1300 and r[4] == 8000 and r[5] and r[6] and r[7] and not pg.erros
             total += 1
             print(('  ok  ' if ok else ' FALHA ') + 'cotação da loja: dólar com margem a mais, no carrinho e na aba Câmbio')
             if not ok: falhas.append('cotacao loja'); print('        veio', r, pg.erros)

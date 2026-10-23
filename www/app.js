@@ -14111,8 +14111,16 @@
   // Ex.: peça de US$ 15, mercado 5.900, loja 6.000: quem paga em guaranis entrega 90.000 e não 88.500.
   // O real fica pelo valor de mercado em guaranis, então R$ por US$ também sobe pela mesma margem.
   var FX_MARGEM = 0.025;
+  // Arredondada para cima para ficar "redonda": dólar de 50 em 50 guaranis (5.885 vira 5.900), real por dólar de 0,10 em 0,10 (4,92 vira 5,00).
+  function fxUsdLoja() {
+    return Math.ceil((ratePyg('usd') * (1 + FX_MARGEM)) / 50 - 1e-9) * 50;
+  }
+  function fxBrlPorUsd() {
+    var b = S.fx && S.fx.brl > 0 ? S.fx.brl : 5;
+    return Math.ceil(b * (1 + FX_MARGEM) * 10 - 1e-9) / 10;
+  }
   function fxLoja(m) {
-    return m === 'usd' ? ratePyg(m) * (1 + FX_MARGEM) : m === 'brl' ? ratePyg(m) : 0;
+    return m === 'usd' ? fxUsdLoja() : m === 'brl' ? fxUsdLoja() / fxBrlPorUsd() : 0;
   }
   // Texto "câmbio da loja" ou "cotação de hoje" conforme o que está valendo.
   function fxOrigem(m) {
@@ -18192,7 +18200,7 @@
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cotação da loja</h2><div class="hint" style="margin:2px 0 0">Seus preços são em dólar, e o dólar da loja vale ' + pc(FX_MARGEM) + ' a mais que o mercado. O app usa esta cotação ao receber dólar ou real, a menos que você digite outro câmbio no carrinho. Custos e contas continuam pela cotação do mercado.</div></div>' +
       '<div class="kpis"><div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 vale</div><b>' + gsRaw(u) + '</b><div class="hint">mercado ' + gsRaw(f.pyg) + '</div></div>' +
       '<div class="kpi" style="background:var(--panel2)"><div class="lbl">R$ 1 vale</div><b>' + gsRaw(b) + '</b><div class="hint">mercado ' + gsRaw(Math.round(f.pyg / f.brl)) + '</div></div>' +
-      '<div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 vale</div><b>R$ ' + (u / b).toFixed(2).replace('.', ',') + '</b><div class="hint">mercado R$ ' + f.brl.toFixed(2).replace('.', ',') + '</div></div></div></section>'
+      '<div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 vale</div><b>R$ ' + fxBrlPorUsd().toFixed(2).replace('.', ',') + '</b><div class="hint">mercado R$ ' + f.brl.toFixed(2).replace('.', ',') + '</div></div></div></section>'
     );
   }
   function renderFx() {
