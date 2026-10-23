@@ -28,7 +28,7 @@ jobs:
           java-version: 17
 
       - name: Instalar dependencias
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Montar o app (junta os modulos de src/ em www/app.js)
         run: node build.js
@@ -59,7 +59,8 @@ jobs:
         run: |
           M=android/app/src/main/AndroidManifest.xml
           grep -q 'android.permission.CAMERA' $M || sed -i 's#<application#<uses-permission android:name="android.permission.CAMERA" />\n    <uses-feature android:name="android.hardware.camera" android:required="false" />\n    <application#' $M
-          grep -n 'CAMERA\|hardware.camera' $M
+          grep -q 'android.permission.USE_BIOMETRIC' $M || sed -i 's#<application#<uses-permission android:name="android.permission.USE_BIOMETRIC" />\n    <application#' $M
+          grep -n 'CAMERA\|hardware.camera\|BIOMETRIC' $M
 
       - name: Icone do app (opcional)
         continue-on-error: true

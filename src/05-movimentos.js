@@ -30,13 +30,24 @@
   }
   // Conta mensal paga: livro de pagamentos (S.cpay) e histórico.
   function lancarPagamento(e, ym, ts) {
-    S.cpay.push({ ts: ts, id: e.id, ym: ym, nome: e.nome, valor: e.valor, cat: e.cat });
+    S.cpay.push({
+      ts: ts,
+      id: e.id,
+      ym: ym,
+      nome: e.nome,
+      valor: e.valor,
+      cat: e.cat,
+      moeda: expMoeda(e),
+      orig: expOrig(e)
+    });
     S.dlog.push({
       ts: ts,
       kind: 'pago',
       nome: e.nome,
       desc: e.nome + ' (' + CATS[e.cat] + ')',
-      valor: e.valor
+      valor: e.valor,
+      moeda: expMoeda(e),
+      orig: expOrig(e)
     });
   }
   // Desfaz o pagamento de uma conta no mês: tira do livro e do histórico.

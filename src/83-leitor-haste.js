@@ -337,6 +337,7 @@
     }
     var sale = addSale(sel, qty, {
       moeda: S.moeda,
+      forma: S.forma,
       recebido: S._recv,
       brinde: br
         ? {
@@ -352,6 +353,7 @@
       motivo: pv && pv.abaixo ? S.vMotivo || '' : ''
     });
     S.pisoConf = '';
+    S.forma = 'din';
     S.descTxt = '';
     S.vBrinde = null;
     S.vMotivo = '';

@@ -334,18 +334,25 @@
       pp = pisoPeca(sel),
       c = calcSale(t, q, S.fx.pyg, colchao().pct, contasPeca(), S.melhPeca, eff, bu),
       travaTot = pp.trava * q + bg,
-      pisoTot = pp.piso * q + bg;
+      pisoTot = pp.piso * q + bg,
+      fm = formaSel(),
+      tx = taxaGs(eff, fm),
+      liq = eff - tx;
+    c.livre -= tx;
     return {
       eff: eff,
+      liq: liq,
+      tx: tx,
+      fm: fm,
       c: c,
       br: br,
       bu: bu,
       pp: pp,
       travaTot: travaTot,
       pisoTot: pisoTot,
-      perde: eff < travaTot,
-      abaixo: eff < pisoTot,
-      key: [S._selKey, q, eff, S.moeda, br ? br.ref + br.cor : ''].join('|')
+      perde: liq < travaTot,
+      abaixo: liq < pisoTot,
+      key: [S._selKey, q, eff, S.moeda, fm.id, br ? br.ref + br.cor : ''].join('|')
     };
   }
   // Aviso de piso: mostra o lucro ou a perda e pede confirmação se estiver abaixo.
@@ -362,7 +369,7 @@
     if (v.perde) {
       el.className = 'note n-bad';
       el.textContent =
-        'Abaixo da trava: você perde ' + gs(v.travaTot - v.eff) + ' nesta venda' + bt + '.';
+        'Abaixo da trava: você perde ' + gs(v.travaTot - v.liq) + ' nesta venda' + bt + (v.tx ? ' (já descontada a taxa de ' + gs(v.tx) + ')' : '') + '.';
     } else if (v.abaixo) {
       el.className = 'note n-warn';
       el.textContent =
@@ -376,7 +383,12 @@
         '.';
     } else {
       el.className = 'note n-ok';
-      el.textContent = 'Acima do piso. Lucro livre estimado: ' + gs(v.c.livre) + bt + '.';
+      el.textContent =
+        'Acima do piso. Lucro livre estimado: ' +
+        gs(v.c.livre) +
+        bt +
+        (v.tx ? '. Taxa da ' + v.fm.nome.toLowerCase() + ': ' + gs(v.tx) + ' (já descontada)' : '') +
+        '.';
     }
     if (v.abaixo) {
       var ok = S.pisoConf === v.key;

@@ -137,13 +137,14 @@
 
   // Soma das despesas mensais.
   function totalMensal() {
+    syncExpFx();
     return S.exp.reduce(function (a, e) {
       return a + e.valor;
     }, 0);
   }
   // Despesa mensal rateada por peça.
   function contasPeca() {
-    return Math.round(totalMensal() / Math.max(1, volumeEfetivo()));
+    return Math.round((totalMensal() + reservaCambioContas()) / Math.max(1, volumeEfetivo()));
   }
   // Tipo pelo id.
   function tipoOf(id) {
@@ -285,16 +286,23 @@
       bg = Math.round(bu * S.fx.pyg),
       m = calcSale(tf, qty, S.fx.pyg, c.pct, cp, S.melhPeca, eff, bu);
     for (var k in m) s[k] = m[k];
+    var fm = formaPorId(pay.forma),
+      tx = taxaGs(eff, fm),
+      txM = taxaMoeda(pay.recebido, pay.moeda, fm);
+    s.livre -= tx;
+    s.forma = fm.id;
+    s.taxa = tx;
+    s.taxaM = txM;
     s.faixa = (faixaOf(it.ref) || {}).id || '';
     s.lista = tf.price * qty;
-    s.abaixo = eff < pp.piso * qty + bg;
-    s.perde = eff < pp.trava * qty + bg;
+    s.abaixo = eff - tx < pp.piso * qty + bg;
+    s.perde = eff - tx < pp.trava * qty + bg;
     if (pay.brinde) s.brinde = pay.brinde;
     if (pay.motivo) s.motivo = pay.motivo;
     s.moeda = pay.moeda;
     s.recebido = pay.recebido;
     s.rate = Math.round(rate);
-    S.cash[pay.moeda] += pay.recebido;
+    S.cash[pay.moeda] += pay.recebido - txM;
     s.lote = it.lote || '';
     S.sales.unshift(s);
     return s;
@@ -321,6 +329,7 @@
         '#ffc766'
       ],
       ['Caixa de melhorias', 'Meta flexível. Não trava a venda.', sale.melh, 'var(--info)'],
+      ['Taxa da maquininha', 'Sai do seu lucro. Já descontada do que entra no caixa.', sale.taxa || 0, '#ff9d7a'],
       ['Lucro livre', 'O que sobra para você.', sale.livre, '#00ff88']
     ];
     $('splitCard').hidden = false;
@@ -337,6 +346,7 @@
     var rowsEl = $('splitRows');
     rowsEl.textContent = '';
     parts.forEach(function (p) {
+      if (p[0] === 'Taxa da maquininha' && !p[2]) return;
       var i = mk('i');
       i.style.width = Math.max(0, (p[2] / sale.price) * 100) + '%';
       i.style.background = p[3];

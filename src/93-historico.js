@@ -401,7 +401,9 @@
         imp: 'Imprevisto',
         melh: 'Caixa de melhorias',
         lote: 'Compra de lote',
-        pago: 'Conta paga'
+        pago: 'Conta paga',
+        ret: 'Retirada do dono',
+        confcx: 'Conferência do caixa'
       }[x.kind],
       t,
       a;
@@ -432,7 +434,7 @@
       a = usd(x.usd);
     } else {
       t = x.desc;
-      a = gs(x.valor);
+      a = x.moeda && x.moeda !== 'pyg' && x.orig != null ? fmtM(x.orig, x.moeda) : gs(x.valor);
     }
     return { label: L, text: t, amount: a, search: (L + ' ' + t).toLowerCase() };
   }

@@ -1,11 +1,12 @@
   // ===== Aba Ajustes: faixas, meta, sazonalidade, contas e backup dos dados. =====
   // Gera o texto do backup (dados + fotos em miniatura).
-  function backupDados() {
+  var SEM_BACKUP = ['pinHash', 'pinSalt', 'bioOn', 'lockMin', 'lockSens'];
+  function backupDados(semFotos) {
     var d = {};
     PERSIST.forEach(function (k) {
-      d[k] = S[k];
+      if (SEM_BACKUP.indexOf(k) < 0) d[k] = S[k];
     });
-    d.fotos = S.fotos;
+    if (!semFotos) d.fotos = S.fotos;
     return JSON.stringify({ app: 'lafouch', v: 1, ts: Date.now(), d: d });
   }
   // Restaura os dados a partir do texto do backup. Devolve '' se deu certo, ou a mensagem de erro.
@@ -19,7 +20,7 @@
     if (!o || o.app !== 'lafouch' || !o.d || !Array.isArray(o.d.items))
       return 'Arquivo inválido: não é um backup do app.';
     PERSIST.forEach(function (k) {
-      if (o.d[k] !== undefined) S[k] = o.d[k];
+      if (o.d[k] !== undefined && SEM_BACKUP.indexOf(k) < 0) S[k] = o.d[k];
     });
     if (o.d.fotos && typeof o.d.fotos === 'object') S.fotos = o.d.fotos;
     try {
@@ -47,30 +48,11 @@
       S.bkText = '';
       render();
     }
-    function plano() {
-      try {
-        var a = document.createElement('a');
-        a.href = URL.createObjectURL(new Blob([txt], { type: 'application/json' }));
-        a.download = nome;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        feito();
-      } catch (e) {
-        S.bkText = txt;
-        S.ajMsg = 'Copie o texto abaixo e guarde onde quiser.';
-        render();
-      }
-    }
-    var P = window.Capacitor && window.Capacitor.Plugins;
-    if (P && P.Filesystem && P.Share) {
-      P.Filesystem.writeFile({ path: nome, data: txt, directory: 'CACHE', encoding: 'utf8' })
-        .then(function (r) {
-          return P.Share.share({ title: nome, url: r.uri, dialogTitle: 'Guardar o backup' });
-        })
-        .then(feito)
-        .catch(plano);
-    } else plano();
+    salvarArquivo(nome, txt, 'application/json', feito, function () {
+      S.bkText = txt;
+      S.ajMsg = 'Copie o texto abaixo e guarde onde quiser.';
+      render();
+    });
   }
   // Lê um número digitado (aceita vírgula).
   function numIn(v) {
@@ -188,6 +170,7 @@
         ? '<textarea class="in" readonly rows="5" style="width:100%;font-size:12px">' + esc(S.bkText) + '</textarea>'
         : '') +
       '</section>';
+    h += ajustesFinHtml();
     el.innerHTML = h;
   }
   // Recalcula e salva uma alteração feita na aba Ajustes.
@@ -284,7 +267,9 @@
       return;
     }
     S.bkImpConf = false;
-    bkFile.click();
+    exigirAuth(function () {
+      bkFile.click();
+    });
   };
   ACT.volauto = function () {
     S.volAuto = S.volAuto === false;

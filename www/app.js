@@ -868,13 +868,24 @@
   }
   // Conta mensal paga: livro de pagamentos (S.cpay) e histórico.
   function lancarPagamento(e, ym, ts) {
-    S.cpay.push({ ts: ts, id: e.id, ym: ym, nome: e.nome, valor: e.valor, cat: e.cat });
+    S.cpay.push({
+      ts: ts,
+      id: e.id,
+      ym: ym,
+      nome: e.nome,
+      valor: e.valor,
+      cat: e.cat,
+      moeda: expMoeda(e),
+      orig: expOrig(e)
+    });
     S.dlog.push({
       ts: ts,
       kind: 'pago',
       nome: e.nome,
       desc: e.nome + ' (' + CATS[e.cat] + ')',
-      valor: e.valor
+      valor: e.valor,
+      moeda: expMoeda(e),
+      orig: expOrig(e)
     });
   }
   // Desfaz o pagamento de uma conta no mês: tira do livro e do histórico.
@@ -8884,13 +8895,14 @@
 
   // Soma das despesas mensais.
   function totalMensal() {
+    syncExpFx();
     return S.exp.reduce(function (a, e) {
       return a + e.valor;
     }, 0);
   }
   // Despesa mensal rateada por peça.
   function contasPeca() {
-    return Math.round(totalMensal() / Math.max(1, volumeEfetivo()));
+    return Math.round((totalMensal() + reservaCambioContas()) / Math.max(1, volumeEfetivo()));
   }
   // Tipo pelo id.
   function tipoOf(id) {
@@ -9032,16 +9044,23 @@
       bg = Math.round(bu * S.fx.pyg),
       m = calcSale(tf, qty, S.fx.pyg, c.pct, cp, S.melhPeca, eff, bu);
     for (var k in m) s[k] = m[k];
+    var fm = formaPorId(pay.forma),
+      tx = taxaGs(eff, fm),
+      txM = taxaMoeda(pay.recebido, pay.moeda, fm);
+    s.livre -= tx;
+    s.forma = fm.id;
+    s.taxa = tx;
+    s.taxaM = txM;
     s.faixa = (faixaOf(it.ref) || {}).id || '';
     s.lista = tf.price * qty;
-    s.abaixo = eff < pp.piso * qty + bg;
-    s.perde = eff < pp.trava * qty + bg;
+    s.abaixo = eff - tx < pp.piso * qty + bg;
+    s.perde = eff - tx < pp.trava * qty + bg;
     if (pay.brinde) s.brinde = pay.brinde;
     if (pay.motivo) s.motivo = pay.motivo;
     s.moeda = pay.moeda;
     s.recebido = pay.recebido;
     s.rate = Math.round(rate);
-    S.cash[pay.moeda] += pay.recebido;
+    S.cash[pay.moeda] += pay.recebido - txM;
     s.lote = it.lote || '';
     S.sales.unshift(s);
     return s;
@@ -9068,6 +9087,7 @@
         '#ffc766'
       ],
       ['Caixa de melhorias', 'Meta flexível. Não trava a venda.', sale.melh, 'var(--info)'],
+      ['Taxa da maquininha', 'Sai do seu lucro. Já descontada do que entra no caixa.', sale.taxa || 0, '#ff9d7a'],
       ['Lucro livre', 'O que sobra para você.', sale.livre, '#00ff88']
     ];
     $('splitCard').hidden = false;
@@ -9084,6 +9104,7 @@
     var rowsEl = $('splitRows');
     rowsEl.textContent = '';
     parts.forEach(function (p) {
+      if (p[0] === 'Taxa da maquininha' && !p[2]) return;
       var i = mk('i');
       i.style.width = Math.max(0, (p[2] / sale.price) * 100) + '%';
       i.style.background = p[3];
@@ -12075,6 +12096,1125 @@
     }
     return html;
   }
+  // ===== Contas em várias moedas, vencimentos e avisos. =====
+  // Moeda de uma despesa: pyg (padrão), usd ou brl.
+  function expMoeda(e) {
+    return e.moeda === 'usd' || e.moeda === 'brl' ? e.moeda : 'pyg';
+  }
+  // Valor da despesa na moeda original.
+  function expOrig(e) {
+    var m = expMoeda(e);
+    if (m === 'pyg') return e.valor;
+    return e.orig > 0 ? e.orig : e.valor / ratePyg(m);
+  }
+  // Atualiza o valor em guaranis das contas em moeda estrangeira, pelo câmbio de hoje.
+  function syncExpFx() {
+    S.exp.forEach(function (e) {
+      var m = expMoeda(e);
+      if (m !== 'pyg' && e.orig > 0) e.valor = Math.round(e.orig * ratePyg(m));
+    });
+  }
+  // Texto do valor na moeda original ("US$ 120,00") e, se estrangeira, o equivalente em guaranis.
+  function expTexto(e) {
+    var m = expMoeda(e);
+    return m === 'pyg' ? gs(e.valor) : fmtM(expOrig(e), m) + ' (' + gs(e.valor) + ')';
+  }
+  // Quanto as contas em moeda estrangeira mudaram só pelo câmbio desde que o valor foi informado.
+  function efeitoCambio() {
+    return Math.round(
+      S.exp.reduce(function (a, e) {
+        var m = expMoeda(e);
+        if (m === 'pyg' || !(e.rate0 > 0)) return a;
+        return a + expOrig(e) * (ratePyg(m) - e.rate0);
+      }, 0)
+    );
+  }
+  // Parte das contas em moeda estrangeira (em guaranis).
+  function contasEstrangeiras() {
+    return S.exp.reduce(function (a, e) {
+      return a + (expMoeda(e) !== 'pyg' ? e.valor : 0);
+    }, 0);
+  }
+  // Reserva extra por mês contra alta do câmbio nas contas em moeda estrangeira (usa o colchão cambial).
+  function reservaCambioContas() {
+    var f = contasEstrangeiras();
+    return f > 0 ? Math.round(f * colchao().pct) : 0;
+  }
+
+  // Meio-dia de hoje (evita problemas de horário de verão ao somar dias).
+  function hoje0() {
+    var d = new Date();
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 12).getTime();
+  }
+  // Data de vencimento da despesa no mês (ano, mês 0-11); o dia é limitado ao último do mês.
+  function vencEm(e, ano, mes) {
+    var ult = new Date(ano, mes + 1, 0).getDate();
+    return new Date(ano, mes, Math.min(Number(e.dia), ult), 12).getTime();
+  }
+  // Próximo vencimento: este mês se ainda não foi paga, senão o do mês seguinte.
+  function proxVenc(e) {
+    if (!(e.dia >= 1 && e.dia <= 31)) return null;
+    var d = new Date(),
+      pago = !!(e.paid && e.paid[ymNow()]),
+      ts = pago ? vencEm(e, d.getFullYear(), d.getMonth() + 1) : vencEm(e, d.getFullYear(), d.getMonth());
+    return { ts: ts, dias: Math.round((ts - hoje0()) / DAY), pago: pago };
+  }
+  // Contas que vencem em breve (ou já venceram) e ainda não foram pagas neste mês.
+  function avisosVenc(janela) {
+    var out = [];
+    S.exp.forEach(function (e) {
+      var v = proxVenc(e);
+      if (!v || v.pago || v.dias > (janela || 7)) return;
+      var m = expMoeda(e),
+        need = expOrig(e),
+        tem = m === 'pyg' ? S.cash.pyg : S.cash[m] || 0,
+        ok = tem >= need - 1e-9,
+        dica = '';
+      if (!ok) {
+        var faltaGs = (need - tem) * ratePyg(m),
+          outras = ['pyg', 'usd', 'brl'].filter(function (x) {
+            return x !== m && (S.cash[x] || 0) * ratePyg(x) >= faltaGs;
+          })[0];
+        dica = outras
+          ? 'Falta ' + fmtM(need - tem, m) + ' em ' + m.toUpperCase() + '. Troque ' + fmtM(faltaGs / ratePyg(outras), outras) + ' por ' + m.toUpperCase() + ' na aba Caixa.'
+          : 'Falta ' + fmtM(need - tem, m) + ' em ' + m.toUpperCase() + ' e o caixa não cobre nem trocando moedas.';
+      }
+      out.push({
+        e: e,
+        dias: v.dias,
+        moeda: m,
+        ok: ok,
+        dica: dica,
+        semValor: e.tipo === 'variavel' && e.updYm !== ymNow() && v.dias <= 7
+      });
+    });
+    return out.sort(function (a, b) {
+      return a.dias - b.dias;
+    });
+  }
+  // Frase do prazo ("vence hoje", "venceu há 2 dias", "vence em 3 dias").
+  function prazoTxt(d) {
+    return d === 0
+      ? 'vence hoje'
+      : d < 0
+      ? 'venceu há ' + -d + (d === -1 ? ' dia' : ' dias')
+      : d === 1
+      ? 'vence amanhã'
+      : 'vence em ' + d + ' dias';
+  }
+  // Cartão de avisos de vencimento (vazio se não houver nada).
+  function avisosHtml() {
+    var av = avisosVenc(7);
+    if (!av.length) return '';
+    var h =
+      '<section class="card col"><h2 style="margin:0;font-size:16px">Contas para pagar</h2><div class="split">';
+    av.forEach(function (a) {
+      var cor = a.dias < 0 ? 'var(--bad)' : a.dias <= 2 ? 'var(--warn)' : 'var(--sub)';
+      h += dxRow(
+        esc(a.e.nome),
+        '<span style="color:' +
+          cor +
+          '">' +
+          prazoTxt(a.dias) +
+          '</span>' +
+          (a.semValor ? ' · informe o valor desta fatura' : '') +
+          (a.ok ? '' : ' · ' + esc(a.dica)),
+        expTexto(a.e)
+      );
+    });
+    return h + '</div></section>';
+  }
+  // ===== Finanças: resultado do mês, fluxo de caixa, retirada do dono, conferência de caixa, capital parado, dólar e preço perigoso. =====
+  S.retiradas = []; // retiradas do dono: {ts, moeda, orig, valor, nota}
+  S.confCx = []; // conferências do caixa: {ts, difs:{pyg,usd,brl}, ajustou}
+  S.ccLemb = true; // lembrete semanal de conferir o caixa
+  S.fluxoD = 30;
+  var MESES_L = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+  var GRUPO_LOJA = { loja: 1, profissional: 1 },
+    GRUPO_PESSOAL = { pessoal: 1, casa: 1 };
+
+  // Guarda ou compartilha um arquivo de texto: no app usa o compartilhar do celular; no navegador baixa.
+  function salvarArquivo(nome, txt, mime, feito, falha) {
+    function plano() {
+      try {
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(new Blob([txt], { type: mime }));
+        a.download = nome;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        feito();
+      } catch (e) {
+        falha();
+      }
+    }
+    var P = window.Capacitor && window.Capacitor.Plugins;
+    if (P && P.Filesystem && P.Share) {
+      P.Filesystem.writeFile({ path: nome, data: txt, directory: 'CACHE', encoding: 'utf8' })
+        .then(function (r) {
+          return P.Share.share({ title: nome, url: r.uri, dialogTitle: 'Guardar o arquivo' });
+        })
+        .then(feito)
+        .catch(plano);
+    } else plano();
+  }
+
+  // ---------- resultado do mês
+  function limitesMes(ano, mes) {
+    return [new Date(ano, mes, 1).getTime(), new Date(ano, mes + 1, 1).getTime()];
+  }
+  function noMes(ts, lim) {
+    return ts >= lim[0] && ts < lim[1];
+  }
+  function somaCampo(lista, k, lim, filtro) {
+    return lista.reduce(function (a, x) {
+      return a + (noMes(x.ts, lim) && (!filtro || filtro(x)) ? x[k] || 0 : 0);
+    }, 0);
+  }
+  // Resultado de um mês (mes de 0 a 11): vendas, custos, resultado da loja, retiradas e sobra.
+  function resultadoMes(ano, mes) {
+    var lim = limitesMes(ano, mes),
+      vs = S.sales.filter(function (s) {
+        return !s.estorno && noMes(s.ts, lim);
+      }),
+      r = { ano: ano, mes: mes };
+    r.n = vs.length;
+    r.pecas = sumBy(vs, 'qty');
+    r.vendas = sumBy(vs, 'price');
+    r.cmv = sumBy(vs, 'rep');
+    r.taxas = vs.reduce(function (a, s) {
+      return a + (s.taxa || 0);
+    }, 0);
+    r.lucroLivre = sumBy(vs, 'livre');
+    var pg = S.cpay || [];
+    r.contasLoja = somaCampo(pg, 'valor', lim, function (x) {
+      return GRUPO_LOJA[x.cat];
+    });
+    r.contasPessoais = somaCampo(pg, 'valor', lim, function (x) {
+      return GRUPO_PESSOAL[x.cat];
+    });
+    r.imprev = somaCampo(S.imprev, 'valor', lim);
+    r.melh = somaCampo(S.melhUso, 'valor', lim);
+    var perd = 0;
+    (S.contagens || []).forEach(function (c) {
+      if (!noMes(c.ts, lim)) return;
+      (c.itens || []).forEach(function (it) {
+        if (it.usd < 0) perd += -it.usd * S.fx.pyg;
+      });
+    });
+    r.perdas = Math.round(perd);
+    r.retAvulsas = somaCampo(S.retiradas, 'valor', lim);
+    r.retTotal = r.retAvulsas + r.contasPessoais;
+    r.resultado = r.vendas - r.cmv - r.taxas - r.contasLoja - r.imprev - r.melh - r.perdas;
+    r.sobra = r.resultado - r.retTotal;
+    r.tem = r.n > 0 || r.contasLoja > 0 || r.retTotal > 0 || r.imprev > 0;
+    return r;
+  }
+  var LINHAS_RES = [
+    ['Vendas', 'vendas'],
+    ['Custo de repor a mercadoria vendida', 'cmv'],
+    ['Taxas de maquininha', 'taxas'],
+    ['Contas da loja pagas', 'contasLoja'],
+    ['Imprevistos', 'imprev'],
+    ['Caixa de melhorias usada', 'melh'],
+    ['Perdas de estoque (contagem)', 'perdas'],
+    ['Resultado da loja', 'resultado', true],
+    ['Retiradas do dono (inclui contas de casa e pessoais)', 'retTotal'],
+    ['Sobra do mês', 'sobra', true]
+  ];
+  // Variação em texto: "+12%" ou "−5%".
+  function varTxt(a, b) {
+    if (!b) return '';
+    var v = (a - b) / Math.abs(b);
+    return ' (' + (v >= 0 ? '+' : '−') + Math.round(Math.abs(v) * 100) + '%)';
+  }
+  // Meses de comparação: atual, anterior e mesmo mês do ano passado.
+  function resultadoComparado(ano, mes) {
+    var pa = mes === 0 ? ano - 1 : ano,
+      pm = mes === 0 ? 11 : mes - 1;
+    return {
+      a: resultadoMes(ano, mes),
+      p: resultadoMes(pa, pm),
+      y: resultadoMes(ano - 1, mes)
+    };
+  }
+  function resultadoHtml() {
+    var d = new Date(),
+      c = resultadoComparado(d.getFullYear(), d.getMonth()),
+      h =
+        '<section class="card col"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><div><h2 style="margin:0;font-size:16px">Resultado de ' +
+        MESES_L[d.getMonth()] +
+        '</h2><div class="hint" style="margin:2px 0 0">Compara com ' +
+        MESES_L[c.p.mes] +
+        ' e com ' +
+        MESES_L[c.y.mes] +
+        ' de ' +
+        c.y.ano +
+        '.</div></div><button class="mini" data-act="resexp">Exportar</button></div><div class="split">';
+    LINHAS_RES.forEach(function (l) {
+      var k = l[1],
+        ap =
+          'mês passado ' +
+          (c.p.tem ? gs(c.p[k]) + varTxt(c.a[k], c.p[k]) : 'sem dados') +
+          ' · ' +
+          MESES_L[c.y.mes].slice(0, 3) +
+          '/' +
+          String(c.y.ano).slice(2) +
+          ' ' +
+          (c.y.tem ? gs(c.y[k]) + varTxt(c.a[k], c.y[k]) : 'sem dados');
+      h += l[2]
+        ? '<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span><b>' +
+          l[0] +
+          '</b><small>' +
+          ap +
+          '</small></span><b style="color:' +
+          (c.a[k] >= 0 ? 'var(--ok)' : 'var(--bad)') +
+          '">' +
+          gs(c.a[k]) +
+          '</b></div>'
+        : dxRow(l[0], ap, gs(c.a[k]));
+    });
+    return h + '</div></section>';
+  }
+  // Texto CSV do resultado do mês e das vendas do mês.
+  function resultadoCsv() {
+    var d = new Date(),
+      c = resultadoComparado(d.getFullYear(), d.getMonth()),
+      q = function (v) {
+        return '"' + String(v).replace(/"/g, '""') + '"';
+      },
+      out = [
+        ['Linha', 'Este mês', 'Mês passado', 'Mesmo mês ano passado'].map(q).join(';')
+      ];
+    LINHAS_RES.forEach(function (l) {
+      out.push([q(l[0]), c.a[l[1]], c.p[l[1]], c.y[l[1]]].join(';'));
+    });
+    out.push('');
+    out.push(['Venda', 'Data', 'Produto', 'Peças', 'Preço G$', 'Pagamento', 'Taxa G$', 'Lucro livre G$'].map(q).join(';'));
+    var lim = limitesMes(d.getFullYear(), d.getMonth());
+    S.sales
+      .filter(function (s) {
+        return !s.estorno && noMes(s.ts, lim);
+      })
+      .forEach(function (s) {
+        out.push(
+          [
+            q(s.id),
+            q(new Date(s.ts).toLocaleDateString('pt-BR')),
+            q(descOf(s)),
+            s.qty,
+            s.price,
+            q(s.forma || 'din'),
+            s.taxa || 0,
+            s.livre
+          ].join(';')
+        );
+      });
+    return '﻿' + out.join('\r\n');
+  }
+
+  // ---------- fluxo de caixa projetado
+  // Contas ainda não pagas que vencem nos próximos "dias" (cada uma na sua moeda).
+  function contasNoPeriodo(dias) {
+    var ini = hoje0(),
+      fim = ini + dias * DAY,
+      d = new Date(),
+      out = [];
+    S.exp.forEach(function (e) {
+      if (e.cat === 'imprev') return;
+      for (var i = 0; i < 5; i++) {
+        var ano = d.getFullYear(),
+          mes = d.getMonth() + i,
+          ym = new Date(ano, mes, 1),
+          k = ym.getFullYear() + '-' + ('0' + (ym.getMonth() + 1)).slice(-2),
+          ts = vencEm({ dia: e.dia >= 1 ? e.dia : 31 }, ym.getFullYear(), ym.getMonth());
+        if (e.paid && e.paid[k]) continue;
+        if (i === 0 && ts < ini) ts = ini;
+        if (ts <= fim && ts >= ini)
+          out.push({ nome: e.nome, ts: ts, moeda: expMoeda(e), orig: expOrig(e), gs: e.valor, semDia: !(e.dia >= 1) });
+      }
+    });
+    return out.sort(function (a, b) {
+      return a.ts - b.ts;
+    });
+  }
+  // Projeção do caixa para 30, 60 ou 90 dias, mantendo o ritmo de vendas dos últimos 30 dias.
+  function fluxoCaixa(dias) {
+    var now = Date.now(),
+      first = S.sales.reduce(function (a, s) {
+        return Math.min(a, s.ts);
+      }, now),
+      base = Math.max(7, Math.min(30, (now - Math.min(first, S.appStart || now)) / DAY)),
+      v30 = S.sales.filter(function (s) {
+        return !s.estorno && now - s.ts <= 30 * DAY;
+      }),
+      porDia = sumBy(v30, 'price') / base,
+      entra = Math.round(porDia * dias),
+      fracRep = sumBy(v30, 'price') > 0 ? sumBy(v30, 'rep') / sumBy(v30, 'price') : 0,
+      repGs = Math.round(entra * fracRep),
+      contas = contasNoPeriodo(dias),
+      contasGs = contas.reduce(function (a, x) {
+        return a + x.gs;
+      }, 0),
+      wal = Math.round(walletGs()),
+      pm = { pyg: { need: 0 }, usd: { need: 0 }, brl: { need: 0 } };
+    contas.forEach(function (x) {
+      pm[x.moeda].need += x.orig;
+    });
+    ['pyg', 'usd', 'brl'].forEach(function (m) {
+      pm[m].tem = S.cash[m] || 0;
+    });
+    return {
+      dias: dias,
+      porDia: Math.round(porDia),
+      entra: entra,
+      repGs: repGs,
+      contas: contas,
+      contasGs: contasGs,
+      wal: wal,
+      saldo: wal + entra - repGs - contasGs,
+      semVender: wal - contasGs,
+      pm: pm,
+      base: Math.round(base)
+    };
+  }
+  function fluxoHtml() {
+    var dd = S.fluxoD || 30,
+      f = fluxoCaixa(dd),
+      h =
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Fluxo de caixa projetado</h2><div class="hint" style="margin:2px 0 0">Se o ritmo de vendas dos últimos ' +
+        f.base +
+        ' dias continuar (G$ ' +
+        dots(f.porDia) +
+        ' por dia).</div></div><div class="tabs" role="group" aria-label="Horizonte">' +
+        [30, 60, 90]
+          .map(function (n) {
+            return (
+              '<button class="tab' +
+              (dd === n ? ' on' : '') +
+              '" data-act="fluxod" data-id="' +
+              n +
+              '" aria-pressed="' +
+              (dd === n) +
+              '">' +
+              n +
+              ' dias</button>'
+            );
+          })
+          .join('') +
+        '</div><div class="split">';
+    h += dxRow('Dinheiro hoje', 'carteira toda em guaranis', gs(f.wal));
+    h += dxRow('Entra das vendas', 'estimativa', '+' + gs(f.entra));
+    h += dxRow('Sai para repor mercadoria', 'parte das vendas que volta ao estoque', '−' + gs(f.repGs));
+    h += dxRow(
+      'Sai em contas',
+      f.contas.length + ' pagamento(s) até o dia ' + fd(hoje0() + dd * DAY),
+      '−' + gs(f.contasGs)
+    );
+    h +=
+      '<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span><b>Saldo projetado em ' +
+      dd +
+      ' dias</b><small>sem vender nada: ' +
+      gs(f.semVender) +
+      '</small></span><b style="color:' +
+      (f.saldo >= 0 ? 'var(--ok)' : 'var(--bad)') +
+      '">' +
+      gs(f.saldo) +
+      '</b></div></div>';
+    var falta = ['pyg', 'usd', 'brl'].filter(function (m) {
+      return f.pm[m].need > f.pm[m].tem + 1e-9;
+    });
+    if (falta.length)
+      h +=
+        '<div class="note n-warn">' +
+        falta
+          .map(function (m) {
+            return (
+              'Contas em ' +
+              m.toUpperCase() +
+              ': precisa de ' +
+              fmtM(f.pm[m].need, m) +
+              ' e tem ' +
+              fmtM(f.pm[m].tem, m) +
+              '. Troque moeda na aba Caixa antes de vencer.'
+            );
+          })
+          .join(' ') +
+        '</div>';
+    if (f.contas.length) {
+      h += '<div class="split">';
+      f.contas.slice(0, 6).forEach(function (x) {
+        h += dxRow(
+          esc(x.nome),
+          (x.semDia ? 'sem dia definido (fim do mês)' : 'dia ' + fd(x.ts)),
+          fmtM(x.orig, x.moeda)
+        );
+      });
+      h += '</div>';
+    }
+    return h + '</section>';
+  }
+
+  // ---------- retirada do dono e conferência do caixa
+  function lucroLivreMes() {
+    var d = new Date();
+    return resultadoMes(d.getFullYear(), d.getMonth());
+  }
+  function retiradaHtml() {
+    var r = lucroLivreMes(),
+      h =
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Retirada do dono</h2><div class="hint" style="margin:2px 0 0">Dinheiro que você tira da loja para você. Sai do caixa na moeda escolhida.</div></div>';
+    var pct = r.lucroLivre > 0 ? r.retTotal / r.lucroLivre : r.retTotal > 0 ? 9 : 0;
+    h +=
+      '<div class="note ' +
+      (pct > 1 ? 'n-bad' : pct > 0.8 ? 'n-warn' : 'n-ok') +
+      '">Neste mês: lucro livre <b>' +
+      gs(r.lucroLivre) +
+      '</b> · retiradas <b>' +
+      gs(r.retTotal) +
+      '</b> (inclui contas pessoais e de casa pagas)' +
+      (pct > 1
+        ? '. Você retirou mais do que a loja lucrou: o excedente saiu do dinheiro da reposição e das contas.'
+        : '.') +
+      '</div>';
+    h +=
+      '<div class="sel" style="flex-wrap:wrap"><select class="in" id="rtM" aria-label="Moeda da retirada" style="flex:1 1 90px;width:auto"><option value="pyg">G$</option><option value="usd">US$</option><option value="brl">R$</option></select><input class="in" id="rtV" inputmode="decimal" placeholder="Valor" style="flex:1 1 110px;width:auto" aria-label="Valor da retirada"><input class="in" id="rtN" placeholder="Para quê (opcional)" style="flex:2 1 150px;width:auto" aria-label="Motivo da retirada"><button class="mini" data-act="rtgo">Retirar</button></div><div class="hint" id="rtH" role="status" style="margin:0">' +
+      esc(S.rtMsg || '') +
+      '</div>';
+    S.retiradas.slice(0, 5).forEach(function (x) {
+      h +=
+        '<div class="sl"><span>' +
+        esc(x.nota || 'Retirada') +
+        '<small>' +
+        fd(x.ts) +
+        ' às ' +
+        fh(x.ts) +
+        ' · <a href="#" data-act="rtdes" data-id="' +
+        x.ts +
+        '" style="color:var(--accent-fg)">desfazer</a></small></span><b>' +
+        fmtM(x.orig, x.moeda) +
+        '</b></div>';
+    });
+    return h + '</section>';
+  }
+  // Dias desde a última conferência do caixa (Infinity se nunca).
+  function ccDias() {
+    var u = S.confCx.length ? S.confCx[S.confCx.length - 1].ts : 0;
+    return u ? Math.floor((Date.now() - u) / DAY) : Infinity;
+  }
+  function ccHtml() {
+    var dias = ccDias(),
+      h =
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Conferir o caixa</h2><div class="hint" style="margin:2px 0 0">Conte o dinheiro que você tem e compare com o que o app calcula.' +
+        (dias === Infinity ? ' Ainda não conferiu.' : ' Última conferência há ' + dias + ' dia(s).') +
+        '</div></div>';
+    if (!S.ccOpen) {
+      return h + '<button class="mini" data-act="ccabrir">Conferir caixa</button></section>';
+    }
+    h += '<div class="sel" style="flex-wrap:wrap">';
+    [
+      ['ccP', 'Guaranis', 'pyg'],
+      ['ccU', 'Dólares', 'usd'],
+      ['ccB', 'Reais', 'brl']
+    ].forEach(function (x) {
+      h +=
+        '<div style="flex:1 1 120px"><div class="lbl">' +
+        x[1] +
+        ' (app: ' +
+        fmtM(S.cash[x[2]], x[2]) +
+        ')</div><input class="in" id="' +
+        x[0] +
+        '" inputmode="decimal" value="' +
+        (S.ccV && S.ccV[x[0]] != null ? S.ccV[x[0]] : inVal(S.cash[x[2]], x[2])) +
+        '" aria-label="' +
+        x[1] +
+        ' contados"></div>';
+    });
+    h += '</div>';
+    if (S.ccRes)
+      h +=
+        '<div class="note ' +
+        (S.ccRes.ok ? 'n-ok' : 'n-warn') +
+        '" role="status">' +
+        esc(S.ccRes.txt) +
+        '</div>';
+    h += '<div class="sel" style="flex-wrap:wrap"><button class="mini" data-act="ccgo">Conferir</button>';
+    if (S.ccRes && !S.ccRes.ok)
+      h += '<button class="chip" data-act="ccadj">Ajustar o saldo do app para o que contei</button>';
+    return h + '<button class="chip" data-act="ccfechar">Fechar</button></div></section>';
+  }
+  // Aviso de lembrete da conferência semanal (vazio se não precisa).
+  function ccLembrete() {
+    if (S.ccLemb === false) return '';
+    var d = ccDias();
+    if (d < 7) return '';
+    return (
+      '<div class="note n-warn">' +
+      (d === Infinity ? 'Você ainda não conferiu o caixa.' : 'Faz ' + d + ' dias que você não confere o caixa.') +
+      ' <a href="#caixa" data-act="view" data-id="caixa" style="color:var(--accent-fg)">Conferir agora</a></div>'
+    );
+  }
+
+  // ---------- capital parado e retorno do estoque
+  function capitalEstoque() {
+    var st = prodStats().filter(function (m) {
+        return m.stock > 0 && !isSimple(m.tipo);
+      }),
+      now = Date.now(),
+      total = 0,
+      parado = 0;
+    st.forEach(function (m) {
+      total += m.costUsd;
+      if ((now - (m.last || S.appStart || now)) / DAY >= 60) parado += m.costUsd;
+    });
+    var lucro30 = S.sales
+      .filter(function (s) {
+        return !s.estorno && now - s.ts <= 30 * DAY;
+      })
+      .reduce(function (a, s) {
+        return a + lucroUsd(s);
+      }, 0);
+    return {
+      total: total,
+      parado: parado,
+      pct: total > 0 ? parado / total : 0,
+      lucro30: lucro30,
+      retorno: total > 0 ? lucro30 / total : 0
+    };
+  }
+  function capitalHtml() {
+    var c = capitalEstoque();
+    if (!(c.total > 0)) return '';
+    var u = function (n) {
+      return 'US$ ' + n.toFixed(2).replace('.', ',');
+    };
+    return (
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Dinheiro no estoque</h2><div class="hint" style="margin:2px 0 0">Quanto do que você investiu está parado e quanto o estoque rende.</div></div><div class="split">' +
+      dxRow('Investido em estoque', 'a custo, sem estojos e brindes', u(c.total)) +
+      dxRow(
+        'Parado há 60 dias ou mais',
+        Math.round(c.pct * 100) + '% do investido',
+        '<span style="color:' + (c.pct > 0.3 ? 'var(--warn)' : 'inherit') + '">' + u(c.parado) + '</span>'
+      ) +
+      dxRow(
+        'Retorno do estoque (30 dias)',
+        'cada US$ 1 investido rendeu ' + u(c.retorno) + ' de lucro livre',
+        pc(c.retorno)
+      ) +
+      '</div></section>'
+    );
+  }
+
+  // ---------- dólar favorável para comprar
+  function dolarFavoravel() {
+    var from = Date.now() - S.janela * DAY,
+      h = S.fxHist.filter(function (p) {
+        return p.ts >= from;
+      });
+    if (h.length < 5) return null;
+    var vals = h.map(function (p) {
+        return p.pyg;
+      }),
+      min = Math.min.apply(null, vals),
+      max = Math.max.apply(null, vals),
+      med =
+        vals.reduce(function (a, b) {
+          return a + b;
+        }, 0) / vals.length,
+      hj = S.fx.pyg,
+      pos = max > min ? (hj - min) / (max - min) : 0.5;
+    return {
+      hoje: hj,
+      min: min,
+      max: max,
+      media: Math.round(med),
+      pos: pos,
+      barato: pos <= 0.2 || hj <= med * 0.98,
+      caro: pos >= 0.85 && hj >= med * 1.03,
+      repUsd: reservas().rUSD
+    };
+  }
+  function dolarHtml() {
+    var d = dolarFavoravel();
+    if (!d || (!d.barato && !d.caro)) return '';
+    var dif = Math.round(Math.abs(d.hoje / d.media - 1) * 100);
+    return d.barato
+      ? '<div class="note n-ok">Dólar favorável para comprar: G$ ' +
+          dots(d.hoje) +
+          ' hoje, ' +
+          dif +
+          '% abaixo da média de ' +
+          S.janela +
+          ' dias (G$ ' +
+          dots(d.media) +
+          ', mínimo G$ ' +
+          dots(d.min) +
+          '). Você tem US$ ' +
+          Math.round(d.repUsd) +
+          ' separados para reposição; se precisar comprar dólar, é um bom momento.</div>'
+      : '<div class="note n-warn">Dólar caro hoje: G$ ' +
+          dots(d.hoje) +
+          ', ' +
+          dif +
+          '% acima da média de ' +
+          S.janela +
+          ' dias (G$ ' +
+          dots(d.media) +
+          '). Se puder, adie a compra de dólar.</div>';
+  }
+
+  // ---------- preço que ficou perigoso
+  // Produtos cujo preço de tabela não cobre mais o custo, as contas e o colchão com o câmbio de hoje.
+  function precoPerigoso() {
+    return abaixoDoPiso().filter(function (m) {
+      return m.pp.lista < m.pp.trava + m.pp.colch;
+    });
+  }
+  function perigosoHtml() {
+    var l = precoPerigoso().slice(0, 6);
+    if (!l.length) return '';
+    var h =
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Preço ficou perigoso</h2><div class="hint" style="margin:2px 0 0">O preço de tabela já não cobre custo, contas e o colchão com o câmbio de hoje. Sugestão: subir para o piso da faixa.</div></div><div class="split">';
+    l.forEach(function (m) {
+      var f = faixaOf(m.ref),
+        novo = m.pp.piso;
+      h += dxRow(
+        dxNome(m),
+        'tabela ' + gs(m.pp.lista) + ' → sugerido ' + gs(novo) + (f ? '' : ' · defina uma faixa para ajustar por aqui'),
+        f
+          ? '<button class="mini" data-act="precoap" data-id="' +
+              esc(m.key) +
+              '">Aplicar</button>'
+          : ''
+      );
+    });
+    return h + '</div><div class="hint" style="margin:0">Aplicar muda o preço desse tipo para todos os produtos da mesma faixa.</div></section>';
+  }
+
+  // ---------- blocos do Dashboard (fora dos blocos de análise de produto)
+  function dashFin() {
+    return (
+      ccLembrete() + dolarHtml() + backupLembrete() + resultadoHtml() + fluxoHtml() + capitalHtml() + perigosoHtml()
+    );
+  }
+  // ===== Forma de pagamento da venda e taxas (maquininha, Pix). =====
+  // Taxa em % sobre o valor recebido. Dinheiro e Pix não têm taxa; ajuste a maquininha em Ajustes.
+  S.formas = [
+    { id: 'din', nome: 'Dinheiro', taxa: 0 },
+    { id: 'pix', nome: 'Pix', taxa: 0 },
+    { id: 'deb', nome: 'Maquininha débito', taxa: 2 },
+    { id: 'cre', nome: 'Maquininha crédito', taxa: 4 }
+  ];
+  S.forma = 'din';
+  // Forma de pagamento escolhida na venda.
+  function formaSel() {
+    return (
+      S.formas.filter(function (f) {
+        return f.id === S.forma;
+      })[0] || S.formas[0]
+    );
+  }
+  // Forma pelo id (para vendas antigas sem forma: dinheiro).
+  function formaPorId(id) {
+    return (
+      S.formas.filter(function (f) {
+        return f.id === id;
+      })[0] || { id: 'din', nome: 'Dinheiro', taxa: 0 }
+    );
+  }
+  // Taxa em guaranis sobre o valor recebido (já em guaranis).
+  function taxaGs(effGs, f) {
+    f = f || formaSel();
+    return f && f.taxa > 0 ? Math.round((effGs * f.taxa) / 100) : 0;
+  }
+  // Taxa na moeda em que o cliente pagou.
+  function taxaMoeda(recebido, moeda, f) {
+    var t = f && f.taxa > 0 ? (recebido * f.taxa) / 100 : 0;
+    return moeda === 'pyg' ? Math.round(t) : Math.round(t * 100) / 100;
+  }
+  // Botões de forma de pagamento na tela de venda.
+  function renderForma() {
+    var box = $('formaChips');
+    if (!box) return;
+    box.textContent = '';
+    var cur = formaSel();
+    S.formas.forEach(function (f) {
+      box.appendChild(
+        btn(
+          'chip' + (cur.id === f.id ? ' on' : ''),
+          f.nome + (f.taxa > 0 ? ' · ' + String(f.taxa).replace('.', ',') + '%' : ''),
+          function () {
+            S.forma = f.id;
+            render();
+          },
+          cur.id === f.id
+        )
+      );
+    });
+  }
+  // ===== Segurança (PIN e biometria ao abrir) e cópias automáticas dos dados. =====
+  S.pinHash = '';
+  S.pinSalt = '';
+  S.bioOn = false;
+  S.lockMin = 5; // minutos fora do app antes de pedir de novo
+  S.lockSens = true; // pedir também em ações sensíveis (restaurar, apagar tudo, retirada)
+  var LOCK = { locked: false, modo: 'open', cb: null, tent: 0, bloq: 0, saiuEm: 0 };
+
+  function pinAtivo() {
+    return !!S.pinHash;
+  }
+  // Resumo do PIN com sal (SHA-256 quando o aparelho permite, senão um resumo simples).
+  function hashPin(pin, salt) {
+    var txt = 'lafouch|' + salt + '|' + pin;
+    function simples() {
+      var h = 5381,
+        i;
+      for (i = 0; i < txt.length; i++) h = ((h << 5) + h + txt.charCodeAt(i)) | 0;
+      return 's' + (h >>> 0).toString(16);
+    }
+    try {
+      if (window.crypto && window.crypto.subtle && window.TextEncoder)
+        return window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(txt)).then(function (b) {
+          return Array.prototype.map
+            .call(new Uint8Array(b), function (x) {
+              return ('0' + x.toString(16)).slice(-2);
+            })
+            .join('');
+        });
+    } catch (e) {}
+    return Promise.resolve(simples());
+  }
+  function novoSal() {
+    return Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+  }
+
+  // ---------- biometria (plugin do Capacitor, só no app instalado)
+  function bioPlugin() {
+    var P = window.Capacitor && window.Capacitor.Plugins;
+    return (P && P.BiometricAuth) || null;
+  }
+  // Pergunta ao aparelho se há digital ou rosto cadastrados (resultado guardado em S._bioOk).
+  function bioChecar() {
+    var b = bioPlugin();
+    if (!b || !b.checkBiometry) {
+      S._bioOk = false;
+      return;
+    }
+    b.checkBiometry()
+      .then(function (r) {
+        S._bioOk = !!(r && r.isAvailable);
+        renderAjustes();
+      })
+      .catch(function () {
+        S._bioOk = false;
+      });
+  }
+  function bioPedir(ok, falha) {
+    var b = bioPlugin();
+    if (!b) return falha();
+    b.authenticate({
+      reason: 'Abrir o La Fouch',
+      cancelTitle: 'Usar o PIN',
+      allowDeviceCredential: false,
+      androidTitle: 'La Fouch',
+      androidSubtitle: 'Confirme que é você'
+    })
+      .then(ok)
+      .catch(falha);
+  }
+
+  // ---------- tela de bloqueio
+  function lockMsg(t) {
+    $('lockM').textContent = t || '';
+  }
+  function liberar() {
+    LOCK.locked = false;
+    LOCK.tent = 0;
+    $('lockScr').hidden = true;
+    $('lockPin').value = '';
+    lockMsg('');
+    var cb = LOCK.cb;
+    LOCK.cb = null;
+    if (cb) cb();
+  }
+  function mostrarLock(modo, cb) {
+    LOCK.locked = true;
+    LOCK.modo = modo;
+    LOCK.cb = cb || null;
+    $('lockScr').hidden = false;
+    $('lockT').textContent = modo === 'open' ? 'La Fouch' : 'Confirme que é você';
+    $('lockPin').value = '';
+    lockMsg(modo === 'open' ? 'Digite o PIN para abrir.' : 'Digite o PIN para continuar.');
+    $('lockCancel').hidden = modo === 'open';
+    var bo = !!(S.bioOn && bioPlugin());
+    $('lockBio').hidden = !bo;
+    if (bo)
+      bioPedir(liberar, function () {
+        lockMsg('Não reconheceu. Use o PIN.');
+      });
+    else
+      setTimeout(function () {
+        try {
+          $('lockPin').focus();
+        } catch (e) {}
+      }, 50);
+  }
+  function tentarPin() {
+    if (Date.now() < LOCK.bloq) {
+      lockMsg('Muitas tentativas. Espere ' + Math.ceil((LOCK.bloq - Date.now()) / 1000) + ' segundos.');
+      return;
+    }
+    hashPin($('lockPin').value, S.pinSalt).then(function (h) {
+      if (h === S.pinHash) return liberar();
+      LOCK.tent++;
+      $('lockPin').value = '';
+      if (LOCK.tent >= 5) {
+        LOCK.tent = 0;
+        LOCK.bloq = Date.now() + 30000;
+        lockMsg('Muitas tentativas. Espere 30 segundos.');
+      } else lockMsg('PIN incorreto. Restam ' + (5 - LOCK.tent) + ' tentativa(s).');
+    });
+  }
+  $('lockGo').onclick = tentarPin;
+  $('lockPin').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') tentarPin();
+  });
+  $('lockBio').onclick = function () {
+    bioPedir(liberar, function () {
+      lockMsg('Não reconheceu. Use o PIN.');
+    });
+  };
+  $('lockCancel').onclick = function () {
+    LOCK.locked = false;
+    LOCK.cb = null;
+    $('lockScr').hidden = true;
+  };
+  // Ao abrir o app: pede o PIN se estiver ativo.
+  function iniciarLock() {
+    if (pinAtivo()) mostrarLock('open');
+  }
+  // Pede o PIN antes de uma ação sensível (se o PIN estiver ativo e a opção ligada).
+  function exigirAuth(fn) {
+    if (!pinAtivo() || S.lockSens === false) return fn();
+    mostrarLock('confirm', fn);
+  }
+  document.addEventListener('visibilitychange', function () {
+    if (!pinAtivo()) return;
+    if (document.hidden) {
+      if (!LOCK.locked) LOCK.saiuEm = Date.now();
+      return;
+    }
+    var fora = LOCK.saiuEm ? Date.now() - LOCK.saiuEm : 0;
+    if (!LOCK.locked && LOCK.saiuEm && fora >= Math.max(15000, (S.lockMin || 0) * 60000)) mostrarLock('open');
+    autoBackup();
+  });
+
+  // ---------- cópias automáticas (uma por dia, guardadas no próprio app)
+  var AB_DB = 'lafouch_bk',
+    AB_MAX = 7;
+  function abAbrir() {
+    return new Promise(function (ok, no) {
+      try {
+        var r = indexedDB.open(AB_DB, 1);
+        r.onupgradeneeded = function () {
+          r.result.createObjectStore('c', { keyPath: 'dia' });
+        };
+        r.onsuccess = function () {
+          ok(r.result);
+        };
+        r.onerror = function () {
+          no(r.error);
+        };
+      } catch (e) {
+        no(e);
+      }
+    });
+  }
+  function abTodas() {
+    return abAbrir().then(function (db) {
+      return new Promise(function (ok, no) {
+        var q = db.transaction('c').objectStore('c').getAll();
+        q.onsuccess = function () {
+          ok(
+            (q.result || []).sort(function (a, b) {
+              return a.dia < b.dia ? 1 : -1;
+            })
+          );
+        };
+        q.onerror = function () {
+          no(q.error);
+        };
+      });
+    });
+  }
+  // Faz a cópia do dia (sem fotos, para ser leve) e apaga as mais antigas.
+  function autoBackup(forcar) {
+    var dia = dayKey(Date.now());
+    if (!forcar && S._abDia === dia) return Promise.resolve();
+    S._abDia = dia;
+    var txt = backupDados(true);
+    return abAbrir()
+      .then(function (db) {
+        return new Promise(function (ok, no) {
+          var tx = db.transaction('c', 'readwrite'),
+            st = tx.objectStore('c');
+          st.put({ dia: dia, ts: Date.now(), kb: Math.round(txt.length / 1024), txt: txt });
+          var q = st.getAllKeys();
+          q.onsuccess = function () {
+            q.result
+              .sort()
+              .reverse()
+              .slice(AB_MAX)
+              .forEach(function (k) {
+                st.delete(k);
+              });
+          };
+          tx.oncomplete = ok;
+          tx.onerror = function () {
+            no(tx.error);
+          };
+        });
+      })
+      .then(function () {
+        S._abList = undefined;
+        if (S.view === 'ajustes') render();
+      })
+      .catch(function () {
+        S._abDia = '';
+      });
+  }
+  function abCarregar() {
+    if (S._abList !== undefined || S._abLoading) return;
+    S._abLoading = true;
+    abTodas()
+      .then(function (l) {
+        S._abList = l.map(function (x) {
+          return { dia: x.dia, ts: x.ts, kb: x.kb };
+        });
+        S._abLoading = false;
+        S._ajForce = true;
+        renderAjustes();
+      })
+      .catch(function () {
+        S._abList = [];
+        S._abLoading = false;
+      });
+  }
+  function abRestaurar(dia) {
+    return abAbrir().then(function (db) {
+      return new Promise(function (ok, no) {
+        var q = db.transaction('c').objectStore('c').get(dia);
+        q.onsuccess = function () {
+          ok(q.result && q.result.txt);
+        };
+        q.onerror = function () {
+          no(q.error);
+        };
+      });
+    });
+  }
+  // Lembrete: quando foi o último backup guardado fora do app.
+  function backupLembrete() {
+    if (!S.sales.length) return '';
+    var dias = S.backupTs ? Math.floor((Date.now() - S.backupTs) / DAY) : Infinity;
+    if (dias < 7) return '';
+    return (
+      '<div class="note n-warn">' +
+      (dias === Infinity ? 'Você ainda não guardou um backup fora do celular.' : 'Faz ' + dias + ' dias do último backup guardado fora do celular.') +
+      ' <a href="#ajustes" data-act="view" data-id="ajustes" style="color:var(--accent-fg)">Fazer agora</a></div>'
+    );
+  }
+
+  // ---------- partes da aba Ajustes: pagamento, segurança e cópias
+  function ajustesFinHtml() {
+    var h = '';
+    // formas de pagamento
+    h +=
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Formas de pagamento e taxas</h2><div class="hint" style="margin:2px 0 0">A taxa (%) sai do seu lucro quando a venda é paga por essa forma. Dinheiro e Pix ficam em 0%. Confira as taxas da sua maquininha.</div></div>';
+    S.formas.forEach(function (f) {
+      h +=
+        '<div style="display:flex;gap:8px;align-items:center"><span style="flex:1 1 150px">' +
+        esc(f.nome) +
+        '</span><input class="in" inputmode="decimal" data-aj="ptaxa" data-id="' +
+        f.id +
+        '" value="' +
+        String(f.taxa).replace('.', ',') +
+        '" aria-label="Taxa de ' +
+        esc(f.nome) +
+        ' em porcentagem" style="max-width:100px"><span class="hint" style="margin:0">%</span></div>';
+    });
+    h += '</section>';
+    // lembretes
+    h +=
+      '<section class="card col"><h2 style="margin:0;font-size:16px">Lembretes</h2><label style="display:flex;gap:10px;align-items:center"><input type="checkbox" data-aj="cclemb"' +
+      (S.ccLemb !== false ? ' checked' : '') +
+      '> Lembrar toda semana de conferir o caixa</label></section>';
+    // segurança
+    h +=
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Segurança</h2><div class="hint" style="margin:2px 0 0">PIN para abrir o app' +
+      (bioPlugin() ? ' e, se você quiser, digital ou rosto' : ' (digital e rosto funcionam no app instalado no celular)') +
+      '.</div></div>';
+    if (!pinAtivo() || S.pinNovo) {
+      h +=
+        '<div class="sel" style="flex-wrap:wrap"><input class="in" id="pin1" type="password" inputmode="numeric" maxlength="8" placeholder="Novo PIN (4 a 8 números)" autocomplete="off" style="flex:1 1 150px;width:auto" aria-label="Novo PIN"><input class="in" id="pin2" type="password" inputmode="numeric" maxlength="8" placeholder="Repita o PIN" autocomplete="off" style="flex:1 1 150px;width:auto" aria-label="Repita o PIN"><button class="mini" data-act="pinset">' +
+        (pinAtivo() ? 'Trocar PIN' : 'Ativar PIN') +
+        '</button></div><div class="hint" style="margin:0">Anote o PIN. Se esquecer, só reinstalando o app (e os dados voltam apenas pelo backup).</div>';
+    } else {
+      if (S._bioOk === undefined) bioChecar();
+      h +=
+        '<div class="note n-ok">PIN ativo.</div><div class="sel" style="flex-wrap:wrap"><div><div class="lbl">Pedir o PIN</div><select class="in" data-aj="lockmin" aria-label="Quando pedir o PIN" style="width:auto">' +
+        [
+          [0, 'Sempre que voltar ao app'],
+          [1, 'Após 1 minuto fora'],
+          [5, 'Após 5 minutos fora'],
+          [15, 'Após 15 minutos fora']
+        ]
+          .map(function (o) {
+            return '<option value="' + o[0] + '"' + (S.lockMin === o[0] ? ' selected' : '') + '>' + o[1] + '</option>';
+          })
+          .join('') +
+        '</select></div></div>' +
+        '<label style="display:flex;gap:10px;align-items:center"><input type="checkbox" data-aj="locksens"' +
+        (S.lockSens !== false ? ' checked' : '') +
+        '> Pedir também para restaurar backup, apagar tudo e registrar retirada</label>';
+      if (bioPlugin())
+        h +=
+          '<label style="display:flex;gap:10px;align-items:center"><input type="checkbox" data-aj="biotog"' +
+          (S.bioOn ? ' checked' : '') +
+          (S._bioOk === false ? ' disabled' : '') +
+          '> Usar digital ou rosto' +
+          (S._bioOk === false ? ' (cadastre uma digital no celular primeiro)' : '') +
+          '</label>';
+      h +=
+        '<div class="sel" style="flex-wrap:wrap"><button class="chip" data-act="pintroca">Trocar PIN</button><button class="chip" data-act="pinoff">' +
+        (S.pinOffConf ? 'Confirmar: desativar PIN' : 'Desativar PIN') +
+        '</button></div>';
+    }
+    h += '</section>';
+    // cópias automáticas
+    abCarregar();
+    h +=
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cópias automáticas</h2><div class="hint" style="margin:2px 0 0">O app guarda uma cópia por dia dentro do próprio celular (últimas ' +
+      AB_MAX +
+      '), sem fotos. Protege contra erro, não contra perder o celular: para isso use o backup acima e guarde o arquivo fora.</div></div>';
+    (S._abList || []).forEach(function (x) {
+      h +=
+        '<div class="sl"><span>' +
+        esc(x.dia.split('-').reverse().join('/')) +
+        '<small>' +
+        fh(x.ts) +
+        ' · ' +
+        x.kb +
+        ' KB</small></span><button class="chip" data-act="abrest" data-id="' +
+        x.dia +
+        '">' +
+        (S.abConf === x.dia ? 'Confirmar: voltar para esta cópia' : 'Restaurar') +
+        '</button></div>';
+    });
+    if (S._abList && !S._abList.length) h += '<div class="hint" style="margin:0">Nenhuma cópia ainda.</div>';
+    h += '<div><button class="mini" data-act="abagora">Fazer cópia agora</button></div></section>';
+    return h;
+  }
   // ===== Aba Vendas. =====
   // Aba Vendas.
   function renderVendas() {
@@ -12411,18 +13551,25 @@
       pp = pisoPeca(sel),
       c = calcSale(t, q, S.fx.pyg, colchao().pct, contasPeca(), S.melhPeca, eff, bu),
       travaTot = pp.trava * q + bg,
-      pisoTot = pp.piso * q + bg;
+      pisoTot = pp.piso * q + bg,
+      fm = formaSel(),
+      tx = taxaGs(eff, fm),
+      liq = eff - tx;
+    c.livre -= tx;
     return {
       eff: eff,
+      liq: liq,
+      tx: tx,
+      fm: fm,
       c: c,
       br: br,
       bu: bu,
       pp: pp,
       travaTot: travaTot,
       pisoTot: pisoTot,
-      perde: eff < travaTot,
-      abaixo: eff < pisoTot,
-      key: [S._selKey, q, eff, S.moeda, br ? br.ref + br.cor : ''].join('|')
+      perde: liq < travaTot,
+      abaixo: liq < pisoTot,
+      key: [S._selKey, q, eff, S.moeda, fm.id, br ? br.ref + br.cor : ''].join('|')
     };
   }
   // Aviso de piso: mostra o lucro ou a perda e pede confirmação se estiver abaixo.
@@ -12439,7 +13586,7 @@
     if (v.perde) {
       el.className = 'note n-bad';
       el.textContent =
-        'Abaixo da trava: você perde ' + gs(v.travaTot - v.eff) + ' nesta venda' + bt + '.';
+        'Abaixo da trava: você perde ' + gs(v.travaTot - v.liq) + ' nesta venda' + bt + (v.tx ? ' (já descontada a taxa de ' + gs(v.tx) + ')' : '') + '.';
     } else if (v.abaixo) {
       el.className = 'note n-warn';
       el.textContent =
@@ -12453,7 +13600,12 @@
         '.';
     } else {
       el.className = 'note n-ok';
-      el.textContent = 'Acima do piso. Lucro livre estimado: ' + gs(v.c.livre) + bt + '.';
+      el.textContent =
+        'Acima do piso. Lucro livre estimado: ' +
+        gs(v.c.livre) +
+        bt +
+        (v.tx ? '. Taxa da ' + v.fm.nome.toLowerCase() + ': ' + gs(v.tx) + ' (já descontada)' : '') +
+        '.';
     }
     if (v.abaixo) {
       var ok = S.pisoConf === v.key;
@@ -15284,6 +16436,7 @@
     }
     var sale = addSale(sel, qty, {
       moeda: S.moeda,
+      forma: S.forma,
       recebido: S._recv,
       brinde: br
         ? {
@@ -15299,6 +16452,7 @@
       motivo: pv && pv.abaixo ? S.vMotivo || '' : ''
     });
     S.pisoConf = '';
+    S.forma = 'din';
     S.descTxt = '';
     S.vBrinde = null;
     S.vMotivo = '';
@@ -15436,6 +16590,8 @@
       '<div class="kpi"><div class="lbl">Dólar hoje</div><b>' +
       gs(S.fx.pyg) +
       '</b><div class="hint">por US$ 1 · <a href="#fx" data-act="view" data-id="fx" style="color:var(--accent-fg)">ver câmbio</a></div></div></section>';
+    html += avisosHtml();
+    html += dashFin();
     html += dashExtra();
     var parts = [
       ['Reposição da mercadoria', usd(repU) + ' guardados em dólar', rep, '#00c8ff'],
@@ -15845,7 +17001,11 @@
       esc(e.nome) +
       '</b> <span class="cell">' +
       (e.tipo === 'fixa' ? 'fixa' : 'variável') +
-      '</span></div><div style="display:flex;align-items:center;gap:10px"><button type="button" data-act="exppay" data-id="' +
+      '</span>' +
+      (expMoeda(e) !== 'pyg'
+        ? ' <span class="cell">' + (expMoeda(e) === 'usd' ? 'em dólar' : 'em real') + '</span>'
+        : '') +
+      '</div><div style="display:flex;align-items:center;gap:10px"><button type="button" data-act="exppay" data-id="' +
       e.id +
       '" aria-pressed="' +
       paid +
@@ -15866,10 +17026,17 @@
       '" inputmode="numeric" data-in="exp" data-id="' +
       e.id +
       '" value="' +
-      dots(e.valor) +
+      (expMoeda(e) === 'pyg' ? dots(e.valor) : inVal(expOrig(e), expMoeda(e))) +
       '" aria-label="Novo valor de ' +
       esc(e.nome) +
-      '" style="flex:1 1 160px;width:auto"><button class="mini" data-act="expsave" data-id="' +
+      (expMoeda(e) === 'pyg' ? '' : ' em ' + (expMoeda(e) === 'usd' ? 'dólares' : 'reais')) +
+      '" style="flex:1 1 160px;width:auto"><input class="in" data-exd="' +
+      e.id +
+      '" inputmode="numeric" maxlength="2" placeholder="Dia" value="' +
+      (e.dia || '') +
+      '" aria-label="Dia do vencimento de ' +
+      esc(e.nome) +
+      '" style="flex:0 0 64px;width:64px"><button class="mini" data-act="expsave" data-id="' +
       e.id +
       '">Salvar novo valor</button>' +
       '<button class="chip" data-act="exprm" data-id="' +
@@ -15881,6 +17048,8 @@
       '<div class="hint" id="pv-' +
       e.id +
       '" style="margin:0">' +
+      (expMoeda(e) !== 'pyg' ? 'Hoje: ' + expTexto(e) + '. ' : '') +
+      (e.dia ? 'Vence todo dia ' + e.dia + '. ' : 'Sem dia de vencimento. ') +
       (e.tipo === 'variavel'
         ? 'Valor muda todo mês. Atualize quando a conta chegar.'
         : 'Altere e veja o efeito antes de salvar.') +
@@ -15933,6 +17102,26 @@
       '</b><div class="hint">para pagar as contas (rateio: ' +
       volumeEfetivo() +
       ' peças por mês, ajuste em Ajustes)</div></div></section>';
+    var ec = efeitoCambio(),
+      rc = reservaCambioContas();
+    if (contasEstrangeiras() > 0)
+      html +=
+        '<div class="note ' +
+        (ec > 0 ? 'n-warn' : 'n-ok') +
+        '">Contas em dólar e real somam ' +
+        gs(contasEstrangeiras()) +
+        ' hoje. ' +
+        (ec === 0
+          ? 'O câmbio não mudou desde que você informou os valores.'
+          : ec > 0
+          ? 'Subiram ' + gs(ec) + ' só por causa do câmbio.'
+          : 'Caíram ' + gs(-ec) + ' por causa do câmbio.') +
+        ' Reserva contra alta do câmbio: ' +
+        gs(rc) +
+        ' por mês (' +
+        pc(colchao().pct) +
+        '), já dividida nas peças.</div>';
+    html += avisosHtml();
     var cats = ['loja', 'casa', 'pessoal', 'profissional', 'imprev'];
     html +=
       '<section class="card col"><h2 style="margin:0;font-size:16px">Por grupo</h2><div class="bar">' +
@@ -16026,7 +17215,7 @@
           return '<option value="' + c + '">' + CATS[c] + '</option>';
         })
         .join('') +
-      '</select><select class="in" id="nTipo" aria-label="Tipo" style="flex:1 1 110px;width:auto"><option value="fixa">Fixa</option><option value="variavel">Variável</option></select><input class="in" id="nVal" inputmode="numeric" placeholder="Valor em G$" style="flex:1 1 120px;width:auto" aria-label="Valor"><button class="mini" data-act="expadd">Adicionar</button></div><div class="hint" id="nH" role="status"></div></section>';
+      '</select><select class="in" id="nTipo" aria-label="Tipo" style="flex:1 1 110px;width:auto"><option value="fixa">Fixa</option><option value="variavel">Variável</option></select><select class="in" id="nMoeda" aria-label="Moeda" style="flex:1 1 90px;width:auto"><option value="pyg">G$</option><option value="usd">US$</option><option value="brl">R$</option></select><input class="in" id="nVal" inputmode="decimal" placeholder="Valor" style="flex:1 1 110px;width:auto" aria-label="Valor"><input class="in" id="nDia" inputmode="numeric" maxlength="2" placeholder="Dia do vencimento" style="flex:1 1 90px;width:auto" aria-label="Dia do vencimento"><button class="mini" data-act="expadd">Adicionar</button></div><div class="hint" id="nH" role="status"></div></section>';
     html +=
       '<section class="card col"><h2 style="margin:0;font-size:16px">Caixa de melhorias</h2><div class="hint" style="margin:0">Opcional. Não entra nas contas obrigatórias e nunca trava uma venda.</div><div class="sel"><input class="in" id="melhIn" inputmode="numeric" data-in="melh" value="' +
       dots(S.melhPeca) +
@@ -16438,7 +17627,9 @@
         imp: 'Imprevisto',
         melh: 'Caixa de melhorias',
         lote: 'Compra de lote',
-        pago: 'Conta paga'
+        pago: 'Conta paga',
+        ret: 'Retirada do dono',
+        confcx: 'Conferência do caixa'
       }[x.kind],
       t,
       a;
@@ -16469,7 +17660,7 @@
       a = usd(x.usd);
     } else {
       t = x.desc;
-      a = gs(x.valor);
+      a = x.moeda && x.moeda !== 'pyg' && x.orig != null ? fmtM(x.orig, x.moeda) : gs(x.valor);
     }
     return { label: L, text: t, amount: a, search: (L + ' ' + t).toLowerCase() };
   }
@@ -16671,7 +17862,7 @@
               : '')
         );
       })[0];
-      S.cash[s.moeda] -= s.recebido;
+      S.cash[s.moeda] -= s.recebido - (s.taxaM || 0);
       estornoBrinde(s);
       if (it) {
         it.qty += s.qty;
@@ -16696,30 +17887,39 @@
       })[0];
       if (!e) return;
       if (!e.paid) e.paid = {};
-      var k = ymNow();
+      var k = ymNow(),
+        m = expMoeda(e);
       if (!S.cpay) S.cpay = [];
       if (e.paid[k]) {
-        var pts = e.paid[k];
-        S.cash.pyg += e.valor;
+        var pts = e.paid[k],
+          pg = S.cpay.filter(function (x) {
+            return x.id === e.id && x.ym === k;
+          })[0],
+          pm0 = (pg && pg.moeda) || 'pyg',
+          pv0 = pg ? (pg.moeda && pg.orig != null ? pg.orig : pg.valor) : e.valor;
+        S.cash[pm0] += pv0;
         desfazerPagamento(e, k, pts);
         delete e.paid[k];
-        S.cxMsg = 'Pagamento de "' + e.nome + '" desfeito. ' + gs(e.valor) + ' voltaram ao caixa.';
+        S.cxMsg = 'Pagamento de "' + e.nome + '" desfeito. ' + fmtM(pv0, pm0) + ' voltaram ao caixa.';
       } else {
-        if (S.cash.pyg < e.valor) {
+        var need = expOrig(e);
+        if ((S.cash[m] || 0) < need - 1e-9) {
           popErr(
-            'Saldo em guaranis insuficiente no caixa (' +
-              gs(Math.max(0, S.cash.pyg)) +
+            'Saldo em ' +
+              m.toUpperCase() +
+              ' insuficiente no caixa (' +
+              fmtM(Math.max(0, S.cash[m] || 0), m) +
               ') para pagar ' +
-              gs(e.valor) +
+              fmtM(need, m) +
               '. Corrija o saldo na aba Caixa ou troque moeda.'
           );
           return;
         }
         var t0 = Date.now();
-        S.cash.pyg -= e.valor;
+        S.cash[m] -= need;
         e.paid[k] = t0;
         lancarPagamento(e, k, t0);
-        S.cxMsg = 'Paguei "' + e.nome + '": ' + gs(e.valor) + ' saíram do caixa.';
+        S.cxMsg = 'Paguei "' + e.nome + '": ' + fmtM(need, m) + ' saíram do caixa.';
       }
       saveSoon();
       renderDesp();
@@ -16730,10 +17930,20 @@
       var e = S.exp.filter(function (x) {
           return String(x.id) === id;
         })[0],
-        v = toNum($('ev-' + id).value);
-      if (!v || v === e.valor) return;
-      e.hist.push({ ts: Date.now(), de: e.valor, para: v });
-      logDespesa('alt', { nome: e.nome, cat: e.cat, de: e.valor, para: v });
+        m = expMoeda(e),
+        raw = m === 'pyg' ? toNum($('ev-' + id).value) : parseDec($('ev-' + id).value, m),
+        v = m === 'pyg' ? raw : Math.round(raw * ratePyg(m));
+      if (!raw) return;
+      e.updYm = ymNow();
+      if (m !== 'pyg') {
+        e.rate0 = ratePyg(m);
+        if (Math.abs(raw - expOrig(e)) < 1e-9) return renderDesp();
+        e.orig = raw;
+      } else if (v === e.valor) return renderDesp();
+      if (v !== e.valor) {
+        e.hist.push({ ts: Date.now(), de: e.valor, para: v });
+        logDespesa('alt', { nome: e.nome, cat: e.cat, de: e.valor, para: v });
+      }
       e.valor = v;
       renderDesp();
       renderDash();
@@ -16757,19 +17967,34 @@
     },
     expadd: function () {
       var n = cap1($('nName').value),
-        v = toNum($('nVal').value);
-      if (!n || !v) {
+        m = $('nMoeda').value,
+        raw = m === 'pyg' ? toNum($('nVal').value) : parseDec($('nVal').value, m),
+        dia = Math.round(toNum($('nDia').value)) || 0;
+      if (!n || !raw) {
         $('nH').textContent = 'Informe o nome e o valor.';
         return;
       }
-      S.exp.push({
-        id: S.nextExp++,
-        nome: n,
-        cat: $('nCat').value,
-        tipo: $('nTipo').value,
-        valor: v,
-        hist: []
-      });
+      if (dia && (dia < 1 || dia > 31)) {
+        $('nH').textContent = 'O dia de vencimento vai de 1 a 31.';
+        return;
+      }
+      var v = m === 'pyg' ? raw : Math.round(raw * ratePyg(m)),
+        ne = {
+          id: S.nextExp++,
+          nome: n,
+          cat: $('nCat').value,
+          tipo: $('nTipo').value,
+          valor: v,
+          hist: [],
+          updYm: ymNow()
+        };
+      if (m !== 'pyg') {
+        ne.moeda = m;
+        ne.orig = raw;
+        ne.rate0 = ratePyg(m);
+      }
+      if (dia) ne.dia = dia;
+      S.exp.push(ne);
       logDespesa('novo', { nome: n, cat: $('nCat').value, tipo: $('nTipo').value, valor: v });
       renderDesp();
       renderDash();
@@ -16851,6 +18076,16 @@
         renderCaixa();
         return;
       }
+      if (!S._resetAuth) {
+        exigirAuth(function () {
+          S._resetAuth = true;
+          ACT.resetall();
+        });
+        return;
+      }
+      S._resetAuth = false;
+      S.retiradas = [];
+      S.confCx = [];
       S.items = [];
       S.sales = [];
       S.saleSeq = 0;
@@ -16910,6 +18145,8 @@
         })[0],
         v = toNum(t.value),
         p = $('pv-' + ex.id);
+      var mx = expMoeda(ex);
+      if (mx !== 'pyg') v = Math.round(parseDec(t.value, mx) * ratePyg(mx));
       var nt = tm2(ex, v),
         old = totalMensal();
       p.textContent =
@@ -17144,6 +18381,7 @@
         )
       );
     });
+    renderForma();
     $('recIn').value = inVal(v, m);
     updateRec();
   }
@@ -17280,6 +18518,7 @@
           '</b></div>'
         : '<div class="hint" style="margin:0">Nenhuma conta paga neste mês ainda.</div>') +
       '</section>';
+    html += retiradaHtml() + ccHtml();
     var t = S.tr;
     html +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Trocar moeda</h2><div class="hint" style="margin:2px 0 0">Registre a troca que você fez. Os saldos mudam nas duas moedas.</div></div>' +
@@ -17445,12 +18684,13 @@
   });
   // ===== Aba Ajustes: faixas, meta, sazonalidade, contas e backup dos dados. =====
   // Gera o texto do backup (dados + fotos em miniatura).
-  function backupDados() {
+  var SEM_BACKUP = ['pinHash', 'pinSalt', 'bioOn', 'lockMin', 'lockSens'];
+  function backupDados(semFotos) {
     var d = {};
     PERSIST.forEach(function (k) {
-      d[k] = S[k];
+      if (SEM_BACKUP.indexOf(k) < 0) d[k] = S[k];
     });
-    d.fotos = S.fotos;
+    if (!semFotos) d.fotos = S.fotos;
     return JSON.stringify({ app: 'lafouch', v: 1, ts: Date.now(), d: d });
   }
   // Restaura os dados a partir do texto do backup. Devolve '' se deu certo, ou a mensagem de erro.
@@ -17464,7 +18704,7 @@
     if (!o || o.app !== 'lafouch' || !o.d || !Array.isArray(o.d.items))
       return 'Arquivo inválido: não é um backup do app.';
     PERSIST.forEach(function (k) {
-      if (o.d[k] !== undefined) S[k] = o.d[k];
+      if (o.d[k] !== undefined && SEM_BACKUP.indexOf(k) < 0) S[k] = o.d[k];
     });
     if (o.d.fotos && typeof o.d.fotos === 'object') S.fotos = o.d.fotos;
     try {
@@ -17492,30 +18732,11 @@
       S.bkText = '';
       render();
     }
-    function plano() {
-      try {
-        var a = document.createElement('a');
-        a.href = URL.createObjectURL(new Blob([txt], { type: 'application/json' }));
-        a.download = nome;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        feito();
-      } catch (e) {
-        S.bkText = txt;
-        S.ajMsg = 'Copie o texto abaixo e guarde onde quiser.';
-        render();
-      }
-    }
-    var P = window.Capacitor && window.Capacitor.Plugins;
-    if (P && P.Filesystem && P.Share) {
-      P.Filesystem.writeFile({ path: nome, data: txt, directory: 'CACHE', encoding: 'utf8' })
-        .then(function (r) {
-          return P.Share.share({ title: nome, url: r.uri, dialogTitle: 'Guardar o backup' });
-        })
-        .then(feito)
-        .catch(plano);
-    } else plano();
+    salvarArquivo(nome, txt, 'application/json', feito, function () {
+      S.bkText = txt;
+      S.ajMsg = 'Copie o texto abaixo e guarde onde quiser.';
+      render();
+    });
   }
   // Lê um número digitado (aceita vírgula).
   function numIn(v) {
@@ -17633,6 +18854,7 @@
         ? '<textarea class="in" readonly rows="5" style="width:100%;font-size:12px">' + esc(S.bkText) + '</textarea>'
         : '') +
       '</section>';
+    h += ajustesFinHtml();
     el.innerHTML = h;
   }
   // Recalcula e salva uma alteração feita na aba Ajustes.
@@ -17729,7 +18951,9 @@
       return;
     }
     S.bkImpConf = false;
-    bkFile.click();
+    exigirAuth(function () {
+      bkFile.click();
+    });
   };
   ACT.volauto = function () {
     S.volAuto = S.volAuto === false;
@@ -18081,6 +19305,285 @@
     render();
     window.scrollTo(0, 0);
   };
+  // ===== Ações e eventos da parte financeira (contas, fluxo, retirada, conferência, taxas). =====
+  // Dia de vencimento de uma despesa.
+  document.addEventListener('change', function (ev) {
+    var t = ev.target,
+      id = t.getAttribute && t.getAttribute('data-exd');
+    if (!id) return;
+    var e = S.exp.filter(function (x) {
+      return String(x.id) === id;
+    })[0];
+    if (!e) return;
+    var d = Math.round(toNum(t.value)) || 0;
+    if (d < 0 || d > 31) d = 0;
+    if (d) e.dia = d;
+    else delete e.dia;
+    renderDesp();
+    renderDash();
+    saveSoon();
+  });
+
+  // Campos de contagem do caixa guardam o que foi digitado (a tela pode ser redesenhada).
+  document.addEventListener('input', function (ev) {
+    var t = ev.target;
+    if (t.id && /^cc[PUB]$/.test(t.id)) {
+      S.ccV = S.ccV || {};
+      S.ccV[t.id] = t.value;
+    }
+  });
+  // Ajustes novos: taxas, lembrete, bloqueio e biometria.
+  document.addEventListener('change', function (ev) {
+    var t = ev.target,
+      k = t.getAttribute && t.getAttribute('data-aj');
+    if (!k) return;
+    var id = t.getAttribute('data-id');
+    if (k === 'ptaxa') {
+      var f = formaPorId(id);
+      f.taxa = Math.max(0, Math.min(30, numIn(t.value)));
+      if (f !== S.formas.filter(function (x) { return x.id === id; })[0]) return;
+    } else if (k === 'cclemb') S.ccLemb = t.checked;
+    else if (k === 'lockmin') S.lockMin = Math.max(0, parseInt(t.value, 10) || 0);
+    else if (k === 'locksens') S.lockSens = t.checked;
+    else if (k === 'biotog') {
+      if (t.checked)
+        bioPedir(
+          function () {
+            S.bioOn = true;
+            S.ajMsg = 'Digital ou rosto ativado.';
+            S._ajForce = true;
+            render();
+          },
+          function () {
+            S.bioOn = false;
+            S.ajMsg = 'Não consegui confirmar a digital ou o rosto. Tente de novo.';
+            S._ajForce = true;
+            render();
+          }
+        );
+      else S.bioOn = false;
+    } else return;
+    S._ajForce = true;
+    render();
+  });
+
+  ACT.fluxod = function (id) {
+    S.fluxoD = Number(id) || 30;
+    renderDash();
+  };
+  ACT.resexp = function () {
+    var d = new Date();
+    salvarArquivo(
+      'lafouch-resultado-' + d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '.csv',
+      resultadoCsv(),
+      'text/csv',
+      function () {},
+      function () {
+        popErr('Não consegui gerar o arquivo neste aparelho.');
+      }
+    );
+  };
+
+  // ---------- retirada do dono
+  ACT.rtgo = function () {
+    var m = $('rtM').value,
+      v = parseDec($('rtV').value, m),
+      nota = $('rtN').value.trim();
+    if (!(v > 0)) {
+      S.rtMsg = 'Informe o valor da retirada.';
+      return renderCaixa();
+    }
+    if ((S.cash[m] || 0) < v - 1e-9) {
+      S.rtMsg = 'Saldo em ' + m.toUpperCase() + ' insuficiente (' + fmtM(Math.max(0, S.cash[m] || 0), m) + ').';
+      return renderCaixa();
+    }
+    exigirAuth(function () {
+      var ts = Date.now(),
+        g = Math.round(v * ratePyg(m));
+      S.cash[m] -= v;
+      S.retiradas.unshift({ ts: ts, moeda: m, orig: v, valor: g, nota: nota });
+      S.dlog.push({ ts: ts, kind: 'ret', desc: nota || 'Retirada do dono', valor: g, moeda: m, orig: v });
+      S.rtMsg = 'Retirada registrada: ' + fmtM(v, m) + '.';
+      saveSoon();
+      renderCaixa();
+      renderDash();
+    });
+  };
+  ACT.rtdes = function (id) {
+    var r = S.retiradas.filter(function (x) {
+      return String(x.ts) === id;
+    })[0];
+    if (!r) return;
+    S.cash[r.moeda] += r.orig;
+    S.retiradas = S.retiradas.filter(function (x) {
+      return x !== r;
+    });
+    S.dlog = S.dlog.filter(function (x) {
+      return !(x.kind === 'ret' && x.ts === r.ts);
+    });
+    S.rtMsg = 'Retirada desfeita. ' + fmtM(r.orig, r.moeda) + ' voltaram ao caixa.';
+    saveSoon();
+    renderCaixa();
+    renderDash();
+  };
+
+  // ---------- conferência do caixa
+  ACT.ccabrir = function () {
+    S.ccOpen = true;
+    S.ccRes = null;
+    S.ccV = {};
+    renderCaixa();
+  };
+  ACT.ccfechar = function () {
+    S.ccOpen = false;
+    S.ccRes = null;
+    renderCaixa();
+  };
+  ACT.ccgo = function () {
+    var cont = {
+        pyg: parseDec($('ccP').value, 'pyg'),
+        usd: parseDec($('ccU').value, 'usd'),
+        brl: parseDec($('ccB').value, 'brl')
+      },
+      difs = {},
+      totUsd = 0;
+    ['pyg', 'usd', 'brl'].forEach(function (m) {
+      difs[m] = Math.round((cont[m] - (S.cash[m] || 0)) * 100) / 100;
+      totUsd += (Math.abs(difs[m]) * ratePyg(m)) / S.fx.pyg;
+    });
+    var ok = totUsd <= (S.tolUsd || 0),
+      partes = ['pyg', 'usd', 'brl']
+        .filter(function (m) {
+          return Math.abs(difs[m]) >= 0.005;
+        })
+        .map(function (m) {
+          return (difs[m] > 0 ? '+' : '−') + fmtM(Math.abs(difs[m]), m);
+        }),
+      txt = ok
+        ? 'O caixa confere' + (partes.length ? ' (diferença dentro da tolerância: ' + partes.join(', ') + ')' : '') + '.'
+        : 'Diferença encontrada: ' + partes.join(', ') + ' (contado menos o que o app calcula).';
+    var ts = Date.now();
+    S.confCx.push({ ts: ts, difs: difs, ok: ok, ajustou: false });
+    S.dlog.push({ ts: ts, kind: 'confcx', desc: txt, valor: Math.round(totUsd * S.fx.pyg) });
+    S.ccRes = { ok: ok, txt: txt, cont: cont };
+    saveSoon();
+    renderCaixa();
+    renderDash();
+  };
+  ACT.ccadj = function () {
+    var r = S.ccRes;
+    if (!r || r.ok) return;
+    exigirAuth(function () {
+      S.cash = { pyg: r.cont.pyg, usd: r.cont.usd, brl: r.cont.brl };
+      var u = S.confCx[S.confCx.length - 1];
+      if (u) u.ajustou = true;
+      S.dlog.push({ ts: Date.now(), kind: 'confcx', desc: 'Saldo do app ajustado para o valor contado.', valor: 0 });
+      S.ccRes = null;
+      S.ccOpen = false;
+      S.cxMsg = 'Saldos ajustados para o que você contou.';
+      saveSoon();
+      renderCaixa();
+      renderDash();
+    });
+  };
+
+  // ---------- preço perigoso: aplica o piso como preço da faixa para aquele tipo
+  ACT.precoap = function (key) {
+    var l = precoPerigoso(),
+      m = l.filter(function (x) {
+        return x.key === key;
+      })[0];
+    if (!m) return;
+    var f = faixaOf(m.ref);
+    if (!f) return;
+    var novo = l
+      .filter(function (x) {
+        var xf = faixaOf(x.ref);
+        return x.tipo === m.tipo && xf && xf.id === f.id;
+      })
+      .reduce(function (a, x) {
+        return Math.max(a, x.pp.piso);
+      }, 0);
+    f.precos = f.precos || {};
+    f.precos[m.tipo] = novo;
+    saveSoon();
+    render();
+  };
+
+  // ---------- PIN e cópias
+  ACT.pinset = function () {
+    var a = $('pin1').value,
+      b = $('pin2').value;
+    if (!/^\d{4,8}$/.test(a)) {
+      S.ajMsg = 'O PIN deve ter de 4 a 8 números.';
+    } else if (a !== b) {
+      S.ajMsg = 'Os dois PINs não são iguais.';
+    } else {
+      var sal = novoSal();
+      hashPin(a, sal).then(function (h) {
+        S.pinSalt = sal;
+        S.pinHash = h;
+        S.pinNovo = false;
+        S.ajMsg = 'PIN ativado. Ele será pedido ao abrir o app.';
+        S._ajForce = true;
+        saveSoon();
+        render();
+      });
+      return;
+    }
+    S._ajForce = true;
+    render();
+  };
+  ACT.pintroca = function () {
+    exigirAuth(function () {
+      S.pinNovo = true;
+      S._ajForce = true;
+      render();
+    });
+  };
+  ACT.pinoff = function () {
+    if (!S.pinOffConf) {
+      S.pinOffConf = true;
+      S._ajForce = true;
+      render();
+      return;
+    }
+    exigirAuth(function () {
+      S.pinOffConf = false;
+      S.pinHash = '';
+      S.pinSalt = '';
+      S.bioOn = false;
+      S.ajMsg = 'PIN desativado.';
+      S._ajForce = true;
+      saveSoon();
+      render();
+    });
+  };
+  ACT.abagora = function () {
+    autoBackup(true).then(function () {
+      S.ajMsg = 'Cópia feita.';
+      S._ajForce = true;
+      render();
+    });
+  };
+  ACT.abrest = function (dia) {
+    if (S.abConf !== dia) {
+      S.abConf = dia;
+      S._ajForce = true;
+      render();
+      return;
+    }
+    exigirAuth(function () {
+      abRestaurar(dia).then(function (txt) {
+        var e = txt ? restaurarDados(txt) : 'Cópia não encontrada.';
+        S.abConf = '';
+        S.ajMsg = e || 'Cópia de ' + dia.split('-').reverse().join('/') + ' restaurada.';
+        S._ajForce = true;
+        saveSoon();
+        render();
+      });
+    });
+  };
   // ===== Render geral e persistência (localStorage + IndexedDB). =====
   // Redesenha o app e agenda o salvamento.
   function render() {
@@ -18278,7 +19781,16 @@
       'contagens',
       'conf',
       'tolUsd',
-      'volAuto'
+      'volAuto',
+      'retiradas',
+      'confCx',
+      'ccLemb',
+      'formas',
+      'pinHash',
+      'pinSalt',
+      'bioOn',
+      'lockMin',
+      'lockSens'
     ];
   // Carrega o estado salvo.
   function loadSaved() {
@@ -18323,8 +19835,10 @@
     }, 400);
   }
   loadSaved();
+  iniciarLock();
   syncTipos();
   render();
+  setTimeout(autoBackup, 4000);
   loadFotos();
   // Gancho de teste: expõe funções internas só quando a URL termina em #test (usado por tests/).
   if (/(^|[#&])test\b/.test(location.hash))
@@ -18338,6 +19852,6 @@
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, whiten: whiten, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, vendaPrevia: vendaPrevia, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos
+      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, vendaPrevia: vendaPrevia, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, backupLembrete: backupLembrete, ccDias: ccDias, addSale: addSale
     };
 })();

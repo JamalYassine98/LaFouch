@@ -97,7 +97,7 @@
               : '')
         );
       })[0];
-      S.cash[s.moeda] -= s.recebido;
+      S.cash[s.moeda] -= s.recebido - (s.taxaM || 0);
       estornoBrinde(s);
       if (it) {
         it.qty += s.qty;
@@ -122,30 +122,39 @@
       })[0];
       if (!e) return;
       if (!e.paid) e.paid = {};
-      var k = ymNow();
+      var k = ymNow(),
+        m = expMoeda(e);
       if (!S.cpay) S.cpay = [];
       if (e.paid[k]) {
-        var pts = e.paid[k];
-        S.cash.pyg += e.valor;
+        var pts = e.paid[k],
+          pg = S.cpay.filter(function (x) {
+            return x.id === e.id && x.ym === k;
+          })[0],
+          pm0 = (pg && pg.moeda) || 'pyg',
+          pv0 = pg ? (pg.moeda && pg.orig != null ? pg.orig : pg.valor) : e.valor;
+        S.cash[pm0] += pv0;
         desfazerPagamento(e, k, pts);
         delete e.paid[k];
-        S.cxMsg = 'Pagamento de "' + e.nome + '" desfeito. ' + gs(e.valor) + ' voltaram ao caixa.';
+        S.cxMsg = 'Pagamento de "' + e.nome + '" desfeito. ' + fmtM(pv0, pm0) + ' voltaram ao caixa.';
       } else {
-        if (S.cash.pyg < e.valor) {
+        var need = expOrig(e);
+        if ((S.cash[m] || 0) < need - 1e-9) {
           popErr(
-            'Saldo em guaranis insuficiente no caixa (' +
-              gs(Math.max(0, S.cash.pyg)) +
+            'Saldo em ' +
+              m.toUpperCase() +
+              ' insuficiente no caixa (' +
+              fmtM(Math.max(0, S.cash[m] || 0), m) +
               ') para pagar ' +
-              gs(e.valor) +
+              fmtM(need, m) +
               '. Corrija o saldo na aba Caixa ou troque moeda.'
           );
           return;
         }
         var t0 = Date.now();
-        S.cash.pyg -= e.valor;
+        S.cash[m] -= need;
         e.paid[k] = t0;
         lancarPagamento(e, k, t0);
-        S.cxMsg = 'Paguei "' + e.nome + '": ' + gs(e.valor) + ' saíram do caixa.';
+        S.cxMsg = 'Paguei "' + e.nome + '": ' + fmtM(need, m) + ' saíram do caixa.';
       }
       saveSoon();
       renderDesp();
@@ -156,10 +165,20 @@
       var e = S.exp.filter(function (x) {
           return String(x.id) === id;
         })[0],
-        v = toNum($('ev-' + id).value);
-      if (!v || v === e.valor) return;
-      e.hist.push({ ts: Date.now(), de: e.valor, para: v });
-      logDespesa('alt', { nome: e.nome, cat: e.cat, de: e.valor, para: v });
+        m = expMoeda(e),
+        raw = m === 'pyg' ? toNum($('ev-' + id).value) : parseDec($('ev-' + id).value, m),
+        v = m === 'pyg' ? raw : Math.round(raw * ratePyg(m));
+      if (!raw) return;
+      e.updYm = ymNow();
+      if (m !== 'pyg') {
+        e.rate0 = ratePyg(m);
+        if (Math.abs(raw - expOrig(e)) < 1e-9) return renderDesp();
+        e.orig = raw;
+      } else if (v === e.valor) return renderDesp();
+      if (v !== e.valor) {
+        e.hist.push({ ts: Date.now(), de: e.valor, para: v });
+        logDespesa('alt', { nome: e.nome, cat: e.cat, de: e.valor, para: v });
+      }
       e.valor = v;
       renderDesp();
       renderDash();
@@ -183,19 +202,34 @@
     },
     expadd: function () {
       var n = cap1($('nName').value),
-        v = toNum($('nVal').value);
-      if (!n || !v) {
+        m = $('nMoeda').value,
+        raw = m === 'pyg' ? toNum($('nVal').value) : parseDec($('nVal').value, m),
+        dia = Math.round(toNum($('nDia').value)) || 0;
+      if (!n || !raw) {
         $('nH').textContent = 'Informe o nome e o valor.';
         return;
       }
-      S.exp.push({
-        id: S.nextExp++,
-        nome: n,
-        cat: $('nCat').value,
-        tipo: $('nTipo').value,
-        valor: v,
-        hist: []
-      });
+      if (dia && (dia < 1 || dia > 31)) {
+        $('nH').textContent = 'O dia de vencimento vai de 1 a 31.';
+        return;
+      }
+      var v = m === 'pyg' ? raw : Math.round(raw * ratePyg(m)),
+        ne = {
+          id: S.nextExp++,
+          nome: n,
+          cat: $('nCat').value,
+          tipo: $('nTipo').value,
+          valor: v,
+          hist: [],
+          updYm: ymNow()
+        };
+      if (m !== 'pyg') {
+        ne.moeda = m;
+        ne.orig = raw;
+        ne.rate0 = ratePyg(m);
+      }
+      if (dia) ne.dia = dia;
+      S.exp.push(ne);
       logDespesa('novo', { nome: n, cat: $('nCat').value, tipo: $('nTipo').value, valor: v });
       renderDesp();
       renderDash();
@@ -277,6 +311,16 @@
         renderCaixa();
         return;
       }
+      if (!S._resetAuth) {
+        exigirAuth(function () {
+          S._resetAuth = true;
+          ACT.resetall();
+        });
+        return;
+      }
+      S._resetAuth = false;
+      S.retiradas = [];
+      S.confCx = [];
       S.items = [];
       S.sales = [];
       S.saleSeq = 0;
@@ -336,6 +380,8 @@
         })[0],
         v = toNum(t.value),
         p = $('pv-' + ex.id);
+      var mx = expMoeda(ex);
+      if (mx !== 'pyg') v = Math.round(parseDec(t.value, mx) * ratePyg(mx));
       var nt = tm2(ex, v),
         old = totalMensal();
       p.textContent =

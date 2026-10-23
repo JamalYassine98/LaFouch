@@ -132,6 +132,7 @@
         )
       );
     });
+    renderForma();
     $('recIn').value = inVal(v, m);
     updateRec();
   }
@@ -268,6 +269,7 @@
           '</b></div>'
         : '<div class="hint" style="margin:0">Nenhuma conta paga neste mês ainda.</div>') +
       '</section>';
+    html += retiradaHtml() + ccHtml();
     var t = S.tr;
     html +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Trocar moeda</h2><div class="hint" style="margin:2px 0 0">Registre a troca que você fez. Os saldos mudam nas duas moedas.</div></div>' +

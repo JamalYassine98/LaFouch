@@ -11,6 +11,14 @@
 <title>LaFouch</title>
 
 <link rel="stylesheet" href="style.css">
+<div id="lockScr" hidden role="dialog" aria-modal="true" aria-label="App bloqueado">
+  <h1 id="lockT">La Fouch</h1>
+  <div class="hint" id="lockM" role="status"></div>
+  <input class="in" id="lockPin" type="password" inputmode="numeric" maxlength="8" autocomplete="off" placeholder="PIN" aria-label="PIN" style="max-width:220px;text-align:center;font-size:24px">
+  <button class="go" id="lockGo" style="max-width:220px">Entrar</button>
+  <button class="mini" id="lockBio" hidden>Usar digital ou rosto</button>
+  <button class="chip" id="lockCancel" hidden>Cancelar</button>
+</div>
 <div class="wrap">
   <div class="top logo-top">
     <div class="brand"><img class="lg-e" src="logo-app.png" alt="La Fouch - Tudo em Óculos"><img class="lg-c" src="logo-app-claro.png" alt="La Fouch - Tudo em Óculos"></div>
@@ -136,6 +144,7 @@
         <div class="sum"><span class="hint" style="margin:0" id="unit"></span><b style="font-size:22px" id="tot"></b></div>
         <div id="descB"><div class="lbl">Desconto</div><div style="display:flex;gap:8px;align-items:center"><input class="in" id="descIn" inputmode="decimal" placeholder="0" aria-label="Desconto" autocomplete="off" style="flex:1"><div class="nav" id="descModes" style="flex:0 0 auto"></div></div><div class="hint" id="descH"></div></div>
         <div id="brB" hidden><div class="lbl">Brinde</div><div class="nav" id="brChips"></div></div>
+        <div><div class="lbl">Pagamento</div><div class="nav" id="formaChips" role="group" aria-label="Forma de pagamento"></div></div>
         <div><div class="lbl">Recebido em</div><div class="nav" id="moedas"></div></div>
         <div><div class="lbl">Valor recebido</div><input class="in" id="recIn" inputmode="decimal" data-in="rec" aria-label="Valor recebido"><div class="hint" id="recH" role="status"></div></div>
         <div id="pisoSt" role="status"></div>

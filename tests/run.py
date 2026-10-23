@@ -23,6 +23,50 @@ S.exp = []; S.volume = 1; S.fxHist = []; S.janela = 30;
 # (nome, corpo JS que devolve um valor, esperado)
 TESTES = [
  # ---- contas da venda ----
+ ("taxa da maquininha: sai do lucro e do caixa, e o estorno devolve só o líquido", """
+   S.fx.pyg=7000; S.cash={pyg:0,usd:0,brl:0}; S.volume=1000; S.exp=[]; S.fxHist=[]; S.lotes=[];
+   S.items=[{tipo:'pre',ref:'T1',grau:'+1',cor:'P',qty:5}];
+   const it=S.items[0];
+   const a=L.addSale(it,1,{moeda:'pyg',recebido:25000,forma:'deb'});
+   const b=L.addSale(it,1,{moeda:'pyg',recebido:25000,forma:'pix'});
+   const cashDepois=S.cash.pyg;
+   return [a.forma,a.taxa,b.taxa,b.livre-a.livre,cashDepois]""", ["deb",500,0,500,49500]),
+ ("resultado do mês: vendas, custo, taxas, contas pagas, retiradas e sobra", """
+   S.fx.pyg=7000; S.cash={pyg:0,usd:0,brl:0}; S.volume=1000; S.exp=[]; S.fxHist=[]; S.lotes=[];
+   S.items=[{tipo:'pre',ref:'T1',grau:'+1',cor:'P',qty:5}]; S.retiradas=[]; S.contagens=[];
+   const s=L.addSale(S.items[0],2,{moeda:'pyg',recebido:50000,forma:'cre'});
+   S.cpay=[{ts:Date.now(),id:1,ym:'x',nome:'Aluguel',valor:10000,cat:'loja'},{ts:Date.now(),id:2,ym:'x',nome:'Casa',valor:4000,cat:'casa'}];
+   S.retiradas=[{ts:Date.now(),moeda:'pyg',orig:1000,valor:1000,nota:''}];
+   const d=new Date(), r=L.resultadoMes(d.getFullYear(), d.getMonth());
+   const ant=L.resultadoMes(d.getFullYear()-1, d.getMonth());
+   return [r.vendas, r.taxas, r.contasLoja, r.retTotal, r.resultado===r.vendas-r.cmv-r.taxas-10000, r.sobra===r.resultado-5000, ant.tem]""", [50000, 2000, 10000, 5000, True, True, False]),
+ ("fluxo de caixa: entra pelas vendas, sai em contas e avisa quando falta moeda", """
+   S.fx.pyg=7000; S.cash={pyg:100000,usd:10,brl:0}; S.volume=1000; S.fxHist=[]; S.lotes=[]; S.sales=[];
+   const d=new Date().getDate();
+   S.exp=[{id:1,nome:'Condomínio',cat:'loja',tipo:'fixa',moeda:'usd',orig:100,valor:700000,rate0:7000,hist:[],dia:d}];
+   const f=L.fluxoCaixa(30);
+   return [f.entra, f.contas.length>=1, f.pm.usd.need>=100, f.pm.usd.tem, f.saldo===f.wal+f.entra-f.repGs-f.contasGs]""", [0, True, True, 10, True]),
+ ("capital do estoque e dólar favorável", """
+   S.fx.pyg=6000; S.sales=[]; S.appStart=Date.now()-100*86400000;
+   S.items=[{tipo:'pre',ref:'T1',grau:'+1',cor:'P',qty:10,custo:1}];
+   const c=L.capitalEstoque();
+   const t=Date.now(); S.janela=30; S.fxHist=[]; for(let i=0;i<10;i++) S.fxHist.push({ts:t-(10-i)*86400000,pyg:7000+i*10,brl:1400});
+   S.fx.pyg=6900; const f=L.dolarFavoravel();
+   return [c.total>0, c.parado===c.total, f.barato, f.caro]""", [True, True, True, False]),
+ ("PIN: guarda só o resumo e confere", """
+   return L.hashPin('1234','sal').then(h=>L.hashPin('1234','sal').then(h2=>L.hashPin('1235','sal').then(h3=>[h===h2, h!==h3, h.indexOf('1234')<0])))""", [True, True, True]),
+ ("contas em dólar: valor em guaranis segue o câmbio e a reserva cambial entra na peça", """
+   S.fx.pyg=7000; S.exp=[{id:1,nome:'Condomínio',cat:'loja',tipo:'fixa',moeda:'usd',orig:100,valor:700000,rate0:7000,hist:[],dia:10}];
+   S.volume=100; S.fxHist=[{ts:Date.now()-1000,pyg:7000,brl:1400}]; S.lotes=[];
+   const a=L.totalMensal(); S.fx.pyg=7350; const b=L.totalMensal(); const ef=L.efeitoCambio();
+   return [a,b,ef,L.reservaCambioContas()>0, L.contasPeca()>Math.round(b/100)]""", [700000, 735000, 35000, True, True]),
+ ("aviso de vencimento: dia, moeda e dica de troca", """
+   S.fx.pyg=7000; S.cash={pyg:900000,usd:10,brl:0};
+   const d=new Date().getDate(), x=new Date(), ym=x.getFullYear()+'-'+('0'+(x.getMonth()+1)).slice(-2), pago={}; pago[ym]=1;
+   S.exp=[{id:1,nome:'Condomínio',cat:'loja',tipo:'fixa',moeda:'usd',orig:100,valor:700000,rate0:7000,hist:[],dia:d},
+          {id:2,nome:'Longe',cat:'loja',tipo:'fixa',valor:1000,hist:[],dia:((d+14)%28)+1},
+          {id:3,nome:'Paga',cat:'loja',tipo:'fixa',valor:1000,hist:[],dia:d,paid:pago}];
+   const av=L.avisosVenc(7).filter(a=>a.dias<=0||a.dias<=7); const c=av.filter(a=>a.e.id===1); return [c.length, av.filter(a=>a.e.id===3).length, c[0].e.nome, c[0].ok, /Troque/.test(c[0].dica)]""", [1, 0, 'Condomínio', False, True]),
  ("calcSale: divisão básica", """return L.calcSale({price:25000, repUSD:.65}, 2, 7000, .1, 1000, 500)""",
   {"price":50000,"rep":9100,"repUSD":1.3,"contas":2000,"colch":910,"melh":1000,"livre":36990,"trava":5550}),
  ("calcSale: soma das partes = preço", """
@@ -420,6 +464,61 @@ async def main():
             ok = got[0] == 48 and got[1] == '0,5' and '48 peças' in got[2]
             print(('  ok  ' if ok else ' FALHA ') + 'cadastro: entrada por pacote preenche quantidade e custo')
             if not ok: falhas.append('pacote'); print('        veio', got)
+
+            # finanças pela tela: retirada, conferência do caixa, resultado e fluxo no Dashboard
+            pg = await pagina()
+            await pg.evaluate("() => { const S = window.__LF.S; S.cash = {pyg: 5000000, usd: 500, brl: 0}; S.retiradas = []; S.confCx = []; S.dlog = []; window.__LF.render(); }")
+            await pg.locator('#mainnav >> text="Caixa"').first.click(); await pg.wait_for_timeout(300)
+            await pg.fill('#rtV', '200000'); await pg.fill('#rtN', 'Almoço')
+            await pg.locator('[data-act="rtgo"]').first.click(); await pg.wait_for_timeout(300)
+            got = await pg.evaluate("() => { const S = window.__LF.S; return [S.retiradas.length, S.cash.pyg, S.dlog.filter(x => x.kind === 'ret').length] }")
+            await checa('Caixa: retirada do dono sai do caixa e vai ao histórico', got == [1, 4800000, 1], got)
+            await pg.locator('[data-act="rtdes"]').first.click(); await pg.wait_for_timeout(300)
+            got = await pg.evaluate("() => { const S = window.__LF.S; return [S.retiradas.length, S.cash.pyg, S.dlog.filter(x => x.kind === 'ret').length] }")
+            await checa('Caixa: desfazer retirada devolve o dinheiro', got == [0, 5000000, 0], got)
+            await pg.locator('[data-act="ccabrir"]').first.click(); await pg.wait_for_timeout(300)
+            await pg.fill('#ccP', '4900000'); await pg.locator('[data-act="ccgo"]').first.click(); await pg.wait_for_timeout(300)
+            got = await pg.evaluate("() => { const S = window.__LF.S; return [S.ccRes && S.ccRes.ok, S.confCx.length] }")
+            await checa('Caixa: conferência acha a diferença', got == [False, 1], got)
+            await pg.locator('[data-act="ccadj"]').first.click(); await pg.wait_for_timeout(300)
+            got = await pg.evaluate("() => { const S = window.__LF.S; return [S.cash.pyg, S.confCx[0].ajustou, window.__LF.ccDias()] }")
+            await checa('Caixa: ajustar o saldo para o contado', got == [4900000, True, 0], got)
+            await pg.locator('#mainnav >> text="Dashboard"').first.click(); await pg.wait_for_timeout(300)
+            tx = await pg.inner_text('#v-dash')
+            await checa('Dashboard: resultado do mês e fluxo de caixa aparecem', 'Resultado de' in tx and 'Fluxo de caixa projetado' in tx and not pg.erros, [tx[:120], pg.erros])
+            await pg.locator('[data-act="fluxod"][data-id="90"]').first.click(); await pg.wait_for_timeout(200)
+            got = await pg.evaluate("() => window.__LF.S.fluxoD")
+            await checa('Dashboard: fluxo muda para 90 dias', got == 90, got)
+            await pg.close()
+
+            # PIN: ativar, recarregar e desbloquear; cópia automática
+            ctx = await b.new_context(viewport={'width': 420, 'height': 900}, service_workers='block')
+            pg = await pagina(ctx=ctx)
+            await pg.locator('#mainnav >> text="Ajustes"').first.click(); await pg.wait_for_timeout(300)
+            await pg.fill('#pin1', '4321'); await pg.fill('#pin2', '4321')
+            await pg.locator('[data-act="pinset"]').first.click(); await pg.wait_for_timeout(500)
+            await pg.locator('[data-act="abagora"]').first.click(); await pg.wait_for_timeout(800)
+            tx = await pg.inner_text('#v-ajustes')
+            await checa('Ajustes: PIN ativo e cópia automática listada', 'PIN ativo' in tx and ' KB' in tx, tx[-300:])
+            await pg.wait_for_timeout(1500)
+            await pg.evaluate("() => history.replaceState(null, '', '#test')")
+            await pg.reload(); await pg.wait_for_function('window.__LF')
+            vis = await pg.evaluate("() => !document.getElementById('lockScr').hidden")
+            await checa('PIN: o app abre bloqueado', vis is True, vis)
+            await pg.fill('#lockPin', '0000'); await pg.click('#lockGo'); await pg.wait_for_timeout(300)
+            msg = await pg.inner_text('#lockM')
+            await checa('PIN: errado não abre', 'incorreto' in msg, msg)
+            await pg.fill('#lockPin', '4321'); await pg.click('#lockGo'); await pg.wait_for_timeout(300)
+            vis = await pg.evaluate("() => !document.getElementById('lockScr').hidden")
+            await checa('PIN: certo abre', vis is False, vis)
+            await ctx.close()
+
+            # venda: formas de pagamento aparecem
+            pg = await abrir('sem', 'Hexagonal')
+            await pg.locator('#detail .vbar button').click(); await pg.wait_for_timeout(500)
+            await pg.evaluate("() => { window.__LF.S.forma = 'din'; window.__LF.render(); }")
+            n = await pg.evaluate("() => document.querySelectorAll('#formaChips button').length")
+            await checa('Vendas: botões de forma de pagamento', n == 4, n)
 
             # gravação: o que foi salvo volta depois de recarregar
             total += 1

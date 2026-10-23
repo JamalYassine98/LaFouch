@@ -14,7 +14,11 @@
       esc(e.nome) +
       '</b> <span class="cell">' +
       (e.tipo === 'fixa' ? 'fixa' : 'variável') +
-      '</span></div><div style="display:flex;align-items:center;gap:10px"><button type="button" data-act="exppay" data-id="' +
+      '</span>' +
+      (expMoeda(e) !== 'pyg'
+        ? ' <span class="cell">' + (expMoeda(e) === 'usd' ? 'em dólar' : 'em real') + '</span>'
+        : '') +
+      '</div><div style="display:flex;align-items:center;gap:10px"><button type="button" data-act="exppay" data-id="' +
       e.id +
       '" aria-pressed="' +
       paid +
@@ -35,10 +39,17 @@
       '" inputmode="numeric" data-in="exp" data-id="' +
       e.id +
       '" value="' +
-      dots(e.valor) +
+      (expMoeda(e) === 'pyg' ? dots(e.valor) : inVal(expOrig(e), expMoeda(e))) +
       '" aria-label="Novo valor de ' +
       esc(e.nome) +
-      '" style="flex:1 1 160px;width:auto"><button class="mini" data-act="expsave" data-id="' +
+      (expMoeda(e) === 'pyg' ? '' : ' em ' + (expMoeda(e) === 'usd' ? 'dólares' : 'reais')) +
+      '" style="flex:1 1 160px;width:auto"><input class="in" data-exd="' +
+      e.id +
+      '" inputmode="numeric" maxlength="2" placeholder="Dia" value="' +
+      (e.dia || '') +
+      '" aria-label="Dia do vencimento de ' +
+      esc(e.nome) +
+      '" style="flex:0 0 64px;width:64px"><button class="mini" data-act="expsave" data-id="' +
       e.id +
       '">Salvar novo valor</button>' +
       '<button class="chip" data-act="exprm" data-id="' +
@@ -50,6 +61,8 @@
       '<div class="hint" id="pv-' +
       e.id +
       '" style="margin:0">' +
+      (expMoeda(e) !== 'pyg' ? 'Hoje: ' + expTexto(e) + '. ' : '') +
+      (e.dia ? 'Vence todo dia ' + e.dia + '. ' : 'Sem dia de vencimento. ') +
       (e.tipo === 'variavel'
         ? 'Valor muda todo mês. Atualize quando a conta chegar.'
         : 'Altere e veja o efeito antes de salvar.') +
@@ -102,6 +115,26 @@
       '</b><div class="hint">para pagar as contas (rateio: ' +
       volumeEfetivo() +
       ' peças por mês, ajuste em Ajustes)</div></div></section>';
+    var ec = efeitoCambio(),
+      rc = reservaCambioContas();
+    if (contasEstrangeiras() > 0)
+      html +=
+        '<div class="note ' +
+        (ec > 0 ? 'n-warn' : 'n-ok') +
+        '">Contas em dólar e real somam ' +
+        gs(contasEstrangeiras()) +
+        ' hoje. ' +
+        (ec === 0
+          ? 'O câmbio não mudou desde que você informou os valores.'
+          : ec > 0
+          ? 'Subiram ' + gs(ec) + ' só por causa do câmbio.'
+          : 'Caíram ' + gs(-ec) + ' por causa do câmbio.') +
+        ' Reserva contra alta do câmbio: ' +
+        gs(rc) +
+        ' por mês (' +
+        pc(colchao().pct) +
+        '), já dividida nas peças.</div>';
+    html += avisosHtml();
     var cats = ['loja', 'casa', 'pessoal', 'profissional', 'imprev'];
     html +=
       '<section class="card col"><h2 style="margin:0;font-size:16px">Por grupo</h2><div class="bar">' +
@@ -195,7 +228,7 @@
           return '<option value="' + c + '">' + CATS[c] + '</option>';
         })
         .join('') +
-      '</select><select class="in" id="nTipo" aria-label="Tipo" style="flex:1 1 110px;width:auto"><option value="fixa">Fixa</option><option value="variavel">Variável</option></select><input class="in" id="nVal" inputmode="numeric" placeholder="Valor em G$" style="flex:1 1 120px;width:auto" aria-label="Valor"><button class="mini" data-act="expadd">Adicionar</button></div><div class="hint" id="nH" role="status"></div></section>';
+      '</select><select class="in" id="nTipo" aria-label="Tipo" style="flex:1 1 110px;width:auto"><option value="fixa">Fixa</option><option value="variavel">Variável</option></select><select class="in" id="nMoeda" aria-label="Moeda" style="flex:1 1 90px;width:auto"><option value="pyg">G$</option><option value="usd">US$</option><option value="brl">R$</option></select><input class="in" id="nVal" inputmode="decimal" placeholder="Valor" style="flex:1 1 110px;width:auto" aria-label="Valor"><input class="in" id="nDia" inputmode="numeric" maxlength="2" placeholder="Dia do vencimento" style="flex:1 1 90px;width:auto" aria-label="Dia do vencimento"><button class="mini" data-act="expadd">Adicionar</button></div><div class="hint" id="nH" role="status"></div></section>';
     html +=
       '<section class="card col"><h2 style="margin:0;font-size:16px">Caixa de melhorias</h2><div class="hint" style="margin:0">Opcional. Não entra nas contas obrigatórias e nunca trava uma venda.</div><div class="sel"><input class="in" id="melhIn" inputmode="numeric" data-in="melh" value="' +
       dots(S.melhPeca) +
