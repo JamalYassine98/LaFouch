@@ -242,5 +242,5 @@
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, whiten: whiten, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, logDespesa: logDespesa, entradaEstoque: entradaEstoque
+      desfazerPagamento: desfazerPagamento, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos
     };

@@ -181,6 +181,101 @@ async def main():
             print(('  ok  ' if ok else ' FALHA ') + 'tela Despesas: registrar imprevisto')
             if not ok: falhas.append('tela imprevisto'); print('        veio', got)
 
+
+            # tela do produto: lista única de cores, um só botão Vender e janela Editar
+            FOTO = "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+            SETUP = """(foto) => { const L = window.__LF, S = L.S;
+              S.items = S.items.filter(i => i.ref !== 'BR44118');
+              [['C1','Preto',4,5],['C2','Bege',4,null],['C3','Tartaruga',2,null]].forEach(a => { const it = {tipo:'sem', ref:'BR44118', grau:'', med:'53x18-140', vr:a[0], fmt:'Quadrado', cor:a[1], qty:a[2]}; if (a[3] != null) it.custo = a[3]; S.items.push(it); });
+              S.tiposX = [{id:'estojo', label:'Estojos', full:'Estojos', price:10000, repUSD:1, pago:1, simple:true}]; L.syncTipos();
+              S.items = S.items.filter(i => i.ref !== 'Estojo A');
+              [['Preto',3],['Marrom',2]].forEach(a => S.items.push({tipo:'estojo', ref:'Estojo A', grau:'', med:'', vr:'', fmt:'', cor:a[0], qty:a[1]}));
+              S.pnome = S.pnome || {}; S.pnome['BR44118'] = 'Hexagonal';
+              S.fotos['BR44118|Preto'] = foto; S.fotos['Estojo A|Preto'] = foto; S.desc = S.desc || {}; delete S.desc['BR44118'];
+              S.det = false; S.open = ''; S.qEdit = false; L.render(); }"""
+
+            async def abrir(tipo, nome):
+                pg = await pagina()
+                await pg.evaluate(SETUP, FOTO)
+                await pg.evaluate("(t) => { window.__LF.S.tipo = t; window.__LF.S.todos = false; window.__LF.render(); }", tipo)
+                await pg.locator('#mainnav >> text="Estoque"').first.click(); await pg.wait_for_timeout(300)
+                await pg.locator('#listCard >> text=' + nome).first.click(); await pg.wait_for_timeout(400)
+                return pg
+
+            async def checa(nome, ok, got=None):
+                nonlocal total
+                total += 1
+                print(('  ok  ' if ok else ' FALHA ') + nome)
+                if not ok:
+                    falhas.append(nome); print('        veio', got)
+
+            pg = await abrir('sem', 'Hexagonal')
+            got = await pg.evaluate("() => [document.querySelectorAll('#detail .pl.pick').length, document.querySelectorAll('#detail .vbar button').length, document.querySelectorAll('#detail .pl button').length, document.querySelector('#detail .vbar button').innerText]")
+            await checa('produto: 3 cores em lista única e um só botão Vender', got == [3, 1, 0, 'Vender C1 · Preto'], got)
+            await pg.locator('#detail .pl.pick').nth(1).click(); await pg.wait_for_timeout(200)
+            got = await pg.evaluate("() => [document.querySelector('#detail .vbar button').innerText, window.__LF.S.detCor]")
+            await checa('produto: tocar numa cor muda o que o Vender vende', got == ['Vender C2 · Bege', 'Bege'], got)
+            await pg.locator('#detail .vbar button').click(); await pg.wait_for_timeout(300)
+            got = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.vSel && window.__LF.S.vSel.cor]")
+            await checa('produto: Vender leva à venda da cor selecionada', got == ['vendas', 'Bege'], got)
+
+            pg = await abrir('sem', 'Hexagonal')
+            await pg.evaluate("() => { const S = window.__LF.S; S.items.filter(i => i.cor === 'Preto' && i.ref === 'BR44118')[0].qty = 0; S.detRow = null; S.detCor = ''; window.__LF.render(); }")
+            await pg.wait_for_timeout(200)
+            got = await pg.evaluate("() => [document.querySelector('#detail .vbar button').innerText, document.querySelector('#detail .vbar button').disabled]")
+            await checa('produto: cor sem estoque não é escolhida por padrão', got == ['Vender C2 · Bege', False], got)
+
+            pg = await abrir('sem', 'Hexagonal')
+            await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
+            ok = await pg.locator('#editModal').count() == 1
+            await pg.locator('#editModal input[aria-label="Quantidade em estoque"]').first.fill('9'); await pg.locator('#editModal input[aria-label="Quantidade em estoque"]').first.press('Tab'); await pg.wait_for_timeout(200)
+            await pg.locator('#editModal input[aria-label="Custo por peça em US$"]').nth(1).fill('2,5'); await pg.locator('#editModal input[aria-label="Custo por peça em US$"]').nth(1).press('Tab'); await pg.wait_for_timeout(200)
+            antes = await pg.evaluate("() => window.__LF.S.items.filter(i => i.ref === 'BR44118').map(i => [i.cor, i.qty, i.custo])")
+            await pg.locator('#editModal button:text-is("Salvar")').click(); await pg.wait_for_timeout(300)
+            depois = await pg.evaluate("() => window.__LF.S.items.filter(i => i.ref === 'BR44118').map(i => [i.cor, i.qty, i.custo])")
+            fechou = await pg.locator('#editModal').count() == 0
+            await checa('janela Editar: quantidade e custo só valem ao salvar', ok and antes[0][1] == 4 and depois == [['Preto', 9, 5], ['Bege', 4, 2.5], ['Tartaruga', 2, None]] and fechou, [antes, depois, fechou])
+
+            pg = await abrir('sem', 'Hexagonal')
+            await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
+            await pg.locator('#editModal input[aria-label="Quantidade em estoque"]').first.fill('1'); await pg.locator('#editModal input[aria-label="Quantidade em estoque"]').first.press('Tab')
+            await pg.fill('#descTa', 'rascunho'); await pg.wait_for_timeout(200)
+            await pg.locator('#editModal button:text-is("Cancelar")').last.click(); await pg.wait_for_timeout(300)
+            got = await pg.evaluate("() => [window.__LF.S.items.filter(i => i.cor === 'Preto' && i.ref === 'BR44118')[0].qty, window.__LF.S.desc['BR44118'], !!document.getElementById('editModal')]")
+            await checa('janela Editar: Cancelar descarta tudo', got == [4, None, False], got)
+
+            await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
+            await pg.fill('#descTa', 'Polarizado, mola flexível'); await pg.locator('#editModal button:text-is("Salvar")').click(); await pg.wait_for_timeout(300)
+            got = await pg.evaluate("() => [window.__LF.S.desc['BR44118'], document.getElementById('detail').innerText.includes('Polarizado, mola flexível')]")
+            await checa('janela Editar: descrição salva e mostrada na tela', got == ['Polarizado, mola flexível', True], got)
+
+            await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
+            await pg.locator('#editModal button:text-is("Excluir foto")').click(); await pg.wait_for_timeout(200)
+            ainda = await pg.evaluate("() => !!window.__LF.S.fotos['BR44118|Preto']")
+            await pg.locator('#editModal button:text-is("Sim, excluir")').click(); await pg.wait_for_timeout(300)
+            got = await pg.evaluate("() => [!!window.__LF.S.fotos['BR44118|Preto'], window.__LF.S.items.filter(i => i.ref === 'BR44118').length, !!document.getElementById('editModal')]")
+            await checa('janela Editar: excluir foto pede confirmação e não mexe no estoque', ainda and got == [False, 3, True], [ainda, got])
+
+            await pg.locator('#editModal #edCodigo').fill('br99999')
+            await pg.locator('#editModal button:text-is("Salvar")').click(); await pg.wait_for_timeout(400)
+            got = await pg.evaluate("() => [window.__LF.S.items.filter(i => i.ref === 'BR99999').length, window.__LF.S.items.filter(i => i.ref === 'BR44118').length, window.__LF.S.open, !!window.__LF.S.pnome['BR99999'], document.getElementById('detail').hidden]")
+            await checa('janela Editar: trocar o código move o produto', got == [3, 0, 'BR99999', True, False], got)
+
+            pg = await abrir('sem', 'Hexagonal')
+            await pg.evaluate("() => window.__LF.S.items.push({tipo:'sem', ref:'OUTRO1', grau:'', med:'', vr:'C1', fmt:'Quadrado', cor:'Azul', qty:1})")
+            await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
+            await pg.locator('#editModal #edCodigo').fill('OUTRO1')
+            await pg.locator('#editModal button:text-is("Salvar")').click(); await pg.wait_for_timeout(300)
+            got = await pg.evaluate("() => [window.__LF.S.items.filter(i => i.ref === 'BR44118').length, !!document.getElementById('editModal')]")
+            await checa('janela Editar: código repetido é recusado', got == [3, True], got)
+
+            pg = await abrir('estojo', 'Estojo A')
+            await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
+            await pg.locator('#editModal button:text-matches("Excluir a cor")').click(); await pg.wait_for_timeout(200)
+            await pg.locator('#editModal button:text-is("Sim, excluir")').click(); await pg.wait_for_timeout(400)
+            got = await pg.evaluate("() => [window.__LF.S.items.filter(i => i.ref === 'Estojo A').map(i => i.cor), !!window.__LF.S.fotos['Estojo A|Preto'], !!document.getElementById('editModal')]")
+            await checa('janela Editar: excluir a cor remove peças e foto dela', got == [['Marrom'], False, False], got)
+
             # gravação: o que foi salvo volta depois de recarregar
             total += 1
             ctx = await b.new_context(viewport={'width': 420, 'height': 900}, service_workers='block')

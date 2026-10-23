@@ -138,3 +138,8 @@ select.in{appearance:auto}
 .pcard.delcard:hover{background:rgba(239,68,68,.12)!important}
 .tab.deltab{border-color:rgba(239,68,68,.6)!important;border-style:dashed!important}
 .tab.deltab:hover{background:rgba(239,68,68,.16)!important}
+.pl.pick{grid-template-columns:auto minmax(0,1fr) auto;cursor:pointer;min-height:48px}
+.pl.pick.picked{border-color:var(--accent);background:var(--accent-soft)}
+.pl.pick>.qe{grid-column:1/-1}
+.vbar{position:sticky;bottom:8px;z-index:5}
+.go:disabled{opacity:.45}

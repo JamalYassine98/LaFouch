@@ -1,5 +1,21 @@
   // ===== Estoque: tela de detalhe de um código. =====
-  // Detalhe de um código: fotos, variações, edição e venda.
+  // Chave estável de uma variante (linha) do produto.
+  function rowKey(i) {
+    return [
+      i.cor,
+      i.grau || '',
+      i.vr || '',
+      i.lote || '',
+      i.fmt || '',
+      i.med || '',
+      i.bulk ? 1 : 0
+    ].join('|');
+  }
+  // Rótulo curto da variante: grau ou classe de cor + cor.
+  function rowLabel(i) {
+    return (isSimple(i.tipo) ? '' : (i.tipo === 'pre' ? i.grau : i.vr) + ' · ') + i.cor;
+  }
+  // Detalhe de um código: fotos, cores, estoque, venda e janela de edição.
   function renderDetail(ref) {
     var det = $('detail'),
       wasHid = det.hidden,
@@ -42,7 +58,6 @@
       );
     var isVr = !isSimple(f.tipo) && !f.bulk,
       vrM = 6,
-      selVr = '',
       vReq = f.tipo !== 'pre',
       vkey = function (i) {
         return i.vr || (vReq ? 'C1' : 'none');
@@ -57,27 +72,12 @@
       })[0];
       return (w || l[0]).cor;
     };
+
     if (isVr) {
       all.forEach(function (i) {
         var n = parseInt(String(i.vr || '').replace(/\D/g, ''), 10);
         if (n > vrM) vrM = n;
       });
-      if (S.detVr && repCor(S.detVr)) selVr = S.detVr;
-      else {
-        var q0 =
-          S.detCor &&
-          avail.filter(function (i) {
-            return i.cor === S.detCor;
-          })[0];
-        if (q0) selVr = vkey(q0);
-        else {
-          var wf =
-            avail.filter(function (i) {
-              return !!S.fotos[ref + '|' + i.cor];
-            })[0] || avail[0];
-          selVr = wf ? vkey(wf) : '';
-        }
-      }
       cores = [];
       for (var vk = 1; vk <= vrM; vk++) {
         var rc0 = repCor('C' + vk);
@@ -85,14 +85,44 @@
       }
       var rcn = repCor('none');
       if (rcn && cores.indexOf(rcn) < 0) cores.push(rcn);
-      S.detCor = repCor(selVr) || '';
-      S.detVr = selVr;
     }
+    var rows = all.slice().sort(function (a, b) {
+      return f.tipo === 'pre' ? parseFloat(a.grau) - parseFloat(b.grau) : a.vr < b.vr ? -1 : 1;
+    });
+    // variante selecionada: a escolhida antes, senão a da cor atual, senão a primeira com foto/estoque
+    var sel = rows.filter(function (i) {
+      return rowKey(i) === S.detRow;
+    })[0];
+    if (sel && S.detCor && sel.cor !== S.detCor) sel = null;
+    if (!sel) {
+      var pool = rows.filter(function (i) {
+        return i.qty > 0;
+      });
+      sel =
+        pool.filter(function (i) {
+          return i.cor === S.detCor;
+        })[0] ||
+        pool.filter(function (i) {
+          return !!S.fotos[ref + '|' + i.cor];
+        })[0] ||
+        pool[0] ||
+        rows[0];
+    }
+    S.detRow = rowKey(sel);
+    S.detCor = sel.cor;
+    S.detVr = isVr ? vkey(sel) : null;
     var gal = cores.filter(function (c) {
         return !!S.fotos[ref + '|' + c];
       }),
-      cor = cores.indexOf(S.detCor) >= 0 ? S.detCor : gal[0] || cores[0] || f.cor,
+      cor = sel.cor,
       src = photoOf(ref, cor);
+    // escolhe a foto da cor atual (galeria ou câmera)
+    function pickPhoto() {
+      S.photoFor = { ref: ref, cor: cor };
+      $('fileG').multiple = false;
+      $('fileG').value = '';
+      $('fileG').click();
+    }
     var head = mk('div', '');
     head.style.cssText =
       'display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center';
@@ -123,6 +153,8 @@
       S.qEdit = false;
       S.qDraft = {};
       S.cDraft = {};
+      S.dDraft = null;
+      S.fDel = false;
     }
     var hb = mk('div', '');
     hb.style.cssText = 'display:flex;gap:8px';
@@ -133,6 +165,10 @@
         S.qEdit = !S.qEdit;
         S.qDraft = {};
         S.cDraft = {};
+        S.dDraft = null;
+        S.fDel = false;
+        S.cdMode = false;
+        S.cdCor = '';
         render();
       },
       !!S.qEdit
@@ -153,6 +189,7 @@
         go = function (d) {
           S.detCor = gal[(Math.max(gi, 0) + d + gal.length) % gal.length];
           S.detVr = null;
+          S.detRow = null;
           render();
         };
       var nv = mk('div', '');
@@ -180,6 +217,7 @@
           function () {
             S.detCor = c;
             S.detVr = null;
+            S.detRow = null;
             render();
           },
           c === cor
@@ -198,14 +236,8 @@
       });
       left.appendChild(th);
     }
-    var pb = btn('mini', src ? 'Trocar foto' : 'Adicionar foto', function () {
-      S.photoFor = { ref: ref, cor: cor };
-      $('fileG').multiple = false;
-      $('fileG').value = '';
-      $('fileG').click();
-    });
-    left.appendChild(pb);
     if (!src) {
+      left.appendChild(btn('mini', 'Adicionar foto', pickPhoto));
       var nh = mk(
         'div',
         'hint',
@@ -219,148 +251,27 @@
     var h = mk('div', '');
     h.appendChild(mk('div', '', pn(ref)));
     h.firstChild.style.cssText = 'font-size:24px;font-weight:800';
-    if (S.pnome && S.pnome[ref]) {
-      var cd0 = mk('div', 'hint', 'Código: ' + ref);
-      cd0.style.margin = '2px 0 0';
-      h.appendChild(cd0);
-    }
-    var sb = mk(
-      'div',
-      'crumb',
-      T().full +
-        (isSimple(f.tipo)
-          ? f.fmt && !f.bulk
-            ? ' · formato ' + f.fmt
-            : ''
-          : ' · formato ' + f.fmt + (f.med ? ' · ' + f.med : ''))
+    var named = !!(S.pnome && S.pnome[ref]);
+    h.appendChild(
+      mk(
+        'div',
+        'crumb',
+        (named ? ref + ' · ' : '') +
+          T().full +
+          (isSimple(f.tipo)
+            ? f.fmt && !f.bulk
+              ? ' · formato ' + f.fmt
+              : ''
+            : ' · formato ' + f.fmt + (f.med ? ' · ' + f.med : ''))
+      )
     );
-    h.appendChild(sb);
     right.appendChild(h);
-    if (S.qEdit && !f.bulk) {
-      var nb = mk('div', 'col');
-      nb.style.cssText = 'gap:8px;padding:12px;border:1px solid var(--line);border-radius:12px';
-      var smp = isSimple(f.tipo),
-        orig0 = (S.pnome && S.pnome[ref]) || '',
-        nmi = null,
-        nr = mk('div', '');
-      if (!smp) {
-        nb.appendChild(mk('div', 'lbl', 'Nome do produto'));
-        nmi = mk('input', 'in');
-        nmi.value = S.rnN != null && S.rnRef === ref ? S.rnN : orig0;
-        nmi.placeholder = 'Ex.: Gatinho preto fosco';
-        nmi.maxLength = 60;
-        nmi.setAttribute('aria-label', 'Nome do produto');
-        nb.appendChild(nmi);
-      }
-      nb.appendChild(mk('div', 'lbl', smp ? 'Nome do produto' : 'Código (o que fica na haste)'));
-      var ni = mk('input', 'in');
-      ni.value = S.rnV != null && S.rnRef === ref ? S.rnV : ref;
-      ni.setAttribute('aria-label', smp ? 'Nome do produto' : 'Código');
-      nb.appendChild(ni);
-      var dirty = function () {
-          return normRef(ni.value, smp) !== ref || (nmi && nmi.value.trim() !== orig0);
-        },
-        upd = function () {
-          S.rnRef = ref;
-          S.rnV = ni.value;
-          if (nmi) S.rnN = nmi.value;
-          nr.hidden = !dirty();
-        };
-      ni.oninput = upd;
-      if (nmi) nmi.oninput = upd;
-      nr.style.cssText = 'display:flex;gap:10px;flex-wrap:wrap';
-      nr.hidden = !dirty();
-      var ns = btn('mini', 'Salvar', function () {
-        var nn = normRef(ni.value, smp);
-        if (!nn) return popErr(smp ? 'Digite o nome do produto.' : 'Digite o código da haste.');
-        var nv0 = nmi ? nmi.value.trim() : '';
-        if (nn === ref) {
-          if (nmi) {
-            if (nv0) setPN(ref, nv0);
-            else if (S.pnome) delete S.pnome[ref];
-          }
-          S.rnV = null;
-          S.rnN = null;
-          S.rnRef = '';
-          S.msg = 'Nome salvo.';
-          render();
-          return;
-        }
-        if (
-          S.items.some(function (i) {
-            return i.ref.toUpperCase() === nn.toUpperCase() && i.ref !== ref;
-          })
-        )
-          return popErr('Já existe um produto chamado "' + nn + '". Escolha outro nome.');
-        var tp = f.tipo;
-        S.items.forEach(function (i) {
-          if (i.tipo === tp && i.ref === ref && !i.bulk) i.ref = nn;
-        });
-        Object.keys(S.fotos).forEach(function (k) {
-          if (k.slice(0, k.indexOf('|')) === ref) {
-            var nk = nn + k.slice(k.indexOf('|'));
-            S.fotos[nk] = S.fotos[k];
-            delete S.fotos[k];
-            try {
-              if (IDBOK)
-                idbDo('hq', 'readonly', function (o) {
-                  return o.get(k);
-                })
-                  .then(function (v) {
-                    if (v)
-                      return idbDo('hq', 'readwrite', function (o2) {
-                        return o2.put(v, nk);
-                      });
-                  })
-                  .catch(function () {});
-            } catch (e) {}
-          }
-        });
-        if (S.desc[ref] != null) {
-          S.desc[nn] = S.desc[ref];
-          delete S.desc[ref];
-        }
-        if (S.pnome && S.pnome[ref]) {
-          S.pnome[nn] = S.pnome[ref];
-          delete S.pnome[ref];
-        }
-        if (nmi) {
-          if (nv0) setPN(nn, nv0);
-          else if (S.pnome) delete S.pnome[nn];
-        }
-        if (S.open === ref) S.open = nn;
-        S.qEdRef = nn;
-        S.cdRef = nn;
-        S.rnV = null;
-        S.rnN = null;
-        S.rnRef = '';
-        S.msg =
-          (isSimple(f.tipo) ? 'Nome' : 'Código') + ' alterado de "' + ref + '" para "' + nn + '".';
-        render();
-      });
-      nr.appendChild(ns);
-      nr.appendChild(
-        btn('mini', 'Cancelar', function () {
-          S.rnV = null;
-          S.rnN = null;
-          S.rnRef = '';
-          render();
-        })
-      );
-      nb.appendChild(nr);
-      right.appendChild(nb);
+    var dtxt = S.desc[ref] != null ? String(S.desc[ref]).trim() : '';
+    if (dtxt) {
+      var dp = mk('div', '', dtxt);
+      dp.style.cssText = 'font-size:14px;color:var(--sub);white-space:pre-wrap';
+      right.appendChild(dp);
     }
-    var dv = mk('div', '');
-    dv.appendChild(mk('div', 'lbl', 'Descrição'));
-    var ta = mk('textarea', 'in');
-    ta.id = 'descTa';
-    ta.setAttribute('aria-label', 'Descrição do produto');
-    ta.value = S.desc[ref] != null ? S.desc[ref] : autoDesc(ref);
-    ta.oninput = function () {
-      S.desc[ref] = ta.value;
-    };
-    dv.appendChild(ta);
-    right.appendChild(dv);
     if (S.cdRef !== ref) {
       S.cdRef = ref;
       S.cdMode = false;
@@ -368,251 +279,264 @@
       S.qDraft = {};
       S.cDraft = {};
     }
-    var cv = mk('div', '');
-    var ch = mk('div', '');
-    ch.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:8px';
-    var cl = mk('div', 'lbl', isVr ? 'Classificação de cor (C1 a C6)' : 'Cores disponíveis');
-    cl.style.margin = '0';
-    ch.appendChild(cl);
-    if (cores.length && !isVr) {
-      var ctb = mk('button', 'trash' + (S.cdMode ? ' on' : ''));
-      ctb.type = 'button';
-      ctb.title = 'Excluir uma cor';
-      ctb.setAttribute('aria-label', 'Excluir uma cor');
-      ctb.setAttribute('aria-pressed', !!S.cdMode);
-      ctb.innerHTML =
-        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 11v6M14 11v6"/></svg>';
-      ctb.onclick = function () {
-        if (S.cdMode) {
-          S.cdMode = false;
-          S.cdCor = '';
-        } else {
-          S.cdMode = true;
-          S.cdCor = cor;
-        }
-        render();
-      };
-      ch.appendChild(ctb);
-    }
-    cv.appendChild(ch);
-    var cn = mk('div', 'nav');
-    cn.style.marginTop = '8px';
-    if (!cores.length) cn.appendChild(mk('div', 'note n-bad', 'Nenhuma cor em estoque.'));
-    if (isVr) {
-      var vlist = [];
-      for (var vk2 = 1; vk2 <= vrM; vk2++) vlist.push('C' + vk2);
-      if (
-        !vReq &&
-        avail.some(function (i) {
-          return vkey(i) === 'none';
-        })
-      )
-        vlist.push('none');
-      vlist.forEach(function (v) {
-        var q = sum(
-            avail.filter(function (i) {
-              return vkey(i) === v;
-            })
-          ),
-          rc = repCor(v),
-          has = !!(rc && S.fotos[ref + '|' + rc]);
-        var b = btn(
-          'chip' + (v === selVr ? ' on' : ''),
-          '',
-          function () {
-            S.detVr = v;
-            S.detCor = rc;
-            render();
-          },
-          v === selVr
-        );
-        b.appendChild(document.createTextNode((v === 'none' ? 'Sem C' : v) + ' · ' + q));
-        if (!q) {
-          b.disabled = true;
-          b.style.opacity = '.4';
-        } else if (!has) {
-          var tg2 = mk('span', 'cell', 'sem foto');
-          tg2.style.cssText = 'font-size:11px;padding:2px 8px';
-          b.appendChild(tg2);
-        }
-        cn.appendChild(b);
-      });
-    }
-    (isVr ? [] : cores).forEach(function (c) {
-      var q = sum(
-          avail.filter(function (i) {
-            return i.cor === c;
-          })
-        ),
-        has = !!S.fotos[ref + '|' + c];
-      var b = btn(
-        'chip' +
-          ((S.cdMode ? c === S.cdCor : c === cor) ? ' on' : '') +
-          (S.cdMode && !S.cdCor ? ' delchip' : ''),
-        '',
-        function () {
-          if (S.cdMode) {
-            S.cdCor = c;
-            render();
-            return;
-          }
-          S.detCor = c;
-          render();
-        },
-        c === cor
-      );
-      b.appendChild(dot(hexOf(c)));
-      b.appendChild(document.createTextNode(c + ' · ' + q));
-      if (!has) {
-        var tg = mk('span', 'cell', 'sem foto');
-        tg.style.cssText = 'font-size:11px;padding:2px 8px';
-        b.appendChild(tg);
-      }
-      cn.appendChild(b);
-    });
-    cv.appendChild(cn);
-    if (S.cdMode) {
-      var cz = mk('div', 'note n-info');
-      cz.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px';
-      var endC = function () {
-        S.cdMode = false;
-        S.cdCor = '';
-        render();
-      };
-      if (!S.cdCor || cores.indexOf(S.cdCor) < 0) {
-        cz.appendChild(
-          mk('span', '', 'Modo excluir: toque na cor que você quer apagar deste produto.')
-        );
-        cz.appendChild(btn('mini', 'Cancelar', endC));
-      } else {
-        var xc = S.cdCor,
-          xl = all.filter(function (i) {
-            return i.cor === xc;
-          }),
-          xq = sum(xl),
-          last =
-            cores.length === 1 &&
-            !all.some(function (i) {
-              return i.cor !== xc;
-            });
-        cz.className = 'note n-bad';
-        cz.appendChild(
-          mk(
-            'span',
-            '',
-            'Excluir a cor "' +
-              xc +
-              '" de ' +
-              ref +
-              '? Remove ' +
-              xq +
-              ' peça(s) em estoque e a foto dessa cor.' +
-              (last ? ' Como é a única cor, o produto inteiro será excluído.' : '') +
-              ' As vendas já feitas continuam no histórico.' +
-              ''
-          )
-        );
-        cz.appendChild(
-          btn('mini', 'Sim, excluir', function () {
-            S.items = S.items.filter(function (i) {
-              return !(i.tipo === f.tipo && i.ref === ref && i.cor === xc);
-            });
-            delete S.fotos[ref + '|' + xc];
-            if (
-              !S.items.some(function (i) {
-                return i.ref === ref;
-              })
-            )
-              delete S.desc[ref];
-            S.cdMode = false;
-            S.cdCor = '';
-            S.detCor = '';
-            S.detVr = null;
-            S.selItem = null;
-            S.qty = 1;
-            if (
-              !S.items.some(function (i) {
-                return i.ref === ref && i.tipo === f.tipo;
-              })
-            ) {
-              S.open = '';
-              S.det = false;
-            }
-            S.msg = 'Cor "' + xc + '" excluída de ' + ref + '.';
-            render();
-          })
-        );
-        cz.appendChild(
-          btn('mini', 'Escolher outra', function () {
-            S.cdCor = '';
-            render();
-          })
-        );
-        cz.appendChild(btn('mini', 'Cancelar', endC));
-      }
-      cv.appendChild(cz);
-    }
-    right.appendChild(cv);
     var pv = mk('div', '');
     pv.appendChild(
       mk(
         'div',
         'lbl',
-        (f.tipo === 'pre' ? 'Graus' : isSimple(f.tipo) ? 'Itens' : 'Variantes') +
-          (S.qEdit ? ' · editando o estoque' : ' · estoque')
+        (f.tipo === 'pre' ? 'Graus' : isSimple(f.tipo) ? 'Itens' : 'Cores') + ' · estoque'
       )
     );
     var pl = mk('div', 'col');
     pl.style.gap = '8px';
-    all
-      .slice()
-      .sort(function (a, b) {
-        return f.tipo === 'pre' ? parseFloat(a.grau) - parseFloat(b.grau) : a.vr < b.vr ? -1 : 1;
-      })
-      .forEach(function (i) {
-        var r = mk('div', 'pl');
-        r.appendChild(dot(hexOf(i.cor)));
-        r.appendChild(
+    // seleciona uma variante: define a foto mostrada e o que o botão Vender vende
+    var choose = function (i) {
+      S.detRow = rowKey(i);
+      S.detCor = i.cor;
+      S.detVr = isVr ? vkey(i) : null;
+      S.fDel = false;
+      S.cdMode = false;
+      S.cdCor = '';
+      render();
+    };
+    rows.forEach(function (i) {
+      var r = mk('div', 'pl pick' + (i === sel ? ' picked' : ''));
+      r.tabIndex = 0;
+      r.setAttribute('role', 'button');
+      r.setAttribute('aria-pressed', i === sel);
+      r.onclick = function () {
+        choose(i);
+      };
+      r.onkeydown = function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          choose(i);
+        }
+      };
+      r.appendChild(dot(hexOf(i.cor)));
+      var tx = mk(
+        'span',
+        '',
+        rowLabel(i) + (effCusto(i) != null ? ' · custo ' + usd(effCusto(i)) : ' · sem custo')
+      );
+      if (!S.fotos[ref + '|' + i.cor]) {
+        var tg = mk('span', 'cell', 'sem foto');
+        tg.style.cssText = 'font-size:11px;padding:2px 8px;margin-left:8px';
+        tx.appendChild(tg);
+      }
+      r.appendChild(tx);
+      r.appendChild(mk('b', '', i.qty + ' un.'));
+      if (!i.qty) r.style.opacity = '.7';
+      pl.appendChild(r);
+    });
+    pv.appendChild(pl);
+    if (rows.length > 1) {
+      var ht2 = mk(
+        'div',
+        'hint',
+        f.tipo === 'pre'
+          ? 'Toque num grau para escolher o que vender.'
+          : 'Toque numa cor para ver a foto dela e vender.'
+      );
+      ht2.style.margin = '8px 0 0';
+      pv.appendChild(ht2);
+    }
+    right.appendChild(pv);
+    // um único botão Vender, para a variante selecionada
+    var vbar = mk('div', 'vbar');
+    var vbtn = btn('go', 'Vender ' + rowLabel(sel), function () {
+      S.vTipo = 'all';
+      S.vq = '';
+      $('vq').value = '';
+      S.vRef = sel.tipo + '|' + sel.ref;
+      S.vSel = sel;
+      S.qty = 1;
+      setView('vendas');
+    });
+    if (!sel.qty) vbtn.disabled = true;
+    vbar.appendChild(vbtn);
+    right.appendChild(vbar);
+    g.appendChild(left);
+    g.appendChild(right);
+    det.appendChild(g);
+    if (S.qEdit) det.appendChild(editModal());
+
+    // Janela Editar produto: nome, código, descrição, foto, estoque/custo e exclusão de cor.
+    function editModal() {
+      var smp = isSimple(f.tipo),
+        orig0 = (S.pnome && S.pnome[ref]) || '',
+        ov = mk('div', 'modal'),
+        bx = mk('div', 'modal-box');
+      ov.id = 'editModal';
+      ov.setAttribute('role', 'dialog');
+      ov.setAttribute('aria-modal', 'true');
+      ov.setAttribute('aria-label', 'Editar produto');
+      bx.style.maxWidth = '520px';
+      var zerar = function () {
+        S.qEdit = false;
+        S.qDraft = {};
+        S.cDraft = {};
+        S.rnV = null;
+        S.rnN = null;
+        S.rnRef = '';
+        S.dDraft = null;
+        S.fDel = false;
+        S.cdMode = false;
+        S.cdCor = '';
+      };
+      var fechar = function () {
+        zerar();
+        render();
+      };
+      ov.onclick = function (e) {
+        if (e.target === ov) fechar();
+      };
+      var fld = function (label, el) {
+        var d = mk('div', '');
+        d.appendChild(mk('div', 'lbl', label));
+        d.appendChild(el);
+        return d;
+      };
+      var hd = mk('div', '');
+      hd.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:8px';
+      var ht = mk('h2', '', 'Editar produto');
+      ht.style.cssText = 'margin:0;font-size:18px';
+      hd.appendChild(ht);
+      var xb = btn('tab ibtn', '✕', fechar);
+      xb.setAttribute('aria-label', 'Fechar');
+      hd.appendChild(xb);
+      bx.appendChild(hd);
+      // nome e código
+      var nmi = null,
+        ni = null;
+      if (!f.bulk) {
+        if (!smp) {
+          nmi = mk('input', 'in');
+          nmi.id = 'edNome';
+          nmi.value = S.rnN != null && S.rnRef === ref ? S.rnN : orig0;
+          nmi.placeholder = 'Ex.: Gatinho preto fosco';
+          nmi.maxLength = 60;
+          nmi.setAttribute('aria-label', 'Nome do produto');
+          bx.appendChild(fld('Nome do produto', nmi));
+        }
+        ni = mk('input', 'in');
+        ni.id = 'edCodigo';
+        ni.value = S.rnV != null && S.rnRef === ref ? S.rnV : ref;
+        ni.setAttribute('aria-label', smp ? 'Nome do produto' : 'Código');
+        bx.appendChild(fld(smp ? 'Nome do produto' : 'Código (o que fica na haste)', ni));
+        var guardar = function () {
+          S.rnRef = ref;
+          S.rnV = ni.value;
+          if (nmi) S.rnN = nmi.value;
+        };
+        ni.oninput = guardar;
+        if (nmi) nmi.oninput = guardar;
+      }
+      // descrição (só vale ao salvar)
+      var ta = mk('textarea', 'in');
+      ta.id = 'descTa';
+      ta.rows = 3;
+      ta.placeholder = 'Ex.: polarizado, mola flexível…';
+      ta.setAttribute('aria-label', 'Descrição do produto');
+      ta.value = S.dDraft != null ? S.dDraft : S.desc[ref] != null ? S.desc[ref] : '';
+      ta.oninput = function () {
+        S.dDraft = ta.value;
+      };
+      var df = fld('Descrição (opcional)', ta);
+      var sg = btn('mini', 'Usar descrição sugerida', function () {
+        S.dDraft = autoDesc(ref);
+        render();
+      });
+      sg.style.cssText =
+        'margin-top:8px;min-height:36px;background:var(--panel2);color:var(--sub);border:1px solid var(--line)';
+      df.appendChild(sg);
+      bx.appendChild(df);
+      // foto da cor selecionada
+      var ps = mk('div', '');
+      ps.appendChild(mk('div', 'lbl', 'Foto · ' + cor));
+      var pr = mk('div', '');
+      pr.style.cssText = 'display:flex;gap:12px;align-items:center';
+      var th0 = mk('div', '');
+      th0.style.cssText =
+        'width:96px;height:72px;flex:none;background:#fff;border-radius:10px;padding:2px;display:flex;align-items:center;justify-content:center;color:#64748b;font-size:11px;overflow:hidden';
+      if (src) {
+        var im0 = mk('img');
+        im0.src = src;
+        im0.alt = cor;
+        im0.style.cssText = 'width:100%;height:100%;object-fit:contain';
+        th0.appendChild(im0);
+      } else th0.textContent = 'sem foto';
+      pr.appendChild(th0);
+      var pc = mk('div', 'col');
+      pc.style.cssText = 'gap:8px;flex:1';
+      pc.appendChild(btn('mini', src ? 'Trocar foto' : 'Adicionar foto', pickPhoto));
+      if (src) {
+        var xf = btn('mini', 'Excluir foto', function () {
+          S.fDel = true;
+          render();
+        });
+        xf.style.cssText =
+          'background:transparent;color:var(--bad);border:1px solid rgba(239,68,68,.7)';
+        pc.appendChild(xf);
+      }
+      pr.appendChild(pc);
+      ps.appendChild(pr);
+      if (S.fDel && src) {
+        var fz = mk('div', 'note n-bad');
+        fz.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px';
+        fz.appendChild(
           mk(
             'span',
             '',
-            (isSimple(f.tipo) ? '' : (f.tipo === 'pre' ? i.grau : i.vr) + ' · ') +
-              i.cor +
-              (effCusto(i) != null ? ' · custo ' + usd(effCusto(i)) : ' · sem custo')
+            'Excluir a foto da cor "' + cor + '"? Não dá para desfazer. O estoque não muda.'
           )
         );
-        if (!i.qty) r.style.opacity = '.7';
-        if (S.qDraft[S.items.indexOf(i)] != null || S.cDraft[S.items.indexOf(i)] != null)
-          r.style.borderColor = 'var(--accent)';
-        var qe = mk('span', 'qe');
-        qe.style.cssText = 'display:flex;align-items:center;gap:6px;flex-wrap:wrap';
+        fz.appendChild(
+          btn('mini', 'Sim, excluir', function () {
+            delete S.fotos[ref + '|' + cor];
+            S.fDel = false;
+            S.msg = 'Foto da cor "' + cor + '" excluída.';
+            render();
+          })
+        );
+        fz.appendChild(
+          btn('mini', 'Cancelar', function () {
+            S.fDel = false;
+            render();
+          })
+        );
+        ps.appendChild(fz);
+      }
+      var ph = mk('div', 'hint', 'A foto vale para a cor toda. Para outra cor, toque nela abaixo.');
+      ph.style.margin = '6px 0 0';
+      ps.appendChild(ph);
+      bx.appendChild(ps);
+      // estoque e custo por variante
+      var ev = mk('div', '');
+      ev.appendChild(mk('div', 'lbl', 'Cores · quantidade e custo (US$)'));
+      var el = mk('div', 'col');
+      el.style.gap = '8px';
+      rows.forEach(function (i) {
+        if (i.bulk) return;
         var ix = S.items.indexOf(i),
-          cur = S.qDraft[ix] != null ? S.qDraft[ix] : i.qty;
+          cur = S.qDraft[ix] != null ? S.qDraft[ix] : i.qty,
+          r = mk('div', 'pl pick' + (i === sel ? ' picked' : ''));
+        r.appendChild(dot(hexOf(i.cor)));
+        var lb = mk('span', '', rowLabel(i));
+        lb.style.cursor = 'pointer';
+        lb.onclick = function () {
+          choose(i);
+        };
+        r.appendChild(lb);
+        if (S.qDraft[ix] != null || S.cDraft[ix] != null) r.style.borderColor = 'var(--accent)';
+        var qe = mk('span', 'qe');
+        qe.style.cssText = 'display:flex;align-items:center;gap:6px;flex-wrap:wrap;grid-column:1/-1';
         var setQ = function (n) {
           n = Math.max(0, Math.min(99999, Math.floor(Number(n) || 0)));
           if (n === i.qty) delete S.qDraft[ix];
           else S.qDraft[ix] = n;
           render();
         };
-        if (!S.qEdit || i.bulk) {
-          qe.appendChild(mk('b', '', i.qty + ' un.'));
-          var vb0 = btn('mini', 'Vender', function () {
-            S.vTipo = 'all';
-            S.vq = '';
-            $('vq').value = '';
-            S.vRef = i.tipo + '|' + i.ref;
-            S.vSel = i;
-            S.qty = 1;
-            setView('vendas');
-          });
-          if (!i.qty) vb0.disabled = true;
-          qe.appendChild(vb0);
-          qe.style.justifyContent = 'space-between';
-          qe.style.flexWrap = 'nowrap';
-          r.appendChild(qe);
-          pl.appendChild(r);
-          return;
-        }
         var mb = btn('step', '−', function () {
           setQ(cur - 1);
         });
@@ -660,86 +584,230 @@
         };
         qe.appendChild(ci);
         r.appendChild(qe);
-        pl.appendChild(r);
+        el.appendChild(r);
       });
-    pv.appendChild(pl);
-    right.appendChild(pv);
-    var dk = Object.keys(Object.assign({}, S.qDraft, S.cDraft));
-    if (S.qEdit && dk.length) {
-      var sv = mk('div', 'note n-info');
-      sv.style.cssText =
-        'display:flex;flex-wrap:wrap;gap:10px;align-items:center;position:sticky;bottom:8px';
-      sv.appendChild(
-        mk(
-          'span',
-          '',
-          dk.length + (dk.length === 1 ? ' alteração não salva.' : ' alterações não salvas.')
+      ev.appendChild(el);
+      bx.appendChild(ev);
+      // excluir a cor selecionada (produtos sem classes C1–C6)
+      if (!isVr && cores.length) {
+        var dz = mk('div', '');
+        if (!S.cdMode) {
+          var db = btn('mini', 'Excluir a cor "' + cor + '"', function () {
+            S.cdMode = true;
+            S.cdCor = cor;
+            render();
+          });
+          db.style.cssText =
+            'background:transparent;color:var(--bad);border:1px solid rgba(239,68,68,.7)';
+          dz.appendChild(db);
+        } else {
+          var xq = sum(
+              all.filter(function (i) {
+                return i.cor === cor;
+              })
+            ),
+            last = cores.length === 1;
+          var cz = mk('div', 'note n-bad');
+          cz.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;align-items:center';
+          cz.appendChild(
+            mk(
+              'span',
+              '',
+              'Excluir a cor "' +
+                cor +
+                '" de ' +
+                ref +
+                '? Remove ' +
+                xq +
+                ' peça(s) em estoque e a foto dessa cor.' +
+                (last ? ' Como é a única cor, o produto inteiro será excluído.' : '') +
+                ' As vendas já feitas continuam no histórico.'
+            )
+          );
+          cz.appendChild(
+            btn('mini', 'Sim, excluir', function () {
+              S.items = S.items.filter(function (i) {
+                return !(i.tipo === f.tipo && i.ref === ref && i.cor === cor);
+              });
+              delete S.fotos[ref + '|' + cor];
+              if (
+                !S.items.some(function (i) {
+                  return i.ref === ref;
+                })
+              )
+                delete S.desc[ref];
+              zerar();
+              S.detCor = '';
+              S.detVr = null;
+              S.detRow = null;
+              S.selItem = null;
+              S.qty = 1;
+              if (
+                !S.items.some(function (i) {
+                  return i.ref === ref && i.tipo === f.tipo;
+                })
+              ) {
+                S.open = '';
+                S.det = false;
+              }
+              S.msg = 'Cor "' + cor + '" excluída de ' + ref + '.';
+              render();
+            })
+          );
+          cz.appendChild(
+            btn('mini', 'Cancelar', function () {
+              S.cdMode = false;
+              S.cdCor = '';
+              render();
+            })
+          );
+          dz.appendChild(cz);
+        }
+        bx.appendChild(dz);
+      }
+      // Cancelar / Salvar
+      var ft = mk('div', '');
+      ft.style.cssText = 'display:flex;gap:10px';
+      var cb = btn('tab', 'Cancelar', fechar);
+      cb.style.flex = '1';
+      var sb2 = btn('tab on', 'Salvar', function () {
+        var nn = ni ? normRef(ni.value, smp) : ref,
+          nv0 = nmi ? nmi.value.trim() : '';
+        if (!nn) return popErr(smp ? 'Digite o nome do produto.' : 'Digite o código da haste.');
+        if (
+          nn !== ref &&
+          S.items.some(function (i) {
+            return i.ref.toUpperCase() === nn.toUpperCase() && i.ref !== ref;
+          })
         )
-      );
-      sv.appendChild(
-        btn('go', 'Salvar', function () {
-          var msgs = [];
-          dk.forEach(function (k) {
-            var it = S.items[k];
-            if (!it) return;
-            var n = S.qDraft[k] != null ? S.qDraft[k] : it.qty,
-              d = n - it.qty;
-            if (it.lote && d > 0) {
-              var gg = S.grp.filter(function (x) {
+          return popErr('Já existe um produto chamado "' + nn + '". Escolha outro nome.');
+        var dk = Object.keys(Object.assign({}, S.qDraft, S.cDraft)),
+          partes = [],
+          msgs = [];
+        if (dk.length) {
+          msgs = salvarEstoque(dk);
+          partes.push('Estoque salvo.' + (msgs.length ? ' ' + msgs.join(' ') : ''));
+        }
+        if (S.dDraft != null) {
+          if (S.dDraft !== (S.desc[ref] != null ? S.desc[ref] : '')) {
+            S.desc[ref] = S.dDraft;
+            partes.push('Descrição salva.');
+          }
+        }
+        var rm = ni ? renomear(nn, nv0, !!nmi) : '';
+        if (rm) partes.push(rm);
+        zerar();
+        S.msg = partes.join(' ') || 'Nada foi alterado.';
+        render();
+      });
+      sb2.style.flex = '2';
+      ft.appendChild(cb);
+      ft.appendChild(sb2);
+      bx.appendChild(ft);
+      ov.appendChild(bx);
+      return ov;
+    }
+    // Aplica no estoque as quantidades e custos digitados; devolve avisos.
+    function salvarEstoque(dk) {
+      var msgs = [];
+      dk.forEach(function (k) {
+        var it = S.items[k];
+        if (!it) return;
+        var n = S.qDraft[k] != null ? S.qDraft[k] : it.qty,
+          d = n - it.qty;
+        if (it.lote && d > 0) {
+          var gg = S.grp.filter(function (x) {
+              return x.id === it.lote;
+            })[0],
+            fal = gg ? grpFalta(gg) : 0;
+          if (gg && d > fal) {
+            n = it.qty + fal;
+            d = fal;
+            msgs.push(
+              'O lote ' +
+                gLabel(gg) +
+                ' só tem ' +
+                fal +
+                ' peça(s) para detalhar: limitei ' +
+                it.cor +
+                '.'
+            );
+          }
+        }
+        it.qty = n;
+        if (S.cDraft[k] != null) {
+          var cr = String(S.cDraft[k]).trim().replace(',', '.');
+          if (cr === '') delete it.custo;
+          else {
+            var cv = parseFloat(cr),
+              lg =
+                it.lote &&
+                S.grp.filter(function (x) {
                   return x.id === it.lote;
                 })[0],
-                fal = gg ? grpFalta(gg) : 0;
-              if (gg && d > fal) {
-                n = it.qty + fal;
-                d = fal;
-                msgs.push(
-                  'O lote ' +
-                    gLabel(gg) +
-                    ' só tem ' +
-                    fal +
-                    ' peça(s) para detalhar: limitei ' +
-                    it.cor +
-                    '.'
-                );
-              }
-            }
-            it.qty = n;
-            if (S.cDraft[k] != null) {
-              var cr = String(S.cDraft[k]).trim().replace(',', '.');
-              if (cr === '') delete it.custo;
-              else {
-                var cv = parseFloat(cr),
-                  lg =
-                    it.lote &&
-                    S.grp.filter(function (x) {
-                      return x.id === it.lote;
-                    })[0],
-                  ce3 = cv >= 0 && lg && !it.bulk ? gCostErr(lg, cv * it.qty, it) : '';
-                if (ce3) msgs.push(it.cor + ': custo não alterado. ' + ce3);
-                else if (cv >= 0) it.custo = cv;
-                else msgs.push('Custo inválido em ' + it.cor + ': ignorei.');
-              }
-            }
-          });
-          S.qDraft = {};
-          S.cDraft = {};
-          S.qEdit = false;
-          S.msg = 'Estoque salvo.' + (msgs.length ? ' ' + msgs.join(' ') : '');
-          render();
-        })
-      );
-      sv.lastChild.style.cssText =
-        'width:auto;margin:0;padding:0 18px;min-height:38px;height:38px;font-size:14px';
-      sv.appendChild(
-        btn('mini', 'Descartar', function () {
-          S.qDraft = {};
-          S.cDraft = {};
-          render();
-        })
-      );
-      right.appendChild(sv);
+              ce3 = cv >= 0 && lg && !it.bulk ? gCostErr(lg, cv * it.qty, it) : '';
+            if (ce3) msgs.push(it.cor + ': custo não alterado. ' + ce3);
+            else if (cv >= 0) it.custo = cv;
+            else msgs.push('Custo inválido em ' + it.cor + ': ignorei.');
+          }
+        }
+      });
+      return msgs;
     }
-    g.appendChild(left);
-    g.appendChild(right);
-    det.appendChild(g);
+    // Troca o nome/código do produto (com fotos e descrição); devolve a mensagem, ou '' se nada mudou.
+    function renomear(nn, nv0, temNome) {
+      var smp = isSimple(f.tipo),
+        orig0 = (S.pnome && S.pnome[ref]) || '';
+      if (nn === ref) {
+        if (temNome && nv0 !== orig0) {
+          if (nv0) setPN(ref, nv0);
+          else if (S.pnome) delete S.pnome[ref];
+          return 'Nome salvo.';
+        }
+        return '';
+      }
+      var tp = f.tipo;
+      S.items.forEach(function (i) {
+        if (i.tipo === tp && i.ref === ref && !i.bulk) i.ref = nn;
+      });
+      Object.keys(S.fotos).forEach(function (k) {
+        if (k.slice(0, k.indexOf('|')) === ref) {
+          var nk = nn + k.slice(k.indexOf('|'));
+          S.fotos[nk] = S.fotos[k];
+          delete S.fotos[k];
+          try {
+            if (IDBOK)
+              idbDo('hq', 'readonly', function (o) {
+                return o.get(k);
+              })
+                .then(function (v) {
+                  if (v)
+                    return idbDo('hq', 'readwrite', function (o2) {
+                      return o2.put(v, nk);
+                    });
+                })
+                .catch(function () {});
+          } catch (e) {}
+        }
+      });
+      if (S.desc[ref] != null) {
+        S.desc[nn] = S.desc[ref];
+        delete S.desc[ref];
+      }
+      if (S.pnome && S.pnome[ref]) {
+        S.pnome[nn] = S.pnome[ref];
+        delete S.pnome[ref];
+      }
+      if (temNome) {
+        if (nv0) setPN(nn, nv0);
+        else if (S.pnome) delete S.pnome[nn];
+      }
+      if (S.open === ref) S.open = nn;
+      S.qEdRef = nn;
+      S.cdRef = nn;
+      S.rnV = null;
+      S.rnN = null;
+      S.rnRef = '';
+      return (smp ? 'Nome' : 'Código') + ' alterado de "' + ref + '" para "' + nn + '".';
+    }
   }
