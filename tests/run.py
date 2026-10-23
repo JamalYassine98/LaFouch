@@ -576,10 +576,10 @@ async def main():
               S.cart = [{it, qty: 1, preco: null}]; S.cartOpen = true; S.moeda = 'brl'; S.rate1 = ''; S.rec = null; S.descTxt = ''; S.pagMisto = false;
               L.setView('vendas'); L.render();
               const need = L.tFor(it).price, sh = document.getElementById('recIn').value;
-              const esp = (need / (8200 / 5.2)).toFixed(2).replace('.', ',');
+              const esp = (need / L.rateDe('brl', 0)).toFixed(2).replace('.', ',');
               L.setView('fx'); L.render(); const fx = document.getElementById('v-fx').textContent;
               return [g, u, b, man, custo, sh === esp, document.getElementById('v-fx').textContent.indexOf('Cotação da loja') >= 0, fx.indexOf('G$ 8.200') >= 0]; }""")
-            ok = r[0] == 'US$ 74' and r[1] == 8200 and r[2] == 1577 and r[3] == 1300 and r[4] == 8000 and r[5] and r[6] and r[7] and not pg.erros
+            ok = r[0] == 'US$ 74' and r[1] == 8200 and r[2] == 1600 and r[3] == 1300 and r[4] == 8000 and r[5] and r[6] and r[7] and not pg.erros
             total += 1
             print(('  ok  ' if ok else ' FALHA ') + 'cotação da loja: dólar com margem a mais, no carrinho e na aba Câmbio')
             if not ok: falhas.append('cotacao loja'); print('        veio', r, pg.erros)
@@ -802,6 +802,25 @@ async def main():
             if not ok: falhas.append('personalizar inicio'); print('        veio', l1, nomes, l2, pg.erros)
             await pg.close()
 
+            # pagamento simples: sem botão de várias moedas, "+ Outra moeda" direto, câmbio dito em dólar e dólar da loja de 100 em 100
+            pg = await pagina()
+            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S;
+              S.fxHist = []; S.fx.pyg = 5800; S.fx.brl = 5; S.moedaP = 'pyg';
+              const it = S.items.filter(i => i.qty >= 1 && L.tFor(i).price > 0)[0];
+              S.cart = [{it, qty: 1, preco: null}]; S.cartOpen = true; S.moeda = 'brl'; S.rate1 = ''; S.rec = null; S.pagMisto = false; S.pagX = [];
+              L.setView('vendas'); L.render();
+              const antes = !!document.getElementById('pmTog'), btn = document.querySelector('#pmExtra .chip.add');
+              btn.click(); const linhas = document.querySelectorAll('#pmExtra .card').length, cambioLinha = document.querySelectorAll('#pmExtra .card input').length;
+              const ph = document.getElementById('rate1In').placeholder, lbl = document.querySelector('#rate1B .lbl').textContent;
+              const u = L.fxLoja('usd');
+              const rec = document.getElementById('recH').textContent;
+              return [antes, linhas, cambioLinha, ph, lbl, u, rec]; }""")
+            total += 1
+            ok = r[0] is False and r[1] == 1 and r[2] == 1 and 'US$ 1 = R$' in r[3] and 'US$ 1' in r[4] and r[5] == 5900 and 'US$ 1 = R$' in r[6] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'pagamento: Outra moeda direto, câmbio em dólar e dólar da loja de 100 em 100')
+            if not ok: falhas.append('pagamento outra moeda'); print('        veio', r, pg.erros)
+            await pg.close()
+
             # cotação da loja: margem dinâmica (base 2,5%, oscilação, alerta, teto 3,5%)
             pg = await pagina()
             r = await pg.evaluate("""() => { const L = window.__LF, S = L.S, D = 86400000, h = Date.now();
@@ -811,7 +830,7 @@ async def main():
               poe([5620, 5625, 5618, 5630, 5640, 5760, 5920]); const salto = [L.fxMargemInfo().m, L.fxLoja('usd')];
               return [calmo, alerta.m, alerta.alerta, salto]; }""")
             total += 1
-            ok = abs(r[0][0] - 0.025) < 1e-9 and r[0][1] == 5800 and r[1] > 0.025 and r[2] == 0.01 and abs(r[3][0] - 0.035) < 1e-9 and r[3][1] == 6150 and not pg.erros
+            ok = abs(r[0][0] - 0.025) < 1e-9 and r[0][1] == 5800 and r[1] > 0.025 and r[2] == 0.01 and abs(r[3][0] - 0.035) < 1e-9 and r[3][1] == 6100 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'cotação da loja: margem dinâmica com alerta e teto de 3,5%')
             if not ok: falhas.append('margem dinamica'); print('        veio', r, pg.erros)
             await pg.close()

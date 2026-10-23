@@ -14146,6 +14146,7 @@
   S.pagMisto = false; // pagar com mais de uma moeda
   S.pagX = []; // linhas extras de recebimento: {m, v, r}
   S.trL = []; // linhas de troco devolvido: {m, v, r}
+  S.rate1Txt = ''; // o que foi digitado no campo do câmbio (em dólar)
   S.rate1 = ''; // câmbio manual da primeira linha (G$ por 1 unidade)
   var MOEDAS3 = [
     ['pyg', 'G$'],
@@ -14160,7 +14161,7 @@
   // Ex.: peça de US$ 15, mercado 5.900, loja 6.000: quem paga em guaranis entrega 90.000 e não 88.500.
   // O real fica pelo valor de mercado em guaranis, então R$ por US$ também sobe pela mesma margem.
   var FX_MARGEM = 0.025;
-  // Arredondada para cima para ficar "redonda": dólar de 50 em 50 guaranis (5.885 vira 5.900), real por dólar de 0,10 em 0,10 (4,92 vira 5,00).
+  // Arredondada para ficar "redonda": dólar de 100 em 100 guaranis (5.945 vira 5.900; 5.950 também desce), real por dólar sobe de 0,10 em 0,10 (4,92 vira 5,00).
   var FX_TETO = 0.035;
   // Margem do dia: 2,5% de base. Se o dólar oscilou mais de 3% em 7 dias, a margem passa a ser a oscilação + 0,5%.
   // Alerta de subida: alta de 1% em 3 dias soma 0,5%; alta de 2% soma 1%. Nunca passa do teto de 3,5%.
@@ -14191,18 +14192,24 @@
     return { m: Math.min(FX_TETO, reativa + alerta), amp: amp, alta: alta, reativa: reativa, alerta: alerta };
   }
   function fxUsdLoja() {
-    return Math.ceil((ratePyg('usd') * (1 + fxMargemInfo().m)) / 50 - 1e-9) * 50;
+    return Math.ceil((ratePyg('usd') * (1 + fxMargemInfo().m)) / 100 - 0.5 - 1e-9) * 100;
   }
   function fxBrlPorUsd() {
     var b = S.fx && S.fx.brl > 0 ? S.fx.brl : 5;
     return Math.ceil(b * (1 + fxMargemInfo().m) * 10 - 1e-9) / 10;
   }
   function fxLoja(m) {
-    return m === 'usd' ? fxUsdLoja() : m === 'brl' ? fxUsdLoja() / fxBrlPorUsd() : 0;
+    return m === 'usd' ? fxUsdLoja() : m === 'brl' ? Math.round(fxUsdLoja() / fxBrlPorUsd() / 100) * 100 : 0;
   }
   // Texto "câmbio da loja" ou "cotação de hoje" conforme o que está valendo.
   function fxOrigem(m) {
     return 'cotação da loja';
+  }
+  // Câmbio dito em dólar: "US$ 1 = G$ 5.900" ou "US$ 1 = R$ 5,40 (G$ 5.900)". r = guaranis por 1 unidade da moeda m.
+  function fxTxtUsd(m, r) {
+    var u = Math.round(m === 'usd' ? r : fxUsdLoja());
+    if (m === 'usd') return 'US$ 1 = ' + gsRaw(u);
+    return 'US$ 1 = R$ ' + (u / r).toFixed(2).replace('.', ',') + ' · US$ 1 = ' + gsRaw(u);
   }
   function numRate(txt) {
     return parseDec(txt, 'pyg');
@@ -14322,21 +14329,12 @@
       pmMudou();
     };
     linha.appendChild(v);
-    if (x.m !== 'pyg') {
-      var r = mk('input', 'in');
-      r.setAttribute('inputmode', 'numeric');
-      r.placeholder = 'Câmbio ' + dots(Math.round(rateDe(x.m, 0)));
-      r.setAttribute('aria-label', 'Câmbio de ' + x.m.toUpperCase() + ' em guaranis (opcional)');
-      r.value = x.r || '';
-      r.style.cssText = 'flex:1 1 110px;width:auto';
-      r.oninput = function () {
-        x.r = r.value;
-        pmMudou();
-      };
-      linha.appendChild(r);
-    }
     var rm = btn('trash', '✕', function () {
       lista.splice(i, 1);
+      if (lista === S.pagX && !lista.length) {
+        S.pagMisto = false;
+        S.rec = null;
+      }
       pmRender(true);
       pmMudou();
     });
@@ -14355,23 +14353,23 @@
     var m = S.moeda;
     $('rate1B').hidden = m === 'pyg';
     if (m === 'pyg') S.rate1 = '';
-    $('rate1In').placeholder = 'Câmbio da loja: ' + dots(Math.round(rateDe(m, 0)));
-    if ($('rate1In').value !== (S.rate1 || '')) $('rate1In').value = S.rate1 || '';
-    // botão de pagar com mais de uma moeda
-    var tg = $('pmTog');
-    tg.textContent = S.pagMisto ? 'Pagamento em uma moeda só' : 'Pagar com mais de uma moeda';
-    tg.setAttribute('aria-pressed', S.pagMisto);
+    // câmbio sempre em dólar: US$ 1 = G$ (para dólar) ou US$ 1 = R$ (para real)
+    if (!S.rate1) S.rate1Txt = '';
+    $('rate1B').querySelector('.lbl').textContent = m === 'brl' ? 'Câmbio: US$ 1 = quantos R$ (opcional)' : 'Câmbio: US$ 1 = quantos G$ (opcional)';
+    $('rate1In').placeholder = m === 'brl' ? 'Câmbio da loja: US$ 1 = R$ ' + fxBrlPorUsd().toFixed(2).replace('.', ',') : 'Câmbio da loja: US$ 1 = G$ ' + dots(Math.round(fxUsdLoja()));
+    if ($('rate1In').value !== (S.rate1Txt || '')) $('rate1In').value = S.rate1Txt || '';
     // linhas extras
     var ex = $('pmExtra');
     ex.textContent = '';
-    ex.hidden = !S.pagMisto;
-    if (S.pagMisto) {
+    {
       S.pagX.forEach(function (x, i) {
         ex.appendChild(pmLinha(x, i, S.pagX, 'Valor recebido'));
       });
       ex.appendChild(
         btn('chip add', '+ Outra moeda', function () {
           S.pagX.push({ m: S.moeda === 'pyg' ? 'brl' : 'pyg', v: '', r: '' });
+          S.pagMisto = true;
+          S.rec = null;
           pmRender(true);
           pmMudou();
         })
@@ -14400,14 +14398,12 @@
     });
     pmTextos();
   }
-  $('pmTog').onclick = function () {
-    S.pagMisto = !S.pagMisto;
-    S.pagX = [];
-    S.rec = null;
-    render();
-  };
   $('rate1In').addEventListener('input', function () {
-    S.rate1 = this.value;
+    S.rate1Txt = this.value;
+    if (S.moeda === 'brl') {
+      var r = parseDec(this.value, 'brl');
+      S.rate1 = r > 0 ? String(Math.round((fxUsdLoja() / r) * 1000) / 1000).replace('.', ',') : '';
+    } else S.rate1 = this.value;
     S.rec = null;
     S._ratePend = true;
     render();
@@ -20198,7 +20194,7 @@
       'Equivale a ' +
       gs(eff) +
       (m !== 'pyg'
-        ? ' (' + (numRate(S.rate1) > 0 ? 'câmbio combinado' : fxOrigem(m)) + ': ' + MN[m] + ' 1 = ' + gsRaw(Math.round(rateDe(m, numRate(S.rate1)))) + ')'
+        ? ' (' + (numRate(S.rate1) > 0 ? 'câmbio combinado' : fxOrigem(m)) + ': ' + fxTxtUsd(m, rateDe(m, numRate(S.rate1))) + ')'
         : '') +
       (t.price && Math.abs(diff) >= 1
         ? '. ' +
