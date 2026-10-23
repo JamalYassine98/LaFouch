@@ -407,12 +407,14 @@ async def main():
             total += 1
             a = await pg.evaluate("() => [document.getElementById('vListCard').hidden, document.getElementById('vDetail').hidden, document.getElementById('vSaleCard').hidden]")
             await pg.locator('#vRows .pcard:has-text("SP57765")').click(); await pg.wait_for_timeout(400)
+            cat1 = await pg.evaluate("() => document.getElementById('catV').hidden")
             b1 = await pg.evaluate("() => [document.getElementById('vListCard').hidden, document.getElementById('vDetail').hidden, document.getElementById('vSaleCard').hidden, !!document.querySelector('#vDetail button[aria-label=\\'Editar\\']'), document.querySelectorAll('#vDetail .pl.pick').length]")
             await pg.locator('#vDetail .pl.pick').nth(1).click(); await pg.wait_for_timeout(300)
             c = await pg.evaluate("() => { const S = window.__LF.S; return [S.vSel && S.vSel.grau, document.getElementById('spc').textContent.indexOf(S.vSel.grau) >= 0] }")
             await pg.locator('#vDetail button[aria-label="Voltar"]').click(); await pg.wait_for_timeout(300)
             d = await pg.evaluate("() => [document.getElementById('vListCard').hidden, document.getElementById('vDetail').hidden, window.__LF.S.vRef]")
-            ok = a == [False, True, True] and b1 == [True, False, False, False, 4] and c == ['+1.00', True] and d == [False, True, ''] and not pg.erros
+            cat2 = await pg.evaluate("() => document.getElementById('catV').hidden")
+            ok = cat1 is True and cat2 is False and a == [False, True, True] and b1 == [True, False, False, False, 4] and c == ['+1.00', True] and d == [False, True, ''] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'tela Vendas: produto abre em janela própria, escolhe a variante e volta à lista')
             if not ok: falhas.append('vendas janela'); print('        veio', a, b1, c, d, pg.erros)
             await pg.close()

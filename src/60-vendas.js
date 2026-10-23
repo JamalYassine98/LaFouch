@@ -139,6 +139,7 @@
     // produto aberto: a mesma tela do catálogo, em modo venda; a lista some
     $('vListCard').hidden = !!S.vRef;
     $('vSaleCard').hidden = !S.vRef;
+    $('catV').hidden = !!S.vRef;
     if (S.vRef && groups[S.vRef]) {
       var dsel = renderDetail(groups[S.vRef][0].ref, {
         venda: true,
