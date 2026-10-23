@@ -600,15 +600,15 @@ async def main():
 
             # fundo branco automático: desmarcado, a foto entra como foi tirada
             pg = await pagina()
-            from PIL import Image
-            import random
-            im = Image.new('RGB', (600, 400), (120, 90, 60))
-            for _ in range(4000): im.putpixel((random.randrange(600), random.randrange(400)), (random.randrange(256),) * 3)
-            im.save('/tmp/claude-0/fb.png')
+            import base64
+            b64 = await pg.evaluate("""() => { const c = document.createElement('canvas'); c.width = 600; c.height = 400; const g = c.getContext('2d');
+              g.fillStyle = '#785a3c'; g.fillRect(0, 0, 600, 400);
+              for (let i = 0; i < 3000; i++) { const v = Math.floor(Math.random() * 256); g.fillStyle = `rgb(${v},${v},${v})`; g.fillRect(Math.random() * 600, Math.random() * 400, 2, 2); }
+              return c.toDataURL('image/png').split(',')[1]; }""")
             await pg.evaluate("() => { const L = window.__LF; L.S.fundoBranco = false; L.setView('estoque'); }")
             await pg.click('#btnAdd'); await pg.wait_for_timeout(300)
             ck = await pg.evaluate("() => document.getElementById('fbCk').checked")
-            await pg.set_input_files('#file', '/tmp/claude-0/fb.png'); await pg.wait_for_timeout(2500)
+            await pg.set_input_files('#file', {'name': 'fb.png', 'mimeType': 'image/png', 'buffer': base64.b64decode(b64)}); await pg.wait_for_timeout(2500)
             r = await pg.evaluate("() => [!document.getElementById('photoCard').hidden, document.getElementById('phOrig').hidden, document.getElementById('phImg').src.length > 1000]")
             total += 1
             ok = ck is False and r == [True, True, True] and not pg.erros
