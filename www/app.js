@@ -16411,4 +16411,16 @@
   syncTipos();
   render();
   loadFotos();
+  // Gancho de teste: expõe funções internas só quando a URL termina em #test (usado por tests/).
+  if (/(^|[#&])test\b/.test(location.hash))
+    window.__LF = {
+      S: S, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
+      walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,
+      grpTot: grpTot, grpFalta: grpFalta, effCusto: effCusto, parseLote: parseLote, parseHaste: parseHaste,
+      parseVote: parseVote, flatParse: flatParse, numAmt: numAmt, hKey: hKey, lev: lev, normRef: normRef,
+      nrm: nrm, normGrau: normGrau, totalMensal: totalMensal, contasPeca: contasPeca, lotCharge: lotCharge,
+      lotRefund: lotRefund, lotAdjust: lotAdjust, cleanDb: cleanDb, dedupeItems: dedupeItems, render: render,
+      lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
+      setView: setView
+    };
 })();
