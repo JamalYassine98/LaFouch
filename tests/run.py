@@ -184,6 +184,8 @@ TESTES = [
  ("calcSale: brinde entra na reposição e baixa o lucro", """const c = L.calcSale({price:25000, repUSD:.65}, 1, 7000, .1, 1000, 500, undefined, 0.4); return [c.rep, c.repUSD, c.melh, c.livre]""", [7350, 1.05, 500, 15695]),
  ("calcPacote: peças e custo por peça", """return [L.calcPacote(24,2,12), L.calcPacote(20,1,0), L.calcPacote(0,3,5)]""", [{"qty":48,"custo":0.5},{"qty":20,"custo":0},{"qty":0,"custo":0}]),
  ("sazonFator: solar sobe no verão e a curva é editável", """const a=[L.sazonFator('solar',0), L.sazonFator('solar',5), L.sazonFator('pre',0)]; S.sazon={pre:[2,1,1,1,1,1,1,1,1,1,1,1]}; a.push(L.sazonFator('pre',0)); S.sazon={}; return a""", [1.5, 0.6, 1, 2]),
+ ("sazonFator: aprende a estação com o histórico de vendas", """S.sazon={}; const d=new Date(); const sem=[]; S.sales=[]; for(let k=1;k<=24;k++){ const x=new Date(d.getFullYear(), d.getMonth()-k, 15); S.sales.push({ts:x.getTime(),tipo:'pre',ref:'Z',qty: x.getMonth()===11?30:10,estorno:false}); }
+   const dez=L.sazonFator('pre',11), jun=L.sazonFator('pre',5); S.sales=[]; const vazio=L.sazonFator('pre',11); return [dez>1.8, jun<1, vazio]""", [True, True, 1]),
  ("reposicao: vende rápido e acaba logo", """const n=Date.now(); S.faixas=[{id:'f1',nome:'Eco',margem:30,precos:{}}]; S.pfaixa={}; S.sazon={pre:Array(12).fill(1)};
    S.items=[{tipo:'pre',ref:'A',grau:'+1.00',cor:'Preto',qty:3,custo:1}];
    S.sales=[{ts:n-864e5,tipo:'pre',ref:'A',qty:10,livre:7000,fx:7000,estorno:false}];

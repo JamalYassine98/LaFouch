@@ -188,7 +188,6 @@
       'faixas',
       'pfaixa',
       'metaUsd',
-      'sazon',
       'appStart',
       'sugIgn',
       'backupTs',

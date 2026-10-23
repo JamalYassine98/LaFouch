@@ -8,7 +8,7 @@
   ];
   S.pfaixa = {}; // código do produto -> id da faixa
   S.metaUsd = 0; // meta mensal de lucro da loja toda (US$)
-  S.sazon = {}; // curva de vendas por tipo (12 fatores, janeiro a dezembro), editável
+  S.sazon = {}; // só para testes: curva fixa por tipo. Em uso normal a curva é aprendida das vendas (sazonAprendida)
   S.appStart = Date.now();
   S.sugIgn = {}; // sugestão de margem ignorada: faixa -> mês (AAAA-MM)
   S.backupTs = 0;
@@ -51,10 +51,56 @@
     return Math.ceil(v / 500) * 500;
   }
   // Fator de venda do tipo em um mês (0 = janeiro). 1 = mês normal.
+  // Aprendido sozinho com as vendas: cada mês do ano comparado com a média mensal do próprio tipo.
+  // Com pouco histórico usa a curva padrão; conforme o histórico cresce (até 24 meses), pesa mais o que a loja realmente vendeu.
+  function sazonAprendida(tipo) {
+    var chave = S.sales.length + '|' + Math.floor(Date.now() / 10000),
+      cache = (S._sazCache = S._sazCache && S._sazCache.k === chave ? S._sazCache : { k: chave, t: {} });
+    if (cache.t[tipo]) return cache.t[tipo];
+    var base = SAZON_PADRAO[tipo] || [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      hoje = new Date(),
+      atual = hoje.getFullYear() * 12 + hoje.getMonth(),
+      porMes = {},
+      primeiro = null,
+      n = 0;
+    S.sales.forEach(function (s) {
+      if (s.estorno || s.tipo !== tipo) return;
+      var d = new Date(s.ts),
+        k = d.getFullYear() * 12 + d.getMonth();
+      if (k >= atual) return;
+      porMes[k] = (porMes[k] || 0) + s.qty;
+      n += s.qty;
+      if (primeiro === null || k < primeiro) primeiro = k;
+    });
+    var out = base.slice(),
+      meses = primeiro === null ? 0 : atual - primeiro;
+    if (meses >= 6 && n >= 30) {
+      var soma = 0,
+        porIdx = [],
+        cont = [];
+      for (var k = primeiro; k < atual; k++) {
+        var v = porMes[k] || 0,
+          i = k % 12;
+        soma += v;
+        porIdx[i] = (porIdx[i] || 0) + v;
+        cont[i] = (cont[i] || 0) + 1;
+      }
+      var media = soma / meses,
+        conf = Math.min(1, meses / 24);
+      if (media > 0)
+        for (var m = 0; m < 12; m++)
+          if (cont[m]) {
+            var raw = porIdx[m] / cont[m] / media;
+            out[m] = Math.max(0.4, Math.min(2.5, conf * raw + (1 - conf) * base[m]));
+          }
+    }
+    cache.t[tipo] = out;
+    return out;
+  }
   function sazonFator(tipo, mes) {
-    var c = (S.sazon && S.sazon[tipo]) || SAZON_PADRAO[tipo];
+    var c = (S.sazon && S.sazon[tipo]) || sazonAprendida(tipo);
     var v = c && Number(c[((mes % 12) + 12) % 12]);
-    return v > 0 ? v : 1;
+    return v > 0 ? Math.round(v * 100) / 100 : 1;
   }
   // Preço de tabela e limites de uma peça: trava (sem prejuízo) e piso (com a margem mínima da faixa).
   function pisoPeca(it) {

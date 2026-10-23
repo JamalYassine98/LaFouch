@@ -1,4 +1,4 @@
-  // ===== Aba Ajustes: faixas, meta, sazonalidade, contas e backup dos dados. =====
+  // ===== Aba Ajustes: faixas, meta, contas e backup dos dados. =====
   // Gera o texto do backup (dados + fotos em miniatura).
   var SEM_BACKUP = ['pinHash', 'pinSalt', 'bioOn', 'lockMin', 'lockSens'];
   function backupDados(semFotos) {
@@ -67,7 +67,7 @@
     if (!S._ajForce && ae && ae.tagName === 'INPUT' && el.contains(ae)) return;
     S._ajForce = false;
     var h =
-      '<div class="top"><div><h1>Ajustes</h1><div class="crumb">Faixas, meta do mês, estações do ano, contas e backup</div></div></div>';
+      '<div class="top"><div><h1>Ajustes</h1><div class="crumb">Faixas, meta do mês, contas e backup</div></div></div>';
     if (S.ajMsg) h += '<div class="note n-ok" role="status">' + esc(S.ajMsg) + '</div>';
     // meta
     h +=
@@ -119,28 +119,6 @@
     });
     h +=
       '<div style="display:flex;gap:8px"><input class="in" id="fnew" placeholder="Nome da nova faixa" style="flex:1" maxlength="30"><button class="chip on" data-act="fadd">+ Nova faixa</button></div></section>';
-    // sazonalidade
-    h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Estações do ano</h2><div class="hint" style="margin:2px 0 0">Quanto cada tipo vende em cada mês, em relação a um mês normal (1 = normal, 1,5 = 50% mais). Usado nos alertas de reposição, estoque parado e sugestão de margem.</div></div>';
-    tipoAll().forEach(function (t) {
-      h +=
-        '<details><summary style="cursor:pointer;font-weight:600">' +
-        esc(t.label) +
-        '</summary><div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:8px">';
-      for (var m = 0; m < 12; m++)
-        h +=
-          '<div><div class="hint" style="margin:0">' +
-          MESES[m] +
-          '</div><input class="in" inputmode="decimal" data-aj="saz" data-tipo="' +
-          t.id +
-          '" data-m="' +
-          m +
-          '" value="' +
-          String(sazonFator(t.id, m)).replace('.', ',') +
-          '" style="min-height:40px;padding:0 8px"></div>';
-      h += '</div></details>';
-    });
-    h += '</section>';
     // rateio das contas e tolerância da contagem
     h +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Contas e contagem</h2><div class="hint" style="margin:2px 0 0">As contas do mês (' +
@@ -192,15 +170,6 @@
       f.precos = f.precos || {};
       if (pr > 0) f.precos[t.getAttribute('data-tipo')] = pr;
       else delete f.precos[t.getAttribute('data-tipo')];
-    }
-    if (k === 'saz') {
-      var tp = t.getAttribute('data-tipo'),
-        mm = +t.getAttribute('data-m'),
-        cur = [];
-      for (var i = 0; i < 12; i++) cur.push(sazonFator(tp, i));
-      var nv = numIn(t.value);
-      cur[mm] = nv > 0 ? nv : 1;
-      S.sazon[tp] = cur;
     }
     if (k === 'vol') S.volume = Math.max(1, toNum(t.value) || S.volume);
     if (k === 'tol') S.tolUsd = campoParaUsd(t.value);
