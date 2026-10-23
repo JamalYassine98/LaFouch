@@ -138,7 +138,7 @@
       i.placeholder = ph;
       i.value = cur[key] || '';
       i.setAttribute('aria-label', ph);
-      if (list) i.setAttribute('list', list);
+      if (list) sugestao(i, list);
       i.oninput = function () {
         cur[key] = i.value;
         ch();
@@ -164,30 +164,19 @@
       });
       return w;
     };
-    var dl = mk('datalist', '');
-    dl.id = 'dlIdent' + (host.id || '');
-    var ms = {};
-    Object.keys(S.attr || {}).forEach(function (r) {
-      if (S.attr[r].marca) ms[S.attr[r].marca] = 1;
-    });
-    Object.keys(ms).forEach(function (m) {
-      var o = mk('option', '');
-      o.value = m;
-      dl.appendChild(o);
-    });
-    var dc = mk('datalist', '');
-    dc.id = dl.id + 'C';
-    colecoes().forEach(function (m) {
-      var o = mk('option', '');
-      o.value = m;
-      dc.appendChild(o);
-    });
-    host.appendChild(dl);
-    host.appendChild(dc);
-    host.appendChild(inp('marca', 'Marca (ex.: Gucci, Ray-Ban, Kazwini)', dl.id));
+    var marcas = function () {
+        var ms = {};
+        Object.keys(S.attr || {}).forEach(function (r) {
+          if (S.attr[r].marca) ms[S.attr[r].marca] = 1;
+        });
+        return Object.keys(ms);
+      },
+      sMarca = sugLista(marcas),
+      sCol = sugLista(colecoes);
+    host.appendChild(inp('marca', 'Marca (ex.: Gucci, Ray-Ban, Kazwini)', sMarca));
     host.appendChild(chips('material', MATERIAIS));
     host.appendChild(chips('publico', PUBLICOS));
-    host.appendChild(inp('colecao', 'Coleção (ex.: Clássicos, Clip-on, Solares)', dc.id));
+    host.appendChild(inp('colecao', 'Coleção (ex.: Clássicos, Clip-on, Solares)', sCol));
     var pv = mk('div', 'hint', '');
     pv.style.margin = '0';
     var up = function () {

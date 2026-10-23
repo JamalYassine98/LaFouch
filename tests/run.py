@@ -735,6 +735,22 @@ async def main():
             if not ok: falhas.append('seguranca bio'); print('        veio', r0, r1, pg.erros)
             await pg.close()
 
+            # sugestões ao digitar na busca de Vendas e no código do cadastro
+            pg = await pagina()
+            await pg.evaluate("() => window.__LF.setView('vendas')"); await pg.wait_for_timeout(300)
+            await pg.click('#vq'); await pg.keyboard.type('ym77', delay=40); await pg.wait_for_timeout(300)
+            r = await pg.evaluate("() => { const b = document.querySelector('.sgl'); return [!!b && !b.hidden, b ? [...b.querySelectorAll('.sgi b')].map(x => x.textContent) : []]; }")
+            await pg.locator('.sgl .sgi').first.dispatch_event('pointerdown'); await pg.wait_for_timeout(300)
+            r2 = await pg.evaluate("() => [document.getElementById('vq').value, document.querySelector('.sgl').hidden, window.__LF.S.vq]")
+            await pg.evaluate("() => window.__LF.setView('estoque')"); await pg.click('#btnAdd'); await pg.wait_for_timeout(300)
+            await pg.click('#eRef'); await pg.keyboard.type('sp5', delay=40); await pg.wait_for_timeout(300)
+            r3 = await pg.evaluate("() => { const b = document.querySelector('.sgl'); return [!b.hidden, b.querySelectorAll('.sgi').length, document.querySelectorAll('datalist').length]; }")
+            total += 1
+            ok = r[0] is True and len(r[1]) >= 1 and r2[1] is True and r2[0] == r2[2] and r2[0].startswith('YM77') and r3[0] and r3[1] >= 2 and r3[2] == 0 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'sugestões ao digitar (busca e código) sem lista nativa')
+            if not ok: falhas.append('sugestoes'); print('        veio', r, r2, r3, pg.erros)
+            await pg.close()
+
             # imprevistos: só os do mês aparecem e dá para remover
             pg = await pagina()
             r = await pg.evaluate("""() => { const L = window.__LF, S = L.S, h = Date.now(), mes = h - 40 * 86400000;

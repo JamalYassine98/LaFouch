@@ -102,15 +102,8 @@
         refs[i.ref] = 1;
       });
       h +=
-        '<div style="display:flex;gap:8px"><input class="in" id="pRef" list="pRefs" placeholder="Modelo ou produto" style="flex:1 1 auto;min-width:0" value="' + esc(f.ref || '') + '" autocomplete="off">' +
+        '<div style="display:flex;gap:8px"><input class="in" id="pRef" placeholder="Modelo ou produto" style="flex:1 1 auto;min-width:0" value="' + esc(f.ref || '') + '" autocomplete="off">' +
         '<input class="in" id="pQtd" type="number" min="1" inputmode="numeric" style="width:70px" value="' + (f.q || 1) + '"></div>' +
-        '<datalist id="pRefs">' +
-        Object.keys(refs)
-          .map(function (r) {
-            return '<option value="' + esc(r) + '" label="' + esc(pubNome(r)) + '">';
-          })
-          .join('') +
-        '</datalist>' +
         '<button type="button" class="chip" data-act="pedladd">+ Adicionar item</button>' +
         '<input class="in" id="pObs" placeholder="Observação (opcional)" value="' + esc(f.obs || '') + '">' +
         '<div class="hint" id="pH" style="margin:0"></div>' +
@@ -153,6 +146,7 @@
         '</div></section>';
     });
     el.innerHTML = h;
+    if ($('pRef')) sugestao($('pRef'), sugBusca, 'n');
   }
   ACT.pedf = function (id) {
     S.pedF = id;

@@ -86,11 +86,6 @@
     $(id).oninput = render;
   });
   /* sugestões de códigos que já existem + preencher sozinho quando o código digitado já está no estoque */
-  var RL = document.createElement('datalist');
-  RL.id = 'refList';
-  document.body.appendChild(RL);
-  $('eRef').setAttribute('list', 'refList');
-  $('phRef').setAttribute('list', 'refList');
   $('eRef').setAttribute('autocomplete', 'off');
   $('phRef').setAttribute('autocomplete', 'off');
   var RLSIG = '';
@@ -112,21 +107,7 @@
           return i.ref + ((S.pnome && S.pnome[i.ref]) || '');
         })
         .join(',');
-    if (sig === RLSIG) return;
     RLSIG = sig;
-    RL.textContent = '';
-    arr
-      .sort(function (x, y) {
-        return x.ref < y.ref ? -1 : 1;
-      })
-      .forEach(function (i) {
-        var o = document.createElement('option');
-        o.value = i.ref;
-        var t = tipoOf(i.tipo);
-        o.label =
-          (S.pnome && S.pnome[i.ref] ? S.pnome[i.ref] + ' · ' : '') + (t && t.label ? t.label : '');
-        RL.appendChild(o);
-      });
   }
   // Primeira peça do estoque com o código informado.
   function refItem(v) {
