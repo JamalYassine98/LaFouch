@@ -1,6 +1,37 @@
   // ===== Ações dos botões (data-act) e eventos globais. =====
   // Ações dos botões, por data-act.
   var ACT = {
+    inicioEd: function () {
+      S.inicioEd = !S.inicioEd;
+      render();
+    },
+    inicioReset: function () {
+      S.inicioT = null;
+      render();
+    },
+    inicioRm: function (id) {
+      iniSalvar(
+        iniLista().filter(function (x) {
+          return x !== id;
+        })
+      );
+    },
+    inicioAdd: function (id) {
+      var l = iniLista();
+      l.push(id);
+      iniSalvar(l);
+    },
+    inicioMv: function (v) {
+      var p = v.split('|'),
+        l = iniLista(),
+        i = l.indexOf(p[0]),
+        j = i + (+p[1] || 0);
+      if (i < 0 || j < 0 || j >= l.length) return;
+      var t = l[i];
+      l[i] = l[j];
+      l[j] = t;
+      iniSalvar(l);
+    },
     inicio: function (id) {
       inicioGo(id);
     },

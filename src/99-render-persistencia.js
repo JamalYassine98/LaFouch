@@ -203,6 +203,7 @@
       'descartes',
       'moedaP',
       'fundoBranco',
+      'inicioT',
       'attr',
       'num',
       'numNext',

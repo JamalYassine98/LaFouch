@@ -576,12 +576,12 @@ async def main():
               S.cart = [{it, qty: 1, preco: null}]; S.cartOpen = true; S.moeda = 'brl'; S.rate1 = ''; S.rec = null; S.descTxt = ''; S.pagMisto = false;
               L.setView('vendas'); L.render();
               const need = L.tFor(it).price, sh = document.getElementById('recIn').value;
-              const esp = (need / (8000 / 5 * 0.975)).toFixed(2).replace('.', ',');
+              const esp = (need / (8000 / 5)).toFixed(2).replace('.', ',');
               L.setView('fx'); L.render(); const fx = document.getElementById('v-fx').textContent;
-              return [g, u, b, man, custo, sh === esp, document.getElementById('v-fx').textContent.indexOf('Cotação da loja') >= 0, fx.indexOf('G$ 7.800') >= 0]; }""")
-            ok = r[0] == 'US$ 74' and r[1] == 7800 and r[2] == 1560 and r[3] == 1300 and r[4] == 8000 and r[5] and r[6] and r[7] and not pg.erros
+              return [g, u, b, man, custo, sh === esp, document.getElementById('v-fx').textContent.indexOf('Cotação da loja') >= 0, fx.indexOf('G$ 8.200') >= 0]; }""")
+            ok = r[0] == 'US$ 74' and r[1] == 8200 and r[2] == 1600 and r[3] == 1300 and r[4] == 8000 and r[5] and r[6] and r[7] and not pg.erros
             total += 1
-            print(('  ok  ' if ok else ' FALHA ') + 'cotação da loja: mercado menos margem fixa, no carrinho e na aba Câmbio')
+            print(('  ok  ' if ok else ' FALHA ') + 'cotação da loja: dólar com margem a mais, no carrinho e na aba Câmbio')
             if not ok: falhas.append('cotacao loja'); print('        veio', r, pg.erros)
             await pg.close()
 
@@ -669,6 +669,25 @@ async def main():
             ok = 'Errado' in t1 and 'Antigo' not in t1 and n1 == 1 and r2 == [['Antigo'], ['Antigo']] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'imprevistos: só do mês na tela e remoção em dois toques')
             if not ok: falhas.append('imprevistos'); print('        veio', n1, r2, pg.erros)
+            await pg.close()
+
+            # Início: personalizar botões (remover, mover, adicionar, restaurar)
+            pg = await pagina()
+            await pg.evaluate("() => { window.__LF.S.inicioT = null; window.__LF.setView('inicio'); }")
+            await pg.click('[data-act=inicioEd]'); await pg.wait_for_timeout(300)
+            await pg.click('[data-act=inicioRm][data-id=cat]'); await pg.wait_for_timeout(200)
+            await pg.click('[data-act=inicioMv][data-id="ajustes|-1"]'); await pg.wait_for_timeout(200)
+            await pg.click('[data-act=inicioAdd][data-id=novo]'); await pg.wait_for_timeout(200)
+            l1 = await pg.evaluate("() => window.__LF.S.inicioT.slice()")
+            await pg.click('[data-act=inicioEd]'); await pg.wait_for_timeout(200)
+            await pg.evaluate("() => { window.__LF.setView('caixa'); window.__LF.setView('inicio'); }"); await pg.wait_for_timeout(200)
+            nomes = await pg.evaluate("() => [...document.querySelectorAll('#v-inicio .tl .tn')].map(e => e.textContent)")
+            await pg.click('[data-act=inicioEd]'); await pg.click('[data-act=inicioReset]'); await pg.wait_for_timeout(200)
+            l2 = await pg.evaluate("() => window.__LF.S.inicioT")
+            total += 1
+            ok = 'cat' not in l1 and l1[-1] == 'novo' and l1.index('ajustes') < l1.index('prec') + 3 and 'Novo produto' in nomes and 'Catálogo' not in nomes and l2 is None and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Início: personalizar botões')
+            if not ok: falhas.append('personalizar inicio'); print('        veio', l1, nomes, l2, pg.erros)
             await pg.close()
 
             # contagem de estoque no cartão "Em estoque": por valor, com resumo e aplicação

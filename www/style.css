@@ -105,6 +105,12 @@ body{padding-bottom:86px}
 .tl .tp.w{background:#7a5200;color:#ffe2a8}.tl .tp.g{background:#0f6b43;color:#fff}
 .tl.sm{min-height:74px;padding:9px 2px 8px;gap:5px;border-radius:14px}.tl.sm .ti{width:30px;height:30px;border-radius:9px}.tl.sm .tn{font-size:11.5px;white-space:nowrap}
 .tl.on{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent) inset}
+.twrap{position:relative}.twrap .tl{opacity:.75;width:100%;pointer-events:none;animation:wob .5s ease-in-out infinite alternate}
+.tedit{position:absolute;left:0;right:0;top:4px;display:flex;justify-content:space-between;padding:0 4px;z-index:2}
+.tedit button{width:30px;height:30px;min-height:0;border-radius:50%;border:1px solid var(--line);background:var(--panel2);color:var(--fg);font-size:12px;padding:0;display:flex;align-items:center;justify-content:center}
+.tedit button.x{background:#a12a2a;color:#fff;border-color:#a12a2a}.tedit button:disabled{opacity:.3}
+@keyframes wob{from{transform:rotate(-.6deg)}to{transform:rotate(.6deg)}}
+@media (prefers-reduced-motion:reduce){.twrap .tl{animation:none}}
 .hero{border-radius:16px;padding:16px;color:#fff;background:linear-gradient(120deg,#a2447c,#6e2a63);display:flex;align-items:center;gap:12px;box-shadow:0 8px 22px rgba(162,68,124,.35);cursor:pointer}
 .hero .hi{width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center}
 .hero small{opacity:.85;font-size:12px;display:block}.hero b{font-size:22px}.hero .hg{margin-left:auto;font-size:28px;opacity:.9}

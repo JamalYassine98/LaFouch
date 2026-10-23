@@ -14107,10 +14107,12 @@
   function rateDe(m, r) {
     return m === 'pyg' ? 1 : r > 0 ? r : fxLoja(m) || ratePyg(m);
   }
-  // Cotação da loja: a do mercado menos uma margem fixa (não editável), porque a loja valoriza o dólar e o real recebidos um pouco abaixo do mercado.
+  // Cotação da loja: os preços são em dólar e o dólar da loja vale uma margem fixa a mais que o mercado (não editável).
+  // Ex.: peça de US$ 15, mercado 5.900, loja 6.000: quem paga em guaranis entrega 90.000 e não 88.500.
+  // O real fica pelo valor de mercado em guaranis, então R$ por US$ também sobe pela mesma margem.
   var FX_MARGEM = 0.025;
   function fxLoja(m) {
-    return m === 'usd' || m === 'brl' ? ratePyg(m) * (1 - FX_MARGEM) : 0;
+    return m === 'usd' ? ratePyg(m) * (1 + FX_MARGEM) : m === 'brl' ? ratePyg(m) : 0;
   }
   // Texto "câmbio da loja" ou "cotação de hoje" conforme o que está valendo.
   function fxOrigem(m) {
@@ -17708,11 +17710,19 @@
     });
     return { n: n, v: v };
   }
-  function renderInicio() {
-    var el = $('v-inicio');
-    if (!el || S.view !== 'inicio') return;
-    var h = vendidoHoje(),
-      pecas = S.items.reduce(function (a, i) {
+  ICO_D.novo = '<path d="M12 5v14M5 12h14"/><rect x="3" y="3" width="18" height="18" rx="4"/>';
+  ICO_D.cont = '<path d="M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h9"/>';
+  ICO_D.lotes = '<path d="M3 7l9-4 9 4-9 4zM3 12l9 4 9-4M3 17l9 4 9-4"/>';
+  var INI_PADRAO = ['vendas', 'estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'cat', 'ajustes'];
+  var INI_TODOS = INI_PADRAO.concat(['novo', 'cont', 'lotes']);
+  function iniLista() {
+    var l = Array.isArray(S.inicioT) ? S.inicioT : INI_PADRAO;
+    return l.filter(function (id, i) {
+      return INI_TODOS.indexOf(id) >= 0 && l.indexOf(id) === i;
+    });
+  }
+  function iniDados() {
+    var pecas = S.items.reduce(function (a, i) {
         return a + (i.qty > 0 ? i.qty : 0);
       }, 0),
       rep = 0,
@@ -17720,26 +17730,62 @@
     try {
       rep = reposicao().length;
     } catch (e) {}
-    var T = [
-      ['vendas', 'Vendas', ct ? [ct + ' no carrinho', 'g'] : ['Carrinho vazio', '']],
-      ['estoque', 'Inventário', [pecas + ' peças', rep ? 'w' : '']],
-      ['caixa', 'Caixa', [gs(walletGs()), 'g']],
-      ['fx', 'Câmbio', [gsRaw(Math.round(ratePyg('usd'))), '']],
-      ['desp', 'Despesas', [gs(totalMensal()) + '/mês', 'w']],
-      ['hist', 'Histórico', [S.sales.length + ' vendas', '']],
-      ['hoje', 'Resumo', ['Painel', '']],
-      ['din', 'Dinheiro', ['Reservas', 'g']],
-      ['giro', 'Giro', [rep + ' a repor', rep ? 'w' : '']],
-      ['prec', 'Preços', [(S.faixas || []).length + ' faixas', '']],
-      ['cat', 'Catálogo', ['WhatsApp', '']],
-      ['ajustes', 'Ajustes', ['Moeda ' + (MN[S.moedaP || 'pyg'] || 'G$'), '']]
-    ];
+    return {
+      vendas: ['Vendas', ct ? [ct + ' no carrinho', 'g'] : ['Carrinho vazio', '']],
+      estoque: ['Inventário', [pecas + ' peças', rep ? 'w' : '']],
+      caixa: ['Caixa', [gs(walletGs()), 'g']],
+      fx: ['Câmbio', [gsRaw(Math.round(ratePyg('usd'))), '']],
+      desp: ['Despesas', [gs(totalMensal()) + '/mês', 'w']],
+      hist: ['Histórico', [S.sales.length + ' vendas', '']],
+      hoje: ['Resumo', ['Painel', '']],
+      din: ['Dinheiro', ['Reservas', 'g']],
+      giro: ['Giro', [rep + ' a repor', rep ? 'w' : '']],
+      prec: ['Preços', [(S.faixas || []).length + ' faixas', '']],
+      cat: ['Catálogo', ['WhatsApp', '']],
+      ajustes: ['Ajustes', ['Moeda ' + (MN[S.moedaP || 'pyg'] || 'G$'), '']],
+      novo: ['Novo produto', ['Cadastrar', '']],
+      cont: ['Contagem', ['Conferir estoque', '']],
+      lotes: ['Lotes', ['Compras', '']]
+    };
+  }
+  function renderInicio() {
+    var el = $('v-inicio');
+    if (!el || S.view !== 'inicio') return;
+    var h = vendidoHoje(),
+      D = iniDados(),
+      L = iniLista(),
+      ed = !!S.inicioEd;
+    var grid = L.map(function (id, i) {
+      var t = D[id];
+      if (!ed) return tileHtml('data-act="inicio" data-id="' + id + '"', id, t[0], t[1], '', false);
+      return (
+        '<div class="twrap">' +
+        tileHtml('disabled', id, t[0], t[1], '', false) +
+        '<div class="tedit"><button type="button" data-act="inicioMv" data-id="' + id + '|-1" aria-label="Mover ' + t[0] + ' para trás"' + (i === 0 ? ' disabled' : '') + '>◀</button>' +
+        '<button type="button" class="x" data-act="inicioRm" data-id="' + id + '" aria-label="Remover ' + t[0] + '">✕</button>' +
+        '<button type="button" data-act="inicioMv" data-id="' + id + '|1" aria-label="Mover ' + t[0] + ' para frente"' + (i === L.length - 1 ? ' disabled' : '') + '>▶</button></div></div>'
+      );
+    }).join('');
+    var livres = INI_TODOS.filter(function (id) {
+      return L.indexOf(id) < 0;
+    });
+    var extra = '';
+    if (ed && livres.length)
+      extra =
+        '<div class="lbl">Adicionar botão</div><div class="tgrid g4">' +
+        livres
+          .map(function (id) {
+            return tileHtml('data-act="inicioAdd" data-id="' + id + '"', id, D[id][0], null, 'sm', false);
+          })
+          .join('') +
+        '</div>';
     el.innerHTML =
       '<div class="hero" data-act="inicio" data-id="hoje" role="button" tabindex="0"><span class="hi">' + ico('hero', 26) + '</span><span><small>Vendido hoje · ' + h.n + ' venda(s)</small><b>' + gs(h.v) + '</b></span><span class="hg">›</span></div>' +
-      '<div class="tgrid">' +
-      T.map(function (t) {
-        return tileHtml('data-act="inicio" data-id="' + t[0] + '"', t[0], t[1], t[2], '', false);
-      }).join('') +
+      '<div class="tgrid' + (ed ? ' editando' : '') + '">' + grid + '</div>' + extra +
+      '<div class="sel" style="justify-content:center;gap:10px;flex-wrap:wrap">' +
+      (ed
+        ? '<button type="button" class="mini" data-act="inicioEd">Concluir</button><button type="button" class="chip" data-act="inicioReset">Restaurar padrão</button>'
+        : '<button type="button" class="chip" data-act="inicioEd">✎ Personalizar botões</button>') +
       '</div>';
   }
   /* toque num azulejo da tela Início */
@@ -17749,6 +17795,15 @@
       setView('dash');
     } else if (id === 'cat') {
       setView('vendas');
+    } else if (id === 'novo') {
+      setView('estoque');
+      $('btnAdd').click();
+    } else if (id === 'cont') {
+      setView('estoque');
+      $('kCont').click();
+    } else if (id === 'lotes') {
+      S.lotesView = true;
+      setView('estoque');
     } else setView(id);
   }
   /* barra de baixo: ícone em cima do nome */
@@ -17759,6 +17814,10 @@
     ['caixa', 'Caixa'],
     ['ajustes', 'Ajustes']
   ];
+  function iniSalvar(l) {
+    S.inicioT = l;
+    render();
+  }
   // ===== Navegação entre abas e Dashboard. =====
   // Troca de aba.
   function setView(v) {
@@ -18130,7 +18189,7 @@
       b = Math.round(fxLoja('brl')),
       f = S.fx;
     return (
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cotação da loja</h2><div class="hint" style="margin:2px 0 0">É a cotação do mercado com a margem da loja (' + pc(FX_MARGEM) + ' a favor da loja). O app usa esta ao receber dólar ou real, a menos que você digite outro câmbio no carrinho. Custos e contas continuam pela cotação do mercado.</div></div>' +
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cotação da loja</h2><div class="hint" style="margin:2px 0 0">Seus preços são em dólar, e o dólar da loja vale ' + pc(FX_MARGEM) + ' a mais que o mercado. O app usa esta cotação ao receber dólar ou real, a menos que você digite outro câmbio no carrinho. Custos e contas continuam pela cotação do mercado.</div></div>' +
       '<div class="kpis"><div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 vale</div><b>' + gsRaw(u) + '</b><div class="hint">mercado ' + gsRaw(f.pyg) + '</div></div>' +
       '<div class="kpi" style="background:var(--panel2)"><div class="lbl">R$ 1 vale</div><b>' + gsRaw(b) + '</b><div class="hint">mercado ' + gsRaw(Math.round(f.pyg / f.brl)) + '</div></div>' +
       '<div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 vale</div><b>R$ ' + (u / b).toFixed(2).replace('.', ',') + '</b><div class="hint">mercado R$ ' + f.brl.toFixed(2).replace('.', ',') + '</div></div></div></section>'
@@ -19057,6 +19116,37 @@
   // ===== Ações dos botões (data-act) e eventos globais. =====
   // Ações dos botões, por data-act.
   var ACT = {
+    inicioEd: function () {
+      S.inicioEd = !S.inicioEd;
+      render();
+    },
+    inicioReset: function () {
+      S.inicioT = null;
+      render();
+    },
+    inicioRm: function (id) {
+      iniSalvar(
+        iniLista().filter(function (x) {
+          return x !== id;
+        })
+      );
+    },
+    inicioAdd: function (id) {
+      var l = iniLista();
+      l.push(id);
+      iniSalvar(l);
+    },
+    inicioMv: function (v) {
+      var p = v.split('|'),
+        l = iniLista(),
+        i = l.indexOf(p[0]),
+        j = i + (+p[1] || 0);
+      if (i < 0 || j < 0 || j >= l.length) return;
+      var t = l[i];
+      l[i] = l[j];
+      l[j] = t;
+      iniSalvar(l);
+    },
     inicio: function (id) {
       inicioGo(id);
     },
@@ -21713,7 +21803,7 @@
           fo = S.formas.filter(function (f) { return f.id === fm; })[0] || S.formas[0],
           tx = Math.round((preco * fo.taxa) / 100),
           mo = R() < 0.12 ? 'brl' : R() < 0.07 ? 'usd' : 'pyg',
-          rt = mo === 'pyg' ? 1 : Math.round((mo === 'usd' ? fxp.pyg : fxp.pyg / fxp.brl) * 0.975),
+          rt = mo === 'pyg' ? 1 : Math.round(mo === 'usd' ? fxp.pyg * 1.025 : fxp.pyg / fxp.brl),
           rv = mo === 'pyg' ? preco : Math.round((preco / rt) * 100) / 100;
         if (mo !== 'pyg') fo = S.formas[0];
         if (mo !== 'pyg') tx = 0;
@@ -22037,6 +22127,7 @@
       'descartes',
       'moedaP',
       'fundoBranco',
+      'inicioT',
       'attr',
       'num',
       'numNext',

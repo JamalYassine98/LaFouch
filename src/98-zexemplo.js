@@ -166,7 +166,7 @@
           fo = S.formas.filter(function (f) { return f.id === fm; })[0] || S.formas[0],
           tx = Math.round((preco * fo.taxa) / 100),
           mo = R() < 0.12 ? 'brl' : R() < 0.07 ? 'usd' : 'pyg',
-          rt = mo === 'pyg' ? 1 : Math.round((mo === 'usd' ? fxp.pyg : fxp.pyg / fxp.brl) * 0.975),
+          rt = mo === 'pyg' ? 1 : Math.round(mo === 'usd' ? fxp.pyg * 1.025 : fxp.pyg / fxp.brl),
           rv = mo === 'pyg' ? preco : Math.round((preco / rt) * 100) / 100;
         if (mo !== 'pyg') fo = S.formas[0];
         if (mo !== 'pyg') tx = 0;

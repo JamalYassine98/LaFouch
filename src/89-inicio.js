@@ -51,11 +51,19 @@
     });
     return { n: n, v: v };
   }
-  function renderInicio() {
-    var el = $('v-inicio');
-    if (!el || S.view !== 'inicio') return;
-    var h = vendidoHoje(),
-      pecas = S.items.reduce(function (a, i) {
+  ICO_D.novo = '<path d="M12 5v14M5 12h14"/><rect x="3" y="3" width="18" height="18" rx="4"/>';
+  ICO_D.cont = '<path d="M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h9"/>';
+  ICO_D.lotes = '<path d="M3 7l9-4 9 4-9 4zM3 12l9 4 9-4M3 17l9 4 9-4"/>';
+  var INI_PADRAO = ['vendas', 'estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'cat', 'ajustes'];
+  var INI_TODOS = INI_PADRAO.concat(['novo', 'cont', 'lotes']);
+  function iniLista() {
+    var l = Array.isArray(S.inicioT) ? S.inicioT : INI_PADRAO;
+    return l.filter(function (id, i) {
+      return INI_TODOS.indexOf(id) >= 0 && l.indexOf(id) === i;
+    });
+  }
+  function iniDados() {
+    var pecas = S.items.reduce(function (a, i) {
         return a + (i.qty > 0 ? i.qty : 0);
       }, 0),
       rep = 0,
@@ -63,26 +71,62 @@
     try {
       rep = reposicao().length;
     } catch (e) {}
-    var T = [
-      ['vendas', 'Vendas', ct ? [ct + ' no carrinho', 'g'] : ['Carrinho vazio', '']],
-      ['estoque', 'Inventário', [pecas + ' peças', rep ? 'w' : '']],
-      ['caixa', 'Caixa', [gs(walletGs()), 'g']],
-      ['fx', 'Câmbio', [gsRaw(Math.round(ratePyg('usd'))), '']],
-      ['desp', 'Despesas', [gs(totalMensal()) + '/mês', 'w']],
-      ['hist', 'Histórico', [S.sales.length + ' vendas', '']],
-      ['hoje', 'Resumo', ['Painel', '']],
-      ['din', 'Dinheiro', ['Reservas', 'g']],
-      ['giro', 'Giro', [rep + ' a repor', rep ? 'w' : '']],
-      ['prec', 'Preços', [(S.faixas || []).length + ' faixas', '']],
-      ['cat', 'Catálogo', ['WhatsApp', '']],
-      ['ajustes', 'Ajustes', ['Moeda ' + (MN[S.moedaP || 'pyg'] || 'G$'), '']]
-    ];
+    return {
+      vendas: ['Vendas', ct ? [ct + ' no carrinho', 'g'] : ['Carrinho vazio', '']],
+      estoque: ['Inventário', [pecas + ' peças', rep ? 'w' : '']],
+      caixa: ['Caixa', [gs(walletGs()), 'g']],
+      fx: ['Câmbio', [gsRaw(Math.round(ratePyg('usd'))), '']],
+      desp: ['Despesas', [gs(totalMensal()) + '/mês', 'w']],
+      hist: ['Histórico', [S.sales.length + ' vendas', '']],
+      hoje: ['Resumo', ['Painel', '']],
+      din: ['Dinheiro', ['Reservas', 'g']],
+      giro: ['Giro', [rep + ' a repor', rep ? 'w' : '']],
+      prec: ['Preços', [(S.faixas || []).length + ' faixas', '']],
+      cat: ['Catálogo', ['WhatsApp', '']],
+      ajustes: ['Ajustes', ['Moeda ' + (MN[S.moedaP || 'pyg'] || 'G$'), '']],
+      novo: ['Novo produto', ['Cadastrar', '']],
+      cont: ['Contagem', ['Conferir estoque', '']],
+      lotes: ['Lotes', ['Compras', '']]
+    };
+  }
+  function renderInicio() {
+    var el = $('v-inicio');
+    if (!el || S.view !== 'inicio') return;
+    var h = vendidoHoje(),
+      D = iniDados(),
+      L = iniLista(),
+      ed = !!S.inicioEd;
+    var grid = L.map(function (id, i) {
+      var t = D[id];
+      if (!ed) return tileHtml('data-act="inicio" data-id="' + id + '"', id, t[0], t[1], '', false);
+      return (
+        '<div class="twrap">' +
+        tileHtml('disabled', id, t[0], t[1], '', false) +
+        '<div class="tedit"><button type="button" data-act="inicioMv" data-id="' + id + '|-1" aria-label="Mover ' + t[0] + ' para trás"' + (i === 0 ? ' disabled' : '') + '>◀</button>' +
+        '<button type="button" class="x" data-act="inicioRm" data-id="' + id + '" aria-label="Remover ' + t[0] + '">✕</button>' +
+        '<button type="button" data-act="inicioMv" data-id="' + id + '|1" aria-label="Mover ' + t[0] + ' para frente"' + (i === L.length - 1 ? ' disabled' : '') + '>▶</button></div></div>'
+      );
+    }).join('');
+    var livres = INI_TODOS.filter(function (id) {
+      return L.indexOf(id) < 0;
+    });
+    var extra = '';
+    if (ed && livres.length)
+      extra =
+        '<div class="lbl">Adicionar botão</div><div class="tgrid g4">' +
+        livres
+          .map(function (id) {
+            return tileHtml('data-act="inicioAdd" data-id="' + id + '"', id, D[id][0], null, 'sm', false);
+          })
+          .join('') +
+        '</div>';
     el.innerHTML =
       '<div class="hero" data-act="inicio" data-id="hoje" role="button" tabindex="0"><span class="hi">' + ico('hero', 26) + '</span><span><small>Vendido hoje · ' + h.n + ' venda(s)</small><b>' + gs(h.v) + '</b></span><span class="hg">›</span></div>' +
-      '<div class="tgrid">' +
-      T.map(function (t) {
-        return tileHtml('data-act="inicio" data-id="' + t[0] + '"', t[0], t[1], t[2], '', false);
-      }).join('') +
+      '<div class="tgrid' + (ed ? ' editando' : '') + '">' + grid + '</div>' + extra +
+      '<div class="sel" style="justify-content:center;gap:10px;flex-wrap:wrap">' +
+      (ed
+        ? '<button type="button" class="mini" data-act="inicioEd">Concluir</button><button type="button" class="chip" data-act="inicioReset">Restaurar padrão</button>'
+        : '<button type="button" class="chip" data-act="inicioEd">✎ Personalizar botões</button>') +
       '</div>';
   }
   /* toque num azulejo da tela Início */
@@ -92,6 +136,15 @@
       setView('dash');
     } else if (id === 'cat') {
       setView('vendas');
+    } else if (id === 'novo') {
+      setView('estoque');
+      $('btnAdd').click();
+    } else if (id === 'cont') {
+      setView('estoque');
+      $('kCont').click();
+    } else if (id === 'lotes') {
+      S.lotesView = true;
+      setView('estoque');
     } else setView(id);
   }
   /* barra de baixo: ícone em cima do nome */
@@ -102,3 +155,7 @@
     ['caixa', 'Caixa'],
     ['ajustes', 'Ajustes']
   ];
+  function iniSalvar(l) {
+    S.inicioT = l;
+    render();
+  }

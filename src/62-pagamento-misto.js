@@ -12,10 +12,12 @@
   function rateDe(m, r) {
     return m === 'pyg' ? 1 : r > 0 ? r : fxLoja(m) || ratePyg(m);
   }
-  // Cotação da loja: a do mercado menos uma margem fixa (não editável), porque a loja valoriza o dólar e o real recebidos um pouco abaixo do mercado.
+  // Cotação da loja: os preços são em dólar e o dólar da loja vale uma margem fixa a mais que o mercado (não editável).
+  // Ex.: peça de US$ 15, mercado 5.900, loja 6.000: quem paga em guaranis entrega 90.000 e não 88.500.
+  // O real fica pelo valor de mercado em guaranis, então R$ por US$ também sobe pela mesma margem.
   var FX_MARGEM = 0.025;
   function fxLoja(m) {
-    return m === 'usd' || m === 'brl' ? ratePyg(m) * (1 - FX_MARGEM) : 0;
+    return m === 'usd' ? ratePyg(m) * (1 + FX_MARGEM) : m === 'brl' ? ratePyg(m) : 0;
   }
   // Texto "câmbio da loja" ou "cotação de hoje" conforme o que está valendo.
   function fxOrigem(m) {
