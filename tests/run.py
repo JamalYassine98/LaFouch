@@ -650,7 +650,7 @@ async def main():
               const d3 = S.desc.ZZ1;
               return [n1, d1, d2, d3, L.numOf('ZZ1'), L.numOf('ZZ2'), L.pubNome('ZZ2'), L.identTxt('ZZ1').includes('Gucci')]; }""")
             total += 1
-            ok = r[0] == 'Armação Gucci de metal feminino' and 'C1 Dourado' in r[1] and 'C2 Verde' in r[2] and r[3] == 'minha descrição' and r[4] == 1 and r[5] == 2 and r[6] == 'ZZ2' and r[7] and not pg.erros
+            ok = r[0] == 'Armação Gucci de metal feminino' and 'C1 Dourado' in r[1] and 'C2 Verde' in r[2] and r[3] == 'minha descrição' and r[4] == 1 and r[5] == 2 and r[6] == 'Armação #2' and r[7] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'identidade: nome automático, descrição por cor, nº interno')
             if not ok: falhas.append('identidade'); print('        veio', r, pg.erros)
             await pg.close()
@@ -804,7 +804,7 @@ async def main():
             resumo = await pg.inner_text('#contCard')
             await pg.locator('#contCard button:has-text("Aplicar")').click(); await pg.wait_for_timeout(300)
             got = await pg.evaluate("() => { const S = window.__LF.S; return [S.items[1].qty, S.items[0].qty, S.contagens.length, Math.round(S.contagens[0].valorUsd * 100) / 100, S.elog.filter(e => e.contagem).length, !!S.conf['sem|CT2'], !!S.conf['pre|CT1'], document.getElementById('contCard').hidden] }")
-            ok = ordem[:2] == ['CT2', 'CT1'] and 'faltam US$ 5,50' in resumo and got == [2, 9, 1, -5.5, 2, True, True, True] and not pg.erros
+            ok = ordem[0].startswith('Armação #') and ordem[1].startswith('Óculos de leitura #') and 'faltam US$ 5,50' in resumo and got == [2, 9, 1, -5.5, 2, True, True, True] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'tela Estoque: contagem por valor, resumo em dinheiro e aplicação')
             if not ok: falhas.append('contagem'); print('        veio', ordem, resumo[-200:], got, pg.erros)
             await pg.close()

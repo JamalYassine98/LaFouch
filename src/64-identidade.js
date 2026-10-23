@@ -41,7 +41,15 @@
   }
   /* nome que o cliente vê: nunca o código da haste quando existe nome ou atributos */
   function pubNome(ref) {
-    return (S.pnome && S.pnome[ref]) || nomeAuto(ref) || ref;
+    var n = (S.pnome && S.pnome[ref]) || nomeAuto(ref);
+    if (n) return n;
+    // sem nome e sem marca: o tipo (ou o material) e o número interno, ex.: "Acetato #12"
+    var nm = numOf(ref),
+      it0 = S.items.filter(function (i) {
+        return i.ref === ref;
+      })[0];
+    if (!it0 || isSimple(it0.tipo)) return ref;
+    return nm ? (attrOf(ref).material || baseNome(ref)) + ' #' + nm : ref;
   }
   function descAutoDe(ref, nome) {
     var seen = {},

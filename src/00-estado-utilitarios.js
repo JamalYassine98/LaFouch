@@ -484,7 +484,7 @@
   }
   // Nome amigável de um código (ou o próprio código).
   function pn(ref) {
-    return (S.pnome && S.pnome[ref]) || ref;
+    return (S.pnome && S.pnome[ref]) || pubNome(ref);
   }
   // Grava o nome amigável de um código.
   function setPN(ref, n) {

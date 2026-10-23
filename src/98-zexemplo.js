@@ -75,8 +75,31 @@
     }
     S.items = JSON.parse(JSON.stringify(EX_BASE.items));
     S.grp = JSON.parse(JSON.stringify(EX_BASE.grp));
+    // estoque novo, no sistema novo: modelos sem marca e sem nome, sem formato, com descrição escrita pelo dono
+    [
+      ['sem', '', 'YM7721', '54□17-142', 'C1', 'Redondo', 'Verde', 4],
+      ['sem', '', 'YM7721', '54□17-142', 'C2', 'Redondo', 'Preto', 3],
+      ['sem', '', 'YM7735', '50□20-138', 'C1', 'Gatinho', 'Tartaruga', 5],
+      ['sem', '', 'YM7735', '50□20-138', 'C3', 'Gatinho', 'Azul', 2],
+      ['sem', '', 'YM7790', '56□16-140', 'C2', 'Aviador', 'Dourado', 3],
+      ['solar', '', 'YS8801', '58□17-140', 'C1', 'Aviador', 'Preto', 6],
+      ['solar', '', 'YS8801', '58□17-140', 'C4', 'Aviador', 'Marrom', 3],
+      ['solar', '', 'YS8815', '54□19-142', 'C2', 'Quadrado', 'Verde', 4],
+      ['pre', '+1.00', 'SP61200', '', '', 'Redondo', 'Preto', 4],
+      ['pre', '+1.50', 'SP61200', '', '', 'Redondo', 'Preto', 3],
+      ['pre', '+2.00', 'SP61200', '', '', 'Redondo', 'Preto', 2],
+      ['pre', '+2.50', 'SP61200', '', '', 'Redondo', 'Preto', 3]
+    ].forEach(function (a) {
+      var o = { tipo: a[0], grau: a[1], ref: a[2], med: a[3], vr: a[4], fmt: a[5], cor: a[6], qty: a[7] };
+      if (a[0] === 'pre') o.lote = 'G1';
+      else o.custo = a[0] === 'solar' ? 4.5 : 3.2;
+      S.items.push(o);
+    });
     S.fotos = exFotos(S.items);
-    S.pfaixa = { SP57765: 'f1', SP58110: 'f2', SP60627: 'f2', SP59002: 'f3', BR44118: 'f1', BR44120: 'f2', BR44133: 'f3', SL2201: 'f2', SL2210: 'f3' };
+    S.items.forEach(function (i) {
+      i.fmt = '';
+    });
+    S.pfaixa = { SP57765: 'f1', SP58110: 'f2', SP60627: 'f2', SP59002: 'f3', BR44118: 'f1', BR44120: 'f2', BR44133: 'f3', SL2201: 'f2', SL2210: 'f3', YM7721: 'f1', YM7735: 'f2', YM7790: 'f3', YS8801: 'f2', YS8815: 'f1', SP61200: 'f1' };
     S.attr = {
       SP57765: { material: 'Acetato', publico: 'Unissex', colecao: 'Leitura' },
       SP58110: { marca: 'Kazwini', material: 'Acetato', publico: 'Masculino', colecao: 'Leitura' },
@@ -91,7 +114,23 @@
     S.pnome = {};
     S.pnAuto = {};
     S.descAuto = {};
-    S.desc = {};
+    S.desc = {
+      SP57765: 'Leitura retangular preta, haste fina. Sai muito em graus baixos.',
+      SP58110: 'Armação quadrada preta de acetato, leve e firme.',
+      SP60627: 'Hexagonal bege translúcida, bonita no rosto feminino.',
+      SP59002: 'Redonda tartaruga, estilo antigo. O +1.75 está esgotado.',
+      BR44118: 'Quadrada de metal fino, pontes ajustáveis. Cores C1 preto, C2 bege, C3 tartaruga.',
+      BR44120: 'Redonda clássica, haste fina de metal.',
+      BR44133: 'Gatinho feminino, vinho e transparente.',
+      SL2201: 'Aviador de metal, lente degradê. Preto ou dourado.',
+      SL2210: 'Solar gatinho de TR90, leve para o dia a dia.',
+      YM7721: 'Armação de acetato redonda, verde-garrafa e preta, haste larga.',
+      YM7735: 'Gatinho de acetato, formato mais curto que o normal. Tartaruga e azul.',
+      YM7790: 'Aviador dourado fino, ponte alta, formato fora do comum.',
+      YS8801: 'Solar aviador grande, lente escura. Preto e marrom.',
+      YS8815: 'Solar quadrado verde, lente degradê, haste grossa.',
+      SP61200: 'Leitura redonda preta, acabamento fosco.'
+    };
     S.num = {};
     S.numNext = 0;
     S.appStart = dia(DIAS, 8);
