@@ -18,6 +18,15 @@
         act: 'view',
         id: 'fx'
       });
+    if (pedNovos())
+      l.push({
+        t: pedNovos() + (pedNovos() === 1 ? ' pedido novo' : ' pedidos novos'),
+        s: 'Esperando você começar a separar.',
+        c: 'var(--accent)',
+        b: 'Ver',
+        act: 'pedver',
+        id: 'novo'
+      });
     try {
       atencaoItens().forEach(function (i) {
         l.push(i);

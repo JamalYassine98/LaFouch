@@ -9,6 +9,7 @@
     render();
     window.scrollTo(0, 0);
     animEnter($('v-' + v));
+    if (v === 'inicio' && window.animInicio) window.animInicio();
   }
   // Navegação principal.
   function renderNav() {

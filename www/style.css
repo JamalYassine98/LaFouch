@@ -202,3 +202,29 @@ button:not(:disabled):active,.pcard:active{transform:scale(.96)}
 .atin{overflow:hidden;min-height:0;display:flex;flex-direction:column;gap:10px}
 .atcard.min .atbody{grid-template-rows:0fr;opacity:0;margin-top:-10px}
 @media (prefers-reduced-motion:reduce){.atseta,.atbody{transition:none}}
+/* Animações dos botões */
+.ripc{position:relative;overflow:hidden}.ripo{overflow:hidden}
+.rip{position:absolute;border-radius:50%;background:rgba(224,139,192,.38);transform:scale(0);animation:ripa .6s ease-out forwards;pointer-events:none;z-index:0}
+@keyframes ripa{to{transform:scale(1);opacity:0}}
+.slider{position:absolute;left:0;top:0;border-radius:14px;border:2px solid var(--accent);background:var(--accent-soft);pointer-events:none;z-index:0;box-shadow:0 0 14px rgba(162,68,124,.35)}
+.sl-ok .tl,.sl-ok .mn{position:relative;z-index:1}
+.sl-ok .tl.on{background:transparent;border-color:transparent;box-shadow:none}
+.mainnav.sl-ok .mn.on{background:transparent}
+@keyframes pulinho{0%{transform:scale(1)}40%{transform:translateY(-4px) scale(1.25)}100%{transform:scale(1)}}
+@keyframes pulinhoN{0%{transform:translateY(-2px) scale(1.1)}40%{transform:translateY(-7px) scale(1.3)}100%{transform:translateY(-2px) scale(1.1)}}
+.cascata .tl,.cascata .hero{animation:cas .5s cubic-bezier(.2,.8,.2,1) both}
+@keyframes cas{from{opacity:0;transform:translateY(18px) scale(.9)}to{opacity:1;transform:none}}
+.okflash{background:#0f6b43!important;color:#fff!important;display:inline-flex;align-items:center;gap:6px;animation:okb .35s}
+@keyframes okb{0%{transform:scale(.92)}60%{transform:scale(1.06)}100%{transform:scale(1)}}
+[data-act=impdel]{position:relative;overflow:hidden;isolation:isolate;-webkit-touch-callout:none;user-select:none}
+[data-act=impdel]::after{content:"";position:absolute;left:0;bottom:0;top:0;width:0;background:rgba(220,50,50,.55);z-index:-1}
+[data-act=impdel].segura{color:#fff;transform:scale(1.15)}
+[data-act=impdel].segura::after{animation:enche .9s linear forwards}
+@keyframes enche{to{width:100%}}
+.sino.toca{animation:toca .7s ease-in-out}
+.sino.toca i{animation:pulinho2 .4s .25s}
+@keyframes toca{0%,100%{transform:rotate(0)}20%{transform:rotate(9deg)}40%{transform:rotate(-7deg)}60%{transform:rotate(4deg)}80%{transform:rotate(-2deg)}}
+@keyframes pulinho2{0%{transform:scale(1)}40%{transform:scale(1.12)}100%{transform:scale(1)}}
+body.arrastando{user-select:none}
+.twrap.arr{z-index:20;filter:drop-shadow(0 8px 14px rgba(0,0,0,.45))}.twrap.arr .tl{animation:none;opacity:1}
+@media (prefers-reduced-motion:reduce){.rip,.cascata .tl,.cascata .hero{animation:none}}

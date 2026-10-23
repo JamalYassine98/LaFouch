@@ -54,8 +54,8 @@
   ICO_D.novo = '<path d="M12 5v14M5 12h14"/><rect x="3" y="3" width="18" height="18" rx="4"/>';
   ICO_D.cont = '<path d="M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h9"/>';
   ICO_D.lotes = '<path d="M3 7l9-4 9 4-9 4zM3 12l9 4 9-4M3 17l9 4 9-4"/>';
-  var INI_PADRAO = ['vendas', 'estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'cat', 'ajustes'];
-  var INI_TODOS = INI_PADRAO.concat(['novo', 'cont', 'lotes', 'notif']);
+  var INI_PADRAO = ['vendas', 'estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'cat', 'ajustes', 'ped', 'cont', 'lotes'];
+  var INI_TODOS = INI_PADRAO.concat(['novo', 'notif']);
   function iniLista() {
     var l = Array.isArray(S.inicioT) ? S.inicioT : INI_PADRAO;
     return l.filter(function (id, i) {
@@ -87,6 +87,7 @@
       novo: ['Novo produto', ['Cadastrar', '']],
       cont: ['Contagem', ['Conferir estoque', '']],
       lotes: ['Lotes', ['Compras', '']],
+      ped: ['Pedidos', [pedNovos() + ' novos', pedNovos() ? 'w' : '']],
       notif: ['Notificações', [notifContagem() + ' avisos', notifContagem() ? 'w' : '']]
     };
   }
@@ -101,7 +102,7 @@
       var t = D[id];
       if (!ed) return tileHtml('data-act="inicio" data-id="' + id + '"', id, t[0], t[1], '', false);
       return (
-        '<div class="twrap">' +
+        '<div class="twrap" data-k="' + id + '">' +
         tileHtml('disabled', id, t[0], t[1], '', false) +
         '<div class="tedit"><button type="button" data-act="inicioMv" data-id="' + id + '|-1" aria-label="Mover ' + t[0] + ' para trás"' + (i === 0 ? ' disabled' : '') + '>◀</button>' +
         '<button type="button" class="x" data-act="inicioRm" data-id="' + id + '" aria-label="Remover ' + t[0] + '">✕</button>' +

@@ -647,9 +647,46 @@ async def main():
             await pg.locator('#v-inicio .tl:has-text("Inventário")').click(); await pg.wait_for_timeout(300)
             r3 = await pg.evaluate("() => window.__LF.S.view")
             total += 1
-            ok = r == ['inicio', 12] and r2 == ['dash', 'giro'] and r3 == 'estoque' and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'tela Início: 12 botões levam às telas certas')
+            ok = r == ['inicio', 15] and r2 == ['dash', 'giro'] and r3 == 'estoque' and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'tela Início: 15 botões levam às telas certas')
             if not ok: falhas.append('inicio'); print('        veio', r, r2, r3, pg.erros)
+            await pg.close()
+
+            # animações dos botões: barra fixa embaixo, realce deslizante, segurar para apagar
+            pg = await pagina()
+            await pg.locator('#mainnav button:has-text("Vendas")').click(); await pg.wait_for_timeout(600)
+            r = await pg.evaluate("() => [getComputedStyle(document.getElementById('mainnav')).position, document.querySelectorAll('#mainnav .slider').length, document.querySelector('#mainnav .mn.on').textContent.trim()]")
+            await pg.evaluate("() => { window.__LF.S.dTab = 'hoje'; window.__LF.setView('dash'); }"); await pg.wait_for_timeout(500)
+            r2 = await pg.evaluate("() => document.querySelectorAll('#v-dash .tgrid .slider').length")
+            await pg.evaluate("""() => { const L = window.__LF, S = L.S, h = Date.now();
+              S.imprev = [{ts: h, desc: 'A', valor: 1000}, {ts: h, desc: 'B', valor: 2000}]; S.dlog = []; L.setView('desp'); }""")
+            await pg.wait_for_timeout(300)
+            await pg.locator('[data-act=impdel]').first.scroll_into_view_if_needed()
+            bx = await pg.locator('[data-act=impdel]').first.bounding_box()
+            await pg.mouse.move(bx['x'] + bx['width'] / 2, bx['y'] + bx['height'] / 2)
+            await pg.mouse.down(); await pg.wait_for_timeout(1200); await pg.mouse.up(); await pg.wait_for_timeout(400)
+            r3 = await pg.evaluate("() => window.__LF.S.imprev.map(x => x.desc)")
+            total += 1
+            ok = r == ['fixed', 1, 'Vendas'] and r2 >= 1 and r3 == ['B'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'animações: barra fixa, realce deslizante e segurar para apagar')
+            if not ok: falhas.append('animacoes'); print('        veio', r, r2, r3, pg.erros)
+            await pg.close()
+
+            # Pedidos: lançar, avisar no Início/notificações e avançar a situação
+            pg = await pagina()
+            await pg.locator('#v-inicio .tl:has-text("Pedidos")').click(); await pg.wait_for_timeout(300)
+            await pg.locator('[data-act=pednovo]').click()
+            await pg.fill('#pCli', 'maria souza'); await pg.fill('#pTel', '0981123456')
+            await pg.fill('#pRef', 'Armação azul'); await pg.fill('#pQtd', '2')
+            await pg.locator('[data-act=pedsave]').click(); await pg.wait_for_timeout(300)
+            r = await pg.evaluate("() => { const S = window.__LF.S; return [S.pedidos.length, S.pedidos[0].cli, S.pedidos[0].itens[0].q, S.pedidos[0].st, document.querySelectorAll('#v-ped .card').length]; }")
+            await pg.locator('[data-act=pedav]').click(); await pg.wait_for_timeout(300)
+            r2 = await pg.evaluate("() => [window.__LF.S.pedidos[0].st, window.__LF.S.pedF]")
+            await pg.locator('#mainnav button:has-text("Início")').click(); await pg.wait_for_timeout(300)
+            total += 1
+            ok = r == [1, 'Maria souza', 2, 'novo', 1] and r2 == ['sep', 'sep'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'pedidos: lançar, avançar situação')
+            if not ok: falhas.append('pedidos'); print('        veio', r, r2, pg.erros)
             await pg.close()
 
             # imprevistos: só os do mês aparecem e dá para remover

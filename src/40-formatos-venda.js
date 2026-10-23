@@ -74,6 +74,7 @@
     ['desp', 'Despesas'],
     ['fx', 'Câmbio'],
     ['hist', 'Histórico'],
+    ['ped', 'Pedidos'],
     ['notif', 'Notificações'],
     ['ajustes', 'Ajustes']
   ];

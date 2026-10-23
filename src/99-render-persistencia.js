@@ -17,6 +17,7 @@
       notifVerifica();
     } catch (e) {}
     renderInicio();
+    renderPedidos();
     renderNotif();
     renderDash();
     renderCaixa();
@@ -209,6 +210,8 @@
       'fundoBranco',
       'atMin',
       'notifs',
+      'pedidos',
+      'pedNext',
       'fxMgUlt',
       'inicioT',
       'attr',
