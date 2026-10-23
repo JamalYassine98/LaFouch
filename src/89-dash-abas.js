@@ -9,19 +9,9 @@
   ];
   function dTabsHtml() {
     return (
-      '<div class="tabs" role="group" aria-label="Partes do Dashboard" style="display:flex;gap:6px;margin:10px 0 4px;overflow-x:auto">' +
+      '<div class="tgrid g4" role="group" aria-label="Partes do Dashboard">' +
       DTABS.map(function (t) {
-        return (
-          '<button class="tab' +
-          (S.dTab === t[0] ? ' on' : '') +
-          '" data-act="dtab" data-id="' +
-          t[0] +
-          '" aria-pressed="' +
-          (S.dTab === t[0]) +
-          '" style="white-space:nowrap">' +
-          t[1] +
-          '</button>'
-        );
+        return tileHtml('data-act="dtab" data-id="' + t[0] + '"', t[0], t[1], null, 'sm', S.dTab === t[0]);
       }).join('') +
       '</div>'
     );
@@ -297,20 +287,10 @@
       h =
         '<div class="col" style="gap:8px"><div class="hint" style="margin:0">Vendas de: ' +
         r.txt +
-        '</div><div class="tabs" role="group" aria-label="Período das vendas">' +
+        '</div><div class="tgrid g5" role="group" aria-label="Período das vendas">' +
         op
           .map(function (o) {
-            return (
-              '<button class="tab' +
-              (S.per === o[0] ? ' on' : '') +
-              '" data-act="per" data-id="' +
-              o[0] +
-              '" aria-pressed="' +
-              (S.per === o[0]) +
-              '" style="padding:0 14px">' +
-              o[1] +
-              '</button>'
-            );
+            return tileHtml('data-act="per" data-id="' + o[0] + '"', 'p_' + o[0], o[1], null, 'sm', S.per === o[0]);
           })
           .join('') +
         '</div>';

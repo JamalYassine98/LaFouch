@@ -15,10 +15,12 @@
     var n = $('mainnav'),
       sl = n.scrollLeft;
     n.textContent = '';
-    VIEWS.forEach(function (v) {
-      var b = btn('mn' + (S.view === v[0] ? ' on' : ''), v[1], function () {
+    NAVB.forEach(function (v) {
+      var b = btn('mn' + (S.view === v[0] ? ' on' : ''), '', function () {
         setView(v[0]);
       });
+      b.innerHTML = '<span class="mi">' + ico(v[0], 22) + '</span><span>' + v[1] + '</span>';
+      b.setAttribute('aria-label', v[1]);
       if (S.view === v[0]) b.setAttribute('aria-current', 'page');
       n.appendChild(b);
     });

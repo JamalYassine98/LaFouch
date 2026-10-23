@@ -276,7 +276,7 @@ async def main():
             print(('  ok  ' if ok else ' FALHA ') + 'tela Caixa: registrar uso de melhorias')
             if not ok: falhas.append('tela melhorias'); print('        veio', got)
             total += 1
-            await pg.locator('#mainnav >> text="Despesas"').first.click(); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => window.__LF.setView('desp')"); await pg.wait_for_timeout(300)
             await pg.fill('#impD', 'Conserto'); await pg.fill('#impV', '60000')
             await pg.locator('[data-act="impadd"]').first.click(); await pg.wait_for_timeout(200)
             got = await pg.evaluate("() => { const S = window.__LF.S; return [S.imprev.length, S.dlog.filter(x => x.kind === 'imp').length] }")
@@ -301,7 +301,7 @@ async def main():
                 pg = await pagina()
                 await pg.evaluate(SETUP, FOTO)
                 await pg.evaluate("(t) => { window.__LF.S.tipo = t; window.__LF.S.todos = false; window.__LF.render(); }", tipo)
-                await pg.locator('#mainnav >> text="Inventário"').first.click(); await pg.wait_for_timeout(300)
+                await pg.evaluate("() => window.__LF.setView('estoque')"); await pg.wait_for_timeout(300)
                 await pg.locator('#listCard >> text=' + nome).first.click(); await pg.wait_for_timeout(400)
                 return pg
 
@@ -638,6 +638,20 @@ async def main():
             if not ok: falhas.append('identidade'); print('        veio', r, pg.erros)
             await pg.close()
 
+            # Início: botões em azulejo levam às telas certas
+            pg = await pagina()
+            r = await pg.evaluate("() => [window.__LF.S.view, document.querySelectorAll('#v-inicio .tl').length]")
+            await pg.locator('#v-inicio .tl:has-text("Giro")').click(); await pg.wait_for_timeout(300)
+            r2 = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.dTab]")
+            await pg.locator('#mainnav button:has-text("Início")').click(); await pg.wait_for_timeout(300)
+            await pg.locator('#v-inicio .tl:has-text("Inventário")').click(); await pg.wait_for_timeout(300)
+            r3 = await pg.evaluate("() => window.__LF.S.view")
+            total += 1
+            ok = r == ['inicio', 12] and r2 == ['dash', 'giro'] and r3 == 'estoque' and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'tela Início: 12 botões levam às telas certas')
+            if not ok: falhas.append('inicio'); print('        veio', r, r2, r3, pg.erros)
+            await pg.close()
+
             # contagem de estoque no cartão "Em estoque": por valor, com resumo e aplicação
             pg = await pagina()
             await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.items = [
@@ -672,7 +686,7 @@ async def main():
             print(('  ok  ' if ok else ' FALHA ') + 'tela Ajustes: meta, nova faixa e peças por mês')
             if not ok: falhas.append('tela ajustes'); print('        veio', got, pg.erros)
             total += 1
-            await pg.locator('#mainnav >> text="Dashboard"').first.click(); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => window.__LF.setView('dash')"); await pg.wait_for_timeout(300)
             tx = await pg.inner_text('#v-dash')
             ok = 'Meta do mês' in tx and 'US$ 600' in tx and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Dashboard: mostra meta do mês')
@@ -713,7 +727,7 @@ async def main():
             await pg.locator('[data-act="ccadj"]').first.click(); await pg.wait_for_timeout(300)
             got = await pg.evaluate("() => { const S = window.__LF.S; return [S.cash.pyg, S.confCx[0].ajustou, window.__LF.ccDias()] }")
             await checa('Caixa: ajustar o saldo para o contado', got == [4900000, True, 0], got)
-            await pg.locator('#mainnav >> text="Dashboard"').first.click(); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => window.__LF.setView('dash')"); await pg.wait_for_timeout(300)
             tx = await pg.inner_text('#v-dash')
             await checa('Dashboard: abre no Resumo com "Atenção agora" e as 4 partes', 'Atenção agora' in tx and all(t in tx for t in ['Resumo', 'Dinheiro', 'Giro', 'Preços']) and not pg.erros, [tx[:150], pg.erros])
             await pg.locator('[data-act="dtab"][data-id="din"]').first.click(); await pg.wait_for_timeout(300)
@@ -786,9 +800,9 @@ async def main():
                 pg = await pagina(scheme)
                 for aba in ['Dashboard', 'Inventário', 'Vendas', 'Caixa', 'Câmbio', 'Despesas', 'Histórico', 'Ajustes']:
                     total += 1
-                    loc = pg.locator(f'#mainnav >> text="{aba}"').first
+                    vid = {'Dashboard':'dash','Inventário':'estoque','Vendas':'vendas','Caixa':'caixa','Câmbio':'fx','Despesas':'desp','Histórico':'hist','Ajustes':'ajustes'}[aba]
                     try:
-                        await loc.click(timeout=3000); await pg.wait_for_timeout(300)
+                        await pg.evaluate(f"() => window.__LF.setView('{vid}')"); await pg.wait_for_timeout(300)
                         n = await pg.evaluate("() => document.body.innerText.length")
                         ok = n > 150 and not pg.erros
                     except Exception as e:

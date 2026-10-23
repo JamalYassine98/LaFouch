@@ -13,6 +13,7 @@
     renderAddExtras();
     renderVendas();
     renderNav();
+    renderInicio();
     renderDash();
     renderCaixa();
     renderDesp();

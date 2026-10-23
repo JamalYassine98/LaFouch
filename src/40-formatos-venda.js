@@ -66,6 +66,7 @@
     imprev: 'Imprevistos'
   };
   var VIEWS = [
+    ['inicio', 'Início'],
     ['dash', 'Dashboard'],
     ['estoque', 'Inventário'],
     ['vendas', 'Vendas'],
@@ -76,7 +77,7 @@
     ['ajustes', 'Ajustes']
   ];
 
-  S.view = 'dash';
+  S.view = 'inicio';
   S.hmode = 'lista';
   S.day = '';
   S.dayTab = '';
