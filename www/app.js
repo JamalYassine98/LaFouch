@@ -13151,15 +13151,44 @@
 
   // ---------- biometria (plugin do Capacitor, só no app instalado)
   function bioPlugin() {
+    if (bioPlugin._p !== undefined && bioPlugin._p) return bioPlugin._p;
     var C = window.Capacitor,
-      P = C && C.Plugins;
-    if (P && P.BiometricAuth) return P.BiometricAuth;
-    // sem o pacote do plugin no site, o Capacitor ainda liga o plugin nativo pelo nome
+      P = (C && C.Plugins) || {},
+      nomes = ['BiometricAuth', 'BiometricAuthNative'],
+      pl = null;
+    // o plugin nativo se chama "BiometricAuthNative"; sem o pacote do plugin no site, ligamos pelo nome
+    for (var k = 0; k < nomes.length && !pl; k++) {
+      var o = P[nomes[k]];
+      try {
+        if (!o && C && C.registerPlugin && C.isPluginAvailable && C.isPluginAvailable(nomes[k])) o = C.registerPlugin(nomes[k]);
+      } catch (e) {}
+      if (o) pl = o;
+    }
+    if (!pl) return null;
+    // o plugin nativo usa "internalAuthenticate" no lugar de "authenticate"
+    var r = {
+      checkBiometry: function () {
+        return pl.checkBiometry();
+      },
+      authenticate: function (opt) {
+        return pl.authenticate ? pl.authenticate(opt) : pl.internalAuthenticate(opt);
+      }
+    };
+    bioPlugin._p = r;
+    return r;
+  }
+  // Nomes dos plugins nativos que o app enxerga (para diagnóstico quando a biometria não aparece).
+  function bioNomes() {
     try {
-      if (C && C.registerPlugin && (!C.isPluginAvailable || C.isPluginAvailable('BiometricAuth')))
-        return (bioPlugin._p = bioPlugin._p || C.registerPlugin('BiometricAuth'));
-    } catch (e) {}
-    return null;
+      var h = (window.Capacitor && window.Capacitor.PluginHeaders) || [];
+      return h
+        .map(function (x) {
+          return x.name;
+        })
+        .join(', ');
+    } catch (e) {
+      return '';
+    }
   }
   function bioErro(e) {
     var m = e && (e.message || e.code);
@@ -13455,7 +13484,7 @@
     if (S._bioOk === undefined) bioChecar();
     var bioDisp = !!bioPlugin() && S._bioOk !== false,
       bioMotivo = !bioPlugin()
-        ? 'Neste app não encontrei o componente de biometria. Instale o APK novo.'
+        ? 'Neste app não encontrei o componente de biometria. Instale o APK novo.' + (bioNomes() ? ' (componentes vistos: ' + esc(bioNomes()) + ')' : ' (este app está rodando fora do aplicativo instalado)')
         : S._bioOk === false
         ? 'Cadastre uma digital ou rosto nas configurações do celular primeiro' + (S._bioWhy ? ' (' + esc(S._bioWhy) + ')' : '') + '.'
         : '';

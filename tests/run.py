@@ -751,6 +751,19 @@ async def main():
             if not ok: falhas.append('sugestoes'); print('        veio', r, r2, r3, pg.erros)
             await pg.close()
 
+            # biometria: o plugin nativo se chama BiometricAuthNative e usa internalAuthenticate
+            pg = await pagina()
+            await pg.evaluate("""() => { window.__bioCalls = 0; window.Capacitor = { Plugins: { BiometricAuthNative: { checkBiometry: () => Promise.resolve({isAvailable: true}), internalAuthenticate: () => { window.__bioCalls++; return Promise.resolve(); } } } }; const L = window.__LF; L.S._bioOk = undefined; L.S.pinHash = 'x'; L.S.pinSalt = 'y'; L.S._ajForce = true; L.setView('ajustes'); }""")
+            await pg.wait_for_timeout(500)
+            r0 = await pg.evaluate("() => { const t = document.querySelector('[data-aj=biotog]'); return [!!t, t && t.disabled]; }")
+            await pg.locator('.sw').first.click(); await pg.wait_for_timeout(600)
+            r1 = await pg.evaluate("() => [window.__bioCalls, window.__LF.S.bioOn]")
+            total += 1
+            ok = r0 == [True, False] and r1 == [1, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'biometria: acha o plugin nativo e ativa pela chave')
+            if not ok: falhas.append('bio plugin'); print('        veio', r0, r1, pg.erros)
+            await pg.close()
+
             # imprevistos: só os do mês aparecem e dá para remover
             pg = await pagina()
             r = await pg.evaluate("""() => { const L = window.__LF, S = L.S, h = Date.now(), mes = h - 40 * 86400000;
