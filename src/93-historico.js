@@ -419,7 +419,7 @@
     h +=
       '<div class="card col" style="padding:14px;' +
       (s.estorno ? 'opacity:.7' : '') +
-      '"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center"><div><span class="cell">Venda</span><div style="margin-top:6px"><b style="' +
+      '"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center"><div><span class="cell">' + (s.carrinho ? 'Venda (carrinho)' : 'Venda') + '</span><div style="margin-top:6px"><b style="' +
       (s.estorno ? 'text-decoration:line-through' : '') +
       '">' +
       esc(descOf(s)) +

@@ -2,6 +2,10 @@
   // Aba Vendas.
   function renderVendas() {
     renderCatV();
+    if (S.cartOpen) {
+      S.vRef = '';
+      S.vSel = null;
+    }
     if (S.view !== 'vendas') return;
     var qm = mkMatch(S.vq),
       all = S.items.filter(function (i) {
@@ -246,6 +250,7 @@
     }
     $('sgo').disabled = !sel || max <= 0;
     $('vmsg').textContent = S.msg || '';
+    carrinhoRender();
   }
   // Desconto, brinde e motivo da venda.
   function renderDescBrinde(sel) {
@@ -324,6 +329,7 @@
   }
   // Prévia da venda: custo, trava, piso e lucro com o valor digitado.
   function vendaPrevia() {
+    if (S.cartOpen) return cartPrevia();
     var sel = S._vsel,
       t = S._t;
     if (!sel || !t) return null;
@@ -366,7 +372,7 @@
     $('motB').hidden = !(v && v.abaixo);
     $('sgo').textContent = 'Finalizar venda';
     if (!v || !(v.eff > 0)) return;
-    var fx = faixaOf(S._vsel.ref),
+    var fx = S.cartOpen ? null : faixaOf(S._vsel.ref),
       bt = v.br ? ' (já contando o brinde)' : '';
     if (v.perde) {
       el.className = 'note n-bad';

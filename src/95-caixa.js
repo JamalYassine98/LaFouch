@@ -97,7 +97,7 @@
         : '.') +
       (per < trava ? ' Atenção: abaixo da trava de segurança (' + gs(trava) + ' por peça).' : '');
     el.style.color = per < trava ? 'var(--warn)' : 'var(--mute)';
-    if (typeof renderPiso === 'function' && S._vsel) renderPiso();
+    if (typeof renderPiso === 'function' && (S._vsel || S.cartOpen)) renderPiso();
   }
   // Calculadora de venda por moeda.
   function renderMoeda() {

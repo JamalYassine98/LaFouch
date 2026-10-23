@@ -305,6 +305,7 @@
     render();
   };
   $('sgo').onclick = function () {
+    if (S.cartOpen) return cartFinalizar();
     var sel = S._vsel,
       qty = S.qty;
     if (!sel || sel.qty <= 0) return;

@@ -483,6 +483,50 @@ async def main():
             if not ok: falhas.append('moeda/descarte'); print('        veio', r, pg.erros)
             await pg.close()
 
+            # carrinho: piso sobre o total, preço combinado por linha, pagamento repartido
+            pg = await pagina()
+            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S;
+              S.fx.pyg = 7000; S.cash = {pyg: 0, usd: 0, brl: 0};
+              const its = S.items.filter(i => i.qty >= 2 && L.tipoOf(i.tipo) && L.tFor && true).slice(0, 2);
+              const q0 = its.map(i => i.qty), n0 = S.sales.length;
+              S.cartOpen = false; S.vRef = ''; S.vSel = null;
+              S.cart = its.map(i => ({it: i, qty: 1, preco: null}));
+              const sub = S.cart.reduce((a, l) => a + L.tFor(l.it).price, 0);
+              // linha 1 muito barata, linha 2 mais cara, total = soma da tabela
+              S.cart[0].preco = Math.round(sub * 0.2); S.cart[1].preco = sub - S.cart[0].preco;
+              S.cartOpen = true; S.moeda = 'pyg'; S.rec = null; S.descTxt = '';
+              L.setView('vendas'); L.render();
+              const pv = L.cartPrevia();
+              const bar = [document.getElementById('cartCard').hidden, document.getElementById('vSaleCard').hidden, document.getElementById('qtyB').hidden];
+              document.getElementById('sgo').click();
+              const vs = S.sales.slice(0, 2);
+              return [pv.abaixo, pv.perde, bar, S.sales.length - n0, vs.every(s => s.carrinho && s.carrinho === vs[0].carrinho), vs.reduce((a, s) => a + s.price, 0) === sub, its.map((i, k) => q0[k] - i.qty), S.cart.length, S.cash.pyg === sub, vs.every(s => s.abaixo === pv.abaixo)]; }""")
+            ok = r[0] is False and r[1] is False and r[2] == [False, False, True] and r[3] == 2 and r[4] and r[5] and r[6] == [1, 1] and r[7] == 0 and r[8] and r[9] and not pg.erros
+            total += 1
+            print(('  ok  ' if ok else ' FALHA ') + 'carrinho: piso sobre o total, preço por linha e pagamento repartido')
+            if not ok: falhas.append('carrinho'); print('        veio', r, pg.erros)
+            await pg.close()
+
+            # carrinho pela tela: adicionar, abrir, mudar preço, esvaziar
+            pg = await pagina()
+            await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.cart = []; S.cartOpen = false; S.vRef = ''; S.vSel = null; S.vq = ''; S.vTipo = 'all'; S.vFaixa = ''; S.qty = 1; L.setView('vendas'); }""")
+            await pg.wait_for_timeout(300)
+            await pg.locator('#vRows .pcard:has-text("SP57765")').click(); await pg.wait_for_timeout(300)
+            await pg.locator('#sCartAdd').click(); await pg.wait_for_timeout(300)
+            u1 = await pg.evaluate("() => [document.getElementById('cartBar').hidden, document.getElementById('cartBar').textContent.indexOf('Carrinho: 1') >= 0, window.__LF.S.cart.length]")
+            await pg.locator('#vRows .pcard:not(:has-text("SP57765"))').first.click(); await pg.wait_for_timeout(300)
+            await pg.locator('#sCartAdd').click(); await pg.wait_for_timeout(300)
+            await pg.locator('[data-act=cartopen]').click(); await pg.wait_for_timeout(300)
+            await pg.locator('#cartCard input[data-in=cartpreco]').first.fill('1000'); await pg.wait_for_timeout(200)
+            u2 = await pg.evaluate("() => [document.getElementById('cartCard').hidden, document.querySelectorAll('#cartCard input[data-in=cartpreco]').length, window.__LF.S.cart[0].preco, document.activeElement.getAttribute('data-in'), document.getElementById('pisoSt').textContent.length > 0]")
+            await pg.locator('[data-act=cartclear]').click(); await pg.wait_for_timeout(300)
+            u3 = await pg.evaluate("() => [window.__LF.S.cart.length, window.__LF.S.cartOpen, document.getElementById('cartCard').hidden, document.getElementById('cartBar').hidden]")
+            ok = u1 == [False, True, 1] and u2 == [False, 2, 1000, 'cartpreco', True] and u3 == [0, False, True, True] and not pg.erros
+            total += 1
+            print(('  ok  ' if ok else ' FALHA ') + 'tela Vendas: carrinho (adicionar, abrir, mudar preço, esvaziar)')
+            if not ok: falhas.append('carrinho tela'); print('        veio', u1, u2, u3, pg.erros)
+            await pg.close()
+
             # contagem de estoque no cartão "Em estoque": por valor, com resumo e aplicação
             pg = await pagina()
             await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.items = [
