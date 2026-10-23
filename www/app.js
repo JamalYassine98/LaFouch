@@ -8822,7 +8822,9 @@
   S.day = '';
   S.dayTab = '';
   S.elog = [];
-  S.per = 30;
+  S.per = 'mes';
+  S.perDe = '';
+  S.perAte = '';
   S.volume = 350;
   S.melhPeca = 1000;
   S.janela = 90;
@@ -9091,6 +9093,8 @@
       ['Lucro livre', 'O que sobra para você.', sale.livre, '#00ff88']
     ];
     $('splitCard').hidden = false;
+    marcaOk($('splitCard'));
+    vibrar(25);
     $('splitH').textContent =
       'Venda ' +
       sale.id +
@@ -9117,7 +9121,9 @@
       l.appendChild(document.createTextNode(p[0]));
       l.appendChild(mk('small', '', p[1]));
       r.appendChild(l);
-      r.appendChild(mk('b', '', gs(p[2])));
+      var vb = mk('b', '', gs(p[2]));
+      r.appendChild(vb);
+      if (p[0] === 'Lucro livre') contaSubindo(vb, p[2], gs, 800);
       rowsEl.appendChild(r);
     });
     var n = $('splitNote');
@@ -12946,7 +12952,15 @@
   function liberar() {
     LOCK.locked = false;
     LOCK.tent = 0;
-    $('lockScr').hidden = true;
+    var ls = $('lockScr');
+    if (REDUCED) ls.hidden = true;
+    else {
+      ls.classList.add('sai');
+      setTimeout(function () {
+        ls.hidden = true;
+        ls.classList.remove('sai');
+      }, 220);
+    }
     $('lockPin').value = '';
     lockMsg('');
     var cb = LOCK.cb;
@@ -14241,6 +14255,7 @@
       var HR = null,
         HRtry = false;
       sh.onclick = function () {
+        if (!HRtry) flashCamera(stg);
         if (opts.live) {
           var lc = grabStrip();
           if (!lc) return;
@@ -16478,6 +16493,74 @@
     render();
     showSplit(sale);
   };
+  // ===== Movimento: animações leves (opacidade e escala), desligadas se o aparelho pedir menos movimento. =====
+  // Vibração curta (toque de confirmação), se o aparelho permitir.
+  function vibrar(ms) {
+    try {
+      if (!REDUCED && navigator.vibrate) navigator.vibrate(ms);
+    } catch (e) {}
+  }
+  // Anima um número de 0 até o valor (conta subindo).
+  function contaSubindo(el, ate, fmt, ms) {
+    if (REDUCED || !el || !(Math.abs(ate) > 0)) return;
+    var t0 = performance.now();
+    ms = ms || 700;
+    function passo(t) {
+      var k = Math.min(1, (t - t0) / ms),
+        e = 1 - Math.pow(1 - k, 3);
+      el.textContent = fmt(Math.round(ate * e));
+      if (k < 1) requestAnimationFrame(passo);
+      else el.textContent = fmt(ate);
+    }
+    requestAnimationFrame(passo);
+  }
+  // Marca de "ok" que se desenha dentro de um cartão (venda concluída).
+  function marcaOk(host) {
+    if (!host) return;
+    var velho = host.querySelector('.okck');
+    if (velho) velho.remove();
+    var d = document.createElement('div');
+    d.className = 'okck';
+    d.setAttribute('aria-hidden', 'true');
+    d.innerHTML =
+      '<svg viewBox="0 0 24 24" width="26" height="26"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    host.style.position = 'relative';
+    host.appendChild(d);
+  }
+  // Flash branco rápido sobre a imagem da câmera ao tirar a foto.
+  function flashCamera(host) {
+    if (!host) return;
+    vibrar(18);
+    if (REDUCED) return;
+    var f = document.createElement('div');
+    f.style.cssText = 'position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:5;animation:camflash .28s ease-out';
+    host.appendChild(f);
+    setTimeout(function () {
+      f.remove();
+    }, 320);
+  }
+  // Janelas e cartões que aparecem (atributo hidden removido) entram com movimento.
+  (function () {
+    if (REDUCED || !window.MutationObserver) return;
+    var ok = /(^|\s)(card|modal|note)(\s|$)/;
+    new MutationObserver(function (lista) {
+      lista.forEach(function (m) {
+        var el = m.target;
+        if (m.oldValue === null || el.hidden || el.id === 'lockScr') return;
+        if (/(^|\s)modal(\s|$)/.test(el.className)) {
+          var bx = el.querySelector('.modal-box');
+          el.classList.remove('fadein');
+          void el.offsetWidth;
+          el.classList.add('fadein');
+          if (bx) {
+            bx.classList.remove('popin');
+            void bx.offsetWidth;
+            bx.classList.add('popin');
+          }
+        } else if (ok.test(el.className) || /^(detail|vDetail|vSaleCard|splitCard|contCard)$/.test(el.id)) animEnter(el);
+      });
+    }).observe(document.body, { attributes: true, attributeFilter: ['hidden'], attributeOldValue: true, subtree: true });
+  })();
   // ===== Dashboard em abas (Resumo, Dinheiro, Giro, Preços), com "Atenção agora" e blocos que abrem ao toque. =====
   S.dTab = 'hoje';
   S.dfold = {};
@@ -16717,6 +16800,86 @@
     h += dFold('mar', 'Saúde da margem por tipo', 'preço atual contra a trava de segurança', 'var(--sub)', o.margem);
     return h;
   }
+
+  // ---------- período das vendas (Hoje, Semana, Mês, 30 dias, Outro)
+  function dataLocal(txt, fimDoDia) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(txt || '');
+    if (!m) return null;
+    return new Date(+m[1], +m[2] - 1, +m[3] + (fimDoDia ? 1 : 0)).getTime();
+  }
+  // Início e fim do período escolhido (a semana começa na segunda).
+  function periodoAtual() {
+    var d = new Date(),
+      ano = d.getFullYear(),
+      mes = d.getMonth(),
+      dia = d.getDate(),
+      fim = Date.now() + 1,
+      ini,
+      txt,
+      p = S.per;
+    if (p === 'hoje') {
+      ini = new Date(ano, mes, dia).getTime();
+      txt = 'hoje';
+    } else if (p === 'semana') {
+      ini = new Date(ano, mes, dia - ((d.getDay() + 6) % 7)).getTime();
+      txt = 'de segunda (' + fd(ini) + ') até hoje';
+    } else if (p === '30') {
+      ini = Date.now() - 30 * DAY;
+      txt = 'últimos 30 dias';
+    } else if (p === 'custom' && dataLocal(S.perDe) != null && dataLocal(S.perAte) != null) {
+      ini = dataLocal(S.perDe);
+      fim = dataLocal(S.perAte, true);
+      txt = 'de ' + fd(ini) + ' a ' + fd(fim - DAY);
+    } else {
+      ini = new Date(ano, mes, 1).getTime();
+      txt = p === 'custom' ? 'escolha as duas datas (mostrando o mês)' : 'do dia 1 até hoje';
+    }
+    return { ini: ini, fim: fim, txt: txt };
+  }
+  function vendasPeriodo() {
+    var r = periodoAtual();
+    return S.sales.filter(function (s) {
+      return !s.estorno && s.ts >= r.ini && s.ts < r.fim;
+    });
+  }
+  function periodoHtml() {
+    var r = periodoAtual(),
+      op = [
+        ['hoje', 'Hoje'],
+        ['semana', 'Semana'],
+        ['mes', 'Mês'],
+        ['30', '30 dias'],
+        ['custom', 'Outro']
+      ],
+      h =
+        '<div class="col" style="gap:8px"><div class="hint" style="margin:0">Vendas de: ' +
+        r.txt +
+        '</div><div class="tabs" role="group" aria-label="Período das vendas">' +
+        op
+          .map(function (o) {
+            return (
+              '<button class="tab' +
+              (S.per === o[0] ? ' on' : '') +
+              '" data-act="per" data-id="' +
+              o[0] +
+              '" aria-pressed="' +
+              (S.per === o[0]) +
+              '" style="padding:0 14px">' +
+              o[1] +
+              '</button>'
+            );
+          })
+          .join('') +
+        '</div>';
+    if (S.per === 'custom')
+      h +=
+        '<div class="sel" style="flex-wrap:wrap"><input class="in" type="date" data-pdat="de" value="' +
+        esc(S.perDe) +
+        '" aria-label="Data inicial" style="flex:1 1 140px;width:auto"><input class="in" type="date" data-pdat="ate" value="' +
+        esc(S.perAte) +
+        '" aria-label="Data final" style="flex:1 1 140px;width:auto"></div>';
+    return h + '</div>';
+  }
   // ===== Navegação entre abas e Dashboard. =====
   // Troca de aba.
   function setView(v) {
@@ -16727,6 +16890,7 @@
     } catch (e) {}
     render();
     window.scrollTo(0, 0);
+    animEnter($('v-' + v));
   }
   // Navegação principal.
   function renderNav() {
@@ -16787,7 +16951,7 @@
   // Aba Dashboard.
   function renderDash() {
     var el = $('v-dash'),
-      ps = periodSales(S.per),
+      ps = vendasPeriodo(),
       c = colchao();
     var tot = sumBy(ps, 'price'),
       pcs = sumBy(ps, 'qty'),
@@ -16804,25 +16968,7 @@
       con30 = sumBy(m30, 'contas'),
       tm = totalMensal(),
       cp = Math.min(100, (con30 / tm) * 100);
-    var perLbl = { 0: 'Hoje', 7: '7 dias', 30: '30 dias' };
-    var perHtml =
-      '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><span class="hint" style="margin:0">Vendas de:</span><div class="tabs" role="group" aria-label="Período">' +
-      [0, 7, 30]
-        .map(function (d) {
-          return (
-            '<button class="tab' +
-            (S.per === d ? ' on' : '') +
-            '" data-act="per" data-id="' +
-            d +
-            '" aria-pressed="' +
-            (S.per === d) +
-            '">' +
-            perLbl[d] +
-            '</button>'
-          );
-        })
-        .join('') +
-      '</div></div>';
+    var perHtml = periodoHtml();
     var html =
       '<div class="top"><div><h1>Dashboard</h1><div class="crumb">Quanto vendeu e quanto separar para manter a loja em ordem</div></div></div>' +
       dTabsHtml();
@@ -17007,7 +17153,9 @@
     html += '</section>';
     el.innerHTML =
       head +
-      dashCompose({ per: perHtml, kp: kpHtml, sep: secSep, two: secTwo, margem: html });
+      '<div id="dtabBody">' +
+      dashCompose({ per: perHtml, kp: kpHtml, sep: secSep, two: secTwo, margem: html }) +
+      '</div>';
   }
 
   // ---------- câmbio
@@ -18033,7 +18181,7 @@
       setView(id);
     },
     per: function (id) {
-      S.per = Number(id);
+      S.per = id;
       renderDash();
     },
     fxnow: function () {
@@ -19852,15 +20000,31 @@
   ACT.dtab = function (id) {
     S.dTab = id;
     renderDash();
+    animEnter($('dtabBody'));
   };
   ACT.dfold = function (id) {
     S.dfold[id] = !S.dfold[id];
     renderDash();
+    if (S.dfold[id]) {
+      var b = document.querySelector('[data-act="dfold"][data-id="' + id + '"]'),
+        sec = b && b.closest('section');
+      animEnter(sec && sec.nextElementSibling);
+    }
   };
   ACT.attodos = function () {
     S.atTodos = !S.atTodos;
     renderDash();
   };
+
+  // Datas do período "Outro".
+  document.addEventListener('change', function (ev) {
+    var t = ev.target,
+      k = t.getAttribute && t.getAttribute('data-pdat');
+    if (!k) return;
+    if (k === 'de') S.perDe = t.value;
+    else S.perAte = t.value;
+    renderDash();
+  });
   // ===== Render geral e persistência (localStorage + IndexedDB). =====
   // Redesenha o app e agenda o salvamento.
   function render() {
@@ -20129,6 +20293,6 @@
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, whiten: whiten, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, vendaPrevia: vendaPrevia, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, backupLembrete: backupLembrete, ccDias: ccDias, addSale: addSale
+      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, vendaPrevia: vendaPrevia, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, backupLembrete: backupLembrete, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit
     };
 })();

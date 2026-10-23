@@ -8,6 +8,7 @@
     } catch (e) {}
     render();
     window.scrollTo(0, 0);
+    animEnter($('v-' + v));
   }
   // Navegação principal.
   function renderNav() {
@@ -68,7 +69,7 @@
   // Aba Dashboard.
   function renderDash() {
     var el = $('v-dash'),
-      ps = periodSales(S.per),
+      ps = vendasPeriodo(),
       c = colchao();
     var tot = sumBy(ps, 'price'),
       pcs = sumBy(ps, 'qty'),
@@ -85,25 +86,7 @@
       con30 = sumBy(m30, 'contas'),
       tm = totalMensal(),
       cp = Math.min(100, (con30 / tm) * 100);
-    var perLbl = { 0: 'Hoje', 7: '7 dias', 30: '30 dias' };
-    var perHtml =
-      '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><span class="hint" style="margin:0">Vendas de:</span><div class="tabs" role="group" aria-label="Período">' +
-      [0, 7, 30]
-        .map(function (d) {
-          return (
-            '<button class="tab' +
-            (S.per === d ? ' on' : '') +
-            '" data-act="per" data-id="' +
-            d +
-            '" aria-pressed="' +
-            (S.per === d) +
-            '">' +
-            perLbl[d] +
-            '</button>'
-          );
-        })
-        .join('') +
-      '</div></div>';
+    var perHtml = periodoHtml();
     var html =
       '<div class="top"><div><h1>Dashboard</h1><div class="crumb">Quanto vendeu e quanto separar para manter a loja em ordem</div></div></div>' +
       dTabsHtml();
@@ -288,7 +271,9 @@
     html += '</section>';
     el.innerHTML =
       head +
-      dashCompose({ per: perHtml, kp: kpHtml, sep: secSep, two: secTwo, margem: html });
+      '<div id="dtabBody">' +
+      dashCompose({ per: perHtml, kp: kpHtml, sep: secSep, two: secTwo, margem: html }) +
+      '</div>';
   }
 
   // ---------- câmbio

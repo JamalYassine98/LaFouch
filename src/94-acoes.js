@@ -5,7 +5,7 @@
       setView(id);
     },
     per: function (id) {
-      S.per = Number(id);
+      S.per = id;
       renderDash();
     },
     fxnow: function () {

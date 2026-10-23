@@ -417,6 +417,7 @@
       var HR = null,
         HRtry = false;
       sh.onclick = function () {
+        if (!HRtry) flashCamera(stg);
         if (opts.live) {
           var lc = grabStrip();
           if (!lc) return;

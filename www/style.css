@@ -146,3 +146,26 @@ select.in{appearance:auto}
 
 #lockScr{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;text-align:center}
 #lockScr[hidden]{display:none}
+
+/* ===== Movimento ===== */
+:root{--ease:cubic-bezier(.2,.8,.2,1)}
+html{scroll-behavior:smooth}
+button,.pcard,.chip,.tab,.mini,.go,.step,.mn{transition:background-color .18s var(--ease),border-color .18s var(--ease),color .18s var(--ease),transform .14s var(--ease),box-shadow .2s var(--ease),opacity .2s}
+button:not(:disabled):active,.pcard:active{transform:scale(.96)}
+.go:not(:disabled):active{transform:scale(.985)}
+@media (hover:hover){.pcard:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.25)}.mini:hover,.go:not(:disabled):hover{filter:brightness(1.08)}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+@keyframes popin{from{opacity:0;transform:translateY(12px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes camflash{0%{opacity:0}18%{opacity:.85}100%{opacity:0}}
+@keyframes growx{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes okpop{0%{transform:scale(.4);opacity:0}60%{transform:scale(1.12);opacity:1}100%{transform:scale(1)}}
+@keyframes okdraw{from{stroke-dashoffset:30}to{stroke-dashoffset:0}}
+.fadein{animation:fadein .2s ease-out}
+.popin{animation:popin .26s var(--ease)}
+#splitBar i{transform-origin:left center;animation:growx .7s var(--ease) both}
+#splitBar i:nth-child(2){animation-delay:.08s}#splitBar i:nth-child(3){animation-delay:.16s}#splitBar i:nth-child(4){animation-delay:.24s}#splitBar i:nth-child(5){animation-delay:.32s}
+.okck{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:50%;background:var(--ok);color:#06240f;display:flex;align-items:center;justify-content:center;animation:okpop .45s var(--ease)}
+.okck path{stroke-dasharray:30;animation:okdraw .45s .15s var(--ease) both}
+#lockScr:not([hidden]){animation:fadein .2s ease-out}
+#lockScr.sai{opacity:0;transition:opacity .2s ease-in;pointer-events:none}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-delay:0s!important;transition-duration:.001ms!important;scroll-behavior:auto!important}.pcard:hover{transform:none}}

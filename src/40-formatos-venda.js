@@ -64,7 +64,9 @@
   S.day = '';
   S.dayTab = '';
   S.elog = [];
-  S.per = 30;
+  S.per = 'mes';
+  S.perDe = '';
+  S.perAte = '';
   S.volume = 350;
   S.melhPeca = 1000;
   S.janela = 90;
@@ -333,6 +335,8 @@
       ['Lucro livre', 'O que sobra para você.', sale.livre, '#00ff88']
     ];
     $('splitCard').hidden = false;
+    marcaOk($('splitCard'));
+    vibrar(25);
     $('splitH').textContent =
       'Venda ' +
       sale.id +
@@ -359,7 +363,9 @@
       l.appendChild(document.createTextNode(p[0]));
       l.appendChild(mk('small', '', p[1]));
       r.appendChild(l);
-      r.appendChild(mk('b', '', gs(p[2])));
+      var vb = mk('b', '', gs(p[2]));
+      r.appendChild(vb);
+      if (p[0] === 'Lucro livre') contaSubindo(vb, p[2], gs, 800);
       rowsEl.appendChild(r);
     });
     var n = $('splitNote');

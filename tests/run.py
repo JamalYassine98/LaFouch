@@ -23,6 +23,15 @@ S.exp = []; S.volume = 1; S.fxHist = []; S.janela = 30;
 # (nome, corpo JS que devolve um valor, esperado)
 TESTES = [
  # ---- contas da venda ----
+ ("período das vendas: hoje, semana (começa na segunda), mês e datas escolhidas", """
+   const d=new Date(), y=d.getFullYear(), m=d.getMonth(), dia=d.getDate();
+   const iniSem=new Date(y,m,dia-((d.getDay()+6)%7)).getTime(), iniMes=new Date(y,m,1).getTime(), iniDia=new Date(y,m,dia).getTime();
+   const mk=(ts)=>({id:'x'+ts,ts:ts,qty:1,price:1000,estorno:false});
+   const n=(p,ini)=>{S.per=p; S.sales=[mk(ini+1000), mk(ini-1000)]; return L.vendasPeriodo().length};
+   const a=[n('hoje',iniDia), n('semana',iniSem), n('mes',iniMes)];
+   S.per='custom'; const dt=y+'-'+('0'+(m+1)).slice(-2)+'-01'; S.perDe=dt; S.perAte=dt; S.sales=[mk(iniMes+1000), mk(iniMes+3*86400000)];
+   const c=L.vendasPeriodo().length; S.per='mes';
+   return a.concat([c, L.periodoAtual().ini===iniMes])""", [1, 1, 1, 1, True]),
  ("taxa da maquininha: sai do lucro e do caixa, e o estorno devolve só o líquido", """
    S.fx.pyg=7000; S.cash={pyg:0,usd:0,brl:0}; S.volume=1000; S.exp=[]; S.fxHist=[]; S.lotes=[];
    S.items=[{tipo:'pre',ref:'T1',grau:'+1',cor:'P',qty:5}];
@@ -496,6 +505,14 @@ async def main():
             for tab in ['giro', 'prec']:
                 await pg.locator(f'[data-act="dtab"][data-id="{tab}"]').first.click(); await pg.wait_for_timeout(300)
             await checa('Dashboard: abas Giro e Preços abrem sem erro', not pg.erros, pg.erros)
+            await pg.close()
+
+            # venda concluída: marca de ok e barras do resumo
+            pg = await pagina()
+            got = await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.items = [{tipo:'pre', ref:'T1', grau:'+1', cor:'P', qty:3}];
+              const s = L.addSale(S.items[0], 1, {moeda:'pyg', recebido:25000, forma:'din'}); L.showSplit(s);
+              return [document.querySelectorAll('#splitCard .okck').length, document.querySelectorAll('#splitBar i').length > 3, !document.getElementById('splitCard').hidden] }""")
+            await checa('venda concluída: marca de ok e barras aparecem', got == [1, True, True], got)
             await pg.close()
 
             # PIN: ativar, recarregar e desbloquear; cópia automática

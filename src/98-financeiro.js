@@ -282,12 +282,28 @@
   ACT.dtab = function (id) {
     S.dTab = id;
     renderDash();
+    animEnter($('dtabBody'));
   };
   ACT.dfold = function (id) {
     S.dfold[id] = !S.dfold[id];
     renderDash();
+    if (S.dfold[id]) {
+      var b = document.querySelector('[data-act="dfold"][data-id="' + id + '"]'),
+        sec = b && b.closest('section');
+      animEnter(sec && sec.nextElementSibling);
+    }
   };
   ACT.attodos = function () {
     S.atTodos = !S.atTodos;
     renderDash();
   };
+
+  // Datas do período "Outro".
+  document.addEventListener('change', function (ev) {
+    var t = ev.target,
+      k = t.getAttribute && t.getAttribute('data-pdat');
+    if (!k) return;
+    if (k === 'de') S.perDe = t.value;
+    else S.perAte = t.value;
+    renderDash();
+  });

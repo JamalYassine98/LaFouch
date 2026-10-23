@@ -237,3 +237,83 @@
     h += dFold('mar', 'Saúde da margem por tipo', 'preço atual contra a trava de segurança', 'var(--sub)', o.margem);
     return h;
   }
+
+  // ---------- período das vendas (Hoje, Semana, Mês, 30 dias, Outro)
+  function dataLocal(txt, fimDoDia) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(txt || '');
+    if (!m) return null;
+    return new Date(+m[1], +m[2] - 1, +m[3] + (fimDoDia ? 1 : 0)).getTime();
+  }
+  // Início e fim do período escolhido (a semana começa na segunda).
+  function periodoAtual() {
+    var d = new Date(),
+      ano = d.getFullYear(),
+      mes = d.getMonth(),
+      dia = d.getDate(),
+      fim = Date.now() + 1,
+      ini,
+      txt,
+      p = S.per;
+    if (p === 'hoje') {
+      ini = new Date(ano, mes, dia).getTime();
+      txt = 'hoje';
+    } else if (p === 'semana') {
+      ini = new Date(ano, mes, dia - ((d.getDay() + 6) % 7)).getTime();
+      txt = 'de segunda (' + fd(ini) + ') até hoje';
+    } else if (p === '30') {
+      ini = Date.now() - 30 * DAY;
+      txt = 'últimos 30 dias';
+    } else if (p === 'custom' && dataLocal(S.perDe) != null && dataLocal(S.perAte) != null) {
+      ini = dataLocal(S.perDe);
+      fim = dataLocal(S.perAte, true);
+      txt = 'de ' + fd(ini) + ' a ' + fd(fim - DAY);
+    } else {
+      ini = new Date(ano, mes, 1).getTime();
+      txt = p === 'custom' ? 'escolha as duas datas (mostrando o mês)' : 'do dia 1 até hoje';
+    }
+    return { ini: ini, fim: fim, txt: txt };
+  }
+  function vendasPeriodo() {
+    var r = periodoAtual();
+    return S.sales.filter(function (s) {
+      return !s.estorno && s.ts >= r.ini && s.ts < r.fim;
+    });
+  }
+  function periodoHtml() {
+    var r = periodoAtual(),
+      op = [
+        ['hoje', 'Hoje'],
+        ['semana', 'Semana'],
+        ['mes', 'Mês'],
+        ['30', '30 dias'],
+        ['custom', 'Outro']
+      ],
+      h =
+        '<div class="col" style="gap:8px"><div class="hint" style="margin:0">Vendas de: ' +
+        r.txt +
+        '</div><div class="tabs" role="group" aria-label="Período das vendas">' +
+        op
+          .map(function (o) {
+            return (
+              '<button class="tab' +
+              (S.per === o[0] ? ' on' : '') +
+              '" data-act="per" data-id="' +
+              o[0] +
+              '" aria-pressed="' +
+              (S.per === o[0]) +
+              '" style="padding:0 14px">' +
+              o[1] +
+              '</button>'
+            );
+          })
+          .join('') +
+        '</div>';
+    if (S.per === 'custom')
+      h +=
+        '<div class="sel" style="flex-wrap:wrap"><input class="in" type="date" data-pdat="de" value="' +
+        esc(S.perDe) +
+        '" aria-label="Data inicial" style="flex:1 1 140px;width:auto"><input class="in" type="date" data-pdat="ate" value="' +
+        esc(S.perAte) +
+        '" aria-label="Data final" style="flex:1 1 140px;width:auto"></div>';
+    return h + '</div>';
+  }

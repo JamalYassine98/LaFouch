@@ -76,7 +76,15 @@
   function liberar() {
     LOCK.locked = false;
     LOCK.tent = 0;
-    $('lockScr').hidden = true;
+    var ls = $('lockScr');
+    if (REDUCED) ls.hidden = true;
+    else {
+      ls.classList.add('sai');
+      setTimeout(function () {
+        ls.hidden = true;
+        ls.classList.remove('sai');
+      }, 220);
+    }
     $('lockPin').value = '';
     lockMsg('');
     var cb = LOCK.cb;
