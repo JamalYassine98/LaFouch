@@ -666,14 +666,7 @@
     if (nt && !f.known) {
       S.desc[f.ref] = (autoDesc(f.ref) + ' ' + nt).trim();
     }
-    S.elog.push({
-      ts: Date.now(),
-      tipo: f.tipo,
-      ref: f.ref,
-      cor: f.cor,
-      grau: f.isPre ? gn : '',
-      qty: P.qty
-    });
+    entradaEstoque(f.tipo, f.ref, f.cor, f.isPre ? gn : '', P.qty);
     setFoto(f.ref + '|' + f.cor, P.thumb || P.img, P.img);
     var what = f.known
       ? f.same

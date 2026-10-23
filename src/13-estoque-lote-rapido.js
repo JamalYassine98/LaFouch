@@ -368,7 +368,7 @@
           cor: it.cor,
           qty: it.qty
         });
-      S.elog.push({ ts: Date.now(), tipo: tipo, ref: ref, cor: it.cor, grau: '', qty: it.qty });
+      entradaEstoque(tipo, ref, it.cor, '', it.qty);
       var k = ref + '|' + it.cor;
       if (!seen[k]) {
         setFoto(k, it.thumb || it.img, it.img);

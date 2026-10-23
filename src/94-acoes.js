@@ -67,10 +67,6 @@
       renderDay();
       renderNav();
     },
-    hf: function (id) {
-      S.hf = id;
-      renderHist();
-    },
     hopen: function (id) {
       S.hOpen = S.hOpen === id ? '' : id;
       renderDay();
@@ -146,12 +142,7 @@
       if (e.paid[k]) {
         var pts = e.paid[k];
         S.cash.pyg += e.valor;
-        S.cpay = S.cpay.filter(function (x) {
-          return !(x.id === e.id && x.ym === k);
-        });
-        S.dlog = S.dlog.filter(function (x) {
-          return !(x.kind === 'pago' && x.ts === pts && x.nome === e.nome);
-        });
+        desfazerPagamento(e, k, pts);
         delete e.paid[k];
         S.cxMsg = 'Pagamento de "' + e.nome + '" desfeito. ' + gs(e.valor) + ' voltaram ao caixa.';
       } else {
@@ -168,14 +159,7 @@
         var t0 = Date.now();
         S.cash.pyg -= e.valor;
         e.paid[k] = t0;
-        S.cpay.push({ ts: t0, id: e.id, ym: k, nome: e.nome, valor: e.valor, cat: e.cat });
-        S.dlog.push({
-          ts: t0,
-          kind: 'pago',
-          nome: e.nome,
-          desc: e.nome + ' (' + CATS[e.cat] + ')',
-          valor: e.valor
-        });
+        lancarPagamento(e, k, t0);
         S.cxMsg = 'Paguei "' + e.nome + '": ' + gs(e.valor) + ' saíram do caixa.';
       }
       saveSoon();
@@ -190,7 +174,7 @@
         v = toNum($('ev-' + id).value);
       if (!v || v === e.valor) return;
       e.hist.push({ ts: Date.now(), de: e.valor, para: v });
-      S.dlog.push({ ts: Date.now(), kind: 'alt', nome: e.nome, cat: e.cat, de: e.valor, para: v });
+      logDespesa('alt', { nome: e.nome, cat: e.cat, de: e.valor, para: v });
       e.valor = v;
       renderDesp();
       renderDash();
@@ -204,8 +188,7 @@
       var rm = S.exp.filter(function (x) {
         return x.id === Number(id);
       })[0];
-      if (rm)
-        S.dlog.push({ ts: Date.now(), kind: 'rem', nome: rm.nome, cat: rm.cat, valor: rm.valor });
+      if (rm) logDespesa('rem', { nome: rm.nome, cat: rm.cat, valor: rm.valor });
       S.exp = S.exp.filter(function (x) {
         return x.id !== Number(id);
       });
@@ -228,14 +211,7 @@
         valor: v,
         hist: []
       });
-      S.dlog.push({
-        ts: Date.now(),
-        kind: 'novo',
-        nome: n,
-        cat: $('nCat').value,
-        tipo: $('nTipo').value,
-        valor: v
-      });
+      logDespesa('novo', { nome: n, cat: $('nCat').value, tipo: $('nTipo').value, valor: v });
       renderDesp();
       renderDash();
     },
@@ -278,21 +254,6 @@
       renderCaixa();
       renderDash();
     },
-    compra: function () {
-      var v = parseDec($('cpV').value, 'usd'),
-        d = $('cpD').value.trim() || 'Compra de lote';
-      if (!v) {
-        S.cxMsg = 'Informe o valor em dólar.';
-      } else if (S.cash.usd < v) {
-        S.cxMsg = 'Saldo insuficiente em dólar: você tem ' + usd(S.cash.usd) + '.';
-      } else {
-        S.cash.usd -= v;
-        S.compras.push({ ts: Date.now(), desc: d, usd: v });
-        S.dlog.push({ ts: Date.now(), kind: 'lote', desc: d, usd: v });
-        S.cxMsg = 'Compra registrada: ' + usd(v) + '.';
-      }
-      renderCaixa();
-    },
     melhuso: function () {
       var v = parseDec($('muV').value, 'pyg'),
         d = $('muD').value.trim() || 'Melhoria da loja',
@@ -305,8 +266,7 @@
         S.cxMsg = 'Saldo insuficiente em guaranis em caixa.';
       } else {
         S.cash.pyg -= v;
-        S.melhUso.push({ ts: Date.now(), desc: d, valor: v });
-        S.dlog.push({ ts: Date.now(), kind: 'melh', desc: d, valor: v });
+        lancarMelhoria(d, v);
         S.cxMsg = 'Uso registrado: ' + gs(v) + ' em ' + d + '.';
       }
       renderCaixa();
@@ -366,8 +326,7 @@
       var d = $('impD').value.trim(),
         v = toNum($('impV').value);
       if (!d || !v) return;
-      S.imprev.push({ ts: Date.now(), desc: d, valor: v });
-      S.dlog.push({ ts: Date.now(), kind: 'imp', desc: d, valor: v });
+      lancarImprevisto(d, v);
       renderDesp();
     }
   };

@@ -16,7 +16,7 @@ const L = window.__LF, S = L.S;
 S.fx = {pyg: 7000, brl: 1400, ts: Date.now(), live: false, src: 't', status: ''};
 S.cash = {pyg: 100000, usd: 100, brl: 0};
 S.ini = {rep: 0, colch: 0, melh: 0};
-S.sales = []; S.compras = []; S.melhUso = []; S.cpay = []; S.dlog = []; S.items = []; S.grp = []; S.lotes = [];
+S.sales = []; S.compras = []; S.melhUso = []; S.imprev = []; S.elog = []; S.cpay = []; S.dlog = []; S.items = []; S.grp = []; S.lotes = [];
 S.exp = []; S.volume = 1; S.fxHist = []; S.janela = 30;
 """
 
@@ -83,6 +83,24 @@ TESTES = [
    const d = r.canvas.getContext('2d').getImageData(0, 0, r.canvas.width, r.canvas.height).data;
    let escuros = 0; for (let i = 0; i < d.length; i += 4) if (d[i] < 80) escuros++;
    return [r.canvas.width, r.canvas.height, d[0] > 245 && d[1] > 245, escuros > 2000, r.bg.map(v => Math.abs(v - 216) < 12).every(Boolean)]""", [2000, 2000, True, True, True]),
+ # ---- movimentos (livro + histórico gravados juntos) ----
+ ("lancarCompra: livro e histórico recebem o mesmo fato", """
+   L.lancarCompra({ts: 5, desc: 'Compra X', usd: 12.5}); return [S.compras.length, S.dlog.length, S.dlog[0]]""",
+  [1, 1, {"ts": 5, "kind": "lote", "desc": "Compra X", "usd": 12.5}]),
+ ("lancarMelhoria e lancarImprevisto", """
+   L.lancarMelhoria('Tinta', 15000); L.lancarImprevisto('Vitrine', 60000);
+   return [S.melhUso.length, S.imprev.length, S.dlog.map(x => x.kind), S.dlog[0].valor, S.dlog[1].valor, S.dlog[0].ts === S.melhUso[0].ts]""",
+  [1, 1, ["melh", "imp"], 15000, 60000, True]),
+ ("lancarPagamento e desfazerPagamento", """
+   const e = {id: 7, nome: 'Aluguel', cat: 'fixa', valor: 900000};
+   L.lancarPagamento(e, '2026-10', 99); const dep = [S.cpay.length, S.dlog.length, S.dlog[0].kind, S.dlog[0].valor];
+   L.desfazerPagamento(e, '2026-10', 99); return dep.concat([S.cpay.length, S.dlog.length])""",
+  [1, 1, "pago", 900000, 0, 0]),
+ ("logDespesa: formato e ordem dos campos", """
+   L.logDespesa('alt', {nome: 'Luz', cat: 'fixa', de: 100, para: 120}); return Object.keys(S.dlog[0]).join(',')""", "ts,kind,nome,cat,de,para"),
+ ("entradaEstoque: registro de entrada", """
+   L.entradaEstoque('pre', 'SP1', 'Preto', '+1.00', 6); const x = S.elog[S.elog.length - 1]; return [Object.keys(x).join(','), x.qty, x.ref]""",
+  ["ts,tipo,ref,cor,grau,qty", 6, "SP1"]),
  # ---- leitor de código ----
  ("parseHaste: código, medida e variação", """return L.parseHaste(['BR7722\\n51□18 140\\nC3'])""", {"ref":"BR-7722","med":"51□18-140","vr":"C3"}),
  ("parseHaste: 3 letras no prefixo", """return L.parseHaste(['HKJ7241 52-18-145 C2'])""", {"ref":"HKJ-7241","med":"52□18-145","vr":"C2"}),
@@ -140,6 +158,28 @@ async def main():
             total += 1
             if pg.erros: falhas.append('erros de JavaScript'); print(' FALHA erros de JavaScript:', pg.erros)
             else: print('  ok  sem erros de JavaScript nos testes')
+
+
+            # fluxos pela tela: os botões gravam livro + histórico e mexem no caixa
+            pg = await pagina()
+            await pg.evaluate("() => { const S = window.__LF.S; S.cash = {pyg: 5000000, usd: 500, brl: 0}; S.compras = []; S.dlog = []; S.imprev = []; S.melhUso = []; S.cpay = []; window.__LF.render(); }")
+            total += 1
+            await pg.evaluate("() => { const S = window.__LF.S; S.ini.melh = 400000; window.__LF.render(); }")
+            await pg.locator('#mainnav >> text="Caixa"').first.click(); await pg.wait_for_timeout(300)
+            await pg.fill('#muD', 'Tinta'); await pg.fill('#muV', '50000')
+            await pg.locator('[data-act="melhuso"]').first.click(); await pg.wait_for_timeout(200)
+            got = await pg.evaluate("() => { const S = window.__LF.S; return [S.melhUso.length, S.dlog.filter(x => x.kind === 'melh').length, S.cash.pyg] }")
+            ok = got == [1, 1, 4950000]
+            print(('  ok  ' if ok else ' FALHA ') + 'tela Caixa: registrar uso de melhorias')
+            if not ok: falhas.append('tela melhorias'); print('        veio', got)
+            total += 1
+            await pg.locator('#mainnav >> text="Despesas"').first.click(); await pg.wait_for_timeout(300)
+            await pg.fill('#impD', 'Conserto'); await pg.fill('#impV', '60000')
+            await pg.locator('[data-act="impadd"]').first.click(); await pg.wait_for_timeout(200)
+            got = await pg.evaluate("() => { const S = window.__LF.S; return [S.imprev.length, S.dlog.filter(x => x.kind === 'imp').length] }")
+            ok = got == [1, 1]
+            print(('  ok  ' if ok else ' FALHA ') + 'tela Despesas: registrar imprevisto')
+            if not ok: falhas.append('tela imprevisto'); print('        veio', got)
 
             # gravação: o que foi salvo volta depois de recarregar
             total += 1

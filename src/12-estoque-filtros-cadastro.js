@@ -303,14 +303,7 @@
         qty: qty
       });
     $('eCusto').value = '';
-    S.elog.push({
-      ts: Date.now(),
-      tipo: S.tipo,
-      ref: ref,
-      cor: corN,
-      grau: isPre ? S._gn : '',
-      qty: qty
-    });
+    entradaEstoque(S.tipo, ref, corN, isPre ? S._gn : '', qty);
     say(
       'Entrada registrada: +' +
         qty +

@@ -507,16 +507,14 @@
       amt = g.custoOrig != null ? g.custoOrig : g.totalUsd;
     if (!(amt > 0)) return;
     S.cash[cur] = r2((S.cash[cur] || 0) - amt);
-    var t = Date.now();
-    S.compras.push({
-      ts: t,
+    lancarCompra({
+      ts: Date.now(),
       desc: g.forn + ' (' + g.qty + ' peças)',
       usd: g.totalUsd,
       lot: g.id,
       cur: cur,
       orig: amt
     });
-    S.dlog.push({ ts: t, kind: 'lote', desc: g.forn + ' (' + g.qty + ' peças)', usd: g.totalUsd });
     if (S.cash[cur] < 0)
       popErr(
         'Saldo em ' +

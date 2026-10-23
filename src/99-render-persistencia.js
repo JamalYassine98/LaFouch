@@ -240,5 +240,7 @@
       nrm: nrm, normGrau: normGrau, totalMensal: totalMensal, contasPeca: contasPeca, lotCharge: lotCharge,
       lotRefund: lotRefund, lotAdjust: lotAdjust, cleanDb: cleanDb, dedupeItems: dedupeItems, render: render,
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
-      setView: setView, whiten: whiten, mkCanvas: mkCanvas
+      setView: setView, whiten: whiten, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
+      lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
+      desfazerPagamento: desfazerPagamento, logDespesa: logDespesa, entradaEstoque: entradaEstoque
     };

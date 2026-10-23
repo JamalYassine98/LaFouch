@@ -508,16 +508,14 @@
       amt = g.custoOrig != null ? g.custoOrig : g.totalUsd;
     if (!(amt > 0)) return;
     S.cash[cur] = r2((S.cash[cur] || 0) - amt);
-    var t = Date.now();
-    S.compras.push({
-      ts: t,
+    lancarCompra({
+      ts: Date.now(),
       desc: g.forn + ' (' + g.qty + ' peças)',
       usd: g.totalUsd,
       lot: g.id,
       cur: cur,
       orig: amt
     });
-    S.dlog.push({ ts: t, kind: 'lote', desc: g.forn + ' (' + g.qty + ' peças)', usd: g.totalUsd });
     if (S.cash[cur] < 0)
       popErr(
         'Saldo em ' +
@@ -837,6 +835,64 @@
         el.removeEventListener('animationend', f);
       });
     } catch (e) {}
+  }
+  // ===== Movimentos: todo fato de dinheiro ou estoque é gravado por aqui (livro + histórico juntos). =====
+  // Formato do registro do histórico (S.dlog) de uma compra de mercadoria.
+  function dlogLote(x) {
+    return { ts: x.ts, kind: 'lote', desc: x.desc, usd: x.usd };
+  }
+  // Formato do registro do histórico de um uso da caixa de melhorias.
+  function dlogMelh(x) {
+    return { ts: x.ts, kind: 'melh', desc: x.desc, valor: x.valor };
+  }
+  // Formato do registro do histórico de um gasto imprevisto.
+  function dlogImp(x) {
+    return { ts: x.ts, kind: 'imp', desc: x.desc, valor: x.valor };
+  }
+  // Compra de mercadoria: entra no livro de compras (S.compras) e no histórico.
+  function lancarCompra(c) {
+    S.compras.push(c);
+    S.dlog.push(dlogLote(c));
+  }
+  // Uso da caixa de melhorias: livro (S.melhUso) e histórico.
+  function lancarMelhoria(desc, valor) {
+    var x = { ts: Date.now(), desc: desc, valor: valor };
+    S.melhUso.push(x);
+    S.dlog.push(dlogMelh(x));
+  }
+  // Gasto imprevisto: livro (S.imprev) e histórico.
+  function lancarImprevisto(desc, valor) {
+    var x = { ts: Date.now(), desc: desc, valor: valor };
+    S.imprev.push(x);
+    S.dlog.push(dlogImp(x));
+  }
+  // Conta mensal paga: livro de pagamentos (S.cpay) e histórico.
+  function lancarPagamento(e, ym, ts) {
+    S.cpay.push({ ts: ts, id: e.id, ym: ym, nome: e.nome, valor: e.valor, cat: e.cat });
+    S.dlog.push({
+      ts: ts,
+      kind: 'pago',
+      nome: e.nome,
+      desc: e.nome + ' (' + CATS[e.cat] + ')',
+      valor: e.valor
+    });
+  }
+  // Desfaz o pagamento de uma conta no mês: tira do livro e do histórico.
+  function desfazerPagamento(e, ym, ts) {
+    S.cpay = S.cpay.filter(function (x) {
+      return !(x.id === e.id && x.ym === ym);
+    });
+    S.dlog = S.dlog.filter(function (x) {
+      return !(x.kind === 'pago' && x.ts === ts && x.nome === e.nome);
+    });
+  }
+  // Alteração, remoção ou criação de despesa fixa: só histórico.
+  function logDespesa(kind, campos) {
+    S.dlog.push(Object.assign({ ts: Date.now(), kind: kind }, campos));
+  }
+  // Entrada de peças no histórico do estoque (S.elog).
+  function entradaEstoque(tipo, ref, cor, grau, qty) {
+    S.elog.push({ ts: Date.now(), tipo: tipo, ref: ref, cor: cor, grau: grau, qty: qty });
   }
   // ===== Estoque: tela de detalhe de um código. =====
   // Detalhe de um código: fotos, variações, edição e venda.
@@ -3085,14 +3141,7 @@
         qty: qty
       });
     $('eCusto').value = '';
-    S.elog.push({
-      ts: Date.now(),
-      tipo: S.tipo,
-      ref: ref,
-      cor: corN,
-      grau: isPre ? S._gn : '',
-      qty: qty
-    });
+    entradaEstoque(S.tipo, ref, corN, isPre ? S._gn : '', qty);
     say(
       'Entrada registrada: +' +
         qty +
@@ -3780,7 +3829,7 @@
           cor: it.cor,
           qty: it.qty
         });
-      S.elog.push({ ts: Date.now(), tipo: tipo, ref: ref, cor: it.cor, grau: '', qty: it.qty });
+      entradaEstoque(tipo, ref, it.cor, '', it.qty);
       var k = ref + '|' + it.cor;
       if (!seen[k]) {
         setFoto(k, it.thumb || it.img, it.img);
@@ -8475,14 +8524,7 @@ function skin(c, fallback) {
     if (nt && !f.known) {
       S.desc[f.ref] = (autoDesc(f.ref) + ' ' + nt).trim();
     }
-    S.elog.push({
-      ts: Date.now(),
-      tipo: f.tipo,
-      ref: f.ref,
-      cor: f.cor,
-      grau: f.isPre ? gn : '',
-      qty: P.qty
-    });
+    entradaEstoque(f.tipo, f.ref, f.cor, f.isPre ? gn : '', P.qty);
     setFoto(f.ref + '|' + f.cor, P.thumb || P.img, P.img);
     var what = f.known
       ? f.same
@@ -15503,10 +15545,6 @@ function skin(c, fallback) {
       renderDay();
       renderNav();
     },
-    hf: function (id) {
-      S.hf = id;
-      renderHist();
-    },
     hopen: function (id) {
       S.hOpen = S.hOpen === id ? '' : id;
       renderDay();
@@ -15582,12 +15620,7 @@ function skin(c, fallback) {
       if (e.paid[k]) {
         var pts = e.paid[k];
         S.cash.pyg += e.valor;
-        S.cpay = S.cpay.filter(function (x) {
-          return !(x.id === e.id && x.ym === k);
-        });
-        S.dlog = S.dlog.filter(function (x) {
-          return !(x.kind === 'pago' && x.ts === pts && x.nome === e.nome);
-        });
+        desfazerPagamento(e, k, pts);
         delete e.paid[k];
         S.cxMsg = 'Pagamento de "' + e.nome + '" desfeito. ' + gs(e.valor) + ' voltaram ao caixa.';
       } else {
@@ -15604,14 +15637,7 @@ function skin(c, fallback) {
         var t0 = Date.now();
         S.cash.pyg -= e.valor;
         e.paid[k] = t0;
-        S.cpay.push({ ts: t0, id: e.id, ym: k, nome: e.nome, valor: e.valor, cat: e.cat });
-        S.dlog.push({
-          ts: t0,
-          kind: 'pago',
-          nome: e.nome,
-          desc: e.nome + ' (' + CATS[e.cat] + ')',
-          valor: e.valor
-        });
+        lancarPagamento(e, k, t0);
         S.cxMsg = 'Paguei "' + e.nome + '": ' + gs(e.valor) + ' saíram do caixa.';
       }
       saveSoon();
@@ -15626,7 +15652,7 @@ function skin(c, fallback) {
         v = toNum($('ev-' + id).value);
       if (!v || v === e.valor) return;
       e.hist.push({ ts: Date.now(), de: e.valor, para: v });
-      S.dlog.push({ ts: Date.now(), kind: 'alt', nome: e.nome, cat: e.cat, de: e.valor, para: v });
+      logDespesa('alt', { nome: e.nome, cat: e.cat, de: e.valor, para: v });
       e.valor = v;
       renderDesp();
       renderDash();
@@ -15640,8 +15666,7 @@ function skin(c, fallback) {
       var rm = S.exp.filter(function (x) {
         return x.id === Number(id);
       })[0];
-      if (rm)
-        S.dlog.push({ ts: Date.now(), kind: 'rem', nome: rm.nome, cat: rm.cat, valor: rm.valor });
+      if (rm) logDespesa('rem', { nome: rm.nome, cat: rm.cat, valor: rm.valor });
       S.exp = S.exp.filter(function (x) {
         return x.id !== Number(id);
       });
@@ -15664,14 +15689,7 @@ function skin(c, fallback) {
         valor: v,
         hist: []
       });
-      S.dlog.push({
-        ts: Date.now(),
-        kind: 'novo',
-        nome: n,
-        cat: $('nCat').value,
-        tipo: $('nTipo').value,
-        valor: v
-      });
+      logDespesa('novo', { nome: n, cat: $('nCat').value, tipo: $('nTipo').value, valor: v });
       renderDesp();
       renderDash();
     },
@@ -15714,21 +15732,6 @@ function skin(c, fallback) {
       renderCaixa();
       renderDash();
     },
-    compra: function () {
-      var v = parseDec($('cpV').value, 'usd'),
-        d = $('cpD').value.trim() || 'Compra de lote';
-      if (!v) {
-        S.cxMsg = 'Informe o valor em dólar.';
-      } else if (S.cash.usd < v) {
-        S.cxMsg = 'Saldo insuficiente em dólar: você tem ' + usd(S.cash.usd) + '.';
-      } else {
-        S.cash.usd -= v;
-        S.compras.push({ ts: Date.now(), desc: d, usd: v });
-        S.dlog.push({ ts: Date.now(), kind: 'lote', desc: d, usd: v });
-        S.cxMsg = 'Compra registrada: ' + usd(v) + '.';
-      }
-      renderCaixa();
-    },
     melhuso: function () {
       var v = parseDec($('muV').value, 'pyg'),
         d = $('muD').value.trim() || 'Melhoria da loja',
@@ -15741,8 +15744,7 @@ function skin(c, fallback) {
         S.cxMsg = 'Saldo insuficiente em guaranis em caixa.';
       } else {
         S.cash.pyg -= v;
-        S.melhUso.push({ ts: Date.now(), desc: d, valor: v });
-        S.dlog.push({ ts: Date.now(), kind: 'melh', desc: d, valor: v });
+        lancarMelhoria(d, v);
         S.cxMsg = 'Uso registrado: ' + gs(v) + ' em ' + d + '.';
       }
       renderCaixa();
@@ -15802,8 +15804,7 @@ function skin(c, fallback) {
       var d = $('impD').value.trim(),
         v = toNum($('impV').value);
       if (!d || !v) return;
-      S.imprev.push({ ts: Date.now(), desc: d, valor: v });
-      S.dlog.push({ ts: Date.now(), kind: 'imp', desc: d, valor: v });
+      lancarImprevisto(d, v);
       renderDesp();
     }
   };
@@ -16347,13 +16348,13 @@ function skin(c, fallback) {
     });
   });
   S.imprev.forEach(function (x) {
-    S.dlog.push({ ts: x.ts, kind: 'imp', desc: x.desc, valor: x.valor });
+    S.dlog.push(dlogImp(x));
   });
   S.melhUso.forEach(function (x) {
-    S.dlog.push({ ts: x.ts, kind: 'melh', desc: x.desc, valor: x.valor });
+    S.dlog.push(dlogMelh(x));
   });
   S.compras.forEach(function (x) {
-    S.dlog.push({ ts: x.ts, kind: 'lote', desc: x.desc, usd: x.usd });
+    S.dlog.push(dlogLote(x));
   });
   // ===== Render geral e persistência (localStorage + IndexedDB). =====
   // Redesenha o app e agenda o salvamento.
@@ -16597,6 +16598,8 @@ function skin(c, fallback) {
       nrm: nrm, normGrau: normGrau, totalMensal: totalMensal, contasPeca: contasPeca, lotCharge: lotCharge,
       lotRefund: lotRefund, lotAdjust: lotAdjust, cleanDb: cleanDb, dedupeItems: dedupeItems, render: render,
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
-      setView: setView, whiten: whiten, mkCanvas: mkCanvas
+      setView: setView, whiten: whiten, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
+      lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
+      desfazerPagamento: desfazerPagamento, logDespesa: logDespesa, entradaEstoque: entradaEstoque
     };
 })();

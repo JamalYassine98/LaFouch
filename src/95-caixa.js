@@ -421,11 +421,11 @@
     });
   });
   S.imprev.forEach(function (x) {
-    S.dlog.push({ ts: x.ts, kind: 'imp', desc: x.desc, valor: x.valor });
+    S.dlog.push(dlogImp(x));
   });
   S.melhUso.forEach(function (x) {
-    S.dlog.push({ ts: x.ts, kind: 'melh', desc: x.desc, valor: x.valor });
+    S.dlog.push(dlogMelh(x));
   });
   S.compras.forEach(function (x) {
-    S.dlog.push({ ts: x.ts, kind: 'lote', desc: x.desc, usd: x.usd });
+    S.dlog.push(dlogLote(x));
   });
