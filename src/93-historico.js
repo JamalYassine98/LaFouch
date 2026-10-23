@@ -28,54 +28,9 @@
       fx: fx
     };
   }
-  // Aba Histórico.
+  // Aba Histórico (montada em 97-hist-busca.js).
   function renderHist() {
-    var el = $('v-hist'),
-      act = activeDays(),
-      today = dayKey(Date.now());
-    act[today] = act[today] || { v: 0, d: 0, o: 0 };
-    var keys = Object.keys(act).sort().reverse();
-    var html =
-      '<div class="top"><div><h1>Histórico</h1><div class="crumb">Um cartão por dia. Toque num dia para abrir tudo o que aconteceu nele.</div></div></div><div class="list" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">';
-    keys.forEach(function (k) {
-      var st = dayStats(k),
-        d = new Date(dayEnd(k)),
-        wd = d.toLocaleDateString('pt-BR', { weekday: 'short' }).replace('.', '');
-      html +=
-        '<button class="pcard" data-act="opendia" data-id="' +
-        k +
-        '" aria-label="Abrir o dia ' +
-        fmtDay(k) +
-        '" style="gap:10px;padding:14px">' +
-        '<span style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><b style="font-size:18px">' +
-        fmtDay(k).slice(0, 5) +
-        (k === today ? ' · hoje' : '') +
-        '</b><span class="hint" style="margin:0;text-transform:capitalize">' +
-        wd +
-        '</span></span>' +
-        '<span style="font-size:22px;font-weight:800;font-variant-numeric:tabular-nums">' +
-        gs(st.vend) +
-        '</span>' +
-        '<span class="pills"><span class="cell">' +
-        st.n +
-        ' venda(s)' +
-        (st.est ? ' · ' + st.est + ' estornada(s)' : '') +
-        '</span>' +
-        (st.extra || st.nd
-          ? '<span class="cell low">' +
-            (st.extra ? 'gastos ' + gs(st.extra) : st.nd + ' despesa(s)') +
-            '</span>'
-          : '') +
-        (st.outros ? '<span class="cell">' + st.outros + ' outro(s)</span>' : '') +
-        '</span>' +
-        '<span class="hint" style="margin:0">' +
-        (st.fx ? 'Dólar G$ ' + dots(st.fx.p.pyg) : 'Sem cotação') +
-        ' · lucro livre ' +
-        gs(st.liv) +
-        '</span></button>';
-    });
-    html += '</div>';
-    el.innerHTML = html;
+    histRender();
   }
   // ---------- por dia
   function dayKey(ts) {

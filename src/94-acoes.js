@@ -70,6 +70,7 @@
     hopen: function (id) {
       S.hOpen = S.hOpen === id ? '' : id;
       renderDay();
+      if (S.view === 'hist') histLista();
     },
     estorno: function (id) {
       if (S.confEst !== id) {

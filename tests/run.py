@@ -431,6 +431,41 @@ async def main():
             if not ok: falhas.append('vendas janela'); print('        veio', a, b1, c, d, pg.erros)
             await pg.close()
 
+            # Histórico: carrega 30 dias, busca, filtros, calendário
+            pg = await pagina()
+            await pg.evaluate("""() => { const L = window.__LF, S = L.S; const n = Date.now();
+              S.sales = []; S.dlog = []; S.elog = []; S.cambios = [];
+              const mk = (d, ref, forma, est) => ({id:'V-'+d+ref, ts:n-d*864e5, tipo:'pre', ref, cor:'Preto', grau:'+1.00', qty:1, fx:7000, pct:.1, pago:1000, cPeca:100, estorno:!!est, price:100000*(d+1), livre:10000, moeda:'pyg', recebido:100000*(d+1), rate:1, forma, faixa:'', pags:[{moeda:'pyg',v:100000*(d+1),rate:1,fee:0}]});
+              S.sales = [mk(0,'AAA','pix'), mk(2,'BBB','din'), mk(40,'CCC','deb'), mk(70,'DDD','din', true)];
+              S.dlog = [{ts:n-3*864e5, kind:'pago', desc:'Conta de luz', valor:50000}];
+              S.hq=''; S.hF={tipo:'',forma:'',faixa:'',moeda:'',vmin:'',vmax:''}; S.hDias=30; S.hFopen=false;
+              L.setView('hist'); }""")
+            await pg.wait_for_timeout(300)
+            total += 1
+            ha = await pg.evaluate("() => document.querySelectorAll('#hRes [data-act=opendia]').length")
+            await pg.locator('#hRes [data-act=hmais]').click(); await pg.wait_for_timeout(200)
+            hb = await pg.evaluate("() => document.querySelectorAll('#hRes [data-act=opendia]').length")
+            await pg.fill('#hq', 'ccc'); await pg.wait_for_timeout(200)
+            hc = await pg.evaluate("() => [document.querySelectorAll('#hRes .card').length, document.activeElement.id]")
+            await pg.fill('#hq', ''); await pg.wait_for_timeout(100)
+            await pg.locator('[data-act=hfopen]').click(); await pg.wait_for_timeout(200)
+            await pg.locator('[data-id=\'tipo|pago\']').click(); await pg.wait_for_timeout(200)
+            hd = await pg.evaluate("() => document.querySelectorAll('#hRes .card').length")
+            await pg.locator('[data-act=hlimpar]').click(); await pg.wait_for_timeout(100)
+            await pg.locator('[data-id=\'forma|pix\']').click(); await pg.wait_for_timeout(200)
+            he = await pg.evaluate("() => document.querySelectorAll('#hRes .card').length")
+            await pg.locator('[data-act=hlimpar]').click(); await pg.wait_for_timeout(100)
+            await pg.locator('[data-id=\'tipo|estorno\']').click(); await pg.wait_for_timeout(200)
+            hf = await pg.evaluate("() => document.querySelectorAll('#hRes .card').length")
+            await pg.locator('[data-act=hlimpar]').click(); await pg.wait_for_timeout(100)
+            await pg.evaluate("() => { const t = document.getElementById('hDate'); t.hidden = false; t.value = window.__LF.S.sales[0] && (function(){const d=new Date(); return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)})(); t.dispatchEvent(new Event('change',{bubbles:true})); }")
+            await pg.wait_for_timeout(300)
+            hg = await pg.evaluate("() => window.__LF.S.view")
+            ok = ha == 3 and hb >= 4 and hc == [1, 'hq'] and hd == 1 and he == 1 and hf == 1 and hg == 'dia' and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'tela Histórico: 30 dias, carregar mais, busca, filtros e calendário')
+            if not ok: falhas.append('historico'); print('        veio', ha, hb, hc, hd, he, hf, hg, pg.erros)
+            await pg.close()
+
             # contagem de estoque no cartão "Em estoque": por valor, com resumo e aplicação
             pg = await pagina()
             await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.items = [
