@@ -90,7 +90,7 @@
     card.hidden = !(emVendas && S.cartOpen);
     if (!bar.hidden)
       bar.innerHTML =
-        '<div><b>Carrinho: ' + cartPecas() + ' peça(s)</b><div class="hint" style="margin:2px 0 0">' + gs(cartSub()) + ' pela tabela dos preços combinados</div></div>' +
+        '<div style="display:flex;gap:4px;flex:0 0 auto">' + S.cart.slice(0, 4).map(function (l) { return cartFoto(l, 40); }).join('') + '</div><div style="flex:1 1 140px"><b>Carrinho: ' + cartPecas() + ' peça(s)</b><div class="hint" style="margin:2px 0 0">' + gs(cartSub()) + ' pela tabela dos preços combinados</div></div>' +
         '<button type="button" class="mini" data-act="cartopen">Abrir carrinho</button>';
     $('sCartAdd').hidden = S.cartOpen || !S._vsel;
     // venda de uma peça só escolhe e adiciona; pagamento e finalização ficam no carrinho
@@ -111,6 +111,14 @@
     if (!card.contains(document.activeElement) || !document.activeElement.matches('input')) cartPainel(card);
     carrinhoSync();
   }
+  // Miniatura da peça (foto do catálogo), ou um quadrado vazio se ainda não tem foto.
+  function cartFoto(l, px) {
+    var src = S.fotos[l.it.ref + '|' + l.it.cor],
+      st = 'width:' + px + 'px;height:' + px + 'px;flex:0 0 ' + px + 'px;border-radius:10px;background:#fff;object-fit:contain;border:1px solid var(--line)';
+    return src
+      ? '<img src="' + src + '" alt="" style="' + st + '">'
+      : '<span aria-hidden="true" style="' + st + ';display:inline-flex;align-items:center;justify-content:center;background:var(--panel2);color:var(--mute)"><svg width="' + Math.round(px * 0.6) + '" height="' + Math.round(px * 0.6) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6.5" cy="14" r="3.5"/><circle cx="17.5" cy="14" r="3.5"/><path d="M10 14c.7-.8 3.3-.8 4 0M3 14l1-5M21 14l-1-5"/></svg></span>';
+  }
   function cartPainel(card) {
     var h =
       '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><h2 style="margin:0;font-size:18px">Carrinho</h2><button type="button" class="chip" data-act="cartclose">+ Continuar escolhendo</button></div>' +
@@ -120,12 +128,12 @@
         tab = tFor(l.it).price * l.qty,
         v = cartLinhaPreco(l);
       h +=
-        '<div class="sl" style="flex-wrap:wrap;gap:8px"><span style="flex:1 1 180px">' + esc(cartDesc(l)) +
+        '<div class="sl" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">' + cartFoto(l, 56) + '<span style="flex:1 1 140px">' + esc(cartDesc(l)) +
         '<small>Tabela ' + gs(tab) + ' · piso ' + gs(pp.piso * l.qty) + '</small></span>' +
         '<span style="display:flex;gap:6px;align-items:center"><button type="button" class="step" style="min-height:36px;width:36px" data-act="cartmn" data-id="' + i + '" aria-label="Menos uma peça">−</button>' +
         '<button type="button" class="step" style="min-height:36px;width:36px" data-act="cartpl" data-id="' + i + '" aria-label="Mais uma peça">+</button></span>' +
         '<input class="in" inputmode="' + mpMode() + '" data-in="cartpreco" data-id="' + i + '" value="' + gsParaCampo(v) + '" aria-label="Preço combinado de ' + esc(cartDesc(l)) + ' em ' + mpSim() + '" style="flex:0 1 130px;width:130px">' +
-        '<button type="button" class="chip" data-act="cartrm" data-id="' + i + '" aria-label="Tirar do carrinho">×</button></div>';
+        '<button type="button" class="chip" style="flex:0 0 40px;width:40px;padding:0;justify-content:center" data-act="cartrm" data-id="' + i + '" aria-label="Tirar do carrinho">×</button></div>';
     });
     h += '</div><div class="sum"><span class="hint" style="margin:0">Soma dos preços combinados</span><b id="cartSub">' + gs(cartSub()) + '</b></div>' +
       '<div><button type="button" class="chip" data-act="cartclear">Esvaziar carrinho</button></div>';
