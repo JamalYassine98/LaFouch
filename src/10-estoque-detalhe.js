@@ -353,7 +353,7 @@
       var tx = mk(
         'span',
         '',
-        (corUnica ? i.grau : rowLabel(i)) + (venda ? '' : effCusto(i) != null ? ' · custo ' + usd(effCusto(i)) : ' · sem custo')
+        (corUnica ? i.grau : rowLabel(i))
       );
       if (!S.fotos[ref + '|' + i.cor] && !venda) {
         var tg = mk('span', 'cell', 'sem foto');
