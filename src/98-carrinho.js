@@ -94,6 +94,7 @@
         '<button type="button" class="mini" data-act="cartopen">Abrir carrinho</button>';
     $('sCartAdd').hidden = S.cartOpen || !S._vsel;
     // venda de uma peça só escolhe e adiciona; pagamento e finalização ficam no carrinho
+    $('descB').hidden = !S.cartOpen;
     $('payB').hidden = !S.cartOpen;
     $('sgo').hidden = !S.cartOpen;
     $('qtyB').hidden = !!S.cartOpen;
@@ -273,21 +274,18 @@
     var sel = S._vsel;
     if (!sel || sel.qty <= 0) return;
     var q = Math.min(S.qty, sel.qty),
-      lista = tFor(sel).price * q,
       ex = S.cart.filter(function (l) {
         return l.it === sel;
       })[0];
     if (ex) {
-      ex.qty = Math.min(sel.qty, ex.qty + q);
-      if (ex.preco != null) ex.preco += lista - (S.descGs || 0);
+      var nq = Math.min(sel.qty, ex.qty + q);
+      if (ex.preco != null) ex.preco = Math.round((ex.preco * nq) / ex.qty);
+      ex.qty = nq;
     } else
-      S.cart.push({ it: sel, qty: q, preco: S.descGs > 0 ? Math.max(0, lista - S.descGs) : null });
+      S.cart.push({ it: sel, qty: q, preco: null });
     S.vRef = '';
     S.vSel = null;
     S.qty = 1;
-    S.descTxt = '';
-    S.vBrinde = null;
-    S.vMotivo = '';
     S.rec = null;
     S.msg = 'Adicionado ao carrinho.';
     render();

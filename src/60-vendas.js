@@ -236,7 +236,7 @@
       }
       var pt = S._t.price,
         lista = pt * S.qty;
-      S.descGs = descontoGs(lista);
+      S.descGs = 0; // desconto só existe no carrinho
       var fxs = faixaOf(sel.ref);
       $('unit').textContent = pt
         ? 'Preço unit. ' + gs(pt) + (fxs ? ' (faixa ' + fxs.nome + ')' : ' (exemplo)')

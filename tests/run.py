@@ -392,9 +392,9 @@ async def main():
             await pg.wait_for_timeout(300)
             total += 1
             t1 = 'Acima do piso'
-            await pg.fill('#descIn', '20000'); await pg.wait_for_timeout(300)
             await pg.click('#sCartAdd'); await pg.wait_for_timeout(300)
             await pg.click('[data-act=cartopen]'); await pg.wait_for_timeout(300)
+            await pg.fill('#descIn', '20000'); await pg.wait_for_timeout(300)
             t2 = await pg.inner_text('#pisoSt'); b1 = await pg.inner_text('#sgo')
             await pg.click('#sgo'); await pg.wait_for_timeout(200)
             n1 = await pg.evaluate("() => window.__LF.S.sales.length")
@@ -525,6 +525,7 @@ async def main():
             await pg.locator('[data-act=cartopen]').click(); await pg.wait_for_timeout(300)
             await pg.locator('#cartCard input[data-in=cartpreco]').first.fill('1000'); await pg.wait_for_timeout(200)
             u2 = await pg.evaluate("() => [document.getElementById('cartCard').hidden, document.querySelectorAll('#cartCard input[data-in=cartpreco]').length, window.__LF.S.cart[0].preco, document.activeElement.getAttribute('data-in'), document.getElementById('pisoSt').textContent.length > 0]")
+            u4d = await pg.evaluate("() => document.getElementById('descB').offsetParent !== null")
             u4 = await pg.evaluate("() => ['qtyB','payB','sgo','sCartAdd'].map(i => document.getElementById(i).offsetParent !== null)")
             await pg.locator('#cartCard [data-act=cartclose]').click(); await pg.wait_for_timeout(300)
             await pg.locator('#vRows .pcard').first.click(); await pg.wait_for_timeout(300)
@@ -532,7 +533,7 @@ async def main():
             await pg.locator('[data-act=cartopen]').click(); await pg.wait_for_timeout(300)
             await pg.locator('[data-act=cartclear]').click(); await pg.wait_for_timeout(300)
             u3 = await pg.evaluate("() => [window.__LF.S.cart.length, window.__LF.S.cartOpen, document.getElementById('cartCard').hidden, document.getElementById('cartBar').hidden]")
-            ok = u1 == [False, True, 1] and u2 == [False, 2, 1000, 'cartpreco', True] and u3 == [0, False, True, True] and u4 == [False, True, True, False] and u5 == [True, False, False, True] and not pg.erros
+            ok = u1 == [False, True, 1] and u2 == [False, 2, 1000, 'cartpreco', True] and u3 == [0, False, True, True] and u4 == [False, True, True, False] and u4d is True and u5 == [True, False, False, True] and not await pg.evaluate("() => document.getElementById('descB').offsetParent !== null") and not pg.erros
             total += 1
             print(('  ok  ' if ok else ' FALHA ') + 'tela Vendas: carrinho (adicionar, abrir, mudar preço, esvaziar)')
             if not ok: falhas.append('carrinho tela'); print('        veio', u1, u2, u3, u4, u5, pg.erros)
