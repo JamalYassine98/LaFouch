@@ -91,6 +91,16 @@
       render();
       window.scrollTo(0, 0);
     },
+    daycal: function () {
+      var i = $('dayIn');
+      if (!i) return;
+      try {
+        i.showPicker();
+      } catch (e) {
+        i.focus();
+        i.click();
+      }
+    },
     hback: function () {
       setView('hist');
     },

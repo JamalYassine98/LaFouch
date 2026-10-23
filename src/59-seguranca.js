@@ -116,11 +116,16 @@
     $('lockCancel').hidden = modo === 'open';
     var bo = !!(S.bioOn && bioPlugin());
     $('lockBio').hidden = !bo;
-    if (bo)
-      bioPedir(liberar, function (e) {
-        lockMsg('Não reconheceu. Use o PIN.' + bioErro(e));
-      });
-    else
+    if (bo) {
+      lockMsg('Confirme com a biometria ou use o PIN.');
+      // um instante para a tela do app voltar ao primeiro plano antes de abrir o leitor
+      setTimeout(function () {
+        if (!LOCK.locked) return;
+        bioPedir(liberar, function (e) {
+          lockMsg('Não reconheceu. Use o PIN.' + bioErro(e));
+        });
+      }, 350);
+    } else
       setTimeout(function () {
         try {
           $('lockPin').focus();
@@ -332,17 +337,27 @@
       (S.ccLemb !== false ? ' checked' : '') +
       '> Lembrar toda semana de conferir o caixa</label></section>';
     // segurança
+    if (S._bioOk === undefined) bioChecar();
+    var bioDisp = !!bioPlugin() && S._bioOk !== false,
+      bioMotivo = !bioPlugin()
+        ? 'Neste app não encontrei o componente de biometria. Instale o APK novo.'
+        : S._bioOk === false
+        ? 'Cadastre uma digital ou rosto nas configurações do celular primeiro' + (S._bioWhy ? ' (' + esc(S._bioWhy) + ')' : '') + '.'
+        : '';
     h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Segurança</h2><div class="hint" style="margin:2px 0 0">PIN para abrir o app' +
-      (bioPlugin() ? ' e, se você quiser, digital ou rosto' : ' (digital e rosto funcionam no app instalado no celular)') +
-      '.</div></div>';
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Segurança</h2><div class="hint" style="margin:2px 0 0">PIN para abrir o app e, se você quiser, biometria (digital ou rosto).</div></div>' +
+      '<label class="swrow"><span>Usar biometria</span><span class="sw"><input type="checkbox" role="switch" data-aj="biotog"' +
+      (S.bioOn || S.bioPend ? ' checked' : '') +
+      (bioDisp ? '' : ' disabled') +
+      ' aria-label="Usar biometria"><i></i></span></label>' +
+      (bioMotivo ? '<div class="hint" style="margin:0">' + bioMotivo + '</div>' : '');
     if (!pinAtivo() || S.pinNovo) {
       h +=
-        '<div class="sel" style="flex-wrap:wrap"><input class="in" id="pin1" type="password" inputmode="numeric" maxlength="8" placeholder="Novo PIN (4 a 8 números)" autocomplete="off" style="flex:1 1 150px;width:auto" aria-label="Novo PIN"><input class="in" id="pin2" type="password" inputmode="numeric" maxlength="8" placeholder="Repita o PIN" autocomplete="off" style="flex:1 1 150px;width:auto" aria-label="Repita o PIN"><button class="mini" data-act="pinset">' +
-        (pinAtivo() ? 'Trocar PIN' : 'Ativar PIN') +
+        '<div class="lbl" style="margin:4px 0 0">' + (S.bioPend ? 'PIN de emergência' : 'PIN para abrir o app') + '</div>' +
+        '<div class="sel" style="flex-wrap:wrap"><input class="in" id="pin1" type="password" inputmode="numeric" maxlength="8" placeholder="' + (S.bioPend ? 'PIN de emergência' : 'Novo PIN') + ' (4 a 8 números)" autocomplete="off" style="flex:1 1 150px;width:auto" aria-label="Novo PIN"><input class="in" id="pin2" type="password" inputmode="numeric" maxlength="8" placeholder="Repita o PIN" autocomplete="off" style="flex:1 1 150px;width:auto" aria-label="Repita o PIN"><button class="mini" data-act="pinset">' +
+        (pinAtivo() ? 'Trocar PIN' : S.bioPend ? 'Criar e ativar' : 'Ativar PIN') +
         '</button></div><div class="hint" style="margin:0">Anote o PIN. Se esquecer, só reinstalando o app (e os dados voltam apenas pelo backup).</div>';
     } else {
-      if (S._bioOk === undefined) bioChecar();
       h +=
         '<div class="note n-ok">PIN ativo.</div><div class="sel" style="flex-wrap:wrap"><div><div class="lbl">Pedir o PIN</div><select class="in" data-aj="lockmin" aria-label="Quando pedir o PIN" style="width:auto">' +
         [
@@ -358,18 +373,7 @@
         '</select></div></div>' +
         '<label style="display:flex;gap:10px;align-items:center"><input type="checkbox" data-aj="locksens"' +
         (S.lockSens !== false ? ' checked' : '') +
-        '> Pedir também para restaurar backup, apagar tudo e registrar retirada</label>';
-      if (!bioPlugin())
-        h += '<div class="hint" style="margin:0">Digital ou rosto: o componente não foi encontrado neste app. Instale o APK novo (gerado depois desta versão).</div>';
-      else
-        h +=
-          '<label style="display:flex;gap:10px;align-items:center"><input type="checkbox" data-aj="biotog"' +
-          (S.bioOn ? ' checked' : '') +
-          (S._bioOk === false ? ' disabled' : '') +
-          '> Usar digital ou rosto' +
-          (S._bioOk === false ? ' (cadastre uma digital ou rosto nas configurações do celular primeiro' + (S._bioWhy ? ': ' + esc(S._bioWhy) : '') + ')' : '') +
-          '</label>';
-      h +=
+        '> Pedir também para restaurar backup, apagar tudo e registrar retirada</label>' +
         '<div class="sel" style="flex-wrap:wrap"><button class="chip" data-act="pintroca">Trocar PIN</button><button class="chip" data-act="pinoff">' +
         (S.pinOffConf ? 'Confirmar: desativar PIN' : 'Desativar PIN') +
         '</button></div>';

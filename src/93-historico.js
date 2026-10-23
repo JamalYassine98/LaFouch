@@ -182,14 +182,16 @@
         }, 0);
     var today = dayKey(Date.now());
     var h =
-      '<div class="top"><button class="chip" data-act="hback">‹ Voltar ao histórico</button><button class="chip" data-act="closedia">Fechar esta aba ×</button></div>' +
-      '<section class="card col"><div class="sel" style="flex-wrap:wrap"><button class="chip" data-act="dayprev" aria-label="Dia anterior">‹ Anterior</button><input type="date" class="in" id="dayIn" data-in="day" value="' +
+      '<div class="top" style="justify-content:flex-end"><button class="chip" data-act="daytoday">Hoje</button></div>' +
+      '<section class="card col"><div class="dayrow"><button class="chip" data-act="dayprev" aria-label="Dia anterior">‹ Anterior</button><span class="dtxt">' +
+      fmtDay(k) +
+      '</span><button class="chip" data-act="daynext" aria-label="Próximo dia"' +
+      (k >= today ? ' disabled' : '') +
+      '>Próximo ›</button><button class="chip calb" data-act="daycal" aria-label="Escolher a data no calendário"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></button><input type="date" class="in" id="dayIn" data-in="day" value="' +
       k +
       '" max="' +
       today +
-      '" aria-label="Escolher o dia" style="width:auto;flex:1 1 150px"><button class="chip" data-act="daynext" aria-label="Próximo dia"' +
-      (k >= today ? ' disabled' : '') +
-      '>Próximo ›</button><button class="chip" data-act="daytoday">Hoje</button></div></section>';
+      '" aria-label="Escolher o dia" tabindex="-1"></div></section>';
     h +=
       '<div><h2 style="margin:0;font-size:20px">' +
       (function (t) {
@@ -210,7 +212,9 @@
       pcs +
       ' peça(s) em ' +
       ok.length +
-      ' venda(s)</div></div>' +
+      ' venda(s)</div>' +
+      (ok.length ? '<div class="hint" style="margin:2px 0 0">Entrou: ' + esc(recebidoDe(ok)) + '</div>' : '') +
+      '</div>' +
       '<div class="kpi"><div class="lbl">Lucro livre</div><b style="color:var(--ok)">' +
       gs(liv) +
       '</b><div class="hint">depois de separar tudo</div></div>' +
@@ -248,6 +252,26 @@
               ').</div>')
         : '<div class="hint" style="margin:0">Sem cotação guardada até esta data.</div>') +
       '</section>';
+    if (tr.length)
+      h +=
+        '<section class="card col"><h2 style="margin:0;font-size:16px">Câmbio feito neste dia</h2>' +
+        tr
+          .map(function (x) {
+            return (
+              '<div class="sl"><span>' +
+              fmtM(x.dado, x.de) +
+              ' → ' +
+              fmtM(x.rec, x.para) +
+              '<small>' +
+              fh(x.ts) +
+              ' · ' +
+              (x.difGs >= 0 ? '+' : '−') +
+              gs(Math.abs(x.difGs)) +
+              ' em relação ao câmbio do dia</small></span></div>'
+            );
+          })
+          .join('') +
+        '</section>';
     h +=
       '<section class="col"><div class="lbl" style="margin:6px 0 0">Vendas do dia</div>' +
       (sales.length
@@ -293,26 +317,6 @@
         ? '<div class="lbl">Gastos e mudanças registrados</div>' + dl.map(dlogCard).join('')
         : '<div class="hint" style="margin:0">Nenhum gasto extra ou mudança de despesa registrado neste dia.</div>') +
       '</section>';
-    if (tr.length)
-      h +=
-        '<section class="card col"><h2 style="margin:0;font-size:16px">Trocas de moeda</h2>' +
-        tr
-          .map(function (x) {
-            return (
-              '<div class="sl"><span>' +
-              fmtM(x.dado, x.de) +
-              ' → ' +
-              fmtM(x.rec, x.para) +
-              '<small>' +
-              fh(x.ts) +
-              ' · ' +
-              (x.difGs >= 0 ? '+' : '−') +
-              gs(Math.abs(x.difGs)) +
-              ' em relação ao câmbio do dia</small></span></div>'
-            );
-          })
-          .join('') +
-        '</section>';
     if (el.length)
       h +=
         '<section class="col"><div class="lbl" style="margin:6px 0 0">Entradas de estoque</div>' +
@@ -412,6 +416,51 @@
     );
   }
   // Cartão de uma venda no histórico.
+  // Valor exato da venda, na moeda em que foi recebido (o resto do app converte para a moeda principal).
+  function exatoDe(s) {
+    var liq = {},
+      bruto = [];
+    (s.pags && s.pags.length ? s.pags : [{ moeda: s.moeda || 'pyg', v: s.recebido != null ? s.recebido : s.price }]).forEach(function (l) {
+      liq[l.moeda] = (liq[l.moeda] || 0) + l.v;
+      bruto.push(fmtM(l.v, l.moeda));
+    });
+    (s.troco || []).forEach(function (l) {
+      liq[l.moeda] = (liq[l.moeda] || 0) - l.v;
+    });
+    var ms = Object.keys(liq),
+      neg = ms.some(function (m) {
+        return liq[m] < -0.005;
+      });
+    if (neg) return bruto.join(' + ');
+    return ms
+      .filter(function (m) {
+        return Math.abs(liq[m]) > 0.005;
+      })
+      .map(function (m) {
+        return fmtM(Math.round(liq[m] * 100) / 100, m);
+      })
+      .join(' + ');
+  }
+  // Soma do que entrou no dia, moeda por moeda.
+  function recebidoDe(list) {
+    var t = {};
+    list.forEach(function (s) {
+      (s.pags && s.pags.length ? s.pags : [{ moeda: s.moeda || 'pyg', v: s.recebido != null ? s.recebido : s.price }]).forEach(function (l) {
+        t[l.moeda] = (t[l.moeda] || 0) + l.v;
+      });
+      (s.troco || []).forEach(function (l) {
+        t[l.moeda] = (t[l.moeda] || 0) - l.v;
+      });
+    });
+    return ['pyg', 'usd', 'brl']
+      .filter(function (m) {
+        return t[m] && Math.abs(t[m]) > 0.005;
+      })
+      .map(function (m) {
+        return fmtM(Math.round(t[m] * 100) / 100, m);
+      })
+      .join(' + ');
+  }
   function saleCard(s) {
     var open = S.hOpen === s.id,
       dx = S.fx.pyg / s.fx - 1,
@@ -432,9 +481,11 @@
       ' · ' +
       tipoOf(s.tipo).label +
       (s.estorno ? ' · <span style="color:var(--bad)">Estornada</span>' : '') +
-      '</div></div><b>' +
-      gs(s.price) +
-      '</b></div>';
+      '</div></div><div style="text-align:right"><b>' +
+      esc(exatoDe(s)) +
+      '</b>' +
+      (gs(s.price) !== exatoDe(s) ? '<div class="hint" style="margin:2px 0 0">≈ ' + gs(s.price) + '</div>' : '') +
+      '</div></div>';
     h +=
       '<div class="nav"><button class="chip" data-act="hopen" data-id="' +
       s.id +

@@ -39,22 +39,29 @@
     else if (k === 'lockmin') S.lockMin = Math.max(0, parseInt(t.value, 10) || 0);
     else if (k === 'locksens') S.lockSens = t.checked;
     else if (k === 'biotog') {
-      if (t.checked)
-        bioPedir(
-          function () {
-            S.bioOn = true;
-            S.ajMsg = 'Digital ou rosto ativado.';
-            S._ajForce = true;
-            render();
-          },
-          function (e) {
-            S.bioOn = false;
-            S.ajMsg = 'Não consegui confirmar a digital ou o rosto. Tente de novo.' + bioErro(e);
-            S._ajForce = true;
-            render();
-          }
-        );
-      else S.bioOn = false;
+      if (t.checked) {
+        if (!pinAtivo()) {
+          S.bioPend = true;
+          S.ajMsg = 'Crie um PIN de emergência abaixo. Ele abre o app se a biometria falhar.';
+        } else
+          bioPedir(
+            function () {
+              S.bioOn = true;
+              S.ajMsg = 'Biometria ativada.';
+              S._ajForce = true;
+              render();
+            },
+            function (e) {
+              S.bioOn = false;
+              S.ajMsg = 'Não consegui confirmar a biometria. Tente de novo.' + bioErro(e);
+              S._ajForce = true;
+              render();
+            }
+          );
+      } else {
+        S.bioOn = false;
+        S.bioPend = false;
+      }
     } else return;
     S._ajForce = true;
     render();
@@ -221,6 +228,23 @@
         S._ajForce = true;
         saveSoon();
         render();
+        if (S.bioPend)
+          bioPedir(
+            function () {
+              S.bioPend = false;
+              S.bioOn = true;
+              S.ajMsg = 'PIN de emergência criado e biometria ativada.';
+              S._ajForce = true;
+              saveSoon();
+              render();
+            },
+            function (e) {
+              S.bioPend = false;
+              S.ajMsg = 'PIN criado, mas não consegui confirmar a biometria.' + bioErro(e);
+              S._ajForce = true;
+              render();
+            }
+          );
       });
       return;
     }

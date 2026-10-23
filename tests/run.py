@@ -706,6 +706,35 @@ async def main():
             if not ok: falhas.append('pedidos'); print('        veio', r, r2, pg.erros)
             await pg.close()
 
+            # histórico do dia: valor exato na moeda recebida, câmbio do dia e sem abas extras
+            pg = await pagina()
+            await pg.evaluate("""() => { const L = window.__LF, S = L.S, h = Date.now(); S.moedaP = 'usd';
+              const v = S.sales.filter(x => !x.estorno)[0]; v.ts = h; v.price = 90000; v.moeda = 'pyg'; v.recebido = 90000; v.rate = 1; v.pags = [{moeda:'pyg', v:90000, rate:1, fee:0}]; v.troco = [];
+              S.cambios.push({ts: h, de: 'pyg', para: 'usd', dado: 650000, rec: 100, difGs: -1000});
+              S.day = ''; S.dayTab = ''; L.setView('hist'); }""")
+            await pg.wait_for_timeout(200)
+            await pg.evaluate("() => { const L = window.__LF; L.S.day = L.S.sales[0].ts ? (d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'))(new Date()) : ''; L.S.view = 'dia'; L.render(); }")
+            await pg.wait_for_timeout(300)
+            r = await pg.evaluate("""() => { const t = document.getElementById('v-dia').innerText;
+              return [!!document.querySelector('[data-act=hback]'), !!document.querySelector('[data-act=closedia]'), !!document.querySelector('[data-act=daycal]'), !!document.querySelector('[data-act=daytoday]'), t.includes('G$ 90.000'), t.includes('Câmbio feito neste dia'), document.querySelectorAll('#mainnav .mn').length]; }""")
+            total += 1
+            ok = r == [False, False, True, True, True, True, 5] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'histórico do dia: valor exato, câmbio e botões novos')
+            if not ok: falhas.append('hist dia'); print('        veio', r, pg.erros)
+            await pg.close()
+
+            # segurança: chave "Usar biometria" e PIN de emergência
+            pg = await pagina()
+            await pg.evaluate("() => window.__LF.setView('ajustes')"); await pg.wait_for_timeout(300)
+            r0 = await pg.evaluate("() => [!!document.querySelector('[data-aj=biotog]'), document.querySelector('[data-aj=biotog]').disabled]")
+            await pg.evaluate("() => { const w = window.__LF; w.S.bioPend = true; w.S._ajForce = true; w.render(); }"); await pg.wait_for_timeout(300)
+            r1 = await pg.evaluate("() => document.getElementById('v-ajustes').innerText.toLowerCase().includes('pin de emergência')")
+            total += 1
+            ok = r0[0] is True and r1 is True and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'segurança: chave de biometria e PIN de emergência')
+            if not ok: falhas.append('seguranca bio'); print('        veio', r0, r1, pg.erros)
+            await pg.close()
+
             # imprevistos: só os do mês aparecem e dá para remover
             pg = await pagina()
             r = await pg.evaluate("""() => { const L = window.__LF, S = L.S, h = Date.now(), mes = h - 40 * 86400000;

@@ -13250,11 +13250,16 @@
     $('lockCancel').hidden = modo === 'open';
     var bo = !!(S.bioOn && bioPlugin());
     $('lockBio').hidden = !bo;
-    if (bo)
-      bioPedir(liberar, function (e) {
-        lockMsg('Não reconheceu. Use o PIN.' + bioErro(e));
-      });
-    else
+    if (bo) {
+      lockMsg('Confirme com a biometria ou use o PIN.');
+      // um instante para a tela do app voltar ao primeiro plano antes de abrir o leitor
+      setTimeout(function () {
+        if (!LOCK.locked) return;
+        bioPedir(liberar, function (e) {
+          lockMsg('Não reconheceu. Use o PIN.' + bioErro(e));
+        });
+      }, 350);
+    } else
       setTimeout(function () {
         try {
           $('lockPin').focus();
@@ -13466,17 +13471,27 @@
       (S.ccLemb !== false ? ' checked' : '') +
       '> Lembrar toda semana de conferir o caixa</label></section>';
     // segurança
+    if (S._bioOk === undefined) bioChecar();
+    var bioDisp = !!bioPlugin() && S._bioOk !== false,
+      bioMotivo = !bioPlugin()
+        ? 'Neste app não encontrei o componente de biometria. Instale o APK novo.'
+        : S._bioOk === false
+        ? 'Cadastre uma digital ou rosto nas configurações do celular primeiro' + (S._bioWhy ? ' (' + esc(S._bioWhy) + ')' : '') + '.'
+        : '';
     h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Segurança</h2><div class="hint" style="margin:2px 0 0">PIN para abrir o app' +
-      (bioPlugin() ? ' e, se você quiser, digital ou rosto' : ' (digital e rosto funcionam no app instalado no celular)') +
-      '.</div></div>';
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Segurança</h2><div class="hint" style="margin:2px 0 0">PIN para abrir o app e, se você quiser, biometria (digital ou rosto).</div></div>' +
+      '<label class="swrow"><span>Usar biometria</span><span class="sw"><input type="checkbox" role="switch" data-aj="biotog"' +
+      (S.bioOn || S.bioPend ? ' checked' : '') +
+      (bioDisp ? '' : ' disabled') +
+      ' aria-label="Usar biometria"><i></i></span></label>' +
+      (bioMotivo ? '<div class="hint" style="margin:0">' + bioMotivo + '</div>' : '');
     if (!pinAtivo() || S.pinNovo) {
       h +=
-        '<div class="sel" style="flex-wrap:wrap"><input class="in" id="pin1" type="password" inputmode="numeric" maxlength="8" placeholder="Novo PIN (4 a 8 números)" autocomplete="off" style="flex:1 1 150px;width:auto" aria-label="Novo PIN"><input class="in" id="pin2" type="password" inputmode="numeric" maxlength="8" placeholder="Repita o PIN" autocomplete="off" style="flex:1 1 150px;width:auto" aria-label="Repita o PIN"><button class="mini" data-act="pinset">' +
-        (pinAtivo() ? 'Trocar PIN' : 'Ativar PIN') +
+        '<div class="lbl" style="margin:4px 0 0">' + (S.bioPend ? 'PIN de emergência' : 'PIN para abrir o app') + '</div>' +
+        '<div class="sel" style="flex-wrap:wrap"><input class="in" id="pin1" type="password" inputmode="numeric" maxlength="8" placeholder="' + (S.bioPend ? 'PIN de emergência' : 'Novo PIN') + ' (4 a 8 números)" autocomplete="off" style="flex:1 1 150px;width:auto" aria-label="Novo PIN"><input class="in" id="pin2" type="password" inputmode="numeric" maxlength="8" placeholder="Repita o PIN" autocomplete="off" style="flex:1 1 150px;width:auto" aria-label="Repita o PIN"><button class="mini" data-act="pinset">' +
+        (pinAtivo() ? 'Trocar PIN' : S.bioPend ? 'Criar e ativar' : 'Ativar PIN') +
         '</button></div><div class="hint" style="margin:0">Anote o PIN. Se esquecer, só reinstalando o app (e os dados voltam apenas pelo backup).</div>';
     } else {
-      if (S._bioOk === undefined) bioChecar();
       h +=
         '<div class="note n-ok">PIN ativo.</div><div class="sel" style="flex-wrap:wrap"><div><div class="lbl">Pedir o PIN</div><select class="in" data-aj="lockmin" aria-label="Quando pedir o PIN" style="width:auto">' +
         [
@@ -13492,18 +13507,7 @@
         '</select></div></div>' +
         '<label style="display:flex;gap:10px;align-items:center"><input type="checkbox" data-aj="locksens"' +
         (S.lockSens !== false ? ' checked' : '') +
-        '> Pedir também para restaurar backup, apagar tudo e registrar retirada</label>';
-      if (!bioPlugin())
-        h += '<div class="hint" style="margin:0">Digital ou rosto: o componente não foi encontrado neste app. Instale o APK novo (gerado depois desta versão).</div>';
-      else
-        h +=
-          '<label style="display:flex;gap:10px;align-items:center"><input type="checkbox" data-aj="biotog"' +
-          (S.bioOn ? ' checked' : '') +
-          (S._bioOk === false ? ' disabled' : '') +
-          '> Usar digital ou rosto' +
-          (S._bioOk === false ? ' (cadastre uma digital ou rosto nas configurações do celular primeiro' + (S._bioWhy ? ': ' + esc(S._bioWhy) : '') + ')' : '') +
-          '</label>';
-      h +=
+        '> Pedir também para restaurar backup, apagar tudo e registrar retirada</label>' +
         '<div class="sel" style="flex-wrap:wrap"><button class="chip" data-act="pintroca">Trocar PIN</button><button class="chip" data-act="pinoff">' +
         (S.pinOffConf ? 'Confirmar: desativar PIN' : 'Desativar PIN') +
         '</button></div>';
@@ -18022,23 +18026,6 @@
       if (S.view === v[0]) b.setAttribute('aria-current', 'page');
       n.appendChild(b);
     });
-    if (S.dayTab) {
-      var w = mk('span', 'mn' + (S.view === 'dia' ? ' on' : ''));
-      w.style.cssText = 'display:inline-flex;align-items:center;gap:4px;padding-right:4px';
-      var b2 = btn('', 'Dia ' + fmtDay(S.dayTab).slice(0, 5), function () {
-        setView('dia');
-      });
-      b2.style.cssText =
-        'background:none;border:none;color:inherit;font:inherit;font-weight:600;min-height:44px;padding:0 8px 0 4px';
-      if (S.view === 'dia') b2.setAttribute('aria-current', 'page');
-      var x = btn('xb', '×', function () {
-        ACT.closedia();
-      });
-      x.setAttribute('aria-label', 'Fechar a aba do dia');
-      w.appendChild(b2);
-      w.appendChild(x);
-      n.appendChild(w);
-    }
     VIEWS.forEach(function (v) {
       $('v-' + v[0]).hidden = S.view !== v[0];
     });
@@ -18965,14 +18952,16 @@
         }, 0);
     var today = dayKey(Date.now());
     var h =
-      '<div class="top"><button class="chip" data-act="hback">‹ Voltar ao histórico</button><button class="chip" data-act="closedia">Fechar esta aba ×</button></div>' +
-      '<section class="card col"><div class="sel" style="flex-wrap:wrap"><button class="chip" data-act="dayprev" aria-label="Dia anterior">‹ Anterior</button><input type="date" class="in" id="dayIn" data-in="day" value="' +
+      '<div class="top" style="justify-content:flex-end"><button class="chip" data-act="daytoday">Hoje</button></div>' +
+      '<section class="card col"><div class="dayrow"><button class="chip" data-act="dayprev" aria-label="Dia anterior">‹ Anterior</button><span class="dtxt">' +
+      fmtDay(k) +
+      '</span><button class="chip" data-act="daynext" aria-label="Próximo dia"' +
+      (k >= today ? ' disabled' : '') +
+      '>Próximo ›</button><button class="chip calb" data-act="daycal" aria-label="Escolher a data no calendário"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></button><input type="date" class="in" id="dayIn" data-in="day" value="' +
       k +
       '" max="' +
       today +
-      '" aria-label="Escolher o dia" style="width:auto;flex:1 1 150px"><button class="chip" data-act="daynext" aria-label="Próximo dia"' +
-      (k >= today ? ' disabled' : '') +
-      '>Próximo ›</button><button class="chip" data-act="daytoday">Hoje</button></div></section>';
+      '" aria-label="Escolher o dia" tabindex="-1"></div></section>';
     h +=
       '<div><h2 style="margin:0;font-size:20px">' +
       (function (t) {
@@ -18993,7 +18982,9 @@
       pcs +
       ' peça(s) em ' +
       ok.length +
-      ' venda(s)</div></div>' +
+      ' venda(s)</div>' +
+      (ok.length ? '<div class="hint" style="margin:2px 0 0">Entrou: ' + esc(recebidoDe(ok)) + '</div>' : '') +
+      '</div>' +
       '<div class="kpi"><div class="lbl">Lucro livre</div><b style="color:var(--ok)">' +
       gs(liv) +
       '</b><div class="hint">depois de separar tudo</div></div>' +
@@ -19031,6 +19022,26 @@
               ').</div>')
         : '<div class="hint" style="margin:0">Sem cotação guardada até esta data.</div>') +
       '</section>';
+    if (tr.length)
+      h +=
+        '<section class="card col"><h2 style="margin:0;font-size:16px">Câmbio feito neste dia</h2>' +
+        tr
+          .map(function (x) {
+            return (
+              '<div class="sl"><span>' +
+              fmtM(x.dado, x.de) +
+              ' → ' +
+              fmtM(x.rec, x.para) +
+              '<small>' +
+              fh(x.ts) +
+              ' · ' +
+              (x.difGs >= 0 ? '+' : '−') +
+              gs(Math.abs(x.difGs)) +
+              ' em relação ao câmbio do dia</small></span></div>'
+            );
+          })
+          .join('') +
+        '</section>';
     h +=
       '<section class="col"><div class="lbl" style="margin:6px 0 0">Vendas do dia</div>' +
       (sales.length
@@ -19076,26 +19087,6 @@
         ? '<div class="lbl">Gastos e mudanças registrados</div>' + dl.map(dlogCard).join('')
         : '<div class="hint" style="margin:0">Nenhum gasto extra ou mudança de despesa registrado neste dia.</div>') +
       '</section>';
-    if (tr.length)
-      h +=
-        '<section class="card col"><h2 style="margin:0;font-size:16px">Trocas de moeda</h2>' +
-        tr
-          .map(function (x) {
-            return (
-              '<div class="sl"><span>' +
-              fmtM(x.dado, x.de) +
-              ' → ' +
-              fmtM(x.rec, x.para) +
-              '<small>' +
-              fh(x.ts) +
-              ' · ' +
-              (x.difGs >= 0 ? '+' : '−') +
-              gs(Math.abs(x.difGs)) +
-              ' em relação ao câmbio do dia</small></span></div>'
-            );
-          })
-          .join('') +
-        '</section>';
     if (el.length)
       h +=
         '<section class="col"><div class="lbl" style="margin:6px 0 0">Entradas de estoque</div>' +
@@ -19195,6 +19186,51 @@
     );
   }
   // Cartão de uma venda no histórico.
+  // Valor exato da venda, na moeda em que foi recebido (o resto do app converte para a moeda principal).
+  function exatoDe(s) {
+    var liq = {},
+      bruto = [];
+    (s.pags && s.pags.length ? s.pags : [{ moeda: s.moeda || 'pyg', v: s.recebido != null ? s.recebido : s.price }]).forEach(function (l) {
+      liq[l.moeda] = (liq[l.moeda] || 0) + l.v;
+      bruto.push(fmtM(l.v, l.moeda));
+    });
+    (s.troco || []).forEach(function (l) {
+      liq[l.moeda] = (liq[l.moeda] || 0) - l.v;
+    });
+    var ms = Object.keys(liq),
+      neg = ms.some(function (m) {
+        return liq[m] < -0.005;
+      });
+    if (neg) return bruto.join(' + ');
+    return ms
+      .filter(function (m) {
+        return Math.abs(liq[m]) > 0.005;
+      })
+      .map(function (m) {
+        return fmtM(Math.round(liq[m] * 100) / 100, m);
+      })
+      .join(' + ');
+  }
+  // Soma do que entrou no dia, moeda por moeda.
+  function recebidoDe(list) {
+    var t = {};
+    list.forEach(function (s) {
+      (s.pags && s.pags.length ? s.pags : [{ moeda: s.moeda || 'pyg', v: s.recebido != null ? s.recebido : s.price }]).forEach(function (l) {
+        t[l.moeda] = (t[l.moeda] || 0) + l.v;
+      });
+      (s.troco || []).forEach(function (l) {
+        t[l.moeda] = (t[l.moeda] || 0) - l.v;
+      });
+    });
+    return ['pyg', 'usd', 'brl']
+      .filter(function (m) {
+        return t[m] && Math.abs(t[m]) > 0.005;
+      })
+      .map(function (m) {
+        return fmtM(Math.round(t[m] * 100) / 100, m);
+      })
+      .join(' + ');
+  }
   function saleCard(s) {
     var open = S.hOpen === s.id,
       dx = S.fx.pyg / s.fx - 1,
@@ -19215,9 +19251,11 @@
       ' · ' +
       tipoOf(s.tipo).label +
       (s.estorno ? ' · <span style="color:var(--bad)">Estornada</span>' : '') +
-      '</div></div><b>' +
-      gs(s.price) +
-      '</b></div>';
+      '</div></div><div style="text-align:right"><b>' +
+      esc(exatoDe(s)) +
+      '</b>' +
+      (gs(s.price) !== exatoDe(s) ? '<div class="hint" style="margin:2px 0 0">≈ ' + gs(s.price) + '</div>' : '') +
+      '</div></div>';
     h +=
       '<div class="nav"><button class="chip" data-act="hopen" data-id="' +
       s.id +
@@ -19385,6 +19423,16 @@
       if (S.view === 'dia') S.view = 'hist';
       render();
       window.scrollTo(0, 0);
+    },
+    daycal: function () {
+      var i = $('dayIn');
+      if (!i) return;
+      try {
+        i.showPicker();
+      } catch (e) {
+        i.focus();
+        i.click();
+      }
     },
     hback: function () {
       setView('hist');
@@ -22129,22 +22177,29 @@
     else if (k === 'lockmin') S.lockMin = Math.max(0, parseInt(t.value, 10) || 0);
     else if (k === 'locksens') S.lockSens = t.checked;
     else if (k === 'biotog') {
-      if (t.checked)
-        bioPedir(
-          function () {
-            S.bioOn = true;
-            S.ajMsg = 'Digital ou rosto ativado.';
-            S._ajForce = true;
-            render();
-          },
-          function (e) {
-            S.bioOn = false;
-            S.ajMsg = 'Não consegui confirmar a digital ou o rosto. Tente de novo.' + bioErro(e);
-            S._ajForce = true;
-            render();
-          }
-        );
-      else S.bioOn = false;
+      if (t.checked) {
+        if (!pinAtivo()) {
+          S.bioPend = true;
+          S.ajMsg = 'Crie um PIN de emergência abaixo. Ele abre o app se a biometria falhar.';
+        } else
+          bioPedir(
+            function () {
+              S.bioOn = true;
+              S.ajMsg = 'Biometria ativada.';
+              S._ajForce = true;
+              render();
+            },
+            function (e) {
+              S.bioOn = false;
+              S.ajMsg = 'Não consegui confirmar a biometria. Tente de novo.' + bioErro(e);
+              S._ajForce = true;
+              render();
+            }
+          );
+      } else {
+        S.bioOn = false;
+        S.bioPend = false;
+      }
     } else return;
     S._ajForce = true;
     render();
@@ -22311,6 +22366,23 @@
         S._ajForce = true;
         saveSoon();
         render();
+        if (S.bioPend)
+          bioPedir(
+            function () {
+              S.bioPend = false;
+              S.bioOn = true;
+              S.ajMsg = 'PIN de emergência criado e biometria ativada.';
+              S._ajForce = true;
+              saveSoon();
+              render();
+            },
+            function (e) {
+              S.bioPend = false;
+              S.ajMsg = 'PIN criado, mas não consegui confirmar a biometria.' + bioErro(e);
+              S._ajForce = true;
+              render();
+            }
+          );
       });
       return;
     }

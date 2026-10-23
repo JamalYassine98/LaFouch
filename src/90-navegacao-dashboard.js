@@ -28,23 +28,6 @@
       if (S.view === v[0]) b.setAttribute('aria-current', 'page');
       n.appendChild(b);
     });
-    if (S.dayTab) {
-      var w = mk('span', 'mn' + (S.view === 'dia' ? ' on' : ''));
-      w.style.cssText = 'display:inline-flex;align-items:center;gap:4px;padding-right:4px';
-      var b2 = btn('', 'Dia ' + fmtDay(S.dayTab).slice(0, 5), function () {
-        setView('dia');
-      });
-      b2.style.cssText =
-        'background:none;border:none;color:inherit;font:inherit;font-weight:600;min-height:44px;padding:0 8px 0 4px';
-      if (S.view === 'dia') b2.setAttribute('aria-current', 'page');
-      var x = btn('xb', '×', function () {
-        ACT.closedia();
-      });
-      x.setAttribute('aria-label', 'Fechar a aba do dia');
-      w.appendChild(b2);
-      w.appendChild(x);
-      n.appendChild(w);
-    }
     VIEWS.forEach(function (v) {
       $('v-' + v[0]).hidden = S.view !== v[0];
     });
