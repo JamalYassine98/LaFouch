@@ -13994,32 +13994,14 @@
   function rateDe(m, r) {
     return m === 'pyg' ? 1 : r > 0 ? r : fxLoja(m) || ratePyg(m);
   }
-  // Cotação interna da loja (aba Câmbio): preenche o câmbio quando você não digita um. 0 = usar a do mercado.
-  S.fxInt = { pyg: '', brl: '' };
-  // Margem automática da loja (%): a loja valoriza a moeda recebida um pouco abaixo do mercado.
-  S.fxMargem = { usd: '0,5', brl: '1,5' };
-  function fxMargemPct(m) {
-    var v = parseDec(S.fxMargem[m], 'usd');
-    return v > 0 ? Math.min(v, 20) : 0;
-  }
+  // Cotação da loja: a do mercado menos uma margem fixa (não editável), porque a loja valoriza o dólar e o real recebidos um pouco abaixo do mercado.
+  var FX_MARGEM = 0.025;
   function fxLoja(m) {
-    var g = parseDec(S.fxInt.pyg, 'pyg'),
-      b = parseDec(S.fxInt.brl, 'usd');
-    if (!(g > 0) && !(b > 0)) {
-      var mg = m === 'usd' || m === 'brl' ? fxMargemPct(m) : 0;
-      return mg > 0 ? ratePyg(m) * (1 - mg / 100) : 0;
-    }
-    if (m === 'usd') return g > 0 ? g : 0;
-    if (m === 'brl') {
-      var gg = g > 0 ? g : S.fx.pyg,
-        bb = b > 0 ? b : S.fx.brl;
-      return bb > 0 ? gg / bb : 0;
-    }
-    return 0;
+    return m === 'usd' || m === 'brl' ? ratePyg(m) * (1 - FX_MARGEM) : 0;
   }
   // Texto "câmbio da loja" ou "cotação de hoje" conforme o que está valendo.
   function fxOrigem(m) {
-    return fxLoja(m) > 0 ? 'cotação da loja' : 'cotação de hoje';
+    return 'cotação da loja';
   }
   function numRate(txt) {
     return parseDec(txt, 'pyg');
@@ -14172,7 +14154,7 @@
     var m = S.moeda;
     $('rate1B').hidden = m === 'pyg';
     if (m === 'pyg') S.rate1 = '';
-    $('rate1In').placeholder = 'Câmbio ' + (fxLoja(m) > 0 ? 'da loja' : 'de hoje') + ': ' + dots(Math.round(rateDe(m, 0)));
+    $('rate1In').placeholder = 'Câmbio da loja: ' + dots(Math.round(rateDe(m, 0)));
     if ($('rate1In').value !== (S.rate1 || '')) $('rate1In').value = S.rate1 || '';
     // botão de pagar com mais de uma moeda
     var tg = $('pmTog');
@@ -17720,25 +17702,17 @@
     );
   }
   // Aba Câmbio.
-  // Cartão da cotação interna da loja: automática (mercado menos a margem) ou fixada à mão.
+  // Cartão da cotação da loja (só informa; a margem é fixa).
   function fxLojaHtml() {
-    var f = S.fx;
+    var u = Math.round(fxLoja('usd')),
+      b = Math.round(fxLoja('brl')),
+      f = S.fx;
     return (
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cotação da loja</h2><div class="hint" style="margin:2px 0 0">Automática: o app usa a cotação do mercado menos a margem da loja ao valorizar dólar e real recebidos (vendas e carrinho). Se você digitar um câmbio na venda, esse vale.</div></div>' +
-      '<div class="sel" style="flex-wrap:wrap"><div style="flex:1 1 140px"><div class="lbl">Margem no dólar (%)</div><input class="in" inputmode="decimal" data-fxm="usd" value="' + esc(S.fxMargem.usd) + '" aria-label="Margem da loja no dólar em porcentagem"></div>' +
-      '<div style="flex:1 1 140px"><div class="lbl">Margem no real (%)</div><input class="in" inputmode="decimal" data-fxm="brl" value="' + esc(S.fxMargem.brl) + '" aria-label="Margem da loja no real em porcentagem"></div></div>' +
-      '<div class="hint" id="fxiH" role="status" style="margin:0">' + fxLojaTexto() + '</div>' +
-      '<details><summary class="hint" style="cursor:pointer">Fixar a cotação à mão (opcional)</summary><div class="sel" style="flex-wrap:wrap;margin-top:8px"><div style="flex:1 1 140px"><div class="lbl">US$ 1 = G$</div><input class="in" id="fxiG" inputmode="numeric" data-fxi="pyg" placeholder="' + dots(f.pyg) + '" value="' + esc(S.fxInt.pyg) + '" aria-label="Dólar da loja em guaranis"></div>' +
-      '<div style="flex:1 1 140px"><div class="lbl">US$ 1 = R$</div><input class="in" id="fxiB" inputmode="decimal" data-fxi="brl" placeholder="' + f.brl.toFixed(2).replace('.', ',') + '" value="' + esc(S.fxInt.brl) + '" aria-label="Dólar da loja em reais"></div></div><div class="hint">Com valores aqui, a margem automática não é usada. Apague para voltar ao automático.</div></details></section>'
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cotação da loja</h2><div class="hint" style="margin:2px 0 0">É a cotação do mercado com a margem da loja (' + pc(FX_MARGEM) + ' a favor da loja). O app usa esta ao receber dólar ou real, a menos que você digite outro câmbio no carrinho. Custos e contas continuam pela cotação do mercado.</div></div>' +
+      '<div class="kpis"><div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 vale</div><b>' + gsRaw(u) + '</b><div class="hint">mercado ' + gsRaw(f.pyg) + '</div></div>' +
+      '<div class="kpi" style="background:var(--panel2)"><div class="lbl">R$ 1 vale</div><b>' + gsRaw(b) + '</b><div class="hint">mercado ' + gsRaw(Math.round(f.pyg / f.brl)) + '</div></div>' +
+      '<div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 vale</div><b>R$ ' + (u / b).toFixed(2).replace('.', ',') + '</b><div class="hint">mercado R$ ' + f.brl.toFixed(2).replace('.', ',') + '</div></div></div></section>'
     );
-  }
-  function fxLojaTexto() {
-    var f = S.fx,
-      u = Math.round(rateDe('usd', 0)),
-      b = Math.round(rateDe('brl', 0)),
-      bm = Math.round(f.pyg / f.brl);
-    if (u === Math.round(f.pyg) && b === bm) return 'Sem margem: usando a cotação do mercado (' + gsRaw(f.pyg) + ' e ' + gsRaw(bm) + ').';
-    return 'Valendo na loja: US$ 1 = ' + gsRaw(u) + ' · R$ 1 = ' + gsRaw(b) + ' (mercado: ' + gsRaw(f.pyg) + ' e ' + gsRaw(bm) + ').';
   }
   function renderFx() {
     var el = $('v-fx'),
@@ -21038,27 +21012,6 @@
     });
   };
 
-  // ---------- Cotação da loja
-  document.addEventListener('input', function (ev) {
-    var t = ev.target,
-      k = t.getAttribute && t.getAttribute('data-fxi');
-    if (!k) return;
-    S.fxInt[k] = t.value.replace(k === 'pyg' ? /\D/g : /[^\d.,]/g, '');
-    var h = $('fxiH');
-    if (h) h.textContent = fxLojaTexto();
-    S.rec = null;
-    saveSoon();
-  });
-  document.addEventListener('input', function (ev) {
-    var t = ev.target,
-      k = t.getAttribute && t.getAttribute('data-fxm');
-    if (!k) return;
-    S.fxMargem[k] = t.value.replace(/[^\d.,]/g, '');
-    var h = $('fxiH');
-    if (h) h.textContent = fxLojaTexto();
-    S.rec = null;
-    saveSoon();
-  });
   // ---------- Moeda principal
   ACT.moedap = function (id) {
     S.moedaP = id === 'usd' || id === 'brl' ? id : 'pyg';
@@ -21296,8 +21249,6 @@
       'tolUsd',
       'volAuto',
       'retiradas',
-      'fxInt',
-      'fxMargem',
       'descartes',
       'moedaP',
       'confCx',
@@ -21369,6 +21320,6 @@
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, whiten: whiten, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, vendaPrevia: vendaPrevia, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, backupLembrete: backupLembrete, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, rateDe: rateDe, fxLoja: fxLoja, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
+      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, vendaPrevia: vendaPrevia, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, backupLembrete: backupLembrete, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
     };
 })();

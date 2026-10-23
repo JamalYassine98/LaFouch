@@ -12,32 +12,14 @@
   function rateDe(m, r) {
     return m === 'pyg' ? 1 : r > 0 ? r : fxLoja(m) || ratePyg(m);
   }
-  // Cotação interna da loja (aba Câmbio): preenche o câmbio quando você não digita um. 0 = usar a do mercado.
-  S.fxInt = { pyg: '', brl: '' };
-  // Margem automática da loja (%): a loja valoriza a moeda recebida um pouco abaixo do mercado.
-  S.fxMargem = { usd: '0,5', brl: '1,5' };
-  function fxMargemPct(m) {
-    var v = parseDec(S.fxMargem[m], 'usd');
-    return v > 0 ? Math.min(v, 20) : 0;
-  }
+  // Cotação da loja: a do mercado menos uma margem fixa (não editável), porque a loja valoriza o dólar e o real recebidos um pouco abaixo do mercado.
+  var FX_MARGEM = 0.025;
   function fxLoja(m) {
-    var g = parseDec(S.fxInt.pyg, 'pyg'),
-      b = parseDec(S.fxInt.brl, 'usd');
-    if (!(g > 0) && !(b > 0)) {
-      var mg = m === 'usd' || m === 'brl' ? fxMargemPct(m) : 0;
-      return mg > 0 ? ratePyg(m) * (1 - mg / 100) : 0;
-    }
-    if (m === 'usd') return g > 0 ? g : 0;
-    if (m === 'brl') {
-      var gg = g > 0 ? g : S.fx.pyg,
-        bb = b > 0 ? b : S.fx.brl;
-      return bb > 0 ? gg / bb : 0;
-    }
-    return 0;
+    return m === 'usd' || m === 'brl' ? ratePyg(m) * (1 - FX_MARGEM) : 0;
   }
   // Texto "câmbio da loja" ou "cotação de hoje" conforme o que está valendo.
   function fxOrigem(m) {
-    return fxLoja(m) > 0 ? 'cotação da loja' : 'cotação de hoje';
+    return 'cotação da loja';
   }
   function numRate(txt) {
     return parseDec(txt, 'pyg');
@@ -190,7 +172,7 @@
     var m = S.moeda;
     $('rate1B').hidden = m === 'pyg';
     if (m === 'pyg') S.rate1 = '';
-    $('rate1In').placeholder = 'Câmbio ' + (fxLoja(m) > 0 ? 'da loja' : 'de hoje') + ': ' + dots(Math.round(rateDe(m, 0)));
+    $('rate1In').placeholder = 'Câmbio da loja: ' + dots(Math.round(rateDe(m, 0)));
     if ($('rate1In').value !== (S.rate1 || '')) $('rate1In').value = S.rate1 || '';
     // botão de pagar com mais de uma moeda
     var tg = $('pmTog');
