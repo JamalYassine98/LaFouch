@@ -291,6 +291,11 @@
         })
         .join('') +
       '</div></section>';
+    // dados de exemplo
+    h +=
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Dados de exemplo</h2><div class="hint" style="margin:2px 0 0">Para testar: troca TUDO o que está no app por um exemplo de cerca de 14 meses (vendas, câmbio, contas pagas, compras) e fotos desenhadas.</div></div><button type="button" class="chip" data-act="exemplo">' +
+      (S.exConf ? 'Toque de novo para confirmar: apaga os dados atuais' : 'Carregar exemplo de 14 meses') +
+      '</button></section>';
     // formas de pagamento
     h +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Formas de pagamento e taxas</h2><div class="hint" style="margin:2px 0 0">A taxa (%) sai do seu lucro quando a venda é paga por essa forma. Dinheiro e Pix ficam em 0%. Confira as taxas da sua maquininha.</div></div>';

@@ -162,7 +162,7 @@
           tv += s.vend; tn += s.n; tl += s.liv;
         });
         html +=
-          '<div class="lbl" style="margin:14px 0 6px;text-transform:capitalize">' + MES_NOME[+ym.slice(5) - 1] + ' de ' + ym.slice(0, 4) +
+          '<div class="lbl" style="margin:14px 0 6px">' + cap1(MES_NOME[+ym.slice(5) - 1]) + ' de ' + ym.slice(0, 4) +
           '</div><div class="hint" style="margin:0 0 8px">Mês todo: ' + gs(tv) + ' em ' + tn + ' venda(s) · lucro livre ' + gs(tl) +
           '</div><div class="list" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">';
       }
@@ -186,7 +186,7 @@
     var ativo = hFiltrando();
     el.innerHTML =
       '<div class="top"><div><h1>Histórico</h1><div class="crumb">Busque, filtre ou toque num dia para abrir tudo o que aconteceu nele.</div></div></div>' +
-      '<section class="card col" style="gap:10px"><div class="sel"><input class="in" id="hq" type="search" data-in="hq" placeholder="Buscar produto, código, conta..." value="' + esc(S.hq) + '" aria-label="Buscar no histórico" style="flex:1">' +
+      '<section class="card col" style="gap:10px"><div class="sel"><input class="in" id="hq" type="search" data-in="hq" placeholder="Buscar produto ou conta" value="' + esc(S.hq) + '" aria-label="Buscar no histórico" style="flex:1">' +
       '<button type="button" class="chip" data-act="hcal" aria-label="Ir para uma data" title="Ir para uma data" style="min-width:44px">📅</button>' +
       '<button type="button" class="chip' + (S.hFopen || ativo ? ' on' : '') + '" data-act="hfopen" aria-expanded="' + !!S.hFopen + '">Filtros</button></div>' +
       '<input type="date" class="in" id="hDate" data-in="hdate" max="' + dayKey(Date.now()) + '" aria-label="Ir para o dia" hidden></section>' +

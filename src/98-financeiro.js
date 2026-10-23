@@ -278,6 +278,23 @@
     });
   };
 
+  // ---------- Dados de exemplo (14 meses)
+  ACT.exemplo = function () {
+    if (!S.exConf) {
+      S.exConf = true;
+      S._ajForce = true;
+      render();
+      return;
+    }
+    exigirAuth(function () {
+      S.exConf = false;
+      exGerar();
+      S._ajForce = true;
+      saveFotos();
+      saveSoon();
+      render();
+    });
+  };
   // ---------- Moeda principal
   ACT.moedap = function (id) {
     S.moedaP = id === 'usd' || id === 'brl' ? id : 'pyg';

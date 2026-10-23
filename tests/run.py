@@ -288,7 +288,7 @@ async def main():
             # tela do produto: lista única de cores, um só botão Vender e janela Editar
             FOTO = "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
             SETUP = """(foto) => { const L = window.__LF, S = L.S;
-              S.items = S.items.filter(i => i.ref !== 'BR44118');
+              S.items = S.items.filter(i => i.ref !== 'BR44118'); Object.keys(S.fotos).filter(k => k.indexOf('BR44118|') === 0).forEach(k => delete S.fotos[k]);
               [['C1','Preto',4,5],['C2','Bege',4,null],['C3','Tartaruga',2,null]].forEach(a => { const it = {tipo:'sem', ref:'BR44118', grau:'', med:'53x18-140', vr:a[0], fmt:'Quadrado', cor:a[1], qty:a[2]}; if (a[3] != null) it.custo = a[3]; S.items.push(it); });
               S.tiposX = [{id:'estojo', label:'Estojos', full:'Estojos', price:10000, repUSD:1, pago:1, simple:true}]; L.syncTipos();
               S.items = S.items.filter(i => i.ref !== 'Estojo A');
@@ -492,7 +492,7 @@ async def main():
             # carrinho: piso sobre o total, preço combinado por linha, pagamento repartido
             pg = await pagina()
             r = await pg.evaluate("""() => { const L = window.__LF, S = L.S;
-              S.fx.pyg = 7000; S.cash = {pyg: 0, usd: 0, brl: 0};
+              S.fx.pyg = 7000; S.cash = {pyg: 0, usd: 0, brl: 0}; S.exp = []; S.volAuto = false; S.volume = 1000;
               const its = S.items.filter(i => i.qty >= 2 && L.tipoOf(i.tipo) && L.tFor && true).slice(0, 2);
               const q0 = its.map(i => i.qty), n0 = S.sales.length;
               S.cartOpen = false; S.vRef = ''; S.vSel = null;
@@ -583,6 +583,19 @@ async def main():
             total += 1
             print(('  ok  ' if ok else ' FALHA ') + 'cotação da loja: mercado menos margem fixa, no carrinho e na aba Câmbio')
             if not ok: falhas.append('cotacao loja'); print('        veio', r, pg.erros)
+            await pg.close()
+
+            # dados de exemplo: fotos em todos os produtos e 14 meses de histórico
+            pg = await pagina()
+            r = await pg.evaluate("""() => { const S = window.__LF.S;
+              const semFoto = S.items.filter(i => !i.bulk && i.cor && !S.fotos[i.ref + '|' + i.cor]).length;
+              const dias = (S.sales[0].ts - S.sales[S.sales.length - 1].ts) / 864e5;
+              const meses = new Set(S.sales.map(s => new Date(s.ts).getFullYear() + '-' + new Date(s.ts).getMonth())).size;
+              return [semFoto, dias > 400, meses >= 14, S.fxHist.length > 400, S.cpay.length > 60, S.retiradas.length >= 12, S.compras.length >= 6, S.descartes.length >= 2]; }""")
+            ok = r[0] == 0 and all(r[1:]) and not pg.erros
+            total += 1
+            print(('  ok  ' if ok else ' FALHA ') + 'dados de exemplo: fotos em tudo e mais de um ano de histórico')
+            if not ok: falhas.append('exemplo 14 meses'); print('        veio', r, pg.erros)
             await pg.close()
 
             # contagem de estoque no cartão "Em estoque": por valor, com resumo e aplicação
