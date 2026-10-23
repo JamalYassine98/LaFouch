@@ -17309,8 +17309,8 @@
       lista.forEach(function (m) {
         var el = m.target;
         if (m.oldValue === null || el.hidden || el.id === 'lockScr') return;
-        if (/(^|\s)modal(\s|$)/.test(el.className)) {
-          var bx = el.querySelector('.modal-box');
+        if (/(^|\s)modal(\s|$)/.test(el.className) || el.id === 'filtPanel') {
+          var bx = el.querySelector('.modal-box, #filtBox');
           el.classList.remove('fadein');
           void el.offsetWidth;
           el.classList.add('fadein');
@@ -17319,9 +17319,35 @@
             void bx.offsetWidth;
             bx.classList.add('popin');
           }
-        } else if (ok.test(el.className) || /^(detail|vDetail|vSaleCard|splitCard|contCard)$/.test(el.id)) animEnter(el);
+        } else if (/(^|\s)view(\s|$)/.test(el.className) || ok.test(el.className) || /^(detail|vDetail|vSaleCard|splitCard|contCard)$/.test(el.id)) animEnter(el);
       });
     }).observe(document.body, { attributes: true, attributeFilter: ['hidden'], attributeOldValue: true, subtree: true });
+  })();
+
+  // Pulso curto (ex.: carrinho recebeu uma peça).
+  function pulsa(el) {
+    if (REDUCED || !el) return;
+    el.classList.remove('bump');
+    void el.offsetWidth;
+    el.classList.add('bump');
+  }
+  // Mensagens de aviso entram com um leve movimento quando o texto muda.
+  (function () {
+    if (REDUCED || !window.MutationObserver) return;
+    ['msg', 'vmsg', 'emsg', 'st', 'sst', 'lotMsg', 'phErr', 'bErr'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el._ult = el.textContent;
+      new MutationObserver(function () {
+        var t = el.textContent;
+        if (t === el._ult) return;
+        el._ult = t;
+        if (!t) return;
+        el.classList.remove('msgpop');
+        void el.offsetWidth;
+        el.classList.add('msgpop');
+      }).observe(el, { childList: true, characterData: true, subtree: true });
+    });
   })();
   // ===== Dashboard em abas (Resumo, Dinheiro, Giro, Preços), com "Atenção agora" e blocos que abrem ao toque. =====
   S.dTab = 'hoje';
@@ -20993,6 +21019,9 @@
     S.msg = 'Adicionado ao carrinho.';
     render();
     window.scrollTo(0, 0);
+    setTimeout(function () {
+      pulsa($('cartBar'));
+    }, 60);
   };
   document.addEventListener('input', function (ev) {
     var t = ev.target;

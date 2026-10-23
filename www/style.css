@@ -154,6 +154,8 @@ button,.pcard,.chip,.tab,.mini,.go,.step,.mn{transition:background-color .18s va
 button:not(:disabled):active,.pcard:active{transform:scale(.96)}
 .go:not(:disabled):active{transform:scale(.985)}
 @media (hover:hover){.pcard:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.25)}.mini:hover,.go:not(:disabled):hover{filter:brightness(1.08)}}
+@keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.04)}100%{transform:scale(1)}}.bump{animation:bump .38s var(--ease)}
+@keyframes msgpop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}.msgpop{animation:msgpop .28s var(--ease)}
 @keyframes fadein{from{opacity:0}to{opacity:1}}
 @keyframes popin{from{opacity:0;transform:translateY(12px) scale(.96)}to{opacity:1;transform:none}}
 @keyframes camflash{0%{opacity:0}18%{opacity:.85}100%{opacity:0}}

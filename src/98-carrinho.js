@@ -290,6 +290,9 @@
     S.msg = 'Adicionado ao carrinho.';
     render();
     window.scrollTo(0, 0);
+    setTimeout(function () {
+      pulsa($('cartBar'));
+    }, 60);
   };
   document.addEventListener('input', function (ev) {
     var t = ev.target;
