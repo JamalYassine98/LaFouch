@@ -740,7 +740,7 @@ async def main():
             await pg.evaluate("() => window.__LF.setView('vendas')"); await pg.wait_for_timeout(300)
             await pg.click('#vq'); await pg.keyboard.type('ym77', delay=40); await pg.wait_for_timeout(300)
             r = await pg.evaluate("() => { const b = document.querySelector('.sgl'); return [!!b && !b.hidden, b ? [...b.querySelectorAll('.sgi b')].map(x => x.textContent) : []]; }")
-            await pg.locator('.sgl .sgi').first.dispatch_event('pointerdown'); await pg.wait_for_timeout(300)
+            await pg.locator('.sgl .sgi').first.click(); await pg.wait_for_timeout(300)
             r2 = await pg.evaluate("() => [document.getElementById('vq').value, document.querySelector('.sgl').hidden, window.__LF.S.vq]")
             await pg.evaluate("() => window.__LF.setView('estoque')"); await pg.click('#btnAdd'); await pg.wait_for_timeout(300)
             await pg.click('#eRef'); await pg.keyboard.type('sp5', delay=40); await pg.wait_for_timeout(300)

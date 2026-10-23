@@ -14697,8 +14697,11 @@
     b.setAttribute('role', 'listbox');
     b.hidden = true;
     document.body.appendChild(b);
-    // tocar numa sugestão preenche o campo sem tirar o foco antes da hora
-    b.addEventListener('pointerdown', function (e) {
+    // arrastar rola a lista; só um toque (click) escolhe a sugestão. O mousedown não tira o foco do campo.
+    b.addEventListener('mousedown', function (e) {
+      e.preventDefault();
+    });
+    b.addEventListener('click', function (e) {
       var it = e.target.closest && e.target.closest('.sgi');
       if (!it) return;
       e.preventDefault();
@@ -14726,20 +14729,23 @@
     if (!b || b.hidden || !i) return;
     var r = i.getBoundingClientRect(),
       vh = window.innerHeight,
-      abaixo = vh - r.bottom,
-      alto = Math.min(b.scrollHeight, 250);
+      abaixo = vh - r.bottom;
     if (r.bottom < 0 || r.top > vh) return sgEsconde();
+    // pouco espaço embaixo (teclado aberto): sobe o campo na tela, em vez de abrir a lista para cima
+    if (abaixo < 220 && !SG.aj) {
+      SG.aj = 1;
+      var falta = Math.min(220 - abaixo, r.top - 70);
+      if (falta > 4) {
+        window.scrollBy(0, falta);
+        r = i.getBoundingClientRect();
+        abaixo = vh - r.bottom;
+      }
+    }
     b.style.left = Math.max(8, r.left) + 'px';
     b.style.width = Math.min(r.width, window.innerWidth - 16) + 'px';
-    if (abaixo >= alto + 8 || abaixo >= r.top) {
-      b.style.top = r.bottom + 4 + 'px';
-      b.style.bottom = 'auto';
-      b.style.maxHeight = Math.max(90, Math.min(250, abaixo - 12)) + 'px';
-    } else {
-      b.style.bottom = vh - r.top + 4 + 'px';
-      b.style.top = 'auto';
-      b.style.maxHeight = Math.max(90, Math.min(250, r.top - 12)) + 'px';
-    }
+    b.style.top = r.bottom + 4 + 'px';
+    b.style.bottom = 'auto';
+    b.style.maxHeight = Math.max(100, Math.min(260, abaixo - 12)) + 'px';
   }
   function sgMostra(inp, fn, usa) {
     var l = [];
@@ -14748,6 +14754,7 @@
     } catch (e) {}
     var b = sgCaixa();
     if (!l.length || document.activeElement !== inp) return sgEsconde();
+    if (SG.inp !== inp || b.hidden) SG.aj = 0;
     SG.inp = inp;
     SG.fn = fn;
     SG.usa = usa || 'v';
