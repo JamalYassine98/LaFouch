@@ -93,13 +93,16 @@
         '<div><b>Carrinho: ' + cartPecas() + ' peça(s)</b><div class="hint" style="margin:2px 0 0">' + gs(cartSub()) + ' pela tabela dos preços combinados</div></div>' +
         '<button type="button" class="mini" data-act="cartopen">Abrir carrinho</button>';
     $('sCartAdd').hidden = S.cartOpen || !S._vsel;
+    // venda de uma peça só escolhe e adiciona; pagamento e finalização ficam no carrinho
+    $('payB').hidden = !S.cartOpen;
+    $('sgo').hidden = !S.cartOpen;
+    $('qtyB').hidden = !!S.cartOpen;
     if (!S.cartOpen || !emVendas) return;
     // modo carrinho: usa a tela de pagamento da venda com o total do carrinho
     $('vListCard').hidden = true;
     $('vDetail').hidden = true;
     $('vSaleCard').hidden = false;
     $('catV').hidden = true;
-    $('qtyB').hidden = true;
     $('spc').textContent = 'Carrinho com ' + S.cart.length + ' produto(s)';
     $('sst').textContent = '';
     $('sst').className = '';

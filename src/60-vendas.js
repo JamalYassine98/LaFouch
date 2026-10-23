@@ -229,8 +229,10 @@
       if (S._descKey !== S._selKey) {
         S._descKey = S._selKey;
         S.descTxt = '';
-        S.vBrinde = null;
-        S.vMotivo = '';
+        if (!S.cart.length) {
+          S.vBrinde = null;
+          S.vMotivo = '';
+        }
       }
       var pt = S._t.price,
         lista = pt * S.qty;
@@ -241,8 +243,6 @@
         : 'Preço livre: digite abaixo o valor recebido';
       $('tot').textContent = pt ? gs(lista - S.descGs) : '';
       renderDescBrinde(sel);
-      renderMoeda();
-      renderPiso();
     }
     $('sgo').disabled = !sel || max <= 0;
     $('vmsg').textContent = S.msg || '';

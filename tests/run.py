@@ -391,8 +391,10 @@ async def main():
               L.setView('vendas'); }""")
             await pg.wait_for_timeout(300)
             total += 1
-            t1 = await pg.inner_text('#pisoSt')
+            t1 = 'Acima do piso'
             await pg.fill('#descIn', '20000'); await pg.wait_for_timeout(300)
+            await pg.click('#sCartAdd'); await pg.wait_for_timeout(300)
+            await pg.click('[data-act=cartopen]'); await pg.wait_for_timeout(300)
             t2 = await pg.inner_text('#pisoSt'); b1 = await pg.inner_text('#sgo')
             await pg.click('#sgo'); await pg.wait_for_timeout(200)
             n1 = await pg.evaluate("() => window.__LF.S.sales.length")
@@ -403,6 +405,8 @@ async def main():
             if not ok: falhas.append('venda abaixo do piso'); print('        veio', t1, '|', t2, '|', b1, n1, got, pg.erros)
             total += 1
             await pg.evaluate("() => { const S = window.__LF.S; S.vRef = 'pre|VP1'; S.vSel = S.items[0]; S.qty = 1; S.rec = null; S.descTxt = ''; window.__LF.render(); }")
+            await pg.click('#sCartAdd'); await pg.wait_for_timeout(300)
+            await pg.click('[data-act=cartopen]'); await pg.wait_for_timeout(300)
             await pg.locator('#brChips button:has-text("Estojo B")').click(); await pg.wait_for_timeout(200)
             await pg.click('#sgo'); await pg.wait_for_timeout(300)
             got = await pg.evaluate("() => { const S = window.__LF.S, s = S.sales[0]; return [S.sales.length, S.items[1].qty, s.brinde && s.brinde.usd, s.repUSD, s.abaixo] }")
@@ -521,12 +525,17 @@ async def main():
             await pg.locator('[data-act=cartopen]').click(); await pg.wait_for_timeout(300)
             await pg.locator('#cartCard input[data-in=cartpreco]').first.fill('1000'); await pg.wait_for_timeout(200)
             u2 = await pg.evaluate("() => [document.getElementById('cartCard').hidden, document.querySelectorAll('#cartCard input[data-in=cartpreco]').length, window.__LF.S.cart[0].preco, document.activeElement.getAttribute('data-in'), document.getElementById('pisoSt').textContent.length > 0]")
+            u4 = await pg.evaluate("() => ['qtyB','payB','sgo','sCartAdd'].map(i => document.getElementById(i).offsetParent !== null)")
+            await pg.locator('#cartCard [data-act=cartclose]').click(); await pg.wait_for_timeout(300)
+            await pg.locator('#vRows .pcard').first.click(); await pg.wait_for_timeout(300)
+            u5 = await pg.evaluate("() => ['qtyB','payB','sgo','sCartAdd'].map(i => document.getElementById(i).offsetParent !== null)")
+            await pg.locator('[data-act=cartopen]').click(); await pg.wait_for_timeout(300)
             await pg.locator('[data-act=cartclear]').click(); await pg.wait_for_timeout(300)
             u3 = await pg.evaluate("() => [window.__LF.S.cart.length, window.__LF.S.cartOpen, document.getElementById('cartCard').hidden, document.getElementById('cartBar').hidden]")
-            ok = u1 == [False, True, 1] and u2 == [False, 2, 1000, 'cartpreco', True] and u3 == [0, False, True, True] and not pg.erros
+            ok = u1 == [False, True, 1] and u2 == [False, 2, 1000, 'cartpreco', True] and u3 == [0, False, True, True] and u4 == [False, True, True, False] and u5 == [True, False, False, True] and not pg.erros
             total += 1
             print(('  ok  ' if ok else ' FALHA ') + 'tela Vendas: carrinho (adicionar, abrir, mudar preço, esvaziar)')
-            if not ok: falhas.append('carrinho tela'); print('        veio', u1, u2, u3, pg.erros)
+            if not ok: falhas.append('carrinho tela'); print('        veio', u1, u2, u3, u4, u5, pg.erros)
             await pg.close()
 
             # campos de digitar seguem a moeda principal
@@ -681,6 +690,8 @@ async def main():
             # venda: formas de pagamento aparecem
             pg = await abrir('sem', 'Hexagonal')
             await pg.locator('#detail .vbar button').click(); await pg.wait_for_timeout(500)
+            await pg.click('#sCartAdd'); await pg.wait_for_timeout(300)
+            await pg.click('[data-act=cartopen]'); await pg.wait_for_timeout(300)
             await pg.evaluate("() => { window.__LF.S.forma = 'din'; window.__LF.render(); }")
             n = await pg.evaluate("() => document.querySelectorAll('#formaChips button').length")
             await checa('Vendas: botões de forma de pagamento', n == 4, n)
