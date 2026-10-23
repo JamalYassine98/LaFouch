@@ -72,6 +72,17 @@ TESTES = [
  ("dedupeItems: junta iguais e mantém diferentes", """
    const a={tipo:'pre', ref:'SP1', grau:'+1.00', cor:'Preto', qty:2}, b=Object.assign({}, a, {qty:3}), c=Object.assign({}, a, {grau:'+2.00'});
    S.items=[a,b,c]; const n=L.dedupeItems(); return [n, S.items.length, S.items[0].qty]""", [1, 2, 5]),
+ ("whiten: foto sintética (armação escura em fundo cinza)", """
+   const c = L.mkCanvas(600, 400), g = c.getContext('2d');
+   g.fillStyle = '#d8d8d8'; g.fillRect(0, 0, 600, 400);
+   g.strokeStyle = '#2a2a2a'; g.lineWidth = 14;
+   g.beginPath(); g.ellipse(190, 200, 90, 70, 0, 0, 7); g.stroke();
+   g.beginPath(); g.ellipse(410, 200, 90, 70, 0, 0, 7); g.stroke();
+   g.beginPath(); g.moveTo(280, 190); g.lineTo(320, 190); g.stroke();
+   const r = L.whiten(c);
+   const d = r.canvas.getContext('2d').getImageData(0, 0, r.canvas.width, r.canvas.height).data;
+   let escuros = 0; for (let i = 0; i < d.length; i += 4) if (d[i] < 80) escuros++;
+   return [r.canvas.width, r.canvas.height, d[0] > 245 && d[1] > 245, escuros > 2000, r.bg.map(v => Math.abs(v - 216) < 12).every(Boolean)]""", [2000, 2000, True, True, True]),
  # ---- leitor de código ----
  ("parseHaste: código, medida e variação", """return L.parseHaste(['BR7722\\n51□18 140\\nC3'])""", {"ref":"BR-7722","med":"51□18-140","vr":"C3"}),
  ("parseHaste: 3 letras no prefixo", """return L.parseHaste(['HKJ7241 52-18-145 C2'])""", {"ref":"HKJ-7241","med":"52□18-145","vr":"C2"}),
