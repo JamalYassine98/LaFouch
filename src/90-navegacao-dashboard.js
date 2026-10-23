@@ -109,9 +109,11 @@
       '</b><div class="hint">' +
       (tot ? pc(liv / tot) : '0%') +
       ' do vendido</div></div>' +
-      '<div class="kpi"><div class="lbl">Dólar hoje</div><b>' +
+      '<div class="kpi"><div class="lbl">Dólar e real hoje</div><b>' +
       gsRaw(S.fx.pyg) +
-      '</b><div class="hint">por US$ 1 · <a href="#fx" data-act="view" data-id="fx" style="color:var(--accent-fg)">ver câmbio</a></div></div></section>';
+      '</b><div class="hint" style="margin-top:2px">por US$ 1</div><b style="font-size:20px;display:block;margin-top:8px">' +
+      gsRaw(Math.round(S.fx.pyg / S.fx.brl)) +
+      '</b><div class="hint">por R$ 1 · <a href="#fx" data-act="view" data-id="fx" style="color:var(--accent-fg)">ver câmbio</a></div></div></section>';
     var head = html;
     html = '';
     var parts = [
