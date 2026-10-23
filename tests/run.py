@@ -652,6 +652,25 @@ async def main():
             if not ok: falhas.append('inicio'); print('        veio', r, r2, r3, pg.erros)
             await pg.close()
 
+            # imprevistos: só os do mês aparecem e dá para remover
+            pg = await pagina()
+            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S, h = Date.now(), mes = h - 40 * 86400000;
+              S.imprev = [{ts: mes, desc: 'Antigo', valor: 100000}, {ts: h, desc: 'Errado', valor: 5000}];
+              S.dlog = [{ts: mes, kind: 'imp', desc: 'Antigo', valor: 100000}, {ts: h, kind: 'imp', desc: 'Errado', valor: 5000}];
+              L.setView('desp'); return 1; }""")
+            await pg.wait_for_timeout(300)
+            t1 = await pg.inner_text('#v-desp')
+            btn = pg.locator('[data-act=impdel]')
+            n1 = await btn.count()
+            await btn.first.click(); await pg.wait_for_timeout(200)
+            await btn.first.click(); await pg.wait_for_timeout(300)
+            r2 = await pg.evaluate("() => [window.__LF.S.imprev.map(x => x.desc), window.__LF.S.dlog.map(x => x.desc)]")
+            total += 1
+            ok = 'Errado' in t1 and 'Antigo' not in t1 and n1 == 1 and r2 == [['Antigo'], ['Antigo']] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'imprevistos: só do mês na tela e remoção em dois toques')
+            if not ok: falhas.append('imprevistos'); print('        veio', n1, r2, pg.erros)
+            await pg.close()
+
             # contagem de estoque no cartão "Em estoque": por valor, com resumo e aplicação
             pg = await pagina()
             await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.items = [

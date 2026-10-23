@@ -101,8 +101,16 @@
         .reduce(function (a, e) {
           return a + e.valor;
         }, 0),
-      gasto = S.imprev.reduce(function (a, x) {
-        return a + x.valor;
+      impMes = limitesMes(new Date().getFullYear(), new Date().getMonth()),
+      impLista = S.imprev
+        .map(function (x, i) {
+          return { x: x, i: i };
+        })
+        .filter(function (o) {
+          return noMes(o.x.ts, impMes);
+        }),
+      gasto = impLista.reduce(function (a, o) {
+        return a + o.x.valor;
       }, 0);
     var html =
       '<div class="top"><div><h1>Despesas</h1><div class="crumb">Contas que o dinheiro das vendas precisa cobrir todo mês</div></div></div>';
@@ -207,19 +215,22 @@
         ? '. Passou da provisão. Considere aumentá-la.'
         : '. Resta ' + gs(imp - gasto) + '.') +
       '</div>' +
-      S.imprev
-        .map(function (x) {
+      (impLista.length ? '' : '<div class="hint" style="margin:0">Nenhum imprevisto neste mês.</div>') +
+      impLista
+        .map(function (o) {
+          var x = o.x;
           return (
-            '<div class="sl"><span>' +
+            '<div class="sl" style="align-items:center"><span>' +
             esc(x.desc) +
             '<small>' +
             fd(x.ts) +
             '</small></span><b>' +
             gs(x.valor) +
-            '</b></div>'
+            '</b><button type="button" class="trash" data-act="impdel" data-id="' + o.i + '" aria-label="Remover imprevisto ' + esc(x.desc) + '" title="Remover" style="opacity:.8;margin-left:6px">✕</button></div>'
           );
         })
         .join('') +
+      '<div class="hint" style="margin:0">A provisão começa do zero todo mês. Os imprevistos de meses anteriores ficam guardados no Histórico.</div>' +
       '<div class="sel" style="flex-wrap:wrap"><input class="in" id="impD" placeholder="O que aconteceu" style="flex:2 1 180px;width:auto" aria-label="Descrição do imprevisto"><input class="in" id="impV" inputmode="' + mpMode() + '" placeholder="Valor em ' + mpSim() + '" style="flex:1 1 120px;width:auto" aria-label="Valor do imprevisto"><button class="mini" data-act="impadd">Registrar imprevisto</button></div></section>';
     html +=
       '<section class="card col"><h2 style="margin:0;font-size:16px">Nova despesa</h2><div class="sel" style="flex-wrap:wrap"><input class="in" id="nName" placeholder="Nome (ex.: Água)" style="flex:2 1 160px;width:auto" aria-label="Nome da despesa"><select class="in" id="nCat" aria-label="Grupo" style="flex:1 1 130px;width:auto">' +

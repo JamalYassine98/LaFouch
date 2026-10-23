@@ -367,6 +367,36 @@
       render();
       window.scrollTo(0, 0);
     },
+    impdel: function (id) {
+      var x = S.imprev[+id];
+      if (!x) return;
+      if (S._impDel !== id) {
+        S._impDel = id;
+        S.cxMsg = '';
+        var b = document.querySelector('[data-act="impdel"][data-id="' + id + '"]');
+        if (b) {
+          b.textContent = 'Remover?';
+          b.style.cssText = 'opacity:1;width:auto;padding:0 10px;color:var(--bad);margin-left:6px';
+        }
+        setTimeout(function () {
+          if (S._impDel === id) {
+            S._impDel = null;
+            renderDesp();
+          }
+        }, 3500);
+        return;
+      }
+      S._impDel = null;
+      S.imprev.splice(+id, 1);
+      for (var i = S.dlog.length - 1; i >= 0; i--) {
+        var d = S.dlog[i];
+        if (d.kind === 'imp' && d.ts === x.ts && d.valor === x.valor && d.desc === x.desc) {
+          S.dlog.splice(i, 1);
+          break;
+        }
+      }
+      render();
+    },
     impadd: function () {
       var d = $('impD').value.trim(),
         v = campoParaGs($('impV').value);
