@@ -285,6 +285,9 @@
     }
     if (!t.simple) setPN(ref, $('eNome').value);
     $('eNome').value = '';
+    var dd = $('eDescP').value.trim();
+    if (dd && (!S.desc[ref] || !S._known)) S.desc[ref] = dd;
+    $('eDescP').value = '';
     if (ex) {
       ex.qty += qty;
       if (ex.custo == null && cu != null) ex.custo = cu;

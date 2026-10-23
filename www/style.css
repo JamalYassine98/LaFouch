@@ -228,3 +228,5 @@ button:not(:disabled):active,.pcard:active{transform:scale(.96)}
 body.arrastando{user-select:none}
 .twrap.arr{z-index:20;filter:drop-shadow(0 8px 14px rgba(0,0,0,.45))}.twrap.arr .tl{animation:none;opacity:1}
 @media (prefers-reduced-motion:reduce){.rip,.cascata .tl,.cascata .hero{animation:none}}
+
+.gone{display:none!important}.erow2{align-items:end}textarea.in{resize:vertical;min-height:72px;font:inherit}

@@ -13,7 +13,7 @@
   }
   // Rótulo curto da variante: grau ou classe de cor + cor.
   function rowLabel(i) {
-    return (isSimple(i.tipo) ? '' : (i.tipo === 'pre' ? i.grau : i.vr) + ' · ') + i.cor;
+    return (isSimple(i.tipo) ? '' : (i.tipo === 'pre' ? i.grau : i.vr) + (i.cor === 'Sem cor' ? '' : ' · ')) + (isSimple(i.tipo) || i.cor !== 'Sem cor' ? i.cor : '');
   }
   // Detalhe de um código: fotos, cores, estoque, venda e janela de edição.
   // opt.venda = true: mesma tela, no modo venda (aba Vendas): sem edição nem custo; devolve a variante escolhida.
@@ -307,7 +307,7 @@
       mk(
         'div',
         'lbl',
-        (f.tipo === 'pre' ? 'Graus' : isSimple(f.tipo) ? 'Itens' : 'Cores') + ' · estoque'
+        (f.tipo === 'pre' ? 'Graus' : isSimple(f.tipo) ? 'Itens' : 'Cores') + ' · estoque' + (f.tipo === 'pre' && rows.length > 1 && rows.every(function (x) { return x.cor === rows[0].cor; }) && rows[0].cor !== 'Sem cor' ? ' · ' + rows[0].cor : '')
       )
     );
     var pl = mk('div', 'col');
@@ -328,6 +328,13 @@
       S.cdCor = '';
       render();
     };
+    // pré-graduados da mesma cor: a cor aparece uma vez no título e as linhas mostram só o grau
+    var corUnica =
+      f.tipo === 'pre' &&
+      rows.length > 1 &&
+      rows.every(function (x) {
+        return x.cor === rows[0].cor;
+      });
     rows.forEach(function (i) {
       var r = mk('div', 'pl pick' + (i === sel ? ' picked' : ''));
       r.tabIndex = 0;
@@ -346,7 +353,7 @@
       var tx = mk(
         'span',
         '',
-        rowLabel(i) + (venda ? '' : effCusto(i) != null ? ' · custo ' + usd(effCusto(i)) : ' · sem custo')
+        (corUnica ? i.grau : rowLabel(i)) + (venda ? '' : effCusto(i) != null ? ' · custo ' + usd(effCusto(i)) : ' · sem custo')
       );
       if (!S.fotos[ref + '|' + i.cor] && !venda) {
         var tg = mk('span', 'cell', 'sem foto');

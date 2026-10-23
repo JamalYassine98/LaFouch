@@ -1141,9 +1141,9 @@
       : 'Classificação de cor (C1 a C6)';
     $('eMedB').hidden = isPre || !!t.simple;
     $('eFmtB').hidden = false;
-    $('eRefL').textContent = t.simple ? 'Nome ou código do item' : 'Código (o que fica na haste)';
+    $('eRefL').textContent = t.simple ? 'Nome ou código do item' : 'Código da haste';
     $('eNomeB').hidden = !!t.simple;
-    $('eCorL').textContent = 'Cor real (opcional)';
+    $('eCorL').textContent = 'Cor';
     var gn = normGrau($('eGrau').value);
     $('eGrauH').textContent = $('eGrau').value
       ? gn

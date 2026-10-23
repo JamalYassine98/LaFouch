@@ -36,8 +36,19 @@
 
   // ---------- biometria (plugin do Capacitor, só no app instalado)
   function bioPlugin() {
-    var P = window.Capacitor && window.Capacitor.Plugins;
-    return (P && P.BiometricAuth) || null;
+    var C = window.Capacitor,
+      P = C && C.Plugins;
+    if (P && P.BiometricAuth) return P.BiometricAuth;
+    // sem o pacote do plugin no site, o Capacitor ainda liga o plugin nativo pelo nome
+    try {
+      if (C && C.registerPlugin && (!C.isPluginAvailable || C.isPluginAvailable('BiometricAuth')))
+        return (bioPlugin._p = bioPlugin._p || C.registerPlugin('BiometricAuth'));
+    } catch (e) {}
+    return null;
+  }
+  function bioErro(e) {
+    var m = e && (e.message || e.code);
+    return m ? ' (' + String(m).slice(0, 80) + ')' : '';
   }
   // Pergunta ao aparelho se há digital ou rosto cadastrados (resultado guardado em S._bioOk).
   function bioChecar() {
@@ -49,6 +60,7 @@
     b.checkBiometry()
       .then(function (r) {
         S._bioOk = !!(r && r.isAvailable);
+        S._bioWhy = r && !r.isAvailable ? r.reason || r.code || '' : '';
         renderAjustes();
       })
       .catch(function () {
@@ -66,7 +78,9 @@
       androidSubtitle: 'Confirme que é você'
     })
       .then(ok)
-      .catch(falha);
+      .catch(function (e) {
+        falha(e);
+      });
   }
 
   // ---------- tela de bloqueio
@@ -103,8 +117,8 @@
     var bo = !!(S.bioOn && bioPlugin());
     $('lockBio').hidden = !bo;
     if (bo)
-      bioPedir(liberar, function () {
-        lockMsg('Não reconheceu. Use o PIN.');
+      bioPedir(liberar, function (e) {
+        lockMsg('Não reconheceu. Use o PIN.' + bioErro(e));
       });
     else
       setTimeout(function () {
@@ -134,8 +148,8 @@
     if (e.key === 'Enter') tentarPin();
   });
   $('lockBio').onclick = function () {
-    bioPedir(liberar, function () {
-      lockMsg('Não reconheceu. Use o PIN.');
+    bioPedir(liberar, function (e) {
+      lockMsg('Não reconheceu. Use o PIN.' + bioErro(e));
     });
   };
   $('lockCancel').onclick = function () {
@@ -345,13 +359,15 @@
         '<label style="display:flex;gap:10px;align-items:center"><input type="checkbox" data-aj="locksens"' +
         (S.lockSens !== false ? ' checked' : '') +
         '> Pedir também para restaurar backup, apagar tudo e registrar retirada</label>';
-      if (bioPlugin())
+      if (!bioPlugin())
+        h += '<div class="hint" style="margin:0">Digital ou rosto: o componente não foi encontrado neste app. Instale o APK novo (gerado depois desta versão).</div>';
+      else
         h +=
           '<label style="display:flex;gap:10px;align-items:center"><input type="checkbox" data-aj="biotog"' +
           (S.bioOn ? ' checked' : '') +
           (S._bioOk === false ? ' disabled' : '') +
           '> Usar digital ou rosto' +
-          (S._bioOk === false ? ' (cadastre uma digital no celular primeiro)' : '') +
+          (S._bioOk === false ? ' (cadastre uma digital ou rosto nas configurações do celular primeiro' + (S._bioWhy ? ': ' + esc(S._bioWhy) : '') + ')' : '') +
           '</label>';
       h +=
         '<div class="sel" style="flex-wrap:wrap"><button class="chip" data-act="pintroca">Trocar PIN</button><button class="chip" data-act="pinoff">' +

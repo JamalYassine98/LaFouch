@@ -766,6 +766,12 @@
     return d;
   }
   // Descrição automática de um código.
+  // Sugestão de descrição a partir da foto: tipo + cor que o app enxergou (o resto você completa).
+  function descSugerida(tipo, cor) {
+    var base = tipo === 'pre' ? 'Óculos de leitura' : tipo === 'solar' ? 'Óculos solar' : 'Armação',
+      c = String(cor || '').trim();
+    return base + (c && c !== 'Sem cor' ? ' ' + c.toLowerCase() : '') + '.';
+  }
   function autoDesc(ref) {
     var its = S.items.filter(function (i) {
         return i.ref === ref;
@@ -798,8 +804,8 @@
           return a - b;
         });
       return (
-        'Óculos de leitura pré-graduado, formato ' +
-        f.fmt +
+        'Óculos de leitura pré-graduado' +
+        (f.fmt ? ', formato ' + f.fmt : '') +
         '. Graus de +' +
         g[0].toFixed(2) +
         ' a +' +
@@ -818,8 +824,7 @@
     }
     return (
       (f.tipo === 'solar' ? 'Óculos solar' : 'Armação sem grau') +
-      ', formato ' +
-      f.fmt +
+      (f.fmt ? ', formato ' + f.fmt : '') +
       (f.med ? ', medidas ' + f.med : '') +
       '. ' +
       cores.length +
@@ -927,7 +932,7 @@
   }
   // Rótulo curto da variante: grau ou classe de cor + cor.
   function rowLabel(i) {
-    return (isSimple(i.tipo) ? '' : (i.tipo === 'pre' ? i.grau : i.vr) + ' · ') + i.cor;
+    return (isSimple(i.tipo) ? '' : (i.tipo === 'pre' ? i.grau : i.vr) + (i.cor === 'Sem cor' ? '' : ' · ')) + (isSimple(i.tipo) || i.cor !== 'Sem cor' ? i.cor : '');
   }
   // Detalhe de um código: fotos, cores, estoque, venda e janela de edição.
   // opt.venda = true: mesma tela, no modo venda (aba Vendas): sem edição nem custo; devolve a variante escolhida.
@@ -1221,7 +1226,7 @@
       mk(
         'div',
         'lbl',
-        (f.tipo === 'pre' ? 'Graus' : isSimple(f.tipo) ? 'Itens' : 'Cores') + ' · estoque'
+        (f.tipo === 'pre' ? 'Graus' : isSimple(f.tipo) ? 'Itens' : 'Cores') + ' · estoque' + (f.tipo === 'pre' && rows.length > 1 && rows.every(function (x) { return x.cor === rows[0].cor; }) && rows[0].cor !== 'Sem cor' ? ' · ' + rows[0].cor : '')
       )
     );
     var pl = mk('div', 'col');
@@ -1242,6 +1247,13 @@
       S.cdCor = '';
       render();
     };
+    // pré-graduados da mesma cor: a cor aparece uma vez no título e as linhas mostram só o grau
+    var corUnica =
+      f.tipo === 'pre' &&
+      rows.length > 1 &&
+      rows.every(function (x) {
+        return x.cor === rows[0].cor;
+      });
     rows.forEach(function (i) {
       var r = mk('div', 'pl pick' + (i === sel ? ' picked' : ''));
       r.tabIndex = 0;
@@ -1260,7 +1272,7 @@
       var tx = mk(
         'span',
         '',
-        rowLabel(i) + (venda ? '' : effCusto(i) != null ? ' · custo ' + usd(effCusto(i)) : ' · sem custo')
+        (corUnica ? i.grau : rowLabel(i)) + (venda ? '' : effCusto(i) != null ? ' · custo ' + usd(effCusto(i)) : ' · sem custo')
       );
       if (!S.fotos[ref + '|' + i.cor] && !venda) {
         var tg = mk('span', 'cell', 'sem foto');
@@ -2941,9 +2953,9 @@
       : 'Classificação de cor (C1 a C6)';
     $('eMedB').hidden = isPre || !!t.simple;
     $('eFmtB').hidden = false;
-    $('eRefL').textContent = t.simple ? 'Nome ou código do item' : 'Código (o que fica na haste)';
+    $('eRefL').textContent = t.simple ? 'Nome ou código do item' : 'Código da haste';
     $('eNomeB').hidden = !!t.simple;
-    $('eCorL').textContent = 'Cor real (opcional)';
+    $('eCorL').textContent = 'Cor';
     var gn = normGrau($('eGrau').value);
     $('eGrauH').textContent = $('eGrau').value
       ? gn
@@ -3343,6 +3355,9 @@
     }
     if (!t.simple) setPN(ref, $('eNome').value);
     $('eNome').value = '';
+    var dd = $('eDescP').value.trim();
+    if (dd && (!S.desc[ref] || !S._known)) S.desc[ref] = dd;
+    $('eDescP').value = '';
     if (ex) {
       ex.qty += qty;
       if (ex.custo == null && cu != null) ex.custo = cu;
@@ -7998,6 +8013,7 @@
     var nt = [r.extras, r.material].filter(nz).join(' · ');
     if (nt && !$('phNotas').value.trim()) {
       $('phNotas').value = nt;
+      $('phDescP').value = ($('phDescP').value.trim() + ' ' + nt).trim();
       got.push(nt);
     }
     if (got.length)
@@ -8272,6 +8288,8 @@
               $('phGrau').value = fr0 ? fv('eGrau') : '';
               $('phMed').value = fr0 ? fv('eMed') : '';
               $('phNotas').value = '';
+              $('phDescP').value =
+                pf0 || fr0 ? '' : descSugerida(P.tipo || S.tipo, P.guess);
               $('phNome').value = fr0 ? fv('eNome') : '';
               if ($('phCusto')) $('phCusto').value = fr0 ? fv('eCusto') : '';
               setRead('');
@@ -8801,10 +8819,9 @@
         cor: f.cor,
         qty: P.qty
       });
-    var nt = $('phNotas').value.trim();
-    if (nt && !f.known) {
-      S.desc[f.ref] = (autoDesc(f.ref) + ' ' + nt).trim();
-    }
+    var nt = $('phDescP').value.trim() || $('phNotas').value.trim();
+    if (nt && (!f.known || !S.desc[f.ref])) S.desc[f.ref] = nt;
+    $('phDescP').value = '';
     entradaEstoque(f.tipo, f.ref, f.cor, f.isPre ? gn : '', P.qty);
     setFoto(f.ref + '|' + f.cor, P.thumb || P.img, P.img);
     var what = f.known
@@ -13153,8 +13170,19 @@
 
   // ---------- biometria (plugin do Capacitor, só no app instalado)
   function bioPlugin() {
-    var P = window.Capacitor && window.Capacitor.Plugins;
-    return (P && P.BiometricAuth) || null;
+    var C = window.Capacitor,
+      P = C && C.Plugins;
+    if (P && P.BiometricAuth) return P.BiometricAuth;
+    // sem o pacote do plugin no site, o Capacitor ainda liga o plugin nativo pelo nome
+    try {
+      if (C && C.registerPlugin && (!C.isPluginAvailable || C.isPluginAvailable('BiometricAuth')))
+        return (bioPlugin._p = bioPlugin._p || C.registerPlugin('BiometricAuth'));
+    } catch (e) {}
+    return null;
+  }
+  function bioErro(e) {
+    var m = e && (e.message || e.code);
+    return m ? ' (' + String(m).slice(0, 80) + ')' : '';
   }
   // Pergunta ao aparelho se há digital ou rosto cadastrados (resultado guardado em S._bioOk).
   function bioChecar() {
@@ -13166,6 +13194,7 @@
     b.checkBiometry()
       .then(function (r) {
         S._bioOk = !!(r && r.isAvailable);
+        S._bioWhy = r && !r.isAvailable ? r.reason || r.code || '' : '';
         renderAjustes();
       })
       .catch(function () {
@@ -13183,7 +13212,9 @@
       androidSubtitle: 'Confirme que é você'
     })
       .then(ok)
-      .catch(falha);
+      .catch(function (e) {
+        falha(e);
+      });
   }
 
   // ---------- tela de bloqueio
@@ -13220,8 +13251,8 @@
     var bo = !!(S.bioOn && bioPlugin());
     $('lockBio').hidden = !bo;
     if (bo)
-      bioPedir(liberar, function () {
-        lockMsg('Não reconheceu. Use o PIN.');
+      bioPedir(liberar, function (e) {
+        lockMsg('Não reconheceu. Use o PIN.' + bioErro(e));
       });
     else
       setTimeout(function () {
@@ -13251,8 +13282,8 @@
     if (e.key === 'Enter') tentarPin();
   });
   $('lockBio').onclick = function () {
-    bioPedir(liberar, function () {
-      lockMsg('Não reconheceu. Use o PIN.');
+    bioPedir(liberar, function (e) {
+      lockMsg('Não reconheceu. Use o PIN.' + bioErro(e));
     });
   };
   $('lockCancel').onclick = function () {
@@ -13462,13 +13493,15 @@
         '<label style="display:flex;gap:10px;align-items:center"><input type="checkbox" data-aj="locksens"' +
         (S.lockSens !== false ? ' checked' : '') +
         '> Pedir também para restaurar backup, apagar tudo e registrar retirada</label>';
-      if (bioPlugin())
+      if (!bioPlugin())
+        h += '<div class="hint" style="margin:0">Digital ou rosto: o componente não foi encontrado neste app. Instale o APK novo (gerado depois desta versão).</div>';
+      else
         h +=
           '<label style="display:flex;gap:10px;align-items:center"><input type="checkbox" data-aj="biotog"' +
           (S.bioOn ? ' checked' : '') +
           (S._bioOk === false ? ' disabled' : '') +
           '> Usar digital ou rosto' +
-          (S._bioOk === false ? ' (cadastre uma digital no celular primeiro)' : '') +
+          (S._bioOk === false ? ' (cadastre uma digital ou rosto nas configurações do celular primeiro' + (S._bioWhy ? ': ' + esc(S._bioWhy) : '') + ')' : '') +
           '</label>';
       h +=
         '<div class="sel" style="flex-wrap:wrap"><button class="chip" data-act="pintroca">Trocar PIN</button><button class="chip" data-act="pinoff">' +
@@ -14495,7 +14528,8 @@
       var k = i.vr || i.cor;
       if (seen[k]) return;
       seen[k] = 1;
-      cs.push(i.vr ? i.vr + ' ' + i.cor : i.cor);
+      if (i.cor === 'Sem cor' && !i.vr) return;
+      cs.push(i.vr ? i.vr + (i.cor === 'Sem cor' ? '' : ' ' + i.cor) : i.cor);
     });
     return nome + (cs.length ? '. Cores: ' + cs.join(', ') : '') + (med ? '. Medidas: ' + med : '') + '.';
   }
@@ -22095,9 +22129,9 @@
             S._ajForce = true;
             render();
           },
-          function () {
+          function (e) {
             S.bioOn = false;
-            S.ajMsg = 'Não consegui confirmar a digital ou o rosto. Tente de novo.';
+            S.ajMsg = 'Não consegui confirmar a digital ou o rosto. Tente de novo.' + bioErro(e);
             S._ajForce = true;
             render();
           }

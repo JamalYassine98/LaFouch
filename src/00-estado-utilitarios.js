@@ -765,6 +765,12 @@
     return d;
   }
   // Descrição automática de um código.
+  // Sugestão de descrição a partir da foto: tipo + cor que o app enxergou (o resto você completa).
+  function descSugerida(tipo, cor) {
+    var base = tipo === 'pre' ? 'Óculos de leitura' : tipo === 'solar' ? 'Óculos solar' : 'Armação',
+      c = String(cor || '').trim();
+    return base + (c && c !== 'Sem cor' ? ' ' + c.toLowerCase() : '') + '.';
+  }
   function autoDesc(ref) {
     var its = S.items.filter(function (i) {
         return i.ref === ref;
@@ -797,8 +803,8 @@
           return a - b;
         });
       return (
-        'Óculos de leitura pré-graduado, formato ' +
-        f.fmt +
+        'Óculos de leitura pré-graduado' +
+        (f.fmt ? ', formato ' + f.fmt : '') +
         '. Graus de +' +
         g[0].toFixed(2) +
         ' a +' +
@@ -817,8 +823,7 @@
     }
     return (
       (f.tipo === 'solar' ? 'Óculos solar' : 'Armação sem grau') +
-      ', formato ' +
-      f.fmt +
+      (f.fmt ? ', formato ' + f.fmt : '') +
       (f.med ? ', medidas ' + f.med : '') +
       '. ' +
       cores.length +

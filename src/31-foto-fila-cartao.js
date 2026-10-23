@@ -187,6 +187,8 @@
               $('phGrau').value = fr0 ? fv('eGrau') : '';
               $('phMed').value = fr0 ? fv('eMed') : '';
               $('phNotas').value = '';
+              $('phDescP').value =
+                pf0 || fr0 ? '' : descSugerida(P.tipo || S.tipo, P.guess);
               $('phNome').value = fr0 ? fv('eNome') : '';
               if ($('phCusto')) $('phCusto').value = fr0 ? fv('eCusto') : '';
               setRead('');
@@ -716,10 +718,9 @@
         cor: f.cor,
         qty: P.qty
       });
-    var nt = $('phNotas').value.trim();
-    if (nt && !f.known) {
-      S.desc[f.ref] = (autoDesc(f.ref) + ' ' + nt).trim();
-    }
+    var nt = $('phDescP').value.trim() || $('phNotas').value.trim();
+    if (nt && (!f.known || !S.desc[f.ref])) S.desc[f.ref] = nt;
+    $('phDescP').value = '';
     entradaEstoque(f.tipo, f.ref, f.cor, f.isPre ? gn : '', P.qty);
     setFoto(f.ref + '|' + f.cor, P.thumb || P.img, P.img);
     var what = f.known

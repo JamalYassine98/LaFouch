@@ -47,9 +47,9 @@
             S._ajForce = true;
             render();
           },
-          function () {
+          function (e) {
             S.bioOn = false;
-            S.ajMsg = 'Não consegui confirmar a digital ou o rosto. Tente de novo.';
+            S.ajMsg = 'Não consegui confirmar a digital ou o rosto. Tente de novo.' + bioErro(e);
             S._ajForce = true;
             render();
           }

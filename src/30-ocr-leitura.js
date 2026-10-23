@@ -563,6 +563,7 @@
     var nt = [r.extras, r.material].filter(nz).join(' · ');
     if (nt && !$('phNotas').value.trim()) {
       $('phNotas').value = nt;
+      $('phDescP').value = ($('phDescP').value.trim() + ' ' + nt).trim();
       got.push(nt);
     }
     if (got.length)

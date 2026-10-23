@@ -616,6 +616,23 @@ async def main():
             if not ok: falhas.append('fundo branco off'); print('        veio', ck, r, pg.erros)
             await pg.close()
 
+            # cadastro sem formato/cor/pacote: a descrição digitada vira a descrição do modelo; foto sugere
+            pg = await pagina()
+            await pg.evaluate("() => window.__LF.setView('estoque')")
+            await pg.click('#btnAdd'); await pg.wait_for_timeout(300)
+            await pg.locator('#mTipos >> text=Armações').click(); await pg.wait_for_timeout(300)
+            vis = await pg.evaluate("() => ['eFmtB','ePkgB','eCor'].map(i => document.getElementById(i).offsetParent === null).concat([!!document.getElementById('eDescP').offsetParent])")
+            await pg.fill('#eRef', 'ZZ77'); await pg.fill('#eNome', ''); await pg.fill('#eCusto', '0,50')
+            await pg.fill('#eDescP', 'Armação de acetato verde, haste larga')
+            await pg.locator('#eVars button:has-text("C1")').click()
+            await pg.click('#go'); await pg.wait_for_timeout(500)
+            r = await pg.evaluate("() => { const S = window.__LF.S; const it = S.items.filter(i => i.ref === 'ZZ77')[0]; return [!!it, it && it.cor, S.desc.ZZ77, document.getElementById('eDescP').value]; }")
+            total += 1
+            ok = vis == [True, True, True, True] and r == [True, 'Sem cor', 'Armação de acetato verde, haste larga', ''] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'cadastro: sem formato/cor/pacote e com descrição')
+            if not ok: falhas.append('cadastro desc'); print('        veio', vis, r, pg.erros)
+            await pg.close()
+
             # identidade do modelo: nome automático, descrição por cor, nº interno, busca e coleção
             pg = await pagina()
             r = await pg.evaluate("""() => { const L = window.__LF, S = L.S;

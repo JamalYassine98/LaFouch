@@ -53,7 +53,8 @@
       var k = i.vr || i.cor;
       if (seen[k]) return;
       seen[k] = 1;
-      cs.push(i.vr ? i.vr + ' ' + i.cor : i.cor);
+      if (i.cor === 'Sem cor' && !i.vr) return;
+      cs.push(i.vr ? i.vr + (i.cor === 'Sem cor' ? '' : ' ' + i.cor) : i.cor);
     });
     return nome + (cs.length ? '. Cores: ' + cs.join(', ') : '') + (med ? '. Medidas: ' + med : '') + '.';
   }
