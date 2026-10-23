@@ -328,7 +328,8 @@
       t = S._t;
     if (!sel || !t) return null;
     var q = Math.max(1, S.qty),
-      eff = Math.round((S._recv || 0) * ratePyg(S.moeda)),
+      pt = pagTotais(),
+      eff = pt.liq,
       br = S.vBrinde && S.vBrinde.qty > 0 ? S.vBrinde : null,
       bu = br ? brindeUsd(br) : 0,
       bg = Math.round(bu * S.fx.pyg),
@@ -337,7 +338,7 @@
       travaTot = pp.trava * q + bg,
       pisoTot = pp.piso * q + bg,
       fm = formaSel(),
-      tx = taxaGs(eff, fm),
+      tx = taxaGs(pt.rec, fm),
       liq = eff - tx;
     c.livre -= tx;
     return {

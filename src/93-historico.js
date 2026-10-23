@@ -501,8 +501,25 @@
         [
           [
             'Recebido',
-            fmtM(s.recebido, s.moeda) + (s.moeda !== 'pyg' ? ' (cotação ' + gs(s.rate) + ')' : '')
+            s.pags && s.pags.length
+              ? s.pags
+                  .map(function (l) {
+                    return fmtM(l.v, l.moeda) + (l.moeda !== 'pyg' ? ' (câmbio ' + gs(Math.round(l.rate)) + ')' : '');
+                  })
+                  .join(' + ')
+              : fmtM(s.recebido, s.moeda) + (s.moeda !== 'pyg' ? ' (cotação ' + gs(s.rate) + ')' : '')
           ],
+          [
+            'Troco devolvido',
+            s.troco && s.troco.length
+              ? s.troco
+                  .map(function (l) {
+                    return fmtM(l.v, l.moeda);
+                  })
+                  .join(' + ')
+              : 'sem troco'
+          ],
+          ['Forma de pagamento', formaPorId(s.forma).nome + (s.taxa ? ' (taxa ' + gs(s.taxa) + ')' : '')],
           [
             'Câmbio no dia',
             gs(s.fx) +

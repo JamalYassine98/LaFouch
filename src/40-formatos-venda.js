@@ -267,8 +267,17 @@
   function addSale(it, qty, pay) {
     var c = colchao(),
       cp = contasPeca(),
-      rate = ratePyg(pay.moeda),
-      eff = Math.round(pay.recebido * rate),
+      pg = pay.pag || {},
+      rate = pg.rate > 0 ? pg.rate : ratePyg(pay.moeda),
+      linhas = [{ moeda: pay.moeda, v: pay.recebido, rate: rate }].concat(pg.extra || []),
+      trocos = pg.troco || [],
+      recGs = linhas.reduce(function (a, l) {
+        return a + Math.round(l.v * l.rate);
+      }, 0),
+      trGs = trocos.reduce(function (a, l) {
+        return a + Math.round(l.v * l.rate);
+      }, 0),
+      eff = recGs - trGs,
       s = mkSale(
         Date.now(),
         it.tipo,
@@ -289,7 +298,7 @@
       m = calcSale(tf, qty, S.fx.pyg, c.pct, cp, S.melhPeca, eff, bu);
     for (var k in m) s[k] = m[k];
     var fm = formaPorId(pay.forma),
-      tx = taxaGs(eff, fm),
+      tx = taxaGs(recGs, fm),
       txM = taxaMoeda(pay.recebido, pay.moeda, fm);
     s.livre -= tx;
     s.forma = fm.id;
@@ -304,7 +313,15 @@
     s.moeda = pay.moeda;
     s.recebido = pay.recebido;
     s.rate = Math.round(rate);
-    S.cash[pay.moeda] += pay.recebido - txM;
+    s.pags = linhas.map(function (l) {
+      var fee = taxaMoeda(l.v, l.moeda, fm);
+      S.cash[l.moeda] += l.v - fee;
+      return { moeda: l.moeda, v: l.v, rate: l.rate, fee: fee };
+    });
+    s.troco = trocos.map(function (l) {
+      S.cash[l.moeda] -= l.v;
+      return { moeda: l.moeda, v: l.v, rate: l.rate };
+    });
     s.lote = it.lote || '';
     S.sales.unshift(s);
     return s;

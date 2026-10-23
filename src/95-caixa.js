@@ -74,7 +74,8 @@
       t = S._t,
       q = S._qty,
       v = S._recv,
-      eff = v * ratePyg(m),
+      pt = pagTotais(),
+      eff = pt.liq,
       el = $('recH');
     if (!el) return;
     var trava = Math.round(t.repUSD * S.fx.pyg) + contasPeca(),
@@ -85,7 +86,7 @@
       'Equivale a ' +
       gs(eff) +
       (m !== 'pyg'
-        ? ' (cotação de hoje: ' + MN[m] + ' 1 = ' + gs(Math.round(ratePyg(m))) + ')'
+        ? ' (' + (numRate(S.rate1) > 0 ? 'câmbio combinado' : 'cotação de hoje') + ': ' + MN[m] + ' 1 = ' + gs(Math.round(rateDe(m, numRate(S.rate1)))) + ')'
         : '') +
       (t.price && Math.abs(diff) >= 1
         ? '. ' +
@@ -102,15 +103,20 @@
   function renderMoeda() {
     var t = S._t || T(),
       q = (S._qty = S.qty),
-      m = S.moeda,
-      listGs = t.price * q - (S.descGs || 0),
-      a = conv(listGs, 'pyg', m);
-    a = m === 'pyg' ? Math.round(a) : Math.round(a * 100) / 100;
+      m = S.moeda;
+    if (S._pagKey !== S._selKey) {
+      S._pagKey = S._selKey;
+      pagReset();
+    }
+    var listGs = t.price * q - (S.descGs || 0);
+    S._dueGs = listGs;
+    var r1 = rateDe(m, numRate(S.rate1)),
+      a = m === 'pyg' ? Math.round(listGs) : Math.round((listGs / r1) * 100) / 100;
     var bb = S.vBrinde ? S.vBrinde.ref + S.vBrinde.cor : '',
-      sig = [t.id, S._selKey, q, m, Math.round(S.fx.pyg), S.descGs || 0, bb].join('|');
+      sig = [t.id, S._selKey, q, m, Math.round(S.fx.pyg), S.descGs || 0, bb, S.rate1 || '', S.pagMisto ? 1 : 0].join('|');
     if (S.rec != null && S.recSig !== sig) S.rec = null;
     S._sig = sig;
-    var v = S.rec != null ? S.rec : a;
+    var v = S.rec != null ? S.rec : S.pagMisto ? 0 : a;
     S._recv = v;
     var mo = $('moedas');
     mo.textContent = '';
@@ -125,6 +131,7 @@
           x[1],
           function () {
             S.moeda = x[0];
+            S.rate1 = '';
             S.rec = null;
             render();
           },
@@ -133,7 +140,8 @@
       );
     });
     renderForma();
-    $('recIn').value = inVal(v, m);
+    $('recIn').value = S.pagMisto && S.rec == null ? '' : inVal(v, m);
+    pmRender();
     updateRec();
   }
 
@@ -163,55 +171,10 @@
       '</select>'
     );
   }
-  // Aba Caixa.
-  function renderCaixa() {
-    var el = $('v-caixa'),
-      r = reservas(),
-      c = S.cash;
-    var html =
-      '<div class="top"><div><h1>Caixa</h1><div class="crumb">Quanto dinheiro existe, quanto já tem dono e quanto é seu</div></div></div>';
-    if (S.cxMsg)
-      html +=
-        '<div class="note ' +
-        (S.cxMsg.indexOf('Não') === 0 ||
-        S.cxMsg.indexOf('Saldo') === 0 ||
-        S.cxMsg.indexOf('Informe') === 0
-          ? 'n-bad'
-          : 'n-ok') +
-        '" role="status">' +
-        esc(S.cxMsg) +
-        '</div>';
-    html +=
-      '<section class="kpis"><div class="kpi"><div class="lbl">Dinheiro total (aproximado)</div><b>' +
-      gs(r.wal) +
-      '</b><div class="hint">somando as três moedas ao câmbio de hoje</div></div>' +
-      '<div class="kpi"><div class="lbl">Tem que ficar guardado</div><b style="color:var(--warn)">' +
-      gs(r.guard + r.melh) +
-      '</b><div class="hint">mercadoria, colchão, contas e melhorias</div></div>' +
-      '<div class="kpi"><div class="lbl">Livre para você</div><b style="color:' +
-      (r.livre >= 0 ? 'var(--ok)' : 'var(--bad)') +
-      '">' +
-      gs(r.livre) +
-      '</b><div class="hint">o que sobra depois de separar tudo</div></div></section>';
-    if (r.livre < 0)
-      html +=
-        '<div class="note n-bad">O dinheiro em caixa está abaixo do que deveria estar separado. Evite retiradas até repor.</div>';
-    html +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Saldo por moeda</h2><div class="kpis">' +
-      ['pyg', 'usd', 'brl']
-        .map(function (m) {
-          return (
-            '<div class="kpi" style="background:var(--panel2)"><div class="lbl">' +
-            { pyg: 'Guaranis', usd: 'Dólares', brl: 'Reais' }[m] +
-            '</div><b>' +
-            fmtM(c[m], m) +
-            '</b><div class="hint">' +
-            (m === 'pyg' ? 'moeda base' : '≈ ' + gs(c[m] * ratePyg(m))) +
-            '</div></div>'
-          );
-        })
-        .join('') +
-      '</div></section>';
+  // O que já tem dono (reposição, colchão, contas, melhorias): usado no Dashboard.
+  function donoHtml() {
+    var r = reservas(),
+      html = '';
     html +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">O que já tem dono</h2><div class="hint" style="margin:2px 0 0">Valores acumulados pelas vendas, mais o saldo inicial que você informou.</div></div><div class="split">' +
       '<div class="sl"><span>Mercadoria (reposição)<small>' +
@@ -235,6 +198,11 @@
       '<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span>Caixa de melhorias da loja<small>opcional, não trava venda</small></span><b style="color:var(--info)">' +
       gs(r.melh) +
       '</b></div></div></section>';
+    return html;
+  }
+  // Contas pagas no mês: usado no Dashboard.
+  function contasPagasHtml() {
+    var html = '';
     var pmk = ymNow(),
       pays = (S.cpay || [])
         .filter(function (x) {
@@ -269,6 +237,47 @@
           '</b></div>'
         : '<div class="hint" style="margin:0">Nenhuma conta paga neste mês ainda.</div>') +
       '</section>';
+    return html;
+  }
+  // Aba Caixa.
+  function renderCaixa() {
+    var el = $('v-caixa'),
+      r = reservas(),
+      c = S.cash;
+    var html =
+      '<div class="top"><div><h1>Caixa</h1><div class="crumb">Quanto dinheiro existe, quanto já tem dono e quanto é seu</div></div></div>';
+    if (S.cxMsg)
+      html +=
+        '<div class="note ' +
+        (S.cxMsg.indexOf('Não') === 0 ||
+        S.cxMsg.indexOf('Saldo') === 0 ||
+        S.cxMsg.indexOf('Informe') === 0
+          ? 'n-bad'
+          : 'n-ok') +
+        '" role="status">' +
+        esc(S.cxMsg) +
+        '</div>';
+    html +=
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Dinheiro no caixa agora</h2><div class="hint" style="margin:2px 0 0">O que você tem em mãos, em cada moeda.</div></div><div class="kpis">' +
+      ['pyg', 'usd', 'brl']
+        .map(function (m) {
+          return (
+            '<div class="kpi" style="background:var(--panel2)"><div class="lbl">' +
+            { pyg: 'Guaranis', usd: 'Dólares', brl: 'Reais' }[m] +
+            '</div><b style="font-size:24px">' +
+            fmtM(c[m], m) +
+            '</b><div class="hint">' +
+            (m === 'pyg' ? 'moeda base' : '≈ ' + gs(Math.round(c[m] * ratePyg(m)))) +
+            '</div></div>'
+          );
+        })
+        .join('') +
+      '</div><div class="hint" style="margin:0">Total aproximado: <b>' +
+      gs(Math.round(r.wal)) +
+      '</b> ao câmbio de hoje. O que está livre e o que já tem dono ficam no <a href="#dash" data-act="view" data-id="dash" style="color:var(--accent-fg)">Dashboard</a>, aba Dinheiro.</div></section>';
+    if (r.livre < 0)
+      html +=
+        '<div class="note n-bad">O dinheiro em caixa está abaixo do que deveria estar separado. Evite retiradas até repor.</div>';
     html += retiradaHtml() + ccHtml();
     var t = S.tr;
     html +=
@@ -335,7 +344,7 @@
     html +=
       '<details class="card"' +
       (S.confReset ? ' open' : '') +
-      '><summary style="cursor:pointer;font-weight:600">Corrigir saldos (contagem real do caixa)</summary><div class="col" style="margin-top:12px"><div class="kpis">' +
+      '><summary style="cursor:pointer;font-weight:600">Corrigir saldos, saldo inicial e zerar o app</summary><div class="col" style="margin-top:12px"><div class="kpis">' +
       [
         ['ajP', 'Guaranis', inVal(c.pyg, 'pyg')],
         ['ajU', 'Dólares', inVal(c.usd, 'usd')],

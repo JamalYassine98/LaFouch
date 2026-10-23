@@ -23,6 +23,18 @@ S.exp = []; S.volume = 1; S.fxHist = []; S.janela = 30;
 # (nome, corpo JS que devolve um valor, esperado)
 TESTES = [
  # ---- contas da venda ----
+ ("pagamento em R$ com câmbio combinado e troco em G$: caixa, preço líquido e estorno", """
+   S.fx.pyg=7000; S.cash={pyg:100000,usd:0,brl:0}; S.volume=1000; S.exp=[]; S.fxHist=[]; S.lotes=[]; S.sales=[];
+   S.items=[{tipo:'pre',ref:'T1',grau:'+1',cor:'P',qty:5}];
+   const s=L.addSale(S.items[0],1,{moeda:'brl',recebido:20,forma:'din',pag:{rate:1400,extra:[],troco:[{moeda:'pyg',v:3000,rate:1}]}});
+   const a=[s.price, S.cash.brl, S.cash.pyg, s.pags.length, s.troco.length];
+   L.ACT.estorno(s.id); L.ACT.estorno(s.id);
+   return a.concat([S.cash.brl, S.cash.pyg])""", [25000, 20, 97000, 1, 1, 0, 100000]),
+ ("pagamento misto: duas moedas somam no caixa e na venda", """
+   S.fx.pyg=7000; S.cash={pyg:0,usd:0,brl:0}; S.volume=1000; S.exp=[]; S.fxHist=[]; S.lotes=[]; S.sales=[];
+   S.items=[{tipo:'pre',ref:'T1',grau:'+1',cor:'P',qty:5}];
+   const s=L.addSale(S.items[0],1,{moeda:'pyg',recebido:10000,forma:'deb',pag:{rate:1,extra:[{moeda:'usd',v:2,rate:7500}],troco:[]}});
+   return [s.price, S.cash.pyg, S.cash.usd, s.pags.length, s.taxa]""", [25000, 9800, 1.96, 2, 500]),
  ("período das vendas: hoje, semana (começa na segunda), mês e datas escolhidas", """
    const d=new Date(), y=d.getFullYear(), m=d.getMonth(), dia=d.getDate();
    const iniSem=new Date(y,m,dia-((d.getDay()+6)%7)).getTime(), iniMes=new Date(y,m,1).getTime(), iniDia=new Date(y,m,dia).getTime();

@@ -308,7 +308,7 @@
     var sel = S._vsel,
       qty = S.qty;
     if (!sel || sel.qty <= 0) return;
-    if (!(S._recv > 0)) {
+    if (!(pagTotais().rec > 0)) {
       say('Informe o valor recebido.');
       render();
       return;
@@ -339,6 +339,7 @@
       moeda: S.moeda,
       forma: S.forma,
       recebido: S._recv,
+      pag: pagPayload(),
       brinde: br
         ? {
             tipo: br.tipo,
@@ -354,6 +355,7 @@
     });
     S.pisoConf = '';
     S.forma = 'din';
+    pagReset();
     S.descTxt = '';
     S.vBrinde = null;
     S.vMotivo = '';

@@ -200,6 +200,12 @@
         ' retirados de ' +
         gs(rt.lucroLivre) +
         ' de lucro livre</span></span><button class="mini" data-act="view" data-id="caixa">Abrir</button></div></section>';
+      var pmk = ymNow(),
+        pays = (S.cpay || []).filter(function (x) {
+          return x.ym === pmk;
+        });
+      h += dFold('dono', 'Quanto já tem dono', 'guardado ' + gs(Math.round(r.guard + r.melh)) + ' de ' + gs(Math.round(r.wal)), 'var(--sub)', donoHtml());
+      h += dFold('pagas', 'Contas pagas neste mês', pays.length + ' conta(s) paga(s)', 'var(--sub)', contasPagasHtml());
       h += dFold('two', 'Reposição e contas (30 dias)', 'quanto falta para repor e quanto das contas já foi separado', 'var(--sub)', o.two);
       return h;
     }

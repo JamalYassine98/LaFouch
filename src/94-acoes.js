@@ -97,7 +97,14 @@
               : '')
         );
       })[0];
-      S.cash[s.moeda] -= s.recebido - (s.taxaM || 0);
+      if (s.pags) {
+        s.pags.forEach(function (l) {
+          S.cash[l.moeda] -= l.v - (l.fee || 0);
+        });
+        (s.troco || []).forEach(function (l) {
+          S.cash[l.moeda] += l.v;
+        });
+      } else S.cash[s.moeda] -= s.recebido - (s.taxaM || 0);
       estornoBrinde(s);
       if (it) {
         it.qty += s.qty;
