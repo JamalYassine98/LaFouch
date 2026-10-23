@@ -117,7 +117,7 @@
     var head = html;
     html = '';
     var parts = [
-      ['Reposição da mercadoria', usd(repU) + ' guardados em dólar', rep, '#00c8ff'],
+      ['Reposição da mercadoria', usd0(repU) + ' guardados em dólar', rep, '#00c8ff'],
       ['Contas da loja e de casa', 'Obrigatório', con, '#a2447c'],
       [
         'Colchão de segurança',
@@ -167,7 +167,7 @@
     html += '<div class="two">';
     html +=
       '<section class="card col"><h2 style="margin:0;font-size:16px">Reposição em dólar</h2><div style="font-size:14px">Guardado para repor: <b>' +
-      usd(repU) +
+      usd0(repU) +
       '</b></div>' +
       '<div class="hint" style="margin:0">Separado nas vendas: ' +
       gs(rep) +

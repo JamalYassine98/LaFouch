@@ -80,6 +80,26 @@
     );
   }
   // Aba Câmbio.
+  // Cartão da cotação interna da loja.
+  function fxLojaHtml() {
+    var f = S.fx,
+      r = Math.round(fxLoja('brl'));
+    return (
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cotação da loja (opcional)</h2><div class="hint" style="margin:2px 0 0">Seu câmbio de balcão, normalmente mais favorável à loja que o do mercado. Quando você receber em dólar ou real e não digitar um câmbio, o app usa este. Deixe em branco para usar o do mercado.</div></div>' +
+      '<div class="sel" style="flex-wrap:wrap"><div style="flex:1 1 140px"><div class="lbl">US$ 1 = G$</div><input class="in" id="fxiG" inputmode="numeric" data-fxi="pyg" placeholder="' + dots(f.pyg) + '" value="' + esc(S.fxInt.pyg) + '" aria-label="Dólar da loja em guaranis"></div>' +
+      '<div style="flex:1 1 140px"><div class="lbl">US$ 1 = R$</div><input class="in" id="fxiB" inputmode="decimal" data-fxi="brl" placeholder="' + f.brl.toFixed(2).replace('.', ',') + '" value="' + esc(S.fxInt.brl) + '" aria-label="Dólar da loja em reais"></div></div>' +
+      '<div class="hint" id="fxiH" role="status" style="margin:0">' + fxLojaTexto() + '</div></section>'
+    );
+  }
+  function fxLojaTexto() {
+    var f = S.fx;
+    if (!(parseDec(S.fxInt.pyg, 'pyg') > 0) && !(parseDec(S.fxInt.brl, 'usd') > 0))
+      return 'Sem cotação própria: usando a do mercado.';
+    var u = Math.round(rateDe('usd', 0)),
+      b = Math.round(rateDe('brl', 0)),
+      bm = Math.round(f.pyg / f.brl);
+    return 'Valendo na loja: US$ 1 = ' + gsRaw(u) + ' · R$ 1 = ' + gsRaw(b) + ' (mercado: ' + gsRaw(f.pyg) + ' e ' + gsRaw(bm) + ').';
+  }
   function renderFx() {
     var el = $('v-fx'),
       f = S.fx,
@@ -112,6 +132,7 @@
       esc(f.status) +
       (f.ts ? ' Última atualização às ' + fh(f.ts) + '.' : '') +
       '</div>';
+    html += fxLojaHtml();
     html +=
       '<section class="card col"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px"><div><h2 style="margin:0;font-size:16px">Dólar nos últimos ' +
       h.length +

@@ -86,7 +86,7 @@
       'Equivale a ' +
       gs(eff) +
       (m !== 'pyg'
-        ? ' (' + (numRate(S.rate1) > 0 ? 'câmbio combinado' : 'cotação de hoje') + ': ' + MN[m] + ' 1 = ' + gsRaw(Math.round(rateDe(m, numRate(S.rate1)))) + ')'
+        ? ' (' + (numRate(S.rate1) > 0 ? 'câmbio combinado' : fxOrigem(m)) + ': ' + MN[m] + ' 1 = ' + gsRaw(Math.round(rateDe(m, numRate(S.rate1)))) + ')'
         : '') +
       (t.price && Math.abs(diff) >= 1
         ? '. ' +

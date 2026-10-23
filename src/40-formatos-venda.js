@@ -10,7 +10,7 @@
     var m = S.moedaP;
     if ((m === 'usd' || m === 'brl') && S.fx && S.fx.pyg > 0) {
       var r = m === 'usd' ? S.fx.pyg : S.fx.brl > 0 ? S.fx.pyg / S.fx.brl : 0;
-      if (r > 0) return (m === 'usd' ? 'US$ ' : 'R$ ') + nf(n / r, m);
+      if (r > 0) return (m === 'usd' ? 'US$ ' : 'R$ ') + dots(Math.round(n / r));
     }
     return 'G$ ' + dots(n);
   };
@@ -30,6 +30,13 @@
   }
   var usd = function (n) {
     return fmtM(n, 'usd');
+  };
+  // Dólar sem centavos (painéis e resumos: a loja não trabalha com centavos).
+  var usd0 = function (n) {
+    return 'US$ ' + dots(Math.round(n));
+  };
+  var fmtM0 = function (v, m) {
+    return m === 'pyg' ? gsRaw(v) : (m === 'usd' ? 'US$ ' : 'R$ ') + dots(Math.round(v));
   };
   var pc = function (n) {
     return (n * 100).toFixed(1).replace('.', ',') + '%';

@@ -308,9 +308,9 @@
               'Contas em ' +
               m.toUpperCase() +
               ': precisa de ' +
-              fmtM(f.pm[m].need, m) +
+              fmtM0(f.pm[m].need, m) +
               ' e tem ' +
-              fmtM(f.pm[m].tem, m) +
+              fmtM0(f.pm[m].tem, m) +
               '. Troque moeda na aba Caixa antes de vencer.'
             );
           })
@@ -322,7 +322,7 @@
         h += dxRow(
           esc(x.nome),
           (x.semDia ? 'sem dia definido (fim do mês)' : 'dia ' + fd(x.ts)),
-          fmtM(x.orig, x.moeda)
+          fmtM0(x.orig, x.moeda)
         );
       });
       h += '</div>';

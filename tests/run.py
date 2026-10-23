@@ -483,7 +483,7 @@ async def main():
               const r1 = L.resultadoMes(new Date().getFullYear(), new Date().getMonth()).perdas;
               const bad = L.descartar(it, 999, '');
               return [g0, g1, g2, q0 - it.qty, S.dlog.length - n0, v > 0, r1 - r0 === v, bad === null]; }""")
-            ok = r[0].startswith('G$') and r[1].startswith('US$ 100,00') and r[2].startswith('R$ 500,00') and r[3:] == [2, 1, True, True, True] and not pg.erros
+            ok = r[0].startswith('G$') and r[1] == 'US$ 100' and r[2] == 'R$ 500' and r[3:] == [2, 1, True, True, True] and not pg.erros
             total += 1
             print(('  ok  ' if ok else ' FALHA ') + 'moeda principal (G$/US$/R$) e descarte entra como prejuízo')
             if not ok: falhas.append('moeda/descarte'); print('        veio', r, pg.erros)
@@ -566,6 +566,18 @@ async def main():
             total += 1
             print(('  ok  ' if ok else ' FALHA ') + 'câmbio: cotações em G$ mesmo com dólar como moeda principal')
             if not ok: falhas.append('cambio moeda'); print('        veio', r, pg.erros)
+            await pg.close()
+
+            # cotação da loja preenche o câmbio; dashboard sem centavos
+            pg = await pagina()
+            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.fx.pyg = 7000; S.fx.brl = 5;
+              const a = L.rateDe('brl', 0); S.fxInt.brl = '5,18'; const b = L.rateDe('brl', 0); S.fxInt.pyg = '7100'; const c = [L.rateDe('usd', 0), Math.round(L.rateDe('brl', 0)), L.rateDe('brl', 1300)];
+              S.fxInt = {pyg: '', brl: ''}; S.moedaP = 'usd'; const g = L.gs(7000 * 84.78); S.moedaP = 'pyg';
+              return [a, Math.round(b), c, g]; }""")
+            ok = r[0] == 1400 and r[1] == 1351 and r[2] == [7100, 1371, 1300] and r[3] == 'US$ 85' and not pg.erros
+            total += 1
+            print(('  ok  ' if ok else ' FALHA ') + 'cotação da loja preenche o câmbio e valores sem centavos')
+            if not ok: falhas.append('cotacao loja'); print('        veio', r, pg.erros)
             await pg.close()
 
             # contagem de estoque no cartão "Em estoque": por valor, com resumo e aplicação

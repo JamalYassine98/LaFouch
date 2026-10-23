@@ -355,7 +355,7 @@
       });
       html +=
         '</div><div class="note n-info">Lista de compras (cobre ~45 dias): custo estimado <b>' +
-        usd(totC) +
+        usd0(totC) +
         '</b>.</div>';
     }
     html += '</section>';
@@ -369,7 +369,7 @@
       pa.forEach(function (m) {
         html += dxRow(
           dxNome(m),
-          Math.round(m.diasParado) + ' dias sem vender · ' + m.stock + ' un. · ' + usd(m.costUsd) + ' parados',
+          Math.round(m.diasParado) + ' dias sem vender · ' + m.stock + ' un. · ' + usd0(m.costUsd) + ' parados',
           gs(m.pp.saida),
           '<button class="chip" data-act="saida" data-id="' + esc(m.key) + '">Vender com saída</button>'
         );
@@ -424,15 +424,15 @@
       });
       html +=
         '<section class="card col"><div><h2 style="margin:0;font-size:16px">Perdas e sobras de estoque (30 dias)</h2><div class="hint" style="margin:2px 0 0">Diferenças achadas nas contagens, em custo.</div></div><div class="split">' +
-        dxRow('Faltaram', ct.length + ' contagem(ns)', usd(Math.abs(perd))) +
-        dxRow('Sobraram', 'peças a mais que o app', usd(sob));
+        dxRow('Faltaram', ct.length + ' contagem(ns)', usd0(Math.abs(perd))) +
+        dxRow('Sobraram', 'peças a mais que o app', usd0(sob));
       Object.keys(porP)
         .sort(function (a, b) {
           return porP[a] - porP[b];
         })
         .slice(0, 5)
         .forEach(function (r) {
-          html += dxRow(esc(pn(r)), 'mais perdido', usd(Math.abs(porP[r])));
+          html += dxRow(esc(pn(r)), 'mais perdido', usd0(Math.abs(porP[r])));
         });
       html += '</div></section>';
     }

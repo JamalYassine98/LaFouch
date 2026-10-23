@@ -10,7 +10,25 @@
   ];
   // Câmbio usado: o manual (se digitado) ou o de hoje.
   function rateDe(m, r) {
-    return m === 'pyg' ? 1 : r > 0 ? r : ratePyg(m);
+    return m === 'pyg' ? 1 : r > 0 ? r : fxLoja(m) || ratePyg(m);
+  }
+  // Cotação interna da loja (aba Câmbio): preenche o câmbio quando você não digita um. 0 = usar a do mercado.
+  S.fxInt = { pyg: '', brl: '' };
+  function fxLoja(m) {
+    var g = parseDec(S.fxInt.pyg, 'pyg'),
+      b = parseDec(S.fxInt.brl, 'usd');
+    if (!(g > 0) && !(b > 0)) return 0;
+    if (m === 'usd') return g > 0 ? g : 0;
+    if (m === 'brl') {
+      var gg = g > 0 ? g : S.fx.pyg,
+        bb = b > 0 ? b : S.fx.brl;
+      return bb > 0 ? gg / bb : 0;
+    }
+    return 0;
+  }
+  // Texto "câmbio da loja" ou "cotação de hoje" conforme o que está valendo.
+  function fxOrigem(m) {
+    return fxLoja(m) > 0 ? 'cotação da loja' : 'cotação de hoje';
   }
   function numRate(txt) {
     return parseDec(txt, 'pyg');
@@ -133,7 +151,7 @@
     if (x.m !== 'pyg') {
       var r = mk('input', 'in');
       r.setAttribute('inputmode', 'numeric');
-      r.placeholder = 'Câmbio ' + dots(Math.round(ratePyg(x.m)));
+      r.placeholder = 'Câmbio ' + dots(Math.round(rateDe(x.m, 0)));
       r.setAttribute('aria-label', 'Câmbio de ' + x.m.toUpperCase() + ' em guaranis (opcional)');
       r.value = x.r || '';
       r.style.cssText = 'flex:1 1 110px;width:auto';
@@ -163,7 +181,7 @@
     var m = S.moeda;
     $('rate1B').hidden = m === 'pyg';
     if (m === 'pyg') S.rate1 = '';
-    $('rate1In').placeholder = 'Câmbio de hoje: ' + dots(Math.round(ratePyg(m)));
+    $('rate1In').placeholder = 'Câmbio ' + (fxLoja(m) > 0 ? 'da loja' : 'de hoje') + ': ' + dots(Math.round(rateDe(m, 0)));
     if ($('rate1In').value !== (S.rate1 || '')) $('rate1In').value = S.rate1 || '';
     // botão de pagar com mais de uma moeda
     var tg = $('pmTog');

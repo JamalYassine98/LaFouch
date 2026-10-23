@@ -8769,7 +8769,7 @@
     var m = S.moedaP;
     if ((m === 'usd' || m === 'brl') && S.fx && S.fx.pyg > 0) {
       var r = m === 'usd' ? S.fx.pyg : S.fx.brl > 0 ? S.fx.pyg / S.fx.brl : 0;
-      if (r > 0) return (m === 'usd' ? 'US$ ' : 'R$ ') + nf(n / r, m);
+      if (r > 0) return (m === 'usd' ? 'US$ ' : 'R$ ') + dots(Math.round(n / r));
     }
     return 'G$ ' + dots(n);
   };
@@ -8789,6 +8789,13 @@
   }
   var usd = function (n) {
     return fmtM(n, 'usd');
+  };
+  // Dólar sem centavos (painéis e resumos: a loja não trabalha com centavos).
+  var usd0 = function (n) {
+    return 'US$ ' + dots(Math.round(n));
+  };
+  var fmtM0 = function (v, m) {
+    return m === 'pyg' ? gsRaw(v) : (m === 'usd' ? 'US$ ' : 'R$ ') + dots(Math.round(v));
   };
   var pc = function (n) {
     return (n * 100).toFixed(1).replace('.', ',') + '%';
@@ -12124,7 +12131,7 @@
       });
       html +=
         '</div><div class="note n-info">Lista de compras (cobre ~45 dias): custo estimado <b>' +
-        usd(totC) +
+        usd0(totC) +
         '</b>.</div>';
     }
     html += '</section>';
@@ -12138,7 +12145,7 @@
       pa.forEach(function (m) {
         html += dxRow(
           dxNome(m),
-          Math.round(m.diasParado) + ' dias sem vender · ' + m.stock + ' un. · ' + usd(m.costUsd) + ' parados',
+          Math.round(m.diasParado) + ' dias sem vender · ' + m.stock + ' un. · ' + usd0(m.costUsd) + ' parados',
           gs(m.pp.saida),
           '<button class="chip" data-act="saida" data-id="' + esc(m.key) + '">Vender com saída</button>'
         );
@@ -12193,15 +12200,15 @@
       });
       html +=
         '<section class="card col"><div><h2 style="margin:0;font-size:16px">Perdas e sobras de estoque (30 dias)</h2><div class="hint" style="margin:2px 0 0">Diferenças achadas nas contagens, em custo.</div></div><div class="split">' +
-        dxRow('Faltaram', ct.length + ' contagem(ns)', usd(Math.abs(perd))) +
-        dxRow('Sobraram', 'peças a mais que o app', usd(sob));
+        dxRow('Faltaram', ct.length + ' contagem(ns)', usd0(Math.abs(perd))) +
+        dxRow('Sobraram', 'peças a mais que o app', usd0(sob));
       Object.keys(porP)
         .sort(function (a, b) {
           return porP[a] - porP[b];
         })
         .slice(0, 5)
         .forEach(function (r) {
-          html += dxRow(esc(pn(r)), 'mais perdido', usd(Math.abs(porP[r])));
+          html += dxRow(esc(pn(r)), 'mais perdido', usd0(Math.abs(porP[r])));
         });
       html += '</div></section>';
     }
@@ -12679,9 +12686,9 @@
               'Contas em ' +
               m.toUpperCase() +
               ': precisa de ' +
-              fmtM(f.pm[m].need, m) +
+              fmtM0(f.pm[m].need, m) +
               ' e tem ' +
-              fmtM(f.pm[m].tem, m) +
+              fmtM0(f.pm[m].tem, m) +
               '. Troque moeda na aba Caixa antes de vencer.'
             );
           })
@@ -12693,7 +12700,7 @@
         h += dxRow(
           esc(x.nome),
           (x.semDia ? 'sem dia definido (fim do mês)' : 'dia ' + fd(x.ts)),
-          fmtM(x.orig, x.moeda)
+          fmtM0(x.orig, x.moeda)
         );
       });
       h += '</div>';
@@ -13985,7 +13992,25 @@
   ];
   // Câmbio usado: o manual (se digitado) ou o de hoje.
   function rateDe(m, r) {
-    return m === 'pyg' ? 1 : r > 0 ? r : ratePyg(m);
+    return m === 'pyg' ? 1 : r > 0 ? r : fxLoja(m) || ratePyg(m);
+  }
+  // Cotação interna da loja (aba Câmbio): preenche o câmbio quando você não digita um. 0 = usar a do mercado.
+  S.fxInt = { pyg: '', brl: '' };
+  function fxLoja(m) {
+    var g = parseDec(S.fxInt.pyg, 'pyg'),
+      b = parseDec(S.fxInt.brl, 'usd');
+    if (!(g > 0) && !(b > 0)) return 0;
+    if (m === 'usd') return g > 0 ? g : 0;
+    if (m === 'brl') {
+      var gg = g > 0 ? g : S.fx.pyg,
+        bb = b > 0 ? b : S.fx.brl;
+      return bb > 0 ? gg / bb : 0;
+    }
+    return 0;
+  }
+  // Texto "câmbio da loja" ou "cotação de hoje" conforme o que está valendo.
+  function fxOrigem(m) {
+    return fxLoja(m) > 0 ? 'cotação da loja' : 'cotação de hoje';
   }
   function numRate(txt) {
     return parseDec(txt, 'pyg');
@@ -14108,7 +14133,7 @@
     if (x.m !== 'pyg') {
       var r = mk('input', 'in');
       r.setAttribute('inputmode', 'numeric');
-      r.placeholder = 'Câmbio ' + dots(Math.round(ratePyg(x.m)));
+      r.placeholder = 'Câmbio ' + dots(Math.round(rateDe(x.m, 0)));
       r.setAttribute('aria-label', 'Câmbio de ' + x.m.toUpperCase() + ' em guaranis (opcional)');
       r.value = x.r || '';
       r.style.cssText = 'flex:1 1 110px;width:auto';
@@ -14138,7 +14163,7 @@
     var m = S.moeda;
     $('rate1B').hidden = m === 'pyg';
     if (m === 'pyg') S.rate1 = '';
-    $('rate1In').placeholder = 'Câmbio de hoje: ' + dots(Math.round(ratePyg(m)));
+    $('rate1In').placeholder = 'Câmbio ' + (fxLoja(m) > 0 ? 'da loja' : 'de hoje') + ': ' + dots(Math.round(rateDe(m, 0)));
     if ($('rate1In').value !== (S.rate1 || '')) $('rate1In').value = S.rate1 || '';
     // botão de pagar com mais de uma moeda
     var tg = $('pmTog');
@@ -17442,7 +17467,7 @@
     var head = html;
     html = '';
     var parts = [
-      ['Reposição da mercadoria', usd(repU) + ' guardados em dólar', rep, '#00c8ff'],
+      ['Reposição da mercadoria', usd0(repU) + ' guardados em dólar', rep, '#00c8ff'],
       ['Contas da loja e de casa', 'Obrigatório', con, '#a2447c'],
       [
         'Colchão de segurança',
@@ -17492,7 +17517,7 @@
     html += '<div class="two">';
     html +=
       '<section class="card col"><h2 style="margin:0;font-size:16px">Reposição em dólar</h2><div style="font-size:14px">Guardado para repor: <b>' +
-      usd(repU) +
+      usd0(repU) +
       '</b></div>' +
       '<div class="hint" style="margin:0">Separado nas vendas: ' +
       gs(rep) +
@@ -17686,6 +17711,26 @@
     );
   }
   // Aba Câmbio.
+  // Cartão da cotação interna da loja.
+  function fxLojaHtml() {
+    var f = S.fx,
+      r = Math.round(fxLoja('brl'));
+    return (
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cotação da loja (opcional)</h2><div class="hint" style="margin:2px 0 0">Seu câmbio de balcão, normalmente mais favorável à loja que o do mercado. Quando você receber em dólar ou real e não digitar um câmbio, o app usa este. Deixe em branco para usar o do mercado.</div></div>' +
+      '<div class="sel" style="flex-wrap:wrap"><div style="flex:1 1 140px"><div class="lbl">US$ 1 = G$</div><input class="in" id="fxiG" inputmode="numeric" data-fxi="pyg" placeholder="' + dots(f.pyg) + '" value="' + esc(S.fxInt.pyg) + '" aria-label="Dólar da loja em guaranis"></div>' +
+      '<div style="flex:1 1 140px"><div class="lbl">US$ 1 = R$</div><input class="in" id="fxiB" inputmode="decimal" data-fxi="brl" placeholder="' + f.brl.toFixed(2).replace('.', ',') + '" value="' + esc(S.fxInt.brl) + '" aria-label="Dólar da loja em reais"></div></div>' +
+      '<div class="hint" id="fxiH" role="status" style="margin:0">' + fxLojaTexto() + '</div></section>'
+    );
+  }
+  function fxLojaTexto() {
+    var f = S.fx;
+    if (!(parseDec(S.fxInt.pyg, 'pyg') > 0) && !(parseDec(S.fxInt.brl, 'usd') > 0))
+      return 'Sem cotação própria: usando a do mercado.';
+    var u = Math.round(rateDe('usd', 0)),
+      b = Math.round(rateDe('brl', 0)),
+      bm = Math.round(f.pyg / f.brl);
+    return 'Valendo na loja: US$ 1 = ' + gsRaw(u) + ' · R$ 1 = ' + gsRaw(b) + ' (mercado: ' + gsRaw(f.pyg) + ' e ' + gsRaw(bm) + ').';
+  }
   function renderFx() {
     var el = $('v-fx'),
       f = S.fx,
@@ -17718,6 +17763,7 @@
       esc(f.status) +
       (f.ts ? ' Última atualização às ' + fh(f.ts) + '.' : '') +
       '</div>';
+    html += fxLojaHtml();
     html +=
       '<section class="card col"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px"><div><h2 style="margin:0;font-size:16px">Dólar nos últimos ' +
       h.length +
@@ -19173,7 +19219,7 @@
       'Equivale a ' +
       gs(eff) +
       (m !== 'pyg'
-        ? ' (' + (numRate(S.rate1) > 0 ? 'câmbio combinado' : 'cotação de hoje') + ': ' + MN[m] + ' 1 = ' + gsRaw(Math.round(rateDe(m, numRate(S.rate1)))) + ')'
+        ? ' (' + (numRate(S.rate1) > 0 ? 'câmbio combinado' : fxOrigem(m)) + ': ' + MN[m] + ' 1 = ' + gsRaw(Math.round(rateDe(m, numRate(S.rate1)))) + ')'
         : '') +
       (t.price && Math.abs(diff) >= 1
         ? '. ' +
@@ -20983,6 +21029,17 @@
     });
   };
 
+  // ---------- Cotação da loja
+  document.addEventListener('input', function (ev) {
+    var t = ev.target,
+      k = t.getAttribute && t.getAttribute('data-fxi');
+    if (!k) return;
+    S.fxInt[k] = t.value.replace(k === 'pyg' ? /\D/g : /[^\d.,]/g, '');
+    var h = $('fxiH');
+    if (h) h.textContent = fxLojaTexto();
+    S.rec = null;
+    saveSoon();
+  });
   // ---------- Moeda principal
   ACT.moedap = function (id) {
     S.moedaP = id === 'usd' || id === 'brl' ? id : 'pyg';
@@ -21220,6 +21277,7 @@
       'tolUsd',
       'volAuto',
       'retiradas',
+      'fxInt',
       'descartes',
       'moedaP',
       'confCx',
@@ -21291,6 +21349,6 @@
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, whiten: whiten, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, vendaPrevia: vendaPrevia, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, backupLembrete: backupLembrete, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
+      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, vendaPrevia: vendaPrevia, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, backupLembrete: backupLembrete, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, rateDe: rateDe, fxLoja: fxLoja, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
     };
 })();
