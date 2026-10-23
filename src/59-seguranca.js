@@ -283,7 +283,7 @@
   function ajustesFinHtml() {
     var h = '';
     h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Moeda principal</h2><div class="hint" style="margin:2px 0 0">Os totais, lucros e contas aparecem nesta moeda, convertidos pelo câmbio do dia. Os campos onde você digita valores em guaranis continuam em G$.</div></div><div class="nav" id="moedaPB">' +
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Moeda principal</h2><div class="hint" style="margin:2px 0 0">Os totais, lucros e contas aparecem nesta moeda, convertidos pelo câmbio do dia. Os campos onde você digita valores também passam a usar esta moeda. As cotações continuam sempre em guaranis.</div></div><div class="nav" id="moedaPB">' +
       [['pyg', 'Guarani (G$)'], ['usd', 'Dólar (US$)'], ['brl', 'Real (R$)']]
         .map(function (m) {
           var on = (S.moedaP || 'pyg') === m[0];

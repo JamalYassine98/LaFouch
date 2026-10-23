@@ -379,8 +379,8 @@
       el.textContent =
         'Abaixo do piso' +
         (fx ? ' da faixa ' + fx.nome + ' (margem mínima ' + fx.margem + '%)' : '') +
-        ': piso G$ ' +
-        dots(v.pisoTot) +
+        ': piso ' +
+        gs(v.pisoTot) +
         '. Lucro livre estimado ' +
         gs(v.c.livre) +
         bt +

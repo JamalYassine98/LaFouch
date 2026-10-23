@@ -259,8 +259,8 @@
       h =
         '<section class="card col"><div><h2 style="margin:0;font-size:16px">Fluxo de caixa projetado</h2><div class="hint" style="margin:2px 0 0">Se o ritmo de vendas dos últimos ' +
         f.base +
-        ' dias continuar (G$ ' +
-        dots(f.porDia) +
+        ' dias continuar (' +
+        gs(f.porDia) +
         ' por dia).</div></div><div class="tabs" role="group" aria-label="Horizonte">' +
         [30, 60, 90]
           .map(function (n) {
@@ -278,7 +278,7 @@
           })
           .join('') +
         '</div><div class="split">';
-    h += dxRow('Dinheiro hoje', 'carteira toda em guaranis', gs(f.wal));
+    h += dxRow('Dinheiro hoje', 'carteira toda somada', gs(f.wal));
     h += dxRow('Entra das vendas', 'estimativa', '+' + gs(f.entra));
     h += dxRow('Sai para repor mercadoria', 'parte das vendas que volta ao estoque', '−' + gs(f.repGs));
     h += dxRow(

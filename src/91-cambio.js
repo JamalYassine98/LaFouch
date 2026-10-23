@@ -93,16 +93,16 @@
     var html =
       '<div class="top"><div><h1>Câmbio</h1><div class="crumb">Cotação do dólar e do real em guaranis</div></div><div class="tabs"><button class="mini" data-act="fxnow">Atualizar agora</button></div></div>';
     html +=
-      '<section class="kpis"><div class="kpi"><div class="lbl">G$ por US$ 1</div><b>' +
-      gs(f.pyg).slice(3) +
+      '<section class="kpis"><div class="kpi"><div class="lbl">US$ 1 custa</div><b>' +
+      gsRaw(f.pyg) +
       '</b><div class="hint">' +
       f.src +
       '</div></div>' +
-      '<div class="kpi"><div class="lbl">G$ por R$ 1</div><b>' +
-      dots(Math.round(f.pyg / f.brl)) +
+      '<div class="kpi"><div class="lbl">R$ 1 custa</div><b>' +
+      gsRaw(Math.round(f.pyg / f.brl)) +
       '</b><div class="hint">calculado do dólar</div></div>' +
-      '<div class="kpi"><div class="lbl">R$ por US$ 1</div><b>' +
-      f.brl.toFixed(2).replace('.', ',') +
+      '<div class="kpi"><div class="lbl">US$ 1 custa</div><b>' +
+      'R$ ' + f.brl.toFixed(2).replace('.', ',') +
       '</b><div class="hint">cotação do real</div></div>' +
       '<div class="kpi"><div class="lbl">Próxima busca em</div><b id="cd">--:--</b><div class="hint">automática a cada 3 minutos</div></div></section>';
     html +=

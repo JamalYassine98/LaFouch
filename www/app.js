@@ -8773,6 +8773,10 @@
     }
     return 'G$ ' + dots(n);
   };
+  // Sempre em guaranis (para cotações e valores que são, por natureza, G$).
+  function gsRaw(n) {
+    return 'G$ ' + dots(n);
+  }
   // Formata número conforme a moeda.
   function nf(v, m) {
     return m === 'pyg'
@@ -9096,7 +9100,7 @@
     var parts = [
       [
         'Reposição da mercadoria',
-        usd(sale.repUSD) + ' ao câmbio de hoje (' + gs(S.fx.pyg) + '). Obrigatório.',
+        usd(sale.repUSD) + ' ao câmbio de hoje (US$ 1 = ' + gsRaw(S.fx.pyg) + '). Obrigatório.',
         sale.rep,
         '#00c8ff'
       ],
@@ -12580,8 +12584,8 @@
       h =
         '<section class="card col"><div><h2 style="margin:0;font-size:16px">Fluxo de caixa projetado</h2><div class="hint" style="margin:2px 0 0">Se o ritmo de vendas dos últimos ' +
         f.base +
-        ' dias continuar (G$ ' +
-        dots(f.porDia) +
+        ' dias continuar (' +
+        gs(f.porDia) +
         ' por dia).</div></div><div class="tabs" role="group" aria-label="Horizonte">' +
         [30, 60, 90]
           .map(function (n) {
@@ -12599,7 +12603,7 @@
           })
           .join('') +
         '</div><div class="split">';
-    h += dxRow('Dinheiro hoje', 'carteira toda em guaranis', gs(f.wal));
+    h += dxRow('Dinheiro hoje', 'carteira toda somada', gs(f.wal));
     h += dxRow('Entra das vendas', 'estimativa', '+' + gs(f.entra));
     h += dxRow('Sai para repor mercadoria', 'parte das vendas que volta ao estoque', '−' + gs(f.repGs));
     h += dxRow(
@@ -13233,7 +13237,7 @@
   function ajustesFinHtml() {
     var h = '';
     h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Moeda principal</h2><div class="hint" style="margin:2px 0 0">Os totais, lucros e contas aparecem nesta moeda, convertidos pelo câmbio do dia. Os campos onde você digita valores em guaranis continuam em G$.</div></div><div class="nav" id="moedaPB">' +
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Moeda principal</h2><div class="hint" style="margin:2px 0 0">Os totais, lucros e contas aparecem nesta moeda, convertidos pelo câmbio do dia. Os campos onde você digita valores também passam a usar esta moeda. As cotações continuam sempre em guaranis.</div></div><div class="nav" id="moedaPB">' +
       [['pyg', 'Guarani (G$)'], ['usd', 'Dólar (US$)'], ['brl', 'Real (R$)']]
         .map(function (m) {
           var on = (S.moedaP || 'pyg') === m[0];
@@ -13709,8 +13713,8 @@
       el.textContent =
         'Abaixo do piso' +
         (fx ? ' da faixa ' + fx.nome + ' (margem mínima ' + fx.margem + '%)' : '') +
-        ': piso G$ ' +
-        dots(v.pisoTot) +
+        ': piso ' +
+        gs(v.pisoTot) +
         '. Lucro livre estimado ' +
         gs(v.c.livre) +
         bt +
@@ -17385,7 +17389,7 @@
       (tot ? pc(liv / tot) : '0%') +
       ' do vendido</div></div>' +
       '<div class="kpi"><div class="lbl">Dólar hoje</div><b>' +
-      gs(S.fx.pyg) +
+      gsRaw(S.fx.pyg) +
       '</b><div class="hint">por US$ 1 · <a href="#fx" data-act="view" data-id="fx" style="color:var(--accent-fg)">ver câmbio</a></div></div></section>';
     var head = html;
     html = '';
@@ -17647,16 +17651,16 @@
     var html =
       '<div class="top"><div><h1>Câmbio</h1><div class="crumb">Cotação do dólar e do real em guaranis</div></div><div class="tabs"><button class="mini" data-act="fxnow">Atualizar agora</button></div></div>';
     html +=
-      '<section class="kpis"><div class="kpi"><div class="lbl">G$ por US$ 1</div><b>' +
-      gs(f.pyg).slice(3) +
+      '<section class="kpis"><div class="kpi"><div class="lbl">US$ 1 custa</div><b>' +
+      gsRaw(f.pyg) +
       '</b><div class="hint">' +
       f.src +
       '</div></div>' +
-      '<div class="kpi"><div class="lbl">G$ por R$ 1</div><b>' +
-      dots(Math.round(f.pyg / f.brl)) +
+      '<div class="kpi"><div class="lbl">R$ 1 custa</div><b>' +
+      gsRaw(Math.round(f.pyg / f.brl)) +
       '</b><div class="hint">calculado do dólar</div></div>' +
-      '<div class="kpi"><div class="lbl">R$ por US$ 1</div><b>' +
-      f.brl.toFixed(2).replace('.', ',') +
+      '<div class="kpi"><div class="lbl">US$ 1 custa</div><b>' +
+      'R$ ' + f.brl.toFixed(2).replace('.', ',') +
       '</b><div class="hint">cotação do real</div></div>' +
       '<div class="kpi"><div class="lbl">Próxima busca em</div><b id="cd">--:--</b><div class="hint">automática a cada 3 minutos</div></div></section>';
     html +=
@@ -18257,8 +18261,8 @@
     h +=
       '<section class="card col"><h2 style="margin:0;font-size:16px">Câmbio do dia</h2>' +
       (fx
-        ? '<div class="kpis"><div class="kpi" style="background:var(--panel2)"><div class="lbl">G$ por US$ 1</div><b>' +
-          dots(fx.p.pyg) +
+        ? '<div class="kpis"><div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 custa</div><b>' +
+          gsRaw(fx.p.pyg) +
           '</b>' +
           (fx.prev
             ? '<div class="hint">' +
@@ -18266,10 +18270,10 @@
               pc(Math.abs(fx.p.pyg / fx.prev.pyg - 1)) +
               ' sobre o dia anterior</div>'
             : '') +
-          '</div><div class="kpi" style="background:var(--panel2)"><div class="lbl">R$ por US$ 1</div><b>' +
+          '</div><div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 custa</div><b>R$ ' +
           fx.p.brl.toFixed(2).replace('.', ',') +
-          '</b></div><div class="kpi" style="background:var(--panel2)"><div class="lbl">G$ por R$ 1</div><b>' +
-          dots(Math.round(fx.p.pyg / fx.p.brl)) +
+          '</b></div><div class="kpi" style="background:var(--panel2)"><div class="lbl">R$ 1 custa</div><b>' +
+          gsRaw(Math.round(fx.p.pyg / fx.p.brl)) +
           '</b></div></div>' +
           (fx.exact
             ? ''
@@ -18490,10 +18494,10 @@
             s.pags && s.pags.length
               ? s.pags
                   .map(function (l) {
-                    return fmtM(l.v, l.moeda) + (l.moeda !== 'pyg' ? ' (câmbio ' + gs(Math.round(l.rate)) + ')' : '');
+                    return fmtM(l.v, l.moeda) + (l.moeda !== 'pyg' ? ' (câmbio ' + gsRaw(Math.round(l.rate)) + ')' : '');
                   })
                   .join(' + ')
-              : fmtM(s.recebido, s.moeda) + (s.moeda !== 'pyg' ? ' (cotação ' + gs(s.rate) + ')' : '')
+              : fmtM(s.recebido, s.moeda) + (s.moeda !== 'pyg' ? ' (cotação ' + gsRaw(s.rate) + ')' : '')
           ],
           [
             'Troco devolvido',
@@ -18508,9 +18512,9 @@
           ['Forma de pagamento', formaPorId(s.forma).nome + (s.taxa ? ' (taxa ' + gs(s.taxa) + ')' : '')],
           [
             'Câmbio no dia',
-            gs(s.fx) +
+            gsRaw(s.fx) +
               ' por US$ (hoje ' +
-              gs(S.fx.pyg) +
+              gsRaw(S.fx.pyg) +
               ', ' +
               (dx >= 0 ? '+' : '−') +
               pc(Math.abs(dx)) +
@@ -18828,7 +18832,7 @@
         d = $('muD').value.trim() || 'Melhoria da loja',
         r = reservas();
       if (!v) {
-        S.cxMsg = 'Informe o valor em guaranis.';
+        S.cxMsg = 'Informe o valor usado.';
       } else if (v > r.melh) {
         S.cxMsg = 'Saldo de melhorias insuficiente: há ' + gs(r.melh) + '.';
       } else if (v > S.cash.pyg) {
@@ -18848,8 +18852,8 @@
       };
       S.ini = {
         rep: parseDec($('ajR').value, 'usd'),
-        colch: parseDec($('ajC').value, 'pyg'),
-        melh: parseDec($('ajM').value, 'pyg')
+        colch: campoParaGs($('ajC').value),
+        melh: campoParaGs($('ajM').value)
       };
       S.cxMsg = 'Saldos salvos.';
       renderCaixa();
@@ -19121,7 +19125,7 @@
       'Equivale a ' +
       gs(eff) +
       (m !== 'pyg'
-        ? ' (' + (numRate(S.rate1) > 0 ? 'câmbio combinado' : 'cotação de hoje') + ': ' + MN[m] + ' 1 = ' + gs(Math.round(rateDe(m, numRate(S.rate1)))) + ')'
+        ? ' (' + (numRate(S.rate1) > 0 ? 'câmbio combinado' : 'cotação de hoje') + ': ' + MN[m] + ' 1 = ' + gsRaw(Math.round(rateDe(m, numRate(S.rate1)))) + ')'
         : '') +
       (t.price && Math.abs(diff) >= 1
         ? '. ' +
@@ -19302,7 +19306,7 @@
             '</div><b style="font-size:24px">' +
             fmtM(c[m], m) +
             '</b><div class="hint">' +
-            (m === 'pyg' ? 'moeda base' : '≈ ' + gs(Math.round(c[m] * ratePyg(m)))) +
+            (m === 'pyg' ? 'moeda base' : '≈ ' + gsRaw(Math.round(c[m] * ratePyg(m)))) +
             '</div></div>'
           );
         })
@@ -19403,8 +19407,8 @@
       '<div class="lbl">Saldo inicial das reservas (antes de usar o app)</div><div class="kpis">' +
       [
         ['ajR', 'Mercadoria (US$)', inVal(S.ini.rep, 'usd')],
-        ['ajC', 'Colchão (G$)', inVal(S.ini.colch, 'pyg')],
-        ['ajM', 'Melhorias (G$)', inVal(S.ini.melh, 'pyg')]
+        ['ajC', 'Colchão (' + mpSim() + ')', gsParaCampo(S.ini.colch)],
+        ['ajM', 'Melhorias (' + mpSim() + ')', gsParaCampo(S.ini.melh)]
       ]
         .map(function (x) {
           return (
@@ -19573,7 +19577,7 @@
         f.id +
         '" value="' +
         f.margem +
-        '" style="max-width:140px"></div><details><summary class="hint" style="cursor:pointer">Preço próprio por tipo (G$)</summary><div class="col" style="gap:8px;margin-top:8px">';
+        '" style="max-width:140px"></div><details><summary class="hint" style="cursor:pointer">Preço próprio por tipo (' + mpSim() + ')</summary><div class="col" style="gap:8px;margin-top:8px">';
       tipoAll().forEach(function (t) {
         if (!t.price) return;
         h +=

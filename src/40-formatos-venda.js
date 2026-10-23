@@ -14,6 +14,10 @@
     }
     return 'G$ ' + dots(n);
   };
+  // Sempre em guaranis (para cotações e valores que são, por natureza, G$).
+  function gsRaw(n) {
+    return 'G$ ' + dots(n);
+  }
   // Formata número conforme a moeda.
   function nf(v, m) {
     return m === 'pyg'
@@ -337,7 +341,7 @@
     var parts = [
       [
         'Reposição da mercadoria',
-        usd(sale.repUSD) + ' ao câmbio de hoje (' + gs(S.fx.pyg) + '). Obrigatório.',
+        usd(sale.repUSD) + ' ao câmbio de hoje (US$ 1 = ' + gsRaw(S.fx.pyg) + '). Obrigatório.',
         sale.rep,
         '#00c8ff'
       ],

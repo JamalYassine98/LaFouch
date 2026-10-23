@@ -545,6 +545,17 @@ async def main():
             if not ok: falhas.append('campos moeda'); print('        veio', r, pg.erros)
             await pg.close()
 
+            # câmbio e cotações sempre em guaranis, mesmo com outra moeda principal
+            pg = await pagina()
+            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.fx.pyg = 7000; S.fx.brl = 5; S.moedaP = 'usd';
+              L.setView('fx'); L.render(); const t = document.getElementById('v-fx') ? document.getElementById('v-fx').textContent : document.body.textContent;
+              return [t.indexOf('G$ 7.000') >= 0, t.indexOf('G$ 1.400') >= 0, t.indexOf('R$ 5,00') >= 0, t.indexOf('1,00') < 0 || t.indexOf('US$ 1 custa') >= 0]; }""")
+            ok = all(r) and not pg.erros
+            total += 1
+            print(('  ok  ' if ok else ' FALHA ') + 'câmbio: cotações em G$ mesmo com dólar como moeda principal')
+            if not ok: falhas.append('cambio moeda'); print('        veio', r, pg.erros)
+            await pg.close()
+
             # contagem de estoque no cartão "Em estoque": por valor, com resumo e aplicação
             pg = await pagina()
             await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.items = [

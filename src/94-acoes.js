@@ -286,7 +286,7 @@
         d = $('muD').value.trim() || 'Melhoria da loja',
         r = reservas();
       if (!v) {
-        S.cxMsg = 'Informe o valor em guaranis.';
+        S.cxMsg = 'Informe o valor usado.';
       } else if (v > r.melh) {
         S.cxMsg = 'Saldo de melhorias insuficiente: há ' + gs(r.melh) + '.';
       } else if (v > S.cash.pyg) {
@@ -306,8 +306,8 @@
       };
       S.ini = {
         rep: parseDec($('ajR').value, 'usd'),
-        colch: parseDec($('ajC').value, 'pyg'),
-        melh: parseDec($('ajM').value, 'pyg')
+        colch: campoParaGs($('ajC').value),
+        melh: campoParaGs($('ajM').value)
       };
       S.cxMsg = 'Saldos salvos.';
       renderCaixa();

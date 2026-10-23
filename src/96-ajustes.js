@@ -94,7 +94,7 @@
         f.id +
         '" value="' +
         f.margem +
-        '" style="max-width:140px"></div><details><summary class="hint" style="cursor:pointer">Preço próprio por tipo (G$)</summary><div class="col" style="gap:8px;margin-top:8px">';
+        '" style="max-width:140px"></div><details><summary class="hint" style="cursor:pointer">Preço próprio por tipo (' + mpSim() + ')</summary><div class="col" style="gap:8px;margin-top:8px">';
       tipoAll().forEach(function (t) {
         if (!t.price) return;
         h +=

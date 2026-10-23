@@ -227,8 +227,8 @@
     h +=
       '<section class="card col"><h2 style="margin:0;font-size:16px">Câmbio do dia</h2>' +
       (fx
-        ? '<div class="kpis"><div class="kpi" style="background:var(--panel2)"><div class="lbl">G$ por US$ 1</div><b>' +
-          dots(fx.p.pyg) +
+        ? '<div class="kpis"><div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 custa</div><b>' +
+          gsRaw(fx.p.pyg) +
           '</b>' +
           (fx.prev
             ? '<div class="hint">' +
@@ -236,10 +236,10 @@
               pc(Math.abs(fx.p.pyg / fx.prev.pyg - 1)) +
               ' sobre o dia anterior</div>'
             : '') +
-          '</div><div class="kpi" style="background:var(--panel2)"><div class="lbl">R$ por US$ 1</div><b>' +
+          '</div><div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 custa</div><b>R$ ' +
           fx.p.brl.toFixed(2).replace('.', ',') +
-          '</b></div><div class="kpi" style="background:var(--panel2)"><div class="lbl">G$ por R$ 1</div><b>' +
-          dots(Math.round(fx.p.pyg / fx.p.brl)) +
+          '</b></div><div class="kpi" style="background:var(--panel2)"><div class="lbl">R$ 1 custa</div><b>' +
+          gsRaw(Math.round(fx.p.pyg / fx.p.brl)) +
           '</b></div></div>' +
           (fx.exact
             ? ''
@@ -460,10 +460,10 @@
             s.pags && s.pags.length
               ? s.pags
                   .map(function (l) {
-                    return fmtM(l.v, l.moeda) + (l.moeda !== 'pyg' ? ' (câmbio ' + gs(Math.round(l.rate)) + ')' : '');
+                    return fmtM(l.v, l.moeda) + (l.moeda !== 'pyg' ? ' (câmbio ' + gsRaw(Math.round(l.rate)) + ')' : '');
                   })
                   .join(' + ')
-              : fmtM(s.recebido, s.moeda) + (s.moeda !== 'pyg' ? ' (cotação ' + gs(s.rate) + ')' : '')
+              : fmtM(s.recebido, s.moeda) + (s.moeda !== 'pyg' ? ' (cotação ' + gsRaw(s.rate) + ')' : '')
           ],
           [
             'Troco devolvido',
@@ -478,9 +478,9 @@
           ['Forma de pagamento', formaPorId(s.forma).nome + (s.taxa ? ' (taxa ' + gs(s.taxa) + ')' : '')],
           [
             'Câmbio no dia',
-            gs(s.fx) +
+            gsRaw(s.fx) +
               ' por US$ (hoje ' +
-              gs(S.fx.pyg) +
+              gsRaw(S.fx.pyg) +
               ', ' +
               (dx >= 0 ? '+' : '−') +
               pc(Math.abs(dx)) +

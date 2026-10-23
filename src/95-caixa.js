@@ -86,7 +86,7 @@
       'Equivale a ' +
       gs(eff) +
       (m !== 'pyg'
-        ? ' (' + (numRate(S.rate1) > 0 ? 'câmbio combinado' : 'cotação de hoje') + ': ' + MN[m] + ' 1 = ' + gs(Math.round(rateDe(m, numRate(S.rate1)))) + ')'
+        ? ' (' + (numRate(S.rate1) > 0 ? 'câmbio combinado' : 'cotação de hoje') + ': ' + MN[m] + ' 1 = ' + gsRaw(Math.round(rateDe(m, numRate(S.rate1)))) + ')'
         : '') +
       (t.price && Math.abs(diff) >= 1
         ? '. ' +
@@ -267,7 +267,7 @@
             '</div><b style="font-size:24px">' +
             fmtM(c[m], m) +
             '</b><div class="hint">' +
-            (m === 'pyg' ? 'moeda base' : '≈ ' + gs(Math.round(c[m] * ratePyg(m)))) +
+            (m === 'pyg' ? 'moeda base' : '≈ ' + gsRaw(Math.round(c[m] * ratePyg(m)))) +
             '</div></div>'
           );
         })
@@ -368,8 +368,8 @@
       '<div class="lbl">Saldo inicial das reservas (antes de usar o app)</div><div class="kpis">' +
       [
         ['ajR', 'Mercadoria (US$)', inVal(S.ini.rep, 'usd')],
-        ['ajC', 'Colchão (G$)', inVal(S.ini.colch, 'pyg')],
-        ['ajM', 'Melhorias (G$)', inVal(S.ini.melh, 'pyg')]
+        ['ajC', 'Colchão (' + mpSim() + ')', gsParaCampo(S.ini.colch)],
+        ['ajM', 'Melhorias (' + mpSim() + ')', gsParaCampo(S.ini.melh)]
       ]
         .map(function (x) {
           return (
