@@ -76,6 +76,7 @@
         if (it.usd < 0) perd += -it.usd * S.fx.pyg;
       });
     });
+    perd += somaCampo(S.descartes, 'valor', lim);
     r.perdas = Math.round(perd);
     r.retAvulsas = somaCampo(S.retiradas, 'valor', lim);
     r.retTotal = r.retAvulsas + r.contasPessoais;
@@ -91,7 +92,7 @@
     ['Contas da loja pagas', 'contasLoja'],
     ['Imprevistos', 'imprev'],
     ['Caixa de melhorias usada', 'melh'],
-    ['Perdas de estoque (contagem)', 'perdas'],
+    ['Perdas de estoque (contagem e descarte)', 'perdas'],
     ['Resultado da loja', 'resultado', true],
     ['Retiradas do dono (inclui contas de casa e pessoais)', 'retTotal'],
     ['Sobra do mês', 'sobra', true]

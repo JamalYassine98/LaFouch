@@ -328,6 +328,7 @@
       }
       S._resetAuth = false;
       S.retiradas = [];
+      S.descartes = [];
       S.confCx = [];
       S.items = [];
       S.sales = [];

@@ -282,6 +282,15 @@
   // ---------- partes da aba Ajustes: pagamento, segurança e cópias
   function ajustesFinHtml() {
     var h = '';
+    h +=
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Moeda principal</h2><div class="hint" style="margin:2px 0 0">Os totais, lucros e contas aparecem nesta moeda, convertidos pelo câmbio do dia. Os campos onde você digita valores em guaranis continuam em G$.</div></div><div class="nav" id="moedaPB">' +
+      [['pyg', 'Guarani (G$)'], ['usd', 'Dólar (US$)'], ['brl', 'Real (R$)']]
+        .map(function (m) {
+          var on = (S.moedaP || 'pyg') === m[0];
+          return '<button type="button" class="chip' + (on ? ' on' : '') + '" aria-pressed="' + on + '" data-act="moedap" data-id="' + m[0] + '">' + m[1] + '</button>';
+        })
+        .join('') +
+      '</div></section>';
     // formas de pagamento
     h +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Formas de pagamento e taxas</h2><div class="hint" style="margin:2px 0 0">A taxa (%) sai do seu lucro quando a venda é paga por essa forma. Dinheiro e Pix ficam em 0%. Confira as taxas da sua maquininha.</div></div>';

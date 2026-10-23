@@ -1408,6 +1408,7 @@
         });
         bx.appendChild(fld('Faixa', fb));
       }
+      if (!f.bulk && !smp) bx.appendChild(descarteBox(ref));
       // foto da cor selecionada
       var ps = mk('div', '');
       ps.appendChild(mk('div', 'lbl', 'Foto · ' + cor));
@@ -8763,7 +8764,13 @@
   function tAgo(d, h) {
     return now0 - d * DAY - (h || 0) * 3600000;
   }
+  // Mostra um valor (guardado em guaranis) na moeda principal escolhida em Ajustes.
   var gs = function (n) {
+    var m = S.moedaP;
+    if ((m === 'usd' || m === 'brl') && S.fx && S.fx.pyg > 0) {
+      var r = m === 'usd' ? S.fx.pyg : S.fx.brl > 0 ? S.fx.pyg / S.fx.brl : 0;
+      if (r > 0) return (m === 'usd' ? 'US$ ' : 'R$ ') + nf(n / r, m);
+    }
     return 'G$ ' + dots(n);
   };
   // Formata número conforme a moeda.
@@ -12341,6 +12348,7 @@
         if (it.usd < 0) perd += -it.usd * S.fx.pyg;
       });
     });
+    perd += somaCampo(S.descartes, 'valor', lim);
     r.perdas = Math.round(perd);
     r.retAvulsas = somaCampo(S.retiradas, 'valor', lim);
     r.retTotal = r.retAvulsas + r.contasPessoais;
@@ -12356,7 +12364,7 @@
     ['Contas da loja pagas', 'contasLoja'],
     ['Imprevistos', 'imprev'],
     ['Caixa de melhorias usada', 'melh'],
-    ['Perdas de estoque (contagem)', 'perdas'],
+    ['Perdas de estoque (contagem e descarte)', 'perdas'],
     ['Resultado da loja', 'resultado', true],
     ['Retiradas do dono (inclui contas de casa e pessoais)', 'retTotal'],
     ['Sobra do mês', 'sobra', true]
@@ -13175,6 +13183,15 @@
   // ---------- partes da aba Ajustes: pagamento, segurança e cópias
   function ajustesFinHtml() {
     var h = '';
+    h +=
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Moeda principal</h2><div class="hint" style="margin:2px 0 0">Os totais, lucros e contas aparecem nesta moeda, convertidos pelo câmbio do dia. Os campos onde você digita valores em guaranis continuam em G$.</div></div><div class="nav" id="moedaPB">' +
+      [['pyg', 'Guarani (G$)'], ['usd', 'Dólar (US$)'], ['brl', 'Real (R$)']]
+        .map(function (m) {
+          var on = (S.moedaP || 'pyg') === m[0];
+          return '<button type="button" class="chip' + (on ? ' on' : '') + '" aria-pressed="' + on + '" data-act="moedap" data-id="' + m[0] + '">' + m[1] + '</button>';
+        })
+        .join('') +
+      '</div></section>';
     // formas de pagamento
     h +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Formas de pagamento e taxas</h2><div class="hint" style="margin:2px 0 0">A taxa (%) sai do seu lucro quando a venda é paga por essa forma. Dinheiro e Pix ficam em 0%. Confira as taxas da sua maquininha.</div></div>';
@@ -14077,6 +14094,81 @@
     S._ratePend = true;
     render();
   });
+  // ===== Descarte: peças quebradas ou imprestáveis saem do estoque e viram prejuízo. =====
+  S.descartes = [];
+  S.moedaP = 'pyg';
+  // Dá baixa em n peças de um item. Custo = o que foi pago por peça (dólar) no câmbio de hoje.
+  function descartar(item, n, motivo) {
+    n = Math.floor(n);
+    if (!item || !(n > 0) || n > item.qty) return null;
+    var t = tipoOf(item.tipo),
+      usdv = (t && t.pago ? t.pago : 0) * n,
+      valor = Math.round(usdv * S.fx.pyg),
+      ts = Date.now(),
+      desc = n + '× ' + item.ref + ' ' + (item.grau || item.vr || '') + ' · ' + item.cor + (motivo ? ' (' + motivo + ')' : '');
+    item.qty -= n;
+    S.descartes.push({ ts: ts, ref: item.ref, cor: item.cor, qty: n, usd: usdv, valor: valor, motivo: motivo || '' });
+    S.dlog.push({ ts: ts, kind: 'descarte', desc: desc, valor: valor, usd: usdv });
+    S.elog.push({ ts: ts, tipo: item.tipo, ref: item.ref, cor: item.cor, grau: item.grau || '', qty: -n, descarte: true });
+    return valor;
+  }
+  // Bloco "Dar baixa (descarte)" no detalhe do produto.
+  function descarteBox(ref) {
+    var its = S.items.filter(function (i) {
+      return i.ref === ref && i.qty > 0;
+    });
+    var box = mk('div', 'col');
+    box.id = 'descBox';
+    box.appendChild(mk('div', 'lbl', 'Peça quebrada ou descartada'));
+    if (!its.length) {
+      box.appendChild(mk('div', 'hint', 'Sem peças em estoque para dar baixa.'));
+      return box;
+    }
+    box.appendChild(mk('div', 'hint', 'A peça sai do estoque e o custo dela vira prejuízo no resultado do mês. Não dá para desfazer.'));
+    var sel = mk('select', 'in');
+    sel.id = 'dscItem';
+    sel.setAttribute('aria-label', 'Qual variante');
+    its.forEach(function (i, ix) {
+      var o = mk('option', '', i.cor + (i.grau ? ' ' + i.grau : '') + ' · ' + i.qty + ' un.');
+      o.value = String(ix);
+      sel.appendChild(o);
+    });
+    var q = mk('input', 'in');
+    q.id = 'dscQtd';
+    q.inputMode = 'numeric';
+    q.placeholder = 'Qtd.';
+    q.value = '1';
+    q.style.maxWidth = '80px';
+    q.setAttribute('aria-label', 'Quantidade a descartar');
+    var m = mk('input', 'in');
+    m.id = 'dscMot';
+    m.placeholder = 'Motivo (ex.: veio quebrada)';
+    m.setAttribute('aria-label', 'Motivo');
+    var msg = mk('div', 'hint');
+    msg.id = 'dscMsg';
+    msg.setAttribute('role', 'status');
+    var go = btn('mini', 'Dar baixa', function () {
+      var it = its[+sel.value],
+        n = Math.floor(toNum(q.value));
+      if (!(n > 0) || n > it.qty) {
+        msg.textContent = 'Informe de 1 a ' + it.qty + ' peça(s).';
+        return;
+      }
+      var v = descartar(it, n, m.value.trim());
+      S.msg = 'Baixa feita: ' + n + ' peça(s), prejuízo de ' + gs(v) + '.';
+      render();
+    });
+    go.style.cssText = 'background:transparent;color:var(--bad);border:1px solid rgba(239,68,68,.7)';
+    var row = mk('div', 'sel');
+    row.style.flexWrap = 'wrap';
+    row.appendChild(sel);
+    row.appendChild(q);
+    box.appendChild(row);
+    box.appendChild(m);
+    box.appendChild(go);
+    box.appendChild(msg);
+    return box;
+  }
   // ===== Câmera do app (visor, galeria, lanterna, prévia) e plano B nativo. =====
   var CAMO = null,
     CAMS = null;
@@ -17985,7 +18077,7 @@
   function elogCard(x) {
     return (
       '<div class="card" style="padding:14px"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center"><div><span class="cell">' +
-      (x.contagem ? 'Ajuste de contagem' : 'Entrada de estoque') +
+      (x.descarte ? 'Descarte' : x.contagem ? 'Ajuste de contagem' : 'Entrada de estoque') +
       '</span><div style="margin-top:6px">' +
       (x.qty > 0 ? '+' : '') +
       x.qty +
@@ -18244,6 +18336,7 @@
         lote: 'Compra de lote',
         pago: 'Conta paga',
         ret: 'Retirada do dono',
+        descarte: 'Descarte (prejuízo)',
         confcx: 'Conferência do caixa'
       }[x.kind],
       t,
@@ -18725,6 +18818,7 @@
       }
       S._resetAuth = false;
       S.retiradas = [];
+      S.descartes = [];
       S.confCx = [];
       S.items = [];
       S.sales = [];
@@ -20476,6 +20570,13 @@
     });
   };
 
+  // ---------- Moeda principal
+  ACT.moedap = function (id) {
+    S.moedaP = id === 'usd' || id === 'brl' ? id : 'pyg';
+    S._ajForce = true;
+    saveSoon();
+    render();
+  };
   // ---------- Dashboard em abas
   ACT.dtab = function (id) {
     S.dTab = id;
@@ -20704,6 +20805,8 @@
       'tolUsd',
       'volAuto',
       'retiradas',
+      'descartes',
+      'moedaP',
       'confCx',
       'ccLemb',
       'formas',
@@ -20773,6 +20876,6 @@
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, whiten: whiten, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, vendaPrevia: vendaPrevia, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, backupLembrete: backupLembrete, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit
+      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, vendaPrevia: vendaPrevia, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, backupLembrete: backupLembrete, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, gs: gs, tipoOf: tipoOf, descartar: descartar
     };
 })();

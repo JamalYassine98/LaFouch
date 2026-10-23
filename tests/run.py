@@ -466,6 +466,23 @@ async def main():
             if not ok: falhas.append('historico'); print('        veio', ha, hb, hc, hd, he, hf, hg, pg.erros)
             await pg.close()
 
+            # moeda principal e descarte
+            pg = await pagina()
+            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S;
+              S.fx.pyg = 7000; S.fx.brl = 5;
+              const g0 = L.gs(700000); S.moedaP = 'usd'; const g1 = L.gs(700000); S.moedaP = 'brl'; const g2 = L.gs(700000); S.moedaP = 'pyg';
+              const it = S.items.filter(i => i.qty >= 3 && L.tipoOf(i.tipo) && L.tipoOf(i.tipo).pago > 0)[0];
+              const q0 = it.qty, n0 = S.dlog.length, r0 = L.resultadoMes(new Date().getFullYear(), new Date().getMonth()).perdas;
+              const v = L.descartar(it, 2, 'quebrada');
+              const r1 = L.resultadoMes(new Date().getFullYear(), new Date().getMonth()).perdas;
+              const bad = L.descartar(it, 999, '');
+              return [g0, g1, g2, q0 - it.qty, S.dlog.length - n0, v > 0, r1 - r0 === v, bad === null]; }""")
+            ok = r[0].startswith('G$') and r[1].startswith('US$ 100,00') and r[2].startswith('R$ 500,00') and r[3:] == [2, 1, True, True, True] and not pg.erros
+            total += 1
+            print(('  ok  ' if ok else ' FALHA ') + 'moeda principal (G$/US$/R$) e descarte entra como prejuízo')
+            if not ok: falhas.append('moeda/descarte'); print('        veio', r, pg.erros)
+            await pg.close()
+
             # contagem de estoque no cartão "Em estoque": por valor, com resumo e aplicação
             pg = await pagina()
             await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.items = [

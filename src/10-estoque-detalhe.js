@@ -501,6 +501,7 @@
         });
         bx.appendChild(fld('Faixa', fb));
       }
+      if (!f.bulk && !smp) bx.appendChild(descarteBox(ref));
       // foto da cor selecionada
       var ps = mk('div', '');
       ps.appendChild(mk('div', 'lbl', 'Foto · ' + cor));

@@ -278,6 +278,13 @@
     });
   };
 
+  // ---------- Moeda principal
+  ACT.moedap = function (id) {
+    S.moedaP = id === 'usd' || id === 'brl' ? id : 'pyg';
+    S._ajForce = true;
+    saveSoon();
+    render();
+  };
   // ---------- Dashboard em abas
   ACT.dtab = function (id) {
     S.dTab = id;

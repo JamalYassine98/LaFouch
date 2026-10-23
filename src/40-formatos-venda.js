@@ -5,7 +5,13 @@
   function tAgo(d, h) {
     return now0 - d * DAY - (h || 0) * 3600000;
   }
+  // Mostra um valor (guardado em guaranis) na moeda principal escolhida em Ajustes.
   var gs = function (n) {
+    var m = S.moedaP;
+    if ((m === 'usd' || m === 'brl') && S.fx && S.fx.pyg > 0) {
+      var r = m === 'usd' ? S.fx.pyg : S.fx.brl > 0 ? S.fx.pyg / S.fx.brl : 0;
+      if (r > 0) return (m === 'usd' ? 'US$ ' : 'R$ ') + nf(n / r, m);
+    }
     return 'G$ ' + dots(n);
   };
   // Formata número conforme a moeda.
