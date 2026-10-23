@@ -80,24 +80,24 @@
     );
   }
   // Aba Câmbio.
-  // Cartão da cotação interna da loja.
+  // Cartão da cotação interna da loja: automática (mercado menos a margem) ou fixada à mão.
   function fxLojaHtml() {
-    var f = S.fx,
-      r = Math.round(fxLoja('brl'));
+    var f = S.fx;
     return (
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cotação da loja (opcional)</h2><div class="hint" style="margin:2px 0 0">Seu câmbio de balcão, normalmente mais favorável à loja que o do mercado. Quando você receber em dólar ou real e não digitar um câmbio, o app usa este. Deixe em branco para usar o do mercado.</div></div>' +
-      '<div class="sel" style="flex-wrap:wrap"><div style="flex:1 1 140px"><div class="lbl">US$ 1 = G$</div><input class="in" id="fxiG" inputmode="numeric" data-fxi="pyg" placeholder="' + dots(f.pyg) + '" value="' + esc(S.fxInt.pyg) + '" aria-label="Dólar da loja em guaranis"></div>' +
-      '<div style="flex:1 1 140px"><div class="lbl">US$ 1 = R$</div><input class="in" id="fxiB" inputmode="decimal" data-fxi="brl" placeholder="' + f.brl.toFixed(2).replace('.', ',') + '" value="' + esc(S.fxInt.brl) + '" aria-label="Dólar da loja em reais"></div></div>' +
-      '<div class="hint" id="fxiH" role="status" style="margin:0">' + fxLojaTexto() + '</div></section>'
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cotação da loja</h2><div class="hint" style="margin:2px 0 0">Automática: o app usa a cotação do mercado menos a margem da loja ao valorizar dólar e real recebidos (vendas e carrinho). Se você digitar um câmbio na venda, esse vale.</div></div>' +
+      '<div class="sel" style="flex-wrap:wrap"><div style="flex:1 1 140px"><div class="lbl">Margem no dólar (%)</div><input class="in" inputmode="decimal" data-fxm="usd" value="' + esc(S.fxMargem.usd) + '" aria-label="Margem da loja no dólar em porcentagem"></div>' +
+      '<div style="flex:1 1 140px"><div class="lbl">Margem no real (%)</div><input class="in" inputmode="decimal" data-fxm="brl" value="' + esc(S.fxMargem.brl) + '" aria-label="Margem da loja no real em porcentagem"></div></div>' +
+      '<div class="hint" id="fxiH" role="status" style="margin:0">' + fxLojaTexto() + '</div>' +
+      '<details><summary class="hint" style="cursor:pointer">Fixar a cotação à mão (opcional)</summary><div class="sel" style="flex-wrap:wrap;margin-top:8px"><div style="flex:1 1 140px"><div class="lbl">US$ 1 = G$</div><input class="in" id="fxiG" inputmode="numeric" data-fxi="pyg" placeholder="' + dots(f.pyg) + '" value="' + esc(S.fxInt.pyg) + '" aria-label="Dólar da loja em guaranis"></div>' +
+      '<div style="flex:1 1 140px"><div class="lbl">US$ 1 = R$</div><input class="in" id="fxiB" inputmode="decimal" data-fxi="brl" placeholder="' + f.brl.toFixed(2).replace('.', ',') + '" value="' + esc(S.fxInt.brl) + '" aria-label="Dólar da loja em reais"></div></div><div class="hint">Com valores aqui, a margem automática não é usada. Apague para voltar ao automático.</div></details></section>'
     );
   }
   function fxLojaTexto() {
-    var f = S.fx;
-    if (!(parseDec(S.fxInt.pyg, 'pyg') > 0) && !(parseDec(S.fxInt.brl, 'usd') > 0))
-      return 'Sem cotação própria: usando a do mercado.';
-    var u = Math.round(rateDe('usd', 0)),
+    var f = S.fx,
+      u = Math.round(rateDe('usd', 0)),
       b = Math.round(rateDe('brl', 0)),
       bm = Math.round(f.pyg / f.brl);
+    if (u === Math.round(f.pyg) && b === bm) return 'Sem margem: usando a cotação do mercado (' + gsRaw(f.pyg) + ' e ' + gsRaw(bm) + ').';
     return 'Valendo na loja: US$ 1 = ' + gsRaw(u) + ' · R$ 1 = ' + gsRaw(b) + ' (mercado: ' + gsRaw(f.pyg) + ' e ' + gsRaw(bm) + ').';
   }
   function renderFx() {

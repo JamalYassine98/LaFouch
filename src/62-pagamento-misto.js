@@ -14,10 +14,19 @@
   }
   // Cotação interna da loja (aba Câmbio): preenche o câmbio quando você não digita um. 0 = usar a do mercado.
   S.fxInt = { pyg: '', brl: '' };
+  // Margem automática da loja (%): a loja valoriza a moeda recebida um pouco abaixo do mercado.
+  S.fxMargem = { usd: '0,5', brl: '1,5' };
+  function fxMargemPct(m) {
+    var v = parseDec(S.fxMargem[m], 'usd');
+    return v > 0 ? Math.min(v, 20) : 0;
+  }
   function fxLoja(m) {
     var g = parseDec(S.fxInt.pyg, 'pyg'),
       b = parseDec(S.fxInt.brl, 'usd');
-    if (!(g > 0) && !(b > 0)) return 0;
+    if (!(g > 0) && !(b > 0)) {
+      var mg = m === 'usd' || m === 'brl' ? fxMargemPct(m) : 0;
+      return mg > 0 ? ratePyg(m) * (1 - mg / 100) : 0;
+    }
     if (m === 'usd') return g > 0 ? g : 0;
     if (m === 'brl') {
       var gg = g > 0 ? g : S.fx.pyg,

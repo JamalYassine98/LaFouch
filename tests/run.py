@@ -570,7 +570,7 @@ async def main():
 
             # cotação da loja preenche o câmbio; dashboard sem centavos
             pg = await pagina()
-            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.fx.pyg = 7000; S.fx.brl = 5;
+            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.fx.pyg = 7000; S.fx.brl = 5; S.fxMargem = {usd:'', brl:''};
               const a = L.rateDe('brl', 0); S.fxInt.brl = '5,18'; const b = L.rateDe('brl', 0); S.fxInt.pyg = '7100'; const c = [L.rateDe('usd', 0), Math.round(L.rateDe('brl', 0)), L.rateDe('brl', 1300)];
               S.fxInt = {pyg: '', brl: ''}; S.moedaP = 'usd'; const g = L.gs(7000 * 84.78); S.moedaP = 'pyg';
               return [a, Math.round(b), c, g]; }""")
@@ -578,6 +578,22 @@ async def main():
             total += 1
             print(('  ok  ' if ok else ' FALHA ') + 'cotação da loja preenche o câmbio e valores sem centavos')
             if not ok: falhas.append('cotacao loja'); print('        veio', r, pg.erros)
+            await pg.close()
+
+            # cotação automática da loja vale no carrinho
+            pg = await pagina()
+            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.fx.pyg = 7000; S.fx.brl = 5; S.fxInt = {pyg:'', brl:''}; S.fxMargem = {usd:'0,5', brl:'2'};
+              const u = Math.round(L.rateDe('usd', 0)), b = Math.round(L.rateDe('brl', 0));
+              const it = S.items.filter(i => i.qty >= 1 && L.tFor(i).price > 0)[0];
+              S.cart = [{it, qty: 1, preco: null}]; S.cartOpen = true; S.moeda = 'brl'; S.rate1 = ''; S.rec = null; S.descTxt = ''; S.pagMisto = false;
+              L.setView('vendas'); L.render();
+              const need = L.tFor(it).price, sh = document.getElementById('recIn').value;
+              const esp = (need / (7000 / 5 * 0.98)).toFixed(2).replace('.', ',');
+              return [u, b, sh === esp, document.getElementById('recH').textContent.indexOf('cotação da loja') >= 0]; }""")
+            ok = r[0] == 6965 and r[1] == 1372 and r[2] and r[3] and not pg.erros
+            total += 1
+            print(('  ok  ' if ok else ' FALHA ') + 'cotação automática da loja no carrinho')
+            if not ok: falhas.append('cotacao auto carrinho'); print('        veio', r, pg.erros)
             await pg.close()
 
             # contagem de estoque no cartão "Em estoque": por valor, com resumo e aplicação

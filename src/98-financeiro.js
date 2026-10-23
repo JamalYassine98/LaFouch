@@ -289,6 +289,16 @@
     S.rec = null;
     saveSoon();
   });
+  document.addEventListener('input', function (ev) {
+    var t = ev.target,
+      k = t.getAttribute && t.getAttribute('data-fxm');
+    if (!k) return;
+    S.fxMargem[k] = t.value.replace(/[^\d.,]/g, '');
+    var h = $('fxiH');
+    if (h) h.textContent = fxLojaTexto();
+    S.rec = null;
+    saveSoon();
+  });
   // ---------- Moeda principal
   ACT.moedap = function (id) {
     S.moedaP = id === 'usd' || id === 'brl' ? id : 'pyg';

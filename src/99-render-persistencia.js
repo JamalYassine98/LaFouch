@@ -197,6 +197,7 @@
       'volAuto',
       'retiradas',
       'fxInt',
+      'fxMargem',
       'descartes',
       'moedaP',
       'confCx',
