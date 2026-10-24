@@ -3662,18 +3662,11 @@
     S.pdMode = false;
     render();
   };
+  // o cartão "Pede reposição" leva à aba Reposição (um só lugar para ver e comprar o que está acabando)
   $('kRepo').onclick = function () {
-    S.repo = !S.repo;
-    if (S.repo) S.lotesView = false;
-    S.open = '';
-    S.det = false;
-    S.selItem = null;
-    S.msg = '';
-    render();
-    if (S.repo) {
-      var l = $('rows');
-      if (l) l.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    S.repo = false;
+    var t = $('eTabR');
+    if (t) t.click();
   };
   try {
     $('eMedB').parentNode.appendChild($('eGrauB'));
