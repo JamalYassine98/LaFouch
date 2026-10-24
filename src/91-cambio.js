@@ -211,6 +211,55 @@
     if (S.cxMsg) h += '<div class="hint" role="status" style="margin:0">' + esc(S.cxMsg) + '</div>';
     return h + '</section>';
   }
+  // Trocar moedas: formulário livre, atalhos do plano e histórico com Desfazer.
+  function trHistHtml() {
+    if (!S.cambios.length) return '';
+    return '<div class="lbl" style="margin-top:6px">Trocas feitas</div>' + S.cambios.slice(0, 8).map(function (x, i) {
+      return '<div class="sl"><span>' + fmtM(x.dado, x.de) + ' → ' + fmtM(x.rec, x.para || 'usd') + '<small>' + fd(x.ts) + ' às ' + fh(x.ts) + ' · ' + (x.difGs >= 0 ? '+' : '−') + gs(Math.abs(x.difGs)) + ' em relação ao câmbio do dia</small></span><button class="chip" data-act="trdesfaz" data-id="' + i + '" style="min-height:36px">Desfazer</button></div>';
+    }).join('');
+  }
+  function trocarMoedasHtml() {
+    var t = S.tr,
+      html = '';
+    html +=
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Trocar moedas</h2><div class="hint" style="margin:2px 0 0">Registre a troca ou a venda de dólar que você fez. Os saldos mudam nas duas moedas.</div></div>' +
+      trocarPlano().passos.map(function (x, i) {
+        return '<button class="chip" data-act="trusar" data-id="' + i + '">Atalho: ' + fmtM(x.sug, x.de) + ' → ' + usd(x.rec) + '</button>';
+      }).join('') +
+      '<div class="sel" style="flex-wrap:wrap">' +
+      trSel('trDe', t.de) +
+      '<button class="chip" data-act="trflip" aria-label="Inverter as moedas">⇄ Inverter</button>' +
+      trSel('trPara', t.para) +
+      '</div>' +
+      '<div class="sel" style="flex-wrap:wrap"><div style="flex:1 1 160px"><div class="lbl">Você troca (' +
+      MN[t.de] +
+      ')</div><input class="in" id="trV" inputmode="decimal" data-in="trV" value="' +
+      esc(t.v) +
+      '" aria-label="Valor a trocar"></div>' +
+      '<div style="flex:1 1 160px"><div class="lbl">Você recebe (' +
+      MN[t.para] +
+      ')</div><input class="in" id="trRec" inputmode="decimal" data-in="trRec" value="' +
+      esc(t.rec) +
+      '" aria-label="Valor recebido na troca"></div></div>' +
+      '<div class="hint" id="trPrev" role="status" style="margin:0"></div><button class="go" data-act="trocar">Registrar troca</button>' +
+      trHistHtml() +
+      '</section>';
+    html += '';
+    return html;
+  }
+  // Quanto falta para completar a reposição em dólar (depois de vender dólar da reposição).
+  function faltamHtml() {
+    var r = reservas(),
+      falta = Math.max(0, r.rUSD - Math.max(0, S.cash.usd));
+    if (!(r.rUSD > 0.004) || falta < 0.004) return '';
+    var pct = Math.round(Math.min(1, Math.max(0, S.cash.usd) / r.rUSD) * 100);
+    return (
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Faltam ' + usd(falta) + ' para a reposição</h2></div>' +
+      '<div style="height:10px;border-radius:6px;background:var(--line);overflow:hidden"><i style="display:block;height:100%;width:' + pct + '%;background:var(--ok)"></i></div>' +
+      '<div class="hint" style="margin:0">' + usd(Math.max(0, S.cash.usd)) + ' em dólar de ' + usd(r.rUSD) + ' reservados (' + pct + '%). Falta valor ao dólar de hoje: ' + gs(Math.round(falta * S.fx.pyg)) + '.</div>' +
+      '<div class="note n-warn">Evite retiradas até completar a reposição.</div></section>'
+    );
+  }
   function renderFx() {
     if (S.view !== 'fx' && !S._rtudo) return;
     var el = $('v-fx'),
@@ -244,7 +293,7 @@
       esc(f.status) +
       (f.ts ? ' Última atualização às ' + fh(f.ts) + '.' : '') +
       '</div>';
-    html += trocarAgoraHtml();
+    html += faltamHtml() + trocarAgoraHtml() + trocarMoedasHtml();
     html += fxLojaHtml();
     html += fxGraficos();
     html +=
@@ -288,6 +337,7 @@
         .join('') +
       '</tbody></table></div></section>';
     el.innerHTML = html;
+    updateTr();
     tickFx();
   }
   // Atualiza o contador do câmbio.

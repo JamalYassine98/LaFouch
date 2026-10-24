@@ -300,7 +300,8 @@
       t.de = t.para;
       t.para = d;
       t.edited = false;
-      renderCaixa();
+      S.trConf = false;
+      render();
     },
     fxtrocar: function () {
       var linhas = [],
@@ -328,33 +329,29 @@
     trocar: function () {
       var t = S.tr,
         v = parseDec(t.v, t.de),
-        rec = parseDec(t.rec, t.para);
-      if (t.de === t.para) {
-        S.cxMsg = 'Escolha moedas diferentes.';
-      } else if (!v || !rec) {
-        S.cxMsg = 'Informe o valor que troca e o valor que recebe.';
-      } else if (S.cash[t.de] < v) {
-        S.cxMsg =
-          'Saldo insuficiente em ' + MN[t.de] + ': você tem ' + fmtM(S.cash[t.de], t.de) + '.';
-      } else {
-        var dif = Math.round(rec * ratePyg(t.para) - v * ratePyg(t.de));
-        S.cash[t.de] -= v;
-        S.cash[t.para] += rec;
-        S.cambios.unshift({
-          ts: Date.now(),
-          de: t.de,
-          para: t.para,
-          dado: v,
-          rec: rec,
-          difGs: dif
-        });
-        S.cxMsg = 'Troca registrada: ' + fmtM(v, t.de) + ' → ' + fmtM(rec, t.para) + '.';
-        t.v = '';
-        t.rec = '';
-        t.edited = false;
+        rec = parseDec(t.rec, t.para),
+        r = trocarLivre(t.de, v, t.para, rec, S.trConf);
+      S.cxMsg = r.msg;
+      if (r.confirmar) S.trConf = true;
+      else {
+        S.trConf = false;
+        if (r.ok) {
+          t.v = '';
+          t.rec = '';
+          t.edited = false;
+        }
       }
-      renderCaixa();
-      renderDash();
+      render();
+    },
+    trdesfaz: function (id) {
+      trocarDesfazer(id);
+      render();
+    },
+    trusar: function (id) {
+      var x = trocarPlano().passos[id];
+      if (!x) return;
+      S.tr = { de: x.de, para: 'usd', v: String(x.sug), rec: String(x.rec), edited: true };
+      render();
     },
     melhuso: function () {
       var v = campoParaGs($('muV').value),
@@ -553,15 +550,18 @@
           return m !== t.value;
         })[0];
       S.tr.edited = false;
-      renderCaixa();
+      S.trConf = false;
+      render();
     }
     if (k === 'trV') {
       S.tr.v = t.value;
+      S.trConf = false;
       updateTr();
     }
     if (k === 'trRec') {
       S.tr.rec = t.value;
       S.tr.edited = true;
+      S.trConf = false;
       updateTr();
     }
   });

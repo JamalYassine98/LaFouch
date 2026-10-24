@@ -61,6 +61,39 @@
       ts = pago ? vencEm(e, d.getFullYear(), d.getMonth() + 1) : vencEm(e, d.getFullYear(), d.getMonth());
     return { ts: ts, dias: Math.round((ts - hoje0()) / DAY), pago: pago };
   }
+  // Plano para cobrir uma falta na moeda m: primeiro as outras moedas do caixa (o que não é reserva),
+  // depois vender dólar, com o valor por moeda. Mostra a falta se o caixa não cobre.
+  function faltaPlano(m, falta) {
+    var faltaGs = falta * ratePyg(m),
+      passos = [],
+      resta = faltaGs,
+      ord = ['pyg', 'brl', 'usd'].filter(function (x) {
+        return x !== m;
+      });
+    ord.forEach(function (x) {
+      if (resta <= 0.5) return;
+      var disp = Math.max(0, S.cash[x] || 0) * ratePyg(x),
+        uso = Math.min(disp, resta);
+      if (uso > 0.5) {
+        passos.push({ de: x, v: uso / ratePyg(x), gs: uso });
+        resta -= uso;
+      }
+    });
+    var cobre = resta <= 0.5,
+      txt = 'Falta ' + fmtM(falta, m) + '. ';
+    if (cobre)
+      txt +=
+        'Troque ' +
+        passos
+          .map(function (p) {
+            return fmtM(p.v, p.de);
+          })
+          .join(' + ') +
+        ' por ' + m.toUpperCase() + (passos.some(function (p) { return p.de === 'usd'; }) ? ' (vender dólar mexe nas reservas: confira na aba Câmbio)' : ' na aba Câmbio') + '.';
+    else
+      txt += 'O caixa só cobre ' + gs(Math.round(faltaGs - resta)) + ' ao câmbio de hoje e ainda faltam ' + gs(Math.round(resta)) + '.';
+    return { passos: passos, cobre: cobre, resta: resta, txt: txt };
+  }
   // Contas que vencem em breve (ou já venceram) e ainda não foram pagas neste mês.
   function avisosVenc(janela) {
     var out = [];
@@ -73,13 +106,8 @@
         ok = tem >= need - 1e-9,
         dica = '';
       if (!ok) {
-        var faltaGs = (need - tem) * ratePyg(m),
-          outras = ['pyg', 'usd', 'brl'].filter(function (x) {
-            return x !== m && (S.cash[x] || 0) * ratePyg(x) >= faltaGs;
-          })[0];
-        dica = outras
-          ? 'Falta ' + fmtM(need - tem, m) + ' em ' + m.toUpperCase() + '. Troque ' + fmtM(faltaGs / ratePyg(outras), outras) + ' por ' + m.toUpperCase() + ' na aba Caixa.'
-          : 'Falta ' + fmtM(need - tem, m) + ' em ' + m.toUpperCase() + ' e o caixa não cobre nem trocando moedas.';
+        var pl = faltaPlano(m, need - tem);
+        dica = pl.txt;
       }
       out.push({
         e: e,
@@ -87,6 +115,7 @@
         moeda: m,
         ok: ok,
         dica: dica,
+        urgente: !ok && v.dias <= 2,
         semValor: e.tipo === 'variavel' && e.updYm !== ymNow() && v.dias <= 7
       });
     });
@@ -120,6 +149,7 @@
           prazoTxt(a.dias) +
           '</span>' +
           (a.semValor ? ' · informe o valor desta fatura' : '') +
+          (a.urgente ? ' · <b style="color:var(--bad)">URGENTE</b>' : '') +
           (a.ok ? '' : ' · ' + esc(a.dica)),
         expTexto(a.e)
       );

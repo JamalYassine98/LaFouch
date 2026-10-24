@@ -251,48 +251,8 @@
       html +=
         '<div class="note n-bad">O dinheiro em caixa está abaixo do que deveria estar separado. Evite retiradas até repor.</div>';
     html += retiradaHtml() + ccHtml();
-    var t = S.tr;
     html +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Trocar moeda</h2><div class="hint" style="margin:2px 0 0">Registre a troca que você fez. Os saldos mudam nas duas moedas.</div></div>' +
-      '<div class="sel" style="flex-wrap:wrap">' +
-      trSel('trDe', t.de) +
-      '<button class="chip" data-act="trflip" aria-label="Inverter as moedas">⇄ Inverter</button>' +
-      trSel('trPara', t.para) +
-      '</div>' +
-      '<div class="sel" style="flex-wrap:wrap"><div style="flex:1 1 160px"><div class="lbl">Você troca (' +
-      MN[t.de] +
-      ')</div><input class="in" id="trV" inputmode="decimal" data-in="trV" value="' +
-      esc(t.v) +
-      '" aria-label="Valor a trocar"></div>' +
-      '<div style="flex:1 1 160px"><div class="lbl">Você recebe (' +
-      MN[t.para] +
-      ')</div><input class="in" id="trRec" inputmode="decimal" data-in="trRec" value="' +
-      esc(t.rec) +
-      '" aria-label="Valor recebido na troca"></div></div>' +
-      '<div class="hint" id="trPrev" role="status" style="margin:0"></div><button class="go" data-act="trocar">Registrar troca</button>' +
-      (S.cambios.length
-        ? '<div class="lbl" style="margin-top:6px">Últimas trocas</div>' +
-          S.cambios
-            .slice(0, 5)
-            .map(function (x) {
-              return (
-                '<div class="sl"><span>' +
-                fmtM(x.dado, x.de) +
-                ' → ' +
-                fmtM(x.rec, x.para) +
-                '<small>' +
-                fd(x.ts) +
-                ' às ' +
-                fh(x.ts) +
-                ' · ' +
-                (x.difGs >= 0 ? '+' : '−') +
-                gs(Math.abs(x.difGs)) +
-                ' em relação ao câmbio do dia</small></span></div>'
-              );
-            })
-            .join('')
-        : '') +
-      '</section>';
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Trocar moedas</h2><div class="hint" style="margin:2px 0 0">Trocas de moeda, vendas de dólar e o histórico ficam na aba Câmbio.</div></div><button class="go" data-act="view" data-id="fx">Abrir Trocar moedas</button></section>';
     html +=
       '<div class="two">' +
       '<section class="card col"><h2 style="margin:0;font-size:16px">Usar a caixa de melhorias</h2><div class="hint" style="margin:0">Tira do saldo de melhorias e dos guaranis em caixa.</div>' +
@@ -376,7 +336,9 @@
     }
     var rec = parseDec(t.rec, t.para),
       dif = rec * ratePyg(t.para) - v * ratePyg(t.de),
-      p = $('trPrev');
+      p = $('trPrev'),
+      fo = null;
+    if (t.de === 'usd' && v > 0 && v <= (S.cash.usd || 0) + 0.005 && t.para !== 'usd') fo = fonteDolar(v);
     if (p)
       p.textContent = v
         ? 'Pelo câmbio de hoje: ' +
@@ -391,6 +353,17 @@
               ' em relação ao câmbio de hoje).'
             : '')
         : 'Digite o valor a trocar.';
+    if (p && fo)
+      p.textContent +=
+        ' Sai de: ' +
+        usd(fo.extra) +
+        ' que sobram' +
+        (fo.col > 0 ? ', ' + usd(fo.col) + ' do colchão' : '') +
+        (fo.rep > 0 ? ', ' + usd(fo.rep) + ' da reposição (ela fica aberta)' : '') +
+        '.' +
+        (S.trConf ? ' Toque em Registrar de novo para confirmar.' : '');
+    if (p && !fo && t.de !== 'usd' && t.para !== 'usd' && v > 0 && Math.abs(dif) >= 1)
+      p.textContent += ' A diferença é só do câmbio da casa de câmbio e não mexe nas reservas.';
   }
 
   S.dlog = [];

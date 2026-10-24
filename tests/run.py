@@ -133,6 +133,17 @@ TESTES = [
  ("parsePedido: linhas com quantidade × preço e conferência", """
    const r = window.__parsePedido('Pedido #2682\\nMetal luxo\\n20 x $2.00 $40.00\\nAcetato\\n30 x $12.00 $350.00');
    return [r.rows.length, r.ped, r.rows[0].nome, r.rows[0].qty, r.rows[0].unit, r.rows[0].dup, r.rows[1].dup]""", [2, '2682', 'Metal luxo', 20, 2, False, True]),
+ ("trocarLivre: dólar que sobra vira guaranis sem pedir confirmação", """
+   S.sales=[]; S.compras=[]; S.cpay=[]; S.melhUso=[]; S.exp=[]; S.ini={rep:0,colch:0,melh:0}; S.colchUsd=0; S.repQuitUsd=0; S.cambios=[]; S.fx.pyg=7000; S.cash={pyg:0,usd:100,brl:0};
+   const r=L.trocarLivre('usd',100,'pyg',700000); return [r.ok, S.cash.usd, S.cash.pyg, S.cambios[0].fonte.extra, S.cambios[0].perdaGs||0]""", [True, 0, 700000, 100, 0]),
+ ("trocarLivre: vender dólar da reposição pede confirmação e desfaz", """
+   S.sales=[]; S.compras=[]; S.cpay=[]; S.melhUso=[]; S.exp=[]; S.ini={rep:50,colch:0,melh:0}; S.colchUsd=0; S.repQuitUsd=50; S.cambios=[]; S.fx.pyg=7000; S.cash={pyg:0,usd:50,brl:0};
+   const a=L.trocarLivre('usd',50,'pyg',340000); const b=L.trocarLivre('usd',50,'pyg',340000,true);
+   const dep=[S.cash.usd, S.cash.pyg, S.repQuitUsd, S.cambios[0].perdaGs]; L.trocarDesfazer(0);
+   return [a.ok, !!a.confirmar, b.ok, dep, S.cash.usd, S.cash.pyg, S.repQuitUsd, S.cambios.length]""", [False, True, True, [0, 340000, 0, 10000], 50, 0, 50, 0]),
+ ("trocarLivre: guarani por real só mexe no caixa", """
+   S.sales=[]; S.compras=[]; S.cambios=[]; S.fx.pyg=7000; S.fx.brl=5; S.cash={pyg:500000,usd:0,brl:0};
+   const r=L.trocarLivre('pyg',500000,'brl',90); return [r.ok, S.cash.pyg, S.cash.brl, S.cambios[0].perdaGs||0, S.cambios[0].fonte||null]""", [True, 0, 90, 0, None]),
  ("lotCharge: desconta do caixa e registra a compra", """
    const g={id:'G', forn:'F', qty:10, totalUsd:20, moeda:'usd'}; L.lotCharge(g); return [S.cash.usd, S.compras.length, S.compras[0].usd, S.compras[0].lot]""", [80, 1, 20, 'G']),
  ("lotCharge: pagamento em guaranis", """

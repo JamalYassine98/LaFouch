@@ -422,18 +422,77 @@
     S.cxMsg = tot > 0 ? 'Troca registrada: ' + usd(tot) + ' comprados.' : 'Nada para trocar agora.';
     return tot;
   }
-  // Desfaz a última troca registrada pelo "Trocar agora".
-  function trocarDesfazer() {
-    var e = S.cambios[0];
-    if (!e || !e.tipo) return false;
+  // Origem do dólar vendido: primeiro o que sobra (extra), depois o colchão, por último a reposição.
+  function fonteDolar(v) {
+    var lv = livre3(),
+      extra = Math.min(v, Math.max(0, lv.extraUsd)),
+      rest = v - extra,
+      col = Math.min(rest, Math.max(0, S.colchUsd || 0));
+    return { extra: extra, col: col, rep: Math.max(0, rest - col) };
+  }
+  // Troca livre entre quaisquer moedas (entreguei X, recebi Y). Devolve { ok, msg }.
+  function trocarLivre(de, v, para, rec, confirmou) {
+    if (de === para) return { ok: false, msg: 'Escolha moedas diferentes.' };
+    if (!(v > 0) || !(rec > 0)) return { ok: false, msg: 'Informe o valor que troca e o valor que recebe.' };
+    if ((S.cash[de] || 0) < v - 0.005)
+      return { ok: false, msg: 'Saldo insuficiente em ' + de.toUpperCase() + ': você tem ' + fmtM(S.cash[de], de) + '.' };
+    var dif = Math.round(rec * ratePyg(para) - v * ratePyg(de));
+    if (para === 'usd') {
+      var r = reservas(),
+        devido = Math.max(0, r.rUSD - (S.repQuitUsd || 0)),
+        colPend = Math.max(0, r.colch / S.fx.pyg - (S.colchUsd || 0)),
+        tipo = devido > 0.004 ? 'repor' : colPend > 0.004 ? 'colchao' : '';
+      if (tipo) {
+        var t = trocarRegistrar([{ tipo: tipo, de: de, v: v, rec: rec }]);
+        return t > 0 ? { ok: true, msg: S.cxMsg } : { ok: false, msg: S.cxMsg };
+      }
+    }
+    var e = { ts: Date.now(), de: de, para: para, dado: v, rec: rec, difGs: dif, tipo: 'livre' };
+    if (de === 'usd') {
+      var f = fonteDolar(v);
+      if (f.rep > 0.004 && !confirmou)
+        return {
+          ok: false,
+          confirmar: true,
+          msg:
+            'Esta venda usa ' + usd(f.rep) + ' que estavam guardados para a reposição. A reposição fica aberta e será reservada ao dólar de hoje. Toque em Registrar de novo para confirmar.'
+        };
+      e.fonte = f;
+      if (f.col > 0) S.colchUsd = Math.max(0, (S.colchUsd || 0) - f.col);
+      if (f.rep > 0) {
+        e.repBack = Math.min(f.rep, S.repQuitUsd || 0);
+        S.repQuitUsd = Math.max(0, (S.repQuitUsd || 0) - e.repBack);
+      }
+      if (dif < 0) e.perdaGs = -dif;
+    }
+    S.cash[de] -= v;
+    S.cash[para] = (S.cash[para] || 0) + rec;
+    S.cambios.unshift(e);
+    S.cxMsg = 'Troca registrada: ' + fmtM(v, de) + ' → ' + fmtM(rec, para) + '.';
+    return { ok: true, msg: S.cxMsg };
+  }
+  // Desfaz uma troca do histórico (a mais recente por padrão).
+  function trocarDesfazer(ix) {
+    ix = ix > 0 ? +ix : 0;
+    var e = S.cambios[ix];
+    if (!e) return false;
+    var para = e.para || 'usd';
+    if ((S.cash[para] || 0) < e.rec - 0.005) {
+      S.cxMsg = 'Não dá para desfazer: faltam ' + fmtM(e.rec, para) + ' no caixa.';
+      return false;
+    }
     S.cash[e.de] += e.dado;
-    S.cash.usd -= e.rec;
+    S.cash[para] -= e.rec;
     if (e.tipo === 'colchao') S.colchUsd = Math.max(0, (S.colchUsd || 0) - e.rec);
     if (e.quit) S.repQuitUsd = Math.max(0, (S.repQuitUsd || 0) - e.quit);
+    if (e.fonte) {
+      S.colchUsd = (S.colchUsd || 0) + (e.fonte.col || 0);
+      S.repQuitUsd = (S.repQuitUsd || 0) + (e.repBack || 0);
+    }
     if (e.usoTs) S.colchUsos = S.colchUsos.filter(function (u) {
       return u.ts !== e.usoTs;
     });
-    S.cambios.shift();
+    S.cambios.splice(ix, 1);
     S.cxMsg = 'Troca desfeita.';
     return true;
   }

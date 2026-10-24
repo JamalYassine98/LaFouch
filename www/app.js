@@ -13255,6 +13255,39 @@
       ts = pago ? vencEm(e, d.getFullYear(), d.getMonth() + 1) : vencEm(e, d.getFullYear(), d.getMonth());
     return { ts: ts, dias: Math.round((ts - hoje0()) / DAY), pago: pago };
   }
+  // Plano para cobrir uma falta na moeda m: primeiro as outras moedas do caixa (o que não é reserva),
+  // depois vender dólar, com o valor por moeda. Mostra a falta se o caixa não cobre.
+  function faltaPlano(m, falta) {
+    var faltaGs = falta * ratePyg(m),
+      passos = [],
+      resta = faltaGs,
+      ord = ['pyg', 'brl', 'usd'].filter(function (x) {
+        return x !== m;
+      });
+    ord.forEach(function (x) {
+      if (resta <= 0.5) return;
+      var disp = Math.max(0, S.cash[x] || 0) * ratePyg(x),
+        uso = Math.min(disp, resta);
+      if (uso > 0.5) {
+        passos.push({ de: x, v: uso / ratePyg(x), gs: uso });
+        resta -= uso;
+      }
+    });
+    var cobre = resta <= 0.5,
+      txt = 'Falta ' + fmtM(falta, m) + '. ';
+    if (cobre)
+      txt +=
+        'Troque ' +
+        passos
+          .map(function (p) {
+            return fmtM(p.v, p.de);
+          })
+          .join(' + ') +
+        ' por ' + m.toUpperCase() + (passos.some(function (p) { return p.de === 'usd'; }) ? ' (vender dólar mexe nas reservas: confira na aba Câmbio)' : ' na aba Câmbio') + '.';
+    else
+      txt += 'O caixa só cobre ' + gs(Math.round(faltaGs - resta)) + ' ao câmbio de hoje e ainda faltam ' + gs(Math.round(resta)) + '.';
+    return { passos: passos, cobre: cobre, resta: resta, txt: txt };
+  }
   // Contas que vencem em breve (ou já venceram) e ainda não foram pagas neste mês.
   function avisosVenc(janela) {
     var out = [];
@@ -13267,13 +13300,8 @@
         ok = tem >= need - 1e-9,
         dica = '';
       if (!ok) {
-        var faltaGs = (need - tem) * ratePyg(m),
-          outras = ['pyg', 'usd', 'brl'].filter(function (x) {
-            return x !== m && (S.cash[x] || 0) * ratePyg(x) >= faltaGs;
-          })[0];
-        dica = outras
-          ? 'Falta ' + fmtM(need - tem, m) + ' em ' + m.toUpperCase() + '. Troque ' + fmtM(faltaGs / ratePyg(outras), outras) + ' por ' + m.toUpperCase() + ' na aba Caixa.'
-          : 'Falta ' + fmtM(need - tem, m) + ' em ' + m.toUpperCase() + ' e o caixa não cobre nem trocando moedas.';
+        var pl = faltaPlano(m, need - tem);
+        dica = pl.txt;
       }
       out.push({
         e: e,
@@ -13281,6 +13309,7 @@
         moeda: m,
         ok: ok,
         dica: dica,
+        urgente: !ok && v.dias <= 2,
         semValor: e.tipo === 'variavel' && e.updYm !== ymNow() && v.dias <= 7
       });
     });
@@ -13314,6 +13343,7 @@
           prazoTxt(a.dias) +
           '</span>' +
           (a.semValor ? ' · informe o valor desta fatura' : '') +
+          (a.urgente ? ' · <b style="color:var(--bad)">URGENTE</b>' : '') +
           (a.ok ? '' : ' · ' + esc(a.dica)),
         expTexto(a.e)
       );
@@ -14356,18 +14386,77 @@
     S.cxMsg = tot > 0 ? 'Troca registrada: ' + usd(tot) + ' comprados.' : 'Nada para trocar agora.';
     return tot;
   }
-  // Desfaz a última troca registrada pelo "Trocar agora".
-  function trocarDesfazer() {
-    var e = S.cambios[0];
-    if (!e || !e.tipo) return false;
+  // Origem do dólar vendido: primeiro o que sobra (extra), depois o colchão, por último a reposição.
+  function fonteDolar(v) {
+    var lv = livre3(),
+      extra = Math.min(v, Math.max(0, lv.extraUsd)),
+      rest = v - extra,
+      col = Math.min(rest, Math.max(0, S.colchUsd || 0));
+    return { extra: extra, col: col, rep: Math.max(0, rest - col) };
+  }
+  // Troca livre entre quaisquer moedas (entreguei X, recebi Y). Devolve { ok, msg }.
+  function trocarLivre(de, v, para, rec, confirmou) {
+    if (de === para) return { ok: false, msg: 'Escolha moedas diferentes.' };
+    if (!(v > 0) || !(rec > 0)) return { ok: false, msg: 'Informe o valor que troca e o valor que recebe.' };
+    if ((S.cash[de] || 0) < v - 0.005)
+      return { ok: false, msg: 'Saldo insuficiente em ' + de.toUpperCase() + ': você tem ' + fmtM(S.cash[de], de) + '.' };
+    var dif = Math.round(rec * ratePyg(para) - v * ratePyg(de));
+    if (para === 'usd') {
+      var r = reservas(),
+        devido = Math.max(0, r.rUSD - (S.repQuitUsd || 0)),
+        colPend = Math.max(0, r.colch / S.fx.pyg - (S.colchUsd || 0)),
+        tipo = devido > 0.004 ? 'repor' : colPend > 0.004 ? 'colchao' : '';
+      if (tipo) {
+        var t = trocarRegistrar([{ tipo: tipo, de: de, v: v, rec: rec }]);
+        return t > 0 ? { ok: true, msg: S.cxMsg } : { ok: false, msg: S.cxMsg };
+      }
+    }
+    var e = { ts: Date.now(), de: de, para: para, dado: v, rec: rec, difGs: dif, tipo: 'livre' };
+    if (de === 'usd') {
+      var f = fonteDolar(v);
+      if (f.rep > 0.004 && !confirmou)
+        return {
+          ok: false,
+          confirmar: true,
+          msg:
+            'Esta venda usa ' + usd(f.rep) + ' que estavam guardados para a reposição. A reposição fica aberta e será reservada ao dólar de hoje. Toque em Registrar de novo para confirmar.'
+        };
+      e.fonte = f;
+      if (f.col > 0) S.colchUsd = Math.max(0, (S.colchUsd || 0) - f.col);
+      if (f.rep > 0) {
+        e.repBack = Math.min(f.rep, S.repQuitUsd || 0);
+        S.repQuitUsd = Math.max(0, (S.repQuitUsd || 0) - e.repBack);
+      }
+      if (dif < 0) e.perdaGs = -dif;
+    }
+    S.cash[de] -= v;
+    S.cash[para] = (S.cash[para] || 0) + rec;
+    S.cambios.unshift(e);
+    S.cxMsg = 'Troca registrada: ' + fmtM(v, de) + ' → ' + fmtM(rec, para) + '.';
+    return { ok: true, msg: S.cxMsg };
+  }
+  // Desfaz uma troca do histórico (a mais recente por padrão).
+  function trocarDesfazer(ix) {
+    ix = ix > 0 ? +ix : 0;
+    var e = S.cambios[ix];
+    if (!e) return false;
+    var para = e.para || 'usd';
+    if ((S.cash[para] || 0) < e.rec - 0.005) {
+      S.cxMsg = 'Não dá para desfazer: faltam ' + fmtM(e.rec, para) + ' no caixa.';
+      return false;
+    }
     S.cash[e.de] += e.dado;
-    S.cash.usd -= e.rec;
+    S.cash[para] -= e.rec;
     if (e.tipo === 'colchao') S.colchUsd = Math.max(0, (S.colchUsd || 0) - e.rec);
     if (e.quit) S.repQuitUsd = Math.max(0, (S.repQuitUsd || 0) - e.quit);
+    if (e.fonte) {
+      S.colchUsd = (S.colchUsd || 0) + (e.fonte.col || 0);
+      S.repQuitUsd = (S.repQuitUsd || 0) + (e.repBack || 0);
+    }
     if (e.usoTs) S.colchUsos = S.colchUsos.filter(function (u) {
       return u.ts !== e.usoTs;
     });
-    S.cambios.shift();
+    S.cambios.splice(ix, 1);
     S.cxMsg = 'Troca desfeita.';
     return true;
   }
@@ -20017,6 +20106,55 @@
     if (S.cxMsg) h += '<div class="hint" role="status" style="margin:0">' + esc(S.cxMsg) + '</div>';
     return h + '</section>';
   }
+  // Trocar moedas: formulário livre, atalhos do plano e histórico com Desfazer.
+  function trHistHtml() {
+    if (!S.cambios.length) return '';
+    return '<div class="lbl" style="margin-top:6px">Trocas feitas</div>' + S.cambios.slice(0, 8).map(function (x, i) {
+      return '<div class="sl"><span>' + fmtM(x.dado, x.de) + ' → ' + fmtM(x.rec, x.para || 'usd') + '<small>' + fd(x.ts) + ' às ' + fh(x.ts) + ' · ' + (x.difGs >= 0 ? '+' : '−') + gs(Math.abs(x.difGs)) + ' em relação ao câmbio do dia</small></span><button class="chip" data-act="trdesfaz" data-id="' + i + '" style="min-height:36px">Desfazer</button></div>';
+    }).join('');
+  }
+  function trocarMoedasHtml() {
+    var t = S.tr,
+      html = '';
+    html +=
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Trocar moedas</h2><div class="hint" style="margin:2px 0 0">Registre a troca ou a venda de dólar que você fez. Os saldos mudam nas duas moedas.</div></div>' +
+      trocarPlano().passos.map(function (x, i) {
+        return '<button class="chip" data-act="trusar" data-id="' + i + '">Atalho: ' + fmtM(x.sug, x.de) + ' → ' + usd(x.rec) + '</button>';
+      }).join('') +
+      '<div class="sel" style="flex-wrap:wrap">' +
+      trSel('trDe', t.de) +
+      '<button class="chip" data-act="trflip" aria-label="Inverter as moedas">⇄ Inverter</button>' +
+      trSel('trPara', t.para) +
+      '</div>' +
+      '<div class="sel" style="flex-wrap:wrap"><div style="flex:1 1 160px"><div class="lbl">Você troca (' +
+      MN[t.de] +
+      ')</div><input class="in" id="trV" inputmode="decimal" data-in="trV" value="' +
+      esc(t.v) +
+      '" aria-label="Valor a trocar"></div>' +
+      '<div style="flex:1 1 160px"><div class="lbl">Você recebe (' +
+      MN[t.para] +
+      ')</div><input class="in" id="trRec" inputmode="decimal" data-in="trRec" value="' +
+      esc(t.rec) +
+      '" aria-label="Valor recebido na troca"></div></div>' +
+      '<div class="hint" id="trPrev" role="status" style="margin:0"></div><button class="go" data-act="trocar">Registrar troca</button>' +
+      trHistHtml() +
+      '</section>';
+    html += '';
+    return html;
+  }
+  // Quanto falta para completar a reposição em dólar (depois de vender dólar da reposição).
+  function faltamHtml() {
+    var r = reservas(),
+      falta = Math.max(0, r.rUSD - Math.max(0, S.cash.usd));
+    if (!(r.rUSD > 0.004) || falta < 0.004) return '';
+    var pct = Math.round(Math.min(1, Math.max(0, S.cash.usd) / r.rUSD) * 100);
+    return (
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Faltam ' + usd(falta) + ' para a reposição</h2></div>' +
+      '<div style="height:10px;border-radius:6px;background:var(--line);overflow:hidden"><i style="display:block;height:100%;width:' + pct + '%;background:var(--ok)"></i></div>' +
+      '<div class="hint" style="margin:0">' + usd(Math.max(0, S.cash.usd)) + ' em dólar de ' + usd(r.rUSD) + ' reservados (' + pct + '%). Falta valor ao dólar de hoje: ' + gs(Math.round(falta * S.fx.pyg)) + '.</div>' +
+      '<div class="note n-warn">Evite retiradas até completar a reposição.</div></section>'
+    );
+  }
   function renderFx() {
     if (S.view !== 'fx' && !S._rtudo) return;
     var el = $('v-fx'),
@@ -20050,7 +20188,7 @@
       esc(f.status) +
       (f.ts ? ' Última atualização às ' + fh(f.ts) + '.' : '') +
       '</div>';
-    html += trocarAgoraHtml();
+    html += faltamHtml() + trocarAgoraHtml() + trocarMoedasHtml();
     html += fxLojaHtml();
     html += fxGraficos();
     html +=
@@ -20094,6 +20232,7 @@
         .join('') +
       '</tbody></table></div></section>';
     el.innerHTML = html;
+    updateTr();
     tickFx();
   }
   // Atualiza o contador do câmbio.
@@ -21280,7 +21419,8 @@
       t.de = t.para;
       t.para = d;
       t.edited = false;
-      renderCaixa();
+      S.trConf = false;
+      render();
     },
     fxtrocar: function () {
       var linhas = [],
@@ -21308,33 +21448,29 @@
     trocar: function () {
       var t = S.tr,
         v = parseDec(t.v, t.de),
-        rec = parseDec(t.rec, t.para);
-      if (t.de === t.para) {
-        S.cxMsg = 'Escolha moedas diferentes.';
-      } else if (!v || !rec) {
-        S.cxMsg = 'Informe o valor que troca e o valor que recebe.';
-      } else if (S.cash[t.de] < v) {
-        S.cxMsg =
-          'Saldo insuficiente em ' + MN[t.de] + ': você tem ' + fmtM(S.cash[t.de], t.de) + '.';
-      } else {
-        var dif = Math.round(rec * ratePyg(t.para) - v * ratePyg(t.de));
-        S.cash[t.de] -= v;
-        S.cash[t.para] += rec;
-        S.cambios.unshift({
-          ts: Date.now(),
-          de: t.de,
-          para: t.para,
-          dado: v,
-          rec: rec,
-          difGs: dif
-        });
-        S.cxMsg = 'Troca registrada: ' + fmtM(v, t.de) + ' → ' + fmtM(rec, t.para) + '.';
-        t.v = '';
-        t.rec = '';
-        t.edited = false;
+        rec = parseDec(t.rec, t.para),
+        r = trocarLivre(t.de, v, t.para, rec, S.trConf);
+      S.cxMsg = r.msg;
+      if (r.confirmar) S.trConf = true;
+      else {
+        S.trConf = false;
+        if (r.ok) {
+          t.v = '';
+          t.rec = '';
+          t.edited = false;
+        }
       }
-      renderCaixa();
-      renderDash();
+      render();
+    },
+    trdesfaz: function (id) {
+      trocarDesfazer(id);
+      render();
+    },
+    trusar: function (id) {
+      var x = trocarPlano().passos[id];
+      if (!x) return;
+      S.tr = { de: x.de, para: 'usd', v: String(x.sug), rec: String(x.rec), edited: true };
+      render();
     },
     melhuso: function () {
       var v = campoParaGs($('muV').value),
@@ -21533,15 +21669,18 @@
           return m !== t.value;
         })[0];
       S.tr.edited = false;
-      renderCaixa();
+      S.trConf = false;
+      render();
     }
     if (k === 'trV') {
       S.tr.v = t.value;
+      S.trConf = false;
       updateTr();
     }
     if (k === 'trRec') {
       S.tr.rec = t.value;
       S.tr.edited = true;
+      S.trConf = false;
       updateTr();
     }
   });
@@ -21837,48 +21976,8 @@
       html +=
         '<div class="note n-bad">O dinheiro em caixa está abaixo do que deveria estar separado. Evite retiradas até repor.</div>';
     html += retiradaHtml() + ccHtml();
-    var t = S.tr;
     html +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Trocar moeda</h2><div class="hint" style="margin:2px 0 0">Registre a troca que você fez. Os saldos mudam nas duas moedas.</div></div>' +
-      '<div class="sel" style="flex-wrap:wrap">' +
-      trSel('trDe', t.de) +
-      '<button class="chip" data-act="trflip" aria-label="Inverter as moedas">⇄ Inverter</button>' +
-      trSel('trPara', t.para) +
-      '</div>' +
-      '<div class="sel" style="flex-wrap:wrap"><div style="flex:1 1 160px"><div class="lbl">Você troca (' +
-      MN[t.de] +
-      ')</div><input class="in" id="trV" inputmode="decimal" data-in="trV" value="' +
-      esc(t.v) +
-      '" aria-label="Valor a trocar"></div>' +
-      '<div style="flex:1 1 160px"><div class="lbl">Você recebe (' +
-      MN[t.para] +
-      ')</div><input class="in" id="trRec" inputmode="decimal" data-in="trRec" value="' +
-      esc(t.rec) +
-      '" aria-label="Valor recebido na troca"></div></div>' +
-      '<div class="hint" id="trPrev" role="status" style="margin:0"></div><button class="go" data-act="trocar">Registrar troca</button>' +
-      (S.cambios.length
-        ? '<div class="lbl" style="margin-top:6px">Últimas trocas</div>' +
-          S.cambios
-            .slice(0, 5)
-            .map(function (x) {
-              return (
-                '<div class="sl"><span>' +
-                fmtM(x.dado, x.de) +
-                ' → ' +
-                fmtM(x.rec, x.para) +
-                '<small>' +
-                fd(x.ts) +
-                ' às ' +
-                fh(x.ts) +
-                ' · ' +
-                (x.difGs >= 0 ? '+' : '−') +
-                gs(Math.abs(x.difGs)) +
-                ' em relação ao câmbio do dia</small></span></div>'
-              );
-            })
-            .join('')
-        : '') +
-      '</section>';
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Trocar moedas</h2><div class="hint" style="margin:2px 0 0">Trocas de moeda, vendas de dólar e o histórico ficam na aba Câmbio.</div></div><button class="go" data-act="view" data-id="fx">Abrir Trocar moedas</button></section>';
     html +=
       '<div class="two">' +
       '<section class="card col"><h2 style="margin:0;font-size:16px">Usar a caixa de melhorias</h2><div class="hint" style="margin:0">Tira do saldo de melhorias e dos guaranis em caixa.</div>' +
@@ -21962,7 +22061,9 @@
     }
     var rec = parseDec(t.rec, t.para),
       dif = rec * ratePyg(t.para) - v * ratePyg(t.de),
-      p = $('trPrev');
+      p = $('trPrev'),
+      fo = null;
+    if (t.de === 'usd' && v > 0 && v <= (S.cash.usd || 0) + 0.005 && t.para !== 'usd') fo = fonteDolar(v);
     if (p)
       p.textContent = v
         ? 'Pelo câmbio de hoje: ' +
@@ -21977,6 +22078,17 @@
               ' em relação ao câmbio de hoje).'
             : '')
         : 'Digite o valor a trocar.';
+    if (p && fo)
+      p.textContent +=
+        ' Sai de: ' +
+        usd(fo.extra) +
+        ' que sobram' +
+        (fo.col > 0 ? ', ' + usd(fo.col) + ' do colchão' : '') +
+        (fo.rep > 0 ? ', ' + usd(fo.rep) + ' da reposição (ela fica aberta)' : '') +
+        '.' +
+        (S.trConf ? ' Toque em Registrar de novo para confirmar.' : '');
+    if (p && !fo && t.de !== 'usd' && t.para !== 'usd' && v > 0 && Math.abs(dif) >= 1)
+      p.textContent += ' A diferença é só do câmbio da casa de câmbio e não mexe nas reservas.';
   }
 
   S.dlog = [];
@@ -24906,6 +25018,6 @@
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, whiten: whiten, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
+      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
     };
 })();
