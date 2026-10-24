@@ -1,5 +1,5 @@
   // ===== Pedidos: pedidos do catálogo online para a loja (por enquanto lançados à mão; o catálogo online ligará aqui). =====
-  ICO_D.ped = '<path d="M6 3h12l2 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7zM4 7h16M9 11a3 3 0 0 0 6 0"/>';
+  ICO_D.ped = '<path d="M6 6h15l-2 9H8zM6 6L5 3H2"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/>';
   S.pedidos = [];
   S.pedNext = 1;
   S.pedF = 'novo';
@@ -81,7 +81,7 @@
         ['ent', 'Entregues', n.ent, ''],
         ['canc', 'Cancelados', n.canc, '']
       ],
-      h = '<div class="top"><div><h1>Pedidos</h1><div class="crumb">Pedidos do catálogo online para a loja</div></div></div>';
+      h = '<div class="top"><div><h1>Pedidos online</h1><div class="crumb">Pedidos do catálogo online para a loja</div></div></div>';
     h += '<div class="tgrid g5" role="group" aria-label="Situação dos pedidos">';
     fl.forEach(function (f) {
       h += tileHtml('data-act="pedf" data-id="' + f[0] + '"', 'ped', f[1], [String(f[2]), f[3]], 'sm', S.pedF === f[0]);

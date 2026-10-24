@@ -115,7 +115,7 @@
     var partes = [];
     partes.push('A cobrar: ' + gs(t.due));
     partes.push('Recebido: ' + gs(t.rec));
-    if (t.falta > 0) partes.push('Falta: ' + gs(t.falta));
+    if (t.falta > 0) partes.push('Falta: ' + gs(t.falta) + (S.cartOpen && t.falta >= 100 ? ' (será registrado como desconto)' : ''));
     if (t.devolver > 0) partes.push('Troco a devolver: ' + gs(t.devolver));
     if (t.troco > 0) partes.push('Troco devolvido: ' + gs(t.troco));
     el.textContent = partes.join(' · ');

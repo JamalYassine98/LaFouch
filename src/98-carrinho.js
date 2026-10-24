@@ -1,6 +1,7 @@
   // ===== Carrinho: várias peças numa venda só; o piso vale para o total, não para cada peça. =====
   S.cart = [];
   S.cartOpen = false;
+  S.cartStep = 'pag'; // 'ped' = tela do pedido; 'pag' = tela de pagamento
   var cartSeq = 0;
 
   // Preço combinado de uma linha (padrão: tabela × quantidade).
@@ -80,21 +81,25 @@
       bar.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between';
       card = mk('section', 'card col');
       card.id = 'cartCard';
-      card.setAttribute('aria-label', 'Carrinho');
+      card.setAttribute('aria-label', 'Pedido');
       ref.parentNode.insertBefore(card, ref);
       ref.parentNode.insertBefore(bar, card);
     }
     cartLimpa();
     var emVendas = S.view === 'vendas';
+    var ped = !!S.cartOpen && S.cartStep === 'ped',
+      pag = !!S.cartOpen && !ped;
     bar.hidden = !(emVendas && S.cart.length && !S.cartOpen);
-    card.hidden = !(emVendas && S.cartOpen);
+    card.hidden = !(emVendas && ped);
+    $('pagHead').hidden = !(emVendas && pag);
     if (!bar.hidden)
       bar.innerHTML =
-        '<div style="display:flex;gap:4px;flex:0 0 auto">' + S.cart.slice(0, 4).map(function (l) { return cartFoto(l, 40); }).join('') + '</div><div style="flex:1 1 140px"><b>Carrinho: ' + cartPecas() + ' peça(s)</b><div class="hint" style="margin:2px 0 0">' + gs(cartSub()) + ' pela tabela dos preços combinados</div></div>' +
-        '<button type="button" class="mini" data-act="cartopen">Abrir carrinho</button>';
+        '<div style="display:flex;gap:4px;flex:0 0 auto">' + S.cart.slice(0, 4).map(function (l) { return cartFoto(l, 40); }).join('') + '</div><div style="flex:1 1 140px"><b>Pedido: ' + cartPecas() + ' peça(s)</b><div class="hint" style="margin:2px 0 0">' + gs(cartSub()) + ' pelos preços combinados</div></div>' +
+        '<button type="button" class="mini" data-act="cartopen">Pedidos</button>';
     $('sCartAdd').hidden = S.cartOpen || !S._vsel;
-    // venda de uma peça só escolhe e adiciona; pagamento e finalização ficam no carrinho
-    $('descB').hidden = !S.cartOpen;
+    // a peça é escolhida e adicionada ao pedido; pagamento e finalização ficam na tela de pagamento
+    // (o desconto não tem campo: é o que falta do valor recebido, confirmado ao finalizar)
+    $('descB').hidden = true;
     $('payB').hidden = !S.cartOpen;
     $('sgo').hidden = !S.cartOpen;
     $('qtyB').hidden = !!S.cartOpen;
@@ -102,9 +107,9 @@
     // modo carrinho: usa a tela de pagamento da venda com o total do carrinho
     $('vListCard').hidden = true;
     $('vDetail').hidden = true;
-    $('vSaleCard').hidden = false;
+    $('vSaleCard').hidden = !pag;
     $('catV').hidden = true;
-    $('spc').textContent = 'Carrinho com ' + S.cart.length + ' produto(s)';
+    $('spc').textContent = '';
     $('sst').textContent = '';
     $('sst').className = '';
     $('sumB').hidden = false;
@@ -121,7 +126,7 @@
   }
   function cartPainel(card) {
     var h =
-      '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><h2 style="margin:0;font-size:18px">Carrinho</h2><button type="button" class="chip" data-act="cartclose">+ Continuar escolhendo</button></div>' +
+      '<div style="display:flex;align-items:center;gap:10px"><button type="button" class="chip" data-act="cartclose" aria-label="Voltar" style="min-height:42px;width:42px;padding:0;justify-content:center;font-size:20px;flex:0 0 auto">←</button><h2 style="margin:0;font-size:20px">Pedido · ' + cartPecas() + ' peça(s)</h2></div>' +
       '<div class="hint" style="margin:0">O piso é conferido sobre o total. Você pode mudar o preço de uma peça (desconto maior numa, menos em outra) e o app confere se o total ainda cobre tudo.</div><div class="split">';
     S.cart.forEach(function (l, i) {
       var pp = pisoPeca(l.it),
@@ -133,10 +138,12 @@
         '<span style="display:flex;gap:6px;align-items:center"><button type="button" class="step" style="min-height:36px;width:36px" data-act="cartmn" data-id="' + i + '" aria-label="Menos uma peça">−</button>' +
         '<button type="button" class="step" style="min-height:36px;width:36px" data-act="cartpl" data-id="' + i + '" aria-label="Mais uma peça">+</button></span>' +
         '<input class="in" inputmode="' + mpMode() + '" data-in="cartpreco" data-id="' + i + '" value="' + gsParaCampo(v) + '" aria-label="Preço combinado de ' + esc(cartDesc(l)) + ' em ' + mpSim() + '" style="flex:0 1 130px;width:130px">' +
-        '<button type="button" class="chip" style="flex:0 0 40px;width:40px;padding:0;justify-content:center" data-act="cartrm" data-id="' + i + '" aria-label="Tirar do carrinho">×</button></div>';
+        '<button type="button" class="chip" style="flex:0 0 40px;width:40px;padding:0;justify-content:center" data-act="cartrm" data-id="' + i + '" aria-label="Tirar do pedido">×</button></div>';
     });
-    h += '</div><div class="sum"><span class="hint" style="margin:0">Soma dos preços combinados</span><b id="cartSub">' + gs(cartSub()) + '</b></div>' +
-      '<div><button type="button" class="chip" data-act="cartclear">Esvaziar carrinho</button></div>';
+    h += '</div><button type="button" id="cartSlot" data-act="cartclose" style="min-height:56px;border:2px dashed var(--line);border-radius:12px;background:transparent;color:var(--accent-fg);font:inherit;font-weight:700;width:100%">＋ Adicionar produto</button>' +
+      '<div class="sum"><span class="lbl" style="margin:0">Total</span><b id="cartSub" style="font-size:26px">' + gs(cartSub()) + '</b></div>' +
+      '<button type="button" class="go" id="cartConf" data-act="cartconf">Confirmar pedido</button>' +
+      '<div><button type="button" class="chip" data-act="cartclear">Esvaziar pedido</button></div>';
     card.innerHTML = h;
   }
   // Recalcula total, desconto, pagamento e aviso de piso (sem refazer o painel).
@@ -146,10 +153,11 @@
     S._vsel = null;
     S._selKey = 'cart';
     S._t = { price: sub, id: 'cart:' + sub + ':' + S.cart.length };
-    S.descGs = descontoGs(sub);
+    S.descGs = 0;
+    S.descTxt = '';
     var cs = $('cartSub');
     if (cs) cs.textContent = gs(sub);
-    $('unit').textContent = 'Carrinho · ' + cartPecas() + ' peça(s)';
+    $('unit').textContent = 'Pedido · ' + cartPecas() + ' peça(s)';
     $('tot').textContent = gs(sub - S.descGs);
     renderDescBrinde(null);
     renderMoeda();
@@ -177,6 +185,15 @@
       render();
       return;
     }
+    var due = cartSub(),
+      liqRec = pagTotais().liq,
+      falta = due - liqRec,
+      dkey = ['d', due, liqRec].join('|');
+    if (falta >= DESC_MIN && S._descOk !== dkey) {
+      descAbrir(falta, due, liqRec, dkey);
+      return;
+    }
+    var desc = falta >= DESC_MIN;
     var pv = cartPrevia();
     if (pv.abaixo && S.pisoConf !== pv.key) {
       S.pisoConf = pv.key;
@@ -239,7 +256,7 @@
           i === 0 && br
             ? { tipo: br.tipo, ref: br.ref, cor: br.cor, grau: br.grau || '', vr: br.vr || '', lote: br.lote || '', usd: pv.bu }
             : null,
-        motivo: pv.abaixo ? S.vMotivo || '' : ''
+        motivo: pv.abaixo || desc ? S.vMotivo || '' : ''
       });
       s.carrinho = cartId;
       s.abaixo = pv.abaixo;
@@ -256,13 +273,15 @@
     vendas.forEach(function (s) {
       agg.qty += s.qty;
     });
-    agg.ref = 'Carrinho';
+    agg.ref = 'Pedido';
     agg.cor = '';
     agg.tipo = 'x';
     agg.vr = '';
     var n = S.cart.length;
     S.cart = [];
     S.cartOpen = false;
+    S.cartStep = 'pag';
+    S._descOk = '';
     S.pisoConf = '';
     S.forma = 'din';
     pagReset();
@@ -270,14 +289,14 @@
     S.vBrinde = null;
     S.vMotivo = '';
     S.rec = null;
-    say('Venda registrada: carrinho com ' + n + ' produto(s)');
+    say('Venda registrada: pedido com ' + n + ' produto(s)');
     render();
     showSplit(agg);
-    $('splitH').textContent = 'Carrinho com ' + n + ' produto(s), ' + agg.qty + ' peça(s), por ' + gs(agg.price) + ' (vendas ' + agg.id + ')';
+    $('splitH').textContent = 'Pedido com ' + n + ' produto(s), ' + agg.qty + ' peça(s), por ' + gs(agg.price) + ' (vendas ' + agg.id + ')';
     $('splitNote').textContent =
-      'Preço mínimo seguro (trava) do carrinho: ' + gs(agg.trava) + '. Vendido por ' + gs(agg.price) + ', ' + (agg.livre >= 0 ? 'então o preço está seguro.' : 'abaixo do seguro. Veja a aba Dashboard.') + ' Cada peça foi gravada no Histórico.';
+      'Preço mínimo seguro (trava) do pedido: ' + gs(agg.trava) + '. Vendido por ' + gs(agg.price) + ', ' + (agg.livre >= 0 ? 'então o preço está seguro.' : 'abaixo do seguro. Veja a aba Dashboard.') + ' Cada peça foi gravada no Histórico.';
   }
-  // Botão "Adicionar ao carrinho".
+  // Botão "Adicionar pedido".
   $('sCartAdd').onclick = function () {
     var sel = S._vsel;
     if (!sel || sel.qty <= 0) return;
@@ -289,13 +308,16 @@
       var nq = Math.min(sel.qty, ex.qty + q);
       if (ex.preco != null) ex.preco = Math.round((ex.preco * nq) / ex.qty);
       ex.qty = nq;
-    } else
-      S.cart.push({ it: sel, qty: q, preco: null });
+    } else {
+      var dd = descontoGs(tFor(sel).price * q); // desconto trazido da análise "Liquidação"
+      S.cart.push({ it: sel, qty: q, preco: dd > 0 ? Math.max(0, tFor(sel).price * q - dd) : null });
+    }
+    S.descTxt = '';
     S.vRef = '';
     S.vSel = null;
     S.qty = 1;
     S.rec = null;
-    S.msg = 'Adicionado ao carrinho.';
+    S.msg = 'Adicionado ao pedido.';
     render();
     window.scrollTo(0, 0);
     setTimeout(function () {
@@ -313,14 +335,62 @@
   });
   ACT.cartopen = function () {
     S.cartOpen = true;
+    S.cartStep = 'ped';
     S.rec = null;
     render();
     window.scrollTo(0, 0);
   };
   ACT.cartclose = function () {
     S.cartOpen = false;
+    S.cartStep = 'pag';
     render();
+    window.scrollTo(0, 0);
   };
+  ACT.cartconf = function () {
+    cartLimpa();
+    if (!S.cart.length) return render();
+    S.cartStep = 'pag';
+    S.rec = null;
+    S._descOk = '';
+    render();
+    window.scrollTo(0, 0);
+  };
+  ACT.cartvolta = function () {
+    S.cartStep = 'ped';
+    render();
+    window.scrollTo(0, 0);
+  };
+  // Confirmação do desconto: o que falta do valor recebido vira desconto, com o motivo.
+  var DESC_MIN = 100;
+  function descAbrir(falta, due, rec, key) {
+    var box = $('dscBox');
+    box.innerHTML =
+      '<div><h2 style="margin:0;font-size:18px">Registrar ' + gs(falta) + ' como desconto?</h2><div class="hint" style="margin:6px 0 0">Total ' + gs(due) + ' · recebido ' + gs(rec) + '</div></div>' +
+      '<div><div class="lbl">Motivo</div><div class="nav" id="dscMot"></div></div>' +
+      '<button type="button" class="go" id="dscOk">Registrar e finalizar</button>' +
+      '<button type="button" class="chip" id="dscNo" style="justify-content:center;min-height:44px">Voltar e corrigir</button>';
+    var mc = $('dscMot');
+    ['Isca ou combo', 'Liquidação', 'Cliente fiel', 'Outro'].forEach(function (m) {
+      mc.appendChild(
+        btn('chip' + (S.vMotivo === m ? ' on' : ''), m, function () {
+          S.vMotivo = S.vMotivo === m ? '' : m;
+          Array.prototype.forEach.call(mc.children, function (c) {
+            c.classList.toggle('on', c.textContent === S.vMotivo);
+            c.setAttribute('aria-pressed', c.textContent === S.vMotivo);
+          });
+        }, S.vMotivo === m)
+      );
+    });
+    $('dscNo').onclick = function () {
+      $('dscModal').hidden = true;
+    };
+    $('dscOk').onclick = function () {
+      $('dscModal').hidden = true;
+      S._descOk = key;
+      cartFinalizar();
+    };
+    $('dscModal').hidden = false;
+  }
   ACT.cartclear = function () {
     S.cart = [];
     S.cartOpen = false;

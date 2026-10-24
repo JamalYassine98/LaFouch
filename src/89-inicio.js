@@ -1,6 +1,6 @@
   /* ===== Início: botões em "azulejo" (ícone em cima do nome) e barra de navegação de baixo ===== */
   var ICO_D = {
-    vendas: '<path d="M6 6h15l-2 9H8zM6 6L5 3H2"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/>',
+    vendas: '<path d="M4 4h16l1 5a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0zM5 12v8h14v-8M10 20v-4h4v4"/>',
     estoque: '<path d="M3 8l9-5 9 5v9l-9 5-9-5zM3 8l9 5 9-5M12 13v9"/>',
     caixa: '<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M16 15h2"/>',
     fx: '<path d="M7 7h12l-3-3M17 17H5l3 3"/>',
@@ -51,7 +51,7 @@
     });
     return { n: n, v: v };
   }
-  ICO_D.novo = '<path d="M12 5v14M5 12h14"/><rect x="3" y="3" width="18" height="18" rx="4"/>';
+  ICO_D.novo = '<rect x="2.5" y="9" width="8" height="7" rx="2.5"/><rect x="13.5" y="9" width="8" height="7" rx="2.5"/><path d="M10.5 11.5h3M2.5 11L1 10M21.5 11l1.5-1"/>';
   ICO_D.cont = '<path d="M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h9"/>';
   ICO_D.lotes = '<path d="M3 7l9-4 9 4-9 4zM3 12l9 4 9-4M3 17l9 4 9-4"/>';
   var INI_PADRAO = ['vendas', 'estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'cat', 'ajustes', 'ped', 'cont', 'lotes'];
@@ -72,7 +72,7 @@
       rep = reposicao().length;
     } catch (e) {}
     return {
-      vendas: ['Vendas', ct ? [ct + ' no carrinho', 'g'] : ['Carrinho vazio', '']],
+      vendas: ['Vendas', ct ? [ct + ' no pedido', 'g'] : ['Sem pedido aberto', '']],
       estoque: ['Inventário', [pecas + ' peças', rep ? 'w' : '']],
       caixa: ['Caixa', [gs(walletGs()), 'g']],
       fx: ['Câmbio', [gsRaw(Math.round(ratePyg('usd'))), '']],
@@ -87,7 +87,7 @@
       novo: ['Novo produto', ['Cadastrar', '']],
       cont: ['Contagem', ['Conferir estoque', '']],
       lotes: ['Lotes', ['Compras', '']],
-      ped: ['Pedidos', [pedNovos() + ' novos', pedNovos() ? 'w' : '']],
+      ped: ['Pedidos online', [pedNovos() + ' novos', pedNovos() ? 'w' : '']],
       notif: ['Notificações', [notifContagem() + ' avisos', notifContagem() ? 'w' : '']]
     };
   }
@@ -104,9 +104,7 @@
       return (
         '<div class="twrap" data-k="' + id + '">' +
         tileHtml('disabled', id, t[0], t[1], '', false) +
-        '<div class="tedit"><button type="button" data-act="inicioMv" data-id="' + id + '|-1" aria-label="Mover ' + t[0] + ' para trás"' + (i === 0 ? ' disabled' : '') + '>◀</button>' +
-        '<button type="button" class="x" data-act="inicioRm" data-id="' + id + '" aria-label="Remover ' + t[0] + '">✕</button>' +
-        '<button type="button" data-act="inicioMv" data-id="' + id + '|1" aria-label="Mover ' + t[0] + ' para frente"' + (i === L.length - 1 ? ' disabled' : '') + '>▶</button></div></div>'
+        '<div class="tedit"><button type="button" class="x" data-act="inicioRm" data-id="' + id + '" aria-label="Remover ' + t[0] + '">✕</button></div></div>'
       );
     }).join('');
     var livres = INI_TODOS.filter(function (id) {
