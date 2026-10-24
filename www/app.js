@@ -17327,11 +17327,13 @@
     var v = $('vq');
     if (v) {
       var w = document.createElement('div');
-      w.style.cssText = 'display:flex;gap:8px;align-items:center;max-width:480px';
+      w.style.cssText = 'display:flex;gap:8px;align-items:center;max-width:480px;width:100%';
       v.parentNode.insertBefore(w, v);
       w.appendChild(v);
-      v.style.flex = '1 1 auto';
+      v.style.flex = '1 1 0';
       v.style.width = 'auto';
+      v.style.minWidth = '0';
+      v.style.maxWidth = 'none';
       w.appendChild(mkCam(v));
       var fb = mk('button', 'chip');
       fb.type = 'button';
