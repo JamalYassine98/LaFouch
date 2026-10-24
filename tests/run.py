@@ -427,12 +427,11 @@ async def main():
             t2 = await pg.inner_text('#pisoSt'); b1 = await pg.inner_text('#sgo')
             await pg.click('#sgo'); await pg.wait_for_timeout(200)
             dsc = await pg.evaluate("() => [!document.getElementById('dscModal').hidden, document.getElementById('dscBox').textContent.indexOf('20.000') >= 0]")
+            tit = await pg.evaluate("() => [document.getElementById('dscBox').textContent.indexOf('abaixo do piso') >= 0, document.getElementById('dscOk').textContent, document.querySelectorAll('#dscMot').length]")
             await pg.click('#dscMot button:has-text("Liquidação")'); await pg.click('#dscOk'); await pg.wait_for_timeout(300)
             n1 = await pg.evaluate("() => window.__LF.S.sales.length")
-            pm = await pg.evaluate("() => [!document.getElementById('dscModal').hidden, document.getElementById('dscBox').textContent.indexOf('Vender abaixo do piso') >= 0, document.querySelectorAll('#dscMot').length, document.querySelectorAll('#motChips').length]")
-            await pg.click('#dscOk'); await pg.wait_for_timeout(300)
             got = await pg.evaluate("() => { const S = window.__LF.S, s = S.sales[0]; return [S.sales.length, s && s.abaixo, s && s.perde, S.items[0].qty, s && s.faixa, s && s.lista] }")
-            ok = 'Acima do piso' in t1 and 'Abaixo da trava' in t2 and b1.strip() == 'Finalizar venda' and n1 == 0 and pm == [True, True, 0, 0] and dsc == [True, True] and got == [1, True, True, 4, 'f1', 25000]
+            ok = 'Acima do piso' in t1 and 'Abaixo da trava' in t2 and b1.strip() == 'Finalizar venda' and n1 == 1 and tit == [True, 'Registrar e vender', 1] and dsc == [True, True] and got == [1, True, True, 4, 'f1', 25000]
             print(('  ok  ' if ok else ' FALHA ') + 'tela Vendas: desconto abaixo do piso pede confirmação')
             if not ok: falhas.append('venda abaixo do piso'); print('        veio', t1, '|', t2, '|', b1, n1, got, pg.erros)
             total += 1

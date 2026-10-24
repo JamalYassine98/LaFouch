@@ -186,14 +186,13 @@
       liqRec = pagTotais().liq,
       falta = due - liqRec,
       dkey = ['d', due, liqRec].join('|');
-    if (falta >= DESC_MIN && S._descOk !== dkey) {
-      descAbrir(falta, due, liqRec, dkey);
-      return;
-    }
-    var desc = falta >= DESC_MIN;
-    var pv = cartPrevia();
-    if (pv.abaixo && S.pisoConf !== pv.key) {
-      pisoAbrir(pv, desc);
+    var desc = falta >= DESC_MIN,
+      pv = cartPrevia(),
+      pedeDesc = desc && S._descOk !== dkey,
+      pedePiso = pv.abaixo && S.pisoConf !== pv.key;
+    // um só aviso para desconto e/ou venda abaixo do piso
+    if (pedeDesc || pedePiso) {
+      confirmaAbrir(pedeDesc ? { falta: falta, due: due, rec: liqRec, key: dkey } : null, pedePiso ? pv : null);
       return;
     }
     var sub = cartSub(),
@@ -386,37 +385,29 @@
       );
     });
   }
-  // Venda abaixo do piso: pergunta uma vez (com o motivo, se ainda não foi pedido no desconto).
-  function pisoAbrir(pv, jaMotivo) {
-    var box = $('dscBox');
-    box.innerHTML =
-      '<div><h2 style="margin:0;font-size:18px">Vender abaixo do piso?</h2><div class="hint" style="margin:6px 0 0">' +
-      (pv.perde
-        ? 'Abaixo da trava: você perde ' + gs(pv.travaTot - pv.liq) + ' nesta venda.'
-        : 'Piso ' + gs(pv.pisoTot) + '. Lucro livre estimado ' + gs(pv.c.livre) + '.') +
-      '</div></div>' +
-      (jaMotivo ? '' : '<div><div class="lbl">Motivo (opcional)</div><div class="nav" id="dscMot"></div></div>') +
-      '<button type="button" class="go" id="dscOk">Vender mesmo assim</button>' +
-      '<button type="button" class="chip" id="dscNo" style="justify-content:center;min-height:44px">Voltar e corrigir</button>';
-    if (!jaMotivo) motivoChips($('dscMot'));
-    $('dscNo').onclick = function () {
-      $('dscModal').hidden = true;
-    };
-    $('dscOk').onclick = function () {
-      $('dscModal').hidden = true;
-      S.pisoConf = pv.key;
-      cartFinalizar();
-    };
-    $('dscModal').hidden = false;
-  }
-  // Confirmação do desconto: o que falta do valor recebido vira desconto, com o motivo.
+  // Confirmação única antes de vender: desconto (o que falta do valor recebido) e/ou venda abaixo do piso, com o motivo.
   var DESC_MIN = 100;
-  function descAbrir(falta, due, rec, key) {
-    var box = $('dscBox');
+  function confirmaAbrir(d, pv) {
+    var box = $('dscBox'),
+      linhas = [];
+    if (d) linhas.push('Total ' + gs(d.due) + ' · recebido ' + gs(d.rec) + ': ' + gs(d.falta) + ' ficam como desconto.');
+    if (pv)
+      linhas.push(
+        pv.perde
+          ? 'Abaixo da trava: você perde ' + gs(pv.travaTot - pv.liq) + ' nesta venda.'
+          : 'Abaixo do piso (' + gs(pv.pisoTot) + '). Lucro livre estimado ' + gs(pv.c.livre) + '.'
+      );
+    var titulo =
+      d && pv
+        ? 'Desconto de ' + gs(d.falta) + ' e venda abaixo do piso'
+        : d
+          ? 'Registrar ' + gs(d.falta) + ' como desconto?'
+          : 'Vender abaixo do piso?',
+      botao = d && pv ? 'Registrar e vender' : d ? 'Registrar e finalizar' : 'Vender mesmo assim';
     box.innerHTML =
-      '<div><h2 style="margin:0;font-size:18px">Registrar ' + gs(falta) + ' como desconto?</h2><div class="hint" style="margin:6px 0 0">Total ' + gs(due) + ' · recebido ' + gs(rec) + '</div></div>' +
-      '<div><div class="lbl">Motivo</div><div class="nav" id="dscMot"></div></div>' +
-      '<button type="button" class="go" id="dscOk">Registrar e finalizar</button>' +
+      '<div><h2 style="margin:0;font-size:18px">' + titulo + '</h2><div class="hint" style="margin:6px 0 0">' + linhas.join('<br>') + '</div></div>' +
+      '<div><div class="lbl">Motivo' + (d ? '' : ' (opcional)') + '</div><div class="nav" id="dscMot"></div></div>' +
+      '<button type="button" class="go" id="dscOk">' + botao + '</button>' +
       '<button type="button" class="chip" id="dscNo" style="justify-content:center;min-height:44px">Voltar e corrigir</button>';
     motivoChips($('dscMot'));
     $('dscNo').onclick = function () {
@@ -424,7 +415,8 @@
     };
     $('dscOk').onclick = function () {
       $('dscModal').hidden = true;
-      S._descOk = key;
+      if (d) S._descOk = d.key;
+      if (pv) S.pisoConf = pv.key;
       cartFinalizar();
     };
     $('dscModal').hidden = false;
