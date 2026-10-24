@@ -341,9 +341,9 @@ async def main():
                     falhas.append(nome); print('        veio', got)
 
             pg = await abrir('sem', 'Hexagonal')
-            got = await pg.evaluate("() => [document.querySelectorAll('#detail .pl.pick').length, document.querySelectorAll('#detail .vbar button').length, document.querySelectorAll('#detail .pl button').length, document.querySelector('#detail .vbar button').innerText]")
-            await checa('produto: 3 cores em lista única e um só botão Vender', got == [3, 1, 0, 'Vender C1 · Preto'], got)
-            await pg.locator('#detail .pl.pick').nth(1).click(); await pg.wait_for_timeout(200)
+            got = await pg.evaluate("() => [document.querySelectorAll('#detail .ccard').length, document.querySelectorAll('#detail .vbar button').length, document.querySelectorAll('#detail .pl.pick, #detail .detgrid button.nav, #detail .gal button').length, document.querySelector('#detail .vbar button').innerText]")
+            await checa('produto: 3 cores em cartões (como em Vendas) e um só botão Vender', got == [3, 1, 0, 'Vender C1 · Preto'], got)
+            await pg.locator('#detail .ccard').nth(1).click(); await pg.wait_for_timeout(200)
             got = await pg.evaluate("() => [document.querySelector('#detail .vbar button').innerText, window.__LF.S.detCor]")
             await checa('produto: tocar numa cor muda o que o Vender vende', got == ['Vender C2 · Bege', 'Bege'], got)
             await pg.locator('#detail .vbar button').click(); await pg.wait_for_timeout(300)

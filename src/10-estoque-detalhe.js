@@ -278,7 +278,9 @@
       }
       render();
     };
-    if (venda) {
+    // armação/solar no estoque: mesma tela do catálogo de Vendas (pontinhos e cores em cartões)
+    var cartoes = !venda && f.tipo !== 'pre' && !isSimple(f.tipo) && rows.length > 1;
+    if (venda || cartoes) {
       // foto grande com pontinhos: deslizar troca a cor, tocar amplia
       var pbv = photoBox(src, 'pbox');
       pbv.style.position = 'relative';
@@ -372,7 +374,7 @@
         'div',
         'hint',
         gal.length
-          ? 'Esta cor ainda não tem foto. Use as setas ou as miniaturas para ver as outras cores.'
+          ? 'Esta cor ainda não tem foto. Toque numa cor abaixo para ver as outras.'
           : 'Esta cor ainda não tem foto.'
       );
       nh.style.margin = '0';
@@ -468,7 +470,7 @@
       } else im.style.background = hexOf(i.cor);
       cb.appendChild(im);
       cb.appendChild(mk('b', '', nm || nomeCor(i.cor)));
-      cb.appendChild(mk('span', 'n', gQty(i) > 0 ? gQty(i) + ' un.' : 'Esgotado'));
+      cb.appendChild(mk('span', 'n', venda ? (gQty(i) > 0 ? gQty(i) + ' un.' : 'Esgotado') : i.qty + ' un.'));
       return cb;
     };
     var vPreMulti =
@@ -477,12 +479,13 @@
       rows.some(function (x) {
         return x.cor !== rows[0].cor;
       });
-    if (venda && f.tipo !== 'pre') {
+    if ((venda && f.tipo !== 'pre') || cartoes) {
       // armação/solar: as cores são cartões com foto, nome e estoque
       if (rows.length > 1) {
         var cl = mk('div', 'ccards');
         rows.forEach(function (i) {
-          cl.appendChild(corCard(i));
+          var rep = !venda && rows.filter(function (x) { return x.cor === i.cor; }).length > 1;
+          cl.appendChild(corCard(i, rep ? rowLabel(i) : undefined));
         });
         pl.appendChild(cl);
       }
