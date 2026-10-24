@@ -461,6 +461,10 @@
       })
       .join(' + ');
   }
+  // Nome da venda para listas: quantidade, nome do produto (tipo e número, se não tiver nome), grau ou variação e cor.
+  function vendaNome(s) {
+    return s.qty + '× ' + pn(s.ref) + ' ' + (s.tipo === 'pre' ? s.grau : s.vr || '') + (s.cor && s.cor !== 'Sem cor' ? ' · ' + s.cor : '');
+  }
   function saleCard(s) {
     var open = S.hOpen === s.id,
       dx = S.fx.pyg / s.fx - 1,

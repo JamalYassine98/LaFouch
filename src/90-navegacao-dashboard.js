@@ -98,11 +98,44 @@
       '</b><div class="hint">' +
       (tot ? pc(liv / tot) : '0%') +
       ' do vendido</div></div>' +
-      '<div class="kpi"><div class="lbl">Dólar e real hoje</div><b>' +
+      '<div class="kpi"><div class="lbl">Dólar hoje</div><b>' +
       gsRaw(S.fx.pyg) +
       '</b><div class="hint" style="margin-top:2px">por US$ 1</div><b style="font-size:20px;display:block;margin-top:8px">' +
-      gsRaw(Math.round(S.fx.pyg / S.fx.brl)) +
-      '</b><div class="hint">por R$ 1 · <a href="#fx" data-act="view" data-id="fx" style="color:var(--accent-fg)">ver câmbio</a></div></div></section>';
+      'R$ ' + S.fx.brl.toFixed(2).replace('.', ',') +
+      '</b><div class="hint">por US$ 1 · <a href="#fx" data-act="view" data-id="fx" style="color:var(--accent-fg)">ver câmbio</a></div></div></section>';
+    // vendas do período, uma a uma, com o valor exato na moeda em que foram recebidas
+    var vendHtml =
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Vendas do período</h2><div class="hint" style="margin:2px 0 0">' +
+      (ps.length ? 'Cada venda com o valor exato recebido, na moeda de cada pagamento. Entrou no total: <b>' + esc(recebidoDe(ps) || gs(0)) + '</b>.' : 'Nenhuma venda neste período.') +
+      '</div></div>';
+    if (ps.length) {
+      vendHtml +=
+        '<div class="split">' +
+        ps
+          .slice()
+          .sort(function (a, b) {
+            return b.ts - a.ts;
+          })
+          .slice(0, 20)
+          .map(function (s) {
+            return (
+              '<div class="sl"><span>' +
+              esc(vendaNome(s)) +
+              '<small>' +
+              fd(s.ts) +
+              ' às ' +
+              fh(s.ts) +
+              '</small></span><b>' +
+              esc(exatoDe(s)) +
+              '</b></div>'
+            );
+          })
+          .join('') +
+        '</div>' +
+        (ps.length > 20 ? '<div class="hint" style="margin:0">Mostrando as 20 mais recentes de ' + ps.length + '. ' : '<div class="hint" style="margin:0">') +
+        '<a href="#hist" data-act="view" data-id="hist" style="color:var(--accent-fg)">Ver tudo no Histórico</a></div>';
+    }
+    vendHtml += '</section>';
     var head = html;
     html = '';
     var parts = [
@@ -263,7 +296,7 @@
     el.innerHTML =
       head +
       '<div id="dtabBody">' +
-      dashCompose({ per: perHtml, kp: kpHtml, sep: secSep, two: secTwo, margem: html }) +
+      dashCompose({ per: perHtml, kp: kpHtml, vend: vendHtml, sep: secSep, two: secTwo, margem: html }) +
       '</div>';
   }
 

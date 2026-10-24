@@ -889,6 +889,18 @@ async def main():
             if not ok: falhas.append('notificacoes'); print('        veio', r, pg.erros)
             await pg.close()
 
+            # Resumo: vendas do período separadas, cada uma no valor exato da moeda recebida
+            pg = await pagina()
+            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.sales = []; S.items = [{tipo:'pre', ref:'T1', grau:'+1', cor:'P', qty:5}];
+              L.addSale(S.items[0], 1, {moeda:'pyg', recebido:25000, forma:'din'}); L.addSale(S.items[0], 1, {moeda:'brl', recebido:20, forma:'din'});
+              S.dTab = 'hoje'; S.dPer = 'hoje'; L.setView('dash'); L.render();
+              const t = document.getElementById('v-dash').innerText; return [t.includes('Vendas do período'), t.includes('G$ 25.000'), t.includes('R$ 20'), (t.match(/1× /g) || []).length]; }""")
+            total += 1
+            ok = r[0] and r[1] and r[2] and r[3] >= 2 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Resumo: vendas do período separadas, cada uma na moeda recebida')
+            if not ok: falhas.append('resumo vendas'); print('        veio', r, pg.erros)
+            await pg.close()
+
             # Atenção agora: seta minimiza e reabre
             pg = await pagina()
             await pg.evaluate("() => { const L = window.__LF; L.S.atMin = false; L.S.dTab = 'hoje'; L.setView('dash'); }"); await pg.wait_for_timeout(300)

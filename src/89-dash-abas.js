@@ -153,7 +153,7 @@
       };
     if (t === 'hoje') {
       var x = dashExtra();
-      h += atencaoHtml() + o.per + o.kp + x.meta;
+      h += atencaoHtml() + o.per + o.kp + (o.vend || '') + x.meta;
       h += dFold('sep', 'Quanto separar do que vendeu', 'reposição, contas, colchão e lucro livre do período', 'var(--sub)', o.sep);
       return h;
     }
