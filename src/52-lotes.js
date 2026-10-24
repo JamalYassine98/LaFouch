@@ -612,19 +612,6 @@
       var vr = mk('div', '');
       vr.style.cssText = 'display:flex;gap:8px;flex-wrap:wrap;margin-top:10px';
       vr.appendChild(vb);
-      if (f > 0)
-        vr.appendChild(
-          btn('mini', '+ Detalhar peças (' + f + ')', function () {
-            S.fromLot = g.id;
-            S.addOpen = true;
-            S.addMode = 'prod';
-            S.photoFor = null;
-            S.msg = '';
-            S.gSel = g.id;
-            if (!MIX(g.tipo)) S.tipo = g.tipo;
-            render();
-          })
-        );
       c.appendChild(vr);
     }
     if (S.gDel === g.id) {
@@ -774,7 +761,7 @@
     c.style.borderLeft = '4px solid ' + (ok ? 'var(--ok)' : 'var(--warn)');
     var t = mk('div', '');
     t.style.cssText = 'display:flex;justify-content:space-between;gap:10px;align-items:flex-start';
-    t.appendChild(mk('b', '', 'Pedido ' + (x.ped ? '#' + x.ped + ' · ' : '') + x.forn));
+    t.appendChild(mk('b', '', 'Compra ' + (x.ped ? '#' + x.ped + ' · ' : '') + x.forn));
     t.appendChild(mk('span', 'bdg', ok ? 'Completo' : 'Pendente'));
     c.appendChild(t);
     var fr = ms.reduce(function (a, g) {
@@ -1322,7 +1309,7 @@
       );
     box.appendChild(md);
     var pf = mk('div', 'erow2');
-    pf.appendChild(mkIn(f, 'Nº do pedido (opcional)', 'ped', 'Ex.: 2682'));
+    pf.appendChild(mkIn(f, 'Nº da compra (opcional)', 'ped', 'Ex.: 2682'));
     pf.appendChild(
       mkIn(
         f,
@@ -1599,7 +1586,7 @@
               m2.textContent =
                 'Li ' +
                 pp.rows.length +
-                ' linhas do pedido' +
+                ' linhas da compra' +
                 (nd ? ' (' + nd + ' para conferir, marcadas abaixo)' : '') +
                 '. Confira cada linha antes de criar.';
               return;

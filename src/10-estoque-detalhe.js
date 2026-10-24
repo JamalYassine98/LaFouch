@@ -368,7 +368,6 @@
       left.appendChild(th);
     }
     if (!src && !venda) {
-      left.appendChild(btn('mini', 'Adicionar foto', pickPhoto));
       var nh = mk(
         'div',
         'hint',

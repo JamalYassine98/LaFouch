@@ -574,7 +574,7 @@ async def main():
             await pg.wait_for_timeout(300)
             cab = await pg.inner_text('#lotView section[data-ped]')
             cad = await pg.evaluate("() => [!!document.querySelector('#photoCard details#phMais'), !!document.getElementById('phNext')]")
-            ok = (gr == [['Econ', 20, 43, 3, '2682'], ['Lux', 30, 387, 27, '2682']] and 'Pedido #2682' in cab and 'registradas 0 de 50' in cab
+            ok = (gr == [['Econ', 20, 43, 3, '2682'], ['Lux', 30, 387, 27, '2682']] and 'Compra #2682' in cab and 'registradas 0 de 50' in cab
                   and 'US$ 8,60 por peça' in cab and cad == [True, True] and not pg.erros)
             total += 1
             print(('  ok  ' if ok else ' FALHA ') + 'Pedido: linhas, frete rateado, cabeçalho e cadastro enxuto')
