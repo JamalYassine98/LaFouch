@@ -280,7 +280,7 @@
     };
     // armação/solar no estoque: mesma tela do catálogo de Vendas (pontinhos e cores em cartões)
     var cartoes = !venda && f.tipo !== 'pre' && !isSimple(f.tipo) && rows.length > 1;
-    if (venda || cartoes) {
+    if (venda || gal.length > 1) {
       // foto grande com pontinhos: deslizar troca a cor, tocar amplia
       var pbv = photoBox(src, 'pbox');
       pbv.style.position = 'relative';
@@ -298,6 +298,18 @@
           dts.appendChild(d1);
         });
         pbv.appendChild(dts);
+        // setinhas sutis nas laterais (o dedo deslizando também troca)
+        [-1, 1].forEach(function (d0) {
+          var sb = mk('button', 'fseta', d0 < 0 ? '‹' : '›');
+          sb.type = 'button';
+          sb.setAttribute('aria-label', d0 < 0 ? 'Foto anterior' : 'Próxima foto');
+          sb.style.cssText = (d0 < 0 ? 'left' : 'right') + ':2px';
+          sb.onclick = function (e) {
+            e.stopPropagation();
+            pickCor(gal[(Math.max(gal.indexOf(cor), 0) + d0 + gal.length) % gal.length]);
+          };
+          pbv.appendChild(sb);
+        });
         var tx0 = null;
         pbv.addEventListener(
           'touchstart',
@@ -323,51 +335,6 @@
       }
       left.removeChild(left.lastChild);
       left.appendChild(pbv);
-    } else if (gal.length > 1) {
-      var gi = gal.indexOf(cor),
-        go = function (d) {
-          pickCor(gal[(Math.max(gi, 0) + d + gal.length) % gal.length]);
-        };
-      var nv = mk('div', '');
-      nv.style.cssText = 'display:flex;align-items:center;justify-content:space-between;gap:8px';
-      nv.appendChild(
-        btn('mini', '‹ Anterior', function () {
-          go(-1);
-        })
-      );
-      var cnt = mk('span', 'hint', (gi >= 0 ? gi + 1 : '–') + ' de ' + gal.length + ' fotos');
-      cnt.style.margin = '0';
-      nv.appendChild(cnt);
-      nv.appendChild(
-        btn('mini', 'Próxima ›', function () {
-          go(1);
-        })
-      );
-      left.appendChild(nv);
-      var th = mk('div', '');
-      th.style.cssText = 'display:flex;gap:6px;overflow-x:auto;padding:2px 0';
-      gal.forEach(function (c) {
-        var tb = btn(
-          '',
-          ' ',
-          function () {
-            pickCor(c);
-          },
-          c === cor
-        );
-        tb.style.cssText =
-          'flex:0 0 auto;width:56px;height:56px;padding:2px;border-radius:8px;background:#fff;border:2px solid ' +
-          (c === cor ? '#a0457a' : 'transparent');
-        tb.textContent = '';
-        var ti = mk('img');
-        ti.src = S.fotos[ref + '|' + c];
-        ti.alt = c;
-        ti.style.cssText = 'width:100%;height:100%;object-fit:contain';
-        tb.appendChild(ti);
-        tb.setAttribute('aria-label', 'Foto ' + c);
-        th.appendChild(tb);
-      });
-      left.appendChild(th);
     }
     if (!src && !venda) {
       var nh = mk(
