@@ -103,11 +103,10 @@
     [14, '2 semanas'],
     [30, 'Mês'],
     [90, '3 meses'],
-    [365, 'Ano'],
-    [0, 'Tudo']
+    [365, 'Ano']
   ];
   function fxGrafico(k, titulo, sub, fmt) {
-    var per = S.fxPer == null ? 30 : S.fxPer,
+    var per = S.fxPer ? S.fxPer : 30,
       lim = per ? Date.now() - per * 86400000 : 0,
       h = S.fxHist.filter(function (p) {
         return p[k] > 0 && p.ts >= lim;
@@ -143,13 +142,13 @@
     );
   }
   function fxGraficos() {
-    var per = S.fxPer == null ? 30 : S.fxPer,
+    var per = S.fxPer ? S.fxPer : 30,
       h =
         '<section class="card col"><div class="lbl">Período dos gráficos</div><div class="nav" role="group" aria-label="Período dos gráficos">' +
         FX_PERS.map(function (o) {
           return '<button class="chip' + (per === o[0] ? ' on' : '') + '" data-act="fxper" data-id="' + o[0] + '" aria-pressed="' + (per === o[0]) + '">' + o[1] + '</button>';
         }).join('') +
-        '</div><div class="nav"><button class="chip" data-act="fxup">Simular dólar +3%</button><button class="chip" data-act="fxdn">Simular dólar −3%</button></div><div class="hint" style="margin:0">Os botões de simulação existem só na demonstração, para você ver a margem, o colchão e a trava reagirem.</div></section>';
+        '</div></section>';
     h += fxGrafico('pyg', 'Dólar em guaranis', 'Guaranis por dólar', function (v) {
       return dots(Math.round(v));
     });
@@ -174,7 +173,7 @@
     var p = trocarPlano(),
       dv = dolarFavoravel();
     if (!p.passos.length && !(p.needRep > 0.004) && !dv && !(S.cambios[0] && S.cambios[0].tipo)) return '';
-    var h = '<section class="card col"><div><h2 style="margin:0;font-size:16px">Trocar para dólar</h2></div>';
+    var h = '';
     if (dv) {
       var pos = Math.round(Math.max(0, Math.min(1, dv.pos)) * 100);
       h +=
@@ -209,7 +208,7 @@
     if (lv.extraUsd > 0.004)
       h += '<div class="note n-ok">Reposição adiantada: ' + usd(lv.extraUsd) + ' em dólar a mais, guardados para as próximas vendas.</div>';
     if (S.cxMsg) h += '<div class="hint" role="status" style="margin:0">' + esc(S.cxMsg) + '</div>';
-    return h + '</section>';
+    return h;
   }
   // Trocar moedas: formulário livre, atalhos do plano e histórico com Desfazer.
   function trHistHtml() {
@@ -223,9 +222,7 @@
       html = '';
     html +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Trocar moedas</h2><div class="hint" style="margin:2px 0 0">Registre a troca ou a venda de dólar que você fez. Os saldos mudam nas duas moedas.</div></div>' +
-      trocarPlano().passos.map(function (x, i) {
-        return '<button class="chip" data-act="trusar" data-id="' + i + '">Atalho: ' + fmtM(x.sug, x.de) + ' → ' + usd(x.rec) + '</button>';
-      }).join('') +
+      (trocarAgoraHtml() ? '<div class="lbl" style="margin:4px 0 0">Sugestão de hoje</div>' + trocarAgoraHtml() + '<div class="lbl" style="margin:8px 0 0">Outra troca</div>' : '') +
       '<div class="sel" style="flex-wrap:wrap">' +
       trSel('trDe', t.de) +
       '<button class="chip" data-act="trflip" aria-label="Inverter as moedas">⇄ Inverter</button>' +
@@ -293,7 +290,7 @@
       esc(f.status) +
       (f.ts ? ' Última atualização às ' + fh(f.ts) + '.' : '') +
       '</div>';
-    html += faltamHtml() + trocarAgoraHtml() + trocarMoedasHtml();
+    html += faltamHtml() + trocarMoedasHtml();
     html += fxLojaHtml();
     html += fxGraficos();
     html +=

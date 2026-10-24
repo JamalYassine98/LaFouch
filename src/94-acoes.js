@@ -53,24 +53,6 @@
       S.fxPer = Number(id) || 0;
       renderFx();
     },
-    fxup: function () {
-      setFx(
-        S.fx.pyg * 1.03,
-        S.fx.brl,
-        'Simulação (demonstração)',
-        false,
-        'Cotação simulada para teste: dólar +3%.'
-      );
-    },
-    fxdn: function () {
-      setFx(
-        S.fx.pyg * 0.97,
-        S.fx.brl,
-        'Simulação (demonstração)',
-        false,
-        'Cotação simulada para teste: dólar −3%.'
-      );
-    },
     opendia: function (id) {
       S.day = id;
       S.dayTab = id;

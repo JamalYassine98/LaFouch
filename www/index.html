@@ -144,10 +144,11 @@
     <div class="top"><div><h1>Vendas</h1><div class="crumb">Busque a peça, escolha a variante e finalize. O estoque desce sozinho.</div></div></div>
     <div class="main">
       <section class="card col" id="vListCard" aria-label="Escolher a peça">
+        <button type="button" class="chip" id="vCatBtn" style="align-self:flex-start">📲 Catálogo para WhatsApp</button>
         <div><div class="lbl">Buscar a peça</div><input class="in" id="vq" placeholder="Código, nome, cor, grau, formato, medida…" style="max-width:420px" autocomplete="off"></div>
         <div class="nav" id="vTabs" role="group" aria-label="Tipo de produto"></div>
         <div id="vGradesB" hidden><div class="lbl">Grau que o cliente pede</div><div class="gradechips" id="vGrades" role="group" aria-label="Grau"></div></div>
-        <div id="vFiltPanel" hidden class="col" style="gap:10px"><div><div class="lbl">Tipo de produto</div><div class="nav" id="vTipos" role="group" aria-label="Filtrar por tipo"></div></div><div id="vFaixaB" hidden><div class="lbl">Faixa</div><div class="nav" id="vFaixas" role="group" aria-label="Filtrar por faixa"></div></div></div>
+        <div id="vFiltPanel" hidden class="col" style="gap:10px"><div id="vFaixaB" hidden><div class="lbl">Faixa</div><div class="nav" id="vFaixas" role="group" aria-label="Filtrar por faixa"></div></div></div>
         <div class="list" id="vRows"></div>
         <div id="vLinesB" hidden><div class="lbl" id="vProdL"></div><div class="nav" id="sLines"></div></div>
       </section>
@@ -172,7 +173,6 @@
           <div id="trocoB" class="col" style="gap:10px" hidden><div class="lbl">Troco devolvido</div><div class="nav" id="trChips"></div><div class="col" id="trRows" style="gap:10px"></div><div class="hint" id="trH" role="status" style="margin:0"></div><div class="note n-warn" id="trW" hidden></div></div>
         </div>
         <div id="pisoSt" role="status"></div>
-        <div id="motB" hidden><div class="lbl">Motivo do desconto (opcional)</div><div class="nav" id="motChips"></div></div>
         </div>
       </div>
         <button class="go" id="sCartAdd" type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-5px;margin-right:8px"><path d="M5 8h14l-1 12H6zM9 8V6a3 3 0 0 1 6 0v2"/></svg>Adicionar pedido</button>
@@ -180,16 +180,16 @@
         <div id="vmsg" role="status" style="color:var(--ok);font-size:14px"></div>
       </section>
     </div>
-  <section class="card col" id="catV" aria-label="Catálogo para WhatsApp">
-    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px">
-      <div><h2 style="margin:0;font-size:16px">Catálogo para WhatsApp</h2>
-        <div class="hint" style="margin:2px 0 0">Toque nas fotos para escolher. Só entram peças com estoque, sem preço de custo nem lucro.</div></div>
-      <button class="go" id="cvSend" type="button" style="width:auto;margin:0;padding:0 20px">Enviar imagens</button>
+  <section id="catV" class="catov" aria-label="Catálogo para WhatsApp" hidden>
+    <div class="catop">
+      <button type="button" class="chip" id="cvClose">Fechar</button>
+      <h2>Catálogo para WhatsApp</h2>
+      <button type="button" class="chip" id="cvAll">Selecionar tudo</button>
     </div>
-    <div class="nav" id="cvTipos" role="group" aria-label="Tipo do catálogo"></div>
-    <div class="gal" id="cvGal"></div>
+    <div class="gal cvg" id="cvGal"></div>
     <div class="hint" id="cvH"></div>
-    <div id="cvMsg" role="status" style="color:var(--ok);font-size:14px"></div>
+    <div class="catbar"><div id="cvMsg" role="status" style="color:var(--ok);font-size:14px"></div>
+      <button class="go" id="cvSend" type="button">Enviar imagens</button></div>
   </section>
   <section class="card col" id="splitCard" hidden aria-label="Divisão da venda">
     <div><h2 style="margin:0;font-size:16px">Para onde foi o dinheiro desta venda</h2>

@@ -165,6 +165,13 @@
       txt = ok
         ? 'O caixa confere' + (partes.length ? ' (diferença dentro da tolerância: ' + partes.join(', ') + ')' : '') + '.'
         : 'Diferença encontrada: ' + partes.join(', ') + ' (contado menos o que o app calcula).';
+    if ($('ajR')) {
+      S.ini = {
+        rep: parseDec($('ajR').value, 'usd'),
+        colch: campoParaGs($('ajC').value),
+        melh: campoParaGs($('ajM').value)
+      };
+    }
     var ts = Date.now();
     S.confCx.push({ ts: ts, difs: difs, ok: ok, ajustou: false });
     S.dlog.push({ ts: ts, kind: 'confcx', desc: txt, valor: Math.round(totUsd * S.fx.pyg) });

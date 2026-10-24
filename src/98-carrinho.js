@@ -107,7 +107,6 @@
     $('vListCard').hidden = true;
     $('vDetail').hidden = true;
     $('vSaleCard').hidden = !pag;
-    $('catV').hidden = true;
     $('spc').textContent = '';
     $('sst').textContent = '';
     $('sst').className = '';
@@ -194,8 +193,7 @@
     var desc = falta >= DESC_MIN;
     var pv = cartPrevia();
     if (pv.abaixo && S.pisoConf !== pv.key) {
-      S.pisoConf = pv.key;
-      renderPiso();
+      pisoAbrir(pv, desc);
       return;
     }
     var sub = cartSub(),
@@ -374,16 +372,8 @@
     render();
     window.scrollTo(0, 0);
   };
-  // Confirmação do desconto: o que falta do valor recebido vira desconto, com o motivo.
-  var DESC_MIN = 100;
-  function descAbrir(falta, due, rec, key) {
-    var box = $('dscBox');
-    box.innerHTML =
-      '<div><h2 style="margin:0;font-size:18px">Registrar ' + gs(falta) + ' como desconto?</h2><div class="hint" style="margin:6px 0 0">Total ' + gs(due) + ' · recebido ' + gs(rec) + '</div></div>' +
-      '<div><div class="lbl">Motivo</div><div class="nav" id="dscMot"></div></div>' +
-      '<button type="button" class="go" id="dscOk">Registrar e finalizar</button>' +
-      '<button type="button" class="chip" id="dscNo" style="justify-content:center;min-height:44px">Voltar e corrigir</button>';
-    var mc = $('dscMot');
+  // Chips do motivo do desconto, usados nas duas confirmações (um só lugar para escolher).
+  function motivoChips(mc) {
     ['Isca ou combo', 'Liquidação', 'Cliente fiel', 'Outro'].forEach(function (m) {
       mc.appendChild(
         btn('chip' + (S.vMotivo === m ? ' on' : ''), m, function () {
@@ -395,6 +385,40 @@
         }, S.vMotivo === m)
       );
     });
+  }
+  // Venda abaixo do piso: pergunta uma vez (com o motivo, se ainda não foi pedido no desconto).
+  function pisoAbrir(pv, jaMotivo) {
+    var box = $('dscBox');
+    box.innerHTML =
+      '<div><h2 style="margin:0;font-size:18px">Vender abaixo do piso?</h2><div class="hint" style="margin:6px 0 0">' +
+      (pv.perde
+        ? 'Abaixo da trava: você perde ' + gs(pv.travaTot - pv.liq) + ' nesta venda.'
+        : 'Piso ' + gs(pv.pisoTot) + '. Lucro livre estimado ' + gs(pv.c.livre) + '.') +
+      '</div></div>' +
+      (jaMotivo ? '' : '<div><div class="lbl">Motivo (opcional)</div><div class="nav" id="dscMot"></div></div>') +
+      '<button type="button" class="go" id="dscOk">Vender mesmo assim</button>' +
+      '<button type="button" class="chip" id="dscNo" style="justify-content:center;min-height:44px">Voltar e corrigir</button>';
+    if (!jaMotivo) motivoChips($('dscMot'));
+    $('dscNo').onclick = function () {
+      $('dscModal').hidden = true;
+    };
+    $('dscOk').onclick = function () {
+      $('dscModal').hidden = true;
+      S.pisoConf = pv.key;
+      cartFinalizar();
+    };
+    $('dscModal').hidden = false;
+  }
+  // Confirmação do desconto: o que falta do valor recebido vira desconto, com o motivo.
+  var DESC_MIN = 100;
+  function descAbrir(falta, due, rec, key) {
+    var box = $('dscBox');
+    box.innerHTML =
+      '<div><h2 style="margin:0;font-size:18px">Registrar ' + gs(falta) + ' como desconto?</h2><div class="hint" style="margin:6px 0 0">Total ' + gs(due) + ' · recebido ' + gs(rec) + '</div></div>' +
+      '<div><div class="lbl">Motivo</div><div class="nav" id="dscMot"></div></div>' +
+      '<button type="button" class="go" id="dscOk">Registrar e finalizar</button>' +
+      '<button type="button" class="chip" id="dscNo" style="justify-content:center;min-height:44px">Voltar e corrigir</button>';
+    motivoChips($('dscMot'));
     $('dscNo').onclick = function () {
       $('dscModal').hidden = true;
     };

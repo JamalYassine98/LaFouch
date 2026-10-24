@@ -489,6 +489,18 @@
         ' contados"></div>';
     });
     h += '</div>';
+    h +=
+      '<details style="margin:4px 0"><summary style="cursor:pointer;font-size:14px;color:var(--mute)">Reservas iniciais (só na primeira vez)</summary><div class="sel" style="flex-wrap:wrap;margin-top:8px">' +
+      [
+        ['ajR', 'Mercadoria (US$)', inVal(S.ini.rep, 'usd')],
+        ['ajC', 'Colchão (' + mpSim() + ')', gsParaCampo(S.ini.colch)],
+        ['ajM', 'Melhorias (' + mpSim() + ')', gsParaCampo(S.ini.melh)]
+      ]
+        .map(function (x) {
+          return '<div style="flex:1 1 120px"><div class="lbl">' + x[1] + '</div><input class="in" id="' + x[0] + '" inputmode="decimal" value="' + x[2] + '" aria-label="' + x[1] + '"></div>';
+        })
+        .join('') +
+      '</div></details>';
     if (S.ccRes)
       h +=
         '<div class="note ' +

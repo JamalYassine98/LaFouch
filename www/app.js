@@ -4643,6 +4643,15 @@
       h.appendChild(mk('div', 'lbl', 'Armações e solares com pouco estoque'));
       pouco.slice(0, 12).forEach(function (o) {
         var r = mk('div', 'repit');
+        var ph = photoOf(o.ref),
+          th = mk('div', 'rthumb');
+        if (ph) {
+          var im = document.createElement('img');
+          im.src = ph;
+          im.alt = '';
+          th.appendChild(im);
+        }
+        r.appendChild(th);
         var md = mk('div', 'md');
         md.appendChild(mk('b', '', pn(o.ref)));
         md.appendChild(mk('div', '', (tipoOf(o.tipo).label || '') + ' · ' + o.q + (o.q === 1 ? ' peça' : ' peças')));
@@ -10012,23 +10021,11 @@
   }
   // Tela de categorias por tipo.
   function renderCatV() {
-    if (!S.cvTipo) S.cvTipo = 'all';
+    S.cvTipo = 'all';
     if (!S.cvOff) S.cvOff = {};
-    var ct = $('cvTipos');
-    ct.textContent = '';
-    [{ id: 'all', label: 'Todos' }].concat(TIPOS).forEach(function (x) {
-      ct.appendChild(
-        btn(
-          'chip' + (S.cvTipo === x.id ? ' on' : ''),
-          x.label,
-          function () {
-            S.cvTipo = x.id;
-            render();
-          },
-          S.cvTipo === x.id
-        )
-      );
-    });
+    $('catV').hidden = !S.catOpen;
+    document.body.classList.toggle('catopen', !!S.catOpen);
+    if (!S.catOpen) return;
     var L = catList(),
       g = $('cvGal');
     g.textContent = '';
@@ -10049,8 +10046,7 @@
       im.src = o.src;
       im.alt = 'Foto ' + o.cap;
       t.appendChild(im);
-      t.appendChild(mk('b', '', o.ref));
-      t.appendChild(mk('span', '', o.cor));
+      if (on) t.appendChild(mk('i', 'ck', '✓'));
       var tg = function () {
         S.cvOff[o.k] = on;
         render();
@@ -10072,6 +10068,20 @@
       ? 'No celular abre o compartilhamento e você escolhe o WhatsApp. No computador, as imagens são copiadas (uma por vez) ou baixadas.'
       : 'Sem fotos de peças em estoque nesse tipo. Use "+ Adicionar produto" > "Tirar foto da peça".';
   }
+  $('cvClose').onclick = function () {
+    S.catOpen = false;
+    render();
+  };
+  $('cvAll').onclick = function () {
+    var L = catList(),
+      todos = L.every(function (o) {
+        return !S.cvOff[o.k];
+      });
+    L.forEach(function (o) {
+      S.cvOff[o.k] = todos;
+    });
+    render();
+  };
   $('cvSend').onclick = function () {
     var m = $('cvMsg'),
       sel = catList().filter(function (o) {
@@ -13841,6 +13851,18 @@
         ' contados"></div>';
     });
     h += '</div>';
+    h +=
+      '<details style="margin:4px 0"><summary style="cursor:pointer;font-size:14px;color:var(--mute)">Reservas iniciais (só na primeira vez)</summary><div class="sel" style="flex-wrap:wrap;margin-top:8px">' +
+      [
+        ['ajR', 'Mercadoria (US$)', inVal(S.ini.rep, 'usd')],
+        ['ajC', 'Colchão (' + mpSim() + ')', gsParaCampo(S.ini.colch)],
+        ['ajM', 'Melhorias (' + mpSim() + ')', gsParaCampo(S.ini.melh)]
+      ]
+        .map(function (x) {
+          return '<div style="flex:1 1 120px"><div class="lbl">' + x[1] + '</div><input class="in" id="' + x[0] + '" inputmode="decimal" value="' + x[2] + '" aria-label="' + x[1] + '"></div>';
+        })
+        .join('') +
+      '</div></details>';
     if (S.ccRes)
       h +=
         '<div class="note ' +
@@ -14880,11 +14902,6 @@
   // ---------- partes da aba Ajustes: pagamento, segurança e cópias
   function ajustesFinHtml() {
     var h = '';
-    // dados de exemplo
-    h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Dados de exemplo</h2><div class="hint" style="margin:2px 0 0">Para testar: troca TUDO o que está no app por um exemplo de cerca de 14 meses (vendas, câmbio, contas pagas, compras) e fotos desenhadas.</div></div><button type="button" class="chip" data-act="exemplo">' +
-      (S.exConf ? 'Toque de novo para confirmar: apaga os dados atuais' : 'Carregar exemplo de 14 meses') +
-      '</button></section>';
     // formas de pagamento
     h +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Formas de pagamento e taxas</h2><div class="hint" style="margin:2px 0 0">A taxa (%) sai do seu lucro quando a venda é paga por essa forma. Dinheiro e Pix ficam em 0%. Confira as taxas da sua maquininha.</div></div>';
@@ -14932,6 +14949,10 @@
   }
   // ===== Aba Vendas. =====
   // Aba Vendas.
+  $('vCatBtn').onclick = function () {
+    S.catOpen = true;
+    render();
+  };
   function renderVendas() {
     renderCatV();
     if (S.cartOpen) {
@@ -14954,26 +14975,7 @@
       });
     $('vFiltPanel').hidden = !S.vFilt;
     $('vBtnFilt').setAttribute('aria-pressed', !!S.vFilt);
-    $('vBtnFilt').classList.toggle('on', !!S.vFilt || S.vTipo !== 'all' || !!S.vFaixa);
-    var vt = $('vTipos');
-    vt.textContent = '';
-    [{ id: 'all', label: 'Todos' }].concat(TIPOS).forEach(function (x) {
-      vt.appendChild(
-        btn(
-          'chip' + (S.vTipo === x.id ? ' on' : ''),
-          x.label,
-          function () {
-            S.vTipo = x.id;
-            S.vRef = '';
-            S.vSel = null;
-            S.qty = 1;
-            S.msg = '';
-            render();
-          },
-          S.vTipo === x.id
-        )
-      );
-    });
+    $('vBtnFilt').classList.toggle('on', !!S.vFilt || !!S.vFaixa);
     // abas de tipo (sempre à vista) e fileira de graus nos pré-graduados
     var vtb = $('vTabs');
     vtb.textContent = '';
@@ -15108,72 +15110,11 @@
       card.dataset.ref = f.ref;
       card.appendChild(photoBox(photoOf(f.ref), 'pbox'));
       card.appendChild(mk('b', '', pn(f.ref)));
-      var fxa = faixaOf(f.ref);
-      if (fxa) {
-        var ft = faixaTag(fxa);
-        ft.style.alignSelf = 'flex-start';
-        card.appendChild(ft);
-      }
-      card.appendChild(
-        mk(
-          'span',
-          's',
-          tp.label +
-            (f.tipo === 'pre'
-              ? ''
-              : (f.fmt && !f.bulk ? ' · ' + f.fmt : '') +
-                (!tp.simple && f.med ? ' · ' + f.med : ''))
-        )
-      );
       var pr0 = tFor(f).price;
       if (pr0) {
         var pp = mk('b', '', gs(pr0));
         pp.style.color = 'var(--ok)';
         card.appendChild(pp);
-      }
-      // cores em estoque (miniaturas) e, nos pré-graduados, a faixa de graus
-      var cs = [];
-      g.forEach(function (i) {
-        if (i.qty > 0 && cs.indexOf(i.cor) < 0) cs.push(i.cor);
-      });
-      var gr = g
-        .filter(function (i) {
-          return i.tipo === 'pre' && i.grau && i.qty > 0;
-        })
-        .map(function (i) {
-          return i.grau;
-        })
-        .sort(function (a, b) {
-          return parseFloat(a) - parseFloat(b);
-        });
-      var lbl = tot + ' un.';
-      if (gr.length)
-        lbl =
-          (S.vGrau || gr[0] === gr[gr.length - 1] ? gr[0] : gr[0] + ' a ' + gr[gr.length - 1]) +
-          ' · ' +
-          lbl;
-      lbl += ' · ' + cs.length + (cs.length === 1 ? ' cor' : ' cores');
-      var stt = mk('span', 'cell ' + (tot <= 5 ? 'low' : ''), lbl);
-      stt.style.alignSelf = 'flex-start';
-      card.appendChild(stt);
-      if (cs.length) {
-        var pc = mk('div', 'pcolors');
-        cs.slice(0, 5).forEach(function (c) {
-          var sp = mk('span', ''),
-            fk = S.fotos[f.ref + '|' + c];
-          if (fk) {
-            var ig = mk('img');
-            ig.src = fk;
-            ig.alt = c;
-            sp.appendChild(ig);
-          } else {
-            var bx = mk('i', '');
-            bx.style.background = hexOf(c);
-            sp.appendChild(bx);
-          }
-          pc.appendChild(sp);
-        });
-        card.appendChild(pc);
       }
       rows.appendChild(card);
     });
@@ -15189,8 +15130,7 @@
       );
     // produto aberto: a mesma tela do catálogo, em modo venda; a lista some
     $('vListCard').hidden = !!S.vRef;
-    $('vSaleCard').hidden = !S.vRef;
-    $('catV').hidden = !!S.vRef;
+    $('vSaleCard').hidden = true; // quantidade e botão Vender ficam na barra fixa do produto
     if (S.vRef && groups[S.vRef]) {
       var dsel = renderDetail(groups[S.vRef][0].ref, {
         venda: true,
@@ -15327,21 +15267,6 @@
         )
       );
     });
-    var mc = $('motChips');
-    mc.textContent = '';
-    ['Isca ou combo', 'Liquidação', 'Cliente fiel', 'Outro'].forEach(function (m) {
-      mc.appendChild(
-        btn(
-          'chip' + (S.vMotivo === m ? ' on' : ''),
-          m,
-          function () {
-            S.vMotivo = S.vMotivo === m ? '' : m;
-            render();
-          },
-          S.vMotivo === m
-        )
-      );
-    });
   }
   // Aviso de piso: mostra o lucro ou a perda e pede confirmação se estiver abaixo.
   function renderPiso() {
@@ -15349,7 +15274,6 @@
       v = cartPrevia();
     el.textContent = '';
     el.className = '';
-    $('motB').hidden = !(v && v.abaixo);
     $('sgo').textContent = 'Finalizar venda';
     if (!v || !(v.eff > 0)) return;
     var bt = v.br ? ' (já contando o brinde)' : '';
@@ -15376,9 +15300,6 @@
         '.';
     }
     if (v.abaixo) {
-      var ok = S.pisoConf === v.key;
-      $('sgo').textContent = ok ? 'Vender mesmo assim' : 'Finalizar venda (abaixo do piso)';
-      if (ok) el.textContent += ' Toque de novo para confirmar.';
     }
   }
   $('vq').oninput = function (e) {
@@ -19447,6 +19368,7 @@
       S.dTab = id;
       setView('dash');
     } else if (id === 'cat') {
+      S.catOpen = true;
       setView('vendas');
     } else if (id === 'novo') {
       setView('estoque');
@@ -19998,11 +19920,10 @@
     [14, '2 semanas'],
     [30, 'Mês'],
     [90, '3 meses'],
-    [365, 'Ano'],
-    [0, 'Tudo']
+    [365, 'Ano']
   ];
   function fxGrafico(k, titulo, sub, fmt) {
-    var per = S.fxPer == null ? 30 : S.fxPer,
+    var per = S.fxPer ? S.fxPer : 30,
       lim = per ? Date.now() - per * 86400000 : 0,
       h = S.fxHist.filter(function (p) {
         return p[k] > 0 && p.ts >= lim;
@@ -20038,13 +19959,13 @@
     );
   }
   function fxGraficos() {
-    var per = S.fxPer == null ? 30 : S.fxPer,
+    var per = S.fxPer ? S.fxPer : 30,
       h =
         '<section class="card col"><div class="lbl">Período dos gráficos</div><div class="nav" role="group" aria-label="Período dos gráficos">' +
         FX_PERS.map(function (o) {
           return '<button class="chip' + (per === o[0] ? ' on' : '') + '" data-act="fxper" data-id="' + o[0] + '" aria-pressed="' + (per === o[0]) + '">' + o[1] + '</button>';
         }).join('') +
-        '</div><div class="nav"><button class="chip" data-act="fxup">Simular dólar +3%</button><button class="chip" data-act="fxdn">Simular dólar −3%</button></div><div class="hint" style="margin:0">Os botões de simulação existem só na demonstração, para você ver a margem, o colchão e a trava reagirem.</div></section>';
+        '</div></section>';
     h += fxGrafico('pyg', 'Dólar em guaranis', 'Guaranis por dólar', function (v) {
       return dots(Math.round(v));
     });
@@ -20069,7 +19990,7 @@
     var p = trocarPlano(),
       dv = dolarFavoravel();
     if (!p.passos.length && !(p.needRep > 0.004) && !dv && !(S.cambios[0] && S.cambios[0].tipo)) return '';
-    var h = '<section class="card col"><div><h2 style="margin:0;font-size:16px">Trocar para dólar</h2></div>';
+    var h = '';
     if (dv) {
       var pos = Math.round(Math.max(0, Math.min(1, dv.pos)) * 100);
       h +=
@@ -20104,7 +20025,7 @@
     if (lv.extraUsd > 0.004)
       h += '<div class="note n-ok">Reposição adiantada: ' + usd(lv.extraUsd) + ' em dólar a mais, guardados para as próximas vendas.</div>';
     if (S.cxMsg) h += '<div class="hint" role="status" style="margin:0">' + esc(S.cxMsg) + '</div>';
-    return h + '</section>';
+    return h;
   }
   // Trocar moedas: formulário livre, atalhos do plano e histórico com Desfazer.
   function trHistHtml() {
@@ -20118,9 +20039,7 @@
       html = '';
     html +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Trocar moedas</h2><div class="hint" style="margin:2px 0 0">Registre a troca ou a venda de dólar que você fez. Os saldos mudam nas duas moedas.</div></div>' +
-      trocarPlano().passos.map(function (x, i) {
-        return '<button class="chip" data-act="trusar" data-id="' + i + '">Atalho: ' + fmtM(x.sug, x.de) + ' → ' + usd(x.rec) + '</button>';
-      }).join('') +
+      (trocarAgoraHtml() ? '<div class="lbl" style="margin:4px 0 0">Sugestão de hoje</div>' + trocarAgoraHtml() + '<div class="lbl" style="margin:8px 0 0">Outra troca</div>' : '') +
       '<div class="sel" style="flex-wrap:wrap">' +
       trSel('trDe', t.de) +
       '<button class="chip" data-act="trflip" aria-label="Inverter as moedas">⇄ Inverter</button>' +
@@ -20188,7 +20107,7 @@
       esc(f.status) +
       (f.ts ? ' Última atualização às ' + fh(f.ts) + '.' : '') +
       '</div>';
-    html += faltamHtml() + trocarAgoraHtml() + trocarMoedasHtml();
+    html += faltamHtml() + trocarMoedasHtml();
     html += fxLojaHtml();
     html += fxGraficos();
     html +=
@@ -21172,24 +21091,6 @@
       S.fxPer = Number(id) || 0;
       renderFx();
     },
-    fxup: function () {
-      setFx(
-        S.fx.pyg * 1.03,
-        S.fx.brl,
-        'Simulação (demonstração)',
-        false,
-        'Cotação simulada para teste: dólar +3%.'
-      );
-    },
-    fxdn: function () {
-      setFx(
-        S.fx.pyg * 0.97,
-        S.fx.brl,
-        'Simulação (demonstração)',
-        false,
-        'Cotação simulada para teste: dólar −3%.'
-      );
-    },
     opendia: function (id) {
       S.day = id;
       S.dayTab = id;
@@ -21977,8 +21878,6 @@
         '<div class="note n-bad">O dinheiro em caixa está abaixo do que deveria estar separado. Evite retiradas até repor.</div>';
     html += retiradaHtml() + ccHtml();
     html +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Trocar moedas</h2><div class="hint" style="margin:2px 0 0">Trocas de moeda, vendas de dólar e o histórico ficam na aba Câmbio.</div></div><button class="go" data-act="view" data-id="fx">Abrir Trocar moedas</button></section>';
-    html +=
       '<div class="two">' +
       '<section class="card col"><h2 style="margin:0;font-size:16px">Usar a caixa de melhorias</h2><div class="hint" style="margin:0">Tira do saldo de melhorias e dos guaranis em caixa.</div>' +
       '<div class="sel" style="flex-wrap:wrap"><input class="in" id="muD" placeholder="No que usou" style="flex:2 1 150px;width:auto" aria-label="Descrição do uso"><input class="in" id="muV" inputmode="' + mpMode() + '" placeholder="' + mpSim() + '" style="flex:1 1 110px;width:auto" aria-label="Valor usado"><button class="mini" data-act="melhuso">Registrar</button></div>' +
@@ -21998,54 +21897,6 @@
         })
         .join('') +
       '</section></div>';
-    html +=
-      '<details class="card"' +
-      (S.confReset ? ' open' : '') +
-      '><summary style="cursor:pointer;font-weight:600">Corrigir saldos, saldo inicial e zerar o app</summary><div class="col" style="margin-top:12px"><div class="kpis">' +
-      [
-        ['ajP', 'Guaranis', inVal(c.pyg, 'pyg')],
-        ['ajU', 'Dólares', inVal(c.usd, 'usd')],
-        ['ajB', 'Reais', inVal(c.brl, 'brl')]
-      ]
-        .map(function (x) {
-          return (
-            '<div><div class="lbl">' +
-            x[1] +
-            '</div><input class="in" id="' +
-            x[0] +
-            '" inputmode="decimal" value="' +
-            x[2] +
-            '" aria-label="Saldo em ' +
-            x[1] +
-            '"></div>'
-          );
-        })
-        .join('') +
-      '</div>' +
-      '<div class="lbl">Saldo inicial das reservas (antes de usar o app)</div><div class="kpis">' +
-      [
-        ['ajR', 'Mercadoria (US$)', inVal(S.ini.rep, 'usd')],
-        ['ajC', 'Colchão (' + mpSim() + ')', gsParaCampo(S.ini.colch)],
-        ['ajM', 'Melhorias (' + mpSim() + ')', gsParaCampo(S.ini.melh)]
-      ]
-        .map(function (x) {
-          return (
-            '<div><div class="lbl">' +
-            x[1] +
-            '</div><input class="in" id="' +
-            x[0] +
-            '" inputmode="decimal" value="' +
-            x[2] +
-            '" aria-label="' +
-            x[1] +
-            '"></div>'
-          );
-        })
-        .join('') +
-      '</div>' +
-      '<button class="mini" data-act="ajustar" style="align-self:flex-start">Salvar saldos</button><div class="lbl" style="margin-top:8px">Começar do zero</div><div class="hint" style="margin:0">Apaga as peças, vendas, despesas e saldos de exemplo deste aparelho.</div><button class="chip" data-act="resetall" style="align-self:flex-start;color:var(--bad)">' +
-      (S.confReset ? 'Confirmar: apagar tudo' : 'Apagar dados de exemplo') +
-      '</button></div></details>';
     el.innerHTML = html;
     updateTr();
   }
@@ -23693,7 +23544,6 @@
     $('vListCard').hidden = true;
     $('vDetail').hidden = true;
     $('vSaleCard').hidden = !pag;
-    $('catV').hidden = true;
     $('spc').textContent = '';
     $('sst').textContent = '';
     $('sst').className = '';
@@ -23780,8 +23630,7 @@
     var desc = falta >= DESC_MIN;
     var pv = cartPrevia();
     if (pv.abaixo && S.pisoConf !== pv.key) {
-      S.pisoConf = pv.key;
-      renderPiso();
+      pisoAbrir(pv, desc);
       return;
     }
     var sub = cartSub(),
@@ -23960,16 +23809,8 @@
     render();
     window.scrollTo(0, 0);
   };
-  // Confirmação do desconto: o que falta do valor recebido vira desconto, com o motivo.
-  var DESC_MIN = 100;
-  function descAbrir(falta, due, rec, key) {
-    var box = $('dscBox');
-    box.innerHTML =
-      '<div><h2 style="margin:0;font-size:18px">Registrar ' + gs(falta) + ' como desconto?</h2><div class="hint" style="margin:6px 0 0">Total ' + gs(due) + ' · recebido ' + gs(rec) + '</div></div>' +
-      '<div><div class="lbl">Motivo</div><div class="nav" id="dscMot"></div></div>' +
-      '<button type="button" class="go" id="dscOk">Registrar e finalizar</button>' +
-      '<button type="button" class="chip" id="dscNo" style="justify-content:center;min-height:44px">Voltar e corrigir</button>';
-    var mc = $('dscMot');
+  // Chips do motivo do desconto, usados nas duas confirmações (um só lugar para escolher).
+  function motivoChips(mc) {
     ['Isca ou combo', 'Liquidação', 'Cliente fiel', 'Outro'].forEach(function (m) {
       mc.appendChild(
         btn('chip' + (S.vMotivo === m ? ' on' : ''), m, function () {
@@ -23981,6 +23822,40 @@
         }, S.vMotivo === m)
       );
     });
+  }
+  // Venda abaixo do piso: pergunta uma vez (com o motivo, se ainda não foi pedido no desconto).
+  function pisoAbrir(pv, jaMotivo) {
+    var box = $('dscBox');
+    box.innerHTML =
+      '<div><h2 style="margin:0;font-size:18px">Vender abaixo do piso?</h2><div class="hint" style="margin:6px 0 0">' +
+      (pv.perde
+        ? 'Abaixo da trava: você perde ' + gs(pv.travaTot - pv.liq) + ' nesta venda.'
+        : 'Piso ' + gs(pv.pisoTot) + '. Lucro livre estimado ' + gs(pv.c.livre) + '.') +
+      '</div></div>' +
+      (jaMotivo ? '' : '<div><div class="lbl">Motivo (opcional)</div><div class="nav" id="dscMot"></div></div>') +
+      '<button type="button" class="go" id="dscOk">Vender mesmo assim</button>' +
+      '<button type="button" class="chip" id="dscNo" style="justify-content:center;min-height:44px">Voltar e corrigir</button>';
+    if (!jaMotivo) motivoChips($('dscMot'));
+    $('dscNo').onclick = function () {
+      $('dscModal').hidden = true;
+    };
+    $('dscOk').onclick = function () {
+      $('dscModal').hidden = true;
+      S.pisoConf = pv.key;
+      cartFinalizar();
+    };
+    $('dscModal').hidden = false;
+  }
+  // Confirmação do desconto: o que falta do valor recebido vira desconto, com o motivo.
+  var DESC_MIN = 100;
+  function descAbrir(falta, due, rec, key) {
+    var box = $('dscBox');
+    box.innerHTML =
+      '<div><h2 style="margin:0;font-size:18px">Registrar ' + gs(falta) + ' como desconto?</h2><div class="hint" style="margin:6px 0 0">Total ' + gs(due) + ' · recebido ' + gs(rec) + '</div></div>' +
+      '<div><div class="lbl">Motivo</div><div class="nav" id="dscMot"></div></div>' +
+      '<button type="button" class="go" id="dscOk">Registrar e finalizar</button>' +
+      '<button type="button" class="chip" id="dscNo" style="justify-content:center;min-height:44px">Voltar e corrigir</button>';
+    motivoChips($('dscMot'));
     $('dscNo').onclick = function () {
       $('dscModal').hidden = true;
     };
@@ -24186,6 +24061,13 @@
       txt = ok
         ? 'O caixa confere' + (partes.length ? ' (diferença dentro da tolerância: ' + partes.join(', ') + ')' : '') + '.'
         : 'Diferença encontrada: ' + partes.join(', ') + ' (contado menos o que o app calcula).';
+    if ($('ajR')) {
+      S.ini = {
+        rep: parseDec($('ajR').value, 'usd'),
+        colch: campoParaGs($('ajC').value),
+        melh: campoParaGs($('ajM').value)
+      };
+    }
     var ts = Date.now();
     S.confCx.push({ ts: ts, difs: difs, ok: ok, ajustou: false });
     S.dlog.push({ ts: ts, kind: 'confcx', desc: txt, valor: Math.round(totUsd * S.fx.pyg) });

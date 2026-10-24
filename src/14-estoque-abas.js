@@ -271,6 +271,15 @@
       h.appendChild(mk('div', 'lbl', 'Armações e solares com pouco estoque'));
       pouco.slice(0, 12).forEach(function (o) {
         var r = mk('div', 'repit');
+        var ph = photoOf(o.ref),
+          th = mk('div', 'rthumb');
+        if (ph) {
+          var im = document.createElement('img');
+          im.src = ph;
+          im.alt = '';
+          th.appendChild(im);
+        }
+        r.appendChild(th);
         var md = mk('div', 'md');
         md.appendChild(mk('b', '', pn(o.ref)));
         md.appendChild(mk('div', '', (tipoOf(o.tipo).label || '') + ' · ' + o.q + (o.q === 1 ? ' peça' : ' peças')));

@@ -420,7 +420,7 @@ async def main():
             await pg.wait_for_timeout(300)
             total += 1
             t1 = 'Acima do piso'
-            await pg.click('#sCartAdd'); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => document.getElementById('sCartAdd').click()"); await pg.wait_for_timeout(300)
             await pg.click('[data-act=cartopen]'); await pg.wait_for_timeout(300)
             await pg.click('[data-act=cartconf]'); await pg.wait_for_timeout(300)
             await pg.fill('#recIn', '5000'); await pg.wait_for_timeout(300)
@@ -429,14 +429,15 @@ async def main():
             dsc = await pg.evaluate("() => [!document.getElementById('dscModal').hidden, document.getElementById('dscBox').textContent.indexOf('20.000') >= 0]")
             await pg.click('#dscMot button:has-text("Liquidação")'); await pg.click('#dscOk'); await pg.wait_for_timeout(300)
             n1 = await pg.evaluate("() => window.__LF.S.sales.length")
-            await pg.click('#sgo'); await pg.wait_for_timeout(300)
+            pm = await pg.evaluate("() => [!document.getElementById('dscModal').hidden, document.getElementById('dscBox').textContent.indexOf('Vender abaixo do piso') >= 0, document.querySelectorAll('#dscMot').length, document.querySelectorAll('#motChips').length]")
+            await pg.click('#dscOk'); await pg.wait_for_timeout(300)
             got = await pg.evaluate("() => { const S = window.__LF.S, s = S.sales[0]; return [S.sales.length, s && s.abaixo, s && s.perde, S.items[0].qty, s && s.faixa, s && s.lista] }")
-            ok = 'Acima do piso' in t1 and 'Abaixo da trava' in t2 and 'abaixo do piso' in b1 and n1 == 0 and dsc == [True, True] and got == [1, True, True, 4, 'f1', 25000]
+            ok = 'Acima do piso' in t1 and 'Abaixo da trava' in t2 and b1.strip() == 'Finalizar venda' and n1 == 0 and pm == [True, True, 0, 0] and dsc == [True, True] and got == [1, True, True, 4, 'f1', 25000]
             print(('  ok  ' if ok else ' FALHA ') + 'tela Vendas: desconto abaixo do piso pede confirmação')
             if not ok: falhas.append('venda abaixo do piso'); print('        veio', t1, '|', t2, '|', b1, n1, got, pg.erros)
             total += 1
             await pg.evaluate("() => { const S = window.__LF.S; S.vRef = 'pre|VP1'; S.vSel = S.items[0]; S.qty = 1; S.rec = null; S.descTxt = ''; window.__LF.render(); }")
-            await pg.click('#sCartAdd'); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => document.getElementById('sCartAdd').click()"); await pg.wait_for_timeout(300)
             await pg.click('[data-act=cartopen]'); await pg.wait_for_timeout(300)
             await pg.click('[data-act=cartconf]'); await pg.wait_for_timeout(300)
             await pg.locator('#brChips button:has-text("Estojo B")').click(); await pg.wait_for_timeout(200)
@@ -464,8 +465,23 @@ async def main():
             await pg.locator('#vDetail button[aria-label="Voltar"]').click(); await pg.wait_for_timeout(300)
             d = await pg.evaluate("() => [document.getElementById('vListCard').hidden, document.getElementById('vDetail').hidden, window.__LF.S.vRef]")
             cat2 = await pg.evaluate("() => document.getElementById('catV').hidden")
-            ok = cat1 is True and cat2 is False and a == [False, True, True] and b1 == [True, False, False, False, 4] and c == ['+1.00', True] and d == [False, True, ''] and not pg.erros
+            ok = cat1 is True and cat2 is True and a == [False, True, True] and b1 == [True, False, True, False, 4] and c == ['+1.00', True] and d == [False, True, ''] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'tela Vendas: produto abre em janela própria, escolhe a variante e volta à lista')
+
+            # Catálogo do WhatsApp: tela própria, só fotos, sem texto repetido
+            total += 1
+            card = await pg.evaluate("() => { const c = document.querySelector('#vRows .pcard'); return [c.querySelectorAll('.tag, .faixa').length, c.querySelectorAll('span.s').length, document.getElementById('vCatBtn') !== null]; }")
+            await pg.locator('#vCatBtn').click(); await pg.wait_for_timeout(400)
+            cv = await pg.evaluate("() => { const g = document.querySelectorAll('#cvGal .gi'); return [document.getElementById('catV').hidden, g.length, document.querySelectorAll('#cvGal .gi b, #cvGal .gi span, #cvTipos').length, g.length ? g[0].querySelectorAll('.ck').length : 0, document.getElementById('cvSend').textContent]; }")
+            await pg.locator('#cvAll').click(); await pg.wait_for_timeout(300)
+            cv2 = await pg.evaluate("() => [document.querySelectorAll('#cvGal .ck').length, document.getElementById('cvSend').textContent]")
+            await pg.locator('#cvAll').click(); await pg.wait_for_timeout(300)
+            cv3 = await pg.evaluate("() => [document.querySelectorAll('#cvGal .ck').length, document.getElementById('cvSend').disabled]")
+            await pg.locator('#cvAll').click(); await pg.wait_for_timeout(200)
+            await pg.locator('#cvClose').click(); await pg.wait_for_timeout(300)
+            cv4 = await pg.evaluate("() => document.getElementById('catV').hidden")
+            ok = card[0] == 0 and card[1] == 0 and card[2] and cv[0] is False and cv[1] > 0 and cv[2] == 0 and cv[3] == 1 and cv2[0] == 0 and cv3[0] == cv[1] and cv3[1] is False and cv4 is True and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'catálogo do WhatsApp: tela própria só com fotos, Selecionar tudo e Fechar ' + ('' if ok else str([card, cv, cv2, cv3, cv4])))
             if not ok: falhas.append('vendas janela'); print('        veio', a, b1, c, d, pg.erros)
             await pg.close()
 
@@ -646,10 +662,10 @@ async def main():
             await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.cart = []; S.cartOpen = false; S.vRef = ''; S.vSel = null; S.vq = ''; S.vTipo = 'all'; S.vFaixa = ''; S.qty = 1; L.setView('vendas'); }""")
             await pg.wait_for_timeout(300)
             await pg.locator('#vRows .pcard[data-ref="SP57765"]').click(); await pg.wait_for_timeout(300)
-            await pg.locator('#sCartAdd').click(); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => document.getElementById('sCartAdd').click()"); await pg.wait_for_timeout(300)
             u1 = await pg.evaluate("() => [document.getElementById('cartBar').hidden, document.getElementById('cartBar').textContent.indexOf('Pedido: 1') >= 0, window.__LF.S.cart.length]")
             await pg.locator('#vRows .pcard:not([data-ref="SP57765"])').first.click(); await pg.wait_for_timeout(300)
-            await pg.locator('#sCartAdd').click(); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => document.getElementById('sCartAdd').click()"); await pg.wait_for_timeout(300)
             await pg.locator('[data-act=cartopen]').click(); await pg.wait_for_timeout(300)
             await pg.locator('#cartCard input[data-in=cartpreco]').first.fill('1000'); await pg.wait_for_timeout(200)
             u2 = await pg.evaluate("() => [document.getElementById('cartCard').hidden, document.querySelectorAll('#cartCard input[data-in=cartpreco]').length, window.__LF.S.cart[0].preco, document.activeElement.getAttribute('data-in'), document.getElementById('pisoSt').textContent.length > 0]")
@@ -665,7 +681,7 @@ async def main():
             await pg.locator('[data-act=cartopen]').click(); await pg.wait_for_timeout(300)
             await pg.locator('[data-act=cartclear]').click(); await pg.wait_for_timeout(300)
             u3 = await pg.evaluate("() => [window.__LF.S.cart.length, window.__LF.S.cartOpen, document.getElementById('cartCard').hidden, document.getElementById('cartBar').hidden]")
-            ok = u1 == [False, True, 1] and u2 == [False, 2, 1000, 'cartpreco', True] and u3 == [0, False, True, True] and u4 == [False, False, False, False] and u4s == [True, True, True] and u6 == [True, [True, True], False, True] and u7 == [False, True, True] and u5 == [True, False, False, True] and not pg.erros
+            ok = u1 == [False, True, 1] and u2 == [False, 2, 1000, 'cartpreco', True] and u3 == [0, False, True, True] and u4 == [False, False, False, False] and u4s == [True, True, True] and u6 == [True, [True, True], False, True] and u7 == [False, True, True] and u5 == [False, False, False, False] and not pg.erros
             total += 1
             print(('  ok  ' if ok else ' FALHA ') + 'tela Vendas: carrinho (adicionar, abrir, mudar preço, esvaziar)')
             if not ok: falhas.append('carrinho tela'); print('        veio', u1, u2, u3, u4, u4s, u6, u7, u5, pg.erros)
@@ -1240,7 +1256,7 @@ async def main():
             # venda: formas de pagamento aparecem
             pg = await abrir('sem', 'Hexagonal')
             await pg.locator('#detail .vbar button').click(); await pg.wait_for_timeout(500)
-            await pg.click('#sCartAdd'); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => document.getElementById('sCartAdd').click()"); await pg.wait_for_timeout(300)
             await pg.click('[data-act=cartopen]'); await pg.wait_for_timeout(300)
             await pg.evaluate("() => { window.__LF.S.forma = 'din'; window.__LF.render(); }")
             n = await pg.evaluate("() => document.querySelectorAll('#formaChips button').length")

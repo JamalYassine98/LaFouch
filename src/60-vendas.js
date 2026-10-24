@@ -1,5 +1,9 @@
   // ===== Aba Vendas. =====
   // Aba Vendas.
+  $('vCatBtn').onclick = function () {
+    S.catOpen = true;
+    render();
+  };
   function renderVendas() {
     renderCatV();
     if (S.cartOpen) {
@@ -22,26 +26,7 @@
       });
     $('vFiltPanel').hidden = !S.vFilt;
     $('vBtnFilt').setAttribute('aria-pressed', !!S.vFilt);
-    $('vBtnFilt').classList.toggle('on', !!S.vFilt || S.vTipo !== 'all' || !!S.vFaixa);
-    var vt = $('vTipos');
-    vt.textContent = '';
-    [{ id: 'all', label: 'Todos' }].concat(TIPOS).forEach(function (x) {
-      vt.appendChild(
-        btn(
-          'chip' + (S.vTipo === x.id ? ' on' : ''),
-          x.label,
-          function () {
-            S.vTipo = x.id;
-            S.vRef = '';
-            S.vSel = null;
-            S.qty = 1;
-            S.msg = '';
-            render();
-          },
-          S.vTipo === x.id
-        )
-      );
-    });
+    $('vBtnFilt').classList.toggle('on', !!S.vFilt || !!S.vFaixa);
     // abas de tipo (sempre à vista) e fileira de graus nos pré-graduados
     var vtb = $('vTabs');
     vtb.textContent = '';
@@ -176,72 +161,11 @@
       card.dataset.ref = f.ref;
       card.appendChild(photoBox(photoOf(f.ref), 'pbox'));
       card.appendChild(mk('b', '', pn(f.ref)));
-      var fxa = faixaOf(f.ref);
-      if (fxa) {
-        var ft = faixaTag(fxa);
-        ft.style.alignSelf = 'flex-start';
-        card.appendChild(ft);
-      }
-      card.appendChild(
-        mk(
-          'span',
-          's',
-          tp.label +
-            (f.tipo === 'pre'
-              ? ''
-              : (f.fmt && !f.bulk ? ' · ' + f.fmt : '') +
-                (!tp.simple && f.med ? ' · ' + f.med : ''))
-        )
-      );
       var pr0 = tFor(f).price;
       if (pr0) {
         var pp = mk('b', '', gs(pr0));
         pp.style.color = 'var(--ok)';
         card.appendChild(pp);
-      }
-      // cores em estoque (miniaturas) e, nos pré-graduados, a faixa de graus
-      var cs = [];
-      g.forEach(function (i) {
-        if (i.qty > 0 && cs.indexOf(i.cor) < 0) cs.push(i.cor);
-      });
-      var gr = g
-        .filter(function (i) {
-          return i.tipo === 'pre' && i.grau && i.qty > 0;
-        })
-        .map(function (i) {
-          return i.grau;
-        })
-        .sort(function (a, b) {
-          return parseFloat(a) - parseFloat(b);
-        });
-      var lbl = tot + ' un.';
-      if (gr.length)
-        lbl =
-          (S.vGrau || gr[0] === gr[gr.length - 1] ? gr[0] : gr[0] + ' a ' + gr[gr.length - 1]) +
-          ' · ' +
-          lbl;
-      lbl += ' · ' + cs.length + (cs.length === 1 ? ' cor' : ' cores');
-      var stt = mk('span', 'cell ' + (tot <= 5 ? 'low' : ''), lbl);
-      stt.style.alignSelf = 'flex-start';
-      card.appendChild(stt);
-      if (cs.length) {
-        var pc = mk('div', 'pcolors');
-        cs.slice(0, 5).forEach(function (c) {
-          var sp = mk('span', ''),
-            fk = S.fotos[f.ref + '|' + c];
-          if (fk) {
-            var ig = mk('img');
-            ig.src = fk;
-            ig.alt = c;
-            sp.appendChild(ig);
-          } else {
-            var bx = mk('i', '');
-            bx.style.background = hexOf(c);
-            sp.appendChild(bx);
-          }
-          pc.appendChild(sp);
-        });
-        card.appendChild(pc);
       }
       rows.appendChild(card);
     });
@@ -257,8 +181,7 @@
       );
     // produto aberto: a mesma tela do catálogo, em modo venda; a lista some
     $('vListCard').hidden = !!S.vRef;
-    $('vSaleCard').hidden = !S.vRef;
-    $('catV').hidden = !!S.vRef;
+    $('vSaleCard').hidden = true; // quantidade e botão Vender ficam na barra fixa do produto
     if (S.vRef && groups[S.vRef]) {
       var dsel = renderDetail(groups[S.vRef][0].ref, {
         venda: true,
@@ -395,21 +318,6 @@
         )
       );
     });
-    var mc = $('motChips');
-    mc.textContent = '';
-    ['Isca ou combo', 'Liquidação', 'Cliente fiel', 'Outro'].forEach(function (m) {
-      mc.appendChild(
-        btn(
-          'chip' + (S.vMotivo === m ? ' on' : ''),
-          m,
-          function () {
-            S.vMotivo = S.vMotivo === m ? '' : m;
-            render();
-          },
-          S.vMotivo === m
-        )
-      );
-    });
   }
   // Aviso de piso: mostra o lucro ou a perda e pede confirmação se estiver abaixo.
   function renderPiso() {
@@ -417,7 +325,6 @@
       v = cartPrevia();
     el.textContent = '';
     el.className = '';
-    $('motB').hidden = !(v && v.abaixo);
     $('sgo').textContent = 'Finalizar venda';
     if (!v || !(v.eff > 0)) return;
     var bt = v.br ? ' (já contando o brinde)' : '';
@@ -444,9 +351,6 @@
         '.';
     }
     if (v.abaixo) {
-      var ok = S.pisoConf === v.key;
-      $('sgo').textContent = ok ? 'Vender mesmo assim' : 'Finalizar venda (abaixo do piso)';
-      if (ok) el.textContent += ' Toque de novo para confirmar.';
     }
   }
   $('vq').oninput = function (e) {

@@ -54,23 +54,11 @@
   }
   // Tela de categorias por tipo.
   function renderCatV() {
-    if (!S.cvTipo) S.cvTipo = 'all';
+    S.cvTipo = 'all';
     if (!S.cvOff) S.cvOff = {};
-    var ct = $('cvTipos');
-    ct.textContent = '';
-    [{ id: 'all', label: 'Todos' }].concat(TIPOS).forEach(function (x) {
-      ct.appendChild(
-        btn(
-          'chip' + (S.cvTipo === x.id ? ' on' : ''),
-          x.label,
-          function () {
-            S.cvTipo = x.id;
-            render();
-          },
-          S.cvTipo === x.id
-        )
-      );
-    });
+    $('catV').hidden = !S.catOpen;
+    document.body.classList.toggle('catopen', !!S.catOpen);
+    if (!S.catOpen) return;
     var L = catList(),
       g = $('cvGal');
     g.textContent = '';
@@ -91,8 +79,7 @@
       im.src = o.src;
       im.alt = 'Foto ' + o.cap;
       t.appendChild(im);
-      t.appendChild(mk('b', '', o.ref));
-      t.appendChild(mk('span', '', o.cor));
+      if (on) t.appendChild(mk('i', 'ck', '✓'));
       var tg = function () {
         S.cvOff[o.k] = on;
         render();
@@ -114,6 +101,20 @@
       ? 'No celular abre o compartilhamento e você escolhe o WhatsApp. No computador, as imagens são copiadas (uma por vez) ou baixadas.'
       : 'Sem fotos de peças em estoque nesse tipo. Use "+ Adicionar produto" > "Tirar foto da peça".';
   }
+  $('cvClose').onclick = function () {
+    S.catOpen = false;
+    render();
+  };
+  $('cvAll').onclick = function () {
+    var L = catList(),
+      todos = L.every(function (o) {
+        return !S.cvOff[o.k];
+      });
+    L.forEach(function (o) {
+      S.cvOff[o.k] = todos;
+    });
+    render();
+  };
   $('cvSend').onclick = function () {
     var m = $('cvMsg'),
       sel = catList().filter(function (o) {

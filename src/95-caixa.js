@@ -252,8 +252,6 @@
         '<div class="note n-bad">O dinheiro em caixa está abaixo do que deveria estar separado. Evite retiradas até repor.</div>';
     html += retiradaHtml() + ccHtml();
     html +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Trocar moedas</h2><div class="hint" style="margin:2px 0 0">Trocas de moeda, vendas de dólar e o histórico ficam na aba Câmbio.</div></div><button class="go" data-act="view" data-id="fx">Abrir Trocar moedas</button></section>';
-    html +=
       '<div class="two">' +
       '<section class="card col"><h2 style="margin:0;font-size:16px">Usar a caixa de melhorias</h2><div class="hint" style="margin:0">Tira do saldo de melhorias e dos guaranis em caixa.</div>' +
       '<div class="sel" style="flex-wrap:wrap"><input class="in" id="muD" placeholder="No que usou" style="flex:2 1 150px;width:auto" aria-label="Descrição do uso"><input class="in" id="muV" inputmode="' + mpMode() + '" placeholder="' + mpSim() + '" style="flex:1 1 110px;width:auto" aria-label="Valor usado"><button class="mini" data-act="melhuso">Registrar</button></div>' +
@@ -273,54 +271,6 @@
         })
         .join('') +
       '</section></div>';
-    html +=
-      '<details class="card"' +
-      (S.confReset ? ' open' : '') +
-      '><summary style="cursor:pointer;font-weight:600">Corrigir saldos, saldo inicial e zerar o app</summary><div class="col" style="margin-top:12px"><div class="kpis">' +
-      [
-        ['ajP', 'Guaranis', inVal(c.pyg, 'pyg')],
-        ['ajU', 'Dólares', inVal(c.usd, 'usd')],
-        ['ajB', 'Reais', inVal(c.brl, 'brl')]
-      ]
-        .map(function (x) {
-          return (
-            '<div><div class="lbl">' +
-            x[1] +
-            '</div><input class="in" id="' +
-            x[0] +
-            '" inputmode="decimal" value="' +
-            x[2] +
-            '" aria-label="Saldo em ' +
-            x[1] +
-            '"></div>'
-          );
-        })
-        .join('') +
-      '</div>' +
-      '<div class="lbl">Saldo inicial das reservas (antes de usar o app)</div><div class="kpis">' +
-      [
-        ['ajR', 'Mercadoria (US$)', inVal(S.ini.rep, 'usd')],
-        ['ajC', 'Colchão (' + mpSim() + ')', gsParaCampo(S.ini.colch)],
-        ['ajM', 'Melhorias (' + mpSim() + ')', gsParaCampo(S.ini.melh)]
-      ]
-        .map(function (x) {
-          return (
-            '<div><div class="lbl">' +
-            x[1] +
-            '</div><input class="in" id="' +
-            x[0] +
-            '" inputmode="decimal" value="' +
-            x[2] +
-            '" aria-label="' +
-            x[1] +
-            '"></div>'
-          );
-        })
-        .join('') +
-      '</div>' +
-      '<button class="mini" data-act="ajustar" style="align-self:flex-start">Salvar saldos</button><div class="lbl" style="margin-top:8px">Começar do zero</div><div class="hint" style="margin:0">Apaga as peças, vendas, despesas e saldos de exemplo deste aparelho.</div><button class="chip" data-act="resetall" style="align-self:flex-start;color:var(--bad)">' +
-      (S.confReset ? 'Confirmar: apagar tudo' : 'Apagar dados de exemplo') +
-      '</button></div></details>';
     el.innerHTML = html;
     updateTr();
   }

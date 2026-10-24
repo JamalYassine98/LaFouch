@@ -139,6 +139,7 @@
       S.dTab = id;
       setView('dash');
     } else if (id === 'cat') {
+      S.catOpen = true;
       setView('vendas');
     } else if (id === 'novo') {
       setView('estoque');
