@@ -10,7 +10,9 @@
     var a = mk('div', '');
     a.style.cssText = 'display:flex;justify-content:space-between;align-items:flex-start;gap:10px';
     var ta = mk('div', '');
-    ta.appendChild(mk('b', '', g.forn + ' · ' + gTipoName(g) + ' · ' + g.qty + ' peças'));
+    ta.appendChild(
+      mk('b', '', g.forn + (g.nome ? ' · ' + g.nome : '') + ' · ' + gTipoName(g) + ' · ' + g.qty + ' peças')
+    );
     var pg = mk('div', 'hint', gPaid(g));
     pg.style.margin = '2px 0 0';
     ta.appendChild(pg);
@@ -756,6 +758,46 @@
       box.appendChild(c);
     });
   }
+  // Cabeçalho de um pedido com várias linhas (lotes).
+  function pedHead(x, ms) {
+    var q = 0,
+      reg = 0,
+      tot = 0;
+    ms.forEach(function (g) {
+      q += g.qty;
+      reg += g.qty - grpFalta(g);
+      tot += gTot(g);
+    });
+    var ok = reg >= q,
+      c = mk('section', 'card');
+    c.dataset.ped = x.pedId;
+    c.style.borderLeft = '4px solid ' + (ok ? 'var(--ok)' : 'var(--warn)');
+    var t = mk('div', '');
+    t.style.cssText = 'display:flex;justify-content:space-between;gap:10px;align-items:flex-start';
+    t.appendChild(mk('b', '', 'Pedido ' + (x.ped ? '#' + x.ped + ' · ' : '') + x.forn));
+    t.appendChild(mk('span', 'bdg', ok ? 'Completo' : 'Pendente'));
+    c.appendChild(t);
+    var fr = ms.reduce(function (a, g) {
+      return a + (g.frete || 0);
+    }, 0);
+    c.appendChild(
+      mk(
+        'div',
+        'hint',
+        usd(tot) +
+          ' no total' +
+          (fr > 0 ? ' (com ' + usd(fr) + ' de frete)' : '') +
+          ' · registradas ' +
+          reg +
+          ' de ' +
+          q +
+          ' peças · custo médio ' +
+          usd(q ? tot / q : 0) +
+          ' por peça'
+      )
+    );
+    return c;
+  }
   // Tela de lotes: lista, filtros e detalhe.
   function renderLotView() {
     var on = !!S.lotesView,
@@ -791,12 +833,32 @@
           );
           h.appendChild(nl);
         }
+        var dm = new Date(),
+          inv = 0;
+        S.grp.forEach(function (x) {
+          var d = new Date(x.ts || 0);
+          if (d.getFullYear() === dm.getFullYear() && d.getMonth() === dm.getMonth()) inv += gTot(x);
+        });
+        if (S.grp.length) hh.textContent += ' Investido neste mês: ' + usd(inv) + '.';
+        var shown = {};
         S.grp
           .slice()
           .sort(function (a, b) {
             return (b.ts || 0) - (a.ts || 0);
           })
           .forEach(function (x) {
+            if (x.pedId) {
+              if (shown[x.pedId]) return;
+              shown[x.pedId] = 1;
+              var ms = S.grp.filter(function (y) {
+                return y.pedId === x.pedId;
+              });
+              h.appendChild(pedHead(x, ms));
+              ms.forEach(function (y) {
+                h.appendChild(lotCard(y, { view: true }));
+              });
+              return;
+            }
             h.appendChild(lotCard(x, { view: true }));
           });
       } else {
@@ -1142,9 +1204,43 @@
     return { qty: qty, usd: usdv, total: total, tipo: tipo, forn: fs.length === 1 ? fs[0] : null };
   }
   window.__parseLote = parseLote;
+  // Lê o print de um pedido do fornecedor: várias linhas "qtd × preço".
+  function parsePedido(t) {
+    var L = String(t || '').split(/\r?\n/),
+      rows = [],
+      nome = '',
+      ped = '',
+      m,
+      mp = /(?:pedido|order|pedid)\s*(?:n[ºo°.]*)?\s*#?\s*(\d{3,})/i.exec(t) || /#\s*(\d{3,})/.exec(t);
+    if (mp) ped = mp[1];
+    var re = /(\d{1,5})\s*[x×*]\s*(?:US\s*)?\$?\s*(\d+(?:[.,]\d+)?)(?!\d)(.*)$/i;
+    L.forEach(function (ln) {
+      ln = ln.trim();
+      if (!ln) return;
+      m = re.exec(ln);
+      if (m) {
+        var q = parseInt(m[1], 10),
+          u = numAmt(m[2]),
+          tot = null,
+          rest = m[3].match(/\$?\s*(\d+(?:[.,]\d+)?)/g);
+        if (rest && rest.length) tot = numAmt(rest[rest.length - 1].replace(/[^\d.,]/g, ''));
+        if (!(q > 0) || !(u > 0)) return;
+        rows.push({
+          nome: nome,
+          qty: q,
+          unit: u,
+          total: tot,
+          dup: tot != null && Math.abs(q * u - tot) > Math.max(0.011, tot * 0.004)
+        });
+        nome = '';
+      } else if (/[A-Za-zÀ-ú]{3,}/.test(ln) && !/\$\s*\d/.test(ln)) nome = ln.replace(/\s+/g, ' ').slice(0, 40);
+    });
+    return { ped: ped, rows: rows };
+  }
+  window.__parsePedido = parsePedido;
   // Novo rascunho do formulário de lote.
   function lfNew() {
-    return { forn: '', moeda: 'usd', rows: [{ tipo: '', qty: '', usd: '' }] };
+    return { forn: '', ped: '', frete: '', moeda: 'usd', rows: [{ tipo: '', qty: '', usd: '', nome: '', modo: 'total' }] };
   }
   // Formulário de novo lote.
   function renderLotForm() {
@@ -1225,6 +1321,22 @@
         )
       );
     box.appendChild(md);
+    var pf = mk('div', 'erow2');
+    pf.appendChild(mkIn(f, 'Nº do pedido (opcional)', 'ped', 'Ex.: 2682'));
+    pf.appendChild(
+      mkIn(
+        f,
+        'Frete e outras despesas (' + { usd: 'US$', pyg: 'G$', brl: 'R$' }[f.moeda] + ')',
+        'frete',
+        'Ex.: 30,00',
+        'decimal'
+      )
+    );
+    box.appendChild(pf);
+    if (f.frete)
+      box.appendChild(
+        mk('div', 'hint', 'O frete é dividido entre as linhas na proporção do valor de cada uma e entra no custo das peças.')
+      );
     f.rows.forEach(function (r, ix) {
       var card = mk('div', 'col');
       card.style.cssText = 'gap:14px;padding:14px;border:1px solid var(--line);border-radius:12px';
@@ -1272,12 +1384,35 @@
         td
       );
       card.appendChild(td);
+      card.appendChild(mkIn(r, 'Nome ou código da linha (opcional)', 'nome', 'Ex.: Metal luxo ou R-2045'));
+      if (r.dup) {
+        var dn = mk('div', 'note n-warn', 'Conferir esta linha: quantidade × preço não bate com o total lido.');
+        card.appendChild(dn);
+      }
+      var mo = mk('div', 'nav');
+      [
+        ['total', 'Preço do lote todo'],
+        ['peca', 'Preço por peça']
+      ].forEach(function (x) {
+        mo.appendChild(
+          btn(
+            'chip' + ((r.modo || 'total') === x[0] ? ' on' : ''),
+            x[1],
+            function () {
+              r.modo = x[0];
+              renderLotForm();
+            },
+            (r.modo || 'total') === x[0]
+          )
+        );
+      });
+      card.appendChild(mo);
       var sym = { usd: 'US$', pyg: 'G$', brl: 'R$' }[f.moeda],
         two = mk('div', 'erow2');
       two.appendChild(qStep(r, 'qty', 'Quantidade de peças', 1, 'Ex.: 300'));
       var cd = mkIn(
         r,
-        'Custo total do lote (' + sym + ')',
+        (r.modo === 'peca' ? 'Preço de cada peça (' : 'Custo total do lote (') + sym + ')',
         'usd',
         'Ex.: ' + (f.moeda === 'pyg' ? '1.240.000' : '200,00'),
         'decimal'
@@ -1293,7 +1428,7 @@
           cv.textContent = '';
           return;
         }
-        var tu = convUsd(u, f.moeda);
+        var tu = convUsd(r.modo === 'peca' && q > 0 ? u * q : u, f.moeda);
         cv.textContent =
           (f.moeda !== 'usd' ? '≈ ' + usd(tu) + ' no total. ' : '') +
           (q > 0
@@ -1312,7 +1447,7 @@
     box.appendChild(
       btn('chip add', '+ Adicionar outro tipo', function () {
         var l = f.rows[f.rows.length - 1];
-        f.rows.push({ tipo: l.tipo, qty: '', usd: '' });
+        f.rows.push({ tipo: l.tipo, qty: '', usd: '', nome: '', modo: l.modo || 'total' });
         renderLotForm();
       })
     );
@@ -1343,9 +1478,24 @@
               w +
               '.'
           );
-        var tu = Math.round(convUsd(u, f.moeda) * 10000) / 10000;
-        out.push({ tipo: r.tipo, novo: r.novo, qty: q, orig: u, tot: tu, usd: tu / q });
+        var uo = r.modo === 'peca' ? u * q : u,
+          tu = Math.round(convUsd(uo, f.moeda) * 10000) / 10000;
+        out.push({ tipo: r.tipo, novo: r.novo, qty: q, orig: uo, tot: tu, usd: tu / q, nome: String(r.nome || '').trim() });
       }
+      var frO = pm(f.frete, f.moeda) || 0,
+        sumT = out.reduce(function (a, o) {
+          return a + o.tot;
+        }, 0);
+      if (frO > 0 && sumT > 0)
+        out.forEach(function (o) {
+          var sh = frO * (o.tot / sumT);
+          o.frete = Math.round(convUsd(sh, f.moeda) * 10000) / 10000;
+          o.orig += sh;
+          o.tot = Math.round((o.tot + o.frete) * 10000) / 10000;
+          o.usd = o.tot / o.qty;
+        });
+      var pedN = String(f.ped || '').trim(),
+        pedId = out.length > 1 || pedN ? 'P' + Date.now().toString(36) : '';
       var FO = fo[0].toUpperCase() + fo.slice(1),
         gs = out.map(function (o, n) {
           return {
@@ -1363,7 +1513,11 @@
             custoOrig: o.orig,
             rate: Math.round(S.fx.pyg),
             sold: 0,
-            ts: Date.now()
+            ts: Date.now(),
+            ped: pedN,
+            pedId: pedId,
+            nome: o.nome,
+            frete: o.frete || 0
           };
         });
       gs.forEach(function (g) {
@@ -1419,7 +1573,38 @@
         })
         .then(
           function (r) {
-            var pr = parseLote(r && r.data && r.data.text);
+            var txt = r && r.data && r.data.text,
+              pp = parsePedido(txt);
+            if (pp.rows.length >= 2) {
+              var pr0 = parseLote(txt);
+              S.lf.moeda = 'usd';
+              if (pp.ped) S.lf.ped = pp.ped;
+              if (pr0.forn) S.lf.forn = pr0.forn;
+              S.lf.rows = pp.rows.map(function (x) {
+                return {
+                  tipo: pr0.tipo || S.tipo,
+                  qty: String(x.qty),
+                  usd: String(x.unit).replace('.', ','),
+                  nome: x.nome,
+                  modo: 'peca',
+                  dup: x.dup
+                };
+              });
+              render();
+              var m2 = $('lotMsg'),
+                nd = pp.rows.filter(function (x) {
+                  return x.dup;
+                }).length;
+              m2.style.color = nd ? 'var(--warn)' : 'var(--ok)';
+              m2.textContent =
+                'Li ' +
+                pp.rows.length +
+                ' linhas do pedido' +
+                (nd ? ' (' + nd + ' para conferir, marcadas abaixo)' : '') +
+                '. Confira cada linha antes de criar.';
+              return;
+            }
+            var pr = parseLote(txt);
             if (!S.lf.rows || !S.lf.rows.length) S.lf.rows = [{ tipo: '', qty: '', usd: '' }];
             var r0 = S.lf.rows[0];
             if (pr.qty) r0.qty = String(pr.qty);

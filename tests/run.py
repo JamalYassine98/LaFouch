@@ -126,6 +126,13 @@ TESTES = [
  ("grpFalta: total − vendidas − detalhadas", """const g={id:'G', qty:10, sold:2, totalUsd:10}; S.items=[{lote:'G', qty:3, bulk:false},{lote:'G', qty:9, bulk:true}]; return [L.grpTot(g), L.grpDet(g), L.grpFalta(g)]""", [8, 3, 5]),
  ("effCusto: próprio, do lote ou nenhum", """
    S.grp=[{id:'G', qty:10, totalUsd:20}]; return [L.effCusto({custo:3}), L.effCusto({lote:'G'}), L.effCusto({})]""", [3, 2, None]),
+ ("effCusto: média ponderada entre lotes do mesmo modelo e cor", """
+   S.grp=[{id:'A', qty:10, totalUsd:10},{id:'B', qty:10, totalUsd:30}];
+   S.items=[{tipo:'pre', ref:'X', cor:'Preto', grau:'+1.00', qty:10, lote:'A'},{tipo:'pre', ref:'X', cor:'Preto', grau:'+1.50', qty:10, lote:'B'},{tipo:'pre', ref:'Y', cor:'Preto', grau:'+1.00', qty:5, lote:'B'}];
+   return [L.effCusto(S.items[0]), L.effCusto(S.items[1]), L.effCusto(S.items[2])]""", [2, 2, 3]),
+ ("parsePedido: linhas com quantidade × preço e conferência", """
+   const r = window.__parsePedido('Pedido #2682\\nMetal luxo\\n20 x $2.00 $40.00\\nAcetato\\n30 x $12.00 $350.00');
+   return [r.rows.length, r.ped, r.rows[0].nome, r.rows[0].qty, r.rows[0].unit, r.rows[0].dup, r.rows[1].dup]""", [2, '2682', 'Metal luxo', 20, 2, False, True]),
  ("lotCharge: desconta do caixa e registra a compra", """
    const g={id:'G', forn:'F', qty:10, totalUsd:20, moeda:'usd'}; L.lotCharge(g); return [S.cash.usd, S.compras.length, S.compras[0].usd, S.compras[0].lot]""", [80, 1, 20, 'G']),
  ("lotCharge: pagamento em guaranis", """
@@ -527,6 +534,24 @@ async def main():
             total += 1
             print(('  ok  ' if ok else ' FALHA ') + 'Estoque: abas, mapa de graus e lista de compra em pacotes')
             if not ok: falhas.append('estoque abas'); print('        veio', mapa, abas, kl, filtro, rep, txt, volta, pg.erros)
+            await pg.close()
+
+            # Pedido com linhas, frete rateado e cadastro enxuto
+            pg = await pagina()
+            await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.grp = []; S.cash.usd = 1000; S.addOpen = true; S.addMode = 'lote';
+              S.lf = {forn:'Kaz', ped:'2682', frete:'30', moeda:'usd', rows:[{tipo:'sem',qty:'20',usd:'2',nome:'Econ',modo:'peca'},{tipo:'sem',qty:'30',usd:'360',nome:'Lux',modo:'total'}]}; L.render(); }""")
+            await pg.wait_for_timeout(300)
+            await pg.locator('#lotForm button.go').click(); await pg.wait_for_timeout(300)
+            gr = await pg.evaluate("() => window.__LF.S.grp.map(g => [g.nome, g.qty, g.totalUsd, g.frete, g.ped])")
+            await pg.evaluate("() => { const S = window.__LF.S; S.addOpen = false; S.lotesView = true; S.lotSel = ''; window.__LF.render(); }")
+            await pg.wait_for_timeout(300)
+            cab = await pg.inner_text('#lotView section[data-ped]')
+            cad = await pg.evaluate("() => [!!document.querySelector('#photoCard details#phMais'), !!document.getElementById('phNext')]")
+            ok = (gr == [['Econ', 20, 43, 3, '2682'], ['Lux', 30, 387, 27, '2682']] and 'Pedido #2682' in cab and 'registradas 0 de 50' in cab
+                  and 'US$ 8,60 por peça' in cab and cad == [True, True] and not pg.erros)
+            total += 1
+            print(('  ok  ' if ok else ' FALHA ') + 'Pedido: linhas, frete rateado, cabeçalho e cadastro enxuto')
+            if not ok: falhas.append('pedido'); print('        veio', gr, cab, cad, pg.erros)
             await pg.close()
 
             # Histórico: carrega 30 dias, busca, filtros, calendário

@@ -152,8 +152,8 @@
         : '')
     );
   }
-  // Custo efetivo da peça (próprio ou do lote).
-  function effCusto(i) {
+  // Custo da peça sem média entre lotes (próprio ou do lote).
+  function baseCusto(i) {
     if (i.custo != null) return i.custo;
     var g =
       i.lote &&
@@ -161,6 +161,24 @@
         return x.id === i.lote;
       })[0];
     return g ? gUnit(g) : null;
+  }
+  // Custo efetivo da peça: média ponderada pela quantidade entre as peças
+  // do mesmo modelo e cor que vieram de lotes ou preços diferentes.
+  function effCusto(i) {
+    var b = baseCusto(i);
+    if (i.bulk || !(i.qty > 0) || b == null) return b;
+    var q = 0,
+      c = 0,
+      dif = false;
+    S.items.forEach(function (x) {
+      if (x.bulk || !(x.qty > 0) || x.tipo !== i.tipo || x.ref !== i.ref || x.cor !== i.cor) return;
+      var bx = baseCusto(x);
+      if (bx == null) return;
+      if (bx !== b) dif = true;
+      q += x.qty;
+      c += x.qty * bx;
+    });
+    return dif && q > 0 ? c / q : b;
   }
   // Peças já detalhadas do lote.
   function grpDet(g) {
@@ -251,7 +269,7 @@
   }
   // Rótulo do lote (fornecedor · custo).
   function gLabel(g) {
-    return g.forn + ' · ' + usd(gUnit(g));
+    return g.forn + (g.nome ? ' · ' + g.nome : '') + ' · ' + usd(gUnit(g));
   }
   // Lote escolhido na seleção.
   function pickG(tipo, sel) {

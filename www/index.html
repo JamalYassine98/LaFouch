@@ -93,11 +93,12 @@
         <button class="tab" id="phSplit" type="button" hidden></button>
         <div class="tabs"><button class="mini" id="phCodeBtn" type="button" aria-label="Leitor de código"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-4px;margin-right:6px"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"/></svg>Leitor: ler o código da haste</button><input type="file" id="phCodeFile" accept="image/*" capture="environment" hidden></div>
         <div id="phMatch" class="note"></div>
-        <div><div class="lbl">Nome do produto <span class="hint" style="display:inline;margin:0">(opcional)</span></div><input class="in" id="phNome" placeholder="Ex.: Gatinho preto fosco" maxlength="60"></div>
+        <details id="phMais" class="mais"><summary>Mais detalhes (opcional)</summary><div class="col" style="gap:10px;margin-top:10px"><div><div class="lbl">Nome do produto <span class="hint" style="display:inline;margin:0">(opcional)</span></div><input class="in" id="phNome" placeholder="Ex.: Gatinho preto fosco" maxlength="60"></div>
         <div id="phIdent" class="col" style="gap:10px"></div><div class="descp"><div class="lbl">Descrição do produto <span class="hint" style="display:inline;margin:0">(opcional)</span></div><textarea class="in" id="phDescP" rows="3" placeholder="Ex.: Armação de acetato verde, haste larga, formato diferente" maxlength="200"></textarea><div class="hint" id="phDescPH">Sugerida a partir da foto. Confira e corrija se precisar.</div></div>
+        </div></details>
         <div><div class="lbl">Código da haste</div><input class="in" id="phRef" placeholder="Ex.: SP57765, BR44118 ou CX012"><div class="hint" id="phRefH">Se a foto tiver o código, o app tenta ler sozinho. Confira sempre.</div></div>
         <div id="phTipoB" hidden><div class="lbl">Tipo do produto novo</div><div class="nav" id="phTipos"></div></div>
-        <div class="gone"><div class="lbl">Cor desta variação</div><div class="sel"><span class="dot" id="phDot" style="width:22px;height:22px"></span><input class="in" id="phCor" placeholder="Ex.: Bege translúcido"></div><div class="nav" id="phCorChips" style="margin-top:8px"></div><div id="phCorNew"></div><div class="hint" id="phCorH"></div></div>
+        <div><div class="lbl">Cor desta variação</div><div class="sel"><span class="dot" id="phDot" style="width:22px;height:22px"></span><input class="in" id="phCor" placeholder="Ex.: Bege translúcido"></div><div class="nav" id="phCorChips" style="margin-top:8px"></div><div id="phCorNew"></div><div class="hint" id="phCorH"></div></div>
         <div id="phFmtB" class="gone"><div class="lbl">Formato (referência nova)</div><div class="nav" id="phFmts"></div><div id="phFmtNew"></div></div>
         <div id="phGrauB"><div class="lbl">Grau (como está na peça)</div><input class="in" id="phGrau" placeholder="Ex.: +175 ou +3.50"><div class="hint" id="phGrauH"></div></div>
         <div id="phVarB"><div class="lbl">Classificação de cor (C1 a C6) e medidas</div><div class="nav" id="phVars" style="margin-bottom:8px"></div><input class="in" id="phMed" placeholder="Medidas, ex.: 53□18-140"></div>
@@ -107,6 +108,7 @@
         <div id="phQB"><div class="lbl">Quantidade que entra no estoque</div><div class="sel"><button class="step" id="phMn" type="button" aria-label="Diminuir quantidade">−</button><input class="in" id="phQ" type="text" inputmode="numeric" autocomplete="off" aria-label="Quantidade que entra no estoque" style="width:84px;min-height:48px;text-align:center;font-size:24px;font-weight:800;padding:0 6px"><button class="step" id="phPl" type="button" aria-label="Aumentar quantidade">+</button></div></div>
         <div id="phErr" role="status" class="note n-bad" hidden></div>
         <button class="go" id="phOk" type="button">Confirmar e adicionar</button>
+        <button class="tab" id="phNext" type="button">Salvar e próxima cor</button>
       </div>
     </div>
   </section>

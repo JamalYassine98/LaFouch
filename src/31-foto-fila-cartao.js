@@ -190,6 +190,14 @@
               $('phDescP').value =
                 pf0 || fr0 ? '' : descSugerida(P.tipo || S.tipo, P.guess);
               $('phNome').value = fr0 ? fv('eNome') : '';
+              if (S.carry && Date.now() - S.carry.t < 300000) {
+                $('phRef').value = S.carry.ref;
+                $('phGrau').value = S.carry.grau || '';
+                if (S.carry.vr) P.vr = S.carry.vr;
+                if (S.carry.g) P.g = S.carry.g;
+                $('phCor').value = '';
+              }
+              S.carry = null;
               if ($('phCusto')) $('phCusto').value = fr0 ? fv('eCusto') : '';
               setRead('');
               if (fr0) {
@@ -353,6 +361,7 @@
   });
   $('phCancel').onclick = function () {
     P = null;
+    S.carry = null;
     render();
     nextQ();
   };
@@ -453,7 +462,7 @@
       }
       if (!pi.contains(document.activeElement)) identBox(pi, P.id, null);
     }
-    $('phCorChips').hidden = true;
+    $('phCorChips').hidden = !!P.photoOnly;
     $('phCorNew').hidden = true;
     $('phImg').src = P.img;
     var ob = $('phOrig');
@@ -499,20 +508,36 @@
       : 'Digite a cor deste ' + (P.vr || 'C') + ' (a cor muda de modelo para modelo). Sugestão da foto: ' + P.guess + '.';
     var cc = $('phCorChips');
     cc.textContent = '';
-    Object.keys(S.palette)
+    var uso = {};
+    S.items.forEach(function (i) {
+      uso[i.cor] = (uso[i.cor] || 0) + 1;
+    });
+    var nomes = Object.keys(S.palette)
       .filter(quickCor)
-      .forEach(function (n) {
-        var b = btn(
-          'chip' + (n.toLowerCase() === f.cor.toLowerCase() ? ' on' : ''),
-          ' ' + n,
-          function () {
-            $('phCor').value = f.cor.toLowerCase() === n.toLowerCase() ? '' : n;
-            render();
-          }
-        );
-        b.insertBefore(dot(S.palette[n]), b.firstChild);
-        cc.appendChild(b);
+      .sort(function (a, b) {
+        return (uso[b] || 0) - (uso[a] || 0);
       });
+    var vis = S.corMais ? nomes : nomes.slice(0, 4);
+    if (f.cor && f.cor !== 'Sem cor' && nomes.indexOf(f.cor) >= 4 && !S.corMais) vis.push(f.cor);
+    vis.forEach(function (n) {
+      var b = btn(
+        'chip' + (n.toLowerCase() === f.cor.toLowerCase() ? ' on' : ''),
+        ' ' + n,
+        function () {
+          $('phCor').value = f.cor.toLowerCase() === n.toLowerCase() ? '' : n;
+          render();
+        }
+      );
+      b.insertBefore(dot(S.palette[n]), b.firstChild);
+      cc.appendChild(b);
+    });
+    if (nomes.length > 4)
+      cc.appendChild(
+        btn('chip', S.corMais ? 'Menos ▴' : 'Mais ▾', function () {
+          S.corMais = !S.corMais;
+          render();
+        })
+      );
     cc.appendChild(
       btn('chip add', '+ Nova cor', function () {
         S.nc = S.nc === 'p' ? '' : 'p';
@@ -624,10 +649,19 @@
     $('phCustoB').hidden = !!po;
     if (po) $('phLoteB').hidden = true;
     $('phOk').textContent = po ? 'Salvar foto' : 'Confirmar e adicionar';
+    $('phNext').hidden = po;
     $('phErr').hidden = true;
   }
+  var NEXT = 0;
+  $('phNext').onclick = function () {
+    NEXT = 1;
+    $('phOk').onclick();
+    NEXT = 0;
+  };
   $('phOk').onclick = function () {
     if (!P) return;
+    var nx = NEXT;
+    NEXT = 0;
     var f = phInfo(),
       gn = normGrau($('phGrau').value),
       err = $('phErr');
@@ -738,6 +772,14 @@
       (newCor ? ', cor nova na paleta' : '') +
       ').' +
       (noCost ? ' Atenção: este produto ainda está sem preço de custo detalhado.' : '');
+    if (nx) {
+      S.carry = { ref: f.ref, grau: f.isPre ? gn : '', vr: f.isPre || f.simple ? '' : P.vr, g: gid, t: Date.now() };
+      S.msg = 'Salvo: ' + f.ref + ' ' + f.cor + '. Tire a foto da próxima cor.';
+      P = null;
+      render();
+      $('btnFoto').onclick();
+      return;
+    }
     if (S.fromLot) {
       S.todos = false;
       S.lotesView = true;

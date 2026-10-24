@@ -273,3 +273,6 @@ body.arrastando{user-select:none}
 .repftt{display:flex;justify-content:space-between;font-size:14px}
 .replist{white-space:pre-wrap;margin:0;font:inherit;font-size:14px;line-height:1.7;padding:8px;background:var(--panel2);border-radius:10px}
 .repft,.vbar.vsale{bottom:78px}
+
+.mais{border:1px solid var(--line);border-radius:12px;padding:10px 12px}.mais summary{cursor:pointer;font-size:14px;color:var(--mute)}
+#phNext{width:100%;min-height:48px}
