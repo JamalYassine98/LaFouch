@@ -94,7 +94,7 @@
     $('pagHead').hidden = !(emVendas && pag);
     if (!bar.hidden)
       bar.innerHTML =
-        '<div style="display:flex;gap:4px;flex:0 0 auto">' + S.cart.slice(0, 4).map(function (l) { return cartFoto(l, 40); }).join('') + '</div><div style="flex:1 1 140px"><b>Pedido: ' + cartPecas() + ' peça(s)</b><div class="hint" style="margin:2px 0 0">' + gs(cartSub()) + ' pelos preços combinados</div></div>' +
+        '<div style="display:flex;gap:4px;flex:0 0 auto">' + cartFoto(S.cart[0], 40) + '</div><div style="flex:1 1 140px"><b>Pedido: ' + cartPecas() + ' peça(s)</b><div class="hint" style="margin:2px 0 0">' + gs(cartSub()) + ' pelos preços combinados</div></div>' +
         '<button type="button" class="mini" data-act="cartopen">Pedidos</button>';
     $('sCartAdd').hidden = S.cartOpen || !S._vsel;
     // a peça é escolhida e adicionada ao pedido; pagamento e finalização ficam na tela de pagamento
