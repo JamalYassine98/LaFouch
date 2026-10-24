@@ -940,6 +940,22 @@ async def main():
             if not ok: falhas.append('livre3'); print('        veio', r, pg.erros)
             await pg.close()
 
+            # Resultado do mês no câmbio do dia de cada venda: fica fixo mesmo se o câmbio de hoje mudar
+            pg = await pagina()
+            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S, d = new Date(), n = Date.now();
+              S.fx.pyg = 5000; S.fx.brl = 5; S.totM = 'usd';
+              const mk = (fx, fxb, price) => ({id:'E'+fx, ts:n, tipo:'pre', ref:'EQ', cor:'', grau:'', qty:1, fx, fxb, pct:0, pago:0, cPeca:0, estorno:false, price, rep:0, taxa:0, livre:price, moeda:'pyg', recebido:price, rate:1, pags:[{moeda:'pyg', v:price, rate:1, fee:0}], troco:[]});
+              S.sales = [mk(5000, 5, 100000), mk(10000, 5, 100000)]; S.cpay = []; S.imprev = []; S.melhUso = []; S.retiradas = []; S.descartes = []; S.contagens = [];
+              const a = L.resultadoMes(d.getFullYear(), d.getMonth());
+              S.fx.pyg = 20000;
+              const b = L.resultadoMes(d.getFullYear(), d.getMonth());
+              return [a.eq.usd.vendas, b.eq.usd.vendas, a.vendas, a.eq.brl.vendas, L.rFmt(a, 'vendas')]; }""")
+            total += 1
+            ok = r[0] == 30 and r[1] == 30 and r[2] == 200000 and r[3] == 150 and r[4] == 'US$ 30' and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Resultado do mês: valores fixos no câmbio do dia de cada venda')
+            if not ok: falhas.append('resultado eq'); print('        veio', r, pg.erros)
+            await pg.close()
+
             # Resumo por moeda, separação inteligente, notificações unificadas
             pg = await pagina()
             await pg.evaluate("() => { const L = window.__LF; L.S.dTab = 'hoje'; L.setView('dash'); }"); await pg.wait_for_timeout(400)

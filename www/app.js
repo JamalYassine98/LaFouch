@@ -9180,6 +9180,7 @@
     s.perde = eff - tx < pp.trava * qty + bg;
     if (pay.brinde) s.brinde = pay.brinde;
     if (pay.motivo) s.motivo = pay.motivo;
+    s.fxb = S.fx.brl;
     s.moeda = pay.moeda;
     s.recebido = pay.recebido;
     s.rate = Math.round(rate);
@@ -12516,6 +12517,51 @@
       return a + (noMes(x.ts, lim) && (!filtro || filtro(x)) ? x[k] || 0 : 0);
     }, 0);
   }
+  // Câmbio de um dia: guarani e real por US$ 1. A venda usa o que gravou; o resto, o histórico do câmbio.
+  function cambioEm(ts, v) {
+    var p = null;
+    (S.fxHist || []).forEach(function (x) {
+      if (x.ts <= ts) p = x;
+    });
+    if (!p) p = (S.fxHist || [])[0] || S.fx;
+    var py = v && v.fx > 0 ? v.fx : p.pyg,
+      br = v && v.fxb > 0 ? v.fxb : p.brl;
+    return { pyg: py > 0 ? py : S.fx.pyg, brl: br > 0 ? br : S.fx.brl };
+  }
+  // Valor em guaranis do dia "ts" -> equivalentes em US$ e R$ do mesmo dia (conta em dólar ou real usa o valor original).
+  function eqDe(g, ts, v, ent) {
+    var r = cambioEm(ts, v),
+      u = g / r.pyg,
+      b;
+    if (ent && ent.orig > 0 && g === ent.valor && ent.moeda === 'usd') u = ent.orig;
+    b = u * r.brl;
+    if (ent && ent.orig > 0 && g === ent.valor && ent.moeda === 'brl') {
+      b = ent.orig;
+      u = b / r.brl;
+    }
+    return { usd: u, brl: b };
+  }
+  // Soma, no câmbio de cada dia, o campo k dos itens do mês (venda: v=true).
+  function somaEq(lista, k, lim, filtro, v) {
+    var o = { usd: 0, brl: 0 };
+    lista.forEach(function (x) {
+      if (lim && !noMes(x.ts, lim)) return;
+      if (filtro && !filtro(x)) return;
+      var e = eqDe(x[k] || 0, x.ts, v ? x : null, v ? null : x);
+      o.usd += e.usd;
+      o.brl += e.brl;
+    });
+    return o;
+  }
+  // Valor de uma linha do resultado na moeda escolhida para os totais (guarani, real ou dólar).
+  function rVal(r, k) {
+    var m = S.totM === 'usd' || S.totM === 'brl' ? S.totM : 'pyg';
+    return m === 'pyg' ? r[k] : r.eq[m][k];
+  }
+  function rFmt(r, k) {
+    var m = S.totM === 'usd' || S.totM === 'brl' ? S.totM : 'pyg';
+    return m === 'pyg' ? gsRaw(Math.round(r[k])) : fmtM0(r.eq[m][k], m);
+  }
   // Resultado de um mês (mes de 0 a 11): vendas, custos, resultado da loja, retiradas e sobra.
   function resultadoMes(ano, mes) {
     var lim = limitesMes(ano, mes),
@@ -12554,6 +12600,41 @@
     r.resultado = r.vendas - r.cmv - r.taxas - r.contasLoja - r.imprev - r.melh - r.perdas;
     r.sobra = r.resultado - r.retTotal;
     r.tem = r.n > 0 || r.contasLoja > 0 || r.retTotal > 0 || r.imprev > 0;
+    // os mesmos números no dólar e no real do dia de cada venda e de cada conta (valores fixos)
+    var eq = { usd: {}, brl: {} },
+      parts = {
+        vendas: somaEq(vs, 'price', null, null, true),
+        cmv: somaEq(vs, 'rep', null, null, true),
+        taxas: somaEq(vs, 'taxa', null, null, true),
+        lucroLivre: somaEq(vs, 'livre', null, null, true),
+        contasLoja: somaEq(pg, 'valor', lim, function (x) {
+          return GRUPO_LOJA[x.cat];
+        }),
+        contasPessoais: somaEq(pg, 'valor', lim, function (x) {
+          return GRUPO_PESSOAL[x.cat];
+        }),
+        imprev: somaEq(S.imprev, 'valor', lim),
+        melh: somaEq(S.melhUso, 'valor', lim),
+        retAvulsas: somaEq(S.retiradas, 'valor', lim)
+      },
+      pd = somaEq(S.descartes, 'valor', lim);
+    ['usd', 'brl'].forEach(function (m) {
+      var pu = 0;
+      (S.contagens || []).forEach(function (c) {
+        if (!noMes(c.ts, lim)) return;
+        (c.itens || []).forEach(function (it) {
+          if (it.usd < 0) pu += m === 'usd' ? -it.usd : -it.usd * cambioEm(c.ts).brl;
+        });
+      });
+      Object.keys(parts).forEach(function (k) {
+        eq[m][k] = parts[k][m];
+      });
+      eq[m].perdas = pu + pd[m];
+      eq[m].retTotal = eq[m].retAvulsas + eq[m].contasPessoais;
+      eq[m].resultado = eq[m].vendas - eq[m].cmv - eq[m].taxas - eq[m].contasLoja - eq[m].imprev - eq[m].melh - eq[m].perdas;
+      eq[m].sobra = eq[m].resultado - eq[m].retTotal;
+    });
+    r.eq = eq;
     return r;
   }
   var LINHAS_RES = [
@@ -12601,24 +12682,24 @@
       var k = l[1],
         ap =
           'mês passado ' +
-          (c.p.tem ? gs(c.p[k]) + varTxt(c.a[k], c.p[k]) : 'sem dados') +
+          (c.p.tem ? rFmt(c.p, k) + varTxt(rVal(c.a, k), rVal(c.p, k)) : 'sem dados') +
           ' · ' +
           MESES_L[c.y.mes].slice(0, 3) +
           '/' +
           String(c.y.ano).slice(2) +
           ' ' +
-          (c.y.tem ? gs(c.y[k]) + varTxt(c.a[k], c.y[k]) : 'sem dados');
+          (c.y.tem ? rFmt(c.y, k) + varTxt(rVal(c.a, k), rVal(c.y, k)) : 'sem dados');
       h += l[2]
         ? '<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span><b>' +
           l[0] +
           '</b><small>' +
           ap +
           '</small></span><b style="color:' +
-          (c.a[k] >= 0 ? 'var(--ok)' : 'var(--bad)') +
+          (rVal(c.a, k) >= 0 ? 'var(--ok)' : 'var(--bad)') +
           '">' +
-          gs(c.a[k]) +
+          rFmt(c.a, k) +
           '</b></div>'
-        : dxRow(l[0], ap, gs(c.a[k]));
+        : dxRow(l[0], ap, rFmt(c.a, k));
     });
     return h + '</div></section>';
   }
@@ -13139,6 +13220,11 @@
         .join('') +
       '</div>'
     );
+  }
+  // Soma do campo k das vendas, na moeda do total, com o câmbio do dia de cada venda.
+  function totVendas(list, k) {
+    var m = S.totM === 'usd' || S.totM === 'brl' ? S.totM : 'pyg';
+    return m === 'pyg' ? gsRaw(Math.round(sumBy(list, k))) : fmtM0(somaEq(list, k, null, null, true)[m], m);
   }
   // Frase do câmbio de hoje (para o rodapé dos totais convertidos).
   function cambioHojeTxt() {
@@ -18078,9 +18164,9 @@
       '<div style="display:flex;justify-content:flex-end"><button type="button" class="chip" data-act="dfold" data-id="paraonde" aria-expanded="' + aberto + '" style="min-height:34px">' + (aberto ? 'Esconder ⌃' : 'Ver para onde vai ⌄') + '</button></div></section>';
     h +=
       '<section class="card col"><b style="font-size:16px">Seu mês</b>' +
-      '<div class="sl"><span>Resultado da loja<small>vendas menos reposição e contas</small></span><b>' + totFmt(rm.resultado) + '</b></div>' +
-      '<div class="sl"><span>Retirado por você<small>de ' + totFmt(rm.lucroLivre) + ' de lucro livre</small></span><b>' + totFmt(rm.retTotal) + '</b></div>' +
-      '<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span>Sobra do mês</span><b style="color:' + (rm.sobra >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + totFmt(rm.sobra) + '</b></div>' +
+      '<div class="sl"><span>Resultado da loja<small>vendas menos reposição e contas</small></span><b>' + rFmt(rm, 'resultado') + '</b></div>' +
+      '<div class="sl"><span>Retirado por você<small>de ' + rFmt(rm, 'lucroLivre') + ' de lucro livre</small></span><b>' + rFmt(rm, 'retTotal') + '</b></div>' +
+      '<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span>Sobra do mês</span><b style="color:' + (rVal(rm, 'sobra') >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + rFmt(rm, 'sobra') + '</b></div>' +
       '<div><button type="button" class="chip" data-act="view" data-id="caixa" style="min-height:34px">Registrar retirada (Caixa)</button></div></section>';
     h += dFold('res', 'Detalhes do mês', 'receitas, despesas e resultado', rm.sobra >= 0 ? 'var(--ok)' : 'var(--bad)', resultadoHtml());
     h += dFold(
@@ -18473,7 +18559,7 @@
     var kpHtml =
       '<div class="card col" style="padding:10px 12px"><div class="hint" style="margin:0">Total convertido em · ' + cambioHojeTxt() + '</div>' + totBtn() + '</div>' +
       '<section class="kpis" aria-label="Resumo">' +
-      kpi3('Vendido', sp.vend, ms, '', '≈ ' + totFmt(tot) + ' · ' + pcs + ' peça(s) em ' + ps.length + ' venda(s)') +
+      kpi3('Vendido', sp.vend, ms, '', '≈ ' + totVendas(ps, 'price') + ' · ' + pcs + ' peça(s) em ' + ps.length + ' venda(s)') +
       kpi3('Separar das vendas', sp.sep, ms, 'var(--warn)', (tot ? pc(sepEq / tot) : '0%') + ' do vendido') +
       kpi3('Lucro livre', sp.livre, ms, 'var(--ok)', (tot ? pc(livEq / tot) : '0%') + ' do vendido') +
       '<div class="kpi"><div class="lbl">Dólar hoje</div><b>' +
@@ -23719,6 +23805,6 @@
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, whiten: whiten, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, backupLembrete: backupLembrete, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, livre3: livre3, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
+      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, backupLembrete: backupLembrete, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
     };
 })();

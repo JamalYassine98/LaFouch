@@ -325,6 +325,7 @@
     s.perde = eff - tx < pp.trava * qty + bg;
     if (pay.brinde) s.brinde = pay.brinde;
     if (pay.motivo) s.motivo = pay.motivo;
+    s.fxb = S.fx.brl;
     s.moeda = pay.moeda;
     s.recebido = pay.recebido;
     s.rate = Math.round(rate);

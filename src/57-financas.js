@@ -45,6 +45,51 @@
       return a + (noMes(x.ts, lim) && (!filtro || filtro(x)) ? x[k] || 0 : 0);
     }, 0);
   }
+  // Câmbio de um dia: guarani e real por US$ 1. A venda usa o que gravou; o resto, o histórico do câmbio.
+  function cambioEm(ts, v) {
+    var p = null;
+    (S.fxHist || []).forEach(function (x) {
+      if (x.ts <= ts) p = x;
+    });
+    if (!p) p = (S.fxHist || [])[0] || S.fx;
+    var py = v && v.fx > 0 ? v.fx : p.pyg,
+      br = v && v.fxb > 0 ? v.fxb : p.brl;
+    return { pyg: py > 0 ? py : S.fx.pyg, brl: br > 0 ? br : S.fx.brl };
+  }
+  // Valor em guaranis do dia "ts" -> equivalentes em US$ e R$ do mesmo dia (conta em dólar ou real usa o valor original).
+  function eqDe(g, ts, v, ent) {
+    var r = cambioEm(ts, v),
+      u = g / r.pyg,
+      b;
+    if (ent && ent.orig > 0 && g === ent.valor && ent.moeda === 'usd') u = ent.orig;
+    b = u * r.brl;
+    if (ent && ent.orig > 0 && g === ent.valor && ent.moeda === 'brl') {
+      b = ent.orig;
+      u = b / r.brl;
+    }
+    return { usd: u, brl: b };
+  }
+  // Soma, no câmbio de cada dia, o campo k dos itens do mês (venda: v=true).
+  function somaEq(lista, k, lim, filtro, v) {
+    var o = { usd: 0, brl: 0 };
+    lista.forEach(function (x) {
+      if (lim && !noMes(x.ts, lim)) return;
+      if (filtro && !filtro(x)) return;
+      var e = eqDe(x[k] || 0, x.ts, v ? x : null, v ? null : x);
+      o.usd += e.usd;
+      o.brl += e.brl;
+    });
+    return o;
+  }
+  // Valor de uma linha do resultado na moeda escolhida para os totais (guarani, real ou dólar).
+  function rVal(r, k) {
+    var m = S.totM === 'usd' || S.totM === 'brl' ? S.totM : 'pyg';
+    return m === 'pyg' ? r[k] : r.eq[m][k];
+  }
+  function rFmt(r, k) {
+    var m = S.totM === 'usd' || S.totM === 'brl' ? S.totM : 'pyg';
+    return m === 'pyg' ? gsRaw(Math.round(r[k])) : fmtM0(r.eq[m][k], m);
+  }
   // Resultado de um mês (mes de 0 a 11): vendas, custos, resultado da loja, retiradas e sobra.
   function resultadoMes(ano, mes) {
     var lim = limitesMes(ano, mes),
@@ -83,6 +128,41 @@
     r.resultado = r.vendas - r.cmv - r.taxas - r.contasLoja - r.imprev - r.melh - r.perdas;
     r.sobra = r.resultado - r.retTotal;
     r.tem = r.n > 0 || r.contasLoja > 0 || r.retTotal > 0 || r.imprev > 0;
+    // os mesmos números no dólar e no real do dia de cada venda e de cada conta (valores fixos)
+    var eq = { usd: {}, brl: {} },
+      parts = {
+        vendas: somaEq(vs, 'price', null, null, true),
+        cmv: somaEq(vs, 'rep', null, null, true),
+        taxas: somaEq(vs, 'taxa', null, null, true),
+        lucroLivre: somaEq(vs, 'livre', null, null, true),
+        contasLoja: somaEq(pg, 'valor', lim, function (x) {
+          return GRUPO_LOJA[x.cat];
+        }),
+        contasPessoais: somaEq(pg, 'valor', lim, function (x) {
+          return GRUPO_PESSOAL[x.cat];
+        }),
+        imprev: somaEq(S.imprev, 'valor', lim),
+        melh: somaEq(S.melhUso, 'valor', lim),
+        retAvulsas: somaEq(S.retiradas, 'valor', lim)
+      },
+      pd = somaEq(S.descartes, 'valor', lim);
+    ['usd', 'brl'].forEach(function (m) {
+      var pu = 0;
+      (S.contagens || []).forEach(function (c) {
+        if (!noMes(c.ts, lim)) return;
+        (c.itens || []).forEach(function (it) {
+          if (it.usd < 0) pu += m === 'usd' ? -it.usd : -it.usd * cambioEm(c.ts).brl;
+        });
+      });
+      Object.keys(parts).forEach(function (k) {
+        eq[m][k] = parts[k][m];
+      });
+      eq[m].perdas = pu + pd[m];
+      eq[m].retTotal = eq[m].retAvulsas + eq[m].contasPessoais;
+      eq[m].resultado = eq[m].vendas - eq[m].cmv - eq[m].taxas - eq[m].contasLoja - eq[m].imprev - eq[m].melh - eq[m].perdas;
+      eq[m].sobra = eq[m].resultado - eq[m].retTotal;
+    });
+    r.eq = eq;
     return r;
   }
   var LINHAS_RES = [
@@ -130,24 +210,24 @@
       var k = l[1],
         ap =
           'mês passado ' +
-          (c.p.tem ? gs(c.p[k]) + varTxt(c.a[k], c.p[k]) : 'sem dados') +
+          (c.p.tem ? rFmt(c.p, k) + varTxt(rVal(c.a, k), rVal(c.p, k)) : 'sem dados') +
           ' · ' +
           MESES_L[c.y.mes].slice(0, 3) +
           '/' +
           String(c.y.ano).slice(2) +
           ' ' +
-          (c.y.tem ? gs(c.y[k]) + varTxt(c.a[k], c.y[k]) : 'sem dados');
+          (c.y.tem ? rFmt(c.y, k) + varTxt(rVal(c.a, k), rVal(c.y, k)) : 'sem dados');
       h += l[2]
         ? '<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span><b>' +
           l[0] +
           '</b><small>' +
           ap +
           '</small></span><b style="color:' +
-          (c.a[k] >= 0 ? 'var(--ok)' : 'var(--bad)') +
+          (rVal(c.a, k) >= 0 ? 'var(--ok)' : 'var(--bad)') +
           '">' +
-          gs(c.a[k]) +
+          rFmt(c.a, k) +
           '</b></div>'
-        : dxRow(l[0], ap, gs(c.a[k]));
+        : dxRow(l[0], ap, rFmt(c.a, k));
     });
     return h + '</div></section>';
   }

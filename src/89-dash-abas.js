@@ -292,9 +292,9 @@
       '<div style="display:flex;justify-content:flex-end"><button type="button" class="chip" data-act="dfold" data-id="paraonde" aria-expanded="' + aberto + '" style="min-height:34px">' + (aberto ? 'Esconder ⌃' : 'Ver para onde vai ⌄') + '</button></div></section>';
     h +=
       '<section class="card col"><b style="font-size:16px">Seu mês</b>' +
-      '<div class="sl"><span>Resultado da loja<small>vendas menos reposição e contas</small></span><b>' + totFmt(rm.resultado) + '</b></div>' +
-      '<div class="sl"><span>Retirado por você<small>de ' + totFmt(rm.lucroLivre) + ' de lucro livre</small></span><b>' + totFmt(rm.retTotal) + '</b></div>' +
-      '<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span>Sobra do mês</span><b style="color:' + (rm.sobra >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + totFmt(rm.sobra) + '</b></div>' +
+      '<div class="sl"><span>Resultado da loja<small>vendas menos reposição e contas</small></span><b>' + rFmt(rm, 'resultado') + '</b></div>' +
+      '<div class="sl"><span>Retirado por você<small>de ' + rFmt(rm, 'lucroLivre') + ' de lucro livre</small></span><b>' + rFmt(rm, 'retTotal') + '</b></div>' +
+      '<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span>Sobra do mês</span><b style="color:' + (rVal(rm, 'sobra') >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + rFmt(rm, 'sobra') + '</b></div>' +
       '<div><button type="button" class="chip" data-act="view" data-id="caixa" style="min-height:34px">Registrar retirada (Caixa)</button></div></section>';
     h += dFold('res', 'Detalhes do mês', 'receitas, despesas e resultado', rm.sobra >= 0 ? 'var(--ok)' : 'var(--bad)', resultadoHtml());
     h += dFold(

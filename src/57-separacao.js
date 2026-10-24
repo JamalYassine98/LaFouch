@@ -140,6 +140,11 @@
       '</div>'
     );
   }
+  // Soma do campo k das vendas, na moeda do total, com o câmbio do dia de cada venda.
+  function totVendas(list, k) {
+    var m = S.totM === 'usd' || S.totM === 'brl' ? S.totM : 'pyg';
+    return m === 'pyg' ? gsRaw(Math.round(sumBy(list, k))) : fmtM0(somaEq(list, k, null, null, true)[m], m);
+  }
   // Frase do câmbio de hoje (para o rodapé dos totais convertidos).
   function cambioHojeTxt() {
     return 'Câmbio de hoje: R$ 1 = ' + gsRaw(Math.round(ratePyg('brl'))) + ' · US$ 1 = R$ ' + nf(S.fx.brl, 'brl') + ' = ' + gsRaw(Math.round(S.fx.pyg));
