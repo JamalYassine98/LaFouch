@@ -85,14 +85,78 @@
     var u = Math.round(fxLoja('usd')),
       b = Math.round(fxLoja('brl')),
       f = S.fx,
-      mg = fxMargemInfo();
+      mg = fxMargemInfo('pyg'),
+      mb = fxMargemInfo('brl');
+    function linhaMg(nome, x) {
+      return nome + ': ' + pc(x.m) + (x.m > FX_MARGEM + 1e-9 ? ' (' + pc(x.acima) + ' acima da menor cotação de ' + FX_JANELA + ' dias)' : ' (base)');
+    }
     return (
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cotação da loja</h2><div class="hint" style="margin:2px 0 0">Seus preços são em dólar, e o dólar da loja vale uma margem a mais que o mercado: ' + pc(FX_MARGEM) + ' de base, subindo até ' + pc(FX_TETO) + ' quando o dólar oscila ou esquenta. O app usa esta cotação ao receber dólar ou real, a menos que você digite outro câmbio no carrinho. Custos e contas continuam pela cotação do mercado.</div></div>' +
-      '<div class="note ' + (mg.m > FX_MARGEM + 1e-9 ? 'n-warn' : 'n-ok') + '" role="status">Margem em uso: ' + pc(mg.m) + (mg.m > FX_MARGEM + 1e-9 ? '. ' + (mg.reativa > FX_MARGEM + 1e-9 ? 'O dólar oscilou ' + pc(mg.amp) + ' em 7 dias. ' : '') + (mg.alerta ? 'Alerta: subiu ' + pc(mg.alta) + ' em 3 dias. ' : '') + (mg.reativa + mg.alerta > FX_TETO + 1e-9 ? 'Limitada ao teto de ' + pc(FX_TETO) + '.' : '') : '. Dólar calmo, margem base.') + '</div>' +
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cotação da loja</h2><div class="hint" style="margin:2px 0 0">Seus preços são em dólar, e a cotação da loja vale uma margem a mais que o mercado. A margem é de ' + pc(FX_MARGEM) + ' e acompanha a moeda nas últimas ' + FX_JANELA + ' dias: se ela valoriza, a margem sobe (até ' + pc(FX_TETO) + '); se ela cai, a margem desce aos poucos até voltar a ' + pc(FX_MARGEM) + '. O dólar e o real por dólar têm cada um a sua margem. O app usa esta cotação ao receber dólar ou real, a menos que você digite outro câmbio no carrinho. Custos e contas continuam pela cotação do mercado.</div></div>' +
+      '<div class="note ' + (Math.max(mg.m, mb.m) > FX_MARGEM + 1e-9 ? 'n-warn' : 'n-ok') + '" role="status">' + linhaMg('Margem do dólar', mg) + '<br>' + linhaMg('Margem do real por dólar', mb) + '</div>' +
       '<div class="kpis"><div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 vale</div><b>' + gsRaw(u) + '</b><div class="hint">mercado ' + gsRaw(f.pyg) + '</div></div>' +
       '<div class="kpi" style="background:var(--panel2)"><div class="lbl">R$ 1 vale</div><b>' + gsRaw(b) + '</b><div class="hint">mercado ' + gsRaw(Math.round(f.pyg / f.brl)) + '</div></div>' +
       '<div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 vale</div><b>R$ ' + fxBrlPorUsd().toFixed(2).replace('.', ',') + '</b><div class="hint">mercado R$ ' + f.brl.toFixed(2).replace('.', ',') + '</div></div></div></section>'
     );
+  }
+  // Dois gráficos (dólar em guaranis e real por dólar) com o mesmo período, escolhido nos botões.
+  var FX_PERS = [
+    [14, '2 semanas'],
+    [30, 'Mês'],
+    [90, '3 meses'],
+    [365, 'Ano'],
+    [0, 'Tudo']
+  ];
+  function fxGrafico(k, titulo, sub, fmt) {
+    var per = S.fxPer == null ? 30 : S.fxPer,
+      lim = per ? Date.now() - per * 86400000 : 0,
+      h = S.fxHist.filter(function (p) {
+        return p[k] > 0 && p.ts >= lim;
+      });
+    if (h.length < 2) h = S.fxHist.filter(function (p) { return p[k] > 0; }).slice(-2);
+    var vals = h.map(function (p) {
+        return p[k];
+      }),
+      first = vals[0],
+      last = vals[vals.length - 1];
+    if (vals.length < 2) return '';
+    return (
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">' +
+      titulo +
+      '</h2><div class="hint" style="margin:2px 0 0">' +
+      sub +
+      '. Mínimo ' +
+      fmt(Math.min.apply(null, vals)) +
+      ' · Máximo ' +
+      fmt(Math.max.apply(null, vals)) +
+      ' · Variação no período ' +
+      (last >= first ? '+' : '−') +
+      pc(Math.abs(last / first - 1)) +
+      '</div></div>' +
+      lineSvg(
+        vals,
+        h.map(function (p) {
+          return fd(p.ts);
+        }),
+        fmt
+      ) +
+      '</section>'
+    );
+  }
+  function fxGraficos() {
+    var per = S.fxPer == null ? 30 : S.fxPer,
+      h =
+        '<section class="card col"><div class="lbl">Período dos gráficos</div><div class="nav" role="group" aria-label="Período dos gráficos">' +
+        FX_PERS.map(function (o) {
+          return '<button class="chip' + (per === o[0] ? ' on' : '') + '" data-act="fxper" data-id="' + o[0] + '" aria-pressed="' + (per === o[0]) + '">' + o[1] + '</button>';
+        }).join('') +
+        '</div><div class="nav"><button class="chip" data-act="fxup">Simular dólar +3%</button><button class="chip" data-act="fxdn">Simular dólar −3%</button></div><div class="hint" style="margin:0">Os botões de simulação existem só na demonstração, para você ver a margem, o colchão e a trava reagirem.</div></section>';
+    h += fxGrafico('pyg', 'Dólar em guaranis', 'Guaranis por dólar', function (v) {
+      return dots(Math.round(v));
+    });
+    h += fxGrafico('brl', 'Dólar em reais', 'Reais por dólar', function (v) {
+      return v.toFixed(2).replace('.', ',');
+    });
+    return h;
   }
   function renderFx() {
     var el = $('v-fx'),
@@ -127,28 +191,7 @@
       (f.ts ? ' Última atualização às ' + fh(f.ts) + '.' : '') +
       '</div>';
     html += fxLojaHtml();
-    html +=
-      '<section class="card col"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px"><div><h2 style="margin:0;font-size:16px">Dólar nos últimos ' +
-      h.length +
-      ' dias</h2><div class="hint" style="margin:2px 0 0">Guaranis por dólar. Mínimo ' +
-      dots(Math.min.apply(null, vals)) +
-      ' · Máximo ' +
-      dots(Math.max.apply(null, vals)) +
-      ' · Variação no período ' +
-      (last >= first ? '+' : '−') +
-      pc(Math.abs(last / first - 1)) +
-      '</div></div>' +
-      '<div class="nav"><button class="chip" data-act="fxup">Simular dólar +3%</button><button class="chip" data-act="fxdn">Simular dólar −3%</button></div></div>' +
-      lineSvg(
-        vals,
-        h.map(function (p) {
-          return fd(p.ts);
-        }),
-        function (v) {
-          return dots(v);
-        }
-      ) +
-      '<div class="hint" style="margin:0">Os botões de simulação existem só na demonstração, para você ver o colchão e a trava reagirem.</div></section>';
+    html += fxGraficos();
     html +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Como o colchão de segurança é calculado</h2><div class="hint" style="margin:2px 0 0">Não é um percentual fixo. O app olha a pior alta recente do dólar e do custo da mercadoria.</div></div>' +
       '<div class="split"><div class="sl"><span>Maior alta do dólar em ' +

@@ -3,16 +3,25 @@
   S.notifs = [];
   S.fxMgUlt = 0;
   // Itens ao vivo: tudo que o Dashboard chama de "Atenção agora" + o estado da margem da loja.
+  // Avisos (sino e aba) só quando a margem passa de 1%: acima da base por pouco não merece alerta.
+  var FX_AVISO = 0.01 - 1e-9;
+  function fxMgTxt() {
+    var a = fxMargemInfo('pyg'),
+      b = fxMargemInfo('brl'),
+      t = [];
+    if (a.m > FX_AVISO) t.push('O dólar está ' + pc(a.acima) + ' acima da menor cotação de ' + FX_JANELA + ' dias');
+    if (b.m > FX_AVISO) t.push('O real por dólar está ' + pc(b.acima) + ' acima da menor cotação de ' + FX_JANELA + ' dias');
+    return t.length ? t.join('. ') + '. ' : '';
+  }
   function notifAgora() {
     var l = [],
-      mg = fxMargemInfo();
-    if (mg.m > FX_MARGEM + 1e-9)
+      mg = fxMargemInfo('pyg'),
+      mb = fxMargemInfo('brl'),
+      mx = Math.max(mg.m, mb.m);
+    if (mx > FX_AVISO)
       l.push({
-        t: 'Margem da loja em ' + pc(mg.m),
-        s:
-          (mg.reativa > FX_MARGEM + 1e-9 ? 'O dólar oscilou ' + pc(mg.amp) + ' em 7 dias. ' : '') +
-          (mg.alerta ? 'Subiu ' + pc(mg.alta) + ' em 3 dias. ' : '') +
-          'Dólar da loja: ' + gsRaw(fxLoja('usd')) + '.',
+        t: 'Margem da loja em ' + pc(mx),
+        s: fxMgTxt() + 'Dólar da loja: ' + gsRaw(fxLoja('usd')) + '.',
         c: 'var(--warn)',
         b: 'Ver',
         act: 'view',
@@ -36,17 +45,15 @@
   }
   // Registra no histórico quando a margem sobe ou volta ao normal.
   function notifVerifica() {
-    var mg = fxMargemInfo(),
-      alta = mg.m > FX_MARGEM + 1e-9 ? 1 : 0;
+    var mx = Math.max(fxMargemInfo('pyg').m, fxMargemInfo('brl').m),
+      alta = mx > FX_AVISO ? 1 : 0;
     if (alta === S.fxMgUlt) return;
     S.fxMgUlt = alta;
     S.notifs.unshift({
       ts: Date.now(),
       lida: false,
-      t: alta ? 'Margem da loja subiu para ' + pc(mg.m) : 'Margem da loja voltou a ' + pc(FX_MARGEM),
-      s: alta
-        ? (mg.reativa > FX_MARGEM + 1e-9 ? 'O dólar oscilou ' + pc(mg.amp) + ' em 7 dias. ' : '') + (mg.alerta ? 'Subiu ' + pc(mg.alta) + ' em 3 dias. ' : '') + 'Dólar da loja: ' + gsRaw(fxLoja('usd')) + '.'
-        : 'O dólar acalmou. Dólar da loja: ' + gsRaw(fxLoja('usd')) + '.'
+      t: alta ? 'Margem da loja subiu para ' + pc(mx) : 'Margem da loja voltou a ' + pc(FX_MARGEM),
+      s: alta ? fxMgTxt() + 'Dólar da loja: ' + gsRaw(fxLoja('usd')) + '.' : 'O dólar acalmou. Dólar da loja: ' + gsRaw(fxLoja('usd')) + '.'
     });
     S.notifs = S.notifs.slice(0, 60);
   }

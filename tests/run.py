@@ -578,8 +578,8 @@ async def main():
               const need = L.tFor(it).price, sh = document.getElementById('recIn').value;
               const esp = (need / L.rateDe('brl', 0)).toFixed(2).replace('.', ',');
               L.setView('fx'); L.render(); const fx = document.getElementById('v-fx').textContent;
-              return [g, u, b, man, custo, sh === esp, document.getElementById('v-fx').textContent.indexOf('Cotação da loja') >= 0, fx.indexOf('G$ 8.200') >= 0]; }""")
-            ok = r[0] == 'US$ 74' and r[1] == 8200 and r[2] == 1600 and r[3] == 1300 and r[4] == 8000 and r[5] and r[6] and r[7] and not pg.erros
+              return [g, u, b, man, custo, sh === esp, document.getElementById('v-fx').textContent.indexOf('Cotação da loja') >= 0, fx.indexOf('G$ 8.000') >= 0]; }""")
+            ok = r[0] == 'US$ 74' and r[1] == 8000 and r[2] == 1600 and r[3] == 1300 and r[4] == 8000 and r[5] and r[6] and r[7] and not pg.erros
             total += 1
             print(('  ok  ' if ok else ' FALHA ') + 'cotação da loja: dólar com margem a mais, no carrinho e na aba Câmbio')
             if not ok: falhas.append('cotacao loja'); print('        veio', r, pg.erros)
@@ -837,23 +837,39 @@ async def main():
               const rec = document.getElementById('recH').textContent;
               return [antes, linhas, cambioLinha, ph, lbl, u, rec]; }""")
             total += 1
-            ok = r[0] is False and r[1] == 1 and r[2] == 1 and 'US$ 1 = R$' in r[3] and 'US$ 1' in r[4] and r[5] == 5900 and 'US$ 1 = R$' in r[6] and not pg.erros
+            ok = r[0] is False and r[1] == 1 and r[2] == 1 and 'US$ 1 = R$' in r[3] and 'US$ 1' in r[4] and r[5] == 5800 and 'US$ 1 = R$' in r[6] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'pagamento: Outra moeda direto, câmbio em dólar e dólar da loja de 100 em 100')
             if not ok: falhas.append('pagamento outra moeda'); print('        veio', r, pg.erros)
             await pg.close()
 
-            # cotação da loja: margem dinâmica (base 2,5%, oscilação, alerta, teto 3,5%)
+            # cotação da loja: margem dinâmica (base 0,5%, teto 2%, 2 semanas; sobe com a alta e desce quando a moeda cai; dólar e real)
             pg = await pagina()
             r = await pg.evaluate("""() => { const L = window.__LF, S = L.S, D = 86400000, h = Date.now();
-              const poe = (arr) => { S.fxHist = arr.map((v, i) => ({ts: h - (arr.length - 1 - i) * D, pyg: v, brl: 5})); S.fx.pyg = arr[arr.length - 1]; S.fx.brl = 5; };
+              const poe = (arr, brl) => { S.fxHist = arr.map((v, i) => ({ts: h - (arr.length - 1 - i) * D, pyg: v, brl: brl ? brl[i] : 5})); S.fx.pyg = arr[arr.length - 1]; S.fx.brl = brl ? brl[arr.length - 1] : 5; };
               poe([5620, 5625, 5618, 5630, 5640, 5655, 5650]); const calmo = [L.fxMargemInfo().m, L.fxLoja('usd')];
-              poe([5620, 5625, 5618, 5630, 5640, 5655, 5760]); const alerta = L.fxMargemInfo();
+              poe([5620, 5625, 5618, 5630, 5640, 5655, 5760]); const sobe = [L.fxMargemInfo().m, L.fxLoja('usd')];
               poe([5620, 5625, 5618, 5630, 5640, 5760, 5920]); const salto = [L.fxMargemInfo().m, L.fxLoja('usd')];
-              return [calmo, alerta.m, alerta.alerta, salto]; }""")
+              poe([5900, 5800, 5700, 5650, 5640]); const queda = L.fxMargemInfo().m;
+              poe([5640, 5650, 5640, 5650, 5640], [5.0, 5.05, 5.1, 5.2, 5.25]); const real = [L.fxMargemInfo('brl').m, L.fxMargemInfo('pyg').m];
+              poe([5640, 5650, 5640, 5650, 5640]); S.fxHist.unshift({ts: h - 40 * D, pyg: 4000, brl: 5}); const velho = L.fxMargemInfo().m;
+              return [calmo, sobe, salto, queda, real, velho]; }""")
             total += 1
-            ok = abs(r[0][0] - 0.025) < 1e-9 and r[0][1] == 5800 and r[1] > 0.025 and r[2] == 0.01 and abs(r[3][0] - 0.035) < 1e-9 and r[3][1] == 6100 and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'cotação da loja: margem dinâmica com alerta e teto de 3,5%')
+            ok = abs(r[0][0] - 0.0057) < 0.0002 and r[0][1] == 5700 and abs(r[1][0] - 0.02) < 1e-9 and r[1][1] == 5900 and abs(r[2][0] - 0.02) < 1e-9 and r[2][1] == 6000 and abs(r[3] - 0.005) < 1e-9 and abs(r[4][0] - 0.02) < 1e-9 and r[4][1] < 0.0056 and abs(r[5] - 0.005) < 0.002 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'cotação da loja: margem dinâmica de 0,5% a 2%, sobe com a alta, desce na queda, dólar e real')
             if not ok: falhas.append('margem dinamica'); print('        veio', r, pg.erros)
+            await pg.close()
+
+            # aba Câmbio: período dos gráficos e gráfico do dólar em reais
+            pg = await pagina()
+            await pg.evaluate("() => window.__LF.setView('fx')"); await pg.wait_for_timeout(400)
+            n1 = await pg.evaluate("() => document.querySelectorAll('#v-fx svg[role=img]').length")
+            t1 = await pg.inner_text('#v-fx')
+            await pg.locator('[data-act=fxper][data-id="14"]').click(); await pg.wait_for_timeout(300)
+            on = await pg.evaluate("() => [window.__LF.S.fxPer, document.querySelector('[data-act=fxper].on').getAttribute('data-id')]")
+            total += 1
+            ok = n1 == 2 and 'Dólar em reais' in t1 and 'Dólar em guaranis' in t1 and 'Variação no período' in t1 and on == [14, '14'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'aba Câmbio: dois gráficos e período escolhido')
+            if not ok: falhas.append('fx graficos'); print('        veio', n1, on, pg.erros)
             await pg.close()
 
             # notificações: aviso quando a margem sobe e volta ao normal

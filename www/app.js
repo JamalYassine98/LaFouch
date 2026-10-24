@@ -14162,43 +14162,42 @@
   // Cotação da loja: os preços são em dólar e o dólar da loja vale uma margem fixa a mais que o mercado (não editável).
   // Ex.: peça de US$ 15, mercado 5.900, loja 6.000: quem paga em guaranis entrega 90.000 e não 88.500.
   // O real fica pelo valor de mercado em guaranis, então R$ por US$ também sobe pela mesma margem.
-  var FX_MARGEM = 0.025;
-  // Arredondada para ficar "redonda": dólar de 100 em 100 guaranis (5.945 vira 5.900; 5.950 também desce), real por dólar sobe de 0,10 em 0,10 (4,92 vira 5,00).
-  var FX_TETO = 0.035;
-  // Margem do dia: 2,5% de base. Se o dólar oscilou mais de 3% em 7 dias, a margem passa a ser a oscilação + 0,5%.
-  // Alerta de subida: alta de 1% em 3 dias soma 0,5%; alta de 2% soma 1%. Nunca passa do teto de 3,5%.
-  function fxMargemInfo() {
+  var FX_MARGEM = 0.005;
+  var FX_TETO = 0.02;
+  var FX_JANELA = 14; // dias olhados para calcular a margem
+  // Margem do dia, para o dólar em guaranis ('pyg') e para o real por dólar ('brl'), pela mesma regra:
+  // vale quanto a cotação de hoje está acima da MENOR das últimas 2 semanas, nunca menos que 0,5% (base) nem mais que 2% (teto).
+  // Se a moeda valoriza, a margem sobe; se ela cai, a margem desce aos poucos até voltar à base.
+  function fxMargemInfo(k) {
+    k = k === 'brl' ? 'brl' : 'pyg';
     var h = S.fxHist || [],
       now = Date.now(),
       D = 86400000,
-      cur = S.fx && S.fx.pyg > 0 ? S.fx.pyg : 0,
+      cur = S.fx && S.fx[k] > 0 ? S.fx[k] : 0,
       vals = h
         .filter(function (p) {
-          return p.ts >= now - 7 * D && p.pyg > 0;
+          return p.ts >= now - FX_JANELA * D && p[k] > 0;
         })
         .map(function (p) {
-          return p.pyg;
+          return p[k];
         });
     if (cur) vals.push(cur);
-    var amp = vals.length > 1 ? (Math.max.apply(null, vals) - Math.min.apply(null, vals)) / Math.min.apply(null, vals) : 0,
-      ref = 0,
-      i;
-    for (i = h.length - 1; i >= 0; i--)
-      if (h[i].ts <= now - 3 * D) {
-        ref = h[i].pyg;
-        break;
-      }
-    var alta = ref && cur ? (cur - ref) / ref : 0,
-      reativa = amp > 0.03 ? Math.max(FX_MARGEM, amp + 0.005) : FX_MARGEM,
-      alerta = alta >= 0.02 ? 0.01 : alta >= 0.01 ? 0.005 : 0;
-    return { m: Math.min(FX_TETO, reativa + alerta), amp: amp, alta: alta, reativa: reativa, alerta: alerta };
+    var min = vals.length ? Math.min.apply(null, vals) : 0,
+      acima = min > 0 && cur ? Math.max(0, cur / min - 1) : 0,
+      m = Math.max(FX_MARGEM, Math.min(FX_TETO, acima));
+    return { m: m, acima: acima, k: k, janela: FX_JANELA };
   }
+  // Dólar da loja de 100 em 100 guaranis (5.745 vira 5.700; 5.750 também desce), mas nunca abaixo do mercado.
   function fxUsdLoja() {
-    return Math.ceil((ratePyg('usd') * (1 + fxMargemInfo().m)) / 100 - 0.5 - 1e-9) * 100;
+    var mk = ratePyg('usd'),
+      r = Math.ceil((mk * (1 + fxMargemInfo('pyg').m)) / 100 - 0.5 - 1e-9) * 100;
+    if (mk > 0 && r < mk) r += 100;
+    return r;
   }
+  // Real por dólar: sobe de 0,10 em 0,10 (5,04 com margem vira 5,10).
   function fxBrlPorUsd() {
     var b = S.fx && S.fx.brl > 0 ? S.fx.brl : 5;
-    return Math.ceil(b * (1 + fxMargemInfo().m) * 10 - 1e-9) / 10;
+    return Math.ceil(b * (1 + fxMargemInfo('brl').m) * 10 - 1e-9) / 10;
   }
   function fxLoja(m) {
     return m === 'usd' ? fxUsdLoja() : m === 'brl' ? Math.round(fxUsdLoja() / fxBrlPorUsd() / 100) * 100 : 0;
@@ -18105,16 +18104,25 @@
   S.notifs = [];
   S.fxMgUlt = 0;
   // Itens ao vivo: tudo que o Dashboard chama de "Atenção agora" + o estado da margem da loja.
+  // Avisos (sino e aba) só quando a margem passa de 1%: acima da base por pouco não merece alerta.
+  var FX_AVISO = 0.01 - 1e-9;
+  function fxMgTxt() {
+    var a = fxMargemInfo('pyg'),
+      b = fxMargemInfo('brl'),
+      t = [];
+    if (a.m > FX_AVISO) t.push('O dólar está ' + pc(a.acima) + ' acima da menor cotação de ' + FX_JANELA + ' dias');
+    if (b.m > FX_AVISO) t.push('O real por dólar está ' + pc(b.acima) + ' acima da menor cotação de ' + FX_JANELA + ' dias');
+    return t.length ? t.join('. ') + '. ' : '';
+  }
   function notifAgora() {
     var l = [],
-      mg = fxMargemInfo();
-    if (mg.m > FX_MARGEM + 1e-9)
+      mg = fxMargemInfo('pyg'),
+      mb = fxMargemInfo('brl'),
+      mx = Math.max(mg.m, mb.m);
+    if (mx > FX_AVISO)
       l.push({
-        t: 'Margem da loja em ' + pc(mg.m),
-        s:
-          (mg.reativa > FX_MARGEM + 1e-9 ? 'O dólar oscilou ' + pc(mg.amp) + ' em 7 dias. ' : '') +
-          (mg.alerta ? 'Subiu ' + pc(mg.alta) + ' em 3 dias. ' : '') +
-          'Dólar da loja: ' + gsRaw(fxLoja('usd')) + '.',
+        t: 'Margem da loja em ' + pc(mx),
+        s: fxMgTxt() + 'Dólar da loja: ' + gsRaw(fxLoja('usd')) + '.',
         c: 'var(--warn)',
         b: 'Ver',
         act: 'view',
@@ -18138,17 +18146,15 @@
   }
   // Registra no histórico quando a margem sobe ou volta ao normal.
   function notifVerifica() {
-    var mg = fxMargemInfo(),
-      alta = mg.m > FX_MARGEM + 1e-9 ? 1 : 0;
+    var mx = Math.max(fxMargemInfo('pyg').m, fxMargemInfo('brl').m),
+      alta = mx > FX_AVISO ? 1 : 0;
     if (alta === S.fxMgUlt) return;
     S.fxMgUlt = alta;
     S.notifs.unshift({
       ts: Date.now(),
       lida: false,
-      t: alta ? 'Margem da loja subiu para ' + pc(mg.m) : 'Margem da loja voltou a ' + pc(FX_MARGEM),
-      s: alta
-        ? (mg.reativa > FX_MARGEM + 1e-9 ? 'O dólar oscilou ' + pc(mg.amp) + ' em 7 dias. ' : '') + (mg.alerta ? 'Subiu ' + pc(mg.alta) + ' em 3 dias. ' : '') + 'Dólar da loja: ' + gsRaw(fxLoja('usd')) + '.'
-        : 'O dólar acalmou. Dólar da loja: ' + gsRaw(fxLoja('usd')) + '.'
+      t: alta ? 'Margem da loja subiu para ' + pc(mx) : 'Margem da loja voltou a ' + pc(FX_MARGEM),
+      s: alta ? fxMgTxt() + 'Dólar da loja: ' + gsRaw(fxLoja('usd')) + '.' : 'O dólar acalmou. Dólar da loja: ' + gsRaw(fxLoja('usd')) + '.'
     });
     S.notifs = S.notifs.slice(0, 60);
   }
@@ -18548,14 +18554,78 @@
     var u = Math.round(fxLoja('usd')),
       b = Math.round(fxLoja('brl')),
       f = S.fx,
-      mg = fxMargemInfo();
+      mg = fxMargemInfo('pyg'),
+      mb = fxMargemInfo('brl');
+    function linhaMg(nome, x) {
+      return nome + ': ' + pc(x.m) + (x.m > FX_MARGEM + 1e-9 ? ' (' + pc(x.acima) + ' acima da menor cotação de ' + FX_JANELA + ' dias)' : ' (base)');
+    }
     return (
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cotação da loja</h2><div class="hint" style="margin:2px 0 0">Seus preços são em dólar, e o dólar da loja vale uma margem a mais que o mercado: ' + pc(FX_MARGEM) + ' de base, subindo até ' + pc(FX_TETO) + ' quando o dólar oscila ou esquenta. O app usa esta cotação ao receber dólar ou real, a menos que você digite outro câmbio no carrinho. Custos e contas continuam pela cotação do mercado.</div></div>' +
-      '<div class="note ' + (mg.m > FX_MARGEM + 1e-9 ? 'n-warn' : 'n-ok') + '" role="status">Margem em uso: ' + pc(mg.m) + (mg.m > FX_MARGEM + 1e-9 ? '. ' + (mg.reativa > FX_MARGEM + 1e-9 ? 'O dólar oscilou ' + pc(mg.amp) + ' em 7 dias. ' : '') + (mg.alerta ? 'Alerta: subiu ' + pc(mg.alta) + ' em 3 dias. ' : '') + (mg.reativa + mg.alerta > FX_TETO + 1e-9 ? 'Limitada ao teto de ' + pc(FX_TETO) + '.' : '') : '. Dólar calmo, margem base.') + '</div>' +
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cotação da loja</h2><div class="hint" style="margin:2px 0 0">Seus preços são em dólar, e a cotação da loja vale uma margem a mais que o mercado. A margem é de ' + pc(FX_MARGEM) + ' e acompanha a moeda nas últimas ' + FX_JANELA + ' dias: se ela valoriza, a margem sobe (até ' + pc(FX_TETO) + '); se ela cai, a margem desce aos poucos até voltar a ' + pc(FX_MARGEM) + '. O dólar e o real por dólar têm cada um a sua margem. O app usa esta cotação ao receber dólar ou real, a menos que você digite outro câmbio no carrinho. Custos e contas continuam pela cotação do mercado.</div></div>' +
+      '<div class="note ' + (Math.max(mg.m, mb.m) > FX_MARGEM + 1e-9 ? 'n-warn' : 'n-ok') + '" role="status">' + linhaMg('Margem do dólar', mg) + '<br>' + linhaMg('Margem do real por dólar', mb) + '</div>' +
       '<div class="kpis"><div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 vale</div><b>' + gsRaw(u) + '</b><div class="hint">mercado ' + gsRaw(f.pyg) + '</div></div>' +
       '<div class="kpi" style="background:var(--panel2)"><div class="lbl">R$ 1 vale</div><b>' + gsRaw(b) + '</b><div class="hint">mercado ' + gsRaw(Math.round(f.pyg / f.brl)) + '</div></div>' +
       '<div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 vale</div><b>R$ ' + fxBrlPorUsd().toFixed(2).replace('.', ',') + '</b><div class="hint">mercado R$ ' + f.brl.toFixed(2).replace('.', ',') + '</div></div></div></section>'
     );
+  }
+  // Dois gráficos (dólar em guaranis e real por dólar) com o mesmo período, escolhido nos botões.
+  var FX_PERS = [
+    [14, '2 semanas'],
+    [30, 'Mês'],
+    [90, '3 meses'],
+    [365, 'Ano'],
+    [0, 'Tudo']
+  ];
+  function fxGrafico(k, titulo, sub, fmt) {
+    var per = S.fxPer == null ? 30 : S.fxPer,
+      lim = per ? Date.now() - per * 86400000 : 0,
+      h = S.fxHist.filter(function (p) {
+        return p[k] > 0 && p.ts >= lim;
+      });
+    if (h.length < 2) h = S.fxHist.filter(function (p) { return p[k] > 0; }).slice(-2);
+    var vals = h.map(function (p) {
+        return p[k];
+      }),
+      first = vals[0],
+      last = vals[vals.length - 1];
+    if (vals.length < 2) return '';
+    return (
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">' +
+      titulo +
+      '</h2><div class="hint" style="margin:2px 0 0">' +
+      sub +
+      '. Mínimo ' +
+      fmt(Math.min.apply(null, vals)) +
+      ' · Máximo ' +
+      fmt(Math.max.apply(null, vals)) +
+      ' · Variação no período ' +
+      (last >= first ? '+' : '−') +
+      pc(Math.abs(last / first - 1)) +
+      '</div></div>' +
+      lineSvg(
+        vals,
+        h.map(function (p) {
+          return fd(p.ts);
+        }),
+        fmt
+      ) +
+      '</section>'
+    );
+  }
+  function fxGraficos() {
+    var per = S.fxPer == null ? 30 : S.fxPer,
+      h =
+        '<section class="card col"><div class="lbl">Período dos gráficos</div><div class="nav" role="group" aria-label="Período dos gráficos">' +
+        FX_PERS.map(function (o) {
+          return '<button class="chip' + (per === o[0] ? ' on' : '') + '" data-act="fxper" data-id="' + o[0] + '" aria-pressed="' + (per === o[0]) + '">' + o[1] + '</button>';
+        }).join('') +
+        '</div><div class="nav"><button class="chip" data-act="fxup">Simular dólar +3%</button><button class="chip" data-act="fxdn">Simular dólar −3%</button></div><div class="hint" style="margin:0">Os botões de simulação existem só na demonstração, para você ver a margem, o colchão e a trava reagirem.</div></section>';
+    h += fxGrafico('pyg', 'Dólar em guaranis', 'Guaranis por dólar', function (v) {
+      return dots(Math.round(v));
+    });
+    h += fxGrafico('brl', 'Dólar em reais', 'Reais por dólar', function (v) {
+      return v.toFixed(2).replace('.', ',');
+    });
+    return h;
   }
   function renderFx() {
     var el = $('v-fx'),
@@ -18590,28 +18660,7 @@
       (f.ts ? ' Última atualização às ' + fh(f.ts) + '.' : '') +
       '</div>';
     html += fxLojaHtml();
-    html +=
-      '<section class="card col"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px"><div><h2 style="margin:0;font-size:16px">Dólar nos últimos ' +
-      h.length +
-      ' dias</h2><div class="hint" style="margin:2px 0 0">Guaranis por dólar. Mínimo ' +
-      dots(Math.min.apply(null, vals)) +
-      ' · Máximo ' +
-      dots(Math.max.apply(null, vals)) +
-      ' · Variação no período ' +
-      (last >= first ? '+' : '−') +
-      pc(Math.abs(last / first - 1)) +
-      '</div></div>' +
-      '<div class="nav"><button class="chip" data-act="fxup">Simular dólar +3%</button><button class="chip" data-act="fxdn">Simular dólar −3%</button></div></div>' +
-      lineSvg(
-        vals,
-        h.map(function (p) {
-          return fd(p.ts);
-        }),
-        function (v) {
-          return dots(v);
-        }
-      ) +
-      '<div class="hint" style="margin:0">Os botões de simulação existem só na demonstração, para você ver o colchão e a trava reagirem.</div></section>';
+    html += fxGraficos();
     html +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Como o colchão de segurança é calculado</h2><div class="hint" style="margin:2px 0 0">Não é um percentual fixo. O app olha a pior alta recente do dólar e do custo da mercadoria.</div></div>' +
       '<div class="split"><div class="sl"><span>Maior alta do dólar em ' +
@@ -19587,6 +19636,10 @@
     },
     fxnow: function () {
       fetchFx();
+    },
+    fxper: function (id) {
+      S.fxPer = Number(id) || 0;
+      renderFx();
     },
     fxup: function () {
       setFx(
@@ -23279,6 +23332,7 @@
       'volume',
       'melhPeca',
       'fxHist',
+      'fxPer',
       'sold',
       'lotes',
       'tiposX',

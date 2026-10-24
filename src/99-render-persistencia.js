@@ -187,6 +187,7 @@
       'volume',
       'melhPeca',
       'fxHist',
+      'fxPer',
       'sold',
       'lotes',
       'tiposX',

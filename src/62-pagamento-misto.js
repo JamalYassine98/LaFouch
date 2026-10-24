@@ -16,43 +16,42 @@
   // Cotação da loja: os preços são em dólar e o dólar da loja vale uma margem fixa a mais que o mercado (não editável).
   // Ex.: peça de US$ 15, mercado 5.900, loja 6.000: quem paga em guaranis entrega 90.000 e não 88.500.
   // O real fica pelo valor de mercado em guaranis, então R$ por US$ também sobe pela mesma margem.
-  var FX_MARGEM = 0.025;
-  // Arredondada para ficar "redonda": dólar de 100 em 100 guaranis (5.945 vira 5.900; 5.950 também desce), real por dólar sobe de 0,10 em 0,10 (4,92 vira 5,00).
-  var FX_TETO = 0.035;
-  // Margem do dia: 2,5% de base. Se o dólar oscilou mais de 3% em 7 dias, a margem passa a ser a oscilação + 0,5%.
-  // Alerta de subida: alta de 1% em 3 dias soma 0,5%; alta de 2% soma 1%. Nunca passa do teto de 3,5%.
-  function fxMargemInfo() {
+  var FX_MARGEM = 0.005;
+  var FX_TETO = 0.02;
+  var FX_JANELA = 14; // dias olhados para calcular a margem
+  // Margem do dia, para o dólar em guaranis ('pyg') e para o real por dólar ('brl'), pela mesma regra:
+  // vale quanto a cotação de hoje está acima da MENOR das últimas 2 semanas, nunca menos que 0,5% (base) nem mais que 2% (teto).
+  // Se a moeda valoriza, a margem sobe; se ela cai, a margem desce aos poucos até voltar à base.
+  function fxMargemInfo(k) {
+    k = k === 'brl' ? 'brl' : 'pyg';
     var h = S.fxHist || [],
       now = Date.now(),
       D = 86400000,
-      cur = S.fx && S.fx.pyg > 0 ? S.fx.pyg : 0,
+      cur = S.fx && S.fx[k] > 0 ? S.fx[k] : 0,
       vals = h
         .filter(function (p) {
-          return p.ts >= now - 7 * D && p.pyg > 0;
+          return p.ts >= now - FX_JANELA * D && p[k] > 0;
         })
         .map(function (p) {
-          return p.pyg;
+          return p[k];
         });
     if (cur) vals.push(cur);
-    var amp = vals.length > 1 ? (Math.max.apply(null, vals) - Math.min.apply(null, vals)) / Math.min.apply(null, vals) : 0,
-      ref = 0,
-      i;
-    for (i = h.length - 1; i >= 0; i--)
-      if (h[i].ts <= now - 3 * D) {
-        ref = h[i].pyg;
-        break;
-      }
-    var alta = ref && cur ? (cur - ref) / ref : 0,
-      reativa = amp > 0.03 ? Math.max(FX_MARGEM, amp + 0.005) : FX_MARGEM,
-      alerta = alta >= 0.02 ? 0.01 : alta >= 0.01 ? 0.005 : 0;
-    return { m: Math.min(FX_TETO, reativa + alerta), amp: amp, alta: alta, reativa: reativa, alerta: alerta };
+    var min = vals.length ? Math.min.apply(null, vals) : 0,
+      acima = min > 0 && cur ? Math.max(0, cur / min - 1) : 0,
+      m = Math.max(FX_MARGEM, Math.min(FX_TETO, acima));
+    return { m: m, acima: acima, k: k, janela: FX_JANELA };
   }
+  // Dólar da loja de 100 em 100 guaranis (5.745 vira 5.700; 5.750 também desce), mas nunca abaixo do mercado.
   function fxUsdLoja() {
-    return Math.ceil((ratePyg('usd') * (1 + fxMargemInfo().m)) / 100 - 0.5 - 1e-9) * 100;
+    var mk = ratePyg('usd'),
+      r = Math.ceil((mk * (1 + fxMargemInfo('pyg').m)) / 100 - 0.5 - 1e-9) * 100;
+    if (mk > 0 && r < mk) r += 100;
+    return r;
   }
+  // Real por dólar: sobe de 0,10 em 0,10 (5,04 com margem vira 5,10).
   function fxBrlPorUsd() {
     var b = S.fx && S.fx.brl > 0 ? S.fx.brl : 5;
-    return Math.ceil(b * (1 + fxMargemInfo().m) * 10 - 1e-9) / 10;
+    return Math.ceil(b * (1 + fxMargemInfo('brl').m) * 10 - 1e-9) / 10;
   }
   function fxLoja(m) {
     return m === 'usd' ? fxUsdLoja() : m === 'brl' ? Math.round(fxUsdLoja() / fxBrlPorUsd() / 100) * 100 : 0;

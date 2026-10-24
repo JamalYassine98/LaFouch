@@ -60,6 +60,10 @@
     fxnow: function () {
       fetchFx();
     },
+    fxper: function (id) {
+      S.fxPer = Number(id) || 0;
+      renderFx();
+    },
     fxup: function () {
       setFx(
         S.fx.pyg * 1.03,
