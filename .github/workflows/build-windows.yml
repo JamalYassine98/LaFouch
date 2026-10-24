@@ -1,0 +1,36 @@
+name: Gerar instalador para Windows
+
+on:
+  workflow_dispatch:
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Montar o app (junta os modulos de src/ em www/app.js)
+        run: node build.js
+
+      - name: Motor do recorte (fica dentro do programa)
+        shell: bash
+        run: |
+          npm install --no-save onnxruntime-web@1.17.3
+          mkdir -p www/ort
+          cp node_modules/onnxruntime-web/dist/ort.min.js www/ort/
+          cp node_modules/onnxruntime-web/dist/ort-wasm*.wasm www/ort/
+
+      - name: Gerar o instalador
+        working-directory: desktop
+        run: |
+          npm install
+          npx electron-builder --win --publish never
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: La-Fouch-Windows
+          path: desktop/dist/*.exe
