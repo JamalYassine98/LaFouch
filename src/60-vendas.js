@@ -236,44 +236,18 @@
       }
       var pt = S._t.price,
         lista = pt * S.qty;
-      S.descGs = 0; // desconto só existe no carrinho
       var fxs = faixaOf(sel.ref);
       $('unit').textContent = pt
         ? 'Preço unit. ' + gs(pt) + (fxs ? ' (faixa ' + fxs.nome + ')' : ' (exemplo)')
         : 'Preço livre: digite abaixo o valor recebido';
-      $('tot').textContent = pt ? gs(lista - S.descGs) : '';
-      renderDescBrinde(sel);
+      $('tot').textContent = pt ? gs(lista) : '';
+      renderBrindeMotivo(sel);
     }
-    $('sgo').disabled = !sel || max <= 0;
     $('vmsg').textContent = S.msg || '';
     carrinhoRender();
   }
-  // Desconto, brinde e motivo da venda.
-  function renderDescBrinde(sel) {
-    var dm = $('descModes');
-    dm.textContent = '';
-    [
-      ['pyg', mpSim()],
-      ['pct', '%']
-    ].forEach(function (o) {
-      dm.appendChild(
-        btn(
-          'chip' + ((S.descMode || 'pyg') === o[0] ? ' on' : ''),
-          o[1],
-          function () {
-            S.descMode = o[0];
-            S.descTxt = '';
-            S.rec = null;
-            render();
-          },
-          (S.descMode || 'pyg') === o[0]
-        )
-      );
-    });
-    if ($('descIn').value !== (S.descTxt || '')) $('descIn').value = S.descTxt || '';
-    $('descH').textContent = S.descGs
-      ? 'Desconto de ' + gs(S.descGs) + ' sobre o preço de tabela.'
-      : '';
+  // Brinde e motivo do desconto da venda.
+  function renderBrindeMotivo(sel) {
     var bl = brindesDisp().filter(function (x) {
       return x !== sel;
     });
@@ -323,53 +297,16 @@
       );
     });
   }
-  // Prévia da venda: custo, trava, piso e lucro com o valor digitado.
-  function vendaPrevia() {
-    if (S.cartOpen) return cartPrevia();
-    var sel = S._vsel,
-      t = S._t;
-    if (!sel || !t) return null;
-    var q = Math.max(1, S.qty),
-      pt = pagTotais(),
-      eff = pt.liq,
-      br = S.vBrinde && S.vBrinde.qty > 0 ? S.vBrinde : null,
-      bu = br ? brindeUsd(br) : 0,
-      bg = Math.round(bu * S.fx.pyg),
-      pp = pisoPeca(sel),
-      c = calcSale(t, q, S.fx.pyg, colchao().pct, contasPeca(), S.melhPeca, eff, bu),
-      travaTot = pp.trava * q + bg,
-      pisoTot = pp.piso * q + bg,
-      fm = formaSel(),
-      tx = taxaGs(pt.rec, fm),
-      liq = eff - tx;
-    c.livre -= tx;
-    return {
-      eff: eff,
-      liq: liq,
-      tx: tx,
-      fm: fm,
-      c: c,
-      br: br,
-      bu: bu,
-      pp: pp,
-      travaTot: travaTot,
-      pisoTot: pisoTot,
-      perde: liq < travaTot,
-      abaixo: liq < pisoTot,
-      key: [S._selKey, q, eff, S.moeda, fm.id, br ? br.ref + br.cor : ''].join('|')
-    };
-  }
   // Aviso de piso: mostra o lucro ou a perda e pede confirmação se estiver abaixo.
   function renderPiso() {
     var el = $('pisoSt'),
-      v = (S._vp = vendaPrevia());
+      v = cartPrevia();
     el.textContent = '';
     el.className = '';
     $('motB').hidden = !(v && v.abaixo);
     $('sgo').textContent = 'Finalizar venda';
     if (!v || !(v.eff > 0)) return;
-    var fx = S.cartOpen ? null : faixaOf(S._vsel.ref),
-      bt = v.br ? ' (já contando o brinde)' : '';
+    var bt = v.br ? ' (já contando o brinde)' : '';
     if (v.perde) {
       el.className = 'note n-bad';
       el.textContent =
@@ -377,9 +314,7 @@
     } else if (v.abaixo) {
       el.className = 'note n-warn';
       el.textContent =
-        'Abaixo do piso' +
-        (fx ? ' da faixa ' + fx.nome + ' (margem mínima ' + fx.margem + '%)' : '') +
-        ': piso ' +
+        'Abaixo do piso: piso ' +
         gs(v.pisoTot) +
         '. Lucro livre estimado ' +
         gs(v.c.livre) +
@@ -400,11 +335,6 @@
       if (ok) el.textContent += ' Toque de novo para confirmar.';
     }
   }
-  $('descIn').oninput = function (e) {
-    S.descTxt = e.target.value;
-    S.rec = null;
-    render();
-  };
   $('vq').oninput = function (e) {
     S.vq = e.target.value;
     S.vRef = '';

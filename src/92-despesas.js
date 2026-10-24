@@ -92,6 +92,7 @@
   }
   // Aba Despesas.
   function renderDesp() {
+    if (S.view !== 'desp' && !S._rtudo) return;
     var el = $('v-desp'),
       tm = totalMensal(),
       imp = S.exp

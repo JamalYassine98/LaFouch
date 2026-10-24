@@ -12904,17 +12904,6 @@
       h += '<button class="chip" data-act="ccadj">Ajustar o saldo do app para o que contei</button>';
     return h + '<button class="chip" data-act="ccfechar">Fechar</button></div></section>';
   }
-  // Aviso de lembrete da conferência semanal (vazio se não precisa).
-  function ccLembrete() {
-    if (S.ccLemb === false) return '';
-    var d = ccDias();
-    if (d < 7) return '';
-    return (
-      '<div class="note n-warn">' +
-      (d === Infinity ? 'Você ainda não conferiu o caixa.' : 'Faz ' + d + ' dias que você não confere o caixa.') +
-      ' <a href="#caixa" data-act="view" data-id="caixa" style="color:var(--accent-fg)">Conferir agora</a></div>'
-    );
-  }
 
   // ---------- capital parado e retorno do estoque
   function capitalEstoque() {
@@ -12995,34 +12984,6 @@
       repUsd: reservas().rUSD
     };
   }
-  function dolarHtml() {
-    var d = dolarFavoravel();
-    if (!d || (!d.barato && !d.caro)) return '';
-    var dif = Math.round(Math.abs(d.hoje / d.media - 1) * 100);
-    return d.barato
-      ? '<div class="note n-ok">Dólar favorável para comprar: G$ ' +
-          dots(d.hoje) +
-          ' hoje, ' +
-          dif +
-          '% abaixo da média de ' +
-          S.janela +
-          ' dias (G$ ' +
-          dots(d.media) +
-          ', mínimo G$ ' +
-          dots(d.min) +
-          '). Você tem US$ ' +
-          Math.round(d.repUsd) +
-          ' separados para reposição; se precisar comprar dólar, é um bom momento.</div>'
-      : '<div class="note n-warn">Dólar caro hoje: G$ ' +
-          dots(d.hoje) +
-          ', ' +
-          dif +
-          '% acima da média de ' +
-          S.janela +
-          ' dias (G$ ' +
-          dots(d.media) +
-          '). Se puder, adie a compra de dólar.</div>';
-  }
 
   // ---------- preço que ficou perigoso
   // Produtos cujo preço de tabela não cobre mais o custo, as contas e o colchão com o câmbio de hoje.
@@ -13052,12 +13013,6 @@
     return h + '</div><div class="hint" style="margin:0">Aplicar muda o preço desse tipo para todos os produtos da mesma faixa.</div></section>';
   }
 
-  // ---------- blocos do Dashboard (fora dos blocos de análise de produto)
-  function dashFin() {
-    return (
-      ccLembrete() + dolarHtml() + backupLembrete() + resultadoHtml() + fluxoHtml() + capitalHtml() + perigosoHtml()
-    );
-  }
   // ===== Forma de pagamento da venda e taxas (maquininha, Pix). =====
   // Taxa em % sobre o valor recebido. Dinheiro e Pix não têm taxa; ajuste a maquininha em Ajustes.
   S.formas = [
@@ -13787,44 +13742,18 @@
       }
       var pt = S._t.price,
         lista = pt * S.qty;
-      S.descGs = 0; // desconto só existe no carrinho
       var fxs = faixaOf(sel.ref);
       $('unit').textContent = pt
         ? 'Preço unit. ' + gs(pt) + (fxs ? ' (faixa ' + fxs.nome + ')' : ' (exemplo)')
         : 'Preço livre: digite abaixo o valor recebido';
-      $('tot').textContent = pt ? gs(lista - S.descGs) : '';
-      renderDescBrinde(sel);
+      $('tot').textContent = pt ? gs(lista) : '';
+      renderBrindeMotivo(sel);
     }
-    $('sgo').disabled = !sel || max <= 0;
     $('vmsg').textContent = S.msg || '';
     carrinhoRender();
   }
-  // Desconto, brinde e motivo da venda.
-  function renderDescBrinde(sel) {
-    var dm = $('descModes');
-    dm.textContent = '';
-    [
-      ['pyg', mpSim()],
-      ['pct', '%']
-    ].forEach(function (o) {
-      dm.appendChild(
-        btn(
-          'chip' + ((S.descMode || 'pyg') === o[0] ? ' on' : ''),
-          o[1],
-          function () {
-            S.descMode = o[0];
-            S.descTxt = '';
-            S.rec = null;
-            render();
-          },
-          (S.descMode || 'pyg') === o[0]
-        )
-      );
-    });
-    if ($('descIn').value !== (S.descTxt || '')) $('descIn').value = S.descTxt || '';
-    $('descH').textContent = S.descGs
-      ? 'Desconto de ' + gs(S.descGs) + ' sobre o preço de tabela.'
-      : '';
+  // Brinde e motivo do desconto da venda.
+  function renderBrindeMotivo(sel) {
     var bl = brindesDisp().filter(function (x) {
       return x !== sel;
     });
@@ -13874,53 +13803,16 @@
       );
     });
   }
-  // Prévia da venda: custo, trava, piso e lucro com o valor digitado.
-  function vendaPrevia() {
-    if (S.cartOpen) return cartPrevia();
-    var sel = S._vsel,
-      t = S._t;
-    if (!sel || !t) return null;
-    var q = Math.max(1, S.qty),
-      pt = pagTotais(),
-      eff = pt.liq,
-      br = S.vBrinde && S.vBrinde.qty > 0 ? S.vBrinde : null,
-      bu = br ? brindeUsd(br) : 0,
-      bg = Math.round(bu * S.fx.pyg),
-      pp = pisoPeca(sel),
-      c = calcSale(t, q, S.fx.pyg, colchao().pct, contasPeca(), S.melhPeca, eff, bu),
-      travaTot = pp.trava * q + bg,
-      pisoTot = pp.piso * q + bg,
-      fm = formaSel(),
-      tx = taxaGs(pt.rec, fm),
-      liq = eff - tx;
-    c.livre -= tx;
-    return {
-      eff: eff,
-      liq: liq,
-      tx: tx,
-      fm: fm,
-      c: c,
-      br: br,
-      bu: bu,
-      pp: pp,
-      travaTot: travaTot,
-      pisoTot: pisoTot,
-      perde: liq < travaTot,
-      abaixo: liq < pisoTot,
-      key: [S._selKey, q, eff, S.moeda, fm.id, br ? br.ref + br.cor : ''].join('|')
-    };
-  }
   // Aviso de piso: mostra o lucro ou a perda e pede confirmação se estiver abaixo.
   function renderPiso() {
     var el = $('pisoSt'),
-      v = (S._vp = vendaPrevia());
+      v = cartPrevia();
     el.textContent = '';
     el.className = '';
     $('motB').hidden = !(v && v.abaixo);
     $('sgo').textContent = 'Finalizar venda';
     if (!v || !(v.eff > 0)) return;
-    var fx = S.cartOpen ? null : faixaOf(S._vsel.ref),
-      bt = v.br ? ' (já contando o brinde)' : '';
+    var bt = v.br ? ' (já contando o brinde)' : '';
     if (v.perde) {
       el.className = 'note n-bad';
       el.textContent =
@@ -13928,9 +13820,7 @@
     } else if (v.abaixo) {
       el.className = 'note n-warn';
       el.textContent =
-        'Abaixo do piso' +
-        (fx ? ' da faixa ' + fx.nome + ' (margem mínima ' + fx.margem + '%)' : '') +
-        ': piso ' +
+        'Abaixo do piso: piso ' +
         gs(v.pisoTot) +
         '. Lucro livre estimado ' +
         gs(v.c.livre) +
@@ -13951,11 +13841,6 @@
       if (ok) el.textContent += ' Toque de novo para confirmar.';
     }
   }
-  $('descIn').oninput = function (e) {
-    S.descTxt = e.target.value;
-    S.rec = null;
-    render();
-  };
   $('vq').oninput = function (e) {
     S.vq = e.target.value;
     S.vRef = '';
@@ -17475,68 +17360,7 @@
     S.msg = '';
     render();
   };
-  $('sgo').onclick = function () {
-    if (S.cartOpen) return cartFinalizar();
-    var sel = S._vsel,
-      qty = S.qty;
-    if (!sel || sel.qty <= 0) return;
-    if (!(pagTotais().rec > 0)) {
-      say('Informe o valor recebido.');
-      render();
-      return;
-    }
-    qty = Math.min(qty, sel.qty);
-    var pv = vendaPrevia();
-    if (pv && pv.abaixo && S.pisoConf !== pv.key) {
-      S.pisoConf = pv.key;
-      renderPiso();
-      return;
-    }
-    var br = pv && pv.br;
-    if (br) br.qty -= 1;
-    sel.qty -= qty;
-    var sg =
-      sel.lote &&
-      S.grp.filter(function (x) {
-        return x.id === sel.lote;
-      })[0];
-    if (sg) {
-      sg.sold = (sg.sold || 0) + qty;
-      if (sel.custo != null && !sel.bulk) {
-        sg.ownQ = (sg.ownQ || 0) + qty;
-        sg.ownC = (sg.ownC || 0) + qty * sel.custo;
-      }
-    }
-    var sale = addSale(sel, qty, {
-      moeda: S.moeda,
-      forma: S.forma,
-      recebido: S._recv,
-      pag: pagPayload(),
-      brinde: br
-        ? {
-            tipo: br.tipo,
-            ref: br.ref,
-            cor: br.cor,
-            grau: br.grau || '',
-            vr: br.vr || '',
-            lote: br.lote || '',
-            usd: pv.bu
-          }
-        : null,
-      motivo: pv && pv.abaixo ? S.vMotivo || '' : ''
-    });
-    S.pisoConf = '';
-    S.forma = 'din';
-    pagReset();
-    S.descTxt = '';
-    S.vBrinde = null;
-    S.vMotivo = '';
-    say('Venda registrada: ' + qty + ' × ' + sel.ref + ' ' + sel.cor);
-    S.qty = 1;
-    S.vSel = null;
-    render();
-    showSplit(sale);
-  };
+  $('sgo').onclick = cartFinalizar;
   // ===== Movimento: animações leves (opacidade e escala), desligadas se o aparelho pedir menos movimento. =====
   // Vibração curta (toque de confirmação), se o aparelho permitir.
   function vibrar(ms) {
@@ -18254,6 +18078,7 @@
   }
   // Aba Dashboard.
   function renderDash() {
+    if (S.view !== 'dash' && !S._rtudo) return;
     var el = $('v-dash'),
       ps = vendasPeriodo(),
       c = colchao();
@@ -18659,6 +18484,7 @@
     return h;
   }
   function renderFx() {
+    if (S.view !== 'fx' && !S._rtudo) return;
     var el = $('v-fx'),
       f = S.fx,
       c = colchao(),
@@ -18887,6 +18713,7 @@
   }
   // Aba Despesas.
   function renderDesp() {
+    if (S.view !== 'desp' && !S._rtudo) return;
     var el = $('v-desp'),
       tm = totalMensal(),
       imp = S.exp
@@ -19075,6 +18902,7 @@
   }
   // Aba Histórico (montada em 97-hist-busca.js).
   function renderHist() {
+    if (S.view !== 'hist' && !S._rtudo) return;
     histRender();
   }
   // ---------- por dia
@@ -19188,7 +19016,7 @@
   // Detalhe de um dia.
   function renderDay() {
     var box = $('v-dia');
-    if (!box) return;
+    if (!box || (S.view !== 'dia' && !S._rtudo)) return;
     var k = S.day,
       inDay = function (x) {
         return dayKey(x.ts) === k;
@@ -20295,7 +20123,7 @@
         : '.') +
       (per < trava ? ' Atenção: abaixo da trava de segurança (' + gs(trava) + ' por peça).' : '');
     el.style.color = per < trava ? 'var(--warn)' : 'var(--mute)';
-    if (typeof renderPiso === 'function' && (S._vsel || S.cartOpen)) renderPiso();
+    if (typeof renderPiso === 'function' && S.cartOpen) renderPiso();
   }
   // Calculadora de venda por moeda.
   function renderMoeda() {
@@ -20306,12 +20134,12 @@
       S._pagKey = S._selKey;
       pagReset();
     }
-    var listGs = t.price * q - (S.descGs || 0);
+    var listGs = t.price * q;
     S._dueGs = listGs;
     var r1 = rateDe(m, numRate(S.rate1)),
       a = m === 'pyg' ? Math.round(listGs) : Math.round((listGs / r1) * 100) / 100;
     var bb = S.vBrinde ? S.vBrinde.ref + S.vBrinde.cor : '',
-      sig = [t.id, S._selKey, q, m, Math.round(S.fx.pyg), S.descGs || 0, bb, S.rate1 || '', S.pagMisto ? 1 : 0].join('|');
+      sig = [t.id, S._selKey, q, m, Math.round(S.fx.pyg), bb, S.rate1 || '', S.pagMisto ? 1 : 0].join('|');
     if (S.rec != null && S.recSig !== sig) S.rec = null;
     S._sig = sig;
     var v = S.rec != null ? S.rec : S.pagMisto ? 0 : a;
@@ -20439,6 +20267,7 @@
   }
   // Aba Caixa.
   function renderCaixa() {
+    if (S.view !== 'caixa' && !S._rtudo) return;
     var el = $('v-caixa'),
       r = reservas(),
       c = S.cash;
@@ -20653,18 +20482,9 @@
     ['ent', 'Entregue', ''],
     ['canc', 'Cancelado', '']
   ];
-  function pedNome(st) {
-    for (var i = 0; i < PED_ST.length; i++) if (PED_ST[i][0] === st) return PED_ST[i][1];
-    return st;
-  }
   function pedNovos() {
     return S.pedidos.filter(function (p) {
       return p.st === 'novo';
-    }).length;
-  }
-  function pedAbertos() {
-    return S.pedidos.filter(function (p) {
-      return p.st === 'novo' || p.st === 'sep' || p.st === 'pronto';
     }).length;
   }
   // Valor estimado pela tabela de preços (só das linhas que são modelos do estoque).
@@ -22216,7 +22036,6 @@
     $('sCartAdd').hidden = S.cartOpen || !S._vsel;
     // a peça é escolhida e adicionada ao pedido; pagamento e finalização ficam na tela de pagamento
     // (o desconto não tem campo: é o que falta do valor recebido, confirmado ao finalizar)
-    $('descB').hidden = true;
     $('payB').hidden = !S.cartOpen;
     $('sgo').hidden = !S.cartOpen;
     $('qtyB').hidden = !!S.cartOpen;
@@ -22270,13 +22089,12 @@
     S._vsel = null;
     S._selKey = 'cart';
     S._t = { price: sub, id: 'cart:' + sub + ':' + S.cart.length };
-    S.descGs = 0;
     S.descTxt = '';
     var cs = $('cartSub');
     if (cs) cs.textContent = gs(sub);
     $('unit').textContent = 'Pedido · ' + cartPecas() + ' peça(s)';
-    $('tot').textContent = gs(sub - S.descGs);
-    renderDescBrinde(null);
+    $('tot').textContent = gs(sub);
+    renderBrindeMotivo(null);
     renderMoeda();
     renderPiso();
     $('sgo').disabled = !S.cart.length;
@@ -23539,6 +23357,6 @@
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, whiten: whiten, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, vendaPrevia: vendaPrevia, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, backupLembrete: backupLembrete, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
+      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, backupLembrete: backupLembrete, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
     };
 })();

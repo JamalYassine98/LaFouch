@@ -11,18 +11,9 @@
     ['ent', 'Entregue', ''],
     ['canc', 'Cancelado', '']
   ];
-  function pedNome(st) {
-    for (var i = 0; i < PED_ST.length; i++) if (PED_ST[i][0] === st) return PED_ST[i][1];
-    return st;
-  }
   function pedNovos() {
     return S.pedidos.filter(function (p) {
       return p.st === 'novo';
-    }).length;
-  }
-  function pedAbertos() {
-    return S.pedidos.filter(function (p) {
-      return p.st === 'novo' || p.st === 'sep' || p.st === 'pronto';
     }).length;
   }
   // Valor estimado pela tabela de preços (só das linhas que são modelos do estoque).

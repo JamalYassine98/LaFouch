@@ -159,6 +159,7 @@
     return h;
   }
   function renderFx() {
+    if (S.view !== 'fx' && !S._rtudo) return;
     var el = $('v-fx'),
       f = S.fx,
       c = colchao(),

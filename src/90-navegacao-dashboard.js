@@ -57,6 +57,7 @@
   }
   // Aba Dashboard.
   function renderDash() {
+    if (S.view !== 'dash' && !S._rtudo) return;
     var el = $('v-dash'),
       ps = vendasPeriodo(),
       c = colchao();

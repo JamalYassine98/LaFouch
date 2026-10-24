@@ -30,6 +30,7 @@
   }
   // Aba Histórico (montada em 97-hist-busca.js).
   function renderHist() {
+    if (S.view !== 'hist' && !S._rtudo) return;
     histRender();
   }
   // ---------- por dia
@@ -143,7 +144,7 @@
   // Detalhe de um dia.
   function renderDay() {
     var box = $('v-dia');
-    if (!box) return;
+    if (!box || (S.view !== 'dia' && !S._rtudo)) return;
     var k = S.day,
       inDay = function (x) {
         return dayKey(x.ts) === k;

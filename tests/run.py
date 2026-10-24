@@ -236,7 +236,7 @@ async def main():
         async with async_playwright() as p:
             b = await p.chromium.launch(executable_path=exe, args=['--no-sandbox']) if exe else await p.chromium.launch(args=['--no-sandbox'])
 
-            async def pagina(scheme='dark', url='#test', ctx=None):
+            async def pagina(scheme='dark', url='#test', ctx=None, tudo=True):
                 ctx = ctx or await b.new_context(viewport={'width': 420, 'height': 900}, color_scheme=scheme, service_workers='block')
                 await ctx.route('**/*', lambda r: r.continue_() if r.request.url.startswith('http://localhost') else r.abort())
                 pg = await ctx.new_page()
@@ -244,7 +244,17 @@ async def main():
                 pg.on('pageerror', lambda e: pg.erros.append(str(e)))
                 await pg.goto(f'http://localhost:{PORTA}/index.html{url}')
                 await pg.wait_for_function('window.__LF', timeout=10000)
+                if tudo: await pg.evaluate("() => { window.__LF.S._rtudo = true; }")  # os testes antigos leem abas fora da tela
                 return pg
+
+            # desempenho: abas fora da tela não são redesenhadas
+            pg = await pagina(tudo=False)
+            r = await pg.evaluate("() => { const L = window.__LF; L.setView('hist'); const antes = document.getElementById('v-hist').innerHTML.length; L.setView('inicio'); document.getElementById('v-hist').innerHTML = 'x'; L.render(); const fora = document.getElementById('v-hist').innerHTML; L.setView('hist'); return [antes > 10, fora, document.getElementById('v-hist').innerHTML.length > 10]; }")
+            ok = r == [True, 'x', True] and not pg.erros
+            total += 1
+            print(('  ok  ' if ok else ' FALHA ') + 'desempenho: só a aba aberta é redesenhada')
+            if not ok: falhas.append('render só da aba aberta'); print('        veio', r, pg.erros)
+            await pg.close()
 
             # contas, lotes e leitor
             pg = await pagina()
@@ -529,7 +539,6 @@ async def main():
             await pg.locator('[data-act=cartopen]').click(); await pg.wait_for_timeout(300)
             await pg.locator('#cartCard input[data-in=cartpreco]').first.fill('1000'); await pg.wait_for_timeout(200)
             u2 = await pg.evaluate("() => [document.getElementById('cartCard').hidden, document.querySelectorAll('#cartCard input[data-in=cartpreco]').length, window.__LF.S.cart[0].preco, document.activeElement.getAttribute('data-in'), document.getElementById('pisoSt').textContent.length > 0]")
-            u4d = await pg.evaluate("() => document.getElementById('descB').offsetParent !== null")
             u4 = await pg.evaluate("() => ['qtyB','payB','sgo','sCartAdd'].map(i => document.getElementById(i).offsetParent !== null)")
             u4s = await pg.evaluate("() => [!!document.getElementById('cartSlot'), !!document.getElementById('cartConf'), document.getElementById('pagHead').hidden]")
             await pg.locator('#cartConf').click(); await pg.wait_for_timeout(300)
@@ -542,10 +551,10 @@ async def main():
             await pg.locator('[data-act=cartopen]').click(); await pg.wait_for_timeout(300)
             await pg.locator('[data-act=cartclear]').click(); await pg.wait_for_timeout(300)
             u3 = await pg.evaluate("() => [window.__LF.S.cart.length, window.__LF.S.cartOpen, document.getElementById('cartCard').hidden, document.getElementById('cartBar').hidden]")
-            ok = u1 == [False, True, 1] and u2 == [False, 2, 1000, 'cartpreco', True] and u3 == [0, False, True, True] and u4 == [False, False, False, False] and u4d is False and u4s == [True, True, True] and u6 == [True, [True, True], False, True] and u7 == [False, True, True] and u5 == [True, False, False, True] and not await pg.evaluate("() => document.getElementById('descB').offsetParent !== null") and not pg.erros
+            ok = u1 == [False, True, 1] and u2 == [False, 2, 1000, 'cartpreco', True] and u3 == [0, False, True, True] and u4 == [False, False, False, False] and u4s == [True, True, True] and u6 == [True, [True, True], False, True] and u7 == [False, True, True] and u5 == [True, False, False, True] and not pg.erros
             total += 1
             print(('  ok  ' if ok else ' FALHA ') + 'tela Vendas: carrinho (adicionar, abrir, mudar preço, esvaziar)')
-            if not ok: falhas.append('carrinho tela'); print('        veio', u1, u2, u3, u4, u4d, u4s, u6, u7, u5, pg.erros)
+            if not ok: falhas.append('carrinho tela'); print('        veio', u1, u2, u3, u4, u4s, u6, u7, u5, pg.erros)
             await pg.close()
 
             # campos de digitar seguem a moeda principal

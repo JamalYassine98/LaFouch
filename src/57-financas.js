@@ -418,17 +418,6 @@
       h += '<button class="chip" data-act="ccadj">Ajustar o saldo do app para o que contei</button>';
     return h + '<button class="chip" data-act="ccfechar">Fechar</button></div></section>';
   }
-  // Aviso de lembrete da conferência semanal (vazio se não precisa).
-  function ccLembrete() {
-    if (S.ccLemb === false) return '';
-    var d = ccDias();
-    if (d < 7) return '';
-    return (
-      '<div class="note n-warn">' +
-      (d === Infinity ? 'Você ainda não conferiu o caixa.' : 'Faz ' + d + ' dias que você não confere o caixa.') +
-      ' <a href="#caixa" data-act="view" data-id="caixa" style="color:var(--accent-fg)">Conferir agora</a></div>'
-    );
-  }
 
   // ---------- capital parado e retorno do estoque
   function capitalEstoque() {
@@ -509,34 +498,6 @@
       repUsd: reservas().rUSD
     };
   }
-  function dolarHtml() {
-    var d = dolarFavoravel();
-    if (!d || (!d.barato && !d.caro)) return '';
-    var dif = Math.round(Math.abs(d.hoje / d.media - 1) * 100);
-    return d.barato
-      ? '<div class="note n-ok">Dólar favorável para comprar: G$ ' +
-          dots(d.hoje) +
-          ' hoje, ' +
-          dif +
-          '% abaixo da média de ' +
-          S.janela +
-          ' dias (G$ ' +
-          dots(d.media) +
-          ', mínimo G$ ' +
-          dots(d.min) +
-          '). Você tem US$ ' +
-          Math.round(d.repUsd) +
-          ' separados para reposição; se precisar comprar dólar, é um bom momento.</div>'
-      : '<div class="note n-warn">Dólar caro hoje: G$ ' +
-          dots(d.hoje) +
-          ', ' +
-          dif +
-          '% acima da média de ' +
-          S.janela +
-          ' dias (G$ ' +
-          dots(d.media) +
-          '). Se puder, adie a compra de dólar.</div>';
-  }
 
   // ---------- preço que ficou perigoso
   // Produtos cujo preço de tabela não cobre mais o custo, as contas e o colchão com o câmbio de hoje.
@@ -566,9 +527,3 @@
     return h + '</div><div class="hint" style="margin:0">Aplicar muda o preço desse tipo para todos os produtos da mesma faixa.</div></section>';
   }
 
-  // ---------- blocos do Dashboard (fora dos blocos de análise de produto)
-  function dashFin() {
-    return (
-      ccLembrete() + dolarHtml() + backupLembrete() + resultadoHtml() + fluxoHtml() + capitalHtml() + perigosoHtml()
-    );
-  }

@@ -99,7 +99,6 @@
     $('sCartAdd').hidden = S.cartOpen || !S._vsel;
     // a peça é escolhida e adicionada ao pedido; pagamento e finalização ficam na tela de pagamento
     // (o desconto não tem campo: é o que falta do valor recebido, confirmado ao finalizar)
-    $('descB').hidden = true;
     $('payB').hidden = !S.cartOpen;
     $('sgo').hidden = !S.cartOpen;
     $('qtyB').hidden = !!S.cartOpen;
@@ -153,13 +152,12 @@
     S._vsel = null;
     S._selKey = 'cart';
     S._t = { price: sub, id: 'cart:' + sub + ':' + S.cart.length };
-    S.descGs = 0;
     S.descTxt = '';
     var cs = $('cartSub');
     if (cs) cs.textContent = gs(sub);
     $('unit').textContent = 'Pedido · ' + cartPecas() + ' peça(s)';
-    $('tot').textContent = gs(sub - S.descGs);
-    renderDescBrinde(null);
+    $('tot').textContent = gs(sub);
+    renderBrindeMotivo(null);
     renderMoeda();
     renderPiso();
     $('sgo').disabled = !S.cart.length;

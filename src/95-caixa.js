@@ -97,7 +97,7 @@
         : '.') +
       (per < trava ? ' Atenção: abaixo da trava de segurança (' + gs(trava) + ' por peça).' : '');
     el.style.color = per < trava ? 'var(--warn)' : 'var(--mute)';
-    if (typeof renderPiso === 'function' && (S._vsel || S.cartOpen)) renderPiso();
+    if (typeof renderPiso === 'function' && S.cartOpen) renderPiso();
   }
   // Calculadora de venda por moeda.
   function renderMoeda() {
@@ -108,12 +108,12 @@
       S._pagKey = S._selKey;
       pagReset();
     }
-    var listGs = t.price * q - (S.descGs || 0);
+    var listGs = t.price * q;
     S._dueGs = listGs;
     var r1 = rateDe(m, numRate(S.rate1)),
       a = m === 'pyg' ? Math.round(listGs) : Math.round((listGs / r1) * 100) / 100;
     var bb = S.vBrinde ? S.vBrinde.ref + S.vBrinde.cor : '',
-      sig = [t.id, S._selKey, q, m, Math.round(S.fx.pyg), S.descGs || 0, bb, S.rate1 || '', S.pagMisto ? 1 : 0].join('|');
+      sig = [t.id, S._selKey, q, m, Math.round(S.fx.pyg), bb, S.rate1 || '', S.pagMisto ? 1 : 0].join('|');
     if (S.rec != null && S.recSig !== sig) S.rec = null;
     S._sig = sig;
     var v = S.rec != null ? S.rec : S.pagMisto ? 0 : a;
@@ -241,6 +241,7 @@
   }
   // Aba Caixa.
   function renderCaixa() {
+    if (S.view !== 'caixa' && !S._rtudo) return;
     var el = $('v-caixa'),
       r = reservas(),
       c = S.cash;
