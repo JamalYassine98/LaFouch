@@ -41,26 +41,29 @@
     else if (k === 'biotog') {
       if (t.checked) {
         if (!pinAtivo()) {
-          S.bioPend = true;
-          S.ajMsg = 'Crie um PIN de emergência abaixo. Ele abre o app se a biometria falhar.';
-        } else
-          bioPedir(
-            function () {
-              S.bioOn = true;
-              S.ajMsg = 'Biometria ativada.';
-              S._ajForce = true;
-              render();
-            },
-            function (e) {
-              S.bioOn = false;
-              S.ajMsg = 'Não consegui confirmar a biometria. Tente de novo.' + bioErro(e);
-              S._ajForce = true;
-              render();
-            }
-          );
+          t.checked = false;
+          pinDlgAbrir('bio');
+          return;
+        }
+        bioPedir(
+          function () {
+            S.bioOn = true;
+            S.ajMsg = 'Biometria ativada.';
+            S._ajForce = true;
+            saveSoon();
+            render();
+          },
+          function (e) {
+            S.bioOn = false;
+            S.ajMsg = 'Não consegui confirmar a biometria. Tente de novo.' + bioErro(e);
+            S._ajForce = true;
+            render();
+          }
+        );
+        return;
       } else {
         S.bioOn = false;
-        S.bioPend = false;
+        saveSoon();
       }
     } else return;
     S._ajForce = true;
@@ -211,51 +214,74 @@
   };
 
   // ---------- PIN e cópias
-  ACT.pinset = function () {
-    var a = $('pin1').value,
-      b = $('pin2').value;
-    if (!/^\d{4,8}$/.test(a)) {
-      S.ajMsg = 'O PIN deve ter de 4 a 8 números.';
-    } else if (a !== b) {
-      S.ajMsg = 'Os dois PINs não são iguais.';
-    } else {
-      var sal = novoSal();
-      hashPin(a, sal).then(function (h) {
-        S.pinSalt = sal;
-        S.pinHash = h;
-        S.pinNovo = false;
-        S.ajMsg = 'PIN ativado. Ele será pedido ao abrir o app.';
-        S._ajForce = true;
-        saveSoon();
-        render();
-        if (S.bioPend)
-          bioPedir(
-            function () {
-              S.bioPend = false;
-              S.bioOn = true;
-              S.ajMsg = 'PIN de emergência criado e biometria ativada.';
-              S._ajForce = true;
-              saveSoon();
-              render();
-            },
-            function (e) {
-              S.bioPend = false;
-              S.ajMsg = 'PIN criado, mas não consegui confirmar a biometria.' + bioErro(e);
-              S._ajForce = true;
-              render();
-            }
-          );
-      });
-      return;
-    }
+  // Janela do PIN: 'bio' cria o PIN de emergência ao ligar a biometria; 'troca' muda o PIN.
+  function pinDlgAbrir(modo) {
+    S._pinModo = modo;
+    $('pinMT').textContent = modo === 'troca' ? 'Mudar PIN' : 'PIN de emergência';
+    $('pinMH').textContent =
+      modo === 'troca'
+        ? 'Digite o novo PIN (4 a 8 números).'
+        : 'Para usar a biometria, crie um PIN de emergência. Ele abre o app quando a digital ou o rosto não funcionar. Anote-o: se esquecer, só reinstalando o app (e os dados voltam apenas pelo backup).';
+    $('pinMOk').textContent = modo === 'troca' ? 'Salvar PIN' : 'Criar e ativar';
+    $('pinM1').value = '';
+    $('pinM2').value = '';
+    $('pinME').hidden = true;
+    $('pinModal').hidden = false;
+    setTimeout(function () {
+      $('pinM1').focus();
+    }, 80);
+  }
+  function pinDlgFechar() {
+    $('pinModal').hidden = true;
+    S._pinModo = '';
     S._ajForce = true;
     render();
+  }
+  $('pinMC').onclick = pinDlgFechar;
+  $('pinMOk').onclick = function () {
+    var a = $('pinM1').value,
+      b = $('pinM2').value,
+      er = $('pinME'),
+      modo = S._pinModo;
+    if (!/^\d{4,8}$/.test(a) || a !== b) {
+      er.textContent = !/^\d{4,8}$/.test(a) ? 'O PIN deve ter de 4 a 8 números.' : 'Os dois PINs não são iguais.';
+      er.hidden = false;
+      return;
+    }
+    var sal = novoSal();
+    hashPin(a, sal).then(function (h) {
+      S.pinSalt = sal;
+      S.pinHash = h;
+      S.pinNovo = false;
+      saveSoon();
+      $('pinModal').hidden = true;
+      S._pinModo = '';
+      if (modo === 'troca') {
+        S.ajMsg = 'PIN trocado.';
+        S._ajForce = true;
+        render();
+        return;
+      }
+      bioPedir(
+        function () {
+          S.bioOn = true;
+          S.ajMsg = 'PIN de emergência criado e biometria ativada.';
+          S._ajForce = true;
+          saveSoon();
+          render();
+        },
+        function (e) {
+          S.bioOn = false;
+          S.ajMsg = 'PIN criado, mas não consegui confirmar a biometria.' + bioErro(e);
+          S._ajForce = true;
+          render();
+        }
+      );
+    });
   };
   ACT.pintroca = function () {
     exigirAuth(function () {
-      S.pinNovo = true;
-      S._ajForce = true;
-      render();
+      pinDlgAbrir('troca');
     });
   };
   ACT.pinoff = function () {

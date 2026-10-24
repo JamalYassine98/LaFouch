@@ -25,6 +25,13 @@
     <div class="brand"><img class="lg-e" src="logo-app.png" alt="La Fouch - Tudo em Óculos"><img class="lg-c" src="logo-app-claro.png" alt="La Fouch - Tudo em Óculos"></div>
   </div>
   <nav class="mainnav" id="mainnav" aria-label="Seções"></nav>
+<div id="pinModal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="pinMT"><div class="modal-box" style="max-width:420px;margin-top:12vh">
+  <div><h2 id="pinMT" style="margin:0;font-size:18px">PIN de emergência</h2><div class="hint" id="pinMH" style="margin:6px 0 0"></div></div>
+  <input class="in" id="pinM1" type="password" inputmode="numeric" maxlength="8" placeholder="PIN (4 a 8 números)" autocomplete="off" aria-label="PIN">
+  <input class="in" id="pinM2" type="password" inputmode="numeric" maxlength="8" placeholder="Repita o PIN" autocomplete="off" aria-label="Repita o PIN">
+  <div class="note n-warn" id="pinME" role="alert" hidden></div>
+  <div style="display:flex;gap:8px;justify-content:flex-end"><button class="chip" id="pinMC" type="button">Cancelar</button><button class="chip on" id="pinMOk" type="button">Criar e ativar</button></div>
+</div></div>
 <div id="descModal" class="modal" hidden role="dialog" aria-modal="true" aria-label="Descrição das peças"><div class="modal-box" id="descBox" style="max-width:560px"></div></div>
 <div id="lotModal" class="modal" hidden role="dialog" aria-modal="true" aria-label="Editar lote"><div class="modal-box" id="lotModalBox" style="max-width:480px"></div></div>
 <div id="addModal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="addTitle">

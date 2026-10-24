@@ -727,11 +727,10 @@ async def main():
             pg = await pagina()
             await pg.evaluate("() => window.__LF.setView('ajustes')"); await pg.wait_for_timeout(300)
             r0 = await pg.evaluate("() => [!!document.querySelector('[data-aj=biotog]'), document.querySelector('[data-aj=biotog]').disabled]")
-            await pg.evaluate("() => { const w = window.__LF; w.S.bioPend = true; w.S._ajForce = true; w.render(); }"); await pg.wait_for_timeout(300)
-            r1 = await pg.evaluate("() => document.getElementById('v-ajustes').innerText.toLowerCase().includes('pin de emergência')")
+            r1 = await pg.evaluate("() => { const t = document.getElementById('v-ajustes').innerText.toLowerCase(); return [t.includes('pin para abrir o app'), t.includes('cópias automáticas'), t.includes('backup'), (t.match(/backup/g) || []).length > 0, document.querySelectorAll('#v-ajustes h2').length]; }")
             total += 1
-            ok = r0[0] is True and r1 is True and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'segurança: chave de biometria e PIN de emergência')
+            ok = r0[0] is True and r1[0] is False and r1[1] is True and r1[2] is True and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'segurança: só a chave de biometria; backup e cópias automáticas num cartão')
             if not ok: falhas.append('seguranca bio'); print('        veio', r0, r1, pg.erros)
             await pg.close()
 
@@ -753,15 +752,17 @@ async def main():
 
             # biometria: o plugin nativo se chama BiometricAuthNative e usa internalAuthenticate
             pg = await pagina()
-            await pg.evaluate("""() => { window.__bioCalls = 0; window.Capacitor = { Plugins: { BiometricAuthNative: { checkBiometry: () => Promise.resolve({isAvailable: true}), internalAuthenticate: () => { window.__bioCalls++; return Promise.resolve(); } } } }; const L = window.__LF; L.S._bioOk = undefined; L.S.pinHash = 'x'; L.S.pinSalt = 'y'; L.S._ajForce = true; L.setView('ajustes'); }""")
+            await pg.evaluate("""() => { window.__bioCalls = 0; window.Capacitor = { Plugins: { BiometricAuthNative: { checkBiometry: () => Promise.resolve({isAvailable: true}), internalAuthenticate: () => { window.__bioCalls++; return Promise.resolve(); } } } }; const L = window.__LF; L.S._bioOk = undefined; L.S._ajForce = true; L.setView('ajustes'); }""")
             await pg.wait_for_timeout(500)
             r0 = await pg.evaluate("() => { const t = document.querySelector('[data-aj=biotog]'); return [!!t, t && t.disabled]; }")
-            await pg.locator('.sw').first.click(); await pg.wait_for_timeout(600)
-            r1 = await pg.evaluate("() => [window.__bioCalls, window.__LF.S.bioOn]")
+            await pg.locator('.sw').first.click(); await pg.wait_for_timeout(500)
+            modal = await pg.evaluate("() => [!document.getElementById('pinModal').hidden, window.__bioCalls]")
+            await pg.fill('#pinM1', '4321'); await pg.fill('#pinM2', '4321'); await pg.click('#pinMOk'); await pg.wait_for_timeout(800)
+            r1 = await pg.evaluate("() => [window.__bioCalls, window.__LF.S.bioOn, !!window.__LF.S.pinHash, document.getElementById('v-ajustes').innerText.toLowerCase().includes('mudar pin'), document.getElementById('pinModal').hidden]")
             total += 1
-            ok = r0 == [True, False] and r1 == [1, True] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'biometria: acha o plugin nativo e ativa pela chave')
-            if not ok: falhas.append('bio plugin'); print('        veio', r0, r1, pg.erros)
+            ok = r0 == [True, False] and modal == [True, 0] and r1 == [1, True, True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'biometria: acha o plugin, pede o PIN de emergência numa janela e ativa pela chave')
+            if not ok: falhas.append('bio plugin'); print('        veio', r0, modal, r1, pg.erros)
             await pg.close()
 
             # imprevistos: só os do mês aparecem e dá para remover
@@ -781,6 +782,26 @@ async def main():
             ok = 'Errado' in t1 and 'Antigo' not in t1 and n1 == 1 and r2 == [['Antigo'], ['Antigo']] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'imprevistos: só do mês na tela e remoção em dois toques')
             if not ok: falhas.append('imprevistos'); print('        veio', n1, r2, pg.erros)
+            await pg.close()
+
+            # Início: arrastar um botão para qualquer posição (os outros abrem espaço e a ordem é gravada ao soltar)
+            pg = await pagina()
+            await pg.evaluate("() => { window.__LF.S.inicioT = null; window.__LF.setView('inicio'); }")
+            await pg.click('[data-act=inicioEd]'); await pg.wait_for_timeout(400)
+            antes = await pg.evaluate("() => [...document.querySelectorAll('#v-inicio .twrap')].map(w => w.getAttribute('data-k'))")
+            bb = await pg.evaluate("() => [...document.querySelectorAll('#v-inicio .twrap')].map(w => { const r = w.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; })")
+            await pg.mouse.move(bb[0][0], bb[0][1]); await pg.mouse.down()
+            for k in range(1, 21):
+                await pg.mouse.move(bb[0][0] + (bb[5][0] - bb[0][0]) * k / 20, bb[0][1] + (bb[5][1] - bb[0][1]) * k / 20); await pg.wait_for_timeout(15)
+            meio = await pg.evaluate("() => [document.body.classList.contains('arrastando'), window.__LF.S.inicioT && window.__LF.S.inicioT.join()]")
+            await pg.mouse.up(); await pg.wait_for_timeout(700)
+            depois = await pg.evaluate("() => [...document.querySelectorAll('#v-inicio .twrap')].map(w => w.getAttribute('data-k'))")
+            salvo = await pg.evaluate("() => window.__LF.S.inicioT.slice(0, 7)")
+            total += 1
+            esperado = antes[1:6] + [antes[0]] + antes[6:]
+            ok = meio[0] is True and depois == esperado and salvo == esperado[:7] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Início: arrastar o botão para outra posição e gravar a ordem')
+            if not ok: falhas.append('arrastar inicio'); print('        veio', antes, meio, depois, salvo, pg.erros)
             await pg.close()
 
             # Início: personalizar botões (remover, mover, adicionar, restaurar)
@@ -967,11 +988,13 @@ async def main():
             ctx = await b.new_context(viewport={'width': 420, 'height': 900}, service_workers='block')
             pg = await pagina(ctx=ctx)
             await pg.locator('#mainnav >> text="Ajustes"').first.click(); await pg.wait_for_timeout(300)
-            await pg.fill('#pin1', '4321'); await pg.fill('#pin2', '4321')
-            await pg.locator('[data-act="pinset"]').first.click(); await pg.wait_for_timeout(500)
+            await pg.evaluate("""() => { window.Capacitor = { Plugins: { BiometricAuthNative: { checkBiometry: () => Promise.resolve({isAvailable: true}), internalAuthenticate: () => Promise.resolve() } } }; const L = window.__LF; L.S._bioOk = undefined; L.S._ajForce = true; L.render(); }""")
+            await pg.wait_for_timeout(500)
+            await pg.locator('.sw').first.click(); await pg.wait_for_timeout(400)
+            await pg.fill('#pinM1', '4321'); await pg.fill('#pinM2', '4321'); await pg.click('#pinMOk'); await pg.wait_for_timeout(800)
             await pg.locator('[data-act="abagora"]').first.click(); await pg.wait_for_timeout(800)
             tx = await pg.inner_text('#v-ajustes')
-            await checa('Ajustes: PIN ativo e cópia automática listada', 'PIN ativo' in tx and ' KB' in tx, tx[-300:])
+            await checa('Ajustes: PIN ativo e cópia automática listada', 'Mudar PIN' in tx and ' KB' in tx, tx[-300:])
             await pg.wait_for_timeout(1500)
             await pg.evaluate("() => history.replaceState(null, '', '#test')")
             await pg.reload(); await pg.wait_for_function('window.__LF')

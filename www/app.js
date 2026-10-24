@@ -13164,6 +13164,19 @@
       } catch (e) {}
       if (o) pl = o;
     }
+    if (!pl && C && C.PluginHeaders) {
+      // qualquer plugin nativo que tenha checkBiometry e internalAuthenticate é o da biometria, qualquer que seja o nome
+      try {
+        C.PluginHeaders.forEach(function (h) {
+          var ms = (h.methods || []).map(function (m) {
+            return m.name;
+          });
+          if (!pl && ms.indexOf('checkBiometry') >= 0 && (ms.indexOf('internalAuthenticate') >= 0 || ms.indexOf('authenticate') >= 0)) {
+            pl = P[h.name] || (C.registerPlugin && C.registerPlugin(h.name));
+          }
+        });
+      } catch (e) {}
+    }
     if (!pl) return null;
     // o plugin nativo usa "internalAuthenticate" no lugar de "authenticate"
     var r = {
@@ -13225,6 +13238,38 @@
       .catch(function (e) {
         falha(e);
       });
+  }
+
+  // Cartão único de backup: arquivo manual + cópias automáticas do celular.
+  function backupHtml() {
+    var dias = S.backupTs ? Math.floor((Date.now() - S.backupTs) / DAY) : -1,
+      h =
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Backup</h2><div class="hint" style="margin:2px 0 0">Os dados ficam só neste celular. Guarde uma cópia de vez em quando (e antes de trocar de aparelho).</div></div><div class="hint" style="margin:0">' +
+        (dias < 0 ? 'Nenhum backup feito ainda.' : 'Último backup: ' + (dias === 0 ? 'hoje' : 'há ' + dias + ' dia(s)') + '.') +
+        '</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="chip on" data-act="bkexp">Exportar backup</button><button class="chip" data-act="bkimp">Importar backup</button></div>' +
+        (S.bkText ? '<textarea class="in" readonly rows="5" style="width:100%;font-size:12px">' + esc(S.bkText) + '</textarea>' : '');
+    abCarregar();
+    h +=
+      '<div class="lbl" style="margin-top:6px">Cópias automáticas</div><div class="hint" style="margin:0">O app guarda uma cópia por dia dentro do próprio celular (últimas ' +
+      AB_MAX +
+      '), sem fotos. Protege contra erro, não contra perder o celular: para isso exporte o backup e guarde o arquivo fora.</div>';
+    (S._abList || []).forEach(function (x) {
+      h +=
+        '<div class="sl"><span>' +
+        esc(x.dia.split('-').reverse().join('/')) +
+        '<small>' +
+        fh(x.ts) +
+        ' · ' +
+        x.kb +
+        ' KB</small></span><button class="chip" data-act="abrest" data-id="' +
+        x.dia +
+        '">' +
+        (S.abConf === x.dia ? 'Confirmar: voltar para esta cópia' : 'Restaurar') +
+        '</button></div>';
+    });
+    if (S._abList && !S._abList.length) h += '<div class="hint" style="margin:0">Nenhuma cópia ainda.</div>';
+    h += '<div><button class="mini" data-act="abagora">Fazer cópia agora</button></div></section>';
+    return h;
   }
 
   // ---------- tela de bloqueio
@@ -13489,62 +13534,19 @@
         ? 'Cadastre uma digital ou rosto nas configurações do celular primeiro' + (S._bioWhy ? ' (' + esc(S._bioWhy) + ')' : '') + '.'
         : '';
     h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Segurança</h2><div class="hint" style="margin:2px 0 0">PIN para abrir o app e, se você quiser, biometria (digital ou rosto).</div></div>' +
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Segurança</h2><div class="hint" style="margin:2px 0 0">Abrir o app com digital ou rosto. O PIN de emergência abre o app se a biometria falhar.</div></div>' +
       '<label class="swrow"><span>Usar biometria</span><span class="sw"><input type="checkbox" role="switch" data-aj="biotog"' +
-      (S.bioOn || S.bioPend ? ' checked' : '') +
+      (S.bioOn ? ' checked' : '') +
       (bioDisp ? '' : ' disabled') +
       ' aria-label="Usar biometria"><i></i></span></label>' +
       (bioMotivo ? '<div class="hint" style="margin:0">' + bioMotivo + '</div>' : '');
-    if (!pinAtivo() || S.pinNovo) {
+    if (pinAtivo()) {
       h +=
-        '<div class="lbl" style="margin:4px 0 0">' + (S.bioPend ? 'PIN de emergência' : 'PIN para abrir o app') + '</div>' +
-        '<div class="sel" style="flex-wrap:wrap"><input class="in" id="pin1" type="password" inputmode="numeric" maxlength="8" placeholder="' + (S.bioPend ? 'PIN de emergência' : 'Novo PIN') + ' (4 a 8 números)" autocomplete="off" style="flex:1 1 150px;width:auto" aria-label="Novo PIN"><input class="in" id="pin2" type="password" inputmode="numeric" maxlength="8" placeholder="Repita o PIN" autocomplete="off" style="flex:1 1 150px;width:auto" aria-label="Repita o PIN"><button class="mini" data-act="pinset">' +
-        (pinAtivo() ? 'Trocar PIN' : S.bioPend ? 'Criar e ativar' : 'Ativar PIN') +
-        '</button></div><div class="hint" style="margin:0">Anote o PIN. Se esquecer, só reinstalando o app (e os dados voltam apenas pelo backup).</div>';
-    } else {
-      h +=
-        '<div class="note n-ok">PIN ativo.</div><div class="sel" style="flex-wrap:wrap"><div><div class="lbl">Pedir o PIN</div><select class="in" data-aj="lockmin" aria-label="Quando pedir o PIN" style="width:auto">' +
-        [
-          [0, 'Sempre que voltar ao app'],
-          [1, 'Após 1 minuto fora'],
-          [5, 'Após 5 minutos fora'],
-          [15, 'Após 15 minutos fora']
-        ]
-          .map(function (o) {
-            return '<option value="' + o[0] + '"' + (S.lockMin === o[0] ? ' selected' : '') + '>' + o[1] + '</option>';
-          })
-          .join('') +
-        '</select></div></div>' +
-        '<label style="display:flex;gap:10px;align-items:center"><input type="checkbox" data-aj="locksens"' +
-        (S.lockSens !== false ? ' checked' : '') +
-        '> Pedir também para restaurar backup, apagar tudo e registrar retirada</label>' +
-        '<div class="sel" style="flex-wrap:wrap"><button class="chip" data-act="pintroca">Trocar PIN</button><button class="chip" data-act="pinoff">' +
-        (S.pinOffConf ? 'Confirmar: desativar PIN' : 'Desativar PIN') +
-        '</button></div>';
+        '<div class="lnks"><button class="lnk" data-act="pintroca">Mudar PIN</button>' +
+        (S.bioOn ? '' : '<button class="lnk" data-act="pinoff">' + (S.pinOffConf ? 'Confirmar: tirar o bloqueio do app' : 'Tirar o bloqueio do app') + '</button>') +
+        '</div>';
     }
     h += '</section>';
-    // cópias automáticas
-    abCarregar();
-    h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cópias automáticas</h2><div class="hint" style="margin:2px 0 0">O app guarda uma cópia por dia dentro do próprio celular (últimas ' +
-      AB_MAX +
-      '), sem fotos. Protege contra erro, não contra perder o celular: para isso use o backup acima e guarde o arquivo fora.</div></div>';
-    (S._abList || []).forEach(function (x) {
-      h +=
-        '<div class="sl"><span>' +
-        esc(x.dia.split('-').reverse().join('/')) +
-        '<small>' +
-        fh(x.ts) +
-        ' · ' +
-        x.kb +
-        ' KB</small></span><button class="chip" data-act="abrest" data-id="' +
-        x.dia +
-        '">' +
-        (S.abConf === x.dia ? 'Confirmar: voltar para esta cópia' : 'Restaurar') +
-        '</button></div>';
-    });
-    if (S._abList && !S._abList.length) h += '<div class="hint" style="margin:0">Nenhuma cópia ainda.</div>';
-    h += '<div><button class="mini" data-act="abagora">Fazer cópia agora</button></div></section>';
     return h;
   }
   // ===== Aba Vendas. =====
@@ -20928,16 +20930,8 @@
       '<div><div class="lbl">Diferença de contagem tolerada (' + mpSim() + ')</div><input class="in" inputmode="decimal" data-aj="tol" value="' +
       usdParaCampo(S.tolUsd) +
       '" style="max-width:160px"><div class="hint">Na contagem de estoque, diferenças até esse valor ficam marcadas como perda aceita.</div></div></section>';
-    // backup
-    var dias = S.backupTs ? Math.floor((Date.now() - S.backupTs) / DAY) : -1;
-    h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Backup dos dados</h2><div class="hint" style="margin:2px 0 0">Os dados ficam só neste celular. Guarde uma cópia de vez em quando (e antes de trocar de aparelho).</div></div><div class="hint" style="margin:0">' +
-      (dias < 0 ? 'Nenhum backup feito ainda.' : 'Último backup: ' + (dias === 0 ? 'hoje' : 'há ' + dias + ' dia(s)') + '.') +
-      '</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="chip on" data-act="bkexp">Exportar backup</button><button class="chip" data-act="bkimp">Importar backup</button></div>' +
-      (S.bkText
-        ? '<textarea class="in" readonly rows="5" style="width:100%;font-size:12px">' + esc(S.bkText) + '</textarea>'
-        : '') +
-      '</section>';
+    // backup (arquivo manual + cópias automáticas)
+    h += backupHtml();
     h += ajustesFinHtml();
     el.innerHTML = h;
   }
@@ -21844,19 +21838,107 @@
         }
         nAnt = n;
       }).observe($('sino'), { childList: true });
-    // 9. Arrastar para reordenar os botões do Início (segurar um instante no celular).
+    // 9. Arrastar para reordenar os botões do Início: o botão segue o dedo por qualquer lugar,
+    // os outros abrem espaço no encaixe mais perto (sem redesenhar a tela enquanto arrasta) e tudo se encaixa ao soltar.
     var dr = null;
-    function rects() {
-      var o = {};
-      document.querySelectorAll('#v-inicio .twrap').forEach(function (w) {
-        o[w.getAttribute('data-k')] = w.getBoundingClientRect();
-      });
-      return o;
+    function pgX() {
+      return window.pageXOffset || 0;
     }
-    function tw(id) {
-      var l = document.querySelectorAll('#v-inicio .twrap');
-      for (var i = 0; i < l.length; i++) if (l[i].getAttribute('data-k') === id) return l[i];
-      return null;
+    function pgY() {
+      return window.pageYOffset || 0;
+    }
+    function wraps() {
+      return [].slice.call(document.querySelectorAll('#v-inicio .twrap'));
+    }
+    function desloc(el, a, b, extra) {
+      el.style.transform = a === b && !extra ? '' : 'translate(' + (b.l - a.l) + 'px,' + (b.t - a.t) + 'px)' + (extra || '');
+    }
+    function iniLigar() {
+      if (!dr || dr.on) return;
+      var ws = wraps(),
+        sx = pgX(),
+        sy = pgY();
+      dr.ws = ws;
+      dr.ids = ws.map(function (w) {
+        return w.getAttribute('data-k');
+      });
+      dr.slots = ws.map(function (w) {
+        var r = w.getBoundingClientRect();
+        return { l: r.left + sx, t: r.top + sy, w: r.width, h: r.height };
+      });
+      dr.i = dr.ids.indexOf(dr.id);
+      if (dr.i < 0) {
+        dr = null;
+        return;
+      }
+      dr.j = dr.i;
+      dr.ord = dr.ids.slice();
+      dr.gx = dr.cx + sx - dr.slots[dr.i].l;
+      dr.gy = dr.cy + sy - dr.slots[dr.i].t;
+      dr.on = true;
+      document.body.classList.add('arrastando');
+      ws.forEach(function (w) {
+        w.style.willChange = 'transform';
+        w.style.transition = w === dr.w ? 'none' : 'transform .28s cubic-bezier(.2,.8,.2,1)';
+      });
+      dr.w.classList.add('arr');
+      vibrar(15);
+      quadro();
+      requestAnimationFrame(laco);
+    }
+    // posição do botão arrastado e dos vizinhos
+    function quadro() {
+      if (!dr || !dr.on) return;
+      var px = dr.cx + pgX(),
+        py = dr.cy + pgY(),
+        s0 = dr.slots[dr.i];
+      dr.w.style.transform = 'translate(' + (px - dr.gx - s0.l) + 'px,' + (py - dr.gy - s0.t) + 'px) scale(1.08)';
+      var best = 0,
+        bd = Infinity;
+      dr.slots.forEach(function (q, k) {
+        var dx = q.l + q.w / 2 - px,
+          dy = q.t + q.h / 2 - py,
+          d = dx * dx + dy * dy;
+        if (d < bd) {
+          bd = d;
+          best = k;
+        }
+      });
+      if (best === dr.j) return;
+      dr.j = best;
+      vibrar(8);
+      var ord = dr.ids.slice();
+      ord.splice(dr.i, 1);
+      ord.splice(best, 0, dr.id);
+      dr.ord = ord;
+      ord.forEach(function (id, k) {
+        if (id === dr.id) return;
+        var oi = dr.ids.indexOf(id);
+        desloc(dr.ws[oi], dr.slots[oi], dr.slots[k]);
+      });
+    }
+    // rola a tela sozinha quando o botão chega perto da borda de cima ou de baixo
+    function laco() {
+      if (!dr || !dr.on) return;
+      var topo = 110,
+        base = window.innerHeight - 140,
+        v = 0;
+      if (dr.cy < topo) v = -Math.ceil((topo - dr.cy) / 5);
+      else if (dr.cy > base) v = Math.ceil((dr.cy - base) / 5);
+      if (v) {
+        window.scrollBy(0, v);
+        quadro();
+      }
+      requestAnimationFrame(laco);
+    }
+    function limpaArrasta() {
+      (dr && dr.ws ? dr.ws : wraps()).forEach(function (w) {
+        w.style.transform = '';
+        w.style.transition = '';
+        w.style.willChange = '';
+        w.classList.remove('arr');
+      });
+      document.body.classList.remove('arrastando');
     }
     document.addEventListener(
       'pointerdown',
@@ -21864,28 +21946,8 @@
         if (!S.inicioEd) return;
         var w = e.target.closest && e.target.closest('.twrap');
         if (!w || e.target.closest('.tedit')) return;
-        var r = w.getBoundingClientRect();
-        dr = {
-          id: w.getAttribute('data-k'),
-          x0: e.clientX,
-          y0: e.clientY,
-          dx: e.clientX,
-          dy: e.clientY,
-          cx: r.left + r.width / 2,
-          cy: r.top + r.height / 2,
-          on: false
-        };
-        dr.t = setTimeout(
-          function () {
-            if (!dr) return;
-            dr.on = true;
-            document.body.classList.add('arrastando');
-            var el = tw(dr.id);
-            if (el) el.classList.add('arr');
-            vibrar(15);
-          },
-          e.pointerType === 'mouse' ? 0 : 220
-        );
+        dr = { w: w, id: w.getAttribute('data-k'), x0: e.clientX, y0: e.clientY, cx: e.clientX, cy: e.clientY, on: false };
+        dr.t = setTimeout(iniLigar, e.pointerType === 'mouse' ? 99999 : 220);
       },
       true
     );
@@ -21900,74 +21962,67 @@
       'pointermove',
       function (e) {
         if (!dr) return;
+        dr.cx = e.clientX;
+        dr.cy = e.clientY;
         if (!dr.on) {
           if (Math.abs(e.clientX - dr.x0) + Math.abs(e.clientY - dr.y0) > 8) {
             clearTimeout(dr.t);
             if (e.pointerType === 'mouse') {
-              dr.on = true;
-              document.body.classList.add('arrastando');
-              if (tw(dr.id)) tw(dr.id).classList.add('arr');
+              dr.cx = dr.x0;
+              dr.cy = dr.y0;
+              iniLigar();
+              if (dr) {
+                dr.cx = e.clientX;
+                dr.cy = e.clientY;
+              }
             } else dr = null;
           }
           if (!dr || !dr.on) return;
         }
-        var el = tw(dr.id);
-        if (!el) return;
-        el.style.transform = 'translate(' + (e.clientX - dr.dx) + 'px,' + (e.clientY - dr.dy) + 'px) scale(1.08)';
-        var alvo = null;
-        document.querySelectorAll('#v-inicio .twrap').forEach(function (w) {
-          if (w === el) return;
-          var r = w.getBoundingClientRect();
-          if (e.clientX > r.left && e.clientX < r.right && e.clientY > r.top && e.clientY < r.bottom) alvo = w.getAttribute('data-k');
-        });
-        if (!alvo) return;
-        var l = iniLista(),
-          i = l.indexOf(dr.id),
-          j = l.indexOf(alvo),
-          ant = rects();
-        if (i < 0 || j < 0) return;
-        l.splice(i, 1);
-        l.splice(j, 0, dr.id);
-        S.inicioT = l;
-        render();
-        document.querySelectorAll('#v-inicio .twrap').forEach(function (w2) {
-          var k = w2.getAttribute('data-k'),
-            r2 = w2.getBoundingClientRect(),
-            a = ant[k];
-          if (k === dr.id) {
-            dr.cx = r2.left + r2.width / 2;
-            dr.cy = r2.top + r2.height / 2;
-            dr.dx = e.clientX;
-            dr.dy = e.clientY;
-            w2.classList.add('arr');
-            w2.style.transform = 'scale(1.08)';
-            return;
-          }
-          if (!a) return;
-          w2.style.transition = 'none';
-          w2.style.transform = 'translate(' + (a.left - r2.left) + 'px,' + (a.top - r2.top) + 'px)';
-          void w2.offsetWidth;
-          w2.style.transition = 'transform .3s cubic-bezier(.2,.8,.2,1)';
-          w2.style.transform = '';
-        });
+        quadro();
       },
       true
     );
-    function fimArrasta() {
+    function fimArrasta(ev) {
       if (!dr) return;
       clearTimeout(dr.t);
-      var id = dr.id;
+      var d = dr;
       dr = null;
-      document.body.classList.remove('arrastando');
-      var el = tw(id);
-      if (el) {
-        el.style.transition = 'transform .25s cubic-bezier(.2,.8,.2,1)';
-        el.style.transform = '';
+      if (!d.on) return;
+      var mudou = ev && ev.type === 'pointerup' && d.j !== d.i;
+      if (!mudou) {
+        d.w.style.transition = 'transform .25s cubic-bezier(.2,.8,.2,1)';
+        d.ws.forEach(function (w) {
+          w.style.transform = '';
+        });
         setTimeout(function () {
-          el.classList.remove('arr');
-          el.style.transition = '';
-        }, 260);
+          dr = d;
+          limpaArrasta();
+          dr = null;
+        }, 270);
+        return;
       }
+      // encaixa o botão no lugar escolhido; depois grava a nova ordem e redesenha já nas posições finais
+      d.w.style.transition = 'transform .22s cubic-bezier(.2,.8,.2,1)';
+      desloc(d.w, d.slots[d.i], d.slots[d.j]);
+      setTimeout(function () {
+        var ws = d.ws;
+        ws.forEach(function (w) {
+          w.style.transition = 'none';
+        });
+        var l = iniLista(),
+          vis = d.ord;
+        // mantém na lista os botões que não estão na tela (ocultos) onde estavam
+        S.inicioT = vis.concat(
+          l.filter(function (id) {
+            return vis.indexOf(id) < 0;
+          })
+        );
+        dr = d;
+        limpaArrasta();
+        dr = null;
+        render();
+      }, 240);
     }
     document.addEventListener('pointerup', fimArrasta, true);
     document.addEventListener('pointercancel', fimArrasta, true);
@@ -22366,26 +22421,29 @@
     else if (k === 'biotog') {
       if (t.checked) {
         if (!pinAtivo()) {
-          S.bioPend = true;
-          S.ajMsg = 'Crie um PIN de emergência abaixo. Ele abre o app se a biometria falhar.';
-        } else
-          bioPedir(
-            function () {
-              S.bioOn = true;
-              S.ajMsg = 'Biometria ativada.';
-              S._ajForce = true;
-              render();
-            },
-            function (e) {
-              S.bioOn = false;
-              S.ajMsg = 'Não consegui confirmar a biometria. Tente de novo.' + bioErro(e);
-              S._ajForce = true;
-              render();
-            }
-          );
+          t.checked = false;
+          pinDlgAbrir('bio');
+          return;
+        }
+        bioPedir(
+          function () {
+            S.bioOn = true;
+            S.ajMsg = 'Biometria ativada.';
+            S._ajForce = true;
+            saveSoon();
+            render();
+          },
+          function (e) {
+            S.bioOn = false;
+            S.ajMsg = 'Não consegui confirmar a biometria. Tente de novo.' + bioErro(e);
+            S._ajForce = true;
+            render();
+          }
+        );
+        return;
       } else {
         S.bioOn = false;
-        S.bioPend = false;
+        saveSoon();
       }
     } else return;
     S._ajForce = true;
@@ -22536,51 +22594,74 @@
   };
 
   // ---------- PIN e cópias
-  ACT.pinset = function () {
-    var a = $('pin1').value,
-      b = $('pin2').value;
-    if (!/^\d{4,8}$/.test(a)) {
-      S.ajMsg = 'O PIN deve ter de 4 a 8 números.';
-    } else if (a !== b) {
-      S.ajMsg = 'Os dois PINs não são iguais.';
-    } else {
-      var sal = novoSal();
-      hashPin(a, sal).then(function (h) {
-        S.pinSalt = sal;
-        S.pinHash = h;
-        S.pinNovo = false;
-        S.ajMsg = 'PIN ativado. Ele será pedido ao abrir o app.';
-        S._ajForce = true;
-        saveSoon();
-        render();
-        if (S.bioPend)
-          bioPedir(
-            function () {
-              S.bioPend = false;
-              S.bioOn = true;
-              S.ajMsg = 'PIN de emergência criado e biometria ativada.';
-              S._ajForce = true;
-              saveSoon();
-              render();
-            },
-            function (e) {
-              S.bioPend = false;
-              S.ajMsg = 'PIN criado, mas não consegui confirmar a biometria.' + bioErro(e);
-              S._ajForce = true;
-              render();
-            }
-          );
-      });
-      return;
-    }
+  // Janela do PIN: 'bio' cria o PIN de emergência ao ligar a biometria; 'troca' muda o PIN.
+  function pinDlgAbrir(modo) {
+    S._pinModo = modo;
+    $('pinMT').textContent = modo === 'troca' ? 'Mudar PIN' : 'PIN de emergência';
+    $('pinMH').textContent =
+      modo === 'troca'
+        ? 'Digite o novo PIN (4 a 8 números).'
+        : 'Para usar a biometria, crie um PIN de emergência. Ele abre o app quando a digital ou o rosto não funcionar. Anote-o: se esquecer, só reinstalando o app (e os dados voltam apenas pelo backup).';
+    $('pinMOk').textContent = modo === 'troca' ? 'Salvar PIN' : 'Criar e ativar';
+    $('pinM1').value = '';
+    $('pinM2').value = '';
+    $('pinME').hidden = true;
+    $('pinModal').hidden = false;
+    setTimeout(function () {
+      $('pinM1').focus();
+    }, 80);
+  }
+  function pinDlgFechar() {
+    $('pinModal').hidden = true;
+    S._pinModo = '';
     S._ajForce = true;
     render();
+  }
+  $('pinMC').onclick = pinDlgFechar;
+  $('pinMOk').onclick = function () {
+    var a = $('pinM1').value,
+      b = $('pinM2').value,
+      er = $('pinME'),
+      modo = S._pinModo;
+    if (!/^\d{4,8}$/.test(a) || a !== b) {
+      er.textContent = !/^\d{4,8}$/.test(a) ? 'O PIN deve ter de 4 a 8 números.' : 'Os dois PINs não são iguais.';
+      er.hidden = false;
+      return;
+    }
+    var sal = novoSal();
+    hashPin(a, sal).then(function (h) {
+      S.pinSalt = sal;
+      S.pinHash = h;
+      S.pinNovo = false;
+      saveSoon();
+      $('pinModal').hidden = true;
+      S._pinModo = '';
+      if (modo === 'troca') {
+        S.ajMsg = 'PIN trocado.';
+        S._ajForce = true;
+        render();
+        return;
+      }
+      bioPedir(
+        function () {
+          S.bioOn = true;
+          S.ajMsg = 'PIN de emergência criado e biometria ativada.';
+          S._ajForce = true;
+          saveSoon();
+          render();
+        },
+        function (e) {
+          S.bioOn = false;
+          S.ajMsg = 'PIN criado, mas não consegui confirmar a biometria.' + bioErro(e);
+          S._ajForce = true;
+          render();
+        }
+      );
+    });
   };
   ACT.pintroca = function () {
     exigirAuth(function () {
-      S.pinNovo = true;
-      S._ajForce = true;
-      render();
+      pinDlgAbrir('troca');
     });
   };
   ACT.pinoff = function () {

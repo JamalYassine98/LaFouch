@@ -49,6 +49,19 @@
       } catch (e) {}
       if (o) pl = o;
     }
+    if (!pl && C && C.PluginHeaders) {
+      // qualquer plugin nativo que tenha checkBiometry e internalAuthenticate é o da biometria, qualquer que seja o nome
+      try {
+        C.PluginHeaders.forEach(function (h) {
+          var ms = (h.methods || []).map(function (m) {
+            return m.name;
+          });
+          if (!pl && ms.indexOf('checkBiometry') >= 0 && (ms.indexOf('internalAuthenticate') >= 0 || ms.indexOf('authenticate') >= 0)) {
+            pl = P[h.name] || (C.registerPlugin && C.registerPlugin(h.name));
+          }
+        });
+      } catch (e) {}
+    }
     if (!pl) return null;
     // o plugin nativo usa "internalAuthenticate" no lugar de "authenticate"
     var r = {
@@ -110,6 +123,38 @@
       .catch(function (e) {
         falha(e);
       });
+  }
+
+  // Cartão único de backup: arquivo manual + cópias automáticas do celular.
+  function backupHtml() {
+    var dias = S.backupTs ? Math.floor((Date.now() - S.backupTs) / DAY) : -1,
+      h =
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">Backup</h2><div class="hint" style="margin:2px 0 0">Os dados ficam só neste celular. Guarde uma cópia de vez em quando (e antes de trocar de aparelho).</div></div><div class="hint" style="margin:0">' +
+        (dias < 0 ? 'Nenhum backup feito ainda.' : 'Último backup: ' + (dias === 0 ? 'hoje' : 'há ' + dias + ' dia(s)') + '.') +
+        '</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="chip on" data-act="bkexp">Exportar backup</button><button class="chip" data-act="bkimp">Importar backup</button></div>' +
+        (S.bkText ? '<textarea class="in" readonly rows="5" style="width:100%;font-size:12px">' + esc(S.bkText) + '</textarea>' : '');
+    abCarregar();
+    h +=
+      '<div class="lbl" style="margin-top:6px">Cópias automáticas</div><div class="hint" style="margin:0">O app guarda uma cópia por dia dentro do próprio celular (últimas ' +
+      AB_MAX +
+      '), sem fotos. Protege contra erro, não contra perder o celular: para isso exporte o backup e guarde o arquivo fora.</div>';
+    (S._abList || []).forEach(function (x) {
+      h +=
+        '<div class="sl"><span>' +
+        esc(x.dia.split('-').reverse().join('/')) +
+        '<small>' +
+        fh(x.ts) +
+        ' · ' +
+        x.kb +
+        ' KB</small></span><button class="chip" data-act="abrest" data-id="' +
+        x.dia +
+        '">' +
+        (S.abConf === x.dia ? 'Confirmar: voltar para esta cópia' : 'Restaurar') +
+        '</button></div>';
+    });
+    if (S._abList && !S._abList.length) h += '<div class="hint" style="margin:0">Nenhuma cópia ainda.</div>';
+    h += '<div><button class="mini" data-act="abagora">Fazer cópia agora</button></div></section>';
+    return h;
   }
 
   // ---------- tela de bloqueio
@@ -374,61 +419,18 @@
         ? 'Cadastre uma digital ou rosto nas configurações do celular primeiro' + (S._bioWhy ? ' (' + esc(S._bioWhy) + ')' : '') + '.'
         : '';
     h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Segurança</h2><div class="hint" style="margin:2px 0 0">PIN para abrir o app e, se você quiser, biometria (digital ou rosto).</div></div>' +
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Segurança</h2><div class="hint" style="margin:2px 0 0">Abrir o app com digital ou rosto. O PIN de emergência abre o app se a biometria falhar.</div></div>' +
       '<label class="swrow"><span>Usar biometria</span><span class="sw"><input type="checkbox" role="switch" data-aj="biotog"' +
-      (S.bioOn || S.bioPend ? ' checked' : '') +
+      (S.bioOn ? ' checked' : '') +
       (bioDisp ? '' : ' disabled') +
       ' aria-label="Usar biometria"><i></i></span></label>' +
       (bioMotivo ? '<div class="hint" style="margin:0">' + bioMotivo + '</div>' : '');
-    if (!pinAtivo() || S.pinNovo) {
+    if (pinAtivo()) {
       h +=
-        '<div class="lbl" style="margin:4px 0 0">' + (S.bioPend ? 'PIN de emergência' : 'PIN para abrir o app') + '</div>' +
-        '<div class="sel" style="flex-wrap:wrap"><input class="in" id="pin1" type="password" inputmode="numeric" maxlength="8" placeholder="' + (S.bioPend ? 'PIN de emergência' : 'Novo PIN') + ' (4 a 8 números)" autocomplete="off" style="flex:1 1 150px;width:auto" aria-label="Novo PIN"><input class="in" id="pin2" type="password" inputmode="numeric" maxlength="8" placeholder="Repita o PIN" autocomplete="off" style="flex:1 1 150px;width:auto" aria-label="Repita o PIN"><button class="mini" data-act="pinset">' +
-        (pinAtivo() ? 'Trocar PIN' : S.bioPend ? 'Criar e ativar' : 'Ativar PIN') +
-        '</button></div><div class="hint" style="margin:0">Anote o PIN. Se esquecer, só reinstalando o app (e os dados voltam apenas pelo backup).</div>';
-    } else {
-      h +=
-        '<div class="note n-ok">PIN ativo.</div><div class="sel" style="flex-wrap:wrap"><div><div class="lbl">Pedir o PIN</div><select class="in" data-aj="lockmin" aria-label="Quando pedir o PIN" style="width:auto">' +
-        [
-          [0, 'Sempre que voltar ao app'],
-          [1, 'Após 1 minuto fora'],
-          [5, 'Após 5 minutos fora'],
-          [15, 'Após 15 minutos fora']
-        ]
-          .map(function (o) {
-            return '<option value="' + o[0] + '"' + (S.lockMin === o[0] ? ' selected' : '') + '>' + o[1] + '</option>';
-          })
-          .join('') +
-        '</select></div></div>' +
-        '<label style="display:flex;gap:10px;align-items:center"><input type="checkbox" data-aj="locksens"' +
-        (S.lockSens !== false ? ' checked' : '') +
-        '> Pedir também para restaurar backup, apagar tudo e registrar retirada</label>' +
-        '<div class="sel" style="flex-wrap:wrap"><button class="chip" data-act="pintroca">Trocar PIN</button><button class="chip" data-act="pinoff">' +
-        (S.pinOffConf ? 'Confirmar: desativar PIN' : 'Desativar PIN') +
-        '</button></div>';
+        '<div class="lnks"><button class="lnk" data-act="pintroca">Mudar PIN</button>' +
+        (S.bioOn ? '' : '<button class="lnk" data-act="pinoff">' + (S.pinOffConf ? 'Confirmar: tirar o bloqueio do app' : 'Tirar o bloqueio do app') + '</button>') +
+        '</div>';
     }
     h += '</section>';
-    // cópias automáticas
-    abCarregar();
-    h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cópias automáticas</h2><div class="hint" style="margin:2px 0 0">O app guarda uma cópia por dia dentro do próprio celular (últimas ' +
-      AB_MAX +
-      '), sem fotos. Protege contra erro, não contra perder o celular: para isso use o backup acima e guarde o arquivo fora.</div></div>';
-    (S._abList || []).forEach(function (x) {
-      h +=
-        '<div class="sl"><span>' +
-        esc(x.dia.split('-').reverse().join('/')) +
-        '<small>' +
-        fh(x.ts) +
-        ' · ' +
-        x.kb +
-        ' KB</small></span><button class="chip" data-act="abrest" data-id="' +
-        x.dia +
-        '">' +
-        (S.abConf === x.dia ? 'Confirmar: voltar para esta cópia' : 'Restaurar') +
-        '</button></div>';
-    });
-    if (S._abList && !S._abList.length) h += '<div class="hint" style="margin:0">Nenhuma cópia ainda.</div>';
-    h += '<div><button class="mini" data-act="abagora">Fazer cópia agora</button></div></section>';
     return h;
   }

@@ -138,16 +138,8 @@
       '<div><div class="lbl">Diferença de contagem tolerada (' + mpSim() + ')</div><input class="in" inputmode="decimal" data-aj="tol" value="' +
       usdParaCampo(S.tolUsd) +
       '" style="max-width:160px"><div class="hint">Na contagem de estoque, diferenças até esse valor ficam marcadas como perda aceita.</div></div></section>';
-    // backup
-    var dias = S.backupTs ? Math.floor((Date.now() - S.backupTs) / DAY) : -1;
-    h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Backup dos dados</h2><div class="hint" style="margin:2px 0 0">Os dados ficam só neste celular. Guarde uma cópia de vez em quando (e antes de trocar de aparelho).</div></div><div class="hint" style="margin:0">' +
-      (dias < 0 ? 'Nenhum backup feito ainda.' : 'Último backup: ' + (dias === 0 ? 'hoje' : 'há ' + dias + ' dia(s)') + '.') +
-      '</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="chip on" data-act="bkexp">Exportar backup</button><button class="chip" data-act="bkimp">Importar backup</button></div>' +
-      (S.bkText
-        ? '<textarea class="in" readonly rows="5" style="width:100%;font-size:12px">' + esc(S.bkText) + '</textarea>'
-        : '') +
-      '</section>';
+    // backup (arquivo manual + cópias automáticas)
+    h += backupHtml();
     h += ajustesFinHtml();
     el.innerHTML = h;
   }
