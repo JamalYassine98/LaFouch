@@ -19970,7 +19970,6 @@
           '<span class="hint" style="margin:0">Recebi US$</span><input class="in" id="trr' + i + '" inputmode="decimal" data-in="trr" data-id="' + i + '" value="' + esc(rec) + '" style="flex:1 1 80px;width:auto" aria-label="Dólares recebidos"></div>' +
           '<div class="hint" id="trh' + i + '" style="margin:0">' + trocaCotacaoTxt(x.de, v, rec) + '</div></div>';
       });
-      h += '<button class="go" data-act="fxtrocar">Registrar troca</button>';
     } else {
       h += '<div class="hint" style="margin:0">Nada para trocar agora com o dinheiro em caixa.</div>';
     }
@@ -21303,6 +21302,11 @@
       render();
     },
     trocar: function () {
+      // um só botão "Registrar troca": se nada foi digitado em "Outra troca", registra a sugestão de hoje
+      if (!String(S.tr.v || '').trim() && !String(S.tr.rec || '').trim() && trocarPlano().passos.length) {
+        ACT.fxtrocar();
+        return;
+      }
       var t = S.tr,
         v = parseDec(t.v, t.de),
         rec = parseDec(t.rec, t.para),
@@ -23019,10 +23023,11 @@
         cont.classList.remove('sl-ok');
         return;
       }
-      var c = cont.getBoundingClientRect(),
-        r = on.getBoundingClientRect();
-      if (!r.width || !c.width) return;
+      if (!on.offsetWidth || !cont.offsetWidth) return;
       if (getComputedStyle(cont).position === 'static') cont.style.position = 'relative';
+      // medidas em unidades do próprio layout (funcionam também com o zoom das telas grandes)
+      var r = { width: on.offsetWidth, height: on.offsetHeight, left: on.offsetLeft, top: on.offsetTop },
+        c = { left: 0, top: 0 };
       if (!sl) {
         sl = document.createElement('div');
         sl.className = 'slider';

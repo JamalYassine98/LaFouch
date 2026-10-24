@@ -37,10 +37,11 @@
         cont.classList.remove('sl-ok');
         return;
       }
-      var c = cont.getBoundingClientRect(),
-        r = on.getBoundingClientRect();
-      if (!r.width || !c.width) return;
+      if (!on.offsetWidth || !cont.offsetWidth) return;
       if (getComputedStyle(cont).position === 'static') cont.style.position = 'relative';
+      // medidas em unidades do próprio layout (funcionam também com o zoom das telas grandes)
+      var r = { width: on.offsetWidth, height: on.offsetHeight, left: on.offsetLeft, top: on.offsetTop },
+        c = { left: 0, top: 0 };
       if (!sl) {
         sl = document.createElement('div');
         sl.className = 'slider';

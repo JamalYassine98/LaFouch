@@ -309,6 +309,11 @@
       render();
     },
     trocar: function () {
+      // um só botão "Registrar troca": se nada foi digitado em "Outra troca", registra a sugestão de hoje
+      if (!String(S.tr.v || '').trim() && !String(S.tr.rec || '').trim() && trocarPlano().passos.length) {
+        ACT.fxtrocar();
+        return;
+      }
       var t = S.tr,
         v = parseDec(t.v, t.de),
         rec = parseDec(t.rec, t.para),
