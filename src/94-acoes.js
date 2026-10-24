@@ -303,7 +303,26 @@
       renderCaixa();
     },
     fxtrocar: function () {
-      trocarRegistrar();
+      var linhas = [],
+        ruim = '';
+      trocarPlano().passos.forEach(function (x, i) {
+        var ti = (S.trIn || {})[i] || {},
+          v = parseDec(ti.v != null ? ti.v : String(x.sug), x.de),
+          rec = parseDec(ti.rec != null ? ti.rec : String(x.rec), 'usd');
+        if (!(v > 0) && !(rec > 0)) return;
+        if (!(v > 0) || !(rec > 0)) ruim = 'Informe o que entregou e o que recebeu.';
+        else if ((S.cash[x.de] || 0) < v - 0.005) ruim = 'Você não tem tudo isso em ' + x.de.toUpperCase() + ' no caixa.';
+        else linhas.push({ tipo: x.tipo, de: x.de, v: v, rec: rec });
+      });
+      if (ruim) S.cxMsg = ruim;
+      else {
+        trocarRegistrar(linhas);
+        S.trIn = {};
+      }
+      render();
+    },
+    fxdesfaz: function () {
+      trocarDesfazer();
       render();
     },
     trocar: function () {
@@ -469,6 +488,14 @@
     var t = e.target,
       k = t.getAttribute && t.getAttribute('data-in');
     if (!k) return;
+    if (k === 'trv' || k === 'trr') {
+      var ix = t.getAttribute('data-id'),
+        it = trocarPlano().passos[ix];
+      S.trIn = S.trIn || {};
+      S.trIn[ix] = { v: $('trv' + ix).value, rec: $('trr' + ix).value };
+      if (it && $('trh' + ix)) $('trh' + ix).textContent = trocaCotacaoTxt(it.de, S.trIn[ix].v, S.trIn[ix].rec);
+      return;
+    }
     if (k === 'exp') {
       var ex = S.exp.filter(function (x) {
           return String(x.id) === t.getAttribute('data-id');

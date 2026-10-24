@@ -36,7 +36,7 @@
           return a + x.usd;
         }, 0)
     );
-    var colch = S.ini.colch + sumBy(valid, 'colch'),
+    var colch = Math.max(0, S.ini.colch + sumBy(valid, 'colch') - sumBy(S.colchUsos || [], 'gs')),
       con = Math.max(
         0,
         sumBy(periodSales(30), 'contas') -

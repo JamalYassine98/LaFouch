@@ -360,18 +360,6 @@
       });
     });
   }
-  // Lembrete: quando foi o último backup guardado fora do app.
-  function backupLembrete() {
-    if (!S.sales.length) return '';
-    var dias = S.backupTs ? Math.floor((Date.now() - S.backupTs) / DAY) : Infinity;
-    if (dias < 7) return '';
-    return (
-      '<div class="note n-warn">' +
-      (dias === Infinity ? 'Você ainda não guardou um backup fora do celular.' : 'Faz ' + dias + ' dias do último backup guardado fora do celular.') +
-      ' <a href="#ajustes" data-act="view" data-id="ajustes" style="color:var(--accent-fg)">Fazer agora</a></div>'
-    );
-  }
-
   // ---------- partes da aba Ajustes: pagamento, segurança e cópias
   function ajustesFinHtml() {
     var h = '';

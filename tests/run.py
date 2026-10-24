@@ -956,6 +956,31 @@ async def main():
             if not ok: falhas.append('resultado eq'); print('        veio', r, pg.erros)
             await pg.close()
 
+            # Trocar agora: valores redondos, entregue/recebido, colchão cobre a alta, reposição FIFO, desfazer
+            pg = await pagina()
+            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S, n = Date.now();
+              S.fx.pyg = 6800; S.fx.brl = 5.4; S.fxHist = [{ts: n - 9e8, pyg: 6400, brl: 5.4}, {ts: n, pyg: 6800, brl: 5.4}];
+              S.sales = [{id:'T1', ts: n - 8e8, tipo:'pre', ref:'T1', cor:'', grau:'', qty:1, fx:6400, fxb:5.4, pct:0, pago:0, cPeca:0, estorno:false, price:300000, rep:44800, repUSD:7, colch:0, melh:0, contas:0, taxa:0, livre:0, moeda:'pyg', recebido:300000, rate:1, pags:[{moeda:'pyg', v:300000, rate:1, fee:0}], troco:[]}];
+              S.compras = []; S.cpay = []; S.melhUso = []; S.exp = []; S.ini = {rep: 0, colch: 100000, melh: 0}; S.colchUsd = 0; S.colchUsos = []; S.repQuitUsd = 0; S.cambios = []; S.trIn = {};
+              S.cash = {pyg: 600000, brl: 250, usd: 0};
+              const pl = L.trocarPlano().passos[0];
+              L.setView('fx'); L.render();
+              const tela = document.getElementById('v-fx').innerText;
+              S.trIn = {0: {v: '40', rec: '7'}};
+              const tot = L.trocarRegistrar([{tipo: 'repor', de: 'brl', v: 40, rec: 7}]);
+              const e = S.cambios[0];
+              const dep = [S.cash.brl, S.cash.usd, S.repQuitUsd, Math.round(e.perdaGs), S.colchUsos.length, Math.round(S.colchUsos[0] ? S.colchUsos[0].gs : 0)];
+              const falta = L.livre3().falta;
+              const rm = L.resultadoMes(new Date().getFullYear(), new Date().getMonth()).cambio;
+              L.trocarDesfazer();
+              const des = [S.cash.brl, S.cash.usd, S.repQuitUsd, S.colchUsos.length, S.cambios.length];
+              return [pl.de, pl.sug, pl.rec, tela.includes('Entreguei') && tela.includes('Recebi US$'), tot, dep, falta, rm, des]; }""")
+            total += 1
+            ok = r[0] == 'brl' and r[1] == 40 and r[2] == 7 and r[3] and r[4] == 7 and r[5] == [210, 7, 7, 5570, 1, 5570] and r[6] == 0 and r[7] == 5570 and r[8] == [250, 0, 0, 0, 0] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Trocar agora: plano redondo, perda de câmbio coberta pelo colchão, resultado e desfazer')
+            if not ok: falhas.append('trocar agora'); print('        veio', r, pg.erros)
+            await pg.close()
+
             # Resumo por moeda, separação inteligente, notificações unificadas
             pg = await pagina()
             await pg.evaluate("() => { const L = window.__LF; L.S.dTab = 'hoje'; L.setView('dash'); }"); await pg.wait_for_timeout(400)

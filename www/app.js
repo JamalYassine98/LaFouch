@@ -12595,9 +12595,10 @@
     });
     perd += somaCampo(S.descartes, 'valor', lim);
     r.perdas = Math.round(perd);
+    r.cambio = Math.round(somaCampo(S.cambios, 'perdaGs', lim));
     r.retAvulsas = somaCampo(S.retiradas, 'valor', lim);
     r.retTotal = r.retAvulsas + r.contasPessoais;
-    r.resultado = r.vendas - r.cmv - r.taxas - r.contasLoja - r.imprev - r.melh - r.perdas;
+    r.resultado = r.vendas - r.cmv - r.taxas - r.contasLoja - r.imprev - r.melh - r.perdas - r.cambio;
     r.sobra = r.resultado - r.retTotal;
     r.tem = r.n > 0 || r.contasLoja > 0 || r.retTotal > 0 || r.imprev > 0;
     // os mesmos números no dólar e no real do dia de cada venda e de cada conta (valores fixos)
@@ -12615,7 +12616,8 @@
         }),
         imprev: somaEq(S.imprev, 'valor', lim),
         melh: somaEq(S.melhUso, 'valor', lim),
-        retAvulsas: somaEq(S.retiradas, 'valor', lim)
+        retAvulsas: somaEq(S.retiradas, 'valor', lim),
+        cambio: somaEq(S.cambios, 'perdaGs', lim)
       },
       pd = somaEq(S.descartes, 'valor', lim);
     ['usd', 'brl'].forEach(function (m) {
@@ -12631,7 +12633,7 @@
       });
       eq[m].perdas = pu + pd[m];
       eq[m].retTotal = eq[m].retAvulsas + eq[m].contasPessoais;
-      eq[m].resultado = eq[m].vendas - eq[m].cmv - eq[m].taxas - eq[m].contasLoja - eq[m].imprev - eq[m].melh - eq[m].perdas;
+      eq[m].resultado = eq[m].vendas - eq[m].cmv - eq[m].taxas - eq[m].contasLoja - eq[m].imprev - eq[m].melh - eq[m].perdas - eq[m].cambio;
       eq[m].sobra = eq[m].resultado - eq[m].retTotal;
     });
     r.eq = eq;
@@ -12645,6 +12647,7 @@
     ['Imprevistos', 'imprev'],
     ['Caixa de melhorias usada', 'melh'],
     ['Perdas de estoque (contagem e descarte)', 'perdas'],
+    ['Câmbio nas trocas (dólar mais caro que o separado)', 'cambio'],
     ['Resultado da loja', 'resultado', true],
     ['Retiradas do dono (inclui contas de casa e pessoais)', 'retTotal'],
     ['Sobra do mês', 'sobra', true]
@@ -13087,6 +13090,8 @@
   S.colchUsd = 0; // US$ do colchão que já foram trocados para dólar
   S.colchUsos = []; // usos do colchão em dólar: { ts, usd, nota }
   S.fxBaratoUlt = 0;
+  S.repQuitUsd = 0; // US$ de reposição já trocados em dólar (vendas mais antigas primeiro)
+  S.trIn = {}; // valores digitados no "Trocar agora"
 
   function vazio3() {
     return { pyg: 0, brl: 0, usd: 0 };
@@ -13243,6 +13248,7 @@
       needRep;
     av.usd -= repU;
     needRep = r.rUSD - repU;
+    var needRep0 = needRep;
     var colUsd = Math.min(av.usd, S.colchUsd || 0);
     av.usd -= colUsd;
     var extraUsd = av.usd; // dólar a mais: fica com a loja
@@ -13277,7 +13283,12 @@
       }
     });
     // colchão (a parte ainda em guarani) e melhorias: de cada moeda, na proporção do que sobrou
-    var colPend = Math.max(0, r.colch - (S.colchUsd || 0) * S.fx.pyg),
+    // se o dólar subiu desde as vendas, o colchão cobre a diferença do que ainda falta trocar
+    var colPend0 = Math.max(0, r.colch - (S.colchUsd || 0) * S.fx.pyg),
+      qa = S.repQuitUsd || 0,
+      subiu = needRep0 * S.fx.pyg - baseRepGs(qa, qa + needRep0),
+      colUso = Math.max(0, Math.min(subiu, colPend0)),
+      colPend = colPend0 - colUso,
       sobra = av.pyg * rt.pyg + av.brl * rt.brl,
       colEq = Math.min(colPend, sobra),
       melEq = Math.min(Math.max(0, r.melh), Math.max(0, sobra - colEq));
@@ -13287,7 +13298,7 @@
       lv[m] = Math.max(0, av[m] - (colEq * f) / rt[m] - (melEq * f) / rt[m]);
     });
     var livreEq = lv.pyg + lv.brl * rt.brl;
-    return { livre: lv, livreEq: livreEq, falta: Math.round(falta), extraUsd: extraUsd, wal: r.wal, r: r };
+    return { livre: lv, livreEq: livreEq, falta: Math.round(falta), extraUsd: extraUsd, colUso: colUso, wal: r.wal, r: r };
   }
 
   // Moedas que aparecem nos três cartões: as que entraram no período (guarani sempre).
@@ -13387,13 +13398,48 @@
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Colchão de segurança</h2><div class="hint" style="margin:2px 0 0">Reserva contra a alta do dólar. Em dólar ele não perde valor.</div></div>' +
       '<div class="sl"><span>Já em dólar<small>protegido</small></span><b style="color:var(--ok)">' + usd(emUsd) + '</b></div>' +
       '<div class="sl"><span>Ainda não trocado<small>espera o dólar ficar barato (em guaranis)</small></span><b>' + gs(Math.round(falta)) + '</b></div>' +
+      (livre3().colUso > 0.5
+        ? '<div class="sl"><span>Cobrindo a alta do dólar agora<small>diferença do que ainda falta trocar</small></span><b style="color:var(--warn)">− ' + usd(livre3().colUso / S.fx.pyg) + '</b></div>'
+        : '') +
       usos.map(function (x) {
         return '<div class="sl"><span>Usado para cobrir a alta<small>' + fd(x.ts) + (x.nota ? ' · ' + esc(x.nota) : '') + '</small></span><b style="color:var(--warn)">− ' + usd(x.usd) + '</b></div>';
       }).join('') +
       '<div class="hint" style="margin:0">Cada venda nova separa um colchão novo. Quando o dólar estiver barato, o app avisa para trocar.</div></section>'
     );
   }
+  // Custo, no câmbio de cada venda, dos dólares de reposição de a até b (as vendas mais antigas primeiro).
+  function baseRepGs(a, b) {
+    if (!(b > a)) return 0;
+    var lista = [],
+      pos = 0,
+      tot = 0;
+    if (S.ini.rep > 0) lista.push({ u: S.ini.rep, fx: S.fx.pyg });
+    S.sales
+      .filter(function (s) {
+        return !s.estorno && s.repUSD > 0;
+      })
+      .sort(function (x, y) {
+        return x.ts - y.ts;
+      })
+      .forEach(function (s) {
+        lista.push({ u: s.repUSD, fx: s.fx > 0 ? s.fx : S.fx.pyg });
+      });
+    lista.forEach(function (x) {
+      var ini = Math.max(a, pos),
+        fim = Math.min(b, pos + x.u);
+      if (fim > ini) tot += (fim - ini) * x.fx;
+      pos += x.u;
+    });
+    if (b > pos) tot += (b - Math.max(a, pos)) * S.fx.pyg;
+    return tot;
+  }
+  // Valor redondo para sugerir na troca: real na dezena, guarani em 50 mil, sempre para cima.
+  function arredTroca(v, de) {
+    var passo = de === 'pyg' ? 50000 : 10;
+    return Math.ceil(v / passo - 1e-9) * passo;
+  }
   // O que dá para trocar agora com o dinheiro em caixa: reposição (necessário) e colchão (aproveitar).
+  // Os valores vêm arredondados (R$ 250, G$ 500.000) e dá para editar na tela.
   function trocarPlano() {
     var r = reservas(),
       fx = S.fx.pyg,
@@ -13403,37 +13449,77 @@
       needRep = Math.max(0, r.rUSD - Math.max(0, S.cash.usd)),
       passos = [],
       rem = needRep,
-      b = Math.min(brl, rem * S.fx.brl);
+      b = Math.min(brl, rem * S.fx.brl),
+      mk = function (tipo, de, v, disp) {
+        var sug = Math.min(arredTroca(v, de), de === 'pyg' ? Math.floor(disp / 1000) * 1000 : Math.floor(disp)),
+          rec = Math.floor((sug * ratePyg(de)) / fx);
+        if (sug > 0 && rec >= 1) passos.push({ tipo: tipo, de: de, v: v, sug: sug, rec: rec });
+        return sug;
+      };
     if (b > 0.004) {
-      passos.push({ tipo: 'repor', de: 'brl', v: b, rec: b / S.fx.brl });
+      mk('repor', 'brl', b, brl);
       rem -= b / S.fx.brl;
     }
     var g = Math.min(livrePyg, Math.max(0, rem) * fx);
     if (g > 50) {
-      passos.push({ tipo: 'repor', de: 'pyg', v: g, rec: g / fx });
-      livrePyg -= g;
+      var sg = mk('repor', 'pyg', g, livrePyg);
+      livrePyg -= Math.max(sg, 0);
     }
     var colPend = Math.max(0, r.colch - (S.colchUsd || 0) * fx),
       gc = Math.min(livrePyg, colPend);
-    if (gc > 50) passos.push({ tipo: 'colchao', de: 'pyg', v: gc, rec: gc / fx });
+    if (gc > 50) mk('colchao', 'pyg', gc, livrePyg);
     return { passos: passos, needRep: needRep, colPend: colPend };
   }
-  // Registra a troca do plano: ajusta o caixa e o histórico de trocas.
-  function trocarRegistrar() {
-    var p = trocarPlano(),
-      tot = 0;
-    p.passos.forEach(function (x) {
-      if (S.cash[x.de] < x.v - 0.01) return;
-      var v = x.de === 'pyg' ? Math.round(x.v / 100) * 100 : Math.round(x.v * 100) / 100,
-        rec = Math.round((v / ratePyg('usd')) * ratePyg(x.de) * 100) / 100;
+  // Registra a(s) troca(s) feita(s): entregue e recebido de cada linha. Ajusta caixa, reposição e colchão.
+  function trocarRegistrar(linhas) {
+    var tot = 0,
+      fx = ratePyg('usd');
+    linhas.forEach(function (x) {
+      var v = x.de === 'pyg' ? Math.round(x.v) : Math.round(x.v * 100) / 100,
+        rec = Math.round(x.rec * 100) / 100;
+      if (!(v > 0) || !(rec > 0) || (S.cash[x.de] || 0) < v - 0.005) return;
+      var dadoGs = v * ratePyg(x.de),
+        e = { ts: Date.now(), de: x.de, para: 'usd', dado: v, rec: rec, difGs: Math.round(rec * fx - dadoGs), tipo: x.tipo };
       S.cash[x.de] -= v;
       S.cash.usd += rec;
-      S.cambios.unshift({ ts: Date.now(), de: x.de, para: 'usd', dado: v, rec: rec, difGs: 0 });
       if (x.tipo === 'colchao') S.colchUsd = (S.colchUsd || 0) + rec;
+      else {
+        var devido = Math.max(0, reservas().rUSD - (S.repQuitUsd || 0)),
+          aplic = Math.min(rec, devido),
+          custoGs = dadoGs * (aplic / rec),
+          base = baseRepGs(S.repQuitUsd || 0, (S.repQuitUsd || 0) + aplic),
+          perda = Math.round(custoGs - base);
+        e.quit = aplic;
+        e.perdaGs = perda;
+        S.repQuitUsd = (S.repQuitUsd || 0) + aplic;
+        if (perda > 0) {
+          var uso = Math.min(perda, Math.max(0, reservas().colch));
+          if (uso > 0) {
+            e.usoTs = e.ts;
+            S.colchUsos.unshift({ ts: e.ts, usd: uso / fx, gs: Math.round(uso), nota: 'Dólar mais caro que o separado na venda' });
+          }
+        }
+      }
+      S.cambios.unshift(e);
       tot += rec;
     });
     S.cxMsg = tot > 0 ? 'Troca registrada: ' + usd(tot) + ' comprados.' : 'Nada para trocar agora.';
     return tot;
+  }
+  // Desfaz a última troca registrada pelo "Trocar agora".
+  function trocarDesfazer() {
+    var e = S.cambios[0];
+    if (!e || !e.tipo) return false;
+    S.cash[e.de] += e.dado;
+    S.cash.usd -= e.rec;
+    if (e.tipo === 'colchao') S.colchUsd = Math.max(0, (S.colchUsd || 0) - e.rec);
+    if (e.quit) S.repQuitUsd = Math.max(0, (S.repQuitUsd || 0) - e.quit);
+    if (e.usoTs) S.colchUsos = S.colchUsos.filter(function (u) {
+      return u.ts !== e.usoTs;
+    });
+    S.cambios.shift();
+    S.cxMsg = 'Troca desfeita.';
+    return true;
   }
   // ===== Forma de pagamento da venda e taxas (maquininha, Pix). =====
   // Taxa em % sobre o valor recebido. Dinheiro e Pix não têm taxa; ajuste a maquininha em Ajustes.
@@ -13852,18 +13938,6 @@
       });
     });
   }
-  // Lembrete: quando foi o último backup guardado fora do app.
-  function backupLembrete() {
-    if (!S.sales.length) return '';
-    var dias = S.backupTs ? Math.floor((Date.now() - S.backupTs) / DAY) : Infinity;
-    if (dias < 7) return '';
-    return (
-      '<div class="note n-warn">' +
-      (dias === Infinity ? 'Você ainda não guardou um backup fora do celular.' : 'Faz ' + dias + ' dias do último backup guardado fora do celular.') +
-      ' <a href="#ajustes" data-act="view" data-id="ajustes" style="color:var(--accent-fg)">Fazer agora</a></div>'
-    );
-  }
-
   // ---------- partes da aba Ajustes: pagamento, segurança e cópias
   function ajustesFinHtml() {
     var h = '';
@@ -18927,10 +19001,20 @@
   }
 
   // Cartão "Trocar agora": o dólar de hoje no intervalo dos últimos dias e o que dá para trocar.
+  // "cotação: R$ 5,43 por US$ 1 (mercado R$ 5,42)" a partir do que foi entregue e recebido.
+  function trocaCotacaoTxt(de, v, rec) {
+    var a = parseDec(v, de),
+      u = parseDec(rec, 'usd');
+    if (!(a > 0) || !(u > 0)) return 'Informe o que entregou e o que recebeu.';
+    var c = a / u,
+      mercado = de === 'pyg' ? S.fx.pyg : S.fx.brl,
+      dif = c / mercado - 1;
+    return 'Cotação que te cobraram: ' + (de === 'pyg' ? gsRaw(Math.round(c)) : 'R$ ' + nf(c, 'brl')) + ' por US$ 1 · mercado ' + (de === 'pyg' ? gsRaw(Math.round(mercado)) : 'R$ ' + nf(mercado, 'brl')) + ' (' + (de === 'pyg' ? (dif >= 0 ? '+' : '−') : dif <= 0 ? '−' : '+') + pc(Math.abs(dif)) + ')';
+  }
   function trocarAgoraHtml() {
     var p = trocarPlano(),
       dv = dolarFavoravel();
-    if (!p.passos.length && !(p.needRep > 0.004) && !dv) return '';
+    if (!p.passos.length && !(p.needRep > 0.004) && !dv && !(S.cambios[0] && S.cambios[0].tipo)) return '';
     var h = '<section class="card col"><div><h2 style="margin:0;font-size:16px">Trocar para dólar</h2></div>';
     if (dv) {
       var pos = Math.round(Math.max(0, Math.min(1, dv.pos)) * 100);
@@ -18943,22 +19027,29 @@
         '</div>';
     }
     if (p.passos.length) {
-      h += '<div class="split">';
-      var rep = p.passos.filter(function (x) {
-          return x.tipo === 'repor';
-        }),
-        col = p.passos.filter(function (x) {
-          return x.tipo === 'colchao';
-        }),
-        lin = function (x) {
-          return '<div class="sl"><span>' + fmtM(x.de === 'pyg' ? Math.round(x.v / 100) * 100 : Math.round(x.v * 100) / 100, x.de) + ' → ' + usd(x.rec) + '</span><b>' + fmtM(x.de === 'pyg' ? Math.round(x.v / 100) * 100 : Math.round(x.v * 100) / 100, x.de) + '</b></div>';
-        };
-      if (rep.length) h += '<div class="lbl" style="margin:0">Reposição (necessário)</div>' + rep.map(lin).join('');
-      if (col.length) h += '<div class="lbl" style="margin:8px 0 0">Colchão (' + (dv && dv.barato ? 'aproveitar o momento' : 'quando o dólar estiver barato') + ')</div>' + col.map(lin).join('');
-      h += '</div><button class="go" data-act="fxtrocar">Registrar troca</button>';
+      h += '<div class="hint" style="margin:0">Valores sugeridos. Troque o que fizer sentido e digite o que entregou e o que recebeu: o app calcula a cotação.</div>';
+      p.passos.forEach(function (x, i) {
+        var tin = (S.trIn || {})[i] || {},
+          v = tin.v != null ? tin.v : String(x.sug),
+          rec = tin.rec != null ? tin.rec : String(x.rec),
+          sim = x.de === 'pyg' ? 'G$' : 'R$';
+        h +=
+          '<div class="card col" style="padding:10px;margin:0"><div class="lbl" style="margin:0">' + (x.tipo === 'repor' ? 'Reposição (necessário)' : 'Colchão (' + (dv && dv.barato ? 'aproveitar o momento' : 'quando o dólar estiver barato') + ')') + '</div>' +
+          '<div class="sel" style="flex-wrap:wrap;align-items:center"><span class="hint" style="margin:0">Entreguei ' + sim + '</span><input class="in" id="trv' + i + '" inputmode="' + (x.de === 'pyg' ? 'numeric' : 'decimal') + '" data-in="trv" data-id="' + i + '" value="' + esc(v) + '" style="flex:1 1 90px;width:auto" aria-label="Valor entregue em ' + sim + '">' +
+          '<span class="hint" style="margin:0">Recebi US$</span><input class="in" id="trr' + i + '" inputmode="decimal" data-in="trr" data-id="' + i + '" value="' + esc(rec) + '" style="flex:1 1 80px;width:auto" aria-label="Dólares recebidos"></div>' +
+          '<div class="hint" id="trh' + i + '" style="margin:0">' + trocaCotacaoTxt(x.de, v, rec) + '</div></div>';
+      });
+      h += '<button class="go" data-act="fxtrocar">Registrar troca</button>';
     } else {
       h += '<div class="hint" style="margin:0">Nada para trocar agora com o dinheiro em caixa.</div>';
     }
+    var ult = S.cambios[0];
+    if (ult && ult.tipo)
+      h += '<div class="sl"><span>Última troca<small>' + fmtM(ult.dado, ult.de) + ' → ' + usd(ult.rec) + ' · ' + fd(ult.ts) + ' ' + fh(ult.ts) + '</small></span><button class="chip" data-act="fxdesfaz" style="min-height:36px">Desfazer</button></div>';
+    var lv = livre3();
+    if (lv.extraUsd > 0.004)
+      h += '<div class="note n-ok">Reposição adiantada: ' + usd(lv.extraUsd) + ' em dólar a mais, guardados para as próximas vendas.</div>';
+    if (S.cxMsg) h += '<div class="hint" role="status" style="margin:0">' + esc(S.cxMsg) + '</div>';
     return h + '</section>';
   }
   function renderFx() {
@@ -20227,7 +20318,26 @@
       renderCaixa();
     },
     fxtrocar: function () {
-      trocarRegistrar();
+      var linhas = [],
+        ruim = '';
+      trocarPlano().passos.forEach(function (x, i) {
+        var ti = (S.trIn || {})[i] || {},
+          v = parseDec(ti.v != null ? ti.v : String(x.sug), x.de),
+          rec = parseDec(ti.rec != null ? ti.rec : String(x.rec), 'usd');
+        if (!(v > 0) && !(rec > 0)) return;
+        if (!(v > 0) || !(rec > 0)) ruim = 'Informe o que entregou e o que recebeu.';
+        else if ((S.cash[x.de] || 0) < v - 0.005) ruim = 'Você não tem tudo isso em ' + x.de.toUpperCase() + ' no caixa.';
+        else linhas.push({ tipo: x.tipo, de: x.de, v: v, rec: rec });
+      });
+      if (ruim) S.cxMsg = ruim;
+      else {
+        trocarRegistrar(linhas);
+        S.trIn = {};
+      }
+      render();
+    },
+    fxdesfaz: function () {
+      trocarDesfazer();
       render();
     },
     trocar: function () {
@@ -20393,6 +20503,14 @@
     var t = e.target,
       k = t.getAttribute && t.getAttribute('data-in');
     if (!k) return;
+    if (k === 'trv' || k === 'trr') {
+      var ix = t.getAttribute('data-id'),
+        it = trocarPlano().passos[ix];
+      S.trIn = S.trIn || {};
+      S.trIn[ix] = { v: $('trv' + ix).value, rec: $('trr' + ix).value };
+      if (it && $('trh' + ix)) $('trh' + ix).textContent = trocaCotacaoTxt(it.de, S.trIn[ix].v, S.trIn[ix].rec);
+      return;
+    }
     if (k === 'exp') {
       var ex = S.exp.filter(function (x) {
           return String(x.id) === t.getAttribute('data-id');
@@ -20539,7 +20657,7 @@
           return a + x.usd;
         }, 0)
     );
-    var colch = S.ini.colch + sumBy(valid, 'colch'),
+    var colch = Math.max(0, S.ini.colch + sumBy(valid, 'colch') - sumBy(S.colchUsos || [], 'gs')),
       con = Math.max(
         0,
         sumBy(periodSales(30), 'contas') -
@@ -23703,6 +23821,7 @@
       'fxHist',
       'fxPer',
       'colchUsd',
+      'repQuitUsd',
       'colchUsos',
       'fxBaratoUlt',
       'sold',
@@ -23805,6 +23924,6 @@
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, whiten: whiten, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, backupLembrete: backupLembrete, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
+      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
     };
 })();

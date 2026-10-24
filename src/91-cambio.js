@@ -160,10 +160,20 @@
   }
 
   // Cartão "Trocar agora": o dólar de hoje no intervalo dos últimos dias e o que dá para trocar.
+  // "cotação: R$ 5,43 por US$ 1 (mercado R$ 5,42)" a partir do que foi entregue e recebido.
+  function trocaCotacaoTxt(de, v, rec) {
+    var a = parseDec(v, de),
+      u = parseDec(rec, 'usd');
+    if (!(a > 0) || !(u > 0)) return 'Informe o que entregou e o que recebeu.';
+    var c = a / u,
+      mercado = de === 'pyg' ? S.fx.pyg : S.fx.brl,
+      dif = c / mercado - 1;
+    return 'Cotação que te cobraram: ' + (de === 'pyg' ? gsRaw(Math.round(c)) : 'R$ ' + nf(c, 'brl')) + ' por US$ 1 · mercado ' + (de === 'pyg' ? gsRaw(Math.round(mercado)) : 'R$ ' + nf(mercado, 'brl')) + ' (' + (de === 'pyg' ? (dif >= 0 ? '+' : '−') : dif <= 0 ? '−' : '+') + pc(Math.abs(dif)) + ')';
+  }
   function trocarAgoraHtml() {
     var p = trocarPlano(),
       dv = dolarFavoravel();
-    if (!p.passos.length && !(p.needRep > 0.004) && !dv) return '';
+    if (!p.passos.length && !(p.needRep > 0.004) && !dv && !(S.cambios[0] && S.cambios[0].tipo)) return '';
     var h = '<section class="card col"><div><h2 style="margin:0;font-size:16px">Trocar para dólar</h2></div>';
     if (dv) {
       var pos = Math.round(Math.max(0, Math.min(1, dv.pos)) * 100);
@@ -176,22 +186,29 @@
         '</div>';
     }
     if (p.passos.length) {
-      h += '<div class="split">';
-      var rep = p.passos.filter(function (x) {
-          return x.tipo === 'repor';
-        }),
-        col = p.passos.filter(function (x) {
-          return x.tipo === 'colchao';
-        }),
-        lin = function (x) {
-          return '<div class="sl"><span>' + fmtM(x.de === 'pyg' ? Math.round(x.v / 100) * 100 : Math.round(x.v * 100) / 100, x.de) + ' → ' + usd(x.rec) + '</span><b>' + fmtM(x.de === 'pyg' ? Math.round(x.v / 100) * 100 : Math.round(x.v * 100) / 100, x.de) + '</b></div>';
-        };
-      if (rep.length) h += '<div class="lbl" style="margin:0">Reposição (necessário)</div>' + rep.map(lin).join('');
-      if (col.length) h += '<div class="lbl" style="margin:8px 0 0">Colchão (' + (dv && dv.barato ? 'aproveitar o momento' : 'quando o dólar estiver barato') + ')</div>' + col.map(lin).join('');
-      h += '</div><button class="go" data-act="fxtrocar">Registrar troca</button>';
+      h += '<div class="hint" style="margin:0">Valores sugeridos. Troque o que fizer sentido e digite o que entregou e o que recebeu: o app calcula a cotação.</div>';
+      p.passos.forEach(function (x, i) {
+        var tin = (S.trIn || {})[i] || {},
+          v = tin.v != null ? tin.v : String(x.sug),
+          rec = tin.rec != null ? tin.rec : String(x.rec),
+          sim = x.de === 'pyg' ? 'G$' : 'R$';
+        h +=
+          '<div class="card col" style="padding:10px;margin:0"><div class="lbl" style="margin:0">' + (x.tipo === 'repor' ? 'Reposição (necessário)' : 'Colchão (' + (dv && dv.barato ? 'aproveitar o momento' : 'quando o dólar estiver barato') + ')') + '</div>' +
+          '<div class="sel" style="flex-wrap:wrap;align-items:center"><span class="hint" style="margin:0">Entreguei ' + sim + '</span><input class="in" id="trv' + i + '" inputmode="' + (x.de === 'pyg' ? 'numeric' : 'decimal') + '" data-in="trv" data-id="' + i + '" value="' + esc(v) + '" style="flex:1 1 90px;width:auto" aria-label="Valor entregue em ' + sim + '">' +
+          '<span class="hint" style="margin:0">Recebi US$</span><input class="in" id="trr' + i + '" inputmode="decimal" data-in="trr" data-id="' + i + '" value="' + esc(rec) + '" style="flex:1 1 80px;width:auto" aria-label="Dólares recebidos"></div>' +
+          '<div class="hint" id="trh' + i + '" style="margin:0">' + trocaCotacaoTxt(x.de, v, rec) + '</div></div>';
+      });
+      h += '<button class="go" data-act="fxtrocar">Registrar troca</button>';
     } else {
       h += '<div class="hint" style="margin:0">Nada para trocar agora com o dinheiro em caixa.</div>';
     }
+    var ult = S.cambios[0];
+    if (ult && ult.tipo)
+      h += '<div class="sl"><span>Última troca<small>' + fmtM(ult.dado, ult.de) + ' → ' + usd(ult.rec) + ' · ' + fd(ult.ts) + ' ' + fh(ult.ts) + '</small></span><button class="chip" data-act="fxdesfaz" style="min-height:36px">Desfazer</button></div>';
+    var lv = livre3();
+    if (lv.extraUsd > 0.004)
+      h += '<div class="note n-ok">Reposição adiantada: ' + usd(lv.extraUsd) + ' em dólar a mais, guardados para as próximas vendas.</div>';
+    if (S.cxMsg) h += '<div class="hint" role="status" style="margin:0">' + esc(S.cxMsg) + '</div>';
     return h + '</section>';
   }
   function renderFx() {

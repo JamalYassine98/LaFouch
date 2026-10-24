@@ -6,6 +6,8 @@
   S.colchUsd = 0; // US$ do colchão que já foram trocados para dólar
   S.colchUsos = []; // usos do colchão em dólar: { ts, usd, nota }
   S.fxBaratoUlt = 0;
+  S.repQuitUsd = 0; // US$ de reposição já trocados em dólar (vendas mais antigas primeiro)
+  S.trIn = {}; // valores digitados no "Trocar agora"
 
   function vazio3() {
     return { pyg: 0, brl: 0, usd: 0 };
@@ -162,6 +164,7 @@
       needRep;
     av.usd -= repU;
     needRep = r.rUSD - repU;
+    var needRep0 = needRep;
     var colUsd = Math.min(av.usd, S.colchUsd || 0);
     av.usd -= colUsd;
     var extraUsd = av.usd; // dólar a mais: fica com a loja
@@ -196,7 +199,12 @@
       }
     });
     // colchão (a parte ainda em guarani) e melhorias: de cada moeda, na proporção do que sobrou
-    var colPend = Math.max(0, r.colch - (S.colchUsd || 0) * S.fx.pyg),
+    // se o dólar subiu desde as vendas, o colchão cobre a diferença do que ainda falta trocar
+    var colPend0 = Math.max(0, r.colch - (S.colchUsd || 0) * S.fx.pyg),
+      qa = S.repQuitUsd || 0,
+      subiu = needRep0 * S.fx.pyg - baseRepGs(qa, qa + needRep0),
+      colUso = Math.max(0, Math.min(subiu, colPend0)),
+      colPend = colPend0 - colUso,
       sobra = av.pyg * rt.pyg + av.brl * rt.brl,
       colEq = Math.min(colPend, sobra),
       melEq = Math.min(Math.max(0, r.melh), Math.max(0, sobra - colEq));
@@ -206,7 +214,7 @@
       lv[m] = Math.max(0, av[m] - (colEq * f) / rt[m] - (melEq * f) / rt[m]);
     });
     var livreEq = lv.pyg + lv.brl * rt.brl;
-    return { livre: lv, livreEq: livreEq, falta: Math.round(falta), extraUsd: extraUsd, wal: r.wal, r: r };
+    return { livre: lv, livreEq: livreEq, falta: Math.round(falta), extraUsd: extraUsd, colUso: colUso, wal: r.wal, r: r };
   }
 
   // Moedas que aparecem nos três cartões: as que entraram no período (guarani sempre).
@@ -306,13 +314,48 @@
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Colchão de segurança</h2><div class="hint" style="margin:2px 0 0">Reserva contra a alta do dólar. Em dólar ele não perde valor.</div></div>' +
       '<div class="sl"><span>Já em dólar<small>protegido</small></span><b style="color:var(--ok)">' + usd(emUsd) + '</b></div>' +
       '<div class="sl"><span>Ainda não trocado<small>espera o dólar ficar barato (em guaranis)</small></span><b>' + gs(Math.round(falta)) + '</b></div>' +
+      (livre3().colUso > 0.5
+        ? '<div class="sl"><span>Cobrindo a alta do dólar agora<small>diferença do que ainda falta trocar</small></span><b style="color:var(--warn)">− ' + usd(livre3().colUso / S.fx.pyg) + '</b></div>'
+        : '') +
       usos.map(function (x) {
         return '<div class="sl"><span>Usado para cobrir a alta<small>' + fd(x.ts) + (x.nota ? ' · ' + esc(x.nota) : '') + '</small></span><b style="color:var(--warn)">− ' + usd(x.usd) + '</b></div>';
       }).join('') +
       '<div class="hint" style="margin:0">Cada venda nova separa um colchão novo. Quando o dólar estiver barato, o app avisa para trocar.</div></section>'
     );
   }
+  // Custo, no câmbio de cada venda, dos dólares de reposição de a até b (as vendas mais antigas primeiro).
+  function baseRepGs(a, b) {
+    if (!(b > a)) return 0;
+    var lista = [],
+      pos = 0,
+      tot = 0;
+    if (S.ini.rep > 0) lista.push({ u: S.ini.rep, fx: S.fx.pyg });
+    S.sales
+      .filter(function (s) {
+        return !s.estorno && s.repUSD > 0;
+      })
+      .sort(function (x, y) {
+        return x.ts - y.ts;
+      })
+      .forEach(function (s) {
+        lista.push({ u: s.repUSD, fx: s.fx > 0 ? s.fx : S.fx.pyg });
+      });
+    lista.forEach(function (x) {
+      var ini = Math.max(a, pos),
+        fim = Math.min(b, pos + x.u);
+      if (fim > ini) tot += (fim - ini) * x.fx;
+      pos += x.u;
+    });
+    if (b > pos) tot += (b - Math.max(a, pos)) * S.fx.pyg;
+    return tot;
+  }
+  // Valor redondo para sugerir na troca: real na dezena, guarani em 50 mil, sempre para cima.
+  function arredTroca(v, de) {
+    var passo = de === 'pyg' ? 50000 : 10;
+    return Math.ceil(v / passo - 1e-9) * passo;
+  }
   // O que dá para trocar agora com o dinheiro em caixa: reposição (necessário) e colchão (aproveitar).
+  // Os valores vêm arredondados (R$ 250, G$ 500.000) e dá para editar na tela.
   function trocarPlano() {
     var r = reservas(),
       fx = S.fx.pyg,
@@ -322,35 +365,75 @@
       needRep = Math.max(0, r.rUSD - Math.max(0, S.cash.usd)),
       passos = [],
       rem = needRep,
-      b = Math.min(brl, rem * S.fx.brl);
+      b = Math.min(brl, rem * S.fx.brl),
+      mk = function (tipo, de, v, disp) {
+        var sug = Math.min(arredTroca(v, de), de === 'pyg' ? Math.floor(disp / 1000) * 1000 : Math.floor(disp)),
+          rec = Math.floor((sug * ratePyg(de)) / fx);
+        if (sug > 0 && rec >= 1) passos.push({ tipo: tipo, de: de, v: v, sug: sug, rec: rec });
+        return sug;
+      };
     if (b > 0.004) {
-      passos.push({ tipo: 'repor', de: 'brl', v: b, rec: b / S.fx.brl });
+      mk('repor', 'brl', b, brl);
       rem -= b / S.fx.brl;
     }
     var g = Math.min(livrePyg, Math.max(0, rem) * fx);
     if (g > 50) {
-      passos.push({ tipo: 'repor', de: 'pyg', v: g, rec: g / fx });
-      livrePyg -= g;
+      var sg = mk('repor', 'pyg', g, livrePyg);
+      livrePyg -= Math.max(sg, 0);
     }
     var colPend = Math.max(0, r.colch - (S.colchUsd || 0) * fx),
       gc = Math.min(livrePyg, colPend);
-    if (gc > 50) passos.push({ tipo: 'colchao', de: 'pyg', v: gc, rec: gc / fx });
+    if (gc > 50) mk('colchao', 'pyg', gc, livrePyg);
     return { passos: passos, needRep: needRep, colPend: colPend };
   }
-  // Registra a troca do plano: ajusta o caixa e o histórico de trocas.
-  function trocarRegistrar() {
-    var p = trocarPlano(),
-      tot = 0;
-    p.passos.forEach(function (x) {
-      if (S.cash[x.de] < x.v - 0.01) return;
-      var v = x.de === 'pyg' ? Math.round(x.v / 100) * 100 : Math.round(x.v * 100) / 100,
-        rec = Math.round((v / ratePyg('usd')) * ratePyg(x.de) * 100) / 100;
+  // Registra a(s) troca(s) feita(s): entregue e recebido de cada linha. Ajusta caixa, reposição e colchão.
+  function trocarRegistrar(linhas) {
+    var tot = 0,
+      fx = ratePyg('usd');
+    linhas.forEach(function (x) {
+      var v = x.de === 'pyg' ? Math.round(x.v) : Math.round(x.v * 100) / 100,
+        rec = Math.round(x.rec * 100) / 100;
+      if (!(v > 0) || !(rec > 0) || (S.cash[x.de] || 0) < v - 0.005) return;
+      var dadoGs = v * ratePyg(x.de),
+        e = { ts: Date.now(), de: x.de, para: 'usd', dado: v, rec: rec, difGs: Math.round(rec * fx - dadoGs), tipo: x.tipo };
       S.cash[x.de] -= v;
       S.cash.usd += rec;
-      S.cambios.unshift({ ts: Date.now(), de: x.de, para: 'usd', dado: v, rec: rec, difGs: 0 });
       if (x.tipo === 'colchao') S.colchUsd = (S.colchUsd || 0) + rec;
+      else {
+        var devido = Math.max(0, reservas().rUSD - (S.repQuitUsd || 0)),
+          aplic = Math.min(rec, devido),
+          custoGs = dadoGs * (aplic / rec),
+          base = baseRepGs(S.repQuitUsd || 0, (S.repQuitUsd || 0) + aplic),
+          perda = Math.round(custoGs - base);
+        e.quit = aplic;
+        e.perdaGs = perda;
+        S.repQuitUsd = (S.repQuitUsd || 0) + aplic;
+        if (perda > 0) {
+          var uso = Math.min(perda, Math.max(0, reservas().colch));
+          if (uso > 0) {
+            e.usoTs = e.ts;
+            S.colchUsos.unshift({ ts: e.ts, usd: uso / fx, gs: Math.round(uso), nota: 'Dólar mais caro que o separado na venda' });
+          }
+        }
+      }
+      S.cambios.unshift(e);
       tot += rec;
     });
     S.cxMsg = tot > 0 ? 'Troca registrada: ' + usd(tot) + ' comprados.' : 'Nada para trocar agora.';
     return tot;
+  }
+  // Desfaz a última troca registrada pelo "Trocar agora".
+  function trocarDesfazer() {
+    var e = S.cambios[0];
+    if (!e || !e.tipo) return false;
+    S.cash[e.de] += e.dado;
+    S.cash.usd -= e.rec;
+    if (e.tipo === 'colchao') S.colchUsd = Math.max(0, (S.colchUsd || 0) - e.rec);
+    if (e.quit) S.repQuitUsd = Math.max(0, (S.repQuitUsd || 0) - e.quit);
+    if (e.usoTs) S.colchUsos = S.colchUsos.filter(function (u) {
+      return u.ts !== e.usoTs;
+    });
+    S.cambios.shift();
+    S.cxMsg = 'Troca desfeita.';
+    return true;
   }

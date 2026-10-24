@@ -123,9 +123,10 @@
     });
     perd += somaCampo(S.descartes, 'valor', lim);
     r.perdas = Math.round(perd);
+    r.cambio = Math.round(somaCampo(S.cambios, 'perdaGs', lim));
     r.retAvulsas = somaCampo(S.retiradas, 'valor', lim);
     r.retTotal = r.retAvulsas + r.contasPessoais;
-    r.resultado = r.vendas - r.cmv - r.taxas - r.contasLoja - r.imprev - r.melh - r.perdas;
+    r.resultado = r.vendas - r.cmv - r.taxas - r.contasLoja - r.imprev - r.melh - r.perdas - r.cambio;
     r.sobra = r.resultado - r.retTotal;
     r.tem = r.n > 0 || r.contasLoja > 0 || r.retTotal > 0 || r.imprev > 0;
     // os mesmos números no dólar e no real do dia de cada venda e de cada conta (valores fixos)
@@ -143,7 +144,8 @@
         }),
         imprev: somaEq(S.imprev, 'valor', lim),
         melh: somaEq(S.melhUso, 'valor', lim),
-        retAvulsas: somaEq(S.retiradas, 'valor', lim)
+        retAvulsas: somaEq(S.retiradas, 'valor', lim),
+        cambio: somaEq(S.cambios, 'perdaGs', lim)
       },
       pd = somaEq(S.descartes, 'valor', lim);
     ['usd', 'brl'].forEach(function (m) {
@@ -159,7 +161,7 @@
       });
       eq[m].perdas = pu + pd[m];
       eq[m].retTotal = eq[m].retAvulsas + eq[m].contasPessoais;
-      eq[m].resultado = eq[m].vendas - eq[m].cmv - eq[m].taxas - eq[m].contasLoja - eq[m].imprev - eq[m].melh - eq[m].perdas;
+      eq[m].resultado = eq[m].vendas - eq[m].cmv - eq[m].taxas - eq[m].contasLoja - eq[m].imprev - eq[m].melh - eq[m].perdas - eq[m].cambio;
       eq[m].sobra = eq[m].resultado - eq[m].retTotal;
     });
     r.eq = eq;
@@ -173,6 +175,7 @@
     ['Imprevistos', 'imprev'],
     ['Caixa de melhorias usada', 'melh'],
     ['Perdas de estoque (contagem e descarte)', 'perdas'],
+    ['Câmbio nas trocas (dólar mais caro que o separado)', 'cambio'],
     ['Resultado da loja', 'resultado', true],
     ['Retiradas do dono (inclui contas de casa e pessoais)', 'retTotal'],
     ['Sobra do mês', 'sobra', true]
