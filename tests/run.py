@@ -438,7 +438,7 @@ async def main():
             await pg.wait_for_timeout(300)
             total += 1
             a = await pg.evaluate("() => [document.getElementById('vListCard').hidden, document.getElementById('vDetail').hidden, document.getElementById('vSaleCard').hidden]")
-            await pg.locator('#vRows .pcard:has-text("SP57765")').click(); await pg.wait_for_timeout(400)
+            await pg.locator('#vRows .pcard[data-ref="SP57765"]').click(); await pg.wait_for_timeout(400)
             cat1 = await pg.evaluate("() => document.getElementById('catV').hidden")
             b1 = await pg.evaluate("() => [document.getElementById('vListCard').hidden, document.getElementById('vDetail').hidden, document.getElementById('vSaleCard').hidden, !!document.querySelector('#vDetail button[aria-label=\\'Editar\\']'), document.querySelectorAll('#vDetail .pl.pick').length]")
             await pg.locator('#vDetail .pl.pick').nth(1).click(); await pg.wait_for_timeout(300)
@@ -449,6 +449,84 @@ async def main():
             ok = cat1 is True and cat2 is False and a == [False, True, True] and b1 == [True, False, False, False, 4] and c == ['+1.00', True] and d == [False, True, ''] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'tela Vendas: produto abre em janela própria, escolhe a variante e volta à lista')
             if not ok: falhas.append('vendas janela'); print('        veio', a, b1, c, d, pg.erros)
+            await pg.close()
+
+            # Vendas: abas, grau do cliente, cores como cartões, código escondido, peças de lotes diferentes juntas
+            pg = await pagina()
+            await pg.evaluate("""() => { const L = window.__LF, S = L.S;
+              S.items = [
+                {tipo:'pre',ref:'T1',grau:'+1.00',cor:'Preto',qty:3,fmt:'',med:'',vr:'',lote:'A'},
+                {tipo:'pre',ref:'T1',grau:'+1.00',cor:'Preto',qty:2,fmt:'',med:'',vr:'',lote:'B'},
+                {tipo:'pre',ref:'T1',grau:'+1.50',cor:'Preto',qty:0,fmt:'',med:'',vr:''},
+                {tipo:'pre',ref:'T1',grau:'+1.00',cor:'Azul',qty:4,fmt:'',med:'',vr:''},
+                {tipo:'pre',ref:'T2',grau:'+1.50',cor:'Verde',qty:5,fmt:'',med:'',vr:''},
+                {tipo:'pre',ref:'T3',grau:'+2.00',cor:'Preto',qty:0,fmt:'',med:'',vr:''},
+                {tipo:'sem',ref:'AR1',grau:'',cor:'Preto',qty:2,fmt:'Redondo',med:'50-20-140',vr:'C1'},
+                {tipo:'sem',ref:'AR1',grau:'',cor:'Bege',qty:3,fmt:'Redondo',med:'50-20-140',vr:'C2'}];
+              S.grp = []; S.cart = []; S.vq = ''; S.vRef = ''; S.vSel = null; S.vTipo = 'all'; S.vGrau = ''; L.setView('vendas'); }""")
+            await pg.wait_for_timeout(300)
+            tabs = await pg.evaluate("() => [...document.querySelectorAll('#vTabs .chip')].map(b => b.innerText)")
+            await pg.locator('#vTabs .chip', has_text='Pré-graduados').click(); await pg.wait_for_timeout(300)
+            graus = await pg.evaluate("() => [...document.querySelectorAll('#vGrades .chip')].map(b => [b.firstChild.textContent, b.querySelector('small').textContent, b.classList.contains('off')])")
+            await pg.locator('#vGrades .chip', has_text='+1.50').click(); await pg.wait_for_timeout(300)
+            so150 = await pg.evaluate("() => [...document.querySelectorAll('#vRows .pcard')].map(c => c.dataset.ref)")
+            semcod = await pg.evaluate("() => !document.getElementById('vRows').innerText.includes('Código ')")
+            await pg.locator('#vGrades .chip', has_text='+1.50').click(); await pg.wait_for_timeout(200)
+            await pg.locator('#vRows .pcard[data-ref="T1"]').click(); await pg.wait_for_timeout(400)
+            det = await pg.evaluate("""() => { const d = document.getElementById('vDetail');
+              return { semBolinha: d.querySelectorAll('.dot').length, graus: [...d.querySelectorAll('.pl.pick')].map(x => x.innerText.replace(/\\s+/g,' ')),
+                       cartoes: [...d.querySelectorAll('.ccard')].map(x => x.innerText.replace(/\\s+/g,' ')), barra: !!d.querySelector('.vsale'), codigo: d.innerText.includes('Nº') } }""")
+            await pg.evaluate("() => { const S = window.__LF.S; S.qty = 5; window.__LF.render(); }"); await pg.wait_for_timeout(200)
+            await pg.locator('#vDetail .vsale .go').click(); await pg.wait_for_timeout(300)
+            cart = await pg.evaluate("() => window.__LF.S.cart.map(l => [l.it.lote, l.qty])")
+            await pg.evaluate("() => { const S = window.__LF.S; S.cart = []; S.vTipo = 'sem'; S.vRef = 'sem|AR1'; S.vSel = null; window.__LF.render(); }"); await pg.wait_for_timeout(300)
+            arm = await pg.evaluate("() => [...document.querySelectorAll('#vDetail .ccard')].map(x => x.innerText.replace(/\\s+/g,' '))")
+            await pg.locator('#vDetail .ccard', has_text='Bege').click(); await pg.wait_for_timeout(300)
+            selcor = await pg.evaluate("() => window.__LF.S.vSel && window.__LF.S.vSel.cor")
+            ok = (tabs == ['Armações', 'Solares', 'Pré-graduados'] and graus == [['+1.00', '1', False], ['+1.50', '1', False], ['+2.00', 'esgotado', True]]
+                  and so150 == ['T2'] and semcod
+                  and det['semBolinha'] == 0 and det['graus'] == ['+1.00 9 un.', '+1.50 Esgotado'] and len(det['cartoes']) == 2 and det['barra'] and not det['codigo']
+                  and sorted(cart) == [['A', 3], ['B', 2]]
+                  and len(arm) == 2 and selcor == 'Bege' and not pg.erros)
+            total += 1
+            print(('  ok  ' if ok else ' FALHA ') + 'Vendas: abas, grau, cores em cartões, sem código/bolinha, lotes iguais somados')
+            if not ok: falhas.append('vendas catálogo'); print('        veio', tabs, graus, so150, semcod, det, cart, arm, selcor, pg.erros)
+            await pg.close()
+
+            # Estoque: abas Produtos/Lotes/Reposição, mapa de graus e lista de compra
+            pg = await pagina()
+            await pg.evaluate("""() => { const L = window.__LF, S = L.S;
+              S.items = [
+                {tipo:'pre',ref:'T1',grau:'+0.25',cor:'Preto',qty:12,fmt:'',med:'',vr:''},
+                {tipo:'pre',ref:'T1',grau:'+1.50',cor:'Preto',qty:4,fmt:'',med:'',vr:''},
+                {tipo:'pre',ref:'T2',grau:'+1.50',cor:'Azul',qty:1,fmt:'',med:'',vr:''},
+                {tipo:'pre',ref:'T2',grau:'+3.50',cor:'Azul',qty:2,fmt:'',med:'',vr:''},
+                {tipo:'pre',ref:'T2',grau:'+3.00',cor:'Azul',qty:5,fmt:'',med:'',vr:''}];
+              S.grp = [{id:'G1',forn:'Kaz',tipo:'pre',qty:24,usd:0.5,totalUsd:12,moeda:'usd',sold:0,ts:Date.now()}];
+              S.tipo = 'pre'; S.todos = false; S.selSet = []; S.q = ''; S.repQ = {}; S.repMix = ''; S.repLista = false; S.repoView = false; S.lotesView = false; L.setView('estoque'); }""")
+            await pg.wait_for_timeout(300)
+            mapa = await pg.evaluate("""() => [...document.querySelectorAll('#mapaB .gcell')].map(c => c.className.replace('gcell','').replace('on','').trim() + ':' + c.querySelector('b').innerText)""")
+            abas = await pg.evaluate("() => [...document.querySelectorAll('#eTabs .chip')].map(b => b.innerText.replace(/\\s+/g,' '))")
+            kl = await pg.evaluate("() => document.getElementById('kLot').hidden")
+            await pg.locator('#mapaB .gcell', has_text='+1.50').click(); await pg.wait_for_timeout(300)
+            filtro = await pg.evaluate("() => window.__LF.S.q")
+            await pg.locator('#mapaB .gcell', has_text='+1.50').click(); await pg.wait_for_timeout(200)
+            await pg.click('#eTabR'); await pg.wait_for_timeout(300)
+            rep = await pg.evaluate("""() => ({ vis: !document.getElementById('repoView').hidden, lista: document.getElementById('listCard').hidden, mapa: document.getElementById('mapaB').hidden,
+                itens: [...document.querySelectorAll('#repoView .repit[data-g]')].map(r => r.dataset.g + ':' + r.querySelector('.st2 i').innerText) })""")
+            await pg.locator('#repoView .repit[data-g="+3.50"] button[aria-label^="Mais"]').click(); await pg.wait_for_timeout(200)
+            await pg.click('#repGerar'); await pg.wait_for_timeout(200)
+            txt = await pg.evaluate("() => document.querySelector('#repoView .replist').innerText")
+            await pg.click('#eTabP'); await pg.wait_for_timeout(300)
+            volta = await pg.evaluate("() => [document.getElementById('repoView').hidden, document.getElementById('listCard').hidden]")
+            ok = (mapa.count('r:0') == 12 and mapa.count('y:5') == 2 and 'y:2' in mapa and 'g:12' in mapa and abas == ['Produtos', 'Lotes 1', 'Reposição'] and kl is True
+                  and filtro == '+1.50' and rep['vis'] and rep['lista'] and rep['mapa']
+                  and rep['itens'][0] == '+0.50:1' and '+3.50:1' in rep['itens'] and '+3.00:0' in rep['itens'] and '+1.50:0' in rep['itens']
+                  and '+3.50 · 2 pacotes de 24' in txt and 'Total: 336 peças' in txt
+                  and volta == [True, False] and not pg.erros)
+            total += 1
+            print(('  ok  ' if ok else ' FALHA ') + 'Estoque: abas, mapa de graus e lista de compra em pacotes')
+            if not ok: falhas.append('estoque abas'); print('        veio', mapa, abas, kl, filtro, rep, txt, volta, pg.erros)
             await pg.close()
 
             # Histórico: carrega 30 dias, busca, filtros, calendário
@@ -531,10 +609,10 @@ async def main():
             pg = await pagina()
             await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.cart = []; S.cartOpen = false; S.vRef = ''; S.vSel = null; S.vq = ''; S.vTipo = 'all'; S.vFaixa = ''; S.qty = 1; L.setView('vendas'); }""")
             await pg.wait_for_timeout(300)
-            await pg.locator('#vRows .pcard:has-text("SP57765")').click(); await pg.wait_for_timeout(300)
+            await pg.locator('#vRows .pcard[data-ref="SP57765"]').click(); await pg.wait_for_timeout(300)
             await pg.locator('#sCartAdd').click(); await pg.wait_for_timeout(300)
             u1 = await pg.evaluate("() => [document.getElementById('cartBar').hidden, document.getElementById('cartBar').textContent.indexOf('Pedido: 1') >= 0, window.__LF.S.cart.length]")
-            await pg.locator('#vRows .pcard:not(:has-text("SP57765"))').first.click(); await pg.wait_for_timeout(300)
+            await pg.locator('#vRows .pcard:not([data-ref="SP57765"])').first.click(); await pg.wait_for_timeout(300)
             await pg.locator('#sCartAdd').click(); await pg.wait_for_timeout(300)
             await pg.locator('[data-act=cartopen]').click(); await pg.wait_for_timeout(300)
             await pg.locator('#cartCard input[data-in=cartpreco]').first.fill('1000'); await pg.wait_for_timeout(200)

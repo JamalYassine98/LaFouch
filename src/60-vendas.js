@@ -15,6 +15,7 @@
             return x.id === i.tipo;
           }) &&
           (S.vTipo === 'all' || i.tipo === S.vTipo) &&
+          (!S.vGrau || S.vTipo !== 'pre' || i.grau === S.vGrau) &&
           (!S.vFaixa || (faixaOf(i.ref) || {}).id === S.vFaixa) &&
           (!qm || qm(i))
         );
@@ -41,6 +42,73 @@
         )
       );
     });
+    // abas de tipo (sempre à vista) e fileira de graus nos pré-graduados
+    var vtb = $('vTabs');
+    vtb.textContent = '';
+    var ordTab = ['sem', 'solar', 'pre'];
+    TIPOS.slice()
+      .sort(function (a, b) {
+        var ia = ordTab.indexOf(a.id),
+          ib = ordTab.indexOf(b.id);
+        return (ia < 0 ? 9 : ia) - (ib < 0 ? 9 : ib);
+      })
+      .forEach(function (x) {
+      vtb.appendChild(
+        btn(
+          'chip' + (S.vTipo === x.id ? ' on' : ''),
+          x.label,
+          function () {
+            S.vTipo = S.vTipo === x.id ? 'all' : x.id;
+            S.vGrau = '';
+            S.vRef = '';
+            S.vSel = null;
+            S.qty = 1;
+            S.msg = '';
+            render();
+          },
+          S.vTipo === x.id
+        )
+      );
+    });
+    var vgb = $('vGradesB'),
+      vg = $('vGrades');
+    vg.textContent = '';
+    vgb.hidden = S.vTipo !== 'pre';
+    if (S.vTipo === 'pre') {
+      var gmap = {};
+      S.items.forEach(function (i) {
+        if (i.tipo !== 'pre' || !i.grau) return;
+        var o = gmap[i.grau] || (gmap[i.grau] = { refs: {}, n: 0 });
+        if (i.qty > 0 && !o.refs[i.ref]) {
+          o.refs[i.ref] = 1;
+          o.n++;
+        }
+      });
+      Object.keys(gmap)
+        .sort(function (a, b) {
+          return parseFloat(a) - parseFloat(b);
+        })
+        .forEach(function (g0) {
+          var o = gmap[g0],
+            on = S.vGrau === g0,
+            cb = btn(
+              'chip' + (on ? ' on' : '') + (o.n ? '' : ' off'),
+              '',
+              function () {
+                if (!o.n) return;
+                S.vGrau = on ? '' : g0;
+                S.vRef = '';
+                S.vSel = null;
+                S.qty = 1;
+                render();
+              },
+              on
+            );
+          cb.appendChild(document.createTextNode(g0));
+          cb.appendChild(mk('small', '', o.n ? String(o.n) : 'esgotado'));
+          vg.appendChild(cb);
+        });
+    }
     var vf = $('vFaixas');
     vf.textContent = '';
     $('vFaixaB').hidden = !S.faixas.length;
@@ -105,6 +173,7 @@
         },
         k === S.vRef
       );
+      card.dataset.ref = f.ref;
       card.appendChild(photoBox(photoOf(f.ref), 'pbox'));
       card.appendChild(mk('b', '', pn(f.ref)));
       var fxa = faixaOf(f.ref);
@@ -113,7 +182,6 @@
         ft.style.alignSelf = 'flex-start';
         card.appendChild(ft);
       }
-      if (S.pnome && S.pnome[f.ref]) card.appendChild(mk('span', 's', 'Código ' + f.ref));
       card.appendChild(
         mk(
           'span',
@@ -125,9 +193,56 @@
                 (!tp.simple && f.med ? ' · ' + f.med : ''))
         )
       );
-      var stt = mk('span', 'cell ' + (tot <= 2 ? 'low' : ''), tot + ' em estoque');
+      var pr0 = tFor(f).price;
+      if (pr0) {
+        var pp = mk('b', '', gs(pr0));
+        pp.style.color = 'var(--ok)';
+        card.appendChild(pp);
+      }
+      // cores em estoque (miniaturas) e, nos pré-graduados, a faixa de graus
+      var cs = [];
+      g.forEach(function (i) {
+        if (i.qty > 0 && cs.indexOf(i.cor) < 0) cs.push(i.cor);
+      });
+      var gr = g
+        .filter(function (i) {
+          return i.tipo === 'pre' && i.grau && i.qty > 0;
+        })
+        .map(function (i) {
+          return i.grau;
+        })
+        .sort(function (a, b) {
+          return parseFloat(a) - parseFloat(b);
+        });
+      var lbl = tot + ' un.';
+      if (gr.length)
+        lbl =
+          (S.vGrau || gr[0] === gr[gr.length - 1] ? gr[0] : gr[0] + ' a ' + gr[gr.length - 1]) +
+          ' · ' +
+          lbl;
+      lbl += ' · ' + cs.length + (cs.length === 1 ? ' cor' : ' cores');
+      var stt = mk('span', 'cell ' + (tot <= 5 ? 'low' : ''), lbl);
       stt.style.alignSelf = 'flex-start';
       card.appendChild(stt);
+      if (cs.length) {
+        var pc = mk('div', 'pcolors');
+        cs.slice(0, 5).forEach(function (c) {
+          var sp = mk('span', ''),
+            fk = S.fotos[f.ref + '|' + c];
+          if (fk) {
+            var ig = mk('img');
+            ig.src = fk;
+            ig.alt = c;
+            sp.appendChild(ig);
+          } else {
+            var bx = mk('i', '');
+            bx.style.background = hexOf(c);
+            sp.appendChild(bx);
+          }
+          pc.appendChild(sp);
+        });
+        card.appendChild(pc);
+      }
       rows.appendChild(card);
     });
     if (!order.length)
@@ -190,7 +305,6 @@
         im.alt = 'Foto ' + i.ref;
         l.appendChild(im);
       }
-      l.appendChild(dot(hexOf(i.cor)));
       l.appendChild(document.createTextNode(lineLabel(i)));
       b.appendChild(l);
       b.appendChild(
@@ -203,7 +317,7 @@
       vl.appendChild(b);
     });
     var t = sel ? tipoOf(sel.tipo) : null,
-      max = sel ? sel.qty : 0;
+      max = sel ? gQty(sel) : 0;
     S._vcap = Math.max(max, 1);
     S.qty = Math.max(1, Math.min(S.qty, S._vcap));
     S._vsel = sel;
@@ -337,6 +451,7 @@
   }
   $('vq').oninput = function (e) {
     S.vq = e.target.value;
+    S.vGrau = S.vq.trim() ? '' : S.vGrau;
     S.vRef = '';
     S.vSel = null;
     S.qty = 1;

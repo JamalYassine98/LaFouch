@@ -86,11 +86,16 @@
     cdRef: '',
     vq: '',
     vTipo: 'all',
+    vGrau: '',
     vRef: '',
     vSel: null,
     addOpen: false,
     addMode: 'prod',
     lotesView: false,
+    repoView: false,
+    repQ: {},
+    repMix: '',
+    repLista: false,
     selSet: [],
     multi: false,
     lotSel: '',
@@ -930,9 +935,50 @@
       i.bulk ? 1 : 0
     ].join('|');
   }
+  // Mesma variante vinda de lotes diferentes: na venda aparece como uma só (o preço é igual).
+  function sKey(i) {
+    return [i.tipo, i.ref, i.cor, i.grau || '', i.vr || '', i.fmt || '', i.med || '', i.bulk ? 1 : 0].join('|');
+  }
+  function sibs(i) {
+    var k = sKey(i);
+    return S.items.filter(function (x) {
+      return x.qty > 0 && sKey(x) === k;
+    });
+  }
+  // Estoque somado das peças iguais (de todos os lotes).
+  function gQty(i) {
+    var l = sibs(i);
+    return l.length
+      ? l.reduce(function (n, x) {
+          return n + x.qty;
+        }, 0)
+      : i.qty;
+  }
+  // A peça com mais estoque do grupo: é a que a venda usa primeiro.
+  function gPrim(i) {
+    var l = sibs(i).sort(function (a, b) {
+      return b.qty - a.qty;
+    });
+    return l[0] || i;
+  }
   // Rótulo curto da variante: grau ou classe de cor + cor.
   function rowLabel(i) {
     return (isSimple(i.tipo) ? '' : (i.tipo === 'pre' ? i.grau : i.vr) + (i.cor === 'Sem cor' ? '' : ' · ')) + (isSimple(i.tipo) || i.cor !== 'Sem cor' ? i.cor : '');
+  }
+  // Foto ampliada em tela cheia; tocar fecha.
+  function zoomFoto(src) {
+    var ov = mk('div', 'modal'),
+      im = mk('img');
+    ov.style.alignItems = 'center';
+    ov.style.cursor = 'zoom-out';
+    im.src = src;
+    im.alt = 'Foto ampliada';
+    im.style.cssText = 'max-width:100%;max-height:92vh;background:#fff;border-radius:12px;object-fit:contain';
+    ov.appendChild(im);
+    ov.onclick = function () {
+      ov.remove();
+    };
+    document.body.appendChild(ov);
   }
   // Detalhe de um código: fotos, cores, estoque, venda e janela de edição.
   // opt.venda = true: mesma tela, no modo venda (aba Vendas): sem edição nem custo; devolve a variante escolhida.
@@ -1017,6 +1063,18 @@
     var rows = all.slice().sort(function (a, b) {
       return f.tipo === 'pre' ? parseFloat(a.grau) - parseFloat(b.grau) : a.vr < b.vr ? -1 : 1;
     });
+    if (venda) {
+      var vistos = {};
+      rows = rows.filter(function (i) {
+        var k = sKey(i);
+        if (vistos[k]) return false;
+        vistos[k] = 1;
+        return true;
+      });
+      rows = rows.map(function (i) {
+        return gPrim(i);
+      });
+    }
     // variante selecionada: a escolhida antes, senão a da cor atual, senão a primeira com foto/estoque
     var sel = rows.filter(function (i) {
       return rowKey(i) === S.detRow;
@@ -1125,13 +1183,72 @@
       left = mk('div', 'col'),
       right = mk('div', 'col');
     left.appendChild(photoBox(src, 'pbox'));
-    if (gal.length > 1) {
+    // troca a cor mostrada; na venda escolhe também uma variante vendável dessa cor
+    var pickCor = function (c) {
+      S.detCor = c;
+      S.detVr = null;
+      S.detRow = null;
+      if (venda) {
+        var rr =
+          rows.filter(function (i) {
+            return i.cor === c && i.qty > 0 && sel && i.grau === sel.grau;
+          })[0] ||
+          rows.filter(function (i) {
+            return i.cor === c && i.qty > 0;
+          })[0];
+        S.vSel = rr || null;
+        S.qty = 1;
+        S.msg = '';
+      }
+      render();
+    };
+    if (venda) {
+      // foto grande com pontinhos: deslizar troca a cor, tocar amplia
+      var pbv = photoBox(src, 'pbox');
+      pbv.style.position = 'relative';
+      if (gal.length > 1) {
+        var dts = mk('div', '');
+        dts.style.cssText =
+          'position:absolute;bottom:8px;left:0;right:0;display:flex;gap:6px;justify-content:center';
+        gal.forEach(function (c) {
+          var d1 = mk('i', '');
+          d1.style.cssText =
+            'display:block;height:7px;border-radius:9px;background:' +
+            (c === cor ? '#a0457a' : '#c8ccd4') +
+            ';width:' +
+            (c === cor ? '22px' : '7px');
+          dts.appendChild(d1);
+        });
+        pbv.appendChild(dts);
+        var tx0 = null;
+        pbv.addEventListener(
+          'touchstart',
+          function (e) {
+            tx0 = e.touches[0].clientX;
+          },
+          { passive: true }
+        );
+        pbv.addEventListener('touchend', function (e) {
+          if (tx0 == null) return;
+          var dx = e.changedTouches[0].clientX - tx0;
+          tx0 = null;
+          if (Math.abs(dx) < 40) return;
+          var g0 = gal.indexOf(cor);
+          pickCor(gal[(Math.max(g0, 0) + (dx < 0 ? 1 : -1) + gal.length) % gal.length]);
+        });
+      }
+      if (src) {
+        pbv.style.cursor = 'zoom-in';
+        pbv.onclick = function () {
+          zoomFoto(src);
+        };
+      }
+      left.removeChild(left.lastChild);
+      left.appendChild(pbv);
+    } else if (gal.length > 1) {
       var gi = gal.indexOf(cor),
         go = function (d) {
-          S.detCor = gal[(Math.max(gi, 0) + d + gal.length) % gal.length];
-          S.detVr = null;
-          S.detRow = null;
-          render();
+          pickCor(gal[(Math.max(gi, 0) + d + gal.length) % gal.length]);
         };
       var nv = mk('div', '');
       nv.style.cssText = 'display:flex;align-items:center;justify-content:space-between;gap:8px';
@@ -1156,10 +1273,7 @@
           '',
           ' ',
           function () {
-            S.detCor = c;
-            S.detVr = null;
-            S.detRow = null;
-            render();
+            pickCor(c);
           },
           c === cor
         );
@@ -1197,8 +1311,8 @@
       mk(
         'div',
         'crumb',
-        (numOf(ref) ? 'Nº ' + numOf(ref) + ' · ' : '') +
-          (named ? ref + ' · ' : '') +
+        (!venda && numOf(ref) ? 'Nº ' + numOf(ref) + ' · ' : '') +
+          (!venda && named ? ref + ' · ' : '') +
           (tipoOf(f.tipo) || T()).full +
           (isSimple(f.tipo)
             ? f.fmt && !f.bulk
@@ -1208,6 +1322,12 @@
       )
     );
     right.appendChild(h);
+    if (venda) {
+      var prv = tFor(sel).price;
+      var hp = mk('div', '', prv ? gs(prv) : 'Preço livre');
+      hp.style.cssText = 'font-size:26px;font-weight:800;color:var(--ok)';
+      right.appendChild(hp);
+    }
     var dtxt = S.desc[ref] != null ? String(S.desc[ref]).trim() : '';
     if (dtxt) {
       var dp = mk('div', '', dtxt);
@@ -1226,7 +1346,7 @@
       mk(
         'div',
         'lbl',
-        (f.tipo === 'pre' ? 'Graus' : isSimple(f.tipo) ? 'Itens' : 'Cores') + ' · estoque' + (f.tipo === 'pre' && rows.length > 1 && rows.every(function (x) { return x.cor === rows[0].cor; }) && rows[0].cor !== 'Sem cor' ? ' · ' + rows[0].cor : '')
+        (venda ? (f.tipo === 'pre' ? 'Grau' : 'Cor') : (f.tipo === 'pre' ? 'Graus' : isSimple(f.tipo) ? 'Itens' : 'Cores') + ' · estoque') + (f.tipo === 'pre' && rows.length > 1 && rows.every(function (x) { return x.cor === rows[0].cor; }) && rows[0].cor !== 'Sem cor' ? ' · ' + rows[0].cor : '')
       )
     );
     var pl = mk('div', 'col');
@@ -1254,6 +1374,90 @@
       rows.every(function (x) {
         return x.cor === rows[0].cor;
       });
+    var nomeCor = function (c) {
+      return c === 'Sem cor' ? 'Padrão' : c;
+    };
+    // cartões de cor: foto, nome e estoque (só na venda)
+    var corCard = function (i, nm) {
+      var on = i === sel,
+        cb = btn('ccard' + (on ? ' on' : '') + (i.qty > 0 ? '' : ' off'), '', function () {
+          choose(i);
+        }, on);
+      var fk = S.fotos[ref + '|' + i.cor];
+      var im = mk('span', 'ci');
+      if (fk) {
+        var ig = mk('img');
+        ig.src = fk;
+        ig.alt = nomeCor(i.cor);
+        im.appendChild(ig);
+      } else im.style.background = hexOf(i.cor);
+      cb.appendChild(im);
+      cb.appendChild(mk('b', '', nm || nomeCor(i.cor)));
+      cb.appendChild(mk('span', 'n', gQty(i) > 0 ? gQty(i) + ' un.' : 'Esgotado'));
+      return cb;
+    };
+    var vPreMulti =
+      venda &&
+      f.tipo === 'pre' &&
+      rows.some(function (x) {
+        return x.cor !== rows[0].cor;
+      });
+    if (venda && f.tipo !== 'pre') {
+      // armação/solar: as cores são cartões com foto, nome e estoque
+      if (rows.length > 1) {
+        var cl = mk('div', 'ccards');
+        rows.forEach(function (i) {
+          cl.appendChild(corCard(i));
+        });
+        pl.appendChild(cl);
+      }
+    } else if (vPreMulti) {
+      // pré-graduado em várias cores: primeiro o grau, depois a cor desse grau
+      var graus = [];
+      rows.forEach(function (i) {
+        if (graus.indexOf(i.grau) < 0) graus.push(i.grau);
+      });
+      var gl0 = mk('div', 'ccards');
+      graus.forEach(function (g0) {
+        var rg = rows.filter(function (i) {
+            return i.grau === g0;
+          }),
+          tq = rg.reduce(function (n, i) {
+            return n + gQty(i);
+          }, 0),
+          gb = mk('div', 'pl pick' + (g0 === sel.grau ? ' picked' : ''));
+        gb.tabIndex = 0;
+        gb.setAttribute('role', 'button');
+        gb.setAttribute('aria-pressed', g0 === sel.grau);
+        gb.onclick = function () {
+          var pick =
+            rg.filter(function (i) {
+              return i.qty > 0 && i.cor === sel.cor;
+            })[0] ||
+            rg.filter(function (i) {
+              return i.qty > 0;
+            })[0];
+          if (pick) choose(pick);
+        };
+        gb.appendChild(mk('span', '', g0));
+        gb.appendChild(mk('b', '', tq > 0 ? tq + ' un.' : 'Esgotado'));
+        if (!tq) gb.style.opacity = '.45';
+        gl0.appendChild(gb);
+      });
+      pl.appendChild(gl0);
+      var cl2 = mk('div', 'ccards');
+      rows
+        .filter(function (i) {
+          return i.grau === sel.grau;
+        })
+        .forEach(function (i) {
+          cl2.appendChild(corCard(i));
+        });
+      var lbc = mk('div', 'lbl', 'Cor com ' + sel.grau);
+      lbc.style.marginTop = '10px';
+      pl.appendChild(lbc);
+      pl.appendChild(cl2);
+    } else
     rows.forEach(function (i) {
       var r = mk('div', 'pl pick' + (i === sel ? ' picked' : ''));
       r.tabIndex = 0;
@@ -1268,11 +1472,10 @@
           choose(i);
         }
       };
-      r.appendChild(dot(hexOf(i.cor)));
       var tx = mk(
         'span',
         '',
-        (corUnica ? i.grau : rowLabel(i))
+        venda ? (corUnica || f.tipo === 'pre' ? i.grau + (corUnica || i.cor === 'Sem cor' ? '' : ' · ' + i.cor) : nomeCor(i.cor)) : corUnica ? i.grau : rowLabel(i)
       );
       if (!S.fotos[ref + '|' + i.cor] && !venda) {
         var tg = mk('span', 'cell', 'sem foto');
@@ -1280,18 +1483,21 @@
         tx.appendChild(tg);
       }
       r.appendChild(tx);
-      r.appendChild(mk('b', '', i.qty + ' un.'));
-      if (!i.qty) r.style.opacity = venda ? '.45' : '.7';
+      var qv = venda ? gQty(i) : i.qty;
+      r.appendChild(mk('b', '', qv > 0 || !venda ? qv + ' un.' : 'Esgotado'));
+      if (!qv) r.style.opacity = venda ? '.45' : '.7';
       pl.appendChild(r);
     });
     pv.appendChild(pl);
-    if (rows.length > 1) {
+    if (rows.length > 1 && !venda) {
       var ht2 = mk(
         'div',
         'hint',
-        f.tipo === 'pre'
-          ? 'Toque num grau para escolher o que vender.'
-          : 'Toque numa cor para ver a foto dela e vender.'
+        venda
+          ? ''
+          : f.tipo === 'pre'
+            ? 'Toque num grau para escolher o que vender.'
+            : 'Toque numa cor para ver a foto dela e vender.'
       );
       ht2.style.margin = '8px 0 0';
       pv.appendChild(ht2);
@@ -1301,6 +1507,7 @@
     var vbar = mk('div', 'vbar');
     var vbtn = btn('go', 'Vender ' + rowLabel(sel), function () {
       S.vTipo = 'all';
+      S.vGrau = '';
       S.vq = '';
       $('vq').value = '';
       S.vRef = sel.tipo + '|' + sel.ref;
@@ -1314,6 +1521,34 @@
     g.appendChild(left);
     g.appendChild(right);
     det.appendChild(g);
+    if (venda && sel.qty > 0) {
+      // barra fixa: quantidade e botão Vender sempre à mão
+      var vq = Math.max(1, Math.min(S.qty, gQty(sel))),
+        ptv = tFor(sel).price,
+        sb = mk('div', 'vbar vsale');
+      var mn0 = btn('step', '−', function () {
+        S.qty = Math.max(1, S.qty - 1);
+        S.msg = '';
+        render();
+      });
+      mn0.setAttribute('aria-label', 'Diminuir quantidade');
+      var qn = mk('b', '', String(vq));
+      qn.style.cssText = 'min-width:28px;text-align:center;font-size:20px';
+      var pl0 = btn('step', '+', function () {
+        S.qty = Math.min(gQty(sel), S.qty + 1);
+        S.msg = '';
+        render();
+      });
+      pl0.setAttribute('aria-label', 'Aumentar quantidade');
+      var vb0 = btn('go', 'Vender' + (ptv ? ' · ' + gs(ptv * vq) : ''), function () {
+        $('sCartAdd').click();
+      });
+      sb.appendChild(mn0);
+      sb.appendChild(qn);
+      sb.appendChild(pl0);
+      sb.appendChild(vb0);
+      det.appendChild(sb);
+    }
     if (venda) return sel.qty > 0 ? sel : null;
     if (S.qEdit) det.appendChild(editModal());
 
@@ -1510,7 +1745,6 @@
         var ix = S.items.indexOf(i),
           cur = S.qDraft[ix] != null ? S.qDraft[ix] : i.qty,
           r = mk('div', 'pl pick' + (i === sel ? ' picked' : ''));
-        r.appendChild(dot(hexOf(i.cor)));
         var lb = mk('span', '', rowLabel(i));
         lb.style.cursor = 'pointer';
         lb.onclick = function () {
@@ -4136,6 +4370,377 @@
     );
   };
   // ---- foto: nitidez e fundo branco
+  // ===== Estoque: abas (Produtos · Lotes · Reposição), mapa de graus e a aba Reposição. =====
+  var POUCO = 5; // até 5 peças de um grau é pouco
+  // Os 16 graus que a loja trabalha: +0.25 a +4.00.
+  function graus16() {
+    var a = [];
+    for (var n = 1; n <= 16; n++) a.push('+' + (n * 0.25).toFixed(2));
+    return a;
+  }
+  // Peças por grau dos pré-graduados (sem as peças ainda sem detalhe).
+  function grauTotais() {
+    var m = {};
+    graus16().forEach(function (g) {
+      m[g] = 0;
+    });
+    S.items.forEach(function (i) {
+      if (i.tipo !== 'pre' || i.bulk || !i.grau) return;
+      m[i.grau] = (m[i.grau] || 0) + i.qty;
+    });
+    return m;
+  }
+  // Situação do grau: r = acabou, y = pouco, g = bem abastecido.
+  function grauNivel(q) {
+    return q <= 0 ? 'r' : q <= POUCO ? 'y' : 'g';
+  }
+  // Tamanho do pacote: o que mais aparece nos seus lotes (20 ou 24); sem histórico, 24.
+  function packPre() {
+    var c = { 20: 0, 24: 0 };
+    S.grp.forEach(function (g) {
+      if (g.tipo === 'pre' && (g.qty === 20 || g.qty === 24)) c[g.qty]++;
+    });
+    return c[20] > c[24] ? 20 : 24;
+  }
+  // Custo estimado de uma peça pré-graduada (US$): média do último lote desse tipo.
+  function custoPreUsd() {
+    var ls = S.grp
+      .filter(function (g) {
+        return g.tipo === 'pre' && g.qty > 0;
+      })
+      .sort(function (a, b) {
+        return (b.ts || 0) - (a.ts || 0);
+      });
+    if (ls.length) return gTot(ls[0]) / ls[0].qty;
+    var t = tipoOf('pre');
+    return (t && (t.repUSD || t.pago)) || 0;
+  }
+  // Sugestão de pacotes por grau: esgotado ou até 3 peças = 1 pacote; 4 a 5, você decide.
+  function repSug(q) {
+    return q <= 3 ? 1 : 0;
+  }
+  function repQtd(g, q) {
+    return S.repQ && S.repQ[g] != null ? S.repQ[g] : repSug(q);
+  }
+  // Texto da lista de compra.
+  function repTexto() {
+    var tot = grauTotais(),
+      pk = packPre(),
+      ls = [],
+      n = 0;
+    graus16().forEach(function (g) {
+      var p = repQtd(g, tot[g]);
+      if (p > 0) {
+        ls.push(g + ' · ' + p + (p === 1 ? ' pacote' : ' pacotes') + ' de ' + pk);
+        n += p * pk;
+      }
+    });
+    var mix = parseInt(S.repMix, 10) || 0;
+    if (mix > 0) {
+      ls.push('Mix surtido · ' + mix + ' peças');
+      n += mix;
+    }
+    var d = new Date();
+    return {
+      n: n,
+      linhas: ls,
+      txt:
+        'Lista de compra · pré-graduados · ' +
+        ('0' + d.getDate()).slice(-2) +
+        '/' +
+        ('0' + (d.getMonth() + 1)).slice(-2) +
+        '\n' +
+        ls.join('\n') +
+        '\nTotal: ' +
+        n +
+        ' peças'
+    };
+  }
+  // Mapa de graus: 16 quadradinhos com as peças de cada grau.
+  function renderMapaGraus() {
+    var h = $('mapaB');
+    if (!h) return;
+    var ts = tSel(),
+      on = ts.length === 1 && ts[0] === 'pre' && !S.lotesView && !S.repoView && !S.cont && !S.det;
+    h.hidden = !on;
+    h.textContent = '';
+    if (!on) return;
+    var tot = grauTotais(),
+      total = 0,
+      ac = [],
+      bx = [];
+    h.appendChild(mk('div', 'lbl', 'Mapa de graus · peças no estoque'));
+    var gd = mk('div', 'gmap');
+    graus16().forEach(function (g) {
+      var q = tot[g],
+        lv = grauNivel(q);
+      total += q;
+      if (lv === 'r') ac.push(g);
+      else if (lv === 'y') bx.push(g + ' (' + q + ')');
+      var c = btn(
+        'gcell ' + lv + (S.q === g ? ' on' : ''),
+        '',
+        function () {
+          S.q = S.q === g ? '' : g;
+          S.open = '';
+          S.det = false;
+          render();
+        },
+        S.q === g
+      );
+      c.appendChild(mk('small', '', g));
+      c.appendChild(mk('b', '', String(q)));
+      c.setAttribute('aria-label', g + ': ' + q + ' peças');
+      gd.appendChild(c);
+    });
+    h.appendChild(gd);
+    var msg = [];
+    if (ac.length) msg.push(ac.join(', ') + (ac.length > 1 ? ' acabaram' : ' acabou'));
+    if (bx.length) msg.push(bx.join(', ') + ' com pouco');
+    var nt = mk(
+      'div',
+      msg.length ? 'note n-warn' : 'note n-ok',
+      msg.length ? 'Atenção: ' + msg.join(' · ') : 'Todos os graus estão bem abastecidos.'
+    );
+    nt.id = 'mapaNota';
+    h.appendChild(nt);
+    var sm = mk('div', 'hint', 'Total: ' + total + ' peças. Toque num grau para ver os modelos dele.');
+    sm.style.margin = '4px 0 0';
+    h.appendChild(sm);
+  }
+  // Aba Reposição: o que comprar por grau, em pacotes.
+  function renderReposicao() {
+    var h = $('repoView');
+    if (!h) return;
+    h.hidden = !S.repoView;
+    h.textContent = '';
+    if (!S.repoView) return;
+    var tot = grauTotais(),
+      pk = packPre(),
+      cu = custoPreUsd(),
+      L = repTexto(),
+      reserva = 0;
+    try {
+      reserva = reservas().rUSD;
+    } catch (e) {}
+    var top = mk('div', 'repsum');
+    var a = mk('div', '');
+    a.appendChild(mk('small', '', 'Reservado para repor'));
+    a.appendChild(mk('b', '', usd(reserva)));
+    var b = mk('div', '');
+    b.style.textAlign = 'right';
+    b.appendChild(mk('small', '', 'Lista de compra'));
+    b.appendChild(mk('b', '', usd(L.n * cu)));
+    b.firstChild.id = 'repLbl';
+    b.lastChild.id = 'repTot';
+    top.appendChild(a);
+    top.appendChild(b);
+    h.appendChild(top);
+    var hp = mk(
+      'div',
+      'hint',
+      'Pré-graduados por grau, em pacotes de ' +
+        pk +
+        ' peças · custo estimado ' +
+        usd(cu) +
+        ' por peça (média do último lote).'
+    );
+    h.appendChild(hp);
+    var gs0 = graus16(),
+      esg = gs0.filter(function (g) {
+        return tot[g] <= 0;
+      }),
+      bai = gs0.filter(function (g) {
+        return tot[g] > 0 && tot[g] <= POUCO;
+      });
+    var linha = function (g) {
+      var q = tot[g],
+        p = repQtd(g, q),
+        r = mk('div', 'repit');
+      r.dataset.g = g;
+      var gd = mk('div', 'gd');
+      gd.appendChild(mk('b', '', g));
+      gd.appendChild(mk('small', q <= 0 ? 'rd' : 'yl', q <= 0 ? 'esgotado' : 'baixo'));
+      var md = mk('div', 'md');
+      md.appendChild(mk('b', '', q + (q === 1 ? ' peça' : ' peças')));
+      md.appendChild(
+        mk(
+          'div',
+          '',
+          p > 0
+            ? p + (p === 1 ? ' pacote' : ' pacotes') + ' de ' + pk + ' · ' + usd(p * pk * cu)
+            : 'não repor agora'
+        )
+      );
+      var st = mk('div', 'st2');
+      var mn = btn('step', '−', function () {
+        S.repQ = S.repQ || {};
+        S.repQ[g] = Math.max(0, p - 1);
+        render();
+      });
+      mn.setAttribute('aria-label', 'Menos um pacote de ' + g);
+      var pl = btn('step', '+', function () {
+        S.repQ = S.repQ || {};
+        S.repQ[g] = p + 1;
+        render();
+      });
+      pl.setAttribute('aria-label', 'Mais um pacote de ' + g);
+      st.appendChild(mn);
+      st.appendChild(mk('i', '', String(p)));
+      st.appendChild(pl);
+      r.appendChild(gd);
+      r.appendChild(md);
+      r.appendChild(st);
+      return r;
+    };
+    if (esg.length) {
+      h.appendChild(mk('div', 'lbl', 'Esgotado'));
+      esg.forEach(function (g) {
+        h.appendChild(linha(g));
+      });
+    }
+    if (bai.length) {
+      h.appendChild(mk('div', 'lbl', 'Baixo (1 a ' + POUCO + ' peças)'));
+      bai.forEach(function (g) {
+        h.appendChild(linha(g));
+      });
+    }
+    if (!esg.length && !bai.length)
+      h.appendChild(mk('div', 'note n-ok', 'Todos os graus estão com mais de ' + POUCO + ' peças.'));
+    // mix surtido: você diz o total de peças
+    var mx = mk('div', 'repmix');
+    mx.appendChild(mk('div', 'lbl', 'Mix surtido (qualquer grau de +0.25 a +4.00)'));
+    var mi = mk('input', 'in');
+    mi.inputMode = 'numeric';
+    mi.placeholder = 'Total de peças do mix (opcional)';
+    mi.setAttribute('aria-label', 'Total de peças do mix surtido');
+    mi.value = S.repMix || '';
+    mi.onchange = function () {
+      S.repMix = String(parseInt(mi.value, 10) || '');
+      render();
+    };
+    mx.appendChild(mi);
+    h.appendChild(mx);
+    // outros tipos com pouco estoque
+    var out = {};
+    S.items.forEach(function (i) {
+      if (i.tipo === 'pre' || i.bulk || !tipoOf(i.tipo)) return;
+      var k = i.tipo + '|' + i.ref;
+      out[k] = out[k] || { ref: i.ref, tipo: i.tipo, q: 0 };
+      out[k].q += i.qty;
+    });
+    var pouco = Object.keys(out)
+      .map(function (k) {
+        return out[k];
+      })
+      .filter(function (o) {
+        return o.q <= POUCO;
+      })
+      .sort(function (x, y) {
+        return x.q - y.q;
+      });
+    if (pouco.length) {
+      h.appendChild(mk('div', 'lbl', 'Armações e solares com pouco estoque'));
+      pouco.slice(0, 12).forEach(function (o) {
+        var r = mk('div', 'repit');
+        var md = mk('div', 'md');
+        md.appendChild(mk('b', '', pn(o.ref)));
+        md.appendChild(mk('div', '', (tipoOf(o.tipo).label || '') + ' · ' + o.q + (o.q === 1 ? ' peça' : ' peças')));
+        r.appendChild(md);
+        h.appendChild(r);
+      });
+    }
+    // rodapé: total e lista
+    var ft = mk('div', 'repft');
+    var tt = mk('div', 'repftt');
+    tt.appendChild(mk('span', '', L.n + ' peças'));
+    tt.appendChild(mk('b', '', usd(L.n * cu)));
+    ft.appendChild(tt);
+    if (!S.repLista) {
+      var go = btn('go', 'Gerar lista de compra', function () {
+        S.repLista = true;
+        render();
+      });
+      go.id = 'repGerar';
+      go.disabled = !L.n;
+      ft.appendChild(go);
+    } else {
+      var lc = mk('pre', 'replist', L.n ? L.txt : 'Nada para comprar.');
+      ft.appendChild(lc);
+      var bw = btn('go', 'Enviar pelo WhatsApp', function () {
+        window.open('https://wa.me/?text=' + encodeURIComponent(L.txt), '_blank');
+      });
+      bw.disabled = !L.n;
+      ft.appendChild(bw);
+      var bc = btn('mini', 'Copiar a lista', function () {
+        try {
+          navigator.clipboard.writeText(L.txt);
+          say('Lista copiada.');
+        } catch (e) {}
+      });
+      ft.appendChild(bc);
+      ft.appendChild(
+        btn('mini', 'Voltar e ajustar', function () {
+          S.repLista = false;
+          render();
+        })
+      );
+    }
+    h.appendChild(ft);
+  }
+  // Barra de abas do Inventário.
+  function renderEstoqueAbas() {
+    var tb = $('eTabs');
+    if (!tb) return;
+    if (S.lotesView) S.repoView = false;
+    var pend = S.grp.filter(function (g) {
+      return grpFalta(g) > 0;
+    }).length;
+    tb.textContent = '';
+    var mkTab = function (id, txt, on, fn, badge) {
+      var b = btn('chip' + (on ? ' on' : ''), '', fn, on);
+      b.id = id;
+      b.appendChild(document.createTextNode(txt));
+      if (badge) b.appendChild(mk('em', 'bdg', String(badge)));
+      tb.appendChild(b);
+    };
+    mkTab('eTabP', 'Produtos', !S.lotesView && !S.repoView, function () {
+      if (S.lotesView) $('kLot').onclick();
+      S.repoView = false;
+      S.repLista = false;
+      render();
+    });
+    mkTab(
+      'eTabL',
+      'Lotes',
+      !!S.lotesView,
+      function () {
+        S.repoView = false;
+        S.cont = false;
+        if (!S.lotesView) $('kLot').onclick();
+        else render();
+      },
+      pend
+    );
+    mkTab('eTabR', 'Reposição', !!S.repoView, function () {
+      if (S.lotesView) $('kLot').onclick();
+      S.repoView = true;
+      S.repLista = false;
+      S.cont = false;
+      S.det = false;
+      S.open = '';
+      render();
+    });
+    var rv = !!S.repoView;
+    $('kpisE').hidden = rv || !!S.lotesView;
+    if (rv) {
+      $('listCard').hidden = true;
+      $('detail').hidden = true;
+      $('contCard').hidden = true;
+    }
+    renderMapaGraus();
+    renderReposicao();
+  }
   // ===== Imagem: canvas e recorte do objeto (modelo onnxruntime IS-Net/u2netp). =====
   // Cria um canvas com o tamanho dado.
   function mkCanvas(w, h) {
@@ -14008,6 +14613,7 @@
             return x.id === i.tipo;
           }) &&
           (S.vTipo === 'all' || i.tipo === S.vTipo) &&
+          (!S.vGrau || S.vTipo !== 'pre' || i.grau === S.vGrau) &&
           (!S.vFaixa || (faixaOf(i.ref) || {}).id === S.vFaixa) &&
           (!qm || qm(i))
         );
@@ -14034,6 +14640,73 @@
         )
       );
     });
+    // abas de tipo (sempre à vista) e fileira de graus nos pré-graduados
+    var vtb = $('vTabs');
+    vtb.textContent = '';
+    var ordTab = ['sem', 'solar', 'pre'];
+    TIPOS.slice()
+      .sort(function (a, b) {
+        var ia = ordTab.indexOf(a.id),
+          ib = ordTab.indexOf(b.id);
+        return (ia < 0 ? 9 : ia) - (ib < 0 ? 9 : ib);
+      })
+      .forEach(function (x) {
+      vtb.appendChild(
+        btn(
+          'chip' + (S.vTipo === x.id ? ' on' : ''),
+          x.label,
+          function () {
+            S.vTipo = S.vTipo === x.id ? 'all' : x.id;
+            S.vGrau = '';
+            S.vRef = '';
+            S.vSel = null;
+            S.qty = 1;
+            S.msg = '';
+            render();
+          },
+          S.vTipo === x.id
+        )
+      );
+    });
+    var vgb = $('vGradesB'),
+      vg = $('vGrades');
+    vg.textContent = '';
+    vgb.hidden = S.vTipo !== 'pre';
+    if (S.vTipo === 'pre') {
+      var gmap = {};
+      S.items.forEach(function (i) {
+        if (i.tipo !== 'pre' || !i.grau) return;
+        var o = gmap[i.grau] || (gmap[i.grau] = { refs: {}, n: 0 });
+        if (i.qty > 0 && !o.refs[i.ref]) {
+          o.refs[i.ref] = 1;
+          o.n++;
+        }
+      });
+      Object.keys(gmap)
+        .sort(function (a, b) {
+          return parseFloat(a) - parseFloat(b);
+        })
+        .forEach(function (g0) {
+          var o = gmap[g0],
+            on = S.vGrau === g0,
+            cb = btn(
+              'chip' + (on ? ' on' : '') + (o.n ? '' : ' off'),
+              '',
+              function () {
+                if (!o.n) return;
+                S.vGrau = on ? '' : g0;
+                S.vRef = '';
+                S.vSel = null;
+                S.qty = 1;
+                render();
+              },
+              on
+            );
+          cb.appendChild(document.createTextNode(g0));
+          cb.appendChild(mk('small', '', o.n ? String(o.n) : 'esgotado'));
+          vg.appendChild(cb);
+        });
+    }
     var vf = $('vFaixas');
     vf.textContent = '';
     $('vFaixaB').hidden = !S.faixas.length;
@@ -14098,6 +14771,7 @@
         },
         k === S.vRef
       );
+      card.dataset.ref = f.ref;
       card.appendChild(photoBox(photoOf(f.ref), 'pbox'));
       card.appendChild(mk('b', '', pn(f.ref)));
       var fxa = faixaOf(f.ref);
@@ -14106,7 +14780,6 @@
         ft.style.alignSelf = 'flex-start';
         card.appendChild(ft);
       }
-      if (S.pnome && S.pnome[f.ref]) card.appendChild(mk('span', 's', 'Código ' + f.ref));
       card.appendChild(
         mk(
           'span',
@@ -14118,9 +14791,56 @@
                 (!tp.simple && f.med ? ' · ' + f.med : ''))
         )
       );
-      var stt = mk('span', 'cell ' + (tot <= 2 ? 'low' : ''), tot + ' em estoque');
+      var pr0 = tFor(f).price;
+      if (pr0) {
+        var pp = mk('b', '', gs(pr0));
+        pp.style.color = 'var(--ok)';
+        card.appendChild(pp);
+      }
+      // cores em estoque (miniaturas) e, nos pré-graduados, a faixa de graus
+      var cs = [];
+      g.forEach(function (i) {
+        if (i.qty > 0 && cs.indexOf(i.cor) < 0) cs.push(i.cor);
+      });
+      var gr = g
+        .filter(function (i) {
+          return i.tipo === 'pre' && i.grau && i.qty > 0;
+        })
+        .map(function (i) {
+          return i.grau;
+        })
+        .sort(function (a, b) {
+          return parseFloat(a) - parseFloat(b);
+        });
+      var lbl = tot + ' un.';
+      if (gr.length)
+        lbl =
+          (S.vGrau || gr[0] === gr[gr.length - 1] ? gr[0] : gr[0] + ' a ' + gr[gr.length - 1]) +
+          ' · ' +
+          lbl;
+      lbl += ' · ' + cs.length + (cs.length === 1 ? ' cor' : ' cores');
+      var stt = mk('span', 'cell ' + (tot <= 5 ? 'low' : ''), lbl);
       stt.style.alignSelf = 'flex-start';
       card.appendChild(stt);
+      if (cs.length) {
+        var pc = mk('div', 'pcolors');
+        cs.slice(0, 5).forEach(function (c) {
+          var sp = mk('span', ''),
+            fk = S.fotos[f.ref + '|' + c];
+          if (fk) {
+            var ig = mk('img');
+            ig.src = fk;
+            ig.alt = c;
+            sp.appendChild(ig);
+          } else {
+            var bx = mk('i', '');
+            bx.style.background = hexOf(c);
+            sp.appendChild(bx);
+          }
+          pc.appendChild(sp);
+        });
+        card.appendChild(pc);
+      }
       rows.appendChild(card);
     });
     if (!order.length)
@@ -14183,7 +14903,6 @@
         im.alt = 'Foto ' + i.ref;
         l.appendChild(im);
       }
-      l.appendChild(dot(hexOf(i.cor)));
       l.appendChild(document.createTextNode(lineLabel(i)));
       b.appendChild(l);
       b.appendChild(
@@ -14196,7 +14915,7 @@
       vl.appendChild(b);
     });
     var t = sel ? tipoOf(sel.tipo) : null,
-      max = sel ? sel.qty : 0;
+      max = sel ? gQty(sel) : 0;
     S._vcap = Math.max(max, 1);
     S.qty = Math.max(1, Math.min(S.qty, S._vcap));
     S._vsel = sel;
@@ -14330,6 +15049,7 @@
   }
   $('vq').oninput = function (e) {
     S.vq = e.target.value;
+    S.vGrau = S.vq.trim() ? '' : S.vGrau;
     S.vRef = '';
     S.vSel = null;
     S.qty = 1;
@@ -22807,18 +23527,34 @@
   $('sCartAdd').onclick = function () {
     var sel = S._vsel;
     if (!sel || sel.qty <= 0) return;
-    var q = Math.min(S.qty, sel.qty),
-      ex = S.cart.filter(function (l) {
-        return l.it === sel;
+    var q = Math.min(S.qty, gQty(sel));
+    // peças iguais de lotes diferentes: a venda sai de uma e completa com as outras
+    var fontes = [sel].concat(
+      sibs(sel).filter(function (x) {
+        return x !== sel;
+      })
+    );
+    fontes.forEach(function (it) {
+      if (q <= 0) return;
+      var take = Math.min(q, it.qty);
+      if (take <= 0) return;
+      q -= take;
+      var ex = S.cart.filter(function (l) {
+        return l.it === it;
       })[0];
-    if (ex) {
-      var nq = Math.min(sel.qty, ex.qty + q);
-      if (ex.preco != null) ex.preco = Math.round((ex.preco * nq) / ex.qty);
-      ex.qty = nq;
-    } else {
-      var dd = descontoGs(tFor(sel).price * q); // desconto trazido da análise "Liquidação"
-      S.cart.push({ it: sel, qty: q, preco: dd > 0 ? Math.max(0, tFor(sel).price * q - dd) : null });
-    }
+      if (ex) {
+        var nq = Math.min(it.qty, ex.qty + take);
+        if (ex.preco != null) ex.preco = Math.round((ex.preco * nq) / ex.qty);
+        ex.qty = nq;
+      } else {
+        var dd = descontoGs(tFor(it).price * take); // desconto trazido da análise "Liquidação"
+        S.cart.push({
+          it: it,
+          qty: take,
+          preco: dd > 0 ? Math.max(0, tFor(it).price * take - dd) : null
+        });
+      }
+    });
     S.descTxt = '';
     S.vRef = '';
     S.vSel = null;
@@ -23642,6 +24378,7 @@
       identSync();
     } catch (e) {}
     renderEstoque();
+    renderEstoqueAbas();
     renderAddExtras();
     renderVendas();
     renderNav();

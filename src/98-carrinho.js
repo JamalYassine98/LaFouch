@@ -298,18 +298,34 @@
   $('sCartAdd').onclick = function () {
     var sel = S._vsel;
     if (!sel || sel.qty <= 0) return;
-    var q = Math.min(S.qty, sel.qty),
-      ex = S.cart.filter(function (l) {
-        return l.it === sel;
+    var q = Math.min(S.qty, gQty(sel));
+    // peças iguais de lotes diferentes: a venda sai de uma e completa com as outras
+    var fontes = [sel].concat(
+      sibs(sel).filter(function (x) {
+        return x !== sel;
+      })
+    );
+    fontes.forEach(function (it) {
+      if (q <= 0) return;
+      var take = Math.min(q, it.qty);
+      if (take <= 0) return;
+      q -= take;
+      var ex = S.cart.filter(function (l) {
+        return l.it === it;
       })[0];
-    if (ex) {
-      var nq = Math.min(sel.qty, ex.qty + q);
-      if (ex.preco != null) ex.preco = Math.round((ex.preco * nq) / ex.qty);
-      ex.qty = nq;
-    } else {
-      var dd = descontoGs(tFor(sel).price * q); // desconto trazido da análise "Liquidação"
-      S.cart.push({ it: sel, qty: q, preco: dd > 0 ? Math.max(0, tFor(sel).price * q - dd) : null });
-    }
+      if (ex) {
+        var nq = Math.min(it.qty, ex.qty + take);
+        if (ex.preco != null) ex.preco = Math.round((ex.preco * nq) / ex.qty);
+        ex.qty = nq;
+      } else {
+        var dd = descontoGs(tFor(it).price * take); // desconto trazido da análise "Liquidação"
+        S.cart.push({
+          it: it,
+          qty: take,
+          preco: dd > 0 ? Math.max(0, tFor(it).price * take - dd) : null
+        });
+      }
+    });
     S.descTxt = '';
     S.vRef = '';
     S.vSel = null;

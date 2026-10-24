@@ -10,6 +10,7 @@
       identSync();
     } catch (e) {}
     renderEstoque();
+    renderEstoqueAbas();
     renderAddExtras();
     renderVendas();
     renderNav();

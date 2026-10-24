@@ -12,6 +12,7 @@ Regras que valem em todo o projeto: o estado fica em `S`; `render()` redesenha t
 | `11-estoque-lista.js` | 1259 | Estoque: lista, filtros e cartões das peças. |
 | `12-estoque-filtros-cadastro.js` | 615 | Estoque: painéis de filtro, lista de códigos e abertura/fechamento do cadastro. |
 | `13-estoque-lote-rapido.js` | 455 | Estoque: cadastro em lote a partir da foto e paleta de cores. |
+| `14-estoque-abas.js` | 380 | Estoque: abas (Produtos, Lotes, Reposição), mapa dos 16 graus e a lista de compra em pacotes. |
 | `20-imagem-segmentacao.js` | 938 | Imagem: canvas e recorte do objeto (modelo onnxruntime IS-Net/u2netp). |
 | `21-imagem-branqueamento.js` | 2357 | Imagem: fundo branco sem cortar a armação. |
 | `30-ocr-leitura.js` | 652 | Leitura do código da foto: OCR offline (Tesseract) e IA online. |

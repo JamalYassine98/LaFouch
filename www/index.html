@@ -143,6 +143,8 @@
     <div class="main">
       <section class="card col" id="vListCard" aria-label="Escolher a peça">
         <div><div class="lbl">Buscar a peça</div><input class="in" id="vq" placeholder="Código, nome, cor, grau, formato, medida…" style="max-width:420px" autocomplete="off"></div>
+        <div class="nav" id="vTabs" role="group" aria-label="Tipo de produto"></div>
+        <div id="vGradesB" hidden><div class="lbl">Grau que o cliente pede</div><div class="gradechips" id="vGrades" role="group" aria-label="Grau"></div></div>
         <div id="vFiltPanel" hidden class="col" style="gap:10px"><div><div class="lbl">Tipo de produto</div><div class="nav" id="vTipos" role="group" aria-label="Filtrar por tipo"></div></div><div id="vFaixaB" hidden><div class="lbl">Faixa</div><div class="nav" id="vFaixas" role="group" aria-label="Filtrar por faixa"></div></div></div>
         <div class="list" id="vRows"></div>
         <div id="vLinesB" hidden><div class="lbl" id="vProdL"></div><div class="nav" id="sLines"></div></div>
@@ -205,11 +207,14 @@
 
   <div id="msg" role="status" style="color:var(--ok);font-size:14px"></div>
 
-  <section class="kpis" aria-label="Resumo">
+  <div class="nav" id="eTabs" role="group" aria-label="Seções do inventário" style="margin:4px 0 8px"></div>
+  <section class="card col" id="mapaB" hidden aria-label="Mapa de graus" style="margin-bottom:12px"></section>
+  <section class="card col" id="repoView" hidden aria-label="Reposição" style="margin-bottom:12px"></section>
+  <section class="kpis" id="kpisE" aria-label="Resumo">
     <button class="kpi" id="kCont" type="button" aria-pressed="false" style="text-align:left;font:inherit;color:inherit;cursor:pointer"><div class="lbl">Em estoque (filtro)</div><b id="k1" style="color:var(--ok)"></b><div class="hint">toque para contar</div></button>
     <div class="kpi"><div class="lbl">Referências</div><b id="k2"></b></div>
     <button class="kpi" id="kRepo" type="button" aria-pressed="false" style="text-align:left;font:inherit;color:inherit;cursor:pointer"><div class="lbl">Pede reposição</div><b id="k3" style="color:var(--warn)"></b><div class="hint" id="k3h">produtos com 5 ou menos no total · toque para ver</div></button>
-    <button class="kpi" id="kLot" type="button" aria-pressed="false" style="text-align:left;font:inherit;color:inherit;cursor:pointer"><div class="lbl">Lotes pendentes</div><b id="kLotN" style="color:var(--accent-fg)"></b><div class="hint" id="kLotH">lotes com peças por detalhar · toque para ver</div></button>
+    <button class="kpi" id="kLot" type="button" hidden aria-pressed="false" style="text-align:left;font:inherit;color:inherit;cursor:pointer"><div class="lbl">Lotes pendentes</div><b id="kLotN" style="color:var(--accent-fg)"></b><div class="hint" id="kLotH">lotes com peças por detalhar · toque para ver</div></button>
   </section>
 
 
