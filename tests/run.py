@@ -833,7 +833,7 @@ async def main():
             await pg.click('[data-act=inicioEd]'); await pg.wait_for_timeout(200)
             await pg.evaluate("() => { window.__LF.setView('caixa'); window.__LF.setView('inicio'); }"); await pg.wait_for_timeout(200)
             nomes = await pg.evaluate("() => [...document.querySelectorAll('#v-inicio .tl .tn')].map(e => e.textContent)")
-            await pg.click('[data-act=inicioEd]'); await pg.click('[data-act=inicioReset]'); await pg.wait_for_timeout(200)
+            await pg.click('[data-act=inicioEd]'); await pg.wait_for_timeout(600); await pg.click('[data-act=inicioReset]'); await pg.wait_for_timeout(300)
             l2 = await pg.evaluate("() => window.__LF.S.inicioT")
             total += 1
             ok = tx[0] == tx[1] and tx[2] == 0 and 'cat' not in l1 and l1[-1] == 'novo' and l1.index('ajustes') < l1.index('prec') + 3 and 'Novo produto' in nomes and 'Catálogo' not in nomes and l2 is None and not pg.erros
@@ -919,17 +919,24 @@ async def main():
             if not ok: falhas.append('resumo vendas'); print('        veio', r, pg.erros)
             await pg.close()
 
-            # Atenção agora: seta minimiza e reabre
+            # Resumo por moeda, separação inteligente, notificações unificadas
             pg = await pagina()
-            await pg.evaluate("() => { const L = window.__LF; L.S.atMin = false; L.S.dTab = 'hoje'; L.setView('dash'); }"); await pg.wait_for_timeout(300)
-            await pg.click('.atcab'); await pg.wait_for_timeout(500)
-            a = await pg.evaluate("() => [window.__LF.S.atMin, document.getElementById('atCard').classList.contains('min'), document.querySelector('.atcab').getAttribute('aria-expanded')]")
-            await pg.click('.atcab'); await pg.wait_for_timeout(500)
-            b2 = await pg.evaluate("() => [window.__LF.S.atMin, document.getElementById('atCard').classList.contains('min')]")
+            await pg.evaluate("() => { const L = window.__LF; L.S.dTab = 'hoje'; L.setView('dash'); }"); await pg.wait_for_timeout(400)
+            r = await pg.evaluate("""() => { const k = [...document.querySelectorAll('#v-dash .kpi')].map(x => x.innerText);
+              return [k[0].includes('R$') && k[0].includes('US$') && k[0].includes('G$'), k[1].includes('R$') && k[1].includes('G$'), k[2].includes('G$'), document.getElementById('v-dash').innerText.includes('Atenção agora'), document.getElementById('v-dash').innerText.includes('Para repor o estoque')]; }""")
             total += 1
-            ok = a == [True, True, 'false'] and b2 == [False, False] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'Atenção agora: seta minimiza e reabre')
-            if not ok: falhas.append('atencao min'); print('        veio', a, b2, pg.erros)
+            ok = r == [True, True, True, False, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Resumo: Vendido/Separar/Lucro por moeda, sem "Atenção agora", com "Para repor o estoque"')
+            if not ok: falhas.append('resumo moedas'); print('        veio', r, pg.erros)
+            await pg.close()
+
+            pg = await pagina()
+            await pg.evaluate("() => { const L = window.__LF; L.setView('notif'); }"); await pg.wait_for_timeout(400)
+            tx = await pg.inner_text('#v-notif')
+            total += 1
+            ok = 'precisa de você agora' in tx.lower() and 'avisos anteriores' not in tx.lower() and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Notificações: grupos "Precisa de você agora" / "Para acompanhar"')
+            if not ok: falhas.append('notif grupos'); print('        veio', tx[:200], pg.erros)
             await pg.close()
 
             # contagem de estoque no cartão "Em estoque": por valor, com resumo e aplicação
@@ -1009,10 +1016,10 @@ async def main():
             await checa('Caixa: ajustar o saldo para o contado', got == [4900000, True, 0], got)
             await pg.evaluate("() => window.__LF.setView('dash')"); await pg.wait_for_timeout(300)
             tx = await pg.inner_text('#v-dash')
-            await checa('Dashboard: abre no Resumo com "Atenção agora" e as 4 partes', 'Atenção agora' in tx and all(t in tx for t in ['Resumo', 'Dinheiro', 'Giro', 'Preços']) and not pg.erros, [tx[:150], pg.erros])
+            await checa('Dashboard: abre no Resumo e as 4 partes', all(t in tx for t in ['Resumo', 'Dinheiro', 'Giro', 'Preços']) and not pg.erros, [tx[:150], pg.erros])
             await pg.locator('[data-act="dtab"][data-id="din"]').first.click(); await pg.wait_for_timeout(300)
             tx = await pg.inner_text('#v-dash')
-            await checa('Dashboard Dinheiro: resultado e fluxo em linhas que abrem', 'Resultado do mês' in tx and 'Fluxo de caixa projetado' in tx and 'Retirada do dono' in tx and 'Resultado de outubro' not in tx.lower() and not pg.erros, [tx[:200], pg.erros])
+            await checa('Dashboard Dinheiro: resultado e fluxo em linhas que abrem', 'LIVRE PARA VOCÊ' in tx.upper() and 'Seu mês' in tx and 'Detalhes do mês' in tx and 'Próximos' in tx and not pg.erros, [tx[:200], pg.erros])
             await pg.locator('[data-act="dfold"][data-id="flx"]').first.click(); await pg.wait_for_timeout(300)
             await pg.locator('[data-act="fluxod"][data-id="90"]').first.click(); await pg.wait_for_timeout(200)
             got = await pg.evaluate("() => window.__LF.S.fluxoD")

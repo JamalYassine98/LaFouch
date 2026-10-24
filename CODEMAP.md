@@ -25,6 +25,7 @@ Regras que valem em todo o projeto: o estado fica em `S`; `render()` redesenha t
 | `54-analises.js` | 475 | Análises: meta do mês, reposição, estoque parado, curva ABC, sugestão de margem e câmbio x piso. |
 | `56-contas.js` | 129 | Contas em várias moedas, vencimentos e avisos. |
 | `57-financas.js` | 569 | Finanças: resultado do mês, fluxo de caixa, retirada do dono, conferência de caixa, capital parado, dólar e pr |
+| `57-separacao.js` | 268 | Separação das vendas moeda por moeda (G$, R$, US$), reposição em dólar, colchão e plano "Trocar agora". |
 | `58-pagamento.js` | 56 | Forma de pagamento da venda e taxas (maquininha, Pix). |
 | `59-seguranca.js` | 437 | Segurança (PIN e biometria ao abrir) e cópias automáticas dos dados. |
 | `60-vendas.js` | 346 | Aba Vendas. |

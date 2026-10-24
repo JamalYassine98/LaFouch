@@ -245,6 +245,11 @@
       '<section class="card col"><h2 style="margin:0;font-size:16px">Caixa de melhorias</h2><div class="hint" style="margin:0">Opcional. Não entra nas contas obrigatórias e nunca trava uma venda.</div><div class="sel"><input class="in" id="melhIn" inputmode="' + mpMode() + '" data-in="melh" value="' +
       gsParaCampo(S.melhPeca) +
       '" aria-label="Valor por peça para melhorias" style="max-width:180px"><span class="hint" style="margin:0">' + mpSim() + ' por peça vendida</span></div></section>';
+    var pmk = ymNow(),
+      pays = (S.cpay || []).filter(function (x) {
+        return x.ym === pmk;
+      });
+    html += dFold('pagas', 'Contas pagas neste mês', pays.length + ' conta(s) paga(s)', 'var(--sub)', contasPagasHtml());
     el.innerHTML = html;
   }
 

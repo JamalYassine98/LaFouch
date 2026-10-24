@@ -59,6 +59,7 @@
         t: 'Conferir o caixa',
         s: cc === Infinity ? 'ainda não conferiu' : 'faz ' + cc + ' dias',
         c: 'var(--warn)',
+        urg: true,
         b: 'Conferir',
         act: 'view',
         id: 'caixa'
@@ -115,30 +116,6 @@
       });
     return it;
   }
-  function atencaoHtml() {
-    var l = atencaoItens(),
-      mostrar = S.atTodos ? l : l.slice(0, 3);
-    if (!l.length)
-      return '<section class="card col" style="border-left:4px solid var(--ok)"><b style="font-size:15px">Atenção agora</b><div class="hint" style="margin:0">Tudo em ordem.</div></section>';
-    var h =
-      '<section class="card col atcard' + (S.atMin ? ' min' : '') + '" id="atCard" style="border-left:4px solid var(--warn)"><button type="button" class="atcab" data-act="atmin" aria-expanded="' + !S.atMin + '" aria-label="' + (S.atMin ? 'Mostrar' : 'Minimizar') + ' atenção agora"><b style="font-size:15px">Atenção agora</b><span style="display:flex;align-items:center;gap:10px"><span class="cell">' +
-      l.length +
-      '</span><svg class="atseta" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span></button><div class="atbody"><div class="atin"><div class="split">';
-    mostrar.forEach(function (x) {
-      h += dxRow(
-        esc(x.t),
-        '<span style="color:' + x.c + '">' + esc(x.s) + '</span>',
-        '<button class="mini" data-act="' + x.act + '" data-id="' + x.id + '">' + x.b + '</button>'
-      );
-    });
-    h += '</div>';
-    if (l.length > 3)
-      h +=
-        '<button class="chip" data-act="attodos">' +
-        (S.atTodos ? 'Mostrar só os principais' : 'Ver mais ' + (l.length - 3) + ' aviso(s)') +
-        '</button>';
-    return h + '</div></div></section>';
-  }
   // Conteúdo da aba escolhida. "o" traz os blocos já montados pelo renderDash.
   function dashCompose(o) {
     var t = S.dTab,
@@ -153,52 +130,10 @@
       };
     if (t === 'hoje') {
       var x = dashExtra();
-      h += atencaoHtml() + o.per + o.kp + (o.vend || '') + x.meta;
-      h += dFold('sep', 'Quanto separar do que vendeu', 'reposição, contas, colchão e lucro livre do período', 'var(--sub)', o.sep);
+      h += o.per + o.kp + (o.repor || '') + (o.colch || '') + o.sep + (o.vend || '') + x.meta;
       return h;
     }
-    if (t === 'din') {
-      var r = reservas(),
-        rm = resultadoMes(new Date().getFullYear(), new Date().getMonth()),
-        fl = fluxoCaixa(S.fluxoD || 30),
-        falta = ['pyg', 'usd', 'brl'].filter(function (m) {
-          return fl.pm[m].need > fl.pm[m].tem + 1e-9;
-        });
-      h +=
-        '<section class="kpis">' +
-        kpi('Dinheiro hoje', gs(Math.round(r.wal)), 'carteira toda') +
-        kpi('Livre para você', gs(Math.round(r.livre)), 'depois de reposição, contas e melhorias', 'color:' + (r.livre >= 0 ? 'var(--ok)' : 'var(--bad)')) +
-        '</section>';
-      h += dFold(
-        'res',
-        'Resultado do mês',
-        'Resultado da loja ' + gs(rm.resultado) + ' · sobra ' + gs(rm.sobra),
-        rm.sobra >= 0 ? 'var(--ok)' : 'var(--bad)',
-        resultadoHtml()
-      );
-      h += dFold(
-        'flx',
-        'Fluxo de caixa projetado',
-        'Saldo em ' + (S.fluxoD || 30) + ' dias ' + gs(fl.saldo) + (falta.length ? ' · contas em ' + falta.map(function (m) { return m.toUpperCase(); }).join(', ') + ' pedem troca' : ''),
-        fl.saldo < 0 || falta.length ? 'var(--warn)' : 'var(--ok)',
-        fluxoHtml()
-      );
-      var rt = resultadoMes(new Date().getFullYear(), new Date().getMonth());
-      h +=
-        '<section class="card" style="padding:14px"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span><b style="font-size:15px">Retirada do dono</b><span class="hint" style="display:block;margin:2px 0 0">Neste mês: ' +
-        gs(rt.retTotal) +
-        ' retirados de ' +
-        gs(rt.lucroLivre) +
-        ' de lucro livre</span></span><button class="mini" data-act="view" data-id="caixa">Abrir</button></div></section>';
-      var pmk = ymNow(),
-        pays = (S.cpay || []).filter(function (x) {
-          return x.ym === pmk;
-        });
-      h += dFold('dono', 'Quanto já tem dono', 'guardado ' + gs(Math.round(r.guard + r.melh)) + ' de ' + gs(Math.round(r.wal)), 'var(--sub)', donoHtml());
-      h += dFold('pagas', 'Contas pagas neste mês', pays.length + ' conta(s) paga(s)', 'var(--sub)', contasPagasHtml());
-      h += dFold('two', 'Reposição e contas (30 dias)', 'quanto falta para repor e quanto das contas já foi separado', 'var(--sub)', o.two);
-      return h;
-    }
+    if (t === 'din') return dinheiroHtml(o, kpi);
     if (t === 'giro') {
       var ce = capitalEstoque(),
         x2 = dashExtra(),
@@ -302,4 +237,55 @@
         esc(S.perAte) +
         '" aria-label="Data final" style="flex:1 1 140px;width:auto"></div>';
     return h + '</div>';
+  }
+
+  // Aba Dinheiro: o que sobra para você, como foi o mês e os próximos 30 dias.
+  function dinheiroHtml(o) {
+    var r = reservas(),
+      now = new Date(),
+      rm = resultadoMes(now.getFullYear(), now.getMonth()),
+      fl = fluxoCaixa(S.fluxoD || 30),
+      dono = r.guard + r.melh,
+      aberto = !!S.dfold.paraonde,
+      part = function (v) {
+        return r.wal > 0 ? Math.max(0, (v / r.wal) * 100) : 0;
+      },
+      falta = ['pyg', 'usd', 'brl'].filter(function (m) {
+        return fl.pm[m].need > fl.pm[m].tem + 1e-9;
+      }),
+      h = '';
+    h +=
+      '<section class="card col"><div class="lbl" style="margin:0">Livre para você</div><b style="font-size:34px;color:' + (r.livre >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + gs(Math.round(r.livre)) + '</b>' +
+      '<div class="bar">' +
+      [[r.repGs, '#00c8ff'], [r.con, '#a2447c'], [r.colch, '#ffc766'], [r.melh, 'var(--info)'], [Math.max(0, r.livre), '#00ff88']]
+        .map(function (p) {
+          return '<i style="width:' + part(p[0]) + '%;background:' + p[1] + '"></i>';
+        })
+        .join('') +
+      '</div><div class="hint" style="margin:0">De ' + gs(Math.round(r.wal)) + ' na carteira, ' + gs(Math.round(dono)) + ' já têm dono: reposição, contas, colchão e melhorias.</div>' +
+      (aberto
+        ? '<div class="split">' +
+          [['Reposição de mercadoria', r.repGs, '#00c8ff'], ['Contas do mês', r.con, '#a2447c'], ['Colchão de segurança', r.colch, '#ffc766'], ['Melhorias da loja', r.melh, 'var(--info)']]
+            .map(function (p) {
+              return '<div class="sl"><span><span class="sp" style="background:' + p[2] + '"></span>' + p[0] + '</span><b>' + gs(Math.round(p[1])) + '</b></div>';
+            })
+            .join('') +
+          '</div>'
+        : '') +
+      '<div style="display:flex;justify-content:flex-end"><button type="button" class="chip" data-act="dfold" data-id="paraonde" aria-expanded="' + aberto + '" style="min-height:34px">' + (aberto ? 'Esconder ⌃' : 'Ver para onde vai ⌄') + '</button></div></section>';
+    h +=
+      '<section class="card col"><b style="font-size:16px">Seu mês</b>' +
+      '<div class="sl"><span>Resultado da loja<small>vendas menos reposição e contas</small></span><b>' + gs(rm.resultado) + '</b></div>' +
+      '<div class="sl"><span>Retirado por você<small>de ' + gs(rm.lucroLivre) + ' de lucro livre</small></span><b>' + gs(rm.retTotal) + '</b></div>' +
+      '<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span>Sobra do mês</span><b style="color:' + (rm.sobra >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + gs(rm.sobra) + '</b></div>' +
+      '<div><button type="button" class="chip" data-act="view" data-id="caixa" style="min-height:34px">Registrar retirada (Caixa)</button></div></section>';
+    h += dFold('res', 'Detalhes do mês', 'receitas, despesas e resultado', rm.sobra >= 0 ? 'var(--ok)' : 'var(--bad)', resultadoHtml());
+    h += dFold(
+      'flx',
+      'Próximos ' + (S.fluxoD || 30) + ' dias',
+      'Saldo ' + gs(fl.saldo) + (falta.length ? ' · contas em ' + falta.map(function (m) { return m.toUpperCase(); }).join(', ') + ' pedem troca' : ''),
+      fl.saldo < 0 || falta.length ? 'var(--warn)' : 'var(--ok)',
+      fluxoHtml() + (o.two || '')
+    );
+    return h;
   }

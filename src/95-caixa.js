@@ -171,35 +171,6 @@
       '</select>'
     );
   }
-  // O que já tem dono (reposição, colchão, contas, melhorias): usado no Dashboard.
-  function donoHtml() {
-    var r = reservas(),
-      html = '';
-    html +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">O que já tem dono</h2><div class="hint" style="margin:2px 0 0">Valores acumulados pelas vendas, mais o saldo inicial que você informou.</div></div><div class="split">' +
-      '<div class="sl"><span>Mercadoria (reposição)<small>' +
-      usd(r.rUSD) +
-      ' guardados. Custo de repor hoje: ' +
-      gs(r.repGs) +
-      '</small></span><b>' +
-      gs(r.repGs) +
-      '</b></div>' +
-      '<div class="sl"><span>Colchão de segurança<small>reserva contra alta do dólar e do custo</small></span><b>' +
-      gs(r.colch) +
-      '</b></div>' +
-      '<div class="sl"><span>Contas do mês<small>separado nos últimos 30 dias, de ' +
-      gs(totalMensal()) +
-      ' por mês</small></span><b>' +
-      gs(r.con) +
-      '</b></div>' +
-      '<div class="sl"><span><b>Total guardado</b></span><b style="color:var(--warn)">' +
-      gs(r.guard) +
-      '</b></div>' +
-      '<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span>Caixa de melhorias da loja<small>opcional, não trava venda</small></span><b style="color:var(--info)">' +
-      gs(r.melh) +
-      '</b></div></div></section>';
-    return html;
-  }
   // Contas pagas no mês: usado no Dashboard.
   function contasPagasHtml() {
     var html = '';

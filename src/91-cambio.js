@@ -158,6 +158,42 @@
     });
     return h;
   }
+
+  // Cartão "Trocar agora": o dólar de hoje no intervalo dos últimos dias e o que dá para trocar.
+  function trocarAgoraHtml() {
+    var p = trocarPlano(),
+      dv = dolarFavoravel();
+    if (!p.passos.length && !(p.needRep > 0.004) && !dv) return '';
+    var h = '<section class="card col"><div><h2 style="margin:0;font-size:16px">Trocar para dólar</h2></div>';
+    if (dv) {
+      var pos = Math.round(Math.max(0, Math.min(1, dv.pos)) * 100);
+      h +=
+        '<div class="lbl" style="margin:0">Dólar hoje</div><b style="font-size:28px">' + gsRaw(dv.hoje) + '</b>' +
+        '<div style="position:relative;height:10px;border-radius:6px;background:linear-gradient(90deg,var(--ok),#ffc766,var(--bad))"><i style="position:absolute;left:' + pos + '%;top:-4px;width:6px;height:18px;border-radius:3px;background:#fff;transform:translateX(-50%)"></i></div>' +
+        '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--mute)"><span>mínimo ' + dots(dv.min) + '</span><span>média ' + dots(dv.media) + '</span><span>máximo ' + dots(dv.max) + '</span></div>' +
+        '<div class="note ' + (dv.barato ? 'n-ok' : dv.caro ? 'n-warn' : 'n-info') + '">' +
+        (dv.barato ? 'Perto do mínimo dos últimos ' + S.janela + ' dias: bom momento para trocar.' : dv.caro ? 'Perto do máximo dos últimos ' + S.janela + ' dias: troque só o necessário.' : 'Cotação no meio do intervalo dos últimos ' + S.janela + ' dias.') +
+        '</div>';
+    }
+    if (p.passos.length) {
+      h += '<div class="split">';
+      var rep = p.passos.filter(function (x) {
+          return x.tipo === 'repor';
+        }),
+        col = p.passos.filter(function (x) {
+          return x.tipo === 'colchao';
+        }),
+        lin = function (x) {
+          return '<div class="sl"><span>' + fmtM(x.de === 'pyg' ? Math.round(x.v / 100) * 100 : Math.round(x.v * 100) / 100, x.de) + ' → ' + usd(x.rec) + '</span><b>' + fmtM(x.de === 'pyg' ? Math.round(x.v / 100) * 100 : Math.round(x.v * 100) / 100, x.de) + '</b></div>';
+        };
+      if (rep.length) h += '<div class="lbl" style="margin:0">Reposição (necessário)</div>' + rep.map(lin).join('');
+      if (col.length) h += '<div class="lbl" style="margin:8px 0 0">Colchão (' + (dv && dv.barato ? 'aproveitar o momento' : 'quando o dólar estiver barato') + ')</div>' + col.map(lin).join('');
+      h += '</div><button class="go" data-act="fxtrocar">Registrar troca</button>';
+    } else {
+      h += '<div class="hint" style="margin:0">Nada para trocar agora com o dinheiro em caixa.</div>';
+    }
+    return h + '</section>';
+  }
   function renderFx() {
     if (S.view !== 'fx' && !S._rtudo) return;
     var el = $('v-fx'),
@@ -191,6 +227,7 @@
       esc(f.status) +
       (f.ts ? ' Última atualização às ' + fh(f.ts) + '.' : '') +
       '</div>';
+    html += trocarAgoraHtml();
     html += fxLojaHtml();
     html += fxGraficos();
     html +=

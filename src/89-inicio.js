@@ -120,7 +120,11 @@
           })
           .join('') +
         '</div>';
-    el.innerHTML =
+    var urg = notifAgora().filter(urgente).length,
+      faixa = urg
+        ? '<section class="card" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px;border-left:4px solid var(--bad);margin-bottom:12px"><div><b style="font-size:15px">' + urg + (urg === 1 ? ' aviso urgente' : ' avisos urgentes') + '</b><div class="hint" style="margin:2px 0 0">toque para ver o que precisa de você</div></div><button type="button" class="mini" data-act="view" data-id="notif">Ver</button></section>'
+        : '';
+    el.innerHTML = faixa +
       '<div class="hero" data-act="inicio" data-id="hoje" role="button" tabindex="0"><span class="hi">' + ico('hero', 26) + '</span><span><small>Vendido hoje · ' + h.n + ' venda(s)</small><b>' + gs(h.v) + '</b></span><span class="hg">›</span></div>' +
       '<div class="tgrid' + (ed ? ' editando' : '') + '">' + grid + '</div>' + extra +
       '<div class="sel" style="justify-content:center;gap:10px;flex-wrap:wrap">' +

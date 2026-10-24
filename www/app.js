@@ -13013,6 +13013,274 @@
     return h + '</div><div class="hint" style="margin:0">Aplicar muda o preço desse tipo para todos os produtos da mesma faixa.</div></section>';
   }
 
+  // ===== Separação do que foi vendido, moeda por moeda (guarani, real e dólar). =====
+  // Regras: cada conta é separada na moeda dela; o dólar recebido vai inteiro para a mercadoria
+  // (depois o real que sobrou e, só no fim, o guarani); colchão e melhorias saem de cada moeda
+  // na proporção do que sobrou. O que restar é o lucro livre. Câmbio de mercado de hoje.
+  var MOE3 = ['pyg', 'brl', 'usd'];
+  S.colchUsd = 0; // US$ do colchão que já foram trocados para dólar
+  S.colchUsos = []; // usos do colchão em dólar: { ts, usd, nota }
+  S.fxBaratoUlt = 0;
+
+  function vazio3() {
+    return { pyg: 0, brl: 0, usd: 0 };
+  }
+  // Guaranis por 1 unidade de cada moeda (câmbio de mercado).
+  function taxas3() {
+    return { pyg: 1, brl: S.fx.pyg / S.fx.brl, usd: S.fx.pyg };
+  }
+  // Soma do que entrou, por moeda, descontado o troco devolvido.
+  function recebidoPorMoeda(list) {
+    var t = vazio3();
+    list.forEach(function (s) {
+      (s.pags && s.pags.length ? s.pags : [{ moeda: s.moeda || 'pyg', v: s.recebido != null ? s.recebido : s.price }]).forEach(function (l) {
+        t[l.moeda] += l.v;
+      });
+      (s.troco || []).forEach(function (l) {
+        t[l.moeda] -= l.v;
+      });
+    });
+    MOE3.forEach(function (m) {
+      t[m] = Math.max(0, t[m]);
+    });
+    return t;
+  }
+  // Valor de uma moeda em guaranis.
+  function eq3(o) {
+    var r = taxas3();
+    return MOE3.reduce(function (a, m) {
+      return a + (o[m] || 0) * r[m];
+    }, 0);
+  }
+  // Plano de separação das vendas "ps": linhas por moeda, o que trocar para dólar e o que falta.
+  function separacaoMoedas(ps) {
+    var r = taxas3(),
+      vend = recebidoPorMoeda(ps),
+      avail = { pyg: vend.pyg, brl: vend.brl, usd: vend.usd },
+      repU = sumBy(ps, 'repUSD'),
+      conG = sumBy(ps, 'contas'),
+      colG = sumBy(ps, 'colch'),
+      melG = sumBy(ps, 'melh'),
+      tm = totalMensal(),
+      con = vazio3(),
+      rep = vazio3(),
+      colch = vazio3(),
+      melh = vazio3(),
+      trocar = [],
+      need = vazio3();
+    // 1. contas, cada uma na sua moeda
+    MOE3.forEach(function (m) {
+      var parte =
+        tm > 0
+          ? S.exp.reduce(function (a, e) {
+              return a + (expMoeda(e) === m ? e.valor : 0);
+            }, 0) / tm
+          : m === 'pyg'
+          ? 1
+          : 0;
+      need[m] = (conG * parte) / r[m];
+    });
+    ['usd', 'brl', 'pyg'].forEach(function (m) {
+      var uso = Math.min(need[m], avail[m]);
+      con[m] += uso;
+      avail[m] -= uso;
+      var falta = need[m] - uso;
+      if (falta > 1e-9 && m !== 'pyg') {
+        // falta da moeda da conta: sai do guarani que sobrou (troca)
+        var g = Math.min(avail.pyg, falta * r[m]);
+        con.pyg += g;
+        avail.pyg -= g;
+        if (g > 0) trocar.push({ de: 'pyg', v: g, para: m, rec: g / r[m], motivo: 'conta' });
+      }
+    });
+    // 2. reposição: dólar recebido, depois real, depois guarani
+    var rem = repU,
+      u = Math.min(rem, avail.usd);
+    rep.usd = u;
+    avail.usd -= u;
+    rem -= u;
+    if (rem > 1e-9) {
+      var b = Math.min(avail.brl, rem * S.fx.brl);
+      if (b > 0) {
+        rep.brl = b;
+        avail.brl -= b;
+        rem -= b / S.fx.brl;
+        trocar.push({ de: 'brl', v: b, para: 'usd', rec: b / S.fx.brl, motivo: 'reposicao' });
+      }
+    }
+    if (rem > 1e-9) {
+      var g2 = Math.min(avail.pyg, rem * S.fx.pyg);
+      if (g2 > 0) {
+        rep.pyg = g2;
+        avail.pyg -= g2;
+        rem -= g2 / S.fx.pyg;
+        trocar.push({ de: 'pyg', v: g2, para: 'usd', rec: g2 / S.fx.pyg, motivo: 'reposicao' });
+      }
+    }
+    var faltaUsd = Math.max(0, rem);
+    // 3. colchão e melhorias: de cada moeda, na proporção do que sobrou
+    var sobraEq = eq3(avail),
+      colEq = Math.min(colG, sobraEq),
+      melEq = Math.min(melG, Math.max(0, sobraEq - colEq));
+    if (sobraEq > 0)
+      MOE3.forEach(function (m) {
+        var f = (avail[m] * r[m]) / sobraEq;
+        colch[m] = (colEq * f) / r[m];
+        melh[m] = (melEq * f) / r[m];
+        avail[m] = Math.max(0, avail[m] - colch[m] - melh[m]);
+      });
+    // 4. o que restou é o lucro livre
+    var sep = vazio3();
+    MOE3.forEach(function (m) {
+      sep[m] = rep[m] + con[m] + colch[m] + melh[m];
+    });
+    return { vend: vend, rep: rep, con: con, colch: colch, melh: melh, sep: sep, livre: avail, trocar: trocar, faltaUsd: faltaUsd, repU: repU };
+  }
+  // Moedas que aparecem nos três cartões: as que entraram no período (guarani sempre).
+  function moedasVistas(sp) {
+    return MOE3.filter(function (m) {
+      return m === 'pyg' || sp.vend[m] > 0.004;
+    });
+  }
+  // Valor para as linhas dos cartões (guarani inteiro; real e dólar com centavos).
+  function v3(v, m) {
+    return fmtM(m === 'pyg' ? Math.round(v / 100) * 100 : Math.round(v * 100) / 100, m);
+  }
+  // Um cartão de valores com uma moeda por linha, na mesma ordem em todos os cartões.
+  function kpi3(rotulo, o, ms, cor, dica) {
+    var tam = ms.length > 2 ? 18 : ms.length > 1 ? 22 : 26;
+    return (
+      '<div class="kpi"><div class="lbl">' + rotulo + '</div><b style="' + (cor ? 'color:' + cor + ';' : '') + 'font-size:' + tam + 'px;line-height:1.5;display:block;font-variant-numeric:tabular-nums">' +
+      ms.map(function (m) {
+        return v3(o[m] || 0, m);
+      }).join('<br>') +
+      '</b><div class="hint">' + dica + '</div></div>'
+    );
+  }
+  // Tabela "Quanto separar do que você vendeu": linhas por destino, colunas por moeda.
+  function sepTabelaHtml(sp, ms) {
+    var grade = 'display:grid;grid-template-columns:1.4fr repeat(' + ms.length + ',1fr);gap:6px;align-items:baseline;font-size:13.5px',
+      ln = function (nome, sub, o, cor, forte, topo) {
+        return (
+          '<div style="' + grade + (topo ? ';border-top:1px solid var(--line);padding-top:10px' : '') + '"><span><span class="sp" style="background:' + cor + '"></span>' + nome + '<small style="display:block;color:var(--mute);font-size:11.5px">' + sub + '</small></span>' +
+          ms.map(function (m) {
+            var z = !(o[m] > 0.004);
+            return '<span style="text-align:right;' + (forte ? 'font-weight:700;' : '') + (z ? 'opacity:.35' : '') + '">' + (z ? '—' : v3(o[m], m)) + '</span>';
+          }).join('') +
+          '</div>'
+        );
+      };
+    return (
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Quanto separar do que você vendeu</h2><div class="hint" style="margin:2px 0 0">Cada conta na sua moeda; o dólar vai para a mercadoria e o colchão sai de cada moeda na proporção do que sobrou. Câmbio de hoje.</div></div>' +
+      '<div style="' + grade + ';font-size:11px;letter-spacing:.06em;color:var(--mute);text-transform:uppercase"><span></span>' +
+      ms.map(function (m) {
+        return '<span style="text-align:right">' + { pyg: 'G$', brl: 'R$', usd: 'US$' }[m] + '</span>';
+      }).join('') +
+      '</div>' +
+      ln('Vendido', 'entrou no período', sp.vend, '#9aa', true, false) +
+      ln('Reposição', 'dólar primeiro, depois real, resto em guarani', sp.rep, '#00c8ff', false, true) +
+      ln('Contas', 'cada uma na sua moeda', sp.con, '#a2447c', false, false) +
+      ln('Colchão', 'proporcional ao que sobrou', sp.colch, '#ffc766', false, false) +
+      ln('Melhorias', 'opcional', sp.melh, 'var(--info)', false, false) +
+      ln('Lucro livre', 'o que sobrou', sp.livre, '#00ff88', true, true) +
+      '</section>'
+    );
+  }
+  // Cartão "Para repor o estoque": quanto trocar de cada moeda por dólar.
+  function reporHtml(sp) {
+    if (!(sp.repU > 0.004)) return '';
+    var r = taxas3(),
+      linhas = '';
+    if (sp.rep.usd > 0.004)
+      linhas += '<div class="sl"><span>Dólar recebido<small>já está em dólar e fica para a mercadoria</small></span><b>' + usd(sp.rep.usd) + '</b></div>';
+    sp.trocar
+      .filter(function (t) {
+        return t.motivo === 'reposicao';
+      })
+      .forEach(function (t) {
+        linhas +=
+          '<div class="sl"><span>Trocar <b>' + v3(t.v, t.de) + '</b> por <b>' + usd(t.rec) + '</b><small>cotação de mercado ' +
+          (t.de === 'brl' ? 'R$ ' + nf(S.fx.brl, 'brl') + ' por US$ 1' : gsRaw(S.fx.pyg) + ' por US$ 1') + '</small></span><b>' + v3(t.v, t.de) + '</b></div>';
+      });
+    var sobra = {};
+    MOE3.forEach(function (m) {
+      sobra[m] = Math.max(0, sp.vend[m] - sp.rep[m]);
+    });
+    var txt = MOE3.filter(function (m) {
+      return sobra[m] > 0.004;
+    })
+      .map(function (m) {
+        return '<b>' + v3(sobra[m], m) + '</b>';
+      })
+      .join(' e ');
+    return (
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Para repor o estoque</h2><div class="hint" style="margin:2px 0 0">Reposição: <b>' + usd(sp.repU) + '</b>. Do que você recebeu, nesta ordem:</div></div><div class="split">' +
+      linhas + '</div>' +
+      (sp.faltaUsd > 0.004
+        ? '<div class="note n-warn">Faltam <b>' + usd(sp.faltaUsd) + '</b> para repor tudo só com o que entrou neste período.</div>'
+        : '<div class="note n-ok">Reposição coberta.' + (txt ? ' Depois de repor, sobram ' + txt + ' para as contas, o colchão e o seu lucro.' : '') + '</div>') +
+      '</section>'
+    );
+  }
+  // Saldo do colchão: o que já está em dólar, o que ainda não foi trocado e o que foi usado.
+  function colchaoSaldoHtml() {
+    var r = reservas(),
+      emUsd = S.colchUsd || 0,
+      falta = Math.max(0, r.colch - emUsd * S.fx.pyg),
+      usos = (S.colchUsos || []).slice(0, 3);
+    if (!(r.colch > 0) && !emUsd) return '';
+    return (
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Colchão de segurança</h2><div class="hint" style="margin:2px 0 0">Reserva contra a alta do dólar. Em dólar ele não perde valor.</div></div>' +
+      '<div class="sl"><span>Já em dólar<small>protegido</small></span><b style="color:var(--ok)">' + usd(emUsd) + '</b></div>' +
+      '<div class="sl"><span>Ainda não trocado<small>espera o dólar ficar barato (em guaranis)</small></span><b>' + gs(Math.round(falta)) + '</b></div>' +
+      usos.map(function (x) {
+        return '<div class="sl"><span>Usado para cobrir a alta<small>' + fd(x.ts) + (x.nota ? ' · ' + esc(x.nota) : '') + '</small></span><b style="color:var(--warn)">− ' + usd(x.usd) + '</b></div>';
+      }).join('') +
+      '<div class="hint" style="margin:0">Cada venda nova separa um colchão novo. Quando o dólar estiver barato, o app avisa para trocar.</div></section>'
+    );
+  }
+  // O que dá para trocar agora com o dinheiro em caixa: reposição (necessário) e colchão (aproveitar).
+  function trocarPlano() {
+    var r = reservas(),
+      fx = S.fx.pyg,
+      reservado = r.con + r.melh,
+      livrePyg = Math.max(0, S.cash.pyg - reservado),
+      brl = Math.max(0, S.cash.brl),
+      needRep = Math.max(0, r.rUSD - Math.max(0, S.cash.usd)),
+      passos = [],
+      rem = needRep,
+      b = Math.min(brl, rem * S.fx.brl);
+    if (b > 0.004) {
+      passos.push({ tipo: 'repor', de: 'brl', v: b, rec: b / S.fx.brl });
+      rem -= b / S.fx.brl;
+    }
+    var g = Math.min(livrePyg, Math.max(0, rem) * fx);
+    if (g > 50) {
+      passos.push({ tipo: 'repor', de: 'pyg', v: g, rec: g / fx });
+      livrePyg -= g;
+    }
+    var colPend = Math.max(0, r.colch - (S.colchUsd || 0) * fx),
+      gc = Math.min(livrePyg, colPend);
+    if (gc > 50) passos.push({ tipo: 'colchao', de: 'pyg', v: gc, rec: gc / fx });
+    return { passos: passos, needRep: needRep, colPend: colPend };
+  }
+  // Registra a troca do plano: ajusta o caixa e o histórico de trocas.
+  function trocarRegistrar() {
+    var p = trocarPlano(),
+      tot = 0;
+    p.passos.forEach(function (x) {
+      if (S.cash[x.de] < x.v - 0.01) return;
+      var v = x.de === 'pyg' ? Math.round(x.v / 100) * 100 : Math.round(x.v * 100) / 100,
+        rec = Math.round((v / ratePyg('usd')) * ratePyg(x.de) * 100) / 100;
+      S.cash[x.de] -= v;
+      S.cash.usd += rec;
+      S.cambios.unshift({ ts: Date.now(), de: x.de, para: 'usd', dado: v, rec: rec, difGs: 0 });
+      if (x.tipo === 'colchao') S.colchUsd = (S.colchUsd || 0) + rec;
+      tot += rec;
+    });
+    S.cxMsg = tot > 0 ? 'Troca registrada: ' + usd(tot) + ' comprados.' : 'Nada para trocar agora.';
+    return tot;
+  }
   // ===== Forma de pagamento da venda e taxas (maquininha, Pix). =====
   // Taxa em % sobre o valor recebido. Dinheiro e Pix não têm taxa; ajuste a maquininha em Ajustes.
   S.formas = [
@@ -17518,6 +17786,7 @@
         t: 'Conferir o caixa',
         s: cc === Infinity ? 'ainda não conferiu' : 'faz ' + cc + ' dias',
         c: 'var(--warn)',
+        urg: true,
         b: 'Conferir',
         act: 'view',
         id: 'caixa'
@@ -17574,30 +17843,6 @@
       });
     return it;
   }
-  function atencaoHtml() {
-    var l = atencaoItens(),
-      mostrar = S.atTodos ? l : l.slice(0, 3);
-    if (!l.length)
-      return '<section class="card col" style="border-left:4px solid var(--ok)"><b style="font-size:15px">Atenção agora</b><div class="hint" style="margin:0">Tudo em ordem.</div></section>';
-    var h =
-      '<section class="card col atcard' + (S.atMin ? ' min' : '') + '" id="atCard" style="border-left:4px solid var(--warn)"><button type="button" class="atcab" data-act="atmin" aria-expanded="' + !S.atMin + '" aria-label="' + (S.atMin ? 'Mostrar' : 'Minimizar') + ' atenção agora"><b style="font-size:15px">Atenção agora</b><span style="display:flex;align-items:center;gap:10px"><span class="cell">' +
-      l.length +
-      '</span><svg class="atseta" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span></button><div class="atbody"><div class="atin"><div class="split">';
-    mostrar.forEach(function (x) {
-      h += dxRow(
-        esc(x.t),
-        '<span style="color:' + x.c + '">' + esc(x.s) + '</span>',
-        '<button class="mini" data-act="' + x.act + '" data-id="' + x.id + '">' + x.b + '</button>'
-      );
-    });
-    h += '</div>';
-    if (l.length > 3)
-      h +=
-        '<button class="chip" data-act="attodos">' +
-        (S.atTodos ? 'Mostrar só os principais' : 'Ver mais ' + (l.length - 3) + ' aviso(s)') +
-        '</button>';
-    return h + '</div></div></section>';
-  }
   // Conteúdo da aba escolhida. "o" traz os blocos já montados pelo renderDash.
   function dashCompose(o) {
     var t = S.dTab,
@@ -17612,52 +17857,10 @@
       };
     if (t === 'hoje') {
       var x = dashExtra();
-      h += atencaoHtml() + o.per + o.kp + (o.vend || '') + x.meta;
-      h += dFold('sep', 'Quanto separar do que vendeu', 'reposição, contas, colchão e lucro livre do período', 'var(--sub)', o.sep);
+      h += o.per + o.kp + (o.repor || '') + (o.colch || '') + o.sep + (o.vend || '') + x.meta;
       return h;
     }
-    if (t === 'din') {
-      var r = reservas(),
-        rm = resultadoMes(new Date().getFullYear(), new Date().getMonth()),
-        fl = fluxoCaixa(S.fluxoD || 30),
-        falta = ['pyg', 'usd', 'brl'].filter(function (m) {
-          return fl.pm[m].need > fl.pm[m].tem + 1e-9;
-        });
-      h +=
-        '<section class="kpis">' +
-        kpi('Dinheiro hoje', gs(Math.round(r.wal)), 'carteira toda') +
-        kpi('Livre para você', gs(Math.round(r.livre)), 'depois de reposição, contas e melhorias', 'color:' + (r.livre >= 0 ? 'var(--ok)' : 'var(--bad)')) +
-        '</section>';
-      h += dFold(
-        'res',
-        'Resultado do mês',
-        'Resultado da loja ' + gs(rm.resultado) + ' · sobra ' + gs(rm.sobra),
-        rm.sobra >= 0 ? 'var(--ok)' : 'var(--bad)',
-        resultadoHtml()
-      );
-      h += dFold(
-        'flx',
-        'Fluxo de caixa projetado',
-        'Saldo em ' + (S.fluxoD || 30) + ' dias ' + gs(fl.saldo) + (falta.length ? ' · contas em ' + falta.map(function (m) { return m.toUpperCase(); }).join(', ') + ' pedem troca' : ''),
-        fl.saldo < 0 || falta.length ? 'var(--warn)' : 'var(--ok)',
-        fluxoHtml()
-      );
-      var rt = resultadoMes(new Date().getFullYear(), new Date().getMonth());
-      h +=
-        '<section class="card" style="padding:14px"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span><b style="font-size:15px">Retirada do dono</b><span class="hint" style="display:block;margin:2px 0 0">Neste mês: ' +
-        gs(rt.retTotal) +
-        ' retirados de ' +
-        gs(rt.lucroLivre) +
-        ' de lucro livre</span></span><button class="mini" data-act="view" data-id="caixa">Abrir</button></div></section>';
-      var pmk = ymNow(),
-        pays = (S.cpay || []).filter(function (x) {
-          return x.ym === pmk;
-        });
-      h += dFold('dono', 'Quanto já tem dono', 'guardado ' + gs(Math.round(r.guard + r.melh)) + ' de ' + gs(Math.round(r.wal)), 'var(--sub)', donoHtml());
-      h += dFold('pagas', 'Contas pagas neste mês', pays.length + ' conta(s) paga(s)', 'var(--sub)', contasPagasHtml());
-      h += dFold('two', 'Reposição e contas (30 dias)', 'quanto falta para repor e quanto das contas já foi separado', 'var(--sub)', o.two);
-      return h;
-    }
+    if (t === 'din') return dinheiroHtml(o, kpi);
     if (t === 'giro') {
       var ce = capitalEstoque(),
         x2 = dashExtra(),
@@ -17761,6 +17964,57 @@
         esc(S.perAte) +
         '" aria-label="Data final" style="flex:1 1 140px;width:auto"></div>';
     return h + '</div>';
+  }
+
+  // Aba Dinheiro: o que sobra para você, como foi o mês e os próximos 30 dias.
+  function dinheiroHtml(o) {
+    var r = reservas(),
+      now = new Date(),
+      rm = resultadoMes(now.getFullYear(), now.getMonth()),
+      fl = fluxoCaixa(S.fluxoD || 30),
+      dono = r.guard + r.melh,
+      aberto = !!S.dfold.paraonde,
+      part = function (v) {
+        return r.wal > 0 ? Math.max(0, (v / r.wal) * 100) : 0;
+      },
+      falta = ['pyg', 'usd', 'brl'].filter(function (m) {
+        return fl.pm[m].need > fl.pm[m].tem + 1e-9;
+      }),
+      h = '';
+    h +=
+      '<section class="card col"><div class="lbl" style="margin:0">Livre para você</div><b style="font-size:34px;color:' + (r.livre >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + gs(Math.round(r.livre)) + '</b>' +
+      '<div class="bar">' +
+      [[r.repGs, '#00c8ff'], [r.con, '#a2447c'], [r.colch, '#ffc766'], [r.melh, 'var(--info)'], [Math.max(0, r.livre), '#00ff88']]
+        .map(function (p) {
+          return '<i style="width:' + part(p[0]) + '%;background:' + p[1] + '"></i>';
+        })
+        .join('') +
+      '</div><div class="hint" style="margin:0">De ' + gs(Math.round(r.wal)) + ' na carteira, ' + gs(Math.round(dono)) + ' já têm dono: reposição, contas, colchão e melhorias.</div>' +
+      (aberto
+        ? '<div class="split">' +
+          [['Reposição de mercadoria', r.repGs, '#00c8ff'], ['Contas do mês', r.con, '#a2447c'], ['Colchão de segurança', r.colch, '#ffc766'], ['Melhorias da loja', r.melh, 'var(--info)']]
+            .map(function (p) {
+              return '<div class="sl"><span><span class="sp" style="background:' + p[2] + '"></span>' + p[0] + '</span><b>' + gs(Math.round(p[1])) + '</b></div>';
+            })
+            .join('') +
+          '</div>'
+        : '') +
+      '<div style="display:flex;justify-content:flex-end"><button type="button" class="chip" data-act="dfold" data-id="paraonde" aria-expanded="' + aberto + '" style="min-height:34px">' + (aberto ? 'Esconder ⌃' : 'Ver para onde vai ⌄') + '</button></div></section>';
+    h +=
+      '<section class="card col"><b style="font-size:16px">Seu mês</b>' +
+      '<div class="sl"><span>Resultado da loja<small>vendas menos reposição e contas</small></span><b>' + gs(rm.resultado) + '</b></div>' +
+      '<div class="sl"><span>Retirado por você<small>de ' + gs(rm.lucroLivre) + ' de lucro livre</small></span><b>' + gs(rm.retTotal) + '</b></div>' +
+      '<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span>Sobra do mês</span><b style="color:' + (rm.sobra >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + gs(rm.sobra) + '</b></div>' +
+      '<div><button type="button" class="chip" data-act="view" data-id="caixa" style="min-height:34px">Registrar retirada (Caixa)</button></div></section>';
+    h += dFold('res', 'Detalhes do mês', 'receitas, despesas e resultado', rm.sobra >= 0 ? 'var(--ok)' : 'var(--bad)', resultadoHtml());
+    h += dFold(
+      'flx',
+      'Próximos ' + (S.fluxoD || 30) + ' dias',
+      'Saldo ' + gs(fl.saldo) + (falta.length ? ' · contas em ' + falta.map(function (m) { return m.toUpperCase(); }).join(', ') + ' pedem troca' : ''),
+      fl.saldo < 0 || falta.length ? 'var(--warn)' : 'var(--ok)',
+      fluxoHtml() + (o.two || '')
+    );
+    return h;
   }
   /* ===== Início: botões em "azulejo" (ícone em cima do nome) e barra de navegação de baixo ===== */
   var ICO_D = {
@@ -17884,7 +18138,11 @@
           })
           .join('') +
         '</div>';
-    el.innerHTML =
+    var urg = notifAgora().filter(urgente).length,
+      faixa = urg
+        ? '<section class="card" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px;border-left:4px solid var(--bad);margin-bottom:12px"><div><b style="font-size:15px">' + urg + (urg === 1 ? ' aviso urgente' : ' avisos urgentes') + '</b><div class="hint" style="margin:2px 0 0">toque para ver o que precisa de você</div></div><button type="button" class="mini" data-act="view" data-id="notif">Ver</button></section>'
+        : '';
+    el.innerHTML = faixa +
       '<div class="hero" data-act="inicio" data-id="hoje" role="button" tabindex="0"><span class="hi">' + ico('hero', 26) + '</span><span><small>Vendido hoje · ' + h.n + ' venda(s)</small><b>' + gs(h.v) + '</b></span><span class="hg">›</span></div>' +
       '<div class="tgrid' + (ed ? ' editando' : '') + '">' + grid + '</div>' + extra +
       '<div class="sel" style="justify-content:center;gap:10px;flex-wrap:wrap">' +
@@ -17938,6 +18196,10 @@
     if (b.m > FX_AVISO) t.push('O real por dólar está ' + pc(b.acima) + ' acima da menor cotação de ' + FX_JANELA + ' dias');
     return t.length ? t.join('. ') + '. ' : '';
   }
+  // Avisos que pedem você agora (o resto fica em "Para acompanhar").
+  function urgente(i) {
+    return i.c === 'var(--bad)' || i.id === 'novo' || i.id === 'fx' || i.urg === true;
+  }
   function notifAgora() {
     var l = [],
       mg = fxMargemInfo('pyg'),
@@ -17952,10 +18214,21 @@
         act: 'view',
         id: 'fx'
       });
+    var dv = dolarFavoravel(),
+      tp = trocarPlano();
+    if (dv && dv.barato && tp.passos.length)
+      l.push({
+        t: 'Bom momento para trocar dólar',
+        s: 'O dólar está em ' + gsRaw(dv.hoje) + ', perto do mínimo dos últimos ' + S.janela + ' dias.' + (tp.needRep > 0.004 ? ' Reposição pendente: ' + usd(tp.needRep) + '.' : ''),
+        c: 'var(--ok)',
+        b: 'Trocar',
+        act: 'view',
+        id: 'fx'
+      });
     if (pedNovos())
       l.push({
         t: pedNovos() + (pedNovos() === 1 ? ' pedido novo' : ' pedidos novos'),
-        s: 'Esperando você começar a separar.',
+        s: 'Esperando você começar a separar' + (pedUltimo() ? ' · último às ' + fh(pedUltimo()) : '') + '.',
         c: 'var(--accent)',
         b: 'Ver',
         act: 'pedver',
@@ -17972,6 +18245,16 @@
   function notifVerifica() {
     var mx = Math.max(fxMargemInfo('pyg').m, fxMargemInfo('brl').m),
       alta = mx > FX_AVISO ? 1 : 0;
+    var dv = dolarFavoravel(),
+      bar = dv && dv.barato && trocarPlano().passos.length ? 1 : 0;
+    if (bar !== S.fxBaratoUlt) {
+      S.fxBaratoUlt = bar;
+      if (bar)
+        S.notifs.unshift({ ts: Date.now(), lida: false, t: 'Dólar barato: bom momento para trocar', s: 'Dólar em ' + gsRaw(dv.hoje) + ', perto do mínimo dos últimos ' + S.janela + ' dias.' });
+      S.notifs = S.notifs.filter(function (x) {
+      return Date.now() - x.ts < 60 * DAY;
+    }).slice(0, 60);
+    }
     if (alta === S.fxMgUlt) return;
     S.fxMgUlt = alta;
     S.notifs.unshift({
@@ -17980,7 +18263,9 @@
       t: alta ? 'Margem da loja subiu para ' + pc(mx) : 'Margem da loja voltou a ' + pc(FX_MARGEM),
       s: alta ? fxMgTxt() + 'Dólar da loja: ' + gsRaw(fxLoja('usd')) + '.' : 'O dólar acalmou. Dólar da loja: ' + gsRaw(fxLoja('usd')) + '.'
     });
-    S.notifs = S.notifs.slice(0, 60);
+    S.notifs = S.notifs.filter(function (x) {
+      return Date.now() - x.ts < 60 * DAY;
+    }).slice(0, 60);
   }
   function notifContagem() {
     var n = 0;
@@ -17996,26 +18281,28 @@
     if (!el || S.view !== 'notif') return;
     var ag = notifAgora(),
       h = '<div class="top"><div><h1>Notificações</h1><div class="crumb">O que precisa de atenção e os avisos do dólar</div></div></div>';
-    h += '<div class="lbl">Agora</div>';
-    h += ag.length
-      ? ag
-          .map(function (i) {
-            return (
-              '<section class="card" style="border-left:4px solid ' + i.c + ';display:flex;align-items:center;gap:10px;justify-content:space-between"><div><b style="font-size:15px">' + esc(i.t) + '</b><div class="hint" style="margin:2px 0 0">' + esc(i.s) + '</div></div>' +
-              '<button type="button" class="mini" data-act="' + i.act + '" data-id="' + i.id + '">' + esc(i.b) + '</button></section>'
-            );
-          })
-          .join('')
-      : '<section class="card"><b>Tudo em ordem.</b><div class="hint" style="margin:2px 0 0">Nada precisa de atenção agora.</div></section>';
-    h += '<div class="lbl">Avisos anteriores</div>';
+    function cartao(i) {
+      return (
+        '<section class="card" style="border-left:4px solid ' + i.c + ';display:flex;align-items:center;gap:10px;justify-content:space-between"><div><b style="font-size:15px">' + esc(i.t) + '</b><div class="hint" style="margin:2px 0 0">' + esc(i.s) + '</div></div>' +
+        '<button type="button" class="mini" data-act="' + i.act + '" data-id="' + i.id + '">' + esc(i.b) + '</button></section>'
+      );
+    }
+    var urg = ag.filter(urgente),
+      acomp = ag.filter(function (i) {
+        return !urgente(i);
+      });
+    h += '<div class="lbl" style="color:' + (urg.length ? 'var(--bad)' : 'var(--mute)') + '">Precisa de você agora · ' + urg.length + '</div>';
+    h += urg.length ? urg.map(cartao).join('') : '<section class="card"><b>Tudo em ordem.</b><div class="hint" style="margin:2px 0 0">Nada urgente agora.</div></section>';
+    if (acomp.length) h += '<div class="lbl">Para acompanhar · ' + acomp.length + '</div>' + acomp.map(cartao).join('');
+    h += '<div class="lbl">Histórico</div>';
     h += S.notifs.length
       ? S.notifs
           .map(function (x) {
             return '<section class="card"><b style="font-size:15px">' + esc(x.t) + '</b><div class="hint" style="margin:2px 0 0">' + esc(x.s) + '</div><div class="hint" style="margin:4px 0 0">' + fd(x.ts) + ' ' + fh(x.ts) + '</div></section>';
           })
           .join('') +
-        '<div class="sel" style="justify-content:center"><button type="button" class="chip" data-act="notifLimpa">Limpar avisos anteriores</button></div>'
-      : '<div class="hint">Nenhum aviso ainda. Quando a margem da loja subir ou voltar ao normal, ele aparece aqui.</div>';
+        '<div class="sel" style="justify-content:center"><button type="button" class="chip" data-act="notifLimpa">Limpar histórico</button></div>'
+      : '<div class="hint">Nenhum aviso ainda. Quando a margem ou o dólar mudarem, o registro aparece aqui.</div>';
     el.innerHTML = h;
     S.notifs.forEach(function (x) {
       x.lida = true;
@@ -18103,25 +18390,15 @@
     var html =
       '<div class="top"><div><h1>Dashboard</h1><div class="crumb">Quanto vendeu e quanto separar para manter a loja em ordem</div></div></div>' +
       dTabsHtml();
+    var sp = separacaoMoedas(ps),
+      ms = moedasVistas(sp),
+      sepEq = eq3(sp.sep),
+      livEq = eq3(sp.livre);
     var kpHtml =
       '<section class="kpis" aria-label="Resumo">' +
-      '<div class="kpi"><div class="lbl">Vendido</div><b>' +
-      gs(tot) +
-      '</b><div class="hint">' +
-      pcs +
-      ' peça(s) em ' +
-      ps.length +
-      ' venda(s)</div></div>' +
-      '<div class="kpi"><div class="lbl">Separar das vendas</div><b style="color:var(--warn)">' +
-      gs(sep) +
-      '</b><div class="hint">' +
-      (tot ? pc(sep / tot) : '0%') +
-      ' do vendido</div></div>' +
-      '<div class="kpi"><div class="lbl">Lucro livre</div><b style="color:var(--ok)">' +
-      gs(liv) +
-      '</b><div class="hint">' +
-      (tot ? pc(liv / tot) : '0%') +
-      ' do vendido</div></div>' +
+      kpi3('Vendido', sp.vend, ms, '', '≈ ' + gs(tot) + ' · ' + pcs + ' peça(s) em ' + ps.length + ' venda(s)') +
+      kpi3('Separar das vendas', sp.sep, ms, 'var(--warn)', (tot ? pc(sepEq / tot) : '0%') + ' do vendido') +
+      kpi3('Lucro livre', sp.livre, ms, 'var(--ok)', (tot ? pc(livEq / tot) : '0%') + ' do vendido') +
       '<div class="kpi"><div class="lbl">Dólar hoje</div><b>' +
       gsRaw(S.fx.pyg) +
       '</b><div class="hint" style="margin-top:2px">por US$ 1</div><b style="font-size:20px;display:block;margin-top:8px">' +
@@ -18208,7 +18485,7 @@
         })
         .join('') +
       '</div></section>';
-    var secSep = html;
+    var secSep = sepTabelaHtml(sp, ms);
     html = '';
     html += '<div class="two">';
     html +=
@@ -18320,7 +18597,7 @@
     el.innerHTML =
       head +
       '<div id="dtabBody">' +
-      dashCompose({ per: perHtml, kp: kpHtml, vend: vendHtml, sep: secSep, two: secTwo, margem: html }) +
+      dashCompose({ per: perHtml, kp: kpHtml, repor: reporHtml(sp), colch: colchaoSaldoHtml(), vend: vendHtml, sep: secSep, two: secTwo, margem: html }) +
       '</div>';
   }
 
@@ -18485,6 +18762,42 @@
     });
     return h;
   }
+
+  // Cartão "Trocar agora": o dólar de hoje no intervalo dos últimos dias e o que dá para trocar.
+  function trocarAgoraHtml() {
+    var p = trocarPlano(),
+      dv = dolarFavoravel();
+    if (!p.passos.length && !(p.needRep > 0.004) && !dv) return '';
+    var h = '<section class="card col"><div><h2 style="margin:0;font-size:16px">Trocar para dólar</h2></div>';
+    if (dv) {
+      var pos = Math.round(Math.max(0, Math.min(1, dv.pos)) * 100);
+      h +=
+        '<div class="lbl" style="margin:0">Dólar hoje</div><b style="font-size:28px">' + gsRaw(dv.hoje) + '</b>' +
+        '<div style="position:relative;height:10px;border-radius:6px;background:linear-gradient(90deg,var(--ok),#ffc766,var(--bad))"><i style="position:absolute;left:' + pos + '%;top:-4px;width:6px;height:18px;border-radius:3px;background:#fff;transform:translateX(-50%)"></i></div>' +
+        '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--mute)"><span>mínimo ' + dots(dv.min) + '</span><span>média ' + dots(dv.media) + '</span><span>máximo ' + dots(dv.max) + '</span></div>' +
+        '<div class="note ' + (dv.barato ? 'n-ok' : dv.caro ? 'n-warn' : 'n-info') + '">' +
+        (dv.barato ? 'Perto do mínimo dos últimos ' + S.janela + ' dias: bom momento para trocar.' : dv.caro ? 'Perto do máximo dos últimos ' + S.janela + ' dias: troque só o necessário.' : 'Cotação no meio do intervalo dos últimos ' + S.janela + ' dias.') +
+        '</div>';
+    }
+    if (p.passos.length) {
+      h += '<div class="split">';
+      var rep = p.passos.filter(function (x) {
+          return x.tipo === 'repor';
+        }),
+        col = p.passos.filter(function (x) {
+          return x.tipo === 'colchao';
+        }),
+        lin = function (x) {
+          return '<div class="sl"><span>' + fmtM(x.de === 'pyg' ? Math.round(x.v / 100) * 100 : Math.round(x.v * 100) / 100, x.de) + ' → ' + usd(x.rec) + '</span><b>' + fmtM(x.de === 'pyg' ? Math.round(x.v / 100) * 100 : Math.round(x.v * 100) / 100, x.de) + '</b></div>';
+        };
+      if (rep.length) h += '<div class="lbl" style="margin:0">Reposição (necessário)</div>' + rep.map(lin).join('');
+      if (col.length) h += '<div class="lbl" style="margin:8px 0 0">Colchão (' + (dv && dv.barato ? 'aproveitar o momento' : 'quando o dólar estiver barato') + ')</div>' + col.map(lin).join('');
+      h += '</div><button class="go" data-act="fxtrocar">Registrar troca</button>';
+    } else {
+      h += '<div class="hint" style="margin:0">Nada para trocar agora com o dinheiro em caixa.</div>';
+    }
+    return h + '</section>';
+  }
   function renderFx() {
     if (S.view !== 'fx' && !S._rtudo) return;
     var el = $('v-fx'),
@@ -18518,6 +18831,7 @@
       esc(f.status) +
       (f.ts ? ' Última atualização às ' + fh(f.ts) + '.' : '') +
       '</div>';
+    html += trocarAgoraHtml();
     html += fxLojaHtml();
     html += fxGraficos();
     html +=
@@ -18868,6 +19182,11 @@
       '<section class="card col"><h2 style="margin:0;font-size:16px">Caixa de melhorias</h2><div class="hint" style="margin:0">Opcional. Não entra nas contas obrigatórias e nunca trava uma venda.</div><div class="sel"><input class="in" id="melhIn" inputmode="' + mpMode() + '" data-in="melh" value="' +
       gsParaCampo(S.melhPeca) +
       '" aria-label="Valor por peça para melhorias" style="max-width:180px"><span class="hint" style="margin:0">' + mpSim() + ' por peça vendida</span></div></section>';
+    var pmk = ymNow(),
+      pays = (S.cpay || []).filter(function (x) {
+        return x.ym === pmk;
+      });
+    html += dFold('pagas', 'Contas pagas neste mês', pays.length + ' conta(s) paga(s)', 'var(--sub)', contasPagasHtml());
     el.innerHTML = html;
   }
 
@@ -19443,17 +19762,6 @@
   // ===== Ações dos botões (data-act) e eventos globais. =====
   // Ações dos botões, por data-act.
   var ACT = {
-    atmin: function () {
-      S.atMin = !S.atMin;
-      var c = $('atCard');
-      if (c) {
-        c.classList.toggle('min', !!S.atMin);
-        var b = c.querySelector('.atcab');
-        b.setAttribute('aria-expanded', !S.atMin);
-        b.setAttribute('aria-label', (S.atMin ? 'Mostrar' : 'Minimizar') + ' atenção agora');
-      }
-      saveSoon();
-    },
     notifLimpa: function () {
       S.notifs = [];
       render();
@@ -19754,6 +20062,10 @@
       t.para = d;
       t.edited = false;
       renderCaixa();
+    },
+    fxtrocar: function () {
+      trocarRegistrar();
+      render();
     },
     trocar: function () {
       var t = S.tr,
@@ -20199,35 +20511,6 @@
       '</select>'
     );
   }
-  // O que já tem dono (reposição, colchão, contas, melhorias): usado no Dashboard.
-  function donoHtml() {
-    var r = reservas(),
-      html = '';
-    html +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">O que já tem dono</h2><div class="hint" style="margin:2px 0 0">Valores acumulados pelas vendas, mais o saldo inicial que você informou.</div></div><div class="split">' +
-      '<div class="sl"><span>Mercadoria (reposição)<small>' +
-      usd(r.rUSD) +
-      ' guardados. Custo de repor hoje: ' +
-      gs(r.repGs) +
-      '</small></span><b>' +
-      gs(r.repGs) +
-      '</b></div>' +
-      '<div class="sl"><span>Colchão de segurança<small>reserva contra alta do dólar e do custo</small></span><b>' +
-      gs(r.colch) +
-      '</b></div>' +
-      '<div class="sl"><span>Contas do mês<small>separado nos últimos 30 dias, de ' +
-      gs(totalMensal()) +
-      ' por mês</small></span><b>' +
-      gs(r.con) +
-      '</b></div>' +
-      '<div class="sl"><span><b>Total guardado</b></span><b style="color:var(--warn)">' +
-      gs(r.guard) +
-      '</b></div>' +
-      '<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span>Caixa de melhorias da loja<small>opcional, não trava venda</small></span><b style="color:var(--info)">' +
-      gs(r.melh) +
-      '</b></div></div></section>';
-    return html;
-  }
   // Contas pagas no mês: usado no Dashboard.
   function contasPagasHtml() {
     var html = '';
@@ -20488,6 +20771,12 @@
     return S.pedidos.filter(function (p) {
       return p.st === 'novo';
     }).length;
+  }
+  // Hora do pedido novo mais recente.
+  function pedUltimo() {
+    return S.pedidos.reduce(function (a, p) {
+      return p.st === 'novo' && p.ts > a ? p.ts : a;
+    }, 0);
   }
   // Valor estimado pela tabela de preços (só das linhas que são modelos do estoque).
   function pedTotal(p) {
@@ -22728,10 +23017,6 @@
       animEnter(sec && sec.nextElementSibling);
     }
   };
-  ACT.attodos = function () {
-    S.atTodos = !S.atTodos;
-    renderDash();
-  };
 
   // Datas do período "Outro".
   document.addEventListener('change', function (ev) {
@@ -23258,6 +23543,9 @@
       'melhPeca',
       'fxHist',
       'fxPer',
+      'colchUsd',
+      'colchUsos',
+      'fxBaratoUlt',
       'sold',
       'lotes',
       'tiposX',
@@ -23279,7 +23567,6 @@
       'descartes',
       'moedaP',
       'fundoBranco',
-      'atMin',
       'notifs',
       'pedidos',
       'pedNext',

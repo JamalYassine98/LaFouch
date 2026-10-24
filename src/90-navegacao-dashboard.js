@@ -80,25 +80,15 @@
     var html =
       '<div class="top"><div><h1>Dashboard</h1><div class="crumb">Quanto vendeu e quanto separar para manter a loja em ordem</div></div></div>' +
       dTabsHtml();
+    var sp = separacaoMoedas(ps),
+      ms = moedasVistas(sp),
+      sepEq = eq3(sp.sep),
+      livEq = eq3(sp.livre);
     var kpHtml =
       '<section class="kpis" aria-label="Resumo">' +
-      '<div class="kpi"><div class="lbl">Vendido</div><b>' +
-      gs(tot) +
-      '</b><div class="hint">' +
-      pcs +
-      ' peça(s) em ' +
-      ps.length +
-      ' venda(s)</div></div>' +
-      '<div class="kpi"><div class="lbl">Separar das vendas</div><b style="color:var(--warn)">' +
-      gs(sep) +
-      '</b><div class="hint">' +
-      (tot ? pc(sep / tot) : '0%') +
-      ' do vendido</div></div>' +
-      '<div class="kpi"><div class="lbl">Lucro livre</div><b style="color:var(--ok)">' +
-      gs(liv) +
-      '</b><div class="hint">' +
-      (tot ? pc(liv / tot) : '0%') +
-      ' do vendido</div></div>' +
+      kpi3('Vendido', sp.vend, ms, '', '≈ ' + gs(tot) + ' · ' + pcs + ' peça(s) em ' + ps.length + ' venda(s)') +
+      kpi3('Separar das vendas', sp.sep, ms, 'var(--warn)', (tot ? pc(sepEq / tot) : '0%') + ' do vendido') +
+      kpi3('Lucro livre', sp.livre, ms, 'var(--ok)', (tot ? pc(livEq / tot) : '0%') + ' do vendido') +
       '<div class="kpi"><div class="lbl">Dólar hoje</div><b>' +
       gsRaw(S.fx.pyg) +
       '</b><div class="hint" style="margin-top:2px">por US$ 1</div><b style="font-size:20px;display:block;margin-top:8px">' +
@@ -185,7 +175,7 @@
         })
         .join('') +
       '</div></section>';
-    var secSep = html;
+    var secSep = sepTabelaHtml(sp, ms);
     html = '';
     html += '<div class="two">';
     html +=
@@ -297,7 +287,7 @@
     el.innerHTML =
       head +
       '<div id="dtabBody">' +
-      dashCompose({ per: perHtml, kp: kpHtml, vend: vendHtml, sep: secSep, two: secTwo, margem: html }) +
+      dashCompose({ per: perHtml, kp: kpHtml, repor: reporHtml(sp), colch: colchaoSaldoHtml(), vend: vendHtml, sep: secSep, two: secTwo, margem: html }) +
       '</div>';
   }
 

@@ -16,6 +16,12 @@
       return p.st === 'novo';
     }).length;
   }
+  // Hora do pedido novo mais recente.
+  function pedUltimo() {
+    return S.pedidos.reduce(function (a, p) {
+      return p.st === 'novo' && p.ts > a ? p.ts : a;
+    }, 0);
+  }
   // Valor estimado pela tabela de preços (só das linhas que são modelos do estoque).
   function pedTotal(p) {
     var t = 0;

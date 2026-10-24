@@ -370,10 +370,6 @@
       animEnter(sec && sec.nextElementSibling);
     }
   };
-  ACT.attodos = function () {
-    S.atTodos = !S.atTodos;
-    renderDash();
-  };
 
   // Datas do período "Outro".
   document.addEventListener('change', function (ev) {
