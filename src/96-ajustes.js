@@ -71,7 +71,7 @@
     if (S.ajMsg) h += '<div class="note n-ok" role="status">' + esc(S.ajMsg) + '</div>';
     // meta
     h +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Meta do mês</h2><div><div class="lbl">Lucro livre desejado no mês, loja toda (' + mpSim() + ')</div><input class="in" inputmode="decimal" data-aj="meta" value="' +
+      '<section class="card col"><h2 style="margin:0;font-size:16px">Meta do mês</h2><div><div class="lbl">Lucro livre desejado no mês, loja toda (US$)</div><input class="in" inputmode="decimal" data-aj="meta" value="' +
       usdParaCampo(S.metaUsd) +
       '" placeholder="Ex.: ' + usdParaCampo(600) + '" style="max-width:220px"></div></section>';
     // faixas
@@ -135,7 +135,7 @@
       '.</div><div style="margin-top:8px"><button class="chip' +
       (S.volAuto !== false ? ' on' : '') +
       '" data-act="volauto">Calcular pelas vendas reais</button></div><div class="hint">Com 2 meses de vendas (pelo menos 20 peças), o app passa a usar a média real.</div></div>' +
-      '<div><div class="lbl">Diferença de contagem tolerada (' + mpSim() + ')</div><input class="in" inputmode="decimal" data-aj="tol" value="' +
+      '<div><div class="lbl">Diferença de contagem tolerada (US$)</div><input class="in" inputmode="decimal" data-aj="tol" value="' +
       usdParaCampo(S.tolUsd) +
       '" style="max-width:160px"><div class="hint">Na contagem de estoque, diferenças até esse valor ficam marcadas como perda aceita.</div></div></section>';
     // backup (arquivo manual + cópias automáticas)

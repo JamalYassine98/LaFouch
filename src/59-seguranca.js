@@ -375,15 +375,6 @@
   // ---------- partes da aba Ajustes: pagamento, segurança e cópias
   function ajustesFinHtml() {
     var h = '';
-    h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Moeda principal</h2><div class="hint" style="margin:2px 0 0">Os totais, lucros e contas aparecem nesta moeda, convertidos pelo câmbio do dia. Os campos onde você digita valores também passam a usar esta moeda. As cotações continuam sempre em guaranis.</div></div><div class="nav" id="moedaPB">' +
-      [['pyg', 'Guarani (G$)'], ['usd', 'Dólar (US$)'], ['brl', 'Real (R$)']]
-        .map(function (m) {
-          var on = (S.moedaP || 'pyg') === m[0];
-          return '<button type="button" class="chip' + (on ? ' on' : '') + '" aria-pressed="' + on + '" data-act="moedap" data-id="' + m[0] + '">' + m[1] + '</button>';
-        })
-        .join('') +
-      '</div></section>';
     // dados de exemplo
     h +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Dados de exemplo</h2><div class="hint" style="margin:2px 0 0">Para testar: troca TUDO o que está no app por um exemplo de cerca de 14 meses (vendas, câmbio, contas pagas, compras) e fotos desenhadas.</div></div><button type="button" class="chip" data-act="exemplo">' +

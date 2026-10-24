@@ -121,6 +121,89 @@
     });
     return { vend: vend, rep: rep, con: con, colch: colch, melh: melh, sep: sep, livre: avail, trocar: trocar, faltaUsd: faltaUsd, repU: repU };
   }
+  // ---------- total convertido (botão G$ / R$ / US$)
+  // Valor em guaranis mostrado na moeda escolhida para os totais, sem centavos.
+  function totFmt(g) {
+    var m = S.totM === 'usd' || S.totM === 'brl' ? S.totM : 'pyg';
+    return m === 'pyg' ? gsRaw(Math.round(g)) : fmtM0(g / ratePyg(m), m);
+  }
+  // Botões para escolher a moeda do total convertido.
+  function totBtn() {
+    var m = S.totM === 'usd' || S.totM === 'brl' ? S.totM : 'pyg';
+    return (
+      '<div class="sel" style="gap:8px;margin:0" role="group" aria-label="Moeda do total convertido">' +
+      [['pyg', 'G$'], ['brl', 'R$'], ['usd', 'US$']]
+        .map(function (o) {
+          return '<button type="button" class="chip' + (o[0] === m ? ' on' : '') + '" aria-pressed="' + (o[0] === m) + '" data-act="totm" data-id="' + o[0] + '" style="min-height:40px;min-width:56px;justify-content:center">' + o[1] + '</button>';
+        })
+        .join('') +
+      '</div>'
+    );
+  }
+  // Frase do câmbio de hoje (para o rodapé dos totais convertidos).
+  function cambioHojeTxt() {
+    return 'Câmbio de hoje: R$ 1 = ' + gsRaw(Math.round(ratePyg('brl'))) + ' · US$ 1 = R$ ' + nf(S.fx.brl, 'brl') + ' = ' + gsRaw(Math.round(S.fx.pyg));
+  }
+  // O que está livre para você, moeda por moeda, já descontadas reposição, contas, colchão e melhorias.
+  // O dólar nunca fica livre: fica com a loja. O que faltar para cobrir as reservas vira "falta".
+  function livre3() {
+    var r = reservas(),
+      rt = taxas3(),
+      av = { pyg: Math.max(0, S.cash.pyg), brl: Math.max(0, S.cash.brl), usd: Math.max(0, S.cash.usd) },
+      falta = 0,
+      lv = vazio3(),
+      tm = totalMensal(),
+      repU = Math.min(av.usd, r.rUSD),
+      needRep;
+    av.usd -= repU;
+    needRep = r.rUSD - repU;
+    var colUsd = Math.min(av.usd, S.colchUsd || 0);
+    av.usd -= colUsd;
+    var extraUsd = av.usd; // dólar a mais: fica com a loja
+    // reposição que falta em dólar: sai do real e depois do guarani
+    var b = Math.min(av.brl, needRep * S.fx.brl);
+    av.brl -= b;
+    needRep -= b / S.fx.brl;
+    var g = Math.min(av.pyg, Math.max(0, needRep) * S.fx.pyg);
+    av.pyg -= g;
+    needRep -= g / S.fx.pyg;
+    if (needRep > 1e-9) falta += needRep * S.fx.pyg;
+    // contas: cada uma na moeda dela; o que faltar sai do guarani
+    ['usd', 'brl', 'pyg'].forEach(function (m) {
+      var parte =
+          tm > 0
+            ? S.exp.reduce(function (a, e) {
+                return a + (expMoeda(e) === m ? e.valor : 0);
+              }, 0) / tm
+            : m === 'pyg'
+              ? 1
+              : 0,
+        precisa = (r.con * parte) / rt[m],
+        pool = m === 'usd' ? extraUsd : av[m],
+        uso = Math.min(precisa, pool);
+      if (m === 'usd') extraUsd -= uso;
+      else av[m] -= uso;
+      var f = precisa - uso;
+      if (f > 1e-9) {
+        var gg = Math.min(av.pyg, f * rt[m]);
+        av.pyg -= gg;
+        if (f * rt[m] - gg > 0.5) falta += f * rt[m] - gg;
+      }
+    });
+    // colchão (a parte ainda em guarani) e melhorias: de cada moeda, na proporção do que sobrou
+    var colPend = Math.max(0, r.colch - (S.colchUsd || 0) * S.fx.pyg),
+      sobra = av.pyg * rt.pyg + av.brl * rt.brl,
+      colEq = Math.min(colPend, sobra),
+      melEq = Math.min(Math.max(0, r.melh), Math.max(0, sobra - colEq));
+    falta += Math.max(0, colPend - colEq) + Math.max(0, Math.max(0, r.melh) - melEq);
+    ['pyg', 'brl'].forEach(function (m) {
+      var f = sobra > 0 ? (av[m] * rt[m]) / sobra : 0;
+      lv[m] = Math.max(0, av[m] - (colEq * f) / rt[m] - (melEq * f) / rt[m]);
+    });
+    var livreEq = lv.pyg + lv.brl * rt.brl;
+    return { livre: lv, livreEq: livreEq, falta: Math.round(falta), extraUsd: extraUsd, wal: r.wal, r: r };
+  }
+
   // Moedas que aparecem nos três cartões: as que entraram no período (guarani sempre).
   function moedasVistas(sp) {
     return MOE3.filter(function (m) {

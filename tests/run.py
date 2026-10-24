@@ -490,7 +490,7 @@ async def main():
             pg = await pagina()
             r = await pg.evaluate("""() => { const L = window.__LF, S = L.S;
               S.fx.pyg = 7000; S.fx.brl = 5;
-              const g0 = L.gs(700000); S.moedaP = 'usd'; const g1 = L.gs(700000); S.moedaP = 'brl'; const g2 = L.gs(700000); S.moedaP = 'pyg';
+              const g0 = L.gs(700000); S.totM = 'usd'; const g1 = L.totFmt(700000); S.totM = 'brl'; const g2 = L.totFmt(700000); S.totM = 'pyg';
               const it = S.items.filter(i => i.qty >= 3 && L.tipoOf(i.tipo) && L.tipoOf(i.tipo).pago > 0)[0];
               const q0 = it.qty, n0 = S.dlog.length, r0 = L.resultadoMes(new Date().getFullYear(), new Date().getMonth()).perdas;
               const v = L.descartar(it, 2, 'quebrada');
@@ -499,7 +499,7 @@ async def main():
               return [g0, g1, g2, q0 - it.qty, S.dlog.length - n0, v > 0, r1 - r0 === v, bad === null]; }""")
             ok = r[0].startswith('G$') and r[1] == 'US$ 100' and r[2] == 'R$ 500' and r[3:] == [2, 1, True, True, True] and not pg.erros
             total += 1
-            print(('  ok  ' if ok else ' FALHA ') + 'moeda principal (G$/US$/R$) e descarte entra como prejuízo')
+            print(('  ok  ' if ok else ' FALHA ') + 'total convertido (G$/US$/R$) e descarte entra como prejuízo')
             if not ok: falhas.append('moeda/descarte'); print('        veio', r, pg.erros)
             await pg.close()
 
@@ -560,18 +560,18 @@ async def main():
             # campos de digitar seguem a moeda principal
             pg = await pagina()
             r = await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.fx.pyg = 7000; S.fx.brl = 5;
-              S.moedaP = 'usd'; S.melhPeca = 14000; S.descMode = 'pyg'; S.descTxt = '2';
+              S.melhPeca = 14000; S.descMode = 'pyg'; S.descTxt = '2';
               L.setView('despesas'); L.render();
               const a = document.getElementById('melhIn').value;
-              document.getElementById('impV').value = '3'; document.getElementById('melhIn').value = '1,5';
+              document.getElementById('impV').value = '3'; document.getElementById('melhIn').value = '10500';
               document.getElementById('melhIn').dispatchEvent(new Event('input', {bubbles: true}));
               const b = S.melhPeca;
               document.querySelector('[data-act=impadd]').click(); document.getElementById('impD') ;
-              S.moedaP = 'brl'; L.render(); const c = document.getElementById('melhIn').value;
+              L.render(); const c = document.getElementById('melhIn').value;
               return [a, b, c, document.getElementById('nMoeda').value, L.S.imprev.length]; }""")
-            ok = r[0] == '2,00' and r[1] == 10500 and r[2] == '7,50' and r[3] == 'brl' and not pg.erros
+            ok = r[0] == '14.000' and r[1] == 10500 and r[2] == '10.500' and r[3] == 'pyg' and not pg.erros
             total += 1
-            print(('  ok  ' if ok else ' FALHA ') + 'campos de valor seguem a moeda principal')
+            print(('  ok  ' if ok else ' FALHA ') + 'campos de valor em guaranis, com a moeda de cada campo')
             if not ok: falhas.append('campos moeda'); print('        veio', r, pg.erros)
             await pg.close()
 
@@ -588,7 +588,7 @@ async def main():
 
             # cotação da loja: mercado menos a margem fixa; carrinho usa; centavos fora
             pg = await pagina()
-            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.fx.pyg = 8000; S.fx.brl = 5; S.fxHist = []; S.moedaP = 'usd'; const g = L.gs(7000 * 84.78); S.moedaP = 'pyg';
+            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.fx.pyg = 8000; S.fx.brl = 5; S.fxHist = []; S.totM = 'usd'; const g = L.totFmt(7000 * 84.78); S.totM = 'pyg';
               const u = Math.round(L.rateDe('usd', 0)), b = Math.round(L.rateDe('brl', 0)), man = L.rateDe('brl', 1300), custo = L.ratePyg ? L.ratePyg('usd') : 8000;
               const it = S.items.filter(i => i.qty >= 1 && L.tFor(i).price > 0)[0];
               S.cart = [{it, qty: 1, preco: null}]; S.cartOpen = true; S.moeda = 'brl'; S.rate1 = ''; S.rec = null; S.descTxt = ''; S.pagMisto = false;
@@ -917,6 +917,27 @@ async def main():
             ok = r[0] and r[1] and r[2] and r[3] >= 2 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Resumo: vendas do período separadas, cada uma na moeda recebida')
             if not ok: falhas.append('resumo vendas'); print('        veio', r, pg.erros)
+            await pg.close()
+
+            # Livre para você: moeda por moeda, sem dólar; botão do total convertido; falta vira aviso
+            pg = await pagina()
+            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S;
+              S.fx.pyg = 5000; S.fx.brl = 5; S.sales = []; S.compras = []; S.cpay = []; S.melhUso = []; S.exp = []; S.ini = {rep: 0, colch: 0, melh: 0}; S.colchUsd = 0;
+              S.cash = {pyg: 20000, brl: 10, usd: 500}; S.totM = 'pyg';
+              const a = L.livre3();
+              const f = [a.livre.pyg, a.livre.brl, a.livre.usd, a.falta, L.totFmt(a.livreEq)];
+              S.totM = 'brl'; const b = L.totFmt(a.livreEq); S.totM = 'usd'; const c = L.totFmt(a.livreEq); S.totM = 'pyg';
+              S.dTab = 'din'; L.setView('dash'); L.render();
+              const t1 = document.getElementById('v-dash').innerText;
+              document.querySelector('[data-act=totm][data-id=usd]').click();
+              const t2 = document.getElementById('v-dash').innerText;
+              S.ini.rep = 10; S.cash = {pyg: 0, brl: 0, usd: 0}; L.render();
+              const f2 = L.livre3().falta, t3 = document.getElementById('v-dash').innerText;
+              return [f, b, c, t1.includes('R$ 10') && t1.includes('G$ 20.000') && t1.includes('G$ 30.000'), S.totM, t2.includes('US$ 6'), f2, t3.includes('Faltam')]; }""")
+            total += 1
+            ok = r[0] == [20000, 10, 0, 0, 'G$ 30.000'] and r[1] == 'R$ 30' and r[2] == 'US$ 6' and r[3] and r[4] == 'usd' and r[5] and r[6] == 50000 and r[7] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Livre para você: por moeda, sem dólar, botão do total e "Faltam"')
+            if not ok: falhas.append('livre3'); print('        veio', r, pg.erros)
             await pg.close()
 
             # Resumo por moeda, separação inteligente, notificações unificadas

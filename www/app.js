@@ -8860,13 +8860,8 @@
   function tAgo(d, h) {
     return now0 - d * DAY - (h || 0) * 3600000;
   }
-  // Mostra um valor (guardado em guaranis) na moeda principal escolhida em Ajustes.
+  // Mostra um valor guardado em guaranis.
   var gs = function (n) {
-    var m = S.moedaP;
-    if ((m === 'usd' || m === 'brl') && S.fx && S.fx.pyg > 0) {
-      var r = m === 'usd' ? S.fx.pyg : S.fx.brl > 0 ? S.fx.pyg / S.fx.brl : 0;
-      if (r > 0) return (m === 'usd' ? 'US$ ' : 'R$ ') + dots(Math.round(n / r));
-    }
     return 'G$ ' + dots(n);
   };
   // Sempre em guaranis (para cotações e valores que são, por natureza, G$).
@@ -9274,52 +9269,42 @@
       ' Esta venda foi gravada no Histórico.';
     $('splitCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
-  // ===== Campos de valor seguem a moeda principal (Ajustes). Os dados continuam guardados em G$ (ou US$ onde já era). =====
-  // Moeda principal escolhida.
-  function mp() {
-    return S.moedaP === 'usd' || S.moedaP === 'brl' ? S.moedaP : 'pyg';
-  }
-  // Símbolo da moeda principal.
+  // ===== Campos de valor: guaranis por padrão; metas e tolerâncias em dólar. =====
+  // Símbolo da moeda dos campos de valor.
   function mpSim() {
-    return { pyg: 'G$', usd: 'US$', brl: 'R$' }[mp()];
+    return 'G$';
   }
-  // Teclado: números inteiros em guarani, decimais nas outras.
+  // Teclado dos campos de guarani.
   function mpMode() {
-    return mp() === 'pyg' ? 'numeric' : 'decimal';
+    return 'numeric';
   }
-  // Valor em guaranis -> texto do campo na moeda principal.
+  // Valor em guaranis -> texto do campo.
   function gsParaCampo(v) {
-    var m = mp();
-    return m === 'pyg' ? dots(v) : inVal(v / ratePyg(m), m);
+    return dots(v);
   }
-  // Texto digitado na moeda principal -> guaranis.
+  // Texto digitado em guaranis -> guaranis.
   function campoParaGs(txt) {
-    var m = mp();
-    return m === 'pyg' ? Math.round(toNum(txt)) : Math.round(parseDec(txt, m) * ratePyg(m));
+    return Math.round(toNum(txt));
   }
   // Valor em dólares -> texto do campo (meta, tolerância).
   function usdParaCampo(u) {
-    var m = mp();
-    if (m === 'usd') return u ? String(u).replace('.', ',') : '';
-    return u ? gsParaCampo(u * S.fx.pyg) : '';
+    return u ? String(u).replace('.', ',') : '';
   }
   // Texto digitado -> dólares.
   function campoParaUsd(txt) {
-    var m = mp();
-    if (m === 'usd') return Math.max(0, parseDec(txt, 'usd'));
-    return Math.max(0, campoParaGs(txt) / S.fx.pyg);
+    return Math.max(0, parseDec(txt, 'usd'));
   }
-  // Desconto em guaranis dentro de uma lista de preços (modo % ou valor na moeda principal).
+  // Desconto em guaranis dentro de uma lista de preços (modo % ou valor).
   function descontoGs(lista) {
     var pct = S.descMode === 'pct',
       g = pct ? Math.round((lista * Math.min(100, parseDec(S.descTxt, 'usd'))) / 100) : campoParaGs(S.descTxt);
     return Math.max(0, Math.min(lista, g));
   }
-  // <option>s de moeda com a principal já escolhida.
+  // <option>s de moeda, guarani já escolhido.
   function opcoesMoeda() {
     return [['pyg', 'G$'], ['usd', 'US$'], ['brl', 'R$']]
       .map(function (o) {
-        return '<option value="' + o[0] + '"' + (o[0] === mp() ? ' selected' : '') + '>' + o[1] + '</option>';
+        return '<option value="' + o[0] + '"' + (o[0] === 'pyg' ? ' selected' : '') + '>' + o[1] + '</option>';
       })
       .join('');
   }
@@ -13136,6 +13121,89 @@
     });
     return { vend: vend, rep: rep, con: con, colch: colch, melh: melh, sep: sep, livre: avail, trocar: trocar, faltaUsd: faltaUsd, repU: repU };
   }
+  // ---------- total convertido (botão G$ / R$ / US$)
+  // Valor em guaranis mostrado na moeda escolhida para os totais, sem centavos.
+  function totFmt(g) {
+    var m = S.totM === 'usd' || S.totM === 'brl' ? S.totM : 'pyg';
+    return m === 'pyg' ? gsRaw(Math.round(g)) : fmtM0(g / ratePyg(m), m);
+  }
+  // Botões para escolher a moeda do total convertido.
+  function totBtn() {
+    var m = S.totM === 'usd' || S.totM === 'brl' ? S.totM : 'pyg';
+    return (
+      '<div class="sel" style="gap:8px;margin:0" role="group" aria-label="Moeda do total convertido">' +
+      [['pyg', 'G$'], ['brl', 'R$'], ['usd', 'US$']]
+        .map(function (o) {
+          return '<button type="button" class="chip' + (o[0] === m ? ' on' : '') + '" aria-pressed="' + (o[0] === m) + '" data-act="totm" data-id="' + o[0] + '" style="min-height:40px;min-width:56px;justify-content:center">' + o[1] + '</button>';
+        })
+        .join('') +
+      '</div>'
+    );
+  }
+  // Frase do câmbio de hoje (para o rodapé dos totais convertidos).
+  function cambioHojeTxt() {
+    return 'Câmbio de hoje: R$ 1 = ' + gsRaw(Math.round(ratePyg('brl'))) + ' · US$ 1 = R$ ' + nf(S.fx.brl, 'brl') + ' = ' + gsRaw(Math.round(S.fx.pyg));
+  }
+  // O que está livre para você, moeda por moeda, já descontadas reposição, contas, colchão e melhorias.
+  // O dólar nunca fica livre: fica com a loja. O que faltar para cobrir as reservas vira "falta".
+  function livre3() {
+    var r = reservas(),
+      rt = taxas3(),
+      av = { pyg: Math.max(0, S.cash.pyg), brl: Math.max(0, S.cash.brl), usd: Math.max(0, S.cash.usd) },
+      falta = 0,
+      lv = vazio3(),
+      tm = totalMensal(),
+      repU = Math.min(av.usd, r.rUSD),
+      needRep;
+    av.usd -= repU;
+    needRep = r.rUSD - repU;
+    var colUsd = Math.min(av.usd, S.colchUsd || 0);
+    av.usd -= colUsd;
+    var extraUsd = av.usd; // dólar a mais: fica com a loja
+    // reposição que falta em dólar: sai do real e depois do guarani
+    var b = Math.min(av.brl, needRep * S.fx.brl);
+    av.brl -= b;
+    needRep -= b / S.fx.brl;
+    var g = Math.min(av.pyg, Math.max(0, needRep) * S.fx.pyg);
+    av.pyg -= g;
+    needRep -= g / S.fx.pyg;
+    if (needRep > 1e-9) falta += needRep * S.fx.pyg;
+    // contas: cada uma na moeda dela; o que faltar sai do guarani
+    ['usd', 'brl', 'pyg'].forEach(function (m) {
+      var parte =
+          tm > 0
+            ? S.exp.reduce(function (a, e) {
+                return a + (expMoeda(e) === m ? e.valor : 0);
+              }, 0) / tm
+            : m === 'pyg'
+              ? 1
+              : 0,
+        precisa = (r.con * parte) / rt[m],
+        pool = m === 'usd' ? extraUsd : av[m],
+        uso = Math.min(precisa, pool);
+      if (m === 'usd') extraUsd -= uso;
+      else av[m] -= uso;
+      var f = precisa - uso;
+      if (f > 1e-9) {
+        var gg = Math.min(av.pyg, f * rt[m]);
+        av.pyg -= gg;
+        if (f * rt[m] - gg > 0.5) falta += f * rt[m] - gg;
+      }
+    });
+    // colchão (a parte ainda em guarani) e melhorias: de cada moeda, na proporção do que sobrou
+    var colPend = Math.max(0, r.colch - (S.colchUsd || 0) * S.fx.pyg),
+      sobra = av.pyg * rt.pyg + av.brl * rt.brl,
+      colEq = Math.min(colPend, sobra),
+      melEq = Math.min(Math.max(0, r.melh), Math.max(0, sobra - colEq));
+    falta += Math.max(0, colPend - colEq) + Math.max(0, Math.max(0, r.melh) - melEq);
+    ['pyg', 'brl'].forEach(function (m) {
+      var f = sobra > 0 ? (av[m] * rt[m]) / sobra : 0;
+      lv[m] = Math.max(0, av[m] - (colEq * f) / rt[m] - (melEq * f) / rt[m]);
+    });
+    var livreEq = lv.pyg + lv.brl * rt.brl;
+    return { livre: lv, livreEq: livreEq, falta: Math.round(falta), extraUsd: extraUsd, wal: r.wal, r: r };
+  }
+
   // Moedas que aparecem nos três cartões: as que entraram no período (guarani sempre).
   function moedasVistas(sp) {
     return MOE3.filter(function (m) {
@@ -13713,15 +13781,6 @@
   // ---------- partes da aba Ajustes: pagamento, segurança e cópias
   function ajustesFinHtml() {
     var h = '';
-    h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Moeda principal</h2><div class="hint" style="margin:2px 0 0">Os totais, lucros e contas aparecem nesta moeda, convertidos pelo câmbio do dia. Os campos onde você digita valores também passam a usar esta moeda. As cotações continuam sempre em guaranis.</div></div><div class="nav" id="moedaPB">' +
-      [['pyg', 'Guarani (G$)'], ['usd', 'Dólar (US$)'], ['brl', 'Real (R$)']]
-        .map(function (m) {
-          var on = (S.moedaP || 'pyg') === m[0];
-          return '<button type="button" class="chip' + (on ? ' on' : '') + '" aria-pressed="' + on + '" data-act="moedap" data-id="' + m[0] + '">' + m[1] + '</button>';
-        })
-        .join('') +
-      '</div></section>';
     // dados de exemplo
     h +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Dados de exemplo</h2><div class="hint" style="margin:2px 0 0">Para testar: troca TUDO o que está no app por um exemplo de cerca de 14 meses (vendas, câmbio, contas pagas, compras) e fotos desenhadas.</div></div><button type="button" class="chip" data-act="exemplo">' +
@@ -14564,7 +14623,7 @@
   });
   // ===== Descarte: peças quebradas ou imprestáveis saem do estoque e viram prejuízo. =====
   S.descartes = [];
-  S.moedaP = 'pyg';
+  S.totM = 'pyg'; // moeda do total convertido (botão G$ / R$ / US$)
   // Dá baixa em n peças de um item. Custo = o que foi pago por peça (dólar) no câmbio de hoje.
   function descartar(item, n, motivo) {
     n = Math.floor(n);
@@ -17981,20 +18040,37 @@
         return fl.pm[m].need > fl.pm[m].tem + 1e-9;
       }),
       h = '';
+    var lv = livre3(),
+      linhas = ['pyg', 'brl']
+        .filter(function (m) {
+          return lv.livre[m] > 0.004;
+        })
+        .map(function (m) {
+          return '<div class="sl"><span>' + (m === 'pyg' ? 'Guaranis' : 'Reais') + '</span><b>' + fmtM0(lv.livre[m], m) + '</b></div>';
+        })
+        .join('');
+    dono = Math.max(0, lv.wal - lv.livreEq);
     h +=
-      '<section class="card col"><div class="lbl" style="margin:0">Livre para você</div><b style="font-size:34px;color:' + (r.livre >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + gs(Math.round(r.livre)) + '</b>' +
+      '<section class="card col"><div class="lbl" style="margin:0">Livre para você</div><div class="hint" style="margin:0">já descontadas reposição, contas, colchão e melhorias</div>' +
+      '<div class="split">' + (linhas || '<div class="sl"><span>Guaranis</span><b>G$ 0</b></div>') + '</div>' +
+      (lv.falta > 0
+        ? '<div class="note n-bad">Faltam <b>' + totFmt(lv.falta) + '</b> para cobrir as reservas.' + (lv.extraUsd > 0.004 ? ' O dólar extra da loja (' + usd0(lv.extraUsd) + ') pode ajudar.' : '') + '</div>'
+        : '') +
+      '<div class="hint" style="margin:6px 0 0">Total convertido no câmbio de hoje</div><b style="font-size:34px;color:' + (lv.falta > 0 ? 'var(--bad)' : 'var(--ok)') + '">' + totFmt(lv.livreEq) + '</b>' +
+      totBtn() +
+      '<div class="hint" style="margin:0">' + cambioHojeTxt() + '</div>' +
       '<div class="bar">' +
-      [[r.repGs, '#00c8ff'], [r.con, '#a2447c'], [r.colch, '#ffc766'], [r.melh, 'var(--info)'], [Math.max(0, r.livre), '#00ff88']]
+      [[r.repGs, '#00c8ff'], [r.con, '#a2447c'], [r.colch, '#ffc766'], [r.melh, 'var(--info)'], [lv.livreEq, '#00ff88']]
         .map(function (p) {
           return '<i style="width:' + part(p[0]) + '%;background:' + p[1] + '"></i>';
         })
         .join('') +
-      '</div><div class="hint" style="margin:0">De ' + gs(Math.round(r.wal)) + ' na carteira, ' + gs(Math.round(dono)) + ' já têm dono: reposição, contas, colchão e melhorias.</div>' +
+      '</div><div class="hint" style="margin:0">De ' + totFmt(r.wal) + ' na carteira, ' + totFmt(dono) + ' já têm dono: reposição, contas, colchão e melhorias.</div>' +
       (aberto
         ? '<div class="split">' +
           [['Reposição de mercadoria', r.repGs, '#00c8ff'], ['Contas do mês', r.con, '#a2447c'], ['Colchão de segurança', r.colch, '#ffc766'], ['Melhorias da loja', r.melh, 'var(--info)']]
             .map(function (p) {
-              return '<div class="sl"><span><span class="sp" style="background:' + p[2] + '"></span>' + p[0] + '</span><b>' + gs(Math.round(p[1])) + '</b></div>';
+              return '<div class="sl"><span><span class="sp" style="background:' + p[2] + '"></span>' + p[0] + '</span><b>' + totFmt(p[1]) + '</b></div>';
             })
             .join('') +
           '</div>'
@@ -18002,15 +18078,15 @@
       '<div style="display:flex;justify-content:flex-end"><button type="button" class="chip" data-act="dfold" data-id="paraonde" aria-expanded="' + aberto + '" style="min-height:34px">' + (aberto ? 'Esconder ⌃' : 'Ver para onde vai ⌄') + '</button></div></section>';
     h +=
       '<section class="card col"><b style="font-size:16px">Seu mês</b>' +
-      '<div class="sl"><span>Resultado da loja<small>vendas menos reposição e contas</small></span><b>' + gs(rm.resultado) + '</b></div>' +
-      '<div class="sl"><span>Retirado por você<small>de ' + gs(rm.lucroLivre) + ' de lucro livre</small></span><b>' + gs(rm.retTotal) + '</b></div>' +
-      '<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span>Sobra do mês</span><b style="color:' + (rm.sobra >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + gs(rm.sobra) + '</b></div>' +
+      '<div class="sl"><span>Resultado da loja<small>vendas menos reposição e contas</small></span><b>' + totFmt(rm.resultado) + '</b></div>' +
+      '<div class="sl"><span>Retirado por você<small>de ' + totFmt(rm.lucroLivre) + ' de lucro livre</small></span><b>' + totFmt(rm.retTotal) + '</b></div>' +
+      '<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span>Sobra do mês</span><b style="color:' + (rm.sobra >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + totFmt(rm.sobra) + '</b></div>' +
       '<div><button type="button" class="chip" data-act="view" data-id="caixa" style="min-height:34px">Registrar retirada (Caixa)</button></div></section>';
     h += dFold('res', 'Detalhes do mês', 'receitas, despesas e resultado', rm.sobra >= 0 ? 'var(--ok)' : 'var(--bad)', resultadoHtml());
     h += dFold(
       'flx',
       'Próximos ' + (S.fluxoD || 30) + ' dias',
-      'Saldo ' + gs(fl.saldo) + (falta.length ? ' · contas em ' + falta.map(function (m) { return m.toUpperCase(); }).join(', ') + ' pedem troca' : ''),
+      'Saldo ' + totFmt(fl.saldo) + (falta.length ? ' · contas em ' + falta.map(function (m) { return m.toUpperCase(); }).join(', ') + ' pedem troca' : ''),
       fl.saldo < 0 || falta.length ? 'var(--warn)' : 'var(--ok)',
       fluxoHtml() + (o.two || '')
     );
@@ -18101,7 +18177,7 @@
       giro: ['Giro', [rep + ' a repor', rep ? 'w' : '']],
       prec: ['Preços', [(S.faixas || []).length + ' faixas', '']],
       cat: ['Catálogo', ['WhatsApp', '']],
-      ajustes: ['Ajustes', ['Moeda ' + (MN[S.moedaP || 'pyg'] || 'G$'), '']],
+      ajustes: ['Ajustes', ['Backup e metas', '']],
       novo: ['Novo produto', ['Cadastrar', '']],
       cont: ['Contagem', ['Conferir estoque', '']],
       lotes: ['Lotes', ['Compras', '']],
@@ -18395,8 +18471,9 @@
       sepEq = eq3(sp.sep),
       livEq = eq3(sp.livre);
     var kpHtml =
+      '<div class="card col" style="padding:10px 12px"><div class="hint" style="margin:0">Total convertido em · ' + cambioHojeTxt() + '</div>' + totBtn() + '</div>' +
       '<section class="kpis" aria-label="Resumo">' +
-      kpi3('Vendido', sp.vend, ms, '', '≈ ' + gs(tot) + ' · ' + pcs + ' peça(s) em ' + ps.length + ' venda(s)') +
+      kpi3('Vendido', sp.vend, ms, '', '≈ ' + totFmt(tot) + ' · ' + pcs + ' peça(s) em ' + ps.length + ' venda(s)') +
       kpi3('Separar das vendas', sp.sep, ms, 'var(--warn)', (tot ? pc(sepEq / tot) : '0%') + ' do vendido') +
       kpi3('Lucro livre', sp.livre, ms, 'var(--ok)', (tot ? pc(livEq / tot) : '0%') + ' do vendido') +
       '<div class="kpi"><div class="lbl">Dólar hoje</div><b>' +
@@ -21062,7 +21139,7 @@
     if (S.ajMsg) h += '<div class="note n-ok" role="status">' + esc(S.ajMsg) + '</div>';
     // meta
     h +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Meta do mês</h2><div><div class="lbl">Lucro livre desejado no mês, loja toda (' + mpSim() + ')</div><input class="in" inputmode="decimal" data-aj="meta" value="' +
+      '<section class="card col"><h2 style="margin:0;font-size:16px">Meta do mês</h2><div><div class="lbl">Lucro livre desejado no mês, loja toda (US$)</div><input class="in" inputmode="decimal" data-aj="meta" value="' +
       usdParaCampo(S.metaUsd) +
       '" placeholder="Ex.: ' + usdParaCampo(600) + '" style="max-width:220px"></div></section>';
     // faixas
@@ -21126,7 +21203,7 @@
       '.</div><div style="margin-top:8px"><button class="chip' +
       (S.volAuto !== false ? ' on' : '') +
       '" data-act="volauto">Calcular pelas vendas reais</button></div><div class="hint">Com 2 meses de vendas (pelo menos 20 peças), o app passa a usar a média real.</div></div>' +
-      '<div><div class="lbl">Diferença de contagem tolerada (' + mpSim() + ')</div><input class="in" inputmode="decimal" data-aj="tol" value="' +
+      '<div><div class="lbl">Diferença de contagem tolerada (US$)</div><input class="in" inputmode="decimal" data-aj="tol" value="' +
       usdParaCampo(S.tolUsd) +
       '" style="max-width:160px"><div class="hint">Na contagem de estoque, diferenças até esse valor ficam marcadas como perda aceita.</div></div></section>';
     // backup (arquivo manual + cópias automáticas)
@@ -22992,13 +23069,9 @@
       render();
     });
   };
-  // ---------- Moeda principal
-  ACT.moedap = function (id) {
-    S.moedaP = id === 'usd' || id === 'brl' ? id : 'pyg';
-    S.descTxt = '';
-    S.rec = null;
-    S.hF.vmin = S.hF.vmax = '';
-    S._ajForce = true;
+  // ---------- Moeda do total convertido
+  ACT.totm = function (id) {
+    S.totM = id === 'usd' || id === 'brl' ? id : 'pyg';
     saveSoon();
     render();
   };
@@ -23565,7 +23638,7 @@
       'volAuto',
       'retiradas',
       'descartes',
-      'moedaP',
+      'totM',
       'fundoBranco',
       'notifs',
       'pedidos',
@@ -23646,6 +23719,6 @@
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, whiten: whiten, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, backupLembrete: backupLembrete, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
+      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, backupLembrete: backupLembrete, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, livre3: livre3, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
     };
 })();

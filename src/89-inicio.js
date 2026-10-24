@@ -83,7 +83,7 @@
       giro: ['Giro', [rep + ' a repor', rep ? 'w' : '']],
       prec: ['Preços', [(S.faixas || []).length + ' faixas', '']],
       cat: ['Catálogo', ['WhatsApp', '']],
-      ajustes: ['Ajustes', ['Moeda ' + (MN[S.moedaP || 'pyg'] || 'G$'), '']],
+      ajustes: ['Ajustes', ['Backup e metas', '']],
       novo: ['Novo produto', ['Cadastrar', '']],
       cont: ['Contagem', ['Conferir estoque', '']],
       lotes: ['Lotes', ['Compras', '']],

@@ -1,6 +1,6 @@
   // ===== Descarte: peças quebradas ou imprestáveis saem do estoque e viram prejuízo. =====
   S.descartes = [];
-  S.moedaP = 'pyg';
+  S.totM = 'pyg'; // moeda do total convertido (botão G$ / R$ / US$)
   // Dá baixa em n peças de um item. Custo = o que foi pago por peça (dólar) no câmbio de hoje.
   function descartar(item, n, motivo) {
     n = Math.floor(n);

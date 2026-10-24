@@ -345,13 +345,9 @@
       render();
     });
   };
-  // ---------- Moeda principal
-  ACT.moedap = function (id) {
-    S.moedaP = id === 'usd' || id === 'brl' ? id : 'pyg';
-    S.descTxt = '';
-    S.rec = null;
-    S.hF.vmin = S.hF.vmax = '';
-    S._ajForce = true;
+  // ---------- Moeda do total convertido
+  ACT.totm = function (id) {
+    S.totM = id === 'usd' || id === 'brl' ? id : 'pyg';
     saveSoon();
     render();
   };

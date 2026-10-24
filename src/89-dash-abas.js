@@ -254,20 +254,37 @@
         return fl.pm[m].need > fl.pm[m].tem + 1e-9;
       }),
       h = '';
+    var lv = livre3(),
+      linhas = ['pyg', 'brl']
+        .filter(function (m) {
+          return lv.livre[m] > 0.004;
+        })
+        .map(function (m) {
+          return '<div class="sl"><span>' + (m === 'pyg' ? 'Guaranis' : 'Reais') + '</span><b>' + fmtM0(lv.livre[m], m) + '</b></div>';
+        })
+        .join('');
+    dono = Math.max(0, lv.wal - lv.livreEq);
     h +=
-      '<section class="card col"><div class="lbl" style="margin:0">Livre para você</div><b style="font-size:34px;color:' + (r.livre >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + gs(Math.round(r.livre)) + '</b>' +
+      '<section class="card col"><div class="lbl" style="margin:0">Livre para você</div><div class="hint" style="margin:0">já descontadas reposição, contas, colchão e melhorias</div>' +
+      '<div class="split">' + (linhas || '<div class="sl"><span>Guaranis</span><b>G$ 0</b></div>') + '</div>' +
+      (lv.falta > 0
+        ? '<div class="note n-bad">Faltam <b>' + totFmt(lv.falta) + '</b> para cobrir as reservas.' + (lv.extraUsd > 0.004 ? ' O dólar extra da loja (' + usd0(lv.extraUsd) + ') pode ajudar.' : '') + '</div>'
+        : '') +
+      '<div class="hint" style="margin:6px 0 0">Total convertido no câmbio de hoje</div><b style="font-size:34px;color:' + (lv.falta > 0 ? 'var(--bad)' : 'var(--ok)') + '">' + totFmt(lv.livreEq) + '</b>' +
+      totBtn() +
+      '<div class="hint" style="margin:0">' + cambioHojeTxt() + '</div>' +
       '<div class="bar">' +
-      [[r.repGs, '#00c8ff'], [r.con, '#a2447c'], [r.colch, '#ffc766'], [r.melh, 'var(--info)'], [Math.max(0, r.livre), '#00ff88']]
+      [[r.repGs, '#00c8ff'], [r.con, '#a2447c'], [r.colch, '#ffc766'], [r.melh, 'var(--info)'], [lv.livreEq, '#00ff88']]
         .map(function (p) {
           return '<i style="width:' + part(p[0]) + '%;background:' + p[1] + '"></i>';
         })
         .join('') +
-      '</div><div class="hint" style="margin:0">De ' + gs(Math.round(r.wal)) + ' na carteira, ' + gs(Math.round(dono)) + ' já têm dono: reposição, contas, colchão e melhorias.</div>' +
+      '</div><div class="hint" style="margin:0">De ' + totFmt(r.wal) + ' na carteira, ' + totFmt(dono) + ' já têm dono: reposição, contas, colchão e melhorias.</div>' +
       (aberto
         ? '<div class="split">' +
           [['Reposição de mercadoria', r.repGs, '#00c8ff'], ['Contas do mês', r.con, '#a2447c'], ['Colchão de segurança', r.colch, '#ffc766'], ['Melhorias da loja', r.melh, 'var(--info)']]
             .map(function (p) {
-              return '<div class="sl"><span><span class="sp" style="background:' + p[2] + '"></span>' + p[0] + '</span><b>' + gs(Math.round(p[1])) + '</b></div>';
+              return '<div class="sl"><span><span class="sp" style="background:' + p[2] + '"></span>' + p[0] + '</span><b>' + totFmt(p[1]) + '</b></div>';
             })
             .join('') +
           '</div>'
@@ -275,15 +292,15 @@
       '<div style="display:flex;justify-content:flex-end"><button type="button" class="chip" data-act="dfold" data-id="paraonde" aria-expanded="' + aberto + '" style="min-height:34px">' + (aberto ? 'Esconder ⌃' : 'Ver para onde vai ⌄') + '</button></div></section>';
     h +=
       '<section class="card col"><b style="font-size:16px">Seu mês</b>' +
-      '<div class="sl"><span>Resultado da loja<small>vendas menos reposição e contas</small></span><b>' + gs(rm.resultado) + '</b></div>' +
-      '<div class="sl"><span>Retirado por você<small>de ' + gs(rm.lucroLivre) + ' de lucro livre</small></span><b>' + gs(rm.retTotal) + '</b></div>' +
-      '<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span>Sobra do mês</span><b style="color:' + (rm.sobra >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + gs(rm.sobra) + '</b></div>' +
+      '<div class="sl"><span>Resultado da loja<small>vendas menos reposição e contas</small></span><b>' + totFmt(rm.resultado) + '</b></div>' +
+      '<div class="sl"><span>Retirado por você<small>de ' + totFmt(rm.lucroLivre) + ' de lucro livre</small></span><b>' + totFmt(rm.retTotal) + '</b></div>' +
+      '<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span>Sobra do mês</span><b style="color:' + (rm.sobra >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + totFmt(rm.sobra) + '</b></div>' +
       '<div><button type="button" class="chip" data-act="view" data-id="caixa" style="min-height:34px">Registrar retirada (Caixa)</button></div></section>';
     h += dFold('res', 'Detalhes do mês', 'receitas, despesas e resultado', rm.sobra >= 0 ? 'var(--ok)' : 'var(--bad)', resultadoHtml());
     h += dFold(
       'flx',
       'Próximos ' + (S.fluxoD || 30) + ' dias',
-      'Saldo ' + gs(fl.saldo) + (falta.length ? ' · contas em ' + falta.map(function (m) { return m.toUpperCase(); }).join(', ') + ' pedem troca' : ''),
+      'Saldo ' + totFmt(fl.saldo) + (falta.length ? ' · contas em ' + falta.map(function (m) { return m.toUpperCase(); }).join(', ') + ' pedem troca' : ''),
       fl.saldo < 0 || falta.length ? 'var(--warn)' : 'var(--ok)',
       fluxoHtml() + (o.two || '')
     );

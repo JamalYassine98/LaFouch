@@ -85,8 +85,9 @@
       sepEq = eq3(sp.sep),
       livEq = eq3(sp.livre);
     var kpHtml =
+      '<div class="card col" style="padding:10px 12px"><div class="hint" style="margin:0">Total convertido em · ' + cambioHojeTxt() + '</div>' + totBtn() + '</div>' +
       '<section class="kpis" aria-label="Resumo">' +
-      kpi3('Vendido', sp.vend, ms, '', '≈ ' + gs(tot) + ' · ' + pcs + ' peça(s) em ' + ps.length + ' venda(s)') +
+      kpi3('Vendido', sp.vend, ms, '', '≈ ' + totFmt(tot) + ' · ' + pcs + ' peça(s) em ' + ps.length + ' venda(s)') +
       kpi3('Separar das vendas', sp.sep, ms, 'var(--warn)', (tot ? pc(sepEq / tot) : '0%') + ' do vendido') +
       kpi3('Lucro livre', sp.livre, ms, 'var(--ok)', (tot ? pc(livEq / tot) : '0%') + ' do vendido') +
       '<div class="kpi"><div class="lbl">Dólar hoje</div><b>' +
