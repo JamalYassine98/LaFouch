@@ -125,7 +125,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .stk.e{background:#111;color:#fff}
 .card.esg .ph>svg,.card.esg .ph>img{filter:grayscale(.85);opacity:.55}
 .pf{animation:imgin .7s ease both}@keyframes imgin{from{opacity:0;filter:blur(6px)}}
-.ph:has(.pf)::after,.big:has(.pf)::after{content:"LF";position:absolute;right:12px;bottom:10px;font:700 13px 'Fraunces',Georgia,serif;letter-spacing:.14em;color:#a44a7e;opacity:.4;pointer-events:none;z-index:2}
+.ph:has(.pf)::after,.big:has(.pf)::after{content:"";position:absolute;right:12px;bottom:10px;width:30px;height:33px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 108'%3E%3Cpath d='M50 6L90 19V52C90 77 71 94 50 102C29 94 10 77 10 52V19Z' fill='none' stroke='%23a44a7e' stroke-width='6' stroke-linejoin='round'/%3E%3Ctext x='50' y='64' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='38' fill='%23a44a7e'%3ELF%3C/text%3E%3C/svg%3E") no-repeat center/contain;opacity:.42;pointer-events:none;z-index:2}
 .big[data-zoom]{cursor:zoom-in}.big.zm{cursor:zoom-out}
 .big>svg,.big>img{transition:transform .35s cubic-bezier(.2,.8,.2,1)}
 .big.zm{touch-action:none;cursor:grab;overscroll-behavior:contain}.big.zm.dg{cursor:grabbing}.big.dg>svg,.big.dg>img{transition:none}.big>svg,.big>img{transform-origin:50% 50%}
