@@ -223,7 +223,7 @@ body.arrastando{user-select:none}
 .twrap.arr{z-index:20;filter:drop-shadow(0 8px 14px rgba(0,0,0,.45))}.twrap.arr .tl{animation:none;opacity:1}
 @media (prefers-reduced-motion:reduce){.rip,.cascata .tl,.cascata .hero{animation:none}}
 
-.gone{display:none!important}.erow2{align-items:end}textarea.in{resize:vertical;min-height:72px;font:inherit}
+.gone{display:none!important}textarea.in{resize:vertical;min-height:72px;font:inherit}
 .mainnav{touch-action:manipulation;-webkit-user-select:none;user-select:none}.dayrow{display:flex;gap:8px;align-items:center;flex-wrap:nowrap}.dayrow .dtxt{flex:1 1 auto;text-align:center;font-weight:700;font-size:15px;white-space:nowrap;min-width:0}.dayrow .chip{flex:0 0 auto;padding-left:12px;padding-right:12px}.dayrow .calb{width:44px;height:44px;padding:0;display:inline-flex;align-items:center;justify-content:center}#dayIn{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
 .swrow{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:15px;font-weight:600}.sw{position:relative;width:52px;height:30px;flex:0 0 auto}.sw input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer;z-index:2}.sw i{position:absolute;inset:0;border-radius:15px;background:var(--line);transition:background .2s}.sw i::after{content:'';position:absolute;left:3px;top:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:transform .2s cubic-bezier(.2,.8,.2,1)}.sw input:checked+i{background:var(--accent)}.sw input:checked+i::after{transform:translateX(22px)}.sw input:disabled+i{opacity:.45}
 .sgl{position:fixed;z-index:90;background:var(--panel2);border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.45);overflow-y:auto;-webkit-overflow-scrolling:touch}.sgl[hidden]{display:none}.sgi{padding:10px 14px;display:flex;flex-direction:column;gap:2px;border-bottom:1px solid var(--line);cursor:pointer}.sgi:last-child{border-bottom:0}.sgi b{font-size:15px;font-weight:700}.sgi small{font-size:12px;color:var(--mute)}.sgi:active{background:var(--accent-soft)}
@@ -341,3 +341,12 @@ body.arrastaBarra{-webkit-user-select:none;user-select:none;touch-action:none}
 .zalerta{color:var(--warn);font-weight:800;margin-bottom:6px}.zr{color:var(--bad)}.zw{color:var(--warn)}
 #selBar{position:fixed;left:12px;right:12px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--panel);border:1px solid var(--accent);border-radius:16px;padding:10px 12px;box-shadow:0 12px 30px rgba(0,0,0,.5)}
 #selBar b{flex:1 1 120px}
+
+/* campos lado a lado: rótulo, campo e dica de cada coluna ficam nas mesmas linhas, mesmo quando o rótulo quebra em duas linhas */
+.erow2{align-items:start}
+@supports (grid-template-rows:subgrid){
+  .erow2>*{display:grid;grid-template-rows:subgrid;grid-row:span 3;row-gap:0;min-width:0}
+}
+@supports not (grid-template-rows:subgrid){
+  .erow2 .lbl{min-height:2.7em;display:flex;align-items:flex-end}
+}
