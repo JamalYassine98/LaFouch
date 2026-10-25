@@ -73,6 +73,16 @@
         if (S.barra.indexOf('estoque') < 0) S.barra.unshift('estoque');
       }
     }
+    // Catálogo (Vendas · WhatsApp · Site) e Inventário entram na barra de baixo uma única vez
+    if (!S.cat2) {
+      S.cat2 = true;
+      if (Array.isArray(S.barra)) {
+        var rest = S.barra.filter(function (x) {
+          return ['vendas', 'estoque', 'cat', 'onl'].indexOf(x) < 0;
+        });
+        S.barra = ['vendas', 'estoque'].concat(rest).slice(0, 4);
+      }
+    }
     // quem já personalizou o Início recebe o botão Clientes uma única vez (pode esconder depois)
     if (Array.isArray(S.inicioT) && !S.inicioCli) {
       S.inicioCli = true;
@@ -98,8 +108,8 @@
       rep = reposicao().length;
     } catch (e) {}
     return {
-      vendas: ['Vendas', ct ? [ct + ' no pedido', 'g'] : ['Sem pedido aberto', '']],
-      estoque: ['Produtos', [pecas + ' peças', rep ? 'w' : '']],
+      vendas: ['Catálogo', ct ? [ct + ' no pedido', 'g'] : ['Vendas · WhatsApp · Site', '']],
+      estoque: ['Inventário', [pecas + ' peças', rep ? 'w' : '']],
       caixa: ['Caixa', [gs(walletGs()), 'g']],
       fx: ['Câmbio', [gsRaw(Math.round(ratePyg('usd'))), '']],
       desp: ['Despesas', [gs(totalMensal()) + '/mês', 'w']],
@@ -186,14 +196,15 @@
     } else setView(id);
   }
   /* barra de baixo (acesso rápido): "Início" fixo + até 4 botões escolhidos arrastando do Início */
-  var BARRA_PADRAO = ['estoque', 'caixa', 'ajustes'];
+  var BARRA_PADRAO = ['vendas', 'estoque', 'caixa', 'ajustes'];
   var BARRA_MAX = 4;
   var BARRA_NOME = {
-    vendas: 'Vendas', estoque: 'Produtos', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Resumo',
+    vendas: 'Catálogo', estoque: 'Inventário', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Resumo',
     din: 'Dinheiro', giro: 'Giro', prec: 'Preços', cat: 'Catálogo', ajustes: 'Ajustes', ped: 'Pedidos', onl: 'Loja',
     cli: 'Clientes', cont: 'Contagem', lotes: 'Lotes', novo: 'Novo', notif: 'Avisos'
   };
   function barraLista() {
+    iniLista();
     var l = Array.isArray(S.barra) ? S.barra : BARRA_PADRAO;
     return l
       .filter(function (id, i) {
@@ -216,13 +227,8 @@
     if (id === 'cat') return v === 'vendas' && !!S.catOpen;
     if (id === 'cli') return v === 'clientes';
     if (id === 'lotes') return v === 'estoque' && !!S.lotesView;
-    if (id === 'vendas') return v === 'vendas' && !(S.catOpen && barraLista().indexOf('cat') >= 0);
-    if (id === 'estoque') {
-      var bl = barraLista();
-      if (v === 'vendas') return bl.indexOf('vendas') < 0 && !(S.catOpen && bl.indexOf('cat') >= 0);
-      if (v === 'onl') return bl.indexOf('onl') < 0;
-      return v === 'estoque' && !(S.lotesView && bl.indexOf('lotes') >= 0);
-    }
+    if (id === 'vendas') return (v === 'vendas' && !(S.catOpen && barraLista().indexOf('cat') >= 0)) || (v === 'onl' && barraLista().indexOf('onl') < 0);
+    if (id === 'estoque') return v === 'estoque' && !(S.lotesView && barraLista().indexOf('lotes') >= 0);
     if (id === 'cont' || id === 'novo') return false;
     return v === id;
   }

@@ -1,9 +1,5 @@
   // ===== Aba Vendas. =====
   // Aba Vendas.
-  $('vCatBtn').onclick = function () {
-    S.catOpen = true;
-    render();
-  };
   function renderVendas() {
     renderCatV();
     if (S.cartOpen) {
@@ -30,6 +26,24 @@
     // abas de tipo (sempre à vista) e fileira de graus nos pré-graduados
     var vtb = $('vTabs');
     vtb.textContent = '';
+    vtb.appendChild(
+      btn('chip' + (S.vTipo === 'all' && !S.vMais ? ' on' : ''), 'Todos', function () {
+        S.vTipo = 'all';
+        S.vMais = false;
+        S.vGrau = '';
+        S.vRef = '';
+        S.vSel = null;
+        render();
+      }, S.vTipo === 'all' && !S.vMais)
+    );
+    vtb.appendChild(
+      btn('chip' + (S.vMais ? ' on' : ''), 'Mais vendidos', function () {
+        S.vMais = !S.vMais;
+        S.vRef = '';
+        S.vSel = null;
+        render();
+      }, !!S.vMais)
+    );
     var ordTab = ['sem', 'solar', 'pre'];
     TIPOS.slice()
       .sort(function (a, b) {
@@ -43,6 +57,7 @@
           'chip' + (S.vTipo === x.id ? ' on' : ''),
           x.label,
           function () {
+            S.vMais = false;
             S.vTipo = S.vTipo === x.id ? 'all' : x.id;
             S.vGrau = '';
             S.vRef = '';
@@ -124,12 +139,23 @@
       groups[k].push(i);
     });
     order.sort();
+    if (S.vMais) {
+      var vend = {};
+      S.sales.forEach(function (x) {
+        if (!x.estorno && x.ref) vend[x.ref] = (vend[x.ref] || 0) + (x.qty || 1);
+      });
+      order.sort(function (a, b) {
+        return (vend[b.split('|')[1]] || 0) - (vend[a.split('|')[1]] || 0);
+      });
+    }
     if (!groups[S.vRef]) {
       S.vRef = '';
       S.vSel = null;
     }
     var rows = $('vRows');
     rows.textContent = '';
+    rows.classList.toggle('vlist', modoDe('v') === 'l');
+    modoBtn($('vModo'), 'v');
     order.forEach(function (k) {
       var g = groups[k],
         f = g[0],
@@ -161,6 +187,7 @@
       card.dataset.ref = f.ref;
       card.appendChild(photoBox(photoOf(f.ref), 'pbox'));
       card.appendChild(mk('b', '', pn(f.ref)));
+      card.appendChild(mk('i', 'vplus', '+'));
       var pr0 = tFor(f).price;
       if (pr0) {
         var pp = mk('b', '', gs(pr0));

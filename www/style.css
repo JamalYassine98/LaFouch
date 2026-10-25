@@ -350,3 +350,32 @@ body.arrastaBarra{-webkit-user-select:none;user-select:none;touch-action:none}
 @supports not (grid-template-rows:subgrid){
   .erow2 .lbl{min-height:2.7em;display:flex;align-items:flex-end}
 }
+
+/* ===== Catálogo: barra de 3 abas com ícone (Vendas · WhatsApp · Site) ===== */
+.catbar3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:4px 0 10px}
+.cb3{display:flex;align-items:center;justify-content:center;gap:8px;height:48px;border-radius:14px;border:1px solid var(--line);background:var(--panel);color:var(--tx);font:inherit;font-weight:600;cursor:pointer}
+.cb3.on{background:rgba(160,69,127,.22);border-color:#a0457f}
+.catov{z-index:30;padding-bottom:180px}
+.catov .catbar3{max-width:980px;margin-left:auto;margin-right:auto}
+.catbar{bottom:calc(76px + env(safe-area-inset-bottom,0px));padding-bottom:10px}
+.modebtn{width:48px;min-height:44px;height:44px;padding:0;display:inline-flex;align-items:center;justify-content:center;border-color:#a0457f;flex:0 0 auto}
+.vplus{display:none;font-style:normal;width:44px;height:44px;border-radius:50%;background:#a0457f;color:#fff;font-size:26px;line-height:44px;text-align:center;flex:0 0 auto}
+#vRows.vlist{display:flex;flex-direction:column;gap:8px}
+#vRows.vlist .pcard{flex-direction:row;align-items:center;gap:10px;width:100%;text-align:left;padding:8px}
+#vRows.vlist .pcard .pbox{width:62px;height:46px;flex:0 0 62px}
+#vRows.vlist .pcard b:nth-of-type(1){flex:1;min-width:0}
+#vRows.vlist .vplus{display:block}
+.vitg{grid-template-columns:repeat(2,1fr)}
+@media (min-width:700px){.vitg{grid-template-columns:repeat(4,1fr)}}
+.vitc,.vitr{position:relative}
+.vitc img{width:100%;border-radius:10px}
+.vitl{display:flex;flex-direction:column;gap:8px}
+.vitr{display:flex;align-items:center;gap:10px;padding:8px;border:1px solid var(--line);border-radius:14px}
+.vitr img{width:62px;height:46px;object-fit:contain;border-radius:8px;background:#fff;flex:0 0 62px}
+.vitr .vitt{flex:1;min-width:0}
+.vitt{display:flex;flex-direction:column;gap:2px;font-size:14px}
+.vitx{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--tx);font-size:20px;line-height:1;cursor:pointer;flex:0 0 auto}
+.vitc .vitx{position:absolute;top:6px;right:6px}
+.mktag{display:inline-block;align-self:flex-start;font-size:12px;padding:2px 8px;border-radius:999px;font-weight:600}
+.mkwarn{background:rgba(224,166,40,.2);color:var(--warn)}
+.mkred{background:rgba(220,70,70,.18);color:var(--bad,#e55)}

@@ -147,7 +147,6 @@
     <div class="top"><div><h1>Vendas</h1><div class="crumb">Busque a peça, escolha a variante e finalize. O estoque desce sozinho.</div></div></div>
     <div class="main">
       <section class="card col" id="vListCard" aria-label="Escolher a peça">
-        <button type="button" class="chip catbtn" id="vCatBtn" style="align-self:flex-start"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 15l-5-5-8 8M8 21h8"/></svg>Catálogo para WhatsApp</button>
         <div><div class="lbl">Buscar a peça</div><input class="in" id="vq" placeholder="Código, nome, cor, grau, formato, medida…" style="max-width:420px" autocomplete="off"></div>
         <div class="nav" id="vTabs" role="group" aria-label="Tipo de produto"></div>
         <div id="vGradesB" hidden><div class="lbl">Grau que o cliente pede</div><div class="gradechips" id="vGrades" role="group" aria-label="Grau"></div></div>
@@ -185,15 +184,16 @@
       </section>
     </div>
   <section id="catV" class="catov" aria-label="Catálogo para WhatsApp" hidden>
+    <div class="catbar3" id="uniW"></div>
     <div class="catop">
-      <button type="button" class="chip" id="cvClose">Fechar</button>
-      <h2>Catálogo para WhatsApp</h2>
-      <button type="button" class="chip" id="cvAll">Selecionar tudo</button>
+      <div id="cvChips" class="nav" role="group" aria-label="Filtrar fotos" style="flex:1"></div>
     </div>
+    <div class="catop" style="margin-top:-4px"><span id="cvCount" style="font-size:14px;color:var(--mu)"></span>
+      <button type="button" class="chip" id="cvAll">Selecionar tudo</button></div>
     <div class="gal cvg" id="cvGal"></div>
     <div class="hint" id="cvH"></div>
     <div class="catbar"><div id="cvMsg" role="status" style="color:var(--ok);font-size:14px"></div>
-      <button class="go" id="cvSend" type="button">Enviar imagens</button></div>
+      <div style="display:flex;gap:8px"><button type="button" class="chip" id="cvMsgB" style="flex:0 0 auto">Mensagem…</button><button class="go" id="cvSend" type="button" style="flex:1">Enviar imagens</button></div></div>
   </section>
   <section class="card col" id="splitCard" hidden aria-label="Divisão da venda">
     <div><h2 style="margin:0;font-size:16px">Para onde foi o dinheiro desta venda</h2>
@@ -207,7 +207,7 @@
   <div id="v-estoque" class="view">
 
   <div class="top">
-    <div><h1>Produtos</h1><div class="crumb" id="crumb"></div></div>
+    <div><h1>Inventário</h1><div class="crumb" id="crumb"></div></div>
     <div class="tabs"><button class="go" id="btnAdd" type="button" style="width:auto;margin:0;padding:0 14px;min-height:38px;height:38px;font-size:14px;border-radius:10px">+ Adicionar produto</button><input type="file" id="file" accept="image/*" capture="environment" hidden><input type="file" id="fileG" accept="image/*" hidden></div>
   </div>
 
@@ -219,7 +219,6 @@
   <section class="kpis" id="kpisE" aria-label="Resumo">
     <button class="kpi" id="kCont" type="button" aria-pressed="false" style="text-align:left;font:inherit;color:inherit;cursor:pointer"><div class="lbl">Em estoque (filtro)</div><b id="k1" style="color:var(--ok)"></b><div class="hint">toque para contar</div></button>
     <div class="kpi"><div class="lbl">Referências</div><b id="k2"></b></div>
-    <button class="kpi" id="kRepo" type="button" aria-pressed="false" style="text-align:left;font:inherit;color:inherit;cursor:pointer"><div class="lbl">Pede reposição</div><b id="k3" style="color:var(--warn)"></b><div class="hint" id="k3h">produtos com 5 ou menos no total · toque para ver</div></button>
     <button class="kpi" id="kLot" type="button" hidden aria-pressed="false" style="text-align:left;font:inherit;color:inherit;cursor:pointer"><div class="lbl">Lotes pendentes</div><b id="kLotN" style="color:var(--accent-fg)"></b><div class="hint" id="kLotH">lotes com peças por detalhar · toque para ver</div></button>
   </section>
 

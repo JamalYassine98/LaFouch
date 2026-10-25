@@ -129,9 +129,12 @@
       usdParaCampo(S.tolUsd) +
       '" style="max-width:160px"><div class="hint">Na contagem de estoque, diferenças até esse valor ficam marcadas como perda aceita.</div></div></section>';
     // backup (arquivo manual + cópias automáticas)
-    h += nvCard();
-    h += backupHtml();
+    // Backup é a última seção; a Nuvem fica dentro dele
     h += ajustesFinHtml();
+    var nv = nvCard()
+      .replace('<section class="card col">', '<div class="col" style="border-top:1px solid var(--line);padding-top:12px">')
+      .replace(/<\/section>$/, '</div>');
+    h += backupHtml().replace(/<\/section>$/, nv + '</section>');
     el.innerHTML = h;
   }
   // Recalcula e salva uma alteração feita na aba Ajustes.

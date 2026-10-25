@@ -2412,16 +2412,12 @@
         return i.ref;
       })
     ).size;
-    $('k3').textContent = lowK.length;
     var lpn = S.grp.filter(function (g) {
       return grpFalta(g) > 0;
     }).length;
     $('kLotN').textContent = lpn;
     $('kLot').setAttribute('aria-pressed', !!S.lotesView);
     $('kLot').style.outline = S.lotesView ? '2px solid var(--accent)' : '';
-    $('kRepo').setAttribute('aria-pressed', !!S.repo);
-    $('kRepo').style.outline = S.repo ? '2px solid var(--warn)' : '';
-    $('k3h').textContent = 'produtos que vão acabar logo · toque para ver';
 
     var qOk = function (i) {
       return !qm || qm(i);
@@ -2586,25 +2582,8 @@
         )
       );
     });
-    var fc = $('fCols'),
-      cl = colecoes();
-    fc.textContent = '';
-    $('fColB').hidden = !cl.length;
-    ['']
-      .concat(cl)
-      .forEach(function (c) {
-        fc.appendChild(
-          btn(
-            'chip' + ((S.colF || '') === c ? ' on' : ''),
-            c || 'Todas',
-            function () {
-              S.colF = c;
-              render();
-            },
-            (S.colF || '') === c
-          )
-        );
-      });
+    S.colF = '';
+    $('fColB').hidden = true;
     var sc = $('sortChips');
     sc.textContent = '';
     [
@@ -3676,12 +3655,6 @@
     S.pdMode = false;
     render();
   };
-  // o cartão "Pede reposição" leva à aba Reposição (um só lugar para ver e comprar o que está acabando)
-  $('kRepo').onclick = function () {
-    S.repo = false;
-    var t = $('eTabR');
-    if (t) t.click();
-  };
   try {
     $('eMedB').parentNode.appendChild($('eGrauB'));
   } catch (e) {}
@@ -4695,7 +4668,6 @@
       S.repLista = false;
       render();
     });
-    uniAbasExtra(mkTab);
     mkTab(
       'eTabL',
       'Lotes',
@@ -9551,8 +9523,8 @@
   var VIEWS = [
     ['inicio', 'Início'],
     ['dash', 'Dashboard'],
-    ['estoque', 'Produtos'],
-    ['vendas', 'Vendas'],
+    ['estoque', 'Inventário'],
+    ['vendas', 'Catálogo'],
     ['caixa', 'Caixa'],
     ['desp', 'Despesas'],
     ['fx', 'Câmbio'],
@@ -9972,6 +9944,26 @@
         });
       });
   }
+  // Filtros da aba WhatsApp: Todos · Novidades · Ofertas · Solares · Armações
+  function cvMarcaNovos() {
+    if (!S.novoEm) S.novoEm = {};
+    var base = !S.novoBase;
+    S.novoBase = true;
+    S.items.forEach(function (i) {
+      if (S.novoEm[i.ref] == null) S.novoEm[i.ref] = base ? 0 : Date.now();
+    });
+  }
+  function cvPassa(i) {
+    var f = S.cvF || 'all';
+    if (f === 'solar') return i.tipo === 'solar';
+    if (f === 'arm') return i.tipo === 'sem';
+    if (f === 'novi') return (S.novoEm || {})[i.ref] > Date.now() - 30 * 864e5;
+    if (f === 'ofer') {
+      var p = S.pprice && S.pprice[i.ref];
+      return !!(p && p.ant > 0 && p.novo > 0 && p.ant > p.novo);
+    }
+    return true;
+  }
   // Categorias em uso.
   function catList() {
     var seen = {},
@@ -9982,7 +9974,7 @@
         !TIPOS.some(function (x) {
           return x.id === i.tipo;
         }) ||
-        (S.cvTipo && S.cvTipo !== 'all' && i.tipo !== S.cvTipo)
+        !cvPassa(i)
       )
         return;
       var k = i.ref + '|' + i.cor;
@@ -10002,6 +9994,7 @@
   function renderCatV() {
     S.cvTipo = 'all';
     if (!S.cvOff) S.cvOff = {};
+    cvMarcaNovos();
     $('catV').hidden = !S.catOpen;
     document.body.classList.toggle('catopen', !!S.catOpen);
     if (!S.catOpen) return;
@@ -10009,6 +10002,16 @@
       g = $('cvGal');
     g.textContent = '';
     var n = 0;
+    var ch = $('cvChips');
+    ch.textContent = '';
+    [['all', 'Todos'], ['novi', 'Novidades'], ['ofer', 'Ofertas'], ['solar', 'Solares'], ['arm', 'Armações']].forEach(function (c) {
+      ch.appendChild(
+        btn('chip' + ((S.cvF || 'all') === c[0] ? ' on' : ''), c[1], function () {
+          S.cvF = c[0];
+          render();
+        }, (S.cvF || 'all') === c[0])
+      );
+    });
     L.forEach(function (o) {
       var on = !S.cvOff[o.k];
       if (on) n++;
@@ -10039,7 +10042,10 @@
       };
       g.appendChild(t);
     });
+    $('cvCount').textContent = n + ' de ' + L.length + ' selecionados';
+    $('cvAll').textContent = n === L.length ? 'Limpar' : 'Selecionar tudo';
     $('cvSend').disabled = !n;
+    $('cvMsgB').disabled = !n;
     $('cvSend').textContent = n
       ? 'Enviar ' + n + ' ' + (n === 1 ? 'imagem' : 'imagens')
       : 'Enviar imagens';
@@ -10047,10 +10053,6 @@
       ? 'No celular abre o compartilhamento e você escolhe o WhatsApp. No computador, as imagens são copiadas (uma por vez) ou baixadas.'
       : 'Sem fotos de peças em estoque nesse tipo. Use "+ Adicionar produto" > "Tirar foto da peça".';
   }
-  $('cvClose').onclick = function () {
-    S.catOpen = false;
-    render();
-  };
   $('cvAll').onclick = function () {
     var L = catList(),
       todos = L.every(function (o) {
@@ -10061,6 +10063,75 @@
     });
     render();
   };
+  // Folha "Mensagem…": para quem, o que mostrar, prévia
+  $('cvMsgB').onclick = function () {
+    var o = S.cvCfg || (S.cvCfg = { para: 'cli', preco: true, cod: false, dePor: true });
+    var sel = catList().filter(function (x) {
+      return !S.cvOff[x.k];
+    });
+    if (!sel.length) return;
+    var ov = mk('div', 'modal'),
+      bx = mk('div', 'modal-box');
+    bx.style.maxWidth = '460px';
+    ov.appendChild(bx);
+    function desenha() {
+      bx.textContent = '';
+      bx.appendChild(mk('b', '', 'Mensagem das fotos'));
+      var pr = mk('div', 'nav');
+      pr.appendChild(mk('div', 'zlb', 'PARA QUEM'));
+      [['cli', 'Clientes'], ['atac', 'Atacadistas']].forEach(function (c) {
+        pr.appendChild(btn('chip' + (o.para === c[0] ? ' on' : ''), c[1], function () {
+          o.para = c[0];
+          desenha();
+        }, o.para === c[0]));
+      });
+      bx.appendChild(pr);
+      [['preco', 'Mostrar preço'], ['cod', 'Mostrar código do produto'], ['dePor', 'Mostrar "de/por" nas ofertas']].forEach(function (c) {
+        var l = mk('div', 'zl');
+        l.appendChild(mk('span', '', c[1]));
+        var sw = btn('zsw' + (o[c[0]] ? ' on' : ''), '', function () {
+          o[c[0]] = !o[c[0]];
+          desenha();
+        });
+        sw.setAttribute('role', 'switch');
+        sw.setAttribute('aria-checked', o[c[0]] ? 'true' : 'false');
+        sw.setAttribute('aria-label', c[1]);
+        l.appendChild(sw);
+        bx.appendChild(l);
+      });
+      var pv = mk('pre', 'replist', cvTexto(sel));
+      bx.appendChild(pv);
+      var ln = mk('div', '');
+      ln.style.cssText = 'display:flex;gap:8px;justify-content:flex-end';
+      ln.appendChild(btn('chip', 'Fechar', function () {
+        ov.remove();
+      }));
+      ln.appendChild(btn('mini', 'Enviar ' + sel.length + (sel.length === 1 ? ' foto' : ' fotos') + ' + mensagem', function () {
+        ov.remove();
+        $('cvSend').click();
+      }));
+      bx.appendChild(ln);
+    }
+    desenha();
+    document.body.appendChild(ov);
+  };
+  function cvTexto(sel) {
+    var o = S.cvCfg || {};
+    var linhas = sel.map(function (x) {
+      var t = x.cap;
+      if (o.cod) t = x.ref + ' · ' + t;
+      if (o.preco) {
+        var it = S.items.filter(function (i) {
+            return i.ref === x.ref;
+          })[0],
+          pr = it ? precoAtual(x.ref, it.tipo) : 0,
+          pp = S.pprice && S.pprice[x.ref];
+        if (pr > 0) t += ' — ' + (o.dePor && pp && pp.ant > pr ? 'de ' + gs(pp.ant) + ' por ' + gs(pr) : gs(pr));
+      }
+      return t;
+    });
+    return 'La Fouch · Tudo em Óculos\n' + linhas.join('\n');
+  }
   $('cvSend').onclick = function () {
     var m = $('cvMsg'),
       sel = catList().filter(function (o) {
@@ -10083,13 +10154,7 @@
         if (navigator.canShare && navigator.canShare({ files: files })) {
           return navigator.share({
             files: files,
-            text:
-              'La Fouch · Tudo em Óculos\n' +
-              sel
-                .map(function (o) {
-                  return o.cap;
-                })
-                .join('\n')
+            text: cvTexto(sel)
           }).then(
             function () {
               m.textContent = 'Enviado para o compartilhamento.';
@@ -13233,20 +13298,6 @@
       ps = pisoDoRef(ref, tipo),
       cn = canalDe(ref);
     var sel = card.querySelector('.pbox');
-    var ch = mk('div', 'zch');
-    CANAIS.forEach(function (c) {
-      var i = mk('i', cn[c[0]] ? '' : 'off', c[1]);
-      i.setAttribute('role', 'button');
-      i.setAttribute('aria-label', c[2] + (cn[c[0]] ? ': ligado' : ': desligado'));
-      i.onclick = function (e) {
-        e.stopPropagation();
-        canalSet(ref, c[0], !cn[c[0]]);
-        saveSoon();
-        render();
-      };
-      ch.appendChild(i);
-    });
-    card.appendChild(ch);
     if (atual > 0) {
       var p = mk('div', 'zp');
       p.innerHTML =
@@ -13331,26 +13382,6 @@
       }
     }
     wrap.appendChild(c1);
-    var c2 = mk('div', 'zcd');
-    c2.appendChild(mk('div', 'lbl', 'Onde aparece'));
-    CANAIS.forEach(function (c) {
-      var l = mk('div', 'zl');
-      var t = mk('span', '', c[1] + ' ' + c[2]);
-      var sm = mk('small', '', c[0] === 'site' && cn.site && est === 0 ? 'sem estoque: aparece como Esgotado' : c[3]);
-      t.appendChild(sm);
-      l.appendChild(t);
-      var sw = btn('zsw' + (cn[c[0]] ? ' on' : ''), '', function () {
-        canalSet(ref, c[0], !cn[c[0]]);
-        saveSoon();
-        render();
-      });
-      sw.setAttribute('role', 'switch');
-      sw.setAttribute('aria-checked', cn[c[0]] ? 'true' : 'false');
-      sw.setAttribute('aria-label', c[2]);
-      l.appendChild(sw);
-      c2.appendChild(l);
-    });
-    wrap.appendChild(c2);
     return wrap;
   }
 
@@ -13383,7 +13414,7 @@
       render();
     });
     b.appendChild(todos);
-    var ap = btn('mini', 'Preço e canais…', function () {
+    var ap = btn('mini', 'Preço…', function () {
       if (S.selP.length) selDialogo();
     });
     ap.disabled = !S.selP.length;
@@ -13453,22 +13484,6 @@
       var iAnt = cp('PREÇO ANTIGO', 'opcional'),
         iNovo = cp('PREÇO NOVO', 'não mudar');
       bx.appendChild(r);
-      function sel(rot) {
-        var d = mk('div', '');
-        d.appendChild(mk('div', 'zlb', rot));
-        var s = mk('select', 'in');
-        [['', 'Não mudar'], ['1', 'Mostrar'], ['0', 'Tirar']].forEach(function (o) {
-          var op = mk('option', '', o[1]);
-          op.value = o[0];
-          s.appendChild(op);
-        });
-        s.setAttribute('aria-label', rot);
-        d.appendChild(s);
-        bx.appendChild(d);
-        return s;
-      }
-      var sSite = sel('SITE'),
-        sWpp = sel('CATÁLOGO WHATSAPP');
       var go = btn('mini', 'Aplicar', function () {
         var novo = campoParaGs(iNovo.value) || 0,
           ant = campoParaGs(iAnt.value) || 0,
@@ -13480,10 +13495,10 @@
           });
         if (!ruins.length) {
           fecha();
-          selAplica(refs, novo, ant, sSite.value, sWpp.value, 'direto');
+          selAplica(refs, novo, ant, '', '', 'direto');
           return;
         }
-        tela2(novo, ant, sSite.value, sWpp.value, ruins);
+        tela2(novo, ant, '', '', ruins);
       });
       var cc = btn('chip', 'Cancelar', fecha);
       var ln = mk('div', '');
@@ -13539,53 +13554,36 @@
     render();
   });
 
-  // ---------- abas unificadas: Produtos · Vender · Site · WhatsApp (+ Lotes e Reposição dentro de Produtos)
+  // ---------- Catálogo: uma barra de abas com ícone (Vendas · WhatsApp · Site), igual em todas as telas
   function uniIr(qual) {
-    if (qual === 'p') {
-      S.catOpen = false;
-      S.lotesView = false;
-      S.repoView = false;
-      setView('estoque');
-    } else if (qual === 'v') {
-      S.catOpen = false;
-      setView('vendas');
-    } else if (qual === 's') {
-      S.catOpen = false;
-      setView('onl');
-    } else if (qual === 'w') {
-      S.catOpen = true;
-      setView('vendas');
-    }
+    S.catOpen = qual === 'w';
+    S.repoView = false;
+    setView(qual === 's' ? 'onl' : 'vendas');
   }
   function uniOn() {
-    return S.view === 'vendas' ? (S.catOpen ? 'w' : 'v') : S.view === 'onl' ? 's' : 'p';
+    return S.view === 'vendas' ? (S.catOpen ? 'w' : 'v') : S.view === 'onl' ? 's' : '';
   }
-  // Abas do meio (Vender, Site, WhatsApp) dentro da barra do estoque.
-  function uniAbasExtra(mkTab) {
-    mkTab('eTabV', 'Vender', false, function () {
-      uniIr('v');
-    });
-    mkTab('eTabS', 'Site', false, function () {
-      uniIr('s');
-    });
-    mkTab('eTabW', 'WhatsApp', false, function () {
-      uniIr('w');
-    });
-  }
-  // Barra de abas no topo das telas Vendas e Loja online.
+  var CAT_ICO = {
+    v: '<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 11.5a2 2 0 0 0 2 1.5h7.6a2 2 0 0 0 2-1.5L21 7H6"/>',
+    w: '<path d="M21 12a8 8 0 0 1-11.7 7.1L3 21l1.9-6.1A8 8 0 1 1 21 12z"/>',
+    s: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/>'
+  };
   function uniAbasFill() {
-    ['uniV', 'uniS'].forEach(function (id) {
+    ['uniV', 'uniS', 'uniW'].forEach(function (id) {
       var h = $(id);
       if (!h) return;
-      var on = uniOn(),
-        key = on + '|' + (S.view || '');
-      if (h.getAttribute('data-k') === key && h.firstChild) return;
-      h.setAttribute('data-k', key);
+      var on = uniOn();
+      if (h.getAttribute('data-k') === on && h.firstChild) return;
+      h.setAttribute('data-k', on);
       h.textContent = '';
-      [['p', 'Produtos'], ['v', 'Vender'], ['s', 'Site'], ['w', 'WhatsApp']].forEach(function (t) {
-        var b = btn('chip' + (on === t[0] ? ' on' : ''), t[1], function () {
+      h.className = 'catbar3';
+      [['v', 'Vendas'], ['w', 'WhatsApp'], ['s', 'Site']].forEach(function (t) {
+        var b = btn('cb3' + (on === t[0] ? ' on' : ''), '', function () {
           uniIr(t[0]);
         }, on === t[0]);
+        b.innerHTML =
+          '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+          CAT_ICO[t[0]] + '</svg><span>' + t[1] + '</span>';
         h.appendChild(b);
       });
     });
@@ -15337,10 +15335,6 @@
   }
   // ===== Aba Vendas. =====
   // Aba Vendas.
-  $('vCatBtn').onclick = function () {
-    S.catOpen = true;
-    render();
-  };
   function renderVendas() {
     renderCatV();
     if (S.cartOpen) {
@@ -15367,6 +15361,24 @@
     // abas de tipo (sempre à vista) e fileira de graus nos pré-graduados
     var vtb = $('vTabs');
     vtb.textContent = '';
+    vtb.appendChild(
+      btn('chip' + (S.vTipo === 'all' && !S.vMais ? ' on' : ''), 'Todos', function () {
+        S.vTipo = 'all';
+        S.vMais = false;
+        S.vGrau = '';
+        S.vRef = '';
+        S.vSel = null;
+        render();
+      }, S.vTipo === 'all' && !S.vMais)
+    );
+    vtb.appendChild(
+      btn('chip' + (S.vMais ? ' on' : ''), 'Mais vendidos', function () {
+        S.vMais = !S.vMais;
+        S.vRef = '';
+        S.vSel = null;
+        render();
+      }, !!S.vMais)
+    );
     var ordTab = ['sem', 'solar', 'pre'];
     TIPOS.slice()
       .sort(function (a, b) {
@@ -15380,6 +15392,7 @@
           'chip' + (S.vTipo === x.id ? ' on' : ''),
           x.label,
           function () {
+            S.vMais = false;
             S.vTipo = S.vTipo === x.id ? 'all' : x.id;
             S.vGrau = '';
             S.vRef = '';
@@ -15461,12 +15474,23 @@
       groups[k].push(i);
     });
     order.sort();
+    if (S.vMais) {
+      var vend = {};
+      S.sales.forEach(function (x) {
+        if (!x.estorno && x.ref) vend[x.ref] = (vend[x.ref] || 0) + (x.qty || 1);
+      });
+      order.sort(function (a, b) {
+        return (vend[b.split('|')[1]] || 0) - (vend[a.split('|')[1]] || 0);
+      });
+    }
     if (!groups[S.vRef]) {
       S.vRef = '';
       S.vSel = null;
     }
     var rows = $('vRows');
     rows.textContent = '';
+    rows.classList.toggle('vlist', modoDe('v') === 'l');
+    modoBtn($('vModo'), 'v');
     order.forEach(function (k) {
       var g = groups[k],
         f = g[0],
@@ -15498,6 +15522,7 @@
       card.dataset.ref = f.ref;
       card.appendChild(photoBox(photoOf(f.ref), 'pbox'));
       card.appendChild(mk('b', '', pn(f.ref)));
+      card.appendChild(mk('i', 'vplus', '+'));
       var pr0 = tFor(f).price;
       if (pr0) {
         var pp = mk('b', '', gs(pr0));
@@ -19177,7 +19202,7 @@
     var v = $('vq');
     if (v) {
       var w = document.createElement('div');
-      w.style.cssText = 'display:flex;gap:8px;align-items:center;max-width:480px;width:100%';
+      w.style.cssText = 'display:flex;gap:8px;align-items:center;max-width:540px;width:100%';
       v.parentNode.insertBefore(w, v);
       w.appendChild(v);
       v.style.flex = '1 1 0';
@@ -19199,6 +19224,10 @@
         render();
       };
       w.appendChild(fb);
+      var mb = mk('button', 'chip modebtn');
+      mb.type = 'button';
+      mb.id = 'vModo';
+      w.appendChild(mb);
     }
   })();
 
@@ -19690,6 +19719,16 @@
         if (S.barra.indexOf('estoque') < 0) S.barra.unshift('estoque');
       }
     }
+    // Catálogo (Vendas · WhatsApp · Site) e Inventário entram na barra de baixo uma única vez
+    if (!S.cat2) {
+      S.cat2 = true;
+      if (Array.isArray(S.barra)) {
+        var rest = S.barra.filter(function (x) {
+          return ['vendas', 'estoque', 'cat', 'onl'].indexOf(x) < 0;
+        });
+        S.barra = ['vendas', 'estoque'].concat(rest).slice(0, 4);
+      }
+    }
     // quem já personalizou o Início recebe o botão Clientes uma única vez (pode esconder depois)
     if (Array.isArray(S.inicioT) && !S.inicioCli) {
       S.inicioCli = true;
@@ -19715,8 +19754,8 @@
       rep = reposicao().length;
     } catch (e) {}
     return {
-      vendas: ['Vendas', ct ? [ct + ' no pedido', 'g'] : ['Sem pedido aberto', '']],
-      estoque: ['Produtos', [pecas + ' peças', rep ? 'w' : '']],
+      vendas: ['Catálogo', ct ? [ct + ' no pedido', 'g'] : ['Vendas · WhatsApp · Site', '']],
+      estoque: ['Inventário', [pecas + ' peças', rep ? 'w' : '']],
       caixa: ['Caixa', [gs(walletGs()), 'g']],
       fx: ['Câmbio', [gsRaw(Math.round(ratePyg('usd'))), '']],
       desp: ['Despesas', [gs(totalMensal()) + '/mês', 'w']],
@@ -19803,14 +19842,15 @@
     } else setView(id);
   }
   /* barra de baixo (acesso rápido): "Início" fixo + até 4 botões escolhidos arrastando do Início */
-  var BARRA_PADRAO = ['estoque', 'caixa', 'ajustes'];
+  var BARRA_PADRAO = ['vendas', 'estoque', 'caixa', 'ajustes'];
   var BARRA_MAX = 4;
   var BARRA_NOME = {
-    vendas: 'Vendas', estoque: 'Produtos', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Resumo',
+    vendas: 'Catálogo', estoque: 'Inventário', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Resumo',
     din: 'Dinheiro', giro: 'Giro', prec: 'Preços', cat: 'Catálogo', ajustes: 'Ajustes', ped: 'Pedidos', onl: 'Loja',
     cli: 'Clientes', cont: 'Contagem', lotes: 'Lotes', novo: 'Novo', notif: 'Avisos'
   };
   function barraLista() {
+    iniLista();
     var l = Array.isArray(S.barra) ? S.barra : BARRA_PADRAO;
     return l
       .filter(function (id, i) {
@@ -19833,13 +19873,8 @@
     if (id === 'cat') return v === 'vendas' && !!S.catOpen;
     if (id === 'cli') return v === 'clientes';
     if (id === 'lotes') return v === 'estoque' && !!S.lotesView;
-    if (id === 'vendas') return v === 'vendas' && !(S.catOpen && barraLista().indexOf('cat') >= 0);
-    if (id === 'estoque') {
-      var bl = barraLista();
-      if (v === 'vendas') return bl.indexOf('vendas') < 0 && !(S.catOpen && bl.indexOf('cat') >= 0);
-      if (v === 'onl') return bl.indexOf('onl') < 0;
-      return v === 'estoque' && !(S.lotesView && bl.indexOf('lotes') >= 0);
-    }
+    if (id === 'vendas') return (v === 'vendas' && !(S.catOpen && barraLista().indexOf('cat') >= 0)) || (v === 'onl' && barraLista().indexOf('onl') < 0);
+    if (id === 'estoque') return v === 'estoque' && !(S.lotesView && barraLista().indexOf('lotes') >= 0);
     if (id === 'cont' || id === 'novo') return false;
     return v === id;
   }
@@ -22800,9 +22835,12 @@
       usdParaCampo(S.tolUsd) +
       '" style="max-width:160px"><div class="hint">Na contagem de estoque, diferenças até esse valor ficam marcadas como perda aceita.</div></div></section>';
     // backup (arquivo manual + cópias automáticas)
-    h += nvCard();
-    h += backupHtml();
+    // Backup é a última seção; a Nuvem fica dentro dele
     h += ajustesFinHtml();
+    var nv = nvCard()
+      .replace('<section class="card col">', '<div class="col" style="border-top:1px solid var(--line);padding-top:12px">')
+      .replace(/<\/section>$/, '</div>');
+    h += backupHtml().replace(/<\/section>$/, nv + '</section>');
     el.innerHTML = h;
   }
   // Recalcula e salva uma alteração feita na aba Ajustes.
@@ -23180,36 +23218,370 @@
     S.cliSel = null;
     render();
   };
-  // ===== Loja online: o painel do catálogo (lafouch.com) dentro do app, para editar preços, ofertas, fotos e ligar/desligar o site. =====
+  // ===== Aba Site: a vitrine do lafouch.com. O dono escolhe o que vai; esgotado nunca entra e sai sozinho depois de N dias. =====
   var LOJA_URL = 'https://lafouch.com/admin.html';
+  var MODO_ICO = {
+    lista: '<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
+    grade: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>'
+  };
+  function modoDe(aba) {
+    return (S.vModo && S.vModo[aba]) || 'g';
+  }
+  // Botão da lupa: mostra o modo PARA ONDE vai trocar (em grade mostra "lista" e vice-versa).
+  function modoBtn(btnEl, aba) {
+    var m = modoDe(aba);
+    btnEl.innerHTML =
+      '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      (m === 'g' ? MODO_ICO.lista : MODO_ICO.grade) + '</svg>';
+    btnEl.setAttribute('aria-label', m === 'g' ? 'Mostrar em lista' : 'Mostrar em catálogo');
+    btnEl.onclick = function () {
+      if (!S.vModo) S.vModo = {};
+      S.vModo[aba] = m === 'g' ? 'l' : 'g';
+      saveSoon();
+      render();
+    };
+  }
+  function vitRefs() {
+    return Array.isArray(S.vitrine) ? S.vitrine : (S.vitrine = []);
+  }
+  function vitDias() {
+    return S.vitDias > 0 ? S.vitDias : 14;
+  }
+  function vitInfo(ref) {
+    var it = itemDoRef(ref),
+      est = estoqueDoRef(ref);
+    return { it: it, est: est, tipo: it ? it.tipo : '', nome: pubNome(ref), preco: it ? precoAtual(ref, it.tipo) : 0, foto: photoOf(ref) };
+  }
+  // Esgotado nunca é publicado; o que já está no ar e esgota fica "Esgotado" por N dias e sai sozinho.
+  function vitManutencao() {
+    var l = vitRefs(),
+      ch = false;
+    if (!S.esgDesde) S.esgDesde = {};
+    l.slice().forEach(function (ref) {
+      var est = estoqueDoRef(ref);
+      if (est > 0) {
+        if (S.esgDesde[ref]) {
+          delete S.esgDesde[ref];
+          ch = true;
+        }
+        return;
+      }
+      if (!S.esgDesde[ref]) {
+        S.esgDesde[ref] = Date.now();
+        ch = true;
+      } else if (Date.now() - S.esgDesde[ref] > vitDias() * 864e5) {
+        S.vitrine = vitRefs().filter(function (r) {
+          return r !== ref;
+        });
+        delete S.esgDesde[ref];
+        vitFila(ref, 'del');
+        ch = true;
+      }
+    });
+    if (ch) saveSoon();
+  }
+  function vitDiasEsg(ref) {
+    return Math.floor((Date.now() - (S.esgDesde && S.esgDesde[ref] ? S.esgDesde[ref] : Date.now())) / 864e5);
+  }
+  // ---- publicar no site (Firestore, pelo login da Nuvem)
+  function vTf(v) {
+    if (v === null || v === undefined) return { nullValue: null };
+    if (typeof v === 'string') return { stringValue: v };
+    if (typeof v === 'boolean') return { booleanValue: v };
+    if (typeof v === 'number') return Number.isInteger(v) ? { integerValue: String(v) } : { doubleValue: v };
+    if (Array.isArray(v)) return { arrayValue: { values: v.map(vTf) } };
+    var f = {};
+    Object.keys(v).forEach(function (k) {
+      f[k] = vTf(v[k]);
+    });
+    return { mapValue: { fields: f } };
+  }
+  function vBody(o) {
+    var f = {};
+    Object.keys(o).forEach(function (k) {
+      f[k] = vTf(o[k]);
+    });
+    return JSON.stringify({ fields: f });
+  }
+  function vitProduto(ref) {
+    var v = vitInfo(ref),
+      a = attrOf(ref),
+      pp = S.pprice && S.pprice[ref],
+      ord = vitRefs().indexOf(ref) + 1,
+      solar = v.tipo === 'solar';
+    return {
+      ref: ref,
+      nome: v.nome,
+      tipo: solar ? 'solar' : v.tipo === 'pre' ? 'grau' : 'armacao',
+      n: v.preco || 0,
+      de: pp && pp.ant > v.preco ? pp.ant : 0,
+      aviso: v.est === 1 ? 'Última unidade' : '',
+      tag: solar ? 'SOLAR' : 'ARMAÇÃO',
+      mat: a.material || 'Acetato',
+      cor: '#2a2d33',
+      cores: ['#2a2d33'],
+      raio: 14,
+      med: [52, 19, 145],
+      rosto: ['oval'],
+      rank: 0,
+      oculto: false,
+      fv: Math.floor(Date.now() / 1000),
+      ord: ord,
+      uv: solar
+    };
+  }
+  function vitFila(ref, op) {
+    if (!S.vitPend) S.vitPend = {};
+    S.vitPend[ref] = op;
+    saveSoon();
+  }
+  function vitSync() {
+    var pend = S.vitPend || {},
+      refs = Object.keys(pend);
+    if (!refs.length || !S.nuvem || !S.nuvem.rt || navigator.onLine === false || vitSync.busy || Date.now() - (vitSync.fail || 0) < 60000) return Promise.resolve();
+    vitSync.busy = true;
+    return refs
+      .reduce(function (p, ref) {
+        return p.then(function () {
+          var op = pend[ref];
+          if (op === 'del')
+            return nvApi('DELETE', 'produtos/' + ref).then(function () {
+              return nvApi('DELETE', 'fotos/' + ref).catch(function () {});
+            });
+          var o = vitProduto(ref),
+            f = vitInfo(ref).foto;
+          return (f ? nvApi('PATCH', 'fotos/' + ref, vBody({ d: f })) : Promise.resolve()).then(function () {
+            return nvApi('PATCH', 'produtos/' + ref, vBody(o));
+          });
+        }).then(function () {
+          delete S.vitPend[ref];
+          saveSoon();
+        }, function () {});
+      }, Promise.resolve())
+      .then(function () {
+        vitSync.busy = false;
+        if (Object.keys(S.vitPend || {}).length) vitSync.fail = Date.now();
+        S.vitMsg = Object.keys(S.vitPend || {}).length ? 'Alguns itens ainda não subiram. Tento de novo quando houver internet.' : 'Vitrine publicada no site.';
+        if (S.view === 'onl') render();
+      });
+  }
+  // ---- escolher o que vai (seletor)
+  function vitSeletor() {
+    var sel = {},
+      q = '',
+      ft = 'all',
+      ov = mk('div', 'modal'),
+      bx = mk('div', 'modal-box');
+    bx.style.cssText = 'max-width:560px;max-height:88vh;overflow:auto';
+    ov.appendChild(bx);
+    var refs = [];
+    S.items.forEach(function (i) {
+      if (TIPOS.some(function (x) { return x.id === i.tipo; }) && refs.indexOf(i.ref) < 0) refs.push(i.ref);
+    });
+    function desenha() {
+      bx.textContent = '';
+      bx.appendChild(mk('b', '', 'Adicionar à vitrine'));
+      var qi = mk('input', 'in');
+      qi.placeholder = 'Buscar produto';
+      qi.value = q;
+      qi.oninput = function () {
+        q = qi.value;
+        grade();
+      };
+      bx.appendChild(qi);
+      var cs = mk('div', 'nav');
+      [['all', 'Todos'], ['solar', 'Solares'], ['sem', 'Armações'], ['pre', 'Pré-graduados']].forEach(function (c) {
+        cs.appendChild(btn('chip' + (ft === c[0] ? ' on' : ''), c[1], function () {
+          ft = c[0];
+          desenha();
+        }, ft === c[0]));
+      });
+      bx.appendChild(cs);
+      var g = mk('div', 'gal cvg');
+      g.id = 'vitGrade';
+      bx.appendChild(g);
+      var ln = mk('div', '');
+      ln.style.cssText = 'display:flex;gap:8px;justify-content:flex-end;position:sticky;bottom:0;background:var(--panel);padding-top:8px';
+      ln.appendChild(btn('chip', 'Cancelar', function () {
+        ov.remove();
+      }));
+      var n = Object.keys(sel).length;
+      var go = btn('mini', n ? 'Publicar ' + n + ' na vitrine' : 'Escolha produtos', function () {
+        Object.keys(sel).forEach(function (r) {
+          if (vitRefs().indexOf(r) < 0) vitRefs().push(r);
+          vitFila(r, 'put');
+        });
+        ov.remove();
+        S.vitMsg = '';
+        saveSoon();
+        render();
+        vitSync();
+      });
+      go.disabled = !n;
+      go.id = 'vitGo';
+      ln.appendChild(go);
+      bx.appendChild(ln);
+      grade();
+    }
+    function grade() {
+      var g = $('vitGrade');
+      g.textContent = '';
+      var qm = mkMatch(q);
+      refs.forEach(function (ref) {
+        var v = vitInfo(ref);
+        if (ft !== 'all' && v.tipo !== ft) return;
+        if (qm && !qm(v.it) && pubNome(ref).toLowerCase().indexOf(q.toLowerCase()) < 0) return;
+        var no = vitRefs().indexOf(ref) >= 0,
+          esg = v.est <= 0,
+          on = !!sel[ref];
+        var t = mk('div', 'gi');
+        t.style.cssText = 'position:relative;cursor:' + (esg || no ? 'default' : 'pointer') + ';opacity:' + (esg || no ? 0.4 : 1) + ';outline:2px solid ' + (on ? 'var(--accent)' : 'transparent') + ';border-radius:10px';
+        if (v.foto) {
+          var im = mk('img');
+          im.src = v.foto;
+          im.alt = v.nome;
+          t.appendChild(im);
+        }
+        t.appendChild(mk('div', 'hint', v.nome + (esg ? ' · Esgotado · não publica' : no ? ' · já no ar' : '')));
+        if (on) t.appendChild(mk('i', 'ck', '✓'));
+        if (!esg && !no)
+          t.onclick = function () {
+            if (sel[ref]) delete sel[ref];
+            else sel[ref] = 1;
+            desenha();
+          };
+        g.appendChild(t);
+      });
+    }
+    desenha();
+    document.body.appendChild(ov);
+  }
   function renderLojaOnline() {
     var el = $('v-onl');
     if (!el || S.view !== 'onl') return;
-    // o quadro é criado uma vez só: render() redesenha tudo e fecharia o painel no meio da edição
-    if (el.getAttribute('data-ok') === '1' && el.querySelector('iframe')) return;
-    if (navigator.onLine === false) {
-      el.removeAttribute('data-ok');
-      el.innerHTML =
-        '<div class="nav uniTabs" id="uniS" role="group" aria-label="Seções de produtos" style="margin:4px 0 8px"></div>' +
-        '<section class="card" style="text-align:center;padding:22px"><b style="font-size:17px">Sem internet</b>' +
-        '<p style="color:var(--mu);margin:8px 0 14px">A loja online só abre com internet, porque os dados ficam na nuvem.</p>' +
-        '<button type="button" class="mini" data-act="lojaRecarregar">Tentar de novo</button></section>';
-      return;
+    vitManutencao();
+    var l = vitRefs(),
+      esg = l.filter(function (r) {
+        return estoqueDoRef(r) <= 0;
+      }).length,
+      m = modoDe('s'),
+      q = (S.vitQ || '').toLowerCase();
+    var keepFrame = el.querySelector('iframe');
+    el.textContent = '';
+    var host = mk('div', 'catbar3');
+    host.id = 'uniS';
+    el.appendChild(host);
+    var top = mk('div', 'top');
+    var tt = mk('div', '');
+    tt.appendChild(mk('h1', '', 'Vitrine do site'));
+    tt.appendChild(mk('div', 'crumb', l.length - esg + ' no ar' + (esg ? ' · ' + esg + ' esgotado' + (esg > 1 ? 's' : '') : '')));
+    top.appendChild(tt);
+    el.appendChild(top);
+    var card = mk('section', 'card col');
+    var row = mk('div', '');
+    row.style.cssText = 'display:flex;gap:8px;align-items:center';
+    var qi = mk('input', 'in');
+    qi.placeholder = 'Buscar na vitrine';
+    qi.value = S.vitQ || '';
+    qi.style.flex = '1';
+    qi.oninput = function () {
+      S.vitQ = qi.value;
+      lista();
+    };
+    var mb = mk('button', 'chip modebtn');
+    mb.type = 'button';
+    modoBtn(mb, 's');
+    row.appendChild(qi);
+    row.appendChild(mb);
+    card.appendChild(row);
+    var add = mk('button', 'go', '+ Adicionar à vitrine');
+    add.type = 'button';
+    add.onclick = vitSeletor;
+    card.appendChild(add);
+    var box = mk('div', m === 'g' ? 'gal vitg' : 'vitl');
+    card.appendChild(box);
+    var ms = mk('div', 'hint', S.vitMsg || '');
+    card.appendChild(ms);
+    var cfg = mk('div', 'zl');
+    cfg.appendChild(mk('span', '', 'Sai da vitrine se ficar esgotado por ' + vitDias() + ' dias'));
+    var pm = mk('div', '');
+    pm.style.cssText = 'display:flex;gap:6px';
+    [['−', -1], ['+', 1]].forEach(function (c) {
+      pm.appendChild(btn('chip', c[0], function () {
+        S.vitDias = Math.max(1, Math.min(60, vitDias() + c[1]));
+        saveSoon();
+        render();
+      }));
+    });
+    cfg.appendChild(pm);
+    card.appendChild(cfg);
+    if (!S.nuvem || !S.nuvem.rt) card.appendChild(mk('div', 'note n-warn', 'Para a vitrine aparecer no site, conecte a Nuvem em Ajustes › Backup.'));
+    el.appendChild(card);
+    function lista() {
+      box.textContent = '';
+      var qq = (S.vitQ || '').toLowerCase(),
+        n = 0;
+      l.forEach(function (ref) {
+        var v = vitInfo(ref);
+        if (qq && (v.nome + ' ' + ref).toLowerCase().indexOf(qq) < 0) return;
+        n++;
+        var it = mk('div', m === 'g' ? 'gi vitc' : 'vitr');
+        if (v.est <= 0) it.style.opacity = '.6';
+        if (v.foto) {
+          var im = mk('img');
+          im.src = v.foto;
+          im.alt = v.nome;
+          it.appendChild(im);
+        }
+        var tx = mk('div', 'vitt');
+        tx.appendChild(mk('b', '', v.nome));
+        if (v.preco) tx.appendChild(mk('div', '', gs(v.preco)));
+        if (v.est === 1) tx.appendChild(mk('span', 'mktag mkwarn', 'Última unidade'));
+        if (v.est <= 0) tx.appendChild(mk('span', 'mktag mkred', 'Esgotado há ' + vitDiasEsg(ref) + ' dias · sai da vitrine em ' + Math.max(0, vitDias() - vitDiasEsg(ref)) + ' dias'));
+        it.appendChild(tx);
+        var x = btn('vitx', '×', function () {
+          S.vitrine = vitRefs().filter(function (r) {
+            return r !== ref;
+          });
+          vitFila(ref, 'del');
+          S.vitMsg = '';
+          render();
+          vitSync();
+        });
+        x.setAttribute('aria-label', 'Tirar ' + v.nome + ' da vitrine');
+        it.appendChild(x);
+        box.appendChild(it);
+      });
+      if (!n) box.appendChild(mk('div', 'note n-info', l.length ? 'Nada com essa busca.' : 'A vitrine está vazia. Toque em "+ Adicionar à vitrine".'));
     }
-    el.setAttribute('data-ok', '1');
-    el.innerHTML =
-      '<div class="nav uniTabs" id="uniS" role="group" aria-label="Seções de produtos" style="margin:4px 0 8px"></div>' +
-      '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 8px;flex-wrap:wrap">' +
-      '<b style="font-size:17px">Loja online</b>' +
-      '<a class="chip" href="' + LOJA_URL + '" target="_blank" rel="noopener">Abrir em tela cheia</a></div>' +
-      '<iframe id="lojaFrame" title="Painel da loja online" src="' + LOJA_URL + '" style="width:100%;height:calc(100vh - 190px);min-height:520px;border:1px solid var(--ln);border-radius:16px;background:#fff" allow="clipboard-write"></iframe>';
+    lista();
+    // painel completo do site (fotos, ofertas, liga/desliga) continua à mão
+    var adv = mk('section', 'card col');
+    var ab = btn('chip', S.siteAdv ? 'Esconder painel completo' : 'Painel completo do site', function () {
+      S.siteAdv = !S.siteAdv;
+      render();
+    });
+    adv.appendChild(ab);
+    if (S.siteAdv) {
+      if (navigator.onLine === false) adv.appendChild(mk('div', 'note n-warn', 'Sem internet: o painel só abre online.'));
+      else if (keepFrame) adv.appendChild(keepFrame);
+      else {
+        var fr = mk('iframe');
+        fr.id = 'lojaFrame';
+        fr.title = 'Painel da loja online';
+        fr.src = LOJA_URL;
+        fr.allow = 'clipboard-write';
+        fr.style.cssText = 'width:100%;height:calc(100vh - 190px);min-height:520px;border:1px solid var(--ln);border-radius:16px;background:#fff';
+        adv.appendChild(fr);
+      }
+    }
+    el.appendChild(adv);
+    vitSync();
   }
   window.addEventListener('online', function () {
     if (S.view === 'onl') render();
   });
   ACT.lojaRecarregar = function () {
-    var el = $('v-onl');
-    if (el) el.removeAttribute('data-ok');
     render();
   };
   // ===== Contagem de estoque (aba Estoque): por produto, do mais valioso ao menos, com resumo em dinheiro. =====
@@ -26323,6 +26695,15 @@
       'nuvem',
       'pprice',
       'pcanal',
+      'vitrine',
+      'vitDias',
+      'esgDesde',
+      'vitPend',
+      'vModo',
+      'novoEm',
+      'novoBase',
+      'cat2',
+      'cvCfg',
       'grp',
       'clientes',
       'cliNext',

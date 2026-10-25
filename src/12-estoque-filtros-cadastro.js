@@ -389,12 +389,6 @@
     S.pdMode = false;
     render();
   };
-  // o cartão "Pede reposição" leva à aba Reposição (um só lugar para ver e comprar o que está acabando)
-  $('kRepo').onclick = function () {
-    S.repo = false;
-    var t = $('eTabR');
-    if (t) t.click();
-  };
   try {
     $('eMedB').parentNode.appendChild($('eGrauB'));
   } catch (e) {}

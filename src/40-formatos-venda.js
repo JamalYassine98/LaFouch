@@ -63,8 +63,8 @@
   var VIEWS = [
     ['inicio', 'Início'],
     ['dash', 'Dashboard'],
-    ['estoque', 'Produtos'],
-    ['vendas', 'Vendas'],
+    ['estoque', 'Inventário'],
+    ['vendas', 'Catálogo'],
     ['caixa', 'Caixa'],
     ['desp', 'Despesas'],
     ['fx', 'Câmbio'],

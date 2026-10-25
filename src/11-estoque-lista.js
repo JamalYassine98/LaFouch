@@ -396,16 +396,12 @@
         return i.ref;
       })
     ).size;
-    $('k3').textContent = lowK.length;
     var lpn = S.grp.filter(function (g) {
       return grpFalta(g) > 0;
     }).length;
     $('kLotN').textContent = lpn;
     $('kLot').setAttribute('aria-pressed', !!S.lotesView);
     $('kLot').style.outline = S.lotesView ? '2px solid var(--accent)' : '';
-    $('kRepo').setAttribute('aria-pressed', !!S.repo);
-    $('kRepo').style.outline = S.repo ? '2px solid var(--warn)' : '';
-    $('k3h').textContent = 'produtos que vão acabar logo · toque para ver';
 
     var qOk = function (i) {
       return !qm || qm(i);
@@ -570,25 +566,8 @@
         )
       );
     });
-    var fc = $('fCols'),
-      cl = colecoes();
-    fc.textContent = '';
-    $('fColB').hidden = !cl.length;
-    ['']
-      .concat(cl)
-      .forEach(function (c) {
-        fc.appendChild(
-          btn(
-            'chip' + ((S.colF || '') === c ? ' on' : ''),
-            c || 'Todas',
-            function () {
-              S.colF = c;
-              render();
-            },
-            (S.colF || '') === c
-          )
-        );
-      });
+    S.colF = '';
+    $('fColB').hidden = true;
     var sc = $('sortChips');
     sc.textContent = '';
     [

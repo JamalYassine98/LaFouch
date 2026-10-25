@@ -26,6 +26,26 @@
         });
       });
   }
+  // Filtros da aba WhatsApp: Todos · Novidades · Ofertas · Solares · Armações
+  function cvMarcaNovos() {
+    if (!S.novoEm) S.novoEm = {};
+    var base = !S.novoBase;
+    S.novoBase = true;
+    S.items.forEach(function (i) {
+      if (S.novoEm[i.ref] == null) S.novoEm[i.ref] = base ? 0 : Date.now();
+    });
+  }
+  function cvPassa(i) {
+    var f = S.cvF || 'all';
+    if (f === 'solar') return i.tipo === 'solar';
+    if (f === 'arm') return i.tipo === 'sem';
+    if (f === 'novi') return (S.novoEm || {})[i.ref] > Date.now() - 30 * 864e5;
+    if (f === 'ofer') {
+      var p = S.pprice && S.pprice[i.ref];
+      return !!(p && p.ant > 0 && p.novo > 0 && p.ant > p.novo);
+    }
+    return true;
+  }
   // Categorias em uso.
   function catList() {
     var seen = {},
@@ -36,7 +56,7 @@
         !TIPOS.some(function (x) {
           return x.id === i.tipo;
         }) ||
-        (S.cvTipo && S.cvTipo !== 'all' && i.tipo !== S.cvTipo)
+        !cvPassa(i)
       )
         return;
       var k = i.ref + '|' + i.cor;
@@ -56,6 +76,7 @@
   function renderCatV() {
     S.cvTipo = 'all';
     if (!S.cvOff) S.cvOff = {};
+    cvMarcaNovos();
     $('catV').hidden = !S.catOpen;
     document.body.classList.toggle('catopen', !!S.catOpen);
     if (!S.catOpen) return;
@@ -63,6 +84,16 @@
       g = $('cvGal');
     g.textContent = '';
     var n = 0;
+    var ch = $('cvChips');
+    ch.textContent = '';
+    [['all', 'Todos'], ['novi', 'Novidades'], ['ofer', 'Ofertas'], ['solar', 'Solares'], ['arm', 'Armações']].forEach(function (c) {
+      ch.appendChild(
+        btn('chip' + ((S.cvF || 'all') === c[0] ? ' on' : ''), c[1], function () {
+          S.cvF = c[0];
+          render();
+        }, (S.cvF || 'all') === c[0])
+      );
+    });
     L.forEach(function (o) {
       var on = !S.cvOff[o.k];
       if (on) n++;
@@ -93,7 +124,10 @@
       };
       g.appendChild(t);
     });
+    $('cvCount').textContent = n + ' de ' + L.length + ' selecionados';
+    $('cvAll').textContent = n === L.length ? 'Limpar' : 'Selecionar tudo';
     $('cvSend').disabled = !n;
+    $('cvMsgB').disabled = !n;
     $('cvSend').textContent = n
       ? 'Enviar ' + n + ' ' + (n === 1 ? 'imagem' : 'imagens')
       : 'Enviar imagens';
@@ -101,10 +135,6 @@
       ? 'No celular abre o compartilhamento e você escolhe o WhatsApp. No computador, as imagens são copiadas (uma por vez) ou baixadas.'
       : 'Sem fotos de peças em estoque nesse tipo. Use "+ Adicionar produto" > "Tirar foto da peça".';
   }
-  $('cvClose').onclick = function () {
-    S.catOpen = false;
-    render();
-  };
   $('cvAll').onclick = function () {
     var L = catList(),
       todos = L.every(function (o) {
@@ -115,6 +145,75 @@
     });
     render();
   };
+  // Folha "Mensagem…": para quem, o que mostrar, prévia
+  $('cvMsgB').onclick = function () {
+    var o = S.cvCfg || (S.cvCfg = { para: 'cli', preco: true, cod: false, dePor: true });
+    var sel = catList().filter(function (x) {
+      return !S.cvOff[x.k];
+    });
+    if (!sel.length) return;
+    var ov = mk('div', 'modal'),
+      bx = mk('div', 'modal-box');
+    bx.style.maxWidth = '460px';
+    ov.appendChild(bx);
+    function desenha() {
+      bx.textContent = '';
+      bx.appendChild(mk('b', '', 'Mensagem das fotos'));
+      var pr = mk('div', 'nav');
+      pr.appendChild(mk('div', 'zlb', 'PARA QUEM'));
+      [['cli', 'Clientes'], ['atac', 'Atacadistas']].forEach(function (c) {
+        pr.appendChild(btn('chip' + (o.para === c[0] ? ' on' : ''), c[1], function () {
+          o.para = c[0];
+          desenha();
+        }, o.para === c[0]));
+      });
+      bx.appendChild(pr);
+      [['preco', 'Mostrar preço'], ['cod', 'Mostrar código do produto'], ['dePor', 'Mostrar "de/por" nas ofertas']].forEach(function (c) {
+        var l = mk('div', 'zl');
+        l.appendChild(mk('span', '', c[1]));
+        var sw = btn('zsw' + (o[c[0]] ? ' on' : ''), '', function () {
+          o[c[0]] = !o[c[0]];
+          desenha();
+        });
+        sw.setAttribute('role', 'switch');
+        sw.setAttribute('aria-checked', o[c[0]] ? 'true' : 'false');
+        sw.setAttribute('aria-label', c[1]);
+        l.appendChild(sw);
+        bx.appendChild(l);
+      });
+      var pv = mk('pre', 'replist', cvTexto(sel));
+      bx.appendChild(pv);
+      var ln = mk('div', '');
+      ln.style.cssText = 'display:flex;gap:8px;justify-content:flex-end';
+      ln.appendChild(btn('chip', 'Fechar', function () {
+        ov.remove();
+      }));
+      ln.appendChild(btn('mini', 'Enviar ' + sel.length + (sel.length === 1 ? ' foto' : ' fotos') + ' + mensagem', function () {
+        ov.remove();
+        $('cvSend').click();
+      }));
+      bx.appendChild(ln);
+    }
+    desenha();
+    document.body.appendChild(ov);
+  };
+  function cvTexto(sel) {
+    var o = S.cvCfg || {};
+    var linhas = sel.map(function (x) {
+      var t = x.cap;
+      if (o.cod) t = x.ref + ' · ' + t;
+      if (o.preco) {
+        var it = S.items.filter(function (i) {
+            return i.ref === x.ref;
+          })[0],
+          pr = it ? precoAtual(x.ref, it.tipo) : 0,
+          pp = S.pprice && S.pprice[x.ref];
+        if (pr > 0) t += ' — ' + (o.dePor && pp && pp.ant > pr ? 'de ' + gs(pp.ant) + ' por ' + gs(pr) : gs(pr));
+      }
+      return t;
+    });
+    return 'La Fouch · Tudo em Óculos\n' + linhas.join('\n');
+  }
   $('cvSend').onclick = function () {
     var m = $('cvMsg'),
       sel = catList().filter(function (o) {
@@ -137,13 +236,7 @@
         if (navigator.canShare && navigator.canShare({ files: files })) {
           return navigator.share({
             files: files,
-            text:
-              'La Fouch · Tudo em Óculos\n' +
-              sel
-                .map(function (o) {
-                  return o.cap;
-                })
-                .join('\n')
+            text: cvTexto(sel)
           }).then(
             function () {
               m.textContent = 'Enviado para o compartilhamento.';

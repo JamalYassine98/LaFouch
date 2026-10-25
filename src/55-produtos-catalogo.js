@@ -61,20 +61,6 @@
       ps = pisoDoRef(ref, tipo),
       cn = canalDe(ref);
     var sel = card.querySelector('.pbox');
-    var ch = mk('div', 'zch');
-    CANAIS.forEach(function (c) {
-      var i = mk('i', cn[c[0]] ? '' : 'off', c[1]);
-      i.setAttribute('role', 'button');
-      i.setAttribute('aria-label', c[2] + (cn[c[0]] ? ': ligado' : ': desligado'));
-      i.onclick = function (e) {
-        e.stopPropagation();
-        canalSet(ref, c[0], !cn[c[0]]);
-        saveSoon();
-        render();
-      };
-      ch.appendChild(i);
-    });
-    card.appendChild(ch);
     if (atual > 0) {
       var p = mk('div', 'zp');
       p.innerHTML =
@@ -159,26 +145,6 @@
       }
     }
     wrap.appendChild(c1);
-    var c2 = mk('div', 'zcd');
-    c2.appendChild(mk('div', 'lbl', 'Onde aparece'));
-    CANAIS.forEach(function (c) {
-      var l = mk('div', 'zl');
-      var t = mk('span', '', c[1] + ' ' + c[2]);
-      var sm = mk('small', '', c[0] === 'site' && cn.site && est === 0 ? 'sem estoque: aparece como Esgotado' : c[3]);
-      t.appendChild(sm);
-      l.appendChild(t);
-      var sw = btn('zsw' + (cn[c[0]] ? ' on' : ''), '', function () {
-        canalSet(ref, c[0], !cn[c[0]]);
-        saveSoon();
-        render();
-      });
-      sw.setAttribute('role', 'switch');
-      sw.setAttribute('aria-checked', cn[c[0]] ? 'true' : 'false');
-      sw.setAttribute('aria-label', c[2]);
-      l.appendChild(sw);
-      c2.appendChild(l);
-    });
-    wrap.appendChild(c2);
     return wrap;
   }
 
@@ -211,7 +177,7 @@
       render();
     });
     b.appendChild(todos);
-    var ap = btn('mini', 'Preço e canais…', function () {
+    var ap = btn('mini', 'Preço…', function () {
       if (S.selP.length) selDialogo();
     });
     ap.disabled = !S.selP.length;
@@ -281,22 +247,6 @@
       var iAnt = cp('PREÇO ANTIGO', 'opcional'),
         iNovo = cp('PREÇO NOVO', 'não mudar');
       bx.appendChild(r);
-      function sel(rot) {
-        var d = mk('div', '');
-        d.appendChild(mk('div', 'zlb', rot));
-        var s = mk('select', 'in');
-        [['', 'Não mudar'], ['1', 'Mostrar'], ['0', 'Tirar']].forEach(function (o) {
-          var op = mk('option', '', o[1]);
-          op.value = o[0];
-          s.appendChild(op);
-        });
-        s.setAttribute('aria-label', rot);
-        d.appendChild(s);
-        bx.appendChild(d);
-        return s;
-      }
-      var sSite = sel('SITE'),
-        sWpp = sel('CATÁLOGO WHATSAPP');
       var go = btn('mini', 'Aplicar', function () {
         var novo = campoParaGs(iNovo.value) || 0,
           ant = campoParaGs(iAnt.value) || 0,
@@ -308,10 +258,10 @@
           });
         if (!ruins.length) {
           fecha();
-          selAplica(refs, novo, ant, sSite.value, sWpp.value, 'direto');
+          selAplica(refs, novo, ant, '', '', 'direto');
           return;
         }
-        tela2(novo, ant, sSite.value, sWpp.value, ruins);
+        tela2(novo, ant, '', '', ruins);
       });
       var cc = btn('chip', 'Cancelar', fecha);
       var ln = mk('div', '');
@@ -367,53 +317,36 @@
     render();
   });
 
-  // ---------- abas unificadas: Produtos · Vender · Site · WhatsApp (+ Lotes e Reposição dentro de Produtos)
+  // ---------- Catálogo: uma barra de abas com ícone (Vendas · WhatsApp · Site), igual em todas as telas
   function uniIr(qual) {
-    if (qual === 'p') {
-      S.catOpen = false;
-      S.lotesView = false;
-      S.repoView = false;
-      setView('estoque');
-    } else if (qual === 'v') {
-      S.catOpen = false;
-      setView('vendas');
-    } else if (qual === 's') {
-      S.catOpen = false;
-      setView('onl');
-    } else if (qual === 'w') {
-      S.catOpen = true;
-      setView('vendas');
-    }
+    S.catOpen = qual === 'w';
+    S.repoView = false;
+    setView(qual === 's' ? 'onl' : 'vendas');
   }
   function uniOn() {
-    return S.view === 'vendas' ? (S.catOpen ? 'w' : 'v') : S.view === 'onl' ? 's' : 'p';
+    return S.view === 'vendas' ? (S.catOpen ? 'w' : 'v') : S.view === 'onl' ? 's' : '';
   }
-  // Abas do meio (Vender, Site, WhatsApp) dentro da barra do estoque.
-  function uniAbasExtra(mkTab) {
-    mkTab('eTabV', 'Vender', false, function () {
-      uniIr('v');
-    });
-    mkTab('eTabS', 'Site', false, function () {
-      uniIr('s');
-    });
-    mkTab('eTabW', 'WhatsApp', false, function () {
-      uniIr('w');
-    });
-  }
-  // Barra de abas no topo das telas Vendas e Loja online.
+  var CAT_ICO = {
+    v: '<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 11.5a2 2 0 0 0 2 1.5h7.6a2 2 0 0 0 2-1.5L21 7H6"/>',
+    w: '<path d="M21 12a8 8 0 0 1-11.7 7.1L3 21l1.9-6.1A8 8 0 1 1 21 12z"/>',
+    s: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/>'
+  };
   function uniAbasFill() {
-    ['uniV', 'uniS'].forEach(function (id) {
+    ['uniV', 'uniS', 'uniW'].forEach(function (id) {
       var h = $(id);
       if (!h) return;
-      var on = uniOn(),
-        key = on + '|' + (S.view || '');
-      if (h.getAttribute('data-k') === key && h.firstChild) return;
-      h.setAttribute('data-k', key);
+      var on = uniOn();
+      if (h.getAttribute('data-k') === on && h.firstChild) return;
+      h.setAttribute('data-k', on);
       h.textContent = '';
-      [['p', 'Produtos'], ['v', 'Vender'], ['s', 'Site'], ['w', 'WhatsApp']].forEach(function (t) {
-        var b = btn('chip' + (on === t[0] ? ' on' : ''), t[1], function () {
+      h.className = 'catbar3';
+      [['v', 'Vendas'], ['w', 'WhatsApp'], ['s', 'Site']].forEach(function (t) {
+        var b = btn('cb3' + (on === t[0] ? ' on' : ''), '', function () {
           uniIr(t[0]);
         }, on === t[0]);
+        b.innerHTML =
+          '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+          CAT_ICO[t[0]] + '</svg><span>' + t[1] + '</span>';
         h.appendChild(b);
       });
     });

@@ -271,7 +271,7 @@
     var v = $('vq');
     if (v) {
       var w = document.createElement('div');
-      w.style.cssText = 'display:flex;gap:8px;align-items:center;max-width:480px;width:100%';
+      w.style.cssText = 'display:flex;gap:8px;align-items:center;max-width:540px;width:100%';
       v.parentNode.insertBefore(w, v);
       w.appendChild(v);
       v.style.flex = '1 1 0';
@@ -293,6 +293,10 @@
         render();
       };
       w.appendChild(fb);
+      var mb = mk('button', 'chip modebtn');
+      mb.type = 'button';
+      mb.id = 'vModo';
+      w.appendChild(mb);
     }
   })();
 
