@@ -19,6 +19,8 @@
     } catch (e) {}
     renderInicio();
     renderPedidos();
+    renderClientes();
+    pagCliRender();
     renderNotif();
     renderDash();
     renderCaixa();
@@ -168,6 +170,10 @@
   var SK = 'lafouch_demo_v1',
     PERSIST = [
       'grp',
+      'clientes',
+      'cliNext',
+      'inicioCli',
+      'notaCidade',
       'maxVar',
       'items',
       'sales',

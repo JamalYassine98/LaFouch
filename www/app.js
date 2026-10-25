@@ -9543,6 +9543,7 @@
     ['fx', 'Câmbio'],
     ['hist', 'Histórico'],
     ['ped', 'Pedidos online'],
+    ['clientes', 'Clientes'],
     ['notif', 'Notificações'],
     ['ajustes', 'Ajustes']
   ];
@@ -19232,9 +19233,14 @@
   ICO_D.novo = '<rect x="2.5" y="9" width="8" height="7" rx="2.5"/><rect x="13.5" y="9" width="8" height="7" rx="2.5"/><path d="M10.5 11.5h3M2.5 11L1 10M21.5 11l1.5-1"/>';
   ICO_D.cont = '<path d="M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h9"/>';
   ICO_D.lotes = '<path d="M3 7l9-4 9 4-9 4zM3 12l9 4 9-4M3 17l9 4 9-4"/>';
-  var INI_PADRAO = ['vendas', 'estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'cat', 'ajustes', 'ped', 'cont', 'lotes'];
+  var INI_PADRAO = ['vendas', 'estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'cat', 'ajustes', 'ped', 'cli', 'cont', 'lotes'];
   var INI_TODOS = INI_PADRAO.concat(['novo', 'notif']);
   function iniLista() {
+    // quem já personalizou o Início recebe o botão Clientes uma única vez (pode esconder depois)
+    if (Array.isArray(S.inicioT) && !S.inicioCli) {
+      S.inicioCli = true;
+      if (S.inicioT.indexOf('cli') < 0) S.inicioT = S.inicioT.concat(['cli']);
+    }
     var l = Array.isArray(S.inicioT) ? S.inicioT : INI_PADRAO;
     return l.filter(function (id, i) {
       return INI_TODOS.indexOf(id) >= 0 && l.indexOf(id) === i;
@@ -19265,6 +19271,7 @@
       novo: ['Novo produto', ['Cadastrar', '']],
       cont: ['Contagem', ['Conferir estoque', '']],
       lotes: ['Lotes', ['Compras', '']],
+      cli: ['Clientes', [S.clientes.length + (S.clientes.length === 1 ? ' cadastrado' : ' cadastrados'), '']],
       ped: ['Pedidos online', [pedNovos() + ' novos', pedNovos() ? 'w' : '']],
       notif: ['Notificações', [notifContagem() + ' avisos', notifContagem() ? 'w' : '']]
     };
@@ -19319,6 +19326,8 @@
     } else if (id === 'cat') {
       S.catOpen = true;
       setView('vendas');
+    } else if (id === 'cli') {
+      setView('clientes');
     } else if (id === 'novo') {
       setView('estoque');
       $('btnAdd').click();
@@ -22227,6 +22236,11 @@
       '<section class="card col"><h2 style="margin:0;font-size:16px">Meta do mês</h2><div><div class="lbl">Lucro livre desejado no mês, loja toda (US$)</div><input class="in" inputmode="decimal" data-aj="meta" value="' +
       usdParaCampo(S.metaUsd) +
       '" placeholder="Ex.: ' + usdParaCampo(600) + '" style="max-width:220px"></div></section>';
+    // cidade da nota fiscal
+    h +=
+      '<section class="card col"><h2 style="margin:0;font-size:16px">Nota fiscal</h2><div><div class="lbl">Cidade que sai na nota</div><input class="in" data-aj="cidade" value="' +
+      esc(S.notaCidade || 'CDE') +
+      '" placeholder="CDE" style="max-width:220px" autocomplete="off"></div></section>';
     // faixas
     h +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Faixas</h2><div class="hint" style="margin:2px 0 0">Você cria e nomeia. A margem é o lucro mínimo desejado sobre o preço de venda e define o piso. O preço próprio da faixa é opcional (vazio = preço do tipo).</div></div>';
@@ -22308,6 +22322,7 @@
     S._ajForce = true;
     S.ajMsg = '';
     if (k === 'meta') S.metaUsd = campoParaUsd(t.value);
+    if (k === 'cidade') S.notaCidade = t.value.trim().toUpperCase() || 'CDE';
     if (k === 'fnome' && f && t.value.trim()) f.nome = t.value.trim();
     if (k === 'fmarg' && f) f.margem = Math.max(0, Math.min(90, numIn(t.value)));
     if (k === 'fprec' && f) {
@@ -22427,6 +22442,248 @@
     S.vMotivo = 'Liquidação';
     S.rec = null;
     setView('vendas');
+  };
+  // ===== Clientes: quem compra de você (nome, telefone, RUC/CI), ligado aos pedidos online. =====
+  ICO_D.cli = '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 4.5a3.5 3.5 0 0 1 0 7M21.5 20c0-2.8-1.7-4.8-4-5.6"/>';
+  S.clientes = [];
+  S.cliNext = 1;
+  S.cliQ = '';
+  S.cliSel = null; // null = só a lista; 'novo' = cadastro; número = ficha aberta
+  var cliDig = function (x) {
+    return String(x || '').replace(/\D/g, '');
+  };
+  var cliNorm = function (x) {
+    return String(x || '').trim().toLowerCase();
+  };
+  // Acha um cliente pelo telefone, pelo RUC/CI ou pelo nome (nesta ordem).
+  function cliAchar(nome, tel, ruc, ignorar) {
+    var t = cliDig(tel),
+      r = cliDig(ruc),
+      n = cliNorm(nome),
+      lista = S.clientes.filter(function (c) {
+        return c.id !== ignorar;
+      }),
+      pick = function (f) {
+        return lista.filter(f)[0] || null;
+      };
+    return (
+      (t.length >= 6 && pick(function (c) { return cliDig(c.tel) === t; })) ||
+      (r.length >= 3 && pick(function (c) { return cliDig(c.ruc) === r; })) ||
+      (n && !t && !r && pick(function (c) { return cliNorm(c.nome) === n; })) ||
+      null
+    );
+  }
+  // Cria ou atualiza o cliente a partir de um pedido.
+  function cliGarantir(nome, tel, ruc) {
+    if (!String(nome || '').trim() && !cliDig(tel)) return null;
+    var c = cliAchar(nome, tel, ruc);
+    if (!c) {
+      c = { id: S.cliNext++, nome: cap1(String(nome || '').trim()), tel: String(tel || '').trim(), ruc: String(ruc || '').trim(), obs: '', ts: Date.now() };
+      S.clientes.push(c);
+    } else {
+      if (!c.nome && nome) c.nome = cap1(String(nome).trim());
+      if (!c.tel && tel) c.tel = String(tel).trim();
+    }
+    return c;
+  }
+  // Liga ao cadastro os pedidos que ainda não estão ligados (pedidos novos e antigos).
+  function cliSync() {
+    S.pedidos.forEach(function (p) {
+      if (p.cliId !== undefined) return;
+      var c = cliGarantir(p.cli, p.tel, '');
+      p.cliId = c ? c.id : 0;
+    });
+  }
+  function cliPedidos(c) {
+    return S.pedidos.filter(function (p) {
+      return p.cliId === c.id;
+    });
+  }
+  function cliUltimo(c) {
+    return cliPedidos(c).reduce(function (a, p) {
+      return p.ts > a ? p.ts : a;
+    }, c.ts || 0);
+  }
+  function cliZap(c) {
+    var d = cliDig(c.tel);
+    if (!d) return '';
+    if (d.charAt(0) === '0') d = '595' + d.slice(1);
+    return 'https://wa.me/' + d + '?text=' + encodeURIComponent('Olá' + (c.nome ? ', ' + c.nome : '') + '! Aqui é da La Fouch. ');
+  }
+  function cliAtual() {
+    return S.clientes.filter(function (c) {
+      return c.id === S.cliSel;
+    })[0];
+  }
+  function cliLista() {
+    var q = cliNorm(S.cliQ),
+      qd = cliDig(S.cliQ);
+    return S.clientes
+      .filter(function (c) {
+        if (!q) return true;
+        return cliNorm(c.nome).indexOf(q) >= 0 || (qd && (cliDig(c.tel).indexOf(qd) >= 0 || cliDig(c.ruc).indexOf(qd) >= 0));
+      })
+      .sort(function (a, b) {
+        return cliUltimo(b) - cliUltimo(a);
+      });
+  }
+  function cliListaHtml() {
+    var l = cliLista();
+    if (!l.length)
+      return '<div class="hint">' + (S.clientes.length ? 'Nenhum cliente com essa busca.' : 'Nenhum cliente ainda. Eles entram sozinhos quando você salva um pedido online, ou toque em "+ Novo cliente".') + '</div>';
+    return l
+      .map(function (c) {
+        var ps = cliPedidos(c),
+          tot = ps.reduce(function (a, p) {
+            return a + (p.st === 'canc' ? 0 : pedTotal(p));
+          }, 0),
+          u = cliUltimo(c);
+        return (
+          '<button type="button" class="card col" data-act="cliab" data-id="' + c.id + '" style="text-align:left;font:inherit;color:inherit;cursor:pointer;gap:2px">' +
+          '<b style="font-size:15px">' + esc(c.nome || 'Sem nome') + '</b>' +
+          '<span class="hint" style="margin:0">' + esc([c.tel, c.ruc ? 'RUC/CI ' + c.ruc : ''].filter(Boolean).join(' · ') || 'sem telefone') + '</span>' +
+          '<span class="hint" style="margin:0">' + ps.length + (ps.length === 1 ? ' pedido' : ' pedidos') + (tot ? ' · ' + gs(tot) + ' pela tabela' : '') + ' · última ' + fd(u) + '</span></button>'
+        );
+      })
+      .join('');
+  }
+  var CLI_WA = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.6-4.7A8.5 8.5 0 1 1 8 19.5z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1.2-1.6-2-1-.9.7c-.9-.4-1.8-1.3-2.2-2.2l.7-.9-1-2z"/></svg>';
+  // Compras feitas no balcão ligadas ao cliente (uma linha por venda/pedido).
+  function cliComprasHtml(c) {
+    if (!c.id) return '';
+    var g = {},
+      ord = [];
+    S.sales.forEach(function (x) {
+      if (x.cliId !== c.id || x.estorno) return;
+      var k = x.carrinho || x.id;
+      if (!g[k]) {
+        g[k] = { ts: x.ts, qty: 0, tot: 0, t: [] };
+        ord.push(g[k]);
+      }
+      g[k].qty += x.qty;
+      g[k].tot += x.price || 0;
+      g[k].t.push(x.qty + '× ' + esc(x.ref || ''));
+    });
+    if (!ord.length) return '';
+    return (
+      '<div class="lbl" style="margin-top:6px">Compras</div>' +
+      ord
+        .sort(function (a, b) { return b.ts - a.ts; })
+        .map(function (v) {
+          return '<div class="sl"><span>' + fd(v.ts) + '<small>' + v.t.join(', ') + '</small></span><b>' + gs(v.tot) + '</b></div>';
+        })
+        .join('')
+    );
+  }
+  function renderClientes() {
+    cliSync();
+    var el = $('v-clientes');
+    if (!el || S.view !== 'clientes') return;
+    var h = '<div class="top"><div><h1>Clientes</h1><div class="crumb">Quem compra de você, com telefone e RUC</div></div>' +
+      '<div class="tabs"><button class="mini" data-act="clinovo">+ Novo cliente</button></div></div>';
+    var c = S.cliSel === 'novo' ? { id: 0, nome: '', tel: '', ruc: '', obs: '' } : cliAtual();
+    if (c) {
+      var ps = c.id ? cliPedidos(c) : [],
+        z = c.id ? cliZap(c) : '';
+      h +=
+        '<section class="card col" style="gap:12px"><div style="display:flex;align-items:center;justify-content:space-between"><b style="font-size:17px">' + (c.id ? 'Ficha do cliente' : 'Novo cliente') + '</b>' +
+        '<button type="button" class="chip" data-act="clifecha" aria-label="' + (c.id ? 'Fechar' : 'Cancelar') + '" style="min-height:40px;width:40px;padding:0;justify-content:center;font-size:20px">×</button></div>' +
+        '<input class="in" id="cNome" placeholder="Nome" value="' + esc(c.nome) + '" autocomplete="off">' +
+        '<input class="in" id="cTel" type="tel" inputmode="tel" placeholder="Telefone / WhatsApp" value="' + esc(c.tel) + '">' +
+        '<input class="in" id="cRuc" inputmode="text" placeholder="RUC ou CI (para a nota fiscal)" value="' + esc(c.ruc) + '" autocomplete="off">' +
+        (c.id && !String(c.ruc || '').trim() ? '<div class="note n-warn"><b>Sem RUC</b></div>' : '') +
+        '<input class="in" id="cObs" placeholder="Observação (opcional)" value="' + esc(c.obs || '') + '">' +
+        '<div class="hint" id="cH" style="margin:0"></div>' +
+        '<div class="col" style="gap:12px;margin-top:6px"><button type="button" class="go" data-act="clisave">Salvar</button>' +
+        (z ? '<a class="chip" href="' + z + '" target="_blank" rel="noopener" style="color:#25d366;width:100%;min-height:48px;justify-content:center;text-decoration:none;display:flex;align-items:center">' + CLI_WA + '<span style="margin-left:8px">Conversar no WhatsApp</span></a>' : '') +
+        (c.id ? '<div style="border-top:1px solid var(--line);margin-top:6px"></div><button type="button" data-act="clidel" style="color:#ff7b7b;background:transparent;border:0;min-height:44px;width:100%;font:inherit;cursor:pointer">' + (S._cliDel === c.id ? 'Remover mesmo?' : 'Remover') + '</button>' : '') +
+        '</div>' +
+        (ps.length
+          ? '<div class="lbl" style="margin-top:6px">Pedidos</div>' +
+            ps
+              .slice()
+              .sort(function (a, b) { return b.ts - a.ts; })
+              .map(function (p) {
+                var tot = pedTotal(p);
+                return '<div class="sl"><span>Pedido ' + p.num + ' · ' + fd(p.ts) + '<small>' + p.itens.map(function (l) { return l.q + '× ' + esc(l.t); }).join(', ') + '</small></span><b>' + (tot ? gs(tot) : '') + '</b></div>';
+              })
+              .join('')
+          : '') +
+        cliComprasHtml(c) +
+        '</section>';
+    }
+    h += '<input class="in" id="cliQ" placeholder="Buscar por nome, telefone ou RUC" value="' + esc(S.cliQ) + '" autocomplete="off" aria-label="Buscar cliente">';
+    h += '<div class="col" id="cliList" style="gap:10px">' + cliListaHtml() + '</div>';
+    el.innerHTML = h;
+  }
+  document.addEventListener('input', function (e) {
+    if (e.target && e.target.id === 'cliQ') {
+      S.cliQ = e.target.value;
+      var l = $('cliList');
+      if (l) l.innerHTML = cliListaHtml();
+    }
+  });
+  ACT.clinovo = function () {
+    S.cliSel = 'novo';
+    S._cliDel = 0;
+    render();
+    window.scrollTo(0, 0);
+  };
+  ACT.cliab = function (id) {
+    S.cliSel = +id;
+    S._cliDel = 0;
+    render();
+    window.scrollTo(0, 0);
+  };
+  ACT.clifecha = function () {
+    S.cliSel = null;
+    S._cliDel = 0;
+    render();
+  };
+  ACT.clisave = function () {
+    var nome = $('cNome').value.trim(),
+      tel = $('cTel').value.trim(),
+      ruc = $('cRuc').value.trim(),
+      obs = $('cObs').value.trim(),
+      cur = S.cliSel === 'novo' ? null : cliAtual();
+    if (!nome && !cliDig(tel)) {
+      $('cH').textContent = 'Escreva o nome ou o telefone.';
+      return;
+    }
+    var dup = cliAchar(nome, tel, ruc, cur ? cur.id : 0);
+    if (dup) {
+      $('cH').textContent = 'Já existe um cliente com esse telefone ou RUC: ' + (dup.nome || dup.tel) + '.';
+      return;
+    }
+    if (cur) {
+      cur.nome = cap1(nome);
+      cur.tel = tel;
+      cur.ruc = ruc;
+      cur.obs = obs;
+    } else {
+      S.clientes.push({ id: S.cliNext++, nome: cap1(nome), tel: tel, ruc: ruc, obs: obs, ts: Date.now() });
+    }
+    S.cliSel = null;
+    render();
+    window.scrollTo(0, 0);
+  };
+  ACT.clidel = function () {
+    var c = cliAtual();
+    if (!c) return;
+    if (S._cliDel !== c.id) {
+      S._cliDel = c.id;
+      render();
+      return;
+    }
+    S.pedidos.forEach(function (p) {
+      if (p.cliId === c.id) p.cliId = 0;
+    });
+    S.clientes = S.clientes.filter(function (x) {
+      return x.id !== c.id;
+    });
+    S._cliDel = 0;
+    S.cliSel = null;
+    render();
   };
   // ===== Contagem de estoque (aba Estoque): por produto, do mais valioso ao menos, com resumo em dinheiro. =====
   // Custo em US$ de uma peça (própria, do lote ou do tipo).
@@ -22976,6 +23233,233 @@
       } catch (e) {}
     }
     d.focus();
+  };
+  // ===== Cliente na venda + tela "Venda registrada" com os dados da nota fiscal (sempre em G$, IVA 10% incluso). =====
+  // O app NÃO emite nota fiscal: mostra e imprime os dados para conferir/digitar na maquininha.
+  S.vCli = 0; // cliente escolhido na venda (0 = ninguém: Sin nombre / RUC X)
+  S._vCliQ = '';
+  S._vCliNovo = false;
+  S.notaCidade = 'CDE';
+  var notaTimer = 0,
+    notaAtual = null;
+  var temRuc = function (c) {
+    return !!(c && String(c.ruc || '').trim());
+  };
+  var cliPorId = function (id) {
+    return S.clientes.filter(function (c) {
+      return c.id === id;
+    })[0];
+  };
+  // ---- campo "Cliente (opcional)" na tela de pagamento ----
+  function vcSugHtml() {
+    var q = cliNorm(S._vCliQ),
+      qd = cliDig(S._vCliQ);
+    if (!q) return '';
+    var r = S.clientes
+      .filter(function (c) {
+        return cliNorm(c.nome).indexOf(q) >= 0 || (qd.length >= 2 && (cliDig(c.tel).indexOf(qd) >= 0 || cliDig(c.ruc).indexOf(qd) >= 0));
+      })
+      .slice(0, 5);
+    return (
+      '<div class="col" style="gap:8px;margin-top:8px">' +
+      r
+        .map(function (c) {
+          return '<button type="button" class="sl" data-act="vcliesc" data-id="' + c.id + '" style="text-align:left;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:transparent;color:inherit;font:inherit;cursor:pointer"><b>' + esc(c.nome || c.tel) + '</b><small style="display:block">' +
+            esc([c.tel, temRuc(c) ? 'RUC ' + c.ruc : 'sem RUC'].filter(Boolean).join(' · ')) + '</small></button>';
+        })
+        .join('') +
+      '<button type="button" data-act="vclinovo" style="border:2px dashed var(--line);border-radius:12px;padding:10px 12px;color:var(--accent-fg);font:inherit;font-weight:700;background:transparent;cursor:pointer">＋ Cadastrar novo cliente</button></div>'
+    );
+  }
+  function pagCliRender() {
+    var el = $('cliPick');
+    if (!el) return;
+    var sig = [S.vCli, S._vCliNovo ? 1 : 0].join('|');
+    if (el._sig === sig) return;
+    el._sig = sig;
+    var c = S.vCli ? cliPorId(S.vCli) : null;
+    if (S.vCli && !c) S.vCli = 0;
+    if (c) {
+      el.innerHTML =
+        '<div style="display:flex;align-items:center;gap:10px;border:1px solid var(--accent);border-radius:12px;padding:10px 12px"><span style="flex:1"><b>' + esc(c.nome || c.tel) + '</b><small style="display:block">' +
+        esc([c.tel, temRuc(c) ? 'RUC ' + c.ruc : 'sem RUC'].filter(Boolean).join(' · ')) +
+        '</small></span><button type="button" class="chip" data-act="vclitrocar" style="min-height:36px">Trocar</button></div>';
+    } else if (S._vCliNovo) {
+      el.innerHTML =
+        '<input class="in" id="vcNome" placeholder="Nome" autocomplete="off" value="' + esc(S._vCliQ) + '">' +
+        '<input class="in" id="vcTel" type="tel" inputmode="tel" placeholder="Telefone / WhatsApp">' +
+        '<input class="in" id="vcRuc" placeholder="RUC ou CI (vazio = estrangeiro, sem nota)" autocomplete="off">' +
+        '<div class="hint" id="vcH" style="margin:0"></div>' +
+        '<div style="display:flex;gap:8px"><button type="button" class="go" data-act="vclisave" style="flex:1">Salvar cliente</button><button type="button" class="chip" data-act="vclicanc" style="min-height:48px">Cancelar</button></div>';
+    } else {
+      el.innerHTML = '<input class="in" id="vCliQ" placeholder="Nome, telefone ou RUC" autocomplete="off" aria-label="Cliente" value="' + esc(S._vCliQ) + '"><div id="vCliSug">' + vcSugHtml() + '</div>';
+    }
+  }
+  document.addEventListener('input', function (e) {
+    if (e.target && e.target.id === 'vCliQ') {
+      S._vCliQ = e.target.value;
+      var l = $('vCliSug');
+      if (l) l.innerHTML = vcSugHtml();
+    }
+  });
+  function vcReset() {
+    S.vCli = 0;
+    S._vCliQ = '';
+    S._vCliNovo = false;
+    var el = $('cliPick');
+    if (el) el._sig = null;
+  }
+  ACT.vcliesc = function (id) {
+    S.vCli = +id;
+    S._vCliQ = '';
+    S._vCliNovo = false;
+    render();
+  };
+  ACT.vclitrocar = function () {
+    S.vCli = 0;
+    S._vCliQ = '';
+    render();
+  };
+  ACT.vclinovo = function () {
+    S._vCliNovo = true;
+    render();
+  };
+  ACT.vclicanc = function () {
+    S._vCliNovo = false;
+    render();
+  };
+  ACT.vclisave = function () {
+    var nome = $('vcNome').value.trim(),
+      tel = $('vcTel').value.trim(),
+      ruc = $('vcRuc').value.trim();
+    if (!nome && !cliDig(tel)) {
+      $('vcH').textContent = 'Escreva o nome ou o telefone.';
+      return;
+    }
+    var dup = cliAchar(nome, tel, ruc, 0);
+    if (dup) {
+      $('vcH').textContent = 'Já existe um cliente com esse telefone ou RUC: ' + (dup.nome || dup.tel) + '.';
+      return;
+    }
+    var c = { id: S.cliNext++, nome: cap1(nome), tel: tel, ruc: ruc, obs: '', ts: Date.now() };
+    S.clientes.push(c);
+    S.vCli = c.id;
+    S._vCliQ = '';
+    S._vCliNovo = false;
+    render();
+  };
+
+  // ---- dados da nota ----
+  function notaMontar(cart, cli) {
+    var g = {},
+      ord = [];
+    cart.forEach(function (l) {
+      var desc = l.it.tipo === 'solar' ? 'Lente de sol' : 'Armazón',
+        tot = Math.round(cartLinhaPreco(l)),
+        un = l.qty > 0 ? Math.round(tot / l.qty) : tot,
+        k = desc + '|' + un;
+      if (!g[k]) {
+        g[k] = { desc: desc, qty: 0, un: un, tot: 0 };
+        ord.push(g[k]);
+      }
+      g[k].qty += l.qty;
+      g[k].tot += tot;
+    });
+    var total = ord.reduce(function (a, x) {
+      return a + x.tot;
+    }, 0);
+    return {
+      ts: Date.now(),
+      nombre: cli && temRuc(cli) ? cli.nome || 'Sin nombre' : 'Sin nombre',
+      ruc: cli && temRuc(cli) ? String(cli.ruc).trim() : 'X',
+      ciudad: S.notaCidade || 'CDE',
+      pago: 'Contado',
+      lineas: ord,
+      total: total,
+      iva: Math.round(total / 11)
+    };
+  }
+  var notaNum = function (v) {
+    return String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  };
+  function notaHtml(n, estilo) {
+    var hr = '<hr style="border:0;border-top:1px dashed #111">',
+      r = function (a, b, s) {
+        return '<div style="display:flex;justify-content:space-between;gap:10px;' + (s || '') + '"><span>' + a + '</span><span>' + b + '</span></div>';
+      };
+    return (
+      '<div class="notapapel" style="' + (estilo || '') + '"><div style="text-align:center;font-weight:700;border:1px dashed #111;padding:3px;margin-bottom:6px">DADOS PARA NOTA FISCAL (sem valor fiscal)</div>' +
+      '<div>Fecha: ' + fd(n.ts) + '</div><div>Nombre: ' + esc(n.nombre) + '</div><div>RUC: ' + esc(n.ruc) + '</div><div>Ciudad: ' + esc(n.ciudad) + '</div><div>Pago: ' + n.pago + '</div>' + hr +
+      n.lineas
+        .map(function (x) {
+          return r(x.qty + ' ' + x.desc, '') + r('Unidad G$', notaNum(x.un));
+        })
+        .join('') +
+      hr + r('TOTAL G$', notaNum(n.total), 'font-weight:800;font-size:14px') + r('IVA 10% G$', notaNum(n.iva)) + '</div>'
+    );
+  }
+  // ---- tela "Venda registrada" ----
+  function notaAbrir(nota, cli) {
+    var ov = $('notaOv');
+    if (!ov) return;
+    clearTimeout(notaTimer);
+    var semRuc = !!(cli && !temRuc(cli));
+    notaAtual = semRuc ? null : nota;
+    var sub = cli ? esc(cli.nome || cli.tel) + (temRuc(cli) ? ' · RUC ' + esc(cli.ruc) : ' · sem RUC') : 'Sem cliente escolhido';
+    ov.innerHTML =
+      '<div class="card col" style="gap:12px;max-width:460px;margin:0 auto"><div style="display:flex;align-items:center;gap:10px"><span style="width:40px;height:40px;border-radius:50%;background:#1f7a4d;display:inline-flex;align-items:center;justify-content:center;font-size:22px;flex:0 0 auto">✓</span>' +
+      '<div style="flex:1"><h2 style="margin:0;font-size:20px">Venda registrada</h2><div class="hint" style="margin:0">' + sub + '</div></div>' +
+      '<button type="button" class="chip" data-act="notaX" aria-label="Fechar" style="min-height:40px;width:40px;padding:0;justify-content:center;font-size:20px;align-self:flex-start">×</button></div>' +
+      (semRuc
+        ? '<div class="sum"><span class="lbl" style="margin:0">Total</span><b style="font-size:24px">' + gs(nota.total) + '</b></div><div class="note n-warn" role="status"><b>Cliente sem RUC</b></div>'
+        : notaHtml(nota, 'background:#fff;color:#111;padding:14px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.5;border-radius:6px') +
+          '<button type="button" class="go" data-act="notaImp">Imprimir</button>') +
+      '</div>';
+    ov.hidden = false;
+    document.body.classList.add('noscroll');
+    if (semRuc) notaTimer = setTimeout(notaFechar, 3000);
+  }
+  function notaFechar() {
+    clearTimeout(notaTimer);
+    var ov = $('notaOv'),
+      cf = $('notaCf');
+    if (ov) ov.hidden = true;
+    if (cf) cf.hidden = true;
+    document.body.classList.remove('noscroll');
+    notaAtual = null;
+  }
+  function notaConfirma(titulo, sub, ok, acao) {
+    var cf = $('notaCf');
+    cf.innerHTML =
+      '<div class="card col" role="dialog" aria-modal="true" style="gap:12px;width:100%;max-width:360px"><h2 style="margin:0;font-size:19px">' + titulo + '</h2><div class="hint" style="margin:0">' + sub + '</div>' +
+      '<button type="button" class="go" data-act="' + acao + '">' + ok + '</button><button type="button" class="chip" data-act="notaVolta" style="min-height:48px;justify-content:center">Voltar</button></div>';
+    cf.hidden = false;
+  }
+  ACT.notaX = function () {
+    if (!notaAtual) return notaFechar();
+    notaConfirma('Fechar sem imprimir a nota?', 'A venda já está registrada. Se o cliente quiser nota, volte e imprima agora.', 'Fechar sem imprimir', 'notaSair');
+  };
+  ACT.notaImp = function () {
+    if (!notaAtual) return;
+    notaConfirma('Imprimir nota fiscal?', 'Para <b>' + esc(notaAtual.nombre) + '</b> · RUC ' + esc(notaAtual.ruc) + ' · ' + gs(notaAtual.total), 'Imprimir', 'notaOk');
+  };
+  ACT.notaVolta = function () {
+    $('notaCf').hidden = true;
+  };
+  ACT.notaSair = function () {
+    notaFechar();
+  };
+  ACT.notaOk = function () {
+    var n = notaAtual,
+      pb = $('notaPrint');
+    $('notaCf').hidden = true;
+    if (n && pb) {
+      pb.innerHTML = notaHtml(n, 'font-family:ui-monospace,Menlo,monospace;font-size:12px;width:72mm;color:#000');
+      try {
+        window.print();
+      } catch (e) {}
+    }
+    notaFechar();
   };
   // ===== Animações dos botões: ondinha, realce deslizante, cascata, contagem, ✓, segurar para apagar, sino e arrastar. =====
   (function () {
@@ -23603,6 +24087,8 @@
         return cartParte(x.v, fr, dec(x.moeda));
       }),
       br = pv.br,
+      cli = S.vCli ? cliPorId(S.vCli) : null,
+      nota = notaMontar(S.cart, cli),
       cartId = 'C-' + Date.now() + '-' + ++cartSeq,
       vendas = [];
     if (br) br.qty -= 1;
@@ -23645,6 +24131,7 @@
         motivo: pv.abaixo || desc ? S.vMotivo || '' : ''
       });
       s.carrinho = cartId;
+      if (cli) s.cliId = cli.id;
       s.abaixo = pv.abaixo;
       s.perde = pv.perde;
       vendas.push(s);
@@ -23675,9 +24162,11 @@
     S.vBrinde = null;
     S.vMotivo = '';
     S.rec = null;
+    vcReset();
     say('Venda registrada: pedido com ' + n + ' produto(s)');
     render();
     showSplit(agg);
+    notaAbrir(nota, cli);
     $('splitH').textContent = 'Pedido com ' + n + ' produto(s), ' + agg.qty + ' peça(s), por ' + gs(agg.price) + ' (vendas ' + agg.id + ')';
     $('splitNote').textContent =
       'Preço mínimo seguro (trava) do pedido: ' + gs(agg.trava) + '. Vendido por ' + gs(agg.price) + ', ' + (agg.livre >= 0 ? 'então o preço está seguro.' : 'abaixo do seguro. Veja a aba Dashboard.') + ' Cada peça foi gravada no Histórico.';
@@ -24572,6 +25061,8 @@
     } catch (e) {}
     renderInicio();
     renderPedidos();
+    renderClientes();
+    pagCliRender();
     renderNotif();
     renderDash();
     renderCaixa();
@@ -24721,6 +25212,10 @@
   var SK = 'lafouch_demo_v1',
     PERSIST = [
       'grp',
+      'clientes',
+      'cliNext',
+      'inicioCli',
+      'notaCidade',
       'maxVar',
       'items',
       'sales',

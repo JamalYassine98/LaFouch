@@ -212,6 +212,8 @@
         return cartParte(x.v, fr, dec(x.moeda));
       }),
       br = pv.br,
+      cli = S.vCli ? cliPorId(S.vCli) : null,
+      nota = notaMontar(S.cart, cli),
       cartId = 'C-' + Date.now() + '-' + ++cartSeq,
       vendas = [];
     if (br) br.qty -= 1;
@@ -254,6 +256,7 @@
         motivo: pv.abaixo || desc ? S.vMotivo || '' : ''
       });
       s.carrinho = cartId;
+      if (cli) s.cliId = cli.id;
       s.abaixo = pv.abaixo;
       s.perde = pv.perde;
       vendas.push(s);
@@ -284,9 +287,11 @@
     S.vBrinde = null;
     S.vMotivo = '';
     S.rec = null;
+    vcReset();
     say('Venda registrada: pedido com ' + n + ' produto(s)');
     render();
     showSplit(agg);
+    notaAbrir(nota, cli);
     $('splitH').textContent = 'Pedido com ' + n + ' produto(s), ' + agg.qty + ' peça(s), por ' + gs(agg.price) + ' (vendas ' + agg.id + ')';
     $('splitNote').textContent =
       'Preço mínimo seguro (trava) do pedido: ' + gs(agg.trava) + '. Vendido por ' + gs(agg.price) + ', ' + (agg.livre >= 0 ? 'então o preço está seguro.' : 'abaixo do seguro. Veja a aba Dashboard.') + ' Cada peça foi gravada no Histórico.';

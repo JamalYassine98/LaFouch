@@ -74,6 +74,11 @@
       '<section class="card col"><h2 style="margin:0;font-size:16px">Meta do mês</h2><div><div class="lbl">Lucro livre desejado no mês, loja toda (US$)</div><input class="in" inputmode="decimal" data-aj="meta" value="' +
       usdParaCampo(S.metaUsd) +
       '" placeholder="Ex.: ' + usdParaCampo(600) + '" style="max-width:220px"></div></section>';
+    // cidade da nota fiscal
+    h +=
+      '<section class="card col"><h2 style="margin:0;font-size:16px">Nota fiscal</h2><div><div class="lbl">Cidade que sai na nota</div><input class="in" data-aj="cidade" value="' +
+      esc(S.notaCidade || 'CDE') +
+      '" placeholder="CDE" style="max-width:220px" autocomplete="off"></div></section>';
     // faixas
     h +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Faixas</h2><div class="hint" style="margin:2px 0 0">Você cria e nomeia. A margem é o lucro mínimo desejado sobre o preço de venda e define o piso. O preço próprio da faixa é opcional (vazio = preço do tipo).</div></div>';
@@ -155,6 +160,7 @@
     S._ajForce = true;
     S.ajMsg = '';
     if (k === 'meta') S.metaUsd = campoParaUsd(t.value);
+    if (k === 'cidade') S.notaCidade = t.value.trim().toUpperCase() || 'CDE';
     if (k === 'fnome' && f && t.value.trim()) f.nome = t.value.trim();
     if (k === 'fmarg' && f) f.margem = Math.max(0, Math.min(90, numIn(t.value)));
     if (k === 'fprec' && f) {

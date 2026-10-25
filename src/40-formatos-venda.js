@@ -70,6 +70,7 @@
     ['fx', 'Câmbio'],
     ['hist', 'Histórico'],
     ['ped', 'Pedidos online'],
+    ['clientes', 'Clientes'],
     ['notif', 'Notificações'],
     ['ajustes', 'Ajustes']
   ];

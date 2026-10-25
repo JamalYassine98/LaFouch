@@ -305,3 +305,9 @@ body.arrastando{user-select:none}
 @media (min-width:1000px){.cvg{grid-template-columns:repeat(5,1fr)}}
 .catbtn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;font-weight:700}
 .catbtn svg{flex:none}
+
+.notacf{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;padding:20px}
+.notacf[hidden]{display:none}
+body.noscroll{overflow:hidden}
+#notaPrint{display:none}
+@media print{body>*:not(#notaPrint){display:none!important}#notaPrint{display:block!important;background:#fff}}

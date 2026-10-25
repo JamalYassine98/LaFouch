@@ -54,9 +54,14 @@
   ICO_D.novo = '<rect x="2.5" y="9" width="8" height="7" rx="2.5"/><rect x="13.5" y="9" width="8" height="7" rx="2.5"/><path d="M10.5 11.5h3M2.5 11L1 10M21.5 11l1.5-1"/>';
   ICO_D.cont = '<path d="M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h9"/>';
   ICO_D.lotes = '<path d="M3 7l9-4 9 4-9 4zM3 12l9 4 9-4M3 17l9 4 9-4"/>';
-  var INI_PADRAO = ['vendas', 'estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'cat', 'ajustes', 'ped', 'cont', 'lotes'];
+  var INI_PADRAO = ['vendas', 'estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'cat', 'ajustes', 'ped', 'cli', 'cont', 'lotes'];
   var INI_TODOS = INI_PADRAO.concat(['novo', 'notif']);
   function iniLista() {
+    // quem já personalizou o Início recebe o botão Clientes uma única vez (pode esconder depois)
+    if (Array.isArray(S.inicioT) && !S.inicioCli) {
+      S.inicioCli = true;
+      if (S.inicioT.indexOf('cli') < 0) S.inicioT = S.inicioT.concat(['cli']);
+    }
     var l = Array.isArray(S.inicioT) ? S.inicioT : INI_PADRAO;
     return l.filter(function (id, i) {
       return INI_TODOS.indexOf(id) >= 0 && l.indexOf(id) === i;
@@ -87,6 +92,7 @@
       novo: ['Novo produto', ['Cadastrar', '']],
       cont: ['Contagem', ['Conferir estoque', '']],
       lotes: ['Lotes', ['Compras', '']],
+      cli: ['Clientes', [S.clientes.length + (S.clientes.length === 1 ? ' cadastrado' : ' cadastrados'), '']],
       ped: ['Pedidos online', [pedNovos() + ' novos', pedNovos() ? 'w' : '']],
       notif: ['Notificações', [notifContagem() + ' avisos', notifContagem() ? 'w' : '']]
     };
@@ -141,6 +147,8 @@
     } else if (id === 'cat') {
       S.catOpen = true;
       setView('vendas');
+    } else if (id === 'cli') {
+      setView('clientes');
     } else if (id === 'novo') {
       setView('estoque');
       $('btnAdd').click();

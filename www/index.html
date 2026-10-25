@@ -133,6 +133,7 @@
   <div id="v-inicio" class="view"></div>
   <div id="v-dash" class="view"></div>
   <div id="v-ped" class="view" hidden></div>
+  <div id="v-clientes" class="view" hidden></div>
   <div id="v-notif" class="view" hidden></div>
   <div id="v-caixa" class="view"></div>
   <div id="v-desp" class="view"></div>
@@ -162,6 +163,7 @@
       <div id="sumB" class="col" style="gap:12px">
         <div class="sum"><span class="hint" style="margin:0" id="unit"></span><b style="font-size:22px" id="tot"></b></div>
         <div id="payB" class="col" style="gap:12px">
+        <div id="cliPickB"><div class="lbl">Cliente (opcional)</div><div id="cliPick" class="col" style="gap:8px"></div></div>
         <div id="brB" hidden><div class="lbl">Brinde</div><div class="nav" id="brChips"></div></div>
         <div><div class="lbl">Pagamento</div><div class="nav" id="formaChips" role="group" aria-label="Forma de pagamento"></div></div>
         <div><div class="lbl">Recebido em</div><div class="nav" id="moedas"></div></div>
@@ -264,5 +266,8 @@
   </div>
 </div>
 
-<script src="app.js"></script>
+<section id="notaOv" class="catov" aria-label="Venda registrada" hidden></section>
+  <div id="notaCf" class="notacf" hidden></div>
+  <div id="notaPrint" aria-hidden="true"></div>
+  <script src="app.js"></script>
 
