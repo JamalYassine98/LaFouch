@@ -84,7 +84,7 @@
     } catch (e) {}
     return {
       vendas: ['Vendas', ct ? [ct + ' no pedido', 'g'] : ['Sem pedido aberto', '']],
-      estoque: ['Inventário', [pecas + ' peças', rep ? 'w' : '']],
+      estoque: ['Produtos', [pecas + ' peças', rep ? 'w' : '']],
       caixa: ['Caixa', [gs(walletGs()), 'g']],
       fx: ['Câmbio', [gsRaw(Math.round(ratePyg('usd'))), '']],
       desp: ['Despesas', [gs(totalMensal()) + '/mês', 'w']],
@@ -171,10 +171,10 @@
     } else setView(id);
   }
   /* barra de baixo (acesso rápido): "Início" fixo + até 4 botões escolhidos arrastando do Início */
-  var BARRA_PADRAO = ['vendas', 'estoque', 'caixa', 'ajustes'];
+  var BARRA_PADRAO = ['estoque', 'caixa', 'ajustes'];
   var BARRA_MAX = 4;
   var BARRA_NOME = {
-    vendas: 'Vendas', estoque: 'Estoque', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Resumo',
+    vendas: 'Vendas', estoque: 'Produtos', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Resumo',
     din: 'Dinheiro', giro: 'Giro', prec: 'Preços', cat: 'Catálogo', ajustes: 'Ajustes', ped: 'Pedidos', onl: 'Loja',
     cli: 'Clientes', cont: 'Contagem', lotes: 'Lotes', novo: 'Novo', notif: 'Avisos'
   };

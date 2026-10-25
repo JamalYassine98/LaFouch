@@ -399,7 +399,9 @@
       o.repUSD = cu;
       o.pago = cu;
     }
-    if (pr > 0) o.price = pr;
+    var pp0 = S.pprice && S.pprice[it.ref];
+    if (pp0 && pp0.novo > 0) o.price = pp0.novo;
+    else if (pr > 0) o.price = pr;
     return Object.keys(o).length ? Object.assign({}, t, o) : t;
   }
   // Lê um valor digitado conforme a moeda.

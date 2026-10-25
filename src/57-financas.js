@@ -619,6 +619,6 @@
           : ''
       );
     });
-    return h + '</div><div class="hint" style="margin:0">Aplicar muda o preço desse tipo para todos os produtos da mesma faixa.</div></section>';
+    return h + '</div><div class="hint" style="margin:0">Aplicar leva cada produto da mesma faixa e tipo ao seu próprio piso (o preço antigo fica riscado).</div></section>';
   }
 

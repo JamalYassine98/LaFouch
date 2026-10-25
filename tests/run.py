@@ -859,17 +859,17 @@ async def main():
             await pg.locator('#v-inicio .tl:has-text("Giro")').click(); await pg.wait_for_timeout(300)
             r2 = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.dTab]")
             await pg.locator('#mainnav button:has-text("Início")').click(); await pg.wait_for_timeout(300)
-            await pg.locator('#mainnav button:has-text("Estoque")').click(); await pg.wait_for_timeout(300)
+            await pg.locator('#mainnav button[data-id="estoque"]').click(); await pg.wait_for_timeout(300)
             r3 = await pg.evaluate("() => window.__LF.S.view")
             total += 1
-            ok = r == ['inicio', 13] and r2 == ['dash', 'giro'] and r3 == 'estoque' and not pg.erros
+            ok = r == ['inicio', 14] and r2 == ['dash', 'giro'] and r3 == 'estoque' and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'tela Início: 13 botões + barra levam às telas certas')
             if not ok: falhas.append('inicio'); print('        veio', r, r2, r3, pg.erros)
             await pg.close()
 
             # animações dos botões: barra fixa embaixo, realce deslizante, segurar para apagar
             pg = await pagina()
-            await pg.locator('#mainnav button:has-text("Vendas")').click(); await pg.wait_for_timeout(600)
+            await pg.locator('#mainnav button:has-text("Caixa")').click(); await pg.wait_for_timeout(600)
             r = await pg.evaluate("() => [getComputedStyle(document.getElementById('mainnav')).position, document.querySelectorAll('#mainnav .slider').length, document.querySelector('#mainnav .mn.on').textContent.trim()]")
             await pg.evaluate("() => { window.__LF.S.dTab = 'hoje'; window.__LF.setView('dash'); }"); await pg.wait_for_timeout(500)
             r2 = await pg.evaluate("() => document.querySelectorAll('#v-dash .tgrid .slider').length")
@@ -882,7 +882,7 @@ async def main():
             await pg.mouse.down(); await pg.wait_for_timeout(1200); await pg.mouse.up(); await pg.wait_for_timeout(400)
             r3 = await pg.evaluate("() => window.__LF.S.imprev.map(x => x.desc)")
             total += 1
-            ok = r == ['fixed', 1, 'Vendas'] and r2 >= 1 and r3 == ['B'] and not pg.erros
+            ok = r == ['fixed', 1, 'Caixa'] and r2 >= 1 and r3 == ['B'] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'animações: barra fixa, realce deslizante e segurar para apagar')
             if not ok: falhas.append('animacoes'); print('        veio', r, r2, r3, pg.erros)
             await pg.close()
@@ -916,7 +916,7 @@ async def main():
             r = await pg.evaluate("""() => { const t = document.getElementById('v-dia').innerText;
               return [!!document.querySelector('[data-act=hback]'), !!document.querySelector('[data-act=closedia]'), !!document.querySelector('[data-act=daycal]'), !!document.querySelector('[data-act=daytoday]'), t.includes('G$ 90.000'), t.includes('Câmbio feito neste dia'), document.querySelectorAll('#mainnav .mn').length]; }""")
             total += 1
-            ok = r == [False, False, True, True, True, True, 5] and not pg.erros
+            ok = r == [False, False, True, True, True, True, 4] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'histórico do dia: valor exato, câmbio e botões novos')
             if not ok: falhas.append('hist dia'); print('        veio', r, pg.erros)
             await pg.close()
@@ -1007,12 +1007,35 @@ async def main():
             await pg.locator('#mainnav .mn[data-id="giro"]').click(); await pg.wait_for_timeout(300)
             e4 = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.dTab]")
             total += 1
-            ok = (e0['nav'] == ['inicio', 'vendas', 'estoque', 'caixa', 'ajustes'] and 'vendas' not in e0['tiles'] and 'prec' in e0['tiles']
-                  and e1['nav'] == ['inicio', 'vendas', 'estoque', 'caixa', 'prec'] and 'ajustes' in e1['tiles'] and 'prec' not in e1['tiles']
-                  and e2['nav'] == ['inicio', 'vendas', 'estoque', 'prec'] and 'caixa' in e2['tiles']
-                  and e3['nav'] == ['inicio', 'vendas', 'estoque', 'prec', 'giro'] and e4 == ['dash', 'giro'] and not pg.erros)
+            ok = (e0['nav'] == ['inicio', 'estoque', 'caixa', 'ajustes'] and 'vendas' in e0['tiles'] and 'prec' in e0['tiles']
+                  and e1['nav'] == ['inicio', 'estoque', 'caixa', 'ajustes', 'prec'] and 'prec' not in e1['tiles']
+                  and e2['nav'] == ['inicio', 'estoque', 'ajustes', 'prec'] and 'caixa' in e2['tiles']
+                  and e3['nav'] == ['inicio', 'estoque', 'ajustes', 'prec', 'giro'] and e4 == ['dash', 'giro'] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'acesso rápido: arrastar para a barra, trocar, tirar e abrir (máx. 5)')
             if not ok: falhas.append('acesso rapido'); print('        veio', e0, e1, e2, e3, e4, pg.erros)
+            await pg.close()
+
+            # Produtos: preço antigo → novo, canais, aviso de piso e aplicar em grupo (Reajustar)
+            pg = await pagina()
+            await pg.evaluate("() => { window.__LF.S.todos = false; window.__LF.setView('estoque'); }"); await pg.wait_for_timeout(500)
+            ref0 = await pg.evaluate("() => document.querySelector('#rows .pcard[data-ref]').getAttribute('data-ref')")
+            await pg.evaluate("r => { const S = window.__LF.S; S.pprice[r] = {novo: 123500, ant: 200000}; window.__LF.render(); }", ref0); await pg.wait_for_timeout(300)
+            txt = await pg.evaluate("r => document.querySelector('#rows .pcard[data-ref=\"' + r + '\"] .zp').innerText", ref0)
+            await pg.locator('#rows .pcard[data-ref="' + ref0 + '"] .zch i').first.click(); await pg.wait_for_timeout(300)
+            site = await pg.evaluate("r => window.__LF.S.pcanal[r] && window.__LF.S.pcanal[r].site", ref0)
+            await pg.click('#btnSelP'); await pg.wait_for_timeout(300)
+            cs = pg.locator('#rows .pcard[data-ref]')
+            await cs.nth(0).click(); await pg.wait_for_timeout(200); await cs.nth(1).click(); await pg.wait_for_timeout(300)
+            nsel = await pg.evaluate("() => window.__LF.S.selP.length")
+            await pg.locator('#selBar button:has-text("Preço e canais")').click(); await pg.wait_for_timeout(300)
+            await pg.locator('.modal-box:has(select) input').nth(1).fill('1000'); await pg.locator('.modal-box:has(select) button:has-text("Aplicar")').first.click(); await pg.wait_for_timeout(300)
+            tem3 = await pg.evaluate("() => [...document.querySelectorAll('.modal-box:has(select) button, .modal-box:has(.zalerta) button')].map(b => b.textContent.trim())")
+            await pg.locator('.modal-box button:has-text("Reajustar")').click(); await pg.wait_for_timeout(400)
+            apos = await pg.evaluate("() => Object.values(window.__LF.S.pprice).map(p => p.novo)")
+            total += 1
+            ok = '200.000' in txt and '123.500' in txt and site is True and nsel == 2 and tem3[-3:] == ['Reajustar', 'Aplicar mesmo assim', 'Cancelar'] and all(v >= 1000 for v in apos) and len([v for v in apos if v > 1000]) >= 1 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'produtos: preço antigo/novo, canais, aviso de piso e aplicar em grupo com Reajustar')
+            if not ok: falhas.append('produtos'); print('        veio', txt, site, nsel, tem3, apos, pg.erros)
             await pg.close()
 
             # Início: arrastar um botão para qualquer posição (os outros abrem espaço e a ordem é gravada ao soltar)

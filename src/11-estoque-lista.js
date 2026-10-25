@@ -817,6 +817,10 @@
           (S.pdMode && !S.pdRef ? ' delcard' : ''),
         '',
         function () {
+          if (S.selMode) {
+            selAlterna(rr);
+            return;
+          }
           if (S.pdMode) {
             S.pdRef = S.pdRef === r ? '' : r;
             render();
@@ -893,6 +897,8 @@
       );
       stt.style.alignSelf = 'flex-start';
       card.appendChild(stt);
+      card.setAttribute('data-ref', rr);
+      prodDecor(card, rr, ri[0].tipo);
       rows.appendChild(card);
     });
     var tp = $('btnTrashP');
@@ -1102,6 +1108,13 @@
     });
 
     renderDetail(openRef);
+    selBarra();
+    var bsel = $('btnSelP');
+    if (bsel) {
+      bsel.hidden = !refs.length || !!S.todos;
+      bsel.classList.toggle('on', !!S.selMode);
+      bsel.setAttribute('aria-pressed', !!S.selMode);
+    }
     $('listCard').hidden = !!S.lotesView || !$('detail').hidden;
     renderContagem();
 

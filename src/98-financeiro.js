@@ -197,7 +197,7 @@
     });
   };
 
-  // ---------- preço perigoso: aplica o piso como preço da faixa para aquele tipo
+  // ---------- preço perigoso: leva cada produto da faixa ao seu piso
   ACT.precoap = function (key) {
     var l = precoPerigoso(),
       m = l.filter(function (x) {
@@ -206,16 +206,14 @@
     if (!m) return;
     var f = faixaOf(m.ref);
     if (!f) return;
-    var novo = l
-      .filter(function (x) {
-        var xf = faixaOf(x.ref);
-        return x.tipo === m.tipo && xf && xf.id === f.id;
-      })
-      .reduce(function (a, x) {
-        return Math.max(a, x.pp.piso);
-      }, 0);
-    f.precos = f.precos || {};
-    f.precos[m.tipo] = novo;
+    l.forEach(function (x) {
+      var xf = faixaOf(x.ref);
+      if (x.tipo !== m.tipo || !xf || xf.id !== f.id) return;
+      var o = S.pprice[x.ref] || {};
+      if (!o.ant && x.pp.lista > x.pp.piso) o.ant = x.pp.lista;
+      o.novo = x.pp.piso;
+      S.pprice[x.ref] = o;
+    });
     saveSoon();
     render();
   };

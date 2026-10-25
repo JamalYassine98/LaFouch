@@ -81,7 +81,7 @@
       '" placeholder="CDE" style="max-width:220px" autocomplete="off"></div></section>';
     // faixas
     h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Faixas</h2><div class="hint" style="margin:2px 0 0">Você cria e nomeia. A margem é o lucro mínimo desejado sobre o preço de venda e define o piso. O preço próprio da faixa é opcional (vazio = preço do tipo).</div></div>';
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Faixas</h2><div class="hint" style="margin:2px 0 0">Você cria e nomeia. A margem é o lucro mínimo desejado sobre o preço de venda e define o piso. O preço de cada produto é definido no próprio produto (aba Produtos).</div></div>';
     S.faixas.forEach(function (f) {
       var n = Object.keys(S.pfaixa).filter(function (k) {
         return S.pfaixa[k] === f.id;
@@ -99,24 +99,9 @@
         f.id +
         '" value="' +
         f.margem +
-        '" style="max-width:140px"></div><details><summary class="hint" style="cursor:pointer">Preço próprio por tipo (' + mpSim() + ')</summary><div class="col" style="gap:8px;margin-top:8px">';
-      tipoAll().forEach(function (t) {
-        if (!t.price) return;
-        h +=
-          '<div style="display:flex;gap:8px;align-items:center"><span style="flex:1 1 140px">' +
-          esc(t.label) +
-          '</span><input class="in" inputmode="' + mpMode() + '" data-aj="fprec" data-id="' +
-          f.id +
-          '" data-tipo="' +
-          t.id +
-          '" value="' +
-          (f.precos && f.precos[t.id] ? gsParaCampo(f.precos[t.id]) : '') +
-          '" placeholder="' +
-          gsParaCampo(t.price) +
-          '" style="max-width:150px"></div>';
-      });
+        '" style="max-width:140px"></div>';
       h +=
-        '</div></details><div><button class="chip" data-act="fdel" data-id="' +
+        '<div><button class="chip" data-act="fdel" data-id="' +
         f.id +
         '">' +
         (S.fDelConf === f.id ? 'Confirmar: remover faixa' : 'Remover faixa') +

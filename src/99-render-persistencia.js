@@ -170,6 +170,8 @@
   }
   var SK = 'lafouch_demo_v1',
     PERSIST = [
+      'pprice',
+      'pcanal',
       'grp',
       'clientes',
       'cliNext',

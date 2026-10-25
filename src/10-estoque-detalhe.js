@@ -547,6 +547,7 @@
       ht2.style.margin = '8px 0 0';
       pv.appendChild(ht2);
     }
+    if (!venda) right.appendChild(fichaExtra(ref, f.tipo));
     right.appendChild(pv);
     // um único botão Vender, para a variante selecionada
     var vbar = mk('div', 'vbar');
