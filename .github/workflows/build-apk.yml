@@ -37,7 +37,7 @@ jobs:
         run: |
           pip install playwright
           playwright install --with-deps chromium
-          python3 tests/run.py
+          python3 tests/run.py > testes.log 2>&1 || { grep -A3 "FALHA\|Traceback\|Error" testes.log | head -30 | while IFS= read -r l; do echo "::error::$l"; done; tail -5 testes.log | while IFS= read -r l; do echo "::error::$l"; done; exit 1; }
 
       - name: Motor do recorte (fica dentro do app e do site)
         run: |
