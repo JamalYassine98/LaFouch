@@ -9543,6 +9543,7 @@
     ['fx', 'Câmbio'],
     ['hist', 'Histórico'],
     ['ped', 'Pedidos online'],
+    ['onl', 'Loja online'],
     ['clientes', 'Clientes'],
     ['notif', 'Notificações'],
     ['ajustes', 'Ajustes']
@@ -19230,16 +19231,22 @@
     });
     return { n: n, v: v };
   }
+  ICO_D.onl = '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/>';
   ICO_D.novo = '<rect x="2.5" y="9" width="8" height="7" rx="2.5"/><rect x="13.5" y="9" width="8" height="7" rx="2.5"/><path d="M10.5 11.5h3M2.5 11L1 10M21.5 11l1.5-1"/>';
   ICO_D.cont = '<path d="M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h9"/>';
   ICO_D.lotes = '<path d="M3 7l9-4 9 4-9 4zM3 12l9 4 9-4M3 17l9 4 9-4"/>';
-  var INI_PADRAO = ['vendas', 'estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'cat', 'ajustes', 'ped', 'cli', 'cont', 'lotes'];
+  var INI_PADRAO = ['vendas', 'estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'cat', 'ajustes', 'ped', 'onl', 'cli', 'cont', 'lotes'];
   var INI_TODOS = INI_PADRAO.concat(['novo', 'notif']);
   function iniLista() {
     // quem já personalizou o Início recebe o botão Clientes uma única vez (pode esconder depois)
     if (Array.isArray(S.inicioT) && !S.inicioCli) {
       S.inicioCli = true;
       if (S.inicioT.indexOf('cli') < 0) S.inicioT = S.inicioT.concat(['cli']);
+    }
+    // quem já personalizou o Início recebe o botão Loja online uma única vez (pode esconder depois)
+    if (Array.isArray(S.inicioT) && !S.inicioOnl) {
+      S.inicioOnl = true;
+      if (S.inicioT.indexOf('onl') < 0) S.inicioT = S.inicioT.concat(['onl']);
     }
     var l = Array.isArray(S.inicioT) ? S.inicioT : INI_PADRAO;
     return l.filter(function (id, i) {
@@ -19273,6 +19280,7 @@
       lotes: ['Lotes', ['Compras', '']],
       cli: ['Clientes', [S.clientes.length + (S.clientes.length === 1 ? ' cadastrado' : ' cadastrados'), '']],
       ped: ['Pedidos online', [pedNovos() + ' novos', pedNovos() ? 'w' : '']],
+      onl: ['Loja online', ['Catálogo e site', '']],
       notif: ['Notificações', [notifContagem() + ' avisos', notifContagem() ? 'w' : '']]
     };
   }
@@ -22685,6 +22693,36 @@
     S.cliSel = null;
     render();
   };
+  // ===== Loja online: o painel do catálogo (lafouch.com) dentro do app, para editar preços, ofertas, fotos e ligar/desligar o site. =====
+  var LOJA_URL = 'https://lafouch.com/admin.html';
+  function renderLojaOnline() {
+    var el = $('v-onl');
+    if (!el || S.view !== 'onl') return;
+    // o quadro é criado uma vez só: render() redesenha tudo e fecharia o painel no meio da edição
+    if (el.getAttribute('data-ok') === '1' && el.querySelector('iframe')) return;
+    if (navigator.onLine === false) {
+      el.removeAttribute('data-ok');
+      el.innerHTML =
+        '<section class="card" style="text-align:center;padding:22px"><b style="font-size:17px">Sem internet</b>' +
+        '<p style="color:var(--mu);margin:8px 0 14px">A loja online só abre com internet, porque os dados ficam na nuvem.</p>' +
+        '<button type="button" class="mini" data-act="lojaRecarregar">Tentar de novo</button></section>';
+      return;
+    }
+    el.setAttribute('data-ok', '1');
+    el.innerHTML =
+      '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 8px;flex-wrap:wrap">' +
+      '<b style="font-size:17px">Loja online</b>' +
+      '<a class="chip" href="' + LOJA_URL + '" target="_blank" rel="noopener">Abrir em tela cheia</a></div>' +
+      '<iframe id="lojaFrame" title="Painel da loja online" src="' + LOJA_URL + '" style="width:100%;height:calc(100vh - 190px);min-height:520px;border:1px solid var(--ln);border-radius:16px;background:#fff" allow="clipboard-write"></iframe>';
+  }
+  window.addEventListener('online', function () {
+    if (S.view === 'onl') render();
+  });
+  ACT.lojaRecarregar = function () {
+    var el = $('v-onl');
+    if (el) el.removeAttribute('data-ok');
+    render();
+  };
   // ===== Contagem de estoque (aba Estoque): por produto, do mais valioso ao menos, com resumo em dinheiro. =====
   // Custo em US$ de uma peça (própria, do lote ou do tipo).
   function custoUn(i) {
@@ -25061,6 +25099,7 @@
     } catch (e) {}
     renderInicio();
     renderPedidos();
+    renderLojaOnline();
     renderClientes();
     pagCliRender();
     renderNotif();
@@ -25215,6 +25254,7 @@
       'clientes',
       'cliNext',
       'inicioCli',
+      'inicioOnl',
       'notaCidade',
       'maxVar',
       'items',

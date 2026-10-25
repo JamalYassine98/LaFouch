@@ -19,6 +19,7 @@
     } catch (e) {}
     renderInicio();
     renderPedidos();
+    renderLojaOnline();
     renderClientes();
     pagCliRender();
     renderNotif();
@@ -173,6 +174,7 @@
       'clientes',
       'cliNext',
       'inicioCli',
+      'inicioOnl',
       'notaCidade',
       'maxVar',
       'items',
