@@ -1,3 +1,5 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
 <title>Catálogo La Fouch</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -242,6 +244,39 @@ html.lock,html.lock body{overflow:hidden!important}
 @media(max-width:560px){.bb{font-size:14.5px;padding-left:18px;gap:6px;line-height:1.15}.bb.p{flex:1.35}.bb em{width:40px;height:40px}.buy{padding-inline:12px}}
 .card .add{margin-top:auto;min-height:56px;display:flex;align-items:center;justify-content:center;line-height:1.15;text-align:center;flex:none}
 .card .info{flex:1 1 auto}
+
+/* ideias 1-7 */
+#intro{position:fixed;inset:0;z-index:300;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;animation:iout .6s 1.9s ease forwards}
+#intro svg{overflow:visible}.isd{stroke-dasharray:100;stroke-dashoffset:100;animation:idraw 1.2s .1s ease forwards}
+#intro text{opacity:0;animation:ifade .6s .9s ease forwards}
+.itx{font:600 34px 'Fraunces',Georgia,serif;color:var(--tx);opacity:0;transform:translateY(8px);animation:itx .7s 1s ease forwards}
+.isb{font:700 11px Inter,system-ui,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--ac);opacity:0;animation:ifade .6s 1.25s ease forwards}
+@keyframes idraw{to{stroke-dashoffset:0}}@keyframes ifade{to{opacity:1}}@keyframes itx{to{opacity:1;transform:none}}
+@keyframes iout{to{opacity:0;visibility:hidden}}
+.ib.aa{display:flex;align-items:baseline;justify-content:center;gap:1px;color:var(--tx)}.ib.aa b{font:700 19px Georgia,serif}.ib.aa small{font:700 13px Georgia,serif}
+.top3{margin-bottom:22px}.top3 h3{font:600 24px 'Fraunces',Georgia,serif;margin:0 0 4px}.top3 p{margin:0 0 12px;color:var(--mu);font-size:14px}
+.t3{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 10px}
+.t3 button{flex:0 0 min(78%,300px);scroll-snap-align:start;display:flex;gap:12px;align-items:center;text-align:left;background:var(--pn);border:1px solid var(--ln);border-radius:20px;padding:10px 14px 10px 10px;cursor:pointer;color:var(--tx);position:relative;overflow:hidden}
+.t3 .n{position:absolute;right:10px;bottom:-14px;font:700 74px 'Fraunces',Georgia,serif;color:color-mix(in srgb,var(--ac) 14%,transparent);line-height:1;pointer-events:none}
+.t3 .rth{width:84px;flex:none;border-radius:14px}.t3 .tx{display:flex;flex-direction:column;gap:3px;min-width:0}.t3 b{font-size:15px}.t3 .pr{font-size:15px}
+.t3 .tg2{font:800 10px Inter,system-ui,sans-serif;letter-spacing:.12em;color:var(--ac);text-transform:uppercase}
+.card .alt2{position:absolute;inset:0;background:#fff;opacity:0;transition:opacity .35s;z-index:1;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.card .alt2 svg,.card .alt2 img{width:100%;height:100%;object-fit:contain}
+@media (hover:hover){.card:hover .alt2{opacity:1}}
+.card .pr{font-size:21px}
+.card .ph{position:relative}.card .tg,.card .stk,.card .fav{z-index:3}
+.meds{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.med{border:1px solid var(--ln);background:var(--pn);border-radius:16px;padding:12px 8px;text-align:center;display:flex;flex-direction:column;gap:2px}
+.med b{font:600 22px 'Fraunces',Georgia,serif}.med b i{font:600 12px Inter,system-ui,sans-serif;font-style:normal;color:var(--mu);margin-left:2px}
+.med span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);font-weight:700}
+.badges{display:flex;flex-wrap:wrap;gap:8px}
+.bd{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;padding:8px 13px;border-radius:999px;border:1px solid var(--ln2);background:var(--pn)}
+.bd svg{width:16px;height:16px;color:var(--ac)}
+.fc2{display:flex;flex-wrap:wrap;gap:8px}
+.fc2 button{display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 8px;border-radius:999px;border:1.5px solid var(--ln2);background:transparent;color:var(--tx);font:600 13px Inter,system-ui,sans-serif;cursor:pointer;transition:border-color .25s,background .25s}
+.fc2 button svg{width:22px;height:26px;color:var(--ac);flex:none}
+@media (hover:hover){.fc2 button:hover{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 10%,transparent)}}
+.dsl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--mu);margin-bottom:10px;display:block}
 /* transição entre seções */
 html[data-nav]::view-transition-old(root){animation:navOut .28s ease both}
 html[data-nav]::view-transition-new(root){animation:navIn .6s cubic-bezier(.2,.8,.2,1) both}
@@ -388,11 +423,13 @@ footer b{color:var(--tx)}
     <span class="grow"></span>
     <label class="search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" placeholder="Buscar por modelo ou referência" aria-label="Buscar no catálogo"></label>
     <button class="ib" id="theme" aria-label="Trocar tema claro e escuro" title="Tema"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg></button>
+    <button class="ib aa" id="aa" aria-label="Tamanho do texto" title="Tamanho do texto"><b>A</b><small>a</small></button>
     <button class="ib" id="bagbtn" aria-label="Abrir a reserva"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6zM9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="badge" id="badge">0</span></button>
   </div>
   <div class="mobsearch"><label class="search" style="width:100%"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q2" type="search" placeholder="Buscar por modelo ou referência" aria-label="Buscar no catálogo"></label></div>
 </div></div>
 
+<div id="intro" aria-hidden="true"><svg viewBox="0 0 100 108" width="120" height="130"><path class="isd" d="M50 6L90 19V52C90 77 71 94 50 102C29 94 10 77 10 52V19Z" fill="none" stroke="#c0609a" stroke-width="3" stroke-linejoin="round" pathLength="100"/><text x="50" y="64" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="34" fill="#c0609a">LF</text></svg><div class="itx">La Fouch</div><div class="isb">Tudo em Óculos</div></div>
 <main id="topo">
 <div class="wrap">
   <section class="hero">
@@ -423,6 +460,7 @@ footer b{color:var(--tx)}
 
   <section class="sec" id="vitrine">
     <h2 style="text-align:left">Vitrine</h2>
+    <div id="top3" class="top3"></div>
     <div id="resultado"></div>
     <div class="shopbar">
       <div class="chips" id="tipos" role="group" aria-label="Tipo de óculos"></div>
@@ -535,13 +573,30 @@ footer b{color:var(--tx)}
     if(st.sort==='menor')r.sort(function(a,b){return a.n-b.n});
     if(st.sort==='maior')r.sort(function(a,b){return b.n-a.n});
     return r}
+
+  /* ficha técnica de exemplo (substitua pelos dados reais do fornecedor) */
+  var MATS={METAL:'Metal',ACETATO:'Acetato',SOLAR:'Acetato',NOVO:'Acetato',GRAU:'Acetato leve'};
+  P.forEach(function(p){
+    var h=0;for(var i=0;i<p.ref.length;i++)h=(h*31+p.ref.charCodeAt(i))>>>0;
+    if(!p.med)p.med=[48+h%9,16+(h>>>3)%7,140+(h>>>5)%6];
+    if(!p.mat)p.mat=(p.nome.toLowerCase().indexOf('metal')>=0?'Metal':MATS[p.tag]||'Acetato');
+    if(p.uv===undefined)p.uv=p.tipo==='solar';
+    if(p.rank===undefined)p.rank=0});
+  var RANK={SL2220:1,SL2201:2,AC1007:3};P.forEach(function(p){if(RANK[p.ref])p.rank=RANK[p.ref]});
+  function faceMini(id){var f=FD[id];if(!f)return '';return '<svg viewBox="8 4 64 84" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round" aria-hidden="true"><path d="'+f.d+'"/></svg>'}
+  function faceName(id){var f=FACES.filter(function(x){return x.id===id})[0];return f?f.nome:id}
+  var UVI='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg>',MATI='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg>',LENI='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="12" r="4.5"/><circle cx="16" cy="12" r="4.5"/></svg>';
+  function top3(){
+    var el=document.getElementById('top3');if(!el)return;
+    var L=P.filter(function(p){return p.rank}).sort(function(a,b){return a.rank-b.rank});
+    el.innerHTML='<h3>Mais pedidos da semana</h3><p>Os modelos que os clientes mais reservaram.</p><div class="t3">'+L.map(function(p){return '<button type="button" data-open="'+p.ref+'"><span class="rth">'+vis(p,6)+'</span><span class="tx"><span class="tg2">Nº '+p.rank+'</span><b>'+esc(p.nome)+'</b><span class="pr">'+fmt(p.n)+'</span></span><span class="n">'+p.rank+'</span></button>'}).join('')+'</div>'}
   function drawGrid(){
     var r=lista();drawRes(r.length);
     $('count').textContent=r.length+' modelo'+(r.length===1?'':'s');
     $('grid').innerHTML=r.length?r.map(function(p,i){
       var esg=p.aviso==='Esgotado',n=st.cart[p.ref]||0;
       var sk=esg?'<span class="stk e">Esgotado</span>':(/Últim/.test(p.aviso)?'<span class="stk u">'+esc(p.aviso)+'</span>':'');
-      return '<article class="card'+(esg?' esg':'')+'" style="--i:'+i+'"><button class="fav'+(st.fav[p.ref]?' on':'')+'" data-fav="'+p.ref+'" aria-label="Favoritar '+esc(p.nome)+'" aria-pressed="'+(!!st.fav[p.ref])+'">'+HEART+'</button><button class="open" data-open="'+p.ref+'" aria-label="Ver '+esc(p.nome)+'"><div class="ph"><span class="tg">'+p.tag+'</span>'+sk+vis(p)+'<span class="shine"></span></div><div class="info"><span class="ref">'+p.ref+'</span><span class="nm">'+esc(p.nome)+'</span><span class="pr">'+fmt(p.n)+'</span><span class="av">'+esc(p.aviso)+'</span></div></button><button class="add'+(esg?' alt':'')+'" data-add="'+p.ref+'">'+(esg?'Avise-me quando chegar':(n?'Na reserva ('+n+') · +1':'Reservar'))+'</button></article>'}).join(''):'<div class="empty">Nenhum modelo com esses filtros. Tire um filtro ou limpe a busca.</div>';
+      return '<article class="card'+(esg?' esg':'')+'" style="--i:'+i+'"><button class="fav'+(st.fav[p.ref]?' on':'')+'" data-fav="'+p.ref+'" aria-label="Favoritar '+esc(p.nome)+'" aria-pressed="'+(!!st.fav[p.ref])+'">'+HEART+'</button><button class="open" data-open="'+p.ref+'" aria-label="Ver '+esc(p.nome)+'"><div class="ph"><span class="tg">'+p.tag+'</span>'+sk+vis(p)+'<span class="shine"></span>'+(p.fotos&&p.fotos[1]?'<span class="alt2"><img src="'+p.fotos[1]+'" alt=""></span>':(!p.foto&&p.cores&&p.cores[1]?'<span class="alt2">'+glasses(p.cores[1],p.raio,5)+'</span>':''))+'</div><div class="info"><span class="ref">'+p.ref+'</span><span class="nm">'+esc(p.nome)+'</span><span class="pr">'+fmt(p.n)+'</span><span class="av">'+esc(p.aviso)+'</span></div></button><button class="add'+(esg?' alt':'')+'" data-add="'+p.ref+'">'+(esg?'Avise-me quando chegar':(n?'Na reserva ('+n+') · +1':'Reservar'))+'</button></article>'}).join(''):'<div class="empty">Nenhum modelo com esses filtros. Tire um filtro ou limpe a busca.</div>';
   }
   function drawChips(){
     var nf=Object.keys(st.fav).length;if(!nf&&st.tipo==='fav')st.tipo='todos';$('tipos').innerHTML=TIPOS.concat(nf?[['fav','♥ Favoritos ('+nf+')']]:[]).map(function(t){return '<button class="chip" data-tipo="'+t[0]+'" aria-pressed="'+(st.tipo===t[0])+'">'+t[1]+'</button>'}).join('')}
@@ -641,6 +696,9 @@ footer b{color:var(--tx)}
     layer('<div class="modal" role="dialog" aria-modal="true" aria-label="'+esc(p.nome)+'"><div class="xw"><button class="x" data-close aria-label="Fechar">×</button></div><div class="big" data-zoom>'+vis(p,4.5)+'<span class="zh"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5M11 8v6M8 11h6"/></svg>Toque para ampliar</span><span class="shine" style="position:absolute;top:0;bottom:0;left:0;width:18%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.9),transparent);animation:shine 4.5s ease-in-out infinite"></span></div>'+
     '<div class="det"><header class="dh"><div class="dm"><span class="ref">'+p.ref+'</span><i></i><span class="ref">'+esc(p.tag)+'</span></div><h2>'+esc(p.nome)+'</h2><div class="dp"><span class="pr">'+fmt(p.n)+'</span>'+(p.aviso?'<span class="dav'+(esg?' e':'')+'">'+esc(p.aviso)+'</span>':'')+'</div></header>'+
     (sw?'<section class="dsec"><div class="dl">Cor <b id="cn">'+esc(corNome(p,st.cor[p.ref]||0))+'</b></div><div class="sw" aria-label="Cores">'+p.cores.map(function(c,i){return '<button type="button" class="'+(i?'':'on')+'" data-sw="'+i+'" data-ref="'+p.ref+'" aria-label="Cor '+(i+1)+'">'+glasses(c,p.raio,6)+'</button>'}).join('')+'</div></section>':'')+
+    '<section class="dsec"><span class="dsl">Medidas</span><div class="meds"><div class="med"><b>'+p.med[0]+'<i>mm</i></b><span>Lente</span></div><div class="med"><b>'+p.med[1]+'<i>mm</i></b><span>Ponte</span></div><div class="med"><b>'+p.med[2]+'<i>mm</i></b><span>Haste</span></div></div></section>'+
+    '<div class="badges"><span class="bd">'+MATI+esc(p.mat)+'</span>'+(p.uv?'<span class="bd">'+UVI+'Proteção UV400</span>':'<span class="bd">'+LENI+'Aceita lentes de grau</span>')+'</div>'+
+    '<section class="dsec"><span class="dsl">Combina com rosto</span><div class="fc2">'+p.rosto.map(function(r){return '<button type="button" data-facem="'+r+'">'+faceMini(r)+'<span>'+esc(faceName(r))+'</span></button>'}).join('')+'</div></section>'+
     '<ul class="facts"><li><i>'+FI.loja+'</i><span><b>Prove na loja</b>Sem compromisso, antes de levar.</span></li><li><i>'+FI.rel+'</i><span><b>Reservada por [PRAZO] dias</b>Separamos a peça para você.</span></li><li><i>'+FI.ret+'</i><span><b>Retire na loja</b>Quando estiver pronto.</span></li></ul>'+
     '<div class="tools"><button type="button" class="tl fav'+(st.fav[p.ref]?' on':'')+'" data-fav="'+p.ref+'">'+HEART+'<span>'+(st.fav[p.ref]?'Nos favoritos':'Favoritar')+'</span></button><button type="button" class="tl'+(st.cmp.indexOf(p.ref)>=0?' on':'')+'" data-cmp="'+p.ref+'">'+CMPI+'<span>Comparar</span></button><button type="button" class="tl" data-try="'+p.ref+'">'+CAMI+'<span>Provar no rosto</span></button></div>'+
     relHtml(p)+'</div>'+
@@ -664,12 +722,13 @@ footer b{color:var(--tx)}
 
   /* eventos */
   document.addEventListener('click',function(e){
-    var t=e.target.closest('[data-tipo],[data-face],[data-open],[data-add],[data-addm],[data-dec],[data-inc],[data-rm],[data-send],[data-copy],[data-sw],[data-fav],[data-cmp],[data-cmpopen],[data-cmpclear],[data-bag],[data-try],[data-trym],[data-tryadd],[data-trynew],[data-copymsg],[data-newsim],[data-close]');
+    var t=e.target.closest('[data-tipo],[data-face],[data-open],[data-add],[data-addm],[data-dec],[data-inc],[data-rm],[data-send],[data-copy],[data-sw],[data-fav],[data-cmp],[data-cmpopen],[data-cmpclear],[data-bag],[data-try],[data-facem],[data-trym],[data-tryadd],[data-trynew],[data-copymsg],[data-newsim],[data-close]');
     if(!t){return}
     var d=t.dataset;
     if(d.close!==undefined){if(t.classList.contains('scrim')&&e.target!==t)return;closeLayer();return}
     if(d.tipo){st.tipo=d.tipo;drawChips();drawGrid()}
     else if(d.face){st.rosto=st.rosto===d.face?'':d.face;drawFaces();drawGrid();goTo('vitrine')}
+    else if(d.facem){closeLayer();st.rosto=d.facem;drawFaces();drawGrid();goTo('vitrine')}
     else if(t.hasAttribute('data-try')){tryon(d.try||TRY.ref)}
     else if(d.trym){TRY.ref=d.trym;var g=$('tgl'),pq=find(d.trym);if(g){g.className='tgl'+(pq.tipo==='solar'?' sol':'');g.innerHTML=vis(pq,6)}document.querySelectorAll('#tstrip button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-trym')===d.trym)});var wa=$('twa');if(wa)wa.href=twaHref(pq);var ad=$('tadd');if(ad)ad.setAttribute('data-tryadd',d.trym)}
     else if(d.tryadd){add(d.tryadd,null)}
@@ -760,6 +819,17 @@ footer b{color:var(--tx)}
   function tEnd(e){if(Td&&e.pointerId===Td.id){Td=null}}
   document.addEventListener('pointerup',tEnd);document.addEventListener('pointercancel',tEnd);
   document.addEventListener('wheel',function(e){var g=e.target.closest&&e.target.closest('#ts');if(!g||!$('tgl'))return;e.preventDefault();TRY.w=Math.max(25,Math.min(110,TRY.w-e.deltaY*.05));var s=$('tsz');if(s)s.value=TRY.w;trySet()},{passive:false});
+
+  /* texto maior (acessibilidade) */
+  var ZL=[1,1.12,1.25],ZN=['Texto normal','Texto grande','Texto muito grande'],zi=0;
+  try{zi=Math.max(0,Math.min(2,+localStorage.getItem('lf_zoom')||0))}catch(_){}
+  function zset(i,say){zi=i;document.body.style.zoom=ZL[i]==1?'':ZL[i];try{localStorage.setItem('lf_zoom',i)}catch(_){}if(say)toast(ZN[i])}
+  zset(zi,false);
+  $('aa').addEventListener('click',function(){zset((zi+1)%3,true)});
+  /* abertura com o escudo */
+  (function(){var it=$('intro');if(!it)return;var seen=false;try{seen=sessionStorage.getItem('lf_intro')==='1';sessionStorage.setItem('lf_intro','1')}catch(_){}
+    if(seen||matchMedia('(prefers-reduced-motion: reduce)').matches){it.remove();return}
+    setTimeout(function(){it.remove()},2600)})();
   var NUM_LOJA=''; /* [SEU NÚMERO] só dígitos com DDI, ex.: 595981123456 */
   function setLoj(){$('lojista').href='https://wa.me/'+NUM_LOJA+'?text='+encodeURIComponent(mensagem('lojista'))}
   setLoj();['an','ac','aq'].forEach(function(i){$(i).addEventListener('input',setLoj)});
@@ -801,10 +871,12 @@ footer b{color:var(--tx)}
 
   $('stage').addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();$('stage').click()}});
   var sp=find('SL2210');$('stageSvg').innerHTML=glasses(sp.cor,sp.raio,4).replace(/^<svg[^>]*>/,'').replace(/<\/svg>$/,'');
-  drawChips();drawFaces();drawBag();
+  drawChips();drawFaces();top3();drawBag();
   (function(){var a=$('tA'),b=$('tB'),sh=document.getElementById('shP');if(!a||!sh||!sh.getTotalLength)return;
     var L=sh.getTotalLength();a.setAttribute('textLength',L-1);b.setAttribute('textLength',L-1);b.setAttribute('startOffset',-L);
     if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
     var off=0;(function tick(){off=(off+.22)%L;a.setAttribute('startOffset',off);b.setAttribute('startOffset',off-L);requestAnimationFrame(tick)})()})();
 })();
 </script>
+
+</body></html>
