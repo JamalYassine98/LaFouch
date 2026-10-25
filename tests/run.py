@@ -862,8 +862,8 @@ async def main():
             await pg.locator('#v-inicio .tl:has-text("Inventário")').click(); await pg.wait_for_timeout(300)
             r3 = await pg.evaluate("() => window.__LF.S.view")
             total += 1
-            ok = r == ['inicio', 16] and r2 == ['dash', 'giro'] and r3 == 'estoque' and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'tela Início: 16 botões levam às telas certas')
+            ok = r == ['inicio', 17] and r2 == ['dash', 'giro'] and r3 == 'estoque' and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'tela Início: 17 botões levam às telas certas')
             if not ok: falhas.append('inicio'); print('        veio', r, r2, r3, pg.erros)
             await pg.close()
 
