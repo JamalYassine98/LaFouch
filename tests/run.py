@@ -1000,6 +1000,9 @@ async def main():
             e0 = await pg.evaluate(est)
             await arrasta('#v-inicio .tl[data-id="prec"]', '#mainnav .mn[data-id="ajustes"]')
             e1 = await pg.evaluate(est)
+            if 'prec' in e1['tiles']:
+                await arrasta('#v-inicio .tl[data-id="prec"]', '#mainnav .mn[data-id="ajustes"]')
+                e1 = await pg.evaluate(est)
             await arrasta('#mainnav .mn[data-id="caixa"]', [210, 300])
             e2 = await pg.evaluate(est)
             await arrasta('#v-inicio .tl[data-id="giro"]', '#mainnav .mn[data-id="estoque"]')
@@ -1036,6 +1039,17 @@ async def main():
             ok = '200.000' in txt and '123.500' in txt and site is True and nsel == 2 and tem3[-3:] == ['Reajustar', 'Aplicar mesmo assim', 'Cancelar'] and all(v >= 1000 for v in apos) and len([v for v in apos if v > 1000]) >= 1 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'produtos: preço antigo/novo, canais, aviso de piso e aplicar em grupo com Reajustar')
             if not ok: falhas.append('produtos'); print('        veio', txt, site, nsel, tem3, apos, pg.erros)
+            await pg.close()
+
+            # Nuvem: cartão em Ajustes e compactação do backup (ida e volta)
+            pg = await pagina()
+            await pg.evaluate("() => window.__LF.setView('ajustes')"); await pg.wait_for_timeout(400)
+            tem = await pg.evaluate("() => [document.getElementById('v-ajustes').innerText.includes('Nuvem'), !!document.getElementById('nvEm'), !!document.getElementById('nvPw')]")
+            rt = await pg.evaluate("""async () => { const txt = JSON.stringify({a: 'áéí ✓ ' + 'x'.repeat(5000), b: [1, 2, 3]}); const p = await window.__LF.nvPack(txt); const back = await window.__LF.nvUnpack(p.gz, p.s); return [back === txt, p.gz, p.s.length < txt.length]; }""")
+            total += 1
+            ok = tem == [True, True, True] and rt[0] is True and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'nuvem: cartão em Ajustes e compactação do backup ida e volta')
+            if not ok: falhas.append('nuvem'); print('        veio', tem, rt, pg.erros)
             await pg.close()
 
             # Início: arrastar um botão para qualquer posição (os outros abrem espaço e a ordem é gravada ao soltar)

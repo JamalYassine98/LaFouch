@@ -1,6 +1,6 @@
   // ===== Aba Ajustes: faixas, meta, contas e backup dos dados. =====
   // Gera o texto do backup (dados + fotos em miniatura).
-  var SEM_BACKUP = ['pinHash', 'pinSalt', 'bioOn', 'lockMin', 'lockSens'];
+  var SEM_BACKUP = ['pinHash', 'pinSalt', 'bioOn', 'lockMin', 'lockSens', 'nuvem'];
   function backupDados(semFotos) {
     var d = {};
     PERSIST.forEach(function (k) {
@@ -129,6 +129,7 @@
       usdParaCampo(S.tolUsd) +
       '" style="max-width:160px"><div class="hint">Na contagem de estoque, diferenças até esse valor ficam marcadas como perda aceita.</div></div></section>';
     // backup (arquivo manual + cópias automáticas)
+    h += nvCard();
     h += backupHtml();
     h += ajustesFinHtml();
     el.innerHTML = h;
