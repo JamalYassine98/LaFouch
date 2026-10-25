@@ -603,7 +603,7 @@ async def main():
             txt = await pg.evaluate("() => document.querySelector('#repoView .replist').innerText")
             await pg.click('#eTabP'); await pg.wait_for_timeout(300)
             volta = await pg.evaluate("() => [document.getElementById('repoView').hidden, document.getElementById('listCard').hidden]")
-            ok = (mapa.count('r:0') == 12 and mapa.count('y:5') == 2 and 'y:2' in mapa and 'g:12' in mapa and abas == ['Produtos', 'Lotes 1', 'Reposição'] and kl is True
+            ok = (mapa.count('r:0') == 12 and mapa.count('y:5') == 2 and 'y:2' in mapa and 'g:12' in mapa and abas == ['Produtos', 'Vender', 'Site', 'WhatsApp', 'Lotes 1', 'Reposição'] and kl is True
                   and filtro == '+1.50' and rep['vis'] and rep['lista'] and rep['mapa']
                   and rep['itens'][0] == '+0.50:1' and '+3.50:1' in rep['itens'] and '+3.00:0' in rep['itens'] and '+1.50:0' in rep['itens']
                   and '+3.50 · 2 pacotes de 24' in txt and 'Total: 336 peças' in txt
@@ -862,7 +862,7 @@ async def main():
             await pg.locator('#mainnav button[data-id="estoque"]').click(); await pg.wait_for_timeout(300)
             r3 = await pg.evaluate("() => window.__LF.S.view")
             total += 1
-            ok = r == ['inicio', 14] and r2 == ['dash', 'giro'] and r3 == 'estoque' and not pg.erros
+            ok = r == ['inicio', 11] and r2 == ['dash', 'giro'] and r3 == 'estoque' and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'tela Início: 13 botões + barra levam às telas certas')
             if not ok: falhas.append('inicio'); print('        veio', r, r2, r3, pg.erros)
             await pg.close()
@@ -1010,7 +1010,7 @@ async def main():
             await pg.locator('#mainnav .mn[data-id="giro"]').click(); await pg.wait_for_timeout(300)
             e4 = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.dTab]")
             total += 1
-            ok = (e0['nav'] == ['inicio', 'estoque', 'caixa', 'ajustes'] and 'vendas' in e0['tiles'] and 'prec' in e0['tiles']
+            ok = (e0['nav'] == ['inicio', 'estoque', 'caixa', 'ajustes'] and 'vendas' not in e0['tiles'] and 'prec' in e0['tiles']
                   and e1['nav'] == ['inicio', 'estoque', 'caixa', 'ajustes', 'prec'] and 'prec' not in e1['tiles']
                   and e2['nav'] == ['inicio', 'estoque', 'ajustes', 'prec'] and 'caixa' in e2['tiles']
                   and e3['nav'] == ['inicio', 'estoque', 'ajustes', 'prec', 'giro'] and e4 == ['dash', 'giro'] and not pg.erros)
@@ -1078,7 +1078,7 @@ async def main():
             pg = await pagina()
             await pg.evaluate("() => { window.__LF.S.inicioT = null; window.__LF.setView('inicio'); }")
             await pg.click('[data-act=inicioEd]'); await pg.wait_for_timeout(300)
-            await pg.click('[data-act=inicioRm][data-id=cat]'); await pg.wait_for_timeout(200)
+            await pg.click('[data-act=inicioRm][data-id=ped]'); await pg.wait_for_timeout(200)
             tx = await pg.evaluate("() => [document.querySelectorAll('.tedit button').length, document.querySelectorAll('.tedit button.x').length, document.querySelectorAll('[data-act=inicioMv]').length]")
             await pg.click('[data-act=inicioAdd][data-id=novo]'); await pg.wait_for_timeout(200)
             l1 = await pg.evaluate("() => window.__LF.S.inicioT.slice()")
@@ -1088,7 +1088,7 @@ async def main():
             await pg.click('[data-act=inicioEd]'); await pg.wait_for_timeout(600); await pg.click('[data-act=inicioReset]'); await pg.wait_for_timeout(300)
             l2 = await pg.evaluate("() => window.__LF.S.inicioT")
             total += 1
-            ok = tx[0] == tx[1] and tx[2] == 0 and 'cat' not in l1 and l1[-1] == 'novo' and l1.index('ajustes') < l1.index('prec') + 3 and 'Novo produto' in nomes and 'Catálogo' not in nomes and l2 is None and not pg.erros
+            ok = tx[0] == tx[1] and tx[2] == 0 and 'ped' not in l1 and l1[-1] == 'novo' and l1.index('ajustes') < l1.index('prec') + 3 and 'Novo produto' in nomes and 'Pedidos' not in nomes and l2 is None and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Início: personalizar botões')
             if not ok: falhas.append('personalizar inicio'); print('        veio', l1, nomes, l2, pg.erros)
             await pg.close()

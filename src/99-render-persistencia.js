@@ -20,6 +20,7 @@
     renderInicio();
     renderPedidos();
     renderLojaOnline();
+    uniAbasFill();
     renderClientes();
     pagCliRender();
     renderNotif();
@@ -170,6 +171,7 @@
   }
   var SK = 'lafouch_demo_v1',
     PERSIST = [
+      'uniao1',
       'nuvem',
       'pprice',
       'pcanal',

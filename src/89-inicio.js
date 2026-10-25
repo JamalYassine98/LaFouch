@@ -55,9 +55,24 @@
   ICO_D.novo = '<rect x="2.5" y="9" width="8" height="7" rx="2.5"/><rect x="13.5" y="9" width="8" height="7" rx="2.5"/><path d="M10.5 11.5h3M2.5 11L1 10M21.5 11l1.5-1"/>';
   ICO_D.cont = '<path d="M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h9"/>';
   ICO_D.lotes = '<path d="M3 7l9-4 9 4-9 4zM3 12l9 4 9-4M3 17l9 4 9-4"/>';
-  var INI_PADRAO = ['vendas', 'estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'cat', 'ajustes', 'ped', 'onl', 'cli', 'cont', 'lotes'];
-  var INI_TODOS = INI_PADRAO.concat(['novo', 'notif']);
+  var INI_PADRAO = ['estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'ajustes', 'ped', 'cli', 'cont', 'lotes'];
+  var INI_TODOS = INI_PADRAO.concat(['vendas', 'cat', 'onl', 'novo', 'notif']);
   function iniLista() {
+    // Vendas, Catálogo WhatsApp e Loja online passaram a ser abas de Produtos: saem do Início e da barra uma única vez
+    if (!S.uniao1) {
+      S.uniao1 = true;
+      S.inicioOnl = true; // a Loja online agora é aba de Produtos: não volta ao Início sozinha
+      var tira = function (l) {
+        return l.filter(function (x) {
+          return ['vendas', 'cat', 'onl'].indexOf(x) < 0;
+        });
+      };
+      if (Array.isArray(S.inicioT)) S.inicioT = tira(S.inicioT);
+      if (Array.isArray(S.barra)) {
+        S.barra = tira(S.barra);
+        if (S.barra.indexOf('estoque') < 0) S.barra.unshift('estoque');
+      }
+    }
     // quem já personalizou o Início recebe o botão Clientes uma única vez (pode esconder depois)
     if (Array.isArray(S.inicioT) && !S.inicioCli) {
       S.inicioCli = true;
@@ -202,7 +217,12 @@
     if (id === 'cli') return v === 'clientes';
     if (id === 'lotes') return v === 'estoque' && !!S.lotesView;
     if (id === 'vendas') return v === 'vendas' && !(S.catOpen && barraLista().indexOf('cat') >= 0);
-    if (id === 'estoque') return v === 'estoque' && !(S.lotesView && barraLista().indexOf('lotes') >= 0);
+    if (id === 'estoque') {
+      var bl = barraLista();
+      if (v === 'vendas') return bl.indexOf('vendas') < 0 && !(S.catOpen && bl.indexOf('cat') >= 0);
+      if (v === 'onl') return bl.indexOf('onl') < 0;
+      return v === 'estoque' && !(S.lotesView && bl.indexOf('lotes') >= 0);
+    }
     if (id === 'cont' || id === 'novo') return false;
     return v === id;
   }

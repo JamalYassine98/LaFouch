@@ -8,6 +8,7 @@
     if (navigator.onLine === false) {
       el.removeAttribute('data-ok');
       el.innerHTML =
+        '<div class="nav uniTabs" id="uniS" role="group" aria-label="Seções de produtos" style="margin:4px 0 8px"></div>' +
         '<section class="card" style="text-align:center;padding:22px"><b style="font-size:17px">Sem internet</b>' +
         '<p style="color:var(--mu);margin:8px 0 14px">A loja online só abre com internet, porque os dados ficam na nuvem.</p>' +
         '<button type="button" class="mini" data-act="lojaRecarregar">Tentar de novo</button></section>';
@@ -15,6 +16,7 @@
     }
     el.setAttribute('data-ok', '1');
     el.innerHTML =
+      '<div class="nav uniTabs" id="uniS" role="group" aria-label="Seções de produtos" style="margin:4px 0 8px"></div>' +
       '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 8px;flex-wrap:wrap">' +
       '<b style="font-size:17px">Loja online</b>' +
       '<a class="chip" href="' + LOJA_URL + '" target="_blank" rel="noopener">Abrir em tela cheia</a></div>' +

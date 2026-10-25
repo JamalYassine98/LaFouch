@@ -347,6 +347,7 @@
       S.repLista = false;
       render();
     });
+    uniAbasExtra(mkTab);
     mkTab(
       'eTabL',
       'Lotes',
