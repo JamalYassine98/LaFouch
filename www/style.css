@@ -311,3 +311,11 @@ body.arrastando{user-select:none}
 body.noscroll{overflow:hidden}
 #notaPrint{display:none}
 @media print{body>*:not(#notaPrint){display:none!important}#notaPrint{display:block!important;background:#fff}}
+/* acesso rápido: arrastar botões do Início para a barra de baixo */
+#mainnav.qd .mn{outline:2px dashed color-mix(in srgb,var(--accent) 70%,transparent);outline-offset:-3px;border-radius:14px}
+#mainnav.qd .mn.qt{outline:2px solid var(--accent);background:color-mix(in srgb,var(--accent) 25%,transparent);transform:scale(1.07)}
+.qghost{position:fixed!important;z-index:9999;pointer-events:none;margin:0;box-shadow:0 22px 40px rgba(0,0,0,.5);border-radius:20px;transform:scale(1.08) rotate(-2deg);transition:none}
+.qorig{opacity:.25}
+body.arrastaBarra{-webkit-user-select:none;user-select:none;touch-action:none}
+#qchip{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(86px + env(safe-area-inset-bottom,0px));z-index:9998;max-width:92vw;padding:8px 14px;border-radius:999px;background:var(--accent);color:#fff;font:800 12.5px Inter,system-ui,sans-serif;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .25s}
+#qchip.on{opacity:1}

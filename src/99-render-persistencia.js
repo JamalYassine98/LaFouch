@@ -227,6 +227,7 @@
       'pedNext',
       'fxMgUlt',
       'inicioT',
+      'barra',
       'attr',
       'num',
       'numNext',

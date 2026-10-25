@@ -11,6 +11,7 @@
     },
     inicioReset: function () {
       S.inicioT = null;
+      S.barra = null;
       render();
     },
     inicioRm: function (id) {

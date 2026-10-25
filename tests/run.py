@@ -859,11 +859,11 @@ async def main():
             await pg.locator('#v-inicio .tl:has-text("Giro")').click(); await pg.wait_for_timeout(300)
             r2 = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.dTab]")
             await pg.locator('#mainnav button:has-text("Início")').click(); await pg.wait_for_timeout(300)
-            await pg.locator('#v-inicio .tl:has-text("Inventário")').click(); await pg.wait_for_timeout(300)
+            await pg.locator('#mainnav button:has-text("Estoque")').click(); await pg.wait_for_timeout(300)
             r3 = await pg.evaluate("() => window.__LF.S.view")
             total += 1
-            ok = r == ['inicio', 17] and r2 == ['dash', 'giro'] and r3 == 'estoque' and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'tela Início: 17 botões levam às telas certas')
+            ok = r == ['inicio', 13] and r2 == ['dash', 'giro'] and r3 == 'estoque' and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'tela Início: 13 botões + barra levam às telas certas')
             if not ok: falhas.append('inicio'); print('        veio', r, r2, r3, pg.erros)
             await pg.close()
 
@@ -980,6 +980,39 @@ async def main():
             ok = 'Errado' in t1 and 'Antigo' not in t1 and n1 == 1 and r2 == [['Antigo'], ['Antigo']] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'imprevistos: só do mês na tela e remoção em dois toques')
             if not ok: falhas.append('imprevistos'); print('        veio', n1, r2, pg.erros)
+            await pg.close()
+
+            # Acesso rápido: arrastar do Início para a barra de baixo (máx. 5), trocar, tirar e reordenar
+            pg = await pagina()
+            await pg.evaluate("() => { window.__LF.S.barra = null; window.__LF.setView('inicio'); }")
+            async def xy(sel):
+                await pg.evaluate("s => document.querySelector(s).scrollIntoView({block:'center'})", sel)
+                await pg.wait_for_timeout(150)
+                return await pg.evaluate("s => { const b = document.querySelector(s).getBoundingClientRect(); return [b.x + b.width / 2, b.y + b.height / 2]; }", sel)
+            async def arrasta(de, para, pontos=None):
+                a = await xy(de)
+                await pg.mouse.move(a[0], a[1]); await pg.mouse.down()
+                t = para if isinstance(para, list) else await xy(para)
+                for k in range(1, 21):
+                    await pg.mouse.move(a[0] + (t[0] - a[0]) * k / 20, a[1] + (t[1] - a[1]) * k / 20); await pg.wait_for_timeout(14)
+                await pg.wait_for_timeout(200); await pg.mouse.up(); await pg.wait_for_timeout(700)
+            est = "() => ({ barra: window.__LF.S.barra, nav: [...document.querySelectorAll('#mainnav .mn')].map(m => m.getAttribute('data-id')), tiles: [...document.querySelectorAll('#v-inicio .tl')].map(t => t.dataset.id) })"
+            e0 = await pg.evaluate(est)
+            await arrasta('#v-inicio .tl[data-id="prec"]', '#mainnav .mn[data-id="ajustes"]')
+            e1 = await pg.evaluate(est)
+            await arrasta('#mainnav .mn[data-id="caixa"]', [210, 300])
+            e2 = await pg.evaluate(est)
+            await arrasta('#v-inicio .tl[data-id="giro"]', '#mainnav .mn[data-id="estoque"]')
+            e3 = await pg.evaluate(est)
+            await pg.locator('#mainnav .mn[data-id="giro"]').click(); await pg.wait_for_timeout(300)
+            e4 = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.dTab]")
+            total += 1
+            ok = (e0['nav'] == ['inicio', 'vendas', 'estoque', 'caixa', 'ajustes'] and 'vendas' not in e0['tiles'] and 'prec' in e0['tiles']
+                  and e1['nav'] == ['inicio', 'vendas', 'estoque', 'caixa', 'prec'] and 'ajustes' in e1['tiles'] and 'prec' not in e1['tiles']
+                  and e2['nav'] == ['inicio', 'vendas', 'estoque', 'prec'] and 'caixa' in e2['tiles']
+                  and e3['nav'] == ['inicio', 'vendas', 'estoque', 'prec', 'giro'] and e4 == ['dash', 'giro'] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'acesso rápido: arrastar para a barra, trocar, tirar e abrir (máx. 5)')
+            if not ok: falhas.append('acesso rapido'); print('        veio', e0, e1, e2, e3, e4, pg.erros)
             await pg.close()
 
             # Início: arrastar um botão para qualquer posição (os outros abrem espaço e a ordem é gravada ao soltar)

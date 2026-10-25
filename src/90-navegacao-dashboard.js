@@ -19,13 +19,17 @@
     var sn = $('sino'),
       nn = notifContagem();
     if (sn) sn.innerHTML = ico('notif', 24) + (nn ? '<i>' + nn + '</i>' : '');
-    NAVB.forEach(function (v) {
-      var b = btn('mn' + (S.view === v[0] ? ' on' : ''), '', function () {
-        setView(v[0]);
+    navItens().forEach(function (v) {
+      var on = navOn(v[0]);
+      var b = btn('mn' + (on ? ' on' : ''), '', function () {
+        if (window.__barraSegurou && window.__barraSegurou()) return;
+        if (v[0] === 'inicio') setView('inicio');
+        else inicioGo(v[0]);
       });
       b.innerHTML = '<span class="mi">' + ico(v[0], 22) + '</span><span>' + v[1] + '</span>';
       b.setAttribute('aria-label', v[1]);
-      if (S.view === v[0]) b.setAttribute('aria-current', 'page');
+      b.setAttribute('data-id', v[0]);
+      if (on) b.setAttribute('aria-current', 'page');
       n.appendChild(b);
     });
     VIEWS.forEach(function (v) {

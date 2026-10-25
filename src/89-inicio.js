@@ -109,7 +109,10 @@
     if (!el || S.view !== 'inicio') return;
     var h = vendidoHoje(),
       D = iniDados(),
-      L = iniLista(),
+      B = barraLista(),
+      L = iniLista().filter(function (id) {
+        return B.indexOf(id) < 0;
+      }),
       ed = !!S.inicioEd;
     var grid = L.map(function (id, i) {
       var t = D[id];
@@ -121,7 +124,7 @@
       );
     }).join('');
     var livres = INI_TODOS.filter(function (id) {
-      return L.indexOf(id) < 0;
+      return L.indexOf(id) < 0 && B.indexOf(id) < 0;
     });
     var extra = '';
     if (ed && livres.length)
@@ -167,14 +170,50 @@
       setView('estoque');
     } else setView(id);
   }
-  /* barra de baixo: ícone em cima do nome */
-  var NAVB = [
-    ['inicio', 'Início'],
-    ['vendas', 'Vendas'],
-    ['estoque', 'Estoque'],
-    ['caixa', 'Caixa'],
-    ['ajustes', 'Ajustes']
-  ];
+  /* barra de baixo (acesso rápido): "Início" fixo + até 4 botões escolhidos arrastando do Início */
+  var BARRA_PADRAO = ['vendas', 'estoque', 'caixa', 'ajustes'];
+  var BARRA_MAX = 4;
+  var BARRA_NOME = {
+    vendas: 'Vendas', estoque: 'Estoque', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Resumo',
+    din: 'Dinheiro', giro: 'Giro', prec: 'Preços', cat: 'Catálogo', ajustes: 'Ajustes', ped: 'Pedidos', onl: 'Loja',
+    cli: 'Clientes', cont: 'Contagem', lotes: 'Lotes', novo: 'Novo', notif: 'Avisos'
+  };
+  function barraLista() {
+    var l = Array.isArray(S.barra) ? S.barra : BARRA_PADRAO;
+    return l
+      .filter(function (id, i) {
+        return id !== 'inicio' && BARRA_NOME[id] && l.indexOf(id) === i;
+      })
+      .slice(0, BARRA_MAX);
+  }
+  function navItens() {
+    return [['inicio', 'Início']].concat(
+      barraLista().map(function (id) {
+        return [id, BARRA_NOME[id]];
+      })
+    );
+  }
+  // O botão da barra está "aceso"? (estamos na tela que ele abre)
+  function navOn(id) {
+    var v = S.view;
+    if (id === 'inicio') return v === 'inicio';
+    if (id === 'hoje' || id === 'din' || id === 'giro' || id === 'prec') return v === 'dash' && S.dTab === id;
+    if (id === 'cat') return v === 'vendas' && !!S.catOpen;
+    if (id === 'cli') return v === 'clientes';
+    if (id === 'lotes') return v === 'estoque' && !!S.lotesView;
+    if (id === 'vendas') return v === 'vendas' && !(S.catOpen && barraLista().indexOf('cat') >= 0);
+    if (id === 'estoque') return v === 'estoque' && !(S.lotesView && barraLista().indexOf('lotes') >= 0);
+    if (id === 'cont' || id === 'novo') return false;
+    return v === id;
+  }
+  // Garante que um botão que saiu da barra volte para a tela Início.
+  function barraDevolve(id) {
+    var l = iniLista();
+    if (l.indexOf(id) < 0) {
+      l.push(id);
+      S.inicioT = l;
+    }
+  }
   function iniSalvar(l) {
     S.inicioT = l;
     render();

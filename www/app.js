@@ -19289,7 +19289,10 @@
     if (!el || S.view !== 'inicio') return;
     var h = vendidoHoje(),
       D = iniDados(),
-      L = iniLista(),
+      B = barraLista(),
+      L = iniLista().filter(function (id) {
+        return B.indexOf(id) < 0;
+      }),
       ed = !!S.inicioEd;
     var grid = L.map(function (id, i) {
       var t = D[id];
@@ -19301,7 +19304,7 @@
       );
     }).join('');
     var livres = INI_TODOS.filter(function (id) {
-      return L.indexOf(id) < 0;
+      return L.indexOf(id) < 0 && B.indexOf(id) < 0;
     });
     var extra = '';
     if (ed && livres.length)
@@ -19347,14 +19350,50 @@
       setView('estoque');
     } else setView(id);
   }
-  /* barra de baixo: ícone em cima do nome */
-  var NAVB = [
-    ['inicio', 'Início'],
-    ['vendas', 'Vendas'],
-    ['estoque', 'Estoque'],
-    ['caixa', 'Caixa'],
-    ['ajustes', 'Ajustes']
-  ];
+  /* barra de baixo (acesso rápido): "Início" fixo + até 4 botões escolhidos arrastando do Início */
+  var BARRA_PADRAO = ['vendas', 'estoque', 'caixa', 'ajustes'];
+  var BARRA_MAX = 4;
+  var BARRA_NOME = {
+    vendas: 'Vendas', estoque: 'Estoque', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Resumo',
+    din: 'Dinheiro', giro: 'Giro', prec: 'Preços', cat: 'Catálogo', ajustes: 'Ajustes', ped: 'Pedidos', onl: 'Loja',
+    cli: 'Clientes', cont: 'Contagem', lotes: 'Lotes', novo: 'Novo', notif: 'Avisos'
+  };
+  function barraLista() {
+    var l = Array.isArray(S.barra) ? S.barra : BARRA_PADRAO;
+    return l
+      .filter(function (id, i) {
+        return id !== 'inicio' && BARRA_NOME[id] && l.indexOf(id) === i;
+      })
+      .slice(0, BARRA_MAX);
+  }
+  function navItens() {
+    return [['inicio', 'Início']].concat(
+      barraLista().map(function (id) {
+        return [id, BARRA_NOME[id]];
+      })
+    );
+  }
+  // O botão da barra está "aceso"? (estamos na tela que ele abre)
+  function navOn(id) {
+    var v = S.view;
+    if (id === 'inicio') return v === 'inicio';
+    if (id === 'hoje' || id === 'din' || id === 'giro' || id === 'prec') return v === 'dash' && S.dTab === id;
+    if (id === 'cat') return v === 'vendas' && !!S.catOpen;
+    if (id === 'cli') return v === 'clientes';
+    if (id === 'lotes') return v === 'estoque' && !!S.lotesView;
+    if (id === 'vendas') return v === 'vendas' && !(S.catOpen && barraLista().indexOf('cat') >= 0);
+    if (id === 'estoque') return v === 'estoque' && !(S.lotesView && barraLista().indexOf('lotes') >= 0);
+    if (id === 'cont' || id === 'novo') return false;
+    return v === id;
+  }
+  // Garante que um botão que saiu da barra volte para a tela Início.
+  function barraDevolve(id) {
+    var l = iniLista();
+    if (l.indexOf(id) < 0) {
+      l.push(id);
+      S.inicioT = l;
+    }
+  }
   function iniSalvar(l) {
     S.inicioT = l;
     render();
@@ -19507,13 +19546,17 @@
     var sn = $('sino'),
       nn = notifContagem();
     if (sn) sn.innerHTML = ico('notif', 24) + (nn ? '<i>' + nn + '</i>' : '');
-    NAVB.forEach(function (v) {
-      var b = btn('mn' + (S.view === v[0] ? ' on' : ''), '', function () {
-        setView(v[0]);
+    navItens().forEach(function (v) {
+      var on = navOn(v[0]);
+      var b = btn('mn' + (on ? ' on' : ''), '', function () {
+        if (window.__barraSegurou && window.__barraSegurou()) return;
+        if (v[0] === 'inicio') setView('inicio');
+        else inicioGo(v[0]);
       });
       b.innerHTML = '<span class="mi">' + ico(v[0], 22) + '</span><span>' + v[1] + '</span>';
       b.setAttribute('aria-label', v[1]);
-      if (S.view === v[0]) b.setAttribute('aria-current', 'page');
+      b.setAttribute('data-id', v[0]);
+      if (on) b.setAttribute('aria-current', 'page');
       n.appendChild(b);
     });
     VIEWS.forEach(function (v) {
@@ -21014,6 +21057,7 @@
     },
     inicioReset: function () {
       S.inicioT = null;
+      S.barra = null;
       render();
     },
     inicioRm: function (id) {
@@ -23911,6 +23955,249 @@
     document.addEventListener('pointerup', fimArrasta, true);
     document.addEventListener('pointercancel', fimArrasta, true);
   })();
+  // ===== Acesso rápido: arrastar um botão do Início para a barra de baixo (máx. 5, "Início" fixo) e de volta. =====
+  (function () {
+    var dg = null,
+      chip = null,
+      chipT = 0,
+      soltouEm = 0;
+    function barEl() {
+      return $('mainnav');
+    }
+    function slots() {
+      return [].slice.call(barEl().querySelectorAll('.mn'));
+    }
+    function dica(t, ms) {
+      if (!chip) {
+        chip = document.createElement('div');
+        chip.id = 'qchip';
+        chip.setAttribute('role', 'status');
+        document.body.appendChild(chip);
+      }
+      chip.textContent = t;
+      chip.classList.add('on');
+      clearTimeout(chipT);
+      if (ms) chipT = setTimeout(function () {
+        chip.classList.remove('on');
+      }, ms);
+    }
+    function dicaOff() {
+      clearTimeout(chipT);
+      if (chip) chip.classList.remove('on');
+    }
+    // Depois de arrastar, o "clique" que o navegador dispara ao soltar não pode abrir a tela.
+    window.__barraSegurou = function () {
+      return Date.now() - soltouEm < 450;
+    };
+    document.addEventListener(
+      'click',
+      function (e) {
+        if (Date.now() - soltouEm < 450 && e.target.closest && e.target.closest('#v-inicio .tl,#mainnav .mn')) {
+          e.stopPropagation();
+          e.preventDefault();
+        }
+      },
+      true
+    );
+    function sobre(x, y) {
+      var b = barEl().getBoundingClientRect();
+      if (y < b.top - 36 || y > b.bottom + 40) return { zona: y < b.top ? 'fora' : 'fora', k: -1 };
+      var l = slots(),
+        k = -1;
+      l.forEach(function (s, i) {
+        var r = s.getBoundingClientRect();
+        if (x >= r.left - 2 && x <= r.right + 2) k = i;
+      });
+      return { zona: 'barra', k: k };
+    }
+    function quadro() {
+      if (!dg || !dg.on) return;
+      var g = dg.g;
+      g.style.left = dg.cx - dg.gw / 2 + 'px';
+      g.style.top = dg.cy - dg.gh / 2 + 'px';
+      var o = sobre(dg.cx, dg.cy),
+        l = slots();
+      l.forEach(function (s, i) {
+        s.classList.toggle('qt', o.zona === 'barra' && i === o.k && i > 0);
+      });
+      var B = barraLista();
+      if (dg.deBarra) {
+        dica(o.zona === 'barra' ? (o.k > 0 ? 'Solte para trocar de lugar' : 'Arraste para fora para tirar da barra') : 'Solte aqui para tirar da barra');
+      } else if (B.length < BARRA_MAX) {
+        dica(o.zona === 'barra' ? 'Solte para adicionar à barra' : 'Arraste até a barra de baixo · ' + (B.length + 1) + '/5');
+      } else {
+        dica(o.zona === 'barra' ? (o.k > 0 ? 'Solte para trocar por este' : 'O Início fica sempre na barra') : 'Barra cheia (5/5) · solte sobre um botão para trocar');
+      }
+      dg.o = o;
+    }
+    function inicia() {
+      if (!dg || dg.on) return;
+      var src = dg.el,
+        r = src.getBoundingClientRect(),
+        g = src.cloneNode(true);
+      g.classList.add('qghost');
+      g.removeAttribute('data-act');
+      g.style.cssText = 'left:' + r.left + 'px;top:' + r.top + 'px;width:' + r.width + 'px;height:' + r.height + 'px';
+      document.body.appendChild(g);
+      dg.g = g;
+      dg.gw = r.width;
+      dg.gh = r.height;
+      dg.on = true;
+      src.classList.add('qorig');
+      document.body.classList.add('arrastaBarra');
+      barEl().classList.add('qd');
+      vibrar(15);
+      quadro();
+    }
+    document.addEventListener(
+      'pointerdown',
+      function (e) {
+        if (S.inicioEd || S.view === 'dia') return;
+        var el = e.target.closest && e.target.closest('#v-inicio .tl[data-act="inicio"],#mainnav .mn');
+        if (!el) return;
+        var id = el.getAttribute('data-id');
+        if (!id || id === 'inicio') return;
+        dg = { el: el, id: id, deBarra: el.classList.contains('mn'), x0: e.clientX, y0: e.clientY, cx: e.clientX, cy: e.clientY, on: false, mouse: e.pointerType === 'mouse' };
+        // dedo: segurar um instante; mouse: basta puxar
+        if (!dg.mouse) dg.t = setTimeout(inicia, 380);
+      },
+      true
+    );
+    document.addEventListener(
+      'touchmove',
+      function (e) {
+        if (dg && dg.on && e.cancelable) e.preventDefault();
+      },
+      { passive: false }
+    );
+    document.addEventListener(
+      'pointermove',
+      function (e) {
+        if (!dg) return;
+        dg.cx = e.clientX;
+        dg.cy = e.clientY;
+        if (!dg.on) {
+          var d = Math.abs(e.clientX - dg.x0) + Math.abs(e.clientY - dg.y0);
+          if (dg.mouse && d > 8) inicia();
+          else if (!dg.mouse && d > 10) {
+            clearTimeout(dg.t);
+            dg = null;
+          }
+          return;
+        }
+        quadro();
+      },
+      true
+    );
+    function pop(id) {
+      if (REDUCED) return;
+      var b = barEl().querySelector('.mn[data-id="' + id + '"]');
+      if (b && b.animate) b.animate([{ transform: 'scale(.6)' }, { transform: 'scale(1.18)' }, { transform: 'scale(1)' }], { duration: 520, easing: 'ease-out' });
+    }
+    function popTile(id) {
+      if (REDUCED) return;
+      var t = document.querySelector('#v-inicio .tl[data-id="' + id + '"]');
+      if (t && t.animate) t.animate([{ transform: 'scale(.5)', opacity: 0 }, { transform: 'scale(1.08)', opacity: 1 }, { transform: 'scale(1)', opacity: 1 }], { duration: 650, easing: 'ease-out' });
+    }
+    function limpa() {
+      if (!dg) return;
+      if (dg.g) dg.g.remove();
+      if (dg.el) dg.el.classList.remove('qorig');
+      slots().forEach(function (s) {
+        s.classList.remove('qt');
+      });
+      barEl().classList.remove('qd');
+      document.body.classList.remove('arrastaBarra');
+    }
+    function fim(ev) {
+      if (!dg) return;
+      clearTimeout(dg.t);
+      var d = dg;
+      if (!d.on) {
+        dg = null;
+        return;
+      }
+      soltouEm = Date.now();
+      var o = ev && ev.type === 'pointerup' ? sobre(d.cx, d.cy) : { zona: 'cancel', k: -1 };
+      var B = barraLista().slice(),
+        nome = BARRA_NOME[d.id],
+        volta = false,
+        pr = '',
+        pt = '',
+        msg = '';
+      if (!d.deBarra) {
+        if (o.zona === 'barra') {
+          if (B.length < BARRA_MAX) {
+            B.push(d.id);
+            pr = d.id;
+            msg = nome + ' entrou na barra · ' + (B.length + 1) + '/5';
+          } else if (o.k > 0) {
+            var sai = B[o.k - 1];
+            B[o.k - 1] = d.id;
+            barraDevolve(sai);
+            pr = d.id;
+            pt = sai;
+            msg = nome + ' entrou na barra, ' + BARRA_NOME[sai] + ' voltou para o Início';
+          } else {
+            volta = true;
+            msg = 'Barra cheia: solte sobre um botão para trocar';
+          }
+        } else volta = true;
+      } else {
+        var i = B.indexOf(d.id);
+        if (o.zona === 'barra' && o.k > 0 && o.k - 1 !== i) {
+          B.splice(i, 1);
+          B.splice(o.k - 1, 0, d.id);
+          pr = d.id;
+          msg = 'Botão de lugar trocado';
+        } else if (o.zona === 'fora') {
+          B.splice(i, 1);
+          barraDevolve(d.id);
+          pt = d.id;
+          msg = nome + ' voltou para o Início';
+        } else volta = true;
+      }
+      var g = d.g,
+        fecha = function () {
+          limpa();
+          dg = null;
+        };
+      if (volta) {
+        if (g && !REDUCED) {
+          var r = d.el.getBoundingClientRect();
+          g.style.transition = 'all .25s cubic-bezier(.2,.8,.2,1)';
+          g.style.left = r.left + 'px';
+          g.style.top = r.top + 'px';
+          setTimeout(fecha, 260);
+        } else fecha();
+        if (msg) dica(msg, 2200);
+        else dicaOff();
+        return;
+      }
+      S.barra = B;
+      if (g && !REDUCED && o.zona === 'barra' && o.k >= 0) {
+        var sr = slots()[o.k] ? slots()[o.k].getBoundingClientRect() : null;
+        if (sr) {
+          g.style.transition = 'all .3s cubic-bezier(.2,.8,.2,1)';
+          g.style.left = sr.left + 'px';
+          g.style.top = sr.top + 'px';
+          g.style.width = sr.width + 'px';
+          g.style.height = sr.height + 'px';
+          g.style.opacity = '0';
+        }
+      }
+      setTimeout(function () {
+        fecha();
+        render();
+        if (pr) pop(pr);
+        if (pt) popTile(pt);
+        vibrar(20);
+      }, REDUCED ? 0 : 280);
+      dica(msg, 2400);
+    }
+    document.addEventListener('pointerup', fim, true);
+    document.addEventListener('pointercancel', fim, true);
+  })();
   // ===== Carrinho: várias peças numa venda só; o piso vale para o total, não para cada peça. =====
   S.cart = [];
   S.cartOpen = false;
@@ -25307,6 +25594,7 @@
       'pedNext',
       'fxMgUlt',
       'inicioT',
+      'barra',
       'attr',
       'num',
       'numNext',
