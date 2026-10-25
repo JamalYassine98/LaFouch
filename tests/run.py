@@ -990,7 +990,8 @@ async def main():
             bb = await pg.evaluate("() => [...document.querySelectorAll('#v-inicio .twrap')].map(w => { const r = w.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; })")
             await pg.mouse.move(bb[0][0], bb[0][1]); await pg.mouse.down()
             for k in range(1, 21):
-                await pg.mouse.move(bb[0][0] + (bb[5][0] - bb[0][0]) * k / 20, bb[0][1] + (bb[5][1] - bb[0][1]) * k / 20); await pg.wait_for_timeout(15)
+                await pg.mouse.move(bb[0][0] + (bb[5][0] - bb[0][0]) * k / 20, bb[0][1] + (bb[5][1] - bb[0][1]) * k / 20); await pg.wait_for_timeout(40)
+            await pg.mouse.move(bb[5][0], bb[5][1]); await pg.wait_for_timeout(400)
             meio = await pg.evaluate("() => [document.body.classList.contains('arrastando'), window.__LF.S.inicioT && window.__LF.S.inicioT.join()]")
             await pg.mouse.up(); await pg.wait_for_timeout(700)
             depois = await pg.evaluate("() => [...document.querySelectorAll('#v-inicio .twrap')].map(w => w.getAttribute('data-k'))")
