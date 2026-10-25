@@ -988,16 +988,17 @@ async def main():
             await pg.click('[data-act=inicioEd]'); await pg.wait_for_timeout(400)
             antes = await pg.evaluate("() => [...document.querySelectorAll('#v-inicio .twrap')].map(w => w.getAttribute('data-k'))")
             bb = await pg.evaluate("() => [...document.querySelectorAll('#v-inicio .twrap')].map(w => { const r = w.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; })")
+            T = max(k for k in range(1, 6) if bb[k][1] < 560)  # alvo longe das bordas (a tela rola sozinha perto delas)
             await pg.mouse.move(bb[0][0], bb[0][1]); await pg.mouse.down()
             for k in range(1, 21):
-                await pg.mouse.move(bb[0][0] + (bb[5][0] - bb[0][0]) * k / 20, bb[0][1] + (bb[5][1] - bb[0][1]) * k / 20); await pg.wait_for_timeout(40)
-            await pg.mouse.move(bb[5][0], bb[5][1]); await pg.wait_for_timeout(400)
+                await pg.mouse.move(bb[0][0] + (bb[T][0] - bb[0][0]) * k / 20, bb[0][1] + (bb[T][1] - bb[0][1]) * k / 20); await pg.wait_for_timeout(40)
+            await pg.mouse.move(bb[T][0], bb[T][1]); await pg.wait_for_timeout(400)
             meio = await pg.evaluate("() => [document.body.classList.contains('arrastando'), window.__LF.S.inicioT && window.__LF.S.inicioT.join()]")
             await pg.mouse.up(); await pg.wait_for_timeout(700)
             depois = await pg.evaluate("() => [...document.querySelectorAll('#v-inicio .twrap')].map(w => w.getAttribute('data-k'))")
             salvo = await pg.evaluate("() => window.__LF.S.inicioT.slice(0, 7)")
             total += 1
-            esperado = antes[1:6] + [antes[0]] + antes[6:]
+            esperado = antes[1:T + 1] + [antes[0]] + antes[T + 1:]
             ok = meio[0] is True and depois == esperado and salvo == esperado[:7] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Início: arrastar o botão para outra posição e gravar a ordem')
             if not ok: falhas.append('arrastar inicio'); print('        veio', antes, meio, depois, salvo, pg.erros)
