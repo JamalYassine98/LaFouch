@@ -76,6 +76,9 @@ TESTES = [
    return [c.total>0, c.parado===c.total, f.barato, f.caro]""", [True, True, True, False]),
  ("PIN: guarda só o resumo e confere", """
    return L.hashPin('1234','sal').then(h=>L.hashPin('1234','sal').then(h2=>L.hashPin('1235','sal').then(h3=>[h===h2, h!==h3, h.indexOf('1234')<0])))""", [True, True, True]),
+ ("PIN: resumo novo lento (p2) e quem tinha o antigo é atualizado ao entrar", """
+   return L.hashPin('1234','sal').then(h=>L.hashPinAntigo('4321','velho').then(old=>{ S.pinSalt='velho'; S.pinHash=old;
+     return L.confereHash('0000').then(e=>L.confereHash('4321').then(ok=>[h.slice(0,2)==='p2', e===false, ok===true, S.pinHash.slice(0,2)==='p2', S.pinSalt!=='velho']))}))""", [True, True, True, True, True]),
  ("contas em dólar: valor em guaranis segue o câmbio e a reserva cambial entra na peça", """
    S.fx.pyg=7000; S.exp=[{id:1,nome:'Condomínio',cat:'loja',tipo:'fixa',moeda:'usd',orig:100,valor:700000,rate0:7000,hist:[],dia:10}];
    S.volume=100; S.fxHist=[{ts:Date.now()-1000,pyg:7000,brl:1400}]; S.lotes=[];

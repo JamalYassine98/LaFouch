@@ -14935,7 +14935,7 @@
     return !!S.pinHash;
   }
   // Resumo do PIN com sal (SHA-256 quando o aparelho permite, senão um resumo simples).
-  function hashPin(pin, salt) {
+  function hashPinAntigo(pin, salt) {
     var txt = 'lafouch|' + salt + '|' + pin;
     function simples() {
       var h = 5381,
@@ -14955,8 +14955,52 @@
     } catch (e) {}
     return Promise.resolve(simples());
   }
+  // PIN novo: PBKDF2-SHA-256 com 150 mil voltas e sal aleatório (cada tentativa fica cara). Prefixo "p2".
+  function hexDe(b) {
+    return Array.prototype.map
+      .call(new Uint8Array(b), function (x) {
+        return ('0' + x.toString(16)).slice(-2);
+      })
+      .join('');
+  }
+  function hashPin(pin, salt) {
+    try {
+      if (window.crypto && window.crypto.subtle && window.TextEncoder) {
+        var enc = new TextEncoder();
+        return window.crypto.subtle
+          .importKey('raw', enc.encode(String(pin)), 'PBKDF2', false, ['deriveBits'])
+          .then(function (k) {
+            return window.crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: enc.encode('lafouch|' + salt), iterations: 150000 }, k, 256);
+          })
+          .then(function (b) {
+            return 'p2' + hexDe(b);
+          });
+      }
+    } catch (e) {}
+    return hashPinAntigo(pin, salt);
+  }
+  // Confere o PIN digitado; quem ainda tem o resumo antigo é atualizado para o novo sem perceber.
+  function confereHash(pin) {
+    if (String(S.pinHash).slice(0, 2) === 'p2') return hashPin(pin, S.pinSalt).then(function (h) { return h === S.pinHash; });
+    return hashPinAntigo(pin, S.pinSalt).then(function (h) {
+      if (h !== S.pinHash) return false;
+      var sal = novoSal();
+      return hashPin(pin, sal).then(function (n) {
+        S.pinSalt = sal;
+        S.pinHash = n;
+        try { saveSoon(); } catch (e) {}
+        return true;
+      });
+    });
+  }
   function novoSal() {
-    return Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+    try {
+      var a = new Uint8Array(16);
+      window.crypto.getRandomValues(a);
+      return hexDe(a);
+    } catch (e) {
+      return Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+    }
   }
 
   // ---------- biometria (plugin do Capacitor, só no app instalado)
@@ -15136,8 +15180,8 @@
       lockMsg('Muitas tentativas. Espere ' + Math.ceil((LOCK.bloq - Date.now()) / 1000) + ' segundos.');
       return;
     }
-    hashPin($('lockPin').value, S.pinSalt).then(function (h) {
-      if (h === S.pinHash) return liberar();
+    confereHash($('lockPin').value).then(function (ok) {
+      if (ok) return liberar();
       LOCK.tent++;
       $('lockPin').value = '';
       if (LOCK.tent >= 5) {
@@ -26837,6 +26881,6 @@
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, whiten: whiten, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
     };
 })();
