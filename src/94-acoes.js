@@ -389,32 +389,7 @@
         return;
       }
       S._resetAuth = false;
-      S.retiradas = [];
-      S.descartes = [];
-      S.confCx = [];
-      S.items = [];
-      S.sales = [];
-      S.saleSeq = 0;
-      S.imprev = [];
-      S.dlog = [];
-      S.elog = [];
-      S.cambios = [];
-      S.compras = [];
-      S.melhUso = [];
-      S.fotos = {};
-      S.desc = {};
-      S.pnome = {};
-      S.cpay = [];
-      S.appStart = Date.now();
-      S.conf = {};
-      S.pfaixa = {};
-      S.contagens = [];
-      S.exp = [];
-      S.lotes = [];
-      S.grp = [];
-      S.cash = { pyg: 0, usd: 0, brl: 0 };
-      S.ini = { rep: 0, colch: 0, melh: 0 };
-      S.sold = 0;
+      zerarDados();
       S.confReset = false;
       S.open = '';
       S.det = false;
@@ -558,6 +533,35 @@
       updateTr();
     }
   });
+  // Zera os dados do negócio (estoque, vendas, despesas, caixa). Usado no "zerar tudo" e na primeira abertura do app.
+  function zerarDados() {
+    S.retiradas = [];
+    S.descartes = [];
+    S.confCx = [];
+    S.items = [];
+    S.sales = [];
+    S.saleSeq = 0;
+    S.imprev = [];
+    S.dlog = [];
+    S.elog = [];
+    S.cambios = [];
+    S.compras = [];
+    S.melhUso = [];
+    S.fotos = {};
+    S.desc = {};
+    S.pnome = {};
+    S.cpay = [];
+    S.appStart = Date.now();
+    S.conf = {};
+    S.pfaixa = {};
+    S.contagens = [];
+    S.exp = [];
+    S.lotes = [];
+    S.grp = [];
+    S.cash = { pyg: 0, usd: 0, brl: 0 };
+    S.ini = { rep: 0, colch: 0, melh: 0 };
+    S.sold = 0;
+  }
   var TR_INI = { pyg: '300000', brl: '300', usd: '50' };
   function tm2(e, v) {
     return totalMensal() - e.valor + v;

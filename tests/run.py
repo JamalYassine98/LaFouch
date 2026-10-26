@@ -85,6 +85,9 @@ TESTES = [
    const igual=JSON.stringify([S.items,S.sales,S.fotos])===antes;
    const bom=JSON.parse(L.backupDados()); bom.d.items=[]; const e4=L.restaurarDados(JSON.stringify(bom));
    return [!!e1&&!!e2&&!!e3, igual, e4==='', S.items.length===0]""", [True, True, True, True]),
+ ("primeira abertura: app limpo com os 20 modelos do catálogo", """
+   L.primeiroUso();
+   return [S.items.length>0, S.items.length<=40, S.sales.length, S.exp.length, S.cash.pyg, S.ini.rep, Object.keys(S.fotos).length>0, S.view]""", [True, True, 0, 0, 0, 0, True, 'dash']),
  ("PIN: guarda só o resumo e confere", """
    return L.hashPin('1234','sal').then(h=>L.hashPin('1234','sal').then(h2=>L.hashPin('1235','sal').then(h3=>[h===h2, h!==h3, h.indexOf('1234')<0])))""", [True, True, True]),
  ("PIN: resumo novo lento (p2) e quem tinha o antigo é atualizado ao entrar", """
@@ -1389,7 +1392,7 @@ async def main():
             await pg.locator('.sw').first.click(); await pg.wait_for_timeout(400)
             await pg.fill('#pinM1', '4321'); await pg.fill('#pinM2', '4321'); await pg.click('#pinMOk'); await pg.wait_for_timeout(800)
             tx = await pg.inner_text('#v-ajustes')
-            await checa('Ajustes: PIN ativo e sem cópias automáticas do celular', 'Mudar PIN' in tx and 'cópias automáticas' not in tx.lower() and 'Senha do painel do site' in tx, tx[-300:])
+            await checa('Ajustes: PIN ativo, sem cópias automáticas do celular e sem a senha do painel', 'Mudar PIN' in tx and 'cópias automáticas' not in tx.lower() and 'Senha do painel do site' not in tx, tx[-300:])
             await pg.wait_for_timeout(1500)
             await pg.evaluate("() => history.replaceState(null, '', '#test')")
             await pg.reload(); await pg.wait_for_function('window.__LF')

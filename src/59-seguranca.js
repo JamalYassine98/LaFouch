@@ -325,13 +325,5 @@
         '</div>';
     }
     h += '</section>';
-    // senha do painel do site (a conta de lafouch.com/admin)
-    h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Senha do painel do site</h2><div class="hint" style="margin:2px 0 0">É a senha de entrada do painel (lafouch.com/admin) e da nuvem. Precisa de internet.</div></div>' +
-      '<input class="in" id="spEm" type="email" autocomplete="username" placeholder="E-mail do painel" value="' + esc((S.nuvem && S.nuvem.email) || '') + '">' +
-      '<input class="in" id="spA" type="password" autocomplete="current-password" placeholder="Senha atual">' +
-      '<input class="in" id="spN" type="password" autocomplete="new-password" placeholder="Nova senha (mínimo 6 caracteres)">' +
-      '<input class="in" id="spR" type="password" autocomplete="new-password" placeholder="Repetir nova senha">' +
-      '<button class="mini" data-act="spSenha">Alterar senha</button><div class="hint" id="spMsg" style="margin:0" role="status"></div></section>';
     return h;
   }

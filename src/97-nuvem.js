@@ -109,57 +109,6 @@
         nvMsg('E-mail ou senha incorretos (ou sem internet).');
       });
   };
-  // ---------- trocar a senha do painel do site (mesma conta da nuvem)
-  ACT.spSenha = function () {
-    var v = function (i) {
-        return (($(i) || {}).value || '');
-      },
-      em = v('spEm').trim(),
-      a = v('spA'),
-      n = v('spN'),
-      r = v('spR'),
-      say = function (t) {
-        var m = $('spMsg');
-        if (m) m.textContent = t;
-      },
-      url = 'https://identitytoolkit.googleapis.com/v1/accounts:';
-    if (navigator.onLine === false) return say('Sem internet.');
-    if (!em || !a) return say('Digite o e-mail e a senha atual.');
-    if (n.length < 6) return say('A nova senha precisa de pelo menos 6 caracteres.');
-    if (n !== r) return say('As duas senhas novas não são iguais.');
-    if (n === a) return say('A nova senha é igual à atual.');
-    say('Alterando…');
-    fetch(url + 'signInWithPassword?key=' + NV.k, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: em, password: a, returnSecureToken: true })
-    })
-      .then(nvJson)
-      .catch(function () {
-        throw new Error('atual');
-      })
-      .then(function (j) {
-        return fetch(url + 'update?key=' + NV.k, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ idToken: j.idToken, password: n, returnSecureToken: true })
-        }).then(nvJson);
-      })
-      .then(function (j) {
-        if (S.nuvem && S.nuvem.rt && j.refreshToken) {
-          S.nuvem.rt = j.refreshToken;
-          nvTok = { t: j.idToken, exp: Date.now() + 50 * 60000 };
-          saveSoon();
-        }
-        ['spA', 'spN', 'spR'].forEach(function (i) {
-          if ($(i)) $(i).value = '';
-        });
-        say('Senha alterada. Use a nova senha no painel do site.');
-      })
-      .catch(function (e) {
-        say(e.message === 'atual' ? 'E-mail ou senha atual incorretos.' : 'Não consegui trocar a senha. Tente de novo.');
-      });
-  };
   ACT.nvSair = function () {
     S.nuvem = { email: '', rt: '', ts: 0, cot: '' };
     nvTok = { t: '', exp: 0 };
