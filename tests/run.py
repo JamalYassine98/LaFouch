@@ -5,7 +5,7 @@ Abre www/ num Chromium sem interface, com a URL terminando em #test (o app entã
 window.__LF com as funções internas) e confere contas, lotes, leitor de código, gravação
 e as telas. Requer: pip install playwright  (e um Chromium; PLAYWRIGHT_BROWSERS_PATH ou o do sistema).
 """
-import asyncio, glob, json, os, subprocess, sys, time
+import asyncio, glob, json, os, re, subprocess, sys, time
 from playwright.async_api import async_playwright
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -890,21 +890,37 @@ async def main():
             if not ok: falhas.append('animacoes'); print('        veio', r, r2, r3, pg.erros)
             await pg.close()
 
-            # Pedidos: lançar, avisar no Início/notificações e avançar a situação
+            # Pedidos do site: chegam sozinhos da nuvem, cadastram o cliente, abrem o detalhe e a janela da peça
             pg = await pagina()
-            await pg.locator('#v-inicio .tl:has-text("Pedidos")').click(); await pg.wait_for_timeout(300)
-            await pg.locator('[data-act=pednovo]').click()
-            await pg.fill('#pCli', 'maria souza'); await pg.fill('#pTel', '0981123456')
-            await pg.fill('#pRef', 'Armação azul'); await pg.fill('#pQtd', '2')
-            await pg.locator('[data-act=pedsave]').click(); await pg.wait_for_timeout(300)
-            r = await pg.evaluate("() => { const S = window.__LF.S; return [S.pedidos.length, S.pedidos[0].cli, S.pedidos[0].itens[0].q, S.pedidos[0].st, document.querySelectorAll('#v-ped .card').length]; }")
-            await pg.locator('[data-act=pedav]').click(); await pg.wait_for_timeout(300)
+            docs = {'documents': [
+              {'name': 'projects/p/databases/(default)/documents/pedidos/abc1', 'fields': {'ts': {'integerValue': str(int(time.time()*1000))}, 'nome': {'stringValue': 'maria souza'}, 'tel': {'stringValue': '0981123456'}, 'total': {'integerValue': '210000'}, 'itens': {'arrayValue': {'values': [{'mapValue': {'fields': {'ref': {'stringValue': 'AC1'}, 'nome': {'stringValue': 'Armação azul'}, 'q': {'integerValue': '2'}, 'cor': {'stringValue': ''}, 'preco': {'integerValue': '105000'}}}}]}}}},
+              {'name': 'projects/p/databases/(default)/documents/pedidos/abc2', 'fields': {'nome': {'stringValue': ''}, 'itens': {'arrayValue': {}}}}]}
+            apagados = []
+            async def falso(route):
+                u, m = route.request.url, route.request.method
+                if 'securetoken' in u: await route.fulfill(json={'id_token': 't', 'refresh_token': 'r'})
+                elif m == 'DELETE': apagados.append(u.rsplit('/', 1)[1]); await route.fulfill(json={})
+                else: await route.fulfill(json=docs)
+            await pg.context.route(re.compile(r'(securetoken|firestore)\.googleapis\.com'), falso)
+            await pg.evaluate("() => { const S = window.__LF.S; S.pedidos = []; S.clientes = []; S.items = [{tipo:'pre',ref:'AC1',grau:'+1',cor:'P',qty:3}]; S.nuvem.rt = 'x'; }")
+            n1 = await pg.evaluate("() => window.__pedSync()")
+            n2 = await pg.evaluate("() => window.__pedSync()")
+            await pg.wait_for_timeout(5600)
+            r = await pg.evaluate("() => { const S = window.__LF.S, p = S.pedidos[0]; return [S.pedidos.length, p.cli, p.itens[0].q, p.st, p.orig, S.clientes.length, S.clientes[0].tel, p.cliId === S.clientes[0].id, p.cliNovo]; }")
+            await pg.evaluate("() => { window.__LF.S.pedF = 'novo'; window.__LF.setView('ped'); }"); await pg.wait_for_timeout(300)
+            txt = await pg.inner_text('#v-ped')
+            await pg.locator('[data-act=pedab]').first.click(); await pg.wait_for_timeout(300)
+            det = await pg.inner_text('#v-ped')
+            await pg.locator('[data-act=pedprod]').first.click(); await pg.wait_for_timeout(300)
+            jan = await pg.inner_text('#v-ped .modal')
+            await pg.locator('[data-act=pedprodx]').first.click(); await pg.locator('[data-act=pedav]').first.click(); await pg.wait_for_timeout(300)
             r2 = await pg.evaluate("() => [window.__LF.S.pedidos[0].st, window.__LF.S.pedF]")
-            await pg.locator('#mainnav button:has-text("Início")').click(); await pg.wait_for_timeout(300)
             total += 1
-            ok = r == [1, 'Maria souza', 2, 'novo', 1] and r2 == ['sep', 'sep'] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'pedidos: lançar, avançar situação')
-            if not ok: falhas.append('pedidos'); print('        veio', r, r2, pg.erros)
+            ok = (n1 == 1 and n2 == 0 and r == [1, 'Maria souza', 2, 'novo', 'site', 1, '0981123456', True, True] and sorted(set(apagados)) == ['abc1', 'abc2']
+                  and 'Cliente novo, cadastrado automaticamente' in txt and 'novo pedido' not in txt.lower() and 'Maria souza' in det and 'Cadastrado agora' in det and 'Armação azul' in det
+                  and '3 peças' in jan and 'neste pedido' in jan.lower() and r2 == ['sep', 'sep'] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'pedidos do site: chegam sozinhos, cadastram o cliente, detalhe e janela da peça')
+            if not ok: falhas.append('pedidos'); print('        veio', n1, n2, r, apagados, txt[:200], det[:200], jan[:200], r2, pg.erros)
             await pg.close()
 
             # histórico do dia: valor exato na moeda recebida, câmbio do dia e sem abas extras
