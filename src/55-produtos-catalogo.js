@@ -3,11 +3,6 @@
   S.pcanal = {}; // código do produto -> { site, wpp, loja } (true/false). Sem registro: só a loja.
   S.selMode = false; // selecionando produtos para aplicar preço em grupo
   S.selP = []; // códigos selecionados
-  var CANAIS = [
-    ['site', '🌐', 'Site', 'lafouch.com'],
-    ['wpp', '💬', 'Catálogo WhatsApp', 'lista pronta para enviar'],
-    ['loja', '🏪', 'Venda na loja', 'aparece no Caixa']
-  ];
   function canalDe(ref) {
     var c = (S.pcanal && S.pcanal[ref]) || {};
     return { site: !!c.site, wpp: !!c.wpp, loja: c.loja !== false };
@@ -52,7 +47,6 @@
     var it = itemDoRef(ref, tipo);
     return it ? tFor(it).price : 0;
   }
-  var ST_TXT = { o: 'ok', w: 'abaixo do piso', r: 'prejuízo' };
 
   // Enfeita o cartão de um produto na lista: preço antigo → novo, selos dos canais e aviso de piso.
   function prodDecor(card, ref, tipo) {

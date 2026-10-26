@@ -67,8 +67,7 @@
           cand = new Uint8Array(n);
         for (i = 0; i < n; i++) cand[i] = hull[i] && Yb[i] < Yt && cm[i] < Cth ? 1 : 0;
         // proteção: se a própria armação é escura (faixa da borda quase toda "escura"), não descasca nada
-        var hin = new Uint8Array(n),
-          hb2 = segDilate(
+        var hb2 = segDilate(
             hull.map(function (v) {
               return v ? 0 : 1;
             }),

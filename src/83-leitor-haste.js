@@ -1,6 +1,4 @@
   // ===== Leitor de haste: busca no estoque e tela do leitor. =====
-  var PRE = null;
-
   // Busca a haste lida no estoque.
   function hFind(texts) {
     if (!HADD) return hMatch(texts);

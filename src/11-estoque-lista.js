@@ -56,10 +56,7 @@
           return lowK.indexOf(kOf(i)) >= 0;
         })
       : flAll;
-    var rk = function (i) {
-        return isPre ? i.grau : i.ref;
-      },
-      lk = function (i) {
+    var lk = function (i) {
         return isPre ? i.ref : i.vr;
       };
     var dist = 0,

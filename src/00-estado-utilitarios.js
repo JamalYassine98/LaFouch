@@ -19,8 +19,7 @@
     },
     { id: 'solar', label: 'Solares', full: 'Óculos solares', price: 60000, repUSD: 3.0, pago: 2.4 }
   ];
-  var FX = 6500,
-    LOTE = 400;
+  var LOTE = 400;
   // Estado único do app; persistido por saveSoon().
   var S = {
     palette: {

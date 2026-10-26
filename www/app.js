@@ -20,8 +20,7 @@
     },
     { id: 'solar', label: 'Solares', full: 'Óculos solares', price: 60000, repUSD: 3.0, pago: 2.4 }
   ];
-  var FX = 6500,
-    LOTE = 400;
+  var LOTE = 400;
   // Estado único do app; persistido por saveSoon().
   var S = {
     palette: {
@@ -2072,10 +2071,7 @@
           return lowK.indexOf(kOf(i)) >= 0;
         })
       : flAll;
-    var rk = function (i) {
-        return isPre ? i.grau : i.ref;
-      },
-      lk = function (i) {
+    var lk = function (i) {
         return isPre ? i.ref : i.vr;
       };
     var dist = 0,
@@ -5705,8 +5701,7 @@
           cand = new Uint8Array(n);
         for (i = 0; i < n; i++) cand[i] = hull[i] && Yb[i] < Yt && cm[i] < Cth ? 1 : 0;
         // proteção: se a própria armação é escura (faixa da borda quase toda "escura"), não descasca nada
-        var hin = new Uint8Array(n),
-          hb2 = segDilate(
+        var hb2 = segDilate(
             hull.map(function (v) {
               return v ? 0 : 1;
             }),
@@ -12533,7 +12528,6 @@
   S.volAuto = true; // peças por mês calculadas pelas vendas reais (quando há histórico)
   // Curva padrão: solares vendem mais no verão do Paraguai (outubro a março).
   var SAZON_PADRAO = { solar: [1.5, 1.4, 1.2, 1.0, 0.8, 0.6, 0.6, 0.7, 0.9, 1.1, 1.3, 1.5] };
-  var MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
   // Faixa de um produto pelo código.
   function faixaOf(ref) {
     var id = S.pfaixa && S.pfaixa[ref];
@@ -13240,11 +13234,6 @@
   S.pcanal = {}; // código do produto -> { site, wpp, loja } (true/false). Sem registro: só a loja.
   S.selMode = false; // selecionando produtos para aplicar preço em grupo
   S.selP = []; // códigos selecionados
-  var CANAIS = [
-    ['site', '🌐', 'Site', 'lafouch.com'],
-    ['wpp', '💬', 'Catálogo WhatsApp', 'lista pronta para enviar'],
-    ['loja', '🏪', 'Venda na loja', 'aparece no Caixa']
-  ];
   function canalDe(ref) {
     var c = (S.pcanal && S.pcanal[ref]) || {};
     return { site: !!c.site, wpp: !!c.wpp, loja: c.loja !== false };
@@ -13289,7 +13278,6 @@
     var it = itemDoRef(ref, tipo);
     return it ? tFor(it).price : 0;
   }
-  var ST_TXT = { o: 'ok', w: 'abaixo do piso', r: 'prejuízo' };
 
   // Enfeita o cartão de um produto na lista: preço antigo → novo, selos dos canais e aviso de piso.
   function prodDecor(card, ref, tipo) {
@@ -19003,8 +18991,6 @@
     }
   }
   // ===== Leitor de haste: busca no estoque e tela do leitor. =====
-  var PRE = null;
-
   // Busca a haste lida no estoque.
   function hFind(texts) {
     if (!HADD) return hMatch(texts);
