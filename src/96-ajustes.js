@@ -19,15 +19,29 @@
     }
     if (!o || o.app !== 'lafouch' || !o.d || !Array.isArray(o.d.items))
       return 'Arquivo inválido: não é um backup do app.';
+    // Tudo ou nada: guarda o estado atual e, se algo falhar no meio, volta exatamente como estava.
+    var snap = {};
     PERSIST.forEach(function (k) {
-      if (o.d[k] !== undefined && SEM_BACKUP.indexOf(k) < 0) S[k] = o.d[k];
+      snap[k] = S[k];
     });
-    if (o.d.fotos && typeof o.d.fotos === 'object') S.fotos = o.d.fotos;
+    snap.fotos = S.fotos;
     try {
+      PERSIST.forEach(function (k) {
+        if (o.d[k] !== undefined && SEM_BACKUP.indexOf(k) < 0) S[k] = o.d[k];
+      });
+      if (o.d.fotos && typeof o.d.fotos === 'object') S.fotos = o.d.fotos;
       dedupeItems();
-    } catch (e) {}
-    syncTipos();
-    render();
+      syncTipos();
+      render();
+    } catch (e) {
+      Object.keys(snap).forEach(function (k) {
+        S[k] = snap[k];
+      });
+      try {
+        render();
+      } catch (e2) {}
+      return 'O arquivo tem dados que o app não conseguiu ler.';
+    }
     return '';
   }
   // Guarda/compartilha o backup: no app usa o compartilhar do celular; no navegador baixa o arquivo.
@@ -178,15 +192,61 @@
     var f = bkFile.files && bkFile.files[0];
     bkFile.value = '';
     if (!f) return;
-    var r = new FileReader();
+    impTela('load');
+    var t0 = Date.now(),
+      r = new FileReader(),
+      fim = function (er) {
+        // o carregamento fica pelo menos um instante na tela, para não piscar
+        setTimeout(function () {
+          if (er) impTela('erro', er);
+          else {
+            S.ajMsg = 'Backup restaurado. Os dados atuais foram substituídos.';
+            S._ajForce = true;
+            render();
+            impTela('ok');
+          }
+        }, Math.max(0, 900 - (Date.now() - t0)));
+      };
     r.onload = function () {
-      var er = restaurarDados(String(r.result));
-      S.ajMsg = er || 'Backup restaurado. Os dados atuais foram substituídos.';
-      S._ajForce = true;
-      render();
+      fim(restaurarDados(String(r.result)));
+    };
+    r.onerror = function () {
+      fim('Não consegui ler o arquivo.');
     };
     r.readAsText(f);
   };
+  // Janela de importação: carregando, sucesso (com resumo) ou falha (nada é alterado).
+  var IMP_CK = '<svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
+  function impTela(modo, msg) {
+    var o = $('impOv');
+    if (!o) {
+      o = document.createElement('div');
+      o.id = 'impOv';
+      o.setAttribute('role', 'alertdialog');
+      o.setAttribute('aria-live', 'polite');
+      document.body.appendChild(o);
+    }
+    var h;
+    if (modo === 'load')
+      h = '<div class="ic"><div class="sp"></div></div><h3>Importando backup…</h3><p>Lendo o arquivo e conferindo os dados.</p><div class="pb"><s></s></div>';
+    else if (modo === 'ok')
+      h =
+        '<div class="ic ok"><u></u>' + IMP_CK + '<path pathLength="1" d="M4.5 12.8l4.8 4.9L19.5 7"/></svg></div><h3>Backup importado</h3><p>Tudo certo. Os dados deste aparelho foram substituídos.</p><div class="rs"><span>' +
+        S.items.length + ' modelos</span><span>' + Object.keys(S.fotos || {}).length + ' fotos</span><span>' + S.sales.length + ' vendas</span></div><button type="button" data-impfecha>Pronto</button>';
+    else
+      h =
+        '<div class="ic er"><u></u>' + IMP_CK + '<path pathLength="1" d="M6 6l12 12"/><path pathLength="1" d="M18 6L6 18"/></svg></div><h3>Não foi possível importar</h3><p>' + esc(msg || 'O arquivo não é um backup do LaFouch.') + ' <b>Nada foi alterado</b> nos seus dados.</p><button type="button" data-impfecha>Entendi</button>';
+    o.innerHTML = '<div class="bx">' + h + '</div>';
+    o.hidden = false;
+    var b = o.querySelector('[data-impfecha]');
+    if (b) {
+      b.onclick = function () {
+        o.hidden = true;
+        o.innerHTML = '';
+      };
+      b.focus();
+    }
+  }
   // Ações da aba Ajustes e das análises do Dashboard.
   ACT.fadd = function () {
     var n = String(S.fnewTxt || ($('fnew') && $('fnew').value) || '').trim();

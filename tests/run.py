@@ -79,6 +79,12 @@ TESTES = [
    S.fx.pyg=7000; S.fx.brl=5;
    const a=L.cotacaoPar('pyg','usd'), b=L.cotacaoPar('usd','brl'), c=L.cotacaoPar('brl','pyg');
    return [a.un==='pyg'&&a.barato, b.un==='brl'&&b.barato, c.nome==='Real'&&c.un==='pyg'&&Math.round(c.hoje)===1400, L.cotacaoPar('usd','usd')===null]""", [True, True, True, True]),
+ ("importar backup: arquivo ruim não altera nada; bom substitui", """
+   const antes=JSON.stringify([S.items,S.sales,S.fotos]);
+   const e1=L.restaurarDados('nao é json'), e2=L.restaurarDados(JSON.stringify({app:'outro',d:{items:[]}})), e3=L.restaurarDados(JSON.stringify({app:'lafouch',d:{}}));
+   const igual=JSON.stringify([S.items,S.sales,S.fotos])===antes;
+   const bom=JSON.parse(L.backupDados()); bom.d.items=[]; const e4=L.restaurarDados(JSON.stringify(bom));
+   return [!!e1&&!!e2&&!!e3, igual, e4==='', S.items.length===0]""", [True, True, True, True]),
  ("PIN: guarda só o resumo e confere", """
    return L.hashPin('1234','sal').then(h=>L.hashPin('1234','sal').then(h2=>L.hashPin('1235','sal').then(h3=>[h===h2, h!==h3, h.indexOf('1234')<0])))""", [True, True, True]),
  ("PIN: resumo novo lento (p2) e quem tinha o antigo é atualizado ao entrar", """
