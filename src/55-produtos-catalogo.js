@@ -118,6 +118,30 @@
       var eco = mk('div', 'zeco', 'Economia de ' + Math.round((1 - atual / pr.ant) * 100) + '% · aparece riscado no site');
       c1.appendChild(eco);
     }
+    // Faixa do produto: é ela que dá a margem do piso. Sem faixa, o piso só cobre o custo.
+    if (S.faixas && S.faixas.length) {
+      var fx0 = faixaOf(ref),
+        fr = mk('div', '');
+      fr.style.cssText = 'display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px';
+      fr.appendChild(mk('span', 'zlb', 'FAIXA'));
+      S.faixas.forEach(function (f) {
+        fr.appendChild(
+          btn('chip' + (fx0 && fx0.id === f.id ? ' on' : ''), f.nome + ' ' + f.margem + '%', function () {
+            if (!S.pfaixa) S.pfaixa = {};
+            if (fx0 && fx0.id === f.id) delete S.pfaixa[ref];
+            else S.pfaixa[ref] = f.id;
+            saveSoon();
+            render();
+          })
+        );
+      });
+      c1.appendChild(fr);
+      if (!fx0) {
+        var ah = mk('div', 'hint', 'Sem faixa: o piso cobre só o custo, sem margem. Escolha uma faixa para o aviso de piso valer a margem.');
+        ah.style.margin = '6px 0 0';
+        c1.appendChild(ah);
+      }
+    }
     if (ps && ps.st) {
       var linha = mk('div', '');
       linha.style.marginTop = '8px';

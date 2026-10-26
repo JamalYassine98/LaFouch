@@ -113,6 +113,28 @@
     S.vitPend[ref] = op;
     saveSoon();
   }
+  // Preço/estoque mudou no Inventário? Compara com o que foi publicado por último e enfileira só a atualização (n, de, aviso).
+  function vitConfere() {
+    var ch = false;
+    if (!S.vitHash) S.vitHash = {};
+    vitRefs().forEach(function (ref) {
+      if (!itemDoRef(ref) || (S.vitPend && S.vitPend[ref])) return;
+      var o = vitProduto(ref),
+        h = o.n + '|' + o.de + '|' + o.aviso;
+      if (S.vitHash[ref] === undefined) {
+        S.vitHash[ref] = h; // primeira vez: só memoriza o estado atual
+        ch = true;
+      } else if (S.vitHash[ref] !== h) {
+        if (!S.vitPend) S.vitPend = {};
+        S.vitPend[ref] = 'upd';
+        ch = true;
+      }
+    });
+    if (ch) saveSoon();
+    return vitSync();
+  }
+  setTimeout(vitConfere, 25000);
+  setInterval(vitConfere, 60000);
   function vitSync() {
     var pend = S.vitPend || {},
       refs = Object.keys(pend);
@@ -122,6 +144,26 @@
       .reduce(function (p, ref) {
         return p.then(function () {
           var op = pend[ref];
+          if (op === 'upd') {
+            var u = vitProduto(ref);
+            if (!S.vitHash) S.vitHash = {};
+            return nvApi(
+              'PATCH',
+              'produtos/' + ref + '?currentDocument.exists=true&updateMask.fieldPaths=n&updateMask.fieldPaths=de&updateMask.fieldPaths=aviso',
+              vBody({ n: u.n, de: u.de, aviso: u.aviso })
+            ).then(
+              function () {
+                S.vitHash[ref] = u.n + '|' + u.de + '|' + u.aviso;
+              },
+              function (e) {
+                if (e && e.status === 404) {
+                  S.vitHash[ref] = u.n + '|' + u.de + '|' + u.aviso;
+                  return; // não está mais no site: nada a atualizar
+                }
+                throw e;
+              }
+            );
+          }
           if (op === 'del')
             return nvApi('DELETE', 'produtos/' + ref).then(function () {
               return nvApi('DELETE', 'fotos/' + ref).catch(function () {});

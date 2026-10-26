@@ -179,6 +179,7 @@
       'vitDias',
       'esgDesde',
       'vitPend',
+      'vitHash',
       'vModo',
       'novoEm',
       'novoBase',

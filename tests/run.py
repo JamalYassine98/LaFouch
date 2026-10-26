@@ -88,6 +88,9 @@ TESTES = [
  ("primeira abertura: app limpo com os 20 modelos do catálogo", """
    L.primeiroUso();
    return [S.items.length>0, S.items.length<=40, S.sales.length, S.exp.length, S.cash.pyg, S.ini.rep, Object.keys(S.fotos).length>0, S.view]""", [True, True, 0, 0, 0, 0, True, 'dash']),
+ ("piso: sem faixa só cobre o custo; com faixa entra a margem", """
+   L.primeiroUso(); const it=S.items[0], a=L.pisoPeca(it).piso; S.pfaixa[it.ref]='f3'; const b=L.pisoPeca(it);
+   return [a>0, b.piso>a, b.margem]""", [True, True, 0.5]),
  ("PIN: guarda só o resumo e confere", """
    return L.hashPin('1234','sal').then(h=>L.hashPin('1234','sal').then(h2=>L.hashPin('1235','sal').then(h3=>[h===h2, h!==h3, h.indexOf('1234')<0])))""", [True, True, True]),
  ("PIN: resumo novo lento (p2) e quem tinha o antigo é atualizado ao entrar", """

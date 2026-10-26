@@ -13349,6 +13349,30 @@
       var eco = mk('div', 'zeco', 'Economia de ' + Math.round((1 - atual / pr.ant) * 100) + '% · aparece riscado no site');
       c1.appendChild(eco);
     }
+    // Faixa do produto: é ela que dá a margem do piso. Sem faixa, o piso só cobre o custo.
+    if (S.faixas && S.faixas.length) {
+      var fx0 = faixaOf(ref),
+        fr = mk('div', '');
+      fr.style.cssText = 'display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px';
+      fr.appendChild(mk('span', 'zlb', 'FAIXA'));
+      S.faixas.forEach(function (f) {
+        fr.appendChild(
+          btn('chip' + (fx0 && fx0.id === f.id ? ' on' : ''), f.nome + ' ' + f.margem + '%', function () {
+            if (!S.pfaixa) S.pfaixa = {};
+            if (fx0 && fx0.id === f.id) delete S.pfaixa[ref];
+            else S.pfaixa[ref] = f.id;
+            saveSoon();
+            render();
+          })
+        );
+      });
+      c1.appendChild(fr);
+      if (!fx0) {
+        var ah = mk('div', 'hint', 'Sem faixa: o piso cobre só o custo, sem margem. Escolha uma faixa para o aviso de piso valer a margem.');
+        ah.style.margin = '6px 0 0';
+        c1.appendChild(ah);
+      }
+    }
     if (ps && ps.st) {
       var linha = mk('div', '');
       linha.style.marginTop = '8px';
@@ -23520,6 +23544,28 @@
     S.vitPend[ref] = op;
     saveSoon();
   }
+  // Preço/estoque mudou no Inventário? Compara com o que foi publicado por último e enfileira só a atualização (n, de, aviso).
+  function vitConfere() {
+    var ch = false;
+    if (!S.vitHash) S.vitHash = {};
+    vitRefs().forEach(function (ref) {
+      if (!itemDoRef(ref) || (S.vitPend && S.vitPend[ref])) return;
+      var o = vitProduto(ref),
+        h = o.n + '|' + o.de + '|' + o.aviso;
+      if (S.vitHash[ref] === undefined) {
+        S.vitHash[ref] = h; // primeira vez: só memoriza o estado atual
+        ch = true;
+      } else if (S.vitHash[ref] !== h) {
+        if (!S.vitPend) S.vitPend = {};
+        S.vitPend[ref] = 'upd';
+        ch = true;
+      }
+    });
+    if (ch) saveSoon();
+    return vitSync();
+  }
+  setTimeout(vitConfere, 25000);
+  setInterval(vitConfere, 60000);
   function vitSync() {
     var pend = S.vitPend || {},
       refs = Object.keys(pend);
@@ -23529,6 +23575,26 @@
       .reduce(function (p, ref) {
         return p.then(function () {
           var op = pend[ref];
+          if (op === 'upd') {
+            var u = vitProduto(ref);
+            if (!S.vitHash) S.vitHash = {};
+            return nvApi(
+              'PATCH',
+              'produtos/' + ref + '?currentDocument.exists=true&updateMask.fieldPaths=n&updateMask.fieldPaths=de&updateMask.fieldPaths=aviso',
+              vBody({ n: u.n, de: u.de, aviso: u.aviso })
+            ).then(
+              function () {
+                S.vitHash[ref] = u.n + '|' + u.de + '|' + u.aviso;
+              },
+              function (e) {
+                if (e && e.status === 404) {
+                  S.vitHash[ref] = u.n + '|' + u.de + '|' + u.aviso;
+                  return; // não está mais no site: nada a atualizar
+                }
+                throw e;
+              }
+            );
+          }
           if (op === 'del')
             return nvApi('DELETE', 'produtos/' + ref).then(function () {
               return nvApi('DELETE', 'fotos/' + ref).catch(function () {});
@@ -24509,7 +24575,7 @@
         S.nuvem.rt = j.refreshToken;
         nvTok = { t: j.idToken, exp: Date.now() + 50 * 60000 };
         saveSoon();
-        nvMsg('Conectado. Fazendo a primeira cópia…');
+        nvMsg('Conectado. Procurando cópias na nuvem…');
         return nvBackup().then(nvCotacao);
       })
       .catch(function () {
@@ -24524,7 +24590,24 @@
     nvMsg('Desconectado da nuvem.');
   };
   // ---------- backup
+  // App "zerado": sem vendas, gastos, clientes, câmbios nem compras (primeiro uso ou reinstalação).
+  function nvNovo() {
+    return ['sales', 'exp', 'clientes', 'cambios', 'compras'].every(function (k) {
+      var v = S[k];
+      return !v || (Array.isArray(v) ? !v.length : !Object.keys(v).length);
+    });
+  }
+  // Antes de copiar, olha o que já existe na nuvem. Um app zerado nunca sobrescreve uma cópia que já está lá.
   function nvBackup() {
+    return nvListar().then(function () {
+      if (nvNovo() && S.nvLista && S.nvLista.length) {
+        nvMsg('Já existem ' + S.nvLista.length + ' cópia(s) na nuvem. Toque em "Restaurar" na que quiser. Este app está zerado, então não enviei uma nova por cima.');
+        return;
+      }
+      return nvBackup2();
+    });
+  }
+  function nvBackup2() {
     var txt = backupDados();
     var dia = nvDia();
     return nvPack(txt).then(function (p) {
@@ -24586,7 +24669,7 @@
       (j.documents || []).forEach(function (d) {
         var id = d.name.split('/').pop();
         if (/^\d{4}-\d{2}-\d{2}$/.test(id) && d.fields)
-          l.push({ id: id, ts: +d.fields.ts.integerValue, kb: +(d.fields.kb || {}).integerValue || 0 });
+          l.push({ id: id, ts: +(d.fields.ts || {}).integerValue || 0, kb: +(d.fields.kb || {}).integerValue || 0 });
       });
       l.sort(function (a, b) {
         return b.id < a.id ? -1 : 1;
@@ -24696,8 +24779,8 @@
   // ---------- automático: cópia a cada ~20 h e cotação quando muda
   function nvAuto() {
     if (!S.nuvem || !S.nuvem.rt || navigator.onLine === false) return;
-    var p = Promise.resolve();
-    if (!S.nuvem.ts || Date.now() - S.nuvem.ts > 20 * 3600000) p = nvBackup();
+    var p = S.nvLista ? Promise.resolve() : nvListar();
+    if (!S.nuvem.ts || Date.now() - S.nuvem.ts > 20 * 3600000) p = p.then(nvBackup);
     p.then(nvCotacao).catch(function () {});
   }
   setTimeout(nvAuto, 20000);
@@ -24715,6 +24798,17 @@
         esc(S.nuvem.email || '') +
         '"><input class="in" id="nvPw" type="password" autocomplete="current-password" placeholder="Senha"><button class="mini" data-act="nvEntrar">Conectar à nuvem</button></section>';
       return h;
+    }
+    if (S.nvLista === null && !nvCard.busy) {
+      nvCard.busy = true;
+      setTimeout(function () {
+        nvListar()
+          .catch(function () {})
+          .then(function () {
+            nvCard.busy = false;
+            if (S.nvLista === null) S.nvLista = [];
+          });
+      }, 0);
     }
     h +=
       '<div class="hint" style="margin:0">Conectado como <b>' +
@@ -26733,6 +26827,7 @@
       'vitDias',
       'esgDesde',
       'vitPend',
+      'vitHash',
       'vModo',
       'novoEm',
       'novoBase',

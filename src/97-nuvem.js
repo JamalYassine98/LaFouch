@@ -102,7 +102,7 @@
         S.nuvem.rt = j.refreshToken;
         nvTok = { t: j.idToken, exp: Date.now() + 50 * 60000 };
         saveSoon();
-        nvMsg('Conectado. Fazendo a primeira cópia…');
+        nvMsg('Conectado. Procurando cópias na nuvem…');
         return nvBackup().then(nvCotacao);
       })
       .catch(function () {
@@ -117,7 +117,24 @@
     nvMsg('Desconectado da nuvem.');
   };
   // ---------- backup
+  // App "zerado": sem vendas, gastos, clientes, câmbios nem compras (primeiro uso ou reinstalação).
+  function nvNovo() {
+    return ['sales', 'exp', 'clientes', 'cambios', 'compras'].every(function (k) {
+      var v = S[k];
+      return !v || (Array.isArray(v) ? !v.length : !Object.keys(v).length);
+    });
+  }
+  // Antes de copiar, olha o que já existe na nuvem. Um app zerado nunca sobrescreve uma cópia que já está lá.
   function nvBackup() {
+    return nvListar().then(function () {
+      if (nvNovo() && S.nvLista && S.nvLista.length) {
+        nvMsg('Já existem ' + S.nvLista.length + ' cópia(s) na nuvem. Toque em "Restaurar" na que quiser. Este app está zerado, então não enviei uma nova por cima.');
+        return;
+      }
+      return nvBackup2();
+    });
+  }
+  function nvBackup2() {
     var txt = backupDados();
     var dia = nvDia();
     return nvPack(txt).then(function (p) {
@@ -179,7 +196,7 @@
       (j.documents || []).forEach(function (d) {
         var id = d.name.split('/').pop();
         if (/^\d{4}-\d{2}-\d{2}$/.test(id) && d.fields)
-          l.push({ id: id, ts: +d.fields.ts.integerValue, kb: +(d.fields.kb || {}).integerValue || 0 });
+          l.push({ id: id, ts: +(d.fields.ts || {}).integerValue || 0, kb: +(d.fields.kb || {}).integerValue || 0 });
       });
       l.sort(function (a, b) {
         return b.id < a.id ? -1 : 1;
@@ -289,8 +306,8 @@
   // ---------- automático: cópia a cada ~20 h e cotação quando muda
   function nvAuto() {
     if (!S.nuvem || !S.nuvem.rt || navigator.onLine === false) return;
-    var p = Promise.resolve();
-    if (!S.nuvem.ts || Date.now() - S.nuvem.ts > 20 * 3600000) p = nvBackup();
+    var p = S.nvLista ? Promise.resolve() : nvListar();
+    if (!S.nuvem.ts || Date.now() - S.nuvem.ts > 20 * 3600000) p = p.then(nvBackup);
     p.then(nvCotacao).catch(function () {});
   }
   setTimeout(nvAuto, 20000);
@@ -308,6 +325,17 @@
         esc(S.nuvem.email || '') +
         '"><input class="in" id="nvPw" type="password" autocomplete="current-password" placeholder="Senha"><button class="mini" data-act="nvEntrar">Conectar à nuvem</button></section>';
       return h;
+    }
+    if (S.nvLista === null && !nvCard.busy) {
+      nvCard.busy = true;
+      setTimeout(function () {
+        nvListar()
+          .catch(function () {})
+          .then(function () {
+            nvCard.busy = false;
+            if (S.nvLista === null) S.nvLista = [];
+          });
+      }, 0);
     }
     h +=
       '<div class="hint" style="margin:0">Conectado como <b>' +
