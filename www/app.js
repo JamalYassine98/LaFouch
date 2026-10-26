@@ -15102,27 +15102,7 @@
         (dias < 0 ? 'Nenhum backup feito ainda.' : 'Último backup: ' + (dias === 0 ? 'hoje' : 'há ' + dias + ' dia(s)') + '.') +
         '</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="chip on" data-act="bkexp">Exportar backup</button><button class="chip" data-act="bkimp">Importar backup</button></div>' +
         (S.bkText ? '<textarea class="in" readonly rows="5" style="width:100%;font-size:12px">' + esc(S.bkText) + '</textarea>' : '');
-    abCarregar();
-    h +=
-      '<div class="lbl" style="margin-top:6px">Cópias automáticas</div><div class="hint" style="margin:0">O app guarda uma cópia por dia dentro do próprio celular (últimas ' +
-      AB_MAX +
-      '), sem fotos. Protege contra erro, não contra perder o celular: para isso exporte o backup e guarde o arquivo fora.</div>';
-    (S._abList || []).forEach(function (x) {
-      h +=
-        '<div class="sl"><span>' +
-        esc(x.dia.split('-').reverse().join('/')) +
-        '<small>' +
-        fh(x.ts) +
-        ' · ' +
-        x.kb +
-        ' KB</small></span><button class="chip" data-act="abrest" data-id="' +
-        x.dia +
-        '">' +
-        (S.abConf === x.dia ? 'Confirmar: voltar para esta cópia' : 'Restaurar') +
-        '</button></div>';
-    });
-    if (S._abList && !S._abList.length) h += '<div class="hint" style="margin:0">Nenhuma cópia ainda.</div>';
-    h += '<div><button class="mini" data-act="abagora">Fazer cópia agora</button></div></section>';
+    h += '</section>';
     return h;
   }
 
@@ -15222,7 +15202,6 @@
     }
     var fora = LOCK.saiuEm ? Date.now() - LOCK.saiuEm : 0;
     if (!LOCK.locked && LOCK.saiuEm && fora >= Math.max(15000, (S.lockMin || 0) * 60000)) mostrarLock('open');
-    autoBackup();
   });
 
   // ---------- cópias automáticas (uma por dia, guardadas no próprio app)
@@ -15375,6 +15354,14 @@
         '</div>';
     }
     h += '</section>';
+    // senha do painel do site (a conta de lafouch.com/admin)
+    h +=
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Senha do painel do site</h2><div class="hint" style="margin:2px 0 0">É a senha de entrada do painel (lafouch.com/admin) e da nuvem. Precisa de internet.</div></div>' +
+      '<input class="in" id="spEm" type="email" autocomplete="username" placeholder="E-mail do painel" value="' + esc((S.nuvem && S.nuvem.email) || '') + '">' +
+      '<input class="in" id="spA" type="password" autocomplete="current-password" placeholder="Senha atual">' +
+      '<input class="in" id="spN" type="password" autocomplete="new-password" placeholder="Nova senha (mínimo 6 caracteres)">' +
+      '<input class="in" id="spR" type="password" autocomplete="new-password" placeholder="Repetir nova senha">' +
+      '<button class="mini" data-act="spSenha">Alterar senha</button><div class="hint" id="spMsg" style="margin:0" role="status"></div></section>';
     return h;
   }
   // ===== Aba Vendas. =====
@@ -23621,7 +23608,13 @@
     desenha();
     document.body.appendChild(ov);
   }
-  // Aba Site: o painel completo ocupa a tela; botões Vitrine e Tela cheia
+  // Aba Site: o painel completo ocupa a tela; o botão de tela cheia fica dentro do painel, ao lado de "Cliente"
+  window.addEventListener('message', function (e) {
+    var f = $('lojaFrame');
+    if (!f || e.source !== f.contentWindow || !e.data || typeof e.data.lfFull !== 'boolean') return;
+    S.siteFull = e.data.lfFull;
+    render();
+  });
   function renderLojaOnline() {
     var el = $('v-onl');
     if (!el || S.view !== 'onl') return;
@@ -23632,34 +23625,8 @@
       var host = mk('div', 'catbar3');
       host.id = 'uniS';
       el.appendChild(host);
-      var tb = mk('div', '');
-      tb.style.cssText = 'display:flex;gap:8px;margin:0 0 8px';
-      var bv = mk('button', 'chip');
-      bv.type = 'button';
-      bv.id = 'siteVit';
-      bv.style.flex = '1';
-      bv.onclick = vitPainel;
-      var bf = mk('button', 'chip');
-      bf.type = 'button';
-      bf.id = 'siteFull';
-      bf.setAttribute('aria-label', 'Tela cheia');
-      bf.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg> Tela cheia';
-      bf.onclick = function () {
-        S.siteFull = true;
-        render();
-      };
-      tb.appendChild(bv);
-      tb.appendChild(bf);
-      el.appendChild(tb);
       var sb = mk('div', 'sbox');
       sb.id = 'siteBox';
-      var fb = mk('div', 'sfbar');
-      fb.appendChild(mk('b', '', 'Painel do site'));
-      fb.appendChild(btn('chip', '✕ Fechar', function () {
-        S.siteFull = false;
-        render();
-      }));
-      sb.appendChild(fb);
       var fr = mk('iframe');
       fr.id = 'lojaFrame';
       fr.title = 'Painel da loja online';
@@ -23680,13 +23647,11 @@
       no = l.filter(function (r) {
         return estoqueDoRef(r) > 0;
       }).length;
-    $('siteVit').textContent = 'Vitrine (' + no + ' no ar)';
     var online = navigator.onLine !== false;
     $('siteOff').hidden = online;
     $('lojaFrame').hidden = !online;
     if (online && !$('lojaFrame').getAttribute('src')) $('lojaFrame').src = LOJA_URL;
     $('siteBox').classList.toggle('full', !!S.siteFull);
-    $('siteFull').hidden = !!S.siteFull;
     uniAbasFill();
     vitSync();
   }
@@ -24583,6 +24548,57 @@
         nvMsg('E-mail ou senha incorretos (ou sem internet).');
       });
   };
+  // ---------- trocar a senha do painel do site (mesma conta da nuvem)
+  ACT.spSenha = function () {
+    var v = function (i) {
+        return (($(i) || {}).value || '');
+      },
+      em = v('spEm').trim(),
+      a = v('spA'),
+      n = v('spN'),
+      r = v('spR'),
+      say = function (t) {
+        var m = $('spMsg');
+        if (m) m.textContent = t;
+      },
+      url = 'https://identitytoolkit.googleapis.com/v1/accounts:';
+    if (navigator.onLine === false) return say('Sem internet.');
+    if (!em || !a) return say('Digite o e-mail e a senha atual.');
+    if (n.length < 6) return say('A nova senha precisa de pelo menos 6 caracteres.');
+    if (n !== r) return say('As duas senhas novas não são iguais.');
+    if (n === a) return say('A nova senha é igual à atual.');
+    say('Alterando…');
+    fetch(url + 'signInWithPassword?key=' + NV.k, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: em, password: a, returnSecureToken: true })
+    })
+      .then(nvJson)
+      .catch(function () {
+        throw new Error('atual');
+      })
+      .then(function (j) {
+        return fetch(url + 'update?key=' + NV.k, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ idToken: j.idToken, password: n, returnSecureToken: true })
+        }).then(nvJson);
+      })
+      .then(function (j) {
+        if (S.nuvem && S.nuvem.rt && j.refreshToken) {
+          S.nuvem.rt = j.refreshToken;
+          nvTok = { t: j.idToken, exp: Date.now() + 50 * 60000 };
+          saveSoon();
+        }
+        ['spA', 'spN', 'spR'].forEach(function (i) {
+          if ($(i)) $(i).value = '';
+        });
+        say('Senha alterada. Use a nova senha no painel do site.');
+      })
+      .catch(function (e) {
+        say(e.message === 'atual' ? 'E-mail ou senha atual incorretos.' : 'Não consegui trocar a senha. Tente de novo.');
+      });
+  };
   ACT.nvSair = function () {
     S.nuvem = { email: '', rt: '', ts: 0, cot: '' };
     nvTok = { t: '', exp: 0 };
@@ -24804,10 +24820,7 @@
           '</button></div>';
       });
     }
-    h +=
-      '<details><summary class="hint" style="cursor:pointer">Regras do Firebase (uma vez só)</summary><div class="hint" style="margin:6px 0 0">No console do Firebase → Firestore → Regras, a pasta <b>backups</b> precisa ser lida e gravada só pelo seu e-mail: <code>match /backups/{d} { allow read, write: if request.auth != null &amp;&amp; request.auth.token.email == "' +
-      esc(S.nuvem.email) +
-      '"; }</code></div></details></section>';
+    h += '</section>';
     return h;
   }
   // ===== Animações dos botões: ondinha, realce deslizante, cascata, contagem, ✓, segurar para apagar, sino e arrastar. =====
@@ -26230,13 +26243,6 @@
       render();
     });
   };
-  ACT.abagora = function () {
-    autoBackup(true).then(function () {
-      S.ajMsg = 'Cópia feita.';
-      S._ajForce = true;
-      render();
-    });
-  };
   ACT.abrest = function (dia) {
     if (S.abConf !== dia) {
       S.abConf = dia;
@@ -26934,7 +26940,6 @@
   iniciarLock();
   syncTipos();
   render();
-  setTimeout(autoBackup, 4000);
   loadFotos();
   // Gancho de teste: expõe funções internas só quando a URL termina em #test (usado por tests/).
   if (/(^|[#&])test\b/.test(location.hash))

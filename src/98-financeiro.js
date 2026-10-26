@@ -307,13 +307,6 @@
       render();
     });
   };
-  ACT.abagora = function () {
-    autoBackup(true).then(function () {
-      S.ajMsg = 'Cópia feita.';
-      S._ajForce = true;
-      render();
-    });
-  };
   ACT.abrest = function (dia) {
     if (S.abConf !== dia) {
       S.abConf = dia;

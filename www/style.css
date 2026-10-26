@@ -381,7 +381,7 @@ body.arrastaBarra{-webkit-user-select:none;user-select:none;touch-action:none}
 .mkred{background:rgba(220,70,70,.18);color:var(--bad,#e55)}
 
 /* ===== aba Site: painel completo ocupa a tela; tela cheia por cima de tudo ===== */
-.sbox{display:flex;flex-direction:column;height:calc(100dvh - 215px);min-height:460px}
+.sbox{display:flex;flex-direction:column;height:calc(100dvh - 165px);min-height:460px}
 .sbox iframe{flex:1;width:100%;border:1px solid var(--line);border-radius:16px;background:#fff;min-height:0}
 .sbox iframe[hidden],.sbox .card[hidden]{display:none!important}
 .sfbar{display:none}

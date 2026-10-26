@@ -302,7 +302,6 @@
   iniciarLock();
   syncTipos();
   render();
-  setTimeout(autoBackup, 4000);
   loadFotos();
   // Gancho de teste: expõe funções internas só quando a URL termina em #test (usado por tests/).
   if (/(^|[#&])test\b/.test(location.hash))

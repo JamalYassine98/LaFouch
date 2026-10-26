@@ -930,8 +930,8 @@ async def main():
             r0 = await pg.evaluate("() => [!!document.querySelector('[data-aj=biotog]'), document.querySelector('[data-aj=biotog]').disabled]")
             r1 = await pg.evaluate("() => { const t = document.getElementById('v-ajustes').innerText.toLowerCase(); return [t.includes('pin para abrir o app'), t.includes('cópias automáticas'), t.includes('backup'), (t.match(/backup/g) || []).length > 0, document.querySelectorAll('#v-ajustes h2').length]; }")
             total += 1
-            ok = r0[0] is True and r1[0] is False and r1[1] is True and r1[2] is True and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'segurança: só a chave de biometria; backup e cópias automáticas num cartão')
+            ok = r0[0] is True and r1[0] is False and r1[1] is False and r1[2] is True and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'segurança: só a chave de biometria; backup num cartão, sem cópias automáticas do celular')
             if not ok: falhas.append('seguranca bio'); print('        veio', r0, r1, pg.erros)
             await pg.close()
 
@@ -1361,9 +1361,8 @@ async def main():
             await pg.wait_for_timeout(500)
             await pg.locator('.sw').first.click(); await pg.wait_for_timeout(400)
             await pg.fill('#pinM1', '4321'); await pg.fill('#pinM2', '4321'); await pg.click('#pinMOk'); await pg.wait_for_timeout(800)
-            await pg.locator('[data-act="abagora"]').first.click(); await pg.wait_for_timeout(800)
             tx = await pg.inner_text('#v-ajustes')
-            await checa('Ajustes: PIN ativo e cópia automática listada', 'Mudar PIN' in tx and ' KB' in tx, tx[-300:])
+            await checa('Ajustes: PIN ativo e sem cópias automáticas do celular', 'Mudar PIN' in tx and 'cópias automáticas' not in tx.lower() and 'Senha do painel do site' in tx, tx[-300:])
             await pg.wait_for_timeout(1500)
             await pg.evaluate("() => history.replaceState(null, '', '#test')")
             await pg.reload(); await pg.wait_for_function('window.__LF')

@@ -177,27 +177,7 @@
         (dias < 0 ? 'Nenhum backup feito ainda.' : 'Último backup: ' + (dias === 0 ? 'hoje' : 'há ' + dias + ' dia(s)') + '.') +
         '</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="chip on" data-act="bkexp">Exportar backup</button><button class="chip" data-act="bkimp">Importar backup</button></div>' +
         (S.bkText ? '<textarea class="in" readonly rows="5" style="width:100%;font-size:12px">' + esc(S.bkText) + '</textarea>' : '');
-    abCarregar();
-    h +=
-      '<div class="lbl" style="margin-top:6px">Cópias automáticas</div><div class="hint" style="margin:0">O app guarda uma cópia por dia dentro do próprio celular (últimas ' +
-      AB_MAX +
-      '), sem fotos. Protege contra erro, não contra perder o celular: para isso exporte o backup e guarde o arquivo fora.</div>';
-    (S._abList || []).forEach(function (x) {
-      h +=
-        '<div class="sl"><span>' +
-        esc(x.dia.split('-').reverse().join('/')) +
-        '<small>' +
-        fh(x.ts) +
-        ' · ' +
-        x.kb +
-        ' KB</small></span><button class="chip" data-act="abrest" data-id="' +
-        x.dia +
-        '">' +
-        (S.abConf === x.dia ? 'Confirmar: voltar para esta cópia' : 'Restaurar') +
-        '</button></div>';
-    });
-    if (S._abList && !S._abList.length) h += '<div class="hint" style="margin:0">Nenhuma cópia ainda.</div>';
-    h += '<div><button class="mini" data-act="abagora">Fazer cópia agora</button></div></section>';
+    h += '</section>';
     return h;
   }
 
@@ -297,7 +277,6 @@
     }
     var fora = LOCK.saiuEm ? Date.now() - LOCK.saiuEm : 0;
     if (!LOCK.locked && LOCK.saiuEm && fora >= Math.max(15000, (S.lockMin || 0) * 60000)) mostrarLock('open');
-    autoBackup();
   });
 
   // ---------- cópias automáticas (uma por dia, guardadas no próprio app)
@@ -450,5 +429,13 @@
         '</div>';
     }
     h += '</section>';
+    // senha do painel do site (a conta de lafouch.com/admin)
+    h +=
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Senha do painel do site</h2><div class="hint" style="margin:2px 0 0">É a senha de entrada do painel (lafouch.com/admin) e da nuvem. Precisa de internet.</div></div>' +
+      '<input class="in" id="spEm" type="email" autocomplete="username" placeholder="E-mail do painel" value="' + esc((S.nuvem && S.nuvem.email) || '') + '">' +
+      '<input class="in" id="spA" type="password" autocomplete="current-password" placeholder="Senha atual">' +
+      '<input class="in" id="spN" type="password" autocomplete="new-password" placeholder="Nova senha (mínimo 6 caracteres)">' +
+      '<input class="in" id="spR" type="password" autocomplete="new-password" placeholder="Repetir nova senha">' +
+      '<button class="mini" data-act="spSenha">Alterar senha</button><div class="hint" id="spMsg" style="margin:0" role="status"></div></section>';
     return h;
   }

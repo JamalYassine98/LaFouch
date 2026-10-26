@@ -357,7 +357,13 @@
     desenha();
     document.body.appendChild(ov);
   }
-  // Aba Site: o painel completo ocupa a tela; botões Vitrine e Tela cheia
+  // Aba Site: o painel completo ocupa a tela; o botão de tela cheia fica dentro do painel, ao lado de "Cliente"
+  window.addEventListener('message', function (e) {
+    var f = $('lojaFrame');
+    if (!f || e.source !== f.contentWindow || !e.data || typeof e.data.lfFull !== 'boolean') return;
+    S.siteFull = e.data.lfFull;
+    render();
+  });
   function renderLojaOnline() {
     var el = $('v-onl');
     if (!el || S.view !== 'onl') return;
@@ -368,34 +374,8 @@
       var host = mk('div', 'catbar3');
       host.id = 'uniS';
       el.appendChild(host);
-      var tb = mk('div', '');
-      tb.style.cssText = 'display:flex;gap:8px;margin:0 0 8px';
-      var bv = mk('button', 'chip');
-      bv.type = 'button';
-      bv.id = 'siteVit';
-      bv.style.flex = '1';
-      bv.onclick = vitPainel;
-      var bf = mk('button', 'chip');
-      bf.type = 'button';
-      bf.id = 'siteFull';
-      bf.setAttribute('aria-label', 'Tela cheia');
-      bf.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg> Tela cheia';
-      bf.onclick = function () {
-        S.siteFull = true;
-        render();
-      };
-      tb.appendChild(bv);
-      tb.appendChild(bf);
-      el.appendChild(tb);
       var sb = mk('div', 'sbox');
       sb.id = 'siteBox';
-      var fb = mk('div', 'sfbar');
-      fb.appendChild(mk('b', '', 'Painel do site'));
-      fb.appendChild(btn('chip', '✕ Fechar', function () {
-        S.siteFull = false;
-        render();
-      }));
-      sb.appendChild(fb);
       var fr = mk('iframe');
       fr.id = 'lojaFrame';
       fr.title = 'Painel da loja online';
@@ -416,13 +396,11 @@
       no = l.filter(function (r) {
         return estoqueDoRef(r) > 0;
       }).length;
-    $('siteVit').textContent = 'Vitrine (' + no + ' no ar)';
     var online = navigator.onLine !== false;
     $('siteOff').hidden = online;
     $('lojaFrame').hidden = !online;
     if (online && !$('lojaFrame').getAttribute('src')) $('lojaFrame').src = LOJA_URL;
     $('siteBox').classList.toggle('full', !!S.siteFull);
-    $('siteFull').hidden = !!S.siteFull;
     uniAbasFill();
     vitSync();
   }
