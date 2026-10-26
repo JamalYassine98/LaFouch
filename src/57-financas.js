@@ -594,6 +594,48 @@
     };
   }
 
+  // Cotação do par escolhido em Trocar moedas: quanto custa 1 unidade da moeda "forte" na outra.
+  // usd/pyg → G$ por US$; usd/brl → R$ por US$; brl/pyg → G$ por R$.
+  function cotacaoPar(a, b) {
+    var par = [a, b].sort().join('/'),
+      cfg = {
+        'pyg/usd': { nome: 'Dólar', un: 'pyg', val: function (p) { return p.pyg; } },
+        'brl/usd': { nome: 'Dólar', un: 'brl', val: function (p) { return p.brl; } },
+        'brl/pyg': { nome: 'Real', un: 'pyg', val: function (p) { return p.brl > 0 ? p.pyg / p.brl : 0; } }
+      }[par];
+    if (!cfg) return null;
+    var from = Date.now() - S.janela * DAY,
+      vals = S.fxHist
+        .filter(function (p) {
+          return p.ts >= from;
+        })
+        .map(cfg.val)
+        .filter(function (v) {
+          return v > 0;
+        });
+    if (vals.length < 5) return null;
+    var min = Math.min.apply(null, vals),
+      max = Math.max.apply(null, vals),
+      med =
+        vals.reduce(function (x, y) {
+          return x + y;
+        }, 0) / vals.length,
+      hj = cfg.val(S.fx);
+    if (!(hj > 0)) return null;
+    var pos = max > min ? Math.max(0, Math.min(1, (hj - min) / (max - min))) : 0.5;
+    return {
+      nome: cfg.nome,
+      un: cfg.un,
+      hoje: hj,
+      min: min,
+      max: max,
+      media: med,
+      pos: pos,
+      barato: pos <= 0.2 || hj <= med * 0.98,
+      caro: pos >= 0.85 && hj >= med * 1.03
+    };
+  }
+
   // ---------- preço que ficou perigoso
   // Produtos cujo preço de tabela não cobre mais o custo, as contas e o colchão com o câmbio de hoje.
   function precoPerigoso() {

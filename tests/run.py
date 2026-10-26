@@ -74,6 +74,11 @@ TESTES = [
    const t=Date.now(); S.janela=30; S.fxHist=[]; for(let i=0;i<10;i++) S.fxHist.push({ts:t-(10-i)*86400000,pyg:7000+i*10,brl:1400});
    S.fx.pyg=6900; const f=L.dolarFavoravel();
    return [c.total>0, c.parado===c.total, f.barato, f.caro]""", [True, True, True, False]),
+ ("Trocar moedas: medidor segue o par escolhido e valor inicial por moeda", """
+   const t=Date.now(); S.janela=30; S.fxHist=[]; for(let i=0;i<10;i++) S.fxHist.push({ts:t-(10-i)*86400000,pyg:7000+i*10,brl:5+i*0.05});
+   S.fx.pyg=7000; S.fx.brl=5;
+   const a=L.cotacaoPar('pyg','usd'), b=L.cotacaoPar('usd','brl'), c=L.cotacaoPar('brl','pyg');
+   return [a.un==='pyg'&&a.barato, b.un==='brl'&&b.barato, c.nome==='Real'&&c.un==='pyg'&&Math.round(c.hoje)===1400, L.cotacaoPar('usd','usd')===null]""", [True, True, True, True]),
  ("PIN: guarda só o resumo e confere", """
    return L.hashPin('1234','sal').then(h=>L.hashPin('1234','sal').then(h2=>L.hashPin('1235','sal').then(h3=>[h===h2, h!==h3, h.indexOf('1234')<0])))""", [True, True, True]),
  ("PIN: resumo novo lento (p2) e quem tinha o antigo é atualizado ao entrar", """

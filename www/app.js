@@ -14342,6 +14342,48 @@
     };
   }
 
+  // Cotação do par escolhido em Trocar moedas: quanto custa 1 unidade da moeda "forte" na outra.
+  // usd/pyg → G$ por US$; usd/brl → R$ por US$; brl/pyg → G$ por R$.
+  function cotacaoPar(a, b) {
+    var par = [a, b].sort().join('/'),
+      cfg = {
+        'pyg/usd': { nome: 'Dólar', un: 'pyg', val: function (p) { return p.pyg; } },
+        'brl/usd': { nome: 'Dólar', un: 'brl', val: function (p) { return p.brl; } },
+        'brl/pyg': { nome: 'Real', un: 'pyg', val: function (p) { return p.brl > 0 ? p.pyg / p.brl : 0; } }
+      }[par];
+    if (!cfg) return null;
+    var from = Date.now() - S.janela * DAY,
+      vals = S.fxHist
+        .filter(function (p) {
+          return p.ts >= from;
+        })
+        .map(cfg.val)
+        .filter(function (v) {
+          return v > 0;
+        });
+    if (vals.length < 5) return null;
+    var min = Math.min.apply(null, vals),
+      max = Math.max.apply(null, vals),
+      med =
+        vals.reduce(function (x, y) {
+          return x + y;
+        }, 0) / vals.length,
+      hj = cfg.val(S.fx);
+    if (!(hj > 0)) return null;
+    var pos = max > min ? Math.max(0, Math.min(1, (hj - min) / (max - min))) : 0.5;
+    return {
+      nome: cfg.nome,
+      un: cfg.un,
+      hoje: hj,
+      min: min,
+      max: max,
+      media: med,
+      pos: pos,
+      barato: pos <= 0.2 || hj <= med * 0.98,
+      caro: pos >= 0.85 && hj >= med * 1.03
+    };
+  }
+
   // ---------- preço que ficou perigoso
   // Produtos cujo preço de tabela não cobre mais o custo, as contas e o colchão com o câmbio de hoje.
   function precoPerigoso() {
@@ -20565,6 +20607,23 @@
       return '<div class="sl"><span>' + fmtM(x.dado, x.de) + ' → ' + fmtM(x.rec, x.para || 'usd') + '<small>' + fd(x.ts) + ' às ' + fh(x.ts) + ' · ' + (x.difGs >= 0 ? '+' : '−') + gs(Math.abs(x.difGs)) + ' em relação ao câmbio do dia</small></span><button class="chip" data-act="trdesfaz" data-id="' + i + '" style="min-height:36px">Desfazer</button></div>';
     }).join('');
   }
+  // Medidor da cotação do par escolhido (muda com as moedas de Trocar moedas).
+  function parGaugeHtml() {
+    var c = cotacaoPar(S.tr.de, S.tr.para);
+    if (!c || (c.nome === 'Dólar' && c.un === 'pyg' && trocarAgoraHtml() && dolarFavoravel())) return ''; // o medidor do dólar em G$ já aparece na sugestão de hoje
+    var f = function (v) {
+        return c.un === 'pyg' ? gsRaw(Math.round(v)) : 'R$ ' + nf(v, 'brl');
+      },
+      pos = Math.round(c.pos * 100);
+    return (
+      '<div class="card col" style="padding:10px;margin:0"><div class="lbl" style="margin:0">' + c.nome + ' hoje</div><b style="font-size:24px">' + f(c.hoje) + '</b>' +
+      '<div style="position:relative;height:10px;border-radius:6px;background:linear-gradient(90deg,var(--ok),#ffc766,var(--bad))"><i style="position:absolute;left:' + pos + '%;top:-4px;width:6px;height:18px;border-radius:3px;background:#fff;transform:translateX(-50%)"></i></div>' +
+      '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--mute)"><span>mínimo ' + f(c.min) + '</span><span>média ' + f(c.media) + '</span><span>máximo ' + f(c.max) + '</span></div>' +
+      '<div class="note ' + (c.barato ? 'n-ok' : c.caro ? 'n-warn' : 'n-info') + '">' +
+      (c.barato ? 'Perto do mínimo dos últimos ' + S.janela + ' dias: bom momento para trocar.' : c.caro ? 'Perto do máximo dos últimos ' + S.janela + ' dias: troque só o necessário.' : 'Cotação no meio do intervalo dos últimos ' + S.janela + ' dias.') +
+      '</div></div>'
+    );
+  }
   function trocarMoedasHtml() {
     var t = S.tr,
       html = '';
@@ -20576,6 +20635,7 @@
       '<button class="chip" data-act="trflip" aria-label="Inverter as moedas">⇄ Inverter</button>' +
       trSel('trPara', t.para) +
       '</div>' +
+      parGaugeHtml() +
       '<div class="sel" style="flex-wrap:wrap"><div style="flex:1 1 160px"><div class="lbl">Você troca (' +
       MN[t.de] +
       ')</div><input class="in" id="trV" inputmode="decimal" data-in="trV" value="' +
@@ -21851,6 +21911,8 @@
       var d = t.de;
       t.de = t.para;
       t.para = d;
+      t.v = TR_INI[t.de];
+      t.rec = '';
       t.edited = false;
       S.trConf = false;
       render();
@@ -22101,11 +22163,14 @@
       updateRec();
     }
     if (k === 'trDe' || k === 'trPara') {
+      var old = S.tr.de;
       S.tr[k === 'trDe' ? 'de' : 'para'] = t.value;
       if (S.tr.de === S.tr.para)
         S.tr[k === 'trDe' ? 'para' : 'de'] = ['pyg', 'usd', 'brl'].filter(function (m) {
           return m !== t.value;
         })[0];
+      if (k === 'trDe' || S.tr.de !== old) S.tr.v = TR_INI[S.tr.de];
+      S.tr.rec = '';
       S.tr.edited = false;
       S.trConf = false;
       render();
@@ -22122,6 +22187,7 @@
       updateTr();
     }
   });
+  var TR_INI = { pyg: '300000', brl: '300', usd: '50' };
   function tm2(e, v) {
     return totalMensal() - e.valor + v;
   }
@@ -27103,6 +27169,6 @@
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, whiten: whiten, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
     };
 })();

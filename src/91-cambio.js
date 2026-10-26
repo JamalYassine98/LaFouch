@@ -216,6 +216,23 @@
       return '<div class="sl"><span>' + fmtM(x.dado, x.de) + ' → ' + fmtM(x.rec, x.para || 'usd') + '<small>' + fd(x.ts) + ' às ' + fh(x.ts) + ' · ' + (x.difGs >= 0 ? '+' : '−') + gs(Math.abs(x.difGs)) + ' em relação ao câmbio do dia</small></span><button class="chip" data-act="trdesfaz" data-id="' + i + '" style="min-height:36px">Desfazer</button></div>';
     }).join('');
   }
+  // Medidor da cotação do par escolhido (muda com as moedas de Trocar moedas).
+  function parGaugeHtml() {
+    var c = cotacaoPar(S.tr.de, S.tr.para);
+    if (!c || (c.nome === 'Dólar' && c.un === 'pyg' && trocarAgoraHtml() && dolarFavoravel())) return ''; // o medidor do dólar em G$ já aparece na sugestão de hoje
+    var f = function (v) {
+        return c.un === 'pyg' ? gsRaw(Math.round(v)) : 'R$ ' + nf(v, 'brl');
+      },
+      pos = Math.round(c.pos * 100);
+    return (
+      '<div class="card col" style="padding:10px;margin:0"><div class="lbl" style="margin:0">' + c.nome + ' hoje</div><b style="font-size:24px">' + f(c.hoje) + '</b>' +
+      '<div style="position:relative;height:10px;border-radius:6px;background:linear-gradient(90deg,var(--ok),#ffc766,var(--bad))"><i style="position:absolute;left:' + pos + '%;top:-4px;width:6px;height:18px;border-radius:3px;background:#fff;transform:translateX(-50%)"></i></div>' +
+      '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--mute)"><span>mínimo ' + f(c.min) + '</span><span>média ' + f(c.media) + '</span><span>máximo ' + f(c.max) + '</span></div>' +
+      '<div class="note ' + (c.barato ? 'n-ok' : c.caro ? 'n-warn' : 'n-info') + '">' +
+      (c.barato ? 'Perto do mínimo dos últimos ' + S.janela + ' dias: bom momento para trocar.' : c.caro ? 'Perto do máximo dos últimos ' + S.janela + ' dias: troque só o necessário.' : 'Cotação no meio do intervalo dos últimos ' + S.janela + ' dias.') +
+      '</div></div>'
+    );
+  }
   function trocarMoedasHtml() {
     var t = S.tr,
       html = '';
@@ -227,6 +244,7 @@
       '<button class="chip" data-act="trflip" aria-label="Inverter as moedas">⇄ Inverter</button>' +
       trSel('trPara', t.para) +
       '</div>' +
+      parGaugeHtml() +
       '<div class="sel" style="flex-wrap:wrap"><div style="flex:1 1 160px"><div class="lbl">Você troca (' +
       MN[t.de] +
       ')</div><input class="in" id="trV" inputmode="decimal" data-in="trV" value="' +

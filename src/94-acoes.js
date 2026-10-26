@@ -282,6 +282,8 @@
       var d = t.de;
       t.de = t.para;
       t.para = d;
+      t.v = TR_INI[t.de];
+      t.rec = '';
       t.edited = false;
       S.trConf = false;
       render();
@@ -532,11 +534,14 @@
       updateRec();
     }
     if (k === 'trDe' || k === 'trPara') {
+      var old = S.tr.de;
       S.tr[k === 'trDe' ? 'de' : 'para'] = t.value;
       if (S.tr.de === S.tr.para)
         S.tr[k === 'trDe' ? 'para' : 'de'] = ['pyg', 'usd', 'brl'].filter(function (m) {
           return m !== t.value;
         })[0];
+      if (k === 'trDe' || S.tr.de !== old) S.tr.v = TR_INI[S.tr.de];
+      S.tr.rec = '';
       S.tr.edited = false;
       S.trConf = false;
       render();
@@ -553,6 +558,7 @@
       updateTr();
     }
   });
+  var TR_INI = { pyg: '300000', brl: '300', usd: '50' };
   function tm2(e, v) {
     return totalMensal() - e.valor + v;
   }
