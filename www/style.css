@@ -379,3 +379,12 @@ body.arrastaBarra{-webkit-user-select:none;user-select:none;touch-action:none}
 .mktag{display:inline-block;align-self:flex-start;font-size:12px;padding:2px 8px;border-radius:999px;font-weight:600}
 .mkwarn{background:rgba(224,166,40,.2);color:var(--warn)}
 .mkred{background:rgba(220,70,70,.18);color:var(--bad,#e55)}
+
+/* ===== aba Site: painel completo ocupa a tela; tela cheia por cima de tudo ===== */
+.sbox{display:flex;flex-direction:column;height:calc(100dvh - 215px);min-height:460px}
+.sbox iframe{flex:1;width:100%;border:1px solid var(--line);border-radius:16px;background:#fff;min-height:0}
+.sbox iframe[hidden],.sbox .card[hidden]{display:none!important}
+.sfbar{display:none}
+.sbox.full{position:fixed;inset:0;z-index:90;height:auto;min-height:0;background:var(--bg);padding:max(8px,env(safe-area-inset-top)) 0 max(0px,env(safe-area-inset-bottom)) 0}
+.sbox.full .sfbar{display:flex;align-items:center;justify-content:space-between;padding:6px 12px;gap:10px}
+.sbox.full iframe{border-radius:0;border-left:0;border-right:0}

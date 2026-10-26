@@ -23407,6 +23407,7 @@
         if (Object.keys(S.vitPend || {}).length) vitSync.fail = Date.now();
         S.vitMsg = Object.keys(S.vitPend || {}).length ? 'Alguns itens ainda não subiram. Tento de novo quando houver internet.' : 'Vitrine publicada no site.';
         if (S.view === 'onl') render();
+        if (vitOv && vitOv.redesenha) vitOv.redesenha();
       });
   }
   // ---- escolher o que vai (seletor)
@@ -23459,6 +23460,7 @@
         S.vitMsg = '';
         saveSoon();
         render();
+        if (vitOv && vitOv.redesenha) vitOv.redesenha();
         vitSync();
       });
       go.disabled = !n;
@@ -23500,126 +23502,192 @@
     desenha();
     document.body.appendChild(ov);
   }
+  // Painel da vitrine (o que está no ar, + Adicionar, tirar, prazo do esgotado): abre por cima da aba Site
+  var vitOv = null;
+  function vitPainel() {
+    if (vitOv) vitOv.remove();
+    var ov = mk('div', 'modal'),
+      bx = mk('div', 'modal-box');
+    vitOv = ov;
+    bx.style.cssText = 'max-width:560px;max-height:90vh;overflow:auto';
+    ov.appendChild(bx);
+    function fecha() {
+      ov.remove();
+      vitOv = null;
+      render();
+    }
+    function desenha() {
+      vitManutencao();
+      var l = vitRefs(),
+        esg = l.filter(function (r) {
+          return estoqueDoRef(r) <= 0;
+        }).length,
+        m = modoDe('s');
+      bx.textContent = '';
+      var hd = mk('div', '');
+      hd.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:10px';
+      var tt = mk('div', '');
+      tt.appendChild(mk('b', '', 'Vitrine do site'));
+      tt.appendChild(mk('div', 'hint', l.length - esg + ' no ar' + (esg ? ' · ' + esg + ' esgotado' + (esg > 1 ? 's' : '') : '')));
+      hd.appendChild(tt);
+      hd.appendChild(btn('chip', 'Fechar', fecha));
+      bx.appendChild(hd);
+      var row = mk('div', '');
+      row.style.cssText = 'display:flex;gap:8px;align-items:center;margin-top:10px';
+      var qi = mk('input', 'in');
+      qi.placeholder = 'Buscar na vitrine';
+      qi.value = S.vitQ || '';
+      qi.style.flex = '1';
+      qi.oninput = function () {
+        S.vitQ = qi.value;
+        lista();
+      };
+      var mb = mk('button', 'chip modebtn');
+      mb.type = 'button';
+      modoBtn(mb, 's');
+      mb.onclick = function () {
+        if (!S.vModo) S.vModo = {};
+        S.vModo.s = m === 'g' ? 'l' : 'g';
+        saveSoon();
+        desenha();
+      };
+      row.appendChild(qi);
+      row.appendChild(mb);
+      bx.appendChild(row);
+      var add = mk('button', 'go', '+ Adicionar à vitrine');
+      add.type = 'button';
+      add.style.marginTop = '10px';
+      add.onclick = vitSeletor;
+      bx.appendChild(add);
+      var box = mk('div', m === 'g' ? 'gal vitg' : 'vitl');
+      box.style.marginTop = '10px';
+      bx.appendChild(box);
+      bx.appendChild(mk('div', 'hint', S.vitMsg || ''));
+      var cfg = mk('div', 'zl');
+      cfg.appendChild(mk('span', '', 'Sai da vitrine se ficar esgotado por ' + vitDias() + ' dias'));
+      var pm = mk('div', '');
+      pm.style.cssText = 'display:flex;gap:6px';
+      [['−', -1], ['+', 1]].forEach(function (c) {
+        pm.appendChild(btn('chip', c[0], function () {
+          S.vitDias = Math.max(1, Math.min(60, vitDias() + c[1]));
+          saveSoon();
+          desenha();
+        }));
+      });
+      cfg.appendChild(pm);
+      bx.appendChild(cfg);
+      if (!S.nuvem || !S.nuvem.rt) bx.appendChild(mk('div', 'note n-warn', 'Para a vitrine aparecer no site, conecte a Nuvem em Ajustes › Backup.'));
+      function lista() {
+        box.textContent = '';
+        var qq = (S.vitQ || '').toLowerCase(),
+          n = 0;
+        l.forEach(function (ref) {
+          var v = vitInfo(ref);
+          if (qq && (v.nome + ' ' + ref).toLowerCase().indexOf(qq) < 0) return;
+          n++;
+          var it = mk('div', m === 'g' ? 'gi vitc' : 'vitr');
+          if (v.est <= 0) it.style.opacity = '.6';
+          if (v.foto) {
+            var im = mk('img');
+            im.src = v.foto;
+            im.alt = v.nome;
+            it.appendChild(im);
+          }
+          var tx = mk('div', 'vitt');
+          tx.appendChild(mk('b', '', v.nome));
+          if (v.preco) tx.appendChild(mk('div', '', gs(v.preco)));
+          if (v.est === 1) tx.appendChild(mk('span', 'mktag mkwarn', 'Última unidade'));
+          if (v.est <= 0) tx.appendChild(mk('span', 'mktag mkred', 'Esgotado há ' + vitDiasEsg(ref) + ' dias · sai da vitrine em ' + Math.max(0, vitDias() - vitDiasEsg(ref)) + ' dias'));
+          it.appendChild(tx);
+          var x = btn('vitx', '×', function () {
+            S.vitrine = vitRefs().filter(function (r) {
+              return r !== ref;
+            });
+            vitFila(ref, 'del');
+            S.vitMsg = '';
+            saveSoon();
+            desenha();
+            vitSync();
+          });
+          x.setAttribute('aria-label', 'Tirar ' + v.nome + ' da vitrine');
+          it.appendChild(x);
+          box.appendChild(it);
+        });
+        if (!n) box.appendChild(mk('div', 'note n-info', l.length ? 'Nada com essa busca.' : 'A vitrine está vazia. Toque em "+ Adicionar à vitrine".'));
+      }
+      lista();
+    }
+    vitOv.redesenha = desenha;
+    desenha();
+    document.body.appendChild(ov);
+  }
+  // Aba Site: o painel completo ocupa a tela; botões Vitrine e Tela cheia
   function renderLojaOnline() {
     var el = $('v-onl');
     if (!el || S.view !== 'onl') return;
     vitManutencao();
-    var l = vitRefs(),
-      esg = l.filter(function (r) {
-        return estoqueDoRef(r) <= 0;
-      }).length,
-      m = modoDe('s'),
-      q = (S.vitQ || '').toLowerCase();
-    var keepFrame = el.querySelector('iframe');
-    el.textContent = '';
-    var host = mk('div', 'catbar3');
-    host.id = 'uniS';
-    el.appendChild(host);
-    var top = mk('div', 'top');
-    var tt = mk('div', '');
-    tt.appendChild(mk('h1', '', 'Vitrine do site'));
-    tt.appendChild(mk('div', 'crumb', l.length - esg + ' no ar' + (esg ? ' · ' + esg + ' esgotado' + (esg > 1 ? 's' : '') : '')));
-    top.appendChild(tt);
-    el.appendChild(top);
-    var card = mk('section', 'card col');
-    var row = mk('div', '');
-    row.style.cssText = 'display:flex;gap:8px;align-items:center';
-    var qi = mk('input', 'in');
-    qi.placeholder = 'Buscar na vitrine';
-    qi.value = S.vitQ || '';
-    qi.style.flex = '1';
-    qi.oninput = function () {
-      S.vitQ = qi.value;
-      lista();
-    };
-    var mb = mk('button', 'chip modebtn');
-    mb.type = 'button';
-    modoBtn(mb, 's');
-    row.appendChild(qi);
-    row.appendChild(mb);
-    card.appendChild(row);
-    var add = mk('button', 'go', '+ Adicionar à vitrine');
-    add.type = 'button';
-    add.onclick = vitSeletor;
-    card.appendChild(add);
-    var box = mk('div', m === 'g' ? 'gal vitg' : 'vitl');
-    card.appendChild(box);
-    var ms = mk('div', 'hint', S.vitMsg || '');
-    card.appendChild(ms);
-    var cfg = mk('div', 'zl');
-    cfg.appendChild(mk('span', '', 'Sai da vitrine se ficar esgotado por ' + vitDias() + ' dias'));
-    var pm = mk('div', '');
-    pm.style.cssText = 'display:flex;gap:6px';
-    [['−', -1], ['+', 1]].forEach(function (c) {
-      pm.appendChild(btn('chip', c[0], function () {
-        S.vitDias = Math.max(1, Math.min(60, vitDias() + c[1]));
-        saveSoon();
+    if (!el.getAttribute('data-sk')) {
+      el.setAttribute('data-sk', '1');
+      el.textContent = '';
+      var host = mk('div', 'catbar3');
+      host.id = 'uniS';
+      el.appendChild(host);
+      var tb = mk('div', '');
+      tb.style.cssText = 'display:flex;gap:8px;margin:0 0 8px';
+      var bv = mk('button', 'chip');
+      bv.type = 'button';
+      bv.id = 'siteVit';
+      bv.style.flex = '1';
+      bv.onclick = vitPainel;
+      var bf = mk('button', 'chip');
+      bf.type = 'button';
+      bf.id = 'siteFull';
+      bf.setAttribute('aria-label', 'Tela cheia');
+      bf.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg> Tela cheia';
+      bf.onclick = function () {
+        S.siteFull = true;
+        render();
+      };
+      tb.appendChild(bv);
+      tb.appendChild(bf);
+      el.appendChild(tb);
+      var sb = mk('div', 'sbox');
+      sb.id = 'siteBox';
+      var fb = mk('div', 'sfbar');
+      fb.appendChild(mk('b', '', 'Painel do site'));
+      fb.appendChild(btn('chip', '✕ Fechar', function () {
+        S.siteFull = false;
         render();
       }));
-    });
-    cfg.appendChild(pm);
-    card.appendChild(cfg);
-    if (!S.nuvem || !S.nuvem.rt) card.appendChild(mk('div', 'note n-warn', 'Para a vitrine aparecer no site, conecte a Nuvem em Ajustes › Backup.'));
-    el.appendChild(card);
-    function lista() {
-      box.textContent = '';
-      var qq = (S.vitQ || '').toLowerCase(),
-        n = 0;
-      l.forEach(function (ref) {
-        var v = vitInfo(ref);
-        if (qq && (v.nome + ' ' + ref).toLowerCase().indexOf(qq) < 0) return;
-        n++;
-        var it = mk('div', m === 'g' ? 'gi vitc' : 'vitr');
-        if (v.est <= 0) it.style.opacity = '.6';
-        if (v.foto) {
-          var im = mk('img');
-          im.src = v.foto;
-          im.alt = v.nome;
-          it.appendChild(im);
-        }
-        var tx = mk('div', 'vitt');
-        tx.appendChild(mk('b', '', v.nome));
-        if (v.preco) tx.appendChild(mk('div', '', gs(v.preco)));
-        if (v.est === 1) tx.appendChild(mk('span', 'mktag mkwarn', 'Última unidade'));
-        if (v.est <= 0) tx.appendChild(mk('span', 'mktag mkred', 'Esgotado há ' + vitDiasEsg(ref) + ' dias · sai da vitrine em ' + Math.max(0, vitDias() - vitDiasEsg(ref)) + ' dias'));
-        it.appendChild(tx);
-        var x = btn('vitx', '×', function () {
-          S.vitrine = vitRefs().filter(function (r) {
-            return r !== ref;
-          });
-          vitFila(ref, 'del');
-          S.vitMsg = '';
-          render();
-          vitSync();
-        });
-        x.setAttribute('aria-label', 'Tirar ' + v.nome + ' da vitrine');
-        it.appendChild(x);
-        box.appendChild(it);
-      });
-      if (!n) box.appendChild(mk('div', 'note n-info', l.length ? 'Nada com essa busca.' : 'A vitrine está vazia. Toque em "+ Adicionar à vitrine".'));
+      sb.appendChild(fb);
+      var fr = mk('iframe');
+      fr.id = 'lojaFrame';
+      fr.title = 'Painel da loja online';
+      fr.allow = 'clipboard-write';
+      sb.appendChild(fr);
+      var off = mk('section', 'card');
+      off.id = 'siteOff';
+      off.style.cssText = 'text-align:center;padding:22px';
+      off.innerHTML = '<b style="font-size:17px">Sem internet</b><p style="color:var(--mu);margin:8px 0 14px">O painel do site só abre com internet, porque os dados ficam na nuvem.</p>';
+      off.appendChild(btn('mini', 'Tentar de novo', function () {
+        $('lojaFrame').src = LOJA_URL;
+        render();
+      }));
+      sb.appendChild(off);
+      el.appendChild(sb);
     }
-    lista();
-    // painel completo do site (fotos, ofertas, liga/desliga) continua à mão
-    var adv = mk('section', 'card col');
-    var ab = btn('chip', S.siteAdv ? 'Esconder painel completo' : 'Painel completo do site', function () {
-      S.siteAdv = !S.siteAdv;
-      render();
-    });
-    adv.appendChild(ab);
-    if (S.siteAdv) {
-      if (navigator.onLine === false) adv.appendChild(mk('div', 'note n-warn', 'Sem internet: o painel só abre online.'));
-      else if (keepFrame) adv.appendChild(keepFrame);
-      else {
-        var fr = mk('iframe');
-        fr.id = 'lojaFrame';
-        fr.title = 'Painel da loja online';
-        fr.src = LOJA_URL;
-        fr.allow = 'clipboard-write';
-        fr.style.cssText = 'width:100%;height:calc(100vh - 190px);min-height:520px;border:1px solid var(--ln);border-radius:16px;background:#fff';
-        adv.appendChild(fr);
-      }
-    }
-    el.appendChild(adv);
+    var l = vitRefs(),
+      no = l.filter(function (r) {
+        return estoqueDoRef(r) > 0;
+      }).length;
+    $('siteVit').textContent = 'Vitrine (' + no + ' no ar)';
+    var online = navigator.onLine !== false;
+    $('siteOff').hidden = online;
+    $('lojaFrame').hidden = !online;
+    if (online && !$('lojaFrame').getAttribute('src')) $('lojaFrame').src = LOJA_URL;
+    $('siteBox').classList.toggle('full', !!S.siteFull);
+    $('siteFull').hidden = !!S.siteFull;
+    uniAbasFill();
     vitSync();
   }
   window.addEventListener('online', function () {
