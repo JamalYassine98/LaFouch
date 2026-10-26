@@ -15158,10 +15158,11 @@
     LOCK.cb = null;
     if (cb) cb();
   }
-  function mostrarLock(modo, cb) {
+  function mostrarLock(modo, cb, cancelCb) {
     LOCK.locked = true;
     LOCK.modo = modo;
     LOCK.cb = cb || null;
+    LOCK.cancelCb = cancelCb || null;
     $('lockScr').hidden = false;
     $('lockT').textContent = modo === 'open' ? 'La Fouch' : 'Confirme que é você';
     $('lockPin').value = '';
@@ -15214,6 +15215,9 @@
     LOCK.locked = false;
     LOCK.cb = null;
     $('lockScr').hidden = true;
+    var cc = LOCK.cancelCb;
+    LOCK.cancelCb = null;
+    if (cc) cc();
   };
   // Ao abrir o app: pede o PIN se estiver ativo.
   function iniciarLock() {
@@ -23557,16 +23561,22 @@
           f.contentWindow.postMessage({ lfBioR: r, id: e.data.id }, e.origin && e.origin !== 'null' ? e.origin : '*');
         } catch (x) {}
       };
-      if (e.data.lfBio === 'check') re(bioPlugin() ? 'yes' : 'no');
-      else if (e.data.lfBio === 'ask')
-        bioPedir(
-          function () {
-            re('ok');
-          },
-          function () {
-            re('no');
-          }
-        );
+      // vale só com a biometria ligada em Ajustes › Segurança (que exige o PIN); a confirmação é a mesma do app: biometria ou PIN
+      var exige = !!(S.bioOn && bioPlugin() && pinAtivo());
+      if (e.data.lfBio === 'check') re(exige ? 'yes' : 'no');
+      else if (e.data.lfBio === 'ask') {
+        if (!exige) re('ok');
+        else
+          mostrarLock(
+            'confirm',
+            function () {
+              re('ok');
+            },
+            function () {
+              re('no');
+            }
+          );
+      }
       return;
     }
     if (typeof e.data.lfFull !== 'boolean') return;
@@ -25905,8 +25915,16 @@
         );
         return;
       } else {
-        S.bioOn = false;
-        saveSoon();
+        // desligar a biometria também pede a confirmação (biometria ou PIN)
+        t.checked = true;
+        mostrarLock('confirm', function () {
+          S.bioOn = false;
+          S.ajMsg = 'Biometria desativada.';
+          S._ajForce = true;
+          saveSoon();
+          render();
+        });
+        return;
       }
     } else return;
     S._ajForce = true;

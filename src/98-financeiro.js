@@ -62,8 +62,16 @@
         );
         return;
       } else {
-        S.bioOn = false;
-        saveSoon();
+        // desligar a biometria também pede a confirmação (biometria ou PIN)
+        t.checked = true;
+        mostrarLock('confirm', function () {
+          S.bioOn = false;
+          S.ajMsg = 'Biometria desativada.';
+          S._ajForce = true;
+          saveSoon();
+          render();
+        });
+        return;
       }
     } else return;
     S._ajForce = true;

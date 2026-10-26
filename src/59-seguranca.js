@@ -203,10 +203,11 @@
     LOCK.cb = null;
     if (cb) cb();
   }
-  function mostrarLock(modo, cb) {
+  function mostrarLock(modo, cb, cancelCb) {
     LOCK.locked = true;
     LOCK.modo = modo;
     LOCK.cb = cb || null;
+    LOCK.cancelCb = cancelCb || null;
     $('lockScr').hidden = false;
     $('lockT').textContent = modo === 'open' ? 'La Fouch' : 'Confirme que é você';
     $('lockPin').value = '';
@@ -259,6 +260,9 @@
     LOCK.locked = false;
     LOCK.cb = null;
     $('lockScr').hidden = true;
+    var cc = LOCK.cancelCb;
+    LOCK.cancelCb = null;
+    if (cc) cc();
   };
   // Ao abrir o app: pede o PIN se estiver ativo.
   function iniciarLock() {
