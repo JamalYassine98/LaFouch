@@ -15234,111 +15234,7 @@
     if (!LOCK.locked && LOCK.saiuEm && fora >= Math.max(15000, (S.lockMin || 0) * 60000)) mostrarLock('open');
   });
 
-  // ---------- cópias automáticas (uma por dia, guardadas no próprio app)
-  var AB_DB = 'lafouch_bk',
-    AB_MAX = 7;
-  function abAbrir() {
-    return new Promise(function (ok, no) {
-      try {
-        var r = indexedDB.open(AB_DB, 1);
-        r.onupgradeneeded = function () {
-          r.result.createObjectStore('c', { keyPath: 'dia' });
-        };
-        r.onsuccess = function () {
-          ok(r.result);
-        };
-        r.onerror = function () {
-          no(r.error);
-        };
-      } catch (e) {
-        no(e);
-      }
-    });
-  }
-  function abTodas() {
-    return abAbrir().then(function (db) {
-      return new Promise(function (ok, no) {
-        var q = db.transaction('c').objectStore('c').getAll();
-        q.onsuccess = function () {
-          ok(
-            (q.result || []).sort(function (a, b) {
-              return a.dia < b.dia ? 1 : -1;
-            })
-          );
-        };
-        q.onerror = function () {
-          no(q.error);
-        };
-      });
-    });
-  }
-  // Faz a cópia do dia (sem fotos, para ser leve) e apaga as mais antigas.
-  function autoBackup(forcar) {
-    var dia = dayKey(Date.now());
-    if (!forcar && S._abDia === dia) return Promise.resolve();
-    S._abDia = dia;
-    var txt = backupDados(true);
-    return abAbrir()
-      .then(function (db) {
-        return new Promise(function (ok, no) {
-          var tx = db.transaction('c', 'readwrite'),
-            st = tx.objectStore('c');
-          st.put({ dia: dia, ts: Date.now(), kb: Math.round(txt.length / 1024), txt: txt });
-          var q = st.getAllKeys();
-          q.onsuccess = function () {
-            q.result
-              .sort()
-              .reverse()
-              .slice(AB_MAX)
-              .forEach(function (k) {
-                st.delete(k);
-              });
-          };
-          tx.oncomplete = ok;
-          tx.onerror = function () {
-            no(tx.error);
-          };
-        });
-      })
-      .then(function () {
-        S._abList = undefined;
-        if (S.view === 'ajustes') render();
-      })
-      .catch(function () {
-        S._abDia = '';
-      });
-  }
-  function abCarregar() {
-    if (S._abList !== undefined || S._abLoading) return;
-    S._abLoading = true;
-    abTodas()
-      .then(function (l) {
-        S._abList = l.map(function (x) {
-          return { dia: x.dia, ts: x.ts, kb: x.kb };
-        });
-        S._abLoading = false;
-        S._ajForce = true;
-        renderAjustes();
-      })
-      .catch(function () {
-        S._abList = [];
-        S._abLoading = false;
-      });
-  }
-  function abRestaurar(dia) {
-    return abAbrir().then(function (db) {
-      return new Promise(function (ok, no) {
-        var q = db.transaction('c').objectStore('c').get(dia);
-        q.onsuccess = function () {
-          ok(q.result && q.result.txt);
-        };
-        q.onerror = function () {
-          no(q.error);
-        };
-      });
-    });
-  }
-  // ---------- partes da aba Ajustes: pagamento, segurança e cópias
+  // ---------- partes da aba Ajustes: pagamento e segurança
   function ajustesFinHtml() {
     var h = '';
     // formas de pagamento
@@ -26504,25 +26400,6 @@
       render();
     });
   };
-  ACT.abrest = function (dia) {
-    if (S.abConf !== dia) {
-      S.abConf = dia;
-      S._ajForce = true;
-      render();
-      return;
-    }
-    exigirAuth(function () {
-      abRestaurar(dia).then(function (txt) {
-        var e = txt ? restaurarDados(txt) : 'Cópia não encontrada.';
-        S.abConf = '';
-        S.ajMsg = e || 'Cópia de ' + dia.split('-').reverse().join('/') + ' restaurada.';
-        S._ajForce = true;
-        saveSoon();
-        render();
-      });
-    });
-  };
-
   // ---------- Dados de exemplo (14 meses)
   ACT.exemplo = function () {
     if (!S.exConf) {

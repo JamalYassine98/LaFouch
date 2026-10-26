@@ -28,7 +28,7 @@ Regras que valem em todo o projeto: o estado fica em `S`; `render()` redesenha t
 | `57-financas.js` | 569 | Finanças: resultado do mês, fluxo de caixa, retirada do dono, conferência de caixa, capital parado, dólar e pr |
 | `57-separacao.js` | 420 | Separação das vendas por moeda, total convertido (botão G$/R$/US$), "Livre para você", plano de troca, colchão e reposição. |
 | `58-pagamento.js` | 56 | Forma de pagamento da venda e taxas (maquininha, Pix). |
-| `59-seguranca.js` | 437 | Segurança (PIN e biometria ao abrir) e cópias automáticas dos dados. |
+| `59-seguranca.js` | 437 | Segurança (PIN e biometria ao abrir). |
 | `60-vendas.js` | 346 | Aba Vendas. |
 | `61-codigos-similares.js` | 181 | Códigos parecidos e utilitários do leitor de haste. |
 | `62-pagamento-misto.js` | 266 | Pagamento em várias moedas, câmbio manual e troco devolvido em outra moeda. |

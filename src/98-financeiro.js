@@ -307,25 +307,6 @@
       render();
     });
   };
-  ACT.abrest = function (dia) {
-    if (S.abConf !== dia) {
-      S.abConf = dia;
-      S._ajForce = true;
-      render();
-      return;
-    }
-    exigirAuth(function () {
-      abRestaurar(dia).then(function (txt) {
-        var e = txt ? restaurarDados(txt) : 'Cópia não encontrada.';
-        S.abConf = '';
-        S.ajMsg = e || 'Cópia de ' + dia.split('-').reverse().join('/') + ' restaurada.';
-        S._ajForce = true;
-        saveSoon();
-        render();
-      });
-    });
-  };
-
   // ---------- Dados de exemplo (14 meses)
   ACT.exemplo = function () {
     if (!S.exConf) {
