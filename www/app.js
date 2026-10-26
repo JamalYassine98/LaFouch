@@ -23549,7 +23549,27 @@
   // Aba Site: o painel completo ocupa a tela; o botão de tela cheia fica dentro do painel, ao lado de "Cliente"
   window.addEventListener('message', function (e) {
     var f = $('lojaFrame');
-    if (!f || e.source !== f.contentWindow || !e.data || typeof e.data.lfFull !== 'boolean') return;
+    if (!f || e.source !== f.contentWindow || !e.data) return;
+    // o painel pede a biometria do app para abrir (a do navegador não funciona dentro do app)
+    if (e.data.lfBio) {
+      var re = function (r) {
+        try {
+          f.contentWindow.postMessage({ lfBioR: r, id: e.data.id }, e.origin && e.origin !== 'null' ? e.origin : '*');
+        } catch (x) {}
+      };
+      if (e.data.lfBio === 'check') re(bioPlugin() ? 'yes' : 'no');
+      else if (e.data.lfBio === 'ask')
+        bioPedir(
+          function () {
+            re('ok');
+          },
+          function () {
+            re('no');
+          }
+        );
+      return;
+    }
+    if (typeof e.data.lfFull !== 'boolean') return;
     S.siteFull = e.data.lfFull;
     render();
   });
