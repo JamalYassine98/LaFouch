@@ -98,6 +98,7 @@
       aviso: v.est === 1 ? 'Última unidade' : '',
       tag: solar ? 'SOLAR' : 'ARMAÇÃO',
       mat: a.material || 'Acetato',
+      gen: a.publico === 'Masculino' ? 'm' : a.publico === 'Feminino' ? 'f' : 'u',
       cor: '#2a2d33',
       cores: ['#2a2d33'],
       raio: 14,
