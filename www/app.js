@@ -2367,27 +2367,11 @@
       }
     })(S.msg);
     renderLotForm();
-    var am = $('addModeB');
-    am.textContent = '';
-    [
-      ['prod', 'Produto'],
-      ['lote', 'Lote']
-    ].forEach(function (x) {
-      am.appendChild(
-        btn(
-          'tab' + (S.addMode === x[0] ? ' on' : ''),
-          x[1],
-          function () {
-            S.addMode = x[0];
-            S.msg = '';
-            $('lotMsg').textContent = '';
-            render();
-          },
-          S.addMode === x[0]
-        )
-      );
-    });
-    $('addPhotoB').hidden = S.addMode !== 'prod';
+    // menu de entrada: Ler haste, Foto, Chegou mercadoria ou Preencher à mão
+    if (S.addMode !== 'prod' && S.addMode !== 'lote') S.addMode = 'menu';
+    $('addPhotoB').hidden = S.addMode !== 'menu';
+    $('addMenuB').hidden = S.addMode !== 'menu';
+    $('addBack').hidden = S.addMode === 'menu';
     $('addProdRest').hidden = S.addMode !== 'prod';
     $('addLoteB').hidden = S.addMode !== 'lote';
     renderLotes();
@@ -3662,11 +3646,27 @@
     $('eNome').value = '';
     S.gSel = '';
     S.addOpen = true;
-    S.addMode = 'prod';
+    S.addMode = 'menu';
     S.photoFor = null;
     try {
       $('fbCk').checked = S.fundoBranco !== false;
     } catch (e) {}
+    S.msg = '';
+    render();
+  };
+  $('addBack').onclick = function () {
+    S.addMode = 'menu';
+    S.msg = '';
+    $('lotMsg').textContent = '';
+    render();
+  };
+  $('addToLote').onclick = function () {
+    S.addMode = 'lote';
+    S.msg = '';
+    render();
+  };
+  $('addToMan').onclick = function () {
+    S.addMode = 'prod';
     S.msg = '';
     render();
   };

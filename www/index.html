@@ -39,19 +39,23 @@
  <div class="modal-box">
   <div class="mhead"><h2 id="addTitle" style="margin:0;font-size:18px">Adicionar</h2><button class="tab" id="addClose" type="button">Fechar</button></div>
   <div id="addMenu" class="col" style="gap:16px">
-    <div class="tabs" id="addModeB" role="group" aria-label="O que adicionar"></div>
-    <div id="addPhotoB"><div class="lbl">Começar por uma foto</div>
-      <div style="display:flex;gap:10px;align-items:stretch"><button class="go" id="btnFoto" type="button" aria-label="Foto da peça" style="flex:1 1 auto;margin:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-5px;margin-right:8px"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Foto da peça</button><button class="go" id="btnLeitor" type="button" aria-label="Leitor de código da haste" title="Leitor de código da haste" style="flex:0 0 64px;width:64px;margin:0;padding:0;display:flex;align-items:center;justify-content:center;background:var(--panel2);border:1px solid var(--line);color:var(--accent-fg)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><path d="M7 12h10"/></svg></button></div>
-      <div class="hint" style="margin-top:8px"><b>Foto da peça:</b> tira o fundo, deixa branco e prepara o cadastro. <b>Leitor</b> (ícone ao lado): aponte para o código da haste e o app diz se o produto já existe ou se é novo.</div><label class="chk" style="display:flex;gap:10px;align-items:center;margin-top:10px;min-height:44px;cursor:pointer"><input type="checkbox" id="fbCk" checked style="width:22px;height:22px"><span><b>Fundo branco automático</b><span class="hint" style="display:block;margin:0">Desmarque se o app errar o recorte: a foto fica como foi tirada.</span></span></label></div>
+    <button class="tab" id="addBack" type="button" hidden style="align-self:flex-start">← Voltar</button>
+    <div id="addPhotoB"><div class="lbl">O que chegou?</div>
+      <button class="go" id="btnLeitor" type="button" aria-label="Ler haste" title="Ler haste" style="width:100%;margin:0;display:flex;align-items:center;justify-content:center;gap:10px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><path d="M7 12h10"/></svg>Ler haste</button>
+      <div class="hint" style="margin:8px 0 12px">Aponte para o código da haste. O app diz se o modelo já existe (dar entrada) ou se é novo (cadastrar).</div>
+      <button class="tab" id="btnFoto" type="button" aria-label="Foto da peça ou etiqueta" style="width:100%;min-height:52px;display:flex;align-items:center;justify-content:center;gap:10px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Foto da peça ou etiqueta</button>
+      <div class="hint" style="margin-top:6px">Tira o fundo, deixa branco e prepara o cadastro.</div><label class="chk" style="display:flex;gap:10px;align-items:center;margin-top:6px;min-height:44px;cursor:pointer"><input type="checkbox" id="fbCk" checked style="width:22px;height:22px"><span><b>Fundo branco automático</b><span class="hint" style="display:block;margin:0">Desmarque se o app errar o recorte: a foto fica como foi tirada.</span></span></label></div>
+    <div id="addMenuB" class="col" style="gap:10px">
+      <button class="tab" id="addToLote" type="button" style="width:100%;min-height:52px">Chegou mercadoria (compra do fornecedor)</button>
+      <div class="ordiv"><span>ou</span></div>
+      <button class="tab" id="addToMan" type="button" style="width:100%;min-height:48px">Preencher à mão</button></div>
     <div id="addLoteB" class="col" style="gap:16px"><div><div class="lbl">Começar por uma foto</div>
       <div class="addpick"><button class="go" id="btnLotFoto" type="button" aria-label="Abrir a câmera"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-5px;margin-right:8px"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Câmera</button></div>
       <input type="file" id="fileL" accept="image/*" capture="environment" hidden><input type="file" id="fileLG" accept="image/*" hidden>
       <div id="lotMsg" role="status" style="font-size:14px;margin-top:8px"></div>
       <div class="hint" style="margin-top:8px">O app lê a nota do lote (quantidade, custo por peça, tipo) e preenche o cadastro. Você confere antes de criar.</div></div>
-    <div class="ordiv"><span>ou preencha manualmente</span></div>
     <div id="lotForm"></div></div>
     <div id="addProdRest" class="col" style="gap:16px">
-    <div class="ordiv"><span>ou preencha manualmente</span></div>
     <div><div class="lbl">Tipo de produto</div><div class="tabs" id="mTipos" role="group" aria-label="Tipo do produto a adicionar"></div><div id="mTipoNew"></div></div>
       <div class="tabs" hidden><button class="tab" id="mV">Vender</button><button class="tab" id="mE">Dar entrada</button></div>
       <div class="hint" id="pc" style="margin:0"></div>

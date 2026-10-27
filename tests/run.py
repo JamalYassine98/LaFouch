@@ -851,10 +851,27 @@ async def main():
             if not ok: falhas.append('fundo branco off'); print('        veio', ck, r, pg.erros)
             await pg.close()
 
+            # Adicionar: menu único (Ler haste, Foto, Chegou mercadoria, Preencher à mão) sem abas nem leitor duplicado
+            pg = await pagina()
+            await pg.evaluate("() => window.__LF.setView('estoque')")
+            await pg.click('#btnAdd'); await pg.wait_for_timeout(300)
+            m0 = await pg.evaluate("() => { const v = i => { const e = document.getElementById(i); return !!e && e.offsetParent !== null }; return [v('btnLeitor'), v('btnFoto'), v('addToLote'), v('addToMan'), v('addBack'), v('addProdRest'), v('addLoteB'), document.querySelectorAll('#addModal [id=btnLeitor]').length, !document.getElementById('addModeB')] }")
+            await pg.click('#addToLote'); await pg.wait_for_timeout(300)
+            m1 = await pg.evaluate("() => { const v = i => { const e = document.getElementById(i); return !!e && e.offsetParent !== null }; return [v('addLoteB'), v('addBack'), v('btnLeitor'), v('addToMan')] }")
+            await pg.click('#addBack'); await pg.wait_for_timeout(300)
+            await pg.click('#addToMan'); await pg.wait_for_timeout(300)
+            m2 = await pg.evaluate("() => { const v = i => { const e = document.getElementById(i); return !!e && e.offsetParent !== null }; return [v('addProdRest'), v('addBack'), v('btnLeitor'), v('mTipos')] }")
+            ok = m0 == [True, True, True, True, False, False, False, 1, True] and m1 == [True, True, False, False] and m2 == [True, True, False, True]
+            print(('  ok  ' if ok else ' FALHA ') + 'Adicionar: menu único, voltar, um só leitor e sem abas Produto/Lote')
+            if not ok: falhas.append('menu adicionar'); print('        veio', m0, m1, m2, pg.erros)
+            total += 1
+            await pg.close()
+
             # cadastro sem formato/cor/pacote: a descrição digitada vira a descrição do modelo; foto sugere
             pg = await pagina()
             await pg.evaluate("() => window.__LF.setView('estoque')")
             await pg.click('#btnAdd'); await pg.wait_for_timeout(300)
+            await pg.click('#addToMan'); await pg.wait_for_timeout(300)
             await pg.locator('#mTipos >> text=Armações').click(); await pg.wait_for_timeout(300)
             vis = await pg.evaluate("() => ['eFmtB','ePkgB','eCor'].map(i => document.getElementById(i).offsetParent === null).concat([!!document.getElementById('eDescP').offsetParent])")
             await pg.fill('#eRef', 'ZZ77'); await pg.fill('#eNome', ''); await pg.fill('#eCusto', '0,50')
@@ -993,6 +1010,7 @@ async def main():
             await pg.locator('.sgl .sgi').first.click(); await pg.wait_for_timeout(300)
             r2 = await pg.evaluate("() => [document.getElementById('vq').value, document.querySelector('.sgl').hidden, window.__LF.S.vq]")
             await pg.evaluate("() => window.__LF.setView('estoque')"); await pg.click('#btnAdd'); await pg.wait_for_timeout(300)
+            await pg.click('#addToMan'); await pg.wait_for_timeout(300)
             await pg.click('#eRef'); await pg.keyboard.type('sp5', delay=40); await pg.wait_for_timeout(300)
             r3 = await pg.evaluate("() => { const b = document.querySelector('.sgl'); return [!b.hidden, b.querySelectorAll('.sgi').length, document.querySelectorAll('datalist').length]; }")
             total += 1

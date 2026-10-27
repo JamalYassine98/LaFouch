@@ -400,11 +400,27 @@
     $('eNome').value = '';
     S.gSel = '';
     S.addOpen = true;
-    S.addMode = 'prod';
+    S.addMode = 'menu';
     S.photoFor = null;
     try {
       $('fbCk').checked = S.fundoBranco !== false;
     } catch (e) {}
+    S.msg = '';
+    render();
+  };
+  $('addBack').onclick = function () {
+    S.addMode = 'menu';
+    S.msg = '';
+    $('lotMsg').textContent = '';
+    render();
+  };
+  $('addToLote').onclick = function () {
+    S.addMode = 'lote';
+    S.msg = '';
+    render();
+  };
+  $('addToMan').onclick = function () {
+    S.addMode = 'prod';
     S.msg = '';
     render();
   };
