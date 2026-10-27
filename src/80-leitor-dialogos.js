@@ -109,6 +109,16 @@
     try {
       if (o.nome && $('eNome')) $('eNome').value = o.nome;
       if (o.custo && $('eCusto')) $('eCusto').value = o.custo;
+      if (!REDUCED && !o.noscroll)
+        ['eRef', 'eMed', 'eCor', 'eNome', 'eCusto'].forEach(function (id, ix) {
+          var e = $(id);
+          if (e && e.value)
+            setTimeout(function () {
+              e.classList.remove('lfglow');
+              void e.offsetWidth;
+              e.classList.add('lfglow');
+            }, 140 * ix);
+        });
     } catch (e) {}
     if (!o.noscroll)
       try {
@@ -260,6 +270,7 @@
         bx.appendChild(vs);
         var ad = btn('mini', 'Adicionar', function () {
           close();
+          if (!isSimple(f0.tipo) && quickOpen(f0.ref)) return;
           fillAdd(
             Object.assign(refInfo(f0.ref), {
               tipo: f0.tipo,

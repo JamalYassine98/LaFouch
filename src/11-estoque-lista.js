@@ -353,12 +353,16 @@
     })(S.msg);
     renderLotForm();
     // menu de entrada: Ler haste, Foto, Chegou mercadoria ou Preencher à mão
-    if (S.addMode !== 'prod' && S.addMode !== 'lote') S.addMode = 'menu';
+    if (S.addMode !== 'prod' && S.addMode !== 'lote' && S.addMode !== 'quick') S.addMode = 'menu';
     $('addPhotoB').hidden = S.addMode !== 'menu';
     $('addMenuB').hidden = S.addMode !== 'menu';
     $('addBack').hidden = S.addMode === 'menu';
     $('addProdRest').hidden = S.addMode !== 'prod';
     $('addLoteB').hidden = S.addMode !== 'lote';
+    $('addQuickB').hidden = S.addMode !== 'quick';
+    renderQuick();
+    renderClone();
+    renderRascunho();
     renderLotes();
     renderLotView();
     loteChips('eLote', S.tipo, S.gSel, function (v) {
@@ -1110,7 +1114,22 @@
         ' un.). Formato ' +
         known.fmt +
         ' lembrado. Se a cor e a variante forem iguais, a quantidade é somada.'
-      : '';
+      : ref && !S._other && !t.simple
+        ? '✓ Código livre'
+        : '';
+    (function () {
+      var qb = $('eQuickBtn');
+      if (!qb) {
+        qb = btn('chip on', 'Dar entrada rápida neste modelo', function () {});
+        qb.id = 'eQuickBtn';
+        qb.style.marginTop = '6px';
+        $('eRefH').parentNode.appendChild(qb);
+      }
+      qb.hidden = !(known && !t.simple);
+      qb.onclick = function () {
+        if (known) quickOpen(known.ref);
+      };
+    })();
     try {
       updSim('eRef', 'eNome', 'eRefH', 'eSim', !ref || !!known || !!t.simple);
     } catch (eSm) {}

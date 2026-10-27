@@ -310,6 +310,7 @@
         (noCost ? ' Atenção: este produto ainda está sem preço de custo detalhado.' : '')
     );
     S.qty = 1;
+    S.rascunho = null;
     render();
   };
   var FSNAP = null,
@@ -461,6 +462,7 @@
     AKEYS = ['tipo', 'todos', 'fmtF', 'corF', 'q', 'open', 'det', 'selItem', 'lotesView'];
   // Fecha o cadastro (cancelar restaura o estado).
   function closeAdd() {
+    if (S.addMode === 'prod') rascunhoGuardar();
     if (ASNAP) {
       AKEYS.forEach(function (k) {
         S[k] = ASNAP[k];

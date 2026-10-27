@@ -40,7 +40,7 @@
   <div class="mhead"><h2 id="addTitle" style="margin:0;font-size:18px">Adicionar</h2><button class="tab" id="addClose" type="button">Fechar</button></div>
   <div id="addMenu" class="col" style="gap:16px">
     <button class="tab" id="addBack" type="button" hidden style="align-self:flex-start">← Voltar</button>
-    <div id="addPhotoB"><div class="lbl">O que chegou?</div>
+    <div id="addPhotoB"><div id="addRasc" hidden style="margin-bottom:10px"></div><div class="lbl">O que chegou?</div>
       <button class="go" id="btnLeitor" type="button" aria-label="Ler haste" title="Ler haste" style="width:100%;margin:0;display:flex;align-items:center;justify-content:center;gap:10px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><path d="M7 12h10"/></svg>Ler haste</button>
       <div class="hint" style="margin:8px 0 12px">Aponte para o código da haste. O app diz se o modelo já existe (dar entrada) ou se é novo (cadastrar).</div>
       <button class="tab" id="btnFoto" type="button" aria-label="Foto da peça ou etiqueta" style="width:100%;min-height:52px;display:flex;align-items:center;justify-content:center;gap:10px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Foto da peça ou etiqueta</button>
@@ -55,6 +55,7 @@
       <div id="lotMsg" role="status" style="font-size:14px;margin-top:8px"></div>
       <div class="hint" style="margin-top:8px">O app lê a nota do lote (quantidade, custo por peça, tipo) e preenche o cadastro. Você confere antes de criar.</div></div>
     <div id="lotForm"></div></div>
+    <div id="addQuickB" class="col" hidden></div>
     <div id="addProdRest" class="col" style="gap:16px">
     <div><div class="lbl">Tipo de produto</div><div class="tabs" id="mTipos" role="group" aria-label="Tipo do produto a adicionar"></div><div id="mTipoNew"></div></div>
       <div class="tabs" hidden><button class="tab" id="mV">Vender</button><button class="tab" id="mE">Dar entrada</button></div>
@@ -63,6 +64,7 @@
       <div id="vBox"><div class="lbl">Peça</div><div class="nav" id="vLines"></div></div>
 
       <div id="eBox" class="col" hidden>
+        <div id="eCloneB" class="col" hidden style="gap:6px;margin-bottom:10px"></div>
         <div id="eNomeB" style="margin-bottom:10px"><div class="lbl">Nome do produto <span class="hint" style="display:inline;margin:0">(opcional)</span></div><input class="in" id="eNome" placeholder="Ex.: Gatinho preto fosco" maxlength="60"></div>
         <div class="erow2" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div><div class="lbl" id="eRefL">Código da haste</div><input class="in" id="eRef" placeholder="Ex.: SP57765"><div class="hint" id="eRefH" style="color:var(--ok)"></div></div>
         <div id="eMedB"><div class="lbl">Medidas</div><input class="in" id="eMed" placeholder="Ex.: 53□18-140"></div></div>
@@ -100,6 +102,7 @@
         <details id="phMais" class="mais"><summary>Mais detalhes (opcional)</summary><div class="col" style="gap:10px;margin-top:10px"><div><div class="lbl">Nome do produto <span class="hint" style="display:inline;margin:0">(opcional)</span></div><input class="in" id="phNome" placeholder="Ex.: Gatinho preto fosco" maxlength="60"></div>
         <div id="phIdent" class="col" style="gap:10px"></div><div class="descp"><div class="lbl">Descrição do produto <span class="hint" style="display:inline;margin:0">(opcional)</span></div><textarea class="in" id="phDescP" rows="3" placeholder="Ex.: Armação de acetato verde, haste larga, formato diferente" maxlength="200"></textarea><div class="hint" id="phDescPH">Sugerida a partir da foto. Confira e corrija se precisar.</div></div>
         </div></details>
+        <div id="phSimilar" class="col" hidden style="gap:8px"></div>
         <div><div class="lbl">Código da haste</div><input class="in" id="phRef" placeholder="Ex.: SP57765, BR44118 ou CX012"><div class="hint" id="phRefH">Se a foto tiver o código, o app tenta ler sozinho. Confira sempre.</div></div>
         <div id="phTipoB" hidden><div class="lbl">Tipo do produto novo</div><div class="nav" id="phTipos"></div></div>
         <div><div class="lbl">Cor desta variação</div><div class="sel"><span class="dot" id="phDot" style="width:22px;height:22px"></span><input class="in" id="phCor" placeholder="Ex.: Bege translúcido"></div><div class="nav" id="phCorChips" style="margin-top:8px"></div><div id="phCorNew"></div><div class="hint" id="phCorH"></div></div>

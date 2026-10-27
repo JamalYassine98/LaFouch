@@ -678,6 +678,61 @@ async def main():
             if not ok: falhas.append('editar pula'); print('        veio', res, pg.erros)
             await pg.close()
 
+            # entrada rápida: modelo que já existe (peça comum e pré-graduado com vários graus), parecidos por foto, copiar de outro
+            pg = await pagina()
+            total += 1
+            await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.elog = []; L.setView('estoque'); }""")
+            await pg.wait_for_timeout(300)
+            r = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, o = {};
+                S.grp = []; S.fotos = {};
+                S.items = [{tipo:'solar', ref:'QA1', vr:'C1', cor:'Preto', qty:6, custo:2, fmt:'Quadrado', med:'54□18-140'}, {tipo:'solar', ref:'QA1', vr:'C2', cor:'Dourado', qty:2, custo:2, fmt:'Quadrado', med:'54□18-140'},
+                           {tipo:'pre', ref:'PG-012', grau:'+1.50', vr:'C4', cor:'Roxa', qty:6, custo:2.5, fmt:'Quadrado'}];
+                L.render(); o.abre = L.quickOpen('QA1');
+                await new Promise(r => setTimeout(r, 200));
+                o.vis = !document.getElementById('addQuickB').hidden; o.banner = document.querySelector('#addQuickB .lfban').innerText.indexOf('QA1 já está no estoque') >= 0;
+                const mais = document.querySelectorAll('#addQuickB .st2 .step')[1]; mais.click(); await new Promise(r => setTimeout(r, 100));
+                document.querySelectorAll('#addQuickB .st2 .step')[1].click(); await new Promise(r => setTimeout(r, 100));
+                document.getElementById('qkGo').click(); await new Promise(r => setTimeout(r, 900));
+                o.qty = S.items[0].qty; o.elog = S.elog.filter(x => x.qty === 3 && x.ref === 'QA1').length; o.toast = document.getElementById('lfToast').textContent;
+                document.getElementById('qkGo').click(); await new Promise(r => setTimeout(r, 300)); o.toast2 = document.getElementById('lfToast').textContent;
+                L.quickOpen('PG-012'); await new Promise(r => setTimeout(r, 200));
+                const chips = [...document.querySelectorAll('#addQuickB .chip')]; const c15 = chips.find(c => c.textContent === '+1,50'), c20 = chips.find(c => c.textContent === '+2,00');
+                c15.click(); await new Promise(r => setTimeout(r, 100)); [...document.querySelectorAll('#addQuickB .chip')].find(c => c.textContent === '+2,00').click(); await new Promise(r => setTimeout(r, 100));
+                document.querySelectorAll('#addQuickB .st2 .step')[1].click(); await new Promise(r => setTimeout(r, 100));
+                o.cust = document.getElementById('qkCusto').value; o.btn = document.getElementById('qkGo').textContent;
+                document.getElementById('qkGo').click(); await new Promise(r => setTimeout(r, 300));
+                const a = S.items.filter(i => i.ref === 'PG-012' && i.grau === '+1.50')[0], b = S.items.filter(i => i.ref === 'PG-012' && i.grau === '+2.00')[0];
+                o.pre = [a.qty, b && b.qty, b && b.custo, a.custo, S.items.filter(i => i.ref === 'PG-012').length];
+                return o }""")
+            ok = r['abre'] and r['vis'] and r['banner'] and r['qty'] == 9 and r['elog'] == 1 and '+3' in r['toast'] and 'no total' in r['toast2'] and r['cust'] == '2,5' and '3' in r['btn'] and r['pre'] == [8, 1, 2.5, 2.5, 2]
+            print(('  ok  ' if ok else ' FALHA ') + 'entrada rápida: modelo existente soma na linha, pré-graduado com vários graus, avisos que se somam')
+            if not ok: falhas.append('entrada rápida'); print('        veio', r, pg.erros)
+            total += 1
+            r = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, o = {};
+                const mk = (fr, bg) => { const c = document.createElement('canvas'); c.width = 120; c.height = 60; const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0,0,120,60); g.fillStyle = fr; g.fillRect(8,18,40,26); g.fillRect(72,18,40,26); g.fillRect(48,28,24,5); return c.toDataURL('image/png') };
+                const mk2 = (fr) => { const c = document.createElement('canvas'); c.width = 120; c.height = 60; const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0,0,120,60); g.fillStyle = fr; g.beginPath(); g.arc(34,32,22,0,7); g.arc(86,32,22,0,7); g.fill(); return c.toDataURL('image/png') };
+                S.items = [{tipo:'pre', ref:'PX1', grau:'+1.00', cor:'Vermelha', qty:3, custo:1}, {tipo:'pre', ref:'PX2', grau:'+1.00', cor:'Azul', qty:3, custo:1}, {tipo:'pre', ref:'PX3', grau:'+1.00', cor:'Preta', qty:3, custo:1}];
+                S.fotos = {'PX1|Vermelha': mk('#c0302a'), 'PX2|Azul': mk2('#2a4fc0'), 'PX3|Preta': mk('#202020')};
+                const l = await L.simRank(mk('#c43a30'), 'pre'); o.top = l[0].ref; o.n = l.length; o.ord = l.map(x => x.score > 0).every(Boolean);
+                const l2 = await L.simRank(mk2('#2f55c8'), 'pre'); o.top2 = l2[0].ref;
+                return o }""")
+            ok = r['top'] == 'PX1' and r['n'] == 3 and r['ord'] and r['top2'] == 'PX2'
+            print(('  ok  ' if ok else ' FALHA ') + 'modelos parecidos por foto: o mais parecido (forma e cor) vem primeiro')
+            if not ok: falhas.append('parecidos'); print('        veio', r, pg.erros)
+            total += 1
+            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S, o = {};
+                S.items = [{tipo:'solar', ref:'CL1', vr:'C3', cor:'Preto', qty:4, custo:3.5, fmt:'Aviador', med:'58□16-145'}]; S.tipo = 'solar'; S.addOpen = true; S.addMode = 'prod'; L.render();
+                o.clone = !document.getElementById('eCloneB').hidden;
+                L.cloneDe('CL1'); o.med = document.getElementById('eMed').value; o.custo = document.getElementById('eCusto').value; o.fmt = S.eFmt;
+                document.getElementById('eRef').value = 'ZZ999'; L.render(); o.livre = document.getElementById('eRefH').textContent.indexOf('Código livre') >= 0;
+                document.getElementById('eRef').value = 'CL1'; L.render(); o.rapido = !document.getElementById('eQuickBtn').hidden;
+                document.getElementById('eRef').value = 'ZZ998'; L.rascunhoGuardar(); o.rasc = S.rascunho && S.rascunho.ref;
+                return o }""")
+            ok = r['clone'] and r['med'] == '58□16-145' and r['custo'] == '3.5' and r['fmt'] == 'Aviador' and r['livre'] and r['rapido'] and r['rasc'] == 'ZZ998'
+            print(('  ok  ' if ok else ' FALHA ') + 'cadastro à mão: copiar de outro modelo, código livre, entrada rápida e rascunho')
+            if not ok: falhas.append('cadastro mão'); print('        veio', r, pg.erros)
+            await pg.close()
+
             # Editar produto: diminuir peças pergunta o motivo e grava no histórico
             pg = await pagina()
             total += 1

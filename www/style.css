@@ -480,3 +480,15 @@ body.arrastaBarra{-webkit-user-select:none;user-select:none;touch-action:none}
 .vsp2{display:inline-block;width:14px;height:14px;border:3px solid #fff5;border-top-color:#fff;border-radius:50%;animation:lfrot .7s linear infinite;vertical-align:-2px;margin-right:8px}
 #lfToast{position:fixed;left:16px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));max-width:420px;margin:0 auto;z-index:270;background:var(--okbg);border:1px solid #1d5a3a;color:var(--ok);border-radius:12px;padding:12px 14px;font-weight:700;pointer-events:none;transform:translateY(120px);opacity:0;transition:transform .5s cubic-bezier(.2,1.2,.3,1),opacity .3s}
 #lfToast.on{transform:none;opacity:1}
+
+/* cadastro rápido: selo "modelo reconhecido", cascata dos campos e menu enxuto */
+.lfck circle{fill:none;stroke:var(--ok);stroke-width:2.4}.lfck path{fill:none;stroke:var(--ok);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.lfban.nova{animation:lfbandown .5s cubic-bezier(.2,1.2,.3,1)}
+.lfban.nova .lfck circle{stroke-dasharray:63;stroke-dashoffset:63;animation:lfdr .5s .1s forwards}.lfban.nova .lfck path{stroke-dasharray:24;stroke-dashoffset:24;animation:lfdr .35s .5s forwards}
+@keyframes lfbandown{from{opacity:0;transform:translateY(-22px)}to{opacity:1;transform:none}}
+@keyframes lfdr{to{stroke-dashoffset:0}}
+.lfglow{animation:lfglowk .9s ease-out}
+@keyframes lfglowk{0%{box-shadow:0 0 0 0 rgba(0,255,136,.45);border-color:var(--ok)}100%{box-shadow:0 0 0 12px rgba(0,255,136,0)}}
+#addToMan{min-height:34px!important;font-size:13px;background:transparent;border-color:transparent;color:var(--mute)}
+#btnLeitor::after{content:"mais rápido";margin-left:auto;font-size:11px;font-weight:700;background:rgba(0,0,0,.28);padding:3px 9px;border-radius:99px}
+@media (prefers-reduced-motion:reduce){.lfban.nova,.lfglow{animation:none}.lfban.nova .lfck circle,.lfban.nova .lfck path{animation:none;stroke-dashoffset:0}}

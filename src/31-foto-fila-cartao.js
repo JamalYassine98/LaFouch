@@ -657,6 +657,7 @@
     $('phOk').textContent = po ? 'Salvar foto' : 'Confirmar e adicionar';
     $('phNext').hidden = po;
     $('phErr').hidden = true;
+    renderSimilar();
   }
   var NEXT = 0;
   $('phNext').onclick = function () {
