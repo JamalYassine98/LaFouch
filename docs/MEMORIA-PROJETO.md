@@ -98,3 +98,6 @@ IDEIA NOVA (17:25, NÃO implementar até ele autorizar): verificação do WhatsA
 ## v339 (27/10/2026)
 Imprimir nota: agora pergunta "Imprimir a nota?" (Imprimir / Voltar) antes de enviar à impressora.
 Site: dono escolheu a opção 3 (barreiras simples, número de WhatsApp válido). Mockup enviado; implementar no repo catalogo só após o ok.
+
+## v340 (27/10/2026) — Editar produto em 4 etapas (CONFIRMADO pelo dono, 17:47)
+Etapas: 1 Modelo (nome, código, identificação) · 2 Cores e fotos (foto, qtd/custo, excluir cor) · 3 Site (liberar, descrição, faixa) · 4 Baixa (peça quebrada + Excluir este produto). Lixeira no topo continua. Cancelar na 1; Voltar/Continuar; Salvar só na 4. Nenhuma informação removida. (Dono escreveu "oferta em 4 etapas"; interpretado como Editar produto.)

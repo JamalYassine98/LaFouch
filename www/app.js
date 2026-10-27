@@ -1612,6 +1612,7 @@
         S.ajAsk = false;
         S.ajMot = '';
         S.pdAsk = false;
+        S.edStep = 1;
       };
       var fechar = function () {
         zerar();
@@ -1626,6 +1627,12 @@
         d.appendChild(el);
         return d;
       };
+      // Editar produto em 4 etapas: 1 Modelo · 2 Cores e fotos · 3 Site · 4 Baixa (nada saiu, só foi separado)
+      var cur = S.edStep >= 1 && S.edStep <= 4 ? S.edStep : 1,
+        g = [null, mk('div', 'col'), mk('div', 'col'), mk('div', 'col'), mk('div', 'col')];
+      g.forEach(function (x) {
+        if (x) x.style.gap = '12px';
+      });
       var hd = mk('div', '');
       hd.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:8px';
       var ht = mk('h2', '', 'Editar produto');
@@ -1651,6 +1658,26 @@
       hbtn.appendChild(xb);
       hd.appendChild(hbtn);
       bx.appendChild(hd);
+      var sub0 = mk('div', 'hint', ref + (orig0 ? ' · ' + orig0 : ''));
+      sub0.style.margin = '-4px 0 0';
+      bx.appendChild(sub0);
+      var stp = mk('div', '');
+      stp.id = 'edSteps';
+      stp.style.cssText = 'display:grid;grid-template-columns:repeat(4,1fr);gap:6px';
+      ['1 Modelo', '2 Cores e fotos', '3 Site', '4 Baixa'].forEach(function (nm, k) {
+        var sb0 = btn('', '', function () {
+          S.edStep = k + 1;
+          render();
+        });
+        sb0.setAttribute('data-step', String(k + 1));
+        sb0.style.cssText = 'background:none;border:0;padding:0;text-align:left;display:flex;flex-direction:column;gap:4px;font-size:11px;color:' + (k + 1 === cur ? 'var(--accent-fg)' : 'var(--mute)') + ';font-weight:' + (k + 1 === cur ? '700' : '400');
+        var br = mk('i', '');
+        br.style.cssText = 'display:block;height:4px;border-radius:2px;background:' + (k + 1 <= cur ? 'var(--accent-fg)' : 'var(--line)');
+        sb0.appendChild(br);
+        sb0.appendChild(mk('span', '', nm));
+        stp.appendChild(sb0);
+      });
+      bx.appendChild(stp);
       if (S.pdAsk && !f.bulk) {
         var todos = S.items.filter(function (i) {
             return i.ref === ref && !i.bulk;
@@ -1713,13 +1740,13 @@
           nmi.placeholder = 'Ex.: Gatinho preto fosco';
           nmi.maxLength = 60;
           nmi.setAttribute('aria-label', 'Nome do produto');
-          bx.appendChild(fld('Nome do produto', nmi));
+          g[1].appendChild(fld('Nome do produto', nmi));
         }
         ni = mk('input', 'in');
         ni.id = 'edCodigo';
         ni.value = S.rnV != null && S.rnRef === ref ? S.rnV : ref;
         ni.setAttribute('aria-label', smp ? 'Nome do produto' : 'Código');
-        bx.appendChild(fld(smp ? 'Nome do produto' : 'Código (o que fica na haste)', ni));
+        g[1].appendChild(fld(smp ? 'Nome do produto' : 'Código (o que fica na haste)', ni));
         var guardar = function () {
           S.rnRef = ref;
           S.rnV = ni.value;
@@ -1736,9 +1763,9 @@
         identBox(idh, idc, function () {
           setAttr(ref, Object.assign({ marca: '', formato: '', material: '', publico: '', colecao: '' }, idc));
         });
-        bx.appendChild(idh);
+        g[1].appendChild(idh);
         if (nmi && !nmi.value) nmi.placeholder = nomeAuto(ref) || nmi.placeholder;
-        bx.appendChild(siteSwitch(ref));
+        g[3].appendChild(siteSwitch(ref));
       }
       // descrição (só vale ao salvar)
       var ta = mk('textarea', 'in');
@@ -1758,7 +1785,7 @@
       sg.style.cssText =
         'margin-top:8px;min-height:36px;background:var(--panel2);color:var(--sub);border:1px solid var(--line)';
       df.appendChild(sg);
-      bx.appendChild(df);
+      g[3].appendChild(df);
       // faixa do produto (só vale ao salvar)
       if (!smp && !f.bulk && S.faixas.length) {
         var fcur = S.fDraft != null ? S.fDraft : (faixaOf(ref) || {}).id || '',
@@ -1777,9 +1804,9 @@
             )
           );
         });
-        bx.appendChild(fld('Faixa', fb));
+        g[3].appendChild(fld('Faixa', fb));
       }
-      if (!f.bulk && !smp) bx.appendChild(descarteBox(ref));
+      if (!f.bulk && !smp) g[4].appendChild(descarteBox(ref));
       // foto da cor selecionada
       var ps = mk('div', '');
       ps.appendChild(mk('div', 'lbl', 'Foto · ' + cor));
@@ -1839,7 +1866,7 @@
       var ph = mk('div', 'hint', 'A foto vale para a cor toda. Para outra cor, toque nela abaixo.');
       ph.style.margin = '6px 0 0';
       ps.appendChild(ph);
-      bx.appendChild(ps);
+      g[2].appendChild(ps);
       // estoque e custo por variante
       var ev = mk('div', '');
       ev.appendChild(mk('div', 'lbl', 'Cores · quantidade e custo (US$)'));
@@ -1915,7 +1942,7 @@
         el.appendChild(r);
       });
       ev.appendChild(el);
-      bx.appendChild(ev);
+      g[2].appendChild(ev);
       // excluir a cor selecionada (produtos sem classes C1–C6)
       if (!isVr && cores.length) {
         var dz = mk('div', '');
@@ -2008,12 +2035,38 @@
           );
           dz.appendChild(cz);
         }
-        bx.appendChild(dz);
+        g[2].appendChild(dz);
       }
+      if (!f.bulk) {
+        var xz = mk('div', 'zcd');
+        xz.style.cssText = 'display:flex;flex-direction:column;gap:8px;border-color:rgba(239,68,68,.5)';
+        var xh = mk('div', 'lbl', 'Excluir produto');
+        xh.style.color = 'var(--bad)';
+        xz.appendChild(xh);
+        xz.appendChild(mk('div', 'hint', 'Remove o modelo, as cores e as fotos. As vendas já feitas continuam no histórico.'));
+        var xbt = btn('mini', 'Excluir este produto', function () {
+          S.pdAsk = true;
+          render();
+          var av = $('edLixoAviso');
+          if (av && av.scrollIntoView) av.scrollIntoView({ block: 'center' });
+        });
+        xbt.id = 'edExcluir';
+        xbt.style.cssText = 'background:transparent;color:var(--bad);border:1px solid rgba(239,68,68,.7)';
+        xz.appendChild(xbt);
+        g[4].appendChild(xz);
+      }
+      bx.appendChild(g[cur]);
       // Cancelar / Salvar
       var ft = mk('div', '');
       ft.style.cssText = 'display:flex;gap:10px';
-      var cb = btn('tab', 'Cancelar', fechar);
+      var cb =
+        cur === 1
+          ? btn('tab', 'Cancelar', fechar)
+          : btn('tab', '← Voltar', function () {
+              S.edStep = cur - 1;
+              render();
+            });
+      cb.id = cur === 1 ? 'edCancel' : 'edBack';
       cb.style.flex = '1';
       var salvar = function () {
         var nn = ni ? normRef(ni.value, smp) : ref,
@@ -2083,7 +2136,15 @@
         bx.appendChild(aq);
       }
       ft.appendChild(cb);
-      ft.appendChild(sb2);
+      if (cur < 4) {
+        var nx = btn('tab on', 'Continuar →', function () {
+          S.edStep = cur + 1;
+          render();
+        });
+        nx.id = 'edNext';
+        nx.style.flex = '2';
+        ft.appendChild(nx);
+      } else ft.appendChild(sb2);
       bx.appendChild(ft);
       ov.appendChild(bx);
       return ov;
