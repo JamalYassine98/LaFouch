@@ -95,6 +95,13 @@
     /* o formulário de cadastro precisa estar à vista (a leitura pode vir do menu Adicionar ou da Entrada da compra) */
     S.addOpen = true;
     S.addMode = 'prod';
+    if (typeof nvLimpaMed === 'function') nvLimpaMed();
+    S.nStep = 1;
+    S.nPop = '';
+    S.nCorOpen = false;
+    S.nLido = !!o.lido;
+    S.eMat = '';
+    S.ePub = '';
     $('eRef').value = o.ref || '';
     if (o.med) $('eMed').value = o.med;
     if (o.fmt) S.eFmt = o.fmt;
@@ -353,6 +360,7 @@
           ref: fr.value.trim().toUpperCase().replace(/\s+/g, ''),
           med: fm.value.trim(),
           vr: vr,
+          lido: 1,
           msg: 'Código lido: confira os dados, escolha a quantidade e toque em Adicionar.'
         });
       });
@@ -364,6 +372,7 @@
             ref: fr.value.trim().toUpperCase().replace(/\s+/g, ''),
             med: fm.value.trim(),
             vr: vr,
+            lido: 1,
             nome: z.nome,
             msg: 'Mesmo nome de produto que ' + z.ref + ': confira os dados e toque em Adicionar.'
           });

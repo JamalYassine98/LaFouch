@@ -205,7 +205,6 @@
     if (isPre && !S._gn) {
       say('Informe um grau válido.');
       render();
-      guiaMarca('eGrau');
       return;
     }
     var gr = pickG(S.tipo, S.gSel);
@@ -283,8 +282,6 @@
     }
     S.eMat = '';
     S.ePub = '';
-    S.eStep = 1;
-    S._medIni = 0;
     $('eNome').value = '';
     var dd = $('eDescP').value.trim();
     if (dd && (!S.desc[ref] || !S._known)) S.desc[ref] = dd;
@@ -441,8 +438,11 @@
   };
   $('addToMan').onclick = function () {
     S.addMode = 'prod';
-    S.eStep = 1;
-    S._medIni = 0;
+    if (typeof nvLimpaMed === "function") nvLimpaMed();
+    S.nStep = 1;
+    S.nPop = '';
+    S.nCorOpen = false;
+    S.nLido = false;
     S.eMat = '';
     S.ePub = '';
     S.msg = '';

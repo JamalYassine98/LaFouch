@@ -678,7 +678,7 @@ async def main():
                            {tipo:'pre', ref:'PG-012', grau:'+1.50', vr:'C4', cor:'Roxa', qty:6, custo:2.5, fmt:'Quadrado'}];
                 L.render(); o.abre = L.quickOpen('QA1');
                 await new Promise(r => setTimeout(r, 200));
-                o.vis = !document.getElementById('addQuickB').hidden; o.banner = document.querySelector('#addQuickB .lfban').innerText.indexOf('QA1 já está no estoque') >= 0;
+                o.vis = !document.getElementById('addQuickB').hidden; o.banner = document.querySelector('#addQuickB .lfban').innerText.indexOf('Modelo encontrado') >= 0;
                 const mais = document.querySelectorAll('#addQuickB .st2 .step')[1]; mais.click(); await new Promise(r => setTimeout(r, 100));
                 document.querySelectorAll('#addQuickB .st2 .step')[1].click(); await new Promise(r => setTimeout(r, 100));
                 document.getElementById('qkGo').click(); await new Promise(r => setTimeout(r, 900));
@@ -1124,33 +1124,43 @@ async def main():
             m1 = await pg.evaluate("() => { const v = i => { const e = document.getElementById(i); return !!e && e.offsetParent !== null }; return [v('addLoteB'), v('addBack'), v('btnLeitor'), v('addToMan')] }")
             await pg.click('#addBack'); await pg.wait_for_timeout(300)
             await pg.click('#addToMan'); await pg.wait_for_timeout(300)
-            m2 = await pg.evaluate("() => { const v = i => { const e = document.getElementById(i); return !!e && e.offsetParent !== null }; return [v('addProdRest'), v('addBack'), v('btnLeitor'), v('mTipos')] }")
+            m2 = await pg.evaluate("() => { const v = i => { const e = document.getElementById(i); return !!e && e.offsetParent !== null }; return [v('addProdRest'), v('addBack'), v('btnLeitor'), v('nv_tipo')] }")
             ok = m0 == [True, True, True, True, False, False, False, 1, True] and m1 == [True, True, False, False] and m2 == [True, True, False, True]
             print(('  ok  ' if ok else ' FALHA ') + 'Adicionar: menu único, voltar, um só leitor e sem abas Produto/Lote')
             if not ok: falhas.append('menu adicionar'); print('        veio', m0, m1, m2, pg.erros)
             total += 1
             await pg.close()
 
-            # cadastro sem formato/cor/pacote: a descrição digitada vira a descrição do modelo; foto sugere
+            # Novo modelo (tela 1) + Cores e fotos (tela 2): cadastro à mão guiado, como aprovado
             pg = await pagina()
             await pg.evaluate("() => window.__LF.setView('estoque')")
             await pg.click('#btnAdd'); await pg.wait_for_timeout(300)
             await pg.click('#addToMan'); await pg.wait_for_timeout(300)
-            await pg.locator('#mTipos >> text=Armações').click(); await pg.wait_for_timeout(300)
-            vis = await pg.evaluate("() => ['eFmtB','ePkgB','eCor'].map(i => document.getElementById(i).offsetParent === null).concat([!!document.getElementById('eDescP').offsetParent])")
-            OPEN = "() => { const d = document.getElementById('eMais'); if (d) d.open = true; }"
-            await pg.fill('#eRef', 'ZZ77'); await pg.fill('#eCusto', '0,50')
-            await pg.evaluate("() => { const S = window.__LF.S; if (S.formats.indexOf('Quadrado') < 0) S.formats.push('Quadrado'); S.eFmt = 'Quadrado'; S.eMat = 'Metal'; S.ePub = 'Unissex'; window.__LF.render(); }"); await pg.wait_for_timeout(600)
-            pas = await pg.evaluate("() => document.getElementById('eGuia').innerText")
-            await pg.click('#eNext'); await pg.wait_for_timeout(300)
-            await pg.evaluate(OPEN); await pg.fill('#eNome', ''); await pg.fill('#eDescP', 'Armação de acetato verde, haste larga')
-            await pg.locator('#eVars button:has-text("C1")').click()
-            await pg.click('#go'); await pg.wait_for_timeout(500)
-            r = await pg.evaluate("() => { const S = window.__LF.S; const it = S.items.filter(i => i.ref === 'ZZ77')[0]; return [!!it, it && it.cor, S.desc.ZZ77, document.getElementById('eDescP').value]; }")
+            await pg.click('#nv_tipo'); await pg.locator('#nvp_tipo >> text=Armações').click(); await pg.wait_for_timeout(200)
+            await pg.fill('#eRef', 'ZZ77')
+            # falta formato/material/gênero/custo: o botão avisa e não avança
+            await pg.click('#nvNext'); await pg.wait_for_timeout(300)
+            falta1 = await pg.evaluate("() => [document.getElementById('addTitle').textContent, document.body.innerText.indexOf('Falta') >= 0]")
+            for k, t in (('fmt', 'Redondo'), ('mat', 'Acetato'), ('pub', 'Feminino')):
+                await pg.click('#nv_' + k); await pg.locator('#nvp_' + k + ' >> text="' + t + '"').click()
+            await pg.fill('#eCusto', '0,50')
+            await pg.fill('#nvL', '50'); await pg.fill('#nvP', '20'); await pg.fill('#nvH', '140'); await pg.wait_for_timeout(300)
+            auto = await pg.evaluate("() => [document.getElementById('nvAuto').hidden, document.getElementById('nvAuto').innerText]")
+            await pg.evaluate("() => { const d = document.getElementById('nvMais'); if (d) d.open = true; }")
+            await pg.fill('#eDescP', 'Armação de acetato verde, haste larga')
+            await pg.click('#nvNext'); await pg.wait_for_timeout(400)
+            tit2 = await pg.evaluate("() => document.getElementById('addTitle').textContent")
+            # modelo sem nenhuma cor: o site não libera
+            await pg.locator('text=+ Adicionar cor').click(); await pg.wait_for_timeout(200)
+            await pg.locator('#nvBox >> text="Vinho"').click(); await pg.click('#nvCorOk'); await pg.wait_for_timeout(600)
+            await pg.click('#nvTg'); await pg.wait_for_timeout(300)
+            r = await pg.evaluate("""() => { const S = window.__LF.S, it = S.items.filter(i => i.ref === 'ZZ77')[0];
+              return [!!it, it && it.cor, it && it.qty, S.desc.ZZ77, !!(S.site && S.site.ZZ77), document.getElementById('nvBox').innerText.indexOf('Falta a foto da cor Vinho') >= 0]; }""")
             total += 1
-            ok = vis[:3] == [False, True, True] and '6 de 6' in pas and r == [True, 'Sem cor', 'Armação de acetato verde, haste larga', ''] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'cadastro guiado: duas telas, sem pacote e com descrição')
-            if not ok: falhas.append('cadastro desc'); print('        veio', vis, pas, r, pg.erros)
+            ok = falta1 == ['Novo modelo', True] and auto[0] is False and 'Armação redondo acetato' in auto[1] and tit2 == 'Cores e fotos' \
+                and r == [True, 'Vinho', 1, 'Armação de acetato verde, haste larga', False, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'novo modelo: duas telas, avisos, cor sem foto não libera o site')
+            if not ok: falhas.append('cadastro desc'); print('        veio', falta1, auto, tit2, r, pg.erros)
             await pg.close()
 
             # identidade do modelo: nome automático, descrição por cor, nº interno, busca e coleção

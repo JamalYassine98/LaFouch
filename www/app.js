@@ -3581,7 +3581,6 @@
     if (isPre && !S._gn) {
       say('Informe um grau válido.');
       render();
-      guiaMarca('eGrau');
       return;
     }
     var gr = pickG(S.tipo, S.gSel);
@@ -3659,8 +3658,6 @@
     }
     S.eMat = '';
     S.ePub = '';
-    S.eStep = 1;
-    S._medIni = 0;
     $('eNome').value = '';
     var dd = $('eDescP').value.trim();
     if (dd && (!S.desc[ref] || !S._known)) S.desc[ref] = dd;
@@ -3817,8 +3814,11 @@
   };
   $('addToMan').onclick = function () {
     S.addMode = 'prod';
-    S.eStep = 1;
-    S._medIni = 0;
+    if (typeof nvLimpaMed === "function") nvLimpaMed();
+    S.nStep = 1;
+    S.nPop = '';
+    S.nCorOpen = false;
+    S.nLido = false;
     S.eMat = '';
     S.ePub = '';
     S.msg = '';
@@ -14683,6 +14683,13 @@
     /* o formulário de cadastro precisa estar à vista (a leitura pode vir do menu Adicionar ou da Entrada da compra) */
     S.addOpen = true;
     S.addMode = 'prod';
+    if (typeof nvLimpaMed === 'function') nvLimpaMed();
+    S.nStep = 1;
+    S.nPop = '';
+    S.nCorOpen = false;
+    S.nLido = !!o.lido;
+    S.eMat = '';
+    S.ePub = '';
     $('eRef').value = o.ref || '';
     if (o.med) $('eMed').value = o.med;
     if (o.fmt) S.eFmt = o.fmt;
@@ -14941,6 +14948,7 @@
           ref: fr.value.trim().toUpperCase().replace(/\s+/g, ''),
           med: fm.value.trim(),
           vr: vr,
+          lido: 1,
           msg: 'Código lido: confira os dados, escolha a quantidade e toque em Adicionar.'
         });
       });
@@ -14952,6 +14960,7 @@
             ref: fr.value.trim().toUpperCase().replace(/\s+/g, ''),
             med: fm.value.trim(),
             vr: vr,
+            lido: 1,
             nome: z.nome,
             msg: 'Mesmo nome de produto que ' + z.ref + ': confira os dados e toque em Adicionar.'
           });
@@ -16544,10 +16553,12 @@
     ban.style.cssText = 'margin:0;border-color:var(--ok);padding:12px 14px';
     ban.innerHTML =
       '<div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><b style="display:flex;gap:8px;align-items:center"><svg class="lfck" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.5 3.5L17 9"/></svg>' +
-      esc(ref) +
-      ' já está no estoque</b><span class="pill o" id="qkTot">' +
+      'Modelo encontrado</b><span class="pill o" id="qkTot">' +
       tot +
-      ' peças</span></div><div class="hint" style="margin:6px 0 0">' +
+      (tot === 1 ? ' peça' : ' peças') +
+      ' no estoque</span></div><div class="hint" style="margin:6px 0 0">' +
+      esc(ref) +
+      ' · ' +
       esc(pubNome ? pubNome(ref) : ref) +
       (tp ? ' · ' + esc(tp.label) : '') +
       '</div>';
@@ -16668,9 +16679,9 @@
       cc.appendChild(mk('div', 'hint', cs ? 'Veio do cadastro do modelo. Troque só se este lote custou diferente.' : 'Este modelo ainda não tem custo: informe para dar entrada.'));
       host.appendChild(cc);
     }
-    if (!pre && ce) host.appendChild(mk('div', 'hint', 'Custo ' + ce + ' por peça, herdado do cadastro.'));
+    if (!pre && ce) host.appendChild(mk('div', 'hint', 'O custo vem do cadastro do modelo.'));
     var n = quickTotal(pre),
-      go = btn('go', n ? 'Dar entrada · ' + n + (n === 1 ? ' peça' : ' peças') : 'Escolha os graus', function () {
+      go = btn('go', n ? 'Dar entrada' + (n > 1 ? ' · ' + n + ' peças' : '') : 'Escolha os graus', function () {
         quickGo();
       });
     go.id = 'qkGo';
@@ -17045,42 +17056,25 @@
     });
     b.appendChild(x);
   }
-
-  // ----- Cadastro à mão guiado em 2 telas: "Novo modelo" (essencial) e "Cor e quantidade".
-  S.eStep = 1;
-  function medParse(v) {
-    var m = String(v || '').match(/(\d{2})\D*?(\d{1,2})\D+(\d{3})/);
-    return m ? [+m[1], +m[2], +m[3]] : null;
-  }
-  function medSet(a) {
-    $('eMed').value = a[0] + '□' + a[1] + '-' + a[2];
-    $('eMed').dispatchEvent(new Event('input', { bubbles: true }));
-    render();
-  }
-  function atrDe(ref) {
+  // ===== Novo modelo e Cores e fotos: cadastro à mão e depois de ler a haste (projeto aprovado em 27/10). =====
+  // Os campos antigos (código, custo, lote, nome, descrição) continuam sendo o motor: esta tela só os reorganiza.
+  S.nStep = 1; // 1 = Novo modelo, 2 = Cores e fotos
+  S.nPop = ''; // campo com as opções abertas
+  S.nCorOpen = false;
+  S.nNovoFmt = false;
+  var NVC = { cor: '', q: 1, vr: '', grau: '' };
+  var NV_MAT = ['Metal', 'Acetato', 'TR90', 'Plástico', 'Titânio', 'Nylon'];
+  var NV_PUB = ['Unissex', 'Feminino', 'Masculino', 'Infantil'];
+  function nvAtr(ref) {
     try {
       return (ref && attrOf(ref)) || {};
     } catch (e) {
       return {};
     }
   }
-  // Passos da tela 1: [rótulo, campo, feito].
-  function guiaPassos() {
-    var t = tipoOf(S.tipo) || {},
-      pre = S.tipo === 'pre',
-      simple = !!t.simple,
-      at = atrDe(S._ref),
-      cu = parseFloat(String($('eCusto').value || '').replace(',', '.')),
-      pg = pickG(S.tipo, S.gSel),
-      p = [['Tipo', 'mTipos', true], ['Código', 'eRef', !!S._ref]];
-    if (!simple) {
-      if (pre) p.push(['Grau', 'eGrau', !!S._gn]);
-      p.push(['Formato', 'eFmts', !!S._fmtUsed]);
-      p.push(['Material', 'eMatC', !!(S.eMat || at.material)]);
-      p.push(['Gênero', 'ePubC', !!(S.ePub || at.publico)]);
-    }
-    p.push(['Custo', 'eCusto', cu > 0 || !!pg.g]);
-    return p;
+  function medParse(v) {
+    var m = String(v || '').match(/(\d{2})\D*?(\d{1,2})\D+(\d{3})/);
+    return m ? [m[1], m[2], m[3]] : null;
   }
   // Marca o campo que falta: balança, contorno vermelho e rola até ele.
   function guiaMarca(id) {
@@ -17089,269 +17083,739 @@
     try {
       e.scrollIntoView({ block: 'center', behavior: REDUCED ? 'auto' : 'smooth' });
     } catch (x) {}
-    if (REDUCED) return;
-    var w = e.closest('.s1') || e;
-    w.classList.remove('lfshake');
-    void w.offsetWidth;
-    w.classList.add('lfshake');
-    e.style.borderColor = 'var(--bad)';
+    e.classList.add('nvbad');
+    if (!REDUCED) {
+      var w = e.parentNode || e;
+      w.classList.remove('lfshake');
+      void w.offsetWidth;
+      w.classList.add('lfshake');
+    }
     setTimeout(function () {
-      e.style.borderColor = '';
-    }, 2200);
+      e.classList.remove('nvbad');
+    }, 2600);
   }
-  function chipsRow(id, itens, cur, set) {
-    var w = $(id);
-    w.textContent = '';
-    itens.forEach(function (v) {
-      w.appendChild(
-        btn(
-          'chip' + (cur === v ? ' on' : ''),
-          v,
-          function () {
-            set(cur === v ? '' : v);
-            render();
-          },
-          cur === v
-        )
-      );
-    });
-  }
-  function guiaBloco(id, rotulo, filho) {
-    var d = mk('div', 's1');
-    d.id = id;
-    d.appendChild(mk('div', 'lbl', rotulo));
-    d.appendChild(filho);
-    return d;
-  }
-  // Monta uma vez a ordem das telas (os campos antigos mudam de lugar, com os mesmos ids).
-  function guiaMontar() {
-    if ($('eGuia')) return;
-    var box = $('eBox'),
-      g = mk('div', 'card s1');
-    g.id = 'eGuia';
-    g.style.cssText = 'margin:0;padding:12px';
-    var mat = mk('div', 'nav');
-    mat.id = 'eMatC';
-    var pub = mk('div', 'nav');
-    pub.id = 'ePubC';
-    var med = mk('div', 'erow2');
-    med.id = 'eMedS';
-    med.style.cssText = 'grid-template-columns:repeat(3,minmax(0,1fr));gap:8px';
-    var au = mk('div', 'card s1');
-    au.id = 'eAutoCard';
-    au.style.cssText = 'margin:0;padding:12px';
-    var nx = btn('go s1', 'Continuar', function () {
-      var f = guiaPassos().filter(function (x) {
-        return !x[2];
-      })[0];
-      if (f) {
-        popErr('Falta ' + f[0].toLowerCase() + '.');
-        guiaMarca(f[1]);
-        return;
-      }
-      S.eStep = 2;
-      render();
-      try {
-        $('addModal').scrollTop = 0;
-      } catch (e) {}
-    });
-    nx.id = 'eNext';
-    var vb = mk('button', 'tab s2', '← Voltar para o essencial');
-    vb.type = 'button';
-    vb.id = 'eBackS';
-    vb.style.alignSelf = 'flex-start';
-    vb.onclick = function () {
-      S.eStep = 1;
+  // Campo que abre opções ao tocar.
+  function nvFld(key, rotulo) {
+    var w = mk('div', ''),
+      b = mk('button', 'in nvf ph');
+    w.appendChild(mk('div', 'lbl', rotulo));
+    b.type = 'button';
+    b.id = 'nv_' + key;
+    b.onclick = function () {
+      S.nPop = S.nPop === key ? '' : key;
       render();
     };
-    var d = document.createElement('details');
-    d.id = 'eMais';
-    d.className = 's2';
-    d.innerHTML =
-      '<summary class="lbl" style="cursor:pointer;margin:0">Mais detalhes (opcional)</summary><div class="col" id="eMaisBox" style="gap:10px;margin-top:10px"></div>';
-    var refRow = $('eRef').closest('.erow2'),
-      corB = $('eCorL').parentNode;
-    $('eFmtB').classList.remove('gone');
-    corB.classList.remove('gone');
-    [$('eFmtB'), corB, $('eVarB'), $('eFaixaB')].forEach(function (e) {
-      e.classList.add(e === $('eFmtB') ? 's1' : 's2');
-    });
-    ['eGrauB', 'eCustoB', 'eLoteB'].forEach(function (id) {
-      $(id).classList.add('s1');
-    });
-    refRow.classList.add('s1');
-    $('eMedB').classList.add('s1');
-    $('eMedB').firstChild.textContent = 'Medidas';
-    $('eMed').style.display = 'none';
-    refRow.style.gridTemplateColumns = 'minmax(0,1fr)';
-    $('qv').closest('.sel').parentNode.id = 'qtyB';
-    $('qtyB').classList.add('s2');
-    $('st').classList.add('s2');
-    $('go').classList.add('s2');
-    $('mTipos').parentNode.classList.add('s1');
-    $('pc').classList.add('s1');
-    box.appendChild(d);
-    $('eMaisBox').appendChild($('eNomeB'));
-    $('eMaisBox').appendChild(box.querySelector('.descp'));
-    $('eMaisBox').appendChild($('ePkgB'));
-    [
-      g,
-      $('eCloneB'),
-      refRow,
-      $('eGrauB'),
-      $('eFmtB'),
-      guiaBloco('eMatB', 'Material', mat),
-      $('eMedB'),
-      guiaBloco('ePubB', 'Gênero', pub),
-      $('eCustoB'),
-      $('eLoteB'),
-      au,
-      nx,
-      vb,
-      corB,
-      $('eVarB'),
-      $('eFaixaB'),
-      d
-    ].forEach(function (e) {
-      box.appendChild(e);
-    });
-    $('eMedB').appendChild(med);
-    box.style.gap = '14px';
+    var p = mk('div', 'nav');
+    p.id = 'nvp_' + key;
+    p.style.marginTop = '8px';
+    p.hidden = true;
+    w.appendChild(b);
+    w.appendChild(p);
+    w.id = 'nvw_' + key;
+    return w;
   }
-  function stepper(w, rot, val, min, max, set) {
-    var c = mk('div', ''),
-      r = mk('div', 'sel');
-    c.appendChild(mk('div', 'lbl', rot));
-    r.style.cssText = 'gap:4px;flex-wrap:nowrap';
-    var m = btn('step', '−', function () {
-        set(Math.max(min, val - 1));
+  // Limpa as medidas digitadas ao abrir um cadastro novo.
+  function nvLimpaMed() {
+    ['nvL', 'nvP', 'nvH'].forEach(function (k) {
+      if ($(k)) $(k).value = '';
+    });
+  }
+  function nvNum(id, rotulo) {
+    var w = mk('div', ''),
+      i = mk('input', 'in');
+    w.appendChild(mk('div', 'lbl', rotulo));
+    i.id = id;
+    i.inputMode = 'numeric';
+    i.autocomplete = 'off';
+    i.maxLength = 3;
+    i.placeholder = '—';
+    i.setAttribute('aria-label', rotulo);
+    i.oninput = function () {
+      i.value = i.value.replace(/\D/g, '');
+      var l = $('nvL').value,
+        p = $('nvP').value,
+        h = $('nvH').value;
+      $('eMed').value = l && p && h ? l + '□' + p + '-' + h : '';
+      render();
+    };
+    w.appendChild(i);
+    return w;
+  }
+  function nvMontar() {
+    if ($('nvBox')) return;
+    var rest = $('addProdRest'),
+      box = mk('div', 'col');
+    box.id = 'nvBox';
+    box.style.gap = '14px';
+    rest.insertBefore(box, rest.firstChild);
+    var sub = mk('div', 'hint');
+    sub.id = 'nvSub';
+    sub.style.margin = '-8px 0 0';
+    box.appendChild(sub);
+    // ---- tela 1
+    var s1 = mk('div', 'col');
+    s1.id = 'nvS1';
+    s1.style.gap = '14px';
+    box.appendChild(s1);
+    var ess = mk('div', 'card col');
+    ess.style.gap = '12px';
+    ess.id = 'nvEss';
+    s1.appendChild(ess);
+    var r1 = mk('div', 'nvg2');
+    r1.appendChild(nvFld('tipo', 'Tipo'));
+    var cw = mk('div', '');
+    cw.id = 'nvCod';
+    cw.appendChild($('eRef').parentNode);
+    r1.appendChild(cw);
+    ess.appendChild(r1);
+    var r2 = mk('div', 'nvg2');
+    r2.id = 'nvR2';
+    r2.appendChild(nvFld('fmt', 'Formato'));
+    r2.appendChild(nvFld('mat', 'Material'));
+    ess.appendChild(r2);
+    var nf = mk('div', 'col');
+    nf.id = 'nvNovoFmt';
+    nf.hidden = true;
+    nf.style.gap = '8px';
+    var nfi = mk('input', 'in');
+    nfi.id = 'nvNF';
+    nfi.placeholder = 'Nome do formato (ex.: Oval)';
+    nfi.autocomplete = 'off';
+    nf.appendChild(nfi);
+    var nfb = btn('mini', 'Criar formato', function () {
+      var raw = nfi.value.trim();
+      if (!raw) return;
+      var n = raw[0].toUpperCase() + raw.slice(1);
+      if (
+        !S.formats.some(function (f) {
+          return f.toLowerCase() === n.toLowerCase();
+        })
+      )
+        S.formats.push(n);
+      S.eFmt = n;
+      nfi.value = '';
+      S.nNovoFmt = false;
+      S.nPop = '';
+      render();
+    });
+    nf.appendChild(nfb);
+    ess.appendChild(nf);
+    var r3 = mk('div', 'nvg3');
+    r3.id = 'nvMed';
+    r3.appendChild(nvNum('nvL', 'Lente (mm)'));
+    r3.appendChild(nvNum('nvP', 'Ponte (mm)'));
+    r3.appendChild(nvNum('nvH', 'Haste (mm)'));
+    ess.appendChild(r3);
+    var r4 = mk('div', 'nvg2');
+    r4.id = 'nvR4';
+    r4.appendChild(nvFld('pub', 'Gênero'));
+    var cu = mk('div', '');
+    cu.id = 'nvCusto';
+    cu.appendChild($('eCustoB'));
+    r4.appendChild(cu);
+    ess.appendChild(r4);
+    var lt = mk('div', '');
+    lt.id = 'nvLote';
+    lt.appendChild($('eLoteB'));
+    ess.appendChild(lt);
+    var au = mk('div', 'nvauto');
+    au.id = 'nvAuto';
+    au.hidden = true;
+    s1.appendChild(au);
+    var mais = document.createElement('details');
+    mais.id = 'nvMais';
+    mais.innerHTML = '<summary class="lbl" style="cursor:pointer;margin:0">Mais detalhes (opcional)</summary><div class="col" id="nvMaisBox" style="gap:12px;margin-top:10px"></div>';
+    s1.appendChild(mais);
+    var mb = $('nvMaisBox');
+    mb.appendChild($('eNomeB'));
+    mb.appendChild($('eBox').querySelector('.descp'));
+    mb.appendChild($('eFaixaB'));
+    var nx = btn('go', 'Continuar para cores e fotos', function () {
+      nvContinuar();
+    });
+    nx.id = 'nvNext';
+    s1.appendChild(nx);
+    // ---- tela 2
+    var s2 = mk('div', 'col');
+    s2.id = 'nvS2';
+    s2.style.gap = '14px';
+    box.appendChild(s2);
+    // ---- foto de uma cor
+    var fi = document.createElement('input');
+    fi.type = 'file';
+    fi.accept = 'image/*';
+    fi.hidden = true;
+    fi.id = 'nvFile';
+    fi.onchange = function () {
+      nvFoto(fi.files && fi.files[0]);
+      fi.value = '';
+    };
+    box.appendChild(fi);
+  }
+  // Passos da tela 1: [rótulo, id do campo, feito].
+  function nvPassos() {
+    var t = tipoOf(S.tipo) || {},
+      simple = !!t.simple,
+      at = nvAtr(S._ref),
+      cu = parseFloat(String($('eCusto').value || '').replace(',', '.')),
+      pg = pickG(S.tipo, S.gSel),
+      p = [];
+    if (simple) p.push(['Nome', 'eRef', !!S._ref]);
+    if (!simple) {
+      p.push(['Formato', 'nv_fmt', !!S._fmtUsed]);
+      p.push(['Material', 'nv_mat', !!(S.eMat || at.material)]);
+      p.push(['Gênero', 'nv_pub', !!(S.ePub || at.publico)]);
+    }
+    p.push(['Custo', 'eCusto', cu > 0 || !!pg.g]);
+    return p;
+  }
+  function nvContinuar() {
+    var f = nvPassos().filter(function (x) {
+      return !x[2];
+    })[0];
+    if (f) {
+      popErr('Falta ' + f[0].toLowerCase() + '.');
+      guiaMarca(f[1]);
+      return;
+    }
+    var t = tipoOf(S.tipo) || {};
+    if (!S._ref && !t.simple) {
+      $('eRef').value = refAuto(S.tipo);
+      S.nAutoRef = $('eRef').value;
+      render();
+    }
+    if (t.simple) {
+      S.nStep = 2;
+    } else S.nStep = 2;
+    S.nPop = '';
+    render();
+    try {
+      $('addModal').scrollTop = 0;
+    } catch (e) {}
+  }
+  function nvOpcoes(key, lista, atual, set, extra) {
+    var p = $('nvp_' + key);
+    if (!p) return;
+    p.hidden = S.nPop !== key;
+    p.textContent = '';
+    if (p.hidden) return;
+    lista.forEach(function (v) {
+      var c = btn(
+        'chip' + (atual === v ? ' on' : ''),
+        v,
+        function () {
+          set(v);
+          S.nPop = '';
+          render();
+        },
+        atual === v
+      );
+      p.appendChild(c);
+    });
+    if (extra) p.appendChild(extra);
+  }
+  function nvCampo(key, valor) {
+    var b = $('nv_' + key);
+    if (!b) return;
+    b.className = 'in nvf ' + (valor ? 'ok' : 'ph');
+    b.textContent = '';
+    var s = mk('span', '', valor || 'Escolher');
+    b.appendChild(s);
+    if (valor) {
+      var c = mk('span', 'nvck', '✓');
+      b.appendChild(c);
+    }
+  }
+  // Nome, rosto e faixa que o app preenche sozinho.
+  function nvAutoCard() {
+    var au = $('nvAuto'),
+      t = tipoOf(S.tipo) || {},
+      at = nvAtr(S._ref),
+      fm = S._fmtUsed || '',
+      mt = S.eMat || at.material || '',
+      cu = parseFloat(String($('eCusto').value || '').replace(',', '.')),
+      pg = pickG(S.tipo, S.gSel),
+      c = pg.g ? gUnit(pg.g) : cu;
+    au.hidden = !!t.simple || !fm;
+    if (au.hidden) return;
+    var base = S.tipo === 'solar' ? 'Solar' : S.tipo === 'pre' ? 'Pré-graduado' : 'Armação',
+      nome = (base + ' ' + fm.toLowerCase() + ' ' + mt.toLowerCase()).replace(/\s+/g, ' ').trim(),
+      rosto = (ROSTO_DE[fm] || []).join(', '),
+      fx = null;
+    if (S.eFaixa)
+      fx = S.faixas.filter(function (x) {
+        return x.id === S.eFaixa;
+      })[0];
+    else if (S._ref && faixaOf(S._ref)) fx = faixaOf(S._ref);
+    else if (S.faixaAuto && S.faixaAuto.on && S.faixas.length && c > 0) {
+      var lim = S.faixaAuto.lim || [],
+        k = 0;
+      while (k < lim.length && k < S.faixas.length - 1 && c > lim[k]) k++;
+      fx = S.faixas[k];
+    }
+    var pr = fx && fx.precos && fx.precos[S.tipo] > 0 ? fx.precos[S.tipo] : t.price > 0 ? t.price : 0;
+    au.innerHTML =
+      '<h3>O app preenche sozinho</h3><div class="r"><span>Nome no site</span><b>' +
+      esc(nome) +
+      '</b></div>' +
+      (rosto ? '<div class="r"><span>Rosto que combina</span><b>' + esc(rosto) + '</b></div>' : '') +
+      '<div class="r"><span>Faixa e preço</span><b>' +
+      esc(fx ? fx.nome : c > 0 ? 'Sem faixa' : 'Falta o custo') +
+      (pr > 0 ? ' · ' + gs(pr) : '') +
+      '</b></div>';
+  }
+  // Cores já cadastradas do modelo, com quantidade e foto.
+  function nvCores(ref) {
+    var seen = {},
+      out = [];
+    S.items.forEach(function (i) {
+      if (i.ref !== ref || i.bulk) return;
+      var o = seen[i.cor];
+      if (!o) {
+        o = seen[i.cor] = { cor: i.cor, qty: 0 };
+        out.push(o);
+      }
+      o.qty += i.qty;
+    });
+    return out;
+  }
+  function nvFoto(f) {
+    if (!f || !S._ref || !NVC.fotoCor) return;
+    var ref = S._ref,
+      cor = NVC.fotoCor,
+      url = URL.createObjectURL(f),
+      img = new Image();
+    img.onload = function () {
+      try {
+        var cv = fitCanvas(img, 1800);
+        setFoto(ref + '|' + cor, thumbOf(cv), cv.toDataURL('image/jpeg', 0.92));
+        if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd');
+        saveSoon();
+      } catch (e) {
+        S.msg = 'Não consegui processar essa foto. Tente outra.';
+      }
+      URL.revokeObjectURL(url);
+      NVC.fotoCor = '';
+      render();
+    };
+    img.onerror = function () {
+      S.msg = 'Não consegui abrir essa imagem. Tente outra foto.';
+      NVC.fotoCor = '';
+      render();
+    };
+    img.src = url;
+  }
+  // Adiciona uma cor: usa o mesmo motor de "Registrar entrada".
+  function nvAddCor() {
+    var ref = S._ref,
+      t = tipoOf(S.tipo) || {},
+      pre = S.tipo === 'pre';
+    if (!NVC.cor) {
+      popErr('Escolha a cor.');
+      guiaMarca('nvCorIn');
+      return;
+    }
+    if (pre && !normGrau($('nvGrau').value || '')) {
+      popErr('Informe o grau da peça (ex.: +1.75 ou 175).');
+      guiaMarca('nvGrau');
+      return;
+    }
+    var custo = $('eCusto').value;
+    $('eCor').value = NVC.cor;
+    if (pre) {
+      $('eGrau').value = $('nvGrau').value;
+      if (NVC.vr) S.eVarP = NVC.vr;
+    } else if (NVC.vr) S.eVar = NVC.vr;
+    S.qty = Math.max(1, NVC.q);
+    render();
+    var antes = S.items.reduce(function (n, i) {
+      return n + (i.ref === ref ? i.qty : 0);
+    }, 0);
+    S.msg = '';
+    $('go').onclick();
+    var depois = S.items.reduce(function (n, i) {
+      return n + (i.ref === ref ? i.qty : 0);
+    }, 0);
+    $('eCusto').value = custo;
+    if (depois <= antes) {
+      var m = S.msg || 'Não consegui registrar a cor. Confira os dados.';
+      popErr(m);
+      render();
+      return;
+    }
+    var qOk = NVC.q;
+    S.nCorOpen = false;
+    NVC.cor = '';
+    NVC.q = 1;
+    NVC.grau = '';
+    S.msg = '';
+    render();
+    lfEntrada(qOk, pubNome(ref));
+  }
+  function nvTela2() {
+    var s2 = $('nvS2'),
+      ref = S._ref,
+      t = tipoOf(S.tipo) || {},
+      pre = S.tipo === 'pre';
+    s2.textContent = '';
+    if (t.simple) {
+      var cq = mk('div', 'card col');
+      cq.style.gap = '10px';
+      cq.appendChild(mk('div', 'lbl', 'Quantas peças?'));
+      var sq = mk('div', 'nvstp'),
+        qm = btn('step', '−', function () {
+          S.qty = Math.max(1, S.qty - 1);
+          render();
+        }),
+        qp = btn('step', '+', function () {
+          S.qty = Math.min(999, S.qty + 1);
+          render();
+        });
+      qm.setAttribute('aria-label', 'Diminuir quantidade');
+      qp.setAttribute('aria-label', 'Aumentar quantidade');
+      sq.appendChild(qm);
+      sq.appendChild(mk('b', '', String(S.qty)));
+      sq.appendChild(qp);
+      cq.appendChild(sq);
+      s2.appendChild(cq);
+      var rg = btn('go', 'Registrar entrada', function () {
+        var antes = S.items.reduce(function (n, i) {
+          return n + (i.ref === ref ? i.qty : 0);
+        }, 0);
+        S.msg = '';
+        $('go').onclick();
+        var dep = S.items.reduce(function (n, i) {
+          return n + (i.ref === ref ? i.qty : 0);
+        }, 0);
+        if (dep <= antes) {
+          popErr(S.msg || 'Não consegui registrar. Confira os dados.');
+          render();
+          return;
+        }
+        var q0 = dep - antes;
+        S.nStep = 1;
+        closeAdd();
+        lfEntrada(q0, pubNome(ref));
+      });
+      s2.appendChild(rg);
+      return;
+    }
+    var cs = nvCores(ref),
+      sc = siteCheck(ref);
+    // cores do modelo
+    var c1 = mk('div', 'card col');
+    c1.style.gap = '8px';
+    c1.appendChild(mk('div', 'lbl', 'Cores do modelo'));
+    if (!cs.length) {
+      var vz = mk('div', 'hint', 'Nenhuma cor ainda. Adicione a primeira para registrar a entrada.');
+      vz.style.margin = '0';
+      c1.appendChild(vz);
+    }
+    cs.forEach(function (c) {
+      var ft = S.fotos[ref + '|' + c.cor],
+        r = btn('nvcor', '', function () {
+          NVC.fotoCor = c.cor;
+          $('nvFile').click();
+        });
+      r.setAttribute('aria-label', 'Foto da cor ' + c.cor);
+      var th = mk('div', 'nvthm');
+      if (ft) {
+        var im = document.createElement('img');
+        im.src = ft;
+        im.alt = '';
+        th.appendChild(im);
+      } else th.textContent = '📷';
+      r.appendChild(th);
+      var tx = mk('div', '');
+      tx.style.cssText = 'flex:1;min-width:0';
+      tx.appendChild(mk('b', '', c.cor));
+      tx.appendChild(mk('small', '', c.qty + (c.qty === 1 ? ' peça · ' : ' peças · ') + (ft ? 'foto ok' : 'sem foto')));
+      r.appendChild(tx);
+      r.appendChild(mk('span', 'nvpl' + (ft ? '' : ' w'), ft ? 'pronta' : 'falta foto'));
+      c1.appendChild(r);
+    });
+    if (S.nCorOpen) {
+      var nc = mk('div', 'card col');
+      nc.style.cssText = 'gap:10px;background:var(--panel2);margin:0';
+      nc.appendChild(mk('div', 'lbl', 'Nova cor'));
+      var ch = mk('div', 'nav');
+      Object.keys(S.palette).forEach(function (k) {
+        if (k === 'Sem detalhe' || k === 'Sem cor') return;
+        ch.appendChild(
+          btn(
+            'chip' + (NVC.cor === k ? ' on' : ''),
+            k,
+            function () {
+              NVC.cor = k;
+              render();
+            },
+            NVC.cor === k
+          )
+        );
+      });
+      nc.appendChild(ch);
+      var oi = mk('input', 'in');
+      oi.id = 'nvCorIn';
+      oi.placeholder = 'Ou digite outra cor (ex.: Bege translúcido)';
+      oi.autocomplete = 'off';
+      oi.value = Object.keys(S.palette).indexOf(NVC.cor) >= 0 ? '' : NVC.cor;
+      oi.oninput = function () {
+        NVC.cor = oi.value.trim();
+      };
+      nc.appendChild(oi);
+      if (pre) {
+        nc.appendChild(mk('div', 'lbl', 'Grau (como está na peça)'));
+        var gi = mk('input', 'in');
+        gi.id = 'nvGrau';
+        gi.placeholder = 'Ex.: +175';
+        gi.autocomplete = 'off';
+        gi.value = NVC.grau;
+        gi.oninput = function () {
+          NVC.grau = gi.value;
+        };
+        nc.appendChild(gi);
+      }
+      if (!t.simple) {
+        nc.appendChild(mk('div', 'lbl', 'Classe de cor' + (pre ? ' (opcional)' : '')));
+        var cl = mk('div', 'nav');
+        for (var k = 1; k <= 6; k++)
+          (function (v) {
+            var on = (NVC.vr || (pre ? S.eVarP : S.eVar)) === v;
+            cl.appendChild(
+              btn(
+                'chip' + (on ? ' on' : ''),
+                v,
+                function () {
+                  NVC.vr = v;
+                  render();
+                },
+                on
+              )
+            );
+          })('C' + k);
+        nc.appendChild(cl);
+      }
+      nc.appendChild(mk('div', 'lbl', 'Quantas peças?'));
+      var sp = mk('div', 'nvstp');
+      var mn = btn('step', '−', function () {
+          NVC.q = Math.max(1, NVC.q - 1);
+          render();
+        }),
+        pl = btn('step', '+', function () {
+          NVC.q = Math.min(999, NVC.q + 1);
+          render();
+        });
+      mn.setAttribute('aria-label', 'Diminuir quantidade');
+      pl.setAttribute('aria-label', 'Aumentar quantidade');
+      sp.appendChild(mn);
+      sp.appendChild(mk('b', '', String(NVC.q)));
+      sp.appendChild(pl);
+      nc.appendChild(sp);
+      var ok = btn('go', 'Adicionar cor', nvAddCor);
+      ok.id = 'nvCorOk';
+      nc.appendChild(ok);
+      c1.appendChild(nc);
+    } else {
+      var ad = btn('tab', '+ Adicionar cor', function () {
+        S.nCorOpen = true;
+        var uc = cs.length ? '' : ($('eCor').value || '').trim();
+        NVC.cor = uc;
+        NVC.q = 1;
+        NVC.vr = '';
+        render();
+      });
+      ad.style.cssText = 'width:100%;border-style:dashed';
+      ad.id = 'nvAddCor';
+      c1.appendChild(ad);
+    }
+    s2.appendChild(c1);
+    // liberar para o site
+    var c2 = mk('div', 'card col');
+    c2.style.gap = '10px';
+    var lh = mk('div', '');
+    lh.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:10px';
+    lh.appendChild(mk('b', '', 'Liberar para o site'));
+    var on = siteOn(ref),
+      tg = mk('button', 'nvtg' + (on ? ' on' : ''));
+    tg.type = 'button';
+    tg.id = 'nvTg';
+    tg.setAttribute('role', 'switch');
+    tg.setAttribute('aria-checked', on ? 'true' : 'false');
+    tg.setAttribute('aria-label', 'Liberar para o site');
+    tg.appendChild(document.createElement('i'));
+    tg.onclick = function () {
+      var ck = siteCheck(ref);
+      if (on) {
+        siteSet(ref, false);
+        render();
+        return;
+      }
+      if (!ck.ok) {
+        S.nTgFalha = true;
+        render();
+        var t2 = $('nvTg');
+        if (t2 && !REDUCED) {
+          t2.classList.remove('lfshake');
+          void t2.offsetWidth;
+          t2.classList.add('lfshake');
+        }
+        return;
+      }
+      siteSet(ref, true);
+      S.nTgFalha = false;
+      render();
+      lfToast('✓ Salvo. Aparece no site em até 1 minuto.');
+    };
+    lh.appendChild(tg);
+    c2.appendChild(lh);
+    var falta = sc.falta.map(function (c) {
+        return c.cor;
       }),
-      pl = btn('step', '+', function () {
-        set(Math.min(max, val + 1));
-      }),
-      v = mk('b', '', String(val));
-    m.style.cssText = pl.style.cssText = 'width:36px;height:44px;flex:none';
-    v.style.cssText = 'flex:1;text-align:center;font-size:18px';
-    m.setAttribute('aria-label', 'Diminuir ' + rot);
-    pl.setAttribute('aria-label', 'Aumentar ' + rot);
-    r.appendChild(m);
-    r.appendChild(v);
-    r.appendChild(pl);
-    c.appendChild(r);
-    w.appendChild(c);
+      msg;
+    if (!on && !sc.cores.length) msg = 'Adicione uma cor com foto para liberar.';
+    else if (falta.length)
+      msg = 'Falta a foto da cor ' + falta.join(', ') + '. Adicione a foto ou remova a cor para liberar.';
+    else if (sc.sem) msg = 'Sem peças em estoque: não dá para publicar o que você não tem.';
+    var h = mk('div', msg && (falta.length || S.nTgFalha) ? 'nvwarn' : 'hint', msg || (on ? 'No ar. O site acompanha preço e estoque sozinho.' : 'Pronto para liberar.'));
+    if (!(msg && (falta.length || S.nTgFalha))) h.style.margin = '0';
+    c2.appendChild(h);
+    s2.appendChild(c2);
+    // aviso automático no cartão
+    var rec = S.cad && S.cad[ref] && Date.now() - S.cad[ref] < 7 * 86400000;
+    if (cs.length) {
+      var c3 = mk('div', 'nvauto');
+      c3.innerHTML =
+        '<h3>Aviso no cartão do site (automático)</h3><div style="color:var(--info)">' +
+        (rec ? 'Chegou esta semana' : 'Sem aviso agora') +
+        '</div>';
+      s2.appendChild(c3);
+    }
+    var fim = btn('go', cs.length ? 'Concluir' : 'Adicione uma cor para concluir', function () {
+      if (!cs.length) return;
+      S.nStep = 1;
+      S.nPop = '';
+      S.nCorOpen = false;
+      closeAdd();
+      lfToast('✓ ' + pubNome(ref) + ' cadastrado.');
+    });
+    fim.id = 'nvFim';
+    fim.disabled = !cs.length;
+    s2.appendChild(fim);
   }
   function renderGuia() {
     var rest = $('addProdRest'),
       box = $('eBox');
-    if (!box || box.hidden || S.addMode !== 'prod') {
-      if (rest) rest.removeAttribute('data-st');
+    if (!box || S.addMode !== 'prod') {
+      if (rest) rest.removeAttribute('data-nv');
+      if (/^(Novo modelo|Cores e fotos)$/.test($('addTitle').textContent)) $('addTitle').textContent = 'Adicionar';
+      S.nStep = 1;
+      S.nCorOpen = false;
       return;
     }
-    guiaMontar();
+    nvMontar();
+    rest.setAttribute('data-nv', '1');
     var t = tipoOf(S.tipo) || {},
       pre = S.tipo === 'pre',
       simple = !!t.simple,
-      at = atrDe(S._ref),
-      st = S.eStep === 2 ? 2 : 1;
-    rest.setAttribute('data-st', String(st));
-    // material e gênero
-    $('eMatB').hidden = $('ePubB').hidden = simple;
-    if (!simple) {
-      chipsRow('eMatC', ['Metal', 'Acetato', 'TR90', 'Plástico'], S.eMat || at.material || '', function (v) {
-        S.eMat = v;
-      });
-      chipsRow('ePubC', ['Unissex', 'Feminino', 'Masculino'], S.ePub || at.publico || '', function (v) {
-        S.ePub = v;
-      });
-    }
-    // medidas: lente, ponte, haste (começam nos valores mais usados)
-    var sm = $('eMedS'),
-      mostra = !pre && !simple && !(S._known && S._known.med);
-    $('eMedB').hidden = !mostra;
-    sm.textContent = '';
-    if (mostra) {
-      var mv = medParse($('eMed').value);
-      if (!mv) {
-        if (!S._medIni) {
-          S._medIni = 1;
-          $('eMed').value = '52□18-140';
+      at = nvAtr(S._ref),
+      st = S.nStep === 2 && S._ref ? 2 : 1;
+    if (S.nStep === 2 && !S._ref) S.nStep = 1;
+    $('nvS1').hidden = st !== 1;
+    $('nvS2').hidden = st !== 2;
+    $('addTitle').textContent = st === 2 ? 'Cores e fotos' : 'Novo modelo';
+    $('nvSub').textContent =
+      st === 2
+        ? 'Toda cor liberada precisa de foto. ' + (S._ref || '')
+        : S.nLido
+          ? 'Lido da haste · confira e complete'
+          : 'À mão · o app guia e confere';
+    $('addBack').hidden = false;
+    // o botão Voltar do topo leva à tela anterior
+    if (!$('addBack').dataset.nv) {
+      $('addBack').dataset.nv = '1';
+      var ob = $('addBack').onclick;
+      $('addBack').onclick = function (e) {
+        if (S.addMode === 'prod' && S.nStep === 2) {
+          S.nStep = 1;
+          S.nCorOpen = false;
+          render();
+          return;
         }
-        mv = medParse($('eMed').value) || [52, 18, 140];
-      }
-      stepper(sm, 'Lente', mv[0], 40, 70, function (n) {
-        medSet([n, mv[1], mv[2]]);
-      });
-      stepper(sm, 'Ponte', mv[1], 10, 30, function (n) {
-        medSet([mv[0], n, mv[2]]);
-      });
-      stepper(sm, 'Haste', mv[2], 120, 160, function (n) {
-        medSet([mv[0], mv[1], n]);
-      });
+        if (ob) return ob.call(this, e);
+      };
     }
-    // cabeçalho com passos
-    var ps = guiaPassos(),
-      ok = ps.filter(function (x) {
-        return x[2];
-      }).length,
-      falta = ps
-        .filter(function (x) {
-          return !x[2];
-        })
-        .map(function (x) {
-          return x[0];
-        }),
-      g = $('eGuia'),
-      pct = Math.round((ok / ps.length) * 100);
-    g.innerHTML =
-      '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b style="font-size:17px">' +
-      (pre ? 'Novo pré-graduado' : simple ? 'Novo item' : 'Novo modelo') +
-      '</b><span class="pill ' +
-      (ok === ps.length ? 'o' : 'a') +
-      '">' +
-      ok +
-      ' de ' +
-      ps.length +
-      '</span></div><div class="hint" style="margin:2px 0 0">À mão · o app guia e confere</div><div style="height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin:10px 0 6px"><i style="display:block;height:100%;width:' +
-      pct +
-      '%;background:linear-gradient(90deg,var(--accent),var(--accent-fg,#e08bc0));transition:width .4s"></i></div><div class="hint" style="margin:0">' +
-      (falta.length ? 'Falta: ' + falta.join(', ') : 'Tudo certo. Toque em Continuar.') +
-      '</div>';
-    // cartão "o app preenche sozinho"
-    var au = $('eAutoCard'),
-      fm = S._fmtUsed || '',
-      mt = S.eMat || at.material || '',
-      cu = parseFloat(String($('eCusto').value || '').replace(',', '.')),
-      pg = pickG(S.tipo, S.gSel);
-    au.hidden = simple || !fm;
-    if (!au.hidden) {
-      var tl = S.tipo === 'solar' ? 'Solar' : pre ? 'Pré-graduado' : 'Armação',
-        nome = (tl + ' ' + fm.toLowerCase() + ' ' + mt.toLowerCase()).replace(/\s+/g, ' ').trim(),
-        c = pg.g ? gUnit(pg.g) : cu,
-        fx = null;
-      if (S.eFaixa) fx = S.faixas.filter(function (x) { return x.id === S.eFaixa; })[0];
-      else if (S._ref && faixaOf(S._ref)) fx = faixaOf(S._ref);
-      else if (S.faixaAuto && S.faixaAuto.on && S.faixas.length && c > 0) {
-        var lim = S.faixaAuto.lim || [],
-          k = 0;
-        while (k < lim.length && k < S.faixas.length - 1 && c > lim[k]) k++;
-        fx = S.faixas[k];
-      }
-      au.innerHTML =
-        '<div class="lbl" style="margin:0 0 8px">O app preenche <span style="color:var(--accent)">sozinho</span></div><div style="display:flex;justify-content:space-between;gap:8px"><span>Nome no site</span><b style="text-align:right">' +
-        esc(nome) +
-        '</b></div><div style="display:flex;justify-content:space-between;gap:8px;margin-top:6px"><span>Faixa</span><b>' +
-        esc(fx ? fx.nome : c > 0 ? 'Sem faixa' : 'Falta o custo') +
-        '</b></div>';
-    }
-    // botão Continuar: apagado até a tela 1 estar completa
-    var nx = $('eNext');
-    nx.style.opacity = falta.length ? '.45' : '1';
-    nx.textContent = 'Continuar para cor e quantidade';
-    // tela 2: resumo de onde veio
     if (st === 2) {
-      var sub = $('eBackS');
-      sub.textContent = '← ' + (S._ref || '') + ' · ' + (fm || 'Voltar para o essencial');
+      nvTela2();
+      return;
     }
+    // ---- tela 1
+    // tipo
+    nvCampo('tipo', (tipoOf(S.tipo) || {}).label || '');
+    nvOpcoes(
+      'tipo',
+      TIPOS.map(function (x) {
+        return x.label;
+      }),
+      (tipoOf(S.tipo) || {}).label,
+      function (v) {
+        var b = [].slice.call($('mTipos').children).filter(function (x) {
+          return x.textContent === v;
+        })[0];
+        if (b) b.click();
+      }
+    );
+    // formato
+    $('nvR2').hidden = simple;
+    var fmtUsed = S._fmtUsed || '',
+      known = !!S._known;
+    nvCampo('fmt', fmtUsed);
+    if (known && S.nPop === 'fmt') S.nPop = '';
+    var fl = S.formats.slice();
+    var novo = btn('chip add', '+ Novo formato', function () {
+      S.nNovoFmt = !S.nNovoFmt;
+      render();
+    });
+    nvOpcoes('fmt', fl, fmtUsed, function (v) {
+      if (!known) S.eFmt = v;
+      else S.eFmt = v;
+    }, novo);
+    $('nvNovoFmt').hidden = !(S.nNovoFmt && S.nPop === 'fmt');
+    // material
+    var mat = S.eMat || at.material || '';
+    nvCampo('mat', mat);
+    nvOpcoes('mat', NV_MAT, mat, function (v) {
+      S.eMat = v;
+    });
+    // medidas (lente, ponte, haste)
+    $('nvMed').hidden = pre || simple;
+    var mp = medParse($('eMed').value) || (S._known && medParse(S._known.med)) || null;
+    [['nvL', 0], ['nvP', 1], ['nvH', 2]].forEach(function (x) {
+      var e = $(x[0]);
+      if (mp && document.activeElement !== e) e.value = mp[x[1]];
+      e.classList.toggle('ok', !!e.value);
+      e.readOnly = !!(S._known && S._known.med);
+    });
+    // gênero
+    $('nvR4').firstChild.hidden = simple;
+    var pub = S.ePub || at.publico || '';
+    nvCampo('pub', pub);
+    nvOpcoes('pub', NV_PUB, pub, function (v) {
+      S.ePub = v;
+    });
+    $('nvR4').style.gridTemplateColumns = simple ? '1fr' : '1fr 1fr';
+    $('nvCod').querySelector('.lbl').textContent = simple ? 'Nome ou código do item' : 'Código da haste';
+    var cod = $('eRef');
+    cod.placeholder = simple ? 'Ex.: Estojo rígido' : 'Ex.: SL2250 (ou deixe vazio)';
+    cod.classList.toggle('ok', !!S._ref);
+    $('eGrauB').hidden = true;
+    $('eVarB').hidden = true;
+    nvAutoCard();
+    var falta = nvPassos().filter(function (x) {
+      return !x[2];
+    });
+    var nx = $('nvNext');
+    nx.style.opacity = falta.length ? '.45' : '1';
+    nx.textContent = simple ? 'Continuar' : 'Continuar para cores e fotos';
   }
   // ===== Animações novas: leitor (procura/achou), obturador da foto, gráficos, progresso, liberar p/ site, venda confirmada. =====
   // Visor do leitor: cantos, grade de pontos, laser varrendo. achou() mostra o código aparecendo letra a letra.
