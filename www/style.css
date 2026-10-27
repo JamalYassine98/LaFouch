@@ -597,3 +597,12 @@ button:not(:disabled):active.go,.go:not(:disabled):active{box-shadow:0 0 0 6px #
 .ofTx{font-size:12px;color:var(--mute)}
 .ofTag{font-size:12px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--okbg);color:var(--ok)}
 .ofOk{width:100%}
+
+.splitHd{display:flex;align-items:center;gap:8px}
+.okMini{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ok);color:var(--ok);display:inline-grid;place-items:center;flex:none}
+.dinBtn{margin-left:auto;color:var(--ok);font-weight:700;font-size:17px}
+.splitBk{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:900;animation:fadein .22s var(--ease)}
+#splitCard:not([hidden]){position:fixed;left:0;right:0;bottom:0;z-index:901;max-height:90vh;overflow:auto;border-radius:20px 20px 0 0;margin:0;animation:splitUp .4s var(--ease)}
+@keyframes splitUp{from{transform:translateY(100%)}to{transform:none}}
+#splitBar i{transform-origin:left;animation:growx .7s .15s var(--ease) both}
+#splitRows .sl{animation:fadein .35s both}

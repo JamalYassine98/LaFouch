@@ -87,3 +87,6 @@ Tela Oferta: Preço normal, campo "Preço da oferta" (digitado), "Desconto de X%
 - Botão "$" (canto superior direito da tela Vender e também na venda concluída) abre janela "Para onde foi o dinheiro desta venda"; o bloco sai da tela de resultado e vai para essa janela.
 - "Mais animações possíveis": proposta em GIF (check desenhado, $ com pulso, janela sobe, barra cresce, linhas em cascata, valores contando). Implementar só após o "ok".
 - REGRA (17:16): NÃO mexer na animação/tela de "Venda concluída" além do que ele pediu (check menor/alinhado). Não adicionar $ nem tirar o bloco lá sem ele pedir.
+
+## v337 (27/10/2026) — Botão $ e janela
+Implementado só o pedido: botão $ no cabeçalho da tela Vender abre a janela "Para onde foi o dinheiro desta venda" (o cartão não aparece mais sozinho depois da venda); check verde pequeno e minimalista ao lado do título. Janela sobe com animação, barra cresce, linhas entram. Nada mais foi alterado.

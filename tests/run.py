@@ -1718,8 +1718,9 @@ async def main():
             pg = await pagina()
             got = await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.items = [{tipo:'pre', ref:'T1', grau:'+1', cor:'P', qty:3}];
               const s = L.addSale(S.items[0], 1, {moeda:'pyg', recebido:25000, forma:'din'}); L.showSplit(s);
-              return [document.querySelectorAll('#splitCard .okck').length, document.querySelectorAll('#splitBar i').length > 3, !document.getElementById('splitCard').hidden] }""")
-            await checa('venda concluída: marca de ok e barras aparecem', got == [1, True, True], got)
+              const fechado = document.getElementById('splitCard').hidden; document.getElementById('splitCard').hidden = false;
+              return [document.querySelectorAll('#splitCard .okMini').length, document.querySelectorAll('#splitBar i').length > 3, fechado] }""")
+            await checa('venda concluída: divisão só na janela do $ (check pequeno e barras)', got == [1, True, True], got)
             await pg.close()
 
             # PIN: ativar, recarregar e desbloquear; cópia automática

@@ -259,6 +259,15 @@
     eb.title = S.qEdit ? 'Sair da edição' : 'Editar';
     hb.appendChild(eb);
     if (!venda) head.appendChild(hb);
+    else {
+      var bd = btn('tab ibtn dinBtn', '$', function () {
+        splitAbre();
+      });
+      bd.id = 'btnDin';
+      bd.setAttribute('aria-label', 'Para onde foi o dinheiro da venda');
+      bd.title = 'Para onde foi o dinheiro da venda';
+      head.appendChild(bd);
+    }
     det.appendChild(head);
     var g = mk('div', 'detgrid'),
       left = mk('div', 'col'),

@@ -399,8 +399,7 @@
       ['Taxa da maquininha', 'Sai do seu lucro. Já descontada do que entra no caixa.', sale.taxa || 0, '#ff9d7a'],
       ['Lucro livre', 'O que sobra para você.', sale.livre, '#00ff88']
     ];
-    $('splitCard').hidden = false;
-    marcaOk($('splitCard'));
+    SPLIT_OK = true;
     vibrar(25);
     $('splitH').textContent =
       'Venda ' +
@@ -445,5 +444,31 @@
         ? 'então o preço está seguro. Subir preço é a última sugestão do app.'
         : 'abaixo do seguro. Veja a aba Dashboard.') +
       ' Esta venda foi gravada no Histórico.';
-    $('splitCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
+  // A divisão da venda fica numa janela, aberta pelo botão $ da tela Vender.
+  var SPLIT_OK = false;
+  function splitFecha() {
+    $('splitCard').hidden = true;
+    var bk = $('splitBk');
+    if (bk) bk.hidden = true;
+  }
+  function splitAbre() {
+    if (!SPLIT_OK) {
+      $('splitH').textContent = 'Ainda não há venda feita nesta sessão. Depois de vender, toque no $ para ver a divisão.';
+      $('splitBar').textContent = '';
+      $('splitRows').textContent = '';
+      $('splitNote').textContent = '';
+    }
+    var bk = $('splitBk');
+    if (!bk) {
+      bk = document.createElement('div');
+      bk.id = 'splitBk';
+      bk.className = 'splitBk';
+      bk.onclick = splitFecha;
+      document.body.appendChild(bk);
+    }
+    bk.hidden = false;
+    $('splitCard').hidden = false;
+    vibrar(15);
+  }
+  $('splitX').onclick = splitFecha;
