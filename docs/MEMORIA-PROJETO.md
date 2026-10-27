@@ -126,3 +126,8 @@ Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Parag
 - IMPLEMENTADO: (1) lista de Produtos junta o Firebase + a cópia do que o cliente viu (localStorage `lf_pdocs`); os que faltam no Firebase aparecem com "só no site" e botão Publicar; contador "N no total · M só no site". (2) Sem barra "Assim o cliente vê": o botão do cabeçalho vira olho aberto (visão do cliente) / olho fechado (admin), cabeçalho idêntico nos dois modos.
 - PENDENTE (item 3, dono NÃO gostou do botão "Publicar no site"): mostrar outras opções de botão antes de implementar; remover cartão "Preço" da ficha (Inventário) só depois da aprovação; perguntar se mantém preço novo/antigo e faixa.
 - Não consigo ler o Firebase daqui (rede bloqueada); a causa real de "admin 1 × site 2" não foi confirmada.
+
+## 27/10/2026 · v344 · Ficha do produto (Inventário)
+- "Liberar para o site" saiu do Editar produto e agora é um cartão logo ABAIXO da Oferta na ficha (alinhado com os demais cartões).
+- Cartão "Preço" (preço antigo/novo + faixa) REMOVIDO da ficha, a pedido do dono. Fica só Oferta.
+- Os botões alternativos de "publicar" (A–D) ficam descartados: o dono escolheu manter o botão "Liberar para o site", só mudando de lugar.

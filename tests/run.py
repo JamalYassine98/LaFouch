@@ -472,15 +472,16 @@ async def main():
             # Liberar para o site: só com foto em todas as cores
             pg = await abrir('sem', 'Hexagonal')
             await pg.evaluate("() => { const S = window.__LF.S; S.site = {}; Object.keys(S.fotos).filter(k => k.startsWith('BR44118|')).forEach(k => delete S.fotos[k]); }")
-            await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
-            await pg.evaluate(ED(3)); sem = await pg.evaluate("() => { const b = document.getElementById('edSiteBtn'); return [!!b, b && b.disabled, document.getElementById('edSite').innerText] }")
-            await pg.evaluate(ED(1)); await pg.locator('#editModal button:text-is("Fechar")').last.click(); await pg.wait_for_timeout(300)
-            await pg.evaluate("() => { const S = window.__LF.S; S.items.filter(i => i.ref === 'BR44118').forEach(i => { S.fotos['BR44118|' + i.cor] = 'data:image/png;base64,AAAA'; }); }")
-            await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
-            await pg.evaluate(ED(3)); com = await pg.evaluate("() => { const b = document.getElementById('edSiteBtn'); return [b && b.disabled] }")
+            await pg.evaluate("() => window.__LF.render()"); await pg.wait_for_timeout(300)
+            sem = await pg.evaluate("() => { const b = document.getElementById('edSiteBtn'); return [!!b, b && b.disabled, document.getElementById('edSite').innerText, !!(b && b.closest('.zcd'))] }")
+            await pg.evaluate("() => { const S = window.__LF.S; S.items.filter(i => i.ref === 'BR44118').forEach(i => { S.fotos['BR44118|' + i.cor] = 'data:image/png;base64,AAAA'; }); window.__LF.render(); }"); await pg.wait_for_timeout(300)
+            com = await pg.evaluate("() => { const b = document.getElementById('edSiteBtn'); return [b && b.disabled] }")
             await pg.click('#edSiteBtn'); await pg.wait_for_timeout(300)
             lib = await pg.evaluate("() => [!!window.__LF.S.site['BR44118'], document.getElementById('edSite').innerText]")
-            await checa('Liberar para o site: exige foto em todas as cores e liga/desliga', sem[0] and sem[1] and 'Falta foto' in sem[2] and com == [False] and lib[0] and 'Liberado' in lib[1], [sem, com, lib])
+            await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
+            await pg.evaluate(ED(3)); noEd = await pg.evaluate("() => !document.querySelector('#editModal #edSiteBtn')")
+            await pg.evaluate(ED(1)); await pg.locator('#editModal button:text-is("Fechar")').last.click(); await pg.wait_for_timeout(300)
+            await checa('Liberar para o site: fica abaixo da Oferta, exige foto, liga/desliga e saiu do Editar', sem[0] and sem[1] and 'Falta foto' in sem[2] and sem[3] and com == [False] and lib[0] and 'Liberado' in lib[1] and noEd, [sem, com, lib, noEd])
 
             pg = await abrir('sem', 'Hexagonal')
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
@@ -678,7 +679,7 @@ async def main():
             await pg.locator('#rows .pcard').nth(2).click(); await pg.wait_for_timeout(700)
             await pg.click('#detail button[aria-label=Editar]'); await pg.wait_for_timeout(700)
             res = []
-            for t in ['Liberar para o site', 'Sem faixa', '+']:
+            for t in ['Sem faixa', '+']:
                 await pg.evaluate(ED(1 if t == 'Sem faixa' else 2)); await pg.wait_for_timeout(150)
                 bt = pg.locator('#editModal button', has_text=t).first
                 if not await bt.count(): res.append((t, 'sem botão')); continue

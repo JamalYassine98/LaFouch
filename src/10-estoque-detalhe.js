@@ -880,7 +880,6 @@
         pz.appendChild(pr0);
         bx.appendChild(pz);
       }
-      var siteEl = null;
       // nome e código
       var nmi = null,
         ni = null;
@@ -917,7 +916,6 @@
         });
         g[1].appendChild(idh);
         if (nmi && !nmi.value) nmi.placeholder = nomeAuto(ref) || nmi.placeholder;
-        siteEl = siteSwitch(ref);
       }
       // descrição (só vale ao salvar)
       var ta = mk('textarea', 'in');
@@ -1227,11 +1225,6 @@
           dz.appendChild(cz);
         }
         g[2].appendChild(dz);
-      }
-      if (siteEl) {
-        var sc0 = mk('div', 'card col');
-        sc0.appendChild(siteEl);
-        g[2].appendChild(sc0);
       }
       if (!f.bulk) {
         var xz = mk('div', 'zcd');

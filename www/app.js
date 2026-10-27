@@ -1854,7 +1854,6 @@
         pz.appendChild(pr0);
         bx.appendChild(pz);
       }
-      var siteEl = null;
       // nome e código
       var nmi = null,
         ni = null;
@@ -1891,7 +1890,6 @@
         });
         g[1].appendChild(idh);
         if (nmi && !nmi.value) nmi.placeholder = nomeAuto(ref) || nmi.placeholder;
-        siteEl = siteSwitch(ref);
       }
       // descrição (só vale ao salvar)
       var ta = mk('textarea', 'in');
@@ -2201,11 +2199,6 @@
           dz.appendChild(cz);
         }
         g[2].appendChild(dz);
-      }
-      if (siteEl) {
-        var sc0 = mk('div', 'card col');
-        sc0.appendChild(siteEl);
-        g[2].appendChild(sc0);
       }
       if (!f.bulk) {
         var xz = mk('div', 'zcd');
@@ -10714,8 +10707,12 @@
         c1.appendChild(bt);
       }
     }
-    wrap.appendChild(c1);
+    // cartão “Preço” removido a pedido do dono (27/10): a Oferta cuida do preço
     wrap.appendChild(ofertaCard(ref, atual, pr, ps));
+    // "Liberar para o site" fica logo abaixo da Oferta, alinhado com os outros cartões
+    var sz = mk('div', 'zcd');
+    sz.appendChild(siteSwitch(ref));
+    wrap.appendChild(sz);
     return wrap;
   }
 

@@ -174,8 +174,12 @@
         c1.appendChild(bt);
       }
     }
-    wrap.appendChild(c1);
+    // cartão “Preço” removido a pedido do dono (27/10): a Oferta cuida do preço
     wrap.appendChild(ofertaCard(ref, atual, pr, ps));
+    // "Liberar para o site" fica logo abaixo da Oferta, alinhado com os outros cartões
+    var sz = mk('div', 'zcd');
+    sz.appendChild(siteSwitch(ref));
+    wrap.appendChild(sz);
     return wrap;
   }
 
