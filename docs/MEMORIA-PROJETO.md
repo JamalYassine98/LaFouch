@@ -86,3 +86,4 @@ Tela Oferta: Preço normal, campo "Preço da oferta" (digitado), "Desconto de X%
 - Ícone verde de check após a venda: menor, minimalista, alinhado à esquerda do título (não cobrir texto).
 - Botão "$" (canto superior direito da tela Vender e também na venda concluída) abre janela "Para onde foi o dinheiro desta venda"; o bloco sai da tela de resultado e vai para essa janela.
 - "Mais animações possíveis": proposta em GIF (check desenhado, $ com pulso, janela sobe, barra cresce, linhas em cascata, valores contando). Implementar só após o "ok".
+- REGRA (17:16): NÃO mexer na animação/tela de "Venda concluída" além do que ele pediu (check menor/alinhado). Não adicionar $ nem tirar o bloco lá sem ele pedir.
