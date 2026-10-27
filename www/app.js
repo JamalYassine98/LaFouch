@@ -4315,7 +4315,7 @@
     );
   };
   // ---- foto: nitidez e fundo branco
-  // ===== Estoque: abas (Produtos · Lotes · Reposição), mapa de graus e a aba Reposição. =====
+  // ===== Estoque: abas (Produtos · Compras · Reposição), mapa de graus e a aba Reposição. =====
   var POUCO = 5; // até 5 peças de um grau é pouco
   // Os 16 graus que a loja trabalha: +0.25 a +4.00.
   function graus16() {
@@ -4666,7 +4666,7 @@
     });
     mkTab(
       'eTabL',
-      'Lotes',
+      'Compras',
       !!S.lotesView,
       function () {
         S.repoView = false;
@@ -11683,12 +11683,12 @@
       if (!g) {
         S.lotSel = '';
         var t = mk('div', '');
-        t.appendChild(mk('h2', '', 'Lotes'));
+        t.appendChild(mk('h2', '', 'Compras'));
         t.firstChild.style.cssText = 'margin:0;font-size:16px';
         var hh = mk(
           'div',
           'hint',
-          'Todos os lotes que você adicionou. Toque em "Ver peças" para abrir um lote.'
+          'Todas as compras que você registrou. Toque em "Ver peças" para abrir uma e detalhar o que faltar.'
         );
         hh.style.margin = '2px 0 0';
         t.appendChild(hh);
@@ -11697,7 +11697,7 @@
           var nl = mk(
             'div',
             'note n-info',
-            'Nenhum lote ainda. Use "Adicionar" > "Lote" para registrar uma compra.'
+            'Nenhuma compra ainda. Use "Adicionar" > "Chegou mercadoria" para registrar uma compra.'
           );
           h.appendChild(nl);
         }
@@ -17621,6 +17621,9 @@
       S.qty = 1;
       S.eRefV = '';
     }
+    /* o formulário de cadastro precisa estar à vista (a leitura pode vir do menu Adicionar ou da Entrada da compra) */
+    S.addOpen = true;
+    S.addMode = 'prod';
     $('eRef').value = o.ref || '';
     if (o.med) $('eMed').value = o.med;
     if (o.fmt) S.eFmt = o.fmt;
@@ -19885,7 +19888,7 @@
       ajustes: ['Ajustes', ['Backup e metas', '']],
       novo: ['Novo produto', ['Cadastrar', '']],
       cont: ['Contagem', ['Conferir estoque', '']],
-      lotes: ['Lotes', ['Compras', '']],
+      lotes: ['Compras', ['Fornecedores', '']],
       cli: ['Clientes', [S.clientes.length + (S.clientes.length === 1 ? ' cadastrado' : ' cadastrados'), '']],
       ped: ['Pedidos online', [pedNovos() + ' novos', pedNovos() ? 'w' : '']],
       onl: ['Loja online', ['Catálogo e site', '']],
@@ -19928,7 +19931,21 @@
       faixa = urg
         ? '<section class="card" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px;border-left:4px solid var(--bad);margin-bottom:12px"><div><b style="font-size:15px">' + urg + (urg === 1 ? ' aviso urgente' : ' avisos urgentes') + '</b><div class="hint" style="margin:2px 0 0">toque para ver o que precisa de você</div></div><button type="button" class="mini" data-act="view" data-id="notif">Ver</button></section>'
         : '';
-    el.innerHTML = faixa +
+    var semDet = S.grp.reduce(function (a, g) {
+        return a + grpFalta(g);
+      }, 0),
+      ultG = S.grp
+        .filter(function (g) {
+          return grpFalta(g) > 0;
+        })
+        .sort(function (a, b) {
+          return (b.ts || 0) - (a.ts || 0);
+        })[0],
+      semDia = ultG ? new Date(ultG.ts || 0) : null,
+      pend = semDet
+        ? '<section class="card" data-act="inicio" data-id="lotes" role="button" tabindex="0" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px;border-left:4px solid var(--warn);margin-bottom:12px;cursor:pointer"><div><b style="font-size:15px">' + semDet + (semDet === 1 ? ' peça' : ' peças') + ' da compra' + (semDia ? ' de ' + ('0' + semDia.getDate()).slice(-2) + '/' + ('0' + (semDia.getMonth() + 1)).slice(-2) : '') + ' sem detalhe</b><div class="hint" style="margin:2px 0 0">já estão no estoque · toque para detalhar</div></div><span class="chip on" style="color:var(--warn)">' + semDet + '</span></section>'
+        : '';
+    el.innerHTML = faixa + pend +
       '<div class="hero" data-act="inicio" data-id="hoje" role="button" tabindex="0"><span class="hi">' + ico('hero', 26) + '</span><span><small>Vendido hoje · ' + h.n + ' venda(s)</small><b>' + gs(h.v) + '</b></span><span class="hg">›</span></div>' +
       '<div class="tgrid' + (ed ? ' editando' : '') + '">' + grid + '</div>' + extra +
       '<div class="sel" style="justify-content:center;gap:10px;flex-wrap:wrap">' +
@@ -19964,7 +19981,7 @@
   var BARRA_NOME = {
     vendas: 'Catálogo', estoque: 'Inventário', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Resumo',
     din: 'Dinheiro', giro: 'Giro', prec: 'Preços', cat: 'Catálogo', ajustes: 'Ajustes', ped: 'Pedidos', onl: 'Loja',
-    cli: 'Clientes', cont: 'Contagem', lotes: 'Lotes', novo: 'Novo', notif: 'Avisos'
+    cli: 'Clientes', cont: 'Contagem', lotes: 'Compras', novo: 'Novo', notif: 'Avisos'
   };
   function barraLista() {
     iniLista();
@@ -27289,6 +27306,6 @@
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, whiten: whiten, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, vitConfere: vitConfere, nvDestaque: nvDestaque, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, vitConfere: vitConfere, nvDestaque: nvDestaque, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
     };
 })();

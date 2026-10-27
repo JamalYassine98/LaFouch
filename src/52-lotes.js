@@ -802,12 +802,12 @@
       if (!g) {
         S.lotSel = '';
         var t = mk('div', '');
-        t.appendChild(mk('h2', '', 'Lotes'));
+        t.appendChild(mk('h2', '', 'Compras'));
         t.firstChild.style.cssText = 'margin:0;font-size:16px';
         var hh = mk(
           'div',
           'hint',
-          'Todos os lotes que você adicionou. Toque em "Ver peças" para abrir um lote.'
+          'Todas as compras que você registrou. Toque em "Ver peças" para abrir uma e detalhar o que faltar.'
         );
         hh.style.margin = '2px 0 0';
         t.appendChild(hh);
@@ -816,7 +816,7 @@
           var nl = mk(
             'div',
             'note n-info',
-            'Nenhum lote ainda. Use "Adicionar" > "Lote" para registrar uma compra.'
+            'Nenhuma compra ainda. Use "Adicionar" > "Chegou mercadoria" para registrar uma compra.'
           );
           h.appendChild(nl);
         }

@@ -614,7 +614,7 @@ async def main():
             if not ok: falhas.append('vendas catálogo'); print('        veio', tabs, graus, so150, semcod, det, cart, arm, selcor, pg.erros)
             await pg.close()
 
-            # Estoque: abas Produtos/Lotes/Reposição, mapa de graus e lista de compra
+            # Estoque: abas Produtos/Compras/Reposição, mapa de graus e lista de compra
             pg = await pagina()
             await pg.evaluate("""() => { const L = window.__LF, S = L.S;
               S.items = [
@@ -640,7 +640,7 @@ async def main():
             txt = await pg.evaluate("() => document.querySelector('#repoView .replist').innerText")
             await pg.click('#eTabP'); await pg.wait_for_timeout(300)
             volta = await pg.evaluate("() => [document.getElementById('repoView').hidden, document.getElementById('listCard').hidden]")
-            ok = (mapa.count('r:0') == 12 and mapa.count('y:5') == 2 and 'y:2' in mapa and 'g:12' in mapa and abas == ['Produtos', 'Lotes 1', 'Reposição'] and kl is True
+            ok = (mapa.count('r:0') == 12 and mapa.count('y:5') == 2 and 'y:2' in mapa and 'g:12' in mapa and abas == ['Produtos', 'Compras 1', 'Reposição'] and kl is True
                   and filtro == '+1.50' and rep['vis'] and rep['lista'] and rep['mapa']
                   and rep['itens'][0] == '+0.50:1' and '+3.50:1' in rep['itens'] and '+3.00:0' in rep['itens'] and '+1.50:0' in rep['itens']
                   and '+3.50 · 2 pacotes de 24' in txt and 'Total: 336 peças' in txt
@@ -849,6 +849,32 @@ async def main():
             ok = ck is False and r == [True, True, True] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'fundo branco desmarcado: foto entra original')
             if not ok: falhas.append('fundo branco off'); print('        veio', ck, r, pg.erros)
+            await pg.close()
+
+            # Início: aviso "peças da compra sem detalhe" leva às Compras; tile se chama Compras
+            pg = await pagina()
+            await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.items = [{tipo:'pre',ref:'T1',grau:'+0.25',cor:'Preto',qty:4,fmt:'',med:'',vr:'',lote:'G1'}];
+              S.grp = [{id:'G1',forn:'Kaz',tipo:'pre',qty:12,usd:0.5,totalUsd:6,moeda:'usd',sold:0,ts:Date.now()}]; S.lotesView = false; L.setView('inicio'); L.render(); }""")
+            await pg.wait_for_timeout(400)
+            ini = await pg.evaluate("() => { const c = [...document.querySelectorAll('#v-inicio section[data-id=lotes]')][0]; return c ? c.innerText.replace(/\\s+/g,' ') : '' }")
+            await pg.click('#v-inicio section[data-id=lotes]'); await pg.wait_for_timeout(500)
+            irc = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.lotesView, document.querySelector('#lotView h2') && document.querySelector('#lotView h2').innerText]")
+            ok = ('8 peças da compra de' in ini and 'sem detalhe' in ini and irc == ['estoque', True, 'Compras'] and not pg.erros)
+            total += 1
+            print(('  ok  ' if ok else ' FALHA ') + 'Início: aviso de peças sem detalhe leva à aba Compras')
+            if not ok: falhas.append('inicio compras'); print('        veio', ini, irc, pg.erros)
+            await pg.close()
+
+            # Ler haste: depois da leitura o formulário de cadastro aparece preenchido (mesmo vindo do menu)
+            pg = await pagina()
+            await pg.evaluate("() => window.__LF.setView('estoque')")
+            await pg.click('#btnAdd'); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => window.__LF.fillAdd({ref: 'ZZ99', med: '53□18-140', msg: 'lido'})"); await pg.wait_for_timeout(300)
+            fa = await pg.evaluate("() => [window.__LF.S.addMode, document.getElementById('addProdRest').offsetParent !== null, document.getElementById('eRef').value, document.getElementById('eMed').offsetParent !== null || document.getElementById('eMed').value]")
+            ok = fa[0] == 'prod' and fa[1] is True and fa[2] == 'ZZ99' and not pg.erros
+            total += 1
+            print(('  ok  ' if ok else ' FALHA ') + 'Ler haste: o cadastro aparece preenchido depois da leitura')
+            if not ok: falhas.append('fillAdd menu'); print('        veio', fa, pg.erros)
             await pg.close()
 
             # Adicionar: menu único (Ler haste, Foto, Chegou mercadoria, Preencher à mão) sem abas nem leitor duplicado

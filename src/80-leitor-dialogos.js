@@ -92,6 +92,9 @@
       S.qty = 1;
       S.eRefV = '';
     }
+    /* o formulário de cadastro precisa estar à vista (a leitura pode vir do menu Adicionar ou da Entrada da compra) */
+    S.addOpen = true;
+    S.addMode = 'prod';
     $('eRef').value = o.ref || '';
     if (o.med) $('eMed').value = o.med;
     if (o.fmt) S.eFmt = o.fmt;

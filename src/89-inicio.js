@@ -122,7 +122,7 @@
       ajustes: ['Ajustes', ['Backup e metas', '']],
       novo: ['Novo produto', ['Cadastrar', '']],
       cont: ['Contagem', ['Conferir estoque', '']],
-      lotes: ['Lotes', ['Compras', '']],
+      lotes: ['Compras', ['Fornecedores', '']],
       cli: ['Clientes', [S.clientes.length + (S.clientes.length === 1 ? ' cadastrado' : ' cadastrados'), '']],
       ped: ['Pedidos online', [pedNovos() + ' novos', pedNovos() ? 'w' : '']],
       onl: ['Loja online', ['Catálogo e site', '']],
@@ -165,7 +165,21 @@
       faixa = urg
         ? '<section class="card" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px;border-left:4px solid var(--bad);margin-bottom:12px"><div><b style="font-size:15px">' + urg + (urg === 1 ? ' aviso urgente' : ' avisos urgentes') + '</b><div class="hint" style="margin:2px 0 0">toque para ver o que precisa de você</div></div><button type="button" class="mini" data-act="view" data-id="notif">Ver</button></section>'
         : '';
-    el.innerHTML = faixa +
+    var semDet = S.grp.reduce(function (a, g) {
+        return a + grpFalta(g);
+      }, 0),
+      ultG = S.grp
+        .filter(function (g) {
+          return grpFalta(g) > 0;
+        })
+        .sort(function (a, b) {
+          return (b.ts || 0) - (a.ts || 0);
+        })[0],
+      semDia = ultG ? new Date(ultG.ts || 0) : null,
+      pend = semDet
+        ? '<section class="card" data-act="inicio" data-id="lotes" role="button" tabindex="0" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px;border-left:4px solid var(--warn);margin-bottom:12px;cursor:pointer"><div><b style="font-size:15px">' + semDet + (semDet === 1 ? ' peça' : ' peças') + ' da compra' + (semDia ? ' de ' + ('0' + semDia.getDate()).slice(-2) + '/' + ('0' + (semDia.getMonth() + 1)).slice(-2) : '') + ' sem detalhe</b><div class="hint" style="margin:2px 0 0">já estão no estoque · toque para detalhar</div></div><span class="chip on" style="color:var(--warn)">' + semDet + '</span></section>'
+        : '';
+    el.innerHTML = faixa + pend +
       '<div class="hero" data-act="inicio" data-id="hoje" role="button" tabindex="0"><span class="hi">' + ico('hero', 26) + '</span><span><small>Vendido hoje · ' + h.n + ' venda(s)</small><b>' + gs(h.v) + '</b></span><span class="hg">›</span></div>' +
       '<div class="tgrid' + (ed ? ' editando' : '') + '">' + grid + '</div>' + extra +
       '<div class="sel" style="justify-content:center;gap:10px;flex-wrap:wrap">' +
@@ -201,7 +215,7 @@
   var BARRA_NOME = {
     vendas: 'Catálogo', estoque: 'Inventário', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Resumo',
     din: 'Dinheiro', giro: 'Giro', prec: 'Preços', cat: 'Catálogo', ajustes: 'Ajustes', ped: 'Pedidos', onl: 'Loja',
-    cli: 'Clientes', cont: 'Contagem', lotes: 'Lotes', novo: 'Novo', notif: 'Avisos'
+    cli: 'Clientes', cont: 'Contagem', lotes: 'Compras', novo: 'Novo', notif: 'Avisos'
   };
   function barraLista() {
     iniLista();

@@ -1,4 +1,4 @@
-  // ===== Estoque: abas (Produtos · Lotes · Reposição), mapa de graus e a aba Reposição. =====
+  // ===== Estoque: abas (Produtos · Compras · Reposição), mapa de graus e a aba Reposição. =====
   var POUCO = 5; // até 5 peças de um grau é pouco
   // Os 16 graus que a loja trabalha: +0.25 a +4.00.
   function graus16() {
@@ -349,7 +349,7 @@
     });
     mkTab(
       'eTabL',
-      'Lotes',
+      'Compras',
       !!S.lotesView,
       function () {
         S.repoView = false;
