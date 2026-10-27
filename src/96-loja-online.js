@@ -217,7 +217,6 @@
       .then(function () {
         vitSync.busy = false;
         if (Object.keys(S.vitPend || {}).length) vitSync.fail = Date.now();
-        S.vitMsg = Object.keys(S.vitPend || {}).length ? 'Alguns itens ainda não subiram. Tento de novo quando houver internet.' : 'Vitrine publicada no site.';
         if (S.view === 'onl') render();
       });
   }
