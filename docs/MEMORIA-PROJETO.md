@@ -80,3 +80,9 @@ PENDENTE: redesenho do Editar produto — só mockups; implementar apenas depois
 
 ## Oferta (27/10/2026, 16:10) — APROVADA pelo dono (vídeo "PROPOSTA · NÃO IMPLEMENTADO")
 Tela Oferta: Preço normal, campo "Preço da oferta" (digitado), "Desconto de X%", cartão de situação (Acima do piso/Na margem: lucro por peça = preço − trava; Atenção abaixo do piso; Prejuízo abaixo da trava com botão "Ajustar para preço seguro" = piso), "Confirmar oferta" → "Em oferta no app e no site". Implementado em v336 (src/55-produtos-catalogo.js ofertaCard). Os chips −10/−15/−20/−30% foram removidos. Mantidos: data final opcional e Encerrar oferta.
+
+## Pedidos 17:12 (27/10/2026) — SÓ MOCKUPS, aguardando confirmação
+- Oferta confirmada pelo dono (v336 ok).
+- Ícone verde de check após a venda: menor, minimalista, alinhado à esquerda do título (não cobrir texto).
+- Botão "$" (canto superior direito da tela Vender e também na venda concluída) abre janela "Para onde foi o dinheiro desta venda"; o bloco sai da tela de resultado e vai para essa janela.
+- "Mais animações possíveis": proposta em GIF (check desenhado, $ com pulso, janela sobe, barra cresce, linhas em cascata, valores contando). Implementar só após o "ok".
