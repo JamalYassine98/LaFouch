@@ -16,14 +16,6 @@ jobs:
       - name: Montar o app (junta os modulos de src/ em www/app.js)
         run: node build.js
 
-      - name: Motor do recorte (fica dentro do programa)
-        shell: bash
-        run: |
-          npm install --no-save onnxruntime-web@1.17.3
-          mkdir -p www/ort
-          cp node_modules/onnxruntime-web/dist/ort.min.js www/ort/
-          cp node_modules/onnxruntime-web/dist/ort-wasm*.wasm www/ort/
-
       - name: Gerar o instalador
         working-directory: desktop
         run: |

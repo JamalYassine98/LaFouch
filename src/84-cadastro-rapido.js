@@ -603,3 +603,154 @@
     });
     b.appendChild(x);
   }
+
+  // ----- Cadastro à mão guiado: contador de passos, chips de medidas, material e gênero, cartão "o app preenche"
+  var EMEDS = ['52□18-140', '54□18-140', '56□18-145', '58□16-145'];
+  function guiaPassos() {
+    var t = tipoOf(S.tipo) || {},
+      pre = S.tipo === 'pre',
+      simple = !!t.simple,
+      cor = ($('eCor').value || '').trim(),
+      cu = parseFloat(String($('eCusto').value || '').replace(',', '.')),
+      pg = pickG(S.tipo, S.gSel),
+      p = [['Código', !!S._ref]];
+    if (!simple) p.push(['Formato', !!S._fmtUsed]);
+    if (pre) p.push(['Grau', !!S._gn]);
+    else if (!simple) p.push(['Medidas', !!($('eMed').value || '').trim() || !!(S._known && S._known.med)]);
+    p.push(['Cor', !!cor]);
+    p.push(['Custo', cu > 0 || !!pg.g]);
+    return p;
+  }
+  // Marca o campo que falta: balança, contorno vermelho e rola até ele.
+  function guiaMarca(id) {
+    var e = $(id);
+    if (!e) return;
+    try {
+      e.scrollIntoView({ block: 'center', behavior: REDUCED ? 'auto' : 'smooth' });
+    } catch (x) {}
+    if (REDUCED) return;
+    e.classList.remove('lfshake');
+    void e.offsetWidth;
+    e.classList.add('lfshake');
+    e.style.borderColor = 'var(--bad)';
+    setTimeout(function () {
+      e.style.borderColor = '';
+    }, 2200);
+  }
+  function chipsRow(id, itens, cur, set) {
+    var w = $(id);
+    w.textContent = '';
+    itens.forEach(function (v) {
+      var b = btn('chip' + (cur === v ? ' on' : ''), v, function () {
+        set(cur === v ? '' : v);
+        render();
+      });
+      w.appendChild(b);
+    });
+  }
+  function renderGuia() {
+    var box = $('eBox');
+    if (!box || box.hidden || S.addMode !== 'prod') return;
+    var t = tipoOf(S.tipo) || {},
+      pre = S.tipo === 'pre',
+      simple = !!t.simple;
+    // tudo o que é opcional vai para "Mais detalhes"
+    if (!$('eMais')) {
+      var d = document.createElement('details');
+      d.id = 'eMais';
+      d.className = 'mais';
+      d.innerHTML = '<summary>Mais detalhes (opcional)</summary><div class="col" id="eMaisBox" style="gap:10px;margin-top:10px"></div>';
+      var nb = $('eNomeB');
+      nb.parentNode.insertBefore(d, nb);
+      $('eMaisBox').appendChild(nb);
+      var dp = box.querySelector('.descp');
+      if (dp) $('eMaisBox').appendChild(dp);
+    }
+    // contador de passos
+    var g = $('eGuia');
+    if (!g) {
+      g = mk('div', 'card');
+      g.id = 'eGuia';
+      g.style.cssText = 'margin:0 0 10px;padding:10px 12px';
+      box.insertBefore(g, box.firstChild);
+    }
+    var ps = guiaPassos(),
+      ok = ps.filter(function (x) {
+        return x[1];
+      }).length,
+      falta = ps
+        .filter(function (x) {
+          return !x[1];
+        })
+        .map(function (x) {
+          return x[0];
+        });
+    g.innerHTML =
+      '<div style="display:flex;justify-content:space-between;align-items:center"><b>Novo cadastro</b><span class="pill ' +
+      (ok === ps.length ? 'o' : 'a') +
+      '">' +
+      ok +
+      ' de ' +
+      ps.length +
+      '</span></div><div style="height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin:8px 0 4px"><i style="display:block;height:100%;width:' +
+      Math.round((ok / ps.length) * 100) +
+      '%;background:linear-gradient(90deg,var(--accent),var(--accent-fg,#e08bc0));transition:width .4s"></i></div><div class="hint" style="margin:0">' +
+      (falta.length ? 'Falta: ' + falta.join(', ') : 'Tudo certo. Toque em Registrar entrada.') +
+      '</div>';
+    // medidas mais comuns
+    var mb = $('eMedChips');
+    if (!mb) {
+      mb = mk('div', 'nav');
+      mb.id = 'eMedChips';
+      mb.style.marginTop = '6px';
+      $('eMedB').appendChild(mb);
+    }
+    mb.hidden = pre || simple;
+    if (!mb.hidden) chipsRow('eMedChips', EMEDS, ($('eMed').value || '').trim(), function (v) {
+      $('eMed').value = v;
+    });
+    // material e gênero (vão para a identificação do modelo)
+    var ab = $('eAtrB');
+    if (!ab) {
+      ab = mk('div', 'col');
+      ab.id = 'eAtrB';
+      ab.style.cssText = 'gap:8px;margin-bottom:10px';
+      ab.innerHTML = '<div><div class="lbl">Material</div><div class="nav" id="eMatC"></div></div><div><div class="lbl">Gênero</div><div class="nav" id="ePubC"></div></div>';
+      var anc = $('eRef').closest('.erow2');
+      anc.parentNode.insertBefore(ab, anc.nextSibling);
+    }
+    ab.hidden = simple;
+    if (!simple) {
+      chipsRow('eMatC', ['Metal', 'Acetato', 'TR90', 'Plástico'], S.eMat || '', function (v) {
+        S.eMat = v;
+      });
+      chipsRow('ePubC', ['Unissex', 'Feminino', 'Masculino'], S.ePub || '', function (v) {
+        S.ePub = v;
+      });
+    }
+    // o que o app preenche sozinho
+    var au = $('eAutoCard');
+    if (!au) {
+      au = mk('div', 'card');
+      au.id = 'eAutoCard';
+      au.style.cssText = 'margin:0 0 10px;padding:10px 12px';
+      var qb = $('eCustoB');
+      qb.parentNode.insertBefore(au, qb);
+    }
+    var fm = S._fmtUsed || '',
+      cr = ($('eCor').value || '').trim(),
+      tl = S.tipo === 'solar' ? 'Solar' : pre ? 'Pré-graduado' : 'Armação';
+    au.hidden = simple || (!fm && !cr);
+    if (!au.hidden) {
+      var fx = (S.faixas || []).filter(function (f) {
+        return f.id === (S.eFaixa || (S._ref && (faixaOf(S._ref) || {}).id));
+      })[0];
+      au.innerHTML =
+        '<div class="lbl" style="margin:0 0 6px">O app preenche sozinho</div><div class="row" style="display:flex;justify-content:space-between;gap:8px"><span>Nome no site</span><b>' +
+        esc((tl + ' ' + fm.toLowerCase() + ' ' + cr.toLowerCase()).replace(/\s+/g, ' ').trim()) +
+        '</b></div><div class="row" style="display:flex;justify-content:space-between;gap:8px;margin-top:4px"><span>Faixa e preço</span><b>' +
+        esc(fx ? fx.nome : 'Sem faixa') +
+        (t.price > 0 ? ' · ' + gs(t.price) : '') +
+        '</b></div>';
+    }
+  }

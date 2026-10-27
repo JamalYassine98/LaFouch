@@ -99,12 +99,7 @@
         y1 = Math.min(1, b[3] + pw) * full.height,
         c = mkCanvas(x1 - x0, y1 - y0);
       c.getContext('2d').drawImage(full, x0, y0, x1 - x0, y1 - y0, 0, 0, c.width, c.height);
-      var res;
-      try {
-        res = S.fundoBranco === false ? { canvas: c } : whiten(c);
-      } catch (e) {
-        res = { canvas: c };
-      }
+      var res = { canvas: c };
       var sk = skin(res.canvas, [128, 128, 128]),
         hx =
           '#' +
@@ -152,7 +147,7 @@
       ? 'Separando as peças… faltam ' + B.busy + '.'
       : 'Separei ' +
         B.items.length +
-        ' peças com fundo branco. Confira o código C, a cor e a quantidade de cada uma. Desmarque o que não quiser.';
+        ' peças. Confira o código C, a cor e a quantidade de cada uma. Desmarque o que não quiser.';
     var act = document.activeElement && document.activeElement.id;
     if (act !== 'bRef' && $('bRef').value !== B.ref) $('bRef').value = B.ref;
     if (act !== 'bMed' && $('bMed').value !== B.med) $('bMed').value = B.med;
@@ -455,4 +450,4 @@
       }
     );
   };
-  // ---- foto: nitidez e fundo branco
+  // ---- foto

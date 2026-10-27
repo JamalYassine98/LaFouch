@@ -205,6 +205,7 @@
     if (isPre && !S._gn) {
       say('Informe um grau válido.');
       render();
+      guiaMarca('eGrau');
       return;
     }
     var gr = pickG(S.tipo, S.gSel);
@@ -226,6 +227,7 @@
       popErr(
         'Informe o custo por peça em US$, ou escolha o lote de origem. Sem lote, o custo é obrigatório.'
       );
+      guiaMarca('eCusto');
       return;
     }
     if (ccv !== '' && !(cu >= 0)) {
@@ -273,6 +275,14 @@
       }
     }
     if (!t.simple) setPN(ref, $('eNome').value);
+    if (!t.simple && (S.eMat || S.ePub)) {
+      var at0 = {};
+      if (S.eMat) at0.material = S.eMat;
+      if (S.ePub) at0.publico = S.ePub;
+      setAttr(ref, at0);
+    }
+    S.eMat = '';
+    S.ePub = '';
     $('eNome').value = '';
     var dd = $('eDescP').value.trim();
     if (dd && (!S.desc[ref] || !S._known)) S.desc[ref] = dd;
@@ -413,9 +423,6 @@
     S.addOpen = true;
     S.addMode = 'menu';
     S.photoFor = null;
-    try {
-      $('fbCk').checked = S.fundoBranco !== false;
-    } catch (e) {}
     S.msg = '';
     render();
   };

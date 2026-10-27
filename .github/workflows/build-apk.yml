@@ -39,14 +39,6 @@ jobs:
           playwright install --with-deps chromium
           python3 tests/run.py > testes.log 2>&1 || { grep -A3 "FALHA\|Traceback\|Error" testes.log | head -30 | while IFS= read -r l; do echo "::error::$l"; done; tail -5 testes.log | while IFS= read -r l; do echo "::error::$l"; done; exit 1; }
 
-      - name: Motor do recorte (fica dentro do app e do site)
-        run: |
-          npm install --no-save onnxruntime-web@1.17.3
-          mkdir -p www/ort
-          cp node_modules/onnxruntime-web/dist/ort.min.js www/ort/
-          cp node_modules/onnxruntime-web/dist/ort-wasm*.wasm www/ort/
-          ls -la www/seg www/ort
-
       - name: Preparar o site
         uses: actions/upload-pages-artifact@v3
         with:

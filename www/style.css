@@ -492,3 +492,5 @@ body.arrastaBarra{-webkit-user-select:none;user-select:none;touch-action:none}
 #addToMan{min-height:34px!important;font-size:13px;background:transparent;border-color:transparent;color:var(--mute)}
 #btnLeitor::after{content:"mais rápido";margin-left:auto;font-size:11px;font-weight:700;background:rgba(0,0,0,.28);padding:3px 9px;border-radius:99px}
 @media (prefers-reduced-motion:reduce){.lfban.nova,.lfglow{animation:none}.lfban.nova .lfck circle,.lfban.nova .lfck path{animation:none;stroke-dashoffset:0}}
+.lfshake{animation:lfshk .5s}@keyframes lfshk{20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+@media (prefers-reduced-motion:reduce){.lfshake{animation:none}}

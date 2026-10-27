@@ -107,8 +107,7 @@
         setTimeout(img.onload, 40);
         return;
       }
-      var GAL0 = !!window.__GAL,
-        FB0 = S.fundoBranco === false;
+      var GAL0 = !!window.__GAL;
       window.__GAL = false;
       var full;
       try {
@@ -143,38 +142,9 @@
                 tok: tok,
                 tipo: null,
                 full: full,
-                pieces: res.pieces || [],
-                fb0: FB0
+                pieces: res.pieces || []
               };
-              try {
-                var oc0 = fitCanvas(img, 1800);
-                P.oImg = oc0.toDataURL('image/jpeg', 0.93);
-                P.oThumb = thumbOf(oc0);
-                P.pImg = P.img;
-                P.pThumb = P.thumb;
-              } catch (eo) {}
               var rawMsg = '';
-              if (!S.photoFor && !GAL0 && !FB0) {
-                var cov = coverOf(res.canvas),
-                  sh = sharpOf(full),
-                  bb = res.bbox,
-                  ar = bb ? (bb[2] - bb[0]) * (bb[3] - bb[1]) : null;
-                if (
-                  sh < 20 ||
-                  cov < 0.015 ||
-                  cov > 0.85 ||
-                  (ar != null && (ar < 0.03 || ar > 0.92))
-                ) {
-                  var oc = fitCanvas(img, 1800);
-                  P.img = oc.toDataURL('image/jpeg', 0.93);
-                  P.thumb = thumbOf(oc);
-                  P.raw = 1;
-                  rawMsg =
-                    sh < 20
-                      ? 'A foto ficou desfocada, então mantive a original, sem ajuste de fundo. Refaça com mais luz e foco para ter a foto de catálogo.'
-                      : 'Não reconheci uma armação inteira e nítida, então mantive a foto original, sem ajuste de fundo.';
-                }
-              }
               var pf0 = S.photoFor;
               S.photoFor = null;
               var fv = function (id) {
@@ -215,7 +185,7 @@
               $('photoCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
               try {
                 if (OBT) {
-                  obturadorVoa(OBT, !P.raw && P.oImg && P.pImg && P.oImg !== P.pImg ? P.pImg : null);
+                  obturadorVoa(OBT, null);
                   OBT = null;
                 }
               } catch (eV) {}
@@ -243,108 +213,14 @@
             }
             URL.revokeObjectURL(url);
           };
-          /* foto da galeria: entra como está. Fundo já branco: só enquadra, sem recorte nem IA */
-          if (GAL0 || FB0) {
-            S.msg = '';
-            try {
-              done({ canvas: fitCanvas(img, 1800), bbox: null, pieces: [] });
-            } catch (e5) {
-              S.msg = 'Não consegui processar essa foto. Tente outra.';
-              render();
-            }
-            return;
-          }
-          var wh0 = false;
+          /* a foto entra como foi tirada: só enquadra, sem recorte nem fundo trocado */
+          S.msg = '';
           try {
-            wh0 = whiteBg(full);
-          } catch (e4) {}
-          if (wh0 && !window.__NOSEG) {
-            S.msg = '';
-            try {
-              done(lightWhite(full));
-              return;
-            } catch (e6) {}
-          }
-          var classic = function () {
-            var r;
-            try {
-              r = whiten(full);
-            } catch (e1) {
-              full = fitCanvas(img, 1600);
-              r = whiten(full);
-            }
-            return r;
-          };
-          var plain = true;
-          try {
-            plain = bgIsPlain(full);
-          } catch (e2) {}
-          /* fundo "liso" mas que não é folha branca (estante, balcão): o recorte simples perde aros transparentes, então o modelo tem prioridade */
-          var shelfy = false;
-          if (plain && !window.__NOSEG) {
-            try {
-              shelfy = shelfLike(full);
-            } catch (e3) {}
-          }
-          if (window.__NOSEG) {
-            S.msg = 'Ajustando a foto de catálogo…';
+            done({ canvas: fitCanvas(img, 1800), bbox: null, pieces: [] });
+          } catch (e5) {
+            S.msg = 'Não consegui processar essa foto. Tente outra.';
             render();
-            setTimeout(function () {
-              try {
-                done(classic());
-              } catch (err) {
-                S.msg = 'Não consegui processar essa foto. Tente outra.';
-                render();
-              }
-            }, 40);
-            return;
           }
-          SEG.on = function (t) {
-            S.msg = t;
-            render();
-          };
-          S.msg = 'Recortando a armação…';
-          render();
-          modelWhiten(full).then(
-            function (r) {
-              SEG.on = null;
-              S.msg = '';
-              done(r);
-              S.msg = shelfy
-                ? 'Confira o recorte (lentes, bordas, pedaços do fundo) antes de confirmar.'
-                : 'Atenção: o fundo desta foto não é liso e claro. Confira o recorte (lentes, bordas, pedaços do fundo). Para foto de catálogo, use uma folha branca ou cinza clara por baixo, principalmente em armação transparente.';
-              render();
-            },
-            function (er) {
-              SEG.on = null;
-              window.__SEGERR = String((er && er.message) || er);
-              try {
-                var fb;
-                try {
-                  fb = flatWhite(full);
-                } catch (e7) {
-                  fb = classic();
-                }
-                done(fb);
-                S.msg =
-                  er && er.refusa
-                    ? 'Não dá para gerar um fundo branco perfeito nesta foto: a armação é parecida com o fundo. Mantive a foto original, sem cortar nada. Para fundo branco, fotografe a peça sobre uma folha branca.'
-                    : 'Não consegui recortar o fundo. Mantive a foto inteira, sem cortar a armação.' +
-                      (er && er.refusa
-                        ? ''
-                        : /fetch|backend|wasm/i.test(String(window.__SEGERR))
-                          ? ' A demo aberta dentro do Claude bloqueia o download do motor de recorte; no site hospedado ou no APK ele funciona.'
-                          : ' Detalhe: ' + String(window.__SEGERR || '?').slice(0, 90) + '.');
-                render();
-                try {
-                  setRead(S.msg, 'n-warn');
-                } catch (e8) {}
-              } catch (err) {
-                S.msg = 'Não consegui processar essa foto. Tente outra.';
-                render();
-              }
-            }
-          );
         };
       var PRE0 = PRESET;
       PRESET = null;
@@ -410,24 +286,7 @@
     };
   }
   // Cartão da foto: prévia, leitura e cadastro.
-  function syncFB() {
-    var c = $('fbCk');
-    if (c) c.checked = S.fundoBranco !== false;
-  }
-  $('fbCk').onchange = function () {
-    S.fundoBranco = !!this.checked;
-    saveSoon();
-  };
-  $('phOrig').onclick = function () {
-    if (!P || !P.oImg) return;
-    var usaO = P.img === P.oImg;
-    P.img = usaO ? P.pImg : P.oImg;
-    P.thumb = usaO ? P.pThumb : P.oThumb;
-    P.raw = 0;
-    render();
-  };
   function renderPhoto() {
-    syncFB();
     var card = $('photoCard');
     if (!P) {
       card.hidden = true;
@@ -471,9 +330,6 @@
     $('phCorChips').hidden = !!P.photoOnly;
     $('phCorNew').hidden = true;
     $('phImg').src = P.img;
-    var ob = $('phOrig');
-    ob.hidden = !(P.oImg && P.pImg && P.oImg !== P.pImg);
-    ob.textContent = P.img === P.oImg ? '↺ Voltar ao fundo branco automático' : '📷 Usar a foto original (sem ajuste)';
     {
       var pgc = pickG(f.tipo, P.g).g;
       if (pgc) P.qty = Math.max(1, Math.min(P.qty, Math.max(grpFalta(pgc), 1)));

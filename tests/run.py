@@ -241,17 +241,6 @@ TESTES = [
  ("dedupeItems: junta iguais e mantém diferentes", """
    const a={tipo:'pre', ref:'SP1', grau:'+1.00', cor:'Preto', qty:2}, b=Object.assign({}, a, {qty:3}), c=Object.assign({}, a, {grau:'+2.00'});
    S.items=[a,b,c]; const n=L.dedupeItems(); return [n, S.items.length, S.items[0].qty]""", [1, 2, 5]),
- ("whiten: foto sintética (armação escura em fundo cinza)", """
-   const c = L.mkCanvas(600, 400), g = c.getContext('2d');
-   g.fillStyle = '#d8d8d8'; g.fillRect(0, 0, 600, 400);
-   g.strokeStyle = '#2a2a2a'; g.lineWidth = 14;
-   g.beginPath(); g.ellipse(190, 200, 90, 70, 0, 0, 7); g.stroke();
-   g.beginPath(); g.ellipse(410, 200, 90, 70, 0, 0, 7); g.stroke();
-   g.beginPath(); g.moveTo(280, 190); g.lineTo(320, 190); g.stroke();
-   const r = L.whiten(c);
-   const d = r.canvas.getContext('2d').getImageData(0, 0, r.canvas.width, r.canvas.height).data;
-   let escuros = 0; for (let i = 0; i < d.length; i += 4) if (d[i] < 80) escuros++;
-   return [r.canvas.width, r.canvas.height, d[0] > 245 && d[1] > 245, escuros > 2000, r.bg.map(v => Math.abs(v - 216) < 12).every(Boolean)]""", [2000, 2000, True, True, True]),
  # ---- movimentos (livro + histórico gravados juntos) ----
  ("lancarCompra: livro e histórico recebem o mesmo fato", """
    L.lancarCompra({ts: 5, desc: 'Compra X', usd: 12.5}); return [S.compras.length, S.dlog.length, S.dlog[0]]""",
@@ -1065,22 +1054,22 @@ async def main():
             if not ok: falhas.append('exemplo 14 meses'); print('        veio', r, pg.erros)
             await pg.close()
 
-            # fundo branco automático: desmarcado, a foto entra como foi tirada
+            # fundo branco automático foi removido: a foto entra como foi tirada
             pg = await pagina()
             import base64
             b64 = await pg.evaluate("""() => { const c = document.createElement('canvas'); c.width = 600; c.height = 400; const g = c.getContext('2d');
               g.fillStyle = '#785a3c'; g.fillRect(0, 0, 600, 400);
               for (let i = 0; i < 3000; i++) { const v = Math.floor(Math.random() * 256); g.fillStyle = `rgb(${v},${v},${v})`; g.fillRect(Math.random() * 600, Math.random() * 400, 2, 2); }
               return c.toDataURL('image/png').split(',')[1]; }""")
-            await pg.evaluate("() => { const L = window.__LF; L.S.fundoBranco = false; L.setView('estoque'); }")
+            await pg.evaluate("() => { window.__LF.setView('estoque'); }")
             await pg.click('#btnAdd'); await pg.wait_for_timeout(300)
-            ck = await pg.evaluate("() => document.getElementById('fbCk').checked")
+            ck = await pg.evaluate("() => [!!document.getElementById('fbCk'), !!document.getElementById('phOrig'), typeof window.__LF.whiten]")
             await pg.set_input_files('#file', {'name': 'fb.png', 'mimeType': 'image/png', 'buffer': base64.b64decode(b64)}); await pg.wait_for_timeout(2500)
-            r = await pg.evaluate("() => [!document.getElementById('photoCard').hidden, document.getElementById('phOrig').hidden, document.getElementById('phImg').src.length > 1000]")
+            r = await pg.evaluate("() => { const im = new Image(); im.src = document.getElementById('phImg').src; return [!document.getElementById('photoCard').hidden, document.getElementById('phImg').src.length > 1000, document.getElementById('phImg').src.startsWith('data:image/jpeg'), document.getElementById('phImg').naturalWidth === 600] }")
             total += 1
-            ok = ck is False and r == [True, True, True] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'fundo branco desmarcado: foto entra original')
-            if not ok: falhas.append('fundo branco off'); print('        veio', ck, r, pg.erros)
+            ok = ck == [False, False, 'undefined'] and r == [True, True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'sem fundo branco automático: foto entra como foi tirada')
+            if not ok: falhas.append('foto original'); print('        veio', ck, r, pg.erros)
             await pg.close()
 
             # Entrada da compra: só ícones haste e câmera + Detalhar depois
@@ -1149,8 +1138,8 @@ async def main():
             await pg.click('#addToMan'); await pg.wait_for_timeout(300)
             await pg.locator('#mTipos >> text=Armações').click(); await pg.wait_for_timeout(300)
             vis = await pg.evaluate("() => ['eFmtB','ePkgB','eCor'].map(i => document.getElementById(i).offsetParent === null).concat([!!document.getElementById('eDescP').offsetParent])")
-            await pg.fill('#eRef', 'ZZ77'); await pg.fill('#eNome', ''); await pg.fill('#eCusto', '0,50')
-            await pg.fill('#eDescP', 'Armação de acetato verde, haste larga')
+            await pg.fill('#eRef', 'ZZ77'); await pg.evaluate("() => { const d = document.getElementById('eMais'); if (d) d.open = true; }"); await pg.fill('#eNome', ''); await pg.fill('#eCusto', '0,50')
+            await pg.evaluate("() => { const d = document.getElementById('eMais'); if (d) d.open = true; }"); await pg.fill('#eDescP', 'Armação de acetato verde, haste larga')
             await pg.locator('#eVars button:has-text("C1")').click()
             await pg.click('#go'); await pg.wait_for_timeout(500)
             r = await pg.evaluate("() => { const S = window.__LF.S; const it = S.items.filter(i => i.ref === 'ZZ77')[0]; return [!!it, it && it.cor, S.desc.ZZ77, document.getElementById('eDescP').value]; }")

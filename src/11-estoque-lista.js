@@ -363,6 +363,7 @@
     renderQuick();
     renderClone();
     renderRascunho();
+    renderGuia();
     renderLotes();
     renderLotView();
     loteChips('eLote', S.tipo, S.gSel, function (v) {
