@@ -24,3 +24,21 @@ Este arquivo é lido no início de cada sessão (CLAUDE.md aponta para ele). Atu
 
 ## Histórico de versões
 Ver `git log` (v300 → v332). Resumos de cada versão estão nas mensagens de commit.
+
+## Falas do dono (literais, as que definem regras)
+- "você ficava fazendo diferente toda vez" / "me mostre EXATAMENTE, como ficaria" → fidelidade total às imagens aprovadas.
+- "analise COM EXTREMA calma para não errar de novo".
+- "Vamos elaborar ainda mais antes de implementar" / "só implementar quando eu avisar".
+- "Perfeito, pode implementar" (10 folhas de cadastro) e "Pode implementar tudo" (27/10/2026, 12:47).
+- "Eu não aprovei as proposta de oferta?" (27/10/2026, 13:12): ele afirma que aprovou propostas de Oferta; reenviar imagem para confirmar qual.
+- "Melhor a exigência da foto, pq a idéia é o catalogo ser completo".
+- "A foto trava a entrada ... remova esse icone de sem foto, pq não faz sentido".
+- "eu não quero que guarde a foto do pacote ... se eu excluir um produto ele exclui essas informações".
+- "Se não da pra ler o grau significa que eu tenho que inserir manualmente, não tem problema".
+- "Pode ser abaixo dos 20% quando tem uma discrepância muito grande, mas priorizar a semelhança acima de 80%".
+- "cada grau pode ser da mesma cor ou ter cores diferentes".
+- Quer ter os dois sistemas: leitura da haste e cadastro por foto (óculos de grau quase nunca têm informação na haste).
+- Outras decisões antigas: remover fundo branco automático da foto (foto entra como foi tirada); projeto de 5 imagens aprovado (v328); não voltar o app para a versão antiga.
+
+## Aviso
+O histórico bruto anterior a 27/10/2026 foi condensado pelo sistema e não é mais legível. Este arquivo e o git log são a memória durável. Se uma decisão do dono não estiver aqui, pedir a ele a imagem/mensagem em vez de supor.
