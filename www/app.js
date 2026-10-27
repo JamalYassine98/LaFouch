@@ -16694,14 +16694,12 @@
   }
   function siteCheck(ref) {
     var cs = siteCores(ref),
-      // cor esgotada (0 peças) não trava a liberação do modelo
-      vivas = cs.filter(function (c) {
-        return c.qty > 0;
-      }),
-      falta = vivas.filter(function (c) {
+      falta = cs.filter(function (c) {
         return !c.foto;
-      });
-    return { cores: cs, falta: falta, ok: vivas.length > 0 && !falta.length };
+      }),
+      // não se publica o que não se tem: modelo sem nenhuma peça não é liberado (o que já está no ar e esgota fica 2 semanas)
+      sem = estoqueDoRef(ref) <= 0;
+    return { cores: cs, falta: falta, sem: sem, ok: cs.length > 0 && !falta.length && !sem };
   }
   function siteOn(ref) {
     return !!(S.site && S.site[ref]);
@@ -16874,7 +16872,9 @@
       ? 'Aparece no catálogo online com ' + ck.cores.length + (ck.cores.length === 1 ? ' cor' : ' cores') + '. Preço, estoque e avisos o app atualiza sozinho.'
       : !ck.cores.length
         ? 'Cadastre ao menos uma cor para liberar.'
-        : ck.falta.length
+        : ck.sem
+          ? 'Sem peças em estoque: não dá para publicar o que você não tem.'
+          : ck.falta.length
           ? 'Falta foto em: ' + ck.falta.map(function (c) { return c.cor; }).join(', ') + '. Toda cor liberada precisa de foto.'
           : 'Todas as cores têm foto. Toque para mostrar no catálogo online.';
     if (on && ck.falta.length) msg = 'Atenção: falta foto em ' + ck.falta.map(function (c) { return c.cor; }).join(', ') + '. Essa cor não aparece no site até ter foto.';

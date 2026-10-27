@@ -46,9 +46,9 @@ TESTES = [
  ("entrada de peças novas renova o 'chegou esta semana'", """
    S.cad={Z9:Date.now()-30*864e5}; S.elog=[]; S.items=[{tipo:'pre',ref:'Z9',grau:'+1',cor:'P',qty:5}];
    const a=L.siteAviso('Z9'); L.entradaEstoque('pre','Z9','P','+1',2); S.items[0].qty=7; return [a, L.siteAviso('Z9')]""", ['', 'Chegou esta semana']),
- ("liberar para o site: cor esgotada sem foto não trava; cor com estoque sem foto trava", """
+ ("liberar para o site: toda cor precisa de foto (mesmo esgotada) e sem peças nenhuma não se publica", """
    S.items=[{tipo:'pre',ref:'W1',grau:'+1',cor:'P',qty:3},{tipo:'pre',ref:'W1',grau:'+1',cor:'Q',qty:0}]; S.fotos={'W1|P':'x'};
-   const a=L.siteCheck('W1').ok; S.items[1].qty=2; const b=L.siteCheck('W1').ok; return [a,b]""", [True, False]),
+   const a=L.siteCheck('W1').ok; S.fotos['W1|Q']='y'; const b=L.siteCheck('W1').ok; S.items.forEach(i=>i.qty=0); const c=L.siteCheck('W1'); return [a,b,c.ok,c.sem]""", [False, True, False, True]),
  ("piso do produto vale o pior caso entre cores com estoque", """
    S.fx.pyg=7000; S.items=[{tipo:'pre',ref:'P1',grau:'+1',cor:'P',qty:3,custo:1},{tipo:'pre',ref:'P1',grau:'+1',cor:'Q',qty:3,custo:3}]; S.grp=[];
    const lo=L.pisoPeca(S.items[0]).trava, hi=L.pisoPeca(S.items[1]).trava, r=L.pisoDoRef('P1','pre'); return [hi>lo, r.pp.trava===hi, r.pp.corPior]""", [True, True, 'Q +1']),
