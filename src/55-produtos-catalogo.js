@@ -210,43 +210,90 @@
       c.appendChild(mk('div', 'hint', 'Defina o preço do produto para poder fazer uma oferta.'));
       return c;
     }
-    var pct = emOf ? Math.round((1 - atual / pr.ant) * 100) : 0;
-    c.appendChild(
-      mk('div', emOf ? 'note n-ok' : 'hint', emOf ? 'Em oferta: ' + gs(pr.ant) + ' → ' + gs(atual) + ' (−' + pct + '%). O catálogo e o site mostram "em oferta".' : 'Sem oferta. Escolha um desconto; o app avisa se passar do piso.')
-    );
-    var ch = mk('div', '');
-    ch.style.cssText = 'display:flex;gap:6px;flex-wrap:wrap;margin-top:8px';
-    var base = emOf ? pr.ant : atual;
-    [10, 15, 20, 30].forEach(function (d) {
-      ch.appendChild(
-        btn('chip' + (emOf && pct === d ? ' on' : ''), '−' + d + '%', function () {
-          var o = S.pprice[ref] || {};
-          o.ant = base;
-          o.novo = Math.round((base * (1 - d / 100)) / 1000) * 1000;
-          S.pprice[ref] = o;
-          saveSoon();
-          render();
-        })
-      );
+    var base = emOf ? pr.ant : atual,
+      pp = ps && ps.pp ? ps.pp : {},
+      piso = pp.piso > 0 ? Math.ceil(pp.piso / 1000) * 1000 : 0,
+      trava = pp.trava > 0 ? pp.trava : 0,
+      cur = emOf ? atual : Math.round((base * 0.9) / 1000) * 1000;
+    var box = mk('div', 'ofBox');
+    var l1 = mk('div', 'ofRow');
+    l1.appendChild(mk('span', '', 'Preço normal'));
+    l1.appendChild(mk('b', '', gs(base)));
+    box.appendChild(l1);
+    box.appendChild(mk('div', 'ofLb', 'Preço da oferta'));
+    var inp = mk('input', 'in ofIn');
+    inp.id = 'ofPreco';
+    inp.type = 'text';
+    inp.inputMode = 'numeric';
+    inp.setAttribute('aria-label', 'Preço da oferta');
+    inp.value = gs(cur);
+    box.appendChild(inp);
+    var dsc = mk('div', 'ofDsc', '');
+    box.appendChild(dsc);
+    c.appendChild(box);
+    var st = mk('div', 'ofSt');
+    st.id = 'ofSt';
+    c.appendChild(st);
+    var ok = btn('go', 'Confirmar oferta', function () {
+      var v = lerV();
+      if (ok.getAttribute('data-ajusta')) {
+        inp.value = gs(piso);
+        pinta();
+        return;
+      }
+      if (!(v > 0) || v >= base) return;
+      var o = S.pprice[ref] || {};
+      o.ant = base;
+      o.novo = v;
+      S.pprice[ref] = o;
+      saveSoon();
+      render();
     });
-    if (ps && ps.pp && ps.pp.piso > 0 && ps.pp.piso < base) {
-      ch.appendChild(
-        btn('chip', 'Até o piso', function () {
-          var o = S.pprice[ref] || {};
-          o.ant = base;
-          o.novo = Math.round(ps.pp.piso / 1000) * 1000 < ps.pp.piso ? Math.ceil(ps.pp.piso / 1000) * 1000 : ps.pp.piso;
-          S.pprice[ref] = o;
-          saveSoon();
-          render();
-        })
-      );
+    ok.id = 'ofOk';
+    ok.className = 'go ofOk';
+    function lerV() {
+      return parseInt(String(inp.value).replace(/\D/g, ''), 10) || 0;
     }
-    c.appendChild(ch);
-    if (ps && ps.st === 'w')
-      c.appendChild(mk('div', 'note n-warn', 'Atenção: abaixo do piso (' + gs(ps.pp.piso) + '). A venda ainda dá lucro, mas menor que o previsto.'));
-    if (ps && ps.st === 'r')
-      c.appendChild(mk('div', 'note n-bad', 'Cuidado: abaixo do custo (' + gs(ps.pp.trava) + '). Essa oferta dá prejuízo.'));
+    function pinta() {
+      var v = lerV(),
+        r = v > 0 ? pisoDoRef(ref, null, v) : null,
+        s2 = r ? r.st : '',
+        pct = v > 0 ? Math.round((1 - v / base) * 100) : 0;
+      dsc.textContent = v >= base ? 'A oferta precisa ficar abaixo do preço normal.' : 'Desconto de ' + pct + '%.';
+      st.className = 'ofSt ' + (s2 === 'r' ? 'r' : s2 === 'w' ? 'w' : 'o');
+      var h = '';
+      if (!trava || !piso) h = '<div class="ofTx">Sem custo cadastrado: não dá para avisar piso e trava.</div>';
+      else if (s2 === 'r')
+        h =
+          '<div class="ofHd">Prejuízo · abaixo da trava</div><div class="ofRow"><span>Trava</span><b>' + gs(trava) + '</b></div><div class="ofTx">Esta oferta não cobre a reposição nem as contas. Perda de ' + gs(trava - v) + ' por peça.</div>';
+      else if (s2 === 'w')
+        h =
+          '<div class="ofHd">Atenção · abaixo do piso</div><div class="ofRow"><span>Piso (sua margem)</span><b>' + gs(piso) + '</b></div><div class="ofRow"><span>Trava</span><b>' + gs(trava) + '</b></div><div class="ofTx">Cobre a reposição e as contas, mas fica ' + gs(piso - v) + ' abaixo da margem. Lucro: ' + gs(v - trava) + '.</div>';
+      else h = '<div class="ofRow"><span class="ofTag">' + (v <= piso ? 'Na margem' : 'Acima do piso') + '</span><b>lucro ' + gs(v - trava) + ' por peça</b></div>';
+      st.innerHTML = h;
+      if (s2 === 'r' && piso && piso < base) {
+        ok.textContent = 'Ajustar para preço seguro (' + gs(piso) + ')';
+        ok.setAttribute('data-ajusta', '1');
+      } else {
+        ok.textContent = emOf ? 'Atualizar oferta' : 'Confirmar oferta';
+        ok.removeAttribute('data-ajusta');
+      }
+      ok.disabled = !(v > 0) || v >= base;
+    }
+    inp.addEventListener('input', function () {
+      var v = lerV();
+      inp.value = v ? gs(v) : '';
+      pinta();
+    });
+    inp.addEventListener('focus', function () {
+      try {
+        inp.select();
+      } catch (e) {}
+    });
+    pinta();
+    c.appendChild(ok);
     if (emOf) {
+      c.appendChild(mk('div', 'note n-ok', 'Em oferta no app e no site.'));
       var lb = mk('div', 'zlb', 'TERMINA EM (OPCIONAL · SÓ VOCÊ VÊ)');
       lb.style.marginTop = '10px';
       c.appendChild(lb);

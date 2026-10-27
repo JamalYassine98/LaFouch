@@ -583,3 +583,17 @@ button:not(:disabled):active.go,.go:not(:disabled):active{box-shadow:0 0 0 6px #
 .lsIn,.lsIn:focus,.lsIn:focus-visible{outline:0!important;box-shadow:none!important;border:0!important;background:transparent!important}
 .rascX{display:block;width:100%;margin:6px 0 0;background:transparent!important;border:0!important;box-shadow:none!important;color:var(--mute)!important;font-size:13px;font-weight:500;min-height:32px;text-align:center;text-decoration:underline;text-underline-offset:3px}
 .nv-ic svg,.go svg{flex:none;vertical-align:middle}
+
+#ofCard{display:flex;flex-direction:column;gap:10px}
+.ofBox{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.ofRow{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.ofLb{font-size:12px;color:var(--mute)}
+.ofIn{font-size:20px;font-weight:700}
+.ofDsc{font-size:12px;color:var(--mute)}
+.ofSt{border:1px solid var(--ok);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:6px}
+.ofSt.w{border-color:var(--warn)}.ofSt.r{border-color:var(--bad)}
+.ofHd{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.ofSt.w .ofHd{color:var(--warn)}.ofSt.r .ofHd{color:var(--bad)}
+.ofTx{font-size:12px;color:var(--mute)}
+.ofTag{font-size:12px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--okbg);color:var(--ok)}
+.ofOk{width:100%}

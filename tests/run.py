@@ -458,12 +458,15 @@ async def main():
             pg = await abrir('sem', 'Hexagonal')
             await pg.evaluate("() => { const S = window.__LF.S; S.pprice = {}; window.__LF.render(); }"); await pg.wait_for_timeout(300)
             tem = await pg.evaluate("() => !!document.getElementById('ofCard')")
-            await pg.locator('#ofCard button:has-text("−20%")').click(); await pg.wait_for_timeout(300)
+            await pg.fill('#ofPreco', '0'); await pg.evaluate("() => { const i = document.getElementById('ofPreco'); const b = Math.round(window.__LF.S.items.find(x => x.ref === 'BR44118') ? 0 : 0); }")
+            base = await pg.evaluate("() => { const m = document.querySelector('#ofCard .ofRow b'); return parseInt(m.textContent.replace(/\\D/g, ''), 10) }")
+            await pg.fill('#ofPreco', str(int(base * 0.8 / 1000) * 1000)); await pg.wait_for_timeout(200)
+            await pg.locator('#ofOk').click(); await pg.wait_for_timeout(300)
             of1 = await pg.evaluate("() => { const o = window.__LF.S.pprice['BR44118']; return o ? [o.ant > o.novo, Math.round((1 - o.novo / o.ant) * 100)] : null }")
             tem2 = await pg.evaluate("() => [!!document.getElementById('ofAte'), !!document.getElementById('ofFim')]")
             await pg.locator('#ofFim').click(); await pg.wait_for_timeout(300)
             of2 = await pg.evaluate("() => { const o = window.__LF.S.pprice['BR44118']; return o ? o.ant === undefined : true }")
-            await checa('oferta: descontos prontos, data opcional e encerrar volta ao preço anterior', tem and of1 and of1[0] and 19 <= of1[1] <= 21 and tem2 == [True, True] and of2, [tem, of1, tem2, of2])
+            await checa('oferta: descontos prontos, data opcional e encerrar volta ao preço anterior', tem and of1 and of1[0] and 18 <= of1[1] <= 22 and tem2 == [True, True] and of2, [tem, of1, tem2, of2])
 
             # Liberar para o site: só com foto em todas as cores
             pg = await abrir('sem', 'Hexagonal')
