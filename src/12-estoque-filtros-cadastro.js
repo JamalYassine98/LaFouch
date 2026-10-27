@@ -82,7 +82,7 @@
     S.selItem = null;
     render();
   };
-  ['eRef', 'eGrau', 'eCor'].forEach(function (id) {
+  ['eRef', 'eGrau', 'eCor', 'eCusto'].forEach(function (id) {
     $(id).oninput = render;
   });
   /* sugestões de códigos que já existem + preencher sozinho quando o código digitado já está no estoque */
@@ -283,6 +283,8 @@
     }
     S.eMat = '';
     S.ePub = '';
+    S.eStep = 1;
+    S._medIni = 0;
     $('eNome').value = '';
     var dd = $('eDescP').value.trim();
     if (dd && (!S.desc[ref] || !S._known)) S.desc[ref] = dd;
@@ -439,6 +441,10 @@
   };
   $('addToMan').onclick = function () {
     S.addMode = 'prod';
+    S.eStep = 1;
+    S._medIni = 0;
+    S.eMat = '';
+    S.ePub = '';
     S.msg = '';
     render();
   };

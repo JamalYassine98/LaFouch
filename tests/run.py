@@ -1138,15 +1138,19 @@ async def main():
             await pg.click('#addToMan'); await pg.wait_for_timeout(300)
             await pg.locator('#mTipos >> text=Armações').click(); await pg.wait_for_timeout(300)
             vis = await pg.evaluate("() => ['eFmtB','ePkgB','eCor'].map(i => document.getElementById(i).offsetParent === null).concat([!!document.getElementById('eDescP').offsetParent])")
-            await pg.fill('#eRef', 'ZZ77'); await pg.evaluate("() => { const d = document.getElementById('eMais'); if (d) d.open = true; }"); await pg.fill('#eNome', ''); await pg.fill('#eCusto', '0,50')
-            await pg.evaluate("() => { const d = document.getElementById('eMais'); if (d) d.open = true; }"); await pg.fill('#eDescP', 'Armação de acetato verde, haste larga')
+            OPEN = "() => { const d = document.getElementById('eMais'); if (d) d.open = true; }"
+            await pg.fill('#eRef', 'ZZ77'); await pg.fill('#eCusto', '0,50')
+            await pg.evaluate("() => { const S = window.__LF.S; if (S.formats.indexOf('Quadrado') < 0) S.formats.push('Quadrado'); S.eFmt = 'Quadrado'; S.eMat = 'Metal'; S.ePub = 'Unissex'; window.__LF.render(); }"); await pg.wait_for_timeout(600)
+            pas = await pg.evaluate("() => document.getElementById('eGuia').innerText")
+            await pg.click('#eNext'); await pg.wait_for_timeout(300)
+            await pg.evaluate(OPEN); await pg.fill('#eNome', ''); await pg.fill('#eDescP', 'Armação de acetato verde, haste larga')
             await pg.locator('#eVars button:has-text("C1")').click()
             await pg.click('#go'); await pg.wait_for_timeout(500)
             r = await pg.evaluate("() => { const S = window.__LF.S; const it = S.items.filter(i => i.ref === 'ZZ77')[0]; return [!!it, it && it.cor, S.desc.ZZ77, document.getElementById('eDescP').value]; }")
             total += 1
-            ok = vis == [True, True, True, True] and r == [True, 'Sem cor', 'Armação de acetato verde, haste larga', ''] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'cadastro: sem formato/cor/pacote e com descrição')
-            if not ok: falhas.append('cadastro desc'); print('        veio', vis, r, pg.erros)
+            ok = vis[:3] == [False, True, True] and '6 de 6' in pas and r == [True, 'Sem cor', 'Armação de acetato verde, haste larga', ''] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'cadastro guiado: duas telas, sem pacote e com descrição')
+            if not ok: falhas.append('cadastro desc'); print('        veio', vis, pas, r, pg.erros)
             await pg.close()
 
             # identidade do modelo: nome automático, descrição por cor, nº interno, busca e coleção

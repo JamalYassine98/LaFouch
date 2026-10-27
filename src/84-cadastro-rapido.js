@@ -604,21 +604,40 @@
     b.appendChild(x);
   }
 
-  // ----- Cadastro à mão guiado: contador de passos, chips de medidas, material e gênero, cartão "o app preenche"
-  var EMEDS = ['52□18-140', '54□18-140', '56□18-145', '58□16-145'];
+  // ----- Cadastro à mão guiado em 2 telas: "Novo modelo" (essencial) e "Cor e quantidade".
+  S.eStep = 1;
+  function medParse(v) {
+    var m = String(v || '').match(/(\d{2})\D*?(\d{1,2})\D+(\d{3})/);
+    return m ? [+m[1], +m[2], +m[3]] : null;
+  }
+  function medSet(a) {
+    $('eMed').value = a[0] + '□' + a[1] + '-' + a[2];
+    $('eMed').dispatchEvent(new Event('input', { bubbles: true }));
+    render();
+  }
+  function atrDe(ref) {
+    try {
+      return (ref && attrOf(ref)) || {};
+    } catch (e) {
+      return {};
+    }
+  }
+  // Passos da tela 1: [rótulo, campo, feito].
   function guiaPassos() {
     var t = tipoOf(S.tipo) || {},
       pre = S.tipo === 'pre',
       simple = !!t.simple,
-      cor = ($('eCor').value || '').trim(),
+      at = atrDe(S._ref),
       cu = parseFloat(String($('eCusto').value || '').replace(',', '.')),
       pg = pickG(S.tipo, S.gSel),
-      p = [['Código', !!S._ref]];
-    if (!simple) p.push(['Formato', !!S._fmtUsed]);
-    if (pre) p.push(['Grau', !!S._gn]);
-    else if (!simple) p.push(['Medidas', !!($('eMed').value || '').trim() || !!(S._known && S._known.med)]);
-    p.push(['Cor', !!cor]);
-    p.push(['Custo', cu > 0 || !!pg.g]);
+      p = [['Tipo', 'mTipos', true], ['Código', 'eRef', !!S._ref]];
+    if (!simple) {
+      if (pre) p.push(['Grau', 'eGrau', !!S._gn]);
+      p.push(['Formato', 'eFmts', !!S._fmtUsed]);
+      p.push(['Material', 'eMatC', !!(S.eMat || at.material)]);
+      p.push(['Gênero', 'ePubC', !!(S.ePub || at.publico)]);
+    }
+    p.push(['Custo', 'eCusto', cu > 0 || !!pg.g]);
     return p;
   }
   // Marca o campo que falta: balança, contorno vermelho e rola até ele.
@@ -629,9 +648,10 @@
       e.scrollIntoView({ block: 'center', behavior: REDUCED ? 'auto' : 'smooth' });
     } catch (x) {}
     if (REDUCED) return;
-    e.classList.remove('lfshake');
-    void e.offsetWidth;
-    e.classList.add('lfshake');
+    var w = e.closest('.s1') || e;
+    w.classList.remove('lfshake');
+    void w.offsetWidth;
+    w.classList.add('lfshake');
     e.style.borderColor = 'var(--bad)';
     setTimeout(function () {
       e.style.borderColor = '';
@@ -641,116 +661,253 @@
     var w = $(id);
     w.textContent = '';
     itens.forEach(function (v) {
-      var b = btn('chip' + (cur === v ? ' on' : ''), v, function () {
-        set(cur === v ? '' : v);
-        render();
-      });
-      w.appendChild(b);
+      w.appendChild(
+        btn(
+          'chip' + (cur === v ? ' on' : ''),
+          v,
+          function () {
+            set(cur === v ? '' : v);
+            render();
+          },
+          cur === v
+        )
+      );
     });
   }
+  function guiaBloco(id, rotulo, filho) {
+    var d = mk('div', 's1');
+    d.id = id;
+    d.appendChild(mk('div', 'lbl', rotulo));
+    d.appendChild(filho);
+    return d;
+  }
+  // Monta uma vez a ordem das telas (os campos antigos mudam de lugar, com os mesmos ids).
+  function guiaMontar() {
+    if ($('eGuia')) return;
+    var box = $('eBox'),
+      g = mk('div', 'card s1');
+    g.id = 'eGuia';
+    g.style.cssText = 'margin:0;padding:12px';
+    var mat = mk('div', 'nav');
+    mat.id = 'eMatC';
+    var pub = mk('div', 'nav');
+    pub.id = 'ePubC';
+    var med = mk('div', 'erow2');
+    med.id = 'eMedS';
+    med.style.cssText = 'grid-template-columns:repeat(3,minmax(0,1fr));gap:8px';
+    var au = mk('div', 'card s1');
+    au.id = 'eAutoCard';
+    au.style.cssText = 'margin:0;padding:12px';
+    var nx = btn('go s1', 'Continuar', function () {
+      var f = guiaPassos().filter(function (x) {
+        return !x[2];
+      })[0];
+      if (f) {
+        popErr('Falta ' + f[0].toLowerCase() + '.');
+        guiaMarca(f[1]);
+        return;
+      }
+      S.eStep = 2;
+      render();
+      try {
+        $('addModal').scrollTop = 0;
+      } catch (e) {}
+    });
+    nx.id = 'eNext';
+    var vb = mk('button', 'tab s2', '← Voltar para o essencial');
+    vb.type = 'button';
+    vb.id = 'eBackS';
+    vb.style.alignSelf = 'flex-start';
+    vb.onclick = function () {
+      S.eStep = 1;
+      render();
+    };
+    var d = document.createElement('details');
+    d.id = 'eMais';
+    d.className = 's2';
+    d.innerHTML =
+      '<summary class="lbl" style="cursor:pointer;margin:0">Mais detalhes (opcional)</summary><div class="col" id="eMaisBox" style="gap:10px;margin-top:10px"></div>';
+    var refRow = $('eRef').closest('.erow2'),
+      corB = $('eCorL').parentNode;
+    $('eFmtB').classList.remove('gone');
+    corB.classList.remove('gone');
+    [$('eFmtB'), corB, $('eVarB'), $('eFaixaB')].forEach(function (e) {
+      e.classList.add(e === $('eFmtB') ? 's1' : 's2');
+    });
+    ['eGrauB', 'eCustoB', 'eLoteB'].forEach(function (id) {
+      $(id).classList.add('s1');
+    });
+    refRow.classList.add('s1');
+    $('eMedB').classList.add('s1');
+    $('eMedB').firstChild.textContent = 'Medidas';
+    $('eMed').style.display = 'none';
+    refRow.style.gridTemplateColumns = 'minmax(0,1fr)';
+    $('qv').closest('.sel').parentNode.id = 'qtyB';
+    $('qtyB').classList.add('s2');
+    $('st').classList.add('s2');
+    $('go').classList.add('s2');
+    $('mTipos').parentNode.classList.add('s1');
+    $('pc').classList.add('s1');
+    box.appendChild(d);
+    $('eMaisBox').appendChild($('eNomeB'));
+    $('eMaisBox').appendChild(box.querySelector('.descp'));
+    $('eMaisBox').appendChild($('ePkgB'));
+    [
+      g,
+      $('eCloneB'),
+      refRow,
+      $('eGrauB'),
+      $('eFmtB'),
+      guiaBloco('eMatB', 'Material', mat),
+      $('eMedB'),
+      guiaBloco('ePubB', 'Gênero', pub),
+      $('eCustoB'),
+      $('eLoteB'),
+      au,
+      nx,
+      vb,
+      corB,
+      $('eVarB'),
+      $('eFaixaB'),
+      d
+    ].forEach(function (e) {
+      box.appendChild(e);
+    });
+    $('eMedB').appendChild(med);
+    box.style.gap = '14px';
+  }
+  function stepper(w, rot, val, min, max, set) {
+    var c = mk('div', ''),
+      r = mk('div', 'sel');
+    c.appendChild(mk('div', 'lbl', rot));
+    r.style.cssText = 'gap:4px;flex-wrap:nowrap';
+    var m = btn('step', '−', function () {
+        set(Math.max(min, val - 1));
+      }),
+      pl = btn('step', '+', function () {
+        set(Math.min(max, val + 1));
+      }),
+      v = mk('b', '', String(val));
+    m.style.cssText = pl.style.cssText = 'width:36px;height:44px;flex:none';
+    v.style.cssText = 'flex:1;text-align:center;font-size:18px';
+    m.setAttribute('aria-label', 'Diminuir ' + rot);
+    pl.setAttribute('aria-label', 'Aumentar ' + rot);
+    r.appendChild(m);
+    r.appendChild(v);
+    r.appendChild(pl);
+    c.appendChild(r);
+    w.appendChild(c);
+  }
   function renderGuia() {
-    var box = $('eBox');
-    if (!box || box.hidden || S.addMode !== 'prod') return;
+    var rest = $('addProdRest'),
+      box = $('eBox');
+    if (!box || box.hidden || S.addMode !== 'prod') {
+      if (rest) rest.removeAttribute('data-st');
+      return;
+    }
+    guiaMontar();
     var t = tipoOf(S.tipo) || {},
       pre = S.tipo === 'pre',
-      simple = !!t.simple;
-    // tudo o que é opcional vai para "Mais detalhes"
-    if (!$('eMais')) {
-      var d = document.createElement('details');
-      d.id = 'eMais';
-      d.className = 'mais';
-      d.innerHTML = '<summary>Mais detalhes (opcional)</summary><div class="col" id="eMaisBox" style="gap:10px;margin-top:10px"></div>';
-      var nb = $('eNomeB');
-      nb.parentNode.insertBefore(d, nb);
-      $('eMaisBox').appendChild(nb);
-      var dp = box.querySelector('.descp');
-      if (dp) $('eMaisBox').appendChild(dp);
+      simple = !!t.simple,
+      at = atrDe(S._ref),
+      st = S.eStep === 2 ? 2 : 1;
+    rest.setAttribute('data-st', String(st));
+    // material e gênero
+    $('eMatB').hidden = $('ePubB').hidden = simple;
+    if (!simple) {
+      chipsRow('eMatC', ['Metal', 'Acetato', 'TR90', 'Plástico'], S.eMat || at.material || '', function (v) {
+        S.eMat = v;
+      });
+      chipsRow('ePubC', ['Unissex', 'Feminino', 'Masculino'], S.ePub || at.publico || '', function (v) {
+        S.ePub = v;
+      });
     }
-    // contador de passos
-    var g = $('eGuia');
-    if (!g) {
-      g = mk('div', 'card');
-      g.id = 'eGuia';
-      g.style.cssText = 'margin:0 0 10px;padding:10px 12px';
-      box.insertBefore(g, box.firstChild);
+    // medidas: lente, ponte, haste (começam nos valores mais usados)
+    var sm = $('eMedS'),
+      mostra = !pre && !simple && !(S._known && S._known.med);
+    $('eMedB').hidden = !mostra;
+    sm.textContent = '';
+    if (mostra) {
+      var mv = medParse($('eMed').value);
+      if (!mv) {
+        if (!S._medIni) {
+          S._medIni = 1;
+          $('eMed').value = '52□18-140';
+        }
+        mv = medParse($('eMed').value) || [52, 18, 140];
+      }
+      stepper(sm, 'Lente', mv[0], 40, 70, function (n) {
+        medSet([n, mv[1], mv[2]]);
+      });
+      stepper(sm, 'Ponte', mv[1], 10, 30, function (n) {
+        medSet([mv[0], n, mv[2]]);
+      });
+      stepper(sm, 'Haste', mv[2], 120, 160, function (n) {
+        medSet([mv[0], mv[1], n]);
+      });
     }
+    // cabeçalho com passos
     var ps = guiaPassos(),
       ok = ps.filter(function (x) {
-        return x[1];
+        return x[2];
       }).length,
       falta = ps
         .filter(function (x) {
-          return !x[1];
+          return !x[2];
         })
         .map(function (x) {
           return x[0];
-        });
+        }),
+      g = $('eGuia'),
+      pct = Math.round((ok / ps.length) * 100);
     g.innerHTML =
-      '<div style="display:flex;justify-content:space-between;align-items:center"><b>Novo cadastro</b><span class="pill ' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b style="font-size:17px">' +
+      (pre ? 'Novo pré-graduado' : simple ? 'Novo item' : 'Novo modelo') +
+      '</b><span class="pill ' +
       (ok === ps.length ? 'o' : 'a') +
       '">' +
       ok +
       ' de ' +
       ps.length +
-      '</span></div><div style="height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin:8px 0 4px"><i style="display:block;height:100%;width:' +
-      Math.round((ok / ps.length) * 100) +
+      '</span></div><div class="hint" style="margin:2px 0 0">À mão · o app guia e confere</div><div style="height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin:10px 0 6px"><i style="display:block;height:100%;width:' +
+      pct +
       '%;background:linear-gradient(90deg,var(--accent),var(--accent-fg,#e08bc0));transition:width .4s"></i></div><div class="hint" style="margin:0">' +
-      (falta.length ? 'Falta: ' + falta.join(', ') : 'Tudo certo. Toque em Registrar entrada.') +
+      (falta.length ? 'Falta: ' + falta.join(', ') : 'Tudo certo. Toque em Continuar.') +
       '</div>';
-    // medidas mais comuns
-    var mb = $('eMedChips');
-    if (!mb) {
-      mb = mk('div', 'nav');
-      mb.id = 'eMedChips';
-      mb.style.marginTop = '6px';
-      $('eMedB').appendChild(mb);
-    }
-    mb.hidden = pre || simple;
-    if (!mb.hidden) chipsRow('eMedChips', EMEDS, ($('eMed').value || '').trim(), function (v) {
-      $('eMed').value = v;
-    });
-    // material e gênero (vão para a identificação do modelo)
-    var ab = $('eAtrB');
-    if (!ab) {
-      ab = mk('div', 'col');
-      ab.id = 'eAtrB';
-      ab.style.cssText = 'gap:8px;margin-bottom:10px';
-      ab.innerHTML = '<div><div class="lbl">Material</div><div class="nav" id="eMatC"></div></div><div><div class="lbl">Gênero</div><div class="nav" id="ePubC"></div></div>';
-      var anc = $('eRef').closest('.erow2');
-      anc.parentNode.insertBefore(ab, anc.nextSibling);
-    }
-    ab.hidden = simple;
-    if (!simple) {
-      chipsRow('eMatC', ['Metal', 'Acetato', 'TR90', 'Plástico'], S.eMat || '', function (v) {
-        S.eMat = v;
-      });
-      chipsRow('ePubC', ['Unissex', 'Feminino', 'Masculino'], S.ePub || '', function (v) {
-        S.ePub = v;
-      });
-    }
-    // o que o app preenche sozinho
-    var au = $('eAutoCard');
-    if (!au) {
-      au = mk('div', 'card');
-      au.id = 'eAutoCard';
-      au.style.cssText = 'margin:0 0 10px;padding:10px 12px';
-      var qb = $('eCustoB');
-      qb.parentNode.insertBefore(au, qb);
-    }
-    var fm = S._fmtUsed || '',
-      cr = ($('eCor').value || '').trim(),
-      tl = S.tipo === 'solar' ? 'Solar' : pre ? 'Pré-graduado' : 'Armação';
-    au.hidden = simple || (!fm && !cr);
+    // cartão "o app preenche sozinho"
+    var au = $('eAutoCard'),
+      fm = S._fmtUsed || '',
+      mt = S.eMat || at.material || '',
+      cu = parseFloat(String($('eCusto').value || '').replace(',', '.')),
+      pg = pickG(S.tipo, S.gSel);
+    au.hidden = simple || !fm;
     if (!au.hidden) {
-      var fx = (S.faixas || []).filter(function (f) {
-        return f.id === (S.eFaixa || (S._ref && (faixaOf(S._ref) || {}).id));
-      })[0];
+      var tl = S.tipo === 'solar' ? 'Solar' : pre ? 'Pré-graduado' : 'Armação',
+        nome = (tl + ' ' + fm.toLowerCase() + ' ' + mt.toLowerCase()).replace(/\s+/g, ' ').trim(),
+        c = pg.g ? gUnit(pg.g) : cu,
+        fx = null;
+      if (S.eFaixa) fx = S.faixas.filter(function (x) { return x.id === S.eFaixa; })[0];
+      else if (S._ref && faixaOf(S._ref)) fx = faixaOf(S._ref);
+      else if (S.faixaAuto && S.faixaAuto.on && S.faixas.length && c > 0) {
+        var lim = S.faixaAuto.lim || [],
+          k = 0;
+        while (k < lim.length && k < S.faixas.length - 1 && c > lim[k]) k++;
+        fx = S.faixas[k];
+      }
       au.innerHTML =
-        '<div class="lbl" style="margin:0 0 6px">O app preenche sozinho</div><div class="row" style="display:flex;justify-content:space-between;gap:8px"><span>Nome no site</span><b>' +
-        esc((tl + ' ' + fm.toLowerCase() + ' ' + cr.toLowerCase()).replace(/\s+/g, ' ').trim()) +
-        '</b></div><div class="row" style="display:flex;justify-content:space-between;gap:8px;margin-top:4px"><span>Faixa e preço</span><b>' +
-        esc(fx ? fx.nome : 'Sem faixa') +
-        (t.price > 0 ? ' · ' + gs(t.price) : '') +
+        '<div class="lbl" style="margin:0 0 8px">O app preenche <span style="color:var(--accent)">sozinho</span></div><div style="display:flex;justify-content:space-between;gap:8px"><span>Nome no site</span><b style="text-align:right">' +
+        esc(nome) +
+        '</b></div><div style="display:flex;justify-content:space-between;gap:8px;margin-top:6px"><span>Faixa</span><b>' +
+        esc(fx ? fx.nome : c > 0 ? 'Sem faixa' : 'Falta o custo') +
         '</b></div>';
+    }
+    // botão Continuar: apagado até a tela 1 estar completa
+    var nx = $('eNext');
+    nx.style.opacity = falta.length ? '.45' : '1';
+    nx.textContent = 'Continuar para cor e quantidade';
+    // tela 2: resumo de onde veio
+    if (st === 2) {
+      var sub = $('eBackS');
+      sub.textContent = '← ' + (S._ref || '') + ' · ' + (fm || 'Voltar para o essencial');
     }
   }

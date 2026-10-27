@@ -363,7 +363,6 @@
     renderQuick();
     renderClone();
     renderRascunho();
-    renderGuia();
     renderLotes();
     renderLotView();
     loteChips('eLote', S.tipo, S.gSel, function (v) {
@@ -1103,6 +1102,7 @@
         })[0]
       : null;
     var fmtUsed = known ? known.fmt : S.formats.indexOf(S.eFmt) >= 0 ? S.eFmt : '';
+    S._fmtUsed = fmtUsed;
     $('eRefH').textContent = known
       ? 'Já existe no estoque (' +
         S.items
@@ -1254,5 +1254,6 @@
     S._falta = falta;
     S._ref = ref;
     S._known = known;
+    renderGuia();
   }
 
