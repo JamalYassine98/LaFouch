@@ -1,5 +1,7 @@
 # Regras do projeto LaFouch
 
+- Antes de qualquer trabalho, leia docs/MEMORIA-PROJETO.md (decisões do dono e pendências) e atualize-o a cada decisão nova.
+
 - Ao terminar qualquer mudança no app (src/, www/), depois de os testes passarem (python3 tests/run.py) e do commit/push em main, gerar SEMPRE os dois: o APK e o instalador do Windows. O dono pediu isso (25/10/2026).
   - APK: gh api -X POST repos/JamalYassine98/LaFouch/actions/workflows/build-apk.yml/dispatches -f ref=main
   - Windows: gh api -X POST repos/JamalYassine98/LaFouch/actions/workflows/build-windows.yml/dispatches -f ref=main
