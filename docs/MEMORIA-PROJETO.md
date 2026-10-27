@@ -108,3 +108,6 @@ PENDENTE: Editar produto reaproveitando a interface do cadastro (com lixeira) �
 
 ## v342 (27/10/2026) — Editar produto com a interface do cadastro
 2 telas como o cadastro: "Editar produto" (nome, código, marca, Formato/Material/Gênero em Label Select, coleção, descrição, faixa) → "Cores e fotos" (lista de cores com foto, trocar/excluir foto, qtd/custo, excluir cor, liberar para o site, peça quebrada, Excluir produto). Voltar em ícone alinhado ao Fechar; lixeira no topo; Salvar só na 2ª tela. Substitui o v340 (4 etapas).
+
+## Verificação do WhatsApp no site (27/10/2026, 19:06) — dono escolheu opções 1 + 3
+1 = código por WhatsApp (API oficial WhatsApp Business + servidor pequeno; custo por mensagem). 3 = pedido só "confirmado" quando o cliente manda mensagem à loja. Esboço (GIF + telas) enviado; manter as animações do site (check desenhado, etc.). NÃO implementado: depende de contratar a API/servidor.
