@@ -514,3 +514,5 @@ body.arrastaBarra{-webkit-user-select:none;user-select:none;touch-action:none}
 .nvtg{width:50px;height:28px;border-radius:99px;background:var(--line);position:relative;transition:background .3s;flex:none;border:0;padding:0}.nvtg i{position:absolute;left:3px;top:3px;width:22px;height:22px;border-radius:99px;background:#cbd5e1;transition:left .3s}.nvtg.on{background:var(--accent)}.nvtg.on i{left:25px;background:#fff}
 .nvwarn{background:var(--warnbg);border:1px solid #5a4416;border-radius:12px;padding:12px;color:var(--warn);font-size:13px;line-height:1.4}
 .nvstp{display:flex;align-items:center;gap:12px}.nvstp b{flex:1;min-height:52px;display:grid;place-items:center;font-size:26px;background:var(--bg);border:2px solid var(--line);border-radius:10px}
+
+#nvBox #eSim,#nvBox #eCustoH{display:none!important}

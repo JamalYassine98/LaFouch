@@ -17217,7 +17217,6 @@
     var lt = mk('div', '');
     lt.id = 'nvLote';
     lt.appendChild($('eLoteB'));
-    ess.appendChild(lt);
     var au = mk('div', 'nvauto');
     au.id = 'nvAuto';
     au.hidden = true;
@@ -17230,6 +17229,7 @@
     mb.appendChild($('eNomeB'));
     mb.appendChild($('eBox').querySelector('.descp'));
     mb.appendChild($('eFaixaB'));
+    mb.appendChild(lt);
     var nx = btn('go', 'Continuar para cores e fotos', function () {
       nvContinuar();
     });
@@ -17340,7 +17340,7 @@
     if (au.hidden) return;
     var base = S.tipo === 'solar' ? 'Solar' : S.tipo === 'pre' ? 'Pré-graduado' : 'Armação',
       nome = (base + ' ' + fm.toLowerCase() + ' ' + mt.toLowerCase()).replace(/\s+/g, ' ').trim(),
-      rosto = (ROSTO_DE[fm] || []).join(', '),
+      rosto = (ROSTO_DE[fm] || []).join(', ').replace('coracao', 'coração'),
       fx = null;
     if (S.eFaixa)
       fx = S.faixas.filter(function (x) {
@@ -17729,7 +17729,7 @@
         : S.nLido
           ? 'Lido da haste · confira e complete'
           : 'À mão · o app guia e confere';
-    $('addBack').hidden = false;
+    $('addBack').hidden = st !== 2;
     // o botão Voltar do topo leva à tela anterior
     if (!$('addBack').dataset.nv) {
       $('addBack').dataset.nv = '1';

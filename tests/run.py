@@ -1125,7 +1125,7 @@ async def main():
             await pg.click('#addBack'); await pg.wait_for_timeout(300)
             await pg.click('#addToMan'); await pg.wait_for_timeout(300)
             m2 = await pg.evaluate("() => { const v = i => { const e = document.getElementById(i); return !!e && e.offsetParent !== null }; return [v('addProdRest'), v('addBack'), v('btnLeitor'), v('nv_tipo')] }")
-            ok = m0 == [True, True, True, True, False, False, False, 1, True] and m1 == [True, True, False, False] and m2 == [True, True, False, True]
+            ok = m0 == [True, True, True, True, False, False, False, 1, True] and m1 == [True, True, False, False] and m2 == [True, False, False, True]
             print(('  ok  ' if ok else ' FALHA ') + 'Adicionar: menu único, voltar, um só leitor e sem abas Produto/Lote')
             if not ok: falhas.append('menu adicionar'); print('        veio', m0, m1, m2, pg.erros)
             total += 1
