@@ -1255,13 +1255,14 @@ async def main():
             # Pedidos do site: chegam sozinhos da nuvem, cadastram o cliente, abrem o detalhe e a janela da peça
             pg = await pagina()
             docs = {'documents': [
-              {'name': 'projects/p/databases/(default)/documents/pedidos/abc1', 'fields': {'ts': {'integerValue': str(int(time.time()*1000))}, 'nome': {'stringValue': 'maria souza'}, 'tel': {'stringValue': '0981123456'}, 'total': {'integerValue': '210000'}, 'itens': {'arrayValue': {'values': [{'mapValue': {'fields': {'ref': {'stringValue': 'AC1'}, 'nome': {'stringValue': 'Armação azul'}, 'q': {'integerValue': '2'}, 'cor': {'stringValue': ''}, 'preco': {'integerValue': '105000'}}}}]}}}},
+              {'name': 'projects/p/databases/(default)/documents/pedidos/abc1', 'fields': {'ts': {'integerValue': str(int(time.time()*1000))}, 'nome': {'stringValue': 'maria souza'}, 'tel': {'stringValue': '0981123456'}, 'cod': {'stringValue': 'K7Q2'}, 'ate': {'integerValue': str(int(time.time()*1000)+1800000)}, 'total': {'integerValue': '210000'}, 'itens': {'arrayValue': {'values': [{'mapValue': {'fields': {'ref': {'stringValue': 'AC1'}, 'nome': {'stringValue': 'Armação azul'}, 'q': {'integerValue': '2'}, 'cor': {'stringValue': ''}, 'preco': {'integerValue': '105000'}}}}]}}}},
               {'name': 'projects/p/databases/(default)/documents/pedidos/abc2', 'fields': {'nome': {'stringValue': ''}, 'itens': {'arrayValue': {}}}}]}
-            apagados = []
+            apagados = []; reservas = []
             async def falso(route):
                 u, m = route.request.url, route.request.method
                 if 'securetoken' in u: await route.fulfill(json={'id_token': 't', 'refresh_token': 'r'})
                 elif m == 'DELETE': apagados.append(u.rsplit('/', 1)[1]); await route.fulfill(json={})
+                elif m == 'PATCH': reservas.append(u.split('/documents/')[1]); await route.fulfill(json={})
                 else: await route.fulfill(json=docs)
             await pg.context.route(re.compile(r'(securetoken|firestore)\.googleapis\.com'), falso)
             await pg.evaluate("() => { const S = window.__LF.S; S.pedidos = []; S.clientes = []; S.items = [{tipo:'pre',ref:'AC1',grau:'+1',cor:'P',qty:3}]; S.nuvem.rt = 'x'; }")
@@ -1271,6 +1272,8 @@ async def main():
             r = await pg.evaluate("() => { const S = window.__LF.S, p = S.pedidos[0]; return [S.pedidos.length, p.cli, p.itens[0].q, p.st, p.orig, S.clientes.length, S.clientes[0].tel, p.cliId === S.clientes[0].id, p.cliNovo]; }")
             await pg.evaluate("() => { window.__LF.S.pedF = 'novo'; window.__LF.setView('ped'); }"); await pg.wait_for_timeout(300)
             txt = await pg.inner_text('#v-ped')
+            await pg.locator('[data-act=pedconf]').first.click(); await pg.wait_for_timeout(400)
+            txt2 = await pg.inner_text('#v-ped')
             await pg.locator('[data-act=pedab]').first.click(); await pg.wait_for_timeout(300)
             det = await pg.inner_text('#v-ped')
             await pg.locator('[data-act=pedprod]').first.click(); await pg.wait_for_timeout(300)
@@ -1279,7 +1282,7 @@ async def main():
             r2 = await pg.evaluate("() => [window.__LF.S.pedidos[0].st, window.__LF.S.pedF]")
             total += 1
             ok = (n1 == 1 and n2 == 0 and r == [1, 'Maria souza', 2, 'novo', 'site', 1, '0981123456', True, True] and sorted(set(apagados)) == ['abc1', 'abc2']
-                  and 'Cliente novo, cadastrado automaticamente' in txt and 'novo pedido' not in txt.lower() and 'Maria souza' in det and 'Cadastrado agora' in det and 'Armação azul' in det
+                  and 'Aguardando a mensagem do cliente' in txt and 'K7Q2' in txt and 'Reserva confirmada' in txt2 and reservas == ['reservas/abc1'] and 'Cliente novo, cadastrado automaticamente' in txt and 'novo pedido' not in txt.lower() and 'Maria souza' in det and 'Cadastrado agora' in det and 'Armação azul' in det
                   and '3 peças' in jan and 'neste pedido' in jan.lower() and r2 == ['sep', 'sep'] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'pedidos do site: chegam sozinhos, cadastram o cliente, detalhe e janela da peça')
             if not ok: falhas.append('pedidos'); print('        veio', n1, n2, r, apagados, txt[:200], det[:200], jan[:200], r2, pg.erros)

@@ -83,7 +83,7 @@
       tel = pedTxt(f.tel, 24);
     if (!itens.length || !nome) return null;
     var ts = +f.ts > 0 && +f.ts <= Date.now() + 3600000 ? +f.ts : Date.now();
-    return { sid: sid, ts: ts, cli: cap1(nome), tel: tel, obs: f.rosto ? 'Formato do rosto: ' + pedTxt(f.rosto, 20) : '', itens: itens, st: 'novo', orig: 'site' };
+    return { sid: sid, ts: ts, cli: cap1(nome), tel: tel, obs: f.rosto ? 'Formato do rosto: ' + pedTxt(f.rosto, 20) : '', itens: itens, st: 'novo', orig: 'site', cod: pedTxt(f.cod, 8), ate: +f.ate > 0 ? +f.ate : 0, pais: pedTxt(f.pais, 2) };
   }
   // Acha o cliente pelo telefone (ou nome) e, se não existe, cadastra. Devolve o cliente e se foi criado agora.
   function pedCliente(p) {
@@ -189,6 +189,7 @@
       '<div class="sel" style="flex-wrap:wrap;margin-top:8px">' +
       (pr && pr[2] ? '<button type="button" class="mini" data-act="pedav" data-id="' + p.id + '">' + pr[2] + '</button>' : '') +
       (z ? '<a class="chip" href="' + z + '" target="_blank" rel="noopener">WhatsApp</a>' : '') +
+      (p.orig === 'site' && p.cod && !p.conf && p.st === 'novo' ? '<button type="button" class="mini" data-act="pedconf" data-id="' + p.id + '">✓ Confirmar reserva</button>' : '') +
       (p.st !== 'canc' && p.st !== 'ent' ? '<button type="button" class="chip" data-act="pedcanc" data-id="' + p.id + '">Cancelar pedido</button>' : '') +
       (p.st === 'canc' || p.st === 'ent' ? '<button type="button" class="chip" data-act="peddel" data-id="' + p.id + '">' + (S._pedDel === String(p.id) ? 'Remover?' : 'Remover') + '</button>' : '') +
       '</div>'
@@ -317,6 +318,7 @@
           })
           .join('') +
         '</div>' +
+        (p.orig === 'site' && p.cod ? '<div class="hint" style="margin:6px 0 0;color:' + (p.conf ? '#4ccf8a' : '#e6c27a') + '">' + (p.conf ? '✓ Reserva confirmada · código ' + esc(p.cod) : '⏳ Aguardando a mensagem do cliente · código ' + esc(p.cod) + (p.ate ? ' · reserva até ' + fh(p.ate) : '')) + '</div>' : '') +
         (c ? '<div class="hint" style="margin:6px 0 0;color:' + (p.cliNovo ? '#f1b6d8' : '#4ccf8a') + '">' + (p.cliNovo ? '✦ Cliente novo, cadastrado automaticamente' : '✓ Cliente cadastrado') + '</div>' : '') +
         (tot ? '<div class="hint" style="margin:6px 0 0">Total: <b>' + gs(tot) + '</b></div>' : '') +
         '<div class="hint" style="margin:6px 0 0;text-align:right">Toque para abrir ›</div></div>' +
@@ -328,6 +330,20 @@
   ACT.pedf = function (id) {
     S.pedF = id;
     render();
+  };
+  // Confirma a reserva: grava reservas/<id> no Firebase; o site do cliente lê e mostra "Reserva confirmada".
+  ACT.pedconf = function (id) {
+    var p = pedAch(id);
+    if (!p || !p.sid) return;
+    p.conf = true;
+    render();
+    nvApi('PATCH', 'reservas/' + encodeURIComponent(p.sid), JSON.stringify({ fields: { ok: { booleanValue: true }, ts: { integerValue: String(Date.now()) } } }))
+      .then(function () {
+        say('Reserva confirmada. O cliente já vê no site.');
+      })
+      .catch(function () {
+        say('Marcada aqui, mas não consegui avisar o site (sem internet ou sem permissão no Firebase).');
+      });
   };
   ACT.pedver = function () {
     S.pedF = 'novo';

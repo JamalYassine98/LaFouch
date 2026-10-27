@@ -114,3 +114,10 @@ PENDENTE: Editar produto reaproveitando a interface do cadastro (com lixeira) �
 
 ## Site: verificação de WhatsApp — decisão revisada (19:13)
 Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Paraguai ou Argentina (celular); (b) após enviar, tela "Falta um passo" com giro de verificando: o cliente precisa falar com o vendedor primeiro (mensagem com código do pedido) para ter a reserva. Reserva guardada 30 min; o dono confirma no app ("Confirmar reserva") e o site mostra "Reserva confirmada". Esboço (GIF) enviado; AGUARDANDO aprovação, não implementar.
+
+## 27/10/2026 · v343 · Barreira do WhatsApp (site + app) — implementada
+- Site: seletor de país (🇵🇾 +595, 🇧🇷 +55, 🇦🇷 +54) e validação de celular por país, com erro específico; números com 7+ dígitos repetidos são recusados. O telefone é salvo normalizado (+55…, +595…, +549…).
+- Depois de "Enviar pedido": tela "Falta um passo" (spinner), código `PEDIDO XXXX`, botão verde que abre o WhatsApp com o código na mensagem, barra de 30 min. O site consulta `reservas/<id>` a cada 4 s; quando existe `ok:true` mostra "Reserva confirmada" (animação do check).
+- App (Pedidos online): selo "Aguardando a mensagem do cliente · código · reserva até HH:MM" e botão "✓ Confirmar reserva", que grava `reservas/<sid>` (ok, ts) via PATCH. É manual: não há API que detecte a mensagem no WhatsApp.
+- PENDENTE NO FIREBASE: regra do Firestore para `reservas/{id}` → leitura pública (`allow get: if true`), escrita só autenticado. Sem isso o site não vê a confirmação e fica na tela de espera (depois de 30 min mostra aviso simples).
+- Pedido do site não chegando ao app: causa ainda não confirmada (aguardando o dono informar o que "Verificar agora" mostra).
