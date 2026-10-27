@@ -121,3 +121,8 @@ Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Parag
 - App (Pedidos online): selo "Aguardando a mensagem do cliente · código · reserva até HH:MM" e botão "✓ Confirmar reserva", que grava `reservas/<sid>` (ok, ts) via PATCH. É manual: não há API que detecte a mensagem no WhatsApp.
 - PENDENTE NO FIREBASE: regra do Firestore para `reservas/{id}` → leitura pública (`allow get: if true`), escrita só autenticado. Sem isso o site não vê a confirmação e fica na tela de espera (depois de 30 min mostra aviso simples).
 - Pedido do site não chegando ao app: causa ainda não confirmada (aguardando o dono informar o que "Verificar agora" mostra).
+
+## 27/10/2026 · Admin do site (catalogo/admin.html)
+- IMPLEMENTADO: (1) lista de Produtos junta o Firebase + a cópia do que o cliente viu (localStorage `lf_pdocs`); os que faltam no Firebase aparecem com "só no site" e botão Publicar; contador "N no total · M só no site". (2) Sem barra "Assim o cliente vê": o botão do cabeçalho vira olho aberto (visão do cliente) / olho fechado (admin), cabeçalho idêntico nos dois modos.
+- PENDENTE (item 3, dono NÃO gostou do botão "Publicar no site"): mostrar outras opções de botão antes de implementar; remover cartão "Preço" da ficha (Inventário) só depois da aprovação; perguntar se mantém preço novo/antigo e faixa.
+- Não consigo ler o Firebase daqui (rede bloqueada); a causa real de "admin 1 × site 2" não foi confirmada.
