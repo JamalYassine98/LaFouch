@@ -4,7 +4,8 @@
     try {
       refreshRefList();
     } catch (e) {}
-    var sy = window.pageYOffset || 0;
+    var sy = window.pageYOffset || 0,
+      msc = ovScrollGet();
     syncBulk();
     try {
       identSync();
@@ -33,6 +34,37 @@
     renderDay();
     saveSoon();
     if ((window.pageYOffset || 0) !== sy) window.scrollTo(0, sy);
+    ovScrollSet(msc);
+  }
+  // Janelas e telas por cima (editar produto, carrinho, lote…) são recriadas a cada render: guarda e devolve a rolagem delas, para a tela não pular para o topo.
+  var OVSEL = '.modal:not([hidden]),.catov:not([hidden]),[role=dialog]:not([hidden])';
+  function ovChave(m) {
+    return m.id || m.getAttribute('aria-label') || '';
+  }
+  function ovScrollGet() {
+    var l = [];
+    try {
+      Array.prototype.forEach.call(document.querySelectorAll(OVSEL), function (m) {
+        var b = m.querySelector('.modal-box'),
+          k = ovChave(m);
+        if (k && (m.scrollTop || (b && b.scrollTop))) l.push([k, m.scrollTop, b ? b.scrollTop : 0]);
+      });
+    } catch (e) {}
+    return l;
+  }
+  function ovScrollSet(l) {
+    if (!l || !l.length) return;
+    try {
+      var ms = document.querySelectorAll(OVSEL);
+      l.forEach(function (x) {
+        Array.prototype.forEach.call(ms, function (m) {
+          if (ovChave(m) !== x[0]) return;
+          var b = m.querySelector('.modal-box');
+          if (x[1] && m.scrollTop !== x[1]) m.scrollTop = x[1];
+          if (x[2] && b && b.scrollTop !== x[2]) b.scrollTop = x[2];
+        });
+      });
+    } catch (e) {}
   }
 
   /* ---------- fotos: miniatura (catálogo) + original em alta (IndexedDB, bem mais espaço que o localStorage) */

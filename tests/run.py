@@ -611,6 +611,26 @@ async def main():
             if not ok: falhas.append('anim obturador'); print('        veio', r, pg.erros)
             await pg.close()
 
+            # Editar produto: apertar botões não faz a janela voltar ao topo
+            pg = await pagina()
+            total += 1
+            await pg.evaluate("() => { window.__LF.setView('estoque'); }"); await pg.wait_for_timeout(400)
+            await pg.locator('#rows .pcard').nth(2).click(); await pg.wait_for_timeout(700)
+            await pg.click('#detail button[aria-label=Editar]'); await pg.wait_for_timeout(700)
+            res = []
+            for t in ['Liberar para o site', 'Sem faixa', '+']:
+                bt = pg.locator('#editModal button', has_text=t).first
+                if not await bt.count(): res.append((t, 'sem botão')); continue
+                await bt.evaluate("e => e.scrollIntoView({block: 'center'})"); await pg.wait_for_timeout(150)
+                y0 = await pg.evaluate("() => document.getElementById('editModal').scrollTop")
+                await bt.click(); await pg.wait_for_timeout(500)
+                y1 = await pg.evaluate("() => { const e = document.getElementById('editModal'); return e ? e.scrollTop : -1 }")
+                res.append((t, y0, y1))
+            ok = all(r[1] != 'sem botão' and r[1] > 50 and abs(r[1] - r[2]) < 3 for r in res)
+            print(('  ok  ' if ok else ' FALHA ') + 'Editar produto: apertar botões mantém a posição da janela (não volta ao topo)')
+            if not ok: falhas.append('editar pula'); print('        veio', res, pg.erros)
+            await pg.close()
+
             # venda confirmada: sequência animada e imprime direto (sem pergunta)
             pg = await pagina()
             total += 1
