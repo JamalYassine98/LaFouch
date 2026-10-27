@@ -173,6 +173,10 @@
     var lt = mk('div', '');
     lt.id = 'nvLote';
     lt.appendChild($('eLoteB'));
+    var dw = mk('div', 'fmAviso');
+    dw.id = 'nvDeRef';
+    dw.hidden = true;
+    s1.appendChild(dw);
     var au = mk('div', 'nvauto');
     au.id = 'nvAuto';
     au.hidden = true;
@@ -717,10 +721,18 @@
     $('nvSub').textContent =
       st === 2
         ? 'Toda cor liberada precisa de foto. ' + (S._ref || '')
-        : S.nLido
+        : S.nDeRef
+          ? 'Copiado de ' + S.nDeRef + ' · confira'
+          : S.nLido
           ? 'Lido da haste · confira e complete'
           : 'À mão · o app guia e confere';
     $('addBack').hidden = st !== 2;
+    if ($('nvDeRef')) {
+      var dr = !!(S.nDeRef && !$('eRef').value.trim());
+      $('nvDeRef').hidden = !dr;
+      $('nvDeRef').textContent = 'Digite o código deste modelo. O restante veio do ' + (S.nDeRef || '') + ': corrija o que for diferente.';
+      $('eRef').classList.toggle('nvbad', dr);
+    }
     // o botão Voltar do topo leva à tela anterior
     if (!$('addBack').dataset.nv) {
       $('addBack').dataset.nv = '1';

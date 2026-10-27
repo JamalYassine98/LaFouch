@@ -100,6 +100,7 @@
     S.nPop = '';
     S.nCorOpen = false;
     S.nLido = !!o.lido;
+    S.nDeRef = '';
     S.eMat = '';
     S.ePub = '';
     $('eRef').value = o.ref || '';

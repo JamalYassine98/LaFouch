@@ -516,3 +516,42 @@ body.arrastaBarra{-webkit-user-select:none;user-select:none;touch-action:none}
 .nvstp{display:flex;align-items:center;gap:12px}.nvstp b{flex:1;min-height:52px;display:grid;place-items:center;font-size:26px;background:var(--bg);border:2px solid var(--line);border-radius:10px}
 
 #nvBox #eSim,#nvBox #eCustoH{display:none!important}
+/* ---- foto da peça (propostas 4 e 5) ---- */
+.fmSheet{gap:10px}
+.fmHd{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.fmTt{font-size:20px;font-weight:800}
+.fmX{background:var(--panel2,#1c2331);border:1px solid var(--line);color:var(--fg,#e8ecf3);border-radius:10px;padding:10px 16px;font:inherit}
+.fmSub,.fmSec{color:var(--mut,#98a3b8);font-size:13px}
+.fmSec{text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:700;margin-top:4px}
+.fmCard{display:flex;align-items:center;gap:12px;padding:8px;border:1px solid var(--line);border-radius:12px;background:var(--panel2,#161c28)}
+.fmCard.sel{cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.fmCard.sel.on{border-color:#2fe08f;box-shadow:0 0 0 1px #2fe08f33}
+.fmTh{width:64px;height:48px;border-radius:8px;background:#fff center/contain no-repeat;flex:none}
+.fmSem{display:flex;align-items:center;justify-content:center;background:transparent;border:1.5px dashed var(--line);font-size:18px}
+.fmTx{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.fmTx span{font-size:12px;color:var(--mut,#98a3b8)}
+.fmTx span.w{color:#ffc766}
+.fmPct{color:#2fe08f;font-weight:800;font-size:18px}
+.fmBig{height:190px;border-radius:12px;background:#fff center/contain no-repeat}
+.fmBox{border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px;background:var(--panel2,#161c28)}
+.fmBt{color:#5cc8ff;font-weight:700}
+.fmLn{display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--line);font-size:14px}
+.fmLn b{color:#5cc8ff}
+.fmLbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut,#98a3b8);font-weight:700}
+.fmChips,.fmGraus{display:flex;flex-wrap:wrap;gap:8px}
+.fmGraus{display:grid;grid-template-columns:repeat(4,1fr)}
+.fmChip,.fmG{border:1px solid var(--line);background:transparent;color:inherit;border-radius:999px;padding:9px 14px;font:inherit;cursor:pointer;transition:background .15s,transform .1s}
+.fmG{border-radius:10px;padding:10px 0}
+.fmChip.on,.fmG.on{background:#a14578;border-color:#a14578;color:#fff;font-weight:800}
+.fmChip:active,.fmG:active{transform:scale(.95)}
+.fmBtn{border:1px solid var(--line);background:var(--panel2,#161c28);color:inherit;border-radius:12px;padding:14px;font:inherit;font-weight:700;cursor:pointer}
+.fmBtn.pri{background:#a14578;border-color:#a14578;color:#fff}
+.fmBtn.mut{color:var(--mut,#98a3b8)}
+.fmBtn.off{opacity:.45}
+.fmDica{font-size:12px;color:var(--mut,#98a3b8);border-top:1px dashed var(--line);padding-top:8px}
+.fmDica.w,.fmAviso{color:#ffc766}
+.fmAviso{background:#3a2d12;border:1px solid #6b4f12;border-radius:10px;padding:10px;font-size:13px}
+.fmSt{display:flex;align-items:center;gap:8px}
+.fmSt button{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:transparent;color:inherit;font-size:16px}
+.fmCorpo{display:flex;flex-direction:column;gap:10px}
+.fmIn{border:1px solid var(--line);background:transparent;color:inherit;border-radius:10px;padding:12px;font:inherit}

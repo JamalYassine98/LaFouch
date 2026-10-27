@@ -130,6 +130,10 @@
       if (S.cad[i.ref] == null) S.cad[i.ref] = S.cadInit ? Date.now() : 0;
     });
     S.cadInit = true;
+    /* memória do modelo (cor habitual, graus) some junto com o produto */
+    Object.keys(S.memo || {}).forEach(function (r) {
+      if (!seen[r]) delete S.memo[r];
+    });
     if (typeof ofertaManut === 'function') ofertaManut();
     Object.keys(S.attr || {}).forEach(function (ref) {
       if (!seen[ref]) return;
@@ -151,7 +155,7 @@
     });
   }
   function identMove(a, b) {
-    ['attr', 'site', 'cad', 'num', 'pnAuto', 'descAuto'].forEach(function (k) {
+    ['attr', 'site', 'cad', 'memo', 'num', 'pnAuto', 'descAuto'].forEach(function (k) {
       if (S[k] && S[k][a] != null) {
         S[k][b] = S[k][a];
         delete S[k][a];

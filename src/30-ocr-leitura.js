@@ -470,7 +470,8 @@
             medidas: p.med,
             _maybe: p.maybe,
             _maybeMed: p.maybeMed,
-            _cat: p.ref ? null : catMatch(acc.txts)
+            _cat: p.ref ? null : catMatch(acc.txts),
+            _txt: (acc.txts || []).join('\n')
           };
         });
     });

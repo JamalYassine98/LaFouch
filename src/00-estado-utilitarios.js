@@ -66,6 +66,7 @@
     attr: {},
     site: {},
     cad: {},
+    memo: {},
     cadInit: false,
     num: {},
     numNext: 0,
