@@ -45,7 +45,8 @@
       var d = document.createElement('div');
       d.id = 'loadFoto';
       d.style.cssText =
-        'position:fixed;left:0;right:0;top:calc(env(safe-area-inset-top,0px) + 70px);z-index:99999;display:flex;justify-content:center;pointer-events:none';
+        'position:fixed;inset:0;z-index:99999;display:flex;justify-content:center;align-items:flex-start;padding-top:calc(env(safe-area-inset-top,0px) + 70px);background:rgba(0,0,0,.38);pointer-events:auto;touch-action:none';
+      d.setAttribute('aria-busy', 'true');
       var pl = document.createElement('div');
       pl.className = 'busyPill';
       pl.appendChild(busyEl(txt || 'Carregando foto'));

@@ -1157,9 +1157,14 @@
     // escolhe a foto da cor atual (galeria ou câmera)
     function pickPhoto() {
       S.photoFor = { ref: ref, cor: cor };
-      $('fileG').multiple = false;
-      $('fileG').value = '';
-      $('fileG').click();
+      camOpen(
+        function (f) {
+          window.__GAL = false;
+          $('file').onchange({ target: { files: [f] } });
+        },
+        'Foto da cor ' + cor,
+        { gallery: true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
+      );
     }
     var head = mk('div', '');
     head.style.cssText =
@@ -1597,6 +1602,7 @@
         S.cdCor = '';
         S.ajAsk = false;
         S.ajMot = '';
+        S.pdAsk = false;
       };
       var fechar = function () {
         zerar();
@@ -1618,8 +1624,75 @@
       hd.appendChild(ht);
       var xb = btn('tab ibtn', '✕', fechar);
       xb.setAttribute('aria-label', 'Fechar');
-      hd.appendChild(xb);
+      var hbtn = mk('div', '');
+      hbtn.style.cssText = 'display:flex;gap:8px;align-items:center';
+      if (!f.bulk) {
+        var lx = btn('tab ibtn' + (S.pdAsk ? ' on' : ''), '', function () {
+          S.pdAsk = !S.pdAsk;
+          render();
+        });
+        lx.id = 'edLixeira';
+        lx.innerHTML =
+          '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="M6.5 7l1 13h9l1-13"/><path d="M10 11v6M14 11v6"/></svg>';
+        lx.style.color = 'var(--bad)';
+        lx.setAttribute('aria-label', 'Excluir o produto');
+        lx.title = 'Excluir o produto';
+        hbtn.appendChild(lx);
+      }
+      hbtn.appendChild(xb);
+      hd.appendChild(hbtn);
       bx.appendChild(hd);
+      if (S.pdAsk && !f.bulk) {
+        var todos = S.items.filter(function (i) {
+            return i.ref === ref && !i.bulk;
+          }),
+          pq = sum(todos),
+          pc2 = todos.reduce(function (a, i) {
+            return a + (Number(effCusto(i)) || 0) * i.qty;
+          }, 0),
+          pz = mk('div', 'note n-bad');
+        pz.id = 'edLixoAviso';
+        pz.style.cssText = 'display:flex;flex-direction:column;gap:10px';
+        pz.appendChild(
+          mk(
+            'span',
+            '',
+            'Excluir o produto ' + ref + ' inteiro? Remove ' + pq + ' peça(s) de todas as cores' + (pc2 > 0 ? ' (' + usd(pc2) + ' em custo)' : '') + ' e as fotos.' + (S.site && S.site[ref] ? ' Ele sai do site.' : '') + ' As vendas já feitas continuam no histórico.'
+          )
+        );
+        var pr0 = mk('div', '');
+        pr0.style.cssText = 'display:flex;gap:10px';
+        var sim = btn('mini', 'Sim, excluir o produto', function () {
+          var xr = exclusaoEstoque(todos, 'produto excluído');
+          S.items = S.items.filter(function (i) {
+            return !(i.ref === ref && !i.bulk);
+          });
+          Object.keys(S.fotos).forEach(function (k) {
+            if (k.slice(0, k.indexOf('|')) === ref) delete S.fotos[k];
+          });
+          limpaRefExcluido(ref);
+          delete S.desc[ref];
+          zerar();
+          S.detCor = '';
+          S.detVr = null;
+          S.detRow = null;
+          S.selItem = null;
+          S.qty = 1;
+          S.open = '';
+          S.det = false;
+          S.msg = 'Produto ' + ref + ' excluído.' + (xr.n ? ' Saíram ' + xr.n + ' peça(s), ' + usd(xr.usd) + ' em custo, registradas no histórico.' : '');
+          render();
+        });
+        sim.id = 'edLixoSim';
+        var nao = btn('mini', 'Cancelar', function () {
+          S.pdAsk = false;
+          render();
+        });
+        pr0.appendChild(sim);
+        pr0.appendChild(nao);
+        pz.appendChild(pr0);
+        bx.appendChild(pz);
+      }
       // nome e código
       var nmi = null,
         ni = null;
@@ -13745,6 +13818,9 @@
         }, 0);
       out.push({
         ref: i.ref,
+        tipoId: i.tipo,
+        fmt: String(i.fmt || '').toLowerCase(),
+        pub: String(((attrOf(i.ref) || {}).publico) || '').toLowerCase(),
         nome: nome,
         tipo: t && t.label ? t.label : '',
         qtd: qtd,
@@ -13782,12 +13858,21 @@
     return out;
   }
   // Sugestões de código já existente.
-  function sugCodigo(q) {
+  function sugCodigo(q, filtra) {
     var k = sgNorm(q).trim();
     if (!k) return [];
+    /* no Novo modelo, só mostra códigos do tipo, formato e gênero já escolhidos */
+    var fT = filtra && S.tipo ? S.tipo : '',
+      fF = filtra ? String(S._fmtUsed || S.eFmt || '').toLowerCase() : '',
+      fP = filtra ? String(S.ePub || '').toLowerCase() : '';
     return sgModelos()
       .filter(function (m) {
-        return m.hay.indexOf(k) >= 0;
+        return (
+          m.hay.indexOf(k) >= 0 &&
+          (!fT || m.tipoId === fT) &&
+          (!fF || m.fmt === fF) &&
+          (!fP || m.pub === fP)
+        );
       })
       .sort(function (a, b) {
         return (a.cab.indexOf(k) === 0 ? 0 : 1) - (b.cab.indexOf(k) === 0 ? 0 : 1) || (a.ref < b.ref ? -1 : 1);
@@ -13810,7 +13895,9 @@
         });
     };
   }
-  sugestao($('eRef'), sugCodigo);
+  sugestao($('eRef'), function (q) {
+    return sugCodigo(q, true);
+  });
   sugestao($('phRef'), sugCodigo);
   sugestao($('q'), sugBusca);
   sugestao($('vq'), sugBusca);
@@ -14249,7 +14336,8 @@
       bar.appendChild(rc0);
       var HR = null,
         HRtry = false;
-      sh.onclick = function () {
+      sh.onclick = function (ev) {
+        if (ev && HRtry) return; /* um toque só: ignora toques enquanto a foto está sendo feita */
         if (!HRtry) flashCamera(stg);
         if (opts.live) {
           var lc = grabStrip();
@@ -14269,6 +14357,7 @@
         if (!HR && !HRtry && !opts.strip && DZ === 1 && window.ImageCapture && trk && !window.__noIC) {
           HRtry = true;
           sh.style.opacity = '.5';
+          tip.textContent = 'Tirando a foto…';
           var done0 = false,
             fin = function (x) {
               if (done0) return;
@@ -14283,7 +14372,7 @@
             },
             tm = setTimeout(function () {
               fin(null);
-            }, 3500);
+            }, 1800);
           try {
             new ImageCapture(trk)
               .takePhoto()
@@ -14677,7 +14766,8 @@
       var d = document.createElement('div');
       d.id = 'loadFoto';
       d.style.cssText =
-        'position:fixed;left:0;right:0;top:calc(env(safe-area-inset-top,0px) + 70px);z-index:99999;display:flex;justify-content:center;pointer-events:none';
+        'position:fixed;inset:0;z-index:99999;display:flex;justify-content:center;align-items:flex-start;padding-top:calc(env(safe-area-inset-top,0px) + 70px);background:rgba(0,0,0,.38);pointer-events:auto;touch-action:none';
+      d.setAttribute('aria-busy', 'true');
       var pl = document.createElement('div');
       pl.className = 'busyPill';
       pl.appendChild(busyEl(txt || 'Carregando foto'));
@@ -16746,6 +16836,16 @@
     var nv = btn('mini', pre ? 'Outra cor ou classe deste modelo' : 'Cor nova deste modelo', function () {
       var i0 = f0;
       fillAdd(Object.assign(refInfo(i0.ref), { tipo: i0.tipo, ref: i0.ref, med: i0.med, fmt: i0.fmt, noQuick: 1 }));
+      /* modelo que já existe: vai direto para Cores e fotos */
+      S.nStep = 2;
+      S.nCorOpen = true;
+      S.nLido = false;
+      NVC.cor = '';
+      NVC.q = 1;
+      NVC.vr = '';
+      NVC.fotoT = '';
+      NVC.fotoH = '';
+      render();
     });
     nv.style.cssText += ';align-self:flex-start';
     host.appendChild(nv);
@@ -17105,7 +17205,7 @@
     });
     c.style.cssText += ';width:100%;justify-content:center';
     b.appendChild(c);
-    var x = btn('mini', 'Descartar rascunho', function () {
+    var x = btn('mini rascX', 'Descartar rascunho', function () {
       S.rascunho = null;
       render();
     });
@@ -17493,6 +17593,7 @@
   }
   function nvFoto(f) {
     if (!f || !S._ref || !NVC.fotoCor) return;
+    loadMsg(true, 'Carregando foto');
     var ref = S._ref,
       cor = NVC.fotoCor,
       url = URL.createObjectURL(f),
@@ -17512,10 +17613,22 @@
         S.msg = 'Não consegui processar essa foto. Tente outra.';
       }
       URL.revokeObjectURL(url);
+      var corV = NVC.fotoCor;
       NVC.fotoCor = '';
       render();
+      loadMsg(false);
+      try {
+        if (OBT) {
+          var alvo =
+            $('nvPrev') ||
+            document.querySelector('[aria-label="Foto da cor ' + String(corV).replace(/"/g, '') + '"] img');
+          if (alvo) obturadorVoa(OBT, null, alvo);
+          OBT = null;
+        }
+      } catch (eV) {}
     };
     img.onerror = function () {
+      loadMsg(false);
       S.msg = 'Não consegui abrir essa imagem. Tente outra foto.';
       NVC.fotoCor = '';
       render();
@@ -17707,7 +17820,7 @@
       if (!t.simple) {
         nc.appendChild(mk('div', 'lbl', 'Classe de cor' + (pre ? ' (opcional)' : '')));
         var cl = mk('div', 'nav');
-        for (var k = 1; k <= 6; k++)
+        varChips(NVC.vr || (pre ? S.eVarP : S.eVar)).forEach(function (v) {
           (function (v) {
             var on = (NVC.vr || (pre ? S.eVarP : S.eVar)) === v;
             cl.appendChild(
@@ -17721,7 +17834,8 @@
                 on
               )
             );
-          })('C' + k);
+          })(v);
+        });
         nc.appendChild(cl);
       }
       nc.appendChild(mk('div', 'lbl', 'Quantas peças?'));
@@ -17751,12 +17865,13 @@
       fb.style.alignItems = 'center';
       fb.style.justifyContent = 'center';
       fb.style.gap = '8px';
-      fb.style.cssText = 'min-height:46px;font-size:15px' + (NVC.fotoT ? ';background:var(--panel);border:1px solid var(--ok);color:var(--ok)' : '');
+      fb.style.cssText = 'min-height:46px;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;line-height:1' + (NVC.fotoT ? ';background:var(--panel);border:1px solid var(--ok);color:var(--ok)' : '');
       nc.appendChild(fb);
       if (NVC.fotoT) {
         var pv = document.createElement('img');
         pv.src = NVC.fotoT;
         pv.alt = 'Foto da cor';
+        pv.id = 'nvPrev';
         pv.style.cssText = 'width:100%;max-height:150px;object-fit:contain;background:#fff;border-radius:12px';
         nc.appendChild(pv);
       } else nc.appendChild(mk('div', 'nvwarn', 'A cor só entra na lista com a foto.'));
@@ -18664,8 +18779,14 @@
   function fmAnalisa(f) {
     loadMsg(true, 'Analisando foto', 75000);
     fmArquivo(f, function (cv) {
-      var leu = readTess(cv)
-        .catch(function () {
+      var leu = Promise.race([
+          readTess(cv),
+          new Promise(function (r) {
+            setTimeout(function () {
+              r(null);
+            }, 14000);
+          })
+        ]).catch(function () {
           return null;
         }),
         rk = fmRank(cv);
@@ -19096,8 +19217,8 @@
     };
   }
   // Foto tirada: a imagem encolhe da câmera até o quadro do cartão, o fundo vira branco da esquerda para a direita e aparece o ✓.
-  function obturadorVoa(o, dst) {
-    var tgt = $('phImg');
+  function obturadorVoa(o, dst, el) {
+    var tgt = el || $('phImg');
     if (REDUCED || !o || !tgt || Date.now() - o.t > 20000) return;
     tgt.style.visibility = 'hidden';
     var box = document.createElement('div'),

@@ -61,3 +61,18 @@ O histórico bruto anterior a 27/10/2026 foi condensado pelo sistema e não é m
 - 'Tirar a foto' / 'Fotografar' / 'Foto da cor' abrem a câmera do app (não a galeria); ícone novo (SVG) no lugar do emoji.
 - Todos os botões têm animação ao apertar (scale + brilho).
 - Busca do seletor sem borda amarela/rosa.
+
+## Pedidos de 27/10/2026 15:55 (v335)
+- Editar produto: lixeira (excluir produto) à esquerda do X, alinhada; 'Trocar foto' deve usar a câmera do app.
+- Alinhar ícone do botão 'Foto tirada · trocar'.
+- Câmera: apertar o obturador uma vez só (antes precisava duas); animação do obturador encaixando na miniatura ao adicionar foto.
+- Tirar foto da peça demora: mostrar carregando e travar a tela (não deixar fechar) até terminar.
+- Descartar rascunho: botão minimalista, alinhado abaixo de 'Continuar rascunho'.
+- Código da haste digitado à mão: sugestões filtradas por tipo/formato/gênero escolhidos.
+- Entrada rápida → 'Cor nova para este modelo' deve levar direto para Cores e fotos.
+- Classe de cor lida (C7/C8 existem) deve aparecer em Cores e fotos (chips só iam até C6).
+- EDITAR PRODUTO REDESENHO: o dono quer SÓ FOTOS (mockups) de como ficaria, sem perder nenhuma informação, fluxo separado e menos poluído (pode reaproveitar a tela de adicionar para editar/excluir). Implementar só depois que ele confirmar.
+
+## v335 (27/10/2026) — pedidos das 15:55
+Implementado: lixeira + confirmação no Editar produto; "Trocar foto" com câmera; câmera com 1 toque; obturador ao adicionar foto; carregamento bloqueia a tela; "Descartar rascunho" minimalista; sugestões do código filtradas por Tipo/Formato/Gênero; "Cor nova deste modelo" vai direto a Cores e fotos; chips de classe C até a última (C8+).
+PENDENTE: redesenho do Editar produto — só mockups; implementar apenas depois que o dono confirmar.

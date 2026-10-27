@@ -433,7 +433,8 @@
       bar.appendChild(rc0);
       var HR = null,
         HRtry = false;
-      sh.onclick = function () {
+      sh.onclick = function (ev) {
+        if (ev && HRtry) return; /* um toque só: ignora toques enquanto a foto está sendo feita */
         if (!HRtry) flashCamera(stg);
         if (opts.live) {
           var lc = grabStrip();
@@ -453,6 +454,7 @@
         if (!HR && !HRtry && !opts.strip && DZ === 1 && window.ImageCapture && trk && !window.__noIC) {
           HRtry = true;
           sh.style.opacity = '.5';
+          tip.textContent = 'Tirando a foto…';
           var done0 = false,
             fin = function (x) {
               if (done0) return;
@@ -467,7 +469,7 @@
             },
             tm = setTimeout(function () {
               fin(null);
-            }, 3500);
+            }, 1800);
           try {
             new ImageCapture(trk)
               .takePhoto()

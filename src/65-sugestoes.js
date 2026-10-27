@@ -127,6 +127,9 @@
         }, 0);
       out.push({
         ref: i.ref,
+        tipoId: i.tipo,
+        fmt: String(i.fmt || '').toLowerCase(),
+        pub: String(((attrOf(i.ref) || {}).publico) || '').toLowerCase(),
         nome: nome,
         tipo: t && t.label ? t.label : '',
         qtd: qtd,
@@ -164,12 +167,21 @@
     return out;
   }
   // Sugestões de código já existente.
-  function sugCodigo(q) {
+  function sugCodigo(q, filtra) {
     var k = sgNorm(q).trim();
     if (!k) return [];
+    /* no Novo modelo, só mostra códigos do tipo, formato e gênero já escolhidos */
+    var fT = filtra && S.tipo ? S.tipo : '',
+      fF = filtra ? String(S._fmtUsed || S.eFmt || '').toLowerCase() : '',
+      fP = filtra ? String(S.ePub || '').toLowerCase() : '';
     return sgModelos()
       .filter(function (m) {
-        return m.hay.indexOf(k) >= 0;
+        return (
+          m.hay.indexOf(k) >= 0 &&
+          (!fT || m.tipoId === fT) &&
+          (!fF || m.fmt === fF) &&
+          (!fP || m.pub === fP)
+        );
       })
       .sort(function (a, b) {
         return (a.cab.indexOf(k) === 0 ? 0 : 1) - (b.cab.indexOf(k) === 0 ? 0 : 1) || (a.ref < b.ref ? -1 : 1);
@@ -192,7 +204,9 @@
         });
     };
   }
-  sugestao($('eRef'), sugCodigo);
+  sugestao($('eRef'), function (q) {
+    return sugCodigo(q, true);
+  });
   sugestao($('phRef'), sugCodigo);
   sugestao($('q'), sugBusca);
   sugestao($('vq'), sugBusca);

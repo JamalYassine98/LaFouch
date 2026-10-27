@@ -567,8 +567,14 @@
   function fmAnalisa(f) {
     loadMsg(true, 'Analisando foto', 75000);
     fmArquivo(f, function (cv) {
-      var leu = readTess(cv)
-        .catch(function () {
+      var leu = Promise.race([
+          readTess(cv),
+          new Promise(function (r) {
+            setTimeout(function () {
+              r(null);
+            }, 14000);
+          })
+        ]).catch(function () {
           return null;
         }),
         rk = fmRank(cv);

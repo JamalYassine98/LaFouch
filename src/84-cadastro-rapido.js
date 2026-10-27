@@ -240,6 +240,16 @@
     var nv = btn('mini', pre ? 'Outra cor ou classe deste modelo' : 'Cor nova deste modelo', function () {
       var i0 = f0;
       fillAdd(Object.assign(refInfo(i0.ref), { tipo: i0.tipo, ref: i0.ref, med: i0.med, fmt: i0.fmt, noQuick: 1 }));
+      /* modelo que já existe: vai direto para Cores e fotos */
+      S.nStep = 2;
+      S.nCorOpen = true;
+      S.nLido = false;
+      NVC.cor = '';
+      NVC.q = 1;
+      NVC.vr = '';
+      NVC.fotoT = '';
+      NVC.fotoH = '';
+      render();
     });
     nv.style.cssText += ';align-self:flex-start';
     host.appendChild(nv);
@@ -599,7 +609,7 @@
     });
     c.style.cssText += ';width:100%;justify-content:center';
     b.appendChild(c);
-    var x = btn('mini', 'Descartar rascunho', function () {
+    var x = btn('mini rascX', 'Descartar rascunho', function () {
       S.rascunho = null;
       render();
     });

@@ -55,8 +55,8 @@
     };
   }
   // Foto tirada: a imagem encolhe da câmera até o quadro do cartão, o fundo vira branco da esquerda para a direita e aparece o ✓.
-  function obturadorVoa(o, dst) {
-    var tgt = $('phImg');
+  function obturadorVoa(o, dst, el) {
+    var tgt = el || $('phImg');
     if (REDUCED || !o || !tgt || Date.now() - o.t > 20000) return;
     tgt.style.visibility = 'hidden';
     var box = document.createElement('div'),

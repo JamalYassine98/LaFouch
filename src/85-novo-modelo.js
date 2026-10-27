@@ -380,6 +380,7 @@
   }
   function nvFoto(f) {
     if (!f || !S._ref || !NVC.fotoCor) return;
+    loadMsg(true, 'Carregando foto');
     var ref = S._ref,
       cor = NVC.fotoCor,
       url = URL.createObjectURL(f),
@@ -399,10 +400,22 @@
         S.msg = 'Não consegui processar essa foto. Tente outra.';
       }
       URL.revokeObjectURL(url);
+      var corV = NVC.fotoCor;
       NVC.fotoCor = '';
       render();
+      loadMsg(false);
+      try {
+        if (OBT) {
+          var alvo =
+            $('nvPrev') ||
+            document.querySelector('[aria-label="Foto da cor ' + String(corV).replace(/"/g, '') + '"] img');
+          if (alvo) obturadorVoa(OBT, null, alvo);
+          OBT = null;
+        }
+      } catch (eV) {}
     };
     img.onerror = function () {
+      loadMsg(false);
       S.msg = 'Não consegui abrir essa imagem. Tente outra foto.';
       NVC.fotoCor = '';
       render();
@@ -594,7 +607,7 @@
       if (!t.simple) {
         nc.appendChild(mk('div', 'lbl', 'Classe de cor' + (pre ? ' (opcional)' : '')));
         var cl = mk('div', 'nav');
-        for (var k = 1; k <= 6; k++)
+        varChips(NVC.vr || (pre ? S.eVarP : S.eVar)).forEach(function (v) {
           (function (v) {
             var on = (NVC.vr || (pre ? S.eVarP : S.eVar)) === v;
             cl.appendChild(
@@ -608,7 +621,8 @@
                 on
               )
             );
-          })('C' + k);
+          })(v);
+        });
         nc.appendChild(cl);
       }
       nc.appendChild(mk('div', 'lbl', 'Quantas peças?'));
@@ -638,12 +652,13 @@
       fb.style.alignItems = 'center';
       fb.style.justifyContent = 'center';
       fb.style.gap = '8px';
-      fb.style.cssText = 'min-height:46px;font-size:15px' + (NVC.fotoT ? ';background:var(--panel);border:1px solid var(--ok);color:var(--ok)' : '');
+      fb.style.cssText = 'min-height:46px;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;line-height:1' + (NVC.fotoT ? ';background:var(--panel);border:1px solid var(--ok);color:var(--ok)' : '');
       nc.appendChild(fb);
       if (NVC.fotoT) {
         var pv = document.createElement('img');
         pv.src = NVC.fotoT;
         pv.alt = 'Foto da cor';
+        pv.id = 'nvPrev';
         pv.style.cssText = 'width:100%;max-height:150px;object-fit:contain;background:#fff;border-radius:12px';
         nc.appendChild(pv);
       } else nc.appendChild(mk('div', 'nvwarn', 'A cor só entra na lista com a foto.'));

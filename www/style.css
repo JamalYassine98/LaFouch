@@ -581,3 +581,5 @@ button:not(:disabled):active.go,.go:not(:disabled):active{box-shadow:0 0 0 6px #
 @media (prefers-reduced-motion:reduce){button:not(:disabled):active{transform:none}}
 /* a busca do seletor não leva borda de foco própria */
 .lsIn,.lsIn:focus,.lsIn:focus-visible{outline:0!important;box-shadow:none!important;border:0!important;background:transparent!important}
+.rascX{display:block;width:100%;margin:6px 0 0;background:transparent!important;border:0!important;box-shadow:none!important;color:var(--mute)!important;font-size:13px;font-weight:500;min-height:32px;text-align:center;text-decoration:underline;text-underline-offset:3px}
+.nv-ic svg,.go svg{flex:none;vertical-align:middle}

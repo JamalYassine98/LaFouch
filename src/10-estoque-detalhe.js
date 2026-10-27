@@ -183,9 +183,14 @@
     // escolhe a foto da cor atual (galeria ou câmera)
     function pickPhoto() {
       S.photoFor = { ref: ref, cor: cor };
-      $('fileG').multiple = false;
-      $('fileG').value = '';
-      $('fileG').click();
+      camOpen(
+        function (f) {
+          window.__GAL = false;
+          $('file').onchange({ target: { files: [f] } });
+        },
+        'Foto da cor ' + cor,
+        { gallery: true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
+      );
     }
     var head = mk('div', '');
     head.style.cssText =
@@ -623,6 +628,7 @@
         S.cdCor = '';
         S.ajAsk = false;
         S.ajMot = '';
+        S.pdAsk = false;
       };
       var fechar = function () {
         zerar();
@@ -644,8 +650,75 @@
       hd.appendChild(ht);
       var xb = btn('tab ibtn', '✕', fechar);
       xb.setAttribute('aria-label', 'Fechar');
-      hd.appendChild(xb);
+      var hbtn = mk('div', '');
+      hbtn.style.cssText = 'display:flex;gap:8px;align-items:center';
+      if (!f.bulk) {
+        var lx = btn('tab ibtn' + (S.pdAsk ? ' on' : ''), '', function () {
+          S.pdAsk = !S.pdAsk;
+          render();
+        });
+        lx.id = 'edLixeira';
+        lx.innerHTML =
+          '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="M6.5 7l1 13h9l1-13"/><path d="M10 11v6M14 11v6"/></svg>';
+        lx.style.color = 'var(--bad)';
+        lx.setAttribute('aria-label', 'Excluir o produto');
+        lx.title = 'Excluir o produto';
+        hbtn.appendChild(lx);
+      }
+      hbtn.appendChild(xb);
+      hd.appendChild(hbtn);
       bx.appendChild(hd);
+      if (S.pdAsk && !f.bulk) {
+        var todos = S.items.filter(function (i) {
+            return i.ref === ref && !i.bulk;
+          }),
+          pq = sum(todos),
+          pc2 = todos.reduce(function (a, i) {
+            return a + (Number(effCusto(i)) || 0) * i.qty;
+          }, 0),
+          pz = mk('div', 'note n-bad');
+        pz.id = 'edLixoAviso';
+        pz.style.cssText = 'display:flex;flex-direction:column;gap:10px';
+        pz.appendChild(
+          mk(
+            'span',
+            '',
+            'Excluir o produto ' + ref + ' inteiro? Remove ' + pq + ' peça(s) de todas as cores' + (pc2 > 0 ? ' (' + usd(pc2) + ' em custo)' : '') + ' e as fotos.' + (S.site && S.site[ref] ? ' Ele sai do site.' : '') + ' As vendas já feitas continuam no histórico.'
+          )
+        );
+        var pr0 = mk('div', '');
+        pr0.style.cssText = 'display:flex;gap:10px';
+        var sim = btn('mini', 'Sim, excluir o produto', function () {
+          var xr = exclusaoEstoque(todos, 'produto excluído');
+          S.items = S.items.filter(function (i) {
+            return !(i.ref === ref && !i.bulk);
+          });
+          Object.keys(S.fotos).forEach(function (k) {
+            if (k.slice(0, k.indexOf('|')) === ref) delete S.fotos[k];
+          });
+          limpaRefExcluido(ref);
+          delete S.desc[ref];
+          zerar();
+          S.detCor = '';
+          S.detVr = null;
+          S.detRow = null;
+          S.selItem = null;
+          S.qty = 1;
+          S.open = '';
+          S.det = false;
+          S.msg = 'Produto ' + ref + ' excluído.' + (xr.n ? ' Saíram ' + xr.n + ' peça(s), ' + usd(xr.usd) + ' em custo, registradas no histórico.' : '');
+          render();
+        });
+        sim.id = 'edLixoSim';
+        var nao = btn('mini', 'Cancelar', function () {
+          S.pdAsk = false;
+          render();
+        });
+        pr0.appendChild(sim);
+        pr0.appendChild(nao);
+        pz.appendChild(pr0);
+        bx.appendChild(pz);
+      }
       // nome e código
       var nmi = null,
         ni = null;
