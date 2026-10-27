@@ -5,7 +5,7 @@ Abre www/ num Chromium sem interface, com a URL terminando em #test (o app entã
 window.__LF com as funções internas) e confere contas, lotes, leitor de código, gravação
 e as telas. Requer: pip install playwright  (e um Chromium; PLAYWRIGHT_BROWSERS_PATH ou o do sistema).
 """
-def ED(n): return '() => { window.__LF.S.edStep = %d; window.__LF.render(); }' % n
+def ED(n): return '() => { window.__LF.S.edStep = %d; window.__LF.render(); }' % (1 if n == 1 else 2)
 import asyncio, glob, json, os, re, subprocess, sys, time
 from playwright.async_api import async_playwright
 
@@ -474,7 +474,7 @@ async def main():
             await pg.evaluate("() => { const S = window.__LF.S; S.site = {}; Object.keys(S.fotos).filter(k => k.startsWith('BR44118|')).forEach(k => delete S.fotos[k]); }")
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
             await pg.evaluate(ED(3)); sem = await pg.evaluate("() => { const b = document.getElementById('edSiteBtn'); return [!!b, b && b.disabled, document.getElementById('edSite').innerText] }")
-            await pg.evaluate(ED(1)); await pg.locator('#editModal button:text-is("Cancelar")').last.click(); await pg.wait_for_timeout(300)
+            await pg.evaluate(ED(1)); await pg.locator('#editModal button:text-is("Fechar")').last.click(); await pg.wait_for_timeout(300)
             await pg.evaluate("() => { const S = window.__LF.S; S.items.filter(i => i.ref === 'BR44118').forEach(i => { S.fotos['BR44118|' + i.cor] = 'data:image/png;base64,AAAA'; }); }")
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
             await pg.evaluate(ED(3)); com = await pg.evaluate("() => { const b = document.getElementById('edSiteBtn'); return [b && b.disabled] }")
@@ -485,21 +485,21 @@ async def main():
             pg = await abrir('sem', 'Hexagonal')
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
             await pg.evaluate(ED(2)); await pg.locator('#editModal input[aria-label="Quantidade em estoque"]').first.fill('1'); await pg.locator('#editModal input[aria-label="Quantidade em estoque"]').first.press('Tab')
-            await pg.evaluate(ED(3)); await pg.fill('#descTa', 'rascunho'); await pg.wait_for_timeout(200)
-            await pg.evaluate(ED(1)); await pg.locator('#editModal button:text-is("Cancelar")').last.click(); await pg.wait_for_timeout(300)
+            await pg.evaluate(ED(1)); await pg.fill('#descTa', 'rascunho'); await pg.wait_for_timeout(200)
+            await pg.evaluate(ED(1)); await pg.locator('#editModal button:text-is("Fechar")').last.click(); await pg.wait_for_timeout(300)
             got = await pg.evaluate("() => [window.__LF.S.items.filter(i => i.cor === 'Preto' && i.ref === 'BR44118')[0].qty, window.__LF.S.desc['BR44118'], !!document.getElementById('editModal')]")
             await checa('janela Editar: Cancelar descarta tudo', got[0] == 4 and got[1] != 'rascunho' and got[2] is False, got)
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
-            e0 = [await pg.locator('#edSteps button').count(), await pg.locator('#edCodigo').count(), await pg.locator('#edNext').count(), await pg.locator('#editModal button:text-is("Salvar")').count()]
-            await pg.click('#edNext'); await pg.click('#edNext'); await pg.click('#edNext'); await pg.wait_for_timeout(200)
-            e1 = [await pg.locator('#editModal button:text-is("Salvar")').count(), await pg.locator('#edNext').count(), await pg.locator('#edExcluir').count()]
+            e0 = [await pg.locator('#edCodigo').count(), await pg.locator('#edNext').count(), await pg.locator('#editModal button:text-is("Salvar")').count(), await pg.locator('#edLixeira').count(), await pg.locator('#ed_formato').count()]
+            await pg.click('#edNext'); await pg.wait_for_timeout(200)
+            e1 = [await pg.locator('#editModal button:text-is("Salvar")').count(), await pg.locator('#edNext').count(), await pg.locator('#edExcluir').count(), await pg.locator('#edBack').count(), await pg.locator('#edCores').count()]
             await pg.click('#edExcluir'); await pg.wait_for_timeout(200)
             e2 = await pg.locator('#edLixoAviso').count()
-            await checa('janela Editar em 4 etapas: Continuar leva até Baixa (Salvar, Excluir produto com confirmação)', e0 == [4, 1, 1, 0] and e1 == [1, 0, 1] and e2 == 1, [e0, e1, e2])
-            await pg.evaluate(ED(1)); await pg.locator('#editModal button:text-is("Cancelar")').last.click(); await pg.wait_for_timeout(300)
+            await checa('janela Editar com a interface do cadastro: Modelo, depois Cores e fotos (Salvar, voltar em ícone, lixeira, excluir com confirmação)', e0 == [1, 1, 0, 1, 1] and e1[:4] == [1, 0, 1, 1] and e2 == 1, [e0, e1, e2])
+            await pg.evaluate(ED(1)); await pg.locator('#editModal button:text-is("Fechar")').last.click(); await pg.wait_for_timeout(300)
 
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
-            await pg.evaluate(ED(3)); await pg.fill('#descTa', 'Polarizado, mola flexível'); await pg.evaluate(ED(4)); await pg.locator('#editModal button:text-is("Salvar")').click(); await pg.wait_for_timeout(300)
+            await pg.evaluate(ED(1)); await pg.fill('#descTa', 'Polarizado, mola flexível'); await pg.evaluate(ED(4)); await pg.locator('#editModal button:text-is("Salvar")').click(); await pg.wait_for_timeout(300)
             got = await pg.evaluate("() => [window.__LF.S.desc['BR44118'], document.getElementById('detail').innerText.includes('Polarizado, mola flexível')]")
             await checa('janela Editar: descrição salva e mostrada na tela', got == ['Polarizado, mola flexível', True], got)
 
@@ -679,7 +679,7 @@ async def main():
             await pg.click('#detail button[aria-label=Editar]'); await pg.wait_for_timeout(700)
             res = []
             for t in ['Liberar para o site', 'Sem faixa', '+']:
-                await pg.evaluate(ED(2 if t == '+' else 3)); await pg.wait_for_timeout(150)
+                await pg.evaluate(ED(1 if t == 'Sem faixa' else 2)); await pg.wait_for_timeout(150)
                 bt = pg.locator('#editModal button', has_text=t).first
                 if not await bt.count(): res.append((t, 'sem botão')); continue
                 await bt.evaluate("e => e.scrollIntoView({block: 'center'})"); await pg.wait_for_timeout(150)
@@ -1678,7 +1678,7 @@ async def main():
             # edição de faixa pela janela Editar e entrada por pacote
             pg = await abrir('sem', 'Hexagonal')
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
-            await pg.evaluate(ED(3)); await pg.locator('#edFaixas button:has-text("Luxo")').click(); await pg.wait_for_timeout(200)
+            await pg.evaluate(ED(1)); await pg.locator('#edFaixas button:has-text("Luxo")').click(); await pg.wait_for_timeout(200)
             await pg.evaluate(ED(4)); await pg.locator('#editModal button:text-is("Salvar")').click(); await pg.wait_for_timeout(300)
             got = await pg.evaluate("() => { const S = window.__LF.S; return S.pfaixa['BR44118'] === S.faixas.filter(f => f.nome === 'Luxo')[0].id }")
             await checa('janela Editar: escolher a faixa do produto', got is True, got)

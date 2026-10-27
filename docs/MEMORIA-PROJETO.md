@@ -105,3 +105,6 @@ Etapas: 1 Modelo (nome, código, identificação) · 2 Cores e fotos (foto, qtd/
 ## v341 (27/10/2026, 18:49) — pedidos do dono
 Foto da peça recortada exatamente no retângulo da câmera (miniatura na mesma proporção); foto da nota/lote detecta o contorno do papel e endireita (câmera tipo scanner; sem papel usa o retângulo); rascunho guarda tudo (material, gênero, faixa, descrição, etapa, cor em andamento); leitura da haste "Código novo" só mostra (Classe de cor, sem C1–C6); classe lida passa para Cores e fotos também em produto já cadastrado; cabeçalho com ícone de voltar alinhado ao Fechar e título embaixo; "Concluir" adiciona a cor preenchida; ícone da Foto da nota alinhado; sugestões do código filtram só por formato/gênero escolhidos (tipo só ordena).
 PENDENTE: Editar produto reaproveitando a interface do cadastro (com lixeira) — o v340 em 4 etapas não é o que ele quer.
+
+## v342 (27/10/2026) — Editar produto com a interface do cadastro
+2 telas como o cadastro: "Editar produto" (nome, código, marca, Formato/Material/Gênero em Label Select, coleção, descrição, faixa) → "Cores e fotos" (lista de cores com foto, trocar/excluir foto, qtd/custo, excluir cor, liberar para o site, peça quebrada, Excluir produto). Voltar em ícone alinhado ao Fechar; lixeira no topo; Salvar só na 2ª tela. Substitui o v340 (4 etapas).
