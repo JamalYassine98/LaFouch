@@ -197,12 +197,6 @@
       '<section class="card col"><h2 style="margin:0;font-size:16px">Nota fiscal</h2><div><div class="lbl">Cidade que sai na nota</div><input class="in" data-aj="cidade" value="' +
       esc(S.notaCidade || 'CDE') +
       '" placeholder="CDE" style="max-width:220px" autocomplete="off"></div></section>';
-    // contagem de estoque
-    h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Contagem de estoque</h2></div>' +
-      '<div><div class="lbl">Diferença de contagem tolerada (US$)</div><input class="in" inputmode="decimal" data-aj="tol" value="' +
-      usdParaCampo(S.tolUsd) +
-      '" style="max-width:160px"><div class="hint">Na contagem de estoque, diferenças até esse valor ficam marcadas como perda aceita.</div></div></section>';
     // backup (arquivo manual + cópias automáticas)
     // Backup é a última seção; a Nuvem fica dentro dele
     h += ajustesFinHtml();
