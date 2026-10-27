@@ -76,3 +76,4 @@ O histórico bruto anterior a 27/10/2026 foi condensado pelo sistema e não é m
 ## v335 (27/10/2026) — pedidos das 15:55
 Implementado: lixeira + confirmação no Editar produto; "Trocar foto" com câmera; câmera com 1 toque; obturador ao adicionar foto; carregamento bloqueia a tela; "Descartar rascunho" minimalista; sugestões do código filtradas por Tipo/Formato/Gênero; "Cor nova deste modelo" vai direto a Cores e fotos; chips de classe C até a última (C8+).
 PENDENTE: redesenho do Editar produto — só mockups; implementar apenas depois que o dono confirmar.
+- Mockups do novo Editar produto enviados (27/10): 4 etapas (1 Modelo: nome/código/nome automático/identificação · 2 Cores e fotos: trocar/excluir foto, qtd, custo, excluir cor, cor nova · 3 Site: liberar, descrição + sugerida, faixa · 4 Baixa: peça quebrada + excluir produto), lixeira no topo com confirmação. AGUARDANDO confirmação do dono para implementar.
