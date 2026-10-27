@@ -66,4 +66,49 @@
   // Entrada de peças no histórico do estoque (S.elog).
   function entradaEstoque(tipo, ref, cor, grau, qty) {
     S.elog.push({ ts: Date.now(), tipo: tipo, ref: ref, cor: cor, grau: grau, qty: qty });
+    // peças novas chegando renovam o aviso "Chegou esta semana" do modelo
+    if (qty > 0) {
+      if (!S.cad) S.cad = {};
+      S.cad[ref] = Date.now();
+    }
+  }
+  // Ajuste manual de quantidade (Editar produto): fica no histórico do estoque, com ou sem perda.
+  function ajusteEstoque(it, d, motivo) {
+    S.elog.push({ ts: Date.now(), tipo: it.tipo, ref: it.ref, cor: it.cor, grau: it.grau || '', qty: d, ajuste: true, motivo: motivo || '' });
+  }
+  // Exclusão de peças (cor ou produto): grava o que saiu e quanto valia em custo.
+  function exclusaoEstoque(its, motivo) {
+    var ts = Date.now(),
+      usdv = 0,
+      n = 0;
+    its.forEach(function (i) {
+      if (!(i.qty > 0)) return;
+      var c = Number(effCusto(i)) || 0;
+      usdv += c * i.qty;
+      n += i.qty;
+      S.elog.push({ ts: ts, tipo: i.tipo, ref: i.ref, cor: i.cor, grau: i.grau || '', qty: -i.qty, exclusao: true, motivo: motivo || '' });
+    });
+    return { n: n, usd: usdv };
+  }
+  // Depois de excluir peças: se o modelo não tem mais nada, sai do site e da oferta; se ainda tem, o site é atualizado.
+  function limpaRefExcluido(ref) {
+    var resta = S.items.some(function (i) {
+      return i.ref === ref;
+    });
+    if (!resta) {
+      if (S.site && S.site[ref]) siteSet(ref, false);
+      if (S.pprice) delete S.pprice[ref];
+      if (S.pcanal) delete S.pcanal[ref];
+    } else if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd');
+  }
+  // Código automático para peça sem código na haste (ex.: PG-013), em sequência por tipo.
+  function refAuto(tipo) {
+    var pre = tipo === 'pre' ? 'PG' : tipo === 'solar' ? 'SL' : 'AR',
+      re = new RegExp('^' + pre + '-(\\d+)$'),
+      mx = 0;
+    S.items.forEach(function (i) {
+      var m = re.exec(String(i.ref || '').toUpperCase());
+      if (m) mx = Math.max(mx, parseInt(m[1], 10));
+    });
+    return pre + '-' + String(mx + 1).padStart(3, '0');
   }

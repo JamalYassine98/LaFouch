@@ -31,17 +31,17 @@
         act: 'view',
         id: 'fx'
       });
-    var dv = dolarFavoravel(),
-      tp = trocarPlano();
-    if (dv && dv.barato && tp.passos.length)
+    var tp = trocarPlano();
+    barMoedas(tp).forEach(function (m) {
       l.push({
-        t: 'Bom momento para trocar dólar',
-        s: 'O dólar está em ' + gsRaw(dv.hoje) + ', perto do mínimo dos últimos ' + S.janela + ' dias.' + (tp.needRep > 0.004 ? ' Reposição pendente: ' + usd(tp.needRep) + '.' : ''),
+        t: 'Bom momento para trocar ' + m.nome + ' em dólar',
+        s: 'O dólar está em ' + m.txt + ', perto do mínimo dos últimos ' + S.janela + ' dias.' + (tp.needRep > 0.004 ? ' Reposição pendente: ' + usd(tp.needRep) + '.' : ''),
         c: 'var(--ok)',
         b: 'Trocar',
         act: 'view',
         id: 'fx'
       });
+    });
     if (pedNovos())
       l.push({
         t: pedNovos() + (pedNovos() === 1 ? ' pedido novo' : ' pedidos novos'),
@@ -58,19 +58,39 @@
     } catch (e) {}
     return l;
   }
+  // Moedas (guarani e real) com o dólar perto do mínimo e algo para trocar: base das duas notificações.
+  function barMoedas(tp) {
+    var r = [];
+    [
+      ['pyg', 'guaranis', 1],
+      ['brl', 'reais', 2]
+    ].forEach(function (m) {
+      var c = cotacaoPar(m[0], 'usd');
+      if (c && c.barato && tp.passos.some(function (x) { return x.de === m[0]; }))
+        r.push({ nome: m[1], bit: m[2], txt: m[0] === 'pyg' ? gsRaw(Math.round(c.hoje)) : 'R$ ' + nf(c.hoje, 'brl') });
+    });
+    return r;
+  }
   // Registra no histórico quando a margem sobe ou volta ao normal.
   function notifVerifica() {
     var mx = Math.max(fxMargemInfo('pyg').m, fxMargemInfo('brl').m),
       alta = mx > FX_AVISO ? 1 : 0;
-    var dv = dolarFavoravel(),
-      bar = dv && dv.barato && trocarPlano().passos.length ? 1 : 0;
+    var bm = barMoedas(trocarPlano()),
+      bar = 0;
+    bm.forEach(function (m) {
+      bar |= m.bit;
+    });
     if (bar !== S.fxBaratoUlt) {
+      var novos = bm.filter(function (m) {
+        return !(S.fxBaratoUlt & m.bit);
+      });
       S.fxBaratoUlt = bar;
-      if (bar)
-        S.notifs.unshift({ ts: Date.now(), lida: false, t: 'Dólar barato: bom momento para trocar', s: 'Dólar em ' + gsRaw(dv.hoje) + ', perto do mínimo dos últimos ' + S.janela + ' dias.' });
+      novos.forEach(function (m) {
+        S.notifs.unshift({ ts: Date.now(), lida: false, t: 'Dólar barato: bom momento para trocar ' + m.nome, s: 'Dólar em ' + m.txt + ', perto do mínimo dos últimos ' + S.janela + ' dias.' });
+      });
       S.notifs = S.notifs.filter(function (x) {
-      return Date.now() - x.ts < 60 * DAY;
-    }).slice(0, 60);
+        return Date.now() - x.ts < 60 * DAY;
+      }).slice(0, 60);
     }
     if (alta === S.fxMgUlt) return;
     S.fxMgUlt = alta;

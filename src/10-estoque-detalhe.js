@@ -621,6 +621,8 @@
         S.fDel = false;
         S.cdMode = false;
         S.cdCor = '';
+        S.ajAsk = false;
+        S.ajMot = '';
       };
       var fechar = function () {
         zerar();
@@ -876,6 +878,13 @@
                 return i.cor === cor;
               })
             ),
+            xc = all
+              .filter(function (i) {
+                return i.cor === cor;
+              })
+              .reduce(function (a, i) {
+                return a + (Number(effCusto(i)) || 0) * i.qty;
+              }, 0),
             last = cores.length === 1;
           var cz = mk('div', 'note n-bad');
           cz.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;align-items:center';
@@ -889,17 +898,27 @@
                 ref +
                 '? Remove ' +
                 xq +
-                ' peça(s) em estoque e a foto dessa cor.' +
+                ' peça(s) em estoque' +
+                (xc > 0 ? ' (' + usd(xc) + ' em custo)' : '') +
+                ' e a foto dessa cor.' +
+                (S.site && S.site[ref] ? ' O produto está no site: ele é atualizado.' : '') +
                 (last ? ' Como é a única cor, o produto inteiro será excluído.' : '') +
                 ' As vendas já feitas continuam no histórico.'
             )
           );
           cz.appendChild(
             btn('mini', 'Sim, excluir', function () {
+              var xr = exclusaoEstoque(
+                S.items.filter(function (i) {
+                  return i.tipo === f.tipo && i.ref === ref && i.cor === cor;
+                }),
+                'cor excluída'
+              );
               S.items = S.items.filter(function (i) {
                 return !(i.tipo === f.tipo && i.ref === ref && i.cor === cor);
               });
               delete S.fotos[ref + '|' + cor];
+              limpaRefExcluido(ref);
               if (
                 !S.items.some(function (i) {
                   return i.ref === ref;
@@ -920,7 +939,7 @@
                 S.open = '';
                 S.det = false;
               }
-              S.msg = 'Cor "' + cor + '" excluída de ' + ref + '.';
+              S.msg = 'Cor "' + cor + '" excluída de ' + ref + '.' + (xr.n ? ' Saíram ' + xr.n + ' peça(s), ' + usd(xr.usd) + ' em custo, registradas no histórico.' : '');
               render();
             })
           );
@@ -940,7 +959,7 @@
       ft.style.cssText = 'display:flex;gap:10px';
       var cb = btn('tab', 'Cancelar', fechar);
       cb.style.flex = '1';
-      var sb2 = btn('tab on', 'Salvar', function () {
+      var salvar = function () {
         var nn = ni ? normRef(ni.value, smp) : ref,
           nv0 = nmi ? nmi.value.trim() : '';
         if (!nn) return popErr(smp ? 'Digite o nome do produto.' : 'Digite o código da haste.');
@@ -954,6 +973,15 @@
         var dk = Object.keys(Object.assign({}, S.qDraft, S.cDraft)),
           partes = [],
           msgs = [];
+        // peças a menos: pergunta se foi perda (vira prejuízo) ou só correção de erro
+        var menos = dk.filter(function (k) {
+          return S.items[k] && S.qDraft[k] != null && S.qDraft[k] < S.items[k].qty;
+        });
+        if (menos.length && !S.ajMot) {
+          S.ajAsk = true;
+          render();
+          return;
+        }
         if (dk.length) {
           msgs = salvarEstoque(dk);
           partes.push('Estoque salvo.' + (msgs.length ? ' ' + msgs.join(' ') : ''));
@@ -974,8 +1002,30 @@
         zerar();
         S.msg = partes.join(' ') || 'Nada foi alterado.';
         render();
-      });
+      };
+      var sb2 = btn('tab on', 'Salvar', salvar);
       sb2.style.flex = '2';
+      if (S.ajAsk) {
+        var aq = mk('div', 'note n-bad');
+        aq.id = 'ajAsk';
+        aq.style.cssText = 'display:flex;flex-direction:column;gap:8px';
+        aq.appendChild(mk('span', '', 'Você diminuiu peças. O que aconteceu?'));
+        aq.appendChild(
+          btn('mini', 'Quebrou ou sumiu (vira prejuízo)', function () {
+            S.ajMot = 'perda';
+            S.ajAsk = false;
+            salvar();
+          })
+        );
+        aq.appendChild(
+          btn('mini', 'Era erro de contagem (só corrige)', function () {
+            S.ajMot = 'erro';
+            S.ajAsk = false;
+            salvar();
+          })
+        );
+        bx.appendChild(aq);
+      }
       ft.appendChild(cb);
       ft.appendChild(sb2);
       bx.appendChild(ft);
@@ -1009,6 +1059,8 @@
             );
           }
         }
+        if (d < 0 && S.ajMot === 'perda') descartar(it, -d, 'ajuste na edição');
+        else if (d !== 0) ajusteEstoque(it, d, S.ajMot === 'erro' ? 'correção' : '');
         it.qty = n;
         if (S.cDraft[k] != null) {
           var cr = String(S.cDraft[k]).trim().replace(',', '.');

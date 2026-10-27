@@ -172,18 +172,8 @@
   function trocarAgoraHtml() {
     var p = trocarPlano(),
       dv = dolarFavoravel();
-    if (!p.passos.length && !(p.needRep > 0.004) && !dv && !(S.cambios[0] && S.cambios[0].tipo)) return '';
+    if (!p.passos.length && !(p.needRep > 0.004) && !(S.cambios[0] && S.cambios[0].tipo)) return '';
     var h = '';
-    if (dv) {
-      var pos = Math.round(Math.max(0, Math.min(1, dv.pos)) * 100);
-      h +=
-        '<div class="lbl" style="margin:0">Dólar hoje</div><b style="font-size:28px">' + gsRaw(dv.hoje) + '</b>' +
-        '<div style="position:relative;height:10px;border-radius:6px;background:linear-gradient(90deg,var(--ok),#ffc766,var(--bad))"><i style="position:absolute;left:' + pos + '%;top:-4px;width:6px;height:18px;border-radius:3px;background:#fff;transform:translateX(-50%)"></i></div>' +
-        '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--mute)"><span>mínimo ' + dots(dv.min) + '</span><span>média ' + dots(dv.media) + '</span><span>máximo ' + dots(dv.max) + '</span></div>' +
-        '<div class="note ' + (dv.barato ? 'n-ok' : dv.caro ? 'n-warn' : 'n-info') + '">' +
-        (dv.barato ? 'Perto do mínimo dos últimos ' + S.janela + ' dias: bom momento para trocar.' : dv.caro ? 'Perto do máximo dos últimos ' + S.janela + ' dias: troque só o necessário.' : 'Cotação no meio do intervalo dos últimos ' + S.janela + ' dias.') +
-        '</div>';
-    }
     if (p.passos.length) {
       h += '<div class="hint" style="margin:0">Valores sugeridos. Troque o que fizer sentido e digite o que entregou e o que recebeu: o app calcula a cotação.</div>';
       p.passos.forEach(function (x, i) {
@@ -219,7 +209,7 @@
   // Medidor da cotação do par escolhido (muda com as moedas de Trocar moedas).
   function parGaugeHtml() {
     var c = cotacaoPar(S.tr.de, S.tr.para);
-    if (!c || (c.nome === 'Dólar' && c.un === 'pyg' && trocarAgoraHtml() && dolarFavoravel())) return ''; // o medidor do dólar em G$ já aparece na sugestão de hoje
+    if (!c) return ''; // medidor único: acompanha as moedas escolhidas em "Outra troca"
     var f = function (v) {
         return c.un === 'pyg' ? gsRaw(Math.round(v)) : 'R$ ' + nf(v, 'brl');
       },

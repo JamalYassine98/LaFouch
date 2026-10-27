@@ -175,6 +175,11 @@
       qty = S.qty;
     var cor = $('eCor').value.trim() || 'Sem cor',
       ref = S._ref;
+    var refAut = false;
+    if (!ref && !t.simple) {
+      ref = refAuto(S.tipo);
+      refAut = true;
+    }
     if (!ref) {
       say('Informe a referência da peça.');
       render();
@@ -239,6 +244,9 @@
       })
     )
       S.palette[corN] = '#8b9bb0';
+    // custo que veio preenchido do cadastro (média do modelo) é herdado: soma na linha existente em vez de criar outra
+    var cuSug = Number((refInfo(ref) || {}).custo),
+      herdado = cu != null && cuSug > 0 && Math.abs(cu - cuSug) < 0.0002;
     var ex = S.items.filter(function (x) {
       return (
         x.tipo === S.tipo &&
@@ -248,7 +256,7 @@
           : x.vr === (t.simple ? '' : S.eVar)) &&
         x.cor.toLowerCase() === corN.toLowerCase() &&
         (x.lote || '') === gid &&
-        (cu == null || x.custo == null || x.custo === cu)
+        (cu == null || herdado || x.custo == null || x.custo === cu)
       );
     })[0];
     if (gr.g && cu != null) {
@@ -271,7 +279,7 @@
     $('eDescP').value = '';
     if (ex) {
       ex.qty += qty;
-      if (ex.custo == null && cu != null) ex.custo = cu;
+      if (ex.custo == null && cu != null && !herdado) ex.custo = cu;
     } else
       S.items.push({
         custo: cu == null ? undefined : cu,
@@ -291,6 +299,7 @@
     S.eFaixa = '';
     entradaEstoque(S.tipo, ref, corN, isPre ? S._gn : '', qty);
     say(
+      (refAut ? 'Sem código na haste: criei ' + ref + '. ' : '') +
       'Entrada registrada: +' +
         qty +
         ' × ' +

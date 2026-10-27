@@ -32,10 +32,14 @@
   }
   function siteCheck(ref) {
     var cs = siteCores(ref),
-      falta = cs.filter(function (c) {
+      // cor esgotada (0 peças) não trava a liberação do modelo
+      vivas = cs.filter(function (c) {
+        return c.qty > 0;
+      }),
+      falta = vivas.filter(function (c) {
         return !c.foto;
       });
-    return { cores: cs, falta: falta, ok: cs.length > 0 && !falta.length };
+    return { cores: cs, falta: falta, ok: vivas.length > 0 && !falta.length };
   }
   function siteOn(ref) {
     return !!(S.site && S.site[ref]);

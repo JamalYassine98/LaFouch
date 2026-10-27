@@ -368,6 +368,9 @@
       return { moeda: l.moeda, v: l.v, rate: l.rate };
     });
     s.lote = it.lote || '';
+    if (it.custo != null) s.custoPeca = it.custo;
+    if (it.med) s.medPeca = it.med;
+    if (it.fmt) s.fmtPeca = it.fmt;
     S.sales.unshift(s);
     return s;
   }

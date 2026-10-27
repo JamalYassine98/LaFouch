@@ -290,6 +290,10 @@
       on = B.items.filter(function (i) {
         return i.on;
       });
+    if (!ref && B.tipo && !isSimple(B.tipo)) {
+      ref = refAuto(B.tipo);
+      B.ref = ref;
+    }
     if (!ref) return bad('Informe a referência.');
     if (!on.length) return bad('Marque pelo menos uma peça.');
     if (

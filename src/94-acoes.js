@@ -118,21 +118,45 @@
       })[0];
       s.estorno = true;
       S.confEst = '';
-      var it = S.items.filter(function (x) {
+      var lotOk = S.grp.some(function (g) {
+          return g.id === s.lote;
+        })
+          ? s.lote
+          : '';
+      var cands = S.items.filter(function (x) {
         return (
           x.tipo === s.tipo &&
           x.ref === s.ref &&
           x.cor === s.cor &&
           x.grau === s.grau &&
           x.vr === s.vr &&
-          (x.lote || '') ===
-            (S.grp.some(function (g) {
-              return g.id === s.lote;
-            })
-              ? s.lote
-              : '')
+          (x.lote || '') === lotOk
         );
-      })[0];
+      });
+      // volta para a linha de mesmo custo da venda; se a peça foi excluída, a linha é recriada
+      var it =
+        (s.custoPeca != null &&
+          cands.filter(function (x) {
+            return x.custo === s.custoPeca;
+          })[0]) ||
+        cands[0];
+      var recriada = false;
+      if (!it) {
+        it = {
+          custo: s.custoPeca,
+          lote: lotOk || undefined,
+          tipo: s.tipo,
+          grau: s.grau || '',
+          ref: s.ref,
+          med: s.medPeca || '',
+          vr: s.vr || '',
+          fmt: s.fmtPeca || '',
+          cor: s.cor,
+          qty: 0
+        };
+        S.items.push(it);
+        recriada = true;
+      }
       if (s.pags) {
         s.pags.forEach(function (l) {
           S.cash[l.moeda] -= l.v - (l.fee || 0);
@@ -144,6 +168,8 @@
       estornoBrinde(s);
       if (it) {
         it.qty += s.qty;
+        S.elog.push({ ts: Date.now(), tipo: s.tipo, ref: s.ref, cor: s.cor, grau: s.grau || '', qty: s.qty, estorno: true });
+        if (recriada) S.msg = 'Estorno feito. A peça ' + s.ref + ' ' + s.cor + ' tinha sido excluída do estoque e voltou como linha nova.';
         var eg =
           it.lote &&
           S.grp.filter(function (x) {

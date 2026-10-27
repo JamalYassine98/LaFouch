@@ -924,6 +924,51 @@
   // Entrada de peças no histórico do estoque (S.elog).
   function entradaEstoque(tipo, ref, cor, grau, qty) {
     S.elog.push({ ts: Date.now(), tipo: tipo, ref: ref, cor: cor, grau: grau, qty: qty });
+    // peças novas chegando renovam o aviso "Chegou esta semana" do modelo
+    if (qty > 0) {
+      if (!S.cad) S.cad = {};
+      S.cad[ref] = Date.now();
+    }
+  }
+  // Ajuste manual de quantidade (Editar produto): fica no histórico do estoque, com ou sem perda.
+  function ajusteEstoque(it, d, motivo) {
+    S.elog.push({ ts: Date.now(), tipo: it.tipo, ref: it.ref, cor: it.cor, grau: it.grau || '', qty: d, ajuste: true, motivo: motivo || '' });
+  }
+  // Exclusão de peças (cor ou produto): grava o que saiu e quanto valia em custo.
+  function exclusaoEstoque(its, motivo) {
+    var ts = Date.now(),
+      usdv = 0,
+      n = 0;
+    its.forEach(function (i) {
+      if (!(i.qty > 0)) return;
+      var c = Number(effCusto(i)) || 0;
+      usdv += c * i.qty;
+      n += i.qty;
+      S.elog.push({ ts: ts, tipo: i.tipo, ref: i.ref, cor: i.cor, grau: i.grau || '', qty: -i.qty, exclusao: true, motivo: motivo || '' });
+    });
+    return { n: n, usd: usdv };
+  }
+  // Depois de excluir peças: se o modelo não tem mais nada, sai do site e da oferta; se ainda tem, o site é atualizado.
+  function limpaRefExcluido(ref) {
+    var resta = S.items.some(function (i) {
+      return i.ref === ref;
+    });
+    if (!resta) {
+      if (S.site && S.site[ref]) siteSet(ref, false);
+      if (S.pprice) delete S.pprice[ref];
+      if (S.pcanal) delete S.pcanal[ref];
+    } else if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd');
+  }
+  // Código automático para peça sem código na haste (ex.: PG-013), em sequência por tipo.
+  function refAuto(tipo) {
+    var pre = tipo === 'pre' ? 'PG' : tipo === 'solar' ? 'SL' : 'AR',
+      re = new RegExp('^' + pre + '-(\\d+)$'),
+      mx = 0;
+    S.items.forEach(function (i) {
+      var m = re.exec(String(i.ref || '').toUpperCase());
+      if (m) mx = Math.max(mx, parseInt(m[1], 10));
+    });
+    return pre + '-' + String(mx + 1).padStart(3, '0');
   }
   // ===== Estoque: tela de detalhe de um código. =====
   // Chave estável de uma variante (linha) do produto.
@@ -1548,6 +1593,8 @@
         S.fDel = false;
         S.cdMode = false;
         S.cdCor = '';
+        S.ajAsk = false;
+        S.ajMot = '';
       };
       var fechar = function () {
         zerar();
@@ -1803,6 +1850,13 @@
                 return i.cor === cor;
               })
             ),
+            xc = all
+              .filter(function (i) {
+                return i.cor === cor;
+              })
+              .reduce(function (a, i) {
+                return a + (Number(effCusto(i)) || 0) * i.qty;
+              }, 0),
             last = cores.length === 1;
           var cz = mk('div', 'note n-bad');
           cz.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;align-items:center';
@@ -1816,17 +1870,27 @@
                 ref +
                 '? Remove ' +
                 xq +
-                ' peça(s) em estoque e a foto dessa cor.' +
+                ' peça(s) em estoque' +
+                (xc > 0 ? ' (' + usd(xc) + ' em custo)' : '') +
+                ' e a foto dessa cor.' +
+                (S.site && S.site[ref] ? ' O produto está no site: ele é atualizado.' : '') +
                 (last ? ' Como é a única cor, o produto inteiro será excluído.' : '') +
                 ' As vendas já feitas continuam no histórico.'
             )
           );
           cz.appendChild(
             btn('mini', 'Sim, excluir', function () {
+              var xr = exclusaoEstoque(
+                S.items.filter(function (i) {
+                  return i.tipo === f.tipo && i.ref === ref && i.cor === cor;
+                }),
+                'cor excluída'
+              );
               S.items = S.items.filter(function (i) {
                 return !(i.tipo === f.tipo && i.ref === ref && i.cor === cor);
               });
               delete S.fotos[ref + '|' + cor];
+              limpaRefExcluido(ref);
               if (
                 !S.items.some(function (i) {
                   return i.ref === ref;
@@ -1847,7 +1911,7 @@
                 S.open = '';
                 S.det = false;
               }
-              S.msg = 'Cor "' + cor + '" excluída de ' + ref + '.';
+              S.msg = 'Cor "' + cor + '" excluída de ' + ref + '.' + (xr.n ? ' Saíram ' + xr.n + ' peça(s), ' + usd(xr.usd) + ' em custo, registradas no histórico.' : '');
               render();
             })
           );
@@ -1867,7 +1931,7 @@
       ft.style.cssText = 'display:flex;gap:10px';
       var cb = btn('tab', 'Cancelar', fechar);
       cb.style.flex = '1';
-      var sb2 = btn('tab on', 'Salvar', function () {
+      var salvar = function () {
         var nn = ni ? normRef(ni.value, smp) : ref,
           nv0 = nmi ? nmi.value.trim() : '';
         if (!nn) return popErr(smp ? 'Digite o nome do produto.' : 'Digite o código da haste.');
@@ -1881,6 +1945,15 @@
         var dk = Object.keys(Object.assign({}, S.qDraft, S.cDraft)),
           partes = [],
           msgs = [];
+        // peças a menos: pergunta se foi perda (vira prejuízo) ou só correção de erro
+        var menos = dk.filter(function (k) {
+          return S.items[k] && S.qDraft[k] != null && S.qDraft[k] < S.items[k].qty;
+        });
+        if (menos.length && !S.ajMot) {
+          S.ajAsk = true;
+          render();
+          return;
+        }
         if (dk.length) {
           msgs = salvarEstoque(dk);
           partes.push('Estoque salvo.' + (msgs.length ? ' ' + msgs.join(' ') : ''));
@@ -1901,8 +1974,30 @@
         zerar();
         S.msg = partes.join(' ') || 'Nada foi alterado.';
         render();
-      });
+      };
+      var sb2 = btn('tab on', 'Salvar', salvar);
       sb2.style.flex = '2';
+      if (S.ajAsk) {
+        var aq = mk('div', 'note n-bad');
+        aq.id = 'ajAsk';
+        aq.style.cssText = 'display:flex;flex-direction:column;gap:8px';
+        aq.appendChild(mk('span', '', 'Você diminuiu peças. O que aconteceu?'));
+        aq.appendChild(
+          btn('mini', 'Quebrou ou sumiu (vira prejuízo)', function () {
+            S.ajMot = 'perda';
+            S.ajAsk = false;
+            salvar();
+          })
+        );
+        aq.appendChild(
+          btn('mini', 'Era erro de contagem (só corrige)', function () {
+            S.ajMot = 'erro';
+            S.ajAsk = false;
+            salvar();
+          })
+        );
+        bx.appendChild(aq);
+      }
       ft.appendChild(cb);
       ft.appendChild(sb2);
       bx.appendChild(ft);
@@ -1936,6 +2031,8 @@
             );
           }
         }
+        if (d < 0 && S.ajMot === 'perda') descartar(it, -d, 'ajuste na edição');
+        else if (d !== 0) ajusteEstoque(it, d, S.ajMot === 'erro' ? 'correção' : '');
         it.qty = n;
         if (S.cDraft[k] != null) {
           var cr = String(S.cDraft[k]).trim().replace(',', '.');
@@ -2926,6 +3023,12 @@
           );
           pz.appendChild(
             btn('mini', 'Sim, excluir', function () {
+              var xr = exclusaoEstoque(
+                S.items.filter(function (i) {
+                  return i.tipo === S.tipo && i.ref === pr;
+                }),
+                'produto excluído'
+              );
               S.items = S.items.filter(function (i) {
                 return !(i.tipo === S.tipo && i.ref === pr);
               });
@@ -2950,7 +3053,8 @@
               S.det = false;
               S.selItem = null;
               S.qty = 1;
-              S.msg = 'Produto "' + pr + '" excluído.';
+              limpaRefExcluido(pr);
+              S.msg = 'Produto "' + pr + '" excluído.' + (xr.n ? ' Saíram ' + xr.n + ' peça(s), ' + usd(xr.usd) + ' em custo, registradas no histórico.' : '');
               render();
             })
           );
@@ -3426,6 +3530,11 @@
       qty = S.qty;
     var cor = $('eCor').value.trim() || 'Sem cor',
       ref = S._ref;
+    var refAut = false;
+    if (!ref && !t.simple) {
+      ref = refAuto(S.tipo);
+      refAut = true;
+    }
     if (!ref) {
       say('Informe a referência da peça.');
       render();
@@ -3490,6 +3599,9 @@
       })
     )
       S.palette[corN] = '#8b9bb0';
+    // custo que veio preenchido do cadastro (média do modelo) é herdado: soma na linha existente em vez de criar outra
+    var cuSug = Number((refInfo(ref) || {}).custo),
+      herdado = cu != null && cuSug > 0 && Math.abs(cu - cuSug) < 0.0002;
     var ex = S.items.filter(function (x) {
       return (
         x.tipo === S.tipo &&
@@ -3499,7 +3611,7 @@
           : x.vr === (t.simple ? '' : S.eVar)) &&
         x.cor.toLowerCase() === corN.toLowerCase() &&
         (x.lote || '') === gid &&
-        (cu == null || x.custo == null || x.custo === cu)
+        (cu == null || herdado || x.custo == null || x.custo === cu)
       );
     })[0];
     if (gr.g && cu != null) {
@@ -3522,7 +3634,7 @@
     $('eDescP').value = '';
     if (ex) {
       ex.qty += qty;
-      if (ex.custo == null && cu != null) ex.custo = cu;
+      if (ex.custo == null && cu != null && !herdado) ex.custo = cu;
     } else
       S.items.push({
         custo: cu == null ? undefined : cu,
@@ -3542,6 +3654,7 @@
     S.eFaixa = '';
     entradaEstoque(S.tipo, ref, corN, isPre ? S._gn : '', qty);
     say(
+      (refAut ? 'Sem código na haste: criei ' + ref + '. ' : '') +
       'Entrada registrada: +' +
         qty +
         ' × ' +
@@ -4159,6 +4272,10 @@
       on = B.items.filter(function (i) {
         return i.on;
       });
+    if (!ref && B.tipo && !isSimple(B.tipo)) {
+      ref = refAuto(B.tipo);
+      B.ref = ref;
+    }
     if (!ref) return bad('Informe a referência.');
     if (!on.length) return bad('Marque pelo menos uma peça.');
     if (
@@ -9321,6 +9438,11 @@
       err.hidden = false;
       err.textContent = t;
     }
+    if (!f.ref && !f.simple && f.tipo) {
+      f.ref = refAuto(f.tipo);
+      $('phRef').value = f.ref;
+      f = phInfo();
+    }
     if (!f.ref) return bad('Informe a referência da peça.');
     if (P.photoOnly) {
       if (!f.cor) return bad('Informe a cor da foto.');
@@ -9835,6 +9957,9 @@
       return { moeda: l.moeda, v: l.v, rate: l.rate };
     });
     s.lote = it.lote || '';
+    if (it.custo != null) s.custoPeca = it.custo;
+    if (it.med) s.medPeca = it.med;
+    if (it.fmt) s.fmtPeca = it.fmt;
     S.sales.unshift(s);
     return s;
   }
@@ -13462,6 +13587,15 @@
     var pp, p;
     try {
       pp = pisoPeca(it);
+      // vale o pior caso: a cor/grau com estoque de maior custo (a mesma etiqueta vale para todas)
+      S.items.forEach(function (x) {
+        if (x.ref !== ref || (tipo && x.tipo !== tipo) || x.bulk || !(x.qty > 0)) return;
+        var q = pisoPeca(x);
+        if (q.trava > pp.trava) {
+          pp = q;
+          pp.corPior = x.cor + (x.grau ? ' ' + x.grau : '');
+        }
+      });
       p = precoTeste != null ? precoTeste : tFor(it).price;
     } catch (e) {
       return null;
@@ -16459,7 +16593,7 @@
     n = Math.floor(n);
     if (!item || !(n > 0) || n > item.qty) return null;
     var t = tipoOf(item.tipo),
-      usdv = (t && t.pago ? t.pago : 0) * n,
+      usdv = (Number(effCusto(item)) > 0 ? Number(effCusto(item)) : t && t.pago ? t.pago : 0) * n,
       valor = Math.round(usdv * S.fx.pyg),
       ts = Date.now(),
       desc = n + '× ' + item.ref + ' ' + (item.grau || item.vr || '') + ' · ' + item.cor + (motivo ? ' (' + motivo + ')' : '');
@@ -16560,10 +16694,14 @@
   }
   function siteCheck(ref) {
     var cs = siteCores(ref),
-      falta = cs.filter(function (c) {
+      // cor esgotada (0 peças) não trava a liberação do modelo
+      vivas = cs.filter(function (c) {
+        return c.qty > 0;
+      }),
+      falta = vivas.filter(function (c) {
         return !c.foto;
       });
-    return { cores: cs, falta: falta, ok: cs.length > 0 && !falta.length };
+    return { cores: cs, falta: falta, ok: vivas.length > 0 && !falta.length };
   }
   function siteOn(ref) {
     return !!(S.site && S.site[ref]);
@@ -20567,17 +20705,17 @@
         act: 'view',
         id: 'fx'
       });
-    var dv = dolarFavoravel(),
-      tp = trocarPlano();
-    if (dv && dv.barato && tp.passos.length)
+    var tp = trocarPlano();
+    barMoedas(tp).forEach(function (m) {
       l.push({
-        t: 'Bom momento para trocar dólar',
-        s: 'O dólar está em ' + gsRaw(dv.hoje) + ', perto do mínimo dos últimos ' + S.janela + ' dias.' + (tp.needRep > 0.004 ? ' Reposição pendente: ' + usd(tp.needRep) + '.' : ''),
+        t: 'Bom momento para trocar ' + m.nome + ' em dólar',
+        s: 'O dólar está em ' + m.txt + ', perto do mínimo dos últimos ' + S.janela + ' dias.' + (tp.needRep > 0.004 ? ' Reposição pendente: ' + usd(tp.needRep) + '.' : ''),
         c: 'var(--ok)',
         b: 'Trocar',
         act: 'view',
         id: 'fx'
       });
+    });
     if (pedNovos())
       l.push({
         t: pedNovos() + (pedNovos() === 1 ? ' pedido novo' : ' pedidos novos'),
@@ -20594,19 +20732,39 @@
     } catch (e) {}
     return l;
   }
+  // Moedas (guarani e real) com o dólar perto do mínimo e algo para trocar: base das duas notificações.
+  function barMoedas(tp) {
+    var r = [];
+    [
+      ['pyg', 'guaranis', 1],
+      ['brl', 'reais', 2]
+    ].forEach(function (m) {
+      var c = cotacaoPar(m[0], 'usd');
+      if (c && c.barato && tp.passos.some(function (x) { return x.de === m[0]; }))
+        r.push({ nome: m[1], bit: m[2], txt: m[0] === 'pyg' ? gsRaw(Math.round(c.hoje)) : 'R$ ' + nf(c.hoje, 'brl') });
+    });
+    return r;
+  }
   // Registra no histórico quando a margem sobe ou volta ao normal.
   function notifVerifica() {
     var mx = Math.max(fxMargemInfo('pyg').m, fxMargemInfo('brl').m),
       alta = mx > FX_AVISO ? 1 : 0;
-    var dv = dolarFavoravel(),
-      bar = dv && dv.barato && trocarPlano().passos.length ? 1 : 0;
+    var bm = barMoedas(trocarPlano()),
+      bar = 0;
+    bm.forEach(function (m) {
+      bar |= m.bit;
+    });
     if (bar !== S.fxBaratoUlt) {
+      var novos = bm.filter(function (m) {
+        return !(S.fxBaratoUlt & m.bit);
+      });
       S.fxBaratoUlt = bar;
-      if (bar)
-        S.notifs.unshift({ ts: Date.now(), lida: false, t: 'Dólar barato: bom momento para trocar', s: 'Dólar em ' + gsRaw(dv.hoje) + ', perto do mínimo dos últimos ' + S.janela + ' dias.' });
+      novos.forEach(function (m) {
+        S.notifs.unshift({ ts: Date.now(), lida: false, t: 'Dólar barato: bom momento para trocar ' + m.nome, s: 'Dólar em ' + m.txt + ', perto do mínimo dos últimos ' + S.janela + ' dias.' });
+      });
       S.notifs = S.notifs.filter(function (x) {
-      return Date.now() - x.ts < 60 * DAY;
-    }).slice(0, 60);
+        return Date.now() - x.ts < 60 * DAY;
+      }).slice(0, 60);
     }
     if (alta === S.fxMgUlt) return;
     S.fxMgUlt = alta;
@@ -21134,18 +21292,8 @@
   function trocarAgoraHtml() {
     var p = trocarPlano(),
       dv = dolarFavoravel();
-    if (!p.passos.length && !(p.needRep > 0.004) && !dv && !(S.cambios[0] && S.cambios[0].tipo)) return '';
+    if (!p.passos.length && !(p.needRep > 0.004) && !(S.cambios[0] && S.cambios[0].tipo)) return '';
     var h = '';
-    if (dv) {
-      var pos = Math.round(Math.max(0, Math.min(1, dv.pos)) * 100);
-      h +=
-        '<div class="lbl" style="margin:0">Dólar hoje</div><b style="font-size:28px">' + gsRaw(dv.hoje) + '</b>' +
-        '<div style="position:relative;height:10px;border-radius:6px;background:linear-gradient(90deg,var(--ok),#ffc766,var(--bad))"><i style="position:absolute;left:' + pos + '%;top:-4px;width:6px;height:18px;border-radius:3px;background:#fff;transform:translateX(-50%)"></i></div>' +
-        '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--mute)"><span>mínimo ' + dots(dv.min) + '</span><span>média ' + dots(dv.media) + '</span><span>máximo ' + dots(dv.max) + '</span></div>' +
-        '<div class="note ' + (dv.barato ? 'n-ok' : dv.caro ? 'n-warn' : 'n-info') + '">' +
-        (dv.barato ? 'Perto do mínimo dos últimos ' + S.janela + ' dias: bom momento para trocar.' : dv.caro ? 'Perto do máximo dos últimos ' + S.janela + ' dias: troque só o necessário.' : 'Cotação no meio do intervalo dos últimos ' + S.janela + ' dias.') +
-        '</div>';
-    }
     if (p.passos.length) {
       h += '<div class="hint" style="margin:0">Valores sugeridos. Troque o que fizer sentido e digite o que entregou e o que recebeu: o app calcula a cotação.</div>';
       p.passos.forEach(function (x, i) {
@@ -21181,7 +21329,7 @@
   // Medidor da cotação do par escolhido (muda com as moedas de Trocar moedas).
   function parGaugeHtml() {
     var c = cotacaoPar(S.tr.de, S.tr.para);
-    if (!c || (c.nome === 'Dólar' && c.un === 'pyg' && trocarAgoraHtml() && dolarFavoravel())) return ''; // o medidor do dólar em G$ já aparece na sugestão de hoje
+    if (!c) return ''; // medidor único: acompanha as moedas escolhidas em "Outra troca"
     var f = function (v) {
         return c.un === 'pyg' ? gsRaw(Math.round(v)) : 'R$ ' + nf(v, 'brl');
       },
@@ -21732,7 +21880,7 @@
   function elogCard(x) {
     return (
       '<div class="card" style="padding:14px"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center"><div><span class="cell">' +
-      (x.descarte ? 'Descarte' : x.contagem ? 'Ajuste de contagem' : 'Entrada de estoque') +
+      (x.descarte ? 'Descarte' : x.contagem ? 'Ajuste de contagem' : x.ajuste ? 'Ajuste manual' + (x.motivo ? ' (' + esc(x.motivo) + ')' : '') : x.exclusao ? 'Exclusão' + (x.motivo ? ' (' + esc(x.motivo) + ')' : '') : x.estorno ? 'Devolução (estorno)' : 'Entrada de estoque') +
       '</span><div style="margin-top:6px">' +
       (x.qty > 0 ? '+' : '') +
       x.qty +
@@ -22318,21 +22466,45 @@
       })[0];
       s.estorno = true;
       S.confEst = '';
-      var it = S.items.filter(function (x) {
+      var lotOk = S.grp.some(function (g) {
+          return g.id === s.lote;
+        })
+          ? s.lote
+          : '';
+      var cands = S.items.filter(function (x) {
         return (
           x.tipo === s.tipo &&
           x.ref === s.ref &&
           x.cor === s.cor &&
           x.grau === s.grau &&
           x.vr === s.vr &&
-          (x.lote || '') ===
-            (S.grp.some(function (g) {
-              return g.id === s.lote;
-            })
-              ? s.lote
-              : '')
+          (x.lote || '') === lotOk
         );
-      })[0];
+      });
+      // volta para a linha de mesmo custo da venda; se a peça foi excluída, a linha é recriada
+      var it =
+        (s.custoPeca != null &&
+          cands.filter(function (x) {
+            return x.custo === s.custoPeca;
+          })[0]) ||
+        cands[0];
+      var recriada = false;
+      if (!it) {
+        it = {
+          custo: s.custoPeca,
+          lote: lotOk || undefined,
+          tipo: s.tipo,
+          grau: s.grau || '',
+          ref: s.ref,
+          med: s.medPeca || '',
+          vr: s.vr || '',
+          fmt: s.fmtPeca || '',
+          cor: s.cor,
+          qty: 0
+        };
+        S.items.push(it);
+        recriada = true;
+      }
       if (s.pags) {
         s.pags.forEach(function (l) {
           S.cash[l.moeda] -= l.v - (l.fee || 0);
@@ -22344,6 +22516,8 @@
       estornoBrinde(s);
       if (it) {
         it.qty += s.qty;
+        S.elog.push({ ts: Date.now(), tipo: s.tipo, ref: s.ref, cor: s.cor, grau: s.grau || '', qty: s.qty, estorno: true });
+        if (recriada) S.msg = 'Estorno feito. A peça ' + s.ref + ' ' + s.cor + ' tinha sido excluída do estoque e voltou como linha nova.';
         var eg =
           it.lote &&
           S.grp.filter(function (x) {
@@ -27931,6 +28105,7 @@
   // Gancho de teste: expõe funções internas só quando a URL termina em #test (usado por tests/).
   if (/(^|[#&])test\b/.test(location.hash))
     window.__LF = {
+      barMoedas: barMoedas,
       animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast,
       nvPack: nvPack, nvUnpack: nvUnpack,
       S: S, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
@@ -27942,6 +28117,6 @@
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, whiten: whiten, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck
     };
 })();

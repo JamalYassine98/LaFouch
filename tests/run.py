@@ -22,6 +22,36 @@ S.exp = []; S.volume = 1; S.fxHist = []; S.janela = 30;
 
 # (nome, corpo JS que devolve um valor, esperado)
 TESTES = [
+ # ---- Inventário: ajustes, exclusões, estorno, entrada, piso, código automático, site ----
+ ("descarte usa o custo real da peça, não a média do tipo", """
+   S.fx.pyg=7000; S.items=[{tipo:'pre',ref:'D1',grau:'+1',cor:'P',qty:5,custo:2}]; S.descartes=[]; S.dlog=[]; S.elog=[]; S.lotes=[]; S.grp=[];
+   const v=L.descartar(S.items[0],2,'quebrou'); const r=[v, S.descartes[0].usd, S.items[0].qty]; S.descartes=[]; S.dlog=[]; S.elog=[]; return r""", [28000, 4, 3]),
+ ("exclusão de cor grava no histórico o que saiu e o custo", """
+   S.items=[{tipo:'pre',ref:'E1',grau:'+1',cor:'P',qty:4,custo:2},{tipo:'pre',ref:'E1',grau:'+1',cor:'Q',qty:1,custo:2}]; S.elog=[]; S.grp=[];
+   const r=L.exclusaoEstoque(S.items.filter(i=>i.cor==='P'),'cor excluída'); return [r.n, r.usd, S.elog.length, S.elog[0].qty, S.elog[0].exclusao===true]""", [4, 8, 1, -4, True]),
+ ("produto sem peças sai do site e da oferta", """
+   S.items=[{tipo:'pre',ref:'E2',grau:'+1',cor:'P',qty:3,custo:2}]; S.fotos['E2|P']='x'; S.site={E2:1}; S.pprice={E2:{novo:50000,ant:60000}}; S.grp=[];
+   S.items=[]; L.limpaRefExcluido('E2'); return [!!S.site.E2, !!S.pprice.E2]""", [False, False]),
+ ("estorno volta para a linha de mesmo custo e recria a linha se foi excluída", """
+   S.fx.pyg=7000; S.cash={pyg:100000,usd:0,brl:0}; S.volume=1000; S.exp=[]; S.fxHist=[]; S.lotes=[]; S.grp=[]; S.sales=[]; S.elog=[];
+   S.items=[{tipo:'pre',ref:'R1',grau:'+1',cor:'P',qty:5,custo:2,vr:''},{tipo:'pre',ref:'R1',grau:'+1',cor:'P',qty:5,custo:3,vr:''}];
+   const s=L.addSale(S.items[1],1,{moeda:'pyg',recebido:40000,forma:'din',pag:{extra:[],troco:[]}});
+   S.items[1].qty-=1; const a=[S.items[0].qty, S.items[1].qty]; L.ACT.estorno(s.id); L.ACT.estorno(s.id); const b=[S.items[0].qty, S.items[1].qty];
+   const s2=L.addSale(S.items[1],5,{moeda:'pyg',recebido:200000,forma:'din',pag:{extra:[],troco:[]}}); S.items=[];
+   L.ACT.estorno(s2.id); L.ACT.estorno(s2.id); const c=S.items.filter(i=>i.custo===3);
+   const r=[a[0],a[1],b[0],b[1],c.length,c[0]&&c[0].qty]; S.sales=[]; S.items=[]; S.elog=[]; S.cash={pyg:0,usd:0,brl:0}; return r""", [5, 4, 5, 5, 1, 5]),
+ ("código automático para peça sem código na haste, em sequência", """
+   S.items=[{tipo:'pre',ref:'PG-012',grau:'+1',cor:'P',qty:1},{tipo:'pre',ref:'SP1',grau:'+1',cor:'P',qty:1}];
+   return [L.refAuto('pre'), L.refAuto('solar')]""", ['PG-013', 'SL-001']),
+ ("entrada de peças novas renova o 'chegou esta semana'", """
+   S.cad={Z9:Date.now()-30*864e5}; S.elog=[]; S.items=[{tipo:'pre',ref:'Z9',grau:'+1',cor:'P',qty:5}];
+   const a=L.siteAviso('Z9'); L.entradaEstoque('pre','Z9','P','+1',2); S.items[0].qty=7; return [a, L.siteAviso('Z9')]""", ['', 'Chegou esta semana']),
+ ("liberar para o site: cor esgotada sem foto não trava; cor com estoque sem foto trava", """
+   S.items=[{tipo:'pre',ref:'W1',grau:'+1',cor:'P',qty:3},{tipo:'pre',ref:'W1',grau:'+1',cor:'Q',qty:0}]; S.fotos={'W1|P':'x'};
+   const a=L.siteCheck('W1').ok; S.items[1].qty=2; const b=L.siteCheck('W1').ok; return [a,b]""", [True, False]),
+ ("piso do produto vale o pior caso entre cores com estoque", """
+   S.fx.pyg=7000; S.items=[{tipo:'pre',ref:'P1',grau:'+1',cor:'P',qty:3,custo:1},{tipo:'pre',ref:'P1',grau:'+1',cor:'Q',qty:3,custo:3}]; S.grp=[];
+   const lo=L.pisoPeca(S.items[0]).trava, hi=L.pisoPeca(S.items[1]).trava, r=L.pisoDoRef('P1','pre'); return [hi>lo, r.pp.trava===hi, r.pp.corPior]""", [True, True, 'Q +1']),
  # ---- contas da venda ----
  ("pagamento em R$ com câmbio combinado e troco em G$: caixa, preço líquido e estorno", """
    S.fx.pyg=7000; S.cash={pyg:100000,usd:0,brl:0}; S.volume=1000; S.exp=[]; S.fxHist=[]; S.lotes=[]; S.sales=[];
@@ -611,6 +641,23 @@ async def main():
             if not ok: falhas.append('anim obturador'); print('        veio', r, pg.erros)
             await pg.close()
 
+            # Câmbio: um só medidor "hoje" que acompanha as moedas; aviso de bom momento vale para guarani e real
+            pg = await pagina()
+            total += 1
+            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S, o = {}; const now = Date.now();
+                S.janela = 90; S.fxHist = [0,1,2,3,4,5].map(i => ({ts: now - (6 - i) * 86400000, pyg: 7400 - i * 60, brl: 5.4 - i * 0.05}));
+                S.fx.pyg = 7080; S.fx.brl = 5.1;
+                const tp = {passos: [{de: 'brl'}], needRep: 0}; o.brl = L.barMoedas(tp).map(m => m.nome);
+                o.ambos = L.barMoedas({passos: [{de: 'brl'}, {de: 'pyg'}], needRep: 0}).map(m => m.nome);
+                o.nenhum = L.barMoedas({passos: [], needRep: 0}).length;
+                S.tr.de = 'pyg'; S.tr.para = 'usd'; L.setView('fx'); L.render(); o.n1 = (document.getElementById('v-fx').innerText.match(/(dólar|real) hoje/gi) || []).length;
+                S.tr.de = 'brl'; L.render(); o.n2 = (document.getElementById('v-fx').innerText.match(/(dólar|real) hoje/gi) || []).length;
+                return o }""")
+            ok = r['brl'] == ['reais'] and r['ambos'] == ['guaranis', 'reais'] and r['nenhum'] == 0 and r['n1'] == 1 and r['n2'] == 1
+            print(('  ok  ' if ok else ' FALHA ') + 'Câmbio: um só medidor "hoje" e aviso de bom momento também para o real')
+            if not ok: falhas.append('câmbio medidor'); print('        veio', r, pg.erros)
+            await pg.close()
+
             # Editar produto: apertar botões não faz a janela voltar ao topo
             pg = await pagina()
             total += 1
@@ -629,6 +676,24 @@ async def main():
             ok = all(r[1] != 'sem botão' and r[1] > 50 and abs(r[1] - r[2]) < 3 for r in res)
             print(('  ok  ' if ok else ' FALHA ') + 'Editar produto: apertar botões mantém a posição da janela (não volta ao topo)')
             if not ok: falhas.append('editar pula'); print('        veio', res, pg.erros)
+            await pg.close()
+
+            # Editar produto: diminuir peças pergunta o motivo e grava no histórico
+            pg = await pagina()
+            total += 1
+            await pg.evaluate("() => { window.__LF.setView('estoque'); }"); await pg.wait_for_timeout(400)
+            await pg.locator('#rows .pcard').nth(2).click(); await pg.wait_for_timeout(700)
+            await pg.click('#detail button[aria-label=Editar]'); await pg.wait_for_timeout(700)
+            q0 = await pg.evaluate("() => { const S = window.__LF.S; S.elog = []; const i = S.items.filter(x => x.qty >= 2 && !x.bulk)[0]; return [S.items.indexOf(i), i.qty, i.ref] }")
+            await pg.evaluate("(a) => { const L = window.__LF; L.S.qDraft[a[0]] = a[1] - 1; L.render(); }", q0)
+            await pg.wait_for_timeout(300)
+            await pg.locator('#editModal button', has_text='Salvar').first.click(); await pg.wait_for_timeout(300)
+            ask = await pg.evaluate("() => !!document.getElementById('ajAsk')")
+            await pg.locator('#ajAsk button', has_text='erro de contagem').click(); await pg.wait_for_timeout(400)
+            aj = await pg.evaluate("(a) => { const S = window.__LF.S; return [S.items[a[0]].qty, S.elog.filter(x => x.ajuste && x.qty === -1).length] }", q0)
+            ok = ask and aj == [q0[1] - 1, 1]
+            print(('  ok  ' if ok else ' FALHA ') + 'Editar produto: diminuir peças pergunta o motivo e o ajuste fica no histórico')
+            if not ok: falhas.append('ajuste manual'); print('        veio', ask, aj, q0, pg.erros)
             await pg.close()
 
             # venda confirmada: sequência animada e imprime direto (sem pergunta)

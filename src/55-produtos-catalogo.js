@@ -36,6 +36,15 @@
     var pp, p;
     try {
       pp = pisoPeca(it);
+      // vale o pior caso: a cor/grau com estoque de maior custo (a mesma etiqueta vale para todas)
+      S.items.forEach(function (x) {
+        if (x.ref !== ref || (tipo && x.tipo !== tipo) || x.bulk || !(x.qty > 0)) return;
+        var q = pisoPeca(x);
+        if (q.trava > pp.trava) {
+          pp = q;
+          pp.corPior = x.cor + (x.grau ? ' ' + x.grau : '');
+        }
+      });
       p = precoTeste != null ? precoTeste : tFor(it).price;
     } catch (e) {
       return null;

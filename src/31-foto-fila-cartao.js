@@ -675,6 +675,11 @@
       err.hidden = false;
       err.textContent = t;
     }
+    if (!f.ref && !f.simple && f.tipo) {
+      f.ref = refAuto(f.tipo);
+      $('phRef').value = f.ref;
+      f = phInfo();
+    }
     if (!f.ref) return bad('Informe a referência da peça.');
     if (P.photoOnly) {
       if (!f.cor) return bad('Informe a cor da foto.');

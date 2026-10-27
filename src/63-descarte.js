@@ -6,7 +6,7 @@
     n = Math.floor(n);
     if (!item || !(n > 0) || n > item.qty) return null;
     var t = tipoOf(item.tipo),
-      usdv = (t && t.pago ? t.pago : 0) * n,
+      usdv = (Number(effCusto(item)) > 0 ? Number(effCusto(item)) : t && t.pago ? t.pago : 0) * n,
       valor = Math.round(usdv * S.fx.pyg),
       ts = Date.now(),
       desc = n + '× ' + item.ref + ' ' + (item.grau || item.vr || '') + ' · ' + item.cor + (motivo ? ' (' + motivo + ')' : '');

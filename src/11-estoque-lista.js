@@ -906,6 +906,12 @@
           );
           pz.appendChild(
             btn('mini', 'Sim, excluir', function () {
+              var xr = exclusaoEstoque(
+                S.items.filter(function (i) {
+                  return i.tipo === S.tipo && i.ref === pr;
+                }),
+                'produto excluído'
+              );
               S.items = S.items.filter(function (i) {
                 return !(i.tipo === S.tipo && i.ref === pr);
               });
@@ -930,7 +936,8 @@
               S.det = false;
               S.selItem = null;
               S.qty = 1;
-              S.msg = 'Produto "' + pr + '" excluído.';
+              limpaRefExcluido(pr);
+              S.msg = 'Produto "' + pr + '" excluído.' + (xr.n ? ' Saíram ' + xr.n + ' peça(s), ' + usd(xr.usd) + ' em custo, registradas no histórico.' : '');
               render();
             })
           );

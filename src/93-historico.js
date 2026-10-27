@@ -100,7 +100,7 @@
   function elogCard(x) {
     return (
       '<div class="card" style="padding:14px"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center"><div><span class="cell">' +
-      (x.descarte ? 'Descarte' : x.contagem ? 'Ajuste de contagem' : 'Entrada de estoque') +
+      (x.descarte ? 'Descarte' : x.contagem ? 'Ajuste de contagem' : x.ajuste ? 'Ajuste manual' + (x.motivo ? ' (' + esc(x.motivo) + ')' : '') : x.exclusao ? 'Exclusão' + (x.motivo ? ' (' + esc(x.motivo) + ')' : '') : x.estorno ? 'Devolução (estorno)' : 'Entrada de estoque') +
       '</span><div style="margin-top:6px">' +
       (x.qty > 0 ? '+' : '') +
       x.qty +
