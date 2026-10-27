@@ -103,6 +103,11 @@ TESTES = [
    const off=L.faixaOf(it.ref); S.faixaAuto={on:true,lim:[0.0001,0.0002]}; const auto=L.faixaOf(it.ref);
    S.pfaixa[it.ref]='f1'; const man=L.faixaOf(it.ref);
    return [off===null, auto&&auto.id===S.faixas[S.faixas.length-1].id, man.id==='f1']""", [True, True, True]),
+ ("destaque automático: manda por estoque (mais peças e mais tempo sem vender), só o que está no site", """
+   L.primeiroUso(); const a=S.items[0], b=S.items[1], c=S.items[2]; S.items.forEach(i=>{i.qty=0}); a.qty=2; b.qty=9; c.qty=30; S.sales=[];
+   S.vitrine=[a.ref,b.ref]; S.nuvem.rt='x'; const calls=[]; window.fetch=(u,o)=>{calls.push([u,o&&o.body]); return Promise.resolve({ok:true,status:200,json:()=>Promise.resolve({}),text:()=>Promise.resolve('{}')})};
+   return L.nvDestaque().then(()=>{ const c0=calls.filter(x=>/dauto/.test(x[0])); const body=c0.length?JSON.parse(c0[0][1]).fields:{};
+     const refs=(body.dauto||{}).stringValue||''; return L.nvDestaque().then(()=>[c0.length, refs===b.ref+','+a.ref, refs.indexOf(c.ref)<0, calls.filter(x=>/dauto/.test(x[0])).length])})""", [1, True, True, 1]),
  ("PIN: guarda só o resumo e confere", """
    return L.hashPin('1234','sal').then(h=>L.hashPin('1234','sal').then(h2=>L.hashPin('1235','sal').then(h3=>[h===h2, h!==h3, h.indexOf('1234')<0])))""", [True, True, True]),
  ("PIN: resumo novo lento (p2) e quem tinha o antigo é atualizado ao entrar", """

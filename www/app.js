@@ -24743,7 +24743,7 @@
   var NV_DB = 'https://firestore.googleapis.com/v1/projects/' + NV.p + '/databases/(default)/documents/';
   var NV_PARTE = 600000; // caracteres por documento (o limite do Firestore é 1 MiB)
   var NV_GUARDA = 7; // quantos dias de cópia ficam guardados
-  S.nuvem = { email: '', rt: '', ts: 0, cot: '' }; // rt = chave de acesso (a senha nunca é guardada)
+  S.nuvem = { email: '', rt: '', ts: 0, cot: '', dst: '' }; // rt = chave de acesso (a senha nunca é guardada)
   S.nvMsg = '';
   S.nvLista = null;
   var nvTok = { t: '', exp: 0 };
@@ -24850,7 +24850,7 @@
       });
   };
   ACT.nvSair = function () {
-    S.nuvem = { email: '', rt: '', ts: 0, cot: '' };
+    S.nuvem = { email: '', rt: '', ts: 0, cot: '', dst: '' };
     nvTok = { t: '', exp: 0 };
     S.nvLista = null;
     saveSoon();
@@ -25043,12 +25043,59 @@
       saveSoon();
     });
   }
+  // ---------- destaque automático por estoque (config/site, só os campos "dauto" e "dmot")
+  // Ordem de quem mais precisa girar: peças em estoque x tempo sem vender. O site escolhe o primeiro com foto.
+  function nvDestaque() {
+    if (!S.nuvem.rt || !Array.isArray(S.vitrine) || !S.vitrine.length) return Promise.resolve();
+    var no = {};
+    S.vitrine.forEach(function (r) {
+      no[r] = 1;
+    });
+    var agora = Date.now(),
+      l = prodStats()
+        .filter(function (m) {
+          return no[m.ref] && m.stock > 0;
+        })
+        .map(function (m) {
+          var d = Math.min(365, (agora - (m.last || S.appStart || agora)) / DAY);
+          m.dd = Math.round(d);
+          m.sc = m.stock * (1 + d / 30);
+          return m;
+        })
+        .sort(function (a, b) {
+          return b.sc - a.sc;
+        })
+        .slice(0, 6),
+      refs = l.map(function (m) {
+        return m.ref;
+      }),
+      mot = {};
+    l.forEach(function (m) {
+      mot[m.ref] = m.stock + (m.stock === 1 ? ' peça' : ' peças') + ' no estoque · ' + (m.last ? m.dd + ' dias sem vender' : 'ainda sem vendas');
+    });
+    var chave = JSON.stringify([refs, mot]);
+    if (S.nuvem.dst === chave) return Promise.resolve();
+    var mf = {};
+    Object.keys(mot).forEach(function (r) {
+      mf[r] = { stringValue: mot[r] };
+    });
+    return nvApi(
+      'PATCH',
+      'config/site?updateMask.fieldPaths=dauto&updateMask.fieldPaths=dmot',
+      JSON.stringify({ fields: { dauto: { stringValue: refs.join(',') }, dmot: { mapValue: { fields: mf } } } })
+    ).then(function () {
+      S.nuvem.dst = chave;
+      saveSoon();
+    });
+  }
   // ---------- automático: cópia a cada ~20 h e cotação quando muda
   function nvAuto() {
     if (!S.nuvem || !S.nuvem.rt || navigator.onLine === false) return;
     var p = S.nvLista ? Promise.resolve() : nvListar();
     if (!S.nuvem.ts || Date.now() - S.nuvem.ts > 20 * 3600000) p = p.then(nvBackup);
-    p.then(nvCotacao).catch(function () {});
+    p.then(nvCotacao)
+      .then(nvDestaque)
+      .catch(function () {});
   }
   setTimeout(nvAuto, 20000);
   setInterval(nvAuto, 15 * 60000);
@@ -27243,6 +27290,6 @@
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, whiten: whiten, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, vitConfere: vitConfere, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, vitConfere: vitConfere, nvDestaque: nvDestaque, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
     };
 })();
