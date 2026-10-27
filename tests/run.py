@@ -1152,15 +1152,22 @@ async def main():
             tit2 = await pg.evaluate("() => document.getElementById('addTitle').textContent")
             # modelo sem nenhuma cor: o site não libera
             await pg.locator('text=+ Adicionar cor').click(); await pg.wait_for_timeout(200)
-            await pg.locator('#nvBox >> text="Vinho"').click(); await pg.click('#nvCorOk'); await pg.wait_for_timeout(600)
+            await pg.locator('#nvBox >> text="Vinho"').click(); await pg.wait_for_timeout(200)
+            sem_foto = await pg.evaluate("() => document.getElementById('nvCorOk').disabled")
+            async with pg.expect_file_chooser() as fcs:
+                await pg.click('#nvFotoCor')
+            fc = await fcs.value
+            await fc.set_files(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'fixtures', 'peca.jpg')); await pg.wait_for_timeout(900)
+            com_foto = await pg.evaluate("() => document.getElementById('nvCorOk').disabled")
+            await pg.click('#nvCorOk'); await pg.wait_for_timeout(600)
             await pg.click('#nvTg'); await pg.wait_for_timeout(300)
             r = await pg.evaluate("""() => { const S = window.__LF.S, it = S.items.filter(i => i.ref === 'ZZ77')[0];
-              return [!!it, it && it.cor, it && it.qty, S.desc.ZZ77, !!(S.site && S.site.ZZ77), document.getElementById('nvBox').innerText.indexOf('Falta a foto da cor Vinho') >= 0]; }""")
+              return [!!it, it && it.cor, it && it.qty, S.desc.ZZ77, !!(S.site && S.site.ZZ77), !!S.fotos['ZZ77|Vinho']]; }""")
             total += 1
             ok = falta1 == ['Novo modelo', True] and auto[0] is False and 'Armação redondo acetato' in auto[1] and tit2 == 'Cores e fotos' \
-                and r == [True, 'Vinho', 1, 'Armação de acetato verde, haste larga', False, True] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'novo modelo: duas telas, avisos, cor sem foto não libera o site')
-            if not ok: falhas.append('cadastro desc'); print('        veio', falta1, auto, tit2, r, pg.erros)
+                and r == [True, 'Vinho', 1, 'Armação de acetato verde, haste larga', True, True] and sem_foto is True and com_foto is False and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'novo modelo: duas telas, avisos, cor só entra com foto')
+            if not ok: falhas.append('cadastro desc'); print('        veio', falta1, auto, tit2, r, sem_foto, com_foto, pg.erros)
             await pg.close()
 
             # identidade do modelo: nome automático, descrição por cor, nº interno, busca e coleção

@@ -40,6 +40,9 @@
     inicio: function (id) {
       inicioGo(id);
     },
+    semfoto: function () {
+      fotosFila();
+    },
     view: function (id) {
       setView(id);
     },

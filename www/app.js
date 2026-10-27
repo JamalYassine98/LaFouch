@@ -764,12 +764,13 @@
   // Quadro de foto (ou vazio).
   function photoBox(src, cls) {
     var d = mk('div', cls + (src ? '' : ' none'));
+    if (!src) d.hidden = true;
     if (src) {
       var im = mk('img');
       im.src = src;
       im.alt = 'Foto do produto';
       d.appendChild(im);
-    } else d.textContent = 'Sem foto';
+    }
     return d;
   }
   // Descrição automática de um código.
@@ -17062,7 +17063,7 @@
   S.nPop = ''; // campo com as opções abertas
   S.nCorOpen = false;
   S.nNovoFmt = false;
-  var NVC = { cor: '', q: 1, vr: '', grau: '' };
+  var NVC = { cor: '', q: 1, vr: '', grau: '', fotoT: '', fotoH: '', fotoCor: '' };
   var NV_MAT = ['Metal', 'Acetato', 'TR90', 'Plástico', 'Titânio', 'Nylon'];
   var NV_PUB = ['Unissex', 'Feminino', 'Masculino', 'Infantil'];
   function nvAtr(ref) {
@@ -17161,18 +17162,31 @@
     ess.style.gap = '12px';
     ess.id = 'nvEss';
     s1.appendChild(ess);
+    // as opções de cada campo abrem numa linha inteira, logo abaixo da linha de campos
+    var fTipo = nvFld('tipo', 'Tipo'),
+      fFmt = nvFld('fmt', 'Formato'),
+      fMat = nvFld('mat', 'Material'),
+      fPub = nvFld('pub', 'Gênero'),
+      opLinha = function (w) {
+        var o = w.querySelector('.nav');
+        o.style.marginTop = '0';
+        return o;
+      };
     var r1 = mk('div', 'nvg2');
-    r1.appendChild(nvFld('tipo', 'Tipo'));
+    r1.appendChild(fTipo);
     var cw = mk('div', '');
     cw.id = 'nvCod';
     cw.appendChild($('eRef').parentNode);
     r1.appendChild(cw);
     ess.appendChild(r1);
+    ess.appendChild(opLinha(fTipo));
     var r2 = mk('div', 'nvg2');
     r2.id = 'nvR2';
-    r2.appendChild(nvFld('fmt', 'Formato'));
-    r2.appendChild(nvFld('mat', 'Material'));
+    r2.appendChild(fFmt);
+    r2.appendChild(fMat);
     ess.appendChild(r2);
+    ess.appendChild(opLinha(fFmt));
+    ess.appendChild(opLinha(fMat));
     var nf = mk('div', 'col');
     nf.id = 'nvNovoFmt';
     nf.hidden = true;
@@ -17208,12 +17222,13 @@
     ess.appendChild(r3);
     var r4 = mk('div', 'nvg2');
     r4.id = 'nvR4';
-    r4.appendChild(nvFld('pub', 'Gênero'));
+    r4.appendChild(fPub);
     var cu = mk('div', '');
     cu.id = 'nvCusto';
     cu.appendChild($('eCustoB'));
     r4.appendChild(cu);
     ess.appendChild(r4);
+    ess.appendChild(opLinha(fPub));
     var lt = mk('div', '');
     lt.id = 'nvLote';
     lt.appendChild($('eLoteB'));
@@ -17388,9 +17403,14 @@
     img.onload = function () {
       try {
         var cv = fitCanvas(img, 1800);
-        setFoto(ref + '|' + cor, thumbOf(cv), cv.toDataURL('image/jpeg', 0.92));
-        if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd');
-        saveSoon();
+        if (cor === '__nova__') {
+          NVC.fotoT = thumbOf(cv);
+          NVC.fotoH = cv.toDataURL('image/jpeg', 0.92);
+        } else {
+          setFoto(ref + '|' + cor, thumbOf(cv), cv.toDataURL('image/jpeg', 0.92));
+          if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd');
+          saveSoon();
+        }
       } catch (e) {
         S.msg = 'Não consegui processar essa foto. Tente outra.';
       }
@@ -17413,6 +17433,11 @@
     if (!NVC.cor) {
       popErr('Escolha a cor.');
       guiaMarca('nvCorIn');
+      return;
+    }
+    if (!NVC.fotoT) {
+      popErr('Tire a foto da cor ' + NVC.cor + '.');
+      guiaMarca('nvFotoCor');
       return;
     }
     if (pre && !normGrau($('nvGrau').value || '')) {
@@ -17444,6 +17469,11 @@
       return;
     }
     var qOk = NVC.q;
+    setFoto(ref + '|' + NVC.cor, NVC.fotoT, NVC.fotoH);
+    if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd');
+    saveSoon();
+    NVC.fotoT = '';
+    NVC.fotoH = '';
     S.nCorOpen = false;
     NVC.cor = '';
     NVC.q = 1;
@@ -17561,6 +17591,8 @@
       oi.value = Object.keys(S.palette).indexOf(NVC.cor) >= 0 ? '' : NVC.cor;
       oi.oninput = function () {
         NVC.cor = oi.value.trim();
+        var bk = $('nvCorOk');
+        if (bk) bk.disabled = !(NVC.cor && NVC.fotoT);
       };
       nc.appendChild(oi);
       if (pre) {
@@ -17611,8 +17643,24 @@
       sp.appendChild(mk('b', '', String(NVC.q)));
       sp.appendChild(pl);
       nc.appendChild(sp);
+      nc.appendChild(mk('div', 'lbl', 'Foto da cor'));
+      var fb = btn('go', NVC.fotoT ? '✓ Foto tirada · trocar' : '📷 Tirar a foto', function () {
+        NVC.fotoCor = '__nova__';
+        $('nvFile').click();
+      });
+      fb.id = 'nvFotoCor';
+      fb.style.cssText = 'min-height:46px;font-size:15px' + (NVC.fotoT ? ';background:var(--panel);border:1px solid var(--ok);color:var(--ok)' : '');
+      nc.appendChild(fb);
+      if (NVC.fotoT) {
+        var pv = document.createElement('img');
+        pv.src = NVC.fotoT;
+        pv.alt = 'Foto da cor';
+        pv.style.cssText = 'width:100%;max-height:150px;object-fit:contain;background:#fff;border-radius:12px';
+        nc.appendChild(pv);
+      } else nc.appendChild(mk('div', 'nvwarn', 'A cor só entra na lista com a foto.'));
       var ok = btn('go', 'Adicionar cor', nvAddCor);
       ok.id = 'nvCorOk';
+      ok.disabled = !NVC.fotoT || !NVC.cor;
       nc.appendChild(ok);
       c1.appendChild(nc);
     } else {
@@ -17622,6 +17670,8 @@
         NVC.cor = uc;
         NVC.q = 1;
         NVC.vr = '';
+        NVC.fotoT = '';
+        NVC.fotoH = '';
         render();
       });
       ad.style.cssText = 'width:100%;border-style:dashed';
@@ -17816,6 +17866,110 @@
     var nx = $('nvNext');
     nx.style.opacity = falta.length ? '.45' : '1';
     nx.textContent = simple ? 'Continuar' : 'Continuar para cores e fotos';
+  }
+  // ===== Completar fotos: todo produto precisa de foto em cada cor. A fila leva modelo por modelo. =====
+  // Cores com peça em estoque que ainda não têm foto (peças simples e a granel ficam de fora).
+  function fotoPend() {
+    var seen = {},
+      out = [];
+    S.items.forEach(function (i) {
+      if (!i.ref || i.bulk || i.qty <= 0 || isSimple(i.tipo) || !i.cor || i.cor === 'Sem cor') return;
+      var k = i.ref + '|' + i.cor;
+      if (seen[k] || S.fotos[k]) return;
+      seen[k] = 1;
+      out.push({ ref: i.ref, cor: i.cor, k: k });
+    });
+    return out;
+  }
+  function fotoPendModelos() {
+    var s = {};
+    fotoPend().forEach(function (p) {
+      s[p.ref] = 1;
+    });
+    return Object.keys(s).length;
+  }
+  // Fila: abre a câmera para cada cor sem foto, um modelo de cada vez.
+  function fotosFila() {
+    var pulados = {},
+      alvo = null;
+    function prox() {
+      return fotoPend().filter(function (p) {
+        return !pulados[p.k];
+      })[0];
+    }
+    leitorDlg(function (bx, close) {
+      var fi = document.createElement('input');
+      fi.type = 'file';
+      fi.accept = 'image/*';
+      fi.setAttribute('capture', 'environment');
+      fi.hidden = true;
+      fi.id = 'cfFile';
+      bx.appendChild(fi);
+      var corpo = mk('div', '');
+      corpo.style.cssText = 'display:flex;flex-direction:column;gap:10px';
+      bx.appendChild(corpo);
+      fi.onchange = function () {
+        var f = fi.files && fi.files[0];
+        fi.value = '';
+        if (!f || !alvo) return;
+        var a = alvo,
+          url = URL.createObjectURL(f),
+          img = new Image();
+        img.onload = function () {
+          try {
+            var cv = fitCanvas(img, 1800);
+            setFoto(a.k, thumbOf(cv), cv.toDataURL('image/jpeg', 0.92));
+            if (S.site && S.site[a.ref] && typeof vitFila === 'function') vitFila(a.ref, 'upd');
+            saveSoon();
+          } catch (e) {}
+          URL.revokeObjectURL(url);
+          draw();
+          render();
+        };
+        img.src = url;
+      };
+      function draw() {
+        corpo.textContent = '';
+        var tot = fotoPend().length,
+          p = prox();
+        alvo = p || null;
+        var hd = mk('div', '');
+        hd.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:10px';
+        hd.appendChild(mk('b', '', 'Completar fotos'));
+        hd.appendChild(btn('tab', 'Fechar', close));
+        corpo.appendChild(hd);
+        if (!p) {
+          corpo.appendChild(mk('div', 'hint', tot ? 'Você pulou as que faltam. Feche e abra de novo para recomeçar.' : '✓ Todos os modelos têm foto.'));
+          return;
+        }
+        corpo.appendChild(mk('div', 'hint', tot + (tot === 1 ? ' cor sem foto' : ' cores sem foto')));
+        var cd = mk('div', 'card');
+        cd.style.cssText = 'display:flex;gap:12px;align-items:center;padding:12px';
+        var th = mk('div', 'nvthm');
+        th.textContent = '📷';
+        th.style.cssText = 'width:64px;height:52px';
+        cd.appendChild(th);
+        var tx = mk('div', '');
+        tx.appendChild(mk('b', '', pubNome(p.ref)));
+        var sm = mk('div', 'hint', 'Cor ' + p.cor + ' · ' + p.ref);
+        sm.style.margin = '2px 0 0';
+        tx.appendChild(sm);
+        cd.appendChild(tx);
+        corpo.appendChild(cd);
+        var fb = btn('go', '📷 Fotografar', function () {
+          fi.click();
+        });
+        fb.id = 'cfFoto';
+        corpo.appendChild(fb);
+        var pu = btn('chip', 'Pular esta', function () {
+          pulados[p.k] = 1;
+          draw();
+        });
+        pu.style.cssText += ';width:100%;justify-content:center';
+        corpo.appendChild(pu);
+      }
+      draw();
+    });
   }
   // ===== Animações novas: leitor (procura/achou), obturador da foto, gráficos, progresso, liberar p/ site, venda confirmada. =====
   // Visor do leitor: cantos, grade de pontos, laser varrendo. achou() mostra o código aparecendo letra a letra.
@@ -18624,7 +18778,11 @@
       pend = semDet
         ? '<section class="card" data-act="inicio" data-id="lotes" role="button" tabindex="0" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px;border-left:4px solid var(--warn);margin-bottom:12px;cursor:pointer"><div><b style="font-size:15px">' + semDet + (semDet === 1 ? ' peça' : ' peças') + ' da compra' + (semDia ? ' de ' + ('0' + semDia.getDate()).slice(-2) + '/' + ('0' + (semDia.getMonth() + 1)).slice(-2) : '') + ' sem detalhe</b><div class="hint" style="margin:2px 0 0">já estão no estoque · toque para detalhar</div></div><span class="chip on" style="color:var(--warn)">' + semDet + '</span></section>'
         : '';
-    el.innerHTML = faixa + pend +
+    var nSf = fotoPendModelos(),
+      semFoto = nSf
+        ? '<section class="card" style="border-color:var(--warn);padding:14px;margin-bottom:12px"><b style="font-size:15px">' + nSf + (nSf === 1 ? ' modelo sem foto' : ' modelos sem foto') + '</b><div class="hint" style="margin:2px 0 10px">todo produto precisa de foto · toque para completar</div><button type="button" class="go" data-act="semfoto" id="btnSemFoto" style="min-height:44px;font-size:15px">Completar fotos</button></section>'
+        : '';
+    el.innerHTML = faixa + pend + semFoto +
       '<div class="hero" data-act="inicio" data-id="hoje" role="button" tabindex="0"><span class="hi">' + ico('hero', 26) + '</span><span><small>Vendido hoje · ' + h.n + ' venda(s)</small><b>' + gs(h.v) + '</b></span><span class="hg">›</span></div>' +
       '<div class="tgrid' + (ed ? ' editando' : '') + '">' + grid + '</div>' + extra +
       '<div class="sel" style="justify-content:center;gap:10px;flex-wrap:wrap">' +
@@ -20418,6 +20576,9 @@
     },
     inicio: function (id) {
       inicioGo(id);
+    },
+    semfoto: function () {
+      fotosFila();
     },
     view: function (id) {
       setView(id);
@@ -26138,7 +26299,7 @@
     window.__LF = {
       barMoedas: barMoedas,
       animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast,
-      nvPack: nvPack, nvUnpack: nvUnpack,
+      nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila,
       S: S, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,
       grpTot: grpTot, grpFalta: grpFalta, effCusto: effCusto, parseLote: parseLote, parsePedido: parsePedido, parseHaste: parseHaste,

@@ -179,7 +179,11 @@
       pend = semDet
         ? '<section class="card" data-act="inicio" data-id="lotes" role="button" tabindex="0" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px;border-left:4px solid var(--warn);margin-bottom:12px;cursor:pointer"><div><b style="font-size:15px">' + semDet + (semDet === 1 ? ' peça' : ' peças') + ' da compra' + (semDia ? ' de ' + ('0' + semDia.getDate()).slice(-2) + '/' + ('0' + (semDia.getMonth() + 1)).slice(-2) : '') + ' sem detalhe</b><div class="hint" style="margin:2px 0 0">já estão no estoque · toque para detalhar</div></div><span class="chip on" style="color:var(--warn)">' + semDet + '</span></section>'
         : '';
-    el.innerHTML = faixa + pend +
+    var nSf = fotoPendModelos(),
+      semFoto = nSf
+        ? '<section class="card" style="border-color:var(--warn);padding:14px;margin-bottom:12px"><b style="font-size:15px">' + nSf + (nSf === 1 ? ' modelo sem foto' : ' modelos sem foto') + '</b><div class="hint" style="margin:2px 0 10px">todo produto precisa de foto · toque para completar</div><button type="button" class="go" data-act="semfoto" id="btnSemFoto" style="min-height:44px;font-size:15px">Completar fotos</button></section>'
+        : '';
+    el.innerHTML = faixa + pend + semFoto +
       '<div class="hero" data-act="inicio" data-id="hoje" role="button" tabindex="0"><span class="hi">' + ico('hero', 26) + '</span><span><small>Vendido hoje · ' + h.n + ' venda(s)</small><b>' + gs(h.v) + '</b></span><span class="hg">›</span></div>' +
       '<div class="tgrid' + (ed ? ' editando' : '') + '">' + grid + '</div>' + extra +
       '<div class="sel" style="justify-content:center;gap:10px;flex-wrap:wrap">' +

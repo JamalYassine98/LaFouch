@@ -4,7 +4,7 @@
   S.nPop = ''; // campo com as opções abertas
   S.nCorOpen = false;
   S.nNovoFmt = false;
-  var NVC = { cor: '', q: 1, vr: '', grau: '' };
+  var NVC = { cor: '', q: 1, vr: '', grau: '', fotoT: '', fotoH: '', fotoCor: '' };
   var NV_MAT = ['Metal', 'Acetato', 'TR90', 'Plástico', 'Titânio', 'Nylon'];
   var NV_PUB = ['Unissex', 'Feminino', 'Masculino', 'Infantil'];
   function nvAtr(ref) {
@@ -103,18 +103,31 @@
     ess.style.gap = '12px';
     ess.id = 'nvEss';
     s1.appendChild(ess);
+    // as opções de cada campo abrem numa linha inteira, logo abaixo da linha de campos
+    var fTipo = nvFld('tipo', 'Tipo'),
+      fFmt = nvFld('fmt', 'Formato'),
+      fMat = nvFld('mat', 'Material'),
+      fPub = nvFld('pub', 'Gênero'),
+      opLinha = function (w) {
+        var o = w.querySelector('.nav');
+        o.style.marginTop = '0';
+        return o;
+      };
     var r1 = mk('div', 'nvg2');
-    r1.appendChild(nvFld('tipo', 'Tipo'));
+    r1.appendChild(fTipo);
     var cw = mk('div', '');
     cw.id = 'nvCod';
     cw.appendChild($('eRef').parentNode);
     r1.appendChild(cw);
     ess.appendChild(r1);
+    ess.appendChild(opLinha(fTipo));
     var r2 = mk('div', 'nvg2');
     r2.id = 'nvR2';
-    r2.appendChild(nvFld('fmt', 'Formato'));
-    r2.appendChild(nvFld('mat', 'Material'));
+    r2.appendChild(fFmt);
+    r2.appendChild(fMat);
     ess.appendChild(r2);
+    ess.appendChild(opLinha(fFmt));
+    ess.appendChild(opLinha(fMat));
     var nf = mk('div', 'col');
     nf.id = 'nvNovoFmt';
     nf.hidden = true;
@@ -150,12 +163,13 @@
     ess.appendChild(r3);
     var r4 = mk('div', 'nvg2');
     r4.id = 'nvR4';
-    r4.appendChild(nvFld('pub', 'Gênero'));
+    r4.appendChild(fPub);
     var cu = mk('div', '');
     cu.id = 'nvCusto';
     cu.appendChild($('eCustoB'));
     r4.appendChild(cu);
     ess.appendChild(r4);
+    ess.appendChild(opLinha(fPub));
     var lt = mk('div', '');
     lt.id = 'nvLote';
     lt.appendChild($('eLoteB'));
@@ -330,9 +344,14 @@
     img.onload = function () {
       try {
         var cv = fitCanvas(img, 1800);
-        setFoto(ref + '|' + cor, thumbOf(cv), cv.toDataURL('image/jpeg', 0.92));
-        if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd');
-        saveSoon();
+        if (cor === '__nova__') {
+          NVC.fotoT = thumbOf(cv);
+          NVC.fotoH = cv.toDataURL('image/jpeg', 0.92);
+        } else {
+          setFoto(ref + '|' + cor, thumbOf(cv), cv.toDataURL('image/jpeg', 0.92));
+          if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd');
+          saveSoon();
+        }
       } catch (e) {
         S.msg = 'Não consegui processar essa foto. Tente outra.';
       }
@@ -355,6 +374,11 @@
     if (!NVC.cor) {
       popErr('Escolha a cor.');
       guiaMarca('nvCorIn');
+      return;
+    }
+    if (!NVC.fotoT) {
+      popErr('Tire a foto da cor ' + NVC.cor + '.');
+      guiaMarca('nvFotoCor');
       return;
     }
     if (pre && !normGrau($('nvGrau').value || '')) {
@@ -386,6 +410,11 @@
       return;
     }
     var qOk = NVC.q;
+    setFoto(ref + '|' + NVC.cor, NVC.fotoT, NVC.fotoH);
+    if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd');
+    saveSoon();
+    NVC.fotoT = '';
+    NVC.fotoH = '';
     S.nCorOpen = false;
     NVC.cor = '';
     NVC.q = 1;
@@ -503,6 +532,8 @@
       oi.value = Object.keys(S.palette).indexOf(NVC.cor) >= 0 ? '' : NVC.cor;
       oi.oninput = function () {
         NVC.cor = oi.value.trim();
+        var bk = $('nvCorOk');
+        if (bk) bk.disabled = !(NVC.cor && NVC.fotoT);
       };
       nc.appendChild(oi);
       if (pre) {
@@ -553,8 +584,24 @@
       sp.appendChild(mk('b', '', String(NVC.q)));
       sp.appendChild(pl);
       nc.appendChild(sp);
+      nc.appendChild(mk('div', 'lbl', 'Foto da cor'));
+      var fb = btn('go', NVC.fotoT ? '✓ Foto tirada · trocar' : '📷 Tirar a foto', function () {
+        NVC.fotoCor = '__nova__';
+        $('nvFile').click();
+      });
+      fb.id = 'nvFotoCor';
+      fb.style.cssText = 'min-height:46px;font-size:15px' + (NVC.fotoT ? ';background:var(--panel);border:1px solid var(--ok);color:var(--ok)' : '');
+      nc.appendChild(fb);
+      if (NVC.fotoT) {
+        var pv = document.createElement('img');
+        pv.src = NVC.fotoT;
+        pv.alt = 'Foto da cor';
+        pv.style.cssText = 'width:100%;max-height:150px;object-fit:contain;background:#fff;border-radius:12px';
+        nc.appendChild(pv);
+      } else nc.appendChild(mk('div', 'nvwarn', 'A cor só entra na lista com a foto.'));
       var ok = btn('go', 'Adicionar cor', nvAddCor);
       ok.id = 'nvCorOk';
+      ok.disabled = !NVC.fotoT || !NVC.cor;
       nc.appendChild(ok);
       c1.appendChild(nc);
     } else {
@@ -564,6 +611,8 @@
         NVC.cor = uc;
         NVC.q = 1;
         NVC.vr = '';
+        NVC.fotoT = '';
+        NVC.fotoH = '';
         render();
       });
       ad.style.cssText = 'width:100%;border-style:dashed';

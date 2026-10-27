@@ -763,12 +763,13 @@
   // Quadro de foto (ou vazio).
   function photoBox(src, cls) {
     var d = mk('div', cls + (src ? '' : ' none'));
+    if (!src) d.hidden = true;
     if (src) {
       var im = mk('img');
       im.src = src;
       im.alt = 'Foto do produto';
       d.appendChild(im);
-    } else d.textContent = 'Sem foto';
+    }
     return d;
   }
   // Descrição automática de um código.
