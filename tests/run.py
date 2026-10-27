@@ -23,6 +23,10 @@ S.exp = []; S.volume = 1; S.fxHist = []; S.janela = 30;
 # (nome, corpo JS que devolve um valor, esperado)
 TESTES = [
  # ---- Inventário: ajustes, exclusões, estorno, entrada, piso, código automático, site ----
+ ("importar backup não apaga as fotos que já estão no aparelho", """
+   S.items=[{tipo:'solar',ref:'FB1',cor:'Rosa',qty:1,custo:2}]; S.fotos={'FB1|Rosa':'data:x1','FB1|Preto':'data:x2'};
+   const bk=JSON.parse(L.backupDados()); bk.d.fotos={'FB1|Preto':'data:novo'}; const er=L.restaurarDados(JSON.stringify(bk));
+   return [er, S.fotos['FB1|Rosa'], S.fotos['FB1|Preto']]""", ['', 'data:x1', 'data:novo']),
  ("etiqueta: lê grau e quantidade do pacote", """
    const a=L.fmLeEtiqueta('PC +1.75 24 pc'); const b=L.fmLeEtiqueta('sem nada'); return [a.grau, a.qty, b.grau===undefined]""", ['+1.75', 24, True]),
  ("nota da compra: cria um lote por linha e soma o total", """
@@ -813,7 +817,7 @@ async def main():
                 {tipo:'pre',ref:'T3',grau:'+2.00',cor:'Preto',qty:0,fmt:'',med:'',vr:''},
                 {tipo:'sem',ref:'AR1',grau:'',cor:'Preto',qty:2,fmt:'Redondo',med:'50-20-140',vr:'C1'},
                 {tipo:'sem',ref:'AR1',grau:'',cor:'Bege',qty:3,fmt:'Redondo',med:'50-20-140',vr:'C2'}];
-              S.grp = []; S.cart = []; S.vq = ''; S.vRef = ''; S.vSel = null; S.vTipo = 'all'; S.vGrau = ''; L.setView('vendas'); }""")
+              S.grp = []; S.cart = []; S.vq = ''; S.vRef = ''; S.vSel = null; S.vTipo = 'all'; S.vFilt = true; S.vGrau = ''; L.setView('vendas'); }""")
             await pg.wait_for_timeout(300)
             tabs = await pg.evaluate("() => [...document.querySelectorAll('#vTabs .chip')].map(b => b.innerText)")
             await pg.locator('#vTabs .chip', has_text='Pré-graduados').click(); await pg.wait_for_timeout(300)

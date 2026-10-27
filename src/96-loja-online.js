@@ -271,6 +271,32 @@
       }
       return;
     }
+    // o painel pede para abrir um modelo no Inventário (ex.: modelo sem foto)
+    if (e.data.lfAbrir) {
+      var rf = String(e.data.lfAbrir),
+        ri = S.items.filter(function (i) {
+          return i.ref === rf && !i.bulk;
+        });
+      if (!ri.length) {
+        lfToast('Este produto não está no Inventário do app.');
+        return;
+      }
+      S.siteFull = false;
+      S.todos = false;
+      S.lotesView = false;
+      S.tipo = ri[0].tipo;
+      S.fmtF = 'all';
+      S.corF = 'all';
+      S.q = '';
+      S.open = rf;
+      S.det = true;
+      S.selItem = null;
+      S.detCor = '';
+      S.detVr = null;
+      S.qty = 1;
+      setView('estoque');
+      return;
+    }
     if (typeof e.data.lfFull !== 'boolean') return;
     S.siteFull = e.data.lfFull;
     render();

@@ -12425,7 +12425,7 @@
       });
     $('vFiltPanel').hidden = !S.vFilt;
     $('vBtnFilt').setAttribute('aria-pressed', !!S.vFilt);
-    $('vBtnFilt').classList.toggle('on', !!S.vFilt || !!S.vFaixa);
+    $('vBtnFilt').classList.toggle('on', !!S.vFilt || !!S.vFaixa || S.vTipo !== 'all' || !!S.vMais);
     // abas de tipo (sempre à vista) e fileira de graus nos pré-graduados
     var vtb = $('vTabs');
     vtb.textContent = '';
@@ -17325,26 +17325,53 @@
       $('addModal').scrollTop = 0;
     } catch (e) {}
   }
+  // Lista suspensa no estilo "Label Select": caixa de busca com lupa e seta, itens embaixo.
   function nvOpcoes(key, lista, atual, set, extra) {
     var p = $('nvp_' + key);
     if (!p) return;
     p.hidden = S.nPop !== key;
     p.textContent = '';
+    p.className = 'lsel';
     if (p.hidden) return;
-    lista.forEach(function (v) {
-      var c = btn(
-        'chip' + (atual === v ? ' on' : ''),
-        v,
-        function () {
+    var cx = mk('div', 'lsBox'),
+      lupa = mk('span', 'lsIc', '🔍'),
+      q = document.createElement('input'),
+      seta = mk('span', 'lsSeta', '▲'),
+      ul = mk('div', 'lsList');
+    q.className = 'lsIn';
+    q.placeholder = 'Buscar ' + ({ tipo: 'tipo', fmt: 'formato', mat: 'material', pub: 'gênero' }[key] || '');
+    q.autocomplete = 'off';
+    q.setAttribute('aria-label', 'Buscar');
+    cx.appendChild(lupa);
+    cx.appendChild(q);
+    cx.appendChild(seta);
+    seta.onclick = function () {
+      S.nPop = '';
+      render();
+    };
+    p.appendChild(cx);
+    p.appendChild(ul);
+    function pinta() {
+      var t = q.value.trim().toLowerCase();
+      ul.textContent = '';
+      lista.forEach(function (v) {
+        if (t && String(v).toLowerCase().indexOf(t) < 0) return;
+        var c = mk('button', 'lsOpt' + (atual === v ? ' on' : ''), v);
+        c.type = 'button';
+        c.setAttribute('role', 'option');
+        c.setAttribute('aria-selected', atual === v ? 'true' : 'false');
+        c.onclick = function () {
           set(v);
           S.nPop = '';
           render();
-        },
-        atual === v
-      );
-      p.appendChild(c);
-    });
-    if (extra) p.appendChild(extra);
+        };
+        ul.appendChild(c);
+      });
+      if (!ul.firstChild) ul.appendChild(mk('div', 'lsVazio', 'Nada com esse nome'));
+      if (extra) ul.appendChild(extra);
+    }
+    q.oninput = pinta;
+    pinta();
   }
   function nvCampo(key, valor) {
     var b = $('nv_' + key);
@@ -17844,7 +17871,6 @@
     var fmtUsed = S._fmtUsed || '',
       known = !!S._known;
     nvCampo('fmt', fmtUsed);
-    if (known && S.nPop === 'fmt') S.nPop = '';
     var fl = S.formats.slice();
     var novo = btn('chip add', '+ Novo formato', function () {
       S.nNovoFmt = !S.nNovoFmt;
@@ -22890,7 +22916,18 @@
       PERSIST.forEach(function (k) {
         if (o.d[k] !== undefined && SEM_BACKUP.indexOf(k) < 0) S[k] = o.d[k];
       });
-      if (o.d.fotos && typeof o.d.fotos === 'object') S.fotos = o.d.fotos;
+      if (o.d.fotos && typeof o.d.fotos === 'object') {
+        /* o backup não apaga as fotos que já estão neste aparelho: elas só saem se o modelo não existir mais */
+        var refs = {},
+          nf = {},
+          kf;
+        S.items.forEach(function (i) {
+          if (i.ref) refs[i.ref] = 1;
+        });
+        for (kf in snap.fotos) if (refs[kf.slice(0, kf.indexOf('|'))] && snap.fotos[kf]) nf[kf] = snap.fotos[kf];
+        for (kf in o.d.fotos) if (o.d.fotos[kf]) nf[kf] = o.d.fotos[kf];
+        S.fotos = nf;
+      }
       dedupeItems();
       syncTipos();
       render();
@@ -23783,6 +23820,32 @@
             }
           );
       }
+      return;
+    }
+    // o painel pede para abrir um modelo no Inventário (ex.: modelo sem foto)
+    if (e.data.lfAbrir) {
+      var rf = String(e.data.lfAbrir),
+        ri = S.items.filter(function (i) {
+          return i.ref === rf && !i.bulk;
+        });
+      if (!ri.length) {
+        lfToast('Este produto não está no Inventário do app.');
+        return;
+      }
+      S.siteFull = false;
+      S.todos = false;
+      S.lotesView = false;
+      S.tipo = ri[0].tipo;
+      S.fmtF = 'all';
+      S.corF = 'all';
+      S.q = '';
+      S.open = rf;
+      S.det = true;
+      S.selItem = null;
+      S.detCor = '';
+      S.detVr = null;
+      S.qty = 1;
+      setView('estoque');
       return;
     }
     if (typeof e.data.lfFull !== 'boolean') return;

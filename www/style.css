@@ -562,3 +562,15 @@ body.arrastaBarra{-webkit-user-select:none;user-select:none;touch-action:none}
 .cpLn{display:grid;grid-template-columns:1.4fr .7fr auto 1fr auto auto;gap:6px;align-items:center}
 .cpLn .fmIn{min-width:0;padding:8px}
 .cpL .fmLn b{color:inherit}
+/* ---- Label Select (Novo modelo) ---- */
+.lsel{display:block!important;margin-top:8px}.lsel[hidden]{display:none!important}
+.lsBox{display:flex;align-items:center;gap:10px;border:2px solid var(--warn,#e0a526);border-radius:10px;padding:0 14px;min-height:50px;background:var(--panel)}
+.lsIc{opacity:.7}.lsIn{flex:1;min-width:0;border:0;background:transparent;color:var(--fg);font:inherit;font-size:15px;outline:0;padding:12px 0}
+.lsSeta{color:var(--info,#4a8bff);cursor:pointer;padding:8px;font-size:12px}
+.lsList{border:1px solid var(--line);border-top:0;border-radius:0 0 10px 10px;background:var(--panel);box-shadow:0 8px 20px #0004;max-height:260px;overflow:auto;animation:lsIn .18s ease-out}
+@keyframes lsIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.lsOpt{display:block;width:100%;text-align:left;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--fg);font:inherit;font-size:15px;padding:15px 16px;min-height:48px;cursor:pointer}
+.lsOpt:last-child{border-bottom:0}.lsOpt:hover,.lsOpt:active{background:var(--panel2,#ffffff12)}
+.lsOpt.on{font-weight:800;color:var(--ok)}.lsVazio{padding:14px 16px;color:var(--mute)}
+.lsList .chip.add{margin:10px 12px;width:calc(100% - 24px);justify-content:center}
+@media (prefers-reduced-motion:reduce){.lsList{animation:none}}

@@ -22,7 +22,7 @@
       });
     $('vFiltPanel').hidden = !S.vFilt;
     $('vBtnFilt').setAttribute('aria-pressed', !!S.vFilt);
-    $('vBtnFilt').classList.toggle('on', !!S.vFilt || !!S.vFaixa);
+    $('vBtnFilt').classList.toggle('on', !!S.vFilt || !!S.vFaixa || S.vTipo !== 'all' || !!S.vMais);
     // abas de tipo (sempre à vista) e fileira de graus nos pré-graduados
     var vtb = $('vTabs');
     vtb.textContent = '';

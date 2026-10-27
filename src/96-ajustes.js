@@ -29,7 +29,18 @@
       PERSIST.forEach(function (k) {
         if (o.d[k] !== undefined && SEM_BACKUP.indexOf(k) < 0) S[k] = o.d[k];
       });
-      if (o.d.fotos && typeof o.d.fotos === 'object') S.fotos = o.d.fotos;
+      if (o.d.fotos && typeof o.d.fotos === 'object') {
+        /* o backup não apaga as fotos que já estão neste aparelho: elas só saem se o modelo não existir mais */
+        var refs = {},
+          nf = {},
+          kf;
+        S.items.forEach(function (i) {
+          if (i.ref) refs[i.ref] = 1;
+        });
+        for (kf in snap.fotos) if (refs[kf.slice(0, kf.indexOf('|'))] && snap.fotos[kf]) nf[kf] = snap.fotos[kf];
+        for (kf in o.d.fotos) if (o.d.fotos[kf]) nf[kf] = o.d.fotos[kf];
+        S.fotos = nf;
+      }
       dedupeItems();
       syncTipos();
       render();

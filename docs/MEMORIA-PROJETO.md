@@ -48,3 +48,9 @@ O histórico bruto anterior a 27/10/2026 foi condensado pelo sistema e não é m
 - Vendas: filtros Todos…Pré-graduados dentro de um filtro chamado 'Produto', alinhado.
 - Aba Site: ao abrir um produto, permitir ir ao Inventário (ex.: modelo sem foto).
 - Backup: fotos se perdem ao importar (ex.: Solar aviador rosa). Corrigir.
+
+## Feito em 27/10/2026 (v333)
+- Seletor Label Select nos campos Tipo/Formato/Material/Gênero do Novo modelo (Formato não abria em modelo existente: corrigido).
+- Vendas: chips de tipo e graus agora ficam no filtro 'Produto' (botão de filtro).
+- Painel do site (repo catalogo, admin.html): botão 'Abrir no Inventário' no produto; o app trata a mensagem lfAbrir.
+- Backup: importar não apaga mais as fotos que já estão no aparelho (antes o import substituía S.fotos e saveFotos apagava o resto do IndexedDB).
