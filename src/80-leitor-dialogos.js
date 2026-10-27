@@ -99,6 +99,16 @@
     S.nStep = 1;
     S.nPop = '';
     S.nCorOpen = false;
+    /* cor/classe/foto de um cadastro anterior não podem sobrar no novo (a classe lida da haste manda) */
+    if (typeof NVC === 'object') {
+      NVC.vr = '';
+      NVC.cor = '';
+      NVC.q = 1;
+      NVC.grau = '';
+      NVC.fotoT = '';
+      NVC.fotoH = '';
+      NVC.fotoCor = '';
+    }
     S.nLido = !!o.lido;
     S.nDeRef = '';
     S.eMat = '';

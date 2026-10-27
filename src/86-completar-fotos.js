@@ -77,7 +77,7 @@
         var cd = mk('div', 'card');
         cd.style.cssText = 'display:flex;gap:12px;align-items:center;padding:12px';
         var th = mk('div', 'nvthm');
-        th.textContent = '📷';
+        th.innerHTML = NV_ICAM;
         th.style.cssText = 'width:64px;height:52px';
         cd.appendChild(th);
         var tx = mk('div', '');
@@ -87,9 +87,24 @@
         tx.appendChild(sm);
         cd.appendChild(tx);
         corpo.appendChild(cd);
-        var fb = btn('go', '📷 Fotografar', function () {
-          fi.click();
+        var fb = btn('go', '', function () {
+          camOpen(
+            function (f) {
+              try {
+                var dt = new DataTransfer();
+                dt.items.add(f);
+                fi.files = dt.files;
+                fi.onchange();
+              } catch (e) {
+                fi.click();
+              }
+            },
+            'Foto da cor ' + p.cor,
+            { gallery: true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
+          );
         });
+        fb.innerHTML = NV_ICAM + '<span>Fotografar</span>';
+        fb.style.cssText += ';display:flex;align-items:center;justify-content:center;gap:8px';
         fb.id = 'cfFoto';
         corpo.appendChild(fb);
         var pu = btn('chip', 'Pular esta', function () {

@@ -443,6 +443,15 @@
     S.nPop = '';
     S.nCorOpen = false;
     S.nLido = false;
+    if (typeof NVC === 'object') {
+      NVC.vr = '';
+      NVC.cor = '';
+      NVC.q = 1;
+      NVC.grau = '';
+      NVC.fotoT = '';
+      NVC.fotoH = '';
+      NVC.fotoCor = '';
+    }
     S.eMat = '';
     S.ePub = '';
     S.msg = '';

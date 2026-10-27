@@ -234,6 +234,7 @@
   function camOpen0(done, title, opts) {
     opts = opts || {};
     LIVEX = null;
+    var DZ = 1; /* zoom digital (quando o aparelho não oferece zoom na câmera) */
     camClose();
     if (opts.live || opts.liveFallback) {
       try {
@@ -379,6 +380,20 @@
           } catch (e) {}
         };
         bar.appendChild(zr);
+      } else {
+        var zd = document.createElement('input');
+        zd.type = 'range';
+        zd.min = 1;
+        zd.max = 4;
+        zd.step = 0.1;
+        zd.value = DZ;
+        zd.style.cssText = 'grid-column:1/-1;width:100%;margin:0 0 6px';
+        zd.setAttribute('aria-label', 'Zoom');
+        zd.oninput = function () {
+          DZ = +zd.value;
+          vid.style.transform = 'scale(' + DZ + ')';
+        };
+        bar.appendChild(zd);
       }
       var lc0 = document.createElement('div');
       lc0.style.cssText = 'display:flex;justify-content:flex-start';
@@ -435,7 +450,7 @@
           );
           return;
         }
-        if (!HR && !HRtry && !opts.strip && window.ImageCapture && trk && !window.__noIC) {
+        if (!HR && !HRtry && !opts.strip && DZ === 1 && window.ImageCapture && trk && !window.__noIC) {
           HRtry = true;
           sh.style.opacity = '.5';
           var done0 = false,
@@ -484,6 +499,13 @@
         if (!w || !h) return;
         var c = mkCanvas(w, h);
         c.getContext('2d').drawImage(src, 0, 0, w, h);
+        if (DZ > 1 && !opts.strip) {
+          var zw = w / DZ,
+            zh = h / DZ,
+            cz = mkCanvas(zw, zh);
+          cz.getContext('2d').drawImage(c, (w - zw) / 2, (h - zh) / 2, zw, zh, 0, 0, zw, zh);
+          c = cz;
+        }
         if (opts.strip) {
           var sr = stg.getBoundingClientRect(),
             gr = gd.getBoundingClientRect(),
@@ -492,10 +514,10 @@
             k = Math.min(SW / w, SH / h),
             ox = (SW - w * k) / 2,
             oy = (SH - h * k) / 2,
-            cx = Math.max(0, (gr.left - sr.left - ox) / k),
-            cy = Math.max(0, (gr.top - sr.top - oy) / k),
-            cw = Math.min(w - cx, gr.width / k),
-            ch = Math.min(h - cy, gr.height / k);
+            cx = Math.max(0, (SW / 2 + (gr.left - sr.left - SW / 2) / DZ - ox) / k),
+            cy = Math.max(0, (SH / 2 + (gr.top - sr.top - SH / 2) / DZ - oy) / k),
+            cw = Math.min(w - cx, gr.width / DZ / k),
+            ch = Math.min(h - cy, gr.height / DZ / k);
           if (cw > 50 && ch > 20) {
             var c2 = mkCanvas(cw, ch);
             c2.getContext('2d').drawImage(c, cx, cy, cw, ch, 0, 0, cw, ch);
@@ -689,10 +711,10 @@
         k = Math.min(SW / w, SH / h),
         ox = (SW - w * k) / 2,
         oy = (SH - h * k) / 2,
-        cx = Math.max(0, (gr.left - sr.left - ox) / k),
-        cy = Math.max(0, (gr.top - sr.top - oy) / k),
-        cw = Math.min(w - cx, gr.width / k),
-        ch = Math.min(h - cy, gr.height / k);
+        cx = Math.max(0, (SW / 2 + (gr.left - sr.left - SW / 2) / DZ - ox) / k),
+        cy = Math.max(0, (SH / 2 + (gr.top - sr.top - SH / 2) / DZ - oy) / k),
+        cw = Math.min(w - cx, gr.width / DZ / k),
+        ch = Math.min(h - cy, gr.height / DZ / k);
       if (cw < 50 || ch < 20) return null;
       var c = mkCanvas(cw, ch);
       c.getContext('2d').drawImage(vid, cx, cy, cw, ch, 0, 0, cw, ch);

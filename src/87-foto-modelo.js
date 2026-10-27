@@ -402,7 +402,7 @@
           linhas.forEach(function (l, ix) {
             var c = mk('div', 'fmCard'),
               tx = mk('div', 'fmTx');
-            c.appendChild(foto(l.cor) ? fmFotoEl(foto(l.cor), 'fmTh') : mk('div', 'fmTh fmSem', '📷'));
+            c.appendChild(foto(l.cor) ? fmFotoEl(foto(l.cor), 'fmTh') : (function () { var d = mk('div', 'fmTh fmSem'); d.innerHTML = NV_ICAM; return d; })());
             tx.appendChild(mk('b', '', fmGrauTxt(l.grau) + ' · ' + l.cor));
             tx.appendChild(mk('span', foto(l.cor) ? '' : 'w', foto(l.cor) ? 'foto ok' : 'falta a foto'));
             c.appendChild(tx);
@@ -468,7 +468,9 @@
           corpo.appendChild(bx2);
           var fl = falta();
           if (fl.length) {
-            var fb = mk('button', 'fmBtn pri', '📷 Foto da cor ' + fl[0]);
+            var fb = mk('button', 'fmBtn pri');
+            fb.innerHTML = NV_ICAM + ' <span>Foto da cor ' + fl[0] + '</span>';
+            fb.style.cssText += ';display:flex;align-items:center;justify-content:center;gap:8px';
             fb.onclick = function () {
               var c0 = fl[0];
               camOpen(

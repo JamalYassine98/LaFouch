@@ -14,7 +14,9 @@
       var a = mk('button', 'fmCard sel'),
         t = mk('div', 'fmTx');
       a.id = 'cpFotoNota';
-      t.appendChild(mk('b', '', '📷 Foto da nota'));
+      var tb = mk('b', '');
+      tb.innerHTML = NV_ICAM + ' Foto da nota';
+      t.appendChild(tb);
       t.appendChild(mk('span', '', 'O app lê as linhas: tipo, quantidade e custo.'));
       a.appendChild(t);
       a.onclick = function () {

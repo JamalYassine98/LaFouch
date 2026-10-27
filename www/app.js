@@ -3821,6 +3821,15 @@
     S.nPop = '';
     S.nCorOpen = false;
     S.nLido = false;
+    if (typeof NVC === 'object') {
+      NVC.vr = '';
+      NVC.cor = '';
+      NVC.q = 1;
+      NVC.grau = '';
+      NVC.fotoT = '';
+      NVC.fotoH = '';
+      NVC.fotoCor = '';
+    }
     S.eMat = '';
     S.ePub = '';
     S.msg = '';
@@ -14041,6 +14050,7 @@
   function camOpen0(done, title, opts) {
     opts = opts || {};
     LIVEX = null;
+    var DZ = 1; /* zoom digital (quando o aparelho não oferece zoom na câmera) */
     camClose();
     if (opts.live || opts.liveFallback) {
       try {
@@ -14186,6 +14196,20 @@
           } catch (e) {}
         };
         bar.appendChild(zr);
+      } else {
+        var zd = document.createElement('input');
+        zd.type = 'range';
+        zd.min = 1;
+        zd.max = 4;
+        zd.step = 0.1;
+        zd.value = DZ;
+        zd.style.cssText = 'grid-column:1/-1;width:100%;margin:0 0 6px';
+        zd.setAttribute('aria-label', 'Zoom');
+        zd.oninput = function () {
+          DZ = +zd.value;
+          vid.style.transform = 'scale(' + DZ + ')';
+        };
+        bar.appendChild(zd);
       }
       var lc0 = document.createElement('div');
       lc0.style.cssText = 'display:flex;justify-content:flex-start';
@@ -14242,7 +14266,7 @@
           );
           return;
         }
-        if (!HR && !HRtry && !opts.strip && window.ImageCapture && trk && !window.__noIC) {
+        if (!HR && !HRtry && !opts.strip && DZ === 1 && window.ImageCapture && trk && !window.__noIC) {
           HRtry = true;
           sh.style.opacity = '.5';
           var done0 = false,
@@ -14291,6 +14315,13 @@
         if (!w || !h) return;
         var c = mkCanvas(w, h);
         c.getContext('2d').drawImage(src, 0, 0, w, h);
+        if (DZ > 1 && !opts.strip) {
+          var zw = w / DZ,
+            zh = h / DZ,
+            cz = mkCanvas(zw, zh);
+          cz.getContext('2d').drawImage(c, (w - zw) / 2, (h - zh) / 2, zw, zh, 0, 0, zw, zh);
+          c = cz;
+        }
         if (opts.strip) {
           var sr = stg.getBoundingClientRect(),
             gr = gd.getBoundingClientRect(),
@@ -14299,10 +14330,10 @@
             k = Math.min(SW / w, SH / h),
             ox = (SW - w * k) / 2,
             oy = (SH - h * k) / 2,
-            cx = Math.max(0, (gr.left - sr.left - ox) / k),
-            cy = Math.max(0, (gr.top - sr.top - oy) / k),
-            cw = Math.min(w - cx, gr.width / k),
-            ch = Math.min(h - cy, gr.height / k);
+            cx = Math.max(0, (SW / 2 + (gr.left - sr.left - SW / 2) / DZ - ox) / k),
+            cy = Math.max(0, (SH / 2 + (gr.top - sr.top - SH / 2) / DZ - oy) / k),
+            cw = Math.min(w - cx, gr.width / DZ / k),
+            ch = Math.min(h - cy, gr.height / DZ / k);
           if (cw > 50 && ch > 20) {
             var c2 = mkCanvas(cw, ch);
             c2.getContext('2d').drawImage(c, cx, cy, cw, ch, 0, 0, cw, ch);
@@ -14496,10 +14527,10 @@
         k = Math.min(SW / w, SH / h),
         ox = (SW - w * k) / 2,
         oy = (SH - h * k) / 2,
-        cx = Math.max(0, (gr.left - sr.left - ox) / k),
-        cy = Math.max(0, (gr.top - sr.top - oy) / k),
-        cw = Math.min(w - cx, gr.width / k),
-        ch = Math.min(h - cy, gr.height / k);
+        cx = Math.max(0, (SW / 2 + (gr.left - sr.left - SW / 2) / DZ - ox) / k),
+        cy = Math.max(0, (SH / 2 + (gr.top - sr.top - SH / 2) / DZ - oy) / k),
+        cw = Math.min(w - cx, gr.width / DZ / k),
+        ch = Math.min(h - cy, gr.height / DZ / k);
       if (cw < 50 || ch < 20) return null;
       var c = mkCanvas(cw, ch);
       c.getContext('2d').drawImage(vid, cx, cy, cw, ch, 0, 0, cw, ch);
@@ -14700,6 +14731,16 @@
     S.nStep = 1;
     S.nPop = '';
     S.nCorOpen = false;
+    /* cor/classe/foto de um cadastro anterior não podem sobrar no novo (a classe lida da haste manda) */
+    if (typeof NVC === 'object') {
+      NVC.vr = '';
+      NVC.cor = '';
+      NVC.q = 1;
+      NVC.grau = '';
+      NVC.fotoT = '';
+      NVC.fotoH = '';
+      NVC.fotoCor = '';
+    }
     S.nLido = !!o.lido;
     S.nDeRef = '';
     S.eMat = '';
@@ -17438,6 +17479,18 @@
     });
     return out;
   }
+  // Abre a câmera do app (não a galeria) para a foto da cor.
+  var NV_ICAM =
+    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.6-2.4h6.8L17 8h3v11H4z"/><circle cx="12" cy="13.2" r="3.6"/></svg>';
+  function nvCamera(titulo) {
+    camOpen(
+      function (f) {
+        nvFoto(f);
+      },
+      titulo,
+      { gallery: true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
+    );
+  }
   function nvFoto(f) {
     if (!f || !S._ref || !NVC.fotoCor) return;
     var ref = S._ref,
@@ -17589,7 +17642,7 @@
       var ft = S.fotos[ref + '|' + c.cor],
         r = btn('nvcor', '', function () {
           NVC.fotoCor = c.cor;
-          $('nvFile').click();
+          nvCamera('Foto da cor ' + c.cor);
         });
       r.setAttribute('aria-label', 'Foto da cor ' + c.cor);
       var th = mk('div', 'nvthm');
@@ -17598,7 +17651,7 @@
         im.src = ft;
         im.alt = '';
         th.appendChild(im);
-      } else th.textContent = '📷';
+      } else th.innerHTML = NV_ICAM;
       r.appendChild(th);
       var tx = mk('div', '');
       tx.style.cssText = 'flex:1;min-width:0';
@@ -17688,11 +17741,16 @@
       sp.appendChild(pl);
       nc.appendChild(sp);
       nc.appendChild(mk('div', 'lbl', 'Foto da cor'));
-      var fb = btn('go', NVC.fotoT ? '✓ Foto tirada · trocar' : '📷 Tirar a foto', function () {
+      var fb = btn('go', NVC.fotoT ? 'Foto tirada · trocar' : 'Tirar a foto', function () {
         NVC.fotoCor = '__nova__';
-        $('nvFile').click();
+        nvCamera('Foto da cor');
       });
       fb.id = 'nvFotoCor';
+      fb.innerHTML = NV_ICAM + '<span>' + (NVC.fotoT ? 'Foto tirada · trocar' : 'Tirar a foto') + '</span>';
+      fb.style.display = 'flex';
+      fb.style.alignItems = 'center';
+      fb.style.justifyContent = 'center';
+      fb.style.gap = '8px';
       fb.style.cssText = 'min-height:46px;font-size:15px' + (NVC.fotoT ? ';background:var(--panel);border:1px solid var(--ok);color:var(--ok)' : '');
       nc.appendChild(fb);
       if (NVC.fotoT) {
@@ -17997,7 +18055,7 @@
         var cd = mk('div', 'card');
         cd.style.cssText = 'display:flex;gap:12px;align-items:center;padding:12px';
         var th = mk('div', 'nvthm');
-        th.textContent = '📷';
+        th.innerHTML = NV_ICAM;
         th.style.cssText = 'width:64px;height:52px';
         cd.appendChild(th);
         var tx = mk('div', '');
@@ -18007,9 +18065,24 @@
         tx.appendChild(sm);
         cd.appendChild(tx);
         corpo.appendChild(cd);
-        var fb = btn('go', '📷 Fotografar', function () {
-          fi.click();
+        var fb = btn('go', '', function () {
+          camOpen(
+            function (f) {
+              try {
+                var dt = new DataTransfer();
+                dt.items.add(f);
+                fi.files = dt.files;
+                fi.onchange();
+              } catch (e) {
+                fi.click();
+              }
+            },
+            'Foto da cor ' + p.cor,
+            { gallery: true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
+          );
         });
+        fb.innerHTML = NV_ICAM + '<span>Fotografar</span>';
+        fb.style.cssText += ';display:flex;align-items:center;justify-content:center;gap:8px';
         fb.id = 'cfFoto';
         corpo.appendChild(fb);
         var pu = btn('chip', 'Pular esta', function () {
@@ -18426,7 +18499,7 @@
           linhas.forEach(function (l, ix) {
             var c = mk('div', 'fmCard'),
               tx = mk('div', 'fmTx');
-            c.appendChild(foto(l.cor) ? fmFotoEl(foto(l.cor), 'fmTh') : mk('div', 'fmTh fmSem', '📷'));
+            c.appendChild(foto(l.cor) ? fmFotoEl(foto(l.cor), 'fmTh') : (function () { var d = mk('div', 'fmTh fmSem'); d.innerHTML = NV_ICAM; return d; })());
             tx.appendChild(mk('b', '', fmGrauTxt(l.grau) + ' · ' + l.cor));
             tx.appendChild(mk('span', foto(l.cor) ? '' : 'w', foto(l.cor) ? 'foto ok' : 'falta a foto'));
             c.appendChild(tx);
@@ -18492,7 +18565,9 @@
           corpo.appendChild(bx2);
           var fl = falta();
           if (fl.length) {
-            var fb = mk('button', 'fmBtn pri', '📷 Foto da cor ' + fl[0]);
+            var fb = mk('button', 'fmBtn pri');
+            fb.innerHTML = NV_ICAM + ' <span>Foto da cor ' + fl[0] + '</span>';
+            fb.style.cssText += ';display:flex;align-items:center;justify-content:center;gap:8px';
             fb.onclick = function () {
               var c0 = fl[0];
               camOpen(
@@ -18650,7 +18725,9 @@
       var a = mk('button', 'fmCard sel'),
         t = mk('div', 'fmTx');
       a.id = 'cpFotoNota';
-      t.appendChild(mk('b', '', '📷 Foto da nota'));
+      var tb = mk('b', '');
+      tb.innerHTML = NV_ICAM + ' Foto da nota';
+      t.appendChild(tb);
       t.appendChild(mk('span', '', 'O app lê as linhas: tipo, quantidade e custo.'));
       a.appendChild(t);
       a.onclick = function () {

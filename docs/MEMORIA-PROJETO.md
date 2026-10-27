@@ -54,3 +54,10 @@ O histórico bruto anterior a 27/10/2026 foi condensado pelo sistema e não é m
 - Vendas: chips de tipo e graus agora ficam no filtro 'Produto' (botão de filtro).
 - Painel do site (repo catalogo, admin.html): botão 'Abrir no Inventário' no produto; o app trata a mensagem lfAbrir.
 - Backup: importar não apaga mais as fotos que já estão no aparelho (antes o import substituía S.fotos e saveFotos apagava o resto do IndexedDB).
+
+## v334 (27/10/2026 14:06)
+- Classe de cor lida da haste (ex.: C4) não volta mais para C1 (sobra de NVC.vr de cadastro anterior; fillAdd e Preencher à mão agora zeram).
+- Câmera (haste e fotos): sem zoom nativo, aparece slider de zoom digital.
+- 'Tirar a foto' / 'Fotografar' / 'Foto da cor' abrem a câmera do app (não a galeria); ícone novo (SVG) no lugar do emoji.
+- Todos os botões têm animação ao apertar (scale + brilho).
+- Busca do seletor sem borda amarela/rosa.

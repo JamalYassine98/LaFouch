@@ -1166,8 +1166,9 @@ async def main():
             await pg.locator('text=+ Adicionar cor').click(); await pg.wait_for_timeout(200)
             await pg.locator('#nvBox >> text="Vinho"').click(); await pg.wait_for_timeout(200)
             sem_foto = await pg.evaluate("() => document.getElementById('nvCorOk').disabled")
+            await pg.click('#nvFotoCor'); await pg.wait_for_timeout(2500)
             async with pg.expect_file_chooser() as fcs:
-                await pg.click('#nvFotoCor')
+                await pg.evaluate("() => { const l = [...document.querySelectorAll('input[type=file][capture]')].filter(i => i.parentNode.querySelector('button')); l[l.length - 1].click(); }")
             fc = await fcs.value
             await fc.set_files(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'fixtures', 'peca.jpg')); await pg.wait_for_timeout(900)
             com_foto = await pg.evaluate("() => document.getElementById('nvCorOk').disabled")

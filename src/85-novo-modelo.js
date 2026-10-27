@@ -366,6 +366,18 @@
     });
     return out;
   }
+  // Abre a câmera do app (não a galeria) para a foto da cor.
+  var NV_ICAM =
+    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.6-2.4h6.8L17 8h3v11H4z"/><circle cx="12" cy="13.2" r="3.6"/></svg>';
+  function nvCamera(titulo) {
+    camOpen(
+      function (f) {
+        nvFoto(f);
+      },
+      titulo,
+      { gallery: true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
+    );
+  }
   function nvFoto(f) {
     if (!f || !S._ref || !NVC.fotoCor) return;
     var ref = S._ref,
@@ -517,7 +529,7 @@
       var ft = S.fotos[ref + '|' + c.cor],
         r = btn('nvcor', '', function () {
           NVC.fotoCor = c.cor;
-          $('nvFile').click();
+          nvCamera('Foto da cor ' + c.cor);
         });
       r.setAttribute('aria-label', 'Foto da cor ' + c.cor);
       var th = mk('div', 'nvthm');
@@ -526,7 +538,7 @@
         im.src = ft;
         im.alt = '';
         th.appendChild(im);
-      } else th.textContent = '📷';
+      } else th.innerHTML = NV_ICAM;
       r.appendChild(th);
       var tx = mk('div', '');
       tx.style.cssText = 'flex:1;min-width:0';
@@ -616,11 +628,16 @@
       sp.appendChild(pl);
       nc.appendChild(sp);
       nc.appendChild(mk('div', 'lbl', 'Foto da cor'));
-      var fb = btn('go', NVC.fotoT ? '✓ Foto tirada · trocar' : '📷 Tirar a foto', function () {
+      var fb = btn('go', NVC.fotoT ? 'Foto tirada · trocar' : 'Tirar a foto', function () {
         NVC.fotoCor = '__nova__';
-        $('nvFile').click();
+        nvCamera('Foto da cor');
       });
       fb.id = 'nvFotoCor';
+      fb.innerHTML = NV_ICAM + '<span>' + (NVC.fotoT ? 'Foto tirada · trocar' : 'Tirar a foto') + '</span>';
+      fb.style.display = 'flex';
+      fb.style.alignItems = 'center';
+      fb.style.justifyContent = 'center';
+      fb.style.gap = '8px';
       fb.style.cssText = 'min-height:46px;font-size:15px' + (NVC.fotoT ? ';background:var(--panel);border:1px solid var(--ok);color:var(--ok)' : '');
       nc.appendChild(fb);
       if (NVC.fotoT) {
