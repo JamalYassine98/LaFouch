@@ -213,6 +213,12 @@
               S.photoOpen = true;
               render();
               $('photoCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+              try {
+                if (OBT) {
+                  obturadorVoa(OBT, !P.raw && P.oImg && P.pImg && P.oImg !== P.pImg ? P.pImg : null);
+                  OBT = null;
+                }
+              } catch (eV) {}
               if (!pf0 && !P.photoOnly && PRE0) {
                 setRead('Lendo o código, as medidas e a cor C da foto…', 'n-info');
                 prePromise.then(function (x) {

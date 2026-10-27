@@ -193,6 +193,7 @@
         if (!on && !ck.ok) return;
         siteSet(ref, !on);
         render();
+        if (!on) siteFx(ref);
       },
       on
     );

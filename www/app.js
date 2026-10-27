@@ -853,6 +853,7 @@
         el.classList.remove('enter');
         el.removeEventListener('animationend', f);
       });
+      if (typeof animGraficos === 'function') animGraficos(el);
     } catch (e) {}
   }
   // ===== Movimentos: todo fato de dinheiro ou estoque é gravado por aqui (livro + histórico juntos). =====
@@ -8858,6 +8859,12 @@
               S.photoOpen = true;
               render();
               $('photoCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+              try {
+                if (OBT) {
+                  obturadorVoa(OBT, !P.raw && P.oImg && P.pImg && P.oImg !== P.pImg ? P.pImg : null);
+                  OBT = null;
+                }
+              } catch (eV) {}
               if (!pf0 && !P.photoOnly && PRE0) {
                 setRead('Lendo o código, as medidas e a cor C da foto…', 'n-info');
                 prePromise.then(function (x) {
@@ -11470,6 +11477,7 @@
       'background:#00c8ff;width:' + Math.min(100, tot ? (det / tot) * 100 : 0) + '%';
     bar.appendChild(bi);
     c.appendChild(bar);
+    var recem = progAnim(g.id, det, tot, bar, bi);
     var r = mk('div', '');
     r.style.cssText =
       'display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:13px';
@@ -11486,6 +11494,11 @@
     );
     var fl = mk('span', '', f > 0 ? 'Faltam detalhar ' + f : 'Completo');
     fl.style.color = f > 0 ? 'var(--warn)' : 'var(--ok)';
+    if (recem) {
+      fl.className = 'lfallok';
+      fl.innerHTML =
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5" pathLength="1"/></svg> Todas as peças detalhadas';
+    }
     r.appendChild(fl);
     c.appendChild(r);
     if (opt && opt.view) {
@@ -16708,6 +16721,7 @@
         if (!on && !ck.ok) return;
         siteSet(ref, !on);
         render();
+        if (!on) siteFx(ref);
       },
       on
     );
@@ -17227,7 +17241,8 @@
       popErr('Erro ao abrir a câmera: ' + ((e && e.message) || e));
     }
   }
-  var LIVEX = null;
+  var LIVEX = null,
+    OBT = null;
   // Câmera do app: visor, disparo, galeria, lanterna e prévia.
   function camOpen0(done, title, opts) {
     opts = opts || {};
@@ -17305,6 +17320,7 @@
     stg.appendChild(gd);
     stg.appendChild(ring);
     stg.appendChild(tip);
+    var LV = opts.live && !REDUCED ? leitorVisor(gd, stg) : null;
     var bar = document.createElement('div');
     bar.style.cssText =
       'display:flex;align-items:center;justify-content:center;gap:18px;padding:14px 14px max(18px,env(safe-area-inset-bottom,0px));flex-wrap:wrap';
@@ -17531,6 +17547,17 @@
             bar.appendChild(sp0);
             var us = btn('mini', '', function () {
               var f = new File([bl], 'foto.jpg', { type: 'image/jpeg' });
+              try {
+                var ir = pv.getBoundingClientRect(),
+                  nw = pv.naturalWidth || ir.width,
+                  nh = pv.naturalHeight || ir.height,
+                  kk = Math.min(ir.width / nw, ir.height / nh);
+                OBT = {
+                  src: url,
+                  t: Date.now(),
+                  rect: { l: ir.left + (ir.width - nw * kk) / 2, t: ir.top + (ir.height - nh * kk) / 2, w: nw * kk, h: nh * kk }
+                };
+              } catch (eo) {}
               camClose();
               done(f);
             });
@@ -17711,6 +17738,14 @@
           if (LW) LW.setParameters({ tessedit_pageseg_mode: '11' });
         } catch (e) {}
         if (!CAMO) return;
+        if (LV && v && v.ref) {
+          LV.achou(v, function () {
+            if (!CAMO) return;
+            camClose();
+            opts.live(v);
+          });
+          return;
+        }
         camClose();
         opts.live(v);
       };
@@ -19613,6 +19648,228 @@
     render();
   };
   $('sgo').onclick = cartFinalizar;
+  // ===== Animações novas: leitor (procura/achou), obturador da foto, gráficos, progresso, liberar p/ site, venda confirmada. =====
+  // Visor do leitor: cantos, grade de pontos, laser varrendo. achou() mostra o código aparecendo letra a letra.
+  function leitorVisor(gd, stg) {
+    gd.style.border = 'none';
+    gd.style.borderRadius = '18px';
+    gd.style.boxShadow = '0 0 0 200vmax rgba(0,0,0,.5)';
+    gd.classList.add('lfv');
+    var cs = [];
+    ['tl', 'tr', 'bl', 'br'].forEach(function (p) {
+      var c = document.createElement('i');
+      c.className = 'lfc ' + p;
+      gd.appendChild(c);
+      cs.push(c);
+    });
+    var gr = document.createElement('i');
+    gr.className = 'lfg';
+    gd.appendChild(gr);
+    var lz = document.createElement('i');
+    lz.className = 'lfl';
+    gd.appendChild(lz);
+    return {
+      achou: function (v, cb) {
+        lz.remove();
+        gd.classList.add('ok');
+        var fl = document.createElement('div');
+        fl.className = 'lffl';
+        stg.appendChild(fl);
+        var rg = document.createElement('div');
+        rg.className = 'lfrg';
+        stg.appendChild(rg);
+        var cod = document.createElement('div');
+        cod.className = 'lfcod';
+        var big = document.createElement('div');
+        big.className = 'lfbig';
+        String(v.ref || '')
+          .split('')
+          .forEach(function (ch, i) {
+            var s = document.createElement('span');
+            s.textContent = ch;
+            s.style.animationDelay = i * 55 + 'ms';
+            big.appendChild(s);
+          });
+        cod.appendChild(big);
+        if (v.med) {
+          var md = document.createElement('div');
+          md.className = 'lfmed';
+          md.textContent = v.med;
+          md.style.animationDelay = String(v.ref || '').length * 55 + 120 + 'ms';
+          cod.appendChild(md);
+        }
+        stg.appendChild(cod);
+        vibrar(30);
+        setTimeout(cb, Math.min(1500, 700 + String(v.ref || '').length * 55 + (v.med ? 250 : 0)));
+      }
+    };
+  }
+  // Foto tirada: a imagem encolhe da câmera até o quadro do cartão, o fundo vira branco da esquerda para a direita e aparece o ✓.
+  function obturadorVoa(o, dst) {
+    var tgt = $('phImg');
+    if (REDUCED || !o || !tgt || Date.now() - o.t > 20000) return;
+    tgt.style.visibility = 'hidden';
+    var box = document.createElement('div'),
+      a = new Image(),
+      b = dst ? new Image() : null,
+      ok = document.createElement('i'),
+      vivo = true,
+      fim = function () {
+        if (!vivo) return;
+        vivo = false;
+        box.remove();
+        tgt.style.visibility = '';
+      };
+    setTimeout(fim, 3500);
+    box.className = 'lfbox';
+    box.style.cssText = 'position:fixed;z-index:310;overflow:hidden;pointer-events:none;background:#fff;left:' + o.rect.l + 'px;top:' + o.rect.t + 'px;width:' + o.rect.w + 'px;height:' + o.rect.h + 'px';
+    a.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover';
+    a.src = o.src;
+    box.appendChild(a);
+    if (b) {
+      b.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;clip-path:inset(0 100% 0 0)';
+      b.src = dst;
+      box.appendChild(b);
+    }
+    ok.className = 'lfok';
+    ok.textContent = '✓';
+    box.appendChild(ok);
+    document.body.appendChild(box);
+    var t0 = performance.now(),
+      D = 700;
+    (function passo(t) {
+      if (!vivo) return;
+      var k = Math.min(1, (t - t0) / D),
+        e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2,
+        r = tgt.getBoundingClientRect();
+      box.style.left = o.rect.l + (r.left - o.rect.l) * e + 'px';
+      box.style.top = o.rect.t + (r.top - o.rect.t) * e + 'px';
+      box.style.width = o.rect.w + (r.width - o.rect.w) * e + 'px';
+      box.style.height = o.rect.h + (r.height - o.rect.h) * e + 'px';
+      box.style.borderRadius = 12 * e + 'px';
+      if (k < 1) return requestAnimationFrame(passo);
+      var fecha = function () {
+        ok.classList.add('on');
+        setTimeout(fim, 650);
+      };
+      if (b && b.animate) {
+        var an = b.animate([{ clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)' }], { duration: 800, easing: 'ease-in-out', fill: 'forwards' });
+        an.onfinish = fecha;
+      } else fecha();
+    })(t0);
+  }
+  // Gráficos: a linha se desenha, os pontos aparecem, as barras crescem em sequência e os números contam.
+  function animGraficos(root) {
+    if (REDUCED || !root || !root.querySelectorAll || !root.animate) return;
+    var ease = 'cubic-bezier(.4,0,.2,1)';
+    Array.prototype.forEach.call(root.querySelectorAll('svg polyline'), function (pl) {
+      try {
+        var len = pl.getTotalLength();
+        if (!len) return;
+        pl.animate([{ strokeDasharray: len + 'px', strokeDashoffset: len + 'px' }, { strokeDasharray: len + 'px', strokeDashoffset: '0px' }], { duration: 1400, easing: ease });
+        Array.prototype.forEach.call(pl.parentNode.querySelectorAll('circle'), function (c) {
+          c.style.transformBox = 'fill-box';
+          c.style.transformOrigin = 'center';
+          c.animate([{ opacity: 0, transform: 'scale(0)' }, { opacity: 1, transform: 'scale(1)' }], { duration: 420, delay: 1100, easing: 'cubic-bezier(.2,1.8,.3,1)', fill: 'backwards' });
+        });
+      } catch (e) {}
+    });
+    Array.prototype.forEach.call(root.querySelectorAll('.bar:not(.lfp) i'), function (b, i) {
+      b.style.transformOrigin = 'left center';
+      b.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: 800, delay: 120 + (i % 8) * 90, easing: 'cubic-bezier(.2,.9,.25,1)', fill: 'backwards' });
+    });
+    if (window.contaNumeros)
+      Array.prototype.forEach.call(root.querySelectorAll('.kpi b'), function (n) {
+        try {
+          window.contaNumeros(n);
+        } catch (e) {}
+      });
+  }
+  // Barra de progresso da compra: enche com brilho quando o número de peças detalhadas muda; ao completar fica verde e mostra o ✓.
+  var PROGV = {};
+  function progAnim(id, det, tot, bar, bi) {
+    var prev = PROGV[id],
+      pct = Math.min(100, tot ? (det / tot) * 100 : 0),
+      fim = tot > 0 && det >= tot;
+    PROGV[id] = det;
+    bar.classList.add('lfp');
+    if (fim) bar.classList.add('done');
+    if (REDUCED || prev == null || prev === det) return false;
+    var de = Math.min(100, tot ? (prev / tot) * 100 : 0);
+    bi.style.width = de + '%';
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        bi.style.transition = 'width .7s cubic-bezier(.3,.8,.3,1)';
+        bi.style.width = pct + '%';
+        if (pct > de) {
+          bi.classList.add('sh');
+          setTimeout(function () {
+            bi.classList.remove('sh');
+          }, 1000);
+        }
+      });
+    });
+    return fim && prev < tot;
+  }
+  // Liberar para o site: onda no botão e cartão de prévia subindo. Vários seguidos viram "N liberados". Nunca bloqueia o toque.
+  var SITEFX = { n: 0, t: 0, tm: 0 };
+  function siteFx(ref) {
+    if (REDUCED) return;
+    try {
+      var b = $('edSiteBtn');
+      if (b) {
+        b.classList.remove('lfwave');
+        void b.offsetWidth;
+        b.classList.add('lfwave');
+      }
+      var agora = Date.now();
+      SITEFX.n = agora - SITEFX.t < 8000 ? SITEFX.n + 1 : 1;
+      SITEFX.t = agora;
+      var cs = siteCores(ref),
+        foto = '';
+      for (var i = 0; i < cs.length && !foto; i++) foto = S.fotos[ref + '|' + cs[i].cor] || '';
+      var card = $('lfSitePv');
+      if (!card) {
+        card = document.createElement('div');
+        card.id = 'lfSitePv';
+        card.setAttribute('role', 'status');
+        document.body.appendChild(card);
+      }
+      var multi = SITEFX.n > 1;
+      card.innerHTML =
+        (foto && !multi ? '<img alt="" src="' + foto + '">' : '<span class="ph">🌐</span>') +
+        '<div><b>' + esc(multi ? SITEFX.n + ' produtos liberados' : pubNome(ref)) + '</b><div class="lv"><i></i>No ar no site</div></div>';
+      card.classList.remove('on');
+      void card.offsetWidth;
+      card.classList.add('on');
+      clearTimeout(SITEFX.tm);
+      SITEFX.tm = setTimeout(function () {
+        card.classList.remove('on');
+      }, 2800);
+    } catch (e) {}
+  }
+  // Aviso curto na parte de baixo (não bloqueia o toque).
+  function lfToast(t) {
+    var e = $('lfToast');
+    if (!e) {
+      e = document.createElement('div');
+      e.id = 'lfToast';
+      e.setAttribute('role', 'status');
+      document.body.appendChild(e);
+    }
+    e.textContent = t;
+    e.classList.remove('on');
+    if (REDUCED) {
+      e.classList.add('on');
+    } else {
+      void e.offsetWidth;
+      e.classList.add('on');
+    }
+    clearTimeout(lfToast.t);
+    lfToast.t = setTimeout(function () {
+      e.classList.remove('on');
+    }, 2300);
+  }
   // ===== Movimento: animações leves (opacidade e escala), desligadas se o aparelho pedir menos movimento. =====
   // Vibração curta (toque de confirmação), se o aparelho permitir.
   function vibrar(ms) {
@@ -24966,35 +25223,95 @@
       hr + r('TOTAL G$', notaNum(n.total), 'font-weight:800;font-size:14px') + r('IVA 10% G$', notaNum(n.iva)) + '</div>'
     );
   }
-  // ---- tela "Venda registrada" ----
+  // ---- tela "Venda confirmada" (círculo gira, ✓ se desenha, itens entram um a um) ----
+  var vcfTok = 0,
+    vcfBusy = false,
+    notaFecT = 0;
   function notaAbrir(nota, cli) {
     var ov = $('notaOv');
     if (!ov) return;
     clearTimeout(notaTimer);
+    clearTimeout(notaFecT);
+    vcfBusy = false;
+    var tok = ++vcfTok;
     var semRuc = !!(cli && !temRuc(cli));
     notaAtual = semRuc ? null : nota;
     var sub = cli ? esc(cli.nome || cli.tel) + (temRuc(cli) ? ' · RUC ' + esc(cli.ruc) : ' · sem RUC') : 'Sem cliente escolhido';
+    ov.classList.remove('vout');
     ov.innerHTML =
-      '<div class="card col" style="gap:12px;max-width:460px;margin:0 auto"><div style="display:flex;align-items:center;gap:10px"><span style="width:40px;height:40px;border-radius:50%;background:#1f7a4d;display:inline-flex;align-items:center;justify-content:center;font-size:22px;flex:0 0 auto">✓</span>' +
-      '<div style="flex:1"><h2 style="margin:0;font-size:20px">Venda registrada</h2><div class="hint" style="margin:0">' + sub + '</div></div>' +
-      '<button type="button" class="chip" data-act="notaX" aria-label="Fechar" style="min-height:40px;width:40px;padding:0;justify-content:center;font-size:20px;align-self:flex-start">×</button></div>' +
+      '<div class="vcf' + (REDUCED ? ' fast' : '') + '"><button type="button" class="vx" data-act="notaX" aria-label="Fechar">×</button>' +
+      '<div class="vcc' + (REDUCED ? ' done' : '') + '"><div class="vspn"></div><div class="vck"><svg viewBox="0 0 56 56" aria-hidden="true"><path d="M13 29l10 10 20-22"/></svg></div></div>' +
+      '<h2 class="vst">Venda confirmada</h2><div class="hint vst vsub">' + sub + '</div>' +
+      '<div class="vtot vst" id="vtot">' + gs(nota.total) + '</div>' +
       (semRuc
-        ? '<div class="sum"><span class="lbl" style="margin:0">Total</span><b style="font-size:24px">' + gs(nota.total) + '</b></div><div class="note n-warn" role="status"><b>Cliente sem RUC</b></div>'
-        : notaHtml(nota, 'background:#fff;color:#111;padding:14px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.5;border-radius:6px') +
-          '<button type="button" class="go" data-act="notaImp">Imprimir</button>') +
+        ? '<div class="note n-warn vst vw" role="status"><b>Cliente sem RUC</b><div>Sem dados para a nota fiscal: não há o que imprimir. Esta tela fecha sozinha.</div><div class="vpb"><i></i></div></div>'
+        : '<div class="vst">' + notaHtml(nota, 'background:#fff;color:#111;padding:14px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.5;border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.4)') + '</div>' +
+          '<button type="button" class="go vst vimp" data-act="notaImp">Imprimir nota</button>') +
       '</div>';
     ov.hidden = false;
     document.body.classList.add('noscroll');
-    if (semRuc) notaTimer = setTimeout(notaFechar, 3000);
+    var f = ov.querySelector('.vcf'),
+      fim = function () {
+        if (semRuc) {
+          f.classList.add('cont');
+          notaTimer = setTimeout(notaFechar, 3000);
+        }
+      };
+    if (REDUCED) {
+      f.querySelectorAll('.vst').forEach(function (e) {
+        e.classList.add('on');
+      });
+      return fim();
+    }
+    var T = function (ms, fn) {
+        setTimeout(function () {
+          if (tok === vcfTok) fn();
+        }, ms);
+      };
+    T(800, function () {
+      f.querySelector('.vcc').classList.add('done');
+      vibrar(25);
+    });
+    var ordem = Array.prototype.slice.call(f.querySelectorAll('.vst'));
+    ordem.push(f.querySelector('.vx'));
+    ordem.forEach(function (e, i) {
+      T(1300 + i * 220, function () {
+        e.classList.add('on');
+        if (e.id === 'vtot') {
+          var el = e,
+            t0 = performance.now();
+          (function c(t) {
+            if (tok !== vcfTok) return;
+            var k = Math.min(1, (t - t0) / 1000);
+            el.textContent = gs(Math.round(nota.total * (1 - Math.pow(1 - k, 3))));
+            if (k < 1) requestAnimationFrame(c);
+          })(t0);
+        }
+      });
+    });
+    T(1300 + ordem.length * 220 + 200, fim);
   }
   function notaFechar() {
     clearTimeout(notaTimer);
+    clearTimeout(notaFecT);
+    vcfTok++;
+    vcfBusy = false;
     var ov = $('notaOv'),
       cf = $('notaCf');
-    if (ov) ov.hidden = true;
     if (cf) cf.hidden = true;
     document.body.classList.remove('noscroll');
     notaAtual = null;
+    if (ov && !ov.hidden) {
+      if (REDUCED) ov.hidden = true;
+      else {
+        ov.classList.add('vout');
+        notaFecT = setTimeout(function () {
+          ov.hidden = true;
+          ov.classList.remove('vout');
+        }, 320);
+      }
+      lfToast('✓ Venda registrada');
+    }
   }
   function notaConfirma(titulo, sub, ok, acao) {
     var cf = $('notaCf');
@@ -25008,25 +25325,38 @@
     notaConfirma('Fechar sem imprimir a nota?', 'A venda já está registrada. Se o cliente quiser nota, volte e imprima agora.', 'Fechar sem imprimir', 'notaSair');
   };
   ACT.notaImp = function () {
-    if (!notaAtual) return;
-    notaConfirma('Imprimir nota fiscal?', 'Para <b>' + esc(notaAtual.nombre) + '</b> · RUC ' + esc(notaAtual.ruc) + ' · ' + gs(notaAtual.total), 'Imprimir', 'notaOk');
+    var n = notaAtual,
+      pb = $('notaPrint'),
+      ov = $('notaOv'),
+      b = ov && ov.querySelector('[data-act=notaImp]');
+    if (!n || vcfBusy) return;
+    vcfBusy = true;
+    if (b) {
+      b.disabled = true;
+      b.innerHTML = '<span class="vsp2"></span>Enviando para a impressora…';
+    }
+    setTimeout(
+      function () {
+        if (!notaAtual) return;
+        if (pb) {
+          pb.innerHTML = notaHtml(n, 'font-family:ui-monospace,Menlo,monospace;font-size:12px;width:72mm;color:#000');
+          try {
+            window.print();
+          } catch (e) {}
+        }
+        if (b) {
+          b.classList.add('vok');
+          b.textContent = '✓ Enviado';
+        }
+        setTimeout(notaFechar, REDUCED ? 0 : 800);
+      },
+      REDUCED ? 0 : 450
+    );
   };
   ACT.notaVolta = function () {
     $('notaCf').hidden = true;
   };
   ACT.notaSair = function () {
-    notaFechar();
-  };
-  ACT.notaOk = function () {
-    var n = notaAtual,
-      pb = $('notaPrint');
-    $('notaCf').hidden = true;
-    if (n && pb) {
-      pb.innerHTML = notaHtml(n, 'font-family:ui-monospace,Menlo,monospace;font-size:12px;width:72mm;color:#000');
-      try {
-        window.print();
-      } catch (e) {}
-    }
     notaFechar();
   };
   // ===== Nuvem: backup diário no Firebase (mesmo login do catálogo) e cotação da loja publicada no site. =====
@@ -25551,6 +25881,7 @@
         requestAnimationFrame(passo);
       });
     }
+    window.contaNumeros = contaNumeros;
     window.animInicio = function () {
       var v = $('v-inicio');
       if (REDUCED || !v || S.inicioEd) return;
@@ -27574,6 +27905,7 @@
   // Gancho de teste: expõe funções internas só quando a URL termina em #test (usado por tests/).
   if (/(^|[#&])test\b/.test(location.hash))
     window.__LF = {
+      animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast,
       nvPack: nvPack, nvUnpack: nvUnpack,
       S: S, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,

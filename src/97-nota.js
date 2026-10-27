@@ -162,35 +162,95 @@
       hr + r('TOTAL G$', notaNum(n.total), 'font-weight:800;font-size:14px') + r('IVA 10% G$', notaNum(n.iva)) + '</div>'
     );
   }
-  // ---- tela "Venda registrada" ----
+  // ---- tela "Venda confirmada" (círculo gira, ✓ se desenha, itens entram um a um) ----
+  var vcfTok = 0,
+    vcfBusy = false,
+    notaFecT = 0;
   function notaAbrir(nota, cli) {
     var ov = $('notaOv');
     if (!ov) return;
     clearTimeout(notaTimer);
+    clearTimeout(notaFecT);
+    vcfBusy = false;
+    var tok = ++vcfTok;
     var semRuc = !!(cli && !temRuc(cli));
     notaAtual = semRuc ? null : nota;
     var sub = cli ? esc(cli.nome || cli.tel) + (temRuc(cli) ? ' · RUC ' + esc(cli.ruc) : ' · sem RUC') : 'Sem cliente escolhido';
+    ov.classList.remove('vout');
     ov.innerHTML =
-      '<div class="card col" style="gap:12px;max-width:460px;margin:0 auto"><div style="display:flex;align-items:center;gap:10px"><span style="width:40px;height:40px;border-radius:50%;background:#1f7a4d;display:inline-flex;align-items:center;justify-content:center;font-size:22px;flex:0 0 auto">✓</span>' +
-      '<div style="flex:1"><h2 style="margin:0;font-size:20px">Venda registrada</h2><div class="hint" style="margin:0">' + sub + '</div></div>' +
-      '<button type="button" class="chip" data-act="notaX" aria-label="Fechar" style="min-height:40px;width:40px;padding:0;justify-content:center;font-size:20px;align-self:flex-start">×</button></div>' +
+      '<div class="vcf' + (REDUCED ? ' fast' : '') + '"><button type="button" class="vx" data-act="notaX" aria-label="Fechar">×</button>' +
+      '<div class="vcc' + (REDUCED ? ' done' : '') + '"><div class="vspn"></div><div class="vck"><svg viewBox="0 0 56 56" aria-hidden="true"><path d="M13 29l10 10 20-22"/></svg></div></div>' +
+      '<h2 class="vst">Venda confirmada</h2><div class="hint vst vsub">' + sub + '</div>' +
+      '<div class="vtot vst" id="vtot">' + gs(nota.total) + '</div>' +
       (semRuc
-        ? '<div class="sum"><span class="lbl" style="margin:0">Total</span><b style="font-size:24px">' + gs(nota.total) + '</b></div><div class="note n-warn" role="status"><b>Cliente sem RUC</b></div>'
-        : notaHtml(nota, 'background:#fff;color:#111;padding:14px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.5;border-radius:6px') +
-          '<button type="button" class="go" data-act="notaImp">Imprimir</button>') +
+        ? '<div class="note n-warn vst vw" role="status"><b>Cliente sem RUC</b><div>Sem dados para a nota fiscal: não há o que imprimir. Esta tela fecha sozinha.</div><div class="vpb"><i></i></div></div>'
+        : '<div class="vst">' + notaHtml(nota, 'background:#fff;color:#111;padding:14px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.5;border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.4)') + '</div>' +
+          '<button type="button" class="go vst vimp" data-act="notaImp">Imprimir nota</button>') +
       '</div>';
     ov.hidden = false;
     document.body.classList.add('noscroll');
-    if (semRuc) notaTimer = setTimeout(notaFechar, 3000);
+    var f = ov.querySelector('.vcf'),
+      fim = function () {
+        if (semRuc) {
+          f.classList.add('cont');
+          notaTimer = setTimeout(notaFechar, 3000);
+        }
+      };
+    if (REDUCED) {
+      f.querySelectorAll('.vst').forEach(function (e) {
+        e.classList.add('on');
+      });
+      return fim();
+    }
+    var T = function (ms, fn) {
+        setTimeout(function () {
+          if (tok === vcfTok) fn();
+        }, ms);
+      };
+    T(800, function () {
+      f.querySelector('.vcc').classList.add('done');
+      vibrar(25);
+    });
+    var ordem = Array.prototype.slice.call(f.querySelectorAll('.vst'));
+    ordem.push(f.querySelector('.vx'));
+    ordem.forEach(function (e, i) {
+      T(1300 + i * 220, function () {
+        e.classList.add('on');
+        if (e.id === 'vtot') {
+          var el = e,
+            t0 = performance.now();
+          (function c(t) {
+            if (tok !== vcfTok) return;
+            var k = Math.min(1, (t - t0) / 1000);
+            el.textContent = gs(Math.round(nota.total * (1 - Math.pow(1 - k, 3))));
+            if (k < 1) requestAnimationFrame(c);
+          })(t0);
+        }
+      });
+    });
+    T(1300 + ordem.length * 220 + 200, fim);
   }
   function notaFechar() {
     clearTimeout(notaTimer);
+    clearTimeout(notaFecT);
+    vcfTok++;
+    vcfBusy = false;
     var ov = $('notaOv'),
       cf = $('notaCf');
-    if (ov) ov.hidden = true;
     if (cf) cf.hidden = true;
     document.body.classList.remove('noscroll');
     notaAtual = null;
+    if (ov && !ov.hidden) {
+      if (REDUCED) ov.hidden = true;
+      else {
+        ov.classList.add('vout');
+        notaFecT = setTimeout(function () {
+          ov.hidden = true;
+          ov.classList.remove('vout');
+        }, 320);
+      }
+      lfToast('✓ Venda registrada');
+    }
   }
   function notaConfirma(titulo, sub, ok, acao) {
     var cf = $('notaCf');
@@ -204,24 +264,37 @@
     notaConfirma('Fechar sem imprimir a nota?', 'A venda já está registrada. Se o cliente quiser nota, volte e imprima agora.', 'Fechar sem imprimir', 'notaSair');
   };
   ACT.notaImp = function () {
-    if (!notaAtual) return;
-    notaConfirma('Imprimir nota fiscal?', 'Para <b>' + esc(notaAtual.nombre) + '</b> · RUC ' + esc(notaAtual.ruc) + ' · ' + gs(notaAtual.total), 'Imprimir', 'notaOk');
+    var n = notaAtual,
+      pb = $('notaPrint'),
+      ov = $('notaOv'),
+      b = ov && ov.querySelector('[data-act=notaImp]');
+    if (!n || vcfBusy) return;
+    vcfBusy = true;
+    if (b) {
+      b.disabled = true;
+      b.innerHTML = '<span class="vsp2"></span>Enviando para a impressora…';
+    }
+    setTimeout(
+      function () {
+        if (!notaAtual) return;
+        if (pb) {
+          pb.innerHTML = notaHtml(n, 'font-family:ui-monospace,Menlo,monospace;font-size:12px;width:72mm;color:#000');
+          try {
+            window.print();
+          } catch (e) {}
+        }
+        if (b) {
+          b.classList.add('vok');
+          b.textContent = '✓ Enviado';
+        }
+        setTimeout(notaFechar, REDUCED ? 0 : 800);
+      },
+      REDUCED ? 0 : 450
+    );
   };
   ACT.notaVolta = function () {
     $('notaCf').hidden = true;
   };
   ACT.notaSair = function () {
-    notaFechar();
-  };
-  ACT.notaOk = function () {
-    var n = notaAtual,
-      pb = $('notaPrint');
-    $('notaCf').hidden = true;
-    if (n && pb) {
-      pb.innerHTML = notaHtml(n, 'font-family:ui-monospace,Menlo,monospace;font-size:12px;width:72mm;color:#000');
-      try {
-        window.print();
-      } catch (e) {}
-    }
     notaFechar();
   };

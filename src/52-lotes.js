@@ -584,6 +584,7 @@
       'background:#00c8ff;width:' + Math.min(100, tot ? (det / tot) * 100 : 0) + '%';
     bar.appendChild(bi);
     c.appendChild(bar);
+    var recem = progAnim(g.id, det, tot, bar, bi);
     var r = mk('div', '');
     r.style.cssText =
       'display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:13px';
@@ -600,6 +601,11 @@
     );
     var fl = mk('span', '', f > 0 ? 'Faltam detalhar ' + f : 'Completo');
     fl.style.color = f > 0 ? 'var(--warn)' : 'var(--ok)';
+    if (recem) {
+      fl.className = 'lfallok';
+      fl.innerHTML =
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5" pathLength="1"/></svg> Todas as peças detalhadas';
+    }
     r.appendChild(fl);
     c.appendChild(r);
     if (opt && opt.view) {

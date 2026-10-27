@@ -852,5 +852,6 @@
         el.classList.remove('enter');
         el.removeEventListener('animationend', f);
       });
+      if (typeof animGraficos === 'function') animGraficos(el);
     } catch (e) {}
   }

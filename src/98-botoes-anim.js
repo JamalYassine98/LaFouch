@@ -110,6 +110,7 @@
         requestAnimationFrame(passo);
       });
     }
+    window.contaNumeros = contaNumeros;
     window.animInicio = function () {
       var v = $('v-inicio');
       if (REDUCED || !v || S.inicioEd) return;

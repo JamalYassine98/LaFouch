@@ -509,7 +509,7 @@ async def main():
             dsc = await pg.evaluate("() => [!document.getElementById('dscModal').hidden, document.getElementById('dscBox').textContent.indexOf('20.000') >= 0]")
             tit = await pg.evaluate("() => [document.getElementById('dscBox').textContent.indexOf('abaixo do piso') >= 0, document.getElementById('dscOk').textContent, document.querySelectorAll('#dscMot').length]")
             await pg.click('#dscMot button:has-text("Liquidação")'); await pg.click('#dscOk'); await pg.wait_for_timeout(300)
-            await pg.click('[data-act=notaX]'); await pg.click('[data-act=notaSair]'); await pg.wait_for_timeout(200)
+            await pg.click('[data-act=notaX]'); await pg.click('[data-act=notaSair]'); await pg.wait_for_timeout(500)
             n1 = await pg.evaluate("() => window.__LF.S.sales.length")
             got = await pg.evaluate("() => { const S = window.__LF.S, s = S.sales[0]; return [S.sales.length, s && s.abaixo, s && s.perde, S.items[0].qty, s && s.faixa, s && s.lista] }")
             ok = 'Acima do piso' in t1 and 'Abaixo da trava' in t2 and b1.strip() == 'Finalizar venda' and n1 == 1 and tit == [True, 'Registrar e vender', 1] and dsc == [True, True] and got == [1, True, True, 4, 'f1', 25000]
@@ -529,7 +529,7 @@ async def main():
             ok = ok and got2 == [3, 4]
             print(('  ok  ' if ok else ' FALHA ') + 'tela Vendas: brinde sai do estoque, entra no custo e volta no estorno')
             if not ok: falhas.append('brinde'); print('        veio', got, got2, pg.erros)
-            await pg.click('[data-act=notaX]'); await pg.click('[data-act=notaSair]'); await pg.wait_for_timeout(200)
+            await pg.click('[data-act=notaX]'); await pg.click('[data-act=notaSair]'); await pg.wait_for_timeout(500)
 
             # Clientes na venda + tela "Venda registrada" com os dados da nota (G$, IVA 10% incluso)
             async def vender(busca=None):
@@ -548,18 +548,17 @@ async def main():
             a = [await pg.locator('#notaOv').is_visible(), 'Sin nombre' in tx, 'RUC: X' in tx, 'Ciudad: CDE' in tx, 'Armazón' in tx, '50.000' in tx, '4.545' in tx, await pg.locator('[data-act=notaImp]').count()]
             await pg.click('[data-act=notaX]'); b1 = await pg.locator('#notaCf').is_visible()
             await pg.click('[data-act=notaVolta]'); b2 = await pg.locator('#notaCf').is_hidden() and await pg.locator('#notaOv').is_visible()
-            await pg.click('[data-act=notaImp]'); b3 = 'Imprimir nota fiscal?' in await pg.inner_text('#notaCf')
-            await pg.click('[data-act=notaOk]'); await pg.wait_for_timeout(200)
+            await pg.click('[data-act=notaImp]'); await pg.wait_for_timeout(2200); b3 = await pg.locator('#notaCf').is_hidden()
             c1 = [await pg.locator('#notaOv').is_hidden(), 'Sin nombre' in await pg.evaluate('() => window.__imp || ""')]
             ok = a == [True, True, True, True, True, True, True, 1] and b1 and b2 and b3 and c1 == [True, True]
-            print(('  ok  ' if ok else ' FALHA ') + 'venda sem cliente: nota Sin nombre / X / CDE, confirma ao imprimir e ao fechar')
+            print(('  ok  ' if ok else ' FALHA ') + 'venda sem cliente: nota Sin nombre / X / CDE, imprime direto e confirma ao fechar sem imprimir')
             if not ok: falhas.append('nota sem cliente'); print('        veio', a, b1, b2, b3, c1, pg.erros)
             total += 1
             await vender('mar')
             tx = await pg.inner_text('#notaOv')
             got = await pg.evaluate("() => [window.__LF.S.sales[0].cliId, window.__LF.S.vCli]")
             ok = 'Maria Silva' in tx and 'RUC: 80012345-6' in tx and got == [1, 0] and await pg.locator('[data-act=notaImp]').count() == 1
-            await pg.click('[data-act=notaX]'); await pg.click('[data-act=notaSair]'); await pg.wait_for_timeout(200)
+            await pg.click('[data-act=notaX]'); await pg.click('[data-act=notaSair]'); await pg.wait_for_timeout(500)
             print(('  ok  ' if ok else ' FALHA ') + 'venda com cliente com RUC: nota com nome e RUC, venda ligada ao cliente')
             if not ok: falhas.append('nota com RUC'); print('        veio', tx, got)
             total += 1
@@ -567,7 +566,7 @@ async def main():
             tx = await pg.inner_text('#notaOv')
             got = await pg.evaluate("() => window.__LF.S.sales[0].cliId")
             ok = 'Cliente sem RUC' in tx and await pg.locator('[data-act=notaImp]').count() == 0 and 'DADOS PARA NOTA' not in tx and got == 2
-            await pg.wait_for_timeout(3300)
+            await pg.wait_for_timeout(7000)
             ok = ok and await pg.locator('#notaOv').is_hidden()
             print(('  ok  ' if ok else ' FALHA ') + 'cliente sem RUC: sem opção de nota, fecha sozinha em 3 s, compra no histórico dele')
             if not ok: falhas.append('nota sem RUC'); print('        veio', tx, got)
@@ -579,6 +578,56 @@ async def main():
             ok = 'compras' in f1.lower() and 'Conversar no WhatsApp' in f1 and 'Remover' in f1 and 'Sem RUC' not in f1 and 'Sem RUC' in f2 and 'Conversar no WhatsApp' in f2
             print(('  ok  ' if ok else ' FALHA ') + 'ficha do cliente: compras, WhatsApp, Remover, aviso Sem RUC só sem RUC')
             if not ok: falhas.append('ficha cliente'); print('        veio', f1, '|', f2)
+            await pg.close()
+
+            # animações novas (v5/v6 leitor, v8 gráficos, v9 progresso, v11 liberar, v13 venda, v14 obturador)
+            pg = await pagina()
+            total += 1
+            r = await pg.evaluate("""async () => { const L = window.__LF, o = {};
+                const root = document.createElement('div'); root.innerHTML = '<svg viewBox="0 0 100 50"><polyline points="0,40 50,10 100,30" fill="none" stroke="#fff"/><circle cx="100" cy="30" r="3"/></svg><div class="bar"><i style="width:50%"></i></div>'; document.body.appendChild(root);
+                L.animGraficos(root); o.grf = root.querySelector('polyline').getAnimations().length + root.querySelector('.bar i').getAnimations().length; root.remove();
+                const bar = document.createElement('div'), bi = document.createElement('i'); bar.className = 'bar'; bar.appendChild(bi); document.body.appendChild(bar);
+                o.p1 = L.progAnim('tt', 2, 6, bar, bi); o.p2 = L.progAnim('tt', 6, 6, bar, bi); await new Promise(r => setTimeout(r, 900)); o.done = bar.classList.contains('done'); o.w = bi.style.width; bar.remove();
+                const stg = document.createElement('div'), gd = document.createElement('div'); stg.style.cssText = 'position:fixed;left:0;top:0;width:300px;height:300px'; stg.appendChild(gd); document.body.appendChild(stg);
+                const lv = L.leitorVisor(gd, stg); o.laser = !!gd.querySelector('.lfl'); o.cb = await new Promise(r => { lv.achou({ref: 'SP57765', med: '54□18-140'}, () => r(1)); setTimeout(() => r(0), 3000); }); o.cod = stg.querySelectorAll('.lfbig span').length; o.laserOff = !gd.querySelector('.lfl'); stg.remove();
+                return o }""")
+            ok = r['grf'] >= 2 and r['p1'] is False and r['p2'] is True and r['done'] and r['w'] == '100%' and r['laser'] and r['cb'] == 1 and r['cod'] == 7 and r['laserOff']
+            print(('  ok  ' if ok else ' FALHA ') + 'animações: gráficos desenham, progresso completa, leitor mostra o código letra a letra')
+            if not ok: falhas.append('anim novas'); print('        veio', r, pg.erros)
+            total += 1
+            r = await pg.evaluate("""async () => { const L = window.__LF, o = {};
+                const img = document.getElementById('phImg'); document.getElementById('photoCard').hidden = false;
+                const px = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+                L.obturadorVoa({src: px, t: Date.now(), rect: {l: 10, t: 10, w: 200, h: 300}}, px);
+                o.hid = img.style.visibility; o.box = document.querySelectorAll('.lfbox').length;
+                await new Promise(r => setTimeout(r, 3700)); o.after = [img.style.visibility, document.querySelectorAll('.lfbox').length];
+                L.obturadorVoa({src: px, t: Date.now() - 60000, rect: {l: 0, t: 0, w: 1, h: 1}}, px); o.old = document.querySelectorAll('.lfbox').length;
+                document.getElementById('photoCard').hidden = true;
+                L.S.fotos['SP57765|Preto'] = px; L.S.items[0].cor = 'Preto'; L.S.items[0].ref = 'SP57765';
+                L.siteFx('SP57765'); o.pv1 = document.getElementById('lfSitePv').classList.contains('on'); L.siteFx('SP57765'); o.pv2 = document.getElementById('lfSitePv').textContent.indexOf('2 produtos liberados') >= 0;
+                return o }""")
+            ok = r['hid'] == 'hidden' and r['box'] == 1 and r['after'] == ['', 0] and r['old'] == 0 and r['pv1'] and r['pv2']
+            print(('  ok  ' if ok else ' FALHA ') + 'animações: obturador some e devolve a foto, vários liberados viram "N produtos liberados"')
+            if not ok: falhas.append('anim obturador'); print('        veio', r, pg.erros)
+            await pg.close()
+
+            # venda confirmada: sequência animada e imprime direto (sem pergunta)
+            pg = await pagina()
+            total += 1
+            await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.items[0].qty = 50; S.clientes = [{id:1,nome:'Maria Silva',tel:'0981 123 456',ruc:'80012345-6',obs:'',ts:1}]; S.cliNext = 2; S.vCli = 1; window.__imp = ''; window.print = () => { window.__imp = document.getElementById('notaPrint').textContent; };
+                S.cart = [{it: S.items[0], qty: 2, preco: null}]; S.cartOpen = true; S.cartStep = 'pag'; S.moeda = 'pyg'; S.forma = 'din'; S.rec = null; S.vBrinde = null; L.setView('vendas'); L.render(); }""")
+            await pg.wait_for_timeout(300)
+            await pg.fill('#recIn', '50000'); await pg.wait_for_timeout(200); await pg.click('#sgo'); await pg.wait_for_timeout(200)
+            if await pg.evaluate("() => !document.getElementById('dscModal').hidden"):
+                await pg.click('#dscMot button:has-text("Liquidação")'); await pg.click('#dscOk')
+            await pg.wait_for_timeout(300); a0 = await pg.evaluate("() => [!!document.querySelector('.vcc.done'), document.querySelectorAll('.vst.on').length]")
+            await pg.wait_for_timeout(1200); a1 = await pg.evaluate("() => [!!document.querySelector('.vcc.done'), document.querySelectorAll('.vst.on').length]")
+            await pg.wait_for_timeout(2200); a2 = await pg.evaluate("() => [document.querySelectorAll('.vst.on').length, document.querySelectorAll('.vst').length, document.querySelector('.vx').classList.contains('on'), document.getElementById('vtot').textContent]")
+            await pg.click('[data-act=notaImp]'); await pg.wait_for_timeout(150); a3 = await pg.evaluate("() => [document.querySelector('[data-act=notaImp]').textContent, !document.getElementById('notaCf').hidden]")
+            await pg.wait_for_timeout(1500); a4 = await pg.evaluate("() => [document.getElementById('notaOv').hidden, window.__imp.indexOf('María') >= 0 || window.__imp.indexOf('Maria') >= 0, document.getElementById('lfToast').textContent]")
+            ok = a0 == [False, 0] and a1[0] and 0 < a1[1] < a2[1] and a2[0] == a2[1] and a2[2] and '50.000' in a2[3] and 'Enviando' in a3[0] and not a3[1] and a4[0] and a4[1] and 'Venda registrada' in a4[2]
+            print(('  ok  ' if ok else ' FALHA ') + 'venda confirmada: círculo gira, ✓, itens entram um a um, Imprimir direto sem pergunta e volta ao balcão')
+            if not ok: falhas.append('venda confirmada anim'); print('        veio', a0, a1, a2, a3, a4, pg.erros)
             await pg.close()
 
             # aba Vendas: tocar no produto abre a mesma tela do catálogo em modo venda

@@ -228,7 +228,8 @@
       popErr('Erro ao abrir a câmera: ' + ((e && e.message) || e));
     }
   }
-  var LIVEX = null;
+  var LIVEX = null,
+    OBT = null;
   // Câmera do app: visor, disparo, galeria, lanterna e prévia.
   function camOpen0(done, title, opts) {
     opts = opts || {};
@@ -306,6 +307,7 @@
     stg.appendChild(gd);
     stg.appendChild(ring);
     stg.appendChild(tip);
+    var LV = opts.live && !REDUCED ? leitorVisor(gd, stg) : null;
     var bar = document.createElement('div');
     bar.style.cssText =
       'display:flex;align-items:center;justify-content:center;gap:18px;padding:14px 14px max(18px,env(safe-area-inset-bottom,0px));flex-wrap:wrap';
@@ -532,6 +534,17 @@
             bar.appendChild(sp0);
             var us = btn('mini', '', function () {
               var f = new File([bl], 'foto.jpg', { type: 'image/jpeg' });
+              try {
+                var ir = pv.getBoundingClientRect(),
+                  nw = pv.naturalWidth || ir.width,
+                  nh = pv.naturalHeight || ir.height,
+                  kk = Math.min(ir.width / nw, ir.height / nh);
+                OBT = {
+                  src: url,
+                  t: Date.now(),
+                  rect: { l: ir.left + (ir.width - nw * kk) / 2, t: ir.top + (ir.height - nh * kk) / 2, w: nw * kk, h: nh * kk }
+                };
+              } catch (eo) {}
               camClose();
               done(f);
             });
@@ -712,6 +725,14 @@
           if (LW) LW.setParameters({ tessedit_pageseg_mode: '11' });
         } catch (e) {}
         if (!CAMO) return;
+        if (LV && v && v.ref) {
+          LV.achou(v, function () {
+            if (!CAMO) return;
+            camClose();
+            opts.live(v);
+          });
+          return;
+        }
         camClose();
         opts.live(v);
       };
