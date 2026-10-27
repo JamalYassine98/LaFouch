@@ -404,6 +404,19 @@ async def main():
             fechou = await pg.locator('#editModal').count() == 0
             await checa('janela Editar: quantidade e custo só valem ao salvar', ok and antes[0][1] == 4 and depois == [['Preto', 9, 5], ['Bege', 4, 2.5], ['Tartaruga', 2, None]] and fechou, [antes, depois, fechou])
 
+            # Liberar para o site: só com foto em todas as cores
+            pg = await abrir('sem', 'Hexagonal')
+            await pg.evaluate("() => { const S = window.__LF.S; S.site = {}; Object.keys(S.fotos).filter(k => k.startsWith('BR44118|')).forEach(k => delete S.fotos[k]); }")
+            await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
+            sem = await pg.evaluate("() => { const b = document.getElementById('edSiteBtn'); return [!!b, b && b.disabled, document.getElementById('edSite').innerText] }")
+            await pg.locator('#editModal button:text-is("Cancelar")').last.click(); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => { const S = window.__LF.S; S.items.filter(i => i.ref === 'BR44118').forEach(i => { S.fotos['BR44118|' + i.cor] = 'data:image/png;base64,AAAA'; }); }")
+            await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
+            com = await pg.evaluate("() => { const b = document.getElementById('edSiteBtn'); return [b && b.disabled] }")
+            await pg.click('#edSiteBtn'); await pg.wait_for_timeout(300)
+            lib = await pg.evaluate("() => [!!window.__LF.S.site['BR44118'], document.getElementById('edSite').innerText]")
+            await checa('Liberar para o site: exige foto em todas as cores e liga/desliga', sem[0] and sem[1] and 'Falta foto' in sem[2] and com == [False] and lib[0] and 'Liberado' in lib[1], [sem, com, lib])
+
             pg = await abrir('sem', 'Hexagonal')
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
             await pg.locator('#editModal input[aria-label="Quantidade em estoque"]').first.fill('1'); await pg.locator('#editModal input[aria-label="Quantidade em estoque"]').first.press('Tab')

@@ -1,6 +1,54 @@
   /* ===== Identidade do modelo: nº interno, marca/material/público/coleção, nome e descrição automáticos ===== */
   var MATERIAIS = ['Metal', 'Acetato', 'Plástico', 'TR90', 'Titânio', 'Nylon'],
-    PUBLICOS = ['Feminino', 'Masculino', 'Infantil', 'Unissex'];
+    PUBLICOS = ['Feminino', 'Masculino', 'Infantil', 'Unissex'],
+    FORMATOS = ['Redondo', 'Quadrado', 'Retangular', 'Gatinho', 'Aviador', 'Oval', 'Hexagonal'],
+    /* formato da armação → formatos de rosto que combinam (usado no site) */
+    ROSTO_DE = {
+      Redondo: ['quadrado', 'oval'],
+      Quadrado: ['redondo', 'oval'],
+      Retangular: ['redondo', 'oval'],
+      Gatinho: ['oval', 'coracao'],
+      Aviador: ['oval', 'quadrado', 'coracao'],
+      Oval: ['redondo', 'quadrado', 'coracao'],
+      Hexagonal: ['oval', 'redondo']
+    };
+  /* "Liberar para o site": só vale com foto em TODAS as cores do modelo (cada cor com estoque ou já cadastrada) */
+  function siteCores(ref) {
+    var seen = {},
+      out = [];
+    S.items.forEach(function (i) {
+      if (i.ref !== ref || i.bulk || seen[i.cor]) return;
+      seen[i.cor] = 1;
+      out.push({
+        cor: i.cor,
+        vr: i.vr || '',
+        qty: S.items.reduce(function (n, x) {
+          return n + (x.ref === ref && x.cor === i.cor ? x.qty : 0);
+        }, 0),
+        foto: !!S.fotos[ref + '|' + i.cor]
+      });
+    });
+    return out;
+  }
+  function siteCheck(ref) {
+    var cs = siteCores(ref),
+      falta = cs.filter(function (c) {
+        return !c.foto;
+      });
+    return { cores: cs, falta: falta, ok: cs.length > 0 && !falta.length };
+  }
+  function siteOn(ref) {
+    return !!(S.site && S.site[ref]);
+  }
+  function siteSet(ref, on) {
+    if (!S.site) S.site = {};
+    if (on && !siteCheck(ref).ok) return false;
+    if (on) S.site[ref] = 1;
+    else delete S.site[ref];
+    if (typeof vitFila === 'function') vitFila(ref, on ? 'upd' : 'del');
+    saveSoon();
+    return true;
+  }
   function attrOf(ref) {
     return (S.attr && S.attr[ref]) || {};
   }
@@ -96,7 +144,7 @@
     });
   }
   function identMove(a, b) {
-    ['attr', 'num', 'pnAuto', 'descAuto'].forEach(function (k) {
+    ['attr', 'site', 'num', 'pnAuto', 'descAuto'].forEach(function (k) {
       if (S[k] && S[k][a] != null) {
         S[k][b] = S[k][a];
         delete S[k][a];
@@ -125,6 +173,43 @@
       .replace(/[̀-ͯ]/g, '')
       .replace(/[^\w-]+/g, '-')
       .replace(/^-+|-+$/g, '');
+  }
+  /* interruptor do Editar produto: libera o modelo (com todas as cores) para o catálogo online */
+  function siteSwitch(ref) {
+    var w = mk('div', 'col'),
+      on = siteOn(ref),
+      ck = siteCheck(ref);
+    w.id = 'edSite';
+    w.style.gap = '6px';
+    var b = btn(
+      'chip' + (on ? ' on' : ''),
+      on ? '✓ Liberado para o site' : 'Liberar para o site',
+      function () {
+        if (!on && !ck.ok) return;
+        siteSet(ref, !on);
+        render();
+      },
+      on
+    );
+    b.id = 'edSiteBtn';
+    b.style.cssText += ';width:100%;justify-content:center';
+    if (!on && !ck.ok) {
+      b.disabled = true;
+      b.style.opacity = '.55';
+    }
+    w.appendChild(b);
+    var msg = on
+      ? 'Aparece no catálogo online com ' + ck.cores.length + (ck.cores.length === 1 ? ' cor' : ' cores') + '. Preço, estoque e avisos o app atualiza sozinho.'
+      : !ck.cores.length
+        ? 'Cadastre ao menos uma cor para liberar.'
+        : ck.falta.length
+          ? 'Falta foto em: ' + ck.falta.map(function (c) { return c.cor; }).join(', ') + '. Toda cor liberada precisa de foto.'
+          : 'Todas as cores têm foto. Toque para mostrar no catálogo online.';
+    if (on && ck.falta.length) msg = 'Atenção: falta foto em ' + ck.falta.map(function (c) { return c.cor; }).join(', ') + '. Essa cor não aparece no site até ter foto.';
+    var h = mk('div', 'hint', msg);
+    h.style.margin = '0';
+    w.appendChild(h);
+    return w;
   }
   /* campos de identificação (cartão da foto e Editar produto): cur é o objeto editado */
   function identBox(host, cur, onCh) {
@@ -174,6 +259,7 @@
       sMarca = sugLista(marcas),
       sCol = sugLista(colecoes);
     host.appendChild(inp('marca', 'Marca (ex.: Gucci, Ray-Ban, Kazwini)', sMarca));
+    host.appendChild(chips('formato', FORMATOS));
     host.appendChild(chips('material', MATERIAIS));
     host.appendChild(chips('publico', PUBLICOS));
     host.appendChild(inp('colecao', 'Coleção (ex.: Clássicos, Clip-on, Solares)', sCol));

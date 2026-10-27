@@ -64,6 +64,7 @@
     tiposOrd: [],
     pnome: {},
     attr: {},
+    site: {},
     num: {},
     numNext: 0,
     pnAuto: {},

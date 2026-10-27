@@ -676,10 +676,11 @@
         idh.id = 'edIdent';
         idh.style.gap = '10px';
         identBox(idh, idc, function () {
-          setAttr(ref, Object.assign({ marca: '', material: '', publico: '', colecao: '' }, idc));
+          setAttr(ref, Object.assign({ marca: '', formato: '', material: '', publico: '', colecao: '' }, idc));
         });
         bx.appendChild(idh);
         if (nmi && !nmi.value) nmi.placeholder = nomeAuto(ref) || nmi.placeholder;
+        bx.appendChild(siteSwitch(ref));
       }
       // descrição (só vale ao salvar)
       var ta = mk('textarea', 'in');

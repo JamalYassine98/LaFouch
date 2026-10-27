@@ -248,6 +248,7 @@
       'inicioT',
       'barra',
       'attr',
+      'site',
       'num',
       'numNext',
       'pnAuto',
