@@ -113,25 +113,62 @@
     S.vitPend[ref] = op;
     saveSoon();
   }
-  // Preço/estoque mudou no Inventário? Compara com o que foi publicado por último e enfileira só a atualização (n, de, aviso).
+  // O site manda na LISTA de produtos (o painel cria, esconde e apaga); o app manda no PREÇO e no ESTOQUE.
+  // A cada minuto: lê o que está no site, guarda quais códigos existem no Inventário e enfileira só o que mudou (n, de, est).
+  function vitEstadoAviso(est) {
+    return est <= 0 ? 'Esgotado' : est === 1 ? 'Última unidade' : '';
+  }
   function vitConfere() {
-    var ch = false;
-    if (!S.vitHash) S.vitHash = {};
-    vitRefs().forEach(function (ref) {
-      if (!itemDoRef(ref) || (S.vitPend && S.vitPend[ref])) return;
-      var o = vitProduto(ref),
-        h = o.n + '|' + o.de + '|' + o.aviso;
-      if (S.vitHash[ref] === undefined) {
-        S.vitHash[ref] = h; // primeira vez: só memoriza o estado atual
-        ch = true;
-      } else if (S.vitHash[ref] !== h) {
+    if (vitConfere.busy || !S.nuvem || !S.nuvem.rt || navigator.onLine === false) return Promise.resolve();
+    vitConfere.busy = true;
+    return nvApi('GET', 'produtos?pageSize=300')
+      .then(function (j) {
+        var lista = [],
+          ch = false;
+        if (!S.vitAv) S.vitAv = {};
         if (!S.vitPend) S.vitPend = {};
-        S.vitPend[ref] = 'upd';
-        ch = true;
-      }
-    });
-    if (ch) saveSoon();
-    return vitSync();
+        (j.documents || []).forEach(function (d) {
+          var f = d.fields || {},
+            ref = d.name.split('/').pop(),
+            num = function (k) {
+              return +((f[k] || {}).integerValue || (f[k] || {}).doubleValue) || 0;
+            };
+          if (!itemDoRef(ref)) return;
+          lista.push({ ref: ref, ord: num('ord') });
+          if (S.vitPend[ref] === 'del') return;
+          var o = vitProduto(ref),
+            e = estoqueDoRef(ref),
+            st = vitEstadoAviso(e),
+            avSite = (f.aviso || {}).stringValue || '',
+            pend = !!(f.pend || {}).booleanValue,
+            mudou = o.n > 0 && (pend || num('n') !== o.n || num('de') !== o.de || (f.est === undefined ? true : num('est') !== e)),
+            mudouAv = S.vitAv[ref] === undefined ? st === 'Esgotado' && avSite !== 'Esgotado' : S.vitAv[ref] !== st;
+          if (S.vitAv[ref] === undefined) {
+            S.vitAv[ref] = st;
+            ch = true;
+          }
+          if ((mudou || mudouAv) && S.vitPend[ref] !== 'upd+av') {
+            S.vitPend[ref] = mudouAv ? 'upd+av' : S.vitPend[ref] || 'upd';
+            ch = true;
+          }
+        });
+        lista.sort(function (a, b) {
+          return a.ord - b.ord;
+        });
+        var refs = lista.map(function (x) {
+          return x.ref;
+        });
+        if (refs.join('|') !== vitRefs().join('|')) {
+          S.vitrine = refs;
+          ch = true;
+        }
+        if (ch) saveSoon();
+      })
+      .catch(function () {})
+      .then(function () {
+        vitConfere.busy = false;
+        return vitSync();
+      });
   }
   setTimeout(vitConfere, 25000);
   setInterval(vitConfere, 60000);
@@ -144,35 +181,34 @@
       .reduce(function (p, ref) {
         return p.then(function () {
           var op = pend[ref];
-          if (op === 'upd') {
-            var u = vitProduto(ref);
-            if (!S.vitHash) S.vitHash = {};
-            return nvApi(
-              'PATCH',
-              'produtos/' + ref + '?currentDocument.exists=true&updateMask.fieldPaths=n&updateMask.fieldPaths=de&updateMask.fieldPaths=aviso',
-              vBody({ n: u.n, de: u.de, aviso: u.aviso })
-            ).then(
-              function () {
-                S.vitHash[ref] = u.n + '|' + u.de + '|' + u.aviso;
-              },
-              function (e) {
-                if (e && e.status === 404) {
-                  S.vitHash[ref] = u.n + '|' + u.de + '|' + u.aviso;
-                  return; // não está mais no site: nada a atualizar
-                }
-                throw e;
-              }
-            );
-          }
           if (op === 'del')
             return nvApi('DELETE', 'produtos/' + ref).then(function () {
               return nvApi('DELETE', 'fotos/' + ref).catch(function () {});
             });
-          var o = vitProduto(ref),
-            f = vitInfo(ref).foto;
-          return (f ? nvApi('PATCH', 'fotos/' + ref, vBody({ d: f })) : Promise.resolve()).then(function () {
-            return nvApi('PATCH', 'produtos/' + ref, vBody(o));
-          });
+          var u = vitProduto(ref),
+            e = estoqueDoRef(ref),
+            st = vitEstadoAviso(e),
+            campos = { n: u.n, de: u.de, est: e, pend: false },
+            mask = ['n', 'de', 'est', 'pend'];
+          if (!(u.n > 0)) return Promise.resolve();
+          if (op === 'upd+av') {
+            campos.aviso = st;
+            mask.push('aviso');
+          }
+          return nvApi(
+            'PATCH',
+            'produtos/' + ref + '?currentDocument.exists=true&' + mask.map(function (m) { return 'updateMask.fieldPaths=' + m; }).join('&'),
+            vBody(campos)
+          ).then(
+            function () {
+              if (!S.vitAv) S.vitAv = {};
+              S.vitAv[ref] = st;
+            },
+            function (er) {
+              if (er && er.status === 404) return; // o painel apagou: nada a atualizar
+              throw er;
+            }
+          );
         }).then(function () {
           delete S.vitPend[ref];
           saveSoon();
