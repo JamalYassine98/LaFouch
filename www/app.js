@@ -22876,9 +22876,16 @@
     S.clientes.push(c);
     return { c: c, novo: true };
   }
+  var PED_INFO = { ts: 0, err: '' };
   function pedSync() {
-    if (!S.nuvem || !S.nuvem.rt || S._pedSync) return Promise.resolve(0);
+    if (!S.nuvem || !S.nuvem.rt) {
+      PED_INFO = { ts: Date.now(), err: 'Sem login na nuvem. Entre em Ajustes → Nuvem para receber os pedidos do site.' };
+      return Promise.resolve(0);
+    }
+    // uma busca que travou (rede ruim, app em segundo plano) não pode bloquear as próximas
+    if (S._pedSync && Date.now() - (S._pedT || 0) < 30000) return Promise.resolve(0);
     S._pedSync = true;
+    S._pedT = Date.now();
     return nvApi('GET', 'pedidos?pageSize=100')
       .then(function (j) {
         var docs = j.documents || [],
@@ -22926,11 +22933,14 @@
           }, novos ? 5000 : 0);
         return novos;
       })
-      .catch(function () {
+      .catch(function (e) {
+        PED_INFO = { ts: Date.now(), err: (e && e.status ? e.status + ' · ' : '') + ((e && e.message) || 'falhou') };
         return 0;
       })
       .then(function (n) {
         S._pedSync = false;
+        if (!PED_INFO.err || PED_INFO.ts < S._pedT) PED_INFO = { ts: Date.now(), err: '' };
+        if (S.view === 'ped') render();
         return n;
       });
   }
@@ -23066,6 +23076,10 @@
       h += tileHtml('data-act="pedf" data-id="' + f[0] + '"', 'ped', f[1], [String(f[2]), f[3]], 'sm', S.pedF === f[0]);
     });
     h += '</div><div class="hint">Os pedidos chegam sozinhos do site, e o cliente é cadastrado na hora.</div>';
+    h +=
+      '<div class="hint" style="display:flex;align-items:center;justify-content:space-between;gap:8px;' + (PED_INFO.err ? 'color:var(--bad)' : '') + '"><span>' +
+      (PED_INFO.ts ? (PED_INFO.err ? 'Não consegui buscar os pedidos: ' + esc(PED_INFO.err) : 'Última busca às ' + fh(PED_INFO.ts) + '.') : 'Buscando pedidos…') +
+      '</span><button type="button" class="mini" data-act="pedver">Verificar agora</button></div>';
     var lista = S.pedidos
       .filter(function (p) {
         return p.st === S.pedF;
