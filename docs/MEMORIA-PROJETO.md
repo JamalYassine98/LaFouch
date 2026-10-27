@@ -5,7 +5,7 @@ Este arquivo é lido no início de cada sessão (CLAUDE.md aponta para ele). Atu
 ## Regras de trabalho
 - Fidelidade visual: o app deve ficar EXATAMENTE como as imagens/vídeos aprovados. Referência única das telas de cadastro: as 10 folhas `p_1..p_10.png` (geradas por `/tmp/ad/nv2/gen.js`; se sumirem, ver `docs/`). Sempre comparar print real do app com a imagem antes de mostrar.
 - Ideias novas: só mostrar imagens; implementar quando o dono avisar ("Perfeito, pode implementar", "Pode implementar tudo").
-- Cada release: testes (`python3 tests/run.py`) → sw.js (lafouch-vNNN) → commit/push main → APK + Windows (ver CLAUDE.md).
+- Cada release: testes (`python3 tests/run.py`) → sw.js (lafouch-vNNN) → commit/push main. NÃO gerar APK nem Windows (ordem do dono em 27/10/2026, para economizar tokens), só se ele pedir.
 - Dono escreve em português; respostas curtas, sem jargão.
 
 ## Decisões de cadastro (aprovadas, v328–v332)
@@ -42,3 +42,9 @@ Ver `git log` (v300 → v332). Resumos de cada versão estão nas mensagens de c
 
 ## Aviso
 O histórico bruto anterior a 27/10/2026 foi condensado pelo sistema e não é mais legível. Este arquivo e o git log são a memória durável. Se uma decisão do dono não estiver aqui, pedir a ele a imagem/mensagem em vez de supor.
+
+## Pedidos de 27/10/2026 13:32
+- Formato/Material/Gênero/Tipo: trocar chips por seletor estilo 'Label Select' (campo com lupa + seta, lista abaixo); o botão Formato não respondia ao clique. Resolver toda interação parecida.
+- Vendas: filtros Todos…Pré-graduados dentro de um filtro chamado 'Produto', alinhado.
+- Aba Site: ao abrir um produto, permitir ir ao Inventário (ex.: modelo sem foto).
+- Backup: fotos se perdem ao importar (ex.: Solar aviador rosa). Corrigir.
