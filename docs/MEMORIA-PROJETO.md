@@ -111,3 +111,6 @@ PENDENTE: Editar produto reaproveitando a interface do cadastro (com lixeira) �
 
 ## Verificação do WhatsApp no site (27/10/2026, 19:06) — dono escolheu opções 1 + 3
 1 = código por WhatsApp (API oficial WhatsApp Business + servidor pequeno; custo por mensagem). 3 = pedido só "confirmado" quando o cliente manda mensagem à loja. Esboço (GIF + telas) enviado; manter as animações do site (check desenhado, etc.). NÃO implementado: depende de contratar a API/servidor.
+
+## Site: verificação de WhatsApp — decisão revisada (19:13)
+Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Paraguai ou Argentina (celular); (b) após enviar, tela "Falta um passo" com giro de verificando: o cliente precisa falar com o vendedor primeiro (mensagem com código do pedido) para ter a reserva. Reserva guardada 30 min; o dono confirma no app ("Confirmar reserva") e o site mostra "Reserva confirmada". Esboço (GIF) enviado; AGUARDANDO aprovação, não implementar.
