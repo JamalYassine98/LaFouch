@@ -554,6 +554,10 @@
     S.appStart = Date.now();
     S.conf = {};
     S.pfaixa = {};
+    S.metaDia = {};
+    S.diasLoja = 26;
+    S.rateio = 'peca';
+    S.faixaAuto = { on: false, lim: [4, 10] };
     S.contagens = [];
     S.exp = [];
     S.lotes = [];

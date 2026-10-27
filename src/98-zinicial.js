@@ -5,6 +5,8 @@
   function primeiroUso() {
     zerarDados();
     if (SEED_TXT) restaurarDados(SEED_TXT);
+    S.rateio = 'custo';
+    S.faixaAuto = { on: true, lim: [4, 10] };
     S.view = 'dash';
     saveSoon();
   }

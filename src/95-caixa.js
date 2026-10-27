@@ -186,7 +186,7 @@
         return a + x.valor;
       }, 0);
     html +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Contas pagas neste mês</h2><div class="hint" style="margin:2px 0 0">Cada vez que você toca em Pagar na aba Despesas, o valor sai dos guaranis em caixa e da reserva de contas.</div></div>' +
+      '<section class="col" style="padding:0 16px 14px"><div><div class="hint" style="margin:2px 0 0">Cada vez que você toca em Pagar na aba Despesas, o valor sai dos guaranis em caixa e da reserva de contas.</div></div>' +
       (pays.length
         ? pays
             .map(function (x) {

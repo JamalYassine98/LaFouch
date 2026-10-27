@@ -73,6 +73,47 @@
     });
     return { meta: S.metaUsd || 0, lucro: tot, por: por, restam: dias - d.getDate() + 1, dias: dias };
   }
+  // O que a meta do mês pede por dia, com o mix e os preços de hoje (estimativa: não desconta taxas de pagamento).
+  function metaDiaHtml() {
+    var v = volTipos(),
+      ks = Object.keys(v).filter(function (k) {
+        var t = tipoOf(k);
+        return t && t.price > 0 && v[k] > 0;
+      });
+    if (!ks.length) return '';
+    var fx = S.fx.pyg,
+      dias = S.diasLoja > 0 ? S.diasLoja : 26,
+      tot = 0,
+      ctb = 0;
+    ks.forEach(function (k) {
+      var t = tipoOf(k);
+      tot += v[k];
+      ctb += v[k] * (t.price - Math.round((t.repUSD || 0) * fx));
+    });
+    ctb = ctb / tot;
+    if (!(ctb > 0)) return '';
+    var contas = totalMensal() + reservaCambioContas(),
+      eq = contas / ctb,
+      meta = S.metaUsd > 0 ? (S.metaUsd * fx + contas) / ctb : 0,
+      f1 = function (n) {
+        return String(Math.round(n * 10) / 10).replace('.', ',');
+      },
+      h =
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">O que a meta pede por dia</h2><div class="hint" style="margin:2px 0 0">Com os preços de hoje, o mix da sua meta de vendas e ' +
+        dias +
+        ' dias de loja aberta.</div></div>';
+    ks.forEach(function (k) {
+      var t = tipoOf(k);
+      h += dxRow(esc(t.label), 'sua meta mínima: ' + f1(S.metaDia[k] || v[k] / dias) + '/dia', meta > 0 ? f1((meta / dias) * (v[k] / tot)) + ' /dia' : '');
+    });
+    h +=
+      '<div class="hint" style="margin:0"><b>Ponto de equilíbrio: ' +
+      f1(eq / dias) +
+      ' peças/dia</b> (abaixo disso as contas do mês não fecham)' +
+      (meta > 0 ? '. Para bater a meta de US$ ' + Math.round(S.metaUsd) + ': ~' + f1(meta / dias) + ' peças/dia.' : '. Defina a meta do mês para ver quanto ela pede.') +
+      '</div></section>';
+    return h;
+  }
   // Ritmo de venda esperado para os próximos 30 dias (já corrigido pela estação).
   function esperado30(m) {
     var f = sazonFator(m.tipo, new Date(Date.now() + 15 * DAY).getMonth());

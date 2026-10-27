@@ -91,6 +91,18 @@ TESTES = [
  ("piso: sem faixa só cobre o custo; com faixa entra a margem", """
    L.primeiroUso(); const it=S.items[0], a=L.pisoPeca(it).piso; S.pfaixa[it.ref]='f3'; const b=L.pisoPeca(it);
    return [a>0, b.piso>a, b.margem]""", [True, True, 0.5]),
+ ("rateio das contas: proporcional ao custo soma as contas do mês e peça cara carrega mais", """
+   L.primeiroUso(); S.exp=[{id:1,nome:'Aluguel',cat:'loja',tipo:'fixa',moeda:'pyg',orig:1800000,valor:1800000,rate0:1,hist:[],dia:10}];
+   const ids=[...new Set(S.items.map(i=>i.tipo))]; S.metaDia={}; ids.forEach(t=>{S.metaDia[t]=2}); S.diasLoja=26;
+   S.rateio='peca'; const flat=L.contasPeca();
+   S.items[0].custo=1; S.items[S.items.length-1].custo=6; S.rateio='custo'; const its=S.items.slice().sort((a,b)=>L.tFor(a).repUSD-L.tFor(b).repUSD);
+   const lo=L.contasPeca(its[0]), hi=L.contasPeca(its[its.length-1]);
+   return [flat>0, hi>lo, lo>0]""", [True, True, True]),
+ ("faixa automática pelo custo: escolha manual vale mais e desligada não muda nada", """
+   L.primeiroUso(); const it=S.items[0]; S.pfaixa={}; S.faixaAuto={on:false,lim:[4,10]};
+   const off=L.faixaOf(it.ref); S.faixaAuto={on:true,lim:[0.0001,0.0002]}; const auto=L.faixaOf(it.ref);
+   S.pfaixa[it.ref]='f1'; const man=L.faixaOf(it.ref);
+   return [off===null, auto&&auto.id===S.faixas[S.faixas.length-1].id, man.id==='f1']""", [True, True, True]),
  ("PIN: guarda só o resumo e confere", """
    return L.hashPin('1234','sal').then(h=>L.hashPin('1234','sal').then(h2=>L.hashPin('1235','sal').then(h3=>[h===h2, h!==h3, h.indexOf('1234')<0])))""", [True, True, True]),
  ("PIN: resumo novo lento (p2) e quem tinha o antigo é atualizado ao entrar", """
@@ -1311,7 +1323,7 @@ async def main():
 
             # aba Ajustes: meta, faixa nova, contagem de estoque e backup
             pg = await pagina()
-            await pg.evaluate("() => { const L = window.__LF, S = L.S; S.moedaP = 'usd'; S.items = [{tipo:'pre', ref:'AJ1', grau:'+1.00', med:'', vr:'', fmt:'', cor:'Preto', qty:6, custo:1}]; L.setView('ajustes'); }")
+            await pg.evaluate("() => { const L = window.__LF, S = L.S; S.moedaP = 'usd'; S.items = [{tipo:'pre', ref:'AJ1', grau:'+1.00', med:'', vr:'', fmt:'', cor:'Preto', qty:6, custo:1}]; S.dTab = 'prec'; S.dfold = Object.assign(S.dfold || {}, {cfg: true}); L.setView('dash'); }")
             await pg.wait_for_timeout(300)
             total += 1
             await pg.fill('[data-aj="meta"]', '600'); await pg.press('[data-aj="meta"]', 'Tab'); await pg.wait_for_timeout(300)
@@ -1319,10 +1331,10 @@ async def main():
             await pg.fill('[data-aj="vol"]', '500'); await pg.press('[data-aj="vol"]', 'Tab'); await pg.wait_for_timeout(300)
             got = await pg.evaluate("() => { const S = window.__LF.S; return [S.metaUsd, S.faixas.map(f => f.nome).pop(), S.volume] }")
             ok = got == [600, 'Premium', 500] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'tela Ajustes: meta, nova faixa e peças por mês')
+            print(('  ok  ' if ok else ' FALHA ') + 'Dashboard › Preços: meta, nova faixa e peças por mês (saíram de Ajustes)')
             if not ok: falhas.append('tela ajustes'); print('        veio', got, pg.erros)
             total += 1
-            await pg.evaluate("() => window.__LF.setView('dash')"); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => { window.__LF.S.dTab = 'hoje'; window.__LF.setView('dash'); }"); await pg.wait_for_timeout(300)
             tx = await pg.inner_text('#v-dash')
             ok = 'Meta do mês' in tx and 'US$ 600' in tx and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Dashboard: mostra meta do mês')

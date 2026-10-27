@@ -20,14 +20,28 @@
   var SAZON_PADRAO = { solar: [1.5, 1.4, 1.2, 1.0, 0.8, 0.6, 0.6, 0.7, 0.9, 1.1, 1.3, 1.5] };
   // Faixa de um produto pelo código.
   function faixaOf(ref) {
-    var id = S.pfaixa && S.pfaixa[ref];
-    return (
-      (id &&
-        S.faixas.filter(function (f) {
-          return f.id === id;
-        })[0]) ||
-      null
-    );
+    var id = S.pfaixa && S.pfaixa[ref],
+      f =
+        (id &&
+          S.faixas.filter(function (x) {
+            return x.id === id;
+          })[0]) ||
+        null;
+    return f || faixaAutoOf(ref);
+  }
+  // Sem faixa escolhida à mão e com a faixa automática ligada: pelo custo de reposição (US$) da peça.
+  function faixaAutoOf(ref) {
+    if (!S.faixaAuto || !S.faixaAuto.on || !S.faixas.length) return null;
+    var it = S.items.filter(function (i) {
+      return i.ref === ref;
+    })[0];
+    if (!it || isSimple(it.tipo)) return null;
+    var c = effCusto(it);
+    if (!(c > 0)) return null;
+    var lim = S.faixaAuto.lim || [],
+      k = 0;
+    while (k < lim.length && k < S.faixas.length - 1 && c > lim[k]) k++;
+    return S.faixas[k] || null;
   }
   // Cor de uma faixa (pela ordem na lista).
   function faixaCor(f) {
@@ -106,7 +120,7 @@
     var t = tFor(it),
       fx = S.fx.pyg,
       rep = Math.round(t.repUSD * fx),
-      cp = contasPeca(),
+      cp = contasPeca(it),
       col = Math.round(t.repUSD * fx * colchao().pct),
       f = faixaOf(it.ref),
       m = f ? Math.min(0.9, f.margem / 100) : 0,
@@ -242,6 +256,59 @@
   }
   // Peças por mês usadas para ratear as contas: real quando há histórico, senão o número manual.
   function volumeEfetivo() {
+    var m = volTipos(),
+      tot = Object.keys(m).reduce(function (a, k) {
+        return a + m[k];
+      }, 0);
+    if (tot > 0) return Math.round(tot);
     var a = S.volAuto !== false ? volumeAuto() : 0;
     return a > 0 ? a : S.volume;
+  }
+  // Peças por mês de cada tipo: a meta mínima do dono (por dia × dias de loja aberta), misturada com as vendas reais
+  // conforme elas aparecem (30 dias de venda começa a pesar; 90 dias já vale só o real).
+  S.metaDia = {}; // tipo -> peças por dia que o dono espera vender no mínimo
+  S.diasLoja = 26;
+  S.rateio = 'peca'; // 'peca' = igual por peça; 'custo' = proporcional ao custo de reposição
+  S.faixaAuto = { on: false, lim: [4, 10] }; // faixa pelo custo (US$): até lim[0] = 1ª faixa, até lim[1] = 2ª, o resto = última
+  var vtReal = { n: -1, ts: 0, m: {}, hist: 0 };
+  function vendasReaisTipo() {
+    if (vtReal.n === S.sales.length && Date.now() - vtReal.ts < 5000) return vtReal;
+    var now = Date.now(),
+      first = S.sales.reduce(function (a, s) {
+        return Math.min(a, s.ts);
+      }, now),
+      hist = (now - Math.min(first, S.appStart || now)) / DAY,
+      win = Math.min(90, Math.max(hist, 1)),
+      m = {};
+    S.sales.forEach(function (s) {
+      if (!s.estorno && now - s.ts <= win * DAY) m[s.tipo] = (m[s.tipo] || 0) + s.qty;
+    });
+    Object.keys(m).forEach(function (k) {
+      m[k] = m[k] / (win / 30);
+    });
+    vtReal = { n: S.sales.length, ts: now, m: m, hist: hist };
+    return vtReal;
+  }
+  function volTipos() {
+    var md = S.metaDia || {},
+      dias = S.diasLoja > 0 ? S.diasLoja : 26,
+      out = {},
+      temMeta = false;
+    Object.keys(md).forEach(function (k) {
+      if (md[k] > 0) {
+        out[k] = md[k] * dias;
+        temMeta = true;
+      }
+    });
+    if (!temMeta) return {};
+    var r = vendasReaisTipo(),
+      unid = Object.keys(r.m).reduce(function (a, k) {
+        return a + r.m[k];
+      }, 0),
+      w = r.hist >= 30 && unid >= 10 && S.volAuto !== false ? Math.min(1, (r.hist - 30) / 60) : 0;
+    if (w > 0)
+      Object.keys(r.m).forEach(function (k) {
+        out[k] = w * r.m[k] + (1 - w) * (out[k] || r.m[k]);
+      });
+    return out;
   }

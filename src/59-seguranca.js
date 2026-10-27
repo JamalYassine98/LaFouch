@@ -284,7 +284,8 @@
   });
 
   // ---------- partes da aba Ajustes: pagamento e segurança
-  function ajustesFinHtml() {
+  // Formas de pagamento e taxas (Dashboard › Preços).
+  function pagamentoHtml() {
     var h = '';
     // formas de pagamento
     h +=
@@ -302,6 +303,10 @@
         ' em porcentagem" style="max-width:100px"><span class="hint" style="margin:0">%</span></div>';
     });
     h += '</section>';
+    return h;
+  }
+  function ajustesFinHtml() {
+    var h = '';
     // lembretes
     h +=
       '<section class="card col"><h2 style="margin:0;font-size:16px">Lembretes</h2><label style="display:flex;gap:10px;align-items:center"><input type="checkbox" data-aj="cclemb"' +

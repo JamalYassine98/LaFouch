@@ -73,26 +73,65 @@
     var n = parseFloat(String(v).replace(',', '.'));
     return isNaN(n) ? 0 : n;
   }
-  // Monta a aba Ajustes.
-  function renderAjustes() {
-    var el = $('v-ajustes');
-    if (S.view !== 'ajustes') return;
-    var ae = document.activeElement;
-    if (!S._ajForce && ae && ae.tagName === 'INPUT' && el.contains(ae)) return;
-    S._ajForce = false;
-    var h =
-      '<div class="top"><div><h1>Ajustes</h1><div class="crumb">Faixas, meta do mês, contas e backup</div></div></div>';
-    if (S.ajMsg) h += '<div class="note n-ok" role="status">' + esc(S.ajMsg) + '</div>';
+  // Meta mínima de vendas por dia, rateio das contas e faixa automática.
+  function precosMetaHtml() {
+    var h = '<div class="col" style="border-top:1px solid var(--line);padding-top:12px"><div><div class="lbl">Meta mínima de vendas por dia, por tipo</div><div class="hint" style="margin:0">Um palpite seu basta. Serve para dividir as contas desde o primeiro dia; conforme as vendas reais aparecem, o app passa a usá-las.</div></div>';
+    tipoAll().forEach(function (t) {
+      if (t.simple) return;
+      h +=
+        '<div style="display:flex;gap:8px;align-items:center"><span style="flex:1 1 150px">' +
+        esc(t.label) +
+        '</span><input class="in" inputmode="decimal" data-aj="mdia" data-tipo="' +
+        esc(t.id) +
+        '" value="' +
+        (S.metaDia[t.id] > 0 ? String(S.metaDia[t.id]).replace('.', ',') : '') +
+        '" placeholder="0" aria-label="Peças por dia de ' +
+        esc(t.label) +
+        '" style="max-width:90px"><span class="hint" style="margin:0">por dia</span></div>';
+    });
+    h +=
+      '<div style="display:flex;gap:8px;align-items:center"><span style="flex:1 1 150px">Dias de loja aberta por mês</span><input class="in" inputmode="numeric" data-aj="dias" value="' +
+      (S.diasLoja || 26) +
+      '" style="max-width:90px"></div>';
+    h +=
+      '<div><div class="lbl">Como dividir as contas entre as peças</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="chip' +
+      (S.rateio !== 'custo' ? ' on' : '') +
+      '" data-act="ratsel" data-id="peca">Igual por peça</button><button class="chip' +
+      (S.rateio === 'custo' ? ' on' : '') +
+      '" data-act="ratsel" data-id="custo">Proporcional ao custo</button></div><div class="hint">' +
+      (S.rateio === 'custo'
+        ? 'Peça mais cara carrega mais das contas do mês; peça barata, menos. A soma continua sendo as contas do mês.'
+        : 'Toda peça carrega o mesmo valor das contas, seja barata ou cara.') +
+      '</div></div>';
+    var fa = S.faixaAuto || { on: false, lim: [4, 10] };
+    h +=
+      '<div><div class="lbl">Faixa automática pelo custo</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="chip' +
+      (fa.on ? ' on' : '') +
+      '" data-act="faixaauto">' +
+      (fa.on ? 'Ligada' : 'Desligada') +
+      '</button></div><div class="hint">Peça sem faixa escolhida entra na faixa pelo custo de reposição. A faixa que você escolher à mão sempre vale mais.</div>';
+    if (fa.on)
+      S.faixas.slice(0, -1).forEach(function (f, i) {
+        h +=
+          '<div style="display:flex;gap:8px;align-items:center;margin-top:6px"><span style="flex:1 1 150px">' +
+          esc(f.nome) +
+          ': custo até US$</span><input class="in" inputmode="decimal" data-aj="flim" data-i="' +
+          i +
+          '" value="' +
+          String((fa.lim || [])[i] != null ? fa.lim[i] : '').replace('.', ',') +
+          '" style="max-width:90px"></div>';
+      });
+    h += '</div></div>';
+    return h;
+  }
+  // Preços e finanças (Dashboard › Preços): meta, faixas e rateio das contas. Os campos usam data-aj e valem em qualquer tela.
+  function precosCfgHtml() {
+    var h = '';
     // meta
     h +=
       '<section class="card col"><h2 style="margin:0;font-size:16px">Meta do mês</h2><div><div class="lbl">Lucro livre desejado no mês, loja toda (US$)</div><input class="in" inputmode="decimal" data-aj="meta" value="' +
       usdParaCampo(S.metaUsd) +
       '" placeholder="Ex.: ' + usdParaCampo(600) + '" style="max-width:220px"></div></section>';
-    // cidade da nota fiscal
-    h +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Nota fiscal</h2><div><div class="lbl">Cidade que sai na nota</div><input class="in" data-aj="cidade" value="' +
-      esc(S.notaCidade || 'CDE') +
-      '" placeholder="CDE" style="max-width:220px" autocomplete="off"></div></section>';
     // faixas
     h +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Faixas</h2><div class="hint" style="margin:2px 0 0">Você cria e nomeia. A margem é o lucro mínimo desejado sobre o preço de venda e define o piso. O preço de cada produto é definido no próprio produto (aba Produtos).</div></div>';
@@ -139,6 +178,28 @@
       '.</div><div style="margin-top:8px"><button class="chip' +
       (S.volAuto !== false ? ' on' : '') +
       '" data-act="volauto">Calcular pelas vendas reais</button></div><div class="hint">Com 2 meses de vendas (pelo menos 20 peças), o app passa a usar a média real.</div></div>' +
+      precosMetaHtml() +
+      '</section>';
+    return h;
+  }
+  // Monta a aba Ajustes.
+  function renderAjustes() {
+    var el = $('v-ajustes');
+    if (S.view !== 'ajustes') return;
+    var ae = document.activeElement;
+    if (!S._ajForce && ae && ae.tagName === 'INPUT' && el.contains(ae)) return;
+    S._ajForce = false;
+    var h =
+      '<div class="top"><div><h1>Ajustes</h1><div class="crumb">Nota fiscal, lembretes, segurança e cópias</div></div></div>';
+    if (S.ajMsg) h += '<div class="note n-ok" role="status">' + esc(S.ajMsg) + '</div>';
+    // cidade da nota fiscal
+    h +=
+      '<section class="card col"><h2 style="margin:0;font-size:16px">Nota fiscal</h2><div><div class="lbl">Cidade que sai na nota</div><input class="in" data-aj="cidade" value="' +
+      esc(S.notaCidade || 'CDE') +
+      '" placeholder="CDE" style="max-width:220px" autocomplete="off"></div></section>';
+    // contagem de estoque
+    h +=
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Contagem de estoque</h2></div>' +
       '<div><div class="lbl">Diferença de contagem tolerada (US$)</div><input class="in" inputmode="decimal" data-aj="tol" value="' +
       usdParaCampo(S.tolUsd) +
       '" style="max-width:160px"><div class="hint">Na contagem de estoque, diferenças até esse valor ficam marcadas como perda aceita.</div></div></section>';
@@ -152,7 +213,7 @@
     el.innerHTML = h;
   }
   // Recalcula e salva uma alteração feita na aba Ajustes.
-  $('v-ajustes').addEventListener('change', function (e) {
+  document.addEventListener('change', function (e) {
     var t = e.target,
       k = t.getAttribute && t.getAttribute('data-aj');
     if (!k) return;
@@ -174,9 +235,20 @@
     }
     if (k === 'vol') S.volume = Math.max(1, toNum(t.value) || S.volume);
     if (k === 'tol') S.tolUsd = campoParaUsd(t.value);
+    if (k === 'mdia') {
+      var tv = Math.max(0, numIn(t.value) || 0);
+      if (tv > 0) S.metaDia[t.getAttribute('data-tipo')] = tv;
+      else delete S.metaDia[t.getAttribute('data-tipo')];
+    }
+    if (k === 'dias') S.diasLoja = Math.max(1, Math.min(31, Math.round(numIn(t.value)) || 26));
+    if (k === 'flim') {
+      if (!S.faixaAuto) S.faixaAuto = { on: true, lim: [4, 10] };
+      S.faixaAuto.lim = (S.faixaAuto.lim || []).slice();
+      S.faixaAuto.lim[+t.getAttribute('data-i')] = Math.max(0, numIn(t.value) || 0);
+    }
     render();
   });
-  $('v-ajustes').addEventListener('input', function (e) {
+  document.addEventListener('input', function (e) {
     if (e.target.id === 'fnew') S.fnewTxt = e.target.value;
   });
   S.fDelConf = '';
@@ -286,6 +358,19 @@
     exigirAuth(function () {
       bkFile.click();
     });
+  };
+  ACT.ratsel = function (id) {
+    S.rateio = id === 'custo' ? 'custo' : 'peca';
+    S._ajForce = true;
+    saveSoon();
+    render();
+  };
+  ACT.faixaauto = function () {
+    if (!S.faixaAuto) S.faixaAuto = { on: false, lim: [4, 10] };
+    S.faixaAuto.on = !S.faixaAuto.on;
+    S._ajForce = true;
+    saveSoon();
+    render();
   };
   ACT.volauto = function () {
     S.volAuto = S.volAuto === false;

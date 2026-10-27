@@ -162,8 +162,35 @@
     }, 0);
   }
   // Despesa mensal rateada por peça.
-  function contasPeca() {
-    return Math.round((totalMensal() + reservaCambioContas()) / Math.max(1, volumeEfetivo()));
+  // Sem argumento é a média por peça. Com uma peça (ou o custo em US$) e o rateio "custo", peça mais cara carrega mais contas.
+  function contasPeca(it, repUsd) {
+    var flat = Math.round((totalMensal() + reservaCambioContas()) / Math.max(1, volumeEfetivo()));
+    if (S.rateio !== 'custo') return flat;
+    var rep = repUsd != null ? repUsd : it ? tFor(it).repUSD : null;
+    if (!(rep > 0)) return flat;
+    var k = rateioK();
+    return k > 0 ? Math.round(rep * S.fx.pyg * k) : flat;
+  }
+  // Fração do custo de reposição que cada peça carrega: contas do mês ÷ (peças esperadas de cada tipo × custo médio do tipo).
+  function rateioK() {
+    var v = volTipos(),
+      fx = S.fx.pyg,
+      soma = 0;
+    Object.keys(v).forEach(function (t) {
+      var q = 0,
+        n = 0;
+      S.items.forEach(function (i) {
+        var c = i.tipo === t ? effCusto(i) : null;
+        if (c != null && c > 0) {
+          q += c;
+          n++;
+        }
+      });
+      var tp = tipoOf(t),
+        medUsd = n ? q / n : tp ? tp.repUSD || 0 : 0;
+      soma += v[t] * medUsd * fx;
+    });
+    return soma > 0 ? (totalMensal() + reservaCambioContas()) / soma : 0;
   }
   // Tipo pelo id.
   function tipoOf(id) {
@@ -283,7 +310,7 @@
   // Registra a venda e movimenta estoque e caixa.
   function addSale(it, qty, pay) {
     var c = colchao(),
-      cp = contasPeca(),
+      cp = contasPeca(it),
       pg = pay.pag || {},
       rate = pg.rate > 0 ? pg.rate : ratePyg(pay.moeda),
       linhas = [{ moeda: pay.moeda, v: pay.recebido, rate: rate }].concat(pg.extra || []),

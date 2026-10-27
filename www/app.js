@@ -9617,8 +9617,35 @@
     }, 0);
   }
   // Despesa mensal rateada por peça.
-  function contasPeca() {
-    return Math.round((totalMensal() + reservaCambioContas()) / Math.max(1, volumeEfetivo()));
+  // Sem argumento é a média por peça. Com uma peça (ou o custo em US$) e o rateio "custo", peça mais cara carrega mais contas.
+  function contasPeca(it, repUsd) {
+    var flat = Math.round((totalMensal() + reservaCambioContas()) / Math.max(1, volumeEfetivo()));
+    if (S.rateio !== 'custo') return flat;
+    var rep = repUsd != null ? repUsd : it ? tFor(it).repUSD : null;
+    if (!(rep > 0)) return flat;
+    var k = rateioK();
+    return k > 0 ? Math.round(rep * S.fx.pyg * k) : flat;
+  }
+  // Fração do custo de reposição que cada peça carrega: contas do mês ÷ (peças esperadas de cada tipo × custo médio do tipo).
+  function rateioK() {
+    var v = volTipos(),
+      fx = S.fx.pyg,
+      soma = 0;
+    Object.keys(v).forEach(function (t) {
+      var q = 0,
+        n = 0;
+      S.items.forEach(function (i) {
+        var c = i.tipo === t ? effCusto(i) : null;
+        if (c != null && c > 0) {
+          q += c;
+          n++;
+        }
+      });
+      var tp = tipoOf(t),
+        medUsd = n ? q / n : tp ? tp.repUSD || 0 : 0;
+      soma += v[t] * medUsd * fx;
+    });
+    return soma > 0 ? (totalMensal() + reservaCambioContas()) / soma : 0;
   }
   // Tipo pelo id.
   function tipoOf(id) {
@@ -9738,7 +9765,7 @@
   // Registra a venda e movimenta estoque e caixa.
   function addSale(it, qty, pay) {
     var c = colchao(),
-      cp = contasPeca(),
+      cp = contasPeca(it),
       pg = pay.pag || {},
       rate = pg.rate > 0 ? pg.rate : ratePyg(pay.moeda),
       linhas = [{ moeda: pay.moeda, v: pay.recebido, rate: rate }].concat(pg.extra || []),
@@ -12530,14 +12557,28 @@
   var SAZON_PADRAO = { solar: [1.5, 1.4, 1.2, 1.0, 0.8, 0.6, 0.6, 0.7, 0.9, 1.1, 1.3, 1.5] };
   // Faixa de um produto pelo código.
   function faixaOf(ref) {
-    var id = S.pfaixa && S.pfaixa[ref];
-    return (
-      (id &&
-        S.faixas.filter(function (f) {
-          return f.id === id;
-        })[0]) ||
-      null
-    );
+    var id = S.pfaixa && S.pfaixa[ref],
+      f =
+        (id &&
+          S.faixas.filter(function (x) {
+            return x.id === id;
+          })[0]) ||
+        null;
+    return f || faixaAutoOf(ref);
+  }
+  // Sem faixa escolhida à mão e com a faixa automática ligada: pelo custo de reposição (US$) da peça.
+  function faixaAutoOf(ref) {
+    if (!S.faixaAuto || !S.faixaAuto.on || !S.faixas.length) return null;
+    var it = S.items.filter(function (i) {
+      return i.ref === ref;
+    })[0];
+    if (!it || isSimple(it.tipo)) return null;
+    var c = effCusto(it);
+    if (!(c > 0)) return null;
+    var lim = S.faixaAuto.lim || [],
+      k = 0;
+    while (k < lim.length && k < S.faixas.length - 1 && c > lim[k]) k++;
+    return S.faixas[k] || null;
   }
   // Cor de uma faixa (pela ordem na lista).
   function faixaCor(f) {
@@ -12616,7 +12657,7 @@
     var t = tFor(it),
       fx = S.fx.pyg,
       rep = Math.round(t.repUSD * fx),
-      cp = contasPeca(),
+      cp = contasPeca(it),
       col = Math.round(t.repUSD * fx * colchao().pct),
       f = faixaOf(it.ref),
       m = f ? Math.min(0.9, f.margem / 100) : 0,
@@ -12752,8 +12793,61 @@
   }
   // Peças por mês usadas para ratear as contas: real quando há histórico, senão o número manual.
   function volumeEfetivo() {
+    var m = volTipos(),
+      tot = Object.keys(m).reduce(function (a, k) {
+        return a + m[k];
+      }, 0);
+    if (tot > 0) return Math.round(tot);
     var a = S.volAuto !== false ? volumeAuto() : 0;
     return a > 0 ? a : S.volume;
+  }
+  // Peças por mês de cada tipo: a meta mínima do dono (por dia × dias de loja aberta), misturada com as vendas reais
+  // conforme elas aparecem (30 dias de venda começa a pesar; 90 dias já vale só o real).
+  S.metaDia = {}; // tipo -> peças por dia que o dono espera vender no mínimo
+  S.diasLoja = 26;
+  S.rateio = 'peca'; // 'peca' = igual por peça; 'custo' = proporcional ao custo de reposição
+  S.faixaAuto = { on: false, lim: [4, 10] }; // faixa pelo custo (US$): até lim[0] = 1ª faixa, até lim[1] = 2ª, o resto = última
+  var vtReal = { n: -1, ts: 0, m: {}, hist: 0 };
+  function vendasReaisTipo() {
+    if (vtReal.n === S.sales.length && Date.now() - vtReal.ts < 5000) return vtReal;
+    var now = Date.now(),
+      first = S.sales.reduce(function (a, s) {
+        return Math.min(a, s.ts);
+      }, now),
+      hist = (now - Math.min(first, S.appStart || now)) / DAY,
+      win = Math.min(90, Math.max(hist, 1)),
+      m = {};
+    S.sales.forEach(function (s) {
+      if (!s.estorno && now - s.ts <= win * DAY) m[s.tipo] = (m[s.tipo] || 0) + s.qty;
+    });
+    Object.keys(m).forEach(function (k) {
+      m[k] = m[k] / (win / 30);
+    });
+    vtReal = { n: S.sales.length, ts: now, m: m, hist: hist };
+    return vtReal;
+  }
+  function volTipos() {
+    var md = S.metaDia || {},
+      dias = S.diasLoja > 0 ? S.diasLoja : 26,
+      out = {},
+      temMeta = false;
+    Object.keys(md).forEach(function (k) {
+      if (md[k] > 0) {
+        out[k] = md[k] * dias;
+        temMeta = true;
+      }
+    });
+    if (!temMeta) return {};
+    var r = vendasReaisTipo(),
+      unid = Object.keys(r.m).reduce(function (a, k) {
+        return a + r.m[k];
+      }, 0),
+      w = r.hist >= 30 && unid >= 10 && S.volAuto !== false ? Math.min(1, (r.hist - 30) / 60) : 0;
+    if (w > 0)
+      Object.keys(r.m).forEach(function (k) {
+        out[k] = w * r.m[k] + (1 - w) * (out[k] || r.m[k]);
+      });
+    return out;
   }
   // ===== Análises: meta do mês, reposição, estoque parado, curva ABC, sugestão de margem e câmbio x piso. =====
   // Lucro livre de uma venda em US$ (ao câmbio da venda).
@@ -12829,6 +12923,47 @@
       por[k] = (por[k] || 0) + u;
     });
     return { meta: S.metaUsd || 0, lucro: tot, por: por, restam: dias - d.getDate() + 1, dias: dias };
+  }
+  // O que a meta do mês pede por dia, com o mix e os preços de hoje (estimativa: não desconta taxas de pagamento).
+  function metaDiaHtml() {
+    var v = volTipos(),
+      ks = Object.keys(v).filter(function (k) {
+        var t = tipoOf(k);
+        return t && t.price > 0 && v[k] > 0;
+      });
+    if (!ks.length) return '';
+    var fx = S.fx.pyg,
+      dias = S.diasLoja > 0 ? S.diasLoja : 26,
+      tot = 0,
+      ctb = 0;
+    ks.forEach(function (k) {
+      var t = tipoOf(k);
+      tot += v[k];
+      ctb += v[k] * (t.price - Math.round((t.repUSD || 0) * fx));
+    });
+    ctb = ctb / tot;
+    if (!(ctb > 0)) return '';
+    var contas = totalMensal() + reservaCambioContas(),
+      eq = contas / ctb,
+      meta = S.metaUsd > 0 ? (S.metaUsd * fx + contas) / ctb : 0,
+      f1 = function (n) {
+        return String(Math.round(n * 10) / 10).replace('.', ',');
+      },
+      h =
+        '<section class="card col"><div><h2 style="margin:0;font-size:16px">O que a meta pede por dia</h2><div class="hint" style="margin:2px 0 0">Com os preços de hoje, o mix da sua meta de vendas e ' +
+        dias +
+        ' dias de loja aberta.</div></div>';
+    ks.forEach(function (k) {
+      var t = tipoOf(k);
+      h += dxRow(esc(t.label), 'sua meta mínima: ' + f1(S.metaDia[k] || v[k] / dias) + '/dia', meta > 0 ? f1((meta / dias) * (v[k] / tot)) + ' /dia' : '');
+    });
+    h +=
+      '<div class="hint" style="margin:0"><b>Ponto de equilíbrio: ' +
+      f1(eq / dias) +
+      ' peças/dia</b> (abaixo disso as contas do mês não fecham)' +
+      (meta > 0 ? '. Para bater a meta de US$ ' + Math.round(S.metaUsd) + ': ~' + f1(meta / dias) + ' peças/dia.' : '. Defina a meta do mês para ver quanto ela pede.') +
+      '</div></section>';
+    return h;
   }
   // Ritmo de venda esperado para os próximos 30 dias (já corrigido pela estação).
   function esperado30(m) {
@@ -15263,7 +15398,8 @@
   });
 
   // ---------- partes da aba Ajustes: pagamento e segurança
-  function ajustesFinHtml() {
+  // Formas de pagamento e taxas (Dashboard › Preços).
+  function pagamentoHtml() {
     var h = '';
     // formas de pagamento
     h +=
@@ -15281,6 +15417,10 @@
         ' em porcentagem" style="max-width:100px"><span class="hint" style="margin:0">%</span></div>';
     });
     h += '</section>';
+    return h;
+  }
+  function ajustesFinHtml() {
+    var h = '';
     // lembretes
     h +=
       '<section class="card col"><h2 style="margin:0;font-size:16px">Lembretes</h2><label style="display:flex;gap:10px;align-items:center"><input type="checkbox" data-aj="cclemb"' +
@@ -19474,11 +19614,13 @@
       ab = abaixoDoPiso().length,
       pg = precoPerigoso().length,
       pr = perdasPropositais();
-    h += dFold('sug', 'Sugestão de margem', sg.length ? sg.length + ' faixa(s) com sugestão' : 'sem mudanças sugeridas', sg.length ? 'var(--warn)' : 'var(--ok)', x3.sug);
+    h += metaDiaHtml();
+    h += dFold('sug', 'Sugestão de margem', sg.length ? sg.length + ' faixa(s) com sugestão' : sugestoes().every(function (r) { return r.acao === 'sem-base'; }) ? 'ainda sem histórico: precisa de 2 meses de vendas por faixa' : 'sem mudanças sugeridas', sg.length ? 'var(--warn)' : 'var(--sub)', x3.sug);
     h += dFold('pgo', 'Preço ficou perigoso', pg ? pg + ' produto(s)' : 'nenhum', pg ? 'var(--bad)' : 'var(--ok)', perigosoHtml());
     h += dFold('abp', 'Preço abaixo do piso', ab ? ab + ' produto(s) com o câmbio de hoje' : 'nenhum', ab ? 'var(--warn)' : 'var(--ok)', x3.abaixo);
     h += dFold('pdv', 'Vendas abaixo do piso (30 dias)', pr.n + ' venda(s)', 'var(--sub)', x3.perdasV);
     h += dFold('mar', 'Saúde da margem por tipo', 'preço atual contra a trava de segurança', 'var(--sub)', o.margem);
+    h += dFold('cfg', 'Meta, faixas, contas e taxas', 'onde se definem as margens e o rateio das contas', 'var(--sub)', precosCfgHtml() + pagamentoHtml());
     return h;
   }
 
@@ -22085,6 +22227,10 @@
     S.appStart = Date.now();
     S.conf = {};
     S.pfaixa = {};
+    S.metaDia = {};
+    S.diasLoja = 26;
+    S.rateio = 'peca';
+    S.faixaAuto = { on: false, lim: [4, 10] };
     S.contagens = [];
     S.exp = [];
     S.lotes = [];
@@ -22321,7 +22467,7 @@
         return a + x.valor;
       }, 0);
     html +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Contas pagas neste mês</h2><div class="hint" style="margin:2px 0 0">Cada vez que você toca em Pagar na aba Despesas, o valor sai dos guaranis em caixa e da reserva de contas.</div></div>' +
+      '<section class="col" style="padding:0 16px 14px"><div><div class="hint" style="margin:2px 0 0">Cada vez que você toca em Pagar na aba Despesas, o valor sai dos guaranis em caixa e da reserva de contas.</div></div>' +
       (pays.length
         ? pays
             .map(function (x) {
@@ -22930,26 +23076,65 @@
     var n = parseFloat(String(v).replace(',', '.'));
     return isNaN(n) ? 0 : n;
   }
-  // Monta a aba Ajustes.
-  function renderAjustes() {
-    var el = $('v-ajustes');
-    if (S.view !== 'ajustes') return;
-    var ae = document.activeElement;
-    if (!S._ajForce && ae && ae.tagName === 'INPUT' && el.contains(ae)) return;
-    S._ajForce = false;
-    var h =
-      '<div class="top"><div><h1>Ajustes</h1><div class="crumb">Faixas, meta do mês, contas e backup</div></div></div>';
-    if (S.ajMsg) h += '<div class="note n-ok" role="status">' + esc(S.ajMsg) + '</div>';
+  // Meta mínima de vendas por dia, rateio das contas e faixa automática.
+  function precosMetaHtml() {
+    var h = '<div class="col" style="border-top:1px solid var(--line);padding-top:12px"><div><div class="lbl">Meta mínima de vendas por dia, por tipo</div><div class="hint" style="margin:0">Um palpite seu basta. Serve para dividir as contas desde o primeiro dia; conforme as vendas reais aparecem, o app passa a usá-las.</div></div>';
+    tipoAll().forEach(function (t) {
+      if (t.simple) return;
+      h +=
+        '<div style="display:flex;gap:8px;align-items:center"><span style="flex:1 1 150px">' +
+        esc(t.label) +
+        '</span><input class="in" inputmode="decimal" data-aj="mdia" data-tipo="' +
+        esc(t.id) +
+        '" value="' +
+        (S.metaDia[t.id] > 0 ? String(S.metaDia[t.id]).replace('.', ',') : '') +
+        '" placeholder="0" aria-label="Peças por dia de ' +
+        esc(t.label) +
+        '" style="max-width:90px"><span class="hint" style="margin:0">por dia</span></div>';
+    });
+    h +=
+      '<div style="display:flex;gap:8px;align-items:center"><span style="flex:1 1 150px">Dias de loja aberta por mês</span><input class="in" inputmode="numeric" data-aj="dias" value="' +
+      (S.diasLoja || 26) +
+      '" style="max-width:90px"></div>';
+    h +=
+      '<div><div class="lbl">Como dividir as contas entre as peças</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="chip' +
+      (S.rateio !== 'custo' ? ' on' : '') +
+      '" data-act="ratsel" data-id="peca">Igual por peça</button><button class="chip' +
+      (S.rateio === 'custo' ? ' on' : '') +
+      '" data-act="ratsel" data-id="custo">Proporcional ao custo</button></div><div class="hint">' +
+      (S.rateio === 'custo'
+        ? 'Peça mais cara carrega mais das contas do mês; peça barata, menos. A soma continua sendo as contas do mês.'
+        : 'Toda peça carrega o mesmo valor das contas, seja barata ou cara.') +
+      '</div></div>';
+    var fa = S.faixaAuto || { on: false, lim: [4, 10] };
+    h +=
+      '<div><div class="lbl">Faixa automática pelo custo</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="chip' +
+      (fa.on ? ' on' : '') +
+      '" data-act="faixaauto">' +
+      (fa.on ? 'Ligada' : 'Desligada') +
+      '</button></div><div class="hint">Peça sem faixa escolhida entra na faixa pelo custo de reposição. A faixa que você escolher à mão sempre vale mais.</div>';
+    if (fa.on)
+      S.faixas.slice(0, -1).forEach(function (f, i) {
+        h +=
+          '<div style="display:flex;gap:8px;align-items:center;margin-top:6px"><span style="flex:1 1 150px">' +
+          esc(f.nome) +
+          ': custo até US$</span><input class="in" inputmode="decimal" data-aj="flim" data-i="' +
+          i +
+          '" value="' +
+          String((fa.lim || [])[i] != null ? fa.lim[i] : '').replace('.', ',') +
+          '" style="max-width:90px"></div>';
+      });
+    h += '</div></div>';
+    return h;
+  }
+  // Preços e finanças (Dashboard › Preços): meta, faixas e rateio das contas. Os campos usam data-aj e valem em qualquer tela.
+  function precosCfgHtml() {
+    var h = '';
     // meta
     h +=
       '<section class="card col"><h2 style="margin:0;font-size:16px">Meta do mês</h2><div><div class="lbl">Lucro livre desejado no mês, loja toda (US$)</div><input class="in" inputmode="decimal" data-aj="meta" value="' +
       usdParaCampo(S.metaUsd) +
       '" placeholder="Ex.: ' + usdParaCampo(600) + '" style="max-width:220px"></div></section>';
-    // cidade da nota fiscal
-    h +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Nota fiscal</h2><div><div class="lbl">Cidade que sai na nota</div><input class="in" data-aj="cidade" value="' +
-      esc(S.notaCidade || 'CDE') +
-      '" placeholder="CDE" style="max-width:220px" autocomplete="off"></div></section>';
     // faixas
     h +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Faixas</h2><div class="hint" style="margin:2px 0 0">Você cria e nomeia. A margem é o lucro mínimo desejado sobre o preço de venda e define o piso. O preço de cada produto é definido no próprio produto (aba Produtos).</div></div>';
@@ -22996,6 +23181,28 @@
       '.</div><div style="margin-top:8px"><button class="chip' +
       (S.volAuto !== false ? ' on' : '') +
       '" data-act="volauto">Calcular pelas vendas reais</button></div><div class="hint">Com 2 meses de vendas (pelo menos 20 peças), o app passa a usar a média real.</div></div>' +
+      precosMetaHtml() +
+      '</section>';
+    return h;
+  }
+  // Monta a aba Ajustes.
+  function renderAjustes() {
+    var el = $('v-ajustes');
+    if (S.view !== 'ajustes') return;
+    var ae = document.activeElement;
+    if (!S._ajForce && ae && ae.tagName === 'INPUT' && el.contains(ae)) return;
+    S._ajForce = false;
+    var h =
+      '<div class="top"><div><h1>Ajustes</h1><div class="crumb">Nota fiscal, lembretes, segurança e cópias</div></div></div>';
+    if (S.ajMsg) h += '<div class="note n-ok" role="status">' + esc(S.ajMsg) + '</div>';
+    // cidade da nota fiscal
+    h +=
+      '<section class="card col"><h2 style="margin:0;font-size:16px">Nota fiscal</h2><div><div class="lbl">Cidade que sai na nota</div><input class="in" data-aj="cidade" value="' +
+      esc(S.notaCidade || 'CDE') +
+      '" placeholder="CDE" style="max-width:220px" autocomplete="off"></div></section>';
+    // contagem de estoque
+    h +=
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Contagem de estoque</h2></div>' +
       '<div><div class="lbl">Diferença de contagem tolerada (US$)</div><input class="in" inputmode="decimal" data-aj="tol" value="' +
       usdParaCampo(S.tolUsd) +
       '" style="max-width:160px"><div class="hint">Na contagem de estoque, diferenças até esse valor ficam marcadas como perda aceita.</div></div></section>';
@@ -23009,7 +23216,7 @@
     el.innerHTML = h;
   }
   // Recalcula e salva uma alteração feita na aba Ajustes.
-  $('v-ajustes').addEventListener('change', function (e) {
+  document.addEventListener('change', function (e) {
     var t = e.target,
       k = t.getAttribute && t.getAttribute('data-aj');
     if (!k) return;
@@ -23031,9 +23238,20 @@
     }
     if (k === 'vol') S.volume = Math.max(1, toNum(t.value) || S.volume);
     if (k === 'tol') S.tolUsd = campoParaUsd(t.value);
+    if (k === 'mdia') {
+      var tv = Math.max(0, numIn(t.value) || 0);
+      if (tv > 0) S.metaDia[t.getAttribute('data-tipo')] = tv;
+      else delete S.metaDia[t.getAttribute('data-tipo')];
+    }
+    if (k === 'dias') S.diasLoja = Math.max(1, Math.min(31, Math.round(numIn(t.value)) || 26));
+    if (k === 'flim') {
+      if (!S.faixaAuto) S.faixaAuto = { on: true, lim: [4, 10] };
+      S.faixaAuto.lim = (S.faixaAuto.lim || []).slice();
+      S.faixaAuto.lim[+t.getAttribute('data-i')] = Math.max(0, numIn(t.value) || 0);
+    }
     render();
   });
-  $('v-ajustes').addEventListener('input', function (e) {
+  document.addEventListener('input', function (e) {
     if (e.target.id === 'fnew') S.fnewTxt = e.target.value;
   });
   S.fDelConf = '';
@@ -23143,6 +23361,19 @@
     exigirAuth(function () {
       bkFile.click();
     });
+  };
+  ACT.ratsel = function (id) {
+    S.rateio = id === 'custo' ? 'custo' : 'peca';
+    S._ajForce = true;
+    saveSoon();
+    render();
+  };
+  ACT.faixaauto = function () {
+    if (!S.faixaAuto) S.faixaAuto = { on: false, lim: [4, 10] };
+    S.faixaAuto.on = !S.faixaAuto.on;
+    S._ajForce = true;
+    saveSoon();
+    render();
   };
   ACT.volauto = function () {
     S.volAuto = S.volAuto === false;
@@ -25534,12 +25765,11 @@
       livre = 0,
       piso = 0,
       trava = 0,
-      cp = contasPeca(),
       pct = colchao().pct;
     S.cart.forEach(function (l, i) {
       var w = sub > 0 ? cartLinhaPreco(l) / sub : 1 / S.cart.length,
         pp = pisoPeca(l.it);
-      livre += calcSale(tFor(l.it), l.qty, S.fx.pyg, pct, cp, S.melhPeca, Math.round(eff * w), i === 0 ? bu : 0).livre;
+      livre += calcSale(tFor(l.it), l.qty, S.fx.pyg, pct, contasPeca(l.it), S.melhPeca, Math.round(eff * w), i === 0 ? bu : 0).livre;
       piso += pp.piso * l.qty;
       trava += pp.trava * l.qty;
     });
@@ -26643,6 +26873,8 @@
   function primeiroUso() {
     zerarDados();
     if (SEED_TXT) restaurarDados(SEED_TXT);
+    S.rateio = 'custo';
+    S.faixaAuto = { on: true, lim: [4, 10] };
     S.view = 'dash';
     saveSoon();
   }
@@ -26828,6 +27060,10 @@
       'esgDesde',
       'vitPend',
       'vitHash',
+      'metaDia',
+      'diasLoja',
+      'rateio',
+      'faixaAuto',
       'vModo',
       'novoEm',
       'novoBase',
@@ -26971,6 +27207,6 @@
       lotesHist: lotesHist, periodSales: periodSales, sumBy: sumBy, saveSoon: saveSoon, mkMatch: mkMatch,
       setView: setView, whiten: whiten, mkCanvas: mkCanvas, lancarCompra: lancarCompra,
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
-      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
+      desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar
     };
 })();
