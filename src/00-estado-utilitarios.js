@@ -65,6 +65,8 @@
     pnome: {},
     attr: {},
     site: {},
+    cad: {},
+    cadInit: false,
     num: {},
     numNext: 0,
     pnAuto: {},

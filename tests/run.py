@@ -108,6 +108,25 @@ TESTES = [
    S.vitrine=[a.ref,b.ref]; S.nuvem.rt='x'; const calls=[]; window.fetch=(u,o)=>{calls.push([u,o&&o.body]); return Promise.resolve({ok:true,status:200,json:()=>Promise.resolve({}),text:()=>Promise.resolve('{}')})};
    return L.nvDestaque().then(()=>{ const c0=calls.filter(x=>/dauto/.test(x[0])); const body=c0.length?JSON.parse(c0[0][1]).fields:{};
      const refs=(body.dauto||{}).stringValue||''; return L.nvDestaque().then(()=>[c0.length, refs===b.ref+','+a.ref, refs.indexOf(c.ref)<0, calls.filter(x=>/dauto/.test(x[0])).length])})""", [1, True, True, 1]),
+ ("site: o app publica o produto completo (cores com foto, estoque por cor, aviso automático)", """
+   L.primeiroUso(); S.items.length=0; S.fotos={}; S.site={}; S.vitPend={}; S.cad={}; S.pprice={};
+   const mk=(cor,qty)=>({tipo:'sem',ref:'ZZ100',grau:'',cor,qty,fmt:'',med:'53□18-140',vr:'',custo:2}); S.items.push(mk('Preto',1), mk('Rosa',0), mk('Azul',5)); S.items[0].qty=2; S.items[2].qty=0;
+   S.attr.ZZ100={material:'Metal', publico:'Feminino', formato:'Gatinho'};
+   ['Preto','Rosa','Azul'].forEach(c=>{S.fotos['ZZ100|'+c]='data:image/png;base64,'+c});
+   const ok0=L.siteSet('ZZ100',true); S.nuvem.rt='x'; S.tipos&&0;
+   const p=L.vitProduto('ZZ100'); const av=L.siteAviso('ZZ100');
+   const calls=[]; window.fetch=(u,o)=>{calls.push([u,o&&o.method,o&&o.body]); return Promise.resolve({ok:true,status:200,json:()=>Promise.resolve({}),text:()=>Promise.resolve('{}')})};
+   S.cad.ZZ100=0; S.items.forEach(i=>{ if(i.cor==='Preto') i.qty=9 });
+   const av2=L.siteAviso('ZZ100'); S.cad.ZZ100=Date.now(); const av3=L.siteAviso('ZZ100'); S.cad.ZZ100=0; S.items.find(i=>i.cor==='Preto').qty=2;
+   return L.vitSync().then(()=>{ const pr=calls.filter(x=>/produtos\/ZZ100/.test(x[0])&&x[1]==='PATCH'); const fo=calls.filter(x=>/fotos\/ZZ100/.test(x[0])).length;
+     const f=pr.length?JSON.parse(pr[0][2]).fields:{}; const cn=((f.cn||{}).arrayValue||{}).values||[];
+     return [ok0, p.cn.join(','), p.qs.join(','), p.med.join(','), p.rosto.join(','), av, av2, av3, pr.length, fo, cn.length, !!(f.lib||{}).booleanValue]})""", [True, 'Preto,Rosa,Azul', '2,0,0', '53,18,140', 'oval,coracao', 'Últimas 2 unidades', '', 'Chegou esta semana', 1, 3, 3, True]),
+ ("oferta: data final vencida volta ao preço anterior; sem data continua", """
+   L.primeiroUso(); const r1=S.items[0].ref, r2=S.items[1].ref; S.pprice={};
+   S.pprice[r1]={ant:100000,novo:80000,ate:Date.now()-1000}; S.pprice[r2]={ant:90000,novo:70000};
+   const ch=L.ofertaManut(); const a=S.pprice[r1], b=S.pprice[r2];
+   S.pprice[r1]={ant:100000,novo:80000,ate:Date.now()+864e5}; const ch2=L.ofertaManut();
+   return [ch, a.novo, a.ant===undefined, a.ate===undefined, b.ant, b.novo, ch2, S.pprice[r1].novo]""", [True, 100000, True, True, 90000, 70000, False, 80000]),
  ("PIN: guarda só o resumo e confere", """
    return L.hashPin('1234','sal').then(h=>L.hashPin('1234','sal').then(h2=>L.hashPin('1235','sal').then(h3=>[h===h2, h!==h3, h.indexOf('1234')<0])))""", [True, True, True]),
  ("PIN: resumo novo lento (p2) e quem tinha o antigo é atualizado ao entrar", """
@@ -403,6 +422,17 @@ async def main():
             depois = await pg.evaluate("() => window.__LF.S.items.filter(i => i.ref === 'BR44118').map(i => [i.cor, i.qty, i.custo])")
             fechou = await pg.locator('#editModal').count() == 0
             await checa('janela Editar: quantidade e custo só valem ao salvar', ok and antes[0][1] == 4 and depois == [['Preto', 9, 5], ['Bege', 4, 2.5], ['Tartaruga', 2, None]] and fechou, [antes, depois, fechou])
+
+            # Oferta no Inventário: descontos prontos, aviso de piso e encerrar
+            pg = await abrir('sem', 'Hexagonal')
+            await pg.evaluate("() => { const S = window.__LF.S; S.pprice = {}; window.__LF.render(); }"); await pg.wait_for_timeout(300)
+            tem = await pg.evaluate("() => !!document.getElementById('ofCard')")
+            await pg.locator('#ofCard button:has-text("−20%")').click(); await pg.wait_for_timeout(300)
+            of1 = await pg.evaluate("() => { const o = window.__LF.S.pprice['BR44118']; return o ? [o.ant > o.novo, Math.round((1 - o.novo / o.ant) * 100)] : null }")
+            tem2 = await pg.evaluate("() => [!!document.getElementById('ofAte'), !!document.getElementById('ofFim')]")
+            await pg.locator('#ofFim').click(); await pg.wait_for_timeout(300)
+            of2 = await pg.evaluate("() => { const o = window.__LF.S.pprice['BR44118']; return o ? o.ant === undefined : true }")
+            await checa('oferta: descontos prontos, data opcional e encerrar volta ao preço anterior', tem and of1 and of1[0] and 19 <= of1[1] <= 21 and tem2 == [True, True] and of2, [tem, of1, tem2, of2])
 
             # Liberar para o site: só com foto em todas as cores
             pg = await abrir('sem', 'Hexagonal')

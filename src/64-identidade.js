@@ -123,7 +123,12 @@
       if (!i.ref || i.bulk || seen[i.ref]) return;
       seen[i.ref] = 1;
       if (!S.num[i.ref]) S.num[i.ref] = S.numNext = (S.numNext || 0) + 1;
+      // data do cadastro do modelo (conta o "chegou esta semana"); o que já existia antes disto não é novo
+      if (!S.cad) S.cad = {};
+      if (S.cad[i.ref] == null) S.cad[i.ref] = S.cadInit ? Date.now() : 0;
     });
+    S.cadInit = true;
+    if (typeof ofertaManut === 'function') ofertaManut();
     Object.keys(S.attr || {}).forEach(function (ref) {
       if (!seen[ref]) return;
       var auto = nomeAuto(ref);
@@ -144,7 +149,7 @@
     });
   }
   function identMove(a, b) {
-    ['attr', 'site', 'num', 'pnAuto', 'descAuto'].forEach(function (k) {
+    ['attr', 'site', 'cad', 'num', 'pnAuto', 'descAuto'].forEach(function (k) {
       if (S[k] && S[k][a] != null) {
         S[k][b] = S[k][a];
         delete S[k][a];

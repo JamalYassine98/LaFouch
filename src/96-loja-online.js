@@ -21,8 +21,9 @@
       render();
     };
   }
+  /* a vitrine é o que o dono liberou no Inventário (S.site); S.vitrine é só a lista derivada */
   function vitRefs() {
-    return Array.isArray(S.vitrine) ? S.vitrine : (S.vitrine = []);
+    return (S.vitrine = Object.keys(S.site || {}));
   }
   function vitDias() {
     return S.vitDias > 0 ? S.vitDias : 14;
@@ -50,11 +51,8 @@
         S.esgDesde[ref] = Date.now();
         ch = true;
       } else if (Date.now() - S.esgDesde[ref] > vitDias() * 864e5) {
-        S.vitrine = vitRefs().filter(function (r) {
-          return r !== ref;
-        });
         delete S.esgDesde[ref];
-        vitFila(ref, 'del');
+        siteSet(ref, false);
         ch = true;
       }
     });
@@ -80,32 +78,70 @@
     });
     return JSON.stringify({ fields: f });
   }
+  // aviso automático do cartão (nunca escolhido à mão): esgotado > últimas unidades > chegou esta semana
+  function siteAviso(ref) {
+    var e = estoqueDoRef(ref);
+    if (e <= 0) return 'Esgotado';
+    if (e === 1) return 'Última unidade';
+    if (e <= 3) return 'Últimas ' + e + ' unidades';
+    var c = (S.cad && S.cad[ref]) || 0;
+    return c && Date.now() - c < 7 * 864e5 ? 'Chegou esta semana' : '';
+  }
+  var RAIO_DE = { Redondo: 40, Quadrado: 8, Retangular: 6, Gatinho: 22, Aviador: 30, Oval: 26, Hexagonal: 20 };
+  // "53□18-140" → [53, 18, 140]; sem medidas válidas devolve []
+  function parseMed(t) {
+    var m = String(t || '').match(/(\d{2})\D{1,3}(\d{1,2})\D{1,3}(\d{3})/);
+    return m ? [+m[1], +m[2], +m[3]] : [];
+  }
+  function fotoHash(u) {
+    var h = u ? u.length : 0;
+    for (var i = 0; i < (u || '').length; i += 97) h = (h * 31 + u.charCodeAt(i)) >>> 0;
+    return h;
+  }
+  // cores que vão para o site: só as que têm foto; as com estoque primeiro (a primeira é a foto do cartão)
+  function vitCores(ref) {
+    return siteCores(ref)
+      .filter(function (c) {
+        return c.foto;
+      })
+      .sort(function (x, y) {
+        return (y.qty > 0) - (x.qty > 0);
+      })
+      .slice(0, 8);
+  }
   function vitProduto(ref) {
     var v = vitInfo(ref),
       a = attrOf(ref),
       pp = S.pprice && S.pprice[ref],
-      ord = vitRefs().indexOf(ref) + 1,
-      solar = v.tipo === 'solar';
+      solar = v.tipo === 'solar',
+      cs = vitCores(ref);
     return {
       ref: ref,
       nome: v.nome,
       tipo: solar ? 'solar' : v.tipo === 'pre' ? 'grau' : 'armacao',
       n: v.preco || 0,
       de: pp && pp.ant > v.preco ? pp.ant : 0,
-      aviso: v.est === 1 ? 'Última unidade' : '',
-      tag: solar ? 'SOLAR' : 'ARMAÇÃO',
-      mat: a.material || 'Acetato',
+      est: v.est,
+      aviso: siteAviso(ref),
+      tag: solar ? 'SOLAR' : v.tipo === 'pre' ? 'GRAU' : 'ARMAÇÃO',
+      mat: a.material || '',
       gen: a.publico === 'Masculino' ? 'm' : a.publico === 'Feminino' ? 'f' : 'u',
-      cor: '#2a2d33',
-      cores: ['#2a2d33'],
-      raio: 14,
-      med: [52, 19, 145],
-      rosto: ['oval'],
-      rank: 0,
-      oculto: false,
-      fv: Math.floor(Date.now() / 1000),
-      ord: ord,
-      uv: solar
+      cor: cs.length ? hexOf(cs[0].cor) : '#2a2d33',
+      cores: cs.map(function (c) {
+        return hexOf(c.cor);
+      }),
+      cn: cs.map(function (c) {
+        return c.cor;
+      }),
+      qs: cs.map(function (c) {
+        return c.qty;
+      }),
+      raio: RAIO_DE[a.formato] != null ? RAIO_DE[a.formato] : 14,
+      med: parseMed(v.it && v.it.med),
+      rosto: ROSTO_DE[a.formato] || ['oval'],
+      uv: solar,
+      cad: (S.cad && S.cad[ref]) || 0,
+      lib: true
     };
   }
   function vitFila(ref, op) {
@@ -113,102 +149,88 @@
     S.vitPend[ref] = op;
     saveSoon();
   }
-  // O site manda na LISTA de produtos (o painel cria, esconde e apaga); o app manda no PREÇO e no ESTOQUE.
-  // A cada minuto: lê o que está no site, guarda quais códigos existem no Inventário e enfileira só o que mudou (n, de, est).
-  function vitEstadoAviso(est) {
-    return est <= 0 ? 'Esgotado' : est === 1 ? 'Última unidade' : '';
+  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'fv'];
+  function vitFotos(ref) {
+    return vitCores(ref).map(function (c) {
+      return S.fotos[ref + '|' + c.cor];
+    });
   }
+  function vitSig(ref) {
+    var o = vitProduto(ref);
+    o.fv = vitFotos(ref).map(fotoHash).join('.');
+    return o;
+  }
+  // A cada minuto: o app compara o que está liberado com o que já foi enviado e enfileira só o que mudou.
   function vitConfere() {
-    if (vitConfere.busy || !S.nuvem || !S.nuvem.rt || navigator.onLine === false) return Promise.resolve();
-    vitConfere.busy = true;
-    return nvApi('GET', 'produtos?pageSize=300')
-      .then(function (j) {
-        var lista = [],
-          ch = false;
-        if (!S.vitAv) S.vitAv = {};
-        if (!S.vitPend) S.vitPend = {};
-        (j.documents || []).forEach(function (d) {
-          var f = d.fields || {},
-            ref = d.name.split('/').pop(),
-            num = function (k) {
-              return +((f[k] || {}).integerValue || (f[k] || {}).doubleValue) || 0;
-            };
-          if (!itemDoRef(ref)) return;
-          lista.push({ ref: ref, ord: num('ord') });
-          if (S.vitPend[ref] === 'del') return;
-          var o = vitProduto(ref),
-            e = estoqueDoRef(ref),
-            st = vitEstadoAviso(e),
-            avSite = (f.aviso || {}).stringValue || '',
-            pend = !!(f.pend || {}).booleanValue,
-            mudou = o.n > 0 && (pend || num('n') !== o.n || num('de') !== o.de || (f.est === undefined ? true : num('est') !== e)),
-            mudouAv = S.vitAv[ref] === undefined ? st === 'Esgotado' && avSite !== 'Esgotado' : S.vitAv[ref] !== st;
-          if (S.vitAv[ref] === undefined) {
-            S.vitAv[ref] = st;
-            ch = true;
-          }
-          if ((mudou || mudouAv) && S.vitPend[ref] !== 'upd+av') {
-            S.vitPend[ref] = mudouAv ? 'upd+av' : S.vitPend[ref] || 'upd';
-            ch = true;
-          }
-        });
-        lista.sort(function (a, b) {
-          return a.ord - b.ord;
-        });
-        var refs = lista.map(function (x) {
-          return x.ref;
-        });
-        if (refs.join('|') !== vitRefs().join('|')) {
-          S.vitrine = refs;
-          ch = true;
-        }
-        if (ch) saveSoon();
-      })
-      .catch(function () {})
-      .then(function () {
-        vitConfere.busy = false;
-        return vitSync();
-      });
+    if (!S.nuvem || !S.nuvem.rt || navigator.onLine === false) return Promise.resolve();
+    if (!vitConfere.sig) vitConfere.sig = {};
+    Object.keys(S.site || {}).forEach(function (ref) {
+      if (!itemDoRef(ref)) {
+        delete S.site[ref];
+        vitFila(ref, 'del');
+        return;
+      }
+      if (S.vitPend && S.vitPend[ref]) return;
+      if (!(vitProduto(ref).n > 0)) return;
+      var sg = JSON.stringify(vitSig(ref));
+      if (vitConfere.sig[ref] !== sg) vitFila(ref, 'upd');
+    });
+    return vitSync();
   }
   setTimeout(vitConfere, 25000);
   setInterval(vitConfere, 60000);
+  function vitDocBody(ref, o) {
+    var f = {};
+    VIT_CAMPOS.forEach(function (k) {
+      f[k] = o[k];
+    });
+    // versão das fotos (número inteiro, o site só compara se mudou)
+    f.fv = vitFotos(ref).reduce(function (h, u) {
+      return (h * 31 + fotoHash(u)) >>> 0;
+    }, 7);
+    return f;
+  }
   function vitSync() {
     var pend = S.vitPend || {},
       refs = Object.keys(pend);
     if (!refs.length || !S.nuvem || !S.nuvem.rt || navigator.onLine === false || vitSync.busy || Date.now() - (vitSync.fail || 0) < 60000) return Promise.resolve();
     vitSync.busy = true;
+    if (!S.vitFoto) S.vitFoto = {};
     return refs
       .reduce(function (p, ref) {
         return p.then(function () {
           var op = pend[ref];
-          if (op === 'del')
-            return nvApi('DELETE', 'produtos/' + ref).then(function () {
-              return nvApi('DELETE', 'fotos/' + ref).catch(function () {});
+          if (op === 'del' || !S.site || !S.site[ref]) {
+            var dels = [nvApi('DELETE', 'produtos/' + ref).catch(function () {})];
+            for (var k = 0; k < 8; k++) dels.push(nvApi('DELETE', 'fotos/' + ref + (k ? '~' + k : '')).catch(function () {}));
+            return Promise.all(dels).then(function () {
+              delete S.vitFoto[ref];
             });
-          var u = vitProduto(ref),
-            e = estoqueDoRef(ref),
-            st = vitEstadoAviso(e),
-            campos = { n: u.n, de: u.de, est: e, pend: false },
-            mask = ['n', 'de', 'est', 'pend'];
-          if (!(u.n > 0)) return Promise.resolve();
-          if (op === 'upd+av') {
-            campos.aviso = st;
-            mask.push('aviso');
           }
-          return nvApi(
-            'PATCH',
-            'produtos/' + ref + '?currentDocument.exists=true&' + mask.map(function (m) { return 'updateMask.fieldPaths=' + m; }).join('&'),
-            vBody(campos)
-          ).then(
-            function () {
-              if (!S.vitAv) S.vitAv = {};
-              S.vitAv[ref] = st;
-            },
-            function (er) {
-              if (er && er.status === 404) return; // o painel apagou: nada a atualizar
-              throw er;
-            }
-          );
+          var u = vitProduto(ref);
+          if (!(u.n > 0)) return Promise.resolve();
+          var fs = vitFotos(ref),
+            body = vitDocBody(ref, u),
+            sg = JSON.stringify(vitSig(ref)),
+            hs = fs.map(fotoHash).join('.');
+          var envia = S.vitFoto[ref] === hs ? Promise.resolve() : fs.reduce(function (q, d, i) {
+            return q.then(function () {
+              return nvApi('PATCH', 'fotos/' + ref + (i ? '~' + i : ''), vBody({ d: d }));
+            });
+          }, Promise.resolve());
+          return envia
+            .then(function () {
+              S.vitFoto[ref] = hs;
+              return nvApi(
+                'PATCH',
+                'produtos/' + ref + '?' + VIT_CAMPOS.map(function (m) { return 'updateMask.fieldPaths=' + m; }).join('&') + '&updateMask.fieldPaths=ref',
+                vBody(Object.assign({ ref: ref }, body))
+              );
+            })
+            .then(function () {
+              if (!vitConfere.sig) vitConfere.sig = {};
+              vitConfere.sig[ref] = sg;
+            });
         }).then(function () {
           delete S.vitPend[ref];
           saveSoon();

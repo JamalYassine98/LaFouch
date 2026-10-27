@@ -102,7 +102,10 @@
           if (v > 0) o.novo = v;
           else delete o.novo;
         } else if (v > 0) o.ant = v;
-        else delete o.ant;
+        else {
+          delete o.ant;
+          delete o.ate;
+        }
         if (o.novo || o.ant) S.pprice[ref] = o;
         else delete S.pprice[ref];
         saveSoon();
@@ -163,7 +166,109 @@
       }
     }
     wrap.appendChild(c1);
+    wrap.appendChild(ofertaCard(ref, atual, pr, ps));
     return wrap;
+  }
+
+  // ---------- oferta: o Inventário manda; o app avisa piso/trava e publica no catálogo e no site
+  function ofertaFim(ref) {
+    var o = S.pprice[ref];
+    if (!o || !(o.ant > 0)) return;
+    o.novo = o.ant;
+    delete o.ant;
+    delete o.ate;
+    if (!o.novo) delete S.pprice[ref];
+    saveSoon();
+  }
+  // Oferta com data final já vencida volta ao preço anterior sozinha (só o dono vê a data; o cliente vê "em oferta").
+  function ofertaManut() {
+    var ch = false;
+    Object.keys(S.pprice || {}).forEach(function (ref) {
+      var o = S.pprice[ref];
+      if (o && o.ate > 0 && Date.now() > o.ate) {
+        ofertaFim(ref);
+        ch = true;
+      }
+    });
+    return ch;
+  }
+  function ofertaCard(ref, atual, pr, ps) {
+    var c = mk('div', 'zcd');
+    c.id = 'ofCard';
+    var emOf = pr.ant > atual && atual > 0;
+    c.appendChild(mk('div', 'lbl', 'Oferta'));
+    if (!(atual > 0)) {
+      c.appendChild(mk('div', 'hint', 'Defina o preço do produto para poder fazer uma oferta.'));
+      return c;
+    }
+    var pct = emOf ? Math.round((1 - atual / pr.ant) * 100) : 0;
+    c.appendChild(
+      mk('div', emOf ? 'note n-ok' : 'hint', emOf ? 'Em oferta: ' + gs(pr.ant) + ' → ' + gs(atual) + ' (−' + pct + '%). O catálogo e o site mostram "em oferta".' : 'Sem oferta. Escolha um desconto; o app avisa se passar do piso.')
+    );
+    var ch = mk('div', '');
+    ch.style.cssText = 'display:flex;gap:6px;flex-wrap:wrap;margin-top:8px';
+    var base = emOf ? pr.ant : atual;
+    [10, 15, 20, 30].forEach(function (d) {
+      ch.appendChild(
+        btn('chip' + (emOf && pct === d ? ' on' : ''), '−' + d + '%', function () {
+          var o = S.pprice[ref] || {};
+          o.ant = base;
+          o.novo = Math.round((base * (1 - d / 100)) / 1000) * 1000;
+          S.pprice[ref] = o;
+          saveSoon();
+          render();
+        })
+      );
+    });
+    if (ps && ps.pp && ps.pp.piso > 0 && ps.pp.piso < base) {
+      ch.appendChild(
+        btn('chip', 'Até o piso', function () {
+          var o = S.pprice[ref] || {};
+          o.ant = base;
+          o.novo = Math.round(ps.pp.piso / 1000) * 1000 < ps.pp.piso ? Math.ceil(ps.pp.piso / 1000) * 1000 : ps.pp.piso;
+          S.pprice[ref] = o;
+          saveSoon();
+          render();
+        })
+      );
+    }
+    c.appendChild(ch);
+    if (ps && ps.st === 'w')
+      c.appendChild(mk('div', 'note n-warn', 'Atenção: abaixo do piso (' + gs(ps.pp.piso) + '). A venda ainda dá lucro, mas menor que o previsto.'));
+    if (ps && ps.st === 'r')
+      c.appendChild(mk('div', 'note n-bad', 'Cuidado: abaixo do custo (' + gs(ps.pp.trava) + '). Essa oferta dá prejuízo.'));
+    if (emOf) {
+      var lb = mk('div', 'zlb', 'TERMINA EM (OPCIONAL · SÓ VOCÊ VÊ)');
+      lb.style.marginTop = '10px';
+      c.appendChild(lb);
+      var di = mk('input', 'in');
+      di.type = 'date';
+      di.id = 'ofAte';
+      di.setAttribute('aria-label', 'Data em que a oferta termina');
+      if (pr.ate > 0) {
+        var d0 = new Date(pr.ate);
+        di.value = d0.getFullYear() + '-' + ('0' + (d0.getMonth() + 1)).slice(-2) + '-' + ('0' + d0.getDate()).slice(-2);
+      }
+      di.onchange = function () {
+        var o = S.pprice[ref] || {};
+        if (di.value) {
+          var p = di.value.split('-');
+          o.ate = new Date(+p[0], +p[1] - 1, +p[2], 23, 59, 59).getTime();
+        } else delete o.ate;
+        S.pprice[ref] = o;
+        saveSoon();
+        render();
+      };
+      c.appendChild(di);
+      var fim = btn('chip', 'Encerrar oferta (voltar a ' + gs(pr.ant) + ')', function () {
+        ofertaFim(ref);
+        render();
+      });
+      fim.id = 'ofFim';
+      fim.style.marginTop = '10px';
+      c.appendChild(fim);
+    }
+    return c;
   }
 
   // ---------- seleção em grupo
