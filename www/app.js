@@ -25005,7 +25005,13 @@
     if (!notaAtual) return notaFechar();
     notaConfirma('Fechar sem imprimir a nota?', 'A venda já está registrada. Se o cliente quiser nota, volte e imprima agora.', 'Fechar sem imprimir', 'notaSair');
   };
+  // Pergunta antes de imprimir, para um toque sem querer não gastar papel.
   ACT.notaImp = function () {
+    if (!notaAtual || vcfBusy) return;
+    notaConfirma('Imprimir a nota?', 'A nota será enviada para a impressora agora.', 'Imprimir', 'notaImpOk');
+  };
+  ACT.notaImpOk = function () {
+    $('notaCf').hidden = true;
     var n = notaAtual,
       pb = $('notaPrint'),
       ov = $('notaOv'),

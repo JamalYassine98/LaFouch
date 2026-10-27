@@ -582,9 +582,9 @@ async def main():
             a = [await pg.locator('#notaOv').is_visible(), 'Sin nombre' in tx, 'RUC: X' in tx, 'Ciudad: CDE' in tx, 'Armazón' in tx, '50.000' in tx, '4.545' in tx, await pg.locator('[data-act=notaImp]').count()]
             await pg.click('[data-act=notaX]'); b1 = await pg.locator('#notaCf').is_visible()
             await pg.click('[data-act=notaVolta]'); b2 = await pg.locator('#notaCf').is_hidden() and await pg.locator('#notaOv').is_visible()
-            await pg.click('[data-act=notaImp]'); await pg.wait_for_timeout(2200); b3 = await pg.locator('#notaCf').is_hidden()
+            await pg.click('[data-act=notaImp]'); await pg.wait_for_timeout(200); b3a = await pg.locator('#notaCf').is_visible(); await pg.click('[data-act=notaImpOk]'); await pg.wait_for_timeout(2200); b3 = await pg.locator('#notaCf').is_hidden()
             c1 = [await pg.locator('#notaOv').is_hidden(), 'Sin nombre' in await pg.evaluate('() => window.__imp || ""')]
-            ok = a == [True, True, True, True, True, True, True, 1] and b1 and b2 and b3 and c1 == [True, True]
+            ok = a == [True, True, True, True, True, True, True, 1] and b1 and b2 and b3a and b3 and c1 == [True, True]
             print(('  ok  ' if ok else ' FALHA ') + 'venda sem cliente: nota Sin nombre / X / CDE, imprime direto e confirma ao fechar sem imprimir')
             if not ok: falhas.append('nota sem cliente'); print('        veio', a, b1, b2, b3, c1, pg.erros)
             total += 1
@@ -767,10 +767,10 @@ async def main():
             await pg.wait_for_timeout(300); a0 = await pg.evaluate("() => [!!document.querySelector('.vcc.done'), document.querySelectorAll('.vst.on').length]")
             await pg.wait_for_timeout(1200); a1 = await pg.evaluate("() => [!!document.querySelector('.vcc.done'), document.querySelectorAll('.vst.on').length]")
             await pg.wait_for_timeout(2200); a2 = await pg.evaluate("() => [document.querySelectorAll('.vst.on').length, document.querySelectorAll('.vst').length, document.querySelector('.vx').classList.contains('on'), document.getElementById('vtot').textContent]")
-            await pg.click('[data-act=notaImp]'); await pg.wait_for_timeout(150); a3 = await pg.evaluate("() => [document.querySelector('[data-act=notaImp]').textContent, !document.getElementById('notaCf').hidden]")
+            await pg.click('[data-act=notaImp]'); await pg.wait_for_timeout(150); await pg.click('[data-act=notaImpOk]'); await pg.wait_for_timeout(150); a3 = await pg.evaluate("() => [document.querySelector('[data-act=notaImp]').textContent, !document.getElementById('notaCf').hidden]")
             await pg.wait_for_timeout(1500); a4 = await pg.evaluate("() => [document.getElementById('notaOv').hidden, window.__imp.indexOf('María') >= 0 || window.__imp.indexOf('Maria') >= 0, document.getElementById('lfToast').textContent]")
             ok = a0 == [False, 0] and a1[0] and 0 < a1[1] < a2[1] and a2[0] == a2[1] and a2[2] and '50.000' in a2[3] and 'Enviando' in a3[0] and not a3[1] and a4[0] and a4[1] and 'Venda registrada' in a4[2]
-            print(('  ok  ' if ok else ' FALHA ') + 'venda confirmada: círculo gira, ✓, itens entram um a um, Imprimir direto sem pergunta e volta ao balcão')
+            print(('  ok  ' if ok else ' FALHA ') + 'venda confirmada: círculo gira, ✓, itens entram um a um, Imprimir pergunta antes (confirmação) e volta ao balcão')
             if not ok: falhas.append('venda confirmada anim'); print('        veio', a0, a1, a2, a3, a4, pg.erros)
             await pg.close()
 

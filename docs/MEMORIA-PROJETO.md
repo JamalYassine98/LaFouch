@@ -94,3 +94,7 @@ Implementado só o pedido: botão $ no cabeçalho da tela Vender abre a janela "
 ## v338 (27/10/2026) — Pedidos do site não chegavam
 Sintoma: site mostra "Pedido recebido", mas nada no app (nem notificação, nem Pedidos online). Sem acesso ao Firestore daqui (rede bloqueada), então: (1) busca travada não bloqueia mais as próximas (trava de 30 s); (2) a tela Pedidos online mostra "Última busca às HH:MM" ou o erro real, com botão "Verificar agora". Possível causa: app sem login na nuvem (Ajustes → Nuvem) ou regra do Firestore bloqueando leitura. Aguardando o dono informar a mensagem exibida.
 IDEIA NOVA (17:25, NÃO implementar até ele autorizar): verificação do WhatsApp antes de fazer pedido no site, contra spam. Opções a mostrar: código por WhatsApp (precisa API paga/servidor), "toque para confirmar pelo WhatsApp", ou barreiras simples (número válido, limite por aparelho, campo isca).
+
+## v339 (27/10/2026)
+Imprimir nota: agora pergunta "Imprimir a nota?" (Imprimir / Voltar) antes de enviar à impressora.
+Site: dono escolheu a opção 3 (barreiras simples, número de WhatsApp válido). Mockup enviado; implementar no repo catalogo só após o ok.
