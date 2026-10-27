@@ -24,8 +24,9 @@
     return out;
   }
   // Abre a entrada rápida de um modelo que já está no estoque.
-  function quickOpen(ref) {
+  function quickOpen(ref, keepVr) {
     var ls = quickLinhas(ref);
+    if (!keepVr) S.lidoVr = '';
     if (!ls.length) return false;
     S.addOpen = true;
     S.addMode = 'quick';
@@ -239,14 +240,14 @@
     host.appendChild(go);
     var nv = btn('mini', pre ? 'Outra cor ou classe deste modelo' : 'Cor nova deste modelo', function () {
       var i0 = f0;
-      fillAdd(Object.assign(refInfo(i0.ref), { tipo: i0.tipo, ref: i0.ref, med: i0.med, fmt: i0.fmt, noQuick: 1 }));
+      fillAdd(Object.assign(refInfo(i0.ref), { tipo: i0.tipo, ref: i0.ref, med: i0.med, fmt: i0.fmt, vr: S.lidoVr || '', noQuick: 1 }));
       /* modelo que já existe: vai direto para Cores e fotos */
       S.nStep = 2;
       S.nCorOpen = true;
       S.nLido = false;
       NVC.cor = '';
       NVC.q = 1;
-      NVC.vr = '';
+      NVC.vr = S.lidoVr || '';
       NVC.fotoT = '';
       NVC.fotoH = '';
       render();
@@ -534,7 +535,35 @@
     try {
       var r = $('eRef').value.trim();
       if (!r) return;
-      S.rascunho = { tipo: S.tipo, ref: r, med: $('eMed').value.trim(), fmt: S.eFmt || '', cor: $('eCor').value.trim(), custo: $('eCusto').value.trim(), nome: $('eNome').value.trim(), ts: Date.now() };
+      var nv0 = null;
+      try {
+        nv0 = {
+          cor: NVC.cor,
+          q: NVC.q,
+          vr: NVC.vr,
+          grau: NVC.grau,
+          fotoT: NVC.fotoT || '',
+          fotoH: NVC.fotoH && NVC.fotoH.length < 350000 ? NVC.fotoH : ''
+        };
+      } catch (e0) {}
+      S.rascunho = {
+        tipo: S.tipo,
+        ref: r,
+        med: $('eMed').value.trim(),
+        fmt: S.eFmt || S._fmtUsed || '',
+        cor: $('eCor').value.trim(),
+        custo: $('eCusto').value.trim(),
+        nome: $('eNome').value.trim(),
+        mat: S.eMat || '',
+        pub: S.ePub || '',
+        faixa: S.eFaixa || '',
+        desc: ($('eDescP') && $('eDescP').value) || '',
+        vr: S.tipo === 'pre' ? S.eVarP || '' : S.eVar || '',
+        step: S.nStep === 2 ? 2 : 1,
+        corOpen: !!S.nCorOpen,
+        nvc: nv0,
+        ts: Date.now()
+      };
     } catch (e) {}
   }
   // Copia de outro modelo: formato, material (descrição), medidas, classe e custo.
@@ -605,7 +634,18 @@
     b.textContent = '';
     var c = btn('chip on', 'Continuar rascunho: ' + r.ref, function () {
       S.rascunho = null;
-      fillAdd({ tipo: r.tipo, ref: r.ref, med: r.med, fmt: r.fmt, cor: r.cor, custo: r.custo, nome: r.nome, noscroll: 1 });
+      fillAdd({ tipo: r.tipo, ref: r.ref, med: r.med, fmt: r.fmt, cor: r.cor, custo: r.custo, nome: r.nome, vr: r.vr, noscroll: 1 });
+      /* devolve também o que o fillAdd zera: material, gênero, faixa, descrição, etapa e a cor em andamento */
+      S.eMat = r.mat || '';
+      S.ePub = r.pub || '';
+      if (r.faixa) S.eFaixa = r.faixa;
+      if (r.desc && $('eDescP')) $('eDescP').value = r.desc;
+      if (r.nvc) Object.assign(NVC, r.nvc, { fotoCor: '' });
+      if (r.step === 2) {
+        S.nStep = 2;
+        S.nCorOpen = !!r.corOpen;
+      }
+      render();
     });
     c.style.cssText += ';width:100%;justify-content:center';
     b.appendChild(c);

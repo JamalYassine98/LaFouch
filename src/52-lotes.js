@@ -1699,7 +1699,7 @@
         readNota(f);
       },
       'Foto da nota do lote',
-      { gallery: true }
+      { gallery: true, doc: true }
     );
   };
   $('fileL').onchange = function (e) {

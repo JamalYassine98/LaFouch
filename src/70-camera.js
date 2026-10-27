@@ -220,6 +220,54 @@
     });
   }
   // Abre a câmera do app (com plano B se falhar).
+  // Endireita o papel: puxa o quadrilátero (cantos TL, TR, BR, BL em 0..1) para um retângulo.
+  function warpDoc(c, P) {
+    var w = c.width,
+      h = c.height,
+      cxm = P.reduce(function (a, p) { return a + p[0]; }, 0) / 4,
+      cym = P.reduce(function (a, p) { return a + p[1]; }, 0) / 4,
+      pt = P.map(function (p) {
+        return [(cxm + (p[0] - cxm) * 0.985) * w, (cym + (p[1] - cym) * 0.985) * h];
+      }),
+      dd = function (a, b) {
+        return Math.hypot(a[0] - b[0], a[1] - b[1]);
+      },
+      W = Math.round((dd(pt[0], pt[1]) + dd(pt[3], pt[2])) / 2),
+      H = Math.round((dd(pt[0], pt[3]) + dd(pt[1], pt[2])) / 2);
+    if (W < 120 || H < 120) return null;
+    var k = Math.min(1, 2000 / Math.max(W, H));
+    W = Math.round(W * k);
+    H = Math.round(H * k);
+    var src = c.getContext('2d').getImageData(0, 0, w, h).data,
+      out = mkCanvas(W, H),
+      ctx = out.getContext('2d'),
+      im = ctx.createImageData(W, H),
+      o = im.data,
+      i,
+      j,
+      ch;
+    for (j = 0; j < H; j++) {
+      var v = j / (H - 1);
+      for (i = 0; i < W; i++) {
+        var u = i / (W - 1),
+          x = (1 - v) * ((1 - u) * pt[0][0] + u * pt[1][0]) + v * ((1 - u) * pt[3][0] + u * pt[2][0]),
+          y = (1 - v) * ((1 - u) * pt[0][1] + u * pt[1][1]) + v * ((1 - u) * pt[3][1] + u * pt[2][1]),
+          x0 = Math.max(0, Math.min(w - 2, Math.floor(x))),
+          y0 = Math.max(0, Math.min(h - 2, Math.floor(y))),
+          fx = Math.max(0, Math.min(1, x - x0)),
+          fy = Math.max(0, Math.min(1, y - y0)),
+          a = (y0 * w + x0) * 4,
+          b = a + 4,
+          c2 = a + w * 4,
+          d2 = c2 + 4,
+          oi = (j * W + i) * 4;
+        for (ch = 0; ch < 4; ch++)
+          o[oi + ch] = (src[a + ch] * (1 - fx) + src[b + ch] * fx) * (1 - fy) + (src[c2 + ch] * (1 - fx) + src[d2 + ch] * fx) * fy;
+      }
+    }
+    ctx.putImageData(im, 0, 0);
+    return out;
+  }
   function camOpen() {
     try {
       camOpen0.apply(null, arguments);
@@ -309,6 +357,123 @@
     stg.appendChild(ring);
     stg.appendChild(tip);
     var LV = opts.live && !REDUCED ? leitorVisor(gd, stg) : null;
+    /* leitor de documento: acha o contorno do papel (região clara) e o acompanha, como câmera de scanner */
+    var DOC = null;
+    if (opts.doc) {
+      var NS = 'http://www.w3.org/2000/svg',
+        svg = document.createElementNS(NS, 'svg'),
+        pgn = document.createElementNS(NS, 'polygon'),
+        cvA = document.createElement('canvas'),
+        lastOk = 0;
+      svg.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none';
+      pgn.setAttribute('fill', 'rgba(47,224,143,.12)');
+      pgn.setAttribute('stroke', '#2fe08f');
+      pgn.setAttribute('stroke-width', '3');
+      pgn.setAttribute('stroke-linejoin', 'round');
+      pgn.style.display = 'none';
+      svg.appendChild(pgn);
+      stg.appendChild(svg);
+      var docAnalisa = function () {
+        if (!ov.isConnected) return clearInterval(docT);
+        var vw = vid.videoWidth,
+          vh = vid.videoHeight;
+        if (!vw || !vh || vid.paused || pv.style.display === 'block') return;
+        var W = 96,
+          H = Math.max(24, Math.round((W * vh) / vw)),
+          N = W * H;
+        cvA.width = W;
+        cvA.height = H;
+        var cx2 = cvA.getContext('2d', { willReadFrequently: true });
+        cx2.drawImage(vid, 0, 0, W, H);
+        var d = cx2.getImageData(0, 0, W, H).data,
+          L = new Uint8Array(N),
+          hist = new Array(256).fill(0),
+          i;
+        for (i = 0; i < N; i++) {
+          L[i] = (d[i * 4] * 0.3 + d[i * 4 + 1] * 0.59 + d[i * 4 + 2] * 0.11) | 0;
+          hist[L[i]]++;
+        }
+        var sum = 0,
+          sB = 0,
+          wB = 0,
+          mx = 0,
+          th = 128;
+        for (i = 0; i < 256; i++) sum += i * hist[i];
+        for (i = 0; i < 256; i++) {
+          wB += hist[i];
+          if (!wB) continue;
+          var wF = N - wB;
+          if (!wF) break;
+          sB += i * hist[i];
+          var mB = sB / wB,
+            mF = (sum - sB) / wF,
+            bt = wB * wF * (mB - mF) * (mB - mF);
+          if (bt > mx) {
+            mx = bt;
+            th = i;
+          }
+        }
+        var lab = new Int32Array(N),
+          best = null,
+          id = 0,
+          st = [];
+        for (i = 0; i < N; i++) {
+          if (lab[i] || L[i] <= th) continue;
+          id++;
+          st.length = 0;
+          st.push(i);
+          lab[i] = id;
+          var ar = 0,
+            tl = [1e9, 0, 0],
+            tr = [-1e9, 0, 0],
+            br = [-1e9, 0, 0],
+            bl = [1e9, 0, 0],
+            edge = 0;
+          while (st.length) {
+            var q = st.pop(),
+              x = q % W,
+              y = (q / W) | 0;
+            ar++;
+            if (x === 0 || y === 0 || x === W - 1 || y === H - 1) edge++;
+            if (x + y < tl[0]) tl = [x + y, x, y];
+            if (x - y > tr[0]) tr = [x - y, x, y];
+            if (x + y > br[0]) br = [x + y, x, y];
+            if (x - y < bl[0]) bl = [x - y, x, y];
+            if (x > 0 && !lab[q - 1] && L[q - 1] > th) (lab[q - 1] = id), st.push(q - 1);
+            if (x < W - 1 && !lab[q + 1] && L[q + 1] > th) (lab[q + 1] = id), st.push(q + 1);
+            if (y > 0 && !lab[q - W] && L[q - W] > th) (lab[q - W] = id), st.push(q - W);
+            if (y < H - 1 && !lab[q + W] && L[q + W] > th) (lab[q + W] = id), st.push(q + W);
+          }
+          if (ar > N * 0.12 && ar < N * 0.96 && edge < (W + H) * 1.2 && (!best || ar > best.ar)) best = { ar: ar, p: [tl, tr, br, bl] };
+        }
+        var now = Date.now();
+        if (best) {
+          var np = best.p.map(function (p) {
+            return [p[1] / (W - 1), p[2] / (H - 1)];
+          });
+          if (DOC && DOC.p) np = np.map(function (p, j) { return [DOC.p[j][0] * 0.5 + p[0] * 0.5, DOC.p[j][1] * 0.5 + p[1] * 0.5]; });
+          DOC = { p: np, ok: true };
+          lastOk = now;
+        } else if (now - lastOk > 1200) DOC = null;
+        gd.style.display = DOC ? 'none' : '';
+        if (!DOC) return void (pgn.style.display = 'none');
+        var sr = stg.getBoundingClientRect(),
+          kk = Math.min(sr.width / vw, sr.height / vh),
+          ox = (sr.width - vw * kk) / 2,
+          oy = (sr.height - vh * kk) / 2;
+        pgn.setAttribute(
+          'points',
+          DOC.p
+            .map(function (p) {
+              return (ox + p[0] * vw * kk).toFixed(1) + ',' + (oy + p[1] * vh * kk).toFixed(1);
+            })
+            .join(' ')
+        );
+        pgn.style.display = '';
+      };
+      var docT = setInterval(docAnalisa, 260);
+      tip.textContent = 'Enquadre a nota inteira: o contorno verde acompanha o papel. Toque na tela para focar.';
+    }
     var bar = document.createElement('div');
     bar.style.cssText =
       'display:flex;align-items:center;justify-content:center;gap:18px;padding:14px 14px max(18px,env(safe-area-inset-bottom,0px));flex-wrap:wrap';
@@ -508,7 +673,11 @@
           cz.getContext('2d').drawImage(c, (w - zw) / 2, (h - zh) / 2, zw, zh, 0, 0, zw, zh);
           c = cz;
         }
-        if (opts.strip) {
+        var docOn = !!(opts.doc && DOC && DOC.ok);
+        if (docOn) {
+          var wc = warpDoc(c, DOC.p);
+          if (wc) c = wc;
+        } else if (opts.strip || (!opts.live && !opts.nocrop)) {
           var sr = stg.getBoundingClientRect(),
             gr = gd.getBoundingClientRect(),
             SW = sr.width,

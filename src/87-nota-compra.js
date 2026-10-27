@@ -15,7 +15,8 @@
         t = mk('div', 'fmTx');
       a.id = 'cpFotoNota';
       var tb = mk('b', '');
-      tb.innerHTML = NV_ICAM + ' Foto da nota';
+      tb.innerHTML = NV_ICAM + '<span>Foto da nota</span>';
+      tb.style.cssText = 'display:flex;align-items:center;gap:8px;font-size:16px;line-height:1';
       t.appendChild(tb);
       t.appendChild(mk('span', '', 'O app lê as linhas: tipo, quantidade e custo.'));
       a.appendChild(t);
@@ -26,7 +27,7 @@
             cpLeNota(f);
           },
           'Foto da nota da compra',
-          { gallery: true }
+          { gallery: true, doc: true }
         );
       };
       var b = mk('button', 'fmCard sel'),

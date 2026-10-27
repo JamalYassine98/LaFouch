@@ -423,7 +423,14 @@
     img.src = url;
   }
   // Adiciona uma cor: usa o mesmo motor de "Registrar entrada".
-  function nvAddCor() {
+  function nvConcluir(ref) {
+    S.nStep = 1;
+    S.nPop = '';
+    S.nCorOpen = false;
+    closeAdd();
+    lfToast('✓ ' + pubNome(ref) + ' cadastrado.');
+  }
+  function nvAddCor(fin) {
     var ref = S._ref,
       t = tipoOf(S.tipo) || {},
       pre = S.tipo === 'pre';
@@ -478,6 +485,7 @@
     S.msg = '';
     render();
     lfEntrada(qOk, pubNome(ref));
+    if (fin === true) nvConcluir(ref);
   }
   function nvTela2() {
     var s2 = $('nvS2'),
@@ -590,6 +598,12 @@
         NVC.cor = oi.value.trim();
         var bk = $('nvCorOk');
         if (bk) bk.disabled = !(NVC.cor && NVC.fotoT);
+        var bf = $('nvFim');
+        if (bf) {
+          var pd = !!(NVC.cor && NVC.fotoT);
+          bf.disabled = !pd && !nvCores(S._ref).length;
+          bf.textContent = pd || nvCores(S._ref).length ? 'Concluir' : 'Adicione uma cor para concluir';
+        }
       };
       nc.appendChild(oi);
       if (pre) {
@@ -659,10 +673,12 @@
         pv.src = NVC.fotoT;
         pv.alt = 'Foto da cor';
         pv.id = 'nvPrev';
-        pv.style.cssText = 'width:100%;max-height:150px;object-fit:contain;background:#fff;border-radius:12px';
+        pv.style.cssText = 'width:100%;height:auto;display:block;border-radius:12px;background:#fff';
         nc.appendChild(pv);
       } else nc.appendChild(mk('div', 'nvwarn', 'A cor só entra na lista com a foto.'));
-      var ok = btn('go', 'Adicionar cor', nvAddCor);
+      var ok = btn('go', 'Adicionar cor', function () {
+        nvAddCor();
+      });
       ok.id = 'nvCorOk';
       ok.disabled = !NVC.fotoT || !NVC.cor;
       nc.appendChild(ok);
@@ -744,16 +760,15 @@
         '</div>';
       s2.appendChild(c3);
     }
-    var fim = btn('go', cs.length ? 'Concluir' : 'Adicione uma cor para concluir', function () {
+    /* cor preenchida e ainda não adicionada: "Concluir" adiciona e conclui de uma vez */
+    var pend = !!(S.nCorOpen && NVC.cor && NVC.fotoT);
+    var fim = btn('go', cs.length || pend ? 'Concluir' : 'Adicione uma cor para concluir', function () {
+      if (S.nCorOpen && NVC.cor && NVC.fotoT) return nvAddCor(true);
       if (!cs.length) return;
-      S.nStep = 1;
-      S.nPop = '';
-      S.nCorOpen = false;
-      closeAdd();
-      lfToast('✓ ' + pubNome(ref) + ' cadastrado.');
+      nvConcluir(ref);
     });
     fim.id = 'nvFim';
-    fim.disabled = !cs.length;
+    fim.disabled = !cs.length && !pend;
     s2.appendChild(fim);
   }
   function renderGuia() {

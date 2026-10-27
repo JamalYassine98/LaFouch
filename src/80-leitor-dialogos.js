@@ -237,6 +237,7 @@
         near = true;
       }
     }
+    S.lidoVr = x.vr && /^C(?:1[0-2]|[1-9])$/.test(x.vr) ? x.vr : '';
     if (its.length) {
       var f0 = its[0],
         tot = its.reduce(function (a, i) {
@@ -289,7 +290,7 @@
         bx.appendChild(vs);
         var ad = btn('mini', 'Adicionar', function () {
           close();
-          if (!isSimple(f0.tipo) && quickOpen(f0.ref)) return;
+          if (!isSimple(f0.tipo) && quickOpen(f0.ref, true)) return;
           fillAdd(
             Object.assign(refInfo(f0.ref), {
               tipo: f0.tipo,
@@ -297,7 +298,7 @@
               med: f0.med,
               fmt: f0.fmt,
               cor: f0.cor,
-              vr: f0.vr,
+              vr: S.lidoVr || f0.vr,
               msg: 'Produto já cadastrado: escolha a cor e a quantidade e toque em Adicionar.'
             })
           );
@@ -333,39 +334,29 @@
         wn.style.color = 'var(--warn)';
         bx.appendChild(wn);
       });
+      /* só mostra o que foi lido: não se edita aqui */
       function fld(l, v) {
         bx.appendChild(mk('div', 'lbl', l));
         var i = document.createElement('input');
         i.className = 'in';
         i.value = v || '';
-        i.autocomplete = 'off';
+        i.readOnly = true;
+        i.setAttribute('aria-readonly', 'true');
+        i.style.opacity = '.9';
         bx.appendChild(i);
         return i;
       }
       var fr = fld('Código', x.ref),
-        fm = fld('Medidas', x.med),
-        vr = x.vr || '';
-      bx.appendChild(mk('div', 'lbl', 'Cor (C1 a C6)'));
-      var cr = document.createElement('div');
-      cr.style.cssText = 'display:flex;gap:6px;flex-wrap:wrap';
-      function drawC() {
-        cr.textContent = '';
-        varChips(vr).forEach(function (c) {
-          cr.appendChild(
-            btn(
-              'chip' + (vr === c ? ' on' : ''),
-              c,
-              function () {
-                vr = vr === c ? '' : c;
-                drawC();
-              },
-              vr === c
-            )
-          );
-        });
-      }
-      drawC();
-      bx.appendChild(cr);
+        fm = fld('Medidas', x.med || '—'),
+        vr = x.vr && /^C(?:1[0-2]|[1-9])$/.test(x.vr) ? x.vr : '';
+      if (!x.med) fm.value = '';
+      bx.appendChild(mk('div', 'lbl', 'Classe de cor'));
+      var fc = document.createElement('input');
+      fc.className = 'in';
+      fc.readOnly = true;
+      fc.value = vr || 'Não li a classe';
+      fc.setAttribute('aria-readonly', 'true');
+      bx.appendChild(fc);
       var ad = btn('mini', 'Cadastrar produto', function () {
         close();
         fillAdd({

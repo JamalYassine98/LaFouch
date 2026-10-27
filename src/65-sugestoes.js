@@ -170,21 +170,20 @@
   function sugCodigo(q, filtra) {
     var k = sgNorm(q).trim();
     if (!k) return [];
-    /* no Novo modelo, só mostra códigos do tipo, formato e gênero já escolhidos */
+    /* no Novo modelo: só some quem NÃO combina com o formato/gênero que você escolheu; o tipo apenas põe os do mesmo tipo na frente */
     var fT = filtra && S.tipo ? S.tipo : '',
-      fF = filtra ? String(S._fmtUsed || S.eFmt || '').toLowerCase() : '',
+      fF = filtra ? String(S.eFmt || '').toLowerCase() : '',
       fP = filtra ? String(S.ePub || '').toLowerCase() : '';
     return sgModelos()
       .filter(function (m) {
-        return (
-          m.hay.indexOf(k) >= 0 &&
-          (!fT || m.tipoId === fT) &&
-          (!fF || m.fmt === fF) &&
-          (!fP || m.pub === fP)
-        );
+        return m.hay.indexOf(k) >= 0 && (!fF || !m.fmt || m.fmt === fF) && (!fP || !m.pub || m.pub === fP);
       })
       .sort(function (a, b) {
-        return (a.cab.indexOf(k) === 0 ? 0 : 1) - (b.cab.indexOf(k) === 0 ? 0 : 1) || (a.ref < b.ref ? -1 : 1);
+        return (
+          (fT && a.tipoId === fT ? 0 : 1) - (fT && b.tipoId === fT ? 0 : 1) ||
+          (a.cab.indexOf(k) === 0 ? 0 : 1) - (b.cab.indexOf(k) === 0 ? 0 : 1) ||
+          (a.ref < b.ref ? -1 : 1)
+        );
       })
       .slice(0, 7)
       .map(function (m) {
