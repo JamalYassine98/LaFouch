@@ -803,7 +803,11 @@
     if (!MIX(g.tipo)) S.tipo = g.tipo;
     render();
     if (how === 'haste') leitorGo();
-    else $('btnFoto').onclick();
+    else if (how === 'mao') {
+      if (typeof nvLimpaMed === 'function') nvLimpaMed();
+      S.nStep = 1;
+      render();
+    } else $('btnFoto').onclick();
   }
   function entradaCompraRow(g, fl) {
     var w = mk('section', 'card');

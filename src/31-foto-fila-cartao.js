@@ -657,6 +657,7 @@
       S.addOpen = false;
       S.fromLot = '';
       render();
+      if (typeof compraVolta === 'function') compraVolta();
       nextQ();
       return;
     }

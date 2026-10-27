@@ -23,6 +23,14 @@ S.exp = []; S.volume = 1; S.fxHist = []; S.janela = 30;
 # (nome, corpo JS que devolve um valor, esperado)
 TESTES = [
  # ---- Inventário: ajustes, exclusões, estorno, entrada, piso, código automático, site ----
+ ("etiqueta: lê grau e quantidade do pacote", """
+   const a=L.fmLeEtiqueta('PC +1.75 24 pc'); const b=L.fmLeEtiqueta('sem nada'); return [a.grau, a.qty, b.grau===undefined]""", ['+1.75', 24, True]),
+ ("nota da compra: cria um lote por linha e soma o total", """
+   S.grp=[]; S.items=S.items.filter(i=>!i.bulk); S.fx.pyg=7000;
+   const ok=L.cpCria({forn:'sol',ped:'',rows:[{tipo:'solar',qty:10,usd:4.2,nome:''},{tipo:'sem',qty:8,usd:6,nome:''},{tipo:'pre',qty:6,usd:2.5,nome:''}]});
+   const t=S.grp.reduce((a,g)=>a+g.totalUsd,0); const r=[ok,S.grp.length,Math.round(t*100)/100,new Set(S.grp.map(g=>g.pedId)).size,S.grp[0].forn]; document.querySelectorAll('#leitorDlg').forEach(e=>e.remove()); S.grp=[]; return r""", [True, 3, 105, 1, 'Sol']),
+ ("memória do modelo some quando o produto é excluído", """
+   S.items=[{tipo:'pre',ref:'ZM1',grau:'+1',cor:'P',qty:1,custo:2}]; S.memo={ZM1:{cor:'P'}}; L.identSync(); const a=!!S.memo.ZM1; S.items=[]; L.identSync(); return [a, S.memo.ZM1===undefined]""", [True, True]),
  ("descarte usa o custo real da peça, não a média do tipo", """
    S.fx.pyg=7000; S.items=[{tipo:'pre',ref:'D1',grau:'+1',cor:'P',qty:5,custo:2}]; S.descartes=[]; S.dlog=[]; S.elog=[]; S.lotes=[]; S.grp=[];
    const v=L.descartar(S.items[0],2,'quebrou'); const r=[v, S.descartes[0].usd, S.items[0].qty]; S.descartes=[]; S.dlog=[]; S.elog=[]; return r""", [28000, 4, 3]),
@@ -1120,7 +1128,7 @@ async def main():
             await pg.evaluate("() => window.__LF.setView('estoque')")
             await pg.click('#btnAdd'); await pg.wait_for_timeout(300)
             m0 = await pg.evaluate("() => { const v = i => { const e = document.getElementById(i); return !!e && e.offsetParent !== null }; return [v('btnLeitor'), v('btnFoto'), v('addToLote'), v('addToMan'), v('addBack'), v('addProdRest'), v('addLoteB'), document.querySelectorAll('#addModal [id=btnLeitor]').length, !document.getElementById('addModeB')] }")
-            await pg.click('#addToLote'); await pg.wait_for_timeout(300)
+            await pg.click('#addToLote'); await pg.wait_for_timeout(300); await pg.click('#cpMao'); await pg.wait_for_timeout(300)
             m1 = await pg.evaluate("() => { const v = i => { const e = document.getElementById(i); return !!e && e.offsetParent !== null }; return [v('addLoteB'), v('addBack'), v('btnLeitor'), v('addToMan')] }")
             await pg.click('#addBack'); await pg.wait_for_timeout(300)
             await pg.click('#addToMan'); await pg.wait_for_timeout(300)

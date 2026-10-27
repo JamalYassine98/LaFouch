@@ -555,3 +555,10 @@ body.arrastaBarra{-webkit-user-select:none;user-select:none;touch-action:none}
 .fmSt button{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:transparent;color:inherit;font-size:16px}
 .fmCorpo{display:flex;flex-direction:column;gap:10px}
 .fmIn{border:1px solid var(--line);background:transparent;color:inherit;border-radius:10px;padding:12px;font:inherit}
+.cpBar{height:8px;border-radius:6px;background:var(--line)}
+.cpBar i{display:block;height:100%;border-radius:6px;background:#a14578;transition:width .5s}
+.cpBt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.cpBt .fmBtn{padding:10px 4px;font-size:13px}
+.cpLn{display:grid;grid-template-columns:1.4fr .7fr auto 1fr auto auto;gap:6px;align-items:center}
+.cpLn .fmIn{min-width:0;padding:8px}
+.cpL .fmLn b{color:inherit}

@@ -393,6 +393,7 @@
       S.addOpen = false;
       S.fromLot = '';
       render();
+      if (typeof compraVolta === 'function') compraVolta();
       return;
     }
     ASNAP = null;
