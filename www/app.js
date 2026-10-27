@@ -3645,6 +3645,7 @@
     });
     $('eNome').value = '';
     S.gSel = '';
+    S.fromLot = '';
     S.addOpen = true;
     S.addMode = 'menu';
     S.photoFor = null;
@@ -11667,6 +11668,60 @@
     return c;
   }
   // Tela de lotes: lista, filtros e detalhe.
+  // Entrada da compra: só ícones (haste e câmera) + "Detalhar depois".
+  function entGo(g, how) {
+    S.fromLot = g.id;
+    S.addOpen = true;
+    S.addMode = 'prod';
+    S.photoFor = null;
+    S.msg = '';
+    S.gSel = g.id;
+    if (!MIX(g.tipo)) S.tipo = g.tipo;
+    render();
+    if (how === 'haste') leitorGo();
+    else $('btnFoto').onclick();
+  }
+  function entradaCompraRow(g, fl) {
+    var w = mk('section', 'card');
+    w.id = 'entCompra';
+    w.style.cssText = 'display:flex;flex-direction:column;gap:10px;padding:12px';
+    w.appendChild(mk('b', '', 'Dar entrada nas peças · faltam ' + fl));
+    var r = mk('div', '');
+    r.style.cssText = 'display:flex;gap:8px;align-items:center';
+    var ih =
+        '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9h18v6H3z"/><path d="M7 9v3M11 9v4M15 9v3M19 9v2"/></svg>',
+      ic =
+        '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>';
+    var bh = btn('go', '', function () {
+      entGo(g, 'haste');
+    });
+    bh.id = 'entHaste';
+    bh.innerHTML = ih;
+    bh.setAttribute('aria-label', 'Ler haste');
+    bh.title = 'Ler haste';
+    var bc = btn('tab', '', function () {
+      entGo(g, 'foto');
+    });
+    bc.id = 'entFoto';
+    bc.innerHTML = ic;
+    bc.setAttribute('aria-label', 'Foto da peça ou etiqueta');
+    bc.title = 'Foto da peça ou etiqueta';
+    [bh, bc].forEach(function (b) {
+      b.style.cssText += ';flex:1 1 0;width:auto;margin:0;min-height:52px;justify-content:center';
+    });
+    r.appendChild(bh);
+    r.appendChild(bc);
+    w.appendChild(r);
+    var dl = btn('chip', 'Detalhar depois', function () {
+      S.lotSel = '';
+      S.lotPick = {};
+      render();
+    });
+    dl.id = 'entDepois';
+    dl.style.cssText += ';width:100%;justify-content:center';
+    w.appendChild(dl);
+    return w;
+  }
   function renderLotView() {
     var on = !!S.lotesView,
       h = $('lotView');
@@ -11752,19 +11807,7 @@
         h.appendChild(pt);
         var fl = grpFalta(g);
         if (fl > 0) {
-          var db = btn('go', '+ Detalhar peças (' + fl + ')', function () {
-            S.fromLot = g.id;
-            S.addOpen = true;
-            S.addMode = 'prod';
-            S.photoFor = null;
-            S.msg = '';
-            S.gSel = g.id;
-            if (!MIX(g.tipo)) S.tipo = g.tipo;
-            render();
-          });
-          db.style.cssText =
-            'width:auto;align-self:flex-start;margin:0;padding:0 18px;min-height:42px';
-          h.appendChild(db);
+          h.appendChild(entradaCompraRow(g, fl));
         } else
           h.appendChild(mk('div', 'note n-ok', 'Todas as peças deste lote já foram detalhadas.'));
         if (!its.length)
@@ -17955,6 +17998,16 @@
       liveFallback: leitorFromPhoto,
       tip: 'Aponte para o código da haste e deixe o texto dentro da faixa. A leitura é automática, sem tirar foto.'
     });
+  }
+  // Abre o leitor como o botão "Ler haste" do cadastro (câmera própria ou nativa).
+  function leitorGo() {
+    var wi =
+      NATIVE &&
+      $('btnLeitor') &&
+      $('btnLeitor').parentNode &&
+      $('btnLeitor').parentNode.querySelector('input[type=file]');
+    if (wi) wi.click();
+    else leitorOpen();
   }
   $('btnLeitor').onclick = leitorOpen;
   try {

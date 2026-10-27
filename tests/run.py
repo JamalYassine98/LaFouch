@@ -851,6 +851,23 @@ async def main():
             if not ok: falhas.append('fundo branco off'); print('        veio', ck, r, pg.erros)
             await pg.close()
 
+            # Entrada da compra: só ícones haste e câmera + Detalhar depois
+            pg = await pagina()
+            await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.items = [];
+              S.grp = [{id:'G1',forn:'Kaz',tipo:'pre',qty:5,usd:0.5,totalUsd:2.5,moeda:'usd',sold:0,ts:Date.now()}]; S.view = 'estoque'; S.lotesView = true; S.lotSel = 'G1'; L.render(); }""")
+            await pg.wait_for_timeout(400)
+            ent = await pg.evaluate("() => { const c = document.querySelector('#entCompra'); return c ? [c.querySelectorAll('button').length, !!c.querySelector('#entHaste'), !!c.querySelector('#entFoto'), c.querySelector('#entHaste').innerText.trim() + c.querySelector('#entFoto').innerText.trim(), c.querySelector('#entDepois').innerText] : null }")
+            await pg.click('#entHaste'); await pg.wait_for_timeout(500)
+            aft = await pg.evaluate("() => [window.__LF.S.fromLot, window.__LF.S.addOpen, window.__LF.S.addMode, window.__LF.S.gSel]")
+            await pg.evaluate("() => { document.querySelectorAll('[aria-label^=Leitor]').forEach(d => d.remove()); const S = window.__LF.S; S.addOpen = false; S.fromLot = ''; S.lotSel = 'G1'; window.__LF.render(); }")
+            await pg.click('#entDepois'); await pg.wait_for_timeout(300)
+            dep = await pg.evaluate("() => window.__LF.S.lotSel")
+            ok = (ent == [3, True, True, '', 'Detalhar depois'] and aft == ['G1', True, 'prod', 'G1'] and dep == '' )
+            total += 1
+            print(('  ok  ' if ok else ' FALHA ') + 'Entrada da compra: só ícones haste e câmera e "Detalhar depois"')
+            if not ok: falhas.append('entrada compra'); print('        veio', ent, aft, dep, pg.erros)
+            await pg.close()
+
             # Início: aviso "peças da compra sem detalhe" leva às Compras; tile se chama Compras
             pg = await pagina()
             await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.items = [{tipo:'pre',ref:'T1',grau:'+0.25',cor:'Preto',qty:4,fmt:'',med:'',vr:'',lote:'G1'}];

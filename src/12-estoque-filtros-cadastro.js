@@ -399,6 +399,7 @@
     });
     $('eNome').value = '';
     S.gSel = '';
+    S.fromLot = '';
     S.addOpen = true;
     S.addMode = 'menu';
     S.photoFor = null;
