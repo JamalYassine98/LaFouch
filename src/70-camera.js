@@ -283,6 +283,10 @@
     opts = opts || {};
     LIVEX = null;
     var DZ = 1; /* zoom digital (quando o aparelho não oferece zoom na câmera) */
+    var HZ = 0,
+      HZmin = 0,
+      HZbusy = false,
+      HZnext = null; /* zoom da câmera (hardware) */
     camClose();
     if (opts.live || opts.liveFallback) {
       try {
@@ -536,13 +540,29 @@
         zr.min = caps.zoom.min;
         zr.max = Math.min(caps.zoom.max, caps.zoom.min * 5 || caps.zoom.max);
         zr.step = caps.zoom.step || 0.1;
-        zr.value = caps.zoom.min;
+        HZmin = +caps.zoom.min || 0;
+        zr.value = HZ || caps.zoom.min;
         zr.style.cssText = 'grid-column:1/-1;width:100%;margin:0 0 6px';
         zr.setAttribute('aria-label', 'Zoom');
-        zr.oninput = function () {
+        var zApply = function () {
+          if (HZbusy || HZnext === null) return;
+          var v = HZnext;
+          HZnext = null;
+          HZbusy = true;
+          var fim = function () {
+            HZbusy = false;
+            zApply();
+          };
           try {
-            trk.applyConstraints({ advanced: [{ zoom: +zr.value }] });
-          } catch (e) {}
+            trk.applyConstraints({ advanced: [{ zoom: v }] }).then(fim, fim);
+          } catch (e) {
+            fim();
+          }
+        };
+        zr.oninput = function () {
+          HZ = +zr.value;
+          HZnext = HZ;
+          zApply();
         };
         bar.appendChild(zr);
       } else {
@@ -616,12 +636,21 @@
           );
           return;
         }
-        if (!HR && !HRtry && !opts.strip && DZ === 1 && window.ImageCapture && trk && !window.__noIC) {
+        if (
+          !HR &&
+          !HRtry &&
+          !opts.strip &&
+          DZ === 1 &&
+          (!HZ || HZ <= HZmin * 1.02) &&
+          window.ImageCapture &&
+          trk &&
+          !window.__noIC
+        ) {
           HRtry = true;
           sh.style.opacity = '.5';
           tip.textContent = 'Tirando a foto…';
           var done0 = false,
-            fin = function (x) {
+            fin = function (x, mism) {
               if (done0) return;
               done0 = true;
               clearTimeout(tm);
@@ -649,6 +678,13 @@
                   try {
                     bm.close();
                   } catch (e) {}
+                  /* a foto do sensor pode ter enquadramento diferente do visor: então usa o quadro do visor */
+                  var ra = cc.width / cc.height,
+                    rv = vid.videoWidth / vid.videoHeight;
+                  if (!rv || Math.abs(ra / rv - 1) > 0.02) {
+                    fin(null, true);
+                    return;
+                  }
                   fin(cc);
                 },
                 function () {

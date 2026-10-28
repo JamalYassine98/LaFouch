@@ -148,3 +148,7 @@ Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Parag
 - Editar produto: abas livres 1·Modelo / 2·Cores e fotos (#edTab1/#edTab2), código e Tipo editáveis (troca de tipo move as peças), lixeira, rodapé fixo "Salvar alterações" (#edSalvar).
 - Gestos (src/89-gestos-ficha.js): arrastar a ficha → produto anterior/próximo; arrastar a foto → cor anterior/próxima (a folha acompanha o dedo, elástico nas pontas).
 - Animações escolhidas pelo dono: 1B foto cresce, 2A janela com mola, 3A chips pulsam + preço conta, 4A cor suave, 5B onda + luzes ao liberar, 6A deslize com a folha, 7A etapas deslizam + 7B lixeira com tampa e aviso que sobe, 9A campos acendem, 10A telas em cascata + números contam. Item 8 (Salvar) NÃO escolhido: sem animação nova.
+
+## v346 (27/10/2026) — Correção da câmera (foto da cor)
+- Bug: o recorte do quadrado saía errado e o zoom bugava. Causa: a foto em alta (takePhoto) tem enquadramento diferente do visor, e o zoom da câmera disparava vários ajustes e voltava ao mínimo ao refazer.
+- Agora: se a foto do sensor não tem a mesma proporção do visor, ou há zoom, usa o quadro do visor (o que se vê é o que sai no quadrado). Zoom da câmera é aplicado um por vez e mantido ao refazer.
