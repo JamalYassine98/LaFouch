@@ -23671,62 +23671,158 @@
         })[0]
       : null;
   }
-  function pedAcoes(p) {
+  // ---------- visual dos pedidos: ícones, token de entrega e peças ----------
+  var PD_ZAP =
+    '<svg class="pdZap" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 1.67c2.2 0 4.26.86 5.82 2.42a8.2 8.2 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.26-8.24zM8.53 7.33c-.16 0-.43.06-.66.31-.22.25-.87.85-.87 2.07 0 1.22.89 2.39 1.01 2.56.12.16 1.75 2.67 4.23 3.74 2.07.9 2.49.72 2.94.68.45-.04 1.45-.59 1.65-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.47-.28-.25-.12-1.45-.72-1.68-.8-.22-.08-.39-.12-.55.12-.16.25-.63.8-.77.96-.14.17-.29.18-.53.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.22-1.46-1.37-1.7-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.43h-.47z"/></svg>';
+  var PD_OCULOS =
+    '<svg viewBox="0 0 60 28" width="70%" fill="none" aria-hidden="true"><path d="M3 8c0-2 1-3 4-3h14c4 0 6 3 6 8 0 6-3 9-8 9H12c-5 0-9-3-9-14zM57 8c0-2-1-3-4-3H39c-4 0-6 3-6 8 0 6 3 9 8 9h8c5 0 9-3 9-14zM27 11q3-3 6 0" stroke="#3a2c3f" stroke-width="3.2" stroke-linecap="round"/></svg>';
+  var PD_AB = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
+  // Token do pedido: LF- + 4 letras/números (sem 0, 1, O, I, L para não confundir). Fica ligado ao nome da cliente.
+  function pedTokGera(p) {
+    if (p.tok) return p.tok;
+    var a = new Uint8Array(4),
+      s = '',
+      i;
+    try {
+      crypto.getRandomValues(a);
+    } catch (e) {
+      for (i = 0; i < 4; i++) a[i] = Math.floor(Math.random() * 256);
+    }
+    for (i = 0; i < 4; i++) s += PD_AB.charAt(a[i] % PD_AB.length);
+    p.tok = 'LF-' + s;
+    p.tokNome = p.cli || '';
+    p.tokTs = Date.now();
+    return p.tok;
+  }
+  function pedTokZap(p) {
+    var d = String(p.tel || '').replace(/\D/g, '');
+    if (!d) return '';
+    if (d.charAt(0) === '0') d = '595' + d.slice(1);
+    var tx =
+      'Olá' + (p.cli ? ', ' + p.cli : '') + '! Seu pedido nº ' + p.num + ' está reservado na La Fouch ✓\n' +
+      p.itens.reduce(function (a, l) {
+        return a + l.q;
+      }, 0) + ' peça(s)' + (pedTotal(p) ? ' · ' + gs(pedTotal(p)) : '') + '\n\n' +
+      'Seu token de retirada: *' + p.tok + '*\n' +
+      'Mostre este token na loja para receber suas peças. Não passe a outra pessoa.';
+    return 'https://wa.me/' + d + '?text=' + encodeURIComponent(tx);
+  }
+  function pedPeqImg(l, cls) {
+    var src = l.ref ? photoOf(l.ref) : '';
+    return '<span class="pdIm ' + (cls || '') + '">' + (src ? '<img src="' + src + '" alt="">' : PD_OCULOS) + '</span>';
+  }
+  function pedQtd(p) {
+    return p.itens.reduce(function (a, l) {
+      return a + l.q;
+    }, 0);
+  }
+  function pedEstado(p) {
+    if (p.st === 'canc') return ['Cancelado', 'bad'];
+    if (p.st === 'ent') return ['✓ Entregue', 'ok'];
+    if (p.st === 'pronto') return ['Pronto para retirar', 'ok'];
+    if (p.st === 'sep') return ['Separando', 'ac'];
+    if (p.orig === 'site' && p.cod && !p.conf) return ['⏳ Aguardando cliente', 'w'];
+    if (p.conf) return ['✓ Reservado', 'ok'];
+    return ['Novo', 'ac'];
+  }
+  function pedEspera(p, grande) {
+    if (!(p.orig === 'site' && p.cod && !p.conf && p.st === 'novo')) return '';
+    var tot = p.ate && p.ate > p.ts ? p.ate - p.ts : 1800000,
+      resta = p.ate ? Math.max(0, p.ate - Date.now()) : tot,
+      pc = Math.max(4, Math.min(100, Math.round((resta / tot) * 100)));
+    return (
+      '<div class="pdProg"><i style="width:' + pc + '%"></i></div><div class="pdCod">Código <b>' + esc(p.cod) + '</b>' +
+      (p.ate ? ' · reserva até ' + fh(p.ate) : '') + '</div>'
+    );
+  }
+  function pedAcoes(p, lista) {
     var z = pedZap(p),
       pr = PED_ST.filter(function (s) {
         return s[0] === p.st;
-      })[0];
-    return (
-      '<div class="sel" style="flex-wrap:wrap;margin-top:8px">' +
-      (pr && pr[2] ? '<button type="button" class="mini" data-act="pedav" data-id="' + p.id + '">' + pr[2] + '</button>' : '') +
-      (z ? '<a class="chip" href="' + z + '" target="_blank" rel="noopener">WhatsApp</a>' : '') +
-      (p.orig === 'site' && p.cod && !p.conf && p.st === 'novo' ? '<button type="button" class="mini" data-act="pedconf" data-id="' + p.id + '">✓ Confirmar reserva</button>' : '') +
-      (p.st !== 'canc' && p.st !== 'ent' ? '<button type="button" class="chip" data-act="pedcanc" data-id="' + p.id + '">Cancelar pedido</button>' : '') +
-      (p.st === 'canc' || p.st === 'ent' ? '<button type="button" class="chip" data-act="peddel" data-id="' + p.id + '">' + (S._pedDel === String(p.id) ? 'Remover?' : 'Remover') + '</button>' : '') +
-      '</div>'
-    );
-  }
-  function pedMini(l) {
-    var src = l.ref ? photoOf(l.ref) : '';
-    return src
-      ? '<img src="' + src + '" alt="" style="width:56px;height:56px;border-radius:12px;object-fit:cover;background:#fff;flex:none">'
-      : '<span style="width:56px;height:56px;border-radius:12px;background:var(--line);display:grid;place-items:center;flex:none;font-size:11px;opacity:.7">Sem foto</span>';
+      })[0],
+      conf = p.orig === 'site' && p.cod && !p.conf && p.st === 'novo',
+      h = '<div class="pdBtns">';
+    if (conf) h += '<button type="button" class="pdB1" data-act="pedconf" data-id="' + p.id + '">✓ Confirmar reserva</button>';
+    else if (pr && pr[2]) h += '<button type="button" class="pdB1" data-act="pedav" data-id="' + p.id + '">' + pr[2] + '</button>';
+    else if (p.st === 'canc' || p.st === 'ent')
+      h += '<button type="button" class="pdB2 txt" data-act="peddel" data-id="' + p.id + '">' + (S._pedDel === String(p.id) ? 'Remover?' : 'Remover') + '</button>';
+    if (z) h += '<a class="pdB2" href="' + z + '" target="_blank" rel="noopener" aria-label="WhatsApp">' + PD_ZAP + '</a>';
+    h += '</div>';
+    if (!lista && p.st !== 'canc' && p.st !== 'ent')
+      h += '<button type="button" class="pdCanc" data-act="pedcanc" data-id="' + p.id + '">Cancelar pedido</button>';
+    return h;
   }
   function pedStLabel(p) {
     return PED_ST.filter(function (s) {
       return s[0] === p.st;
     })[0][1];
   }
+  function pedPassos(p) {
+    var ix = { novo: 0, sep: 1, pronto: 2, ent: 3 }[p.st],
+      cur = ix === 0 && p.conf ? 1 : ix,
+      nomes = ['Reserva', 'Separando', 'Pronto', 'Entregue'],
+      h = '<div class="pdStep" style="--w:' + (p.st === 'ent' ? 100 : cur * 33.3) + '">';
+    nomes.forEach(function (n, i) {
+      var d = p.st === 'ent' ? true : i < cur,
+        c = !d && i === cur;
+      h += '<div class="' + (d ? 'd' : c ? 'c' : '') + '"><i>' + (d ? '✓' : i + 1) + '</i>' + n + '</div>';
+    });
+    return h + '</div>';
+  }
   function pedDetalhe(p) {
     var c = pedCliDe(p),
       n = c ? cliPedidos(c).length : 0,
       z = pedZap(p),
+      tz = p.tok ? pedTokZap(p) : '',
       tot = pedTotal(p),
-      h = '<div class="top"><div><h1>Pedido ' + p.num + '</h1><div class="crumb">' + pedStLabel(p) + ' · ' + fd(p.ts) + ' ' + fh(p.ts) + (p.orig === 'site' ? ' · Site' : '') + '</div></div></div>';
+      est = pedEstado(p),
+      h = '<div class="top"><div><h1>Pedido ' + p.num + '</h1><div class="crumb">' + esc(p.cli || 'Sem nome') + ' · ' + fd(p.ts) + ' ' + fh(p.ts) + (p.orig === 'site' ? ' · Site' : '') + '</div></div></div>';
     h += '<div class="sel"><button type="button" class="chip" data-act="pedfecha">‹ Pedidos</button></div>';
+    if (p.st === 'canc') h += '<div class="pdAviso bad">Pedido cancelado.' + (p.tok ? ' O token ' + esc(p.tok) + ' não vale mais.' : '') + '</div>';
+    else h += pedPassos(p);
+    if (p.orig === 'site' && p.cod && !p.conf && p.st === 'novo')
+      h += '<div class="pdAviso w"><b>⏳ Aguardando a mensagem da cliente</b>' + pedEspera(p, true) + '</div>';
+    if (p.tok && p.st !== 'canc') {
+      h +=
+        '<div class="pdTok ' + (p.st === 'ent' ? 'usado' : '') + '"><div class="pdLb">Token de entrega · ' + esc(p.tokNome || p.cli || '') + '</div>' +
+        '<div class="pdTn">' + esc(p.tok) + '</div>' +
+        '<div class="pdSub">' + (p.st === 'ent' ? 'Token usado na entrega.' : 'Só quem tem este token retira as peças. Vale para o pedido ' + p.num + '.') + '</div></div>';
+      if (p.st !== 'ent')
+        h +=
+          '<div class="pdBtns" style="margin:0 0 12px">' +
+          (tz ? '<a class="pdB3" href="' + tz + '" target="_blank" rel="noopener">' + PD_ZAP + ' Enviar token à cliente</a>' : '') +
+          '<button type="button" class="pdB2" data-act="pedcopia" data-id="' + p.id + '" aria-label="Copiar token">⧉</button></div>';
+    }
     h +=
-      '<section class="card"><div class="lbl" style="margin:0">Cliente</div><div style="display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:4px"><b style="font-size:18px">' +
-      esc(p.cli || 'Sem nome') +
-      '</b>' +
-      (p.cliNovo ? '<span class="hint" style="margin:0;color:#f1b6d8">Cadastrado agora</span>' : c ? '<span class="hint" style="margin:0;color:#4ccf8a">Cliente cadastrado</span>' : '') +
-      '</div>' +
-      (p.tel ? '<div style="margin-top:6px">' + esc(p.tel) + '</div>' : '') +
-      (c ? '<div class="hint" style="margin:4px 0 0">' + (n <= 1 ? '1º pedido na La Fouch' : n + 'º pedido na La Fouch') + '</div>' : '') +
-      (p.obs ? '<div class="hint" style="margin:4px 0 0">' + esc(p.obs) + '</div>' : '') +
-      '<div class="sel" style="flex-wrap:wrap;margin-top:10px">' +
-      (z ? '<a class="chip" href="' + z + '" target="_blank" rel="noopener">WhatsApp</a>' : '') +
-      (c ? '<button type="button" class="chip" data-act="pedcli" data-id="' + c.id + '">Ficha do cliente</button>' : '') +
-      '</div></section>';
-    h += '<div class="lbl">Peças do pedido</div>';
+      '<section class="pdCd"><div class="pdLb">Cliente</div><div class="pdLin"><span class="pdAv">' + esc((p.cli || '?').charAt(0).toUpperCase()) + '</span><div><b>' +
+      esc(p.cli || 'Sem nome') + '</b><div class="pdMt">' + (p.tel ? esc(p.tel) : 'Sem telefone') +
+      (c ? ' · ' + (n <= 1 ? '1º pedido na La Fouch' : n + 'º pedido na La Fouch') : '') + '</div></div>' +
+      (p.cliNovo ? '<span class="pdPill ac">Nova</span>' : c ? '<span class="pdPill ok">Cadastrada</span>' : '') + '</div>' +
+      (p.obs ? '<div class="pdMt" style="margin-top:6px">' + esc(p.obs) + '</div>' : '') +
+      (c ? '<div class="sel" style="margin-top:10px"><button type="button" class="chip" data-act="pedcli" data-id="' + c.id + '">Ficha do cliente</button></div>' : '') +
+      '</section>';
+    h += '<section class="pdCd"><div class="pdLb">Peças do pedido</div>';
     p.itens.forEach(function (l, i) {
       h +=
-        '<button type="button" class="card" data-act="pedprod" data-id="' + i + '" style="display:flex;gap:12px;align-items:center;text-align:left;font:inherit;color:inherit;width:100%;cursor:pointer">' +
-        pedMini(l) +
-        '<span style="flex:1;min-width:0"><b>' + esc(l.t || l.ref) + '</b><span class="hint" style="display:block;margin:2px 0 0">' + esc(l.ref || '') + (l.cor ? ' · ' + esc(l.cor) : '') + '</span><span style="display:block;margin-top:4px">' + l.q + '×' + (l.preco ? ' <b>' + gs(l.preco) + '</b>' : '') + '</span></span><span style="opacity:.5;font-size:20px">›</span></button>';
+        '<button type="button" class="pdRow" data-act="pedprod" data-id="' + i + '">' + pedPeqImg(l, 'g') +
+        '<span style="flex:1;min-width:0"><b>' + esc(l.t || l.ref) + '</b><span class="pdMt" style="display:block">' + esc(l.ref || '') + (l.cor ? ' · ' + esc(l.cor) : '') + ' · ' + l.q + '×</span></span>' +
+        (l.preco ? '<b>' + gs(l.preco * l.q) + '</b>' : '') + '</button>';
     });
-    h += '<div style="display:flex;justify-content:space-between;align-items:baseline;margin:12px 2px"><span class="hint" style="margin:0">Total</span><b style="font-size:22px">' + (tot ? gs(tot) : '—') + '</b></div>';
-    h += pedAcoes(p);
+    h += '<div class="pdTot"><span class="pdMt">Total</span><b>' + (tot ? gs(tot) : '—') + '</b></div></section>';
+    h += pedAcoes(p, false);
     return h;
+  }
+  // Janela de conferência do token (entrega).
+  function pedJanelaTok(p) {
+    return (
+      '<div class="pdOv" role="dialog" aria-modal="true" aria-label="Conferir o token"><div class="pdSh"><div class="pdAl"></div>' +
+      '<b style="font-size:20px">Conferir o token</b><div class="pdMt" style="margin-top:4px">Peça o token a ' + esc(p.cli || 'cliente') + ' e digite aqui para entregar o pedido ' + p.num + '.</div>' +
+      '<label class="pdKey" id="pdKey"><span class="pdPre">LF-</span><b></b><b></b><b></b><b></b>' +
+      '<input id="pdTokIn" maxlength="7" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Token"></label>' +
+      '<div class="pdErro" id="pdErro" aria-live="polite"></div>' +
+      '<div class="pdBtns" style="margin-top:14px"><button type="button" class="pdB2 txt" data-act="pedtokx" style="flex:none;width:110px">Voltar</button>' +
+      '<button type="button" class="pdB1" id="pdEnt" data-act="pedentrega" data-id="' + p.id + '" disabled>Entregar</button></div></div></div>'
+    );
   }
   function pedJanelaProd(p) {
     var l = p.itens[S.pedProd];
@@ -23765,7 +23861,12 @@
     var sel = S.pedSel != null ? pedAch(S.pedSel) : null;
     if (S.pedSel != null && !sel) S.pedSel = null;
     if (sel) {
-      el.innerHTML = pedDetalhe(sel) + (S.pedProd != null ? pedJanelaProd(sel) : '');
+      el.innerHTML = pedDetalhe(sel) + (S.pedProd != null ? pedJanelaProd(sel) : '') + (S.pedTok != null && String(S.pedTok) === String(sel.id) ? pedJanelaTok(sel) : '');
+      if (S.pedTok != null)
+        setTimeout(function () {
+          var i = $('pdTokIn');
+          if (i && document.activeElement !== i) i.focus();
+        }, 60);
       return;
     }
     var n = { novo: 0, sep: 0, pronto: 0, ent: 0, canc: 0 };
@@ -23779,16 +23880,16 @@
         ['ent', 'Entregues', n.ent, ''],
         ['canc', 'Cancelados', n.canc, '']
       ],
-      h = '<div class="top"><div><h1>Pedidos online</h1><div class="crumb">Pedidos do catálogo online para a loja</div></div></div>';
-    h += '<div class="tgrid g5" role="group" aria-label="Situação dos pedidos">';
+      h =
+        '<div class="top"><div><h1>Pedidos online</h1><div class="crumb">' +
+        (PED_INFO.ts ? (PED_INFO.err ? '<span style="color:var(--bad)">Não consegui buscar os pedidos: ' + esc(PED_INFO.err) + '</span>' : 'Última busca às ' + fh(PED_INFO.ts)) : 'Buscando pedidos…') +
+        ' · <button type="button" class="pdLink" data-act="pedver">Verificar agora</button></div></div></div>';
+    h += '<div class="pdSeg" role="group" aria-label="Situação dos pedidos">';
     fl.forEach(function (f) {
-      h += tileHtml('data-act="pedf" data-id="' + f[0] + '"', 'ped', f[1], [String(f[2]), f[3]], 'sm', S.pedF === f[0]);
+      h +=
+        '<button type="button" class="' + (S.pedF === f[0] ? 'on ' : '') + (f[3] || '') + '" data-act="pedf" data-id="' + f[0] + '" aria-pressed="' + (S.pedF === f[0]) + '">' + f[1] + (f[2] ? ' <b>' + f[2] + '</b>' : '') + '</button>';
     });
-    h += '</div><div class="hint">Os pedidos chegam sozinhos do site, e o cliente é cadastrado na hora.</div>';
-    h +=
-      '<div class="hint" style="display:flex;align-items:center;justify-content:space-between;gap:8px;' + (PED_INFO.err ? 'color:var(--bad)' : '') + '"><span>' +
-      (PED_INFO.ts ? (PED_INFO.err ? 'Não consegui buscar os pedidos: ' + esc(PED_INFO.err) : 'Última busca às ' + fh(PED_INFO.ts) + '.') : 'Buscando pedidos…') +
-      '</span><button type="button" class="mini" data-act="pedver">Verificar agora</button></div>';
+    h += '</div>';
     var lista = S.pedidos
       .filter(function (p) {
         return p.st === S.pedF;
@@ -23799,21 +23900,25 @@
     if (!lista.length) h += '<div class="hint">' + (S.pedidos.length ? 'Nenhum pedido nesta situação.' : 'Nenhum pedido ainda. Quando um cliente fizer um pedido no site, ele aparece aqui sozinho.') + '</div>';
     lista.forEach(function (p) {
       var tot = pedTotal(p),
-        c = pedCliDe(p);
+        est = pedEstado(p),
+        q = pedQtd(p);
       h +=
-        '<section class="card"><div data-act="pedab" data-id="' + p.id + '" style="cursor:pointer"><div style="display:flex;justify-content:space-between;gap:8px"><b style="font-size:15px">Pedido ' + p.num + (p.cli ? ' · ' + esc(p.cli) : '') + (p.orig === 'site' ? ' <span class="hint" style="margin:0;font-size:10px;letter-spacing:.08em;border:1px solid var(--line);border-radius:6px;padding:1px 5px">SITE</span>' : '') + '</b><span class="hint" style="margin:0">' + fd(p.ts) + ' ' + fh(p.ts) + '</span></div>' +
-        '<div style="margin-top:6px">' +
+        '<section class="pdCard"><div data-act="pedab" data-id="' + p.id + '" style="cursor:pointer"><div class="pdLin"><span class="pdAv">' + esc((p.cli || '?').charAt(0).toUpperCase()) + '</span>' +
+        '<div style="min-width:0;flex:1"><div class="pdNm">' + esc(p.cli || 'Sem nome') + '</div><div class="pdMt">Pedido ' + p.num + ' · ' + fd(p.ts) + ' ' + fh(p.ts) + (p.orig === 'site' ? ' · Site' : '') + '</div></div>' +
+        '<span class="pdPill ' + est[1] + '">' + est[0] + '</span></div>' +
+        '<div class="pdTh">' +
         p.itens
+          .slice(0, 3)
           .map(function (l) {
-            return '<div class="sl">' + l.q + '× ' + esc(l.t) + '</div>';
+            return pedPeqImg(l, '');
           })
           .join('') +
+        (p.itens.length > 3 ? '<span class="pdMais">+' + (p.itens.length - 3) + '</span>' : '') +
+        '<span class="pdTt"><small>' + q + (q === 1 ? ' peça' : ' peças') + '</small><b>' + (tot ? gs(tot) : '—') + '</b></span></div>' +
+        pedEspera(p, false) +
+        (p.tok && p.st !== 'canc' && p.st !== 'ent' ? '<div class="pdCod">Token <b>' + esc(p.tok) + '</b></div>' : '') +
         '</div>' +
-        (p.orig === 'site' && p.cod ? '<div class="hint" style="margin:6px 0 0;color:' + (p.conf ? '#4ccf8a' : '#e6c27a') + '">' + (p.conf ? '✓ Reserva confirmada · código ' + esc(p.cod) : '⏳ Aguardando a mensagem do cliente · código ' + esc(p.cod) + (p.ate ? ' · reserva até ' + fh(p.ate) : '')) + '</div>' : '') +
-        (c ? '<div class="hint" style="margin:6px 0 0;color:' + (p.cliNovo ? '#f1b6d8' : '#4ccf8a') + '">' + (p.cliNovo ? '✦ Cliente novo, cadastrado automaticamente' : '✓ Cliente cadastrado') + '</div>' : '') +
-        (tot ? '<div class="hint" style="margin:6px 0 0">Total: <b>' + gs(tot) + '</b></div>' : '') +
-        '<div class="hint" style="margin:6px 0 0;text-align:right">Toque para abrir ›</div></div>' +
-        pedAcoes(p) +
+        pedAcoes(p, true) +
         '</section>';
     });
     el.innerHTML = h;
@@ -23827,7 +23932,11 @@
     var p = pedAch(id);
     if (!p || !p.sid) return;
     p.conf = true;
+    pedTokGera(p);
+    S.pedSel = p.id;
+    S.pedProd = null;
     render();
+    window.scrollTo(0, 0);
     nvApi('PATCH', 'reservas/' + encodeURIComponent(p.sid), JSON.stringify({ fields: { ok: { booleanValue: true }, ts: { integerValue: String(Date.now()) } } }))
       .then(function () {
         say('Reserva confirmada. O cliente já vê no site.');
@@ -23836,6 +23945,70 @@
         say('Marcada aqui, mas não consegui avisar o site (sem internet ou sem permissão no Firebase).');
       });
   };
+  // Copia o token do pedido.
+  ACT.pedcopia = function (id) {
+    var p = pedAch(id);
+    if (!p || !p.tok) return;
+    try {
+      navigator.clipboard.writeText(p.tok).then(
+        function () {
+          say('Token ' + p.tok + ' copiado.');
+        },
+        function () {
+          say('Token: ' + p.tok);
+        }
+      );
+    } catch (e) {
+      say('Token: ' + p.tok);
+    }
+  };
+  // Fecha a janela do token sem entregar.
+  ACT.pedtokx = function () {
+    S.pedTok = null;
+    render();
+  };
+  // Entrega: só fecha o pedido se o token digitado for o do pedido.
+  ACT.pedentrega = function (id) {
+    var p = pedAch(id),
+      i = $('pdTokIn');
+    if (!p || p.st === 'canc' || !i) return;
+    var v = String(i.value || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+    if (v.indexOf('LF') === 0 && v.length > 4) v = v.slice(2);
+    if (p.tok && v === p.tok.slice(3)) {
+      p.st = 'ent';
+      p.entTs = Date.now();
+      S.pedTok = null;
+      S.pedF = 'ent';
+      render();
+      say('Token conferido. Pedido entregue.');
+    } else {
+      var k = $('pdKey'),
+        er = $('pdErro');
+      if (er) er.textContent = 'Este token não é o do pedido ' + p.num + '. Confira com a cliente.';
+      if (k) {
+        k.classList.remove('erra');
+        void k.offsetWidth;
+        k.classList.add('erra');
+      }
+      vibrar(40);
+    }
+  };
+  document.addEventListener('input', function (e) {
+    if (!e.target || e.target.id !== 'pdTokIn') return;
+    var v = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    if (v.indexOf('LF') === 0 && v.length > 4) v = v.slice(2);
+    v = v.slice(0, 4);
+    var bx = document.querySelectorAll('#pdKey b'),
+      k;
+    for (k = 0; k < 4; k++) {
+      bx[k].textContent = v.charAt(k);
+      bx[k].className = k < v.length ? 'f' : k === v.length ? 'a' : '';
+    }
+    var b = $('pdEnt');
+    if (b) b.disabled = v.length < 4;
+    var er = $('pdErro');
+    if (er) er.textContent = '';
+  });
   ACT.pedver = function () {
     S.pedF = 'novo';
     S.pedSel = null;
@@ -23851,6 +24024,7 @@
   };
   ACT.pedfecha = function () {
     S.pedSel = null;
+    S.pedTok = null;
     S.pedProd = null;
     render();
   };
@@ -23871,7 +24045,18 @@
   ACT.pedav = function (id) {
     var p = pedAch(id);
     if (!p) return;
-    p.st = p.st === 'novo' ? 'sep' : p.st === 'sep' ? 'pronto' : 'ent';
+    if (p.st === 'pronto') {
+      if (p.tok) {
+        S.pedSel = p.id;
+        S.pedTok = p.id;
+        render();
+        return;
+      }
+      p.st = 'ent';
+    } else {
+      if (p.st === 'novo') pedTokGera(p);
+      p.st = p.st === 'novo' ? 'sep' : 'pronto';
+    }
     S.pedF = p.st;
     render();
   };
@@ -23879,6 +24064,7 @@
     var p = pedAch(id);
     if (!p) return;
     p.st = 'canc';
+    S.pedTok = null;
     S.pedF = 'canc';
     render();
   };

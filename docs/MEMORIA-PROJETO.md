@@ -154,7 +154,12 @@ Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Parag
 - Agora: se a foto do sensor não tem a mesma proporção do visor, ou há zoom, usa o quadro do visor (o que se vê é o que sai no quadrado). Zoom da câmera é aplicado um por vez e mantido ao refazer.
 
 ## v347 (27/10/2026) — Limpeza + animação da nuvem
-- Removidos itens mortos do app: LOTE, RLSIG (e o cálculo `sig`), lk, dist, sc1, GAL0, HT, coverOf. Mantido `marcaOk` (animação da venda concluída: regra do dono é não mexer). Site (index.html): CAMI, RA, fi, bg0, faceSvg, camCrop. Obs.: `FD` (dados de rosto) no site pode ter ficado sem uso depois de faceSvg; conferir.
+- Removidos itens mortos do app: LOTE, RLSIG (e o cálculo `sig`), lk, dist, sc1, GAL0, HT, coverOf. Mantido `marcaOk` (animação da venda concluída: regra do dono é não mexer). Site (index.html): CAMI, RA, fi, bg0, faceSvg, camCrop.
 - Botões "Fazer cópia agora" e "Restaurar" (Ajustes > Nuvem) com estados animados: girando/varredura ("Enviando…", "Restaurando…"), pulso ao pedir "Confirmar" e check desenhado ao concluir.
 - Backup do dono em 27/10/2026 (arquivo LaFouch-backup-2026-10-27.tar.gz). Removido o botão "Ver como o cliente vê" da aba Site do admin.
 - PENDENTE (só imagens, aguardando OK): redesenho da aba Pedidos online + token de segurança ao confirmar pedido.
+
+## v348 (27/10/2026) — Pedidos online redesenhado + token de entrega (aprovado: "Perfeito... pode implementar")
+- Lista em cartões (inicial, miniaturas, total, estado, botão principal + ícone WhatsApp novo). Pedido aberto com passo a passo Reserva → Separando → Pronto → Entregue.
+- Token: ao "Confirmar reserva" (ou ao começar a separar, se não houve confirmação) gera `LF-XXXX` (sem 0/1/O/I/L), ligado ao nome da cliente (`p.tok`, `p.tokNome`). Botão "Enviar token à cliente" (WhatsApp) e copiar.
+- "Marcar entregue" abre "Conferir o token": só entrega se o token digitado confere (aceita com ou sem "LF-", minúsculas). Pedido cancelado invalida o token. Sem saída de emergência (o dono vê o token no pedido). Sem QR (o desenho mostrava QR; não há leitor/gerador no app: perguntar se quer).

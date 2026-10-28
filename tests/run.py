@@ -1283,16 +1283,24 @@ async def main():
             txt = await pg.inner_text('#v-ped')
             await pg.locator('[data-act=pedconf]').first.click(); await pg.wait_for_timeout(400)
             txt2 = await pg.inner_text('#v-ped')
-            await pg.locator('[data-act=pedab]').first.click(); await pg.wait_for_timeout(300)
-            det = await pg.inner_text('#v-ped')
+            det = txt2
+            tokok = await pg.evaluate("() => /^LF-[A-Z2-9]{4}$/.test(window.__LF.S.pedidos[0].tok)")
             await pg.locator('[data-act=pedprod]').first.click(); await pg.wait_for_timeout(300)
             jan = await pg.inner_text('#v-ped .modal')
             await pg.locator('[data-act=pedprodx]').first.click(); await pg.locator('[data-act=pedav]').first.click(); await pg.wait_for_timeout(300)
             r2 = await pg.evaluate("() => [window.__LF.S.pedidos[0].st, window.__LF.S.pedF]")
+            await pg.evaluate("() => { const S = window.__LF.S; S.pedidos[0].st = 'pronto'; S.pedF = 'pronto'; S.pedSel = S.pedidos[0].id; window.__LF.render(); }")
+            await pg.locator('[data-act=pedav]').first.click(); await pg.wait_for_timeout(300)
+            tk = await pg.evaluate("() => window.__LF.S.pedidos[0].tok.slice(3)")
+            await pg.fill('#pdTokIn', 'ZZZZ'); await pg.locator('#pdEnt').click(); await pg.wait_for_timeout(200)
+            errtk = await pg.inner_text('#pdErro'); st_err = await pg.evaluate("() => window.__LF.S.pedidos[0].st")
+            await pg.fill('#pdTokIn', 'lf-' + tk.lower()); await pg.locator('#pdEnt').click(); await pg.wait_for_timeout(300)
+            st_ok = await pg.evaluate("() => window.__LF.S.pedidos[0].st")
+            tokflow = [st_err, 'não é o do pedido' in errtk, st_ok]
             total += 1
             ok = (n1 == 1 and n2 == 0 and r == [1, 'Maria souza', 2, 'novo', 'site', 1, '0981123456', True, True] and sorted(set(apagados)) == ['abc1', 'abc2']
-                  and 'Aguardando a mensagem do cliente' in txt and 'K7Q2' in txt and 'Reserva confirmada' in txt2 and reservas == ['reservas/abc1'] and 'Cliente novo, cadastrado automaticamente' in txt and 'novo pedido' not in txt.lower() and 'Maria souza' in det and 'Cadastrado agora' in det and 'Armação azul' in det
-                  and '3 peças' in jan and 'neste pedido' in jan.lower() and r2 == ['sep', 'sep'] and not pg.erros)
+                  and 'Aguardando cliente' in txt and 'K7Q2' in txt and 'LF-' in txt2 and reservas == ['reservas/abc1'] and 'Nova' in det and 'novo pedido' not in txt.lower() and tokok and 'Maria souza' in det and 'Armação azul' in det
+                  and '3 peças' in jan and 'neste pedido' in jan.lower() and r2 == ['sep', 'sep'] and tokflow == ['pronto', True, 'ent'] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'pedidos do site: chegam sozinhos, cadastram o cliente, detalhe e janela da peça')
             if not ok: falhas.append('pedidos'); print('        veio', n1, n2, r, apagados, txt[:200], det[:200], jan[:200], r2, pg.erros)
             await pg.close()
