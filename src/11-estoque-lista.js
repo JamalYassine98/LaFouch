@@ -667,7 +667,10 @@
       });
     }
     var openRef = refs.indexOf(S.open) >= 0 ? S.open : '';
-    if (!openRef) S.det = false;
+    if (!openRef) {
+      S.det = false;
+      S._fichaRef = '';
+    }
     var effRef = openRef || refs[0] || '';
     $('lt').textContent = S.todos ? 'Todos os produtos por referência' : t.full + ' por referência';
     $('lh').textContent = 'Toque num produto para abrir o catálogo dele, ver as cores e vender';
@@ -1123,7 +1126,7 @@
       if (!qb) {
         qb = btn('chip on', 'Dar entrada rápida neste modelo', function () {});
         qb.id = 'eQuickBtn';
-        qb.style.marginTop = '6px';
+        qb.style.flex = '0 0 auto';
         $('eRefH').parentNode.appendChild(qb);
       }
       qb.hidden = !(known && !t.simple);

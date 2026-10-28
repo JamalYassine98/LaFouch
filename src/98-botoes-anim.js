@@ -80,13 +80,33 @@
     }
     if (window.MutationObserver) {
       var mo = new MutationObserver(pede);
-      mo.observe($('mainnav'), { childList: true });
+      mo.observe($('mainnav'), { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
       mo.observe($('v-dash'), { childList: true, subtree: true });
     }
-    window.addEventListener('resize', function () {
+    // a marca do menu mede a aba ativa; se o layout mudou no meio de uma animação (notificação, giro, volta do app) mede de novo
+    function remede() {
       POS = {};
       pede();
+      setTimeout(function () {
+        POS = {};
+        pede();
+      }, 520);
+    }
+    window.addEventListener('resize', remede);
+    window.addEventListener('orientationchange', remede);
+    window.addEventListener('pageshow', remede);
+    window.addEventListener('focus', remede);
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) remede();
     });
+    if (window.ResizeObserver) {
+      try {
+        new ResizeObserver(function () {
+          POS = {};
+          pede();
+        }).observe($('mainnav'));
+      } catch (eRo) {}
+    }
     // 4 e 7. Início: botões entram em cascata e os números contam subindo.
     function contaNumeros(el) {
       var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT),
@@ -127,6 +147,23 @@
           t.style.animationDelay = '';
         });
       }, 1300);
+    };
+    // Telas que antes ficavam paradas (Inventário, Caixa, Pedidos, Ajustes…): cartões sobem em cascata e os números contam.
+    window.animTela = function (nome) {
+      var v = $('v-' + nome);
+      if (REDUCED || !v) return;
+      var l = [].slice.call(v.querySelectorAll(':scope > .card, :scope > section, :scope > .tgrid > .tl, :scope > div > .tl')).slice(0, 14);
+      l.forEach(function (e, i) {
+        e.style.animation = 'telaSobe .5s cubic-bezier(.2,.8,.2,1) ' + (60 + i * 55) + 'ms both';
+      });
+      v.querySelectorAll('.tl').forEach(function (t) {
+        contaNumeros(t);
+      });
+      setTimeout(function () {
+        l.forEach(function (e) {
+          e.style.animation = '';
+        });
+      }, 1400);
     };
     // 5. Botão de registrar mostra ✓ quando deu certo.
     var antes = 0;

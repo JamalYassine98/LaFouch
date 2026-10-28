@@ -429,20 +429,17 @@ async def main():
                     falhas.append(nome); print('        veio', got)
 
             pg = await abrir('sem', 'Hexagonal')
-            got = await pg.evaluate("() => [document.querySelectorAll('#detail .ccard').length, document.querySelectorAll('#detail .vbar button').length, document.querySelectorAll('#detail .pl.pick, #detail .detgrid button.nav, #detail .gal button').length, document.querySelector('#detail .vbar button').innerText]")
-            await checa('produto: 3 cores em cartões (como em Vendas) e um só botão Vender', got == [3, 1, 0, 'Vender C1 · Preto'], got)
+            got = await pg.evaluate("() => [document.querySelectorAll('#detail .ccard').length, document.querySelectorAll('#detail .vbar button').length, document.querySelectorAll('#detail .pl.pick, #detail .detgrid button.nav, #detail .gal button').length, (document.querySelector('#detail .vbar button') || {}).innerText || null]")
+            await checa('produto: 3 cores em cartões (como em Vendas) e sem botão Vender na ficha', got == [3, 0, 0, None], got)
             await pg.locator('#detail .ccard').nth(1).click(); await pg.wait_for_timeout(200)
-            got = await pg.evaluate("() => [document.querySelector('#detail .vbar button').innerText, window.__LF.S.detCor]")
-            await checa('produto: tocar numa cor muda o que o Vender vende', got == ['Vender C2 · Bege', 'Bege'], got)
-            await pg.locator('#detail .vbar button').click(); await pg.wait_for_timeout(300)
-            got = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.vSel && window.__LF.S.vSel.cor]")
-            await checa('produto: Vender leva à venda da cor selecionada', got == ['vendas', 'Bege'], got)
+            got = await pg.evaluate("() => [document.querySelector('#detail .ccard.on b').innerText, window.__LF.S.detCor]")
+            await checa('produto: tocar numa cor seleciona a cor (foto e estoque dela)', got[1] == 'Bege', got)
 
             pg = await abrir('sem', 'Hexagonal')
             await pg.evaluate("() => { const S = window.__LF.S; S.items.filter(i => i.cor === 'Preto' && i.ref === 'BR44118')[0].qty = 0; S.detRow = null; S.detCor = ''; window.__LF.render(); }")
             await pg.wait_for_timeout(200)
-            got = await pg.evaluate("() => [document.querySelector('#detail .vbar button').innerText, document.querySelector('#detail .vbar button').disabled]")
-            await checa('produto: cor sem estoque não é escolhida por padrão', got == ['Vender C2 · Bege', False], got)
+            got = await pg.evaluate("() => (document.querySelector('#detail .ccard.on b') || {}).innerText")
+            await checa('produto: cor sem estoque não é escolhida por padrão', got and 'Bege' in got, got)
 
             pg = await abrir('sem', 'Hexagonal')
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
@@ -450,7 +447,7 @@ async def main():
             await pg.evaluate(ED(2)); await pg.locator('#editModal input[aria-label="Quantidade em estoque"]').first.fill('9'); await pg.locator('#editModal input[aria-label="Quantidade em estoque"]').first.press('Tab'); await pg.wait_for_timeout(200)
             await pg.locator('#editModal input[aria-label="Custo por peça em US$"]').nth(1).fill('2,5'); await pg.locator('#editModal input[aria-label="Custo por peça em US$"]').nth(1).press('Tab'); await pg.wait_for_timeout(200)
             antes = await pg.evaluate("() => window.__LF.S.items.filter(i => i.ref === 'BR44118').map(i => [i.cor, i.qty, i.custo])")
-            await pg.evaluate(ED(4)); await pg.locator('#editModal button:text-is("Salvar")').click(); await pg.wait_for_timeout(300)
+            await pg.evaluate(ED(4)); await pg.locator('#editModal #edSalvar').click(); await pg.wait_for_timeout(300)
             depois = await pg.evaluate("() => window.__LF.S.items.filter(i => i.ref === 'BR44118').map(i => [i.cor, i.qty, i.custo])")
             fechou = await pg.locator('#editModal').count() == 0
             await checa('janela Editar: quantidade e custo só valem ao salvar', ok and antes[0][1] == 4 and depois == [['Preto', 9, 5], ['Bege', 4, 2.5], ['Tartaruga', 2, None]] and fechou, [antes, depois, fechou])
@@ -458,16 +455,24 @@ async def main():
             # Oferta no Inventário: descontos prontos, aviso de piso e encerrar
             pg = await abrir('sem', 'Hexagonal')
             await pg.evaluate("() => { const S = window.__LF.S; S.pprice = {}; window.__LF.render(); }"); await pg.wait_for_timeout(300)
-            tem = await pg.evaluate("() => !!document.getElementById('ofCard')")
-            await pg.fill('#ofPreco', '0'); await pg.evaluate("() => { const i = document.getElementById('ofPreco'); const b = Math.round(window.__LF.S.items.find(x => x.ref === 'BR44118') ? 0 : 0); }")
+            tem = await pg.evaluate("() => [!!document.getElementById('pvPreco'), !!document.getElementById('ofAbre'), !!document.getElementById('pvSt'), !document.getElementById('ofCard')]")
+            await pg.fill('#pvPreco', '150000'); await pg.locator('#pvPreco').press('Tab'); await pg.wait_for_timeout(200)
+            tipado = await pg.evaluate("() => window.__LF.S.pprice['BR44118'] && window.__LF.S.pprice['BR44118'].novo")
+            await pg.locator('#ofAbre').click(); await pg.wait_for_timeout(300)
+            jan = await pg.evaluate("() => [!!document.getElementById('ofCard'), document.querySelectorAll('#ofCard .ofPc').length]")
+            await pg.locator('#ofCancel').click(); await pg.wait_for_timeout(200)
+            fechou = await pg.evaluate("() => !document.getElementById('ofCard')")
+            await pg.locator('#ofAbre').click(); await pg.wait_for_timeout(300)
             base = await pg.evaluate("() => { const m = document.querySelector('#ofCard .ofRow b'); return parseInt(m.textContent.replace(/\\D/g, ''), 10) }")
-            await pg.fill('#ofPreco', str(int(base * 0.8 / 1000) * 1000)); await pg.wait_for_timeout(200)
+            await pg.locator('#ofCard .ofPc[data-pc="20"]').click(); await pg.wait_for_timeout(750)
+            pcv = await pg.evaluate("() => parseInt(document.getElementById('ofPreco').value.replace(/\\D/g, ''), 10)")
             await pg.locator('#ofOk').click(); await pg.wait_for_timeout(300)
             of1 = await pg.evaluate("() => { const o = window.__LF.S.pprice['BR44118']; return o ? [o.ant > o.novo, Math.round((1 - o.novo / o.ant) * 100)] : null }")
+            await pg.locator('#ofAbre').click(); await pg.wait_for_timeout(300)
             tem2 = await pg.evaluate("() => [!!document.getElementById('ofAte'), !!document.getElementById('ofFim')]")
             await pg.locator('#ofFim').click(); await pg.wait_for_timeout(300)
             of2 = await pg.evaluate("() => { const o = window.__LF.S.pprice['BR44118']; return o ? o.ant === undefined : true }")
-            await checa('oferta: descontos prontos, data opcional e encerrar volta ao preço anterior', tem and of1 and of1[0] and 18 <= of1[1] <= 22 and tem2 == [True, True] and of2, [tem, of1, tem2, of2])
+            await checa('oferta: Preço digitável + botão Oferta + status; janela com % de desconto, cancelar, data opcional e encerrar', tem == [True, True, True, True] and tipado == 150000 and jan == [True, 6] and fechou and abs(pcv - base * 0.8) <= 1000 and of1 and of1[0] and 18 <= of1[1] <= 22 and tem2 == [True, True] and of2, [tem, tipado, jan, fechou, base, pcv, of1, tem2, of2])
 
             # Liberar para o site: só com foto em todas as cores
             pg = await abrir('sem', 'Hexagonal')
@@ -491,16 +496,19 @@ async def main():
             got = await pg.evaluate("() => [window.__LF.S.items.filter(i => i.cor === 'Preto' && i.ref === 'BR44118')[0].qty, window.__LF.S.desc['BR44118'], !!document.getElementById('editModal')]")
             await checa('janela Editar: Cancelar descarta tudo', got[0] == 4 and got[1] != 'rascunho' and got[2] is False, got)
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
-            e0 = [await pg.locator('#edCodigo').count(), await pg.locator('#edNext').count(), await pg.locator('#editModal button:text-is("Salvar")').count(), await pg.locator('#edLixeira').count(), await pg.locator('#ed_formato').count()]
-            await pg.click('#edNext'); await pg.wait_for_timeout(200)
-            e1 = [await pg.locator('#editModal button:text-is("Salvar")').count(), await pg.locator('#edNext').count(), await pg.locator('#edExcluir').count(), await pg.locator('#edBack').count(), await pg.locator('#edCores').count()]
-            await pg.click('#edExcluir'); await pg.wait_for_timeout(200)
+            e0 = [await pg.locator('#edCodigo').count(), await pg.locator('#edTab1').count(), await pg.locator('#edSalvar').count(), await pg.locator('#edLixeira').count(), await pg.locator('#ed_formato').count(), await pg.locator('#ed_tipo').count()]
+            cx = await pg.evaluate("() => { const a = document.getElementById('edCodigo').getBoundingClientRect(), b = document.getElementById('ed_tipo') && document.getElementById('ed_tipo').getBoundingClientRect(); return !b || a.left < b.left; }")
+            await pg.click('#edTab2'); await pg.wait_for_timeout(200)
+            e1 = [await pg.locator('#edSalvar').count(), await pg.locator('#edNext').count(), await pg.locator('#edExcluir').count(), await pg.locator('#edCores').count()]
+            await pg.click('#edTab1'); await pg.wait_for_timeout(150)
+            e3 = await pg.locator('#edCodigo').count()
+            await pg.click('#edTab2'); await pg.click('#edExcluir'); await pg.wait_for_timeout(200)
             e2 = await pg.locator('#edLixoAviso').count()
-            await checa('janela Editar com a interface do cadastro: Modelo, depois Cores e fotos (Salvar, voltar em ícone, lixeira, excluir com confirmação)', e0 == [1, 1, 0, 1, 1] and e1[:4] == [1, 0, 1, 1] and e2 == 1, [e0, e1, e2])
+            await checa('janela Editar igual ao cadastro: código à esquerda e tipo à direita, etapas livres (Modelo/Cores e fotos), Salvar alterações fixo, lixeira e excluir com confirmação', e0[:5] == [1, 1, 1, 1, 1] and cx and e1 == [1, 0, 1, 1] and e3 == 1 and e2 == 1, [e0, cx, e1, e3, e2])
             await pg.evaluate(ED(1)); await pg.locator('#editModal button:text-is("Fechar")').last.click(); await pg.wait_for_timeout(300)
 
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
-            await pg.evaluate(ED(1)); await pg.fill('#descTa', 'Polarizado, mola flexível'); await pg.evaluate(ED(4)); await pg.locator('#editModal button:text-is("Salvar")').click(); await pg.wait_for_timeout(300)
+            await pg.evaluate(ED(1)); await pg.fill('#descTa', 'Polarizado, mola flexível'); await pg.evaluate(ED(4)); await pg.locator('#editModal #edSalvar').click(); await pg.wait_for_timeout(300)
             got = await pg.evaluate("() => [window.__LF.S.desc['BR44118'], document.getElementById('detail').innerText.includes('Polarizado, mola flexível')]")
             await checa('janela Editar: descrição salva e mostrada na tela', got == ['Polarizado, mola flexível', True], got)
 
@@ -512,7 +520,7 @@ async def main():
             await checa('janela Editar: excluir foto pede confirmação e não mexe no estoque', ainda and got == [False, 3, True], [ainda, got])
 
             await pg.evaluate(ED(1)); await pg.locator('#editModal #edCodigo').fill('br99999')
-            await pg.evaluate(ED(4)); await pg.locator('#editModal button:text-is("Salvar")').click(); await pg.wait_for_timeout(400)
+            await pg.evaluate(ED(4)); await pg.locator('#editModal #edSalvar').click(); await pg.wait_for_timeout(400)
             got = await pg.evaluate("() => [window.__LF.S.items.filter(i => i.ref === 'BR99999').length, window.__LF.S.items.filter(i => i.ref === 'BR44118').length, window.__LF.S.open, !!window.__LF.S.pnome['BR99999'], document.getElementById('detail').hidden]")
             await checa('janela Editar: trocar o código move o produto', got == [3, 0, 'BR99999', True, False], got)
 
@@ -520,7 +528,7 @@ async def main():
             await pg.evaluate("() => window.__LF.S.items.push({tipo:'sem', ref:'OUTRO1', grau:'', med:'', vr:'C1', fmt:'Quadrado', cor:'Azul', qty:1})")
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
             await pg.locator('#editModal #edCodigo').fill('OUTRO1')
-            await pg.evaluate(ED(4)); await pg.locator('#editModal button:text-is("Salvar")').click(); await pg.wait_for_timeout(300)
+            await pg.evaluate(ED(4)); await pg.locator('#editModal #edSalvar').click(); await pg.wait_for_timeout(300)
             got = await pg.evaluate("() => [window.__LF.S.items.filter(i => i.ref === 'BR44118').length, !!document.getElementById('editModal')]")
             await checa('janela Editar: código repetido é recusado', got == [3, True], got)
 
@@ -1683,7 +1691,7 @@ async def main():
             pg = await abrir('sem', 'Hexagonal')
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
             await pg.evaluate(ED(1)); await pg.locator('#edFaixas button:has-text("Luxo")').click(); await pg.wait_for_timeout(200)
-            await pg.evaluate(ED(4)); await pg.locator('#editModal button:text-is("Salvar")').click(); await pg.wait_for_timeout(300)
+            await pg.evaluate(ED(4)); await pg.locator('#editModal #edSalvar').click(); await pg.wait_for_timeout(300)
             got = await pg.evaluate("() => { const S = window.__LF.S; return S.pfaixa['BR44118'] === S.faixas.filter(f => f.nome === 'Luxo')[0].id }")
             await checa('janela Editar: escolher a faixa do produto', got is True, got)
             total += 1
@@ -1762,7 +1770,7 @@ async def main():
 
             # venda: formas de pagamento aparecem
             pg = await abrir('sem', 'Hexagonal')
-            await pg.locator('#detail .vbar button').click(); await pg.wait_for_timeout(500)
+            await pg.evaluate("() => { const L = window.__LF, S = L.S, sel = S.items.filter(i => i.ref === 'BR44118' && i.qty > 0)[0]; S.vTipo = 'all'; S.vGrau = ''; S.vq = ''; document.getElementById('vq').value = ''; S.vRef = sel.tipo + '|' + sel.ref; S.vSel = sel; S.qty = 1; L.setView('vendas'); }"); await pg.wait_for_timeout(500)
             await pg.evaluate("() => document.getElementById('sCartAdd').click()"); await pg.wait_for_timeout(300)
             await pg.click('[data-act=cartopen]'); await pg.wait_for_timeout(300)
             await pg.evaluate("() => { window.__LF.S.forma = 'din'; window.__LF.render(); }")

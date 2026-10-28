@@ -292,6 +292,8 @@
       }
       render();
     };
+    // gesto de arrastar na ficha (src/89-gestos-ficha.js): cores da foto atual
+    S._gestoCor = venda ? null : { gal: gal.slice(), atual: cor, pick: pickCor };
     // armação/solar no estoque: mesma tela do catálogo de Vendas (pontinhos e cores em cartões)
     var cartoes = !venda && f.tipo !== 'pre' && !isSimple(f.tipo) && rows.length > 1;
     if (venda || gal.length > 1) {
@@ -333,6 +335,7 @@
           { passive: true }
         );
         pbv.addEventListener('touchend', function (e) {
+          if (!venda) return; // no estoque quem trata o arrastar é o src/89-gestos-ficha.js
           if (tx0 == null) return;
           var dx = e.changedTouches[0].clientX - tx0;
           tx0 = null;
@@ -561,9 +564,10 @@
       ht2.style.margin = '8px 0 0';
       pv.appendChild(ht2);
     }
-    if (!venda) right.appendChild(fichaExtra(ref, f.tipo));
+    // Cores logo abaixo da descrição; depois Preço, Oferta e Liberar para o site
     right.appendChild(pv);
-    // um único botão Vender, para a variante selecionada
+    if (!venda) right.appendChild(fichaExtra(ref, f.tipo));
+    // (na ficha não há botão Vender: a venda é feita na aba Vendas)
     var vbar = mk('div', 'vbar');
     var vbtn = btn('go', 'Vender ' + rowLabel(sel), function () {
       S.vTipo = 'all';
@@ -577,7 +581,6 @@
     });
     if (!sel.qty) vbtn.disabled = true;
     vbar.appendChild(vbtn);
-    if (!venda) right.appendChild(vbar);
     g.appendChild(left);
     g.appendChild(right);
     det.appendChild(g);
@@ -610,6 +613,18 @@
       det.appendChild(sb);
     }
     if (venda) return sel.qty > 0 ? sel : null;
+    // a foto cresce e os cartões sobem quando a ficha de um produto novo abre
+    if (S._fichaRef !== ref) {
+      S._fichaRef = ref;
+      if (!S._semAnimFicha && !(window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches)) {
+        det.classList.add('fichaIn');
+        clearTimeout(S._fichaT);
+        S._fichaT = setTimeout(function () {
+          det.classList.remove('fichaIn');
+        }, 1100);
+      }
+      S._semAnimFicha = false;
+    }
     if (S.qEdit) det.appendChild(editModal());
 
     // Janela Editar produto: nome, código, descrição, foto, estoque/custo e exclusão de cor.
@@ -639,6 +654,7 @@
         S.ajMot = '';
         S.pdAsk = false;
         S.edStep = 1;
+        S.edTipo = '';
       };
       var fechar = function () {
         zerar();
@@ -790,19 +806,7 @@
       hd.style.alignItems = 'flex-start';
       var hl = mk('div', '');
       hl.style.cssText = 'display:flex;flex-direction:column;gap:10px;align-items:flex-start';
-      if (cur === 2) {
-        var bkb = btn('tab ibtn', '', function () {
-          S.edStep = 1;
-          render();
-        });
-        bkb.id = 'edBack';
-        bkb.setAttribute('aria-label', 'Voltar');
-        bkb.title = 'Voltar';
-        bkb.innerHTML =
-          '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>';
-        hl.appendChild(bkb);
-      }
-      var ht = mk('h2', '', cur === 2 ? 'Cores e fotos' : 'Editar produto');
+      var ht = mk('h2', '', 'Editar produto');
       ht.style.cssText = 'margin:0;font-size:18px';
       hl.appendChild(ht);
       hd.appendChild(hl);
@@ -829,6 +833,22 @@
       var sub0 = mk('div', 'hint', ref + (orig0 ? ' · ' + orig0 : ''));
       sub0.style.margin = '-8px 0 0';
       bx.appendChild(sub0);
+      // etapas livres: toque em qualquer uma, em qualquer ordem
+      var etp = mk('div', 'edTabs');
+      etp.id = 'edTabs';
+      [
+        [1, '1 · Modelo'],
+        [2, '2 · Cores e fotos']
+      ].forEach(function (t) {
+        var tb = btn('chip' + (cur === t[0] ? ' on' : ''), t[1], function () {
+          if (S.edStep !== t[0]) S._edDir = t[0] > (S.edStep === 2 ? 2 : 1) ? 1 : -1;
+          S.edStep = t[0];
+          render();
+        }, cur === t[0]);
+        tb.id = 'edTab' + t[0];
+        etp.appendChild(tb);
+      });
+      bx.appendChild(etp);
       if (S.pdAsk && !f.bulk) {
         var todos = S.items.filter(function (i) {
             return i.ref === ref && !i.bulk;
@@ -897,7 +917,32 @@
         ni.id = 'edCodigo';
         ni.value = S.rnV != null && S.rnRef === ref ? S.rnV : ref;
         ni.setAttribute('aria-label', smp ? 'Nome do produto' : 'Código');
-        g[1].appendChild(fld(smp ? 'Nome do produto' : 'Código (o que fica na haste)', ni));
+        var tpL = TIPOS.filter(function (x) {
+          return !!isSimple(x.id) === !!smp && (x.id === 'pre') === (f.tipo === 'pre');
+        });
+        var tpCur = S.edTipo || f.tipo,
+          tpSel = null;
+        if (!smp && tpL.length > 1) {
+          tpSel = edSel(
+            'tipo',
+            'Tipo',
+            tpL.map(function (x) {
+              return x.label;
+            }),
+            (tipoOf(tpCur) || {}).label || '',
+            function (v) {
+              var x = tpL.filter(function (y) {
+                return y.label === v;
+              })[0];
+              S.edTipo = x ? x.id : '';
+            }
+          );
+        }
+        var rcod = mk('div', 'nvg2');
+        rcod.appendChild(fld(smp ? 'Nome do produto' : 'Código da haste', ni));
+        if (tpSel) rcod.appendChild(tpSel);
+        g[1].appendChild(rcod);
+        if (tpSel && tpSel._lista) g[1].appendChild(tpSel._lista);
         var guardar = function () {
           S.rnRef = ref;
           S.rnV = ni.value;
@@ -1244,6 +1289,10 @@
         xz.appendChild(xbt);
         g[4].appendChild(xz);
       }
+      if (S._edDir) {
+        g[cur].style.animation = (S._edDir > 0 ? 'edEntraD' : 'edEntraE') + ' .32s cubic-bezier(.2,.8,.2,1) both';
+        S._edDir = 0;
+      }
       bx.appendChild(g[cur]);
       // Cancelar / Salvar
       var ft = mk('div', '');
@@ -1281,6 +1330,19 @@
             partes.push('Descrição salva.');
           }
         }
+        if (S.edTipo && S.edTipo !== f.tipo) {
+          if (
+            S.items.some(function (i) {
+              return i.ref === ref && i.tipo === S.edTipo;
+            })
+          )
+            return popErr('Já existe ' + ref + ' nesse tipo.');
+          S.items.forEach(function (i) {
+            if (i.ref === ref && i.tipo === f.tipo) i.tipo = S.edTipo;
+          });
+          S.tipo = S.edTipo;
+          partes.push('Tipo alterado.');
+        }
         var rm = ni ? renomear(nn, nv0, !!nmi) : '';
         if (rm) partes.push(rm);
         if (S.fDraft != null) {
@@ -1292,7 +1354,8 @@
         S.msg = partes.join(' ') || 'Nada foi alterado.';
         render();
       };
-      var sb2 = btn('go', 'Salvar', salvar);
+      var sb2 = btn('go', 'Salvar alterações', salvar);
+      sb2.id = 'edSalvar';
       sb2.style.cssText = 'flex:1;margin:0';
       if (S.ajAsk) {
         var aq = mk('div', 'note n-bad');
@@ -1315,15 +1378,8 @@
         );
         bx.appendChild(aq);
       }
-      if (cur === 1) {
-        var nx = btn('go', 'Continuar para cores e fotos', function () {
-          S.edStep = 2;
-          render();
-        });
-        nx.id = 'edNext';
-        nx.style.cssText = 'flex:1;margin:0';
-        ft.appendChild(nx);
-      } else ft.appendChild(sb2);
+      ft.appendChild(sb2);
+      ft.className = 'edFoot';
       bx.appendChild(ft);
       ov.appendChild(bx);
       return ov;

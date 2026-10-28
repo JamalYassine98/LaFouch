@@ -608,3 +608,48 @@ button:not(:disabled):active.go,.go:not(:disabled):active{box-shadow:0 0 0 6px #
 #splitRows .sl{animation:fadein .35s both}
 
 .fmTx b svg{flex:none}
+/* ficha: Preço digitável + botão Oferta + janela com % de desconto (27/10) */
+#precoCard .in{width:100%;font-size:20px;font-weight:700}
+.ofAbreBtn{display:flex;align-items:center;justify-content:center;width:100%;margin-top:10px;min-height:46px;border-radius:14px;border:1.5px solid var(--accent);background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--text);font:inherit;font-weight:600}
+.ofAbreBtn.on{background:color-mix(in srgb,var(--accent) 28%,transparent)}
+.ofAbreBtn:disabled{opacity:.5}
+#precoCard .ofSt{margin-top:10px}
+.ofModal{display:flex;flex-direction:column;gap:10px}
+.ofChips{display:flex;flex-wrap:wrap;gap:8px}
+.ofChips .chip{margin:0;transition:transform .18s,background .2s,border-color .2s}
+.ofChips .chip.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 25%,transparent);animation:ofPulso .45s}
+@keyframes ofPulso{0%{transform:scale(1)}40%{transform:scale(1.16)}100%{transform:scale(1)}}
+.ofModal .ofCancel{width:100%;justify-content:center}
+.ofSt{transition:border-color .3s,color .3s}
+@media (prefers-reduced-motion:reduce){.ofChips .chip.on{animation:none}}
+.eRefRow{display:flex;align-items:center;gap:10px}.eRefRow #eRefH{flex:1 1 auto;min-width:0;margin:0}.eRefRow #eQuickBtn{flex:0 0 auto;margin:0;white-space:normal;max-width:48%;text-align:center}.eRefRow:not(:has(#eRefH:not(:empty))):not(:has(#eQuickBtn:not([hidden]))){display:none}
+.eRefRow{flex-wrap:wrap}.eRefRow #eSim{order:3;flex:1 1 100%}.eRefRow #eSim:empty{display:none}
+/* Editar produto: etapas livres e rodapé fixo (27/10) */
+.edTabs{display:flex;gap:8px}.edTabs .chip{flex:1;justify-content:center;margin:0;min-height:44px}
+#editModal .modal-box{display:flex;flex-direction:column}
+#editModal .edFoot{position:sticky;bottom:-1px;margin:14px -4px -4px;padding:12px 4px 4px;background:linear-gradient(transparent,var(--panel) 28%);z-index:2}
+/*LOCKX*/html,body{overflow-x:clip;overscroll-behavior-x:none}/*/LOCKX*/
+/* animações escolhidas pelo dono (27/10): 1B foto cresce, 2A janela com mola, 3A chips, 5B onda+luzes, 7A/7B etapas e lixeira, 9A campos acendem, 10A telas em cascata */
+@keyframes fichaGrow{from{transform:scale(.45);opacity:.2}to{transform:none;opacity:1}}
+@keyframes fichaUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+#detail.fichaIn .pbox{animation:fichaGrow .75s cubic-bezier(.2,.8,.2,1) both;transform-origin:50% 0}
+#detail.fichaIn .detgrid>.col:last-child>*{animation:fichaUp .5s cubic-bezier(.2,.8,.2,1) both}
+#detail.fichaIn .detgrid>.col:last-child>*:nth-child(1){animation-delay:.25s}
+#detail.fichaIn .detgrid>.col:last-child>*:nth-child(2){animation-delay:.32s}
+#detail.fichaIn .detgrid>.col:last-child>*:nth-child(3){animation-delay:.39s}
+#detail.fichaIn .detgrid>.col:last-child>*:nth-child(4){animation-delay:.46s}
+#detail.fichaIn .detgrid>.col:last-child>*:nth-child(n+5){animation-delay:.53s}
+@keyframes ofMola{0%{transform:translateY(110%)}70%{transform:translateY(-6px)}100%{transform:none}}
+#ofModal{align-items:flex-end}
+#ofModal .ofModal{animation:ofMola .8s cubic-bezier(.2,.9,.3,1) both;border-radius:26px 26px 0 0;width:100%;max-width:520px!important}
+@keyframes siteOnda{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 70%,transparent)}100%{box-shadow:0 0 0 22px transparent}}
+.siteWave{animation:siteOnda .8s ease-out}
+.siteSpk{position:absolute;left:0;right:0;top:38%;text-align:center;color:var(--accent);font-size:22px;letter-spacing:12px;pointer-events:none;animation:siteLuz 1s ease-out forwards}
+@keyframes siteLuz{0%{opacity:0;transform:translateY(0) scale(.4)}30%{opacity:1}100%{opacity:0;transform:translateY(-62px) scale(1)}}
+@keyframes edEntraD{from{opacity:0;transform:translateX(34px)}to{opacity:1;transform:none}}
+@keyframes edEntraE{from{opacity:0;transform:translateX(-34px)}to{opacity:1;transform:none}}
+@keyframes lixoTampa{0%,100%{transform:rotate(0)}30%{transform:rotate(-32deg) translate(-2px,-2px)}55%{transform:rotate(-20deg)}}
+#edLixeira.on svg{transform-origin:25% 30%;animation:lixoTampa 1.3s ease both}
+#edLixoAviso{animation:ofMola .7s cubic-bezier(.2,.9,.3,1) both}
+@keyframes telaSobe{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){#detail.fichaIn .pbox,#detail.fichaIn .detgrid>.col:last-child>*,#ofModal .ofModal,.siteWave,.siteSpk,#edLixoAviso{animation:none}}

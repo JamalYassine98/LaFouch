@@ -10,6 +10,7 @@
     window.scrollTo(0, 0);
     animEnter($('v-' + v));
     if (v === 'inicio' && window.animInicio) window.animInicio();
+    else if (window.animTela) window.animTela(v);
   }
   // Navegação principal.
   function renderNav() {

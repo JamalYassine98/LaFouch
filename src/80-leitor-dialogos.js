@@ -114,6 +114,18 @@
     S.nDeRef = '';
     S.eMat = '';
     S.ePub = '';
+    /* modelo que já existe no estoque: material, gênero, faixa e descrição vêm preenchidos */
+    var itK = o.ref
+      ? S.items.filter(function (i) {
+          return i.ref && i.ref.toUpperCase() === String(o.ref).toUpperCase();
+        })[0]
+      : null;
+    if (itK) {
+      var atK = (typeof attrOf === 'function' && attrOf(itK.ref)) || {};
+      if (atK.material) S.eMat = atK.material;
+      if (atK.publico) S.ePub = atK.publico;
+      if (S.pfaixa && S.pfaixa[itK.ref]) S.eFaixa = S.pfaixa[itK.ref];
+    }
     $('eRef').value = o.ref || '';
     if (o.med) $('eMed').value = o.med;
     if (o.fmt) S.eFmt = o.fmt;
@@ -126,6 +138,7 @@
     S.msg = o.msg || '';
     render();
     try {
+      if (itK && S.desc && S.desc[itK.ref] && $('eDescP') && !$('eDescP').value) $('eDescP').value = S.desc[itK.ref];
       if (o.nome && $('eNome')) $('eNome').value = o.nome;
       if (o.custo && $('eCusto')) $('eCusto').value = o.custo;
       if (!REDUCED && !o.noscroll)

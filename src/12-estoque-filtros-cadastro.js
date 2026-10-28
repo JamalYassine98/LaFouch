@@ -137,6 +137,20 @@
         noscroll: 1
       })
     );
+    // os campos preenchidos acendem em verde, de cima para baixo
+    setTimeout(function () {
+      if (REDUCED) return;
+      ['#eRef', '#nvEss .nvf.ok', '#eMed', '#eNome', '#eDescP'].forEach(function (sel, gi) {
+        [].slice.call(document.querySelectorAll(sel)).forEach(function (e, j) {
+          if (e.value === '' && e.tagName !== 'BUTTON') return;
+          setTimeout(function () {
+            e.classList.remove('lfglow');
+            void e.offsetWidth;
+            e.classList.add('lfglow');
+          }, 150 * (gi + j));
+        });
+      });
+    }, 60);
   });
   $('phRef').addEventListener('input', function () {
     var it = refItem(this.value);

@@ -140,3 +140,11 @@ Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Parag
 - Gestos: arrastar a ficha → próximo/anterior produto; arrastar a foto → próxima/anterior cor.
 - Animações: dono escolhe A/B por função (cartela enviada).
 - Atenção: a lista "Preço" que foi removida em v344 volta (o dono mudou de ideia).
+
+## 27/10/2026 · v345 · IMPLEMENTADO (relatório aprovado)
+- Bugs: (1) `html,body{overflow-x:clip;overscroll-behavior-x:none}` (bloco LOCKX no fim de www/style.css). Comparação pixel a pixel de 9 telas com/sem a regra: posições idênticas, só até 4/255 de diferença em 1.268 pixels de sombra na tela Início. (2) admin do site (catalogo/admin.html) relê o Firebase no foco, ao voltar ao app, ao abrir Produtos e a cada 30 s. (3) marca do menu (98-botoes-anim.js) mede de novo em mutações de classe, resize, orientação, pageshow, foco, volta do segundo plano e ResizeObserver.
+- Ficha: Preço digitável (#pvPreco) + botão "% Oferta" (#ofAbre) + status (#pvSt); janela Oferta (#ofModal) com chips de 5 a 30%; Liberar para o site abaixo; sem botão Vender na ficha; Cores logo abaixo da descrição. Faixa (30/40/50%) fica só no Editar produto.
+- Cadastro: código à esquerda, Tipo à direita; aviso do código + "Dar entrada rápida" na mesma linha (#eRefRow); modelo existente preenche material, gênero, faixa e descrição (fillAdd).
+- Editar produto: abas livres 1·Modelo / 2·Cores e fotos (#edTab1/#edTab2), código e Tipo editáveis (troca de tipo move as peças), lixeira, rodapé fixo "Salvar alterações" (#edSalvar).
+- Gestos (src/89-gestos-ficha.js): arrastar a ficha → produto anterior/próximo; arrastar a foto → cor anterior/próxima (a folha acompanha o dedo, elástico nas pontas).
+- Animações escolhidas pelo dono: 1B foto cresce, 2A janela com mola, 3A chips pulsam + preço conta, 4A cor suave, 5B onda + luzes ao liberar, 6A deslize com a folha, 7A etapas deslizam + 7B lixeira com tampa e aviso que sobe, 9A campos acendem, 10A telas em cascata + números contam. Item 8 (Salvar) NÃO escolhido: sem animação nova.

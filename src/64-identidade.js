@@ -186,6 +186,23 @@
       .replace(/^-+|-+$/g, '');
   }
   /* interruptor do Editar produto: libera o modelo (com todas as cores) para o catálogo online */
+  // onda rosa no botão e luzinhas que sobem (curto), depois de liberar
+  function siteOnda() {
+    setTimeout(function () {
+      var b = $('edSiteBtn');
+      if (!b || (window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches)) return;
+      var w = b.parentNode;
+      w.style.position = 'relative';
+      b.classList.add('siteWave');
+      var sp = mk('div', 'siteSpk', '✦ ✧ ✦ ✧ ✦');
+      sp.setAttribute('aria-hidden', 'true');
+      w.appendChild(sp);
+      setTimeout(function () {
+        b.classList.remove('siteWave');
+        sp.remove();
+      }, 1100);
+    }, 30);
+  }
   function siteSwitch(ref) {
     var w = mk('div', 'col'),
       on = siteOn(ref),
@@ -199,7 +216,10 @@
         if (!on && !ck.ok) return;
         siteSet(ref, !on);
         render();
-        if (!on) siteFx(ref);
+        if (!on) {
+          siteFx(ref);
+          siteOnda();
+        }
       },
       on
     );

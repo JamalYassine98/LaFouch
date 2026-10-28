@@ -114,12 +114,17 @@
         return o;
       };
     var r1 = mk('div', 'nvg2');
-    r1.appendChild(fTipo);
     var cw = mk('div', '');
     cw.id = 'nvCod';
     cw.appendChild($('eRef').parentNode);
     r1.appendChild(cw);
+    r1.appendChild(fTipo);
     ess.appendChild(r1);
+    // aviso do código + botão "Dar entrada rápida" na mesma linha (botão à direita do texto)
+    var rr = mk('div', 'eRefRow');
+    rr.id = 'eRefRow';
+    rr.appendChild($('eRefH'));
+    ess.appendChild(rr);
     ess.appendChild(opLinha(fTipo));
     var r2 = mk('div', 'nvg2');
     r2.id = 'nvR2';

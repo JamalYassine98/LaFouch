@@ -91,96 +91,65 @@
       ps = pisoDoRef(ref, tipo),
       cn = canalDe(ref),
       est = estoqueDoRef(ref, tipo);
+    // Cartão Preço: um campo digitável, o botão Oferta e o texto de situação (piso/trava)
+    var emOf0 = pr.ant > atual && atual > 0,
+      normal = emOf0 ? pr.ant : atual;
     var c1 = mk('div', 'zcd');
+    c1.id = 'precoCard';
     c1.appendChild(mk('div', 'lbl', 'Preço'));
-    var row = mk('div', '');
-    row.style.cssText = 'display:flex;gap:10px';
-    function campo(rot, val, key, foco) {
-      var d = mk('div', '');
-      d.style.flex = '1';
-      d.appendChild(mk('div', 'zlb', rot));
-      var inp = mk('input', 'in' + (foco ? ' zfoco' : ''));
-      inp.setAttribute('inputmode', mpMode());
-      inp.value = val > 0 ? gsParaCampo(val) : '';
-      inp.placeholder = key === 'ant' ? 'opcional' : gsParaCampo(atual);
-      inp.setAttribute('aria-label', rot);
-      inp.onchange = function () {
-        var v = campoParaGs(inp.value),
-          o = S.pprice[ref] || {};
-        if (key === 'novo') {
-          if (v > 0) o.novo = v;
-          else delete o.novo;
-        } else if (v > 0) o.ant = v;
-        else {
-          delete o.ant;
-          delete o.ate;
-        }
-        if (o.novo || o.ant) S.pprice[ref] = o;
-        else delete S.pprice[ref];
-        saveSoon();
-        render();
-      };
-      d.appendChild(inp);
-      return d;
+    var pin = mk('input', 'in zfoco');
+    pin.id = 'pvPreco';
+    pin.setAttribute('inputmode', mpMode());
+    pin.setAttribute('aria-label', 'Preço do produto');
+    pin.value = normal > 0 ? gsParaCampo(normal) : '';
+    pin.placeholder = 'Preço';
+    pin.onchange = function () {
+      var v = campoParaGs(pin.value),
+        o = S.pprice[ref] || {};
+      if (emOf0) {
+        if (v > o.novo) o.ant = v;
+      } else if (v > 0) o.novo = v;
+      else delete o.novo;
+      if (o.novo || o.ant) S.pprice[ref] = o;
+      else delete S.pprice[ref];
+      saveSoon();
+      render();
+    };
+    c1.appendChild(pin);
+    var ob = btn('ofAbreBtn' + (emOf0 ? ' on' : ''), emOf0 ? '% Em oferta · ' + gs(atual) + ' (−' + Math.round((1 - atual / pr.ant) * 100) + '%)' : '% Oferta', function () {
+      S.ofOpen = ref;
+      render();
+    });
+    ob.id = 'ofAbre';
+    ob.disabled = !(atual > 0);
+    c1.appendChild(ob);
+    var vTxt = ofertaTexto(ref, atual, ps);
+    if (vTxt) {
+      var sl = mk('div', 'ofSt ' + vTxt.cl, '');
+      sl.id = 'pvSt';
+      sl.innerHTML = vTxt.html;
+      c1.appendChild(sl);
     }
-    row.appendChild(campo('PREÇO ANTIGO', pr.ant, 'ant', false));
-    row.appendChild(campo('PREÇO NOVO', pr.novo || atual, 'novo', true));
-    c1.appendChild(row);
-    if (pr.ant > atual && atual > 0) {
-      var eco = mk('div', 'zeco', 'Economia de ' + Math.round((1 - atual / pr.ant) * 100) + '% · aparece riscado no site');
-      c1.appendChild(eco);
-    }
-    // Faixa do produto: é ela que dá a margem do piso. Sem faixa, o piso só cobre o custo.
-    if (S.faixas && S.faixas.length) {
-      var fx0 = faixaOf(ref),
-        fr = mk('div', '');
-      fr.style.cssText = 'display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px';
-      fr.appendChild(mk('span', 'zlb', 'FAIXA'));
-      S.faixas.forEach(function (f) {
-        fr.appendChild(
-          btn('chip' + (fx0 && fx0.id === f.id ? ' on' : ''), f.nome + ' ' + f.margem + '%', function () {
-            if (!S.pfaixa) S.pfaixa = {};
-            if (fx0 && fx0.id === f.id) delete S.pfaixa[ref];
-            else S.pfaixa[ref] = f.id;
-            saveSoon();
-            render();
-          })
-        );
-      });
-      c1.appendChild(fr);
-      if (!fx0) {
-        var ah = mk('div', 'hint', 'Sem faixa: o piso cobre só o custo, sem margem. Escolha uma faixa para o aviso de piso valer a margem.');
-        ah.style.margin = '6px 0 0';
-        c1.appendChild(ah);
-      }
-    }
-    if (ps && ps.st) {
-      var linha = mk('div', '');
-      linha.style.marginTop = '8px';
-      linha.appendChild(
-        mk('span', 'zbd ' + ps.st, ps.st === 'o' ? '✓ acima do piso (' + gs(ps.pp.piso) + ')' : ps.st === 'w' ? '⚠ abaixo do piso (' + gs(ps.pp.piso) + ')' : 'custo ' + gs(ps.pp.trava) + ': dá prejuízo')
-      );
-      c1.appendChild(linha);
-      if (ps.st !== 'o') {
-        var bt = btn('chip', 'Usar o piso (' + gs(ps.pp.piso) + ')', function () {
-          var o = S.pprice[ref] || {};
-          if (!o.ant && atual > ps.pp.piso) o.ant = atual;
-          o.novo = ps.pp.piso;
-          S.pprice[ref] = o;
-          saveSoon();
-          render();
-        });
-        bt.style.marginTop = '8px';
-        c1.appendChild(bt);
-      }
-    }
-    // cartão “Preço” removido a pedido do dono (27/10): a Oferta cuida do preço
-    wrap.appendChild(ofertaCard(ref, atual, pr, ps));
-    // "Liberar para o site" fica logo abaixo da Oferta, alinhado com os outros cartões
+    wrap.appendChild(c1);
+    if (S.ofOpen === ref) wrap.appendChild(ofertaModal(ref, atual, pr, ps));
+    // "Liberar para o site" fica logo abaixo, alinhado com os outros cartões
     var sz = mk('div', 'zcd');
     sz.appendChild(siteSwitch(ref));
     wrap.appendChild(sz);
     return wrap;
+  }
+  // Texto curto da situação do preço frente ao piso e à trava (usado no cartão Preço e na janela Oferta)
+  function ofertaTexto(ref, v, ps) {
+    var pp = ps && ps.pp ? ps.pp : {},
+      piso = pp.piso > 0 ? Math.ceil(pp.piso / 1000) * 1000 : 0,
+      trava = pp.trava > 0 ? pp.trava : 0;
+    if (!(v > 0)) return null;
+    if (!trava || !piso) return { cl: 'o', html: '<div class="ofTx">Sem custo cadastrado: não dá para avisar piso e trava.</div>' };
+    var r = pisoDoRef(ref, null, v),
+      s2 = r ? r.st : '';
+    if (s2 === 'r') return { cl: 'r', html: '<div class="ofHd">Prejuízo · abaixo da trava (' + gs(trava) + ')</div>' };
+    if (s2 === 'w') return { cl: 'w', html: '<div class="ofHd">Atenção · abaixo do piso (' + gs(piso) + ')</div>' };
+    return { cl: 'o', html: '<div class="ofRow"><span class="ofTag">' + (v <= piso ? 'Na margem' : 'Acima do piso') + '</span><b>lucro ' + gs(v - trava) + ' por peça</b></div>' };
   }
 
   // ---------- oferta: o Inventário manda; o app avisa piso/trava e publica no catálogo e no site
@@ -205,14 +174,28 @@
     });
     return ch;
   }
-  function ofertaCard(ref, atual, pr, ps) {
-    var c = mk('div', 'zcd');
+  function ofertaModal(ref, atual, pr, ps) {
+    var ov = mk('div', 'modal'),
+      c = mk('div', 'modal-box ofModal');
+    ov.id = 'ofModal';
+    ov.setAttribute('role', 'dialog');
+    ov.setAttribute('aria-modal', 'true');
+    ov.setAttribute('aria-label', 'Oferta');
+    ov.appendChild(c);
     c.id = 'ofCard';
+    c.style.maxWidth = '460px';
+    var fecha = function () {
+      S.ofOpen = null;
+      render();
+    };
+    ov.onclick = function (e) {
+      if (e.target === ov) fecha();
+    };
     var emOf = pr.ant > atual && atual > 0;
     c.appendChild(mk('div', 'lbl', 'Oferta'));
     if (!(atual > 0)) {
       c.appendChild(mk('div', 'hint', 'Defina o preço do produto para poder fazer uma oferta.'));
-      return c;
+      return ov;
     }
     var base = emOf ? pr.ant : atual,
       pp = ps && ps.pp ? ps.pp : {},
@@ -235,6 +218,31 @@
     var dsc = mk('div', 'ofDsc', '');
     box.appendChild(dsc);
     c.appendChild(box);
+    var chs = mk('div', 'ofChips');
+    [5, 10, 15, 20, 25, 30].forEach(function (pc) {
+      var cb = btn('chip ofPc', '−' + pc + '%', function () {
+        var de = lerV(),
+          para = Math.round((base * (1 - pc / 100)) / 1000) * 1000,
+          t0 = performance.now();
+        // o preço da oferta "conta" do valor de antes até o novo
+        if (!de || (window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches)) {
+          inp.value = gs(para);
+          pinta();
+          return;
+        }
+        (function passo(t) {
+          var k = Math.min(1, (t - t0) / 520),
+            e = 1 - Math.pow(1 - k, 3);
+          inp.value = gs(Math.round(de + (para - de) * e));
+          if (k < 1) requestAnimationFrame(passo);
+          else pinta();
+        })(t0);
+        pinta();
+      });
+      cb.setAttribute('data-pc', pc);
+      chs.appendChild(cb);
+    });
+    c.appendChild(chs);
     var st = mk('div', 'ofSt');
     st.id = 'ofSt';
     c.appendChild(st);
@@ -250,6 +258,7 @@
       o.ant = base;
       o.novo = v;
       S.pprice[ref] = o;
+      S.ofOpen = null;
       saveSoon();
       render();
     });
@@ -283,6 +292,10 @@
         ok.removeAttribute('data-ajusta');
       }
       ok.disabled = !(v > 0) || v >= base;
+      Array.prototype.forEach.call(chs.children, function (x) {
+        var pc2 = +x.getAttribute('data-pc');
+        x.classList.toggle('on', v > 0 && Math.round((base * (1 - pc2 / 100)) / 1000) * 1000 === v);
+      });
     }
     inp.addEventListener('input', function () {
       var v = lerV();
@@ -296,6 +309,8 @@
     });
     pinta();
     c.appendChild(ok);
+    var cn2 = btn('chip ofCancel', 'Cancelar', fecha);
+    cn2.id = 'ofCancel';
     if (emOf) {
       c.appendChild(mk('div', 'note n-ok', 'Em oferta no app e no site.'));
       var lb = mk('div', 'zlb', 'TERMINA EM (OPCIONAL · SÓ VOCÊ VÊ)');
@@ -322,13 +337,15 @@
       c.appendChild(di);
       var fim = btn('chip', 'Encerrar oferta (voltar a ' + gs(pr.ant) + ')', function () {
         ofertaFim(ref);
+        S.ofOpen = null;
         render();
       });
       fim.id = 'ofFim';
       fim.style.marginTop = '10px';
       c.appendChild(fim);
     }
-    return c;
+    c.appendChild(cn2);
+    return ov;
   }
 
   // ---------- seleção em grupo
