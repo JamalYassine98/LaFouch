@@ -163,3 +163,6 @@ Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Parag
 - Lista em cartões (inicial, miniaturas, total, estado, botão principal + ícone WhatsApp novo). Pedido aberto com passo a passo Reserva → Separando → Pronto → Entregue.
 - Token: ao "Confirmar reserva" (ou ao começar a separar, se não houve confirmação) gera `LF-XXXX` (sem 0/1/O/I/L), ligado ao nome da cliente (`p.tok`, `p.tokNome`). Botão "Enviar token à cliente" (WhatsApp) e copiar.
 - "Marcar entregue" abre "Conferir o token": só entrega se o token digitado confere (aceita com ou sem "LF-", minúsculas). Pedido cancelado invalida o token. Sem saída de emergência (o dono vê o token no pedido). Sem QR (o desenho mostrava QR; não há leitor/gerador no app: perguntar se quer).
+
+## v349 (28/10/2026)
+- Editar produto: removidos os campos Marca e Coleção (os dados já salvos continuam) e o botão "Sem faixa" (ficam Econômico/Intermediário/Luxo).

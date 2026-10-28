@@ -727,25 +727,6 @@
         var card = mk('div', 'card col');
         card.style.gap = '12px';
         host.appendChild(card);
-        var mi = mk('input', 'in');
-        mi.placeholder = 'Marca (ex.: Gucci, Ray-Ban, Kazwini)';
-        mi.value = cur2.marca || '';
-        mi.setAttribute('aria-label', 'Marca');
-        sugestao(
-          mi,
-          sugLista(function () {
-            var ms = {};
-            Object.keys(S.attr || {}).forEach(function (r) {
-              if (S.attr[r].marca) ms[S.attr[r].marca] = 1;
-            });
-            return Object.keys(ms);
-          })
-        );
-        mi.oninput = function () {
-          cur2.marca = mi.value;
-          ch2();
-        };
-        card.appendChild(fld('Marca', mi));
         var fmL = FORMATOS.slice();
         if (cur2.formato && fmL.indexOf(cur2.formato) < 0) fmL.push(cur2.formato);
         var s1 = edSel('formato', 'Formato', fmL, cur2.formato || '', function (v) {
@@ -769,16 +750,6 @@
         });
         card.appendChild(s3);
         if (s3._lista) card.appendChild(s3._lista);
-        var ci = mk('input', 'in');
-        ci.placeholder = 'Coleção (ex.: Clássicos, Clip-on, Solares)';
-        ci.value = cur2.colecao || '';
-        ci.setAttribute('aria-label', 'Coleção');
-        sugestao(ci, sugLista(colecoes));
-        ci.oninput = function () {
-          cur2.colecao = ci.value;
-          ch2();
-        };
-        card.appendChild(fld('Coleção', ci));
         var pv2 = mk('div', 'hint', '');
         pv2.style.margin = '0';
         if (cur2.marca || cur2.material || cur2.publico) {
@@ -986,7 +957,7 @@
         var fcur = S.fDraft != null ? S.fDraft : (faixaOf(ref) || {}).id || '',
           fb = mk('div', 'nav');
         fb.id = 'edFaixas';
-        [{ id: '', nome: 'Sem faixa' }].concat(S.faixas).forEach(function (x) {
+        S.faixas.forEach(function (x) {
           fb.appendChild(
             btn(
               'chip' + (fcur === x.id ? ' on' : ''),

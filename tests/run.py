@@ -687,8 +687,8 @@ async def main():
             await pg.locator('#rows .pcard').nth(2).click(); await pg.wait_for_timeout(700)
             await pg.click('#detail button[aria-label=Editar]'); await pg.wait_for_timeout(700)
             res = []
-            for t in ['Sem faixa', '+']:
-                await pg.evaluate(ED(1 if t == 'Sem faixa' else 2)); await pg.wait_for_timeout(150)
+            for t in ['Luxo', '+']:
+                await pg.evaluate(ED(1 if t == 'Luxo' else 2)); await pg.wait_for_timeout(150)
                 bt = pg.locator('#editModal button', has_text=t).first
                 if not await bt.count(): res.append((t, 'sem botão')); continue
                 await bt.evaluate("e => e.scrollIntoView({block: 'center'})"); await pg.wait_for_timeout(150)
