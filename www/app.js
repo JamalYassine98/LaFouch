@@ -20,7 +20,6 @@
     },
     { id: 'solar', label: 'Solares', full: 'Óculos solares', price: 60000, repUSD: 3.0, pago: 2.4 }
   ];
-  var LOTE = 400;
   // Estado único do app; persistido por saveSoon().
   var S = {
     palette: {
@@ -2527,11 +2526,7 @@
           return lowK.indexOf(kOf(i)) >= 0;
         })
       : flAll;
-    var lk = function (i) {
-        return isPre ? i.ref : i.vr;
-      };
-    var dist = 0,
-      falta = 0;
+    var falta = 0;
     var isV = false;
 
     $('crumb').textContent = isPre
@@ -3821,7 +3816,6 @@
   /* sugestões de códigos que já existem + preencher sozinho quando o código digitado já está no estoque */
   $('eRef').setAttribute('autocomplete', 'off');
   $('phRef').setAttribute('autocomplete', 'off');
-  var RLSIG = '';
   // Atualiza a lista de códigos (autocompletar).
   function refreshRefList() {
     var seen = {},
@@ -3832,15 +3826,6 @@
         arr.push(i);
       }
     });
-    var sig =
-      arr.length +
-      '|' +
-      arr
-        .map(function (i) {
-          return i.ref + ((S.pnome && S.pnome[i.ref]) || '');
-        })
-        .join(',');
-    RLSIG = sig;
   }
   // Primeira peça do estoque com o código informado.
   function refItem(v) {
@@ -5645,8 +5630,7 @@
         x,
         y,
         tw = Math.min(W, 900),
-        th = Math.min(H, 600),
-        sc1 = Math.min(2.5, 2600 / Math.max(W, H));
+        th = Math.min(H, 600);
       tiles.push([0, 0, W, H, Math.min(2.5, 2600 / Math.max(W, H))]);
       for (y = 0; y < H; y += Math.floor(th * 0.6)) {
         for (x = 0; x < W; x += Math.floor(tw * 0.6)) {
@@ -6038,7 +6022,6 @@
         setTimeout(img.onload, 40);
         return;
       }
-      var GAL0 = !!window.__GAL;
       window.__GAL = false;
       var full;
       try {
@@ -13432,8 +13415,7 @@
     g.drawImage(src, -w / 2, -h / 2);
     return c;
   }
-  var HOV = null,
-    HT = null;
+  var HOV = null;
   // Fecha o leitor de haste.
   function hasteClose() {
     if (HOV) {
@@ -16881,24 +16863,6 @@
         return null;
       }
     );
-  }
-  function coverOf(cv) {
-    try {
-      var w = 64,
-        h = Math.max(1, Math.round((cv.height * w) / cv.width)),
-        c = mkCanvas(w, h),
-        g = c.getContext('2d');
-      g.drawImage(cv, 0, 0, w, h);
-      var d = g.getImageData(0, 0, w, h).data,
-        n = 0,
-        i;
-      for (i = 0; i < w * h; i++) {
-        if (d[i * 4] < 235 || d[i * 4 + 1] < 235 || d[i * 4 + 2] < 235) n++;
-      }
-      return n / (w * h);
-    } catch (e) {
-      return 0.3;
-    }
   }
   // ===== Leitor de haste: busca no estoque e tela do leitor. =====
   // Busca a haste lida no estoque.
@@ -25987,9 +25951,51 @@
         });
     });
   }
+  // Botão da nuvem com estado: parado, pedindo confirmação, trabalhando ou feito.
+  function nvBtn(cls, act, extra, chave, txt, ocupado, feito) {
+    var ic = '',
+      st = '',
+      lb = txt;
+    if (S.nvOcup === chave) {
+      st = ' busy';
+      ic = '<span class="nvSp"></span>';
+      lb = ocupado;
+    } else if (S.nvFeito === chave) {
+      st = ' ok';
+      ic =
+        '<svg class="nvCk" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      lb = feito;
+    } else if (S.nvConf && chave === 'rest' + S.nvConf) st = ' ask';
+    return (
+      '<button class="' + cls + ' nvBtn' + st + '" data-act="' + act + '"' + extra + '>' + ic + '<span>' + lb + '</span></button>'
+    );
+  }
+  // Fim de uma ação da nuvem: mostra o "feito" por um instante no botão.
+  function nvFim(k) {
+    S.nvOcup = '';
+    S.nvFeito = k;
+    S._ajForce = true;
+    if (S.view === 'ajustes') render();
+    setTimeout(function () {
+      if (S.nvFeito !== k) return;
+      S.nvFeito = '';
+      S._ajForce = true;
+      if (S.view === 'ajustes') render();
+    }, 1700);
+  }
   ACT.nvAgora = function () {
+    if (S.nvOcup) return;
+    S.nvOcup = 'agora';
     nvMsg('Enviando a cópia…');
-    nvBackup().catch(nvErro);
+    nvBackup().then(
+      function () {
+        nvFim('agora');
+      },
+      function (e) {
+        S.nvOcup = '';
+        nvErro(e);
+      }
+    );
   };
   function nvErro(e) {
     if (e && (e.status === 403 || e.status === 401))
@@ -26042,12 +26048,14 @@
   }
   ACT.nvRestaurar = function (dia) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(dia || '')) return;
+    if (S.nvOcup) return;
     if (S.nvConf !== dia) {
       S.nvConf = dia;
       nvMsg('Toque de novo em "Confirmar" para trocar os dados do app pela cópia de ' + dia + '.');
       return;
     }
     S.nvConf = '';
+    S.nvOcup = 'rest' + dia;
     nvMsg('Baixando a cópia…');
     nvApi('GET', 'backups/' + dia)
       .then(function (m) {
@@ -26074,8 +26082,12 @@
       .then(function (txt) {
         var er = restaurarDados(txt);
         nvMsg(er || 'Cópia de ' + dia + ' restaurada.');
+        nvFim('rest' + dia);
       })
-      .catch(nvErro);
+      .catch(function (e) {
+        S.nvOcup = '';
+        nvErro(e);
+      });
   };
   // ---------- cotação da loja no site (config/site, só o campo "cotacao")
   function nvCotacao() {
@@ -26197,7 +26209,7 @@
       esc(S.nuvem.email) +
       '</b>' +
       (S.nuvem.ts ? ' · última cópia: ' + new Date(S.nuvem.ts).toLocaleString('pt-BR') : '') +
-      '</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="mini" data-act="nvAgora">Fazer cópia agora</button><button class="chip" data-act="nvSair">Desconectar</button></div>';
+      '</div><div style="display:flex;gap:8px;flex-wrap:wrap">' + nvBtn('mini', 'nvAgora', '', 'agora', 'Fazer cópia agora', 'Enviando…', 'Cópia feita') + '<button class="chip" data-act="nvSair">Desconectar</button></div>';
     if (S.nvLista && S.nvLista.length) {
       h += '<div class="lbl">Cópias na nuvem</div>';
       S.nvLista.forEach(function (c) {
@@ -26206,11 +26218,17 @@
           esc(c.id.split('-').reverse().join('/')) +
           ' <span class="hint" style="margin:0">· ' +
           c.kb +
-          ' KB</span></span><button class="chip" data-act="nvRestaurar" data-id="' +
-          esc(c.id) +
-          '">' +
-          (S.nvConf === c.id ? 'Confirmar' : 'Restaurar') +
-          '</button></div>';
+          ' KB</span></span>' +
+          nvBtn(
+            'chip',
+            'nvRestaurar',
+            ' data-id="' + esc(c.id) + '"',
+            'rest' + c.id,
+            S.nvConf === c.id ? 'Confirmar' : 'Restaurar',
+            'Restaurando…',
+            'Restaurada'
+          ) +
+          '</div>';
       });
     }
     h += '</section>';

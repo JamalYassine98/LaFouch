@@ -107,7 +107,6 @@
         setTimeout(img.onload, 40);
         return;
       }
-      var GAL0 = !!window.__GAL;
       window.__GAL = false;
       var full;
       try {

@@ -366,8 +366,7 @@
         x,
         y,
         tw = Math.min(W, 900),
-        th = Math.min(H, 600),
-        sc1 = Math.min(2.5, 2600 / Math.max(W, H));
+        th = Math.min(H, 600);
       tiles.push([0, 0, W, H, Math.min(2.5, 2600 / Math.max(W, H))]);
       for (y = 0; y < H; y += Math.floor(th * 0.6)) {
         for (x = 0; x < W; x += Math.floor(tw * 0.6)) {

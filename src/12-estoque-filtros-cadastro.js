@@ -88,7 +88,6 @@
   /* sugestões de códigos que já existem + preencher sozinho quando o código digitado já está no estoque */
   $('eRef').setAttribute('autocomplete', 'off');
   $('phRef').setAttribute('autocomplete', 'off');
-  var RLSIG = '';
   // Atualiza a lista de códigos (autocompletar).
   function refreshRefList() {
     var seen = {},
@@ -99,15 +98,6 @@
         arr.push(i);
       }
     });
-    var sig =
-      arr.length +
-      '|' +
-      arr
-        .map(function (i) {
-          return i.ref + ((S.pnome && S.pnome[i.ref]) || '');
-        })
-        .join(',');
-    RLSIG = sig;
   }
   // Primeira peça do estoque com o código informado.
   function refItem(v) {

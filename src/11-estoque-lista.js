@@ -56,11 +56,7 @@
           return lowK.indexOf(kOf(i)) >= 0;
         })
       : flAll;
-    var lk = function (i) {
-        return isPre ? i.ref : i.vr;
-      };
-    var dist = 0,
-      falta = 0;
+    var falta = 0;
     var isV = false;
 
     $('crumb').textContent = isPre

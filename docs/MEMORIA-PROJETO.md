@@ -152,3 +152,9 @@ Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Parag
 ## v346 (27/10/2026) — Correção da câmera (foto da cor)
 - Bug: o recorte do quadrado saía errado e o zoom bugava. Causa: a foto em alta (takePhoto) tem enquadramento diferente do visor, e o zoom da câmera disparava vários ajustes e voltava ao mínimo ao refazer.
 - Agora: se a foto do sensor não tem a mesma proporção do visor, ou há zoom, usa o quadro do visor (o que se vê é o que sai no quadrado). Zoom da câmera é aplicado um por vez e mantido ao refazer.
+
+## v347 (27/10/2026) — Limpeza + animação da nuvem
+- Removidos itens mortos do app: LOTE, RLSIG (e o cálculo `sig`), lk, dist, sc1, GAL0, HT, coverOf. Mantido `marcaOk` (animação da venda concluída: regra do dono é não mexer). Site (index.html): CAMI, RA, fi, bg0, faceSvg, camCrop. Obs.: `FD` (dados de rosto) no site pode ter ficado sem uso depois de faceSvg; conferir.
+- Botões "Fazer cópia agora" e "Restaurar" (Ajustes > Nuvem) com estados animados: girando/varredura ("Enviando…", "Restaurando…"), pulso ao pedir "Confirmar" e check desenhado ao concluir.
+- Backup do dono em 27/10/2026 (arquivo LaFouch-backup-2026-10-27.tar.gz). Removido o botão "Ver como o cliente vê" da aba Site do admin.
+- PENDENTE (só imagens, aguardando OK): redesenho da aba Pedidos online + token de segurança ao confirmar pedido.

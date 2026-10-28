@@ -167,8 +167,7 @@
     g.drawImage(src, -w / 2, -h / 2);
     return c;
   }
-  var HOV = null,
-    HT = null;
+  var HOV = null;
   // Fecha o leitor de haste.
   function hasteClose() {
     if (HOV) {

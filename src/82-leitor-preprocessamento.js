@@ -612,21 +612,3 @@
       }
     );
   }
-  function coverOf(cv) {
-    try {
-      var w = 64,
-        h = Math.max(1, Math.round((cv.height * w) / cv.width)),
-        c = mkCanvas(w, h),
-        g = c.getContext('2d');
-      g.drawImage(cv, 0, 0, w, h);
-      var d = g.getImageData(0, 0, w, h).data,
-        n = 0,
-        i;
-      for (i = 0; i < w * h; i++) {
-        if (d[i * 4] < 235 || d[i * 4 + 1] < 235 || d[i * 4 + 2] < 235) n++;
-      }
-      return n / (w * h);
-    } catch (e) {
-      return 0.3;
-    }
-  }
