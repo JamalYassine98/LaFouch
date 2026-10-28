@@ -131,3 +131,12 @@ Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Parag
 - "Liberar para o site" saiu do Editar produto e agora é um cartão logo ABAIXO da Oferta na ficha (alinhado com os demais cartões).
 - Cartão "Preço" (preço antigo/novo + faixa) REMOVIDO da ficha, a pedido do dono. Fica só Oferta.
 - Os botões alternativos de "publicar" (A–D) ficam descartados: o dono escolheu manter o botão "Liberar para o site", só mudando de lugar.
+
+## 27/10/2026 21:40 · Pedido do dono (AGUARDANDO APROVAÇÃO DO RELATÓRIO, nada implementado)
+- Bugs: (1) app arrasta para a direita com folga → trava overflow-x SEM mexer em botões (comparar capturas pixel a pixel antes/depois); (2) aba Produtos do admin do site só atualiza ao sair/voltar → reler no foco/voltar ao app/após publicar/30 s; (3) sombra rosa do menu bugada após "Liberado para o site" + notificação → marca do menu (98-botoes-anim.js `desliza`) deve reposicionar ao fim de animações/resize/volta do segundo plano.
+- Ficha do produto (Inventário): voltar o campo Preço (digitável) + botão "Oferta" embaixo + texto de status (acima do piso etc.); remover o cartão Oferta atual; Oferta abre janela com preço novo + botões de % de desconto; "Liberar para o site" embaixo; REMOVER botão Vender; Cores sobem para baixo da descrição.
+- Cadastro: código da haste à esquerda, Tipo à direita; modelo já existente preenche todos os campos; "Dar entrada rápida" à direita do texto.
+- Editar produto: 100% idêntico ao cadastro, navegação livre entre etapas, lixeira, botão fixo "Salvar alterações".
+- Gestos: arrastar a ficha → próximo/anterior produto; arrastar a foto → próxima/anterior cor.
+- Animações: dono escolhe A/B por função (cartela enviada).
+- Atenção: a lista "Preço" que foi removida em v344 volta (o dono mudou de ideia).
