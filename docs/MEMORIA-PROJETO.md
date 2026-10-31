@@ -237,3 +237,4 @@ Ideias mostradas:
 4. Respiração e sombra viva (zoom suave).
 5. Reflexo nas lentes (faixa de luz).
 Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto centralizado no card do PC.
+- 31/10: PC (>=1100px): logo, botões do topo e WhatsApp crescem com a tela; catálogo em 4 colunas (6 a partir de 2200px). Texto do início atualizado (conta, pagamento online, delivery Paraguai ou retirada).
