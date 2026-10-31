@@ -20,7 +20,6 @@
     } catch (e) {}
     renderInicio();
     renderPedidos();
-    renderOrg();
     renderLojaOnline();
     uniAbasFill();
     renderClientes();
@@ -282,7 +281,7 @@
       'pedNext',
       'fxMgUlt',
       'inicioT',
-      'grupos',
+      'barra',
       'attr',
       'site',
       'num',

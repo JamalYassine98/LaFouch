@@ -746,34 +746,3 @@ button:not(:disabled):active.go,.go:not(:disabled):active{box-shadow:0 0 0 6px #
 @keyframes pdTrema{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
 @media (prefers-reduced-motion:reduce){.pdCard,.pdTok,.pdOv,.pdSh,.pdKey.erra{animation:none}}
 /*/PED2*/
-
-/*GRUPOS*/
-.gtabs{display:flex;gap:7px;overflow-x:auto;margin:2px 0 12px;padding:2px 0;scrollbar-width:none}
-.gtabs::-webkit-scrollbar{display:none}
-.gtabs[hidden]{display:none}
-.gtabs button{flex:none;min-height:42px;padding:0 16px;border-radius:999px;background:var(--panel);border:1px solid var(--line);color:var(--fg);font-size:13.5px;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
-.gtabs button.on{background:linear-gradient(135deg,#c0629c,#8a3a73);border-color:transparent;color:#fff;font-weight:700}
-.gtabs button b{background:var(--warn);color:#241a05;border-radius:999px;padding:0 7px;font-size:12px}
-.mn .mi{position:relative}
-.mn .bd{position:absolute;top:-6px;right:-10px;min-width:18px;height:18px;border-radius:9px;background:#d33;color:#fff;font:700 10.5px/18px system-ui;text-align:center;padding:0 5px;font-style:normal}
-.orgG{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:12px;margin-bottom:11px;transition:border-color .2s,background .2s}
-.orgG.drop{border:2px dashed var(--accent-fg);background:color-mix(in srgb,var(--accent) 12%,var(--panel))}
-.orgH{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.orgI{width:36px;height:36px;border-radius:12px;background:var(--panel2);display:grid;place-items:center;color:var(--accent-fg)}
-.orgN{margin-left:auto;color:var(--mute);font-size:12px}
-.orgE{background:none;border:none;color:var(--accent-fg);font-size:18px;padding:6px}
-.orgC{display:flex;flex-wrap:wrap;gap:8px;min-height:44px}
-.orgT{display:inline-flex;align-items:center;gap:7px;padding:10px 14px 10px 10px;border-radius:12px;background:var(--panel2);border:1px solid var(--line);font-size:13.5px;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
-.orgT:not(.fix):before{content:"⋮⋮";color:var(--mute);font-size:12px;letter-spacing:-2px}
-.orgT.fix{opacity:.8;cursor:default;padding-left:12px}
-.orgT.orgFant{opacity:.25;border-style:dashed}
-.orgT.orgVoa{position:fixed;z-index:9999;pointer-events:none;background:var(--accent-soft);border-color:var(--accent-fg);box-shadow:0 14px 30px rgba(0,0,0,.5),0 0 0 2px rgba(224,140,196,.35);transform:rotate(-3deg) scale(1.06);margin:0}
-.orgEd{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
-.orgIc{display:flex;flex-wrap:wrap;gap:6px}
-.orgIc button{width:40px;height:40px;border-radius:12px;background:var(--panel2);border:1px solid var(--line);color:var(--fg);display:grid;place-items:center}
-.orgIc button.on{border-color:var(--accent-fg);color:var(--accent-fg);background:var(--accent-soft)}
-.orgAdd{width:100%;min-height:50px;border:1.5px dashed var(--line);border-radius:22px;background:none;color:var(--accent-fg);font:inherit;font-size:14px;margin-bottom:12px}
-.orgAdd:disabled{opacity:.5}
-.orgReg{margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:12px 14px;font-size:13px;color:var(--mute);line-height:1.5}
-.orgReg b{color:var(--fg)}
-/*/GRUPOS*/
