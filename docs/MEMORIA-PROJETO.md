@@ -226,3 +226,4 @@ Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Parag
 - Esboço do computador parecido com o celular (opções A/B): aguardando escolha do dono. NÃO implementar ainda.
 - 31/10: site no computador agora usa o layout do celular (menu lateral, páginas) em coluna centralizada de 760px (opção A). Dono pediu.
 - 31/10: dono escolheu: site ocupa a tela toda em qualquer resolução (opção B). Coluna de 760px e limite de 1500px removidos.
+- 31/10: destaque no PC (>=1100px): texto à esquerda e card 5:4 à direita, tudo em vw (mesma proporção do 1366 em qualquer resolução). Abaixo de 1100px (celular em modo desktop) segue o layout do celular.
