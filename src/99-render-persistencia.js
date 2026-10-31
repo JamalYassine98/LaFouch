@@ -33,7 +33,8 @@
     renderAjustes();
     renderDay();
     saveSoon();
-    if ((window.pageYOffset || 0) !== sy) window.scrollTo(0, sy);
+    // 'instant' porque o CSS tem scroll-behavior:smooth: sem isso a tela descia ao topo (render recria a página) e voltava rolando.
+    if ((window.pageYOffset || 0) !== sy) window.scrollTo({ top: sy, left: 0, behavior: 'instant' });
     ovScrollSet(msc);
   }
   // Janelas e telas por cima (editar produto, carrinho, lote…) são recriadas a cada render: guarda e devolve a rolagem delas, para a tela não pular para o topo.

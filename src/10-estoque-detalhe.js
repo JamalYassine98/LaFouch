@@ -65,6 +65,13 @@
       tipoId = venda ? opt.tipo : S.tipo,
       wasHid = det.hidden,
       prevRef = det._ref;
+    // ao refazer a ficha ela fica vazia por um instante; sem isso a página encolhe, a rolagem é jogada para o topo e depois volta
+    if (!venda && !det.hidden && det.offsetHeight) {
+      det.style.minHeight = det.offsetHeight + 'px';
+      requestAnimationFrame(function () {
+        det.style.minHeight = '';
+      });
+    }
     det.textContent = '';
     if (venda) {
       if (!ref) {

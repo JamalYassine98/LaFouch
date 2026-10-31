@@ -1037,6 +1037,13 @@
       tipoId = venda ? opt.tipo : S.tipo,
       wasHid = det.hidden,
       prevRef = det._ref;
+    // ao refazer a ficha ela fica vazia por um instante; sem isso a página encolhe, a rolagem é jogada para o topo e depois volta
+    if (!venda && !det.hidden && det.offsetHeight) {
+      det.style.minHeight = det.offsetHeight + 'px';
+      requestAnimationFrame(function () {
+        det.style.minHeight = '';
+      });
+    }
     det.textContent = '';
     if (venda) {
       if (!ref) {
@@ -28741,7 +28748,8 @@
     renderAjustes();
     renderDay();
     saveSoon();
-    if ((window.pageYOffset || 0) !== sy) window.scrollTo(0, sy);
+    // 'instant' porque o CSS tem scroll-behavior:smooth: sem isso a tela descia ao topo (render recria a página) e voltava rolando.
+    if ((window.pageYOffset || 0) !== sy) window.scrollTo({ top: sy, left: 0, behavior: 'instant' });
     ovScrollSet(msc);
   }
   // Janelas e telas por cima (editar produto, carrinho, lote…) são recriadas a cada render: guarda e devolve a rolagem delas, para a tela não pular para o topo.
