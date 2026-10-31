@@ -255,3 +255,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - 31/10/2026: topo do site: botões (menu, conta, sacola) centralizados verticalmente com o logo (tinham margem inferior de 15px que os subia) e logo alinhado à margem direita (mesma margem dos cartões).
 - 31/10/2026: bug do admin ao conectar o GitHub (mensagem 'Cole a chave' mesmo com a chave colada): havia duas caixas com o mesmo id (Vídeo e Slide) e lia a escondida. Corrigido.
 - 31/10/2026: dono pediu: conexão com o GitHub sai do Destaque e vai para a aba Configurar do admin (cartão 'GitHub (vídeo e fotos do destaque)': conectar/desconectar). No Destaque, sem conexão aparece só o aviso + botão 'Abrir Configurar'.
+- 31/10/2026: slide do destaque agora é atualizado de forma incremental quando chega foto/lista nova (não remonta, sem flicker nem reset; mantém a foto atual e o tempo).
