@@ -227,3 +227,13 @@ Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Parag
 - 31/10: site no computador agora usa o layout do celular (menu lateral, páginas) em coluna centralizada de 760px (opção A). Dono pediu.
 - 31/10: dono escolheu: site ocupa a tela toda em qualquer resolução (opção B). Coluna de 760px e limite de 1500px removidos.
 - 31/10: destaque no PC (>=1100px): texto à esquerda e card 5:4 à direita, tudo em vw (mesma proporção do 1366 em qualquer resolução). Abaixo de 1100px (celular em modo desktop) segue o layout do celular.
+
+## Animações destaque (pendente, só esboço)
+Parte do projeto: animações do card "Escolha da semana" no site. Vídeos de exemplo mostrados em 31/10/2026. NADA implementado. Implementar só quando o dono escolher e disser "pode implementar".
+Ideias mostradas:
+1. Entrada em cascata (card sobe, óculos desliza girando, nome e preço por último).
+2. Inclinação 3D com brilho (mouse/dedo).
+3. Troca de modelos (carrossel automático com bolinhas).
+4. Respiração e sombra viva (zoom suave).
+5. Reflexo nas lentes (faixa de luz).
+Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto centralizado no card do PC.
