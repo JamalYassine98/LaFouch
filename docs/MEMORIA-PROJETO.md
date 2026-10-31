@@ -224,3 +224,4 @@ Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Parag
 - Selo "G" é um desenho simples, não o logo oficial.
 - Também decididos: Como comprar + Perguntas rápidas, carrinho persiste (lf_cart), troca na retirada com possível ajuste de preço.
 - Esboço do computador parecido com o celular (opções A/B): aguardando escolha do dono. NÃO implementar ainda.
+- 31/10: site no computador agora usa o layout do celular (menu lateral, páginas) em coluna centralizada de 760px (opção A). Dono pediu.
