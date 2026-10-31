@@ -172,3 +172,6 @@ Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Parag
 - Auditoria de Marca/Coleção: MARCA continua útil (nome automático, busca, campo ainda na fila de fotos `identBox`). COLEÇÃO só entra na busca e no campo da fila de fotos; o FILTRO por coleção (`S.colF`, `#fColB`) nunca tinha botão para escolher: removido (código morto). Marca e coleção seguem salvas e pesquisáveis. Dono pediu remover só se inúteis: não eram.
 - Site: ícone do Google (favicons 48 e 96 px em `catalogo/`; Google exige múltiplos de 48). O Google leva dias para atualizar o resultado.
 - Teste "PIN: certo abre" estava instável: agora espera o app abrir (até 4 s).
+
+## Site: mapa (31/10/2026)
+- "Ver no mapa" (2 links) e "Abrir no Google Maps" usavam busca por texto e caíam na loja Farma Fit. Agora abrem as coordenadas da La Fouch (-25.509897,-54.610054) com o nome "La Fouch". Se o pino cair no lugar errado, as coordenadas (variável LOJA em catalogo/index.html) precisam ser corrigidas pelo dono.
