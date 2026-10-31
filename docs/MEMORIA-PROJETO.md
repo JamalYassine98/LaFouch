@@ -203,3 +203,8 @@ Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Parag
 - Cliente cadastrado com documento (campo ruc) + nac, nasc, email, cidade, end.
 - Modo teste: site `lafouch.com/?teste=1` (PIX de R$ 1,00, faixa TESTE, pedidos com teste:true); `?teste=0` sai. No app: selo TESTE e botão "Apagar pedidos de teste" (apaga também clientes criados só por teste).
 - Pendente do dono: publicar regras do Firestore (get público em reservas/{id}; create em pedidos incl. docs `<id>c`); Search Console para reindexar logo/título.
+
+## Login do site (31/10/2026) — aprovado e implementado (só site)
+- Conta com usuário/e-mail + senha via Firebase Authentication (e-mail/senha). E-mail passou a ser obrigatório. Cadastro em 2 passos (acesso; depois dados). Usuário = apelido ligado ao e-mail em `usuarios/{user}` (get público); perfil em `clientes/{uid}` (só o próprio). Recuperar senha por e-mail.
+- Reserva sem login: aviso discreto e botão "Entrar ou criar conta" no lugar de "Fazer pedido".
+- O dono precisa: ativar Authentication > Método de login > E-mail/senha no console Firebase; publicar as regras novas (usuarios, clientes).
