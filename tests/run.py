@@ -1389,7 +1389,7 @@ async def main():
             await pg.evaluate("() => { window.__LF.S.barra = null; window.__LF.setView('inicio'); }")
             async def xy(sel):
                 await pg.evaluate("s => document.querySelector(s).scrollIntoView({block:'center'})", sel)
-                await pg.wait_for_timeout(150)
+                await pg.wait_for_timeout(900)
                 return await pg.evaluate("s => { const b = document.querySelector(s).getBoundingClientRect(); return [b.x + b.width / 2, b.y + b.height / 2]; }", sel)
             async def arrasta(de, para, pontos=None):
                 a = await xy(de)
@@ -1401,8 +1401,10 @@ async def main():
             est = "() => ({ barra: window.__LF.S.barra, nav: [...document.querySelectorAll('#mainnav .mn')].map(m => m.getAttribute('data-id')), tiles: [...document.querySelectorAll('#v-inicio .tl')].map(t => t.dataset.id) })"
             e0 = await pg.evaluate(est)
             await arrasta('#v-inicio .tl[data-id="prec"]', '#mainnav .mn[data-id="ajustes"]')
+            await pg.wait_for_timeout(500)
             e1 = await pg.evaluate(est)
             if 'prec' in e1['tiles']:
+                print('        (nova tentativa)', e0, e1, pg.erros)
                 await arrasta('#v-inicio .tl[data-id="prec"]', '#mainnav .mn[data-id="ajustes"]')
                 e1 = await pg.evaluate(est)
             await arrasta('#mainnav .mn[data-id="caixa"]', [210, 300])
@@ -1418,6 +1420,53 @@ async def main():
                   and e3['nav'] == ['inicio', 'vendas', 'estoque', 'prec', 'giro'] and e4 == ['dash', 'giro'] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'acesso rápido: arrastar para a barra, trocar, tirar e abrir (máx. 5)')
             if not ok: falhas.append('acesso rapido'); print('        veio', e0, e1, e2, e3, e4, pg.erros)
+            await pg.close()
+
+            # Grupos no acesso rápido: segurar um botão sobre outro junta; abas no topo; adicionar, tirar e desfazer
+            pg = await pagina()
+            await pg.evaluate("() => { window.__LF.S.barra = null; window.__LF.S.grupos = []; window.__LF.setView('inicio'); }")
+            async def xy2(sel):
+                await pg.evaluate("s => document.querySelector(s).scrollIntoView({block:'center'})", sel)
+                await pg.wait_for_timeout(900)
+                return await pg.evaluate("s => { const b = document.querySelector(s).getBoundingClientRect(); return [b.x + b.width / 2, b.y + b.height / 2]; }", sel)
+            async def arrasta2(de, para, espera):
+                a = await xy2(de); t = await xy2(para)
+                await pg.mouse.move(a[0], a[1]); await pg.mouse.down()
+                for k in range(1, 21):
+                    await pg.mouse.move(a[0] + (t[0] - a[0]) * k / 20, a[1] + (t[1] - a[1]) * k / 20); await pg.wait_for_timeout(14)
+                await pg.wait_for_timeout(espera); await pg.mouse.up(); await pg.wait_for_timeout(700)
+            a0 = await xy2('#mainnav .mn[data-id="caixa"]'); t0 = await xy2('#mainnav .mn[data-id="ajustes"]')
+            await pg.mouse.move(a0[0], a0[1]); await pg.mouse.down(); await pg.mouse.move(a0[0] - 12, a0[1]); await pg.mouse.move(t0[0], t0[1]); await pg.mouse.up(); await pg.wait_for_timeout(700)
+            r0 = await pg.evaluate("() => [window.__LF.S.barra, !!document.getElementById('grpM')]")
+            await pg.evaluate("() => window.__LF.S.barra = null"); await pg.evaluate("() => window.__LF.render()")
+            await arrasta2('#mainnav .mn[data-id="caixa"]', '#mainnav .mn[data-id="ajustes"]', 900)
+            r1 = await pg.evaluate("() => [!!document.getElementById('grpM'), document.getElementById('grpNome') && document.getElementById('grpNome').value]")
+            await pg.locator('[data-act="grpCria"]').click(); await pg.wait_for_timeout(500)
+            r2 = await pg.evaluate("() => ({ barra: window.__LF.S.barra, g: window.__LF.S.grupos.map(g => g.itens), nav: [...document.querySelectorAll('#mainnav .mn')].map(m => m.getAttribute('data-id')) })")
+            gid = r2['barra'][-1] if r2['barra'] else ''
+            if not gid.startswith('g:'): print('        (sem grupo)', r0, r1, r2, pg.erros)
+            await pg.locator('#mainnav .mn[data-id="%s"]' % gid).click(); await pg.wait_for_timeout(500)
+            r3 = await pg.evaluate("() => [window.__LF.S.view, document.getElementById('grpTabs').hidden, [...document.querySelectorAll('#grpTabs button')].length]")
+            await pg.evaluate("() => window.__LF.setView('inicio')"); await pg.wait_for_timeout(500)
+            await arrasta2('#v-inicio .tl[data-id="giro"]', '#mainnav .mn[data-id="%s"]' % gid, 100)
+            r4 = await pg.evaluate("() => [window.__LF.S.grupos.map(g => g.itens), window.__LF.S.barra]")
+            await pg.evaluate("g => window.__LF.ACT ? 0 : 0", gid)
+            await pg.evaluate("g => { document.querySelector('#mainnav .mn[data-id=\"' + g + '\"]').dispatchEvent(new MouseEvent('contextmenu', {bubbles: true, cancelable: true})); }", gid)
+            await pg.wait_for_timeout(300)
+            await pg.locator('#grpM [data-act="grpTirar"][data-id="giro"]').click(); await pg.wait_for_timeout(400)
+            r5 = await pg.evaluate("() => [window.__LF.S.grupos.map(g => g.itens), window.__LF.S.barra]")
+            await pg.locator('#grpM [data-act="grpTirar"][data-id="ajustes"]').click(); await pg.wait_for_timeout(400)
+            r6 = await pg.evaluate("() => [window.__LF.S.grupos.length, window.__LF.S.barra, !!document.getElementById('grpM')]")
+            total += 1
+            ok = r0[0] == ['vendas', 'estoque', 'ajustes', 'caixa'] and not r0[1]
+            ok = (ok and r1[0] and r1[1] == 'Caixa e Ajustes'
+                  and r2['g'] == [['caixa', 'ajustes']] and r2['nav'][:3] == ['inicio', 'vendas', 'estoque'] and len(r2['nav']) == 4
+                  and r3[0] in ('caixa',) and r3[1] is False and r3[2] == 3
+                  and r4[0] == [['caixa', 'ajustes', 'giro']]
+                  and r5[0] == [['caixa', 'ajustes']] and 'giro' in r5[1]
+                  and r6[0] == 0 and 'caixa' in r6[1] and not r6[2] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'grupos: juntar segurando, abas no topo, adicionar do Início, tirar e dissolver')
+            if not ok: falhas.append('grupos barra'); print('        veio', r0, r1, r2, r3, r4, r5, r6, pg.erros)
             await pg.close()
 
             # Produtos: preço antigo → novo, canais, aviso de piso e aplicar em grupo (Reajustar)

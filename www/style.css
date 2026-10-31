@@ -746,3 +746,21 @@ button:not(:disabled):active.go,.go:not(:disabled):active{box-shadow:0 0 0 6px #
 @keyframes pdTrema{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
 @media (prefers-reduced-motion:reduce){.pdCard,.pdTok,.pdOv,.pdSh,.pdKey.erra{animation:none}}
 /*/PED2*/
+/*GRUPOS*/
+.gtabs{display:flex;gap:7px;overflow-x:auto;margin:2px 0 12px;padding:2px 0;scrollbar-width:none}
+.gtabs::-webkit-scrollbar{display:none}
+.gtabs[hidden]{display:none}
+.gtabs button{flex:none;min-height:42px;padding:0 16px;border-radius:999px;background:var(--panel);border:1px solid var(--line);color:var(--fg);font-size:13.5px;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.gtabs button.on{background:linear-gradient(135deg,#c0629c,#8a3a73);border-color:transparent;color:#fff;font-weight:700}
+.gtabs button b{background:var(--warn);color:#241a05;border-radius:999px;padding:0 7px;font-size:12px}
+.gtabs .gmais{padding:0 14px;font-size:18px;color:var(--mute)}
+.mn .mi{position:relative}
+.mn .gi{width:34px;height:24px;display:block}
+.mn .gi i{position:absolute;top:0;width:24px;height:24px;border-radius:8px;background:var(--panel2);display:grid;place-items:center;font-style:normal;border:1px solid var(--line)}
+.mn .gi i:first-child{left:0}.mn .gi i:nth-child(2){right:0;background:var(--accent-soft)}
+.mn .bd{position:absolute;top:-6px;right:-10px;min-width:18px;height:18px;border-radius:9px;background:#d33;color:#fff;font:700 10.5px/18px system-ui;text-align:center;padding:0 5px;font-style:normal}
+#mainnav.qd .mn.qj{outline:2px solid var(--warn);background:color-mix(in srgb,var(--warn) 22%,transparent);transform:scale(1.12)}
+.gbig{display:inline-flex}.gbig i{width:38px;height:38px;border-radius:12px;background:var(--panel2);border:1px solid var(--line);display:grid;place-items:center;font-style:normal;margin-right:-8px;color:var(--accent-fg)}
+.grow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--line)}
+.gadd{display:flex;flex-wrap:wrap;gap:6px}
+/*/GRUPOS*/

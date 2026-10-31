@@ -180,3 +180,17 @@ Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Parag
 - A v351 (grupos de abas) removeu o "acesso rápido" (arrastar botão do Início para o menu de baixo) SEM o dono pedir. Desfeito: v352 = v350 com o acesso rápido de volta, como era. Regra reforçada: não remover funcionalidade que não foi pedida.
 - Código dos grupos guardado na tag git `grupos-v351` (src/95-grupos.js, tela Organizar abas).
 - DECISÃO do dono: no atalho rápido, "se eu misturo 2 botões, ele vira um grupo" (misturar = juntar dois botões do menu de baixo, e o resultado é um grupo com abas). Detalhes (como juntar, nome/ícone, como separar) ainda por mostrar em imagens antes de implementar.
+
+## v353 (31/10/2026) — grupos no acesso rápido
+- Segurar (~650 ms) um botão da barra de baixo sobre outro = juntar: abre "Novo grupo" (nome sugerido "A e B", até 18 letras). Soltar antes = só trocar de lugar (como antes). Arrastar do Início sobre um botão comum = como antes (adiciona ou troca); sobre um grupo = entra no grupo.
+- Grupo: botão com 2 ícones; ao abrir, as telas viram abas no topo (`#grpTabs`) + botão ⋯ (gerenciar). Segurar o grupo sem mexer (ou botão direito) = gerenciar: renomear, tirar tela, adicionar botão do Início, desfazer. Arrastar o grupo para fora da barra desfaz. Grupo com 1 tela some. Aviso (bolinha) de pedidos novos no grupo que tem Pedidos.
+- Padrões usados (dono não respondeu): grupo pode ter mais de 2 telas; sem grupo dentro de grupo; estado salvo em `S.grupos` (+ ids `g:xxx` em `S.barra`). Código em src/95-barra-grupos.js.
+- Site: "Ver mapa"/"Como chegar" agora usam a ficha da La Fouch no Google Maps (link maps.app.goo.gl/zy6c1ZFq4gQhxWXC8); dados estruturados de loja local; version.json e build do index.html iguais (a cada deploy do site, subir os dois juntos).
+
+## DECISÕES do dono para o novo cadastro/reserva do site (31/10/2026) — SÓ ESBOÇOS, NÃO IMPLEMENTAR até o dono avisar
+- Sem receita/grau (é loja de óculos, não ótica). Sem "o que costuma procurar" nem "formato de rosto".
+- Cadastro: nome, nacionalidade (paraguaio → RUC, brasileiro → CPF, argentino → DNI), nascimento, e-mail (opcional), cidade, endereço (opcional); entrada por WhatsApp com código.
+- Delivery SÓ para paraguaios (brasileiros e argentinos: só retirada na loja). Delivery é pela transportadora (a loja não controla): SEM dia/hora; frete combinado no WhatsApp.
+- Retirada na loja: SEM dia/hora marcados (vem quando quiser, em horário comercial seg-sáb 7h30-15h).
+- O cliente PAGA ANTES; o pedido fica reservado até ser entregue: NÃO existe mais o prazo de 7 dias.
+- Pendentes: forma de pagamento (qual? comprovante?), RUC/CPF/DNI obrigatório?, código por WhatsApp ou SMS, conta obrigatória ou visitante.

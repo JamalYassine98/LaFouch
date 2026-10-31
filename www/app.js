@@ -20676,7 +20676,7 @@
     if (!el || S.view !== 'inicio') return;
     var h = vendidoHoje(),
       D = iniDados(),
-      B = barraLista(),
+      B = grpPlana(),
       L = iniLista().filter(function (id) {
         return B.indexOf(id) < 0;
       }),
@@ -20768,27 +20768,33 @@
     var l = Array.isArray(S.barra) ? S.barra : BARRA_PADRAO;
     return l
       .filter(function (id, i) {
-        return id !== 'inicio' && BARRA_NOME[id] && l.indexOf(id) === i;
+        return id !== 'inicio' && (BARRA_NOME[id] || grpGet(id)) && l.indexOf(id) === i;
       })
       .slice(0, BARRA_MAX);
   }
   function navItens() {
     return [['inicio', 'Início']].concat(
       barraLista().map(function (id) {
-        return [id, BARRA_NOME[id]];
+        return [id, barraNome(id)];
       })
     );
   }
   // O botão da barra está "aceso"? (estamos na tela que ele abre)
+  function barraNome(id) {
+    var g = grpGet(id);
+    return g ? g.nome : BARRA_NOME[id];
+  }
   function navOn(id) {
-    var v = S.view;
+    var v = S.view,
+      gg = grpGet(id);
+    if (gg) return gg.itens.some(navOn);
     if (id === 'inicio') return v === 'inicio';
     if (id === 'hoje' || id === 'din' || id === 'giro' || id === 'prec') return v === 'dash' && S.dTab === id;
     if (id === 'cat') return v === 'vendas' && !!S.catOpen;
     if (id === 'cli') return v === 'clientes';
     if (id === 'lotes') return v === 'estoque' && !!S.lotesView;
-    if (id === 'vendas') return (v === 'vendas' && !(S.catOpen && barraLista().indexOf('cat') >= 0)) || (v === 'onl' && barraLista().indexOf('onl') < 0);
-    if (id === 'estoque') return v === 'estoque' && !(S.lotesView && barraLista().indexOf('lotes') >= 0);
+    if (id === 'vendas') return (v === 'vendas' && !(S.catOpen && grpPlana().indexOf('cat') >= 0)) || (v === 'onl' && grpPlana().indexOf('onl') < 0);
+    if (id === 'estoque') return v === 'estoque' && !(S.lotesView && grpPlana().indexOf('lotes') >= 0);
     if (id === 'cont' || id === 'novo') return false;
     return v === id;
   }
@@ -20978,14 +20984,19 @@
       var b = btn('mn' + (on ? ' on' : ''), '', function () {
         if (window.__barraSegurou && window.__barraSegurou()) return;
         if (v[0] === 'inicio') setView('inicio');
+        else if (grpGet(v[0])) grpAbre(grpGet(v[0]));
         else inicioGo(v[0]);
       });
-      b.innerHTML = '<span class="mi">' + ico(v[0], 22) + '</span><span>' + v[1] + '</span>';
+      var gg = grpGet(v[0]);
+      b.innerHTML = gg
+        ? '<span class="mi gi">' + gg.itens.slice(0, 2).map(function (x) { return '<i>' + ico(x, 17) + '</i>'; }).join('') + (grpAviso(gg) ? '<em class="bd">' + grpAviso(gg) + '</em>' : '') + '</span><span>' + esc(v[1]) + '</span>'
+        : '<span class="mi">' + ico(v[0], 22) + '</span><span>' + v[1] + '</span>';
       b.setAttribute('aria-label', v[1]);
       b.setAttribute('data-id', v[0]);
       if (on) b.setAttribute('aria-current', 'page');
       n.appendChild(b);
     });
+    grpAbasRender();
     VIEWS.forEach(function (v) {
       $('v-' + v[0]).hidden = S.view !== v[0];
     });
@@ -22493,6 +22504,7 @@
     inicioReset: function () {
       S.inicioT = null;
       S.barra = null;
+      S.grupos = [];
       render();
     },
     inicioRm: function (id) {
@@ -23116,6 +23128,236 @@
   S.cambios = [{ ts: tAgo(7), de: 'pyg', para: 'usd', dado: 650000, rec: 100, difGs: -2500 }];
   S.tr = { de: 'pyg', para: 'usd', v: '300000', rec: '', edited: false };
   S.cxMsg = '';
+  // ===== Grupos no acesso rápido: juntar 2 botões da barra de baixo cria um grupo (as telas viram abas no topo). =====
+  S.grupos = [];
+  function grpGet(id) {
+    if (typeof id !== 'string' || id.indexOf('g:') !== 0) return null;
+    return (
+      (S.grupos || []).filter(function (g) {
+        return g.id === id;
+      })[0] || null
+    );
+  }
+  // Todas as telas que estão na barra (grupos abertos em suas telas).
+  function grpPlana() {
+    var o = [];
+    barraLista().forEach(function (id) {
+      var g = grpGet(id);
+      if (g) o = o.concat(g.itens);
+      else o.push(id);
+    });
+    return o;
+  }
+  function grpAviso(g) {
+    return g.itens.indexOf('ped') >= 0 ? pedNovos() : 0;
+  }
+  function grpNomePadrao(a, b) {
+    return BARRA_NOME[a] + ' e ' + BARRA_NOME[b];
+  }
+  function grpAbre(g) {
+    var t = g.ult && g.itens.indexOf(g.ult) >= 0 ? g.ult : g.itens[0];
+    inicioGo(t);
+  }
+  // Abas do grupo no topo da tela.
+  function grpAbasRender() {
+    var el = $('grpTabs');
+    if (!el) return;
+    var g = null;
+    if (S.view !== 'inicio' && S.view !== 'notif')
+      barraLista().forEach(function (id) {
+        var x = grpGet(id);
+        if (x && !g && navOn(id)) g = x;
+      });
+    if (!g) {
+      el.hidden = true;
+      el.textContent = '';
+      return;
+    }
+    var h = '';
+    g.itens.forEach(function (t) {
+      var on = navOn(t),
+        n = t === 'ped' ? pedNovos() : 0;
+      if (on) g.ult = t;
+      h += '<button type="button" class="' + (on ? 'on' : '') + '" data-act="grpTela" data-id="' + t + '" aria-pressed="' + on + '">' + BARRA_NOME[t] + (n ? ' <b>' + n + '</b>' : '') + '</button>';
+    });
+    h += '<button type="button" class="gmais" data-act="grpGerir" data-id="' + g.id + '" aria-label="Gerenciar grupo ' + esc(g.nome) + '">⋯</button>';
+    el.hidden = false;
+    el.innerHTML = h;
+  }
+  // Coloca o botão no lugar do grupo na barra (ou no Início se a barra estiver cheia).
+  function grpSolta(B, pos, ids) {
+    ids.forEach(function (id, n) {
+      if (B.length < BARRA_MAX) B.splice(pos + n, 0, id);
+      else barraDevolve(id);
+    });
+  }
+  function grpAdd(gid, id) {
+    var g = grpGet(gid);
+    if (!g || grpGet(id) || g.itens.indexOf(id) >= 0) return false;
+    S.barra = barraLista().filter(function (x) {
+      return x !== id;
+    });
+    g.itens.push(id);
+    return true;
+  }
+  function grpTira(gid, id) {
+    var g = grpGet(gid);
+    if (!g) return;
+    var B = barraLista().slice(),
+      i = B.indexOf(gid);
+    g.itens = g.itens.filter(function (x) {
+      return x !== id;
+    });
+    if (g.itens.length < 2) {
+      var resto = g.itens.slice();
+      B.splice(i, 1);
+      S.grupos = S.grupos.filter(function (x) {
+        return x !== g;
+      });
+      grpSolta(B, i, resto.concat([id]));
+    } else grpSolta(B, i + 1, [id]);
+    S.barra = B;
+  }
+  function grpDesfaz(gid) {
+    var g = grpGet(gid);
+    if (!g) return;
+    var B = barraLista().slice(),
+      i = B.indexOf(gid);
+    B.splice(i, 1);
+    S.grupos = S.grupos.filter(function (x) {
+      return x !== g;
+    });
+    grpSolta(B, i, g.itens);
+    S.barra = B;
+  }
+  // ---------- janelas (novo grupo / gerenciar)
+  function grpJanela(html) {
+    var m = $('grpM');
+    if (!html) {
+      if (m) m.remove();
+      return;
+    }
+    if (!m) {
+      m = document.createElement('div');
+      m.id = 'grpM';
+      m.className = 'modal';
+      m.setAttribute('role', 'dialog');
+      m.setAttribute('aria-modal', 'true');
+      document.body.appendChild(m);
+    }
+    m.innerHTML = '<div class="modal-box" style="max-width:420px;margin-top:10vh">' + html + '</div>';
+  }
+  function grpIcones(ids) {
+    return '<span class="gbig">' + ids.slice(0, 3).map(function (x) { return '<i>' + ico(x, 22) + '</i>'; }).join('') + '</span>';
+  }
+  function grpNovoAbre(a, b) {
+    var Bl = barraLista();
+    if (Bl.indexOf(a) > Bl.indexOf(b)) {
+      var tmp = a;
+      a = b;
+      b = tmp;
+    }
+    S._gn = { a: a, b: b };
+    grpJanela(
+      '<div style="display:flex;align-items:center;gap:12px">' + grpIcones([a, b]) + '<b style="font-size:19px">Novo grupo</b></div>' +
+        '<div class="hint" style="margin:0">' + BARRA_NOME[a] + ' e ' + BARRA_NOME[b] + ' passam a ficar juntos num só botão da barra. As telas aparecem como abas no topo.</div>' +
+        '<input class="in" id="grpNome" maxlength="18" value="' + esc(grpNomePadrao(a, b)) + '" aria-label="Nome do grupo">' +
+        '<button type="button" class="go" data-act="grpCria">Criar grupo</button>' +
+        '<button type="button" class="chip" data-act="grpFecha">Cancelar</button>'
+    );
+  }
+  function grpGerirAbre(gid) {
+    var g = grpGet(gid);
+    if (!g) return;
+    S._gg = gid;
+    var livres = iniLista().filter(function (x) {
+      return BARRA_NOME[x] && grpPlana().indexOf(x) < 0;
+    });
+    grpJanela(
+      '<div style="display:flex;align-items:center;gap:12px">' + grpIcones(g.itens) + '<b style="font-size:19px">Grupo</b></div>' +
+        '<input class="in" id="grpNome" maxlength="18" value="' + esc(g.nome) + '" aria-label="Nome do grupo">' +
+        '<div class="lbl" style="margin:0">Telas do grupo</div>' +
+        g.itens.map(function (x) {
+          return '<div class="grow"><span>' + BARRA_NOME[x] + '</span><button type="button" class="chip" data-act="grpTirar" data-id="' + x + '">Tirar</button></div>';
+        }).join('') +
+        (livres.length
+          ? '<div class="lbl" style="margin:0">Adicionar botão <span style="font-weight:400">(ou arraste do Início até o grupo)</span></div><div class="gadd">' +
+            livres.map(function (x) {
+              return '<button type="button" class="chip" data-act="grpPoe" data-id="' + x + '">+ ' + BARRA_NOME[x] + '</button>';
+            }).join('') + '</div>'
+          : '') +
+        '<button type="button" class="go" data-act="grpSalva">Salvar</button>' +
+        '<button type="button" class="chip" data-act="grpDesfazer">Desfazer o grupo</button>'
+    );
+  }
+  function grpNomeLe(g, padrao) {
+    var i = $('grpNome'),
+      v = i ? i.value.replace(/\s+/g, ' ').trim().slice(0, 18) : '';
+    return v || padrao;
+  }
+  ACT.grpTela = function (id) {
+    inicioGo(id);
+  };
+  ACT.grpGerir = function (id) {
+    grpGerirAbre(id);
+  };
+  ACT.grpFecha = function () {
+    S._gn = S._gg = null;
+    grpJanela('');
+  };
+  ACT.grpCria = function () {
+    var n = S._gn;
+    if (!n) return;
+    var B = barraLista().slice(),
+      i = B.indexOf(n.a);
+    if (i < 0 || B.indexOf(n.b) < 0) return ACT.grpFecha();
+    var g = { id: 'g:' + Date.now().toString(36), nome: grpNomeLe(null, grpNomePadrao(n.a, n.b)), itens: [n.a, n.b] };
+    S.grupos.push(g);
+    B[i] = g.id;
+    B.splice(B.indexOf(n.b), 1);
+    S.barra = B;
+    ACT.grpFecha();
+    render();
+    var b = $('mainnav').querySelector('.mn[data-id="' + g.id + '"]');
+    if (b && b.animate && !REDUCED) b.animate([{ transform: 'scale(.6)' }, { transform: 'scale(1.18)' }, { transform: 'scale(1)' }], { duration: 520, easing: 'ease-out' });
+  };
+  ACT.grpSalva = function () {
+    var g = grpGet(S._gg);
+    if (g) g.nome = grpNomeLe(g, g.nome);
+    ACT.grpFecha();
+    render();
+  };
+  ACT.grpTirar = function (id) {
+    var gid = S._gg,
+      g = grpGet(gid);
+    if (!g) return;
+    var nome = g.nome;
+    grpTira(gid, id);
+    render();
+    if (grpGet(gid)) grpGerirAbre(gid);
+    else ACT.grpFecha();
+  };
+  ACT.grpPoe = function (id) {
+    var gid = S._gg;
+    if (grpAdd(gid, id)) {
+      render();
+      grpGerirAbre(gid);
+    }
+  };
+  ACT.grpDesfazer = function () {
+    grpDesfaz(S._gg);
+    ACT.grpFecha();
+    render();
+  };
+  // Botão direito (mouse) num grupo da barra abre o gerenciar.
+  document.addEventListener('contextmenu', function (e) {
+    var b = e.target.closest && e.target.closest('#mainnav .mn');
+    var id = b && b.getAttribute('data-id');
+    if (id && grpGet(id)) {
+      e.preventDefault();
+      grpGerirAbre(id);
+    }
+  });
   // ===== Aba Caixa: carteira, conversão de moedas e reservas. =====
   // Cotação de uma moeda em guaranis.
   function ratePyg(m) {
@@ -26902,8 +27144,31 @@
         s.classList.toggle('qt', o.zona === 'barra' && i === o.k && i > 0);
       });
       var B = barraLista();
-      if (dg.deBarra) {
-        dica(o.zona === 'barra' ? (o.k > 0 ? 'Solte para trocar de lugar' : 'Arraste para fora para tirar da barra') : 'Solte aqui para tirar da barra');
+      // segurar sobre outro botão da barra por um instante = juntar
+      var kk = dg.deBarra && !grpGet(dg.id) && o.zona === 'barra' && o.k > 0 && B[o.k - 1] !== dg.id ? o.k : -1;
+      if (kk !== dg.hk) {
+        clearTimeout(dg.ht);
+        dg.hk = kk;
+        dg.junta = -1;
+        if (kk > 0)
+          dg.ht = setTimeout(function () {
+            if (dg && dg.hk === kk) {
+              dg.junta = kk;
+              vibrar(12);
+              quadro();
+            }
+          }, 650);
+      }
+      l.forEach(function (s, i) {
+        s.classList.toggle('qj', dg.junta > 0 && i === dg.junta);
+      });
+      if (dg.junta > 0) {
+        var al = B[dg.junta - 1];
+        dica(grpGet(al) ? 'Solte para juntar ao grupo ' + barraNome(al) : 'Solte para juntar com ' + barraNome(al));
+      } else if (!dg.deBarra && o.zona === 'barra' && o.k > 0 && grpGet(B[o.k - 1])) {
+        dica('Solte para adicionar ao grupo ' + barraNome(B[o.k - 1]));
+      } else if (dg.deBarra) {
+        dica(o.zona === 'barra' ? (o.k > 0 ? 'Solte para trocar de lugar · segure para juntar' : 'Arraste para fora para tirar da barra') : 'Solte aqui para tirar da barra');
       } else if (B.length < BARRA_MAX) {
         dica(o.zona === 'barra' ? 'Solte para adicionar à barra' : 'Arraste até a barra de baixo · ' + (B.length + 1) + '/5');
       } else {
@@ -26986,6 +27251,7 @@
       if (dg.el) dg.el.classList.remove('qorig');
       slots().forEach(function (s) {
         s.classList.remove('qt');
+        s.classList.remove('qj');
       });
       barEl().classList.remove('qd');
       document.body.classList.remove('arrastaBarra');
@@ -26993,6 +27259,7 @@
     function fim(ev) {
       if (!dg) return;
       clearTimeout(dg.t);
+      clearTimeout(dg.ht);
       var d = dg;
       if (!d.on) {
         dg = null;
@@ -27001,12 +27268,35 @@
       soltouEm = Date.now();
       var o = ev && ev.type === 'pointerup' ? sobre(d.cx, d.cy) : { zona: 'cancel', k: -1 };
       var B = barraLista().slice(),
-        nome = BARRA_NOME[d.id],
+        nome = barraNome(d.id),
         volta = false,
         pr = '',
         pt = '',
         msg = '';
-      if (!d.deBarra) {
+      var pend = null,
+        alvoG = o.zona === 'barra' && o.k > 0 ? B[o.k - 1] : null;
+      if (d.deBarra && grpGet(d.id) && Math.abs(d.cx - d.x0) + Math.abs(d.cy - d.y0) < 14 && ev && ev.type === 'pointerup') {
+        // segurou o grupo sem mexer: gerenciar
+        volta = true;
+        pend = ['ger', d.id];
+      } else if (d.deBarra && d.junta > 0 && d.junta === o.k && alvoG && alvoG !== d.id) {
+        if (grpGet(alvoG)) {
+          B.splice(B.indexOf(d.id), 1);
+          grpAdd(alvoG, d.id);
+          B = barraLista().slice();
+          pr = alvoG;
+          msg = nome + ' entrou no grupo ' + barraNome(alvoG);
+        } else {
+          volta = true;
+          pend = ['novo', alvoG, d.id];
+        }
+      } else if (!d.deBarra && alvoG && grpGet(alvoG)) {
+        if (grpAdd(alvoG, d.id)) {
+          B = barraLista().slice();
+          pr = alvoG;
+          msg = nome + ' entrou no grupo ' + barraNome(alvoG);
+        } else volta = true;
+      } else if (!d.deBarra) {
         if (o.zona === 'barra') {
           if (B.length < BARRA_MAX) {
             B.push(d.id);
@@ -27026,7 +27316,11 @@
         } else volta = true;
       } else {
         var i = B.indexOf(d.id);
-        if (o.zona === 'barra' && o.k > 0 && o.k - 1 !== i) {
+        if (grpGet(d.id) && o.zona === 'fora') {
+          grpDesfaz(d.id);
+          B = barraLista().slice();
+          msg = 'Grupo desfeito: os botões voltaram';
+        } else if (o.zona === 'barra' && o.k > 0 && o.k - 1 !== i) {
           B.splice(i, 1);
           B.splice(o.k - 1, 0, d.id);
           pr = d.id;
@@ -27042,6 +27336,8 @@
         fecha = function () {
           limpa();
           dg = null;
+          if (pend && pend[0] === 'ger') grpGerirAbre(pend[1]);
+          else if (pend && pend[0] === 'novo') grpNovoAbre(pend[1], pend[2]);
         };
       if (volta) {
         if (g && !REDUCED) {
@@ -28521,6 +28817,7 @@
       'fxMgUlt',
       'inicioT',
       'barra',
+      'grupos',
       'attr',
       'site',
       'num',

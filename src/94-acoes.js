@@ -12,6 +12,7 @@
     inicioReset: function () {
       S.inicioT = null;
       S.barra = null;
+      S.grupos = [];
       render();
     },
     inicioRm: function (id) {

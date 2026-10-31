@@ -134,7 +134,7 @@
     if (!el || S.view !== 'inicio') return;
     var h = vendidoHoje(),
       D = iniDados(),
-      B = barraLista(),
+      B = grpPlana(),
       L = iniLista().filter(function (id) {
         return B.indexOf(id) < 0;
       }),
@@ -226,27 +226,33 @@
     var l = Array.isArray(S.barra) ? S.barra : BARRA_PADRAO;
     return l
       .filter(function (id, i) {
-        return id !== 'inicio' && BARRA_NOME[id] && l.indexOf(id) === i;
+        return id !== 'inicio' && (BARRA_NOME[id] || grpGet(id)) && l.indexOf(id) === i;
       })
       .slice(0, BARRA_MAX);
   }
   function navItens() {
     return [['inicio', 'Início']].concat(
       barraLista().map(function (id) {
-        return [id, BARRA_NOME[id]];
+        return [id, barraNome(id)];
       })
     );
   }
   // O botão da barra está "aceso"? (estamos na tela que ele abre)
+  function barraNome(id) {
+    var g = grpGet(id);
+    return g ? g.nome : BARRA_NOME[id];
+  }
   function navOn(id) {
-    var v = S.view;
+    var v = S.view,
+      gg = grpGet(id);
+    if (gg) return gg.itens.some(navOn);
     if (id === 'inicio') return v === 'inicio';
     if (id === 'hoje' || id === 'din' || id === 'giro' || id === 'prec') return v === 'dash' && S.dTab === id;
     if (id === 'cat') return v === 'vendas' && !!S.catOpen;
     if (id === 'cli') return v === 'clientes';
     if (id === 'lotes') return v === 'estoque' && !!S.lotesView;
-    if (id === 'vendas') return (v === 'vendas' && !(S.catOpen && barraLista().indexOf('cat') >= 0)) || (v === 'onl' && barraLista().indexOf('onl') < 0);
-    if (id === 'estoque') return v === 'estoque' && !(S.lotesView && barraLista().indexOf('lotes') >= 0);
+    if (id === 'vendas') return (v === 'vendas' && !(S.catOpen && grpPlana().indexOf('cat') >= 0)) || (v === 'onl' && grpPlana().indexOf('onl') < 0);
+    if (id === 'estoque') return v === 'estoque' && !(S.lotesView && grpPlana().indexOf('lotes') >= 0);
     if (id === 'cont' || id === 'novo') return false;
     return v === id;
   }

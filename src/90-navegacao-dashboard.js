@@ -25,14 +25,19 @@
       var b = btn('mn' + (on ? ' on' : ''), '', function () {
         if (window.__barraSegurou && window.__barraSegurou()) return;
         if (v[0] === 'inicio') setView('inicio');
+        else if (grpGet(v[0])) grpAbre(grpGet(v[0]));
         else inicioGo(v[0]);
       });
-      b.innerHTML = '<span class="mi">' + ico(v[0], 22) + '</span><span>' + v[1] + '</span>';
+      var gg = grpGet(v[0]);
+      b.innerHTML = gg
+        ? '<span class="mi gi">' + gg.itens.slice(0, 2).map(function (x) { return '<i>' + ico(x, 17) + '</i>'; }).join('') + (grpAviso(gg) ? '<em class="bd">' + grpAviso(gg) + '</em>' : '') + '</span><span>' + esc(v[1]) + '</span>'
+        : '<span class="mi">' + ico(v[0], 22) + '</span><span>' + v[1] + '</span>';
       b.setAttribute('aria-label', v[1]);
       b.setAttribute('data-id', v[0]);
       if (on) b.setAttribute('aria-current', 'page');
       n.appendChild(b);
     });
+    grpAbasRender();
     VIEWS.forEach(function (v) {
       $('v-' + v[0]).hidden = S.view !== v[0];
     });

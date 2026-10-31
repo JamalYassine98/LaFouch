@@ -64,8 +64,31 @@
         s.classList.toggle('qt', o.zona === 'barra' && i === o.k && i > 0);
       });
       var B = barraLista();
-      if (dg.deBarra) {
-        dica(o.zona === 'barra' ? (o.k > 0 ? 'Solte para trocar de lugar' : 'Arraste para fora para tirar da barra') : 'Solte aqui para tirar da barra');
+      // segurar sobre outro botão da barra por um instante = juntar
+      var kk = dg.deBarra && !grpGet(dg.id) && o.zona === 'barra' && o.k > 0 && B[o.k - 1] !== dg.id ? o.k : -1;
+      if (kk !== dg.hk) {
+        clearTimeout(dg.ht);
+        dg.hk = kk;
+        dg.junta = -1;
+        if (kk > 0)
+          dg.ht = setTimeout(function () {
+            if (dg && dg.hk === kk) {
+              dg.junta = kk;
+              vibrar(12);
+              quadro();
+            }
+          }, 650);
+      }
+      l.forEach(function (s, i) {
+        s.classList.toggle('qj', dg.junta > 0 && i === dg.junta);
+      });
+      if (dg.junta > 0) {
+        var al = B[dg.junta - 1];
+        dica(grpGet(al) ? 'Solte para juntar ao grupo ' + barraNome(al) : 'Solte para juntar com ' + barraNome(al));
+      } else if (!dg.deBarra && o.zona === 'barra' && o.k > 0 && grpGet(B[o.k - 1])) {
+        dica('Solte para adicionar ao grupo ' + barraNome(B[o.k - 1]));
+      } else if (dg.deBarra) {
+        dica(o.zona === 'barra' ? (o.k > 0 ? 'Solte para trocar de lugar · segure para juntar' : 'Arraste para fora para tirar da barra') : 'Solte aqui para tirar da barra');
       } else if (B.length < BARRA_MAX) {
         dica(o.zona === 'barra' ? 'Solte para adicionar à barra' : 'Arraste até a barra de baixo · ' + (B.length + 1) + '/5');
       } else {
@@ -148,6 +171,7 @@
       if (dg.el) dg.el.classList.remove('qorig');
       slots().forEach(function (s) {
         s.classList.remove('qt');
+        s.classList.remove('qj');
       });
       barEl().classList.remove('qd');
       document.body.classList.remove('arrastaBarra');
@@ -155,6 +179,7 @@
     function fim(ev) {
       if (!dg) return;
       clearTimeout(dg.t);
+      clearTimeout(dg.ht);
       var d = dg;
       if (!d.on) {
         dg = null;
@@ -163,12 +188,35 @@
       soltouEm = Date.now();
       var o = ev && ev.type === 'pointerup' ? sobre(d.cx, d.cy) : { zona: 'cancel', k: -1 };
       var B = barraLista().slice(),
-        nome = BARRA_NOME[d.id],
+        nome = barraNome(d.id),
         volta = false,
         pr = '',
         pt = '',
         msg = '';
-      if (!d.deBarra) {
+      var pend = null,
+        alvoG = o.zona === 'barra' && o.k > 0 ? B[o.k - 1] : null;
+      if (d.deBarra && grpGet(d.id) && Math.abs(d.cx - d.x0) + Math.abs(d.cy - d.y0) < 14 && ev && ev.type === 'pointerup') {
+        // segurou o grupo sem mexer: gerenciar
+        volta = true;
+        pend = ['ger', d.id];
+      } else if (d.deBarra && d.junta > 0 && d.junta === o.k && alvoG && alvoG !== d.id) {
+        if (grpGet(alvoG)) {
+          B.splice(B.indexOf(d.id), 1);
+          grpAdd(alvoG, d.id);
+          B = barraLista().slice();
+          pr = alvoG;
+          msg = nome + ' entrou no grupo ' + barraNome(alvoG);
+        } else {
+          volta = true;
+          pend = ['novo', alvoG, d.id];
+        }
+      } else if (!d.deBarra && alvoG && grpGet(alvoG)) {
+        if (grpAdd(alvoG, d.id)) {
+          B = barraLista().slice();
+          pr = alvoG;
+          msg = nome + ' entrou no grupo ' + barraNome(alvoG);
+        } else volta = true;
+      } else if (!d.deBarra) {
         if (o.zona === 'barra') {
           if (B.length < BARRA_MAX) {
             B.push(d.id);
@@ -188,7 +236,11 @@
         } else volta = true;
       } else {
         var i = B.indexOf(d.id);
-        if (o.zona === 'barra' && o.k > 0 && o.k - 1 !== i) {
+        if (grpGet(d.id) && o.zona === 'fora') {
+          grpDesfaz(d.id);
+          B = barraLista().slice();
+          msg = 'Grupo desfeito: os botões voltaram';
+        } else if (o.zona === 'barra' && o.k > 0 && o.k - 1 !== i) {
           B.splice(i, 1);
           B.splice(o.k - 1, 0, d.id);
           pr = d.id;
@@ -204,6 +256,8 @@
         fecha = function () {
           limpa();
           dg = null;
+          if (pend && pend[0] === 'ger') grpGerirAbre(pend[1]);
+          else if (pend && pend[0] === 'novo') grpNovoAbre(pend[1], pend[2]);
         };
       if (volta) {
         if (g && !REDUCED) {

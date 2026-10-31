@@ -282,6 +282,7 @@
       'fxMgUlt',
       'inicioT',
       'barra',
+      'grupos',
       'attr',
       'site',
       'num',
