@@ -71,7 +71,6 @@
     numNext: 0,
     pnAuto: {},
     descAuto: {},
-    colF: '',
     filtOpen: false,
     sortO: '',
     cpay: [],

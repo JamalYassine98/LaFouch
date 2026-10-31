@@ -72,7 +72,6 @@
     numNext: 0,
     pnAuto: {},
     descAuto: {},
-    colF: '',
     filtOpen: false,
     sortO: '',
     cpay: [],
@@ -2468,7 +2467,6 @@
           fOk(i) &&
           (S.corF === 'all' || i.cor === S.corF) &&
           (!S.faixaF || (faixaOf(i.ref) || {}).id === S.faixaF) &&
-          (!S.colF || attrOf(i.ref).colecao === S.colF) &&
           (!qm || qm(i))
         );
       });
@@ -2988,8 +2986,6 @@
         )
       );
     });
-    S.colF = '';
-    $('fColB').hidden = true;
     var sc = $('sortChips');
     sc.textContent = '';
     [
@@ -4038,8 +4034,7 @@
       'det',
       'lotesView',
       'repo',
-      'faixaF',
-      'colF'
+      'faixaF'
     ];
   // Fecha os filtros (cancelar restaura o estado).
   function filtClose(cancel) {

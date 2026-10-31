@@ -339,8 +339,7 @@
       'det',
       'lotesView',
       'repo',
-      'faixaF',
-      'colF'
+      'faixaF'
     ];
   // Fecha os filtros (cancelar restaura o estado).
   function filtClose(cancel) {
