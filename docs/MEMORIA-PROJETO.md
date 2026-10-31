@@ -238,3 +238,4 @@ Ideias mostradas:
 5. Reflexo nas lentes (faixa de luz).
 Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto centralizado no card do PC.
 - 31/10: PC (>=1100px): logo, botões do topo e WhatsApp crescem com a tela; catálogo em 4 colunas (6 a partir de 2200px). Texto do início atualizado (conta, pagamento online, delivery Paraguai ou retirada).
+- 31/10: PC (>=1100px): os 3 tamanhos de texto do menu viram 80%/90%/100% (100% = tamanho de antes, é o padrão no PC). Celular segue 100/112/125%. Mayorista no PC: cartão centralizado em 2 colunas (opção C).
