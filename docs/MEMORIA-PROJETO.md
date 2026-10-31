@@ -187,7 +187,7 @@ Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Parag
 - Padrões usados (dono não respondeu): grupo pode ter mais de 2 telas; sem grupo dentro de grupo; estado salvo em `S.grupos` (+ ids `g:xxx` em `S.barra`). Código em src/95-barra-grupos.js.
 - Site: "Ver mapa"/"Como chegar" agora usam a ficha da La Fouch no Google Maps (link maps.app.goo.gl/zy6c1ZFq4gQhxWXC8); dados estruturados de loja local; version.json e build do index.html iguais (a cada deploy do site, subir os dois juntos).
 
-## DECISÕES do dono para o novo cadastro/reserva do site (31/10/2026) — SÓ ESBOÇOS, NÃO IMPLEMENTAR até o dono avisar
+## DECISÕES do dono para o novo cadastro/reserva do site (31/10/2026) — APROVADAS e IMPLEMENTADAS (site + app v354)
 - Sem receita/grau (é loja de óculos, não ótica). Sem "o que costuma procurar" nem "formato de rosto".
 - Cadastro: nome, nacionalidade (paraguaio → RUC, brasileiro → CPF, argentino → DNI), nascimento, e-mail (opcional), cidade, endereço (opcional); entrada por WhatsApp com código.
 - Delivery SÓ para paraguaios (brasileiros e argentinos: só retirada na loja). Delivery é pela transportadora (a loja não controla): SEM dia/hora; frete combinado no WhatsApp.
@@ -195,3 +195,11 @@ Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Parag
 - O cliente PAGA ANTES; o pedido fica reservado até ser entregue: NÃO existe mais o prazo de 7 dias.
 - Pendentes: forma de pagamento (qual? comprovante?), RUC/CPF/DNI obrigatório?, código por WhatsApp ou SMS, conta obrigatória ou visitante.
 - Pagamento (31/10/2026, só esboço): brasileiros e argentinos pagam por PIX; paraguaios por Alias; em ambos o site mostra QR de pagamento + "copiar código/alias" + enviar comprovante. Dono confirma o pagamento no app (proposta: manual). Pedido pago fica reservado até a entrega (sem prazo). Pendentes: chave PIX do dono, alias, moeda (R$ para argentino?), política de devolução.
+
+## v354 (31/10/2026) — cadastro + pagamento: IMPLEMENTADO (dono: "Pode implementar o sistema de cadastro")
+- Site (catalogo): conta obrigatória (sem visitante), nome/nacionalidade/documento (RUC, CPF ou DNI)/nascimento/WhatsApp/e-mail opcional/cidade/endereço opcional. Delivery só paraguaio; brasileiro e argentino só retirada. Textos "7 dias" trocados por "reservado até a entrega". Sem código por WhatsApp (não há API): decisão minha, avisar o dono.
+- Pagamento: PIX (brasileiro/argentino), QR gerado pelo site com a chave Nubank (valor em R$). Paraguaio: QR do Itaú gerado À MÃO pelo dono no app do Itaú (Generar QR, valor do pedido, "QR sin vencimiento") e ANEXADO ao pedido no app LaFouch (botão "Anexar QR do Itaú"). Alias/CI do Itaú NÃO ficam no código.
+- App Pedidos: estados Aguardando pagamento → Conferir comprovante → Pago (token LF-XXXX gerado ao confirmar) → separar/pronto/entregue. Botões: Anexar QR, Confirmar pagamento, Recusar, Marcar como pago. Comprovante chega como doc `pedidos/<id>c` (tipo comp). Campos escritos em `reservas/<id>`: qr, pago, tok, recusado (com updateMask). Barreira antiga de 30 min ("Confirmar reserva") removida.
+- Cliente cadastrado com documento (campo ruc) + nac, nasc, email, cidade, end.
+- Modo teste: site `lafouch.com/?teste=1` (PIX de R$ 1,00, faixa TESTE, pedidos com teste:true); `?teste=0` sai. No app: selo TESTE e botão "Apagar pedidos de teste" (apaga também clientes criados só por teste).
+- Pendente do dono: publicar regras do Firestore (get público em reservas/{id}; create em pedidos incl. docs `<id>c`); Search Console para reindexar logo/título.

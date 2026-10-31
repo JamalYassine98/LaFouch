@@ -23724,6 +23724,7 @@
   }
   // Valor estimado pela tabela de preços (só das linhas que são modelos do estoque).
   function pedTotal(p) {
+    if (p.total > 0) return p.total;
     var t = 0;
     p.itens.forEach(function (l) {
       if (l.preco > 0) {
@@ -23782,13 +23783,24 @@
       tel = pedTxt(f.tel, 24);
     if (!itens.length || !nome) return null;
     var ts = +f.ts > 0 && +f.ts <= Date.now() + 3600000 ? +f.ts : Date.now();
-    return { sid: sid, ts: ts, cli: cap1(nome), tel: tel, obs: f.rosto ? 'Formato do rosto: ' + pedTxt(f.rosto, 20) : '', itens: itens, st: 'novo', orig: 'site', cod: pedTxt(f.cod, 8), ate: +f.ate > 0 ? +f.ate : 0, pais: pedTxt(f.pais, 2) };
+    var pag = f.pag === 'pix' || f.pag === 'alias' ? f.pag : '',
+      nac = f.nac === 'py' || f.nac === 'br' || f.nac === 'ar' ? f.nac : '';
+    return {
+      sid: sid, ts: ts, cli: cap1(nome), tel: tel, itens: itens, st: 'novo', orig: 'site', cod: pedTxt(f.cod, 8), pais: pedTxt(f.pais, 2),
+      nac: nac, doc: pedTxt(f.doc, 20), nasc: pedTxt(f.nasc, 10), email: pedTxt(f.email, 80), cidade: pedTxt(f.cidade, 60), end: pedTxt(f.end, 120),
+      ent: f.ent === 'delivery' ? 'delivery' : 'loja', endE: pedTxt(f.endE, 160), refE: pedTxt(f.refE, 120),
+      pag: pag, pg: pag ? 'pagar' : '', total: Math.max(0, Math.round(+f.total) || 0), brl: pedTxt(f.brl, 12), teste: f.teste === true
+    };
   }
   // Acha o cliente pelo telefone (ou nome) e, se não existe, cadastra. Devolve o cliente e se foi criado agora.
   function pedCliente(p) {
-    var c = cliAchar(p.cli, p.tel, '', 0);
-    if (c) return { c: c, novo: false };
-    c = { id: S.cliNext++, nome: p.cli, tel: p.tel, ruc: '', obs: 'Veio pelo site', ts: Date.now() };
+    var c = cliAchar(p.cli, p.tel, p.doc, 0);
+    if (c) {
+      if (!c.ruc && p.doc) c.ruc = p.doc;
+      return { c: c, novo: false };
+    }
+    c = { id: S.cliNext++, nome: p.cli, tel: p.tel, ruc: p.doc, obs: 'Veio pelo site', ts: Date.now(), nac: p.nac, nasc: p.nasc, email: p.email, cidade: p.cidade, end: p.end };
+    if (p.teste) c.teste = true;
     S.clientes.push(c);
     return { c: c, novo: true };
   }
@@ -23806,13 +23818,36 @@
       .then(function (j) {
         var docs = j.documents || [],
           apagar = [],
-          novos = 0;
-        docs.forEach(function (d) {
-          var sid = d.name.split('/').pop(),
-            f = {};
+          novos = 0,
+          comps = 0;
+        docs = docs.map(function (d) {
+          var f = {};
           Object.keys(d.fields || {}).forEach(function (k) {
             f[k] = pedFv(d.fields[k]);
           });
+          return { sid: d.name.split('/').pop(), f: f };
+        });
+        // pedidos primeiro, comprovantes depois (o comprovante procura o pedido pelo código)
+        docs.sort(function (a, b) {
+          return (a.f.tipo === 'comp' ? 1 : 0) - (b.f.tipo === 'comp' ? 1 : 0);
+        });
+        docs.forEach(function (d) {
+          var sid = d.sid,
+            f = d.f;
+          if (f.tipo === 'comp') {
+            var q = S.pedidos.filter(function (x) {
+              return x.sid === pedTxt(f.ref, 40);
+            })[0];
+            if (q && typeof f.img === 'string' && f.img.indexOf('data:image/') === 0 && f.img.length < 900000) {
+              q.comp = f.img;
+              q.pg = 'comp';
+              q.recus = false;
+              q.compTs = +f.ts > 0 ? +f.ts : Date.now();
+              comps++;
+              apagar.push(sid);
+            } else if (!q && Date.now() - (+f.ts || 0) > 3 * 86400000) apagar.push(sid);
+            return;
+          }
           if (
             S.pedidos.some(function (p) {
               return p.sid === sid;
@@ -23836,7 +23871,7 @@
           apagar.push(sid);
           novos++;
         });
-        if (novos) {
+        if (novos || comps) {
           S.pedF = 'novo';
           render();
         }
@@ -23846,7 +23881,7 @@
             apagar.forEach(function (sid) {
               nvApi('DELETE', 'pedidos/' + encodeURIComponent(sid)).catch(function () {});
             });
-          }, novos ? 5000 : 0);
+          }, novos || comps ? 5000 : 0);
         return novos;
       })
       .catch(function (e) {
@@ -23929,29 +23964,29 @@
     if (p.st === 'ent') return ['✓ Entregue', 'ok'];
     if (p.st === 'pronto') return ['Pronto para retirar', 'ok'];
     if (p.st === 'sep') return ['Separando', 'ac'];
-    if (p.orig === 'site' && p.cod && !p.conf) return ['⏳ Aguardando cliente', 'w'];
-    if (p.conf) return ['✓ Reservado', 'ok'];
+    if (p.pg === 'pagar') return [p.recus ? 'Pagamento recusado' : '💳 Aguardando pagamento', 'w'];
+    if (p.pg === 'comp') return ['🧾 Conferir comprovante', 'w'];
+    if (p.pg === 'pago') return ['✓ Pago', 'ok'];
     return ['Novo', 'ac'];
   }
-  function pedEspera(p, grande) {
-    if (!(p.orig === 'site' && p.cod && !p.conf && p.st === 'novo')) return '';
-    var tot = p.ate && p.ate > p.ts ? p.ate - p.ts : 1800000,
-      resta = p.ate ? Math.max(0, p.ate - Date.now()) : tot,
-      pc = Math.max(4, Math.min(100, Math.round((resta / tot) * 100)));
-    return (
-      '<div class="pdProg"><i style="width:' + pc + '%"></i></div><div class="pdCod">Código <b>' + esc(p.cod) + '</b>' +
-      (p.ate ? ' · reserva até ' + fh(p.ate) : '') + '</div>'
-    );
+  // Aguardando o pagamento (ainda não dá para separar).
+  function pedPagando(p) {
+    return p.st === 'novo' && (p.pg === 'pagar' || p.pg === 'comp');
   }
   function pedAcoes(p, lista) {
     var z = pedZap(p),
       pr = PED_ST.filter(function (s) {
         return s[0] === p.st;
       })[0],
-      conf = p.orig === 'site' && p.cod && !p.conf && p.st === 'novo',
       h = '<div class="pdBtns">';
-    if (conf) h += '<button type="button" class="pdB1" data-act="pedconf" data-id="' + p.id + '">✓ Confirmar reserva</button>';
-    else if (pr && pr[2]) h += '<button type="button" class="pdB1" data-act="pedav" data-id="' + p.id + '">' + pr[2] + '</button>';
+    if (pedPagando(p)) {
+      if (lista) h += '<button type="button" class="pdB1" data-act="pedab" data-id="' + p.id + '">' + (p.pg === 'comp' ? 'Conferir comprovante' : 'Ver pedido') + '</button>';
+      else if (p.pg === 'comp') h += '<button type="button" class="pdB1" data-act="pedpago" data-id="' + p.id + '">✓ Confirmar pagamento</button><button type="button" class="pdB2 txt" data-act="pedrecus" data-id="' + p.id + '">Recusar</button>';
+      else {
+        if (p.pag === 'alias') h += '<button type="button" class="pdB1" data-act="pedqr" data-id="' + p.id + '">' + (p.qr ? 'Trocar QR do Itaú' : 'Anexar QR do Itaú') + '</button>';
+        h += '<button type="button" class="' + (p.pag === 'alias' ? 'pdB2 txt' : 'pdB1') + '" data-act="pedpago" data-id="' + p.id + '">' + (p.pag === 'alias' ? 'Marcar como pago' : '✓ Confirmar pagamento') + '</button>';
+      }
+    } else if (pr && pr[2]) h += '<button type="button" class="pdB1" data-act="pedav" data-id="' + p.id + '">' + pr[2] + '</button>';
     else if (p.st === 'canc' || p.st === 'ent')
       h += '<button type="button" class="pdB2 txt" data-act="peddel" data-id="' + p.id + '">' + (S._pedDel === String(p.id) ? 'Remover?' : 'Remover') + '</button>';
     if (z) h += '<a class="pdB2" href="' + z + '" target="_blank" rel="noopener" aria-label="WhatsApp">' + PD_ZAP + '</a>';
@@ -23967,8 +24002,8 @@
   }
   function pedPassos(p) {
     var ix = { novo: 0, sep: 1, pronto: 2, ent: 3 }[p.st],
-      cur = ix === 0 && p.conf ? 1 : ix,
-      nomes = ['Reserva', 'Separando', 'Pronto', 'Entregue'],
+      cur = ix === 0 && p.pg === 'pago' ? 1 : ix,
+      nomes = [p.pg ? 'Pagamento' : 'Reserva', 'Separando', 'Pronto', 'Entregue'],
       h = '<div class="pdStep" style="--w:' + (p.st === 'ent' ? 100 : cur * 33.3) + '">';
     nomes.forEach(function (n, i) {
       var d = p.st === 'ent' ? true : i < cur,
@@ -23977,6 +24012,22 @@
     });
     return h + '</div>';
   }
+  var PED_NAC = { py: '🇵🇾 Paraguaio · RUC', br: '🇧🇷 Brasileiro · CPF', ar: '🇦🇷 Argentino · DNI' };
+  // Pagamento e entrega do pedido do site.
+  function pedPagto(p) {
+    if (!p.pag && p.ent !== 'delivery') return '';
+    var est = pedEstado(p),
+      h = '<section class="pdCd"><div class="pdLb">Pagamento</div><div class="pdLin"><div style="flex:1;min-width:0"><b>' +
+        (p.pag === 'pix' ? 'PIX' + (p.brl ? ' · R$ ' + esc(p.brl) : '') : p.pag === 'alias' ? 'Itaú (alias)' : 'Sem pagamento online') +
+        '</b><div class="pdMt">' + (pedTotal(p) ? gs(pedTotal(p)) : '') + '</div></div>' + (p.pg ? '<span class="pdPill ' + est[1] + '">' + est[0] + '</span>' : '') + '</div>';
+    if (p.pg === 'pagar' && p.pag === 'alias')
+      h += '<div class="pdMt" style="margin-top:6px">' + (p.qr ? 'QR anexado. O cliente já vê no site.' : 'Gere o QR no app do Itaú (valor do pedido, “QR sin vencimiento” ligado) e anexe aqui.') + '</div>';
+    if (p.pag === 'alias' && p.qr) h += '<img src="' + p.qr + '" alt="QR do Itaú" style="display:block;max-width:180px;margin:8px auto 0;border-radius:10px;background:#fff">';
+    if (p.comp) h += '<div class="pdMt" style="margin-top:10px">Comprovante enviado' + (p.compTs ? ' às ' + fh(p.compTs) : '') + '</div><img src="' + p.comp + '" alt="Comprovante" style="display:block;max-width:100%;max-height:420px;margin:6px auto 0;border-radius:10px">';
+    h += '</section><section class="pdCd"><div class="pdLb">Entrega</div><b>' + (p.ent === 'delivery' ? 'Delivery (transportadora)' : 'Retirada na loja') + '</b>';
+    if (p.ent === 'delivery') h += '<div class="pdMt">' + esc(p.endE || '') + (p.refE ? ' · ' + esc(p.refE) : '') + '</div><div class="pdMt">Combine o frete com a cliente no WhatsApp.</div>';
+    return h + '</section>';
+  }
   function pedDetalhe(p) {
     var c = pedCliDe(p),
       n = c ? cliPedidos(c).length : 0,
@@ -23984,12 +24035,10 @@
       tz = p.tok ? pedTokZap(p) : '',
       tot = pedTotal(p),
       est = pedEstado(p),
-      h = '<div class="top"><div><h1>Pedido ' + p.num + '</h1><div class="crumb">' + esc(p.cli || 'Sem nome') + ' · ' + fd(p.ts) + ' ' + fh(p.ts) + (p.orig === 'site' ? ' · Site' : '') + '</div></div></div>';
+      h = '<div class="top"><div><h1>Pedido ' + p.num + '</h1><div class="crumb">' + esc(p.cli || 'Sem nome') + ' · ' + fd(p.ts) + ' ' + fh(p.ts) + (p.orig === 'site' ? ' · Site' : '') + (p.teste ? ' · TESTE' : '') + '</div></div></div>';
     h += '<div class="sel"><button type="button" class="chip" data-act="pedfecha">‹ Pedidos</button></div>';
     if (p.st === 'canc') h += '<div class="pdAviso bad">Pedido cancelado.' + (p.tok ? ' O token ' + esc(p.tok) + ' não vale mais.' : '') + '</div>';
     else h += pedPassos(p);
-    if (p.orig === 'site' && p.cod && !p.conf && p.st === 'novo')
-      h += '<div class="pdAviso w"><b>⏳ Aguardando a mensagem da cliente</b>' + pedEspera(p, true) + '</div>';
     if (p.tok && p.st !== 'canc') {
       h +=
         '<div class="pdTok ' + (p.st === 'ent' ? 'usado' : '') + '"><div class="pdLb">Token de entrega · ' + esc(p.tokNome || p.cli || '') + '</div>' +
@@ -24006,9 +24055,11 @@
       esc(p.cli || 'Sem nome') + '</b><div class="pdMt">' + (p.tel ? esc(p.tel) : 'Sem telefone') +
       (c ? ' · ' + (n <= 1 ? '1º pedido na La Fouch' : n + 'º pedido na La Fouch') : '') + '</div></div>' +
       (p.cliNovo ? '<span class="pdPill ac">Nova</span>' : c ? '<span class="pdPill ok">Cadastrada</span>' : '') + '</div>' +
-      (p.obs ? '<div class="pdMt" style="margin-top:6px">' + esc(p.obs) + '</div>' : '') +
+      (p.nac ? '<div class="pdMt" style="margin-top:6px">' + PED_NAC[p.nac] + (p.doc ? ' ' + esc(p.doc) : '') + (p.nasc ? ' · nasc. ' + esc(p.nasc) : '') + '</div>' : '') +
+      (p.cidade || p.email || p.end ? '<div class="pdMt">' + esc([p.cidade, p.email, p.end].filter(Boolean).join(' · ')) + '</div>' : '') +
       (c ? '<div class="sel" style="margin-top:10px"><button type="button" class="chip" data-act="pedcli" data-id="' + c.id + '">Ficha do cliente</button></div>' : '') +
       '</section>';
+    h += pedPagto(p);
     h += '<section class="pdCd"><div class="pdLb">Peças do pedido</div>';
     p.itens.forEach(function (l, i) {
       h +=
@@ -24091,7 +24142,9 @@
       h =
         '<div class="top"><div><h1>Pedidos online</h1><div class="crumb">' +
         (PED_INFO.ts ? (PED_INFO.err ? '<span style="color:var(--bad)">Não consegui buscar os pedidos: ' + esc(PED_INFO.err) + '</span>' : 'Última busca às ' + fh(PED_INFO.ts)) : 'Buscando pedidos…') +
-        ' · <button type="button" class="pdLink" data-act="pedver">Verificar agora</button></div></div></div>';
+        ' · <button type="button" class="pdLink" data-act="pedver">Verificar agora</button>' +
+        (S.pedidos.some(function (p) { return p.teste; }) ? ' · <button type="button" class="pdLink" data-act="pedteste">' + (S._pedTst ? 'Apagar os testes? Toque de novo' : 'Apagar pedidos de teste') + '</button>' : '') +
+        '</div></div></div>';
     h += '<div class="pdSeg" role="group" aria-label="Situação dos pedidos">';
     fl.forEach(function (f) {
       h +=
@@ -24112,7 +24165,7 @@
         q = pedQtd(p);
       h +=
         '<section class="pdCard"><div data-act="pedab" data-id="' + p.id + '" style="cursor:pointer"><div class="pdLin"><span class="pdAv">' + esc((p.cli || '?').charAt(0).toUpperCase()) + '</span>' +
-        '<div style="min-width:0;flex:1"><div class="pdNm">' + esc(p.cli || 'Sem nome') + '</div><div class="pdMt">Pedido ' + p.num + ' · ' + fd(p.ts) + ' ' + fh(p.ts) + (p.orig === 'site' ? ' · Site' : '') + '</div></div>' +
+        '<div style="min-width:0;flex:1"><div class="pdNm">' + esc(p.cli || 'Sem nome') + '</div><div class="pdMt">Pedido ' + p.num + ' · ' + fd(p.ts) + ' ' + fh(p.ts) + (p.orig === 'site' ? ' · Site' : '') + (p.teste ? ' · <b>TESTE</b>' : '') + (p.ent === 'delivery' ? ' · Delivery' : '') + '</div></div>' +
         '<span class="pdPill ' + est[1] + '">' + est[0] + '</span></div>' +
         '<div class="pdTh">' +
         p.itens
@@ -24123,7 +24176,6 @@
           .join('') +
         (p.itens.length > 3 ? '<span class="pdMais">+' + (p.itens.length - 3) + '</span>' : '') +
         '<span class="pdTt"><small>' + q + (q === 1 ? ' peça' : ' peças') + '</small><b>' + (tot ? gs(tot) : '—') + '</b></span></div>' +
-        pedEspera(p, false) +
         (p.tok && p.st !== 'canc' && p.st !== 'ent' ? '<div class="pdCod">Token <b>' + esc(p.tok) + '</b></div>' : '') +
         '</div>' +
         pedAcoes(p, true) +
@@ -24135,23 +24187,108 @@
     S.pedF = id;
     render();
   };
-  // Confirma a reserva: grava reservas/<id> no Firebase; o site do cliente lê e mostra "Reserva confirmada".
-  ACT.pedconf = function (id) {
+  // Avisa o site do cliente: grava só os campos pedidos em reservas/<id>.
+  function pedReserva(p, campos) {
+    var f = {},
+      m = Object.keys(campos)
+        .map(function (k) {
+          f[k] = typeof campos[k] === 'boolean' ? { booleanValue: campos[k] } : { stringValue: String(campos[k]) };
+          return 'updateMask.fieldPaths=' + k;
+        })
+        .join('&');
+    return nvApi('PATCH', 'reservas/' + encodeURIComponent(p.sid) + '?' + m, JSON.stringify({ fields: f }));
+  }
+  function pedFalhaSite() {
+    say('Marcado aqui, mas não consegui avisar o site (sem internet ou sem permissão no Firebase).');
+  }
+  // Pagamento confirmado: gera o token e o site da cliente mostra "Pagamento confirmado".
+  ACT.pedpago = function (id) {
     var p = pedAch(id);
     if (!p || !p.sid) return;
-    p.conf = true;
+    p.pg = 'pago';
+    p.recus = false;
     pedTokGera(p);
     S.pedSel = p.id;
-    S.pedProd = null;
     render();
     window.scrollTo(0, 0);
-    nvApi('PATCH', 'reservas/' + encodeURIComponent(p.sid), JSON.stringify({ fields: { ok: { booleanValue: true }, ts: { integerValue: String(Date.now()) } } }))
+    pedReserva(p, { pago: true, tok: p.tok })
       .then(function () {
-        say('Reserva confirmada. O cliente já vê no site.');
+        say('Pagamento confirmado. O cliente já vê no site.');
       })
-      .catch(function () {
-        say('Marcada aqui, mas não consegui avisar o site (sem internet ou sem permissão no Firebase).');
+      .catch(pedFalhaSite);
+  };
+  // Comprovante recusado: volta a aguardar o pagamento e o site pede outro comprovante.
+  ACT.pedrecus = function (id) {
+    var p = pedAch(id);
+    if (!p || !p.sid) return;
+    p.pg = 'pagar';
+    p.recus = true;
+    p.comp = '';
+    render();
+    pedReserva(p, { recusado: true })
+      .then(function () {
+        say('Comprovante recusado. O cliente vai enviar outro.');
+      })
+      .catch(pedFalhaSite);
+  };
+  // Foto do QR gerado no app do Itaú → JPEG pequeno → o site da cliente mostra no pagamento.
+  function pedImg(file) {
+    return normFile(file)
+      .then(function (f) {
+        return createImageBitmap(f);
+      })
+      .then(function (bm) {
+        var k = Math.min(1, 900 / Math.max(bm.width, bm.height)),
+          c = mkCanvas(Math.round(bm.width * k), Math.round(bm.height * k));
+        c.getContext('2d').drawImage(bm, 0, 0, c.width, c.height);
+        return c.toDataURL('image/jpeg', 0.8);
       });
+  }
+  ACT.pedqr = function (id) {
+    var p = pedAch(id),
+      i = document.createElement('input');
+    if (!p || !p.sid) return;
+    i.type = 'file';
+    i.accept = 'image/*';
+    i.onchange = function () {
+      var f = i.files && i.files[0];
+      if (!f) return;
+      pedImg(f)
+        .then(function (d) {
+          p.qr = d;
+          render();
+          return pedReserva(p, { qr: d });
+        })
+        .then(function () {
+          say('QR anexado. O cliente já vê no site.');
+        })
+        .catch(function () {
+          say('Não consegui enviar o QR ao site. Tente de novo.');
+        });
+    };
+    i.click();
+  };
+  // Apaga os pedidos de teste (e os clientes que só existem por causa deles).
+  ACT.pedteste = function () {
+    if (!S._pedTst) {
+      S._pedTst = true;
+      render();
+      setTimeout(function () {
+        S._pedTst = false;
+        render();
+      }, 3500);
+      return;
+    }
+    S._pedTst = false;
+    S.pedidos = S.pedidos.filter(function (p) {
+      return !p.teste;
+    });
+    S.clientes = S.clientes.filter(function (c) {
+      return !c.teste || cliPedidos(c).length;
+    });
+    S.pedSel = null;
+    render();
+    say('Pedidos de teste apagados.');
   };
   // Copia o token do pedido.
   ACT.pedcopia = function (id) {
@@ -24185,6 +24322,8 @@
     if (p.tok && v === p.tok.slice(3)) {
       p.st = 'ent';
       p.entTs = Date.now();
+      p.comp = '';
+      p.qr = '';
       S.pedTok = null;
       S.pedF = 'ent';
       render();
