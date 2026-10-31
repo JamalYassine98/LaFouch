@@ -326,7 +326,7 @@
     if (p.pag === 'alias' && p.qr) h += '<img src="' + p.qr + '" alt="QR do Itaú" style="display:block;max-width:180px;margin:8px auto 0;border-radius:10px;background:#fff">';
     if (p.comp) h += '<div class="pdMt" style="margin-top:10px">Comprovante enviado' + (p.compTs ? ' às ' + fh(p.compTs) : '') + '</div><img src="' + p.comp + '" alt="Comprovante" style="display:block;max-width:100%;max-height:420px;margin:6px auto 0;border-radius:10px">';
     h += '</section><section class="pdCd"><div class="pdLb">Entrega</div><b>' + (p.ent === 'delivery' ? 'Delivery (transportadora)' : 'Retirada na loja') + '</b>';
-    if (p.ent === 'delivery') h += '<div class="pdMt">' + esc(p.endE || '') + (p.refE ? ' · ' + esc(p.refE) : '') + '</div><div class="pdMt">Combine o frete com a cliente no WhatsApp.</div>';
+    if (p.ent === 'delivery') h += '<div class="pdMt">' + esc(p.endE || '') + (p.refE ? ' · ' + esc(p.refE) : '') + '</div><div class="pdMt">Frete: a cliente paga à transportadora na entrega.</div>';
     return h + '</section>';
   }
   function pedDetalhe(p) {

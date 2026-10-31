@@ -208,3 +208,4 @@ Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Parag
 - Conta com usuário/e-mail + senha via Firebase Authentication (e-mail/senha). E-mail passou a ser obrigatório. Cadastro em 2 passos (acesso; depois dados). Usuário = apelido ligado ao e-mail em `usuarios/{user}` (get público); perfil em `clientes/{uid}` (só o próprio). Recuperar senha por e-mail.
 - Reserva sem login: aviso discreto e botão "Entrar ou criar conta" no lugar de "Fazer pedido".
 - O dono precisa: ativar Authentication > Método de login > E-mail/senha no console Firebase; publicar as regras novas (usuarios, clientes).
+- Frete (31/10/2026): opção C, pago pela cliente à transportadora na entrega; não entra no total do site (v355 só texto).
