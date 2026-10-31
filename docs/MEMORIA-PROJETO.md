@@ -175,3 +175,8 @@ Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Parag
 
 ## Site: mapa (31/10/2026)
 - "Ver no mapa" (2 links) e "Abrir no Google Maps" usavam busca por texto e caíam na loja Farma Fit. Agora abrem as coordenadas da La Fouch (-25.510131,-54.609959, informadas pelo dono em 31/10/2026) com o nome "La Fouch". Se o pino cair no lugar errado, as coordenadas (variável LOJA em catalogo/index.html) precisam ser corrigidas pelo dono.
+
+## v352 (31/10/2026) — acesso rápido restaurado
+- A v351 (grupos de abas) removeu o "acesso rápido" (arrastar botão do Início para o menu de baixo) SEM o dono pedir. Desfeito: v352 = v350 com o acesso rápido de volta, como era. Regra reforçada: não remover funcionalidade que não foi pedida.
+- Código dos grupos guardado na tag git `grupos-v351` (src/95-grupos.js, tela Organizar abas).
+- DECISÃO do dono: no atalho rápido, "se eu misturo 2 botões, ele vira um grupo" (misturar = juntar dois botões do menu de baixo, e o resultado é um grupo com abas). Detalhes (como juntar, nome/ícone, como separar) ainda por mostrar em imagens antes de implementar.
