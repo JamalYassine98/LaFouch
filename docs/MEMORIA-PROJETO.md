@@ -209,3 +209,8 @@ Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Parag
 - Reserva sem login: aviso discreto e botão "Entrar ou criar conta" no lugar de "Fazer pedido".
 - O dono precisa: ativar Authentication > Método de login > E-mail/senha no console Firebase; publicar as regras novas (usuarios, clientes).
 - Frete (31/10/2026): opção C, pago pela cliente à transportadora na entrega; não entra no total do site (v355 só texto).
+
+## v356 (31/10/2026) — ícone único e nome sugerido por grupo (aprovado: "Pode implementar tudo")
+- 19 telas → 171 pares; cada par tem ícone único (39 desenhados à mão + 132 "recipiente com o símbolo da outra tela dentro") e nome sugerido (máx. 18 letras). Dados em src/95-barra-grupos-icones.js. O botão do grupo na barra mostra esse ícone (dois primeiros itens do grupo); nome padrão ao juntar = nome sugerido.
+- Os 132 desenhos "em sistema" não são desenhos à mão: o dono foi avisado.
+- Login com Google no site: só respondido (possível via Firebase Auth), NÃO implementado — mostrar esboço antes.

@@ -1446,7 +1446,7 @@ async def main():
             await arrasta2('#mainnav .mn[data-id="caixa"]', '#mainnav .mn[data-id="ajustes"]', 900)
             r1 = await pg.evaluate("() => [!!document.getElementById('grpM'), document.getElementById('grpNome') && document.getElementById('grpNome').value]")
             await pg.locator('[data-act="grpCria"]').click(); await pg.wait_for_timeout(500)
-            r2 = await pg.evaluate("() => ({ barra: window.__LF.S.barra, g: window.__LF.S.grupos.map(g => g.itens), nav: [...document.querySelectorAll('#mainnav .mn')].map(m => m.getAttribute('data-id')) })")
+            r2 = await pg.evaluate("() => ({ barra: window.__LF.S.barra, g: window.__LF.S.grupos.map(g => g.itens), nav: [...document.querySelectorAll('#mainnav .mn')].map(m => m.getAttribute('data-id')), ic: document.querySelectorAll('#mainnav .mn[data-id^=\\'g:\\'] .mi svg').length, gi: document.querySelectorAll('#mainnav .gi').length })")
             gid = r2['barra'][-1] if r2['barra'] else ''
             if not gid.startswith('g:'): print('        (sem grupo)', r0, r1, r2, pg.erros)
             await pg.locator('#mainnav .mn[data-id="%s"]' % gid).click(); await pg.wait_for_timeout(500)
@@ -1463,8 +1463,8 @@ async def main():
             r6 = await pg.evaluate("() => [window.__LF.S.grupos.length, window.__LF.S.barra, !!document.getElementById('grpM')]")
             total += 1
             ok = r0[0] == ['vendas', 'estoque', 'ajustes', 'caixa'] and not r0[1]
-            ok = (ok and r1[0] and r1[1] == 'Caixa e Ajustes'
-                  and r2['g'] == [['caixa', 'ajustes']] and r2['nav'][:3] == ['inicio', 'vendas', 'estoque'] and len(r2['nav']) == 4
+            ok = (ok and r1[0] and r1[1] == 'Ajustes do caixa'
+                  and r2['g'] == [['caixa', 'ajustes']] and r2['nav'][:3] == ['inicio', 'vendas', 'estoque'] and len(r2['nav']) == 4 and r2['ic'] == 1 and r2['gi'] == 0
                   and r3[0] in ('caixa',) and r3[1] is False and r3[2] == 3
                   and r4[0] == [['caixa', 'ajustes', 'giro']]
                   and r5[0] == [['caixa', 'ajustes']] and 'giro' in r5[1]

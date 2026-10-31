@@ -28,9 +28,10 @@
         else if (grpGet(v[0])) grpAbre(grpGet(v[0]));
         else inicioGo(v[0]);
       });
-      var gg = grpGet(v[0]);
+      var gg = grpGet(v[0]),
+        pi = gg && gg.itens.length > 1 ? grpIcoPar(gg.itens[0], gg.itens[1], 24) : '';
       b.innerHTML = gg
-        ? '<span class="mi gi">' + gg.itens.slice(0, 2).map(function (x) { return '<i>' + ico(x, 17) + '</i>'; }).join('') + (grpAviso(gg) ? '<em class="bd">' + grpAviso(gg) + '</em>' : '') + '</span><span>' + esc(v[1]) + '</span>'
+        ? '<span class="mi' + (pi ? '' : ' gi') + '">' + (pi || gg.itens.slice(0, 2).map(function (x) { return '<i>' + ico(x, 17) + '</i>'; }).join('')) + (grpAviso(gg) ? '<em class="bd">' + grpAviso(gg) + '</em>' : '') + '</span><span>' + esc(v[1]) + '</span>'
         : '<span class="mi">' + ico(v[0], 22) + '</span><span>' + v[1] + '</span>';
       b.setAttribute('aria-label', v[1]);
       b.setAttribute('data-id', v[0]);

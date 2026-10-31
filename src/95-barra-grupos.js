@@ -22,7 +22,7 @@
     return g.itens.indexOf('ped') >= 0 ? pedNovos() : 0;
   }
   function grpNomePadrao(a, b) {
-    return BARRA_NOME[a] + ' e ' + BARRA_NOME[b];
+    return grpNomeSugerido(a, b) || BARRA_NOME[a] + ' e ' + BARRA_NOME[b];
   }
   function grpAbre(g) {
     var t = g.ult && g.itens.indexOf(g.ult) >= 0 ? g.ult : g.itens[0];
@@ -118,6 +118,8 @@
     m.innerHTML = '<div class="modal-box" style="max-width:420px;margin-top:10vh">' + html + '</div>';
   }
   function grpIcones(ids) {
+    var par = ids.length >= 2 ? grpIcoPar(ids[0], ids[1], 30) : '';
+    if (par) return '<span class="gbig"><i>' + par + '</i></span>';
     return '<span class="gbig">' + ids.slice(0, 3).map(function (x) { return '<i>' + ico(x, 22) + '</i>'; }).join('') + '</span>';
   }
   function grpNovoAbre(a, b) {
