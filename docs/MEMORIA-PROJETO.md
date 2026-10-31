@@ -174,4 +174,4 @@ Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Parag
 - Teste "PIN: certo abre" estava instável: agora espera o app abrir (até 4 s).
 
 ## Site: mapa (31/10/2026)
-- "Ver no mapa" (2 links) e "Abrir no Google Maps" usavam busca por texto e caíam na loja Farma Fit. Agora abrem as coordenadas da La Fouch (-25.509897,-54.610054) com o nome "La Fouch". Se o pino cair no lugar errado, as coordenadas (variável LOJA em catalogo/index.html) precisam ser corrigidas pelo dono.
+- "Ver no mapa" (2 links) e "Abrir no Google Maps" usavam busca por texto e caíam na loja Farma Fit. Agora abrem as coordenadas da La Fouch (-25.510131,-54.609959, informadas pelo dono em 31/10/2026) com o nome "La Fouch". Se o pino cair no lugar errado, as coordenadas (variável LOJA em catalogo/index.html) precisam ser corrigidas pelo dono.
