@@ -253,3 +253,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - 31/10/2026: bug do coração (favoritar no produto) corrigido: o zoom/troca de cor da foto pegava o 1º svg do bloco da foto (o coração) em vez da foto; agora só usa a imagem direta.
 - 31/10/2026: Dúvidas em espanhol ainda dizia '7 días' (tradução velha); corrigido para 'reservadas hasta la entrega o el retiro' (igual ao português). Destaque com slide: nome/preço agora ficam acima das bolinhas (sem sobrepor).
 - 31/10/2026: topo do site: botões (menu, conta, sacola) centralizados verticalmente com o logo (tinham margem inferior de 15px que os subia) e logo alinhado à margem direita (mesma margem dos cartões).
+- 31/10/2026: bug do admin ao conectar o GitHub (mensagem 'Cole a chave' mesmo com a chave colada): havia duas caixas com o mesmo id (Vídeo e Slide) e lia a escondida. Corrigido.
