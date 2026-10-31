@@ -194,3 +194,4 @@ Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Parag
 - Retirada na loja: SEM dia/hora marcados (vem quando quiser, em horário comercial seg-sáb 7h30-15h).
 - O cliente PAGA ANTES; o pedido fica reservado até ser entregue: NÃO existe mais o prazo de 7 dias.
 - Pendentes: forma de pagamento (qual? comprovante?), RUC/CPF/DNI obrigatório?, código por WhatsApp ou SMS, conta obrigatória ou visitante.
+- Pagamento (31/10/2026, só esboço): brasileiros e argentinos pagam por PIX; paraguaios por Alias; em ambos o site mostra QR de pagamento + "copiar código/alias" + enviar comprovante. Dono confirma o pagamento no app (proposta: manual). Pedido pago fica reservado até a entrega (sem prazo). Pendentes: chave PIX do dono, alias, moeda (R$ para argentino?), política de devolução.
