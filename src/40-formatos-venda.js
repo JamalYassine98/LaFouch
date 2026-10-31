@@ -73,7 +73,8 @@
     ['onl', 'Loja online'],
     ['clientes', 'Clientes'],
     ['notif', 'Notificações'],
-    ['ajustes', 'Ajustes']
+    ['ajustes', 'Ajustes'],
+    ['org', 'Organizar abas']
   ];
 
   S.view = 'inicio';

@@ -6637,7 +6637,8 @@
     ['onl', 'Loja online'],
     ['clientes', 'Clientes'],
     ['notif', 'Notificações'],
-    ['ajustes', 'Ajustes']
+    ['ajustes', 'Ajustes'],
+    ['org', 'Organizar abas']
   ];
 
   S.view = 'inicio';
@@ -20610,20 +20611,6 @@
         });
       };
       if (Array.isArray(S.inicioT)) S.inicioT = tira(S.inicioT);
-      if (Array.isArray(S.barra)) {
-        S.barra = tira(S.barra);
-        if (S.barra.indexOf('estoque') < 0) S.barra.unshift('estoque');
-      }
-    }
-    // Catálogo (Vendas · WhatsApp · Site) e Inventário entram na barra de baixo uma única vez
-    if (!S.cat2) {
-      S.cat2 = true;
-      if (Array.isArray(S.barra)) {
-        var rest = S.barra.filter(function (x) {
-          return ['vendas', 'estoque', 'cat', 'onl'].indexOf(x) < 0;
-        });
-        S.barra = ['vendas', 'estoque'].concat(rest).slice(0, 4);
-      }
     }
     // quem já personalizou o Início recebe o botão Clientes uma única vez (pode esconder depois)
     if (Array.isArray(S.inicioT) && !S.inicioCli) {
@@ -20676,10 +20663,7 @@
     if (!el || S.view !== 'inicio') return;
     var h = vendidoHoje(),
       D = iniDados(),
-      B = barraLista(),
-      L = iniLista().filter(function (id) {
-        return B.indexOf(id) < 0;
-      }),
+      L = iniLista(),
       ed = !!S.inicioEd;
     var grid = L.map(function (id, i) {
       var t = D[id];
@@ -20691,7 +20675,7 @@
       );
     }).join('');
     var livres = INI_TODOS.filter(function (id) {
-      return L.indexOf(id) < 0 && B.indexOf(id) < 0;
+      return L.indexOf(id) < 0;
     });
     var extra = '';
     if (ed && livres.length)
@@ -20755,50 +20739,19 @@
       setView('estoque');
     } else setView(id);
   }
-  /* barra de baixo (acesso rápido): "Início" fixo + até 4 botões escolhidos arrastando do Início */
-  var BARRA_PADRAO = ['vendas', 'estoque', 'caixa', 'ajustes'];
-  var BARRA_MAX = 4;
-  var BARRA_NOME = {
-    vendas: 'Catálogo', estoque: 'Inventário', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Resumo',
-    din: 'Dinheiro', giro: 'Giro', prec: 'Preços', cat: 'Catálogo', ajustes: 'Ajustes', ped: 'Pedidos', onl: 'Loja',
-    cli: 'Clientes', cont: 'Contagem', lotes: 'Compras', novo: 'Novo', notif: 'Avisos'
-  };
-  function barraLista() {
-    iniLista();
-    var l = Array.isArray(S.barra) ? S.barra : BARRA_PADRAO;
-    return l
-      .filter(function (id, i) {
-        return id !== 'inicio' && BARRA_NOME[id] && l.indexOf(id) === i;
-      })
-      .slice(0, BARRA_MAX);
-  }
+  /* barra de baixo: "Início" fixo + os grupos de abas (ver 95-grupos.js) */
   function navItens() {
-    return [['inicio', 'Início']].concat(
-      barraLista().map(function (id) {
-        return [id, BARRA_NOME[id]];
+    return [['inicio', 'Início', 'inicio']].concat(
+      grpVisiveis().map(function (g) {
+        return ['g:' + g.id, g.nome, g.ico];
       })
     );
   }
-  // O botão da barra está "aceso"? (estamos na tela que ele abre)
+  // O botão da barra está "aceso"? (estamos numa tela do grupo)
   function navOn(id) {
-    var v = S.view;
-    if (id === 'inicio') return v === 'inicio';
-    if (id === 'hoje' || id === 'din' || id === 'giro' || id === 'prec') return v === 'dash' && S.dTab === id;
-    if (id === 'cat') return v === 'vendas' && !!S.catOpen;
-    if (id === 'cli') return v === 'clientes';
-    if (id === 'lotes') return v === 'estoque' && !!S.lotesView;
-    if (id === 'vendas') return (v === 'vendas' && !(S.catOpen && barraLista().indexOf('cat') >= 0)) || (v === 'onl' && barraLista().indexOf('onl') < 0);
-    if (id === 'estoque') return v === 'estoque' && !(S.lotesView && barraLista().indexOf('lotes') >= 0);
-    if (id === 'cont' || id === 'novo') return false;
-    return v === id;
-  }
-  // Garante que um botão que saiu da barra volte para a tela Início.
-  function barraDevolve(id) {
-    var l = iniLista();
-    if (l.indexOf(id) < 0) {
-      l.push(id);
-      S.inicioT = l;
-    }
+    if (id === 'inicio') return S.view === 'inicio';
+    var g = grpDeView(S.view);
+    return !!g && 'g:' + g.id === id;
   }
   function iniSalvar(l) {
     S.inicioT = l;
@@ -20955,6 +20908,11 @@
   // Troca de aba.
   function setView(v) {
     S.view = v;
+    var gv = grpDeView(v);
+    if (gv) {
+      if (!S.grpUlt) S.grpUlt = {};
+      S.grpUlt[gv.id] = v === 'dia' ? 'hist' : v;
+    }
     S.msg = '';
     try {
       history.replaceState(null, '', '#' + v);
@@ -20978,9 +20936,12 @@
       var b = btn('mn' + (on ? ' on' : ''), '', function () {
         if (window.__barraSegurou && window.__barraSegurou()) return;
         if (v[0] === 'inicio') setView('inicio');
+        else if (gg) grpAbre(gg);
         else inicioGo(v[0]);
       });
-      b.innerHTML = '<span class="mi">' + ico(v[0], 22) + '</span><span>' + v[1] + '</span>';
+      var gg = v[0].indexOf('g:') === 0 ? grpLista().filter(function (x) { return 'g:' + x.id === v[0]; })[0] : null,
+        av = gg ? grpAviso(gg) : 0;
+      b.innerHTML = '<span class="mi">' + ico(v[2] || v[0], 22) + (av ? '<i class="bd">' + av + '</i>' : '') + '</span><span>' + v[1] + '</span>';
       b.setAttribute('aria-label', v[1]);
       b.setAttribute('data-id', v[0]);
       if (on) b.setAttribute('aria-current', 'page');
@@ -20989,6 +20950,7 @@
     VIEWS.forEach(function (v) {
       $('v-' + v[0]).hidden = S.view !== v[0];
     });
+    grpAbasRender();
     $('v-dia').hidden = S.view !== 'dia';
     var on = n.querySelector('.mn.on');
     n.scrollLeft = sl;
@@ -22492,7 +22454,6 @@
     },
     inicioReset: function () {
       S.inicioT = null;
-      S.barra = null;
       render();
     },
     inicioRm: function (id) {
@@ -23455,6 +23416,326 @@
   S.compras.forEach(function (x) {
     S.dlog.push(dlogLote(x));
   });
+  // ===== Grupos de abas: o menu de baixo mostra grupos (Vender, Estoque, Dinheiro…) e cada grupo tem suas telas em abas no topo. =====
+  var GRP_TELAS = {
+    vendas: 'Catálogo', ped: 'Pedidos', clientes: 'Clientes', estoque: 'Inventário', fx: 'Câmbio', caixa: 'Caixa',
+    desp: 'Despesas', hist: 'Histórico', dash: 'Dashboard', onl: 'Loja online', ajustes: 'Ajustes'
+  };
+  var GRP_ORDEM = ['vendas', 'ped', 'clientes', 'estoque', 'fx', 'caixa', 'desp', 'hist', 'dash', 'onl', 'ajustes'];
+  var GRP_MAX = 4;
+  var GRP_ICOS = ['vendas', 'estoque', 'caixa', 'ajustes', 'hist', 'hoje', 'din', 'giro', 'prec', 'cat', 'fx', 'desp', 'ped', 'cli', 'lotes', 'cont'];
+  function grpPadrao() {
+    return [
+      { id: 'vender', nome: 'Vender', ico: 'vendas', telas: ['vendas', 'ped', 'clientes'] },
+      { id: 'estoque', nome: 'Estoque', ico: 'estoque', telas: ['estoque', 'fx'] },
+      { id: 'dinheiro', nome: 'Dinheiro', ico: 'caixa', telas: ['caixa', 'desp', 'hist', 'dash'] },
+      { id: 'ajustes', nome: 'Ajustes', ico: 'ajustes', telas: ['ajustes', 'onl'] }
+    ];
+  }
+  // Deixa uma lista de grupos válida: cada tela em um grupo só, nenhuma tela perdida, no máximo GRP_MAX grupos.
+  function grpLimpa(l) {
+    var vistos = {},
+      r = [];
+    (Array.isArray(l) ? l : []).forEach(function (g) {
+      if (!g || r.length >= GRP_MAX + 2) return;
+      var telas = (Array.isArray(g.telas) ? g.telas : []).filter(function (t) {
+        if (!GRP_TELAS[t] || vistos[t]) return false;
+        vistos[t] = 1;
+        return true;
+      });
+      r.push({
+        id: String(g.id || 'g' + (r.length + 1)).slice(0, 24),
+        nome: String(g.nome || 'Grupo').slice(0, 20),
+        ico: ICO_D[g.ico] ? g.ico : 'cat',
+        telas: telas
+      });
+    });
+    if (!r.length) r = grpPadrao();
+    // telas que ficaram sem grupo vão para o grupo que tem Ajustes (ou o primeiro)
+    var faltam = GRP_ORDEM.filter(function (t) {
+        return !vistos[t];
+      }),
+      dest =
+        r.filter(function (g) {
+          return g.telas.indexOf('ajustes') >= 0;
+        })[0] || r[0];
+    faltam.forEach(function (t) {
+      dest.telas.push(t);
+    });
+    return r.slice(0, GRP_MAX + 2);
+  }
+  function grpLista() {
+    S.grupos = grpLimpa(S.grupos || grpPadrao());
+    return S.grupos;
+  }
+  // Grupos que aparecem no menu (os vazios ficam de fora; no máximo GRP_MAX).
+  function grpVisiveis() {
+    return grpLista()
+      .filter(function (g) {
+        return g.telas.length;
+      })
+      .slice(0, GRP_MAX);
+  }
+  function grpDeView(v) {
+    if (v === 'dia') v = 'hist';
+    if (v === 'org') v = 'ajustes';
+    return (
+      grpVisiveis().filter(function (g) {
+        return g.telas.indexOf(v) >= 0;
+      })[0] || null
+    );
+  }
+  // Abre um grupo na última tela que se usou nele (ou na primeira).
+  function grpAbre(g) {
+    var u = (S.grpUlt || {})[g.id],
+      t = u && g.telas.indexOf(u) >= 0 ? u : g.telas[0];
+    if (t === 'vendas') S.catOpen = false;
+    setView(t);
+  }
+  // Pedidos novos para o aviso no menu e na aba.
+  function grpAviso(g) {
+    return g.telas.indexOf('ped') >= 0 ? pedNovos() : 0;
+  }
+  // Abas do grupo no topo da tela.
+  function grpAbasRender() {
+    var el = $('grpTabs');
+    if (!el) return;
+    var g = S.view === 'org' ? null : grpDeView(S.view);
+    if (!g || g.telas.length < 2 || S.view === 'inicio' || S.view === 'notif') {
+      el.hidden = true;
+      el.textContent = '';
+      return;
+    }
+    var at = S.view === 'dia' ? 'hist' : S.view,
+      h = '';
+    g.telas.forEach(function (t) {
+      var n = t === 'ped' ? pedNovos() : 0;
+      h +=
+        '<button type="button" class="' + (t === at ? 'on' : '') + '" data-act="grpTela" data-id="' + t + '" aria-pressed="' + (t === at) + '">' +
+        GRP_TELAS[t] + (n ? ' <b>' + n + '</b>' : '') + '</button>';
+    });
+    if (el.getAttribute('data-k') !== g.id + '|' + g.telas.join(',')) el.setAttribute('data-k', g.id + '|' + g.telas.join(','));
+    el.hidden = false;
+    el.innerHTML = h;
+  }
+  ACT.grpTela = function (id) {
+    if (!GRP_TELAS[id]) return;
+    if (id === 'vendas') S.catOpen = false;
+    setView(id);
+  };
+
+  // ---------- tela "Organizar abas" (rascunho: só vale ao salvar) ----------
+  function orgClone(l) {
+    return JSON.parse(JSON.stringify(l));
+  }
+  function orgG(id) {
+    return (S._orgD || []).filter(function (g) {
+      return g.id === id;
+    })[0];
+  }
+  // Move uma tela para outro grupo (no fim, ou antes de outra tela). Ajustes não sai do seu grupo.
+  function orgMove(tela, gid, antes) {
+    var dest = orgG(gid);
+    if (!dest || !GRP_TELAS[tela] || tela === 'ajustes') return false;
+    S._orgD.forEach(function (g) {
+      g.telas = g.telas.filter(function (t) {
+        return t !== tela;
+      });
+    });
+    var i = antes ? dest.telas.indexOf(antes) : -1;
+    if (i >= 0) dest.telas.splice(i, 0, tela);
+    else dest.telas.push(tela);
+    return true;
+  }
+  function orgHtml() {
+    var D = S._orgD || [],
+      ed = S._orgEd,
+      h =
+        '<div class="top"><div><h1>Organizar abas</h1><div class="crumb">Segure e arraste uma tela para outro grupo</div></div></div>' +
+        '<div class="sel"><button type="button" class="chip" data-act="orgVolta">‹ Ajustes</button></div>';
+    D.forEach(function (g) {
+      var tem = g.telas.indexOf('ajustes') >= 0;
+      h +=
+        '<section class="orgG" data-g="' + esc(g.id) + '"><div class="orgH"><span class="orgI">' + ico(g.ico, 20) + '</span><b>' + esc(g.nome) + '</b>' +
+        '<span class="orgN">' + g.telas.length + (g.telas.length === 1 ? ' tela' : ' telas') + '</span>' +
+        '<button type="button" class="orgE" data-act="orgEd" data-id="' + esc(g.id) + '" aria-label="Editar o grupo ' + esc(g.nome) + '">✎</button></div>';
+      if (ed === g.id) {
+        h +=
+          '<div class="orgEd"><input class="in" id="orgNome" maxlength="20" value="' + esc(g.nome) + '" aria-label="Nome do grupo" autocomplete="off"><div class="orgIc">';
+        GRP_ICOS.forEach(function (k) {
+          if (ICO_D[k]) h += '<button type="button" class="' + (g.ico === k ? 'on' : '') + '" data-act="orgIco" data-id="' + k + '" aria-label="Ícone ' + k + '">' + ico(k, 20) + '</button>';
+        });
+        h +=
+          '</div><div class="pdBtns"><button type="button" class="pdB2 txt" data-act="orgApaga" data-id="' + esc(g.id) + '"' + (g.telas.length || tem ? ' disabled' : '') + ' style="flex:1;width:auto">Apagar grupo</button>' +
+          '<button type="button" class="pdB1" data-act="orgEd" data-id="' + esc(g.id) + '">Pronto</button></div>' +
+          (tem ? '<div class="hint" style="margin:6px 0 0">Este grupo tem Ajustes e não pode ser apagado.</div>' : g.telas.length ? '<div class="hint" style="margin:6px 0 0">Só dá para apagar grupo vazio.</div>' : '') +
+          '</div>';
+      }
+      h += '<div class="orgC">';
+      g.telas.forEach(function (t) {
+        h += '<span class="orgT' + (t === 'ajustes' ? ' fix' : '') + '" data-t="' + t + '">' + (t === 'ajustes' ? '🔒 ' : '') + GRP_TELAS[t] + '</span>';
+      });
+      if (!g.telas.length) h += '<span class="hint" style="margin:0">Vazio. Arraste uma tela para cá.</span>';
+      h += '</div></section>';
+    });
+    h +=
+      '<button type="button" class="orgAdd" data-act="orgNovo"' + (D.length >= GRP_MAX ? ' disabled' : '') + '>' +
+      (D.length >= GRP_MAX ? 'Máximo de ' + GRP_MAX + ' grupos (mais o Início)' : '＋ Criar novo grupo') + '</button>' +
+      '<div class="pdBtns"><button type="button" class="pdB2 txt" data-act="orgPadrao" style="flex:1;width:auto">Voltar ao padrão</button><button type="button" class="pdB1" data-act="orgSalva">Salvar</button></div>' +
+      '<div class="orgReg"><b>Regras:</b> cada tela fica em um grupo só. Até ' + GRP_MAX + ' grupos no menu de baixo, mais o Início. Dá para renomear, trocar o ícone e apagar grupos vazios. A tela Ajustes não sai do grupo dela.</div>';
+    return h;
+  }
+  function renderOrg() {
+    var el = $('v-org');
+    if (!el || S.view !== 'org') return;
+    var ae = document.activeElement;
+    if (!S._orgForce && ae && ae.id === 'orgNome') return;
+    S._orgForce = false;
+    if (!S._orgD) S._orgD = orgClone(grpLista());
+    el.innerHTML = orgHtml();
+  }
+  function orgRe() {
+    S._orgForce = true;
+    render();
+  }
+  ACT.orgAbre = function () {
+    S._orgD = orgClone(grpLista());
+    S._orgEd = null;
+    setView('org');
+  };
+  ACT.orgVolta = function () {
+    S._orgD = null;
+    S._orgEd = null;
+    setView('ajustes');
+  };
+  ACT.orgSalva = function () {
+    S.grupos = grpLimpa(S._orgD);
+    S._orgD = null;
+    S._orgEd = null;
+    S.grpUlt = {};
+    setView('ajustes');
+    say('Abas salvas.');
+  };
+  ACT.orgPadrao = function () {
+    S._orgD = grpPadrao();
+    S._orgEd = null;
+    orgRe();
+  };
+  ACT.orgEd = function (id) {
+    S._orgEd = S._orgEd === id ? null : id;
+    orgRe();
+    if (S._orgEd)
+      setTimeout(function () {
+        var i = $('orgNome');
+        if (i) i.focus();
+      }, 60);
+  };
+  ACT.orgIco = function (k) {
+    var g = orgG(S._orgEd);
+    if (g && ICO_D[k]) g.ico = k;
+    orgRe();
+  };
+  ACT.orgNovo = function () {
+    if (S._orgD.length >= GRP_MAX) return;
+    var n = 1;
+    while (orgG('g' + n)) n++;
+    S._orgD.push({ id: 'g' + n, nome: 'Novo grupo', ico: 'cat', telas: [] });
+    S._orgEd = 'g' + n;
+    orgRe();
+    setTimeout(function () {
+      var i = $('orgNome');
+      if (i) {
+        i.focus();
+        i.select();
+      }
+    }, 60);
+  };
+  ACT.orgApaga = function (id) {
+    var g = orgG(id);
+    if (!g || g.telas.length || g.telas.indexOf('ajustes') >= 0) return;
+    S._orgD = S._orgD.filter(function (x) {
+      return x.id !== id;
+    });
+    S._orgEd = null;
+    orgRe();
+  };
+  document.addEventListener('input', function (e) {
+    if (!e.target || e.target.id !== 'orgNome') return;
+    var g = orgG(S._orgEd);
+    if (g) g.nome = e.target.value.slice(0, 20) || 'Grupo';
+  });
+  // Arrastar uma tela para outro grupo (dedo ou mouse).
+  (function () {
+    var dg = null;
+    function alvo(x, y) {
+      if (!dg) return null;
+      dg.fl.style.display = 'none';
+      var e = document.elementFromPoint(x, y);
+      dg.fl.style.display = '';
+      return e && e.closest ? e.closest('#v-org .orgG') : null;
+    }
+    function fim(ok, x, y) {
+      if (!dg) return;
+      var d = dg;
+      dg = null;
+      document.removeEventListener('pointermove', mv, true);
+      document.removeEventListener('pointerup', up, true);
+      document.removeEventListener('pointercancel', cc, true);
+      d.fl.remove();
+      [].forEach.call(document.querySelectorAll('#v-org .orgG.drop'), function (g) {
+        g.classList.remove('drop');
+      });
+      if (d.src) d.src.classList.remove('orgFant');
+      if (!ok) return;
+      d.fl.style.display = 'none';
+      var e = document.elementFromPoint(x, y),
+        g = e && e.closest ? e.closest('#v-org .orgG') : null,
+        antes = e && e.closest ? e.closest('#v-org .orgT') : null;
+      if (g && orgMove(d.t, g.getAttribute('data-g'), antes && antes.getAttribute('data-t') !== d.t ? antes.getAttribute('data-t') : '')) {
+        vibrar(12);
+        orgRe();
+      }
+    }
+    function mv(e) {
+      if (!dg || e.pointerId !== dg.id) return;
+      if (!dg.on && Math.abs(e.clientX - dg.x0) + Math.abs(e.clientY - dg.y0) > 7) {
+        dg.on = true;
+        var r = dg.src.getBoundingClientRect(),
+          f = dg.src.cloneNode(true);
+        f.className = 'orgT orgVoa';
+        f.style.width = r.width + 'px';
+        document.body.appendChild(f);
+        dg.fl = f;
+        dg.dx = e.clientX - r.left;
+        dg.dy = e.clientY - r.top;
+        dg.src.classList.add('orgFant');
+        vibrar(10);
+      }
+      if (!dg.on) return;
+      e.preventDefault();
+      dg.fl.style.left = e.clientX - dg.dx + 'px';
+      dg.fl.style.top = e.clientY - dg.dy + 'px';
+      var g = alvo(e.clientX, e.clientY);
+      [].forEach.call(document.querySelectorAll('#v-org .orgG'), function (x) {
+        x.classList.toggle('drop', x === g);
+      });
+    }
+    function up(e) {
+      if (!dg || e.pointerId !== dg.id) return;
+      fim(dg.on, e.clientX, e.clientY);
+    }
+    function cc() {
+      fim(false);
+    }
+    document.addEventListener('pointerdown', function (e) {
+      var t = e.target.closest && e.target.closest('#v-org .orgT:not(.fix)');
+      if (!t || dg || (e.pointerType === 'mouse' && e.button !== 0)) return;
+      dg = { id: e.pointerId, src: t, t: t.getAttribute('data-t'), x0: e.clientX, y0: e.clientY, on: false };
+      document.addEventListener('pointermove', mv, true);
+      document.addEventListener('pointerup', up, true);
+      document.addEventListener('pointercancel', cc, true);
+    });
+  })();
   // ===== Pedidos: pedidos do catálogo online (site) chegam sozinhos da nuvem; o cliente é cadastrado na hora. =====
   ICO_D.ped = '<path d="M6 6h15l-2 9H8zM6 6L5 3H2"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/>';
   S.pedidos = [];
@@ -24259,6 +24540,9 @@
     var h =
       '<div class="top"><div><h1>Ajustes</h1><div class="crumb">Nota fiscal, lembretes, segurança e cópias</div></div></div>';
     if (S.ajMsg) h += '<div class="note n-ok" role="status">' + esc(S.ajMsg) + '</div>';
+    // abas do menu de baixo
+    h +=
+      '<section class="card col"><h2 style="margin:0;font-size:16px">Abas do app</h2><div class="hint" style="margin:0">Escolha quais telas ficam juntas em cada botão do menu de baixo.</div><button type="button" class="mini" data-act="orgAbre" style="align-self:flex-start">Organizar abas</button></section>';
     // cidade da nota fiscal
     h +=
       '<section class="card col"><h2 style="margin:0;font-size:16px">Nota fiscal</h2><div><div class="lbl">Cidade que sai na nota</div><input class="in" data-aj="cidade" value="' +
@@ -26836,249 +27120,6 @@
     document.addEventListener('pointerup', fimArrasta, true);
     document.addEventListener('pointercancel', fimArrasta, true);
   })();
-  // ===== Acesso rápido: arrastar um botão do Início para a barra de baixo (máx. 5, "Início" fixo) e de volta. =====
-  (function () {
-    var dg = null,
-      chip = null,
-      chipT = 0,
-      soltouEm = 0;
-    function barEl() {
-      return $('mainnav');
-    }
-    function slots() {
-      return [].slice.call(barEl().querySelectorAll('.mn'));
-    }
-    function dica(t, ms) {
-      if (!chip) {
-        chip = document.createElement('div');
-        chip.id = 'qchip';
-        chip.setAttribute('role', 'status');
-        document.body.appendChild(chip);
-      }
-      chip.textContent = t;
-      chip.classList.add('on');
-      clearTimeout(chipT);
-      if (ms) chipT = setTimeout(function () {
-        chip.classList.remove('on');
-      }, ms);
-    }
-    function dicaOff() {
-      clearTimeout(chipT);
-      if (chip) chip.classList.remove('on');
-    }
-    // Depois de arrastar, o "clique" que o navegador dispara ao soltar não pode abrir a tela.
-    window.__barraSegurou = function () {
-      return Date.now() - soltouEm < 450;
-    };
-    document.addEventListener(
-      'click',
-      function (e) {
-        if (Date.now() - soltouEm < 450 && e.target.closest && e.target.closest('#v-inicio .tl,#mainnav .mn')) {
-          e.stopPropagation();
-          e.preventDefault();
-        }
-      },
-      true
-    );
-    function sobre(x, y) {
-      var b = barEl().getBoundingClientRect();
-      if (y < b.top - 36 || y > b.bottom + 40) return { zona: y < b.top ? 'fora' : 'fora', k: -1 };
-      var l = slots(),
-        k = -1;
-      l.forEach(function (s, i) {
-        var r = s.getBoundingClientRect();
-        if (x >= r.left - 2 && x <= r.right + 2) k = i;
-      });
-      return { zona: 'barra', k: k };
-    }
-    function quadro() {
-      if (!dg || !dg.on) return;
-      var g = dg.g;
-      g.style.left = dg.cx - dg.gw / 2 + 'px';
-      g.style.top = dg.cy - dg.gh / 2 + 'px';
-      var o = sobre(dg.cx, dg.cy),
-        l = slots();
-      l.forEach(function (s, i) {
-        s.classList.toggle('qt', o.zona === 'barra' && i === o.k && i > 0);
-      });
-      var B = barraLista();
-      if (dg.deBarra) {
-        dica(o.zona === 'barra' ? (o.k > 0 ? 'Solte para trocar de lugar' : 'Arraste para fora para tirar da barra') : 'Solte aqui para tirar da barra');
-      } else if (B.length < BARRA_MAX) {
-        dica(o.zona === 'barra' ? 'Solte para adicionar à barra' : 'Arraste até a barra de baixo · ' + (B.length + 1) + '/5');
-      } else {
-        dica(o.zona === 'barra' ? (o.k > 0 ? 'Solte para trocar por este' : 'O Início fica sempre na barra') : 'Barra cheia (5/5) · solte sobre um botão para trocar');
-      }
-      dg.o = o;
-    }
-    function inicia() {
-      if (!dg || dg.on) return;
-      var src = dg.el,
-        r = src.getBoundingClientRect(),
-        g = src.cloneNode(true);
-      g.classList.add('qghost');
-      g.removeAttribute('data-act');
-      g.style.cssText = 'left:' + r.left + 'px;top:' + r.top + 'px;width:' + r.width + 'px;height:' + r.height + 'px';
-      document.body.appendChild(g);
-      dg.g = g;
-      dg.gw = r.width;
-      dg.gh = r.height;
-      dg.on = true;
-      src.classList.add('qorig');
-      document.body.classList.add('arrastaBarra');
-      barEl().classList.add('qd');
-      vibrar(15);
-      quadro();
-    }
-    document.addEventListener(
-      'pointerdown',
-      function (e) {
-        if (S.inicioEd || S.view === 'dia') return;
-        var el = e.target.closest && e.target.closest('#v-inicio .tl[data-act="inicio"],#mainnav .mn');
-        if (!el) return;
-        var id = el.getAttribute('data-id');
-        if (!id || id === 'inicio') return;
-        dg = { el: el, id: id, deBarra: el.classList.contains('mn'), x0: e.clientX, y0: e.clientY, cx: e.clientX, cy: e.clientY, on: false, mouse: e.pointerType === 'mouse' };
-        // dedo: segurar um instante; mouse: basta puxar
-        if (!dg.mouse) dg.t = setTimeout(inicia, 380);
-      },
-      true
-    );
-    document.addEventListener(
-      'touchmove',
-      function (e) {
-        if (dg && dg.on && e.cancelable) e.preventDefault();
-      },
-      { passive: false }
-    );
-    document.addEventListener(
-      'pointermove',
-      function (e) {
-        if (!dg) return;
-        dg.cx = e.clientX;
-        dg.cy = e.clientY;
-        if (!dg.on) {
-          var d = Math.abs(e.clientX - dg.x0) + Math.abs(e.clientY - dg.y0);
-          if (dg.mouse && d > 8) inicia();
-          else if (!dg.mouse && d > 10) {
-            clearTimeout(dg.t);
-            dg = null;
-          }
-          return;
-        }
-        quadro();
-      },
-      true
-    );
-    function pop(id) {
-      if (REDUCED) return;
-      var b = barEl().querySelector('.mn[data-id="' + id + '"]');
-      if (b && b.animate) b.animate([{ transform: 'scale(.6)' }, { transform: 'scale(1.18)' }, { transform: 'scale(1)' }], { duration: 520, easing: 'ease-out' });
-    }
-    function popTile(id) {
-      if (REDUCED) return;
-      var t = document.querySelector('#v-inicio .tl[data-id="' + id + '"]');
-      if (t && t.animate) t.animate([{ transform: 'scale(.5)', opacity: 0 }, { transform: 'scale(1.08)', opacity: 1 }, { transform: 'scale(1)', opacity: 1 }], { duration: 650, easing: 'ease-out' });
-    }
-    function limpa() {
-      if (!dg) return;
-      if (dg.g) dg.g.remove();
-      if (dg.el) dg.el.classList.remove('qorig');
-      slots().forEach(function (s) {
-        s.classList.remove('qt');
-      });
-      barEl().classList.remove('qd');
-      document.body.classList.remove('arrastaBarra');
-    }
-    function fim(ev) {
-      if (!dg) return;
-      clearTimeout(dg.t);
-      var d = dg;
-      if (!d.on) {
-        dg = null;
-        return;
-      }
-      soltouEm = Date.now();
-      var o = ev && ev.type === 'pointerup' ? sobre(d.cx, d.cy) : { zona: 'cancel', k: -1 };
-      var B = barraLista().slice(),
-        nome = BARRA_NOME[d.id],
-        volta = false,
-        pr = '',
-        pt = '',
-        msg = '';
-      if (!d.deBarra) {
-        if (o.zona === 'barra') {
-          if (B.length < BARRA_MAX) {
-            B.push(d.id);
-            pr = d.id;
-            msg = nome + ' entrou na barra · ' + (B.length + 1) + '/5';
-          } else if (o.k > 0) {
-            var sai = B[o.k - 1];
-            B[o.k - 1] = d.id;
-            barraDevolve(sai);
-            pr = d.id;
-            pt = sai;
-            msg = nome + ' entrou na barra, ' + BARRA_NOME[sai] + ' voltou para o Início';
-          } else {
-            volta = true;
-            msg = 'Barra cheia: solte sobre um botão para trocar';
-          }
-        } else volta = true;
-      } else {
-        var i = B.indexOf(d.id);
-        if (o.zona === 'barra' && o.k > 0 && o.k - 1 !== i) {
-          B.splice(i, 1);
-          B.splice(o.k - 1, 0, d.id);
-          pr = d.id;
-          msg = 'Botão de lugar trocado';
-        } else if (o.zona === 'fora') {
-          B.splice(i, 1);
-          barraDevolve(d.id);
-          pt = d.id;
-          msg = nome + ' voltou para o Início';
-        } else volta = true;
-      }
-      var g = d.g,
-        fecha = function () {
-          limpa();
-          dg = null;
-        };
-      if (volta) {
-        if (g && !REDUCED) {
-          var r = d.el.getBoundingClientRect();
-          g.style.transition = 'all .25s cubic-bezier(.2,.8,.2,1)';
-          g.style.left = r.left + 'px';
-          g.style.top = r.top + 'px';
-          setTimeout(fecha, 260);
-        } else fecha();
-        if (msg) dica(msg, 2200);
-        else dicaOff();
-        return;
-      }
-      S.barra = B;
-      if (g && !REDUCED && o.zona === 'barra' && o.k >= 0) {
-        var sr = slots()[o.k] ? slots()[o.k].getBoundingClientRect() : null;
-        if (sr) {
-          g.style.transition = 'all .3s cubic-bezier(.2,.8,.2,1)';
-          g.style.left = sr.left + 'px';
-          g.style.top = sr.top + 'px';
-          g.style.width = sr.width + 'px';
-          g.style.height = sr.height + 'px';
-          g.style.opacity = '0';
-        }
-      }
-      setTimeout(function () {
-        fecha();
-        render();
-        if (pr) pop(pr);
-        if (pt) popTile(pt);
-        vibrar(20);
-      }, REDUCED ? 0 : 280);
-      dica(msg, 2400);
-    }
-    document.addEventListener('pointerup', fim, true);
-    document.addEventListener('pointercancel', fim, true);
-  })();
   // ===== Carrinho: várias peças numa venda só; o piso vale para o total, não para cada peça. =====
   S.cart = [];
   S.cartOpen = false;
@@ -28259,6 +28300,7 @@
     } catch (e) {}
     renderInicio();
     renderPedidos();
+    renderOrg();
     renderLojaOnline();
     uniAbasFill();
     renderClientes();
@@ -28520,7 +28562,7 @@
       'pedNext',
       'fxMgUlt',
       'inicioT',
-      'barra',
+      'grupos',
       'attr',
       'site',
       'num',

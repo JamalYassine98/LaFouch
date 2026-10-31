@@ -384,7 +384,7 @@ async def main():
             await pg.evaluate("() => { const S = window.__LF.S; S.cash = {pyg: 5000000, usd: 500, brl: 0}; S.compras = []; S.dlog = []; S.imprev = []; S.melhUso = []; S.cpay = []; window.__LF.render(); }")
             total += 1
             await pg.evaluate("() => { const S = window.__LF.S; S.ini.melh = 400000; window.__LF.render(); }")
-            await pg.locator('#mainnav >> text="Caixa"').first.click(); await pg.wait_for_timeout(300)
+            await pg.locator('#mainnav button[data-id="g:dinheiro"]').click(); await pg.wait_for_timeout(300)
             await pg.fill('#muD', 'Tinta'); await pg.fill('#muV', '50000')
             await pg.locator('[data-act="melhuso"]').first.click(); await pg.wait_for_timeout(200)
             got = await pg.evaluate("() => { const S = window.__LF.S; return [S.melhUso.length, S.dlog.filter(x => x.kind === 'melh').length, S.cash.pyg] }")
@@ -1233,17 +1233,17 @@ async def main():
             await pg.locator('#v-inicio .tl:has-text("Giro")').click(); await pg.wait_for_timeout(300)
             r2 = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.dTab]")
             await pg.locator('#mainnav button:has-text("Início")').click(); await pg.wait_for_timeout(300)
-            await pg.locator('#mainnav button[data-id="estoque"]').click(); await pg.wait_for_timeout(300)
+            await pg.locator('#mainnav button[data-id="g:estoque"]').click(); await pg.wait_for_timeout(300)
             r3 = await pg.evaluate("() => window.__LF.S.view")
             total += 1
-            ok = r == ['inicio', 11] and r2 == ['dash', 'giro'] and r3 == 'estoque' and not pg.erros
+            ok = r == ['inicio', 14] and r2 == ['dash', 'giro'] and r3 == 'estoque' and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'tela Início: 13 botões + barra levam às telas certas')
             if not ok: falhas.append('inicio'); print('        veio', r, r2, r3, pg.erros)
             await pg.close()
 
             # animações dos botões: barra fixa embaixo, realce deslizante, segurar para apagar
             pg = await pagina()
-            await pg.locator('#mainnav button:has-text("Caixa")').click(); await pg.wait_for_timeout(600)
+            await pg.locator('#mainnav button[data-id="g:dinheiro"]').click(); await pg.wait_for_timeout(600)
             r = await pg.evaluate("() => [getComputedStyle(document.getElementById('mainnav')).position, document.querySelectorAll('#mainnav .slider').length, document.querySelector('#mainnav .mn.on').textContent.trim()]")
             await pg.evaluate("() => { window.__LF.S.dTab = 'hoje'; window.__LF.setView('dash'); }"); await pg.wait_for_timeout(500)
             r2 = await pg.evaluate("() => document.querySelectorAll('#v-dash .tgrid .slider').length")
@@ -1256,7 +1256,7 @@ async def main():
             await pg.mouse.down(); await pg.wait_for_timeout(1200); await pg.mouse.up(); await pg.wait_for_timeout(400)
             r3 = await pg.evaluate("() => window.__LF.S.imprev.map(x => x.desc)")
             total += 1
-            ok = r == ['fixed', 1, 'Caixa'] and r2 >= 1 and r3 == ['B'] and not pg.erros
+            ok = r == ['fixed', 1, 'Dinheiro'] and r2 >= 1 and r3 == ['B'] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'animações: barra fixa, realce deslizante e segurar para apagar')
             if not ok: falhas.append('animacoes'); print('        veio', r, r2, r3, pg.erros)
             await pg.close()
@@ -1384,42 +1384,49 @@ async def main():
             if not ok: falhas.append('imprevistos'); print('        veio', n1, r2, pg.erros)
             await pg.close()
 
-            # Acesso rápido: arrastar do Início para a barra de baixo (máx. 5), trocar, tirar e reordenar
+            # Grupos de abas: menu de baixo, abas do grupo, aviso de pedidos e Organizar abas (arrastar, salvar, padrão)
             pg = await pagina()
-            await pg.evaluate("() => { window.__LF.S.barra = null; window.__LF.setView('inicio'); }")
-            async def xy(sel):
-                await pg.evaluate("s => document.querySelector(s).scrollIntoView({block:'center'})", sel)
-                await pg.wait_for_timeout(150)
-                return await pg.evaluate("s => { const b = document.querySelector(s).getBoundingClientRect(); return [b.x + b.width / 2, b.y + b.height / 2]; }", sel)
-            async def arrasta(de, para, pontos=None):
-                a = await xy(de)
-                await pg.mouse.move(a[0], a[1]); await pg.mouse.down()
-                t = para if isinstance(para, list) else await xy(para)
-                for k in range(1, 21):
-                    await pg.mouse.move(a[0] + (t[0] - a[0]) * k / 20, a[1] + (t[1] - a[1]) * k / 20); await pg.wait_for_timeout(14)
-                await pg.wait_for_timeout(200); await pg.mouse.up(); await pg.wait_for_timeout(700)
-            est = "() => ({ barra: window.__LF.S.barra, nav: [...document.querySelectorAll('#mainnav .mn')].map(m => m.getAttribute('data-id')), tiles: [...document.querySelectorAll('#v-inicio .tl')].map(t => t.dataset.id) })"
-            e0 = await pg.evaluate(est)
-            await arrasta('#v-inicio .tl[data-id="prec"]', '#mainnav .mn[data-id="ajustes"]')
-            e1 = await pg.evaluate(est)
-            if 'prec' in e1['tiles']:
-                await arrasta('#v-inicio .tl[data-id="prec"]', '#mainnav .mn[data-id="ajustes"]')
-                e1 = await pg.evaluate(est)
-            await arrasta('#mainnav .mn[data-id="caixa"]', [210, 300])
-            e2 = await pg.evaluate(est)
-            await arrasta('#v-inicio .tl[data-id="giro"]', '#mainnav .mn[data-id="estoque"]')
-            e3 = await pg.evaluate(est)
-            await pg.locator('#mainnav .mn[data-id="giro"]').click(); await pg.wait_for_timeout(300)
-            e4 = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.dTab]")
+            await pg.evaluate("() => { const S = window.__LF.S; S.grupos = null; S.grpUlt = {}; S.pedidos = [{id:1,num:1,sid:'a',ts:Date.now(),cli:'Ana',tel:'',itens:[{t:'X',ref:'',q:1}],st:'novo',orig:'site'},{id:2,num:2,sid:'b',ts:Date.now(),cli:'Bia',tel:'',itens:[{t:'X',ref:'',q:1}],st:'novo',orig:'site'}]; window.__LF.setView('inicio'); }")
+            nav0 = await pg.evaluate("() => [...document.querySelectorAll('#mainnav .mn')].map(m => m.getAttribute('data-id'))")
+            bd = await pg.evaluate("() => document.querySelector('#mainnav .mn[data-id=\"g:vender\"] .bd').textContent")
+            await pg.locator('#mainnav .mn[data-id="g:dinheiro"]').click(); await pg.wait_for_timeout(300)
+            v1 = await pg.evaluate("() => [window.__LF.S.view, [...document.querySelectorAll('#grpTabs button')].map(b => b.textContent.trim()), document.getElementById('grpTabs').hidden]")
+            await pg.locator('#grpTabs button:has-text("Histórico")').click(); await pg.wait_for_timeout(300)
+            await pg.locator('#mainnav .mn[data-id="g:vender"]').click(); await pg.wait_for_timeout(300)
+            tabs2 = await pg.evaluate("() => [...document.querySelectorAll('#grpTabs button')].map(b => b.textContent.trim())")
+            await pg.locator('#mainnav .mn[data-id="g:dinheiro"]').click(); await pg.wait_for_timeout(300)
+            v3 = await pg.evaluate("() => window.__LF.S.view")
+            await pg.locator('#mainnav .mn[data-id="g:ajustes"]').click(); await pg.wait_for_timeout(300)
+            await pg.locator('[data-act=orgAbre]').click(); await pg.wait_for_timeout(400)
+            cam = await pg.evaluate("() => { const c = [...document.querySelectorAll('#v-org .orgT')].find(x => x.dataset.t === 'fx').getBoundingClientRect(); const g = document.querySelector('#v-org .orgG[data-g=dinheiro]').getBoundingClientRect(); return [c.x + c.width / 2, c.y + c.height / 2, g.x + g.width / 2, g.y + 28]; }")
+            await pg.evaluate("() => document.querySelector('#v-org .orgG[data-g=dinheiro]').scrollIntoView({block:'center'})")
+            await pg.wait_for_timeout(900)
+            cam = await pg.evaluate("() => { const c = [...document.querySelectorAll('#v-org .orgT')].find(x => x.dataset.t === 'fx').getBoundingClientRect(); const g = document.querySelector('#v-org .orgG[data-g=dinheiro]').getBoundingClientRect(); return [c.x + c.width / 2, c.y + c.height / 2, g.x + g.width / 2, g.y + 28]; }")
+            await pg.mouse.move(cam[0], cam[1]); await pg.mouse.down()
+            for k in range(1, 16):
+                await pg.mouse.move(cam[0] + (cam[2] - cam[0]) * k / 15, cam[1] + (cam[3] - cam[1]) * k / 15); await pg.wait_for_timeout(16)
+            await pg.wait_for_timeout(120); drop = await pg.evaluate("() => !!document.querySelector('#v-org .orgG.drop')")
+            await pg.mouse.up(); await pg.wait_for_timeout(300)
+            org1 = await pg.evaluate("() => window.__LF.S._orgD.map(g => g.id + ':' + g.telas.join(','))")
+            fixo = await pg.evaluate("() => { const t = document.querySelector('#v-org .orgT.fix'); return [t.dataset.t, window.__LF.S._orgD.length] }")
+            addOff = await pg.evaluate("() => document.querySelector('[data-act=orgNovo]').disabled")
+            await pg.locator('#v-org [data-act=orgSalva]').click(); await pg.wait_for_timeout(400)
+            await pg.locator('#mainnav .mn[data-id="g:dinheiro"]').click(); await pg.wait_for_timeout(300)
+            tabs4 = await pg.evaluate("() => [...document.querySelectorAll('#grpTabs button')].map(b => b.textContent.trim())")
+            await pg.locator('#mainnav .mn[data-id="g:estoque"]').click(); await pg.wait_for_timeout(300)
+            tabs5 = await pg.evaluate("() => [window.__LF.S.view, document.getElementById('grpTabs').hidden]")
+            salvo = await pg.evaluate("() => { const L = window.__LF; L.render(); return L.S.grupos.map(g => g.id + ':' + g.telas.length) }")
+            await pg.evaluate("() => { window.__LF.S.grupos = [{id:'x',nome:'Só um',ico:'zzz',telas:['caixa','caixa','nada']}]; window.__LF.render(); }"); await pg.wait_for_timeout(200)
+            rep = await pg.evaluate("() => { const g = window.__LF.S.grupos; return [g.length, g[0].ico, g[0].telas.length + g.slice(1).reduce((a, x) => a + x.telas.length, 0)] }")
             total += 1
-            ok = (e0['nav'] == ['inicio', 'vendas', 'estoque', 'caixa', 'ajustes'] and 'vendas' not in e0['tiles'] and 'prec' in e0['tiles']
-                  and e1['nav'] == ['inicio', 'vendas', 'estoque', 'caixa', 'prec'] and 'prec' not in e1['tiles']
-                  and e2['nav'] == ['inicio', 'vendas', 'estoque', 'prec'] and 'caixa' in e2['tiles']
-                  and e3['nav'] == ['inicio', 'vendas', 'estoque', 'prec', 'giro'] and e4 == ['dash', 'giro'] and not pg.erros)
-            print(('  ok  ' if ok else ' FALHA ') + 'acesso rápido: arrastar para a barra, trocar, tirar e abrir (máx. 5)')
-            if not ok: falhas.append('acesso rapido'); print('        veio', e0, e1, e2, e3, e4, pg.erros)
+            ok = (nav0 == ['inicio', 'g:vender', 'g:estoque', 'g:dinheiro', 'g:ajustes'] and bd == '2'
+                  and v1 == ['caixa', ['Caixa', 'Despesas', 'Histórico', 'Dashboard'], False] and tabs2 == ['Catálogo', 'Pedidos 2', 'Clientes'] and v3 == 'hist'
+                  and drop is True and org1[1] == 'estoque:estoque' and 'fx' in org1[2] and fixo[0] == 'ajustes' and addOff is True
+                  and tabs4 == ['Caixa', 'Despesas', 'Histórico', 'Dashboard', 'Câmbio'] and tabs5 == ['estoque', True]
+                  and salvo == ['vender:3', 'estoque:1', 'dinheiro:5', 'ajustes:2'] and rep[1] == 'cat' and rep[2] == 11 and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'grupos de abas: menu, abas do grupo, aviso de pedidos, arrastar em Organizar e salvar')
+            if not ok: falhas.append('grupos'); print('        veio', nav0, bd, v1, tabs2, v3, drop, org1, fixo, addOff, tabs4, tabs5, salvo, rep, pg.erros)
             await pg.close()
-
             # Produtos: preço antigo → novo, canais, aviso de piso e aplicar em grupo (Reajustar)
             pg = await pagina()
             await pg.evaluate("() => { window.__LF.S.todos = false; window.__LF.setView('estoque'); }"); await pg.wait_for_timeout(500)
@@ -1714,7 +1721,7 @@ async def main():
             # finanças pela tela: retirada, conferência do caixa, resultado e fluxo no Dashboard
             pg = await pagina()
             await pg.evaluate("() => { const S = window.__LF.S; S.cash = {pyg: 5000000, usd: 500, brl: 0}; S.retiradas = []; S.confCx = []; S.dlog = []; window.__LF.render(); }")
-            await pg.locator('#mainnav >> text="Caixa"').first.click(); await pg.wait_for_timeout(300)
+            await pg.locator('#mainnav button[data-id="g:dinheiro"]').click(); await pg.wait_for_timeout(300)
             await pg.fill('#rtV', '200000'); await pg.fill('#rtN', 'Almoço')
             await pg.locator('[data-act="rtgo"]').first.click(); await pg.wait_for_timeout(300)
             got = await pg.evaluate("() => { const S = window.__LF.S; return [S.retiradas.length, S.cash.pyg, S.dlog.filter(x => x.kind === 'ret').length] }")

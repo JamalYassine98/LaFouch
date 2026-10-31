@@ -203,6 +203,9 @@
     var h =
       '<div class="top"><div><h1>Ajustes</h1><div class="crumb">Nota fiscal, lembretes, segurança e cópias</div></div></div>';
     if (S.ajMsg) h += '<div class="note n-ok" role="status">' + esc(S.ajMsg) + '</div>';
+    // abas do menu de baixo
+    h +=
+      '<section class="card col"><h2 style="margin:0;font-size:16px">Abas do app</h2><div class="hint" style="margin:0">Escolha quais telas ficam juntas em cada botão do menu de baixo.</div><button type="button" class="mini" data-act="orgAbre" style="align-self:flex-start">Organizar abas</button></section>';
     // cidade da nota fiscal
     h +=
       '<section class="card col"><h2 style="margin:0;font-size:16px">Nota fiscal</h2><div><div class="lbl">Cidade que sai na nota</div><input class="in" data-aj="cidade" value="' +

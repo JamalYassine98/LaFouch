@@ -175,3 +175,9 @@ Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Parag
 
 ## Site: mapa (31/10/2026)
 - "Ver no mapa" (2 links) e "Abrir no Google Maps" usavam busca por texto e caíam na loja Farma Fit. Agora abrem as coordenadas da La Fouch (-25.510131,-54.609959, informadas pelo dono em 31/10/2026) com o nome "La Fouch". Se o pino cair no lugar errado, as coordenadas (variável LOJA em catalogo/index.html) precisam ser corrigidas pelo dono.
+
+## v351 (31/10/2026) — Grupos de abas (aprovado: "Aprovado o conceito, pode implementar")
+- Menu de baixo = Início + grupos (padrão: Vender [Catálogo, Pedidos, Clientes], Estoque [Inventário, Câmbio], Dinheiro [Caixa, Despesas, Histórico, Dashboard], Ajustes [Ajustes, Loja online]). Cada grupo mostra suas telas como abas no topo (`#grpTabs`); aviso vermelho de pedidos novos no grupo que tem Pedidos e na aba.
+- Ajustes > "Organizar abas" (`#v-org`): arrastar tela entre grupos, criar (máx. 4 grupos + Início), renomear, trocar ícone, apagar grupo vazio, "Voltar ao padrão", "Salvar" (rascunho só vale ao salvar). Ajustes é fixa no grupo dela. Dados em `S.grupos` (entra no backup). Código em `src/95-grupos.js`.
+- REMOVIDO o "acesso rápido" antigo (arrastar botão do Início para a barra; `98-botoes-barra.js`, `S.barra`): foi substituído pelos grupos. Início volta a mostrar todos os botões.
+- NÃO feito (estava só como ilustração nas imagens): novo desenho do Início (saudação, busca no topo, atalhos em cartões). Perguntar se quer.

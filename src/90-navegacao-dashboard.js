@@ -2,6 +2,11 @@
   // Troca de aba.
   function setView(v) {
     S.view = v;
+    var gv = grpDeView(v);
+    if (gv) {
+      if (!S.grpUlt) S.grpUlt = {};
+      S.grpUlt[gv.id] = v === 'dia' ? 'hist' : v;
+    }
     S.msg = '';
     try {
       history.replaceState(null, '', '#' + v);
@@ -25,9 +30,12 @@
       var b = btn('mn' + (on ? ' on' : ''), '', function () {
         if (window.__barraSegurou && window.__barraSegurou()) return;
         if (v[0] === 'inicio') setView('inicio');
+        else if (gg) grpAbre(gg);
         else inicioGo(v[0]);
       });
-      b.innerHTML = '<span class="mi">' + ico(v[0], 22) + '</span><span>' + v[1] + '</span>';
+      var gg = v[0].indexOf('g:') === 0 ? grpLista().filter(function (x) { return 'g:' + x.id === v[0]; })[0] : null,
+        av = gg ? grpAviso(gg) : 0;
+      b.innerHTML = '<span class="mi">' + ico(v[2] || v[0], 22) + (av ? '<i class="bd">' + av + '</i>' : '') + '</span><span>' + v[1] + '</span>';
       b.setAttribute('aria-label', v[1]);
       b.setAttribute('data-id', v[0]);
       if (on) b.setAttribute('aria-current', 'page');
@@ -36,6 +44,7 @@
     VIEWS.forEach(function (v) {
       $('v-' + v[0]).hidden = S.view !== v[0];
     });
+    grpAbasRender();
     $('v-dia').hidden = S.view !== 'dia';
     var on = n.querySelector('.mn.on');
     n.scrollLeft = sl;
