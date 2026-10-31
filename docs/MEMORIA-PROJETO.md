@@ -214,3 +214,13 @@ Dono desistiu da API paga. Quer: (a) número no formato correto de Brasil, Parag
 - 19 telas → 171 pares; cada par tem ícone único (39 desenhados à mão + 132 "recipiente com o símbolo da outra tela dentro") e nome sugerido (máx. 18 letras). Dados em src/95-barra-grupos-icones.js. O botão do grupo na barra mostra esse ícone (dois primeiros itens do grupo); nome padrão ao juntar = nome sugerido.
 - Os 132 desenhos "em sistema" não são desenhos à mão: o dono foi avisado.
 - Login com Google no site: só respondido (possível via Firebase Auth), NÃO implementado — mostrar esboço antes.
+
+## Site: login com Google e Minha conta (31/10/2026)
+- Entrar e Criar conta abrem direto (sem aba de escolha). Botão Google fica embaixo, depois do "ou".
+- Depois do Google: passo "Seus dados" com faixa "Conectada com o Google · e-mail" e nome já preenchido.
+- "Conta criada!" não oferece sincronizar Google (decisão do dono). Só "Continuar".
+- Minha conta: cartão do perfil, cartão "Conta do Google" (Sincronizar/Desvincular), Minhas reservas, "Sair da conta" no fim. A aba de reserva não mudou.
+- Google usa o SDK do Firebase só para abrir a janela; a sessão segue pelo REST. Dono precisa ativar Google em Authentication e conferir o domínio lafouch.com em "Domínios autorizados". Login real com Google não foi testado aqui (só com SDK simulado).
+- Selo "G" é um desenho simples, não o logo oficial.
+- Também decididos: Como comprar + Perguntas rápidas, carrinho persiste (lf_cart), troca na retirada com possível ajuste de preço.
+- Esboço do computador parecido com o celular (opções A/B): aguardando escolha do dono. NÃO implementar ainda.
