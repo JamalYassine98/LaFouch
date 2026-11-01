@@ -270,3 +270,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - 31/10/2026: Site: olho da senha fechado agora fica na cor neutra (antes ficava rosa pelo :hover preso no celular); só o olho aberto é rosa.
 - 31/10/2026: Site: olho da senha — hover do PC opção C (rosa + cresce) implementado só para mouse (hover:hover); celular sem efeito de hover. Esboços de toque para celular em andamento (dono quer ver mais opções).
 - 31/10/2026: Site: olho da senha no celular implementado (opção 2 aprovada): enquanto o dedo segura fica rosa e cresce (igual ao hover do PC); ao soltar abre rosa, fechado volta cinza.
+- 31/10/2026: Site — animações de entrada (botões/textos subindo e produto de destaque) suavizadas: começam só após o primeiro quadro pintado, deslocamento menor, sem blur na foto, foto decodificada antes de entrar, sem preserve-3d.
