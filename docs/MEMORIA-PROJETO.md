@@ -279,3 +279,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - 31/10/2026: Aba 'rosto': dono escolheu B1 (carrossel + pontos) com setas minimalistas sobre a foto, também clicáveis. Esboço refeito (setas em círculo translúcido vs solta). Aguardando aprovação; nada implementado.
 - 31/10/2026: Aba 'rosto' B1: dono quer setas soltas (estilo direita), mais afastadas e com cor visível. Esboço: setas rosa (#f3c0dc) com sombra escura, nas laterais fora do cartão central. Aguardando aprovação.
 - 31/10/2026: Aba 'rosto' B1: setas centralizadas verticalmente na foto e com opacidade ~70%. Aguardando aprovação.
+- 31/10/2026: Aba 'rosto' B1: setas reposicionadas como marcado pelo dono (mais baixas ~83% da foto e mais próximas do cartão, entre a borda do vizinho e o cartão). Aguardando aprovação.
