@@ -307,3 +307,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - 01/11/2026: site: favorito sem efeito cometa (um único coração voa até o botão); corrigido desalinhamento do coração/voo ao carrinho causado pelo zoom do corpo no PC (coordenadas divididas pelo zoom).
 - 01/11/2026: site celular: animação ao abrir a reserva (painel abre como onda a partir do botão da reserva, itens entram em sequência, botão pulsa). Corrigido clique do botão que abria a reserva em modo 'still'.
 - 01/11/2026: site celular: animação da reserva trocada para ficar igual à do menu (painel desliza da direita, fundo escurece, itens em sequência) — dono pediu.
+- 01/11/2026: dados do Itaú para o cliente transferir manualmente (Paraguai): banco Itaú, alias 9175078, titular Jamal Ali Yassine. Ideia aprovada pelo dono (botão 'Salvar QR na galeria' + cartão 'Ou transfira manualmente' com copiar alias/titular/valor); AGUARDANDO 'pode implementar'.
