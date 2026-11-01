@@ -305,3 +305,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - 01/11/2026: site PC: aba 'Qual combina' cabe numa tela sem rolagem no texto 100%; banner do rosto escolhido rola junto com o catálogo (sem sobreposição); Como comprar centralizado; Dúvidas e Atacado maiores.
 - 01/11/2026: site PC/tablet: botões do topo (menu/conta/reserva) com o mesmo tamanho dos botões da busca; logo mantido.
 - 01/11/2026: site: favorito sem efeito cometa (um único coração voa até o botão); corrigido desalinhamento do coração/voo ao carrinho causado pelo zoom do corpo no PC (coordenadas divididas pelo zoom).
+- 01/11/2026: site celular: animação ao abrir a reserva (painel abre como onda a partir do botão da reserva, itens entram em sequência, botão pulsa). Corrigido clique do botão que abria a reserva em modo 'still'.
