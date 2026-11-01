@@ -267,3 +267,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - 31/10/2026: Site: animação do 2º favorito em diante IMPLEMENTADA (combinada aprovada pelo dono, sem 'sugar girando'): anel no coração do produto, 3 corações em cometa até o botão, botão bate e pisca rosa com anel, número rola (1→2) com pop e '+1' sobe. Respeita 'reduzir movimento'.
 - 31/10/2026: Site: no celular os campos Usuario/Correo da tela Criar conta apareciam achatados (flex-shrink); corrigido para todos os tamanhos de tela.
 - 31/10/2026: Site: telas Entrar e Criar conta (passo 1) no celular (≤599px) ficaram compactas e cabem sem rolagem (testado de 360x640 a 390x844). Passo 2 do cadastro tem muitos campos e ainda rola. Tablet/PC inalterados.
+- 31/10/2026: Site: olho da senha fechado agora fica na cor neutra (antes ficava rosa pelo :hover preso no celular); só o olho aberto é rosa.
