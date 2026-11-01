@@ -276,3 +276,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - 31/10/2026: Site — botão 'Qual combina com meu rosto?' (3º botão) agora entra em sequência com os outros (delay .56s; garantias .74s).
 - 31/10/2026: Backup: branch backup-2026-10-31-b nos dois repos. Site — textos de cada formato de rosto reescritos no estilo do quadrado ('Armações X trazem Y e Z a W'), com tradução ES. Pedido: esboços de melhoria da interface da aba 'qual combina com meu rosto' (só mostrar, implementar quando aprovar).
 - 31/10/2026: Aba 'rosto': dono gostou da opção B (carrossel) mas quer manter o bloco da câmera atual (3 passos). Esboços refeitos B1/B2/B3 (pontos, abas com nomes, contador com setas). Aguardando escolha; nada implementado.
+- 31/10/2026: Aba 'rosto': dono escolheu B1 (carrossel + pontos) com setas minimalistas sobre a foto, também clicáveis. Esboço refeito (setas em círculo translúcido vs solta). Aguardando aprovação; nada implementado.
