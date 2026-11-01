@@ -320,15 +320,16 @@
   // ---------- cotação da loja no site (config/site, só o campo "cotacao")
   function nvCotacao() {
     if (!S.nuvem.rt) return Promise.resolve();
-    var usd, brl;
+    var usd, brl, rpu;
     try {
       usd = fxLoja('usd');
       brl = fxLoja('brl');
+      rpu = fxBrlPorUsd();
     } catch (e) {
       return Promise.resolve();
     }
     if (!(usd > 0) || !(brl > 0)) return Promise.resolve();
-    var chave = usd + '|' + brl;
+    var chave = usd + '|' + brl + '|' + rpu;
     if (S.nuvem.cot === chave) return Promise.resolve();
     return nvApi(
       'PATCH',
@@ -340,6 +341,7 @@
               fields: {
                 usd: { integerValue: String(usd) },
                 brl: { integerValue: String(brl) },
+                rpu: { doubleValue: rpu },
                 ts: { integerValue: String(Date.now()) }
               }
             }

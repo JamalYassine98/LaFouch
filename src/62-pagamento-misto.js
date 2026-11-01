@@ -16,11 +16,11 @@
   // Cotação da loja: os preços são em dólar e o dólar da loja vale uma margem fixa a mais que o mercado (não editável).
   // Ex.: peça de US$ 15, mercado 5.900, loja 6.000: quem paga em guaranis entrega 90.000 e não 88.500.
   // O real fica pelo valor de mercado em guaranis, então R$ por US$ também sobe pela mesma margem.
-  var FX_MARGEM = 0.005;
+  var FX_MARGEM = 0.01;
   var FX_TETO = 0.02;
   var FX_JANELA = 14; // dias olhados para calcular a margem
   // Margem do dia, para o dólar em guaranis ('pyg') e para o real por dólar ('brl'), pela mesma regra:
-  // vale quanto a cotação de hoje está acima da MENOR das últimas 2 semanas, nunca menos que 0,5% (base) nem mais que 2% (teto).
+  // vale quanto a cotação de hoje está acima da MENOR das últimas 2 semanas, nunca menos que 1% (base) nem mais que 2% (teto).
   // Se a moeda valoriza, a margem sobe; se ela cai, a margem desce aos poucos até voltar à base.
   function fxMargemInfo(k) {
     k = k === 'brl' ? 'brl' : 'pyg';

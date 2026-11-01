@@ -456,8 +456,8 @@ async def main():
             pg = await abrir('sem', 'Hexagonal')
             await pg.evaluate("() => { const S = window.__LF.S; S.pprice = {}; window.__LF.render(); }"); await pg.wait_for_timeout(300)
             tem = await pg.evaluate("() => [!!document.getElementById('pvPreco'), !!document.getElementById('ofAbre'), !!document.getElementById('pvSt'), !document.getElementById('ofCard')]")
-            await pg.fill('#pvPreco', '150000'); await pg.locator('#pvPreco').press('Tab'); await pg.wait_for_timeout(200)
-            tipado = await pg.evaluate("() => window.__LF.S.pprice['BR44118'] && window.__LF.S.pprice['BR44118'].novo")
+            await pg.fill('#pvPreco', '25'); await pg.locator('#pvPreco').press('Tab'); await pg.wait_for_timeout(200)
+            tipado = await pg.evaluate("() => { const o = window.__LF.S.pprice['BR44118']; return o ? [o.novo, o.nu, Math.round(25 * window.__LF.fxLoja('usd') / 500) * 500] : null }")
             await pg.locator('#ofAbre').click(); await pg.wait_for_timeout(300)
             jan = await pg.evaluate("() => [!!document.getElementById('ofCard'), document.querySelectorAll('#ofCard .ofPc').length]")
             await pg.locator('#ofCancel').click(); await pg.wait_for_timeout(200)
@@ -465,14 +465,14 @@ async def main():
             await pg.locator('#ofAbre').click(); await pg.wait_for_timeout(300)
             base = await pg.evaluate("() => { const m = document.querySelector('#ofCard .ofRow b'); return parseInt(m.textContent.replace(/\\D/g, ''), 10) }")
             await pg.locator('#ofCard .ofPc[data-pc="20"]').click(); await pg.wait_for_timeout(750)
-            pcv = await pg.evaluate("() => parseInt(document.getElementById('ofPreco').value.replace(/\\D/g, ''), 10)")
+            pcv = await pg.evaluate("() => parseFloat(document.getElementById('ofPreco').value.replace(',', '.')) * window.__LF.fxLoja('usd')")
             await pg.locator('#ofOk').click(); await pg.wait_for_timeout(300)
             of1 = await pg.evaluate("() => { const o = window.__LF.S.pprice['BR44118']; return o ? [o.ant > o.novo, Math.round((1 - o.novo / o.ant) * 100)] : null }")
             await pg.locator('#ofAbre').click(); await pg.wait_for_timeout(300)
             tem2 = await pg.evaluate("() => [!!document.getElementById('ofAte'), !!document.getElementById('ofFim')]")
             await pg.locator('#ofFim').click(); await pg.wait_for_timeout(300)
             of2 = await pg.evaluate("() => { const o = window.__LF.S.pprice['BR44118']; return o ? o.ant === undefined : true }")
-            await checa('oferta: Preço digitável + botão Oferta + status; janela com % de desconto, cancelar, data opcional e encerrar', tem == [True, True, True, True] and tipado == 150000 and jan == [True, 6] and fechou and abs(pcv - base * 0.8) <= 1000 and of1 and of1[0] and 18 <= of1[1] <= 22 and tem2 == [True, True] and of2, [tem, tipado, jan, fechou, base, pcv, of1, tem2, of2])
+            await checa('oferta: Preço digitável + botão Oferta + status; janela com % de desconto, cancelar, data opcional e encerrar', tem == [True, True, True, True] and tipado and tipado[0] == tipado[2] and tipado[1] == 25 and jan == [True, 6] and fechou and abs(pcv - base * 0.8) <= 1000 and of1 and of1[0] and 18 <= of1[1] <= 22 and tem2 == [True, True] and of2, [tem, tipado, jan, fechou, base, pcv, of1, tem2, of2])
 
             # Liberar para o site: só com foto em todas as cores
             pg = await abrir('sem', 'Hexagonal')
@@ -1069,7 +1069,7 @@ async def main():
               const esp = (need / L.rateDe('brl', 0)).toFixed(2).replace('.', ',');
               L.setView('fx'); L.render(); const fx = document.getElementById('v-fx').textContent;
               return [g, u, b, man, custo, sh === esp, document.getElementById('v-fx').textContent.indexOf('Cotação da loja') >= 0, fx.indexOf('G$ 8.000') >= 0]; }""")
-            ok = r[0] == 'US$ 74' and r[1] == 8000 and r[2] == 1600 and r[3] == 1300 and r[4] == 8000 and r[5] and r[6] and r[7] and not pg.erros
+            ok = r[0] == 'US$ 74' and r[1] == 8100 and r[2] == 1600 and r[3] == 1300 and r[4] == 8000 and r[5] and r[6] and r[7] and not pg.erros
             total += 1
             print(('  ok  ' if ok else ' FALHA ') + 'cotação da loja: dólar com margem a mais, no carrinho e na aba Câmbio')
             if not ok: falhas.append('cotacao loja'); print('        veio', r, pg.erros)
@@ -1485,7 +1485,7 @@ async def main():
             await cs.nth(0).click(); await pg.wait_for_timeout(200); await cs.nth(1).click(); await pg.wait_for_timeout(300)
             nsel = await pg.evaluate("() => window.__LF.S.selP.length")
             await pg.locator('#selBar button:has-text("Preço…")').click(); await pg.wait_for_timeout(300)
-            await pg.locator('.modal-box:has(.zlb) input').nth(1).fill('1000'); await pg.locator('.modal-box:has(.zlb) button:has-text("Aplicar")').first.click(); await pg.wait_for_timeout(300)
+            await pg.locator('.modal-box:has(.zlb) input').nth(1).fill('0,2'); await pg.locator('.modal-box:has(.zlb) button:has-text("Aplicar")').first.click(); await pg.wait_for_timeout(300)
             tem3 = await pg.evaluate("() => [...document.querySelectorAll('.modal-box:has(.zlb) button, .modal-box:has(.zalerta) button')].map(b => b.textContent.trim())")
             await pg.locator('.modal-box button:has-text("Reajustar")').click(); await pg.wait_for_timeout(400)
             apos = await pg.evaluate("() => Object.values(window.__LF.S.pprice).map(p => p.novo)")
@@ -1561,12 +1561,12 @@ async def main():
               const rec = document.getElementById('recH').textContent;
               return [antes, linhas, cambioLinha, ph, lbl, u, rec]; }""")
             total += 1
-            ok = r[0] is False and r[1] == 1 and r[2] == 1 and 'US$ 1 = R$' in r[3] and 'US$ 1' in r[4] and r[5] == 5800 and 'US$ 1 = R$' in r[6] and not pg.erros
+            ok = r[0] is False and r[1] == 1 and r[2] == 1 and 'US$ 1 = R$' in r[3] and 'US$ 1' in r[4] and r[5] == 5900 and 'US$ 1 = R$' in r[6] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'pagamento: Outra moeda direto, câmbio em dólar e dólar da loja de 100 em 100')
             if not ok: falhas.append('pagamento outra moeda'); print('        veio', r, pg.erros)
             await pg.close()
 
-            # cotação da loja: margem dinâmica (base 0,5%, teto 2%, 2 semanas; sobe com a alta e desce quando a moeda cai; dólar e real)
+            # cotação da loja: margem dinâmica (base 1%, teto 2%, 2 semanas; sobe com a alta e desce quando a moeda cai; dólar e real)
             pg = await pagina()
             r = await pg.evaluate("""() => { const L = window.__LF, S = L.S, D = 86400000, h = Date.now();
               const poe = (arr, brl) => { S.fxHist = arr.map((v, i) => ({ts: h - (arr.length - 1 - i) * D, pyg: v, brl: brl ? brl[i] : 5})); S.fx.pyg = arr[arr.length - 1]; S.fx.brl = brl ? brl[arr.length - 1] : 5; };
@@ -1578,8 +1578,8 @@ async def main():
               poe([5640, 5650, 5640, 5650, 5640]); S.fxHist.unshift({ts: h - 40 * D, pyg: 4000, brl: 5}); const velho = L.fxMargemInfo().m;
               return [calmo, sobe, salto, queda, real, velho]; }""")
             total += 1
-            ok = abs(r[0][0] - 0.0057) < 0.0002 and r[0][1] == 5700 and abs(r[1][0] - 0.02) < 1e-9 and r[1][1] == 5900 and abs(r[2][0] - 0.02) < 1e-9 and r[2][1] == 6000 and abs(r[3] - 0.005) < 1e-9 and abs(r[4][0] - 0.02) < 1e-9 and r[4][1] < 0.0056 and abs(r[5] - 0.005) < 0.002 and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'cotação da loja: margem dinâmica de 0,5% a 2%, sobe com a alta, desce na queda, dólar e real')
+            ok = abs(r[0][0] - 0.01) < 1e-9 and r[0][1] == 5700 and abs(r[1][0] - 0.02) < 1e-9 and r[1][1] == 5900 and abs(r[2][0] - 0.02) < 1e-9 and r[2][1] == 6000 and abs(r[3] - 0.01) < 1e-9 and abs(r[4][0] - 0.02) < 1e-9 and abs(r[4][1] - 0.01) < 1e-9 and abs(r[5] - 0.01) < 0.002 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'cotação da loja: margem dinâmica de 1% a 2%, sobe com a alta, desce na queda, dólar e real')
             if not ok: falhas.append('margem dinamica'); print('        veio', r, pg.erros)
             await pg.close()
 

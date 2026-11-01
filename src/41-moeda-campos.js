@@ -37,3 +37,14 @@
       })
       .join('');
   }
+  // Preços de produto: digitados em dólar; os guaranis saem da cotação da loja (de 500 em 500).
+  function gsDeUsd(u) {
+    var r = fxUsdLoja();
+    return u > 0 && r > 0 ? Math.round((u * r) / 500) * 500 : 0;
+  }
+  // Valor em guaranis -> texto do campo em dólar (até 2 casas, sem zeros sobrando).
+  function usdTxtDeGs(g) {
+    var r = fxUsdLoja();
+    if (!(g > 0) || !(r > 0)) return '';
+    return String(Math.round((g / r) * 100) / 100).replace('.', ',');
+  }

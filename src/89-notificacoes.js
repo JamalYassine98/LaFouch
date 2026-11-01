@@ -4,7 +4,7 @@
   S.fxMgUlt = 0;
   // Itens ao vivo: tudo que o Dashboard chama de "Atenção agora" + o estado da margem da loja.
   // Avisos (sino e aba) só quando a margem passa de 1%: acima da base por pouco não merece alerta.
-  var FX_AVISO = 0.01 - 1e-9;
+  var FX_AVISO = 0.015 - 1e-9; // avisa quando a margem passa de 1,5% (base 1%)
   function fxMgTxt() {
     var a = fxMargemInfo('pyg'),
       b = fxMargemInfo('brl'),

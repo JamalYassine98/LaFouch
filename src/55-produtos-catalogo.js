@@ -1,5 +1,32 @@
   // ===== Produtos: preço (antigo → novo) e canais (site, WhatsApp, loja) em cada produto, avisos de piso e aplicação em grupo. =====
-  S.pprice = {}; // código do produto -> { novo, ant } (guaranis). Vazio = vale o preço do tipo.
+  S.pprice = {}; // código do produto -> { novo, ant } (guaranis, calculados) + { nu, au } (dólares digitados). Vazio = vale o preço do tipo.
+  // O preço vale em dólar: os guaranis seguem a cotação da loja. Se um guarani foi mudado por outra parte do app, o dólar acompanha.
+  function ppSync() {
+    var r = fxUsdLoja();
+    if (!(r > 0)) return;
+    Object.keys(S.pprice || {}).forEach(function (ref) {
+      var o = S.pprice[ref];
+      if (!o) return;
+      [['novo', 'nu', 'gn'], ['ant', 'au', 'ga']].forEach(function (k) {
+        if (o[k[0]] > 0) {
+          if (o[k[2]] !== o[k[0]] || !(o[k[1]] > 0)) o[k[1]] = Math.round((o[k[0]] / r) * 10000) / 10000;
+          else o[k[0]] = Math.round((o[k[1]] * r) / 500) * 500;
+          o[k[2]] = o[k[0]];
+        } else {
+          delete o[k[1]];
+          delete o[k[2]];
+        }
+      });
+    });
+  }
+  // Grava um preço digitado em dólar (k = 'novo' ou 'ant') e já calcula os guaranis.
+  function ppPutUsd(o, k, u) {
+    var nk = k === 'novo' ? 'nu' : 'au',
+      gk = k === 'novo' ? 'gn' : 'ga';
+    o[nk] = u;
+    o[k] = gsDeUsd(u);
+    o[gk] = o[k];
+  }
   S.pcanal = {}; // código do produto -> { site, wpp, loja } (true/false). Sem registro: só a loja.
   S.selMode = false; // selecionando produtos para aplicar preço em grupo
   S.selP = []; // códigos selecionados
@@ -96,26 +123,38 @@
       normal = emOf0 ? pr.ant : atual;
     var c1 = mk('div', 'zcd');
     c1.id = 'precoCard';
-    c1.appendChild(mk('div', 'lbl', 'Preço'));
+    c1.appendChild(mk('div', 'lbl', 'Preço (US$)'));
     var pin = mk('input', 'in zfoco');
     pin.id = 'pvPreco';
-    pin.setAttribute('inputmode', mpMode());
-    pin.setAttribute('aria-label', 'Preço do produto');
-    pin.value = normal > 0 ? gsParaCampo(normal) : '';
-    pin.placeholder = 'Preço';
+    pin.setAttribute('inputmode', 'decimal');
+    pin.setAttribute('aria-label', 'Preço do produto em dólares');
+    pin.value = normal > 0 ? usdTxtDeGs(normal) : '';
+    pin.placeholder = 'Preço em US$';
+    var pgs = mk('div', 'hint', normal > 0 ? '= ' + gs(normal) + ' (cotação da loja)' : '');
+    pgs.id = 'pvGs';
+    pgs.style.margin = '4px 0 0';
+    pin.oninput = function () {
+      var u = campoParaUsd(pin.value);
+      pgs.textContent = u > 0 ? '= ' + gs(gsDeUsd(u)) + ' (cotação da loja)' : '';
+    };
     pin.onchange = function () {
-      var v = campoParaGs(pin.value),
+      var v = campoParaUsd(pin.value),
         o = S.pprice[ref] || {};
       if (emOf0) {
-        if (v > o.novo) o.ant = v;
-      } else if (v > 0) o.novo = v;
-      else delete o.novo;
+        if (v > 0 && gsDeUsd(v) > o.novo) ppPutUsd(o, 'ant', v);
+      } else if (v > 0) ppPutUsd(o, 'novo', v);
+      else {
+        delete o.novo;
+        delete o.nu;
+        delete o.gn;
+      }
       if (o.novo || o.ant) S.pprice[ref] = o;
       else delete S.pprice[ref];
       saveSoon();
       render();
     };
     c1.appendChild(pin);
+    c1.appendChild(pgs);
     var ob = btn('ofAbreBtn' + (emOf0 ? ' on' : ''), emOf0 ? '% Em oferta · ' + gs(atual) + ' (−' + Math.round((1 - atual / pr.ant) * 100) + '%)' : '% Oferta', function () {
       S.ofOpen = ref;
       render();
@@ -207,13 +246,13 @@
     l1.appendChild(mk('span', '', 'Preço normal'));
     l1.appendChild(mk('b', '', gs(base)));
     box.appendChild(l1);
-    box.appendChild(mk('div', 'ofLb', 'Preço da oferta'));
+    box.appendChild(mk('div', 'ofLb', 'Preço da oferta (US$)'));
     var inp = mk('input', 'in ofIn');
     inp.id = 'ofPreco';
     inp.type = 'text';
-    inp.inputMode = 'numeric';
-    inp.setAttribute('aria-label', 'Preço da oferta');
-    inp.value = gs(cur);
+    inp.inputMode = 'decimal';
+    inp.setAttribute('aria-label', 'Preço da oferta em dólares');
+    inp.value = usdTxtDeGs(cur);
     box.appendChild(inp);
     var dsc = mk('div', 'ofDsc', '');
     box.appendChild(dsc);
@@ -222,18 +261,18 @@
     [5, 10, 15, 20, 25, 30].forEach(function (pc) {
       var cb = btn('chip ofPc', '−' + pc + '%', function () {
         var de = lerV(),
-          para = Math.round((base * (1 - pc / 100)) / 1000) * 1000,
+          para = pcGs(pc),
           t0 = performance.now();
         // o preço da oferta "conta" do valor de antes até o novo
         if (!de || (window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches)) {
-          inp.value = gs(para);
+          inp.value = usdTxtDeGs(para);
           pinta();
           return;
         }
         (function passo(t) {
           var k = Math.min(1, (t - t0) / 520),
             e = 1 - Math.pow(1 - k, 3);
-          inp.value = gs(Math.round(de + (para - de) * e));
+          inp.value = usdTxtDeGs(Math.round(de + (para - de) * e));
           if (k < 1) requestAnimationFrame(passo);
           else pinta();
         })(t0);
@@ -249,14 +288,16 @@
     var ok = btn('go', 'Confirmar oferta', function () {
       var v = lerV();
       if (ok.getAttribute('data-ajusta')) {
-        inp.value = gs(piso);
+        inp.value = usdTxtDeGs(piso);
         pinta();
         return;
       }
       if (!(v > 0) || v >= base) return;
       var o = S.pprice[ref] || {};
       o.ant = base;
-      o.novo = v;
+      delete o.au;
+      delete o.ga;
+      ppPutUsd(o, 'novo', campoParaUsd(inp.value));
       S.pprice[ref] = o;
       S.ofOpen = null;
       saveSoon();
@@ -264,8 +305,13 @@
     });
     ok.id = 'ofOk';
     ok.className = 'go ofOk';
+    // Preço com desconto de pc%, em dólar com 2 casas (e guaranis da cotação da loja).
+    function pcGs(pc) {
+      var r = fxUsdLoja();
+      return gsDeUsd(Math.round((base / r) * (1 - pc / 100) * 100) / 100);
+    }
     function lerV() {
-      return parseInt(String(inp.value).replace(/\D/g, ''), 10) || 0;
+      return gsDeUsd(campoParaUsd(inp.value));
     }
     function pinta() {
       var v = lerV(),
@@ -294,12 +340,11 @@
       ok.disabled = !(v > 0) || v >= base;
       Array.prototype.forEach.call(chs.children, function (x) {
         var pc2 = +x.getAttribute('data-pc');
-        x.classList.toggle('on', v > 0 && Math.round((base * (1 - pc2 / 100)) / 1000) * 1000 === v);
+        x.classList.toggle('on', v > 0 && pcGs(pc2) === v);
       });
     }
     inp.addEventListener('input', function () {
-      var v = lerV();
-      inp.value = v ? gs(v) : '';
+      inp.value = inp.value.replace(/[^0-9.,]/g, '');
       pinta();
     });
     inp.addEventListener('focus', function () {
@@ -390,6 +435,7 @@
       })
     );
   }
+  var selU = null; // últimos preços digitados em dólar no aplicar em grupo
   function selAplica(refs, novo, ant, site, wpp, modo) {
     var n = 0,
       aj = 0;
@@ -403,9 +449,12 @@
           alvo = ps.pp.piso;
           aj++;
         }
-        if (ant > 0) o.ant = ant;
+        var us = selU && alvo === selU.n && selU.nu > 0;
+        if (ant > 0 && selU && ant === selU.a && selU.au > 0) ppPutUsd(o, 'ant', selU.au);
+        else if (ant > 0) o.ant = ant;
         else if (!o.ant && cur > alvo) o.ant = cur;
-        o.novo = alvo;
+        if (us) ppPutUsd(o, 'novo', selU.nu);
+        else o.novo = alvo;
         S.pprice[ref] = o;
         n++;
       }
@@ -437,20 +486,23 @@
         d.style.flex = '1';
         d.appendChild(mk('div', 'zlb', rot));
         var i = mk('input', 'in');
-        i.setAttribute('inputmode', mpMode());
+        i.setAttribute('inputmode', 'decimal');
         i.placeholder = ph;
         i.setAttribute('aria-label', rot);
         d.appendChild(i);
         r.appendChild(d);
         return i;
       }
-      var iAnt = cp('PREÇO ANTIGO', 'opcional'),
-        iNovo = cp('PREÇO NOVO', 'não mudar');
+      var iAnt = cp('PREÇO ANTIGO (US$)', 'opcional'),
+        iNovo = cp('PREÇO NOVO (US$)', 'não mudar');
       bx.appendChild(r);
       var go = btn('mini', 'Aplicar', function () {
-        var novo = campoParaGs(iNovo.value) || 0,
-          ant = campoParaGs(iAnt.value) || 0,
+        var novoU = campoParaUsd(iNovo.value) || 0,
+          antU = campoParaUsd(iAnt.value) || 0,
+          novo = gsDeUsd(novoU),
+          ant = gsDeUsd(antU),
           ruins = [];
+        selU = { n: novo, nu: novoU, a: ant, au: antU };
         if (novo > 0)
           refs.forEach(function (ref) {
             var ps = pisoDoRef(ref, null, novo);

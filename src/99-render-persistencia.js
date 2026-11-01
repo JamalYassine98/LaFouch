@@ -2,6 +2,9 @@
   // Redesenha o app e agenda o salvamento.
   function render() {
     try {
+      ppSync();
+    } catch (e) {}
+    try {
       refreshRefList();
     } catch (e) {}
     var sy = window.pageYOffset || 0,
