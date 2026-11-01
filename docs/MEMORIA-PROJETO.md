@@ -299,3 +299,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - 31/10/2026: Seletor 'Texto' (menu): letras A centralizadas opticamente (medido: desvio vertical de até 0,75px corrigido com padding-top em em; caixas e posição horizontal já eram iguais).
 - 31/10/2026: Site: barra de busca, botões ao lado (filtro/favoritos/lista) e linha do câmbio maiores no PC (>=1100px, crescem com a largura da tela, equivalente a ~46px em 1366 e ~70px em 2560) e no tablet (busca 56px, câmbio 15px).
 - 31/10/2026: Barra de busca no PC reduzida ~12% (agora ≈42px em 1366, 48px em 2000, 63px em 2560 com texto 100%); câmbio e tablet sem mudança.
+- 31/10/2026: Site: linha do câmbio fica EM CIMA da barra de pesquisa no PC e tablet (>=600px); no celular continua embaixo. Implementado para o dono ver/experimentar.
