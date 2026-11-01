@@ -268,3 +268,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - 31/10/2026: Site: no celular os campos Usuario/Correo da tela Criar conta apareciam achatados (flex-shrink); corrigido para todos os tamanhos de tela.
 - 31/10/2026: Site: telas Entrar e Criar conta (passo 1) no celular (≤599px) ficaram compactas e cabem sem rolagem (testado de 360x640 a 390x844). Passo 2 do cadastro tem muitos campos e ainda rola. Tablet/PC inalterados.
 - 31/10/2026: Site: olho da senha fechado agora fica na cor neutra (antes ficava rosa pelo :hover preso no celular); só o olho aberto é rosa.
+- 31/10/2026: Site: olho da senha — hover do PC opção C (rosa + cresce) implementado só para mouse (hover:hover); celular sem efeito de hover. Esboços de toque para celular em andamento (dono quer ver mais opções).
