@@ -272,3 +272,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - 31/10/2026: Site: olho da senha no celular implementado (opção 2 aprovada): enquanto o dedo segura fica rosa e cresce (igual ao hover do PC); ao soltar abre rosa, fechado volta cinza.
 - 31/10/2026: Site — animações de entrada (botões/textos subindo e produto de destaque) suavizadas: começam só após o primeiro quadro pintado, deslocamento menor, sem blur na foto, foto decodificada antes de entrar, sem preserve-3d.
 - 31/10/2026: Site — flicker do destaque ao atualizar: o cartão branco aparecia semitransparente (cinza) sobre o fundo escuro; agora fica opaco em 25% da animação (sin/fup) e só o deslocamento continua suave.
+- 31/10/2026: Site — botões/textos da entrada ainda mais suaves (1,2–1,5s, curva longa, deslocamento 12px); destaque ganha sombra que surge suavemente (shd 1,6s).
