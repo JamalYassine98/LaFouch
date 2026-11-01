@@ -289,3 +289,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - 31/10/2026: Esboço (só mostrar): botão 'Escolher' no cartão do formato de rosto (1 cheio, 2 pílula com contorno) e bloco da câmera movido para baixo do carrossel com título 'Não sabe qual escolher?'. Aguardando escolha.
 - 31/10/2026: Site — aprovado e implementado: botão rosa cheio 'Escolher' (sem ✓) no cartão ativo do carrossel de rostos (ES: Elegir); bloco da câmera movido para baixo do carrossel com título 'Não sabe qual escolher?' (ES: ¿No sabes cuál elegir?).
 - 31/10/2026: Backup: branch backup-2026-10-31-c nos dois repos. Site — desenhos dos 6 formatos de rosto ganham olhos (visíveis nas lentes), nariz e boca, posicionados pela armação de cada desenho (função feat), no estilo da referência (quadrado).
+- 31/10/2026: Site — decisão do dono: NÃO mostrar olhos atrás das lentes nos desenhos de rosto; ficam só nariz e boca.
