@@ -1427,6 +1427,32 @@ async def main():
             if not ok: falhas.append('assumir-restaurar'); print('        veio', as1, rs0, rs1, rs2, pg.erros)
             await pg.close()
 
+            # Fotos em segundo plano: baixa as que faltam e sobe as novas, poucas por vez
+            pg = await pagina()
+            nuv = {'zfotos-idx': json.dumps({'RX|B': 'zf-aaa'})}; docsf = {'zf-aaa': 'data:image/jpeg;base64,/9j/AAAA'}; subidas = {}
+            async def falso4(route):
+                u, m = route.request.url, route.request.method
+                if 'securetoken' in u: return await route.fulfill(json={'id_token': 't', 'refresh_token': 'r'})
+                nome = u.split('/documents/')[1].split('?')[0] if '/documents/' in u else ''
+                if m == 'GET' and nome == 'backups/zfotos-idx': return await route.fulfill(json={'fields': {'m': {'stringValue': nuv['zfotos-idx']}}})
+                if m == 'GET' and nome.startswith('backups/zf-') and nome[8:] in docsf: return await route.fulfill(json={'fields': {'d': {'stringValue': docsf[nome[8:]]}}})
+                if m == 'PATCH' and nome.startswith('backups/'):
+                    f = json.loads(route.request.post_data)['fields']
+                    if nome == 'backups/zfotos-idx': nuv['zfotos-idx'] = f['m']['stringValue']
+                    else: subidas[nome] = f['k']['stringValue']
+                    return await route.fulfill(json={})
+                await route.fulfill(status=404, json={})
+            await pg.context.route(re.compile(r'(securetoken|firestore)\.googleapis\.com'), falso4)
+            await pg.evaluate("() => { const S = window.__LF.S; S.syncOn = true; S.nuvem.rt = 'x'; S.fotos = {'LC1|P': 'data:image/jpeg;base64,/9j/BBBB'}; }")
+            nf = await pg.evaluate("() => window.__fotoCiclo()")
+            f1 = await pg.evaluate("() => [Object.keys(window.__LF.S.fotos).sort(), window.__LF.S.fotos['RX|B']]")
+            await pg.evaluate("() => { window.__LF.S.syncOn = false; }")
+            total += 1
+            ok = nf == 2 and f1[0] == ['LC1|P', 'RX|B'] and f1[1].endswith('AAAA') and list(subidas.values()) == ['LC1|P'] and 'LC1|P' in nuv['zfotos-idx'] and 'RX|B' in nuv['zfotos-idx'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'fotos em segundo plano: baixa as que faltam e sobe as novas')
+            if not ok: falhas.append('fotos-bg'); print('        veio', nf, f1, subidas, nuv, pg.erros)
+            await pg.close()
+
             # Sons e avisos: um som para cada tipo de aviso, janela de escolha, sem som e preferência antiga preservada
             pg = await pagina()
             await pg.add_init_script("window.__tocou = []; window.Audio = function (u) { this.play = () => { window.__tocou.push(u); return Promise.resolve(); }; };")

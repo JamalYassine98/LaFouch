@@ -128,6 +128,97 @@
   window.__vendaApHtml = vendaApHtml;
   window.__revBannerHtml = revBannerHtml;
   window.__revJanelaHtml = revJanelaHtml;
+  // ---- fotos em segundo plano: poucas por vez, sem atrapalhar a venda. Só fotos novas (nunca troca uma que o aparelho já tem).
+  var FOTO_IDX = 'backups/zfotos-idx';
+  function fotoId(k) {
+    var h = 5381,
+      i;
+    for (i = 0; i < k.length; i++) h = ((h * 33) ^ k.charCodeAt(i)) >>> 0;
+    return 'zf-' + h.toString(36) + k.length.toString(36);
+  }
+  function fotoIdxLe() {
+    return nvApi('GET', FOTO_IDX)
+      .then(function (d) {
+        try {
+          return JSON.parse(((d.fields || {}).m || {}).stringValue || '{}');
+        } catch (e) {
+          return {};
+        }
+      })
+      .catch(function () {
+        return {};
+      });
+  }
+  var fotoBusy = false;
+  function fotoCiclo() {
+    if (!S.syncOn || fotoBusy || !S.nuvem || !S.nuvem.rt || navigator.onLine === false || document.hidden) return Promise.resolve(0);
+    fotoBusy = true;
+    var feitas = 0;
+    return fotoIdxLe()
+      .then(function (idx) {
+        var chaves = Object.keys(S.fotos || {}),
+          subir = chaves
+            .filter(function (k) {
+              var d = S.fotos[k];
+              return d && typeof d === 'string' && d.length < 700000 && !idx[k];
+            })
+            .slice(0, 3),
+          baixar = Object.keys(idx)
+            .filter(function (k) {
+              return !S.fotos[k];
+            })
+            .slice(0, 3),
+          job = Promise.resolve();
+        baixar.forEach(function (k) {
+          job = job.then(function () {
+            return nvApi('GET', 'backups/' + idx[k]).then(function (d) {
+              var v = ((d.fields || {}).d || {}).stringValue;
+              if (v && v.indexOf('data:image/') === 0 && !S.fotos[k]) {
+                S.fotos[k] = v;
+                feitas++;
+              }
+            });
+          });
+        });
+        subir.forEach(function (k) {
+          job = job.then(function () {
+            var id = fotoId(k);
+            return nvApi('PATCH', 'backups/' + id, JSON.stringify({ fields: { k: nvStr(k), d: nvStr(S.fotos[k]), ts: { integerValue: String(Date.now()) } } })).then(function () {
+              idx[k] = id;
+              feitas++;
+            });
+          });
+        });
+        if (subir.length)
+          job = job.then(function () {
+            // junta com o que outro aparelho possa ter acrescentado ao mesmo tempo
+            return fotoIdxLe().then(function (atual) {
+              Object.keys(idx).forEach(function (k) {
+                atual[k] = idx[k];
+              });
+              return nvApi('PATCH', FOTO_IDX, JSON.stringify({ fields: { m: nvStr(JSON.stringify(atual)), ts: { integerValue: String(Date.now()) } } }));
+            });
+          });
+        return job;
+      })
+      .then(function () {
+        if (feitas) {
+          saveSoon();
+          if (S.view === 'estoque' || S.view === 'vendas') render();
+        }
+        return feitas;
+      })
+      .catch(function () {
+        return 0;
+      })
+      .then(function (n) {
+        fotoBusy = false;
+        return n;
+      });
+  }
+  window.__fotoCiclo = fotoCiclo;
+  setInterval(fotoCiclo, 180000);
+  setTimeout(fotoCiclo, 20000);
   function syncDesliga() {
     S.syncOn = false;
     SYNC_INFO.estado = 'off';
