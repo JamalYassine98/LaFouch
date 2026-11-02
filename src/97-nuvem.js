@@ -45,6 +45,14 @@
         nvTok = { t: j.id_token, exp: Date.now() + 50 * 60000 };
         if (j.refresh_token) S.nuvem.rt = j.refresh_token;
         return nvTok.t;
+      })
+      .catch(function (e) {
+        // sessão recusada pelo Firebase (senha trocada, conta desativada): avisa uma vez por hora; só a senha resolve
+        if (e && e.status === 400 && /INVALID_REFRESH|TOKEN_EXPIRED|USER_|INVALID_GRANT/i.test(e.message || '') && Date.now() - (window.__nvVencT || 0) > 3600000) {
+          window.__nvVencT = Date.now();
+          lfaToast('<span class="lfa-ic">' + lfaSvg('warn') + '</span><div><b>A sessão da nuvem venceu</b><div class="hint" style="margin:0">Entre de novo em Ajustes → Nuvem (a senha é necessária só desta vez).</div></div>', 7000);
+        }
+        throw e;
       });
   }
   function nvApi(method, path, body) {
@@ -110,6 +118,9 @@
         S.nuvem.rt = j.refreshToken;
         nvTok = { t: j.idToken, exp: Date.now() + 50 * 60000 };
         saveSoon();
+        var lf = $('lojaFrame');
+        if (lf && lf.getAttribute('src')) lf.src = LOJA_URL; // o painel abre já conectado, com esta mesma sessão
+        lfaToast('<span class="lfa-ic">' + lfaSvg('check') + '</span><div><b>Nuvem conectada</b><div class="hint" style="margin:0">O painel do site entra sozinho, com a mesma conta</div></div>', 3200, 'b');
         nvMsg('Conectado. Procurando cópias na nuvem…');
         return nvBackup().then(nvCotacao);
       })

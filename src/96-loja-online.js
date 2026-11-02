@@ -246,6 +246,56 @@
   window.addEventListener('message', function (e) {
     var f = $('lojaFrame');
     if (!f || e.source !== f.contentWindow || !e.data) return;
+    // login único: o painel pede a sessão da nuvem ao app (com biometria/PIN do app quando ligados) ou entrega a que o dono acabou de digitar
+    if (e.data.lfSess) {
+      var origemOk = e.origin === LOJA_URL.replace(/^(https?:\/\/[^/]+).*$/, '$1') || (window.__sessOrigens || []).indexOf(e.origin) >= 0;
+      if (!origemOk) return;
+      var reS = function (v) {
+        try {
+          f.contentWindow.postMessage({ lfSessR: v, id: e.data.id }, e.origin);
+        } catch (x) {}
+        if (window.__sessOrigens) window.__sessUlt = v;
+      };
+      if (e.data.lfSess === 'get') {
+        if (!(S.nuvem && S.nuvem.rt)) return reS('none');
+        var trava = !!(pinAtivo() || (S.bioOn && bioPlugin()));
+        var entrega = function (conf) {
+          reS({ rt: S.nuvem.rt });
+          if (conf) lfaToast('<span class="lfa-ic">' + lfaSvg('check') + '</span><div><b>Acesso renovado</b><div class="hint" style="margin:0">Nuvem e painel conectados</div></div>', 2800, 'b');
+        };
+        if (!trava) entrega(false);
+        else
+          mostrarLock(
+            'confirm',
+            function () {
+              entrega(true);
+            },
+            function () {
+              reS('cancel');
+            }
+          );
+      } else if (e.data.lfSess === 'put') {
+        var rt = String(e.data.rt || '');
+        if (rt.length > 20 && rt.length < 3000 && !(S.nuvem && S.nuvem.rt)) {
+          S.nuvem.rt = rt;
+          S.nuvem.email = String(e.data.email || '').slice(0, 120);
+          nvTok = { t: '', exp: 0 };
+          saveSoon();
+          lfaToast('<span class="lfa-ic">' + lfaSvg('check') + '</span><div><b>Nuvem conectada</b><div class="hint" style="margin:0">Mesma conta do painel</div></div>', 3000, 'b');
+          nvToken()
+            .then(nvBackup)
+            .then(nvCotacao)
+            .catch(function () {})
+            .then(function () {
+              if (S.view === 'ajustes') {
+                S._ajForce = true;
+                render();
+              }
+            });
+        }
+      }
+      return;
+    }
     // o painel pede a biometria do app para abrir (a do navegador não funciona dentro do app)
     if (e.data.lfBio) {
       var re = function (r) {

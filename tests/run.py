@@ -1568,6 +1568,31 @@ async def main():
             if not ok: falhas.append('fotos-lixeira'); print('        veio', f1, f2, f3, f4, f5, pg.erros)
             await pg.close()
 
+            # Login único: o painel pede a sessão ao app (só do endereço certo); com PIN, só depois de confirmar; o painel entrega a sessão que o dono digitou
+            pg = await pagina()
+            await pg.evaluate("() => { const S = window.__LF.S; window.__sessOrigens = ['http://painel.test']; S.view = 'onl'; const f = document.createElement('iframe'); f.id = 'lojaFrame'; document.body.appendChild(f); S.nuvem.rt = 'RT-' + 'x'.repeat(40); window.__sessUlt = 'nada'; }")
+            async def msg(dados, origem='http://painel.test'):
+                await pg.evaluate("([d, o]) => { const f = document.getElementById('lojaFrame'); window.dispatchEvent(new MessageEvent('message', {data: d, origin: o, source: f.contentWindow})); }", [dados, origem])
+                await pg.wait_for_timeout(150)
+                return await pg.evaluate("() => window.__sessUlt")
+            lg1 = await msg({'lfSess': 'get', 'id': '1'})
+            await pg.evaluate("() => { window.__sessUlt = 'nada'; }")
+            lg2 = await msg({'lfSess': 'get', 'id': '2'}, 'http://outro.test')
+            await pg.evaluate("() => { window.__LF.S.pinHash = 'abc'; }")
+            lg3 = await msg({'lfSess': 'get', 'id': '3'})
+            trava = await pg.evaluate("() => !document.getElementById('lockScr').hidden")
+            await pg.evaluate("() => { document.getElementById('lockCancel').click(); }"); await pg.wait_for_timeout(200)
+            lg4 = await pg.evaluate("() => window.__sessUlt")
+            await pg.evaluate("() => { const S = window.__LF.S; S.pinHash = ''; S.nuvem.rt = ''; window.__sessUlt = 'nada'; }")
+            lg5 = await msg({'lfSess': 'get', 'id': '5'})
+            await msg({'lfSess': 'put', 'rt': 'R2-' + 'y' * 40, 'email': 'dono@lafouch.com'})
+            lg6 = await pg.evaluate("() => [window.__LF.S.nuvem.rt.slice(0, 3), window.__LF.S.nuvem.email]")
+            total += 1
+            ok = lg1 == {'rt': 'RT-' + 'x' * 40} and lg2 == 'nada' and lg3 == 'nada' and trava is True and lg4 == 'cancel' and lg5 == 'none' and lg6 == ['R2-', 'dono@lafouch.com']
+            print(('  ok  ' if ok else ' FALHA ') + 'login único: sessão só ao painel certo, PIN antes de entregar, painel entrega a sessão digitada')
+            if not ok: falhas.append('login-unico'); print('        veio', lg1, lg2, lg3, trava, lg4, lg5, lg6, pg.erros)
+            await pg.close()
+
             # Sons e avisos: um som para cada tipo de aviso, janela de escolha, sem som e preferência antiga preservada
             pg = await pagina()
             await pg.add_init_script("window.__tocou = []; window.Audio = function (u) { this.play = () => { window.__tocou.push(u); return Promise.resolve(); }; };")

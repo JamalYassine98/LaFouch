@@ -857,7 +857,7 @@
     } catch (e) {}
   }
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 383;
+  var APP_BUILD = 384;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
   // ===== Movimentos: todo fato de dinheiro ou estoque é gravado por aqui (livro + histórico juntos). =====
   // Formato do registro do histórico (S.dlog) de uma compra de mercadoria.
@@ -26105,6 +26105,56 @@
   window.addEventListener('message', function (e) {
     var f = $('lojaFrame');
     if (!f || e.source !== f.contentWindow || !e.data) return;
+    // login único: o painel pede a sessão da nuvem ao app (com biometria/PIN do app quando ligados) ou entrega a que o dono acabou de digitar
+    if (e.data.lfSess) {
+      var origemOk = e.origin === LOJA_URL.replace(/^(https?:\/\/[^/]+).*$/, '$1') || (window.__sessOrigens || []).indexOf(e.origin) >= 0;
+      if (!origemOk) return;
+      var reS = function (v) {
+        try {
+          f.contentWindow.postMessage({ lfSessR: v, id: e.data.id }, e.origin);
+        } catch (x) {}
+        if (window.__sessOrigens) window.__sessUlt = v;
+      };
+      if (e.data.lfSess === 'get') {
+        if (!(S.nuvem && S.nuvem.rt)) return reS('none');
+        var trava = !!(pinAtivo() || (S.bioOn && bioPlugin()));
+        var entrega = function (conf) {
+          reS({ rt: S.nuvem.rt });
+          if (conf) lfaToast('<span class="lfa-ic">' + lfaSvg('check') + '</span><div><b>Acesso renovado</b><div class="hint" style="margin:0">Nuvem e painel conectados</div></div>', 2800, 'b');
+        };
+        if (!trava) entrega(false);
+        else
+          mostrarLock(
+            'confirm',
+            function () {
+              entrega(true);
+            },
+            function () {
+              reS('cancel');
+            }
+          );
+      } else if (e.data.lfSess === 'put') {
+        var rt = String(e.data.rt || '');
+        if (rt.length > 20 && rt.length < 3000 && !(S.nuvem && S.nuvem.rt)) {
+          S.nuvem.rt = rt;
+          S.nuvem.email = String(e.data.email || '').slice(0, 120);
+          nvTok = { t: '', exp: 0 };
+          saveSoon();
+          lfaToast('<span class="lfa-ic">' + lfaSvg('check') + '</span><div><b>Nuvem conectada</b><div class="hint" style="margin:0">Mesma conta do painel</div></div>', 3000, 'b');
+          nvToken()
+            .then(nvBackup)
+            .then(nvCotacao)
+            .catch(function () {})
+            .then(function () {
+              if (S.view === 'ajustes') {
+                S._ajForce = true;
+                render();
+              }
+            });
+        }
+      }
+      return;
+    }
     // o painel pede a biometria do app para abrir (a do navegador não funciona dentro do app)
     if (e.data.lfBio) {
       var re = function (r) {
@@ -27209,6 +27259,14 @@
         nvTok = { t: j.id_token, exp: Date.now() + 50 * 60000 };
         if (j.refresh_token) S.nuvem.rt = j.refresh_token;
         return nvTok.t;
+      })
+      .catch(function (e) {
+        // sessão recusada pelo Firebase (senha trocada, conta desativada): avisa uma vez por hora; só a senha resolve
+        if (e && e.status === 400 && /INVALID_REFRESH|TOKEN_EXPIRED|USER_|INVALID_GRANT/i.test(e.message || '') && Date.now() - (window.__nvVencT || 0) > 3600000) {
+          window.__nvVencT = Date.now();
+          lfaToast('<span class="lfa-ic">' + lfaSvg('warn') + '</span><div><b>A sessão da nuvem venceu</b><div class="hint" style="margin:0">Entre de novo em Ajustes → Nuvem (a senha é necessária só desta vez).</div></div>', 7000);
+        }
+        throw e;
       });
   }
   function nvApi(method, path, body) {
@@ -27274,6 +27332,9 @@
         S.nuvem.rt = j.refreshToken;
         nvTok = { t: j.idToken, exp: Date.now() + 50 * 60000 };
         saveSoon();
+        var lf = $('lojaFrame');
+        if (lf && lf.getAttribute('src')) lf.src = LOJA_URL; // o painel abre já conectado, com esta mesma sessão
+        lfaToast('<span class="lfa-ic">' + lfaSvg('check') + '</span><div><b>Nuvem conectada</b><div class="hint" style="margin:0">O painel do site entra sozinho, com a mesma conta</div></div>', 3200, 'b');
         nvMsg('Conectado. Procurando cópias na nuvem…');
         return nvBackup().then(nvCotacao);
       })
