@@ -88,7 +88,7 @@
       nac = f.nac === 'py' || f.nac === 'br' || f.nac === 'ar' ? f.nac : '';
     return {
       sid: sid, ts: ts, cli: cap1(nome), tel: tel, itens: itens, st: 'novo', orig: 'site', cod: pedTxt(f.cod, 8), pais: pedTxt(f.pais, 2),
-      nac: nac, doc: pedTxt(f.doc, 20), nasc: pedTxt(f.nasc, 10), email: pedTxt(f.email, 80), cidade: pedTxt(f.cidade, 60), end: pedTxt(f.end, 120),
+      nac: nac, doc: pedTxt(f.doc, 20), nasc: pedTxt(f.nasc, 10), email: pedTxt(f.email, 80), obsC: pedTxt(f.obsC, 120), cidade: pedTxt(f.cidade, 60), end: pedTxt(f.end, 120),
       ent: f.ent === 'delivery' ? 'delivery' : 'loja', endE: pedTxt(f.endE, 160), refE: pedTxt(f.refE, 120),
       pag: pag, pg: pag ? 'pagar' : '', total: Math.max(0, Math.round(+f.total) || 0), brl: pedTxt(f.brl, 12), teste: f.teste === true
     };
@@ -100,7 +100,7 @@
       if (!c.ruc && p.doc) c.ruc = p.doc;
       return { c: c, novo: false };
     }
-    c = { id: S.cliNext++, nome: p.cli, tel: p.tel, ruc: p.doc, obs: 'Veio pelo site', ts: Date.now(), nac: p.nac, nasc: p.nasc, email: p.email, cidade: p.cidade, end: p.end };
+    c = { id: S.cliNext++, nome: p.cli, tel: p.tel, ruc: p.doc, obs: 'Veio pelo site' + (p.obsC ? ' · ' + p.obsC : ''), ts: Date.now(), nac: p.nac, nasc: p.nasc, email: p.email, cidade: p.cidade, end: p.end };
     if (p.teste) c.teste = true;
     S.clientes.push(c);
     return { c: c, novo: true };
