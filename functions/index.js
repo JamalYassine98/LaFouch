@@ -83,7 +83,8 @@ exports.avisarPedido = onDocumentCreated({ document: 'pedidos/{id}', region: REG
 // ---------- Reserva de estoque (site e app) ----------
 // Só funciona se config/site tiver reserva = true (interruptor do dono). Desligada, responde {ok:true, off:true}
 // e o site segue vendendo como antes.
-const DONO_UID = 'jJzNDoMHtuRNOAF1GhJfNYDMlE63';
+// o projeto de teste (lafouch-teste) tem outro usuário dono
+const DONO_UID = process.env.GCLOUD_PROJECT === 'lafouch-teste' ? 'uvYpqxPJZjTsSE9SACouW0nZH4d2' : 'jJzNDoMHtuRNOAF1GhJfNYDMlE63';
 const DONO_EMAIL = 'jamalaliyassine@gmail.com';
 const PUBLICAS = ['reservar', 'comp', 'cancelar'];
 const DO_DONO = ['pagar', 'liberar', 'recusar'];
@@ -100,7 +101,7 @@ async function ehDono(req) {
 }
 
 exports.reserva = onRequest(
-  { region: REGIAO, cors: ['https://lafouch.com', 'https://www.lafouch.com', 'http://localhost:8765'], maxInstances: 20 },
+  { region: REGIAO, cors: ['https://lafouch.com', 'https://www.lafouch.com', 'http://localhost:8765', 'http://localhost:8766'], maxInstances: 20 },
   async (req, res) => {
     if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
     const b = req.body && typeof req.body === 'object' ? req.body : {};
