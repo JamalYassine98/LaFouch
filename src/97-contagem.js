@@ -31,12 +31,17 @@
     var v = S.contVals[S.items.indexOf(i)];
     return v == null ? i.qty : v;
   }
+  // Quanto o app tinha na hora em que a peça foi contada (vendas e entradas feitas depois não viram "diferença").
+  function baseCont(i) {
+    var b = (S.contBase || {})[S.items.indexOf(i)];
+    return b == null ? i.qty : b;
+  }
   // Diferenças da contagem em andamento, com valor em custo (US$) e em preço de venda (G$).
   function contagemDifs() {
     var out = [];
     contagemGrupos().forEach(function (g) {
       g.itens.forEach(function (i) {
-        var d = contado(i) - i.qty;
+        var d = contado(i) - baseCont(i);
         if (!d) return;
         out.push({
           item: i,
@@ -132,10 +137,12 @@
         var row = mk('div', 'pl');
         row.style.gridTemplateColumns = 'minmax(0,1fr) auto';
         var v = contado(i),
-          lb = mk('span', '', rowLabel(i) + ' · no app: ' + i.qty + ' · ' + usd(custoUn(i)));
+          lb = mk('span', '', rowLabel(i) + ' · no app: ' + i.qty + (baseCont(i) !== i.qty ? ' (era ' + baseCont(i) + ' ao contar)' : '') + ' · ' + usd(custoUn(i)));
         row.appendChild(lb);
         var ctl = mk('div', 'sel');
         var set = function (n) {
+          S.contBase = S.contBase || {};
+          S.contBase[S.items.indexOf(i)] = i.qty; // o que o app tinha quando você contou
           S.contVals[S.items.indexOf(i)] = Math.max(0, n);
           render();
         };
@@ -149,7 +156,7 @@
         inp.value = v;
         inp.style.cssText =
           'width:64px;min-height:44px;text-align:center;font-weight:800;' +
-          (v !== i.qty ? 'border-color:var(--warn)' : '');
+          (v !== baseCont(i) ? 'border-color:var(--warn)' : '');
         inp.setAttribute('aria-label', 'Contado: ' + rowLabel(i));
         inp.onchange = function () {
           set(toNum(inp.value));
@@ -262,7 +269,8 @@
         qty: d.dif,
         contagem: true
       });
-      i.qty = contado(i);
+      // vendas/entradas feitas depois de contar continuam valendo: novo estoque = contado + movimento desde a contagem
+      i.qty = contado(i) + (i.qty - baseCont(i));
     });
     Object.keys(conf).forEach(function (k) {
       S.conf[k] = ts;
@@ -279,12 +287,14 @@
     S.cont = false;
     S.contSum = false;
     S.contVals = {};
+    S.contBase = {};
     S.contOk = {};
     S.msg = difs.length
       ? 'Contagem aplicada: ' + difs.length + ' diferença(s), ' + usd(Math.abs(tu)) + (tu < 0 ? ' a menos.' : ' a mais.')
       : 'Conferência registrada: o estoque confere.';
     render();
   }
+  window.__cont = { difs: contagemDifs, aplicar: aplicarContagem, base: baseCont };
   S.cont = false;
   S.contSum = false;
   S.contVals = {};

@@ -1400,6 +1400,16 @@ async def main():
             if not ok: falhas.append('hist-aparelho'); print('        veio', r1, r2, r3, pg.erros)
             await pg.close()
 
+            # Contagem física: venda feita depois de contar não vira diferença nem é desfeita; conferência do caixa ligada ao fechamento
+            pg = await pagina()
+            c1 = await pg.evaluate("() => { const L = window.__LF, S = L.S; S.items = [{tipo:'pre',ref:'CT1',grau:'+1',cor:'P',qty:5}]; S._flAll = S.items; S.contVals = {0: 3}; S.contBase = {0: 5}; S.contOk = {}; S.items[0].qty = 4; const d = window.__cont.difs().map(x => x.dif); window.__cont.aplicar(window.__cont.difs(), 0, 0); return [d, S.items[0].qty]; }")
+            c2 = await pg.evaluate("() => { const S = window.__LF.S; S.fechoAdia = 0; S.sales = []; S.fechos = [{id: '2026-11-02', ts: Date.now(), n: 1, vend: 1, liv: 1, cash: {pyg: 1, brl: 0, usd: 0}}]; const a = window.__fechoAlerta(); window.__fechoCc(true); const b = window.__fechoAlerta(); return [a && a.t, b]; }")
+            total += 1
+            ok = c1 == [[-2], 2] and c2 == ['Conferir o caixa', None] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'contagem compara com o movimento do dia; caixa conferido no fechamento')
+            if not ok: falhas.append('contagem-caixa'); print('        veio', c1, c2, pg.erros)
+            await pg.close()
+
             # Sons e avisos: um som para cada tipo de aviso, janela de escolha, sem som e preferência antiga preservada
             pg = await pagina()
             await pg.add_init_script("window.__tocou = []; window.Audio = function (u) { this.play = () => { window.__tocou.push(u); return Promise.resolve(); }; };")

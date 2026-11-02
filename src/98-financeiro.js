@@ -184,6 +184,7 @@
     S.confCx.push({ ts: ts, difs: difs, ok: ok, ajustou: false });
     S.dlog.push({ ts: ts, kind: 'confcx', desc: txt, valor: Math.round(totUsd * S.fx.pyg) });
     S.ccRes = { ok: ok, txt: txt, cont: cont };
+    if (window.__fechoCc) window.__fechoCc(ok);
     saveSoon();
     renderCaixa();
     renderDash();

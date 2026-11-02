@@ -50,6 +50,10 @@
       h = '<section class="card col" style="gap:8px"><b>Fechamento do caixa</b>';
     if (fh) h += '<div class="hint">Hoje fechado' + (fh.auto ? ' automaticamente' : '') + ' · ' + fh.n + (fh.n === 1 ? ' venda' : ' vendas') + (fh.cash ? ' · Caixa ' + fmtM(fh.cash.pyg, 'pyg') + ' · ' + fmtM(fh.cash.brl, 'brl') + ' · ' + fmtM(fh.cash.usd, 'usd') : '') + '</div>';
     else h += '<div class="hint">Hoje ainda aberto. Fecha sozinho depois das 17h, ou feche agora se a loja fechou mais cedo.</div><button type="button" class="chip on" data-act="fechar">Fechar o dia agora</button>';
+    var pc0 = S.fechos.filter(function (f) {
+      return !f.cc && f.cash;
+    })[0];
+    if (pc0) h += '<div class="hint">Falta conferir o caixa do fechamento de ' + esc(pc0.id.split('-').reverse().join('/')) + '.</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="chip on" data-act="view" data-id="caixa">Conferir o caixa</button><button type="button" class="chip" data-act="fechoadia">Adiar lembrete (2 h)</button></div>';
     S.fechos.filter(function (f) {
       return f.id !== hoje;
     }).slice(0, 5).forEach(function (f) {
@@ -57,6 +61,39 @@
     });
     return h + '</section>';
   }
+  // Conferência do caixa ligada ao fechamento: marca o fechamento mais recente como conferido.
+  window.__fechoCc = function (ok) {
+    S.fechos = S.fechos || [];
+    var f = S.fechos.filter(function (x) {
+      return !x.cc;
+    })[0];
+    if (f) {
+      f.cc = { ts: Date.now(), ok: !!ok };
+      saveSoon();
+    }
+  };
+  // Alerta do dia: conferir o caixa do fechamento, ou sugerir fechar quando a loja parou de vender (adiável).
+  window.__fechoAlerta = function () {
+    if (Date.now() < (S.fechoAdia || 0)) return null;
+    S.fechos = S.fechos || [];
+    var pend = S.fechos.filter(function (x) {
+      return !x.cc && x.cash;
+    })[0];
+    if (pend) return { t: 'Conferir o caixa', s: 'Fechamento de ' + pend.id.split('-').reverse().join('/') + ' sem conferência', c: 'var(--warn)', urg: true, b: 'Conferir', act: 'view', id: 'caixa' };
+    var hoje = dayKey(Date.now()),
+      h = new Date().getHours(),
+      vs = (S.sales || []).filter(function (x) {
+        return dayKey(x.ts) === hoje && !x.estorno;
+      });
+    if (!fechoDia(hoje) && vs.length && h >= 14 && Date.now() - Math.max.apply(null, vs.map(function (x) { return x.ts; })) > 3600000)
+      return { t: 'Fechar o dia?', s: 'Sem vendas há mais de 1 hora', c: 'var(--warn)', urg: false, b: 'Fechar', act: 'fechar', id: '' };
+    return null;
+  };
+  ACT.fechoadia = function () {
+    S.fechoAdia = Date.now() + 2 * 3600000;
+    saveSoon();
+    render();
+  };
   ACT.fechar = function () {
     fechoCria(dayKey(Date.now()), false);
     if (S.view === 'hist') render();
