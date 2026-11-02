@@ -1309,6 +1309,43 @@ async def main():
             if not ok: falhas.append('pedidos'); print('        veio', n1, n2, r, apagados, txt[:200], det[:200], jan[:200], r2, pg.erros)
             await pg.close()
 
+            # Reserva do site no app: pagar/recusar/liberar chamam a função; entrega baixa o estoque e registra a venda sozinha
+            pg = await pagina()
+            chamadas = []
+            async def falso2(route):
+                u, m = route.request.url, route.request.method
+                if 'securetoken' in u: await route.fulfill(json={'id_token': 't', 'refresh_token': 'r'})
+                elif 'cloudfunctions.net/reserva' in u:
+                    chamadas.append(json.loads(route.request.post_data)); await route.fulfill(json={'ok': True})
+                elif m == 'PATCH': await route.fulfill(json={})
+                else: await route.fulfill(json={'documents': []})
+            await pg.context.route(re.compile(r'(securetoken\.googleapis\.com|firestore\.googleapis\.com|cloudfunctions\.net)'), falso2)
+            await pg.evaluate("""() => { const S = window.__LF.S; S.nuvem.rt = 'x'; S.baixaAuto = true; S.site = {}; S.vitPend = {}; const cash0 = S.cash.pyg; S._c0 = cash0; S.sales = []; S.clientes = [];
+              S.items = [{tipo:'pre',ref:'ZR1',grau:'+1',cor:'Preto',qty:3,custo:20000},{tipo:'pre',ref:'ZR1',grau:'+1',cor:'Rosa',qty:1,custo:20000}];
+              const mk = (id, sid, itens) => ({id, num: id, sid, ts: Date.now(), cli: 'Maria', tel: '0981', itens, st: 'pronto', orig: 'site', cod: 'AB' + id, pag: 'alias', pg: 'pago', tok: 'LF-ABCD', total: 0, ent: 'loja'});
+              S.pedidos = [mk(1, 'sidum', [{t:'Teste', ref:'ZR1', q:2, cor:'Preto', preco:150000}]), mk(2, 'sidiv', [{t:'Teste', ref:'ZR1', q:2, cor:'Rosa', preco:100000}])];
+              S.pedF = 'pronto'; window.__LF.setView('ped'); }""")
+            await pg.wait_for_timeout(300)
+            async def entregar(id):
+                await pg.evaluate("(id) => { const S = window.__LF.S; S.pedSel = id; S.pedTok = id; window.__LF.render(); }", id); await pg.wait_for_timeout(200)
+                await pg.fill('#pdTokIn', 'ABCD'); await pg.locator('#pdEnt').click(); await pg.wait_for_timeout(500)
+            await entregar(1)
+            r1 = await pg.evaluate("() => { const S = window.__LF.S; return [S.items[0].qty, S.sales.length, S.sales[0] && S.sales[0].price, S.sales[0] && S.sales[0].site, S.cash.pyg === S._c0, S.pedidos[0].baixa.falhas.length, JSON.stringify(S.resPend)]; }")
+            await entregar(2)
+            r2 = await pg.evaluate("() => { const S = window.__LF.S; return [S.items[1].qty, S.sales.length, S.pedidos[1].baixa.falhas.length]; }")
+            await pg.evaluate("() => { const S = window.__LF.S; S.pedidos[0].st = 'pronto'; S.pedidos[0].baixa = null; S.items[0].qty = 5; S.baixaAuto = false; S.resPend = {}; }")
+            await entregar(1)
+            r3 = await pg.evaluate("() => { const S = window.__LF.S; return [S.items[0].qty, S.sales.length, JSON.stringify(Object.keys(S.resPend))]; }")
+            await pg.wait_for_timeout(100)
+            await pg.evaluate("() => window.__resFlush && window.__resFlush()")
+            libs = [c for c in chamadas if c.get('acao') == 'liberar']
+            total += 1
+            ok = (r1[:6] == [1, 1, 300000, 1, True, 0] and r2 == [0, 2, 1]
+                  and r3[:2] == [5, 2] and sorted(c['pedido'] for c in libs) == ['sidiv', 'sidum', 'sidum'] and all(c['refs'] == ['ZR1'] for c in libs) and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'entrega de pedido do site: baixa o estoque, registra a venda e avisa quando falta peça')
+            if not ok: falhas.append('baixa auto'); print('        veio', r1, r2, r3, libs, pg.erros)
+            await pg.close()
+
             # histórico do dia: valor exato na moeda recebida, câmbio do dia e sem abas extras
             pg = await pagina()
             await pg.evaluate("""() => { const L = window.__LF, S = L.S, h = Date.now(); S.moedaP = 'usd';

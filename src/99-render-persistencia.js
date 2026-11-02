@@ -283,6 +283,8 @@
       'notifs',
       'pedidos',
       'pedNext',
+      'baixaAuto',
+      'resPend',
       'fxMgUlt',
       'inicioT',
       'barra',

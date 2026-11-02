@@ -207,6 +207,7 @@
               nvApi('DELETE', 'pedidos/' + encodeURIComponent(sid)).catch(function () {});
             });
           }, novos || comps || cancs ? 5000 : 0);
+        resBusca();
         return novos;
       })
       .catch(function (e) {
@@ -362,6 +363,9 @@
       est = pedEstado(p),
       h = '<div class="top"><div><h1>Pedido ' + p.num + '</h1><div class="crumb">' + esc(p.cli || 'Sem nome') + ' · ' + fd(p.ts) + ' ' + fh(p.ts) + (p.orig === 'site' ? ' · Site' : '') + (p.teste ? ' · TESTE' : '') + '</div></div></div>';
     h += '<div class="sel"><button type="button" class="chip" data-act="pedfecha">‹ Pedidos</button></div>';
+    if (p.resAlerta && p.st !== 'canc') h += '<div class="pdAviso bad">' + esc(p.resAlerta) + '</div>';
+    if (p.baixa && p.baixa.falhas && p.baixa.falhas.length) h += '<div class="pdAviso bad">Baixa automática incompleta: ' + esc(p.baixa.falhas.join('; ')) + '</div>';
+    if (p.baixa && p.baixa.vendas && p.baixa.vendas.length) h += '<div class="pdAviso">Estoque baixado e venda registrada: ' + esc(p.baixa.vendas.join(', ')) + '.</div>';
     if (p.st === 'canc') h += '<div class="pdAviso bad">Pedido cancelado' + (p.cancSite ? ' pelo cliente, no site' : '') + '.' + (p.tok ? ' O token ' + esc(p.tok) + ' não vale mais.' : '') + '</div>';
     else h += pedPassos(p);
     if (p.tok && p.st !== 'canc') {
@@ -468,6 +472,7 @@
         '<div class="top"><div><h1>Pedidos online</h1><div class="crumb">' +
         (PED_INFO.ts ? (PED_INFO.err ? '<span style="color:var(--bad)">Não consegui buscar os pedidos: ' + esc(PED_INFO.err) + '</span>' : 'Última busca às ' + fh(PED_INFO.ts)) : 'Buscando pedidos…') +
         ' · <button type="button" class="pdLink" data-act="pedver">Verificar agora</button>' +
+        ' · <button type="button" class="pdLink" data-act="pedbaixa">Baixa automática: ' + (S.baixaAuto ? 'ligada' : 'desligada') + '</button>' +
         (S.pedidos.some(function (p) { return p.teste; }) ? ' · <button type="button" class="pdLink" data-act="pedteste">' + (S._pedTst ? 'Apagar os testes? Toque de novo' : 'Apagar pedidos de teste') + '</button>' : '') +
         '</div></div></div>';
     h += '<div class="pdSeg" role="group" aria-label="Situação dos pedidos">';
@@ -541,6 +546,7 @@
         say('Pagamento confirmado. O cliente já vê no site.');
       })
       .catch(pedFalhaSite);
+    resPagar(p);
   };
   // Comprovante recusado: volta a aguardar o pagamento e o site pede outro comprovante.
   ACT.pedrecus = function (id) {
@@ -555,6 +561,7 @@
         say('Comprovante recusado. O cliente vai enviar outro.');
       })
       .catch(pedFalhaSite);
+    resRecusar(p);
   };
   // Foto do QR gerado no app do Itaú → JPEG pequeno → o site da cliente mostra no pagamento.
   function pedImg(file) {
@@ -653,6 +660,7 @@
       S.pedF = 'ent';
       render();
       say('Token conferido. Pedido entregue.');
+      pedBaixa(p);
     } else {
       var k = $('pdKey'),
         er = $('pdErro');
@@ -725,6 +733,7 @@
         return;
       }
       p.st = 'ent';
+      pedBaixa(p);
     } else {
       if (p.st === 'novo') pedTokGera(p);
       p.st = p.st === 'novo' ? 'sep' : 'pronto';
@@ -739,6 +748,7 @@
     S.pedTok = null;
     S.pedF = 'canc';
     render();
+    if (p.orig === 'site') resLibera(p);
   };
   ACT.peddel = function (id) {
     if (S._pedDel !== String(id)) {
