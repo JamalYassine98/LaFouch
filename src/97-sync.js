@@ -16,6 +16,15 @@
     // ids de cliente: cada aparelho conta a partir de uma faixa própria, para dois aparelhos nunca criarem o mesmo número
     var faixa = 1000000 + Math.floor(Math.random() * 8000000);
     if ((S.cliNext || 0) < faixa) S.cliNext = faixa;
+    // pedidos antigos (id 1, 2, 3...) ganham id único, para não colidir com os de outro aparelho
+    (S.pedidos || []).forEach(function (p) {
+      if (typeof p.id === 'number') {
+        var novo = 'p' + (p.sid || S.aparelho.slice(2) + '-' + p.id);
+        if (S.pedSel === p.id) S.pedSel = novo;
+        if (S.pedTok === p.id) S.pedTok = novo;
+        p.id = novo;
+      }
+    });
     S.syncCur = base ? +base : Date.now();
     S.syncOn = true;
     saveSoon();

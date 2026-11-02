@@ -24216,8 +24216,14 @@
             return;
           }
           var r = pedCliente(p);
-          p.id = S.pedNext;
-          p.num = S.pedNext++;
+          if (S.syncOn) {
+            // com vários aparelhos o pedido tem o MESMO id e número em todos (vêm do código da nuvem)
+            p.id = 'p' + sid;
+            p.num = p.cod || sid.slice(0, 5).toUpperCase();
+          } else {
+            p.id = S.pedNext;
+            p.num = S.pedNext++;
+          }
           p.cliId = r.c.id;
           p.cliNovo = r.novo;
           S.pedidos.push(p);
@@ -24333,7 +24339,13 @@
       pr = PED_ST.filter(function (s) {
         return s[0] === p.st;
       })[0],
-      h = '<div class="pdBtns">';
+      h = '';
+    if (!lista && S.syncOn && p.st !== 'ent' && p.st !== 'canc') {
+      if (p.assumido && p.assumido.ap !== S.aparelho) h += '<div class="pdMt" style="margin-bottom:8px">👤 Assumido por <b>' + esc(p.assumido.nome || 'outro aparelho') + '</b></div>';
+      else if (!p.assumido) h += '<button type="button" class="pdB2 txt" data-act="pedassumir" data-id="' + p.id + '" style="margin-bottom:8px">Assumir este pedido</button>';
+      else h += '<div class="pdMt" style="margin-bottom:8px">👤 Você assumiu este pedido</div>';
+    }
+    h += '<div class="pdBtns">';
     if (pedPagando(p)) {
       if (lista) h += '<button type="button" class="pdB1" data-act="pedab" data-id="' + p.id + '">' + (p.pg === 'comp' ? 'Conferir comprovante' : 'Ver pedido') + '</button>';
       else if (p.pg === 'comp') h += '<button type="button" class="pdB1" data-act="pedpago" data-id="' + p.id + '">✓ Confirmar pagamento</button><button type="button" class="pdB2 txt" data-act="pedrecus" data-id="' + p.id + '">Recusar</button>';
@@ -24561,6 +24573,13 @@
     say('Marcado aqui, mas não consegui avisar o site (sem internet ou sem permissão no Firebase).');
   }
   // Pagamento confirmado: gera o token e o site da cliente mostra "Pagamento confirmado".
+  ACT.pedassumir = function (id) {
+    var p = pedAch(id);
+    if (!p || p.assumido) return;
+    p.assumido = { ap: S.aparelho, nome: S.aparNome || S.aparelho, ts: Date.now() };
+    saveSoon();
+    render();
+  };
   ACT.pedpago = function (id) {
     var p = pedAch(id);
     if (!p || !p.sid) return;
@@ -27624,6 +27643,15 @@
     // ids de cliente: cada aparelho conta a partir de uma faixa própria, para dois aparelhos nunca criarem o mesmo número
     var faixa = 1000000 + Math.floor(Math.random() * 8000000);
     if ((S.cliNext || 0) < faixa) S.cliNext = faixa;
+    // pedidos antigos (id 1, 2, 3...) ganham id único, para não colidir com os de outro aparelho
+    (S.pedidos || []).forEach(function (p) {
+      if (typeof p.id === 'number') {
+        var novo = 'p' + (p.sid || S.aparelho.slice(2) + '-' + p.id);
+        if (S.pedSel === p.id) S.pedSel = novo;
+        if (S.pedTok === p.id) S.pedTok = novo;
+        p.id = novo;
+      }
+    });
     S.syncCur = base ? +base : Date.now();
     S.syncOn = true;
     saveSoon();

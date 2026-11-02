@@ -423,3 +423,7 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - Pedidos viajam SEM comprovante/QR (fotos pesadas ficam no aparelho que as recebeu); campo `assumido` ({ap,nome,ts}) sincroniza.
 - Trava: remoção em massa (>10 itens) não é enviada (aviso na tela).
 - Pendente: ligar pedidos ao S.pedidos no app (ids únicos por aparelho, pedSync não apagar docs na nuvem só no 1º aparelho, "assumir pedido"), caixa/fechamento automático, versão mínima, preço travado, privacidade. APK/instalador só quando o dono pedir.
+
+## Sync Etapa 3 (v370) — pedidos em todos os aparelhos
+- Com sync ligado, pedido do site entra com id `p<código da nuvem>` e número = código do cliente (igual em todos os aparelhos); ao ligar o sync, pedidos antigos ganham id único.
+- "Assumir este pedido" (primeiro a assumir vale; outros veem "Assumido por X"). Sem aparelho de funcionário ainda.

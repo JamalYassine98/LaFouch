@@ -1307,6 +1307,15 @@ async def main():
                   and '3 peças' in jan and 'neste pedido' in jan.lower() and r2 == ['sep', 'sep'] and tokflow == ['pronto', True, 'ent'] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'pedidos do site: chegam sozinhos, cadastram o cliente, detalhe e janela da peça')
             if not ok: falhas.append('pedidos'); print('        veio', n1, n2, r, apagados, txt[:200], det[:200], jan[:200], r2, pg.erros)
+            # com sincronização ligada: id e número iguais em qualquer aparelho, e "assumir" funciona
+            await pg.evaluate("() => { const S = window.__LF.S; S.pedidos = []; S.clientes = []; S.syncOn = true; S.aparelho = 'APX1'; S.aparNome = 'PC da loja'; S._pedT = 0; S._pedSync = false; }")
+            await pg.evaluate("() => window.__pedSync()")
+            r4 = await pg.evaluate("() => { const S = window.__LF.S, p = S.pedidos[0]; return [S.pedidos.length, p.id, p.num]; }")
+            await pg.evaluate("() => { window.__LF.S.syncOn = false; }")
+            total += 1
+            ok = r4 == [1, 'pabc1', 'K7Q2']
+            print(('  ok  ' if ok else ' FALHA ') + 'pedidos com sincronização: mesmo id e número em todos os aparelhos')
+            if not ok: falhas.append('pedsync'); print('        veio', r4)
             await pg.close()
 
             # Reserva do site no app: pagar/recusar/liberar chamam a função; entrega baixa o estoque e registra a venda sozinha
