@@ -1,6 +1,7 @@
   // ===== Aba Ajustes: faixas, meta, contas e backup dos dados. =====
   // Gera o texto do backup (dados + fotos em miniatura).
-  var SEM_BACKUP = ['pinHash', 'pinSalt', 'bioOn', 'lockMin', 'lockSens', 'nuvem'];
+  // dados que pertencem a ESTE aparelho e nunca viajam em cópia de segurança (a identidade de sincronização inclusa)
+  var SEM_BACKUP = ['pinHash', 'pinSalt', 'bioOn', 'lockMin', 'lockSens', 'nuvem', 'syncOn', 'aparelho', 'syncSnap', 'syncSeq', 'syncFeitos', 'syncOut', 'syncCur', 'resPend', 'aparNome'];
   function backupDados(semFotos) {
     var d = {};
     PERSIST.forEach(function (k) {
@@ -211,6 +212,7 @@
     // backup (arquivo manual + cópias automáticas)
     // Backup é a última seção; a Nuvem fica dentro dele
     h += ajustesFinHtml();
+    h += syncCard();
     var nv = nvCard()
       .replace('<section class="card col">', '<div class="col" style="border-top:1px solid var(--line);padding-top:12px">')
       .replace(/<\/section>$/, '</div>');
@@ -229,6 +231,10 @@
     S._ajForce = true;
     S.ajMsg = '';
     if (k === 'meta') S.metaUsd = campoParaUsd(t.value);
+    if (k === 'synome') {
+      S.aparNome = t.value.trim().slice(0, 30);
+      syncReg(true);
+    }
     if (k === 'cidade') S.notaCidade = t.value.trim().toUpperCase() || 'CDE';
     if (k === 'fnome' && f && t.value.trim()) f.nome = t.value.trim();
     if (k === 'fmarg' && f) f.margem = Math.max(0, Math.min(90, numIn(t.value)));

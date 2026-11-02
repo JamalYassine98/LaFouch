@@ -24895,7 +24895,8 @@
   }
   // ===== Aba Ajustes: faixas, meta, contas e backup dos dados. =====
   // Gera o texto do backup (dados + fotos em miniatura).
-  var SEM_BACKUP = ['pinHash', 'pinSalt', 'bioOn', 'lockMin', 'lockSens', 'nuvem'];
+  // dados que pertencem a ESTE aparelho e nunca viajam em cópia de segurança (a identidade de sincronização inclusa)
+  var SEM_BACKUP = ['pinHash', 'pinSalt', 'bioOn', 'lockMin', 'lockSens', 'nuvem', 'syncOn', 'aparelho', 'syncSnap', 'syncSeq', 'syncFeitos', 'syncOut', 'syncCur', 'resPend', 'aparNome'];
   function backupDados(semFotos) {
     var d = {};
     PERSIST.forEach(function (k) {
@@ -25106,6 +25107,7 @@
     // backup (arquivo manual + cópias automáticas)
     // Backup é a última seção; a Nuvem fica dentro dele
     h += ajustesFinHtml();
+    h += syncCard();
     var nv = nvCard()
       .replace('<section class="card col">', '<div class="col" style="border-top:1px solid var(--line);padding-top:12px">')
       .replace(/<\/section>$/, '</div>');
@@ -25124,6 +25126,10 @@
     S._ajForce = true;
     S.ajMsg = '';
     if (k === 'meta') S.metaUsd = campoParaUsd(t.value);
+    if (k === 'synome') {
+      S.aparNome = t.value.trim().slice(0, 30);
+      syncReg(true);
+    }
     if (k === 'cidade') S.notaCidade = t.value.trim().toUpperCase() || 'CDE';
     if (k === 'fnome' && f && t.value.trim()) f.nome = t.value.trim();
     if (k === 'fmarg' && f) f.margem = Math.max(0, Math.min(90, numIn(t.value)));
@@ -26765,8 +26771,9 @@
   var NV = { p: 'lafouch-2f6bd', k: 'AIzaSyAW-54tS1A_VL2EC9OJWFsw1EtboptpEvc' };
   // Projeto de teste (lafouch-teste): só quando a URL tem #projteste. Nunca mistura com a loja real.
   var NV_T = { p: 'lafouch-teste', k: 'AIzaSyDifvgzljzelUrabP903Z0F1m9m6snC_kU' };
+  var NV_TESTE = /projteste/.test(location.hash); // lido uma vez na abertura (a navegação interna troca o #)
   function nvCfg() {
-    return /projteste/.test(location.hash) ? NV_T : NV;
+    return NV_TESTE ? NV_T : NV;
   }
   function nvDb() {
     return 'https://firestore.googleapis.com/v1/projects/' + nvCfg().p + '/databases/(default)/documents/';
@@ -27563,6 +27570,55 @@
       return { ops: ops, max: max };
     });
   }
+  // ---- aparelhos: cada aparelho se registra em backups/zap-<código>; o dono pode desconectar qualquer um (rev = true)
+  var syncRegT = 0,
+    syncRevT = 0;
+  function syncReg(forca) {
+    if (!S.syncOn || !S.aparelho || (!forca && Date.now() - syncRegT < 300000)) return Promise.resolve();
+    syncRegT = Date.now();
+    return nvApi(
+      'PATCH',
+      'backups/zap-' + S.aparelho + '?updateMask.fieldPaths=nome&updateMask.fieldPaths=ts&updateMask.fieldPaths=ap',
+      JSON.stringify({ fields: { nome: nvStr(S.aparNome || ''), ts: { integerValue: String(Date.now()) }, ap: nvStr(S.aparelho) } })
+    ).catch(function () {
+      syncRegT = 0;
+    });
+  }
+  // devolve true se o dono desconectou ESTE aparelho (e já desliga a sincronização aqui)
+  function syncRevogado() {
+    if (Date.now() - syncRevT < 60000) return Promise.resolve(false);
+    syncRevT = Date.now();
+    return nvApi('GET', 'backups/zap-' + S.aparelho)
+      .then(function (d) {
+        if (d && d.fields && d.fields.rev && d.fields.rev.booleanValue) {
+          syncDesliga();
+          S.syncMsg = 'Este aparelho foi desconectado pelo dono. Nada foi apagado aqui; para voltar, entre de novo na sincronização.';
+          S.syncTom = 'bad';
+          return true;
+        }
+        return false;
+      })
+      .catch(function () {
+        return false;
+      });
+  }
+  function syncListaAp() {
+    return nvApi('GET', 'backups?pageSize=300').then(function (j) {
+      S._syncAps = (j.documents || [])
+        .filter(function (d) {
+          return /\/zap-/.test(d.name) && d.fields;
+        })
+        .map(function (d) {
+          var f = d.fields;
+          return { ap: (f.ap || {}).stringValue || d.name.split('zap-').pop(), nome: (f.nome || {}).stringValue || '', ts: +((f.ts || {}).integerValue || 0), rev: !!(f.rev || {}).booleanValue };
+        })
+        .sort(function (a, b) {
+          return b.ts - a.ts;
+        });
+      S._ajForce = true;
+      if (S.view === 'ajustes') render();
+    });
+  }
   function syncEnvia() {
     var fila = S.syncOut || [];
     return fila.reduce(function (p, o) {
@@ -27596,7 +27652,12 @@
     syncBusy = true;
     SYNC_INFO.estado = 'env';
     var mudou = false;
-    syncP = syncBaixa()
+    syncP = syncRevogado()
+      .then(function (rev) {
+        if (rev) throw new Error('desconectado');
+        return syncReg();
+      })
+      .then(syncBaixa)
       .then(function (r) {
         // recebe primeiro, depois envia: aparelho que ficou muito tempo fora só se atualiza e não atropela ninguém
         var ap = syncAplica(S, S.syncSnap, r.ops, S.syncFeitos);
@@ -27617,8 +27678,12 @@
         SYNC_INFO.msg = '';
       })
       .catch(function (e) {
+        if (e && e.message === 'desconectado') {
+          SYNC_INFO.estado = 'off';
+          return;
+        }
         SYNC_INFO.estado = 'erro';
-        SYNC_INFO.msg = (e && e.message) || 'falhou';
+        SYNC_INFO.msg = /fetch|network|sem-login/i.test((e && e.message) || '') ? 'sem conexão com a nuvem' : (e && e.message) || 'falhou';
       })
       .then(function () {
         syncBusy = false;
@@ -27630,6 +27695,10 @@
         });
         saveSoon();
         if (mudou) render();
+        else if (S.view === 'ajustes') {
+          S._ajForce = true;
+          render();
+        }
       });
     return syncP;
   }
@@ -27642,7 +27711,245 @@
   window.addEventListener('online', function () {
     if (S.syncOn) syncAgenda(true);
   });
-  if (/#test/.test(location.hash)) window.__syncApp = { liga: syncLiga, desliga: syncDesliga, ciclo: syncCiclo, info: SYNC_INFO };
+  if (/#test/.test(location.hash)) window.__syncApp = { zeraRev: function () { syncRevT = 0; }, lista: syncListaAp, reg: syncReg, base: syncCriaBase, entra: syncEntra, totais: syncTotais, card: syncCard, liga: syncLiga, desliga: syncDesliga, ciclo: syncCiclo, info: SYNC_INFO };
+  // ---- tela em Ajustes (só aparece no ambiente de teste ou depois de ligada; a loja real espera a migração guiada)
+  function syncVisivel() {
+    return !!S.syncOn || NV_TESTE;
+  }
+  function syncEstadoTxt() {
+    var i = SYNC_INFO,
+      n = (S.syncOut || []).length;
+    if (!S.syncOn) return ['off', 'Desligada', 'Este aparelho não está sincronizando.'];
+    if (i.estado === 'sem') return ['warn', 'Sem internet', n ? n + (n === 1 ? ' movimento guardado' : ' movimentos guardados') + '. Enviam sozinhos quando a internet voltar.' : 'Nada a enviar. Atualiza sozinha quando a internet voltar.'];
+    if (i.estado === 'erro') return ['bad', 'Não consegui sincronizar', (i.msg || 'erro') + (n ? ' · ' + n + ' guardados neste aparelho.' : '') + ' Tento de novo sozinho.'];
+    if (i.estado === 'env') return ['info', 'Sincronizando…', n ? n + ' para enviar' : 'Conferindo a nuvem'];
+    return ['ok', 'Sincronizado', i.ts ? 'Última conferência às ' + fh(i.ts) : 'Ligada neste aparelho'];
+  }
+  // ---- migração guiada: o aparelho principal grava a BASE na nuvem; os outros entram a partir dela
+  var SYNC_BASE = 'zbase-sync';
+  function syncTotais() {
+    var q = 0;
+    (S.items || []).forEach(function (i) {
+      if (!i.bulk) q += +i.qty || 0;
+    });
+    return { itens: q, pyg: Math.round(S.cash.pyg || 0), usd: Math.round((S.cash.usd || 0) * 100) / 100, brl: Math.round((S.cash.brl || 0) * 100) / 100, vendas: (S.sales || []).length };
+  }
+  function syncMsg(t, tom) {
+    S.syncMsg = t;
+    S.syncTom = tom || '';
+    S._ajForce = true;
+    if (S.view === 'ajustes') render();
+  }
+  function syncCriaBase() {
+    if (!S.nuvem || !S.nuvem.rt) return syncMsg('Entre na nuvem primeiro (mais abaixo, em Backup → Nuvem).', 'bad');
+    // foto do estado e cópia no MESMO instante: o que o outro aparelho baixar é exatamente o ponto de partida
+    var txt = backupDados(true),
+      t0 = Date.now(),
+      tot = syncTotais();
+    syncLiga(t0);
+    syncMsg('Enviando a base para a nuvem…', 'info');
+    return nvPack(txt)
+      .then(function (p) {
+        var n = Math.max(1, Math.ceil(p.s.length / NV_PARTE)),
+          job = Promise.resolve(),
+          i;
+        for (i = 0; i < n; i++)
+          (function (k) {
+            job = job.then(function () {
+              return nvApi('PATCH', 'backups/' + SYNC_BASE + '_p' + k, JSON.stringify({ fields: { d: nvStr(p.s.slice(k * NV_PARTE, (k + 1) * NV_PARTE)) } }));
+            });
+          })(i);
+        return job.then(function () {
+          return nvApi(
+            'PATCH',
+            'backups/' + SYNC_BASE,
+            JSON.stringify({
+              fields: {
+                ts: { integerValue: String(t0) },
+                partes: { integerValue: String(n) },
+                gz: { booleanValue: p.gz },
+                ap: nvStr(S.aparelho),
+                tot: nvStr(JSON.stringify(tot))
+              }
+            })
+          );
+        });
+      })
+      .then(function () {
+        syncMsg('Base enviada. Agora, no outro aparelho, toque em "Entrar na sincronização".', 'ok');
+      })
+      .catch(function (e) {
+        syncDesliga();
+        syncMsg('Não consegui enviar a base (' + ((e && e.message) || 'erro') + '). A sincronização ficou desligada; tente de novo.', 'bad');
+      });
+  }
+  function syncEntra() {
+    if (!S.nuvem || !S.nuvem.rt) return syncMsg('Entre na nuvem primeiro (mais abaixo, em Backup → Nuvem).', 'bad');
+    syncMsg('Baixando a base…', 'info');
+    return nvApi('GET', 'backups/' + SYNC_BASE)
+      .then(function (m) {
+        var f = m.fields,
+          n = +f.partes.integerValue,
+          gz = !!f.gz.booleanValue,
+          t0 = +f.ts.integerValue,
+          tot = JSON.parse(f.tot.stringValue),
+          out = [],
+          job = Promise.resolve(),
+          k;
+        for (k = 0; k < n; k++)
+          (function (kk) {
+            job = job.then(function () {
+              return nvApi('GET', 'backups/' + SYNC_BASE + '_p' + kk).then(function (d) {
+                out[kk] = d.fields.d.stringValue;
+              });
+            });
+          })(k);
+        return job
+          .then(function () {
+            return nvUnpack(gz, out.join(''));
+          })
+          .then(function (txt) {
+            try {
+              localStorage.setItem('lafouch_antes_sync', backupDados(true)); // rede de segurança: como este aparelho estava antes
+            } catch (e) {}
+            var er = restaurarDados(txt);
+            if (er) throw new Error(er);
+            var agora = syncTotais(),
+              dif = Object.keys(tot).filter(function (k2) {
+                return Math.abs(agora[k2] - tot[k2]) > 0.001;
+              });
+            syncLiga(t0);
+            syncMsg(
+              dif.length
+                ? 'Entrou, mas os totais não bateram (' + dif.join(', ') + '). Não use este aparelho para vender e me avise.'
+                : 'Entrou. Conferi: estoque ' + agora.itens + ' peças, ' + agora.vendas + ' vendas e o caixa estão iguais ao aparelho principal.',
+              dif.length ? 'bad' : 'ok'
+            );
+          });
+      })
+      .catch(function (e) {
+        syncMsg('Não consegui entrar (' + ((e && e.message) || 'erro') + '). Nada foi ligado neste aparelho.', 'bad');
+      });
+  }
+  function syncCard() {
+    if (!syncVisivel()) return '';
+    var e = syncEstadoTxt(),
+      cls = e[0] === 'ok' ? 'n-ok' : e[0] === 'warn' ? 'n-warn' : e[0] === 'bad' ? 'n-bad' : 'n-info',
+      h = '<section class="card col" id="syncCard"><h2 style="margin:0;font-size:16px">Sincronização entre aparelhos</h2>';
+    h += '<div class="note ' + cls + '" role="status"><b>' + e[1] + '</b><div style="margin-top:2px">' + esc(e[2]) + '</div></div>';
+    if (S.syncMsg) h += '<div class="note ' + (S.syncTom === 'ok' ? 'n-ok' : S.syncTom === 'bad' ? 'n-bad' : 'n-info') + '" role="status">' + esc(S.syncMsg) + '</div>';
+    if (S.syncOn) {
+      h += '<div class="hint" style="margin:0">Este aparelho: <b>' + esc(S.aparelho) + '</b></div>';
+      var neg = (SYNC_INFO.neg || []).concat(
+        (S.items || [])
+          .filter(function (i) {
+            return !i.bulk && i.qty < 0;
+          })
+          .map(function (i) {
+            return syncChave(i);
+          })
+      );
+      var vistos = {},
+        linhas = [];
+      neg.forEach(function (k) {
+        if (vistos[k]) return;
+        vistos[k] = 1;
+        var it = S.items.filter(function (i) {
+          return syncChave(i) === k;
+        })[0];
+        if (it && it.qty < 0) linhas.push('<div class="ln" style="display:flex;justify-content:space-between;gap:8px"><span>' + esc(it.ref) + (it.cor ? ' · ' + esc(it.cor) : '') + '</span><b style="color:var(--bad)">' + it.qty + '</b></div>');
+      });
+      if (linhas.length)
+        h += '<div class="note n-bad"><b>Conferir estoque</b><div style="margin:4px 0">Dois aparelhos venderam a mesma peça. As vendas foram guardadas, mas o estoque ficou negativo. Confira qual peça saiu e corrija a contagem.</div>' + linhas.join('') + '</div>';
+      h += '<div><div class="lbl">Nome deste aparelho</div><input class="in" data-aj="synome" value="' + esc(S.aparNome || '') + '" placeholder="Ex.: Celular do dono" maxlength="30" autocomplete="off"></div>';
+      var aps = (S._syncAps || []).filter(function (x) {
+        return x.ap !== S.aparelho;
+      });
+      if (aps.length) {
+        h += '<div class="lbl" style="margin-top:6px">Outros aparelhos</div>';
+        aps.forEach(function (x) {
+          h += '<div class="ln" style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span>' + esc(x.nome || x.ap) + '<br><small style="color:var(--mut)">' + (x.rev ? 'desconectado' : 'visto ' + fd(x.ts) + ' ' + fh(x.ts)) + '</small></span>' +
+            (x.rev ? '' : '<button type="button" class="mini" data-act="syncdesc" data-id="' + esc(x.ap) + '">' + (S._syncDesc === x.ap ? 'Confirmar' : 'Desconectar') + '</button>') + '</div>';
+        });
+      }
+      h += '<button type="button" class="mini" data-act="syncagora">Sincronizar agora</button>';
+      h += '<button type="button" class="mini" data-act="syncdesl" style="background:var(--card2,#2a303b)">' + (S._syncDel ? 'Desligar? Toque de novo' : 'Desligar neste aparelho') + '</button>';
+    } else {
+      h +=
+        '<div class="hint" style="margin:0">Ambiente de teste. Os aparelhos trocam estoque, caixa e vendas. Comece pelo aparelho principal (o que tem os dados certos); depois entre com os outros.</div>' +
+        '<button type="button" class="mini" data-act="syncbase">' + (S._syncC === 'base' ? 'Confirmar: este é o principal' : 'Este é o aparelho principal') + '</button>' +
+        '<button type="button" class="mini" data-act="syncentra" style="background:var(--card2,#2a303b)">' + (S._syncC === 'entra' ? 'Confirmar: trocar os dados deste aparelho' : 'Entrar na sincronização (outro aparelho)') + '</button>';
+    }
+    return h + '</section>';
+  }
+  function syncConf(qual) {
+    if (S._syncC !== qual) {
+      S._syncC = qual;
+      S._ajForce = true;
+      render();
+      setTimeout(function () {
+        if (S._syncC === qual) {
+          S._syncC = '';
+          S._ajForce = true;
+          if (S.view === 'ajustes') render();
+        }
+      }, 4000);
+      return false;
+    }
+    S._syncC = '';
+    return true;
+  }
+  ACT.syncbase = function () {
+    if (syncConf('base')) syncCriaBase();
+  };
+  ACT.syncentra = function () {
+    if (syncConf('entra')) syncEntra();
+  };
+  ACT.syncdesc = function (ap) {
+    if (!/^AP[A-Z0-9]{2,8}$/.test(ap || '')) return;
+    if (S._syncDesc !== ap) {
+      S._syncDesc = ap;
+      S._ajForce = true;
+      render();
+      setTimeout(function () {
+        if (S._syncDesc === ap) {
+          S._syncDesc = '';
+          S._ajForce = true;
+          if (S.view === 'ajustes') render();
+        }
+      }, 4000);
+      return;
+    }
+    S._syncDesc = '';
+    nvApi('PATCH', 'backups/zap-' + ap + '?updateMask.fieldPaths=rev', JSON.stringify({ fields: { rev: { booleanValue: true } } }))
+      .then(syncListaAp)
+      .catch(function () {
+        syncMsg('Não consegui desconectar agora (sem internet?). Tente de novo.', 'bad');
+      });
+  };
+  ACT.syncagora = function () {
+    syncListaAp().catch(function () {});
+    syncAgenda(true);
+    SYNC_INFO.estado = 'env';
+    render();
+  };
+  ACT.syncdesl = function () {
+    if (!S._syncDel) {
+      S._syncDel = 1;
+      S._ajForce = true;
+      render();
+      setTimeout(function () {
+        S._syncDel = 0;
+        S._ajForce = true;
+        if (S.view === 'ajustes') render();
+      }, 3500);
+      return;
+    }
+    S._syncDel = 0;
+    syncDesliga();
+    S._ajForce = true;
+    render();
+  };
   // ===== Animações dos botões: ondinha, realce deslizante, cascata, contagem, ✓, segurar para apagar, sino e arrastar. =====
   (function () {
     function q(s, r) {
@@ -29843,6 +30150,7 @@
       'syncFeitos',
       'syncOut',
       'syncCur',
+      'aparNome',
       'fxMgUlt',
       'inicioT',
       'barra',

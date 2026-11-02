@@ -292,6 +292,7 @@
       'syncFeitos',
       'syncOut',
       'syncCur',
+      'aparNome',
       'fxMgUlt',
       'inicioT',
       'barra',

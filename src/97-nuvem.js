@@ -2,8 +2,9 @@
   var NV = { p: 'lafouch-2f6bd', k: 'AIzaSyAW-54tS1A_VL2EC9OJWFsw1EtboptpEvc' };
   // Projeto de teste (lafouch-teste): só quando a URL tem #projteste. Nunca mistura com a loja real.
   var NV_T = { p: 'lafouch-teste', k: 'AIzaSyDifvgzljzelUrabP903Z0F1m9m6snC_kU' };
+  var NV_TESTE = /projteste/.test(location.hash); // lido uma vez na abertura (a navegação interna troca o #)
   function nvCfg() {
-    return /projteste/.test(location.hash) ? NV_T : NV;
+    return NV_TESTE ? NV_T : NV;
   }
   function nvDb() {
     return 'https://firestore.googleapis.com/v1/projects/' + nvCfg().p + '/databases/(default)/documents/';
