@@ -95,8 +95,7 @@
     return h + '</div>';
   }
   ACT.syncver = function (ap) {
-    S._syncVer = S._syncVer === ap ? null : ap;
-    render();
+    atvAbre(ap);
   };
   ACT.revabrir = function () {
     S._revAberta = true;
@@ -128,97 +127,6 @@
   window.__vendaApHtml = vendaApHtml;
   window.__revBannerHtml = revBannerHtml;
   window.__revJanelaHtml = revJanelaHtml;
-  // ---- fotos em segundo plano: poucas por vez, sem atrapalhar a venda. Só fotos novas (nunca troca uma que o aparelho já tem).
-  var FOTO_IDX = 'backups/zfotos-idx';
-  function fotoId(k) {
-    var h = 5381,
-      i;
-    for (i = 0; i < k.length; i++) h = ((h * 33) ^ k.charCodeAt(i)) >>> 0;
-    return 'zf-' + h.toString(36) + k.length.toString(36);
-  }
-  function fotoIdxLe() {
-    return nvApi('GET', FOTO_IDX)
-      .then(function (d) {
-        try {
-          return JSON.parse(((d.fields || {}).m || {}).stringValue || '{}');
-        } catch (e) {
-          return {};
-        }
-      })
-      .catch(function () {
-        return {};
-      });
-  }
-  var fotoBusy = false;
-  function fotoCiclo() {
-    if (!S.syncOn || fotoBusy || !S.nuvem || !S.nuvem.rt || navigator.onLine === false || document.hidden) return Promise.resolve(0);
-    fotoBusy = true;
-    var feitas = 0;
-    return fotoIdxLe()
-      .then(function (idx) {
-        var chaves = Object.keys(S.fotos || {}),
-          subir = chaves
-            .filter(function (k) {
-              var d = S.fotos[k];
-              return d && typeof d === 'string' && d.length < 700000 && !idx[k];
-            })
-            .slice(0, 3),
-          baixar = Object.keys(idx)
-            .filter(function (k) {
-              return !S.fotos[k];
-            })
-            .slice(0, 3),
-          job = Promise.resolve();
-        baixar.forEach(function (k) {
-          job = job.then(function () {
-            return nvApi('GET', 'backups/' + idx[k]).then(function (d) {
-              var v = ((d.fields || {}).d || {}).stringValue;
-              if (v && v.indexOf('data:image/') === 0 && !S.fotos[k]) {
-                S.fotos[k] = v;
-                feitas++;
-              }
-            });
-          });
-        });
-        subir.forEach(function (k) {
-          job = job.then(function () {
-            var id = fotoId(k);
-            return nvApi('PATCH', 'backups/' + id, JSON.stringify({ fields: { k: nvStr(k), d: nvStr(S.fotos[k]), ts: { integerValue: String(Date.now()) } } })).then(function () {
-              idx[k] = id;
-              feitas++;
-            });
-          });
-        });
-        if (subir.length)
-          job = job.then(function () {
-            // junta com o que outro aparelho possa ter acrescentado ao mesmo tempo
-            return fotoIdxLe().then(function (atual) {
-              Object.keys(idx).forEach(function (k) {
-                atual[k] = idx[k];
-              });
-              return nvApi('PATCH', FOTO_IDX, JSON.stringify({ fields: { m: nvStr(JSON.stringify(atual)), ts: { integerValue: String(Date.now()) } } }));
-            });
-          });
-        return job;
-      })
-      .then(function () {
-        if (feitas) {
-          saveSoon();
-          if (S.view === 'estoque' || S.view === 'vendas') render();
-        }
-        return feitas;
-      })
-      .catch(function () {
-        return 0;
-      })
-      .then(function (n) {
-        fotoBusy = false;
-        return n;
-      });
-  }
-  window.__fotoCiclo = fotoCiclo;
-  setInterval(fotoCiclo, 180000);
-  setTimeout(fotoCiclo, 20000);
   function syncDesliga() {
     S.syncOn = false;
     SYNC_INFO.estado = 'off';
@@ -279,8 +187,8 @@
     syncRegT = Date.now();
     return nvApi(
       'PATCH',
-      'backups/zap-' + S.aparelho + '?updateMask.fieldPaths=nome&updateMask.fieldPaths=ts&updateMask.fieldPaths=ap',
-      JSON.stringify({ fields: { nome: nvStr(S.aparNome || ''), ts: { integerValue: String(Date.now()) }, ap: nvStr(S.aparelho) } })
+      'backups/zap-' + S.aparelho + '?updateMask.fieldPaths=nome&updateMask.fieldPaths=ts&updateMask.fieldPaths=ap&updateMask.fieldPaths=st&updateMask.fieldPaths=cod',
+      JSON.stringify({ fields: { nome: nvStr(S.aparNome || ''), ts: { integerValue: String(Date.now()) }, ap: nvStr(S.aparelho), st: nvStr('ok'), cod: nvStr('') } })
     ).catch(function () {
       syncRegT = 0;
     });
@@ -316,14 +224,14 @@
       });
   }
   function syncListaAp() {
-    return nvApi('GET', 'backups?pageSize=300').then(function (j) {
+    return nvApi('GET', 'backups?pageSize=300&mask.fieldPaths=ap&mask.fieldPaths=nome&mask.fieldPaths=ts&mask.fieldPaths=rev&mask.fieldPaths=st&mask.fieldPaths=cod').then(function (j) {
       S._syncAps = (j.documents || [])
         .filter(function (d) {
           return /\/zap-/.test(d.name) && d.fields;
         })
         .map(function (d) {
           var f = d.fields;
-          return { ap: (f.ap || {}).stringValue || d.name.split('zap-').pop(), nome: (f.nome || {}).stringValue || '', ts: +((f.ts || {}).integerValue || 0), rev: !!(f.rev || {}).booleanValue };
+          return { ap: (f.ap || {}).stringValue || d.name.split('zap-').pop(), nome: (f.nome || {}).stringValue || '', ts: +((f.ts || {}).integerValue || 0), rev: !!(f.rev || {}).booleanValue, st: (f.st || {}).stringValue || 'ok', cod: (f.cod || {}).stringValue || '' };
         })
         .sort(function (a, b) {
           return b.ts - a.ts;
@@ -375,6 +283,7 @@
       .then(function (r) {
         // recebe primeiro, depois envia: aparelho que ficou muito tempo fora só se atualiza e não atropela ninguém
         var ap = syncAplica(S, S.syncSnap, r.ops, S.syncFeitos);
+        S._atvRem = r.ops;
         if (ap.n) {
           mudou = true;
           if (window.__fxAdota) window.__fxAdota();
@@ -389,6 +298,10 @@
           S.syncFeitos[o.i] = o.ts;
           S.syncOut.push(o);
         });
+        try {
+          atvCiclo(S._atvRem, d.ops);
+        } catch (e) {}
+        S._atvRem = null;
         return syncEnvia();
       })
       .then(function () {
@@ -407,6 +320,7 @@
         syncBusy = false;
         SYNC_INFO.ts = Date.now();
         SYNC_INFO.pend = (S.syncOut || []).length;
+        apPoll();
         var corte = Date.now() - 7 * 86400000;
         Object.keys(S.syncFeitos).forEach(function (k) {
           if (S.syncFeitos[k] < corte) delete S.syncFeitos[k];
@@ -502,7 +416,10 @@
       });
   }
   function syncEntra() {
-    if (!S.nuvem || !S.nuvem.rt) return syncMsg('Entre na nuvem primeiro (mais abaixo, em Backup → Nuvem).', 'bad');
+    return apPedeEntrada(syncEntra2); // primeiro o dono aprova; depois baixa a base
+  }
+  function syncEntra2() {
+    if (!S.nuvem || !S.nuvem.rt) return Promise.resolve(syncMsg('Entre na nuvem primeiro (mais abaixo, em Backup → Nuvem).', 'bad'));
     syncMsg('Baixando a base…', 'info');
     return nvApi('GET', 'backups/' + SYNC_BASE)
       .then(function (m) {
@@ -580,6 +497,7 @@
       });
       if (linhas.length)
         h += '<div class="note n-bad"><b>Conferir estoque</b><div style="margin:4px 0">Dois aparelhos venderam a mesma peça. As vendas foram guardadas, mas o estoque ficou negativo. Confira qual peça saiu e corrija a contagem.</div>' + linhas.join('') + '</div>';
+      h += apPendHtml();
       h += '<div><div class="lbl">Nome deste aparelho</div><input class="in" data-aj="synome" value="' + esc(S.aparNome || '') + '" placeholder="Ex.: Celular do dono" maxlength="30" autocomplete="off"></div>';
       var aps = (S._syncAps || []).filter(function (x) {
         return x.ap !== S.aparelho;
@@ -587,12 +505,16 @@
       if (aps.length) {
         h += '<div class="lbl" style="margin-top:6px">Outros aparelhos</div>';
         aps.forEach(function (x) {
-          h += '<div class="ln" style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span>' + esc(x.nome || x.ap) + '<br><small style="color:var(--mut)">' + (x.rev ? 'desconectado' : 'visto ' + fd(x.ts) + ' ' + fh(x.ts)) + '</small></span>' +
-            '<button type="button" class="mini" data-act="syncver" data-id="' + esc(x.ap) + '">' + (S._syncVer === x.ap ? 'Ocultar' : 'Ver o que fez') + '</button>' +
+          var fl = S._apFlash === x.ap ? ' lfa-fl lfa-slr' : '';
+          if (fl) S._apFlash = '';
+          h += '<div class="ln' + fl + '" style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span>' + esc(x.nome || x.ap) + '<br><small style="color:var(--mut)">' + (x.rev ? 'desconectado' : x.st === 'pend' ? 'aguardando aprovação' : 'visto ' + fd(x.ts) + ' ' + fh(x.ts)) + '</small></span>' +
+            '<button type="button" class="mini" data-act="syncver" data-id="' + esc(x.ap) + '">Ver o que fez</button>' +
             (x.rev ? '' : '<button type="button" class="mini" data-act="syncdesc" data-id="' + esc(x.ap) + '">' + (S._syncDesc === x.ap ? 'Confirmar' : 'Desconectar') + '</button>') + '</div>' +
-            (S._syncVer === x.ap ? apHistHtml(x.ap) : '');
+            '';
         });
       }
+      h += '<button type="button" class="mini" data-act="syncver" data-id="">Atividade de todos os aparelhos</button>';
+      h += '<button type="button" class="mini" data-act="fotolixabre">Fotos apagadas</button>';
       h += '<button type="button" class="mini" data-act="syncagora">Sincronizar agora</button>';
       h += '<button type="button" class="mini" data-act="syncdesl" style="background:var(--card2,#2a303b)">' + (S._syncDel ? 'Desligar? Toque de novo' : 'Desligar neste aparelho') + '</button>';
     } else {

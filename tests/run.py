@@ -6,6 +6,7 @@ window.__LF com as funções internas) e confere contas, lotes, leitor de códig
 e as telas. Requer: pip install playwright  (e um Chromium; PLAYWRIGHT_BROWSERS_PATH ou o do sistema).
 """
 def ED(n): return '() => { window.__LF.S.edStep = %d; window.__LF.render(); }' % (1 if n == 1 else 2)
+import time
 import asyncio, glob, json, os, re, subprocess, sys, time
 from playwright.async_api import async_playwright
 
@@ -1451,6 +1452,120 @@ async def main():
             ok = nf == 2 and f1[0] == ['LC1|P', 'RX|B'] and f1[1].endswith('AAAA') and list(subidas.values()) == ['LC1|P'] and 'LC1|P' in nuv['zfotos-idx'] and 'RX|B' in nuv['zfotos-idx'] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'fotos em segundo plano: baixa as que faltam e sobe as novas')
             if not ok: falhas.append('fotos-bg'); print('        veio', nf, f1, subidas, nuv, pg.erros)
+            await pg.close()
+
+            # Aprovação de aparelho novo: pedido com código, dono aprova/recusa, aparelho novo espera
+            pg = await pagina()
+            zap = {}; pat = []
+            async def falso5(route):
+                u, m = route.request.url, route.request.method
+                if 'securetoken' in u: return await route.fulfill(json={'id_token': 't', 'refresh_token': 'r'})
+                nome = u.split('/documents/')[1].split('?')[0] if '/documents/' in u else ''
+                if m == 'PATCH' and nome.startswith('backups/zap-'):
+                    f = json.loads(route.request.post_data)['fields']; zap.setdefault(nome, {}).update({k: (list(v.values())[0]) for k, v in f.items()}); pat.append((nome, f))
+                    return await route.fulfill(json={})
+                if m == 'GET' and nome.startswith('backups/zap-'):
+                    return await route.fulfill(json={'fields': {k: ({'booleanValue': v} if isinstance(v, bool) else {'stringValue': str(v)}) for k, v in zap.get(nome, {}).items()}})
+                if m == 'GET' and nome == 'backups':
+                    docs = [{'name': 'x/documents/' + n, 'fields': {k: ({'booleanValue': v} if isinstance(v, bool) else {'integerValue': str(v)} if k == 'ts' else {'stringValue': str(v)}) for k, v in d.items()}} for n, d in zap.items()]
+                    return await route.fulfill(json={'documents': docs})
+                await route.fulfill(status=404, json={})
+            await pg.context.route(re.compile(r'(securetoken|firestore)\.googleapis\.com'), falso5)
+            # aparelho novo pede para entrar
+            await pg.evaluate("() => { const S = window.__LF.S; S.nuvem.rt = 'x'; S.aparelho = 'APNEW1'; S.aparNome = 'Celular da Maria'; window.__sync2.pede(async () => {}); }"); await pg.wait_for_timeout(600)
+            ap1 = await pg.evaluate("() => [!!document.getElementById('apEspera'), document.getElementById('apEspera').innerText.includes('Aguardando'), window.__LF.S.syncPend.cod.length]")
+            z = dict(zap.get('backups/zap-APNEW1', {}))
+            # o dono (outro aparelho) vê o pedido e aprova
+            await pg.evaluate("() => { const S = window.__LF.S; S.syncPend = null; document.getElementById('apEspera').remove(); S.syncOn = true; S.aparelho = 'APDONO'; }")
+            await pg.evaluate("() => window.__sync2.apPoll()"); await pg.wait_for_timeout(500)
+            ap2 = await pg.evaluate("() => [window.__sync2.pend().length, window.__sync2.pendHtml().includes('quer entrar') || window.__sync2.pendHtml().includes('querem entrar'), window.__sync2.pendHtml().includes('apaprova')]")
+            await pg.evaluate("() => { document.body.insertAdjacentHTML('beforeend', '<button id=zap1 data-act=apaprova data-id=APNEW1>x</button>'); document.getElementById('zap1').click(); }"); await pg.wait_for_timeout(500)
+            ap3 = zap.get('backups/zap-APNEW1', {}).get('st')
+            await pg.evaluate("() => { document.body.insertAdjacentHTML('beforeend', '<button id=zap2 data-act=aprecusa data-id=APNEW1>x</button>'); document.getElementById('zap2').click(); }"); await pg.wait_for_timeout(500)
+            ap4 = [zap.get('backups/zap-APNEW1', {}).get('st'), zap.get('backups/zap-APNEW1', {}).get('rev')]
+            total += 1
+            ok = ap1 == [True, True, 3] and z.get('st') == 'pend' and len(z.get('cod', '')) == 3 and ap2 == [1, True, True] and ap3 == 'ok' and ap4 == ['no', True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'aprovação de aparelho novo: pede com código, dono aprova ou recusa')
+            if not ok: falhas.append('aprovação'); print('        veio', ap1, z, ap2, ap3, ap4, pg.erros)
+            await pg.close()
+
+            # Atividade por aparelho: venda/estoque/caixa/preço com filtros; baixa da venda não duplica
+            pg = await pagina()
+            r = await pg.evaluate("""() => {
+                const S = window.__LF.S; S.syncOn = true; S.aparelho = 'APA'; S.aparNome = 'PC da loja';
+                S.pprice = {OK1: {nu: 70}}; window.__sync2.atvCiclo([], []);
+                S.pprice = {OK1: {nu: 75}};
+                const now = Date.now();
+                const venda = {id: 'v1', ts: now, ref: 'OK1', cor: 'P', price: 450000, qty: 1, tipo: 'sol'};
+                window.__sync2.atvCiclo([
+                    {i: 'APB-1', a: 'APB', ts: now, k: 'add', l: 'sales', e: venda},
+                    {i: 'APB-2', a: 'APB', ts: now, k: 'q', c: 'sol|OK1||P|||||0|', d: -1},
+                    {i: 'APB-3', a: 'APB', ts: now, k: 'q', c: 'sol|ZZ9||P|||||0|', d: -2},
+                    {i: 'APB-4', a: 'APB', ts: now, k: 'add', l: 'exp', e: {nome: 'Almoço', valor: 80000}},
+                    {i: 'APB-5', a: 'APB', ts: now, k: 'cfg', n: 'pprice', v: S.pprice}
+                ], []);
+                const t = S.atv.map(x => x.t).sort().join('');
+                const so = window.__sync2.atvLista('APB', 'v').includes('Vendeu') && !window.__sync2.atvLista('APB', 'v').includes('Almoço');
+                const preco = S.atv.filter(x => x.t === 'p').map(x => x.s)[0];
+                const nBaixa = S.atv.filter(x => x.t === 'e').length;
+                return [t, so, preco, nBaixa];
+            }""")
+            await pg.evaluate("() => { document.body.insertAdjacentHTML('beforeend', '<button id=zav data-act=syncver data-id=APB>x</button>'); document.getElementById('zav').click(); }"); await pg.wait_for_timeout(400)
+            ov1 = await pg.evaluate("() => [!!document.getElementById('atvOv'), document.getElementById('atvOv').innerText.includes('Almoço')]")
+            await pg.evaluate("() => { document.body.insertAdjacentHTML('beforeend', '<button id=zaf data-act=atvfiltro data-id=v>x</button>'); document.getElementById('zaf').click(); }"); await pg.wait_for_timeout(300)
+            ov2 = await pg.evaluate("() => document.getElementById('atvOv').innerText.includes('Almoço')")
+            total += 1
+            ok = r[0] == 'cepv' and r[1] is True and r[2] == 'US$ 70 → US$ 75' and r[3] == 1 and ov1 == [True, True] and ov2 is False and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'atividade por aparelho: tipos, filtro, preço antigo→novo, baixa de venda não duplica')
+            if not ok: falhas.append('atividade'); print('        veio', r, ov1, ov2, pg.erros)
+            await pg.close()
+
+            # Fotos: apagar vai para a lixeira, restaurar volta, outro aparelho apagou some daqui, lixeira cheia trava, esvaziar pede ESVAZIAR
+            pg = await pagina()
+            agora = int(time.time() * 1000)
+            nuv = {'idx': {'D1|P': {'i': 'zf-d1', 'v': 5, 't': 5, 'by': 'APY'}}}; docs6 = {'zf-d1': 'data:image/jpeg;base64,/9j/DDDD'}; dels = []
+            async def falso6(route):
+                u, m = route.request.url, route.request.method
+                if 'securetoken' in u: return await route.fulfill(json={'id_token': 't', 'refresh_token': 'r'})
+                nome = u.split('/documents/')[1].split('?')[0] if '/documents/' in u else ''
+                if m == 'GET' and nome == 'backups/zfotos-idx': return await route.fulfill(json={'fields': {'m': {'stringValue': json.dumps(nuv['idx'])}}})
+                if m == 'GET' and nome.startswith('backups/') and nome[8:] in docs6: return await route.fulfill(json={'fields': {'d': {'stringValue': docs6[nome[8:]]}}})
+                if m == 'DELETE': dels.append(nome); return await route.fulfill(json={})
+                if m == 'PATCH' and nome.startswith('backups/'):
+                    f = json.loads(route.request.post_data)['fields']
+                    if nome == 'backups/zfotos-idx': nuv['idx'] = json.loads(f['m']['stringValue'])
+                    else: docs6[nome[8:]] = f['d']['stringValue']
+                    return await route.fulfill(json={})
+                await route.fulfill(status=404, json={})
+            await pg.context.route(re.compile(r'(securetoken|firestore)\.googleapis\.com'), falso6)
+            await pg.evaluate("() => { const S = window.__LF.S; S.syncOn = true; S.aparelho = 'APZ'; S.nuvem.rt = 'x'; S.fotos = {'D1|P': 'data:image/jpeg;base64,/9j/DDDD', 'X1|P': 'data:image/jpeg;base64,/9j/XXXX'}; }")
+            await pg.evaluate("() => window.__fotoCiclo()")                       # adota as duas
+            await pg.evaluate("() => { delete window.__LF.S.fotos['D1|P']; }")     # apaguei aqui
+            await pg.evaluate("() => window.__fotoCiclo()")
+            f1 = ('del' in nuv['idx'].get('D1|P', {}), await pg.evaluate("() => window.__sync2.lix().length"))
+            # restaurar pela tela
+            await pg.evaluate("() => { document.body.insertAdjacentHTML('beforeend', '<button id=zfr data-act=fotorest data-id=\"' + encodeURIComponent('D1|P') + '\">x</button>'); document.getElementById('zfr').click(); }"); await pg.wait_for_timeout(1200)
+            f2 = ('del' in nuv['idx'].get('D1|P', {}), await pg.evaluate("() => !!window.__LF.S.fotos['D1|P']"))
+            # outro aparelho apagou X1|P: some daqui
+            nuv['idx']['X1|P'] = {'i': 'zf-x1', 'v': 6, 't': agora, 'by': 'APY', 'del': agora}
+            await pg.evaluate("() => window.__fotoCiclo()")
+            f3 = await pg.evaluate("() => !!window.__LF.S.fotos['X1|P']")
+            # lixeira cheia (10) trava; esvaziar exige digitar
+            for i in range(10): nuv['idx'][f'L{i}|P'] = {'i': f'zf-l{i}', 'v': 1, 't': agora - i, 'by': 'APY', 'del': agora - i}
+            await pg.evaluate("() => window.__fotoCiclo()")
+            await pg.evaluate("() => window.__fotoApagaPede('D1|P')")
+            f4 = await pg.evaluate("() => [document.getElementById('fotoSheet').innerText.includes('Lixeira cheia'), !!document.querySelector('#fotoSheet [data-act=fotoapaga]')]")
+            await pg.evaluate("() => document.getElementById('fotoSheet').remove()")
+            await pg.evaluate("() => { document.body.insertAdjacentHTML('beforeend', '<button id=zfv data-act=fotolixvaz>x</button>'); document.getElementById('zfv').click(); }"); await pg.wait_for_timeout(300)
+            f5a = await pg.evaluate("() => document.getElementById('vazBt').disabled")
+            await pg.evaluate("() => { const i = document.getElementById('vazIn'); i.value = 'esvaziar'; i.dispatchEvent(new Event('input')); }")
+            f5b = await pg.evaluate("() => document.getElementById('vazBt').disabled")
+            await pg.evaluate("() => document.getElementById('vazBt').click()"); await pg.wait_for_timeout(1200)
+            f5 = (f5a, f5b, len([d for d in dels if 'zf-l' in d]), any('del' in v for v in nuv['idx'].values()))
+            total += 1
+            ok = f1 == (True, 1) and f2 == (False, True) and f3 is False and f4 == [True, False] and f5 == (True, False, 10, False) and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'fotos: lixeira (apagar, restaurar, apagado por outro, cheia, esvaziar com ESVAZIAR)')
+            if not ok: falhas.append('fotos-lixeira'); print('        veio', f1, f2, f3, f4, f5, pg.erros)
             await pg.close()
 
             # Sons e avisos: um som para cada tipo de aviso, janela de escolha, sem som e preferência antiga preservada

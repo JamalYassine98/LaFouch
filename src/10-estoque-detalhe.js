@@ -1001,6 +1001,7 @@
       pc.appendChild(btn('mini', src ? 'Trocar foto' : 'Adicionar foto', pickPhoto));
       if (src) {
         var xf = btn('mini', 'Excluir foto', function () {
+          if (window.__fotoApagaPede && window.__fotoApagaPede(ref + '|' + cor)) return; // sincronização ligada: confirmação com lixeira
           S.fDel = true;
           render();
         });
@@ -1079,6 +1080,14 @@
         g[2].appendChild(cl0);
       }
       g[2].appendChild(ps);
+      if (window.__atvPecaHtml) {
+        var hp = window.__atvPecaHtml(ref);
+        if (hp) {
+          var hpe = mk('div', '');
+          hpe.innerHTML = hp;
+          g[2].appendChild(hpe);
+        }
+      }
       // estoque e custo por variante
       var ev = mk('div', '');
       ev.appendChild(mk('div', 'lbl', 'Cores · quantidade e custo (US$)'));
