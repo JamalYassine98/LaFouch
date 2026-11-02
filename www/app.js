@@ -3524,7 +3524,7 @@
       var stt = mk(
         'span',
         'cell ' + (tot === 0 ? 'zero' : tot <= 2 ? 'low' : ''),
-        tot === 0 ? 'Esgotado' : tot + ' em estoque'
+        tot === 0 ? 'Esgotado' : tot + ' em estoque' + (resDoRef(rr) > 0 ? ' · ' + resDoRef(rr) + ' reservada(s) no site' : '')
       );
       stt.style.alignSelf = 'flex-start';
       card.appendChild(stt);

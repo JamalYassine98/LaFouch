@@ -434,3 +434,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - Fechamento do caixa (Histórico): fecha sozinho depois das 17h (e dias passados sem registro, sem saldo); botão "Fechar o dia agora" para fechar mais cedo; guarda vendas, receita e saldo do caixa; sincroniza entre aparelhos (lista `fechos`).
 - Preço travado no pedido: já vale (o pedido guarda o preço do momento em l.preco/total).
 - Ainda ficou fora: "Avise-me" automático, fotos em segundo plano, tela dedicada "Conferir estoque", reservas nas telas do app, site em tempo real.
+- v373: lista de Estoque mostra "N reservada(s) no site" por referência.
