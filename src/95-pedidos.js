@@ -121,7 +121,8 @@
           apagar = [],
           novos = 0,
           comps = 0,
-          cancs = 0;
+          cancs = 0,
+          esperaNovo = false;
         docs = docs.map(function (d) {
           var f = {};
           Object.keys(d.fields || {}).forEach(function (k) {
@@ -156,6 +157,17 @@
               }
               apagar.push(sid);
             } else if (Date.now() - (+f.ts || 0) > 3 * 86400000) apagar.push(sid);
+            return;
+          }
+          if (f.tipo === 'avise') {
+            // cliente pediu aviso de peça esgotada: entra na lista de espera
+            S.espera = S.espera || [];
+            var er = pedTxt(f.ref, 30),
+              et = pedTxt(f.tel, 24);
+            if (er && et && !S.espera.some(function (x) { return x.id === sid; }) && S.espera.length < 300)
+              S.espera.push({ id: sid, ref: er, nome: cap1(pedTxt(f.nome, 60)), tel: et, ts: +f.ts > 0 ? +f.ts : Date.now(), av: false });
+            apagar.push(sid);
+            esperaNovo = true;
             return;
           }
           if (f.tipo === 'comp') {
@@ -201,6 +213,7 @@
           apagar.push(sid);
           novos++;
         });
+        if (esperaNovo) render();
         if (novos || comps || cancs) {
           S.pedF = cancs && !novos && !comps ? 'canc' : 'novo';
           render();
@@ -455,6 +468,33 @@
       '<button type="button" class="go" data-act="pedprodx">Fechar</button></div></div>'
     );
   }
+  // Lista de espera: clientes que pediram aviso de peça esgotada; aparece quando a peça volta ao estoque.
+  function esperaTem(ref) {
+    return S.items.some(function (i) {
+      return i.ref === ref && !i.bulk && i.qty > 0;
+    });
+  }
+  function pedEsperaHtml() {
+    var l = (S.espera || []).filter(function (x) {
+      return !x.av && esperaTem(x.ref);
+    });
+    if (!l.length) return '';
+    var h = '<section class="pdCard"><b>🔔 Peça voltou — avise quem esperava</b>';
+    l.slice(0, 10).forEach(function (x) {
+      var d = String(x.tel).replace(/\D/g, '');
+      if (d.charAt(0) === '0') d = '595' + d.slice(1);
+      var tx = 'Olá, ' + x.nome + '! A peça ' + x.ref + ' que você queria já chegou na La Fouch. 😊';
+      h += '<div class="pdLin" style="gap:8px"><span style="flex:1;min-width:0">' + esc(x.nome) + ' · ' + esc(x.ref) + '</span><a class="pdB1" style="flex:none;padding:8px 12px" target="_blank" rel="noopener" href="https://wa.me/' + d + '?text=' + encodeURIComponent(tx) + '" data-act="espav" data-id="' + esc(x.id) + '">Avisar</a></div>';
+    });
+    return h + '</section>';
+  }
+  ACT.espav = function (id) {
+    (S.espera || []).forEach(function (x) {
+      if (x.id === id) x.av = true;
+    });
+    saveSoon();
+    setTimeout(render, 300);
+  };
   function renderPedidos() {
     var el = $('v-ped');
     if (!el || S.view !== 'ped') return;
@@ -487,6 +527,7 @@
         ' · <button type="button" class="pdLink" data-act="pedbaixa">Baixa automática: ' + (S.baixaAuto ? 'ligada' : 'desligada') + '</button>' +
         (S.pedidos.some(function (p) { return p.teste; }) ? ' · <button type="button" class="pdLink" data-act="pedteste">' + (S._pedTst ? 'Apagar os testes? Toque de novo' : 'Apagar pedidos de teste') + '</button>' : '') +
         '</div></div></div>';
+    h += pedEsperaHtml();
     h += '<div class="pdSeg" role="group" aria-label="Situação dos pedidos">';
     fl.forEach(function (f) {
       h +=

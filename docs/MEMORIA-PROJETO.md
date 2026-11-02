@@ -435,3 +435,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - Preço travado no pedido: já vale (o pedido guarda o preço do momento em l.preco/total).
 - Ainda ficou fora: "Avise-me" automático, fotos em segundo plano, tela dedicada "Conferir estoque", reservas nas telas do app, site em tempo real.
 - v373: lista de Estoque mostra "N reservada(s) no site" por referência.
+- v374: "Avise-me" automático: site envia pedido tipo 'avise' (se a cliente tem conta/WhatsApp); app guarda lista de espera (S.espera, sincroniza) e mostra em Pedidos 'Peça voltou' com botão WhatsApp. Depende das regras de pedidos aceitarem esse tipo (se recusar, vale o fluxo manual antigo).

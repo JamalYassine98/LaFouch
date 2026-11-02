@@ -1332,6 +1332,29 @@ async def main():
             if not ok: falhas.append('fechamento'); print('        veio', f1, f2, pg.erros)
             await pg.close()
 
+            # Lista de espera: cliente pede aviso no site, a peça volta ao estoque, o app mostra quem avisar
+            pg = await pagina()
+            docs = {'documents': [{'name': 'projects/p/databases/(default)/documents/pedidos/avAC1-595981', 'fields': {'tipo': {'stringValue': 'avise'}, 'ref': {'stringValue': 'AC1'}, 'nome': {'stringValue': 'ana lima'}, 'tel': {'stringValue': '0981555111'}, 'ts': {'integerValue': str(int(time.time()*1000))}}}]}
+            apagados = []
+            async def falso2(route):
+                u, m = route.request.url, route.request.method
+                if 'securetoken' in u: await route.fulfill(json={'id_token': 't', 'refresh_token': 'r'})
+                elif m == 'DELETE': apagados.append(u.rsplit('/', 1)[1]); await route.fulfill(json={})
+                elif m == 'PATCH': await route.fulfill(json={})
+                else: await route.fulfill(json=docs)
+            await pg.context.route(re.compile(r'(securetoken|firestore)\.googleapis\.com'), falso2)
+            await pg.evaluate("() => { const S = window.__LF.S; S.pedidos = []; S.espera = []; S.items = [{tipo:'pre',ref:'AC1',grau:'+1',cor:'P',qty:0}]; S.nuvem.rt = 'x'; S.view = 'ped'; }")
+            await pg.evaluate("() => window.__pedSync()")
+            e1 = await pg.evaluate("() => window.__LF.S.espera.map(x => [x.ref, x.nome, x.av])")
+            h1 = await pg.evaluate("() => (document.getElementById('v-ped') || {}).textContent || ''")
+            await pg.evaluate("() => { window.__LF.S.items[0].qty = 2; window.__LF.render(); }")
+            h2 = await pg.evaluate("() => (document.getElementById('v-ped') || {}).textContent || ''")
+            total += 1
+            ok = e1 == [['AC1', 'Ana lima', False]] and 'Peça voltou' not in h1 and 'Peça voltou' in h2 and 'Ana lima' in h2 and 'avAC1-595981' in apagados and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'lista de espera: pedido de aviso entra e aparece quando a peça volta')
+            if not ok: falhas.append('espera'); print('        veio', e1, 'Peça voltou' in h1, 'Peça voltou' in h2, apagados, pg.erros)
+            await pg.close()
+
             # Reserva do site no app: pagar/recusar/liberar chamam a função; entrega baixa o estoque e registra a venda sozinha
             pg = await pagina()
             chamadas = []
