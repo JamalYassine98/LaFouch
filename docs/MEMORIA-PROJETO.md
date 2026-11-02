@@ -399,3 +399,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - 02/11/2026: teste 'resumo moedas' corrigido. Causa: dados de exemplo de hoje nasciam entre 9h e 18h (aleatório); de manhã ainda não contavam em 'Hoje' e quase nunca havia R$/US$. Agora o exemplo de hoje tem sempre vendas em G$, R$ e US$ às 1h. Não era defeito do app. sw v363. Testes 207/207.
 - 02/11/2026: banco Firestore em southamerica-east1; REGIAO da função ajustada. Falta: regra dispositivos, google-services.json, deploy da função.
 - 02/11/2026: segredo GOOGLE_SERVICES_JSON aceita o JSON puro (colar o texto do arquivo) ou base64.
+- 02/11/2026: Node 20 foi descontinuado no Cloud Functions (30/10/2026); functions/package.json agora usa Node 22. Login do Firebase feito no Cloud Shell; falta o deploy.

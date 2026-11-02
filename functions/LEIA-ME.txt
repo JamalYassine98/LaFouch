@@ -1,7 +1,7 @@
 AVISOS DE PEDIDO (celular e computador)
 
 Publicar a função (uma vez, no computador do dono):
-  1) Instalar Node 20 e o Firebase CLI:  npm install -g firebase-tools
+  1) Instalar Node 22 e o Firebase CLI:  npm install -g firebase-tools
   2) firebase login
   3) Ver em Firebase > Firestore > Dados o "Local" do banco e ajustar REGIAO em functions/index.js
   4) cd functions && npm install && cd ..
