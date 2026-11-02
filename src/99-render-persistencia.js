@@ -293,6 +293,8 @@
       'syncOut',
       'syncCur',
       'aparNome',
+      'syncCfgTs',
+      'syncPutTs',
       'fxMgUlt',
       'inicioT',
       'barra',

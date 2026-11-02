@@ -13,6 +13,9 @@
     S.syncSeq = S.syncSeq || 0;
     S.syncFeitos = S.syncFeitos || {};
     S.syncOut = S.syncOut || [];
+    // ids de cliente: cada aparelho conta a partir de uma faixa própria, para dois aparelhos nunca criarem o mesmo número
+    var faixa = 1000000 + Math.floor(Math.random() * 8000000);
+    if ((S.cliNext || 0) < faixa) S.cliNext = faixa;
     S.syncCur = base ? +base : Date.now();
     S.syncOn = true;
     saveSoon();
@@ -166,6 +169,7 @@
         if (r.max > S.syncCur) S.syncCur = r.max;
         var d = syncDiff(S.syncSnap, S, S.aparelho, S.syncSeq);
         S.syncSnap = d.snap;
+        SYNC_INFO.aviso = d.aviso || '';
         S.syncSeq = d.seq;
         d.ops.forEach(function (o) {
           S.syncFeitos[o.i] = o.ts;
@@ -337,6 +341,7 @@
       cls = e[0] === 'ok' ? 'n-ok' : e[0] === 'warn' ? 'n-warn' : e[0] === 'bad' ? 'n-bad' : 'n-info',
       h = '<section class="card col" id="syncCard"><h2 style="margin:0;font-size:16px">Sincronização entre aparelhos</h2>';
     h += '<div class="note ' + cls + '" role="status"><b>' + e[1] + '</b><div style="margin-top:2px">' + esc(e[2]) + '</div></div>';
+    if (SYNC_INFO.aviso) h += '<div class="note n-warn">' + esc(SYNC_INFO.aviso) + '</div>';
     if (S.syncMsg) h += '<div class="note ' + (S.syncTom === 'ok' ? 'n-ok' : S.syncTom === 'bad' ? 'n-bad' : 'n-info') + '" role="status">' + esc(S.syncMsg) + '</div>';
     if (S.syncOn) {
       h += '<div class="hint" style="margin:0">Este aparelho: <b>' + esc(S.aparelho) + '</b></div>';

@@ -28,4 +28,46 @@ Y.aplica(B,sB,clone(d3.ops),fB);t('item novo chega com a ficha e a quantidade',B
 // entrada de estoque em um e venda em outro
 let sA2=sA;A.items[1].qty+=5;B.items[1].qty-=1;let e1=Y.diff(sA2,A,'A',d3.seq),e2=Y.diff(sB,B,'B',dB.seq);sA=e1.snap;sB=e2.snap;
 Y.aplica(A,sA,clone(e2.ops),fA);Y.aplica(B,sB,clone(e1.ops),fB);t('entrada (+5) e venda (-1) em aparelhos diferentes: os dois ficam com 5',A.items[1].qty===5&&B.items[1].qty===5);
+// ---- listas com conteúdo (despesas etc.), apagar, editar, configurações, proteção
+{const b=novo();b.imprev=[{ts:1,desc:'Vitrine',valor:60000}];b.cambios=[];b.faixas=[{id:'f1',margem:30}];
+ let X=clone(b),Z=clone(b),sX=Y.snap(X),sZ=Y.snap(Z),fX={},fZ={},qX=0;
+ X.imprev.push({ts:5,desc:'Tinta',valor:15000}); X.elog.push({ts:6,ref:'A',qty:2}); X.faixas[0].margem=35;
+ let dx=Y.diff(sX,X,'X',0);sX=dx.snap;Y.aplica(Z,sZ,clone(dx.ops),fZ);
+ t('despesa nova chega ao outro aparelho',Z.imprev.length===2&&Z.elog.length===1);
+ t('configuração alterada chega (última alteração vale)',Z.faixas[0].margem===35);
+ // editar uma linha: vira remover a antiga + adicionar a nova
+ Z.imprev.find(e=>e.desc==='Tinta').valor=20000;let dz=Y.diff(sZ,Z,'Z',0);sZ=dz.snap;Y.aplica(X,sX,clone(dz.ops),fX);
+ t('linha editada em um aparelho aparece editada no outro (sem duplicar)',X.imprev.length===2&&X.imprev.some(e=>e.valor===20000)&&!X.imprev.some(e=>e.valor===15000));
+ // apagar
+ Z.imprev.splice(Z.imprev.findIndex(e=>e.desc==='Vitrine'),1);dz=Y.diff(sZ,Z,'Z',9);sZ=dz.snap;Y.aplica(X,sX,clone(dz.ops),fX);
+ t('linha apagada em um aparelho some no outro',X.imprev.length===1&&X.imprev[0].desc==='Tinta');
+ // proteção: apagar demais de uma vez não se espalha
+ for(let i=0;i<15;i++)X.compras.push({ts:100+i,desc:'c'+i,usd:1});dx=Y.diff(sX,X,'X',20);sX=dx.snap;Y.aplica(Z,sZ,clone(dx.ops),fZ);
+ X.compras=[];dx=Y.diff(sX,X,'X',60);
+ t('apagar 15 registros de uma vez NÃO é enviado e gera aviso',!dx.ops.some(o=>o.k==='rem')&&/NÃO foi enviado/.test(dx.aviso)&&Z.compras.length===15);
+ // mesma configuração mudada nos dois: vale a mais recente
+ const P=clone(b),Q=clone(b);let sP=Y.snap(P),sQ=Y.snap(Q),fP={},fQ={};P.faixas[0].margem=40;Q.faixas[0].margem=50;
+ let dp=Y.diff(sP,P,'P',0),dq=Y.diff(sQ,Q,'Q',0);dq.ops.forEach(o=>o.ts=dp.ops[0].ts+5);Q.syncCfgTs.faixas=dp.ops[0].ts+5;
+ Y.aplica(P,dp.snap,clone(dq.ops),fP);Y.aplica(Q,dq.snap,clone(dp.ops),fQ);
+ t('configuração mudada nos dois: vale a mais recente nos dois',P.faixas[0].margem===50&&Q.faixas[0].margem===50);
+}
+// ---- clientes (cadastro editável: vale a última alteração de cada cliente)
+{const b=novo();b.clientes=[{id:1,nome:'Maria',tel:'0981'}];let X=clone(b),Z=clone(b),sX=Y.snap(X),sZ=Y.snap(Z),fX={},fZ={};
+ X.clientes.push({id:5000001,nome:'João',tel:'0982'});Z.clientes[0].tel='0999';
+ let dx=Y.diff(sX,X,'X',0),dz=Y.diff(sZ,Z,'Z',0);sX=dx.snap;sZ=dz.snap;Y.aplica(Z,sZ,clone(dx.ops),fZ);Y.aplica(X,sX,clone(dz.ops),fX);
+ t('cliente novo em um e telefone editado no outro: os dois ficam com tudo',X.clientes.length===2&&Z.clientes.length===2&&X.clientes.find(c=>c.id===1).tel==='0999'&&Z.clientes.find(c=>c.id===5000001).nome==='João');
+ X.clientes.find(c=>c.id===1).nome='Maria S.';Z.clientes.find(c=>c.id===1).nome='Maria Souza';
+ dx=Y.diff(sX,X,'X',9);dz=Y.diff(sZ,Z,'Z',9);dz.ops.forEach(o=>o.ts=dx.ops[0].ts+5);Z.syncPutTs['clientes:1']=dx.ops[0].ts+5;
+ Y.aplica(Z,dz.snap,clone(dx.ops),fZ);Y.aplica(X,dx.snap,clone(dz.ops),fX);
+ t('mesmo cliente editado nos dois: vale a edição mais recente',X.clientes.find(c=>c.id===1).nome==='Maria Souza'&&Z.clientes.find(c=>c.id===1).nome==='Maria Souza');
+}
+// ---- pedidos: sem as fotos pesadas, mantendo a foto local
+{const b=novo();b.pedidos=[];let X=clone(b),Z=clone(b),sX=Y.snap(X),sZ=Y.snap(Z),fX={},fZ={};
+ X.pedidos.push({id:'abc1',num:'K7Q2',st:'novo',pg:'comp',comp:'data:image/jpeg;base64,AAAA',itens:[{ref:'A',q:1}]});
+ let dx=Y.diff(sX,X,'X',0);sX=dx.snap;
+ t('pedido viaja sem a foto do comprovante',!JSON.stringify(dx.ops).includes('AAAA'));
+ Y.aplica(Z,sZ,clone(dx.ops),fZ);t('o outro aparelho recebe o pedido',Z.pedidos.length===1&&Z.pedidos[0].num==='K7Q2'&&!Z.pedidos[0].comp);
+ Z.pedidos[0].comp='data:image/jpeg;base64,ZZZZ';Z.pedidos[0].assumido={ap:'Z',nome:'PC da loja',ts:5};let dz=Y.diff(sZ,Z,'Z',0);sZ=dz.snap;Y.aplica(X,sX,clone(dz.ops),fX);
+ t('"assumido por" chega e a foto local do outro não é apagada',X.pedidos[0].assumido&&X.pedidos[0].assumido.nome==='PC da loja'&&X.pedidos[0].comp.includes('AAAA'));
+}
 console.log(ok+' ok '+bad+' falhas');process.exit(bad?1:0);
