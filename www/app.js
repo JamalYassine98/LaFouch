@@ -975,7 +975,9 @@
   // e gera MOVIMENTOS: estoque e caixa viajam como diferença (+2, -1), nunca como valor final; vendas e listas só crescem.
   // Cada movimento tem um id único (<aparelho>-<contador>): aplicar o mesmo movimento duas vezes não muda nada.
   // Assim dois aparelhos vendendo ao mesmo tempo somam; nada é sobrescrito nem perdido (estoque pode ficar -1, e o app avisa).
-  var SYNC_LISTAS = { sales: 'id', exp: 'id', dlog: 0, elog: 0, cambios: 0, compras: 0, descartes: 0, retiradas: 0, melhUso: 0, cpay: 0, imprev: 0 };
+  // Só entram listas que SÓ CRESCEM e têm id próprio. As outras (despesas, câmbios, compras, descartes...) entram uma a uma,
+  // depois de conferir que o app nunca edita uma linha antiga (editar apareceria como linha nova duplicada).
+  var SYNC_LISTAS = { sales: 'id' };
   function syncChave(i) {
     return [i.tipo, i.ref, i.grau || '', i.cor || '', i.vr || '', i.lote || '', i.fmt || '', i.med || '', i.bulk ? 1 : 0, i.custo == null ? '' : i.custo].join('|');
   }
@@ -994,6 +996,7 @@
   function syncSnap(St) {
     var sn = { q: {}, cash: { pyg: +St.cash.pyg || 0, usd: +St.cash.usd || 0, brl: +St.cash.brl || 0 }, l: {} };
     (St.items || []).forEach(function (i) {
+      if (i.bulk) return; // lotes a granel são derivados dos grupos e ainda não sincronizam (cada aparelho os recria sozinho)
       var k = syncChave(i);
       sn.q[k] = (sn.q[k] || 0) + (+i.qty || 0);
     });
@@ -1016,7 +1019,7 @@
         return ap + '-' + ++seq;
       };
     (St.items || []).forEach(function (i) {
-      def[syncChave(i)] = i;
+      if (!i.bulk) def[syncChave(i)] = i;
     });
     Object.keys(cur.q).forEach(function (k) {
       var d = cur.q[k] - (snap.q[k] || 0);
@@ -6940,7 +6943,7 @@
     var t = tipoOf(tipo),
       c = calcSale(t, qty, fx, pct, cPeca, 1000);
     var s = {
-      id: 'V-' + ('000' + ++S.saleSeq).slice(-4),
+      id: 'V-' + (S.syncOn && S.aparelho ? S.aparelho.slice(2) + '-' : '') + ('000' + ++S.saleSeq).slice(-4),
       ts: ts,
       tipo: tipo,
       ref: ref,
@@ -24691,7 +24694,9 @@
   // ===== Reserva de peças do site (10 min) + baixa automática na entrega. =====
   // O app (dono) fala com a função "reserva" na nuvem; quem decide hora e estoque é sempre o servidor.
   // Tudo é opcional: se a função estiver desligada ou sem internet, o app segue como antes.
-  var RES_URL = 'https://southamerica-east1-lafouch-2f6bd.cloudfunctions.net/reserva';
+  function resUrl() {
+    return 'https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/reserva';
+  }
   var RES_EST = {}; // estoque/<ref> baixado da nuvem (só reservas vivas)
   function resItensDe(p) {
     return (p.itens || [])
@@ -24718,7 +24723,7 @@
     if (!(corpo.itens || corpo.refs).length) return Promise.resolve(null);
     return nvToken()
       .then(function (t) {
-        return fetch(RES_URL, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: JSON.stringify(corpo) });
+        return fetch(resUrl(), { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: JSON.stringify(corpo) });
       })
       .then(function (r) {
         if (r.status >= 500 || r.status === 404) return null;
@@ -26758,7 +26763,14 @@
   };
   // ===== Nuvem: backup diário no Firebase (mesmo login do catálogo) e cotação da loja publicada no site. =====
   var NV = { p: 'lafouch-2f6bd', k: 'AIzaSyAW-54tS1A_VL2EC9OJWFsw1EtboptpEvc' };
-  var NV_DB = 'https://firestore.googleapis.com/v1/projects/' + NV.p + '/databases/(default)/documents/';
+  // Projeto de teste (lafouch-teste): só quando a URL tem #projteste. Nunca mistura com a loja real.
+  var NV_T = { p: 'lafouch-teste', k: 'AIzaSyDifvgzljzelUrabP903Z0F1m9m6snC_kU' };
+  function nvCfg() {
+    return /projteste/.test(location.hash) ? NV_T : NV;
+  }
+  function nvDb() {
+    return 'https://firestore.googleapis.com/v1/projects/' + nvCfg().p + '/databases/(default)/documents/';
+  }
   var NV_PARTE = 600000; // caracteres por documento (o limite do Firestore é 1 MiB)
   var NV_GUARDA = 7; // quantos dias de cópia ficam guardados
   S.nuvem = { email: '', rt: '', ts: 0, cot: '', dst: '' }; // rt = chave de acesso (a senha nunca é guardada)
@@ -26785,7 +26797,7 @@
   function nvToken() {
     if (nvTok.t && Date.now() < nvTok.exp) return Promise.resolve(nvTok.t);
     if (!S.nuvem.rt) return Promise.reject(new Error('sem-login'));
-    return fetch('https://securetoken.googleapis.com/v1/token?key=' + NV.k, {
+    return fetch('https://securetoken.googleapis.com/v1/token?key=' + nvCfg().k, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: 'grant_type=refresh_token&refresh_token=' + encodeURIComponent(S.nuvem.rt)
@@ -26799,7 +26811,7 @@
   }
   function nvApi(method, path, body) {
     return nvToken().then(function (t) {
-      return fetch(NV_DB + path, {
+      return fetch(nvDb() + path, {
         method: method,
         headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t },
         body: body
@@ -26849,7 +26861,7 @@
     em = em.trim();
     if (!em || !pw) return nvMsg('Digite o e-mail e a senha do catálogo.');
     nvMsg('Entrando…');
-    fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + NV.k, {
+    fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + nvCfg().k, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: em, password: pw, returnSecureToken: true })
@@ -27479,6 +27491,158 @@
   document.addEventListener('visibilitychange', function () {
     if (!document.hidden) pushIniciar();
   });
+  // ===== Sincronização entre aparelhos: transporte (nuvem) em cima do motor de src/05-sync.js. DESLIGADO por padrão (S.syncOn). =====
+  // Coleção `mov` no Firestore: um documento por movimento, id = id do movimento, campos a (aparelho), ts, p (JSON do movimento).
+  // Ciclo: 1) baixa movimentos dos outros e aplica  2) compara com a última foto e gera movimentos novos  3) envia a fila.
+  // A fila (S.syncOut) é gravada no aparelho: sem internet nada se perde, e tudo é enviado quando voltar.
+  // LIMITE ATUAL: todos os aparelhos precisam partir da MESMA base (mesma cópia de segurança) no momento de ligar. A migração guiada é a etapa seguinte.
+  var SYNC_INFO = { estado: 'off', ts: 0, pend: 0, msg: '', neg: [] };
+  var syncBusy = false,
+    syncP = null,
+    syncT = 0;
+  function syncLiga(base) {
+    if (!S.aparelho) S.aparelho = 'AP' + Math.random().toString(36).slice(2, 6).toUpperCase();
+    S.syncSnap = syncSnap(S);
+    S.syncSeq = S.syncSeq || 0;
+    S.syncFeitos = S.syncFeitos || {};
+    S.syncOut = S.syncOut || [];
+    S.syncCur = base ? +base : Date.now();
+    S.syncOn = true;
+    saveSoon();
+    syncAgenda(true);
+  }
+  function syncDesliga() {
+    S.syncOn = false;
+    SYNC_INFO.estado = 'off';
+    saveSoon();
+  }
+  function syncAgenda(ja) {
+    clearTimeout(syncT);
+    syncT = setTimeout(syncCiclo, ja ? 0 : 3000);
+  }
+  function syncQuery(corpo) {
+    return nvToken().then(function (t) {
+      return fetch(nvDb().replace(/\/$/, '') + ':runQuery', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t },
+        body: JSON.stringify(corpo)
+      }).then(nvJson);
+    });
+  }
+  function syncBaixa() {
+    var vistos = 0,
+      ops = [],
+      cur = S.syncCur,
+      max = cur;
+    function pagina(desde) {
+      return syncQuery({
+        structuredQuery: {
+          from: [{ collectionId: 'mov' }],
+          where: { fieldFilter: { field: { fieldPath: 'ts' }, op: 'GREATER_THAN_OR_EQUAL', value: { integerValue: String(Math.max(0, desde - 120000)) } } },
+          orderBy: [{ field: { fieldPath: 'ts' }, direction: 'ASCENDING' }],
+          limit: 300
+        }
+      }).then(function (rs) {
+        var docs = (rs || []).filter(function (r) {
+          return r.document;
+        });
+        docs.forEach(function (r) {
+          var f = r.document.fields || {},
+            ts = +((f.ts || {}).integerValue || 0);
+          if (ts > max) max = ts;
+          try {
+            var o = JSON.parse((f.p || {}).stringValue || 'null');
+            if (o && o.a !== S.aparelho) ops.push(o);
+          } catch (e) {}
+          vistos++;
+        });
+        if (docs.length >= 300 && max > desde) return pagina(max);
+      });
+    }
+    return pagina(cur).then(function () {
+      return { ops: ops, max: max };
+    });
+  }
+  function syncEnvia() {
+    var fila = S.syncOut || [];
+    return fila.reduce(function (p, o) {
+      return p.then(function () {
+        var campos = { a: { stringValue: o.a }, ts: { integerValue: String(o.ts) }, p: { stringValue: JSON.stringify(o) } };
+        return nvToken()
+          .then(function (t) {
+            return fetch(nvDb() + 'mov?documentId=' + encodeURIComponent(o.i), {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t },
+              body: JSON.stringify({ fields: campos })
+            });
+          })
+          .then(function (r) {
+            if (!r.ok && r.status !== 409) throw new Error('http ' + r.status); // 409 = já estava lá
+            S.syncOut = S.syncOut.filter(function (x) {
+              return x.i !== o.i;
+            });
+          });
+      });
+    }, Promise.resolve());
+  }
+  function syncCiclo() {
+    if (!S.syncOn) return Promise.resolve();
+    if (syncBusy) return syncP; // já tem um ciclo rodando: quem pediu espera esse terminar
+    if (!S.nuvem || !S.nuvem.rt || navigator.onLine === false) {
+      SYNC_INFO.estado = 'sem';
+      SYNC_INFO.pend = (S.syncOut || []).length;
+      return Promise.resolve();
+    }
+    syncBusy = true;
+    SYNC_INFO.estado = 'env';
+    var mudou = false;
+    syncP = syncBaixa()
+      .then(function (r) {
+        // recebe primeiro, depois envia: aparelho que ficou muito tempo fora só se atualiza e não atropela ninguém
+        var ap = syncAplica(S, S.syncSnap, r.ops, S.syncFeitos);
+        if (ap.n) mudou = true;
+        SYNC_INFO.neg = ap.neg;
+        if (r.max > S.syncCur) S.syncCur = r.max;
+        var d = syncDiff(S.syncSnap, S, S.aparelho, S.syncSeq);
+        S.syncSnap = d.snap;
+        S.syncSeq = d.seq;
+        d.ops.forEach(function (o) {
+          S.syncFeitos[o.i] = o.ts;
+          S.syncOut.push(o);
+        });
+        return syncEnvia();
+      })
+      .then(function () {
+        SYNC_INFO.estado = 'ok';
+        SYNC_INFO.msg = '';
+      })
+      .catch(function (e) {
+        SYNC_INFO.estado = 'erro';
+        SYNC_INFO.msg = (e && e.message) || 'falhou';
+      })
+      .then(function () {
+        syncBusy = false;
+        SYNC_INFO.ts = Date.now();
+        SYNC_INFO.pend = (S.syncOut || []).length;
+        var corte = Date.now() - 7 * 86400000;
+        Object.keys(S.syncFeitos).forEach(function (k) {
+          if (S.syncFeitos[k] < corte) delete S.syncFeitos[k];
+        });
+        saveSoon();
+        if (mudou) render();
+      });
+    return syncP;
+  }
+  setInterval(function () {
+    if (S.syncOn && !document.hidden) syncCiclo();
+  }, 20000);
+  document.addEventListener('visibilitychange', function () {
+    if (S.syncOn && !document.hidden) syncAgenda(true);
+  });
+  window.addEventListener('online', function () {
+    if (S.syncOn) syncAgenda(true);
+  });
+  if (/#test/.test(location.hash)) window.__syncApp = { liga: syncLiga, desliga: syncDesliga, ciclo: syncCiclo, info: SYNC_INFO };
   // ===== Animações dos botões: ondinha, realce deslizante, cascata, contagem, ✓, segurar para apagar, sino e arrastar. =====
   (function () {
     function q(s, r) {
@@ -29672,6 +29836,13 @@
       'pedNext',
       'baixaAuto',
       'resPend',
+      'syncOn',
+      'aparelho',
+      'syncSnap',
+      'syncSeq',
+      'syncFeitos',
+      'syncOut',
+      'syncCur',
       'fxMgUlt',
       'inicioT',
       'barra',
@@ -29732,6 +29903,9 @@
         localStorage.setItem(SK, JSON.stringify(d));
       } catch (e) {}
       saveFotos();
+      try {
+        if (S.syncOn) syncAgenda();
+      } catch (e) {}
     }, 400);
   }
   var haviaSalvo = false;

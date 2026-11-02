@@ -1,6 +1,13 @@
   // ===== Nuvem: backup diário no Firebase (mesmo login do catálogo) e cotação da loja publicada no site. =====
   var NV = { p: 'lafouch-2f6bd', k: 'AIzaSyAW-54tS1A_VL2EC9OJWFsw1EtboptpEvc' };
-  var NV_DB = 'https://firestore.googleapis.com/v1/projects/' + NV.p + '/databases/(default)/documents/';
+  // Projeto de teste (lafouch-teste): só quando a URL tem #projteste. Nunca mistura com a loja real.
+  var NV_T = { p: 'lafouch-teste', k: 'AIzaSyDifvgzljzelUrabP903Z0F1m9m6snC_kU' };
+  function nvCfg() {
+    return /projteste/.test(location.hash) ? NV_T : NV;
+  }
+  function nvDb() {
+    return 'https://firestore.googleapis.com/v1/projects/' + nvCfg().p + '/databases/(default)/documents/';
+  }
   var NV_PARTE = 600000; // caracteres por documento (o limite do Firestore é 1 MiB)
   var NV_GUARDA = 7; // quantos dias de cópia ficam guardados
   S.nuvem = { email: '', rt: '', ts: 0, cot: '', dst: '' }; // rt = chave de acesso (a senha nunca é guardada)
@@ -27,7 +34,7 @@
   function nvToken() {
     if (nvTok.t && Date.now() < nvTok.exp) return Promise.resolve(nvTok.t);
     if (!S.nuvem.rt) return Promise.reject(new Error('sem-login'));
-    return fetch('https://securetoken.googleapis.com/v1/token?key=' + NV.k, {
+    return fetch('https://securetoken.googleapis.com/v1/token?key=' + nvCfg().k, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: 'grant_type=refresh_token&refresh_token=' + encodeURIComponent(S.nuvem.rt)
@@ -41,7 +48,7 @@
   }
   function nvApi(method, path, body) {
     return nvToken().then(function (t) {
-      return fetch(NV_DB + path, {
+      return fetch(nvDb() + path, {
         method: method,
         headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t },
         body: body
@@ -91,7 +98,7 @@
     em = em.trim();
     if (!em || !pw) return nvMsg('Digite o e-mail e a senha do catálogo.');
     nvMsg('Entrando…');
-    fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + NV.k, {
+    fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + nvCfg().k, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: em, password: pw, returnSecureToken: true })

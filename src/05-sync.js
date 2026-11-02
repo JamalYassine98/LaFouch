@@ -3,7 +3,9 @@
   // e gera MOVIMENTOS: estoque e caixa viajam como diferença (+2, -1), nunca como valor final; vendas e listas só crescem.
   // Cada movimento tem um id único (<aparelho>-<contador>): aplicar o mesmo movimento duas vezes não muda nada.
   // Assim dois aparelhos vendendo ao mesmo tempo somam; nada é sobrescrito nem perdido (estoque pode ficar -1, e o app avisa).
-  var SYNC_LISTAS = { sales: 'id', exp: 'id', dlog: 0, elog: 0, cambios: 0, compras: 0, descartes: 0, retiradas: 0, melhUso: 0, cpay: 0, imprev: 0 };
+  // Só entram listas que SÓ CRESCEM e têm id próprio. As outras (despesas, câmbios, compras, descartes...) entram uma a uma,
+  // depois de conferir que o app nunca edita uma linha antiga (editar apareceria como linha nova duplicada).
+  var SYNC_LISTAS = { sales: 'id' };
   function syncChave(i) {
     return [i.tipo, i.ref, i.grau || '', i.cor || '', i.vr || '', i.lote || '', i.fmt || '', i.med || '', i.bulk ? 1 : 0, i.custo == null ? '' : i.custo].join('|');
   }
@@ -22,6 +24,7 @@
   function syncSnap(St) {
     var sn = { q: {}, cash: { pyg: +St.cash.pyg || 0, usd: +St.cash.usd || 0, brl: +St.cash.brl || 0 }, l: {} };
     (St.items || []).forEach(function (i) {
+      if (i.bulk) return; // lotes a granel são derivados dos grupos e ainda não sincronizam (cada aparelho os recria sozinho)
       var k = syncChave(i);
       sn.q[k] = (sn.q[k] || 0) + (+i.qty || 0);
     });
@@ -44,7 +47,7 @@
         return ap + '-' + ++seq;
       };
     (St.items || []).forEach(function (i) {
-      def[syncChave(i)] = i;
+      if (!i.bulk) def[syncChave(i)] = i;
     });
     Object.keys(cur.q).forEach(function (k) {
       var d = cur.q[k] - (snap.q[k] || 0);

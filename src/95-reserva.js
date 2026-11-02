@@ -1,7 +1,9 @@
   // ===== Reserva de peças do site (10 min) + baixa automática na entrega. =====
   // O app (dono) fala com a função "reserva" na nuvem; quem decide hora e estoque é sempre o servidor.
   // Tudo é opcional: se a função estiver desligada ou sem internet, o app segue como antes.
-  var RES_URL = 'https://southamerica-east1-lafouch-2f6bd.cloudfunctions.net/reserva';
+  function resUrl() {
+    return 'https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/reserva';
+  }
   var RES_EST = {}; // estoque/<ref> baixado da nuvem (só reservas vivas)
   function resItensDe(p) {
     return (p.itens || [])
@@ -28,7 +30,7 @@
     if (!(corpo.itens || corpo.refs).length) return Promise.resolve(null);
     return nvToken()
       .then(function (t) {
-        return fetch(RES_URL, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: JSON.stringify(corpo) });
+        return fetch(resUrl(), { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: JSON.stringify(corpo) });
       })
       .then(function (r) {
         if (r.status >= 500 || r.status === 404) return null;

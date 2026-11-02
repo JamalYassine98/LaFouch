@@ -256,7 +256,7 @@
     var t = tipoOf(tipo),
       c = calcSale(t, qty, fx, pct, cPeca, 1000);
     var s = {
-      id: 'V-' + ('000' + ++S.saleSeq).slice(-4),
+      id: 'V-' + (S.syncOn && S.aparelho ? S.aparelho.slice(2) + '-' : '') + ('000' + ++S.saleSeq).slice(-4),
       ts: ts,
       tipo: tipo,
       ref: ref,

@@ -285,6 +285,13 @@
       'pedNext',
       'baixaAuto',
       'resPend',
+      'syncOn',
+      'aparelho',
+      'syncSnap',
+      'syncSeq',
+      'syncFeitos',
+      'syncOut',
+      'syncCur',
       'fxMgUlt',
       'inicioT',
       'barra',
@@ -345,6 +352,9 @@
         localStorage.setItem(SK, JSON.stringify(d));
       } catch (e) {}
       saveFotos();
+      try {
+        if (S.syncOn) syncAgenda();
+      } catch (e) {}
     }, 400);
   }
   var haviaSalvo = false;
