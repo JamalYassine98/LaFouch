@@ -351,3 +351,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - 01/11/2026: menu: seta do Catálogo estava 4px deslocada; agora X e todas as setas ficam na mesma coluna.
 - 01/11/2026: menu: X sem círculo; muda para a cor de destaque ao passar o mouse/tocar (/*MENU-X*/).
 - 01/11/2026: site: menu agora anima ao fechar (itens saem em sequência, painel desliza com aceleração, fundo some); contador de favoritos anima ao DIMINUIR (número encolhe e troca, coração dá um tranco e sobe um '−1' cinza). Respeita movimento reduzido.
+- 01/11/2026: login: ícone do olho da senha menor (26→21px) e rente ao canto direito da linha (/*OLHO-SENHA*/).
