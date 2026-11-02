@@ -153,7 +153,7 @@
     } catch (e) {}
   }
   // Cartão "Avisos de pedidos" em Ajustes.
-  function avisosHtml() {
+  function avPedidosHtml() {
     var a = avPref(),
       nat = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform(),
       row = function (k, t, h) {

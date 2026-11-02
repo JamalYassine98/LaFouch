@@ -335,6 +335,6 @@
     }
     h += '</section>';
     // avisos de pedidos do site (depois da segurança: os testes esperam a biometria como primeiro interruptor)
-    h += avisosHtml();
+    h += avPedidosHtml();
     return h;
   }

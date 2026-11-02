@@ -12890,7 +12890,7 @@
     }
     h += '</section>';
     // avisos de pedidos do site (depois da segurança: os testes esperam a biometria como primeiro interruptor)
-    h += avisosHtml();
+    h += avPedidosHtml();
     return h;
   }
   // ===== Aba Vendas. =====
@@ -27054,7 +27054,7 @@
     } catch (e) {}
   }
   // Cartão "Avisos de pedidos" em Ajustes.
-  function avisosHtml() {
+  function avPedidosHtml() {
     var a = avPref(),
       nat = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform(),
       row = function (k, t, h) {
