@@ -764,3 +764,7 @@ button:not(:disabled):active.go,.go:not(:disabled):active{box-shadow:0 0 0 6px #
 .grow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--line)}
 .gadd{display:flex;flex-wrap:wrap;gap:6px}
 /*/GRUPOS*/
+/*AVISOS*/
+.avchip{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;border:1.5px solid var(--line);background:transparent;font:inherit;font-weight:700;font-size:14px;color:var(--text);cursor:pointer}
+.avchip.on{border-color:var(--accent);background:rgba(230,163,201,.14)}
+/*/AVISOS*/

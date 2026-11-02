@@ -13,3 +13,7 @@ Regras: acrescentar no Firestore (Regras):
     }
 
 Android: ver docs/MEMORIA-PROJETO.md (google-services.json e segredo GOOGLE_SERVICES_JSON no GitHub).
+
+Opções por aparelho: o app grava em dispositivos/<token> os campos n, c, x, p (tipos de aviso), som, q, qi, qf (silêncio).
+Teste: o botão 'Enviar aviso de teste' cria pedidos/teste... (tipo cancel, ref 'teste'); a função manda o aviso de teste e o app apaga o documento.
+Sons: www/sons/*.mp3 (copiados para res/raw do APK pelo workflow).

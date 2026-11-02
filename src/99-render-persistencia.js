@@ -299,6 +299,7 @@
       'pinHash',
       'pinSalt',
       'bioOn',
+      'avisos',
       'lockMin',
       'lockSens'
     ];

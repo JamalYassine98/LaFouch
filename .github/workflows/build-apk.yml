@@ -53,6 +53,11 @@ jobs:
         run: |
           if [ -n "$GSJ" ]; then echo "$GSJ" | base64 -d > android/app/google-services.json && echo "google-services.json instalado"; else echo "::warning::Sem GOOGLE_SERVICES_JSON: o APK sai sem avisos de pedido"; fi
 
+      - name: Sons dos avisos
+        run: |
+          mkdir -p android/app/src/main/res/raw
+          cp www/sons/*.mp3 android/app/src/main/res/raw/
+
       - name: Permissao da camera
         run: |
           M=android/app/src/main/AndroidManifest.xml

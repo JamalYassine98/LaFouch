@@ -312,6 +312,8 @@
       '<section class="card col"><h2 style="margin:0;font-size:16px">Lembretes</h2><label style="display:flex;gap:10px;align-items:center"><input type="checkbox" data-aj="cclemb"' +
       (S.ccLemb !== false ? ' checked' : '') +
       '> Lembrar toda semana de conferir o caixa</label></section>';
+    // avisos de pedidos do site
+    h += avisosHtml();
     // segurança
     if (S._bioOk === undefined) bioChecar();
     var bioDisp = !!bioPlugin() && S._bioOk !== false,

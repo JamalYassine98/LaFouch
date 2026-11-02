@@ -144,6 +144,10 @@
             var qc = S.pedidos.filter(function (x) {
               return x.sid === pedTxt(f.ref, 40);
             })[0];
+            if (f.ref === 'teste') {
+              apagar.push(sid);
+              return;
+            }
             if (qc) {
               if (qc.st === 'novo' && (qc.pg === 'pagar' || qc.pg === 'comp')) {
                 qc.st = 'canc';
@@ -194,11 +198,7 @@
         if (novos || comps || cancs) {
           S.pedF = cancs && !novos && !comps ? 'canc' : 'novo';
           render();
-          var av = [];
-          if (novos) av.push(novos + (novos === 1 ? ' pedido novo' : ' pedidos novos'));
-          if (comps) av.push(comps + (comps === 1 ? ' comprovante' : ' comprovantes') + ' para conferir');
-          if (cancs) av.push(cancs + (cancs === 1 ? ' cancelamento' : ' cancelamentos'));
-          if (window.__avisoLocal) window.__avisoLocal('La Fouch · site', av.join(' · '));
+          if (window.__avisoLocal) window.__avisoLocal('La Fouch · site', '', { n: novos, c: comps, x: cancs });
         }
         // só apaga da nuvem depois que o app já gravou o pedido
         if (apagar.length)
