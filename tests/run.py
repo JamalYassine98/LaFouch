@@ -1477,6 +1477,35 @@ async def main():
             await pg.screenshot(path='/tmp/sons-app.png')
             await pg.close()
 
+            # Atualização automática: baixa o app novo, guarda no cache, o carregador usa e o botão aparece
+            pg = await pagina()
+            r = await pg.evaluate("""async () => {
+                const grande = '(function () {\\n var APP_BUILD = 999;\\n' + '//x'.repeat(60000) + '\\n window.__rodouNovo = 1;})();\\n';
+                const of = window.fetch;
+                window.fetch = (u, o) => String(u).indexOf('github.io') < 0 ? of(u, o) :
+                    String(u).indexOf('version.json') >= 0 ? Promise.resolve(new Response(JSON.stringify({v: 999, nat: 1}))) :
+                    String(u).indexOf('app.js') >= 0 ? Promise.resolve(new Response(grande)) : Promise.resolve(new Response('body{}'.repeat(400)));
+                await window.__upd.busca(true);
+                const m = window.__upd.marca();
+                const c = await caches.open('lafouch-upd');
+                const a = await c.match('/__upd/app.js');
+                return [m.v, !!a, window.__upd.estado.pronta, !!document.getElementById('updBar'), window.__upd.card().indexOf('Buscar atualização') > 0];
+            }""")
+            ok1 = r == [999, True, 999, True, True] and not pg.erros
+            # carregador: cópia nova (999) roda; cópia que não abre é descartada na 3a vez
+            await pg.reload()
+            await pg.wait_for_timeout(1500)
+            rodou = await pg.evaluate("() => [!!window.__rodouNovo, JSON.parse(localStorage.getItem('lf_upd')).tent]")
+            await pg.evaluate("() => localStorage.setItem('lf_upd', JSON.stringify({v: 999, tent: 2}))")
+            await pg.reload()
+            await pg.wait_for_function('window.__LF', timeout=10000)
+            volta = await pg.evaluate("() => [localStorage.getItem('lf_upd'), !!window.__rodouNovo]")
+            ok = ok1 and rodou == [True, 1] and volta == [None, False]
+            total += 1
+            print(('  ok  ' if ok else ' FALHA ') + 'atualização automática: baixa, usa e volta atrás se não abrir')
+            if not ok: falhas.append('atualização automática'); print('        veio', r, rodou, volta, pg.erros)
+            await pg.close()
+
             # Reserva do site no app: pagar/recusar/liberar chamam a função; entrega baixa o estoque e registra a venda sozinha
             pg = await pagina()
             chamadas = []

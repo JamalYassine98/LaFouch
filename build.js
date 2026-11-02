@@ -13,16 +13,26 @@ const OUT = path.join(__dirname, 'www', 'app.js');
 
 const modulos = fs.readdirSync(SRC).filter((f) => f.endsWith('.js')).sort();
 const corpo = modulos.map((f) => fs.readFileSync(path.join(SRC, f), 'utf8')).join('');
-const saida = '(function () {\n' + corpo + '})();\n';
+const sw = fs.readFileSync(path.join(__dirname, 'www', 'sw.js'), 'utf8');
+const BUILD = +(sw.match(/lafouch-v(\d+)/) || [0, 0])[1];
+const saida = '(function () {\n' + corpo.replace('__APP_BUILD__', BUILD) + '})();\n';
+const IDX = path.join(__dirname, 'www', 'index.html');
+const idx = fs.readFileSync(IDX, 'utf8');
+const idxNovo = idx.replace(/\/\*LOADER\*\/\(function\(\)\{var EMB=\d+/, '/*LOADER*/(function(){var EMB=' + BUILD);
+const NAT = +((corpo.match(/var APP_NAT = (\d+)/) || [0, 1])[1]);
+const VER = JSON.stringify({ v: BUILD, nat: NAT }) + '\n';
 
 if (process.argv.includes('--check')) {
   const atual = fs.existsSync(OUT) ? fs.readFileSync(OUT, 'utf8') : '';
-  if (atual !== saida) {
+  const verAtual = fs.existsSync(path.join(__dirname, 'www', 'version.json')) ? fs.readFileSync(path.join(__dirname, 'www', 'version.json'), 'utf8') : '';
+  if (atual !== saida || idx !== idxNovo || verAtual !== VER) {
     console.error('www/app.js desatualizado: rode "node build.js"');
     process.exit(1);
   }
   console.log('www/app.js em dia (' + modulos.length + ' módulos)');
 } else {
   fs.writeFileSync(OUT, saida);
+  if (idx !== idxNovo) fs.writeFileSync(IDX, idxNovo);
+  fs.writeFileSync(path.join(__dirname, 'www', 'version.json'), VER);
   console.log('www/app.js gerado: ' + modulos.length + ' módulos, ' + saida.split('\n').length + ' linhas');
 }

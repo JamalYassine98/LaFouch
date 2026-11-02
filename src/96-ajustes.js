@@ -213,6 +213,7 @@
     // Backup é a última seção; a Nuvem fica dentro dele
     h += ajustesFinHtml();
     h += syncCard();
+    h += updCard();
     var nv = nvCard()
       .replace('<section class="card col">', '<div class="col" style="border-top:1px solid var(--line);padding-top:12px">')
       .replace(/<\/section>$/, '</div>');
