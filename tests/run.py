@@ -1410,6 +1410,23 @@ async def main():
             if not ok: falhas.append('contagem-caixa'); print('        veio', c1, c2, pg.erros)
             await pg.close()
 
+            # Assumir pedido automático ao agir; restaurar cópia pede para digitar RESTAURAR
+            pg = await pagina()
+            await pg.evaluate("() => { const L = window.__LF, S = L.S; S.syncOn = true; S.aparelho = 'APX1'; S.aparNome = 'PC da loja'; S.pedidos = [{id:'pq1', sid:'q1', num:'AB12', cli:'Ana', tel:'0981', itens:[{t:'x', ref:'R1', q:1, cor:'', preco:1000}], st:'novo', pg:'comp', orig:'site', ts: Date.now(), total:1000}]; S.pedSel = 'pq1'; L.setView('ped'); }"); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => { const L = window.__LF; L.ACT ? 0 : 0; document.body.insertAdjacentHTML('beforeend', '<button id=ztp data-act=pedrecus data-id=pq1>x</button>'); document.getElementById('ztp').click(); }"); await pg.wait_for_timeout(300)
+            as1 = await pg.evaluate("() => { const p = window.__LF.S.pedidos[0]; return p.assumido ? p.assumido.nome : null; }")
+            await pg.evaluate("() => { window.__rf = 0; window.__restConfirma('Teste.', () => { window.__rf++; }); }"); await pg.wait_for_timeout(200)
+            rs0 = await pg.evaluate("() => document.getElementById('restSim').disabled")
+            await pg.evaluate("() => { const t = document.getElementById('restTxt'); t.value = 'restaurar'; t.oninput(); }")
+            rs1 = await pg.evaluate("() => document.getElementById('restSim').disabled")
+            await pg.evaluate("() => document.getElementById('restSim').click()"); await pg.wait_for_timeout(300)
+            rs2 = await pg.evaluate("() => [window.__rf, !!document.getElementById('restTxt'), !!localStorage.getItem('lafouch_antes_restaurar')]")
+            total += 1
+            ok = as1 == 'PC da loja' and rs0 is True and rs1 is False and rs2 == [1, False, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'assumir pedido ao agir; restaurar cópia só depois de digitar RESTAURAR')
+            if not ok: falhas.append('assumir-restaurar'); print('        veio', as1, rs0, rs1, rs2, pg.erros)
+            await pg.close()
+
             # Sons e avisos: um som para cada tipo de aviso, janela de escolha, sem som e preferência antiga preservada
             pg = await pagina()
             await pg.add_init_script("window.__tocou = []; window.Audio = function (u) { this.play = () => { window.__tocou.push(u); return Promise.resolve(); }; };")

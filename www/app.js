@@ -24380,7 +24380,7 @@
     if (!lista && S.syncOn && p.st !== 'ent' && p.st !== 'canc') {
       if (p.assumido && p.assumido.ap !== S.aparelho) h += '<div class="pdMt" style="margin-bottom:8px">👤 Assumido por <b>' + esc(p.assumido.nome || 'outro aparelho') + '</b></div>';
       else if (!p.assumido) h += '<button type="button" class="pdB2 txt" data-act="pedassumir" data-id="' + p.id + '" style="margin-bottom:8px">Assumir este pedido</button>';
-      else h += '<div class="pdMt" style="margin-bottom:8px">👤 Você assumiu este pedido</div>';
+      else h += '<div class="pdMt" style="margin-bottom:8px">👤 Você assumiu este pedido · <button type="button" class="pdLink" data-act="pedliberar" data-id="' + p.id + '">Liberar</button></div>';
     }
     h += '<div class="pdBtns">';
     if (pedPagando(p)) {
@@ -24653,6 +24653,18 @@
     say('Marcado aqui, mas não consegui avisar o site (sem internet ou sem permissão no Firebase).');
   }
   // Pagamento confirmado: gera o token e o site da cliente mostra "Pagamento confirmado".
+  // Quem executa uma ação no pedido (separar, confirmar pagamento, recusar, entregar, cancelar) assume sozinho.
+  function pedAssumeAuto(p) {
+    if (!S.syncOn || !p || p.assumido) return;
+    p.assumido = { ap: S.aparelho, nome: S.aparNome || S.aparelho, ts: Date.now() };
+  }
+  ACT.pedliberar = function (id) {
+    var p = pedAch(id);
+    if (!p || !p.assumido || p.assumido.ap !== S.aparelho) return;
+    p.assumido = null;
+    saveSoon();
+    render();
+  };
   ACT.pedassumir = function (id) {
     var p = pedAch(id);
     if (!p || p.assumido) return;
@@ -24662,6 +24674,7 @@
   };
   ACT.pedpago = function (id) {
     var p = pedAch(id);
+    pedAssumeAuto(p);
     if (!p || !p.sid) return;
     p.pg = 'pago';
     p.recus = false;
@@ -24679,6 +24692,7 @@
   // Comprovante recusado: volta a aguardar o pagamento e o site pede outro comprovante.
   ACT.pedrecus = function (id) {
     var p = pedAch(id);
+    pedAssumeAuto(p);
     if (!p || !p.sid) return;
     p.pg = 'pagar';
     p.recus = true;
@@ -24777,6 +24791,7 @@
     var p = pedAch(id),
       i = $('pdTokIn');
     if (!p || p.st === 'canc' || !i) return;
+    pedAssumeAuto(p);
     var v = String(i.value || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
     if (v.indexOf('LF') === 0 && v.length > 4) v = v.slice(2);
     if (p.tok && v === p.tok.slice(3)) {
@@ -24852,6 +24867,7 @@
   };
   ACT.pedav = function (id) {
     var p = pedAch(id);
+    pedAssumeAuto(p);
     if (!p) return;
     if (p.st === 'pronto') {
       if (p.tok) {
@@ -24871,6 +24887,7 @@
   };
   ACT.pedcanc = function (id) {
     var p = pedAch(id);
+    pedAssumeAuto(p);
     if (!p) return;
     p.st = 'canc';
     S.pedTok = null;
@@ -25479,6 +25496,42 @@
     S._ajForce = true;
     render();
   };
+  // Restaurar cópia: confirmação reforçada. Mostra o que será substituído, pede para digitar RESTAURAR, pede o PIN
+  // e guarda antes uma cópia do estado atual (lafouch_antes_restaurar).
+  function restConfirma(descr, fn) {
+    var ov = document.createElement('div');
+    ov.className = 'pdOv';
+    ov.setAttribute('role', 'dialog');
+    ov.setAttribute('aria-modal', 'true');
+    ov.innerHTML =
+      '<div class="pdSh"><div class="pdAl"></div><b style="font-size:19px">Restaurar cópia?</b>' +
+      '<div class="note n-bad" style="margin:10px 0">' + descr + ' Todos os dados atuais deste aparelho serão <b>substituídos</b>. Só o dono deve fazer isso.</div>' +
+      '<div class="hint" style="margin:0 0 6px">Para continuar, digite <b>RESTAURAR</b>:</div>' +
+      '<input class="in" id="restTxt" autocomplete="off" autocapitalize="characters" spellcheck="false" style="width:100%">' +
+      '<div class="pdBtns" style="margin-top:14px"><button type="button" class="pdB2 txt" id="restNao">Cancelar</button><button type="button" class="pdB1" id="restSim" disabled>Restaurar</button></div></div>';
+    document.body.appendChild(ov);
+    var t = ov.querySelector('#restTxt'),
+      b = ov.querySelector('#restSim');
+    t.oninput = function () {
+      b.disabled = t.value.trim().toUpperCase() !== 'RESTAURAR';
+    };
+    ov.querySelector('#restNao').onclick = function () {
+      ov.remove();
+    };
+    b.onclick = function () {
+      ov.remove();
+      exigirAuth(function () {
+        try {
+          localStorage.setItem('lafouch_antes_restaurar', backupDados(true));
+        } catch (e) {}
+        fn();
+      });
+    };
+    setTimeout(function () {
+      t.focus();
+    }, 80);
+  }
+  window.__restConfirma = restConfirma;
   ACT.bkexp = exportarBackup;
   ACT.bkimp = function () {
     if ((S.sales.length || S.items.length) && !S.bkImpConf) {
@@ -25489,7 +25542,7 @@
       return;
     }
     S.bkImpConf = false;
-    exigirAuth(function () {
+    restConfirma('Você vai importar um arquivo de backup.', function () {
       bkFile.click();
     });
   };
@@ -27301,6 +27354,11 @@
       return;
     }
     S.nvConf = '';
+    window.__restConfirma('Você vai trazer a cópia da nuvem de ' + dia + '.', function () {
+      nvRestaurar2(dia);
+    });
+  };
+  function nvRestaurar2(dia) {
     S.nvOcup = 'rest' + dia;
     nvMsg('Baixando a cópia…');
     nvApi('GET', 'backups/' + dia)

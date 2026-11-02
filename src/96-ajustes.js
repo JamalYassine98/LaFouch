@@ -356,6 +356,42 @@
     S._ajForce = true;
     render();
   };
+  // Restaurar cópia: confirmação reforçada. Mostra o que será substituído, pede para digitar RESTAURAR, pede o PIN
+  // e guarda antes uma cópia do estado atual (lafouch_antes_restaurar).
+  function restConfirma(descr, fn) {
+    var ov = document.createElement('div');
+    ov.className = 'pdOv';
+    ov.setAttribute('role', 'dialog');
+    ov.setAttribute('aria-modal', 'true');
+    ov.innerHTML =
+      '<div class="pdSh"><div class="pdAl"></div><b style="font-size:19px">Restaurar cópia?</b>' +
+      '<div class="note n-bad" style="margin:10px 0">' + descr + ' Todos os dados atuais deste aparelho serão <b>substituídos</b>. Só o dono deve fazer isso.</div>' +
+      '<div class="hint" style="margin:0 0 6px">Para continuar, digite <b>RESTAURAR</b>:</div>' +
+      '<input class="in" id="restTxt" autocomplete="off" autocapitalize="characters" spellcheck="false" style="width:100%">' +
+      '<div class="pdBtns" style="margin-top:14px"><button type="button" class="pdB2 txt" id="restNao">Cancelar</button><button type="button" class="pdB1" id="restSim" disabled>Restaurar</button></div></div>';
+    document.body.appendChild(ov);
+    var t = ov.querySelector('#restTxt'),
+      b = ov.querySelector('#restSim');
+    t.oninput = function () {
+      b.disabled = t.value.trim().toUpperCase() !== 'RESTAURAR';
+    };
+    ov.querySelector('#restNao').onclick = function () {
+      ov.remove();
+    };
+    b.onclick = function () {
+      ov.remove();
+      exigirAuth(function () {
+        try {
+          localStorage.setItem('lafouch_antes_restaurar', backupDados(true));
+        } catch (e) {}
+        fn();
+      });
+    };
+    setTimeout(function () {
+      t.focus();
+    }, 80);
+  }
+  window.__restConfirma = restConfirma;
   ACT.bkexp = exportarBackup;
   ACT.bkimp = function () {
     if ((S.sales.length || S.items.length) && !S.bkImpConf) {
@@ -366,7 +402,7 @@
       return;
     }
     S.bkImpConf = false;
-    exigirAuth(function () {
+    restConfirma('Você vai importar um arquivo de backup.', function () {
       bkFile.click();
     });
   };

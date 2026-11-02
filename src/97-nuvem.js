@@ -291,6 +291,11 @@
       return;
     }
     S.nvConf = '';
+    window.__restConfirma('Você vai trazer a cópia da nuvem de ' + dia + '.', function () {
+      nvRestaurar2(dia);
+    });
+  };
+  function nvRestaurar2(dia) {
     S.nvOcup = 'rest' + dia;
     nvMsg('Baixando a cópia…');
     nvApi('GET', 'backups/' + dia)

@@ -327,7 +327,7 @@
     if (!lista && S.syncOn && p.st !== 'ent' && p.st !== 'canc') {
       if (p.assumido && p.assumido.ap !== S.aparelho) h += '<div class="pdMt" style="margin-bottom:8px">👤 Assumido por <b>' + esc(p.assumido.nome || 'outro aparelho') + '</b></div>';
       else if (!p.assumido) h += '<button type="button" class="pdB2 txt" data-act="pedassumir" data-id="' + p.id + '" style="margin-bottom:8px">Assumir este pedido</button>';
-      else h += '<div class="pdMt" style="margin-bottom:8px">👤 Você assumiu este pedido</div>';
+      else h += '<div class="pdMt" style="margin-bottom:8px">👤 Você assumiu este pedido · <button type="button" class="pdLink" data-act="pedliberar" data-id="' + p.id + '">Liberar</button></div>';
     }
     h += '<div class="pdBtns">';
     if (pedPagando(p)) {
@@ -600,6 +600,18 @@
     say('Marcado aqui, mas não consegui avisar o site (sem internet ou sem permissão no Firebase).');
   }
   // Pagamento confirmado: gera o token e o site da cliente mostra "Pagamento confirmado".
+  // Quem executa uma ação no pedido (separar, confirmar pagamento, recusar, entregar, cancelar) assume sozinho.
+  function pedAssumeAuto(p) {
+    if (!S.syncOn || !p || p.assumido) return;
+    p.assumido = { ap: S.aparelho, nome: S.aparNome || S.aparelho, ts: Date.now() };
+  }
+  ACT.pedliberar = function (id) {
+    var p = pedAch(id);
+    if (!p || !p.assumido || p.assumido.ap !== S.aparelho) return;
+    p.assumido = null;
+    saveSoon();
+    render();
+  };
   ACT.pedassumir = function (id) {
     var p = pedAch(id);
     if (!p || p.assumido) return;
@@ -609,6 +621,7 @@
   };
   ACT.pedpago = function (id) {
     var p = pedAch(id);
+    pedAssumeAuto(p);
     if (!p || !p.sid) return;
     p.pg = 'pago';
     p.recus = false;
@@ -626,6 +639,7 @@
   // Comprovante recusado: volta a aguardar o pagamento e o site pede outro comprovante.
   ACT.pedrecus = function (id) {
     var p = pedAch(id);
+    pedAssumeAuto(p);
     if (!p || !p.sid) return;
     p.pg = 'pagar';
     p.recus = true;
@@ -724,6 +738,7 @@
     var p = pedAch(id),
       i = $('pdTokIn');
     if (!p || p.st === 'canc' || !i) return;
+    pedAssumeAuto(p);
     var v = String(i.value || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
     if (v.indexOf('LF') === 0 && v.length > 4) v = v.slice(2);
     if (p.tok && v === p.tok.slice(3)) {
@@ -799,6 +814,7 @@
   };
   ACT.pedav = function (id) {
     var p = pedAch(id);
+    pedAssumeAuto(p);
     if (!p) return;
     if (p.st === 'pronto') {
       if (p.tok) {
@@ -818,6 +834,7 @@
   };
   ACT.pedcanc = function (id) {
     var p = pedAch(id);
+    pedAssumeAuto(p);
     if (!p) return;
     p.st = 'canc';
     S.pedTok = null;
