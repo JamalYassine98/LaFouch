@@ -349,3 +349,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - 01/11/2026: correção: no menu só a linha MENU/X desce (alinha com o botão do menu); os itens (Catálogo etc.) ficam no lugar de antes.
 - 01/11/2026: menu: linha MENU/X alinhada em altura com o botão do menu, MANTENDO a distância original entre 'MENU' e 'Catálogo' (a lista inteira desce junto).
 - 01/11/2026: menu: seta do Catálogo estava 4px deslocada; agora X e todas as setas ficam na mesma coluna.
+- 01/11/2026: menu: X sem círculo; muda para a cor de destaque ao passar o mouse/tocar (/*MENU-X*/).
