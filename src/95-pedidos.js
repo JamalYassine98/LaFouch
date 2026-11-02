@@ -120,7 +120,8 @@
         var docs = j.documents || [],
           apagar = [],
           novos = 0,
-          comps = 0;
+          comps = 0,
+          cancs = 0;
         docs = docs.map(function (d) {
           var f = {};
           Object.keys(d.fields || {}).forEach(function (k) {
@@ -130,11 +131,29 @@
         });
         // pedidos primeiro, comprovantes depois (o comprovante procura o pedido pelo código)
         docs.sort(function (a, b) {
-          return (a.f.tipo === 'comp' ? 1 : 0) - (b.f.tipo === 'comp' ? 1 : 0);
+          var rk = function (x) {
+            return x.f.tipo === 'cancel' ? 2 : x.f.tipo === 'comp' ? 1 : 0;
+          };
+          return rk(a) - rk(b);
         });
         docs.forEach(function (d) {
           var sid = d.sid,
             f = d.f;
+          if (f.tipo === 'cancel') {
+            // cliente cancelou pelo site: só vale enquanto não pagou nem começou a separar
+            var qc = S.pedidos.filter(function (x) {
+              return x.sid === pedTxt(f.ref, 40);
+            })[0];
+            if (qc) {
+              if (qc.st === 'novo' && (qc.pg === 'pagar' || qc.pg === 'comp')) {
+                qc.st = 'canc';
+                qc.cancSite = true;
+                cancs++;
+              }
+              apagar.push(sid);
+            } else if (Date.now() - (+f.ts || 0) > 3 * 86400000) apagar.push(sid);
+            return;
+          }
           if (f.tipo === 'comp') {
             var q = S.pedidos.filter(function (x) {
               return x.sid === pedTxt(f.ref, 40);
@@ -172,8 +191,8 @@
           apagar.push(sid);
           novos++;
         });
-        if (novos || comps) {
-          S.pedF = 'novo';
+        if (novos || comps || cancs) {
+          S.pedF = cancs && !novos && !comps ? 'canc' : 'novo';
           render();
         }
         // só apaga da nuvem depois que o app já gravou o pedido
@@ -182,7 +201,7 @@
             apagar.forEach(function (sid) {
               nvApi('DELETE', 'pedidos/' + encodeURIComponent(sid)).catch(function () {});
             });
-          }, novos || comps ? 5000 : 0);
+          }, novos || comps || cancs ? 5000 : 0);
         return novos;
       })
       .catch(function (e) {
@@ -338,7 +357,7 @@
       est = pedEstado(p),
       h = '<div class="top"><div><h1>Pedido ' + p.num + '</h1><div class="crumb">' + esc(p.cli || 'Sem nome') + ' · ' + fd(p.ts) + ' ' + fh(p.ts) + (p.orig === 'site' ? ' · Site' : '') + (p.teste ? ' · TESTE' : '') + '</div></div></div>';
     h += '<div class="sel"><button type="button" class="chip" data-act="pedfecha">‹ Pedidos</button></div>';
-    if (p.st === 'canc') h += '<div class="pdAviso bad">Pedido cancelado.' + (p.tok ? ' O token ' + esc(p.tok) + ' não vale mais.' : '') + '</div>';
+    if (p.st === 'canc') h += '<div class="pdAviso bad">Pedido cancelado' + (p.cancSite ? ' pelo cliente, no site' : '') + '.' + (p.tok ? ' O token ' + esc(p.tok) + ' não vale mais.' : '') + '</div>';
     else h += pedPassos(p);
     if (p.tok && p.st !== 'canc') {
       h +=
