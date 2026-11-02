@@ -7,11 +7,11 @@ const R = require('./reserva');
 class FakeDb {
   constructor() { this.m = new Map(); this.atraso = 4; }
   seed(path, data) { this.m.set(path, { v: 1, data: JSON.parse(JSON.stringify(data)) }); }
-  ler(path) { const d = this.m.get(path); return d ? JSON.parse(JSON.stringify(d.data)) : null; }
+  ler(path) { const d = this.m.get(path); return d && !d.apagado ? JSON.parse(JSON.stringify(d.data)) : null; }
   collection(c) { return { doc: (id) => this._doc(c + '/' + id) }; }
   _doc(path) {
     const db = this;
-    return { path, async get() { const d = db.m.get(path); return { exists: !!d, data: () => d && JSON.parse(JSON.stringify(d.data)) }; } };
+    return { path, async get() { const d = db.m.get(path); return { exists: !!d && !d.apagado, data: () => d && JSON.parse(JSON.stringify(d.data)) }; } };
   }
   async runTransaction(fn) {
     for (let t = 0; t < 40; t++) {
@@ -21,14 +21,15 @@ class FakeDb {
           if (gravou) throw new Error('Firestore: todas as leituras devem vir antes das gravações');
           await new Promise((r) => setTimeout(r, Math.random() * this.atraso));
           const d = this.m.get(ref.path); lidos.set(ref.path, d ? d.v : 0);
-          return { exists: !!d, data: () => d && JSON.parse(JSON.stringify(d.data)) };
+          return { exists: !!d && !d.apagado, data: () => d && JSON.parse(JSON.stringify(d.data)) };
         },
         set: (ref, data) => { gravou = true; grava.set(ref.path, data); },
+        delete: (ref) => { gravou = true; grava.set(ref.path, null); },
       };
       const r = await fn(tx);
       await new Promise((r2) => setTimeout(r2, Math.random() * this.atraso));
       let ok = true; for (const [p, v] of lidos) { const d = this.m.get(p); if ((d ? d.v : 0) !== v) ok = false; }
-      if (ok) { for (const [p, data] of grava) { const d = this.m.get(p); this.m.set(p, { v: (d ? d.v : 0) + 1, data: JSON.parse(JSON.stringify(data)) }); } return r; }
+      if (ok) { for (const [p, data] of grava) { const d = this.m.get(p); if (data === null) this.m.set(p, { v: (d ? d.v : 0) + 1, data: null, apagado: true }); else this.m.set(p, { v: (d ? d.v : 0) + 1, data: JSON.parse(JSON.stringify(data)) }); } return r; }
     }
     throw new Error('contenção demais');
   }
@@ -167,6 +168,13 @@ const T0 = 1_000_000_000_000;
       await Promise.all(ops);
       assert.ok(disp(db, 'Rosa', T0) >= 0, 'negativo na rodada ' + i);
     }
+  });
+  await teste('sem reservas o documento de estoque é apagado (a lista pública fica vazia)', async () => {
+    const db = novo([2, 0]); const it = [{ ref: 'SL1', cor: 'Rosa', q: 1 }];
+    await R.reservar(db, T0, 'PAAA1', it); assert.ok(db.ler('estoque/SL1'));
+    await R.liberar(db, T0 + 1, 'PAAA1', ['SL1']); assert.strictEqual(db.ler('estoque/SL1'), null);
+    await R.reservar(db, T0 + 2, 'PAAA1', it); await R.reservar(db, T0 + R.PRAZO_MS * 3, 'PBBB1', it);
+    assert.deepStrictEqual(Object.keys(db.ler('estoque/SL1').res), ['PBBB1~rosa']);
   });
   console.log(total - falhas.length + '/' + total + ' testes passaram' + (falhas.length ? '  |  FALHARAM: ' + falhas.join(' ; ') : ''));
   process.exit(falhas.length ? 1 : 0);

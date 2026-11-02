@@ -52,6 +52,13 @@ function limpa(estq, agora) {
   return { res };
 }
 
+// grava o documento; se não sobrou nenhuma reserva, apaga (a lista pública de reservas fica pequena)
+function guarda(tx, db, ref, estq) {
+  const alvo = db.collection('estoque').doc(ref);
+  if (Object.keys((estq && estq.res) || {}).length) tx.set(alvo, estq);
+  else tx.delete(alvo);
+}
+
 function confere(pid, itens) {
   if (!/^[A-Za-z0-9_-]{4,40}$/.test(String(pid || ''))) throw new Falha('pedido');
   if (!Array.isArray(itens) || !itens.length || itens.length > MAX_ITENS) throw new Falha('itens');
@@ -105,7 +112,7 @@ async function reservar(db, agora, pid, itensBrutos, opcoes) {
       const k = chave(pid, it.cor);
       const atual = e.res[k];
       e.res[k] = { pid, cor: it.cor, q: it.q, exp: atual && atual.pago ? 0 : prazo, pago: !!(atual && atual.pago), comp: !!(atual && atual.comp) };
-      tx.set(db.collection('estoque').doc(it.ref), e);
+      guarda(tx, db, it.ref, e);
     });
     return { ok: true, exp: prazo };
   });
@@ -135,7 +142,7 @@ async function liberar(db, agora, pid, refs) {
           mexeu = true;
         }
       });
-      if (mexeu) tx.set(db.collection('estoque').doc(ref), limpa({ res }, agora));
+      if (mexeu) guarda(tx, db, ref, limpa({ res }, agora));
     });
     return { ok: true };
   });
@@ -164,7 +171,7 @@ async function pagar(db, agora, pid, itensBrutos) {
     lidos.forEach(({ it, estq }) => {
       const e = limpa(estq, agora);
       e.res[chave(pid, it.cor)] = { pid, cor: it.cor, q: it.q, exp: 0, pago: true, comp: true };
-      tx.set(db.collection('estoque').doc(it.ref), e);
+      guarda(tx, db, it.ref, e);
     });
     return { ok: true };
   });
@@ -191,7 +198,7 @@ async function recusar(db, agora, pid, refs) {
           mexeu = true;
         }
       });
-      if (mexeu) tx.set(db.collection('estoque').doc(ref), limpa(e, agora));
+      if (mexeu) guarda(tx, db, ref, limpa(e, agora));
     });
     return { ok: true };
   });

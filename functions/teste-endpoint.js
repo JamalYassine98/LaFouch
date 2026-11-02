@@ -7,7 +7,7 @@ const R = require('./reserva');
 const dados = new Map();
 const fakeDb = {
   collection: (c) => ({ doc: (id) => ({ path: c + '/' + id, async get() { const d = dados.get(c + '/' + id); return { exists: !!d, data: () => d && JSON.parse(JSON.stringify(d)) }; } }) }),
-  async runTransaction(fn) { const grava = new Map(); const tx = { get: async (r) => { const d = dados.get(r.path); return { exists: !!d, data: () => d && JSON.parse(JSON.stringify(d)) }; }, set: (r, v) => grava.set(r.path, v) }; const out = await fn(tx); for (const [p, v] of grava) dados.set(p, JSON.parse(JSON.stringify(v))); return out; },
+  async runTransaction(fn) { const grava = new Map(); const tx = { get: async (r) => { const d = dados.get(r.path); return { exists: !!d, data: () => d && JSON.parse(JSON.stringify(d)) }; }, set: (r, v) => grava.set(r.path, v), delete: (r) => grava.set(r.path, null) }; const out = await fn(tx); for (const [p, v] of grava) { if (v === null) dados.delete(p); else dados.set(p, JSON.parse(JSON.stringify(v))); } return out; },
 };
 let tokenOk = null;
 const stubs = {
@@ -58,7 +58,7 @@ const it = [{ ref: 'SL1', cor: 'Rosa', q: 1 }];
     assert.strictEqual((await chama({ acao: 'apagar' })).code, 400); assert.strictEqual((await chama({}, '', 'GET')).code, 405);
   });
   await teste('dono libera o pedido ao entregar/cancelar', async () => {
-    const r = await chama({ acao: 'liberar', pedido: 'PDDD1', itens: it }, 'Bearer dono'); assert.ok(r.ok); assert.deepStrictEqual(dados.get('estoque/SL1').res, {});
+    const r = await chama({ acao: 'liberar', pedido: 'PDDD1', itens: it }, 'Bearer dono'); assert.ok(r.ok); assert.strictEqual(dados.get('estoque/SL1'), undefined);
   });
   console.log(total - falhas.length + '/' + total + ' testes do endpoint passaram' + (falhas.length ? '  |  FALHARAM: ' + falhas.join(' ; ') : ''));
   process.exit(falhas.length ? 1 : 0);
