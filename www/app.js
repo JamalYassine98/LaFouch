@@ -29375,13 +29375,26 @@
   function fechoAuto() {
     var hoje = dayKey(Date.now()),
       dias = {};
-    S.sales.forEach(function (s) {
-      dias[dayKey(s.ts)] = 1;
+    S.sales.forEach(function (x) {
+      dias[dayKey(x.ts)] = 1;
     });
+    // qualquer movimento de caixa (despesa, câmbio, compra, retirada...) também faz o dia contar, mesmo sem venda
+    ['exp', 'cambios', 'compras', 'descartes', 'retiradas', 'melhUso', 'cpay', 'imprev', 'dlog', 'elog'].forEach(function (n) {
+      (S[n] || []).forEach(function (x) {
+        if (x && x.ts > 0) dias[dayKey(x.ts)] = 1;
+      });
+    });
+    // dias de loja (seg–sáb) dos últimos 7 dias fecham mesmo sem nada ("0 vendas"); domingo só se teve movimento
+    if (S.sales.length) {
+      for (var i = 1; i <= 7; i++) {
+        var d = new Date(Date.now() - i * 86400000);
+        if (d.getDay() !== 0) dias[dayKey(d.getTime())] = 1;
+      }
+    }
     Object.keys(dias).forEach(function (k) {
       if (k < hoje) fechoCria(k, true);
     });
-    if (new Date().getHours() >= 17 && dias[hoje]) fechoCria(hoje, true);
+    if (new Date().getHours() >= 17 && (dias[hoje] || new Date().getDay() !== 0)) fechoCria(hoje, true);
   }
   function fechoHtml() {
     var hoje = dayKey(Date.now()),

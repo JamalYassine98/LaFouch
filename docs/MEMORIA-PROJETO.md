@@ -436,3 +436,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - Ainda ficou fora: "Avise-me" automático, fotos em segundo plano, tela dedicada "Conferir estoque", reservas nas telas do app, site em tempo real.
 - v373: lista de Estoque mostra "N reservada(s) no site" por referência.
 - v374: "Avise-me" automático: site envia pedido tipo 'avise' (se a cliente tem conta/WhatsApp); app guarda lista de espera (S.espera, sincroniza) e mostra em Pedidos 'Peça voltou' com botão WhatsApp. Depende das regras de pedidos aceitarem esse tipo (se recusar, vale o fluxo manual antigo).
+- v375: fechamento automático às 17h; fecha dia com venda OU qualquer movimento; seg–sáb dos últimos 7 dias fecham mesmo com 0 vendas; domingo só com movimento. Contas fixas são mensais (totalMensal), diasLoja=26 só converte meta diária em volume mensal.

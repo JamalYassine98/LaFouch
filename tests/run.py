@@ -1327,7 +1327,7 @@ async def main():
             await pg.evaluate("() => { document.body.insertAdjacentHTML('beforeend', '<button id=fz data-act=fechar>x</button>'); document.getElementById('fz').click(); }")
             f2 = await pg.evaluate("() => window.__LF.S.fechos.map(f => [f.auto, f.n, f.cash ? f.cash.pyg : null])")
             total += 1
-            ok = (f1 == [[True, 1, False]] or f1 == [[True, 1, False], [True, 1, True]] or f1 == [[True, 1, True], [True, 1, False]]) and len(f2) == 2 and not pg.erros
+            ok = len(f1) >= 5 and any(x[1] == 1 for x in f1) and len(f2) == len(f1) + (0 if any(x[2] == 500000 for x in f2) else 1) and any(x[2] == 500000 for x in f2) and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'fechamento do caixa: dia passado automático e hoje pelo botão')
             if not ok: falhas.append('fechamento'); print('        veio', f1, f2, pg.erros)
             await pg.close()
