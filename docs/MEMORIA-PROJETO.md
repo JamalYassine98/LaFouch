@@ -341,3 +341,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - 01/11/2026: corrigido no site: em telas grandes (PC) 'Esqueci minha senha', 'Criar conta' e botão Google ficavam grandes demais (regra de tela larga das abas de conta); login volta ao esboço aprovado (/*LOGIN-FIX*/).
 - 01/11/2026: login no PC ampliado em telas grandes (zoom 1.2/1.4/1.6 a partir de 1200/1600/1900px; /*LOGIN-ESCALA*/) para não ficar minúsculo.
 - 01/11/2026: página do produto mostra miniatura + nome da cor mesmo com 1 só cor (PC na coluna direita, celular sob a foto).
+- 01/11/2026: 'Combina também' agora pode ser arrastado com o mouse (segurar e arrastar; clique simples continua abrindo o produto; /*REL-ARRASTAR*/).
