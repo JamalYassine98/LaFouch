@@ -20,6 +20,8 @@
     var sn = $('sino'),
       nn = notifContagem();
     if (sn) sn.innerHTML = ico('notif', 24) + (nn ? '<i>' + nn + '</i>' : '');
+    var sn2 = $('sino2');
+    if (sn2) sn2.innerHTML = ico('notif', 24) + (nn ? '<i>' + nn + '</i>' : ''); // o sino também aparece na aba WhatsApp
     navItens().forEach(function (v) {
       var on = navOn(v[0]);
       var b = btn('mn' + (on ? ' on' : ''), '', function () {

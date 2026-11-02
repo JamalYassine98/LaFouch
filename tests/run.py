@@ -1593,6 +1593,35 @@ async def main():
             if not ok: falhas.append('login-unico'); print('        veio', lg1, lg2, lg3, trava, lg4, lg5, lg6, pg.erros)
             await pg.close()
 
+            # Aba WhatsApp: logo e sino aparecem; no app instalado o envio usa o compartilhamento nativo com as fotos
+            pg = await pagina()
+            await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.items = [{tipo:'solar',ref:'WA1',grau:'',cor:'Preto',qty:2}, {tipo:'solar',ref:'WA2',grau:'',cor:'Rosa',qty:1}];
+                const png = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
+                S.fotos = {'WA1|Preto': png, 'WA2|Rosa': png}; window.__chamadas = [];
+                window.Capacitor = {Plugins: {Filesystem: {writeFile: async (o) => { window.__chamadas.push(['w', o.path, o.directory]); return {uri: 'file:///cache/' + o.path}; }}, Share: {share: async (o) => { window.__chamadas.push(['s', (o.files || []).length, o.text.indexOf('La Fouch') === 0]); return {}; }}}};
+                S.catOpen = true; S.cvOff = {}; L.render(); }""")
+            await pg.wait_for_timeout(300)
+            wa1 = await pg.evaluate("() => [!!document.querySelector('#catV .brand img'), !!document.getElementById('sino2'), document.getElementById('cvCount').textContent]")
+            await pg.evaluate("() => document.getElementById('cvSend').click()"); await pg.wait_for_timeout(700)
+            wa2 = await pg.evaluate("() => window.__chamadas.map(c => c[0]).join('') + '|' + window.__chamadas.filter(c => c[0] === 's').map(c => c.slice(1).join(',')).join('')")
+            total += 1
+            ok = wa1[0] is True and wa1[1] is True and wa1[2].startswith('2 de 2') and wa2 == 'wws|2,true' and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'aba WhatsApp: logo e sino visíveis; envio nativo de várias imagens')
+            if not ok: falhas.append('whatsapp'); print('        veio', wa1, wa2, pg.erros)
+            await pg.close()
+
+            # "Depois" na atualização: a faixa some, mas o aviso urgente fica nas Notificações
+            pg = await pagina()
+            await pg.evaluate("() => { window.__upd.estado.pronta = 99999999999; document.querySelector('[data-act=updmais]') || 0; window.__LF.render(); }")
+            u1 = await pg.evaluate("() => { const b = document.createElement('div'); b.id = 'updBar'; document.body.appendChild(b); return 1; }")
+            await pg.evaluate("() => { window.__LF.S.view = 'notif'; window.__LF.render(); }")
+            n1 = await pg.evaluate("() => document.getElementById('v-notif').innerText.indexOf('Atualização do app pronta') >= 0 && !!document.querySelector('#v-notif [data-act=updagora]')")
+            total += 1
+            ok = n1 is True and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'atualização pronta fica nas notificações urgentes')
+            if not ok: falhas.append('updnotif'); print('        veio', n1, pg.erros)
+            await pg.close()
+
             # Sons e avisos: um som para cada tipo de aviso, janela de escolha, sem som e preferência antiga preservada
             pg = await pagina()
             await pg.add_init_script("window.__tocou = []; window.Audio = function (u) { this.play = () => { window.__tocou.push(u); return Promise.resolve(); }; };")

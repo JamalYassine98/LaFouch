@@ -135,6 +135,18 @@
       ? 'No celular abre o compartilhamento e você escolhe o WhatsApp. No computador, as imagens são copiadas (uma por vez) ou baixadas.'
       : 'Sem fotos de peças em estoque nesse tipo. Use "+ Adicionar produto" > "Tirar foto da peça".';
   }
+  // logo e sino também na aba WhatsApp (montados aqui, e não no index.html, para chegarem por atualização automática)
+  (function () {
+    var cv = $('catV');
+    if (!cv || $('sino2')) return;
+    var d = document.createElement('div');
+    d.className = 'top logo-top';
+    d.style.cssText = 'max-width:980px;margin:0 auto 6px';
+    d.innerHTML =
+      '<button type="button" class="sino" id="sino2" data-act="view" data-id="notif" aria-label="Notificações"></button>' +
+      '<div class="brand"><img class="lg-e" src="logo-app.png" alt="La Fouch - Tudo em Óculos"><img class="lg-c" src="logo-app-claro.png" alt="La Fouch - Tudo em Óculos"></div>';
+    cv.insertBefore(d, cv.firstChild);
+  })();
   $('cvAll').onclick = function () {
     var L = catList(),
       todos = L.every(function (o) {
@@ -233,6 +245,46 @@
       })
     )
       .then(function (files) {
+        // No app instalado o compartilhamento do navegador não leva arquivos: usa o nativo (grava as fotos no cache e abre "Compartilhar com…")
+        var P = window.Capacitor && window.Capacitor.Plugins;
+        if (P && P.Filesystem && P.Share) {
+          var lerB64 = function (f) {
+            return new Promise(function (ok, no) {
+              var r = new FileReader();
+              r.onload = function () {
+                ok(String(r.result).split(',')[1] || '');
+              };
+              r.onerror = no;
+              r.readAsDataURL(f);
+            });
+          };
+          var uris = [],
+            job = Promise.resolve();
+          files.forEach(function (f, i) {
+            job = job.then(function () {
+              m.textContent = 'Preparando ' + (i + 1) + ' de ' + files.length + '…';
+              return lerB64(f)
+                .then(function (b64) {
+                  return P.Filesystem.writeFile({ path: 'envio/' + Date.now() + '-' + i + '-' + f.name, data: b64, directory: 'CACHE', recursive: true });
+                })
+                .then(function (r) {
+                  uris.push(r.uri);
+                });
+            });
+          });
+          return job
+            .then(function () {
+              return P.Share.share({ title: 'La Fouch', text: cvTexto(sel), files: uris, dialogTitle: 'Enviar pelo WhatsApp' });
+            })
+            .then(
+              function () {
+                m.textContent = 'Escolha o WhatsApp e o contato na janela que abriu.';
+              },
+              function (e) {
+                m.textContent = /cancel/i.test((e && (e.message || e.name)) || '') ? '' : 'Não foi possível compartilhar.';
+              }
+            );
+        }
         if (navigator.canShare && navigator.canShare({ files: files })) {
           return navigator.share({
             files: files,

@@ -857,7 +857,7 @@
     } catch (e) {}
   }
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 384;
+  var APP_BUILD = 385;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
   // ===== Movimentos: todo fato de dinheiro ou estoque é gravado por aqui (livro + histórico juntos). =====
   // Formato do registro do histórico (S.dlog) de uma compra de mercadoria.
@@ -7470,6 +7470,18 @@
       ? 'No celular abre o compartilhamento e você escolhe o WhatsApp. No computador, as imagens são copiadas (uma por vez) ou baixadas.'
       : 'Sem fotos de peças em estoque nesse tipo. Use "+ Adicionar produto" > "Tirar foto da peça".';
   }
+  // logo e sino também na aba WhatsApp (montados aqui, e não no index.html, para chegarem por atualização automática)
+  (function () {
+    var cv = $('catV');
+    if (!cv || $('sino2')) return;
+    var d = document.createElement('div');
+    d.className = 'top logo-top';
+    d.style.cssText = 'max-width:980px;margin:0 auto 6px';
+    d.innerHTML =
+      '<button type="button" class="sino" id="sino2" data-act="view" data-id="notif" aria-label="Notificações"></button>' +
+      '<div class="brand"><img class="lg-e" src="logo-app.png" alt="La Fouch - Tudo em Óculos"><img class="lg-c" src="logo-app-claro.png" alt="La Fouch - Tudo em Óculos"></div>';
+    cv.insertBefore(d, cv.firstChild);
+  })();
   $('cvAll').onclick = function () {
     var L = catList(),
       todos = L.every(function (o) {
@@ -7568,6 +7580,46 @@
       })
     )
       .then(function (files) {
+        // No app instalado o compartilhamento do navegador não leva arquivos: usa o nativo (grava as fotos no cache e abre "Compartilhar com…")
+        var P = window.Capacitor && window.Capacitor.Plugins;
+        if (P && P.Filesystem && P.Share) {
+          var lerB64 = function (f) {
+            return new Promise(function (ok, no) {
+              var r = new FileReader();
+              r.onload = function () {
+                ok(String(r.result).split(',')[1] || '');
+              };
+              r.onerror = no;
+              r.readAsDataURL(f);
+            });
+          };
+          var uris = [],
+            job = Promise.resolve();
+          files.forEach(function (f, i) {
+            job = job.then(function () {
+              m.textContent = 'Preparando ' + (i + 1) + ' de ' + files.length + '…';
+              return lerB64(f)
+                .then(function (b64) {
+                  return P.Filesystem.writeFile({ path: 'envio/' + Date.now() + '-' + i + '-' + f.name, data: b64, directory: 'CACHE', recursive: true });
+                })
+                .then(function (r) {
+                  uris.push(r.uri);
+                });
+            });
+          });
+          return job
+            .then(function () {
+              return P.Share.share({ title: 'La Fouch', text: cvTexto(sel), files: uris, dialogTitle: 'Enviar pelo WhatsApp' });
+            })
+            .then(
+              function () {
+                m.textContent = 'Escolha o WhatsApp e o contato na janela que abriu.';
+              },
+              function (e) {
+                m.textContent = /cancel/i.test((e && (e.message || e.name)) || '') ? '' : 'Não foi possível compartilhar.';
+              }
+            );
+        }
         if (navigator.canShare && navigator.canShare({ files: files })) {
           return navigator.share({
             files: files,
@@ -21148,6 +21200,17 @@
       mg = fxMargemInfo('pyg'),
       mb = fxMargemInfo('brl'),
       mx = Math.max(mg.m, mb.m);
+    var up = typeof updPendente === 'function' ? updPendente() : 0;
+    if (up)
+      l.push({
+        t: 'Atualização do app pronta',
+        s: 'A versão ' + up + ' já foi baixada. Toque para aplicar; leva poucos segundos.',
+        c: 'var(--accent)',
+        b: 'Atualizar agora',
+        act: 'updagora',
+        id: 'upd',
+        urg: true
+      });
     if (mx > FX_AVISO)
       l.push({
         t: 'Margem da loja em ' + pc(mx),
@@ -21294,6 +21357,8 @@
     var sn = $('sino'),
       nn = notifContagem();
     if (sn) sn.innerHTML = ico('notif', 24) + (nn ? '<i>' + nn + '</i>' : '');
+    var sn2 = $('sino2');
+    if (sn2) sn2.innerHTML = ico('notif', 24) + (nn ? '<i>' + nn + '</i>' : ''); // o sino também aparece na aba WhatsApp
     navItens().forEach(function (v) {
       var on = navOn(v[0]);
       var b = btn('mn' + (on ? ' on' : ''), '', function () {
@@ -26316,6 +26381,7 @@
             localStorage.setItem('lf_upd', JSON.stringify({ v: n, tent: 0 }));
             UPD.pronta = n;
             updAviso();
+            render();
             fim('Atualização ' + n + ' pronta. Toque em "Atualizar agora".');
           });
         });
@@ -26324,7 +26390,8 @@
   }
   ACT.updbusca = function () { UPD.msg = 'Buscando…'; S._ajForce = true; render(); updBusca(true); };
   ACT.updagora = function () { location.reload(); };
-  ACT.updmais = function () { var b = document.getElementById('updBar'); if (b) b.remove(); };
+  ACT.updmais = function () { var b = document.getElementById('updBar'); if (b) b.remove(); render(); }; // "Depois": some a faixa, mas o aviso fica em Notificações (urgente) e no sino
+  function updPendente() { var m = updMarca(); return Math.max(UPD.pronta || 0, +m.v > APP_BUILD ? +m.v : 0); }
   function updCard() {
     var m = updMarca(),
       h = '<section class="card col" id="updCard"><h2 style="margin:0;font-size:16px">Atualização do app</h2>';
@@ -26337,7 +26404,7 @@
   setTimeout(function () {
     var m = updMarca();
     if (m.v && m.v <= APP_BUILD) { try { localStorage.setItem('lf_upd', JSON.stringify({ v: m.v, tent: 0 })); } catch (e) {} }
-    if (+m.v > APP_BUILD) { UPD.pronta = +m.v; updAviso(); }
+    if (+m.v > APP_BUILD) { UPD.pronta = +m.v; updAviso(); render(); }
   }, 4000);
   if (!/#test/.test(location.hash)) {
     setTimeout(function () { updBusca(false); }, 25000);

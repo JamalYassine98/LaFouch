@@ -58,6 +58,7 @@
             localStorage.setItem('lf_upd', JSON.stringify({ v: n, tent: 0 }));
             UPD.pronta = n;
             updAviso();
+            render();
             fim('Atualização ' + n + ' pronta. Toque em "Atualizar agora".');
           });
         });
@@ -66,7 +67,8 @@
   }
   ACT.updbusca = function () { UPD.msg = 'Buscando…'; S._ajForce = true; render(); updBusca(true); };
   ACT.updagora = function () { location.reload(); };
-  ACT.updmais = function () { var b = document.getElementById('updBar'); if (b) b.remove(); };
+  ACT.updmais = function () { var b = document.getElementById('updBar'); if (b) b.remove(); render(); }; // "Depois": some a faixa, mas o aviso fica em Notificações (urgente) e no sino
+  function updPendente() { var m = updMarca(); return Math.max(UPD.pronta || 0, +m.v > APP_BUILD ? +m.v : 0); }
   function updCard() {
     var m = updMarca(),
       h = '<section class="card col" id="updCard"><h2 style="margin:0;font-size:16px">Atualização do app</h2>';
@@ -79,7 +81,7 @@
   setTimeout(function () {
     var m = updMarca();
     if (m.v && m.v <= APP_BUILD) { try { localStorage.setItem('lf_upd', JSON.stringify({ v: m.v, tent: 0 })); } catch (e) {} }
-    if (+m.v > APP_BUILD) { UPD.pronta = +m.v; updAviso(); }
+    if (+m.v > APP_BUILD) { UPD.pronta = +m.v; updAviso(); render(); }
   }, 4000);
   if (!/#test/.test(location.hash)) {
     setTimeout(function () { updBusca(false); }, 25000);

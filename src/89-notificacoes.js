@@ -22,6 +22,17 @@
       mg = fxMargemInfo('pyg'),
       mb = fxMargemInfo('brl'),
       mx = Math.max(mg.m, mb.m);
+    var up = typeof updPendente === 'function' ? updPendente() : 0;
+    if (up)
+      l.push({
+        t: 'Atualização do app pronta',
+        s: 'A versão ' + up + ' já foi baixada. Toque para aplicar; leva poucos segundos.',
+        c: 'var(--accent)',
+        b: 'Atualizar agora',
+        act: 'updagora',
+        id: 'upd',
+        urg: true
+      });
     if (mx > FX_AVISO)
       l.push({
         t: 'Margem da loja em ' + pc(mx),
