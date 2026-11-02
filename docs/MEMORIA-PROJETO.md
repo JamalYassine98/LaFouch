@@ -362,3 +362,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - 01/11/2026: Rodapé do site com fonte maior (14→16px; aviso reCAPTCHA 13,5px). Deployado.
 - 01/11/2026: Rodapé fonte 18px (reCAPTCHA 15px). Deployado.
 - 01/11/2026: IDEIA (só esboço, aguardando OK): no fim do menu lateral, links 'Termos e Condições · Política de Privacidade' + '© 2026 La Fouch. Todos os direitos reservados.'; copyright também no rodapé ('Fotos, textos e marca são de uso exclusivo da La Fouch'). Atenção: em #vscr (mobile) a regra 'footer>div:last-child' esconde o último bloco; o copyright deve ficar antes do .rcp.
+- 01/11/2026: CORRIGIDO: o aviso 'Este site é protegido pelo reCAPTCHA…' estava escondido por uma regra do catálogo (#vscr footer>div:last-child). Agora aparece no rodapé (obrigatório pelo Google enquanto o selo está oculto). Início não tem rodapé. Esboço pendente: políticas no fim do Início? (dono perguntou se polui).
