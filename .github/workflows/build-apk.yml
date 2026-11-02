@@ -51,7 +51,7 @@ jobs:
         env:
           GSJ: ${{ secrets.GOOGLE_SERVICES_JSON }}
         run: |
-          if [ -n "$GSJ" ]; then echo "$GSJ" | base64 -d > android/app/google-services.json && echo "google-services.json instalado"; else echo "::warning::Sem GOOGLE_SERVICES_JSON: o APK sai sem avisos de pedido"; fi
+          if [ -n "$GSJ" ]; then if printf '%s' "$GSJ" | grep -q '"project_info"'; then printf '%s' "$GSJ" > android/app/google-services.json; else echo "$GSJ" | base64 -d > android/app/google-services.json; fi && echo "google-services.json instalado"; else echo "::warning::Sem GOOGLE_SERVICES_JSON: o APK sai sem avisos de pedido"; fi
 
       - name: Sons dos avisos
         run: |
