@@ -488,6 +488,21 @@
     });
     return h + '</section>';
   }
+  // toca o som "Peça voltou" uma vez para cada cliente da lista de espera cuja peça voltou
+  function esperaCheck() {
+    var novo = (S.espera || []).filter(function (x) {
+      return !x.av && !x.snd && esperaTem(x.ref);
+    });
+    if (!novo.length) return;
+    novo.forEach(function (x) {
+      x.snd = true;
+    });
+    saveSoon();
+    if (window.__avTocaTipo) window.__avTocaTipo('v');
+    if (S.view === 'ped') render();
+  }
+  setInterval(esperaCheck, 60000);
+  setTimeout(esperaCheck, 15000);
   ACT.espav = function (id) {
     (S.espera || []).forEach(function (x) {
       if (x.id === id) x.av = true;

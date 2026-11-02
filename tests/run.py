@@ -1355,6 +1355,30 @@ async def main():
             if not ok: falhas.append('espera'); print('        veio', e1, 'Peça voltou' in h1, 'Peça voltou' in h2, apagados, pg.erros)
             await pg.close()
 
+            # Sons e avisos: um som para cada tipo de aviso, janela de escolha, sem som e preferência antiga preservada
+            pg = await pagina()
+            await pg.add_init_script("window.__tocou = []; window.Audio = function (u) { this.play = () => { window.__tocou.push(u); return Promise.resolve(); }; };")
+            await pg.reload(); await pg.wait_for_timeout(800)
+            await pg.evaluate("() => { const L = window.__LF; L.S.avisos = {som: 'campainha'}; L.S._ajForce = true; L.setView('ajustes'); }"); await pg.wait_for_timeout(300)
+            t1 = await pg.evaluate("() => { const c = document.getElementById('avisosCard'); return [c.querySelectorAll('.avlin').length, c.innerText.includes('Peça voltou'), c.innerText.includes('Campainha')]; }")
+            await pg.evaluate("() => document.querySelector('[data-av=escolher][data-v=n]').click()"); await pg.wait_for_timeout(200)
+            t2 = await pg.evaluate("() => [!!document.querySelector('.pdOv'), document.querySelectorAll('.avopt').length]")
+            await pg.evaluate("() => document.querySelector('[data-av=som][data-t=n][data-v=moeda]').click()"); await pg.wait_for_timeout(200)
+            await pg.evaluate("() => document.querySelector('[data-av=fechar]').click()"); await pg.wait_for_timeout(200)
+            await pg.evaluate("() => document.querySelector('[data-av=escolher][data-v=x]').click()"); await pg.wait_for_timeout(200)
+            await pg.evaluate("() => document.querySelector('[data-av=som][data-t=x][data-v=mudo]').click()"); await pg.wait_for_timeout(200)
+            await pg.evaluate("() => window.__tocou.length = 0")
+            await pg.evaluate("() => document.querySelector('[data-av=fechar]').click()"); await pg.wait_for_timeout(200)
+            t3 = await pg.evaluate("() => { const S = window.__LF.S; return [S.avisos.sn, S.avisos.sc, S.avisos.sx, !!document.querySelector('.pdOv')]; }")
+            await pg.evaluate("() => { window.__avTocaTipo('n'); window.__avTocaTipo('c'); window.__avTocaTipo('x'); }")
+            t4 = await pg.evaluate("() => window.__tocou")
+            total += 1
+            ok = t1 == [6, True, True] and t2[0] and t2[1] == 11 and t3 == ['moeda', 'campainha', 'mudo', False] and t4 == ['sons/moeda.mp3', 'sons/campainha.mp3'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'sons e avisos: som por tipo, janela de escolha e sem som')
+            if not ok: falhas.append('sons'); print('        veio', t1, t2, t3, t4, pg.erros)
+            await pg.screenshot(path='/tmp/sons-app.png')
+            await pg.close()
+
             # Reserva do site no app: pagar/recusar/liberar chamam a função; entrega baixa o estoque e registra a venda sozinha
             pg = await pagina()
             chamadas = []

@@ -437,3 +437,8 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - v373: lista de Estoque mostra "N reservada(s) no site" por referência.
 - v374: "Avise-me" automático: site envia pedido tipo 'avise' (se a cliente tem conta/WhatsApp); app guarda lista de espera (S.espera, sincroniza) e mostra em Pedidos 'Peça voltou' com botão WhatsApp. Depende das regras de pedidos aceitarem esse tipo (se recusar, vale o fluxo manual antigo).
 - v375: fechamento automático às 17h; fecha dia com venda OU qualquer movimento; seg–sáb dos últimos 7 dias fecham mesmo com 0 vendas; domingo só com movimento. Contas fixas são mensais (totalMensal), diasLoja=26 só converte meta diária em volume mensal.
+
+## v376 — Sons e avisos (aprovado pelo dono 02/11)
+- Ajustes › "Sons e avisos": cada tipo (pedido novo, comprovante, pagamento aprovado, cliente cancelou, peça voltou, dólar barato) tem o seu som ou "Sem som" + chave liga/desliga; janela de escolha com ▶ para ouvir. 10 sons (4 clássicos + moeda, pop, marimba, cristal, harpa, gota). Silêncio por horário mantido. Quem tinha um som único continua com ele até mexer.
+- Android: um canal por som (pedidos_<som>); a função avisarPedido escolhe o canal pelo tipo (campos sn/sc/sx/sp no doc `dispositivos`). Precisa REDEPLOY da função (`npx firebase-tools deploy --only functions`) e novo APK; função antiga continua tocando o som de "Pedido novo" para todos.
+- Peça voltou e Dólar barato tocam só dentro do app (local).

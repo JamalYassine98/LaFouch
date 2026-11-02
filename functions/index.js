@@ -62,7 +62,10 @@ exports.avisarPedido = onDocumentCreated({ document: 'pedidos/{id}', region: REG
   if (!alvo.length) return;
   // um envio por aparelho, porque o som (canal) muda de aparelho para aparelho
   const resp = await Promise.all(alvo.map(async (d) => {
-    const som = (d.data() || {}).som || 'sino';
+    const dd = d.data() || {};
+    // som escolhido para este tipo de aviso (aparelhos antigos só têm "som", que vale para todos)
+    const campoSom = { novo: 'sn', comp: 'sc', cancel: 'sx', pago: 'sp', teste: 'sn' }[t.tipo];
+    const som = dd[campoSom] || dd.som || 'sino';
     try {
       await admin.messaging().send({
         token: d.id,

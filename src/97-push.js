@@ -11,17 +11,51 @@
     } catch (e) {}
     return o || null;
   }
+  // g: 1 = clássicos, 2 = novos, 3 = sem som
   var AV_SONS = [
-    ['sino', 'Sino'],
-    ['caixa', 'Caixa registradora'],
-    ['campainha', 'Campainha'],
-    ['suave', 'Suave'],
-    ['mudo', 'Sem som']
+    ['sino', 'Sino', 1],
+    ['caixa', 'Caixa registradora', 1],
+    ['campainha', 'Campainha', 1],
+    ['suave', 'Suave', 1],
+    ['moeda', 'Moeda', 2],
+    ['pop', 'Pop', 2],
+    ['marimba', 'Marimba', 2],
+    ['cristal', 'Cristal', 2],
+    ['harpa', 'Harpa', 2],
+    ['gota', 'Gota', 2],
+    ['mudo', 'Sem som', 3]
   ];
+  // Tipos de aviso: letra, título, explicação, som de fábrica
+  var AV_TIPOS = [
+    ['n', 'Pedido novo', 'Cliente fez um pedido no site', 'caixa'],
+    ['c', 'Comprovante enviado', 'Cliente mandou o comprovante para conferir', 'sino'],
+    ['p', 'Pagamento aprovado', 'Quando o Pagopar estiver ligado', 'moeda'],
+    ['x', 'Cliente cancelou', 'Cancelamento feito pelo site', 'suave'],
+    ['v', 'Peça voltou', 'Peça esgotada voltou ao estoque (lista de espera)', 'suave'],
+    ['d', 'Dólar barato', 'Bom momento para trocar dinheiro', 'mudo']
+  ];
+  function avNome(id) {
+    return (AV_SONS.filter(function (x) { return x[0] === id; })[0] || ['', 'Sino'])[1];
+  }
   // Preferências deste aparelho (n=pedido novo, c=comprovante, x=cancelamento, p=pagamento aprovado).
   function avPref() {
-    var a = S.avisos || {};
-    return { n: a.n !== false, c: a.c !== false, x: a.x !== false, p: a.p !== false, som: a.som || 'sino', q: !!a.q, qi: a.qi || '18:00', qf: a.qf || '07:00' };
+    var a = S.avisos || {},
+      o = { n: a.n !== false, c: a.c !== false, x: a.x !== false, p: a.p !== false, v: a.v !== false, d: a.d === true, q: !!a.q, qi: a.qi || '18:00', qf: a.qf || '07:00' };
+    // quem já tinha escolhido UM som para tudo (a.som) continua com ele até mexer num tipo
+    AV_TIPOS.forEach(function (t) {
+      o['s' + t[0]] = a['s' + t[0]] || (a.som && t[0] !== 'd' ? a.som : t[3]);
+    });
+    o.som = o.sn;
+    return o;
+  }
+  function avSomDe(tipo) {
+    return avPref()['s' + tipo] || 'sino';
+  }
+  // Toca o som do tipo, respeitando ligado/desligado e o horário silencioso.
+  function avTocaTipo(tipo) {
+    var a = avPref();
+    if (a[tipo] === false || !a[tipo] || avQuieto(a)) return;
+    avTocar(a['s' + tipo]);
   }
   function avMin(h) {
     var m = /^(\d{1,2}):(\d{2})$/.exec(h || '');
@@ -46,16 +80,17 @@
   }
   // Android: cada som tem o seu canal (o som de um canal não muda depois de criado).
   function avCanal() {
-    var PN = pushPlugin(),
-      a = avPref();
+    var PN = pushPlugin();
     if (!PN || !PN.createChannel) return;
-    var mudo = a.som === 'mudo',
-      nome = (AV_SONS.filter(function (x) { return x[0] === a.som; })[0] || ['', ''])[1];
-    var c = { id: 'pedidos_' + a.som, name: 'Pedidos do site · ' + nome, description: 'Pedido novo, comprovante e cancelamento', importance: mudo ? 3 : 5, visibility: 1, vibration: true };
-    if (!mudo) c.sound = a.som + '.mp3';
-    try {
-      PN.createChannel(c);
-    } catch (e) {}
+    // um canal para cada som: o servidor escolhe o canal conforme o tipo do aviso
+    AV_SONS.forEach(function (x) {
+      var mudo = x[0] === 'mudo',
+        c = { id: 'pedidos_' + x[0], name: 'Pedidos do site · ' + x[1], description: 'Pedido novo, comprovante e cancelamento', importance: mudo ? 3 : 5, visibility: 1, vibration: true };
+      if (!mudo) c.sound = x[0] + '.mp3';
+      try {
+        PN.createChannel(c);
+      } catch (e) {}
+    });
   }
   function pushSalvar(tok) {
     tok = tok || PUSH.tok;
@@ -73,7 +108,7 @@
       'PATCH',
       'dispositivos/' + encodeURIComponent(tok),
       JSON.stringify({
-        fields: { ts: { integerValue: String(Date.now()) }, plat: T('android'), email: T(S.nuvem.email || ''), n: B(a.n), c: B(a.c), x: B(a.x), p: B(a.p), som: T(a.som), q: B(a.q), qi: T(a.qi), qf: T(a.qf) }
+        fields: { ts: { integerValue: String(Date.now()) }, plat: T('android'), email: T(S.nuvem.email || ''), n: B(a.n), c: B(a.c), x: B(a.x), p: B(a.p), som: T(a.sn), sn: T(a.sn), sc: T(a.sc), sx: T(a.sx), sp: T(a.sp), q: B(a.q), qi: T(a.qi), qf: T(a.qf) }
       })
     ).catch(function () {});
   }
@@ -132,7 +167,7 @@
         if (a.x && q.x) ps.push(q.x + (q.x === 1 ? ' cancelamento' : ' cancelamentos'));
         corpo = ps.join(' · ');
       }
-      avTocar(a.som);
+      avTocar(q ? (q.n && a.n ? a.sn : q.c && a.c ? a.sc : a.sx) : a.sn);
       if (!('Notification' in window)) return;
       var mostra = function () {
         try {
@@ -152,37 +187,53 @@
         });
     } catch (e) {}
   }
-  // Cartão "Avisos de pedidos" em Ajustes.
+  // Cartão "Sons e avisos" em Ajustes: cada tipo de aviso com o seu som (ou sem som).
   function avPedidosHtml() {
     var a = avPref(),
       nat = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform(),
-      row = function (k, t, h) {
+      linhas = AV_TIPOS.map(function (t) {
+        var k = t[0],
+          mudo = a['s' + k] === 'mudo';
         return (
-          '<label class="swrow"><span>' + t + '<div class="hint" style="margin:2px 0 0;font-weight:400">' + h + '</div></span><span class="sw"><input type="checkbox" role="switch" data-av="' + k + '"' + (a[k] ? ' checked' : '') + ' aria-label="' + t + '"><i></i></span></label>'
+          '<div class="avlin"><span class="avtx"><b>' + t[1] + '</b><span class="hint" style="margin:2px 0 0;font-weight:400;display:block">' + t[2] + '</span></span>' +
+          '<button type="button" class="avchip' + (a[k] && !mudo ? ' on' : '') + '" data-av="escolher" data-v="' + k + '" aria-label="Escolher o som de ' + t[1] + '"' + (a[k] ? '' : ' style="opacity:.55"') + '>' + (mudo ? '🔕' : '🔔') + ' ' + avNome(a['s' + k]) + ' ▾</button>' +
+          '<span class="sw"><input type="checkbox" role="switch" data-av="' + k + '"' + (a[k] ? ' checked' : '') + ' aria-label="' + t[1] + '"><i></i></span></div>'
         );
-      };
-    var chips = AV_SONS.map(function (x) {
-      var on = a.som === x[0];
-      return (
-        '<button type="button" class="avchip' + (on ? ' on' : '') + '" data-av="som" data-v="' + x[0] + '"><span style="font-size:12px">' + (x[0] === 'mudo' ? '✕' : '▶') + '</span>' + x[1] + (on ? ' ✓' : '') + '</button>'
-      );
-    }).join('');
+      }).join('');
     return (
-      '<section class="card col" id="avisosCard" style="gap:14px"><div><h2 style="margin:0;font-size:16px">Avisos de pedidos</h2><div class="hint" style="margin:2px 0 0">Vale só para este aparelho: <b>' +
+      '<section class="card col" id="avisosCard" style="gap:14px"><div><h2 style="margin:0;font-size:16px">Sons e avisos</h2><div class="hint" style="margin:2px 0 0">Vale só para este aparelho: <b>' +
       (nat ? 'Celular (Android)' : 'Este computador') +
-      '</b></div></div>' +
-      row('n', 'Pedido novo', 'Cliente fez um pedido no site') +
-      row('c', 'Comprovante enviado', 'Cliente mandou o comprovante para conferir') +
-      row('x', 'Cliente cancelou', 'Cancelamento feito pelo site') +
-      row('p', 'Pagamento aprovado', 'Quando o Pagopar estiver ligado') +
-      '<div><div class="lbl">Som do aviso</div><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px">' +
-      chips +
-      '</div><div class="hint" style="margin:6px 0 0">Toque no nome para ouvir.</div></div>' +
-      row('q', 'Silêncio fora do horário', 'Sem aviso das ' + a.qi + ' às ' + a.qf) +
+      '</b>. Toque no som para trocar; a chave liga ou desliga o aviso.</div></div>' +
+      linhas +
+      '<label class="swrow"><span>Silêncio fora do horário<div class="hint" style="margin:2px 0 0;font-weight:400">Sem aviso das ' + a.qi + ' às ' + a.qf + '</div></span><span class="sw"><input type="checkbox" role="switch" data-av="q"' + (a.q ? ' checked' : '') + ' aria-label="Silêncio fora do horário"><i></i></span></label>' +
       (a.q
         ? '<div style="display:flex;gap:10px;align-items:center"><span class="hint" style="margin:0">Das</span><input class="in" type="time" data-av="qi" value="' + a.qi + '" style="max-width:130px"><span class="hint" style="margin:0">às</span><input class="in" type="time" data-av="qf" value="' + a.qf + '" style="max-width:130px"></div>'
         : '') +
-      '<button type="button" class="btn" data-av="teste" style="width:100%">Enviar aviso de teste</button><div class="hint" id="avmsg" style="margin:0" hidden></div></section>'
+      '<button type="button" class="btn" data-av="teste" style="width:100%">Enviar aviso de teste</button><div class="hint" id="avmsg" style="margin:0" hidden></div></section>' +
+      avJanelaHtml()
+    );
+  }
+  // Janela para escolher o som de um tipo (toque no ▶ para ouvir antes).
+  function avJanelaHtml() {
+    var k = S._avSheet;
+    if (!k) return '';
+    var t = AV_TIPOS.filter(function (x) { return x[0] === k; })[0];
+    if (!t) return '';
+    var cur = avPref()['s' + k],
+      grupo = function (g, nome) {
+        var h = nome ? '<div class="lbl" style="margin:12px 0 4px">' + nome + '</div>' : '';
+        AV_SONS.filter(function (x) { return x[2] === g; }).forEach(function (x) {
+          var on = x[0] === cur;
+          h +=
+            '<div class="avopt' + (on ? ' on' : '') + '"><button type="button" class="avplay' + (x[0] === 'mudo' ? ' mu' : '') + '" data-av="ouvir" data-v="' + x[0] + '" aria-label="Ouvir ' + x[1] + '">' + (x[0] === 'mudo' ? '🔕' : '▶') + '</button>' +
+            '<button type="button" class="avpick" data-av="som" data-t="' + k + '" data-v="' + x[0] + '">' + x[1] + (on ? '<span>✓</span>' : '') + '</button></div>';
+        });
+        return h;
+      };
+    return (
+      '<div class="pdOv" role="dialog" aria-modal="true" aria-label="Escolher o som" data-av="fechar"><div class="pdSh" style="max-height:82vh;overflow:auto"><div class="pdAl"></div>' +
+      '<b style="font-size:19px">Som de “' + t[1] + '”</b>' + grupo(1, 'Clássicos') + grupo(2, 'Novos') + grupo(3, '') +
+      '<button type="button" class="btn" data-av="fechar" style="width:100%;margin-top:14px">Pronto</button></div></div>'
     );
   }
   function avSalvou(canal) {
@@ -212,7 +263,7 @@
         });
       return;
     }
-    avTocar(a.som);
+    avTocar(a.sn);
     try {
       if ('Notification' in window) {
         var go = function () {
@@ -233,22 +284,38 @@
   document.addEventListener('change', function (ev) {
     var t = ev.target,
       k = t.getAttribute && t.getAttribute('data-av');
-    if (!k || k === 'som' || k === 'teste') return;
+    if (!k || k === 'som' || k === 'teste' || k === 'escolher' || k === 'ouvir' || k === 'fechar') return;
     S.avisos = S.avisos || {};
     S.avisos[k] = t.type === 'checkbox' ? t.checked : t.value;
     avSalvou(false);
   });
   document.addEventListener('click', function (ev) {
-    var b = ev.target.closest && ev.target.closest('button[data-av]');
-    if (!b) return;
+    var b = ev.target.closest && ev.target.closest('[data-av]');
+    if (!b || b.tagName === 'INPUT') return;
     var k = b.getAttribute('data-av');
-    if (k === 'som') {
+    if (k === 'fechar') {
+      if (ev.target !== b && b.classList.contains('pdOv')) return; // toque dentro da folha não fecha
+      S._avSheet = null;
+      render();
+    } else if (k === 'escolher') {
+      S._avSheet = b.getAttribute('data-v');
+      render();
+    } else if (k === 'ouvir') avTocar(b.getAttribute('data-v'));
+    else if (k === 'som') {
       S.avisos = S.avisos || {};
-      S.avisos.som = b.getAttribute('data-v');
-      avTocar(S.avisos.som);
+      var tp = b.getAttribute('data-t'),
+        v = b.getAttribute('data-v');
+      // ao mexer num tipo, os outros fixam o som que já tinham (assim o "som único" antigo não muda sozinho)
+      var at = avPref();
+      AV_TIPOS.forEach(function (x) {
+        S.avisos['s' + x[0]] = at['s' + x[0]];
+      });
+      S.avisos['s' + tp] = v;
+      avTocar(v);
       avSalvou(true);
     } else if (k === 'teste') avTeste();
   });
+  window.__avTocaTipo = avTocaTipo;
   window.__pushIniciar = pushIniciar;
   window.__avisoLocal = avisoLocal;
   setTimeout(pushIniciar, 5000);

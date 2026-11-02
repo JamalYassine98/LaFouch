@@ -85,6 +85,7 @@
         return !(S.fxBaratoUlt & m.bit);
       });
       S.fxBaratoUlt = bar;
+      if (novos.length && window.__avTocaTipo) window.__avTocaTipo('d');
       novos.forEach(function (m) {
         S.notifs.unshift({ ts: Date.now(), lida: false, t: 'Dólar barato: bom momento para trocar ' + m.nome, s: 'Dólar em ' + m.txt + ', perto do mínimo dos últimos ' + S.janela + ' dias.' });
       });
