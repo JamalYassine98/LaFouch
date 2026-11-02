@@ -8,7 +8,7 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 
 // A região da função precisa ser a MESMA do banco Firestore (Firebase > Firestore > Dados > Local).
-const REGIAO = 'us-central1';
+const REGIAO = 'southamerica-east1';
 const FUSO = 'America/Asuncion';
 
 function gs(n) {
