@@ -1355,6 +1355,27 @@ async def main():
             if not ok: falhas.append('espera'); print('        veio', e1, 'Peça voltou' in h1, 'Peça voltou' in h2, apagados, pg.erros)
             await pg.close()
 
+            # Balcão respeita as reservas do site: disponível = físico − reservas; carrinho é conferido de novo ao fechar
+            pg = await pagina()
+            agora = int(time.time()*1000)
+            estdoc = {'documents': [{'name': 'projects/p/databases/(default)/documents/estoque/RV1', 'fields': {'res': {'mapValue': {'fields': {'p1~p': {'mapValue': {'fields': {'pid': {'stringValue': 'p1'}, 'cor': {'stringValue': 'P'}, 'q': {'integerValue': '2'}, 'exp': {'integerValue': str(agora + 600000)}, 'pago': {'booleanValue': False}}}}}}}}}]}
+            async def falso3(route):
+                u = route.request.url
+                if 'securetoken' in u: await route.fulfill(json={'id_token': 't', 'refresh_token': 'r'})
+                elif 'estoque' in u: await route.fulfill(json=estdoc)
+                else: await route.fulfill(json={'documents': []})
+            await pg.context.route(re.compile(r'(securetoken|firestore)\.googleapis\.com'), falso3)
+            await pg.evaluate("() => { const S = window.__LF.S; S.pedidos = []; S.items = [{tipo:'pre',ref:'RV1',grau:'+1',cor:'P',qty:3}]; S.nuvem.rt = 'x'; }")
+            await pg.evaluate("() => window.__pedSync()"); await pg.wait_for_timeout(500)
+            g1 = await pg.evaluate("() => window.__gLivre(window.__LF.S.items[0])")
+            await pg.evaluate("() => { window.__LF.S.items[0].qty = 2; }")
+            g2 = await pg.evaluate("() => window.__gLivre(window.__LF.S.items[0])")
+            total += 1
+            ok = g1 == 1 and g2 == 0 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'balcão respeita as reservas do site (disponível = físico − reservado)')
+            if not ok: falhas.append('balcao-reserva'); print('        veio', g1, g2, pg.erros)
+            await pg.close()
+
             # Sons e avisos: um som para cada tipo de aviso, janela de escolha, sem som e preferência antiga preservada
             pg = await pagina()
             await pg.add_init_script("window.__tocou = []; window.Audio = function (u) { this.play = () => { window.__tocou.push(u); return Promise.resolve(); }; };")
@@ -1390,7 +1411,7 @@ async def main():
                 elif m == 'PATCH': await route.fulfill(json={})
                 else: await route.fulfill(json={'documents': []})
             await pg.context.route(re.compile(r'(securetoken\.googleapis\.com|firestore\.googleapis\.com|cloudfunctions\.net)'), falso2)
-            await pg.evaluate("""() => { const S = window.__LF.S; S.nuvem.rt = 'x'; S.baixaAuto = true; S.site = {}; S.vitPend = {}; const cash0 = S.cash.pyg; S._c0 = cash0; S.sales = []; S.clientes = [];
+            await pg.evaluate("""() => { const S = window.__LF.S; S.nuvem.rt = 'x'; S.baixaAutoV = 2; S.baixaAuto = true; S.site = {}; S.vitPend = {}; const cash0 = S.cash.pyg; S._c0 = cash0; S.sales = []; S.clientes = [];
               S.items = [{tipo:'pre',ref:'ZR1',grau:'+1',cor:'Preto',qty:3,custo:20000},{tipo:'pre',ref:'ZR1',grau:'+1',cor:'Rosa',qty:1,custo:20000}];
               const mk = (id, sid, itens) => ({id, num: id, sid, ts: Date.now(), cli: 'Maria', tel: '0981', itens, st: 'pronto', orig: 'site', cod: 'AB' + id, pag: 'alias', pg: 'pago', tok: 'LF-ABCD', total: 0, ent: 'loja'});
               S.pedidos = [mk(1, 'sidum', [{t:'Teste', ref:'ZR1', q:2, cor:'Preto', preco:150000}]), mk(2, 'sidiv', [{t:'Teste', ref:'ZR1', q:2, cor:'Rosa', preco:100000}])];
@@ -1403,7 +1424,7 @@ async def main():
             r1 = await pg.evaluate("() => { const S = window.__LF.S; return [S.items[0].qty, S.sales.length, S.sales[0] && S.sales[0].price, S.sales[0] && S.sales[0].site, S.cash.pyg === S._c0, S.pedidos[0].baixa.falhas.length, JSON.stringify(S.resPend)]; }")
             await entregar(2)
             r2 = await pg.evaluate("() => { const S = window.__LF.S; return [S.items[1].qty, S.sales.length, S.pedidos[1].baixa.falhas.length]; }")
-            await pg.evaluate("() => { const S = window.__LF.S; S.pedidos[0].st = 'pronto'; S.pedidos[0].baixa = null; S.items[0].qty = 5; S.baixaAuto = false; S.resPend = {}; }")
+            await pg.evaluate("() => { const S = window.__LF.S; S.pedidos[0].st = 'pronto'; S.pedidos[0].baixa = null; S.items[0].qty = 5; S.baixaAutoV = 2; S.baixaAuto = false; S.resPend = {}; }")
             await entregar(1)
             r3 = await pg.evaluate("() => { const S = window.__LF.S; return [S.items[0].qty, S.sales.length, JSON.stringify(Object.keys(S.resPend))]; }")
             await pg.wait_for_timeout(100)

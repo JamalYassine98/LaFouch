@@ -267,7 +267,7 @@
       vl.appendChild(b);
     });
     var t = sel ? tipoOf(sel.tipo) : null,
-      max = sel ? gQty(sel) : 0;
+      max = sel ? gLivre(sel) : 0;
     S._vcap = Math.max(max, 1);
     S.qty = Math.max(1, Math.min(S.qty, S._vcap));
     S._vsel = sel;
@@ -283,8 +283,8 @@
       st.textContent = tx;
     }
     if (!sel) note('n-warn', 'Escolha uma peça para vender.');
-    else if (max === 0) note('n-bad', 'Sem estoque dessa peça. Venda travada.');
-    else if (S.qty >= max) note('n-warn', 'Limite: só há ' + max + ' dessa peça.');
+    else if (max === 0) note('n-bad', sel && gQty(sel) > 0 ? 'Todas as peças estão reservadas por pedidos do site.' : 'Sem estoque dessa peça. Venda travada.');
+    else if (S.qty >= max) note('n-warn', 'Limite: só há ' + max + ' dessa peça' + (sel && gQty(sel) > max ? ' (' + (gQty(sel) - max) + ' reservada(s) no site)' : '') + '.');
     else note('n-ok', 'Disponível: pode vender até ' + max + ' un.');
     $('sumB').hidden = !sel;
     if (sel) {

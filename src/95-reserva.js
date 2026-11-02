@@ -178,9 +178,30 @@
           o[ref] = res;
         });
         RES_EST = o;
+        RES_T = Date.now();
       })
       .catch(function () {});
   }
+  // Antes de fechar uma venda no balcão: confere de novo as reservas do site (no máximo 2,5 s de espera).
+  var RES_T = 0;
+  function resFresco() {
+    if (!S.nuvem || !S.nuvem.rt || navigator.onLine === false || Date.now() - RES_T < 15000) return null;
+    RES_T = Date.now();
+    return Promise.race([resBusca(), new Promise(function (ok) { setTimeout(ok, 2500); })]);
+  }
+  // Disponível para vender no balcão = físico − peças seguradas pelo site (pagas ou dentro do prazo).
+  function gLivre(i) {
+    return Math.max(0, gQty(i) - resDoRef(i.ref, i.cor));
+  }
+  // Baixa automática vem LIGADA de fábrica (dono, 02/11); quem ainda não decidiu passa a ficar ligado uma única vez.
+  setTimeout(function () {
+    if (!S.baixaAutoV) {
+      S.baixaAutoV = 2;
+      S.baixaAuto = true;
+      saveSoon();
+    }
+  }, 3000);
+  window.__gLivre = gLivre;
   // quantas peças de ref (e cor, se informada) estão seguradas agora
   function resDoRef(ref, cor) {
     var r = RES_EST[ref],

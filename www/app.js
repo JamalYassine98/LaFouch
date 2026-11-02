@@ -13386,7 +13386,7 @@
       vl.appendChild(b);
     });
     var t = sel ? tipoOf(sel.tipo) : null,
-      max = sel ? gQty(sel) : 0;
+      max = sel ? gLivre(sel) : 0;
     S._vcap = Math.max(max, 1);
     S.qty = Math.max(1, Math.min(S.qty, S._vcap));
     S._vsel = sel;
@@ -13402,8 +13402,8 @@
       st.textContent = tx;
     }
     if (!sel) note('n-warn', 'Escolha uma peça para vender.');
-    else if (max === 0) note('n-bad', 'Sem estoque dessa peça. Venda travada.');
-    else if (S.qty >= max) note('n-warn', 'Limite: só há ' + max + ' dessa peça.');
+    else if (max === 0) note('n-bad', sel && gQty(sel) > 0 ? 'Todas as peças estão reservadas por pedidos do site.' : 'Sem estoque dessa peça. Venda travada.');
+    else if (S.qty >= max) note('n-warn', 'Limite: só há ' + max + ' dessa peça' + (sel && gQty(sel) > max ? ' (' + (gQty(sel) - max) + ' reservada(s) no site)' : '') + '.');
     else note('n-ok', 'Disponível: pode vender até ' + max + ' un.');
     $('sumB').hidden = !sel;
     if (sel) {
@@ -25055,9 +25055,30 @@
           o[ref] = res;
         });
         RES_EST = o;
+        RES_T = Date.now();
       })
       .catch(function () {});
   }
+  // Antes de fechar uma venda no balcão: confere de novo as reservas do site (no máximo 2,5 s de espera).
+  var RES_T = 0;
+  function resFresco() {
+    if (!S.nuvem || !S.nuvem.rt || navigator.onLine === false || Date.now() - RES_T < 15000) return null;
+    RES_T = Date.now();
+    return Promise.race([resBusca(), new Promise(function (ok) { setTimeout(ok, 2500); })]);
+  }
+  // Disponível para vender no balcão = físico − peças seguradas pelo site (pagas ou dentro do prazo).
+  function gLivre(i) {
+    return Math.max(0, gQty(i) - resDoRef(i.ref, i.cor));
+  }
+  // Baixa automática vem LIGADA de fábrica (dono, 02/11); quem ainda não decidiu passa a ficar ligado uma única vez.
+  setTimeout(function () {
+    if (!S.baixaAutoV) {
+      S.baixaAutoV = 2;
+      S.baixaAuto = true;
+      saveSoon();
+    }
+  }, 3000);
+  window.__gLivre = gLivre;
   // quantas peças de ref (e cor, se informada) estão seguradas agora
   function resDoRef(ref, cor) {
     var r = RES_EST[ref],
@@ -29004,8 +29025,9 @@
   // Tira linhas sem estoque e ajusta quantidades que passaram do disponível.
   function cartLimpa() {
     S.cart = S.cart.filter(function (l) {
-      if (l.it.qty <= 0) return false;
-      l.qty = Math.min(l.qty, l.it.qty);
+      var lv = Math.min(l.it.qty, gLivre(l.it));
+      if (lv <= 0) return false;
+      l.qty = Math.min(l.qty, lv);
       return true;
     });
     if (!S.cart.length) S.cartOpen = false;
@@ -29154,7 +29176,19 @@
     return out;
   }
   function cartFinalizar() {
+    var p = resFresco();
+    if (p) p.then(cartFinalizar2);
+    else cartFinalizar2();
+  }
+  function cartFinalizar2() {
+    var antes = cartPecas();
     cartLimpa();
+    if (cartPecas() < antes) {
+      // uma peça do carrinho foi segurada por um pedido do site: quem fecha primeiro leva
+      say(S.cart.length ? 'Uma peça foi reservada por um pedido do site. Conferi o carrinho: confira e feche de novo.' : 'Essa peça acabou de ser reservada por um pedido do site.');
+      render();
+      return;
+    }
     if (!S.cart.length) return;
     if (!(pagTotais().rec > 0)) {
       say('Informe o valor recebido.');
@@ -29278,8 +29312,8 @@
   // Botão "Adicionar pedido".
   $('sCartAdd').onclick = function () {
     var sel = S._vsel;
-    if (!sel || sel.qty <= 0) return;
-    var q = Math.min(S.qty, gQty(sel));
+    if (!sel || sel.qty <= 0 || gLivre(sel) <= 0) return;
+    var q = Math.min(S.qty, gLivre(sel));
     // peças iguais de lotes diferentes: a venda sai de uma e completa com as outras
     var fontes = [sel].concat(
       sibs(sel).filter(function (x) {
@@ -30489,7 +30523,7 @@
       'notifs',
       'pedidos',
       'pedNext',
-      'baixaAuto', 'fechos', 'espera',
+      'baixaAuto', 'baixaAutoV', 'fechos', 'espera',
       'resPend',
       'syncOn',
       'aparelho',

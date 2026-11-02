@@ -24,8 +24,9 @@
   // Tira linhas sem estoque e ajusta quantidades que passaram do disponível.
   function cartLimpa() {
     S.cart = S.cart.filter(function (l) {
-      if (l.it.qty <= 0) return false;
-      l.qty = Math.min(l.qty, l.it.qty);
+      var lv = Math.min(l.it.qty, gLivre(l.it));
+      if (lv <= 0) return false;
+      l.qty = Math.min(l.qty, lv);
       return true;
     });
     if (!S.cart.length) S.cartOpen = false;
@@ -174,7 +175,19 @@
     return out;
   }
   function cartFinalizar() {
+    var p = resFresco();
+    if (p) p.then(cartFinalizar2);
+    else cartFinalizar2();
+  }
+  function cartFinalizar2() {
+    var antes = cartPecas();
     cartLimpa();
+    if (cartPecas() < antes) {
+      // uma peça do carrinho foi segurada por um pedido do site: quem fecha primeiro leva
+      say(S.cart.length ? 'Uma peça foi reservada por um pedido do site. Conferi o carrinho: confira e feche de novo.' : 'Essa peça acabou de ser reservada por um pedido do site.');
+      render();
+      return;
+    }
     if (!S.cart.length) return;
     if (!(pagTotais().rec > 0)) {
       say('Informe o valor recebido.');
@@ -298,8 +311,8 @@
   // Botão "Adicionar pedido".
   $('sCartAdd').onclick = function () {
     var sel = S._vsel;
-    if (!sel || sel.qty <= 0) return;
-    var q = Math.min(S.qty, gQty(sel));
+    if (!sel || sel.qty <= 0 || gLivre(sel) <= 0) return;
+    var q = Math.min(S.qty, gLivre(sel));
     // peças iguais de lotes diferentes: a venda sai de uma e completa com as outras
     var fontes = [sel].concat(
       sibs(sel).filter(function (x) {
