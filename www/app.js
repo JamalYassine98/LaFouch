@@ -977,7 +977,7 @@
   // Assim dois aparelhos vendendo ao mesmo tempo somam; nada é sobrescrito nem perdido (estoque pode ficar -1, e o app avisa).
   // Listas do app. Cada linha é identificada pelo id (vendas) ou pelo conteúdo (as outras). Linha nova = movimento "add";
   // linha que sumiu = movimento "rem"; linha editada = rem da antiga + add da nova.
-  var SYNC_LISTAS = { sales: 'id', exp: 0, cambios: 0, compras: 0, descartes: 0, retiradas: 0, melhUso: 0, cpay: 0, imprev: 0, dlog: 0, elog: 0 };
+  var SYNC_LISTAS = { sales: 'id', exp: 0, cambios: 0, compras: 0, descartes: 0, retiradas: 0, melhUso: 0, cpay: 0, imprev: 0, dlog: 0, elog: 0, fechos: 'id' };
   // Configurações (valor inteiro; vale a última alteração). Nada que seja de um aparelho só (PIN, biometria, tema, bloqueio, avisos).
   var SYNC_CFG = ['faixas', 'pfaixa', 'pprice', 'metaUsd', 'metaDia', 'diasLoja', 'colchUsd', 'tolUsd', 'volume', 'formas', 'notaCidade', 'cat2', 'tiposX', 'tiposDel', 'tiposOrd', 'pnome', 'desc', 'attr', 'faixaAuto', 'ini', 'site'];
   // Listas com cadastro que se edita (clientes): cada linha tem id; vale a última alteração de cada uma.
@@ -26539,6 +26539,7 @@
       '<button type="button" class="chip' + (S.hFopen || ativo ? ' on' : '') + '" data-act="hfopen" aria-expanded="' + !!S.hFopen + '">Filtros</button></div>' +
       '<input type="date" class="in" id="hDate" data-in="hdate" max="' + dayKey(Date.now()) + '" aria-label="Ir para o dia" hidden></section>' +
       (S.hFopen ? '<div id="hFil">' + hFiltrosHtml() + '</div>' : '') +
+      fechoHtml() +
       '<div id="hRes">' + hListaHtml() + '</div>';
   }
   document.addEventListener('input', function (ev) {
@@ -27630,6 +27631,8 @@
   // Ciclo: 1) baixa movimentos dos outros e aplica  2) compara com a última foto e gera movimentos novos  3) envia a fila.
   // A fila (S.syncOut) é gravada no aparelho: sem internet nada se perde, e tudo é enviado quando voltar.
   // LIMITE ATUAL: todos os aparelhos precisam partir da MESMA base (mesma cópia de segurança) no momento de ligar. A migração guiada é a etapa seguinte.
+  var syncVelho = false;
+  var SYNC_VER = 3; // sobe quando o formato da sincronização muda; o dono pode exigir versão mínima (config/site.syncMin)
   var SYNC_INFO = { estado: 'off', ts: 0, pend: 0, msg: '', neg: [] };
   var syncBusy = false,
     syncP = null,
@@ -27739,6 +27742,18 @@
       })
       .catch(function () {
         return false;
+      })
+      .then(function (rev) {
+        if (rev) return rev;
+        return nvApi('GET', 'config/site')
+          .then(function (d) {
+            var m = d && d.fields && d.fields.syncMin ? +(d.fields.syncMin.integerValue || 0) : 0;
+            syncVelho = m > SYNC_VER;
+          })
+          .catch(function () {})
+          .then(function () {
+            return false;
+          });
       });
   }
   function syncListaAp() {
@@ -27794,6 +27809,7 @@
     syncP = syncRevogado()
       .then(function (rev) {
         if (rev) throw new Error('desconectado');
+        if (syncVelho) throw new Error('Atualize o app para continuar sincronizando (versão antiga).');
         return syncReg();
       })
       .then(syncBaixa)
@@ -29293,6 +29309,60 @@
     S.rec = null;
     render();
   };
+  // ===== Fechamento do caixa: automático (depois das 17h, ou dias passados sem registro) e flexível (o dono fecha quando quiser). =====
+  S.fechos = S.fechos || [];
+  function fechoDia(k) {
+    S.fechos = S.fechos || [];
+    return S.fechos.filter(function (f) {
+      return f.id === k;
+    })[0];
+  }
+  function fechoCria(k, auto) {
+    if (fechoDia(k)) return null;
+    var st = dayStats(k),
+      hoje = k === dayKey(Date.now());
+    var f = { id: k, ts: Date.now(), auto: !!auto, n: st.n, vend: Math.round(st.vend), liv: Math.round(st.liv), ap: S.aparelho || '' };
+    // o saldo só é conhecido de verdade no próprio dia; dia passado fechado depois fica sem saldo
+    if (hoje) f.cash = { pyg: Math.round(S.cash.pyg || 0), brl: Math.round((S.cash.brl || 0) * 100) / 100, usd: Math.round((S.cash.usd || 0) * 100) / 100 };
+    S.fechos.unshift(f);
+    S.fechos.sort(function (a, b) {
+      return a.id < b.id ? 1 : -1;
+    });
+    saveSoon();
+    return f;
+  }
+  function fechoAuto() {
+    var hoje = dayKey(Date.now()),
+      dias = {};
+    S.sales.forEach(function (s) {
+      dias[dayKey(s.ts)] = 1;
+    });
+    Object.keys(dias).forEach(function (k) {
+      if (k < hoje) fechoCria(k, true);
+    });
+    if (new Date().getHours() >= 17 && dias[hoje]) fechoCria(hoje, true);
+  }
+  function fechoHtml() {
+    var hoje = dayKey(Date.now()),
+      fh = fechoDia(hoje),
+      h = '<section class="card col" style="gap:8px"><b>Fechamento do caixa</b>';
+    if (fh) h += '<div class="hint">Hoje fechado' + (fh.auto ? ' automaticamente' : '') + ' · ' + fh.n + (fh.n === 1 ? ' venda' : ' vendas') + (fh.cash ? ' · Caixa ' + fmtM(fh.cash.pyg, 'pyg') + ' · ' + fmtM(fh.cash.brl, 'brl') + ' · ' + fmtM(fh.cash.usd, 'usd') : '') + '</div>';
+    else h += '<div class="hint">Hoje ainda aberto. Fecha sozinho depois das 17h, ou feche agora se a loja fechou mais cedo.</div><button type="button" class="chip on" data-act="fechar">Fechar o dia agora</button>';
+    S.fechos.filter(function (f) {
+      return f.id !== hoje;
+    }).slice(0, 5).forEach(function (f) {
+      h += '<div class="hint">' + esc(f.id.split('-').reverse().join('/')) + ' · ' + f.n + (f.n === 1 ? ' venda' : ' vendas') + (f.cash ? ' · Caixa ' + fmtM(f.cash.pyg, 'pyg') : '') + '</div>';
+    });
+    return h + '</section>';
+  }
+  ACT.fechar = function () {
+    fechoCria(dayKey(Date.now()), false);
+    if (S.view === 'hist') render();
+  };
+  window.__fechoAuto = fechoAuto;
+  window.__fechoHtml = fechoHtml;
+  setTimeout(fechoAuto, 8000);
+  setInterval(fechoAuto, 300000);
   // ===== Ações e eventos da parte financeira (contas, fluxo, retirada, conferência, taxas). =====
   // Dia de vencimento de uma despesa.
   document.addEventListener('change', function (ev) {
@@ -30282,7 +30352,7 @@
       'notifs',
       'pedidos',
       'pedNext',
-      'baixaAuto',
+      'baixaAuto', 'fechos',
       'resPend',
       'syncOn',
       'aparelho',

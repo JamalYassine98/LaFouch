@@ -283,7 +283,7 @@
       'notifs',
       'pedidos',
       'pedNext',
-      'baixaAuto',
+      'baixaAuto', 'fechos',
       'resPend',
       'syncOn',
       'aparelho',

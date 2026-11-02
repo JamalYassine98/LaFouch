@@ -3,6 +3,8 @@
   // Ciclo: 1) baixa movimentos dos outros e aplica  2) compara com a última foto e gera movimentos novos  3) envia a fila.
   // A fila (S.syncOut) é gravada no aparelho: sem internet nada se perde, e tudo é enviado quando voltar.
   // LIMITE ATUAL: todos os aparelhos precisam partir da MESMA base (mesma cópia de segurança) no momento de ligar. A migração guiada é a etapa seguinte.
+  var syncVelho = false;
+  var SYNC_VER = 3; // sobe quando o formato da sincronização muda; o dono pode exigir versão mínima (config/site.syncMin)
   var SYNC_INFO = { estado: 'off', ts: 0, pend: 0, msg: '', neg: [] };
   var syncBusy = false,
     syncP = null,
@@ -112,6 +114,18 @@
       })
       .catch(function () {
         return false;
+      })
+      .then(function (rev) {
+        if (rev) return rev;
+        return nvApi('GET', 'config/site')
+          .then(function (d) {
+            var m = d && d.fields && d.fields.syncMin ? +(d.fields.syncMin.integerValue || 0) : 0;
+            syncVelho = m > SYNC_VER;
+          })
+          .catch(function () {})
+          .then(function () {
+            return false;
+          });
       });
   }
   function syncListaAp() {
@@ -167,6 +181,7 @@
     syncP = syncRevogado()
       .then(function (rev) {
         if (rev) throw new Error('desconectado');
+        if (syncVelho) throw new Error('Atualize o app para continuar sincronizando (versão antiga).');
         return syncReg();
       })
       .then(syncBaixa)

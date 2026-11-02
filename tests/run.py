@@ -1318,6 +1318,20 @@ async def main():
             if not ok: falhas.append('pedsync'); print('        veio', r4)
             await pg.close()
 
+            # Fechamento do caixa: dia passado fecha sozinho (sem saldo), hoje fecha pelo botão com o saldo
+            pg = await pagina()
+            await pg.evaluate("() => { const S = window.__LF.S; S.cash.pyg = 500000; S.sales = [{id:'V-1', ts: Date.now() - 3*86400000, price: 100000, livre: 40000, forma:'din', moeda:'pyg', itens:[]}, {id:'V-2', ts: Date.now(), price: 200000, livre: 90000, forma:'din', moeda:'pyg', itens:[]}]; S.fechos = []; }")
+            await pg.evaluate("() => window.__fechoAuto()")
+            f1 = await pg.evaluate("() => window.__LF.S.fechos.map(f => [f.auto, f.n, !!f.cash])")
+            await pg.evaluate("() => window.__LF.ACT ? 0 : 0")
+            await pg.evaluate("() => { document.body.insertAdjacentHTML('beforeend', '<button id=fz data-act=fechar>x</button>'); document.getElementById('fz').click(); }")
+            f2 = await pg.evaluate("() => window.__LF.S.fechos.map(f => [f.auto, f.n, f.cash ? f.cash.pyg : null])")
+            total += 1
+            ok = (f1 == [[True, 1, False]] or f1 == [[True, 1, False], [True, 1, True]] or f1 == [[True, 1, True], [True, 1, False]]) and len(f2) == 2 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'fechamento do caixa: dia passado automático e hoje pelo botão')
+            if not ok: falhas.append('fechamento'); print('        veio', f1, f2, pg.erros)
+            await pg.close()
+
             # Reserva do site no app: pagar/recusar/liberar chamam a função; entrega baixa o estoque e registra a venda sozinha
             pg = await pagina()
             chamadas = []

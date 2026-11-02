@@ -191,6 +191,7 @@
       '<button type="button" class="chip' + (S.hFopen || ativo ? ' on' : '') + '" data-act="hfopen" aria-expanded="' + !!S.hFopen + '">Filtros</button></div>' +
       '<input type="date" class="in" id="hDate" data-in="hdate" max="' + dayKey(Date.now()) + '" aria-label="Ir para o dia" hidden></section>' +
       (S.hFopen ? '<div id="hFil">' + hFiltrosHtml() + '</div>' : '') +
+      fechoHtml() +
       '<div id="hRes">' + hListaHtml() + '</div>';
   }
   document.addEventListener('input', function (ev) {

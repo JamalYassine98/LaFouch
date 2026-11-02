@@ -427,3 +427,10 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 ## Sync Etapa 3 (v370) — pedidos em todos os aparelhos
 - Com sync ligado, pedido do site entra com id `p<código da nuvem>` e número = código do cliente (igual em todos os aparelhos); ao ligar o sync, pedidos antigos ganham id único.
 - "Assumir este pedido" (primeiro a assumir vale; outros veem "Assumido por X"). Sem aparelho de funcionário ainda.
+
+## v371–v372 — versão mínima, privacidade, fechamento do caixa
+- Versão mínima: o app lê `config/site.syncMin` (inteiro); se maior que SYNC_VER (=3) do app, a sincronização pausa com aviso "Atualize o app". Dono sobe o número quando mudar o formato.
+- Privacidade (site) atualizada: cópia fechada de clientes/vendas na nuvem.
+- Fechamento do caixa (Histórico): fecha sozinho depois das 17h (e dias passados sem registro, sem saldo); botão "Fechar o dia agora" para fechar mais cedo; guarda vendas, receita e saldo do caixa; sincroniza entre aparelhos (lista `fechos`).
+- Preço travado no pedido: já vale (o pedido guarda o preço do momento em l.preco/total).
+- Ainda ficou fora: "Avise-me" automático, fotos em segundo plano, tela dedicada "Conferir estoque", reservas nas telas do app, site em tempo real.
