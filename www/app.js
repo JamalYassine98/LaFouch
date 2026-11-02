@@ -28911,8 +28911,9 @@
         p *= R();
       } while (p > L && nv < 12);
       nv--;
+      if (dd === 0 && nv < 3) nv = 3; // hoje sempre tem venda em G$, R$ e US$ (demo do resumo por moeda)
       for (var j = 0; j < nv; j++) {
-        var ts = dia(dd, 9 + Math.floor(R() * 10)),
+        var ts = dd === 0 ? dia(0, 1) : dia(dd, 9 + Math.floor(R() * 10)),
           wSolar = (SAZON_PADRAO.solar[dt.getMonth()] || 1) * 0.35,
           x = R() * (0.45 + 0.2 + wSolar),
           tipo = x < 0.45 ? 'pre' : x < 0.65 ? 'sem' : 'solar',
@@ -28929,7 +28930,7 @@
         var fm = formasP.reduce(function (a, f) { return a.v != null ? a : (a.r -= f[1]) <= 0 ? { v: f[0] } : a; }, { r: R() }).v || 'din',
           fo = S.formas.filter(function (f) { return f.id === fm; })[0] || S.formas[0],
           tx = Math.round((preco * fo.taxa) / 100),
-          mo = R() < 0.12 ? 'brl' : R() < 0.07 ? 'usd' : 'pyg',
+          mo = dd === 0 && j < 3 ? ['pyg', 'brl', 'usd'][j] : R() < 0.12 ? 'brl' : R() < 0.07 ? 'usd' : 'pyg',
           rt = mo === 'pyg' ? 1 : Math.round(mo === 'usd' ? fxp.pyg * 1.025 : fxp.pyg / fxp.brl),
           rv = mo === 'pyg' ? preco : Math.round((preco / rt) * 100) / 100;
         if (mo !== 'pyg') fo = S.formas[0];
