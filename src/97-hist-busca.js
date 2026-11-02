@@ -190,9 +190,11 @@
       '<button type="button" class="chip" data-act="hcal" aria-label="Ir para uma data" title="Ir para uma data" style="min-width:44px">📅</button>' +
       '<button type="button" class="chip' + (S.hFopen || ativo ? ' on' : '') + '" data-act="hfopen" aria-expanded="' + !!S.hFopen + '">Filtros</button></div>' +
       '<input type="date" class="in" id="hDate" data-in="hdate" max="' + dayKey(Date.now()) + '" aria-label="Ir para o dia" hidden></section>' +
+      (window.__revBannerHtml ? window.__revBannerHtml() : '') +
       (S.hFopen ? '<div id="hFil">' + hFiltrosHtml() + '</div>' : '') +
       fechoHtml() +
-      '<div id="hRes">' + hListaHtml() + '</div>';
+      '<div id="hRes">' + hListaHtml() + '</div>' +
+      (window.__revJanelaHtml ? window.__revJanelaHtml() : '');
   }
   document.addEventListener('input', function (ev) {
     var t = ev.target,

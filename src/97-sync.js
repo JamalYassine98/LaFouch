@@ -32,6 +32,102 @@
     saveSoon();
     syncAgenda(true);
   }
+  // ---- histórico por aparelho: nome de quem registrou cada venda; vendas feitas sem internet para revisar
+  function apNome(ap) {
+    if (!ap) return '';
+    if (ap === S.aparelho) return S.aparNome || 'Este aparelho';
+    var x = (S._syncAps || []).filter(function (y) {
+      return y.ap === ap;
+    })[0];
+    return (x && x.nome) || ap;
+  }
+  function vendaApHtml(s) {
+    if (!s || !s.ap) return '';
+    var h = ' · <span style="color:var(--accent-fg);font-weight:700">' + esc(apNome(s.ap)) + '</span>';
+    if (s.off) {
+      var st = vendaRevStatus(s);
+      h += ' · <span style="color:var(' + (st === 'conferir' ? '--warn' : '--ok') + ');font-weight:700">🕓 sem internet' + (st === 'conferir' ? ' · conferir' : ' · conferida ✓') + '</span>';
+    }
+    return h;
+  }
+  // Venda feita sem internet: "conferir" se a peça ficou com estoque negativo e ninguém revisou; senão está conferida.
+  function vendaRevStatus(s) {
+    if (s.rev) return 'ok';
+    var neg = (S.items || []).some(function (i) {
+      return i.ref === s.ref && String(i.cor || '').toLowerCase() === String(s.cor || '').toLowerCase() && i.qty < 0;
+    });
+    return neg ? 'conferir' : 'ok';
+  }
+  function vendasRevisar() {
+    return (S.sales || []).filter(function (s) {
+      return s.off && !s.estorno && vendaRevStatus(s) === 'conferir';
+    });
+  }
+  function revBannerHtml() {
+    var n = vendasRevisar().length;
+    return n ? '<div class="note n-warn" style="margin:0 0 10px"><b>⚠️ ' + n + (n === 1 ? ' venda feita sem internet precisa' : ' vendas feitas sem internet precisam') + ' de conferência.</b> <button type="button" class="pdLink" data-act="revabrir">Revisar ›</button></div>' : '';
+  }
+  function revJanelaHtml() {
+    if (!S._revAberta) return '';
+    var l = vendasRevisar();
+    var h = '<div class="pdOv" role="dialog" aria-modal="true" aria-label="Revisar vendas" data-act="revfechar"><div class="pdSh" style="max-height:84vh;overflow:auto"><div class="pdAl"></div><b style="font-size:19px">Revisar vendas</b><div class="hint" style="margin:2px 0 10px">Vendas feitas sem internet que o estoque não confirmou.</div>';
+    if (!l.length) h += '<div class="hint">Nada para revisar. 👍</div>';
+    l.slice(0, 20).forEach(function (s) {
+      h += '<div class="card col" style="padding:12px;margin-bottom:10px"><b>' + esc(descOf(s)) + '</b><div class="hint" style="margin:2px 0">' + esc(apNome(s.ap)) + ' · ' + fh(s.ts) + ' · ' + gs(s.price) + '</div>' +
+        '<div class="note n-warn" style="margin:6px 0">O estoque dessa peça ficou negativo: outra venda da mesma peça foi feita em outro aparelho.</div>' +
+        '<button type="button" class="btn" data-act="revok" data-id="' + esc(s.id) + '" style="width:100%;margin-bottom:6px">Está certo (a peça existe)</button>' +
+        '<button type="button" class="btn" data-act="revfalta" data-id="' + esc(s.id) + '" style="width:100%;background:transparent;color:var(--accent-fg);border:1.5px solid var(--accent)">Faltou a peça (tratar com a cliente)</button></div>';
+    });
+    return h + '<button type="button" class="btn" data-act="revfechar" style="width:100%;margin-top:6px">Fechar</button></div></div>';
+  }
+  function apHistHtml(ap) {
+    var hoje = dayKey(Date.now()),
+      v = (S.sales || []).filter(function (s) {
+        return s.ap === ap && !s.estorno && dayKey(s.ts) === hoje;
+      }),
+      tot = v.reduce(function (a, s) {
+        return a + (s.price || 0);
+      }, 0);
+    var h = '<div class="hint" style="margin:4px 0 8px;padding-left:8px;border-left:2px solid var(--line)"><b>' + esc(apNome(ap)) + ' · hoje</b><br>' + (v.length ? v.length + (v.length === 1 ? ' venda' : ' vendas') + ' · ' + gs(tot) : 'Nenhuma venda registrada por este aparelho hoje.');
+    v.slice(0, 8).forEach(function (s) {
+      h += '<br>' + fh(s.ts) + ' · ' + esc(descOf(s)) + ' · ' + gs(s.price) + (s.off ? ' 🕓' : '');
+    });
+    return h + '</div>';
+  }
+  ACT.syncver = function (ap) {
+    S._syncVer = S._syncVer === ap ? null : ap;
+    render();
+  };
+  ACT.revabrir = function () {
+    S._revAberta = true;
+    render();
+  };
+  ACT.revfechar = function () {
+    S._revAberta = false;
+    render();
+  };
+  function revMarca(id, v) {
+    var s = (S.sales || []).filter(function (x) {
+      return x.id === id;
+    })[0];
+    if (s) {
+      s.rev = v;
+      saveSoon();
+    }
+    render();
+  }
+  ACT.revok = function (id) {
+    revMarca(id, 'ok');
+  };
+  ACT.revfalta = function (id) {
+    revMarca(id, 'falta');
+  };
+  window.__syncOffline = function () {
+    return navigator.onLine === false || SYNC_INFO.estado === 'sem' || SYNC_INFO.estado === 'erro';
+  };
+  window.__vendaApHtml = vendaApHtml;
+  window.__revBannerHtml = revBannerHtml;
+  window.__revJanelaHtml = revJanelaHtml;
   function syncDesliga() {
     S.syncOn = false;
     SYNC_INFO.estado = 'off';
@@ -188,7 +284,10 @@
       .then(function (r) {
         // recebe primeiro, depois envia: aparelho que ficou muito tempo fora só se atualiza e não atropela ninguém
         var ap = syncAplica(S, S.syncSnap, r.ops, S.syncFeitos);
-        if (ap.n) mudou = true;
+        if (ap.n) {
+          mudou = true;
+          if (window.__fxAdota) window.__fxAdota();
+        }
         SYNC_INFO.neg = ap.neg;
         if (r.max > S.syncCur) S.syncCur = r.max;
         var d = syncDiff(S.syncSnap, S, S.aparelho, S.syncSeq);
@@ -398,7 +497,9 @@
         h += '<div class="lbl" style="margin-top:6px">Outros aparelhos</div>';
         aps.forEach(function (x) {
           h += '<div class="ln" style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span>' + esc(x.nome || x.ap) + '<br><small style="color:var(--mut)">' + (x.rev ? 'desconectado' : 'visto ' + fd(x.ts) + ' ' + fh(x.ts)) + '</small></span>' +
-            (x.rev ? '' : '<button type="button" class="mini" data-act="syncdesc" data-id="' + esc(x.ap) + '">' + (S._syncDesc === x.ap ? 'Confirmar' : 'Desconectar') + '</button>') + '</div>';
+            '<button type="button" class="mini" data-act="syncver" data-id="' + esc(x.ap) + '">' + (S._syncVer === x.ap ? 'Ocultar' : 'Ver o que fez') + '</button>' +
+            (x.rev ? '' : '<button type="button" class="mini" data-act="syncdesc" data-id="' + esc(x.ap) + '">' + (S._syncDesc === x.ap ? 'Confirmar' : 'Desconectar') + '</button>') + '</div>' +
+            (S._syncVer === x.ap ? apHistHtml(x.ap) : '');
         });
       }
       h += '<button type="button" class="mini" data-act="syncagora">Sincronizar agora</button>';

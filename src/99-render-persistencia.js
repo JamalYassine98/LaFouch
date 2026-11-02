@@ -255,6 +255,7 @@
       'volume',
       'melhPeca',
       'fxHist',
+      'fxc',
       'fxPer',
       'colchUsd',
       'repQuitUsd',

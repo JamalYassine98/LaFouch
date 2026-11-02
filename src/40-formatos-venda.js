@@ -371,6 +371,10 @@
     if (it.custo != null) s.custoPeca = it.custo;
     if (it.med) s.medPeca = it.med;
     if (it.fmt) s.fmtPeca = it.fmt;
+    if (S.syncOn && S.aparelho) {
+      s.ap = S.aparelho;
+      if (window.__syncOffline && window.__syncOffline()) s.off = true; // feita sem internet: entra em revisão se o estoque não bater
+    }
     S.sales.unshift(s);
     return s;
   }

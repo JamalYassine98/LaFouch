@@ -1376,6 +1376,30 @@ async def main():
             if not ok: falhas.append('balcao-reserva'); print('        veio', g1, g2, pg.erros)
             await pg.close()
 
+            # Câmbio único: o aparelho adota a cotação mais recente que outro aparelho publicou
+            pg = await pagina()
+            fx1 = await pg.evaluate("() => { const S = window.__LF.S; S.syncOn = true; S.fx.ts = 1000; S.fxc = {pyg: 7421, brl: 5.4, ts: Date.now()}; const r = window.__fxAdota(); S.syncOn = false; return [r, S.fx.pyg, S.fx.brl]; }")
+            fx2 = await pg.evaluate("() => { const S = window.__LF.S; S.syncOn = true; S.fxc = {pyg: 1, brl: 1, ts: 500}; const r = window.__fxAdota(); S.syncOn = false; return [r, S.fx.pyg]; }")
+            total += 1
+            ok = fx1 == [True, 7421, 5.4] and fx2 == [False, 7421] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'câmbio único: aparelho adota a cotação mais recente de outro')
+            if not ok: falhas.append('cambio-unico'); print('        veio', fx1, fx2, pg.erros)
+            await pg.close()
+
+            # Histórico por aparelho e vendas feitas sem internet para revisar
+            pg = await pagina()
+            await pg.evaluate("() => { const L = window.__LF, S = L.S; S.syncOn = true; S.aparelho = 'APX1'; S.aparNome = 'PC da loja'; S._syncAps = [{ap:'APX2', nome:'Tablet balcão', ts: Date.now(), rev:false}]; S.items = [{tipo:'pre',ref:'ZZ9',grau:'+1',cor:'P',qty:-1}]; S.sales = [{id:'V-APX2-0001', ts: Date.now(), tipo:'pre', ref:'ZZ9', cor:'P', grau:'+1', vr:'', qty:1, price:105000, livre:1, fx:7300, forma:'din', moeda:'pyg', recebido:105000, ap:'APX2', off:true, itens:[]}]; S.hq = 'ZZ9'; L.setView('hist'); }"); await pg.wait_for_timeout(500)
+            r1 = await pg.evaluate("() => { const t = document.getElementById('v-hist').innerText; return [t.includes('Tablet balcão'), t.includes('sem internet'), t.includes('precisa de conferência') || t.includes('precisam de conferência')]; }")
+            await pg.evaluate("() => document.querySelector('[data-act=revabrir]').click()"); await pg.wait_for_timeout(300)
+            r2 = await pg.evaluate("() => document.querySelectorAll('[data-act=revok]').length")
+            await pg.evaluate("() => document.querySelector('[data-act=revok]').click()"); await pg.wait_for_timeout(300)
+            r3 = await pg.evaluate("() => [document.querySelectorAll('[data-act=revok]').length, document.getElementById('v-hist').innerText.includes('conferida')]")
+            total += 1
+            ok = r1 == [True, True, True] and r2 == 1 and r3 == [0, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'histórico por aparelho e revisão de vendas feitas sem internet')
+            if not ok: falhas.append('hist-aparelho'); print('        veio', r1, r2, r3, pg.erros)
+            await pg.close()
+
             # Sons e avisos: um som para cada tipo de aviso, janela de escolha, sem som e preferência antiga preservada
             pg = await pagina()
             await pg.add_init_script("window.__tocou = []; window.Audio = function (u) { this.play = () => { window.__tocou.push(u); return Promise.resolve(); }; };")

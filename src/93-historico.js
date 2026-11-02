@@ -485,6 +485,7 @@
       fh(s.ts) +
       ' · ' +
       tipoOf(s.tipo).label +
+      (window.__vendaApHtml ? window.__vendaApHtml(s) : '') +
       (s.estorno ? ' · <span style="color:var(--bad)">Estornada</span>' : '') +
       '</div></div><div style="text-align:right"><b>' +
       esc(exatoDe(s)) +

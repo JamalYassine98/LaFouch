@@ -362,13 +362,29 @@
     else S.fxHist.push(pt);
     S.fx = { pyg: Math.round(pyg), brl: brl, ts: Date.now(), live: live, src: src, status: status };
     S.fxNext = Date.now() + 180000;
+    S.fxc = { pyg: Math.round(pyg), brl: brl, ts: Date.now() }; // cotação compartilhada entre aparelhos (sincroniza)
     renderFx();
     renderDash();
     renderHist();
     renderDay();
   }
   // Busca a cotação online.
+  // Outro aparelho já buscou a cotação há pouco: usa a mesma (câmbio único entre aparelhos).
+  function fxAdota() {
+    var c = S.fxc;
+    if (!S.syncOn || !c || !(c.pyg > 0) || !(c.ts > (S.fx.ts || 0))) return false;
+    var last = S.fxHist[S.fxHist.length - 1],
+      pt = { ts: c.ts, pyg: c.pyg, brl: c.brl };
+    if (last && new Date(last.ts).toDateString() === new Date(c.ts).toDateString()) S.fxHist[S.fxHist.length - 1] = pt;
+    else S.fxHist.push(pt);
+    S.fx = { pyg: c.pyg, brl: c.brl, ts: c.ts, live: true, src: 'Cotação compartilhada entre aparelhos', status: 'Mesma cotação de todos os aparelhos.' };
+    S.fxNext = Math.max(S.fxNext || 0, c.ts + 180000);
+    renderFx();
+    return true;
+  }
+  window.__fxAdota = fxAdota;
   function fetchFx() {
+    if (fxAdota() && Date.now() - S.fx.ts < 150000) return;
     S.fxNext = Date.now() + 180000;
     var fail = function () {
       S.fx.live = false;
