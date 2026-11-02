@@ -47,10 +47,17 @@ jobs:
       - name: Criar projeto Android
         run: npx cap add android
 
+      - name: Avisos de pedido (Firebase)
+        env:
+          GSJ: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          if [ -n "$GSJ" ]; then echo "$GSJ" | base64 -d > android/app/google-services.json && echo "google-services.json instalado"; else echo "::warning::Sem GOOGLE_SERVICES_JSON: o APK sai sem avisos de pedido"; fi
+
       - name: Permissao da camera
         run: |
           M=android/app/src/main/AndroidManifest.xml
           grep -q 'android.permission.CAMERA' $M || sed -i 's#<application#<uses-permission android:name="android.permission.CAMERA" />\n    <uses-feature android:name="android.hardware.camera" android:required="false" />\n    <application#' $M
+          grep -q 'android.permission.POST_NOTIFICATIONS' $M || sed -i 's#<application#<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />\n    <application#' $M
           grep -q 'android.permission.USE_BIOMETRIC' $M || sed -i 's#<application#<uses-permission android:name="android.permission.USE_BIOMETRIC" />\n    <application#' $M
           grep -n 'CAMERA\|hardware.camera\|BIOMETRIC' $M
 
