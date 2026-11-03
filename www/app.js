@@ -857,9 +857,9 @@
     } catch (e) {}
   }
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 396;
+  var APP_BUILD = 397;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '3.6'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '3.7'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Movimentos: todo fato de dinheiro ou estoque é gravado por aqui (livro + histórico juntos). =====
   // Formato do registro do histórico (S.dlog) de uma compra de mercadoria.
   function dlogLote(x) {
@@ -13374,10 +13374,35 @@
         f = g[0],
         tp = tipoOf(f.tipo),
         tot = sum(g);
+      // lista: peça com várias cores em estoque se abre no lugar (cor sem estoque nem aparece)
+      var vsL = g.filter(function (x) {
+          return x.qty > 0 && gLivre(x) > 0;
+        }),
+        corU = {};
+      vsL.forEach(function (x) {
+        corU[x.cor] = (corU[x.cor] || 0) + 1;
+      });
+      var nCor = Object.keys(corU).length,
+        multi = rows.classList.contains('vlist') && f.tipo !== 'pre' && nCor > 1 && vsL.every(function (x) { return corU[x.cor] === 1; }),
+        aberto = multi && S.vAb === k,
+        selI = multi && ((S.vCor && S.vCor[k] && vsL.filter(function (x) { return x.cor === S.vCor[k]; })[0]) || vsL[0]);
       var card = btn(
-        'pcard' + (k === S.vRef ? ' on' : ''),
+        'pcard' + (k === S.vRef ? ' on' : '') + (aberto ? ' aberta' : ''),
         '',
         function (ev) {
+          if (multi) {
+            var mais = ev && ev.target && ev.target.closest && ev.target.closest('.vplus');
+            if (mais && aberto) {
+              S._vsel = selI;
+              S.qty = 1;
+              window.__voaSrc = (card.parentNode && card.parentNode.querySelector('.vcores .vcor.on img')) || card.querySelector('img');
+              $('sCartAdd').click();
+              return;
+            }
+            S.vAb = aberto ? '' : k;
+            render();
+            return;
+          }
           // "+" na lista: se a peça tem uma só variante com estoque, vai direto para o pedido
           if (ev && ev.target && ev.target.closest && ev.target.closest('.vplus')) {
             var vs = g.filter(function (x) {
@@ -13415,8 +13440,13 @@
         k === S.vRef
       );
       card.dataset.ref = f.ref;
-      card.appendChild(photoBox(photoOf(f.ref), 'pbox'));
-      card.appendChild(mk('b', '', pn(f.ref)));
+      card.appendChild(photoBox(aberto && selI ? photoOf(f.ref, selI.cor) || photoOf(f.ref) : photoOf(f.ref), 'pbox'));
+      var nmB = mk('b', '', pn(f.ref));
+      if (multi) {
+        var sb = mk('small', 'vsub', aberto ? selI.cor + ' · ' + gLivre(selI) + ' un.' : nCor + ' cores · ' + vsL.reduce(function (a, x) { return a + gLivre(x); }, 0) + ' un.');
+        nmB.appendChild(sb);
+      }
+      card.appendChild(nmB);
       var pr0 = tFor(f).price;
       if (pr0) {
         var pp = mk('b', 'vpreco', gs(pr0));
@@ -13425,6 +13455,30 @@
       }
       card.appendChild(mk('i', 'vplus', '+'));
       rows.appendChild(card);
+      if (aberto) {
+        var pn2 = mk('div', 'vcores');
+        vsL.forEach(function (x) {
+          var cb = btn('vcor' + (x === selI ? ' on' : ''), '', function () {
+            if (!S.vCor) S.vCor = {};
+            S.vCor[k] = x.cor;
+            render();
+          }, x === selI);
+          var th = mk('span', 'vci'),
+            fk = S.fotos[f.ref + '|' + x.cor];
+          if (fk) {
+            var ig = mk('img');
+            ig.src = fk;
+            ig.alt = x.cor;
+            th.appendChild(ig);
+          } else th.style.background = hexOf(x.cor);
+          cb.appendChild(th);
+          cb.appendChild(mk('b', '', x.cor === 'Sem cor' ? 'Padrão' : x.cor));
+          cb.appendChild(mk('span', 'n', gLivre(x) + ' un.'));
+          pn2.appendChild(cb);
+        });
+        pn2.appendChild(mk('div', 'vun', 'Toque no + para adicionar ' + (selI.cor === 'Sem cor' ? 'a peça' : 'a cor ' + selI.cor) + ' (' + gLivre(selI) + ' un. disponíveis)'));
+        rows.appendChild(pn2);
+      }
     });
     if (!order.length)
       rows.appendChild(
@@ -22065,7 +22119,7 @@
   // Grava a cotação (histórico do dia) e redesenha.
   function setFx(pyg, brl, src, live, status) {
     var last = S.fxHist[S.fxHist.length - 1],
-      pt = { ts: Date.now(), pyg: Math.round(pyg), brl: brl };
+      pt = { ts: Date.now(), pyg: Math.round(pyg), brl: brl, r: live ? 1 : 0 };
     if (new Date(last.ts).toDateString() === new Date().toDateString())
       S.fxHist[S.fxHist.length - 1] = pt;
     else S.fxHist.push(pt);
@@ -22083,7 +22137,7 @@
     var c = S.fxc;
     if (!S.syncOn || !c || !(c.pyg > 0) || !(c.ts > (S.fx.ts || 0))) return false;
     var last = S.fxHist[S.fxHist.length - 1],
-      pt = { ts: c.ts, pyg: c.pyg, brl: c.brl };
+      pt = { ts: c.ts, pyg: c.pyg, brl: c.brl, r: 1 };
     if (last && new Date(last.ts).toDateString() === new Date(c.ts).toDateString()) S.fxHist[S.fxHist.length - 1] = pt;
     else S.fxHist.push(pt);
     S.fx = { pyg: c.pyg, brl: c.brl, ts: c.ts, live: true, src: 'Cotação compartilhada entre aparelhos', status: 'Mesma cotação de todos os aparelhos.' };
@@ -22092,6 +22146,50 @@
     return true;
   }
   window.__fxAdota = fxAdota;
+  // Histórico verdadeiro: baixa o fechamento diário real (USD→PYG e USD→BRL) dos últimos 365 dias e troca os pontos antigos
+  function fxHistReal() {
+    if (S.fxReal && Date.now() - S.fxReal < 20 * 3600000) return;
+    var tem = {}, dias = [], hoje = new Date();
+    (S.fxHist || []).forEach(function (x) { if (x.r) tem[new Date(x.ts).toDateString()] = 1; });
+    for (var i = 1; i <= 365; i++) {
+      var d = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate() - i, 12);
+      if (!tem[d.toDateString()]) dias.push(d);
+    }
+    if (!dias.length) { S.fxReal = Date.now(); return; }
+    var ok = 0, falhou = 0, fila = dias.slice(), novos = [];
+    function iso(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+    function um(d) {
+      var u = '@fawazahmed0/currency-api@' + iso(d) + '/v1/currencies/usd.json';
+      return fetch('https://cdn.jsdelivr.net/npm/' + u)
+        .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+        .catch(function () { return fetch('https://' + iso(d) + '.currency-api.pages.dev/v1/currencies/usd.json').then(function (r) { if (!r.ok) throw 0; return r.json(); }); })
+        .then(function (j) {
+          var py = j && j.usd && j.usd.pyg, br = j && j.usd && j.usd.brl;
+          if (py > 1000 && br > 1) { novos.push({ ts: d.getTime(), pyg: Math.round(py), brl: Math.round(br * 1000) / 1000, r: 1 }); ok++; } else falhou++;
+        })
+        .catch(function () { falhou++; });
+    }
+    function lote() {
+      if (!fila.length) return Promise.resolve();
+      return Promise.all(fila.splice(0, 8).map(um)).then(lote);
+    }
+    lote().then(function () {
+      if (ok < 5) return; // sem internet/fonte: mantém o que há e tenta de novo depois
+      var pegos = {};
+      novos.forEach(function (x) { pegos[new Date(x.ts).toDateString()] = 1; });
+      var hojeK = hoje.toDateString();
+      // fica: pontos de hoje e os já verdadeiros; sai: ponto antigo sem marca nos dias que o histórico verdadeiro cobriu
+      S.fxHist = S.fxHist.filter(function (x) {
+        var k = new Date(x.ts).toDateString();
+        return k === hojeK || x.r || !pegos[k];
+      }).concat(novos);
+      S.fxHist.sort(function (a, b) { return a.ts - b.ts; });
+      S.fxReal = Date.now();
+      try { saveSoon(); } catch (e) {}
+      renderFx(); renderDash(); renderHist(); renderDay();
+    });
+  }
+  window.__fxHistReal = fxHistReal;
   function fetchFx() {
     if (fxAdota() && Date.now() - S.fx.ts < 150000) return;
     S.fxNext = Date.now() + 180000;
@@ -22127,6 +22225,7 @@
     tickFx();
     if (Date.now() >= S.fxNext) fetchFx();
   }, 1000);
+  setTimeout(fxHistReal, 4000);
   // ===== Aba Despesas. =====
 
   // ---------- despesas
@@ -24289,14 +24388,26 @@
   }
   // Acha o cliente pelo telefone (ou nome) e, se não existe, cadastra. Devolve o cliente e se foi criado agora.
   function pedCliente(p) {
-    var c = cliAchar(p.cli, p.tel, p.doc, 0);
+    var c = cliAchar(p.cli, p.tel, p.doc, 0, p.email);
     if (c) {
       if (!c.ruc && p.doc) c.ruc = p.doc;
+      if (!c.email && p.email) c.email = p.email;
+      if (!c.tel && p.tel) c.tel = p.tel;
       return { c: c, novo: false };
     }
     c = { id: S.cliNext++, nome: p.cli, tel: p.tel, ruc: p.doc, obs: 'Veio pelo site' + (p.obsC ? ' · ' + p.obsC : ''), ts: Date.now(), nac: p.nac, nasc: p.nasc, email: p.email, cidade: p.cidade, end: p.end };
     if (p.teste) c.teste = true;
+    c.auto = true;
+    c.orig = 'site';
+    // parecido com outro cadastro (mesmo nome, ou mesmo telefone/e-mail com outro nome): pergunta antes de duplicar
+    var par = S.clientes.filter(function (x) {
+      return cliNorm(x.nome) === cliNorm(c.nome) && x.id !== c.id;
+    })[0];
+    if (par) c.dup = par.id;
     S.clientes.push(c);
+    try {
+      lfaToast('<span class="lfa-ic">' + lfaSvg('check') + '</span><div><b>Cliente cadastrado</b><div class="hint" style="margin:2px 0 0">' + esc(c.nome || 'Novo cliente') + (par ? ' · parece igual a ' + esc(par.nome) : '') + '</div></div>');
+    } catch (e) {}
     return { c: c, novo: true };
   }
   var PED_INFO = { ts: 0, err: '' };
@@ -24704,6 +24815,30 @@
     saveSoon();
     setTimeout(render, 300);
   };
+  // "há 12 min" e barra de 4 etapas; fica âmbar depois de 1 h sem resposta (só enquanto espera por você).
+  function pedEspera(p) {
+    if (p.st === 'canc') return '';
+    var ix = { novo: 0, sep: 1, pronto: 2, ent: 3 }[p.st] || 0,
+      cur = ix === 0 && p.pg === 'pago' ? 1 : ix,
+      m = Math.max(0, Math.round((Date.now() - p.ts) / 60000)),
+      t = m < 1 ? 'agora' : m < 60 ? 'há ' + m + ' min' : m < 1440 ? 'há ' + Math.floor(m / 60) + ' h' : 'há ' + Math.floor(m / 1440) + ' d',
+      lento = p.st === 'novo' && m >= 60,
+      b = '';
+    for (var i = 0; i < 4; i++) b += '<i style="flex:1;height:5px;border-radius:3px;background:' + (p.st === 'ent' || i < cur ? 'var(--ok)' : i === cur ? 'var(--accent)' : 'var(--line)') + '"></i>';
+    return '<div style="display:flex;gap:3px;margin:8px 0 2px">' + b + '</div><div class="pdMt" style="display:flex;justify-content:space-between;' + (lento ? 'color:var(--warn);font-weight:700' : '') + '"><span>' + (lento ? '⏱ ' : '') + t + '</span><span>Pedido · Pago · Separado · Entregue</span></div>';
+  }
+  document.addEventListener('input', function (e) {
+    if (e.target && e.target.id === 'pedQ') {
+      S.pedQ = e.target.value;
+      var pos = e.target.selectionStart;
+      renderPedidos();
+      var n = $('pedQ');
+      if (n) {
+        n.focus();
+        try { n.setSelectionRange(pos, pos); } catch (x) {}
+      }
+    }
+  });
   function renderPedidos() {
     var el = $('v-ped');
     if (!el || S.view !== 'ped') return;
@@ -24722,13 +24857,16 @@
     S.pedidos.forEach(function (p) {
       n[p.st]++;
     });
+    // Três abas por urgência: Agir agora (novos, comprovantes), Em andamento (separando, prontos), Feitos (entregues, cancelados)
     var fl = [
-        ['novo', 'Novos', n.novo, n.novo ? 'w' : ''],
-        ['sep', 'Separando', n.sep, ''],
-        ['pronto', 'Prontos', n.pronto, ''],
-        ['ent', 'Entregues', n.ent, ''],
-        ['canc', 'Cancelados', n.canc, '']
+        ['novo', 'Agir agora', n.novo, n.novo ? 'w' : ''],
+        ['sep', 'Em andamento', n.sep + n.pronto, ''],
+        ['ent', 'Feitos', n.ent + n.canc, '']
       ],
+      gp = function (st) {
+        return st === 'novo' ? 'novo' : st === 'sep' || st === 'pronto' ? 'sep' : 'ent';
+      },
+      gAtual = gp(S.pedF),
       h =
         '<div class="top"><div><h1>Pedidos online</h1><div class="crumb">' +
         (PED_INFO.ts ? (PED_INFO.err ? '<span style="color:var(--bad)">Não consegui buscar os pedidos: ' + esc(PED_INFO.err) + '</span>' : 'Última busca às ' + fh(PED_INFO.ts)) : 'Buscando pedidos…') +
@@ -24739,16 +24877,23 @@
     h += '<div class="pdSeg" role="group" aria-label="Situação dos pedidos">';
     fl.forEach(function (f) {
       h +=
-        '<button type="button" class="' + (S.pedF === f[0] ? 'on ' : '') + (f[3] || '') + '" data-act="pedf" data-id="' + f[0] + '" aria-pressed="' + (S.pedF === f[0]) + '">' + f[1] + (f[2] ? ' <b>' + f[2] + '</b>' : '') + '</button>';
+        '<button type="button" class="' + (gAtual === f[0] ? 'on ' : '') + (f[3] || '') + '" data-act="pedf" data-id="' + f[0] + '" aria-pressed="' + (gAtual === f[0]) + '">' + f[1] + (f[2] ? ' <b>' + f[2] + '</b>' : '') + '</button>';
     });
     h += '</div>';
-    var lista = S.pedidos
-      .filter(function (p) {
-        return p.st === S.pedF;
-      })
-      .sort(function (a, b) {
-        return b.ts - a.ts;
-      });
+    h += '<input class="in" id="pedQ" placeholder="Buscar por nome, código ou telefone" value="' + esc(S.pedQ || '') + '" autocomplete="off" aria-label="Buscar pedido" style="margin-bottom:10px">';
+    var qb = cliNorm(S.pedQ),
+      qd = cliDig(S.pedQ),
+      lista = S.pedidos
+        .filter(function (p) {
+          if (gp(p.st) !== gAtual) return false;
+          if (!qb) return true;
+          return cliNorm(p.cli).indexOf(qb) >= 0 || cliNorm(String(p.num)).indexOf(qb) >= 0 || (qd.length >= 3 && cliDig(p.tel).indexOf(qd) >= 0);
+        })
+        .sort(function (a, b) {
+          // o que espera por você: comprovante primeiro, depois o mais antigo; o resto, o mais novo primeiro
+          if (gAtual === 'novo') return (b.pg === 'comp') - (a.pg === 'comp') || a.ts - b.ts;
+          return b.ts - a.ts;
+        });
     if (!lista.length) h += '<div class="hint">' + (S.pedidos.length ? 'Nenhum pedido nesta situação.' : 'Nenhum pedido ainda. Quando um cliente fizer um pedido no site, ele aparece aqui sozinho.') + '</div>';
     lista.forEach(function (p) {
       var tot = pedTotal(p),
@@ -24758,6 +24903,7 @@
         '<section class="pdCard"><div data-act="pedab" data-id="' + p.id + '" style="cursor:pointer"><div class="pdLin"><span class="pdAv">' + esc((p.cli || '?').charAt(0).toUpperCase()) + '</span>' +
         '<div style="min-width:0;flex:1"><div class="pdNm">' + esc(p.cli || 'Sem nome') + '</div><div class="pdMt">Pedido ' + p.num + ' · ' + fd(p.ts) + ' ' + fh(p.ts) + (p.orig === 'site' ? ' · Site' : '') + (p.teste ? ' · <b>TESTE</b>' : '') + (p.ent === 'delivery' ? ' · Delivery' : '') + '</div></div>' +
         '<span class="pdPill ' + est[1] + '">' + est[0] + '</span></div>' +
+        pedEspera(p) +
         '<div class="pdTh">' +
         p.itens
           .slice(0, 3)
@@ -25750,9 +25896,16 @@
   var cliNorm = function (x) {
     return String(x || '').trim().toLowerCase();
   };
-  // Acha um cliente pelo telefone, pelo RUC/CI ou pelo nome (nesta ordem).
-  function cliAchar(nome, tel, ruc, ignorar) {
-    var t = cliDig(tel),
+  // Telefone comparável: sem pontuação, sem +595 e sem o 0 do começo (0981 555 111 = +595 981 555 111).
+  var cliTel = function (x) {
+    var d = cliDig(x);
+    if (d.indexOf('595') === 0 && d.length > 9) d = d.slice(3);
+    return d.replace(/^0+/, '');
+  };
+  // Acha um cliente pelo telefone, pelo RUC/CI, pelo e-mail ou pelo nome (nesta ordem).
+  function cliAchar(nome, tel, ruc, ignorar, email) {
+    var t = cliTel(tel),
+      em = cliNorm(email),
       r = cliDig(ruc),
       n = cliNorm(nome),
       lista = S.clientes.filter(function (c) {
@@ -25762,7 +25915,8 @@
         return lista.filter(f)[0] || null;
       };
     return (
-      (t.length >= 6 && pick(function (c) { return cliDig(c.tel) === t; })) ||
+      (t.length >= 6 && pick(function (c) { return cliTel(c.tel) === t; })) ||
+      (em.indexOf('@') > 0 && pick(function (c) { return cliNorm(c.email) === em; })) ||
       (r.length >= 3 && pick(function (c) { return cliDig(c.ruc) === r; })) ||
       (n && !t && !r && pick(function (c) { return cliNorm(c.nome) === n; })) ||
       null
@@ -25816,11 +25970,28 @@
     return S.clientes
       .filter(function (c) {
         if (!q) return true;
-        return cliNorm(c.nome).indexOf(q) >= 0 || (qd && (cliDig(c.tel).indexOf(qd) >= 0 || cliDig(c.ruc).indexOf(qd) >= 0));
+        return cliNorm(c.nome).indexOf(q) >= 0 || cliNorm(c.email).indexOf(q) >= 0 || (qd && (cliDig(c.tel).indexOf(qd) >= 0 || cliDig(c.ruc).indexOf(qd) >= 0));
       })
       .sort(function (a, b) {
         return cliUltimo(b) - cliUltimo(a);
       });
+  }
+  // Selos da lista: origem, novo (48 h) e fiel (3 compras ou mais, no site e no balcão).
+  function cliCompras(c, ps) {
+    var n = ps.filter(function (p) { return p.st !== 'canc'; }).length,
+      v = {};
+    S.sales.forEach(function (x) {
+      if (x.cliId === c.id && !x.estorno) v[x.carrinho || x.id] = 1;
+    });
+    return n + Object.keys(v).length;
+  }
+  function cliEtiquetas(c, ps) {
+    var h = '';
+    if (c.auto && Date.now() - (c.ts || 0) < 48 * 3600000) h += ' <span class="pdPill ac" style="font-size:10px">NOVO</span>';
+    h += ' <span class="pdPill" style="font-size:10px">' + (c.orig === 'site' || ps.length ? 'SITE' : 'BALCÃO') + '</span>';
+    if (cliCompras(c, ps) >= 3) h += ' <span class="pdPill ok" style="font-size:10px">FIEL</span>';
+    if (c.dup) h += ' <span class="pdPill warn" style="font-size:10px">DUPLICADO?</span>';
+    return h;
   }
   function cliListaHtml() {
     var l = cliLista();
@@ -25832,11 +26003,12 @@
           tot = ps.reduce(function (a, p) {
             return a + (p.st === 'canc' ? 0 : pedTotal(p));
           }, 0),
-          u = cliUltimo(c);
+          u = cliUltimo(c),
+          et = cliEtiquetas(c, ps);
         return (
           '<button type="button" class="card col" data-act="cliab" data-id="' + c.id + '" style="text-align:left;font:inherit;color:inherit;cursor:pointer;gap:2px">' +
-          '<b style="font-size:15px">' + esc(c.nome || 'Sem nome') + '</b>' +
-          '<span class="hint" style="margin:0">' + esc([c.tel, c.ruc ? 'RUC/CI ' + c.ruc : ''].filter(Boolean).join(' · ') || 'sem telefone') + '</span>' +
+          '<b style="font-size:15px">' + esc(c.nome || 'Sem nome') + et + '</b>' +
+          '<span class="hint" style="margin:0">' + esc([c.tel, c.email, c.ruc ? 'RUC/CI ' + c.ruc : ''].filter(Boolean).join(' · ') || 'sem telefone') + '</span>' +
           '<span class="hint" style="margin:0">' + ps.length + (ps.length === 1 ? ' pedido' : ' pedidos') + (tot ? ' · ' + gs(tot) + ' pela tabela' : '') + ' · última ' + fd(u) + '</span></button>'
         );
       })
@@ -25885,11 +26057,15 @@
         '<button type="button" class="chip" data-act="clifecha" aria-label="' + (c.id ? 'Fechar' : 'Cancelar') + '" style="min-height:40px;width:40px;padding:0;justify-content:center;font-size:20px">×</button></div>' +
         '<input class="in" id="cNome" placeholder="Nome" value="' + esc(c.nome) + '" autocomplete="off">' +
         '<input class="in" id="cTel" type="tel" inputmode="tel" placeholder="Telefone / WhatsApp" value="' + esc(c.tel) + '">' +
+        '<input class="in" id="cEmail" type="email" inputmode="email" placeholder="E-mail (opcional, para avisos)" value="' + esc(c.email || '') + '" autocomplete="off">' +
         '<input class="in" id="cRuc" inputmode="text" placeholder="RUC ou CI (para a nota fiscal)" value="' + esc(c.ruc) + '" autocomplete="off">' +
+        cliDupHtml(c) +
         (c.id && !String(c.ruc || '').trim() ? '<div class="note n-warn"><b>Sem RUC</b></div>' : '') +
         '<input class="in" id="cObs" placeholder="Observação (opcional)" value="' + esc(c.obs || '') + '">' +
         '<div class="hint" id="cH" style="margin:0"></div>' +
         '<div class="col" style="gap:12px;margin-top:6px"><button type="button" class="go" data-act="clisave">Salvar</button>' +
+        (c.id && (z || c.email) ? '<button type="button" class="go" data-act="cliavisa">Avisar cliente</button>' : '') +
+        (c.id && c.aviso ? '<div class="hint" style="margin:0">Último aviso: ' + esc(c.aviso.canal) + ' · ' + esc(c.aviso.modelo) + ' · ' + fd(c.aviso.ts) + ' ' + fh(c.aviso.ts) + '</div>' : '') +
         (z ? '<a class="chip" href="' + z + '" target="_blank" rel="noopener" style="color:#25d366;width:100%;min-height:48px;justify-content:center;text-decoration:none;display:flex;align-items:center">' + CLI_WA + '<span style="margin-left:8px">Conversar no WhatsApp</span></a>' : '') +
         (c.id ? '<div style="border-top:1px solid var(--line);margin-top:6px"></div><button type="button" data-act="clidel" style="color:#ff7b7b;background:transparent;border:0;min-height:44px;width:100%;font:inherit;cursor:pointer">' + (S._cliDel === c.id ? 'Remover mesmo?' : 'Remover') + '</button>' : '') +
         '</div>' +
@@ -25939,13 +26115,14 @@
     var nome = $('cNome').value.trim(),
       tel = $('cTel').value.trim(),
       ruc = $('cRuc').value.trim(),
+      email = $('cEmail') ? $('cEmail').value.trim() : '',
       obs = $('cObs').value.trim(),
       cur = S.cliSel === 'novo' ? null : cliAtual();
     if (!nome && !cliDig(tel)) {
       $('cH').textContent = 'Escreva o nome ou o telefone.';
       return;
     }
-    var dup = cliAchar(nome, tel, ruc, cur ? cur.id : 0);
+    var dup = cliAchar(nome, tel, ruc, cur ? cur.id : 0, email);
     if (dup) {
       $('cH').textContent = 'Já existe um cliente com esse telefone ou RUC: ' + (dup.nome || dup.tel) + '.';
       return;
@@ -25954,13 +26131,96 @@
       cur.nome = cap1(nome);
       cur.tel = tel;
       cur.ruc = ruc;
+      cur.email = email;
       cur.obs = obs;
     } else {
-      S.clientes.push({ id: S.cliNext++, nome: cap1(nome), tel: tel, ruc: ruc, obs: obs, ts: Date.now() });
+      S.clientes.push({ id: S.cliNext++, nome: cap1(nome), tel: tel, ruc: ruc, email: email, obs: obs, ts: Date.now(), orig: 'balcao' });
     }
     S.cliSel = null;
     render();
     window.scrollTo(0, 0);
+  };
+  // Possível duplicado: o pedido criou um cliente parecido com outro. Juntar ou manter separados.
+  function cliDupHtml(c) {
+    var o = c.dup && S.clientes.filter(function (x) { return x.id === c.dup; })[0];
+    if (!o) return '';
+    return '<div class="note n-warn"><b>Possível duplicado</b><br>' + esc(c.nome || 'Este cliente') + ' parece igual a ' + esc(o.nome || o.tel || 'outro cadastro') + '.<div style="display:flex;gap:8px;margin-top:8px"><button type="button" class="mini" data-act="clijuntar">Juntar</button><button type="button" class="mini ghost" data-act="climanter">Manter separados</button></div></div>';
+  }
+  ACT.clijuntar = function () {
+    var c = cliAtual(),
+      o = c && S.clientes.filter(function (x) { return x.id === c.dup; })[0];
+    if (!c || !o) return;
+    ['nome', 'tel', 'ruc', 'email', 'cidade', 'end', 'nasc', 'nac'].forEach(function (k) {
+      if (!o[k] && c[k]) o[k] = c[k];
+    });
+    S.pedidos.forEach(function (p) { if (p.cliId === c.id) p.cliId = o.id; });
+    S.sales.forEach(function (x) { if (x.cliId === c.id) x.cliId = o.id; });
+    S.clientes = S.clientes.filter(function (x) { return x.id !== c.id; });
+    S.cliSel = o.id;
+    delete o.dup;
+    lfaToast('<b>Clientes juntados</b><br>' + esc(o.nome || ''));
+    render();
+  };
+  ACT.climanter = function () {
+    var c = cliAtual();
+    if (!c) return;
+    delete c.dup;
+    render();
+  };
+  // Avisar cliente: modelo pronto, por WhatsApp ou e-mail (abre o app de mensagens/e-mail já preenchido).
+  var CLI_MOD = [
+    ['sep', 'Separado', 'Seu pedido está separado', 'separamos as suas peças. Pode retirar na La Fouch (Ciudad del Este) quando quiser.'],
+    ['pro', 'Pronto', 'Seu pedido está pronto', 'o seu pedido está pronto para retirada na La Fouch (Ciudad del Este).'],
+    ['che', 'Chegou', 'Chegou o que você procurava', 'chegou o produto que você procurava. Quer que eu separe para você?']
+  ];
+  function cliMsg(c, m) {
+    var nome = (c.nome || '').split(' ')[0];
+    return 'Oi' + (nome ? ' ' + nome : '') + ', ' + m[3] + ' Qualquer dúvida, é só responder. La Fouch · Tudo em Óculos';
+  }
+  function cliAvisoSheet() {
+    var c = cliAtual();
+    if (!c) return;
+    var z = cliDig(c.tel).length >= 6,
+      e = String(c.email || '').indexOf('@') > 0,
+      canal = S._avCanal && ((S._avCanal === 'zap' && z) || (S._avCanal === 'mail' && e)) ? S._avCanal : z ? 'zap' : 'mail',
+      mi = S._avMod >= 0 && S._avMod < CLI_MOD.length ? S._avMod : 0,
+      m = CLI_MOD[mi],
+      txt = cliMsg(c, m);
+    S._avCanal = canal;
+    S._avMod = mi;
+    var h =
+      '<div style="padding:4px 2px"><h2 style="margin:0 0 10px;font-size:18px">Avisar ' + esc(c.nome || 'cliente') + '</h2>' +
+      '<div class="chips" style="display:flex;gap:6px;margin-bottom:8px">' +
+      '<button type="button" class="chip' + (canal === 'zap' ? ' on' : '') + '" data-act="clicanal" data-id="zap"' + (z ? '' : ' disabled') + '>WhatsApp</button>' +
+      '<button type="button" class="chip' + (canal === 'mail' ? ' on' : '') + '" data-act="clicanal" data-id="mail"' + (e ? '' : ' disabled') + '>E-mail</button></div>' +
+      '<div class="chips" style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap">' +
+      CLI_MOD.map(function (x, i) { return '<button type="button" class="chip' + (i === mi ? ' on' : '') + '" data-act="climod" data-id="' + i + '">' + x[1] + '</button>'; }).join('') + '</div>' +
+      (canal === 'mail' ? '<div class="hint" style="margin:0 0 4px"><b>Assunto:</b> ' + esc(m[2]) + '</div>' : '') +
+      '<div class="note" style="white-space:pre-wrap">' + esc(txt) + '</div>' +
+      '<div style="display:flex;gap:8px;margin-top:12px"><button type="button" class="go" data-act="cliabrir">Abrir ' + (canal === 'zap' ? 'WhatsApp' : 'e-mail') + '</button><button type="button" class="mini ghost" data-act="cliavfecha">Fechar</button></div></div>';
+    lfaAbre('cliAvSh', h);
+  }
+  ACT.cliavisa = function () { cliAvisoSheet(); };
+  ACT.clicanal = function (id) { S._avCanal = id; cliAvisoSheet(); };
+  ACT.climod = function (id) { S._avMod = +id; cliAvisoSheet(); };
+  ACT.cliavfecha = function () { lfaFecha('cliAvSh'); };
+  ACT.cliabrir = function () {
+    var c = cliAtual();
+    if (!c) return;
+    var m = CLI_MOD[S._avMod || 0],
+      txt = cliMsg(c, m),
+      url;
+    if (S._avCanal === 'mail') url = 'mailto:' + encodeURIComponent(c.email) + '?subject=' + encodeURIComponent(m[2]) + '&body=' + encodeURIComponent(txt);
+    else {
+      var d = cliDig(c.tel);
+      if (d.charAt(0) === '0') d = '595' + d.slice(1);
+      url = 'https://wa.me/' + d + '?text=' + encodeURIComponent(txt);
+    }
+    c.aviso = { canal: S._avCanal === 'mail' ? 'E-mail' : 'WhatsApp', modelo: m[1], ts: Date.now() };
+    saveSoon();
+    lfaFecha('cliAvSh');
+    window.open(url, '_blank');
+    render();
   };
   ACT.clidel = function () {
     var c = cliAtual();
@@ -32033,6 +32293,7 @@
       'volume',
       'melhPeca',
       'fxHist',
+      'fxReal',
       'fxc',
       'fxPer',
       'colchUsd',
@@ -32162,7 +32423,7 @@
       barMoedas: barMoedas,
       animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
-      S: S, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
+      S: S, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,
       grpTot: grpTot, grpFalta: grpFalta, effCusto: effCusto, parseLote: parseLote, parsePedido: parsePedido, parseHaste: parseHaste,
       parseVote: parseVote, flatParse: flatParse, numAmt: numAmt, hKey: hKey, lev: lev, normRef: normRef,

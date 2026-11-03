@@ -10,9 +10,16 @@
   var cliNorm = function (x) {
     return String(x || '').trim().toLowerCase();
   };
-  // Acha um cliente pelo telefone, pelo RUC/CI ou pelo nome (nesta ordem).
-  function cliAchar(nome, tel, ruc, ignorar) {
-    var t = cliDig(tel),
+  // Telefone comparável: sem pontuação, sem +595 e sem o 0 do começo (0981 555 111 = +595 981 555 111).
+  var cliTel = function (x) {
+    var d = cliDig(x);
+    if (d.indexOf('595') === 0 && d.length > 9) d = d.slice(3);
+    return d.replace(/^0+/, '');
+  };
+  // Acha um cliente pelo telefone, pelo RUC/CI, pelo e-mail ou pelo nome (nesta ordem).
+  function cliAchar(nome, tel, ruc, ignorar, email) {
+    var t = cliTel(tel),
+      em = cliNorm(email),
       r = cliDig(ruc),
       n = cliNorm(nome),
       lista = S.clientes.filter(function (c) {
@@ -22,7 +29,8 @@
         return lista.filter(f)[0] || null;
       };
     return (
-      (t.length >= 6 && pick(function (c) { return cliDig(c.tel) === t; })) ||
+      (t.length >= 6 && pick(function (c) { return cliTel(c.tel) === t; })) ||
+      (em.indexOf('@') > 0 && pick(function (c) { return cliNorm(c.email) === em; })) ||
       (r.length >= 3 && pick(function (c) { return cliDig(c.ruc) === r; })) ||
       (n && !t && !r && pick(function (c) { return cliNorm(c.nome) === n; })) ||
       null
@@ -76,11 +84,28 @@
     return S.clientes
       .filter(function (c) {
         if (!q) return true;
-        return cliNorm(c.nome).indexOf(q) >= 0 || (qd && (cliDig(c.tel).indexOf(qd) >= 0 || cliDig(c.ruc).indexOf(qd) >= 0));
+        return cliNorm(c.nome).indexOf(q) >= 0 || cliNorm(c.email).indexOf(q) >= 0 || (qd && (cliDig(c.tel).indexOf(qd) >= 0 || cliDig(c.ruc).indexOf(qd) >= 0));
       })
       .sort(function (a, b) {
         return cliUltimo(b) - cliUltimo(a);
       });
+  }
+  // Selos da lista: origem, novo (48 h) e fiel (3 compras ou mais, no site e no balcão).
+  function cliCompras(c, ps) {
+    var n = ps.filter(function (p) { return p.st !== 'canc'; }).length,
+      v = {};
+    S.sales.forEach(function (x) {
+      if (x.cliId === c.id && !x.estorno) v[x.carrinho || x.id] = 1;
+    });
+    return n + Object.keys(v).length;
+  }
+  function cliEtiquetas(c, ps) {
+    var h = '';
+    if (c.auto && Date.now() - (c.ts || 0) < 48 * 3600000) h += ' <span class="pdPill ac" style="font-size:10px">NOVO</span>';
+    h += ' <span class="pdPill" style="font-size:10px">' + (c.orig === 'site' || ps.length ? 'SITE' : 'BALCÃO') + '</span>';
+    if (cliCompras(c, ps) >= 3) h += ' <span class="pdPill ok" style="font-size:10px">FIEL</span>';
+    if (c.dup) h += ' <span class="pdPill warn" style="font-size:10px">DUPLICADO?</span>';
+    return h;
   }
   function cliListaHtml() {
     var l = cliLista();
@@ -92,11 +117,12 @@
           tot = ps.reduce(function (a, p) {
             return a + (p.st === 'canc' ? 0 : pedTotal(p));
           }, 0),
-          u = cliUltimo(c);
+          u = cliUltimo(c),
+          et = cliEtiquetas(c, ps);
         return (
           '<button type="button" class="card col" data-act="cliab" data-id="' + c.id + '" style="text-align:left;font:inherit;color:inherit;cursor:pointer;gap:2px">' +
-          '<b style="font-size:15px">' + esc(c.nome || 'Sem nome') + '</b>' +
-          '<span class="hint" style="margin:0">' + esc([c.tel, c.ruc ? 'RUC/CI ' + c.ruc : ''].filter(Boolean).join(' · ') || 'sem telefone') + '</span>' +
+          '<b style="font-size:15px">' + esc(c.nome || 'Sem nome') + et + '</b>' +
+          '<span class="hint" style="margin:0">' + esc([c.tel, c.email, c.ruc ? 'RUC/CI ' + c.ruc : ''].filter(Boolean).join(' · ') || 'sem telefone') + '</span>' +
           '<span class="hint" style="margin:0">' + ps.length + (ps.length === 1 ? ' pedido' : ' pedidos') + (tot ? ' · ' + gs(tot) + ' pela tabela' : '') + ' · última ' + fd(u) + '</span></button>'
         );
       })
@@ -145,11 +171,15 @@
         '<button type="button" class="chip" data-act="clifecha" aria-label="' + (c.id ? 'Fechar' : 'Cancelar') + '" style="min-height:40px;width:40px;padding:0;justify-content:center;font-size:20px">×</button></div>' +
         '<input class="in" id="cNome" placeholder="Nome" value="' + esc(c.nome) + '" autocomplete="off">' +
         '<input class="in" id="cTel" type="tel" inputmode="tel" placeholder="Telefone / WhatsApp" value="' + esc(c.tel) + '">' +
+        '<input class="in" id="cEmail" type="email" inputmode="email" placeholder="E-mail (opcional, para avisos)" value="' + esc(c.email || '') + '" autocomplete="off">' +
         '<input class="in" id="cRuc" inputmode="text" placeholder="RUC ou CI (para a nota fiscal)" value="' + esc(c.ruc) + '" autocomplete="off">' +
+        cliDupHtml(c) +
         (c.id && !String(c.ruc || '').trim() ? '<div class="note n-warn"><b>Sem RUC</b></div>' : '') +
         '<input class="in" id="cObs" placeholder="Observação (opcional)" value="' + esc(c.obs || '') + '">' +
         '<div class="hint" id="cH" style="margin:0"></div>' +
         '<div class="col" style="gap:12px;margin-top:6px"><button type="button" class="go" data-act="clisave">Salvar</button>' +
+        (c.id && (z || c.email) ? '<button type="button" class="go" data-act="cliavisa">Avisar cliente</button>' : '') +
+        (c.id && c.aviso ? '<div class="hint" style="margin:0">Último aviso: ' + esc(c.aviso.canal) + ' · ' + esc(c.aviso.modelo) + ' · ' + fd(c.aviso.ts) + ' ' + fh(c.aviso.ts) + '</div>' : '') +
         (z ? '<a class="chip" href="' + z + '" target="_blank" rel="noopener" style="color:#25d366;width:100%;min-height:48px;justify-content:center;text-decoration:none;display:flex;align-items:center">' + CLI_WA + '<span style="margin-left:8px">Conversar no WhatsApp</span></a>' : '') +
         (c.id ? '<div style="border-top:1px solid var(--line);margin-top:6px"></div><button type="button" data-act="clidel" style="color:#ff7b7b;background:transparent;border:0;min-height:44px;width:100%;font:inherit;cursor:pointer">' + (S._cliDel === c.id ? 'Remover mesmo?' : 'Remover') + '</button>' : '') +
         '</div>' +
@@ -199,13 +229,14 @@
     var nome = $('cNome').value.trim(),
       tel = $('cTel').value.trim(),
       ruc = $('cRuc').value.trim(),
+      email = $('cEmail') ? $('cEmail').value.trim() : '',
       obs = $('cObs').value.trim(),
       cur = S.cliSel === 'novo' ? null : cliAtual();
     if (!nome && !cliDig(tel)) {
       $('cH').textContent = 'Escreva o nome ou o telefone.';
       return;
     }
-    var dup = cliAchar(nome, tel, ruc, cur ? cur.id : 0);
+    var dup = cliAchar(nome, tel, ruc, cur ? cur.id : 0, email);
     if (dup) {
       $('cH').textContent = 'Já existe um cliente com esse telefone ou RUC: ' + (dup.nome || dup.tel) + '.';
       return;
@@ -214,13 +245,96 @@
       cur.nome = cap1(nome);
       cur.tel = tel;
       cur.ruc = ruc;
+      cur.email = email;
       cur.obs = obs;
     } else {
-      S.clientes.push({ id: S.cliNext++, nome: cap1(nome), tel: tel, ruc: ruc, obs: obs, ts: Date.now() });
+      S.clientes.push({ id: S.cliNext++, nome: cap1(nome), tel: tel, ruc: ruc, email: email, obs: obs, ts: Date.now(), orig: 'balcao' });
     }
     S.cliSel = null;
     render();
     window.scrollTo(0, 0);
+  };
+  // Possível duplicado: o pedido criou um cliente parecido com outro. Juntar ou manter separados.
+  function cliDupHtml(c) {
+    var o = c.dup && S.clientes.filter(function (x) { return x.id === c.dup; })[0];
+    if (!o) return '';
+    return '<div class="note n-warn"><b>Possível duplicado</b><br>' + esc(c.nome || 'Este cliente') + ' parece igual a ' + esc(o.nome || o.tel || 'outro cadastro') + '.<div style="display:flex;gap:8px;margin-top:8px"><button type="button" class="mini" data-act="clijuntar">Juntar</button><button type="button" class="mini ghost" data-act="climanter">Manter separados</button></div></div>';
+  }
+  ACT.clijuntar = function () {
+    var c = cliAtual(),
+      o = c && S.clientes.filter(function (x) { return x.id === c.dup; })[0];
+    if (!c || !o) return;
+    ['nome', 'tel', 'ruc', 'email', 'cidade', 'end', 'nasc', 'nac'].forEach(function (k) {
+      if (!o[k] && c[k]) o[k] = c[k];
+    });
+    S.pedidos.forEach(function (p) { if (p.cliId === c.id) p.cliId = o.id; });
+    S.sales.forEach(function (x) { if (x.cliId === c.id) x.cliId = o.id; });
+    S.clientes = S.clientes.filter(function (x) { return x.id !== c.id; });
+    S.cliSel = o.id;
+    delete o.dup;
+    lfaToast('<b>Clientes juntados</b><br>' + esc(o.nome || ''));
+    render();
+  };
+  ACT.climanter = function () {
+    var c = cliAtual();
+    if (!c) return;
+    delete c.dup;
+    render();
+  };
+  // Avisar cliente: modelo pronto, por WhatsApp ou e-mail (abre o app de mensagens/e-mail já preenchido).
+  var CLI_MOD = [
+    ['sep', 'Separado', 'Seu pedido está separado', 'separamos as suas peças. Pode retirar na La Fouch (Ciudad del Este) quando quiser.'],
+    ['pro', 'Pronto', 'Seu pedido está pronto', 'o seu pedido está pronto para retirada na La Fouch (Ciudad del Este).'],
+    ['che', 'Chegou', 'Chegou o que você procurava', 'chegou o produto que você procurava. Quer que eu separe para você?']
+  ];
+  function cliMsg(c, m) {
+    var nome = (c.nome || '').split(' ')[0];
+    return 'Oi' + (nome ? ' ' + nome : '') + ', ' + m[3] + ' Qualquer dúvida, é só responder. La Fouch · Tudo em Óculos';
+  }
+  function cliAvisoSheet() {
+    var c = cliAtual();
+    if (!c) return;
+    var z = cliDig(c.tel).length >= 6,
+      e = String(c.email || '').indexOf('@') > 0,
+      canal = S._avCanal && ((S._avCanal === 'zap' && z) || (S._avCanal === 'mail' && e)) ? S._avCanal : z ? 'zap' : 'mail',
+      mi = S._avMod >= 0 && S._avMod < CLI_MOD.length ? S._avMod : 0,
+      m = CLI_MOD[mi],
+      txt = cliMsg(c, m);
+    S._avCanal = canal;
+    S._avMod = mi;
+    var h =
+      '<div style="padding:4px 2px"><h2 style="margin:0 0 10px;font-size:18px">Avisar ' + esc(c.nome || 'cliente') + '</h2>' +
+      '<div class="chips" style="display:flex;gap:6px;margin-bottom:8px">' +
+      '<button type="button" class="chip' + (canal === 'zap' ? ' on' : '') + '" data-act="clicanal" data-id="zap"' + (z ? '' : ' disabled') + '>WhatsApp</button>' +
+      '<button type="button" class="chip' + (canal === 'mail' ? ' on' : '') + '" data-act="clicanal" data-id="mail"' + (e ? '' : ' disabled') + '>E-mail</button></div>' +
+      '<div class="chips" style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap">' +
+      CLI_MOD.map(function (x, i) { return '<button type="button" class="chip' + (i === mi ? ' on' : '') + '" data-act="climod" data-id="' + i + '">' + x[1] + '</button>'; }).join('') + '</div>' +
+      (canal === 'mail' ? '<div class="hint" style="margin:0 0 4px"><b>Assunto:</b> ' + esc(m[2]) + '</div>' : '') +
+      '<div class="note" style="white-space:pre-wrap">' + esc(txt) + '</div>' +
+      '<div style="display:flex;gap:8px;margin-top:12px"><button type="button" class="go" data-act="cliabrir">Abrir ' + (canal === 'zap' ? 'WhatsApp' : 'e-mail') + '</button><button type="button" class="mini ghost" data-act="cliavfecha">Fechar</button></div></div>';
+    lfaAbre('cliAvSh', h);
+  }
+  ACT.cliavisa = function () { cliAvisoSheet(); };
+  ACT.clicanal = function (id) { S._avCanal = id; cliAvisoSheet(); };
+  ACT.climod = function (id) { S._avMod = +id; cliAvisoSheet(); };
+  ACT.cliavfecha = function () { lfaFecha('cliAvSh'); };
+  ACT.cliabrir = function () {
+    var c = cliAtual();
+    if (!c) return;
+    var m = CLI_MOD[S._avMod || 0],
+      txt = cliMsg(c, m),
+      url;
+    if (S._avCanal === 'mail') url = 'mailto:' + encodeURIComponent(c.email) + '?subject=' + encodeURIComponent(m[2]) + '&body=' + encodeURIComponent(txt);
+    else {
+      var d = cliDig(c.tel);
+      if (d.charAt(0) === '0') d = '595' + d.slice(1);
+      url = 'https://wa.me/' + d + '?text=' + encodeURIComponent(txt);
+    }
+    c.aviso = { canal: S._avCanal === 'mail' ? 'E-mail' : 'WhatsApp', modelo: m[1], ts: Date.now() };
+    saveSoon();
+    lfaFecha('cliAvSh');
+    window.open(url, '_blank');
+    render();
   };
   ACT.clidel = function () {
     var c = cliAtual();

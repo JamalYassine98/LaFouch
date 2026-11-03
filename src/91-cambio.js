@@ -356,7 +356,7 @@
   // Grava a cotação (histórico do dia) e redesenha.
   function setFx(pyg, brl, src, live, status) {
     var last = S.fxHist[S.fxHist.length - 1],
-      pt = { ts: Date.now(), pyg: Math.round(pyg), brl: brl };
+      pt = { ts: Date.now(), pyg: Math.round(pyg), brl: brl, r: live ? 1 : 0 };
     if (new Date(last.ts).toDateString() === new Date().toDateString())
       S.fxHist[S.fxHist.length - 1] = pt;
     else S.fxHist.push(pt);
@@ -374,7 +374,7 @@
     var c = S.fxc;
     if (!S.syncOn || !c || !(c.pyg > 0) || !(c.ts > (S.fx.ts || 0))) return false;
     var last = S.fxHist[S.fxHist.length - 1],
-      pt = { ts: c.ts, pyg: c.pyg, brl: c.brl };
+      pt = { ts: c.ts, pyg: c.pyg, brl: c.brl, r: 1 };
     if (last && new Date(last.ts).toDateString() === new Date(c.ts).toDateString()) S.fxHist[S.fxHist.length - 1] = pt;
     else S.fxHist.push(pt);
     S.fx = { pyg: c.pyg, brl: c.brl, ts: c.ts, live: true, src: 'Cotação compartilhada entre aparelhos', status: 'Mesma cotação de todos os aparelhos.' };
@@ -383,6 +383,50 @@
     return true;
   }
   window.__fxAdota = fxAdota;
+  // Histórico verdadeiro: baixa o fechamento diário real (USD→PYG e USD→BRL) dos últimos 365 dias e troca os pontos antigos
+  function fxHistReal() {
+    if (S.fxReal && Date.now() - S.fxReal < 20 * 3600000) return;
+    var tem = {}, dias = [], hoje = new Date();
+    (S.fxHist || []).forEach(function (x) { if (x.r) tem[new Date(x.ts).toDateString()] = 1; });
+    for (var i = 1; i <= 365; i++) {
+      var d = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate() - i, 12);
+      if (!tem[d.toDateString()]) dias.push(d);
+    }
+    if (!dias.length) { S.fxReal = Date.now(); return; }
+    var ok = 0, falhou = 0, fila = dias.slice(), novos = [];
+    function iso(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+    function um(d) {
+      var u = '@fawazahmed0/currency-api@' + iso(d) + '/v1/currencies/usd.json';
+      return fetch('https://cdn.jsdelivr.net/npm/' + u)
+        .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+        .catch(function () { return fetch('https://' + iso(d) + '.currency-api.pages.dev/v1/currencies/usd.json').then(function (r) { if (!r.ok) throw 0; return r.json(); }); })
+        .then(function (j) {
+          var py = j && j.usd && j.usd.pyg, br = j && j.usd && j.usd.brl;
+          if (py > 1000 && br > 1) { novos.push({ ts: d.getTime(), pyg: Math.round(py), brl: Math.round(br * 1000) / 1000, r: 1 }); ok++; } else falhou++;
+        })
+        .catch(function () { falhou++; });
+    }
+    function lote() {
+      if (!fila.length) return Promise.resolve();
+      return Promise.all(fila.splice(0, 8).map(um)).then(lote);
+    }
+    lote().then(function () {
+      if (ok < 5) return; // sem internet/fonte: mantém o que há e tenta de novo depois
+      var pegos = {};
+      novos.forEach(function (x) { pegos[new Date(x.ts).toDateString()] = 1; });
+      var hojeK = hoje.toDateString();
+      // fica: pontos de hoje e os já verdadeiros; sai: ponto antigo sem marca nos dias que o histórico verdadeiro cobriu
+      S.fxHist = S.fxHist.filter(function (x) {
+        var k = new Date(x.ts).toDateString();
+        return k === hojeK || x.r || !pegos[k];
+      }).concat(novos);
+      S.fxHist.sort(function (a, b) { return a.ts - b.ts; });
+      S.fxReal = Date.now();
+      try { saveSoon(); } catch (e) {}
+      renderFx(); renderDash(); renderHist(); renderDay();
+    });
+  }
+  window.__fxHistReal = fxHistReal;
   function fetchFx() {
     if (fxAdota() && Date.now() - S.fx.ts < 150000) return;
     S.fxNext = Date.now() + 180000;
@@ -418,3 +462,4 @@
     tickFx();
     if (Date.now() >= S.fxNext) fetchFx();
   }, 1000);
+  setTimeout(fxHistReal, 4000);

@@ -506,3 +506,11 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - Icone da notificacao: escudo a 85% do circulo (proximo APK).
 - Ordem: cadastro automatico -> lista de pedidos -> ficha do cliente -> cores -> icone.
 
+
+## 03/11/2026 — implementado (v397)
+- Clientes: cadastro automático pelo pedido do site (aviso "Cliente cadastrado", anti-duplicado, e-mail, juntar), ficha melhorada e "Avisar cliente" (Separado/Pronto/Chegou por WhatsApp ou e-mail).
+- Pedidos online por urgência (Agir agora / Em andamento / Feitos), busca e tempo de espera.
+- Lista de vendas: peça com várias cores abre as cores no lugar (cor sem estoque não aparece); "+" aberto adiciona a cor marcada.
+- Ícone da notificação a 85% (precisa novo APK; só gerar quando o dono pedir).
+- Gráficos de câmbio: o dono quer histórico VERDADEIRO do dólar (guarani e real). O app baixa o fechamento diário real de 365 dias (currency-api via jsdelivr) e troca os pontos de exemplo; pontos marcados `r:1`. Não conferido no sandbox (sem internet) — conferir no aparelho.
+- Ainda em elaboração (sem implementar): aba WhatsApp v2/atacado, descrição + graus no site, estratégia de estabilidade de preço no site.

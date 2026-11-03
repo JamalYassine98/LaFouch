@@ -95,14 +95,26 @@
   }
   // Acha o cliente pelo telefone (ou nome) e, se não existe, cadastra. Devolve o cliente e se foi criado agora.
   function pedCliente(p) {
-    var c = cliAchar(p.cli, p.tel, p.doc, 0);
+    var c = cliAchar(p.cli, p.tel, p.doc, 0, p.email);
     if (c) {
       if (!c.ruc && p.doc) c.ruc = p.doc;
+      if (!c.email && p.email) c.email = p.email;
+      if (!c.tel && p.tel) c.tel = p.tel;
       return { c: c, novo: false };
     }
     c = { id: S.cliNext++, nome: p.cli, tel: p.tel, ruc: p.doc, obs: 'Veio pelo site' + (p.obsC ? ' · ' + p.obsC : ''), ts: Date.now(), nac: p.nac, nasc: p.nasc, email: p.email, cidade: p.cidade, end: p.end };
     if (p.teste) c.teste = true;
+    c.auto = true;
+    c.orig = 'site';
+    // parecido com outro cadastro (mesmo nome, ou mesmo telefone/e-mail com outro nome): pergunta antes de duplicar
+    var par = S.clientes.filter(function (x) {
+      return cliNorm(x.nome) === cliNorm(c.nome) && x.id !== c.id;
+    })[0];
+    if (par) c.dup = par.id;
     S.clientes.push(c);
+    try {
+      lfaToast('<span class="lfa-ic">' + lfaSvg('check') + '</span><div><b>Cliente cadastrado</b><div class="hint" style="margin:2px 0 0">' + esc(c.nome || 'Novo cliente') + (par ? ' · parece igual a ' + esc(par.nome) : '') + '</div></div>');
+    } catch (e) {}
     return { c: c, novo: true };
   }
   var PED_INFO = { ts: 0, err: '' };
@@ -510,6 +522,30 @@
     saveSoon();
     setTimeout(render, 300);
   };
+  // "há 12 min" e barra de 4 etapas; fica âmbar depois de 1 h sem resposta (só enquanto espera por você).
+  function pedEspera(p) {
+    if (p.st === 'canc') return '';
+    var ix = { novo: 0, sep: 1, pronto: 2, ent: 3 }[p.st] || 0,
+      cur = ix === 0 && p.pg === 'pago' ? 1 : ix,
+      m = Math.max(0, Math.round((Date.now() - p.ts) / 60000)),
+      t = m < 1 ? 'agora' : m < 60 ? 'há ' + m + ' min' : m < 1440 ? 'há ' + Math.floor(m / 60) + ' h' : 'há ' + Math.floor(m / 1440) + ' d',
+      lento = p.st === 'novo' && m >= 60,
+      b = '';
+    for (var i = 0; i < 4; i++) b += '<i style="flex:1;height:5px;border-radius:3px;background:' + (p.st === 'ent' || i < cur ? 'var(--ok)' : i === cur ? 'var(--accent)' : 'var(--line)') + '"></i>';
+    return '<div style="display:flex;gap:3px;margin:8px 0 2px">' + b + '</div><div class="pdMt" style="display:flex;justify-content:space-between;' + (lento ? 'color:var(--warn);font-weight:700' : '') + '"><span>' + (lento ? '⏱ ' : '') + t + '</span><span>Pedido · Pago · Separado · Entregue</span></div>';
+  }
+  document.addEventListener('input', function (e) {
+    if (e.target && e.target.id === 'pedQ') {
+      S.pedQ = e.target.value;
+      var pos = e.target.selectionStart;
+      renderPedidos();
+      var n = $('pedQ');
+      if (n) {
+        n.focus();
+        try { n.setSelectionRange(pos, pos); } catch (x) {}
+      }
+    }
+  });
   function renderPedidos() {
     var el = $('v-ped');
     if (!el || S.view !== 'ped') return;
@@ -528,13 +564,16 @@
     S.pedidos.forEach(function (p) {
       n[p.st]++;
     });
+    // Três abas por urgência: Agir agora (novos, comprovantes), Em andamento (separando, prontos), Feitos (entregues, cancelados)
     var fl = [
-        ['novo', 'Novos', n.novo, n.novo ? 'w' : ''],
-        ['sep', 'Separando', n.sep, ''],
-        ['pronto', 'Prontos', n.pronto, ''],
-        ['ent', 'Entregues', n.ent, ''],
-        ['canc', 'Cancelados', n.canc, '']
+        ['novo', 'Agir agora', n.novo, n.novo ? 'w' : ''],
+        ['sep', 'Em andamento', n.sep + n.pronto, ''],
+        ['ent', 'Feitos', n.ent + n.canc, '']
       ],
+      gp = function (st) {
+        return st === 'novo' ? 'novo' : st === 'sep' || st === 'pronto' ? 'sep' : 'ent';
+      },
+      gAtual = gp(S.pedF),
       h =
         '<div class="top"><div><h1>Pedidos online</h1><div class="crumb">' +
         (PED_INFO.ts ? (PED_INFO.err ? '<span style="color:var(--bad)">Não consegui buscar os pedidos: ' + esc(PED_INFO.err) + '</span>' : 'Última busca às ' + fh(PED_INFO.ts)) : 'Buscando pedidos…') +
@@ -545,16 +584,23 @@
     h += '<div class="pdSeg" role="group" aria-label="Situação dos pedidos">';
     fl.forEach(function (f) {
       h +=
-        '<button type="button" class="' + (S.pedF === f[0] ? 'on ' : '') + (f[3] || '') + '" data-act="pedf" data-id="' + f[0] + '" aria-pressed="' + (S.pedF === f[0]) + '">' + f[1] + (f[2] ? ' <b>' + f[2] + '</b>' : '') + '</button>';
+        '<button type="button" class="' + (gAtual === f[0] ? 'on ' : '') + (f[3] || '') + '" data-act="pedf" data-id="' + f[0] + '" aria-pressed="' + (gAtual === f[0]) + '">' + f[1] + (f[2] ? ' <b>' + f[2] + '</b>' : '') + '</button>';
     });
     h += '</div>';
-    var lista = S.pedidos
-      .filter(function (p) {
-        return p.st === S.pedF;
-      })
-      .sort(function (a, b) {
-        return b.ts - a.ts;
-      });
+    h += '<input class="in" id="pedQ" placeholder="Buscar por nome, código ou telefone" value="' + esc(S.pedQ || '') + '" autocomplete="off" aria-label="Buscar pedido" style="margin-bottom:10px">';
+    var qb = cliNorm(S.pedQ),
+      qd = cliDig(S.pedQ),
+      lista = S.pedidos
+        .filter(function (p) {
+          if (gp(p.st) !== gAtual) return false;
+          if (!qb) return true;
+          return cliNorm(p.cli).indexOf(qb) >= 0 || cliNorm(String(p.num)).indexOf(qb) >= 0 || (qd.length >= 3 && cliDig(p.tel).indexOf(qd) >= 0);
+        })
+        .sort(function (a, b) {
+          // o que espera por você: comprovante primeiro, depois o mais antigo; o resto, o mais novo primeiro
+          if (gAtual === 'novo') return (b.pg === 'comp') - (a.pg === 'comp') || a.ts - b.ts;
+          return b.ts - a.ts;
+        });
     if (!lista.length) h += '<div class="hint">' + (S.pedidos.length ? 'Nenhum pedido nesta situação.' : 'Nenhum pedido ainda. Quando um cliente fizer um pedido no site, ele aparece aqui sozinho.') + '</div>';
     lista.forEach(function (p) {
       var tot = pedTotal(p),
@@ -564,6 +610,7 @@
         '<section class="pdCard"><div data-act="pedab" data-id="' + p.id + '" style="cursor:pointer"><div class="pdLin"><span class="pdAv">' + esc((p.cli || '?').charAt(0).toUpperCase()) + '</span>' +
         '<div style="min-width:0;flex:1"><div class="pdNm">' + esc(p.cli || 'Sem nome') + '</div><div class="pdMt">Pedido ' + p.num + ' · ' + fd(p.ts) + ' ' + fh(p.ts) + (p.orig === 'site' ? ' · Site' : '') + (p.teste ? ' · <b>TESTE</b>' : '') + (p.ent === 'delivery' ? ' · Delivery' : '') + '</div></div>' +
         '<span class="pdPill ' + est[1] + '">' + est[0] + '</span></div>' +
+        pedEspera(p) +
         '<div class="pdTh">' +
         p.itens
           .slice(0, 3)

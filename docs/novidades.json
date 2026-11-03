@@ -1,10 +1,9 @@
 {
- "nome": "3.6",
+ "nome": "3.7",
  "notas": [
-  "Toque no + da lista manda a peça direto ao pedido, com a foto voando até ele",
-  "Cores do produto agora são cartões com a foto",
-  "Preço do produto mostra reais e guaranis",
-  "Tocar na aba em que já está não faz nada",
-  "Aviso dentro do app com a cara do aviso de teste"
+  "Lista de vendas: toque na peça para ver as cores (só as que têm estoque) e use o + na cor marcada",
+  "Pedidos do site cadastram o cliente sozinhos, sem duplicar; ficha do cliente com e-mail e botão Avisar cliente",
+  "Pedidos online por urgência, com busca e tempo de espera",
+  "Gráficos do dólar com o histórico verdadeiro dos últimos 12 meses"
  ]
 }

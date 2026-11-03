@@ -161,10 +161,35 @@
         f = g[0],
         tp = tipoOf(f.tipo),
         tot = sum(g);
+      // lista: peça com várias cores em estoque se abre no lugar (cor sem estoque nem aparece)
+      var vsL = g.filter(function (x) {
+          return x.qty > 0 && gLivre(x) > 0;
+        }),
+        corU = {};
+      vsL.forEach(function (x) {
+        corU[x.cor] = (corU[x.cor] || 0) + 1;
+      });
+      var nCor = Object.keys(corU).length,
+        multi = rows.classList.contains('vlist') && f.tipo !== 'pre' && nCor > 1 && vsL.every(function (x) { return corU[x.cor] === 1; }),
+        aberto = multi && S.vAb === k,
+        selI = multi && ((S.vCor && S.vCor[k] && vsL.filter(function (x) { return x.cor === S.vCor[k]; })[0]) || vsL[0]);
       var card = btn(
-        'pcard' + (k === S.vRef ? ' on' : ''),
+        'pcard' + (k === S.vRef ? ' on' : '') + (aberto ? ' aberta' : ''),
         '',
         function (ev) {
+          if (multi) {
+            var mais = ev && ev.target && ev.target.closest && ev.target.closest('.vplus');
+            if (mais && aberto) {
+              S._vsel = selI;
+              S.qty = 1;
+              window.__voaSrc = (card.parentNode && card.parentNode.querySelector('.vcores .vcor.on img')) || card.querySelector('img');
+              $('sCartAdd').click();
+              return;
+            }
+            S.vAb = aberto ? '' : k;
+            render();
+            return;
+          }
           // "+" na lista: se a peça tem uma só variante com estoque, vai direto para o pedido
           if (ev && ev.target && ev.target.closest && ev.target.closest('.vplus')) {
             var vs = g.filter(function (x) {
@@ -202,8 +227,13 @@
         k === S.vRef
       );
       card.dataset.ref = f.ref;
-      card.appendChild(photoBox(photoOf(f.ref), 'pbox'));
-      card.appendChild(mk('b', '', pn(f.ref)));
+      card.appendChild(photoBox(aberto && selI ? photoOf(f.ref, selI.cor) || photoOf(f.ref) : photoOf(f.ref), 'pbox'));
+      var nmB = mk('b', '', pn(f.ref));
+      if (multi) {
+        var sb = mk('small', 'vsub', aberto ? selI.cor + ' · ' + gLivre(selI) + ' un.' : nCor + ' cores · ' + vsL.reduce(function (a, x) { return a + gLivre(x); }, 0) + ' un.');
+        nmB.appendChild(sb);
+      }
+      card.appendChild(nmB);
       var pr0 = tFor(f).price;
       if (pr0) {
         var pp = mk('b', 'vpreco', gs(pr0));
@@ -212,6 +242,30 @@
       }
       card.appendChild(mk('i', 'vplus', '+'));
       rows.appendChild(card);
+      if (aberto) {
+        var pn2 = mk('div', 'vcores');
+        vsL.forEach(function (x) {
+          var cb = btn('vcor' + (x === selI ? ' on' : ''), '', function () {
+            if (!S.vCor) S.vCor = {};
+            S.vCor[k] = x.cor;
+            render();
+          }, x === selI);
+          var th = mk('span', 'vci'),
+            fk = S.fotos[f.ref + '|' + x.cor];
+          if (fk) {
+            var ig = mk('img');
+            ig.src = fk;
+            ig.alt = x.cor;
+            th.appendChild(ig);
+          } else th.style.background = hexOf(x.cor);
+          cb.appendChild(th);
+          cb.appendChild(mk('b', '', x.cor === 'Sem cor' ? 'Padrão' : x.cor));
+          cb.appendChild(mk('span', 'n', gLivre(x) + ' un.'));
+          pn2.appendChild(cb);
+        });
+        pn2.appendChild(mk('div', 'vun', 'Toque no + para adicionar ' + (selI.cor === 'Sem cor' ? 'a peça' : 'a cor ' + selI.cor) + ' (' + gLivre(selI) + ' un. disponíveis)'));
+        rows.appendChild(pn2);
+      }
     });
     if (!order.length)
       rows.appendChild(

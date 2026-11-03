@@ -1740,6 +1740,22 @@ async def main():
             if not ok: falhas.append('mais direto'); print('        veio', pl, plr, pg.erros)
             await pg.close()
 
+            # Lista de Vendas: peça com várias cores se abre; cor sem estoque nem aparece; "+" aberto adiciona a cor marcada
+            pg = await pagina()
+            await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.items = [{tipo:'solar',ref:'PC1',grau:'',cor:'Preto',qty:3,fmt:'',med:'',vr:'',lote:'G1'},{tipo:'solar',ref:'PC1',grau:'',cor:'Azul',qty:5,fmt:'',med:'',vr:'',lote:'G2'},{tipo:'solar',ref:'PC1',grau:'',cor:'Rosa',qty:0,fmt:'',med:'',vr:'',lote:'G3'}]; S.cart = []; S.vAb = ''; S.vCor = {}; S.vModo = {v:'l'};
+              try { localStorage.setItem('lf_modo_v', 'l'); } catch (e) {} L.setView('vendas'); L.render(); document.getElementById('vRows').classList.add('vlist'); L.render(); }""")
+            await pg.wait_for_timeout(300)
+            await pg.evaluate("() => document.querySelector('#vRows .pcard[data-ref=PC1]').click()"); await pg.wait_for_timeout(200)
+            cs = await pg.evaluate("() => [...document.querySelectorAll('#vRows .vcor')].map(e => e.innerText.replace(/\\s+/g,' ').trim())")
+            await pg.evaluate("() => document.querySelectorAll('#vRows .vcor')[1].click()"); await pg.wait_for_timeout(200)
+            await pg.evaluate("() => document.querySelector('#vRows .pcard[data-ref=PC1] .vplus').click()"); await pg.wait_for_timeout(250)
+            cr = await pg.evaluate("() => window.__LF.S.cart.map(c => c.cor || (c.it && c.it.cor) || JSON.stringify(c))")
+            total += 1
+            ok = len(cs) == 2 and not any('Rosa' in x for x in cs) and len(cr) == 1 and 'Azul' in cr[0] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'lista de vendas: cores abrem no lugar e + adiciona a cor marcada')
+            if not ok: falhas.append('cores lista'); print('        veio', cs, cr, pg.erros)
+            await pg.close()
+
             # Tocar na aba em que já está: nada acontece (sem animar)
             pg = await pagina()
             await pg.evaluate("() => window.__LF.setView('estoque')"); await pg.wait_for_timeout(500)
@@ -1748,6 +1764,40 @@ async def main():
             total += 1
             print(('  ok  ' if mesma_ab and not pg.erros else ' FALHA ') + 'tocar na mesma aba não anima')
             if not (mesma_ab and not pg.erros): falhas.append('mesma aba'); print('        veio', mesma_ab, pg.erros)
+            await pg.close()
+
+            # Clientes: o pedido do site acha o cliente por telefone (0981 = +595 981), e-mail ou RUC; nome igual com outro telefone vira "possível duplicado" e dá para juntar
+            pg = await pagina()
+            cl = await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.clientes = []; S.cliNext = 1; S.pedidos = []; S.sales = [];
+              const a = L.pedCliente({cli:'Ana Gómez', tel:'0981 555 111', doc:'', email:'ana@x.com'}).c;
+              const b = L.pedCliente({cli:'Ana G.', tel:'+595 981 555 111', doc:'', email:''});
+              const c = L.pedCliente({cli:'Outra', tel:'0972 000 000', doc:'', email:'ana@x.com'});
+              const d = L.pedCliente({cli:'Ana Gómez', tel:'0993 111 222', doc:'', email:'novo@x.com'});
+              return [S.clientes.length, b.c === a && !b.novo, c.c === a, d.novo && d.c.dup === a.id && d.c.auto === true && d.c.email === 'novo@x.com', a.email]; }""")
+            await pg.evaluate("() => { const L = window.__LF, S = L.S; S.view = 'clientes'; S.cliSel = S.clientes[1].id; L.render(); }"); await pg.wait_for_timeout(200)
+            htm = await pg.evaluate("() => document.getElementById('v-clientes').innerText")
+            await pg.evaluate("() => { document.body.insertAdjacentHTML('beforeend', '<button id=cjz data-act=clijuntar>x</button>'); document.getElementById('cjz').click(); }"); await pg.wait_for_timeout(200)
+            cl2 = await pg.evaluate("() => [window.__LF.S.clientes.length, window.__LF.S.clientes[0].email, window.__LF.S.clientes[0].tel]")
+            total += 1
+            ok = cl[0] == 2 and cl[1] and cl[2] and cl[3] and cl[4] == 'ana@x.com' and 'Possível duplicado' in htm and cl2[0] == 1 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'clientes: cadastro automático acha por telefone/e-mail, avisa duplicado e junta')
+            if not ok: falhas.append('clientes auto'); print('        veio', cl, 'Possível duplicado' in htm, cl2, pg.erros)
+            await pg.close()
+
+            # Pedidos online: 3 abas por urgência, busca, tempo de espera
+            pg = await pagina()
+            await pg.evaluate("""() => { const L = window.__LF, S = L.S; const b = (id, st, cli, min, pg) => ({id, num: id, sid: 's'+id, cli, tel: '0981000'+id, st, pg: pg || '', ts: Date.now() - min*60000, itens: [{t:'Armação', q:1, p:100000, ref:'X'}], orig: 'site'});
+              S.pedidos = [b(1,'novo','Ana Gómez',90), b(2,'sep','Luz',10), b(3,'ent','Marcos',5000), b(4,'pronto','Rita',30)]; S.pedF = 'novo'; S.pedQ = ''; S.view = 'ped'; L.setView('ped'); }""")
+            await pg.wait_for_timeout(300)
+            pd1 = await pg.evaluate("() => [[...document.querySelectorAll('#v-ped .pdSeg button')].map(b => b.innerText.replace(/\\s+/g, ' ')), document.querySelectorAll('#v-ped .pdCard').length, document.getElementById('v-ped').innerText.includes('há 1 h')]")
+            await pg.evaluate("() => { window.__LF.S.pedF = 'sep'; window.__LF.render(); }"); await pg.wait_for_timeout(200)
+            pd2 = await pg.evaluate("() => document.querySelectorAll('#v-ped .pdCard').length")
+            await pg.fill('#pedQ', 'rita'); await pg.wait_for_timeout(200)
+            pd3 = await pg.evaluate("() => document.querySelectorAll('#v-ped .pdCard').length")
+            total += 1
+            ok = pd1[0] == ['Agir agora 1', 'Em andamento 2', 'Feitos 1'] and pd1[1] == 1 and pd1[2] and pd2 == 2 and pd3 == 1 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'pedidos online: abas por urgência, busca e tempo de espera')
+            if not ok: falhas.append('pedidos urg'); print('        veio', pd1, pd2, pd3, pg.erros)
             await pg.close()
 
             # Sons e avisos: um som para cada tipo de aviso, janela de escolha, sem som e preferência antiga preservada
