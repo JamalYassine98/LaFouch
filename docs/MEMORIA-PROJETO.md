@@ -514,3 +514,10 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - Ícone da notificação a 85% (precisa novo APK; só gerar quando o dono pedir).
 - Gráficos de câmbio: o dono quer histórico VERDADEIRO do dólar (guarani e real). O app baixa o fechamento diário real de 365 dias (currency-api via jsdelivr) e troca os pontos de exemplo; pontos marcados `r:1`. Não conferido no sandbox (sem internet) — conferir no aparelho.
 - Ainda em elaboração (sem implementar): aba WhatsApp v2/atacado, descrição + graus no site, estratégia de estabilidade de preço no site.
+
+## 03/11/2026 — v398: tabelas de preço (atacado)
+- Dono aprovou (modelo da Kazwini): o "K" = US$ 1.000 de compra. Tabelas iniciais editáveis (src/96-tabelas-preco.js, S.tabelas): Óptica 70%, Vendedor 55%, Atacado 1K 40%, 2K 32%, 5K 25%, 10K 18%, "Óptica com frete grátis" (70% + US$ 0,60 de frete embutido por peça). Margem sobre o custo; preço nunca abaixo de trava+colchão (piso) nem acima do Público. Ajustar as margens conforme o giro real (dono ainda não trabalha com atacado).
+- Frete grátis = tabela cujo preço embute o frete (recalcula os preços). NÃO há garantia (Termos).
+- Atacado é sempre presencial (Termos); tabelas valem no balcão e no WhatsApp, não no site.
+- UI: chip "Tabela" + "Enviar no WhatsApp" na lista de Vendas; no pedido: troca de tabela, cliente (usa a tabela padrão da ficha) e sugestão de tabela melhor; ficha do cliente tem "Tabela de preço".
+- Pendente (elaboração): juntar de vez o catálogo do WhatsApp com o de Vendas; Fase 3 calculadora de margem/giro; descrição + graus no site; estabilidade de preço do site (30 dias).

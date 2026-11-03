@@ -1,9 +1,9 @@
 {
- "nome": "3.7",
+ "nome": "3.8",
  "notas": [
-  "Lista de vendas: toque na peça para ver as cores (só as que têm estoque) e use o + na cor marcada",
-  "Pedidos do site cadastram o cliente sozinhos, sem duplicar; ficha do cliente com e-mail e botão Avisar cliente",
-  "Pedidos online por urgência, com busca e tempo de espera",
-  "Gráficos do dólar com o histórico verdadeiro dos últimos 12 meses"
+  "Tabelas de preço: Óptica, Vendedor, Atacado 1K a 10K e Óptica com frete grátis (preço = custo + margem, nunca abaixo do piso)",
+  "Catálogo de vendas com a etiqueta da tabela e botão Enviar no WhatsApp",
+  "Pedido: troca de tabela, escolha do cliente e aviso quando já alcança uma tabela melhor",
+  "Ficha do cliente com tabela de preço padrão"
  ]
 }

@@ -168,7 +168,7 @@
     <div class="top"><div><h1>Vendas</h1><div class="crumb">Busque a peça, escolha a variante e finalize. O estoque desce sozinho.</div></div></div>
     <div class="main">
       <section class="card col" id="vListCard" aria-label="Escolher a peça">
-        <div><div class="lbl">Buscar a peça</div><input class="in" id="vq" placeholder="Código, nome, cor, grau, formato, medida…" style="max-width:420px" autocomplete="off"></div>
+        <div id="vTabBar" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"></div><div><div class="lbl">Buscar a peça</div><input class="in" id="vq" placeholder="Código, nome, cor, grau, formato, medida…" style="max-width:420px" autocomplete="off"></div>
         <div id="vFiltPanel" hidden class="col" style="gap:10px"><div id="vProdB"><div class="lbl">Produto</div><div class="nav" id="vTabs" role="group" aria-label="Produto"></div></div><div id="vGradesB" hidden><div class="lbl">Grau que o cliente pede</div><div class="gradechips" id="vGrades" role="group" aria-label="Grau"></div></div><div id="vFaixaB" hidden><div class="lbl">Faixa</div><div class="nav" id="vFaixas" role="group" aria-label="Filtrar por faixa"></div></div></div>
         <div class="list" id="vRows"></div>
         <div id="vLinesB" hidden><div class="lbl" id="vProdL"></div><div class="nav" id="sLines"></div></div>

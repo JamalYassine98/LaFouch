@@ -152,6 +152,13 @@
       S.vRef = '';
       S.vSel = null;
     }
+    var tb = $('vTabBar');
+    if (tb) {
+      var Ta = tabDe(S.tabAtiva);
+      tb.textContent = '';
+      tb.appendChild(btn('chip on', 'Tabela: ' + Ta.nome + ' ▾', function () { tabSheet(false); }, true));
+      tb.appendChild(btn('chip', 'Enviar no WhatsApp', function () { S._vVis = order.map(function (k) { return groups[k][0].ref; }); ACT.tabenviar(); }, false));
+    }
     var rows = $('vRows');
     rows.textContent = '';
     rows.classList.toggle('vlist', modoDe('v') === 'l');
@@ -234,7 +241,7 @@
         nmB.appendChild(sb);
       }
       card.appendChild(nmB);
-      var pr0 = tFor(f).price;
+      var pr0 = precoTab(f);
       if (pr0) {
         var pp = mk('b', 'vpreco', gs(pr0));
         pp.style.color = 'var(--ok)';

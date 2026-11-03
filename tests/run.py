@@ -1756,6 +1756,21 @@ async def main():
             if not ok: falhas.append('cores lista'); print('        veio', cs, cr, pg.erros)
             await pg.close()
 
+            # Tabelas de preço: custo + margem, nunca acima do Público nem abaixo do piso; sugestão de tabela melhor; chip no catálogo
+            pg = await pagina()
+            tb = await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.fx.pyg = 6000; S.cart = []; S.tabAtiva = 'pub'; S.pprice = {TB1: {novo: 400000, ant: 0}};
+              S.items = [{tipo:'solar',ref:'TB1',grau:'',cor:'Preto',qty:400,fmt:'',med:'',vr:'',lote:'',custo:20}];
+              const it = S.items[0], pub = L.precoTab(it, 'pub'), a1 = L.precoTab(it, 'a1'), a10 = L.precoTab(it, 'a10'), opt = L.precoTab(it, 'opt'), fg = L.precoTab(it, 'fg');
+              S.cart = [{it: it, qty: 300, tab: 'pub', preco: null}]; const sg = L.tabSugestao(); const antes = S.cart.length;
+              L.tabAplicaCarrinho('a1'); const sub = L.precoTab(it, 'a1') * 300;
+              L.setView('vendas'); L.render();
+              return {pub, a1, a10, opt, fg, sg: sg && sg.T.id, sub, chip: (document.getElementById('vTabBar') || {}).innerText, msg: L.tabMensagem([]).slice(0, 60)}; }""")
+            total += 1
+            ok = tb['pub'] > 0 and 0 < tb['a10'] <= tb['a1'] <= tb['opt'] <= tb['pub'] and tb['fg'] >= tb['opt'] and tb['fg'] <= tb['pub'] and tb['sg'] and 'Tabela: Atacado 1K' in (tb['chip'] or '') and 'Olá' in tb['msg'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'tabelas de preço: ordem das margens, sugestão, chip e mensagem')
+            if not ok: falhas.append('tabelas'); print('        veio', tb, pg.erros)
+            await pg.close()
+
             # Tocar na aba em que já está: nada acontece (sem animar)
             pg = await pagina()
             await pg.evaluate("() => window.__LF.setView('estoque')"); await pg.wait_for_timeout(500)

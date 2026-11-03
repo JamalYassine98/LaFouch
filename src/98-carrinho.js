@@ -6,7 +6,7 @@
 
   // Preço combinado de uma linha (padrão: tabela × quantidade).
   function cartLinhaPreco(l) {
-    return l.preco != null ? l.preco : tFor(l.it).price * l.qty;
+    return l.preco != null ? l.preco : precoTab(l.it, l.tab || S.tabAtiva) * l.qty;
   }
   function cartSub() {
     return S.cart.reduce(function (a, l) {
@@ -125,10 +125,11 @@
   function cartPainel(card) {
     var h =
       '<div style="display:flex;align-items:center;gap:10px"><button type="button" class="chip" data-act="cartclose" aria-label="Voltar" style="min-height:42px;width:42px;padding:0;justify-content:center;font-size:20px;flex:0 0 auto">←</button><h2 style="margin:0;font-size:20px">Pedido · ' + cartPecas() + ' peça(s)</h2></div>' +
+      tabCartHtml() +
       '<div class="hint" style="margin:0">O piso é conferido sobre o total. Você pode mudar o preço de uma peça (desconto maior numa, menos em outra) e o app confere se o total ainda cobre tudo.</div><div class="split">';
     S.cart.forEach(function (l, i) {
       var pp = pisoPeca(l.it),
-        tab = tFor(l.it).price * l.qty,
+        tab = precoTab(l.it, l.tab || S.tabAtiva) * l.qty,
         v = cartLinhaPreco(l);
       h +=
         '<div class="sl" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">' + cartFoto(l, 56) + '<span style="flex:1 1 140px">' + esc(cartDesc(l)) +
@@ -360,11 +361,12 @@
         if (ex.preco != null) ex.preco = Math.round((ex.preco * nq) / ex.qty);
         ex.qty = nq;
       } else {
-        var dd = descontoGs(tFor(it).price * take); // desconto trazido da análise "Liquidação"
+        var dd = descontoGs(precoTab(it) * take); // desconto trazido da análise "Liquidação"
         S.cart.push({
           it: it,
           qty: take,
-          preco: dd > 0 ? Math.max(0, tFor(it).price * take - dd) : null
+          tab: S.tabAtiva,
+          preco: dd > 0 ? Math.max(0, precoTab(it) * take - dd) : null
         });
       }
     });

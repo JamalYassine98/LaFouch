@@ -173,6 +173,7 @@
         '<input class="in" id="cTel" type="tel" inputmode="tel" placeholder="Telefone / WhatsApp" value="' + esc(c.tel) + '">' +
         '<input class="in" id="cEmail" type="email" inputmode="email" placeholder="E-mail (opcional, para avisos)" value="' + esc(c.email || '') + '" autocomplete="off">' +
         '<input class="in" id="cRuc" inputmode="text" placeholder="RUC ou CI (para a nota fiscal)" value="' + esc(c.ruc) + '" autocomplete="off">' +
+        '<select class="in" id="cTab" aria-label="Tabela de preço do cliente"><option value="">Tabela de preço: padrão (Público)</option>' + tabLista().filter(function (T) { return !T.pub; }).map(function (T) { return '<option value="' + T.id + '"' + (c.tab === T.id ? ' selected' : '') + '>' + esc(T.nome) + '</option>'; }).join('') + '</select>' +
         cliDupHtml(c) +
         (c.id && !String(c.ruc || '').trim() ? '<div class="note n-warn"><b>Sem RUC</b></div>' : '') +
         '<input class="in" id="cObs" placeholder="Observação (opcional)" value="' + esc(c.obs || '') + '">' +
@@ -231,6 +232,7 @@
       ruc = $('cRuc').value.trim(),
       email = $('cEmail') ? $('cEmail').value.trim() : '',
       obs = $('cObs').value.trim(),
+      tabc = $('cTab') ? $('cTab').value : '',
       cur = S.cliSel === 'novo' ? null : cliAtual();
     if (!nome && !cliDig(tel)) {
       $('cH').textContent = 'Escreva o nome ou o telefone.';
@@ -247,8 +249,9 @@
       cur.ruc = ruc;
       cur.email = email;
       cur.obs = obs;
+      cur.tab = tabc;
     } else {
-      S.clientes.push({ id: S.cliNext++, nome: cap1(nome), tel: tel, ruc: ruc, email: email, obs: obs, ts: Date.now(), orig: 'balcao' });
+      S.clientes.push({ id: S.cliNext++, nome: cap1(nome), tel: tel, ruc: ruc, email: email, obs: obs, ts: Date.now(), orig: 'balcao', tab: tabc });
     }
     S.cliSel = null;
     render();
