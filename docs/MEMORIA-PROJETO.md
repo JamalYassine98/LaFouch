@@ -543,3 +543,7 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - Site (03/11): hero com overflow-x visível/overflow-y clip (o clip total cortava o brilho nas laterais, faixa branca de 16px).
 - Site (03/11): menu (gaveta) no celular: itens 25→21px (sub 18→16), linha 54px fixa e seta do Catálogo com 54px de altura (centrada em todos os tamanhos).
 - 03/11 v406: aba Tema (Auto/Claro/Escuro) em Ajustes, igual ao antigo Tema do site (botões Auto/sol/lua e revelação em círculo de 700ms a partir do botão tocado; sem animação se o aparelho pede menos movimento). Vale só neste aparelho (localStorage lf_tema, não sincroniza). Auto = tema do aparelho. Barra do sistema (theme-color) acompanha. www/style.css: variáveis claras por :root[data-tema=claro] e @media light com :not([data-tema=escuro]). Gerado pelo build (src/97-tema.js).
+
+## 03/11/2026 - Início: remover/voltar botões (PAUSADA, só esboços)
+- Ideia: tirar o chip "Personalizar botões"; segurar um botão e arrastar; barra de baixo vira "Fixar | Ocultar" ao arrastar; soltar sobre outro botão troca de lugar. Protótipo no artefato "Início LaFouch Protótipo".
+- Dono REJEITOU: faixa/botão de remover (A/B), tile ou fileira "Botões ocultos" (C/D) e lista dentro de Ajustes. O retorno dos botões ocultos deve ser pelo próprio menu/Início, sem botão com texto. Ainda sem solução aprovada. NÃO implementar.
