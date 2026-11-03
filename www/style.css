@@ -855,11 +855,11 @@ button:not(:disabled):active.go,.go:not(:disabled):active{box-shadow:0 0 0 6px #
 .bsolid .bi{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.22);display:grid;place-items:center;flex:none;font-size:18px}
 .bsolid .bt2{flex:1;min-width:0}.bsolid .bt2 b{display:block;font-size:15px}.bsolid .bt2 span{font-size:12.5px;opacity:.85}
 .bsolid.ok{background:linear-gradient(135deg,#0a7a45,#128c4a);box-shadow:0 6px 16px rgba(18,140,74,.3)}
-.bsolid.new .bi{animation:lfaPul 1.4s infinite}@keyframes lfaPul{50%{transform:scale(1.1);box-shadow:0 0 0 7px rgba(255,255,255,.12)}}
-.lfa-spin{display:inline-block;animation:lfaSp 1s linear infinite}@keyframes lfaSp{to{transform:rotate(360deg)}}
-.ring{display:inline-block;transform-origin:50% 0}.ring.go{animation:lfaRg .7s}@keyframes lfaRg{20%{transform:rotate(18deg)}40%{transform:rotate(-16deg)}60%{transform:rotate(10deg)}80%{transform:rotate(-6deg)}}
+.bsolid.new .bi{animation:bsPul 1.4s infinite}@keyframes bsPul{50%{transform:scale(1.1);box-shadow:0 0 0 7px rgba(255,255,255,.12)}}
+.lfa-spin{display:inline-block;animation:bsSpin 1s linear infinite}@keyframes bsSpin{to{transform:rotate(360deg)}}
+.ring{display:inline-block;transform-origin:50% 0}.ring.tocando2{animation:bsRing .7s}@keyframes bsRing{20%{transform:rotate(18deg)}40%{transform:rotate(-16deg)}60%{transform:rotate(10deg)}80%{transform:rotate(-6deg)}}
 .vrow{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:var(--mute)}.vrow b{color:var(--fg);font:400 20px var(--display)}.vrow small{font-size:11px}
-@media (prefers-reduced-motion:reduce){.bsolid.new .bi,.lfa-spin,.eq b,.ring.go{animation-duration:.01s!important}}
+@media (prefers-reduced-motion:reduce){.bsolid.new .bi,.lfa-spin,.eq b,.ring.tocando2{animation-duration:.01s!important}}
 
 /* botão da faixa de atualização */
 .updbtn{flex:none;border:0;border-radius:999px;padding:10px 16px;background:linear-gradient(135deg,#b4528a,#a2447c 55%,#7d3361);color:#fff;font:700 14px/1 inherit;font-family:inherit;box-shadow:0 4px 12px rgba(162,68,124,.4);cursor:pointer;transition:transform .12s}
@@ -867,3 +867,5 @@ button:not(:disabled):active.go,.go:not(:disabled):active{box-shadow:0 0 0 6px #
 #updBar .pdLink{flex:none;color:var(--mute);font-size:14px;padding:6px 4px}
 
 .catov{overscroll-behavior:contain}
+
+.bsolid.c{justify-content:center;text-align:center;font-weight:700;font-size:16px;padding:15px 14px}

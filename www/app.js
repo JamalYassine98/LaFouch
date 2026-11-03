@@ -857,9 +857,9 @@
     } catch (e) {}
   }
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 389;
+  var APP_BUILD = 390;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '3.4.2'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '3.4.3'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Movimentos: todo fato de dinheiro ou estoque é gravado por aqui (livro + histórico juntos). =====
   // Formato do registro do histórico (S.dlog) de uma compra de mercadoria.
   function dlogLote(x) {
@@ -26363,7 +26363,7 @@
   // Baixa a versão nova. manual = o dono apertou "Buscar atualização".
   function updBusca(manual) {
     if (UPD.busy || !navigator.onLine || !window.caches) {
-      if (manual) { UPD.msg = !navigator.onLine ? 'Sem internet agora.' : 'Este aparelho não guarda atualizações.'; if (S.view === 'ajustes') { S._ajForce = true; render(); } }
+      if (manual) { UPD.msg = !navigator.onLine ? 'Sem internet agora.' : 'Este aparelho não guarda atualizações.'; updRender(); }
       return Promise.resolve();
     }
     UPD.busy = true;
@@ -26372,7 +26372,7 @@
     var fim = function (m) {
       UPD.busy = false;
       if (manual || m) UPD.msg = m || UPD.msg;
-      if (S.view === 'ajustes') { S._ajForce = true; render(); }
+      updRender();
     };
     return fetch(UPD_URL + 'version.json?t=' + Date.now(), { cache: 'no-store' })
       .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
@@ -26402,14 +26402,14 @@
             localStorage.setItem('lf_upd', JSON.stringify({ v: n, tent: 0, notas: nt, nome: nm }));
             UPD.pronta = n;
             updAviso();
-            render();
+            if (S.view === 'ajustes') updRender(); else render();
             fim('Atualização ' + n + ' pronta. Toque em "Atualizar agora".');
           });
         });
       })
       .catch(function (e) { fim(manual ? 'Não consegui buscar agora (' + ((e && e.message) || 'erro') + '). Tente de novo mais tarde.' : ''); });
   }
-  ACT.updbusca = function () { UPD.msg = ''; updBusca(true); S._ajForce = true; render(); };
+  ACT.updbusca = function () { UPD.msg = ''; updBusca(true); updRender(); };
   // Janela de atualização: confirmar (com o que muda) -> atualizando (barra) -> pronto.
   ACT.updagora = function () {
     var m = updMarca(), v = UPD.pronta || +m.v || 0, nt = (m.notas || []).map(function (t) { return '<div style="display:flex;gap:8px"><span style="color:var(--accent-fg)">•</span><span>' + esc(t) + '</span></div>'; }).join('');
@@ -26417,7 +26417,7 @@
       '<h2 style="margin:0;font-family:var(--display);font-weight:400;font-size:20px">Atualizar o La Fouch?</h2><div class="hint" style="margin:0">Versão ' + v + '</div>' +
       (nt ? '<div style="display:flex;flex-direction:column;gap:6px;font-size:14px">' + nt + '</div>' : '') +
       '<div class="hint" style="margin:0">Leva uns 3 segundos. Suas vendas e seus dados continuam salvos.</div>' +
-      '<button type="button" class="btn" data-act="updgo" style="width:100%">Atualizar agora</button><button type="button" class="pdLink" data-act="updnao" style="align-self:center">Agora não</button>');
+      '<button type="button" class="bsolid c" data-act="updgo">Atualizar agora</button><button type="button" class="pdLink" data-act="updnao" style="align-self:center">Agora não</button>');
   };
   ACT.updmais = function () { var b = document.getElementById('updBar'); if (b) b.remove(); lfaToast('<b>Fica guardado</b><br>Está em Notificações, no sino.', 3500); render(); }; // "Depois": a faixa some, o aviso fica em Notificações e no sino
   ACT.updnao = function () { lfaFecha('lfUpdSh'); ACT.updmais(); };
@@ -26439,10 +26439,15 @@
     try { localStorage.removeItem('lf_updok'); } catch (e) {}
     if (ok > APP_BUILD) return;
     lfaAbre('lfUpdSh',
-      '<div style="text-align:center;padding:10px 0"><div style="width:48px;height:48px;border-radius:50%;border:3px solid var(--ok);color:var(--ok);display:grid;place-items:center;margin:0 auto 10px;font-size:24px">✓</div><h2 style="margin:0 0 4px;font-family:var(--display);font-weight:400;font-size:20px">Pronto, versão ' + APP_NOME + '</h2><div class="hint" style="margin:0 0 14px">Tudo certo.</div><button type="button" class="btn" data-act="updfim" style="width:100%">Continuar</button></div>');
+      '<div style="text-align:center;padding:10px 0"><div style="width:48px;height:48px;border-radius:50%;border:3px solid var(--ok);color:var(--ok);display:grid;place-items:center;margin:0 auto 10px;font-size:24px">✓</div><h2 style="margin:0 0 4px;font-family:var(--display);font-weight:400;font-size:20px">Pronto, versão ' + APP_NOME + '</h2><div class="hint" style="margin:0 0 14px">Tudo certo.</div><button type="button" class="bsolid c" data-act="updfim">Continuar</button></div>');
   }
   ACT.updfim = function () { lfaFecha('lfUpdSh'); };
   function updPendente() { var m = updMarca(); return Math.max(UPD.pronta || 0, +m.v > APP_BUILD ? +m.v : 0); }
+  // Troca só o cartão (sem redesenhar Ajustes inteira, o que repetia a animação da tela toda)
+  function updRender() {
+    var c = document.getElementById('updCard');
+    if (c && S.view === 'ajustes') c.outerHTML = updCard();
+  }
   function updCard() {
     var m = updMarca(),
       novo = UPD.pronta || (+m.v > APP_BUILD ? +m.v : 0),
@@ -28170,7 +28175,7 @@
       avSalvou(true);
     } else if (k === 'teste') {
       var rg = b.querySelector('.ring');
-      if (rg) { rg.classList.remove('go'); void rg.offsetWidth; rg.classList.add('go'); }
+      if (rg) { rg.classList.remove('tocando2'); void rg.offsetWidth; rg.classList.add('tocando2'); }
       avTeste();
     }
   });

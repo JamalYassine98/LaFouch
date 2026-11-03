@@ -482,3 +482,9 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - PENDENTE: dono quer esboços e ideias para melhorar muito o uso da aba WhatsApp antes de implementar.
 - Ícone da notificação: escudo branco (assets/notif, passo no build-apk.yml + meta-data default_notification_icon). Só chega com APK novo; dono não pediu APK ainda.
 - Google sem ícone: favicons 48/96/ico já estão no site; falta o Google recoletar (Search Console > Inspeção de URL > Solicitar indexação).
+
+## v390 / 3.4.3 (02/11/2026)
+- Bug do sino no botão de teste: classe `go` do sino colidia com o botão `.go` do app (fundo rosa). Evitar nomes genéricos de classe (go, ring...). Keyframes renomeados (bsRing/bsPul/bsSpin) porque lfaRg já existia.
+- Buscar atualização troca só o cartão (updRender), sem refazer Ajustes (animação da tela repetia).
+- Janela de atualização: botões bsolid.c.
+- PENDENTE: esboços de animações de transição entre abas (direção) e redesenho global dos botões (.btn cinza), antes de implementar.

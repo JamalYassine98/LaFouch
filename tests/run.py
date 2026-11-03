@@ -1664,6 +1664,20 @@ async def main():
             if not ok: falhas.append('contagem decimais'); print('        veio', cn, pg.erros)
             await pg.close()
 
+            # Botões de teste/atualização: o sino não herda o estilo .go e buscar atualização não redesenha Ajustes
+            pg = await pagina()
+            await pg.evaluate("() => { const L = window.__LF; L.S.avisos = {}; L.S._ajForce = true; L.setView('ajustes'); }"); await pg.wait_for_timeout(400)
+            await pg.evaluate("() => document.querySelector('[data-av=teste]').click()"); await pg.wait_for_timeout(100)
+            sb = await pg.evaluate("() => { const r = document.querySelector('[data-av=teste] .ring'); const s = getComputedStyle(r); return [s.backgroundColor, s.paddingLeft, r.className]; }")
+            await pg.evaluate("() => { window.__marca = document.getElementById('avisosCard'); }")
+            await pg.evaluate("() => window.__LF.ACT.updbusca()"); await pg.wait_for_timeout(300)
+            sb2 = await pg.evaluate("() => [window.__marca === document.getElementById('avisosCard'), !!document.getElementById('updCard')]")
+            total += 1
+            ok = sb[0] == 'rgba(0, 0, 0, 0)' and sb[1] == '0px' and sb2 == [True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'botões teste/atualização sem estilo herdado nem redesenho')
+            if not ok: falhas.append('botoes'); print('        veio', sb, sb2, pg.erros)
+            await pg.close()
+
             # Sons e avisos: um som para cada tipo de aviso, janela de escolha, sem som e preferência antiga preservada
             pg = await pagina()
             await pg.add_init_script("window.__tocou = []; window.Audio = function (u) { this.play = () => { window.__tocou.push(u); return Promise.resolve(); }; };")

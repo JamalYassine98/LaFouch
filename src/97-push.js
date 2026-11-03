@@ -341,7 +341,7 @@
       avSalvou(true);
     } else if (k === 'teste') {
       var rg = b.querySelector('.ring');
-      if (rg) { rg.classList.remove('go'); void rg.offsetWidth; rg.classList.add('go'); }
+      if (rg) { rg.classList.remove('tocando2'); void rg.offsetWidth; rg.classList.add('tocando2'); }
       avTeste();
     }
   });
