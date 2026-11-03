@@ -355,7 +355,7 @@ body.arrastaBarra{-webkit-user-select:none;user-select:none;touch-action:none}
 .catbar3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:4px 0 10px}
 .cb3{display:flex;align-items:center;justify-content:center;gap:8px;height:48px;border-radius:14px;border:1px solid var(--line);background:var(--panel);color:var(--tx);font:inherit;font-weight:600;cursor:pointer}
 .cb3.on{background:rgba(160,69,127,.22);border-color:#a0457f}
-.catov{z-index:30;padding-bottom:180px}
+.catov{z-index:30;padding:20px max(16px,env(safe-area-inset-right,0px)) 180px max(16px,env(safe-area-inset-left,0px))}
 .catov .catbar3{max-width:980px;margin-left:auto;margin-right:auto}
 .catbar{bottom:calc(76px + env(safe-area-inset-bottom,0px));padding-bottom:10px}
 .modebtn{width:48px;min-height:44px;height:44px;padding:0;display:inline-flex;align-items:center;justify-content:center;border-color:#a0457f;flex:0 0 auto}
@@ -834,3 +834,29 @@ button:not(:disabled):active.go,.go:not(:disabled):active{box-shadow:0 0 0 6px #
 .lfa-lg .rg.b{animation-delay:.9s}
 .lfa-lg.ok .rg{border-color:var(--ok);animation:lfaBurst .9s ease-out 1 both}.lfa-lg.ok .c{color:var(--ok);background:var(--okbg)}
 @media (prefers-reduced-motion:reduce){[class*="lfa-"],[class*="lfa-"] *{animation:none!important;transition:none!important}.lfa-dr path{stroke-dashoffset:0}}
+
+/* v387: Sons e avisos em cartões, botões cheios (bsolid), faixa do silêncio */
+.avcard{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:12px;transition:opacity .2s}
+.avcard.off{opacity:.55}
+.avtop{display:flex;align-items:center;gap:10px}
+.avico{width:36px;height:36px;border-radius:50%;background:var(--accent-soft);color:var(--accent-fg);display:grid;place-items:center;flex:none;font-size:16px;font-weight:700}
+.avbot{display:flex;gap:8px;align-items:center;margin-top:10px}
+.avbot .avchip{flex:1;justify-content:space-between;max-width:none;border-radius:12px;background:var(--panel);padding:9px 12px}
+.avchip i{font-style:normal;color:var(--mute);margin-left:auto}
+.avbot .avplay{width:38px;height:38px;border:1.5px solid var(--accent);background:transparent;color:var(--accent-fg);display:grid;place-items:center;padding:0}
+.avplay.tocando{background:var(--accent);color:#fff}
+.eq{display:inline-flex;gap:2px;align-items:flex-end;height:13px}.eq b{width:3px;background:currentColor;border-radius:2px;animation:lfaEq .6s ease-in-out infinite}.eq b:nth-child(2){animation-delay:.15s}.eq b:nth-child(3){animation-delay:.3s}
+@keyframes lfaEq{0%,100%{height:3px}50%{height:13px}}
+.avhr{display:flex;gap:10px;align-items:center;margin-top:12px}.avhr .in{flex:1;text-align:center;font-weight:700;font-size:17px}
+.avdia{height:12px;border-radius:7px;margin-top:12px}
+.avdl{display:flex;justify-content:space-between;font-size:10px;color:var(--mute);margin-top:3px}
+.bsolid{width:100%;border-radius:16px;padding:13px 14px;display:flex;align-items:center;gap:12px;border:0;background:linear-gradient(135deg,#b4528a,#a2447c 55%,#7d3361);color:#fff;cursor:pointer;text-align:left;font:inherit;box-shadow:0 6px 16px rgba(162,68,124,.35);transition:transform .12s}
+.bsolid:active{transform:scale(.97)}.bsolid:disabled{opacity:.85;cursor:default}
+.bsolid .bi{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.22);display:grid;place-items:center;flex:none;font-size:18px}
+.bsolid .bt2{flex:1;min-width:0}.bsolid .bt2 b{display:block;font-size:15px}.bsolid .bt2 span{font-size:12.5px;opacity:.85}
+.bsolid.ok{background:linear-gradient(135deg,#0a7a45,#128c4a);box-shadow:0 6px 16px rgba(18,140,74,.3)}
+.bsolid.new .bi{animation:lfaPul 1.4s infinite}@keyframes lfaPul{50%{transform:scale(1.1);box-shadow:0 0 0 7px rgba(255,255,255,.12)}}
+.lfa-spin{display:inline-block;animation:lfaSp 1s linear infinite}@keyframes lfaSp{to{transform:rotate(360deg)}}
+.ring{display:inline-block;transform-origin:50% 0}.ring.go{animation:lfaRg .7s}@keyframes lfaRg{20%{transform:rotate(18deg)}40%{transform:rotate(-16deg)}60%{transform:rotate(10deg)}80%{transform:rotate(-6deg)}}
+.vrow{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:var(--mute)}.vrow b{color:var(--fg);font:400 20px var(--display)}.vrow small{font-size:11px}
+@media (prefers-reduced-motion:reduce){.bsolid.new .bi,.lfa-spin,.eq b,.ring.go{animation-duration:.01s!important}}

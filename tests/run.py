@@ -1643,7 +1643,7 @@ async def main():
             await pg.add_init_script("window.__tocou = []; window.Audio = function (u) { this.play = () => { window.__tocou.push(u); return Promise.resolve(); }; };")
             await pg.reload(); await pg.wait_for_timeout(800)
             await pg.evaluate("() => { const L = window.__LF; L.S.avisos = {som: 'campainha'}; L.S._ajForce = true; L.setView('ajustes'); }"); await pg.wait_for_timeout(300)
-            t1 = await pg.evaluate("() => { const c = document.getElementById('avisosCard'); return [c.querySelectorAll('.avlin').length, c.innerText.includes('Peça voltou'), c.innerText.includes('Campainha')]; }")
+            t1 = await pg.evaluate("() => { const c = document.getElementById('avisosCard'); return [c.querySelectorAll('[data-av=escolher]').length, c.innerText.includes('Peça voltou'), c.innerText.includes('Campainha')]; }")
             await pg.evaluate("() => document.querySelector('[data-av=escolher][data-v=n]').click()"); await pg.wait_for_timeout(200)
             t2 = await pg.evaluate("() => [!!document.querySelector('.pdOv'), document.querySelectorAll('.avopt').length]")
             await pg.evaluate("() => document.querySelector('[data-av=som][data-t=n][data-v=moeda]').click()"); await pg.wait_for_timeout(200)
@@ -1674,7 +1674,7 @@ async def main():
                 const m = window.__upd.marca();
                 const c = await caches.open('lafouch-upd');
                 const a = await c.match('/__upd/app.js');
-                return [m.v, !!a, window.__upd.estado.pronta, !!document.getElementById('updBar'), window.__upd.card().indexOf('Buscar atualização') > 0];
+                return [m.v, !!a, window.__upd.estado.pronta, !!document.getElementById('updBar'), window.__upd.card().indexOf('Atualização 999 pronta') > 0];
             }""")
             ok1 = r == [999, True, 999, True, True] and not pg.erros
             # carregador: cópia nova (999) roda; cópia que não abre é descartada na 3a vez

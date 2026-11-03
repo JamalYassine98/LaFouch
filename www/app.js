@@ -857,8 +857,9 @@
     } catch (e) {}
   }
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 386;
+  var APP_BUILD = 387;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
+  var APP_NOME = '3.4'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Movimentos: todo fato de dinheiro ou estoque é gravado por aqui (livro + histórico juntos). =====
   // Formato do registro do histórico (S.dlog) de uma compra de mercadoria.
   function dlogLote(x) {
@@ -7476,7 +7477,7 @@
     if (!cv || $('sino2')) return;
     var d = document.createElement('div');
     d.className = 'top logo-top';
-    d.style.cssText = 'max-width:980px;margin:0 auto 6px';
+    d.style.cssText = 'max-width:980px;margin:0 auto 18px'; // mesmas medidas do cabeçalho das outras abas
     d.innerHTML =
       '<button type="button" class="sino" id="sino2" data-act="view" data-id="notif" aria-label="Notificações"></button>' +
       '<div class="brand"><img class="lg-e" src="logo-app.png" alt="La Fouch - Tudo em Óculos"><img class="lg-c" src="logo-app-claro.png" alt="La Fouch - Tudo em Óculos"></div>';
@@ -21204,7 +21205,7 @@
     if (up)
       l.push({
         t: 'Atualização do app pronta',
-        s: 'A versão ' + up + ' já foi baixada. Toque para aplicar; leva poucos segundos.',
+        s: 'A versão ' + (updMarca().nome || up) + ' já foi baixada. Toque para aplicar; leva poucos segundos.',
         c: 'var(--accent)',
         b: 'Atualizar agora',
         act: 'updagora',
@@ -26326,7 +26327,7 @@
   // Se a cópia nova não abrir (2 tentativas), o carregador descarta e volta para a que veio no aplicativo.
   var UPD_URL = 'https://jamalyassine98.github.io/LaFouch/';
   var UPD_CACHE = 'lafouch-upd';
-  var UPD = { pronta: 0, msg: '', busy: false, nat: false, t: 0 };
+  var UPD = { pronta: 0, msg: '', busy: false, nat: false, t: 0, ok: false, ult: 0 };
   function updMarca() {
     try { return JSON.parse(localStorage.getItem('lf_upd') || 'null') || {}; } catch (e) { return {}; }
   }
@@ -26349,6 +26350,7 @@
       return Promise.resolve();
     }
     UPD.busy = true;
+    UPD.ok = false;
     UPD.t = Date.now();
     var fim = function (m) {
       UPD.busy = false;
@@ -26358,12 +26360,14 @@
     return fetch(UPD_URL + 'version.json?t=' + Date.now(), { cache: 'no-store' })
       .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
       .then(function (v) {
-        var n = +v.v || 0, nt = Array.isArray(v.notas) ? v.notas.slice(0, 6).map(String) : [];
+        var n = +v.v || 0, nm = String(v.nome || n), nt = Array.isArray(v.notas) ? v.notas.slice(0, 6).map(String) : [];
+        UPD.ult = Date.now();
         UPD.nat = (+v.nat || 1) > APP_NAT;
         if (UPD.nat) return fim('Há uma versão nova, mas ela precisa de um APK novo (pedir ao Claude para gerar).');
         var m = updMarca();
         if (n <= APP_BUILD || n <= (+m.v || 0)) {
           UPD.pronta = n <= APP_BUILD ? 0 : UPD.pronta;
+          UPD.ok = n <= APP_BUILD;
           return fim('O app já está na versão mais nova (' + APP_BUILD + ').');
         }
         return Promise.all([fetch(UPD_URL + 'app.js?v=' + n, { cache: 'no-store' }), fetch(UPD_URL + 'style.css?v=' + n, { cache: 'no-store' })]).then(function (rs) {
@@ -26378,7 +26382,7 @@
               c.put('/__upd/style.css', new Response(t[1], { headers: { 'Content-Type': 'text/css' } }))
             ]);
           }).then(function () {
-            localStorage.setItem('lf_upd', JSON.stringify({ v: n, tent: 0, notas: nt }));
+            localStorage.setItem('lf_upd', JSON.stringify({ v: n, tent: 0, notas: nt, nome: nm }));
             UPD.pronta = n;
             updAviso();
             render();
@@ -26388,7 +26392,7 @@
       })
       .catch(function (e) { fim(manual ? 'Não consegui buscar agora (' + ((e && e.message) || 'erro') + '). Tente de novo mais tarde.' : ''); });
   }
-  ACT.updbusca = function () { UPD.msg = 'Buscando…'; S._ajForce = true; render(); updBusca(true); };
+  ACT.updbusca = function () { UPD.msg = ''; updBusca(true); S._ajForce = true; render(); };
   // Janela de atualização: confirmar (com o que muda) -> atualizando (barra) -> pronto.
   ACT.updagora = function () {
     var m = updMarca(), v = UPD.pronta || +m.v || 0, nt = (m.notas || []).map(function (t) { return '<div style="display:flex;gap:8px"><span style="color:var(--accent-fg)">•</span><span>' + esc(t) + '</span></div>'; }).join('');
@@ -26418,17 +26422,23 @@
     try { localStorage.removeItem('lf_updok'); } catch (e) {}
     if (ok > APP_BUILD) return;
     lfaAbre('lfUpdSh',
-      '<div style="text-align:center;padding:10px 0"><div style="width:48px;height:48px;border-radius:50%;border:3px solid var(--ok);color:var(--ok);display:grid;place-items:center;margin:0 auto 10px;font-size:24px">✓</div><h2 style="margin:0 0 4px;font-family:var(--display);font-weight:400;font-size:20px">Pronto, versão ' + APP_BUILD + '</h2><div class="hint" style="margin:0 0 14px">Tudo certo.</div><button type="button" class="btn" data-act="updfim" style="width:100%">Continuar</button></div>');
+      '<div style="text-align:center;padding:10px 0"><div style="width:48px;height:48px;border-radius:50%;border:3px solid var(--ok);color:var(--ok);display:grid;place-items:center;margin:0 auto 10px;font-size:24px">✓</div><h2 style="margin:0 0 4px;font-family:var(--display);font-weight:400;font-size:20px">Pronto, versão ' + APP_NOME + '</h2><div class="hint" style="margin:0 0 14px">Tudo certo.</div><button type="button" class="btn" data-act="updfim" style="width:100%">Continuar</button></div>');
   }
   ACT.updfim = function () { lfaFecha('lfUpdSh'); };
   function updPendente() { var m = updMarca(); return Math.max(UPD.pronta || 0, +m.v > APP_BUILD ? +m.v : 0); }
   function updCard() {
     var m = updMarca(),
-      h = '<section class="card col" id="updCard"><h2 style="margin:0;font-size:16px">Atualização do app</h2>';
-    h += '<div class="hint">Versão em uso: <b>' + APP_BUILD + '</b>. O app procura sozinho (ao abrir e a cada poucas horas) e avisa quando a nova está pronta; nada muda enquanto você vende.</div>';
-    if (UPD.pronta || (+m.v > APP_BUILD)) h += '<div class="note n-ok" role="status"><b>Atualização ' + (UPD.pronta || m.v) + ' pronta.</b> <button type="button" class="pdLink" data-act="updagora">Atualizar agora ›</button></div>';
-    if (UPD.msg) h += '<div class="note n-info" role="status">' + esc(UPD.msg) + '</div>';
-    return h + '<button type="button" class="btn" data-act="updbusca" style="width:100%">Buscar atualização</button></section>';
+      novo = UPD.pronta || (+m.v > APP_BUILD ? +m.v : 0),
+      est = UPD.busy ? 'busca' : novo ? 'novo' : UPD.ok ? 'ok' : 'parado',
+      ico = est === 'busca' ? '<span class="lfa-spin">↻</span>' : est === 'novo' ? '⬇' : est === 'ok' ? '✓' : '↻',
+      tit = { busca: 'Buscando…', novo: 'Atualização ' + esc(m.nome || novo) + ' pronta', ok: 'Você está na versão mais nova', parado: 'Buscar atualização' }[est],
+      sub = { busca: 'Procurando versão nova', novo: 'Toque para instalar', ok: 'Versão ' + APP_NOME + (UPD.ult ? ' · agora mesmo' : ''), parado: 'Toque para procurar agora' }[est],
+      ult = UPD.ult ? 'Última busca ' + fh(UPD.ult) : '';
+    return '<section class="card col" id="updCard"><h2 style="margin:0;font-size:16px">Atualização do app</h2>' +
+      '<div class="hint" style="margin:0">O app procura sozinho (ao abrir e a cada poucas horas) e avisa quando a nova está pronta. Nada muda enquanto você vende.</div>' +
+      '<div class="vrow"><span>Versão <b>' + esc(APP_NOME) + '</b> <small>(' + APP_BUILD + ')</small></span><span>' + ult + '</span></div>' +
+      '<button type="button" class="bsolid' + (est === 'ok' ? ' ok' : est === 'novo' ? ' new' : '') + '" data-act="' + (est === 'novo' ? 'updagora' : 'updbusca') + '"' + (est === 'busca' ? ' disabled' : '') + '><span class="bi">' + ico + '</span><span class="bt2"><b>' + tit + '</b><span>' + sub + '</span></span></button>' +
+      (UPD.msg && est !== 'ok' && est !== 'busca' && est !== 'novo' ? '<div class="note n-info" role="status">' + esc(UPD.msg) + '</div>' : '') + '</section>';
   }
   // Confirma que a cópia baixada abriu bem (zera as tentativas) e agenda as buscas automáticas.
   setTimeout(function () {
@@ -27990,28 +28000,51 @@
     } catch (e) {}
   }
   // Cartão "Sons e avisos" em Ajustes: cada tipo de aviso com o seu som (ou sem som).
+  var AV_ICO = { n: '🛒', c: '🧾', p: '✓', x: '✕', v: '📦', d: '$' };
+  var AV_GRUPOS = [['Pedidos do site', ['n', 'c', 'p', 'x']], ['Estoque e dinheiro', ['v', 'd']]];
+  function avMin(h) {
+    var m = /^(\d{1,2}):(\d{2})/.exec(h || '');
+    return m ? Math.min(1440, +m[1] * 60 + +m[2]) : 0;
+  }
+  // faixa do dia: rosa = silencioso (atravessa a meia-noite quando começa depois de terminar)
+  function avFaixa(a) {
+    var i = avMin(a.qi) / 14.4,
+      f = avMin(a.qf) / 14.4,
+      r = 'var(--accent)',
+      n = 'var(--line)';
+    return i > f ? 'linear-gradient(90deg,' + r + ' 0 ' + f + '%,' + n + ' ' + f + '% ' + i + '%,' + r + ' ' + i + '%)' : 'linear-gradient(90deg,' + n + ' 0 ' + i + '%,' + r + ' ' + i + '% ' + f + '%,' + n + ' ' + f + '%)';
+  }
+  function avLinha(t, a) {
+    var k = t[0],
+      mudo = a['s' + k] === 'mudo';
+    return (
+      '<div class="avcard' + (a[k] ? '' : ' off') + '"><div class="avtop"><span class="avico">' + AV_ICO[k] + '</span><span class="avtx"><b>' + t[1] + '</b><span class="hint" style="margin:2px 0 0;font-weight:400;display:block">' + t[2] + '</span></span>' +
+      '<span class="sw"><input type="checkbox" role="switch" data-av="' + k + '"' + (a[k] ? ' checked' : '') + ' aria-label="' + t[1] + '"><i></i></span></div>' +
+      '<div class="avbot"><button type="button" class="avchip' + (a[k] && !mudo ? ' on' : '') + '" data-av="escolher" data-v="' + k + '" aria-label="Escolher o som de ' + t[1] + '">' + (mudo ? '🔕' : '🔔') + ' ' + avNome(a['s' + k]) + ' <i>▾</i></button>' +
+      (mudo ? '' : '<button type="button" class="avplay" data-av="ouvir" data-v="' + a['s' + k] + '" aria-label="Ouvir o som de ' + t[1] + '">▶</button>') + '</div></div>'
+    );
+  }
   function avPedidosHtml() {
     var a = avPref(),
       nat = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform(),
-      linhas = AV_TIPOS.map(function (t) {
-        var k = t[0],
-          mudo = a['s' + k] === 'mudo';
-        return (
-          '<div class="avlin"><span class="avtx"><b>' + t[1] + '</b><span class="hint" style="margin:2px 0 0;font-weight:400;display:block">' + t[2] + '</span></span>' +
-          '<button type="button" class="avchip' + (a[k] && !mudo ? ' on' : '') + '" data-av="escolher" data-v="' + k + '" aria-label="Escolher o som de ' + t[1] + '"' + (a[k] ? '' : ' style="opacity:.55"') + '>' + (mudo ? '🔕' : '🔔') + ' ' + avNome(a['s' + k]) + ' ▾</button>' +
-          '<span class="sw"><input type="checkbox" role="switch" data-av="' + k + '"' + (a[k] ? ' checked' : '') + ' aria-label="' + t[1] + '"><i></i></span></div>'
-        );
+      grupos = AV_GRUPOS.map(function (g) {
+        return '<div class="lbl" style="margin:6px 0 0">' + g[0] + '</div>' + g[1].map(function (k) {
+          return avLinha(AV_TIPOS.filter(function (t) { return t[0] === k; })[0], a);
+        }).join('');
       }).join('');
     return (
-      '<section class="card col" id="avisosCard" style="gap:14px"><div><h2 style="margin:0;font-size:16px">Sons e avisos</h2><div class="hint" style="margin:2px 0 0">Vale só para este aparelho: <b>' +
+      '<section class="card col" id="avisosCard" style="gap:10px"><div><h2 style="margin:0;font-size:16px">Sons e avisos</h2><div class="hint" style="margin:2px 0 0">Vale só para este aparelho: <b>' +
       (nat ? 'Celular (Android)' : 'Este computador') +
-      '</b>. Toque no som para trocar; a chave liga ou desliga o aviso.</div></div>' +
-      linhas +
-      '<label class="swrow"><span>Silêncio fora do horário<div class="hint" style="margin:2px 0 0;font-weight:400">Sem aviso das ' + a.qi + ' às ' + a.qf + '</div></span><span class="sw"><input type="checkbox" role="switch" data-av="q"' + (a.q ? ' checked' : '') + ' aria-label="Silêncio fora do horário"><i></i></span></label>' +
+      '</b>. Toque no som para trocar, em ▶ para ouvir; a chave liga ou desliga o aviso.</div></div>' +
+      grupos +
+      '<div class="lbl" style="margin:6px 0 0">Silêncio</div><div class="avcard' + (a.q ? '' : ' off') + '"><div class="avtop"><span class="avico">🌙</span><span class="avtx"><b>Silêncio fora do horário</b><span class="hint" style="margin:2px 0 0;font-weight:400;display:block">Sem som nem vibração</span></span><span class="sw"><input type="checkbox" role="switch" data-av="q"' + (a.q ? ' checked' : '') + ' aria-label="Silêncio fora do horário"><i></i></span></div>' +
       (a.q
-        ? '<div style="display:flex;gap:10px;align-items:center"><span class="hint" style="margin:0">Das</span><input class="in" type="time" data-av="qi" value="' + a.qi + '" style="max-width:130px"><span class="hint" style="margin:0">às</span><input class="in" type="time" data-av="qf" value="' + a.qf + '" style="max-width:130px"></div>'
-        : '') +
-      '<button type="button" class="btn" data-av="teste" style="width:100%">Enviar aviso de teste</button><div class="hint" id="avmsg" style="margin:0" hidden></div></section>' +
+        ? '<div class="avhr"><input class="in" type="time" data-av="qi" value="' + a.qi + '" aria-label="Começa às"><span class="hint" style="margin:0">até</span><input class="in" type="time" data-av="qf" value="' + a.qf + '" aria-label="Termina às"></div>' +
+          '<div class="avdia" style="background:' + avFaixa(a) + '"></div><div class="avdl"><span>0h</span><span>6h</span><span>12h</span><span>18h</span><span>24h</span></div>' +
+          '<div class="hint" style="margin:6px 0 0">Rosa = silencioso. Fora dessa faixa o app avisa normalmente.</div>'
+        : '') + '</div>' +
+      '<div class="lbl" style="margin:6px 0 0">Testar</div>' +
+      '<button type="button" class="bsolid" data-av="teste"><span class="bi"><span class="ring">🔔</span></span><span class="bt2"><b>Enviar aviso de teste</b><span>Toca o som de “Pedido novo”</span></span></button><div class="hint" id="avmsg" style="margin:0" hidden></div></section>' +
       avJanelaHtml()
     );
   }
@@ -28102,7 +28135,10 @@
     } else if (k === 'escolher') {
       S._avSheet = b.getAttribute('data-v');
       render();
-    } else if (k === 'ouvir') avTocar(b.getAttribute('data-v'));
+    } else if (k === 'ouvir') {
+      avTocar(b.getAttribute('data-v'));
+      if (!b.classList.contains('tocando')) { var o = b.innerHTML; b.classList.add('tocando'); b.innerHTML = '<span class="eq"><b></b><b></b><b></b></span>'; setTimeout(function () { b.classList.remove('tocando'); b.innerHTML = o; }, 1500); }
+    }
     else if (k === 'som') {
       S.avisos = S.avisos || {};
       var tp = b.getAttribute('data-t'),
@@ -28115,7 +28151,11 @@
       S.avisos['s' + tp] = v;
       avTocar(v);
       avSalvou(true);
-    } else if (k === 'teste') avTeste();
+    } else if (k === 'teste') {
+      var rg = b.querySelector('.ring');
+      if (rg) { rg.classList.remove('go'); void rg.offsetWidth; rg.classList.add('go'); }
+      avTeste();
+    }
   });
   window.__avTocaTipo = avTocaTipo;
   window.__pushIniciar = pushIniciar;
@@ -31245,6 +31285,30 @@
     else S.perAte = t.value;
     renderDash();
   });
+  // Volta do segundo plano: alguns celulares deixam a tela vazia até encostar nela (o app já está pronto, só não foi desenhado).
+  // Força um novo desenho ao voltar, e de novo um instante depois.
+  (function () {
+    function repinta() {
+      var d = document.documentElement;
+      if (!d) return;
+      d.style.opacity = '0.999'; // muda a camada de desenho sem mexer no layout
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          d.style.opacity = '';
+        });
+      });
+    }
+    function volta() {
+      if (document.hidden) return;
+      repinta();
+      setTimeout(repinta, 250);
+      setTimeout(repinta, 900);
+    }
+    document.addEventListener('visibilitychange', volta);
+    window.addEventListener('pageshow', volta);
+    window.addEventListener('focus', volta);
+    window.__repinta = repinta;
+  })();
   // ===== Dados de exemplo: fotos desenhadas e cerca de 14 meses de histórico (para testar o app). =====
   // Números pseudo-aleatórios repetíveis (mesmo exemplo todas as vezes).
   function exRand(seed) {

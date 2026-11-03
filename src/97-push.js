@@ -188,28 +188,51 @@
     } catch (e) {}
   }
   // Cartão "Sons e avisos" em Ajustes: cada tipo de aviso com o seu som (ou sem som).
+  var AV_ICO = { n: '🛒', c: '🧾', p: '✓', x: '✕', v: '📦', d: '$' };
+  var AV_GRUPOS = [['Pedidos do site', ['n', 'c', 'p', 'x']], ['Estoque e dinheiro', ['v', 'd']]];
+  function avMin(h) {
+    var m = /^(\d{1,2}):(\d{2})/.exec(h || '');
+    return m ? Math.min(1440, +m[1] * 60 + +m[2]) : 0;
+  }
+  // faixa do dia: rosa = silencioso (atravessa a meia-noite quando começa depois de terminar)
+  function avFaixa(a) {
+    var i = avMin(a.qi) / 14.4,
+      f = avMin(a.qf) / 14.4,
+      r = 'var(--accent)',
+      n = 'var(--line)';
+    return i > f ? 'linear-gradient(90deg,' + r + ' 0 ' + f + '%,' + n + ' ' + f + '% ' + i + '%,' + r + ' ' + i + '%)' : 'linear-gradient(90deg,' + n + ' 0 ' + i + '%,' + r + ' ' + i + '% ' + f + '%,' + n + ' ' + f + '%)';
+  }
+  function avLinha(t, a) {
+    var k = t[0],
+      mudo = a['s' + k] === 'mudo';
+    return (
+      '<div class="avcard' + (a[k] ? '' : ' off') + '"><div class="avtop"><span class="avico">' + AV_ICO[k] + '</span><span class="avtx"><b>' + t[1] + '</b><span class="hint" style="margin:2px 0 0;font-weight:400;display:block">' + t[2] + '</span></span>' +
+      '<span class="sw"><input type="checkbox" role="switch" data-av="' + k + '"' + (a[k] ? ' checked' : '') + ' aria-label="' + t[1] + '"><i></i></span></div>' +
+      '<div class="avbot"><button type="button" class="avchip' + (a[k] && !mudo ? ' on' : '') + '" data-av="escolher" data-v="' + k + '" aria-label="Escolher o som de ' + t[1] + '">' + (mudo ? '🔕' : '🔔') + ' ' + avNome(a['s' + k]) + ' <i>▾</i></button>' +
+      (mudo ? '' : '<button type="button" class="avplay" data-av="ouvir" data-v="' + a['s' + k] + '" aria-label="Ouvir o som de ' + t[1] + '">▶</button>') + '</div></div>'
+    );
+  }
   function avPedidosHtml() {
     var a = avPref(),
       nat = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform(),
-      linhas = AV_TIPOS.map(function (t) {
-        var k = t[0],
-          mudo = a['s' + k] === 'mudo';
-        return (
-          '<div class="avlin"><span class="avtx"><b>' + t[1] + '</b><span class="hint" style="margin:2px 0 0;font-weight:400;display:block">' + t[2] + '</span></span>' +
-          '<button type="button" class="avchip' + (a[k] && !mudo ? ' on' : '') + '" data-av="escolher" data-v="' + k + '" aria-label="Escolher o som de ' + t[1] + '"' + (a[k] ? '' : ' style="opacity:.55"') + '>' + (mudo ? '🔕' : '🔔') + ' ' + avNome(a['s' + k]) + ' ▾</button>' +
-          '<span class="sw"><input type="checkbox" role="switch" data-av="' + k + '"' + (a[k] ? ' checked' : '') + ' aria-label="' + t[1] + '"><i></i></span></div>'
-        );
+      grupos = AV_GRUPOS.map(function (g) {
+        return '<div class="lbl" style="margin:6px 0 0">' + g[0] + '</div>' + g[1].map(function (k) {
+          return avLinha(AV_TIPOS.filter(function (t) { return t[0] === k; })[0], a);
+        }).join('');
       }).join('');
     return (
-      '<section class="card col" id="avisosCard" style="gap:14px"><div><h2 style="margin:0;font-size:16px">Sons e avisos</h2><div class="hint" style="margin:2px 0 0">Vale só para este aparelho: <b>' +
+      '<section class="card col" id="avisosCard" style="gap:10px"><div><h2 style="margin:0;font-size:16px">Sons e avisos</h2><div class="hint" style="margin:2px 0 0">Vale só para este aparelho: <b>' +
       (nat ? 'Celular (Android)' : 'Este computador') +
-      '</b>. Toque no som para trocar; a chave liga ou desliga o aviso.</div></div>' +
-      linhas +
-      '<label class="swrow"><span>Silêncio fora do horário<div class="hint" style="margin:2px 0 0;font-weight:400">Sem aviso das ' + a.qi + ' às ' + a.qf + '</div></span><span class="sw"><input type="checkbox" role="switch" data-av="q"' + (a.q ? ' checked' : '') + ' aria-label="Silêncio fora do horário"><i></i></span></label>' +
+      '</b>. Toque no som para trocar, em ▶ para ouvir; a chave liga ou desliga o aviso.</div></div>' +
+      grupos +
+      '<div class="lbl" style="margin:6px 0 0">Silêncio</div><div class="avcard' + (a.q ? '' : ' off') + '"><div class="avtop"><span class="avico">🌙</span><span class="avtx"><b>Silêncio fora do horário</b><span class="hint" style="margin:2px 0 0;font-weight:400;display:block">Sem som nem vibração</span></span><span class="sw"><input type="checkbox" role="switch" data-av="q"' + (a.q ? ' checked' : '') + ' aria-label="Silêncio fora do horário"><i></i></span></div>' +
       (a.q
-        ? '<div style="display:flex;gap:10px;align-items:center"><span class="hint" style="margin:0">Das</span><input class="in" type="time" data-av="qi" value="' + a.qi + '" style="max-width:130px"><span class="hint" style="margin:0">às</span><input class="in" type="time" data-av="qf" value="' + a.qf + '" style="max-width:130px"></div>'
-        : '') +
-      '<button type="button" class="btn" data-av="teste" style="width:100%">Enviar aviso de teste</button><div class="hint" id="avmsg" style="margin:0" hidden></div></section>' +
+        ? '<div class="avhr"><input class="in" type="time" data-av="qi" value="' + a.qi + '" aria-label="Começa às"><span class="hint" style="margin:0">até</span><input class="in" type="time" data-av="qf" value="' + a.qf + '" aria-label="Termina às"></div>' +
+          '<div class="avdia" style="background:' + avFaixa(a) + '"></div><div class="avdl"><span>0h</span><span>6h</span><span>12h</span><span>18h</span><span>24h</span></div>' +
+          '<div class="hint" style="margin:6px 0 0">Rosa = silencioso. Fora dessa faixa o app avisa normalmente.</div>'
+        : '') + '</div>' +
+      '<div class="lbl" style="margin:6px 0 0">Testar</div>' +
+      '<button type="button" class="bsolid" data-av="teste"><span class="bi"><span class="ring">🔔</span></span><span class="bt2"><b>Enviar aviso de teste</b><span>Toca o som de “Pedido novo”</span></span></button><div class="hint" id="avmsg" style="margin:0" hidden></div></section>' +
       avJanelaHtml()
     );
   }
@@ -300,7 +323,10 @@
     } else if (k === 'escolher') {
       S._avSheet = b.getAttribute('data-v');
       render();
-    } else if (k === 'ouvir') avTocar(b.getAttribute('data-v'));
+    } else if (k === 'ouvir') {
+      avTocar(b.getAttribute('data-v'));
+      if (!b.classList.contains('tocando')) { var o = b.innerHTML; b.classList.add('tocando'); b.innerHTML = '<span class="eq"><b></b><b></b><b></b></span>'; setTimeout(function () { b.classList.remove('tocando'); b.innerHTML = o; }, 1500); }
+    }
     else if (k === 'som') {
       S.avisos = S.avisos || {};
       var tp = b.getAttribute('data-t'),
@@ -313,7 +339,11 @@
       S.avisos['s' + tp] = v;
       avTocar(v);
       avSalvou(true);
-    } else if (k === 'teste') avTeste();
+    } else if (k === 'teste') {
+      var rg = b.querySelector('.ring');
+      if (rg) { rg.classList.remove('go'); void rg.offsetWidth; rg.classList.add('go'); }
+      avTeste();
+    }
   });
   window.__avTocaTipo = avTocaTipo;
   window.__pushIniciar = pushIniciar;

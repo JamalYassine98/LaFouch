@@ -462,3 +462,11 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - Android: tools/patch-android-tema.py (passo no build-apk.yml) põe a janela inicial na cor do app (values/values-night lf_bg), sem o cinza. NÃO verificado em aparelho real.
 - APP_NAT continua 1 de propósito: APKs antigos seguem recebendo atualização automática (sem a abertura); a abertura e a cor da janela só chegam com APK novo.
 - Tela cinza ao voltar do segundo plano: o dono confirmou que vem do app (cinza -> azul -> carrega = app reabrindo do zero; provável encerramento pelo Android). Mitigação acima; sugerido também bateria "sem restrições" no celular.
+
+## v387 / versão 3.4 (02/11/2026) - aprovado pelo dono após esboços
+- Sons e avisos: cartões com ícone em dois grupos (Pedidos do site / Estoque e dinheiro), botão ▶ ao lado do som (equalizador ao tocar), cartão "Silêncio" com horários e faixa do dia desenhada, botão "Enviar aviso de teste" cheio (classe .bsolid, sino balança).
+- "Buscar atualização" virou botão cheio com estados (parado, buscando, tudo em dia verde, atualização pronta pulsando); versão em uso é só uma linha de texto ("Versão 3.4 (387)").
+- Numeração: nome da versão (ex.: 3.4) vem de docs/novidades.json {nome, notas}; build.js injeta APP_NOME e põe nome em version.json. Interno (sw.js lafouch-vNNN) continua o número que só sobe. Regra: 1º número = fase grande (raro), 2º = novidade visível, 3º = só conserto. Histórico: 382=3.0 atualização automática; 383=3.1 aparelhos/atividade/fotos; 384=3.2 login único; 385=3.2.1 conserto WhatsApp; 386=3.3 abertura e janela de atualização; 387=3.4 sons/botões/versões. A cada release: atualizar nome e notas em docs/novidades.json.
+- Aba WhatsApp: cabeçalho (logo/sino) com as mesmas medidas das outras abas (padding de .catov igual ao body, margem 18px).
+- Tela vazia ao voltar do segundo plano ("resolve ao encostar"): src/98-repinta.js força novo desenho ao voltar (opacity .999 por 2 quadros em visibilitychange/pageshow/focus). Primeira tentativa com transform:translateZ quebrava position:fixed; não usar. NÃO verificado em aparelho real.
+- CI: testes rodam com TZ=America/Asuncion.

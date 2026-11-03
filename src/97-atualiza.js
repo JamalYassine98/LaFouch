@@ -3,7 +3,7 @@
   // Se a cópia nova não abrir (2 tentativas), o carregador descarta e volta para a que veio no aplicativo.
   var UPD_URL = 'https://jamalyassine98.github.io/LaFouch/';
   var UPD_CACHE = 'lafouch-upd';
-  var UPD = { pronta: 0, msg: '', busy: false, nat: false, t: 0 };
+  var UPD = { pronta: 0, msg: '', busy: false, nat: false, t: 0, ok: false, ult: 0 };
   function updMarca() {
     try { return JSON.parse(localStorage.getItem('lf_upd') || 'null') || {}; } catch (e) { return {}; }
   }
@@ -26,6 +26,7 @@
       return Promise.resolve();
     }
     UPD.busy = true;
+    UPD.ok = false;
     UPD.t = Date.now();
     var fim = function (m) {
       UPD.busy = false;
@@ -35,12 +36,14 @@
     return fetch(UPD_URL + 'version.json?t=' + Date.now(), { cache: 'no-store' })
       .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
       .then(function (v) {
-        var n = +v.v || 0, nt = Array.isArray(v.notas) ? v.notas.slice(0, 6).map(String) : [];
+        var n = +v.v || 0, nm = String(v.nome || n), nt = Array.isArray(v.notas) ? v.notas.slice(0, 6).map(String) : [];
+        UPD.ult = Date.now();
         UPD.nat = (+v.nat || 1) > APP_NAT;
         if (UPD.nat) return fim('Há uma versão nova, mas ela precisa de um APK novo (pedir ao Claude para gerar).');
         var m = updMarca();
         if (n <= APP_BUILD || n <= (+m.v || 0)) {
           UPD.pronta = n <= APP_BUILD ? 0 : UPD.pronta;
+          UPD.ok = n <= APP_BUILD;
           return fim('O app já está na versão mais nova (' + APP_BUILD + ').');
         }
         return Promise.all([fetch(UPD_URL + 'app.js?v=' + n, { cache: 'no-store' }), fetch(UPD_URL + 'style.css?v=' + n, { cache: 'no-store' })]).then(function (rs) {
@@ -55,7 +58,7 @@
               c.put('/__upd/style.css', new Response(t[1], { headers: { 'Content-Type': 'text/css' } }))
             ]);
           }).then(function () {
-            localStorage.setItem('lf_upd', JSON.stringify({ v: n, tent: 0, notas: nt }));
+            localStorage.setItem('lf_upd', JSON.stringify({ v: n, tent: 0, notas: nt, nome: nm }));
             UPD.pronta = n;
             updAviso();
             render();
@@ -65,7 +68,7 @@
       })
       .catch(function (e) { fim(manual ? 'Não consegui buscar agora (' + ((e && e.message) || 'erro') + '). Tente de novo mais tarde.' : ''); });
   }
-  ACT.updbusca = function () { UPD.msg = 'Buscando…'; S._ajForce = true; render(); updBusca(true); };
+  ACT.updbusca = function () { UPD.msg = ''; updBusca(true); S._ajForce = true; render(); };
   // Janela de atualização: confirmar (com o que muda) -> atualizando (barra) -> pronto.
   ACT.updagora = function () {
     var m = updMarca(), v = UPD.pronta || +m.v || 0, nt = (m.notas || []).map(function (t) { return '<div style="display:flex;gap:8px"><span style="color:var(--accent-fg)">•</span><span>' + esc(t) + '</span></div>'; }).join('');
@@ -95,17 +98,23 @@
     try { localStorage.removeItem('lf_updok'); } catch (e) {}
     if (ok > APP_BUILD) return;
     lfaAbre('lfUpdSh',
-      '<div style="text-align:center;padding:10px 0"><div style="width:48px;height:48px;border-radius:50%;border:3px solid var(--ok);color:var(--ok);display:grid;place-items:center;margin:0 auto 10px;font-size:24px">✓</div><h2 style="margin:0 0 4px;font-family:var(--display);font-weight:400;font-size:20px">Pronto, versão ' + APP_BUILD + '</h2><div class="hint" style="margin:0 0 14px">Tudo certo.</div><button type="button" class="btn" data-act="updfim" style="width:100%">Continuar</button></div>');
+      '<div style="text-align:center;padding:10px 0"><div style="width:48px;height:48px;border-radius:50%;border:3px solid var(--ok);color:var(--ok);display:grid;place-items:center;margin:0 auto 10px;font-size:24px">✓</div><h2 style="margin:0 0 4px;font-family:var(--display);font-weight:400;font-size:20px">Pronto, versão ' + APP_NOME + '</h2><div class="hint" style="margin:0 0 14px">Tudo certo.</div><button type="button" class="btn" data-act="updfim" style="width:100%">Continuar</button></div>');
   }
   ACT.updfim = function () { lfaFecha('lfUpdSh'); };
   function updPendente() { var m = updMarca(); return Math.max(UPD.pronta || 0, +m.v > APP_BUILD ? +m.v : 0); }
   function updCard() {
     var m = updMarca(),
-      h = '<section class="card col" id="updCard"><h2 style="margin:0;font-size:16px">Atualização do app</h2>';
-    h += '<div class="hint">Versão em uso: <b>' + APP_BUILD + '</b>. O app procura sozinho (ao abrir e a cada poucas horas) e avisa quando a nova está pronta; nada muda enquanto você vende.</div>';
-    if (UPD.pronta || (+m.v > APP_BUILD)) h += '<div class="note n-ok" role="status"><b>Atualização ' + (UPD.pronta || m.v) + ' pronta.</b> <button type="button" class="pdLink" data-act="updagora">Atualizar agora ›</button></div>';
-    if (UPD.msg) h += '<div class="note n-info" role="status">' + esc(UPD.msg) + '</div>';
-    return h + '<button type="button" class="btn" data-act="updbusca" style="width:100%">Buscar atualização</button></section>';
+      novo = UPD.pronta || (+m.v > APP_BUILD ? +m.v : 0),
+      est = UPD.busy ? 'busca' : novo ? 'novo' : UPD.ok ? 'ok' : 'parado',
+      ico = est === 'busca' ? '<span class="lfa-spin">↻</span>' : est === 'novo' ? '⬇' : est === 'ok' ? '✓' : '↻',
+      tit = { busca: 'Buscando…', novo: 'Atualização ' + esc(m.nome || novo) + ' pronta', ok: 'Você está na versão mais nova', parado: 'Buscar atualização' }[est],
+      sub = { busca: 'Procurando versão nova', novo: 'Toque para instalar', ok: 'Versão ' + APP_NOME + (UPD.ult ? ' · agora mesmo' : ''), parado: 'Toque para procurar agora' }[est],
+      ult = UPD.ult ? 'Última busca ' + fh(UPD.ult) : '';
+    return '<section class="card col" id="updCard"><h2 style="margin:0;font-size:16px">Atualização do app</h2>' +
+      '<div class="hint" style="margin:0">O app procura sozinho (ao abrir e a cada poucas horas) e avisa quando a nova está pronta. Nada muda enquanto você vende.</div>' +
+      '<div class="vrow"><span>Versão <b>' + esc(APP_NOME) + '</b> <small>(' + APP_BUILD + ')</small></span><span>' + ult + '</span></div>' +
+      '<button type="button" class="bsolid' + (est === 'ok' ? ' ok' : est === 'novo' ? ' new' : '') + '" data-act="' + (est === 'novo' ? 'updagora' : 'updbusca') + '"' + (est === 'busca' ? ' disabled' : '') + '><span class="bi">' + ico + '</span><span class="bt2"><b>' + tit + '</b><span>' + sub + '</span></span></button>' +
+      (UPD.msg && est !== 'ok' && est !== 'busca' && est !== 'novo' ? '<div class="note n-info" role="status">' + esc(UPD.msg) + '</div>' : '') + '</section>';
   }
   // Confirma que a cópia baixada abriu bem (zera as tentativas) e agenda as buscas automáticas.
   setTimeout(function () {

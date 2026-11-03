@@ -26,7 +26,7 @@
     if (up)
       l.push({
         t: 'Atualização do app pronta',
-        s: 'A versão ' + up + ' já foi baixada. Toque para aplicar; leva poucos segundos.',
+        s: 'A versão ' + (updMarca().nome || up) + ' já foi baixada. Toque para aplicar; leva poucos segundos.',
         c: 'var(--accent)',
         b: 'Atualizar agora',
         act: 'updagora',

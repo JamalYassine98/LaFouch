@@ -141,7 +141,7 @@
     if (!cv || $('sino2')) return;
     var d = document.createElement('div');
     d.className = 'top logo-top';
-    d.style.cssText = 'max-width:980px;margin:0 auto 6px';
+    d.style.cssText = 'max-width:980px;margin:0 auto 18px'; // mesmas medidas do cabeçalho das outras abas
     d.innerHTML =
       '<button type="button" class="sino" id="sino2" data-act="view" data-id="notif" aria-label="Notificações"></button>' +
       '<div class="brand"><img class="lg-e" src="logo-app.png" alt="La Fouch - Tudo em Óculos"><img class="lg-c" src="logo-app-claro.png" alt="La Fouch - Tudo em Óculos"></div>';
