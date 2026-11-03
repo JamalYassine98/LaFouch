@@ -19,7 +19,7 @@ function gs(n) {
 
 function texto(f) {
   const cod = String(f.cod || '').slice(0, 8);
-  if (f.tipo === 'cancel' && f.ref === 'teste') return { tipo: 'teste', titulo: '🔔 Aviso de teste', corpo: 'Assim chegam os avisos neste aparelho.' };
+  if (f.tipo === 'cancel' && f.ref === 'teste') return { tipo: 'teste', titulo: '🔔 Aviso de teste', corpo: 'Assim chegam os avisos neste aparelho · ' + new Intl.DateTimeFormat('pt-BR', { timeZone: FUSO, hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date()) };
   if (f.tipo === 'comp') return { tipo: 'comp', titulo: '🧾 Comprovante recebido', corpo: 'Pedido ' + cod + ': confira o pagamento.' };
   if (f.tipo === 'cancel') return { tipo: 'cancel', titulo: 'Pedido cancelado', corpo: 'O cliente cancelou o pedido ' + cod + ' pelo site.' };
   const nome = String(f.nome || 'Cliente').slice(0, 40);
@@ -71,7 +71,8 @@ exports.avisarPedido = onDocumentCreated({ document: 'pedidos/{id}', region: REG
         token: d.id,
         notification: { title: t.titulo, body: t.corpo },
         data: { tipo: t.tipo, id: String(ev.params.id) },
-        android: { priority: 'high', notification: { channelId: 'pedidos_' + som } }
+        // tag única por aviso: o Android não junta nem esconde avisos parecidos (o 2º teste sumia da bandeja)
+        android: { priority: 'high', notification: { channelId: 'pedidos_' + som, tag: String(ev.params.id), defaultVibrateTimings: true } }
       });
       return null;
     } catch (e) {

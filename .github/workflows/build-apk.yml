@@ -72,7 +72,7 @@ jobs:
       - name: Icone das notificacoes (escudo da loja)
         run: |
           cp -r assets/notif/drawable-* android/app/src/main/res/
-          printf '<?xml version="1.0" encoding="utf-8"?>\n<resources><color name="lf_notif">#6a2a52</color></resources>\n' > android/app/src/main/res/values/lf_notif.xml
+          printf '<?xml version="1.0" encoding="utf-8"?>\n<resources><color name="lf_notif">#7e4a6e</color></resources>\n' > android/app/src/main/res/values/lf_notif.xml
           python3 - <<'PY'
           p = 'android/app/src/main/AndroidManifest.xml'
           s = open(p).read()
