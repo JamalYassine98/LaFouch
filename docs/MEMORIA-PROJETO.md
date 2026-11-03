@@ -528,3 +528,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - PENDENTE (aprovado, ainda não codado): catálogo único Varejo|Atacado com vitrine por gestos (#132); Enviar catálogo no WhatsApp + animações (#133).
 - DECISÃO (03/11/2026): o carimbo de data dos preços ("travada em DD/MM") aparece SÓ no app/admin, NUNCA na parte que o cliente vê no site.
 - v401: atacado na lista de vendas: − N + (segurar acelera), toque no número abre teclado, preço de balcão riscado, barra até a próxima tabela. Falta: vitrine por gestos, Enviar catálogo WhatsApp, animações.
+- v402: vitrine da aba Vendas com gestos: arrastar na foto troca a cor, arrastar fora da foto troca a peça, puxar para baixo fecha (reaproveita src/89-gestos-ficha.js). Falta: Enviar catálogo WhatsApp (folha PDF/fotos), animações (voo ao carrinho, rolagem de número), deslizar para cima na folha.

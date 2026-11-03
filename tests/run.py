@@ -1805,6 +1805,19 @@ async def main():
             ok = at.get('q1') == 1 and at.get('kb') and at.get('q2') == 50 and at.get('riscado') and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'atacado: − N + , teclado numérico e preço riscado')
             if not ok: falhas.append('atacado stepper'); print('        veio', at, pg.erros)
+            gs_ = await pg.evaluate("""async () => { const L = window.__LF, S = L.S; S.cart = []; S.tabAtiva = 'pub';
+              S.items = [{tipo:'solar',ref:'GA1',grau:'',cor:'Preto',qty:5,fmt:'',med:'',vr:'',lote:'',custo:20},{tipo:'solar',ref:'GB2',grau:'',cor:'Preto',qty:5,fmt:'',med:'',vr:'',lote:'',custo:20}];
+              S.vRef = 'solar|GA1'; S.vModo = {v:'g'}; L.setView('vendas'); L.render();
+              const det = document.getElementById('vDetail'); const pega = () => det.querySelector('h2,h3,.detgrid') || det;
+              const toque = (tipo, x, y) => { const alvo = pega(); const t = new Touch({identifier: 1, target: alvo, clientX: x, clientY: y}); alvo.dispatchEvent(new TouchEvent(tipo, {bubbles: true, cancelable: true, touches: tipo === 'touchend' ? [] : [t], changedTouches: [t]})); };
+              const arrasta = async (x0, y0, x1, y1) => { toque('touchstart', x0, y0); toque('touchmove', (x0 + x1) / 2, (y0 + y1) / 2); toque('touchmove', x1, y1); toque('touchend', x1, y1); await new Promise(r => setTimeout(r, 450)); };
+              const antes = S.vRef; await arrasta(300, 200, 40, 205); const dep = S.vRef;
+              await arrasta(200, 100, 205, 400); const fechou = S.vRef;
+              return {antes, dep, fechou}; }""")
+            total += 1
+            ok = gs_['antes'] == 'solar|GA1' and gs_['dep'] == 'solar|GB2' and gs_['fechou'] == '' and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'vitrine: arrastar de lado troca a peça e para baixo fecha')
+            if not ok: falhas.append('vitrine gestos'); print('        veio', gs_, pg.erros)
             await pg.close()
 
             # Tocar na aba em que já está: nada acontece (sem animar)

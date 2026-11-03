@@ -300,7 +300,7 @@
       render();
     };
     // gesto de arrastar na ficha (src/89-gestos-ficha.js): cores da foto atual
-    S._gestoCor = venda ? null : { gal: gal.slice(), atual: cor, pick: pickCor };
+    S._gestoCor = { gal: gal.slice(), atual: cor, pick: pickCor };
     // armação/solar no estoque: mesma tela do catálogo de Vendas (pontinhos e cores em cartões)
     var cartoes = !venda && f.tipo !== 'pre' && !isSimple(f.tipo) && rows.length > 1;
     if (venda || gal.length > 1) {
