@@ -170,6 +170,10 @@
       tb.appendChild(btn('chip on', 'Tabela: ' + Ta.nome + ' ▾', function () { tabSheet(false); }, true));
       tb.appendChild(btn('chip', 'Enviar no WhatsApp', function () { S._vVis = order.map(function (k) { return groups[k][0].ref; }); ACT.tabenviar(); }, false));
     }
+    if (tb) {
+      var pg0 = atacProg();
+      if (pg0) tb.appendChild(pg0);
+    }
     var rows = $('vRows');
     rows.textContent = '';
     rows.classList.toggle('vlist', modoDe('v') === 'l');
@@ -256,9 +260,16 @@
       if (pr0) {
         var pp = mk('b', 'vpreco', gs(pr0));
         pp.style.color = 'var(--ok)';
+        var pubP = atacModo() ? precoTab(f, 'pub') : 0;
+        if (pubP > pr0) {
+          var rs = mk('s', 'vriscado', gs(pubP));
+          card.appendChild(rs);
+        }
         card.appendChild(pp);
       }
-      card.appendChild(mk('i', 'vplus', '+'));
+      var unico = vsL.length === 1 ? vsL[0] : null;
+      if (atacModo() && rows.classList.contains('vlist') && unico) card.appendChild(atacStep(unico));
+      else card.appendChild(mk('i', 'vplus', '+'));
       rows.appendChild(card);
       if (aberto) {
         var pn2 = mk('div', 'vcores');

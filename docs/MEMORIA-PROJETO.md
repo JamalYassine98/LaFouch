@@ -527,3 +527,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - Site recebe `desc` (descrição da peça), `gr` (graus) e `gq` (quantidade por grau); régua de graus no catálogo (repo catalogo 30d43e2).
 - PENDENTE (aprovado, ainda não codado): catálogo único Varejo|Atacado com vitrine por gestos (#132); Enviar catálogo no WhatsApp + animações (#133).
 - DECISÃO (03/11/2026): o carimbo de data dos preços ("travada em DD/MM") aparece SÓ no app/admin, NUNCA na parte que o cliente vê no site.
+- v401: atacado na lista de vendas: − N + (segurar acelera), toque no número abre teclado, preço de balcão riscado, barra até a próxima tabela. Falta: vitrine por gestos, Enviar catálogo WhatsApp, animações.

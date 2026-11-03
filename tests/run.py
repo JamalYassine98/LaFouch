@@ -1791,6 +1791,20 @@ async def main():
             ok = sm['a'] != 'pub' and sm['v'] == 'pub' and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'vendas: seletor Varejo | Atacado troca a tabela')
             if not ok: falhas.append('seletor mercado'); print('        veio', sm, pg.erros)
+            at = await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.fx.pyg = 6000; S.pprice = {TB1: {novo: 400000, ant: 0}}; S.cart = []; S.vModo = {v:'l'}; S.tabAtiva = 'a1';
+              S.items = [{tipo:'solar',ref:'TB1',grau:'',cor:'Preto',qty:400,fmt:'',med:'',vr:'',lote:'',custo:20}];
+              try { localStorage.setItem('lf_modo_v', 'l'); } catch (e) {} L.setView('vendas'); L.render(); document.getElementById('vRows').classList.add('vlist'); L.render();
+              const st = document.querySelector('#vRows .pcard[data-ref=TB1] .vstep'); if (!st) return {sem: 1};
+              const p = () => st.querySelector('.vs-p') || document.querySelector('#vRows .vs-p');
+              const clica = el => { el.dispatchEvent(new PointerEvent('pointerdown', {bubbles: true})); el.dispatchEvent(new PointerEvent('pointerup', {bubbles: true})); };
+              clica(document.querySelector('#vRows .vs-p')); clica(document.querySelector('#vRows .vs-p')); clica(document.querySelector('#vRows .vs-m'));
+              const q1 = S.cart.length && S.cart[0].qty; document.querySelector('#vRows .vs-n').click();
+              const kb = !!document.getElementById('atacN'); document.getElementById('atacN').value = '50'; document.getElementById('atacOk').click();
+              return {q1, kb, q2: S.cart.length && S.cart[0].qty, riscado: !!document.querySelector('#vRows .vriscado'), prog: !!document.querySelector('#vTabBar .vprog')}; }""")
+            total += 1
+            ok = at.get('q1') == 1 and at.get('kb') and at.get('q2') == 50 and at.get('riscado') and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'atacado: − N + , teclado numérico e preço riscado')
+            if not ok: falhas.append('atacado stepper'); print('        veio', at, pg.erros)
             await pg.close()
 
             # Tocar na aba em que já está: nada acontece (sem animar)
