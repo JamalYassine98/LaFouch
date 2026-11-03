@@ -109,6 +109,21 @@
       })
       .slice(0, 8);
   }
+  // Graus à venda de um óculos pré-graduado: do menor ao maior, com a quantidade total de cada grau.
+  function vitGraus(ref) {
+    var m = {};
+    S.items.forEach(function (i) {
+      if (i.ref !== ref || i.tipo !== 'pre' || !i.grau) return;
+      m[i.grau] = (m[i.grau] || 0) + Math.max(0, i.qty || 0);
+    });
+    return Object.keys(m)
+      .sort(function (a, b) {
+        return parseFloat(String(a).replace(',', '.')) - parseFloat(String(b).replace(',', '.'));
+      })
+      .map(function (g) {
+        return { g: g, q: m[g] };
+      });
+  }
   function vitProduto(ref) {
     var v = vitInfo(ref),
       a = attrOf(ref),
@@ -119,8 +134,8 @@
       ref: ref,
       nome: v.nome,
       tipo: solar ? 'solar' : v.tipo === 'pre' ? 'grau' : 'armacao',
-      n: v.preco || 0,
-      de: pp && pp.ant > v.preco ? pp.ant : 0,
+      n: sitePreco(v.preco || 0),
+      de: pp && pp.ant > v.preco ? sitePreco(pp.ant) : 0,
       est: v.est,
       aviso: siteAviso(ref),
       tag: solar ? 'SOLAR' : v.tipo === 'pre' ? 'GRAU' : 'ARMAÇÃO',
@@ -141,7 +156,10 @@
       rosto: ROSTO_DE[a.formato] || ['oval'],
       uv: solar,
       cad: (S.cad && S.cad[ref]) || 0,
-      lib: true
+      lib: true,
+      desc: S.desc && S.desc[ref] != null ? String(S.desc[ref]).trim().slice(0, 600) : '',
+      gr: vitGraus(ref).map(function (g) { return g.g; }),
+      gq: vitGraus(ref).map(function (g) { return g.q; })
     };
   }
   function vitFila(ref, op) {
@@ -149,7 +167,7 @@
     S.vitPend[ref] = op;
     saveSoon();
   }
-  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'fv'];
+  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'desc', 'gr', 'gq', 'fv'];
   function vitFotos(ref) {
     return vitCores(ref).map(function (c) {
       return S.fotos[ref + '|' + c.cor];
@@ -162,6 +180,7 @@
   }
   // A cada minuto: o app compara o que está liberado com o que já foi enviado e enfileira só o que mudou.
   function vitConfere() {
+    siteFxConfere();
     if (!S.nuvem || !S.nuvem.rt || navigator.onLine === false) return Promise.resolve();
     if (!vitConfere.sig) vitConfere.sig = {};
     Object.keys(S.site || {}).forEach(function (ref) {

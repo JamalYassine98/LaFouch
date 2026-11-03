@@ -857,9 +857,9 @@
     } catch (e) {}
   }
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 397;
+  var APP_BUILD = 399;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '3.7'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '3.8'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Movimentos: todo fato de dinheiro ou estoque é gravado por aqui (livro + histórico juntos). =====
   // Formato do registro do histórico (S.dlog) de uma compra de mercadoria.
   function dlogLote(x) {
@@ -21852,6 +21852,7 @@
   // Aba Câmbio.
   // Cartão da cotação da loja (só informa; a margem é fixa).
   function fxLojaHtml() {
+    var sfx = siteFxHtml();
     var u = Math.round(fxLoja('usd')),
       b = Math.round(fxLoja('brl')),
       f = S.fx,
@@ -21861,6 +21862,7 @@
       return nome + ': ' + pc(x.m) + (x.m > FX_MARGEM + 1e-9 ? ' (' + pc(x.acima) + ' acima da menor cotação de ' + FX_JANELA + ' dias)' : ' (base)');
     }
     return (
+      sfx +
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cotação da loja</h2><div class="hint" style="margin:2px 0 0">Seus preços são em dólar, e a cotação da loja vale uma margem a mais que o mercado. A margem é de ' + pc(FX_MARGEM) + ' e acompanha a moeda nas últimas ' + FX_JANELA + ' dias: se ela valoriza, a margem sobe (até ' + pc(FX_TETO) + '); se ela cai, a margem desce aos poucos até voltar a ' + pc(FX_MARGEM) + '. O dólar e o real por dólar têm cada um a sua margem. O app usa esta cotação ao receber dólar ou real, a menos que você digite outro câmbio na tela de pagamento. Custos e contas continuam pela cotação do mercado.</div></div>' +
       '<div class="note ' + (Math.max(mg.m, mb.m) > FX_MARGEM + 1e-9 ? 'n-warn' : 'n-ok') + '" role="status">' + linhaMg('Margem do dólar', mg) + '<br>' + linhaMg('Margem do real por dólar', mb) + '</div>' +
       '<div class="kpis"><div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 vale</div><b>' + gsRaw(u) + '</b><div class="hint">mercado ' + gsRaw(f.pyg) + '</div></div>' +
@@ -26361,6 +26363,21 @@
       })
       .slice(0, 8);
   }
+  // Graus à venda de um óculos pré-graduado: do menor ao maior, com a quantidade total de cada grau.
+  function vitGraus(ref) {
+    var m = {};
+    S.items.forEach(function (i) {
+      if (i.ref !== ref || i.tipo !== 'pre' || !i.grau) return;
+      m[i.grau] = (m[i.grau] || 0) + Math.max(0, i.qty || 0);
+    });
+    return Object.keys(m)
+      .sort(function (a, b) {
+        return parseFloat(String(a).replace(',', '.')) - parseFloat(String(b).replace(',', '.'));
+      })
+      .map(function (g) {
+        return { g: g, q: m[g] };
+      });
+  }
   function vitProduto(ref) {
     var v = vitInfo(ref),
       a = attrOf(ref),
@@ -26371,8 +26388,8 @@
       ref: ref,
       nome: v.nome,
       tipo: solar ? 'solar' : v.tipo === 'pre' ? 'grau' : 'armacao',
-      n: v.preco || 0,
-      de: pp && pp.ant > v.preco ? pp.ant : 0,
+      n: sitePreco(v.preco || 0),
+      de: pp && pp.ant > v.preco ? sitePreco(pp.ant) : 0,
       est: v.est,
       aviso: siteAviso(ref),
       tag: solar ? 'SOLAR' : v.tipo === 'pre' ? 'GRAU' : 'ARMAÇÃO',
@@ -26393,7 +26410,10 @@
       rosto: ROSTO_DE[a.formato] || ['oval'],
       uv: solar,
       cad: (S.cad && S.cad[ref]) || 0,
-      lib: true
+      lib: true,
+      desc: S.desc && S.desc[ref] != null ? String(S.desc[ref]).trim().slice(0, 600) : '',
+      gr: vitGraus(ref).map(function (g) { return g.g; }),
+      gq: vitGraus(ref).map(function (g) { return g.q; })
     };
   }
   function vitFila(ref, op) {
@@ -26401,7 +26421,7 @@
     S.vitPend[ref] = op;
     saveSoon();
   }
-  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'fv'];
+  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'desc', 'gr', 'gq', 'fv'];
   function vitFotos(ref) {
     return vitCores(ref).map(function (c) {
       return S.fotos[ref + '|' + c.cor];
@@ -26414,6 +26434,7 @@
   }
   // A cada minuto: o app compara o que está liberado com o que já foi enviado e enfileira só o que mudou.
   function vitConfere() {
+    siteFxConfere();
     if (!S.nuvem || !S.nuvem.rt || navigator.onLine === false) return Promise.resolve();
     if (!vitConfere.sig) vitConfere.sig = {};
     Object.keys(S.site || {}).forEach(function (ref) {
@@ -26647,6 +26668,78 @@
     if (S.view === 'onl') render();
   });
   ACT.lojaRecarregar = function () {
+    render();
+  };
+  // ===== Preço estável no site: a cotação usada nos preços do site fica travada (no mínimo 30 dias) =====
+  S.siteFx = null; // { usd, rpu, brl, ts }: dólar da loja, real por dólar e dia em que foram travados
+  var SITE_DIAS = 30,
+    SITE_VAR = 0.02,
+    SITE_ALTA = 0.03,
+    SITE_ARRED = 5000;
+  // Trava de novo só quando vale a pena: a cada 30 dias se o dólar andou 2% ou mais; antes disso, só se o dólar subir mais de 3% (protege a margem).
+  function siteFxConfere(forca) {
+    var v;
+    try {
+      v = { usd: fxUsdLoja(), rpu: fxBrlPorUsd() };
+    } catch (e) {
+      return false;
+    }
+    if (!(v.usd > 0) || !(v.rpu > 0)) return false;
+    var L = S.siteFx,
+      agora = Date.now(),
+      muda = !L || !(L.usd > 0) || !!forca;
+    if (!muda) {
+      var idade = (agora - L.ts) / 864e5,
+        dif = v.usd / L.usd - 1;
+      muda = idade >= SITE_DIAS ? Math.abs(dif) >= SITE_VAR : dif > SITE_ALTA;
+    }
+    if (muda) {
+      S.siteFx = { usd: v.usd, rpu: v.rpu, brl: Math.round(v.usd / v.rpu / 100) * 100, ts: agora };
+      saveSoon();
+    }
+    return muda;
+  }
+  // Preço em guaranis da loja (cotação do dia) → preço do site (cotação travada), arredondado de 5.000 em 5.000.
+  function sitePreco(gs) {
+    if (!(gs > 0) || !S.siteFx || !(S.siteFx.usd > 0)) return gs;
+    var vivo;
+    try {
+      vivo = fxUsdLoja();
+    } catch (e) {
+      return gs;
+    }
+    if (!(vivo > 0)) return gs;
+    return Math.max(SITE_ARRED, Math.round(((gs / vivo) * S.siteFx.usd) / SITE_ARRED) * SITE_ARRED);
+  }
+  function siteFxDiasTxt() {
+    var L = S.siteFx;
+    if (!L) return '';
+    var d = new Date(L.ts),
+      prox = new Date(L.ts + SITE_DIAS * 864e5),
+      f = function (x) {
+        return ('0' + x.getDate()).slice(-2) + '/' + ('0' + (x.getMonth() + 1)).slice(-2);
+      };
+    return 'travada em ' + f(d) + ' · próxima revisão a partir de ' + f(prox);
+  }
+  function siteFxHtml() {
+    siteFxConfere();
+    var L = S.siteFx,
+      vivo = fxUsdLoja(),
+      dif = L && L.usd > 0 ? vivo / L.usd - 1 : 0;
+    return (
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cotação do site</h2><div class="hint" style="margin:2px 0 0">Para o site não mudar de preço toda hora, ele usa uma cotação travada por no mínimo ' + SITE_DIAS + ' dias. Ela só muda antes disso se o dólar subir mais de ' + pc(SITE_ALTA) + ', e depois de ' + SITE_DIAS + ' dias se tiver variado ' + pc(SITE_VAR) + ' ou mais. Os preços do site são arredondados de ' + SITE_ARRED.toLocaleString('pt-BR') + ' em ' + SITE_ARRED.toLocaleString('pt-BR') + ' guaranis. O balcão continua com a cotação do dia.</div></div>' +
+      '<div class="kpis"><div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 no site</div><b>' + gsRaw(L ? L.usd : vivo) + '</b><div class="hint">' + (L ? esc(siteFxDiasTxt()) : '') + '</div></div>' +
+      '<div class="kpi" style="background:var(--panel2)"><div class="lbl">Cotação de hoje</div><b>' + gsRaw(vivo) + '</b><div class="hint">' + (dif >= 0 ? '+' : '−') + pc(Math.abs(dif)) + ' em relação ao site</div></div></div>' +
+      '<div><button type="button" class="mini ghost" data-act="sitefxagora">Atualizar preços do site agora</button></div></section>'
+    );
+  }
+  ACT.sitefxagora = function () {
+    siteFxConfere(true);
+    try {
+      vitConfere();
+      nvCotacao();
+    } catch (e) {}
+    if (window.lfToast) lfToast('Preços do site atualizados');
     render();
   };
   // ===== Tabelas de preço (atacado e tipos de cliente): preço = custo + margem, nunca abaixo do piso, nunca acima do Público =====
@@ -28006,7 +28099,7 @@
             'backups/' + dia,
             JSON.stringify({
               fields: {
-                ts: { integerValue: String(Date.now()) },
+                ts: { integerValue: String(S.siteFx ? S.siteFx.ts : Date.now()) },
                 partes: { integerValue: String(n) },
                 gz: { booleanValue: p.gz },
                 kb: { integerValue: String(Math.round(txt.length / 1024)) }
@@ -28172,14 +28265,15 @@
     if (!S.nuvem.rt) return Promise.resolve();
     var usd, brl, rpu;
     try {
-      usd = fxLoja('usd');
-      brl = fxLoja('brl');
-      rpu = fxBrlPorUsd();
+      siteFxConfere();
+      usd = S.siteFx ? S.siteFx.usd : fxLoja('usd');
+      brl = S.siteFx ? S.siteFx.brl : fxLoja('brl');
+      rpu = S.siteFx ? S.siteFx.rpu : fxBrlPorUsd();
     } catch (e) {
       return Promise.resolve();
     }
     if (!(usd > 0) || !(brl > 0)) return Promise.resolve();
-    var chave = usd + '|' + brl + '|' + rpu;
+    var chave = usd + '|' + brl + '|' + rpu + '|' + (S.siteFx ? S.siteFx.ts : 0);
     if (S.nuvem.cot === chave) return Promise.resolve();
     return nvApi(
       'PATCH',
@@ -32477,6 +32571,7 @@
       'volume',
       'melhPeca',
       'fxHist',
+      'siteFx',
       'tabelas',
       'tabAtiva',
       'fxReal',
@@ -32609,7 +32704,7 @@
       barMoedas: barMoedas,
       animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
-      S: S, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
+      S: S, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,
       grpTot: grpTot, grpFalta: grpFalta, effCusto: effCusto, parseLote: parseLote, parsePedido: parsePedido, parseHaste: parseHaste,
       parseVote: parseVote, flatParse: flatParse, numAmt: numAmt, hKey: hKey, lev: lev, normRef: normRef,

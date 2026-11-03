@@ -180,7 +180,7 @@
             'backups/' + dia,
             JSON.stringify({
               fields: {
-                ts: { integerValue: String(Date.now()) },
+                ts: { integerValue: String(S.siteFx ? S.siteFx.ts : Date.now()) },
                 partes: { integerValue: String(n) },
                 gz: { booleanValue: p.gz },
                 kb: { integerValue: String(Math.round(txt.length / 1024)) }
@@ -346,14 +346,15 @@
     if (!S.nuvem.rt) return Promise.resolve();
     var usd, brl, rpu;
     try {
-      usd = fxLoja('usd');
-      brl = fxLoja('brl');
-      rpu = fxBrlPorUsd();
+      siteFxConfere();
+      usd = S.siteFx ? S.siteFx.usd : fxLoja('usd');
+      brl = S.siteFx ? S.siteFx.brl : fxLoja('brl');
+      rpu = S.siteFx ? S.siteFx.rpu : fxBrlPorUsd();
     } catch (e) {
       return Promise.resolve();
     }
     if (!(usd > 0) || !(brl > 0)) return Promise.resolve();
-    var chave = usd + '|' + brl + '|' + rpu;
+    var chave = usd + '|' + brl + '|' + rpu + '|' + (S.siteFx ? S.siteFx.ts : 0);
     if (S.nuvem.cot === chave) return Promise.resolve();
     return nvApi(
       'PATCH',
