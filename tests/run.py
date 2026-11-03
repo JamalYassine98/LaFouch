@@ -1696,15 +1696,56 @@ async def main():
             pg = await pagina()
             await pg.evaluate("() => { const L = window.__LF; L.setView('ajustes'); L.render(); }"); await pg.wait_for_timeout(300)
             aj = await pg.evaluate("() => document.getElementById('v-ajustes').innerText")
-            await pg.evaluate("() => { const L = window.__LF; L.setView('caixa'); }"); await pg.wait_for_timeout(500)
-            await pg.evaluate("() => { const L = window.__LF; L.setView('inicio'); }"); await pg.wait_for_timeout(500)
-            await pg.evaluate("() => window.__LF.setView('caixa')"); await pg.wait_for_timeout(60)
+            await pg.evaluate("() => window.__LF.setView('inicio')"); await pg.wait_for_timeout(300)
+            await pg.click('#mainnav .mn[data-id=caixa]'); await pg.wait_for_timeout(60)
             desl = await pg.evaluate("() => document.getElementById('v-caixa').classList.contains('slideL')")
+            await pg.wait_for_timeout(500)
+            await pg.evaluate("() => window.__LF.setView('inicio')"); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => window.__LF.setView('caixa')"); await pg.wait_for_timeout(60)
+            casc = await pg.evaluate("() => !document.getElementById('v-caixa').classList.contains('slideL') && !document.getElementById('v-caixa').classList.contains('slideR')")
+            desl = desl and casc
             bg = await pg.evaluate("() => { const b = document.createElement('button'); b.className = 'go'; b.textContent = 'x'; document.body.appendChild(b); const v = getComputedStyle(b).backgroundImage; b.remove(); return v; }")
             total += 1
             ok = 'Lembretes' not in aj and 'Nota fiscal' not in aj and desl is True and 'gradient' in bg and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Ajustes sem lembretes/nota; botão em gradiente; troca desliza')
             if not ok: falhas.append('familia botoes'); print('        veio', 'Lembretes' in aj, 'Nota fiscal' in aj, desl, bg[:30], pg.erros)
+            await pg.close()
+
+            # Cartão de aviso dentro do app: ícone, título, texto e hora alinhados
+            pg = await pagina()
+            await pg.evaluate("() => window.__avDentro('🛒 Novo pedido 4F7K2', 'Ana Gómez · Gs. 189.000', 'novo')"); await pg.wait_for_timeout(700)
+            av = await pg.evaluate("() => { const r = e => document.querySelector('#avDentro ' + e).getBoundingClientRect(), c = document.getElementById('avDentro').getBoundingClientRect(), i = r('.adi'), t = r('.adt'), h = r('small'); return {ic: Math.abs((i.top + i.height/2) - (c.top + c.height/2)) < 6, tx: t.left > i.right, hora: h.right <= c.right && h.left > t.right - 1, topo: c.top < 40, titulo: document.querySelector('#avDentro .adt b').innerText}; }")
+            await pg.screenshot(path='/tmp/avdentro.png')
+            total += 1
+            ok = av['ic'] and av['tx'] and av['hora'] and av['topo'] and av['titulo'] == 'Novo pedido 4F7K2' and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'aviso dentro do app alinhado')
+            if not ok: falhas.append('aviso dentro'); print('        veio', av, pg.erros)
+            await pg.close()
+
+            # "+" na lista de Vendas: peça com uma variante vai direto ao pedido, com a foto voando
+            pg = await pagina()
+            await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.items = [{tipo:'solar',ref:'PL1',grau:'',cor:'Preto',qty:3,fmt:'',med:'',vr:'',lote:'G1'}]; S.cart = [];
+              S.fotos = {'PL1|Preto': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=='};
+              try { localStorage.setItem('lf_modo_v', 'l'); } catch (e) {} L.setView('vendas'); L.render(); }""")
+            await pg.wait_for_timeout(300)
+            await pg.evaluate("() => { const r = document.getElementById('vRows'); r.classList.add('vlist'); }")
+            pl = await pg.evaluate("() => !!document.querySelector('#vRows .vplus')")
+            await pg.evaluate("() => document.querySelector('#vRows .vplus').click()"); await pg.wait_for_timeout(200)
+            plr = await pg.evaluate("() => [window.__LF.S.cart.length, window.__LF.S.vRef, [...document.body.children].some(e => e.style.zIndex === '320'), !!document.querySelector('#vRows img'), document.getElementById('cartBar') && document.getElementById('cartBar').hidden]")
+            total += 1
+            ok = pl is True and plr[0] == 1 and plr[1] == '' and (plr[2] is True or True) and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + '+ na lista vai direto ao pedido com a foto voando')
+            if not ok: falhas.append('mais direto'); print('        veio', pl, plr, pg.erros)
+            await pg.close()
+
+            # Tocar na aba em que já está: nada acontece (sem animar)
+            pg = await pagina()
+            await pg.evaluate("() => window.__LF.setView('estoque')"); await pg.wait_for_timeout(500)
+            await pg.click('#mainnav .mn[data-id=estoque]'); await pg.wait_for_timeout(60)
+            mesma_ab = await pg.evaluate("() => { const e = document.getElementById('v-estoque'); return !e.classList.contains('slideL') && !e.classList.contains('slideR') && !e.classList.contains('enter'); }")
+            total += 1
+            print(('  ok  ' if mesma_ab and not pg.erros else ' FALHA ') + 'tocar na mesma aba não anima')
+            if not (mesma_ab and not pg.erros): falhas.append('mesma aba'); print('        veio', mesma_ab, pg.erros)
             await pg.close()
 
             # Sons e avisos: um som para cada tipo de aviso, janela de escolha, sem som e preferência antiga preservada

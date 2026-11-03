@@ -309,9 +309,37 @@
       'Preço mínimo seguro (trava) do pedido: ' + gs(agg.trava) + '. Vendido por ' + gs(agg.price) + ', ' + (agg.livre >= 0 ? 'então o preço está seguro.' : 'abaixo do seguro. Veja a aba Dashboard.') + ' Cada peça foi gravada no Histórico.';
   }
   // Botão "Adicionar pedido".
+  // Foto da peça voa até a barra do pedido.
+  function cartVoa(src, rect) {
+    var alvo = $('cartBar');
+    if (REDUCED || !src || !rect || !alvo || alvo.hidden) return;
+    var r = alvo.getBoundingClientRect(),
+      f = document.createElement('div'),
+      w = Math.min(rect.width, 120),
+      h = w * (rect.height / rect.width);
+    f.style.cssText = 'position:fixed;z-index:320;pointer-events:none;border-radius:12px;background:#fff center/contain no-repeat url("' + src + '");box-shadow:0 8px 22px rgba(0,0,0,.45);left:' + (rect.left + rect.width / 2 - w / 2) + 'px;top:' + (rect.top + rect.height / 2 - h / 2) + 'px;width:' + w + 'px;height:' + h + 'px';
+    document.body.appendChild(f);
+    var dx = r.left + 40 - (rect.left + rect.width / 2),
+      dy = r.top + r.height / 2 - (rect.top + rect.height / 2);
+    var an = f.animate ? f.animate([{ transform: 'translate(0,0) scale(1)', opacity: 1 }, { transform: 'translate(' + dx * 0.5 + 'px,' + (dy * 0.5 - 50) + 'px) scale(.7)', opacity: 1, offset: 0.55 }, { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(.2)', opacity: 0.2 }], { duration: 650, easing: 'cubic-bezier(.45,.05,.55,.95)' }) : null;
+    var fim = function () {
+      f.remove();
+      pulsa(alvo);
+    };
+    if (an) an.onfinish = fim;
+    else setTimeout(fim, 650);
+    setTimeout(function () {
+      if (f.parentNode) f.remove();
+    }, 1500);
+  }
+  window.cartVoa = cartVoa;
   $('sCartAdd').onclick = function () {
     var sel = S._vsel;
     if (!sel || sel.qty <= 0 || gLivre(sel) <= 0) return;
+    var fi = window.__voaSrc || document.querySelector('#vDetail img'),
+      fr = fi ? fi.getBoundingClientRect() : null,
+      fs = fi ? fi.currentSrc || fi.src : '';
+    window.__voaSrc = null;
     var q = Math.min(S.qty, gLivre(sel));
     // peças iguais de lotes diferentes: a venda sai de uma e completa com as outras
     var fontes = [sel].concat(
@@ -349,7 +377,7 @@
     render();
     window.scrollTo(0, 0);
     setTimeout(function () {
-      pulsa($('cartBar'));
+      cartVoa(fs, fr);
     }, 60);
   };
   document.addEventListener('input', function (ev) {

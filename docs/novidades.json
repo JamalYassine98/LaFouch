@@ -1,10 +1,10 @@
 {
- "nome": "3.5",
+ "nome": "3.6",
  "notas": [
-  "Botões novos em todo o app: mesma família, cor e resposta ao toque",
-  "Troca de abas desliza para o lado que você escolheu",
-  "Ajustes mais limpo: sem Lembretes e Nota fiscal (a cidade da nota é sempre CDE)",
-  "Aviso de teste com o app aberto toca o som e mostra o aviso",
-  "Aba Compras agora se chama Fornecedores"
+  "Toque no + da lista manda a peça direto ao pedido, com a foto voando até ele",
+  "Cores do produto agora são cartões com a foto",
+  "Preço do produto mostra reais e guaranis",
+  "Tocar na aba em que já está não faz nada",
+  "Aviso dentro do app com a cara do aviso de teste"
  ]
 }

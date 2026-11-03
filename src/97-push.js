@@ -137,7 +137,7 @@
             tp = { comp: 'c', cancel: 'x', pago: 'p' }[dd.tipo] || 'n',
             av = avPref();
           avTocar(av['s' + tp] || av.sn);
-          if (typeof lfaToast === 'function') lfaToast('<b>' + esc((n && n.title) || 'Aviso') + '</b>' + (n && n.body ? '<br>' + esc(n.body) : ''));
+          avDentro((n && n.title) || 'Aviso', (n && n.body) || '', dd.tipo);
           var mm = $('avmsg');
           if (mm && dd.tipo === 'teste') {
             mm.textContent = 'Aviso de teste recebido.';
@@ -279,6 +279,28 @@
     pushSalvar();
     render();
   }
+  // Cartão de aviso dentro do app (mesmo desenho do aviso de teste): ícone, título, texto embaixo e hora.
+  var AV_IC = { teste: '🔔', novo: '🛒', comp: '🧾', cancel: '⚠️', pago: '✅' };
+  function avDentro(titulo, corpo, tipo) {
+    var velho = document.getElementById('avDentro');
+    if (velho) velho.remove();
+    var b = document.createElement('div');
+    b.id = 'avDentro';
+    b.className = 'avdentro';
+    b.setAttribute('role', 'status');
+    var t = String(titulo || '').replace(/^[^\wÀ-ÿ]+/, '');
+    var d = new Date();
+    b.innerHTML = '<span class="adi">' + (AV_IC[tipo] || '🔔') + '</span><span class="adt"><b>' + esc(t) + '</b>' + (corpo ? '<span>' + esc(corpo) + '</span>' : '') + '</span><small>agora</small><i class="adb"></i>';
+    b.addEventListener('click', function () {
+      b.remove();
+      if (tipo && tipo !== 'teste') setView('ped');
+    });
+    document.body.appendChild(b);
+    setTimeout(function () {
+      b.classList.add('sai');
+      setTimeout(function () { if (b.parentNode) b.remove(); }, 400);
+    }, 4000);
+  }
   function avTeste() {
     var a = avPref(),
       nat = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform(),
@@ -300,6 +322,7 @@
       return;
     }
     avTocar(a.sn);
+    avDentro('Aviso de teste', 'Assim chegam os avisos neste aparelho.', 'teste');
     try {
       if ('Notification' in window) {
         var go = function () {
@@ -359,6 +382,7 @@
     }
   });
   window.__avTocaTipo = avTocaTipo;
+  window.__avDentro = avDentro;
   window.__pushIniciar = pushIniciar;
   window.__avisoLocal = avisoLocal;
   setTimeout(pushIniciar, 5000);

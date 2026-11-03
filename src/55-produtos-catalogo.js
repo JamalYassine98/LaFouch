@@ -1,5 +1,10 @@
   // ===== Produtos: preço (antigo → novo) e canais (site, WhatsApp, loja) em cada produto, avisos de piso e aplicação em grupo. =====
   S.pprice = {}; // código do produto -> { novo, ant } (guaranis, calculados) + { nu, au } (dólares digitados). Vazio = vale o preço do tipo.
+  // Preço em reais e guaranis (R$ · G$), pela cotação da loja.
+  function precoRG(g) {
+    var b = fxLoja('brl');
+    return (b > 0 ? 'R$ ' + (g / b).toFixed(2).replace('.', ',') + ' · ' : '') + gs(g);
+  }
   // O preço vale em dólar: os guaranis seguem a cotação da loja. Se um guarani foi mudado por outra parte do app, o dólar acompanha.
   function ppSync() {
     var r = fxUsdLoja();
@@ -130,12 +135,12 @@
     pin.setAttribute('aria-label', 'Preço do produto em dólares');
     pin.value = normal > 0 ? usdTxtDeGs(normal) : '';
     pin.placeholder = 'Preço em US$';
-    var pgs = mk('div', 'hint', normal > 0 ? '= ' + gs(normal) + ' (cotação da loja)' : '');
+    var pgs = mk('div', 'hint', normal > 0 ? precoRG(normal) : '');
     pgs.id = 'pvGs';
     pgs.style.margin = '4px 0 0';
     pin.oninput = function () {
       var u = campoParaUsd(pin.value);
-      pgs.textContent = u > 0 ? '= ' + gs(gsDeUsd(u)) + ' (cotação da loja)' : '';
+      pgs.textContent = u > 0 ? precoRG(gsDeUsd(u)) : '';
     };
     pin.onchange = function () {
       var v = campoParaUsd(pin.value),
@@ -571,6 +576,10 @@
 
   // ---------- Catálogo: uma barra de abas com ícone (Vendas · WhatsApp · Site), igual em todas as telas
   function uniIr(qual) {
+    var ordem = { v: 0, w: 1, s: 2 },
+      ant = uniOn();
+    if (ant === qual) return; // já está nesta aba: nada acontece
+    window.__slide = ant && ant !== qual ? (ordem[qual] > ordem[ant] ? 1 : -1) : 0;
     S.catOpen = qual === 'w';
     S.repoView = false;
     setView(qual === 's' ? 'onl' : 'vendas');

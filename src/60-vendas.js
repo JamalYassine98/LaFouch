@@ -164,7 +164,24 @@
       var card = btn(
         'pcard' + (k === S.vRef ? ' on' : ''),
         '',
-        function () {
+        function (ev) {
+          // "+" na lista: se a peça tem uma só variante com estoque, vai direto para o pedido
+          if (ev && ev.target && ev.target.closest && ev.target.closest('.vplus')) {
+            var vs = g.filter(function (x) {
+                return x.qty > 0 && gLivre(x) > 0;
+              }),
+              ch = {};
+            vs.forEach(function (x) {
+              ch[[x.cor, x.grau, x.vr, x.fmt, x.med].join('|')] = 1;
+            });
+            if (vs.length && Object.keys(ch).length === 1) {
+              S._vsel = vs[0];
+              S.qty = 1;
+              window.__voaSrc = card.querySelector('img');
+              $('sCartAdd').click();
+              return;
+            }
+          }
           if (S.vRef === k) {
             S.vRef = '';
             S.vSel = null;

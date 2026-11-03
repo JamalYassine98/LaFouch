@@ -1,9 +1,8 @@
   // ===== Navegação entre abas e Dashboard. =====
   // Troca de aba.
-  var NAV_ORDEM = ['inicio', 'vendas', 'estoque', 'caixa', 'ajustes'],
-    NAV_VISTAS = {};
+  // window.__slide = +1 / -1 é posto por quem navega pela barra de baixo ou pelas abas Vendas·WhatsApp·Site: a tela desliza.
+  // Sem isso (ex.: botão Catálogo na tela Início) vale a cascata de sempre.
   function setView(v) {
-    var antes = S.view;
     S.view = v;
     if (v !== 'vendas') S.catOpen = false; // a tela do WhatsApp só existe dentro da aba de vendas: ao sair, fecha
     S.msg = '';
@@ -12,16 +11,14 @@
     } catch (e) {}
     render();
     window.scrollTo(0, 0);
-    // Voltando a uma seção já visitada: a tela desliza para o lado da aba escolhida. Primeira vez: cascata de sempre.
-    var ia = NAV_ORDEM.indexOf(antes),
-      ib = NAV_ORDEM.indexOf(v),
-      el = $('v-' + v),
-      lado = !REDUCED && el && ia >= 0 && ib >= 0 && ia !== ib && NAV_VISTAS[v];
-    NAV_VISTAS[v] = true;
+    var dir = window.__slide || 0,
+      el = S.catOpen && $('catV') ? $('catV') : $('v-' + v),
+      lado = !REDUCED && el && dir;
+    window.__slide = 0;
     if (lado) {
       el.classList.remove('slideL', 'slideR');
       void el.offsetWidth;
-      el.classList.add(ib > ia ? 'slideL' : 'slideR');
+      el.classList.add(dir > 0 ? 'slideL' : 'slideR');
       setTimeout(function () {
         el.classList.remove('slideL', 'slideR');
       }, 450);
@@ -45,6 +42,11 @@
       var on = navOn(v[0]);
       var b = btn('mn' + (on ? ' on' : ''), '', function () {
         if (window.__barraSegurou && window.__barraSegurou()) return;
+        var bs = [].slice.call($('mainnav').querySelectorAll('.mn')),
+          ia = bs.indexOf($('mainnav').querySelector('.mn.on')),
+          ib = bs.indexOf(b);
+        if (ia >= 0 && ia === ib) return; // já está nesta aba: nada acontece
+        window.__slide = ia >= 0 && ib >= 0 && ia !== ib ? (ib > ia ? 1 : -1) : 0;
         if (v[0] === 'inicio') setView('inicio');
         else if (grpGet(v[0])) grpAbre(grpGet(v[0]));
         else inicioGo(v[0]);

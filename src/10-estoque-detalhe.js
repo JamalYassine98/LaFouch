@@ -470,9 +470,9 @@
       rows.some(function (x) {
         return x.cor !== rows[0].cor;
       });
-    if ((venda && f.tipo !== 'pre') || cartoes) {
+    if ((f.tipo !== 'pre' && (venda || !isSimple(f.tipo))) || cartoes) {
       // armação/solar: as cores são cartões com foto, nome e estoque
-      if (rows.length > 1) {
+      if (rows.length > 0) {
         var cl = mk('div', 'ccards');
         rows.forEach(function (i) {
           var rep = !venda && rows.filter(function (x) { return x.cor === i.cor; }).length > 1;

@@ -857,9 +857,9 @@
     } catch (e) {}
   }
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 392;
+  var APP_BUILD = 396;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '3.5'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '3.6'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Movimentos: todo fato de dinheiro ou estoque é gravado por aqui (livro + histórico juntos). =====
   // Formato do registro do histórico (S.dlog) de uma compra de mercadoria.
   function dlogLote(x) {
@@ -1670,9 +1670,9 @@
       rows.some(function (x) {
         return x.cor !== rows[0].cor;
       });
-    if ((venda && f.tipo !== 'pre') || cartoes) {
+    if ((f.tipo !== 'pre' && (venda || !isSimple(f.tipo))) || cartoes) {
       // armação/solar: as cores são cartões com foto, nome e estoque
-      if (rows.length > 1) {
+      if (rows.length > 0) {
         var cl = mk('div', 'ccards');
         rows.forEach(function (i) {
           var rep = !venda && rows.filter(function (x) { return x.cor === i.cor; }).length > 1;
@@ -10880,6 +10880,11 @@
   }
   // ===== Produtos: preço (antigo → novo) e canais (site, WhatsApp, loja) em cada produto, avisos de piso e aplicação em grupo. =====
   S.pprice = {}; // código do produto -> { novo, ant } (guaranis, calculados) + { nu, au } (dólares digitados). Vazio = vale o preço do tipo.
+  // Preço em reais e guaranis (R$ · G$), pela cotação da loja.
+  function precoRG(g) {
+    var b = fxLoja('brl');
+    return (b > 0 ? 'R$ ' + (g / b).toFixed(2).replace('.', ',') + ' · ' : '') + gs(g);
+  }
   // O preço vale em dólar: os guaranis seguem a cotação da loja. Se um guarani foi mudado por outra parte do app, o dólar acompanha.
   function ppSync() {
     var r = fxUsdLoja();
@@ -11010,12 +11015,12 @@
     pin.setAttribute('aria-label', 'Preço do produto em dólares');
     pin.value = normal > 0 ? usdTxtDeGs(normal) : '';
     pin.placeholder = 'Preço em US$';
-    var pgs = mk('div', 'hint', normal > 0 ? '= ' + gs(normal) + ' (cotação da loja)' : '');
+    var pgs = mk('div', 'hint', normal > 0 ? precoRG(normal) : '');
     pgs.id = 'pvGs';
     pgs.style.margin = '4px 0 0';
     pin.oninput = function () {
       var u = campoParaUsd(pin.value);
-      pgs.textContent = u > 0 ? '= ' + gs(gsDeUsd(u)) + ' (cotação da loja)' : '';
+      pgs.textContent = u > 0 ? precoRG(gsDeUsd(u)) : '';
     };
     pin.onchange = function () {
       var v = campoParaUsd(pin.value),
@@ -11451,6 +11456,10 @@
 
   // ---------- Catálogo: uma barra de abas com ícone (Vendas · WhatsApp · Site), igual em todas as telas
   function uniIr(qual) {
+    var ordem = { v: 0, w: 1, s: 2 },
+      ant = uniOn();
+    if (ant === qual) return; // já está nesta aba: nada acontece
+    window.__slide = ant && ant !== qual ? (ordem[qual] > ordem[ant] ? 1 : -1) : 0;
     S.catOpen = qual === 'w';
     S.repoView = false;
     setView(qual === 's' ? 'onl' : 'vendas');
@@ -13368,7 +13377,24 @@
       var card = btn(
         'pcard' + (k === S.vRef ? ' on' : ''),
         '',
-        function () {
+        function (ev) {
+          // "+" na lista: se a peça tem uma só variante com estoque, vai direto para o pedido
+          if (ev && ev.target && ev.target.closest && ev.target.closest('.vplus')) {
+            var vs = g.filter(function (x) {
+                return x.qty > 0 && gLivre(x) > 0;
+              }),
+              ch = {};
+            vs.forEach(function (x) {
+              ch[[x.cor, x.grau, x.vr, x.fmt, x.med].join('|')] = 1;
+            });
+            if (vs.length && Object.keys(ch).length === 1) {
+              S._vsel = vs[0];
+              S.qty = 1;
+              window.__voaSrc = card.querySelector('img');
+              $('sCartAdd').click();
+              return;
+            }
+          }
           if (S.vRef === k) {
             S.vRef = '';
             S.vSel = null;
@@ -21354,10 +21380,9 @@
   }
   // ===== Navegação entre abas e Dashboard. =====
   // Troca de aba.
-  var NAV_ORDEM = ['inicio', 'vendas', 'estoque', 'caixa', 'ajustes'],
-    NAV_VISTAS = {};
+  // window.__slide = +1 / -1 é posto por quem navega pela barra de baixo ou pelas abas Vendas·WhatsApp·Site: a tela desliza.
+  // Sem isso (ex.: botão Catálogo na tela Início) vale a cascata de sempre.
   function setView(v) {
-    var antes = S.view;
     S.view = v;
     if (v !== 'vendas') S.catOpen = false; // a tela do WhatsApp só existe dentro da aba de vendas: ao sair, fecha
     S.msg = '';
@@ -21366,16 +21391,14 @@
     } catch (e) {}
     render();
     window.scrollTo(0, 0);
-    // Voltando a uma seção já visitada: a tela desliza para o lado da aba escolhida. Primeira vez: cascata de sempre.
-    var ia = NAV_ORDEM.indexOf(antes),
-      ib = NAV_ORDEM.indexOf(v),
-      el = $('v-' + v),
-      lado = !REDUCED && el && ia >= 0 && ib >= 0 && ia !== ib && NAV_VISTAS[v];
-    NAV_VISTAS[v] = true;
+    var dir = window.__slide || 0,
+      el = S.catOpen && $('catV') ? $('catV') : $('v-' + v),
+      lado = !REDUCED && el && dir;
+    window.__slide = 0;
     if (lado) {
       el.classList.remove('slideL', 'slideR');
       void el.offsetWidth;
-      el.classList.add(ib > ia ? 'slideL' : 'slideR');
+      el.classList.add(dir > 0 ? 'slideL' : 'slideR');
       setTimeout(function () {
         el.classList.remove('slideL', 'slideR');
       }, 450);
@@ -21399,6 +21422,11 @@
       var on = navOn(v[0]);
       var b = btn('mn' + (on ? ' on' : ''), '', function () {
         if (window.__barraSegurou && window.__barraSegurou()) return;
+        var bs = [].slice.call($('mainnav').querySelectorAll('.mn')),
+          ia = bs.indexOf($('mainnav').querySelector('.mn.on')),
+          ib = bs.indexOf(b);
+        if (ia >= 0 && ia === ib) return; // já está nesta aba: nada acontece
+        window.__slide = ia >= 0 && ib >= 0 && ia !== ib ? (ib > ia ? 1 : -1) : 0;
         if (v[0] === 'inicio') setView('inicio');
         else if (grpGet(v[0])) grpAbre(grpGet(v[0]));
         else inicioGo(v[0]);
@@ -27983,7 +28011,7 @@
             tp = { comp: 'c', cancel: 'x', pago: 'p' }[dd.tipo] || 'n',
             av = avPref();
           avTocar(av['s' + tp] || av.sn);
-          if (typeof lfaToast === 'function') lfaToast('<b>' + esc((n && n.title) || 'Aviso') + '</b>' + (n && n.body ? '<br>' + esc(n.body) : ''));
+          avDentro((n && n.title) || 'Aviso', (n && n.body) || '', dd.tipo);
           var mm = $('avmsg');
           if (mm && dd.tipo === 'teste') {
             mm.textContent = 'Aviso de teste recebido.';
@@ -28125,6 +28153,28 @@
     pushSalvar();
     render();
   }
+  // Cartão de aviso dentro do app (mesmo desenho do aviso de teste): ícone, título, texto embaixo e hora.
+  var AV_IC = { teste: '🔔', novo: '🛒', comp: '🧾', cancel: '⚠️', pago: '✅' };
+  function avDentro(titulo, corpo, tipo) {
+    var velho = document.getElementById('avDentro');
+    if (velho) velho.remove();
+    var b = document.createElement('div');
+    b.id = 'avDentro';
+    b.className = 'avdentro';
+    b.setAttribute('role', 'status');
+    var t = String(titulo || '').replace(/^[^\wÀ-ÿ]+/, '');
+    var d = new Date();
+    b.innerHTML = '<span class="adi">' + (AV_IC[tipo] || '🔔') + '</span><span class="adt"><b>' + esc(t) + '</b>' + (corpo ? '<span>' + esc(corpo) + '</span>' : '') + '</span><small>agora</small><i class="adb"></i>';
+    b.addEventListener('click', function () {
+      b.remove();
+      if (tipo && tipo !== 'teste') setView('ped');
+    });
+    document.body.appendChild(b);
+    setTimeout(function () {
+      b.classList.add('sai');
+      setTimeout(function () { if (b.parentNode) b.remove(); }, 400);
+    }, 4000);
+  }
   function avTeste() {
     var a = avPref(),
       nat = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform(),
@@ -28146,6 +28196,7 @@
       return;
     }
     avTocar(a.sn);
+    avDentro('Aviso de teste', 'Assim chegam os avisos neste aparelho.', 'teste');
     try {
       if ('Notification' in window) {
         var go = function () {
@@ -28205,6 +28256,7 @@
     }
   });
   window.__avTocaTipo = avTocaTipo;
+  window.__avDentro = avDentro;
   window.__pushIniciar = pushIniciar;
   window.__avisoLocal = avisoLocal;
   setTimeout(pushIniciar, 5000);
@@ -30709,9 +30761,37 @@
       'Preço mínimo seguro (trava) do pedido: ' + gs(agg.trava) + '. Vendido por ' + gs(agg.price) + ', ' + (agg.livre >= 0 ? 'então o preço está seguro.' : 'abaixo do seguro. Veja a aba Dashboard.') + ' Cada peça foi gravada no Histórico.';
   }
   // Botão "Adicionar pedido".
+  // Foto da peça voa até a barra do pedido.
+  function cartVoa(src, rect) {
+    var alvo = $('cartBar');
+    if (REDUCED || !src || !rect || !alvo || alvo.hidden) return;
+    var r = alvo.getBoundingClientRect(),
+      f = document.createElement('div'),
+      w = Math.min(rect.width, 120),
+      h = w * (rect.height / rect.width);
+    f.style.cssText = 'position:fixed;z-index:320;pointer-events:none;border-radius:12px;background:#fff center/contain no-repeat url("' + src + '");box-shadow:0 8px 22px rgba(0,0,0,.45);left:' + (rect.left + rect.width / 2 - w / 2) + 'px;top:' + (rect.top + rect.height / 2 - h / 2) + 'px;width:' + w + 'px;height:' + h + 'px';
+    document.body.appendChild(f);
+    var dx = r.left + 40 - (rect.left + rect.width / 2),
+      dy = r.top + r.height / 2 - (rect.top + rect.height / 2);
+    var an = f.animate ? f.animate([{ transform: 'translate(0,0) scale(1)', opacity: 1 }, { transform: 'translate(' + dx * 0.5 + 'px,' + (dy * 0.5 - 50) + 'px) scale(.7)', opacity: 1, offset: 0.55 }, { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(.2)', opacity: 0.2 }], { duration: 650, easing: 'cubic-bezier(.45,.05,.55,.95)' }) : null;
+    var fim = function () {
+      f.remove();
+      pulsa(alvo);
+    };
+    if (an) an.onfinish = fim;
+    else setTimeout(fim, 650);
+    setTimeout(function () {
+      if (f.parentNode) f.remove();
+    }, 1500);
+  }
+  window.cartVoa = cartVoa;
   $('sCartAdd').onclick = function () {
     var sel = S._vsel;
     if (!sel || sel.qty <= 0 || gLivre(sel) <= 0) return;
+    var fi = window.__voaSrc || document.querySelector('#vDetail img'),
+      fr = fi ? fi.getBoundingClientRect() : null,
+      fs = fi ? fi.currentSrc || fi.src : '';
+    window.__voaSrc = null;
     var q = Math.min(S.qty, gLivre(sel));
     // peças iguais de lotes diferentes: a venda sai de uma e completa com as outras
     var fontes = [sel].concat(
@@ -30749,7 +30829,7 @@
     render();
     window.scrollTo(0, 0);
     setTimeout(function () {
-      pulsa($('cartBar'));
+      cartVoa(fs, fr);
     }, 60);
   };
   document.addEventListener('input', function (ev) {
