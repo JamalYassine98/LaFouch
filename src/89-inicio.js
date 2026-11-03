@@ -122,7 +122,7 @@
       ajustes: ['Ajustes', ['Backup e metas', '']],
       novo: ['Novo produto', ['Cadastrar', '']],
       cont: ['Contagem', ['Conferir estoque', '']],
-      lotes: ['Compras', ['Fornecedores', '']],
+      lotes: ['Fornecedores', ['Compras de mercadoria', '']],
       cli: ['Clientes', [S.clientes.length + (S.clientes.length === 1 ? ' cadastrado' : ' cadastrados'), '']],
       ped: ['Pedidos online', [pedNovos() + ' novos', pedNovos() ? 'w' : '']],
       onl: ['Loja online', ['Catálogo e site', '']],
@@ -219,7 +219,7 @@
   var BARRA_NOME = {
     vendas: 'Catálogo', estoque: 'Inventário', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Resumo',
     din: 'Dinheiro', giro: 'Giro', prec: 'Preços', cat: 'Catálogo', ajustes: 'Ajustes', ped: 'Pedidos', onl: 'Loja',
-    cli: 'Clientes', cont: 'Contagem', lotes: 'Compras', novo: 'Novo', notif: 'Avisos'
+    cli: 'Clientes', cont: 'Contagem', lotes: 'Fornecedores', novo: 'Novo', notif: 'Avisos'
   };
   function barraLista() {
     iniLista();

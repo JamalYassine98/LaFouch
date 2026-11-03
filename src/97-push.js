@@ -129,8 +129,21 @@
         PUSH.ok = false;
       });
       // app aberto: só atualiza a lista de pedidos
-      PN.addListener('pushNotificationReceived', function () {
+      // (com o app aberto o Android não mostra o aviso do sistema: tocamos o som e mostramos um aviso aqui dentro)
+      PN.addListener('pushNotificationReceived', function (n) {
         if (window.__pedSync) window.__pedSync();
+        try {
+          var dd = (n && n.data) || {},
+            tp = { comp: 'c', cancel: 'x', pago: 'p' }[dd.tipo] || 'n',
+            av = avPref();
+          avTocar(av['s' + tp] || av.sn);
+          if (typeof lfaToast === 'function') lfaToast('<b>' + esc((n && n.title) || 'Aviso') + '</b>' + (n && n.body ? '<br>' + esc(n.body) : ''));
+          var mm = $('avmsg');
+          if (mm && dd.tipo === 'teste') {
+            mm.textContent = 'Aviso de teste recebido.';
+            mm.hidden = false;
+          }
+        } catch (e) {}
       });
       // toque no aviso: abre a aba Pedidos
       PN.addListener('pushNotificationActionPerformed', function () {

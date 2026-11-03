@@ -2,6 +2,7 @@
   // Troca de aba.
   function setView(v) {
     S.view = v;
+    if (v !== 'vendas') S.catOpen = false; // a tela do WhatsApp só existe dentro da aba de vendas: ao sair, fecha
     S.msg = '';
     try {
       history.replaceState(null, '', '#' + v);

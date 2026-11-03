@@ -1,10 +1,9 @@
 {
- "nome": "3.4.3",
+ "nome": "3.4.4",
  "notas": [
-  "Botões da janela de atualização no estilo cheio do app",
-  "Aviso de teste: o sino não deforma mais ao tocar",
-  "Buscar atualização: não redesenha a tela inteira",
-  "Baixa automática agora fica em Ajustes, com explicação",
-  "Aba WhatsApp: cabeçalho e botões do grupo ficam no lugar certo"
+  "Aba WhatsApp: ao trocar de aba pelo menu de baixo, a tela do WhatsApp fecha",
+  "Aviso de teste: com o app aberto agora toca o som e mostra o aviso dentro do app",
+  "“Compras” agora se chama “Fornecedores”",
+  "Botões da janela de atualização no estilo cheio do app"
  ]
 }

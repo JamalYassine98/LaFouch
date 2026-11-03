@@ -866,7 +866,7 @@
       if (!g) {
         S.lotSel = '';
         var t = mk('div', '');
-        t.appendChild(mk('h2', '', 'Compras'));
+        t.appendChild(mk('h2', '', 'Fornecedores'));
         t.firstChild.style.cssText = 'margin:0;font-size:16px';
         var hh = mk(
           'div',

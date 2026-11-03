@@ -488,3 +488,8 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - Buscar atualização troca só o cartão (updRender), sem refazer Ajustes (animação da tela repetia).
 - Janela de atualização: botões bsolid.c.
 - PENDENTE: esboços de animações de transição entre abas (direção) e redesenho global dos botões (.btn cinza), antes de implementar.
+
+## v391 / 3.4.4 (02/11/2026)
+- Bug: ao abrir WhatsApp e tocar noutra aba do menu de baixo, a tela do WhatsApp ficava por cima. setView agora zera S.catOpen quando v != 'vendas' (e renderCatV confere S.view).
+- Dono pediu (02/11): aba Compras do Inventário passa a se chamar Fornecedores (evita confundir com lista de compras). Feito.
+- Aviso de teste só funcionava na 1ª vez: com o app aberto o Android não mostra push; agora pushNotificationReceived toca o som e mostra toast. Causa não confirmada no aparelho.

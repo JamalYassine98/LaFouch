@@ -77,6 +77,7 @@
     S.cvTipo = 'all';
     if (!S.cvOff) S.cvOff = {};
     cvMarcaNovos();
+    if (S.view !== 'vendas') S.catOpen = false;
     $('catV').hidden = !S.catOpen;
     document.body.classList.toggle('catopen', !!S.catOpen);
     if (!S.catOpen) return;

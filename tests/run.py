@@ -897,7 +897,7 @@ async def main():
             txt = await pg.evaluate("() => document.querySelector('#repoView .replist').innerText")
             await pg.click('#eTabP'); await pg.wait_for_timeout(300)
             volta = await pg.evaluate("() => [document.getElementById('repoView').hidden, document.getElementById('listCard').hidden]")
-            ok = (mapa.count('r:0') == 12 and mapa.count('y:5') == 2 and 'y:2' in mapa and 'g:12' in mapa and abas == ['Produtos', 'Compras 1', 'Reposição'] and kl is True
+            ok = (mapa.count('r:0') == 12 and mapa.count('y:5') == 2 and 'y:2' in mapa and 'g:12' in mapa and abas == ['Produtos', 'Fornecedores 1', 'Reposição'] and kl is True
                   and filtro == '+1.50' and rep['vis'] and rep['lista'] and rep['mapa']
                   and rep['itens'][0] == '+0.50:1' and '+3.50:1' in rep['itens'] and '+3.00:0' in rep['itens'] and '+1.50:0' in rep['itens']
                   and '+3.50 · 2 pacotes de 24' in txt and 'Total: 336 peças' in txt
@@ -1133,7 +1133,7 @@ async def main():
             ini = await pg.evaluate("() => { const c = [...document.querySelectorAll('#v-inicio section[data-id=lotes]')][0]; return c ? c.innerText.replace(/\\s+/g,' ') : '' }")
             await pg.click('#v-inicio section[data-id=lotes]'); await pg.wait_for_timeout(500)
             irc = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.lotesView, document.querySelector('#lotView h2') && document.querySelector('#lotView h2').innerText]")
-            ok = ('8 peças da compra de' in ini and 'sem detalhe' in ini and irc == ['estoque', True, 'Compras'] and not pg.erros)
+            ok = ('8 peças da compra de' in ini and 'sem detalhe' in ini and irc == ['estoque', True, 'Fornecedores'] and not pg.erros)
             total += 1
             print(('  ok  ' if ok else ' FALHA ') + 'Início: aviso de peças sem detalhe leva à aba Compras')
             if not ok: falhas.append('inicio compras'); print('        veio', ini, irc, pg.erros)
@@ -1600,7 +1600,7 @@ async def main():
                 const png = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
                 S.fotos = {'WA1|Preto': png, 'WA2|Rosa': png}; window.__chamadas = [];
                 window.Capacitor = {Plugins: {Filesystem: {writeFile: async (o) => { window.__chamadas.push(['w', o.path, o.directory]); return {uri: 'file:///cache/' + o.path}; }}, Share: {share: async (o) => { window.__chamadas.push(['s', (o.files || []).length, o.text === undefined]); return {}; }}}};
-                S.catOpen = true; S.cvOff = {}; L.render(); }""")
+                L.setView('vendas'); S.catOpen = true; S.cvOff = {}; L.render(); }""")
             await pg.wait_for_timeout(300)
             wa1 = await pg.evaluate("() => { const h = document.querySelector('.wrap > .top.logo-top').getBoundingClientRect(), c = document.getElementById('catV').getBoundingClientRect(); return [[h.height, h.top, h.bottom, c.top].join('/'), !!document.getElementById('sino') && !document.getElementById('sino2'), document.getElementById('cvCount').textContent]; }")
             await pg.evaluate("() => document.getElementById('cvSend').click()"); await pg.wait_for_timeout(700)
@@ -1676,6 +1676,20 @@ async def main():
             ok = sb[0] == 'rgba(0, 0, 0, 0)' and sb[1] == '0px' and sb2 == [True, True] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'botões teste/atualização sem estilo herdado nem redesenho')
             if not ok: falhas.append('botoes'); print('        veio', sb, sb2, pg.erros)
+            await pg.close()
+
+            # Sair da aba WhatsApp por outra aba (Caixa, Ajustes...) fecha a tela do WhatsApp
+            pg = await pagina()
+            await pg.evaluate("() => { const L = window.__LF; L.S.items = [{tipo:'solar',ref:'WA1',grau:'',cor:'Preto',qty:2}]; L.S.fotos = {'WA1|Preto': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=='}; L.setView('vendas'); L.S.catOpen = true; L.render(); }")
+            sa1 = await pg.evaluate("() => !document.getElementById('catV').hidden")
+            await pg.evaluate("() => window.__LF.setView('caixa')"); await pg.wait_for_timeout(300)
+            sa2 = await pg.evaluate("() => [document.getElementById('catV').hidden, document.body.classList.contains('catopen')]")
+            await pg.evaluate("() => window.__LF.setView('vendas')"); await pg.wait_for_timeout(300)
+            sa3 = await pg.evaluate("() => document.getElementById('catV').hidden")
+            total += 1
+            ok = sa1 is True and sa2 == [True, False] and sa3 is True and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'sair da aba WhatsApp pelo menu fecha a tela')
+            if not ok: falhas.append('sair whatsapp'); print('        veio', sa1, sa2, sa3, pg.erros)
             await pg.close()
 
             # Sons e avisos: um som para cada tipo de aviso, janela de escolha, sem som e preferência antiga preservada

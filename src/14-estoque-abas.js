@@ -349,7 +349,7 @@
     });
     mkTab(
       'eTabL',
-      'Compras',
+      'Fornecedores',
       !!S.lotesView,
       function () {
         S.repoView = false;

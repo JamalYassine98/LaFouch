@@ -857,9 +857,9 @@
     } catch (e) {}
   }
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 390;
+  var APP_BUILD = 391;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '3.4.3'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '3.4.4'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Movimentos: todo fato de dinheiro ou estoque é gravado por aqui (livro + histórico juntos). =====
   // Formato do registro do histórico (S.dlog) de uma compra de mercadoria.
   function dlogLote(x) {
@@ -5396,7 +5396,7 @@
     });
     mkTab(
       'eTabL',
-      'Compras',
+      'Fornecedores',
       !!S.lotesView,
       function () {
         S.repoView = false;
@@ -7413,6 +7413,7 @@
     S.cvTipo = 'all';
     if (!S.cvOff) S.cvOff = {};
     cvMarcaNovos();
+    if (S.view !== 'vendas') S.catOpen = false;
     $('catV').hidden = !S.catOpen;
     document.body.classList.toggle('catopen', !!S.catOpen);
     if (!S.catOpen) return;
@@ -9208,7 +9209,7 @@
       if (!g) {
         S.lotSel = '';
         var t = mk('div', '');
-        t.appendChild(mk('h2', '', 'Compras'));
+        t.appendChild(mk('h2', '', 'Fornecedores'));
         t.firstChild.style.cssText = 'margin:0;font-size:16px';
         var hh = mk(
           'div',
@@ -21049,7 +21050,7 @@
       ajustes: ['Ajustes', ['Backup e metas', '']],
       novo: ['Novo produto', ['Cadastrar', '']],
       cont: ['Contagem', ['Conferir estoque', '']],
-      lotes: ['Compras', ['Fornecedores', '']],
+      lotes: ['Fornecedores', ['Compras de mercadoria', '']],
       cli: ['Clientes', [S.clientes.length + (S.clientes.length === 1 ? ' cadastrado' : ' cadastrados'), '']],
       ped: ['Pedidos online', [pedNovos() + ' novos', pedNovos() ? 'w' : '']],
       onl: ['Loja online', ['Catálogo e site', '']],
@@ -21146,7 +21147,7 @@
   var BARRA_NOME = {
     vendas: 'Catálogo', estoque: 'Inventário', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Resumo',
     din: 'Dinheiro', giro: 'Giro', prec: 'Preços', cat: 'Catálogo', ajustes: 'Ajustes', ped: 'Pedidos', onl: 'Loja',
-    cli: 'Clientes', cont: 'Contagem', lotes: 'Compras', novo: 'Novo', notif: 'Avisos'
+    cli: 'Clientes', cont: 'Contagem', lotes: 'Fornecedores', novo: 'Novo', notif: 'Avisos'
   };
   function barraLista() {
     iniLista();
@@ -21358,6 +21359,7 @@
   // Troca de aba.
   function setView(v) {
     S.view = v;
+    if (v !== 'vendas') S.catOpen = false; // a tela do WhatsApp só existe dentro da aba de vendas: ao sair, fecha
     S.msg = '';
     try {
       history.replaceState(null, '', '#' + v);
@@ -27963,8 +27965,21 @@
         PUSH.ok = false;
       });
       // app aberto: só atualiza a lista de pedidos
-      PN.addListener('pushNotificationReceived', function () {
+      // (com o app aberto o Android não mostra o aviso do sistema: tocamos o som e mostramos um aviso aqui dentro)
+      PN.addListener('pushNotificationReceived', function (n) {
         if (window.__pedSync) window.__pedSync();
+        try {
+          var dd = (n && n.data) || {},
+            tp = { comp: 'c', cancel: 'x', pago: 'p' }[dd.tipo] || 'n',
+            av = avPref();
+          avTocar(av['s' + tp] || av.sn);
+          if (typeof lfaToast === 'function') lfaToast('<b>' + esc((n && n.title) || 'Aviso') + '</b>' + (n && n.body ? '<br>' + esc(n.body) : ''));
+          var mm = $('avmsg');
+          if (mm && dd.tipo === 'teste') {
+            mm.textContent = 'Aviso de teste recebido.';
+            mm.hidden = false;
+          }
+        } catch (e) {}
       });
       // toque no aviso: abre a aba Pedidos
       PN.addListener('pushNotificationActionPerformed', function () {
