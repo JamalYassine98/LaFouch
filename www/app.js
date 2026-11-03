@@ -857,9 +857,9 @@
     } catch (e) {}
   }
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 387;
+  var APP_BUILD = 388;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '3.4'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '3.4.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Movimentos: todo fato de dinheiro ou estoque é gravado por aqui (livro + histórico juntos). =====
   // Formato do registro do histórico (S.dlog) de uma compra de mercadoria.
   function dlogLote(x) {
@@ -26341,7 +26341,7 @@
       b.style.cssText = 'position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:60;background:var(--card,#1b2027);color:var(--fg,#fff);border:1.5px solid var(--accent,#e6007e);border-radius:14px;padding:10px 12px;display:flex;gap:10px;align-items:center;box-shadow:0 6px 24px rgba(0,0,0,.35)';
       document.body.appendChild(b);
     }
-    b.innerHTML = '<span style="flex:1;font-size:14px"><b>Atualização pronta</b><br><span style="opacity:.75">O app novo já foi baixado.</span></span><button type="button" class="btn" data-act="updagora">Atualizar agora</button><button type="button" class="pdLink" data-act="updmais" aria-label="Depois">Depois</button>';
+    b.innerHTML = '<span style="flex:1;font-size:14px"><b>Atualização pronta</b><br><span style="opacity:.75">O app novo já foi baixado.</span></span><button type="button" class="updbtn" data-act="updagora">⬇ Atualizar</button><button type="button" class="pdLink" data-act="updmais" aria-label="Depois">Depois</button>';
   }
   // Baixa a versão nova. manual = o dono apertou "Buscar atualização".
   function updBusca(manual) {

@@ -17,7 +17,7 @@
       b.style.cssText = 'position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:60;background:var(--card,#1b2027);color:var(--fg,#fff);border:1.5px solid var(--accent,#e6007e);border-radius:14px;padding:10px 12px;display:flex;gap:10px;align-items:center;box-shadow:0 6px 24px rgba(0,0,0,.35)';
       document.body.appendChild(b);
     }
-    b.innerHTML = '<span style="flex:1;font-size:14px"><b>Atualização pronta</b><br><span style="opacity:.75">O app novo já foi baixado.</span></span><button type="button" class="btn" data-act="updagora">Atualizar agora</button><button type="button" class="pdLink" data-act="updmais" aria-label="Depois">Depois</button>';
+    b.innerHTML = '<span style="flex:1;font-size:14px"><b>Atualização pronta</b><br><span style="opacity:.75">O app novo já foi baixado.</span></span><button type="button" class="updbtn" data-act="updagora">⬇ Atualizar</button><button type="button" class="pdLink" data-act="updmais" aria-label="Depois">Depois</button>';
   }
   // Baixa a versão nova. manual = o dono apertou "Buscar atualização".
   function updBusca(manual) {

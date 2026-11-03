@@ -470,3 +470,6 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - Aba WhatsApp: cabeçalho (logo/sino) com as mesmas medidas das outras abas (padding de .catov igual ao body, margem 18px).
 - Tela vazia ao voltar do segundo plano ("resolve ao encostar"): src/98-repinta.js força novo desenho ao voltar (opacity .999 por 2 quadros em visibilitychange/pageshow/focus). Primeira tentativa com transform:translateZ quebrava position:fixed; não usar. NÃO verificado em aparelho real.
 - CI: testes rodam com TZ=America/Asuncion.
+
+## v388 / 3.4.1 (02/11/2026)
+- Botão da faixa "Atualização pronta" (updbtn) no estilo cheio do app; "Depois" discreto.
