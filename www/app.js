@@ -857,9 +857,9 @@
     } catch (e) {}
   }
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 388;
+  var APP_BUILD = 389;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '3.4.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '3.4.2'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Movimentos: todo fato de dinheiro ou estoque é gravado por aqui (livro + histórico juntos). =====
   // Formato do registro do histórico (S.dlog) de uma compra de mercadoria.
   function dlogLote(x) {
@@ -7416,6 +7416,8 @@
     $('catV').hidden = !S.catOpen;
     document.body.classList.toggle('catopen', !!S.catOpen);
     if (!S.catOpen) return;
+    if (document.scrollingElement) document.scrollingElement.scrollTop = 0;
+    cvPosiciona();
     var L = catList(),
       g = $('cvGal');
     g.textContent = '';
@@ -7471,18 +7473,24 @@
       ? 'No celular abre o compartilhamento e você escolhe o WhatsApp. No computador, as imagens são copiadas (uma por vez) ou baixadas.'
       : 'Sem fotos de peças em estoque nesse tipo. Use "+ Adicionar produto" > "Tirar foto da peça".';
   }
-  // logo e sino também na aba WhatsApp (montados aqui, e não no index.html, para chegarem por atualização automática)
-  (function () {
+  // A tela do WhatsApp fica logo abaixo do cabeçalho e dos botões do grupo (que continuam visíveis e iguais às outras abas).
+  function cvPosiciona() {
     var cv = $('catV');
-    if (!cv || $('sino2')) return;
-    var d = document.createElement('div');
-    d.className = 'top logo-top';
-    d.style.cssText = 'max-width:980px;margin:0 auto 18px'; // mesmas medidas do cabeçalho das outras abas
-    d.innerHTML =
-      '<button type="button" class="sino" id="sino2" data-act="view" data-id="notif" aria-label="Notificações"></button>' +
-      '<div class="brand"><img class="lg-e" src="logo-app.png" alt="La Fouch - Tudo em Óculos"><img class="lg-c" src="logo-app-claro.png" alt="La Fouch - Tudo em Óculos"></div>';
-    cv.insertBefore(d, cv.firstChild);
-  })();
+    if (!cv || cv.hidden) return;
+    var gt = $('grpTabs'),
+      topo = document.querySelector('.wrap > .top.logo-top'),
+      ref = gt && !gt.hidden ? gt : topo;
+    if (!ref) return;
+    var r = ref.getBoundingClientRect(),
+      t = topo ? topo.getBoundingClientRect() : r;
+    cv.style.top = Math.max(0, Math.round(r.bottom + 18)) + 'px';
+    cv.style.paddingTop = '0';
+    cv.style.paddingLeft = Math.max(0, Math.round(t.left)) + 'px';
+    cv.style.paddingRight = Math.max(0, Math.round(window.innerWidth - t.right)) + 'px';
+  }
+  window.addEventListener('resize', cvPosiciona);
+  // direto no body: dentro de uma tela com animação o "fixed" deixa de ser da janela e a aba WhatsApp aparecia deslocada
+  if ($('catV') && $('catV').parentNode !== document.body) document.body.appendChild($('catV'));
   $('cvAll').onclick = function () {
     var L = catList(),
       todos = L.every(function (o) {
@@ -7610,11 +7618,16 @@
           });
           return job
             .then(function () {
-              return P.Share.share({ title: 'La Fouch', text: cvTexto(sel), files: uris, dialogTitle: 'Enviar pelo WhatsApp' });
+              // só as fotos vão no compartilhamento (o WhatsApp descarta as fotos quando junto vai um texto); a mensagem fica copiada para colar
+              try {
+                if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(cvTexto(sel)).catch(function () {});
+              } catch (e) {}
+              m.textContent = uris.length + ' foto(s) prontas. A mensagem foi copiada: cole na conversa se quiser.';
+              return P.Share.share({ title: 'La Fouch', files: uris, dialogTitle: 'Enviar pelo WhatsApp' });
             })
             .then(
               function () {
-                m.textContent = 'Escolha o WhatsApp e o contato na janela que abriu.';
+                m.textContent = 'Fotos enviadas para o compartilhamento. A mensagem está copiada para colar.';
               },
               function (e) {
                 m.textContent = /cancel/i.test((e && (e.message || e.name)) || '') ? '' : 'Não foi possível compartilhar.';
@@ -13183,6 +13196,11 @@
     }
     h += '</section>';
     // avisos de pedidos do site (depois da segurança: os testes esperam a biometria como primeiro interruptor)
+    h +=
+      '<section class="card col" id="baixaCard" style="gap:10px"><div><h2 style="margin:0;font-size:16px">Pedidos do site</h2><div class="hint" style="margin:2px 0 0">Define o que o app faz quando você marca um pedido do site como entregue.</div></div>' +
+      '<button type="button" class="swrow" data-act="pedbaixa" role="switch" aria-checked="' + (S.baixaAuto ? 'true' : 'false') + '" style="background:none;border:0;padding:0;color:inherit;font:inherit;text-align:left;width:100%;cursor:pointer"><span>Baixa automática<div class="hint" style="margin:2px 0 0;font-weight:400">' +
+      (S.baixaAuto ? 'Ligada: ao entregar o pedido, o estoque baixa e a venda é registrada sozinha.' : 'Desligada: ao entregar, você registra a venda e baixa o estoque à mão.') +
+      '</div></span><span class="sw"><input type="checkbox" tabindex="-1" aria-hidden="true" style="pointer-events:none"' + (S.baixaAuto ? ' checked' : '') + '><i></i></span></button></section>';
     h += avPedidosHtml();
     return h;
   }
@@ -24670,7 +24688,6 @@
         '<div class="top"><div><h1>Pedidos online</h1><div class="crumb">' +
         (PED_INFO.ts ? (PED_INFO.err ? '<span style="color:var(--bad)">Não consegui buscar os pedidos: ' + esc(PED_INFO.err) + '</span>' : 'Última busca às ' + fh(PED_INFO.ts)) : 'Buscando pedidos…') +
         ' · <button type="button" class="pdLink" data-act="pedver">Verificar agora</button>' +
-        ' · <button type="button" class="pdLink" data-act="pedbaixa">Baixa automática: ' + (S.baixaAuto ? 'ligada' : 'desligada') + '</button>' +
         (S.pedidos.some(function (p) { return p.teste; }) ? ' · <button type="button" class="pdLink" data-act="pedteste">' + (S._pedTst ? 'Apagar os testes? Toque de novo' : 'Apagar pedidos de teste') + '</button>' : '') +
         '</div></div></div>';
     h += pedEsperaHtml();
@@ -29723,8 +29740,12 @@
             e = 1 - Math.pow(1 - k, 3);
           node.nodeValue =
             k < 1
-              ? orig.replace(/\d[\d.]*/g, function (m) {
-                  return Math.round(parseInt(m.replace(/\./g, ''), 10) * e).toLocaleString('pt-BR');
+              ? orig.replace(/\d[\d.]*(?:,\d+)?/g, function (m) {
+                  // mantém as casas decimais do número (0,00 não vira 0,0 durante a contagem)
+                  var p = m.split(','),
+                    d = p[1] ? p[1].length : 0,
+                    v = parseFloat(p[0].replace(/\./g, '') + (d ? '.' + p[1] : '')) * e;
+                  return v.toLocaleString('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d });
                 })
               : orig;
           if (k < 1) requestAnimationFrame(passo);
@@ -31289,14 +31310,11 @@
   // Força um novo desenho ao voltar, e de novo um instante depois.
   (function () {
     function repinta() {
-      var d = document.documentElement;
-      if (!d) return;
-      d.style.opacity = '0.999'; // muda a camada de desenho sem mexer no layout
-      requestAnimationFrame(function () {
-        requestAnimationFrame(function () {
-          d.style.opacity = '';
-        });
-      });
+      var e = document.getElementById('mainnav');
+      if (!e) return;
+      e.style.display = 'none'; // força o navegador a recalcular e redesenhar, tudo no mesmo instante (sem piscar)
+      void e.offsetHeight;
+      e.style.display = '';
     }
     function volta() {
       if (document.hidden) return;

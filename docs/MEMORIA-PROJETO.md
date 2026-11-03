@@ -473,3 +473,12 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 
 ## v388 / 3.4.1 (02/11/2026)
 - Botão da faixa "Atualização pronta" (updbtn) no estilo cheio do app; "Depois" discreto.
+
+## v389 / 3.4.2 (02/11/2026)
+- Baixa automática saiu da tela Pedidos online e foi para Ajustes (cartão "Pedidos do site", chave + explicação).
+- Caixa: contagem animada mantinha 0,0 em vez de 0,00 (regex de contaNumeros agora preserva casas decimais).
+- Aba WhatsApp (#catV): causa raiz do deslocamento/cabeçalho duplicado = position:fixed dentro de tela com transform (animação). catV agora é movido para o body e posicionado logo abaixo do cabeçalho e dos botões do grupo (cvPosiciona); sem cabeçalho próprio.
+- WhatsApp envio: dono relatou que o WhatsApp recebia só texto. Agora Share leva SÓ as fotos e a mensagem vai copiada para a área de transferência. NÃO verificado em aparelho real; se ainda falhar, investigar (plugins Filesystem/Share, FileProvider).
+- PENDENTE: dono quer esboços e ideias para melhorar muito o uso da aba WhatsApp antes de implementar.
+- Ícone da notificação: escudo branco (assets/notif, passo no build-apk.yml + meta-data default_notification_icon). Só chega com APK novo; dono não pediu APK ainda.
+- Google sem ícone: favicons 48/96/ico já estão no site; falta o Google recoletar (Search Console > Inspeção de URL > Solicitar indexação).

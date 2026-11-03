@@ -1599,15 +1599,16 @@ async def main():
             await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.items = [{tipo:'solar',ref:'WA1',grau:'',cor:'Preto',qty:2}, {tipo:'solar',ref:'WA2',grau:'',cor:'Rosa',qty:1}];
                 const png = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
                 S.fotos = {'WA1|Preto': png, 'WA2|Rosa': png}; window.__chamadas = [];
-                window.Capacitor = {Plugins: {Filesystem: {writeFile: async (o) => { window.__chamadas.push(['w', o.path, o.directory]); return {uri: 'file:///cache/' + o.path}; }}, Share: {share: async (o) => { window.__chamadas.push(['s', (o.files || []).length, o.text.indexOf('La Fouch') === 0]); return {}; }}}};
+                window.Capacitor = {Plugins: {Filesystem: {writeFile: async (o) => { window.__chamadas.push(['w', o.path, o.directory]); return {uri: 'file:///cache/' + o.path}; }}, Share: {share: async (o) => { window.__chamadas.push(['s', (o.files || []).length, o.text === undefined]); return {}; }}}};
                 S.catOpen = true; S.cvOff = {}; L.render(); }""")
             await pg.wait_for_timeout(300)
-            wa1 = await pg.evaluate("() => [!!document.querySelector('#catV .brand img'), !!document.getElementById('sino2'), document.getElementById('cvCount').textContent]")
+            wa1 = await pg.evaluate("() => { const h = document.querySelector('.wrap > .top.logo-top').getBoundingClientRect(), c = document.getElementById('catV').getBoundingClientRect(); return [[h.height, h.top, h.bottom, c.top].join('/'), !!document.getElementById('sino') && !document.getElementById('sino2'), document.getElementById('cvCount').textContent]; }")
             await pg.evaluate("() => document.getElementById('cvSend').click()"); await pg.wait_for_timeout(700)
             wa2 = await pg.evaluate("() => window.__chamadas.map(c => c[0]).join('') + '|' + window.__chamadas.filter(c => c[0] === 's').map(c => c.slice(1).join(',')).join('')")
             total += 1
-            ok = wa1[0] is True and wa1[1] is True and wa1[2].startswith('2 de 2') and wa2 == 'wws|2,true' and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'aba WhatsApp: logo e sino visíveis; envio nativo de várias imagens')
+            ok = wa1[0].split('/')[0] != '0' and float(wa1[0].split('/')[3]) >= float(wa1[0].split('/')[2]) - 1 and float(wa1[0].split('/')[1]) >= 0 and wa1[1] is True and wa1[2].startswith('2 de 2') and wa2 == 'wws|2,true' and not pg.erros
+            if not ok: print('        dbg', wa1)
+            print(('  ok  ' if ok else ' FALHA ') + 'aba WhatsApp: logo e sino do app visíveis, tela abaixo do cabeçalho; envio nativo de várias imagens')
             if not ok: falhas.append('whatsapp'); print('        veio', wa1, wa2, pg.erros)
             await pg.close()
 
@@ -1636,6 +1637,31 @@ async def main():
             ok = ju1 == [True, True] and ju2 == [True, True] and ju3 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'janela de atualização e abertura com logo')
             if not ok: falhas.append('updjanela'); print('        veio', ju1, ju2, ju3, pg.erros)
+            await pg.close()
+
+            # Baixa automática fica em Ajustes (com explicação) e não mais na tela de Pedidos
+            pg = await pagina()
+            await pg.evaluate("() => { const L = window.__LF; L.S.baixaAuto = true; L.S._ajForce = true; L.setView('ajustes'); }"); await pg.wait_for_timeout(300)
+            ba1 = await pg.evaluate("() => { const c = document.getElementById('baixaCard'); return c ? [c.innerText.indexOf('estoque baixa') >= 0, c.querySelector('input').checked] : null }")
+            await pg.evaluate("() => document.querySelector('#baixaCard [data-act=pedbaixa]').click()"); await pg.wait_for_timeout(300)
+            ba2 = await pg.evaluate("() => [window.__LF.S.baixaAuto, document.getElementById('baixaCard').innerText.indexOf('à mão') >= 0]")
+            await pg.evaluate("() => window.__LF.setView('ped')"); await pg.wait_for_timeout(300)
+            ba3 = await pg.evaluate("() => document.getElementById('v-ped') ? document.getElementById('v-ped').innerText.indexOf('Baixa automática') < 0 : null")
+            total += 1
+            ok = ba1 == [True, True] and ba2 == [False, True] and ba3 is True and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'baixa automática em Ajustes')
+            if not ok: falhas.append('baixa ajustes'); print('        veio', ba1, ba2, ba3, pg.erros)
+            await pg.close()
+
+            # Contagem animada dos números mantém as casas decimais (US$ 0,00 não vira 0,0)
+            pg = await pagina()
+            cn = await pg.evaluate("""async () => { const d = document.createElement('div'); d.innerHTML = '<span>US$ 0,00</span> <span>R$ 12,50</span> <span>G$ 1.196</span>'; document.body.appendChild(d);
+                window.contaNumeros(d); await new Promise(r => setTimeout(r, 150)); const meio = d.innerText; await new Promise(r => setTimeout(r, 1100)); return [meio, d.innerText]; }""")
+            total += 1
+            import re as _re
+            ok = _re.search(r'US\$ 0,00', cn[0]) and _re.search(r'R\$ \d+,\d\d\b', cn[0]) and cn[1] == 'US$ 0,00 R$ 12,50 G$ 1.196' and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'contagem animada mantém as casas decimais')
+            if not ok: falhas.append('contagem decimais'); print('        veio', cn, pg.erros)
             await pg.close()
 
             # Sons e avisos: um som para cada tipo de aviso, janela de escolha, sem som e preferência antiga preservada

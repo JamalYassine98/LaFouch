@@ -539,7 +539,6 @@
         '<div class="top"><div><h1>Pedidos online</h1><div class="crumb">' +
         (PED_INFO.ts ? (PED_INFO.err ? '<span style="color:var(--bad)">Não consegui buscar os pedidos: ' + esc(PED_INFO.err) + '</span>' : 'Última busca às ' + fh(PED_INFO.ts)) : 'Buscando pedidos…') +
         ' · <button type="button" class="pdLink" data-act="pedver">Verificar agora</button>' +
-        ' · <button type="button" class="pdLink" data-act="pedbaixa">Baixa automática: ' + (S.baixaAuto ? 'ligada' : 'desligada') + '</button>' +
         (S.pedidos.some(function (p) { return p.teste; }) ? ' · <button type="button" class="pdLink" data-act="pedteste">' + (S._pedTst ? 'Apagar os testes? Toque de novo' : 'Apagar pedidos de teste') + '</button>' : '') +
         '</div></div></div>';
     h += pedEsperaHtml();

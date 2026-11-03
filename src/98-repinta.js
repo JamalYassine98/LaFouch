@@ -2,14 +2,11 @@
   // Força um novo desenho ao voltar, e de novo um instante depois.
   (function () {
     function repinta() {
-      var d = document.documentElement;
-      if (!d) return;
-      d.style.opacity = '0.999'; // muda a camada de desenho sem mexer no layout
-      requestAnimationFrame(function () {
-        requestAnimationFrame(function () {
-          d.style.opacity = '';
-        });
-      });
+      var e = document.getElementById('mainnav');
+      if (!e) return;
+      e.style.display = 'none'; // força o navegador a recalcular e redesenhar, tudo no mesmo instante (sem piscar)
+      void e.offsetHeight;
+      e.style.display = '';
     }
     function volta() {
       if (document.hidden) return;

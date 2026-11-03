@@ -69,6 +69,20 @@ jobs:
       - name: Janela inicial na cor do app
         run: python3 tools/patch-android-tema.py android/app/src/main/res
 
+      - name: Icone das notificacoes (escudo da loja)
+        run: |
+          cp -r assets/notif/drawable-* android/app/src/main/res/
+          printf '<?xml version="1.0" encoding="utf-8"?>\n<resources><color name="lf_notif">#a2447c</color></resources>\n' > android/app/src/main/res/values/lf_notif.xml
+          python3 - <<'PY'
+          p = 'android/app/src/main/AndroidManifest.xml'
+          s = open(p).read()
+          if 'default_notification_icon' not in s:
+              meta = '    <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@drawable/ic_stat_lafouch" />\n    <meta-data android:name="com.google.firebase.messaging.default_notification_color" android:resource="@color/lf_notif" />\n'
+              s = s.replace('</application>', meta + '</application>', 1)
+              open(p, 'w').write(s)
+          print([l for l in s.splitlines() if 'default_notification' in l])
+          PY
+
       - name: Icone do app (opcional)
         continue-on-error: true
         run: |

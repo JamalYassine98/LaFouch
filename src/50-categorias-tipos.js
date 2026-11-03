@@ -80,6 +80,8 @@
     $('catV').hidden = !S.catOpen;
     document.body.classList.toggle('catopen', !!S.catOpen);
     if (!S.catOpen) return;
+    if (document.scrollingElement) document.scrollingElement.scrollTop = 0;
+    cvPosiciona();
     var L = catList(),
       g = $('cvGal');
     g.textContent = '';
@@ -135,18 +137,24 @@
       ? 'No celular abre o compartilhamento e você escolhe o WhatsApp. No computador, as imagens são copiadas (uma por vez) ou baixadas.'
       : 'Sem fotos de peças em estoque nesse tipo. Use "+ Adicionar produto" > "Tirar foto da peça".';
   }
-  // logo e sino também na aba WhatsApp (montados aqui, e não no index.html, para chegarem por atualização automática)
-  (function () {
+  // A tela do WhatsApp fica logo abaixo do cabeçalho e dos botões do grupo (que continuam visíveis e iguais às outras abas).
+  function cvPosiciona() {
     var cv = $('catV');
-    if (!cv || $('sino2')) return;
-    var d = document.createElement('div');
-    d.className = 'top logo-top';
-    d.style.cssText = 'max-width:980px;margin:0 auto 18px'; // mesmas medidas do cabeçalho das outras abas
-    d.innerHTML =
-      '<button type="button" class="sino" id="sino2" data-act="view" data-id="notif" aria-label="Notificações"></button>' +
-      '<div class="brand"><img class="lg-e" src="logo-app.png" alt="La Fouch - Tudo em Óculos"><img class="lg-c" src="logo-app-claro.png" alt="La Fouch - Tudo em Óculos"></div>';
-    cv.insertBefore(d, cv.firstChild);
-  })();
+    if (!cv || cv.hidden) return;
+    var gt = $('grpTabs'),
+      topo = document.querySelector('.wrap > .top.logo-top'),
+      ref = gt && !gt.hidden ? gt : topo;
+    if (!ref) return;
+    var r = ref.getBoundingClientRect(),
+      t = topo ? topo.getBoundingClientRect() : r;
+    cv.style.top = Math.max(0, Math.round(r.bottom + 18)) + 'px';
+    cv.style.paddingTop = '0';
+    cv.style.paddingLeft = Math.max(0, Math.round(t.left)) + 'px';
+    cv.style.paddingRight = Math.max(0, Math.round(window.innerWidth - t.right)) + 'px';
+  }
+  window.addEventListener('resize', cvPosiciona);
+  // direto no body: dentro de uma tela com animação o "fixed" deixa de ser da janela e a aba WhatsApp aparecia deslocada
+  if ($('catV') && $('catV').parentNode !== document.body) document.body.appendChild($('catV'));
   $('cvAll').onclick = function () {
     var L = catList(),
       todos = L.every(function (o) {
@@ -274,11 +282,16 @@
           });
           return job
             .then(function () {
-              return P.Share.share({ title: 'La Fouch', text: cvTexto(sel), files: uris, dialogTitle: 'Enviar pelo WhatsApp' });
+              // só as fotos vão no compartilhamento (o WhatsApp descarta as fotos quando junto vai um texto); a mensagem fica copiada para colar
+              try {
+                if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(cvTexto(sel)).catch(function () {});
+              } catch (e) {}
+              m.textContent = uris.length + ' foto(s) prontas. A mensagem foi copiada: cole na conversa se quiser.';
+              return P.Share.share({ title: 'La Fouch', files: uris, dialogTitle: 'Enviar pelo WhatsApp' });
             })
             .then(
               function () {
-                m.textContent = 'Escolha o WhatsApp e o contato na janela que abriu.';
+                m.textContent = 'Fotos enviadas para o compartilhamento. A mensagem está copiada para colar.';
               },
               function (e) {
                 m.textContent = /cancel/i.test((e && (e.message || e.name)) || '') ? '' : 'Não foi possível compartilhar.';

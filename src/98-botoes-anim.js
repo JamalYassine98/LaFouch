@@ -121,8 +121,12 @@
             e = 1 - Math.pow(1 - k, 3);
           node.nodeValue =
             k < 1
-              ? orig.replace(/\d[\d.]*/g, function (m) {
-                  return Math.round(parseInt(m.replace(/\./g, ''), 10) * e).toLocaleString('pt-BR');
+              ? orig.replace(/\d[\d.]*(?:,\d+)?/g, function (m) {
+                  // mantém as casas decimais do número (0,00 não vira 0,0 durante a contagem)
+                  var p = m.split(','),
+                    d = p[1] ? p[1].length : 0,
+                    v = parseFloat(p[0].replace(/\./g, '') + (d ? '.' + p[1] : '')) * e;
+                  return v.toLocaleString('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d });
                 })
               : orig;
           if (k < 1) requestAnimationFrame(passo);

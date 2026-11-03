@@ -335,6 +335,11 @@
     }
     h += '</section>';
     // avisos de pedidos do site (depois da segurança: os testes esperam a biometria como primeiro interruptor)
+    h +=
+      '<section class="card col" id="baixaCard" style="gap:10px"><div><h2 style="margin:0;font-size:16px">Pedidos do site</h2><div class="hint" style="margin:2px 0 0">Define o que o app faz quando você marca um pedido do site como entregue.</div></div>' +
+      '<button type="button" class="swrow" data-act="pedbaixa" role="switch" aria-checked="' + (S.baixaAuto ? 'true' : 'false') + '" style="background:none;border:0;padding:0;color:inherit;font:inherit;text-align:left;width:100%;cursor:pointer"><span>Baixa automática<div class="hint" style="margin:2px 0 0;font-weight:400">' +
+      (S.baixaAuto ? 'Ligada: ao entregar o pedido, o estoque baixa e a venda é registrada sozinha.' : 'Desligada: ao entregar, você registra a venda e baixa o estoque à mão.') +
+      '</div></span><span class="sw"><input type="checkbox" tabindex="-1" aria-hidden="true" style="pointer-events:none"' + (S.baixaAuto ? ' checked' : '') + '><i></i></span></button></section>';
     h += avPedidosHtml();
     return h;
   }

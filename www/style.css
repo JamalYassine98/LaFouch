@@ -865,3 +865,5 @@ button:not(:disabled):active.go,.go:not(:disabled):active{box-shadow:0 0 0 6px #
 .updbtn{flex:none;border:0;border-radius:999px;padding:10px 16px;background:linear-gradient(135deg,#b4528a,#a2447c 55%,#7d3361);color:#fff;font:700 14px/1 inherit;font-family:inherit;box-shadow:0 4px 12px rgba(162,68,124,.4);cursor:pointer;transition:transform .12s}
 .updbtn:active{transform:scale(.95)}
 #updBar .pdLink{flex:none;color:var(--mute);font-size:14px;padding:6px 4px}
+
+.catov{overscroll-behavior:contain}
