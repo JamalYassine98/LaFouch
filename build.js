@@ -20,7 +20,10 @@ const IDX = path.join(__dirname, 'www', 'index.html');
 const idx = fs.readFileSync(IDX, 'utf8');
 const idxNovo = idx.replace(/\/\*LOADER\*\/\(function\(\)\{var EMB=\d+/, '/*LOADER*/(function(){var EMB=' + BUILD);
 const NAT = +((corpo.match(/var APP_NAT = (\d+)/) || [0, 1])[1]);
-const VER = JSON.stringify({ v: BUILD, nat: NAT }) + '\n';
+const NOTAS_F = path.join(__dirname, 'docs', 'novidades.json');
+let NOTAS = [];
+try { NOTAS = JSON.parse(fs.readFileSync(NOTAS_F, 'utf8')); } catch (e) {}
+const VER = JSON.stringify(NOTAS.length ? { v: BUILD, nat: NAT, notas: NOTAS } : { v: BUILD, nat: NAT }) + '\n';
 
 if (process.argv.includes('--check')) {
   const atual = fs.existsSync(OUT) ? fs.readFileSync(OUT, 'utf8') : '';

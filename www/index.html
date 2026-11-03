@@ -10,7 +10,21 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>LaFouch</title>
 
+<style id="lfiCss">
+#lfIntro{position:fixed;inset:0;z-index:99999;background:#0f1216;display:flex;align-items:center;justify-content:center;animation:lfiOut .8s 3.1s ease forwards;--lg:url(logo-app.png)}
+@media (prefers-color-scheme:light){#lfIntro{background:#f4f1f4;--lg:url(logo-app-claro.png)}}
+#lfIntro .il{position:relative;width:min(78vw,360px);aspect-ratio:720/452}
+#lfIntro i{position:absolute;inset:0;background:var(--lg) center/contain no-repeat}
+#lfIntro .la{clip-path:inset(0 0 100% 0);animation:lfi1 1.2s .2s cubic-bezier(.3,.7,.2,1) forwards}
+#lfIntro .lb{clip-path:inset(54% 100% 13% 0);animation:lfi2 1s 1.1s cubic-bezier(.3,.7,.2,1) forwards}
+#lfIntro .lc{clip-path:inset(90% 0 0 0);opacity:0;animation:lfi3 .8s 2s ease forwards}
+@keyframes lfi1{to{clip-path:inset(0 0 48% 0)}}@keyframes lfi2{to{clip-path:inset(54% 0 13% 0)}}@keyframes lfi3{to{opacity:1}}
+@keyframes lfiOut{to{opacity:0;visibility:hidden}}
+@media (prefers-reduced-motion:reduce){#lfIntro{animation-duration:.01s;animation-delay:.8s}#lfIntro i{animation-duration:.01s!important;animation-delay:0s!important}}
+</style>
 <link rel="stylesheet" href="style.css">
+<div id="lfIntro" aria-hidden="true"><div class="il"><i class="la"></i><i class="lb"></i><i class="lc"></i></div></div>
+<script>/*INTRO*/(function(){var e=document.getElementById('lfIntro'),r=function(){if(e&&e.parentNode)e.remove()};try{if(sessionStorage.getItem('lf_ni')){sessionStorage.removeItem('lf_ni');r()}}catch(x){}setTimeout(r,4300)})();</script>
 <div id="lockScr" hidden role="dialog" aria-modal="true" aria-label="App bloqueado">
   <h1 id="lockT">La Fouch</h1>
   <div class="hint" id="lockM" role="status"></div>
@@ -275,7 +289,7 @@
 <section id="notaOv" class="catov" aria-label="Venda registrada" hidden></section>
   <div id="notaCf" class="notacf" hidden></div>
   <div id="notaPrint" aria-hidden="true"></div>
-  <script>/*LOADER*/(function(){var EMB=385,d=document,m=null;try{m=JSON.parse(localStorage.getItem('lf_upd')||'null')}catch(e){}
+  <script>/*LOADER*/(function(){var EMB=386,d=document,m=null;try{m=JSON.parse(localStorage.getItem('lf_upd')||'null')}catch(e){}
 function std(){var s=d.createElement('script');s.src='app.js';d.body.appendChild(s)}
 if(!m||!(m.v>EMB)||!window.caches||(m.tent||0)>=2){if(m&&m.v>EMB&&(m.tent||0)>=2){try{localStorage.removeItem('lf_upd');caches.delete('lafouch-upd')}catch(e){}}std();return}
 try{localStorage.setItem('lf_upd',JSON.stringify({v:m.v,tent:(m.tent||0)+1}))}catch(e){}

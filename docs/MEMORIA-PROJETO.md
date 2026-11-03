@@ -456,5 +456,9 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 ## v385 (02/11/2026)
 - Aba WhatsApp do catálogo: o envio de imagens no app instalado usa o compartilhamento nativo (Capacitor Filesystem + Share) com todas as fotos; logo e sino (#sino2) aparecem no topo da aba (criados por JS, chegam por atualização automática).
 - "Depois" na atualização pronta: a faixa some, mas o aviso "Atualização do app pronta" fica em Notificações > urgentes (e conta no sino e na faixa da Início), com botão "Atualizar agora".
-- PENDENTE: dono quer ESBOÇOS da janela de atualização antes de implementar (não implementar até aprovar).
-- PENDENTE: tela cinza (#303030) ao voltar do segundo plano no celular do dono; não reproduzido, causa desconhecida (WebView sem pintar); investigar com mais dados.
+## v386 (02/11/2026) - aprovado pelo dono após esboços
+- Abertura = tela de carregamento: logo do site (3 partes, ~3,5 s, tela cheia) em #lfIntro no index.html; some sozinha em 4,3 s; fundo azul-escuro (claro no modo claro). Não aparece após "Atualizar agora" (sessionStorage lf_ni). Toca sempre que o app abre do zero (inclusive quando o Android encerrou o app). Testes pulam a abertura (lf_ni no init script).
+- Janela de atualização: faixa -> "Depois" (toast "Fica guardado", aviso fica em Notificações urgentes e no sino) -> janela "Atualizar o La Fouch?" com novidades (docs/novidades.json vira version.json.notas; editar a cada release) -> "Atualizando…" com barra -> recarrega -> "Pronto, versão N".
+- Android: tools/patch-android-tema.py (passo no build-apk.yml) põe a janela inicial na cor do app (values/values-night lf_bg), sem o cinza. NÃO verificado em aparelho real.
+- APP_NAT continua 1 de propósito: APKs antigos seguem recebendo atualização automática (sem a abertura); a abertura e a cor da janela só chegam com APK novo.
+- Tela cinza ao voltar do segundo plano: o dono confirmou que vem do app (cinza -> azul -> carrega = app reabrindo do zero; provável encerramento pelo Android). Mitigação acima; sugerido também bateria "sem restrições" no celular.

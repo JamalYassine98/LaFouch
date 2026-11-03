@@ -35,7 +35,7 @@
     return fetch(UPD_URL + 'version.json?t=' + Date.now(), { cache: 'no-store' })
       .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
       .then(function (v) {
-        var n = +v.v || 0;
+        var n = +v.v || 0, nt = Array.isArray(v.notas) ? v.notas.slice(0, 6).map(String) : [];
         UPD.nat = (+v.nat || 1) > APP_NAT;
         if (UPD.nat) return fim('Há uma versão nova, mas ela precisa de um APK novo (pedir ao Claude para gerar).');
         var m = updMarca();
@@ -55,7 +55,7 @@
               c.put('/__upd/style.css', new Response(t[1], { headers: { 'Content-Type': 'text/css' } }))
             ]);
           }).then(function () {
-            localStorage.setItem('lf_upd', JSON.stringify({ v: n, tent: 0 }));
+            localStorage.setItem('lf_upd', JSON.stringify({ v: n, tent: 0, notas: nt }));
             UPD.pronta = n;
             updAviso();
             render();
@@ -66,8 +66,38 @@
       .catch(function (e) { fim(manual ? 'Não consegui buscar agora (' + ((e && e.message) || 'erro') + '). Tente de novo mais tarde.' : ''); });
   }
   ACT.updbusca = function () { UPD.msg = 'Buscando…'; S._ajForce = true; render(); updBusca(true); };
-  ACT.updagora = function () { location.reload(); };
-  ACT.updmais = function () { var b = document.getElementById('updBar'); if (b) b.remove(); render(); }; // "Depois": some a faixa, mas o aviso fica em Notificações (urgente) e no sino
+  // Janela de atualização: confirmar (com o que muda) -> atualizando (barra) -> pronto.
+  ACT.updagora = function () {
+    var m = updMarca(), v = UPD.pronta || +m.v || 0, nt = (m.notas || []).map(function (t) { return '<div style="display:flex;gap:8px"><span style="color:var(--accent-fg)">•</span><span>' + esc(t) + '</span></div>'; }).join('');
+    lfaAbre('lfUpdSh',
+      '<h2 style="margin:0;font-family:var(--display);font-weight:400;font-size:20px">Atualizar o La Fouch?</h2><div class="hint" style="margin:0">Versão ' + v + '</div>' +
+      (nt ? '<div style="display:flex;flex-direction:column;gap:6px;font-size:14px">' + nt + '</div>' : '') +
+      '<div class="hint" style="margin:0">Leva uns 3 segundos. Suas vendas e seus dados continuam salvos.</div>' +
+      '<button type="button" class="btn" data-act="updgo" style="width:100%">Atualizar agora</button><button type="button" class="pdLink" data-act="updnao" style="align-self:center">Agora não</button>');
+  };
+  ACT.updmais = function () { var b = document.getElementById('updBar'); if (b) b.remove(); lfaToast('<b>Fica guardado</b><br>Está em Notificações, no sino.', 3500); render(); }; // "Depois": a faixa some, o aviso fica em Notificações e no sino
+  ACT.updnao = function () { lfaFecha('lfUpdSh'); ACT.updmais(); };
+  ACT.updgo = function () {
+    var v = UPD.pronta || +updMarca().v || 0;
+    lfaAbre('lfUpdSh',
+      '<div style="text-align:center;padding:14px 0"><h2 style="margin:0 0 4px;font-family:var(--display);font-weight:400;font-size:20px">Atualizando…</h2><div class="hint" style="margin:0">Não feche o app</div><div style="height:8px;border-radius:6px;background:var(--line);overflow:hidden;margin:16px 0 4px"><b id="lfUpdPb" style="display:block;height:100%;width:6%;background:var(--accent);border-radius:6px;transition:width 1.3s ease"></b></div></div>');
+    setTimeout(function () { var b = document.getElementById('lfUpdPb'); if (b) b.style.width = '100%'; }, 60);
+    setTimeout(function () {
+      try { localStorage.setItem('lf_updok', String(v)); sessionStorage.setItem('lf_ni', '1'); } catch (e) {}
+      location.reload();
+    }, 1500);
+  };
+  // Depois de reabrir já na versão nova: confirma que deu certo.
+  function updFeito() {
+    var ok = 0;
+    try { ok = +localStorage.getItem('lf_updok') || 0; } catch (e) {}
+    if (!ok) return;
+    try { localStorage.removeItem('lf_updok'); } catch (e) {}
+    if (ok > APP_BUILD) return;
+    lfaAbre('lfUpdSh',
+      '<div style="text-align:center;padding:10px 0"><div style="width:48px;height:48px;border-radius:50%;border:3px solid var(--ok);color:var(--ok);display:grid;place-items:center;margin:0 auto 10px;font-size:24px">✓</div><h2 style="margin:0 0 4px;font-family:var(--display);font-weight:400;font-size:20px">Pronto, versão ' + APP_BUILD + '</h2><div class="hint" style="margin:0 0 14px">Tudo certo.</div><button type="button" class="btn" data-act="updfim" style="width:100%">Continuar</button></div>');
+  }
+  ACT.updfim = function () { lfaFecha('lfUpdSh'); };
   function updPendente() { var m = updMarca(); return Math.max(UPD.pronta || 0, +m.v > APP_BUILD ? +m.v : 0); }
   function updCard() {
     var m = updMarca(),
@@ -81,6 +111,7 @@
   setTimeout(function () {
     var m = updMarca();
     if (m.v && m.v <= APP_BUILD) { try { localStorage.setItem('lf_upd', JSON.stringify({ v: m.v, tent: 0 })); } catch (e) {} }
+    updFeito();
     if (+m.v > APP_BUILD) { UPD.pronta = +m.v; updAviso(); render(); }
   }, 4000);
   if (!/#test/.test(location.hash)) {

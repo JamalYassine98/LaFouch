@@ -346,6 +346,7 @@ async def main():
             async def pagina(scheme='dark', url='#test', ctx=None, tudo=True):
                 ctx = ctx or await b.new_context(viewport={'width': 420, 'height': 900}, color_scheme=scheme, service_workers='block')
                 await ctx.route('**/*', lambda r: r.continue_() if r.request.url.startswith('http://localhost') else r.abort())
+                await ctx.add_init_script("try{sessionStorage.setItem('lf_ni','1')}catch(e){}")  # sem a abertura com logo (ela cobre a tela por 4 s)
                 pg = await ctx.new_page()
                 pg.erros = []
                 pg.on('pageerror', lambda e: pg.erros.append(str(e)))
@@ -1620,6 +1621,21 @@ async def main():
             ok = n1 is True and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'atualização pronta fica nas notificações urgentes')
             if not ok: falhas.append('updnotif'); print('        veio', n1, pg.erros)
+            await pg.close()
+
+            # Janela de atualização: confirmar -> atualizando; "Depois" guarda o aviso; abertura com logo no index.html
+            pg = await pagina()
+            await pg.evaluate("() => { localStorage.setItem('lf_upd', JSON.stringify({v: 99999999999, tent: 0, notas: ['Novidade A', 'Novidade B']})); window.__upd.estado.pronta = 99999999999; }")
+            await pg.evaluate("() => document.querySelector('[data-act=updagora]') ? 0 : window.__LF.ACT.updagora()")
+            ju1 = await pg.evaluate("() => { const o = document.getElementById('lfUpdSh'); return o ? [o.innerText.indexOf('Novidade B') >= 0, !!o.querySelector('[data-act=updgo]')] : null }")
+            await pg.evaluate("() => window.__LF.ACT.updnao()"); await pg.wait_for_timeout(500)
+            ju2 = await pg.evaluate("() => [!document.getElementById('lfUpdSh'), !!document.querySelector('.lfa-toast')]")
+            idx = open('www/index.html').read()
+            ju3 = all(k in idx for k in ('id="lfIntro"', 'lfi1', 'logo-app-claro.png', "lf_ni"))
+            total += 1
+            ok = ju1 == [True, True] and ju2 == [True, True] and ju3 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'janela de atualização e abertura com logo')
+            if not ok: falhas.append('updjanela'); print('        veio', ju1, ju2, ju3, pg.erros)
             await pg.close()
 
             # Sons e avisos: um som para cada tipo de aviso, janela de escolha, sem som e preferência antiga preservada
