@@ -869,3 +869,23 @@ button:not(:disabled):active.go,.go:not(:disabled):active{box-shadow:0 0 0 6px #
 .catov{overscroll-behavior:contain}
 
 .bsolid.c{justify-content:center;text-align:center;font-weight:700;font-size:16px;padding:15px 14px}
+
+/* ===== Família de botões (principal, secundário, perigo, desligado) ===== */
+.go,.mini,.btn{border:0;border-radius:16px;background:linear-gradient(135deg,#b4528a,#a2447c 55%,#7d3361);color:#fff;font-weight:700;box-shadow:0 6px 16px rgba(162,68,124,.35);transition:transform .12s,box-shadow .12s,filter .15s}
+.btn{min-height:46px;padding:0 16px;font-size:15px}
+.go{border-radius:16px}
+.go:not(:disabled):active,.mini:not(:disabled):active,.btn:not(:disabled):active{transform:scale(.96);box-shadow:0 2px 8px rgba(162,68,124,.3)}
+.go[disabled],.go:disabled,.mini[disabled],.btn[disabled]{background:var(--panel2);color:var(--mute);box-shadow:none;opacity:1}
+.mini.ghost,.btn.ghost{background:transparent;color:var(--accent-fg);border:1.5px solid var(--accent);box-shadow:none}
+.btn.bad,.mini.bad{background:var(--badbg);color:var(--bad);border:1.5px solid var(--bad);box-shadow:none}
+.chip{transition:background-color .15s,border-color .15s,color .15s,transform .12s}
+.chip:active{transform:scale(.95)}
+.btn[style*="transparent"]{box-shadow:none}
+/* ===== Transições direcionais entre seções ===== */
+@keyframes slideInL{from{opacity:0;transform:translateX(26%)}to{opacity:1;transform:none}}
+@keyframes slideInR{from{opacity:0;transform:translateX(-26%)}to{opacity:1;transform:none}}
+.slideL{animation:slideInL .38s cubic-bezier(.2,.8,.2,1)}
+.slideR{animation:slideInR .38s cubic-bezier(.2,.8,.2,1)}
+@media (prefers-reduced-motion:reduce){.slideL,.slideR{animation:none}}
+#vRows.vlist .vpreco{margin-left:auto;white-space:nowrap;text-align:right}
+#vRows.vlist .vplus{margin-left:2px}

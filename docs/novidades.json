@@ -1,9 +1,10 @@
 {
- "nome": "3.4.4",
+ "nome": "3.5",
  "notas": [
-  "Aba WhatsApp: ao trocar de aba pelo menu de baixo, a tela do WhatsApp fecha",
-  "Aviso de teste: com o app aberto agora toca o som e mostra o aviso dentro do app",
-  "“Compras” agora se chama “Fornecedores”",
-  "Botões da janela de atualização no estilo cheio do app"
+  "Botões novos em todo o app: mesma família, cor e resposta ao toque",
+  "Troca de abas desliza para o lado que você escolheu",
+  "Ajustes mais limpo: sem Lembretes e Nota fiscal (a cidade da nota é sempre CDE)",
+  "Aviso de teste com o app aberto toca o som e mostra o aviso",
+  "Aba Compras agora se chama Fornecedores"
  ]
 }

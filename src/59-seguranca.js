@@ -307,11 +307,8 @@
   }
   function ajustesFinHtml() {
     var h = '';
-    // lembretes
-    h +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Lembretes</h2><label style="display:flex;gap:10px;align-items:center"><input type="checkbox" data-aj="cclemb"' +
-      (S.ccLemb !== false ? ' checked' : '') +
-      '> Lembrar toda semana de conferir o caixa</label></section>';
+    // lembrete semanal do caixa: sempre ligado (sem opção em Ajustes)
+    S.ccLemb = true;
     // segurança
     if (S._bioOk === undefined) bioChecar();
     var bioDisp = !!bioPlugin() && S._bioOk !== false,

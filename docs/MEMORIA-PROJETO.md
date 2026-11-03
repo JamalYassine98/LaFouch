@@ -493,3 +493,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - Bug: ao abrir WhatsApp e tocar noutra aba do menu de baixo, a tela do WhatsApp ficava por cima. setView agora zera S.catOpen quando v != 'vendas' (e renderCatV confere S.view).
 - Dono pediu (02/11): aba Compras do Inventário passa a se chamar Fornecedores (evita confundir com lista de compras). Feito.
 - Aviso de teste só funcionava na 1ª vez: com o app aberto o Android não mostra push; agora pushNotificationReceived toca o som e mostra toast. Causa não confirmada no aparelho.
+- v392 / 3.5 (03/11): dono aprovou o esboço botoes.html -> implementado: família de botões (.go/.mini/.btn gradiente, .ghost/.bad) e transição direcional entre seções já visitadas (slideL/slideR em setView). Ajustes: removidos cards Lembretes (ccLemb sempre true) e Nota fiscal (cidade sempre CDE, também no comprovante).\n- Vendas (lista): preço fica antes do + e o + no canto direito (alinhado).

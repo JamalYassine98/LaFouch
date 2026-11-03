@@ -56,7 +56,7 @@
     var fal = window.__fechoAlerta && window.__fechoAlerta();
     if (fal) it.push(fal);
     var cc = ccDias();
-    if (S.ccLemb !== false && cc >= 7 && !fal)
+    if (cc >= 7 && !fal)
       it.push({
         t: 'Conferir o caixa',
         s: cc === Infinity ? 'ainda não conferiu' : 'faz ' + cc + ' dias',

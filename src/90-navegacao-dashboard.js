@@ -1,6 +1,9 @@
   // ===== Navegação entre abas e Dashboard. =====
   // Troca de aba.
+  var NAV_ORDEM = ['inicio', 'vendas', 'estoque', 'caixa', 'ajustes'],
+    NAV_VISTAS = {};
   function setView(v) {
+    var antes = S.view;
     S.view = v;
     if (v !== 'vendas') S.catOpen = false; // a tela do WhatsApp só existe dentro da aba de vendas: ao sair, fecha
     S.msg = '';
@@ -9,9 +12,24 @@
     } catch (e) {}
     render();
     window.scrollTo(0, 0);
-    animEnter($('v-' + v));
-    if (v === 'inicio' && window.animInicio) window.animInicio();
-    else if (window.animTela) window.animTela(v);
+    // Voltando a uma seção já visitada: a tela desliza para o lado da aba escolhida. Primeira vez: cascata de sempre.
+    var ia = NAV_ORDEM.indexOf(antes),
+      ib = NAV_ORDEM.indexOf(v),
+      el = $('v-' + v),
+      lado = !REDUCED && el && ia >= 0 && ib >= 0 && ia !== ib && NAV_VISTAS[v];
+    NAV_VISTAS[v] = true;
+    if (lado) {
+      el.classList.remove('slideL', 'slideR');
+      void el.offsetWidth;
+      el.classList.add(ib > ia ? 'slideL' : 'slideR');
+      setTimeout(function () {
+        el.classList.remove('slideL', 'slideR');
+      }, 450);
+    } else {
+      animEnter(el);
+      if (v === 'inicio' && window.animInicio) window.animInicio();
+      else if (window.animTela) window.animTela(v);
+    }
   }
   // Navegação principal.
   function renderNav() {

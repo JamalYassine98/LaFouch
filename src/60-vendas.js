@@ -187,13 +187,13 @@
       card.dataset.ref = f.ref;
       card.appendChild(photoBox(photoOf(f.ref), 'pbox'));
       card.appendChild(mk('b', '', pn(f.ref)));
-      card.appendChild(mk('i', 'vplus', '+'));
       var pr0 = tFor(f).price;
       if (pr0) {
-        var pp = mk('b', '', gs(pr0));
+        var pp = mk('b', 'vpreco', gs(pr0));
         pp.style.color = 'var(--ok)';
         card.appendChild(pp);
       }
+      card.appendChild(mk('i', 'vplus', '+'));
       rows.appendChild(card);
     });
     if (!order.length)

@@ -857,9 +857,9 @@
     } catch (e) {}
   }
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 391;
+  var APP_BUILD = 392;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '3.4.4'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '3.5'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Movimentos: todo fato de dinheiro ou estoque é gravado por aqui (livro + histórico juntos). =====
   // Formato do registro do histórico (S.dlog) de uma compra de mercadoria.
   function dlogLote(x) {
@@ -13169,11 +13169,8 @@
   }
   function ajustesFinHtml() {
     var h = '';
-    // lembretes
-    h +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Lembretes</h2><label style="display:flex;gap:10px;align-items:center"><input type="checkbox" data-aj="cclemb"' +
-      (S.ccLemb !== false ? ' checked' : '') +
-      '> Lembrar toda semana de conferir o caixa</label></section>';
+    // lembrete semanal do caixa: sempre ligado (sem opção em Ajustes)
+    S.ccLemb = true;
     // segurança
     if (S._bioOk === undefined) bioChecar();
     var bioDisp = !!bioPlugin() && S._bioOk !== false,
@@ -13394,13 +13391,13 @@
       card.dataset.ref = f.ref;
       card.appendChild(photoBox(photoOf(f.ref), 'pbox'));
       card.appendChild(mk('b', '', pn(f.ref)));
-      card.appendChild(mk('i', 'vplus', '+'));
       var pr0 = tFor(f).price;
       if (pr0) {
-        var pp = mk('b', '', gs(pr0));
+        var pp = mk('b', 'vpreco', gs(pr0));
         pp.style.color = 'var(--ok)';
         card.appendChild(pp);
       }
+      card.appendChild(mk('i', 'vplus', '+'));
       rows.appendChild(card);
     });
     if (!order.length)
@@ -20526,7 +20523,7 @@
     var fal = window.__fechoAlerta && window.__fechoAlerta();
     if (fal) it.push(fal);
     var cc = ccDias();
-    if (S.ccLemb !== false && cc >= 7 && !fal)
+    if (cc >= 7 && !fal)
       it.push({
         t: 'Conferir o caixa',
         s: cc === Infinity ? 'ainda não conferiu' : 'faz ' + cc + ' dias',
@@ -21357,7 +21354,10 @@
   }
   // ===== Navegação entre abas e Dashboard. =====
   // Troca de aba.
+  var NAV_ORDEM = ['inicio', 'vendas', 'estoque', 'caixa', 'ajustes'],
+    NAV_VISTAS = {};
   function setView(v) {
+    var antes = S.view;
     S.view = v;
     if (v !== 'vendas') S.catOpen = false; // a tela do WhatsApp só existe dentro da aba de vendas: ao sair, fecha
     S.msg = '';
@@ -21366,9 +21366,24 @@
     } catch (e) {}
     render();
     window.scrollTo(0, 0);
-    animEnter($('v-' + v));
-    if (v === 'inicio' && window.animInicio) window.animInicio();
-    else if (window.animTela) window.animTela(v);
+    // Voltando a uma seção já visitada: a tela desliza para o lado da aba escolhida. Primeira vez: cascata de sempre.
+    var ia = NAV_ORDEM.indexOf(antes),
+      ib = NAV_ORDEM.indexOf(v),
+      el = $('v-' + v),
+      lado = !REDUCED && el && ia >= 0 && ib >= 0 && ia !== ib && NAV_VISTAS[v];
+    NAV_VISTAS[v] = true;
+    if (lado) {
+      el.classList.remove('slideL', 'slideR');
+      void el.offsetWidth;
+      el.classList.add(ib > ia ? 'slideL' : 'slideR');
+      setTimeout(function () {
+        el.classList.remove('slideL', 'slideR');
+      }, 450);
+    } else {
+      animEnter(el);
+      if (v === 'inicio' && window.animInicio) window.animInicio();
+      else if (window.animTela) window.animTela(v);
+    }
   }
   // Navegação principal.
   function renderNav() {
@@ -25439,13 +25454,9 @@
     if (!S._ajForce && ae && ae.tagName === 'INPUT' && el.contains(ae)) return;
     S._ajForce = false;
     var h =
-      '<div class="top"><div><h1>Ajustes</h1><div class="crumb">Nota fiscal, lembretes, segurança e cópias</div></div></div>';
+      '<div class="top"><div><h1>Ajustes</h1><div class="crumb">Segurança e cópias</div></div></div>';
     if (S.ajMsg) h += '<div class="note n-ok" role="status">' + esc(S.ajMsg) + '</div>';
-    // cidade da nota fiscal
-    h +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Nota fiscal</h2><div><div class="lbl">Cidade que sai na nota</div><input class="in" data-aj="cidade" value="' +
-      esc(S.notaCidade || 'CDE') +
-      '" placeholder="CDE" style="max-width:220px" autocomplete="off"></div></section>';
+    S.notaCidade = 'CDE'; // nota fiscal e comprovante: sempre CDE (onde são feitas as vendas)
     // backup (arquivo manual + cópias automáticas)
     // Backup é a última seção; a Nuvem fica dentro dele
     h += ajustesFinHtml();
@@ -25473,8 +25484,7 @@
       S.aparNome = t.value.trim().slice(0, 30);
       syncReg(true);
     }
-    if (k === 'cidade') S.notaCidade = t.value.trim().toUpperCase() || 'CDE';
-    if (k === 'fnome' && f && t.value.trim()) f.nome = t.value.trim();
+        if (k === 'fnome' && f && t.value.trim()) f.nome = t.value.trim();
     if (k === 'fmarg' && f) f.margem = Math.max(0, Math.min(90, numIn(t.value)));
     if (k === 'fprec' && f) {
       var pr = campoParaGs(t.value);
@@ -27176,7 +27186,7 @@
       ts: Date.now(),
       nombre: cli && temRuc(cli) ? cli.nome || 'Sin nombre' : 'Sin nombre',
       ruc: cli && temRuc(cli) ? String(cli.ruc).trim() : 'X',
-      ciudad: S.notaCidade || 'CDE',
+      ciudad: 'CDE',
       pago: 'Contado',
       lineas: ord,
       total: total,

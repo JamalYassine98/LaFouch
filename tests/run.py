@@ -1692,6 +1692,21 @@ async def main():
             if not ok: falhas.append('sair whatsapp'); print('        veio', sa1, sa2, sa3, pg.erros)
             await pg.close()
 
+            # Ajustes sem Lembretes/Nota fiscal; botões em família; troca de seção desliza
+            pg = await pagina()
+            await pg.evaluate("() => { const L = window.__LF; L.setView('ajustes'); L.render(); }"); await pg.wait_for_timeout(300)
+            aj = await pg.evaluate("() => document.getElementById('v-ajustes').innerText")
+            await pg.evaluate("() => { const L = window.__LF; L.setView('caixa'); }"); await pg.wait_for_timeout(500)
+            await pg.evaluate("() => { const L = window.__LF; L.setView('inicio'); }"); await pg.wait_for_timeout(500)
+            await pg.evaluate("() => window.__LF.setView('caixa')"); await pg.wait_for_timeout(60)
+            desl = await pg.evaluate("() => document.getElementById('v-caixa').classList.contains('slideL')")
+            bg = await pg.evaluate("() => { const b = document.createElement('button'); b.className = 'go'; b.textContent = 'x'; document.body.appendChild(b); const v = getComputedStyle(b).backgroundImage; b.remove(); return v; }")
+            total += 1
+            ok = 'Lembretes' not in aj and 'Nota fiscal' not in aj and desl is True and 'gradient' in bg and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Ajustes sem lembretes/nota; botão em gradiente; troca desliza')
+            if not ok: falhas.append('familia botoes'); print('        veio', 'Lembretes' in aj, 'Nota fiscal' in aj, desl, bg[:30], pg.erros)
+            await pg.close()
+
             # Sons e avisos: um som para cada tipo de aviso, janela de escolha, sem som e preferência antiga preservada
             pg = await pagina()
             await pg.add_init_script("window.__tocou = []; window.Audio = function (u) { this.play = () => { window.__tocou.push(u); return Promise.resolve(); }; };")

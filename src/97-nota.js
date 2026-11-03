@@ -136,7 +136,7 @@
       ts: Date.now(),
       nombre: cli && temRuc(cli) ? cli.nome || 'Sin nombre' : 'Sin nombre',
       ruc: cli && temRuc(cli) ? String(cli.ruc).trim() : 'X',
-      ciudad: S.notaCidade || 'CDE',
+      ciudad: 'CDE',
       pago: 'Contado',
       lineas: ord,
       total: total,

@@ -202,13 +202,9 @@
     if (!S._ajForce && ae && ae.tagName === 'INPUT' && el.contains(ae)) return;
     S._ajForce = false;
     var h =
-      '<div class="top"><div><h1>Ajustes</h1><div class="crumb">Nota fiscal, lembretes, segurança e cópias</div></div></div>';
+      '<div class="top"><div><h1>Ajustes</h1><div class="crumb">Segurança e cópias</div></div></div>';
     if (S.ajMsg) h += '<div class="note n-ok" role="status">' + esc(S.ajMsg) + '</div>';
-    // cidade da nota fiscal
-    h +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Nota fiscal</h2><div><div class="lbl">Cidade que sai na nota</div><input class="in" data-aj="cidade" value="' +
-      esc(S.notaCidade || 'CDE') +
-      '" placeholder="CDE" style="max-width:220px" autocomplete="off"></div></section>';
+    S.notaCidade = 'CDE'; // nota fiscal e comprovante: sempre CDE (onde são feitas as vendas)
     // backup (arquivo manual + cópias automáticas)
     // Backup é a última seção; a Nuvem fica dentro dele
     h += ajustesFinHtml();
@@ -236,8 +232,7 @@
       S.aparNome = t.value.trim().slice(0, 30);
       syncReg(true);
     }
-    if (k === 'cidade') S.notaCidade = t.value.trim().toUpperCase() || 'CDE';
-    if (k === 'fnome' && f && t.value.trim()) f.nome = t.value.trim();
+        if (k === 'fnome' && f && t.value.trim()) f.nome = t.value.trim();
     if (k === 'fmarg' && f) f.margem = Math.max(0, Math.min(90, numIn(t.value)));
     if (k === 'fprec' && f) {
       var pr = campoParaGs(t.value);
