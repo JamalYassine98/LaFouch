@@ -525,4 +525,5 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 ## v399 (03/11/2026) — Preço estável no site + descrição/graus
 - Dono aprovou ("Pode implementar tudo"): o site usa cotação travada (S.siteFx {usd, rpu, brl, ts}). Regra: nos primeiros 30 dias só muda se o dólar subir mais de 3%; depois de 30 dias muda se variou 2% ou mais. Botão manual "Atualizar preços do site agora" (Câmbio). Preço do site (n e de) arredondado de 5.000 em 5.000 Gs. Balcão segue com a cotação do dia.
 - Site recebe `desc` (descrição da peça), `gr` (graus) e `gq` (quantidade por grau); régua de graus no catálogo (repo catalogo 30d43e2).
-- PENDENTE (aprovado, ainda não codado): catálogo único Varejo|Atacado com vitrine por gestos (#132); Enviar catálogo no WhatsApp + animações (#133); carimbo "Preços atualizados em DD/MM" no site.
+- PENDENTE (aprovado, ainda não codado): catálogo único Varejo|Atacado com vitrine por gestos (#132); Enviar catálogo no WhatsApp + animações (#133).
+- DECISÃO (03/11/2026): o carimbo de data dos preços ("travada em DD/MM") aparece SÓ no app/admin, NUNCA na parte que o cliente vê no site.
