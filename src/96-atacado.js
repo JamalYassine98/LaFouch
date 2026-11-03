@@ -9,6 +9,7 @@
   }
   function atacSet(it, n) {
     n = Math.max(0, Math.min(Math.floor(n) || 0, gLivre(it)));
+    var antes = atacQtd(it);
     var ex = S.cart.filter(function (l) {
       return l.it === it;
     })[0];
@@ -21,6 +22,12 @@
     S.rec = null;
     saveSoon();
     render();
+    if (!REDUCED) {
+      var ref = it.ref,
+        card = document.querySelector('#vRows .pcard[data-ref="' + ref + '"] .vs-n');
+      if (card && card.animate) card.animate([{ transform: 'translateY(' + (n >= antes ? 10 : -10) + 'px)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 180, easing: 'ease-out' });
+      if ($('cartBar') && !$('cartBar').hidden) pulsa($('cartBar'));
+    }
   }
   function atacTeclado(it) {
     var o = lfaAbre(

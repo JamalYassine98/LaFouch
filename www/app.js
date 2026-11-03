@@ -857,7 +857,7 @@
     } catch (e) {}
   }
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 402;
+  var APP_BUILD = 403;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
   var APP_NOME = '3.9'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Movimentos: todo fato de dinheiro ou estoque é gravado por aqui (livro + histórico juntos). =====
@@ -26090,6 +26090,7 @@
   }
   function atacSet(it, n) {
     n = Math.max(0, Math.min(Math.floor(n) || 0, gLivre(it)));
+    var antes = atacQtd(it);
     var ex = S.cart.filter(function (l) {
       return l.it === it;
     })[0];
@@ -26102,6 +26103,12 @@
     S.rec = null;
     saveSoon();
     render();
+    if (!REDUCED) {
+      var ref = it.ref,
+        card = document.querySelector('#vRows .pcard[data-ref="' + ref + '"] .vs-n');
+      if (card && card.animate) card.animate([{ transform: 'translateY(' + (n >= antes ? 10 : -10) + 'px)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 180, easing: 'ease-out' });
+      if ($('cartBar') && !$('cartBar').hidden) pulsa($('cartBar'));
+    }
   }
   function atacTeclado(it) {
     var o = lfaAbre(
