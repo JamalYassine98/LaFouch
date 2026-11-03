@@ -1818,6 +1818,14 @@ async def main():
             ok = gs_['antes'] == 'solar|GA1' and gs_['dep'] == 'solar|GB2' and gs_['fechou'] == '' and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'vitrine: arrastar de lado troca a peça e para baixo fecha')
             if not ok: falhas.append('vitrine gestos'); print('        veio', gs_, pg.erros)
+            ev_ = await pg.evaluate("""async () => { const L = window.__LF, S = L.S; S.tabAtiva = 'pub'; S._vVis = []; S.pprice = {GA1: {novo: 400000, ant: 0}, GB2: {novo: 300000, ant: 0}}; S.vRef = ''; L.setView('vendas'); L.render();
+              [...document.querySelectorAll('#vTabBar .chip')].find(b => b.innerText.includes('WhatsApp')).click();
+              const msg = (document.getElementById('envMsg') || {}).value || ''; const fmts = document.querySelectorAll('[data-act=envfmt]').length;
+              const fo = await L.envFolha(); return {msg, fmts, fo}; }""")
+            total += 1
+            ok = 'válidos até' in ev_['msg'] and ev_['fmts'] == 3 and ev_['fo']['n'] >= 2 and ev_['fo']['w'] > 1000 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'enviar catálogo: formatos, mensagem com validade e folha em imagem')
+            if not ok: falhas.append('enviar catalogo'); print('        veio', ev_, pg.erros)
             await pg.close()
 
             # Tocar na aba em que já está: nada acontece (sem animar)
