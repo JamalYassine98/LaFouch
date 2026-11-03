@@ -547,3 +547,7 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 ## 03/11/2026 - Início: remover/voltar botões (PAUSADA, só esboços)
 - Ideia: tirar o chip "Personalizar botões"; segurar um botão e arrastar; barra de baixo vira "Fixar | Ocultar" ao arrastar; soltar sobre outro botão troca de lugar. Protótipo no artefato "Início LaFouch Protótipo".
 - Dono REJEITOU: faixa/botão de remover (A/B), tile ou fileira "Botões ocultos" (C/D) e lista dentro de Ajustes. O retorno dos botões ocultos deve ser pelo próprio menu/Início, sem botão com texto. Ainda sem solução aprovada. NÃO implementar.
+
+## 03/11/2026 - Catálogo único (ESBOÇO enviado, NÃO implementar)
+- Dono confirmou: juntar Vendas + WhatsApp numa aba só e REMOVER a aba/atalho "Site" do Catálogo; "Site" vira botão (tile) no menu Início.
+- Esboço: título "Catálogo"; seletor Varejo | Atacado no lugar das 3 abas; "Tabela: …" só no Atacado; "Enviar no WhatsApp" (ícone verde) segue como chip. Tile "Site" (lafouch.com) no fim da grade do Início. Imagem: /tmp/cat/esboco.png. Aguardando "pode implementar".
