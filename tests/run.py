@@ -322,6 +322,22 @@ TESTES = [
    S.volAuto=false; const c=L.volumeEfetivo(); S.volAuto=true; S.sales=[{ts:n-10*864e5,qty:5,estorno:false}]; return [a, b, c, L.volumeEfetivo()]""", [350, [30, 30], 350, 350]),
  ("backup: exporta e restaura tudo", """S.metaUsd=77; S.items=[{tipo:'pre',ref:'K1',grau:'+1.00',cor:'Preto',qty:3}]; S.pfaixa={K1:'f1'}; const txt=L.backupDados();
    S.metaUsd=1; S.items=[]; S.pfaixa={}; const e=L.restaurarDados(txt); return [e, S.metaUsd, S.items.length, S.pfaixa.K1, L.restaurarDados('lixo').length>0, L.restaurarDados('{"app":"outro"}').length>0]""", ["", 77, 1, "f1", True, True]),
+ ("tema: Ajustes tem Auto/Claro/Escuro, troca, lembra e volta ao automático", """
+   L.setView('ajustes'); L.render(); const o = {};
+   const card = document.getElementById('temaCard'); o.card = !!card; o.btns = card ? card.querySelectorAll('[data-tm]').length : 0;
+   const root = document.documentElement, bg = () => getComputedStyle(root).getPropertyValue('--bg').trim();
+   const clica = k => document.querySelector('.tmseg [data-tm="' + k + '"]').click();
+   const espera = () => new Promise(r => setTimeout(r, 1000));
+   o.auto = [root.getAttribute('data-tema'), localStorage.getItem('lf_tema')];
+   
+   clica('escuro'); await espera();
+   o.esc = [root.getAttribute('data-tema'), localStorage.getItem('lf_tema'), bg(), document.querySelector('.tmseg .on').getAttribute('data-tm'), document.querySelector('meta[name="theme-color"]').content];
+   clica('claro'); await espera();
+   o.cla = [root.getAttribute('data-tema'), localStorage.getItem('lf_tema'), bg(), document.querySelector('meta[name="theme-color"]').content];
+   clica('auto'); await espera();
+   o.volta = [root.getAttribute('data-tema'), localStorage.getItem('lf_tema')];
+   return JSON.stringify(o);
+ """, '{"card":true,"btns":3,"auto":[null,null],"esc":["escuro","escuro","#0f1216","escuro","#0f1216"],"cla":["claro","claro","#f4f1f4","#f4f1f4"],"volta":[null,null]}'),
 ]
 
 def igual(a, b):
@@ -371,7 +387,7 @@ async def main():
             for nome, corpo, esperado in TESTES:
                 total += 1
                 try:
-                    got = await pg.evaluate('() => {' + PRE + corpo + '}')
+                    got = await pg.evaluate('async () => {' + PRE + corpo + '}')
                     ok = igual(got, esperado)
                 except Exception as e:
                     got, ok = f'ERRO {e}', False

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
+<meta charset="utf-8"><script>try{var _t=localStorage.getItem("lf_tema");if(_t==="claro"||_t==="escuro")document.documentElement.setAttribute("data-tema",_t)}catch(e){}</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0f1216" media="(prefers-color-scheme:dark)"><meta name="theme-color" content="#f4f1f4" media="(prefers-color-scheme:light)">
 <meta name="mobile-web-app-capable" content="yes">
@@ -12,7 +12,8 @@
 
 <style id="lfiCss">
 #lfIntro{position:fixed;inset:0;z-index:99999;background:#0f1216;display:flex;align-items:center;justify-content:center;animation:lfiOut .8s 3.1s ease forwards;--lg:url(logo-app.png)}
-@media (prefers-color-scheme:light){#lfIntro{background:#f4f1f4;--lg:url(logo-app-claro.png)}}
+@media (prefers-color-scheme:light){html:not([data-tema="escuro"]) #lfIntro{background:#f4f1f4;--lg:url(logo-app-claro.png)}}
+html[data-tema="claro"] #lfIntro{background:#f4f1f4;--lg:url(logo-app-claro.png)}
 #lfIntro .il{position:relative;width:min(78vw,360px);aspect-ratio:720/452}
 #lfIntro i{position:absolute;inset:0;background:var(--lg) center/contain no-repeat}
 #lfIntro .la{clip-path:inset(0 0 100% 0);animation:lfi1 1.2s .2s cubic-bezier(.3,.7,.2,1) forwards}
@@ -289,7 +290,7 @@
 <section id="notaOv" class="catov" aria-label="Venda registrada" hidden></section>
   <div id="notaCf" class="notacf" hidden></div>
   <div id="notaPrint" aria-hidden="true"></div>
-  <script>/*LOADER*/(function(){var EMB=405,d=document,m=null;try{m=JSON.parse(localStorage.getItem('lf_upd')||'null')}catch(e){}
+  <script>/*LOADER*/(function(){var EMB=406,d=document,m=null;try{m=JSON.parse(localStorage.getItem('lf_upd')||'null')}catch(e){}
 function std(){var s=d.createElement('script');s.src='app.js';d.body.appendChild(s)}
 if(!m||!(m.v>EMB)||!window.caches||(m.tent||0)>=2){if(m&&m.v>EMB&&(m.tent||0)>=2){try{localStorage.removeItem('lf_upd');caches.delete('lafouch-upd')}catch(e){}}std();return}
 try{localStorage.setItem('lf_upd',JSON.stringify({v:m.v,tent:(m.tent||0)+1}))}catch(e){}
