@@ -199,6 +199,8 @@
         'pcard' + (k === S.vRef ? ' on' : '') + (aberto ? ' aberta' : ''),
         '',
         function (ev) {
+          // grade: tocar na peça abre a folha (cores, quantidade, Vender); subir na folha abre a vitrine
+          if (!rows.classList.contains('vlist') && !S._semFolha && folhaAbre(k, g)) return;
           if (multi) {
             var mais = ev && ev.target && ev.target.closest && ev.target.closest('.vplus');
             if (mais && aberto) {

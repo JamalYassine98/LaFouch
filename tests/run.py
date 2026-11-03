@@ -803,7 +803,8 @@ async def main():
             await pg.wait_for_timeout(300)
             total += 1
             a = await pg.evaluate("() => [document.getElementById('vListCard').hidden, document.getElementById('vDetail').hidden, document.getElementById('vSaleCard').hidden]")
-            await pg.locator('#vRows .pcard[data-ref="SP57765"]').click(); await pg.wait_for_timeout(400)
+            await pg.locator('#vRows .pcard[data-ref="SP57765"]').click(); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => { if (document.getElementById('lfa-folha') && document.getElementById('lfa-folha').innerHTML) window.__folha.vitrine(); }"); await pg.wait_for_timeout(300)
             cat1 = await pg.evaluate("() => document.getElementById('catV').hidden")
             b1 = await pg.evaluate("() => [document.getElementById('vListCard').hidden, document.getElementById('vDetail').hidden, document.getElementById('vSaleCard').hidden, !!document.querySelector('#vDetail button[aria-label=\\'Editar\\']'), document.querySelectorAll('#vDetail .pl.pick').length]")
             await pg.locator('#vDetail .pl.pick').nth(1).click(); await pg.wait_for_timeout(300)
@@ -853,6 +854,7 @@ async def main():
             semcod = await pg.evaluate("() => !document.getElementById('vRows').innerText.includes('Código ')")
             await pg.locator('#vGrades .chip', has_text='+1.50').click(); await pg.wait_for_timeout(200)
             await pg.locator('#vRows .pcard[data-ref="T1"]').click(); await pg.wait_for_timeout(400)
+            await pg.evaluate("() => { if (document.getElementById('lfa-folha') && document.getElementById('lfa-folha').innerHTML) window.__folha.vitrine(); }"); await pg.wait_for_timeout(300)
             det = await pg.evaluate("""() => { const d = document.getElementById('vDetail');
               return { semBolinha: d.querySelectorAll('.dot').length, graus: [...d.querySelectorAll('.pl.pick')].map(x => x.innerText.replace(/\\s+/g,' ')),
                        cartoes: [...d.querySelectorAll('.ccard')].map(x => x.innerText.replace(/\\s+/g,' ')), barra: !!d.querySelector('.vsale'), codigo: d.innerText.includes('Nº') } }""")
@@ -1008,9 +1010,11 @@ async def main():
             await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.cart = []; S.cartOpen = false; S.vRef = ''; S.vSel = null; S.vq = ''; S.vTipo = 'all'; S.vFaixa = ''; S.qty = 1; L.setView('vendas'); }""")
             await pg.wait_for_timeout(300)
             await pg.locator('#vRows .pcard[data-ref="SP57765"]').click(); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => { if (document.getElementById('lfa-folha') && document.getElementById('lfa-folha').innerHTML) window.__folha.vitrine(); }"); await pg.wait_for_timeout(300)
             await pg.evaluate("() => document.getElementById('sCartAdd').click()"); await pg.wait_for_timeout(300)
             u1 = await pg.evaluate("() => [document.getElementById('cartBar').hidden, document.getElementById('cartBar').textContent.indexOf('Pedido: 1') >= 0, window.__LF.S.cart.length]")
             await pg.locator('#vRows .pcard:not([data-ref="SP57765"])').first.click(); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => { if (document.getElementById('lfa-folha') && document.getElementById('lfa-folha').innerHTML) window.__folha.vitrine(); }"); await pg.wait_for_timeout(300)
             await pg.evaluate("() => document.getElementById('sCartAdd').click()"); await pg.wait_for_timeout(300)
             await pg.locator('[data-act=cartopen]').click(); await pg.wait_for_timeout(300)
             await pg.locator('#cartCard input[data-in=cartpreco]').first.fill('1000'); await pg.wait_for_timeout(200)
@@ -1023,6 +1027,7 @@ async def main():
             u7 = await pg.evaluate("() => [document.getElementById('cartCard').hidden, document.getElementById('vSaleCard').hidden, document.getElementById('pagHead').hidden]")
             await pg.locator('#cartCard button[aria-label=Voltar]').click(); await pg.wait_for_timeout(300)
             await pg.locator('#vRows .pcard').first.click(); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => { if (document.getElementById('lfa-folha') && document.getElementById('lfa-folha').innerHTML) window.__folha.vitrine(); }"); await pg.wait_for_timeout(300)
             u5 = await pg.evaluate("() => ['qtyB','payB','sgo','sCartAdd'].map(i => document.getElementById(i).offsetParent !== null)")
             await pg.locator('[data-act=cartopen]').click(); await pg.wait_for_timeout(300)
             await pg.locator('[data-act=cartclear]').click(); await pg.wait_for_timeout(300)
@@ -1826,6 +1831,22 @@ async def main():
             ok = 'válidos até' in ev_['msg'] and ev_['fmts'] == 3 and ev_['fo']['n'] >= 2 and ev_['fo']['w'] > 1000 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'enviar catálogo: formatos, mensagem com validade e folha em imagem')
             if not ok: falhas.append('enviar catalogo'); print('        veio', ev_, pg.erros)
+            fl = await pg.evaluate("""async () => { const L = window.__LF, S = L.S; S.cart = []; S.tabAtiva = 'pub'; S.vRef = ''; S.vModo = {v:'g'}; try { localStorage.setItem('lf_modo_v', 'g'); } catch (e) {}
+              S.items = [{tipo:'solar',ref:'FA1',grau:'',cor:'Preto',qty:5,fmt:'',med:'',vr:'',lote:'',custo:20},{tipo:'solar',ref:'FA1',grau:'',cor:'Azul',qty:4,fmt:'',med:'',vr:'',lote:'',custo:20}];
+              S.pprice = {FA1: {novo: 400000, ant: 0}}; L.setView('vendas'); L.render(); document.getElementById('vRows').classList.remove('vlist'); L.render();
+              document.querySelector('#vRows .pcard[data-ref=FA1]').click(); await new Promise(r => setTimeout(r, 200));
+              const aberta = !!document.getElementById('lfa-folha'); const cores = document.querySelectorAll('#lfa-folha .vcor').length;
+              document.querySelector('#lfa-folha [data-act=folhaq][data-id="1"]').click(); await new Promise(r => setTimeout(r, 100));
+              const n = document.getElementById('folhaN').innerText;
+              window.__folha.vitrine(); await new Promise(r => setTimeout(r, 200));
+              const vit = S.vRef; const fechada = !document.getElementById('lfa-folha') || !document.getElementById('lfa-folha').innerHTML;
+              S.vRef = ''; L.render(); document.querySelector('#vRows .pcard[data-ref=FA1]').click(); await new Promise(r => setTimeout(r, 200));
+              document.querySelector('#lfa-folha [data-act=folhavender]').click(); await new Promise(r => setTimeout(r, 300));
+              return {aberta, cores, n, vit, fechada, carrinho: S.cart.length && S.cart[0].qty}; }""")
+            total += 1
+            ok = fl['aberta'] and fl['cores'] == 2 and fl['n'] == '2' and fl['vit'] == 'solar|FA1' and fl['carrinho'] == 1 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'folha da peça: cores, quantidade, subir abre a vitrine e Vender')
+            if not ok: falhas.append('folha'); print('        veio', fl, pg.erros)
             await pg.close()
 
             # Tocar na aba em que já está: nada acontece (sem animar)
