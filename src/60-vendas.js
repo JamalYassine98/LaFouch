@@ -156,6 +156,17 @@
     if (tb) {
       var Ta = tabDe(S.tabAtiva);
       tb.textContent = '';
+      var atac = !tabDe(S.tabAtiva).pub;
+      [['v', 'Varejo'], ['a', 'Atacado']].forEach(function (m) {
+        var on = (m[0] === 'a') === atac;
+        tb.appendChild(btn('chip seg-mercado' + (on ? ' on' : ''), m[1], function () {
+          if (on) return;
+          S.tabAtiva = m[0] === 'a' ? (S._ultAtac && tabDe(S._ultAtac).on !== false ? S._ultAtac : 'a1') : 'pub';
+          if (m[0] === 'v') S._ultAtac = S._ultAtacAtual;
+          render();
+        }, on));
+      });
+      if (atac) S._ultAtacAtual = S.tabAtiva;
       tb.appendChild(btn('chip on', 'Tabela: ' + Ta.nome + ' ▾', function () { tabSheet(false); }, true));
       tb.appendChild(btn('chip', 'Enviar no WhatsApp', function () { S._vVis = order.map(function (k) { return groups[k][0].ref; }); ACT.tabenviar(); }, false));
     }

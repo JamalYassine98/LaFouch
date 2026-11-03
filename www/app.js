@@ -859,7 +859,7 @@
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
   var APP_BUILD = 399;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '3.8'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '3.9'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Movimentos: todo fato de dinheiro ou estoque é gravado por aqui (livro + histórico juntos). =====
   // Formato do registro do histórico (S.dlog) de uma compra de mercadoria.
   function dlogLote(x) {
@@ -13369,6 +13369,17 @@
     if (tb) {
       var Ta = tabDe(S.tabAtiva);
       tb.textContent = '';
+      var atac = !tabDe(S.tabAtiva).pub;
+      [['v', 'Varejo'], ['a', 'Atacado']].forEach(function (m) {
+        var on = (m[0] === 'a') === atac;
+        tb.appendChild(btn('chip seg-mercado' + (on ? ' on' : ''), m[1], function () {
+          if (on) return;
+          S.tabAtiva = m[0] === 'a' ? (S._ultAtac && tabDe(S._ultAtac).on !== false ? S._ultAtac : 'a1') : 'pub';
+          if (m[0] === 'v') S._ultAtac = S._ultAtacAtual;
+          render();
+        }, on));
+      });
+      if (atac) S._ultAtacAtual = S.tabAtiva;
       tb.appendChild(btn('chip on', 'Tabela: ' + Ta.nome + ' ▾', function () { tabSheet(false); }, true));
       tb.appendChild(btn('chip', 'Enviar no WhatsApp', function () { S._vVis = order.map(function (k) { return groups[k][0].ref; }); ACT.tabenviar(); }, false));
     }

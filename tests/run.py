@@ -1784,6 +1784,13 @@ async def main():
             ok = ps['a'] and not ps['b'] and ps['c'] and not ps['d'] and ps['e'] and ps['mod'] == 0 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'preço estável do site: trava, alta >3%, 30 dias com 2%, arredonda 5.000')
             if not ok: falhas.append('preco site'); print('        veio', ps, pg.erros)
+            await pg.evaluate("() => { const L = window.__LF; L.S.tabAtiva = 'pub'; L.setView('vendas'); L.render(); }")
+            sm = await pg.evaluate("""() => { const q = t => [...document.querySelectorAll('#vTabBar .seg-mercado')].find(b => b.innerText === t);
+              q('Atacado').click(); const a = window.__LF.S.tabAtiva; q('Varejo').click(); const v = window.__LF.S.tabAtiva; return {a, v}; }""")
+            total += 1
+            ok = sm['a'] != 'pub' and sm['v'] == 'pub' and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'vendas: seletor Varejo | Atacado troca a tabela')
+            if not ok: falhas.append('seletor mercado'); print('        veio', sm, pg.erros)
             await pg.close()
 
             # Tocar na aba em que já está: nada acontece (sem animar)
