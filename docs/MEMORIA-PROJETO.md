@@ -498,3 +498,11 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - v394-396 (03/11): barra de baixo/abas Vendas·WhatsApp·Site deslizam, Início faz cascata, tocar na aba atual não faz nada; + na lista vai direto ao pedido (1 variante) com foto voando (cartVoa); preço do produto mostra R$ · G$; cores do estoque como cartões com foto. Pendente: esboço lista-cores.html (A miniaturas na linha, B folha, C linha expandida) aguardando escolha.
 - 03/11: icone da notificacao refeito a partir do logo original (escudo branco centralizado, proporcao fiel) e cor da notificacao escurecida (#6a2a52) para o Android desenhar o escudo em branco. Precisa de APK.
 - 03/11: aviso de teste 2a vez sumia da bandeja: functions/index.js agora manda tag unica e hora no corpo do teste (PRECISA firebase deploy --only functions no PC do dono). Cor da notificacao = cor do logo (#7e4a6e), escudo branco.
+
+## Decisoes 03/11 (aprovadas, NAO implementar ainda)
+- Lista de vendas: peca se abre com cores+foto; cor sem estoque simplesmente NAO aparece; + adiciona a cor marcada; peca de varias cores: + da linha fechada abre as cores.
+- Clientes: cadastro automatico por pedido com aviso, anti-duplicado, e-mail na ficha, Avisar cliente (e-mail/WhatsApp com modelos), registro do ultimo aviso.
+- Pedidos online: abas por urgencia, barra de etapas, botao do proximo passo.
+- Icone da notificacao: escudo a 85% do circulo (proximo APK).
+- Ordem: cadastro automatico -> lista de pedidos -> ficha do cliente -> cores -> icone.
+
