@@ -551,3 +551,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 ## 03/11/2026 - Catálogo único (ESBOÇO enviado, NÃO implementar)
 - Dono confirmou: juntar Vendas + WhatsApp numa aba só e REMOVER a aba/atalho "Site" do Catálogo; "Site" vira botão (tile) no menu Início.
 - Esboço: título "Catálogo"; seletor Varejo | Atacado no lugar das 3 abas; "Tabela: …" só no Atacado; "Enviar no WhatsApp" (ícone verde) segue como chip. Tile "Site" (lafouch.com) no fim da grade do Início. Imagem: /tmp/cat/esboco.png. Aguardando "pode implementar".
+- 03/11 (ajuste do esboço): Varejo | Atacado fica ABAIXO do título "Catálogo" (não no lugar das abas); "Enviar no WhatsApp" vira SÓ o ícone do WhatsApp (sem texto). Posição do ícone em escolha: A (ao lado do título) ou B (na linha da busca). /tmp/cat/esboco2.png. Sem implementar.
