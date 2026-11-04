@@ -614,7 +614,7 @@ async def main():
                     await pg.locator('[data-act=vcliesc]').first.click(); await pg.wait_for_timeout(150)
                 await pg.fill('#recIn', '50000'); await pg.wait_for_timeout(200)
                 await pg.click('#sgo'); await pg.wait_for_timeout(300)
-            await pg.evaluate("""() => { const S = window.__LF.S; S.clientes = [{id:1,nome:'Maria Silva',tel:'0981 123 456',ruc:'80012345-6',obs:'',ts:1},{id:2,nome:'João Souza',tel:'+55 45 999',ruc:'',obs:'',ts:2}]; S.cliNext = 3; S.vCli = 0; window.print = () => { window.__imp = document.getElementById('notaPrint').innerText; }; }""")
+            await pg.evaluate("""() => { const S = window.__LF.S; S.clientes = [{id:1,nome:'Maria Silva',tel:'0981 123 456',ruc:'80012345-6',obs:'',ts:1},{id:2,nome:'João Souza',tel:'+55 45 999',ruc:'123.456.789-00',nac:'br',obs:'',ts:2}]; S.cliNext = 3; S.vCli = 0; window.print = () => { window.__imp = document.getElementById('notaPrint').innerText; }; }""")
             total += 1
             await vender()
             tx = await pg.inner_text('#notaOv')
@@ -638,18 +638,23 @@ async def main():
             await vender('Joã')
             tx = await pg.inner_text('#notaOv')
             got = await pg.evaluate("() => window.__LF.S.sales[0].cliId")
-            ok = 'Cliente sem RUC' in tx and await pg.locator('[data-act=notaImp]').count() == 0 and 'DADOS PARA NOTA' not in tx and got == 2
-            await pg.wait_for_timeout(7000)
-            ok = ok and await pg.locator('#notaOv').is_hidden()
-            print(('  ok  ' if ok else ' FALHA ') + 'cliente sem RUC: sem opção de nota, fecha sozinha em 3 s, compra no histórico dele')
+            ok = 'João Souza' in tx and 'CI/CPF: 123.456.789-00' in tx and 'RUC' not in tx and 'COMPROBANTE DE VENTA' in tx and await pg.locator('[data-act=notaImp]').count() == 1 and got == 2
+            await pg.wait_for_timeout(4000)
+            ok = ok and await pg.locator('#notaOv').is_visible()
+            await pg.click('[data-act=notaX]'); await pg.click('[data-act=notaSair]'); await pg.wait_for_timeout(500)
+            print(('  ok  ' if ok else ' FALHA ') + 'estrangeiro com CPF (do site): comprovante com nome e CI/CPF, nunca RUC, não fecha sozinho')
             if not ok: falhas.append('nota sem RUC'); print('        veio', tx, got)
             total += 1
             await pg.evaluate("() => { const L = window.__LF; L.S.cliSel = 1; L.setView('clientes'); L.render(); }"); await pg.wait_for_timeout(300)
             f1 = await pg.inner_text('#v-clientes')
             await pg.evaluate("() => { const L = window.__LF; L.S.cliSel = 2; L.render(); }"); await pg.wait_for_timeout(200)
             f2 = await pg.inner_text('#v-clientes')
-            ok = 'compras' in f1.lower() and 'Conversar no WhatsApp' in f1 and 'Remover' in f1 and 'Sem RUC' not in f1 and 'Sem RUC' in f2 and 'Conversar no WhatsApp' in f2
-            print(('  ok  ' if ok else ' FALHA ') + 'ficha do cliente: compras, WhatsApp, Remover, aviso Sem RUC só sem RUC')
+            l2 = await pg.inner_text('#cDocL')
+            await pg.click('[data-act=clinac][data-id="c|py"]'); await pg.wait_for_timeout(400)
+            l3 = await pg.inner_text('#cDocL'); await pg.click('#v-clientes [data-act=clisave]'); await pg.wait_for_timeout(200)
+            n2 = await pg.evaluate("() => window.__LF.S.clientes.find(c => c.id === 2).nac")
+            ok = 'compras' in f1.lower() and 'Conversar no WhatsApp' in f1 and 'Remover' in f1 and 'Sem RUC' not in f2 and 'Conversar no WhatsApp' in f2 and l2 == 'CI/CPF' and l3 == 'RUC' and n2 == 'py'
+            print(('  ok  ' if ok else ' FALHA ') + 'ficha do cliente: compras, WhatsApp, Remover, Paraguaio/Estrangeiro troca RUC ↔ CI/CPF e salva')
             if not ok: falhas.append('ficha cliente'); print('        veio', f1, '|', f2)
             await pg.close()
 

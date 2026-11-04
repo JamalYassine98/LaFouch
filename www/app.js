@@ -871,7 +871,7 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 412;
+  var APP_BUILD = 413;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
   var APP_NOME = '4.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Movimentos: todo fato de dinheiro ou estoque é gravado por aqui (livro + histórico juntos). =====
@@ -24875,6 +24875,7 @@
     var c = cliAchar(p.cli, p.tel, p.doc, 0, p.email);
     if (c) {
       if (!c.ruc && p.doc) c.ruc = p.doc;
+      if (!c.nac && p.nac) c.nac = p.nac; // br/ar = estrangeiro: o CPF/DNI nunca vira RUC
       if (!c.email && p.email) c.email = p.email;
       if (!c.tel && p.tel) c.tel = p.tel;
       return { c: c, novo: false };
@@ -26517,6 +26518,55 @@
     if (d.indexOf('595') === 0 && d.length > 9) d = d.slice(3);
     return d.replace(/^0+/, '');
   };
+  // Nacionalidade: paraguaio (documento = RUC) ou estrangeiro (documento = CI/CPF, nunca nota fiscal).
+  // O documento fica sempre em c.ruc; o que diz se é RUC é c.nac. Do site vêm 'br'/'ar' (estrangeiros); do balcão, 'py' ou 'ex'.
+  var cliEstr = function (c) {
+    return !!c && (c.nac === 'ex' || c.nac === 'br' || c.nac === 'ar');
+  };
+  var cliDocLbl = function (c) {
+    return cliEstr(c) ? 'CI/CPF' : 'RUC';
+  };
+  var CLI_DOC = { py: ['RUC', '80012345-6'], ex: ['CI/CPF', 'Número do documento'] };
+  // Seletor Paraguaio | Estrangeiro + campo do documento, que troca de nome sozinho (pre = prefixo dos ids).
+  function cliDocHtml(pre, c) {
+    var n = cliEstr(c) ? 'ex' : 'py',
+      d = CLI_DOC[n],
+      b = function (k, t) {
+        return '<button type="button" class="cb3' + (k === n ? ' on' : '') + '" data-act="clinac" data-id="' + pre + '|' + k + '">' + t + '</button>';
+      };
+    return (
+      '<div class="catbar3 cliNac" id="' + pre + 'Nac" data-nac="' + n + '" role="group" aria-label="Nacionalidade">' + b('py', 'Paraguaio') + b('ex', 'Estrangeiro') + '</div>' +
+      '<div class="docF"><span class="docL" id="' + pre + 'DocL">' + d[0] + '</span><input class="in" id="' + pre + 'Ruc" placeholder="' + d[1] + '" value="' + esc((c && c.ruc) || '') + '" autocomplete="off" aria-labelledby="' + pre + 'DocL"></div>'
+    );
+  }
+  // Troca no lugar (sem redesenhar a tela): pílula, nome do campo e exemplo.
+  ACT.clinac = function (arg) {
+    var p = String(arg).split('|'),
+      box = $(p[0] + 'Nac'),
+      l = $(p[0] + 'DocL'),
+      inp = $(p[0] + 'Ruc'),
+      d = CLI_DOC[p[1]];
+    if (!box || !d || box.dataset.nac === p[1]) return;
+    box.dataset.nac = p[1];
+    box.querySelectorAll('.cb3').forEach(function (x) {
+      x.classList.toggle('on', x.getAttribute('data-id') === arg);
+    });
+    if (l) {
+      l.classList.add('swap');
+      setTimeout(function () {
+        l.textContent = d[0];
+        l.classList.remove('swap');
+      }, REDUCED ? 0 : 160);
+    }
+    if (inp) inp.placeholder = d[1];
+  };
+  // Nacionalidade escolhida no formulário; estrangeiro do site mantém 'br'/'ar'.
+  function cliNacLida(pre, cur) {
+    var box = $(pre + 'Nac'),
+      n = box ? box.dataset.nac : 'py';
+    if (n === 'ex') return cliEstr(cur) ? cur.nac : 'ex';
+    return 'py';
+  }
   // Acha um cliente pelo telefone, pelo RUC/CI, pelo e-mail ou pelo nome (nesta ordem).
   function cliAchar(nome, tel, ruc, ignorar, email) {
     var t = cliTel(tel),
@@ -26623,7 +26673,7 @@
         return (
           '<button type="button" class="card col" data-act="cliab" data-id="' + c.id + '" style="text-align:left;font:inherit;color:inherit;cursor:pointer;gap:2px">' +
           '<b style="font-size:15px">' + esc(c.nome || 'Sem nome') + et + '</b>' +
-          '<span class="hint" style="margin:0">' + esc([c.tel, c.email, c.ruc ? 'RUC/CI ' + c.ruc : ''].filter(Boolean).join(' · ') || 'sem telefone') + '</span>' +
+          '<span class="hint" style="margin:0">' + esc([c.tel, c.email, c.ruc ? cliDocLbl(c) + ' ' + c.ruc : ''].filter(Boolean).join(' · ') || 'sem telefone') + '</span>' +
           '<span class="hint" style="margin:0">' + ps.length + (ps.length === 1 ? ' pedido' : ' pedidos') + (tot ? ' · ' + gs(tot) + ' pela tabela' : '') + ' · última ' + fd(u) + '</span></button>'
         );
       })
@@ -26661,7 +26711,7 @@
     cliSync();
     var el = $('v-clientes');
     if (!el || S.view !== 'clientes') return;
-    var h = '<div class="top"><div><h1>Clientes</h1><div class="crumb">Quem compra de você, com telefone e RUC</div></div>' +
+    var h = '<div class="top"><div><h1>Clientes</h1><div class="crumb">Quem compra de você, com telefone e documento</div></div>' +
       '<div class="tabs"><button class="mini" data-act="clinovo">+ Novo cliente</button></div></div>';
     var c = S.cliSel === 'novo' ? { id: 0, nome: '', tel: '', ruc: '', obs: '' } : cliAtual();
     if (c) {
@@ -26673,10 +26723,9 @@
         '<input class="in" id="cNome" placeholder="Nome" value="' + esc(c.nome) + '" autocomplete="off">' +
         '<input class="in" id="cTel" type="tel" inputmode="tel" placeholder="Telefone / WhatsApp" value="' + esc(c.tel) + '">' +
         '<input class="in" id="cEmail" type="email" inputmode="email" placeholder="E-mail (opcional, para avisos)" value="' + esc(c.email || '') + '" autocomplete="off">' +
-        '<input class="in" id="cRuc" inputmode="text" placeholder="RUC ou CI (para a nota fiscal)" value="' + esc(c.ruc) + '" autocomplete="off">' +
+        cliDocHtml('c', c) +
         '<select class="in" id="cTab" aria-label="Tabela de preço do cliente"><option value="">Tabela de preço: padrão (Público)</option>' + tabLista().filter(function (T) { return !T.pub; }).map(function (T) { return '<option value="' + T.id + '"' + (c.tab === T.id ? ' selected' : '') + '>' + esc(T.nome) + '</option>'; }).join('') + '</select>' +
         cliDupHtml(c) +
-        (c.id && !String(c.ruc || '').trim() ? '<div class="note n-warn"><b>Sem RUC</b></div>' : '') +
         '<input class="in" id="cObs" placeholder="Observação (opcional)" value="' + esc(c.obs || '') + '">' +
         '<div class="hint" id="cH" style="margin:0"></div>' +
         '<div class="col" style="gap:12px;margin-top:6px"><button type="button" class="go" data-act="clisave">Salvar</button>' +
@@ -26699,7 +26748,7 @@
         cliComprasHtml(c) +
         '</section>';
     }
-    h += '<input class="in" id="cliQ" placeholder="Buscar por nome, telefone ou RUC" value="' + esc(S.cliQ) + '" autocomplete="off" aria-label="Buscar cliente">';
+    h += '<input class="in" id="cliQ" placeholder="Buscar por nome, telefone ou documento" value="' + esc(S.cliQ) + '" autocomplete="off" aria-label="Buscar cliente">';
     h += '<div class="col" id="cliList" style="gap:10px">' + cliListaHtml() + '</div>';
     el.innerHTML = h;
   }
@@ -26741,18 +26790,20 @@
     }
     var dup = cliAchar(nome, tel, ruc, cur ? cur.id : 0, email);
     if (dup) {
-      $('cH').textContent = 'Já existe um cliente com esse telefone ou RUC: ' + (dup.nome || dup.tel) + '.';
+      $('cH').textContent = 'Já existe um cliente com esse telefone ou documento: ' + (dup.nome || dup.tel) + '.';
       return;
     }
+    var nac = cliNacLida('c', cur);
     if (cur) {
       cur.nome = cap1(nome);
       cur.tel = tel;
       cur.ruc = ruc;
+      cur.nac = nac;
       cur.email = email;
       cur.obs = obs;
       cur.tab = tabc;
     } else {
-      S.clientes.push({ id: S.cliNext++, nome: cap1(nome), tel: tel, ruc: ruc, email: email, obs: obs, ts: Date.now(), orig: 'balcao', tab: tabc });
+      S.clientes.push({ id: S.cliNext++, nome: cap1(nome), tel: tel, ruc: ruc, nac: nac, email: email, obs: obs, ts: Date.now(), orig: 'balcao', tab: tabc });
     }
     S.cliSel = null;
     render();
@@ -28568,8 +28619,10 @@
     }
     d.focus();
   };
-  // ===== Cliente na venda + tela "Venda registrada" com os dados da nota fiscal (sempre em G$, IVA 10% incluso). =====
-  // O app NÃO emite nota fiscal: mostra e imprime os dados para conferir/digitar na maquininha.
+  // ===== Cliente na venda + tela "Venda confirmada" com o comprovante de venda (sempre em G$, IVA 10% incluso). =====
+  // O app NÃO emite nota fiscal: imprime o comprovante (sem valor fiscal) para qualquer cliente.
+  // Paraguaio com RUC: o comprovante leva Nombre/RUC (dados que a máquina fiscal usa). Estrangeiro: nome e CI/CPF, nunca RUC.
+  // Futuro (decisão do dono, 04/11/2026): com a API da fatura eletrônica do ministério (SIFEN), o comprovante do paraguaio sai com o QR.
   S.vCli = 0; // cliente escolhido na venda (0 = ninguém: Sin nombre / RUC X)
   S._vCliQ = '';
   S._vCliNovo = false;
@@ -28577,7 +28630,10 @@
   var notaTimer = 0,
     notaAtual = null;
   var temRuc = function (c) {
-    return !!(c && String(c.ruc || '').trim());
+    return !!(c && String(c.ruc || '').trim()) && !cliEstr(c);
+  };
+  var cliDocTxt = function (c) {
+    return c && String(c.ruc || '').trim() ? cliDocLbl(c) + ' ' + c.ruc : '';
   };
   var cliPorId = function (id) {
     return S.clientes.filter(function (c) {
@@ -28599,7 +28655,7 @@
       r
         .map(function (c) {
           return '<button type="button" class="sl" data-act="vcliesc" data-id="' + c.id + '" style="text-align:left;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:transparent;color:inherit;font:inherit;cursor:pointer"><b>' + esc(c.nome || c.tel) + '</b><small style="display:block">' +
-            esc([c.tel, temRuc(c) ? 'RUC ' + c.ruc : 'sem RUC'].filter(Boolean).join(' · ')) + '</small></button>';
+            esc([c.tel, cliDocTxt(c)].filter(Boolean).join(' · ')) + '</small></button>';
         })
         .join('') +
       '<button type="button" data-act="vclinovo" style="border:2px dashed var(--line);border-radius:12px;padding:10px 12px;color:var(--accent-fg);font:inherit;font-weight:700;background:transparent;cursor:pointer">＋ Cadastrar novo cliente</button></div>'
@@ -28616,17 +28672,17 @@
     if (c) {
       el.innerHTML =
         '<div style="display:flex;align-items:center;gap:10px;border:1px solid var(--accent);border-radius:12px;padding:10px 12px"><span style="flex:1"><b>' + esc(c.nome || c.tel) + '</b><small style="display:block">' +
-        esc([c.tel, temRuc(c) ? 'RUC ' + c.ruc : 'sem RUC'].filter(Boolean).join(' · ')) +
+        esc([c.tel, cliDocTxt(c)].filter(Boolean).join(' · ')) +
         '</small></span><button type="button" class="chip" data-act="vclitrocar" style="min-height:36px">Trocar</button></div>';
     } else if (S._vCliNovo) {
       el.innerHTML =
         '<input class="in" id="vcNome" placeholder="Nome" autocomplete="off" value="' + esc(S._vCliQ) + '">' +
         '<input class="in" id="vcTel" type="tel" inputmode="tel" placeholder="Telefone / WhatsApp">' +
-        '<input class="in" id="vcRuc" placeholder="RUC ou CI (vazio = estrangeiro, sem nota)" autocomplete="off">' +
+        cliDocHtml('vc', null) +
         '<div class="hint" id="vcH" style="margin:0"></div>' +
         '<div style="display:flex;gap:8px"><button type="button" class="go" data-act="vclisave" style="flex:1">Salvar cliente</button><button type="button" class="chip" data-act="vclicanc" style="min-height:48px">Cancelar</button></div>';
     } else {
-      el.innerHTML = '<input class="in" id="vCliQ" placeholder="Nome, telefone ou RUC" autocomplete="off" aria-label="Cliente" value="' + esc(S._vCliQ) + '"><div id="vCliSug">' + vcSugHtml() + '</div>';
+      el.innerHTML = '<input class="in" id="vCliQ" placeholder="Nome, telefone ou documento" autocomplete="off" aria-label="Cliente" value="' + esc(S._vCliQ) + '"><div id="vCliSug">' + vcSugHtml() + '</div>';
     }
   }
   document.addEventListener('input', function (e) {
@@ -28672,10 +28728,10 @@
     }
     var dup = cliAchar(nome, tel, ruc, 0);
     if (dup) {
-      $('vcH').textContent = 'Já existe um cliente com esse telefone ou RUC: ' + (dup.nome || dup.tel) + '.';
+      $('vcH').textContent = 'Já existe um cliente com esse telefone ou documento: ' + (dup.nome || dup.tel) + '.';
       return;
     }
-    var c = { id: S.cliNext++, nome: cap1(nome), tel: tel, ruc: ruc, obs: '', ts: Date.now() };
+    var c = { id: S.cliNext++, nome: cap1(nome), tel: tel, ruc: ruc, nac: cliNacLida('vc', null), obs: '', ts: Date.now() };
     S.clientes.push(c);
     S.vCli = c.id;
     S._vCliQ = '';
@@ -28702,10 +28758,14 @@
     var total = ord.reduce(function (a, x) {
       return a + x.tot;
     }, 0);
+    // Estrangeiro: nome e CI/CPF (se houver). Paraguaio sem RUC ou sem cliente: Sin nombre / RUC X.
+    var est = cliEstr(cli),
+      fis = cli && temRuc(cli);
     return {
       ts: Date.now(),
-      nombre: cli && temRuc(cli) ? cli.nome || 'Sin nombre' : 'Sin nombre',
-      ruc: cli && temRuc(cli) ? String(cli.ruc).trim() : 'X',
+      nombre: est || fis ? cli.nome || 'Sin nombre' : 'Sin nombre',
+      docL: est ? 'CI/CPF' : 'RUC',
+      ruc: fis ? String(cli.ruc).trim() : est ? String(cli.ruc || '').trim() : 'X',
       ciudad: 'CDE',
       pago: 'Contado',
       lineas: ord,
@@ -28722,8 +28782,8 @@
         return '<div style="display:flex;justify-content:space-between;gap:10px;' + (s || '') + '"><span>' + a + '</span><span>' + b + '</span></div>';
       };
     return (
-      '<div class="notapapel" style="' + (estilo || '') + '"><div style="text-align:center;font-weight:700;border:1px dashed #111;padding:3px;margin-bottom:6px">DADOS PARA NOTA FISCAL (sem valor fiscal)</div>' +
-      '<div>Fecha: ' + fd(n.ts) + '</div><div>Nombre: ' + esc(n.nombre) + '</div><div>RUC: ' + esc(n.ruc) + '</div><div>Ciudad: ' + esc(n.ciudad) + '</div><div>Pago: ' + n.pago + '</div>' + hr +
+      '<div class="notapapel" style="' + (estilo || '') + '"><div style="text-align:center;font-weight:700;border:1px dashed #111;padding:3px;margin-bottom:6px">COMPROBANTE DE VENTA (sin valor fiscal)</div>' +
+      '<div>Fecha: ' + fd(n.ts) + '</div><div>Nombre: ' + esc(n.nombre) + '</div>' + (n.ruc ? '<div>' + (n.docL || 'RUC') + ': ' + esc(n.ruc) + '</div>' : '') + '<div>Ciudad: ' + esc(n.ciudad) + '</div><div>Pago: ' + n.pago + '</div>' + hr +
       n.lineas
         .map(function (x) {
           return r(x.qty + ' ' + x.desc, '') + r('Unidad G$', notaNum(x.un));
@@ -28743,29 +28803,21 @@
     clearTimeout(notaFecT);
     vcfBusy = false;
     var tok = ++vcfTok;
-    var semRuc = !!(cli && !temRuc(cli));
-    notaAtual = semRuc ? null : nota;
-    var sub = cli ? esc(cli.nome || cli.tel) + (temRuc(cli) ? ' · RUC ' + esc(cli.ruc) : ' · sem RUC') : 'Sem cliente escolhido';
+    notaAtual = nota;
+    var sub = cli ? esc(cli.nome || cli.tel) + (cliDocTxt(cli) ? ' · ' + esc(cliDocTxt(cli)) : '') : 'Sem cliente escolhido';
     ov.classList.remove('vout');
     ov.innerHTML =
       '<div class="vcf' + (REDUCED ? ' fast' : '') + '"><button type="button" class="vx" data-act="notaX" aria-label="Fechar">×</button>' +
       '<div class="vcc' + (REDUCED ? ' done' : '') + '"><div class="vspn"></div><div class="vck"><svg viewBox="0 0 56 56" aria-hidden="true"><path d="M13 29l10 10 20-22"/></svg></div></div>' +
       '<h2 class="vst">Venda confirmada</h2><div class="hint vst vsub">' + sub + '</div>' +
       '<div class="vtot vst" id="vtot">' + gs(nota.total) + '</div>' +
-      (semRuc
-        ? '<div class="note n-warn vst vw" role="status"><b>Cliente sem RUC</b><div>Sem dados para a nota fiscal: não há o que imprimir. Esta tela fecha sozinha.</div><div class="vpb"><i></i></div></div>'
-        : '<div class="vst">' + notaHtml(nota, 'background:#fff;color:#111;padding:14px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.5;border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.4)') + '</div>' +
-          '<button type="button" class="go vst vimp" data-act="notaImp">Imprimir nota</button>') +
+      ('<div class="vst">' + notaHtml(nota, 'background:#fff;color:#111;padding:14px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.5;border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.4)') + '</div>' +
+          '<button type="button" class="go vst vimp" data-act="notaImp">Imprimir comprovante</button>') +
       '</div>';
     ov.hidden = false;
     document.body.classList.add('noscroll');
     var f = ov.querySelector('.vcf'),
-      fim = function () {
-        if (semRuc) {
-          f.classList.add('cont');
-          notaTimer = setTimeout(notaFechar, 3000);
-        }
-      };
+      fim = function () {};
     if (REDUCED) {
       f.querySelectorAll('.vst').forEach(function (e) {
         e.classList.add('on');
@@ -28831,12 +28883,12 @@
   }
   ACT.notaX = function () {
     if (!notaAtual) return notaFechar();
-    notaConfirma('Fechar sem imprimir a nota?', 'A venda já está registrada. Se o cliente quiser nota, volte e imprima agora.', 'Fechar sem imprimir', 'notaSair');
+    notaConfirma('Fechar sem imprimir o comprovante?', 'A venda já está registrada. Se o cliente quiser o comprovante, volte e imprima agora.', 'Fechar sem imprimir', 'notaSair');
   };
   // Pergunta antes de imprimir, para um toque sem querer não gastar papel.
   ACT.notaImp = function () {
     if (!notaAtual || vcfBusy) return;
-    notaConfirma('Imprimir a nota?', 'A nota será enviada para a impressora agora.', 'Imprimir', 'notaImpOk');
+    notaConfirma('Imprimir o comprovante?', 'O comprovante será enviado para a impressora agora.', 'Imprimir', 'notaImpOk');
   };
   ACT.notaImpOk = function () {
     $('notaCf').hidden = true;

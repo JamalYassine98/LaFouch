@@ -1,5 +1,7 @@
-  // ===== Cliente na venda + tela "Venda registrada" com os dados da nota fiscal (sempre em G$, IVA 10% incluso). =====
-  // O app NÃO emite nota fiscal: mostra e imprime os dados para conferir/digitar na maquininha.
+  // ===== Cliente na venda + tela "Venda confirmada" com o comprovante de venda (sempre em G$, IVA 10% incluso). =====
+  // O app NÃO emite nota fiscal: imprime o comprovante (sem valor fiscal) para qualquer cliente.
+  // Paraguaio com RUC: o comprovante leva Nombre/RUC (dados que a máquina fiscal usa). Estrangeiro: nome e CI/CPF, nunca RUC.
+  // Futuro (decisão do dono, 04/11/2026): com a API da fatura eletrônica do ministério (SIFEN), o comprovante do paraguaio sai com o QR.
   S.vCli = 0; // cliente escolhido na venda (0 = ninguém: Sin nombre / RUC X)
   S._vCliQ = '';
   S._vCliNovo = false;
@@ -7,7 +9,10 @@
   var notaTimer = 0,
     notaAtual = null;
   var temRuc = function (c) {
-    return !!(c && String(c.ruc || '').trim());
+    return !!(c && String(c.ruc || '').trim()) && !cliEstr(c);
+  };
+  var cliDocTxt = function (c) {
+    return c && String(c.ruc || '').trim() ? cliDocLbl(c) + ' ' + c.ruc : '';
   };
   var cliPorId = function (id) {
     return S.clientes.filter(function (c) {
@@ -29,7 +34,7 @@
       r
         .map(function (c) {
           return '<button type="button" class="sl" data-act="vcliesc" data-id="' + c.id + '" style="text-align:left;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:transparent;color:inherit;font:inherit;cursor:pointer"><b>' + esc(c.nome || c.tel) + '</b><small style="display:block">' +
-            esc([c.tel, temRuc(c) ? 'RUC ' + c.ruc : 'sem RUC'].filter(Boolean).join(' · ')) + '</small></button>';
+            esc([c.tel, cliDocTxt(c)].filter(Boolean).join(' · ')) + '</small></button>';
         })
         .join('') +
       '<button type="button" data-act="vclinovo" style="border:2px dashed var(--line);border-radius:12px;padding:10px 12px;color:var(--accent-fg);font:inherit;font-weight:700;background:transparent;cursor:pointer">＋ Cadastrar novo cliente</button></div>'
@@ -46,17 +51,17 @@
     if (c) {
       el.innerHTML =
         '<div style="display:flex;align-items:center;gap:10px;border:1px solid var(--accent);border-radius:12px;padding:10px 12px"><span style="flex:1"><b>' + esc(c.nome || c.tel) + '</b><small style="display:block">' +
-        esc([c.tel, temRuc(c) ? 'RUC ' + c.ruc : 'sem RUC'].filter(Boolean).join(' · ')) +
+        esc([c.tel, cliDocTxt(c)].filter(Boolean).join(' · ')) +
         '</small></span><button type="button" class="chip" data-act="vclitrocar" style="min-height:36px">Trocar</button></div>';
     } else if (S._vCliNovo) {
       el.innerHTML =
         '<input class="in" id="vcNome" placeholder="Nome" autocomplete="off" value="' + esc(S._vCliQ) + '">' +
         '<input class="in" id="vcTel" type="tel" inputmode="tel" placeholder="Telefone / WhatsApp">' +
-        '<input class="in" id="vcRuc" placeholder="RUC ou CI (vazio = estrangeiro, sem nota)" autocomplete="off">' +
+        cliDocHtml('vc', null) +
         '<div class="hint" id="vcH" style="margin:0"></div>' +
         '<div style="display:flex;gap:8px"><button type="button" class="go" data-act="vclisave" style="flex:1">Salvar cliente</button><button type="button" class="chip" data-act="vclicanc" style="min-height:48px">Cancelar</button></div>';
     } else {
-      el.innerHTML = '<input class="in" id="vCliQ" placeholder="Nome, telefone ou RUC" autocomplete="off" aria-label="Cliente" value="' + esc(S._vCliQ) + '"><div id="vCliSug">' + vcSugHtml() + '</div>';
+      el.innerHTML = '<input class="in" id="vCliQ" placeholder="Nome, telefone ou documento" autocomplete="off" aria-label="Cliente" value="' + esc(S._vCliQ) + '"><div id="vCliSug">' + vcSugHtml() + '</div>';
     }
   }
   document.addEventListener('input', function (e) {
@@ -102,10 +107,10 @@
     }
     var dup = cliAchar(nome, tel, ruc, 0);
     if (dup) {
-      $('vcH').textContent = 'Já existe um cliente com esse telefone ou RUC: ' + (dup.nome || dup.tel) + '.';
+      $('vcH').textContent = 'Já existe um cliente com esse telefone ou documento: ' + (dup.nome || dup.tel) + '.';
       return;
     }
-    var c = { id: S.cliNext++, nome: cap1(nome), tel: tel, ruc: ruc, obs: '', ts: Date.now() };
+    var c = { id: S.cliNext++, nome: cap1(nome), tel: tel, ruc: ruc, nac: cliNacLida('vc', null), obs: '', ts: Date.now() };
     S.clientes.push(c);
     S.vCli = c.id;
     S._vCliQ = '';
@@ -132,10 +137,14 @@
     var total = ord.reduce(function (a, x) {
       return a + x.tot;
     }, 0);
+    // Estrangeiro: nome e CI/CPF (se houver). Paraguaio sem RUC ou sem cliente: Sin nombre / RUC X.
+    var est = cliEstr(cli),
+      fis = cli && temRuc(cli);
     return {
       ts: Date.now(),
-      nombre: cli && temRuc(cli) ? cli.nome || 'Sin nombre' : 'Sin nombre',
-      ruc: cli && temRuc(cli) ? String(cli.ruc).trim() : 'X',
+      nombre: est || fis ? cli.nome || 'Sin nombre' : 'Sin nombre',
+      docL: est ? 'CI/CPF' : 'RUC',
+      ruc: fis ? String(cli.ruc).trim() : est ? String(cli.ruc || '').trim() : 'X',
       ciudad: 'CDE',
       pago: 'Contado',
       lineas: ord,
@@ -152,8 +161,8 @@
         return '<div style="display:flex;justify-content:space-between;gap:10px;' + (s || '') + '"><span>' + a + '</span><span>' + b + '</span></div>';
       };
     return (
-      '<div class="notapapel" style="' + (estilo || '') + '"><div style="text-align:center;font-weight:700;border:1px dashed #111;padding:3px;margin-bottom:6px">DADOS PARA NOTA FISCAL (sem valor fiscal)</div>' +
-      '<div>Fecha: ' + fd(n.ts) + '</div><div>Nombre: ' + esc(n.nombre) + '</div><div>RUC: ' + esc(n.ruc) + '</div><div>Ciudad: ' + esc(n.ciudad) + '</div><div>Pago: ' + n.pago + '</div>' + hr +
+      '<div class="notapapel" style="' + (estilo || '') + '"><div style="text-align:center;font-weight:700;border:1px dashed #111;padding:3px;margin-bottom:6px">COMPROBANTE DE VENTA (sin valor fiscal)</div>' +
+      '<div>Fecha: ' + fd(n.ts) + '</div><div>Nombre: ' + esc(n.nombre) + '</div>' + (n.ruc ? '<div>' + (n.docL || 'RUC') + ': ' + esc(n.ruc) + '</div>' : '') + '<div>Ciudad: ' + esc(n.ciudad) + '</div><div>Pago: ' + n.pago + '</div>' + hr +
       n.lineas
         .map(function (x) {
           return r(x.qty + ' ' + x.desc, '') + r('Unidad G$', notaNum(x.un));
@@ -173,29 +182,21 @@
     clearTimeout(notaFecT);
     vcfBusy = false;
     var tok = ++vcfTok;
-    var semRuc = !!(cli && !temRuc(cli));
-    notaAtual = semRuc ? null : nota;
-    var sub = cli ? esc(cli.nome || cli.tel) + (temRuc(cli) ? ' · RUC ' + esc(cli.ruc) : ' · sem RUC') : 'Sem cliente escolhido';
+    notaAtual = nota;
+    var sub = cli ? esc(cli.nome || cli.tel) + (cliDocTxt(cli) ? ' · ' + esc(cliDocTxt(cli)) : '') : 'Sem cliente escolhido';
     ov.classList.remove('vout');
     ov.innerHTML =
       '<div class="vcf' + (REDUCED ? ' fast' : '') + '"><button type="button" class="vx" data-act="notaX" aria-label="Fechar">×</button>' +
       '<div class="vcc' + (REDUCED ? ' done' : '') + '"><div class="vspn"></div><div class="vck"><svg viewBox="0 0 56 56" aria-hidden="true"><path d="M13 29l10 10 20-22"/></svg></div></div>' +
       '<h2 class="vst">Venda confirmada</h2><div class="hint vst vsub">' + sub + '</div>' +
       '<div class="vtot vst" id="vtot">' + gs(nota.total) + '</div>' +
-      (semRuc
-        ? '<div class="note n-warn vst vw" role="status"><b>Cliente sem RUC</b><div>Sem dados para a nota fiscal: não há o que imprimir. Esta tela fecha sozinha.</div><div class="vpb"><i></i></div></div>'
-        : '<div class="vst">' + notaHtml(nota, 'background:#fff;color:#111;padding:14px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.5;border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.4)') + '</div>' +
-          '<button type="button" class="go vst vimp" data-act="notaImp">Imprimir nota</button>') +
+      ('<div class="vst">' + notaHtml(nota, 'background:#fff;color:#111;padding:14px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.5;border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.4)') + '</div>' +
+          '<button type="button" class="go vst vimp" data-act="notaImp">Imprimir comprovante</button>') +
       '</div>';
     ov.hidden = false;
     document.body.classList.add('noscroll');
     var f = ov.querySelector('.vcf'),
-      fim = function () {
-        if (semRuc) {
-          f.classList.add('cont');
-          notaTimer = setTimeout(notaFechar, 3000);
-        }
-      };
+      fim = function () {};
     if (REDUCED) {
       f.querySelectorAll('.vst').forEach(function (e) {
         e.classList.add('on');
@@ -261,12 +262,12 @@
   }
   ACT.notaX = function () {
     if (!notaAtual) return notaFechar();
-    notaConfirma('Fechar sem imprimir a nota?', 'A venda já está registrada. Se o cliente quiser nota, volte e imprima agora.', 'Fechar sem imprimir', 'notaSair');
+    notaConfirma('Fechar sem imprimir o comprovante?', 'A venda já está registrada. Se o cliente quiser o comprovante, volte e imprima agora.', 'Fechar sem imprimir', 'notaSair');
   };
   // Pergunta antes de imprimir, para um toque sem querer não gastar papel.
   ACT.notaImp = function () {
     if (!notaAtual || vcfBusy) return;
-    notaConfirma('Imprimir a nota?', 'A nota será enviada para a impressora agora.', 'Imprimir', 'notaImpOk');
+    notaConfirma('Imprimir o comprovante?', 'O comprovante será enviado para a impressora agora.', 'Imprimir', 'notaImpOk');
   };
   ACT.notaImpOk = function () {
     $('notaCf').hidden = true;

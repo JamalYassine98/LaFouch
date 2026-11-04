@@ -98,6 +98,7 @@
     var c = cliAchar(p.cli, p.tel, p.doc, 0, p.email);
     if (c) {
       if (!c.ruc && p.doc) c.ruc = p.doc;
+      if (!c.nac && p.nac) c.nac = p.nac; // br/ar = estrangeiro: o CPF/DNI nunca vira RUC
       if (!c.email && p.email) c.email = p.email;
       if (!c.tel && p.tel) c.tel = p.tel;
       return { c: c, novo: false };

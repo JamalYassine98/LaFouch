@@ -16,6 +16,55 @@
     if (d.indexOf('595') === 0 && d.length > 9) d = d.slice(3);
     return d.replace(/^0+/, '');
   };
+  // Nacionalidade: paraguaio (documento = RUC) ou estrangeiro (documento = CI/CPF, nunca nota fiscal).
+  // O documento fica sempre em c.ruc; o que diz se é RUC é c.nac. Do site vêm 'br'/'ar' (estrangeiros); do balcão, 'py' ou 'ex'.
+  var cliEstr = function (c) {
+    return !!c && (c.nac === 'ex' || c.nac === 'br' || c.nac === 'ar');
+  };
+  var cliDocLbl = function (c) {
+    return cliEstr(c) ? 'CI/CPF' : 'RUC';
+  };
+  var CLI_DOC = { py: ['RUC', '80012345-6'], ex: ['CI/CPF', 'Número do documento'] };
+  // Seletor Paraguaio | Estrangeiro + campo do documento, que troca de nome sozinho (pre = prefixo dos ids).
+  function cliDocHtml(pre, c) {
+    var n = cliEstr(c) ? 'ex' : 'py',
+      d = CLI_DOC[n],
+      b = function (k, t) {
+        return '<button type="button" class="cb3' + (k === n ? ' on' : '') + '" data-act="clinac" data-id="' + pre + '|' + k + '">' + t + '</button>';
+      };
+    return (
+      '<div class="catbar3 cliNac" id="' + pre + 'Nac" data-nac="' + n + '" role="group" aria-label="Nacionalidade">' + b('py', 'Paraguaio') + b('ex', 'Estrangeiro') + '</div>' +
+      '<div class="docF"><span class="docL" id="' + pre + 'DocL">' + d[0] + '</span><input class="in" id="' + pre + 'Ruc" placeholder="' + d[1] + '" value="' + esc((c && c.ruc) || '') + '" autocomplete="off" aria-labelledby="' + pre + 'DocL"></div>'
+    );
+  }
+  // Troca no lugar (sem redesenhar a tela): pílula, nome do campo e exemplo.
+  ACT.clinac = function (arg) {
+    var p = String(arg).split('|'),
+      box = $(p[0] + 'Nac'),
+      l = $(p[0] + 'DocL'),
+      inp = $(p[0] + 'Ruc'),
+      d = CLI_DOC[p[1]];
+    if (!box || !d || box.dataset.nac === p[1]) return;
+    box.dataset.nac = p[1];
+    box.querySelectorAll('.cb3').forEach(function (x) {
+      x.classList.toggle('on', x.getAttribute('data-id') === arg);
+    });
+    if (l) {
+      l.classList.add('swap');
+      setTimeout(function () {
+        l.textContent = d[0];
+        l.classList.remove('swap');
+      }, REDUCED ? 0 : 160);
+    }
+    if (inp) inp.placeholder = d[1];
+  };
+  // Nacionalidade escolhida no formulário; estrangeiro do site mantém 'br'/'ar'.
+  function cliNacLida(pre, cur) {
+    var box = $(pre + 'Nac'),
+      n = box ? box.dataset.nac : 'py';
+    if (n === 'ex') return cliEstr(cur) ? cur.nac : 'ex';
+    return 'py';
+  }
   // Acha um cliente pelo telefone, pelo RUC/CI, pelo e-mail ou pelo nome (nesta ordem).
   function cliAchar(nome, tel, ruc, ignorar, email) {
     var t = cliTel(tel),
@@ -122,7 +171,7 @@
         return (
           '<button type="button" class="card col" data-act="cliab" data-id="' + c.id + '" style="text-align:left;font:inherit;color:inherit;cursor:pointer;gap:2px">' +
           '<b style="font-size:15px">' + esc(c.nome || 'Sem nome') + et + '</b>' +
-          '<span class="hint" style="margin:0">' + esc([c.tel, c.email, c.ruc ? 'RUC/CI ' + c.ruc : ''].filter(Boolean).join(' · ') || 'sem telefone') + '</span>' +
+          '<span class="hint" style="margin:0">' + esc([c.tel, c.email, c.ruc ? cliDocLbl(c) + ' ' + c.ruc : ''].filter(Boolean).join(' · ') || 'sem telefone') + '</span>' +
           '<span class="hint" style="margin:0">' + ps.length + (ps.length === 1 ? ' pedido' : ' pedidos') + (tot ? ' · ' + gs(tot) + ' pela tabela' : '') + ' · última ' + fd(u) + '</span></button>'
         );
       })
@@ -160,7 +209,7 @@
     cliSync();
     var el = $('v-clientes');
     if (!el || S.view !== 'clientes') return;
-    var h = '<div class="top"><div><h1>Clientes</h1><div class="crumb">Quem compra de você, com telefone e RUC</div></div>' +
+    var h = '<div class="top"><div><h1>Clientes</h1><div class="crumb">Quem compra de você, com telefone e documento</div></div>' +
       '<div class="tabs"><button class="mini" data-act="clinovo">+ Novo cliente</button></div></div>';
     var c = S.cliSel === 'novo' ? { id: 0, nome: '', tel: '', ruc: '', obs: '' } : cliAtual();
     if (c) {
@@ -172,10 +221,9 @@
         '<input class="in" id="cNome" placeholder="Nome" value="' + esc(c.nome) + '" autocomplete="off">' +
         '<input class="in" id="cTel" type="tel" inputmode="tel" placeholder="Telefone / WhatsApp" value="' + esc(c.tel) + '">' +
         '<input class="in" id="cEmail" type="email" inputmode="email" placeholder="E-mail (opcional, para avisos)" value="' + esc(c.email || '') + '" autocomplete="off">' +
-        '<input class="in" id="cRuc" inputmode="text" placeholder="RUC ou CI (para a nota fiscal)" value="' + esc(c.ruc) + '" autocomplete="off">' +
+        cliDocHtml('c', c) +
         '<select class="in" id="cTab" aria-label="Tabela de preço do cliente"><option value="">Tabela de preço: padrão (Público)</option>' + tabLista().filter(function (T) { return !T.pub; }).map(function (T) { return '<option value="' + T.id + '"' + (c.tab === T.id ? ' selected' : '') + '>' + esc(T.nome) + '</option>'; }).join('') + '</select>' +
         cliDupHtml(c) +
-        (c.id && !String(c.ruc || '').trim() ? '<div class="note n-warn"><b>Sem RUC</b></div>' : '') +
         '<input class="in" id="cObs" placeholder="Observação (opcional)" value="' + esc(c.obs || '') + '">' +
         '<div class="hint" id="cH" style="margin:0"></div>' +
         '<div class="col" style="gap:12px;margin-top:6px"><button type="button" class="go" data-act="clisave">Salvar</button>' +
@@ -198,7 +246,7 @@
         cliComprasHtml(c) +
         '</section>';
     }
-    h += '<input class="in" id="cliQ" placeholder="Buscar por nome, telefone ou RUC" value="' + esc(S.cliQ) + '" autocomplete="off" aria-label="Buscar cliente">';
+    h += '<input class="in" id="cliQ" placeholder="Buscar por nome, telefone ou documento" value="' + esc(S.cliQ) + '" autocomplete="off" aria-label="Buscar cliente">';
     h += '<div class="col" id="cliList" style="gap:10px">' + cliListaHtml() + '</div>';
     el.innerHTML = h;
   }
@@ -240,18 +288,20 @@
     }
     var dup = cliAchar(nome, tel, ruc, cur ? cur.id : 0, email);
     if (dup) {
-      $('cH').textContent = 'Já existe um cliente com esse telefone ou RUC: ' + (dup.nome || dup.tel) + '.';
+      $('cH').textContent = 'Já existe um cliente com esse telefone ou documento: ' + (dup.nome || dup.tel) + '.';
       return;
     }
+    var nac = cliNacLida('c', cur);
     if (cur) {
       cur.nome = cap1(nome);
       cur.tel = tel;
       cur.ruc = ruc;
+      cur.nac = nac;
       cur.email = email;
       cur.obs = obs;
       cur.tab = tabc;
     } else {
-      S.clientes.push({ id: S.cliNext++, nome: cap1(nome), tel: tel, ruc: ruc, email: email, obs: obs, ts: Date.now(), orig: 'balcao', tab: tabc });
+      S.clientes.push({ id: S.cliNext++, nome: cap1(nome), tel: tel, ruc: ruc, nac: nac, email: email, obs: obs, ts: Date.now(), orig: 'balcao', tab: tabc });
     }
     S.cliSel = null;
     render();

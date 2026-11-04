@@ -1108,3 +1108,9 @@ input,textarea,[contenteditable],.sel-ok,.sel-ok *{-webkit-user-select:text;user
 a[data-act],a.lk{display:inline-block;padding:14px 8px;margin:-14px -8px;-webkit-tap-highlight-color:transparent}
 /* números grandes dos painéis nunca quebram "G$" da cifra */
 .kpi b{white-space:nowrap;font-size:clamp(18px,5.4vw,26px)}
+/* v413 cliente: Paraguaio | Estrangeiro e campo do documento que troca de nome (RUC ↔ CI/CPF) */
+.cliNac{margin:0}
+.cliNac .cb3{transition:background .28s var(--mola),color .28s,box-shadow .28s}
+.docF{display:flex;flex-direction:column;gap:4px}
+.docL{font-size:12px;color:var(--mute);margin-left:4px;transition:opacity .16s,transform .16s}
+.docL.swap{opacity:0;transform:translateY(4px)}

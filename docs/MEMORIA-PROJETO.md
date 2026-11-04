@@ -89,8 +89,11 @@ Em 04/11/2026 o dono exportou a conversa inteira (21/10 a 04/11) e ela foi relid
 - Antes de limpeza de código: guardar a versão atual; app e site não podem quebrar.
 - Offline é emergência (queda de luz); online é a prioridade; só ferramentas grátis e seguras.
 
-## BUG CRÍTICO encontrado em 04/11/2026 (NÃO corrigido, aguardando o dono)
-- Clientes que chegam pelo site guardam o documento (CPF do brasileiro, DNI do argentino) no campo `ruc` (src/95-pedidos.js linhas ~100 e ~105). A nota (src/97-nota.js, `temRuc`) só olha se `ruc` está preenchido, então um estrangeiro vindo do site aparece COM a opção de nota fiscal. Viola a regra de extrema importância. Correção proposta: guardar CPF/DNI em `doc` e só tratar como RUC quando `nac` for paraguaio (ou vazio, no balcão).
+## v413 (04/11/2026) — Paraguaio | Estrangeiro e comprovante para todos (dono aprovou)
+- BUG corrigido: clientes do site guardavam CPF/DNI em `c.ruc` e o app tratava como RUC (estrangeiro com opção de nota). Agora `temRuc` exige que o cliente NÃO seja estrangeiro (`cliEstr`: nac 'ex', 'br' ou 'ar'); o pedido do site preenche `c.nac` também em cliente já existente.
+- Ficha do cliente e cadastro rápido na venda: pílula "Paraguaio | Estrangeiro" (decisão do dono: só duas opções, "muito mais simples") e UM campo de documento cujo nome troca sozinho: RUC (paraguaio) ou CI/CPF (estrangeiro; brasileiro também tem CI). Sem avisos "sem nota fiscal" / "Sem RUC": é tudo automático. Documento continua em `c.ruc`; quem diz se é RUC é `c.nac`.
+- Venda confirmada: COMPROVANTE DE VENTA (sin valor fiscal) para TODOS, botão "Imprimir comprovante" com confirmação; só fecha pelo X ou imprimindo (acabou o "fecha sozinha em 3 s"). Paraguaio com RUC: Nombre + RUC. Estrangeiro: nome + CI/CPF, nunca RUC. Sem cliente ou paraguaio sem RUC: Sin nombre / RUC X.
+- FUTURO (decisão do dono): quando ele tiver a API da fatura eletrônica do ministério (SIFEN), o comprovante do PARAGUAIO sai com o QR da fatura. Estrangeiro continua só com o comprovante. Não implementar antes de ele trazer a API.
 
 ## Pedidos de 27/10/2026 13:32
 - Formato/Material/Gênero/Tipo: trocar chips por seletor estilo 'Label Select' (campo com lupa + seta, lista abaixo); o botão Formato não respondia ao clique. Resolver toda interação parecida.
