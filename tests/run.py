@@ -133,7 +133,7 @@ TESTES = [
    L.primeiroUso();
    return [S.items.length>0, S.items.length<=40, S.sales.length, S.exp.length, S.cash.pyg, S.ini.rep, Object.keys(S.fotos).length>0, S.view]""", [True, True, 0, 0, 0, 0, True, 'dash']),
  ("piso: sem faixa só cobre o custo; com faixa entra a margem", """
-   L.primeiroUso(); const it=S.items[0], a=L.pisoPeca(it).piso; S.pfaixa[it.ref]='f3'; const b=L.pisoPeca(it);
+   L.primeiroUso(); const it=S.items[0], a=L.pisoPeca(it).piso; S.linhaFix={}; S.linhaFix[it.ref]='f3'; S._linK=null; S._linC=null; const b=L.pisoPeca(it);
    return [a>0, b.piso>a, b.margem]""", [True, True, 0.5]),
  ("rateio das contas: proporcional ao custo soma as contas do mês e peça cara carrega mais", """
    L.primeiroUso(); S.exp=[{id:1,nome:'Aluguel',cat:'loja',tipo:'fixa',moeda:'pyg',orig:1800000,valor:1800000,rate0:1,hist:[],dia:10}];
@@ -142,11 +142,15 @@ TESTES = [
    S.items[0].custo=1; S.items[S.items.length-1].custo=6; S.rateio='custo'; const its=S.items.slice().sort((a,b)=>L.tFor(a).repUSD-L.tFor(b).repUSD);
    const lo=L.contasPeca(its[0]), hi=L.contasPeca(its[its.length-1]);
    return [flat>0, hi>lo, lo>0]""", [True, True, True]),
- ("faixa automática pelo custo: escolha manual vale mais e desligada não muda nada", """
-   L.primeiroUso(); const it=S.items[0]; S.pfaixa={}; S.faixaAuto={on:false,lim:[4,10]};
-   const off=L.faixaOf(it.ref); S.faixaAuto={on:true,lim:[0.0001,0.0002]}; const auto=L.faixaOf(it.ref);
-   S.pfaixa[it.ref]='f1'; const man=L.faixaOf(it.ref);
-   return [off===null, auto&&auto.id===S.faixas[S.faixas.length-1].id, man.id==='f1']""", [True, True, True]),
+ ("linha automática: custo dentro do tipo, marca de luxo e correção do dono vale mais", """
+   L.primeiroUso(); S._linK = null; S.pfaixa = {}; S.linhaFix = {}; S.attr = S.attr || {};
+   S.items = [1,2,3,4,5,6,7,8].map(n => ({tipo:'sem', ref:'LN'+n, grau:'', cor:'Preto', qty:2, fmt:'', med:'', vr:'', custo:n}));
+   S.items.push({tipo:'sem', ref:'LN0', grau:'', cor:'Preto', qty:2, fmt:'', med:'', vr:''});
+   const n = r => (L.linhaDe(r, 'sem') || {}).nome;
+   const a = [n('LN1'), n('LN5'), n('LN8'), L.linhaDe('LN0', 'sem')];
+   S.attr.LN3 = {marca:'Gucci'}; S._linK = null; S._linC = null; const g = [n('LN3'), (L.linhaDe('LN3','sem').mot || []).join()];
+   S.linhaFix = {LN8: S.faixas[0].id}; S._linK = null; const c = [n('LN8'), L.linhaDe('LN8','sem').fix, L.faixaOf('LN8').id === S.faixas[0].id];
+   return [a, g, c]""", [['Econômica', 'Intermediária', 'Luxo', None], ['Intermediária', 'custo entre os mais baratos,marca Gucci'], ['Econômica', True, True]]),
  ("destaque automático: manda por estoque (mais peças e mais tempo sem vender), só o que está no site", """
    L.primeiroUso(); const a=S.items[0], b=S.items[1], c=S.items[2]; S.items.forEach(i=>{i.qty=0}); a.qty=2; b.qty=9; c.qty=30; S.sales=[];
    S.vitrine=[a.ref,b.ref]; S.nuvem.rt='x'; const calls=[]; window.fetch=(u,o)=>{calls.push([u,o&&o.body]); return Promise.resolve({ok:true,status:200,json:()=>Promise.resolve({}),text:()=>Promise.resolve('{}')})};
@@ -1252,6 +1256,73 @@ async def main():
             ok = a0[0] >= 7 and a0[1] == 0 and a0[2] == 'Auto' and a0[3] and a1 == ['tema'] and a2 == ['bk', 'bk', True] and a3 == 'imp' and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Ajustes: grupo único, uma aberta por vez, segurar e arrastar com Desfazer')
             if not ok: falhas.append('ajustes ordem'); print('        veio', a0, a1, a2, a3, pg.erros)
+            total += 1
+            await pg.close()
+
+            # Linha automática no atendimento: depois de ver peças de luxo o catálogo traz o luxo primeiro; vitrine mostra "Parecidas"; nada visível
+            pg = await pagina()
+            at = await pg.evaluate("""() => { const L = window.__LF, S = L.S; S._linK = null; S._linC = null; S.pfaixa = {}; S.linhaFix = {}; S.cart = []; S.vRef = ''; S.vAb = ''; S.tabAtiva = 'pub'; S.vModo = {v:'g'};
+              try { localStorage.setItem('lf_modo_v', 'g'); } catch (e) {}
+              S.items = [1,2,3,4,5,6].map(n => ({tipo:'sem', ref:'AT'+n, grau:'', cor:'Preto', qty:3, fmt:'', med:'', vr:'', custo:n}));
+              S.attr = {AT5:{formato:'Redondo'}, AT6:{formato:'Redondo'}, AT4:{formato:'Quadrado'}};
+              L.atdFim(); L.setView('vendas'); L.render();
+              const antes = [...document.querySelectorAll('#vRows .pcard')].map(c => c.dataset.ref).join(',');
+              S.vRef = 'sem|AT6'; L.render(); const par = [...document.querySelectorAll('#vDetail .vPar .vParC')].map(c => c.dataset.ref);
+              S.vRef = ''; L.render();
+              const depois = [...document.querySelectorAll('#vRows .pcard')].map(c => c.dataset.ref);
+              const txt = document.getElementById('vListCard').innerText;
+              return {antes, prim: depois[0], par, semNome: !/Luxo|Econômic|Intermediár/.test(txt)}; }""")
+            ok = [x for x in at['antes'].split(',') if x.startswith('AT')][0] == 'AT1' and at['prim'] in ('AT5', 'AT6') and at['par'] and at['par'][0] == 'AT5' and at['semNome'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'linha automática: catálogo se arruma pelo que o cliente viu, Parecidas na vitrine, nenhum nome de linha')
+            if not ok: falhas.append('atendimento linha'); print('        veio', at, pg.erros)
+            total += 1
+            await pg.close()
+
+            # Preço automático: degraus para parados, protege o piso, desfazer não refaz, cadeado e pré-graduado fora
+            pg = await pagina()
+            pa = await pg.evaluate("""() => { const L = window.__LF, S = L.S, D = 864e5, now = Date.now(); S._linK = null; S._linC = null; S.cart = []; S.pTrava = {}; S.pAuto = {on: true, ult: 0, mudas: [], ign: {}};
+              S.items = [{tipo:'sem', ref:'PA1', grau:'', cor:'Preto', qty:3, fmt:'', med:'', vr:'', custo:2}, {tipo:'sem', ref:'PA2', grau:'', cor:'Preto', qty:3, fmt:'', med:'', vr:'', custo:2}, {tipo:'sem', ref:'PA3', grau:'', cor:'Preto', qty:3, fmt:'', med:'', vr:'', custo:2}, {tipo:'pre', ref:'PA4', grau:'+1.00', cor:'Preto', qty:3, fmt:'', med:'', vr:'', custo:0.5}, {tipo:'sem', ref:'PA5', grau:'', cor:'Preto', qty:3, fmt:'', med:'', vr:''}];
+              S.pprice = {PA1: {novo: 400000}, PA2: {novo: 400000}, PA3: {novo: 400000}, PA5: {novo: 400000}}; L.ppSync && 0;
+              S.sales = [{id:'X1', ts: now - 80 * D, ref:'PA1', tipo:'sem', qty:1, price:1}];
+              S.elog = [{ts: now - 100 * D, tipo:'sem', ref:'PA1', cor:'Preto', qty:3}, {ts: now - 100 * D, tipo:'sem', ref:'PA2', cor:'Preto', qty:3}, {ts: now - 10 * D, tipo:'sem', ref:'PA3', cor:'Preto', qty:3}, {ts: now - 200 * D, tipo:'pre', ref:'PA4', cor:'Preto', qty:3}, {ts: now - 200 * D, tipo:'sem', ref:'PA5', cor:'Preto', qty:3}];
+              S.pTrava = {PA2: false};
+              const pl = L.paPlano().map(m => [m.ref, m.kind]);
+              const n = L.paRevisa(true); const o1 = JSON.parse(JSON.stringify(S.pprice.PA1));
+              const m1 = S.pAuto.mudas.find(m => m.ref === 'PA1'); L.paDesfaz(m1.id); const volta = S.pprice.PA1.novo;
+              const pl2 = L.paPlano().filter(m => m.ref === 'PA1').length;
+              S.pTrava = {PA2: true}; const pl3 = L.paPlano().filter(m => m.ref === 'PA2').length;
+              return {pl, n, o1: [o1.ant, o1.novo < o1.ant, o1.auto], volta, pl2, pl3}; }""")
+            ok = ['PA1', 'oferta'] in pa['pl'] and ['PA2', 'oferta'] in pa['pl'] and not any(x[0] in ('PA3', 'PA4', 'PA5') for x in pa['pl']) and pa['o1'][0] == 400000 and pa['o1'][1] and pa['o1'][2] == 1 and pa['volta'] == 400000 and pa['pl2'] == 0 and pa['pl3'] == 0 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'preço automático: oferta em degraus para parados, desfazer não refaz, cadeado, pré-graduado e sem custo de fora')
+            if not ok: falhas.append('preco automatico'); print('        veio', pa, pg.erros)
+            total += 1
+            await pg.close()
+
+            # Cliente achou caro: viu caras e abriu uma barata -> catálogo desce de linha com o mesmo estilo; parecidas mais em conta; Leve 2 e Brinde no pedido; limite secreto
+            pg = await pagina()
+            ca = await pg.evaluate("""async () => { const L = window.__LF, S = L.S; S._linK = null; S._linC = null; S.pfaixa = {}; S.linhaFix = {}; S.cart = []; S.vRef = ''; S.tabAtiva = 'pub'; S.vModo = {v:'g'};
+              try { localStorage.setItem('lf_modo_v', 'g'); } catch (e) {}
+              const mk = (r, c, f, p) => ({tipo:'sem', ref:r, grau:'', cor:'Preto', qty:3, fmt:'', med:'', vr:'', custo:c});
+              S.items = [mk('CA1',1),mk('CA2',2),mk('CA3',3),mk('CA4',7),mk('CA5',8),mk('CA6',9), {tipo:'solar', ref:'CS1', grau:'', cor:'Preto', qty:2, fmt:'', med:'', vr:'', custo:2}];
+              S.pprice = {CA1:{novo:60000},CA2:{novo:70000},CA3:{novo:80000},CA4:{novo:150000},CA5:{novo:160000},CA6:{novo:170000},CS1:{novo:120000}};
+              S.attr = {CA2:{formato:'Redondo'}, CA5:{formato:'Redondo'}, CA6:{formato:'Redondo'}, CA1:{formato:'Quadrado'}};
+              S.brindes = [{ts: Date.now() - 864e5, nome: 'Estojo', qtd: 1000, unit: 0.1, moeda: 'usd', total: 100, valor: Math.round(100 * S.fx.pyg)}];
+              L.atdFim(); L.setView('vendas'); L.render();
+              S.vRef = 'sem|CA6'; L.render(); const par = [...document.querySelectorAll('#vDetail .vPar .vParC')].map(c => c.dataset.ref);
+              S.vRef = 'sem|CA5'; L.render(); S.vRef = 'sem|CA1'; L.render(); const desceu = L.atdDesceu();
+              S.vRef = ''; L.render(); const prim = [...document.querySelectorAll('#vRows .pcard')].map(c => c.dataset.ref).filter(r => /^C/.test(r)).slice(0, 2);
+              S.cart = [{it: S.items[5], qty: 1, tab: 'pub', preco: null}]; S.cartOpen = true; S.cartStep = 'ped'; S.cartSug = null; L.render();
+              const temL2 = !!document.querySelector('[data-act=cartL2]'), temBr = !!document.querySelector('[data-act=cartBr]');
+              document.querySelector('[data-act=cartL2]').click(); await new Promise(r => setTimeout(r, 100));
+              const linhas = S.cart.length, l2 = S.cart[1] && [S.cart[1].it.ref, S.cart[1].preco < 120000];
+              S.cart = []; S.cartOpen = false; S.vRef = 'sem|CA6'; L.render();
+              const pr = document.querySelector('#vDetail .vtPreco'); pr.dispatchEvent(new PointerEvent('pointerdown', {bubbles: true})); await new Promise(r => setTimeout(r, 600));
+              const lim = !!document.querySelector('.vtLim') && /Pode chegar a/.test(document.querySelector('.vtLim').innerText);
+              pr.dispatchEvent(new PointerEvent('pointerup', {bubbles: true})); const some = !document.querySelector('.vtLim');
+              return {par, desceu, prim, temL2, temBr, linhas, l2, lim, some}; }""")
+            ok = ca['desceu'] and ca['prim'][0] == 'CA2' and any(r in ('CA1', 'CA2', 'CA3') for r in ca['par']) and ca['temL2'] and ca['temBr'] and ca['linhas'] == 2 and ca['l2'] == ['CS1', True] and ca['lim'] and ca['some'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'cliente achou caro: desce de linha com o mesmo estilo, parecidas mais em conta, Leve 2/Brinde e limite secreto')
+            if not ok: falhas.append('achou caro'); print('        veio', ca, pg.erros)
             total += 1
             await pg.close()
 
@@ -2534,11 +2605,10 @@ async def main():
             await pg.wait_for_timeout(300)
             total += 1
             await pg.fill('[data-aj="meta"]', '600'); await pg.press('[data-aj="meta"]', 'Tab'); await pg.wait_for_timeout(300)
-            await pg.fill('#fnew', 'Premium'); await pg.locator('[data-act="fadd"]').click(); await pg.wait_for_timeout(300)
             await pg.fill('[data-aj="vol"]', '500'); await pg.press('[data-aj="vol"]', 'Tab'); await pg.wait_for_timeout(300)
-            got = await pg.evaluate("() => { const S = window.__LF.S; return [S.metaUsd, S.faixas.map(f => f.nome).pop(), S.volume] }")
-            ok = got == [600, 'Premium', 500] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'Dashboard › Preços: meta, nova faixa e peças por mês (saíram de Ajustes)')
+            got = await pg.evaluate("() => { const S = window.__LF.S; return [S.metaUsd, !document.getElementById('fnew'), S.volume] }")
+            ok = got == [600, True, 500] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Dashboard › Preços: meta e peças por mês; sem faixas manuais (linha automática)')
             if not ok: falhas.append('tela ajustes'); print('        veio', got, pg.erros)
             total += 1
             await pg.evaluate("() => { window.__LF.S.dTab = 'hoje'; window.__LF.setView('dash'); }"); await pg.wait_for_timeout(300)
@@ -2553,8 +2623,8 @@ async def main():
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
             await pg.evaluate(ED(1)); await pg.locator('#edFaixas button:has-text("Luxo")').click(); await pg.wait_for_timeout(200)
             await pg.evaluate(ED(4)); await pg.locator('#editModal #edSalvar').click(); await pg.wait_for_timeout(300)
-            got = await pg.evaluate("() => { const S = window.__LF.S; return S.pfaixa['BR44118'] === S.faixas.filter(f => f.nome === 'Luxo')[0].id }")
-            await checa('janela Editar: escolher a faixa do produto', got is True, got)
+            got = await pg.evaluate("() => { const S = window.__LF.S; return S.linhaFix['BR44118'] === S.faixas.filter(f => f.nome === 'Luxo')[0].id }")
+            await checa('janela Editar: corrigir a linha do produto', got is True, got)
             total += 1
             await pg.evaluate("""() => { const v = (id, x) => { const e = document.getElementById(id); e.value = x; e.dispatchEvent(new Event('input', {bubbles: true})); };
               v('pkN', '24'); v('pkQ', '2'); v('pkC', '12'); document.getElementById('pkGo').click(); }""")

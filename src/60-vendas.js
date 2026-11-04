@@ -90,13 +90,13 @@
           }) &&
           (S.vTipo === 'all' || i.tipo === S.vTipo) &&
           (!S.vGrau || S.vTipo !== 'pre' || i.grau === S.vGrau) &&
-          (!S.vFaixa || (faixaOf(i.ref) || {}).id === S.vFaixa) &&
+          true &&
           (!qm || qm(i))
         );
       });
     $('vFiltPanel').hidden = !S.vFilt;
     $('vBtnFilt').setAttribute('aria-pressed', !!S.vFilt);
-    $('vBtnFilt').classList.toggle('on', !!S.vFilt || !!S.vFaixa || S.vTipo !== 'all' || !!S.vMais);
+    $('vBtnFilt').classList.toggle('on', !!S.vFilt || S.vTipo !== 'all' || !!S.vMais);
     // abas de tipo (sempre à vista) e fileira de graus nos pré-graduados
     var vtb = $('vTabs');
     vtb.textContent = '';
@@ -185,7 +185,8 @@
     }
     var vf = $('vFaixas');
     vf.textContent = '';
-    $('vFaixaB').hidden = !S.faixas.length;
+    $('vFaixaB').hidden = true; // v421: linha é oculta para o cliente (nada de filtro com o nome)
+    S.vFaixa = '';
     [{ id: '', nome: 'Todas' }].concat(S.faixas).forEach(function (x) {
       vf.appendChild(
         btn(
@@ -213,6 +214,26 @@
       groups[k].push(i);
     });
     order.sort();
+    // v421: atendimento — o que o cliente pediu para ver (vitrine ou cores abertas na lista) arruma o catálogo
+    if (S.vRef && S.vRef !== S._atdUlt) {
+      S._atdUlt = S.vRef;
+      atdViu(S.vRef);
+    } else if (!S.vRef && S.vAb && S.vAb !== S._atdUlt) {
+      S._atdUlt = S.vAb;
+      atdViu(S.vAb);
+    }
+    if (atdAtivo()) {
+      var pos0 = {};
+      order.forEach(function (k, i) {
+        pos0[k] = i;
+      });
+      order.sort(function (a, b) {
+        var pa = a.split('|'),
+          pb = b.split('|'),
+          d = atdPeso(pa.slice(1).join('|'), pa[0]) - atdPeso(pb.slice(1).join('|'), pb[0]);
+        return d || pos0[a] - pos0[b];
+      });
+    }
     if (S.vMais) {
       var vend = {};
       S.sales.forEach(function (x) {
@@ -282,6 +303,12 @@
     }
     renderMoedaBar();
     var rows = $('vRows');
+    var flip0 = {};
+    if (!REDUCED && !S.vRef)
+      [].forEach.call(rows.querySelectorAll('.pcard[data-ref]'), function (c) {
+        var r = c.getBoundingClientRect();
+        if (r.height) flip0[c.dataset.ref] = r.top;
+      });
     rows.textContent = '';
     rows.classList.toggle('vlist', modoDe('v') === 'l');
     modoBtn($('vModo'), 'v');
@@ -423,6 +450,16 @@
             : 'Não há peças em estoque. Dê entrada na aba Estoque.'
         )
       );
+    // a grade se arruma com um deslize leve (sem nenhum aviso na tela)
+    if (Object.keys(flip0).length)
+      requestAnimationFrame(function () {
+        [].forEach.call(rows.querySelectorAll('.pcard[data-ref]'), function (c) {
+          var y0 = flip0[c.dataset.ref];
+          if (y0 == null || !c.animate) return;
+          var d = y0 - c.getBoundingClientRect().top;
+          if (Math.abs(d) > 4 && Math.abs(d) < 2000) c.animate([{ transform: 'translateY(' + d + 'px)' }, { transform: 'none' }], { duration: 380, easing: 'cubic-bezier(.2,.8,.2,1)' });
+        });
+      });
     // produto aberto: a mesma tela do catálogo, em modo venda; a lista some
     $('vListCard').hidden = !!S.vRef;
     $('vSaleCard').hidden = true; // quantidade e botão Vender ficam na barra fixa do produto
@@ -433,6 +470,7 @@
         tipo: groups[S.vRef][0].tipo
       });
       if (dsel) S.vSel = dsel;
+      vParecidas(groups[S.vRef][0].ref, groups[S.vRef][0].tipo);
     } else renderDetail('', { venda: true, host: $('vDetail') });
     var lines = (groups[S.vRef] || []).slice();
     if (lines.length && lines[0].tipo === 'pre')
@@ -724,4 +762,37 @@
       });
       rows.appendChild(sub);
     }
+  }
+
+  // ===== "Parecidas" na vitrine (v421): mesma linha e formato parecido, para mostrar sem procurar =====
+  function vParecidas(ref, tipo) {
+    var host = $('vDetail');
+    if (!host) return;
+    var ant = host.querySelector('.vPar');
+    if (ant) ant.remove();
+    var l = parecidas(ref, tipo, 6);
+    if (!l.length) return;
+    var w = mk('div', 'vPar');
+    w.appendChild(mk('div', 'lbl', 'Parecidas'));
+    var tr = mk('div', 'vParT');
+    l.forEach(function (o) {
+      var c = btn('vParC', '', function () {
+        S.vRef = o.k;
+        S.vSel = null;
+        S.qty = 1;
+        S.msg = '';
+        S.detRow = null;
+        S.detCor = '';
+        render();
+        window.scrollTo(0, 0);
+      });
+      c.dataset.ref = o.it.ref;
+      c.appendChild(photoBox(photoOf(o.it.ref), 'pbox'));
+      c.appendChild(mk('b', '', pn(o.it.ref)));
+      var p = precoTab(o.it);
+      if (p) c.appendChild(mk('span', 'vParP', pvm(p)));
+      tr.appendChild(c);
+    });
+    w.appendChild(tr);
+    host.appendChild(w);
   }

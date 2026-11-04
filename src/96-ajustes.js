@@ -115,24 +115,7 @@
         ? 'Peça mais cara carrega mais das contas do mês; peça barata, menos. A soma continua sendo as contas do mês.'
         : 'Toda peça carrega o mesmo valor das contas, seja barata ou cara.') +
       '</div></div>';
-    var fa = S.faixaAuto || { on: false, lim: [4, 10] };
-    h +=
-      '<div><div class="lbl">Faixa automática pelo custo</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="chip' +
-      (fa.on ? ' on' : '') +
-      '" data-act="faixaauto">' +
-      (fa.on ? 'Ligada' : 'Desligada') +
-      '</button></div><div class="hint">Peça sem faixa escolhida entra na faixa pelo custo de reposição. A faixa que você escolher à mão sempre vale mais.</div>';
-    if (fa.on)
-      S.faixas.slice(0, -1).forEach(function (f, i) {
-        h +=
-          '<div style="display:flex;gap:8px;align-items:center;margin-top:6px"><span style="flex:1 1 150px">' +
-          esc(f.nome) +
-          ': custo até US$</span><input class="in" inputmode="decimal" data-aj="flim" data-i="' +
-          i +
-          '" value="' +
-          String((fa.lim || [])[i] != null ? fa.lim[i] : '').replace('.', ',') +
-          '" style="max-width:90px"></div>';
-      });
+    // v421: a faixa automática pelo custo saiu: a linha agora é sempre automática (53-linhas.js)
     h += '</div></div>';
     return h;
   }
@@ -144,36 +127,7 @@
       '<section class="card col"><h2 style="margin:0;font-size:16px">Meta do mês</h2><div><div class="lbl">Lucro livre desejado no mês, loja toda (US$)</div><input class="in" inputmode="decimal" data-aj="meta" value="' +
       usdParaCampo(S.metaUsd) +
       '" placeholder="Ex.: ' + usdParaCampo(600) + '" style="max-width:220px"></div></section>';
-    // faixas
-    h +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Faixas</h2><div class="hint" style="margin:2px 0 0">Você cria e nomeia. A margem é o lucro mínimo desejado sobre o preço de venda e define o piso. O preço de cada produto é definido no próprio produto (aba Produtos).</div></div>';
-    S.faixas.forEach(function (f) {
-      var n = Object.keys(S.pfaixa).filter(function (k) {
-        return S.pfaixa[k] === f.id;
-      }).length;
-      h +=
-        '<div class="card col" style="background:var(--panel2);gap:10px"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="dot" style="background:' +
-        faixaCor(f) +
-        '"></span><input class="in" data-aj="fnome" data-id="' +
-        f.id +
-        '" value="' +
-        esc(f.nome) +
-        '" aria-label="Nome da faixa" style="flex:1 1 140px"><span class="hint" style="margin:0">' +
-        n +
-        ' produto(s)</span></div><div><div class="lbl">Margem mínima (%)</div><input class="in" inputmode="decimal" data-aj="fmarg" data-id="' +
-        f.id +
-        '" value="' +
-        f.margem +
-        '" style="max-width:140px"></div>';
-      h +=
-        '<div><button class="chip" data-act="fdel" data-id="' +
-        f.id +
-        '">' +
-        (S.fDelConf === f.id ? 'Confirmar: remover faixa' : 'Remover faixa') +
-        '</button></div></div>';
-    });
-    h +=
-      '<div style="display:flex;gap:8px"><input class="in" id="fnew" placeholder="Nome da nova faixa" style="flex:1" maxlength="30"><button class="chip on" data-act="fadd">+ Nova faixa</button></div></section>';
+    // v421: as faixas manuais saíram — Econômica/Intermediária/Luxo são automáticas (linha do produto)
     // rateio das contas e tolerância da contagem
     h +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Contas e contagem</h2><div class="hint" style="margin:2px 0 0">As contas do mês (' +
@@ -189,7 +143,7 @@
       (volumeAuto() > 0 && S.volAuto !== false ? '(calculado pelas suas vendas reais)' : '(número manual)') +
       '.</div><div style="margin-top:8px"><button class="chip' +
       (S.volAuto !== false ? ' on' : '') +
-      '" data-act="volauto">Calcular pelas vendas reais</button></div><div class="hint">Com 2 meses de vendas (pelo menos 20 peças), o app passa a usar a média real.</div></div>' +
+      '" data-act="volauto">Calcular pelas vendas reais</button></div><div class="hint">Com 14 dias de vendas (pelo menos 10 peças), o app passa a usar a média real e atualiza sozinho.</div></div>' +
       precosMetaHtml() +
       '</section>';
     return h;
@@ -254,6 +208,16 @@
     S._ajForce = true;
     S.ajMsg = '';
     if (k === 'meta') S.metaUsd = campoParaUsd(t.value);
+    if (k === 'prePe' || k === 'prePl') {
+      var F0 = S.faixas || [],
+        fz = k === 'prePe' ? F0[0] : F0[F0.length - 1],
+        vz = campoParaGs(t.value);
+      if (fz) {
+        if (!fz.precos) fz.precos = {};
+        if (vz > 0) fz.precos.pre = vz;
+        else delete fz.precos.pre;
+      }
+    }
     if (k === 'synome') {
       S.aparNome = t.value.trim().slice(0, 30);
       syncReg(true);

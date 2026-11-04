@@ -18,30 +18,10 @@
   S.volAuto = true; // peças por mês calculadas pelas vendas reais (quando há histórico)
   // Curva padrão: solares vendem mais no verão do Paraguai (outubro a março).
   var SAZON_PADRAO = { solar: [1.5, 1.4, 1.2, 1.0, 0.8, 0.6, 0.6, 0.7, 0.9, 1.1, 1.3, 1.5] };
-  // Faixa de um produto pelo código.
+  // Faixa de um produto pelo código. v421: é a LINHA AUTOMÁTICA (53-linhas.js); a escolha à mão virou correção (S.linhaFix).
   function faixaOf(ref) {
-    var id = S.pfaixa && S.pfaixa[ref],
-      f =
-        (id &&
-          S.faixas.filter(function (x) {
-            return x.id === id;
-          })[0]) ||
-        null;
-    return f || faixaAutoOf(ref);
-  }
-  // Sem faixa escolhida à mão e com a faixa automática ligada: pelo custo de reposição (US$) da peça.
-  function faixaAutoOf(ref) {
-    if (!S.faixaAuto || !S.faixaAuto.on || !S.faixas.length) return null;
-    var it = S.items.filter(function (i) {
-      return i.ref === ref;
-    })[0];
-    if (!it || isSimple(it.tipo)) return null;
-    var c = effCusto(it);
-    if (!(c > 0)) return null;
-    var lim = S.faixaAuto.lim || [],
-      k = 0;
-    while (k < lim.length && k < S.faixas.length - 1 && c > lim[k]) k++;
-    return S.faixas[k] || null;
+    var ln = linhaDe(ref);
+    return (ln && ln.f) || null;
   }
   // Cor de uma faixa (pela ordem na lista).
   function faixaCor(f) {
@@ -179,7 +159,7 @@
     if (!fb) return;
     var ref = S._ref,
       cur = S.eFaixa || (ref && (faixaOf(ref) || {}).id) || '';
-    $('eFaixaB').hidden = !S.faixas.length || isSimple(S.tipo);
+    $('eFaixaB').hidden = true; // v421: linha automática; corrigir só no Editar produto
     // v417: Faixa em trilho (hierarquia nível 3); tocar de novo na escolhida volta para "automática"
     var chave = S.faixas.map(function (x) { return x.id + ':' + x.nome; }).join(',');
     if (fb.dataset.k !== chave) {
@@ -248,13 +228,13 @@
         return Math.min(a, s.ts);
       }, S.appStart || now),
       hist = (now - Math.min(first, S.appStart || now)) / DAY;
-    if (hist < 60) return 0;
+    if (hist < 14) return 0; // v422: 14 dias de vendas bastam (antes eram 2 meses)
     var win = Math.min(90, hist),
       units = 0;
     S.sales.forEach(function (s) {
       if (!s.estorno && now - s.ts <= win * DAY) units += s.qty;
     });
-    return units >= 20 ? Math.round(units / (win / 30)) : 0;
+    return units >= 10 ? Math.round(units / (win / 30)) : 0;
   }
   // Peças por mês usadas para ratear as contas: real quando há histórico, senão o número manual.
   function volumeEfetivo() {
@@ -307,7 +287,7 @@
       unid = Object.keys(r.m).reduce(function (a, k) {
         return a + r.m[k];
       }, 0),
-      w = r.hist >= 30 && unid >= 10 && S.volAuto !== false ? Math.min(1, (r.hist - 30) / 60) : 0;
+      w = r.hist >= 14 && unid >= 10 && S.volAuto !== false ? Math.min(1, (r.hist - 14) / 46) : 0;
     if (w > 0)
       Object.keys(r.m).forEach(function (k) {
         out[k] = w * r.m[k] + (1 - w) * (out[k] || r.m[k]);

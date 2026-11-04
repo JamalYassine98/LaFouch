@@ -139,7 +139,7 @@
         '<input class="in" inputmode="' + mpMode() + '" data-in="cartpreco" data-id="' + i + '" value="' + gsParaCampo(v) + '" aria-label="Preço combinado de ' + esc(cartDesc(l)) + ' em ' + mpSim() + '" style="flex:0 1 130px;width:130px">' +
         '<button type="button" class="chip" style="flex:0 0 40px;width:40px;padding:0;justify-content:center" data-act="cartrm" data-id="' + i + '" aria-label="Tirar do pedido">×</button></div>';
     });
-    h += '</div><button type="button" id="cartSlot" data-act="cartclose" style="min-height:56px;border:2px dashed var(--line);border-radius:12px;background:transparent;color:var(--accent-fg);font:inherit;font-weight:700;width:100%">＋ Adicionar produto</button>' +
+    h += '</div>' + cartSugHtml() + '<button type="button" id="cartSlot" data-act="cartclose" style="min-height:56px;border:2px dashed var(--line);border-radius:12px;background:transparent;color:var(--accent-fg);font:inherit;font-weight:700;width:100%">＋ Adicionar produto</button>' +
       '<div class="sum"><span class="lbl" style="margin:0">Total</span><b id="cartSub" style="font-size:26px">' + gs(cartSub()) + '</b></div>' +
       '<button type="button" class="go" id="cartConf" data-act="cartconf">Confirmar pedido</button>' +
       '<div><button type="button" class="chip" data-act="cartclear">Esvaziar pedido</button></div>';
@@ -270,6 +270,7 @@
       });
       s.carrinho = cartId;
       if (cli) s.cliId = cli.id;
+      if (i === 0 && S.cartBrNome) s.brindeNome = S.cartBrNome; // v423: brinde sugerido no pedido (custo já está no Separar)
       s.abaixo = pv.abaixo;
       s.perde = pv.perde;
       vendas.push(s);
@@ -290,6 +291,9 @@
     agg.vr = '';
     var n = S.cart.length;
     S.cart = [];
+    S.cartBrNome = '';
+    S.cartSug = null;
+    atdFim(); // venda finalizada: o próximo cliente começa do catálogo normal
     S.cartOpen = false;
     S.cartStep = 'pag';
     S._descOk = '';
@@ -494,5 +498,72 @@
     if (l.preco != null) l.preco = Math.round((l.preco * (l.qty + 1)) / l.qty);
     l.qty++;
     S.rec = null;
+    render();
+  };
+
+  // ===== Cliente achou caro (v423): no pedido, o app sugere UMA vez "Leve 2" e "Brinde"; aceitar ou ignorar =====
+  // Leve 2: a peça mais barata em estoque (pré-graduado ou solar) com desconto, nunca abaixo do piso dela.
+  function cartLeve2() {
+    var noCart = {};
+    S.cart.forEach(function (l) {
+      noCart[l.it.ref] = 1;
+    });
+    var cand = null;
+    S.items.forEach(function (i) {
+      if (i.bulk || noCart[i.ref] || !(i.qty > 0) || gLivre(i) <= 0 || isSimple(i.tipo)) return;
+      if (i.tipo !== 'pre' && i.tipo !== 'solar') return;
+      var p = precoTab(i, 'pub');
+      if (!(p > 0)) return;
+      if (!cand || p < cand.p) cand = { it: i, p: p };
+    });
+    if (!cand) return null;
+    var pp = pisoPeca(cand.it),
+      v = Math.max(Math.ceil((pp.piso || 0) / 500) * 500, Math.round((cand.p * 0.6) / 500) * 500);
+    if (!(v < cand.p)) return null;
+    return { it: cand.it, de: cand.p, por: v };
+  }
+  function cartBrinde() {
+    if (typeof brTotais !== 'function') return null;
+    var l = brTotais().itens;
+    if (!l.length) return null;
+    var b = l.slice().sort(function (a, c) {
+      return a.unit - c.unit;
+    })[0];
+    return { nome: b.nome, custo: Math.round(b.unit) };
+  }
+  function cartSugHtml() {
+    if (!S.cart.length) return '';
+    var sg = S.cartSug || (S.cartSug = { l2: true, br: true });
+    var h = '',
+      l2 = sg.l2 ? cartLeve2() : null,
+      br = sg.br && !S.cartBrNome ? cartBrinde() : null,
+      sub = cartSub();
+    if (l2)
+      h +=
+        '<div class="cSug"><span><b>Leve 2: + ' + esc(pn(l2.it.ref)) + ' por ' + gs(l2.por) + '</b><small>de ' + gs(l2.de) + ' · total ' + gs(sub + l2.por) + '</small></span><button type="button" class="cSugB" data-act="cartL2">Pôr</button><button type="button" class="cSugX" data-act="cartSugX" data-id="l2" aria-label="Ignorar">×</button></div>';
+    if (br)
+      h +=
+        '<div class="cSug"><span><b>Brinde: ' + esc(br.nome.toLowerCase()) + '</b><small>custa ' + gs(br.custo) + ' para você</small></span><button type="button" class="cSugB" data-act="cartBr">Pôr</button><button type="button" class="cSugX" data-act="cartSugX" data-id="br" aria-label="Ignorar">×</button></div>';
+    if (S.cartBrNome) h += '<div class="hint" style="margin:0">Brinde: ' + esc(S.cartBrNome.toLowerCase()) + '</div>';
+    return h;
+  }
+  ACT.cartL2 = function () {
+    var l2 = cartLeve2();
+    if (!l2) return;
+    S.cart.push({ it: l2.it, qty: 1, tab: S.cart[0] ? S.cart[0].tab || S.tabAtiva : S.tabAtiva, preco: l2.por });
+    S.cartSug.l2 = false;
+    S.rec = null;
+    saveSoon();
+    render();
+  };
+  ACT.cartBr = function () {
+    var b = cartBrinde();
+    if (!b) return;
+    S.cartBrNome = b.nome;
+    S.cartSug.br = false;
+    render();
+  };
+  ACT.cartSugX = function (k) {
+    if (S.cartSug) S.cartSug[k] = false;
     render();
   };

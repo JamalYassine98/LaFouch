@@ -392,9 +392,10 @@
     right.appendChild(h);
     if (venda) {
       var prv = tFor(sel).price;
-      var hp = mk('div', '', prv ? gs(prv) : 'Preço livre');
+      var hp = mk('div', 'vtPreco', prv ? gs(prv) : 'Preço livre');
       hp.style.cssText = 'font-size:26px;font-weight:800;color:var(--ok)';
       right.appendChild(hp);
+      if (prv) vtLimite(hp, sel, prv); // v423: segurar o dedo no preço mostra só ao dono até onde pode ir
     }
     var dtxt = S.desc[ref] != null ? String(S.desc[ref]).trim() : '';
     if (dtxt) {
@@ -997,25 +998,55 @@
       mb.style.cssText = 'gap:12px;margin-top:10px';
       mais.appendChild(mb);
       if (!smp && !f.bulk && S.faixas.length) {
-        var fcur = S.fDraft != null ? S.fDraft : (faixaOf(ref) || {}).id || '',
+        // v421: Linha automática (oculta para o cliente). Tocar numa linha corrige; "Automática" volta ao app.
+        var lnA = linhaDe(ref, f.tipo),
+          temFix = S.fDraft != null ? !!S.fDraft : !!(S.linhaFix && S.linhaFix[ref]),
+          lnIx = lnA ? lnA.ix : -1;
+        if (S.fDraft) {
+          var fd0 = S.faixas.filter(function (x) { return x.id === S.fDraft; })[0];
+          lnIx = fd0 ? linhaIx(fd0) : lnIx;
+          if (f.tipo === 'pre') lnIx = lnIx >= 1 ? 2 : 0;
+        } else if (S.fDraft === '' && S.linhaFix && S.linhaFix[ref]) {
+          var sv = S.linhaFix[ref];
+          delete S.linhaFix[ref];
+          S._linC = null;
+          var la = linhaDe(ref, f.tipo);
+          S.linhaFix[ref] = sv;
+          S._linC = null;
+          lnIx = la ? la.ix : -1;
+        }
+        var opts = f.tipo === 'pre' ? [[0, 'Econômica'], [2, 'Luxo']] : [[0, 'Econômica'], [1, 'Intermediária'], [2, 'Luxo']],
           fb = mk('div', 'trk');
         fb.id = 'edFaixas';
         fb.innerHTML =
           '<span class="trkTh"></span>' +
-          S.faixas
-            .map(function (x) {
-              return '<button type="button" class="trkB" data-m="' + esc(x.id) + '">' + esc(x.nome) + '</button>';
+          opts
+            .map(function (o) {
+              return '<button type="button" class="trkB" data-m="' + o[0] + '">' + o[1] + '</button>';
             })
             .join('');
         fb.onclick = function (e) {
           var b = e.target.closest('.trkB');
           if (!b) return;
-          S.fDraft = b.dataset.m;
-          trkMarca(fb, b.dataset.m);
+          var fx = linhaFaixa(+b.dataset.m);
+          S.fDraft = fx ? fx.id : '';
+          render();
         };
-        mb.appendChild(fld('Faixa', fb));
+        var lw = fld('Linha', fb),
+          mo = mk('div', 'edLnMot');
+        mo.innerHTML =
+          (temFix ? '<span class="chip0">corrigida por você</span>' : '<span class="chip0">automática</span>' + (lnA ? lnA.mot.map(function (m) { return '<span class="chip0">' + esc(m) + '</span>'; }).join('') : '')) +
+          (temFix ? '<button type="button" class="edLnAuto">Voltar ao automático</button>' : '');
+        var vb = mo.querySelector('.edLnAuto');
+        if (vb)
+          vb.onclick = function () {
+            S.fDraft = '';
+            render();
+          };
+        lw.appendChild(mo);
+        mb.appendChild(lw);
         requestAnimationFrame(function () {
-          trkPoe(fb, fcur);
+          trkPoe(fb, String(lnIx));
         });
       }
       if (!f.bulk && !smp) {
@@ -1392,9 +1423,11 @@
         var rm = ni ? renomear(nn, nv0, !!nmi) : '';
         if (rm) partes.push(rm);
         if (S.fDraft != null) {
-          if (S.fDraft) S.pfaixa[nn] = S.fDraft;
-          else delete S.pfaixa[nn];
-          partes.push('Faixa salva.');
+          // v421: a linha é automática; escolher à mão vira correção (o app aprende com ela)
+          if (!S.linhaFix) S.linhaFix = {};
+          if (S.fDraft) S.linhaFix[nn] = S.fDraft;
+          else delete S.linhaFix[nn];
+          partes.push(S.fDraft ? 'Linha corrigida.' : 'Linha automática.');
         }
         zerar();
         S.msg = partes.join(' ') || 'Nada foi alterado.';
@@ -1518,6 +1551,10 @@
       if (S.pfaixa && S.pfaixa[ref]) {
         S.pfaixa[nn] = S.pfaixa[ref];
         delete S.pfaixa[ref];
+      }
+      if (S.linhaFix && S.linhaFix[ref]) {
+        S.linhaFix[nn] = S.linhaFix[ref];
+        delete S.linhaFix[ref];
       }
       if (S.desc[ref] != null) {
         S.desc[nn] = S.desc[ref];

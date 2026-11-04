@@ -1348,3 +1348,43 @@ a[data-act],a.lk{display:inline-block;padding:14px 8px;margin:-14px -8px;-webkit
 #vRows.vlist .vlRow .vlNm{white-space:normal;overflow:visible;font-weight:500}
 #vRows.vlist .vlTx .vsub{height:auto!important;min-height:0!important;max-height:none!important;line-height:1.35!important}
 #vRows.vlist .vlPr .vpreco,#vRows.vlist .vlPr .vtotl,#vRows.vlist .vlPr .vriscado{width:auto!important;min-width:0!important;flex:none!important;display:inline-block!important}
+/* ===== v421: linha automática — "Parecidas" na vitrine e linha no Editar produto ===== */
+.vPar{margin:16px 0 8px}
+.vParT{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 8px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.vParC{flex:0 0 128px;scroll-snap-align:start;display:flex;flex-direction:column;gap:4px;padding:8px;border:1px solid var(--line);border-radius:14px;background:var(--panel2);color:var(--fg);font:inherit;text-align:left;margin:0}
+.vParC .pbox{width:100%!important;height:72px!important;border-radius:10px;flex:none!important}
+.vParC b{font-size:12.5px;font-weight:600;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.vParP{color:var(--ok);font-weight:700;font-size:13px}
+.vParC:active{background:var(--tbg)}
+.edLnMot{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;align-items:center}
+.chip0{font-size:11.5px;padding:3px 9px;border-radius:99px;background:var(--panel);color:var(--sub,var(--mute));border:1px solid var(--line)}
+.edLnAuto{border:0;background:transparent;color:var(--accent-fg,#e39ac4);font:inherit;font-size:12.5px;padding:2px 4px;margin:0}
+/* ===== v422: preço automático (Dashboard › Preços) ===== */
+.paSw{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;background:none;border:0;padding:0;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.paSw b{display:block;font-size:16px}.paSw small{display:block;color:var(--mute);font-size:12.5px;margin-top:2px}
+.paEst{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;background:var(--panel2);font-size:12.5px;color:var(--sub,var(--mute))}
+.paEst i{width:8px;height:8px;border-radius:50%;flex:none;background:var(--ok)}.paEst i.w{background:var(--warn)}
+.paPrev .sl{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.paNao{border:0;background:transparent;color:var(--mute);font:inherit;font-size:14px;padding:8px;align-self:center}
+.paMt{display:flex;justify-content:space-between;align-items:baseline}
+.paBig{font-size:24px;color:var(--ok)}
+.paBar{height:8px;border-radius:5px;background:var(--panel2);overflow:hidden}.paBar i{display:block;height:100%;background:var(--ok);border-radius:5px}
+.paMu{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.paMu b{font-size:14px}.paMu.desf{opacity:.5}
+.paMot{display:inline-block;margin-top:3px;font-size:11.5px;padding:2px 8px;border-radius:99px;background:var(--panel2);color:var(--sub,var(--mute))}
+.paVal{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex:none}
+.paVal .up{color:var(--ok)}.paVal .dn{color:var(--warn)}.paVal small{color:var(--mute);font-size:11.5px}
+.paLk{border:0;background:transparent;color:var(--accent-fg,#e39ac4);font:inherit;font-size:12.5px;padding:2px 0;margin:0;cursor:pointer;align-self:flex-start}
+.paVal .paLk{align-self:flex-end}
+.paIn{display:flex;align-items:center;justify-content:space-between;gap:10px}.paIn .in{max-width:150px}
+.paLock{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
+.paLkB{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--fg);font:inherit;font-size:13px;margin:0}
+.paLkB svg{width:16px;height:16px}.paLkB.on{border-color:var(--mute);background:var(--selbg,#2c323b)}
+/* ===== v423: cliente achou caro — limite secreto e sugestões do pedido ===== */
+.vtLim{position:relative;margin:8px 0 4px;padding:10px 12px;border-radius:12px;background:var(--panel2);border:1px solid var(--mute);font-size:13px;animation:cfEntra .2s both}
+.vtLim .sl{display:flex;justify-content:space-between;gap:10px;padding:3px 0}
+.vtLim small{display:block;color:var(--mute);font-size:11.5px;margin-top:4px}
+.cSug{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;margin:8px 0}
+.cSug span{flex:1;min-width:0}.cSug b{display:block;font-size:14px}.cSug small{display:block;color:var(--mute);font-size:12px;margin-top:2px}
+.cSugB{min-height:36px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--fg);font:inherit;font-size:13px;margin:0}
+.cSugX{width:32px;height:32px;border:0;background:transparent;color:var(--mute);font-size:18px;margin:0;padding:0}

@@ -163,13 +163,10 @@
       ab = abaixoDoPiso().length,
       pg = precoPerigoso().length,
       pr = perdasPropositais();
-    h += metaDiaHtml();
-    h += dFold('sug', 'Sugestão de margem', sg.length ? sg.length + ' faixa(s) com sugestão' : sugestoes().every(function (r) { return r.acao === 'sem-base'; }) ? 'ainda sem histórico: precisa de 2 meses de vendas por faixa' : 'sem mudanças sugeridas', sg.length ? 'var(--warn)' : 'var(--sub)', x3.sug);
-    h += dFold('pgo', 'Preço ficou perigoso', pg ? pg + ' produto(s)' : 'nenhum', pg ? 'var(--bad)' : 'var(--ok)', perigosoHtml());
-    h += dFold('abp', 'Preço abaixo do piso', ab ? ab + ' produto(s) com o câmbio de hoje' : 'nenhum', ab ? 'var(--warn)' : 'var(--ok)', x3.abaixo);
-    h += dFold('pdv', 'Vendas abaixo do piso (30 dias)', pr.n + ' venda(s)', 'var(--sub)', x3.perdasV);
-    h += dFold('mar', 'Saúde da margem por tipo', 'preço atual contra a trava de segurança', 'var(--sub)', o.margem);
-    h += dFold('cfg', 'Meta, faixas, contas e taxas', 'onde se definem as margens e o rateio das contas', 'var(--sub)', precosCfgHtml() + pagamentoHtml());
+    // v422: aba Preços = preço automático (um interruptor, meta, esta semana, travados) + contas/taxas/meta recolhidas
+    h += precosAutoHtml();
+    if (!(S.pAuto && S.pAuto.on)) h += dFold('abp', 'Preço abaixo do piso', ab ? ab + ' produto(s) com o câmbio de hoje' : 'nenhum', ab ? 'var(--warn)' : 'var(--ok)', x3.abaixo);
+    h += dFold('cfg', 'Contas, taxas e meta', 'o que entra no custo de cada peça', 'var(--sub)', precosCfgHtml() + pagamentoHtml());
     return h;
   }
 

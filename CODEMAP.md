@@ -55,6 +55,9 @@ Regras que valem em todo o projeto: o estado fica em `S`; `render()` redesenha t
 | `97-contagem.js` | 308 | Contagem de estoque (aba Estoque): por produto, do mais valioso ao menos, com resumo em dinheiro. |
 | `97-impressora.js` | 330 | Impressora térmica (qualquer marca, ESC/POS) por Wi-Fi e Bluetooth: cartão em Ajustes e envio do comprovante. Parte nativa: android-extra/LfPrinterPlugin.java (instalada pelo build-apk.yml). |
 | `97-entrada-de-novo.js` | 110 | Adicionar A+1: "Dar entrada de novo" com as 3 últimas peças que entraram; folhinha "Quantas chegaram?" e Dar entrada (respeita o lote). |
+| `53-linhas.js` | 330 | Linha automática (Econômica/Intermediária/Luxo, oculta), atendimento que arruma o catálogo e Parecidas. |
+| `97-preco-auto.js` | 420 | Preço automático: revisão semanal, ofertas em degraus, desfazer, cadeado, aba Preços e limite secreto. |
+| `97-ajustes-lista.js` | 300 | Ajustes minimalista: lista que abre no lugar e ordem por segurar e arrastar. |
 | `97-brindes.js` | 230 | Brindes: compra entra como despesa (sem estoque), o app aprende quanto cada óculos gasta e mostra quanto separar (linha no Separar). |
 | `97-hist-busca.js` | 243 | Histórico: resumo por mês, busca, filtros, calendário e carregamento aos poucos. |
 | `98-botoes-anim.js` | 412 | Animações dos botões: ondinha, realce deslizante, cascata, contagem, ✓, segurar para apagar, sino e arrastar. |
