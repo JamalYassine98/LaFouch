@@ -114,6 +114,7 @@
     });
     r.imprev = somaCampo(S.imprev, 'valor', lim);
     r.melh = somaCampo(S.melhUso, 'valor', lim);
+    r.brindes = brNoMes(lim);
     var perd = 0;
     (S.contagens || []).forEach(function (c) {
       if (!noMes(c.ts, lim)) return;
@@ -126,7 +127,7 @@
     r.cambio = Math.round(somaCampo(S.cambios, 'perdaGs', lim));
     r.retAvulsas = somaCampo(S.retiradas, 'valor', lim);
     r.retTotal = r.retAvulsas + r.contasPessoais;
-    r.resultado = r.vendas - r.cmv - r.taxas - r.contasLoja - r.imprev - r.melh - r.perdas - r.cambio;
+    r.resultado = r.vendas - r.cmv - r.taxas - r.contasLoja - r.imprev - r.brindes - r.melh - r.perdas - r.cambio;
     r.sobra = r.resultado - r.retTotal;
     r.tem = r.n > 0 || r.contasLoja > 0 || r.retTotal > 0 || r.imprev > 0;
     // os mesmos números no dólar e no real do dia de cada venda e de cada conta (valores fixos)
@@ -143,6 +144,7 @@
           return GRUPO_PESSOAL[x.cat];
         }),
         imprev: somaEq(S.imprev, 'valor', lim),
+        brindes: somaEq(S.brindes || [], 'valor', lim),
         melh: somaEq(S.melhUso, 'valor', lim),
         retAvulsas: somaEq(S.retiradas, 'valor', lim),
         cambio: somaEq(S.cambios, 'perdaGs', lim)
@@ -161,7 +163,7 @@
       });
       eq[m].perdas = pu + pd[m];
       eq[m].retTotal = eq[m].retAvulsas + eq[m].contasPessoais;
-      eq[m].resultado = eq[m].vendas - eq[m].cmv - eq[m].taxas - eq[m].contasLoja - eq[m].imprev - eq[m].melh - eq[m].perdas - eq[m].cambio;
+      eq[m].resultado = eq[m].vendas - eq[m].cmv - eq[m].taxas - eq[m].contasLoja - eq[m].imprev - eq[m].brindes - eq[m].melh - eq[m].perdas - eq[m].cambio;
       eq[m].sobra = eq[m].resultado - eq[m].retTotal;
     });
     r.eq = eq;
@@ -173,6 +175,7 @@
     ['Taxas de maquininha', 'taxas'],
     ['Contas da loja pagas', 'contasLoja'],
     ['Imprevistos', 'imprev'],
+    ['Brindes comprados', 'brindes'],
     ['Caixa de melhorias usada', 'melh'],
     ['Perdas de estoque (contagem e descarte)', 'perdas'],
     ['Câmbio nas trocas (dólar mais caro que o separado)', 'cambio'],

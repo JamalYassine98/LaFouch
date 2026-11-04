@@ -1,8 +1,12 @@
 {
- "nome": "4.4",
+ "nome": "4.5",
  "notas": [
-  "Ajustes > Impressora: procure impressoras térmicas (qualquer marca) no Wi-Fi e no Bluetooth, escolha Automático, Só Wi-Fi ou Só Bluetooth e imprima um teste",
-  "O comprovante sai direto na impressora térmica; se ela não responder, abre a impressão do sistema",
-  "Precisa do APK novo para procurar e imprimir direto"
+  "Vendas mais limpa: Varejo/Atacado num trilho só, busca com filtro ao lado e quantidade maior",
+  "Tocar no produto abre a vitrine direto; na lista, as cores abrem na própria lista",
+  "Adicionar: Ler haste e Foto menores, \"Dar entrada de novo\" com as 3 últimas peças",
+  "Cadastro numa tela só: código com leitor, Tipo em trilho e \"Como é\" em gaveta",
+  "Cores e fotos em lista: Cor nova tira a foto e vira uma linha",
+  "Editar produto igual ao cadastro, com foto no topo e lixeira",
+  "Brindes: compra entra como despesa e o Separar diz quanto guardar para repor"
  ]
 }

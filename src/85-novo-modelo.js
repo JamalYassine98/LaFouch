@@ -103,78 +103,71 @@
     ess.style.gap = '12px';
     ess.id = 'nvEss';
     s1.appendChild(ess);
-    // as opções de cada campo abrem numa linha inteira, logo abaixo da linha de campos
-    var fTipo = nvFld('tipo', 'Tipo'),
-      fFmt = nvFld('fmt', 'Formato'),
-      fMat = nvFld('mat', 'Material'),
-      fPub = nvFld('pub', 'Gênero'),
-      opLinha = function (w) {
-        var o = w.querySelector('.nav');
-        o.style.marginTop = '0';
-        return o;
-      };
-    var r1 = mk('div', 'nvg2');
+    // Cadastro B (v417): código da haste com leitor · Tipo em trilho · "Como é" em chips · custo · Mais detalhes
+    var fFmt = nvChip('fmt', 'Formato'),
+      fMat = nvChip('mat', 'Material'),
+      fPub = nvChip('pub', 'Gênero');
     var cw = mk('div', '');
     cw.id = 'nvCod';
-    cw.appendChild($('eRef').parentNode);
-    r1.appendChild(cw);
-    r1.appendChild(fTipo);
-    ess.appendChild(r1);
+    var rw = $('eRef').parentNode;
+    cw.appendChild(rw);
+    ess.appendChild(cw);
+    rw.classList.add('nvCodW');
+    var ler = mk('button', 'nvLer');
+    ler.type = 'button';
+    ler.id = 'nvLer';
+    ler.innerHTML = ICO.haste;
+    ler.setAttribute('aria-label', 'Ler a haste');
+    ler.onclick = function () {
+      hasteOpen($('eRef'));
+    };
+    $('eRef').insertAdjacentElement('afterend', ler);
     // aviso do código + botão "Dar entrada rápida" na mesma linha (botão à direita do texto)
     var rr = mk('div', 'eRefRow');
     rr.id = 'eRefRow';
     rr.appendChild($('eRefH'));
     ess.appendChild(rr);
-    ess.appendChild(opLinha(fTipo));
-    var r2 = mk('div', 'nvg2');
+    var tw = mk('div', '');
+    tw.appendChild(mk('div', 'lbl', 'Tipo'));
+    var tt = mk('div', 'trk');
+    tt.id = 'nvTipoTrk';
+    tt.innerHTML = '<span class="trkTh"></span>' + NV_TIPOS.map(function (x) {
+      return '<button type="button" class="trkB" data-m="' + x[0] + '">' + x[1] + '</button>';
+    }).join('');
+    tt.onclick = function (e) {
+      var b = e.target.closest('.trkB');
+      if (!b) return;
+      nvTipoPor(b.dataset.m);
+    };
+    tw.appendChild(tt);
+    ess.appendChild(tw);
+    var cm = mk('div', '');
+    cm.id = 'nvComo';
+    cm.appendChild(mk('div', 'lbl', 'Como é'));
+    var r2 = mk('div', 'nvChips');
     r2.id = 'nvR2';
     r2.appendChild(fFmt);
     r2.appendChild(fMat);
-    ess.appendChild(r2);
-    ess.appendChild(opLinha(fFmt));
-    ess.appendChild(opLinha(fMat));
+    r2.appendChild(fPub);
+    cm.appendChild(r2);
+    ess.appendChild(cm);
+    // compatibilidade: o antigo "Novo formato" fica guardado (o "Criar novo" agora está na gaveta)
     var nf = mk('div', 'col');
     nf.id = 'nvNovoFmt';
     nf.hidden = true;
-    nf.style.gap = '8px';
-    var nfi = mk('input', 'in');
-    nfi.id = 'nvNF';
-    nfi.placeholder = 'Nome do formato (ex.: Oval)';
-    nfi.autocomplete = 'off';
-    nf.appendChild(nfi);
-    var nfb = btn('mini', 'Criar formato', function () {
-      var raw = nfi.value.trim();
-      if (!raw) return;
-      var n = raw[0].toUpperCase() + raw.slice(1);
-      if (
-        !S.formats.some(function (f) {
-          return f.toLowerCase() === n.toLowerCase();
-        })
-      )
-        S.formats.push(n);
-      S.eFmt = n;
-      nfi.value = '';
-      S.nNovoFmt = false;
-      S.nPop = '';
-      render();
-    });
-    nf.appendChild(nfb);
     ess.appendChild(nf);
     var r3 = mk('div', 'nvg3');
     r3.id = 'nvMed';
     r3.appendChild(nvNum('nvL', 'Lente (mm)'));
     r3.appendChild(nvNum('nvP', 'Ponte (mm)'));
     r3.appendChild(nvNum('nvH', 'Haste (mm)'));
-    ess.appendChild(r3);
-    var r4 = mk('div', 'nvg2');
+    var r4 = mk('div', '');
     r4.id = 'nvR4';
-    r4.appendChild(fPub);
     var cu = mk('div', '');
     cu.id = 'nvCusto';
     cu.appendChild($('eCustoB'));
     r4.appendChild(cu);
     ess.appendChild(r4);
-    ess.appendChild(opLinha(fPub));
     var lt = mk('div', '');
     lt.id = 'nvLote';
     lt.appendChild($('eLoteB'));
@@ -191,11 +184,17 @@
     mais.innerHTML = '<summary class="lbl" style="cursor:pointer;margin:0">Mais detalhes (opcional)</summary><div class="col" id="nvMaisBox" style="gap:12px;margin-top:10px"></div>';
     s1.appendChild(mais);
     var mb = $('nvMaisBox');
+    mb.appendChild($('eFaixaB'));
+    mb.appendChild(r3);
     mb.appendChild($('eNomeB'));
     mb.appendChild($('eBox').querySelector('.descp'));
-    mb.appendChild($('eFaixaB'));
     mb.appendChild(lt);
-    var nx = btn('go', 'Continuar para cores e fotos', function () {
+    // Tipo "Outro" = compra de brindes (despesa, sem estoque)
+    var bo = mk('div', 'col');
+    bo.id = 'nvBrinde';
+    bo.hidden = true;
+    s1.appendChild(bo);
+    var nx = btn('go', 'Continuar · cores e fotos', function () {
       nvContinuar();
     });
     nx.id = 'nvNext';
@@ -394,8 +393,15 @@
       try {
         var cv = fitCanvas(img, 1800);
         if (cor === '__nova__') {
-          NVC.fotoT = thumbOf(cv);
-          NVC.fotoH = cv.toDataURL('image/jpeg', 0.92);
+          // v417: a foto cria a linha da cor nova na lista (cor sugerida e quantidade 1)
+          NVR.push({ id: ++NVR_SEQ, vr: nvProxClasse(), cor: '', q: 1, grau: '', fotoT: thumbOf(cv), fotoH: cv.toDataURL('image/jpeg', 0.92), nova: 1 });
+          NVR_ABRE = 0;
+        } else if (String(cor).indexOf('__row__') === 0) {
+          var rw0 = nvRow(+String(cor).slice(7));
+          if (rw0) {
+            rw0.fotoT = thumbOf(cv);
+            rw0.fotoH = cv.toDataURL('image/jpeg', 0.92);
+          }
         } else {
           setFoto(ref + '|' + cor, thumbOf(cv), cv.toDataURL('image/jpeg', 0.92));
           if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd');
@@ -429,6 +435,8 @@
   }
   // Adiciona uma cor: usa o mesmo motor de "Registrar entrada".
   function nvConcluir(ref) {
+    NVR = [];
+    NVR_ABRE = 0;
     S.nStep = 1;
     S.nPop = '';
     S.nCorOpen = false;
@@ -542,167 +550,106 @@
     }
     var cs = nvCores(ref),
       sc = siteCheck(ref);
-    // cores do modelo
-    var c1 = mk('div', 'card col');
-    c1.style.gap = '8px';
-    c1.appendChild(mk('div', 'lbl', 'Cores do modelo'));
-    if (!cs.length) {
-      var vz = mk('div', 'hint', 'Nenhuma cor ainda. Adicione a primeira para registrar a entrada.');
-      vz.style.margin = '0';
-      c1.appendChild(vz);
-    }
+    // v417: Cores e fotos em LISTA. Cada cor é uma linha (foto, classe · cor, custo, quantidade);
+    // "Cor nova" abre a câmera e a foto vira uma linha nova com a cor sugerida.
+    var c1 = mk('div', 'card col cfList');
+    c1.id = 'nvCoresL';
+    var cuTxt = String($('eCusto').value || '').trim();
     cs.forEach(function (c) {
       var ft = S.fotos[ref + '|' + c.cor],
-        r = btn('nvcor', '', function () {
+        it0 = S.items.filter(function (i) {
+          return i.ref === ref && i.cor === c.cor && !i.bulk;
+        })[0] || {},
+        k = 'c:' + c.cor,
+        ab = NVR_ABRE === k,
+        r = mk('div', 'cfRow' + (ab ? ' ab' : ''));
+      r.innerHTML =
+        '<button type="button" class="cfFt" aria-label="Foto da cor ' + esc(c.cor) + '">' + (ft ? '<img alt="" src="' + ft + '">' : NV_ICAM) + '</button>' +
+        '<button type="button" class="cfTx" data-k="' + esc(k) + '"><b>' + esc((it0.vr ? it0.vr + ' · ' : '') + c.cor) + '</b><small>' + (it0.custo != null ? 'US$ ' + String(it0.custo).replace('.', ',') + ' · ' : '') + (ft ? 'foto ok' : 'falta foto') + '</small></button>' +
+        '<span class="cfQ">' + c.qty + ' un.</span>' +
+        (ab ? '<div class="cfMais"><button type="button" class="mini" data-f="1">Trocar foto</button></div>' : '');
+      r.querySelector('.cfFt').onclick = function () {
+        NVC.fotoCor = c.cor;
+        nvCamera('Foto da cor ' + c.cor);
+      };
+      r.querySelector('.cfTx').onclick = function () {
+        NVR_ABRE = ab ? 0 : k;
+        render();
+      };
+      if (ab)
+        r.querySelector('[data-f]').onclick = function () {
           NVC.fotoCor = c.cor;
           nvCamera('Foto da cor ' + c.cor);
-        });
-      r.setAttribute('aria-label', 'Foto da cor ' + c.cor);
-      var th = mk('div', 'nvthm');
-      if (ft) {
-        var im = document.createElement('img');
-        im.src = ft;
-        im.alt = '';
-        th.appendChild(im);
-      } else th.innerHTML = NV_ICAM;
-      r.appendChild(th);
-      var tx = mk('div', '');
-      tx.style.cssText = 'flex:1;min-width:0';
-      tx.appendChild(mk('b', '', c.cor));
-      tx.appendChild(mk('small', '', c.qty + (c.qty === 1 ? ' peça · ' : ' peças · ') + (ft ? 'foto ok' : 'sem foto')));
-      r.appendChild(tx);
-      r.appendChild(mk('span', 'nvpl' + (ft ? '' : ' w'), ft ? 'pronta' : 'falta foto'));
+        };
       c1.appendChild(r);
     });
-    if (S.nCorOpen) {
-      var nc = mk('div', 'card col');
-      nc.style.cssText = 'gap:10px;background:var(--panel2);margin:0';
-      nc.appendChild(mk('div', 'lbl', 'Nova cor'));
-      var ch = mk('div', 'nav');
-      Object.keys(S.palette).forEach(function (k) {
-        if (k === 'Sem detalhe' || k === 'Sem cor') return;
-        ch.appendChild(
-          btn(
-            'chip' + (NVC.cor === k ? ' on' : ''),
-            k,
-            function () {
-              NVC.cor = k;
-              render();
-            },
-            NVC.cor === k
-          )
-        );
-      });
-      nc.appendChild(ch);
-      var oi = mk('input', 'in');
-      oi.id = 'nvCorIn';
-      oi.placeholder = 'Ou digite outra cor (ex.: Bege translúcido)';
-      oi.autocomplete = 'off';
-      oi.value = Object.keys(S.palette).indexOf(NVC.cor) >= 0 ? '' : NVC.cor;
-      oi.oninput = function () {
-        NVC.cor = oi.value.trim();
-        var bk = $('nvCorOk');
-        if (bk) bk.disabled = !(NVC.cor && NVC.fotoT);
-        var bf = $('nvFim');
-        if (bf) {
-          var pd = !!(NVC.cor && NVC.fotoT);
-          bf.disabled = !pd && !nvCores(S._ref).length;
-          bf.textContent = pd || nvCores(S._ref).length ? 'Concluir' : 'Adicione uma cor para concluir';
-        }
-      };
-      nc.appendChild(oi);
-      if (pre) {
-        nc.appendChild(mk('div', 'lbl', 'Grau (como está na peça)'));
-        var gi = mk('input', 'in');
-        gi.id = 'nvGrau';
-        gi.placeholder = 'Ex.: +175';
-        gi.autocomplete = 'off';
-        gi.value = NVC.grau;
-        gi.oninput = function () {
-          NVC.grau = gi.value;
-        };
-        nc.appendChild(gi);
-      }
-      if (!t.simple) {
-        nc.appendChild(mk('div', 'lbl', 'Classe de cor' + (pre ? ' (opcional)' : '')));
-        var cl = mk('div', 'nav');
-        varChips(NVC.vr || (pre ? S.eVarP : S.eVar)).forEach(function (v) {
-          (function (v) {
-            var on = (NVC.vr || (pre ? S.eVarP : S.eVar)) === v;
-            cl.appendChild(
-              btn(
-                'chip' + (on ? ' on' : ''),
-                v,
-                function () {
-                  NVC.vr = v;
-                  render();
-                },
-                on
-              )
-            );
-          })(v);
-        });
-        nc.appendChild(cl);
-      }
-      nc.appendChild(mk('div', 'lbl', 'Quantas peças?'));
-      var sp = mk('div', 'nvstp');
-      var mn = btn('step', '−', function () {
-          NVC.q = Math.max(1, NVC.q - 1);
-          render();
-        }),
-        pl = btn('step', '+', function () {
-          NVC.q = Math.min(999, NVC.q + 1);
-          render();
-        });
-      mn.setAttribute('aria-label', 'Diminuir quantidade');
-      pl.setAttribute('aria-label', 'Aumentar quantidade');
-      sp.appendChild(mn);
-      sp.appendChild(mk('b', '', String(NVC.q)));
-      sp.appendChild(pl);
-      nc.appendChild(sp);
-      nc.appendChild(mk('div', 'lbl', 'Foto da cor'));
-      var fb = btn('go', NVC.fotoT ? 'Foto tirada · trocar' : 'Tirar a foto', function () {
-        NVC.fotoCor = '__nova__';
+    NVR.forEach(function (w) {
+      var ab = NVR_ABRE === w.id,
+        r = mk('div', 'cfRow nova' + (ab ? ' ab' : '') + (w.id === NVR_SEQ && w.nova ? ' entra' : ''));
+      w.nova = 0;
+      r.dataset.id = w.id;
+      r.innerHTML =
+        '<button type="button" class="cfFt" aria-label="Trocar a foto">' + (w.fotoT ? '<img alt="" src="' + w.fotoT + '">' : NV_ICAM) + '</button>' +
+        '<div class="cfTx"><button type="button" class="nvChip cfCor' + (w.cor ? ' ok' : '') + '" aria-label="Escolher a cor"><span>' + esc((w.vr ? w.vr + ' · ' : '') + (w.cor || 'Cor')) + '</span><i aria-hidden="true">▾</i></button>' +
+        (pre ? '<input class="in cfGrau" inputmode="decimal" placeholder="Grau (ex.: +1,75)" value="' + esc(w.grau || '') + '" aria-label="Grau da peça">' : '') +
+        '<small class="cfMaisB">' + (cuTxt ? 'US$ ' + esc(cuTxt) + ' · ' : '') + 'mais opções</small></div>' +
+        '<span class="vstep cfStep"><span class="vs-b" role="button" tabindex="0" data-d="-1" aria-label="Menos">−</span><span class="vs-n">' + w.q + '</span><span class="vs-b" role="button" tabindex="0" data-d="1" aria-label="Mais">+</span></span>' +
+        (ab ? '<div class="cfMais"><button type="button" class="mini" data-f="1">Trocar foto</button><button type="button" class="mini cfDel" data-x="1">Excluir cor</button></div>' : '');
+      r.querySelector('.cfFt').onclick = function () {
+        NVC.fotoCor = '__row__' + w.id;
         nvCamera('Foto da cor');
-      });
-      fb.id = 'nvFotoCor';
-      fb.innerHTML = NV_ICAM + '<span>' + (NVC.fotoT ? 'Foto tirada · trocar' : 'Tirar a foto') + '</span>';
-      fb.style.display = 'flex';
-      fb.style.alignItems = 'center';
-      fb.style.justifyContent = 'center';
-      fb.style.gap = '8px';
-      fb.style.cssText = 'min-height:46px;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;line-height:1' + (NVC.fotoT ? ';background:var(--panel);border:1px solid var(--ok);color:var(--ok)' : '');
-      nc.appendChild(fb);
-      if (NVC.fotoT) {
-        var pv = document.createElement('img');
-        pv.src = NVC.fotoT;
-        pv.alt = 'Foto da cor';
-        pv.id = 'nvPrev';
-        pv.style.cssText = 'width:100%;height:auto;display:block;border-radius:12px;background:#fff';
-        nc.appendChild(pv);
-      } else nc.appendChild(mk('div', 'nvwarn', 'A cor só entra na lista com a foto.'));
-      var ok = btn('go', 'Adicionar cor', function () {
-        nvAddCor();
-      });
-      ok.id = 'nvCorOk';
-      ok.disabled = !NVC.fotoT || !NVC.cor;
-      nc.appendChild(ok);
-      c1.appendChild(nc);
-    } else {
-      var ad = btn('tab', '+ Adicionar cor', function () {
-        S.nCorOpen = true;
-        var uc = cs.length ? '' : ($('eCor').value || '').trim();
-        NVC.cor = uc;
-        NVC.q = 1;
-        NVC.vr = '';
-        NVC.fotoT = '';
-        NVC.fotoH = '';
+      };
+      r.querySelector('.cfCor').onclick = function () {
+        nvCorSheet(w);
+      };
+      r.querySelector('.cfMaisB').onclick = function () {
+        NVR_ABRE = ab ? 0 : w.id;
         render();
+      };
+      var gi = r.querySelector('.cfGrau');
+      if (gi)
+        gi.oninput = function () {
+          w.grau = gi.value;
+        };
+      [].forEach.call(r.querySelectorAll('.cfStep .vs-b'), function (b) {
+        b.onclick = function () {
+          var antes = w.q;
+          w.q = Math.max(1, Math.min(999, w.q + +b.dataset.d));
+          if (w.q === antes) return;
+          var n = r.querySelector('.vs-n');
+          n.textContent = w.q;
+          if (!REDUCED && n.animate) n.animate([{ transform: 'translateY(' + (w.q > antes ? 14 : -14) + 'px)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 280, easing: 'cubic-bezier(.4,0,.2,1)' });
+          nvTotalConta();
+        };
       });
-      ad.style.cssText = 'width:100%;border-style:dashed';
-      ad.id = 'nvAddCor';
-      c1.appendChild(ad);
-    }
+      if (ab) {
+        r.querySelector('[data-f]').onclick = function () {
+          NVC.fotoCor = '__row__' + w.id;
+          nvCamera('Foto da cor');
+        };
+        r.querySelector('[data-x]').onclick = function () {
+          NVR = NVR.filter(function (x) {
+            return x !== w;
+          });
+          NVR_ABRE = 0;
+          render();
+        };
+      }
+      c1.appendChild(r);
+    });
+    var cn = mk('button', 'cfNova');
+    cn.type = 'button';
+    cn.id = 'nvAddCor';
+    cn.innerHTML = NV_ICAM + '<span>Cor nova <small>(tire a foto)</small></span>';
+    cn.onclick = function () {
+      NVC.fotoCor = '__nova__';
+      nvCamera('Foto da cor nova');
+    };
+    c1.appendChild(cn);
+    var tot = mk('div', 'cfTot');
+    tot.innerHTML = '<span>Total chegando</span><b id="nvTot">' + nvTotal() + ' peças</b>';
+    tot.hidden = !NVR.length;
+    c1.appendChild(tot);
     s2.appendChild(c1);
     // liberar para o site
     var c2 = mk('div', 'card col');
@@ -765,21 +712,21 @@
         '</div>';
       s2.appendChild(c3);
     }
-    /* cor preenchida e ainda não adicionada: "Concluir" adiciona e conclui de uma vez */
-    var pend = !!(S.nCorOpen && NVC.cor && NVC.fotoT);
-    var fim = btn('go', cs.length || pend ? 'Concluir' : 'Adicione uma cor para concluir', function () {
-      if (S.nCorOpen && NVC.cor && NVC.fotoT) return nvAddCor(true);
+    var fim = btn('go', cs.length || NVR.length ? 'Concluir' : 'Adicione uma cor para concluir', function () {
+      if (NVR.length) return nvSalvaLinhas();
       if (!cs.length) return;
       nvConcluir(ref);
     });
     fim.id = 'nvFim';
-    fim.disabled = !cs.length && !pend;
+    fim.disabled = !cs.length && !NVR.length;
     s2.appendChild(fim);
   }
   function renderGuia() {
     var rest = $('addProdRest'),
       box = $('eBox');
     if (!box || S.addMode !== 'prod') {
+      NVR = [];
+      NVR_ABRE = 0;
       if (rest) rest.removeAttribute('data-nv');
       if (/^(Novo modelo|Cores e fotos)$/.test($('addTitle').textContent)) $('addTitle').textContent = 'Adicionar';
       S.nStep = 1;
@@ -830,44 +777,27 @@
       nvTela2();
       return;
     }
-    // ---- tela 1
-    // tipo
-    nvCampo('tipo', (tipoOf(S.tipo) || {}).label || '');
-    nvOpcoes(
-      'tipo',
-      TIPOS.map(function (x) {
-        return x.label;
-      }),
-      (tipoOf(S.tipo) || {}).label,
-      function (v) {
-        var b = [].slice.call($('mTipos').children).filter(function (x) {
-          return x.textContent === v;
-        })[0];
-        if (b) b.click();
-      }
-    );
-    // formato
-    $('nvR2').hidden = simple;
-    var fmtUsed = S._fmtUsed || '',
-      known = !!S._known;
-    nvCampo('fmt', fmtUsed);
-    var fl = S.formats.slice();
-    var novo = btn('chip add', '+ Novo formato', function () {
-      S.nNovoFmt = !S.nNovoFmt;
-      render();
+    // ---- tela 1 (Cadastro B)
+    var outro = !!S.nOutro;
+    trkPoe($('nvTipoTrk'), outro ? 'outro' : S.tipo);
+    $('nvBrinde').hidden = !outro;
+    [$('nvCod'), $('eRefRow'), $('nvComo'), $('nvR4'), $('nvMais'), $('nvNext')].forEach(function (e) {
+      if (e) e.hidden = outro;
     });
-    nvOpcoes('fmt', fl, fmtUsed, function (v) {
-      if (!known) S.eFmt = v;
-      else S.eFmt = v;
-    }, novo);
-    $('nvNovoFmt').hidden = !(S.nNovoFmt && S.nPop === 'fmt');
-    // material
+    if (outro) {
+      $('addTitle').textContent = 'Compra de brindes';
+      $('nvSub').textContent = 'Entra como despesa · sem controle de estoque';
+      brCompraForm($('nvBrinde'));
+      return;
+    }
+    var known = !!S._known;
+    $('nvComo').hidden = simple;
+    nvChipPoe('fmt', S._fmtUsed || '');
     var mat = S.eMat || at.material || '';
-    nvCampo('mat', mat);
-    nvOpcoes('mat', NV_MAT, mat, function (v) {
-      S.eMat = v;
-    });
-    // medidas (lente, ponte, haste)
+    nvChipPoe('mat', mat);
+    var pub = S.ePub || at.publico || '';
+    nvChipPoe('pub', pub);
+    // medidas (lente, ponte, haste) ficam em "Mais detalhes"
     $('nvMed').hidden = pre || simple;
     var mp = medParse($('eMed').value) || (S._known && medParse(S._known.med)) || null;
     [['nvL', 0], ['nvP', 1], ['nvH', 2]].forEach(function (x) {
@@ -876,25 +806,285 @@
       e.classList.toggle('ok', !!e.value);
       e.readOnly = !!(S._known && S._known.med);
     });
-    // gênero
-    $('nvR4').firstChild.hidden = simple;
-    var pub = S.ePub || at.publico || '';
-    nvCampo('pub', pub);
-    nvOpcoes('pub', NV_PUB, pub, function (v) {
-      S.ePub = v;
-    });
-    $('nvR4').style.gridTemplateColumns = simple ? '1fr' : '1fr 1fr';
     $('nvCod').querySelector('.lbl').textContent = simple ? 'Nome ou código do item' : 'Código da haste';
+    $('nvLer').hidden = simple;
     var cod = $('eRef');
     cod.placeholder = simple ? 'Ex.: Estojo rígido' : 'Ex.: SL2250 (ou deixe vazio)';
     cod.classList.toggle('ok', !!S._ref);
     $('eGrauB').hidden = true;
     $('eVarB').hidden = true;
-    nvAutoCard();
     var falta = nvPassos().filter(function (x) {
       return !x[2];
     });
     var nx = $('nvNext');
     nx.style.opacity = falta.length ? '.45' : '1';
-    nx.textContent = simple ? 'Continuar' : 'Continuar para cores e fotos';
+    nx.textContent = simple ? 'Continuar' : 'Continuar · cores e fotos';
+    if (known) nx.dataset.k = '1';
+  }
+  // ----- Cadastro B: trilho do Tipo e chips do "Como é"
+  var NV_TIPOS = [
+    ['pre', 'Pré-grad.'],
+    ['sem', 'Armação'],
+    ['solar', 'Solar'],
+    ['outro', 'Outro']
+  ];
+  // Marca o trilho e esconde o indicador quando nada está escolhido.
+  function trkPoe(trk, k) {
+    if (!trk) return;
+    var tem = !!trk.querySelector('.trkB[data-m="' + k + '"]');
+    trk.classList.toggle('vazio', !tem);
+    trkMarca(trk, tem ? k : '');
+  }
+  function nvTipoPor(id) {
+    if (id === 'outro') {
+      S.nOutro = true;
+      S.nPop = '';
+      render();
+      return;
+    }
+    S.nOutro = false;
+    var t = tipoOf(id),
+      b =
+        t &&
+        [].slice.call($('mTipos').children).filter(function (x) {
+          return x.textContent === t.label;
+        })[0];
+    if (b) b.click();
+    else render();
+  }
+  function nvChip(key, rotulo) {
+    var b = mk('button', 'nvChip');
+    b.type = 'button';
+    b.id = 'nv_' + key;
+    b.dataset.rot = rotulo;
+    b.onclick = function () {
+      nvComoAbre(key);
+    };
+    return b;
+  }
+  function nvChipPoe(key, v) {
+    var b = $('nv_' + key);
+    if (!b) return;
+    b.classList.toggle('ok', !!v);
+    b.innerHTML = '<span>' + esc(v || b.dataset.rot) + '</span><i aria-hidden="true">▾</i>';
+    b.setAttribute('aria-label', b.dataset.rot + (v ? ': ' + v : ''));
+  }
+  // Gaveta do "Como é": busca, lista e "Criar novo".
+  var NV_COMO = { fmt: 'Formato', mat: 'Material', pub: 'Gênero' };
+  function nvComoLista(key) {
+    if (key === 'fmt') return S.formats.slice();
+    if (key === 'mat') return NV_MAT.concat((S.matX || []).filter(function (x) { return NV_MAT.indexOf(x) < 0; }));
+    return NV_PUB.slice();
+  }
+  function nvComoAtual(key) {
+    var at = nvAtr(S._ref);
+    return key === 'fmt' ? S._fmtUsed || '' : key === 'mat' ? S.eMat || at.material || '' : S.ePub || at.publico || '';
+  }
+  function nvComoSet(key, v) {
+    if (key === 'fmt') {
+      if (!S.formats.some(function (f) { return f.toLowerCase() === v.toLowerCase(); })) S.formats.push(v);
+      S.eFmt = v;
+    } else if (key === 'mat') S.eMat = v;
+    else S.ePub = v;
+  }
+  function comoSheet(id, titulo, lista, atual, onPick) {
+    var ov = lfaAbre(
+      id,
+      '<div class="cg-puxa" aria-hidden="true"></div><div class="cg-tt">' + esc(titulo) + '</div>' +
+        '<div class="lsBox"><span class="lsIc">🔍</span><input class="lsIn" id="' + id + 'Q" placeholder="Buscar ' + esc(titulo.toLowerCase()) + '" autocomplete="off" aria-label="Buscar"></div>' +
+        '<div class="lsList comoL"></div>'
+    );
+    ov.classList.add('lfa-camg');
+    var q = ov.querySelector('.lsIn'),
+      ul = ov.querySelector('.comoL'),
+      fecha = function () {
+        lfaFecha(id);
+      };
+    ov.addEventListener('click', function (e) {
+      if (e.target === ov) fecha();
+    });
+    var pinta = function () {
+      var t = q.value.trim(),
+        tl = t.toLowerCase(),
+        h = '';
+      lista.forEach(function (v) {
+        if (tl && String(v).toLowerCase().indexOf(tl) < 0) return;
+        h += '<button type="button" class="lsOpt' + (atual === v ? ' on' : '') + '" data-v="' + esc(v) + '">' + esc(v) + '</button>';
+      });
+      var igual = lista.some(function (v) { return String(v).toLowerCase() === tl; });
+      h += '<button type="button" class="lsOpt comoNovo" data-novo="1">+ Criar novo' + (t && !igual ? ': ' + esc(t) : '') + '</button>';
+      ul.innerHTML = h;
+    };
+    ul.onclick = function (e) {
+      var b = e.target.closest('.lsOpt');
+      if (!b) return;
+      var v = b.dataset.novo ? q.value.trim() : b.dataset.v;
+      if (!v) {
+        q.focus();
+        return;
+      }
+      v = v[0].toUpperCase() + v.slice(1);
+      fecha();
+      onPick(v);
+    };
+    q.oninput = pinta;
+    pinta();
+    return ov;
+  }
+  function nvComoAbre(key) {
+    comoSheet('lfa-como', NV_COMO[key], nvComoLista(key), nvComoAtual(key), function (v) {
+      if (key === 'mat' && NV_MAT.indexOf(v) < 0) {
+        S.matX = S.matX || [];
+        if (S.matX.indexOf(v) < 0) S.matX.push(v);
+      }
+      nvComoSet(key, v);
+      render();
+    });
+  }
+
+  // ----- Cores e fotos em lista (v417): linhas das cores novas ainda não gravadas
+  var NVR = [],
+    NVR_SEQ = 0,
+    NVR_ABRE = 0;
+  function nvRow(id) {
+    return NVR.filter(function (w) {
+      return w.id === id;
+    })[0];
+  }
+  // Próxima classe livre (C1, C2…) do modelo, contando as linhas novas.
+  function nvProxClasse() {
+    var m = 0;
+    S.items.forEach(function (i) {
+      if (i.ref !== S._ref) return;
+      var n = parseInt(String(i.vr || '').replace(/\D/g, ''), 10);
+      if (n > m) m = n;
+    });
+    NVR.forEach(function (w) {
+      var n = parseInt(String(w.vr || '').replace(/\D/g, ''), 10);
+      if (n > m) m = n;
+    });
+    return 'C' + (m + 1);
+  }
+  function nvTotal() {
+    return NVR.reduce(function (a, w) {
+      return a + w.q;
+    }, 0);
+  }
+  // O total conta até o valor novo (como os preços).
+  function nvTotalConta() {
+    var el = $('nvTot');
+    if (!el) return;
+    var de = parseInt(el.textContent, 10) || 0,
+      ate = nvTotal(),
+      t0 = Date.now(),
+      dur = REDUCED ? 0 : 300,
+      passo = function () {
+        var k = dur ? Math.min(1, (Date.now() - t0) / dur) : 1;
+        el.textContent = Math.round(de + (ate - de) * k) + ' peças';
+        if (k < 1) requestAnimationFrame(passo);
+      };
+    passo();
+  }
+  // Gaveta da cor: classe (C1, C2…) em cima e as cores numa lista com busca (nunca todas soltas na tela).
+  function nvCorSheet(w) {
+    var cores = Object.keys(S.palette).filter(function (k) {
+        return k !== 'Sem detalhe' && k !== 'Sem cor';
+      }),
+      ov = comoSheet('lfa-cor', 'Cor', cores, w.cor, function (v) {
+        if (!S.palette[v] && typeof ensureCor === 'function') ensureCor(v);
+        w.cor = v;
+        render();
+      });
+    var cl = mk('div', 'cfCls');
+    cl.innerHTML =
+      '<div class="lbl" style="margin:0">Classe</div><div class="nav">' +
+      varChips(w.vr || 'C1')
+        .map(function (v) {
+          return '<button type="button" class="chip' + (w.vr === v ? ' on' : '') + '" data-v="' + v + '">' + v + '</button>';
+        })
+        .join('') +
+      '</div>';
+    cl.onclick = function (e) {
+      var b = e.target.closest('[data-v]');
+      if (!b) return;
+      w.vr = b.dataset.v;
+      [].forEach.call(cl.querySelectorAll('.chip'), function (c) {
+        c.classList.toggle('on', c === b);
+      });
+      render();
+    };
+    var tt = ov.querySelector('.cg-tt');
+    tt.insertAdjacentElement('afterend', cl);
+  }
+  // Grava uma linha nova com o mesmo motor de "Registrar entrada"; devolve as peças gravadas.
+  function nvGravaLinha(w) {
+    var ref = S._ref,
+      pre = S.tipo === 'pre',
+      custo = $('eCusto').value;
+    $('eCor').value = w.cor;
+    if (pre) {
+      $('eGrau').value = w.grau;
+      if (w.vr) S.eVarP = w.vr;
+    } else if (w.vr) S.eVar = w.vr;
+    S.qty = Math.max(1, w.q);
+    render();
+    var conta = function () {
+        return S.items.reduce(function (n, i) {
+          return n + (i.ref === ref ? i.qty : 0);
+        }, 0);
+      },
+      antes = conta();
+    S.msg = '';
+    $('go').onclick();
+    var depois = conta();
+    $('eCusto').value = custo;
+    if (depois <= antes) {
+      popErr(S.msg || 'Não consegui registrar a cor ' + w.cor + '. Confira os dados.');
+      render();
+      return 0;
+    }
+    if (w.fotoT) setFoto(ref + '|' + w.cor, w.fotoT, w.fotoH);
+    if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd');
+    return depois - antes;
+  }
+  function nvSalvaLinhas() {
+    var pre = S.tipo === 'pre',
+      sem = NVR.filter(function (w) {
+        return !w.cor;
+      })[0];
+    if (sem) {
+      popErr('Escolha a cor da linha ' + (sem.vr || '') + '.');
+      nvCorSheet(sem);
+      return;
+    }
+    var semG = pre && NVR.filter(function (w) {
+      return !normGrau(w.grau || '');
+    })[0];
+    if (semG) {
+      popErr('Informe o grau da peça (ex.: +1.75 ou 175).');
+      var gi = document.querySelector('.cfRow[data-id="' + semG.id + '"] .cfGrau');
+      if (gi) guiaMarca2(gi);
+      return;
+    }
+    var ref = S._ref,
+      tot = 0;
+    while (NVR.length) {
+      var w = NVR[0],
+        n = nvGravaLinha(w);
+      if (!n) return;
+      tot += n;
+      NVR.shift();
+    }
+    saveSoon();
+    lfEntrada(tot, pubNome(ref));
+    nvConcluir(ref);
+  }
+  function guiaMarca2(e) {
+    e.classList.add('nvbad');
+    try {
+      e.scrollIntoView({ block: 'center' });
+    } catch (x) {}
+    setTimeout(function () {
+      e.classList.remove('nvbad');
+    }, 2600);
   }

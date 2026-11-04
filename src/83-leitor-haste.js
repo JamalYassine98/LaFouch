@@ -285,7 +285,11 @@
       cm.className = 'ic cam';
       cm.style.cssText = '';
       bs.appendChild(cm);
-      w.appendChild(bs);
+      // B2+ (aprovado 04/11/2026): busca + filtro FORA da barra, na mesma linha
+      var l2 = document.createElement('div');
+      l2.className = 'vl2';
+      l2.appendChild(bs);
+      w.appendChild(l2);
       // linha de baixo: informação (N peças / Tabela) à esquerda; filtro e lista à direita
       var sub = document.createElement('div');
       sub.className = 'vsub';
@@ -307,8 +311,12 @@
         S.vFilt = !S.vFilt;
         render();
       };
-      dir.appendChild(fb);
-      var mb = mk('button', 'ic modebtn');
+      fb.className = 'ic0';
+      l2.appendChild(fb);
+      // moeda (texto com sublinhado) e lista ficam à direita da linha de baixo
+      var mbar = $('vMoedaBar');
+      if (mbar) dir.appendChild(mbar);
+      var mb = mk('button', 'ic0 modebtn');
       mb.type = 'button';
       mb.id = 'vModo';
       dir.appendChild(mb);

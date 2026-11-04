@@ -662,6 +662,9 @@
         S.pdAsk = false;
         S.edStep = 1;
         S.edTipo = '';
+        S.edNovas = [];
+        S.edAbre = -1;
+        S.edMais = false;
       };
       var fechar = function () {
         zerar();
@@ -773,60 +776,52 @@
         d.appendChild(el);
         return d;
       };
-      // Editar produto em 4 etapas: 1 Modelo · 2 Cores e fotos · 3 Site · 4 Baixa (nada saiu, só foi separado)
+      // v417: Editar produto = Cadastro B completo. Foto no topo (Trocar foto), lixeira com tampa,
+      // abas Modelo | Cores e fotos em trilho e "Salvar alterações" fixo.
       var cur = S.edStep === 2 ? 2 : 1,
         gA = mk('div', 'col'),
         gB = mk('div', 'col'),
-        g = [null, gA, gB, gA, gB];
+        g = [null, gA, gB, gA, gA];
       gA.style.gap = gB.style.gap = '14px';
+      var fotoDaCor = function (c) {
+        S.photoFor = { ref: ref, cor: c };
+        camOpen(
+          function (fl) {
+            window.__GAL = false;
+            $('file').onchange({ target: { files: [fl] } });
+          },
+          'Foto da cor ' + c,
+          { gallery: true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
+        );
+      };
       var hd = mk('div', '');
-      hd.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:8px';
-      hd.style.alignItems = 'flex-start';
-      var hl = mk('div', '');
-      hl.style.cssText = 'display:flex;flex-direction:column;gap:10px;align-items:flex-start';
+      hd.style.cssText = 'display:flex;justify-content:space-between;align-items:flex-start;gap:8px';
       var ht = mk('h2', '', 'Editar produto');
       ht.style.cssText = 'margin:0;font-size:18px';
-      hl.appendChild(ht);
-      hd.appendChild(hl);
-      var xb = btn('tab', 'Fechar', fechar);
-      xb.setAttribute('aria-label', 'Fechar');
+      hd.appendChild(ht);
       var hbtn = mk('div', '');
       hbtn.style.cssText = 'display:flex;gap:8px;align-items:center';
       if (!f.bulk) {
-        var lx = btn('tab ibtn' + (S.pdAsk ? ' on' : ''), '', function () {
+        var lx = btn('tab ibtn edLixo' + (S.pdAsk ? ' on' : ''), '', function () {
           S.pdAsk = !S.pdAsk;
           render();
         });
         lx.id = 'edLixeira';
         lx.innerHTML =
-          '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="M6.5 7l1 13h9l1-13"/><path d="M10 11v6M14 11v6"/></svg>';
-        lx.style.color = 'var(--bad)';
+          '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g class="tampa"><path d="M4 7h16"/><path d="M9 7V4h6v3"/></g><path d="M6.5 7l1 13h9l1-13"/><path d="M10 11v6M14 11v6"/></svg>';
         lx.setAttribute('aria-label', 'Excluir o produto');
         lx.title = 'Excluir o produto';
         hbtn.appendChild(lx);
       }
+      var xb = btn('tab', 'Fechar', fechar);
+      xb.setAttribute('aria-label', 'Fechar');
       hbtn.appendChild(xb);
       hd.appendChild(hbtn);
       bx.appendChild(hd);
       var sub0 = mk('div', 'hint', ref + (orig0 ? ' · ' + orig0 : ''));
       sub0.style.margin = '-8px 0 0';
       bx.appendChild(sub0);
-      // etapas livres: toque em qualquer uma, em qualquer ordem
-      var etp = mk('div', 'edTabs');
-      etp.id = 'edTabs';
-      [
-        [1, '1 · Modelo'],
-        [2, '2 · Cores e fotos']
-      ].forEach(function (t) {
-        var tb = btn('chip' + (cur === t[0] ? ' on' : ''), t[1], function () {
-          if (S.edStep !== t[0]) S._edDir = t[0] > (S.edStep === 2 ? 2 : 1) ? 1 : -1;
-          S.edStep = t[0];
-          render();
-        }, cur === t[0]);
-        tb.id = 'edTab' + t[0];
-        etp.appendChild(tb);
-      });
-      bx.appendChild(etp);
+      // confirmação da lixeira (a tampa abre)
       if (S.pdAsk && !f.bulk) {
         var todos = S.items.filter(function (i) {
             return i.ref === ref && !i.bulk;
@@ -835,19 +830,13 @@
           pc2 = todos.reduce(function (a, i) {
             return a + (Number(effCusto(i)) || 0) * i.qty;
           }, 0),
-          pz = mk('div', 'note n-bad');
+          pz = mk('div', 'note n-bad edLixoBox');
         pz.id = 'edLixoAviso';
-        pz.style.cssText = 'display:flex;flex-direction:column;gap:10px';
-        pz.appendChild(
-          mk(
-            'span',
-            '',
-            'Excluir o produto ' + ref + ' inteiro? Remove ' + pq + ' peça(s) de todas as cores' + (pc2 > 0 ? ' (' + usd(pc2) + ' em custo)' : '') + ' e as fotos.' + (S.site && S.site[ref] ? ' Ele sai do site.' : '') + ' As vendas já feitas continuam no histórico.'
-          )
-        );
+        pz.innerHTML =
+          '<b>Excluir este produto?</b><span>Remove ' + pq + ' peça(s) de todas as cores' + (pc2 > 0 ? ' (' + usd(pc2) + ' em custo)' : '') + ' e as fotos.' + (S.site && S.site[ref] ? ' Ele sai do site.' : '') + ' As vendas já feitas continuam no histórico.</span>';
         var pr0 = mk('div', '');
         pr0.style.cssText = 'display:flex;gap:10px';
-        var sim = btn('mini', 'Sim, excluir o produto', function () {
+        var sim = btn('mini', 'Sim, excluir', function () {
           var xr = exclusaoEstoque(todos, 'produto excluído');
           S.items = S.items.filter(function (i) {
             return !(i.ref === ref && !i.bulk);
@@ -869,6 +858,7 @@
           render();
         });
         sim.id = 'edLixoSim';
+        sim.classList.add('edSim');
         var nao = btn('mini', 'Cancelar', function () {
           S.pdAsk = false;
           render();
@@ -878,69 +868,170 @@
         pz.appendChild(pr0);
         bx.appendChild(pz);
       }
-      // nome e código
+      // foto no topo + Trocar foto
+      var pt = mk('div', 'edFoto');
+      pt.innerHTML = '<div class="edFotoI">' + (src ? '<img alt="' + esc(cor) + '" src="' + src + '">' : '<span>sem foto</span>') + '</div>';
+      var tf = btn('mini edTroca', src ? 'Trocar foto' : 'Adicionar foto', pickPhoto);
+      tf.id = 'edTrocaFoto';
+      pt.appendChild(tf);
+      if (!f.bulk) bx.appendChild(pt);
+      // abas em trilho
+      var etp = mk('div', 'trk edTrk');
+      etp.id = 'edTabs';
+      etp.innerHTML = '<span class="trkTh"></span><button type="button" class="trkB" data-m="1" id="edTab1">Modelo</button><button type="button" class="trkB" data-m="2" id="edTab2">Cores e fotos</button>';
+      etp.onclick = function (e) {
+        var b = e.target.closest('.trkB');
+        if (!b) return;
+        var n = +b.dataset.m;
+        if (S.edStep !== n) S._edDir = n > (S.edStep === 2 ? 2 : 1) ? 1 : -1;
+        trkMarca(etp, String(n));
+        setTimeout(function () {
+          S.edStep = n;
+          render();
+        }, REDUCED ? 0 : 160);
+      };
+      bx.appendChild(etp);
+      requestAnimationFrame(function () {
+        trkMarca(etp, String(cur));
+      });
+      // ---- Modelo: código, tipo, "Como é", custo e mais detalhes
       var nmi = null,
         ni = null;
       if (!f.bulk) {
-        if (!smp) {
-          nmi = mk('input', 'in');
-          nmi.id = 'edNome';
-          nmi.value = S.rnN != null && S.rnRef === ref ? S.rnN : orig0;
-          nmi.placeholder = 'Ex.: Gatinho preto fosco';
-          nmi.maxLength = 60;
-          nmi.setAttribute('aria-label', 'Nome do produto');
-          g[1].appendChild(fld('Nome do produto', nmi));
-        }
         ni = mk('input', 'in');
         ni.id = 'edCodigo';
         ni.value = S.rnV != null && S.rnRef === ref ? S.rnV : ref;
         ni.setAttribute('aria-label', smp ? 'Nome do produto' : 'Código');
-        var tpL = TIPOS.filter(function (x) {
-          return !!isSimple(x.id) === !!smp && (x.id === 'pre') === (f.tipo === 'pre');
-        });
+        g[1].appendChild(fld(smp ? 'Nome do produto' : 'Código da haste', ni));
+        // Tipo em trilho (Pré-grad. | Armação | Solar | Outro); só troca entre tipos compatíveis
         var tpCur = S.edTipo || f.tipo,
-          tpSel = null;
-        if (!smp && tpL.length > 1) {
-          tpSel = edSel(
-            'tipo',
-            'Tipo',
-            tpL.map(function (x) {
-              return x.label;
-            }),
-            (tipoOf(tpCur) || {}).label || '',
-            function (v) {
-              var x = tpL.filter(function (y) {
-                return y.label === v;
-              })[0];
-              S.edTipo = x ? x.id : '';
-            }
-          );
-        }
-        var rcod = mk('div', 'nvg2');
-        rcod.appendChild(fld(smp ? 'Nome do produto' : 'Código da haste', ni));
-        if (tpSel) rcod.appendChild(tpSel);
-        g[1].appendChild(rcod);
-        if (tpSel && tpSel._lista) g[1].appendChild(tpSel._lista);
+          tpOk = function (id) {
+            if (id === 'outro') return !!smp;
+            var x = tipoOf(id);
+            return !!x && !smp && (id === 'pre') === (f.tipo === 'pre');
+          },
+          tt = mk('div', 'trk');
+        tt.id = 'edTipoTrk';
+        tt.innerHTML =
+          '<span class="trkTh"></span>' +
+          NV_TIPOS.map(function (x) {
+            return '<button type="button" class="trkB" data-m="' + x[0] + '"' + (tpOk(x[0]) ? '' : ' disabled') + '>' + x[1] + '</button>';
+          }).join('');
+        tt.onclick = function (e) {
+          var b = e.target.closest('.trkB');
+          if (!b || b.disabled || b.dataset.m === 'outro') return;
+          S.edTipo = b.dataset.m === f.tipo ? '' : b.dataset.m;
+          trkMarca(tt, b.dataset.m);
+        };
+        g[1].appendChild(fld('Tipo', tt));
+        requestAnimationFrame(function () {
+          trkPoe(tt, smp ? 'outro' : tpCur);
+        });
         var guardar = function () {
           S.rnRef = ref;
           S.rnV = ni.value;
           if (nmi) S.rnN = nmi.value;
         };
         ni.oninput = guardar;
-        if (nmi) nmi.oninput = guardar;
       }
       if (!smp && !f.bulk) {
-        var idh = mk('div', 'col'),
-          idc = Object.assign({}, attrOf(ref));
-        idh.id = 'edIdent';
-        idh.style.gap = '12px';
-        edIdent(idh, idc, function () {
-          setAttr(ref, Object.assign({ marca: '', formato: '', material: '', publico: '', colecao: '' }, idc));
+        var idc = Object.assign({}, attrOf(ref)),
+          cm = mk('div', 'nvChips');
+        cm.id = 'edIdent';
+        [
+          ['formato', 'Formato', FORMATOS.concat(S.formats || [])],
+          ['material', 'Material', MATERIAIS.concat(S.matX || [])],
+          ['publico', 'Gênero', PUBLICOS]
+        ].forEach(function (d) {
+          var v = idc[d[0]] || '',
+            lista = d[2].filter(function (x, k) {
+              return d[2].indexOf(x) === k;
+            }),
+            c = mk('button', 'nvChip' + (v ? ' ok' : ''));
+          c.type = 'button';
+          c.id = 'ed_' + d[0];
+          c.innerHTML = '<span>' + esc(v || d[1]) + '</span><i aria-hidden="true">▾</i>';
+          c.onclick = function () {
+            comoSheet('lfa-como', d[1], lista, v, function (nv) {
+              if (d[0] === 'material' && MATERIAIS.indexOf(nv) < 0) {
+                S.matX = S.matX || [];
+                if (S.matX.indexOf(nv) < 0) S.matX.push(nv);
+              }
+              if (d[0] === 'formato' && (S.formats || []).indexOf(nv) < 0 && FORMATOS.indexOf(nv) < 0) S.formats.push(nv);
+              idc[d[0]] = nv;
+              setAttr(ref, Object.assign({ marca: '', formato: '', material: '', publico: '', colecao: '' }, idc));
+              render();
+            });
+          };
+          cm.appendChild(c);
         });
-        g[1].appendChild(idh);
-        if (nmi && !nmi.value) nmi.placeholder = nomeAuto(ref) || nmi.placeholder;
+        g[1].appendChild(fld('Como é', cm));
       }
-      // descrição (só vale ao salvar)
+      // custo por peça: vale para todas as cores (cada cor pode ser ajustada em Cores e fotos)
+      if (!f.bulk) {
+        var cuAll = mk('input', 'in');
+        cuAll.id = 'edCusto';
+        cuAll.inputMode = 'decimal';
+        cuAll.placeholder = 'Ex.: 0,50';
+        var cu0 = rows.filter(function (i) {
+          return !i.bulk;
+        })[0];
+        var ix0 = cu0 ? S.items.indexOf(cu0) : -1;
+        cuAll.value = ix0 >= 0 && S.cDraft[ix0] != null ? S.cDraft[ix0] : cu0 && cu0.custo != null ? String(cu0.custo).replace('.', ',') : '';
+        cuAll.onchange = function () {
+          rows.forEach(function (i) {
+            if (!i.bulk) S.cDraft[S.items.indexOf(i)] = cuAll.value;
+          });
+          render();
+        };
+        g[1].appendChild(fld('Custo por peça (US$)', cuAll));
+      }
+      var mais = document.createElement('details');
+      mais.className = 'edMais';
+      mais.open = !!S.edMais;
+      mais.ontoggle = function () {
+        S.edMais = mais.open;
+      };
+      mais.innerHTML = '<summary class="lbl" style="cursor:pointer;margin:0">Mais detalhes</summary>';
+      var mb = mk('div', 'col');
+      mb.style.cssText = 'gap:12px;margin-top:10px';
+      mais.appendChild(mb);
+      if (!smp && !f.bulk && S.faixas.length) {
+        var fcur = S.fDraft != null ? S.fDraft : (faixaOf(ref) || {}).id || '',
+          fb = mk('div', 'trk');
+        fb.id = 'edFaixas';
+        fb.innerHTML =
+          '<span class="trkTh"></span>' +
+          S.faixas
+            .map(function (x) {
+              return '<button type="button" class="trkB" data-m="' + esc(x.id) + '">' + esc(x.nome) + '</button>';
+            })
+            .join('');
+        fb.onclick = function (e) {
+          var b = e.target.closest('.trkB');
+          if (!b) return;
+          S.fDraft = b.dataset.m;
+          trkMarca(fb, b.dataset.m);
+        };
+        mb.appendChild(fld('Faixa', fb));
+        requestAnimationFrame(function () {
+          trkPoe(fb, fcur);
+        });
+      }
+      if (!f.bulk && !smp) {
+        nmi = mk('input', 'in');
+        nmi.id = 'edNome';
+        nmi.value = S.rnN != null && S.rnRef === ref ? S.rnN : orig0;
+        nmi.placeholder = nomeAuto(ref) || 'Ex.: Gatinho preto fosco';
+        nmi.maxLength = 60;
+        nmi.setAttribute('aria-label', 'Nome do produto');
+        nmi.oninput = function () {
+          S.rnRef = ref;
+          S.rnV = ni ? ni.value : ref;
+          S.rnN = nmi.value;
+        };
+        mb.appendChild(fld('Nome do produto', nmi));
+      }
       var ta = mk('textarea', 'in');
       ta.id = 'descTa';
       ta.rows = 3;
@@ -950,189 +1041,47 @@
       ta.oninput = function () {
         S.dDraft = ta.value;
       };
-      var df = fld('Descrição (opcional)', ta);
-      var sg = btn('mini', 'Usar descrição sugerida', function () {
+      var df = fld('Descrição', ta);
+      var sg = btn('mini edSec', 'Usar descrição sugerida', function () {
         S.dDraft = autoDesc(ref);
         render();
       });
-      sg.style.cssText =
-        'margin-top:8px;min-height:36px;background:var(--panel2);color:var(--sub);border:1px solid var(--line)';
+      sg.style.marginTop = '8px';
       df.appendChild(sg);
-      g[3].appendChild(df);
-      // faixa do produto (só vale ao salvar)
-      if (!smp && !f.bulk && S.faixas.length) {
-        var fcur = S.fDraft != null ? S.fDraft : (faixaOf(ref) || {}).id || '',
-          fb = mk('div', 'nav');
-        fb.id = 'edFaixas';
-        S.faixas.forEach(function (x) {
-          fb.appendChild(
-            btn(
-              'chip' + (fcur === x.id ? ' on' : ''),
-              x.nome,
-              function () {
-                S.fDraft = x.id;
-                render();
-              },
-              fcur === x.id
-            )
-          );
-        });
-        g[3].appendChild(fld('Faixa', fb));
-      }
-      if (!f.bulk && !smp) g[4].appendChild(descarteBox(ref));
-      // foto da cor selecionada
-      var ps = mk('div', '');
-      ps.appendChild(mk('div', 'lbl', 'Foto · ' + cor));
-      var pr = mk('div', '');
-      pr.style.cssText = 'display:flex;gap:12px;align-items:center';
-      var th0 = mk('div', '');
-      th0.style.cssText =
-        'width:96px;height:72px;flex:none;background:#fff;border-radius:10px;padding:2px;display:flex;align-items:center;justify-content:center;color:#64748b;font-size:11px;overflow:hidden';
-      if (src) {
-        var im0 = mk('img');
-        im0.src = src;
-        im0.alt = cor;
-        im0.style.cssText = 'width:100%;height:100%;object-fit:contain';
-        th0.appendChild(im0);
-      } else th0.textContent = 'sem foto';
-      pr.appendChild(th0);
-      var pc = mk('div', 'col');
-      pc.style.cssText = 'gap:8px;flex:1';
-      pc.appendChild(btn('mini', src ? 'Trocar foto' : 'Adicionar foto', pickPhoto));
-      if (src) {
-        var xf = btn('mini', 'Excluir foto', function () {
-          if (window.__fotoApagaPede && window.__fotoApagaPede(ref + '|' + cor)) return; // sincronização ligada: confirmação com lixeira
-          S.fDel = true;
-          render();
-        });
-        xf.style.cssText =
-          'background:transparent;color:var(--bad);border:1px solid rgba(239,68,68,.7)';
-        pc.appendChild(xf);
-      }
-      pr.appendChild(pc);
-      ps.appendChild(pr);
-      if (S.fDel && src) {
-        var fz = mk('div', 'note n-bad');
-        fz.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px';
-        fz.appendChild(
-          mk(
-            'span',
-            '',
-            'Excluir a foto da cor "' + cor + '"? Não dá para desfazer. O estoque não muda.'
-          )
-        );
-        fz.appendChild(
-          btn('mini', 'Sim, excluir', function () {
-            delete S.fotos[ref + '|' + cor];
-            S.fDel = false;
-            S.msg = 'Foto da cor "' + cor + '" excluída.';
-            render();
-          })
-        );
-        fz.appendChild(
-          btn('mini', 'Cancelar', function () {
-            S.fDel = false;
-            render();
-          })
-        );
-        ps.appendChild(fz);
-      }
-      var ph = mk('div', 'hint', 'A foto vale para a cor toda. Para outra cor, toque nela abaixo.');
-      ph.style.margin = '6px 0 0';
-      ps.appendChild(ph);
-      var ecs = [];
-      all.forEach(function (i) {
-        if (!i.bulk && ecs.indexOf(i.cor) < 0) ecs.push(i.cor);
-      });
-      if (ecs.length > 1 || (ecs.length === 1 && !smp)) {
-        var cl0 = mk('div', 'card col');
-        cl0.style.gap = '8px';
-        cl0.id = 'edCores';
-        cl0.appendChild(mk('div', 'lbl', 'Cores do modelo · toque para editar'));
-        ecs.forEach(function (cn) {
-          var qn = all.reduce(function (a2, i) {
-              return a2 + (i.cor === cn && !i.bulk ? i.qty : 0);
-            }, 0),
-            ft0 = S.fotos[ref + '|' + cn],
-            rw = btn('nvcor' + (cn === cor ? ' picked' : ''), '', function () {
-              var r0 = rows.filter(function (i) {
-                return i.cor === cn;
-              })[0];
-              if (r0) choose(r0);
-            });
-          rw.setAttribute('aria-label', 'Editar a cor ' + cn);
-          var th1 = mk('div', 'nvthm');
-          if (ft0) {
-            var im1 = document.createElement('img');
-            im1.src = ft0;
-            im1.alt = '';
-            th1.appendChild(im1);
-          } else th1.innerHTML = NV_ICAM;
-          rw.appendChild(th1);
-          var tx1 = mk('div', '');
-          tx1.style.cssText = 'flex:1;min-width:0';
-          tx1.appendChild(mk('b', '', cn));
-          tx1.appendChild(mk('small', '', qn + (qn === 1 ? ' peça · ' : ' peças · ') + (ft0 ? 'foto ok' : 'sem foto')));
-          rw.appendChild(tx1);
-          rw.appendChild(mk('span', 'nvpl' + (ft0 ? '' : ' w'), ft0 ? 'pronta' : 'falta foto'));
-          cl0.appendChild(rw);
-        });
-        g[2].appendChild(cl0);
-      }
-      g[2].appendChild(ps);
-      if (window.__atvPecaHtml) {
-        var hp = window.__atvPecaHtml(ref);
-        if (hp) {
-          var hpe = mk('div', '');
-          hpe.innerHTML = hp;
-          g[2].appendChild(hpe);
-        }
-      }
-      // estoque e custo por variante
-      var ev = mk('div', '');
-      ev.appendChild(mk('div', 'lbl', 'Cores · quantidade e custo (US$)'));
-      var el = mk('div', 'col');
-      el.style.gap = '8px';
+      mb.appendChild(df);
+      if (!f.bulk && !smp) mb.appendChild(descarteBox(ref));
+      g[1].appendChild(mais);
+      // ---- Cores e fotos: uma linha por cor (foto, classe · cor, custo, quantidade)
+      var cl0 = mk('div', 'card col cfList');
+      cl0.id = 'edCores';
       rows.forEach(function (i) {
         if (i.bulk) return;
         var ix = S.items.indexOf(i),
-          cur = S.qDraft[ix] != null ? S.qDraft[ix] : i.qty,
-          r = mk('div', 'pl pick' + (i === sel ? ' picked' : ''));
-        var lb = mk('span', '', rowLabel(i));
-        lb.style.cursor = 'pointer';
-        lb.onclick = function () {
-          choose(i);
+          qv = S.qDraft[ix] != null ? S.qDraft[ix] : i.qty,
+          ft0 = S.fotos[ref + '|' + i.cor],
+          ab = S.edAbre === ix,
+          mudou = S.qDraft[ix] != null || S.cDraft[ix] != null,
+          r = mk('div', 'cfRow' + (ab ? ' ab' : '') + (mudou ? ' mud' : ''));
+        r.innerHTML =
+          '<button type="button" class="cfFt" aria-label="Foto da cor ' + esc(i.cor) + '">' + (ft0 ? '<img alt="" src="' + ft0 + '">' : NV_ICAM) + '</button>' +
+          '<div class="cfTx"><button type="button" class="cfNm"><b>' + esc(rowLabel(i)) + '</b></button>' +
+          '<span class="cfCu">US$ <input class="cfCuI" inputmode="decimal" placeholder="custo" aria-label="Custo por peça em US$" value="' + esc(S.cDraft[ix] != null ? S.cDraft[ix] : i.custo != null ? String(i.custo).replace('.', ',') : '') + '"></span></div>' +
+          '<span class="vstep cfStep"><span class="vs-b" role="button" tabindex="0" data-d="-1" aria-label="Diminuir estoque">−</span><input class="vs-n cfQI" type="number" min="0" inputmode="numeric" aria-label="Quantidade em estoque" value="' + qv + '"><span class="vs-b" role="button" tabindex="0" data-d="1" aria-label="Aumentar estoque">+</span></span>' +
+          (ab ? '<div class="cfMais"><button type="button" class="mini" data-f="1">Trocar foto</button>' + '<button type="button" class="mini cfDel" data-x="1">Excluir cor</button>' + '</div>' : '');
+        r.querySelector('.cfFt').onclick = function () {
+          fotoDaCor(i.cor);
         };
-        r.appendChild(lb);
-        if (S.qDraft[ix] != null || S.cDraft[ix] != null) r.style.borderColor = 'var(--accent)';
-        var qe = mk('span', 'qe');
-        qe.style.cssText = 'display:flex;align-items:center;gap:6px;flex-wrap:wrap;grid-column:1/-1';
-        var setQ = function (n) {
-          n = Math.max(0, Math.min(99999, Math.floor(Number(n) || 0)));
+        r.querySelector('.cfNm').onclick = function () {
+          S.edAbre = ab ? -1 : ix;
+          S.cdMode = false;
+          render();
+        };
+        var qi = r.querySelector('.cfQI');
+        qi.onchange = function () {
+          var n = Math.max(0, Math.min(99999, Math.floor(Number(qi.value) || 0)));
           if (n === i.qty) delete S.qDraft[ix];
           else S.qDraft[ix] = n;
           render();
-        };
-        var mb = btn('step', '−', function () {
-          setQ(cur - 1);
-        });
-        mb.setAttribute('aria-label', 'Diminuir estoque');
-        mb.style.cssText = 'min-width:36px;min-height:36px;width:36px;height:36px;font-size:18px';
-        var pb2 = btn('step', '+', function () {
-          setQ(cur + 1);
-        });
-        pb2.setAttribute('aria-label', 'Aumentar estoque');
-        pb2.style.cssText = mb.style.cssText;
-        var qi = mk('input', 'in');
-        qi.type = 'number';
-        qi.min = '0';
-        qi.inputMode = 'numeric';
-        qi.value = cur;
-        qi.setAttribute('aria-label', 'Quantidade em estoque');
-        qi.style.cssText =
-          'width:64px;min-height:36px;height:36px;padding:0 6px;text-align:center;font-weight:800';
-        qi.onchange = function () {
-          setQ(qi.value);
         };
         qi.onkeydown = function (e) {
           if (e.key === 'Enter') {
@@ -1140,92 +1089,72 @@
             qi.blur();
           }
         };
-        qe.appendChild(mb);
-        qe.appendChild(qi);
-        qe.appendChild(pb2);
-        var ci = mk('input', 'in');
-        ci.inputMode = 'decimal';
-        ci.placeholder = 'custo US$';
-        ci.setAttribute('aria-label', 'Custo por peça em US$');
-        ci.value =
-          S.cDraft[ix] != null
-            ? S.cDraft[ix]
-            : i.custo != null
-              ? String(i.custo).replace('.', ',')
-              : '';
-        ci.style.cssText = 'width:96px;min-height:36px;height:36px;padding:0 8px;text-align:center';
+        var ci = r.querySelector('.cfCuI');
         ci.onchange = function () {
           S.cDraft[ix] = ci.value;
           render();
         };
-        qe.appendChild(ci);
-        r.appendChild(qe);
-        el.appendChild(r);
-      });
-      ev.appendChild(el);
-      g[2].appendChild(ev);
-      // excluir a cor selecionada (produtos sem classes C1–C6)
-      if (!isVr && cores.length) {
-        var dz = mk('div', '');
-        if (!S.cdMode) {
-          var db = btn('mini', 'Excluir a cor "' + cor + '"', function () {
-            S.cdMode = true;
-            S.cdCor = cor;
-            render();
-          });
-          db.style.cssText =
-            'background:transparent;color:var(--bad);border:1px solid rgba(239,68,68,.7)';
-          dz.appendChild(db);
-        } else {
-          var xq = sum(
-              all.filter(function (i) {
-                return i.cor === cor;
+        [].forEach.call(r.querySelectorAll('.cfStep .vs-b'), function (b) {
+          b.onclick = function () {
+            var at = S.qDraft[ix] != null ? S.qDraft[ix] : i.qty,
+              n = Math.max(0, Math.min(99999, at + +b.dataset.d));
+            if (n === at) return;
+            if (n === i.qty) delete S.qDraft[ix];
+            else S.qDraft[ix] = n;
+            var el = r.querySelector('.vs-n');
+            el.value = n;
+            r.classList.toggle('mud', S.qDraft[ix] != null || S.cDraft[ix] != null);
+            if (!REDUCED && el.animate) el.animate([{ transform: 'translateY(' + (n > at ? 14 : -14) + 'px)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 280, easing: 'cubic-bezier(.4,0,.2,1)' });
+          };
+        });
+        if (ab) {
+          r.querySelector('[data-f]').onclick = function () {
+            fotoDaCor(i.cor);
+          };
+          var dx = r.querySelector('[data-x]');
+          if (dx)
+            dx.onclick = function () {
+              S.cdMode = true;
+              S.cdCor = i.cor;
+              render();
+            };
+        }
+        cl0.appendChild(r);
+        // confirmação de excluir a cor, logo abaixo da linha
+        if (ab && S.cdMode && S.cdCor === i.cor) {
+          var dCor = i.cor,
+            xq = sum(
+              all.filter(function (x) {
+                return x.cor === dCor;
               })
             ),
             xc = all
-              .filter(function (i) {
-                return i.cor === cor;
+              .filter(function (x) {
+                return x.cor === dCor;
               })
-              .reduce(function (a, i) {
-                return a + (Number(effCusto(i)) || 0) * i.qty;
+              .reduce(function (a, x) {
+                return a + (Number(effCusto(x)) || 0) * x.qty;
               }, 0),
-            last = cores.length === 1;
-          var cz = mk('div', 'note n-bad');
-          cz.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;align-items:center';
+            last = cores.length === 1,
+            cz = mk('div', 'note n-bad');
+          cz.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:8px 0';
+          cz.appendChild(mk('span', '', 'Excluir a cor "' + dCor + '"? Remove ' + xq + ' peça(s)' + (xc > 0 ? ' (' + usd(xc) + ' em custo)' : '') + ' e a foto dessa cor.' + (last ? ' Como é a única cor, o produto inteiro será excluído.' : '') + ' As vendas já feitas continuam no histórico.'));
           cz.appendChild(
-            mk(
-              'span',
-              '',
-              'Excluir a cor "' +
-                cor +
-                '" de ' +
-                ref +
-                '? Remove ' +
-                xq +
-                ' peça(s) em estoque' +
-                (xc > 0 ? ' (' + usd(xc) + ' em custo)' : '') +
-                ' e a foto dessa cor.' +
-                (S.site && S.site[ref] ? ' O produto está no site: ele é atualizado.' : '') +
-                (last ? ' Como é a única cor, o produto inteiro será excluído.' : '') +
-                ' As vendas já feitas continuam no histórico.'
-            )
-          );
-          cz.appendChild(
-            btn('mini', 'Sim, excluir', function () {
+            btn('mini edSim', 'Sim, excluir', function () {
               var xr = exclusaoEstoque(
-                S.items.filter(function (i) {
-                  return i.tipo === f.tipo && i.ref === ref && i.cor === cor;
+                S.items.filter(function (x) {
+                  return x.tipo === f.tipo && x.ref === ref && x.cor === dCor;
                 }),
                 'cor excluída'
               );
-              S.items = S.items.filter(function (i) {
-                return !(i.tipo === f.tipo && i.ref === ref && i.cor === cor);
+              S.items = S.items.filter(function (x) {
+                return !(x.tipo === f.tipo && x.ref === ref && x.cor === dCor);
               });
-              delete S.fotos[ref + '|' + cor];
+              delete S.fotos[ref + '|' + dCor];
               limpaRefExcluido(ref);
               if (
-                !S.items.some(function (i) {
-                  return i.ref === ref;
+                !S.items.some(function (x) {
+                  return x.ref === ref;
                 })
               )
                 delete S.desc[ref];
@@ -1236,14 +1165,14 @@
               S.selItem = null;
               S.qty = 1;
               if (
-                !S.items.some(function (i) {
-                  return i.ref === ref && i.tipo === f.tipo;
+                !S.items.some(function (x) {
+                  return x.ref === ref && x.tipo === f.tipo;
                 })
               ) {
                 S.open = '';
                 S.det = false;
               }
-              S.msg = 'Cor "' + cor + '" excluída de ' + ref + '.' + (xr.n ? ' Saíram ' + xr.n + ' peça(s), ' + usd(xr.usd) + ' em custo, registradas no histórico.' : '');
+              S.msg = 'Cor "' + dCor + '" excluída de ' + ref + '.' + (xr.n ? ' Saíram ' + xr.n + ' peça(s), ' + usd(xr.usd) + ' em custo, registradas no histórico.' : '');
               render();
             })
           );
@@ -1254,27 +1183,125 @@
               render();
             })
           );
-          dz.appendChild(cz);
+          cl0.appendChild(cz);
         }
-        g[2].appendChild(dz);
-      }
-      if (!f.bulk) {
-        var xz = mk('div', 'zcd');
-        xz.style.cssText = 'display:flex;flex-direction:column;gap:8px;border-color:rgba(239,68,68,.5)';
-        var xh = mk('div', 'lbl', 'Excluir produto');
-        xh.style.color = 'var(--bad)';
-        xz.appendChild(xh);
-        xz.appendChild(mk('div', 'hint', 'Remove o modelo, as cores e as fotos. As vendas já feitas continuam no histórico.'));
-        var xbt = btn('mini', 'Excluir este produto', function () {
-          S.pdAsk = true;
+      });
+      // cores novas (ainda não salvas): mesma linha do cadastro
+      S.edNovas = S.edNovas || [];
+      S.edNovas.forEach(function (w) {
+        var r = mk('div', 'cfRow nova');
+        r.innerHTML =
+          '<button type="button" class="cfFt" aria-label="Trocar a foto">' + (w.fotoT ? '<img alt="" src="' + w.fotoT + '">' : NV_ICAM) + '</button>' +
+          '<div class="cfTx"><button type="button" class="nvChip cfCor' + (w.cor ? ' ok' : '') + '"><span>' + esc((w.vr ? w.vr + ' · ' : '') + (w.cor || 'Cor')) + '</span><i aria-hidden="true">▾</i></button>' +
+          (f.tipo === 'pre' ? '<input class="in cfGrau" inputmode="decimal" placeholder="Grau (ex.: +1,75)" value="' + esc(w.grau || '') + '" aria-label="Grau da peça">' : '') +
+          '<button type="button" class="cfMaisB">Excluir esta cor</button></div>' +
+          '<span class="vstep cfStep"><span class="vs-b" role="button" tabindex="0" data-d="-1" aria-label="Menos">−</span><span class="vs-n">' + w.q + '</span><span class="vs-b" role="button" tabindex="0" data-d="1" aria-label="Mais">+</span></span>';
+        r.querySelector('.cfCor').onclick = function () {
+          edCorSheet(w);
+        };
+        r.querySelector('.cfFt').onclick = function () {
+          edFotoNova(w);
+        };
+        r.querySelector('.cfMaisB').onclick = function () {
+          S.edNovas = S.edNovas.filter(function (x) {
+            return x !== w;
+          });
           render();
-          var av = $('edLixoAviso');
-          if (av && av.scrollIntoView) av.scrollIntoView({ block: 'center' });
+        };
+        var gi = r.querySelector('.cfGrau');
+        if (gi)
+          gi.oninput = function () {
+            w.grau = gi.value;
+          };
+        [].forEach.call(r.querySelectorAll('.cfStep .vs-b'), function (b) {
+          b.onclick = function () {
+            w.q = Math.max(1, Math.min(999, w.q + +b.dataset.d));
+            r.querySelector('.vs-n').textContent = w.q;
+          };
         });
-        xbt.id = 'edExcluir';
-        xbt.style.cssText = 'background:transparent;color:var(--bad);border:1px solid rgba(239,68,68,.7)';
-        xz.appendChild(xbt);
-        g[4].appendChild(xz);
+        cl0.appendChild(r);
+      });
+      if (!f.bulk && !smp) {
+        var cn = mk('button', 'cfNova');
+        cn.type = 'button';
+        cn.id = 'edCorNova';
+        cn.innerHTML = NV_ICAM + '<span>Cor nova <small>(tire a foto)</small></span>';
+        cn.onclick = function () {
+          edFotoNova(null);
+        };
+        cl0.appendChild(cn);
+      }
+      g[2].appendChild(cl0);
+      if (window.__atvPecaHtml) {
+        var hp = window.__atvPecaHtml(ref);
+        if (hp) {
+          var hpe = mk('div', '');
+          hpe.innerHTML = hp;
+          g[2].appendChild(hpe);
+        }
+      }
+      // foto de cor nova: câmera → linha nova com a próxima classe
+      function edFotoNova(w) {
+        camOpen(
+          function (fl) {
+            var url = URL.createObjectURL(fl),
+              im = new Image();
+            im.onload = function () {
+              try {
+                var cv = fitCanvas(im, 1800),
+                  t = thumbOf(cv),
+                  h = cv.toDataURL('image/jpeg', 0.92);
+                if (w) {
+                  w.fotoT = t;
+                  w.fotoH = h;
+                } else {
+                  var mx = 0;
+                  S.items.concat(S.edNovas).forEach(function (x) {
+                    if (x.ref && x.ref !== ref) return;
+                    var n = parseInt(String(x.vr || '').replace(/\D/g, ''), 10);
+                    if (n > mx) mx = n;
+                  });
+                  S.edNovas.push({ vr: 'C' + (mx + 1), cor: '', q: 1, grau: '', fotoT: t, fotoH: h });
+                }
+              } catch (e) {
+                popErr('Não consegui processar essa foto. Tente outra.');
+              }
+              URL.revokeObjectURL(url);
+              render();
+            };
+            im.src = url;
+          },
+          'Foto da cor nova',
+          { gallery: true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
+        );
+      }
+      function edCorSheet(w) {
+        var lista = Object.keys(S.palette).filter(function (k) {
+            return k !== 'Sem detalhe' && k !== 'Sem cor';
+          }),
+          ov2 = comoSheet('lfa-cor', 'Cor', lista, w.cor, function (v) {
+            w.cor = v;
+            render();
+          }),
+          cl = mk('div', 'cfCls');
+        cl.innerHTML =
+          '<div class="lbl" style="margin:0">Classe</div><div class="nav">' +
+          varChips(w.vr || 'C1')
+            .map(function (v) {
+              return '<button type="button" class="chip' + (w.vr === v ? ' on' : '') + '" data-v="' + v + '">' + v + '</button>';
+            })
+            .join('') +
+          '</div>';
+        cl.onclick = function (e) {
+          var b = e.target.closest('[data-v]');
+          if (!b) return;
+          w.vr = b.dataset.v;
+          [].forEach.call(cl.querySelectorAll('.chip'), function (c) {
+            c.classList.toggle('on', c === b);
+          });
+          render();
+        };
+        ov2.querySelector('.cg-tt').insertAdjacentElement('afterend', cl);
       }
       if (S._edDir) {
         g[cur].style.animation = (S._edDir > 0 ? 'edEntraD' : 'edEntraE') + ' .32s cubic-bezier(.2,.8,.2,1) both';
@@ -1310,6 +1337,38 @@
         if (dk.length) {
           msgs = salvarEstoque(dk);
           partes.push('Estoque salvo.' + (msgs.length ? ' ' + msgs.join(' ') : ''));
+        }
+        var novas = S.edNovas || [];
+        var nsc = novas.filter(function (w) {
+          return !w.cor;
+        })[0];
+        if (nsc) return popErr('Escolha a cor da linha ' + (nsc.vr || 'nova') + '.');
+        if (
+          f.tipo === 'pre' &&
+          novas.some(function (w) {
+            return !normGrau(w.grau || '');
+          })
+        )
+          return popErr('Informe o grau da cor nova (ex.: +1.75 ou 175).');
+        if (novas.length) {
+          var base = rows.filter(function (i) {
+              return !i.bulk;
+            })[0] || f,
+            nq = 0;
+          novas.forEach(function (w) {
+            var gr = f.tipo === 'pre' ? normGrau(w.grau) : '',
+              ex = S.items.filter(function (i) {
+                return i.ref === ref && !i.bulk && i.cor === w.cor && (i.grau || '') === gr && !i.lote;
+              })[0];
+            if (ex) ex.qty += w.q;
+            else S.items.push({ custo: base.custo, tipo: f.tipo, grau: gr, ref: ref, med: base.med || '', vr: w.vr, fmt: base.fmt || '', cor: w.cor, qty: w.q });
+            entradaEstoque(f.tipo, ref, w.cor, gr, w.q);
+            if (w.fotoT) setFoto(ref + '|' + w.cor, w.fotoT, w.fotoH);
+            nq += w.q;
+          });
+          if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd');
+          S.edNovas = [];
+          partes.push(novas.length + (novas.length === 1 ? ' cor nova' : ' cores novas') + ' (+' + nq + ' peças).');
         }
         if (S.dDraft != null) {
           if (S.dDraft !== (S.desc[ref] != null ? S.desc[ref] : '')) {

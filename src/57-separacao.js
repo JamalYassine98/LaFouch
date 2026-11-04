@@ -105,6 +105,21 @@
       }
     }
     var faltaUsd = Math.max(0, rem);
+    // 2b. brindes (v417): o que cada óculos vendido gasta de brinde, guardado para recomprar (sai do guarani, depois do real)
+    var brT = brTotais(),
+      br = vazio3(),
+      brG = brT.itens.length ? sumBy(ps, 'qty') * brT.porVenda : 0;
+    if (brG > 0) {
+      var bg = Math.min(avail.pyg, brG);
+      br.pyg = bg;
+      avail.pyg -= bg;
+      var bf = brG - bg;
+      if (bf > 0.5) {
+        var bb = Math.min(avail.brl, bf / r.brl);
+        br.brl = bb;
+        avail.brl -= bb;
+      }
+    }
     // 3. colchão e melhorias: de cada moeda, na proporção do que sobrou
     var sobraEq = eq3(avail),
       colEq = Math.min(colG, sobraEq),
@@ -119,9 +134,9 @@
     // 4. o que restou é o lucro livre
     var sep = vazio3();
     MOE3.forEach(function (m) {
-      sep[m] = rep[m] + con[m] + colch[m] + melh[m];
+      sep[m] = rep[m] + con[m] + br[m] + colch[m] + melh[m];
     });
-    return { vend: vend, rep: rep, con: con, colch: colch, melh: melh, sep: sep, livre: avail, trocar: trocar, faltaUsd: faltaUsd, repU: repU };
+    return { vend: vend, rep: rep, con: con, br: br, brT: brT, colch: colch, melh: melh, sep: sep, livre: avail, trocar: trocar, faltaUsd: faltaUsd, repU: repU };
   }
   // ---------- total convertido (botão G$ / R$ / US$)
   // Valor em guaranis mostrado na moeda escolhida para os totais, sem centavos.
@@ -213,6 +228,12 @@
       var f = sobra > 0 ? (av[m] * rt[m]) / sobra : 0;
       lv[m] = Math.max(0, av[m] - (colEq * f) / rt[m] - (melEq * f) / rt[m]);
     });
+    // brindes guardados para recomprar não estão livres (v417)
+    var brG2 = brTotais().guardado,
+      bp = Math.min(lv.pyg, brG2);
+    lv.pyg -= bp;
+    brG2 -= bp;
+    if (brG2 > 0.5) lv.brl = Math.max(0, lv.brl - brG2 / rt.brl);
     var livreEq = lv.pyg + lv.brl * rt.brl;
     return { livre: lv, livreEq: livreEq, falta: Math.round(falta), extraUsd: extraUsd, colUso: colUso, wal: r.wal, r: r };
   }
@@ -261,6 +282,7 @@
       ln('Vendido', 'entrou no período', sp.vend, '#9aa', true, false) +
       ln('Reposição', 'dólar primeiro, depois real, resto em guarani', sp.rep, '#00c8ff', false, true) +
       ln('Contas', 'cada uma na sua moeda', sp.con, '#a2447c', false, false) +
+      (sp.brT && sp.brT.itens.length ? ln('Brindes', 'separar ' + gs(Math.round(sp.brT.porVenda)) + ' por venda · guardado ' + gs(Math.round(sp.brT.guardado)), sp.br, '#c9a0dc', false, false) : '') +
       ln('Colchão', 'proporcional ao que sobrou', sp.colch, '#ffc766', false, false) +
       ln('Melhorias', 'opcional', sp.melh, 'var(--info)', false, false) +
       ln('Lucro livre', 'o que sobrou', sp.livre, '#00ff88', true, true) +

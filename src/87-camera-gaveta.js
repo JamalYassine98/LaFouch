@@ -1,10 +1,12 @@
-  // ===== Gaveta "Buscar com a câmera" (v407): Ler haste · Foto da armação (parecidas). Um só risco; fecha deslizando ou tocando fora. =====
+  // ===== Gaveta "Buscar com a câmera" (v407; v417 dois cartões grandes lado a lado: moldura com linhas / câmera): Ler haste · Foto da armação (parecidas). Um só risco; fecha deslizando ou tocando fora. =====
   function camGaveta(inp) {
     var ov = lfaAbre(
       'lfa-camg',
       '<div class="cg-puxa" aria-hidden="true"></div><div class="cg-tt">Buscar com a câmera</div>' +
-        '<button type="button" class="cg-card" data-k="haste" style="--i:0"><span class="cg-ic">' + ICO.haste + '</span><span><b>Ler haste</b><small>Lê o código gravado na haste e abre a peça</small></span></button>' +
-        '<button type="button" class="cg-card" data-k="foto" style="--i:1"><span class="cg-ic">' + ICO.moldura + '</span><span><b>Foto da armação</b><small>Compara a foto e mostra as mais parecidas</small></span></button>'
+        '<div class="cg-par2">' +
+        '<button type="button" class="cg-card cg-big" data-k="haste" style="--i:0"><span class="cg-ic">' + ICO.haste + '</span><b>Ler haste</b><small>código gravado</small></button>' +
+        '<button type="button" class="cg-card cg-big" data-k="foto" style="--i:1"><span class="cg-ic">' + ICO.camera + '</span><b>Foto da armação</b><small>mais parecidas</small></button>' +
+        '</div>'
     );
     ov.classList.add('lfa-camg');
     var sh = ov.querySelector('.lfa-sh'),

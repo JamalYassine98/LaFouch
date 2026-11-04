@@ -495,8 +495,6 @@ body.arrastaBarra{-webkit-user-select:none;user-select:none;touch-action:none}
 @keyframes lfdr{to{stroke-dashoffset:0}}
 .lfglow{animation:lfglowk .9s ease-out}
 @keyframes lfglowk{0%{box-shadow:0 0 0 0 rgba(0,255,136,.45);border-color:var(--ok)}100%{box-shadow:0 0 0 12px rgba(0,255,136,0)}}
-#addToMan{min-height:34px!important;font-size:13px;background:transparent;border-color:transparent;color:var(--mute)}
-#btnLeitor::after{content:"mais rápido";margin-left:auto;font-size:11px;font-weight:700;background:rgba(0,0,0,.28);padding:3px 9px;border-radius:99px}
 @media (prefers-reduced-motion:reduce){.lfban.nova,.lfglow{animation:none}.lfban.nova .lfck circle,.lfban.nova .lfck path{animation:none;stroke-dashoffset:0}}
 .lfshake{animation:lfshk .5s}@keyframes lfshk{20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
 @media (prefers-reduced-motion:reduce){.lfshake{animation:none}}
@@ -1143,3 +1141,123 @@ a[data-act],a.lk{display:inline-block;padding:14px 8px;margin:-14px -8px;-webkit
 @keyframes impG{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.impSp{animation:none}}
 .impSeg .cb3{font-size:13px;white-space:nowrap;padding:0 4px}
+/* ===== v416 Etapa 1 (aprovado 04/11/2026): hierarquia de botões + vendas B2+ ===== */
+/* nível 3 — escolha/classificação: trilho único cinza, a escolhida cinza-clara e desliza; nunca rosa */
+#vTabBar{flex-wrap:nowrap!important;align-items:center}
+.trk{position:relative;display:flex;flex:1;min-width:0;padding:3px;background:var(--panel2);border:1px solid var(--line);border-radius:14px}
+.trkTh{position:absolute;top:3px;bottom:3px;left:3px;width:0;border-radius:11px;background:var(--selbg,#2c323b);transition:transform .3s var(--mola),width .3s var(--mola);pointer-events:none}
+.trkB{position:relative;z-index:1;flex:1;min-height:42px;border:0;border-radius:11px;background:transparent;color:var(--mute);font:inherit;font-size:15px;transition:color .25s}
+.trkB.on{color:var(--fg)}
+.trkB:active{transform:scale(.97)}
+.trkExtra:empty{display:none}
+@media (prefers-color-scheme:light){:root:not([data-tema=escuro]) .trk{--selbg:#e3dfe4}}
+:root[data-tema=claro] .trk{--selbg:#e3dfe4}
+.lfPill{background:var(--selbg,#2c323b)!important;border-color:transparent!important}
+#eTabs>.chip.on,.catbar3 .cb3.on{background:var(--selbg,#2c323b)!important;box-shadow:none!important;border-color:transparent!important;color:var(--fg)!important}
+:root[data-tema=claro] .lfPill,:root[data-tema=claro] #eTabs>.chip.on,:root[data-tema=claro] .catbar3 .cb3.on{background:#e3dfe4!important}
+@media (prefers-reduced-motion:reduce){.trkTh{transition:none}}
+/* nível 4 — ícones soltos (sem círculo) */
+.ic0{width:42px;height:42px;flex:none;display:inline-flex;align-items:center;justify-content:center;border:0;background:transparent;color:var(--sub);border-radius:12px;padding:0}
+.ic0 svg{width:22px;height:22px}
+.ic0:active{background:var(--tbg)}
+#vWa{border:0!important;background:transparent!important;width:42px;height:42px}
+#vWa svg{width:24px;height:24px}
+/* busca + filtro fora; linha de baixo: info à esquerda, moeda em texto e lista à direita */
+.vl2{display:flex;align-items:center;gap:6px}
+.vl2 .bs{flex:1;min-width:0}
+.vdir{align-items:center;gap:6px}
+#vMoedaBar{display:flex!important;gap:14px!important;margin:0 4px 0 0}
+.mtx{border:0;background:transparent;color:var(--mute);font:inherit;font-size:14px;padding:6px 0;border-bottom:2px solid transparent;border-radius:0;transition:color .2s,border-color .2s;min-height:36px}
+.mtx.on{color:var(--fg);border-bottom-color:var(--mute)}
+.tabtx{border:0;background:transparent;color:var(--fg);font:inherit;font-size:14px;padding:6px 0;min-height:40px}
+/* seletor de quantidade maior (não errar o toque) */
+.vstep{height:50px!important;padding:0 3px!important}
+.vstep .vs-b{width:46px!important;height:46px!important;line-height:44px!important;font-size:24px!important}
+.vstep .vs-n{min-width:34px!important;height:46px!important;line-height:46px!important;font-size:18px!important}
+/* v417 Etapa 2: gaveta da câmera com dois cartões grandes lado a lado */
+.cg-par2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.cg-card.cg-big{flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;min-height:138px;padding:16px 10px}
+.cg-big .cg-ic{width:58px;height:58px;border-radius:18px}.cg-big .cg-ic svg{width:32px;height:32px}
+.cg-big small{margin-top:0}
+/* v417 Etapa 2: Adicionar A+1 */
+.adTiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.adTile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:100%;min-height:92px;margin:0;padding:12px 8px;border-radius:16px;border:1px solid var(--line);background:var(--panel2);color:var(--fg);font:inherit}
+.adTile svg{width:30px;height:30px;color:var(--accent)}.adTile b{font-size:15px}
+.adTile:active{background:var(--tbg);border-color:var(--tbd)}
+#addDeNovo{margin-top:16px}
+.adNv{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px}
+.adNvI{display:flex;flex-direction:column;gap:4px;padding:6px;border-radius:12px;border:1px solid var(--line);background:var(--panel2);color:var(--fg);font:inherit;text-align:left;min-width:0}
+.adNvI:active{background:var(--tbg);border-color:var(--tbd)}
+.adNvF{height:56px;border-radius:8px;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center}.adNvF img{width:100%;height:100%;object-fit:contain}
+.adNvI b{font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.adNvI small{font-size:11.5px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.adLista{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel2)}
+.adRow{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;padding:0 14px;border:0;border-radius:0;background:transparent;color:var(--fg);font:inherit;font-size:15.5px;text-align:left;margin:0}
+.adRow+.adRow{border-top:1px solid var(--line)}
+.adRow>svg{width:22px;height:22px;flex:none;color:var(--mute)}.adRow span{flex:1}.adRow .adSeta{width:18px;height:18px}
+.adRow:active{background:var(--tbg)}
+.enF-top{display:flex;gap:12px;align-items:center}
+.enF-img{width:84px;height:64px;border-radius:12px;background:#fff;overflow:hidden;flex:none}.enF-img img{width:100%;height:100%;object-fit:contain}
+.enF-q{display:flex;flex-direction:column;align-items:center;gap:10px;margin:16px 0 4px}
+/* v417 Etapa 3: Cadastro B (código com leitor, Tipo em trilho, "Como é" em chips) */
+.nvCodW{position:relative}.nvCodW #eRef{padding-right:52px}
+.nvLer{position:absolute;right:4px;top:26px;width:44px;height:42px;border:0;border-radius:10px;background:transparent;color:var(--accent);display:flex;align-items:center;justify-content:center;padding:0;margin:0}
+.nvLer svg{width:24px;height:24px}.nvLer:active{background:var(--tbg)}
+.trk.vazio .trkTh{opacity:0}
+.nvChips{display:flex;flex-wrap:wrap;gap:8px}
+.nvChip{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 14px;border-radius:99px;border:1px solid var(--line);background:var(--panel2);color:var(--mute);font:inherit;font-size:14.5px;margin:0;max-width:100%}
+.nvChip span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.nvChip i{font-style:normal;font-size:11px;opacity:.7}
+.nvChip.ok{color:var(--fg);border-color:var(--tbd,var(--line))}
+.nvChip:active{background:var(--tbg)}
+.lfa-camg .lsBox{margin-top:10px}.comoL{max-height:46vh;overflow:auto;margin-top:6px;border:1px solid var(--line);border-radius:12px}
+.comoL .lsOpt.on{color:var(--fg);font-weight:700}.comoNovo{color:var(--accent)!important}
+.cfCls{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+/* Cores e fotos em lista */
+.cfList{gap:0!important;padding:4px 12px!important}
+.cfRow{display:grid;grid-template-columns:58px minmax(0,1fr) auto;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.cfRow.entra{animation:cfEntra .45s var(--mola,cubic-bezier(.2,1.25,.35,1)) both}
+@keyframes cfEntra{from{opacity:0;transform:translateY(-10px) scale(.98)}to{opacity:1;transform:none}}
+.cfFt{width:58px;height:46px;border-radius:9px;background:#fff;overflow:hidden;border:0;padding:0;margin:0;display:flex;align-items:center;justify-content:center;color:#64748b}
+.cfFt img{width:100%;height:100%;object-fit:contain}
+.cfTx{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0;border:0;background:transparent;color:var(--fg);font:inherit;text-align:left;padding:0;margin:0}
+.cfTx b{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}.cfTx small,.cfMaisB{font-size:12px;color:var(--mute)}
+.cfTx .nvChip{min-height:34px;padding:0 12px;font-size:14px}
+.cfGrau{min-height:36px!important;height:36px;font-size:14px;padding:0 10px;width:100%}
+.cfQ{font-weight:700;color:var(--sub,var(--mute));font-size:14px}
+.cfStep{transform:scale(.86);transform-origin:right center}
+.cfMais{grid-column:1/-1;display:flex;gap:8px}.cfMais .mini{flex:1;margin:0}
+.cfDel{color:var(--bad)!important;border-color:rgba(239,68,68,.6)!important;background:transparent!important}
+.cfNova{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;padding:6px 0;margin:0;border:0;background:transparent;color:var(--accent);font:inherit;font-size:15px;text-align:left}
+.cfNova svg{width:22px;height:22px;flex:none}.cfNova small{color:var(--mute);font-size:12.5px}
+.cfTot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding:10px 0 6px;font-size:14px;color:var(--mute)}.cfTot b{color:var(--fg);font-variant-numeric:tabular-nums}
+/* v417 Etapa 4: compra de brindes */
+.brTot{display:flex;justify-content:space-between;align-items:baseline;padding-top:4px}.brTot span{color:var(--mute)}.brTot b{font-size:20px}
+.brSep{font-size:13.5px;color:var(--mute);text-align:center}
+@media (prefers-reduced-motion:reduce){.cfRow.entra{animation:none}}
+.nvChip.ok{border-color:var(--mute)}
+#nvTipoTrk .trkB,#brMoeda .trkB,#eFaixas .trkB{white-space:nowrap;font-size:14px;padding:0 4px}
+.cfTx .nvChip span{white-space:normal;line-height:1.2;text-align:left}.cfTx .nvChip{padding:6px 12px;height:auto}
+.cfCls .chip.on{background:var(--selbg,#2c323b);color:var(--fg);border-color:var(--mute)}
+@media (prefers-color-scheme:light){:root:not([data-tema=escuro]) .cfCls .chip.on{--selbg:#e3dfe4}}
+.cfMais .mini{background:transparent!important;border:1px solid var(--line)!important;color:var(--fg)!important;box-shadow:none!important}
+.cfMais .mini:active{border-color:var(--accent)!important;color:var(--accent)!important}
+.cfMais .mini.cfDel{color:var(--bad)!important;border-color:rgba(239,68,68,.6)!important}
+.cfRow.mud .vs-n{color:var(--accent)}
+.cfCu{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--mute)}
+.cfCuI{width:64px;height:28px;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--fg);font:inherit;font-size:12.5px;padding:0 6px}
+.cfNm{border:0;background:transparent;color:var(--fg);font:inherit;padding:0;margin:0;text-align:left;max-width:100%}
+.cfMaisB{border:0;background:transparent;padding:0;margin:0;font:inherit;text-align:left;cursor:pointer}
+/* Editar produto (Cadastro B completo) */
+.edFoto{display:flex;align-items:center;gap:12px}
+.edFotoI{width:120px;height:84px;border-radius:12px;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#64748b;font-size:12px;flex:none}.edFotoI img{width:100%;height:100%;object-fit:contain}
+.edTroca,.edSec{background:transparent!important;border:1px solid var(--line)!important;color:var(--fg)!important;box-shadow:none!important}
+.edTrk{margin:2px 0}
+.trkB:disabled{opacity:.35}
+.edLixo{color:var(--bad)}
+.edLixo .tampa{transform-box:fill-box;transform-origin:left bottom;transition:transform .3s var(--mola,cubic-bezier(.2,1.25,.35,1))}
+.edLixo.on .tampa{transform:translate(-1px,-3px) rotate(-28deg)}
+.edLixoBox{display:flex;flex-direction:column;gap:8px;animation:cfEntra .35s both}
+.edSim{background:var(--bad)!important;color:#fff!important;border-color:var(--bad)!important}
+@media (prefers-reduced-motion:reduce){.edLixo .tampa{transition:none}.edLixoBox{animation:none}}
+.cfQI{width:48px;border:0;background:transparent;color:var(--fg);font:inherit;font-weight:800;font-size:18px;text-align:center;padding:0;-moz-appearance:textfield}
+.cfQI::-webkit-outer-spin-button,.cfQI::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.edLixo.on{background:rgba(239,68,68,.12)!important;border-color:var(--bad)!important;color:var(--bad)!important;box-shadow:none!important}

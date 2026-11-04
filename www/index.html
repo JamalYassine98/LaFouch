@@ -55,15 +55,12 @@ html[data-tema="claro"] #lfIntro{background:#f4f1f4;--lg:url(logo-app-claro.png)
  <div class="modal-box">
   <div class="mhead" style="align-items:flex-start"><div class="mheadL" style="display:flex;flex-direction:column;gap:10px;align-items:flex-start"><button class="tab ibtn" id="addBack" type="button" hidden aria-label="Voltar" title="Voltar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><h2 id="addTitle" style="margin:0;font-size:18px">Adicionar</h2></div><button class="tab" id="addClose" type="button">Fechar</button></div>
   <div id="addMenu" class="col" style="gap:16px">
-    <div id="addPhotoB"><div id="addRasc" hidden style="margin-bottom:10px"></div><div class="lbl">O que chegou?</div>
-      <button class="go" id="btnLeitor" type="button" aria-label="Ler haste" title="Ler haste" style="width:100%;margin:0;display:flex;align-items:center;justify-content:center;gap:10px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><path d="M7 12h10"/></svg>Ler haste</button>
-      <div class="hint" style="margin:8px 0 12px">Aponte para o código da haste. O app diz se o modelo já existe (dar entrada) ou se é novo (cadastrar).</div>
-      <button class="tab" id="btnFoto" type="button" aria-label="Foto da etiqueta, da caixa ou do pacote" style="width:100%;min-height:52px;display:flex;align-items:center;justify-content:center;gap:10px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Foto da etiqueta, da caixa ou do pacote</button>
-      <div class="hint" style="margin-top:6px">O app reconhece pelo código ou pela aparência. A foto do pacote é só para ler e não é guardada.</div></div>
-    <div id="addMenuB" class="col" style="gap:10px">
-      <button class="tab" id="addToLote" type="button" style="width:100%;min-height:52px">Chegou mercadoria (compra do fornecedor)</button>
-      <div class="ordiv"><span>ou</span></div>
-      <button class="tab" id="addToMan" type="button" style="width:100%;min-height:48px">Preencher à mão</button></div>
+    <div id="addPhotoB"><div id="addRasc" hidden style="margin-bottom:10px"></div>
+      <div class="adTiles"><button class="adTile" id="btnLeitor" type="button" aria-label="Ler haste"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3M7 9h10M7 12h7M7 15h9"/></svg><b>Ler haste</b></button><button class="adTile" id="btnFoto" type="button" aria-label="Foto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><b>Foto</b></button></div>
+      <div id="addDeNovo" hidden></div></div>
+    <div id="addMenuB" class="adLista">
+      <button class="adRow" id="addToLote" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6h12v10H2zM14 9h4l3 3.5V16h-7z"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg><span>Chegou mercadoria</span><svg class="adSeta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+      <button class="adRow" id="addToMan" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg><span>Preencher à mão</span><svg class="adSeta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>
     <div id="addLoteB" class="col" style="gap:16px"><div><div class="lbl">Começar por uma foto</div>
       <div class="addpick"><button class="go" id="btnLotFoto" type="button" aria-label="Abrir a câmera"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-5px;margin-right:8px"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Câmera</button></div>
       <input type="file" id="fileL" accept="image/*" capture="environment" hidden><input type="file" id="fileLG" accept="image/*" hidden>
@@ -291,7 +288,7 @@ html[data-tema="claro"] #lfIntro{background:#f4f1f4;--lg:url(logo-app-claro.png)
 <section id="notaOv" class="catov" aria-label="Venda registrada" hidden></section>
   <div id="notaCf" class="notacf" hidden></div>
   <div id="notaPrint" aria-hidden="true"></div>
-  <script>/*LOADER*/(function(){var EMB=415,d=document,m=null;try{m=JSON.parse(localStorage.getItem('lf_upd')||'null')}catch(e){}
+  <script>/*LOADER*/(function(){var EMB=417,d=document,m=null;try{m=JSON.parse(localStorage.getItem('lf_upd')||'null')}catch(e){}
 function std(){var s=d.createElement('script');s.src='app.js';d.body.appendChild(s)}
 if(!m||!(m.v>EMB)||!window.caches||(m.tent||0)>=2){if(m&&m.v>EMB&&(m.tent||0)>=2){try{localStorage.removeItem('lf_upd');caches.delete('lafouch-upd')}catch(e){}}std();return}
 try{localStorage.setItem('lf_upd',JSON.stringify({v:m.v,tent:(m.tent||0)+1}))}catch(e){}

@@ -5,7 +5,7 @@ Abre www/ num Chromium sem interface, com a URL terminando em #test (o app entã
 window.__LF com as funções internas) e confere contas, lotes, leitor de código, gravação
 e as telas. Requer: pip install playwright  (e um Chromium; PLAYWRIGHT_BROWSERS_PATH ou o do sistema).
 """
-def ED(n): return '() => { window.__LF.S.edStep = %d; window.__LF.render(); }' % (1 if n == 1 else 2)
+def ED(n): return '() => { window.__LF.S.edStep = %d; window.__LF.S.edMais = true; window.__LF.render(); }' % (1 if n == 1 else 2)
 import time
 import asyncio, glob, json, os, re, subprocess, sys, time
 from playwright.async_api import async_playwright
@@ -519,13 +519,13 @@ async def main():
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
             e0 = [await pg.locator('#edCodigo').count(), await pg.locator('#edTab1').count(), await pg.locator('#edSalvar').count(), await pg.locator('#edLixeira').count(), await pg.locator('#ed_formato').count(), await pg.locator('#ed_tipo').count()]
             cx = await pg.evaluate("() => { const a = document.getElementById('edCodigo').getBoundingClientRect(), b = document.getElementById('ed_tipo') && document.getElementById('ed_tipo').getBoundingClientRect(); return !b || a.left < b.left; }")
-            await pg.click('#edTab2'); await pg.wait_for_timeout(200)
+            await pg.click('#edTab2'); await pg.wait_for_timeout(450)
             e1 = [await pg.locator('#edSalvar').count(), await pg.locator('#edNext').count(), await pg.locator('#edExcluir').count(), await pg.locator('#edCores').count()]
-            await pg.click('#edTab1'); await pg.wait_for_timeout(150)
+            await pg.click('#edTab1'); await pg.wait_for_timeout(450)
             e3 = await pg.locator('#edCodigo').count()
-            await pg.click('#edTab2'); await pg.click('#edExcluir'); await pg.wait_for_timeout(200)
+            await pg.click('#edLixeira'); await pg.wait_for_timeout(300)
             e2 = await pg.locator('#edLixoAviso').count()
-            await checa('janela Editar igual ao cadastro: código à esquerda e tipo à direita, etapas livres (Modelo/Cores e fotos), Salvar alterações fixo, lixeira e excluir com confirmação', e0[:5] == [1, 1, 1, 1, 1] and cx and e1 == [1, 0, 1, 1] and e3 == 1 and e2 == 1, [e0, cx, e1, e3, e2])
+            await checa('janela Editar igual ao cadastro: código à esquerda e tipo à direita, etapas livres (Modelo/Cores e fotos), Salvar alterações fixo, lixeira e excluir com confirmação', e0[:5] == [1, 1, 1, 1, 1] and cx and e1 == [1, 0, 0, 1] and e3 == 1 and e2 == 1, [e0, cx, e1, e3, e2])
             await pg.evaluate(ED(1)); await pg.locator('#editModal button:text-is("Fechar")').last.click(); await pg.wait_for_timeout(300)
 
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
@@ -534,12 +534,6 @@ async def main():
             await checa('janela Editar: descrição salva e mostrada na tela', got == ['Polarizado, mola flexível', True], got)
 
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
-            await pg.evaluate(ED(2)); await pg.locator('#editModal button:text-is("Excluir foto")').click(); await pg.wait_for_timeout(200)
-            ainda = await pg.evaluate("() => !!window.__LF.S.fotos['BR44118|Preto']")
-            await pg.locator('#editModal button:text-is("Sim, excluir")').click(); await pg.wait_for_timeout(300)
-            got = await pg.evaluate("() => [!!window.__LF.S.fotos['BR44118|Preto'], window.__LF.S.items.filter(i => i.ref === 'BR44118').length, !!document.getElementById('editModal')]")
-            await checa('janela Editar: excluir foto pede confirmação e não mexe no estoque', ainda and got == [False, 3, True], [ainda, got])
-
             await pg.evaluate(ED(1)); await pg.locator('#editModal #edCodigo').fill('br99999')
             await pg.evaluate(ED(4)); await pg.locator('#editModal #edSalvar').click(); await pg.wait_for_timeout(400)
             got = await pg.evaluate("() => [window.__LF.S.items.filter(i => i.ref === 'BR99999').length, window.__LF.S.items.filter(i => i.ref === 'BR44118').length, window.__LF.S.open, !!window.__LF.S.pnome['BR99999'], document.getElementById('detail').hidden]")
@@ -555,7 +549,7 @@ async def main():
 
             pg = await abrir('estojo', 'Estojo A')
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
-            await pg.evaluate(ED(2)); await pg.locator('#editModal button:text-matches("Excluir a cor")').click(); await pg.wait_for_timeout(200)
+            await pg.evaluate(ED(2)); await pg.locator('#editModal .cfNm').first.click(); await pg.wait_for_timeout(200); await pg.locator('#editModal button:text-is("Excluir cor")').click(); await pg.wait_for_timeout(200)
             await pg.locator('#editModal button:text-is("Sim, excluir")').click(); await pg.wait_for_timeout(400)
             got = await pg.evaluate("() => [window.__LF.S.items.filter(i => i.ref === 'Estojo A').map(i => i.cor), !!window.__LF.S.fotos['Estojo A|Preto'], !!document.getElementById('editModal')]")
             await checa('janela Editar: excluir a cor remove peças e foto dela', got == [['Marrom'], False, False], got)
@@ -1232,10 +1226,29 @@ async def main():
             m1 = await pg.evaluate("() => { const v = i => { const e = document.getElementById(i); return !!e && e.offsetParent !== null }; return [v('addLoteB'), v('addBack'), v('btnLeitor'), v('addToMan')] }")
             await pg.click('#addBack'); await pg.wait_for_timeout(300)
             await pg.click('#addToMan'); await pg.wait_for_timeout(300)
-            m2 = await pg.evaluate("() => { const v = i => { const e = document.getElementById(i); return !!e && e.offsetParent !== null }; return [v('addProdRest'), v('addBack'), v('btnLeitor'), v('nv_tipo')] }")
+            m2 = await pg.evaluate("() => { const v = i => { const e = document.getElementById(i); return !!e && e.offsetParent !== null }; return [v('addProdRest'), v('addBack'), v('btnLeitor'), v('nvTipoTrk')] }")
             ok = m0 == [True, True, True, True, False, False, False, 1, True] and m1 == [True, True, False, False] and m2 == [True, False, False, True]
             print(('  ok  ' if ok else ' FALHA ') + 'Adicionar: menu único, voltar, um só leitor e sem abas Produto/Lote')
             if not ok: falhas.append('menu adicionar'); print('        veio', m0, m1, m2, pg.erros)
+            total += 1
+            await pg.close()
+
+            # Adicionar A+1: Dar entrada de novo (3 últimas) abre a folhinha e soma no estoque; gaveta da câmera com 2 cartões
+            pg = await pagina()
+            r0 = await pg.evaluate("""() => { const L = window.__LF, S = L.S;
+              S.items.push({id:'dn1',tipo:'arm',ref:'DN1',cor:'C1 Preto',qty:3,custo:5}, {id:'dn2',tipo:'solar',ref:'DN2',cor:'C2 Marrom',qty:2,custo:6});
+              S.elog.push({ts:1,tipo:'arm',ref:'DN1',cor:'C1 Preto',qty:3}, {ts:2,tipo:'solar',ref:'DN2',cor:'C2 Marrom',qty:2});
+              L.setView('estoque'); S.addOpen = true; S.addMode = 'menu'; L.render();
+              const t = [...document.querySelectorAll('#addDeNovo .adNvI b')].map(b => b.textContent);
+              return [t.length, t[0], t[1], !!document.querySelector('#addMenuB .adRow svg')] }""")
+            await pg.click('.adNvI[data-id="0"]'); await pg.wait_for_timeout(500)
+            await pg.click('#lfa-entr [data-act="enQ"][data-id="1"]'); await pg.click('#lfa-entr [data-act="enQ"][data-id="1"]'); await pg.wait_for_timeout(200)
+            bt = await pg.inner_text('#enGo')
+            await pg.click('#enGo'); await pg.wait_for_timeout(400)
+            r1 = await pg.evaluate("() => { const S = window.__LF.S; return [S.items.find(i => i.id === 'dn2').qty, S.elog[S.elog.length-1].qty, !!document.querySelector('#lfa-entr:not(.sai)')] }")
+            ok = r0[0] >= 2 and r0[1] == 'DN2' and r0[2] == 'DN1' and r0[3] and bt == 'Dar entrada · 3 peças' and r1[:2] == [5, 3]
+            print(('  ok  ' if ok else ' FALHA ') + 'Adicionar A+1: Dar entrada de novo (folhinha, quantidade e estoque)')
+            if not ok: falhas.append('dar entrada de novo'); print('        veio', r0, bt, r1, pg.erros)
             total += 1
             await pg.close()
 
@@ -1244,39 +1257,67 @@ async def main():
             await pg.evaluate("() => window.__LF.setView('estoque')")
             await pg.click('#btnAdd'); await pg.wait_for_timeout(300)
             await pg.click('#addToMan'); await pg.wait_for_timeout(300)
-            await pg.click('#nv_tipo'); await pg.locator('#nvp_tipo >> text=Armações').click(); await pg.wait_for_timeout(200)
+            await pg.click('#nvTipoTrk [data-m="sem"]'); await pg.wait_for_timeout(200)
             await pg.fill('#eRef', 'ZZ77')
             # falta formato/material/gênero/custo: o botão avisa e não avança
             await pg.click('#nvNext'); await pg.wait_for_timeout(300)
             falta1 = await pg.evaluate("() => [document.getElementById('addTitle').textContent, document.body.innerText.indexOf('Falta') >= 0]")
             for k, t in (('fmt', 'Redondo'), ('mat', 'Acetato'), ('pub', 'Feminino')):
-                await pg.click('#nv_' + k); await pg.locator('#nvp_' + k + ' >> text="' + t + '"').click()
+                await pg.click('#nv_' + k); await pg.wait_for_timeout(250); await pg.locator('#lfa-como .lsOpt[data-v="' + t + '"]').click(); await pg.wait_for_timeout(250)
+            chips = await pg.evaluate("() => ['fmt','mat','pub'].map(k => document.getElementById('nv_' + k).textContent.replace('▾','').trim())")
             await pg.fill('#eCusto', '0,50')
-            await pg.fill('#nvL', '50'); await pg.fill('#nvP', '20'); await pg.fill('#nvH', '140'); await pg.wait_for_timeout(300)
-            auto = await pg.evaluate("() => [document.getElementById('nvAuto').hidden, document.getElementById('nvAuto').innerText]")
             await pg.evaluate("() => { const d = document.getElementById('nvMais'); if (d) d.open = true; }")
+            await pg.fill('#nvL', '50'); await pg.fill('#nvP', '20'); await pg.fill('#nvH', '140'); await pg.wait_for_timeout(300)
             await pg.fill('#eDescP', 'Armação de acetato verde, haste larga')
             await pg.click('#nvNext'); await pg.wait_for_timeout(400)
             tit2 = await pg.evaluate("() => document.getElementById('addTitle').textContent")
-            # modelo sem nenhuma cor: o site não libera
-            await pg.locator('text=+ Adicionar cor').click(); await pg.wait_for_timeout(200)
-            await pg.locator('#nvBox >> text="Vinho"').click(); await pg.wait_for_timeout(200)
-            sem_foto = await pg.evaluate("() => document.getElementById('nvCorOk').disabled")
-            await pg.click('#nvFotoCor'); await pg.wait_for_timeout(2500)
+            # Cores e fotos em lista: "Cor nova" tira a foto e vira uma linha; sem cor escolhida não conclui
+            sem_foto = await pg.evaluate("() => document.getElementById('nvFim').disabled")
+            await pg.click('#nvAddCor'); await pg.wait_for_timeout(2500)
             async with pg.expect_file_chooser() as fcs:
                 await pg.evaluate("() => { const l = [...document.querySelectorAll('input[type=file][capture]')].filter(i => i.parentNode.querySelector('button')); l[l.length - 1].click(); }")
             fc = await fcs.value
             await fc.set_files(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'fixtures', 'peca.jpg')); await pg.wait_for_timeout(900)
-            com_foto = await pg.evaluate("() => document.getElementById('nvCorOk').disabled")
-            await pg.click('#nvCorOk'); await pg.wait_for_timeout(600)
+            linha = await pg.evaluate("() => [document.querySelectorAll('#nvCoresL .cfRow.nova').length, document.querySelector('#nvCoresL .cfCor').textContent.replace('▾','').trim(), document.getElementById('nvFim').disabled]")
+            await pg.click('#nvCoresL .cfStep [data-d="1"]'); await pg.wait_for_timeout(400)
+            tot = await pg.inner_text('#nvTot')
+            await pg.click('#nvFim'); await pg.wait_for_timeout(400)
+            sem_cor = await pg.evaluate("() => !!document.querySelector('#lfa-cor:not(.sai)')")
+            await pg.locator('#lfa-cor .lsOpt[data-v="Vinho"]').click(); await pg.wait_for_timeout(400)
             await pg.click('#nvTg'); await pg.wait_for_timeout(300)
+            await pg.click('#nvFim'); await pg.wait_for_timeout(600)
             r = await pg.evaluate("""() => { const S = window.__LF.S, it = S.items.filter(i => i.ref === 'ZZ77')[0];
-              return [!!it, it && it.cor, it && it.qty, S.desc.ZZ77, !!(S.site && S.site.ZZ77), !!S.fotos['ZZ77|Vinho']]; }""")
+              return [!!it, it && it.cor, it && it.qty, S.desc.ZZ77, !!S.fotos['ZZ77|Vinho'], it && it.vr]; }""")
             total += 1
-            ok = falta1 == ['Novo modelo', True] and auto[0] is False and 'Armação redondo acetato' in auto[1] and tit2 == 'Cores e fotos' \
-                and r == [True, 'Vinho', 1, 'Armação de acetato verde, haste larga', True, True] and sem_foto is True and com_foto is False and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'novo modelo: duas telas, avisos, cor só entra com foto')
-            if not ok: falhas.append('cadastro desc'); print('        veio', falta1, auto, tit2, r, sem_foto, com_foto, pg.erros)
+            ok = falta1 == ['Novo modelo', True] and chips == ['Redondo', 'Acetato', 'Feminino'] and tit2 == 'Cores e fotos' \
+                and r == [True, 'Vinho', 2, 'Armação de acetato verde, haste larga', True, 'C1'] and sem_foto is True and linha == [1, 'C1 · Cor', False] and tot == '2 peças' and sem_cor and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Cadastro B: trilho do tipo, Como é em gaveta, cores e fotos em lista')
+            if not ok: falhas.append('cadastro desc'); print('        veio', falta1, chips, tit2, r, sem_foto, linha, tot, sem_cor, pg.erros)
+            await pg.close()
+
+            # Brindes: Tipo Outro = compra de brindes (despesa, sem estoque); o app aprende e mostra quanto separar
+            pg = await pagina()
+            await pg.evaluate("() => window.__LF.setView('estoque')")
+            await pg.click('#btnAdd'); await pg.wait_for_timeout(300)
+            await pg.click('#addToMan'); await pg.wait_for_timeout(300)
+            await pg.click('#nvTipoTrk [data-m="outro"]'); await pg.wait_for_timeout(300)
+            v0 = await pg.evaluate("() => [document.getElementById('addTitle').textContent, document.getElementById('nvComo').hidden || document.getElementById('nvComo').offsetParent === null, !!document.getElementById('brNome')]")
+            itens0 = await pg.evaluate("() => window.__LF.S.items.length")
+            await pg.fill('#brNome', 'Estojo'); await pg.fill('#brQtd', '1000'); await pg.fill('#brUnit', '0,10'); await pg.click('#brMoeda [data-m="usd"]'); await pg.wait_for_timeout(200)
+            bt = await pg.inner_text('#brLanca')
+            await pg.click('#brLanca'); await pg.wait_for_timeout(400)
+            r = await pg.evaluate("""() => { const L = window.__LF, S = L.S, b = S.brindes[S.brindes.length - 1];
+              // simula: 200 óculos vendidos depois da 1ª compra e uma 2ª compra (aprende 1000/200 = 5 por óculos)
+              S.brindes[0].ts -= 10 * 864e5; S.sales = [];
+              const t0 = S.brindes[0].ts;
+              for (let k = 0; k < 4; k++) S.sales.push({id:'BRT' + k, ts: t0 + (k + 1) * 3600e3, qty: 50, price: 1, rep: 0, contas: 0, colch: 0, melh: 0, repUSD: 0, livre: 1});
+              S.brindes.push({ts: t0 + 5 * 864e5, nome: 'Estojo', qtd: 1000, unit: 0.1, moeda: 'usd', total: 100, valor: Math.round(100 * S.fx.pyg)});
+              const t = L.brTotais ? L.brTotais() : null;
+              return [b.nome, b.qtd, b.total, b.moeda, S.items.length, t && Math.round(t.itens[0].porOc * 100) / 100]; }""")
+            ok = v0[0] == 'Compra de brindes' and v0[1] and v0[2] and bt == 'Lançar compra · US$ 100,00' and r[:5] == ['Estojo', 1000, 100, 'usd', itens0] and r[5] == 5 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Brindes: compra entra como despesa (sem estoque) e o app aprende quanto separar')
+            if not ok: falhas.append('brindes'); print('        veio', v0, bt, r, itens0, pg.erros)
+            total += 1
             await pg.close()
 
             # identidade do modelo: nome automático, descrição por cor, nº interno, busca e coleção
@@ -1836,7 +1877,7 @@ async def main():
               L.setView('vendas'); L.render();
               return {pub, a1, a10, opt, fg, sg: sg && sg.T.id, sub, chip: (document.getElementById('vInfo') || {}).innerText, msg: L.tabMensagem([]).slice(0, 60)}; }""")
             total += 1
-            ok = tb['pub'] > 0 and 0 < tb['a10'] <= tb['a1'] <= tb['opt'] <= tb['pub'] and tb['fg'] >= tb['opt'] and tb['fg'] <= tb['pub'] and tb['sg'] and 'Tabela: Atacado 1K' in (tb['chip'] or '') and 'Olá' in tb['msg'] and not pg.erros
+            ok = tb['pub'] > 0 and 0 < tb['a10'] <= tb['a1'] <= tb['opt'] <= tb['pub'] and tb['fg'] >= tb['opt'] and tb['fg'] <= tb['pub'] and tb['sg'] and 'Atacado 1K ▾' in (tb['chip'] or '') and 'Olá' in tb['msg'] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'tabelas de preço: ordem das margens, sugestão, chip e mensagem')
             if not ok: falhas.append('tabelas'); print('        veio', tb, pg.erros)
             await pg.close()
@@ -1855,7 +1896,7 @@ async def main():
             print(('  ok  ' if ok else ' FALHA ') + 'preço estável do site: trava, alta >3%, 30 dias com 2%, arredonda 5.000')
             if not ok: falhas.append('preco site'); print('        veio', ps, pg.erros)
             await pg.evaluate("() => { const L = window.__LF; L.S.tabAtiva = 'pub'; L.setView('vendas'); L.render(); }")
-            sm = await pg.evaluate("""() => { const q = t => [...document.querySelectorAll('#vTabBar .seg-mercado')].find(b => b.innerText === t);
+            sm = await pg.evaluate("""() => { const q = t => [...document.querySelectorAll('#vTabBar .trkB')].find(b => b.innerText === t);
               q('Atacado').click(); const a = window.__LF.S.tabAtiva; q('Varejo').click(); const v = window.__LF.S.tabAtiva; return {a, v}; }""")
             total += 1
             ok = sm['a'] != 'pub' and sm['v'] == 'pub' and not pg.erros
@@ -1896,21 +1937,20 @@ async def main():
             ok = 'válidos até' in ev_['msg'] and ev_['fmts'] == 3 and ev_['fo']['n'] >= 2 and ev_['fo']['w'] > 1000 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'enviar catálogo: formatos, mensagem com validade e folha em imagem')
             if not ok: falhas.append('enviar catalogo'); print('        veio', ev_, pg.erros)
-            fl = await pg.evaluate("""async () => { const L = window.__LF, S = L.S; S.cart = []; S.tabAtiva = 'pub'; S.vRef = ''; S.vModo = {v:'g'}; try { localStorage.setItem('lf_modo_v', 'g'); } catch (e) {}
-              S.items = [{tipo:'solar',ref:'FA1',grau:'',cor:'Preto',qty:5,fmt:'',med:'',vr:'',lote:'',custo:20},{tipo:'solar',ref:'FA1',grau:'',cor:'Azul',qty:4,fmt:'',med:'',vr:'',lote:'',custo:20}];
-              S.pprice = {FA1: {novo: 400000, ant: 0}}; L.setView('vendas'); L.render(); document.getElementById('vRows').classList.remove('vlist'); L.render();
+            fl = await pg.evaluate("""async () => { const L = window.__LF, S = L.S; S.cart = []; S.tabAtiva = 'pub'; S.vRef = ''; S.vModo = {v:'g'}; S.vAb = ''; try { localStorage.setItem('lf_modo_v', 'g'); } catch (e) {}
+              S.items = [{tipo:'solar',ref:'FA1',grau:'',cor:'Preto',qty:5,fmt:'',med:'',vr:'',lote:'',custo:20},{tipo:'solar',ref:'FA1',grau:'',cor:'Azul',qty:4,fmt:'',med:'',vr:'',lote:'',custo:20},{tipo:'solar',ref:'FB2',grau:'',cor:'Vinho',qty:3,fmt:'',med:'',vr:'',lote:'',custo:20}];
+              S.pprice = {FA1: {novo: 400000, ant: 0}, FB2: {novo: 300000, ant: 0}}; L.setView('vendas'); L.render(); document.getElementById('vRows').classList.remove('vlist'); L.render();
               document.querySelector('#vRows .pcard[data-ref=FA1]').click(); await new Promise(r => setTimeout(r, 200));
-              const aberta = !!document.getElementById('lfa-folha'); const cores = document.querySelectorAll('#lfa-folha .vcor').length;
-              document.querySelector('#lfa-folha [data-act=folhaq][data-id="1"]').click(); await new Promise(r => setTimeout(r, 100));
-              const n = document.getElementById('folhaN').innerText;
-              window.__folha.vitrine(); await new Promise(r => setTimeout(r, 200));
-              const vit = S.vRef; const fechada = !document.getElementById('lfa-folha') || !document.getElementById('lfa-folha').innerHTML;
-              S.vRef = ''; L.render(); document.querySelector('#vRows .pcard[data-ref=FA1]').click(); await new Promise(r => setTimeout(r, 200));
-              document.querySelector('#lfa-folha [data-act=folhavender]').click(); await new Promise(r => setTimeout(r, 300));
-              return {aberta, cores, n, vit, fechada, carrinho: S.cart.length && S.cart[0].qty}; }""")
+              const semFolha = !document.getElementById('lfa-folha') || !document.getElementById('lfa-folha').innerHTML; const vit = S.vRef;
+              S.vRef = ''; S.vModo = {v:'l'}; try { localStorage.setItem('lf_modo_v', 'l'); } catch (e) {} L.render();
+              document.querySelector('#vRows .pcard[data-ref=FB2]').click(); await new Promise(r => setTimeout(r, 150));
+              const abriuNaLista = S.vAb === 'solar|FB2' && !S.vRef && !!document.querySelector('#vRows .vcores');
+              S.vAb = ''; L.render(); document.querySelector('#vRows .pcard[data-ref=FB2] .vplus').click(); await new Promise(r => setTimeout(r, 300));
+              S.vModo = {v:'g'}; try { localStorage.setItem('lf_modo_v', 'g'); } catch (e) {}
+              return {semFolha, vit, abriuNaLista, carrinho: S.cart.length && S.cart[0].qty}; }""")
             total += 1
-            ok = fl['aberta'] and fl['cores'] == 2 and fl['n'] == '2' and fl['vit'] == 'solar|FA1' and fl['carrinho'] == 1 and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'folha da peça: cores, quantidade, subir abre a vitrine e Vender')
+            ok = fl['semFolha'] and fl['vit'] == 'solar|FA1' and fl['abriuNaLista'] and fl['carrinho'] == 1 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'toque A: grade abre a vitrine direto (sem prévia); lista abre as cores no lugar (até com 1 cor) e + de 1 cor vai ao pedido')
             if not ok: falhas.append('folha'); print('        veio', fl, pg.erros)
             await pg.close()
 

@@ -16,6 +16,25 @@
       passo();
     });
   }
+  // Trilho de escolha (Varejo | Atacado): marca o botão e desliza o marcador até ele.
+  function trkMarca(trk, k) {
+    var on = null;
+    [].forEach.call(trk.querySelectorAll('.trkB'), function (b) {
+      var sim = b.dataset.m === k;
+      b.classList.toggle('on', sim);
+      b.setAttribute('aria-pressed', String(sim));
+      if (sim) on = b;
+    });
+    var th = trk.querySelector('.trkTh');
+    if (!on || !th) return;
+    var poe = function () {
+      if (!on.offsetWidth) return;
+      th.style.width = on.offsetWidth + 'px';
+      th.style.transform = 'translateX(' + (on.offsetLeft - 3) + 'px)';
+    };
+    if (on.offsetWidth) poe();
+    else requestAnimationFrame(poe);
+  }
   // variante dentro da lista: chave e nome (cor + grau/medida/formato quando existirem)
   function varKey(x) {
     return [x.cor, x.grau, x.vr, x.fmt, x.med].join('|');
@@ -41,7 +60,7 @@
     bx.textContent = '';
     [['pyg', 'G$'], ['brl', 'R$'], ['usd', 'US$']].forEach(function (m) {
       var on = vMoeda() === m[0];
-      bx.appendChild(btn('chip' + (on ? ' on' : ''), m[1], function () {
+      bx.appendChild(btn('mtx' + (on ? ' on' : ''), m[1], function () {
         if (on) return;
         S.vMoeda = m[0];
         render();
@@ -210,42 +229,56 @@
     var tb = $('vTabBar');
     if (tb) {
       var Ta = tabDe(S.tabAtiva);
-      tb.textContent = '';
       var atac = !tabDe(S.tabAtiva).pub;
-      [['v', 'Varejo'], ['a', 'Atacado']].forEach(function (m) {
-        var on = (m[0] === 'a') === atac;
-        tb.appendChild(btn('chip seg-mercado' + (on ? ' on' : ''), m[1], function () {
-          if (on) return;
-          // guarda onde estava a pílula e os preços, para a animação 3 (a pílula desliza, os preços contam)
-          var ob = tb.querySelector('.seg-mercado.on'),
-            de = { l: ob ? ob.offsetLeft : 0, t: ob ? ob.offsetTop : 0, w: ob ? ob.offsetWidth : 0, h: ob ? ob.offsetHeight : 0, pr: {} };
-          [].slice.call(document.querySelectorAll('#vRows .pcard[data-ref]')).forEach(function (c) {
-            var e = c.querySelector('.vpreco');
-            if (e) de.pr[c.dataset.ref] = parseInt(e.textContent.replace(/\D/g, ''), 10) || 0;
+      // Trilho Varejo | Atacado (hierarquia nível 3: escolha, cinza, nunca rosa). Os botões são criados uma vez;
+      // a cada desenho só troca a marca e o marcador desliza (antes os botões eram refeitos e a animação falhava).
+      var trk = tb.querySelector('.trk');
+      if (!trk) {
+        tb.textContent = '';
+        trk = mk('div', 'trk');
+        trk.setAttribute('role', 'group');
+        trk.setAttribute('aria-label', 'Varejo ou Atacado');
+        trk.appendChild(mk('i', 'trkTh'));
+        [['v', 'Varejo'], ['a', 'Atacado']].forEach(function (m) {
+          var b = btn('trkB', m[1], function () {
+            var ehAtac = !tabDe(S.tabAtiva).pub;
+            if ((m[0] === 'a') === ehAtac) return;
+            // guarda os preços para a animação (os preços contam até o novo valor)
+            var de = { pr: {} };
+            [].slice.call(document.querySelectorAll('#vRows .pcard[data-ref]')).forEach(function (c) {
+              var e = c.querySelector('.vpreco');
+              if (e) de.pr[c.dataset.ref] = parseInt(e.textContent.replace(/\D/g, ''), 10) || 0;
+            });
+            S.tabAtiva = m[0] === 'a' ? (S._ultAtac && tabDe(S._ultAtac).on !== false ? S._ultAtac : 'a1') : 'pub';
+            if (m[0] === 'v') S._ultAtac = S._ultAtacAtual;
+            render();
+            mercAnim(de);
           });
-          S.tabAtiva = m[0] === 'a' ? (S._ultAtac && tabDe(S._ultAtac).on !== false ? S._ultAtac : 'a1') : 'pub';
-          if (m[0] === 'v') S._ultAtac = S._ultAtacAtual;
-          render();
-          mercAnim(de);
-        }, on));
-      });
+          b.dataset.m = m[0];
+          trk.appendChild(b);
+        });
+        tb.appendChild(trk);
+        tb.appendChild(mk('span', 'trkExtra'));
+      }
+      trkMarca(trk, atac ? 'a' : 'v');
+      var ext = tb.querySelector('.trkExtra');
+      ext.textContent = '';
+      var pg0 = atacProg();
+      if (pg0) ext.appendChild(pg0);
       if (atac) S._ultAtacAtual = S.tabAtiva;
       // linha de baixo da busca: Varejo = "N peças"; Atacado = chip da tabela
       var inf = $('vInfo');
       if (inf) {
         inf.textContent = '';
         if (atac) {
-          var tbtn = btn('chip on tabchip', 'Tabela: ' + Ta.nome + ' ▾', function () { tabSheet(false); }, true);
+          // só no Atacado: a tabela em texto tocável (B2+)
+          var tbtn = btn('tabtx tabchip', Ta.nome + ' ▾', function () { tabSheet(false); });
           inf.appendChild(tbtn);
         } else {
           inf.appendChild(mk('span', 'vpcs', all.reduce(function (a, i) { return a + (i.qty > 0 ? i.qty : 0); }, 0) + ' peças'));
         }
       }
       S._vVis = order.map(function (k) { return groups[k][0].ref; });
-    }
-    if (tb) {
-      var pg0 = atacProg();
-      if (pg0) tb.appendChild(pg0);
     }
     renderMoedaBar();
     var rows = $('vRows');
@@ -266,18 +299,17 @@
         corU[x.cor] = (corU[x.cor] || 0) + 1;
       });
       var nCor = Object.keys(corU).length,
-        multi = rows.classList.contains('vlist') && vsL.length > 1,
+        multi = rows.classList.contains('vlist') && vsL.length >= 1,
         aberto = multi && S.vAb === k,
         selI = multi && ((S.vCor && S.vCor[k] && vsL.filter(function (x) { return varKey(x) === S.vCor[k]; })[0]) || vsL[0]);
       var card = btn(
         'pcard' + (k === S.vRef ? ' on' : '') + (aberto ? ' aberta' : ''),
         '',
         function (ev) {
-          // grade: tocar na peça abre a folha (cores, quantidade, Vender); subir na folha abre a vitrine
-          if (!rows.classList.contains('vlist') && !S._semFolha && folhaAbre(k, g)) return;
+          // grade: tocar na peça abre a vitrine direto (Toque A, aprovado 04/11/2026; a prévia/folha saiu)
           if (multi) {
             var mais = ev && ev.target && ev.target.closest && ev.target.closest('.vplus');
-            if (mais && aberto) {
+            if (mais && (aberto || vsL.length === 1)) {
               S._vsel = selI;
               S.qty = 1;
               window.__voaSrc = (card.parentNode && card.parentNode.querySelector('.vcores .vcor.on img')) || card.querySelector('img');
@@ -328,7 +360,7 @@
       card.appendChild(photoBox(aberto && selI ? photoOf(f.ref, selI.cor) || photoOf(f.ref) : photoOf(f.ref), 'pbox'));
       var nmB = mk('b', '', pn(f.ref));
       if (multi) {
-        var sb = mk('small', 'vsub', aberto ? varNome(selI) + ' · ' + gLivre(selI) + ' un.' : (nCor > 1 ? nCor + ' cores' : vsL.length + ' opções') + ' · ' + vsL.reduce(function (a, x) { return a + gLivre(x); }, 0) + ' un.');
+        var sb = mk('small', 'vsub', aberto ? varNome(selI) + ' · ' + gLivre(selI) + ' un.' : (nCor > 1 ? nCor + ' cores' : vsL.length > 1 ? vsL.length + ' opções' : varNome(vsL[0])) + ' · ' + vsL.reduce(function (a, x) { return a + gLivre(x); }, 0) + ' un.');
         nmB.appendChild(sb);
       }
       card.appendChild(nmB);
@@ -560,6 +592,39 @@
     if (v.abaixo) {
     }
   }
+  // Vitrine (Toque A): deslizar para baixo no topo da tela fecha e volta para o catálogo.
+  (function () {
+    var d = $('vDetail'),
+      y0 = null,
+      dy = 0;
+    if (!d) return;
+    d.addEventListener('touchstart', function (e) {
+      y0 = window.scrollY <= 4 && e.touches.length === 1 ? e.touches[0].clientY : null;
+      dy = 0;
+    }, { passive: true });
+    d.addEventListener('touchmove', function (e) {
+      if (y0 === null) return;
+      dy = e.touches[0].clientY - y0;
+      if (dy > 0 && !REDUCED) d.style.transform = 'translateY(' + Math.min(dy * 0.5, 120) + 'px)';
+    }, { passive: true });
+    var solta = function () {
+      if (y0 === null) return;
+      y0 = null;
+      d.style.transition = 'transform .25s cubic-bezier(.4,0,.2,1)';
+      d.style.transform = '';
+      setTimeout(function () {
+        d.style.transition = '';
+      }, 260);
+      if (dy > 110 && S.vRef) {
+        S.vRef = '';
+        S.vSel = null;
+        S.qty = 1;
+        render();
+      }
+    };
+    d.addEventListener('touchend', solta);
+    d.addEventListener('touchcancel', solta);
+  })();
   $('vq').oninput = function (e) {
     S.vq = e.target.value;
     S.vGrau = S.vq.trim() ? '' : S.vGrau;

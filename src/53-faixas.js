@@ -180,20 +180,22 @@
     var ref = S._ref,
       cur = S.eFaixa || (ref && (faixaOf(ref) || {}).id) || '';
     $('eFaixaB').hidden = !S.faixas.length || isSimple(S.tipo);
-    fb.textContent = '';
-    S.faixas.forEach(function (x) {
-      fb.appendChild(
-        btn(
-          'chip' + (cur === x.id ? ' on' : ''),
-          x.nome,
-          function () {
-            S.eFaixa = S.eFaixa === x.id ? '' : x.id;
-            render();
-          },
-          cur === x.id
-        )
-      );
-    });
+    // v417: Faixa em trilho (hierarquia nível 3); tocar de novo na escolhida volta para "automática"
+    var chave = S.faixas.map(function (x) { return x.id + ':' + x.nome; }).join(',');
+    if (fb.dataset.k !== chave) {
+      fb.dataset.k = chave;
+      fb.className = 'trk';
+      fb.innerHTML = '<span class="trkTh"></span>' + S.faixas.map(function (x) {
+        return '<button type="button" class="trkB" data-m="' + esc(x.id) + '">' + esc(x.nome) + '</button>';
+      }).join('');
+      fb.onclick = function (e) {
+        var b = e.target.closest('.trkB');
+        if (!b) return;
+        S.eFaixa = S.eFaixa === b.dataset.m ? '' : b.dataset.m;
+        render();
+      };
+    }
+    trkPoe(fb, cur);
     var pc = $('pkChips');
     pc.textContent = '';
     [20, 24, 30].forEach(function (n) {
