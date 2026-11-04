@@ -1879,13 +1879,12 @@ async def main():
               try { localStorage.setItem('lf_modo_v', 'l'); } catch (e) {} L.setView('vendas'); L.render(); document.getElementById('vRows').classList.add('vlist'); L.render(); }""")
             await pg.wait_for_timeout(300)
             await pg.evaluate("() => document.querySelector('#vRows .pcard[data-ref=PC1]').click()"); await pg.wait_for_timeout(200)
-            cs = await pg.evaluate("() => [...document.querySelectorAll('#vRows .vcor')].map(e => e.innerText.replace(/\\s+/g,' ').trim())")
-            await pg.evaluate("() => document.querySelectorAll('#vRows .vcor')[1].click()"); await pg.wait_for_timeout(200)
-            await pg.evaluate("() => document.querySelector('#vRows .pcard[data-ref=PC1] .vplus').click()"); await pg.wait_for_timeout(250)
+            cs = await pg.evaluate("() => [...document.querySelectorAll('#vRows .vlSub .vlRow .vlNm')].map(e => e.innerText.replace(/\\s+/g,' ').trim())")
+            await pg.evaluate("() => document.querySelectorAll('#vRows .vlSub .vlRow')[1].querySelector('.vplus').click()"); await pg.wait_for_timeout(250)
             cr = await pg.evaluate("() => window.__LF.S.cart.map(c => c.cor || (c.it && c.it.cor) || JSON.stringify(c))")
             total += 1
             ok = len(cs) == 2 and not any('Rosa' in x for x in cs) and len(cr) == 1 and 'Azul' in cr[0] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'lista de vendas: cores abrem no lugar e + adiciona a cor marcada')
+            print(('  ok  ' if ok else ' FALHA ') + 'lista de vendas (B): cores abrem logo abaixo, cada uma com o seu +')
             if not ok: falhas.append('cores lista'); print('        veio', cs, cr, pg.erros)
             await pg.close()
 
@@ -1931,11 +1930,11 @@ async def main():
               const p = () => st.querySelector('.vs-p') || document.querySelector('#vRows .vs-p');
               const clica = el => { el.dispatchEvent(new PointerEvent('pointerdown', {bubbles: true})); el.dispatchEvent(new PointerEvent('pointerup', {bubbles: true})); };
               clica(document.querySelector('#vRows .vs-p')); clica(document.querySelector('#vRows .vs-p')); clica(document.querySelector('#vRows .vs-m'));
-              const q1 = S.cart.length && S.cart[0].qty; document.querySelector('#vRows .vs-n').click();
+              const q1 = S.cart.length && S.cart[0].qty; const riscado = !!document.querySelector('#vRows .vriscado'); document.querySelector('#vRows .vs-n').click();
               const kb = !!document.getElementById('atacN'); document.getElementById('atacN').value = '50'; document.getElementById('atacOk').click();
-              return {q1, kb, q2: S.cart.length && S.cart[0].qty, riscado: !!document.querySelector('#vRows .vriscado'), prog: !!document.querySelector('#vTabBar .vprog')}; }""")
+              return {q1, kb, q2: S.cart.length && S.cart[0].qty, riscado, total: !!document.querySelector('#vRows .vtotl'), prog: !!document.querySelector('#vTabBar .vprog')}; }""")
             total += 1
-            ok = at.get('q1') == 1 and at.get('kb') and at.get('q2') == 50 and at.get('riscado') and not pg.erros
+            ok = at.get('q1') == 1 and at.get('kb') and at.get('q2') == 50 and at.get('riscado') and at.get('total') and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'atacado: − N + , teclado numérico e preço riscado')
             if not ok: falhas.append('atacado stepper'); print('        veio', at, pg.erros)
             gs_ = await pg.evaluate("""async () => { const L = window.__LF, S = L.S; S.cart = []; S.tabAtiva = 'pub';
@@ -1966,7 +1965,7 @@ async def main():
               const semFolha = !document.getElementById('lfa-folha') || !document.getElementById('lfa-folha').innerHTML; const vit = S.vRef;
               S.vRef = ''; S.vModo = {v:'l'}; try { localStorage.setItem('lf_modo_v', 'l'); } catch (e) {} L.render();
               document.querySelector('#vRows .pcard[data-ref=FB2]').click(); await new Promise(r => setTimeout(r, 150));
-              const abriuNaLista = S.vAb === 'solar|FB2' && !S.vRef && !!document.querySelector('#vRows .vcores');
+              const abriuNaLista = !S.vRef && !document.querySelector('#vRows .vlSub'); // B: uma cor só não abre nada (o + já está na linha)
               S.vAb = ''; L.render(); document.querySelector('#vRows .pcard[data-ref=FB2] .vplus').click(); await new Promise(r => setTimeout(r, 300));
               S.vModo = {v:'g'}; try { localStorage.setItem('lf_modo_v', 'g'); } catch (e) {}
               return {semFolha, vit, abriuNaLista, carrinho: S.cart.length && S.cart[0].qty}; }""")

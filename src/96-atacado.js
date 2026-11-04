@@ -24,7 +24,7 @@
     render();
     if (!REDUCED) {
       var ref = it.ref,
-        card = document.querySelector('#vRows .pcard[data-ref="' + ref + '"] .vs-n');
+        card = document.querySelector('#vRows [data-vk="' + String(varKey(it)).replace(/"/g, '\\"') + '"][data-ref="' + ref + '"] .vs-n') || document.querySelector('#vRows .pcard[data-ref="' + ref + '"] .vs-n');
       if (card && card.animate) card.animate([{ transform: 'translateY(' + (n >= antes ? 10 : -10) + 'px)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 180, easing: 'ease-out' });
       if ($('cartBar') && !$('cartBar').hidden) pulsa($('cartBar'));
     }

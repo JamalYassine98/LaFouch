@@ -298,8 +298,13 @@
       vsL.forEach(function (x) {
         corU[x.cor] = (corU[x.cor] || 0) + 1;
       });
-      var nCor = Object.keys(corU).length,
-        multi = rows.classList.contains('vlist') && vsL.length >= 1,
+      var nCor = Object.keys(corU).length;
+      // v420: lista no esboço B (aprovado 04/11): faixa única, quantidade à direita, cores abrem logo abaixo
+      if (rows.classList.contains('vlist')) {
+        vLinhaB(rows, k, g, f, vsL, nCor);
+        return;
+      }
+      var multi = rows.classList.contains('vlist') && vsL.length >= 1,
         aberto = multi && S.vAb === k,
         selI = multi && ((S.vCor && S.vCor[k] && vsL.filter(function (x) { return varKey(x) === S.vCor[k]; })[0]) || vsL[0]);
       var card = btn(
@@ -634,3 +639,89 @@
     render();
   };
   /* ===== ler o código impresso na haste (OCR no aparelho) ===== */
+
+  // ===== Lista de vendas, esboço B (v420): foto · nome, cor e un., preço · à direita − N + (ou + no varejo) ou seta das cores =====
+  function vLinhaDir(it, rowEl) {
+    var n = atacQtd(it);
+    if (!atacModo() && n === 0) {
+      var pl = mk('i', 'vplus', '+');
+      pl.setAttribute('role', 'button');
+      pl.setAttribute('aria-label', 'Pôr no pedido');
+      pl.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        S._vsel = it;
+        S.qty = 1;
+        window.__voaSrc = rowEl.querySelector('img');
+        $('sCartAdd').click();
+      });
+      return pl;
+    }
+    var st = atacStep(it);
+    if (n >= gLivre(it)) st.querySelector('.vs-p').classList.add('off');
+    return st;
+  }
+  function vLinhaB(rows, k, g, f, vsL, nCor) {
+    var pr0 = precoTab(f),
+      pubP = atacModo() ? precoTab(f, 'pub') : 0,
+      unico = vsL.length === 1 ? vsL[0] : null,
+      aberto = !unico && S.vAb === k,
+      noPed = vsL.reduce(function (a, x) {
+        return a + atacQtd(x);
+      }, 0),
+      un = vsL.reduce(function (a, x) {
+        return a + gLivre(x);
+      }, 0);
+    var card = btn('pcard vlb' + (aberto ? ' aberta' : '') + (noPed > 0 ? ' noped' : ''), '', function () {
+      if (unico) return;
+      S.vAb = aberto ? '' : k;
+      render();
+    });
+    card.dataset.ref = f.ref;
+    if (unico) card.dataset.vk = varKey(unico);
+    card.appendChild(photoBox(unico ? photoOf(f.ref, unico.cor) || photoOf(f.ref) : photoOf(f.ref), 'pbox'));
+    var tx = mk('span', 'vlTx');
+    tx.appendChild(mk('b', 'vlNm', pn(f.ref)));
+    tx.appendChild(mk('small', 'vsub', (unico ? varNome(unico) : nCor > 1 ? nCor + ' cores' : vsL.length + ' opções') + ' · ' + un + ' un.'));
+    var pl = mk('span', 'vlPr');
+    if (pr0) {
+      var pp = mk('b', 'vpreco', pvm(pr0));
+      pl.appendChild(pp);
+      var nU = unico ? atacQtd(unico) : 0;
+      if (unico && nU > 1) pl.appendChild(mk('small', 'vtotl', '· total ' + pvm(pr0 * nU).replace(/^[^\d]+/, '')));
+      else if (pubP > pr0) pl.appendChild(mk('s', 'vriscado', pvm(pubP).replace(/^[^\d]+/, '')));
+    }
+    tx.appendChild(pl);
+    card.appendChild(tx);
+    if (unico) card.appendChild(vLinhaDir(unico, card));
+    else {
+      var ch = mk('span', 'vlCh');
+      ch.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
+      card.setAttribute('aria-expanded', aberto ? 'true' : 'false');
+      card.appendChild(ch);
+    }
+    rows.appendChild(card);
+    if (aberto) {
+      var sub = mk('div', 'vlSub');
+      vsL.forEach(function (x) {
+        var r = mk('div', 'vlRow' + (atacQtd(x) > 0 ? ' noped' : ''));
+        r.dataset.vk = varKey(x);
+        r.dataset.ref = f.ref;
+        var fk = S.fotos[f.ref + '|' + x.cor],
+          th = mk('span', 'vlFs');
+        if (fk) {
+          var ig = mk('img');
+          ig.src = fk;
+          ig.alt = x.cor;
+          th.appendChild(ig);
+        } else th.style.background = hexOf(x.cor);
+        r.appendChild(th);
+        var t2 = mk('span', 'vlTx');
+        t2.appendChild(mk('b', 'vlNm', varNome(x)));
+        t2.appendChild(mk('small', 'vsub', gLivre(x) + ' un.'));
+        r.appendChild(t2);
+        r.appendChild(vLinhaDir(x, r));
+        sub.appendChild(r);
+      });
+      rows.appendChild(sub);
+    }
+  }

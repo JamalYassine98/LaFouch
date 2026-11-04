@@ -1,7 +1,7 @@
 {
- "nome": "4.6",
+ "nome": "4.6.1",
  "notas": [
-  "Ajustes mais limpo: uma lista com ícones, cada item abre no lugar",
-  "Segure um item do Ajustes para arrastar e mudar a ordem (vale só neste aparelho), com Desfazer"
+  "Lista de vendas alinhada: foto, nome e preço numa faixa, quantidade à direita",
+  "Peça com várias cores abre as cores logo abaixo, cada uma com o seu − N +"
  ]
 }

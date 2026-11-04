@@ -774,3 +774,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Segurar 0,4 s (anel cinza no ícone + vibra) levanta; setas viram alça; a aberta fecha; as outras abrem espaço; soltar assenta com mola + "Ordem salva · Desfazer" 4 s (lfDesfazer ganhou 3º parâmetro ms). Ordem em localStorage lf_ajOrd (por aparelho).
 - Nomes de classe próprios (ajSeg, ajLev): ".seg" e ".lev" já existem no style.css antigo e quebravam o layout.
 - Testes: S._rtudo abre todas as seções (testes antigos); teste novo "Ajustes: grupo único…". 248/248.
+
+## v420 (4.6.1) — 04/11/2026 — Lista de vendas esboço B IMPLEMENTADO (dono viu protótipo e mandou implementar)
+- vLinhaB (60-vendas.js): faixa única = foto 60×48 · nome (1 linha, "…") + "cor · N un." (ou "N cores · N un.") + preço verde e riscado do varejo (no atacado); com 2+ peças o riscado dá lugar a "· total X". Direita: − N + (atacStep, 44 px) no atacado; no varejo + redondo que vira − N + depois do 1º toque; + apagado no limite do estoque.
+- Várias cores: seta › à direita (gira ao abrir); tocar abre as cores LOGO ABAIXO (.vlSub recuado com linha), cada uma com foto pequena, nome, un. e o seu − N + / +. Uma cor só não abre nada. Sem o "· N no pedido" (foi acréscimo do protótipo, não aprovado).
+- Linha com peça no pedido ganha contorno cinza. Animação do número por linha (data-vk).

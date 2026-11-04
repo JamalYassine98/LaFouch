@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 419;
+  var APP_BUILD = 420;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '4.6'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '4.6.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -13633,8 +13633,13 @@
       vsL.forEach(function (x) {
         corU[x.cor] = (corU[x.cor] || 0) + 1;
       });
-      var nCor = Object.keys(corU).length,
-        multi = rows.classList.contains('vlist') && vsL.length >= 1,
+      var nCor = Object.keys(corU).length;
+      // v420: lista no esboço B (aprovado 04/11): faixa única, quantidade à direita, cores abrem logo abaixo
+      if (rows.classList.contains('vlist')) {
+        vLinhaB(rows, k, g, f, vsL, nCor);
+        return;
+      }
+      var multi = rows.classList.contains('vlist') && vsL.length >= 1,
         aberto = multi && S.vAb === k,
         selI = multi && ((S.vCor && S.vCor[k] && vsL.filter(function (x) { return varKey(x) === S.vCor[k]; })[0]) || vsL[0]);
       var card = btn(
@@ -13969,6 +13974,92 @@
     render();
   };
   /* ===== ler o código impresso na haste (OCR no aparelho) ===== */
+
+  // ===== Lista de vendas, esboço B (v420): foto · nome, cor e un., preço · à direita − N + (ou + no varejo) ou seta das cores =====
+  function vLinhaDir(it, rowEl) {
+    var n = atacQtd(it);
+    if (!atacModo() && n === 0) {
+      var pl = mk('i', 'vplus', '+');
+      pl.setAttribute('role', 'button');
+      pl.setAttribute('aria-label', 'Pôr no pedido');
+      pl.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        S._vsel = it;
+        S.qty = 1;
+        window.__voaSrc = rowEl.querySelector('img');
+        $('sCartAdd').click();
+      });
+      return pl;
+    }
+    var st = atacStep(it);
+    if (n >= gLivre(it)) st.querySelector('.vs-p').classList.add('off');
+    return st;
+  }
+  function vLinhaB(rows, k, g, f, vsL, nCor) {
+    var pr0 = precoTab(f),
+      pubP = atacModo() ? precoTab(f, 'pub') : 0,
+      unico = vsL.length === 1 ? vsL[0] : null,
+      aberto = !unico && S.vAb === k,
+      noPed = vsL.reduce(function (a, x) {
+        return a + atacQtd(x);
+      }, 0),
+      un = vsL.reduce(function (a, x) {
+        return a + gLivre(x);
+      }, 0);
+    var card = btn('pcard vlb' + (aberto ? ' aberta' : '') + (noPed > 0 ? ' noped' : ''), '', function () {
+      if (unico) return;
+      S.vAb = aberto ? '' : k;
+      render();
+    });
+    card.dataset.ref = f.ref;
+    if (unico) card.dataset.vk = varKey(unico);
+    card.appendChild(photoBox(unico ? photoOf(f.ref, unico.cor) || photoOf(f.ref) : photoOf(f.ref), 'pbox'));
+    var tx = mk('span', 'vlTx');
+    tx.appendChild(mk('b', 'vlNm', pn(f.ref)));
+    tx.appendChild(mk('small', 'vsub', (unico ? varNome(unico) : nCor > 1 ? nCor + ' cores' : vsL.length + ' opções') + ' · ' + un + ' un.'));
+    var pl = mk('span', 'vlPr');
+    if (pr0) {
+      var pp = mk('b', 'vpreco', pvm(pr0));
+      pl.appendChild(pp);
+      var nU = unico ? atacQtd(unico) : 0;
+      if (unico && nU > 1) pl.appendChild(mk('small', 'vtotl', '· total ' + pvm(pr0 * nU).replace(/^[^\d]+/, '')));
+      else if (pubP > pr0) pl.appendChild(mk('s', 'vriscado', pvm(pubP).replace(/^[^\d]+/, '')));
+    }
+    tx.appendChild(pl);
+    card.appendChild(tx);
+    if (unico) card.appendChild(vLinhaDir(unico, card));
+    else {
+      var ch = mk('span', 'vlCh');
+      ch.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
+      card.setAttribute('aria-expanded', aberto ? 'true' : 'false');
+      card.appendChild(ch);
+    }
+    rows.appendChild(card);
+    if (aberto) {
+      var sub = mk('div', 'vlSub');
+      vsL.forEach(function (x) {
+        var r = mk('div', 'vlRow' + (atacQtd(x) > 0 ? ' noped' : ''));
+        r.dataset.vk = varKey(x);
+        r.dataset.ref = f.ref;
+        var fk = S.fotos[f.ref + '|' + x.cor],
+          th = mk('span', 'vlFs');
+        if (fk) {
+          var ig = mk('img');
+          ig.src = fk;
+          ig.alt = x.cor;
+          th.appendChild(ig);
+        } else th.style.background = hexOf(x.cor);
+        r.appendChild(th);
+        var t2 = mk('span', 'vlTx');
+        t2.appendChild(mk('b', 'vlNm', varNome(x)));
+        t2.appendChild(mk('small', 'vsub', gLivre(x) + ' un.'));
+        r.appendChild(t2);
+        r.appendChild(vLinhaDir(x, r));
+        sub.appendChild(r);
+      });
+      rows.appendChild(sub);
+    }
+  }
   // ===== Códigos parecidos e utilitários do leitor de haste. =====
   // Chave normalizada de um código (A–Z, 0–9).
   function hKey(t) {
@@ -26790,7 +26881,7 @@
     render();
     if (!REDUCED) {
       var ref = it.ref,
-        card = document.querySelector('#vRows .pcard[data-ref="' + ref + '"] .vs-n');
+        card = document.querySelector('#vRows [data-vk="' + String(varKey(it)).replace(/"/g, '\\"') + '"][data-ref="' + ref + '"] .vs-n') || document.querySelector('#vRows .pcard[data-ref="' + ref + '"] .vs-n');
       if (card && card.animate) card.animate([{ transform: 'translateY(' + (n >= antes ? 10 : -10) + 'px)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 180, easing: 'ease-out' });
       if ($('cartBar') && !$('cartBar').hidden) pulsa($('cartBar'));
     }
