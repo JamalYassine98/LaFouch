@@ -856,10 +856,20 @@
       if (typeof animGraficos === 'function') animGraficos(el);
     } catch (e) {}
   }
+  // ===== Ícones do sistema de botões (v407); definidos cedo porque telas montadas no carregamento os usam. =====
+  var ICO = {
+    chk: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+    lixo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>',
+    wa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.6a9.4 9.4 0 0 0-8.1 14.2L2.6 21.4l4.9-1.3A9.4 9.4 0 1 0 12 2.6z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-.9.8c-.9-.4-1.9-1.4-2.3-2.3l.8-.9-1-2z" fill="currentColor" stroke="none"/></svg>',
+    haste:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3M7 9v6M10 9v6M13 9v6M17 9v6"/></svg>',
+    moldura:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
+  };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 406;
+  var APP_BUILD = 407;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '3.9'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '4.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Movimentos: todo fato de dinheiro ou estoque é gravado por aqui (livro + histórico juntos). =====
   // Formato do registro do histórico (S.dlog) de uma compra de mercadoria.
   function dlogLote(x) {
@@ -11476,6 +11486,10 @@
     ['uniV', 'uniS', 'uniW'].forEach(function (id) {
       var h = $(id);
       if (!h) return;
+      if (id === 'uniV') {
+        h.hidden = true; // Catálogo único: Varejo | Atacado + ícone do WhatsApp, sem a barra de abas
+        return;
+      }
       var on = uniOn();
       if (h.getAttribute('data-k') === on && h.firstChild) return;
       h.setAttribute('data-k', on);
@@ -13380,8 +13394,18 @@
         }, on));
       });
       if (atac) S._ultAtacAtual = S.tabAtiva;
-      tb.appendChild(btn('chip on', 'Tabela: ' + Ta.nome + ' ▾', function () { tabSheet(false); }, true));
-      tb.appendChild(btn('chip', 'Enviar no WhatsApp', function () { S._vVis = order.map(function (k) { return groups[k][0].ref; }); ACT.tabenviar(); }, false));
+      // linha de baixo da busca: Varejo = "N peças"; Atacado = chip da tabela
+      var inf = $('vInfo');
+      if (inf) {
+        inf.textContent = '';
+        if (atac) {
+          var tbtn = btn('chip on tabchip', 'Tabela: ' + Ta.nome + ' ▾', function () { tabSheet(false); }, true);
+          inf.appendChild(tbtn);
+        } else {
+          inf.appendChild(mk('span', 'vpcs', all.reduce(function (a, i) { return a + (i.qty > 0 ? i.qty : 0); }, 0) + ' peças'));
+        }
+      }
+      S._vVis = order.map(function (k) { return groups[k][0].ref; });
     }
     if (tb) {
       var pg0 = atacProg();
@@ -17559,7 +17583,6 @@
     bx.appendChild(tk);
     bx.appendChild(st);
     bx.appendChild(rs);
-    bx.appendChild(man);
     bx.appendChild(fi);
     ov.appendChild(bx);
     ov.addEventListener('click', function (e) {
@@ -17578,12 +17601,12 @@
       var b = document.createElement('button');
       b.type = 'button';
       b.className = 'chip';
-      b.title = 'Ler código da haste com a câmera';
-      b.setAttribute('aria-label', 'Ler código da haste com a câmera');
+      b.title = 'Buscar com a câmera';
+      b.setAttribute('aria-label', 'Buscar com a câmera');
       b.style.cssText = 'min-height:44px;width:48px;padding:0;justify-content:center;flex:0 0 auto';
-      b.innerHTML = cam;
+      b.innerHTML = ICO.moldura;
       b.onclick = function () {
-        hasteOpen(inp);
+        camGaveta(inp);
       };
       return b;
     }
@@ -17593,32 +17616,47 @@
     var v = $('vq');
     if (v) {
       var w = document.createElement('div');
-      w.style.cssText = 'display:flex;gap:8px;align-items:center;max-width:540px;width:100%';
+      w.style.cssText = 'display:flex;flex-direction:column;gap:10px;max-width:560px;width:100%';
       v.parentNode.insertBefore(w, v);
-      w.appendChild(v);
-      v.style.flex = '1 1 0';
-      v.style.width = 'auto';
-      v.style.minWidth = '0';
-      v.style.maxWidth = 'none';
-      w.appendChild(mkCam(v));
-      var fb = mk('button', 'chip');
+      // barra de busca larga: lupa à esquerda, moldura com óculos (câmera) dentro, à direita
+      var bs = document.createElement('div');
+      bs.className = 'bs';
+      bs.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>';
+      v.style.cssText = 'flex:1 1 0;min-width:0;width:auto;max-width:none';
+      v.className = '';
+      v.placeholder = 'Buscar peça, código, cor…';
+      bs.appendChild(v);
+      var cm = mkCam(v);
+      cm.className = 'ic cam';
+      cm.style.cssText = '';
+      bs.appendChild(cm);
+      w.appendChild(bs);
+      // linha de baixo: informação (N peças / Tabela) à esquerda; filtro e lista à direita
+      var sub = document.createElement('div');
+      sub.className = 'vsub';
+      var info = document.createElement('div');
+      info.id = 'vInfo';
+      sub.appendChild(info);
+      var dir = document.createElement('div');
+      dir.className = 'vdir';
+      sub.appendChild(dir);
+      w.appendChild(sub);
+      var fb = mk('button', 'ic');
       fb.type = 'button';
       fb.id = 'vBtnFilt';
       fb.setAttribute('aria-label', 'Filtros');
       fb.title = 'Filtros';
-      fb.style.cssText =
-        'min-height:44px;width:48px;padding:0;justify-content:center;flex:0 0 auto';
       fb.innerHTML =
         '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8Z"/></svg>';
       fb.onclick = function () {
         S.vFilt = !S.vFilt;
         render();
       };
-      w.appendChild(fb);
-      var mb = mk('button', 'chip modebtn');
+      dir.appendChild(fb);
+      var mb = mk('button', 'ic modebtn');
       mb.type = 'button';
       mb.id = 'vModo';
-      w.appendChild(mb);
+      dir.appendChild(mb);
     }
   })();
 
@@ -19307,6 +19345,129 @@
         corpo.appendChild(pu);
       }
       draw();
+    });
+  }
+  // ===== Gaveta "Buscar com a câmera" (v407): Ler haste · Foto da armação (parecidas). Um só risco; fecha deslizando ou tocando fora. =====
+  function camGaveta(inp) {
+    var ov = lfaAbre(
+      'lfa-camg',
+      '<div class="cg-puxa" aria-hidden="true"></div><div class="cg-tt">Buscar com a câmera</div>' +
+        '<button type="button" class="cg-card" data-k="haste" style="--i:0"><span class="cg-ic">' + ICO.haste + '</span><span><b>Ler haste</b><small>Lê o código gravado na haste e abre a peça</small></span></button>' +
+        '<button type="button" class="cg-card" data-k="foto" style="--i:1"><span class="cg-ic">' + ICO.moldura + '</span><span><b>Foto da armação</b><small>Compara a foto e mostra as mais parecidas</small></span></button>'
+    );
+    ov.classList.add('lfa-camg');
+    var sh = ov.querySelector('.lfa-sh'),
+      pu = ov.querySelector('.cg-puxa'),
+      fecha = function () {
+        lfaFecha('lfa-camg');
+      },
+      y0 = 0,
+      dy = 0,
+      on = false;
+    ov.addEventListener('click', function (e) {
+      if (e.target === ov) fecha();
+    });
+    pu.addEventListener('touchstart', function (e) {
+      y0 = e.touches[0].clientY;
+      dy = 0;
+      on = true;
+    }, { passive: true });
+    pu.addEventListener('touchmove', function (e) {
+      if (!on) return;
+      dy = e.touches[0].clientY - y0;
+      if (dy > 0) {
+        sh.style.transition = 'none';
+        sh.style.transform = 'translateY(' + Math.round(dy * 0.8) + 'px)';
+      }
+    }, { passive: true });
+    pu.addEventListener('touchend', function () {
+      on = false;
+      sh.style.transition = 'transform .22s';
+      sh.style.transform = '';
+      if (dy > 80) fecha();
+    });
+    [].slice.call(ov.querySelectorAll('.cg-card')).forEach(function (c) {
+      c.onclick = function () {
+        fecha();
+        if (c.getAttribute('data-k') === 'haste') hasteOpen(inp);
+        else
+          camOpen(
+            function (f) {
+              camParecidas(f, inp);
+            },
+            'Foto da armação',
+            { gallery: true, tip: 'Ponha a armação inteira dentro do retângulo, sobre fundo liso.' }
+          );
+      };
+    });
+  }
+  // Foto da armação: procura as mais parecidas no estoque e mostra com a porcentagem.
+  function camParecidas(f, inp) {
+    loadMsg(true, 'Comparando com o estoque', 40000);
+    fmArquivo(f, function (cv) {
+      fmRank(cv, 0.5).then(function (rk) {
+        loadMsg(false);
+        var ov = lfaAbre(
+          'lfa-camp',
+          '<div class="cg-puxa" aria-hidden="true"></div><div class="cg-tt">Mais parecidas</div>' +
+            (rk.length
+              ? rk
+                  .map(function (r, i) {
+                    var it = S.items.filter(function (x) {
+                      return x.ref === r.ref && !x.bulk;
+                    })[0];
+                    return '<button type="button" class="cg-card cg-par' + (i === 0 ? ' top' : '') + '" data-ref="' + esc(r.ref) + '" style="--i:' + i + '"><span class="cg-ft">' + (r.foto ? '<img alt="" src="' + r.foto + '">' : '') + '</span><span style="min-width:0;flex:1"><b>' + esc(pubNome(r.ref)) + '</b><small>' + esc(r.ref) + '</small></span><span class="cg-pct" data-p="' + Math.round(r.score * 100) + '">0%</span></button>';
+                  })
+                  .join('')
+              : '<div class="hint" style="text-align:center;padding:14px 0">Nada parecido no estoque. Tente outra foto, com a armação inteira e fundo liso.</div>')
+        );
+        ov.classList.add('lfa-camg');
+        var sh = ov.querySelector('.lfa-sh'),
+          pu = ov.querySelector('.cg-puxa'),
+          fecha = function () {
+            lfaFecha('lfa-camp');
+          },
+          y0 = 0,
+          dy = 0;
+        ov.addEventListener('click', function (e) {
+          if (e.target === ov) fecha();
+        });
+        pu.addEventListener('touchstart', function (e) {
+          y0 = e.touches[0].clientY;
+          dy = 0;
+        }, { passive: true });
+        pu.addEventListener('touchmove', function (e) {
+          dy = e.touches[0].clientY - y0;
+          if (dy > 0) {
+            sh.style.transition = 'none';
+            sh.style.transform = 'translateY(' + Math.round(dy * 0.8) + 'px)';
+          }
+        }, { passive: true });
+        pu.addEventListener('touchend', function () {
+          sh.style.transition = 'transform .22s';
+          sh.style.transform = '';
+          if (dy > 80) fecha();
+        });
+        [].slice.call(ov.querySelectorAll('.cg-par')).forEach(function (c) {
+          c.onclick = function () {
+            inp.value = c.getAttribute('data-ref');
+            inp.dispatchEvent(new Event('input', { bubbles: true }));
+            fecha();
+          };
+        });
+        // as porcentagens contam de 0 até o valor (280 ms) e a primeira ganha brilho
+        [].slice.call(ov.querySelectorAll('.cg-pct')).forEach(function (el, i) {
+          var alvo = +el.getAttribute('data-p'),
+            t0 = Date.now() + 160 + i * 90,
+            dur = REDUCED ? 0 : 450,
+            passo = function () {
+              var k = dur ? Math.max(0, Math.min(1, (Date.now() - t0) / dur)) : 1;
+              el.textContent = Math.round(alvo * (1 - Math.pow(1 - k, 3))) + '%';
+              if (k < 1) requestAnimationFrame(passo);
+            };
+          passo();
+        });
+      });
     });
   }
   // ===== Cadastro por foto: lê código/grau/quantidade e compara a aparência com o estoque. =====
@@ -21322,7 +21483,7 @@
       ajustes: ['Ajustes', ['Backup e metas', '']],
       novo: ['Novo produto', ['Cadastrar', '']],
       cont: ['Contagem', ['Conferir estoque', '']],
-      lotes: ['Fornecedores', ['Compras de mercadoria', '']],
+      lotes: ['Fornecedores', ['Compras', '']],
       cli: ['Clientes', [S.clientes.length + (S.clientes.length === 1 ? ' cadastrado' : ' cadastrados'), '']],
       ped: ['Pedidos online', [pedNovos() + ' novos', pedNovos() ? 'w' : '']],
       onl: ['Loja online', ['Catálogo e site', '']],
@@ -21352,15 +21513,17 @@
       return L.indexOf(id) < 0 && B.indexOf(id) < 0;
     });
     var extra = '';
-    if (ed && livres.length)
-      extra =
-        '<div class="lbl">Adicionar botão</div><div class="tgrid g4">' +
-        livres
-          .map(function (id) {
-            return tileHtml('data-act="inicioAdd" data-id="' + id + '"', id, D[id][0], null, 'sm', false);
-          })
-          .join('') +
-        '</div>';
+    if (S.inicioFant) {
+      var oc = INI_TODOS.filter(function (id) {
+        return L.indexOf(id) < 0 && B.indexOf(id) < 0;
+      });
+      grid += oc
+        .map(function (id) {
+          return tileHtml('data-act="inicioAdd" data-id="' + id + '" aria-label="Voltar ' + D[id][0] + '"', id, D[id][0], null, 'fant', false);
+        })
+        .join('');
+      if (oc.length) extra = '<div class="sel" style="justify-content:center"><button type="button" class="tx" data-act="inicioReset">Restaurar padrão</button></div>';
+    }
     var urg = notifAgora().filter(urgente).length,
       faixa = urg
         ? '<section class="card" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px;border-left:4px solid var(--bad);margin-bottom:12px"><div><b style="font-size:15px">' + urg + (urg === 1 ? ' aviso urgente' : ' avisos urgentes') + '</b><div class="hint" style="margin:2px 0 0">toque para ver o que precisa de você</div></div><button type="button" class="mini" data-act="view" data-id="notif">Ver</button></section>'
@@ -21385,12 +21548,7 @@
         : '';
     el.innerHTML = faixa + pend + semFoto +
       '<div class="hero" data-act="inicio" data-id="hoje" role="button" tabindex="0"><span class="hi">' + ico('hero', 26) + '</span><span><small>Vendido hoje · ' + h.n + ' venda(s)</small><b>' + gs(h.v) + '</b></span><span class="hg">›</span></div>' +
-      '<div class="tgrid' + (ed ? ' editando' : '') + '">' + grid + '</div>' + extra +
-      '<div class="sel" style="justify-content:center;gap:10px;flex-wrap:wrap">' +
-      (ed
-        ? '<button type="button" class="mini" data-act="inicioEd">Concluir</button><button type="button" class="chip" data-act="inicioReset">Restaurar padrão</button>'
-        : '<button type="button" class="chip" data-act="inicioEd">✎ Personalizar botões</button>') +
-      '</div>';
+      '<div class="tgrid' + (ed ? ' editando' : '') + '">' + grid + '</div>' + extra;
   }
   /* toque num azulejo da tela Início */
   function inicioGo(id) {
@@ -22435,7 +22593,19 @@
     var last = e.hist[e.hist.length - 1],
       paid = !!(e.paid && e.paid[ymNow()]);
     var h =
-      '<div class="card col" style="background:var(--panel2);padding:14px"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:baseline"><div><b>' +
+      '<div class="card col cdel" id="ec-' + e.id + '" style="background:var(--panel2);padding:14px"><div style="display:flex;align-items:center;gap:10px"><button type="button" class="chk' +
+      (paid ? ' on' : '') +
+      '" data-act="exppay" data-id="' +
+      e.id +
+      '" aria-pressed="' +
+      paid +
+      '" aria-label="' +
+      (paid ? 'Pago neste mês. Toque para desfazer' : 'Marcar como paga neste mês') +
+      '">' +
+      (paid ? ICO.chk : '') +
+      '</button><div style="min-width:0"><b' +
+      (paid ? ' class="paga-nome"' : '') +
+      '>' +
       esc(e.nome) +
       '</b> <span class="cell">' +
       (e.tipo === 'fixa' ? 'fixa' : 'variável') +
@@ -22443,21 +22613,7 @@
       (expMoeda(e) !== 'pyg'
         ? ' <span class="cell">' + (expMoeda(e) === 'usd' ? 'em dólar' : 'em real') + '</span>'
         : '') +
-      '</div><div style="display:flex;align-items:center;gap:10px"><button type="button" data-act="exppay" data-id="' +
-      e.id +
-      '" aria-pressed="' +
-      paid +
-      '" title="' +
-      (paid ? 'Toque para desfazer' : 'Marcar como paga neste mês') +
-      '" style="min-height:34px;padding:0 14px;border-radius:999px;font-size:13px;background:' +
-      (paid ? 'rgba(34,197,94,.2)' : 'transparent') +
-      ';border:1px solid ' +
-      (paid ? '#22c55e' : 'var(--line)') +
-      ';color:' +
-      (paid ? '#86efac' : 'var(--sub)') +
-      '">' +
-      (paid ? '✓ Pago' : 'Pagar') +
-      '</button></div></div>';
+      '</div></div>';
     h +=
       '<div class="sel" style="flex-wrap:wrap"><input class="in" id="ev-' +
       e.id +
@@ -22476,11 +22632,13 @@
       esc(e.nome) +
       '" style="flex:0 0 64px;width:64px"><button class="mini" data-act="expsave" data-id="' +
       e.id +
-      '">Salvar novo valor</button>' +
-      '<button class="chip" data-act="exprm" data-id="' +
+      '">Salvar</button>' +
+      '<button class="ic pe" data-act="exprm" data-id="' +
       e.id +
+      '" aria-label="Remover ' +
+      esc(e.nome) +
       '">' +
-      (S.confRm === e.id ? 'Confirmar remoção' : 'Remover') +
+      ICO.lixo +
       '</button></div>';
     h +=
       '<div class="hint" id="pv-' +
@@ -23260,6 +23418,7 @@
       render();
     },
     inicioReset: function () {
+      S.inicioFant = false;
       S.inicioT = null;
       S.barra = null;
       S.grupos = [];
@@ -23507,21 +23666,32 @@
       renderDash();
     },
     exprm: function (id) {
-      if (S.confRm !== Number(id)) {
-        S.confRm = Number(id);
-        renderDesp();
-        return;
-      }
-      var rm = S.exp.filter(function (x) {
-        return x.id === Number(id);
-      })[0];
-      if (rm) logDespesa('rem', { nome: rm.nome, cat: rm.cat, valor: rm.valor });
-      S.exp = S.exp.filter(function (x) {
-        return x.id !== Number(id);
-      });
-      S.confRm = '';
-      renderDesp();
-      renderDash();
+      var i = S.exp.findIndex(function (x) {
+          return x.id === Number(id);
+        }),
+        rm = S.exp[i];
+      if (!rm) return;
+      var el = $('ec-' + id),
+        fim = function () {
+          logDespesa('rem', { nome: rm.nome, cat: rm.cat, valor: rm.valor });
+          S.exp = S.exp.filter(function (x) {
+            return x.id !== Number(id);
+          });
+          S.confRm = '';
+          saveSoon();
+          renderDesp();
+          renderDash();
+          lfDesfazer('"' + rm.nome + '" removida', function () {
+            S.exp.splice(Math.min(i, S.exp.length), 0, rm);
+            saveSoon();
+            renderDesp();
+            renderDash();
+          });
+        };
+      if (el && !REDUCED) {
+        el.classList.add('out');
+        setTimeout(fim, 280);
+      } else fim();
     },
     expadd: function () {
       var n = cap1($('nName').value),
@@ -27875,13 +28045,19 @@
       '<div class="folha-top"><div class="folha-img">' + (foto ? '<img alt="" src="' + foto + '">' : '') + '</div><div style="min-width:0"><b class="folha-nm">' + esc(pn(it.ref)) + '</b><div class="hint" style="margin:2px 0">' + esc(it.ref) + (it.cor && it.cor !== 'Sem cor' ? ' · ' + esc(it.cor) : '') + '</div>' + (p ? '<div class="folha-pr">' + gs(p) + '</div>' : '') + '</div></div>' +
       (Object.keys(cores).length > 1 ? '<div class="vcores" style="margin:10px 0">' + ch + '</div>' : '') +
       '<div class="folha-q"><span class="vstep"><span class="vs-b" role="button" tabindex="0" data-act="folhaq" data-id="-1" aria-label="Menos">−</span><span class="vs-n" id="folhaN">' + o.qty + '</span><span class="vs-b" role="button" tabindex="0" data-act="folhaq" data-id="1" aria-label="Mais">+</span></span><span class="hint" style="margin:0">' + gLivre(it) + ' un. disponíveis</span></div>' +
-      '<button type="button" class="btn" data-act="folhavender" style="width:100%;margin-top:10px">Vender' + (p ? ' · ' + gs(p * o.qty) : '') + '</button>' +
+      '<button type="button" class="btn go" data-act="folhavender" style="width:100%;margin-top:10px">Vender' + (p ? ' · ' + gs(p * o.qty) : '') + '</button>' +
       '<div class="hint" style="text-align:center;margin:8px 0 0">Deslize para cima para ver a vitrine</div>'
     );
   }
   function folhaDesenha() {
-    var ov = lfaAbre('lfa-folha', folhaHtml());
+    var antes = lfaSlot('lfa-folha'),
+      ov = lfaAbre('lfa-folha', folhaHtml());
     ov.classList.add('lfa-folha');
+    if (antes) ov.classList.add('ja'); // já estava aberta: não reinicia a animação
+    document.body.classList.add('folhaAberta');
+    if (!ov._fora) {
+      ov._fora = 1;
+    }
     var sh = ov.querySelector('.lfa-sh');
     if (sh && !sh._gest) {
       sh._gest = 1;
@@ -27890,18 +28066,24 @@
   }
   function folhaGestos(ov) {
     var sh = ov.querySelector('.lfa-sh'),
+      puxa = ov.querySelector('.folha-puxa'),
       y0 = 0,
       x0 = 0,
       dy = 0,
       on = false;
-    ov.addEventListener('touchstart', function (e) {
+    // tocar fora da folha fecha (desce)
+    ov.addEventListener('click', function (e) {
+      if (e.target === ov) folhaFecha();
+    });
+    if (!puxa) return;
+    puxa.addEventListener('touchstart', function (e) {
       if (e.touches.length !== 1) return;
       y0 = e.touches[0].clientY;
       x0 = e.touches[0].clientX;
       dy = 0;
       on = true;
     }, { passive: true });
-    ov.addEventListener('touchmove', function (e) {
+    puxa.addEventListener('touchmove', function (e) {
       if (!on) return;
       var y = e.touches[0].clientY - y0,
         x = e.touches[0].clientX - x0;
@@ -27915,7 +28097,7 @@
         sh.style.transform = 'translateY(' + Math.round(y * 0.8) + 'px)';
       }
     }, { passive: true });
-    ov.addEventListener('touchend', function () {
+    puxa.addEventListener('touchend', function () {
       if (!on) return;
       on = false;
       if (sh) {
@@ -27935,6 +28117,7 @@
   }
   function folhaFecha() {
     _fo = null;
+    document.body.classList.remove('folhaAberta');
     lfaFecha('lfa-folha');
   }
   function folhaVitrine() {
@@ -27963,8 +28146,29 @@
   };
   ACT.folhaq = function (d) {
     if (!_fo) return;
+    var antes = _fo.qty;
     _fo.qty = Math.max(1, Math.min(gLivre(_fo.it), _fo.qty + (+d || 0)));
-    folhaDesenha();
+    if (_fo.qty === antes) return;
+    // atualiza no lugar: o número rola e o preço conta, sem redesenhar a folha
+    var n = $('folhaN'),
+      bt = document.querySelector('#lfa-folha [data-act="folhavender"]'),
+      p = precoTab(_fo.it),
+      alvo = p * _fo.qty,
+      de = p * antes;
+    if (n) {
+      n.textContent = _fo.qty;
+      if (!REDUCED && n.animate) n.animate([{ transform: 'translateY(' + (_fo.qty > antes ? 14 : -14) + 'px)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 280, easing: 'cubic-bezier(.4,0,.2,1)' });
+    }
+    if (bt && p) {
+      var t0 = Date.now(),
+        dur = REDUCED ? 0 : 280,
+        passo = function () {
+          var f = dur ? Math.min(1, (Date.now() - t0) / dur) : 1;
+          bt.textContent = 'Vender · ' + gs(Math.round(de + (alvo - de) * f));
+          if (f < 1) requestAnimationFrame(passo);
+        };
+      passo();
+    }
   };
   ACT.folhavender = function () {
     if (!_fo) return;
@@ -31444,7 +31648,22 @@
       },
       true
     );
+    function lixoEl() {
+      var e = $('inLixo');
+      if (!e) {
+        e = document.createElement('div');
+        e.id = 'inLixo';
+        e.setAttribute('aria-hidden', 'true');
+        e.innerHTML = '<span class="tp"></span><span class="cx">' + ICO.lixo + '</span>';
+        document.body.appendChild(e);
+      }
+      return e;
+    }
     function sobre(x, y) {
+      if (dg && !dg.deBarra && dg.on) {
+        var lr = lixoEl().getBoundingClientRect();
+        if (x >= lr.left - 24 && x <= lr.right + 24 && y >= lr.top - 24 && y <= lr.bottom + 24) return { zona: 'lixo', k: -1 };
+      }
       var b = barEl().getBoundingClientRect();
       if (y < b.top - 36 || y > b.bottom + 40) return { zona: y < b.top ? 'fora' : 'fora', k: -1 };
       var l = slots(),
@@ -31454,6 +31673,15 @@
         if (x >= r.left - 2 && x <= r.right + 2) k = i;
       });
       return { zona: 'barra', k: k };
+    }
+    // botão do Início sob o dedo (para trocar de lugar)
+    function tileSob(x, y) {
+      var t = null;
+      [].slice.call(document.querySelectorAll('#v-inicio .tl[data-act="inicio"]')).forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (el !== dg.el && x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) t = el;
+      });
+      return t;
     }
     function quadro() {
       if (!dg || !dg.on) return;
@@ -31465,6 +31693,15 @@
       l.forEach(function (s, i) {
         s.classList.toggle('qt', o.zona === 'barra' && i === o.k && i > 0);
       });
+      if (!dg.deBarra) {
+        lixoEl().classList.toggle('perto', o.zona === 'lixo');
+        var ts = o.zona === 'fora' ? tileSob(dg.cx, dg.cy) : null;
+        [].slice.call(document.querySelectorAll('#v-inicio .tl.troca')).forEach(function (el) {
+          if (el !== ts) el.classList.remove('troca');
+        });
+        if (ts) ts.classList.add('troca');
+        dg.troca = ts;
+      }
       var B = barraLista();
       // segurar sobre outro botão da barra por um instante = juntar
       var kk = dg.deBarra && !grpGet(dg.id) && o.zona === 'barra' && o.k > 0 && B[o.k - 1] !== dg.id ? o.k : -1;
@@ -31489,10 +31726,14 @@
         dica(grpGet(al) ? 'Solte para juntar ao grupo ' + barraNome(al) : 'Solte para juntar com ' + barraNome(al));
       } else if (!dg.deBarra && o.zona === 'barra' && o.k > 0 && grpGet(B[o.k - 1])) {
         dica('Solte para adicionar ao grupo ' + barraNome(B[o.k - 1]));
+      } else if (!dg.deBarra && o.zona === 'lixo') {
+        dica('Solte para ocultar este botão');
+      } else if (!dg.deBarra && dg.troca) {
+        dica('Solte para trocar de lugar');
       } else if (dg.deBarra) {
         dica(o.zona === 'barra' ? (o.k > 0 ? 'Solte para trocar de lugar · segure para juntar' : 'Arraste para fora para tirar da barra') : 'Solte aqui para tirar da barra');
       } else if (B.length < BARRA_MAX) {
-        dica(o.zona === 'barra' ? 'Solte para adicionar à barra' : 'Arraste até a barra de baixo · ' + (B.length + 1) + '/5');
+        dica(o.zona === 'barra' ? 'Solte aqui para fixar · ' + (B.length + 1) + '/5' : 'Arraste até a barra para fixar · ou até a lixeira para ocultar');
       } else {
         dica(o.zona === 'barra' ? (o.k > 0 ? 'Solte para trocar por este' : 'O Início fica sempre na barra') : 'Barra cheia (5/5) · solte sobre um botão para trocar');
       }
@@ -31514,6 +31755,7 @@
       src.classList.add('qorig');
       document.body.classList.add('arrastaBarra');
       barEl().classList.add('qd');
+      if (!dg.deBarra) lixoEl().classList.add('on');
       vibrar(15);
       quadro();
     }
@@ -31577,6 +31819,11 @@
       });
       barEl().classList.remove('qd');
       document.body.classList.remove('arrastaBarra');
+      var lx = $('inLixo');
+      if (lx) lx.classList.remove('on', 'perto');
+      [].slice.call(document.querySelectorAll('#v-inicio .tl.troca')).forEach(function (el) {
+        el.classList.remove('troca');
+      });
     }
     function fim(ev) {
       if (!dg) return;
@@ -31595,7 +31842,9 @@
         pr = '',
         pt = '',
         msg = '';
-      var pend = null,
+      var oculta = false,
+        troca = '',
+        pend = null,
         alvoG = o.zona === 'barra' && o.k > 0 ? B[o.k - 1] : null;
       if (d.deBarra && grpGet(d.id) && Math.abs(d.cx - d.x0) + Math.abs(d.cy - d.y0) < 14 && ev && ev.type === 'pointerup') {
         // segurou o grupo sem mexer: gerenciar
@@ -31612,6 +31861,10 @@
           volta = true;
           pend = ['novo', alvoG, d.id];
         }
+      } else if (!d.deBarra && o.zona === 'lixo') {
+        oculta = true;
+      } else if (!d.deBarra && o.zona === 'fora' && d.troca) {
+        troca = d.troca.getAttribute('data-id');
       } else if (!d.deBarra && alvoG && grpGet(alvoG)) {
         if (grpAdd(alvoG, d.id)) {
           B = barraLista().slice();
@@ -31673,6 +31926,51 @@
         else dicaOff();
         return;
       }
+      if (oculta || troca) {
+        var L0 = iniLista().slice(),
+          i0 = L0.indexOf(d.id);
+        if (oculta) {
+          L0.splice(i0, 1);
+          S.inicioT = L0;
+          S.inicioFant = false;
+          var lr2 = lixoEl().getBoundingClientRect();
+          if (g && !REDUCED) {
+            g.style.transition = 'all .3s cubic-bezier(.4,0,.2,1)';
+            g.style.left = lr2.left + lr2.width / 2 - d.gw / 2 + 'px';
+            g.style.top = lr2.top + lr2.height / 2 - d.gh / 2 + 'px';
+            g.style.transform = 'scale(.05)';
+            g.style.opacity = '0';
+          }
+          setTimeout(function () {
+            fecha();
+            render();
+            vibrar(20);
+            lfDesfazer('"' + nome + '" ocultado do Início', function () {
+              var l2 = iniLista().slice();
+              l2.splice(Math.min(i0, l2.length), 0, d.id);
+              S.inicioT = l2;
+              render();
+              popTile(d.id);
+            });
+          }, REDUCED ? 0 : 300);
+        } else {
+          var j0 = L0.indexOf(troca);
+          if (i0 >= 0 && j0 >= 0) {
+            L0[i0] = troca;
+            L0[j0] = d.id;
+            S.inicioT = L0;
+          }
+          setTimeout(function () {
+            fecha();
+            render();
+            popTile(d.id);
+            popTile(troca);
+            vibrar(20);
+          }, REDUCED ? 0 : 120);
+          dicaOff();
+        }
+        return;
+      }
       S.barra = B;
       if (g && !REDUCED && o.zona === 'barra' && o.k >= 0) {
         var sr = slots()[o.k] ? slots()[o.k].getBoundingClientRect() : null;
@@ -31696,6 +31994,123 @@
     }
     document.addEventListener('pointerup', fim, true);
     document.addEventListener('pointercancel', fim, true);
+  })();
+  // Início: segurar no fundo (logo, cartão de cima, espaço vazio) mostra os botões ocultos; tocar num volta, tocar fora fecha.
+  (function () {
+    var ht = 0,
+      x0 = 0,
+      y0 = 0,
+      abriuEm = 0,
+      anel = null;
+    function noFundo(t) {
+      if (!t || !t.closest) return false;
+      if (t.closest('#mainnav,#lfDesf,#inLixo,.tl,button,input,select,textarea,a,.card,[data-act]:not(.hero)')) return false;
+      return !!t.closest('#v-inicio,.logo-top,.wrap');
+    }
+    function limpaAnel() {
+      if (anel) {
+        anel.remove();
+        anel = null;
+      }
+    }
+    document.addEventListener(
+      'pointerdown',
+      function (e) {
+        if (S.view !== 'inicio' || (S.inicioEd) || !noFundo(e.target)) return;
+        x0 = e.clientX;
+        y0 = e.clientY;
+        clearTimeout(ht);
+        limpaAnel();
+        if (!REDUCED) {
+          anel = document.createElement('div');
+          anel.className = 'fantAnel';
+          anel.style.left = x0 + 'px';
+          anel.style.top = y0 + 'px';
+          document.body.appendChild(anel);
+        }
+        ht = setTimeout(function () {
+          limpaAnel();
+          if (S.inicioFant) return;
+          var B = grpPlana(),
+            L = iniLista(),
+            n = INI_TODOS.filter(function (id) {
+              return L.indexOf(id) < 0 && B.indexOf(id) < 0;
+            }).length;
+          abriuEm = Date.now();
+          vibrar(15);
+          if (!n) {
+            lfToast('Nenhum botão oculto');
+            return;
+          }
+          S.inicioFant = true;
+          render();
+          var g = document.querySelector('#v-inicio .tl.fant');
+          if (g && g.scrollIntoView) g.scrollIntoView({ block: 'center', behavior: REDUCED ? 'auto' : 'smooth' });
+        }, 500);
+      },
+      true
+    );
+    function solta() {
+      clearTimeout(ht);
+      limpaAnel();
+    }
+    document.addEventListener('pointerup', solta, true);
+    document.addEventListener('pointercancel', solta, true);
+    document.addEventListener(
+      'pointermove',
+      function (e) {
+        if (ht && Math.abs(e.clientX - x0) + Math.abs(e.clientY - y0) > 12) solta();
+      },
+      true
+    );
+    // tocar fora dos fantasmas fecha (o toque logo após abrir é ignorado)
+    document.addEventListener(
+      'click',
+      function (e) {
+        if (!S.inicioFant) return;
+        if (Date.now() - abriuEm < 700) {
+          e.stopPropagation();
+          e.preventDefault();
+          return;
+        }
+        if (e.target.closest && e.target.closest('.tl.fant,[data-act="inicioReset"]')) return;
+        S.inicioFant = false;
+        render();
+      },
+      true
+    );
+  })();
+  // ===== Sistema de botões (v407): ícones, aviso com Desfazer e confirmação no próprio botão. =====
+  // Aviso com "Desfazer" (4,5 s). fn roda se a pessoa tocar em Desfazer.
+  function lfDesfazer(msg, fn) {
+    var e = $('lfDesf');
+    if (!e) {
+      e = document.createElement('div');
+      e.id = 'lfDesf';
+      e.setAttribute('role', 'status');
+      e.innerHTML = '<span></span><button type="button">Desfazer</button>';
+      document.body.appendChild(e);
+      e.lastChild.onclick = function () {
+        var f = lfDesfazer.fn;
+        lfDesfazer.fn = null;
+        e.classList.remove('on');
+        if (f) f();
+      };
+    }
+    e.firstChild.textContent = msg;
+    lfDesfazer.fn = fn;
+    e.classList.remove('on');
+    void e.offsetWidth;
+    e.classList.add('on');
+    clearTimeout(lfDesfazer.t);
+    lfDesfazer.t = setTimeout(function () {
+      e.classList.remove('on');
+      lfDesfazer.fn = null;
+    }, 4500);
+  }
+  (function () {
+    var w = $('vWa');
+    if (w) w.innerHTML = ICO.wa;
   })();
   // ===== Carrinho: várias peças numa venda só; o piso vale para o total, não para cada peça. =====
   S.cart = [];

@@ -166,10 +166,10 @@ html[data-tema="claro"] #lfIntro{background:#f4f1f4;--lg:url(logo-app-claro.png)
   <div id="v-dia" class="view" hidden></div>
   <div id="v-vendas" class="view" hidden>
     <div class="nav uniTabs" id="uniV" role="group" aria-label="Seções de produtos" style="margin:4px 0 8px"></div>
-    <div class="top"><div><h1>Vendas</h1><div class="crumb">Busque a peça, escolha a variante e finalize. O estoque desce sozinho.</div></div></div>
+    <div class="top"><div><div style="display:flex;align-items:center;gap:12px"><h1 style="margin:0">Catálogo</h1><button type="button" class="ic wa" id="vWa" data-act="tabenviar" aria-label="Enviar no WhatsApp" title="Enviar no WhatsApp"></button></div><div class="crumb">Busque a peça, escolha a variante e finalize. O estoque desce sozinho.</div></div></div>
     <div class="main">
       <section class="card col" id="vListCard" aria-label="Escolher a peça">
-        <div id="vTabBar" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"></div><div><div class="lbl">Buscar a peça</div><input class="in" id="vq" placeholder="Código, nome, cor, grau, formato, medida…" style="max-width:420px" autocomplete="off"></div>
+        <div id="vTabBar" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"></div><div><input class="in" id="vq" placeholder="Código, nome, cor, grau, formato, medida…" style="max-width:420px" autocomplete="off"></div>
         <div id="vFiltPanel" hidden class="col" style="gap:10px"><div id="vProdB"><div class="lbl">Produto</div><div class="nav" id="vTabs" role="group" aria-label="Produto"></div></div><div id="vGradesB" hidden><div class="lbl">Grau que o cliente pede</div><div class="gradechips" id="vGrades" role="group" aria-label="Grau"></div></div><div id="vFaixaB" hidden><div class="lbl">Faixa</div><div class="nav" id="vFaixas" role="group" aria-label="Filtrar por faixa"></div></div></div>
         <div class="list" id="vRows"></div>
         <div id="vLinesB" hidden><div class="lbl" id="vProdL"></div><div class="nav" id="sLines"></div></div>
@@ -290,7 +290,7 @@ html[data-tema="claro"] #lfIntro{background:#f4f1f4;--lg:url(logo-app-claro.png)
 <section id="notaOv" class="catov" aria-label="Venda registrada" hidden></section>
   <div id="notaCf" class="notacf" hidden></div>
   <div id="notaPrint" aria-hidden="true"></div>
-  <script>/*LOADER*/(function(){var EMB=406,d=document,m=null;try{m=JSON.parse(localStorage.getItem('lf_upd')||'null')}catch(e){}
+  <script>/*LOADER*/(function(){var EMB=407,d=document,m=null;try{m=JSON.parse(localStorage.getItem('lf_upd')||'null')}catch(e){}
 function std(){var s=d.createElement('script');s.src='app.js';d.body.appendChild(s)}
 if(!m||!(m.v>EMB)||!window.caches||(m.tent||0)>=2){if(m&&m.v>EMB&&(m.tent||0)>=2){try{localStorage.removeItem('lf_upd');caches.delete('lafouch-upd')}catch(e){}}std();return}
 try{localStorage.setItem('lf_upd',JSON.stringify({v:m.v,tent:(m.tent||0)+1}))}catch(e){}

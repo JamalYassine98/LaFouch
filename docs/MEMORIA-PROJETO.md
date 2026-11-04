@@ -581,3 +581,12 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - 03/11 REGRA DE CORES UNIVERSAIS (dono, NÃO implementar): ícones com significado universal têm cor própria ao tocar: LIXEIRA = vermelho ao tocar (e é tipo Perigo: vermelho suave no repouso), check/concluído = verde, ação principal = rosa. Dono pediu uma MINI VERSÃO INTERATIVA do app com os botões novos (protótipo em artefato; não toca no app real).
 
 - 03/11/2026 — Mini app protótipo (artefato "Mini App La Fouch") com o padrão de botões: contorno rosa, verde ao concluir, lixeira/Estornar tipo Perigo (vermelho ao tocar), Pagar = círculo à esquerda (opção 3), Varejo|Atacado em pílulas, moldura e WhatsApp só ícone. SÓ PROTÓTIPO, nada implementado no app. Fonte: /tmp/mini/mini.html.
+
+## v407 / versão 4.0 (03/11/2026) — IMPLEMENTADO (dono: "Dali pode implementar tudo")
+- Botão principal = igual à aba selecionada "Vendas": fundo rosa escuro, borda rosa, letra branca; toque = rosa cheio; concluído = verde; Perigo/lixeira = vermelho ao tocar; raio 14 (D1 decidido por padrão, mudar se o dono pedir); chip selecionado idem. CSS no fim de www/style.css; ícones em src/00-icones.js; aviso Desfazer em src/98-botoes-sistema.js (lfDesfazer).
+- Início: chip "Personalizar" removido; arrastar até a barra (fixar), lixeira (ocultar + Desfazer) ou outro botão (trocar); segurar 500 ms no fundo mostra ocultos esmaecidos (tocar volta, tocar fora fecha, "Restaurar padrão" aparece ali). Fornecedores = "Compras".
+- Folha do produto: um risco só (só nele o swipe), toque fora fecha, fundo sem rolagem, +/− atualiza no lugar (número rola, preço conta).
+- Catálogo único: título + ícone WhatsApp ao lado, Varejo|Atacado, busca larga com lupa + moldura, linha de baixo ("N peças" ou chip Tabela) + filtro + lista; barra Vendas/WhatsApp/Site saiu daqui (ficam só nas telas WhatsApp e Loja online). Lista do Atacado (− N +) NÃO redesenhada (pendente).
+- Câmera: ícone moldura com óculos (Inventário e Catálogo) abre gaveta "Buscar com a câmera": Ler haste | Foto da armação (Mais parecidas com %). Campo "Ou digite o código" removido. Fecha deslizando no risco ou tocando fora.
+- Despesas: círculo de pagar à esquerda, "Salvar", lixeira (Desfazer 4,5 s).
+- Ainda em padrão antigo (pendentes): demais telas fora do CSS global (Exportar/Importar, Caixa, navegação do dia, abas da Loja online), animação 3 (preços contando no Varejo/Atacado).

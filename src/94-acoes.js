@@ -10,6 +10,7 @@
       render();
     },
     inicioReset: function () {
+      S.inicioFant = false;
       S.inicioT = null;
       S.barra = null;
       S.grupos = [];
@@ -257,21 +258,32 @@
       renderDash();
     },
     exprm: function (id) {
-      if (S.confRm !== Number(id)) {
-        S.confRm = Number(id);
-        renderDesp();
-        return;
-      }
-      var rm = S.exp.filter(function (x) {
-        return x.id === Number(id);
-      })[0];
-      if (rm) logDespesa('rem', { nome: rm.nome, cat: rm.cat, valor: rm.valor });
-      S.exp = S.exp.filter(function (x) {
-        return x.id !== Number(id);
-      });
-      S.confRm = '';
-      renderDesp();
-      renderDash();
+      var i = S.exp.findIndex(function (x) {
+          return x.id === Number(id);
+        }),
+        rm = S.exp[i];
+      if (!rm) return;
+      var el = $('ec-' + id),
+        fim = function () {
+          logDespesa('rem', { nome: rm.nome, cat: rm.cat, valor: rm.valor });
+          S.exp = S.exp.filter(function (x) {
+            return x.id !== Number(id);
+          });
+          S.confRm = '';
+          saveSoon();
+          renderDesp();
+          renderDash();
+          lfDesfazer('"' + rm.nome + '" removida', function () {
+            S.exp.splice(Math.min(i, S.exp.length), 0, rm);
+            saveSoon();
+            renderDesp();
+            renderDash();
+          });
+        };
+      if (el && !REDUCED) {
+        el.classList.add('out');
+        setTimeout(fim, 280);
+      } else fim();
     },
     expadd: function () {
       var n = cap1($('nName').value),

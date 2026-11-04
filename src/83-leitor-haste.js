@@ -235,7 +235,6 @@
     bx.appendChild(tk);
     bx.appendChild(st);
     bx.appendChild(rs);
-    bx.appendChild(man);
     bx.appendChild(fi);
     ov.appendChild(bx);
     ov.addEventListener('click', function (e) {
@@ -254,12 +253,12 @@
       var b = document.createElement('button');
       b.type = 'button';
       b.className = 'chip';
-      b.title = 'Ler código da haste com a câmera';
-      b.setAttribute('aria-label', 'Ler código da haste com a câmera');
+      b.title = 'Buscar com a câmera';
+      b.setAttribute('aria-label', 'Buscar com a câmera');
       b.style.cssText = 'min-height:44px;width:48px;padding:0;justify-content:center;flex:0 0 auto';
-      b.innerHTML = cam;
+      b.innerHTML = ICO.moldura;
       b.onclick = function () {
-        hasteOpen(inp);
+        camGaveta(inp);
       };
       return b;
     }
@@ -269,32 +268,47 @@
     var v = $('vq');
     if (v) {
       var w = document.createElement('div');
-      w.style.cssText = 'display:flex;gap:8px;align-items:center;max-width:540px;width:100%';
+      w.style.cssText = 'display:flex;flex-direction:column;gap:10px;max-width:560px;width:100%';
       v.parentNode.insertBefore(w, v);
-      w.appendChild(v);
-      v.style.flex = '1 1 0';
-      v.style.width = 'auto';
-      v.style.minWidth = '0';
-      v.style.maxWidth = 'none';
-      w.appendChild(mkCam(v));
-      var fb = mk('button', 'chip');
+      // barra de busca larga: lupa à esquerda, moldura com óculos (câmera) dentro, à direita
+      var bs = document.createElement('div');
+      bs.className = 'bs';
+      bs.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>';
+      v.style.cssText = 'flex:1 1 0;min-width:0;width:auto;max-width:none';
+      v.className = '';
+      v.placeholder = 'Buscar peça, código, cor…';
+      bs.appendChild(v);
+      var cm = mkCam(v);
+      cm.className = 'ic cam';
+      cm.style.cssText = '';
+      bs.appendChild(cm);
+      w.appendChild(bs);
+      // linha de baixo: informação (N peças / Tabela) à esquerda; filtro e lista à direita
+      var sub = document.createElement('div');
+      sub.className = 'vsub';
+      var info = document.createElement('div');
+      info.id = 'vInfo';
+      sub.appendChild(info);
+      var dir = document.createElement('div');
+      dir.className = 'vdir';
+      sub.appendChild(dir);
+      w.appendChild(sub);
+      var fb = mk('button', 'ic');
       fb.type = 'button';
       fb.id = 'vBtnFilt';
       fb.setAttribute('aria-label', 'Filtros');
       fb.title = 'Filtros';
-      fb.style.cssText =
-        'min-height:44px;width:48px;padding:0;justify-content:center;flex:0 0 auto';
       fb.innerHTML =
         '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8Z"/></svg>';
       fb.onclick = function () {
         S.vFilt = !S.vFilt;
         render();
       };
-      w.appendChild(fb);
-      var mb = mk('button', 'chip modebtn');
+      dir.appendChild(fb);
+      var mb = mk('button', 'ic modebtn');
       mb.type = 'button';
       mb.id = 'vModo';
-      w.appendChild(mb);
+      dir.appendChild(mb);
     }
   })();
 

@@ -834,7 +834,7 @@ async def main():
             # Catálogo do WhatsApp: tela própria, só fotos, sem texto repetido
             total += 1
             card = await pg.evaluate("() => { const c = document.querySelector('#vRows .pcard'); return [c.querySelectorAll('.tag, .faixa').length, c.querySelectorAll('span.s').length, document.getElementById('vCatBtn') === null]; }")
-            await pg.locator('#uniV .cb3').nth(1).click(); await pg.wait_for_timeout(400)
+            await pg.evaluate("() => { window.__LF.S.catOpen = true; window.__LF.setView('vendas'); }"); await pg.wait_for_timeout(400)
             cv = await pg.evaluate("() => { const g = document.querySelectorAll('#cvGal .gi'); return [document.getElementById('catV').hidden, g.length, document.querySelectorAll('#cvGal .gi b, #cvGal .gi span, #cvTipos').length, g.length ? g[0].querySelectorAll('.ck').length : 0, document.getElementById('cvSend').textContent]; }")
             await pg.locator('#cvAll').click(); await pg.wait_for_timeout(300)
             cv2 = await pg.evaluate("() => [document.querySelectorAll('#cvGal .ck').length, document.getElementById('cvSend').textContent]")
@@ -1727,9 +1727,9 @@ async def main():
             await pg.evaluate("() => window.__LF.setView('caixa')"); await pg.wait_for_timeout(60)
             casc = await pg.evaluate("() => !document.getElementById('v-caixa').classList.contains('slideL') && !document.getElementById('v-caixa').classList.contains('slideR')")
             desl = desl and casc
-            bg = await pg.evaluate("() => { const b = document.createElement('button'); b.className = 'go'; b.textContent = 'x'; document.body.appendChild(b); const v = getComputedStyle(b).backgroundImage; b.remove(); return v; }")
+            bg = await pg.evaluate("() => { const b = document.createElement('button'); b.className = 'go'; b.textContent = 'x'; document.body.appendChild(b); const v = getComputedStyle(b).borderTopWidth + ' ' + getComputedStyle(b).borderTopColor; b.remove(); return v; }")
             total += 1
-            ok = 'Lembretes' not in aj and 'Nota fiscal' not in aj and desl is True and 'gradient' in bg and not pg.erros
+            ok = 'Lembretes' not in aj and 'Nota fiscal' not in aj and desl is True and 'rgb(162, 68, 124)' in bg and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Ajustes sem lembretes/nota; botão em gradiente; troca desliza')
             if not ok: falhas.append('familia botoes'); print('        veio', 'Lembretes' in aj, 'Nota fiscal' in aj, desl, bg[:30], pg.erros)
             await pg.close()
@@ -1785,7 +1785,7 @@ async def main():
               S.cart = [{it: it, qty: 300, tab: 'pub', preco: null}]; const sg = L.tabSugestao(); const antes = S.cart.length;
               L.tabAplicaCarrinho('a1'); const sub = L.precoTab(it, 'a1') * 300;
               L.setView('vendas'); L.render();
-              return {pub, a1, a10, opt, fg, sg: sg && sg.T.id, sub, chip: (document.getElementById('vTabBar') || {}).innerText, msg: L.tabMensagem([]).slice(0, 60)}; }""")
+              return {pub, a1, a10, opt, fg, sg: sg && sg.T.id, sub, chip: (document.getElementById('vInfo') || {}).innerText, msg: L.tabMensagem([]).slice(0, 60)}; }""")
             total += 1
             ok = tb['pub'] > 0 and 0 < tb['a10'] <= tb['a1'] <= tb['opt'] <= tb['pub'] and tb['fg'] >= tb['opt'] and tb['fg'] <= tb['pub'] and tb['sg'] and 'Tabela: Atacado 1K' in (tb['chip'] or '') and 'Olá' in tb['msg'] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'tabelas de preço: ordem das margens, sugestão, chip e mensagem')
@@ -1840,7 +1840,7 @@ async def main():
             print(('  ok  ' if ok else ' FALHA ') + 'vitrine: arrastar de lado troca a peça e para baixo fecha')
             if not ok: falhas.append('vitrine gestos'); print('        veio', gs_, pg.erros)
             ev_ = await pg.evaluate("""async () => { const L = window.__LF, S = L.S; S.tabAtiva = 'pub'; S._vVis = []; S.pprice = {GA1: {novo: 400000, ant: 0}, GB2: {novo: 300000, ant: 0}}; S.vRef = ''; L.setView('vendas'); L.render();
-              [...document.querySelectorAll('#vTabBar .chip')].find(b => b.innerText.includes('WhatsApp')).click();
+              document.getElementById('vWa').click();
               const msg = (document.getElementById('envMsg') || {}).value || ''; const fmts = document.querySelectorAll('[data-act=envfmt]').length;
               const fo = await L.envFolha(); return {msg, fmts, fo}; }""")
             total += 1
@@ -2196,45 +2196,31 @@ async def main():
             if not ok: falhas.append('nuvem'); print('        veio', tem, rt, pg.erros)
             await pg.close()
 
-            # Início: arrastar um botão para qualquer posição (os outros abrem espaço e a ordem é gravada ao soltar)
+            # Início: sem botão "Personalizar"; arrastar até a lixeira oculta (Desfazer volta), soltar em outro botão troca, segurar no fundo mostra os ocultos
             pg = await pagina()
-            await pg.evaluate("() => { window.__LF.S.inicioT = null; window.__LF.setView('inicio'); }")
-            await pg.click('[data-act=inicioEd]'); await pg.wait_for_timeout(400)
-            antes = await pg.evaluate("() => [...document.querySelectorAll('#v-inicio .twrap')].map(w => w.getAttribute('data-k'))")
-            bb = await pg.evaluate("() => [...document.querySelectorAll('#v-inicio .twrap')].map(w => { const r = w.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; })")
-            T = max(k for k in range(1, 6) if bb[k][1] < 560)  # alvo longe das bordas (a tela rola sozinha perto delas)
-            await pg.mouse.move(bb[0][0], bb[0][1]); await pg.mouse.down()
-            for k in range(1, 21):
-                await pg.mouse.move(bb[0][0] + (bb[T][0] - bb[0][0]) * k / 20, bb[0][1] + (bb[T][1] - bb[0][1]) * k / 20); await pg.wait_for_timeout(40)
-            await pg.mouse.move(bb[T][0], bb[T][1]); await pg.wait_for_timeout(400)
-            meio = await pg.evaluate("() => [document.body.classList.contains('arrastando'), window.__LF.S.inicioT && window.__LF.S.inicioT.join()]")
+            await pg.evaluate("() => { window.__LF.S.inicioT = null; window.__LF.setView('inicio'); }"); await pg.wait_for_timeout(400)
+            semChip = await pg.evaluate("() => !document.querySelector('[data-act=inicioEd]')")
+            t = await pg.locator('#v-inicio .tl[data-id=fx]').bounding_box()
+            await pg.mouse.move(t['x'] + 40, t['y'] + 30); await pg.mouse.down(); await pg.mouse.move(t['x'] + 60, t['y'] + 80, steps=4); await pg.wait_for_timeout(300)
+            lb = await pg.locator('#inLixo').bounding_box()
+            await pg.mouse.move(lb['x'] + 32, lb['y'] + 32, steps=8); await pg.wait_for_timeout(300)
+            perto = await pg.evaluate("() => document.getElementById('inLixo').classList.contains('perto')")
             await pg.mouse.up(); await pg.wait_for_timeout(700)
-            depois = await pg.evaluate("() => [...document.querySelectorAll('#v-inicio .twrap')].map(w => w.getAttribute('data-k'))")
-            salvo = await pg.evaluate("() => window.__LF.S.inicioT.slice(0, 7)")
+            oculto = await pg.evaluate("() => !document.querySelector('#v-inicio .tl[data-id=fx]') && window.__LF.S.inicioT.indexOf('fx') < 0")
+            await pg.click('#lfDesf button'); await pg.wait_for_timeout(400)
+            voltou = await pg.evaluate("() => !!document.querySelector('#v-inicio .tl[data-id=fx]')")
+            a = await pg.locator('#v-inicio .tl[data-id=desp]').bounding_box(); c = await pg.locator('#v-inicio .tl[data-id=hist]').bounding_box()
+            o0 = await pg.evaluate("() => [...document.querySelectorAll('#v-inicio .tl')].map(e => e.dataset.id).slice(0, 4)")
+            await pg.mouse.move(a['x'] + 40, a['y'] + 30); await pg.mouse.down(); await pg.mouse.move(a['x'] + 60, a['y'] + 50, steps=3); await pg.mouse.move(c['x'] + 40, c['y'] + 30, steps=8); await pg.mouse.up(); await pg.wait_for_timeout(600)
+            o1 = await pg.evaluate("() => [...document.querySelectorAll('#v-inicio .tl')].map(e => e.dataset.id).slice(0, 4)")
+            await pg.mouse.move(200, 150); await pg.mouse.down(); await pg.wait_for_timeout(900); await pg.mouse.up(); await pg.wait_for_timeout(500)
+            nf = await pg.locator('.tl.fant').count()
+            await pg.click('.tl.fant >> nth=0'); await pg.wait_for_timeout(400)
+            nf2 = await pg.locator('.tl.fant').count()
             total += 1
-            esperado = antes[1:T + 1] + [antes[0]] + antes[T + 1:]
-            ok = meio[0] is True and depois == esperado and salvo == esperado[:7] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'Início: arrastar o botão para outra posição e gravar a ordem')
-            if not ok: falhas.append('arrastar inicio'); print('        veio', antes, meio, depois, salvo, pg.erros)
-            await pg.close()
-
-            # Início: personalizar botões (remover, mover, adicionar, restaurar)
-            pg = await pagina()
-            await pg.evaluate("() => { window.__LF.S.inicioT = null; window.__LF.setView('inicio'); }")
-            await pg.click('[data-act=inicioEd]'); await pg.wait_for_timeout(300)
-            await pg.click('[data-act=inicioRm][data-id=ped]'); await pg.wait_for_timeout(200)
-            tx = await pg.evaluate("() => [document.querySelectorAll('.tedit button').length, document.querySelectorAll('.tedit button.x').length, document.querySelectorAll('[data-act=inicioMv]').length]")
-            await pg.click('[data-act=inicioAdd][data-id=novo]'); await pg.wait_for_timeout(200)
-            l1 = await pg.evaluate("() => window.__LF.S.inicioT.slice()")
-            await pg.click('[data-act=inicioEd]'); await pg.wait_for_timeout(200)
-            await pg.evaluate("() => { window.__LF.setView('caixa'); window.__LF.setView('inicio'); }"); await pg.wait_for_timeout(200)
-            nomes = await pg.evaluate("() => [...document.querySelectorAll('#v-inicio .tl .tn')].map(e => e.textContent)")
-            await pg.click('[data-act=inicioEd]'); await pg.wait_for_timeout(600); await pg.click('[data-act=inicioReset]'); await pg.wait_for_timeout(300)
-            l2 = await pg.evaluate("() => window.__LF.S.inicioT")
-            total += 1
-            ok = tx[0] == tx[1] and tx[2] == 0 and 'ped' not in l1 and l1[-1] == 'novo' and l1.index('ajustes') < l1.index('prec') + 3 and 'Novo produto' in nomes and 'Pedidos' not in nomes and l2 is None and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'Início: personalizar botões')
-            if not ok: falhas.append('personalizar inicio'); print('        veio', l1, nomes, l2, pg.erros)
+            ok = semChip and perto and oculto and voltou and o1 == [o0[0], o0[2], o0[1], o0[3]] and nf > 0 and nf2 == nf - 1 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Início: lixeira oculta (com Desfazer), soltar em outro botão troca, segurar no fundo mostra os ocultos')
+            if not ok: falhas.append('inicio lixeira'); print('        veio', semChip, perto, oculto, voltou, o0, o1, nf, nf2, pg.erros)
             await pg.close()
 
             # pagamento simples: sem botão de várias moedas, "+ Outra moeda" direto, câmbio dito em dólar e dólar da loja de 100 em 100

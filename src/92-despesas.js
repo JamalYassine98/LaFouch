@@ -10,7 +10,19 @@
     var last = e.hist[e.hist.length - 1],
       paid = !!(e.paid && e.paid[ymNow()]);
     var h =
-      '<div class="card col" style="background:var(--panel2);padding:14px"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:baseline"><div><b>' +
+      '<div class="card col cdel" id="ec-' + e.id + '" style="background:var(--panel2);padding:14px"><div style="display:flex;align-items:center;gap:10px"><button type="button" class="chk' +
+      (paid ? ' on' : '') +
+      '" data-act="exppay" data-id="' +
+      e.id +
+      '" aria-pressed="' +
+      paid +
+      '" aria-label="' +
+      (paid ? 'Pago neste mês. Toque para desfazer' : 'Marcar como paga neste mês') +
+      '">' +
+      (paid ? ICO.chk : '') +
+      '</button><div style="min-width:0"><b' +
+      (paid ? ' class="paga-nome"' : '') +
+      '>' +
       esc(e.nome) +
       '</b> <span class="cell">' +
       (e.tipo === 'fixa' ? 'fixa' : 'variável') +
@@ -18,21 +30,7 @@
       (expMoeda(e) !== 'pyg'
         ? ' <span class="cell">' + (expMoeda(e) === 'usd' ? 'em dólar' : 'em real') + '</span>'
         : '') +
-      '</div><div style="display:flex;align-items:center;gap:10px"><button type="button" data-act="exppay" data-id="' +
-      e.id +
-      '" aria-pressed="' +
-      paid +
-      '" title="' +
-      (paid ? 'Toque para desfazer' : 'Marcar como paga neste mês') +
-      '" style="min-height:34px;padding:0 14px;border-radius:999px;font-size:13px;background:' +
-      (paid ? 'rgba(34,197,94,.2)' : 'transparent') +
-      ';border:1px solid ' +
-      (paid ? '#22c55e' : 'var(--line)') +
-      ';color:' +
-      (paid ? '#86efac' : 'var(--sub)') +
-      '">' +
-      (paid ? '✓ Pago' : 'Pagar') +
-      '</button></div></div>';
+      '</div></div>';
     h +=
       '<div class="sel" style="flex-wrap:wrap"><input class="in" id="ev-' +
       e.id +
@@ -51,11 +49,13 @@
       esc(e.nome) +
       '" style="flex:0 0 64px;width:64px"><button class="mini" data-act="expsave" data-id="' +
       e.id +
-      '">Salvar novo valor</button>' +
-      '<button class="chip" data-act="exprm" data-id="' +
+      '">Salvar</button>' +
+      '<button class="ic pe" data-act="exprm" data-id="' +
       e.id +
+      '" aria-label="Remover ' +
+      esc(e.nome) +
       '">' +
-      (S.confRm === e.id ? 'Confirmar remoção' : 'Remover') +
+      ICO.lixo +
       '</button></div>';
     h +=
       '<div class="hint" id="pv-' +

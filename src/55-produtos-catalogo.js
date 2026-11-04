@@ -596,6 +596,10 @@
     ['uniV', 'uniS', 'uniW'].forEach(function (id) {
       var h = $(id);
       if (!h) return;
+      if (id === 'uniV') {
+        h.hidden = true; // Catálogo único: Varejo | Atacado + ícone do WhatsApp, sem a barra de abas
+        return;
+      }
       var on = uniOn();
       if (h.getAttribute('data-k') === on && h.firstChild) return;
       h.setAttribute('data-k', on);

@@ -122,7 +122,7 @@
       ajustes: ['Ajustes', ['Backup e metas', '']],
       novo: ['Novo produto', ['Cadastrar', '']],
       cont: ['Contagem', ['Conferir estoque', '']],
-      lotes: ['Fornecedores', ['Compras de mercadoria', '']],
+      lotes: ['Fornecedores', ['Compras', '']],
       cli: ['Clientes', [S.clientes.length + (S.clientes.length === 1 ? ' cadastrado' : ' cadastrados'), '']],
       ped: ['Pedidos online', [pedNovos() + ' novos', pedNovos() ? 'w' : '']],
       onl: ['Loja online', ['Catálogo e site', '']],
@@ -152,15 +152,17 @@
       return L.indexOf(id) < 0 && B.indexOf(id) < 0;
     });
     var extra = '';
-    if (ed && livres.length)
-      extra =
-        '<div class="lbl">Adicionar botão</div><div class="tgrid g4">' +
-        livres
-          .map(function (id) {
-            return tileHtml('data-act="inicioAdd" data-id="' + id + '"', id, D[id][0], null, 'sm', false);
-          })
-          .join('') +
-        '</div>';
+    if (S.inicioFant) {
+      var oc = INI_TODOS.filter(function (id) {
+        return L.indexOf(id) < 0 && B.indexOf(id) < 0;
+      });
+      grid += oc
+        .map(function (id) {
+          return tileHtml('data-act="inicioAdd" data-id="' + id + '" aria-label="Voltar ' + D[id][0] + '"', id, D[id][0], null, 'fant', false);
+        })
+        .join('');
+      if (oc.length) extra = '<div class="sel" style="justify-content:center"><button type="button" class="tx" data-act="inicioReset">Restaurar padrão</button></div>';
+    }
     var urg = notifAgora().filter(urgente).length,
       faixa = urg
         ? '<section class="card" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px;border-left:4px solid var(--bad);margin-bottom:12px"><div><b style="font-size:15px">' + urg + (urg === 1 ? ' aviso urgente' : ' avisos urgentes') + '</b><div class="hint" style="margin:2px 0 0">toque para ver o que precisa de você</div></div><button type="button" class="mini" data-act="view" data-id="notif">Ver</button></section>'
@@ -185,12 +187,7 @@
         : '';
     el.innerHTML = faixa + pend + semFoto +
       '<div class="hero" data-act="inicio" data-id="hoje" role="button" tabindex="0"><span class="hi">' + ico('hero', 26) + '</span><span><small>Vendido hoje · ' + h.n + ' venda(s)</small><b>' + gs(h.v) + '</b></span><span class="hg">›</span></div>' +
-      '<div class="tgrid' + (ed ? ' editando' : '') + '">' + grid + '</div>' + extra +
-      '<div class="sel" style="justify-content:center;gap:10px;flex-wrap:wrap">' +
-      (ed
-        ? '<button type="button" class="mini" data-act="inicioEd">Concluir</button><button type="button" class="chip" data-act="inicioReset">Restaurar padrão</button>'
-        : '<button type="button" class="chip" data-act="inicioEd">✎ Personalizar botões</button>') +
-      '</div>';
+      '<div class="tgrid' + (ed ? ' editando' : '') + '">' + grid + '</div>' + extra;
   }
   /* toque num azulejo da tela Início */
   function inicioGo(id) {

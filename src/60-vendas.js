@@ -167,8 +167,18 @@
         }, on));
       });
       if (atac) S._ultAtacAtual = S.tabAtiva;
-      tb.appendChild(btn('chip on', 'Tabela: ' + Ta.nome + ' ▾', function () { tabSheet(false); }, true));
-      tb.appendChild(btn('chip', 'Enviar no WhatsApp', function () { S._vVis = order.map(function (k) { return groups[k][0].ref; }); ACT.tabenviar(); }, false));
+      // linha de baixo da busca: Varejo = "N peças"; Atacado = chip da tabela
+      var inf = $('vInfo');
+      if (inf) {
+        inf.textContent = '';
+        if (atac) {
+          var tbtn = btn('chip on tabchip', 'Tabela: ' + Ta.nome + ' ▾', function () { tabSheet(false); }, true);
+          inf.appendChild(tbtn);
+        } else {
+          inf.appendChild(mk('span', 'vpcs', all.reduce(function (a, i) { return a + (i.qty > 0 ? i.qty : 0); }, 0) + ' peças'));
+        }
+      }
+      S._vVis = order.map(function (k) { return groups[k][0].ref; });
     }
     if (tb) {
       var pg0 = atacProg();

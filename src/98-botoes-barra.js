@@ -42,7 +42,22 @@
       },
       true
     );
+    function lixoEl() {
+      var e = $('inLixo');
+      if (!e) {
+        e = document.createElement('div');
+        e.id = 'inLixo';
+        e.setAttribute('aria-hidden', 'true');
+        e.innerHTML = '<span class="tp"></span><span class="cx">' + ICO.lixo + '</span>';
+        document.body.appendChild(e);
+      }
+      return e;
+    }
     function sobre(x, y) {
+      if (dg && !dg.deBarra && dg.on) {
+        var lr = lixoEl().getBoundingClientRect();
+        if (x >= lr.left - 24 && x <= lr.right + 24 && y >= lr.top - 24 && y <= lr.bottom + 24) return { zona: 'lixo', k: -1 };
+      }
       var b = barEl().getBoundingClientRect();
       if (y < b.top - 36 || y > b.bottom + 40) return { zona: y < b.top ? 'fora' : 'fora', k: -1 };
       var l = slots(),
@@ -52,6 +67,15 @@
         if (x >= r.left - 2 && x <= r.right + 2) k = i;
       });
       return { zona: 'barra', k: k };
+    }
+    // botão do Início sob o dedo (para trocar de lugar)
+    function tileSob(x, y) {
+      var t = null;
+      [].slice.call(document.querySelectorAll('#v-inicio .tl[data-act="inicio"]')).forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (el !== dg.el && x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) t = el;
+      });
+      return t;
     }
     function quadro() {
       if (!dg || !dg.on) return;
@@ -63,6 +87,15 @@
       l.forEach(function (s, i) {
         s.classList.toggle('qt', o.zona === 'barra' && i === o.k && i > 0);
       });
+      if (!dg.deBarra) {
+        lixoEl().classList.toggle('perto', o.zona === 'lixo');
+        var ts = o.zona === 'fora' ? tileSob(dg.cx, dg.cy) : null;
+        [].slice.call(document.querySelectorAll('#v-inicio .tl.troca')).forEach(function (el) {
+          if (el !== ts) el.classList.remove('troca');
+        });
+        if (ts) ts.classList.add('troca');
+        dg.troca = ts;
+      }
       var B = barraLista();
       // segurar sobre outro botão da barra por um instante = juntar
       var kk = dg.deBarra && !grpGet(dg.id) && o.zona === 'barra' && o.k > 0 && B[o.k - 1] !== dg.id ? o.k : -1;
@@ -87,10 +120,14 @@
         dica(grpGet(al) ? 'Solte para juntar ao grupo ' + barraNome(al) : 'Solte para juntar com ' + barraNome(al));
       } else if (!dg.deBarra && o.zona === 'barra' && o.k > 0 && grpGet(B[o.k - 1])) {
         dica('Solte para adicionar ao grupo ' + barraNome(B[o.k - 1]));
+      } else if (!dg.deBarra && o.zona === 'lixo') {
+        dica('Solte para ocultar este botão');
+      } else if (!dg.deBarra && dg.troca) {
+        dica('Solte para trocar de lugar');
       } else if (dg.deBarra) {
         dica(o.zona === 'barra' ? (o.k > 0 ? 'Solte para trocar de lugar · segure para juntar' : 'Arraste para fora para tirar da barra') : 'Solte aqui para tirar da barra');
       } else if (B.length < BARRA_MAX) {
-        dica(o.zona === 'barra' ? 'Solte para adicionar à barra' : 'Arraste até a barra de baixo · ' + (B.length + 1) + '/5');
+        dica(o.zona === 'barra' ? 'Solte aqui para fixar · ' + (B.length + 1) + '/5' : 'Arraste até a barra para fixar · ou até a lixeira para ocultar');
       } else {
         dica(o.zona === 'barra' ? (o.k > 0 ? 'Solte para trocar por este' : 'O Início fica sempre na barra') : 'Barra cheia (5/5) · solte sobre um botão para trocar');
       }
@@ -112,6 +149,7 @@
       src.classList.add('qorig');
       document.body.classList.add('arrastaBarra');
       barEl().classList.add('qd');
+      if (!dg.deBarra) lixoEl().classList.add('on');
       vibrar(15);
       quadro();
     }
@@ -175,6 +213,11 @@
       });
       barEl().classList.remove('qd');
       document.body.classList.remove('arrastaBarra');
+      var lx = $('inLixo');
+      if (lx) lx.classList.remove('on', 'perto');
+      [].slice.call(document.querySelectorAll('#v-inicio .tl.troca')).forEach(function (el) {
+        el.classList.remove('troca');
+      });
     }
     function fim(ev) {
       if (!dg) return;
@@ -193,7 +236,9 @@
         pr = '',
         pt = '',
         msg = '';
-      var pend = null,
+      var oculta = false,
+        troca = '',
+        pend = null,
         alvoG = o.zona === 'barra' && o.k > 0 ? B[o.k - 1] : null;
       if (d.deBarra && grpGet(d.id) && Math.abs(d.cx - d.x0) + Math.abs(d.cy - d.y0) < 14 && ev && ev.type === 'pointerup') {
         // segurou o grupo sem mexer: gerenciar
@@ -210,6 +255,10 @@
           volta = true;
           pend = ['novo', alvoG, d.id];
         }
+      } else if (!d.deBarra && o.zona === 'lixo') {
+        oculta = true;
+      } else if (!d.deBarra && o.zona === 'fora' && d.troca) {
+        troca = d.troca.getAttribute('data-id');
       } else if (!d.deBarra && alvoG && grpGet(alvoG)) {
         if (grpAdd(alvoG, d.id)) {
           B = barraLista().slice();
@@ -271,6 +320,51 @@
         else dicaOff();
         return;
       }
+      if (oculta || troca) {
+        var L0 = iniLista().slice(),
+          i0 = L0.indexOf(d.id);
+        if (oculta) {
+          L0.splice(i0, 1);
+          S.inicioT = L0;
+          S.inicioFant = false;
+          var lr2 = lixoEl().getBoundingClientRect();
+          if (g && !REDUCED) {
+            g.style.transition = 'all .3s cubic-bezier(.4,0,.2,1)';
+            g.style.left = lr2.left + lr2.width / 2 - d.gw / 2 + 'px';
+            g.style.top = lr2.top + lr2.height / 2 - d.gh / 2 + 'px';
+            g.style.transform = 'scale(.05)';
+            g.style.opacity = '0';
+          }
+          setTimeout(function () {
+            fecha();
+            render();
+            vibrar(20);
+            lfDesfazer('"' + nome + '" ocultado do Início', function () {
+              var l2 = iniLista().slice();
+              l2.splice(Math.min(i0, l2.length), 0, d.id);
+              S.inicioT = l2;
+              render();
+              popTile(d.id);
+            });
+          }, REDUCED ? 0 : 300);
+        } else {
+          var j0 = L0.indexOf(troca);
+          if (i0 >= 0 && j0 >= 0) {
+            L0[i0] = troca;
+            L0[j0] = d.id;
+            S.inicioT = L0;
+          }
+          setTimeout(function () {
+            fecha();
+            render();
+            popTile(d.id);
+            popTile(troca);
+            vibrar(20);
+          }, REDUCED ? 0 : 120);
+          dicaOff();
+        }
+        return;
+      }
       S.barra = B;
       if (g && !REDUCED && o.zona === 'barra' && o.k >= 0) {
         var sr = slots()[o.k] ? slots()[o.k].getBoundingClientRect() : null;
@@ -294,4 +388,89 @@
     }
     document.addEventListener('pointerup', fim, true);
     document.addEventListener('pointercancel', fim, true);
+  })();
+  // Início: segurar no fundo (logo, cartão de cima, espaço vazio) mostra os botões ocultos; tocar num volta, tocar fora fecha.
+  (function () {
+    var ht = 0,
+      x0 = 0,
+      y0 = 0,
+      abriuEm = 0,
+      anel = null;
+    function noFundo(t) {
+      if (!t || !t.closest) return false;
+      if (t.closest('#mainnav,#lfDesf,#inLixo,.tl,button,input,select,textarea,a,.card,[data-act]:not(.hero)')) return false;
+      return !!t.closest('#v-inicio,.logo-top,.wrap');
+    }
+    function limpaAnel() {
+      if (anel) {
+        anel.remove();
+        anel = null;
+      }
+    }
+    document.addEventListener(
+      'pointerdown',
+      function (e) {
+        if (S.view !== 'inicio' || (S.inicioEd) || !noFundo(e.target)) return;
+        x0 = e.clientX;
+        y0 = e.clientY;
+        clearTimeout(ht);
+        limpaAnel();
+        if (!REDUCED) {
+          anel = document.createElement('div');
+          anel.className = 'fantAnel';
+          anel.style.left = x0 + 'px';
+          anel.style.top = y0 + 'px';
+          document.body.appendChild(anel);
+        }
+        ht = setTimeout(function () {
+          limpaAnel();
+          if (S.inicioFant) return;
+          var B = grpPlana(),
+            L = iniLista(),
+            n = INI_TODOS.filter(function (id) {
+              return L.indexOf(id) < 0 && B.indexOf(id) < 0;
+            }).length;
+          abriuEm = Date.now();
+          vibrar(15);
+          if (!n) {
+            lfToast('Nenhum botão oculto');
+            return;
+          }
+          S.inicioFant = true;
+          render();
+          var g = document.querySelector('#v-inicio .tl.fant');
+          if (g && g.scrollIntoView) g.scrollIntoView({ block: 'center', behavior: REDUCED ? 'auto' : 'smooth' });
+        }, 500);
+      },
+      true
+    );
+    function solta() {
+      clearTimeout(ht);
+      limpaAnel();
+    }
+    document.addEventListener('pointerup', solta, true);
+    document.addEventListener('pointercancel', solta, true);
+    document.addEventListener(
+      'pointermove',
+      function (e) {
+        if (ht && Math.abs(e.clientX - x0) + Math.abs(e.clientY - y0) > 12) solta();
+      },
+      true
+    );
+    // tocar fora dos fantasmas fecha (o toque logo após abrir é ignorado)
+    document.addEventListener(
+      'click',
+      function (e) {
+        if (!S.inicioFant) return;
+        if (Date.now() - abriuEm < 700) {
+          e.stopPropagation();
+          e.preventDefault();
+          return;
+        }
+        if (e.target.closest && e.target.closest('.tl.fant,[data-act="inicioReset"]')) return;
+        S.inicioFant = false;
+        render();
+      },
+      true
+    );
   })();

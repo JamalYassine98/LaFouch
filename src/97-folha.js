@@ -26,13 +26,19 @@
       '<div class="folha-top"><div class="folha-img">' + (foto ? '<img alt="" src="' + foto + '">' : '') + '</div><div style="min-width:0"><b class="folha-nm">' + esc(pn(it.ref)) + '</b><div class="hint" style="margin:2px 0">' + esc(it.ref) + (it.cor && it.cor !== 'Sem cor' ? ' · ' + esc(it.cor) : '') + '</div>' + (p ? '<div class="folha-pr">' + gs(p) + '</div>' : '') + '</div></div>' +
       (Object.keys(cores).length > 1 ? '<div class="vcores" style="margin:10px 0">' + ch + '</div>' : '') +
       '<div class="folha-q"><span class="vstep"><span class="vs-b" role="button" tabindex="0" data-act="folhaq" data-id="-1" aria-label="Menos">−</span><span class="vs-n" id="folhaN">' + o.qty + '</span><span class="vs-b" role="button" tabindex="0" data-act="folhaq" data-id="1" aria-label="Mais">+</span></span><span class="hint" style="margin:0">' + gLivre(it) + ' un. disponíveis</span></div>' +
-      '<button type="button" class="btn" data-act="folhavender" style="width:100%;margin-top:10px">Vender' + (p ? ' · ' + gs(p * o.qty) : '') + '</button>' +
+      '<button type="button" class="btn go" data-act="folhavender" style="width:100%;margin-top:10px">Vender' + (p ? ' · ' + gs(p * o.qty) : '') + '</button>' +
       '<div class="hint" style="text-align:center;margin:8px 0 0">Deslize para cima para ver a vitrine</div>'
     );
   }
   function folhaDesenha() {
-    var ov = lfaAbre('lfa-folha', folhaHtml());
+    var antes = lfaSlot('lfa-folha'),
+      ov = lfaAbre('lfa-folha', folhaHtml());
     ov.classList.add('lfa-folha');
+    if (antes) ov.classList.add('ja'); // já estava aberta: não reinicia a animação
+    document.body.classList.add('folhaAberta');
+    if (!ov._fora) {
+      ov._fora = 1;
+    }
     var sh = ov.querySelector('.lfa-sh');
     if (sh && !sh._gest) {
       sh._gest = 1;
@@ -41,18 +47,24 @@
   }
   function folhaGestos(ov) {
     var sh = ov.querySelector('.lfa-sh'),
+      puxa = ov.querySelector('.folha-puxa'),
       y0 = 0,
       x0 = 0,
       dy = 0,
       on = false;
-    ov.addEventListener('touchstart', function (e) {
+    // tocar fora da folha fecha (desce)
+    ov.addEventListener('click', function (e) {
+      if (e.target === ov) folhaFecha();
+    });
+    if (!puxa) return;
+    puxa.addEventListener('touchstart', function (e) {
       if (e.touches.length !== 1) return;
       y0 = e.touches[0].clientY;
       x0 = e.touches[0].clientX;
       dy = 0;
       on = true;
     }, { passive: true });
-    ov.addEventListener('touchmove', function (e) {
+    puxa.addEventListener('touchmove', function (e) {
       if (!on) return;
       var y = e.touches[0].clientY - y0,
         x = e.touches[0].clientX - x0;
@@ -66,7 +78,7 @@
         sh.style.transform = 'translateY(' + Math.round(y * 0.8) + 'px)';
       }
     }, { passive: true });
-    ov.addEventListener('touchend', function () {
+    puxa.addEventListener('touchend', function () {
       if (!on) return;
       on = false;
       if (sh) {
@@ -86,6 +98,7 @@
   }
   function folhaFecha() {
     _fo = null;
+    document.body.classList.remove('folhaAberta');
     lfaFecha('lfa-folha');
   }
   function folhaVitrine() {
@@ -114,8 +127,29 @@
   };
   ACT.folhaq = function (d) {
     if (!_fo) return;
+    var antes = _fo.qty;
     _fo.qty = Math.max(1, Math.min(gLivre(_fo.it), _fo.qty + (+d || 0)));
-    folhaDesenha();
+    if (_fo.qty === antes) return;
+    // atualiza no lugar: o número rola e o preço conta, sem redesenhar a folha
+    var n = $('folhaN'),
+      bt = document.querySelector('#lfa-folha [data-act="folhavender"]'),
+      p = precoTab(_fo.it),
+      alvo = p * _fo.qty,
+      de = p * antes;
+    if (n) {
+      n.textContent = _fo.qty;
+      if (!REDUCED && n.animate) n.animate([{ transform: 'translateY(' + (_fo.qty > antes ? 14 : -14) + 'px)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 280, easing: 'cubic-bezier(.4,0,.2,1)' });
+    }
+    if (bt && p) {
+      var t0 = Date.now(),
+        dur = REDUCED ? 0 : 280,
+        passo = function () {
+          var f = dur ? Math.min(1, (Date.now() - t0) / dur) : 1;
+          bt.textContent = 'Vender · ' + gs(Math.round(de + (alvo - de) * f));
+          if (f < 1) requestAnimationFrame(passo);
+        };
+      passo();
+    }
   };
   ACT.folhavender = function () {
     if (!_fo) return;
