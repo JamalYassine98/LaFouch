@@ -694,3 +694,5 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Cliente ESTRANGEIRO: a chave nem aparece; só comprovante (sem nome/CI).
 - A chave lembra o último modo que o dono deixou (memória do aparelho), vale para a próxima venda.
 - Topo do papel (comprovante E fatura): "LA FOUCH" + "Ciudad del Este" (pedido do dono, 04/11 10:56; esboço v3).
+- CORREÇÃO (04/11 10:58): topo do papel = "LA FOUCH" e embaixo "Ciudad: CDE" (sem "Ciudad del Este").
+- REGRA IMPORTANTÍSSIMA: TUDO que sai no papel (comprovante e fatura) é em ESPANHOL, sempre, para paraguaio ou estrangeiro. A tela do app continua em português.
