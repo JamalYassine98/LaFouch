@@ -871,9 +871,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 413;
+  var APP_BUILD = 414;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '4.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '4.3'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Movimentos: todo fato de dinheiro ou estoque é gravado por aqui (livro + histórico juntos). =====
   // Formato do registro do histórico (S.dlog) de uma compra de mercadoria.
   function dlogLote(x) {
@@ -28758,14 +28758,14 @@
     var total = ord.reduce(function (a, x) {
       return a + x.tot;
     }, 0);
-    // Estrangeiro: nome e CI/CPF (se houver). Paraguaio sem RUC ou sem cliente: Sin nombre / RUC X.
-    var est = cliEstr(cli),
-      fis = cli && temRuc(cli);
+    // Dados da nota (só saem com "Emitir nota fiscal" ligado). Paraguaio sem RUC ou sem cliente: Sin nombre / RUC X.
+    // Estrangeiro nunca tem nota (podeNota = false): a chave nem aparece.
+    var fis = cli && temRuc(cli);
     return {
       ts: Date.now(),
-      nombre: est || fis ? cli.nome || 'Sin nombre' : 'Sin nombre',
-      docL: est ? 'CI/CPF' : 'RUC',
-      ruc: fis ? String(cli.ruc).trim() : est ? String(cli.ruc || '').trim() : 'X',
+      podeNota: !cliEstr(cli),
+      nombre: fis ? cli.nome || 'Sin nombre' : 'Sin nombre',
+      ruc: fis ? String(cli.ruc).trim() : 'X',
       ciudad: 'CDE',
       pago: 'Contado',
       lineas: ord,
@@ -28776,22 +28776,66 @@
   var notaNum = function (v) {
     return String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   };
-  function notaHtml(n, estilo) {
+  // Papel (sempre em ESPANHOL, regra do dono). fis = com os dados da nota (Nombre, RUC, IVA).
+  // Esboço aprovado v5 (04/11/2026): LA FOUCH no topo; Ciudad e Pago sempre; nome/RUC/IVA só com a nota.
+  function notaHtml(n, estilo, fis) {
     var hr = '<hr style="border:0;border-top:1px dashed #111">',
       r = function (a, b, s) {
         return '<div style="display:flex;justify-content:space-between;gap:10px;' + (s || '') + '"><span>' + a + '</span><span>' + b + '</span></div>';
       };
     return (
-      '<div class="notapapel" style="' + (estilo || '') + '"><div style="text-align:center;font-weight:700;border:1px dashed #111;padding:3px;margin-bottom:6px">COMPROBANTE DE VENTA (sin valor fiscal)</div>' +
-      '<div>Fecha: ' + fd(n.ts) + '</div><div>Nombre: ' + esc(n.nombre) + '</div>' + (n.ruc ? '<div>' + (n.docL || 'RUC') + ': ' + esc(n.ruc) + '</div>' : '') + '<div>Ciudad: ' + esc(n.ciudad) + '</div><div>Pago: ' + n.pago + '</div>' + hr +
+      '<div class="notapapel" style="' + (estilo || '') + '"><div style="text-align:center;font-weight:700;font-size:1.15em;letter-spacing:2px;margin-bottom:6px">LA FOUCH</div>' +
+      '<div style="text-align:center;font-weight:700;border:1px dashed #111;padding:3px;margin-bottom:6px">' + 'COMPROBANTE DE VENTA' + '</div>' +
+      '<div>Fecha: ' + fd(n.ts) + ' ' + fh(n.ts) + '</div>' +
+      (fis ? '<div>Nombre: ' + esc(n.nombre) + '</div><div>RUC: ' + esc(n.ruc) + '</div>' : '') +
+      '<div>Ciudad: ' + esc(n.ciudad) + '</div><div>Pago: ' + n.pago + '</div>' + hr +
       n.lineas
         .map(function (x) {
-          return r(x.qty + ' ' + x.desc, '') + r('Unidad G$', notaNum(x.un));
+          return r(x.qty + ' ' + x.desc, notaNum(x.tot));
         })
         .join('') +
-      hr + r('TOTAL G$', notaNum(n.total), 'font-weight:800;font-size:14px') + r('IVA 10% G$', notaNum(n.iva)) + '</div>'
+      hr + r('TOTAL G$', notaNum(n.total), 'font-weight:800') + (fis ? r('IVA 10% G$', notaNum(n.iva)) : '') + '</div>'
     );
   }
+  // Chave "Emitir nota fiscal": lembra o último modo neste aparelho.
+  var notaFis = (function () {
+    try {
+      return localStorage.getItem('lf_notaFis') === '1';
+    } catch (e) {
+      return false;
+    }
+  })();
+  var notaFisOn = function (n) {
+    return !!(n && n.podeNota && notaFis);
+  };
+  var NOTA_PAP = 'background:#fff;color:#111;padding:14px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.5;border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.4)';
+  function notaSwHtml() {
+    return (
+      '<div class="nfSw vst"><span><b>Emitir nota fiscal</b><small id="nfSwH">' + (notaFis ? 'Ligado: comprovante com dados da nota' : 'Desligado: só o comprovante') + '</small></span>' +
+      '<button type="button" class="nfTg' + (notaFis ? ' on' : '') + '" data-act="notaFis" role="switch" aria-checked="' + notaFis + '" aria-label="Emitir nota fiscal"><i></i></button></div>'
+    );
+  }
+  ACT.notaFis = function () {
+    if (!notaAtual || !notaAtual.podeNota || vcfBusy) return;
+    notaFis = !notaFis;
+    try {
+      localStorage.setItem('lf_notaFis', notaFis ? '1' : '0');
+    } catch (e) {}
+    var t = document.querySelector('#notaOv .nfTg'),
+      h = $('nfSwH'),
+      p = $('notaPap');
+    if (t) {
+      t.classList.toggle('on', notaFis);
+      t.setAttribute('aria-checked', String(notaFis));
+    }
+    if (h) h.textContent = notaFis ? 'Ligado: comprovante com dados da nota' : 'Desligado: só o comprovante';
+    if (p) {
+      var h0 = p.offsetHeight;
+      p.innerHTML = notaHtml(notaAtual, NOTA_PAP, notaFis);
+      var h1 = p.offsetHeight;
+      if (!REDUCED && p.animate && h0 !== h1) p.animate([{ height: h0 + 'px', overflow: 'hidden' }, { height: h1 + 'px', overflow: 'hidden' }], { duration: 350, easing: 'cubic-bezier(.4,0,.2,1)' });
+    }
+  };
   // ---- tela "Venda confirmada" (círculo gira, ✓ se desenha, itens entram um a um) ----
   var vcfTok = 0,
     vcfBusy = false,
@@ -28804,15 +28848,16 @@
     vcfBusy = false;
     var tok = ++vcfTok;
     notaAtual = nota;
-    var sub = cli ? esc(cli.nome || cli.tel) + (cliDocTxt(cli) ? ' · ' + esc(cliDocTxt(cli)) : '') : 'Sem cliente escolhido';
+    var sub = cli ? esc(cli.nome || cli.tel) + (cliEstr(cli) ? ' · estrangeiro' : temRuc(cli) ? ' · RUC ' + esc(cli.ruc) : '') : 'Sem cliente escolhido';
     ov.classList.remove('vout');
     ov.innerHTML =
       '<div class="vcf' + (REDUCED ? ' fast' : '') + '"><button type="button" class="vx" data-act="notaX" aria-label="Fechar">×</button>' +
       '<div class="vcc' + (REDUCED ? ' done' : '') + '"><div class="vspn"></div><div class="vck"><svg viewBox="0 0 56 56" aria-hidden="true"><path d="M13 29l10 10 20-22"/></svg></div></div>' +
       '<h2 class="vst">Venda confirmada</h2><div class="hint vst vsub">' + sub + '</div>' +
       '<div class="vtot vst" id="vtot">' + gs(nota.total) + '</div>' +
-      ('<div class="vst">' + notaHtml(nota, 'background:#fff;color:#111;padding:14px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.5;border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.4)') + '</div>' +
-          '<button type="button" class="go vst vimp" data-act="notaImp">Imprimir comprovante</button>') +
+      '<div class="vst" id="notaPap">' + notaHtml(nota, NOTA_PAP, notaFisOn(nota)) + '</div>' +
+      (nota.podeNota ? notaSwHtml() : '') +
+      '<button type="button" class="go vst vimp" data-act="notaImp"><svg viewBox="0 0 24 24" aria-hidden="true" class="nfIc"><path d="M7 9V3h10v6M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2M7 14h10v7H7z"/></svg>Imprimir comprovante</button>' +
       '</div>';
     ov.hidden = false;
     document.body.classList.add('noscroll');
@@ -28906,7 +28951,7 @@
       function () {
         if (!notaAtual) return;
         if (pb) {
-          pb.innerHTML = notaHtml(n, 'font-family:ui-monospace,Menlo,monospace;font-size:12px;width:72mm;color:#000');
+          pb.innerHTML = notaHtml(n, 'font-family:ui-monospace,Menlo,monospace;font-size:12px;width:72mm;color:#000', notaFisOn(n));
           try {
             window.print();
           } catch (e) {}

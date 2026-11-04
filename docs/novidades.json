@@ -1,9 +1,8 @@
 {
- "nome": "4.2",
+ "nome": "4.3",
  "notas": [
-  "Clientes: escolha Paraguaio ou Estrangeiro e o campo do documento troca sozinho (RUC ou CI/CPF)",
-  "Comprovante de venda para todos os clientes. Estrangeiro sai com nome e CI/CPF, nunca com RUC",
-  "Clientes que vêm do site com CPF ou DNI não aparecem mais como se tivessem RUC",
-  "Catálogo: veja os preços em G$, R$ ou US$ (a venda continua em guarani)"
+  "Venda confirmada: botão Imprimir comprovante e chave Emitir nota fiscal, que lembra o último modo",
+  "Comprovante em espanhol: LA FOUCH no topo, Ciudad e Pago sempre; nome, RUC e IVA só com a nota ligada",
+  "Cliente estrangeiro: só comprovante, a chave de nota nem aparece"
  ]
 }

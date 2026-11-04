@@ -45,6 +45,12 @@ Ver `git log` (v300 → v332). Resumos de cada versão estão nas mensagens de c
 ## Aviso
 Em 04/11/2026 o dono exportou a conversa inteira (21/10 a 04/11) e ela foi relida do começo. As decisões de 21–27/10 que tinham se perdido na condensação estão na seção "Decisões recuperadas" logo abaixo. Este arquivo e o git log são a memória durável. Se uma decisão do dono não estiver aqui, pedir a ele a imagem/mensagem em vez de supor.
 
+## ESTADO ATUAL (confirmado pelo dono em 04/11/2026 — vale mais que entradas antigas abaixo)
+- Avisos (push) no celular: FUNCIONANDO. O dono recebe os avisos.
+- Reserva de estoque no site: LIGADA (chave `reserva` em config/site).
+- Cancelar pedido pelo site: CORRIGIDO (regras do Firestore com cancelOk publicadas em 02/11).
+- ATENÇÃO: várias entradas antigas abaixo dizem "PENDENTE" e já foram resolvidas depois. Antes de dizer ao dono que algo está pendente, procurar entradas mais novas sobre o mesmo assunto (e na dúvida, perguntar em vez de afirmar).
+
 ## ERROS RECORRENTES DO CLAUDE (não repetir) — levantados da conversa inteira em 04/11/2026
 1. Implementar DIFERENTE do esboço aprovado ou acrescentar coisas não pedidas (botões de medida, folgas, "quando foi a venda", distâncias). Fazer exatamente o aprovado; nada a mais.
 2. Esquecer o que foi aprovado ou não implementar uma aprovação ("você me passou essa proposta e não implementou"). Antes de dizer "pronto", conferir item por item contra o pedido.
@@ -697,3 +703,11 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - CORREÇÃO (04/11 10:58): topo do papel = "LA FOUCH" e embaixo "Ciudad: CDE" (sem "Ciudad del Este").
 - REGRA IMPORTANTÍSSIMA: TUDO que sai no papel (comprovante e fatura) é em ESPANHOL, sempre, para paraguaio ou estrangeiro. A tela do app continua em português.
 - CORREÇÃO (04/11 10:59): topo do papel = só "LA FOUCH". "Ciudad: CDE" fica logo ACIMA de "Pago" (esboço v5). Comprovante sem nota mostra Ciudad: CDE (dono quer cidade no comprovante); "Pago: Contado" só com a nota (aguardando confirmação). "¡Gracias por su compra!" foi sugestão não pedida: fora até o dono decidir.
+- 04/11 11:01: "Pago: Contado" aparece SEMPRE (com ou sem nota). Com a nota ligada entram só Nombre, RUC e IVA 10%.
+- 04/11 11:03: o título do papel é SEMPRE "COMPROBANTE DE VENTA" (também com a nota ligada; nada de "+ DATOS PARA FACTURA").
+- APROVADO "pode implementar" (11:00) → implementado na v414. QR do SIFEN NÃO impresso ainda (sem API; não imprimir QR falso).
+
+## 04/11/2026 11:15 — Nota fiscal: envio ao SIFEN (DECISÃO do dono, nada implementado)
+- Caminho escolhido: LIGAÇÃO DIRETA com o SIFEN (o dono já tem acesso/ligação direta). Faremos todos os testes necessários no ambiente de teste do SIFEN antes de produção.
+- Fluxo previsto (só esboço ainda): chave "Emitir nota fiscal" ligada → venda → app envia os dados → servidor (Firebase Functions, Blaze já ativo) gera XML, ASSINA com o certificado e envia ao SIFEN → volta CDC + QR → comprovante impresso com o QR. Sem internet: fila, envio em até 72 h.
+- SEGURANÇA: certificado (.p12), senha e CSC NUNCA no app nem no GitHub (repos são públicos). Ficam só como segredos do servidor. Nunca pedir que o dono cole segredos no chat.

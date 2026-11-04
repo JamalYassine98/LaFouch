@@ -1114,3 +1114,11 @@ a[data-act],a.lk{display:inline-block;padding:14px 8px;margin:-14px -8px;-webkit
 .docF{display:flex;flex-direction:column;gap:4px}
 .docL{font-size:12px;color:var(--mute);margin-left:4px;transition:opacity .16s,transform .16s}
 .docL.swap{opacity:0;transform:translateY(4px)}
+/* v414 Venda confirmada: chave "Emitir nota fiscal" (esboço aprovado v5) */
+.nfSw{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:12px 14px;text-align:left}
+.nfSw b{display:block;font-size:15px}.nfSw small{display:block;color:var(--mute);font-size:12px;margin-top:2px}
+.nfTg{flex:none;width:46px;height:28px;min-height:28px;border-radius:999px;background:var(--line);border:0;padding:0;position:relative;transition:background .25s,box-shadow .25s}
+.nfTg i{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .28s var(--mola)}
+.nfTg.on{background:#5c2a47;box-shadow:inset 0 0 0 1px #d4537e}.nfTg.on i{transform:translateX(18px)}
+.vimp .nfIc{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;margin-right:8px;vertical-align:-4px}
+@media (prefers-reduced-motion:reduce){.nfTg,.nfTg i{transition:none}}

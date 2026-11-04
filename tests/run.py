@@ -614,17 +614,19 @@ async def main():
                     await pg.locator('[data-act=vcliesc]').first.click(); await pg.wait_for_timeout(150)
                 await pg.fill('#recIn', '50000'); await pg.wait_for_timeout(200)
                 await pg.click('#sgo'); await pg.wait_for_timeout(300)
-            await pg.evaluate("""() => { const S = window.__LF.S; S.clientes = [{id:1,nome:'Maria Silva',tel:'0981 123 456',ruc:'80012345-6',obs:'',ts:1},{id:2,nome:'João Souza',tel:'+55 45 999',ruc:'123.456.789-00',nac:'br',obs:'',ts:2}]; S.cliNext = 3; S.vCli = 0; window.print = () => { window.__imp = document.getElementById('notaPrint').innerText; }; }""")
+            await pg.evaluate("""() => { const S = window.__LF.S; S.clientes = [{id:1,nome:'Maria Silva',tel:'0981 123 456',ruc:'80012345-6',obs:'',ts:1},{id:2,nome:'João Souza',tel:'+55 45 999',ruc:'123.456.789-00',nac:'br',obs:'',ts:2}]; S.cliNext = 3; S.vCli = 0; try { localStorage.removeItem('lf_notaFis'); } catch (e) {} window.print = () => { window.__imp = document.getElementById('notaPrint').innerText; }; }""")
             total += 1
             await vender()
             tx = await pg.inner_text('#notaOv')
-            a = [await pg.locator('#notaOv').is_visible(), 'Sin nombre' in tx, 'RUC: X' in tx, 'Ciudad: CDE' in tx, 'Armazón' in tx, '50.000' in tx, '4.545' in tx, await pg.locator('[data-act=notaImp]').count()]
+            a0 = ['LA FOUCH' in tx, 'COMPROBANTE DE VENTA' in tx, 'Ciudad: CDE' in tx, 'Pago: Contado' in tx, 'Sin nombre' not in tx, 'RUC' not in tx, 'IVA' not in tx]
+            await pg.click('[data-act=notaFis]'); await pg.wait_for_timeout(450); tx = await pg.inner_text('#notaOv')
+            a = [await pg.locator('#notaOv').is_visible(), 'Sin nombre' in tx, 'RUC: X' in tx, 'Ciudad: CDE' in tx, 'Armazón' in tx, '50.000' in tx, '4.545' in tx, await pg.locator('[data-act=notaImp]').count()] + a0
             await pg.click('[data-act=notaX]'); b1 = await pg.locator('#notaCf').is_visible()
             await pg.click('[data-act=notaVolta]'); b2 = await pg.locator('#notaCf').is_hidden() and await pg.locator('#notaOv').is_visible()
             await pg.click('[data-act=notaImp]'); await pg.wait_for_timeout(200); b3a = await pg.locator('#notaCf').is_visible(); await pg.click('[data-act=notaImpOk]'); await pg.wait_for_timeout(2200); b3 = await pg.locator('#notaCf').is_hidden()
             c1 = [await pg.locator('#notaOv').is_hidden(), 'Sin nombre' in await pg.evaluate('() => window.__imp || ""')]
-            ok = a == [True, True, True, True, True, True, True, 1] and b1 and b2 and b3a and b3 and c1 == [True, True]
-            print(('  ok  ' if ok else ' FALHA ') + 'venda sem cliente: nota Sin nombre / X / CDE, imprime direto e confirma ao fechar sem imprimir')
+            ok = a == [True, True, True, True, True, True, True, 1] + [True] * 7 and b1 and b2 and b3a and b3 and c1 == [True, True]
+            print(('  ok  ' if ok else ' FALHA ') + 'venda sem cliente: comprovante (LA FOUCH, Ciudad, Pago, sem RUC/IVA); chave liga a nota Sin nombre / X / IVA; imprime e confirma ao fechar')
             if not ok: falhas.append('nota sem cliente'); print('        veio', a, b1, b2, b3, c1, pg.erros)
             total += 1
             await vender('mar')
@@ -632,17 +634,17 @@ async def main():
             got = await pg.evaluate("() => [window.__LF.S.sales[0].cliId, window.__LF.S.vCli]")
             ok = 'Maria Silva' in tx and 'RUC: 80012345-6' in tx and got == [1, 0] and await pg.locator('[data-act=notaImp]').count() == 1
             await pg.click('[data-act=notaX]'); await pg.click('[data-act=notaSair]'); await pg.wait_for_timeout(500)
-            print(('  ok  ' if ok else ' FALHA ') + 'venda com cliente com RUC: nota com nome e RUC, venda ligada ao cliente')
+            print(('  ok  ' if ok else ' FALHA ') + 'venda com cliente com RUC: chave lembrada ligada, nota com nome e RUC, venda ligada ao cliente')
             if not ok: falhas.append('nota com RUC'); print('        veio', tx, got)
             total += 1
             await vender('Joã')
             tx = await pg.inner_text('#notaOv')
             got = await pg.evaluate("() => window.__LF.S.sales[0].cliId")
-            ok = 'João Souza' in tx and 'CI/CPF: 123.456.789-00' in tx and 'RUC' not in tx and 'COMPROBANTE DE VENTA' in tx and await pg.locator('[data-act=notaImp]').count() == 1 and got == 2
+            ok = 'João Souza · estrangeiro' in tx and 'CI/CPF' not in tx and 'RUC' not in tx and 'Nombre' not in tx and 'COMPROBANTE DE VENTA' in tx and await pg.locator('[data-act=notaImp]').count() == 1 and await pg.locator('[data-act=notaFis]').count() == 0 and got == 2
             await pg.wait_for_timeout(4000)
             ok = ok and await pg.locator('#notaOv').is_visible()
             await pg.click('[data-act=notaX]'); await pg.click('[data-act=notaSair]'); await pg.wait_for_timeout(500)
-            print(('  ok  ' if ok else ' FALHA ') + 'estrangeiro com CPF (do site): comprovante com nome e CI/CPF, nunca RUC, não fecha sozinho')
+            print(('  ok  ' if ok else ' FALHA ') + 'estrangeiro (do site): só comprovante, sem chave de nota, sem nome/documento no papel, não fecha sozinho')
             if not ok: falhas.append('nota sem RUC'); print('        veio', tx, got)
             total += 1
             await pg.evaluate("() => { const L = window.__LF; L.S.cliSel = 1; L.setView('clientes'); L.render(); }"); await pg.wait_for_timeout(300)
@@ -812,6 +814,7 @@ async def main():
             await pg.wait_for_timeout(300); a0 = await pg.evaluate("() => [!!document.querySelector('.vcc.done'), document.querySelectorAll('.vst.on').length]")
             await pg.wait_for_timeout(1200); a1 = await pg.evaluate("() => [!!document.querySelector('.vcc.done'), document.querySelectorAll('.vst.on').length]")
             await pg.wait_for_timeout(2200); a2 = await pg.evaluate("() => [document.querySelectorAll('.vst.on').length, document.querySelectorAll('.vst').length, document.querySelector('.vx').classList.contains('on'), document.getElementById('vtot').textContent]")
+            if not await pg.evaluate("() => document.querySelector('#notaOv .nfTg').classList.contains('on')"): await pg.click('[data-act=notaFis]'); await pg.wait_for_timeout(400)
             await pg.click('[data-act=notaImp]'); await pg.wait_for_timeout(150); await pg.click('[data-act=notaImpOk]'); await pg.wait_for_timeout(150); a3 = await pg.evaluate("() => [document.querySelector('[data-act=notaImp]').textContent, !document.getElementById('notaCf').hidden]")
             await pg.wait_for_timeout(1500); a4 = await pg.evaluate("() => [document.getElementById('notaOv').hidden, window.__imp.indexOf('María') >= 0 || window.__imp.indexOf('Maria') >= 0, document.getElementById('lfToast').textContent]")
             ok = a0 == [False, 0] and a1[0] and 0 < a1[1] < a2[1] and a2[0] == a2[1] and a2[2] and '50.000' in a2[3] and 'Enviando' in a3[0] and not a3[1] and a4[0] and a4[1] and 'Venda registrada' in a4[2]
