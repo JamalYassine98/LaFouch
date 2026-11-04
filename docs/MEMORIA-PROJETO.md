@@ -685,3 +685,11 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - Links de texto com alvo de toque ≥44px; números do Dashboard não quebram "G$".
 - Varredura automática (/tmp/impl/sweep.py): nenhum erro de JS, estouro de tela ou folha que não fecha.
 - v411: Catálogo ganhou seletor G$ / R$ / US$ (só exibição, câmbio da loja; a venda continua em guarani). Pedido do dono 04/11.
+
+## 04/11/2026 — Comprovante + chave "Emitir nota fiscal" (ESBOÇO, NÃO implementar até "pode implementar")
+Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_comprovante_nota_v2"):
+- Botão "Imprimir comprovante". Logo acima dele, chave "Emitir nota fiscal" (liga/desliga).
+- Chave DESLIGADA: só o comprovante — "COMPROBANTE DE VENTA", data, itens, TOTAL. SEM nome e SEM documento do cliente (nome do cliente é exclusivo da factura).
+- Chave LIGADA: comprovante + dados da nota (Nombre, RUC, Ciudad CDE, Pago Contado, IVA 10%; no futuro o QR do SIFEN). Sem cliente: Sin nombre / RUC X.
+- Cliente ESTRANGEIRO: a chave nem aparece; só comprovante (sem nome/CI).
+- A chave lembra o último modo que o dono deixou (memória do aparelho), vale para a próxima venda.
