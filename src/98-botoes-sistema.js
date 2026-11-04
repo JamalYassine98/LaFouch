@@ -104,3 +104,39 @@
       });
     });
   })();
+
+  // ===== Barras de abas/segmentos: UMA animação só — a pílula desliza do botão antigo para o novo. =====
+  (function () {
+    var ULT = {};
+    function pilula(box) {
+      var on = box.querySelector(':scope > .on');
+      if (!on || !on.offsetWidth) return;
+      var id = box.id,
+        r = { l: on.offsetLeft, t: on.offsetTop, w: on.offsetWidth, h: on.offsetHeight },
+        a = ULT[id];
+      ULT[id] = r;
+      if (!a || REDUCED || (a.l === r.l && a.t === r.t && a.w === r.w)) return;
+      var pl = document.createElement('div');
+      pl.className = 'lfPill';
+      pl.style.cssText = 'left:' + a.l + 'px;top:' + a.t + 'px;width:' + a.w + 'px;height:' + a.h + 'px';
+      box.insertBefore(pl, box.firstChild);
+      on.classList.add('semfundo');
+      pl.getBoundingClientRect();
+      pl.style.transition = 'left .3s var(--mola), top .3s var(--mola), width .3s var(--mola), height .3s var(--mola)';
+      pl.style.left = r.l + 'px';
+      pl.style.top = r.t + 'px';
+      pl.style.width = r.w + 'px';
+      pl.style.height = r.h + 'px';
+      setTimeout(function () {
+        pl.remove();
+        on.classList.remove('semfundo');
+      }, 320);
+    }
+    ['vTabBar', 'eTabs'].forEach(function (id) {
+      var box = document.getElementById(id);
+      if (!box) return;
+      new MutationObserver(function (m) {
+        if (m.some(function (x) { return [].some.call(x.addedNodes, function (n) { return n.classList && !n.classList.contains('lfPill'); }); })) pilula(box);
+      }).observe(box, { childList: true });
+    });
+  })();

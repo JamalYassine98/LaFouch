@@ -311,7 +311,7 @@
       ft.appendChild(bw);
       var bc = btn('mini', 'Copiar a lista', function () {
         try {
-          navigator.clipboard.writeText(L.txt);
+          navigator.clipboard.writeText(L.txt).catch(function () {});
           say('Lista copiada.');
         } catch (e) {}
       });

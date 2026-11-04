@@ -34,15 +34,82 @@
   }
   // Janela (folha) por cima de tudo, independente do desenho das abas.
   function lfaAbre(id, html, cheia) {
-    var o = document.getElementById(id);
+    var o = document.getElementById(id),
+      ja = !!(o && !o.classList.contains('sai') && !cheia),
+      rolou = 0;
     if (!o) {
       o = document.createElement('div');
       o.id = id;
       document.body.appendChild(o);
+    } else if (ja) {
+      var sh0 = o.querySelector('.lfa-sh');
+      rolou = sh0 ? sh0.scrollTop : 0;
     }
-    o.className = 'lfa-ov' + (cheia ? ' lfa-full' : '');
+    // já aberta: só troca o conteúdo, sem reiniciar a animação de entrada (nada de "cascata")
+    o.className = 'lfa-ov' + (cheia ? ' lfa-full' : '') + (ja ? ' ja' : '');
+    o.style.background = '';
     o.innerHTML = '<div class="lfa-sh" role="dialog" aria-modal="true">' + html + '</div>';
+    var sh = o.querySelector('.lfa-sh');
+    if (rolou) sh.scrollTop = rolou;
+    if (!cheia && id !== 'lfa-folha') lfaGestos(o, id);
     return o;
+  }
+  // Gesto padrão das folhas: arrastar para baixo fecha, tocar no fundo fecha, o fundo nunca rola a página.
+  var LFA_FIXAS = { atvOv: 1, apEspera: 1, 'lfa-folha': 1 };
+  function lfaGestos(o, id) {
+    var sh = o.querySelector('.lfa-sh');
+    if (!sh) return;
+    var rol = sh.scrollHeight > sh.clientHeight + 2;
+    sh.style.touchAction = rol ? 'pan-y' : 'none';
+    if (o._gs) return;
+    o._gs = 1;
+    var y0 = 0, x0 = 0, t0 = 0, dy = 0, on = false, eixo = '';
+    o.addEventListener('click', function (e) {
+      if (e.target === o && !LFA_FIXAS[id]) lfaFecha(id);
+    });
+    o.addEventListener('touchmove', function (e) {
+      if (e.target === o && e.cancelable) e.preventDefault();
+    }, { passive: false });
+    o.addEventListener('touchstart', function (e) {
+      var s = o.querySelector('.lfa-sh');
+      if (!s || e.touches.length !== 1 || (e.target.closest && e.target.closest('input,textarea,select,[contenteditable]'))) return;
+      on = !LFA_FIXAS[id] || id === 'atvOv' ? true : false;
+      if (!on) return;
+      y0 = e.touches[0].clientY; x0 = e.touches[0].clientX; t0 = Date.now(); dy = 0; eixo = '';
+      s.style.transition = 'none';
+    }, { passive: true });
+    o.addEventListener('touchmove', function (e) {
+      var s = o.querySelector('.lfa-sh');
+      if (!on || !s || LFA_FIXAS[id]) return;
+      var y = e.touches[0].clientY - y0, x = e.touches[0].clientX - x0;
+      if (!eixo && (Math.abs(x) > 8 || Math.abs(y) > 8)) eixo = Math.abs(y) >= Math.abs(x) && y > 0 && s.scrollTop <= 0 ? 'y' : 'n';
+      if (eixo !== 'y') return;
+      if (e.cancelable) e.preventDefault();
+      s.style.animation = 'none';
+      dy = y;
+      s.style.transform = 'translate3d(0,' + Math.round(y) + 'px,0)';
+      o.style.background = 'rgba(0,0,0,' + (0.62 * (1 - Math.min(1, y / 420))).toFixed(3) + ')';
+    }, { passive: false });
+    function solta() {
+      var s = o.querySelector('.lfa-sh');
+      if (!on || !s) return;
+      on = false;
+      if (eixo !== 'y') { s.style.transition = ''; return; }
+      var v = dy / Math.max(1, Date.now() - t0);
+      if (dy > 110 || v > 0.6) {
+        s.style.transition = 'transform .24s cubic-bezier(.4,0,.2,1)';
+        s.style.transform = 'translate3d(0,105%,0)';
+        o.style.transition = 'background .24s';
+        o.style.background = 'rgba(0,0,0,0)';
+        setTimeout(function () { o.remove(); }, REDUCED ? 0 : 230);
+      } else {
+        s.style.transition = 'transform .3s cubic-bezier(.2,1.25,.35,1)';
+        s.style.transform = '';
+        o.style.background = '';
+      }
+    }
+    o.addEventListener('touchend', solta);
+    o.addEventListener('touchcancel', solta);
   }
   function lfaFecha(id) {
     var o = document.getElementById(id);

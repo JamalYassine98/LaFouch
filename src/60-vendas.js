@@ -2,26 +2,6 @@
   // Animação 3: a pílula Varejo|Atacado desliza e os preços contam do valor antigo ao novo (280 ms).
   function mercAnim(de) {
     if (REDUCED) return;
-    var tb = $('vTabBar'),
-      nb = tb && tb.querySelector('.seg-mercado.on');
-    if (nb && de.w && nb.animate) {
-      var pl = document.createElement('div');
-      pl.className = 'mpill';
-      pl.style.cssText = 'left:' + de.l + 'px;top:' + de.t + 'px;width:' + de.w + 'px;height:' + de.h + 'px';
-      tb.appendChild(pl);
-      nb.classList.add('semfundo');
-      var a = pl.animate(
-        [
-          { left: de.l + 'px', width: de.w + 'px' },
-          { left: nb.offsetLeft + 'px', width: nb.offsetWidth + 'px', top: nb.offsetTop + 'px' }
-        ],
-        { duration: 280, easing: 'cubic-bezier(.2,1.25,.35,1)', fill: 'forwards' }
-      );
-      a.onfinish = a.oncancel = function () {
-        pl.remove();
-        nb.classList.remove('semfundo');
-      };
-    }
     [].slice.call(document.querySelectorAll('#vRows .pcard[data-ref]')).forEach(function (c) {
       var e = c.querySelector('.vpreco'),
         ate = e ? parseInt(e.textContent.replace(/\D/g, ''), 10) || 0 : 0,
@@ -35,6 +15,17 @@
         };
       passo();
     });
+  }
+  // variante dentro da lista: chave e nome (cor + grau/medida/formato quando existirem)
+  function varKey(x) {
+    return [x.cor, x.grau, x.vr, x.fmt, x.med].join('|');
+  }
+  function varNome(x) {
+    var p = [x.cor === 'Sem cor' ? 'Padrão' : x.cor];
+    [x.grau, x.vr, x.fmt, x.med].forEach(function (v) {
+      if (v && String(v) !== 'Sem cor') p.push(String(v));
+    });
+    return p.join(' · ');
   }
   // Aba Vendas.
   function renderVendas() {
@@ -247,9 +238,9 @@
         corU[x.cor] = (corU[x.cor] || 0) + 1;
       });
       var nCor = Object.keys(corU).length,
-        multi = rows.classList.contains('vlist') && f.tipo !== 'pre' && nCor > 1 && vsL.every(function (x) { return corU[x.cor] === 1; }),
+        multi = rows.classList.contains('vlist') && vsL.length > 1,
         aberto = multi && S.vAb === k,
-        selI = multi && ((S.vCor && S.vCor[k] && vsL.filter(function (x) { return x.cor === S.vCor[k]; })[0]) || vsL[0]);
+        selI = multi && ((S.vCor && S.vCor[k] && vsL.filter(function (x) { return varKey(x) === S.vCor[k]; })[0]) || vsL[0]);
       var card = btn(
         'pcard' + (k === S.vRef ? ' on' : '') + (aberto ? ' aberta' : ''),
         '',
@@ -309,7 +300,7 @@
       card.appendChild(photoBox(aberto && selI ? photoOf(f.ref, selI.cor) || photoOf(f.ref) : photoOf(f.ref), 'pbox'));
       var nmB = mk('b', '', pn(f.ref));
       if (multi) {
-        var sb = mk('small', 'vsub', aberto ? selI.cor + ' · ' + gLivre(selI) + ' un.' : nCor + ' cores · ' + vsL.reduce(function (a, x) { return a + gLivre(x); }, 0) + ' un.');
+        var sb = mk('small', 'vsub', aberto ? varNome(selI) + ' · ' + gLivre(selI) + ' un.' : (nCor > 1 ? nCor + ' cores' : vsL.length + ' opções') + ' · ' + vsL.reduce(function (a, x) { return a + gLivre(x); }, 0) + ' un.');
         nmB.appendChild(sb);
       }
       card.appendChild(nmB);
@@ -327,7 +318,7 @@
       var unico = vsL.length === 1 ? vsL[0] : null;
       if (atacModo() && rows.classList.contains('vlist') && unico) {
         var qa = atacQtd(unico);
-        if (qa > 0 && pr0) nmB.appendChild(mk('small', 'vtot', 'Total ' + gs(qa * pr0)));
+        if (qa > 0 && pr0) nmB.appendChild(mk('small', 'vtotl', 'Total ' + gs(qa * pr0)));
         card.appendChild(atacStep(unico));
       }
       else card.appendChild(mk('i', 'vplus', '+'));
@@ -337,7 +328,7 @@
         vsL.forEach(function (x) {
           var cb = btn('vcor' + (x === selI ? ' on' : ''), '', function () {
             if (!S.vCor) S.vCor = {};
-            S.vCor[k] = x.cor;
+            S.vCor[k] = varKey(x);
             render();
           }, x === selI);
           var th = mk('span', 'vci'),
@@ -349,7 +340,7 @@
             th.appendChild(ig);
           } else th.style.background = hexOf(x.cor);
           cb.appendChild(th);
-          cb.appendChild(mk('b', '', x.cor === 'Sem cor' ? 'Padrão' : x.cor));
+          cb.appendChild(mk('b', '', varNome(x)));
           cb.appendChild(mk('span', 'n', gLivre(x) + ' un.'));
           pn2.appendChild(cb);
         });

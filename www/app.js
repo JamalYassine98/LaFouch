@@ -871,7 +871,7 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 410;
+  var APP_BUILD = 411;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
   var APP_NOME = '4.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Movimentos: todo fato de dinheiro ou estoque é gravado por aqui (livro + histórico juntos). =====
@@ -5372,7 +5372,7 @@
       ft.appendChild(bw);
       var bc = btn('mini', 'Copiar a lista', function () {
         try {
-          navigator.clipboard.writeText(L.txt);
+          navigator.clipboard.writeText(L.txt).catch(function () {});
           say('Lista copiada.');
         } catch (e) {}
       });
@@ -13233,26 +13233,6 @@
   // Animação 3: a pílula Varejo|Atacado desliza e os preços contam do valor antigo ao novo (280 ms).
   function mercAnim(de) {
     if (REDUCED) return;
-    var tb = $('vTabBar'),
-      nb = tb && tb.querySelector('.seg-mercado.on');
-    if (nb && de.w && nb.animate) {
-      var pl = document.createElement('div');
-      pl.className = 'mpill';
-      pl.style.cssText = 'left:' + de.l + 'px;top:' + de.t + 'px;width:' + de.w + 'px;height:' + de.h + 'px';
-      tb.appendChild(pl);
-      nb.classList.add('semfundo');
-      var a = pl.animate(
-        [
-          { left: de.l + 'px', width: de.w + 'px' },
-          { left: nb.offsetLeft + 'px', width: nb.offsetWidth + 'px', top: nb.offsetTop + 'px' }
-        ],
-        { duration: 280, easing: 'cubic-bezier(.2,1.25,.35,1)', fill: 'forwards' }
-      );
-      a.onfinish = a.oncancel = function () {
-        pl.remove();
-        nb.classList.remove('semfundo');
-      };
-    }
     [].slice.call(document.querySelectorAll('#vRows .pcard[data-ref]')).forEach(function (c) {
       var e = c.querySelector('.vpreco'),
         ate = e ? parseInt(e.textContent.replace(/\D/g, ''), 10) || 0 : 0,
@@ -13266,6 +13246,17 @@
         };
       passo();
     });
+  }
+  // variante dentro da lista: chave e nome (cor + grau/medida/formato quando existirem)
+  function varKey(x) {
+    return [x.cor, x.grau, x.vr, x.fmt, x.med].join('|');
+  }
+  function varNome(x) {
+    var p = [x.cor === 'Sem cor' ? 'Padrão' : x.cor];
+    [x.grau, x.vr, x.fmt, x.med].forEach(function (v) {
+      if (v && String(v) !== 'Sem cor') p.push(String(v));
+    });
+    return p.join(' · ');
   }
   // Aba Vendas.
   function renderVendas() {
@@ -13478,9 +13469,9 @@
         corU[x.cor] = (corU[x.cor] || 0) + 1;
       });
       var nCor = Object.keys(corU).length,
-        multi = rows.classList.contains('vlist') && f.tipo !== 'pre' && nCor > 1 && vsL.every(function (x) { return corU[x.cor] === 1; }),
+        multi = rows.classList.contains('vlist') && vsL.length > 1,
         aberto = multi && S.vAb === k,
-        selI = multi && ((S.vCor && S.vCor[k] && vsL.filter(function (x) { return x.cor === S.vCor[k]; })[0]) || vsL[0]);
+        selI = multi && ((S.vCor && S.vCor[k] && vsL.filter(function (x) { return varKey(x) === S.vCor[k]; })[0]) || vsL[0]);
       var card = btn(
         'pcard' + (k === S.vRef ? ' on' : '') + (aberto ? ' aberta' : ''),
         '',
@@ -13540,7 +13531,7 @@
       card.appendChild(photoBox(aberto && selI ? photoOf(f.ref, selI.cor) || photoOf(f.ref) : photoOf(f.ref), 'pbox'));
       var nmB = mk('b', '', pn(f.ref));
       if (multi) {
-        var sb = mk('small', 'vsub', aberto ? selI.cor + ' · ' + gLivre(selI) + ' un.' : nCor + ' cores · ' + vsL.reduce(function (a, x) { return a + gLivre(x); }, 0) + ' un.');
+        var sb = mk('small', 'vsub', aberto ? varNome(selI) + ' · ' + gLivre(selI) + ' un.' : (nCor > 1 ? nCor + ' cores' : vsL.length + ' opções') + ' · ' + vsL.reduce(function (a, x) { return a + gLivre(x); }, 0) + ' un.');
         nmB.appendChild(sb);
       }
       card.appendChild(nmB);
@@ -13558,7 +13549,7 @@
       var unico = vsL.length === 1 ? vsL[0] : null;
       if (atacModo() && rows.classList.contains('vlist') && unico) {
         var qa = atacQtd(unico);
-        if (qa > 0 && pr0) nmB.appendChild(mk('small', 'vtot', 'Total ' + gs(qa * pr0)));
+        if (qa > 0 && pr0) nmB.appendChild(mk('small', 'vtotl', 'Total ' + gs(qa * pr0)));
         card.appendChild(atacStep(unico));
       }
       else card.appendChild(mk('i', 'vplus', '+'));
@@ -13568,7 +13559,7 @@
         vsL.forEach(function (x) {
           var cb = btn('vcor' + (x === selI ? ' on' : ''), '', function () {
             if (!S.vCor) S.vCor = {};
-            S.vCor[k] = x.cor;
+            S.vCor[k] = varKey(x);
             render();
           }, x === selI);
           var th = mk('span', 'vci'),
@@ -13580,7 +13571,7 @@
             th.appendChild(ig);
           } else th.style.background = hexOf(x.cor);
           cb.appendChild(th);
-          cb.appendChild(mk('b', '', x.cor === 'Sem cor' ? 'Padrão' : x.cor));
+          cb.appendChild(mk('b', '', varNome(x)));
           cb.appendChild(mk('span', 'n', gLivre(x) + ' un.'));
           pn2.appendChild(cb);
         });
@@ -30368,15 +30359,82 @@
   }
   // Janela (folha) por cima de tudo, independente do desenho das abas.
   function lfaAbre(id, html, cheia) {
-    var o = document.getElementById(id);
+    var o = document.getElementById(id),
+      ja = !!(o && !o.classList.contains('sai') && !cheia),
+      rolou = 0;
     if (!o) {
       o = document.createElement('div');
       o.id = id;
       document.body.appendChild(o);
+    } else if (ja) {
+      var sh0 = o.querySelector('.lfa-sh');
+      rolou = sh0 ? sh0.scrollTop : 0;
     }
-    o.className = 'lfa-ov' + (cheia ? ' lfa-full' : '');
+    // já aberta: só troca o conteúdo, sem reiniciar a animação de entrada (nada de "cascata")
+    o.className = 'lfa-ov' + (cheia ? ' lfa-full' : '') + (ja ? ' ja' : '');
+    o.style.background = '';
     o.innerHTML = '<div class="lfa-sh" role="dialog" aria-modal="true">' + html + '</div>';
+    var sh = o.querySelector('.lfa-sh');
+    if (rolou) sh.scrollTop = rolou;
+    if (!cheia && id !== 'lfa-folha') lfaGestos(o, id);
     return o;
+  }
+  // Gesto padrão das folhas: arrastar para baixo fecha, tocar no fundo fecha, o fundo nunca rola a página.
+  var LFA_FIXAS = { atvOv: 1, apEspera: 1, 'lfa-folha': 1 };
+  function lfaGestos(o, id) {
+    var sh = o.querySelector('.lfa-sh');
+    if (!sh) return;
+    var rol = sh.scrollHeight > sh.clientHeight + 2;
+    sh.style.touchAction = rol ? 'pan-y' : 'none';
+    if (o._gs) return;
+    o._gs = 1;
+    var y0 = 0, x0 = 0, t0 = 0, dy = 0, on = false, eixo = '';
+    o.addEventListener('click', function (e) {
+      if (e.target === o && !LFA_FIXAS[id]) lfaFecha(id);
+    });
+    o.addEventListener('touchmove', function (e) {
+      if (e.target === o && e.cancelable) e.preventDefault();
+    }, { passive: false });
+    o.addEventListener('touchstart', function (e) {
+      var s = o.querySelector('.lfa-sh');
+      if (!s || e.touches.length !== 1 || (e.target.closest && e.target.closest('input,textarea,select,[contenteditable]'))) return;
+      on = !LFA_FIXAS[id] || id === 'atvOv' ? true : false;
+      if (!on) return;
+      y0 = e.touches[0].clientY; x0 = e.touches[0].clientX; t0 = Date.now(); dy = 0; eixo = '';
+      s.style.transition = 'none';
+    }, { passive: true });
+    o.addEventListener('touchmove', function (e) {
+      var s = o.querySelector('.lfa-sh');
+      if (!on || !s || LFA_FIXAS[id]) return;
+      var y = e.touches[0].clientY - y0, x = e.touches[0].clientX - x0;
+      if (!eixo && (Math.abs(x) > 8 || Math.abs(y) > 8)) eixo = Math.abs(y) >= Math.abs(x) && y > 0 && s.scrollTop <= 0 ? 'y' : 'n';
+      if (eixo !== 'y') return;
+      if (e.cancelable) e.preventDefault();
+      s.style.animation = 'none';
+      dy = y;
+      s.style.transform = 'translate3d(0,' + Math.round(y) + 'px,0)';
+      o.style.background = 'rgba(0,0,0,' + (0.62 * (1 - Math.min(1, y / 420))).toFixed(3) + ')';
+    }, { passive: false });
+    function solta() {
+      var s = o.querySelector('.lfa-sh');
+      if (!on || !s) return;
+      on = false;
+      if (eixo !== 'y') { s.style.transition = ''; return; }
+      var v = dy / Math.max(1, Date.now() - t0);
+      if (dy > 110 || v > 0.6) {
+        s.style.transition = 'transform .24s cubic-bezier(.4,0,.2,1)';
+        s.style.transform = 'translate3d(0,105%,0)';
+        o.style.transition = 'background .24s';
+        o.style.background = 'rgba(0,0,0,0)';
+        setTimeout(function () { o.remove(); }, REDUCED ? 0 : 230);
+      } else {
+        s.style.transition = 'transform .3s cubic-bezier(.2,1.25,.35,1)';
+        s.style.transform = '';
+        o.style.background = '';
+      }
+    }
+    o.addEventListener('touchend', solta);
+    o.addEventListener('touchcancel', solta);
   }
   function lfaFecha(id) {
     var o = document.getElementById(id);
@@ -32138,9 +32196,13 @@
       var lx = $('inLixo');
       if (lx) lx.classList.remove('on', 'perto');
     }
-    ['touchend', 'touchcancel', 'contextmenu'].forEach(function (t) {
+    ['touchend', 'touchcancel'].forEach(function (t) {
       document.addEventListener(t, solta, true);
     });
+    // pressionar e segurar não pode abrir menu do navegador nem selecionar texto
+    document.addEventListener('contextmenu', function (e) {
+      if (dg || (e.target.closest && e.target.closest('#v-inicio .tl,#mainnav .mn'))) e.preventDefault();
+    }, true);
     window.addEventListener('blur', solta);
     document.addEventListener('visibilitychange', solta);
     // chip sem arraste ativo some sozinho
@@ -32340,6 +32402,42 @@
           );
         });
       });
+    });
+  })();
+
+  // ===== Barras de abas/segmentos: UMA animação só — a pílula desliza do botão antigo para o novo. =====
+  (function () {
+    var ULT = {};
+    function pilula(box) {
+      var on = box.querySelector(':scope > .on');
+      if (!on || !on.offsetWidth) return;
+      var id = box.id,
+        r = { l: on.offsetLeft, t: on.offsetTop, w: on.offsetWidth, h: on.offsetHeight },
+        a = ULT[id];
+      ULT[id] = r;
+      if (!a || REDUCED || (a.l === r.l && a.t === r.t && a.w === r.w)) return;
+      var pl = document.createElement('div');
+      pl.className = 'lfPill';
+      pl.style.cssText = 'left:' + a.l + 'px;top:' + a.t + 'px;width:' + a.w + 'px;height:' + a.h + 'px';
+      box.insertBefore(pl, box.firstChild);
+      on.classList.add('semfundo');
+      pl.getBoundingClientRect();
+      pl.style.transition = 'left .3s var(--mola), top .3s var(--mola), width .3s var(--mola), height .3s var(--mola)';
+      pl.style.left = r.l + 'px';
+      pl.style.top = r.t + 'px';
+      pl.style.width = r.w + 'px';
+      pl.style.height = r.h + 'px';
+      setTimeout(function () {
+        pl.remove();
+        on.classList.remove('semfundo');
+      }, 320);
+    }
+    ['vTabBar', 'eTabs'].forEach(function (id) {
+      var box = document.getElementById(id);
+      if (!box) return;
+      new MutationObserver(function (m) {
+        if (m.some(function (x) { return [].some.call(x.addedNodes, function (n) { return n.classList && !n.classList.contains('lfPill'); }); })) pilula(box);
+      }).observe(box, { childList: true });
     });
   })();
   // ===== Carrinho: várias peças numa venda só; o piso vale para o total, não para cada peça. =====

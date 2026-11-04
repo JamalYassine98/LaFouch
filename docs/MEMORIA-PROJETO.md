@@ -621,3 +621,12 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - Hierarquia: só 1 botão principal por tela; "Ver/Conferir" nas notificações e "Pedidos" do carrinho viraram secundários.
 - Texto de botões não é mais selecionável. Retirada do dono fecha a folha ao registrar.
 - ATENÇÃO: o celular do dono ainda mostra a versão antiga (prints com + rosa cheio) — só atualiza quando ele pedir o APK.
+
+## v411 (04/11/2026) — varredura geral pedida pelo dono
+- Início: mover botões (toque longo) não seleciona texto nem abre menu do navegador; texto do app não é selecionável (só campos).
+- Todas as folhas (Enviar catálogo, Tabelas, fotos etc.): arrastar para baixo fecha, tocar fora fecha, fundo não rola; trocar chip dentro da folha não reinicia a animação (sem "cascata").
+- Varejo/Atacado e abas do Inventário: UMA pílula que desliza (lfPill), igual em todas as barras de abas.
+- Lista do Catálogo: tocar numa peça com várias variantes abre só as opções (cores/graus) na própria lista; "Total" do Atacado com fonte normal.
+- Ícone do WhatsApp agora fica ao lado de Varejo/Atacado.
+- Links de texto com alvo de toque ≥44px; números do Dashboard não quebram "G$".
+- Varredura automática (/tmp/impl/sweep.py): nenhum erro de JS, estouro de tela ou folha que não fecha.

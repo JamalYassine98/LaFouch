@@ -1063,7 +1063,7 @@ body:has(.cxAcao.on){overflow:hidden}
 .vstep .vs-b{width:38px;height:38px;line-height:36px;background:transparent;color:var(--fg);font-size:22px;border-radius:50%}
 .vstep .vs-b:active{background:var(--tbg)}
 .vstep .vs-n{background:transparent;min-width:30px;height:38px;line-height:38px;font-variant-numeric:tabular-nums}
-.vtot{display:block;color:var(--ok);font-weight:700;margin-top:2px}
+#vRows .vtotl{display:block;font:700 13px var(--ui,inherit);color:var(--ok);margin-top:2px}
 .dayrow .ic{font-size:24px;line-height:1}.dayrow .ic:disabled{opacity:.35}
 /* Loja online A (aprovado): seletor de 3 em pílula única */
 .catbar3{display:flex;gap:2px;padding:3px;background:var(--panel2);border:1px solid var(--line);border-radius:999px}
@@ -1089,3 +1089,22 @@ button,.btn,.go,.mini,.ic,.mn,[data-act],.tabchip,.mpill{-webkit-user-select:non
 /* v410 hierarquia: só UMA ação principal por tela; as demais são secundárias (neutras) */
 .btn-sc.p{background:var(--panel2);border:1px solid var(--line);color:var(--fg)}
 .btn-sc.p:not(:disabled):active{background:var(--tbg);border-color:var(--tbd);color:#fff}
+/* v411 folhas padrão: fundo travado; chips animam a troca */
+html:has(.lfa-ov:not(.sai)),html:has(.cxAcao.on){overflow:hidden;overscroll-behavior:none}
+.lfa-ov{overscroll-behavior:none;touch-action:none}
+.lfa-sh{will-change:transform}
+.chip{transition:background-color .22s,border-color .22s,color .22s,transform .18s var(--mola,ease)}
+.chip:active{transform:scale(.96)}
+/* ninguém seleciona texto do app por acidente (só campos de digitar) */
+body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input,textarea,[contenteditable],.sel-ok,.sel-ok *{-webkit-user-select:text;user-select:text}
+/* pílula única das barras de abas */
+#vTabBar,#eTabs{position:relative}
+.lfPill{position:absolute;border-radius:999px;background:var(--pr-bg);border:1px solid var(--accent);pointer-events:none;z-index:0}
+#vTabBar>.chip,#eTabs>.chip{position:relative;z-index:1}
+.chip.semfundo{background:transparent!important;border-color:transparent!important}
+#vRows .vtotl{display:block;font-size:13px;font-weight:700;color:var(--ok);margin:2px 0 0;font-family:inherit}
+/* links de texto com área de toque confortável (≥44px) sem mexer no layout */
+a[data-act],a.lk{display:inline-block;padding:14px 8px;margin:-14px -8px;-webkit-tap-highlight-color:transparent}
+/* números grandes dos painéis nunca quebram "G$" da cifra */
+.kpi b{white-space:nowrap;font-size:clamp(18px,5.4vw,26px)}

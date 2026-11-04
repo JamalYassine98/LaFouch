@@ -410,9 +410,13 @@
       var lx = $('inLixo');
       if (lx) lx.classList.remove('on', 'perto');
     }
-    ['touchend', 'touchcancel', 'contextmenu'].forEach(function (t) {
+    ['touchend', 'touchcancel'].forEach(function (t) {
       document.addEventListener(t, solta, true);
     });
+    // pressionar e segurar não pode abrir menu do navegador nem selecionar texto
+    document.addEventListener('contextmenu', function (e) {
+      if (dg || (e.target.closest && e.target.closest('#v-inicio .tl,#mainnav .mn'))) e.preventDefault();
+    }, true);
     window.addEventListener('blur', solta);
     document.addEventListener('visibilitychange', solta);
     // chip sem arraste ativo some sozinho
