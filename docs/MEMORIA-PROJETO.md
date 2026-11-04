@@ -41,7 +41,56 @@ Ver `git log` (v300 → v332). Resumos de cada versão estão nas mensagens de c
 - Outras decisões antigas: remover fundo branco automático da foto (foto entra como foi tirada); projeto de 5 imagens aprovado (v328); não voltar o app para a versão antiga.
 
 ## Aviso
-O histórico bruto anterior a 27/10/2026 foi condensado pelo sistema e não é mais legível. Este arquivo e o git log são a memória durável. Se uma decisão do dono não estiver aqui, pedir a ele a imagem/mensagem em vez de supor.
+Em 04/11/2026 o dono exportou a conversa inteira (21/10 a 04/11) e ela foi relida do começo. As decisões de 21–27/10 que tinham se perdido na condensação estão na seção "Decisões recuperadas" logo abaixo. Este arquivo e o git log são a memória durável. Se uma decisão do dono não estiver aqui, pedir a ele a imagem/mensagem em vez de supor.
+
+## ERROS RECORRENTES DO CLAUDE (não repetir) — levantados da conversa inteira em 04/11/2026
+1. Implementar DIFERENTE do esboço aprovado ou acrescentar coisas não pedidas (botões de medida, folgas, "quando foi a venda", distâncias). Fazer exatamente o aprovado; nada a mais.
+2. Esquecer o que foi aprovado ou não implementar uma aprovação ("você me passou essa proposta e não implementou"). Antes de dizer "pronto", conferir item por item contra o pedido.
+3. Regressões: correção que volta (alinhamento grau/código da haste, ícones gigantes), funcionalidade removida sem pedido (v351 tirou o acesso rápido). Não remover nada que não foi pedido; conferir telas vizinhas depois de mexer.
+4. Dizer "corrigido" sem confirmar no aparelho; testar só em simulação. Dizer claramente o que foi e o que não foi testado no celular real.
+5. Narrar demais e gastar tokens ("pode parar de escrever... só me avisa quando terminar"). Respostas curtas.
+6. Ignorar tamanhos de texto e resoluções (celular, tablet, PC até 2560×1440). Todo ajuste visual vale para todos.
+7. Confundir APK com atualização: mudança em src/ ou www/ chega pela atualização automática (publicar-app.yml → GitHub Pages); APK só para mudança nativa.
+8. Trocar a ordem do fluxo de lixeira: o dono seleciona o item e DEPOIS toca a lixeira.
+
+## Decisões recuperadas de 21–27/10/2026 (lidas da exportação completa)
+### Negócio
+- Loja La Fouch, Galeria Jebai Center, 3º piso, torre A, nº 2242, Ciudad del Este. Seg–sáb ~7h30–15h (às vezes fecha 16h ou abre mais cedo: não ser rígido). WhatsApp +595 983642241. Frase: "Tudo em Óculos". Logo = ESCUDO (nunca círculo). Dono é o único usuário; tem contador.
+- Vários fornecedores (Kazwini com marca própria, Betânia...). Reposição NUNCA é idêntica: código e C1–C6 mudam. C1–C6 (+C7, C8) é a classificação de cor DO MODELO, não universal. Mesmo código = mesmo produto. Códigos parecidos (PY-566 x PY-568) = modelos diferentes da mesma linha: oferecer juntar no mesmo NOME.
+- Não usa etiquetas. Não vende lentes soltas nem líquidos.
+- BRINDES: estojo, flanela, líquido, capinha, sacola (estojo de marca caro é vendido). O custo dos brindes entra nos cálculos pelas compras de lote de brindes.
+- Solares: polarizado x não polarizado é importante; espelhado é cor.
+- PRÉ-GRADUADOS: compra pelo GRAU, não pelo modelo (modelo é bônus). Graus sempre positivos, 0,25 a 4,00 de 0,25 em 0,25. Pacotes de 20/24/30; mix surtido quando barato. Reposição por QUANTIDADE (4–5 peças é pouco; já vendeu 5 do mesmo grau num dia; há atacadistas). Faltar qualquer grau é crítico. Muitos não têm código nem grau na haste (só adesivo na lente) → modelos parecidos por foto.
+- Faixas hoje: armações econômico/intermediário/luxo; solar econômico/intermediário; pré-graduado só econômico. Quer as 3 em cada categoria com o tempo.
+- Nome público sem código (site). Produto sem nome = "Tipo #nº interno" (ex.: Acetato #12). Código interno = só número.
+### Dinheiro
+- Margem cobre contas da loja, contas de casa e mercadoria. Reserva não é 15% fixo: inteligente (câmbio e custo antigo x novo). Caixa de melhorias é opcional.
+- Mercadoria é sempre em DÓLAR: guardar o máximo de US$ para reposição; o dólar é 100% da loja (o dono não fica com dólar livre). Tirar mais R$ ou G$ conforme as despesas. Reposição recupera DÓLARES (trocou US$6 a 5.500 e o dólar foi a 6.000 → repor 36 mil). Trocas com valores redondos e a cotação real cobrada.
+- Câmbio: "dólar hoje" = real automático; custos pelo câmbio real; cotação da LOJA = real + margem automática, sempre arredondada para cima (5.885→5.900; R$4,92→5); só a valorização forte do dólar (últimas 2 semanas) sobe a margem. Câmbio manual só no carrinho.
+- Não trabalha com centavos de US$/R$. Resumo e Histórico mostram as vendas EXATAS em cada moeda recebida.
+- Piso/trava vale para o TOTAL do carrinho. Desconto = diminuir o valor recebido (com motivo).
+- Descarte = prejuízo (fornecedor não aceita devolução). Despesas com "Pagar" que zera todo mês; contas em US$ (condomínio) e R$ (cartão). Pix sem taxa.
+- Semana começa na segunda.
+### NOTA FISCAL (regra de "EXTREMA importância", 24/10/2026)
+- O app NÃO emite: mostra/imprime os dados e a máquina fiscal faz o resto (contador aprovou). Sempre em GUARANIS (mesmo pago em US$/R$), cotação da loja; IVA 10% incluído = total ÷ 11; pagamento sempre "Contado"; Ciudad sempre CDE.
+- Descrição só "Armazón" (armações e grau) ou "Lente de sol". Brindes não entram.
+- Sem cliente: "Sin nombre", RUC "X" (o dono PODE imprimir assim para registrar a venda).
+- ESTRANGEIRO (brasileiro, argentino) NUNCA recebe nota. Pode estar em Clientes só para o histórico, mas a opção de imprimir NÃO aparece. Cliente paraguaio com RUC: opção aparece, com confirmação. Tela com impressão só fecha pelo X ou imprimindo; "Venta registrada" sem nota fecha sozinha em 3 s.
+### Site e catálogos
+- O site é SÓ vitrine; preço vem SÓ do Inventário; oferta é feita no Inventário e vai para vendas e site, com aviso automático de piso/trava. Todas as cores do mesmo produto têm o mesmo preço; toda cor liberada precisa de foto.
+- Catálogo = Vendas / WhatsApp / Site, cada um no seu papel. Não publicar o que não tem; esgotado fica 2 semanas no site e depois some.
+- Selos: Esgotado > Última(s) unidade(s) = Oferta > Novo (desta semana).
+- Gênero: feminino mostra feminino+unissex; masculino mostra masculino+unissex; unissex só unissex.
+- Contato fácil com o vendedor em vários lugares = redundância PROPOSITAL. Setas ‹ › + deslizar nos catálogos = PROPOSITAL. Editar quantidade / Descartar / Contagem = PROPOSITAIS.
+- Público leigo e idoso: textos grandes têm de caber.
+- Fundo branco automático da foto: REMOVIDO (27/10).
+### Regras de trabalho antigas
+- "Aplicar mudanças" = pode implementar e enviar ao GitHub.
+- Antes de limpeza de código: guardar a versão atual; app e site não podem quebrar.
+- Offline é emergência (queda de luz); online é a prioridade; só ferramentas grátis e seguras.
+
+## BUG CRÍTICO encontrado em 04/11/2026 (NÃO corrigido, aguardando o dono)
+- Clientes que chegam pelo site guardam o documento (CPF do brasileiro, DNI do argentino) no campo `ruc` (src/95-pedidos.js linhas ~100 e ~105). A nota (src/97-nota.js, `temRuc`) só olha se `ruc` está preenchido, então um estrangeiro vindo do site aparece COM a opção de nota fiscal. Viola a regra de extrema importância. Correção proposta: guardar CPF/DNI em `doc` e só tratar como RUC quando `nac` for paraguaio (ou vazio, no balcão).
 
 ## Pedidos de 27/10/2026 13:32
 - Formato/Material/Gênero/Tipo: trocar chips por seletor estilo 'Label Select' (campo com lupa + seta, lista abaixo); o botão Formato não respondia ao clique. Resolver toda interação parecida.
