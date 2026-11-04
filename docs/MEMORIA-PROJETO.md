@@ -734,3 +734,6 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Tocar no produto: A — abre a vitrine direto (sem a prévia/folha no meio). NÃO implementado ainda.
 - Adicionar produto: A (2 botões grandes Ler haste / Foto + linhas "Chegou mercadoria" e "Preencher à mão"), mas elaborar mais.
 - CORREÇÃO do dono sobre a gaveta "Buscar com a câmera" (aberta pela moldura com óculos): os DOIS botões estão errados. O aprovado em 03/11 era: Ler haste com ícone de MOLDURA COM LINHAS DE TEXTO e Foto da armação com ícone de CÂMERA (dois cartões grandes). Hoje: Ler haste com ícone de código de barras e Foto com a moldura com óculos. Refazer esboço.
+- 04/11 12:01: Vendas = B2 (ícones sem círculo, moeda em texto com sublinhado; só busca e Varejo|Atacado com caixa), elaborar mais. CORREÇÃO: "Tabela: Atacado 1K ▾" aparece SÓ no Atacado (no Varejo, a contagem "N peças").
+- Adicionar = A+ (2 cartões grandes Ler haste [moldura com linhas] / Foto [câmera], sem textos explicativos, "Últimos cadastrados", linhas Chegou mercadoria / Preencher à mão), elaborar mais.
+- Gaveta "Buscar com a câmera": APROVADA (esboço "vendas_b_minimal_adicionar_camera", aba Gaveta câmera): dois cartões grandes lado a lado, Ler haste = moldura com linhas de texto, Foto da armação = câmera; fecha deslizando a alça ou tocando fora.
