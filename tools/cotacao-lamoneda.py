@@ -9,7 +9,7 @@ os.makedirs('/tmp/lamoneda', exist_ok=True)
 
 
 def baixar(url):
-    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (LaFouch cotacao)', 'Accept-Language': 'es-PY,es;q=0.9'})
+    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Mobile Safari/537.36', 'Accept': 'text/html,application/xhtml+xml', 'Accept-Language': 'es-PY,es;q=0.9,pt;q=0.8'})
     with urllib.request.urlopen(req, timeout=30) as r:
         return r.read().decode('utf-8', 'replace')
 
@@ -68,8 +68,23 @@ def ler(h):
     return {'usd': {'compra': usd[0], 'venda': usd[1]}, 'brl': {'compra': brl[0], 'venda': brl[1]}, 'usdbrl': {'compra': arb[0], 'venda': arb[1]} if arb else None}
 
 
+URLS = [URL, 'https://www.lamoneda.com.py/es/cotizaciones', 'https://lamoneda.com.py/cotizaciones', 'https://www.lamoneda.com.py/en/cotizaciones']
+
+
+def baixar_tentando():
+    erros = []
+    for volta in range(3):
+        for u in URLS:
+            try:
+                return baixar(u)
+            except Exception as e:  # 522 do Cloudflare às vezes: tenta de novo
+                erros.append(f'{u}: {e}')
+        time.sleep(20)
+    raise SystemExit('não consegui baixar a página: ' + ' | '.join(erros[-4:]))
+
+
 def main():
-    h = baixar(URL)
+    h = baixar_tentando()
     open('/tmp/lamoneda/pagina.html', 'w').write(h)
     c = ler(h)
     agora = int(time.time() * 1000)
