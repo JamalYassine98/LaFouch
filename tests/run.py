@@ -1233,6 +1233,28 @@ async def main():
             total += 1
             await pg.close()
 
+            # Ajustes minimalista: grupo único, uma seção aberta por vez, segurar e arrastar muda a ordem (só neste aparelho) com Desfazer
+            pg = await pagina(tudo=False)
+            await pg.evaluate("() => { const L = window.__LF; L.setView('ajustes'); L.render(); }"); await pg.wait_for_timeout(400)
+            a0 = await pg.evaluate("() => [document.querySelectorAll('#ajGrp .ajS').length, document.querySelectorAll('#ajGrp .ajS.on').length, document.querySelector('.ajS[data-k=tema] .ajRes').textContent, !!document.querySelector('.ajVer')]")
+            await pg.click('.ajS[data-k=seg] .ajR'); await pg.wait_for_timeout(300)
+            await pg.click('.ajS[data-k=tema] .ajR'); await pg.wait_for_timeout(400)
+            a1 = await pg.evaluate("() => [...document.querySelectorAll('#ajGrp .ajS.on')].map(x => x.dataset.k)")
+            bx = await pg.locator('.ajS[data-k=bk] .ajR').bounding_box()
+            x = bx['x'] + bx['width'] / 2; y = bx['y'] + bx['height'] / 2
+            await pg.mouse.move(x, y); await pg.mouse.down(); await pg.wait_for_timeout(700)
+            for k in range(1, 31):
+                await pg.mouse.move(x, y - k * 25); await pg.wait_for_timeout(15)
+            await pg.wait_for_timeout(150); await pg.mouse.up(); await pg.wait_for_timeout(500)
+            a2 = await pg.evaluate("() => [document.querySelector('#ajGrp .ajS').dataset.k, JSON.parse(localStorage.getItem('lf_ajOrd'))[0], document.getElementById('lfDesf') && document.getElementById('lfDesf').classList.contains('on')]")
+            await pg.click('#lfDesf button'); await pg.wait_for_timeout(400)
+            a3 = await pg.evaluate("() => document.querySelector('#ajGrp .ajS').dataset.k")
+            ok = a0[0] >= 7 and a0[1] == 0 and a0[2] == 'Auto' and a0[3] and a1 == ['tema'] and a2 == ['bk', 'bk', True] and a3 == 'imp' and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Ajustes: grupo único, uma aberta por vez, segurar e arrastar com Desfazer')
+            if not ok: falhas.append('ajustes ordem'); print('        veio', a0, a1, a2, a3, pg.erros)
+            total += 1
+            await pg.close()
+
             # Adicionar A+1: Dar entrada de novo (3 últimas) abre a folhinha e soma no estoque; gaveta da câmera com 2 cartões
             pg = await pagina()
             r0 = await pg.evaluate("""() => { const L = window.__LF, S = L.S;
@@ -2002,7 +2024,7 @@ async def main():
             pg = await pagina()
             await pg.add_init_script("window.__tocou = []; window.Audio = function (u) { this.play = () => { window.__tocou.push(u); return Promise.resolve(); }; };")
             await pg.reload(); await pg.wait_for_timeout(800)
-            await pg.evaluate("() => { const L = window.__LF; L.S.avisos = {som: 'campainha'}; L.S._ajForce = true; L.setView('ajustes'); }"); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => { const L = window.__LF; L.S._rtudo = true; L.S.avisos = {som: 'campainha'}; L.S._ajForce = true; L.setView('ajustes'); }"); await pg.wait_for_timeout(300)
             t1 = await pg.evaluate("() => { const c = document.getElementById('avisosCard'); return [c.querySelectorAll('[data-av=escolher]').length, c.innerText.includes('Peça voltou'), c.innerText.includes('Campainha')]; }")
             await pg.evaluate("() => document.querySelector('[data-av=escolher][data-v=n]').click()"); await pg.wait_for_timeout(200)
             t2 = await pg.evaluate("() => [!!document.querySelector('.pdOv'), document.querySelectorAll('.avopt').length]")

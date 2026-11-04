@@ -1,8 +1,7 @@
 {
- "nome": "4.5.1",
+ "nome": "4.6",
  "notas": [
-  "Menu Adicionar novo também no celular (sem precisar de APK)",
-  "Vendas: aviso do atacado numa linha própria e quantidade embaixo do nome na lista",
-  "Tema marcado em cinza"
+  "Ajustes mais limpo: uma lista com ícones, cada item abre no lugar",
+  "Segure um item do Ajustes para arrastar e mudar a ordem (vale só neste aparelho), com Desfazer"
  ]
 }

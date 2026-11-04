@@ -1,6 +1,6 @@
   // ===== Sistema de botões (v407): ícones, aviso com Desfazer e confirmação no próprio botão. =====
   // Aviso com "Desfazer" (4,5 s). fn roda se a pessoa tocar em Desfazer.
-  function lfDesfazer(msg, fn) {
+  function lfDesfazer(msg, fn, ms) {
     var e = $('lfDesf');
     if (!e) {
       e = document.createElement('div');
@@ -24,7 +24,7 @@
     lfDesfazer.t = setTimeout(function () {
       e.classList.remove('on');
       lfDesfazer.fn = null;
-    }, 4500);
+    }, ms || 4500);
   }
   (function () {
     var w = $('vWa');

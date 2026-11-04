@@ -201,22 +201,46 @@
     var ae = document.activeElement;
     if (!S._ajForce && ae && ae.tagName === 'INPUT' && el.contains(ae)) return;
     S._ajForce = false;
-    var h =
-      '<div class="top"><div><h1>Ajustes</h1><div class="crumb">Segurança e cópias</div></div></div>';
+    // v419: Ajustes minimalista (esboço aprovado 04/11): um grupo, linhas que abrem no lugar e ordem livre
+    var h = '<div class="top"><div><h1>Ajustes</h1></div></div>';
     if (S.ajMsg) h += '<div class="note n-ok" role="status">' + esc(S.ajMsg) + '</div>';
     S.notaCidade = 'CDE'; // nota fiscal e comprovante: sempre CDE (onde são feitas as vendas)
-    // backup (arquivo manual + cópias automáticas)
-    // Backup é a última seção; a Nuvem fica dentro dele
-    h += impCard(); // impressora térmica (esboço aprovado 04/11/2026)
-    h += temaCard();
-    h += ajustesFinHtml();
-    h += syncCard();
-    h += updCard();
+    // Segurança, Pedidos do site e Sons e avisos vêm juntos: separa cada seção
+    var fin = ajustesFinHtml(),
+      partes = fin.match(/<section[\s\S]*?<\/section>/g) || [],
+      resto = fin.replace(/<section[\s\S]*?<\/section>/g, ''),
+      achar = function (id) {
+        return (
+          partes.filter(function (x) {
+            return x.indexOf('id="' + id + '"') >= 0;
+          })[0] || ''
+        );
+      },
+      segH = partes.filter(function (x) {
+        return x.indexOf('id="baixaCard"') < 0 && x.indexOf('id="avisosCard"') < 0;
+      })[0] || '';
     var nv = nvCard()
       .replace('<section class="card col">', '<div class="col" style="border-top:1px solid var(--line);padding-top:12px">')
       .replace(/<\/section>$/, '</div>');
-    h += backupHtml().replace(/<\/section>$/, nv + '</section>');
+    var tv = temaVal(),
+      sy = typeof syncVisivel === 'function' && syncVisivel() ? syncEstadoTxt() : null,
+      upN = typeof updPendente === 'function' ? updPendente() : 0,
+      um = updMarca(),
+      bkd = S.backupTs ? Math.floor((Date.now() - S.backupTs) / DAY) : -1,
+      av = typeof avPref === 'function' ? avPref() : {};
+    var secs = {
+      imp: { t: 'Impressora', r: imp ? 'Conectada' : 'Nenhuma', h: impCard() },
+      tema: { t: 'Tema', r: { auto: 'Auto', claro: 'Claro', escuro: 'Escuro' }[tv] || 'Auto', h: temaCard() },
+      seg: { t: 'Segurança', r: S.bioOn ? 'Biometria' : pinAtivo() ? 'PIN' : 'Desligada', h: segH },
+      ped: { t: 'Pedidos do site', r: S.baixaAuto ? 'Baixa automática' : 'Baixa manual', h: achar('baixaCard') },
+      av: { t: 'Sons e avisos', r: av.q ? 'Silêncio ligado' : 'Ligados', h: achar('avisosCard') + resto },
+      sync: sy ? { t: 'Sincronização', r: sy[1], al: sy[0] === 'bad' || sy[0] === 'warn', h: syncCard() } : null,
+      upd: { t: 'Atualização', r: upN ? (um.nome || upN) + ' pronta' : APP_NOME, al: !!upN, h: updCard() },
+      bk: { t: 'Cópias e nuvem', r: bkd < 0 ? 'Nenhuma cópia' : bkd === 0 ? 'Hoje' : 'Há ' + bkd + (bkd === 1 ? ' dia' : ' dias'), al: bkd < 0 || bkd > 7, h: backupHtml().replace(/<\/section>$/, nv + '</section>') }
+    };
+    h += ajListaHtml(secs);
     el.innerHTML = h;
+    ajGestos();
   }
   // Recalcula e salva uma alteração feita na aba Ajustes.
   document.addEventListener('change', function (e) {
