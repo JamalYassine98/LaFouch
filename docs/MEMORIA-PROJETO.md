@@ -715,3 +715,9 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - ESBOÇO "sifen_envio_estados_esboco" (04/11 11:16), chave ligada: 1 Enviando (faixa + espera) · 2 Aprovada (Timbrado, Factura N°, CDC, QR no papel) · 3 Rejeitada (motivo da DNIT; "Corrigir e enviar de novo" ou "Imprimir só o comprovante (sem nota)") · 4 Sem internet (fila, envia sozinha em até 72 h; papel diz "Factura electrónica en proceso").
 - DECISÕES (11:19): a lista de notas na fila fica em NOTIFICAÇÕES. Sem internet: se o comprovante já foi impresso, NÃO precisa reimprimir quando a nota for aprovada depois (só registra).
 - Aguardando: dono verificar esta semana timbrado eletrônico, certificado (.p12), CSC e acesso ao ambiente de testes do SIFEN; e dizer "pode implementar".
+
+## 04/11/2026 11:23 — APROVADO ("Pode implementar tudo"): impressora + envio ao SIFEN
+- Impressora (esboço "ajustes_impressora_esboco"): cartão "Impressora" em Ajustes. Sem impressora → "Procurar impressora". Procurando → procura no Wi-Fi e no Bluetooth juntos, lista o que achou, "Usar". Conectada → modelo + "Conectada · Wi-Fi + Bluetooth", Conexão Automático | Só Wi-Fi | Só Bluetooth (Automático = Wi-Fi e, se cair, Bluetooth sozinho), "Imprimir teste", "Esquecer impressora" (vermelho).
+- Impressora escolhida: Epson TM-m30III Wi-Fi + Bluetooth (código C31CK50151/152; -H: 141/142). Dono vai comprar.
+- SIFEN: esboço de 4 estados aprovado (ver acima). Depende de timbrado eletrônico, certificado, CSC e ambiente de testes (dono verifica esta semana).
+- Implementação feita junto com a impressora e as credenciais em mãos, para testar de verdade (impressão precisa de plugin nativo → APK novo).
