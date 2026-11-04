@@ -1,12 +1,8 @@
 {
- "nome": "4.5",
+ "nome": "4.5.1",
  "notas": [
-  "Vendas mais limpa: Varejo/Atacado num trilho só, busca com filtro ao lado e quantidade maior",
-  "Tocar no produto abre a vitrine direto; na lista, as cores abrem na própria lista",
-  "Adicionar: Ler haste e Foto menores, \"Dar entrada de novo\" com as 3 últimas peças",
-  "Cadastro numa tela só: código com leitor, Tipo em trilho e \"Como é\" em gaveta",
-  "Cores e fotos em lista: Cor nova tira a foto e vira uma linha",
-  "Editar produto igual ao cadastro, com foto no topo e lixeira",
-  "Brindes: compra entra como despesa e o Separar diz quanto guardar para repor"
+  "Menu Adicionar novo também no celular (sem precisar de APK)",
+  "Vendas: aviso do atacado numa linha própria e quantidade embaixo do nome na lista",
+  "Tema marcado em cinza"
  ]
 }

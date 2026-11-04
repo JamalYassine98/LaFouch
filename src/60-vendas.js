@@ -378,7 +378,7 @@
       var unico = vsL.length === 1 ? vsL[0] : null;
       if (atacModo() && rows.classList.contains('vlist') && unico) {
         var qa = atacQtd(unico);
-        if (qa > 0 && pr0) nmB.appendChild(mk('small', 'vtotl', 'Total ' + pvm(qa * pr0)));
+        if (qa > 1 && pr0) nmB.appendChild(mk('small', 'vtotl', 'Total ' + pvm(qa * pr0)));
         card.appendChild(atacStep(unico));
       }
       else card.appendChild(mk('i', 'vplus', '+'));

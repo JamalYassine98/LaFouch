@@ -1261,3 +1261,18 @@ a[data-act],a.lk{display:inline-block;padding:14px 8px;margin:-14px -8px;-webkit
 .cfQI{width:48px;border:0;background:transparent;color:var(--fg);font:inherit;font-weight:800;font-size:18px;text-align:center;padding:0;-moz-appearance:textfield}
 .cfQI::-webkit-outer-spin-button,.cfQI::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .edLixo.on{background:rgba(239,68,68,.12)!important;border-color:var(--bad)!important;color:var(--bad)!important;box-shadow:none!important}
+/* v418: o celular mantém o style.css antigo do APK e só soma este por cima — anular as regras que saíram */
+#btnLeitor::after{content:none!important;display:none!important}
+#addMenuB #addToMan,#addMenuB #addToLote{min-height:56px!important;font-size:15.5px!important;color:var(--fg)!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;justify-content:flex-start!important}
+#addMenuB #addToLote{border-bottom:1px solid var(--line)!important}
+#addPhotoB #btnLeitor,#addPhotoB #btnFoto{width:100%!important;min-height:92px!important;margin:0!important;flex-direction:column!important;background:var(--panel2)!important;border:1px solid var(--line)!important;color:var(--fg)!important;box-shadow:none!important;border-radius:16px!important}
+/* v418: barra Varejo/Atacado — o "Faltam US$ … para a tabela" vai para a linha de baixo, sem apertar o trilho */
+#vTabBar{flex-wrap:wrap!important;row-gap:8px}
+#vTabBar>.trk{flex:1 1 0}
+#vTabBar>.trkExtra{flex:1 0 100%;order:9;min-width:0}
+/* v418: lista de vendas — o − N + desce para baixo do texto e o nome usa a largura toda */
+#vRows.vlist .pcard>.vstep{grid-column:2/4!important;grid-row:auto!important;justify-self:end;margin-top:6px!important}
+/* v418: Tema é escolha (nível 3): marcada em cinza, nunca rosa */
+.tmseg button.on{background:var(--selbg,#2c323b);color:var(--fg)}
+@media (prefers-color-scheme:light){:root:not([data-tema=escuro]) .tmseg{--selbg:#e3dfe4}}
+:root[data-tema=claro] .tmseg{--selbg:#e3dfe4}

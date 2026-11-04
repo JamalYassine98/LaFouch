@@ -1,0 +1,12 @@
+  // ===== Marcação do menu Adicionar feita pelo app (v418) =====
+  // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
+  // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
+  (function () {
+    var a = document.getElementById('addPhotoB'),
+      b = document.getElementById('addMenuB');
+    if (a) a.innerHTML = "<div id=\"addRasc\" hidden style=\"margin-bottom:10px\"></div>\n      <div class=\"adTiles\"><button class=\"adTile\" id=\"btnLeitor\" type=\"button\" aria-label=\"Ler haste\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3M7 9h10M7 12h7M7 15h9\"/></svg><b>Ler haste</b></button><button class=\"adTile\" id=\"btnFoto\" type=\"button\" aria-label=\"Foto\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 8h3l2-3h6l2 3h3v11H4z\"/><circle cx=\"12\" cy=\"13\" r=\"3.5\"/></svg><b>Foto</b></button></div>\n      <div id=\"addDeNovo\" hidden></div>";
+    if (b) {
+      b.className = 'adLista';
+      b.innerHTML = "      <button class=\"adRow\" id=\"addToLote\" type=\"button\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M2 6h12v10H2zM14 9h4l3 3.5V16h-7z\"/><circle cx=\"6.5\" cy=\"17.5\" r=\"1.8\"/><circle cx=\"17.5\" cy=\"17.5\" r=\"1.8\"/></svg><span>Chegou mercadoria</span><svg class=\"adSeta\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 6l6 6-6 6\"/></svg></button>\n      <button class=\"adRow\" id=\"addToMan\" type=\"button\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 20h4L19 9l-4-4L4 16z\"/><path d=\"M13.5 6.5l4 4\"/></svg><span>Preencher à mão</span><svg class=\"adSeta\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 6l6 6-6 6\"/></svg></button>";
+    }
+  })();
