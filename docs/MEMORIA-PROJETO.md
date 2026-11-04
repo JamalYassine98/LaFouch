@@ -693,3 +693,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Chave LIGADA: comprovante + dados da nota (Nombre, RUC, Ciudad CDE, Pago Contado, IVA 10%; no futuro o QR do SIFEN). Sem cliente: Sin nombre / RUC X.
 - Cliente ESTRANGEIRO: a chave nem aparece; só comprovante (sem nome/CI).
 - A chave lembra o último modo que o dono deixou (memória do aparelho), vale para a próxima venda.
+- Topo do papel (comprovante E fatura): "LA FOUCH" + "Ciudad del Este" (pedido do dono, 04/11 10:56; esboço v3).
