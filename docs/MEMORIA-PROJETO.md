@@ -711,3 +711,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Caminho escolhido: LIGAÇÃO DIRETA com o SIFEN (o dono já tem acesso/ligação direta). Faremos todos os testes necessários no ambiente de teste do SIFEN antes de produção.
 - Fluxo previsto (só esboço ainda): chave "Emitir nota fiscal" ligada → venda → app envia os dados → servidor (Firebase Functions, Blaze já ativo) gera XML, ASSINA com o certificado e envia ao SIFEN → volta CDC + QR → comprovante impresso com o QR. Sem internet: fila, envio em até 72 h.
 - SEGURANÇA: certificado (.p12), senha e CSC NUNCA no app nem no GitHub (repos são públicos). Ficam só como segredos do servidor. Nunca pedir que o dono cole segredos no chat.
+- REGRA (04/11 11:18): chave "Emitir nota fiscal" DESLIGADA = NADA é enviado ao SIFEN (só o comprovante). Só com a chave ligada a venda vai ao SIFEN. Estrangeiro nunca vai (a chave nem aparece).
