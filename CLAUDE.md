@@ -8,4 +8,4 @@
   - Windows: gh api -X POST repos/JamalYassine98/LaFouch/actions/workflows/build-windows.yml/dispatches -f ref=main
   - `gh workflow run` e GraphQL são bloqueados; usar o comando acima. Conferir com `gh run list`.
 - Subir a versão do cache em www/sw.js (lafouch-vNNN) a cada release.
-- REGRA DE OURO (04/11/2026): sempre esboço primeiro; implementar só quando o dono avisar; guardar o aprovado em docs/MEMORIA-PROJETO.md; entregar EXATAMENTE o esboço aprovado, sem mudanças não pedidas.
+- REGRA DE OURO (04/11/2026): sempre esboço primeiro (INCLUSIVE correção de bug); implementar só quando o dono avisar; guardar o aprovado em docs/MEMORIA-PROJETO.md; entregar EXATAMENTE o esboço aprovado, sem mudanças não pedidas.
