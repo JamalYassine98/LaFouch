@@ -40,7 +40,8 @@
   // Preços de produto: digitados em dólar; os guaranis saem da cotação da loja (de 500 em 500).
   function gsDeUsd(u) {
     var r = fxUsdLoja();
-    return u > 0 && r > 0 ? Math.round((u * r) / 500) * 500 : 0;
+    // v425: preço final arredonda PARA CIMA de 1.000 em 1.000 (loja e site)
+    return u > 0 && r > 0 ? Math.ceil((u * r) / 1000 - 1e-9) * 1000 : 0;
   }
   // Valor em guaranis -> texto do campo em dólar (até 2 casas, sem zeros sobrando).
   function usdTxtDeGs(g) {

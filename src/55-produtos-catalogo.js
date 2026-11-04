@@ -3,7 +3,7 @@
   // Preço em reais e guaranis (R$ · G$), pela cotação da loja.
   function precoRG(g) {
     var b = fxLoja('brl');
-    return (b > 0 ? 'R$ ' + (g / b).toFixed(2).replace('.', ',') + ' · ' : '') + gs(g);
+    return (b > 0 ? 'R$ ' + Math.ceil(g / b - 1e-9) + ' · ' : '') + gs(g); // v425: real inteiro, para cima
   }
   // O preço vale em dólar: os guaranis seguem a cotação da loja. Se um guarani foi mudado por outra parte do app, o dólar acompanha.
   function ppSync() {
@@ -15,7 +15,7 @@
       [['novo', 'nu', 'gn'], ['ant', 'au', 'ga']].forEach(function (k) {
         if (o[k[0]] > 0) {
           if (o[k[2]] !== o[k[0]] || !(o[k[1]] > 0)) o[k[1]] = Math.round((o[k[0]] / r) * 10000) / 10000;
-          else o[k[0]] = Math.round((o[k[1]] * r) / 500) * 500;
+          else o[k[0]] = Math.ceil((o[k[1]] * r) / 1000 - 1e-9) * 1000;
           o[k[2]] = o[k[0]];
         } else {
           delete o[k[1]];

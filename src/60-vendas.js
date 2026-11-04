@@ -52,7 +52,8 @@
   }
   function pvm(g) {
     var m = vMoeda();
-    return m === 'pyg' ? gs(g) : fmtM(conv(g, 'pyg', m), m);
+    // v425: em real o preço aparece inteiro, arredondado para cima (ex.: R$ 55)
+    return m === 'pyg' ? gs(g) : m === 'brl' ? 'R$ ' + Math.ceil(conv(g, 'pyg', m) - 1e-9) : fmtM(conv(g, 'pyg', m), m);
   }
   function renderMoedaBar() {
     var bx = $('vMoedaBar');

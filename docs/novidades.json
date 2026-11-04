@@ -1,11 +1,7 @@
 {
- "nome": "4.7",
+ "nome": "4.7.1",
  "notas": [
-  "Linha automática: cada peça vira econômica, intermediária ou luxo sozinha (o cliente não vê)",
-  "Catálogo se arruma pelo que o cliente pediu para ver; vitrine com Parecidas",
-  "Preço automático (Dashboard › Preços): um interruptor, ofertas em degraus para parados, desfazer e cadeado no produto",
-  "Pré-graduados com preço fixo em duas linhas: econômica e luxo",
-  "Contas por peça calculadas com 14 dias de vendas",
-  "Cliente achou caro: o catálogo desce de linha no mesmo estilo; segure o preço para ver até onde pode ir; Leve 2 e Brinde no pedido"
+  "Preço automático: o interruptor fica em Ajustes; os ajustes e o desfazer ficam em Dashboard › Preços",
+  "Preços arredondam para cima: guarani de 1.000 em 1.000 e real inteiro (loja e site)"
  ]
 }

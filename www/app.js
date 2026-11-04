@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 423;
+  var APP_BUILD = 424;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '4.7'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '4.7.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -7454,7 +7454,8 @@
   // Preços de produto: digitados em dólar; os guaranis saem da cotação da loja (de 500 em 500).
   function gsDeUsd(u) {
     var r = fxUsdLoja();
-    return u > 0 && r > 0 ? Math.round((u * r) / 500) * 500 : 0;
+    // v425: preço final arredonda PARA CIMA de 1.000 em 1.000 (loja e site)
+    return u > 0 && r > 0 ? Math.ceil((u * r) / 1000 - 1e-9) * 1000 : 0;
   }
   // Valor em guaranis -> texto do campo em dólar (até 2 casas, sem zeros sobrando).
   function usdTxtDeGs(g) {
@@ -11365,7 +11366,7 @@
   // Preço em reais e guaranis (R$ · G$), pela cotação da loja.
   function precoRG(g) {
     var b = fxLoja('brl');
-    return (b > 0 ? 'R$ ' + (g / b).toFixed(2).replace('.', ',') + ' · ' : '') + gs(g);
+    return (b > 0 ? 'R$ ' + Math.ceil(g / b - 1e-9) + ' · ' : '') + gs(g); // v425: real inteiro, para cima
   }
   // O preço vale em dólar: os guaranis seguem a cotação da loja. Se um guarani foi mudado por outra parte do app, o dólar acompanha.
   function ppSync() {
@@ -11377,7 +11378,7 @@
       [['novo', 'nu', 'gn'], ['ant', 'au', 'ga']].forEach(function (k) {
         if (o[k[0]] > 0) {
           if (o[k[2]] !== o[k[0]] || !(o[k[1]] > 0)) o[k[1]] = Math.round((o[k[0]] / r) * 10000) / 10000;
-          else o[k[0]] = Math.round((o[k[1]] * r) / 500) * 500;
+          else o[k[0]] = Math.ceil((o[k[1]] * r) / 1000 - 1e-9) * 1000;
           o[k[2]] = o[k[0]];
         } else {
           delete o[k[1]];
@@ -13788,7 +13789,8 @@
   }
   function pvm(g) {
     var m = vMoeda();
-    return m === 'pyg' ? gs(g) : fmtM(conv(g, 'pyg', m), m);
+    // v425: em real o preço aparece inteiro, arredondado para cima (ex.: R$ 55)
+    return m === 'pyg' ? gs(g) : m === 'brl' ? 'R$ ' + Math.ceil(conv(g, 'pyg', m) - 1e-9) : fmtM(conv(g, 'pyg', m), m);
   }
   function renderMoedaBar() {
     var bx = $('vMoedaBar');
@@ -27024,6 +27026,7 @@
       av = typeof avPref === 'function' ? avPref() : {};
     var secs = {
       imp: { t: 'Impressora', r: imp ? 'Conectada' : 'Nenhuma', h: impCard() },
+      pa: { t: 'Preço automático', r: S.pAuto && S.pAuto.on ? 'Ligado' : 'Desligado', h: paSwitchHtml() },
       tema: { t: 'Tema', r: { auto: 'Auto', claro: 'Claro', escuro: 'Escuro' }[tv] || 'Auto', h: temaCard() },
       seg: { t: 'Segurança', r: S.bioOn ? 'Biometria' : pinAtivo() ? 'PIN' : 'Desligada', h: segH },
       ped: { t: 'Pedidos do site', r: S.baixaAuto ? 'Baixa automática' : 'Baixa manual', h: achar('baixaCard') },
@@ -28250,7 +28253,7 @@
   var SITE_DIAS = 30,
     SITE_VAR = 0.02,
     SITE_ALTA = 0.03,
-    SITE_ARRED = 5000;
+    SITE_ARRED = 1000; // v425: o site arredonda igual à loja (de 1.000 em 1.000, para cima)
   // Trava de novo só quando vale a pena: a cada 30 dias se o dólar andou 2% ou mais; antes disso, só se o dólar subir mais de 3% (protege a margem).
   function siteFxConfere(forca) {
     var v;
@@ -28284,7 +28287,7 @@
       return gs;
     }
     if (!(vivo > 0)) return gs;
-    return Math.max(SITE_ARRED, Math.round(((gs / vivo) * S.siteFx.usd) / SITE_ARRED) * SITE_ARRED);
+    return Math.max(SITE_ARRED, Math.ceil(((gs / vivo) * S.siteFx.usd) / SITE_ARRED - 1e-9) * SITE_ARRED);
   }
   function siteFxDiasTxt() {
     var L = S.siteFx;
@@ -28498,6 +28501,7 @@
   };
   var AJ_ICO = {
     imp: AJ_SVG('<path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/>'),
+    pa: AJ_SVG('<path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><circle cx="7.5" cy="7.5" r="1.5"/>'),
     tema: AJ_SVG('<path d="M12 21a9 9 0 1 1 9-9c0 2.5-2 3.5-4 3.5h-2a2 2 0 0 0-1.5 3.3c.4.5.5 1 .5 1.4 0 .5-.9.8-2 .8z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7.5" r="1"/><circle cx="15" cy="7.5" r="1"/>'),
     seg: AJ_SVG('<path d="M12 11v3M8.5 8.5A5 5 0 0 1 17 12v1.5M7 12c0 3 .5 5 1.5 7M12 7a5 5 0 0 0-5 5M16.5 17c-.3 1.2-.8 2.3-1.5 3.3M12 17.5c0 1-.3 2.2-.8 3"/><path d="M5.2 8A8 8 0 0 1 19.6 9.5"/>'),
     ped: AJ_SVG('<circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>'),
@@ -28508,7 +28512,7 @@
   };
   var AJ_SETA = AJ_SVG('<path d="M9 6l6 6-6 6"/>'),
     AJ_ALCA = AJ_SVG('<path d="M5 9h14M5 15h14"/>'),
-    AJ_PADRAO = ['imp', 'tema', 'seg', 'ped', 'av', 'sync', 'upd', 'bk'];
+    AJ_PADRAO = ['imp', 'pa', 'tema', 'seg', 'ped', 'av', 'sync', 'upd', 'bk'];
   function ajOrdem() {
     var o = [];
     try {
@@ -31288,7 +31292,7 @@
     return r < 0.7 ? { pct: Math.round((1 - r) * 100) } : null;
   }
   function paArred(v) {
-    return Math.round(v / 500) * 500;
+    return Math.ceil(v / 1000 - 1e-9) * 1000; // v425: de 1.000 em 1.000, para cima
   }
   // Calcula os ajustes (sem aplicar). Devolve [{ref, kind, de, para, mot, o}]
   function paPlano() {
@@ -31307,7 +31311,7 @@
         atual = tFor(it).price,
         emOf = o.ant > 0 && o.novo > 0 && o.ant > o.novo,
         normal = emOf ? o.ant : atual,
-        piso = Math.ceil(ps.pp.piso / 500) * 500,
+        piso = Math.ceil(ps.pp.piso / 1000) * 1000,
         trava = ps.pp.trava,
         ign = function (k) {
           var t = S.pAuto.ign && S.pAuto.ign[ref + '|' + k];
@@ -31338,7 +31342,7 @@
         });
         if (dg > (emOf && o.auto ? o.deg || 0 : 0)) {
           var pct = PA_DEG[dg - 1][1],
-            alvo2 = pct >= 1 ? piso : Math.max(piso, Math.floor((normal * (1 - pct)) / 500) * 500);
+            alvo2 = pct >= 1 ? piso : Math.max(piso, Math.floor((normal * (1 - pct)) / 1000) * 1000);
           if (alvo2 < (emOf ? o.novo : normal))
             out.push({ ref: ref, kind: 'oferta', de: emOf ? o.novo : normal, para: alvo2, deg: dg, normal: normal, mot: 'parado ' + d + ' dias · ' + (pct >= 1 ? 'oferta no piso' : 'oferta ' + Math.round(pct * 100) + '%') });
           return;
@@ -31440,16 +31444,13 @@
       dia = d.getDate();
     return { lucroG: Math.round(mi.lucro * fx), metaG: Math.round((mi.meta || 0) * fx), proj: dia > 0 ? Math.round(((mi.lucro * fx) / dia) * mi.dias) : 0 };
   }
-  function precosAutoHtml() {
+  // v424: o interruptor (e a prévia ao ligar) ficam em AJUSTES; os números e o desfazer ficam na aba Preços.
+  function paSwitchHtml() {
     var on = !!(S.pAuto && S.pAuto.on),
-      fr = paFraca(),
-      h = '';
-    h +=
-      '<section class="card col paCard"><button type="button" class="paSw" data-act="paTog" role="switch" aria-checked="' + on + '"><span><b>Preço automático</b><small>' +
-      (on ? 'revisa toda segunda · aplica e avisa no sino' : 'desligado · você define os preços à mão') +
-      '</small></span><span class="sw"><input type="checkbox" tabindex="-1" aria-hidden="true"' + (on ? ' checked' : '') + '><i></i></span></button>' +
-      (on ? '<div class="paEst"><i class="' + (fr ? 'w' : 'o') + '"></i>' + (fr ? 'Semana fraca na loja toda (' + fr.pct + '% abaixo do normal): preços seguros, só os parados entram em oferta' : 'Movimento normal') + '</div>' : '') +
-      '</section>';
+      h =
+        '<section class="card col paCard" id="paCard"><button type="button" class="paSw" data-act="paTog" role="switch" aria-checked="' + on + '"><span><b>Preço automático</b><small>' +
+        (on ? 'ligado · revisa toda segunda · os ajustes ficam em Dashboard › Preços' : 'desligado · você define os preços à mão') +
+        '</small></span><span class="sw"><input type="checkbox" tabindex="-1" aria-hidden="true"' + (on ? ' checked' : '') + '><i></i></span></button></section>';
     if (S.paPrev) {
       var pv = paPrevia();
       h +=
@@ -31457,6 +31458,15 @@
         '<div class="sl"><span>Sobem</span><b style="color:var(--ok)">' + pv.sob + ' produto(s)</b></div><div class="sl"><span>Baixam (ofertas)</span><b style="color:var(--warn)">' + pv.bai + ' produto(s)</b></div><div class="sl"><span>Ficam iguais</span><b>' + pv.iguais + ' produto(s)</b></div>' +
         '<button type="button" class="btn go" data-act="paLiga" style="width:100%">Ligar</button><button type="button" class="paNao" data-act="paNao">Agora não</button></section>';
     }
+    return h;
+  }
+  function precosAutoHtml() {
+    var on = !!(S.pAuto && S.pAuto.on),
+      fr = paFraca(),
+      h = '';
+    h += on
+      ? '<div class="paEst"><i class="' + (fr ? 'w' : 'o') + '"></i>' + (fr ? 'Semana fraca na loja toda (' + fr.pct + '% abaixo do normal): preços seguros, só os parados entram em oferta' : 'Preço automático ligado · movimento normal') + '</div>'
+      : '<div class="paEst"><i class="w"></i>Preço automático desligado · ligue em Ajustes</div>';
     var lm = paLucroMes();
     if (lm.metaG > 0) {
       var pct = Math.max(0, Math.min(1, lm.lucroG / lm.metaG));

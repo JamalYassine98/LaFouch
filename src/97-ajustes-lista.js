@@ -7,6 +7,7 @@
   };
   var AJ_ICO = {
     imp: AJ_SVG('<path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/>'),
+    pa: AJ_SVG('<path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><circle cx="7.5" cy="7.5" r="1.5"/>'),
     tema: AJ_SVG('<path d="M12 21a9 9 0 1 1 9-9c0 2.5-2 3.5-4 3.5h-2a2 2 0 0 0-1.5 3.3c.4.5.5 1 .5 1.4 0 .5-.9.8-2 .8z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7.5" r="1"/><circle cx="15" cy="7.5" r="1"/>'),
     seg: AJ_SVG('<path d="M12 11v3M8.5 8.5A5 5 0 0 1 17 12v1.5M7 12c0 3 .5 5 1.5 7M12 7a5 5 0 0 0-5 5M16.5 17c-.3 1.2-.8 2.3-1.5 3.3M12 17.5c0 1-.3 2.2-.8 3"/><path d="M5.2 8A8 8 0 0 1 19.6 9.5"/>'),
     ped: AJ_SVG('<circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>'),
@@ -17,7 +18,7 @@
   };
   var AJ_SETA = AJ_SVG('<path d="M9 6l6 6-6 6"/>'),
     AJ_ALCA = AJ_SVG('<path d="M5 9h14M5 15h14"/>'),
-    AJ_PADRAO = ['imp', 'tema', 'seg', 'ped', 'av', 'sync', 'upd', 'bk'];
+    AJ_PADRAO = ['imp', 'pa', 'tema', 'seg', 'ped', 'av', 'sync', 'upd', 'bk'];
   function ajOrdem() {
     var o = [];
     try {

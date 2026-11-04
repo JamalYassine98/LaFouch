@@ -3,7 +3,7 @@
   var SITE_DIAS = 30,
     SITE_VAR = 0.02,
     SITE_ALTA = 0.03,
-    SITE_ARRED = 5000;
+    SITE_ARRED = 1000; // v425: o site arredonda igual à loja (de 1.000 em 1.000, para cima)
   // Trava de novo só quando vale a pena: a cada 30 dias se o dólar andou 2% ou mais; antes disso, só se o dólar subir mais de 3% (protege a margem).
   function siteFxConfere(forca) {
     var v;
@@ -37,7 +37,7 @@
       return gs;
     }
     if (!(vivo > 0)) return gs;
-    return Math.max(SITE_ARRED, Math.round(((gs / vivo) * S.siteFx.usd) / SITE_ARRED) * SITE_ARRED);
+    return Math.max(SITE_ARRED, Math.ceil(((gs / vivo) * S.siteFx.usd) / SITE_ARRED - 1e-9) * SITE_ARRED);
   }
   function siteFxDiasTxt() {
     var L = S.siteFx;

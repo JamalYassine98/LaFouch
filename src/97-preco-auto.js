@@ -75,7 +75,7 @@
     return r < 0.7 ? { pct: Math.round((1 - r) * 100) } : null;
   }
   function paArred(v) {
-    return Math.round(v / 500) * 500;
+    return Math.ceil(v / 1000 - 1e-9) * 1000; // v425: de 1.000 em 1.000, para cima
   }
   // Calcula os ajustes (sem aplicar). Devolve [{ref, kind, de, para, mot, o}]
   function paPlano() {
@@ -94,7 +94,7 @@
         atual = tFor(it).price,
         emOf = o.ant > 0 && o.novo > 0 && o.ant > o.novo,
         normal = emOf ? o.ant : atual,
-        piso = Math.ceil(ps.pp.piso / 500) * 500,
+        piso = Math.ceil(ps.pp.piso / 1000) * 1000,
         trava = ps.pp.trava,
         ign = function (k) {
           var t = S.pAuto.ign && S.pAuto.ign[ref + '|' + k];
@@ -125,7 +125,7 @@
         });
         if (dg > (emOf && o.auto ? o.deg || 0 : 0)) {
           var pct = PA_DEG[dg - 1][1],
-            alvo2 = pct >= 1 ? piso : Math.max(piso, Math.floor((normal * (1 - pct)) / 500) * 500);
+            alvo2 = pct >= 1 ? piso : Math.max(piso, Math.floor((normal * (1 - pct)) / 1000) * 1000);
           if (alvo2 < (emOf ? o.novo : normal))
             out.push({ ref: ref, kind: 'oferta', de: emOf ? o.novo : normal, para: alvo2, deg: dg, normal: normal, mot: 'parado ' + d + ' dias · ' + (pct >= 1 ? 'oferta no piso' : 'oferta ' + Math.round(pct * 100) + '%') });
           return;
@@ -227,16 +227,13 @@
       dia = d.getDate();
     return { lucroG: Math.round(mi.lucro * fx), metaG: Math.round((mi.meta || 0) * fx), proj: dia > 0 ? Math.round(((mi.lucro * fx) / dia) * mi.dias) : 0 };
   }
-  function precosAutoHtml() {
+  // v424: o interruptor (e a prévia ao ligar) ficam em AJUSTES; os números e o desfazer ficam na aba Preços.
+  function paSwitchHtml() {
     var on = !!(S.pAuto && S.pAuto.on),
-      fr = paFraca(),
-      h = '';
-    h +=
-      '<section class="card col paCard"><button type="button" class="paSw" data-act="paTog" role="switch" aria-checked="' + on + '"><span><b>Preço automático</b><small>' +
-      (on ? 'revisa toda segunda · aplica e avisa no sino' : 'desligado · você define os preços à mão') +
-      '</small></span><span class="sw"><input type="checkbox" tabindex="-1" aria-hidden="true"' + (on ? ' checked' : '') + '><i></i></span></button>' +
-      (on ? '<div class="paEst"><i class="' + (fr ? 'w' : 'o') + '"></i>' + (fr ? 'Semana fraca na loja toda (' + fr.pct + '% abaixo do normal): preços seguros, só os parados entram em oferta' : 'Movimento normal') + '</div>' : '') +
-      '</section>';
+      h =
+        '<section class="card col paCard" id="paCard"><button type="button" class="paSw" data-act="paTog" role="switch" aria-checked="' + on + '"><span><b>Preço automático</b><small>' +
+        (on ? 'ligado · revisa toda segunda · os ajustes ficam em Dashboard › Preços' : 'desligado · você define os preços à mão') +
+        '</small></span><span class="sw"><input type="checkbox" tabindex="-1" aria-hidden="true"' + (on ? ' checked' : '') + '><i></i></span></button></section>';
     if (S.paPrev) {
       var pv = paPrevia();
       h +=
@@ -244,6 +241,15 @@
         '<div class="sl"><span>Sobem</span><b style="color:var(--ok)">' + pv.sob + ' produto(s)</b></div><div class="sl"><span>Baixam (ofertas)</span><b style="color:var(--warn)">' + pv.bai + ' produto(s)</b></div><div class="sl"><span>Ficam iguais</span><b>' + pv.iguais + ' produto(s)</b></div>' +
         '<button type="button" class="btn go" data-act="paLiga" style="width:100%">Ligar</button><button type="button" class="paNao" data-act="paNao">Agora não</button></section>';
     }
+    return h;
+  }
+  function precosAutoHtml() {
+    var on = !!(S.pAuto && S.pAuto.on),
+      fr = paFraca(),
+      h = '';
+    h += on
+      ? '<div class="paEst"><i class="' + (fr ? 'w' : 'o') + '"></i>' + (fr ? 'Semana fraca na loja toda (' + fr.pct + '% abaixo do normal): preços seguros, só os parados entram em oferta' : 'Preço automático ligado · movimento normal') + '</div>'
+      : '<div class="paEst"><i class="w"></i>Preço automático desligado · ligue em Ajustes</div>';
     var lm = paLucroMes();
     if (lm.metaG > 0) {
       var pct = Math.max(0, Math.min(1, lm.lucroG / lm.metaG));

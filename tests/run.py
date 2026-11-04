@@ -1982,10 +1982,10 @@ async def main():
               S.fx.pyg = 7000 * 1.05; const c = L.siteFxConfere();
               S.siteFx.ts = Date.now() - 31 * 864e5; S.fx.pyg = 7000 * 1.05 * 1.01; const d = L.siteFxConfere();
               S.siteFx.ts = Date.now() - 31 * 864e5; S.fx.pyg = 7000 * 1.05 * 1.04; const e = L.siteFxConfere();
-              return {a, b, c, d, e, fx0, p0, mod: p0 % 5000}; }""")
+              return {a, b, c, d, e, fx0, p0, mod: p0 % 1000}; }""")
             total += 1
             ok = ps['a'] and not ps['b'] and ps['c'] and not ps['d'] and ps['e'] and ps['mod'] == 0 and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'preço estável do site: trava, alta >3%, 30 dias com 2%, arredonda 5.000')
+            print(('  ok  ' if ok else ' FALHA ') + 'preço estável do site: trava, alta >3%, 30 dias com 2%, arredonda 1.000 para cima')
             if not ok: falhas.append('preco site'); print('        veio', ps, pg.erros)
             await pg.evaluate("() => { const L = window.__LF; L.S.tabAtiva = 'pub'; L.setView('vendas'); L.render(); }")
             sm = await pg.evaluate("""() => { const q = t => [...document.querySelectorAll('#vTabBar .trkB')].find(b => b.innerText === t);
