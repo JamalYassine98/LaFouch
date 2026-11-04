@@ -763,3 +763,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Impressora: o aviso "Funciona no app do celular com a versão nova" é esperado até gerar o APK novo (plugin nativo).
 - 04/11 14:3x ESBOÇO (não implementar): reorganizar a aba Ajustes do jeito que o dono quiser — A) botão "Organizar" (linhas com alça ≡ + Pronto); B) segurar o título e arrastar (como o Início); C) Ajustes em lista (cada linha abre sua tela) + "Organizar". Aguardando escolha.
 - 04/11 14:40 CORREÇÃO DO DONO: a v418 foi implementada SEM o comando dele. "Corrigir estes bugs" NÃO é ordem de implementar: até correção de bug segue a regra de ouro (esboço → só implementar quando ele disser "pode implementar"). Esboço B (segurar e arrastar) aprovado como direção, em elaboração.
+- 04/11 14:41: dono mandou NÃO reverter a v418 (fica). Daqui em diante: só implementar quando ele disser para implementar — nada de "corrigir" sem a ordem.
