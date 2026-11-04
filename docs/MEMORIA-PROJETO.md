@@ -3,6 +3,8 @@
 Este arquivo é lido no início de cada sessão (CLAUDE.md aponta para ele). Atualizar a cada decisão nova.
 
 ## Regras de trabalho
+- REGRA DE OURO DO DONO (04/11/2026, palavras dele): "Sempre vamos elaborar esboços. Eu vou avisar quando implementar. Tudo que for aprovado você guarda na memória. Eu NÃO quero mudanças que não foram solicitadas. Se você der um esboço e eu quero ele assim, tem que me entregar exatamente conforme solicitado."
+  → Todo pedido novo começa por ESBOÇO; nada é implementado sem "pode implementar"; o aprovado vai para esta memória na hora; o implementado tem de ser IDÊNTICO ao esboço aprovado, sem nada a mais e sem nada a menos.
 - Fidelidade visual: o app deve ficar EXATAMENTE como as imagens/vídeos aprovados. Referência única das telas de cadastro: as 10 folhas `p_1..p_10.png` (geradas por `/tmp/ad/nv2/gen.js`; se sumirem, ver `docs/`). Sempre comparar print real do app com a imagem antes de mostrar.
 - Ideias novas: só mostrar imagens; implementar quando o dono avisar ("Perfeito, pode implementar", "Pode implementar tudo").
 - Cada release: testes (`python3 tests/run.py`) → sw.js (lafouch-vNNN) → commit/push main. NÃO gerar APK nem Windows (ordem do dono em 27/10/2026, para economizar tokens), só se ele pedir.
