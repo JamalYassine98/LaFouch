@@ -1099,9 +1099,9 @@ html:has(.lfa-ov:not(.sai)),html:has(.cxAcao.on){overflow:hidden;overscroll-beha
 body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 input,textarea,[contenteditable],.sel-ok,.sel-ok *{-webkit-user-select:text;user-select:text}
 /* pílula única das barras de abas */
-#vTabBar,#eTabs{position:relative}
+#vTabBar,#eTabs,#vMoedaBar{position:relative}
 .lfPill{position:absolute;border-radius:999px;background:var(--pr-bg);border:1px solid var(--accent);pointer-events:none;z-index:0}
-#vTabBar>.chip,#eTabs>.chip{position:relative;z-index:1}
+#vTabBar>.chip,#eTabs>.chip,#vMoedaBar>.chip{position:relative;z-index:1}
 .chip.semfundo{background:transparent!important;border-color:transparent!important}
 #vRows .vtotl{display:block;font-size:13px;font-weight:700;color:var(--ok);margin:2px 0 0;font-family:inherit}
 /* links de texto com área de toque confortável (≥44px) sem mexer no layout */

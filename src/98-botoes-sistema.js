@@ -132,7 +132,7 @@
         on.classList.remove('semfundo');
       }, 320);
     }
-    ['vTabBar', 'eTabs'].forEach(function (id) {
+    ['vTabBar', 'eTabs', 'vMoedaBar'].forEach(function (id) {
       var box = document.getElementById(id);
       if (!box) return;
       new MutationObserver(function (m) {

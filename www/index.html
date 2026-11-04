@@ -170,6 +170,7 @@ html[data-tema="claro"] #lfIntro{background:#f4f1f4;--lg:url(logo-app-claro.png)
     <div class="main">
       <section class="card col" id="vListCard" aria-label="Escolher a peça">
         <div style="display:flex;gap:10px;align-items:flex-start"><div id="vTabBar" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;flex:1;min-width:0"></div><button type="button" class="ic wa" id="vWa" data-act="tabenviar" aria-label="Enviar no WhatsApp" title="Enviar no WhatsApp"></button></div><div><input class="in" id="vq" placeholder="Código, nome, cor, grau, formato, medida…" style="max-width:420px" autocomplete="off"></div>
+        <div id="vMoedaBar" style="display:flex;gap:8px;align-items:center" role="group" aria-label="Moeda dos preços"></div><div class="hint" id="vMoedaHint" hidden style="margin:-4px 0 0"></div>
         <div id="vFiltPanel" hidden class="col" style="gap:10px"><div id="vProdB"><div class="lbl">Produto</div><div class="nav" id="vTabs" role="group" aria-label="Produto"></div></div><div id="vGradesB" hidden><div class="lbl">Grau que o cliente pede</div><div class="gradechips" id="vGrades" role="group" aria-label="Grau"></div></div><div id="vFaixaB" hidden><div class="lbl">Faixa</div><div class="nav" id="vFaixas" role="group" aria-label="Filtrar por faixa"></div></div></div>
         <div class="list" id="vRows"></div>
         <div id="vLinesB" hidden><div class="lbl" id="vProdL"></div><div class="nav" id="sLines"></div></div>
@@ -290,7 +291,7 @@ html[data-tema="claro"] #lfIntro{background:#f4f1f4;--lg:url(logo-app-claro.png)
 <section id="notaOv" class="catov" aria-label="Venda registrada" hidden></section>
   <div id="notaCf" class="notacf" hidden></div>
   <div id="notaPrint" aria-hidden="true"></div>
-  <script>/*LOADER*/(function(){var EMB=411,d=document,m=null;try{m=JSON.parse(localStorage.getItem('lf_upd')||'null')}catch(e){}
+  <script>/*LOADER*/(function(){var EMB=412,d=document,m=null;try{m=JSON.parse(localStorage.getItem('lf_upd')||'null')}catch(e){}
 function std(){var s=d.createElement('script');s.src='app.js';d.body.appendChild(s)}
 if(!m||!(m.v>EMB)||!window.caches||(m.tent||0)>=2){if(m&&m.v>EMB&&(m.tent||0)>=2){try{localStorage.removeItem('lf_upd');caches.delete('lafouch-upd')}catch(e){}}std();return}
 try{localStorage.setItem('lf_upd',JSON.stringify({v:m.v,tent:(m.tent||0)+1}))}catch(e){}

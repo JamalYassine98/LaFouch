@@ -2017,6 +2017,20 @@ async def main():
             if not ok: falhas.append('hist dia'); print('        veio', r, pg.erros)
             await pg.close()
 
+            # Catálogo: ver os preços em dólar e real (só exibição)
+            pg = await pagina()
+            await pg.evaluate("() => window.__LF.setView('vendas')"); await pg.wait_for_timeout(300)
+            r0 = await pg.evaluate("() => document.querySelector('#vRows .vpreco') ? document.querySelector('#vRows .vpreco').textContent : ''")
+            await pg.locator('#vMoedaBar >> text="US$"').click(); await pg.wait_for_timeout(300)
+            r1 = await pg.evaluate("() => [document.querySelector('#vRows .vpreco').textContent, !document.getElementById('vMoedaHint').hidden]")
+            await pg.locator('#vMoedaBar >> text="G$"').click(); await pg.wait_for_timeout(300)
+            r2 = await pg.evaluate("() => document.querySelector('#vRows .vpreco').textContent")
+            total += 1
+            ok = r0.startswith('G$') and r1[0].startswith('US$') and r1[1] is True and r2 == r0 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'catálogo: preços em dólar/real só para ver, G$ volta igual')
+            if not ok: falhas.append('moeda cat'); print('        veio', r0, r1, r2, pg.erros)
+            await pg.close()
+
             # segurança: chave "Usar biometria" e PIN de emergência
             pg = await pagina()
             await pg.evaluate("() => window.__LF.setView('ajustes')"); await pg.wait_for_timeout(300)

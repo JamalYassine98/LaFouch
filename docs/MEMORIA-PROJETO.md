@@ -630,3 +630,4 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - Ícone do WhatsApp agora fica ao lado de Varejo/Atacado.
 - Links de texto com alvo de toque ≥44px; números do Dashboard não quebram "G$".
 - Varredura automática (/tmp/impl/sweep.py): nenhum erro de JS, estouro de tela ou folha que não fecha.
+- v411: Catálogo ganhou seletor G$ / R$ / US$ (só exibição, câmbio da loja; a venda continua em guarani). Pedido do dono 04/11.

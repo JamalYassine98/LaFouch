@@ -871,7 +871,7 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 411;
+  var APP_BUILD = 412;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
   var APP_NOME = '4.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Movimentos: todo fato de dinheiro ou estoque é gravado por aqui (livro + histórico juntos). =====
@@ -13232,7 +13232,7 @@
   // ===== Aba Vendas. =====
   // Animação 3: a pílula Varejo|Atacado desliza e os preços contam do valor antigo ao novo (280 ms).
   function mercAnim(de) {
-    if (REDUCED) return;
+    if (REDUCED || vMoeda() !== 'pyg') return;
     [].slice.call(document.querySelectorAll('#vRows .pcard[data-ref]')).forEach(function (c) {
       var e = c.querySelector('.vpreco'),
         ate = e ? parseInt(e.textContent.replace(/\D/g, ''), 10) || 0 : 0,
@@ -13257,6 +13257,33 @@
       if (v && String(v) !== 'Sem cor') p.push(String(v));
     });
     return p.join(' · ');
+  }
+  // Moeda de exibição do Catálogo (só para olhar os preços; a venda continua em guarani).
+  function vMoeda() {
+    return S.vMoeda === 'usd' || S.vMoeda === 'brl' ? S.vMoeda : 'pyg';
+  }
+  function pvm(g) {
+    var m = vMoeda();
+    return m === 'pyg' ? gs(g) : fmtM(conv(g, 'pyg', m), m);
+  }
+  function renderMoedaBar() {
+    var bx = $('vMoedaBar');
+    if (!bx) return;
+    bx.textContent = '';
+    [['pyg', 'G$'], ['brl', 'R$'], ['usd', 'US$']].forEach(function (m) {
+      var on = vMoeda() === m[0];
+      bx.appendChild(btn('chip' + (on ? ' on' : ''), m[1], function () {
+        if (on) return;
+        S.vMoeda = m[0];
+        render();
+      }, on));
+    });
+    var h = $('vMoedaHint');
+    if (h) {
+      var m2 = vMoeda();
+      h.hidden = m2 === 'pyg';
+      h.textContent = m2 === 'pyg' ? '' : 'Preços em ' + (m2 === 'usd' ? 'dólar' : 'real') + ' pelo câmbio da loja (' + fmtM(1, m2) + ' = ' + gs(Math.round(ratePyg(m2))) + '). A venda continua em guarani.';
+    }
   }
   // Aba Vendas.
   function renderVendas() {
@@ -13451,6 +13478,7 @@
       var pg0 = atacProg();
       if (pg0) tb.appendChild(pg0);
     }
+    renderMoedaBar();
     var rows = $('vRows');
     rows.textContent = '';
     rows.classList.toggle('vlist', modoDe('v') === 'l');
@@ -13537,11 +13565,11 @@
       card.appendChild(nmB);
       var pr0 = precoTab(f);
       if (pr0) {
-        var pp = mk('b', 'vpreco', gs(pr0));
+        var pp = mk('b', 'vpreco', pvm(pr0));
         pp.style.color = 'var(--ok)';
         var pubP = atacModo() ? precoTab(f, 'pub') : 0;
         if (pubP > pr0) {
-          var rs = mk('s', 'vriscado', gs(pubP));
+          var rs = mk('s', 'vriscado', pvm(pubP));
           card.appendChild(rs);
         }
         card.appendChild(pp);
@@ -13549,7 +13577,7 @@
       var unico = vsL.length === 1 ? vsL[0] : null;
       if (atacModo() && rows.classList.contains('vlist') && unico) {
         var qa = atacQtd(unico);
-        if (qa > 0 && pr0) nmB.appendChild(mk('small', 'vtotl', 'Total ' + gs(qa * pr0)));
+        if (qa > 0 && pr0) nmB.appendChild(mk('small', 'vtotl', 'Total ' + pvm(qa * pr0)));
         card.appendChild(atacStep(unico));
       }
       else card.appendChild(mk('i', 'vplus', '+'));
@@ -13685,9 +13713,9 @@
         lista = pt * S.qty;
       var fxs = faixaOf(sel.ref);
       $('unit').textContent = pt
-        ? 'Preço unit. ' + gs(pt) + (fxs ? ' (faixa ' + fxs.nome + ')' : ' (exemplo)')
+        ? 'Preço unit. ' + pvm(pt) + (fxs ? ' (faixa ' + fxs.nome + ')' : ' (exemplo)')
         : 'Preço livre: digite abaixo o valor recebido';
-      $('tot').textContent = pt ? gs(lista) : '';
+      $('tot').textContent = pt ? pvm(lista) : '';
       renderBrindeMotivo(sel);
     }
     $('vmsg').textContent = S.msg || '';
@@ -28131,10 +28159,10 @@
     var foto = photoOf(it.ref, it.cor) || photoOf(it.ref);
     return (
       '<div class="folha-puxa" aria-hidden="true"></div>' +
-      '<div class="folha-top"><div class="folha-img">' + (foto ? '<img alt="" src="' + foto + '">' : '') + '</div><div style="min-width:0"><b class="folha-nm">' + esc(pn(it.ref)) + '</b><div class="hint" style="margin:2px 0">' + esc(it.ref) + (it.cor && it.cor !== 'Sem cor' ? ' · ' + esc(it.cor) : '') + '</div>' + (p ? '<div class="folha-pr">' + gs(p) + '</div>' : '') + '</div></div>' +
+      '<div class="folha-top"><div class="folha-img">' + (foto ? '<img alt="" src="' + foto + '">' : '') + '</div><div style="min-width:0"><b class="folha-nm">' + esc(pn(it.ref)) + '</b><div class="hint" style="margin:2px 0">' + esc(it.ref) + (it.cor && it.cor !== 'Sem cor' ? ' · ' + esc(it.cor) : '') + '</div>' + (p ? '<div class="folha-pr">' + pvm(p) + '</div>' : '') + '</div></div>' +
       (Object.keys(cores).length > 1 ? '<div class="vcores" style="margin:10px 0">' + ch + '</div>' : '') +
       '<div class="folha-q"><span class="vstep"><span class="vs-b" role="button" tabindex="0" data-act="folhaq" data-id="-1" aria-label="Menos">−</span><span class="vs-n" id="folhaN">' + o.qty + '</span><span class="vs-b" role="button" tabindex="0" data-act="folhaq" data-id="1" aria-label="Mais">+</span></span><span class="hint" style="margin:0">' + gLivre(it) + ' un. disponíveis</span></div>' +
-      '<button type="button" class="btn go" data-act="folhavender" style="width:100%;margin-top:10px">Vender' + (p ? ' · ' + gs(p * o.qty) : '') + '</button>' +
+      '<button type="button" class="btn go" data-act="folhavender" style="width:100%;margin-top:10px">Vender' + (p ? ' · ' + pvm(p * o.qty) : '') + '</button>' +
       '<div class="hint" style="text-align:center;margin:8px 0 0">Deslize para cima para ver a vitrine</div>'
     );
   }
@@ -28277,7 +28305,7 @@
         dur = REDUCED ? 0 : 280,
         passo = function () {
           var f = dur ? Math.min(1, (Date.now() - t0) / dur) : 1;
-          bt.textContent = 'Vender · ' + gs(Math.round(de + (alvo - de) * f));
+          bt.textContent = 'Vender · ' + pvm(de + (alvo - de) * f);
           if (f < 1) requestAnimationFrame(passo);
         };
       passo();
@@ -32432,7 +32460,7 @@
         on.classList.remove('semfundo');
       }, 320);
     }
-    ['vTabBar', 'eTabs'].forEach(function (id) {
+    ['vTabBar', 'eTabs', 'vMoedaBar'].forEach(function (id) {
       var box = document.getElementById(id);
       if (!box) return;
       new MutationObserver(function (m) {

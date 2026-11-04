@@ -1,7 +1,7 @@
   // ===== Aba Vendas. =====
   // Animação 3: a pílula Varejo|Atacado desliza e os preços contam do valor antigo ao novo (280 ms).
   function mercAnim(de) {
-    if (REDUCED) return;
+    if (REDUCED || vMoeda() !== 'pyg') return;
     [].slice.call(document.querySelectorAll('#vRows .pcard[data-ref]')).forEach(function (c) {
       var e = c.querySelector('.vpreco'),
         ate = e ? parseInt(e.textContent.replace(/\D/g, ''), 10) || 0 : 0,
@@ -26,6 +26,33 @@
       if (v && String(v) !== 'Sem cor') p.push(String(v));
     });
     return p.join(' · ');
+  }
+  // Moeda de exibição do Catálogo (só para olhar os preços; a venda continua em guarani).
+  function vMoeda() {
+    return S.vMoeda === 'usd' || S.vMoeda === 'brl' ? S.vMoeda : 'pyg';
+  }
+  function pvm(g) {
+    var m = vMoeda();
+    return m === 'pyg' ? gs(g) : fmtM(conv(g, 'pyg', m), m);
+  }
+  function renderMoedaBar() {
+    var bx = $('vMoedaBar');
+    if (!bx) return;
+    bx.textContent = '';
+    [['pyg', 'G$'], ['brl', 'R$'], ['usd', 'US$']].forEach(function (m) {
+      var on = vMoeda() === m[0];
+      bx.appendChild(btn('chip' + (on ? ' on' : ''), m[1], function () {
+        if (on) return;
+        S.vMoeda = m[0];
+        render();
+      }, on));
+    });
+    var h = $('vMoedaHint');
+    if (h) {
+      var m2 = vMoeda();
+      h.hidden = m2 === 'pyg';
+      h.textContent = m2 === 'pyg' ? '' : 'Preços em ' + (m2 === 'usd' ? 'dólar' : 'real') + ' pelo câmbio da loja (' + fmtM(1, m2) + ' = ' + gs(Math.round(ratePyg(m2))) + '). A venda continua em guarani.';
+    }
   }
   // Aba Vendas.
   function renderVendas() {
@@ -220,6 +247,7 @@
       var pg0 = atacProg();
       if (pg0) tb.appendChild(pg0);
     }
+    renderMoedaBar();
     var rows = $('vRows');
     rows.textContent = '';
     rows.classList.toggle('vlist', modoDe('v') === 'l');
@@ -306,11 +334,11 @@
       card.appendChild(nmB);
       var pr0 = precoTab(f);
       if (pr0) {
-        var pp = mk('b', 'vpreco', gs(pr0));
+        var pp = mk('b', 'vpreco', pvm(pr0));
         pp.style.color = 'var(--ok)';
         var pubP = atacModo() ? precoTab(f, 'pub') : 0;
         if (pubP > pr0) {
-          var rs = mk('s', 'vriscado', gs(pubP));
+          var rs = mk('s', 'vriscado', pvm(pubP));
           card.appendChild(rs);
         }
         card.appendChild(pp);
@@ -318,7 +346,7 @@
       var unico = vsL.length === 1 ? vsL[0] : null;
       if (atacModo() && rows.classList.contains('vlist') && unico) {
         var qa = atacQtd(unico);
-        if (qa > 0 && pr0) nmB.appendChild(mk('small', 'vtotl', 'Total ' + gs(qa * pr0)));
+        if (qa > 0 && pr0) nmB.appendChild(mk('small', 'vtotl', 'Total ' + pvm(qa * pr0)));
         card.appendChild(atacStep(unico));
       }
       else card.appendChild(mk('i', 'vplus', '+'));
@@ -454,9 +482,9 @@
         lista = pt * S.qty;
       var fxs = faixaOf(sel.ref);
       $('unit').textContent = pt
-        ? 'Preço unit. ' + gs(pt) + (fxs ? ' (faixa ' + fxs.nome + ')' : ' (exemplo)')
+        ? 'Preço unit. ' + pvm(pt) + (fxs ? ' (faixa ' + fxs.nome + ')' : ' (exemplo)')
         : 'Preço livre: digite abaixo o valor recebido';
-      $('tot').textContent = pt ? gs(lista) : '';
+      $('tot').textContent = pt ? pvm(lista) : '';
       renderBrindeMotivo(sel);
     }
     $('vmsg').textContent = S.msg || '';
