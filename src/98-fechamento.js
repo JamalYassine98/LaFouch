@@ -49,7 +49,7 @@
       fh = fechoDia(hoje),
       h = '<section class="card col" style="gap:8px"><b>Fechamento do caixa</b>';
     if (fh) h += '<div class="hint">Hoje fechado' + (fh.auto ? ' automaticamente' : '') + ' · ' + fh.n + (fh.n === 1 ? ' venda' : ' vendas') + (fh.cash ? ' · Caixa ' + fmtM(fh.cash.pyg, 'pyg') + ' · ' + fmtM(fh.cash.brl, 'brl') + ' · ' + fmtM(fh.cash.usd, 'usd') : '') + '</div>';
-    else h += '<div class="hint">Hoje ainda aberto. Fecha sozinho depois das 17h, ou feche agora se a loja fechou mais cedo.</div><button type="button" class="chip on" data-act="fechar">Fechar o dia agora</button>';
+    else h += '<div class="hint">Hoje ainda aberto. Fecha sozinho depois das 17h, ou feche agora se a loja fechou mais cedo.</div><button type="button" class="mini" data-act="fechar">Fechar o dia agora</button>';
     var pc0 = S.fechos.filter(function (f) {
       return !f.cc && f.cash;
     })[0];

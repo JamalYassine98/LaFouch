@@ -1,6 +1,8 @@
 {
- "nome": "4.0",
+ "nome": "4.0.1",
  "notas": [
+  "Varejo/Atacado: a pílula desliza e os preços contam ao trocar",
+  "Botões padronizados: Ver detalhes e Estornar (Histórico), Desfazer e Inverter (Câmbio), Fechar o dia, + Adicionar, filtros e câmera do Inventário",
   "Botões no novo padrão: principal com fundo rosa escuro, borda rosa e letra branca (rosa cheio ao tocar), verde ao concluir, lixeira vermelha ao tocar",
   "Início: sem botão Personalizar. Arraste um botão até a barra para fixar, até a lixeira para ocultar (com Desfazer) ou sobre outro botão para trocar. Segure no fundo para ver os ocultos e trazer de volta",
   "Catálogo único: Varejo e Atacado abaixo do título, ícone do WhatsApp ao lado, busca larga com a moldura com óculos",

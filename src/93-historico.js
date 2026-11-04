@@ -493,7 +493,7 @@
       (gs(s.price) !== exatoDe(s) ? '<div class="hint" style="margin:2px 0 0">≈ ' + gs(s.price) + '</div>' : '') +
       '</div></div>';
     h +=
-      '<div class="nav"><button class="chip" data-act="hopen" data-id="' +
+      '<div class="nav"><button class="btn-sc p" data-act="hopen" data-id="' +
       s.id +
       '" aria-expanded="' +
       open +
@@ -502,7 +502,7 @@
       '</button>' +
       (s.estorno
         ? ''
-        : '<button class="chip" data-act="estorno" data-id="' +
+        : '<button class="btn-pe p' + (S.confEst === s.id ? ' arm' : '') + '" data-act="estorno" data-id="' +
           s.id +
           '">' +
           (S.confEst === s.id ? 'Confirmar estorno' : 'Estornar') +

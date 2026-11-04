@@ -867,9 +867,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 407;
+  var APP_BUILD = 408;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '4.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '4.0.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Movimentos: todo fato de dinheiro ou estoque é gravado por aqui (livro + histórico juntos). =====
   // Formato do registro do histórico (S.dlog) de uma compra de mercadoria.
   function dlogLote(x) {
@@ -13226,6 +13226,43 @@
     return h;
   }
   // ===== Aba Vendas. =====
+  // Animação 3: a pílula Varejo|Atacado desliza e os preços contam do valor antigo ao novo (280 ms).
+  function mercAnim(de) {
+    if (REDUCED) return;
+    var tb = $('vTabBar'),
+      nb = tb && tb.querySelector('.seg-mercado.on');
+    if (nb && de.w && nb.animate) {
+      var pl = document.createElement('div');
+      pl.className = 'mpill';
+      pl.style.cssText = 'left:' + de.l + 'px;top:' + de.t + 'px;width:' + de.w + 'px;height:' + de.h + 'px';
+      tb.appendChild(pl);
+      nb.classList.add('semfundo');
+      var a = pl.animate(
+        [
+          { left: de.l + 'px', width: de.w + 'px' },
+          { left: nb.offsetLeft + 'px', width: nb.offsetWidth + 'px', top: nb.offsetTop + 'px' }
+        ],
+        { duration: 280, easing: 'cubic-bezier(.2,1.25,.35,1)', fill: 'forwards' }
+      );
+      a.onfinish = a.oncancel = function () {
+        pl.remove();
+        nb.classList.remove('semfundo');
+      };
+    }
+    [].slice.call(document.querySelectorAll('#vRows .pcard[data-ref]')).forEach(function (c) {
+      var e = c.querySelector('.vpreco'),
+        ate = e ? parseInt(e.textContent.replace(/\D/g, ''), 10) || 0 : 0,
+        ini = de.pr[c.dataset.ref];
+      if (!e || !ini || ini === ate) return;
+      var t0 = Date.now(),
+        passo = function () {
+          var f = Math.min(1, (Date.now() - t0) / 280);
+          e.textContent = gs(Math.round(ini + (ate - ini) * f));
+          if (f < 1 && e.isConnected) requestAnimationFrame(passo);
+        };
+      passo();
+    });
+  }
   // Aba Vendas.
   function renderVendas() {
     renderCatV();
@@ -13388,9 +13425,17 @@
         var on = (m[0] === 'a') === atac;
         tb.appendChild(btn('chip seg-mercado' + (on ? ' on' : ''), m[1], function () {
           if (on) return;
+          // guarda onde estava a pílula e os preços, para a animação 3 (a pílula desliza, os preços contam)
+          var ob = tb.querySelector('.seg-mercado.on'),
+            de = { l: ob ? ob.offsetLeft : 0, t: ob ? ob.offsetTop : 0, w: ob ? ob.offsetWidth : 0, h: ob ? ob.offsetHeight : 0, pr: {} };
+          [].slice.call(document.querySelectorAll('#vRows .pcard[data-ref]')).forEach(function (c) {
+            var e = c.querySelector('.vpreco');
+            if (e) de.pr[c.dataset.ref] = parseInt(e.textContent.replace(/\D/g, ''), 10) || 0;
+          });
           S.tabAtiva = m[0] === 'a' ? (S._ultAtac && tabDe(S._ultAtac).on !== false ? S._ultAtac : 'a1') : 'pub';
           if (m[0] === 'v') S._ultAtac = S._ultAtacAtual;
           render();
+          mercAnim(de);
         }, on));
       });
       if (atac) S._ultAtacAtual = S.tabAtiva;
@@ -17600,10 +17645,9 @@
     function mkCam(inp) {
       var b = document.createElement('button');
       b.type = 'button';
-      b.className = 'chip';
+      b.className = 'ic';
       b.title = 'Buscar com a câmera';
       b.setAttribute('aria-label', 'Buscar com a câmera');
-      b.style.cssText = 'min-height:44px;width:48px;padding:0;justify-content:center;flex:0 0 auto';
       b.innerHTML = ICO.moldura;
       b.onclick = function () {
         camGaveta(inp);
@@ -17612,7 +17656,11 @@
     }
     var q = $('q'),
       bf = $('btnFilt');
-    if (q && bf) bf.parentNode.insertBefore(mkCam(q), bf);
+    if (q && bf) {
+      bf.parentNode.insertBefore(mkCam(q), bf);
+      bf.className = 'ic'; // filtros: ícone redondo, igual ao do Catálogo
+      bf.style.cssText = '';
+    }
     var v = $('vq');
     if (v) {
       var w = document.createElement('div');
@@ -22310,7 +22358,7 @@
     }
     var ult = S.cambios[0];
     if (ult && ult.tipo)
-      h += '<div class="sl"><span>Última troca<small>' + fmtM(ult.dado, ult.de) + ' → ' + usd(ult.rec) + ' · ' + fd(ult.ts) + ' ' + fh(ult.ts) + '</small></span><button class="chip" data-act="fxdesfaz" style="min-height:36px">Desfazer</button></div>';
+      h += '<div class="sl"><span>Última troca<small>' + fmtM(ult.dado, ult.de) + ' → ' + usd(ult.rec) + ' · ' + fd(ult.ts) + ' ' + fh(ult.ts) + '</small></span><button class="btn-sc p" data-act="fxdesfaz">Desfazer</button></div>';
     var lv = livre3();
     if (lv.extraUsd > 0.004)
       h += '<div class="note n-ok">Reposição adiantada: ' + usd(lv.extraUsd) + ' em dólar a mais, guardados para as próximas vendas.</div>';
@@ -22321,7 +22369,7 @@
   function trHistHtml() {
     if (!S.cambios.length) return '';
     return '<div class="lbl" style="margin-top:6px">Trocas feitas</div>' + S.cambios.slice(0, 8).map(function (x, i) {
-      return '<div class="sl"><span>' + fmtM(x.dado, x.de) + ' → ' + fmtM(x.rec, x.para || 'usd') + '<small>' + fd(x.ts) + ' às ' + fh(x.ts) + ' · ' + (x.difGs >= 0 ? '+' : '−') + gs(Math.abs(x.difGs)) + ' em relação ao câmbio do dia</small></span><button class="chip" data-act="trdesfaz" data-id="' + i + '" style="min-height:36px">Desfazer</button></div>';
+      return '<div class="sl"><span>' + fmtM(x.dado, x.de) + ' → ' + fmtM(x.rec, x.para || 'usd') + '<small>' + fd(x.ts) + ' às ' + fh(x.ts) + ' · ' + (x.difGs >= 0 ? '+' : '−') + gs(Math.abs(x.difGs)) + ' em relação ao câmbio do dia</small></span><button class="btn-sc p" data-act="trdesfaz" data-id="' + i + '">Desfazer</button></div>';
     }).join('');
   }
   // Medidor da cotação do par escolhido (muda com as moedas de Trocar moedas).
@@ -22349,7 +22397,7 @@
       (trocarAgoraHtml() ? '<div class="lbl" style="margin:4px 0 0">Sugestão de hoje</div>' + trocarAgoraHtml() + '<div class="lbl" style="margin:8px 0 0">Outra troca</div>' : '') +
       '<div class="sel" style="flex-wrap:wrap">' +
       trSel('trDe', t.de) +
-      '<button class="chip" data-act="trflip" aria-label="Inverter as moedas">⇄ Inverter</button>' +
+      '<button class="btn-sc" data-act="trflip" aria-label="Inverter as moedas">⇄ Inverter</button>' +
       trSel('trPara', t.para) +
       '</div>' +
       parGaugeHtml() +
@@ -23332,7 +23380,7 @@
       (gs(s.price) !== exatoDe(s) ? '<div class="hint" style="margin:2px 0 0">≈ ' + gs(s.price) + '</div>' : '') +
       '</div></div>';
     h +=
-      '<div class="nav"><button class="chip" data-act="hopen" data-id="' +
+      '<div class="nav"><button class="btn-sc p" data-act="hopen" data-id="' +
       s.id +
       '" aria-expanded="' +
       open +
@@ -23341,7 +23389,7 @@
       '</button>' +
       (s.estorno
         ? ''
-        : '<button class="chip" data-act="estorno" data-id="' +
+        : '<button class="btn-pe p' + (S.confEst === s.id ? ' arm' : '') + '" data-act="estorno" data-id="' +
           s.id +
           '">' +
           (S.confEst === s.id ? 'Confirmar estorno' : 'Estornar') +
@@ -32661,7 +32709,7 @@
       fh = fechoDia(hoje),
       h = '<section class="card col" style="gap:8px"><b>Fechamento do caixa</b>';
     if (fh) h += '<div class="hint">Hoje fechado' + (fh.auto ? ' automaticamente' : '') + ' · ' + fh.n + (fh.n === 1 ? ' venda' : ' vendas') + (fh.cash ? ' · Caixa ' + fmtM(fh.cash.pyg, 'pyg') + ' · ' + fmtM(fh.cash.brl, 'brl') + ' · ' + fmtM(fh.cash.usd, 'usd') : '') + '</div>';
-    else h += '<div class="hint">Hoje ainda aberto. Fecha sozinho depois das 17h, ou feche agora se a loja fechou mais cedo.</div><button type="button" class="chip on" data-act="fechar">Fechar o dia agora</button>';
+    else h += '<div class="hint">Hoje ainda aberto. Fecha sozinho depois das 17h, ou feche agora se a loja fechou mais cedo.</div><button type="button" class="mini" data-act="fechar">Fechar o dia agora</button>';
     var pc0 = S.fechos.filter(function (f) {
       return !f.cc && f.cash;
     })[0];

@@ -1,4 +1,41 @@
   // ===== Aba Vendas. =====
+  // Animação 3: a pílula Varejo|Atacado desliza e os preços contam do valor antigo ao novo (280 ms).
+  function mercAnim(de) {
+    if (REDUCED) return;
+    var tb = $('vTabBar'),
+      nb = tb && tb.querySelector('.seg-mercado.on');
+    if (nb && de.w && nb.animate) {
+      var pl = document.createElement('div');
+      pl.className = 'mpill';
+      pl.style.cssText = 'left:' + de.l + 'px;top:' + de.t + 'px;width:' + de.w + 'px;height:' + de.h + 'px';
+      tb.appendChild(pl);
+      nb.classList.add('semfundo');
+      var a = pl.animate(
+        [
+          { left: de.l + 'px', width: de.w + 'px' },
+          { left: nb.offsetLeft + 'px', width: nb.offsetWidth + 'px', top: nb.offsetTop + 'px' }
+        ],
+        { duration: 280, easing: 'cubic-bezier(.2,1.25,.35,1)', fill: 'forwards' }
+      );
+      a.onfinish = a.oncancel = function () {
+        pl.remove();
+        nb.classList.remove('semfundo');
+      };
+    }
+    [].slice.call(document.querySelectorAll('#vRows .pcard[data-ref]')).forEach(function (c) {
+      var e = c.querySelector('.vpreco'),
+        ate = e ? parseInt(e.textContent.replace(/\D/g, ''), 10) || 0 : 0,
+        ini = de.pr[c.dataset.ref];
+      if (!e || !ini || ini === ate) return;
+      var t0 = Date.now(),
+        passo = function () {
+          var f = Math.min(1, (Date.now() - t0) / 280);
+          e.textContent = gs(Math.round(ini + (ate - ini) * f));
+          if (f < 1 && e.isConnected) requestAnimationFrame(passo);
+        };
+      passo();
+    });
+  }
   // Aba Vendas.
   function renderVendas() {
     renderCatV();
@@ -161,9 +198,17 @@
         var on = (m[0] === 'a') === atac;
         tb.appendChild(btn('chip seg-mercado' + (on ? ' on' : ''), m[1], function () {
           if (on) return;
+          // guarda onde estava a pílula e os preços, para a animação 3 (a pílula desliza, os preços contam)
+          var ob = tb.querySelector('.seg-mercado.on'),
+            de = { l: ob ? ob.offsetLeft : 0, t: ob ? ob.offsetTop : 0, w: ob ? ob.offsetWidth : 0, h: ob ? ob.offsetHeight : 0, pr: {} };
+          [].slice.call(document.querySelectorAll('#vRows .pcard[data-ref]')).forEach(function (c) {
+            var e = c.querySelector('.vpreco');
+            if (e) de.pr[c.dataset.ref] = parseInt(e.textContent.replace(/\D/g, ''), 10) || 0;
+          });
           S.tabAtiva = m[0] === 'a' ? (S._ultAtac && tabDe(S._ultAtac).on !== false ? S._ultAtac : 'a1') : 'pub';
           if (m[0] === 'v') S._ultAtac = S._ultAtacAtual;
           render();
+          mercAnim(de);
         }, on));
       });
       if (atac) S._ultAtacAtual = S.tabAtiva;

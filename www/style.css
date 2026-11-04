@@ -1029,3 +1029,12 @@ body.folhaAberta{overflow:hidden;overscroll-behavior:none}
 #vTabBar .chip.seg-mercado{min-height:40px;padding:0 18px}
 @media (prefers-reduced-motion:reduce){.tabchip,.bs:focus-within .ic.cam svg{animation:none!important}}
 .bs .ic.cam svg{width:26px;height:26px}
+#vTabBar{position:relative}
+#vTabBar .mpill{position:absolute;border-radius:999px;background:var(--pr-bg);border:1px solid var(--accent);pointer-events:none;z-index:0}
+#vTabBar .chip{position:relative;z-index:1}
+#vTabBar .chip.semfundo{background:transparent;border-color:transparent}
+/* tamanhos do sistema: G52 / M44 / P36 (v408) */
+.btn-sc.p,.btn-pe.p,.mini.p,.go.p{min-height:36px;height:36px;padding:0 14px;font-size:13.5px;border-radius:12px}
+.btn-pe.arm{background:var(--red);border-color:var(--red);color:#fff}
+.ic.on{border-color:var(--accent);background:var(--pr-bg);color:var(--pr-fg)}
+#btnAdd{min-height:44px}

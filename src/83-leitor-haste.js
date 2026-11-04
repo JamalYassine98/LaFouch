@@ -252,10 +252,9 @@
     function mkCam(inp) {
       var b = document.createElement('button');
       b.type = 'button';
-      b.className = 'chip';
+      b.className = 'ic';
       b.title = 'Buscar com a câmera';
       b.setAttribute('aria-label', 'Buscar com a câmera');
-      b.style.cssText = 'min-height:44px;width:48px;padding:0;justify-content:center;flex:0 0 auto';
       b.innerHTML = ICO.moldura;
       b.onclick = function () {
         camGaveta(inp);
@@ -264,7 +263,11 @@
     }
     var q = $('q'),
       bf = $('btnFilt');
-    if (q && bf) bf.parentNode.insertBefore(mkCam(q), bf);
+    if (q && bf) {
+      bf.parentNode.insertBefore(mkCam(q), bf);
+      bf.className = 'ic'; // filtros: ícone redondo, igual ao do Catálogo
+      bf.style.cssText = '';
+    }
     var v = $('vq');
     if (v) {
       var w = document.createElement('div');

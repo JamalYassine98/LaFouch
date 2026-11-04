@@ -194,7 +194,7 @@
     }
     var ult = S.cambios[0];
     if (ult && ult.tipo)
-      h += '<div class="sl"><span>Última troca<small>' + fmtM(ult.dado, ult.de) + ' → ' + usd(ult.rec) + ' · ' + fd(ult.ts) + ' ' + fh(ult.ts) + '</small></span><button class="chip" data-act="fxdesfaz" style="min-height:36px">Desfazer</button></div>';
+      h += '<div class="sl"><span>Última troca<small>' + fmtM(ult.dado, ult.de) + ' → ' + usd(ult.rec) + ' · ' + fd(ult.ts) + ' ' + fh(ult.ts) + '</small></span><button class="btn-sc p" data-act="fxdesfaz">Desfazer</button></div>';
     var lv = livre3();
     if (lv.extraUsd > 0.004)
       h += '<div class="note n-ok">Reposição adiantada: ' + usd(lv.extraUsd) + ' em dólar a mais, guardados para as próximas vendas.</div>';
@@ -205,7 +205,7 @@
   function trHistHtml() {
     if (!S.cambios.length) return '';
     return '<div class="lbl" style="margin-top:6px">Trocas feitas</div>' + S.cambios.slice(0, 8).map(function (x, i) {
-      return '<div class="sl"><span>' + fmtM(x.dado, x.de) + ' → ' + fmtM(x.rec, x.para || 'usd') + '<small>' + fd(x.ts) + ' às ' + fh(x.ts) + ' · ' + (x.difGs >= 0 ? '+' : '−') + gs(Math.abs(x.difGs)) + ' em relação ao câmbio do dia</small></span><button class="chip" data-act="trdesfaz" data-id="' + i + '" style="min-height:36px">Desfazer</button></div>';
+      return '<div class="sl"><span>' + fmtM(x.dado, x.de) + ' → ' + fmtM(x.rec, x.para || 'usd') + '<small>' + fd(x.ts) + ' às ' + fh(x.ts) + ' · ' + (x.difGs >= 0 ? '+' : '−') + gs(Math.abs(x.difGs)) + ' em relação ao câmbio do dia</small></span><button class="btn-sc p" data-act="trdesfaz" data-id="' + i + '">Desfazer</button></div>';
     }).join('');
   }
   // Medidor da cotação do par escolhido (muda com as moedas de Trocar moedas).
@@ -233,7 +233,7 @@
       (trocarAgoraHtml() ? '<div class="lbl" style="margin:4px 0 0">Sugestão de hoje</div>' + trocarAgoraHtml() + '<div class="lbl" style="margin:8px 0 0">Outra troca</div>' : '') +
       '<div class="sel" style="flex-wrap:wrap">' +
       trSel('trDe', t.de) +
-      '<button class="chip" data-act="trflip" aria-label="Inverter as moedas">⇄ Inverter</button>' +
+      '<button class="btn-sc" data-act="trflip" aria-label="Inverter as moedas">⇄ Inverter</button>' +
       trSel('trPara', t.para) +
       '</div>' +
       parGaugeHtml() +

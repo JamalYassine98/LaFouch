@@ -590,3 +590,21 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - Câmera: ícone moldura com óculos (Inventário e Catálogo) abre gaveta "Buscar com a câmera": Ler haste | Foto da armação (Mais parecidas com %). Campo "Ou digite o código" removido. Fecha deslizando no risco ou tocando fora.
 - Despesas: círculo de pagar à esquerda, "Salvar", lixeira (Desfazer 4,5 s).
 - Ainda em padrão antigo (pendentes): demais telas fora do CSS global (Exportar/Importar, Caixa, navegação do dia, abas da Loja online), animação 3 (preços contando no Varejo/Atacado).
+
+## v408 (03/11/2026) — dono: "Implementa tudo que foi aprovado e me dê esboço do que não decidi"
+- Implementado: animação 3 (pílula Varejo|Atacado desliza, preços contam 280 ms) e padronização dos botões que sobraram: Histórico (Ver detalhes = secundário P, Estornar = perigo P), Câmbio (Inverter/Desfazer secundários), Fechar o dia = principal, "+ Adicionar" do Inventário = principal M, filtros e câmera do Inventário = ícone redondo.
+- Ainda NÃO decididos (esboços no artefato "Decisões Pendentes La Fouch", NÃO implementar): raio 12/14/16; lista do Atacado (A pílula / B botão grande / C toque soma); Exportar/Importar (A dois iguais / B principal+texto / C ícones); Caixa (A hierarquia / B Entrada|Saída / C Retirar vermelho); navegação do dia (A setas+data / B faixa de dias / C Hoje+calendário); abas da Loja online (A seletor / B pílulas / C sem abas); Restaurar padrão (A texto embaixo / B segurar na lixeira / C último fantasma).
+
+## DECISÕES do dono (03/11/2026, 22:51) sobre os esboços pendentes — NÃO implementar até "pode implementar"
+1. Raio dos botões: 14 (fica como está).
+2. Lista do Atacado: opção A (pílula − N + à direita, total embaixo do nome).
+3. Exportar/Importar backup: opção A (dois botões secundários iguais, lado a lado).
+4. Caixa: NÃO gostou de nenhuma das 3 (A hierarquia, B Entrada|Saída, C Retirar vermelho). Em elaboração com novas ideias.
+5. Navegação do dia: opção A (‹ data ▾ › com a data tocável abrindo o calendário).
+6. Abas da Loja online: opção A (seletor de 3 em pílula única).
+7. Restaurar padrão: opção A (texto embaixo, no modo dos ocultos) — como já está.
+- NOVO pedido: a cor rosa ao selecionar/tocar um botão deve ficar MAIS SUAVE. Em elaboração (esboços de opções de cor).
+- 03/11 22:5x: esboços novos publicados (artefato "Caixa e Cor Suave"): Caixa 1 ícones+gaveta / 2 botão + / 3 formulário único / 4 só saldo + ⋯; cores suaves 1 atual / 2 rosa empoeirado / 3 só tom / 4 cinza-azulado com fio rosa / 5 mauve. Aguardando escolha do dono. Nada implementado.
+- 03/11 23:0x: esclarecimento do dono: a "cor suave" é a cor do botão AO TOCAR/APERTAR (não a de repouso). Esboço refeito no artefato "Cor ao Tocar" (6 opções: 1 atual, 2 um degrau acima, 3 vinho escuro, 4 onda suave, 5 contorno aceso, 6 neutro com fio rosa). Aguardando escolha. Caixa: dono perguntou a diferença entre as ideias 2 (botão +) e 4 (⋯).
+- 03/11 23:0x DECISÕES do dono (NÃO implementar até "pode implementar"): (a) COR AO TOCAR = opção 3 "Vinho escuro" (fundo #5c2a47, borda #8f4a73, texto branco, escala .97; vermelho da lixeira/Estornar e verde de concluído continuam); (b) CAIXA = ideia 4 (saldo + movimentos limpos; botão no topo abre menu com Retirar, Melhorias, Conferir), MAS o botão NÃO pode ser "⋯": tem de ser um ÍCONE que represente as funções do caixa. Em elaboração (opções de ícone).
+- 03/11 23:1x: esboço dos ícones do botão do Caixa publicado (artefato 'Ícone do Caixa': 1 registradora, 2 carteira, 3 moeda com setas, 4 gaveta, 5 cofre, 6 cédula com +). Aguardando escolha.
