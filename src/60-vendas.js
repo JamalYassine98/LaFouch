@@ -325,7 +325,11 @@
         card.appendChild(pp);
       }
       var unico = vsL.length === 1 ? vsL[0] : null;
-      if (atacModo() && rows.classList.contains('vlist') && unico) card.appendChild(atacStep(unico));
+      if (atacModo() && rows.classList.contains('vlist') && unico) {
+        var qa = atacQtd(unico);
+        if (qa > 0 && pr0) nmB.appendChild(mk('small', 'vtot', 'Total ' + gs(qa * pr0)));
+        card.appendChild(atacStep(unico));
+      }
       else card.appendChild(mk('i', 'vplus', '+'));
       rows.appendChild(card);
       if (aberto) {

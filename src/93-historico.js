@@ -183,12 +183,13 @@
         }, 0);
     var today = dayKey(Date.now());
     var h =
-      '<div class="top" style="justify-content:flex-end"><button class="chip" data-act="daytoday">Hoje</button></div>' +
-      '<section class="card col"><div class="dayrow"><button class="chip" data-act="dayprev" aria-label="Dia anterior">‹ Anterior</button><span class="dtxt">' +
+      (k < today ? '<div class="top" style="justify-content:flex-end"><button class="tx" data-act="daytoday">Voltar para hoje</button></div>' : '') +
+      '<section class="card col"><div class="dayrow"><button class="ic" data-act="dayprev" aria-label="Dia anterior">‹</button><button class="btn-sc dtxt" data-act="daycal" aria-label="Escolher a data no calendário" style="flex:1 1 auto;font-size:15px">' +
       fmtDay(k) +
-      '</span><button class="chip" data-act="daynext" aria-label="Próximo dia"' +
+      ' ▾</button><button class="ic" data-act="daynext" aria-label="Próximo dia"' +
       (k >= today ? ' disabled' : '') +
-      '>Próximo ›</button><button class="chip calb" data-act="daycal" aria-label="Escolher a data no calendário"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></button><input type="date" class="in" id="dayIn" data-in="day" value="' +
+      '>›</button>' +
+      '<input type="date" class="in" id="dayIn" data-in="day" value="' +
       k +
       '" max="' +
       today +

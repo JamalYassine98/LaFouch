@@ -115,6 +115,8 @@
       S.retiradas.unshift({ ts: ts, moeda: m, orig: v, valor: g, nota: nota });
       S.dlog.push({ ts: ts, kind: 'ret', desc: nota || 'Retirada do dono', valor: g, moeda: m, orig: v });
       S.rtMsg = 'Retirada registrada: ' + fmtM(v, m) + '.';
+      S.cxAcao = '';
+      S.cxMenu = false;
       saveSoon();
       renderCaixa();
       renderDash();

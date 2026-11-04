@@ -1,6 +1,21 @@
   // ===== Ações dos botões (data-act) e eventos globais. =====
   // Ações dos botões, por data-act.
   var ACT = {
+    cxmenu: function () {
+      S.cxMenu = !S.cxMenu;
+      renderCaixa();
+    },
+    cxabre: function (k) {
+      S.cxMenu = false;
+      S.cxAcao = k;
+      if (k === 'cc') S.ccOpen = true;
+      renderCaixa();
+    },
+    cxfecha: function () {
+      S.cxMenu = false;
+      S.cxAcao = '';
+      renderCaixa();
+    },
     notifLimpa: function () {
       S.notifs = [];
       render();
@@ -46,6 +61,11 @@
       fotosFila();
     },
     view: function (id) {
+      // sino: tocar de novo volta para a tela onde o dono estava antes de abrir as notificações
+      if (id === 'notif') {
+        if (S.view === 'notif') return setView(S.viewAntesNotif && S.viewAntesNotif !== 'notif' ? S.viewAntesNotif : 'inicio');
+        S.viewAntesNotif = S.view;
+      }
       setView(id);
     },
     per: function (id) {

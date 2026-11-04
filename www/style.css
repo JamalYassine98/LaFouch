@@ -1038,3 +1038,54 @@ body.folhaAberta{overflow:hidden;overscroll-behavior:none}
 .btn-pe.arm{background:var(--red);border-color:var(--red);color:#fff}
 .ic.on{border-color:var(--accent);background:var(--pr-bg);color:var(--pr-fg)}
 #btnAdd{min-height:44px}
+/* Caixa (v409): ícone no topo abre menu; Retirar/Melhorias/Conferir em gaveta */
+.cxMenu{position:absolute;right:0;top:52px;min-width:190px;background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:6px;box-shadow:0 12px 30px rgba(0,0,0,.55);z-index:30;transform-origin:top right;animation:cxMenuIn .3s var(--mola)}
+@keyframes cxMenuIn{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+.cxMenu button{display:flex;align-items:center;gap:10px;width:100%;min-height:44px;padding:0 12px;border:0;background:none;color:var(--fg);font:inherit;font-size:15px;border-radius:10px;text-align:left}
+.cxMenu button svg{width:20px;height:20px;color:var(--accent-fg);flex:none}.cxMenu button:active{background:#5c2a47}
+#cxIc svg{width:26px;height:26px;display:block;margin:auto}
+.cxAcao{display:none}
+.cxAcao.on{display:block;position:fixed;left:0;right:0;bottom:0;z-index:61;max-height:88vh;overflow:auto;background:var(--panel);border-top:1px solid var(--line);border-radius:22px 22px 0 0;padding:6px 14px calc(18px + env(safe-area-inset-bottom,0px));max-width:560px;margin:0 auto;animation:lfaSUp .45s var(--mola) both}
+.cxAcao.on .card{border:0;padding:6px 0;background:none}
+.cxAcao .sl{display:none}
+.cxPuxa{width:44px;height:5px;border-radius:3px;background:var(--line);margin:6px auto 8px}
+.cxBack{display:none}.cxBack.on{display:block;position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.6);animation:lfaFade .25s both}
+body:has(.cxAcao.on){overflow:hidden}
+/* Cor ao tocar (aprovada 03/11): vinho escuro, em vez do rosa cheio */
+:root{--tbg:#5c2a47;--tbd:#8f4a73}
+.go:not(:disabled):active,.mini:not(:disabled):active,.btn-pr:not(:disabled):active,.btn-sc:not(:disabled):active,.ic:not(:disabled):active,.chip:not(:disabled):active,.tab:not(:disabled):active,.cb3:not(:disabled):active,.pcard:not(:disabled):active{background:var(--tbg);border-color:var(--tbd);color:#fff;filter:none}
+.tl:active,.mn:active,.avchip:active,.bsolid:active,.cg-card:active{background:var(--tbg);border-color:var(--tbd)}
+.ic.pe:not(:disabled):active,.btn-pe:not(:disabled):active{background:var(--red);border-color:var(--red);color:#fff}
+.ic.wa:not(:disabled):active{background:#25d366;border-color:#25d366;color:#052e16}
+.cxMenu button:active{background:var(--tbg)}
+/* Atacado A (aprovado): pílula − N + à direita; total embaixo do nome */
+.vstep{border:1px solid var(--line);background:var(--panel2);border-radius:999px;height:42px;gap:0;padding:0 2px}
+.vstep .vs-b{width:38px;height:38px;line-height:36px;background:transparent;color:var(--fg);font-size:22px;border-radius:50%}
+.vstep .vs-b:active{background:var(--tbg)}
+.vstep .vs-n{background:transparent;min-width:30px;height:38px;line-height:38px;font-variant-numeric:tabular-nums}
+.vtot{display:block;color:var(--ok);font-weight:700;margin-top:2px}
+.dayrow .ic{font-size:24px;line-height:1}.dayrow .ic:disabled{opacity:.35}
+/* Loja online A (aprovado): seletor de 3 em pílula única */
+.catbar3{display:flex;gap:2px;padding:3px;background:var(--panel2);border:1px solid var(--line);border-radius:999px}
+.catbar3 .cb3{flex:1 1 0;min-width:0;height:40px;border:0;border-radius:999px;background:transparent;color:var(--mute);font-size:14px;gap:6px}
+.catbar3 .cb3 svg{width:18px;height:18px}
+.catbar3 .cb3.on{background:var(--pr-bg);box-shadow:inset 0 0 0 1px var(--accent);color:var(--pr-fg)}
+.catbar3 .cb3:not(:disabled):active{background:var(--tbg)}
+/* v410 folha: gesto fluido e fundo travado */
+#lfa-folha,#lfa-folha .lfa-sh{touch-action:none;overscroll-behavior:none}
+#lfa-folha .lfa-sh{will-change:transform;overflow:hidden}
+html:has(body.folhaAberta){overflow:hidden;overscroll-behavior:none}
+.lfa-sh .vcores{touch-action:pan-x}
+/* texto de botão nunca é selecionável */
+button,.btn,.go,.mini,.ic,.mn,[data-act],.tabchip,.mpill{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+/* v410 lista do Catálogo: nome em cima, preço embaixo, controle à direita (nada estoura) */
+#vRows.vlist .pcard{display:grid;grid-template-columns:auto minmax(0,1fr) auto;column-gap:12px;row-gap:2px;align-items:center;overflow:hidden}
+#vRows.vlist .pcard>*{grid-column:2;min-width:0;margin:0}
+#vRows.vlist .pcard>.pbox{grid-column:1;grid-row:1/span 3}
+#vRows.vlist .pcard>.vplus,#vRows.vlist .pcard>.vstep{grid-column:3;grid-row:1/span 3;justify-self:end}
+#vRows.vlist .pcard>.vpreco{text-align:left;margin:0;font-size:15px}
+#vRows.vlist .pcard b:nth-of-type(1){font-size:15px;line-height:1.25;overflow-wrap:anywhere}
+#vRows.vlist .vplus{width:40px;height:40px;line-height:38px;font-size:22px}
+/* v410 hierarquia: só UMA ação principal por tela; as demais são secundárias (neutras) */
+.btn-sc.p{background:var(--panel2);border:1px solid var(--line);color:var(--fg)}
+.btn-sc.p:not(:disabled):active{background:var(--tbg);border-color:var(--tbd);color:#fff}

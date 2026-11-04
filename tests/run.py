@@ -405,6 +405,7 @@ async def main():
             total += 1
             await pg.evaluate("() => { const S = window.__LF.S; S.ini.melh = 400000; window.__LF.render(); }")
             await pg.locator('#mainnav >> text="Caixa"').first.click(); await pg.wait_for_timeout(300)
+            await pg.click('#cxIc'); await pg.wait_for_timeout(150); await pg.click('[data-act=cxabre][data-id=mel]'); await pg.wait_for_timeout(300)
             await pg.fill('#muD', 'Tinta'); await pg.fill('#muV', '50000')
             await pg.locator('[data-act="melhuso"]').first.click(); await pg.wait_for_timeout(200)
             got = await pg.evaluate("() => { const S = window.__LF.S; return [S.melhUso.length, S.dlog.filter(x => x.kind === 'melh').length, S.cash.pyg] }")
@@ -2011,7 +2012,7 @@ async def main():
             r = await pg.evaluate("""() => { const t = document.getElementById('v-dia').innerText;
               return [!!document.querySelector('[data-act=hback]'), !!document.querySelector('[data-act=closedia]'), !!document.querySelector('[data-act=daycal]'), !!document.querySelector('[data-act=daytoday]'), t.includes('G$ 90.000'), t.includes('Câmbio feito neste dia'), document.querySelectorAll('#mainnav .mn').length]; }""")
             total += 1
-            ok = r == [False, False, True, True, True, True, 5] and not pg.erros
+            ok = r == [False, False, True, False, True, True, 5] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'histórico do dia: valor exato, câmbio e botões novos')
             if not ok: falhas.append('hist dia'); print('        veio', r, pg.erros)
             await pg.close()
@@ -2444,14 +2445,15 @@ async def main():
             pg = await pagina()
             await pg.evaluate("() => { const S = window.__LF.S; S.cash = {pyg: 5000000, usd: 500, brl: 0}; S.retiradas = []; S.confCx = []; S.dlog = []; window.__LF.render(); }")
             await pg.locator('#mainnav >> text="Caixa"').first.click(); await pg.wait_for_timeout(300)
+            await pg.click('#cxIc'); await pg.wait_for_timeout(150); await pg.click('[data-act=cxabre][data-id=ret]'); await pg.wait_for_timeout(300)
             await pg.fill('#rtV', '200000'); await pg.fill('#rtN', 'Almoço')
             await pg.locator('[data-act="rtgo"]').first.click(); await pg.wait_for_timeout(300)
             got = await pg.evaluate("() => { const S = window.__LF.S; return [S.retiradas.length, S.cash.pyg, S.dlog.filter(x => x.kind === 'ret').length] }")
             await checa('Caixa: retirada do dono sai do caixa e vai ao histórico', got == [1, 4800000, 1], got)
-            await pg.locator('[data-act="rtdes"]').first.click(); await pg.wait_for_timeout(300)
+            await pg.locator('[data-act="rtdes"]:visible').first.click(); await pg.wait_for_timeout(300)
             got = await pg.evaluate("() => { const S = window.__LF.S; return [S.retiradas.length, S.cash.pyg, S.dlog.filter(x => x.kind === 'ret').length] }")
             await checa('Caixa: desfazer retirada devolve o dinheiro', got == [0, 5000000, 0], got)
-            await pg.locator('[data-act="ccabrir"]').first.click(); await pg.wait_for_timeout(300)
+            await pg.click('#cxIc'); await pg.wait_for_timeout(150); await pg.click('[data-act=cxabre][data-id=cc]'); await pg.wait_for_timeout(300)
             await pg.fill('#ccP', '4900000'); await pg.locator('[data-act="ccgo"]').first.click(); await pg.wait_for_timeout(300)
             got = await pg.evaluate("() => { const S = window.__LF.S; return [S.ccRes && S.ccRes.ok, S.confCx.length] }")
             await checa('Caixa: conferência acha a diferença', got == [False, 1], got)

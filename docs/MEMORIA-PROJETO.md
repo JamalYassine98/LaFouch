@@ -608,3 +608,16 @@ Podem ser combinadas. Já feito: selo da La Fouch parado (sem flutuar) e produto
 - 03/11 23:0x: esclarecimento do dono: a "cor suave" é a cor do botão AO TOCAR/APERTAR (não a de repouso). Esboço refeito no artefato "Cor ao Tocar" (6 opções: 1 atual, 2 um degrau acima, 3 vinho escuro, 4 onda suave, 5 contorno aceso, 6 neutro com fio rosa). Aguardando escolha. Caixa: dono perguntou a diferença entre as ideias 2 (botão +) e 4 (⋯).
 - 03/11 23:0x DECISÕES do dono (NÃO implementar até "pode implementar"): (a) COR AO TOCAR = opção 3 "Vinho escuro" (fundo #5c2a47, borda #8f4a73, texto branco, escala .97; vermelho da lixeira/Estornar e verde de concluído continuam); (b) CAIXA = ideia 4 (saldo + movimentos limpos; botão no topo abre menu com Retirar, Melhorias, Conferir), MAS o botão NÃO pode ser "⋯": tem de ser um ÍCONE que represente as funções do caixa. Em elaboração (opções de ícone).
 - 03/11 23:1x: esboço dos ícones do botão do Caixa publicado (artefato 'Ícone do Caixa': 1 registradora, 2 carteira, 3 moeda com setas, 4 gaveta, 5 cofre, 6 cédula com +). Aguardando escolha.
+
+## v409 / 4.1 (03/11/2026) — IMPLEMENTADO ("Implementar tudo")
+- Cor ao tocar = vinho escuro (#5c2a47, borda #8f4a73) em todos os botões comuns (vermelho/verde/WhatsApp mantidos).
+- Caixa 4: ícone cédula com + (ICO.caixa, centralizado, caixa 2..22 x 4..20) no topo abre menu Retirar/Melhorias/Conferir; cada um abre gaveta (classe .cxAcao, estado S.cxAcao/S.cxMenu; fecha ao concluir, tocar fora ou deslizar no risco); tela mostra saldos + card Movimentos (retiradas e usos de melhorias, desfazer).
+- Atacado A: pílula − N + à direita, "Total G$" embaixo do nome. Backup A: Exportar/Importar btn-sc lado a lado. Dia A: ‹ [data ▾] ›, "Voltar para hoje" quando não é hoje. Loja online A: .catbar3 virou pílula única. Restaurar padrão A: já estava.
+
+## v410 (03/11/2026) — correções pedidas pelo dono
+- Folha da peça (Catálogo): arrasta pela folha inteira, segue o dedo (sobe com resistência → abre vitrine; desce → fecha), fundo escuro trava a rolagem da página.
+- Troca de aba (Inventário e demais abas) agora sempre anima o conteúdo (slide+fade).
+- Lista do Catálogo: nome em cima, preço embaixo, controle à direita (nada estoura).
+- Hierarquia: só 1 botão principal por tela; "Ver/Conferir" nas notificações e "Pedidos" do carrinho viraram secundários.
+- Texto de botões não é mais selecionável. Retirada do dono fecha a folha ao registrar.
+- ATENÇÃO: o celular do dono ainda mostra a versão antiga (prints com + rosa cheio) — só atualiza quando ele pedir o APK.

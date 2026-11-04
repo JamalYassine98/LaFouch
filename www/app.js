@@ -861,15 +861,19 @@
     chk: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
     lixo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>',
     wa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.6a9.4 9.4 0 0 0-8.1 14.2L2.6 21.4l4.9-1.3A9.4 9.4 0 1 0 12 2.6z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.6-2-1-.9.8c-.9-.4-1.9-1.4-2.3-2.3l.8-.9-1-2z" fill="currentColor" stroke="none"/></svg>',
+    // cédula com "+" centralizada (caixa de 2..22 x 4..20 no viewBox 24)
+    caixa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="16" height="11" rx="1.8"/><circle cx="10" cy="9.5" r="2.3"/><circle cx="18" cy="16" r="4.2" fill="var(--panel2,#1e242e)"/><path d="M18 14v4M16 16h4"/></svg>',
+    sobe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>',
+    ferr: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/></svg>',
     haste:
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3M7 9v6M10 9v6M13 9v6M17 9v6"/></svg>',
     moldura:
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 408;
+  var APP_BUILD = 410;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '4.0.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '4.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Movimentos: todo fato de dinheiro ou estoque é gravado por aqui (livro + histórico juntos). =====
   // Formato do registro do histórico (S.dlog) de uma compra de mercadoria.
   function dlogLote(x) {
@@ -13060,7 +13064,7 @@
       h =
         '<section class="card col"><div><h2 style="margin:0;font-size:16px">Backup</h2><div class="hint" style="margin:2px 0 0">Os dados ficam só neste celular. Guarde uma cópia de vez em quando (e antes de trocar de aparelho).</div></div><div class="hint" style="margin:0">' +
         (dias < 0 ? 'Nenhum backup feito ainda.' : 'Último backup: ' + (dias === 0 ? 'hoje' : 'há ' + dias + ' dia(s)') + '.') +
-        '</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="chip on" data-act="bkexp">Exportar backup</button><button class="chip" data-act="bkimp">Importar backup</button></div>' +
+        '</div><div style="display:flex;gap:8px"><button class="btn-sc" style="flex:1" data-act="bkexp">Exportar backup</button><button class="btn-sc" style="flex:1" data-act="bkimp">Importar backup</button></div>' +
         (S.bkText ? '<textarea class="in" readonly rows="5" style="width:100%;font-size:12px">' + esc(S.bkText) + '</textarea>' : '');
     h += '</section>';
     return h;
@@ -13552,7 +13556,11 @@
         card.appendChild(pp);
       }
       var unico = vsL.length === 1 ? vsL[0] : null;
-      if (atacModo() && rows.classList.contains('vlist') && unico) card.appendChild(atacStep(unico));
+      if (atacModo() && rows.classList.contains('vlist') && unico) {
+        var qa = atacQtd(unico);
+        if (qa > 0 && pr0) nmB.appendChild(mk('small', 'vtot', 'Total ' + gs(qa * pr0)));
+        card.appendChild(atacStep(unico));
+      }
       else card.appendChild(mk('i', 'vplus', '+'));
       rows.appendChild(card);
       if (aberto) {
@@ -21809,7 +21817,7 @@
     function cartao(i) {
       return (
         '<section class="card" style="border-left:4px solid ' + i.c + ';display:flex;align-items:center;gap:10px;justify-content:space-between"><div><b style="font-size:15px">' + esc(i.t) + '</b><div class="hint" style="margin:2px 0 0">' + esc(i.s) + '</div></div>' +
-        '<button type="button" class="mini" data-act="' + i.act + '" data-id="' + i.id + '">' + esc(i.b) + '</button></section>'
+        '<button type="button" class="btn-sc p" data-act="' + i.act + '" data-id="' + i.id + '">' + esc(i.b) + '</button></section>'
       );
     }
     var urg = ag.filter(urgente),
@@ -23070,12 +23078,13 @@
         }, 0);
     var today = dayKey(Date.now());
     var h =
-      '<div class="top" style="justify-content:flex-end"><button class="chip" data-act="daytoday">Hoje</button></div>' +
-      '<section class="card col"><div class="dayrow"><button class="chip" data-act="dayprev" aria-label="Dia anterior">‹ Anterior</button><span class="dtxt">' +
+      (k < today ? '<div class="top" style="justify-content:flex-end"><button class="tx" data-act="daytoday">Voltar para hoje</button></div>' : '') +
+      '<section class="card col"><div class="dayrow"><button class="ic" data-act="dayprev" aria-label="Dia anterior">‹</button><button class="btn-sc dtxt" data-act="daycal" aria-label="Escolher a data no calendário" style="flex:1 1 auto;font-size:15px">' +
       fmtDay(k) +
-      '</span><button class="chip" data-act="daynext" aria-label="Próximo dia"' +
+      ' ▾</button><button class="ic" data-act="daynext" aria-label="Próximo dia"' +
       (k >= today ? ' disabled' : '') +
-      '>Próximo ›</button><button class="chip calb" data-act="daycal" aria-label="Escolher a data no calendário"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></button><input type="date" class="in" id="dayIn" data-in="day" value="' +
+      '>›</button>' +
+      '<input type="date" class="in" id="dayIn" data-in="day" value="' +
       k +
       '" max="' +
       today +
@@ -23457,6 +23466,21 @@
   // ===== Ações dos botões (data-act) e eventos globais. =====
   // Ações dos botões, por data-act.
   var ACT = {
+    cxmenu: function () {
+      S.cxMenu = !S.cxMenu;
+      renderCaixa();
+    },
+    cxabre: function (k) {
+      S.cxMenu = false;
+      S.cxAcao = k;
+      if (k === 'cc') S.ccOpen = true;
+      renderCaixa();
+    },
+    cxfecha: function () {
+      S.cxMenu = false;
+      S.cxAcao = '';
+      renderCaixa();
+    },
     notifLimpa: function () {
       S.notifs = [];
       render();
@@ -23502,6 +23526,11 @@
       fotosFila();
     },
     view: function (id) {
+      // sino: tocar de novo volta para a tela onde o dono estava antes de abrir as notificações
+      if (id === 'notif') {
+        if (S.view === 'notif') return setView(S.viewAntesNotif && S.viewAntesNotif !== 'notif' ? S.viewAntesNotif : 'inicio');
+        S.viewAntesNotif = S.view;
+      }
       setView(id);
     },
     per: function (id) {
@@ -24586,7 +24615,11 @@
       r = reservas(),
       c = S.cash;
     var html =
-      '<div class="top"><div><h1>Caixa</h1><div class="crumb">Quanto dinheiro existe, quanto já tem dono e quanto é seu</div></div></div>';
+      '<div class="top" style="flex-wrap:nowrap;align-items:flex-start"><div style="min-width:0;flex:1"><h1>Caixa</h1><div class="crumb">Quanto dinheiro existe, quanto já tem dono e quanto é seu</div></div><div style="position:relative;flex:none"><button type="button" class="ic' + (S.cxMenu ? ' on' : '') + '" id="cxIc" data-act="cxmenu" aria-label="Ações do caixa" aria-expanded="' + !!S.cxMenu + '">' + ICO.caixa + '</button>' +
+      (S.cxMenu
+        ? '<div class="cxMenu" role="menu"><button type="button" role="menuitem" data-act="cxabre" data-id="ret">' + ICO.sobe + 'Retirar</button><button type="button" role="menuitem" data-act="cxabre" data-id="mel">' + ICO.ferr + 'Melhorias</button><button type="button" role="menuitem" data-act="cxabre" data-id="cc">' + ICO.chk + 'Conferir</button></div>'
+        : '') +
+      '</div></div>';
     if (S.cxMsg)
       html +=
         '<div class="note ' +
@@ -24619,27 +24652,44 @@
     if (r.livre < 0)
       html +=
         '<div class="note n-bad">O dinheiro em caixa está abaixo do que deveria estar separado. Evite retiradas até repor.</div>';
-    html += retiradaHtml() + ccHtml();
-    html +=
-      '<div class="two">' +
+    // Caixa limpo: saldo e movimentos à vista; Retirar, Melhorias e Conferir abrem em gaveta pelo ícone do topo
+    var acao = S.cxAcao || '';
+    if (S.cxMsg !== S._cxMsgVis) {
+      S._cxMsgVis = S.cxMsg;
+      if (acao && S.cxMsg && !/^(Não|Saldo|Informe)/.test(S.cxMsg)) acao = S.cxAcao = '';
+    }
+    var sh = function (k, inner) {
+      return '<div class="cxAcao' + (acao === k ? ' on' : '') + '" data-k="' + k + '"><div class="cxPuxa" aria-hidden="true"></div>' + inner + '</div>';
+    };
+    html += '<div class="cxBack' + (acao ? ' on' : '') + '" data-act="cxfecha"></div>';
+    html += sh('ret', retiradaHtml());
+    html += sh('cc', ccHtml());
+    html += sh(
+      'mel',
       '<section class="card col"><h2 style="margin:0;font-size:16px">Usar a caixa de melhorias</h2><div class="hint" style="margin:0">Tira do saldo de melhorias e dos guaranis em caixa.</div>' +
-      '<div class="sel" style="flex-wrap:wrap"><input class="in" id="muD" placeholder="No que usou" style="flex:2 1 150px;width:auto" aria-label="Descrição do uso"><input class="in" id="muV" inputmode="' + mpMode() + '" placeholder="' + mpSim() + '" style="flex:1 1 110px;width:auto" aria-label="Valor usado"><button class="mini" data-act="melhuso">Registrar</button></div>' +
-      S.melhUso
-        .slice(-3)
-        .reverse()
-        .map(function (x) {
-          return (
-            '<div class="sl"><span>' +
-            esc(x.desc) +
-            '<small>' +
-            fd(x.ts) +
-            '</small></span><b>' +
-            gs(x.valor) +
-            '</b></div>'
-          );
-        })
-        .join('') +
-      '</section></div>';
+        '<div class="sel" style="flex-wrap:wrap"><input class="in" id="muD" placeholder="No que usou" style="flex:2 1 150px;width:auto" aria-label="Descrição do uso"><input class="in" id="muV" inputmode="' + mpMode() + '" placeholder="' + mpSim() + '" style="flex:1 1 110px;width:auto" aria-label="Valor usado"><button class="mini" data-act="melhuso">Registrar</button></div></section>'
+    );
+    // movimentos: retiradas e usos da caixa de melhorias, do mais novo para o mais antigo
+    var mov = S.retiradas.slice(0, 8).map(function (x) {
+      return { ts: x.ts, nome: x.nota || 'Retirada', val: fmtM(x.orig, x.moeda), des: x.ts };
+    });
+    S.melhUso.slice(-5).forEach(function (x) {
+      mov.push({ ts: x.ts, nome: x.desc + ' (melhorias)', val: gs(x.valor), des: '' });
+    });
+    mov.sort(function (a, b) {
+      return b.ts - a.ts;
+    });
+    html +=
+      '<section class="card col"><h2 style="margin:0;font-size:16px">Movimentos</h2>' +
+      (mov.length
+        ? mov
+            .slice(0, 10)
+            .map(function (x) {
+              return '<div class="sl"><span>' + esc(x.nome) + '<small>' + fd(x.ts) + ' às ' + fh(x.ts) + (x.des ? ' · <a href="#" data-act="rtdes" data-id="' + x.des + '" style="color:var(--accent-fg)">desfazer</a>' : '') + '</small></span><b>' + x.val + '</b></div>';
+            })
+            .join('')
+        : '<div class="hint" style="margin:0">Nenhum movimento ainda.</div>') +
+      '</section>';
     el.innerHTML = html;
     updateTr();
   }
@@ -28114,47 +28164,71 @@
   }
   function folhaGestos(ov) {
     var sh = ov.querySelector('.lfa-sh'),
-      puxa = ov.querySelector('.folha-puxa'),
       y0 = 0,
       x0 = 0,
+      t0 = 0,
       dy = 0,
-      on = false;
+      on = false,
+      eixo = '';
+    if (!sh) return;
     // tocar fora da folha fecha (desce)
     ov.addEventListener('click', function (e) {
       if (e.target === ov) folhaFecha();
     });
-    if (!puxa) return;
-    puxa.addEventListener('touchstart', function (e) {
-      if (e.touches.length !== 1) return;
+    // fundo escuro nunca rola a página
+    ov.addEventListener('touchmove', function (e) {
+      if (e.target === ov) e.preventDefault();
+    }, { passive: false });
+    sh.addEventListener('touchstart', function (e) {
+      if (e.touches.length !== 1 || e.target.closest('input,textarea')) return;
       y0 = e.touches[0].clientY;
       x0 = e.touches[0].clientX;
+      t0 = Date.now();
       dy = 0;
+      eixo = '';
       on = true;
+      sh.style.animation = 'none';
+      sh.style.transition = 'none';
     }, { passive: true });
-    puxa.addEventListener('touchmove', function (e) {
+    sh.addEventListener('touchmove', function (e) {
       if (!on) return;
       var y = e.touches[0].clientY - y0,
         x = e.touches[0].clientX - x0;
-      if (Math.abs(x) > Math.abs(y)) {
-        on = false;
-        return;
-      }
+      if (!eixo && (Math.abs(x) > 8 || Math.abs(y) > 8)) eixo = Math.abs(y) >= Math.abs(x) ? 'y' : 'x';
+      if (eixo !== 'y') return;
+      if (e.cancelable) e.preventDefault();
       dy = y;
-      if (y > 0 && sh) {
-        sh.style.transition = 'none';
-        sh.style.transform = 'translateY(' + Math.round(y * 0.8) + 'px)';
-      }
-    }, { passive: true });
-    puxa.addEventListener('touchend', function () {
+      // descer acompanha o dedo; subir tem resistência
+      var ty = y > 0 ? y : -Math.min(90, Math.pow(-y, 0.8) * 2.2);
+      sh.style.transform = 'translate3d(0,' + Math.round(ty) + 'px,0)';
+      ov.style.background = 'rgba(0,0,0,' + (0.62 * (1 - Math.min(1, Math.max(0, y) / 420))).toFixed(3) + ')';
+    }, { passive: false });
+    function solta() {
       if (!on) return;
       on = false;
-      if (sh) {
-        sh.style.transition = 'transform .22s';
+      if (eixo !== 'y') {
+        sh.style.transition = '';
+        return;
+      }
+      var v = dy / Math.max(1, Date.now() - t0); // px/ms
+      ov.style.background = '';
+      if (dy < -50 || v < -0.5) {
+        sh.style.transition = 'transform .2s cubic-bezier(.4,0,.2,1)';
+        sh.style.transform = 'translate3d(0,-40px,0)';
+        setTimeout(folhaVitrine, REDUCED ? 0 : 140);
+      } else if (dy > 110 || v > 0.6) {
+        sh.style.transition = 'transform .24s cubic-bezier(.4,0,.2,1)';
+        sh.style.transform = 'translate3d(0,105%,0)';
+        ov.style.transition = 'background .24s';
+        ov.style.background = 'rgba(0,0,0,0)';
+        setTimeout(folhaFecha, REDUCED ? 0 : 200);
+      } else {
+        sh.style.transition = 'transform .3s var(--mola,cubic-bezier(.2,1.25,.35,1))';
         sh.style.transform = '';
       }
-      if (dy < -60) folhaVitrine();
-      else if (dy > 90) folhaFecha();
-    });
+    }
+    sh.addEventListener('touchend', solta);
+    sh.addEventListener('touchcancel', solta);
   }
   function folhaAbre(k, g) {
     var vs = folhaVars(g);
@@ -32042,6 +32116,40 @@
     }
     document.addEventListener('pointerup', fim, true);
     document.addEventListener('pointercancel', fim, true);
+    // rede de segurança: se o navegador perder o "soltar" (rolagem, menu de pressionar, app em segundo plano), nada fica preso na tela
+    function solta(ev) {
+      if (dg && dg.on) fim({ type: 'cancel' });
+      else if (dg && !dg.on) {
+        clearTimeout(dg.t);
+        dg = null;
+      }
+      if (!dg) {
+        dicaOff();
+        limpa2();
+      }
+    }
+    function limpa2() {
+      var g = document.querySelector('.qghost');
+      if (g) g.remove();
+      document.body.classList.remove('arrastaBarra');
+      [].slice.call(document.querySelectorAll('.qorig')).forEach(function (el) {
+        el.classList.remove('qorig');
+      });
+      var lx = $('inLixo');
+      if (lx) lx.classList.remove('on', 'perto');
+    }
+    ['touchend', 'touchcancel', 'contextmenu'].forEach(function (t) {
+      document.addEventListener(t, solta, true);
+    });
+    window.addEventListener('blur', solta);
+    document.addEventListener('visibilitychange', solta);
+    // chip sem arraste ativo some sozinho
+    setInterval(function () {
+      if (chip && chip.classList.contains('on') && !(dg && dg.on)) {
+        dicaOff();
+        limpa2();
+      }
+    }, 800);
   })();
   // Início: segurar no fundo (logo, cartão de cima, espaço vazio) mostra os botões ocultos; tocar num volta, tocar fora fecha.
   (function () {
@@ -32160,6 +32268,80 @@
     var w = $('vWa');
     if (w) w.innerHTML = ICO.wa;
   })();
+  // Caixa: tocar fora do menu fecha; a gaveta fecha deslizando no risco.
+  document.addEventListener('click', function (e) {
+    if (S.cxMenu && S.view === 'caixa' && !(e.target.closest && e.target.closest('.cxMenu,#cxIc'))) {
+      S.cxMenu = false;
+      renderCaixa();
+    }
+  });
+  (function () {
+    var y0 = 0,
+      dy = 0,
+      sh = null;
+    document.addEventListener(
+      'touchstart',
+      function (e) {
+        var p = e.target.closest && e.target.closest('.cxPuxa');
+        sh = p ? p.parentNode : null;
+        if (sh) {
+          y0 = e.touches[0].clientY;
+          dy = 0;
+        }
+      },
+      { passive: true }
+    );
+    document.addEventListener(
+      'touchmove',
+      function (e) {
+        if (!sh) return;
+        dy = e.touches[0].clientY - y0;
+        if (dy > 0) {
+          sh.style.animation = 'none';
+          sh.style.transition = 'none';
+          sh.style.transform = 'translateY(' + Math.round(dy * 0.8) + 'px)';
+        }
+      },
+      { passive: true }
+    );
+    document.addEventListener('touchend', function () {
+      if (!sh) return;
+      var s = sh;
+      sh = null;
+      if (dy > 80) ACT.cxfecha();
+      else {
+        s.style.transition = 'transform .22s';
+        s.style.transform = '';
+      }
+    });
+  })();
+
+  // ===== Troca de aba: o conteúdo novo sempre entra animado (Inventário, Catálogo, Histórico...). =====
+  (function () {
+    var BARRAS = '#eTabs, .tabs, .mpill';
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('#eTabs button, .tabs button.tab, .mpill button');
+      if (!b || REDUCED) return;
+      var barra = b.closest(BARRAS) || b,
+        view = b.closest('.view');
+      if (!view) return;
+      var bs = [].slice.call(barra.querySelectorAll('button')),
+        i = bs.indexOf(b),
+        dir = i < 0 ? 1 : i === 0 ? -1 : 1;
+      requestAnimationFrame(function () {
+        [].slice.call(view.children).forEach(function (c, n) {
+          if (c.hidden || c.contains(barra) || c === barra || !c.animate) return;
+          c.animate(
+            [
+              { opacity: 0, transform: 'translate3d(' + 18 * dir + 'px,0,0)' },
+              { opacity: 1, transform: 'none' }
+            ],
+            { duration: 280, delay: Math.min(n, 4) * 25, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' }
+          );
+        });
+      });
+    });
+  })();
   // ===== Carrinho: várias peças numa venda só; o piso vale para o total, não para cada peça. =====
   S.cart = [];
   S.cartOpen = false;
@@ -32257,7 +32439,7 @@
     if (!bar.hidden)
       bar.innerHTML =
         '<div style="display:flex;gap:4px;flex:0 0 auto">' + cartFoto(S.cart[0], 40) + '</div><div style="flex:1 1 140px"><b>Pedido: ' + cartPecas() + ' peça(s)</b><div class="hint" style="margin:2px 0 0">' + gs(cartSub()) + ' pelos preços combinados</div></div>' +
-        '<button type="button" class="mini" data-act="cartopen">Pedidos</button>';
+        '<button type="button" class="btn-sc p" data-act="cartopen">Pedidos</button>';
     $('sCartAdd').hidden = S.cartOpen || !S._vsel;
     // a peça é escolhida e adicionada ao pedido; pagamento e finalização ficam na tela de pagamento
     // (o desconto não tem campo: é o que falta do valor recebido, confirmado ao finalizar)
@@ -32879,6 +33061,8 @@
       S.retiradas.unshift({ ts: ts, moeda: m, orig: v, valor: g, nota: nota });
       S.dlog.push({ ts: ts, kind: 'ret', desc: nota || 'Retirada do dono', valor: g, moeda: m, orig: v });
       S.rtMsg = 'Retirada registrada: ' + fmtM(v, m) + '.';
+      S.cxAcao = '';
+      S.cxMenu = false;
       saveSoon();
       renderCaixa();
       renderDash();

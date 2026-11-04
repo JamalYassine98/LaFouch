@@ -47,47 +47,71 @@
   }
   function folhaGestos(ov) {
     var sh = ov.querySelector('.lfa-sh'),
-      puxa = ov.querySelector('.folha-puxa'),
       y0 = 0,
       x0 = 0,
+      t0 = 0,
       dy = 0,
-      on = false;
+      on = false,
+      eixo = '';
+    if (!sh) return;
     // tocar fora da folha fecha (desce)
     ov.addEventListener('click', function (e) {
       if (e.target === ov) folhaFecha();
     });
-    if (!puxa) return;
-    puxa.addEventListener('touchstart', function (e) {
-      if (e.touches.length !== 1) return;
+    // fundo escuro nunca rola a página
+    ov.addEventListener('touchmove', function (e) {
+      if (e.target === ov) e.preventDefault();
+    }, { passive: false });
+    sh.addEventListener('touchstart', function (e) {
+      if (e.touches.length !== 1 || e.target.closest('input,textarea')) return;
       y0 = e.touches[0].clientY;
       x0 = e.touches[0].clientX;
+      t0 = Date.now();
       dy = 0;
+      eixo = '';
       on = true;
+      sh.style.animation = 'none';
+      sh.style.transition = 'none';
     }, { passive: true });
-    puxa.addEventListener('touchmove', function (e) {
+    sh.addEventListener('touchmove', function (e) {
       if (!on) return;
       var y = e.touches[0].clientY - y0,
         x = e.touches[0].clientX - x0;
-      if (Math.abs(x) > Math.abs(y)) {
-        on = false;
-        return;
-      }
+      if (!eixo && (Math.abs(x) > 8 || Math.abs(y) > 8)) eixo = Math.abs(y) >= Math.abs(x) ? 'y' : 'x';
+      if (eixo !== 'y') return;
+      if (e.cancelable) e.preventDefault();
       dy = y;
-      if (y > 0 && sh) {
-        sh.style.transition = 'none';
-        sh.style.transform = 'translateY(' + Math.round(y * 0.8) + 'px)';
-      }
-    }, { passive: true });
-    puxa.addEventListener('touchend', function () {
+      // descer acompanha o dedo; subir tem resistência
+      var ty = y > 0 ? y : -Math.min(90, Math.pow(-y, 0.8) * 2.2);
+      sh.style.transform = 'translate3d(0,' + Math.round(ty) + 'px,0)';
+      ov.style.background = 'rgba(0,0,0,' + (0.62 * (1 - Math.min(1, Math.max(0, y) / 420))).toFixed(3) + ')';
+    }, { passive: false });
+    function solta() {
       if (!on) return;
       on = false;
-      if (sh) {
-        sh.style.transition = 'transform .22s';
+      if (eixo !== 'y') {
+        sh.style.transition = '';
+        return;
+      }
+      var v = dy / Math.max(1, Date.now() - t0); // px/ms
+      ov.style.background = '';
+      if (dy < -50 || v < -0.5) {
+        sh.style.transition = 'transform .2s cubic-bezier(.4,0,.2,1)';
+        sh.style.transform = 'translate3d(0,-40px,0)';
+        setTimeout(folhaVitrine, REDUCED ? 0 : 140);
+      } else if (dy > 110 || v > 0.6) {
+        sh.style.transition = 'transform .24s cubic-bezier(.4,0,.2,1)';
+        sh.style.transform = 'translate3d(0,105%,0)';
+        ov.style.transition = 'background .24s';
+        ov.style.background = 'rgba(0,0,0,0)';
+        setTimeout(folhaFecha, REDUCED ? 0 : 200);
+      } else {
+        sh.style.transition = 'transform .3s var(--mola,cubic-bezier(.2,1.25,.35,1))';
         sh.style.transform = '';
       }
-      if (dy < -60) folhaVitrine();
-      else if (dy > 90) folhaFecha();
-    });
+    }
+    sh.addEventListener('touchend', solta);
+    sh.addEventListener('touchcancel', solta);
   }
   function folhaAbre(k, g) {
     var vs = folhaVars(g);

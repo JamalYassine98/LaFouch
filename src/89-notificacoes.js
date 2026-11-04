@@ -133,7 +133,7 @@
     function cartao(i) {
       return (
         '<section class="card" style="border-left:4px solid ' + i.c + ';display:flex;align-items:center;gap:10px;justify-content:space-between"><div><b style="font-size:15px">' + esc(i.t) + '</b><div class="hint" style="margin:2px 0 0">' + esc(i.s) + '</div></div>' +
-        '<button type="button" class="mini" data-act="' + i.act + '" data-id="' + i.id + '">' + esc(i.b) + '</button></section>'
+        '<button type="button" class="btn-sc p" data-act="' + i.act + '" data-id="' + i.id + '">' + esc(i.b) + '</button></section>'
       );
     }
     var urg = ag.filter(urgente),

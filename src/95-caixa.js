@@ -217,7 +217,11 @@
       r = reservas(),
       c = S.cash;
     var html =
-      '<div class="top"><div><h1>Caixa</h1><div class="crumb">Quanto dinheiro existe, quanto já tem dono e quanto é seu</div></div></div>';
+      '<div class="top" style="flex-wrap:nowrap;align-items:flex-start"><div style="min-width:0;flex:1"><h1>Caixa</h1><div class="crumb">Quanto dinheiro existe, quanto já tem dono e quanto é seu</div></div><div style="position:relative;flex:none"><button type="button" class="ic' + (S.cxMenu ? ' on' : '') + '" id="cxIc" data-act="cxmenu" aria-label="Ações do caixa" aria-expanded="' + !!S.cxMenu + '">' + ICO.caixa + '</button>' +
+      (S.cxMenu
+        ? '<div class="cxMenu" role="menu"><button type="button" role="menuitem" data-act="cxabre" data-id="ret">' + ICO.sobe + 'Retirar</button><button type="button" role="menuitem" data-act="cxabre" data-id="mel">' + ICO.ferr + 'Melhorias</button><button type="button" role="menuitem" data-act="cxabre" data-id="cc">' + ICO.chk + 'Conferir</button></div>'
+        : '') +
+      '</div></div>';
     if (S.cxMsg)
       html +=
         '<div class="note ' +
@@ -250,27 +254,44 @@
     if (r.livre < 0)
       html +=
         '<div class="note n-bad">O dinheiro em caixa está abaixo do que deveria estar separado. Evite retiradas até repor.</div>';
-    html += retiradaHtml() + ccHtml();
-    html +=
-      '<div class="two">' +
+    // Caixa limpo: saldo e movimentos à vista; Retirar, Melhorias e Conferir abrem em gaveta pelo ícone do topo
+    var acao = S.cxAcao || '';
+    if (S.cxMsg !== S._cxMsgVis) {
+      S._cxMsgVis = S.cxMsg;
+      if (acao && S.cxMsg && !/^(Não|Saldo|Informe)/.test(S.cxMsg)) acao = S.cxAcao = '';
+    }
+    var sh = function (k, inner) {
+      return '<div class="cxAcao' + (acao === k ? ' on' : '') + '" data-k="' + k + '"><div class="cxPuxa" aria-hidden="true"></div>' + inner + '</div>';
+    };
+    html += '<div class="cxBack' + (acao ? ' on' : '') + '" data-act="cxfecha"></div>';
+    html += sh('ret', retiradaHtml());
+    html += sh('cc', ccHtml());
+    html += sh(
+      'mel',
       '<section class="card col"><h2 style="margin:0;font-size:16px">Usar a caixa de melhorias</h2><div class="hint" style="margin:0">Tira do saldo de melhorias e dos guaranis em caixa.</div>' +
-      '<div class="sel" style="flex-wrap:wrap"><input class="in" id="muD" placeholder="No que usou" style="flex:2 1 150px;width:auto" aria-label="Descrição do uso"><input class="in" id="muV" inputmode="' + mpMode() + '" placeholder="' + mpSim() + '" style="flex:1 1 110px;width:auto" aria-label="Valor usado"><button class="mini" data-act="melhuso">Registrar</button></div>' +
-      S.melhUso
-        .slice(-3)
-        .reverse()
-        .map(function (x) {
-          return (
-            '<div class="sl"><span>' +
-            esc(x.desc) +
-            '<small>' +
-            fd(x.ts) +
-            '</small></span><b>' +
-            gs(x.valor) +
-            '</b></div>'
-          );
-        })
-        .join('') +
-      '</section></div>';
+        '<div class="sel" style="flex-wrap:wrap"><input class="in" id="muD" placeholder="No que usou" style="flex:2 1 150px;width:auto" aria-label="Descrição do uso"><input class="in" id="muV" inputmode="' + mpMode() + '" placeholder="' + mpSim() + '" style="flex:1 1 110px;width:auto" aria-label="Valor usado"><button class="mini" data-act="melhuso">Registrar</button></div></section>'
+    );
+    // movimentos: retiradas e usos da caixa de melhorias, do mais novo para o mais antigo
+    var mov = S.retiradas.slice(0, 8).map(function (x) {
+      return { ts: x.ts, nome: x.nota || 'Retirada', val: fmtM(x.orig, x.moeda), des: x.ts };
+    });
+    S.melhUso.slice(-5).forEach(function (x) {
+      mov.push({ ts: x.ts, nome: x.desc + ' (melhorias)', val: gs(x.valor), des: '' });
+    });
+    mov.sort(function (a, b) {
+      return b.ts - a.ts;
+    });
+    html +=
+      '<section class="card col"><h2 style="margin:0;font-size:16px">Movimentos</h2>' +
+      (mov.length
+        ? mov
+            .slice(0, 10)
+            .map(function (x) {
+              return '<div class="sl"><span>' + esc(x.nome) + '<small>' + fd(x.ts) + ' às ' + fh(x.ts) + (x.des ? ' · <a href="#" data-act="rtdes" data-id="' + x.des + '" style="color:var(--accent-fg)">desfazer</a>' : '') + '</small></span><b>' + x.val + '</b></div>';
+            })
+            .join('')
+        : '<div class="hint" style="margin:0">Nenhum movimento ainda.</div>') +
+      '</section>';
     el.innerHTML = html;
     updateTr();
   }

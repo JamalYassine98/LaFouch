@@ -1,6 +1,12 @@
 {
- "nome": "4.0.1",
+ "nome": "4.1",
  "notas": [
+  "Caixa mais limpo: saldo e movimentos à vista; o ícone da cédula com + no topo abre Retirar, Melhorias e Conferir em gaveta",
+  "Cor ao tocar nos botões agora é vinho escuro, mais suave",
+  "Atacado: pílula − N + à direita e total embaixo do nome",
+  "Backup: Exportar e Importar lado a lado, iguais",
+  "Histórico: ‹ data ▾ › para trocar de dia; toque na data abre o calendário",
+  "Loja online: abas em pílula única",
   "Varejo/Atacado: a pílula desliza e os preços contam ao trocar",
   "Botões padronizados: Ver detalhes e Estornar (Histórico), Desfazer e Inverter (Câmbio), Fechar o dia, + Adicionar, filtros e câmera do Inventário",
   "Botões no novo padrão: principal com fundo rosa escuro, borda rosa e letra branca (rosa cheio ao tocar), verde ao concluir, lixeira vermelha ao tocar",

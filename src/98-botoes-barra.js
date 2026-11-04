@@ -388,6 +388,40 @@
     }
     document.addEventListener('pointerup', fim, true);
     document.addEventListener('pointercancel', fim, true);
+    // rede de segurança: se o navegador perder o "soltar" (rolagem, menu de pressionar, app em segundo plano), nada fica preso na tela
+    function solta(ev) {
+      if (dg && dg.on) fim({ type: 'cancel' });
+      else if (dg && !dg.on) {
+        clearTimeout(dg.t);
+        dg = null;
+      }
+      if (!dg) {
+        dicaOff();
+        limpa2();
+      }
+    }
+    function limpa2() {
+      var g = document.querySelector('.qghost');
+      if (g) g.remove();
+      document.body.classList.remove('arrastaBarra');
+      [].slice.call(document.querySelectorAll('.qorig')).forEach(function (el) {
+        el.classList.remove('qorig');
+      });
+      var lx = $('inLixo');
+      if (lx) lx.classList.remove('on', 'perto');
+    }
+    ['touchend', 'touchcancel', 'contextmenu'].forEach(function (t) {
+      document.addEventListener(t, solta, true);
+    });
+    window.addEventListener('blur', solta);
+    document.addEventListener('visibilitychange', solta);
+    // chip sem arraste ativo some sozinho
+    setInterval(function () {
+      if (chip && chip.classList.contains('on') && !(dg && dg.on)) {
+        dicaOff();
+        limpa2();
+      }
+    }, 800);
   })();
   // Início: segurar no fundo (logo, cartão de cima, espaço vazio) mostra os botões ocultos; tocar num volta, tocar fora fecha.
   (function () {
