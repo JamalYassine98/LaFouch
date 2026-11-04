@@ -326,20 +326,37 @@
       b.disabled = true;
       b.innerHTML = '<span class="vsp2"></span>Enviando para a impressora…';
     }
-    setTimeout(
-      function () {
-        if (!notaAtual) return;
-        if (pb) {
-          pb.innerHTML = notaHtml(n, 'font-family:ui-monospace,Menlo,monospace;font-size:12px;width:72mm;color:#000', notaFisOn(n));
-          try {
-            window.print();
-          } catch (e) {}
-        }
+    // Impressão do sistema (reserva): sem impressora térmica conectada ou se ela não responder.
+    var sistema = function () {
+        if (!pb) return;
+        pb.innerHTML = notaHtml(n, 'font-family:ui-monospace,Menlo,monospace;font-size:12px;width:72mm;color:#000', notaFisOn(n));
+        try {
+          window.print();
+        } catch (e) {}
+      },
+      feito = function () {
         if (b) {
           b.classList.add('vok');
           b.textContent = '✓ Enviado';
         }
         setTimeout(notaFechar, REDUCED ? 0 : 800);
+      };
+    setTimeout(
+      function () {
+        if (!notaAtual) return;
+        if (!impPronta()) {
+          sistema();
+          return feito();
+        }
+        // impressora térmica conectada (Ajustes > Impressora): manda direto pelo Wi-Fi/Bluetooth
+        impEnviar(impBytes(impTicketLinhas(n, notaFisOn(n))))
+          .catch(function () {
+            lfaToast('<b>A impressora não respondeu</b><br>Abrindo a impressão do sistema.');
+            sistema();
+          })
+          .then(function () {
+            if (notaAtual) feito();
+          });
       },
       REDUCED ? 0 : 450
     );

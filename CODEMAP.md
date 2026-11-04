@@ -53,6 +53,7 @@ Regras que valem em todo o projeto: o estado fica em `S`; `render()` redesenha t
 | `95-pedidos.js` | 230 | Pedidos: pedidos do catálogo online para a loja (por enquanto lançados à mão; o catálogo online ligará aqui). |
 | `96-ajustes.js` | 278 | Aba Ajustes: faixas, meta, contas e backup dos dados. |
 | `97-contagem.js` | 308 | Contagem de estoque (aba Estoque): por produto, do mais valioso ao menos, com resumo em dinheiro. |
+| `97-impressora.js` | 330 | Impressora térmica (qualquer marca, ESC/POS) por Wi-Fi e Bluetooth: cartão em Ajustes e envio do comprovante. Parte nativa: android-extra/LfPrinterPlugin.java (instalada pelo build-apk.yml). |
 | `97-hist-busca.js` | 243 | Histórico: resumo por mês, busca, filtros, calendário e carregamento aos poucos. |
 | `98-botoes-anim.js` | 412 | Animações dos botões: ondinha, realce deslizante, cascata, contagem, ✓, segurar para apagar, sino e arrastar. |
 | `98-carrinho.js` | 420 | Carrinho: várias peças numa venda só; o piso vale para o total, não para cada peça. |

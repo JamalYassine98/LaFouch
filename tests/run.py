@@ -658,6 +658,46 @@ async def main():
             ok = 'compras' in f1.lower() and 'Conversar no WhatsApp' in f1 and 'Remover' in f1 and 'Sem RUC' not in f2 and 'Conversar no WhatsApp' in f2 and l2 == 'CI/CPF' and l3 == 'RUC' and n2 == 'py'
             print(('  ok  ' if ok else ' FALHA ') + 'ficha do cliente: compras, WhatsApp, Remover, Paraguaio/Estrangeiro troca RUC ↔ CI/CPF e salva')
             if not ok: falhas.append('ficha cliente'); print('        veio', f1, '|', f2)
+            # Impressora térmica (plugin simulado): procurar, usar (Wi-Fi + Bluetooth juntos), teste, comprovante em ESC/POS e reserva no Bluetooth
+            total += 1
+            await pg.evaluate("""() => { window.__pr = []; window.__wifiFalha = false;
+                window.Capacitor = window.Capacitor || {}; window.Capacitor.Plugins = window.Capacitor.Plugins || {};
+                window.Capacitor.Plugins.LfPrinter = {
+                  scanWifi: () => Promise.resolve({itens: [{ip: '192.168.0.25', nome: 'TM-m30III'}]}),
+                  scanBluetooth: () => new Promise(r => setTimeout(() => r({itens: [{address: 'AA:BB', nome: 'TM-m30III_A1B2', impressora: true}, {address: 'CC:DD', nome: 'Fone JBL', impressora: false}]}), 300)),
+                  printWifi: (o) => window.__wifiFalha ? Promise.reject(new Error('x')) : (window.__pr.push(['wifi', o.ip, atob(o.data)]), Promise.resolve()),
+                  printBluetooth: (o) => (window.__pr.push(['bt', o.address, atob(o.data)]), Promise.resolve()) };
+                try { localStorage.removeItem('lf_impr'); } catch (e) {}
+                const L = window.__LF; L.setView('ajustes'); L.render(); }""")
+            await pg.wait_for_timeout(300)
+            c0 = await pg.inner_text('#impCard')
+            await pg.click('[data-act=impProcurar]'); await pg.wait_for_timeout(700)
+            c1 = await pg.inner_text('#impCard')
+            await pg.locator('[data-act=impUsar]').first.click(); await pg.wait_for_timeout(300)
+            c2 = await pg.inner_text('#impCard')
+            await pg.click('[data-act=impModo][data-id=bt]'); await pg.wait_for_timeout(100)
+            c3 = await pg.inner_text('#impModoH')
+            await pg.click('[data-act=impModo][data-id=auto]')
+            await pg.click('[data-act=impTeste]'); await pg.wait_for_timeout(300)
+            pr1 = await pg.evaluate("() => window.__pr.slice()")
+            await pg.evaluate("() => { window.__pr = []; }")
+            await vender()
+            await pg.wait_for_timeout(3600)
+            await pg.click('[data-act=notaImp]'); await pg.wait_for_timeout(200); await pg.click('[data-act=notaImpOk]'); await pg.wait_for_timeout(900)
+            pr2 = await pg.evaluate("() => window.__pr.slice()")
+            await pg.evaluate("() => { window.__pr = []; window.__wifiFalha = true; }")
+            await vender(); await pg.wait_for_timeout(3600)
+            await pg.click('[data-act=notaImp]'); await pg.wait_for_timeout(200); await pg.click('[data-act=notaImpOk]'); await pg.wait_for_timeout(900)
+            pr3 = await pg.evaluate("() => window.__pr.slice()")
+            sv = await pg.evaluate("() => JSON.parse(localStorage.getItem('lf_impr'))")
+            t2 = pr2[0][2] if pr2 else ''
+            ok = ('Nenhuma conectada' in c0 and 'TM-m30III' in c1 and 'Fone JBL' not in c1 and 'Wi-Fi + Bluetooth' in c2 and 'Automático' in c2 and 'Só Bluetooth' in c2
+                  and 'sem roteador' in c3 and pr1 and pr1[0][0] == 'wifi' and 'PRUEBA' in pr1[0][2]
+                  and len(pr2) == 1 and pr2[0][0] == 'wifi' and 'LA FOUCH' in t2 and 'COMPROBANTE DE VENTA' in t2 and 'Armaz\xa2n' in t2 and 'Pago: Contado' in t2 and '\x1dVB' in t2
+                  and len(pr3) == 1 and pr3[0][0] == 'bt' and sv and sv['ip'] == '192.168.0.25' and sv['bt']['address'] == 'AA:BB')
+            print(('  ok  ' if ok else ' FALHA ') + 'impressora térmica: procura Wi-Fi + Bluetooth, usa os dois, teste, comprovante em ESC/POS (acentos, corte) e reserva no Bluetooth')
+            if not ok: falhas.append('impressora termica'); print('        veio', c0, '|', c1, '|', c2, '|', c3, pr1[:1], [x[:2] for x in pr2], [x[:2] for x in pr3], sv, repr(t2[:200]), pg.erros)
+            await pg.evaluate("() => { window.__LF.ACT.impEsquecer(); delete window.Capacitor.Plugins.LfPrinter; }")
             await pg.close()
 
             # animações novas (v5/v6 leitor, v8 gráficos, v9 progresso, v11 liberar, v13 venda, v14 obturador)

@@ -207,6 +207,7 @@
     S.notaCidade = 'CDE'; // nota fiscal e comprovante: sempre CDE (onde são feitas as vendas)
     // backup (arquivo manual + cópias automáticas)
     // Backup é a última seção; a Nuvem fica dentro dele
+    h += impCard(); // impressora térmica (esboço aprovado 04/11/2026)
     h += temaCard();
     h += ajustesFinHtml();
     h += syncCard();

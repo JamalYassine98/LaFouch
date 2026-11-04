@@ -1,8 +1,8 @@
 {
- "nome": "4.3",
+ "nome": "4.4",
  "notas": [
-  "Venda confirmada: botão Imprimir comprovante e chave Emitir nota fiscal, que lembra o último modo",
-  "Comprovante em espanhol: LA FOUCH no topo, Ciudad e Pago sempre; nome, RUC e IVA só com a nota ligada",
-  "Cliente estrangeiro: só comprovante, a chave de nota nem aparece"
+  "Ajustes > Impressora: procure impressoras térmicas (qualquer marca) no Wi-Fi e no Bluetooth, escolha Automático, Só Wi-Fi ou Só Bluetooth e imprima um teste",
+  "O comprovante sai direto na impressora térmica; se ela não responder, abre a impressão do sistema",
+  "Precisa do APK novo para procurar e imprimir direto"
  ]
 }

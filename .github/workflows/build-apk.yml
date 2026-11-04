@@ -66,6 +66,9 @@ jobs:
           grep -q 'android.permission.USE_BIOMETRIC' $M || sed -i 's#<application#<uses-permission android:name="android.permission.USE_BIOMETRIC" />\n    <application#' $M
           grep -n 'CAMERA\|hardware.camera\|BIOMETRIC' $M
 
+      - name: Impressoras termicas (Wi-Fi e Bluetooth)
+        run: python3 tools/patch-android-impressora.py android
+
       - name: Janela inicial na cor do app
         run: python3 tools/patch-android-tema.py android/app/src/main/res
 
