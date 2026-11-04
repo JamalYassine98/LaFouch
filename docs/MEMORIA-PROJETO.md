@@ -721,3 +721,5 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Impressora escolhida: Epson TM-m30III Wi-Fi + Bluetooth (código C31CK50151/152; -H: 141/142). Dono vai comprar.
 - SIFEN: esboço de 4 estados aprovado (ver acima). Depende de timbrado eletrônico, certificado, CSC e ambiente de testes (dono verifica esta semana).
 - Implementação feita junto com a impressora e as credenciais em mãos, para testar de verdade (impressão precisa de plugin nativo → APK novo).
+- REGRA (04/11 11:26): a impressão tem de funcionar em TODAS as impressoras térmicas (não só Epson): usar o padrão ESC/POS — Wi-Fi/rede (porta 9100) e Bluetooth — e manter a impressão pelo sistema do Android como reserva.
+- SIFEN: por enquanto só ESQUELETO/esboço; o dono passa timbrado, certificado, CSC e acesso de teste quando chegar o momento. Não implementar antes.
