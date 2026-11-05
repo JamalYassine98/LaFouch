@@ -3017,6 +3017,34 @@ async def main():
             if not ok: falhas.append('marketing'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Lista de compras sem excesso (v440): Sobrando (ideal × tem × sobra, dinheiro parado), avise-me no topo, aviso antes de pedir, miniaturas, bloco do pedido na Entrada
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              S.lcPed = null; S.lcQtd = {}; S.espera = [];
+              let Ls = L.lcLista(); const cand = Object.values(Ls.porIdeal).filter(b => b.ideal > 0 && !b.grau && b.cu > 0);
+              const a = cand[0]; S.items.filter(i => i.ref === a.m.ref && i.tipo === a.m.tipo && !i.bulk)[0].qty += a.ideal * 3 + 4;
+              const z = cand.find(b => b.m.ref !== a.m.ref); S.items.filter(i => i.ref === z.m.ref && i.tipo === z.m.tipo).forEach(i => i.qty = 0);
+              S.espera.push({ id: 'e1', ref: z.m.ref, nome: 'Ana', tel: '1', ts: Date.now(), av: false }, { id: 'e2', ref: z.m.ref, nome: 'Bia', tel: '2', ts: Date.now(), av: false });
+              S.dTab = 'giro'; S.dfold.rep = true; L.setView('dash'); await w(300);
+              Ls = L.lcLista(); const so = Ls.sobra.find(b => b.m.ref === a.m.ref);
+              const c = document.getElementById('lcCard'), topo = !!c.querySelector('.lcSobTop'), secS = /Sobrando/.test(c.textContent), mini = c.querySelectorAll('.lcTh').length > 0;
+              const prim = Ls.acab[0] && Ls.acab[0].m.ref === z.m.ref && /2 clientes esperando/.test(Ls.acab[0].mot);
+              // aviso antes de pedir
+              const k = Ls.acab[0].k; S.lcQtd[k] = 40; L.render(); await w(100);
+              document.querySelector('#lcCard [data-act=lcPedir]').click(); await w(500);
+              const av = !!document.querySelector('.lcAvJn'); document.getElementById('lcAj').click(); await w(400);
+              const ajust = S.lcQtd[k] < 40 && !S.lcPed;
+              document.querySelector('#lcCard [data-act=lcPedir]').click(); await w(500);
+              if (document.querySelector('.lcAvJn')) { document.getElementById('lcSeg').click(); await w(300); }
+              const pediu = !!S.lcPed;
+              const g = S.grp[0]; const html = L.lcPedResumoHtml(g ? [g.id] : []);
+              return [!!so && so.sobra >= 2 && so.valor > 0, Ls.parado > 0, topo, secS, mini, prim, av, ajust, pediu, /Do pedido da lista/.test(html), /pedido \d+ · chegou/.test(html)]; }""")
+            total += 1
+            ok = got == [True] * 11 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Lista sem excesso: Sobrando com dinheiro parado, avise-me no topo, aviso antes de pedir, miniaturas, bloco do pedido na Entrada')
+            if not ok: falhas.append('lista sem excesso'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Giro (v428): lista de compras (sem cor, por grau, − / +, total × reposição, pedido que confere sozinho) e vitrine da semana
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
@@ -3027,6 +3055,7 @@ async def main():
               const b1 = document.querySelector('#lcCard .lcQ b').textContent, tot = /reposição/.test(document.querySelector('#lcCard .lcTot').textContent);
               const n0 = document.querySelectorAll('#lcCard .lcQ').length;
               document.querySelector('[data-act=lcPedir]').click(); await w(150);
+              if (document.querySelector('.lcAvJn')) { document.getElementById('lcSeg').click(); await w(150); }
               const ped = S.lcPed && S.lcPed.itens.length, n1 = document.querySelectorAll('#lcCard .lcQ').length;
               const p0 = S.lcPed.itens[0], it = S.items.find(i => i.ref === p0.ref && i.tipo === p0.tipo && (!p0.grau || i.grau === p0.grau)); it.qty += p0.q; L.render(); await w(150);
               const chegou = /chegou/.test(document.querySelector('#lcCard .lcPed').textContent);

@@ -1739,3 +1739,16 @@ select.in.selAl{appearance:none;-webkit-appearance:none;padding:0 40px 0 12px;ba
 .lfSalvoErr{position:fixed;left:12px;right:12px;top:calc(env(safe-area-inset-top,0px) + 10px);z-index:9999;background:#3a1418;border:2px solid #ff6b6b;color:#fff;border-radius:16px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;box-shadow:0 12px 30px rgba(0,0,0,.45)}
 .lfSalvoErr b{font-size:15px}.lfSalvoErr span{font-size:13px;opacity:.9}.lfSalvoErr .mini{align-self:flex-start}
 .arqCard .sl small{display:block}
+/* v440 lista de compras sem excesso */
+.sl.lcL{grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px}
+.lcTh{flex:none;width:52px;height:36px;border-radius:8px;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center;border:1px solid var(--line)}
+.lcTh img{width:100%;height:100%;object-fit:cover}.lcTh i{font-style:normal;font-size:9.5px;color:#777;text-align:center;line-height:1.1}
+.lcL>span:nth-child(2){flex:1;min-width:0}
+.lcSobTop{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1.5px solid var(--warn);border-radius:14px;padding:10px 12px}
+.lcSobTop b{color:var(--warn)}.lcSobTop>b{font-size:20px;white-space:nowrap}.lcSobTop small{display:block;color:var(--sub);font-size:12px;margin-top:2px}
+.lcSo{color:var(--warn)}
+.lcPill{display:inline-block;font-size:11px;padding:1px 7px;border-radius:99px;border:1px solid var(--warn);color:var(--warn);vertical-align:1px}
+.lcV{display:flex;flex-direction:column;align-items:flex-end;gap:4px;white-space:nowrap;color:var(--warn);font-weight:700;flex:none}.lcV.bad{color:var(--bad,#ff8f8f)}
+.lcVira{color:var(--bad,#ff8f8f)!important}.lcOfV{color:var(--sub)}.lcEsp{color:var(--warn)!important}
+.lcNovo{border:1px dashed var(--line);border-radius:12px;padding:8px 11px;font-size:13px;line-height:1.4;display:flex;flex-direction:column;gap:4px}
+.lcPedBox{margin-top:8px}.lcPedBox .lbl{margin-bottom:4px}

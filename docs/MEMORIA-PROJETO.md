@@ -1011,3 +1011,10 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 ## v439 (5.3.7) — 05/11/2026 — Etapa 2: LUZ DE ESTÚDIO (IMPLEMENTADO)
 - estProcessa (97-estudio.js): a composição "armação original + fundo 255" (recorte) SAIU. Agora: pixel ÷ luz do fundo (polinômio + faixas) × 265, curva com ombro suave a partir de 225 (k=30) e ganho para o fundo puro chegar a 255. Sem máscara na cor; a máscara só acha o enquadramento 3:2 e dá a nota. Conferido com a foto BR18072 C3 do dono (ff/cmp439.jpg) = igual ao protótipo aprovado.
 - Testes: Estúdio agora confere que a armação clareia mantendo a proporção das cores; teste "reservas" isolado (S.metaHist={}) porque ficava instável.
+
+## v440 (5.3.8) — 05/11/2026 — Etapa 3: lista de compras sem excesso (IMPLEMENTADO)
+- 97-lista-compras.js: ideal = venda/mês (30 dias; se 0, 90 dias ÷ 3) × estação × 1,5 (~45 dias). Linhas com miniatura (lcThumb) e "Ideal · Tem". Seção "Sobrando" (estoque − ideal ≥ 2 e > 25% do ideal) com US$ parado, "acaba em ~N dias", >90 dias = "Vai virar parada · colocar em oferta?" + botão Oferta › (abre a peça no Inventário). Cartão do topo com o total parado. Oferta detectada sozinha: compra mais nova com custo ≥5% menor que a anterior (lcOferta) + "A oferta valeu?". "veio +N a mais" quando entrou mais que o pedido.
+- Avise-me (S.espera) no topo do Acabando ("N clientes esperando"). Tipo com ≥ US$ 100 sobrando → sugestão pela metade ("…já tem US$ X sobrando · sugeri menos"). Modelo novo (entrada < 60 dias, sem venda) usa o ideal médio dos parecidos.
+- Aviso antes de "Marcar como pedido" (janela lcAvJn): "Ajustar para o ideal" / "Continuar mesmo assim". "Mandar ao fornecedor": fornecedor = o da compra mais recente (S.grp.forn); com 2+ fornecedores abre janela com um botão por fornecedor.
+- "Comprar de novo" (lcComprarNovo): formato/material com venda por modelo ≥1,8× a média, ≥5 vendidas em 90 dias e ≤3 modelos.
+- Entrada da compra (87-nota-compra cpEntrada): bloco "Do pedido da lista" (lcPedResumoHtml): pedido/chegou com ✓, faltou N, sobra N; peças não pedidas com Ideal → tem e oferta pelo custo.

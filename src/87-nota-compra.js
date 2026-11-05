@@ -300,6 +300,12 @@
         }
         bx.appendChild(c);
       });
+      // v440: o que chegou do pedido da lista (chegou / faltou / sobra / oferta)
+      if (typeof lcPedResumoHtml === 'function') {
+        var pr = mk('div', '');
+        pr.innerHTML = lcPedResumoHtml(ids);
+        if (pr.innerHTML) bx.appendChild(pr);
+      }
       var fl = cpFalta(ids);
       bx.appendChild(
         mk(
