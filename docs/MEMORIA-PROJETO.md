@@ -955,3 +955,13 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Foto: etiqueta/caixa/pacote é só lida (código, grau, "24 pc") e descartada; foto de UMA peça vira foto da cor e procura "Mais parecidas" (≥80%, 87-foto-modelo fmRank) → confirmar ou "Nenhum destes · Novo modelo". A câmera da peça já é a do Estúdio (70-camera → estCam).
 - Chegou mercadoria (52-lotes): foto da nota/print do pedido do fornecedor (linhas qtd × preço) ou à mão → Entrada da compra com barra por linha (Ler haste / Foto / À mão / Detalhar depois). NÃO conversa com o pedido da Lista de compras (S.lcPed confere sozinho pelo elog).
 - Conclusão: o meu esboço 1 (ler etiqueta) e 2 (tela Chegada nova) DUPLICAVAM o que existe. Lacunas reais: excesso/sobra na compra; ligar Chegou mercadoria ao pedido da Lista; Estúdio "Nova peça" é uma porta paralela ao Adicionar.
+
+## Decisões 05/11/2026 18:50 — Estúdio × Adicionar × compras (ESBOÇO; aguardando "pode implementar")
+- Papéis: Adicionar = O QUE é a peça (criar produto/cor, entrada, custo). Estúdio = COMO aparece (fotos). Estúdio NUNCA cria peça. Uma câmera só (a do Estúdio) e um identificador só (Ler haste + Mais parecidas do Adicionar, também no "De qual peça é?").
+- Estúdio: "Nova peça" vira "Fotografar antes de cadastrar" (existe → foto vai para a peça; nova → Aguardando cadastro). Fila de fotos ÚNICA: "Completar fotos" (Início) e "Fotos no padrão" (Ajustes) abrem a Fila do Estúdio.
+- Adicionar: dono escolheu opção A = UMA faixa de fotos com pílula de 2 abas "Aguardando cadastro · N" | "Dar entrada de novo"; o app LEMBRA a última aba aberta. Tocar numa foto aguardando → Mais parecidas + haste lida → "Usar em X · dar entrada" ou "Nenhum destes · Novo modelo (já com a foto)". Ler haste / Foto / Chegou mercadoria / Preencher à mão continuam.
+- Miniaturas em todas as listas novas (sem decorar códigos).
+- Lista de compras sem excesso: Ideal · Tem · Sobra; seção "Sobrando" com dinheiro parado; excesso marcado SOZINHO (estoque acima do ideal ou entrada > pedido; sem botão "comprei a mais"); oferta detectada pelo custo menor que o anterior ("a oferta valeu?"); aviso antes de "Marcar como pedido"; menos sugestão de tipos/parecidas que já sobram; modelo sem histórico usa parecidas.
+- Chegou mercadoria (tela existente) ganha bloco "Do pedido da lista": chegou / faltou / sobra / oferta.
+- Inventário: selos por cor (foto N ✓ ou "refazer · motivo" → abre o Estúdio na cor; sobra N; site · catálogo · marketing).
+- Ordem proposta: Lista sem excesso → Chegou mercadoria + pedido → Estúdio/Adicionar → selos no inventário.
