@@ -999,3 +999,7 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - "Combina também" precisa saber DE ONDE a pessoa veio: só olhando óculos de sol → só sol; fez o teste do rosto → modelos que combinam com o rosto dela; gênero quando souber.
 - "Qual combina com meu rosto?" precisa ser MASSIVAMENTE melhor: dá "alongado" ~90% das vezes. Causa no código do site (faMeasure/faShape): comprimento do rosto = (queixo − sobrancelha) × 1,5 (chute, os 68 pontos não têm testa) ÷ largura 0–16; para rosto comum isso dá ~1,5 e o alongado ganha a partir de 1,40 → viés. Modelo tiny (68 pontos).
 - Gênero: precisa saber se é masculino ou feminino; SE NÃO TIVER CERTEZA, NÃO SELECIONA (para não ofender).
+
+## 05/11/2026 19:43 — "Sim, todas as melhorias. Pode implementar tudo"
+- Teste do rosto no MÁXIMO aprovado: 478 pontos 3D (corrige cabeça inclinada) + contorno pele/cabelo (~5 quadros) + íris como régua (largura do rosto em mm → tamanho de lente sugerido) + 30–60 leituras; celular antigo usa versão leve; nada sai do celular; modo teste escondido para o dono.
+- Ordem de implementação: 1 salvamento seguro + arquivo de vendas → 2 luz de estúdio → 3 lista de compras sem excesso + Chegou mercadoria/pedido → 4 busca única + telas rápidas → 5 Estúdio×Adicionar/fila única/selos/giro → 6 animação encaixe → 7 catálogo invisível + modo cliente iPad → 8 site (combina, rosto, vistas, giro, velocidade) → 9 sincronização + fotos no iPad.
