@@ -923,3 +923,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Sem cadastro: S.estPend [{id, ts, t, t34, n}] (miniaturas) + alta em IndexedDB 'hq' (pend|id, pend|id|34). No Estúdio: seção "Fotos aguardando cadastro" com Ligar (escolhe o modelo/cor) e × (apagar).
 - Depois de salvar, a câmera volta sozinha para a próxima Nova peça até tocar em ×.
 - O DONO VAI REFORMULAR O CADASTRO: o cadastro novo deve oferecer as "Fotos aguardando cadastro" em vez de pedir foto de novo.
+
+## v435 (5.3.3) — 05/11/2026 13:35 — Medir fundo corrigido ("Corrigir os bugs do botão medir fundo")
+- Causas: o botão da tela do Estúdio media sozinho e FECHAVA a câmera (e fechava na hora se o celular não tivesse controle de brilho = "fecha sem tentar"); media antes da câmera estar pronta; podia ficar preso em "Medindo…"; dizia "travado" mesmo sem mudar nada.
+- Agora: o botão do Estúdio abre a câmera em modo "Medir fundo" e ela FICA aberta (disparo vira "Pronto"; Galeria escondida); botão fica "Abrindo câmera…" até o vídeo rodar ~1 s; cada ajuste tem limite de 1,5 s e o todo 6 s (nunca trava); confere se o brilho mudou de verdade; mensagem na tela: "Fundo 171 → 246 ✓ travado" / "no máximo possível: falta luz" / "O celular não aceitou o ajuste" / "não deixa o app mudar o brilho".
+- "O que meu celular libera ›" no Estúdio: lista ✓/✗ de velocidade, +EV, ISO, branco, foco manual, zoom 2x, resolução máxima e nº de câmeras; diz se o Medir fundo funciona no aparelho (senão: componente nativo/APK).

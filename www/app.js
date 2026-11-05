@@ -31316,7 +31316,7 @@
         [['cart', 'Cartolina em curva'], ['caixa', 'Luz da caixa'], ['frontal', 'Luz frontal'], ['tripe', 'Tripé']].map(function (x) {
           return '<button type="button" class="' + (M[x[0]] ? 'on' : '') + '" data-mont="' + x[0] + '"><i></i>' + x[1] + '</button>';
         }).join('') +
-        '</div><div class="estRow"><div class="mini estPf">' + (pf ? 'Perfil: ' + esc(pf.nome || 'Caixa de luz') + (pf.zoom > 1.5 ? ' · 2x' : ' · 1x') : 'Sem perfil: meça o fundo') + '</div><button type="button" class="mini" data-e="medir">Medir fundo</button></div></section>' +
+        '</div><div class="estRow"><div class="mini estPf">' + (pf ? 'Perfil: ' + esc(pf.nome || 'Caixa de luz') + (pf.zoom > 1.5 ? ' · 2x' : ' · 1x') : 'Sem perfil: meça o fundo') + '</div><button type="button" class="mini" data-e="medir">Medir fundo</button></div><button type="button" class="estLib" data-e="lib">O que meu celular libera ›</button></section>' +
         '<div class="estRow estAc"><button type="button" class="go" data-e="nova">Nova peça</button><button type="button" class="mini estSes" data-e="sessao"' + (F.length ? '' : ' disabled') + '>Sessão: ' + F.length + (F.length === 1 ? ' peça' : ' peças') + ' ›</button></div>' +
         '<section class="estCard"><div class="estLbl">Fila de fotos · ' + F.length + '</div>' +
         (F.length
@@ -31351,7 +31351,8 @@
         saveSoon();
         return pinta();
       }
-      if (b.dataset.e === 'medir') return estCam({ medir: true, depois: pinta });
+      if (b.dataset.e === 'medir') return estCam({ medir: true, titulo: 'Medir fundo', fim: pinta });
+      if (b.dataset.e === 'lib') return estLibera();
       if (b.dataset.e === 'nova') return estNova(pinta);
       if (b.dataset.pd) {
         var pd = (S.estPend || []).filter(function (x) { return x.id === b.dataset.pd; })[0];
@@ -31432,7 +31433,8 @@
       '<div class="ecTop"><button type="button" class="ecPill" data-c="x" aria-label="Fechar">×</button><button type="button" class="ecPill" id="ecFundo" data-c="medir">Medir fundo</button><button type="button" class="ecPill" id="ecT2" data-c="t2">2s</button><button type="button" class="ecPill" id="ecPk" data-c="pk">Peaking</button></div>' +
       '<div class="ecVf"><video id="ecV" autoplay playsinline muted></video><canvas id="ecPkC"></canvas>' +
       '<div class="ecLvl" id="ecLvl"><span>0,0°</span></div><canvas class="ecHist" id="ecHist" width="92" height="40"></canvas>' +
-      '<div class="ecTag">' + (ctx.medir ? 'Medir fundo: só a cartolina na tela' : (ctx.passo === '34' ? '3/4 · 2 de 2' : 'Frente · 1 de 2') + (ctx.titulo ? ' · ' + esc(ctx.titulo) : '')) + '</div>' +
+      '<div class="ecMsg" id="ecMsg" hidden></div>' +
+      '<div class="ecTag">' + (ctx.medir ? 'Aponte só para a cartolina e toque em Medir fundo' : (ctx.passo === '34' ? '3/4 · 2 de 2' : 'Frente · 1 de 2') + (ctx.titulo ? ' · ' + esc(ctx.titulo) : '')) + '</div>' +
       '<div class="ecGd"><i class="c1"></i><i class="c2"></i><i class="c3"></i><i class="c4"></i></div>' +
       '<div class="ecChips" id="ecChips"><span data-k="fundo"><i></i>Fundo branco</span><span data-k="foco"><i></i>Foco</span><span data-k="reto"><i></i>Reto</span><span data-k="dist"><i></i>Distância</span></div></div>' +
       '<div class="ecPro" id="ecPro"></div><div class="ecDial" id="ecDial"><input type="range" id="ecR" min="0" max="100" value="50" aria-label="Ajuste"><div class="ecDv" id="ecDv"></div></div>' +
@@ -31466,7 +31468,21 @@
         c.focusDistance = v;
       } else if (k2 === 'comp') c.exposureCompensation = v;
       else if (k2 === 'zoom') c.zoom = v;
-      return track.applyConstraints({ advanced: [c] }).catch(function () {});
+      return Promise.race([
+        track.applyConstraints({ advanced: [c] }).then(
+          function () {
+            return true;
+          },
+          function () {
+            return false;
+          }
+        ),
+        new Promise(function (ok) {
+          setTimeout(function () {
+            ok(false);
+          }, 1500);
+        })
+      ]);
     };
     var proHtml = function () {
       $('ecPro').innerHTML = CTL.map(function (c) {
@@ -31534,20 +31550,32 @@
           if (val.k != null) aplica('k', val.k);
           if (val.foco != null) aplica('foco', val.foco);
           if (val.comp != null) aplica('comp', val.comp);
-          $('ecFundo').textContent = 'Fundo travado 255';
+          st.travado = true;
           $('ecFundo').classList.add('on');
         }
         if (!cap[CTL[1].c]) st.sel = CTL.filter(function (c) { return cap[c.c]; }).map(function (c) { return c.k; })[0] || 'et';
         lente(P && P.zoom ? P.zoom : 1);
         proHtml();
-        if (ctx.medir) setTimeout(medir, 600);
+        st.t0 = Date.now();
       })
       .catch(function () {
         estFechaCam();
+        if (ctx.medir) {
+          lfToast('Não consegui abrir a câmera');
+          if (ctx.fim) ctx.fim();
+          return;
+        }
         camFallback(function (f) {
           estDepoisFoto(f, ctx);
         }, true, '');
       });
+    if (ctx.medir) {
+      // só medir: no lugar do disparo, "Pronto"
+      var shB = $('ecSh');
+      shB.outerHTML = '<button type="button" class="go ecPronto" data-c="x">Pronto</button>';
+      var gl = ov.querySelector('.ecGal');
+      if (gl) gl.style.visibility = 'hidden';
+    }
     $('ecT2').classList.toggle('on', st.t2);
     // nível (reto)
     var gama = null,
@@ -31665,52 +31693,99 @@
       return { l: s2 / n, rb: (r - bb) / n };
     };
     // Medir fundo: ajusta exposição/ISO/branco até o fundo ficar branco e trava (salva no perfil)
+    var msg = function (t, tipo) {
+      var m = $('ecMsg');
+      if (!m) return;
+      m.hidden = !t;
+      m.className = 'ecMsg' + (tipo ? ' ' + tipo : '');
+      m.textContent = t || '';
+    };
+    // câmera pronta = vídeo rodando há ~1 s com imagem (antes disso a medida sai errada)
+    var pronta = function () {
+      return !!track && vid.readyState >= 2 && vid.videoWidth > 0 && !vid.paused && Date.now() - (st.t0 || Date.now()) > 1000;
+    };
+    var BOTAO = setInterval(function () {
+      if (!ov.isConnected) return clearInterval(BOTAO);
+      var b = $('ecFundo');
+      if (!b || st.medindo) return;
+      var ok = pronta();
+      b.disabled = !ok;
+      if (!ok) b.textContent = 'Abrindo câmera…';
+      else if (b.textContent === 'Abrindo câmera…') b.textContent = S.estPerfil && S.estPerfil.salvo && st.travado ? 'Fundo travado 255' : 'Medir fundo';
+    }, 250);
+    // Medir fundo: mede a borda (só cartolina), calcula a exposição e confere se o celular obedeceu.
+    // Nunca trava (cada ajuste tem 1,5 s de limite e o todo 6 s). Mostra o antes → depois.
     var medir = function () {
       var b = $('ecFundo');
-      if (st.medindo || !track) return;
+      if (st.medindo) return;
+      if (!pronta()) return msg('Espere a câmera abrir', 'warn');
+      var temExp = !!cap.exposureTime,
+        temEv = !temExp && !!cap.exposureCompensation;
+      if (!temExp && !temEv) {
+        msg('Seu celular não deixa o app mudar o brilho. Use mais luz ou o ☀️ da câmera do celular.', 'bad');
+        return;
+      }
       st.medindo = true;
-      b.textContent = 'Medindo…';
-      var passos = 0,
+      b.disabled = true;
+      var antes = fundoAgora().l,
+        passos = 0,
         alvo = 247,
-        espera = function (ms) {
-          return new Promise(function (ok) {
-            setTimeout(ok, ms);
-          });
-        };
-      var cfg = {};
+        mudou = false,
+        cfg = {},
+        acabou = false;
       try {
         cfg = track.getSettings() || {};
       } catch (e) {}
       if (cap.iso) val.iso = cap.iso.min;
+      var limite = setTimeout(function () {
+        fim(true);
+      }, 6000);
+      var espera = function (ms) {
+        return new Promise(function (ok) {
+          setTimeout(ok, ms);
+        });
+      };
       var tenta = function () {
-        if (!ov.isConnected) return;
+        if (acabou || !ov.isConnected) return;
         passos++;
-        var m = fundoAgora(),
-          bf = m.l;
+        var bf = fundoAgora().l;
         st.bf = bf;
         b.textContent = 'Medindo… ' + passos + '/3';
-        if ((Math.abs(alvo - bf) <= 5 && bf < 253) || passos > 3) return fim();
-        // brilho ~ proporcional à exposição: vai direto no valor certo (estourado = volta 30%)
+        msg('Fundo ' + Math.round(antes) + ' → ' + Math.round(bf) + ' …');
+        if ((Math.abs(alvo - bf) <= 5 && bf < 253) || passos > 3) return fim(false);
         var fator = bf >= 253 ? 0.7 : Math.max(0.25, Math.min(4, alvo / Math.max(bf, 8)));
-        if (cap.exposureTime) {
+        var depois = function () {
+          return espera(350).then(function () {
+            if (Math.abs(fundoAgora().l - bf) >= 2) mudou = true;
+            tenta();
+          });
+        };
+        if (temExp) {
           var et0 = val.et != null ? val.et : cfg.exposureTime || (cap.exposureTime.min + cap.exposureTime.max) / 50;
           val.et = Math.max(cap.exposureTime.min, Math.min(cap.exposureTime.max, et0 * fator));
-          aplica('et', val.et).then(function () {
-            return espera(260);
-          }).then(tenta);
-        } else if (cap.exposureCompensation) {
+          aplica('et', val.et).then(depois);
+        } else {
           var c0 = val.comp != null ? val.comp : cfg.exposureCompensation || 0,
-            stp = cap.exposureCompensation.step || 1 / 3,
-            c1 = c0 + Math.log(fator) / Math.LN2;
-          val.comp = Math.max(cap.exposureCompensation.min, Math.min(cap.exposureCompensation.max, Math.round(c1 / stp) * stp));
-          aplica('comp', val.comp).then(function () {
-            return espera(320);
-          }).then(tenta);
-        } else fim();
+            stp = cap.exposureCompensation.step || 1 / 3;
+          val.comp = Math.max(cap.exposureCompensation.min, Math.min(cap.exposureCompensation.max, Math.round((c0 + Math.log(fator) / Math.LN2) / stp) * stp));
+          aplica('comp', val.comp).then(depois);
+        }
       };
-      var fim = function () {
+      var fim = function (estourou) {
+        if (acabou) return;
+        acabou = true;
+        clearTimeout(limite);
         st.medindo = false;
-        // branco: deixa o fundo neutro (sem puxar para azul ou amarelo) — um ajuste só, proporcional
+        b.disabled = false;
+        var dep = fundoAgora().l;
+        st.bf = dep;
+        var noMax = (temExp && val.et >= cap.exposureTime.max * 0.98) || (temEv && val.comp >= cap.exposureCompensation.max - 0.01);
+        if (!mudou && Math.abs(dep - antes) < 3 && Math.abs(alvo - antes) > 5) {
+          b.textContent = 'Medir fundo';
+          msg(noMax ? 'A câmera já está no máximo de brilho e o fundo continua ' + Math.round(dep) + '. Falta luz no fundo.' : 'O celular não aceitou o ajuste de brilho. Use mais luz ou o ☀️ da câmera do celular.', 'bad');
+          return;
+        }
+        // branco neutro (um passo, proporcional)
         if (cap.colorTemperature) {
           var rb = fundoAgora().rb,
             kAtual = val.k != null ? val.k : cfg.colorTemperature || 5500;
@@ -31721,14 +31796,12 @@
         }
         S.estPerfil = { salvo: true, nome: 'Caixa de luz', zoom: st.zoom, iso: val.iso, et: val.et, k: val.k, foco: val.foco, comp: val.comp, t2: st.t2, ts: Date.now() };
         saveSoon();
+        st.travado = true;
         b.textContent = 'Fundo travado 255';
         b.classList.add('on');
         proHtml();
-        lfToast(st.bf >= 235 ? 'Fundo medido e travado' : 'Travei o máximo de luz possível. Falta luz no fundo.');
-        if (ctx.medir) {
-          estFechaCam();
-          if (ctx.depois) ctx.depois();
-        }
+        var ok2 = dep >= 235;
+        msg('Fundo ' + Math.round(antes) + ' → ' + Math.round(dep) + (ok2 ? ' ✓ travado' : ' · no máximo possível: falta luz no fundo') + (estourou ? ' (o celular demorou a responder)' : ''), ok2 ? 'ok' : 'warn');
       };
       tenta();
     };
@@ -32131,6 +32204,58 @@
         });
       }
     };
+  }
+  function estLibera() {
+    if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) return lfToast('Este aparelho não deixa o app usar a câmera');
+    loadMsg(true, 'Conferindo a câmera');
+    var lim = function (r, f) {
+      return r ? (f ? f(r.min) + ' a ' + f(r.max) : r.min + ' a ' + r.max) : '';
+    };
+    navigator.mediaDevices
+      .getUserMedia({ audio: false, video: { facingMode: { ideal: 'environment' } } })
+      .then(function (s) {
+        var t = s.getVideoTracks()[0],
+          c = {};
+        try {
+          c = (t.getCapabilities && t.getCapabilities()) || {};
+        } catch (e) {}
+        var foto = window.ImageCapture ? new ImageCapture(t).getPhotoCapabilities().catch(function () { return null; }) : Promise.resolve(null);
+        return Promise.all([foto, navigator.mediaDevices.enumerateDevices().catch(function () { return []; })]).then(function (r) {
+          s.getTracks().forEach(function (x) {
+            x.stop();
+          });
+          loadMsg(false);
+          var pc = r[0],
+            cams = (r[1] || []).filter(function (d) {
+              return d.kind === 'videoinput';
+            }).length,
+            L = [
+              ['Brilho por tempo de exposição (velocidade)', !!c.exposureTime, lim(c.exposureTime, function (v) { return v >= 10000 ? v / 10000 + 's' : '1/' + Math.round(10000 / v); })],
+              ['Brilho por exposição (+EV)', !!c.exposureCompensation, lim(c.exposureCompensation)],
+              ['ISO', !!c.iso, lim(c.iso)],
+              ['Branco (temperatura K)', !!c.colorTemperature, lim(c.colorTemperature)],
+              ['Foco manual', !!c.focusDistance, ''],
+              ['Zoom da câmera (lente 2x)', !!(c.zoom && c.zoom.max >= 2), c.zoom ? 'até ' + c.zoom.max + 'x' : ''],
+              ['Foto na resolução máxima', !!(pc && pc.imageWidth), pc && pc.imageWidth ? pc.imageWidth.max + '×' + pc.imageHeight.max : ''],
+              ['Câmeras que o app enxerga', cams > 1, String(cams)]
+            ],
+            medirOk = !!(c.exposureTime || c.exposureCompensation);
+          lfJanela({
+            titulo: 'O que meu celular libera',
+            monta: function (cc) {
+              cc.innerHTML =
+                '<div class="estLibL">' + L.map(function (x) {
+                  return '<div><span class="' + (x[1] ? 'ok' : 'no') + '">' + (x[1] ? '✓' : '✗') + '</span><b>' + x[0] + '</b><small>' + esc(x[2] || (x[1] ? 'liberado' : 'bloqueado pelo celular')) + '</small></div>';
+                }).join('') + '</div>' +
+                '<div class="note ' + (medirOk ? 'n-ok' : 'n-warn') + '" style="margin-top:10px">' + (medirOk ? 'O Medir fundo funciona neste celular.' : 'Este celular não deixa o app controlar o brilho: o Medir fundo não consegue ajustar. Dá para resolver com um componente nativo (APK novo).') + '</div>';
+            }
+          });
+        });
+      })
+      .catch(function () {
+        loadMsg(false);
+        lfToast('Não consegui abrir a câmera');
+      });
   }
   ACT.estAbre = function () {
     estAbre();

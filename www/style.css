@@ -1709,3 +1709,11 @@ select.in.selAl{appearance:none;-webkit-appearance:none;padding:0 40px 0 12px;ba
 .estPd .mini{height:36px!important;padding:0 12px;flex:none}
 .estApg{width:36px;padding:0!important}
 .estNc{width:100%;height:46px}
+.ecMsg{position:absolute;left:12px;right:12px;top:58px;z-index:2;background:rgba(0,0,0,.72);color:#fff;font-size:13px;line-height:1.35;padding:9px 12px;border-radius:12px;text-align:center}
+.ecMsg.ok{border:1px solid #2fe08f}.ecMsg.warn{border:1px solid #ffc766}.ecMsg.bad{border:1px solid #ff9a9a}
+.ecPill:disabled{opacity:.55}
+.estLib{display:block;margin:10px 0 0;background:none;border:0;color:var(--accent-fg);font:inherit;font-size:13px;padding:0}
+.estLibL>div{display:grid;grid-template-columns:24px 1fr;column-gap:8px;padding:8px 0;border-bottom:1px solid var(--line)}
+.estLibL span{grid-row:span 2;font-weight:700;font-size:16px}.estLibL .ok{color:var(--ok)}.estLibL .no{color:var(--bad)}
+.estLibL b{font-size:14px;font-weight:600}.estLibL small{color:var(--mute);font-size:12px}
+.ecPronto{min-width:140px;height:52px}
