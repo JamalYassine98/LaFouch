@@ -894,3 +894,12 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 ## v431 — 05/11/2026 08:45 — Cadastro do cliente (aprovado: "Somente os campos que estão fora de alinhamento · Pode implementar")
 - Com Novo cliente ou ficha aberta, a busca e a lista de clientes ficam escondidas (voltam ao Salvar ou ×).
 - Campos de escolha de largura cheia (Tabela de preço do cliente, "Quero até" dos Objetivos, Idiomas do kit de Marketing, variante do Descarte) com classe .selAl: texto alinhado com os outros campos e seta fina cinza a 12px da borda. Os selects pequenos em linha (despesas, finanças, tabelas) ficaram como estavam.
+
+## 05/11/2026 12:24 — ESTÚDIO DE FOTOS: decisões do dono (esboço, NÃO implementado)
+- O Estúdio é EXTREMAMENTE importante (serve Inventário, Catálogo de vendas, Site e Marketing): "quero todo o seu empenho".
+- NÃO usar IA para gerar/reconstruir imagem ("não dá certo"); só ferramentas de estúdio. Nada inventado/apagado na peça (etiquetas da lente ficam: o dono tira antes).
+- "Tirar imperfeições" estragava a armação → recusado. Caminho: acertar na captura (cartolina em curva = fundo infinito, exposição alta travada, luz frontal a comprar, afastar um palmo + zoom 2x, câmera na altura das lentes) e o app só ajusta luz.
+- NUNCA esticar a foto: só cortar e diminuir na proporção original (formato 3:2 como a referência; peça no centro, ~88% da largura).
+- Fundo deve ficar 255 (branco puro, igual referência Mylan-like do dono).
+- "NÃO MEXE NA ARMAÇÃO": opção B aprovada — a armação fica com os pixels EXATAMENTE da foto; só o FUNDO vira 255, com transição suave na borda (sem corte). Recusadas: A (níveis na foto toda: muda a cor) e C (+25% de luz na armação).
+- Pendente: o dono aprovar a implementação do Estúdio completo (Modo estúdio, câmera com exposição alta, nota da foto, vídeo 360 no prato, mesma foto em Inventário/Catálogo/Site/Marketing).
