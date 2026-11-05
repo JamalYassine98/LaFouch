@@ -978,3 +978,11 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Juntar: segurar um botão da barra sobre outro (como hoje) → ao soltar, os dois ícones viram PEÇAS DE QUEBRA-CABEÇA (o de baixo com o dente à direita, o arrastado com o encaixe) → deslizam acelerando e encaixam com CLIQUE (tremor curto ~0,2 s + linha amarela que acende na emenda) → janela "Novo grupo" (a de hoje) → ao criar, as peças encaixadas encolhem juntas e viram o ícone do grupo; vizinhos fecham o espaço.
 - Desfazer (arrastar para fora da barra OU "Desfazer o grupo"): o ícone do grupo vira as 2 peças encaixadas → tranco → desencaixam e se afastam → cada uma volta ao seu lugar na barra e vira o ícone normal; vizinhos abrem espaço; aviso "Grupo desfeito · Desfazer".
 - Referência exata: docs/esbocos/grupo-encaixe-anim.html (funções C_junta / C_desfaz; vídeo grupo-encaixe.mp4 mandado ao dono). Recusadas: Ímã e Pasta.
+
+## 05/11/2026 19:13 — otimizações do sistema (APROVADAS; implementar só quando o dono mandar)
+1. Salvamento à prova de limite: hoje todo o estado vai numa chave do localStorage (~5 MB; vendas ~0,9 MB com 1.900 vendas de exemplo) e o erro de salvar é engolido (saveSoon, catch vazio) → mover vendas/histórico para IndexedDB + aviso grande se um salvamento falhar. PRIORIDADE.
+2. Telas mais rápidas (Histórico ~1 s, Início/Ajustes ~0,6 s com CPU 4× mais lenta): desenhar só o que aparece (lista em partes ao rolar) + contas do dia em cache. E MELHORAR O SITE TAMBÉM (index.html do site = 2,6 MB com 37 imagens base64 embutidas).
+3. Busca única no Início (peça, cliente, venda, pedido do site, despesa) NO LUGAR da faixa "N avisos urgentes" (remover essa faixa do Início; avisos continuam no sino).
+4. Resumo automático do dia: RECUSADO ("não precisa").
+5. Arquivo das vendas antigas (>12 meses → resumo por mês; venda completa fica na cópia da nuvem e pode voltar).
+- FUTURO do dono: catálogo SÓ catálogo num iPad na loja para o cliente navegar (sem lucro, sem vendas).
