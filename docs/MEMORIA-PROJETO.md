@@ -965,3 +965,11 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Chegou mercadoria (tela existente) ganha bloco "Do pedido da lista": chegou / faltou / sobra / oferta.
 - Inventário: selos por cor (foto N ✓ ou "refazer · motivo" → abre o Estúdio na cor; sobra N; site · catálogo · marketing).
 - Ordem proposta: Lista sem excesso → Chegou mercadoria + pedido → Estúdio/Adicionar → selos no inventário.
+
+## 05/11/2026 19:00 — sugestões APROVADAS pelo dono (esboço; implementar só quando ele mandar)
+1. Avise-me na Lista de compras: peça esgotada com clientes esperando (S.espera) sobe ao topo "N clientes esperando"; quando entrar, "avisar N clientes".
+2. "Mandar ao fornecedor" separado por fornecedor (o fornecedor vem das compras/lotes): uma mensagem para cada um, só com as peças dele.
+3. "O que comprar de NOVO": vendas por formato, cor, material e faixa de preço → aviso do tipo "Gatinho acetato rosa vende 3× a média e você só tem 2 modelos".
+4. Giro 360 do Estúdio na página da peça no site (junto de frente e 3/4).
+- (5 etiqueta de preço com QR na térmica: dono perguntou se a impressora não é só para comprovante → em discussão.)
+- Animações de grupo da barra (juntar/desfazer): esboços em vídeo A Ímã e B Pasta (scratchpad grp/); aguardando escolha.
