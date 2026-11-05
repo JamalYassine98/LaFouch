@@ -911,3 +911,9 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Resultado: Frente → 3/4 → Vídeo 360 (opcional, 12 s gravados pelo app e compartilhados); "Usar e fazer a 3/4 ›" / "Usar e ir para a próxima ›" / "Tirar de novo"; Vai para (Cadastro da cor, Inventário, Catálogo, Site, Marketing, Nota). 3/4 guardada em ref|cor|34. S.fotoNota sincroniza.
 - Ajustes › Fotos (lote) passou a usar o mesmo tratamento (não mexe na armação).
 - LIMITE HONESTO: o celular só libera ISO/velocidade/branco/lente 2x para apps se o fabricante permitir (Xiaomi às vezes bloqueia a tele) — conferir no 13T; RAW não é possível pela câmera web (ficaria para um plugin nativo, se o dono quiser). Armação transparente com fundo cinza: o cinza visto através do acetato fica (não mexemos na armação) — resolve com luz na hora da foto.
+
+## v433 (5.3.1) — 05/11/2026 13:11 — Estúdio mais fluido (aprovado: "Sim")
+- Prévia 1080p/30 fps (era 4K); foto pela ImageCapture na resolução MÁXIMA do sensor (getPhotoCapabilities).
+- Análise ao vivo 2×/s em 96 px e pausada durante o Medir fundo; peaking separado (400 ms, 180 px, em tempo ocioso).
+- Medir fundo: mede a borda do quadro na hora e calcula direto a exposição (brilho ~ proporcional), 2–3 passos (~1 s), botão "Medindo… n/3"; branco ajustado num passo só.
+- Régua Pro: número acompanha o dedo; câmera recebe no máximo 1 ajuste a cada 150 ms (o último).

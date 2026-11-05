@@ -636,9 +636,18 @@
       val[st.sel] = v;
       var C = CTL.filter(function (c) { return c.k === st.sel; })[0];
       $('ecDv').textContent = C.fmt(v);
-      aplica(st.sel, v);
+      st.pend = [st.sel, v];
+      if (!st.reg)
+        st.reg = setTimeout(function vai() {
+          var pp = st.pend;
+          st.pend = null;
+          if (!pp) return (st.reg = null);
+          aplica(pp[0], pp[1]).then(function () {
+            st.reg = setTimeout(vai, 150);
+          });
+        }, 0);
       clearTimeout(st.tp);
-      st.tp = setTimeout(proHtml, 120);
+      st.tp = setTimeout(proHtml, 300);
     };
     var lente = function (z) {
       st.zoom = z;
@@ -650,7 +659,7 @@
     };
     // abre a câmera em resolução alta
     navigator.mediaDevices
-      .getUserMedia({ audio: false, video: { facingMode: { ideal: 'environment' }, width: { ideal: 3840 }, height: { ideal: 2160 } } })
+      .getUserMedia({ audio: false, video: { facingMode: { ideal: 'environment' }, width: { ideal: 1920 }, height: { ideal: 1080 }, frameRate: { ideal: 30, max: 30 } } })
       .then(function (s) {
         if (!ov.isConnected) return s.getTracks().forEach(function (t) { t.stop(); });
         EST_ST = s;
@@ -702,8 +711,8 @@
         }
         var vw = vid.videoWidth,
           vh = vid.videoHeight;
-        if (!vw) return;
-        var Wd = 160,
+        if (!vw || st.medindo || document.hidden) return;
+        var Wd = 96,
           Hd = Math.round((Wd * vh) / vw);
         an.width = Wd;
         an.height = Hd;
@@ -772,58 +781,89 @@
           lv.firstChild.textContent = (Math.round(gama * 10) / 10).toString().replace('.', ',') + '°';
         }
         st.bf = bf;
-        if (st.pk) estPeaking(vid, $('ecPkC'));
-      }, 250);
+      }, 500);
+    // peaking: só quando ligado, leve (imagem pequena) e fora do desenho da tela
+    var PK = setInterval(function () {
+      if (!ov.isConnected) return clearInterval(PK);
+      if (st.pk && !st.medindo && !document.hidden) (window.requestIdleCallback || setTimeout)(function () { estPeaking(vid, $('ecPkC')); });
+    }, 400);
+    // brilho do fundo AGORA (borda do quadro), para o Medir fundo não depender do ciclo
+    var fundoAgora = function () {
+      var c = document.createElement('canvas');
+      c.width = 64;
+      c.height = 36;
+      var g = c.getContext('2d', { willReadFrequently: true });
+      g.drawImage(vid, 0, 0, 64, 36);
+      var d = g.getImageData(0, 0, 64, 36).data,
+        s2 = 0,
+        n = 0,
+        r = 0,
+        bb = 0;
+      for (var y = 0; y < 36; y++)
+        for (var x = 0; x < 64; x++) {
+          if (!(x < 5 || x > 58 || y < 4 || y > 31)) continue;
+          var i = (y * 64 + x) * 4;
+          s2 += d[i] * 0.3 + d[i + 1] * 0.59 + d[i + 2] * 0.11;
+          r += d[i];
+          bb += d[i + 2];
+          n++;
+        }
+      return { l: s2 / n, rb: (r - bb) / n };
+    };
     // Medir fundo: ajusta exposição/ISO/branco até o fundo ficar branco e trava (salva no perfil)
     var medir = function () {
       var b = $('ecFundo');
+      if (st.medindo || !track) return;
+      st.medindo = true;
       b.textContent = 'Medindo…';
       var passos = 0,
-        alvo = 247;
+        alvo = 247,
+        espera = function (ms) {
+          return new Promise(function (ok) {
+            setTimeout(ok, ms);
+          });
+        };
+      var cfg = {};
+      try {
+        cfg = track.getSettings() || {};
+      } catch (e) {}
       if (cap.iso) val.iso = cap.iso.min;
       var tenta = function () {
         if (!ov.isConnected) return;
         passos++;
-        var bf = st.bf || 0,
-          erro = alvo - bf;
-        if (Math.abs(erro) <= 4 || passos > 14) return fim();
+        var m = fundoAgora(),
+          bf = m.l;
+        st.bf = bf;
+        b.textContent = 'Medindo… ' + passos + '/3';
+        if ((Math.abs(alvo - bf) <= 5 && bf < 253) || passos > 3) return fim();
+        // brilho ~ proporcional à exposição: vai direto no valor certo (estourado = volta 30%)
+        var fator = bf >= 253 ? 0.7 : Math.max(0.25, Math.min(4, alvo / Math.max(bf, 8)));
         if (cap.exposureTime) {
-          var et = val.et != null ? val.et : (cap.exposureTime.min + cap.exposureTime.max) / 50;
-          et = Math.max(cap.exposureTime.min, Math.min(cap.exposureTime.max, et * (erro > 0 ? 1 + Math.min(0.6, erro / 120) : 1 / (1 + Math.min(0.6, -erro / 120)))));
-          val.et = et;
-          aplica('et', et).then(function () {
-            setTimeout(tenta, 420);
-          });
+          var et0 = val.et != null ? val.et : cfg.exposureTime || (cap.exposureTime.min + cap.exposureTime.max) / 50;
+          val.et = Math.max(cap.exposureTime.min, Math.min(cap.exposureTime.max, et0 * fator));
+          aplica('et', val.et).then(function () {
+            return espera(260);
+          }).then(tenta);
         } else if (cap.exposureCompensation) {
-          var c = val.comp != null ? val.comp : 0;
-          c = Math.max(cap.exposureCompensation.min, Math.min(cap.exposureCompensation.max, c + (erro > 0 ? 0.33 : -0.33)));
-          val.comp = c;
-          aplica('comp', c).then(function () {
-            setTimeout(tenta, 420);
-          });
+          var c0 = val.comp != null ? val.comp : cfg.exposureCompensation || 0,
+            stp = cap.exposureCompensation.step || 1 / 3,
+            c1 = c0 + Math.log(fator) / Math.LN2;
+          val.comp = Math.max(cap.exposureCompensation.min, Math.min(cap.exposureCompensation.max, Math.round(c1 / stp) * stp));
+          aplica('comp', val.comp).then(function () {
+            return espera(320);
+          }).then(tenta);
         } else fim();
       };
       var fim = function () {
-        // branco: deixa o fundo neutro (sem puxar para azul ou amarelo)
+        st.medindo = false;
+        // branco: deixa o fundo neutro (sem puxar para azul ou amarelo) — um ajuste só, proporcional
         if (cap.colorTemperature) {
-          var c2 = document.createElement('canvas');
-          c2.width = 64;
-          c2.height = 36;
-          var g2 = c2.getContext('2d', { willReadFrequently: true });
-          g2.drawImage(vid, 0, 0, 64, 36);
-          var dd = g2.getImageData(0, 0, 64, 36).data,
-            r = 0,
-            bb = 0;
-          for (var j = 0; j < dd.length; j += 4) {
-            r += dd[j];
-            bb += dd[j + 2];
-          }
-          var kAtual = val.k != null ? val.k : 5500,
-            kNovo = Math.max(cap.colorTemperature.min, Math.min(cap.colorTemperature.max, kAtual * (bb > r ? 0.96 : 1.04)));
-          if (Math.abs(r - bb) / (dd.length / 4) > 3) {
-            val.k = kNovo;
-            aplica('k', kNovo);
-          } else if (val.k == null) val.k = kAtual;
+          var rb = fundoAgora().rb,
+            kAtual = val.k != null ? val.k : cfg.colorTemperature || 5500;
+          if (Math.abs(rb) > 3) {
+            val.k = Math.max(cap.colorTemperature.min, Math.min(cap.colorTemperature.max, Math.round(kAtual * (1 - Math.max(-0.15, Math.min(0.15, rb / 255))))));
+            aplica('k', val.k);
+          } else val.k = kAtual;
         }
         S.estPerfil = { salvo: true, nome: 'Caixa de luz', zoom: st.zoom, iso: val.iso, et: val.et, k: val.k, foco: val.foco, comp: val.comp, t2: st.t2, ts: Date.now() };
         saveSoon();
@@ -845,9 +885,19 @@
       var go = function () {
         var pega =
           window.ImageCapture && track
-            ? new ImageCapture(track).takePhoto().catch(function () {
-                return null;
-              })
+            ? (function () {
+                var ic = new ImageCapture(track);
+                return (ic.getPhotoCapabilities ? ic.getPhotoCapabilities() : Promise.reject())
+                  .then(function (pc) {
+                    return ic.takePhoto(pc && pc.imageWidth ? { imageWidth: pc.imageWidth.max, imageHeight: pc.imageHeight.max } : undefined);
+                  })
+                  .catch(function () {
+                    return ic.takePhoto();
+                  })
+                  .catch(function () {
+                    return null;
+                  });
+              })()
             : Promise.resolve(null);
         pega.then(function (bl) {
           if (bl) return bl;
@@ -944,7 +994,7 @@
   // focus peaking: contorna em verde o que está nítido
   function estPeaking(vid, pc) {
     var r = vid.getBoundingClientRect(),
-      W = 240,
+      W = 180,
       H = Math.round((W * vid.videoHeight) / vid.videoWidth);
     pc.width = W;
     pc.height = H;
