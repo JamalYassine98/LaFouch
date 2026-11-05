@@ -147,7 +147,8 @@
     h += S.notifs.length
       ? S.notifs
           .map(function (x) {
-            return '<section class="card"><b style="font-size:15px">' + esc(x.t) + '</b><div class="hint" style="margin:2px 0 0">' + esc(x.s) + '</div><div class="hint" style="margin:4px 0 0">' + fd(x.ts) + ' ' + fh(x.ts) + '</div></section>';
+            return '<section class="card"><b style="font-size:15px">' + esc(x.t) + '</b><div class="hint" style="margin:2px 0 0">' + esc(x.s) + '</div><div class="hint" style="margin:4px 0 0">' + fd(x.ts) + ' ' + fh(x.ts) + '</div>' +
+              (x.acts && x.acts.length ? '<div class="ntAc">' + x.acts.map(function (a) { return '<button type="button" class="ntLk" data-act="' + a.act + '" data-id="' + esc(a.id) + '">' + esc(a.b) + '</button>'; }).join('') + '</div>' : '') + '</section>';
           })
           .join('') +
         '<div class="sel" style="justify-content:center"><button type="button" class="chip" data-act="notifLimpa">Limpar histórico</button></div>'

@@ -90,7 +90,8 @@
             return x.id === i.tipo;
           }) &&
           (S.vTipo === 'all' || i.tipo === S.vTipo) &&
-          (!S.vGrau || S.vTipo !== 'pre' || i.grau === S.vGrau) &&
+          (!S.vGrau || i.tipo !== 'pre' || i.grau === S.vGrau) &&
+          cjOk(i) && // v427: filtros da janela Ajustes do catálogo
           true &&
           (!qm || qm(i))
         );

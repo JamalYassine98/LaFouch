@@ -17,6 +17,8 @@
     renderEstoqueAbas();
     renderAddExtras();
     renderVendas();
+    if (S.view === 'vendas') cjDepois();
+    if (S.ebSel || $('ebBar')) ebDecora();
     renderNav();
     try {
       notifVerifica();
@@ -262,6 +264,8 @@
       'metaHist',
       'cxAv',
       'siteOf',
+      'siteFora',
+      'siteAutoLote',
       'superEv',
       'encAv',
       'fxPer',

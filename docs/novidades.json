@@ -1,9 +1,9 @@
 {
- "nome": "4.9.0",
+ "nome": "5.0.0",
  "notas": [
-  "Câmbio novo e simples: dólar, real e dólar em reais da La Moneda; toque para ver o gráfico",
-  "Reposição com selo (Bom momento, Normal, Pode esperar, Troque hoje) e a janela que explica o porquê",
-  "Cotação da La Moneda vale em tudo; cotação da loja = casa + 1%, de 50 em 50",
-  "Site: cotação da loja + 2% travada; se o dólar cair, ofertas em poucas peças (até 50%); Super evento; peças encalhadas para vender na loja"
+  "Catálogo: busca limpa e janela de ajustes (moeda, preço, ver como, filtros com ícones) — arraste para baixo para fechar",
+  "Compartilhar inteligente: o app que você mais usa vem primeiro (direto no app com o APK novo)",
+  "Segure uma peça no catálogo para Enviar bonito: cartão com o nome do cliente e preço na moeda dele",
+  "Site automático: peça completa entra sozinha no site (dá para desfazer); chave \"No site\" no produto"
  ]
 }

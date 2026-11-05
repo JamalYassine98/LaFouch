@@ -190,7 +190,7 @@
     if (S.ofOpen === ref) wrap.appendChild(ofertaModal(ref, atual, pr, ps));
     // "Liberar para o site" fica logo abaixo, alinhado com os outros cartões
     var sz = mk('div', 'zcd');
-    sz.appendChild(siteSwitch(ref));
+    sz.appendChild(siteChave(ref)); // v427: chave No site
     wrap.appendChild(sz);
     return wrap;
   }

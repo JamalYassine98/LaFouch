@@ -267,12 +267,14 @@
     hb.appendChild(eb);
     if (!venda) head.appendChild(hb);
     else {
-      var bd = btn('tab ibtn dinBtn', '$', function () {
-        splitAbre();
+      // v427 (aprovado 04/11): o "$" (para onde foi o dinheiro) saiu; no lugar, o compartilhar da peça
+      var bd = btn('tab ibtn shBtn', '', function () {
+        shAbre({ tipo: 'peca', ref: ref });
       });
-      bd.id = 'btnDin';
-      bd.setAttribute('aria-label', 'Para onde foi o dinheiro da venda');
-      bd.title = 'Para onde foi o dinheiro da venda';
+      bd.id = 'btnSh';
+      bd.innerHTML = CJ_ICO.sh;
+      bd.setAttribute('aria-label', 'Compartilhar esta peça');
+      bd.title = 'Compartilhar';
       head.appendChild(bd);
     }
     det.appendChild(head);

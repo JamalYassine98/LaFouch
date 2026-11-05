@@ -512,7 +512,7 @@ async def main():
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
             await pg.evaluate(ED(3)); noEd = await pg.evaluate("() => !document.querySelector('#editModal #edSiteBtn')")
             await pg.evaluate(ED(1)); await pg.locator('#editModal button:text-is("Fechar")').last.click(); await pg.wait_for_timeout(300)
-            await checa('Liberar para o site: fica abaixo da Oferta, exige foto, liga/desliga e saiu do Editar', sem[0] and sem[1] and 'Falta foto' in sem[2] and sem[3] and com == [False] and lib[0] and 'Liberado' in lib[1] and noEd, [sem, com, lib, noEd])
+            await checa('Chave No site: fica abaixo da Oferta, exige foto, liga/desliga e saiu do Editar', sem[0] and 'falta foto' in sem[2] and sem[3] and com == [False] and lib[0] and 'aparece no catálogo' in lib[1] and noEd, [sem, com, lib, noEd])
 
             pg = await abrir('sem', 'Hexagonal')
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
@@ -910,13 +910,14 @@ async def main():
                 {tipo:'sem',ref:'AR1',grau:'',cor:'Bege',qty:3,fmt:'Redondo',med:'50-20-140',vr:'C2'}];
               S.grp = []; S.cart = []; S.vq = ''; S.vRef = ''; S.vSel = null; S.vTipo = 'all'; S.vFilt = true; S.vGrau = ''; L.setView('vendas'); }""")
             await pg.wait_for_timeout(300)
-            tabs = await pg.evaluate("() => [...document.querySelectorAll('#vTabs .chip')].map(b => b.innerText)")
-            await pg.locator('#vTabs .chip', has_text='Pré-graduados').click(); await pg.wait_for_timeout(300)
-            graus = await pg.evaluate("() => [...document.querySelectorAll('#vGrades .chip')].map(b => [b.firstChild.textContent, b.querySelector('small').textContent, b.classList.contains('off')])")
-            await pg.locator('#vGrades .chip', has_text='+1.50').click(); await pg.wait_for_timeout(300)
+            await pg.click('#cjAj'); await pg.wait_for_timeout(500)
+            tabs = await pg.evaluate("() => [...document.querySelectorAll('.cjC[data-g=tipos] span')].map(b => b.innerText)")
+            await pg.click('.cjC[data-v=pre]'); await pg.wait_for_timeout(300)
+            graus = await pg.evaluate("() => [...document.querySelectorAll('.cjGc')].map(b => b.textContent)")
+            await pg.click('.cjGc[data-gr="+1.50"]'); await pg.click('#cjVer'); await pg.wait_for_timeout(600)
             so150 = await pg.evaluate("() => [...document.querySelectorAll('#vRows .pcard')].map(c => c.dataset.ref)")
             semcod = await pg.evaluate("() => !document.getElementById('vRows').innerText.includes('Código ')")
-            await pg.locator('#vGrades .chip', has_text='+1.50').click(); await pg.wait_for_timeout(200)
+            await pg.click('#cjAj'); await pg.wait_for_timeout(500); await pg.click('#cjLimpa'); await pg.click('#cjVer'); await pg.wait_for_timeout(600)
             await pg.locator('#vRows .pcard[data-ref="T1"]').click(); await pg.wait_for_timeout(400)
             await pg.evaluate("() => { if (document.getElementById('lfa-folha') && document.getElementById('lfa-folha').innerHTML) window.__folha.vitrine(); }"); await pg.wait_for_timeout(300)
             det = await pg.evaluate("""() => { const d = document.getElementById('vDetail');
@@ -929,13 +930,13 @@ async def main():
             arm = await pg.evaluate("() => [...document.querySelectorAll('#vDetail .ccard')].map(x => x.innerText.replace(/\\s+/g,' '))")
             await pg.locator('#vDetail .ccard', has_text='Bege').click(); await pg.wait_for_timeout(300)
             selcor = await pg.evaluate("() => window.__LF.S.vSel && window.__LF.S.vSel.cor")
-            ok = (tabs == ['Todos', 'Mais vendidos', 'Armações', 'Solares', 'Pré-graduados'] and graus == [['+1.00', '1', False], ['+1.50', '1', False], ['+2.00', 'esgotado', True]]
+            ok = (tabs == ['Solar', 'Grau', 'Armação'] and graus == ['+1.00', '+1.50']
                   and so150 == ['T2'] and semcod
                   and det['semBolinha'] == 0 and det['graus'] == ['+1.00 9 un.', '+1.50 Esgotado'] and len(det['cartoes']) == 2 and det['barra'] and not det['codigo']
                   and sorted(cart) == [['A', 3], ['B', 2]]
                   and len(arm) == 2 and selcor == 'Bege' and not pg.erros)
             total += 1
-            print(('  ok  ' if ok else ' FALHA ') + 'Vendas: abas, grau, cores em cartões, sem código/bolinha, lotes iguais somados')
+            print(('  ok  ' if ok else ' FALHA ') + 'Vendas: tipo e grau pela janela de ajustes, cores em cartões, sem código/bolinha, lotes iguais somados')
             if not ok: falhas.append('vendas catálogo'); print('        veio', tabs, graus, so150, semcod, det, cart, arm, selcor, pg.erros)
             await pg.close()
 
@@ -2018,12 +2019,13 @@ async def main():
             print(('  ok  ' if ok else ' FALHA ') + 'vitrine: arrastar de lado troca a peça e para baixo fecha')
             if not ok: falhas.append('vitrine gestos'); print('        veio', gs_, pg.erros)
             ev_ = await pg.evaluate("""async () => { const L = window.__LF, S = L.S; S.tabAtiva = 'pub'; S._vVis = []; S.pprice = {GA1: {novo: 400000, ant: 0}, GB2: {novo: 300000, ant: 0}}; S.vRef = ''; L.setView('vendas'); L.render();
-              document.getElementById('vWa').click();
-              const msg = (document.getElementById('envMsg') || {}).value || ''; const fmts = document.querySelectorAll('[data-act=envfmt]').length;
-              const fo = await L.envFolha(); return {msg, fmts, fo}; }""")
+              document.getElementById('cjSh').click(); await new Promise(r => setTimeout(r, 500));
+              const msg = (document.getElementById('shTx') || {}).value || ''; const fmts = document.querySelectorAll('#shFmt .trkB').length;
+              const apps = [...document.querySelectorAll('#shAp .shA')].map(b => b.dataset.id); document.querySelector('.ljBk').click();
+              const fo = await L.envFolha(); return {msg, fmts, fo, apps}; }""")
             total += 1
-            ok = 'válidos até' in ev_['msg'] and ev_['fmts'] == 3 and ev_['fo']['n'] >= 2 and ev_['fo']['w'] > 1000 and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'enviar catálogo: formatos, mensagem com validade e folha em imagem')
+            ok = 'válidos até' in ev_['msg'] and ev_['fmts'] == 3 and ev_['fo']['n'] >= 2 and ev_['fo']['w'] > 1000 and ev_['apps'] == ['wab', 'wa', 'ig', 'link', 'mais'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'compartilhar catálogo: janela com os apps, formatos, mensagem com validade e folha em imagem')
             if not ok: falhas.append('enviar catalogo'); print('        veio', ev_, pg.erros)
             fl = await pg.evaluate("""async () => { const L = window.__LF, S = L.S; S.cart = []; S.tabAtiva = 'pub'; S.vRef = ''; S.vModo = {v:'g'}; S.vAb = ''; try { localStorage.setItem('lf_modo_v', 'g'); } catch (e) {}
               S.items = [{tipo:'solar',ref:'FA1',grau:'',cor:'Preto',qty:5,fmt:'',med:'',vr:'',lote:'',custo:20},{tipo:'solar',ref:'FA1',grau:'',cor:'Azul',qty:4,fmt:'',med:'',vr:'',lote:'',custo:20},{tipo:'solar',ref:'FB2',grau:'',cor:'Vinho',qty:3,fmt:'',med:'',vr:'',lote:'',custo:20}];
@@ -2040,6 +2042,27 @@ async def main():
             ok = fl['semFolha'] and fl['vit'] == 'solar|FA1' and fl['abriuNaLista'] and fl['carrinho'] == 1 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'toque A: grade abre a vitrine direto (sem prévia); lista abre as cores no lugar (até com 1 cor) e + de 1 cor vai ao pedido')
             if not ok: falhas.append('folha'); print('        veio', fl, pg.erros)
+            # Enviar bonito: segurar seleciona, tocar marca outra, barra sobe; janela com cliente estrangeiro → R$ e mensagem
+            eb = await pg.evaluate("""async () => { const L = window.__LF, S = L.S; S.vRef = ''; S.vAb = ''; L.render();
+              S.clientes = [{id: 7, nome: 'Bruna Lima', tel: '', nac: 'br', ts: Date.now()}];
+              const c1 = document.querySelector('#vRows .pcard[data-ref=FA1]'), r = c1.getBoundingClientRect();
+              c1.dispatchEvent(new PointerEvent('pointerdown', {bubbles: true, clientX: r.x + 5, clientY: r.y + 5}));
+              await new Promise(z => setTimeout(z, 600));
+              c1.dispatchEvent(new PointerEvent('pointerup', {bubbles: true})); c1.click();
+              const vit = S.vRef;
+              document.querySelector('#vRows .pcard[data-ref=FB2]').click(); await new Promise(z => setTimeout(z, 100));
+              const sel = (S.ebSel || []).slice(), bar = document.getElementById('ebBar').classList.contains('in');
+              document.querySelector('#ebBar .ebGo').click(); await new Promise(z => setTimeout(z, 300));
+              const n = document.querySelectorAll('#ebTr .ebC').length;
+              document.getElementById('ebPara').click(); document.querySelector('#ebLista .ebLi[data-id="7"]').click();
+              const preco = document.querySelector('#ebTr .ebPc').innerText, tx = document.getElementById('ebTx').value;
+              document.querySelector('#ebTr .ebPc').click(); await new Promise(z => setTimeout(z, 300));
+              const preco2 = document.querySelector('#ebTr .ebPc').innerText;
+              return {vit, sel, bar, n, preco, tx, preco2, fora: S.ebSel}; }""")
+            total += 1
+            ok = eb['vit'] == '' and eb['sel'] == ['FA1', 'FB2'] and eb['bar'] and eb['n'] == 2 and eb['preco'].startswith('R$') and 'Bruna' in eb['tx'] and eb['preco2'].startswith('US$') and eb['fora'] is None and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'enviar bonito: segurar seleciona, barra, cliente estrangeiro em R$, preço troca a moeda')
+            if not ok: falhas.append('enviar bonito'); print('        veio', eb, pg.erros)
             await pg.close()
 
             # Tocar na aba em que já está: nada acontece (sem animar)
@@ -2197,9 +2220,11 @@ async def main():
             pg = await pagina()
             await pg.evaluate("() => window.__LF.setView('vendas')"); await pg.wait_for_timeout(300)
             r0 = await pg.evaluate("() => document.querySelector('#vRows .vpreco') ? document.querySelector('#vRows .vpreco').textContent : ''")
-            await pg.locator('#vMoedaBar >> text="US$"').click(); await pg.wait_for_timeout(300)
-            r1 = await pg.evaluate("() => [document.querySelector('#vRows .vpreco').textContent, !document.getElementById('vMoedaHint').hidden]")
-            await pg.locator('#vMoedaBar >> text="G$"').click(); await pg.wait_for_timeout(300)
+            await pg.click('#cjAj'); await pg.wait_for_timeout(600); await pg.click('#cjTM .trkB[data-m=usd]'); await pg.wait_for_timeout(200)
+            hint = await pg.evaluate("() => !document.getElementById('cjMh').hidden")
+            await pg.click('#cjVer'); await pg.wait_for_timeout(600)
+            r1 = await pg.evaluate("() => [document.querySelector('#vRows .vpreco').textContent, true]"); r1[1] = hint
+            await pg.click('#cjAj'); await pg.wait_for_timeout(600); await pg.click('#cjTM .trkB[data-m=pyg]'); await pg.click('#cjVer'); await pg.wait_for_timeout(600)
             r2 = await pg.evaluate("() => document.querySelector('#vRows .vpreco').textContent")
             total += 1
             ok = r0.startswith('G$') and r1[0].startswith('US$') and r1[1] is True and r2 == r0 and not pg.erros
@@ -2772,6 +2797,29 @@ async def main():
             ok = got == [True, True, True, False, True, True, [6400, 6250], 6400, 6800, True, True] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Câmbio simples: 3 valores, reposição com selo e janelas; site = loja + 2% travado; ofertas do site com teto de 50%')
             if not ok: falhas.append('cambio simples'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # Catálogo (v427): janela de ajustes — rascunho só vale no "Ver", Cancelar desfaz, filtros e bolinha
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              S.items = [{tipo:'solar',ref:'Q1',grau:'',cor:'Preto',qty:2,custo:5},{tipo:'solar',ref:'Q2',grau:'',cor:'Preto',qty:3,custo:5},{tipo:'pre',ref:'Q3',grau:'+1.00',cor:'Preto',qty:4,custo:1}];
+              S.attr = {Q1:{publico:'Feminino'},Q2:{publico:'Masculino'}}; S.pprice = {Q1:{novo:100000,ant:0},Q2:{novo:300000,ant:0}}; S.cjF = {tipos:[],pub:[],ate:0,sit:[]}; S.vq = '';
+              L.setView('vendas'); L.render(); await w(900);
+              const n0 = document.querySelector('#vInfo').textContent;
+              document.getElementById('cjAj').click(); await w(500);
+              document.querySelector('.cjC[data-v=solar]').click(); document.querySelector('.cjC[data-v=F]').click(); await w(450);
+              const nJ = document.getElementById('cjN').textContent;
+              document.getElementById('cjCanc').click(); await w(500);
+              const canc = [S.cjF.tipos.length, document.querySelectorAll('.ljJn').length];
+              document.getElementById('cjAj').click(); await w(500);
+              document.querySelector('.cjC[data-v=solar]').click(); document.querySelector('.cjC[data-v=F]').click(); await w(100);
+              document.getElementById('cjVer').click(); await w(500);
+              const n1 = document.querySelector('#vInfo').textContent, dot = document.getElementById('cjDot').classList.contains('in');
+              return [n0, nJ, canc, n1, dot, S.cjF.tipos, S.cjF.pub]; }""")
+            total += 1
+            ok = not got[0].startswith('2 ') and got[1] == '2' and got[2] == [0, 0] and got[3].startswith('2') and got[4] is True and got[5] == ['solar'] and got[6] == ['F'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'catálogo: janela de ajustes (rascunho, Cancelar desfaz, filtros, bolinha)')
+            if not ok: falhas.append('janela ajustes'); print('        veio', got, pg.erros)
             await pg.close()
 
             # telas: 8 abas x 2 temas, sem erro e com conteúdo

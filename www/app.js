@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 426;
+  var APP_BUILD = 427;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '4.9.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.0.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -1013,7 +1013,7 @@
   // linha que sumiu = movimento "rem"; linha editada = rem da antiga + add da nova.
   var SYNC_LISTAS = { sales: 'id', exp: 0, cambios: 0, compras: 0, descartes: 0, retiradas: 0, melhUso: 0, cpay: 0, imprev: 0, dlog: 0, elog: 0, fechos: 'id', brindes: 0 };
   // Configurações (valor inteiro; vale a última alteração). Nada que seja de um aparelho só (PIN, biometria, tema, bloqueio, avisos).
-  var SYNC_CFG = ['faixas', 'pfaixa', 'linhaFix', 'pTrava', 'pAuto', 'pprice', 'metaUsd', 'metaDia', 'diasLoja', 'colchUsd', 'tolUsd', 'volume', 'formas', 'notaCidade', 'cat2', 'tiposX', 'tiposDel', 'tiposOrd', 'pnome', 'desc', 'attr', 'faixaAuto', 'ini', 'site', 'fxc', 'lm', 'objetivos', 'metaHist', 'siteOf', 'superEv'];
+  var SYNC_CFG = ['faixas', 'pfaixa', 'linhaFix', 'pTrava', 'pAuto', 'pprice', 'metaUsd', 'metaDia', 'diasLoja', 'colchUsd', 'tolUsd', 'volume', 'formas', 'notaCidade', 'cat2', 'tiposX', 'tiposDel', 'tiposOrd', 'pnome', 'desc', 'attr', 'faixaAuto', 'ini', 'site', 'fxc', 'lm', 'objetivos', 'metaHist', 'siteOf', 'superEv', 'siteFora'];
   // Listas com cadastro que se edita (clientes): cada linha tem id; vale a última alteração de cada uma.
   // skip = campos pesados (fotos) que não viajam por aqui; ficam em cada aparelho.
   var SYNC_PUT = { clientes: { k: 'id', skip: [] }, pedidos: { k: 'id', skip: ['comp', 'qr'] }, espera: { k: 'id', skip: [] } };
@@ -1497,12 +1497,14 @@
     hb.appendChild(eb);
     if (!venda) head.appendChild(hb);
     else {
-      var bd = btn('tab ibtn dinBtn', '$', function () {
-        splitAbre();
+      // v427 (aprovado 04/11): o "$" (para onde foi o dinheiro) saiu; no lugar, o compartilhar da peça
+      var bd = btn('tab ibtn shBtn', '', function () {
+        shAbre({ tipo: 'peca', ref: ref });
       });
-      bd.id = 'btnDin';
-      bd.setAttribute('aria-label', 'Para onde foi o dinheiro da venda');
-      bd.title = 'Para onde foi o dinheiro da venda';
+      bd.id = 'btnSh';
+      bd.innerHTML = CJ_ICO.sh;
+      bd.setAttribute('aria-label', 'Compartilhar esta peça');
+      bd.title = 'Compartilhar';
       head.appendChild(bd);
     }
     det.appendChild(head);
@@ -11555,7 +11557,7 @@
     if (S.ofOpen === ref) wrap.appendChild(ofertaModal(ref, atual, pr, ps));
     // "Liberar para o site" fica logo abaixo, alinhado com os outros cartões
     var sz = mk('div', 'zcd');
-    sz.appendChild(siteSwitch(ref));
+    sz.appendChild(siteChave(ref)); // v427: chave No site
     wrap.appendChild(sz);
     return wrap;
   }
@@ -13829,7 +13831,8 @@
             return x.id === i.tipo;
           }) &&
           (S.vTipo === 'all' || i.tipo === S.vTipo) &&
-          (!S.vGrau || S.vTipo !== 'pre' || i.grau === S.vGrau) &&
+          (!S.vGrau || i.tipo !== 'pre' || i.grau === S.vGrau) &&
+          cjOk(i) && // v427: filtros da janela Ajustes do catálogo
           true &&
           (!qm || qm(i))
         );
@@ -19802,24 +19805,26 @@
     tot.hidden = !NVR.length;
     c1.appendChild(tot);
     s2.appendChild(c1);
-    // liberar para o site
+    // v427: chave "No site" (o produto completo entra sozinho; desligar = fora e o app não recoloca)
     var c2 = mk('div', 'card col');
     c2.style.gap = '10px';
     var lh = mk('div', '');
     lh.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:10px';
-    lh.appendChild(mk('b', '', 'Liberar para o site'));
+    lh.appendChild(mk('b', '', 'No site'));
     var on = siteOn(ref),
       tg = mk('button', 'nvtg' + (on ? ' on' : ''));
     tg.type = 'button';
     tg.id = 'nvTg';
     tg.setAttribute('role', 'switch');
     tg.setAttribute('aria-checked', on ? 'true' : 'false');
-    tg.setAttribute('aria-label', 'Liberar para o site');
+    tg.setAttribute('aria-label', 'No site');
     tg.appendChild(document.createElement('i'));
     tg.onclick = function () {
       var ck = siteCheck(ref);
       if (on) {
         siteSet(ref, false);
+        S.siteFora[ref] = Date.now();
+        saveSoon();
         render();
         return;
       }
@@ -19834,6 +19839,7 @@
         }
         return;
       }
+      delete S.siteFora[ref];
       siteSet(ref, true);
       S.nTgFalha = false;
       render();
@@ -22785,7 +22791,8 @@
     h += S.notifs.length
       ? S.notifs
           .map(function (x) {
-            return '<section class="card"><b style="font-size:15px">' + esc(x.t) + '</b><div class="hint" style="margin:2px 0 0">' + esc(x.s) + '</div><div class="hint" style="margin:4px 0 0">' + fd(x.ts) + ' ' + fh(x.ts) + '</div></section>';
+            return '<section class="card"><b style="font-size:15px">' + esc(x.t) + '</b><div class="hint" style="margin:2px 0 0">' + esc(x.s) + '</div><div class="hint" style="margin:4px 0 0">' + fd(x.ts) + ' ' + fh(x.ts) + '</div>' +
+              (x.acts && x.acts.length ? '<div class="ntAc">' + x.acts.map(function (a) { return '<button type="button" class="ntLk" data-act="' + a.act + '" data-id="' + esc(a.id) + '">' + esc(a.b) + '</button>'; }).join('') + '</div>' : '') + '</section>';
           })
           .join('') +
         '<div class="sel" style="justify-content:center"><button type="button" class="chip" data-act="notifLimpa">Limpar histórico</button></div>'
@@ -29400,6 +29407,450 @@
     setTimeout(fxAvisa, 10000);
     setInterval(fxAvisa, 15 * 60000);
   }
+  // ===== Catálogo: busca na posição B + janela "Ajustes do catálogo" (v427, aprovado 04–05/11/2026) =====
+  // Busca sozinha; embaixo "N peças · Varejo · G$" com os botões Ajustes e Compartilhar.
+  // A janela junta Preço (Varejo/Atacado), Moeda, Ver como e os filtros (Tipo, Para quem, Preço até, Situação),
+  // com ícones desenhados no mesmo estilo. Nada muda até "Ver N peças"; Cancelar, tocar fora ou arrastar desfaz.
+  // Bolinha no botão de ajustes quando algo está diferente do normal.
+  S.cjF = { tipos: [], pub: [], ate: 0, sit: [] }; // filtros aplicados
+  var CJ_ICO = {
+    solar: '<svg viewBox="0 0 20 20"><path class="k" d="M2 8h6.5l-.5 4a2 2 0 0 1-2 1.8H4.5a2 2 0 0 1-2-1.8zM11.5 8H18l-.5 4a2 2 0 0 1-2 1.8h-1.5a2 2 0 0 1-2-1.8z" fill="currentColor" stroke="currentColor" stroke-width="1"/><path d="M8.5 9h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+    pre: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle class="k" cx="5.5" cy="10.5" r="3.6"/><circle class="k" cx="14.5" cy="10.5" r="3.6"/><path d="M9.1 10h1.8"/></svg>',
+    sem: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"><rect class="k" x="1.8" y="7.5" width="7" height="6" rx="1.6"/><rect class="k" x="11.2" y="7.5" width="7" height="6" rx="1.6"/><path d="M8.8 9.3h2.4"/></svg>',
+    F: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle class="k" cx="10" cy="7" r="4"/><path class="k" d="M10 11v7M7 15h6"/></svg>',
+    M: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle class="k" cx="8" cy="12" r="4.2"/><path class="k" d="M11 9l6-6M12.5 3H17v4.5"/></svg>',
+    U: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle class="k" cx="7" cy="8" r="2.6"/><circle class="k" cx="13.5" cy="8" r="2.6"/><path class="k" d="M2.5 16c.6-2.6 2.4-4 4.5-4s3.9 1.4 4.5 4M10 16c.6-2.6 2.2-4 3.5-4 2 0 3.8 1.4 4.3 4"/></svg>',
+    moeda: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle class="k" cx="10" cy="10" r="7"/><path d="M10 6.5v7" stroke-linecap="round"/></svg>',
+    of: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path class="k" d="M3 3h6.5L17 10.5 10.5 17 3 9.5z"/><circle cx="6.8" cy="6.8" r="1.2" fill="currentColor" stroke="none"/></svg>',
+    nov: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path class="k" d="M10 2.5l1.8 4.7 4.7 1.8-4.7 1.8L10 15.5l-1.8-4.7L3.5 9l4.7-1.8z"/></svg>',
+    enc: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path class="k" d="M5 2.5h10M5 17.5h10M6 2.5c0 4 3 5 4 7.5 1-2.5 4-3.5 4-7.5M6 17.5c0-4 3-5 4-7.5 1 2.5 4 3.5 4 7.5"/></svg>',
+    mais: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path class="k" d="M3 15l4.5-4.5 3 3L17 7M12.5 7H17v4.5"/></svg>',
+    aj: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2.2"/><circle cx="10" cy="17" r="2.2"/></svg>',
+    sh: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4M8.2 13.2l7.6 4"/></svg>'
+  };
+  var CJ_ATE = [50000, 100000, 150000, 'mais'];
+  function cjPub(ref) {
+    var p = (attrOf(ref) || {}).publico;
+    return p === 'Feminino' ? 'F' : p === 'Masculino' ? 'M' : 'U';
+  }
+  function cjSit(ref, k) {
+    if (k === 'of') {
+      var pp = S.pprice && S.pprice[ref];
+      return !!(pp && pp.ant > 0 && pp.novo > 0 && pp.ant > pp.novo);
+    }
+    if (k === 'nov') return Date.now() - paPrimEntrada(ref) <= 30 * DAY;
+    if (k === 'enc') return encDias(ref) > 0;
+    return true;
+  }
+  // A peça passa nos filtros novos (f = estado aplicado ou o rascunho da janela)?
+  function cjOk(i, f) {
+    f = f || S.cjF || {};
+    if (f.tipos && f.tipos.length && f.tipos.indexOf(i.tipo) < 0) return false;
+    if (f.pub && f.pub.length && f.pub.indexOf(cjPub(i.ref)) < 0) return false;
+    if (f.ate) {
+      var p = tFor(i).price || 0;
+      if (f.ate === 'mais' ? p <= 150000 : p > f.ate) return false;
+    }
+    var sit = (f.sit || []).filter(function (k) {
+      return k !== 'mais';
+    });
+    if (sit.length && !sit.some(function (k) {
+        return cjSit(i.ref, k);
+      }))
+      return false;
+    return true;
+  }
+  function cjPadrao() {
+    var f = S.cjF || {};
+    return tabDe(S.tabAtiva).pub && vMoeda() === 'pyg' && !(f.tipos || []).length && !(f.pub || []).length && !f.ate && !(f.sit || []).length && !S.vMais && !S.vGrau;
+  }
+  // Peças (soma das quantidades) que aparecem com um estado de filtros.
+  function cjConta(f, grau) {
+    var qm = mkMatch(S.vq);
+    return S.items.reduce(function (a, i) {
+      if (!(i.qty > 0) || !TIPOS.some(function (x) { return x.id === i.tipo; })) return a;
+      if (grau && i.tipo === 'pre' && i.grau !== grau) return a;
+      if (qm && !qm(i)) return a;
+      return a + (cjOk(i, f) ? i.qty : 0);
+    }, 0);
+  }
+  // ---- montagem da linha de baixo da busca (uma vez) ----
+  function cjMonta() {
+    var sub = document.querySelector('#vListCard .vsub'),
+      tb = $('vTabBar');
+    if (!sub || sub._cj) return;
+    sub._cj = 1;
+    if (tb && tb.parentNode) tb.parentNode.classList.add('cjOculta');
+    var rs = document.createElement('span');
+    rs.id = 'cjRs';
+    rs.className = 'cjRs';
+    sub.insertBefore(rs, sub.querySelector('.vdir'));
+    var bx = document.createElement('div');
+    bx.className = 'cjBx';
+    bx.innerHTML = '<span id="cjExtra"></span><button type="button" class="ic0 cjIc" id="cjAj" aria-label="Ajustes do catálogo" title="Ajustes do catálogo">' + CJ_ICO.aj + '<span class="cjDot" id="cjDot"></span></button>' +
+      '<button type="button" class="ic0 cjIc" id="cjSh" aria-label="Compartilhar" title="Compartilhar">' + CJ_ICO.sh + '</button>';
+    sub.appendChild(bx);
+    $('cjAj').onclick = cjAbre;
+    $('cjSh').onclick = function () {
+      shAbre({ tipo: 'catalogo' });
+    };
+  }
+  // Depois de cada desenho do Catálogo: texto da linha, bolinha e o progresso do atacado.
+  function cjDepois() {
+    cjMonta();
+    var rs = $('cjRs');
+    if (!rs) return;
+    var atac = !tabDe(S.tabAtiva).pub,
+      m = { pyg: 'G$', brl: 'R$', usd: 'US$' }[vMoeda()];
+    rs.textContent = (atac ? '' : ' · Varejo') + ' · ' + m;
+    var d = $('cjDot');
+    if (d) d.classList.toggle('in', !cjPadrao());
+    var ex = document.querySelector('#vTabBar .trkExtra'),
+      cx = $('cjExtra');
+    if (ex && cx) {
+      cx.textContent = '';
+      while (ex.firstChild) cx.appendChild(ex.firstChild);
+    }
+    // o número da linha rola quando muda
+    var pc = document.querySelector('#vInfo .vpcs');
+    if (pc && !pc._odo) {
+      var n = parseInt(pc.textContent, 10) || 0,
+        prev = S._cjN;
+      pc._odo = 1;
+      pc.innerHTML = '<span class="cjOdo"><span>' + (prev != null && prev !== n ? prev : n) + '</span></span> peças';
+      if (prev != null && prev !== n) lfOdo(pc.firstChild, n);
+      S._cjN = n;
+    }
+  }
+  // ---- janela ----
+  function cjAbre() {
+    var D = {
+      atac: !tabDe(S.tabAtiva).pub,
+      moeda: vMoeda(),
+      modo: modoDe('v'),
+      tipos: (S.cjF.tipos || []).slice(),
+      pub: (S.cjF.pub || []).slice(),
+      ate: S.cjF.ate || 0,
+      sit: (S.cjF.sit || []).slice().concat(S.vMais ? ['mais'] : []),
+      grau: S.vGrau || ''
+    };
+    var J = lfJanela({
+      titulo: 'Ajustes do catálogo',
+      cls: 'cjJn',
+      extra: '<button type="button" class="cjLimpa" id="cjLimpa">Limpar</button>',
+      monta: function (c, J) {
+        var tiposL = [['solar', 'Solar'], ['pre', 'Grau'], ['sem', 'Armação']].filter(function (t) {
+          return TIPOS.some(function (x) { return x.id === t[0]; });
+        });
+        TIPOS.forEach(function (x) {
+          if (!tiposL.some(function (t) { return t[0] === x.id; })) tiposL.push([x.id, x.label]);
+        });
+        var mo = function (k) {
+            return k === 'pyg' ? 'G$' : k === 'brl' ? 'R$' : 'US$';
+          },
+          ateTxt = function (v) {
+            if (v === 'mais') return 'Mais';
+            if (D.moeda === 'pyg') return v / 1000 + ' mil';
+            return mo(D.moeda) + ' ' + Math.round(v / ratePyg(D.moeda));
+          },
+          chip = function (g, v, txt, ico) {
+            return '<button type="button" class="chip cjC" data-g="' + g + '" data-v="' + v + '">' + (ico || '') + '<span>' + esc(txt) + '</span></button>';
+          };
+        c.innerHTML =
+          '<div class="cjG2"><div><div class="lbl">Preço</div><div class="trk" id="cjTP"><span class="trkTh"></span><button type="button" class="trkB" data-m="v">Varejo</button><button type="button" class="trkB" data-m="a">Atacado</button></div></div>' +
+          '<div><div class="lbl">Moeda</div><div class="trk" id="cjTM"><span class="trkTh"></span><button type="button" class="trkB" data-m="pyg">G$</button><button type="button" class="trkB" data-m="brl">R$</button><button type="button" class="trkB" data-m="usd">US$</button></div></div></div>' +
+          '<div class="hint cjMh" id="cjMh"></div>' +
+          '<div class="cjVc"><div class="lbl" style="margin:0">Ver como</div><div class="cjVd">' + chip('sit', 'mais', 'Mais vendidos', CJ_ICO.mais) + '<div class="trk cjTV" id="cjTV"><span class="trkTh"></span><button type="button" class="trkB" data-m="g" aria-label="Cartões"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></button><button type="button" class="trkB" data-m="l" aria-label="Lista"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></button></div></div></div>' +
+          '<div class="lbl">Tipo</div><div class="cjR cjR' + Math.min(4, tiposL.length) + '">' + tiposL.map(function (t) { return chip('tipos', t[0], t[1], CJ_ICO[t[0]]); }).join('') + '</div>' +
+          '<div id="cjGr"></div>' +
+          '<div class="lbl">Para quem</div><div class="cjR cjR3">' + chip('pub', 'F', 'Feminino', CJ_ICO.F) + chip('pub', 'M', 'Masculino', CJ_ICO.M) + chip('pub', 'U', 'Unissex', CJ_ICO.U) + '</div>' +
+          '<div class="lbl">Preço até</div><div class="cjR cjR4" id="cjAte">' + CJ_ATE.map(function (v, i) { return chip('ate', v, ateTxt(v), i === 0 ? CJ_ICO.moeda : ''); }).join('') + '</div>' +
+          '<div class="lbl">Situação</div><div class="cjR cjR3">' + chip('sit', 'of', 'Oferta', CJ_ICO.of) + chip('sit', 'nov', 'Novidade', CJ_ICO.nov) + chip('sit', 'enc', 'Encalhada', CJ_ICO.enc) + '</div>' +
+          '<div class="cjFt"><button type="button" class="go cjVer" id="cjVer">Ver <span class="cjOdo" id="cjN"><span>0</span></span> peças</button><button type="button" class="mini cjSec" id="cjCanc">Cancelar</button></div>';
+        var pinta = function (primeira) {
+          trkMarca($('cjTP'), D.atac ? 'a' : 'v');
+          trkMarca($('cjTM'), D.moeda);
+          trkMarca($('cjTV'), D.modo);
+          [].forEach.call(c.querySelectorAll('.cjC'), function (b) {
+            var g = b.dataset.g,
+              v = g === 'ate' ? (b.dataset.v === 'mais' ? 'mais' : +b.dataset.v) : b.dataset.v,
+              on = g === 'ate' ? D.ate === v : D[g].indexOf(v) >= 0;
+            if (b.classList.contains('on') !== on) b.classList.toggle('on', on);
+          });
+          [].forEach.call(c.querySelectorAll('#cjAte .cjC span'), function (s, i) {
+            s.textContent = ateTxt(CJ_ATE[i]);
+          });
+          var mh = $('cjMh');
+          mh.textContent = D.moeda === 'pyg' ? '' : 'Câmbio da loja: ' + mo(D.moeda) + ' 1 = ' + gs(Math.round(ratePyg(D.moeda))) + ' · a venda continua em guarani';
+          mh.hidden = D.moeda === 'pyg';
+          // graus: só quando "Grau" está marcado (o que já existia no app continua)
+          var gr = $('cjGr'),
+            soPre = D.tipos.length === 1 && D.tipos[0] === 'pre';
+          if (!soPre) D.grau = '';
+          var gs0 = {};
+          if (soPre)
+            S.items.forEach(function (i) {
+              if (i.tipo === 'pre' && i.grau && i.qty > 0) gs0[i.grau] = 1;
+            });
+          var gl = Object.keys(gs0).sort(function (a, b) {
+            return parseFloat(a) - parseFloat(b);
+          });
+          gr.innerHTML = soPre && gl.length ? '<div class="lbl">Grau</div><div class="cjGrau">' + gl.map(function (g) { return '<button type="button" class="chip cjGc' + (D.grau === g ? ' on' : '') + '" data-gr="' + esc(g) + '">' + esc(g) + '</button>'; }).join('') + '</div>' : '';
+          var n = cjConta({ tipos: D.tipos, pub: D.pub, ate: D.ate, sit: D.sit }, D.grau);
+          if (primeira) $('cjN').innerHTML = '<span>' + n + '</span>';
+          else lfOdo($('cjN'), n);
+        };
+        c.addEventListener('click', function (e) {
+          var b = e.target.closest('button');
+          if (!b) return;
+          if (b.classList.contains('trkB')) {
+            var t = b.parentNode.id;
+            if (t === 'cjTP') D.atac = b.dataset.m === 'a';
+            else if (t === 'cjTM') D.moeda = b.dataset.m;
+            else if (t === 'cjTV') D.modo = b.dataset.m;
+            pinta();
+            return;
+          }
+          if (b.classList.contains('cjC')) {
+            var g = b.dataset.g;
+            if (g === 'ate') {
+              var v = b.dataset.v === 'mais' ? 'mais' : +b.dataset.v;
+              D.ate = D.ate === v ? 0 : v;
+            } else {
+              var i = D[g].indexOf(b.dataset.v);
+              if (i >= 0) D[g].splice(i, 1);
+              else D[g].push(b.dataset.v);
+            }
+            pinta();
+            return;
+          }
+          if (b.dataset.gr != null) {
+            D.grau = D.grau === b.dataset.gr ? '' : b.dataset.gr;
+            pinta();
+            return;
+          }
+          if (b.id === 'cjCanc') J.fecha();
+          if (b.id === 'cjVer') {
+            cjAplica(D);
+            setTimeout(J.fecha, 120);
+          }
+        });
+        setTimeout(function () {
+          pinta(true);
+        }, 0);
+        J._pinta = pinta;
+      }
+    });
+    $('cjLimpa').onclick = function () {
+      D.tipos = [];
+      D.pub = [];
+      D.ate = 0;
+      D.sit = [];
+      D.grau = '';
+      D.atac = false;
+      D.moeda = 'pyg';
+      J._pinta();
+    };
+  }
+  function cjAplica(D) {
+    var era = !tabDe(S.tabAtiva).pub;
+    if (D.atac !== era) {
+      if (D.atac) S.tabAtiva = S._ultAtac && tabDe(S._ultAtac).on !== false ? S._ultAtac : 'a1';
+      else {
+        S._ultAtac = S._ultAtacAtual;
+        S.tabAtiva = 'pub';
+      }
+    }
+    S.vMoeda = D.moeda;
+    if (!S.vModo) S.vModo = {};
+    S.vModo.v = D.modo;
+    S.cjF = {
+      tipos: D.tipos.slice(),
+      pub: D.pub.slice(),
+      ate: D.ate,
+      sit: D.sit.filter(function (k) {
+        return k !== 'mais';
+      })
+    };
+    S.vMais = D.sit.indexOf('mais') >= 0;
+    S.vTipo = 'all';
+    S.vGrau = D.grau || '';
+    S.vRef = '';
+    S.vSel = null;
+    saveSoon();
+    render();
+  }
+  // ===== Compartilhar inteligente (v427, aprovado 04/11/2026) =====
+  // Janela com WhatsApp Business, WhatsApp, Instagram, Copiar link e Mais. O último app usado NESTE aparelho
+  // vem primeiro (com contorno) para evitar fadiga. Com o app novo (plugin LfShare) abre direto o app escolhido;
+  // no app antigo, cai na lista do celular. Catálogo: folha, fotos separadas ou só texto (como já era).
+  // Peça (tela Vender): foto + nome + preço + link da peça no site.
+  var SH_APPS = [
+    { id: 'wab', nome: 'WA Business', pkg: 'com.whatsapp.w4b', cor: '#25b06a', ico: '<path d="M4 19l1.2-3.6A8 8 0 1 1 8.6 19z"/><path d="M10 9.5v5h2.2a1.3 1.3 0 0 0 0-2.6H10m0 0h1.9a1.2 1.2 0 0 0 0-2.4H10" stroke-linecap="round"/>' },
+    { id: 'wa', nome: 'WhatsApp', pkg: 'com.whatsapp', cor: '#25b06a', ico: '<path d="M4 19l1.2-3.6A8 8 0 1 1 8.6 19z"/><path d="M9.5 9.2c0 2.8 2.5 5.3 5.3 5.3l.9-1.2-1.6-.9-.8.7c-1-.4-1.9-1.3-2.3-2.3l.7-.8-.9-1.6z" fill="currentColor" stroke="none"/>' },
+    { id: 'ig', nome: 'Instagram', pkg: 'com.instagram.android', cor: '#d65a96', ico: '<rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="16.8" cy="7.2" r=".9" fill="currentColor" stroke="none"/>' },
+    { id: 'link', nome: 'Copiar link', cor: '', ico: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>' },
+    { id: 'mais', nome: 'Mais', cor: '', ico: '<circle cx="5" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.6" fill="currentColor" stroke="none"/>' }
+  ];
+  var SH_INST = null; // apps instalados (pelo plugin); null = não sabemos (mostra todos)
+  function shPlug() {
+    var C = window.Capacitor;
+    return C && C.Plugins && C.Plugins.LfShare && C.isNativePlatform && C.isNativePlatform() ? C.Plugins.LfShare : null;
+  }
+  function shUlt() {
+    try {
+      return localStorage.getItem('lf_shUlt') || '';
+    } catch (e) {
+      return '';
+    }
+  }
+  function shGuardaUlt(id) {
+    try {
+      localStorage.setItem('lf_shUlt', id);
+    } catch (e) {}
+  }
+  function shOrdem() {
+    var u = shUlt(),
+      l = SH_APPS.filter(function (a) {
+        return !a.pkg || !SH_INST || SH_INST.indexOf(a.pkg) >= 0;
+      });
+    var ap = l.filter(function (a) {
+        return a.pkg;
+      }),
+      out = l.filter(function (a) {
+        return !a.pkg;
+      });
+    ap.sort(function (a, b) {
+      return (b.id === u) - (a.id === u);
+    });
+    return ap.concat(out);
+  }
+  function shLinkPeca(ref) {
+    return S.site && S.site[ref] ? 'https://lafouch.com/p/' + encodeURIComponent(ref) + '.html' : 'https://lafouch.com';
+  }
+  function shPecaDados(ref) {
+    var it = itemDoRef(ref),
+      p = it ? precoTab(it) : 0;
+    return { ref: ref, nome: pn(ref), preco: p, foto: photoOf(ref) };
+  }
+  function shTextoPeca(d) {
+    var m = vMoeda(),
+      pr = m === 'pyg' ? gs(d.preco) : fmtM(Math.round((d.preco / ratePyg(m)) * 100) / 100, m) + ' · ' + gs(d.preco);
+    return d.nome + ' · ' + pr + '\n' + shLinkPeca(d.ref) + '\nLa Fouch · Galeria Jebai Center, Ciudad del Este';
+  }
+  function shB64(cv) {
+    return cv.toDataURL('image/jpeg', 0.9).split(',')[1];
+  }
+  // Monta o que vai: {text, files:[base64], blobs:[File]}
+  function shConteudo(o, fmt, txt) {
+    if (o.tipo === 'peca') {
+      var d = shPecaDados(o.ref);
+      return envImg(d.foto).then(function (im) {
+        var cv = envFoto(d, im);
+        return { text: txt || shTextoPeca(d), cvs: [cv], nome: ['lafouch-' + d.ref + '.jpg'] };
+      });
+    }
+    var pecas = envPecas();
+    if (fmt === 'texto' || !pecas.length) return Promise.resolve({ text: txt || envMsg(), cvs: [], nome: [] });
+    return Promise.all(pecas.map(function (p) {
+      return envImg(p.foto);
+    })).then(function (imgs) {
+      var cvs = fmt === 'folha' ? [envFolha(pecas, imgs)] : pecas.map(function (p, k) {
+        return envFoto(p, imgs[k]);
+      });
+      return { text: txt || envMsg(), cvs: cvs, nome: cvs.map(function (c, k) { return fmt === 'folha' ? 'catalogo-lafouch.jpg' : 'lafouch-' + pecas[k].ref + '.jpg'; }) };
+    });
+  }
+  function shEnvia(app, o, fmt, txt) {
+    return shConteudo(o, fmt, txt).then(function (c) {
+      if (app.id === 'link') {
+        var lk = o.tipo === 'peca' ? shLinkPeca(o.ref) : 'https://lafouch.com';
+        var ok = function () {
+          lfToast('✓ Link copiado');
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(lk).then(ok, ok);
+        ok();
+        return;
+      }
+      var P = shPlug();
+      if (P) return P.send({ pkg: app.pkg || '', text: c.text, files: c.cvs.map(shB64) });
+      // app antigo (sem o plugin): lista do celular com as imagens; sem isso, WhatsApp só com o texto
+      return Promise.all(c.cvs.map(envBlob)).then(function (bl) {
+        var arqs = bl.map(function (b, k) {
+          return new File([b], c.nome[k], { type: 'image/jpeg' });
+        });
+        if (navigator.share && (!arqs.length || (navigator.canShare && navigator.canShare({ files: arqs }))))
+          return navigator.share(arqs.length ? { files: arqs, text: c.text } : { text: c.text }).catch(function () {});
+        window.open('https://wa.me/?text=' + encodeURIComponent(c.text), '_blank');
+      });
+    });
+  }
+  function shAbre(o) {
+    var P = shPlug();
+    if (P && SH_INST == null)
+      P.apps().then(function (r) {
+        SH_INST = (r && r.apps) || [];
+      }, function () {
+        SH_INST = [];
+      });
+    var fmt = S.envFmt || 'folha',
+      d = o.tipo === 'peca' ? shPecaDados(o.ref) : null,
+      ttl = d ? d.nome : 'Catálogo · ' + envPecas().length + ' peça(s)',
+      sub = d ? 'foto + preço + link do site' : (tabDe(S.tabAtiva).pub ? 'preços de balcão' : 'tabela ' + tabDe(S.tabAtiva).nome),
+      u = shUlt();
+    var J = lfJanela({
+      titulo: 'Compartilhar',
+      cls: 'shJn',
+      monta: function (c, J) {
+        c.innerHTML =
+          '<div class="shTopo">' + (d && d.foto ? '<img src="' + esc(d.foto) + '" alt="">' : '<span class="shIc0">' + CJ_ICO.sh + '</span>') + '<div><b>' + esc(ttl) + '</b><div class="hint" style="margin:0">' + esc(sub) + '</div></div></div>' +
+          (d ? '' : '<div class="trk shFmt" id="shFmt"><span class="trkTh"></span><button type="button" class="trkB" data-m="folha">Folha</button><button type="button" class="trkB" data-m="fotos">Fotos</button><button type="button" class="trkB" data-m="texto">Só texto</button></div>') +
+          '<div class="shAp" id="shAp">' + shOrdem().map(function (a) {
+            return '<button type="button" class="shA' + (a.id === u && a.pkg ? ' pri' : '') + '" data-id="' + a.id + '"><span class="shI" style="' + (a.cor ? 'color:' + a.cor : '') + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round">' + a.ico + '</svg></span><span class="shN">' + a.nome + '</span></button>';
+          }).join('') + '</div>' +
+          '<button type="button" class="ebEnt" id="shEb"><span class="shIc0">' + CJ_ICO.sh + '</span><span style="flex:1;text-align:left"><b>Enviar bonito</b><small>' + (d ? 'cartão com o nome do cliente' : 'segure as peças no catálogo para escolher') + '</small></span>›</button>' +
+          '<details class="shMsg"><summary>Mensagem</summary><textarea class="in" id="shTx" rows="4"></textarea></details>';
+        $('shTx').value = d ? shTextoPeca(d) : envMsg();
+        var tf = $('shFmt');
+        if (tf) {
+          trkMarca(tf, fmt);
+          tf.onclick = function (e) {
+            var b = e.target.closest('.trkB');
+            if (!b) return;
+            fmt = S.envFmt = b.dataset.m;
+            trkMarca(tf, fmt);
+          };
+        }
+        requestAnimationFrame(function () {
+          var ap = $('shAp');
+          if (ap) ap.classList.add('in');
+        });
+        $('shEb').onclick = function () {
+          J.fecha();
+          if (d) return ebAbre([o.ref]);
+          S.ebSel = [];
+          lfToast('Segure uma peça para começar');
+        };
+        $('shAp').onclick = function (e) {
+          var b = e.target.closest('.shA');
+          if (!b || J._indo) return;
+          var app = SH_APPS.filter(function (a) {
+            return a.id === b.dataset.id;
+          })[0];
+          J._indo = 1;
+          if (app.pkg) shGuardaUlt(app.id);
+          b.classList.add('voa');
+          var tx = $('shTx').value;
+          setTimeout(function () {
+            J.fecha();
+            shEnvia(app, o, fmt, tx).catch(function () {
+              lfToast('Não consegui abrir o ' + app.nome);
+            });
+          }, REDUCED ? 0 : 360);
+        };
+      }
+    });
+  }
   // ===== Contagem de estoque (aba Estoque): por produto, do mais valioso ao menos, com resumo em dinheiro. =====
   // Custo em US$ de uma peça (própria, do lote ou do tipo).
   function custoUn(i) {
@@ -29819,6 +30270,379 @@
     lfEntrada(n, it.ref + ' ' + it.cor);
     render();
   };
+  // ===== Enviar bonito (v427, aprovado 04–05/11/2026) =====
+  // 1) No catálogo, SEGURAR uma peça entra no modo seleção (✓); tocar nas outras marca/desmarca;
+  //    a barra "N selecionadas · Enviar bonito ›" sobe. 2) Para quem (clientes recentes; a moeda vem do país) ou "Sem nome".
+  // 3) Cartões: deslizar entre as peças, tocar no preço troca a moeda, tocar nas cores mostra/esconde, 3 estilos.
+  // 4) Mensagem editável + enviar no app lembrado. Fica registrado na ficha do cliente.
+  S.ebSel = null; // refs selecionadas (null = fora do modo seleção)
+  var EB_EST = [
+    { bg: '#f7f1ec', fg: '#2b2420', ac: '#8a2f66', mu: '#7a6f68' },
+    { bg: '#2a1622', fg: '#f4e8ef', ac: '#e8b6d2', mu: '#c9a9bb' },
+    { bg: '#111111', fg: '#ffffff', ac: '#e8b6d2', mu: '#b0b0b0' }
+  ];
+  function ebMoedaCli(c) {
+    if (!c) return 'pyg';
+    return cliEstr(c) ? 'brl' : 'pyg';
+  }
+  function ebEs(c) {
+    return !!c && c.nac === 'py';
+  }
+  // ---- seleção no catálogo ----
+  (function () {
+    var rows = $('vRows');
+    if (!rows) return;
+    var t = null,
+      alvo = null,
+      x0 = 0,
+      y0 = 0,
+      segurou = false;
+    rows.addEventListener('pointerdown', function (e) {
+      var c = e.target.closest('.pcard[data-ref]');
+      if (!c || S.view !== 'vendas' || ebNao(c.dataset.ref)) return;
+      alvo = c;
+      x0 = e.clientX;
+      y0 = e.clientY;
+      segurou = false;
+      clearTimeout(t);
+      if (S.ebSel) return;
+      t = setTimeout(function () {
+        if (!alvo) return;
+        segurou = true;
+        S.ebSel = [alvo.dataset.ref];
+        vibrar(18);
+        ebDecora();
+      }, 450);
+    });
+    rows.addEventListener('pointermove', function (e) {
+      if (alvo && (Math.abs(e.clientX - x0) > 10 || Math.abs(e.clientY - y0) > 10)) {
+        clearTimeout(t);
+        alvo = null;
+      }
+    });
+    var fim = function () {
+      clearTimeout(t);
+      alvo = null;
+    };
+    rows.addEventListener('pointerup', fim);
+    rows.addEventListener('pointercancel', fim);
+    rows.addEventListener('contextmenu', function (e) {
+      if (S.ebSel) e.preventDefault();
+    });
+    // no modo seleção, o toque marca/desmarca (não abre a vitrine)
+    rows.addEventListener(
+      'click',
+      function (e) {
+        if (!S.ebSel) return;
+        var c = e.target.closest('.pcard[data-ref]');
+        e.stopPropagation();
+        e.preventDefault();
+        if (segurou) {
+          segurou = false;
+          return;
+        }
+        if (!c || ebNao(c.dataset.ref)) return;
+        var r = c.dataset.ref,
+          i = S.ebSel.indexOf(r);
+        if (i >= 0) S.ebSel.splice(i, 1);
+        else S.ebSel.push(r);
+        if (!S.ebSel.length) S.ebSel = null;
+        ebDecora();
+      },
+      true
+    );
+  })();
+  function ebNao(ref) {
+    var it = itemDoRef(ref);
+    return !it || it.bulk;
+  }
+  function ebDecora() {
+    var sel = S.ebSel || [];
+    [].forEach.call(document.querySelectorAll('#vRows .pcard[data-ref]'), function (c) {
+      var on = sel.indexOf(c.dataset.ref) >= 0;
+      c.classList.toggle('ebOn', on);
+      var k = c.querySelector('.ebCk');
+      if (on && !k) {
+        k = document.createElement('span');
+        k.className = 'ebCk';
+        k.textContent = '✓';
+        c.appendChild(k);
+      }
+    });
+    var b = $('ebBar');
+    if (!b) {
+      b = document.createElement('div');
+      b.id = 'ebBar';
+      b.className = 'ebBar';
+      b.innerHTML = '<button type="button" class="ebX" aria-label="Sair da seleção">×</button><span class="ebN"><span class="cjOdo" id="ebNn"><span>1</span></span> <span id="ebNt">selecionada</span></span><button type="button" class="ebGo">Enviar bonito ›</button>';
+      document.body.appendChild(b);
+      b.querySelector('.ebX').onclick = function () {
+        S.ebSel = null;
+        ebDecora();
+      };
+      b.querySelector('.ebGo').onclick = function () {
+        var refs = (S.ebSel || []).slice();
+        if (!refs.length) return;
+        S.ebSel = null;
+        ebDecora();
+        ebAbre(refs);
+      };
+    }
+    var on = !!sel.length && S.view === 'vendas';
+    b.classList.toggle('in', on);
+    if (on) {
+      lfOdo($('ebNn'), sel.length);
+      $('ebNt').textContent = sel.length === 1 ? 'selecionada' : 'selecionadas';
+    }
+  }
+  // ---- tela Enviar bonito ----
+  function ebDados(ref) {
+    var it = itemDoRef(ref),
+      a = attrOf(ref) || {},
+      cores = siteCores(ref).filter(function (c) {
+        return c.qty > 0;
+      });
+    return {
+      ref: ref,
+      nome: pn(ref),
+      desc: [a.formato, a.material && a.material.toLowerCase(), a.publico && a.publico !== 'Unissex' ? a.publico.toLowerCase() : ''].filter(function (w) { return w && String(pn(ref)).toLowerCase().indexOf(String(w).toLowerCase()) < 0; }).join(' · '),
+      preco: it ? precoTab(it) : 0,
+      foto: photoOf(ref),
+      cores: cores.map(function (c) {
+        return { cor: c.cor, hex: hexOf(c.cor), on: true };
+      }),
+      link: S.site && S.site[ref] ? 'lafouch.com/p/' + ref + '.html' : 'lafouch.com'
+    };
+  }
+  function ebPreco(p, m) {
+    if (m === 'pyg') return gs(p);
+    var v = p / ratePyg(m);
+    return (m === 'brl' ? 'R$ ' + Math.ceil(v) : 'US$ ' + Math.ceil(v));
+  }
+  function ebMsg(cli, n) {
+    var nm = cli && cli.nome ? String(cli.nome).split(' ')[0] : '';
+    if (ebEs(cli)) return '¡Hola' + (nm ? ' ' + nm : '') + '! Te separé ' + (n === 1 ? 'esta pieza' : 'estas ' + n + ' piezas') + ' 😊 Cualquier duda, escribime.';
+    return 'Oi' + (nm ? ' ' + nm : '') + '! Separei ' + (n === 1 ? 'esta peça' : 'estas ' + n + ' peças') + ' para você 😊 Qualquer dúvida, é só chamar.';
+  }
+  function ebAbre(refs) {
+    var E = { cli: null, moeda: 'pyg', est: 0, i: 0, pecas: refs.map(ebDados) },
+      app = SH_APPS.filter(function (a) {
+        return a.id === (shUlt() || 'wab');
+      })[0] || SH_APPS[0];
+    var J = lfJanela({
+      titulo: 'Enviar bonito',
+      cls: 'ebJn',
+      extra: '<span class="hint" style="margin:0" id="ebPg"></span>',
+      monta: function (c, J) {
+        c.innerHTML =
+          '<button type="button" class="ebPara" id="ebPara"></button><div class="ebCli" id="ebCli" hidden></div>' +
+          '<div class="ebTr" id="ebTr"></div>' +
+          '<div class="ebEst" id="ebEst">' + EB_EST.map(function (s, k) { return '<button type="button" data-k="' + k + '" style="background:' + s.bg + '" aria-label="Estilo ' + (k + 1) + '"></button>'; }).join('') + '</div>' +
+          '<div class="hint ebDica">deslize entre as peças · toque no preço para trocar a moeda · toque nas cores para mostrar ou esconder</div>' +
+          '<textarea class="in ebTx" id="ebTx" rows="3"></textarea>' +
+          '<button type="button" class="go ebEnv" id="ebEnv">Enviar no ' + esc(app.nome) + '</button>' +
+          '<button type="button" class="ebOutro" id="ebOutro">outro app</button>';
+        var paraTxt = function () {
+            $('ebPara').innerHTML = '<span class="ebAv">' + (E.cli ? esc(String(E.cli.nome || '?').slice(0, 2).toUpperCase()) : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-5 8-5s6.5 1 8 5"/></svg>') + '</span><span style="flex:1;text-align:left">Para <b>' + (E.cli ? esc(E.cli.nome) : 'quem?') + '</b>' + (E.cli ? ' <span class="hint" style="display:inline;margin:0">· ' + (cliEstr(E.cli) ? 'estrangeiro' : 'paraguaio') + '</span>' : ' <span class="hint" style="display:inline;margin:0">(opcional)</span>') + '</span><span class="hint" style="margin:0">' + { pyg: 'G$', brl: 'R$', usd: 'US$' }[E.moeda] + ' ›</span>';
+          },
+          cartao = function (p, k) {
+            var s = EB_EST[E.est];
+            return '<div class="ebC" style="background:' + s.bg + ';color:' + s.fg + '"><div class="ebHd"><span class="ebLo">LA FOUCH</span><span class="ebPr" style="color:' + s.mu + '">' + (E.cli ? (ebEs(E.cli) ? 'separado para vos, ' : 'separado para você, ') + esc(String(E.cli.nome).split(' ')[0]) : '') + '</span></div>' +
+              '<div class="ebIm">' + (p.foto ? '<img src="' + esc(p.foto) + '" alt="">' : '') + '</div>' +
+              '<div class="ebFt"><b class="ebNm">' + esc(p.nome) + (p.desc ? ' · ' + esc(p.desc) : '') + '</b><button type="button" class="ebPc" data-k="' + k + '"><span>' + ebPreco(p.preco, E.moeda) + '</span></button>' + (E.moeda !== 'pyg' ? ' <span style="color:' + s.mu + '">· ' + gs(p.preco) + '</span>' : '') +
+              '<div class="ebDots">' + p.cores.map(function (cc, j) { return '<button type="button" class="ebDot' + (cc.on ? '' : ' off') + '" data-k="' + k + '" data-j="' + j + '" style="background:' + cc.hex + '" aria-label="' + esc(cc.cor) + '"></button>'; }).join('') + '</div>' +
+              '<div class="ebLk" style="color:' + s.ac + '">' + esc(p.link) + '</div></div></div>';
+          },
+          pinta = function () {
+            $('ebTr').innerHTML = E.pecas.map(cartao).join('');
+            $('ebTr').scrollLeft = E.i * $('ebTr').clientWidth;
+            [].forEach.call($('ebEst').children, function (b, k) {
+              b.classList.toggle('on', k === E.est);
+            });
+            $('ebPg').textContent = E.pecas.length > 1 ? E.i + 1 + ' de ' + E.pecas.length : '';
+            paraTxt();
+          };
+        $('ebTx').value = ebMsg(null, refs.length);
+        pinta();
+        $('ebTr').addEventListener('scroll', function () {
+          var w = $('ebTr').clientWidth || 1,
+            i = Math.round($('ebTr').scrollLeft / w);
+          if (i !== E.i) {
+            E.i = i;
+            $('ebPg').textContent = E.pecas.length > 1 ? i + 1 + ' de ' + E.pecas.length : '';
+          }
+        });
+        $('ebTr').addEventListener('click', function (e) {
+          var pc = e.target.closest('.ebPc'),
+            dt = e.target.closest('.ebDot');
+          if (pc) {
+            var ord = ['pyg', 'brl', 'usd'];
+            E.moeda = ord[(ord.indexOf(E.moeda) + 1) % 3];
+            var sp = pc.firstChild;
+            if (!REDUCED) {
+              sp.style.transform = 'rotateX(90deg)';
+              setTimeout(pinta, 150);
+            } else pinta();
+            return;
+          }
+          if (dt) {
+            var cc = E.pecas[+dt.dataset.k].cores[+dt.dataset.j];
+            cc.on = !cc.on;
+            dt.classList.toggle('off', !cc.on);
+          }
+        });
+        $('ebEst').onclick = function (e) {
+          var b = e.target.closest('button');
+          if (!b) return;
+          E.est = +b.dataset.k;
+          pinta();
+        };
+        $('ebPara').onclick = function () {
+          var box = $('ebCli');
+          if (!box.hidden) {
+            box.hidden = true;
+            return;
+          }
+          var cl = (S.clientes || []).slice().sort(function (a, b) {
+            return (b.ts || 0) - (a.ts || 0);
+          }).slice(0, 8);
+          box.innerHTML = '<input class="in" id="ebBusca" placeholder="Nome ou telefone" autocomplete="off"><div id="ebLista"></div>';
+          var lista = function (q) {
+            q = String(q || '').toLowerCase();
+            var l = (S.clientes || []).filter(function (c) {
+              return !q || String(c.nome || '').toLowerCase().indexOf(q) >= 0 || String(c.tel || '').indexOf(q) >= 0;
+            });
+            if (!q) l = cl;
+            $('ebLista').innerHTML = l.slice(0, 8).map(function (c) {
+              return '<button type="button" class="ebLi" data-id="' + c.id + '"><span class="ebAv">' + esc(String(c.nome || '?').slice(0, 2).toUpperCase()) + '</span><span style="flex:1;text-align:left">' + esc(c.nome || '') + '<small>' + (cliEstr(c) ? 'estrangeiro' : 'paraguaio') + '</small></span><span class="hint" style="margin:0">' + { pyg: 'G$', brl: 'R$', usd: 'US$' }[ebMoedaCli(c)] + '</span></button>';
+            }).join('') + '<button type="button" class="ebLi" data-id=""><span class="ebAv">–</span><span style="flex:1;text-align:left">Sem nome<small>escolho a moeda tocando no preço</small></span></button>';
+          };
+          lista('');
+          box.hidden = false;
+          $('ebBusca').oninput = function () {
+            lista(this.value);
+          };
+          $('ebLista').onclick = function (e) {
+            var b = e.target.closest('.ebLi');
+            if (!b) return;
+            var id = b.dataset.id;
+            E.cli = id ? (S.clientes || []).filter(function (c) { return String(c.id) === id; })[0] || null : null;
+            E.moeda = ebMoedaCli(E.cli);
+            $('ebTx').value = ebMsg(E.cli, E.pecas.length);
+            box.hidden = true;
+            pinta();
+          };
+        };
+        var envia = function (ap) {
+          var lst = E.pecas;
+          Promise.all(lst.map(function (p) {
+            return envImg(p.foto);
+          })).then(function (ims) {
+            var cvs = lst.map(function (p, k) {
+              return ebCanvas(p, ims[k], E);
+            });
+            var txt = $('ebTx').value + '\n\n' + lst.map(function (p) { return p.nome + ' · ' + ebPreco(p.preco, E.moeda) + '\nhttps://' + p.link; }).join('\n');
+            var P = shPlug();
+            if (ap.pkg) shGuardaUlt(ap.id);
+            if (E.cli) {
+              E.cli.env = (E.cli.env || []).concat([{ ts: Date.now(), refs: lst.map(function (p) { return p.ref; }) }]);
+              saveSoon();
+            }
+            J.fecha();
+            if (P) return P.send({ pkg: ap.pkg || '', text: txt, files: cvs.map(shB64) });
+            return Promise.all(cvs.map(envBlob)).then(function (bl) {
+              var arqs = bl.map(function (b, k) {
+                return new File([b], 'lafouch-' + lst[k].ref + '.jpg', { type: 'image/jpeg' });
+              });
+              if (navigator.share && navigator.canShare && navigator.canShare({ files: arqs })) return navigator.share({ files: arqs, text: txt }).catch(function () {});
+              window.open('https://wa.me/?text=' + encodeURIComponent(txt), '_blank');
+            });
+          }).then(function () {
+            if (E.cli) lfToast('✓ Enviado para ' + String(E.cli.nome).split(' ')[0]);
+          });
+        };
+        $('ebEnv').onclick = function () {
+          envia(app);
+        };
+        $('ebOutro').onclick = function () {
+          envia({ id: 'mais', nome: 'Mais' });
+        };
+      }
+    });
+  }
+  // Imagem do cartão (1080 × 1350) para enviar.
+  function ebCanvas(p, im, E) {
+    var s = EB_EST[E.est],
+      W = 1080,
+      H = 1350,
+      cv = document.createElement('canvas');
+    cv.width = W;
+    cv.height = H;
+    var x = cv.getContext('2d');
+    x.fillStyle = s.bg;
+    x.fillRect(0, 0, W, H);
+    x.fillStyle = s.fg;
+    x.font = '400 46px Georgia, serif';
+    x.textAlign = 'left';
+    x.fillText('L A   F O U C H', 70, 110);
+    if (E.cli) {
+      x.textAlign = 'right';
+      x.fillStyle = s.mu;
+      x.font = '400 34px sans-serif';
+      x.fillText((ebEs(E.cli) ? 'separado para vos, ' : 'separado para você, ') + String(E.cli.nome).split(' ')[0], W - 70, 110);
+    }
+    // foto num quadro branco arredondado
+    var fx = 70,
+      fy = 170,
+      fw = W - 140,
+      fh = 700;
+    x.fillStyle = '#ffffff';
+    if (x.roundRect) {
+      x.beginPath();
+      x.roundRect(fx, fy, fw, fh, 36);
+      x.fill();
+    } else x.fillRect(fx, fy, fw, fh);
+    if (im) {
+      var r = Math.min((fw - 80) / im.width, (fh - 80) / im.height),
+        iw = im.width * r,
+        ih = im.height * r;
+      x.drawImage(im, fx + (fw - iw) / 2, fy + (fh - ih) / 2, iw, ih);
+    }
+    x.textAlign = 'left';
+    x.fillStyle = s.fg;
+    x.font = '400 54px Georgia, serif';
+    x.fillText((p.nome + (p.desc ? ' · ' + p.desc : '')).slice(0, 34), 70, 960);
+    x.font = '700 64px sans-serif';
+    x.fillStyle = s.ac;
+    var pr = ebPreco(p.preco, E.moeda);
+    x.fillText(pr, 70, 1050);
+    if (E.moeda !== 'pyg') {
+      var w0 = x.measureText(pr).width;
+      x.font = '400 40px sans-serif';
+      x.fillStyle = s.mu;
+      x.fillText('· ' + gs(p.preco), 70 + w0 + 20, 1050);
+    }
+    var cx = 90;
+    p.cores.filter(function (c) {
+      return c.on;
+    }).forEach(function (c) {
+      x.beginPath();
+      x.arc(cx, 1125, 22, 0, Math.PI * 2);
+      x.fillStyle = c.hex;
+      x.fill();
+      x.lineWidth = 3;
+      x.strokeStyle = s.mu;
+      x.stroke();
+      cx += 66;
+    });
+    x.font = '500 38px sans-serif';
+    x.fillStyle = s.ac;
+    x.fillText(p.link, 70, 1230);
+    x.font = '400 30px sans-serif';
+    x.fillStyle = s.mu;
+    x.fillText('Galeria Jebai Center · Ciudad del Este', 70, 1290);
+    return cv;
+  }
   // ===== Enviar catálogo no WhatsApp: escolhe o formato, edita a mensagem (com validade) e compartilha =====
   S.envFmt = 'folha'; // 'folha' (uma imagem com todas as peças) | 'fotos' (uma imagem por peça) | 'texto'
   function envValidade() {
@@ -30682,6 +31506,114 @@
   }
   function impTesteLinhas() {
     return [{ t: 'LA FOUCH', centro: 1, negrito: 1, grande: 1 }, { t: 'IMPRESIÓN DE PRUEBA', centro: 1, negrito: 1 }, { traco: 1 }, { t: 'Fecha: ' + fd(Date.now()) + ' ' + fh(Date.now()) }, { t: 'Ciudad: CDE' }, { traco: 1 }, { t: 'Impresora lista.', centro: 1 }];
+  }
+  // ===== Janela de baixo (v427, animações novas aprovadas 05/11/2026) =====
+  // Sobe com mola; arrastar pela alça ou pelo topo acompanha o dedo (o fundo clareia junto):
+  // soltar depois de 1/3 da altura (ou num gesto rápido) fecha, senão volta. Tocar fora fecha.
+  // Fica fora das abas (no <body>), então o redesenho do app não a apaga.
+  function lfJanela(o) {
+    var bk = document.createElement('div'),
+      jn = document.createElement('div');
+    bk.className = 'ljBk';
+    jn.className = 'ljJn' + (o.cls ? ' ' + o.cls : '');
+    jn.setAttribute('role', 'dialog');
+    jn.setAttribute('aria-modal', 'true');
+    if (o.titulo) jn.setAttribute('aria-label', o.titulo);
+    jn.innerHTML = '<div class="ljPuxa" aria-hidden="true"></div>' + (o.titulo ? '<div class="ljHd"><b>' + esc(o.titulo) + '</b>' + (o.extra || '') + '</div>' : '') + '<div class="ljCorpo"></div>';
+    document.body.appendChild(bk);
+    document.body.appendChild(jn);
+    var corpo = jn.querySelector('.ljCorpo'),
+      aberta = true,
+      H = function () {
+        return jn.offsetHeight || 400;
+      },
+      pos = function (y, anim) {
+        jn.classList.toggle('anim', !!anim);
+        bk.classList.toggle('anim', !!anim);
+        jn.style.transform = 'translateY(' + y + 'px)';
+        bk.style.opacity = String(0.5 * Math.max(0, 1 - y / H()));
+      };
+    var api = {
+      jn: jn,
+      corpo: corpo,
+      fecha: function () {
+        if (!aberta) return;
+        aberta = false;
+        pos(H() + 30, !REDUCED);
+        bk.style.pointerEvents = 'none';
+        setTimeout(function () {
+          bk.remove();
+          jn.remove();
+        }, REDUCED ? 0 : 380);
+        if (o.aoFechar) o.aoFechar();
+      }
+    };
+    if (o.monta) o.monta(corpo, api);
+    pos(H() + 30, false);
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        pos(0, !REDUCED);
+      });
+    });
+    bk.onclick = api.fecha;
+    // arrastar para baixo: só pela alça e pelo título (o resto da janela rola normal)
+    var y0 = null,
+      dy = 0,
+      t0 = 0;
+    jn.addEventListener('pointerdown', function (e) {
+      if (!e.target.closest('.ljPuxa,.ljHd') || e.target.closest('button,a,input')) return;
+      y0 = e.clientY;
+      dy = 0;
+      t0 = Date.now();
+      try {
+        jn.setPointerCapture(e.pointerId);
+      } catch (er) {}
+    });
+    jn.addEventListener('pointermove', function (e) {
+      if (y0 == null) return;
+      dy = e.clientY - y0;
+      pos(dy > 0 ? dy : dy * 0.15, false);
+    });
+    var solta = function () {
+      if (y0 == null) return;
+      var v = dy / Math.max(1, Date.now() - t0);
+      y0 = null;
+      if (dy > H() / 3 || v > 0.6) api.fecha();
+      else pos(0, !REDUCED);
+    };
+    jn.addEventListener('pointerup', solta);
+    jn.addEventListener('pointercancel', solta);
+    return api;
+  }
+  // Número que rola como contador quando muda (animação nova).
+  function lfOdo(el, n) {
+    if (!el) return;
+    var txt = String(n),
+      cur = el.lastElementChild;
+    if (!cur) {
+      el.innerHTML = '<span>' + txt + '</span>';
+      return;
+    }
+    if (cur.textContent === txt) return;
+    if (REDUCED) {
+      el.innerHTML = '<span>' + txt + '</span>';
+      return;
+    }
+    var up = parseFloat(cur.textContent.replace(/\./g, '')) < n,
+      nv = document.createElement('span');
+    nv.textContent = txt;
+    nv.style.cssText = 'position:absolute;left:0;top:0;transform:translateY(' + (up ? 100 : -100) + '%)';
+    el.appendChild(nv);
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        cur.style.transform = 'translateY(' + (up ? -100 : 100) + '%)';
+        nv.style.transform = 'translateY(0)';
+      });
+    });
+    setTimeout(function () {
+      if (cur.parentNode) cur.remove();
+      nv.style.position = 'relative';
+    }, 380);
   }
   // ===== Cotação da La Moneda · Sucursal Jebai (v425, aprovado 04/11/2026) =====
   // A casa de câmbio fica em frente à loja: a cotação da loja segue a dela, nas três contas:
@@ -33059,6 +33991,143 @@
   document.addEventListener('visibilitychange', function () {
     if (!document.hidden) pushIniciar();
   });
+  // ===== Site automático + chave "No site" (v427, aprovado 04/11/2026) =====
+  // O produto completo (foto em todas as cores, custo, estoque e nome) entra no site sozinho, com a descrição
+  // feita pelo app quando não tiver uma. Aviso no sino com "Desfazer". Desligar a chave tira do site e o app
+  // NUNCA coloca de novo sozinho (S.siteFora); ligar de novo é sempre do dono.
+  S.siteFora = {}; // ref -> quando o dono tirou do site
+  S.siteAutoLote = {}; // id -> [refs] que entraram juntos (para desfazer pelo sino)
+  function siteAutoPronto(ref) {
+    if (siteOn(ref) || (S.siteFora && S.siteFora[ref])) return false;
+    var it = itemDoRef(ref);
+    if (!it || it.bulk || isSimple(it.tipo) || !(effCusto(it) > 0)) return false;
+    if (!String(pn(ref) || '').trim()) return false;
+    return siteCheck(ref).ok;
+  }
+  function siteAutoRevisa() {
+    if (!S.site) S.site = {};
+    var vis = {},
+      novos = [];
+    (S.items || []).forEach(function (i) {
+      if (vis[i.ref]) return;
+      vis[i.ref] = 1;
+      if (siteAutoPronto(i.ref)) novos.push(i.ref);
+    });
+    if (!novos.length) return [];
+    novos.forEach(function (ref) {
+      if (!S.desc) S.desc = {};
+      if (!S.desc[ref] || !String(S.desc[ref]).trim()) {
+        try {
+          S.desc[ref] = descAutoDe(ref, pn(ref));
+        } catch (e) {}
+      }
+      siteSet(ref, true);
+    });
+    var id = 'sa' + Date.now().toString(36);
+    S.siteAutoLote[id] = novos.slice();
+    (S.notifs = S.notifs || []).unshift({
+      ts: Date.now(),
+      lida: false,
+      t: novos.length === 1 ? '1 peça entrou no site' : novos.length + ' peças entraram no site',
+      s: novos.slice(0, 4).map(pn).join(', ') + (novos.length > 4 ? '…' : '') + ' · descrição pronta',
+      acts: [{ act: 'siteAutoVer', id: id, b: 'Ver' }, { act: 'siteAutoDesf', id: id, b: 'Desfazer' }]
+    });
+    saveSoon();
+    return novos;
+  }
+  ACT.siteAutoDesf = function (id) {
+    var l = (S.siteAutoLote || {})[id] || [];
+    l.forEach(function (ref) {
+      siteSet(ref, false);
+      S.siteFora[ref] = Date.now();
+    });
+    delete S.siteAutoLote[id];
+    S.notifs = (S.notifs || []).filter(function (x) {
+      return !(x.acts && x.acts[0] && x.acts[0].id === id);
+    });
+    saveSoon();
+    lfToast(l.length === 1 ? 'Peça tirada do site' : l.length + ' peças tiradas do site');
+    render();
+  };
+  ACT.siteAutoVer = function (id) {
+    var l = (S.siteAutoLote || {})[id] || [];
+    if (!l.length) return;
+    S.view = 'estoque';
+    S.q = l.length === 1 ? l[0] : '';
+    render();
+  };
+  // Chave "No site" (no lugar do botão "Liberar para o site")
+  function siteChave(ref) {
+    var w = mk('div', 'card col siteChave'),
+      on = siteOn(ref),
+      ck = siteCheck(ref),
+      fora = S.siteFora && S.siteFora[ref];
+    w.id = 'edSite';
+    var lin = mk('div', 'scLin'),
+      tx = mk('div', 'scTx');
+    tx.appendChild(mk('b', '', 'No site'));
+    tx.appendChild(
+      mk(
+        'div',
+        'hint',
+        on
+          ? 'aparece no catálogo online · ' + ck.cores.length + (ck.cores.length === 1 ? ' cor' : ' cores')
+          : fora
+            ? 'fora do site por você'
+            : !ck.cores.length
+              ? 'cadastre ao menos uma cor'
+              : ck.sem
+                ? 'sem peças em estoque'
+                : ck.falta.length
+                  ? 'falta foto da cor ' + ck.falta.map(function (c) { return c.cor; }).join(', ')
+                  : 'entra sozinho quando estiver completo'
+      )
+    );
+    lin.appendChild(tx);
+    var sw = mk('button', 'scSw' + (on ? ' on' : ''));
+    sw.type = 'button';
+    sw.setAttribute('role', 'switch');
+    sw.setAttribute('aria-checked', String(on));
+    sw.setAttribute('aria-label', 'No site');
+    sw.id = 'edSiteBtn';
+    sw.onclick = function () {
+      if (on) {
+        siteSet(ref, false);
+        S.siteFora[ref] = Date.now();
+        saveSoon();
+        render();
+        return;
+      }
+      if (!ck.ok) {
+        lfToast(ck.sem ? 'Sem peças em estoque' : ck.falta.length ? 'Falta foto da cor ' + ck.falta[0].cor : 'Cadastre ao menos uma cor');
+        return;
+      }
+      delete S.siteFora[ref];
+      siteSet(ref, true);
+      render();
+      siteFx(ref);
+      siteOnda();
+    };
+    lin.appendChild(sw);
+    w.appendChild(lin);
+    var h = mk('div', 'hint', on ? 'Desligar tira do site; o app não coloca de novo sozinho.' : fora ? 'O app não coloca de novo sozinho. Ligue quando quiser.' : '');
+    h.style.margin = '0';
+    if (h.textContent) w.appendChild(h);
+    if (on && ck.falta.length) {
+      var a = mk('div', 'hint', 'Atenção: falta foto em ' + ck.falta.map(function (c) { return c.cor; }).join(', ') + '. Essa cor não aparece no site até ter foto.');
+      a.style.margin = '0';
+      w.appendChild(a);
+    }
+    return w;
+  }
+  if (!/#test/.test(location.hash)) {
+    setTimeout(function () {
+      if (siteAutoRevisa().length) render();
+    }, 15000);
+    setInterval(function () {
+      if (siteAutoRevisa().length) render();
+    }, 5 * 60000);
+  }
   // ===== Sincronização entre aparelhos: transporte (nuvem) em cima do motor de src/05-sync.js. DESLIGADO por padrão (S.syncOn). =====
   // Coleção `mov` no Firestore: um documento por movimento, id = id do movimento, campos a (aparelho), ts, p (JSON do movimento).
   // Ciclo: 1) baixa movimentos dos outros e aplica  2) compara com a última foto e gera movimentos novos  3) envia a fila.
@@ -37191,6 +38260,8 @@
     renderEstoqueAbas();
     renderAddExtras();
     renderVendas();
+    if (S.view === 'vendas') cjDepois();
+    if (S.ebSel || $('ebBar')) ebDecora();
     renderNav();
     try {
       notifVerifica();
@@ -37436,6 +38507,8 @@
       'metaHist',
       'cxAv',
       'siteOf',
+      'siteFora',
+      'siteAutoLote',
       'superEv',
       'encAv',
       'fxPer',

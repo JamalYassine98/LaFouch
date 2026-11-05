@@ -10,6 +10,7 @@ andr = sys.argv[1] if len(sys.argv) > 1 else 'android'
 pkg = os.path.join(andr, 'app/src/main/java/com/lafouch/app')
 os.makedirs(pkg, exist_ok=True)
 shutil.copy('android-extra/LfPrinterPlugin.java', os.path.join(pkg, 'LfPrinterPlugin.java'))
+shutil.copy('android-extra/LfSharePlugin.java', os.path.join(pkg, 'LfSharePlugin.java'))  # v427: compartilhar direto no app
 
 # MainActivity: registerPlugin antes do super.onCreate
 ma = os.path.join(pkg, 'MainActivity.java')
@@ -22,6 +23,10 @@ if 'LfPrinterPlugin' not in s:
                    r'\1\n    @Override\n    public void onCreate(android.os.Bundle savedInstanceState) {\n        registerPlugin(LfPrinterPlugin.class);\n        super.onCreate(savedInstanceState);\n    }\n', s, count=1)
     open(ma, 'w').write(s)
 assert 'registerPlugin(LfPrinterPlugin.class)' in s, 'MainActivity sem o plugin'
+if 'LfSharePlugin' not in s:
+    s = s.replace('registerPlugin(LfPrinterPlugin.class);', 'registerPlugin(LfPrinterPlugin.class);\n        registerPlugin(LfSharePlugin.class);', 1)
+    open(ma, 'w').write(s)
+assert 'registerPlugin(LfSharePlugin.class)' in s, 'MainActivity sem o LfShare'
 
 # Permissões
 mf = os.path.join(andr, 'app/src/main/AndroidManifest.xml')
@@ -40,4 +45,9 @@ add = [p for p in perms if re.search(r'android:name="([^"]+)"', p).group(1) not 
 if add:
     m = m.replace('<application', '\n    '.join(add) + '\n    <application', 1)
     open(mf, 'w').write(m)
-print('LfPrinter instalado;', len(add), 'permissões novas')
+# v427: o app pode ver se WhatsApp Business, WhatsApp e Instagram estão instalados (Android 11+)
+if '<queries>' not in m:
+    q = '<queries>\n        <package android:name="com.whatsapp.w4b" />\n        <package android:name="com.whatsapp" />\n        <package android:name="com.instagram.android" />\n    </queries>\n    '
+    m = m.replace('<application', q + '<application', 1)
+    open(mf, 'w').write(m)
+print('LfPrinter e LfShare instalados;', len(add), 'permissões novas')

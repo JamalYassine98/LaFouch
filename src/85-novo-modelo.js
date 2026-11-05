@@ -651,24 +651,26 @@
     tot.hidden = !NVR.length;
     c1.appendChild(tot);
     s2.appendChild(c1);
-    // liberar para o site
+    // v427: chave "No site" (o produto completo entra sozinho; desligar = fora e o app não recoloca)
     var c2 = mk('div', 'card col');
     c2.style.gap = '10px';
     var lh = mk('div', '');
     lh.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:10px';
-    lh.appendChild(mk('b', '', 'Liberar para o site'));
+    lh.appendChild(mk('b', '', 'No site'));
     var on = siteOn(ref),
       tg = mk('button', 'nvtg' + (on ? ' on' : ''));
     tg.type = 'button';
     tg.id = 'nvTg';
     tg.setAttribute('role', 'switch');
     tg.setAttribute('aria-checked', on ? 'true' : 'false');
-    tg.setAttribute('aria-label', 'Liberar para o site');
+    tg.setAttribute('aria-label', 'No site');
     tg.appendChild(document.createElement('i'));
     tg.onclick = function () {
       var ck = siteCheck(ref);
       if (on) {
         siteSet(ref, false);
+        S.siteFora[ref] = Date.now();
+        saveSoon();
         render();
         return;
       }
@@ -683,6 +685,7 @@
         }
         return;
       }
+      delete S.siteFora[ref];
       siteSet(ref, true);
       S.nTgFalha = false;
       render();
