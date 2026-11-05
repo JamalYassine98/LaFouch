@@ -1634,3 +1634,6 @@ a[data-act],a.lk{display:inline-block;padding:14px 8px;margin:-14px -8px;-webkit
 .mkTp{position:fixed;inset:0;z-index:400;background:#000;color:#fff;overflow:hidden}
 .mkTpT{padding:0 24px;font-size:34px;line-height:1.35;font-weight:600;text-align:center;will-change:transform}
 .mkTpB{position:absolute;left:0;right:0;bottom:0;display:flex;gap:6px;justify-content:center;padding:12px 12px max(16px,env(safe-area-inset-bottom));background:linear-gradient(transparent,#000 40%);flex-wrap:wrap}
+
+/* v431 · campos de escolha alinhados com os outros campos (texto na mesma linha, seta fina com a mesma distância da borda) */
+select.in.selAl{appearance:none;-webkit-appearance:none;padding:0 40px 0 12px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238b919c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-size:16px 16px;text-indent:0}

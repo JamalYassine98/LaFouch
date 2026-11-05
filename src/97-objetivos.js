@@ -236,7 +236,7 @@
       '<section class="card col"><h2 style="margin:0;font-size:16px">Novo objetivo</h2>' +
       '<div><div class="lbl">O que quer para a loja</div><input class="in" id="obNome" placeholder="Ex.: Reforma da vitrine" maxlength="40" autocomplete="off" value="' + esc(OBJ.nome) + '"></div>' +
       '<div class="nvg2"><div><div class="lbl">Quanto custa</div><input class="in" id="obCusto" inputmode="numeric" placeholder="G$" autocomplete="off" value="' + esc(OBJ.custo) + '"></div>' +
-      '<div><div class="lbl">Quero até</div><select class="in" id="obAte">' + ops + '</select></div></div>' +
+      '<div><div class="lbl">Quero até</div><select class="in selAl" id="obAte">' + ops + '</select></div></div>' +
       '<button type="button" class="btn go" data-act="obAdd" style="width:100%">Guardar objetivo</button></section>'
     );
   }

@@ -222,7 +222,7 @@
         '<input class="in" id="cTel" type="tel" inputmode="tel" placeholder="Telefone / WhatsApp" value="' + esc(c.tel) + '">' +
         '<input class="in" id="cEmail" type="email" inputmode="email" placeholder="E-mail (opcional, para avisos)" value="' + esc(c.email || '') + '" autocomplete="off">' +
         cliDocHtml('c', c) +
-        '<select class="in" id="cTab" aria-label="Tabela de preço do cliente"><option value="">Tabela de preço: padrão (Público)</option>' + tabLista().filter(function (T) { return !T.pub; }).map(function (T) { return '<option value="' + T.id + '"' + (c.tab === T.id ? ' selected' : '') + '>' + esc(T.nome) + '</option>'; }).join('') + '</select>' +
+        '<select class="in selAl" id="cTab" aria-label="Tabela de preço do cliente"><option value="">Tabela de preço: padrão (Público)</option>' + tabLista().filter(function (T) { return !T.pub; }).map(function (T) { return '<option value="' + T.id + '"' + (c.tab === T.id ? ' selected' : '') + '>' + esc(T.nome) + '</option>'; }).join('') + '</select>' +
         cliDupHtml(c) +
         '<input class="in" id="cObs" placeholder="Observação (opcional)" value="' + esc(c.obs || '') + '">' +
         '<div class="hint" id="cH" style="margin:0"></div>' +
@@ -246,8 +246,11 @@
         cliComprasHtml(c) +
         '</section>';
     }
-    h += '<input class="in" id="cliQ" placeholder="Buscar por nome, telefone ou documento" value="' + esc(S.cliQ) + '" autocomplete="off" aria-label="Buscar cliente">';
-    h += '<div class="col" id="cliList" style="gap:10px">' + cliListaHtml() + '</div>';
+    // com o Novo cliente ou a ficha aberta, a busca e a lista ficam escondidas (voltam ao Salvar ou ×)
+    if (!c) {
+      h += '<input class="in" id="cliQ" placeholder="Buscar por nome, telefone ou documento" value="' + esc(S.cliQ) + '" autocomplete="off" aria-label="Buscar cliente">';
+      h += '<div class="col" id="cliList" style="gap:10px">' + cliListaHtml() + '</div>';
+    }
     el.innerHTML = h;
   }
   document.addEventListener('input', function (e) {

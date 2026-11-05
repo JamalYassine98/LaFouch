@@ -890,3 +890,7 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 
 ## 05/11/2026 07:05 — Teste do piso corrigido (aprovado: "Pode implementar")
 - Build do APK falhou no teste "piso: sem faixa…" (desatualizado desde a linha automática v423: toda peça já tem linha). Agora compara linha de 30% (f1) × 50% (f3). Só o teste mudou; o app não. 259/259 com TZ=America/Asuncion.
+
+## v431 — 05/11/2026 08:45 — Cadastro do cliente (aprovado: "Somente os campos que estão fora de alinhamento · Pode implementar")
+- Com Novo cliente ou ficha aberta, a busca e a lista de clientes ficam escondidas (voltam ao Salvar ou ×).
+- Campos de escolha de largura cheia (Tabela de preço do cliente, "Quero até" dos Objetivos, Idiomas do kit de Marketing, variante do Descarte) com classe .selAl: texto alinhado com os outros campos e seta fina cinza a 12px da borda. Os selects pequenos em linha (despesas, finanças, tabelas) ficaram como estavam.

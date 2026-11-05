@@ -875,7 +875,7 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 430;
+  var APP_BUILD = 431;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
   var APP_NOME = '5.2.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
@@ -15016,7 +15016,7 @@
       return box;
     }
     box.appendChild(mk('div', 'hint', 'A peça sai do estoque e o custo dela vira prejuízo no resultado do mês. Não dá para desfazer.'));
-    var sel = mk('select', 'in');
+    var sel = mk('select', 'in selAl');
     sel.id = 'dscItem';
     sel.setAttribute('aria-label', 'Qual variante');
     its.forEach(function (i, ix) {
@@ -27586,7 +27586,7 @@
         '<input class="in" id="cTel" type="tel" inputmode="tel" placeholder="Telefone / WhatsApp" value="' + esc(c.tel) + '">' +
         '<input class="in" id="cEmail" type="email" inputmode="email" placeholder="E-mail (opcional, para avisos)" value="' + esc(c.email || '') + '" autocomplete="off">' +
         cliDocHtml('c', c) +
-        '<select class="in" id="cTab" aria-label="Tabela de preço do cliente"><option value="">Tabela de preço: padrão (Público)</option>' + tabLista().filter(function (T) { return !T.pub; }).map(function (T) { return '<option value="' + T.id + '"' + (c.tab === T.id ? ' selected' : '') + '>' + esc(T.nome) + '</option>'; }).join('') + '</select>' +
+        '<select class="in selAl" id="cTab" aria-label="Tabela de preço do cliente"><option value="">Tabela de preço: padrão (Público)</option>' + tabLista().filter(function (T) { return !T.pub; }).map(function (T) { return '<option value="' + T.id + '"' + (c.tab === T.id ? ' selected' : '') + '>' + esc(T.nome) + '</option>'; }).join('') + '</select>' +
         cliDupHtml(c) +
         '<input class="in" id="cObs" placeholder="Observação (opcional)" value="' + esc(c.obs || '') + '">' +
         '<div class="hint" id="cH" style="margin:0"></div>' +
@@ -27610,8 +27610,11 @@
         cliComprasHtml(c) +
         '</section>';
     }
-    h += '<input class="in" id="cliQ" placeholder="Buscar por nome, telefone ou documento" value="' + esc(S.cliQ) + '" autocomplete="off" aria-label="Buscar cliente">';
-    h += '<div class="col" id="cliList" style="gap:10px">' + cliListaHtml() + '</div>';
+    // com o Novo cliente ou a ficha aberta, a busca e a lista ficam escondidas (voltam ao Salvar ou ×)
+    if (!c) {
+      h += '<input class="in" id="cliQ" placeholder="Buscar por nome, telefone ou documento" value="' + esc(S.cliQ) + '" autocomplete="off" aria-label="Buscar cliente">';
+      h += '<div class="col" id="cliList" style="gap:10px">' + cliListaHtml() + '</div>';
+    }
     el.innerHTML = h;
   }
   document.addEventListener('input', function (e) {
@@ -33176,7 +33179,7 @@
           var K = mkKit();
           h += '<details class="mkDt"><summary class="mkSec">Kit da marca</summary><div class="mkKit">' + [['nome', 'Nome'], ['slogan', 'Frase'], ['end', 'Endereço'], ['wa', 'WhatsApp'], ['site', 'Site'], ['tom', 'Tom de voz'], ['tags', 'Hashtags']].map(function (k) {
             return '<label><span>' + k[1] + '</span><input class="in" data-kit="' + k[0] + '" value="' + esc(K[k[0]] || '') + '"></label>';
-          }).join('') + '<label><span>Idiomas</span><select class="in" data-kit="idioma"><option value="ambos"' + (K.idioma === 'ambos' ? ' selected' : '') + '>Português e Español</option><option value="pt"' + (K.idioma === 'pt' ? ' selected' : '') + '>Português</option><option value="es"' + (K.idioma === 'es' ? ' selected' : '') + '>Español</option></select></label><div class="mkCores">' + EB_EST.map(function (s) { return '<i style="background:' + s.bg + ';border-color:' + s.ac + '"></i>'; }).join('') + '</div></div></details>';
+          }).join('') + '<label><span>Idiomas</span><select class="in selAl" data-kit="idioma"><option value="ambos"' + (K.idioma === 'ambos' ? ' selected' : '') + '>Português e Español</option><option value="pt"' + (K.idioma === 'pt' ? ' selected' : '') + '>Português</option><option value="es"' + (K.idioma === 'es' ? ' selected' : '') + '>Español</option></select></label><div class="mkCores">' + EB_EST.map(function (s) { return '<i style="background:' + s.bg + ';border-color:' + s.ac + '"></i>'; }).join('') + '</div></div></details>';
           c.innerHTML = h;
         };
         pinta();
@@ -34484,7 +34487,7 @@
       '<section class="card col"><h2 style="margin:0;font-size:16px">Novo objetivo</h2>' +
       '<div><div class="lbl">O que quer para a loja</div><input class="in" id="obNome" placeholder="Ex.: Reforma da vitrine" maxlength="40" autocomplete="off" value="' + esc(OBJ.nome) + '"></div>' +
       '<div class="nvg2"><div><div class="lbl">Quanto custa</div><input class="in" id="obCusto" inputmode="numeric" placeholder="G$" autocomplete="off" value="' + esc(OBJ.custo) + '"></div>' +
-      '<div><div class="lbl">Quero até</div><select class="in" id="obAte">' + ops + '</select></div></div>' +
+      '<div><div class="lbl">Quero até</div><select class="in selAl" id="obAte">' + ops + '</select></div></div>' +
       '<button type="button" class="btn go" data-act="obAdd" style="width:100%">Guardar objetivo</button></section>'
     );
   }

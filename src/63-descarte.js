@@ -29,7 +29,7 @@
       return box;
     }
     box.appendChild(mk('div', 'hint', 'A peça sai do estoque e o custo dela vira prejuízo no resultado do mês. Não dá para desfazer.'));
-    var sel = mk('select', 'in');
+    var sel = mk('select', 'in selAl');
     sel.id = 'dscItem';
     sel.setAttribute('aria-label', 'Qual variante');
     its.forEach(function (i, ix) {
