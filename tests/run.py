@@ -2916,6 +2916,43 @@ async def main():
             if not ok: falhas.append('estudio tutorial'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Salvamento seguro (v438): vendas no IndexedDB, localStorage só com o resto; aviso se falhar; reabrir mantém tudo
+            ctx = await b.new_context(viewport={'width': 420, 'height': 900}, color_scheme='dark', service_workers='block')
+            pg = await pagina(ctx=ctx)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              await w(300); const n = S.sales.length; S.sales[0].obs = 'marca-v438'; L.salvarAgora(); await w(600);
+              const ls = JSON.parse(localStorage.getItem('lafouch_demo_v1'));
+              const orig = Storage.prototype.setItem; Storage.prototype.setItem = function () { throw new Error('QuotaExceededError'); };
+              L.salvarAgora(); await w(500); const aviso = !!document.getElementById('lfSalvoErr');
+              Storage.prototype.setItem = orig; document.getElementById('lfSalvoTenta').click(); await w(500);
+              return [n > 100, ls.sales === undefined, ls._bigIdb === 1, aviso, !document.getElementById('lfSalvoErr')]; }""")
+            pg2 = await ctx.new_page(); pg2.erros = []; pg2.on('pageerror', lambda e: pg2.erros.append(str(e)))
+            await pg2.goto(f'http://localhost:{PORTA}/index.html#test'); await pg2.wait_for_function('window.__LF', timeout=10000)
+            got2 = await pg2.evaluate("() => [window.__LF.S.sales.length > 100, window.__LF.S.sales[0].obs]")
+            total += 1
+            ok = got == [True, True, True, True, True] and got2 == [True, 'marca-v438'] and not pg.erros and not pg2.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Salvamento seguro: vendas no IndexedDB, aviso grande se falhar, reabrir mantém tudo')
+            if not ok: falhas.append('salvamento seguro'); print('        veio', got, got2, pg.erros, pg2.erros)
+            await pg2.close(); await pg.close(); await ctx.close()
+
+            # Arquivo das vendas antigas (v438): >12 meses viram resumo por mês; nada se perde; volta pelo Histórico; vai na cópia
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              await w(300); const n0 = S.sales.length, corte = L.arqCorte(), velhas = S.sales.filter(s => s.ts < corte).length;
+              const moveu = await L.arqRoda(); const n1 = S.sales.length, meses = Object.keys(S.arqRes);
+              const soma = meses.reduce((a, m) => a + S.arqRes[m].n, 0) + S.sales.filter(s => false).length;
+              const est = (L.arqCopia() || []).filter(s => s.estorno).length;
+              L.setView('hist'); L.render(); const card = !!document.querySelector('.arqCard');
+              const bk = JSON.parse(L.backupDados(true)); const naCopia = (bk.d.arquivo || []).length;
+              const m0 = meses[0], nm = S.arqRes[m0].n; const volta = await L.arqVolta(m0);
+              const de2 = await L.arqRoda();
+              return [velhas > 0, moveu === velhas, n1 === n0 - velhas, S.sales.every(s => s.ts >= corte || (S.arqVolta||{})[new Date(s.ts).getFullYear()+'-'+('0'+(new Date(s.ts).getMonth()+1)).slice(-2)]), soma + est === velhas, card, naCopia === velhas, volta >= nm, de2 === 0, !S.arqRes[m0]]; }""")
+            total += 1
+            ok = got == [True] * 10 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Arquivo de vendas: >12 meses vira resumo por mês, nada se perde, volta pelo Histórico e vai na cópia')
+            if not ok: falhas.append('arquivo de vendas'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Medir fundo (v437): câmera falsa que estoura (caixa de luz forte). Mira ~225 sem estourar, usa EXP. no automático,
             # perfil antigo travado é descartado, régua da VELOC. em passos até 1/30, menu Medir de novo / Voltar ao automático
             pg = await pagina()

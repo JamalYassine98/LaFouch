@@ -65,6 +65,17 @@
       n += s.qty;
       if (primeiro === null || k < primeiro) primeiro = k;
     });
+    // v438: os meses que já foram para o arquivo continuam ensinando a estação do ano
+    try {
+      var aq = arqQtdMes(tipo);
+      Object.keys(aq).forEach(function (kk) {
+        kk = +kk;
+        if (kk >= atual || porMes[kk]) return;
+        porMes[kk] = aq[kk];
+        n += aq[kk];
+        if (primeiro === null || kk < primeiro) primeiro = kk;
+      });
+    } catch (e) {}
     var out = base.slice(),
       meses = primeiro === null ? 0 : atual - primeiro;
     if (meses >= 6 && n >= 30) {

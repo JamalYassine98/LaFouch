@@ -8,6 +8,11 @@
       if (SEM_BACKUP.indexOf(k) < 0) d[k] = S[k];
     });
     if (!semFotos) d.fotos = S.fotos;
+    // v438: as vendas arquivadas (mais de 12 meses) também vão na cópia
+    if (typeof arqCopia === 'function') {
+      var aq = arqCopia();
+      if (aq && aq.length) d.arquivo = aq;
+    }
     return JSON.stringify({ app: 'lafouch', v: 1, ts: Date.now(), d: d });
   }
   // Restaura os dados a partir do texto do backup. Devolve '' se deu certo, ou a mensagem de erro.
@@ -54,6 +59,7 @@
       } catch (e2) {}
       return 'O arquivo tem dados que o app não conseguiu ler.';
     }
+    if (o.d.arquivo && typeof arqRestaura === 'function') arqRestaura(o.d.arquivo).catch(function () {});
     return '';
   }
   // Guarda/compartilha o backup: no app usa o compartilhar do celular; no navegador baixa o arquivo.

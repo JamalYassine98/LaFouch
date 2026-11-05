@@ -1735,3 +1735,7 @@ select.in.selAl{appearance:none;-webkit-appearance:none;padding:0 40px 0 12px;ba
 /* v437 Medir fundo: menu e aviso com botões */
 .ecMsg .ecMsgB{display:inline-block;margin:2px 4px;padding:8px 14px;border-radius:99px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);color:#fff;font:inherit;font-weight:600}
 .ecMsg.warn .ecMsgB{border-color:#ffc766}
+/* v438 aviso de falha ao salvar */
+.lfSalvoErr{position:fixed;left:12px;right:12px;top:calc(env(safe-area-inset-top,0px) + 10px);z-index:9999;background:#3a1418;border:2px solid #ff6b6b;color:#fff;border-radius:16px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;box-shadow:0 12px 30px rgba(0,0,0,.45)}
+.lfSalvoErr b{font-size:15px}.lfSalvoErr span{font-size:13px;opacity:.9}.lfSalvoErr .mini{align-self:flex-start}
+.arqCard .sl small{display:block}

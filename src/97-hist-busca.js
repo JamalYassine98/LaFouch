@@ -194,6 +194,7 @@
       (S.hFopen ? '<div id="hFil">' + hFiltrosHtml() + '</div>' : '') +
       fechoHtml() +
       '<div id="hRes">' + hListaHtml() + '</div>' +
+      arqHtml() +
       (window.__revJanelaHtml ? window.__revJanelaHtml() : '');
   }
   document.addEventListener('input', function (ev) {

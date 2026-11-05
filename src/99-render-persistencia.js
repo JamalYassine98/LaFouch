@@ -93,11 +93,13 @@
     if (idbP) return idbP;
     idbP = new Promise(function (ok, no) {
       try {
-        var r = indexedDB.open('lafouch-fotos', 1);
+        var r = indexedDB.open('lafouch-fotos', 2);
         r.onupgradeneeded = function () {
           var d = r.result;
-          d.createObjectStore('fotos');
-          d.createObjectStore('hq');
+          // v437+: 'estado' guarda as listas grandes (vendas…), sem o limite de ~5 MB do localStorage
+          ['fotos', 'hq', 'estado'].forEach(function (n) {
+            if (!d.objectStoreNames.contains(n)) d.createObjectStore(n);
+          });
         };
         r.onsuccess = function () {
           IDBOK = true;
@@ -352,7 +354,11 @@
       'bioOn',
       'avisos',
       'lockMin',
-      'lockSens'
+      'lockSens',
+      'arqRes',
+      'arqAte',
+      'arqVolta',
+      'arqDia'
     ];
   // Carrega o estado salvo.
   function loadSaved() {
@@ -360,6 +366,8 @@
       var j = localStorage.getItem(SK);
       if (!j) return;
       var d = JSON.parse(j);
+      LS_TS = +d._ts || 0;
+      LS_BIGIDB = !!d._bigIdb;
       PERSIST.forEach(function (k) {
         if (d[k] !== undefined) S[k] = d[k];
       });
@@ -381,18 +389,111 @@
     } catch (e) {}
   }
   var saveT = 0;
+  // ===== Salvamento seguro (v438) =====
+  // As listas grandes (vendas, base da sincronização, históricos) vão para o IndexedDB ('estado'/'big'), que não tem o
+  // limite de ~5 MB do localStorage. O resto continua no localStorage. Se algum salvamento falhar, aparece um aviso grande
+  // (antes o erro era engolido e o app parava de salvar sem avisar).
+  var BIG = ['sales', 'syncSnap', 'elog', 'dlog', 'fechos', 'cpay'],
+    LS_TS = 0,
+    LS_BIGIDB = false,
+    BIG_PRONTO = false, // só grava as listas grandes no IndexedDB depois de ter lido o que já estava lá
+    BIG_IDB = false; // o IndexedDB está guardando as listas grandes
+  function estadoCarrega() {
+    return idbDo('estado', 'readonly', function (o) {
+      return o.get('big');
+    }).then(
+      function (rec) {
+        if (rec && rec.d && (LS_BIGIDB || (+rec.ts || 0) >= LS_TS)) {
+          BIG.forEach(function (k) {
+            if (rec.d[k] !== undefined) S[k] = rec.d[k];
+          });
+          BIG_IDB = true;
+        }
+        BIG_PRONTO = true;
+      },
+      function () {
+        BIG_PRONTO = true;
+      }
+    );
+  }
+  function salvoAviso(ok) {
+    var b = document.getElementById('lfSalvoErr');
+    if (ok) {
+      if (b) b.remove();
+      return;
+    }
+    if (b) return;
+    b = document.createElement('div');
+    b.id = 'lfSalvoErr';
+    b.className = 'lfSalvoErr';
+    b.setAttribute('role', 'alert');
+    b.innerHTML = '<b>Não consegui salvar os últimos dados neste aparelho</b><span>Não feche o app. Faça uma cópia em Ajustes › Nuvem e me avise.</span><button type="button" class="mini" id="lfSalvoTenta">Tentar de novo</button>';
+    document.body.appendChild(b);
+    b.querySelector('#lfSalvoTenta').onclick = function () {
+      salvarAgora();
+    };
+  }
+  function salvarAgora() {
+    var d = {},
+      okLs = true,
+      grandes = BIG_PRONTO && IDBOK;
+    // ainda não leu o IndexedDB e as listas grandes estão lá: NUNCA grava listas grandes (vazias) por cima
+    var semGrandes = grandes || (!BIG_PRONTO && LS_BIGIDB);
+    PERSIST.forEach(function (k) {
+      if (!(semGrandes && BIG.indexOf(k) >= 0)) d[k] = S[k];
+    });
+    if (!IDBOK) d.fotos = S.fotos;
+    d._ts = Date.now();
+    if (!grandes && semGrandes) d._bigIdb = 1;
+    var falhou = function () {
+      // IndexedDB falhou: tenta tudo no localStorage (como antes)
+      if (!BIG_PRONTO) return salvoAviso(false);
+      var d2 = {};
+      PERSIST.forEach(function (k) {
+        d2[k] = S[k];
+      });
+      d2._ts = Date.now();
+      try {
+        localStorage.setItem(SK, JSON.stringify(d2));
+        BIG_IDB = false;
+        salvoAviso(true);
+      } catch (e) {
+        salvoAviso(false);
+      }
+    };
+    if (grandes) {
+      var big = {};
+      BIG.forEach(function (k) {
+        if (PERSIST.indexOf(k) >= 0) big[k] = S[k];
+      });
+      d._bigIdb = 1;
+      idbDo('estado', 'readwrite', function (o) {
+        return o.put({ ts: d._ts, d: big }, 'big');
+      }).then(function () {
+        BIG_IDB = true;
+        try {
+          localStorage.setItem(SK, JSON.stringify(d));
+          salvoAviso(true);
+        } catch (e) {
+          salvoAviso(false);
+        }
+      }, falhou);
+    } else {
+      try {
+        localStorage.setItem(SK, JSON.stringify(d));
+        salvoAviso(true);
+      } catch (e) {
+        okLs = false;
+        salvoAviso(false);
+      }
+    }
+    return okLs;
+  }
   // Agenda o salvamento (debounce).
   function saveSoon() {
     clearTimeout(saveT);
     saveT = setTimeout(function () {
-      try {
-        var d = {};
-        PERSIST.forEach(function (k) {
-          d[k] = S[k];
-        });
-        if (!IDBOK) d.fotos = S.fotos;
-        localStorage.setItem(SK, JSON.stringify(d));
-      } catch (e) {}
+      salvarAgora();
       saveFotos();
       try {
         if (S.syncOn) syncAgenda();
@@ -404,6 +505,11 @@
     haviaSalvo = !!localStorage.getItem(SK);
   } catch (e) {}
   loadSaved();
+  // v438: espera o IndexedDB entregar as listas grandes antes de abrir o app (limite de 1,5 s; se demorar, abre assim mesmo
+  // e NÃO grava as listas grandes até ler o que estava lá).
+  function lfBoot() {
+    if (lfBoot.f) return;
+    lfBoot.f = 1;
   // app recém-instalado (nada salvo): abre limpo, com os modelos do catálogo. O modo de teste (#test) mantém o exemplo.
   if (!haviaSalvo && !/#test/.test(location.hash)) primeiroUso();
   iniciarLock();
@@ -416,7 +522,7 @@
       barMoedas: barMoedas,
       animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
-      S: S, envFolha: window.__envFolha, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
+      S: S, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, envFolha: window.__envFolha, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,
       grpTot: grpTot, grpFalta: grpFalta, effCusto: effCusto, parseLote: parseLote, parsePedido: parsePedido, parseHaste: parseHaste,
       parseVote: parseVote, flatParse: flatParse, numAmt: numAmt, hKey: hKey, lev: lev, normRef: normRef,
@@ -427,3 +533,16 @@
       lancarMelhoria: lancarMelhoria, lancarImprevisto: lancarImprevisto, lancarPagamento: lancarPagamento,
       desfazerPagamento: desfazerPagamento, hashPinAntigo: hashPinAntigo, confereHash: confereHash, pisoPeca: pisoPeca, faixaOf: faixaOf, contasPeca: contasPeca, volTipos: volTipos, nvDestaque: nvDestaque, vitProduto: vitProduto, ofertaManut: ofertaManut, ofertaFim: ofertaFim, vitConfere: vitConfere, siteAviso: siteAviso, siteSet: siteSet, vitSync: vitSync, fillAdd: fillAdd, sazonFator: sazonFator, calcPacote: calcPacote, prodStats: prodStats, reposicao: reposicao, parados: parados, curvaAbc: curvaAbc, sugestoes: sugestoes, metaInfo: metaInfo, backupDados: backupDados, volumeAuto: volumeAuto, volumeEfetivo: volumeEfetivo, restaurarDados: restaurarDados, abaixoDoPiso: abaixoDoPiso, perdasPropositais: perdasPropositais, ACT: ACT, logDespesa: logDespesa, entradaEstoque: entradaEstoque, syncTipos: syncTipos, avisosVenc: avisosVenc, efeitoCambio: efeitoCambio, reservaCambioContas: reservaCambioContas, expOrig: expOrig, proxVenc: proxVenc, resultadoMes: resultadoMes, fluxoCaixa: fluxoCaixa, capitalEstoque: capitalEstoque, dolarFavoravel: dolarFavoravel, cotacaoPar: cotacaoPar, primeiroUso: primeiroUso, precoPerigoso: precoPerigoso, formaSel: formaSel, hashPin: hashPin, exigirAuth: exigirAuth, pinAtivo: pinAtivo, resultadoCsv: resultadoCsv, ccDias: ccDias, addSale: addSale, periodoAtual: periodoAtual, vendasPeriodo: vendasPeriodo, showSplit: showSplit, cartFinalizar: cartFinalizar, totFmt: totFmt, rFmt: rFmt, livre3: livre3, trocarPlano: trocarPlano, trocarRegistrar: trocarRegistrar, trocarDesfazer: trocarDesfazer, trocarLivre: trocarLivre, fonteDolar: fonteDolar, separacaoMoedas: separacaoMoedas, rateDe: rateDe, fxLoja: fxLoja, FX_MARGEM: FX_MARGEM, tFor: tFor, cartPrevia: cartPrevia, gs: gs, tipoOf: tipoOf, descartar: descartar, ajusteEstoque: ajusteEstoque, exclusaoEstoque: exclusaoEstoque, limpaRefExcluido: limpaRefExcluido, refAuto: refAuto, pisoDoRef: pisoDoRef, siteCheck: siteCheck, quickOpen: quickOpen, quickGo: quickGo, simRank: simRank, imgSig: imgSig, lfEntrada: lfEntrada, cloneDe: cloneDe, rascunhoGuardar: rascunhoGuardar, warpDoc: warpDoc
     };
+  }
+  var lfBootT = setTimeout(lfBoot, 1500);
+  estadoCarrega().then(function () {
+    clearTimeout(lfBootT);
+    try {
+      arqLe().catch(function () {});
+    } catch (e) {}
+    if (lfBoot.f) {
+      render();
+      return;
+    }
+    lfBoot();
+  });
