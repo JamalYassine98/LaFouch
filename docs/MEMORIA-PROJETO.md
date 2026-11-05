@@ -948,3 +948,10 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Aprovado como referência visual: "luz de estúdio" = correção de luz uniforme na foto inteira (fundo da caixa estimado e dividido, branco neutro, níveis com transição suave até 255). Sem IA, sem recorte. Protótipo: scratchpad ff/compara.jpg (BR18072 C3).
 - Site automático: só foto com nota ALTA (proposto 85; dono não pode testar agora → mostrar nota e motivo para calibrar depois).
 - Aguardando "pode implementar" para trocar o tratamento do Estúdio pela luz de estúdio.
+
+## Estudo 05/11/2026 18:45 — "Adicionar produto" como funciona HOJE (antes de reformular)
+- Menu Adicionar (01-marcacao.js): cartões "Ler haste" e "Foto"; "Dar entrada de novo" (3 últimas peças → Quantas chegaram?); linhas "Chegou mercadoria" e "Preencher à mão"; rascunho ("Continuar rascunho").
+- Ler haste (82/83-leitor): lê código, classe de cor (C1–C8) e MEDIDAS (52□18-140 → campo eMed, vai ao site como med); acha produto existente ou abre o cadastro preenchido.
+- Foto: etiqueta/caixa/pacote é só lida (código, grau, "24 pc") e descartada; foto de UMA peça vira foto da cor e procura "Mais parecidas" (≥80%, 87-foto-modelo fmRank) → confirmar ou "Nenhum destes · Novo modelo". A câmera da peça já é a do Estúdio (70-camera → estCam).
+- Chegou mercadoria (52-lotes): foto da nota/print do pedido do fornecedor (linhas qtd × preço) ou à mão → Entrada da compra com barra por linha (Ler haste / Foto / À mão / Detalhar depois). NÃO conversa com o pedido da Lista de compras (S.lcPed confere sozinho pelo elog).
+- Conclusão: o meu esboço 1 (ler etiqueta) e 2 (tela Chegada nova) DUPLICAVAM o que existe. Lacunas reais: excesso/sobra na compra; ligar Chegou mercadoria ao pedido da Lista; Estúdio "Nova peça" é uma porta paralela ao Adicionar.
