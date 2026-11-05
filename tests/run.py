@@ -2822,6 +2822,33 @@ async def main():
             if not ok: falhas.append('janela ajustes'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Giro (v428): lista de compras (sem cor, por grau, − / +, total × reposição, pedido que confere sozinho) e vitrine da semana
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              S.dTab = 'giro'; S.dfold.rep = true; S.dfold.vit = true; L.setView('dash'); await w(300);
+              const c = document.getElementById('lcCard'), secs = [...c.querySelectorAll('.lcSec')].map(e => e.textContent.split(' ')[0]);
+              const graus = c.querySelectorAll('.lcG').length > 0, b0 = c.querySelector('.lcQ b').textContent;
+              c.querySelector('[data-act=lcMais]').click(); await w(150);
+              const b1 = document.querySelector('#lcCard .lcQ b').textContent, tot = /reposição/.test(document.querySelector('#lcCard .lcTot').textContent);
+              const n0 = document.querySelectorAll('#lcCard .lcQ').length;
+              document.querySelector('[data-act=lcPedir]').click(); await w(150);
+              const ped = S.lcPed && S.lcPed.itens.length, n1 = document.querySelectorAll('#lcCard .lcQ').length;
+              const p0 = S.lcPed.itens[0], it = S.items.find(i => i.ref === p0.ref && i.tipo === p0.tipo && (!p0.grau || i.grau === p0.grau)); it.qty += p0.q; L.render(); await w(150);
+              const chegou = /chegou/.test(document.querySelector('#lcCard .lcPed').textContent);
+              const pede = !!document.getElementById('vtLug'); document.getElementById('vtLug').value = '3'; document.querySelector('[data-act=vitLug]').click(); await w(150);
+              const sug = document.querySelectorAll('#vtCard .vtL').length, r0 = document.querySelector('#vtCard [data-act=vitFixa]').dataset.id;
+              document.querySelector('#vtCard [data-act=vitFixa]').click(); await w(100);
+              document.querySelector('[data-act=vitTroquei]').click(); await w(150);
+              const atual = S.vit.atual.slice(), fix = atual.indexOf(r0) >= 0, boa = /Nada para trocar/.test(document.getElementById('vtCard').textContent);
+              const r1 = atual.find(r => r !== r0); S.items.filter(i => i.ref === r1).forEach(i => i.qty = 0); L.render(); await w(150);
+              const saem = /Saem/.test(document.getElementById('vtCard').textContent) && /Entram/.test(document.getElementById('vtCard').textContent);
+              return [secs.indexOf('Acabando') >= 0, graus, +b1 === +b0 + 1, tot, ped > 0, n1 < n0, chegou, pede, sug, atual.length, fix, boa, saem]; }""")
+            total += 1
+            ok = got == [True, True, True, True, True, True, True, True, 3, 3, True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Giro: lista de compras (grau, − / +, total × reposição, pedido confere) e vitrine da semana (lugares, fixar, trocar)')
+            if not ok: falhas.append('giro lista vitrine'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # telas: 8 abas x 2 temas, sem erro e com conteúdo
             fundos = {}
             for scheme in ['dark', 'light']:

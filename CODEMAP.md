@@ -65,6 +65,8 @@ Regras que valem em todo o projeto: o estado fica em `S`; `render()` redesenha t
 | `97-compartilhar.js` | 171 | Compartilhar inteligente (apps, último primeiro, plugin LfShare/fallback) e linha Enviar bonito. |
 | `97-site-auto.js` | 137 | Site automático (siteAutoRevisa, sino com Desfazer, S.siteFora) e chave "No site" (siteChave). |
 | `97-enviar-bonito.js` | 369 | Segurar para selecionar no catálogo, barra, janela Enviar bonito (cliente, moeda, cartões, estilos) e imagem 1080×1350. |
+| `97-lista-compras.js` | 240 | Lista de compras do Giro (v428): por grau, Acabando/Época chegando/Não recompre, − / +, total × reposição, mandar ao fornecedor, pedido que confere sozinho. |
+| `97-vitrine.js` | 220 | Vitrine da semana (v428): lugares, sugestão por nota, Entram/Saem/Ficam, fixar, Troquei a vitrine, aprende exposta × não, aviso na segunda. |
 | `97-ofertas-site.js` | 260 | Ofertas do site quando o dólar cai (1 em 5 modelos, parados primeiro, +3%/semana, teto 50%, nunca abaixo do piso), Super evento e Encalhadas (Vender na loja). |
 | `97-ajustes-lista.js` | 300 | Ajustes minimalista: lista que abre no lugar e ordem por segurar e arrastar. |
 | `97-brindes.js` | 230 | Brindes: compra entra como despesa (sem estoque), o app aprende quanto cada óculos gasta e mostra quanto separar (linha no Separar). |

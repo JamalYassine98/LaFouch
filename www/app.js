@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 427;
+  var APP_BUILD = 428;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.0.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.1.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -1013,7 +1013,7 @@
   // linha que sumiu = movimento "rem"; linha editada = rem da antiga + add da nova.
   var SYNC_LISTAS = { sales: 'id', exp: 0, cambios: 0, compras: 0, descartes: 0, retiradas: 0, melhUso: 0, cpay: 0, imprev: 0, dlog: 0, elog: 0, fechos: 'id', brindes: 0 };
   // Configurações (valor inteiro; vale a última alteração). Nada que seja de um aparelho só (PIN, biometria, tema, bloqueio, avisos).
-  var SYNC_CFG = ['faixas', 'pfaixa', 'linhaFix', 'pTrava', 'pAuto', 'pprice', 'metaUsd', 'metaDia', 'diasLoja', 'colchUsd', 'tolUsd', 'volume', 'formas', 'notaCidade', 'cat2', 'tiposX', 'tiposDel', 'tiposOrd', 'pnome', 'desc', 'attr', 'faixaAuto', 'ini', 'site', 'fxc', 'lm', 'objetivos', 'metaHist', 'siteOf', 'superEv', 'siteFora'];
+  var SYNC_CFG = ['faixas', 'pfaixa', 'linhaFix', 'pTrava', 'pAuto', 'pprice', 'metaUsd', 'metaDia', 'diasLoja', 'colchUsd', 'tolUsd', 'volume', 'formas', 'notaCidade', 'cat2', 'tiposX', 'tiposDel', 'tiposOrd', 'pnome', 'desc', 'attr', 'faixaAuto', 'ini', 'site', 'fxc', 'lm', 'objetivos', 'metaHist', 'siteOf', 'superEv', 'siteFora', 'lcPed', 'vit'];
   // Listas com cadastro que se edita (clientes): cada linha tem id; vale a última alteração de cada uma.
   // skip = campos pesados (fotos) que não viajam por aqui; ficam em cada aparelho.
   var SYNC_PUT = { clientes: { k: 'id', skip: [] }, pedidos: { k: 'id', skip: ['comp', 'qr'] }, espera: { k: 'id', skip: [] } };
@@ -21907,7 +21907,9 @@
         kpi('No estoque', 'US$ ' + ce.total.toFixed(0), 'a custo, sem estojos') +
         kpi('Parado 60+ dias', 'US$ ' + ce.parado.toFixed(0), Math.round(ce.pct * 100) + '% do investido', 'color:' + (ce.pct > 0.3 ? 'var(--warn)' : 'inherit')) +
         '</section>';
-      h += dFold('rep', 'Repor primeiro', rp.length ? rp.length + ' produto(s) vão acabar logo · lista de compras' : 'nada acabando nos próximos 21 dias', rp.length ? 'var(--warn)' : 'var(--ok)', x2.repor);
+      // v428: lista de compras melhorada + vitrine da semana
+      h += dFold('rep', 'Lista de compras', rp.length ? rp.length + ' produto(s) vão acabar logo' : 'nada acabando nos próximos 21 dias', rp.length ? 'var(--warn)' : 'var(--ok)', lcHtml());
+      h += dFold('vit', 'Vitrine da semana', !(S.vit.lug > 0) ? 'diga quantos lugares tem a vitrine' : S.vit.atual.length ? 'trocada em ' + new Date(S.vit.ts).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) : 'sugestão pronta', 'var(--sub)', vitHtml());
       h += dFold('par', 'Estoque parado', pa.length + ' produto(s) · sugestão de preço de saída', 'var(--warn)', x2.parados);
       h += dFold('ret', 'Retorno do estoque', 'cada US$ 1 investido rendeu US$ ' + ce.retorno.toFixed(2).replace('.', ',') + ' em 30 dias', 'var(--sub)', capitalHtml());
       h += dFold('abc', 'Curva ABC', 'quais produtos dão 80% do lucro (90 dias)', 'var(--sub)', x2.abc);
@@ -31750,6 +31752,219 @@
       });
     }, 60000);
   }
+  // ===== Lista de compras melhorada (v428, aprovado 04/11/2026) =====
+  // Sem cor (o dono não controla cor na compra). Pré-graduados por GRAU. Três seções: Acabando, Época chegando
+  // e Não recompre. Quantidade com − / +. Total comparado com o dinheiro da reposição. Compartilhar com o
+  // fornecedor. "Marcar como pedido" guarda o pedido e confere sozinho quando a mercadoria entra.
+  S.lcQtd = {}; // chave -> quantidade escolhida pelo dono
+  S.lcPed = null; // {ts, itens:[{k, ref, tipo, grau, q, s0}]}
+  function lcChave(tipo, ref, grau) {
+    return tipo + '|' + ref + (grau ? '|' + grau : '');
+  }
+  // Estoque e vendas (30 dias, corrigidas pela estação) por grau de um modelo de pré-graduado.
+  function lcGraus(m) {
+    var g = {},
+      now = Date.now();
+    S.items.forEach(function (i) {
+      if (i.ref !== m.ref || i.tipo !== m.tipo || i.bulk) return;
+      var k = i.grau || '';
+      (g[k] = g[k] || { grau: k, stock: 0, adj30: 0 }).stock += i.qty > 0 ? i.qty : 0;
+    });
+    S.sales.forEach(function (s) {
+      if (s.estorno || s.ref !== m.ref || s.tipo !== m.tipo || now - s.ts > 30 * DAY) return;
+      var k = s.grau || '';
+      (g[k] = g[k] || { grau: k, stock: 0, adj30: 0 }).adj30 += s.qty / sazonFator(s.tipo, new Date(s.ts).getMonth());
+    });
+    return Object.keys(g).map(function (k) {
+      return g[k];
+    });
+  }
+  function lcLista() {
+    var mesQ = new Date(Date.now() + 15 * DAY).getMonth(),
+      mesP = new Date(Date.now() + 45 * DAY).getMonth(),
+      out = { acab: [], epoca: [], nao: [] },
+      vistos = {};
+    prodStats().forEach(function (m) {
+      if (isSimple(m.tipo) || (m.it && m.it.bulk)) return;
+      var fQ = sazonFator(m.tipo, mesQ),
+        fP = sazonFator(m.tipo, mesP),
+        linhas = m.tipo === 'pre' ? lcGraus(m) : [{ grau: '', stock: m.stock, adj30: m.adj30 }];
+      linhas.forEach(function (l) {
+        var e = l.adj30 * fQ,
+          dias = e > 0 ? l.stock / (e / 30) : Infinity,
+          k = lcChave(m.tipo, m.ref, l.grau),
+          base = { k: k, m: m, grau: l.grau, stock: l.stock, cu: m.cu || 0 };
+        if (lcNoPedido(k)) return;
+        if (e > 0 && dias <= 21) {
+          base.sug = Math.max(1, Math.ceil(e * 1.5 - l.stock));
+          base.mot = 'restam ~' + Math.round(dias) + ' dias · ' + l.stock + ' un.';
+          out.acab.push(base);
+        } else if (l.adj30 > 0 && fP >= fQ * 1.25 && l.stock < l.adj30 * fP * 1.5) {
+          base.sug = Math.max(1, Math.ceil(l.adj30 * fP * 1.5 - l.stock));
+          base.mot = 'a época vende ' + Math.round((fP / fQ - 1) * 100) + '% mais · ' + l.stock + ' un.';
+          out.epoca.push(base);
+        }
+      });
+    });
+    parados().forEach(function (m) {
+      if (vistos[m.key]) return;
+      vistos[m.key] = 1;
+      out.nao.push({ k: m.key, m: m, mot: Math.round(m.diasParado) + ' dias sem vender · ' + m.stock + ' un.' });
+    });
+    var ordem = function (a, b) {
+      return b.m.profit30 - a.m.profit30;
+    };
+    out.acab.sort(ordem);
+    out.epoca.sort(ordem);
+    out.nao = out.nao.slice(0, 8);
+    out.todos = out.acab.concat(out.epoca);
+    out.todos.forEach(function (x) {
+      x.q = S.lcQtd[x.k] != null ? S.lcQtd[x.k] : x.sug;
+    });
+    out.total = out.todos.reduce(function (a, x) {
+      return a + x.q * x.cu;
+    }, 0);
+    return out;
+  }
+  function lcNoPedido(k) {
+    var P = S.lcPed;
+    if (!P) return false;
+    return P.itens.some(function (p) {
+      return p.k === k && lcEntrou(p) < p.q;
+    });
+  }
+  function lcNome(x) {
+    return pn(x.m.ref) + (x.grau ? ' · grau ' + x.grau : '');
+  }
+  function lcLinha(x) {
+    return (
+      '<div class="sl lcL"><span>' + dxNome(x.m) + (x.grau ? ' <b class="lcG">' + esc(x.grau) + '</b>' : '') + '<small>' + esc(x.mot) + '</small></span>' +
+      '<span class="lcQ"><button type="button" class="mini" data-act="lcMenos" data-id="' + esc(x.k) + '" aria-label="Menos">−</button><b>' + x.q + '</b><button type="button" class="mini" data-act="lcMais" data-id="' + esc(x.k) + '" aria-label="Mais">+</button></span></div>'
+    );
+  }
+  function lcHtml() {
+    var L = lcLista(),
+      rp = fxRepo(),
+      h = '<section class="card col lcCard" id="lcCard"><div class="hint" style="margin:0">Sem cor. Pré-graduados por grau. Cobre ~45 dias, corrigido pela estação. Ajuste com − e +.</div>';
+    h += lcPedHtml();
+    if (!L.todos.length && !L.nao.length) return h + '<div class="note n-ok">Nada para comprar agora.</div></section>';
+    var sec = function (t, l, cor) {
+      if (!l.length) return '';
+      return '<div class="lcSec" style="color:' + cor + '">' + t + ' · ' + l.length + '</div><div class="split">' + l.map(lcLinha).join('') + '</div>';
+    };
+    h += sec('Acabando', L.acab, 'var(--warn)');
+    h += sec('Época chegando', L.epoca, 'var(--accent-fg)');
+    if (L.nao.length)
+      h += '<div class="lcSec" style="color:var(--sub)">Não recompre · ' + L.nao.length + '</div><div class="split">' + L.nao.map(function (x) {
+        return '<div class="sl"><span>' + dxNome(x.m) + '<small>' + esc(x.mot) + '</small></span></div>';
+      }).join('') + '</div>';
+    if (L.todos.length) {
+      var pct = rp.tot > 0 ? Math.min(100, Math.round((L.total / rp.tot) * 100)) : 0,
+        sobra = rp.tot - L.total;
+      h +=
+        '<div class="lcTot"><div style="display:flex;justify-content:space-between;align-items:baseline"><span>Total <b>' + usd0(L.total) + '</b></span><span class="hint" style="margin:0">reposição ' + usd0(rp.tot) + '</span></div>' +
+        '<div class="lcBar"><i style="width:' + pct + '%;background:' + (sobra < 0 ? 'var(--warn)' : 'var(--ok)') + '"></i></div>' +
+        '<div class="hint" style="margin:0">' + (rp.tot <= 0 ? 'Sem dinheiro de reposição guardado ainda.' : sobra >= 0 ? 'Cabe no dinheiro da reposição (sobram ' + usd0(sobra) + ').' : 'Passa ' + usd0(-sobra) + ' do dinheiro da reposição.') + '</div></div>' +
+        '<button type="button" class="go" data-act="lcPedir">Marcar como pedido</button><button type="button" class="mini" data-act="lcEnvia" style="width:100%">Mandar ao fornecedor</button>';
+    }
+    return h + '</section>';
+  }
+  // Pedido feito: confere sozinho pelo estoque que entrou.
+  function lcStockDe(p) {
+    return S.items.reduce(function (a, i) {
+      return a + (i.ref === p.ref && i.tipo === p.tipo && (!p.grau || i.grau === p.grau) && i.qty > 0 ? i.qty : 0);
+    }, 0);
+  }
+  function lcEntrou(p) {
+    var t = 0;
+    (S.elog || []).forEach(function (e) {
+      if (e.ref === p.ref && e.qty > 0 && e.ts >= S.lcPed.ts && (!p.grau || !e.grau || e.grau === p.grau)) t += e.qty;
+    });
+    return Math.max(t, lcStockDe(p) - p.s0);
+  }
+  function lcPedHtml() {
+    var P = S.lcPed;
+    if (!P || !P.itens.length) return '';
+    var ok = 0,
+      ls = P.itens.map(function (p) {
+        var ch = Math.min(p.q, Math.max(0, lcEntrou(p)));
+        if (ch >= p.q) ok++;
+        return '<div class="sl"><span>' + esc(pn(p.ref)) + (p.grau ? ' <b class="lcG">' + esc(p.grau) + '</b>' : '') + '</span><b style="color:' + (ch >= p.q ? 'var(--ok)' : 'var(--sub)') + '">' + (ch >= p.q ? '✓ chegou' : ch + ' de ' + p.q) + '</b></div>';
+      });
+    return (
+      '<details class="lcPed"' + (ok < P.itens.length ? ' open' : '') + '><summary><b>Pedido de ' + new Date(P.ts).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) + '</b> · ' + ok + ' de ' + P.itens.length + ' chegaram</summary><div class="split">' + ls.join('') + '</div>' +
+      '<button type="button" class="mini" data-act="lcPedFim" style="margin-top:8px">' + (ok >= P.itens.length ? 'Concluir pedido' : 'Apagar pedido') + '</button></details>'
+    );
+  }
+  function lcMuda(k, d) {
+    var L = lcLista(),
+      x = L.todos.filter(function (y) {
+        return y.k === k;
+      })[0];
+    if (!x) return;
+    S.lcQtd[k] = Math.max(0, x.q + d);
+    saveSoon();
+    render();
+  }
+  ACT.lcMais = function (k) {
+    lcMuda(k, 1);
+  };
+  ACT.lcMenos = function (k) {
+    lcMuda(k, -1);
+  };
+  ACT.lcPedir = function () {
+    var L = lcLista(),
+      its = L.todos.filter(function (x) {
+        return x.q > 0;
+      }).map(function (x) {
+        var p = { k: x.k, ref: x.m.ref, tipo: x.m.tipo, grau: x.grau, q: x.q };
+        p.s0 = lcStockDe(p);
+        return p;
+      });
+    if (!its.length) return;
+    S.lcPed = { ts: Date.now(), itens: its };
+    S.lcQtd = {};
+    saveSoon();
+    lfToast('Pedido guardado · confiro quando a mercadoria entrar');
+    render();
+  };
+  ACT.lcPedFim = function () {
+    S.lcPed = null;
+    saveSoon();
+    render();
+  };
+  function lcTexto() {
+    var L = lcLista(),
+      porRef = {},
+      ord = [];
+    L.todos.forEach(function (x) {
+      if (!(x.q > 0)) return;
+      var r = x.m.ref;
+      if (!porRef[r]) {
+        porRef[r] = [];
+        ord.push(r);
+      }
+      porRef[r].push(x);
+    });
+    return (
+      'Pedido La Fouch · ' + new Date().toLocaleDateString('pt-BR') + '\n\n' +
+      ord.map(function (r) {
+        var l = porRef[r];
+        return l[0].grau ? r + '\n' + l.map(function (x) { return '  grau ' + x.grau + ': ' + x.q; }).join('\n') : r + ': ' + l[0].q;
+      }).join('\n') +
+      '\n\nCores variadas.'
+    );
+  }
+  ACT.lcEnvia = function () {
+    var t = lcTexto(),
+      P = shPlug(),
+      u = SH_APPS.filter(function (a) {
+        return a.id === shUlt();
+      })[0];
+    if (P) return P.send({ pkg: (u && u.pkg) || '', text: t, files: [] }).catch(function () {});
+    if (navigator.share) return navigator.share({ text: t }).catch(function () {});
+    window.open('https://wa.me/?text=' + encodeURIComponent(t), '_blank');
+  };
   // ===== Cliente na venda + tela "Venda confirmada" com o comprovante de venda (sempre em G$, IVA 10% incluso). =====
   // O app NÃO emite nota fiscal: imprime o comprovante (sem valor fiscal) para qualquer cliente.
   // Paraguaio com RUC: o comprovante leva Nombre/RUC (dados que a máquina fiscal usa). Estrangeiro: nome e CI/CPF, nunca RUC.
@@ -35730,6 +35945,224 @@
         if (temaVal() === 'auto') temaMeta('auto');
       });
   } catch (e) {}
+  // ===== Vitrine da semana (v428, aprovado 04/11/2026) =====
+  // A vitrine física da loja: o app sugere o que ENTRA, o que SAI e o que FICA. O dono informa quantos lugares
+  // tem (perguntado no próprio cartão), pode FIXAR peças (📌 nunca saem) e toca "Troquei a vitrine".
+  // Aprende comparando a venda de cada peça quando estava exposta e quando não estava. Aviso no sino na segunda.
+  S.vit = { lug: 0, fix: {}, atual: [], ts: 0, hist: [], avSeg: '' };
+  function vitPecas() {
+    var vis = {},
+      out = [];
+    S.items.forEach(function (i) {
+      if (vis[i.ref] || i.bulk || isSimple(i.tipo) || i.tipo === 'pre') return;
+      vis[i.ref] = 1;
+      var st = S.items.reduce(function (a, x) {
+        return a + (x.ref === i.ref && x.qty > 0 ? x.qty : 0);
+      }, 0);
+      if (st > 0) out.push({ ref: i.ref, tipo: i.tipo, stock: st });
+    });
+    return out;
+  }
+  // Vendas por dia exposta × não exposta (pelo histórico das trocas de vitrine).
+  function vitAprende(ref) {
+    var H = (S.vit.hist || []).slice().sort(function (a, b) {
+      return a.ts - b.ts;
+    });
+    if (!H.length) return null;
+    var exp = { d: 0, v: 0 },
+      nao = { d: 0, v: 0 },
+      ini = H[0].ts,
+      now = Date.now();
+    for (var k = 0; k < H.length; k++) {
+      var a = H[k].ts,
+        b = k + 1 < H.length ? H[k + 1].ts : now,
+        on = H[k].refs.indexOf(ref) >= 0,
+        alvo = on ? exp : nao;
+      alvo.d += (b - a) / DAY;
+      S.sales.forEach(function (s) {
+        if (!s.estorno && s.ref === ref && s.ts >= a && s.ts < b) alvo.v += s.qty;
+      });
+    }
+    S.sales.forEach(function (s) {
+      if (!s.estorno && s.ref === ref && s.ts < ini && now - s.ts <= 90 * DAY) nao.v += s.qty;
+    });
+    nao.d += Math.max(0, Math.min(90, (ini - (now - 90 * DAY)) / DAY));
+    if (exp.d < 7 || nao.d < 7) return null;
+    return { exp: exp.v / exp.d, nao: nao.v / nao.d };
+  }
+  function vitNota(p) {
+    var now = Date.now(),
+      dPar = paParado(p.ref),
+      ent = (now - paPrimEntrada(p.ref)) / DAY,
+      of = S.pprice && S.pprice[p.ref] && S.pprice[p.ref].ant > S.pprice[p.ref].novo,
+      fE = sazonFator(p.tipo, new Date(now + 10 * DAY).getMonth()),
+      n = 0,
+      mot = [];
+    if (ent <= 30) {
+      n += 3;
+      mot.push('novidade');
+    }
+    if (of) {
+      n += 2;
+      mot.push('oferta');
+    }
+    if (dPar >= 45) {
+      n += Math.min(3, dPar / 30);
+      mot.push(Math.round(dPar) + ' dias parada');
+    }
+    if (fE >= 1.15) {
+      n += 1.5;
+      mot.push('época');
+    }
+    if (p.stock >= 3) n += 0.5;
+    var ap = vitAprende(p.ref);
+    if (ap && ap.exp > ap.nao * 1.2) {
+      n += 1.5;
+      mot.push('vende mais exposta');
+    } else if (ap && ap.exp < ap.nao * 0.8) n -= 1;
+    return { n: n, mot: mot };
+  }
+  function vitSugestao() {
+    var L = S.vit.lug || 0,
+      ps = vitPecas(),
+      ex = {},
+      fix = Object.keys(S.vit.fix || {}).filter(function (r) {
+        return ps.some(function (p) {
+          return p.ref === r;
+        });
+      });
+    ps.forEach(function (p) {
+      ex[p.ref] = p;
+      p.nt = vitNota(p);
+    });
+    var resto = ps
+      .filter(function (p) {
+        return fix.indexOf(p.ref) < 0;
+      })
+      .sort(function (a, b) {
+        return b.nt.n - a.nt.n;
+      });
+    var sug = fix.slice(0, L);
+    resto.forEach(function (p) {
+      if (sug.length < L) sug.push(p.ref);
+    });
+    var atual = (S.vit.atual || []).filter(function (r) {
+      return ex[r];
+    });
+    return {
+      sug: sug,
+      ex: ex,
+      entram: sug.filter(function (r) {
+        return atual.indexOf(r) < 0;
+      }),
+      saem: atual.filter(function (r) {
+        return sug.indexOf(r) < 0;
+      }),
+      ficam: sug.filter(function (r) {
+        return atual.indexOf(r) >= 0;
+      }),
+      semEst: (S.vit.atual || []).filter(function (r) {
+        return !ex[r];
+      })
+    };
+  }
+  function vitChip(r, V, extra) {
+    var p = V.ex[r],
+      f = S.vit.fix && S.vit.fix[r];
+    return (
+      '<div class="sl vtL"><span class="vtI">' + (photoOf(r) ? '<img src="' + esc(photoOf(r)) + '" alt="">' : '') + '</span><span style="flex:1;min-width:0">' + esc(pn(r)) + '<small>' + esc(extra || (p && p.nt.mot.join(' · ')) || '') + '</small></span>' +
+      '<button type="button" class="mini vtFx' + (f ? ' on' : '') + '" data-act="vitFixa" data-id="' + esc(r) + '" aria-label="' + (f ? 'Desafixar' : 'Fixar') + '">📌</button></div>'
+    );
+  }
+  function vitHtml() {
+    var h = '<section class="card col vtCard" id="vtCard"><div>';
+    if (!(S.vit.lug > 0))
+      return (
+        h +
+        '<div class="hint" style="margin:0">Para sugerir o que entra e o que sai, preciso saber o tamanho da vitrine.</div></div>' +
+        '<label class="hint" style="margin:0" for="vtLug">Quantos lugares (peças) cabem na vitrine?</label><div style="display:flex;gap:8px"><input class="in" id="vtLug" type="number" inputmode="numeric" min="1" max="200" placeholder="ex.: 12" style="flex:1"><button type="button" class="go" data-act="vitLug">Salvar</button></div></section>'
+      );
+    var V = vitSugestao(),
+      quando = S.vit.ts ? 'trocada em ' + new Date(S.vit.ts).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) : 'ainda não registrada';
+    h += '<div class="hint" style="margin:0">' + S.vit.lug + ' lugares · ' + quando + ' · <button type="button" class="lnk" data-act="vitLugMuda">mudar lugares</button></div></div>';
+    if (!S.vit.atual.length) {
+      h += '<div class="lcSec" style="color:var(--accent-fg)">Sugestão · ' + V.sug.length + '</div><div class="split">' + V.sug.map(function (r) { return vitChip(r, V); }).join('') + '</div>';
+    } else {
+      if (!V.entram.length && !V.saem.length) h += '<div class="note n-ok">A vitrine está boa. Nada para trocar.</div>';
+      if (V.entram.length) h += '<div class="lcSec" style="color:var(--ok)">Entram · ' + V.entram.length + '</div><div class="split">' + V.entram.map(function (r) { return vitChip(r, V); }).join('') + '</div>';
+      if (V.saem.length || V.semEst.length)
+        h += '<div class="lcSec" style="color:var(--warn)">Saem · ' + (V.saem.length + V.semEst.length) + '</div><div class="split">' + V.saem.map(function (r) { return vitChip(r, V, 'abre lugar para outra'); }).concat(V.semEst.map(function (r) { return '<div class="sl vtL"><span style="flex:1">' + esc(pn(r)) + '<small>sem estoque</small></span></div>'; })).join('') + '</div>';
+      if (V.ficam.length) h += '<details class="vtFi"><summary class="lcSec" style="color:var(--sub)">Ficam · ' + V.ficam.length + '</summary><div class="split">' + V.ficam.map(function (r) { return vitChip(r, V); }).join('') + '</div></details>';
+    }
+    var apr = V.sug
+      .map(function (r) {
+        var a = vitAprende(r);
+        return a && a.nao > 0 ? { r: r, x: a.exp / a.nao } : null;
+      })
+      .filter(Boolean)
+      .sort(function (a, b) {
+        return b.x - a.x;
+      })[0];
+    if (apr && apr.x >= 1.2) h += '<div class="hint" style="margin:0">Aprendi: ' + esc(pn(apr.r)) + ' vende ' + String(Math.round(apr.x * 10) / 10).replace('.', ',') + '× mais quando está na vitrine.</div>';
+    if (!S.vit.atual.length || V.entram.length || V.saem.length || V.semEst.length) h += '<button type="button" class="go" data-act="vitTroquei">Troquei a vitrine</button>';
+    return h + '</section>';
+  }
+  ACT.vitLug = function () {
+    var n = parseInt(($('vtLug') || {}).value, 10);
+    if (!(n > 0)) return lfToast('Digite quantos lugares');
+    S.vit.lug = Math.min(200, n);
+    saveSoon();
+    render();
+  };
+  ACT.vitLugMuda = function () {
+    S.vit.lug = 0;
+    render();
+  };
+  ACT.vitFixa = function (r) {
+    if (!S.vit.fix) S.vit.fix = {};
+    if (S.vit.fix[r]) delete S.vit.fix[r];
+    else S.vit.fix[r] = Date.now();
+    saveSoon();
+    render();
+  };
+  ACT.vitTroquei = function () {
+    var V = vitSugestao();
+    S.vit.atual = V.sug.slice();
+    S.vit.ts = Date.now();
+    (S.vit.hist = S.vit.hist || []).push({ ts: S.vit.ts, refs: V.sug.slice() });
+    if (S.vit.hist.length > 60) S.vit.hist = S.vit.hist.slice(-60);
+    saveSoon();
+    lfToast('Vitrine registrada');
+    render();
+  };
+  // Aviso na segunda-feira (uma vez), só se houver troca a fazer.
+  function vitAvisa() {
+    if (!(S.vit.lug > 0)) return;
+    var d = new Date(),
+      dia = d.toISOString().slice(0, 10);
+    if (d.getDay() !== 1 || S.vit.avSeg === dia) return;
+    var V = vitSugestao();
+    if (S.vit.atual.length && !V.entram.length && !V.saem.length) return;
+    S.vit.avSeg = dia;
+    (S.notifs = S.notifs || []).unshift({
+      ts: Date.now(),
+      lida: false,
+      t: 'Vitrine da semana',
+      s: S.vit.atual.length ? V.entram.length + ' entram · ' + V.saem.length + ' saem' : 'sugestão pronta para montar',
+      acts: [{ act: 'vitVer', id: '', b: 'Ver' }]
+    });
+    saveSoon();
+  }
+  ACT.vitVer = function () {
+    S.dTab = 'giro';
+    S.dfold = S.dfold || {};
+    S.dfold.vit = true;
+    setView('dash');
+  };
+  if (!/#test/.test(location.hash)) {
+    setTimeout(vitAvisa, 20000);
+    setInterval(vitAvisa, 60 * 60000);
+  }
   // ===== Animações dos botões: ondinha, realce deslizante, cascata, contagem, ✓, segurar para apagar, sino e arrastar. =====
   (function () {
     function q(s, r) {
@@ -38508,6 +38941,9 @@
       'cxAv',
       'siteOf',
       'siteFora',
+      'lcQtd',
+      'lcPed',
+      'vit',
       'siteAutoLote',
       'superEv',
       'encAv',

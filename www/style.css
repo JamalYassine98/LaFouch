@@ -1556,3 +1556,24 @@ a[data-act],a.lk{display:inline-block;padding:14px 8px;margin:-14px -8px;-webkit
 .ebEnv{width:100%}
 .ebOutro{display:block;margin:8px auto 0;border:0;background:none;color:inherit;opacity:.7;font-size:13px;text-decoration:underline}
 .ebEnt .shIc0 svg{width:20px;height:20px}
+
+/* v428 · Lista de compras + Vitrine da semana */
+.lcSec{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin:6px 0 -2px}
+.lcG{display:inline-block;font-size:11px;padding:1px 6px;border-radius:8px;background:var(--soft,rgba(138,47,102,.1));color:var(--accent-fg)}
+.lcL{align-items:center}
+.lcQ{display:flex;align-items:center;gap:6px;flex:none}
+.lcQ b{min-width:22px;text-align:center;font-variant-numeric:tabular-nums}
+.lcQ .mini{width:32px;height:32px;padding:0;display:flex;align-items:center;justify-content:center;font-size:18px}
+.lcTot{display:flex;flex-direction:column;gap:6px;padding:10px;border-radius:12px;background:var(--soft,rgba(128,128,128,.08))}
+.lcBar{height:6px;border-radius:3px;background:rgba(128,128,128,.2);overflow:hidden}
+.lcBar i{display:block;height:100%;border-radius:3px;transition:width .4s}
+.lcPed summary,.vtFi summary{cursor:pointer;list-style:none}
+.lcPed summary::-webkit-details-marker,.vtFi summary::-webkit-details-marker{display:none}
+.vtL{align-items:center;gap:10px}
+.vtI{width:44px;height:30px;border-radius:6px;background:#fff;flex:none;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.vtI img{max-width:100%;max-height:100%;object-fit:contain}
+.vtFx{opacity:.35;width:34px;height:32px;padding:0;flex:none}
+.vtFx.on{opacity:1}
+.vtL{flex-wrap:nowrap!important;justify-content:flex-start!important}
+.vtL>span{text-align:left}
+.vtL{grid-template-columns:44px minmax(0,1fr) auto!important}
