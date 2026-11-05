@@ -1018,3 +1018,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Aviso antes de "Marcar como pedido" (janela lcAvJn): "Ajustar para o ideal" / "Continuar mesmo assim". "Mandar ao fornecedor": fornecedor = o da compra mais recente (S.grp.forn); com 2+ fornecedores abre janela com um botão por fornecedor.
 - "Comprar de novo" (lcComprarNovo): formato/material com venda por modelo ≥1,8× a média, ≥5 vendidas em 90 dias e ≤3 modelos.
 - Entrada da compra (87-nota-compra cpEntrada): bloco "Do pedido da lista" (lcPedResumoHtml): pedido/chegou com ✓, faltou N, sobra N; peças não pedidas com Ideal → tem e oferta pelo custo.
+
+## v441 (5.3.9) — 05/11/2026 — Etapa 4: busca única + app mais rápido (IMPLEMENTADO)
+- 97-busca-unica.js: campo "Buscar peça, cliente, venda, pedido…" no Início NO LUGAR da faixa "N avisos urgentes" (89-inicio.js; avisos seguem no sino). Grupos: Peças (miniatura, código, estoque), Clientes, Vendas (peça ou valor), Pedidos do site (cliente/nº/token), Despesas. Toque abre a tela (peça = Inventário com a ficha aberta; atenção: com S.todos a chave é tipo|ref). Enquanto o campo tem foco o Início não é redesenhado.
+- Velocidade (CPU 4× mais lenta, dados de exemplo): Histórico 995→~260 ms (índice por dia em dayStats, 93-historico.js), Início 570→~150 ms, Ajustes 562→~300 ms. renderEstoque não roda fora do Inventário (se a tela está escondida e nada dele aberto). notifAgora calculada 1× por redesenho (RENDER_TICK).
+- Site mais leve fica na etapa 8.

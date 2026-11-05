@@ -143,6 +143,8 @@
   function renderInicio() {
     var el = $('v-inicio');
     if (!el || S.view !== 'inicio') return;
+    // v441: enquanto digita na busca única, o Início não é redesenhado (não perde o teclado)
+    if (document.activeElement && document.activeElement.id === 'buQ' && el.contains(document.activeElement)) return;
     var h = vendidoHoje(),
       D = iniDados(),
       B = grpPlana(),
@@ -174,10 +176,8 @@
         .join('');
       if (oc.length) extra = '<div class="sel" style="justify-content:center"><button type="button" class="tx" data-act="inicioReset">Restaurar padrão</button></div>';
     }
-    var urg = notifAgora().filter(urgente).length,
-      faixa = urg
-        ? '<section class="card" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px;border-left:4px solid var(--bad);margin-bottom:12px"><div><b style="font-size:15px">' + urg + (urg === 1 ? ' aviso urgente' : ' avisos urgentes') + '</b><div class="hint" style="margin:2px 0 0">toque para ver o que precisa de você</div></div><button type="button" class="mini" data-act="view" data-id="notif">Ver</button></section>'
-        : '';
+    // v441: no lugar da faixa "N avisos urgentes" (os avisos continuam no sino), a busca única
+    var faixa = buscaHtml();
     var semDet = S.grp.reduce(function (a, g) {
         return a + grpFalta(g);
       }, 0),

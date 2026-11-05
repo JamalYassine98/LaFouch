@@ -418,7 +418,7 @@
   ACT.lcOferta = function (id) {
     var p = String(id).split('|');
     S.tipo = p[0];
-    S.open = p.slice(1).join('|');
+    S.open = S.todos ? p[0] + '|' + p.slice(1).join('|') : p.slice(1).join('|');
     S.det = true;
     S.lotesView = false;
     setView('estoque');

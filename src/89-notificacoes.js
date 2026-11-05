@@ -17,7 +17,16 @@
   function urgente(i) {
     return i.c === 'var(--bad)' || i.id === 'novo' || i.id === 'fx' || i.urg === true;
   }
+  // v441: a lista é montada uma vez por redesenho (a barra, o Início e a tela de avisos usavam a mesma conta várias vezes)
+  var NA_C = null;
   function notifAgora() {
+    var tk = typeof RENDER_TICK === 'number' ? RENDER_TICK : 0;
+    if (NA_C && NA_C.tk === tk && Date.now() - NA_C.t < 300) return NA_C.l.slice();
+    var l = notifAgora0();
+    NA_C = { tk: tk, t: Date.now(), l: l };
+    return l.slice();
+  }
+  function notifAgora0() {
     var l = [],
       mg = fxMargemInfo('pyg'),
       mb = fxMargemInfo('brl'),

@@ -1,14 +1,27 @@
   // ===== Aba Histórico: dias, vendas e registros. =====
   // Totais de um dia.
+  // v441: índice por dia (antes cada dia varria todas as vendas: o Histórico levava ~1 s num celular simples)
+  var HIDX = {};
+  function porDia(nome, arr) {
+    arr = arr || [];
+    var c = HIDX[nome],
+      n = arr.length,
+      sig = n + '|' + (n ? arr[0].ts + '|' + arr[n - 1].ts : '');
+    if (c && c.arr === arr && c.sig === sig) return c.m;
+    var m = {};
+    arr.forEach(function (x) {
+      var k = dayKey(x.ts);
+      (m[k] = m[k] || []).push(x);
+    });
+    HIDX[nome] = { arr: arr, sig: sig, m: m };
+    return m;
+  }
   function dayStats(k) {
-    var inDay = function (x) {
-        return dayKey(x.ts) === k;
-      },
-      sales = S.sales.filter(inDay),
+    var sales = porDia('s', S.sales)[k] || [],
       ok = sales.filter(function (x) {
         return !x.estorno;
       }),
-      dl = S.dlog.filter(inDay),
+      dl = porDia('d', S.dlog)[k] || [],
       fx = fxOfDay(k);
     var extra = dl
       .filter(function (x) {
@@ -24,7 +37,7 @@
       liv: sumBy(ok, 'livre'),
       extra: extra,
       nd: dl.length,
-      outros: S.cambios.filter(inDay).length + S.elog.filter(inDay).length,
+      outros: (porDia('c', S.cambios)[k] || []).length + (porDia('e', S.elog)[k] || []).length,
       fx: fx
     };
   }
@@ -153,7 +166,7 @@
       ok = sales.filter(function (s) {
         return !s.estorno;
       }),
-      dl = S.dlog.filter(inDay),
+      dl = porDia('d', S.dlog)[k] || [],
       tr = S.cambios.filter(inDay),
       el = S.elog.filter(inDay),
       fx = fxOfDay(k);

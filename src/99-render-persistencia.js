@@ -1,6 +1,8 @@
   // ===== Render geral e persistência (localStorage + IndexedDB). =====
   // Redesenha o app e agenda o salvamento.
+  var RENDER_TICK = 0;
   function render() {
+    RENDER_TICK++;
     try {
       ppSync();
     } catch (e) {}

@@ -3017,6 +3017,26 @@ async def main():
             if not ok: falhas.append('marketing'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Busca única (v441): no lugar da faixa de avisos urgentes; acha peça, cliente e venda; abre a tela certa
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              S.clientes = [{id: 7, nome: 'Maria Busca', tel: '0981 555', ruc: '', obs: '', ts: 1}];
+              L.setView('inicio'); L.render(); await w(200);
+              const faixa = /avisos? urgentes?/.test(document.getElementById('v-inicio').innerText), campo = !!document.getElementById('buQ');
+              const q = document.getElementById('buQ'); q.focus(); const ref = S.items.find(i => !i.bulk).ref;
+              q.value = 'maria b'; q.dispatchEvent(new Event('input', {bubbles: true})); await w(100);
+              const cli = /Maria Busca/.test(document.getElementById('buRes').innerText);
+              L.render(); await w(50); const manteve = document.activeElement && document.activeElement.id === 'buQ';
+              q.value = ref; q.dispatchEvent(new Event('input', {bubbles: true})); await w(100);
+              const pec = !!document.querySelector('#buRes .buR[data-id^="pec:"]'), ven = !!document.querySelector('#buRes .buR[data-id^="ven:"]');
+              document.querySelector('#buRes .buR[data-id^="pec:"]').click(); await w(300);
+              return [faixa, campo, cli, manteve, pec, ven, S.view === 'estoque' && (S.open === ref || S.open.endsWith('|' + ref)) && S.det === true]; }""")
+            total += 1
+            ok = got == [False, True, True, True, True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Busca única: no lugar dos avisos urgentes, acha cliente/peça/venda, não perde o teclado e abre a peça')
+            if not ok: falhas.append('busca unica'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Lista de compras sem excesso (v440): Sobrando (ideal × tem × sobra, dinheiro parado), avise-me no topo, aviso antes de pedir, miniaturas, bloco do pedido na Entrada
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

@@ -1,6 +1,9 @@
   // ===== Estoque: lista, filtros e cartões das peças. =====
   // Aba Estoque.
   function renderEstoque() {
+    // v441: fora do Inventário (e sem nada dele aberto por cima) não redesenha a lista inteira — era a maior conta de cada toque
+    var ve = $('v-estoque');
+    if (S.view !== 'estoque' && !S._rtudo && !S.addOpen && ve && ve.childElementCount && !(ve.offsetParent || ve.getClientRects().length)) return;
     S.fmtF = 'all';
     var t = T(),
       isPre = S.tipo === 'pre',
