@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 425;
+  var APP_BUILD = 426;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '4.8.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '4.9.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -1013,7 +1013,7 @@
   // linha que sumiu = movimento "rem"; linha editada = rem da antiga + add da nova.
   var SYNC_LISTAS = { sales: 'id', exp: 0, cambios: 0, compras: 0, descartes: 0, retiradas: 0, melhUso: 0, cpay: 0, imprev: 0, dlog: 0, elog: 0, fechos: 'id', brindes: 0 };
   // Configurações (valor inteiro; vale a última alteração). Nada que seja de um aparelho só (PIN, biometria, tema, bloqueio, avisos).
-  var SYNC_CFG = ['faixas', 'pfaixa', 'linhaFix', 'pTrava', 'pAuto', 'pprice', 'metaUsd', 'metaDia', 'diasLoja', 'colchUsd', 'tolUsd', 'volume', 'formas', 'notaCidade', 'cat2', 'tiposX', 'tiposDel', 'tiposOrd', 'pnome', 'desc', 'attr', 'faixaAuto', 'ini', 'site', 'fxc', 'lm', 'objetivos', 'metaHist', 'trocaPlan'];
+  var SYNC_CFG = ['faixas', 'pfaixa', 'linhaFix', 'pTrava', 'pAuto', 'pprice', 'metaUsd', 'metaDia', 'diasLoja', 'colchUsd', 'tolUsd', 'volume', 'formas', 'notaCidade', 'cat2', 'tiposX', 'tiposDel', 'tiposOrd', 'pnome', 'desc', 'attr', 'faixaAuto', 'ini', 'site', 'fxc', 'lm', 'objetivos', 'metaHist', 'siteOf', 'superEv'];
   // Listas com cadastro que se edita (clientes): cada linha tem id; vale a última alteração de cada uma.
   // skip = campos pesados (fotos) que não viajam por aqui; ficam em cada aparelho.
   var SYNC_PUT = { clientes: { k: 'id', skip: [] }, pedidos: { k: 'id', skip: ['comp', 'qr'] }, espera: { k: 'id', skip: [] } };
@@ -3639,6 +3639,8 @@
       }
       card.appendChild(photoBox(photoOf(rr), 'pbox'));
       card.appendChild(mk('b', '', pn(rr)));
+      var encD = encDias(rr); // v426: parada 120+ dias
+      if (encD) card.appendChild(mk('span', 'encTag', 'Encalhada · ' + encD + ' dias'));
       var fxe = faixaOf(rr);
       if (fxe) {
         var fte = faixaTag(fxe);
@@ -23204,27 +23206,6 @@
     );
   }
   // Aba Câmbio.
-  // Cartão da cotação da loja (só informa; a margem é fixa).
-  function fxLojaHtml() {
-    var sfx = siteFxHtml();
-    var u = Math.round(fxLoja('usd')),
-      b = Math.round(fxLoja('brl')),
-      f = S.fx,
-      mg = fxMargemInfo('pyg'),
-      mb = fxMargemInfo('brl');
-    function linhaMg(nome, x) {
-      return nome + ': ' + pc(x.m) + (x.m > FX_MARGEM + 1e-9 ? ' (' + pc(x.acima) + ' acima da menor cotação de ' + FX_JANELA + ' dias)' : ' (base)');
-    }
-    return (
-      sfx +
-      lmCardHtml() +
-      (lmOk() ? '' : '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cotação da loja</h2><div class="hint" style="margin:2px 0 0">Seus preços são em dólar, e a cotação da loja vale uma margem a mais que o mercado. A margem é de ' + pc(FX_MARGEM) + ' e acompanha a moeda nas últimas ' + FX_JANELA + ' dias: se ela valoriza, a margem sobe (até ' + pc(FX_TETO) + '); se ela cai, a margem desce aos poucos até voltar a ' + pc(FX_MARGEM) + '. O dólar e o real por dólar têm cada um a sua margem. O app usa esta cotação ao receber dólar ou real, a menos que você digite outro câmbio na tela de pagamento. Custos e contas continuam pela cotação do mercado.</div></div>' +
-      '<div class="note ' + (Math.max(mg.m, mb.m) > FX_MARGEM + 1e-9 ? 'n-warn' : 'n-ok') + '" role="status">' + linhaMg('Margem do dólar', mg) + '<br>' + linhaMg('Margem do real por dólar', mb) + '</div>' +
-      '<div class="kpis"><div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 vale</div><b>' + gsRaw(u) + '</b><div class="hint">mercado ' + gsRaw(f.pyg) + '</div></div>' +
-      '<div class="kpi" style="background:var(--panel2)"><div class="lbl">R$ 1 vale</div><b>' + gsRaw(b) + '</b><div class="hint">mercado ' + gsRaw(Math.round(f.pyg / f.brl)) + '</div></div>' +
-      '<div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 vale</div><b>R$ ' + fxBrlPorUsd().toFixed(2).replace('.', ',') + '</b><div class="hint">mercado R$ ' + f.brl.toFixed(2).replace('.', ',') + '</div></div></div></section>')
-    );
-  }
   // Dois gráficos (dólar em guaranis e real por dólar) com o mesmo período, escolhido nos botões.
   var FX_PERS = [
     [14, '2 semanas'],
@@ -23294,7 +23275,7 @@
     var c = a / u,
       mercado = de === 'pyg' ? S.fx.pyg : S.fx.brl,
       dif = c / mercado - 1;
-    return 'Cotação que te cobraram: ' + (de === 'pyg' ? gsRaw(Math.round(c)) : 'R$ ' + nf(c, 'brl')) + ' por US$ 1 · mercado ' + (de === 'pyg' ? gsRaw(Math.round(mercado)) : 'R$ ' + nf(mercado, 'brl')) + ' (' + (de === 'pyg' ? (dif >= 0 ? '+' : '−') : dif <= 0 ? '−' : '+') + pc(Math.abs(dif)) + ')';
+    return 'Cotação que te cobraram: ' + (de === 'pyg' ? gsRaw(Math.round(c)) : 'R$ ' + nf(c, 'brl')) + ' por US$ 1 · casa ' + (de === 'pyg' ? gsRaw(Math.round(mercado)) : 'R$ ' + nf(mercado, 'brl')) + ' (' + (de === 'pyg' ? (dif >= 0 ? '+' : '−') : dif <= 0 ? '−' : '+') + pc(Math.abs(dif)) + ')';
   }
   function trocarAgoraHtml() {
     var p = trocarPlano(),
@@ -23391,86 +23372,15 @@
       '<div class="note n-warn">Evite retiradas até completar a reposição.</div></section>'
     );
   }
+  // v426: aba Câmbio simples (esboço aprovado 04/11, versão A) — montada em 97-cambio-aba.js
   function renderFx() {
     if (S.view !== 'fx' && !S._rtudo) return;
-    var el = $('v-fx'),
-      f = S.fx,
-      c = colchao(),
-      h = S.fxHist,
-      vals = h.map(function (p) {
-        return p.pyg;
-      }),
-      first = vals[0],
-      last = vals[vals.length - 1];
-    var html =
-      '<div class="top"><div><h1>Câmbio</h1><div class="crumb">Cotação do dólar e do real em guaranis</div></div><div class="tabs"><button class="mini" data-act="fxnow">Atualizar agora</button></div></div>';
-    html +=
-      '<section class="kpis"><div class="kpi"><div class="lbl">US$ 1 custa</div><b>' +
-      gsRaw(f.pyg) +
-      '</b><div class="hint">' +
-      f.src +
-      '</div></div>' +
-      '<div class="kpi"><div class="lbl">R$ 1 custa</div><b>' +
-      gsRaw(Math.round(f.pyg / f.brl)) +
-      '</b><div class="hint">calculado do dólar</div></div>' +
-      '<div class="kpi"><div class="lbl">US$ 1 custa</div><b>' +
-      'R$ ' + f.brl.toFixed(2).replace('.', ',') +
-      '</b><div class="hint">cotação do real</div></div>' +
-      '<div class="kpi"><div class="lbl">Próxima busca em</div><b id="cd">--:--</b><div class="hint">automática a cada 3 minutos</div></div></section>';
-    html +=
-      '<div class="note ' +
-      (f.live ? 'n-ok' : 'n-warn') +
-      '" role="status">' +
-      esc(f.status) +
-      (f.ts ? ' Última atualização às ' + fh(f.ts) + '.' : '') +
-      '</div>';
-    html += faltamHtml() + trocarMoedasHtml();
-    html += fxLojaHtml();
-    html += cxIntelHtml(); // v425: previsão do dólar + plano de troca
-    html += fxGraficos();
-    html +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Como o colchão de segurança é calculado</h2><div class="hint" style="margin:2px 0 0">Não é um percentual fixo. O app olha a pior alta recente do dólar e do custo da mercadoria.</div></div>' +
-      '<div class="split"><div class="sl"><span>Maior alta do dólar em ' +
-      c.janela +
-      ' dias<small>menor cotação seguida de uma mais alta</small></span><b>' +
-      pc(c.fx) +
-      '</b></div>' +
-      '<div class="sl"><span>Maior alta do custo entre lotes<small>custo em dólar de um lote para o seguinte</small></span><b>' +
-      pc(c.cost) +
-      '</b></div>' +
-      '<div class="sl"><span>As duas altas juntas<small>(1 + dólar) × (1 + custo) − 1</small></span><b>' +
-      pc(c.raw) +
-      '</b></div>' +
-      '<div class="sl"><span><b>Colchão aplicado</b><small>limitado entre 5% e 25%</small></span><b style="color:var(--warn)">' +
-      pc(c.pct) +
-      '</b></div></div>' +
-      '<div class="note n-info">Em cada venda, o colchão é ' +
-      pc(c.pct) +
-      ' do custo de reposição daquela peça. Se o dólar ou o custo subirem mais, o percentual sobe sozinho.</div></section>';
-    html +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Custo por lote</h2><div style="overflow-x:auto"><table class="tb"><thead><tr><th>Lote</th><th>Data</th><th>Grupo</th><th>Custo por peça</th><th>Variação</th></tr></thead><tbody>' +
-      lotesHist()
-        .map(function (l, i, A) {
-          var p = i ? A[i - 1].usd : 0;
-          return (
-            '<tr><td>' +
-            l.id +
-            '</td><td>' +
-            fd(l.ts) +
-            '</td><td>' +
-            l.txt +
-            '</td><td>' +
-            usd(l.usd) +
-            '</td><td>' +
-            (p ? (l.usd >= p ? '+' : '−') + pc(Math.abs(l.usd / p - 1)) : 'primeiro') +
-            '</td></tr>'
-          );
-        })
-        .join('') +
-      '</tbody></table></div></section>';
-    el.innerHTML = html;
-    updateTr();
-    tickFx();
+    var el = $('v-fx');
+    el.innerHTML = fxAbaHtml();
+    if (S.fxJan === 'troca') updateTr();
+    var tp = el.querySelector('.fjPer');
+    if (tp) trkPoe(tp, String(S.fxPer));
+    fjGestos();
   }
   // Atualiza o contador do câmbio.
   function tickFx() {
@@ -23555,7 +23465,22 @@
     });
   }
   window.__fxHistReal = fxHistReal;
+  // v426: a cotação da La Moneda (Jebai) vale em tudo; a média de mercado (open.er-api) só entra enquanto
+  // nenhum aparelho conseguiu ler a casa (app novo, ainda sem nenhuma cotação dela).
+  function fxDaCasa() {
+    if (!lmOk()) return false;
+    var c = S.lm;
+    if (S.fx && S.fx.pyg === c.usd.v && S.fx.brl === c.arb.v && S.fx.src === 'La Moneda · Jebai') return true;
+    setFx(c.usd.v, c.arb.v, 'La Moneda · Jebai', true, 'Cotação da La Moneda (Sucursal Jebai).');
+    S.fxHist[S.fxHist.length - 1].c = 1; // ponto da casa (o histórico de mercado não substitui)
+    S.fxNext = Date.now() + 60000;
+    return true;
+  }
   function fetchFx() {
+    if (fxDaCasa()) {
+      S.fxNext = Date.now() + 60000;
+      return;
+    }
     if (fxAdota() && Date.now() - S.fx.ts < 150000) return;
     S.fxNext = Date.now() + 180000;
     var fail = function () {
@@ -27949,8 +27874,8 @@
       ref: ref,
       nome: v.nome,
       tipo: solar ? 'solar' : v.tipo === 'pre' ? 'grau' : 'armacao',
-      n: sitePreco(v.preco || 0),
-      de: pp && pp.ant > v.preco ? sitePreco(pp.ant) : 0,
+      n: sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).n,
+      de: sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).de,
       est: v.est,
       aviso: siteAviso(ref),
       tag: solar ? 'SOLAR' : v.tipo === 'pre' ? 'GRAU' : 'ARMAÇÃO',
@@ -28232,12 +28157,12 @@
     render();
   };
   // ===== Preço estável no site: a cotação usada nos preços do site fica travada (no mínimo 30 dias) =====
-  S.siteFx = null; // { usd, rpu, brl, ts }: dólar da loja, real por dólar e dia em que foram travados
-  var SITE_DIAS = 30,
-    SITE_VAR = 0.02,
-    SITE_ALTA = 0.03,
-    SITE_ARRED = 1000; // v425: o site arredonda igual à loja (de 1.000 em 1.000, para cima)
-  // Trava de novo só quando vale a pena: a cada 30 dias se o dólar andou 2% ou mais; antes disso, só se o dólar subir mais de 3% (protege a margem).
+  // v426 (aprovado 04/11): cotação do SITE = cotação da loja + 2% de folga, arredondada para cima de 100 em 100.
+  // Fica travada enquanto a loja estiver abaixo dela (sem prazo). Se a loja passar (a folga acabou), trava de novo na hora.
+  // Se o dólar cair muito, o site não baixa: o app faz ofertas no site (97-ofertas-site.js).
+  S.siteFx = null; // { usd (site), base (loja na trava), rpu, brl, ts }
+  var SITE_FOLGA = 0.02,
+    SITE_ARRED = 1000; // preços do site arredondam de 1.000 em 1.000, para cima
   function siteFxConfere(forca) {
     var v;
     try {
@@ -28247,17 +28172,17 @@
     }
     if (!(v.usd > 0) || !(v.rpu > 0)) return false;
     var L = S.siteFx,
-      agora = Date.now(),
-      muda = !L || !(L.usd > 0) || !!forca;
-    if (!muda) {
-      var idade = (agora - L.ts) / 864e5,
-        dif = v.usd / L.usd - 1;
-      muda = idade >= SITE_DIAS ? Math.abs(dif) >= SITE_VAR : dif > SITE_ALTA;
-    }
+      subiu = !!(L && L.usd > 0 && v.usd > L.usd),
+      muda = !L || !(L.usd > 0) || !!forca || subiu;
     if (muda) {
-      S.siteFx = { usd: v.usd, rpu: v.rpu, brl: Math.round(v.usd / v.rpu / 100) * 100, ts: agora };
+      var su = Math.ceil((v.usd * (1 + SITE_FOLGA)) / 100 - 1e-9) * 100;
+      S.siteFx = { usd: su, base: v.usd, rpu: v.rpu, brl: Math.round(su / v.rpu / 100) * 100, ts: Date.now() };
+      if (subiu && !forca) (S.notifs = S.notifs || []).unshift({ ts: Date.now(), lida: false, t: 'Preços do site atualizados', s: 'O dólar passou a folga do site: nova cotação do site ' + gsRaw(su) + '.' });
       saveSoon();
     }
+    try {
+      siteOfRevisa();
+    } catch (e) {}
     return muda;
   }
   // Preço em guaranis da loja (cotação do dia) → preço do site (cotação travada), arredondado de 5.000 em 5.000.
@@ -28272,26 +28197,27 @@
     if (!(vivo > 0)) return gs;
     return Math.max(SITE_ARRED, Math.ceil(((gs / vivo) * S.siteFx.usd) / SITE_ARRED - 1e-9) * SITE_ARRED);
   }
-  function siteFxDiasTxt() {
-    var L = S.siteFx;
-    if (!L) return '';
-    var d = new Date(L.ts),
-      prox = new Date(L.ts + SITE_DIAS * 864e5),
-      f = function (x) {
-        return ('0' + x.getDate()).slice(-2) + '/' + ('0' + (x.getMonth() + 1)).slice(-2);
-      };
-    return 'travada em ' + f(d) + ' · próxima revisão a partir de ' + f(prox);
-  }
+  // Conteúdo da janela "Preços no site" (aba Câmbio).
   function siteFxHtml() {
     siteFxConfere();
     var L = S.siteFx,
       vivo = fxUsdLoja(),
-      dif = L && L.usd > 0 ? vivo / L.usd - 1 : 0;
+      folga = L && L.usd > 0 ? L.usd / vivo - 1 : 0,
+      of = siteOfLista(),
+      q = siteQueda();
     return (
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cotação do site</h2><div class="hint" style="margin:2px 0 0">Para o site não mudar de preço toda hora, ele usa uma cotação travada por no mínimo ' + SITE_DIAS + ' dias. Ela só muda antes disso se o dólar subir mais de ' + pc(SITE_ALTA) + ', e depois de ' + SITE_DIAS + ' dias se tiver variado ' + pc(SITE_VAR) + ' ou mais. Os preços do site são arredondados de ' + SITE_ARRED.toLocaleString('pt-BR') + ' em ' + SITE_ARRED.toLocaleString('pt-BR') + ' guaranis. O balcão continua com a cotação do dia.</div></div>' +
-      '<div class="kpis"><div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 no site</div><b>' + gsRaw(L ? L.usd : vivo) + '</b><div class="hint">' + (L ? esc(siteFxDiasTxt()) : '') + '</div></div>' +
-      '<div class="kpi" style="background:var(--panel2)"><div class="lbl">Cotação de hoje</div><b>' + gsRaw(vivo) + '</b><div class="hint">' + (dif >= 0 ? '+' : '−') + pc(Math.abs(dif)) + ' em relação ao site</div></div></div>' +
-      '<div><button type="button" class="mini ghost" data-act="sitefxagora">Atualizar preços do site agora</button></div></section>'
+      '<div class="fjB"><span class="lbl">US$ 1 no site</span><b class="fjBig">' + gsRaw(L ? L.usd : vivo) + '</b><div class="hint" style="margin:0">' + (L ? 'travada em ' + fd(L.ts) + ' · ' : '') + 'loja hoje ' + gsRaw(vivo) + (folga > 0 ? ' · folga de ' + pc(folga) : '') + '</div></div>' +
+      '<div class="fjB"><div class="hint" style="margin:0">Só muda quando a cotação da loja passar a do site. Se o dólar cair muito (5% por 3 dias), o app faz ofertas em poucas peças, começando pelas mais paradas, no máximo 50% de desconto.</div></div>' +
+      '<div class="fjB"><span class="lbl">Ofertas do site</span>' +
+      (S.superEv && S.superEv.ate > Date.now()
+        ? '<div>Super evento: <b>−' + Math.round(S.superEv.pct * 100) + '%</b> em tudo até ' + fd(S.superEv.ate) + '</div>'
+        : of.length
+          ? '<div class="hint" style="margin:0 0 6px">Dólar ' + (q > 0 ? pc(q) + ' abaixo da trava' : '') + ' · ' + of.length + ' peça(s) nesta semana</div>' + of.map(function (o) {
+              return '<div class="sl"><span>' + esc(pn(o.ref)) + '<small>' + esc(o.mot) + '</small></span><b>−' + Math.round(o.pct * 100) + '%</b></div>';
+            }).join('')
+          : '<div class="hint" style="margin:0">Nenhuma oferta do dólar agora' + (q > 0.001 ? ' (dólar ' + pc(q) + ' abaixo da trava)' : '') + '.</div>') +
+      '</div>' +
+      '<div><button type="button" class="mini ghost" data-act="sitefxagora">Atualizar preços do site agora</button></div>'
     );
   }
   ACT.sitefxagora = function () {
@@ -29055,40 +28981,80 @@
       return a + (noMes(c.ts, lim) ? c.valor || 0 : 0);
     }, 0);
   }
-  // ===== Câmbio inteligente (v425, aprovado 04/11/2026) =====
-  // Previsão do dólar para 7 dias (cai / estável / sobe) com motivos e certeza, a partir do histórico
-  // da La Moneda Jebai (S.lm.hist, quando o celular já buscou) ou da cotação de mercado (S.fxHist).
-  // Compra em dólar marcada (US$ + data) → plano de troca aos poucos, acelera se o dólar dispara.
-  // Ninguém acerta sempre: trocar aos poucos protege dos dois lados.
-  S.trocaPlan = []; // [{id, usd, data, ts, trocas:[{ts, usd, rate}]}]
-  var CXI = { usd: '', data: '' };
-  // Série diária (último valor de cada dia) do dólar em guaranis.
-  function cxSerie() {
+  // ===== Aba Câmbio simples (v426, esboço aprovado 04/11/2026 — versão A) =====
+  // Topo: Dólar G$ · Real G$ · Dólar em reais R$ (La Moneda Jebai), cada um com a variação de 7 dias; tocar abre a janela com o gráfico.
+  // Cartão Reposição: selo (Bom momento / Normal / Pode esperar / Troque hoje), "Faltam US$ X", barra, "US$ a de US$ b"
+  // e a linha discreta "Registrar troca ›". Tocar no cartão abre a janela "Por que…" (gráfico + motivos).
+  // Linhas: Últimas trocas · Preços no site · Como o app te protege — cada uma abre a sua janela.
+  // A previsão do dólar só alimenta o selo (não tem cartão próprio); o plano de troca saiu.
+  S.fxJan = ''; // janela aberta: repo, usd, brl, arb, trocas, site, prot, troca
+  S.fxPer = 90;
+  S.fxAvisos = {};
+  var FX_NOME = { usd: 'Dólar', brl: 'Real', arb: 'Dólar em reais' };
+  // Série diária (último valor de cada dia). Casa (La Moneda) desde que existe; antes disso, o histórico de mercado
+  // ajustado ao nível da casa, só para o desenho do gráfico não começar vazio.
+  function fxSerie(k) {
     var dia = {},
-      put = function (ts, v) {
+      chave = function (ts) {
+        var d = new Date(ts);
+        return d.getFullYear() * 10000 + d.getMonth() * 100 + d.getDate();
+      },
+      put = function (ts, v, casa) {
         if (!(v > 0)) return;
-        var d = new Date(ts),
-          k = d.getFullYear() * 10000 + d.getMonth() * 100 + d.getDate();
-        if (!dia[k] || dia[k].ts <= ts) dia[k] = { ts: ts, v: v };
-      };
-    var lmH = (S.lm && S.lm.hist) || [];
-    if (lmH.length >= 5) lmH.forEach(function (x) {
-      put(x[0], x[2]);
+        var c = chave(ts);
+        if (dia[c] && dia[c].casa && !casa) return;
+        if (!dia[c] || casa || dia[c].ts <= ts) dia[c] = { ts: ts, v: v, casa: !!casa };
+      },
+      lmH = (S.lm && S.lm.hist) || [],
+      ini = lmH.length ? lmH[0][0] : Infinity;
+    lmH.forEach(function (x) {
+      var v = k === 'usd' ? x[2] : k === 'brl' ? x[3] : x[5] || (x[3] > 0 ? x[2] / x[3] : 0);
+      put(x[0], v, true);
     });
-    else (S.fxHist || []).forEach(function (p) {
-      put(p.ts, p.pyg);
+    if (lmOk()) put(S.lm.ts, k === 'usd' ? S.lm.usd.v : k === 'brl' ? S.lm.brl.c : S.lm.arb.v, true);
+    var mk = [];
+    (S.fxHist || []).forEach(function (p) {
+      if (p.c || p.ts >= ini) return;
+      var v = k === 'usd' ? p.pyg : k === 'brl' ? (p.brl > 0 ? p.pyg / p.brl : 0) : p.brl;
+      if (v > 0) mk.push({ ts: p.ts, v: v });
     });
+    if (mk.length && isFinite(ini)) {
+      var c0 = Object.keys(dia).sort()[0],
+        f = dia[c0] ? dia[c0].v / mk[mk.length - 1].v : 1;
+      mk.forEach(function (p) {
+        put(p.ts, p.v * f, false);
+      });
+    } else
+      mk.forEach(function (p) {
+        put(p.ts, p.v, false);
+      });
     return Object.keys(dia)
       .sort()
-      .map(function (k) {
-        return dia[k];
+      .map(function (c) {
+        return dia[c];
       })
       .filter(function (p) {
-        return Date.now() - p.ts <= 120 * DAY;
+        return Date.now() - p.ts <= 400 * DAY;
       });
   }
-  // Reta pelos pontos (x em dias): inclinação, r².
-  function cxReta(ps) {
+  function fxHoje(k) {
+    if (lmOk()) return k === 'usd' ? S.lm.usd.v : k === 'brl' ? S.lm.brl.c : S.lm.arb.v;
+    var f = S.fx || {};
+    return k === 'usd' ? f.pyg : k === 'brl' ? (f.brl > 0 ? f.pyg / f.brl : 0) : f.brl;
+  }
+  // Variação em 7 dias (fração).
+  function fxVar7(k) {
+    var s = fxSerie(k),
+      h = fxHoje(k),
+      lim = Date.now() - 7 * DAY,
+      ant = 0;
+    s.forEach(function (p) {
+      if (p.ts <= lim) ant = p.v;
+    });
+    if (!ant && s.length) ant = s[0].v;
+    return ant > 0 && h > 0 ? h / ant - 1 : 0;
+  }
+  function fxReta(ps) {
     var n = ps.length;
     if (n < 3) return { b: 0, r2: 0 };
     var x0 = ps[0].ts,
@@ -29098,258 +29064,341 @@
       sxy = 0,
       syy = 0;
     ps.forEach(function (p) {
-      var x = (p.ts - x0) / DAY,
-        y = p.v;
+      var x = (p.ts - x0) / DAY;
       sx += x;
-      sy += y;
+      sy += p.v;
       sxx += x * x;
-      sxy += x * y;
-      syy += y * y;
+      sxy += x * p.v;
+      syy += p.v * p.v;
     });
     var den = n * sxx - sx * sx,
-      b = den ? (n * sxy - sx * sy) / den : 0,
-      vy = n * syy - sy * sy,
-      r2 = den && vy > 0 ? Math.pow(n * sxy - sx * sy, 2) / (den * vy) : 0;
-    return { b: b, r2: r2 };
+      vy = n * syy - sy * sy;
+    return { b: den ? (n * sxy - sx * sy) / den : 0, r2: den && vy > 0 ? Math.pow(n * sxy - sx * sy, 2) / (den * vy) : 0 };
   }
-  function cxPrevisao() {
-    var s = cxSerie();
-    if (s.length < 7) return { ok: false, dias: s.length };
-    var ult = s[s.length - 1].v,
+  // Previsão de 7 dias do dólar (reta de 2 semanas 70% + posição × média 30% + real).
+  function fxPrevisao() {
+    var s = fxSerie('usd');
+    if (s.length < 7) return { ok: false, n: s.length };
+    var ult = fxHoje('usd') || s[s.length - 1].v,
       u14 = s.filter(function (p) {
         return Date.now() - p.ts <= 14 * DAY;
-      }),
-      reta = cxReta(u14.length >= 5 ? u14 : s.slice(-14)),
-      tend = (reta.b * 7) / ult, // % em 7 dias pela reta de 2 semanas
-      u3 = s.slice(-3),
-      med14 = u14.reduce(function (a, p) {
+      });
+    if (u14.length < 5) u14 = s.slice(-14);
+    var reta = fxReta(u14),
+      tend = (reta.b * 7) / ult,
+      med = u14.reduce(function (a, p) {
         return a + p.v;
-      }, 0) / Math.max(1, u14.length),
-      mom = med14 > 0 ? u3[u3.length - 1].v / med14 - 1 : 0, // onde está × média de 2 semanas
-      motivos = [],
-      score = tend * 0.7 + mom * 0.3;
-    // época do ano: mesmo período do ano passado (quando já existe histórico)
-    var ano = (S.fxHist || []).filter(function (p) {
-        var dd = (Date.now() - 365 * DAY - p.ts) / DAY;
-        return dd >= -7 && dd <= 0;
-      }),
-      saz = 0;
-    if (ano.length >= 2) {
-      saz = ano[ano.length - 1].pyg / ano[0].pyg - 1;
-      score += saz * 0.3;
-      if (Math.abs(saz) > 0.003) motivos.push((saz > 0 ? 'No ano passado subiu nesta época' : 'No ano passado caiu nesta época'));
-    }
-    // o real: real fraco (mais reais por dólar) = menos dólar entrando na fronteira
-    var bh = (S.fxHist || []).filter(function (p) {
-        return p.brl > 0 && Date.now() - p.ts <= 14 * DAY;
-      }),
-      rv = bh.length >= 2 ? bh[bh.length - 1].brl / bh[0].brl - 1 : 0;
-    if (Math.abs(rv) > 0.01) {
-      score += rv * 0.15;
-      motivos.unshift(rv > 0 ? 'Real enfraquecendo' : 'Real firme');
-    }
-    if (Math.abs(tend) > 0.002) motivos.unshift(tend > 0 ? 'Subindo há 2 semanas' : 'Caindo há 2 semanas');
-    else motivos.unshift('Parado há 2 semanas');
-    if (mom > 0.005) motivos.push('Acima da média de 2 semanas');
-    else if (mom < -0.005) motivos.push('Abaixo da média de 2 semanas');
+      }, 0) / u14.length,
+      mom = med > 0 ? ult / med - 1 : 0,
+      score = tend * 0.7 + mom * 0.3,
+      rv = 0;
     var dir = score > 0.004 ? 'sobe' : score < -0.004 ? 'cai' : 'estavel',
       cert = s.length >= 30 && reta.r2 >= 0.6 ? 'alta' : s.length >= 14 && reta.r2 >= 0.3 ? 'média' : 'baixa';
-    // disparando: subiu mais de 1% em 3 dias
-    var d3 = s.filter(function (p) {
+    return { ok: true, dir: dir, pct: score + rv, cert: cert, ult: ult };
+  }
+  // Reposição em dólar: total separado, quanto já há em dólar e quanto falta.
+  function fxRepo() {
+    var r = reservas(),
+      tot = Math.max(0, r.rUSD || 0),
+      tem = Math.max(0, Math.min(tot, (S.cash && S.cash.usd) || 0));
+    return { tot: tot, tem: tem, falta: Math.max(0, tot - tem) };
+  }
+  // O selo e os motivos.
+  function fxVeredito() {
+    var s = fxSerie('usd'),
+      hoje = fxHoje('usd'),
+      rp = fxRepo(),
+      pv = fxPrevisao(),
+      u90 = s.filter(function (p) {
+        return Date.now() - p.ts <= 90 * DAY;
+      }),
+      out = { k: 'normal', mot: [], hoje: hoje, rp: rp, pv: pv };
+    if (u90.length < 7 || !(hoje > 0)) {
+      out.mot.push({ ok: true, t: 'Aprendendo: precisa de 7 dias de cotação (' + u90.length + ' até agora).' });
+      return out;
+    }
+    var maisCaros = u90.filter(function (p) {
+        return p.v > hoje + 0.5;
+      }).length,
+      pctB = maisCaros / u90.length,
+      d3 = s.filter(function (p) {
         return Date.now() - p.ts <= 3 * DAY;
       }),
-      min3 = d3.length
-        ? Math.min.apply(
-            null,
-            d3.map(function (p) {
-              return p.v;
-            })
-          )
-        : ult,
-      disp = ult / min3 - 1 > 0.01,
-      min30 = Math.min.apply(
+      min3 = Math.min.apply(
         null,
-        s
-          .filter(function (p) {
-            return Date.now() - p.ts <= 30 * DAY;
-          })
-          .map(function (p) {
-            return p.v;
-          })
+        d3.map(function (p) {
+          return p.v;
+        }).concat([hoje])
       ),
-      barato = ult <= min30 * 1.002 && dir !== 'cai';
-    return { ok: true, dir: dir, pct: score, cert: cert, motivos: motivos.slice(0, 3), ult: ult, disp: disp, barato: barato, fonte: (S.lm && S.lm.hist && S.lm.hist.length >= 5) ? 'La Moneda Jebai' : 'mercado' };
-  }
-  // Cotação para trocar agora (venda da casa ou mercado).
-  function cxRate() {
-    return lmOk() ? S.lm.usd.v : ratePyg('usd');
-  }
-  // Plano de troca de uma compra: partes com data, já descontado o que foi trocado.
-  function cxPassos(c, pv) {
-    var tro = (c.trocas || []).reduce(function (a, t) {
-        return a + t.usd;
-      }, 0),
-      falta = Math.max(0, c.usd - tro),
-      hoje = new Date(),
-      d0 = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate()).getTime(),
-      dias = Math.max(0, Math.round((c.data - d0) / DAY)),
-      fr = pv && pv.ok && (pv.dir === 'sobe' || pv.disp) ? [0.5, 0.3, 0.2] : pv && pv.ok && pv.dir === 'cai' ? [0.25, 0.35, 0.4] : [0.34, 0.33, 0.33];
-    if (falta <= 0) return { falta: 0, tro: tro, passos: [] };
-    if (dias <= 1) return { falta: falta, tro: tro, passos: [{ ate: d0, usd: falta }] };
-    var mid = d0 + Math.round(dias / 2) * DAY,
-      fim = c.data - DAY,
-      a = Math.ceil((falta * fr[0]) / 50) * 50,
-      b = Math.ceil((falta * fr[1]) / 50) * 50,
-      passos = [{ ate: d0, usd: Math.min(falta, a) }];
-    if (falta - a > 0) passos.push({ ate: mid, usd: Math.min(falta - a, b) });
-    if (falta - a - b > 0) passos.push({ ate: Math.max(fim, mid), usd: falta - a - b });
-    return { falta: falta, tro: tro, passos: passos };
-  }
-  function cxDiaTxt(ts) {
-    var d0 = new Date();
-    d0.setHours(0, 0, 0, 0);
-    var n = Math.round((ts - d0.getTime()) / DAY);
-    if (n <= 0) return 'Hoje';
-    if (n === 1) return 'Amanhã';
-    var d = new Date(ts);
-    return 'Até ' + d.getDate() + '/' + (d.getMonth() + 1);
-  }
-  function cxIntelHtml() {
-    var pv = cxPrevisao(),
-      h = '<section class="card col cxCard"><div class="paMt"><h2 style="margin:0;font-size:16px">Dólar nos próximos 7 dias</h2>' + (pv.ok ? '<span class="hint" style="margin:0">certeza ' + pv.cert + '</span>' : '') + '</div>';
-    if (!pv.ok) {
-      h += '<div class="hint" style="margin:0">Aprendendo: precisa de 7 dias de cotação (' + pv.dias + ' até agora).</div>';
-    } else {
-      var t = { sobe: ['Deve subir', 'var(--warn)', '↗'], cai: ['Deve cair', 'var(--ok)', '↘'], estavel: ['Estável', 'var(--fg)', '→'] }[pv.dir];
-      h +=
-        '<div class="cxPrev"><span class="cxSeta" style="color:' + t[1] + '">' + t[2] + '</span><div><b style="color:' + t[1] + '">' + t[0] + '</b>' +
-        (pv.dir !== 'estavel' ? ' <span class="hint" style="display:inline;margin:0">~' + (Math.abs(pv.pct) * 100).toFixed(1).replace('.', ',') + '%</span>' : '') +
-        '<div class="hint" style="margin:0">hoje ' + gsRaw(Math.round(pv.ult)) + ' · ' + pv.fonte + '</div></div></div>' +
-        '<div class="cxChips">' + pv.motivos.map(function (m) {
-          return '<span class="chip">' + esc(m) + '</span>';
-        }).join('') + '</div>' +
-        (pv.disp ? '<div class="hint" style="margin:0;color:var(--warn)">Disparando: subiu mais de 1% em 3 dias.</div>' : pv.barato ? '<div class="hint" style="margin:0;color:var(--ok)">Dólar no mais barato do mês: bom momento para trocar.</div>' : '') +
-        '<div class="hint" style="margin:0">Ninguém acerta sempre: trocar aos poucos protege dos dois lados.</div>';
+      disp = hoje / min3 - 1 > 0.01,
+      v7 = fxVar7('usd'),
+      u30 = s.filter(function (p) {
+        return Date.now() - p.ts <= 30 * DAY;
+      }),
+      med30 = u30.reduce(function (a, p) {
+        return a + p.v;
+      }, 0) / Math.max(1, u30.length);
+    if (disp) out.k = 'ja';
+    else if (pctB >= 0.75 && pv.dir !== 'cai') out.k = 'bom';
+    else if (pv.ok && pv.dir === 'cai' && pv.cert !== 'baixa') out.k = 'esp';
+    out.pctB = pctB;
+    var bom = out.k === 'bom' || out.k === 'ja';
+    out.mot.push({ ok: pctB >= 0.5, t: pctB >= 0.5 ? 'Mais barato que <b>' + Math.round(pctB * 100) + '%</b> dos últimos 90 dias' : 'Mais caro que <b>' + Math.round((1 - pctB) * 100) + '%</b> dos últimos 90 dias' });
+    if (disp) out.mot.push({ ok: false, t: 'Subiu <b>' + pcx(hoje / min3 - 1) + '</b> em 3 dias: está disparando' });
+    else if (Math.abs(v7) < 0.002) out.mot.push({ ok: true, t: 'Parado nesta semana' });
+    else out.mot.push({ ok: v7 < 0, t: (v7 < 0 ? 'Caiu ' : 'Subiu ') + '<b>' + pcx(Math.abs(v7)) + '</b> nesta semana' });
+    if (pv.ok) out.mot.push({ ok: pv.dir !== 'sobe' || bom, t: 'Próximos 7 dias: <b>' + (pv.dir === 'sobe' ? 'deve subir' : pv.dir === 'cai' ? 'deve cair' : 'estável') + '</b> <span class="hint" style="display:inline;margin:0">(certeza ' + pv.cert + ')</span>' });
+    if (rp.falta > 0.5 && med30 > 0) {
+      var dif = Math.round(((med30 - hoje) * rp.falta) / 100) * 100;
+      out.mot.push({ ok: dif >= 0, t: 'Trocando os ' + usd0(rp.falta) + ' hoje: <b>' + gs(Math.abs(dif)) + (dif >= 0 ? ' a menos' : ' a mais') + '</b> que na média do mês' });
     }
-    h += '</section>';
-    // compras marcadas
-    var cs = (S.trocaPlan || []).filter(function (c) {
-      return cxPassos(c, pv).falta > 0 || Date.now() - c.data < 2 * DAY;
-    });
-    h += '<section class="card col"><h2 style="margin:0;font-size:16px">Plano de troca</h2>';
-    if (!cs.length) h += '<div class="hint" style="margin:0">Vai comprar mercadoria em dólar? Marque o valor e a data: o app diz quanto trocar e quando.</div>';
-    cs.forEach(function (c) {
-      var p = cxPassos(c, pv),
-        r = cxRate(),
-        d = new Date(c.data);
-      h += '<div class="cxCompra"><div class="paMt"><b>US$ ' + nf(c.usd, 'usd') + ' até ' + d.getDate() + '/' + (d.getMonth() + 1) + '</b><button type="button" class="obX" data-act="cxDel" data-id="' + c.id + '" aria-label="Remover compra">×</button></div>';
-      if (!p.falta) h += '<div class="hint" style="margin:0;color:var(--ok)">Tudo trocado.</div>';
-      p.passos.forEach(function (s, i) {
-        h +=
-          '<div class="cxPasso"><span>' + cxDiaTxt(s.ate) + '<small>≈ ' + gs(Math.ceil((s.usd * r) / 1000) * 1000) + '</small></span><b>US$ ' + nf(s.usd, 'usd') + '</b>' +
-          (i === 0 ? '<button type="button" class="cSugB" data-act="cxTroquei" data-id="' + c.id + '">Troquei</button>' : '<i></i>') + '</div>';
-      });
-      if (p.falta > 0) {
-        var sob = Math.max(0.01, pv.ok && pv.pct > 0 ? pv.pct : 0.01);
-        h += '<div class="hint" style="margin:0">Se o dólar subir ' + (sob * 100).toFixed(1).replace('.', ',') + '% e trocar tudo no dia: <b>+' + gs(Math.ceil((p.falta * r * sob) / 1000) * 1000) + '</b></div>';
-      }
-      if (p.tro > 0) h += '<div class="hint" style="margin:0">Já trocado: US$ ' + nf(p.tro, 'usd') + '</div>';
-      h += '</div>';
-    });
-    var dmin = new Date(Date.now() + DAY),
-      vmin = dmin.getFullYear() + '-' + ('0' + (dmin.getMonth() + 1)).slice(-2) + '-' + ('0' + dmin.getDate()).slice(-2);
-    h +=
-      '<div class="nvg2"><div><div class="lbl">Compra em dólar</div><input class="in" id="cxUsd" inputmode="decimal" placeholder="US$" autocomplete="off" value="' + esc(CXI.usd) + '"></div>' +
-      '<div><div class="lbl">Paga em</div><input class="in" id="cxData" type="date" min="' + vmin + '" value="' + esc(CXI.data) + '"></div></div>' +
-      '<button type="button" class="obNovo" data-act="cxMarca">Marcar compra</button></section>';
-    return h;
-  }
-  ACT.cxMarca = function () {
-    CXI.usd = $('cxUsd').value;
-    CXI.data = $('cxData').value;
-    var u = parseFloat(String(CXI.usd).replace(/\./g, '').replace(',', '.')) || 0,
-      p = String(CXI.data).split('-');
-    if (!(u > 0)) {
-      popErr('Informe o valor em dólar.');
-      guiaMarca('cxUsd');
-      return;
-    }
-    if (p.length !== 3) {
-      popErr('Informe a data do pagamento.');
-      guiaMarca('cxData');
-      return;
-    }
-    S.trocaPlan.push({ id: 'c' + Date.now().toString(36), usd: u, data: new Date(+p[0], +p[1] - 1, +p[2]).getTime(), ts: Date.now(), trocas: [] });
-    CXI = { usd: '', data: '' };
-    vibrar(20);
-    lfToast('✓ Compra marcada');
-    saveSoon();
-    render();
-  };
-  ACT.cxTroquei = function (id) {
-    var c = S.trocaPlan.filter(function (x) {
-      return x.id === id;
-    })[0];
-    if (!c) return;
-    var p = cxPassos(c, cxPrevisao());
-    if (!p.passos.length) return;
-    var t = { ts: Date.now(), usd: p.passos[0].usd, rate: cxRate() };
-    c.trocas = (c.trocas || []).concat([t]);
-    saveSoon();
-    render();
-    lfDesfazer('Troca marcada · US$ ' + nf(t.usd, 'usd'), function () {
-      c.trocas = c.trocas.filter(function (x) {
-        return x !== t;
-      });
-      saveSoon();
-      render();
-    }, 5000);
-  };
-  ACT.cxDel = function (id) {
-    var i = S.trocaPlan.findIndex(function (x) {
-      return x.id === id;
-    });
-    if (i < 0) return;
-    var c = S.trocaPlan.splice(i, 1)[0];
-    saveSoon();
-    render();
-    lfDesfazer('Compra removida', function () {
-      S.trocaPlan.splice(i, 0, c);
-      saveSoon();
-      render();
-    }, 5000);
-  };
-  // Avisos do sino: só quando vale agir (uma vez por dia cada).
-  function cxAvisos() {
-    var pv = cxPrevisao(),
-      out = [];
-    if (!pv.ok) return out;
-    var pend = (S.trocaPlan || []).some(function (c) {
-      return cxPassos(c, pv).falta > 0;
-    });
-    if (pv.disp) out.push({ k: 'cxDisp', t: 'Dólar disparando', d: 'Subiu mais de 1% em 3 dias' + (pend ? ': adiante as trocas do plano.' : '.') });
-    else if (pv.barato && pend) out.push({ k: 'cxBarato', t: 'Dólar barato', d: 'No menor valor do mês: bom momento para trocar o plano.' });
     return out;
   }
-  S.cxAv = {};
-  function cxAvisa() {
-    var d = new Date().toDateString(),
-      novo = false;
-    if (!S.cxAv) S.cxAv = {};
-    cxAvisos().forEach(function (a) {
-      if (S.cxAv[a.k] === d) return;
-      S.cxAv[a.k] = d;
-      (S.notifs = S.notifs || []).unshift({ ts: Date.now(), lida: false, t: a.t, s: a.d });
-      novo = true;
+  function pcx(f) {
+    return (Math.round(f * 1000) / 10).toFixed(1).replace('.', ',') + '%';
+  }
+  var FX_SELO = {
+    bom: ['Bom momento', 'o', 'Por que é um bom momento'],
+    normal: ['Normal', 'n', 'Por que está normal'],
+    esp: ['Pode esperar', 'w', 'Por que dá para esperar'],
+    ja: ['Troque hoje', 'b', 'Por que trocar hoje']
+  };
+  function fxValTxt(k, v) {
+    return k === 'arb' ? 'R$ ' + nf(v, 'brl') : gsRaw(Math.round(v));
+  }
+  function fxVarHtml(k) {
+    var v = fxVar7(k);
+    if (Math.abs(v) < 0.002) return '<span class="fxVar">— estável</span>';
+    var desce = v < 0,
+      cls = k === 'brl' ? '' : desce ? ' ok' : ' up';
+    return '<span class="fxVar' + cls + '">' + (desce ? '▼ ' : '▲ ') + pcx(Math.abs(v)) + ' <small>7 dias</small></span>';
+  }
+  // ---- Tela ----
+  function fxAbaHtml() {
+    var casa = lmOk(),
+      hd = casa
+        ? 'La Moneda · Jebai · atualizado às ' + fh(S.lm.ts)
+        : 'Aguardando a cotação da La Moneda (o app do celular busca sozinho) · valores provisórios',
+      h = '<div class="top"><div><h1>Câmbio</h1><div class="crumb">' + hd + '</div></div></div>';
+    h += '<section class="card fxTop">';
+    ['usd', 'brl', 'arb'].forEach(function (k) {
+      h += '<button type="button" class="fxLin" data-act="fjAbre" data-id="' + k + '"><span><span class="lbl">' + FX_NOME[k] + '</span><b>' + fxValTxt(k, fxHoje(k)) + '</b></span>' + fxVarHtml(k) + '</button>';
     });
-    if (novo) {
-      saveSoon();
-      render();
+    h += '</section>';
+    var vd = fxVeredito(),
+      rp = vd.rp,
+      se = FX_SELO[vd.k];
+    h +=
+      '<section class="card fxRepo"><button type="button" class="fxRepoT" data-act="fjAbre" data-id="repo"><span class="fxRH"><span class="lbl">Reposição</span><span class="fxSelo ' + se[1] + '">' + se[0] + ' ›</span></span>' +
+      '<b class="fxFal">' + (rp.falta > 0.5 ? 'Faltam ' + usd0(rp.falta) : 'Reposição completa') + '</b>' +
+      '<span class="fxBar"><i style="width:' + (rp.tot > 0 ? Math.round((rp.tem / rp.tot) * 100) : 100) + '%"></i></span>' +
+      '<span class="hint" style="margin:0">' + usd0(rp.tem) + ' de ' + usd0(rp.tot) + '</span></button>' +
+      '<button type="button" class="fxLk" data-act="fjAbre" data-id="troca">Registrar troca <span>›</span></button></section>';
+    var n = (S.cambios || []).length,
+      L = S.siteFx;
+    h +=
+      '<section class="card fxRows">' +
+      '<button type="button" class="fxRow" data-act="fjAbre" data-id="trocas"><span>Últimas trocas</span><span class="hint">' + n + ' ›</span></button>' +
+      '<button type="button" class="fxRow" data-act="fjAbre" data-id="site"><span>Preços no site<small>cotação da loja travada' + (L && L.ts ? ' desde ' + fd(L.ts) : '') + '</small></span><span class="hint">' + (L && L.usd ? gsRaw(L.usd) : '') + ' ›</span></button>' +
+      '<button type="button" class="fxRow" data-act="fjAbre" data-id="prot"><span>Como o app te protege<small>colchão ' + pc(colchao().pct) + '</small></span><span class="hint">›</span></button>' +
+      '</section>';
+    if (S.fxJan) h += fjHtml(S.fxJan, vd);
+    return h;
+  }
+  // ---- Janelas ----
+  function fjHtml(id, vd) {
+    var tit = '',
+      sub = '',
+      corpo = '';
+    if (id === 'repo') {
+      tit = FX_SELO[vd.k][2];
+      sub = 'Dólar na La Moneda Jebai (venda)';
+      corpo = fjPerHtml() + fjGraf('usd', true) + '<div class="fjMot">' + vd.mot.map(function (m) {
+          return '<div class="' + (m.ok ? 'ok' : 'no') + '"><i>' + (m.ok ? '✓' : '!') + '</i><span>' + m.t + '</span></div>';
+        }).join('') + '</div><div class="hint" style="margin:8px 0 0">Ninguém acerta sempre. O app olha o histórico da casa, a semana e a tendência.</div>';
+    } else if (id === 'usd' || id === 'brl' || id === 'arb') {
+      tit = FX_NOME[id] + ' · ' + fxValTxt(id, fxHoje(id));
+      sub = id === 'usd' ? 'Guaranis por dólar (venda da casa)' : id === 'brl' ? 'Guaranis por real (compra da casa)' : 'Reais por dólar (arbitragem da casa)';
+      corpo = fjPerHtml() + fjGraf(id, id === 'usd');
+    } else if (id === 'trocas') {
+      tit = 'Últimas trocas';
+      corpo = (S.cambios || []).length ? trHistHtml().replace('<div class="lbl" style="margin-top:6px">Trocas feitas</div>', '') : '<div class="hint" style="margin:0">Nenhuma troca registrada.</div>';
+    } else if (id === 'site') {
+      tit = 'Preços no site';
+      corpo = siteFxHtml();
+    } else if (id === 'prot') {
+      tit = 'Como o app te protege';
+      corpo = fjProtHtml();
+    } else if (id === 'troca') {
+      tit = 'Registrar troca';
+      corpo = trGavetaHtml();
     }
+    return (
+      '<div class="fjBk' + (S._fjAnim ? ' in' : '') + '" data-act="fjFecha"></div><div class="fjJn' + (S._fjAnim ? ' in' : '') + '" role="dialog" aria-label="' + esc(tit.replace(/<[^>]+>/g, '')) + '">' +
+      '<div class="fjPuxa" aria-hidden="true"></div><div class="fjHd"><div><b>' + tit + '</b>' + (sub ? '<small>' + sub + '</small>' : '') + '</div><button type="button" class="fjX" data-act="fjFecha" aria-label="Fechar">×</button></div>' +
+      '<div class="fjCorpo">' + corpo + '</div></div>'
+    );
+  }
+  function fjPerHtml() {
+    return '<div class="trk fjPer"><span class="trkTh"></span>' + [[30, '30 dias'], [90, '90 dias'], [365, '1 ano']].map(function (o) {
+        return '<button type="button" class="trkB" data-m="' + o[0] + '" data-act="fjPer" data-id="' + o[0] + '">' + o[1] + '</button>';
+      }).join('') + '</div>';
+  }
+  // Gráfico: linha da casa, média, faixa barata (os 25% mais baratos do período), hoje e previsão pontilhada (só dólar).
+  function fjGraf(k, prev) {
+    var per = S.fxPer || 90,
+      s = fxSerie(k).filter(function (p) {
+        return Date.now() - p.ts <= per * DAY;
+      }),
+      hoje = fxHoje(k);
+    if (hoje > 0 && (!s.length || Date.now() - s[s.length - 1].ts > 3600000)) s.push({ ts: Date.now(), v: hoje });
+    if (s.length < 2) return '<div class="hint" style="margin:12px 0">Ainda sem histórico suficiente para o gráfico.</div>';
+    var vals = s.map(function (p) {
+        return p.v;
+      }),
+      pv = prev ? fxPrevisao() : { ok: false },
+      fim = pv.ok ? hoje * (1 + pv.pct) : null,
+      mn = Math.min.apply(null, vals.concat(fim ? [fim] : [])),
+      mx = Math.max.apply(null, vals.concat(fim ? [fim] : [])),
+      pad = (mx - mn) * 0.12 || mx * 0.01,
+      W = 320,
+      H = 150,
+      xr = pv.ok ? 250 : 310,
+      t0 = s[0].ts,
+      t1 = s[s.length - 1].ts,
+      X = function (ts) {
+        return 4 + ((ts - t0) / Math.max(1, t1 - t0)) * (xr - 4);
+      },
+      Y = function (v) {
+        return 12 + ((mx + pad - v) / (mx - mn + 2 * pad)) * (H - 36);
+      },
+      ord = vals.slice().sort(function (a, b) {
+        return a - b;
+      }),
+      q25 = ord[Math.floor(ord.length * 0.25)],
+      med = vals.reduce(function (a, b) {
+        return a + b;
+      }, 0) / vals.length,
+      pts = s.map(function (p) {
+        return X(p.ts).toFixed(1) + ',' + Y(p.v).toFixed(1);
+      }).join(' '),
+      f = function (v) {
+        return k === 'arb' ? nf(v, 'brl') : dots(Math.round(v));
+      },
+      lab = function (ts) {
+        var d = new Date(ts);
+        return per > 60 ? MESES[d.getMonth()] : d.getDate() + '/' + (d.getMonth() + 1);
+      },
+      g = '<svg viewBox="0 0 ' + W + ' ' + H + '" class="fjG" role="img" aria-label="Gráfico de ' + FX_NOME[k] + '">';
+    g += '<rect x="0" y="' + Y(q25).toFixed(1) + '" width="' + xr + '" height="' + Math.max(0, H - 24 - Y(q25)).toFixed(1) + '" class="fjFx"/>';
+    g += '<text x="6" y="' + (H - 28) + '" font-size="10" class="fjFxT">faixa barata</text>';
+    g += '<line x1="0" x2="' + xr + '" y1="' + Y(med).toFixed(1) + '" y2="' + Y(med).toFixed(1) + '" class="fjMd"/><text x="' + (xr - 4) + '" y="' + (Y(med) - 5).toFixed(1) + '" font-size="10" text-anchor="end" class="fjTx">média ' + f(med) + '</text>';
+    g += '<polyline points="' + pts + '" class="fjLn"/>';
+    if (pv.ok) {
+      g += '<rect x="' + xr + '" y="8" width="' + (W - xr) + '" height="' + (H - 32) + '" class="fjPv"/><text x="' + ((xr + W) / 2) + '" y="20" font-size="10" text-anchor="middle" class="fjTx">7 dias</text>';
+      g += '<line x1="' + xr + '" y1="' + Y(hoje).toFixed(1) + '" x2="' + (W - 6) + '" y2="' + Y(fim).toFixed(1) + '" class="fjLn fjPd"/>';
+    }
+    var hx = X(t1),
+      hy = Y(hoje);
+    g += '<circle cx="' + hx.toFixed(1) + '" cy="' + hy.toFixed(1) + '" r="5" class="fjPt"/><text x="' + (hx - 8).toFixed(1) + '" y="' + (Math.abs(Y(med) - hy) < 16 || hy < 26 ? hy + 18 : hy - 9).toFixed(1) + '" font-size="11" font-weight="700" text-anchor="end" class="fjTxB">hoje ' + f(hoje) + '</text>';
+    g += '<text x="2" y="' + (H - 6) + '" font-size="10" class="fjTx">' + lab(t0) + '</text><text x="' + (xr / 2) + '" y="' + (H - 6) + '" font-size="10" text-anchor="middle" class="fjTx">' + lab((t0 + t1) / 2) + '</text><text x="' + xr + '" y="' + (H - 6) + '" font-size="10" text-anchor="middle" class="fjTx">' + lab(t1) + '</text>';
+    return g + '</svg>';
+  }
+  function fjProtHtml() {
+    var c = colchao(),
+      casa = lmOk() ? S.lm.usd.v : fxHoje('usd'),
+      loja = fxUsdLoja(),
+      L = S.siteFx,
+      lt = lotesHist().slice(-6),
+      mxl = Math.max.apply(
+        null,
+        lt.map(function (l) {
+          return l.usd;
+        }).concat([0.01])
+      ),
+      ul = lt.length > 1 ? lt[lt.length - 1].usd / lt[lt.length - 2].usd - 1 : 0;
+    return (
+      '<div class="fjB"><span class="lbl">Cotação da loja</span><div>Casa <b>' + dots(Math.round(casa)) + '</b> → loja <b>' + dots(loja) + '</b> <span class="hint" style="display:inline;margin:0">(+1%, de 50 em 50)</span></div><div class="hint" style="margin:0">Seus preços usam a cotação da loja: se a casa subir até 1%, você não perde.</div></div>' +
+      '<div class="fjB"><span class="lbl fjBl">Colchão de cada venda <b>' + pc(c.pct) + '</b></span><span class="fxBar"><i style="width:' + Math.round(((c.pct - 0.05) / 0.2) * 100) + '%;background:var(--accent)"></i></span><div class="hint fjMm" style="margin:0"><span>mín 5%</span><span>máx 25%</span></div>' +
+      '<div class="hint" style="margin:0">Pior alta do dólar em ' + c.janela + ' dias (+' + pc(c.fx) + ') e alta do custo entre lotes (+' + pc(c.cost) + '). Separado em cada venda para repor mais caro se precisar.</div></div>' +
+      (lt.length
+        ? '<div class="fjB"><span class="lbl">Custo por lote</span><div class="fjLotes">' + lt.map(function (l, i) {
+            return '<i title="' + esc(l.txt || '') + '" style="height:' + Math.max(12, Math.round((l.usd / mxl) * 100)) + '%' + (i === lt.length - 1 ? ';background:var(--accent)' : '') + '"></i>';
+          }).join('') + '</div><div class="hint" style="margin:0">' + (lt.length > 1 ? 'Último lote saiu ' + pc(Math.abs(ul)) + (ul >= 0 ? ' mais caro' : ' mais barato') + ' em dólar que o anterior.' : 'Um lote registrado até agora.') + '</div></div>'
+        : '') +
+      '<div class="fjB"><span class="lbl">Preços do site</span><div class="hint" style="margin:0">Cotação da loja + 2% de folga' + (L && L.usd ? ' (' + gsRaw(L.usd) + ')' : '') + ', travada: só muda quando a loja passar dela. Se o dólar cair muito, o app faz ofertas no site.</div></div>'
+    );
+  }
+  // "Registrar troca": sugestão de hoje (já preenchida) + outra troca.
+  function trGavetaHtml() {
+    var t = S.tr,
+      ag = trocarAgoraHtml();
+    return (
+      (ag ? '<div class="lbl" style="margin:0 0 6px">Sugestão de hoje</div>' + ag + '<div class="lbl" style="margin:14px 0 6px">Outra troca</div>' : '') +
+      '<div class="sel" style="flex-wrap:wrap">' + trSel('trDe', t.de) + '<button class="btn-sc" data-act="trflip" aria-label="Inverter as moedas">⇄ Inverter</button>' + trSel('trPara', t.para) + '</div>' +
+      '<div class="sel" style="flex-wrap:wrap"><div style="flex:1 1 140px"><div class="lbl">Você troca (' + MN[t.de] + ')</div><input class="in" id="trV" inputmode="decimal" data-in="trV" value="' + esc(t.v) + '" aria-label="Valor a trocar"></div>' +
+      '<div style="flex:1 1 140px"><div class="lbl">Você recebe (' + MN[t.para] + ')</div><input class="in" id="trRec" inputmode="decimal" data-in="trRec" value="' + esc(t.rec) + '" aria-label="Valor recebido na troca"></div></div>' +
+      '<div class="hint" id="trPrev" role="status" style="margin:0"></div><button class="go" data-act="trocar">Registrar troca</button>'
+    );
+  }
+  ACT.fjAbre = function (id) {
+    S.fxJan = id;
+    S._fjAnim = true;
+    renderFx();
+    S._fjAnim = false;
+  };
+  ACT.fjFecha = function () {
+    var j = document.querySelector('#v-fx .fjJn'),
+      b = document.querySelector('#v-fx .fjBk');
+    S.fxJan = '';
+    if (j && !REDUCED) {
+      j.classList.add('sai');
+      if (b) b.classList.add('sai');
+      setTimeout(renderFx, 220);
+    } else renderFx();
+  };
+  ACT.fjPer = function (d) {
+    S.fxPer = +d || 90;
+    renderFx();
+  };
+  // Arrastar a janela para baixo fecha.
+  function fjGestos() {
+    var j = document.querySelector('#v-fx .fjJn');
+    if (!j) return;
+    var y0 = null,
+      dy = 0;
+    j.addEventListener('touchstart', function (e) {
+      if (j.scrollTop > 0) return;
+      y0 = e.touches[0].clientY;
+      dy = 0;
+    }, { passive: true });
+    j.addEventListener('touchmove', function (e) {
+      if (y0 == null) return;
+      dy = Math.max(0, e.touches[0].clientY - y0);
+      j.style.transform = dy ? 'translateY(' + dy + 'px)' : '';
+    }, { passive: true });
+    j.addEventListener('touchend', function () {
+      if (y0 == null) return;
+      y0 = null;
+      if (dy > 90) ACT.fjFecha();
+      else j.style.transform = '';
+    });
+  }
+  // Sino: só quando vale agir (Bom momento ou Troque hoje, faltando reposição), 1 vez por dia.
+  function fxAvisa() {
+    var v = fxVeredito();
+    if (!(v.rp.falta > 0.5) || (v.k !== 'bom' && v.k !== 'ja')) return;
+    var d = new Date().toDateString();
+    if (!S.fxAvisos) S.fxAvisos = {};
+    if (S.fxAvisos[v.k] === d) return;
+    S.fxAvisos[v.k] = d;
+    (S.notifs = S.notifs || []).unshift({ ts: Date.now(), lida: false, t: v.k === 'ja' ? 'Dólar disparando' : 'Bom momento para trocar dólar', s: (v.k === 'ja' ? 'Troque hoje: ' : 'Faltam ') + usd0(v.rp.falta) + ' para a reposição.' });
+    saveSoon();
+    render();
   }
   if (!/#test/.test(location.hash)) {
-    setTimeout(cxAvisa, 8000);
-    setInterval(cxAvisa, 30 * 60000);
+    setTimeout(fxAvisa, 10000);
+    setInterval(fxAvisa, 15 * 60000);
   }
   // ===== Contagem de estoque (aba Estoque): por produto, do mais valioso ao menos, com resumo em dinheiro. =====
   // Custo em US$ de uma peça (própria, do lote ou do tipo).
@@ -30640,7 +30689,7 @@
   //  - real → dólar: a arbitragem da casa (venda); se a página não trouxer, venda do dólar ÷ compra do real;
   //  - real → guarani: o que a casa paga pelo real (compra) — só informativo (troco).
   // Proteção: só quando o dólar dispara (mais de 1% em 3 dias), no máximo +1% acima da casa.
-  // O site da casa bloqueia servidores (erro 522), então quem busca é o CELULAR (CapacitorHttp nativo), a cada 30 min;
+  // O site da casa bloqueia servidores (erro 522), então quem busca é o CELULAR (CapacitorHttp nativo), a cada 1 min;
   // o resultado (S.lm) viaja pela sincronização para os outros aparelhos. Sem dado de hoje, vale a cotação antiga.
   S.lm = null; // {ts, usd:{c,v}, brl:{c,v}, arb:{c,v,calc}, hist:[[ts, usdC, usdV, brlC, brlV]]}
   var LM_URL = 'https://www.lamoneda.com.py/cotizaciones';
@@ -30700,99 +30749,74 @@
     if (!arb) arb = { c: Math.round((usd.c / brl.v) * 1000) / 1000, v: Math.round((usd.v / brl.c) * 1000) / 1000, calc: true };
     return { usd: usd, brl: brl, arb: arb };
   }
+  // Grava só quando a cotação MUDA (não enche a sincronização); histórico de 1 ponto por hora.
   function lmGrava(c) {
     var agora = Date.now(),
-      h = (S.lm && S.lm.hist) || [];
-    if (!h.length || agora - h[h.length - 1][0] >= 55 * 60000) h.push([agora, c.usd.c, c.usd.v, c.brl.c, c.brl.v]);
+      a = S.lm,
+      h = (a && a.hist) || [],
+      mudou = !a || !a.usd || a.usd.c !== c.usd.c || a.usd.v !== c.usd.v || a.brl.c !== c.brl.c || a.brl.v !== c.brl.v || a.arb.v !== c.arb.v,
+      hora = !h.length || agora - h[h.length - 1][0] >= 55 * 60000;
+    S._lmVisto = agora; // última leitura certa (só neste aparelho)
+    if (!mudou && !hora) return false;
+    if (hora) h.push([agora, c.usd.c, c.usd.v, c.brl.c, c.brl.v, c.arb.v]);
     h = h.filter(function (x) {
-      return agora - x[0] <= 200 * DAY;
+      return agora - x[0] <= 400 * DAY;
     });
     S.lm = { ts: agora, usd: c.usd, brl: c.brl, arb: c.arb, hist: h, erro: '' };
     saveSoon();
+    try {
+      fxDaCasa();
+    } catch (e) {}
+    return true;
   }
   function lmHttp() {
     var C = window.Capacitor;
     return C && C.isNativePlatform && C.isNativePlatform() && C.Plugins && C.Plugins.CapacitorHttp ? C.Plugins.CapacitorHttp : null;
   }
-  // Busca no celular (o navegador não deixa ler outro site). Devolve uma Promise.
-  function lmBusca(forca) {
+  // Busca no celular (o navegador não deixa ler outro site), a cada 1 minuto; 3 falhas seguidas → espera 5 min.
+  var LM_FALHAS = 0,
+    LM_PAUSA = 0;
+  function lmBusca() {
     var H = lmHttp();
-    if (!H) return Promise.resolve(false);
-    if (!forca && S.lm && Date.now() - S.lm.ts < 25 * 60000) return Promise.resolve(false);
+    if (!H || Date.now() < LM_PAUSA) return Promise.resolve(false);
     return H.get({ url: LM_URL, headers: { 'Accept-Language': 'es-PY,es;q=0.9', Accept: 'text/html' } })
       .then(function (r) {
         var c = lmLer(r && r.data);
         if (!c) throw new Error('não li a sucursal Jebai');
-        lmGrava(c);
-        return true;
+        LM_FALHAS = 0;
+        return lmGrava(c);
       })
       .catch(function (e) {
+        if (++LM_FALHAS >= 3) {
+          LM_FALHAS = 0;
+          LM_PAUSA = Date.now() + 5 * 60000;
+        }
         if (S.lm) S.lm.erro = String((e && e.message) || e);
         return false;
       });
   }
-  // Dado da casa vale até 24 horas (depois volta para a cotação antiga).
+  // Vale a última cotação da casa que ficou salva (nunca a média de mercado).
   function lmOk() {
-    return !!(S.lm && S.lm.usd && S.lm.usd.v > 0 && Date.now() - S.lm.ts < 24 * 3600000);
+    return !!(S.lm && S.lm.usd && S.lm.usd.v > 0 && S.lm.arb && S.lm.arb.v > 0);
   }
-  // Proteção: o dólar da casa subiu mais de 1% em 3 dias -> até +1% acima da casa.
-  function lmProtecao() {
-    if (!lmOk()) return 0;
-    var h = S.lm.hist || [],
-      lim = Date.now() - 3 * DAY,
-      min = S.lm.usd.v;
-    h.forEach(function (x) {
-      if (x[0] >= lim && x[2] > 0 && x[2] < min) min = x[2];
-    });
-    var sub = S.lm.usd.v / min - 1;
-    return Math.max(0, Math.min(0.01, sub - 0.01));
-  }
-  // G$ por US$ da loja quando há dado da casa (de 10 em 10, para cima).
+  // Cotação da LOJA: casa (venda) + 1%, arredondada para cima de 50 em 50 (6.150 → 6.211,5 → 6.250).
   function lmUsdLoja() {
-    return Math.ceil((S.lm.usd.v * (1 + lmProtecao())) / 10 - 1e-9) * 10;
+    return Math.ceil((S.lm.usd.v * 1.01) / 50 - 1e-9) * 50;
   }
   function lmBrlPorUsd() {
     return Math.ceil(S.lm.arb.v * 100 - 1e-9) / 100;
   }
-  // a cada 30 min com o app aberto (e logo ao abrir)
   if (!/#test/.test(location.hash)) {
     setTimeout(function () {
-      lmBusca(false).then(function (ok) {
+      lmBusca().then(function (ok) {
         if (ok) render();
       });
     }, 3000);
     setInterval(function () {
-      lmBusca(false).then(function (ok) {
+      lmBusca().then(function (ok) {
         if (ok) render();
       });
-    }, 30 * 60000);
-  }
-  // Cartão no Câmbio: as três contas da casa × loja.
-  function lmCardHtml() {
-    if (!S.lm || !S.lm.usd) {
-      return (
-        '<section class="card col"><b>La Moneda · Jebai</b><div class="hint" style="margin:0">' +
-        (lmHttp() ? 'Buscando a cotação da casa…' : 'A cotação da casa é buscada pelo app do celular (o navegador não deixa ler o site dela). Enquanto isso vale a cotação de mercado.') +
-        '</div></section>'
-      );
-    }
-    var ok = lmOk(),
-      d = new Date(S.lm.ts),
-      hora = ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2),
-      dia = d.toDateString() === new Date().toDateString() ? 'hoje ' + hora : d.getDate() + '/' + (d.getMonth() + 1) + ' ' + hora,
-      pr = lmProtecao(),
-      exUsd = 10,
-      g = gsDeUsd(exUsd),
-      rs = Math.ceil(exUsd * fxBrlPorUsd() - 1e-9);
-    return (
-      '<section class="card col lmCard"><div class="lmHd"><b>La Moneda · Jebai</b><span class="hint" style="margin:0">' + dia + (ok ? '' : ' · antiga') + '</span></div>' +
-      '<div class="lmG"><span class="lmT">conta</span><span class="lmT">casa</span><span class="lmT">loja</span>' +
-      '<span>Dólar → guarani</span><span class="lmC">' + gsRaw(S.lm.usd.v) + '</span><b>' + gsRaw(fxUsdLoja()) + '</b>' +
-      '<span>Real → dólar</span><span class="lmC">' + String(S.lm.arb.v.toFixed(2)).replace('.', ',') + '</span><b>' + String(fxBrlPorUsd().toFixed(2)).replace('.', ',') + '</b>' +
-      '<span>Real → guarani (troco)</span><span class="lmC">' + gsRaw(S.lm.brl.c) + '</span><b>' + gsRaw(S.lm.brl.c) + '</b></div>' +
-      (pr > 0 ? '<div class="hint" style="margin:0;color:var(--warn)">Dólar disparando: proteção de +' + (pr * 100).toFixed(1).replace('.', ',') + '% por uns dias</div>' : '') +
-      '<div class="hint" style="margin:0">Preço final arredonda para cima: US$ ' + exUsd + ' = <b>' + gs(g) + '</b> · <b>R$ ' + rs + '</b> (loja e site)</div></section>'
-    );
+    }, 60000);
   }
   // ===== Cliente na venda + tela "Venda confirmada" com o comprovante de venda (sempre em G$, IVA 10% incluso). =====
   // O app NÃO emite nota fiscal: imprime o comprovante (sem valor fiscal) para qualquer cliente.
@@ -32030,6 +32054,219 @@
     g.addEventListener('pointerup', fim);
     g.addEventListener('pointercancel', fim);
   }
+  // ===== Ofertas do site + Super evento + Encalhadas (v426, aprovado 04/11/2026) =====
+  // Dólar caiu muito (loja 5% ou mais abaixo da trava do site por 3 dias): ofertas SÓ NO SITE, em no máximo 1 a cada 5 modelos,
+  // começando pelos mais parados (os que vendem bem nunca entram). Desconto = queda do dólar (+ a oferta de parado que a
+  // peça já tem na loja) e, a cada semana sem vender, +3%. A lista muda toda semana; acaba quando o dólar volta (menos de 3%).
+  // No site o desconto nunca passa de 50% do preço cheio e nunca fica abaixo do piso (preço de piso não aparece no site).
+  // Super evento: só quando o dono organiza (Dashboard › Preços) — todas as peças do site, por X dias.
+  // Encalhada: parada 120+ dias — na loja o preço vai ao piso (preço automático) e entra na lista "Vender na loja".
+  S.siteOf = null; // {since, ativo, sem, q, refs:{ref:{ini, extra}}}
+  S.superEv = null; // {pct, ate, ini}
+  S.encAv = {}; // encalhadas já avisadas no sino
+  var SITE_TETO = 0.5;
+  function siteQueda() {
+    var L = S.siteFx;
+    if (!L || !(L.usd > 0)) return 0;
+    var base = L.base > 0 ? L.base : L.usd / 1.02,
+      v;
+    try {
+      v = fxUsdLoja();
+    } catch (e) {
+      return 0;
+    }
+    return v > 0 ? Math.max(0, 1 - v / base) : 0;
+  }
+  function semanaKey() {
+    var d = new Date();
+    d.setHours(0, 0, 0, 0);
+    d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+    return d.getTime();
+  }
+  function siteOfCandidatos() {
+    return Object.keys(S.site || {})
+      .filter(function (ref) {
+        var it = itemDoRef(ref);
+        if (!it || it.tipo === 'pre' || isSimple(it.tipo) || it.bulk) return false;
+        if (S.pTrava && S.pTrava[ref]) return false;
+        if (!(paEstoque(ref) > 0) || !(effCusto(it) > 0)) return false;
+        return paVendidas(ref, 30) < 3; // quem vende bem não entra
+      })
+      .map(function (ref) {
+        return { ref: ref, d: paParado(ref), cob: paEstoque(ref) / (paVendidas(ref, 90) + 1) };
+      })
+      .sort(function (a, b) {
+        return b.d - a.d || b.cob - a.cob;
+      });
+  }
+  function siteOfRevisa() {
+    var q = siteQueda(),
+      agora = Date.now(),
+      o = S.siteOf || (S.siteOf = { since: 0, ativo: false, sem: 0, refs: {} }),
+      antes = JSON.stringify(o);
+    if (q >= 0.05) {
+      if (!o.since) o.since = agora;
+      o.ativo = agora - o.since >= 3 * DAY;
+    } else if (q < 0.03) {
+      o.since = 0;
+      o.ativo = false;
+      o.refs = {};
+      o.sem = 0;
+    }
+    o.q = Math.floor(q * 100) / 100;
+    if (o.ativo && o.sem !== semanaKey()) {
+      var cand = siteOfCandidatos(),
+        ok = {},
+        lim = Math.max(1, Math.floor(Object.keys(S.site || {}).length / 5));
+      cand.forEach(function (c) {
+        ok[c.ref] = 1;
+      });
+      Object.keys(o.refs).forEach(function (ref) {
+        var r = o.refs[ref];
+        // vendeu (voltou a girar) ou não é mais candidata: sai; senão, mais 3% por mais uma semana sem vender
+        if (!ok[ref] || paUltVenda(ref) > r.ini) delete o.refs[ref];
+        else r.extra = Math.round(((r.extra || 0) + 0.03) * 100) / 100;
+      });
+      cand.forEach(function (c) {
+        if (Object.keys(o.refs).length >= lim || o.refs[c.ref]) return;
+        o.refs[c.ref] = { ini: agora, extra: 0 };
+      });
+      o.sem = semanaKey();
+    }
+    if (JSON.stringify(o) !== antes) saveSoon();
+  }
+  function superAtivo() {
+    return !!(S.superEv && S.superEv.ate > Date.now() && S.superEv.pct > 0);
+  }
+  // Desconto extra do site (fração) para um produto.
+  function siteOfPct(ref) {
+    if (superAtivo()) return S.superEv.pct;
+    var o = S.siteOf;
+    if (!o || !o.ativo || !o.refs || !o.refs[ref]) return 0;
+    return (o.q || 0) + (o.refs[ref].extra || 0);
+  }
+  function siteOfLista() {
+    var o = S.siteOf;
+    if (!o || !o.ativo) return [];
+    return Object.keys(o.refs || {}).map(function (ref) {
+      var r = o.refs[ref],
+        d = paParado(ref);
+      return { ref: ref, pct: Math.min(SITE_TETO, siteOfPct(ref)), mot: 'dólar caiu ' + Math.round((o.q || 0) * 100) + '%' + (d >= 60 ? ' · parada ' + d + ' dias' : '') + (r.extra ? ' · +' + Math.round(r.extra * 100) + '% sem vender' : '') };
+    });
+  }
+  // Preço do site com as ofertas: {n, de}. cheio/atual em guaranis da loja.
+  function sitePrecoOferta(ref, atual, cheio, tipo) {
+    var base = sitePreco(cheio > atual ? cheio : atual),
+      n = sitePreco(atual),
+      ex = siteOfPct(ref);
+    if (!(base > 0)) return { n: n, de: 0 };
+    if (ex > 0) n = Math.min(n, Math.ceil((n * (1 - ex)) / SITE_ARRED - 1e-9) * SITE_ARRED);
+    var teto = Math.ceil((base * (1 - SITE_TETO)) / SITE_ARRED - 1e-9) * SITE_ARRED;
+    if (n < teto) n = teto; // nunca mais que 50% (piso não aparece no site)
+    var ps = pisoDoRef(ref, tipo),
+      piso = ps && ps.pp && ps.pp.piso > 0 ? sitePreco(Math.ceil(ps.pp.piso / 1000) * 1000) : 0;
+    if (piso && n < piso) n = piso; // nunca com prejuízo
+    if (n > base) n = base;
+    return { n: n, de: n < base ? base : 0 };
+  }
+  // ---- Super evento (Dashboard › Preços) ----
+  function superEvHtml() {
+    var on = superAtivo();
+    return dFold(
+      'sev',
+      'Super evento',
+      on ? '−' + Math.round(S.superEv.pct * 100) + '% em todo o site até ' + fd(S.superEv.ate) : 'só quando você organizar',
+      on ? 'var(--ok)' : 'var(--sub)',
+      '<div class="col" style="gap:10px;padding:0 14px 14px">' +
+        (on
+          ? '<div class="hint" style="margin:0">Todas as peças do site com −' + Math.round(S.superEv.pct * 100) + '% (nunca abaixo do piso). Acaba sozinho em ' + fd(S.superEv.ate) + '.</div><div><button type="button" class="mini ghost" data-act="seFim">Encerrar agora</button></div>'
+          : '<div class="hint" style="margin:0">Desconto em todas as peças do site por alguns dias (no máximo 50%, nunca abaixo do piso). Depois volta tudo sozinho.</div>' +
+            '<div class="nvg2"><label class="paIn"><span>Desconto (%)</span><input class="in" id="seP" inputmode="numeric" placeholder="Ex.: 20"></label><label class="paIn"><span>Dias</span><input class="in" id="seD" inputmode="numeric" placeholder="Ex.: 3"></label></div>' +
+            '<div><button type="button" class="mini" data-act="seIni">Começar super evento</button></div>') +
+        '</div>'
+    );
+  }
+  ACT.seIni = function () {
+    var p = parseInt(($('seP') || {}).value, 10),
+      d = parseInt(($('seD') || {}).value, 10);
+    if (!(p > 0)) {
+      popErr('Informe o desconto.');
+      return;
+    }
+    if (!(d > 0)) {
+      popErr('Informe quantos dias.');
+      return;
+    }
+    S.superEv = { pct: Math.min(50, p) / 100, ate: Date.now() + d * DAY, ini: Date.now() };
+    saveSoon();
+    try {
+      vitConfere();
+    } catch (e) {}
+    lfToast('✓ Super evento no site: −' + Math.min(50, p) + '% por ' + d + (d === 1 ? ' dia' : ' dias'));
+    render();
+  };
+  ACT.seFim = function () {
+    S.superEv = null;
+    saveSoon();
+    try {
+      vitConfere();
+    } catch (e) {}
+    lfToast('Super evento encerrado');
+    render();
+  };
+  // ---- Encalhadas: paradas há 120 dias ou mais ----
+  function encalhadas() {
+    return paRefs()
+      .filter(function (ref) {
+        var it = itemDoRef(ref);
+        return it && paEstoque(ref) > 0 && effCusto(it) > 0 && paParado(ref) >= 120;
+      })
+      .map(function (ref) {
+        return { ref: ref, d: paParado(ref), q: paEstoque(ref), p: tFor(itemDoRef(ref)).price };
+      })
+      .sort(function (a, b) {
+        return b.d - a.d;
+      });
+  }
+  function encDias(ref) {
+    var it = itemDoRef(ref);
+    if (!it || it.tipo === 'pre' || isSimple(it.tipo) || it.bulk || !(effCusto(it) > 0)) return 0;
+    var d = paParado(ref);
+    return d >= 120 ? d : 0;
+  }
+  function venderNaLojaHtml() {
+    var l = encalhadas();
+    if (!l.length) return '';
+    return dFold(
+      'enc',
+      'Vender na loja',
+      l.length + ' peça(s) encalhada(s) · paradas há 120 dias ou mais',
+      'var(--warn)',
+      '<div class="split" style="padding:0 14px 14px"><div class="hint" style="margin:0 0 6px">Na loja o preço já está no piso. No site, o desconto vai até 50%.</div>' +
+        l.map(function (x) {
+          return '<div class="sl"><span>' + esc(pn(x.ref)) + '<small>parada ' + x.d + ' dias · ' + x.q + ' em estoque</small></span><b>' + gs(x.p) + '</b></div>';
+        }).join('') +
+        '</div>'
+    );
+  }
+  function encAvisa() {
+    if (!S.encAv) S.encAv = {};
+    var novas = encalhadas().filter(function (x) {
+      return !S.encAv[x.ref];
+    });
+    if (!novas.length) return;
+    novas.forEach(function (x) {
+      S.encAv[x.ref] = Date.now();
+    });
+    (S.notifs = S.notifs || []).unshift({ ts: Date.now(), lida: false, t: 'Vender na loja: ' + novas.length + (novas.length === 1 ? ' peça encalhada' : ' peças encalhadas'), s: novas.slice(0, 3).map(function (x) {
+        return pn(x.ref) + ' (' + x.d + ' dias)';
+      }).join(' · ') });
+    saveSoon();
+  }
+  if (!/#test/.test(location.hash)) {
+    setTimeout(encAvisa, 12000);
+    setInterval(encAvisa, 6 * 3600000);
+  }
   // ===== Preço automático (v422, aprovado 04/11/2026) =====
   // Um interruptor. O app revisa toda segunda e explica cada ajuste; o dono só desfaz ou trava (cadeado no produto).
   // Regras fixas: preço normal revisa no máximo 1 vez por mês (só se o dólar/custo mudou de verdade ou se vende muito rápido);
@@ -32343,6 +32580,7 @@
               '</div>'
           : ''
       );
+    h += venderNaLojaHtml() + superEvHtml(); // v426
     return h;
   }
   ACT.paTog = function () {
@@ -37196,14 +37434,17 @@
       'lm',
       'objetivos',
       'metaHist',
-      'trocaPlan',
       'cxAv',
+      'siteOf',
+      'superEv',
+      'encAv',
+      'fxPer',
+      'fxAvisos',
       'siteFx',
       'tabelas',
       'tabAtiva',
       'fxReal',
       'fxc',
-      'fxPer',
       'colchUsd',
       'repQuitUsd',
       'colchUsos',
@@ -37332,7 +37573,7 @@
   if (/(^|[#&])test\b/.test(location.hash))
     window.__LF = {
       barMoedas: barMoedas,
-      animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, cxPrevisao: cxPrevisao, cxPassos: cxPassos, cxAvisos: cxAvisos, lmGrava: lmGrava, lmProtecao: lmProtecao, lmCardHtml: lmCardHtml, gsDeUsd: gsDeUsd,
+      animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
       S: S, envFolha: window.__envFolha, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,

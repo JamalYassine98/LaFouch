@@ -1,10 +1,10 @@
   // ===== Preço estável no site: a cotação usada nos preços do site fica travada (no mínimo 30 dias) =====
-  S.siteFx = null; // { usd, rpu, brl, ts }: dólar da loja, real por dólar e dia em que foram travados
-  var SITE_DIAS = 30,
-    SITE_VAR = 0.02,
-    SITE_ALTA = 0.03,
-    SITE_ARRED = 1000; // v425: o site arredonda igual à loja (de 1.000 em 1.000, para cima)
-  // Trava de novo só quando vale a pena: a cada 30 dias se o dólar andou 2% ou mais; antes disso, só se o dólar subir mais de 3% (protege a margem).
+  // v426 (aprovado 04/11): cotação do SITE = cotação da loja + 2% de folga, arredondada para cima de 100 em 100.
+  // Fica travada enquanto a loja estiver abaixo dela (sem prazo). Se a loja passar (a folga acabou), trava de novo na hora.
+  // Se o dólar cair muito, o site não baixa: o app faz ofertas no site (97-ofertas-site.js).
+  S.siteFx = null; // { usd (site), base (loja na trava), rpu, brl, ts }
+  var SITE_FOLGA = 0.02,
+    SITE_ARRED = 1000; // preços do site arredondam de 1.000 em 1.000, para cima
   function siteFxConfere(forca) {
     var v;
     try {
@@ -14,17 +14,17 @@
     }
     if (!(v.usd > 0) || !(v.rpu > 0)) return false;
     var L = S.siteFx,
-      agora = Date.now(),
-      muda = !L || !(L.usd > 0) || !!forca;
-    if (!muda) {
-      var idade = (agora - L.ts) / 864e5,
-        dif = v.usd / L.usd - 1;
-      muda = idade >= SITE_DIAS ? Math.abs(dif) >= SITE_VAR : dif > SITE_ALTA;
-    }
+      subiu = !!(L && L.usd > 0 && v.usd > L.usd),
+      muda = !L || !(L.usd > 0) || !!forca || subiu;
     if (muda) {
-      S.siteFx = { usd: v.usd, rpu: v.rpu, brl: Math.round(v.usd / v.rpu / 100) * 100, ts: agora };
+      var su = Math.ceil((v.usd * (1 + SITE_FOLGA)) / 100 - 1e-9) * 100;
+      S.siteFx = { usd: su, base: v.usd, rpu: v.rpu, brl: Math.round(su / v.rpu / 100) * 100, ts: Date.now() };
+      if (subiu && !forca) (S.notifs = S.notifs || []).unshift({ ts: Date.now(), lida: false, t: 'Preços do site atualizados', s: 'O dólar passou a folga do site: nova cotação do site ' + gsRaw(su) + '.' });
       saveSoon();
     }
+    try {
+      siteOfRevisa();
+    } catch (e) {}
     return muda;
   }
   // Preço em guaranis da loja (cotação do dia) → preço do site (cotação travada), arredondado de 5.000 em 5.000.
@@ -39,26 +39,27 @@
     if (!(vivo > 0)) return gs;
     return Math.max(SITE_ARRED, Math.ceil(((gs / vivo) * S.siteFx.usd) / SITE_ARRED - 1e-9) * SITE_ARRED);
   }
-  function siteFxDiasTxt() {
-    var L = S.siteFx;
-    if (!L) return '';
-    var d = new Date(L.ts),
-      prox = new Date(L.ts + SITE_DIAS * 864e5),
-      f = function (x) {
-        return ('0' + x.getDate()).slice(-2) + '/' + ('0' + (x.getMonth() + 1)).slice(-2);
-      };
-    return 'travada em ' + f(d) + ' · próxima revisão a partir de ' + f(prox);
-  }
+  // Conteúdo da janela "Preços no site" (aba Câmbio).
   function siteFxHtml() {
     siteFxConfere();
     var L = S.siteFx,
       vivo = fxUsdLoja(),
-      dif = L && L.usd > 0 ? vivo / L.usd - 1 : 0;
+      folga = L && L.usd > 0 ? L.usd / vivo - 1 : 0,
+      of = siteOfLista(),
+      q = siteQueda();
     return (
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cotação do site</h2><div class="hint" style="margin:2px 0 0">Para o site não mudar de preço toda hora, ele usa uma cotação travada por no mínimo ' + SITE_DIAS + ' dias. Ela só muda antes disso se o dólar subir mais de ' + pc(SITE_ALTA) + ', e depois de ' + SITE_DIAS + ' dias se tiver variado ' + pc(SITE_VAR) + ' ou mais. Os preços do site são arredondados de ' + SITE_ARRED.toLocaleString('pt-BR') + ' em ' + SITE_ARRED.toLocaleString('pt-BR') + ' guaranis. O balcão continua com a cotação do dia.</div></div>' +
-      '<div class="kpis"><div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 no site</div><b>' + gsRaw(L ? L.usd : vivo) + '</b><div class="hint">' + (L ? esc(siteFxDiasTxt()) : '') + '</div></div>' +
-      '<div class="kpi" style="background:var(--panel2)"><div class="lbl">Cotação de hoje</div><b>' + gsRaw(vivo) + '</b><div class="hint">' + (dif >= 0 ? '+' : '−') + pc(Math.abs(dif)) + ' em relação ao site</div></div></div>' +
-      '<div><button type="button" class="mini ghost" data-act="sitefxagora">Atualizar preços do site agora</button></div></section>'
+      '<div class="fjB"><span class="lbl">US$ 1 no site</span><b class="fjBig">' + gsRaw(L ? L.usd : vivo) + '</b><div class="hint" style="margin:0">' + (L ? 'travada em ' + fd(L.ts) + ' · ' : '') + 'loja hoje ' + gsRaw(vivo) + (folga > 0 ? ' · folga de ' + pc(folga) : '') + '</div></div>' +
+      '<div class="fjB"><div class="hint" style="margin:0">Só muda quando a cotação da loja passar a do site. Se o dólar cair muito (5% por 3 dias), o app faz ofertas em poucas peças, começando pelas mais paradas, no máximo 50% de desconto.</div></div>' +
+      '<div class="fjB"><span class="lbl">Ofertas do site</span>' +
+      (S.superEv && S.superEv.ate > Date.now()
+        ? '<div>Super evento: <b>−' + Math.round(S.superEv.pct * 100) + '%</b> em tudo até ' + fd(S.superEv.ate) + '</div>'
+        : of.length
+          ? '<div class="hint" style="margin:0 0 6px">Dólar ' + (q > 0 ? pc(q) + ' abaixo da trava' : '') + ' · ' + of.length + ' peça(s) nesta semana</div>' + of.map(function (o) {
+              return '<div class="sl"><span>' + esc(pn(o.ref)) + '<small>' + esc(o.mot) + '</small></span><b>−' + Math.round(o.pct * 100) + '%</b></div>';
+            }).join('')
+          : '<div class="hint" style="margin:0">Nenhuma oferta do dólar agora' + (q > 0.001 ? ' (dólar ' + pc(q) + ' abaixo da trava)' : '') + '.</div>') +
+      '</div>' +
+      '<div><button type="button" class="mini ghost" data-act="sitefxagora">Atualizar preços do site agora</button></div>'
     );
   }
   ACT.sitefxagora = function () {

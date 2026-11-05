@@ -311,6 +311,7 @@
               '</div>'
           : ''
       );
+    h += venderNaLojaHtml() + superEvHtml(); // v426
     return h;
   }
   ACT.paTog = function () {

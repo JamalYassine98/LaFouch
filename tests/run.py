@@ -739,11 +739,11 @@ async def main():
                 const tp = {passos: [{de: 'brl'}], needRep: 0}; o.brl = L.barMoedas(tp).map(m => m.nome);
                 o.ambos = L.barMoedas({passos: [{de: 'brl'}, {de: 'pyg'}], needRep: 0}).map(m => m.nome);
                 o.nenhum = L.barMoedas({passos: [], needRep: 0}).length;
-                S.tr.de = 'pyg'; S.tr.para = 'usd'; L.setView('fx'); L.render(); o.n1 = (document.getElementById('v-fx').innerText.match(/(dólar|real) hoje/gi) || []).length;
-                S.tr.de = 'brl'; L.render(); o.n2 = (document.getElementById('v-fx').innerText.match(/(dólar|real) hoje/gi) || []).length;
+                S.tr.de = 'pyg'; S.tr.para = 'usd'; L.setView('fx'); L.render(); o.n1 = /Dólar em reais/i.test(document.getElementById('v-fx').innerText) ? 1 : 0;
+                S.tr.de = 'brl'; L.render(); o.n2 = /Reposição/i.test(document.getElementById('v-fx').innerText) ? 1 : 0;
                 return o }""")
             ok = r['brl'] == ['reais'] and r['ambos'] == ['guaranis', 'reais'] and r['nenhum'] == 0 and r['n1'] == 1 and r['n2'] == 1
-            print(('  ok  ' if ok else ' FALHA ') + 'Câmbio: um só medidor "hoje" e aviso de bom momento também para o real')
+            print(('  ok  ' if ok else ' FALHA ') + 'Câmbio: aviso de bom momento também para o real; aba simples com os 3 valores e a reposição')
             if not ok: falhas.append('câmbio medidor'); print('        veio', r, pg.erros)
             await pg.close()
 
@@ -1136,7 +1136,7 @@ async def main():
               const need = L.tFor(it).price, sh = document.getElementById('recIn').value;
               const esp = (need / L.rateDe('brl', 0)).toFixed(2).replace('.', ',');
               L.setView('fx'); L.render(); const fx = document.getElementById('v-fx').textContent;
-              return [g, u, b, man, custo, sh === esp, document.getElementById('v-fx').textContent.indexOf('Cotação da loja') >= 0, fx.indexOf('G$ 8.000') >= 0]; }""")
+              return [g, u, b, man, custo, sh === esp, fx.indexOf('Como o app te protege') >= 0, fx.indexOf('G$ 8.000') >= 0]; }""")
             ok = r[0] == 'US$ 74' and r[1] == 8100 and r[2] == 1600 and r[3] == 1300 and r[4] == 8000 and r[5] and r[6] and r[7] and not pg.erros
             total += 1
             print(('  ok  ' if ok else ' FALHA ') + 'cotação da loja: dólar com margem a mais, no carrinho e na aba Câmbio')
@@ -2453,13 +2453,14 @@ async def main():
             # aba Câmbio: período dos gráficos e gráfico do dólar em reais
             pg = await pagina()
             await pg.evaluate("() => window.__LF.setView('fx')"); await pg.wait_for_timeout(400)
-            n1 = await pg.evaluate("() => document.querySelectorAll('#v-fx svg[role=img]').length")
             t1 = await pg.inner_text('#v-fx')
-            await pg.locator('[data-act=fxper][data-id="14"]').click(); await pg.wait_for_timeout(300)
-            on = await pg.evaluate("() => [window.__LF.S.fxPer, document.querySelector('[data-act=fxper].on').getAttribute('data-id')]")
+            await pg.locator('#v-fx .fxLin[data-id=arb]').click(); await pg.wait_for_timeout(400)
+            n1 = await pg.evaluate("() => document.querySelectorAll('#v-fx .fjJn svg[role=img]').length")
+            await pg.locator('#v-fx .fjPer [data-id="30"]').click(); await pg.wait_for_timeout(300)
+            on = await pg.evaluate("() => [window.__LF.S.fxPer, !!document.querySelector('#v-fx .fjJn')]")
             total += 1
-            ok = n1 == 2 and 'Dólar em reais' in t1 and 'Dólar em guaranis' in t1 and 'Variação no período' in t1 and on == [14, '14'] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'aba Câmbio: dois gráficos e período escolhido')
+            ok = n1 == 1 and 'dólar em reais' in t1.lower() and on == [30, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'aba Câmbio: tocar no valor abre a janela com o gráfico e o período escolhido')
             if not ok: falhas.append('fx graficos'); print('        veio', n1, on, pg.erros)
             await pg.close()
 
@@ -2537,8 +2538,8 @@ async def main():
               S.compras = []; S.cpay = []; S.melhUso = []; S.exp = []; S.ini = {rep: 0, colch: 100000, melh: 0}; S.colchUsd = 0; S.colchUsos = []; S.repQuitUsd = 0; S.cambios = []; S.trIn = {};
               S.cash = {pyg: 600000, brl: 250, usd: 0};
               const pl = L.trocarPlano().passos[0];
-              L.setView('fx'); L.render();
-              const tela = document.getElementById('v-fx').innerText;
+              L.setView('fx'); L.ACT.fjAbre('troca');
+              const tela = document.getElementById('v-fx').innerText; S.fxJan = '';
               S.trIn = {0: {v: '40', rec: '7'}};
               const tot = L.trocarRegistrar([{tipo: 'repor', de: 'brl', v: 40, rec: 7}]);
               const e = S.cambios[0];
@@ -2726,10 +2727,10 @@ async def main():
                 '<h3>Sucursal Jebai</h3><table><tr><td>Dólar</td><td>6.000</td><td>6.150</td></tr><tr><td>Real</td><td>1.105</td><td>1.155</td></tr></table>' +
                 '<h3>Sucursal Centro</h3><table><tr><td>Dólar</td><td>5.990</td><td>6.160</td></tr></table>';
               const c = L.lmLer(h); L.lmGrava(c);
-              const card = L.lmCardHtml();
-              return [c.usd.v, c.brl.c, c.arb.v, L.gsDeUsd(10), /R\$ 55/.test(card), L.lmLer('<p>nada</p>')]; }""")
-            ok = got[:5] == [6150, 1105, 5.48, 62000, True] and got[5] is None and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'La Moneda Jebai: lê a sucursal, US$ 10 = G$ 62.000 · R$ 55')
+              L.fxDaCasa();
+              return [c.usd.v, c.brl.c, c.arb.v, L.lmUsdLoja(), L.gsDeUsd(10), S.fx.pyg, S.fx.src, L.lmLer('<p>nada</p>')]; }""")
+            ok = got[:7] == [6150, 1105, 5.48, 6250, 63000, 6150, 'La Moneda · Jebai'] and got[7] is None and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'La Moneda Jebai: lê a sucursal, vale em tudo; loja = casa + 1% de 50 em 50 (6.150 → 6.250)')
             if not ok: falhas.append('la moneda'); print('        veio', got, pg.erros)
             await pg.close()
 
@@ -2742,12 +2743,35 @@ async def main():
               const pl = L.objPlano(), pv = L.melhPecaAuto();
               const caixa0 = S.cash.pyg; L.ACT.obUsar('a');
               const usado = !!S.objetivos[0].usado && S.cash.pyg === caixa0 - 1000;
-              S.trocaPlan = [{id: 'c', usd: 2000, data: Date.now() + 10 * 864e5, ts: 1, trocas: []}];
-              const ps = L.cxPassos(S.trocaPlan[0], L.cxPrevisao()).passos;
-              return [meta > 0, S.metaHist[k] === meta, pl.itens[0].pronto, pv > 0 && pv % 500 === 0, usado, ps.reduce((a, x) => a + x.usd, 0), ps.length, /Meta do mês/.test(L.metaCardHtml ? L.metaCardHtml() : 'Meta do mês')]; }""")
-            ok = got == [True, True, True, True, True, 2000, 3, True] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'meta automática congelada no mês, objetivos enchem na ordem e Usar, plano de troca em 3 partes')
+              return [meta > 0, S.metaHist[k] === meta, pl.itens[0].pronto, pv > 0 && pv % 500 === 0, usado, /Meta do mês/.test(L.metaCardHtml())]; }""")
+            ok = got == [True, True, True, True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'meta automática congelada no mês, objetivos enchem na ordem e Usar')
             if not ok: falhas.append('meta objetivos'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # Câmbio simples (v426): versão A, janelas, site = loja + 2% travado, ofertas do site com teto de 50%
+            pg = await pagina()
+            total += 1
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, D = 864e5, n = Date.now(), h = [];
+              for (let i = 40; i >= 1; i--) h.push([n - i * D, 6000, 6150 + (i % 5) * 20, 1105, 1155, 5.48]);
+              S.lm = {ts: n, usd: {c: 6000, v: 6150}, brl: {c: 1105, v: 1155}, arb: {c: 5.3, v: 5.48}, hist: h}; L.fxDaCasa();
+              L.setView('fx'); const tx = document.getElementById('v-fx').innerText;
+              L.ACT.fjAbre('repo'); const jan = !!document.querySelector('#v-fx .fjJn svg');
+              L.ACT.fjAbre('troca'); const tr = !!document.getElementById('trV');
+              S.fxJan = ''; L.render();
+              S.siteFx = null; L.siteFxConfere(); const s1 = [S.siteFx.usd, S.siteFx.base];
+              S.lm.usd.v = 6300; L.siteFxConfere(); const s2 = S.siteFx.usd;
+              S.lm.usd.v = 6500; L.siteFxConfere(); const s3 = S.siteFx.usd;
+              S.lm.usd.v = 5800; S.siteOf = {since: n - 4 * D, ativo: false, sem: 0, refs: {}}; L.siteOfRevisa();
+              const of = S.siteOf.ativo && S.siteOf.q >= 0.09;
+              const ref = Object.keys(S.items.reduce((a, i) => (a[i.ref] = 1, a), {}))[0], it = S.items.find(i => i.ref === ref);
+              S.superEv = {pct: 0.9, ate: n + D, ini: n};
+              const po = L.sitePrecoOferta(ref, 380000, 0, it.tipo);
+              S.superEv = null;
+              return [/Dólar em reais/i.test(tx), /Reposição/i.test(tx), /Registrar troca/i.test(tx), /Atualizar agora/i.test(tx), jan, tr, s1, s2, s3, of, po.de > 0 && po.n >= po.de * 0.5 - 1 && po.n < po.de]; }""")
+            ok = got == [True, True, True, False, True, True, [6400, 6250], 6400, 6800, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Câmbio simples: 3 valores, reposição com selo e janelas; site = loja + 2% travado; ofertas do site com teto de 50%')
+            if not ok: falhas.append('cambio simples'); print('        veio', got, pg.erros)
             await pg.close()
 
             # telas: 8 abas x 2 temas, sem erro e com conteúdo

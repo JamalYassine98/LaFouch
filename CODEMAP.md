@@ -57,9 +57,10 @@ Regras que valem em todo o projeto: o estado fica em `S`; `render()` redesenha t
 | `97-entrada-de-novo.js` | 110 | Adicionar A+1: "Dar entrada de novo" com as 3 últimas peças que entraram; folhinha "Quantas chegaram?" e Dar entrada (respeita o lote). |
 | `53-linhas.js` | 330 | Linha automática (Econômica/Intermediária/Luxo, oculta), atendimento que arruma o catálogo e Parecidas. |
 | `97-preco-auto.js` | 420 | Preço automático: revisão semanal, ofertas em degraus, desfazer, cadeado, aba Preços e limite secreto. |
-| `97-lamoneda.js` | 160 | Cotação da La Moneda · Sucursal Jebai: busca no celular (CapacitorHttp, 30 min), leitor da página, histórico, proteção (+1% máx. quando dispara), cartão das 3 contas. |
+| `97-lamoneda.js` | 160 | Cotação da La Moneda · Sucursal Jebai: busca no celular (CapacitorHttp, 30 min), leitor da página, histórico, proteção (+1% máx. quando dispara), cotação da loja = casa + 1% de 50 em 50; busca a cada 1 min. |
 | `97-objetivos.js` | 380 | Meta automática do mês (congelada; 3 meses + época + estoque), cartão no Resumo, Objetivos da loja no Caixa (enchem na ordem, valor por venda automático, Usar, segurar para reordenar). |
-| `97-cambio-inteligente.js` | 300 | Previsão do dólar em 7 dias (motivos + certeza), plano de troca de compras em dólar (Troquei), avisos no sino (barato / disparando). |
+| `97-cambio-aba.js` | 420 | Aba Câmbio simples (v426): 3 valores da La Moneda com variação de 7 dias, cartão Reposição com selo, janelas (gráfico, motivos, trocas, site, proteção, registrar troca), previsão e aviso no sino. |
+| `97-ofertas-site.js` | 260 | Ofertas do site quando o dólar cai (1 em 5 modelos, parados primeiro, +3%/semana, teto 50%, nunca abaixo do piso), Super evento e Encalhadas (Vender na loja). |
 | `97-ajustes-lista.js` | 300 | Ajustes minimalista: lista que abre no lugar e ordem por segurar e arrastar. |
 | `97-brindes.js` | 230 | Brindes: compra entra como despesa (sem estoque), o app aprende quanto cada óculos gasta e mostra quanto separar (linha no Separar). |
 | `97-hist-busca.js` | 243 | Histórico: resumo por mês, busca, filtros, calendário e carregamento aos poucos. |

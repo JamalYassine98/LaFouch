@@ -80,27 +80,6 @@
     );
   }
   // Aba Câmbio.
-  // Cartão da cotação da loja (só informa; a margem é fixa).
-  function fxLojaHtml() {
-    var sfx = siteFxHtml();
-    var u = Math.round(fxLoja('usd')),
-      b = Math.round(fxLoja('brl')),
-      f = S.fx,
-      mg = fxMargemInfo('pyg'),
-      mb = fxMargemInfo('brl');
-    function linhaMg(nome, x) {
-      return nome + ': ' + pc(x.m) + (x.m > FX_MARGEM + 1e-9 ? ' (' + pc(x.acima) + ' acima da menor cotação de ' + FX_JANELA + ' dias)' : ' (base)');
-    }
-    return (
-      sfx +
-      lmCardHtml() +
-      (lmOk() ? '' : '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cotação da loja</h2><div class="hint" style="margin:2px 0 0">Seus preços são em dólar, e a cotação da loja vale uma margem a mais que o mercado. A margem é de ' + pc(FX_MARGEM) + ' e acompanha a moeda nas últimas ' + FX_JANELA + ' dias: se ela valoriza, a margem sobe (até ' + pc(FX_TETO) + '); se ela cai, a margem desce aos poucos até voltar a ' + pc(FX_MARGEM) + '. O dólar e o real por dólar têm cada um a sua margem. O app usa esta cotação ao receber dólar ou real, a menos que você digite outro câmbio na tela de pagamento. Custos e contas continuam pela cotação do mercado.</div></div>' +
-      '<div class="note ' + (Math.max(mg.m, mb.m) > FX_MARGEM + 1e-9 ? 'n-warn' : 'n-ok') + '" role="status">' + linhaMg('Margem do dólar', mg) + '<br>' + linhaMg('Margem do real por dólar', mb) + '</div>' +
-      '<div class="kpis"><div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 vale</div><b>' + gsRaw(u) + '</b><div class="hint">mercado ' + gsRaw(f.pyg) + '</div></div>' +
-      '<div class="kpi" style="background:var(--panel2)"><div class="lbl">R$ 1 vale</div><b>' + gsRaw(b) + '</b><div class="hint">mercado ' + gsRaw(Math.round(f.pyg / f.brl)) + '</div></div>' +
-      '<div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 vale</div><b>R$ ' + fxBrlPorUsd().toFixed(2).replace('.', ',') + '</b><div class="hint">mercado R$ ' + f.brl.toFixed(2).replace('.', ',') + '</div></div></div></section>')
-    );
-  }
   // Dois gráficos (dólar em guaranis e real por dólar) com o mesmo período, escolhido nos botões.
   var FX_PERS = [
     [14, '2 semanas'],
@@ -170,7 +149,7 @@
     var c = a / u,
       mercado = de === 'pyg' ? S.fx.pyg : S.fx.brl,
       dif = c / mercado - 1;
-    return 'Cotação que te cobraram: ' + (de === 'pyg' ? gsRaw(Math.round(c)) : 'R$ ' + nf(c, 'brl')) + ' por US$ 1 · mercado ' + (de === 'pyg' ? gsRaw(Math.round(mercado)) : 'R$ ' + nf(mercado, 'brl')) + ' (' + (de === 'pyg' ? (dif >= 0 ? '+' : '−') : dif <= 0 ? '−' : '+') + pc(Math.abs(dif)) + ')';
+    return 'Cotação que te cobraram: ' + (de === 'pyg' ? gsRaw(Math.round(c)) : 'R$ ' + nf(c, 'brl')) + ' por US$ 1 · casa ' + (de === 'pyg' ? gsRaw(Math.round(mercado)) : 'R$ ' + nf(mercado, 'brl')) + ' (' + (de === 'pyg' ? (dif >= 0 ? '+' : '−') : dif <= 0 ? '−' : '+') + pc(Math.abs(dif)) + ')';
   }
   function trocarAgoraHtml() {
     var p = trocarPlano(),
@@ -267,86 +246,15 @@
       '<div class="note n-warn">Evite retiradas até completar a reposição.</div></section>'
     );
   }
+  // v426: aba Câmbio simples (esboço aprovado 04/11, versão A) — montada em 97-cambio-aba.js
   function renderFx() {
     if (S.view !== 'fx' && !S._rtudo) return;
-    var el = $('v-fx'),
-      f = S.fx,
-      c = colchao(),
-      h = S.fxHist,
-      vals = h.map(function (p) {
-        return p.pyg;
-      }),
-      first = vals[0],
-      last = vals[vals.length - 1];
-    var html =
-      '<div class="top"><div><h1>Câmbio</h1><div class="crumb">Cotação do dólar e do real em guaranis</div></div><div class="tabs"><button class="mini" data-act="fxnow">Atualizar agora</button></div></div>';
-    html +=
-      '<section class="kpis"><div class="kpi"><div class="lbl">US$ 1 custa</div><b>' +
-      gsRaw(f.pyg) +
-      '</b><div class="hint">' +
-      f.src +
-      '</div></div>' +
-      '<div class="kpi"><div class="lbl">R$ 1 custa</div><b>' +
-      gsRaw(Math.round(f.pyg / f.brl)) +
-      '</b><div class="hint">calculado do dólar</div></div>' +
-      '<div class="kpi"><div class="lbl">US$ 1 custa</div><b>' +
-      'R$ ' + f.brl.toFixed(2).replace('.', ',') +
-      '</b><div class="hint">cotação do real</div></div>' +
-      '<div class="kpi"><div class="lbl">Próxima busca em</div><b id="cd">--:--</b><div class="hint">automática a cada 3 minutos</div></div></section>';
-    html +=
-      '<div class="note ' +
-      (f.live ? 'n-ok' : 'n-warn') +
-      '" role="status">' +
-      esc(f.status) +
-      (f.ts ? ' Última atualização às ' + fh(f.ts) + '.' : '') +
-      '</div>';
-    html += faltamHtml() + trocarMoedasHtml();
-    html += fxLojaHtml();
-    html += cxIntelHtml(); // v425: previsão do dólar + plano de troca
-    html += fxGraficos();
-    html +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Como o colchão de segurança é calculado</h2><div class="hint" style="margin:2px 0 0">Não é um percentual fixo. O app olha a pior alta recente do dólar e do custo da mercadoria.</div></div>' +
-      '<div class="split"><div class="sl"><span>Maior alta do dólar em ' +
-      c.janela +
-      ' dias<small>menor cotação seguida de uma mais alta</small></span><b>' +
-      pc(c.fx) +
-      '</b></div>' +
-      '<div class="sl"><span>Maior alta do custo entre lotes<small>custo em dólar de um lote para o seguinte</small></span><b>' +
-      pc(c.cost) +
-      '</b></div>' +
-      '<div class="sl"><span>As duas altas juntas<small>(1 + dólar) × (1 + custo) − 1</small></span><b>' +
-      pc(c.raw) +
-      '</b></div>' +
-      '<div class="sl"><span><b>Colchão aplicado</b><small>limitado entre 5% e 25%</small></span><b style="color:var(--warn)">' +
-      pc(c.pct) +
-      '</b></div></div>' +
-      '<div class="note n-info">Em cada venda, o colchão é ' +
-      pc(c.pct) +
-      ' do custo de reposição daquela peça. Se o dólar ou o custo subirem mais, o percentual sobe sozinho.</div></section>';
-    html +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Custo por lote</h2><div style="overflow-x:auto"><table class="tb"><thead><tr><th>Lote</th><th>Data</th><th>Grupo</th><th>Custo por peça</th><th>Variação</th></tr></thead><tbody>' +
-      lotesHist()
-        .map(function (l, i, A) {
-          var p = i ? A[i - 1].usd : 0;
-          return (
-            '<tr><td>' +
-            l.id +
-            '</td><td>' +
-            fd(l.ts) +
-            '</td><td>' +
-            l.txt +
-            '</td><td>' +
-            usd(l.usd) +
-            '</td><td>' +
-            (p ? (l.usd >= p ? '+' : '−') + pc(Math.abs(l.usd / p - 1)) : 'primeiro') +
-            '</td></tr>'
-          );
-        })
-        .join('') +
-      '</tbody></table></div></section>';
-    el.innerHTML = html;
-    updateTr();
-    tickFx();
+    var el = $('v-fx');
+    el.innerHTML = fxAbaHtml();
+    if (S.fxJan === 'troca') updateTr();
+    var tp = el.querySelector('.fjPer');
+    if (tp) trkPoe(tp, String(S.fxPer));
+    fjGestos();
   }
   // Atualiza o contador do câmbio.
   function tickFx() {
@@ -431,7 +339,22 @@
     });
   }
   window.__fxHistReal = fxHistReal;
+  // v426: a cotação da La Moneda (Jebai) vale em tudo; a média de mercado (open.er-api) só entra enquanto
+  // nenhum aparelho conseguiu ler a casa (app novo, ainda sem nenhuma cotação dela).
+  function fxDaCasa() {
+    if (!lmOk()) return false;
+    var c = S.lm;
+    if (S.fx && S.fx.pyg === c.usd.v && S.fx.brl === c.arb.v && S.fx.src === 'La Moneda · Jebai') return true;
+    setFx(c.usd.v, c.arb.v, 'La Moneda · Jebai', true, 'Cotação da La Moneda (Sucursal Jebai).');
+    S.fxHist[S.fxHist.length - 1].c = 1; // ponto da casa (o histórico de mercado não substitui)
+    S.fxNext = Date.now() + 60000;
+    return true;
+  }
   function fetchFx() {
+    if (fxDaCasa()) {
+      S.fxNext = Date.now() + 60000;
+      return;
+    }
     if (fxAdota() && Date.now() - S.fx.ts < 150000) return;
     S.fxNext = Date.now() + 180000;
     var fail = function () {

@@ -829,6 +829,8 @@
       }
       card.appendChild(photoBox(photoOf(rr), 'pbox'));
       card.appendChild(mk('b', '', pn(rr)));
+      var encD = encDias(rr); // v426: parada 120+ dias
+      if (encD) card.appendChild(mk('span', 'encTag', 'Encalhada · ' + encD + ' dias'));
       var fxe = faixaOf(rr);
       if (fxe) {
         var fte = faixaTag(fxe);
