@@ -972,4 +972,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 3. "O que comprar de NOVO": vendas por formato, cor, material e faixa de preço → aviso do tipo "Gatinho acetato rosa vende 3× a média e você só tem 2 modelos".
 4. Giro 360 do Estúdio na página da peça no site (junto de frente e 3/4).
 - (5 etiqueta de preço com QR na térmica: dono perguntou se a impressora não é só para comprovante → em discussão.)
-- Animações de grupo da barra (juntar/desfazer): esboços em vídeo A Ímã e B Pasta (scratchpad grp/); aguardando escolha.
+- Animações de grupo da barra: A Ímã e B Pasta RECUSADAS pelo dono (19:01). Refazer com outra ideia. Implementação de tudo: dono disse "ainda não".
