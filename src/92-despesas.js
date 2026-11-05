@@ -241,10 +241,7 @@
         })
         .join('') +
       '</select><select class="in" id="nTipo" aria-label="Tipo" style="flex:1 1 110px;width:auto"><option value="fixa">Fixa</option><option value="variavel">Variável</option></select><select class="in" id="nMoeda" aria-label="Moeda" style="flex:1 1 90px;width:auto">' + opcoesMoeda() + '</select><input class="in" id="nVal" inputmode="decimal" placeholder="Valor" style="flex:1 1 110px;width:auto" aria-label="Valor"><input class="in" id="nDia" inputmode="numeric" maxlength="2" placeholder="Dia do vencimento" style="flex:1 1 90px;width:auto" aria-label="Dia do vencimento"><button class="mini" data-act="expadd">Adicionar</button></div><div class="hint" id="nH" role="status"></div></section>';
-    html +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Caixa de melhorias</h2><div class="hint" style="margin:0">Opcional. Não entra nas contas obrigatórias e nunca trava uma venda.</div><div class="sel"><input class="in" id="melhIn" inputmode="' + mpMode() + '" data-in="melh" value="' +
-      gsParaCampo(S.melhPeca) +
-      '" aria-label="Valor por peça para melhorias" style="max-width:180px"><span class="hint" style="margin:0">' + mpSim() + ' por peça vendida</span></div></section>';
+    // v425: a caixa de melhorias virou Objetivos da loja (Caixa); o valor por venda é automático
     var pmk = ymNow(),
       pays = (S.cpay || []).filter(function (x) {
         return x.ym === pmk;

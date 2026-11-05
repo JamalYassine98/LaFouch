@@ -284,7 +284,7 @@
       ln('Contas', 'cada uma na sua moeda', sp.con, '#a2447c', false, false) +
       (sp.brT && sp.brT.itens.length ? ln('Brindes', 'separar ' + gs(Math.round(sp.brT.porVenda)) + ' por venda · guardado ' + gs(Math.round(sp.brT.guardado)), sp.br, '#c9a0dc', false, false) : '') +
       ln('Colchão', 'proporcional ao que sobrou', sp.colch, '#ffc766', false, false) +
-      ln('Melhorias', 'opcional', sp.melh, 'var(--info)', false, false) +
+      ln('Objetivos', 'da loja', sp.melh, 'var(--info)', false, false) +
       ln('Lucro livre', 'o que sobrou', sp.livre, '#00ff88', true, true) +
       '</section>'
     );

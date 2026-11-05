@@ -306,7 +306,7 @@ TESTES = [
  ("parados: baixa estação não conta como parado", """S.sazon={solar:Array(12).fill(0.5)}; S.appStart=Date.now()-100*864e5; S.sales=[];
    S.items=[{tipo:'solar',ref:'C',vr:'C1',cor:'Preto',qty:5,custo:1}]; return L.parados().length""", 0),
  ("metaInfo: lucro do mês por faixa", """const n=Date.now(); S.metaUsd=100; S.sales=[{ts:n,tipo:'pre',ref:'A',qty:1,livre:7000,fx:7000,faixa:'f1',estorno:false},{ts:n,tipo:'pre',ref:'A',qty:1,livre:3500,fx:7000,faixa:'',estorno:false},{ts:n,tipo:'pre',ref:'A',qty:1,livre:9999,fx:7000,faixa:'f1',estorno:true}];
-   const m=L.metaInfo(); return [m.meta, m.lucro, m.por.f1, m.por['']]""", [100, 1.5, 1, 0.5]),
+   const m=L.metaInfo(); return [m.meta === L.metaMes(), m.lucro, m.por.f1, m.por['']]""", [True, 1.5, 1, 0.5]),
  ("curvaAbc: A, B e C pelo lucro", """const n=Date.now(); S.items=['P1','P2','P3'].map(r=>({tipo:'pre',ref:r,grau:'+1.00',cor:'Preto',qty:1,custo:1}));
    S.sales=[['P1',80],['P2',15],['P3',5]].map(a=>({ts:n,tipo:'pre',ref:a[0],qty:1,livre:a[1]*7000,fx:7000,estorno:false}));
    return L.curvaAbc().lista.map(m=>m.abc)""", ["A", "B", "C"]),
@@ -409,12 +409,13 @@ async def main():
             total += 1
             await pg.evaluate("() => { const S = window.__LF.S; S.ini.melh = 400000; window.__LF.render(); }")
             await pg.locator('#mainnav >> text="Caixa"').first.click(); await pg.wait_for_timeout(300)
-            await pg.click('#cxIc'); await pg.wait_for_timeout(150); await pg.click('[data-act=cxabre][data-id=mel]'); await pg.wait_for_timeout(300)
-            await pg.fill('#muD', 'Tinta'); await pg.fill('#muV', '50000')
-            await pg.locator('[data-act="melhuso"]').first.click(); await pg.wait_for_timeout(200)
-            got = await pg.evaluate("() => { const S = window.__LF.S; return [S.melhUso.length, S.dlog.filter(x => x.kind === 'melh').length, S.cash.pyg] }")
-            ok = got == [1, 1, 4950000]
-            print(('  ok  ' if ok else ' FALHA ') + 'tela Caixa: registrar uso de melhorias')
+            await pg.click('#cxIc'); await pg.wait_for_timeout(150); await pg.click('#cxIc ~ .cxMenu [data-act=cxabre][data-id=mel]'); await pg.wait_for_timeout(300)
+            await pg.fill('#obNome', 'Tinta'); await pg.fill('#obCusto', '50000')
+            await pg.locator('[data-act="obAdd"]').first.click(); await pg.wait_for_timeout(300)
+            await pg.locator('[data-act="obUsar"]').first.click(); await pg.wait_for_timeout(200)
+            got = await pg.evaluate("() => { const S = window.__LF.S; return [S.melhUso.length, S.dlog.filter(x => x.kind === 'melh').length, S.cash.pyg, !!S.objetivos[0].usado] }")
+            ok = got == [1, 1, 4950000, True]
+            print(('  ok  ' if ok else ' FALHA ') + 'tela Caixa: objetivo novo, pronto → Usar (tira do caixa e lança)')
             if not ok: falhas.append('tela melhorias'); print('        veio', got)
             total += 1
             await pg.evaluate("() => window.__LF.setView('desp')"); await pg.wait_for_timeout(300)
@@ -1104,16 +1105,11 @@ async def main():
             # campos de digitar seguem a moeda principal
             pg = await pagina()
             r = await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.fx.pyg = 7000; S.fx.brl = 5;
-              S.melhPeca = 14000; S.descMode = 'pyg'; S.descTxt = '2';
+              S.descMode = 'pyg'; S.descTxt = '2';
               L.setView('despesas'); L.render();
-              const a = document.getElementById('melhIn').value;
-              document.getElementById('impV').value = '3'; document.getElementById('melhIn').value = '10500';
-              document.getElementById('melhIn').dispatchEvent(new Event('input', {bubbles: true}));
-              const b = S.melhPeca;
-              document.querySelector('[data-act=impadd]').click(); document.getElementById('impD') ;
-              L.render(); const c = document.getElementById('melhIn').value;
-              return [a, b, c, document.getElementById('nMoeda').value, L.S.imprev.length]; }""")
-            ok = r[0] == '14.000' and r[1] == 10500 and r[2] == '10.500' and r[3] == 'pyg' and not pg.erros
+              const a = !document.getElementById('melhIn');
+              return [a, document.getElementById('nMoeda').value]; }""")
+            ok = r[0] is True and r[1] == 'pyg' and not pg.erros
             total += 1
             print(('  ok  ' if ok else ' FALHA ') + 'campos de valor em guaranis, com a moeda de cada campo')
             if not ok: falhas.append('campos moeda'); print('        veio', r, pg.erros)
@@ -2244,7 +2240,7 @@ async def main():
             await pg.evaluate("""() => { window.__bioCalls = 0; window.Capacitor = { Plugins: { BiometricAuthNative: { checkBiometry: () => Promise.resolve({isAvailable: true}), internalAuthenticate: () => { window.__bioCalls++; return Promise.resolve(); } } } }; const L = window.__LF; L.S._bioOk = undefined; L.S._ajForce = true; L.setView('ajustes'); }""")
             await pg.wait_for_timeout(500)
             r0 = await pg.evaluate("() => { const t = document.querySelector('[data-aj=biotog]'); return [!!t, t && t.disabled]; }")
-            await pg.locator('.sw').first.click(); await pg.wait_for_timeout(500)
+            await pg.locator('.sw:has([data-aj=biotog])').click(); await pg.wait_for_timeout(500)
             modal = await pg.evaluate("() => [!document.getElementById('pinModal').hidden, window.__bioCalls]")
             await pg.fill('#pinM1', '4321'); await pg.fill('#pinM2', '4321'); await pg.click('#pinMOk'); await pg.wait_for_timeout(800)
             r1 = await pg.evaluate("() => [window.__bioCalls, window.__LF.S.bioOn, !!window.__LF.S.pinHash, document.getElementById('v-ajustes').innerText.toLowerCase().includes('mudar pin'), document.getElementById('pinModal').hidden]")
@@ -2604,16 +2600,14 @@ async def main():
             await pg.evaluate("() => { const L = window.__LF, S = L.S; S.moedaP = 'usd'; S.items = [{tipo:'pre', ref:'AJ1', grau:'+1.00', med:'', vr:'', fmt:'', cor:'Preto', qty:6, custo:1}]; S.dTab = 'prec'; S.dfold = Object.assign(S.dfold || {}, {cfg: true}); L.setView('dash'); }")
             await pg.wait_for_timeout(300)
             total += 1
-            await pg.fill('[data-aj="meta"]', '600'); await pg.press('[data-aj="meta"]', 'Tab'); await pg.wait_for_timeout(300)
-            await pg.fill('[data-aj="vol"]', '500'); await pg.press('[data-aj="vol"]', 'Tab'); await pg.wait_for_timeout(300)
-            got = await pg.evaluate("() => { const S = window.__LF.S; return [S.metaUsd, !document.getElementById('fnew'), S.volume] }")
-            ok = got == [600, True, 500] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'Dashboard › Preços: meta e peças por mês; sem faixas manuais (linha automática)')
+            got = await pg.evaluate("() => [!document.querySelector('[data-aj=meta]'), !document.getElementById('fnew'), !document.querySelector('[data-aj=vol]'), !document.querySelector('[data-aj=mdia]')]")
+            ok = got == [True, True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Dashboard › Preços: meta e peças por mês automáticas (sem campos); sem faixas manuais')
             if not ok: falhas.append('tela ajustes'); print('        veio', got, pg.erros)
             total += 1
             await pg.evaluate("() => { window.__LF.S.dTab = 'hoje'; window.__LF.setView('dash'); }"); await pg.wait_for_timeout(300)
             tx = await pg.inner_text('#v-dash')
-            ok = 'Meta do mês' in tx and 'US$ 600' in tx and not pg.erros
+            ok = 'Meta do mês' in tx and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Dashboard: mostra meta do mês')
             if not ok: falhas.append('dash meta'); print('        veio', tx[:200], pg.erros)
             await pg.close()
@@ -2683,7 +2677,7 @@ async def main():
             await pg.locator('#mainnav >> text="Ajustes"').first.click(); await pg.wait_for_timeout(300)
             await pg.evaluate("""() => { window.Capacitor = { Plugins: { BiometricAuthNative: { checkBiometry: () => Promise.resolve({isAvailable: true}), internalAuthenticate: () => Promise.resolve() } } }; const L = window.__LF; L.S._bioOk = undefined; L.S._ajForce = true; L.render(); }""")
             await pg.wait_for_timeout(500)
-            await pg.locator('.sw').first.click(); await pg.wait_for_timeout(400)
+            await pg.locator('.sw:has([data-aj=biotog])').click(); await pg.wait_for_timeout(400)
             await pg.fill('#pinM1', '4321'); await pg.fill('#pinM2', '4321'); await pg.click('#pinMOk'); await pg.wait_for_timeout(800)
             tx = await pg.inner_text('#v-ajustes')
             await checa('Ajustes: PIN ativo, sem cópias automáticas do celular e sem a senha do painel', 'Mudar PIN' in tx and 'cópias automáticas' not in tx.lower() and 'Senha do painel do site' not in tx, tx[-300:])
@@ -2723,6 +2717,38 @@ async def main():
             print(('  ok  ' if ok else ' FALHA ') + 'gravação: dados voltam após recarregar')
             if not ok: falhas.append('gravação'); print('        veio', got)
             await ctx.close()
+
+            # La Moneda Jebai (v425): lê a sucursal certa, arbitragem da Casa Matriz, US$ 10 = G$ 62.000 · R$ 55
+            pg = await pagina()
+            total += 1
+            got = await pg.evaluate("""() => { const L = window.__LF, S = L.S;
+              const h = '<h3>Casa Matriz</h3><table><tr><td>Dólar</td><td>6.010</td><td>6.140</td></tr><tr><td>USD/BRL</td><td>5,30</td><td>5,48</td></tr></table>' +
+                '<h3>Sucursal Jebai</h3><table><tr><td>Dólar</td><td>6.000</td><td>6.150</td></tr><tr><td>Real</td><td>1.105</td><td>1.155</td></tr></table>' +
+                '<h3>Sucursal Centro</h3><table><tr><td>Dólar</td><td>5.990</td><td>6.160</td></tr></table>';
+              const c = L.lmLer(h); L.lmGrava(c);
+              const card = L.lmCardHtml();
+              return [c.usd.v, c.brl.c, c.arb.v, L.gsDeUsd(10), /R\$ 55/.test(card), L.lmLer('<p>nada</p>')]; }""")
+            ok = got[:5] == [6150, 1105, 5.48, 62000, True] and got[5] is None and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'La Moneda Jebai: lê a sucursal, US$ 10 = G$ 62.000 · R$ 55')
+            if not ok: falhas.append('la moneda'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # Meta automática + Objetivos da loja + plano de troca (v425)
+            pg = await pagina()
+            total += 1
+            got = await pg.evaluate("""() => { const L = window.__LF, S = L.S;
+              const meta = L.metaMes(), k = new Date().getFullYear() + '-' + (new Date().getMonth() + 1);
+              S.objetivos = [{id: 'a', nome: 'Vitrine', custo: 1000, ate: '', ts: 1}, {id: 'b', nome: 'Ar', custo: 90000000, ate: (new Date().getFullYear() + 1) + '-' + (new Date().getMonth() + 1), ts: 2}];
+              const pl = L.objPlano(), pv = L.melhPecaAuto();
+              const caixa0 = S.cash.pyg; L.ACT.obUsar('a');
+              const usado = !!S.objetivos[0].usado && S.cash.pyg === caixa0 - 1000;
+              S.trocaPlan = [{id: 'c', usd: 2000, data: Date.now() + 10 * 864e5, ts: 1, trocas: []}];
+              const ps = L.cxPassos(S.trocaPlan[0], L.cxPrevisao()).passos;
+              return [meta > 0, S.metaHist[k] === meta, pl.itens[0].pronto, pv > 0 && pv % 500 === 0, usado, ps.reduce((a, x) => a + x.usd, 0), ps.length, /Meta do mês/.test(L.metaCardHtml ? L.metaCardHtml() : 'Meta do mês')]; }""")
+            ok = got == [True, True, True, True, True, 2000, 3, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'meta automática congelada no mês, objetivos enchem na ordem e Usar, plano de troca em 3 partes')
+            if not ok: falhas.append('meta objetivos'); print('        veio', got, pg.erros)
+            await pg.close()
 
             # telas: 8 abas x 2 temas, sem erro e com conteúdo
             fundos = {}

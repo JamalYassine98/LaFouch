@@ -71,7 +71,7 @@
       tot += u;
       por[k] = (por[k] || 0) + u;
     });
-    return { meta: S.metaUsd || 0, lucro: tot, por: por, restam: dias - d.getDate() + 1, dias: dias };
+    return { meta: metaMes(), lucro: tot, por: por, restam: dias - d.getDate() + 1, dias: dias };
   }
   // O que a meta do mês pede por dia, com o mix e os preços de hoje (estimativa: não desconta taxas de pagamento).
   function metaDiaHtml() {
@@ -94,7 +94,7 @@
     if (!(ctb > 0)) return '';
     var contas = totalMensal() + reservaCambioContas(),
       eq = contas / ctb,
-      meta = S.metaUsd > 0 ? (S.metaUsd * fx + contas) / ctb : 0,
+      meta = metaMes() > 0 ? (metaMes() * fx + contas) / ctb : 0,
       f1 = function (n) {
         return String(Math.round(n * 10) / 10).replace('.', ',');
       },
@@ -110,7 +110,7 @@
       '<div class="hint" style="margin:0"><b>Ponto de equilíbrio: ' +
       f1(eq / dias) +
       ' peças/dia</b> (abaixo disso as contas do mês não fecham)' +
-      (meta > 0 ? '. Para bater a meta de US$ ' + Math.round(S.metaUsd) + ': ~' + f1(meta / dias) + ' peças/dia.' : '. Defina a meta do mês para ver quanto ela pede.') +
+      (meta > 0 ? '. Para bater a meta de US$ ' + Math.round(metaMes()) + ': ~' + f1(meta / dias) + ' peças/dia.' : '. Defina a meta do mês para ver quanto ela pede.') +
       '</div></section>';
     return h;
   }

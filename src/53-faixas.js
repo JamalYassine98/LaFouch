@@ -287,7 +287,7 @@
       unid = Object.keys(r.m).reduce(function (a, k) {
         return a + r.m[k];
       }, 0),
-      w = r.hist >= 14 && unid >= 10 && S.volAuto !== false ? Math.min(1, (r.hist - 14) / 46) : 0;
+      w = r.hist >= 14 && unid >= 10 ? 1 : 0; // v425: 14 dias de vendas reais já valem sozinhos
     if (w > 0)
       Object.keys(r.m).forEach(function (k) {
         out[k] = w * r.m[k] + (1 - w) * (out[k] || r.m[k]);

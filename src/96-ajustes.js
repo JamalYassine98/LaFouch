@@ -87,20 +87,7 @@
   }
   // Meta mínima de vendas por dia, rateio das contas e faixa automática.
   function precosMetaHtml() {
-    var h = '<div class="col" style="border-top:1px solid var(--line);padding-top:12px"><div><div class="lbl">Meta mínima de vendas por dia, por tipo</div><div class="hint" style="margin:0">Um palpite seu basta. Serve para dividir as contas desde o primeiro dia; conforme as vendas reais aparecem, o app passa a usá-las.</div></div>';
-    tipoAll().forEach(function (t) {
-      if (t.simple) return;
-      h +=
-        '<div style="display:flex;gap:8px;align-items:center"><span style="flex:1 1 150px">' +
-        esc(t.label) +
-        '</span><input class="in" inputmode="decimal" data-aj="mdia" data-tipo="' +
-        esc(t.id) +
-        '" value="' +
-        (S.metaDia[t.id] > 0 ? String(S.metaDia[t.id]).replace('.', ',') : '') +
-        '" placeholder="0" aria-label="Peças por dia de ' +
-        esc(t.label) +
-        '" style="max-width:90px"><span class="hint" style="margin:0">por dia</span></div>';
-    });
+    var h = '<div class="col" style="border-top:1px solid var(--line);padding-top:12px"><div><div class="lbl">Divisão das contas</div></div>';
     h +=
       '<div style="display:flex;gap:8px;align-items:center"><span style="flex:1 1 150px">Dias de loja aberta por mês</span><input class="in" inputmode="numeric" data-aj="dias" value="' +
       (S.diasLoja || 26) +
@@ -122,11 +109,6 @@
   // Preços e finanças (Dashboard › Preços): meta, faixas e rateio das contas. Os campos usam data-aj e valem em qualquer tela.
   function precosCfgHtml() {
     var h = '';
-    // meta
-    h +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Meta do mês</h2><div><div class="lbl">Lucro livre desejado no mês, loja toda (US$)</div><input class="in" inputmode="decimal" data-aj="meta" value="' +
-      usdParaCampo(S.metaUsd) +
-      '" placeholder="Ex.: ' + usdParaCampo(600) + '" style="max-width:220px"></div></section>';
     // v421: as faixas manuais saíram — Econômica/Intermediária/Luxo são automáticas (linha do produto)
     // rateio das contas e tolerância da contagem
     h +=
@@ -135,15 +117,9 @@
       ', cerca de US$ ' +
       Math.round(totalMensal() / S.fx.pyg) +
       ') já são separadas de cada venda: o lucro livre e a meta são o que sobra depois delas.</div></div>' +
-      '<div><div class="lbl">Peças por mês para ratear as contas</div><input class="in" inputmode="numeric" data-aj="vol" value="' +
-      S.volume +
-      '" style="max-width:160px"><div class="hint">Em uso agora: <b>' +
+      '<div class="hint" style="margin:0">Peças por mês para dividir as contas: <b>' +
       volumeEfetivo() +
-      '</b> ' +
-      (volumeAuto() > 0 && S.volAuto !== false ? '(calculado pelas suas vendas reais)' : '(número manual)') +
-      '.</div><div style="margin-top:8px"><button class="chip' +
-      (S.volAuto !== false ? ' on' : '') +
-      '" data-act="volauto">Calcular pelas vendas reais</button></div><div class="hint">Com 14 dias de vendas (pelo menos 10 peças), o app passa a usar a média real e atualiza sozinho.</div></div>' +
+      '</b> (automático: vendas reais dos últimos dias; a meta do mês também é automática e aparece no Resumo).</div>' +
       precosMetaHtml() +
       '</section>';
     return h;

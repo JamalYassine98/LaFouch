@@ -93,11 +93,12 @@
     }
     return (
       sfx +
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cotação da loja</h2><div class="hint" style="margin:2px 0 0">Seus preços são em dólar, e a cotação da loja vale uma margem a mais que o mercado. A margem é de ' + pc(FX_MARGEM) + ' e acompanha a moeda nas últimas ' + FX_JANELA + ' dias: se ela valoriza, a margem sobe (até ' + pc(FX_TETO) + '); se ela cai, a margem desce aos poucos até voltar a ' + pc(FX_MARGEM) + '. O dólar e o real por dólar têm cada um a sua margem. O app usa esta cotação ao receber dólar ou real, a menos que você digite outro câmbio na tela de pagamento. Custos e contas continuam pela cotação do mercado.</div></div>' +
+      lmCardHtml() +
+      (lmOk() ? '' : '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cotação da loja</h2><div class="hint" style="margin:2px 0 0">Seus preços são em dólar, e a cotação da loja vale uma margem a mais que o mercado. A margem é de ' + pc(FX_MARGEM) + ' e acompanha a moeda nas últimas ' + FX_JANELA + ' dias: se ela valoriza, a margem sobe (até ' + pc(FX_TETO) + '); se ela cai, a margem desce aos poucos até voltar a ' + pc(FX_MARGEM) + '. O dólar e o real por dólar têm cada um a sua margem. O app usa esta cotação ao receber dólar ou real, a menos que você digite outro câmbio na tela de pagamento. Custos e contas continuam pela cotação do mercado.</div></div>' +
       '<div class="note ' + (Math.max(mg.m, mb.m) > FX_MARGEM + 1e-9 ? 'n-warn' : 'n-ok') + '" role="status">' + linhaMg('Margem do dólar', mg) + '<br>' + linhaMg('Margem do real por dólar', mb) + '</div>' +
       '<div class="kpis"><div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 vale</div><b>' + gsRaw(u) + '</b><div class="hint">mercado ' + gsRaw(f.pyg) + '</div></div>' +
       '<div class="kpi" style="background:var(--panel2)"><div class="lbl">R$ 1 vale</div><b>' + gsRaw(b) + '</b><div class="hint">mercado ' + gsRaw(Math.round(f.pyg / f.brl)) + '</div></div>' +
-      '<div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 vale</div><b>R$ ' + fxBrlPorUsd().toFixed(2).replace('.', ',') + '</b><div class="hint">mercado R$ ' + f.brl.toFixed(2).replace('.', ',') + '</div></div></div></section>'
+      '<div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 vale</div><b>R$ ' + fxBrlPorUsd().toFixed(2).replace('.', ',') + '</b><div class="hint">mercado R$ ' + f.brl.toFixed(2).replace('.', ',') + '</div></div></div></section>')
     );
   }
   // Dois gráficos (dólar em guaranis e real por dólar) com o mesmo período, escolhido nos botões.
@@ -301,6 +302,7 @@
       '</div>';
     html += faltamHtml() + trocarMoedasHtml();
     html += fxLojaHtml();
+    html += cxIntelHtml(); // v425: previsão do dólar + plano de troca
     html += fxGraficos();
     html +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Como o colchão de segurança é calculado</h2><div class="hint" style="margin:2px 0 0">Não é um percentual fixo. O app olha a pior alta recente do dólar e do custo da mercadoria.</div></div>' +

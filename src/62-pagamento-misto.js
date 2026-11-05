@@ -43,6 +43,7 @@
   }
   // Dólar da loja de 100 em 100 guaranis (5.745 vira 5.700; 5.750 também desce), mas nunca abaixo do mercado.
   function fxUsdLoja() {
+    if (lmOk()) return lmUsdLoja(); // v425: segue a La Moneda Jebai
     var mk = ratePyg('usd'),
       r = Math.ceil((mk * (1 + fxMargemInfo('pyg').m)) / 100 - 0.5 - 1e-9) * 100;
     if (mk > 0 && r < mk) r += 100;
@@ -50,6 +51,7 @@
   }
   // Real por dólar: sobe de 0,10 em 0,10 (5,04 com margem vira 5,10).
   function fxBrlPorUsd() {
+    if (lmOk()) return lmBrlPorUsd();
     var b = S.fx && S.fx.brl > 0 ? S.fx.brl : 5;
     return Math.ceil(b * (1 + fxMargemInfo('brl').m) * 10 - 1e-9) / 10;
   }

@@ -50,7 +50,8 @@
       );
     var melh =
       S.ini.melh +
-      sumBy(valid, 'melh') -
+      sumBy(valid, 'melh') +
+      objExtra() -
       S.melhUso.reduce(function (a, x) {
         return a + x.valor;
       }, 0);
@@ -219,7 +220,7 @@
     var html =
       '<div class="top" style="flex-wrap:nowrap;align-items:flex-start"><div style="min-width:0;flex:1"><h1>Caixa</h1><div class="crumb">Quanto dinheiro existe, quanto já tem dono e quanto é seu</div></div><div style="position:relative;flex:none"><button type="button" class="ic' + (S.cxMenu ? ' on' : '') + '" id="cxIc" data-act="cxmenu" aria-label="Ações do caixa" aria-expanded="' + !!S.cxMenu + '">' + ICO.caixa + '</button>' +
       (S.cxMenu
-        ? '<div class="cxMenu" role="menu"><button type="button" role="menuitem" data-act="cxabre" data-id="ret">' + ICO.sobe + 'Retirar</button><button type="button" role="menuitem" data-act="cxabre" data-id="mel">' + ICO.ferr + 'Melhorias</button><button type="button" role="menuitem" data-act="cxabre" data-id="cc">' + ICO.chk + 'Conferir</button></div>'
+        ? '<div class="cxMenu" role="menu"><button type="button" role="menuitem" data-act="cxabre" data-id="ret">' + ICO.sobe + 'Retirar</button><button type="button" role="menuitem" data-act="cxabre" data-id="mel">' + ICO.ferr + 'Novo objetivo</button><button type="button" role="menuitem" data-act="cxabre" data-id="cc">' + ICO.chk + 'Conferir</button></div>'
         : '') +
       '</div></div>';
     if (S.cxMsg)
@@ -251,6 +252,7 @@
       '</div><div class="hint" style="margin:0">Total aproximado: <b>' +
       gs(Math.round(r.wal)) +
       '</b> ao câmbio de hoje. O que está livre e o que já tem dono ficam no <a href="#dash" data-act="view" data-id="dash" style="color:var(--accent-fg)">Dashboard</a>, aba Dinheiro.</div></section>';
+    html += objCardHtml(); // v425: Objetivos da loja (antiga caixa de melhorias)
     if (r.livre < 0)
       html +=
         '<div class="note n-bad">O dinheiro em caixa está abaixo do que deveria estar separado. Evite retiradas até repor.</div>';
@@ -266,17 +268,13 @@
     html += '<div class="cxBack' + (acao ? ' on' : '') + '" data-act="cxfecha"></div>';
     html += sh('ret', retiradaHtml());
     html += sh('cc', ccHtml());
-    html += sh(
-      'mel',
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Usar a caixa de melhorias</h2><div class="hint" style="margin:0">Tira do saldo de melhorias e dos guaranis em caixa.</div>' +
-        '<div class="sel" style="flex-wrap:wrap"><input class="in" id="muD" placeholder="No que usou" style="flex:2 1 150px;width:auto" aria-label="Descrição do uso"><input class="in" id="muV" inputmode="' + mpMode() + '" placeholder="' + mpSim() + '" style="flex:1 1 110px;width:auto" aria-label="Valor usado"><button class="mini" data-act="melhuso">Registrar</button></div></section>'
-    );
+    html += sh('mel', objFormHtml());
     // movimentos: retiradas e usos da caixa de melhorias, do mais novo para o mais antigo
     var mov = S.retiradas.slice(0, 8).map(function (x) {
       return { ts: x.ts, nome: x.nota || 'Retirada', val: fmtM(x.orig, x.moeda), des: x.ts };
     });
     S.melhUso.slice(-5).forEach(function (x) {
-      mov.push({ ts: x.ts, nome: x.desc + ' (melhorias)', val: gs(x.valor), des: '' });
+      mov.push({ ts: x.ts, nome: x.desc + ' (objetivo)', val: gs(x.valor), des: '' });
     });
     mov.sort(function (a, b) {
       return b.ts - a.ts;
@@ -293,6 +291,14 @@
         : '<div class="hint" style="margin:0">Nenhum movimento ainda.</div>') +
       '</section>';
     el.innerHTML = html;
+    objGestos();
+    ['obNome', 'obCusto', 'obAte'].forEach(function (id) {
+      var e = $(id);
+      if (e)
+        e.oninput = e.onchange = function () {
+          OBJ[{ obNome: 'nome', obCusto: 'custo', obAte: 'ate' }[id]] = e.value;
+        };
+    });
     updateTr();
   }
   // Atualiza a transferência entre moedas.

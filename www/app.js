@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 424;
+  var APP_BUILD = 425;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '4.7.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '4.8.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -1013,7 +1013,7 @@
   // linha que sumiu = movimento "rem"; linha editada = rem da antiga + add da nova.
   var SYNC_LISTAS = { sales: 'id', exp: 0, cambios: 0, compras: 0, descartes: 0, retiradas: 0, melhUso: 0, cpay: 0, imprev: 0, dlog: 0, elog: 0, fechos: 'id', brindes: 0 };
   // Configurações (valor inteiro; vale a última alteração). Nada que seja de um aparelho só (PIN, biometria, tema, bloqueio, avisos).
-  var SYNC_CFG = ['faixas', 'pfaixa', 'linhaFix', 'pTrava', 'pAuto', 'pprice', 'metaUsd', 'metaDia', 'diasLoja', 'colchUsd', 'tolUsd', 'volume', 'formas', 'notaCidade', 'cat2', 'tiposX', 'tiposDel', 'tiposOrd', 'pnome', 'desc', 'attr', 'faixaAuto', 'ini', 'site', 'fxc'];
+  var SYNC_CFG = ['faixas', 'pfaixa', 'linhaFix', 'pTrava', 'pAuto', 'pprice', 'metaUsd', 'metaDia', 'diasLoja', 'colchUsd', 'tolUsd', 'volume', 'formas', 'notaCidade', 'cat2', 'tiposX', 'tiposDel', 'tiposOrd', 'pnome', 'desc', 'attr', 'faixaAuto', 'ini', 'site', 'fxc', 'lm', 'objetivos', 'metaHist', 'trocaPlan'];
   // Listas com cadastro que se edita (clientes): cada linha tem id; vale a última alteração de cada uma.
   // skip = campos pesados (fotos) que não viajam por aqui; ficam em cada aparelho.
   var SYNC_PUT = { clientes: { k: 'id', skip: [] }, pedidos: { k: 'id', skip: ['comp', 'qr'] }, espera: { k: 'id', skip: [] } };
@@ -7275,7 +7275,7 @@
       pp = pisoPeca(it),
       bu = pay.brinde ? pay.brinde.usd : 0,
       bg = Math.round(bu * S.fx.pyg),
-      m = calcSale(tf, qty, S.fx.pyg, c.pct, cp, S.melhPeca, eff, bu);
+      m = calcSale(tf, qty, S.fx.pyg, c.pct, cp, melhPecaAuto(), eff, bu);
     for (var k in m) s[k] = m[k];
     var fm = formaPorId(pay.forma),
       tx = taxaGs(recGs, fm),
@@ -10467,7 +10467,7 @@
       unid = Object.keys(r.m).reduce(function (a, k) {
         return a + r.m[k];
       }, 0),
-      w = r.hist >= 14 && unid >= 10 && S.volAuto !== false ? Math.min(1, (r.hist - 14) / 46) : 0;
+      w = r.hist >= 14 && unid >= 10 ? 1 : 0; // v425: 14 dias de vendas reais já valem sozinhos
     if (w > 0)
       Object.keys(r.m).forEach(function (k) {
         out[k] = w * r.m[k] + (1 - w) * (out[k] || r.m[k]);
@@ -10919,7 +10919,7 @@
       tot += u;
       por[k] = (por[k] || 0) + u;
     });
-    return { meta: S.metaUsd || 0, lucro: tot, por: por, restam: dias - d.getDate() + 1, dias: dias };
+    return { meta: metaMes(), lucro: tot, por: por, restam: dias - d.getDate() + 1, dias: dias };
   }
   // O que a meta do mês pede por dia, com o mix e os preços de hoje (estimativa: não desconta taxas de pagamento).
   function metaDiaHtml() {
@@ -10942,7 +10942,7 @@
     if (!(ctb > 0)) return '';
     var contas = totalMensal() + reservaCambioContas(),
       eq = contas / ctb,
-      meta = S.metaUsd > 0 ? (S.metaUsd * fx + contas) / ctb : 0,
+      meta = metaMes() > 0 ? (metaMes() * fx + contas) / ctb : 0,
       f1 = function (n) {
         return String(Math.round(n * 10) / 10).replace('.', ',');
       },
@@ -10958,7 +10958,7 @@
       '<div class="hint" style="margin:0"><b>Ponto de equilíbrio: ' +
       f1(eq / dias) +
       ' peças/dia</b> (abaixo disso as contas do mês não fecham)' +
-      (meta > 0 ? '. Para bater a meta de US$ ' + Math.round(S.metaUsd) + ': ~' + f1(meta / dias) + ' peças/dia.' : '. Defina a meta do mês para ver quanto ela pede.') +
+      (meta > 0 ? '. Para bater a meta de US$ ' + Math.round(metaMes()) + ': ~' + f1(meta / dias) + ' peças/dia.' : '. Defina a meta do mês para ver quanto ela pede.') +
       '</div></section>';
     return h;
   }
@@ -13104,7 +13104,7 @@
       ln('Contas', 'cada uma na sua moeda', sp.con, '#a2447c', false, false) +
       (sp.brT && sp.brT.itens.length ? ln('Brindes', 'separar ' + gs(Math.round(sp.brT.porVenda)) + ' por venda · guardado ' + gs(Math.round(sp.brT.guardado)), sp.br, '#c9a0dc', false, false) : '') +
       ln('Colchão', 'proporcional ao que sobrou', sp.colch, '#ffc766', false, false) +
-      ln('Melhorias', 'opcional', sp.melh, 'var(--info)', false, false) +
+      ln('Objetivos', 'da loja', sp.melh, 'var(--info)', false, false) +
       ln('Lucro livre', 'o que sobrou', sp.livre, '#00ff88', true, true) +
       '</section>'
     );
@@ -14758,6 +14758,7 @@
   }
   // Dólar da loja de 100 em 100 guaranis (5.745 vira 5.700; 5.750 também desce), mas nunca abaixo do mercado.
   function fxUsdLoja() {
+    if (lmOk()) return lmUsdLoja(); // v425: segue a La Moneda Jebai
     var mk = ratePyg('usd'),
       r = Math.ceil((mk * (1 + fxMargemInfo('pyg').m)) / 100 - 0.5 - 1e-9) * 100;
     if (mk > 0 && r < mk) r += 100;
@@ -14765,6 +14766,7 @@
   }
   // Real por dólar: sobe de 0,10 em 0,10 (5,04 com margem vira 5,10).
   function fxBrlPorUsd() {
+    if (lmOk()) return lmBrlPorUsd();
     var b = S.fx && S.fx.brl > 0 ? S.fx.brl : 5;
     return Math.ceil(b * (1 + fxMargemInfo('brl').m) * 10 - 1e-9) / 10;
   }
@@ -21880,7 +21882,7 @@
       };
     if (t === 'hoje') {
       var x = dashExtra();
-      h += o.per + o.kp + (o.repor || '') + (o.colch || '') + o.sep + (o.vend || '') + x.meta;
+      h += o.per + o.kp + (o.repor || '') + (o.colch || '') + o.sep + (o.vend || '') + metaCardHtml();
       return h;
     }
     if (t === 'din') return dinheiroHtml(o, kpi);
@@ -22031,7 +22033,7 @@
       '</div><div class="hint" style="margin:0">De ' + totFmt(r.wal) + ' na carteira, ' + totFmt(dono) + ' já têm dono: reposição, contas, colchão e melhorias.</div>' +
       (aberto
         ? '<div class="split">' +
-          [['Reposição de mercadoria', r.repGs, '#00c8ff'], ['Contas do mês', r.con, '#a2447c'], ['Colchão de segurança', r.colch, '#ffc766'], ['Melhorias da loja', r.melh, 'var(--info)']]
+          [['Reposição de mercadoria', r.repGs, '#00c8ff'], ['Contas do mês', r.con, '#a2447c'], ['Colchão de segurança', r.colch, '#ffc766'], ['Objetivos da loja', r.melh, 'var(--info)']]
             .map(function (p) {
               return '<div class="sl"><span><span class="sp" style="background:' + p[2] + '"></span>' + p[0] + '</span><b>' + totFmt(p[1]) + '</b></div>';
             })
@@ -23215,11 +23217,12 @@
     }
     return (
       sfx +
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cotação da loja</h2><div class="hint" style="margin:2px 0 0">Seus preços são em dólar, e a cotação da loja vale uma margem a mais que o mercado. A margem é de ' + pc(FX_MARGEM) + ' e acompanha a moeda nas últimas ' + FX_JANELA + ' dias: se ela valoriza, a margem sobe (até ' + pc(FX_TETO) + '); se ela cai, a margem desce aos poucos até voltar a ' + pc(FX_MARGEM) + '. O dólar e o real por dólar têm cada um a sua margem. O app usa esta cotação ao receber dólar ou real, a menos que você digite outro câmbio na tela de pagamento. Custos e contas continuam pela cotação do mercado.</div></div>' +
+      lmCardHtml() +
+      (lmOk() ? '' : '<section class="card col"><div><h2 style="margin:0;font-size:16px">Cotação da loja</h2><div class="hint" style="margin:2px 0 0">Seus preços são em dólar, e a cotação da loja vale uma margem a mais que o mercado. A margem é de ' + pc(FX_MARGEM) + ' e acompanha a moeda nas últimas ' + FX_JANELA + ' dias: se ela valoriza, a margem sobe (até ' + pc(FX_TETO) + '); se ela cai, a margem desce aos poucos até voltar a ' + pc(FX_MARGEM) + '. O dólar e o real por dólar têm cada um a sua margem. O app usa esta cotação ao receber dólar ou real, a menos que você digite outro câmbio na tela de pagamento. Custos e contas continuam pela cotação do mercado.</div></div>' +
       '<div class="note ' + (Math.max(mg.m, mb.m) > FX_MARGEM + 1e-9 ? 'n-warn' : 'n-ok') + '" role="status">' + linhaMg('Margem do dólar', mg) + '<br>' + linhaMg('Margem do real por dólar', mb) + '</div>' +
       '<div class="kpis"><div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 vale</div><b>' + gsRaw(u) + '</b><div class="hint">mercado ' + gsRaw(f.pyg) + '</div></div>' +
       '<div class="kpi" style="background:var(--panel2)"><div class="lbl">R$ 1 vale</div><b>' + gsRaw(b) + '</b><div class="hint">mercado ' + gsRaw(Math.round(f.pyg / f.brl)) + '</div></div>' +
-      '<div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 vale</div><b>R$ ' + fxBrlPorUsd().toFixed(2).replace('.', ',') + '</b><div class="hint">mercado R$ ' + f.brl.toFixed(2).replace('.', ',') + '</div></div></div></section>'
+      '<div class="kpi" style="background:var(--panel2)"><div class="lbl">US$ 1 vale</div><b>R$ ' + fxBrlPorUsd().toFixed(2).replace('.', ',') + '</b><div class="hint">mercado R$ ' + f.brl.toFixed(2).replace('.', ',') + '</div></div></div></section>')
     );
   }
   // Dois gráficos (dólar em guaranis e real por dólar) com o mesmo período, escolhido nos botões.
@@ -23423,6 +23426,7 @@
       '</div>';
     html += faltamHtml() + trocarMoedasHtml();
     html += fxLojaHtml();
+    html += cxIntelHtml(); // v425: previsão do dólar + plano de troca
     html += fxGraficos();
     html +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Como o colchão de segurança é calculado</h2><div class="hint" style="margin:2px 0 0">Não é um percentual fixo. O app olha a pior alta recente do dólar e do custo da mercadoria.</div></div>' +
@@ -23830,10 +23834,7 @@
         })
         .join('') +
       '</select><select class="in" id="nTipo" aria-label="Tipo" style="flex:1 1 110px;width:auto"><option value="fixa">Fixa</option><option value="variavel">Variável</option></select><select class="in" id="nMoeda" aria-label="Moeda" style="flex:1 1 90px;width:auto">' + opcoesMoeda() + '</select><input class="in" id="nVal" inputmode="decimal" placeholder="Valor" style="flex:1 1 110px;width:auto" aria-label="Valor"><input class="in" id="nDia" inputmode="numeric" maxlength="2" placeholder="Dia do vencimento" style="flex:1 1 90px;width:auto" aria-label="Dia do vencimento"><button class="mini" data-act="expadd">Adicionar</button></div><div class="hint" id="nH" role="status"></div></section>';
-    html +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Caixa de melhorias</h2><div class="hint" style="margin:0">Opcional. Não entra nas contas obrigatórias e nunca trava uma venda.</div><div class="sel"><input class="in" id="melhIn" inputmode="' + mpMode() + '" data-in="melh" value="' +
-      gsParaCampo(S.melhPeca) +
-      '" aria-label="Valor por peça para melhorias" style="max-width:180px"><span class="hint" style="margin:0">' + mpSim() + ' por peça vendida</span></div></section>';
+    // v425: a caixa de melhorias virou Objetivos da loja (Caixa); o valor por venda é automático
     var pmk = ymNow(),
       pays = (S.cpay || []).filter(function (x) {
         return x.ym === pmk;
@@ -25398,7 +25399,8 @@
       );
     var melh =
       S.ini.melh +
-      sumBy(valid, 'melh') -
+      sumBy(valid, 'melh') +
+      objExtra() -
       S.melhUso.reduce(function (a, x) {
         return a + x.valor;
       }, 0);
@@ -25567,7 +25569,7 @@
     var html =
       '<div class="top" style="flex-wrap:nowrap;align-items:flex-start"><div style="min-width:0;flex:1"><h1>Caixa</h1><div class="crumb">Quanto dinheiro existe, quanto já tem dono e quanto é seu</div></div><div style="position:relative;flex:none"><button type="button" class="ic' + (S.cxMenu ? ' on' : '') + '" id="cxIc" data-act="cxmenu" aria-label="Ações do caixa" aria-expanded="' + !!S.cxMenu + '">' + ICO.caixa + '</button>' +
       (S.cxMenu
-        ? '<div class="cxMenu" role="menu"><button type="button" role="menuitem" data-act="cxabre" data-id="ret">' + ICO.sobe + 'Retirar</button><button type="button" role="menuitem" data-act="cxabre" data-id="mel">' + ICO.ferr + 'Melhorias</button><button type="button" role="menuitem" data-act="cxabre" data-id="cc">' + ICO.chk + 'Conferir</button></div>'
+        ? '<div class="cxMenu" role="menu"><button type="button" role="menuitem" data-act="cxabre" data-id="ret">' + ICO.sobe + 'Retirar</button><button type="button" role="menuitem" data-act="cxabre" data-id="mel">' + ICO.ferr + 'Novo objetivo</button><button type="button" role="menuitem" data-act="cxabre" data-id="cc">' + ICO.chk + 'Conferir</button></div>'
         : '') +
       '</div></div>';
     if (S.cxMsg)
@@ -25599,6 +25601,7 @@
       '</div><div class="hint" style="margin:0">Total aproximado: <b>' +
       gs(Math.round(r.wal)) +
       '</b> ao câmbio de hoje. O que está livre e o que já tem dono ficam no <a href="#dash" data-act="view" data-id="dash" style="color:var(--accent-fg)">Dashboard</a>, aba Dinheiro.</div></section>';
+    html += objCardHtml(); // v425: Objetivos da loja (antiga caixa de melhorias)
     if (r.livre < 0)
       html +=
         '<div class="note n-bad">O dinheiro em caixa está abaixo do que deveria estar separado. Evite retiradas até repor.</div>';
@@ -25614,17 +25617,13 @@
     html += '<div class="cxBack' + (acao ? ' on' : '') + '" data-act="cxfecha"></div>';
     html += sh('ret', retiradaHtml());
     html += sh('cc', ccHtml());
-    html += sh(
-      'mel',
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Usar a caixa de melhorias</h2><div class="hint" style="margin:0">Tira do saldo de melhorias e dos guaranis em caixa.</div>' +
-        '<div class="sel" style="flex-wrap:wrap"><input class="in" id="muD" placeholder="No que usou" style="flex:2 1 150px;width:auto" aria-label="Descrição do uso"><input class="in" id="muV" inputmode="' + mpMode() + '" placeholder="' + mpSim() + '" style="flex:1 1 110px;width:auto" aria-label="Valor usado"><button class="mini" data-act="melhuso">Registrar</button></div></section>'
-    );
+    html += sh('mel', objFormHtml());
     // movimentos: retiradas e usos da caixa de melhorias, do mais novo para o mais antigo
     var mov = S.retiradas.slice(0, 8).map(function (x) {
       return { ts: x.ts, nome: x.nota || 'Retirada', val: fmtM(x.orig, x.moeda), des: x.ts };
     });
     S.melhUso.slice(-5).forEach(function (x) {
-      mov.push({ ts: x.ts, nome: x.desc + ' (melhorias)', val: gs(x.valor), des: '' });
+      mov.push({ ts: x.ts, nome: x.desc + ' (objetivo)', val: gs(x.valor), des: '' });
     });
     mov.sort(function (a, b) {
       return b.ts - a.ts;
@@ -25641,6 +25640,14 @@
         : '<div class="hint" style="margin:0">Nenhum movimento ainda.</div>') +
       '</section>';
     el.innerHTML = html;
+    objGestos();
+    ['obNome', 'obCusto', 'obAte'].forEach(function (id) {
+      var e = $(id);
+      if (e)
+        e.oninput = e.onchange = function () {
+          OBJ[{ obNome: 'nome', obCusto: 'custo', obAte: 'ate' }[id]] = e.value;
+        };
+    });
     updateTr();
   }
   // Atualiza a transferência entre moedas.
@@ -26929,20 +26936,7 @@
   }
   // Meta mínima de vendas por dia, rateio das contas e faixa automática.
   function precosMetaHtml() {
-    var h = '<div class="col" style="border-top:1px solid var(--line);padding-top:12px"><div><div class="lbl">Meta mínima de vendas por dia, por tipo</div><div class="hint" style="margin:0">Um palpite seu basta. Serve para dividir as contas desde o primeiro dia; conforme as vendas reais aparecem, o app passa a usá-las.</div></div>';
-    tipoAll().forEach(function (t) {
-      if (t.simple) return;
-      h +=
-        '<div style="display:flex;gap:8px;align-items:center"><span style="flex:1 1 150px">' +
-        esc(t.label) +
-        '</span><input class="in" inputmode="decimal" data-aj="mdia" data-tipo="' +
-        esc(t.id) +
-        '" value="' +
-        (S.metaDia[t.id] > 0 ? String(S.metaDia[t.id]).replace('.', ',') : '') +
-        '" placeholder="0" aria-label="Peças por dia de ' +
-        esc(t.label) +
-        '" style="max-width:90px"><span class="hint" style="margin:0">por dia</span></div>';
-    });
+    var h = '<div class="col" style="border-top:1px solid var(--line);padding-top:12px"><div><div class="lbl">Divisão das contas</div></div>';
     h +=
       '<div style="display:flex;gap:8px;align-items:center"><span style="flex:1 1 150px">Dias de loja aberta por mês</span><input class="in" inputmode="numeric" data-aj="dias" value="' +
       (S.diasLoja || 26) +
@@ -26964,11 +26958,6 @@
   // Preços e finanças (Dashboard › Preços): meta, faixas e rateio das contas. Os campos usam data-aj e valem em qualquer tela.
   function precosCfgHtml() {
     var h = '';
-    // meta
-    h +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Meta do mês</h2><div><div class="lbl">Lucro livre desejado no mês, loja toda (US$)</div><input class="in" inputmode="decimal" data-aj="meta" value="' +
-      usdParaCampo(S.metaUsd) +
-      '" placeholder="Ex.: ' + usdParaCampo(600) + '" style="max-width:220px"></div></section>';
     // v421: as faixas manuais saíram — Econômica/Intermediária/Luxo são automáticas (linha do produto)
     // rateio das contas e tolerância da contagem
     h +=
@@ -26977,15 +26966,9 @@
       ', cerca de US$ ' +
       Math.round(totalMensal() / S.fx.pyg) +
       ') já são separadas de cada venda: o lucro livre e a meta são o que sobra depois delas.</div></div>' +
-      '<div><div class="lbl">Peças por mês para ratear as contas</div><input class="in" inputmode="numeric" data-aj="vol" value="' +
-      S.volume +
-      '" style="max-width:160px"><div class="hint">Em uso agora: <b>' +
+      '<div class="hint" style="margin:0">Peças por mês para dividir as contas: <b>' +
       volumeEfetivo() +
-      '</b> ' +
-      (volumeAuto() > 0 && S.volAuto !== false ? '(calculado pelas suas vendas reais)' : '(número manual)') +
-      '.</div><div style="margin-top:8px"><button class="chip' +
-      (S.volAuto !== false ? ' on' : '') +
-      '" data-act="volauto">Calcular pelas vendas reais</button></div><div class="hint">Com 14 dias de vendas (pelo menos 10 peças), o app passa a usar a média real e atualiza sozinho.</div></div>' +
+      '</b> (automático: vendas reais dos últimos dias; a meta do mês também é automática e aparece no Resumo).</div>' +
       precosMetaHtml() +
       '</section>';
     return h;
@@ -29072,6 +29055,302 @@
       return a + (noMes(c.ts, lim) ? c.valor || 0 : 0);
     }, 0);
   }
+  // ===== Câmbio inteligente (v425, aprovado 04/11/2026) =====
+  // Previsão do dólar para 7 dias (cai / estável / sobe) com motivos e certeza, a partir do histórico
+  // da La Moneda Jebai (S.lm.hist, quando o celular já buscou) ou da cotação de mercado (S.fxHist).
+  // Compra em dólar marcada (US$ + data) → plano de troca aos poucos, acelera se o dólar dispara.
+  // Ninguém acerta sempre: trocar aos poucos protege dos dois lados.
+  S.trocaPlan = []; // [{id, usd, data, ts, trocas:[{ts, usd, rate}]}]
+  var CXI = { usd: '', data: '' };
+  // Série diária (último valor de cada dia) do dólar em guaranis.
+  function cxSerie() {
+    var dia = {},
+      put = function (ts, v) {
+        if (!(v > 0)) return;
+        var d = new Date(ts),
+          k = d.getFullYear() * 10000 + d.getMonth() * 100 + d.getDate();
+        if (!dia[k] || dia[k].ts <= ts) dia[k] = { ts: ts, v: v };
+      };
+    var lmH = (S.lm && S.lm.hist) || [];
+    if (lmH.length >= 5) lmH.forEach(function (x) {
+      put(x[0], x[2]);
+    });
+    else (S.fxHist || []).forEach(function (p) {
+      put(p.ts, p.pyg);
+    });
+    return Object.keys(dia)
+      .sort()
+      .map(function (k) {
+        return dia[k];
+      })
+      .filter(function (p) {
+        return Date.now() - p.ts <= 120 * DAY;
+      });
+  }
+  // Reta pelos pontos (x em dias): inclinação, r².
+  function cxReta(ps) {
+    var n = ps.length;
+    if (n < 3) return { b: 0, r2: 0 };
+    var x0 = ps[0].ts,
+      sx = 0,
+      sy = 0,
+      sxx = 0,
+      sxy = 0,
+      syy = 0;
+    ps.forEach(function (p) {
+      var x = (p.ts - x0) / DAY,
+        y = p.v;
+      sx += x;
+      sy += y;
+      sxx += x * x;
+      sxy += x * y;
+      syy += y * y;
+    });
+    var den = n * sxx - sx * sx,
+      b = den ? (n * sxy - sx * sy) / den : 0,
+      vy = n * syy - sy * sy,
+      r2 = den && vy > 0 ? Math.pow(n * sxy - sx * sy, 2) / (den * vy) : 0;
+    return { b: b, r2: r2 };
+  }
+  function cxPrevisao() {
+    var s = cxSerie();
+    if (s.length < 7) return { ok: false, dias: s.length };
+    var ult = s[s.length - 1].v,
+      u14 = s.filter(function (p) {
+        return Date.now() - p.ts <= 14 * DAY;
+      }),
+      reta = cxReta(u14.length >= 5 ? u14 : s.slice(-14)),
+      tend = (reta.b * 7) / ult, // % em 7 dias pela reta de 2 semanas
+      u3 = s.slice(-3),
+      med14 = u14.reduce(function (a, p) {
+        return a + p.v;
+      }, 0) / Math.max(1, u14.length),
+      mom = med14 > 0 ? u3[u3.length - 1].v / med14 - 1 : 0, // onde está × média de 2 semanas
+      motivos = [],
+      score = tend * 0.7 + mom * 0.3;
+    // época do ano: mesmo período do ano passado (quando já existe histórico)
+    var ano = (S.fxHist || []).filter(function (p) {
+        var dd = (Date.now() - 365 * DAY - p.ts) / DAY;
+        return dd >= -7 && dd <= 0;
+      }),
+      saz = 0;
+    if (ano.length >= 2) {
+      saz = ano[ano.length - 1].pyg / ano[0].pyg - 1;
+      score += saz * 0.3;
+      if (Math.abs(saz) > 0.003) motivos.push((saz > 0 ? 'No ano passado subiu nesta época' : 'No ano passado caiu nesta época'));
+    }
+    // o real: real fraco (mais reais por dólar) = menos dólar entrando na fronteira
+    var bh = (S.fxHist || []).filter(function (p) {
+        return p.brl > 0 && Date.now() - p.ts <= 14 * DAY;
+      }),
+      rv = bh.length >= 2 ? bh[bh.length - 1].brl / bh[0].brl - 1 : 0;
+    if (Math.abs(rv) > 0.01) {
+      score += rv * 0.15;
+      motivos.unshift(rv > 0 ? 'Real enfraquecendo' : 'Real firme');
+    }
+    if (Math.abs(tend) > 0.002) motivos.unshift(tend > 0 ? 'Subindo há 2 semanas' : 'Caindo há 2 semanas');
+    else motivos.unshift('Parado há 2 semanas');
+    if (mom > 0.005) motivos.push('Acima da média de 2 semanas');
+    else if (mom < -0.005) motivos.push('Abaixo da média de 2 semanas');
+    var dir = score > 0.004 ? 'sobe' : score < -0.004 ? 'cai' : 'estavel',
+      cert = s.length >= 30 && reta.r2 >= 0.6 ? 'alta' : s.length >= 14 && reta.r2 >= 0.3 ? 'média' : 'baixa';
+    // disparando: subiu mais de 1% em 3 dias
+    var d3 = s.filter(function (p) {
+        return Date.now() - p.ts <= 3 * DAY;
+      }),
+      min3 = d3.length
+        ? Math.min.apply(
+            null,
+            d3.map(function (p) {
+              return p.v;
+            })
+          )
+        : ult,
+      disp = ult / min3 - 1 > 0.01,
+      min30 = Math.min.apply(
+        null,
+        s
+          .filter(function (p) {
+            return Date.now() - p.ts <= 30 * DAY;
+          })
+          .map(function (p) {
+            return p.v;
+          })
+      ),
+      barato = ult <= min30 * 1.002 && dir !== 'cai';
+    return { ok: true, dir: dir, pct: score, cert: cert, motivos: motivos.slice(0, 3), ult: ult, disp: disp, barato: barato, fonte: (S.lm && S.lm.hist && S.lm.hist.length >= 5) ? 'La Moneda Jebai' : 'mercado' };
+  }
+  // Cotação para trocar agora (venda da casa ou mercado).
+  function cxRate() {
+    return lmOk() ? S.lm.usd.v : ratePyg('usd');
+  }
+  // Plano de troca de uma compra: partes com data, já descontado o que foi trocado.
+  function cxPassos(c, pv) {
+    var tro = (c.trocas || []).reduce(function (a, t) {
+        return a + t.usd;
+      }, 0),
+      falta = Math.max(0, c.usd - tro),
+      hoje = new Date(),
+      d0 = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate()).getTime(),
+      dias = Math.max(0, Math.round((c.data - d0) / DAY)),
+      fr = pv && pv.ok && (pv.dir === 'sobe' || pv.disp) ? [0.5, 0.3, 0.2] : pv && pv.ok && pv.dir === 'cai' ? [0.25, 0.35, 0.4] : [0.34, 0.33, 0.33];
+    if (falta <= 0) return { falta: 0, tro: tro, passos: [] };
+    if (dias <= 1) return { falta: falta, tro: tro, passos: [{ ate: d0, usd: falta }] };
+    var mid = d0 + Math.round(dias / 2) * DAY,
+      fim = c.data - DAY,
+      a = Math.ceil((falta * fr[0]) / 50) * 50,
+      b = Math.ceil((falta * fr[1]) / 50) * 50,
+      passos = [{ ate: d0, usd: Math.min(falta, a) }];
+    if (falta - a > 0) passos.push({ ate: mid, usd: Math.min(falta - a, b) });
+    if (falta - a - b > 0) passos.push({ ate: Math.max(fim, mid), usd: falta - a - b });
+    return { falta: falta, tro: tro, passos: passos };
+  }
+  function cxDiaTxt(ts) {
+    var d0 = new Date();
+    d0.setHours(0, 0, 0, 0);
+    var n = Math.round((ts - d0.getTime()) / DAY);
+    if (n <= 0) return 'Hoje';
+    if (n === 1) return 'Amanhã';
+    var d = new Date(ts);
+    return 'Até ' + d.getDate() + '/' + (d.getMonth() + 1);
+  }
+  function cxIntelHtml() {
+    var pv = cxPrevisao(),
+      h = '<section class="card col cxCard"><div class="paMt"><h2 style="margin:0;font-size:16px">Dólar nos próximos 7 dias</h2>' + (pv.ok ? '<span class="hint" style="margin:0">certeza ' + pv.cert + '</span>' : '') + '</div>';
+    if (!pv.ok) {
+      h += '<div class="hint" style="margin:0">Aprendendo: precisa de 7 dias de cotação (' + pv.dias + ' até agora).</div>';
+    } else {
+      var t = { sobe: ['Deve subir', 'var(--warn)', '↗'], cai: ['Deve cair', 'var(--ok)', '↘'], estavel: ['Estável', 'var(--fg)', '→'] }[pv.dir];
+      h +=
+        '<div class="cxPrev"><span class="cxSeta" style="color:' + t[1] + '">' + t[2] + '</span><div><b style="color:' + t[1] + '">' + t[0] + '</b>' +
+        (pv.dir !== 'estavel' ? ' <span class="hint" style="display:inline;margin:0">~' + (Math.abs(pv.pct) * 100).toFixed(1).replace('.', ',') + '%</span>' : '') +
+        '<div class="hint" style="margin:0">hoje ' + gsRaw(Math.round(pv.ult)) + ' · ' + pv.fonte + '</div></div></div>' +
+        '<div class="cxChips">' + pv.motivos.map(function (m) {
+          return '<span class="chip">' + esc(m) + '</span>';
+        }).join('') + '</div>' +
+        (pv.disp ? '<div class="hint" style="margin:0;color:var(--warn)">Disparando: subiu mais de 1% em 3 dias.</div>' : pv.barato ? '<div class="hint" style="margin:0;color:var(--ok)">Dólar no mais barato do mês: bom momento para trocar.</div>' : '') +
+        '<div class="hint" style="margin:0">Ninguém acerta sempre: trocar aos poucos protege dos dois lados.</div>';
+    }
+    h += '</section>';
+    // compras marcadas
+    var cs = (S.trocaPlan || []).filter(function (c) {
+      return cxPassos(c, pv).falta > 0 || Date.now() - c.data < 2 * DAY;
+    });
+    h += '<section class="card col"><h2 style="margin:0;font-size:16px">Plano de troca</h2>';
+    if (!cs.length) h += '<div class="hint" style="margin:0">Vai comprar mercadoria em dólar? Marque o valor e a data: o app diz quanto trocar e quando.</div>';
+    cs.forEach(function (c) {
+      var p = cxPassos(c, pv),
+        r = cxRate(),
+        d = new Date(c.data);
+      h += '<div class="cxCompra"><div class="paMt"><b>US$ ' + nf(c.usd, 'usd') + ' até ' + d.getDate() + '/' + (d.getMonth() + 1) + '</b><button type="button" class="obX" data-act="cxDel" data-id="' + c.id + '" aria-label="Remover compra">×</button></div>';
+      if (!p.falta) h += '<div class="hint" style="margin:0;color:var(--ok)">Tudo trocado.</div>';
+      p.passos.forEach(function (s, i) {
+        h +=
+          '<div class="cxPasso"><span>' + cxDiaTxt(s.ate) + '<small>≈ ' + gs(Math.ceil((s.usd * r) / 1000) * 1000) + '</small></span><b>US$ ' + nf(s.usd, 'usd') + '</b>' +
+          (i === 0 ? '<button type="button" class="cSugB" data-act="cxTroquei" data-id="' + c.id + '">Troquei</button>' : '<i></i>') + '</div>';
+      });
+      if (p.falta > 0) {
+        var sob = Math.max(0.01, pv.ok && pv.pct > 0 ? pv.pct : 0.01);
+        h += '<div class="hint" style="margin:0">Se o dólar subir ' + (sob * 100).toFixed(1).replace('.', ',') + '% e trocar tudo no dia: <b>+' + gs(Math.ceil((p.falta * r * sob) / 1000) * 1000) + '</b></div>';
+      }
+      if (p.tro > 0) h += '<div class="hint" style="margin:0">Já trocado: US$ ' + nf(p.tro, 'usd') + '</div>';
+      h += '</div>';
+    });
+    var dmin = new Date(Date.now() + DAY),
+      vmin = dmin.getFullYear() + '-' + ('0' + (dmin.getMonth() + 1)).slice(-2) + '-' + ('0' + dmin.getDate()).slice(-2);
+    h +=
+      '<div class="nvg2"><div><div class="lbl">Compra em dólar</div><input class="in" id="cxUsd" inputmode="decimal" placeholder="US$" autocomplete="off" value="' + esc(CXI.usd) + '"></div>' +
+      '<div><div class="lbl">Paga em</div><input class="in" id="cxData" type="date" min="' + vmin + '" value="' + esc(CXI.data) + '"></div></div>' +
+      '<button type="button" class="obNovo" data-act="cxMarca">Marcar compra</button></section>';
+    return h;
+  }
+  ACT.cxMarca = function () {
+    CXI.usd = $('cxUsd').value;
+    CXI.data = $('cxData').value;
+    var u = parseFloat(String(CXI.usd).replace(/\./g, '').replace(',', '.')) || 0,
+      p = String(CXI.data).split('-');
+    if (!(u > 0)) {
+      popErr('Informe o valor em dólar.');
+      guiaMarca('cxUsd');
+      return;
+    }
+    if (p.length !== 3) {
+      popErr('Informe a data do pagamento.');
+      guiaMarca('cxData');
+      return;
+    }
+    S.trocaPlan.push({ id: 'c' + Date.now().toString(36), usd: u, data: new Date(+p[0], +p[1] - 1, +p[2]).getTime(), ts: Date.now(), trocas: [] });
+    CXI = { usd: '', data: '' };
+    vibrar(20);
+    lfToast('✓ Compra marcada');
+    saveSoon();
+    render();
+  };
+  ACT.cxTroquei = function (id) {
+    var c = S.trocaPlan.filter(function (x) {
+      return x.id === id;
+    })[0];
+    if (!c) return;
+    var p = cxPassos(c, cxPrevisao());
+    if (!p.passos.length) return;
+    var t = { ts: Date.now(), usd: p.passos[0].usd, rate: cxRate() };
+    c.trocas = (c.trocas || []).concat([t]);
+    saveSoon();
+    render();
+    lfDesfazer('Troca marcada · US$ ' + nf(t.usd, 'usd'), function () {
+      c.trocas = c.trocas.filter(function (x) {
+        return x !== t;
+      });
+      saveSoon();
+      render();
+    }, 5000);
+  };
+  ACT.cxDel = function (id) {
+    var i = S.trocaPlan.findIndex(function (x) {
+      return x.id === id;
+    });
+    if (i < 0) return;
+    var c = S.trocaPlan.splice(i, 1)[0];
+    saveSoon();
+    render();
+    lfDesfazer('Compra removida', function () {
+      S.trocaPlan.splice(i, 0, c);
+      saveSoon();
+      render();
+    }, 5000);
+  };
+  // Avisos do sino: só quando vale agir (uma vez por dia cada).
+  function cxAvisos() {
+    var pv = cxPrevisao(),
+      out = [];
+    if (!pv.ok) return out;
+    var pend = (S.trocaPlan || []).some(function (c) {
+      return cxPassos(c, pv).falta > 0;
+    });
+    if (pv.disp) out.push({ k: 'cxDisp', t: 'Dólar disparando', d: 'Subiu mais de 1% em 3 dias' + (pend ? ': adiante as trocas do plano.' : '.') });
+    else if (pv.barato && pend) out.push({ k: 'cxBarato', t: 'Dólar barato', d: 'No menor valor do mês: bom momento para trocar o plano.' });
+    return out;
+  }
+  S.cxAv = {};
+  function cxAvisa() {
+    var d = new Date().toDateString(),
+      novo = false;
+    if (!S.cxAv) S.cxAv = {};
+    cxAvisos().forEach(function (a) {
+      if (S.cxAv[a.k] === d) return;
+      S.cxAv[a.k] = d;
+      (S.notifs = S.notifs || []).unshift({ ts: Date.now(), lida: false, t: a.t, s: a.d });
+      novo = true;
+    });
+    if (novo) {
+      saveSoon();
+      render();
+    }
+  }
+  if (!/#test/.test(location.hash)) {
+    setTimeout(cxAvisa, 8000);
+    setInterval(cxAvisa, 30 * 60000);
+  }
   // ===== Contagem de estoque (aba Estoque): por produto, do mais valioso ao menos, com resumo em dinheiro. =====
   // Custo em US$ de uma peça (própria, do lote ou do tipo).
   function custoUn(i) {
@@ -30355,6 +30634,166 @@
   function impTesteLinhas() {
     return [{ t: 'LA FOUCH', centro: 1, negrito: 1, grande: 1 }, { t: 'IMPRESIÓN DE PRUEBA', centro: 1, negrito: 1 }, { traco: 1 }, { t: 'Fecha: ' + fd(Date.now()) + ' ' + fh(Date.now()) }, { t: 'Ciudad: CDE' }, { traco: 1 }, { t: 'Impresora lista.', centro: 1 }];
   }
+  // ===== Cotação da La Moneda · Sucursal Jebai (v425, aprovado 04/11/2026) =====
+  // A casa de câmbio fica em frente à loja: a cotação da loja segue a dela, nas três contas:
+  //  - dólar → guarani: o que a casa cobra pelo dólar (venda) — é o que a loja paga para repor;
+  //  - real → dólar: a arbitragem da casa (venda); se a página não trouxer, venda do dólar ÷ compra do real;
+  //  - real → guarani: o que a casa paga pelo real (compra) — só informativo (troco).
+  // Proteção: só quando o dólar dispara (mais de 1% em 3 dias), no máximo +1% acima da casa.
+  // O site da casa bloqueia servidores (erro 522), então quem busca é o CELULAR (CapacitorHttp nativo), a cada 30 min;
+  // o resultado (S.lm) viaja pela sincronização para os outros aparelhos. Sem dado de hoje, vale a cotação antiga.
+  S.lm = null; // {ts, usd:{c,v}, brl:{c,v}, arb:{c,v,calc}, hist:[[ts, usdC, usdV, brlC, brlV]]}
+  var LM_URL = 'https://www.lamoneda.com.py/cotizaciones';
+  function lmNum(s) {
+    s = String(s || '').trim();
+    if (/^\d{1,3}(\.\d{3})+$/.test(s)) return +s.replace(/\./g, '');
+    if (/^\d+,\d+$/.test(s)) return +s.replace(',', '.');
+    if (/^\d{1,3}(,\d{3})+$/.test(s)) return +s.replace(/,/g, '');
+    var n = parseFloat(s);
+    return isFinite(n) ? n : null;
+  }
+  // Lê a página (texto) e devolve os valores da Sucursal Jebai.
+  function lmLer(html) {
+    var t = String(html || '')
+      .replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, ' ')
+      .replace(/<[^>]+>/g, ' | ')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&aacute;/g, 'á')
+      .replace(/&oacute;/g, 'ó')
+      .replace(/&amp;/g, '&')
+      .replace(/\s+/g, ' ');
+    var lo = t.toLowerCase(),
+      i = lo.indexOf('sucursal jebai');
+    if (i < 0) return null;
+    var fim = t.length;
+    ['sucursal centro', 'caja auxiliar', 'casa matriz'].forEach(function (m) {
+      var j = lo.indexOf(m, i + 10);
+      if (j > 0 && j < fim) fim = j;
+    });
+    var segJ = t.slice(i, fim);
+    var par = function (rx, ok, tudo) {
+      var m,
+        seg = tudo ? t : segJ,
+        r = new RegExp(rx.source + '[^0-9]{0,80}?([\\d.,]+)[^0-9]{1,40}?([\\d.,]+)', 'gi');
+      while ((m = r.exec(seg))) {
+        var a = lmNum(m[m.length - 2]),
+          b = lmNum(m[m.length - 1]);
+        if (a && b && ok(a) && ok(b)) return { c: Math.min(a, b), v: Math.max(a, b) };
+      }
+      return null;
+    };
+    var usd = par(/(d[óo]lar(?!\s*\/)|\busd\b(?!\s*\/))/, function (x) {
+        return x > 3000 && x < 20000;
+      }),
+      brl = par(/(\breal\b(?!\s*\/)|\bbrl\b(?!\s*\/))/, function (x) {
+        return x > 400 && x < 4000;
+      }),
+      arb = par(/(usd\s*\/\s*brl|d[óo]lar\s*\/\s*real)/, function (x) {
+        return x > 2 && x < 15;
+      });
+    if (!usd || !brl) return null;
+    // a arbitragem pode aparecer só na Casa Matriz
+    if (!arb)
+      arb = par(/(usd\s*\/\s*brl|d[óo]lar\s*\/\s*real)/, function (x) {
+        return x > 2 && x < 15;
+      }, true);
+    if (!arb) arb = { c: Math.round((usd.c / brl.v) * 1000) / 1000, v: Math.round((usd.v / brl.c) * 1000) / 1000, calc: true };
+    return { usd: usd, brl: brl, arb: arb };
+  }
+  function lmGrava(c) {
+    var agora = Date.now(),
+      h = (S.lm && S.lm.hist) || [];
+    if (!h.length || agora - h[h.length - 1][0] >= 55 * 60000) h.push([agora, c.usd.c, c.usd.v, c.brl.c, c.brl.v]);
+    h = h.filter(function (x) {
+      return agora - x[0] <= 200 * DAY;
+    });
+    S.lm = { ts: agora, usd: c.usd, brl: c.brl, arb: c.arb, hist: h, erro: '' };
+    saveSoon();
+  }
+  function lmHttp() {
+    var C = window.Capacitor;
+    return C && C.isNativePlatform && C.isNativePlatform() && C.Plugins && C.Plugins.CapacitorHttp ? C.Plugins.CapacitorHttp : null;
+  }
+  // Busca no celular (o navegador não deixa ler outro site). Devolve uma Promise.
+  function lmBusca(forca) {
+    var H = lmHttp();
+    if (!H) return Promise.resolve(false);
+    if (!forca && S.lm && Date.now() - S.lm.ts < 25 * 60000) return Promise.resolve(false);
+    return H.get({ url: LM_URL, headers: { 'Accept-Language': 'es-PY,es;q=0.9', Accept: 'text/html' } })
+      .then(function (r) {
+        var c = lmLer(r && r.data);
+        if (!c) throw new Error('não li a sucursal Jebai');
+        lmGrava(c);
+        return true;
+      })
+      .catch(function (e) {
+        if (S.lm) S.lm.erro = String((e && e.message) || e);
+        return false;
+      });
+  }
+  // Dado da casa vale até 24 horas (depois volta para a cotação antiga).
+  function lmOk() {
+    return !!(S.lm && S.lm.usd && S.lm.usd.v > 0 && Date.now() - S.lm.ts < 24 * 3600000);
+  }
+  // Proteção: o dólar da casa subiu mais de 1% em 3 dias -> até +1% acima da casa.
+  function lmProtecao() {
+    if (!lmOk()) return 0;
+    var h = S.lm.hist || [],
+      lim = Date.now() - 3 * DAY,
+      min = S.lm.usd.v;
+    h.forEach(function (x) {
+      if (x[0] >= lim && x[2] > 0 && x[2] < min) min = x[2];
+    });
+    var sub = S.lm.usd.v / min - 1;
+    return Math.max(0, Math.min(0.01, sub - 0.01));
+  }
+  // G$ por US$ da loja quando há dado da casa (de 10 em 10, para cima).
+  function lmUsdLoja() {
+    return Math.ceil((S.lm.usd.v * (1 + lmProtecao())) / 10 - 1e-9) * 10;
+  }
+  function lmBrlPorUsd() {
+    return Math.ceil(S.lm.arb.v * 100 - 1e-9) / 100;
+  }
+  // a cada 30 min com o app aberto (e logo ao abrir)
+  if (!/#test/.test(location.hash)) {
+    setTimeout(function () {
+      lmBusca(false).then(function (ok) {
+        if (ok) render();
+      });
+    }, 3000);
+    setInterval(function () {
+      lmBusca(false).then(function (ok) {
+        if (ok) render();
+      });
+    }, 30 * 60000);
+  }
+  // Cartão no Câmbio: as três contas da casa × loja.
+  function lmCardHtml() {
+    if (!S.lm || !S.lm.usd) {
+      return (
+        '<section class="card col"><b>La Moneda · Jebai</b><div class="hint" style="margin:0">' +
+        (lmHttp() ? 'Buscando a cotação da casa…' : 'A cotação da casa é buscada pelo app do celular (o navegador não deixa ler o site dela). Enquanto isso vale a cotação de mercado.') +
+        '</div></section>'
+      );
+    }
+    var ok = lmOk(),
+      d = new Date(S.lm.ts),
+      hora = ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2),
+      dia = d.toDateString() === new Date().toDateString() ? 'hoje ' + hora : d.getDate() + '/' + (d.getMonth() + 1) + ' ' + hora,
+      pr = lmProtecao(),
+      exUsd = 10,
+      g = gsDeUsd(exUsd),
+      rs = Math.ceil(exUsd * fxBrlPorUsd() - 1e-9);
+    return (
+      '<section class="card col lmCard"><div class="lmHd"><b>La Moneda · Jebai</b><span class="hint" style="margin:0">' + dia + (ok ? '' : ' · antiga') + '</span></div>' +
+      '<div class="lmG"><span class="lmT">conta</span><span class="lmT">casa</span><span class="lmT">loja</span>' +
+      '<span>Dólar → guarani</span><span class="lmC">' + gsRaw(S.lm.usd.v) + '</span><b>' + gsRaw(fxUsdLoja()) + '</b>' +
+      '<span>Real → dólar</span><span class="lmC">' + String(S.lm.arb.v.toFixed(2)).replace('.', ',') + '</span><b>' + String(fxBrlPorUsd().toFixed(2)).replace('.', ',') + '</b>' +
+      '<span>Real → guarani (troco)</span><span class="lmC">' + gsRaw(S.lm.brl.c) + '</span><b>' + gsRaw(S.lm.brl.c) + '</b></div>' +
+      (pr > 0 ? '<div class="hint" style="margin:0;color:var(--warn)">Dólar disparando: proteção de +' + (pr * 100).toFixed(1).replace('.', ',') + '% por uns dias</div>' : '') +
+      '<div class="hint" style="margin:0">Preço final arredonda para cima: US$ ' + exUsd + ' = <b>' + gs(g) + '</b> · <b>R$ ' + rs + '</b> (loja e site)</div></section>'
+    );
+  }
   // ===== Cliente na venda + tela "Venda confirmada" com o comprovante de venda (sempre em G$, IVA 10% incluso). =====
   // O app NÃO emite nota fiscal: imprime o comprovante (sem valor fiscal) para qualquer cliente.
   // Paraguaio com RUC: o comprovante leva Nombre/RUC (dados que a máquina fiscal usa). Estrangeiro: nome e CI/CPF, nunca RUC.
@@ -31214,6 +31653,382 @@
     }
     h += '</section>';
     return h;
+  }
+  // ===== Meta automática + Objetivos da loja (v425, aprovado 04/11/2026) =====
+  // META: uma só, automática, sem campo nem botão. Fica fixa no mês: é calculada no 1º uso do mês com as vendas
+  // ANTERIORES a ele — média dos últimos 3 meses, corrigida pela época do ano, e limitada pelo que o estoque consegue dar.
+  // Sem 14 dias de vendas antes do mês, usa o ritmo de até agora (e vai firmando).
+  // OBJETIVOS: a antiga caixa de melhorias. Cada objetivo tem nome, quanto custa e "quero até" (mês).
+  // O dinheiro enche um por vez, na ordem (segurar para reordenar). Cada venda guarda um valor automático
+  // (o que os objetivos com data pedem, até metade do lucro da peça) e metade do que passar da meta vai para eles.
+  S.objetivos = []; // [{id, nome, custo (G$), ate 'AAAA-MM' ou '', ts, usado}]
+  S.metaHist = {}; // 'AAAA-M' -> meta do mês em US$ (congelada)
+  var OBJ = { nome: '', custo: '', ate: '' };
+  function ymDe(ts) {
+    var d = new Date(ts);
+    return d.getFullYear() + '-' + (d.getMonth() + 1);
+  }
+  function inicioMes(d) {
+    return new Date(d.getFullYear(), d.getMonth(), 1).getTime();
+  }
+  // Meta (US$) calculada com as vendas até "ate" (exclusive).
+  function metaCalc(ate, mes) {
+    var vs = (S.sales || []).filter(function (s) {
+      return !s.estorno && s.ts < ate;
+    });
+    if (!vs.length) return 0;
+    var primeiro = vs.reduce(function (a, s) {
+        return Math.min(a, s.ts);
+      }, ate),
+      hist = (ate - Math.min(primeiro, S.appStart || primeiro)) / DAY;
+    if (hist < 14) return 0;
+    var jan = Math.min(90, hist),
+      soma = 0;
+    vs.forEach(function (s) {
+      if (ate - s.ts > jan * DAY) return;
+      var f0 = sazonFator(s.tipo, new Date(s.ts).getMonth()) || 1;
+      soma += lucroUsd(s) * ((sazonFator(s.tipo, mes) || 1) / f0);
+    });
+    var d = new Date(ate),
+      dias = new Date(d.getFullYear(), mes + 1, 0).getDate(),
+      meta = (soma / jan) * dias;
+    // o estoque limita: não dá para pedir mais que ~60% do lucro de tudo o que está na prateleira
+    var pot = 0;
+    try {
+      prodStats().forEach(function (m) {
+        var t = tFor(m.it),
+          u = t && t.price > 0 ? t.price / (S.fx.pyg || 1) - (m.cu || 0) : 0;
+        if (u > 0 && m.stock > 0) pot += u * m.stock;
+      });
+    } catch (e) {}
+    if (pot > 0) meta = Math.min(meta, pot * 0.6);
+    return meta > 0 ? Math.ceil(meta / 10) * 10 : 0;
+  }
+  // Meta do mês atual (US$): congelada no 1º uso do mês; sem base anterior, usa o ritmo de até agora.
+  function metaMes() {
+    var d = new Date(),
+      k = ymDe(d.getTime());
+    if (!S.metaHist) S.metaHist = {};
+    if (S.metaHist[k] > 0) return S.metaHist[k];
+    var m = metaCalc(inicioMes(d), d.getMonth());
+    if (m > 0) {
+      S.metaHist[k] = m;
+      saveSoon();
+      return m;
+    }
+    return metaCalc(Date.now() + 1, d.getMonth());
+  }
+  // Lucro livre (US$) de um mês 'AAAA-M'.
+  function lucroDoMes(k) {
+    return (S.sales || []).reduce(function (a, s) {
+      return a + (!s.estorno && ymDe(s.ts) === k ? lucroUsd(s) : 0);
+    }, 0);
+  }
+  // Metade do que passou da meta, em todos os meses com meta (G$).
+  function objExtra() {
+    var t = 0;
+    Object.keys(S.metaHist || {}).forEach(function (k) {
+      var m = S.metaHist[k];
+      if (m > 0) t += Math.max(0, lucroDoMes(k) - m) / 2;
+    });
+    return Math.round(t * (S.fx.pyg || 0));
+  }
+  // Peças vendidas por dia (últimos 30 dias; sem histórico, o volume do mês ÷ 30).
+  function pecasDia() {
+    var lim = Date.now() - 30 * DAY,
+      n = 0,
+      ini = Date.now();
+    (S.sales || []).forEach(function (s) {
+      if (s.estorno) return;
+      ini = Math.min(ini, s.ts);
+      if (s.ts >= lim) n += +s.qty || 0;
+    });
+    var dias = Math.max(7, Math.min(30, (Date.now() - ini) / DAY));
+    if (n > 0) return n / dias;
+    var v = volumeEfetivo();
+    return v > 0 ? v / 30 : 0;
+  }
+  // Lucro de cada peça antes do objetivo (média de 30 dias, G$).
+  function lucroPeca() {
+    var lim = Date.now() - 30 * DAY,
+      q = 0,
+      l = 0;
+    (S.sales || []).forEach(function (s) {
+      if (s.estorno || s.ts < lim) return;
+      q += +s.qty || 0;
+      l += (s.livre || 0) + (s.melh || 0);
+    });
+    return q > 0 ? l / q : 0;
+  }
+  function objFimMes(ate) {
+    var p = String(ate || '').split('-');
+    return p.length === 2 ? new Date(+p[0], +p[1], 0, 23, 59).getTime() : 0;
+  }
+  var MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+  function mesTxt(ts) {
+    var d = new Date(ts);
+    return MESES[d.getMonth()] + (d.getFullYear() !== new Date().getFullYear() ? '/' + String(d.getFullYear()).slice(2) : '');
+  }
+  // Situação dos objetivos: guardado total, quanto cada um tem, quanto cada venda guarda e se cabe.
+  function objPlano() {
+    var r = reservas(),
+      tot = Math.max(0, r.melh),
+      resta = tot,
+      pd = pecasDia(),
+      lp = lucroPeca(),
+      teto = lp > 0 ? lp / 2 : 0,
+      acum = 0,
+      porVenda = 0,
+      lista = (S.objetivos || []).filter(function (o) {
+        return !o.usado;
+      });
+    var itens = lista.map(function (o) {
+      var tem = Math.min(o.custo, resta);
+      resta -= tem;
+      var falta = o.custo - tem;
+      acum += falta;
+      var fim = objFimMes(o.ate),
+        dias = fim ? Math.max(1, (fim - Date.now()) / DAY) : 0,
+        pecas = pd * dias,
+        pede = fim && falta > 0 ? (pecas > 0 ? acum / pecas : Infinity) : 0,
+        cabe = !pede || (teto > 0 && pede <= teto),
+        sug = 0;
+      if (pede) porVenda = Math.max(porVenda, Math.min(pede, teto || pede));
+      // mês em que cabe (guardando no máximo metade do lucro da peça)
+      if (!cabe && teto > 0 && pd > 0) sug = Date.now() + (acum / teto / pd) * DAY;
+      // previsão de quando fica pronto no ritmo de hoje
+      return { o: o, tem: tem, falta: falta, pct: o.custo > 0 ? tem / o.custo : 0, pronto: falta <= 0, pede: pede, cabe: cabe, sug: sug, fim: fim };
+    });
+    if (porVenda > 0) porVenda = Math.ceil(porVenda / 500) * 500;
+    var gpd = porVenda * pd;
+    itens.forEach(function (x, i) {
+      var antes = itens.slice(0, i + 1).reduce(function (a, y) {
+        return a + y.falta;
+      }, 0);
+      x.prev = !x.pronto && gpd > 0 ? Date.now() + (antes / gpd) * DAY : 0;
+    });
+    return { total: tot, porVenda: porVenda, itens: itens, usados: (S.objetivos || []).filter(function (o) {
+      return o.usado;
+    }) };
+  }
+  // Quanto cada venda guarda para os objetivos (G$ por peça). Sem objetivo com data, vale o valor antigo.
+  function melhPecaAuto() {
+    var temData = (S.objetivos || []).some(function (o) {
+      return !o.usado && o.ate;
+    });
+    if (!temData) return S.melhPeca;
+    var p = S._objPV;
+    if (!p || Date.now() - p.ts > 60000 || p.n !== S.sales.length) {
+      p = S._objPV = { ts: Date.now(), n: S.sales.length, v: objPlano().porVenda };
+    }
+    return p.v;
+  }
+  // ---- Cartão da meta no Resumo ----
+  function metaCardHtml() {
+    var mi = metaInfo(),
+      fx = S.fx.pyg || 0,
+      lucro = Math.round(mi.lucro * fx),
+      meta = Math.round(mi.meta * fx),
+      d = new Date(),
+      dia = d.getDate(),
+      h = '<section class="card col mtCard"><div class="paMt"><span class="hint" style="margin:0">Meta do mês</span><span class="hint" style="margin:0">' + (meta > 0 ? 'meta ' + gs(Math.ceil(meta / 1000) * 1000) : 'aprendendo') + '</span></div><b class="paBig">' + gs(lucro) + '</b>';
+    if (!(meta > 0)) return h + '<div class="hint" style="margin:0">A meta aparece sozinha com 14 dias de vendas (média dos últimos meses + época do ano + estoque).</div></section>';
+    var p = Math.max(0, Math.min(100, (lucro / meta) * 100)),
+      hoje = Math.min(100, (dia / mi.dias) * 100),
+      proj = dia > 0 ? Math.round((lucro / dia) * mi.dias) : 0,
+      lp = lucroPeca(),
+      falta = meta - lucro,
+      pdia = falta > 0 && lp > 0 ? falta / lp / mi.restam : 0;
+    h += '<div class="mtBar"><i style="width:' + p + '%"></i><s style="left:' + hoje + '%" title="onde devia estar hoje"></s></div>';
+    if (lucro >= meta) {
+      h += '<div class="hint" style="margin:0;color:var(--ok)">Meta batida! O que passar dela, metade vai para os Objetivos: <b>+' + gs(Math.round((lucro - meta) / 2)) + '</b></div>';
+    } else {
+      h +=
+        '<div class="hint" style="margin:0">' +
+        (lucro >= (meta * dia) / mi.dias ? 'Adiantado' : 'Atrasado') +
+        ' · no ritmo de hoje fecha o mês em <b>' + gs(proj) + '</b></div>' +
+        (pdia > 0 ? '<div class="hint" style="margin:0">Para chegar lá: <b>~' + String(Math.round(pdia * 10) / 10).replace('.', ',') + ' peças por dia</b> até o fim do mês</div>' : '') +
+        '<div class="hint" style="margin:0">Passou da meta → metade vai para os Objetivos da loja</div>';
+    }
+    return h + '</section>';
+  }
+  // ---- Objetivos no Caixa ----
+  function objCardHtml() {
+    var pl = objPlano(),
+      h = '<section class="card col obCard"><div class="paMt"><h2 style="margin:0;font-size:16px">Objetivos da loja</h2><span class="hint" style="margin:0">guardado <b>' + gs(Math.round(pl.total)) + '</b></span></div>';
+    if (!pl.itens.length) {
+      h += '<div class="hint" style="margin:0">Diga o que quer para a loja (reforma, vitrine, ar-condicionado…). Cada venda guarda um pouco e metade do que passar da meta vai para cá.</div>';
+    } else {
+      h +=
+        '<div class="hint" style="margin:0">Cada venda guarda <b>' + gs(melhPecaAuto()) + '</b> · enche um por vez, na ordem (segure para mudar)</div><div class="obLista" id="obLista">';
+      pl.itens.forEach(function (x) {
+        var o = x.o,
+          st = '';
+        if (x.pronto) st = '<span style="color:var(--ok)">Pronto!</span>';
+        else if (x.fim && !x.cabe) st = '<span style="color:var(--warn)">Até ' + mesTxt(x.fim) + ' não cabe (pediria ' + gs(Math.ceil(x.pede / 500) * 500) + ' por venda)' + (x.sug ? ' · dá até ' + mesTxt(x.sug) : '') + '</span>';
+        else if (x.fim) st = 'quero até ' + mesTxt(x.fim) + (x.prev ? ' · no ritmo: ' + mesTxt(x.prev) : '');
+        else st = x.prev ? 'no ritmo: ' + mesTxt(x.prev) : 'sem data';
+        h +=
+          '<div class="obIt" data-id="' + o.id + '"><div class="obL"><b>' + esc(o.nome) + '</b><span>' + gs(Math.round(x.tem)) + ' de ' + gs(o.custo) + '</span></div>' +
+          '<div class="mtBar"><i style="width:' + Math.round(x.pct * 100) + '%"></i></div>' +
+          '<div class="obS"><small>' + st + '</small>' +
+          (x.pronto ? '<button type="button" class="btn go obUsar" data-act="obUsar" data-id="' + o.id + '">Usar</button>' : '<button type="button" class="obX" data-act="obDel" data-id="' + o.id + '" aria-label="Remover objetivo">×</button>') +
+          '</div></div>';
+      });
+      h += '</div>';
+    }
+    h += '<button type="button" class="obNovo" data-act="cxabre" data-id="mel">+ Novo objetivo</button></section>';
+    return h;
+  }
+  function objFormHtml() {
+    var d = new Date(),
+      ops = '<option value="">Sem data</option>';
+    for (var i = 1; i <= 24; i++) {
+      var m = new Date(d.getFullYear(), d.getMonth() + i, 1),
+        v = m.getFullYear() + '-' + (m.getMonth() + 1);
+      ops += '<option value="' + v + '"' + (OBJ.ate === v ? ' selected' : '') + '>' + MESES[m.getMonth()] + ' ' + m.getFullYear() + '</option>';
+    }
+    return (
+      '<section class="card col"><h2 style="margin:0;font-size:16px">Novo objetivo</h2>' +
+      '<div><div class="lbl">O que quer para a loja</div><input class="in" id="obNome" placeholder="Ex.: Reforma da vitrine" maxlength="40" autocomplete="off" value="' + esc(OBJ.nome) + '"></div>' +
+      '<div class="nvg2"><div><div class="lbl">Quanto custa</div><input class="in" id="obCusto" inputmode="numeric" placeholder="G$" autocomplete="off" value="' + esc(OBJ.custo) + '"></div>' +
+      '<div><div class="lbl">Quero até</div><select class="in" id="obAte">' + ops + '</select></div></div>' +
+      '<button type="button" class="btn go" data-act="obAdd" style="width:100%">Guardar objetivo</button></section>'
+    );
+  }
+  ACT.obAdd = function () {
+    var nome = ($('obNome').value || '').trim(),
+      custo = campoParaGs($('obCusto').value),
+      ate = $('obAte').value;
+    if (!nome) {
+      popErr('Diga o que quer para a loja.');
+      guiaMarca('obNome');
+      return;
+    }
+    if (!(custo > 0)) {
+      popErr('Informe quanto custa.');
+      guiaMarca('obCusto');
+      return;
+    }
+    S.objetivos.push({ id: 'o' + Date.now().toString(36), nome: nome[0].toUpperCase() + nome.slice(1), custo: custo, ate: ate, ts: Date.now() });
+    OBJ = { nome: '', custo: '', ate: '' };
+    S._objPV = null;
+    S.cxAcao = '';
+    vibrar(20);
+    lfToast('✓ Objetivo guardado');
+    saveSoon();
+    renderCaixa();
+  };
+  ACT.obDel = function (id) {
+    var i = S.objetivos.findIndex(function (o) {
+      return o.id === id;
+    });
+    if (i < 0) return;
+    var o = S.objetivos.splice(i, 1)[0];
+    S._objPV = null;
+    saveSoon();
+    renderCaixa();
+    lfDesfazer('Objetivo removido', function () {
+      S.objetivos.splice(i, 0, o);
+      S._objPV = null;
+      saveSoon();
+      renderCaixa();
+    }, 5000);
+  };
+  ACT.obUsar = function (id) {
+    var o = S.objetivos.filter(function (x) {
+      return x.id === id;
+    })[0];
+    if (!o) return;
+    if (o.custo > S.cash.pyg) {
+      S.cxMsg = 'Saldo insuficiente em guaranis em caixa (troque antes no Câmbio).';
+      renderCaixa();
+      return;
+    }
+    S.cash.pyg -= o.custo;
+    lancarMelhoria(o.nome, o.custo);
+    o.usado = Date.now();
+    S._objPV = null;
+    S.cxMsg = 'Objetivo realizado: ' + o.nome + ' · ' + gs(o.custo) + '.';
+    saveSoon();
+    renderCaixa();
+  };
+  // Segurar 0,4 s levanta o objetivo; arrastar muda a ordem.
+  function objGestos() {
+    var g = $('obLista');
+    if (!g || g._ok) return;
+    g._ok = 1;
+    var st = null;
+    g.addEventListener('pointerdown', function (e) {
+      var it = e.target.closest('.obIt');
+      if (!it || e.target.closest('button')) return;
+      st = { it: it, y0: e.clientY, id: e.pointerId, arr: false };
+      st.t = setTimeout(function () {
+        if (!st) return;
+        st.arr = true;
+        it.classList.add('obLev');
+        vibrar(15);
+        try {
+          g.setPointerCapture(st.id);
+        } catch (er) {}
+      }, 400);
+    });
+    g.addEventListener('pointermove', function (e) {
+      if (!st || e.pointerId !== st.id) return;
+      if (!st.arr) {
+        if (Math.abs(e.clientY - st.y0) > 8) {
+          clearTimeout(st.t);
+          st = null;
+        }
+        return;
+      }
+      e.preventDefault();
+      var irmaos = [].slice.call(g.querySelectorAll('.obIt'));
+      irmaos.forEach(function (x) {
+        if (x === st.it) return;
+        var r = x.getBoundingClientRect(),
+          meio = r.top + r.height / 2,
+          ri = st.it.getBoundingClientRect();
+        if (e.clientY < meio && ri.top > r.top) g.insertBefore(st.it, x);
+        else if (e.clientY > meio && ri.top < r.top) g.insertBefore(st.it, x.nextSibling);
+      });
+    });
+    var fim = function (e) {
+      if (!st || (e && e.pointerId !== st.id)) return;
+      clearTimeout(st.t);
+      var era = st;
+      st = null;
+      if (!era.arr) return;
+      era.it.classList.remove('obLev');
+      var ids = [].map.call(g.querySelectorAll('.obIt'), function (x) {
+          return x.dataset.id;
+        }),
+        antes = S.objetivos.slice(),
+        usados = antes.filter(function (o) {
+          return o.usado;
+        }),
+        nova = ids
+          .map(function (id) {
+            return antes.filter(function (o) {
+              return o.id === id;
+            })[0];
+          })
+          .filter(Boolean)
+          .concat(usados);
+      if (nova.map(function (o) { return o.id; }).join() === antes.map(function (o) { return o.id; }).join()) return;
+      S.objetivos = nova;
+      S._objPV = null;
+      saveSoon();
+      renderCaixa();
+      lfDesfazer('Ordem salva', function () {
+        S.objetivos = antes;
+        S._objPV = null;
+        saveSoon();
+        renderCaixa();
+      }, 4000);
+    };
+    g.addEventListener('pointerup', fim);
+    g.addEventListener('pointercancel', fim);
   }
   // ===== Preço automático (v422, aprovado 04/11/2026) =====
   // Um interruptor. O app revisa toda segunda e explica cada ajuste; o dono só desfaz ou trava (cadeado no produto).
@@ -34768,7 +35583,7 @@
     S.cart.forEach(function (l, i) {
       var w = sub > 0 ? cartLinhaPreco(l) / sub : 1 / S.cart.length,
         pp = pisoPeca(l.it);
-      livre += calcSale(tFor(l.it), l.qty, S.fx.pyg, pct, contasPeca(l.it), S.melhPeca, Math.round(eff * w), i === 0 ? bu : 0).livre;
+      livre += calcSale(tFor(l.it), l.qty, S.fx.pyg, pct, contasPeca(l.it), melhPecaAuto(), Math.round(eff * w), i === 0 ? bu : 0).livre;
       piso += pp.piso * l.qty;
       trava += pp.trava * l.qty;
     });
@@ -36378,6 +37193,11 @@
       'volume',
       'melhPeca',
       'fxHist',
+      'lm',
+      'objetivos',
+      'metaHist',
+      'trocaPlan',
+      'cxAv',
       'siteFx',
       'tabelas',
       'tabAtiva',
@@ -36512,7 +37332,7 @@
   if (/(^|[#&])test\b/.test(location.hash))
     window.__LF = {
       barMoedas: barMoedas,
-      animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas,
+      animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, cxPrevisao: cxPrevisao, cxPassos: cxPassos, cxAvisos: cxAvisos, lmGrava: lmGrava, lmProtecao: lmProtecao, lmCardHtml: lmCardHtml, gsDeUsd: gsDeUsd,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
       S: S, envFolha: window.__envFolha, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,

@@ -339,7 +339,7 @@
       pp = pisoPeca(it),
       bu = pay.brinde ? pay.brinde.usd : 0,
       bg = Math.round(bu * S.fx.pyg),
-      m = calcSale(tf, qty, S.fx.pyg, c.pct, cp, S.melhPeca, eff, bu);
+      m = calcSale(tf, qty, S.fx.pyg, c.pct, cp, melhPecaAuto(), eff, bu);
     for (var k in m) s[k] = m[k];
     var fm = formaPorId(pay.forma),
       tx = taxaGs(recGs, fm),

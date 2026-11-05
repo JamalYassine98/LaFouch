@@ -48,7 +48,7 @@
     S.cart.forEach(function (l, i) {
       var w = sub > 0 ? cartLinhaPreco(l) / sub : 1 / S.cart.length,
         pp = pisoPeca(l.it);
-      livre += calcSale(tFor(l.it), l.qty, S.fx.pyg, pct, contasPeca(l.it), S.melhPeca, Math.round(eff * w), i === 0 ? bu : 0).livre;
+      livre += calcSale(tFor(l.it), l.qty, S.fx.pyg, pct, contasPeca(l.it), melhPecaAuto(), Math.round(eff * w), i === 0 ? bu : 0).livre;
       piso += pp.piso * l.qty;
       trava += pp.trava * l.qty;
     });

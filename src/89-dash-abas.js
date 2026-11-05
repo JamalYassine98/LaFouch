@@ -132,7 +132,7 @@
       };
     if (t === 'hoje') {
       var x = dashExtra();
-      h += o.per + o.kp + (o.repor || '') + (o.colch || '') + o.sep + (o.vend || '') + x.meta;
+      h += o.per + o.kp + (o.repor || '') + (o.colch || '') + o.sep + (o.vend || '') + metaCardHtml();
       return h;
     }
     if (t === 'din') return dinheiroHtml(o, kpi);
@@ -283,7 +283,7 @@
       '</div><div class="hint" style="margin:0">De ' + totFmt(r.wal) + ' na carteira, ' + totFmt(dono) + ' já têm dono: reposição, contas, colchão e melhorias.</div>' +
       (aberto
         ? '<div class="split">' +
-          [['Reposição de mercadoria', r.repGs, '#00c8ff'], ['Contas do mês', r.con, '#a2447c'], ['Colchão de segurança', r.colch, '#ffc766'], ['Melhorias da loja', r.melh, 'var(--info)']]
+          [['Reposição de mercadoria', r.repGs, '#00c8ff'], ['Contas do mês', r.con, '#a2447c'], ['Colchão de segurança', r.colch, '#ffc766'], ['Objetivos da loja', r.melh, 'var(--info)']]
             .map(function (p) {
               return '<div class="sl"><span><span class="sp" style="background:' + p[2] + '"></span>' + p[0] + '</span><b>' + totFmt(p[1]) + '</b></div>';
             })
