@@ -1,8 +1,7 @@
 {
- "nome": "5.3.6",
+ "nome": "5.3.7",
  "notas": [
-  "Salvamento seguro: as vendas agora ficam no banco do celular, sem o limite de espaço que podia fazer o app parar de salvar",
-  "Se algum salvamento falhar, aparece um aviso grande na hora (antes o app não avisava)",
-  "Vendas com mais de 12 meses viram um resumo por mês no Histórico; a venda completa fica guardada, vai na cópia da nuvem e volta com \"Trazer de volta\""
+  "Estúdio com LUZ DE ESTÚDIO: a foto inteira recebe a mesma correção de luz — fundo branco 255 e a armação clareia junto, com as cores e a transparência originais (sem recorte)",
+  "Vale para as fotos novas e para refazer as que já estão no padrão (Ajustes › Fotos)"
  ]
 }

@@ -216,7 +216,7 @@ TESTES = [
  ("colchao: queda do câmbio não conta", """const n=Date.now(); S.fxHist=[{ts:n-2*864e5,pyg:7000},{ts:n-864e5,pyg:6000}]; return L.colchao().pct""", 0.05),
  # ---- reservas do caixa ----
  ("reservas: reposição, colchão, contas e livre", """
-   const n=Date.now();
+   const n=Date.now(); S.metaHist={};
    S.sales=[{ts:n, repUSD:1.3, colch:910, melh:1000, contas:2000, estorno:false}];
    S.compras=[{usd:.5}]; S.cash={pyg:100000, usd:0, brl:0};
    const r=L.reservas(); return [r.rUSD, r.repGs, r.colch, r.con, r.melh, r.guard, r.livre]""",
@@ -2850,7 +2850,7 @@ async def main():
             if not ok: falhas.append('fotos padrao'); print('        veio', got, aj, pg.erros)
             await pg.close()
 
-            # Estúdio (v432): botão no Início, fila, tratamento "só o fundo vira 255" sem mexer na armação, 3:2 sem esticar, salvar pela fila
+            # Estúdio (v432/v439): botão no Início, fila, LUZ DE ESTÚDIO (fundo 255, armação clareia mantendo as cores), 3:2 sem esticar, salvar pela fila
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
               L.setView('inicio'); await w(300);
@@ -2865,17 +2865,17 @@ async def main():
               const fundo = px(20, 20).concat(px(1480, 980));
               // proporção sem esticar: largura/altura da barra 700x160 → 4,375
               let x0 = 1500, x1 = 0, y0 = 1000, y1 = 0; const d = og.getImageData(0, 0, 1500, 1000).data;
-              for (let y = 0; y < 1000; y += 2) for (let x = 0; x < 1500; x += 2) { const i = (y * 1500 + x) * 4; if (d[i] < 200) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; } }
+              for (let y = 0; y < 1000; y += 2) for (let x = 0; x < 1500; x += 2) { const i = (y * 1500 + x) * 4; if ((d[i] + d[i + 1] + d[i + 2]) / 3 < 225) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; } }
               const prop = (x1 - x0 + 2) / (y1 - y0 + 2);
               // pela fila: abre a tela, salva frente com nota
               L.estAbre(); await w(200); const fila = document.querySelectorAll('.estIt').length; const k0 = L.estFila()[0];
               document.querySelector('.estOv .estX').click(); await w(100);
               L.estResultado(R, null, {k: k0.k, passo: 'frente', salva: true, titulo: 'x'}); await w(100);
               document.querySelector('#estRes [data-r=usar]').click(); await w(300);
-              return [tem, [o.width, o.height], ach && Math.abs(ach[0] - 150) <= 3 && Math.abs(ach[1] - 90) <= 3 && Math.abs(ach[2] - 110) <= 3, fundo.every(v => v >= 254), Math.abs(prop - 700 / 160) < 0.25, fila > 0, !!S.fotos[k0.k], !!S.fotoNota[k0.k]]; }""")
+              return [tem, [o.width, o.height], ach && ach[0] > 150 && Math.abs(ach[1] / ach[0] - 90 / 150) < 0.06 && Math.abs(ach[2] / ach[0] - 110 / 150) < 0.06, fundo.every(v => v >= 254), Math.abs(prop - 700 / 160) < 0.25, fila > 0, !!S.fotos[k0.k], !!S.fotoNota[k0.k]]; }""")
             total += 1
             ok = got == [True, [1500, 1000], True, True, True, True, True, True] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'Estúdio: Início, fundo 255 sem mexer na armação, 3:2 sem esticar, fila salva foto e nota')
+            print(('  ok  ' if ok else ' FALHA ') + 'Estúdio: Início, luz de estúdio (fundo 255, armação nas cores originais), 3:2 sem esticar, fila salva foto e nota')
             if not ok: falhas.append('estudio'); print('        veio', got, pg.erros)
             await pg.close()
 

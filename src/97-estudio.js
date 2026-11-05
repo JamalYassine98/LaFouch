@@ -47,9 +47,10 @@
     });
     return { ok: ok, t: t };
   }
-  // ---------- tratamento: só o fundo vira 255 ----------
-  // Luz do fundo = superfície suave (polinômio) medida só no que é fundo. A peça é o que difere do fundo além do
-  // ruído medido; ela fica com os pixels ORIGINAIS. O fundo vira 255 com 1px de suavização na borda.
+  // ---------- tratamento: LUZ DE ESTÚDIO (v439) ----------
+  // Luz do fundo = superfície suave (polinômio + correção por faixas) medida só no que é fundo. A foto inteira é dividida
+  // por essa luz (como um flat-field de estúdio) e os níveis sobem com transição suave até 255. A peça (máscara) só serve
+  // para achar o enquadramento e dar a nota.
   function estFundoModelo(d, W, H) {
     var sw = 64,
       sh = Math.max(8, Math.round((H * sw) / W)),
@@ -326,14 +327,27 @@
         nf++;
       }
     fundo = nf ? fundo / nf : 255;
-    // 1px de suavização na borda (anti-serrilhado) e composição: peça original, fundo 255
-    var al = estBlur(Float32Array.from(m), W, H, 1);
+    // v439 LUZ DE ESTÚDIO (aprovada 05/11): nada é recortado. A foto inteira recebe a mesma correção de luz — divide pela luz
+    // do fundo medida (corrige a luz desigual da caixa e deixa o branco neutro) e sobe os níveis com transição suave até 255.
+    // A armação clareia na mesma medida do fundo, como faria mais luz de verdade: cores e transparência continuam as originais.
+    var ALVO = 265,
+      SH = 225,
+      KS = 30,
+      topo = SH + KS * (1 - Math.exp(-(ALVO - SH) / KS)),
+      ganho = 255 / topo,
+      LUT = new Uint8ClampedArray(1601);
+    for (i = 0; i <= 1600; i++) {
+      var xv = i / 2,
+        yv = xv < SH ? xv : SH + KS * (1 - Math.exp(-(xv - SH) / KS));
+      LUT[i] = Math.min(255, Math.round(yv * ganho));
+    }
     for (i = 0; i < N; i++) {
-      var aa = al[i],
-        q4 = i * 4;
-      a[q4] = a[q4] * aa + 255 * (1 - aa);
-      a[q4 + 1] = a[q4 + 1] * aa + 255 * (1 - aa);
-      a[q4 + 2] = a[q4 + 2] * aa + 255 * (1 - aa);
+      var q4 = i * 4,
+        p3b = i * 3;
+      for (var cc = 0; cc < 3; cc++) {
+        var xx = (a[q4 + cc] / Math.max(8, bg[p3b + cc])) * ALVO;
+        a[q4 + cc] = LUT[Math.min(1600, Math.round(xx * 2))];
+      }
     }
     g.putImageData(im, 0, 0);
     var mot = [],
