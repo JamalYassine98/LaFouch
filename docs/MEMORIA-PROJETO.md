@@ -986,3 +986,10 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 4. Resumo automático do dia: RECUSADO ("não precisa").
 5. Arquivo das vendas antigas (>12 meses → resumo por mês; venda completa fica na cópia da nuvem e pode voltar).
 - FUTURO do dono: catálogo SÓ catálogo num iPad na loja para o cliente navegar (sem lucro, sem vendas).
+
+## 05/11/2026 19:21 — decisões do dono
+- APROVADOS (esboço; implementar só quando mandar): Estúdio "Um giro, três fotos" (vídeo no prato → frente + 3/4 + giro automáticos); Marketing "giro vira Status/Reels" e "mais vistas e não vendidas" (site passa a contar aberturas de cada peça).
+- RECUSADO: cadastro "procuram mas não compram (cor/tamanho)" — impreciso.
+- iPad da loja = o APP em "modo cliente" (NÃO o site): mostra o Catálogo de VENDAS (todas as peças à venda, mesmo fora do site), SÓ PREÇO DE VAREJO, sem custo/lucro/piso/abas/barra/Ajustes, sair só com PIN, volta ao início parado. SEM "Quero provar" (o cliente mostra as peças ao dono na hora). Precisa do CATÁLOGO INTELIGENTE (reordena conforme o cliente usa — atdViu/atdPeso em 53-linhas.js).
+- Para o iPad: LIGAR a sincronização entre aparelhos ("temos que ligar isso") + fotos de TODAS as peças à venda chegarem ao iPad (hoje fotos não passam entre aparelhos).
+- Site "Qual combina com meu rosto?": dono acha que mostra todas as armações. Causa achada: ROSTO_DE (64-identidade.js) dá 2–3 rostos por formato e quem não tem formato vira ['oval'] → "oval" pega quase tudo. Deve ganhar o mesmo conceito de catálogo inteligente (reordena conforme o cliente abre peças).
