@@ -973,3 +973,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 4. Giro 360 do Estúdio na página da peça no site (junto de frente e 3/4).
 - (5 etiqueta de preço com QR na térmica: dono perguntou se a impressora não é só para comprovante → em discussão.)
 - Animações de grupo da barra: A Ímã e B Pasta RECUSADAS pelo dono (19:01). Refazer com outra ideia. Implementação de tudo: dono disse "ainda não".
+
+## 05/11/2026 19:06 — Animação de grupo da barra: ENCAIXE APROVADA ("Perfeito, aprovado"; implementar só quando o dono mandar)
+- Juntar: segurar um botão da barra sobre outro (como hoje) → ao soltar, os dois ícones viram PEÇAS DE QUEBRA-CABEÇA (o de baixo com o dente à direita, o arrastado com o encaixe) → deslizam acelerando e encaixam com CLIQUE (tremor curto ~0,2 s + linha amarela que acende na emenda) → janela "Novo grupo" (a de hoje) → ao criar, as peças encaixadas encolhem juntas e viram o ícone do grupo; vizinhos fecham o espaço.
+- Desfazer (arrastar para fora da barra OU "Desfazer o grupo"): o ícone do grupo vira as 2 peças encaixadas → tranco → desencaixam e se afastam → cada uma volta ao seu lugar na barra e vira o ícone normal; vizinhos abrem espaço; aviso "Grupo desfeito · Desfazer".
+- Referência exata: docs/esbocos/grupo-encaixe-anim.html (funções C_junta / C_desfaz; vídeo grupo-encaixe.mp4 mandado ao dono). Recusadas: Ímã e Pasta.

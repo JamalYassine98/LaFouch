@@ -1,0 +1,220 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:390px;height:844px;overflow:hidden;background:#0f1216;color:#e7edf5;font-family:Inter,Roboto,system-ui,sans-serif}
+.cap{position:absolute;left:12px;right:12px;top:14px;z-index:40;background:rgba(162,68,124,.95);color:#fff;border-radius:14px;padding:10px 13px;font-size:15px;font-weight:600;line-height:1.3}
+.cap small{display:block;font-weight:400;font-size:12.5px;opacity:.9}
+.ct{position:absolute;left:16px;right:16px;border-radius:18px;background:#161a20;border:1px solid #2a3441}
+.nav{position:absolute;left:0;right:0;bottom:0;height:67px;background:#161a20;border-top:1px solid #2a3441;z-index:10}
+.mn{position:absolute;bottom:0;height:67px;width:78px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#8b9bb0;font-size:11px;font-weight:500;transform-origin:50% 60%;z-index:11}
+.mn .mi{width:26px;height:26px;display:flex;align-items:center;justify-content:center;position:relative}
+.mn .mi svg{width:22px;height:22px}
+.mn.on{color:#e08bc0}
+.mn span.l{white-space:nowrap}
+.sel{position:absolute;bottom:6px;height:54px;border-radius:14px;border:2px solid #a2447c;background:rgba(162,68,124,.14);z-index:10}
+.ring{position:absolute;width:62px;height:62px;border-radius:50%;z-index:12;pointer-events:none}
+.dica{position:absolute;left:50%;transform:translateX(-50%);bottom:80px;background:rgba(0,0,0,.8);color:#fff;font-size:13px;padding:7px 13px;border-radius:99px;white-space:nowrap;z-index:30}
+.dedo{position:absolute;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.3);border:2px solid rgba(255,255,255,.85);z-index:50;transform:translate(-50%,-50%)}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#161a20;border-top:1px solid #2a3441;border-radius:22px 22px 0 0;padding:10px 16px 22px;z-index:35}
+.grab{width:42px;height:5px;border-radius:3px;background:#3a4656;margin:2px auto 12px}
+.go{background:#a2447c;color:#fff;border-radius:14px;padding:13px;text-align:center;font-weight:700;margin-top:12px}
+.in{border:1px solid #2a3441;background:#1e242e;border-radius:12px;padding:11px;margin-top:10px;font-size:15px}
+.dim{position:absolute;inset:0;background:rgba(0,0,0,.5);z-index:34}
+.toast{position:absolute;left:16px;right:16px;bottom:82px;background:#1e242e;border:1px solid #2a3441;border-radius:14px;padding:12px 14px;display:flex;justify-content:space-between;font-size:14px;z-index:30}
+.zona{position:absolute;left:16px;right:16px;bottom:96px;height:120px;border:2px dashed #ff8f8f;border-radius:20px;display:flex;align-items:center;justify-content:center;color:#ff8f8f;font-weight:600;font-size:14px;z-index:9;background:rgba(255,143,143,.06)}
+.wave{position:absolute;border-radius:50%;border:2px solid #e08bc0;z-index:9}
+.fold{position:absolute;border-radius:16px;background:rgba(162,68,124,.18);border:1.5px solid #a2447c;z-index:9}
+.mini{position:absolute;z-index:13;color:#e08bc0;display:flex;align-items:center;justify-content:center}
+.mini svg{width:100%;height:100%}
+.tit{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0f1216;z-index:60;text-align:center}
+.tit h1{font:400 34px Georgia,serif}.tit p{color:#8b9bb0;margin-top:10px;font-size:15px}
+</style></head><body>
+<div class="cap" id="cap"></div>
+<div class="ct" style="top:96px;height:120px"></div><div class="ct" style="top:228px;height:200px"></div><div class="ct" style="top:440px;height:150px"></div><div class="ct" style="top:602px;height:120px;opacity:.6"></div>
+<div class="zona" id="zona"></div>
+<div class="nav"></div>
+<div class="sel" id="sel"></div>
+<div id="bar"></div>
+<div class="ring" id="ring"></div>
+<div class="wave" id="wv"></div><div class="fold" id="fold"></div>
+<div class="mini" id="m1"></div><div class="mini" id="m2"></div>
+<div class="dica" id="dica"></div>
+<div class="dim" id="dim"></div>
+<div class="sheet" id="sheet"><div class="grab"></div><div style="display:flex;gap:12px;align-items:center"><span id="shIc" style="width:44px;height:44px;border-radius:12px;background:#2a1a26;color:#e08bc0;display:flex;align-items:center;justify-content:center"></span><b style="font-size:19px">Novo grupo</b></div>
+<div style="color:#8b9bb0;font-size:13px;margin-top:8px">Inventário e Caixa ficam juntos num só botão. As telas viram abas no topo.</div><div class="in">Estoque e caixa</div><div class="go" id="shGo">Criar grupo</div><div style="text-align:center;margin-top:10px;color:#8b9bb0">Cancelar</div></div>
+<div class="toast" id="toast"><span>Grupo desfeito</span><b style="color:#e08bc0">Desfazer</b></div>
+<div class="dedo" id="dedo"></div>
+<div class="tit" id="tit"><h1 id="tt"></h1><p id="tp"></p></div>
+<script>
+const SV={"ini": "<svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z\"></path></svg>", "cat": "<svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 4h16l1 5a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0zM5 12v8h14v-8M10 20v-4h4v4\"></path></svg>", "inv": "<svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 8l9-5 9 5v9l-9 5-9-5zM3 8l9 5 9-5M12 13v9\"></path></svg>", "cx": "<svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3\" y=\"6\" width=\"18\" height=\"13\" rx=\"2\"></rect><path d=\"M3 10h18M16 15h2\"></path></svg>", "aj": "<svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"3\"></circle><path d=\"M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3 1a7 7 0 0 0-2-1.2L14 3h-4l-.6 2.7a7 7 0 0 0-2 1.2l-2.3-1-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 2 1.2L10 21h4l.6-2.7a7 7 0 0 0 2-1.2l2.3 1 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z\"></path></svg>", "grp": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 7.5l9-4.5 9 4.5v9l-9 4.5-9-4.5z\"></path><g transform=\"translate(6.96,6.96) scale(0.42)\" stroke-width=\"4.05\"><rect x=\"3\" y=\"6\" width=\"18\" height=\"13\" rx=\"2\"></rect><path d=\"M3 10h18M16 15h2\"></path></g></svg>"};
+const IT=[['ini','Início'],['cat','Catálogo'],['inv','Inventário'],['cx','Caixa'],['aj','Ajustes']];
+const bar=document.getElementById('bar');const E={};
+IT.forEach(([k,n])=>{const d=document.createElement('div');d.className='mn';d.innerHTML='<span class="mi">'+SV[k]+'</span><span class="l">'+n+'</span>';bar.appendChild(d);E[k]=d;});
+const $=i=>document.getElementById(i),cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)),ez=x=>{x=cl(x);return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2},R=(t,a,b)=>ez((t-a)/(b-a)),L=(a,b,k)=>a+(b-a)*k;
+const mola=x=>{x=cl(x);return 1-Math.exp(-6*x)*Math.cos(9*x)};
+const X5=i=>39+78*i, X4=i=>48.75+97.5*i, BY=844-67/2-4;
+function pos(el,x,y,s=1,o=1,rot=0){el.style.left=(x-39)+'px';el.style.bottom=(844-y-67/2-4)+'px';el.style.transform=`scale(${s}) rotate(${rot}deg)`;el.style.opacity=o}
+function dedo(x,y,on,pr){const d=$('dedo');d.style.display=on?'block':'none';d.style.left=x+'px';d.style.top=y+'px';d.style.transform='translate(-50%,-50%) scale('+(pr?.85:1)+')';d.style.boxShadow=pr?'0 0 0 12px rgba(255,255,255,.18)':'none'}
+function show(id,on){$(id).style.display=on?'':'none'}
+function setIcon(k,svg){E[k].querySelector('.mi').innerHTML=svg}
+function label(k,t){E[k].querySelector('.l').textContent=t}
+function reset(){IT.forEach(([k,n],i)=>{pos(E[k],X5(i),BY);setIcon(k,SV[k]);label(k,n);E[k].className='mn'+(k=='inv'?' on':'');E[k].style.filter='';E[k].querySelector('.mi').style.opacity=1;E[k].querySelector('.l').style.opacity=1;E[k].style.zIndex=''});
+ ['ring','wv','fold','m1','m2','dica','dim','sheet','toast','zona','tit'].forEach(i=>show(i,false));dedo(0,0,false);
+ const s=$('sel');s.style.left=(X5(2)-37)+'px';s.style.width='74px';s.style.opacity=1}
+function cap(a,b){$('cap').innerHTML=a+'<small>'+b+'</small>'}
+function titulo(t,h,p){show('tit',true);$('tt').innerHTML=h;$('tp').textContent=p;$('tit').style.opacity=Math.min(cl(t/.3),1)}
+// ---- comum: arrastar Caixa sobre Inventário e segurar
+function arrasta(t){ // t 0..2.1
+ const k=R(t,.35,1.15),x=L(X5(3),X5(2),k),y=BY-L(0,26,R(t,.15,.4))+L(0,6,k);
+ pos(E.cx,x,y-4,1.18,1);E.cx.style.zIndex=20;E.cx.style.filter='drop-shadow(0 8px 14px rgba(0,0,0,.6))';
+ dedo(x,y+6,true,t>.15);
+ // vizinhos: nada se mexe ainda
+ if(t>1.15){const h=cl((t-1.15)/.65);const r=$('ring');show('ring',true);r.style.left=(X5(2)-31)+'px';r.style.top=(BY-31-4)+'px';
+  r.style.background=`conic-gradient(#ffc766 ${h*360}deg, rgba(255,199,102,.15) 0)`;r.style.webkitMask=r.style.mask='radial-gradient(circle, transparent 27px, #000 28px)';
+  pos(E.inv,X5(2),BY,1+0.1*h);show('dica',true);$('dica').textContent=h<1?'Segure para juntar…':'Solte para juntar com Inventário';}
+ return [x,y];
+}
+// ---- A: ÍMÃ
+function A_junta(t){ // 0..5.2
+ reset();cap('A · Ímã · juntar','Segure Caixa sobre Inventário');
+ if(t<2.1){arrasta(t);return}
+ show('ring',false);
+ const m=cl((t-2.1)/.55); // Caixa é puxada para dentro girando
+ const ang=m*300, rr=L(0,0,m);
+ pos(E.cx,L(X5(2),X5(2),m)+Math.cos(ang/57)*8*(1-m),BY-4+Math.sin(ang/57)*8*(1-m),L(1.18,.2,m),1-m,ang);dedo(X5(2),BY,t<2.3,false);
+ if(t>2.1){ // inventário absorve: troca para ícone do grupo
+  const q=cl((t-2.45)/.5);if(q>0)setIcon('inv',SV.grp);pos(E.inv,X5(2),BY,1+0.25*Math.sin(Math.PI*cl((t-2.3)/.5)));
+  const w=$('wv');show('wv',t>2.45&&t<3.3);const wq=cl((t-2.45)/.8);w.style.width=w.style.height=(30+90*wq)+'px';w.style.left=(X5(2)-(15+45*wq))+'px';w.style.top=(BY-4-(15+45*wq))+'px';w.style.opacity=1-wq;
+  show('dica',false);}
+ // folha Novo grupo
+ if(t>2.9&&t<4.3){show('dim',true);show('sheet',true);const u=R(t,2.9,3.25)*(1-R(t,4.0,4.3));$('dim').style.opacity=u;$('sheet').style.transform='translateY('+(1-u)*100+'%)';$('shIc').innerHTML=SV.grp;
+  dedo(195,800-67,t>3.4&&t<4.0,t>3.65&&t<3.9)}
+ if(t>=4.0){ // mola + relayout 5->4
+  const k=R(t,4.0,4.6);[['ini',0],['cat',1],['inv',2],['aj',4]].forEach(([kk,i])=>{const j=i==4?3:i;pos(E[kk],L(X5(i),X4(j),k),BY,kk=='inv'?L(.6,1,mola(cl((t-4.0)/.7)))+0*0:1)});
+  E.inv.style.width='78px';label('inv',t>4.05?'Estoque e caixa':'Inventário');E.inv.querySelector('.l').style.opacity=cl((t-4.05)/.3);
+  const s=$('sel');s.style.left=(L(X5(2),X4(2),k)-L(37,46,k))+'px';s.style.width=L(74,92,k)+'px'}
+}
+function A_desfaz(t){ // 0..5
+ reset();cap('A · Ímã · desfazer','Arraste o grupo para fora da barra');
+ // estado de grupo
+ [['ini',0],['cat',1],['inv',2],['aj',3]].forEach(([k,i])=>pos(E[k],X4(i),BY));pos(E.cx,X4(2),BY,.2,0);setIcon('inv',SV.grp);label('inv','Estoque e caixa');
+ const s=$('sel');s.style.left=(X4(2)-46)+'px';s.style.width='92px';
+ if(t<2.2){const k=R(t,.4,1.4),y=L(BY,BY-150,k);pos(E.inv,X4(2),y,1.15,1,t>1.2?Math.sin(t*28)*4:0);E.inv.style.zIndex=20;E.inv.style.filter='drop-shadow(0 8px 14px rgba(0,0,0,.6))';dedo(X4(2),y+6,true,t>.2);
+  show('zona',t>.6);$('zona').style.opacity=R(t,.6,.9);$('zona').textContent=t>1.3?'Solte para desfazer o grupo':'Arraste para fora';$('zona').style.borderColor=t>1.3?'#ff8f8f':'#8b9bb0';$('zona').style.color=t>1.3?'#ff8f8f':'#8b9bb0';
+  s.style.opacity=1-R(t,.3,.6);return}
+ s.style.opacity=0;
+ // separa: as duas peças saem do ícone do grupo e voam para os lugares
+ const m=cl((t-2.2)/.25);dedo(0,0,false);
+ const k=R(t,2.35,3.2),yy=BY-150;
+ setIcon('inv',t<2.35?SV.grp:SV.inv);label('inv','Inventário');label('cx','Caixa');
+ pos(E.inv,L(X4(2),X5(2),k),L(yy,BY,k)-Math.sin(Math.PI*k)*30,L(1.3,1,mola(cl((t-2.35)/.9))),1,L(-25,0,k));
+ pos(E.cx,L(X4(2),X5(3),k),L(yy,BY,k)-Math.sin(Math.PI*k)*55,L(.4,1,mola(cl((t-2.35)/.9))),cl((t-2.3)/.15),L(25,0,k));E.cx.style.zIndex=19;
+ const w=$('wv');show('wv',t>2.2&&t<3);const wq=cl((t-2.2)/.7);w.style.width=w.style.height=(30+110*wq)+'px';w.style.left=(X4(2)-(15+55*wq))+'px';w.style.top=(yy-4-(15+55*wq))+'px';w.style.opacity=1-wq;
+ show('zona',t<2.5);$('zona').style.opacity=1-cl((t-2.2)/.3);
+ [['ini',0],['cat',1],['aj',4]].forEach(([kk,i])=>pos(E[kk],L(X4(i==4?3:i),X5(i),k),BY));
+ if(t>3.1){show('toast',true);const u=R(t,3.1,3.45);$('toast').style.transform='translateY('+(1-u)*30+'px)';$('toast').style.opacity=u;
+  const s2=$('sel');s2.style.opacity=R(t,3.1,3.4);s2.style.left=(X5(2)-37)+'px';s2.style.width='74px'}
+}
+// ---- B: PASTA
+function B_junta(t){
+ reset();cap('B · Pasta · juntar','Segure Caixa sobre Inventário');
+ if(t<1.15){arrasta(t);return}
+ // ao segurar, Inventário vira uma "pasta" que cresce e abre espaço
+ const h=cl((t-1.15)/.6),f=$('fold');show('fold',true);
+ const fw=L(56,70,mola(h)),fh=L(48,62,mola(h));f.style.width=fw+'px';f.style.height=fh+'px';f.style.left=(X5(2)-fw/2)+'px';f.style.top=(BY-6-fh/2)+'px';
+ if(t<2.1){const [x,y]=arrasta(t);show('ring',false);E.inv.style.opacity=0;show('m1',true);const m1=$('m1');m1.innerHTML=SV.inv;m1.style.width=m1.style.height='18px';m1.style.left=(X5(2)-20)+'px';m1.style.top=(BY-15)+'px';
+  show('dica',true);$('dica').textContent=h<1?'Segure para juntar…':'Solte para pôr dentro';return}
+ show('dica',false);E.inv.style.opacity=0;
+ const m=cl((t-2.1)/.45);// Caixa cai dentro da pasta, encolhendo para miniatura
+ pos(E.cx,L(X5(2),X5(2)+11,m),L(BY-4,BY-6,m),L(1.18,.0001,m),1-m);dedo(X5(2),BY,t<2.3,false);
+ show('m1',true);show('m2',m>.6);const m1=$('m1'),m2=$('m2');m1.innerHTML=SV.inv;m2.innerHTML=SV.cx;
+ const sm=t<2.8?18:L(18,14,R(t,4.0,4.4));
+ m1.style.width=m1.style.height=sm+'px';m2.style.width=m2.style.height=L(26,sm,cl((m-.6)/.4))+'px';
+ const gx=t>=4.0?L(X5(2),X4(2),R(t,4.0,4.6)):X5(2);
+ m1.style.left=(gx-sm-2)+'px';m1.style.top=(BY-6-sm/2-6)+'px';m2.style.left=(gx+2)+'px';m2.style.top=(BY-6-sm/2-6)+'px';
+ f.style.left=(gx-fw/2)+'px';
+ if(t>2.9&&t<4.3){show('dim',true);show('sheet',true);const u=R(t,2.9,3.25)*(1-R(t,4.0,4.3));$('dim').style.opacity=u;$('sheet').style.transform='translateY('+(1-u)*100+'%)';$('shIc').innerHTML=SV.grp;dedo(195,800-67,t>3.4&&t<4.0,t>3.65&&t<3.9)}
+ if(t>=4.0){const k=R(t,4.0,4.6);[['ini',0],['cat',1],['aj',4]].forEach(([kk,i])=>pos(E[kk],L(X5(i),X4(i==4?3:i),k),BY));
+  // pasta fecha e vira o botão do grupo (ícone do grupo + nome)
+  const z=R(t,4.5,5.0);f.style.opacity=1-z;m1.style.opacity=m2.style.opacity=1-z;E.inv.style.opacity=z;setIcon('inv',SV.grp);label('inv','Estoque e caixa');pos(E.inv,X4(2),BY,L(.7,1,mola(cl((t-4.5)/.6))),z);
+  const s=$('sel');s.style.left=(L(X5(2),X4(2),k)-L(37,46,k))+'px';s.style.width=L(74,92,k)+'px'}
+}
+function B_desfaz(t){
+ reset();cap('B · Pasta · desfazer','Arraste o grupo para fora da barra');
+ [['ini',0],['cat',1],['inv',2],['aj',3]].forEach(([k,i])=>pos(E[k],X4(i),BY));pos(E.cx,0,0,1,0);setIcon('inv',SV.grp);label('inv','Estoque e caixa');
+ const s=$('sel');s.style.left=(X4(2)-46)+'px';s.style.width='92px';
+ if(t<2.2){const k=R(t,.4,1.4),y=L(BY,BY-150,k);pos(E.inv,X4(2),y,1.15,1,t>1.2?Math.sin(t*28)*4:0);E.inv.style.zIndex=20;E.inv.style.filter='drop-shadow(0 8px 14px rgba(0,0,0,.6))';dedo(X4(2),y+6,true,t>.2);
+  show('zona',t>.6);$('zona').style.opacity=R(t,.6,.9);$('zona').textContent=t>1.3?'Solte para desfazer o grupo':'Arraste para fora';$('zona').style.borderColor=t>1.3?'#ff8f8f':'#8b9bb0';$('zona').style.color=t>1.3?'#ff8f8f':'#8b9bb0';s.style.opacity=1-R(t,.3,.6);return}
+ s.style.opacity=0;dedo(0,0,false);const yy=BY-150;
+ // abre a pasta: aparece a pasta grande com as 2 miniaturas, que crescem e saem para os lugares
+ const o=R(t,2.2,2.5),f=$('fold');show('fold',true);const fw=L(60,150,o),fh=L(50,90,o);f.style.width=fw+'px';f.style.height=fh+'px';f.style.left=(X4(2)-fw/2)+'px';f.style.top=(yy-fh/2)+'px';f.style.opacity=1-R(t,2.9,3.3);
+ E.inv.style.opacity=1-o;
+ const k=R(t,2.6,3.4);show('zona',t<2.6);$('zona').style.opacity=1-cl((t-2.2)/.3);
+ setIcon('inv',SV.inv);label('inv','Inventário');
+ if(t>2.5){pos(E.inv,L(X4(2)-34,X5(2),k),L(yy,BY,k),L(.8,1,mola(cl((t-2.6)/.9))),1);pos(E.cx,L(X4(2)+34,X5(3),k),L(yy,BY,k),L(.8,1,mola(cl((t-2.6)/.9))),1);E.cx.style.zIndex=19}
+ else{pos(E.inv,X4(2)-34,yy,.8,o);pos(E.cx,X4(2)+34,yy,.8,o)}
+ [['ini',0],['cat',1],['aj',4]].forEach(([kk,i])=>pos(E[kk],L(X4(i==4?3:i),X5(i),k),BY));
+ if(t>3.3){show('toast',true);const u=R(t,3.3,3.65);$('toast').style.transform='translateY('+(1-u)*30+'px)';$('toast').style.opacity=u;const s2=$('sel');s2.style.opacity=R(t,3.3,3.6);s2.style.left=(X5(2)-37)+'px';s2.style.width='74px'}
+}
+
+// ---- C: ENCAIXE
+const PL='M2,2 H40 V14 a6,6 0 0 1 0,12 V38 H2 Z', PR='M0,2 H38 V38 H0 V26 a6,6 0 0 0 0,-12 Z';
+function peca(id,svg,lado){const e=$(id);e.style.width='48px';e.style.height='40px';
+ e.innerHTML='<svg viewBox="0 0 48 40" style="position:absolute;inset:0;width:48px;height:40px;overflow:visible"><path d="'+(lado=='L'?PL:PR)+'" fill="#2a1a26" stroke="#a2447c" stroke-width="1.6" stroke-linejoin="round"/></svg><span style="position:absolute;'+(lado=='L'?'left:10px':'left:13px')+';top:9px;width:22px;height:22px;color:#e08bc0">'+svg+'</span>';}
+function pp(id,x,y,s=1,o=1,r=0){const e=$(id);e.style.left=(x-24)+'px';e.style.top=(y-20)+'px';e.style.transform=`scale(${s}) rotate(${r}deg)`;e.style.opacity=o;show(id,o>0.01)}
+function C_junta(t){ // 0..5.2
+ reset();cap('Encaixe · juntar','Segure Caixa sobre Inventário');
+ if(t<2.1){arrasta(t);return}
+ show('ring',false);show('dica',false);dedo(0,0,false);
+ const y=BY-8;
+ // 2.1–2.3 os dois viram peças (Inventário à esquerda, Caixa à direita)
+ const a=R(t,2.1,2.3);
+ E.inv.querySelector('.mi').style.opacity=1-a;E.inv.querySelector('.l').style.opacity=t<4.0?1-a*0.6:1;E.cx.style.opacity=1-a;
+ peca('m1',SV.inv,'L');peca('m2',SV.cx,'R');
+ // 2.3–2.75 deslizam e se encaixam (aceleram no fim)
+ const k=cl((t-2.3)/.45),kk=k*k;
+ let xl=L(X5(2)-30,X5(2)-21,kk), xr=L(X5(2)+34,X5(2)+21-3,kk);
+ // 2.75 clique: tremor curto + costura acende
+ let sh=0;if(t>2.75&&t<2.95)sh=Math.sin((t-2.75)*90)*2.2*(1-(t-2.75)/.2);
+ const lift=t<2.3?0:Math.sin(Math.PI*cl((t-2.3)/.45))*-4;
+ if(t<4.0){pp('m1',xl+sh,y+lift,1,a,k<1?-6*(1-k):0);pp('m2',xr-sh,y+lift,1,a,k<1?6*(1-k):0)}
+ const w=$('wv');show('wv',t>2.75&&t<3.2);const wq=cl((t-2.75)/.45);w.style.width='4px';w.style.height=(34+10*wq)+'px';w.style.borderRadius='3px';w.style.border='0';w.style.background='#ffc766';w.style.boxShadow='0 0 14px #ffc766';w.style.left=(X5(2)-2)+'px';w.style.top=(y-17-5*wq)+'px';w.style.opacity=1-wq;
+ if(t>2.9&&t<4.3){show('dim',true);show('sheet',true);const u=R(t,2.9,3.25)*(1-R(t,4.0,4.3));$('dim').style.opacity=u;$('sheet').style.transform='translateY('+(1-u)*100+'%)';$('shIc').innerHTML=SV.grp;dedo(195,800-67,t>3.4&&t<4.0,t>3.65&&t<3.9)}
+ if(t>=4.0){const r2=R(t,4.0,4.5);
+  [['ini',0],['cat',1],['aj',4]].forEach(([q,i])=>pos(E[q],L(X5(i),X4(i==4?3:i),r2),BY));
+  const gx=L(X5(2),X4(2),r2);
+  // peças encaixadas encolhem juntas e viram o ícone do grupo
+  const z=R(t,4.3,4.65);pp('m1',gx-21+3*z,y,L(1,.55,z),1-z);pp('m2',gx+18-3*z,y,L(1,.55,z),1-z);
+  setIcon('inv',SV.grp);label('inv','Estoque e caixa');E.inv.querySelector('.mi').style.opacity=z;E.inv.querySelector('.l').style.opacity=z;pos(E.inv,gx,BY,L(.8,1,z));
+  const s=$('sel');s.style.left=(gx-L(37,46,r2))+'px';s.style.width=L(74,92,r2)+'px'}
+}
+function C_desfaz(t){ // 0..4.6
+ reset();cap('Encaixe · desfazer','Arraste o grupo para fora da barra');
+ [['ini',0],['cat',1],['inv',2],['aj',3]].forEach(([k,i])=>pos(E[k],X4(i),BY));pos(E.cx,0,0,1,0);setIcon('inv',SV.grp);label('inv','Estoque e caixa');
+ const s=$('sel');s.style.left=(X4(2)-46)+'px';s.style.width='92px';
+ if(t<2.2){const k=R(t,.4,1.4),y=L(BY,BY-150,k);pos(E.inv,X4(2),y,1.15,1,0);E.inv.style.zIndex=20;E.inv.style.filter='drop-shadow(0 8px 14px rgba(0,0,0,.6))';dedo(X4(2),y+6,true,t>.2);
+  show('zona',t>.6);$('zona').style.opacity=R(t,.6,.9);$('zona').textContent=t>1.3?'Solte para desfazer o grupo':'Arraste para fora';$('zona').style.borderColor=t>1.3?'#ff8f8f':'#8b9bb0';$('zona').style.color=t>1.3?'#ff8f8f':'#8b9bb0';s.style.opacity=1-R(t,.3,.6);return}
+ s.style.opacity=0;dedo(0,0,false);show('zona',t<2.45);$('zona').style.opacity=1-cl((t-2.2)/.25);
+ const yy=BY-150;
+ // 2.2–2.35 o ícone vira as duas peças encaixadas
+ const a=R(t,2.2,2.35);E.inv.style.opacity=1-a;peca('m1',SV.inv,'L');peca('m2',SV.cx,'R');
+ // 2.45 solta: tranco curto e as peças se afastam (desencaixe)
+ let sh=0;if(t>2.35&&t<2.5)sh=Math.sin((t-2.35)*90)*2*(1-(t-2.35)/.15);
+ const p=cl((t-2.5)/.3),pe=1-Math.pow(1-p,3);
+ const xl=X4(2)-21-26*pe+sh, xr=X4(2)+18+26*pe-sh;
+ if(t<2.8){pp('m1',xl,yy,1,a,-8*pe);pp('m2',xr,yy,1,a,8*pe)}
+ // 2.8–3.5 voltam para a barra e viram ícones normais
+ const k=R(t,2.8,3.5);
+ if(t>=2.8){const z=R(t,3.3,3.55);
+  pp('m1',L(X4(2)-47,X5(2),k),L(yy,BY-8,k),1,1-z,L(-8,0,k));pp('m2',L(X4(2)+44,X5(3),k),L(yy,BY-8,k),1,1-z,L(8,0,k));
+  setIcon('inv',SV.inv);label('inv','Inventário');label('cx','Caixa');pos(E.inv,X5(2),BY,1,z);pos(E.cx,X5(3),BY,1,z);
+  [['ini',0],['cat',1],['aj',4]].forEach(([q,i])=>pos(E[q],L(X4(i==4?3:i),X5(i),k),BY))}
+ else [['ini',0],['cat',1],['aj',3]].forEach(([q,i])=>pos(E[q],X4(i),BY));
+ if(t>3.5){show('toast',true);const u=R(t,3.5,3.8);$('toast').style.transform='translateY('+(1-u)*30+'px)';$('toast').style.opacity=u;const s2=$('sel');s2.style.opacity=R(t,3.5,3.75);s2.style.left=(X5(2)-37)+'px';s2.style.width='74px'}
+}
+
+const CENAS={C:[['tit',1.6,'Encaixe','Os dois se juntam como peças · clique'],['C_junta',5.3],['C_desfaz',4.6]],A:[['tit',1.8,'A · Ímã','O botão de cima é puxado para dentro do outro'],['A_junta',5.6],['A_desfaz',4.6]],B:[['tit',1.8,'B · Pasta','O botão de baixo vira uma pastinha com os dois dentro'],['B_junta',5.8],['B_desfaz',4.6]]};
+window.CENAS=CENAS;
+window.cena=function(op,i,t){const c=CENAS[op][i];if(c[0]=='tit'){reset();titulo(t,c[2],c[3]);return}({A_junta,A_desfaz,B_junta,B_desfaz,C_junta,C_desfaz})[c[0]](t);
+ document.body.style.opacity=1;}
+reset();
+</script></body></html>
