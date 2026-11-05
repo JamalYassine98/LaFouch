@@ -1,11 +1,10 @@
 {
- "nome": "5.3.3",
+ "nome": "5.3.4",
  "notas": [
+  "Estúdio: botão \"▶ Como fotografar\" — guia com o que cada botão faz (abas Estúdio, Câmera, Depois) e vídeo de 1 min sem som, com os passos para pular",
   "Medir fundo corrigido: abre a câmera e espera ela ficar pronta, nunca trava e mostra o antes → depois (ex.: Fundo 171 → 246 ✓)",
   "Se o celular não deixar mudar o brilho, o app avisa em vez de fingir que travou",
   "Novo no Estúdio: \"O que meu celular libera\" (velocidade, EV, ISO, branco, foco, zoom 2x, resolução)",
-  "Estúdio › Nova peça abre a câmera direto: frente → 3/4 → \"De qual peça é?\"",
-  "Peça ainda não cadastrada: as fotos ficam em \"Fotos aguardando cadastro\" no Estúdio (Ligar a um modelo depois ou apagar)",
-  "Depois de salvar, a câmera já volta para a próxima peça"
+  "Estúdio › Nova peça abre a câmera direto: frente → 3/4 → \"De qual peça é?\""
  ]
 }

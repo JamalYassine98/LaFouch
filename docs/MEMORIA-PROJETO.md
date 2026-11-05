@@ -928,3 +928,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Causas: o botão da tela do Estúdio media sozinho e FECHAVA a câmera (e fechava na hora se o celular não tivesse controle de brilho = "fecha sem tentar"); media antes da câmera estar pronta; podia ficar preso em "Medindo…"; dizia "travado" mesmo sem mudar nada.
 - Agora: o botão do Estúdio abre a câmera em modo "Medir fundo" e ela FICA aberta (disparo vira "Pronto"; Galeria escondida); botão fica "Abrindo câmera…" até o vídeo rodar ~1 s; cada ajuste tem limite de 1,5 s e o todo 6 s (nunca trava); confere se o brilho mudou de verdade; mensagem na tela: "Fundo 171 → 246 ✓ travado" / "no máximo possível: falta luz" / "O celular não aceitou o ajuste" / "não deixa o app mudar o brilho".
 - "O que meu celular libera ›" no Estúdio: lista ✓/✗ de velocidade, +EV, ISO, branco, foco manual, zoom 2x, resolução máxima e nº de câmeras; diz se o Medir fundo funciona no aparelho (senão: componente nativo/APK).
+
+## v436 (5.3.4) — 05/11/2026 14:32 — "Como fotografar" no Estúdio (aprovado "Pode implementar")
+- Botão "▶ Como fotografar" no topo do Estúdio (ao lado do ×) → janela de baixo com 4 abas: Estúdio, Câmera (Topo / Na imagem / Embaixo), Depois, ▶ Vídeo. Cada item com o desenho do botão + o que faz (EST_GUIA em 97-estudio.js).
+- Vídeo www/estudio-tutorial.mp4 (78 s, SEM SOM, 720×1280), passo 6 (3/4) com o giro REAL do vídeo do prato do dono; lista dos 8 passos com o tempo (toque pula). APK antigo sem o arquivo → busca no site (UPD_URL).
+- Fonte do vídeo: scratchpad tut/tut.html (cenas em HTML renderizadas por quadro). Dono pediu: sem som; 3/4 não pode ser girada falsa.

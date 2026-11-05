@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 434;
+  var APP_BUILD = 436;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.3.2'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.3.4'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -31310,7 +31310,7 @@
         M = S.estMont || {},
         pf = S.estPerfil;
       ov.innerHTML =
-        '<div class="estHd"><h1>Estúdio</h1><button type="button" class="estX" data-e="fecha" aria-label="Fechar">×</button></div>' +
+        '<div class="estHd"><h1>Estúdio</h1><div class="estHdR"><button type="button" class="estTut" data-e="tut"><i></i>Como fotografar</button><button type="button" class="estX" data-e="fecha" aria-label="Fechar">×</button></div></div>' +
         '<div class="estBody">' +
         '<section class="estCard"><div class="estLbl">Montagem de hoje</div><div class="estChk">' +
         [['cart', 'Cartolina em curva'], ['caixa', 'Luz da caixa'], ['frontal', 'Luz frontal'], ['tripe', 'Tripé']].map(function (x) {
@@ -31353,6 +31353,7 @@
       }
       if (b.dataset.e === 'medir') return estCam({ medir: true, titulo: 'Medir fundo', fim: pinta });
       if (b.dataset.e === 'lib') return estLibera();
+      if (b.dataset.e === 'tut') return estTutorial();
       if (b.dataset.e === 'nova') return estNova(pinta);
       if (b.dataset.pd) {
         var pd = (S.estPend || []).filter(function (x) { return x.id === b.dataset.pd; })[0];
@@ -32256,6 +32257,114 @@
         loadMsg(false);
         lfToast('Não consegui abrir a câmera');
       });
+  }
+  // ---------- Como fotografar: guia (o que cada botão faz) + vídeo sem som ----------
+  var EST_GUIA = {
+    est: [
+      ['Tela do Estúdio', [
+        ['● Tripé', '', 'Montagem de hoje', 'Toque para marcar o que já está montado. É só um lembrete.'],
+        ['Perfil', '', 'Perfil', 'Os ajustes da câmera que você mediu (brilho, branco, lente). Abre pronto da próxima vez.'],
+        ['Medir fundo', '', 'Medir fundo', 'Abre a câmera para deixar a cartolina branca e travar o brilho. Faça 1× por sessão.'],
+        ['libera ›', '', 'O que meu celular libera', 'Mostra quais controles da câmera o seu celular deixa usar.'],
+        ['Nova peça', 'go', 'Nova peça', 'Câmera direto: frente → 3/4 → "De qual peça é?".'],
+        ['Sessão ›', '', 'Sessão', 'Fotografa a fila inteira, uma peça atrás da outra.'],
+        ['nota 62', '', 'Fila de fotos', 'Peças sem foto, com nota baixa ou faltando a 3/4. Toque para fotografar.'],
+        ['Ligar', '', 'Fotos aguardando cadastro', 'Fotos de peças sem cadastro. Ligar = escolher o modelo; × = apagar.']
+      ]]
+    ],
+    cam: [
+      ['Topo', [
+        ['Fundo travado', 'on', 'Medir fundo', 'Mede a cartolina e trava o brilho. Rosa = travado. Mostra o antes → depois.'],
+        ['2s', '', '2s', 'Espera 2 segundos depois do toque: a foto não treme.'],
+        ['Peaking', '', 'Peaking', 'Contorna de verde o que está em foco.'],
+        ['×', '', 'Fechar', 'Sai da câmera sem fotografar.']
+      ]],
+      ['Na imagem', [
+        ['', 'dot', 'Avisos', 'Fundo branco · Foco · Reto · Distância. Fotografe com os 4 verdes.'],
+        ['▁▃█', '', 'Histograma', 'O pico encostado na direita = fundo branco.'],
+        ['0,0°', '', 'Nível', 'Linha verde = celular reto.'],
+        ['⌜ ⌝', '', 'Moldura', 'A peça inteira dentro, com folga dos lados.']
+      ]],
+      ['Embaixo', [
+        ['ISO', '', 'ISO', 'Sensibilidade. Quanto mais baixo, menos granulado. No Estúdio, deixe baixo.'],
+        ['VELOC.', '', 'Velocidade', 'Tempo que a câmera capta luz. Mais lenta (1/30, 1/15) = mais clara; precisa de tripé e 2s.'],
+        ['BRANCO', '', 'Branco (K)', 'Cor da luz. Deixa o fundo sem puxar para azul ou amarelo.'],
+        ['FOCO', '', 'Foco', 'Auto ou manual. No manual, use o Peaking para conferir.'],
+        ['EXP.', '', 'Exposição (+EV)', 'Clareia ou escurece a foto inteira.'],
+        ['régua', '', 'Régua', 'Toque num ajuste e arraste. "auto" = o celular decide; "—" = bloqueado pelo celular.'],
+        ['1x 2x', '', 'Lente', '2x deforma menos a armação. Use quando a peça couber.'],
+        ['◯', '', 'Disparo', 'Tira a foto na resolução máxima do celular.'],
+        ['Galeria', '', 'Galeria', 'Usa uma foto que já está no celular.']
+      ]]
+    ],
+    dep: [
+      ['Depois da foto', [
+        ['92', '', 'Nota', '75 ou mais = foto aprovada. Abaixo, aparece o motivo (pouca luz, encostando, pequena…).'],
+        ['Usar', 'go', 'Usar', 'Guarda a foto e segue para a 3/4 (ou a próxima peça).'],
+        ['de novo', '', 'Tirar de novo', 'Volta para a câmera.'],
+        ['360', '', 'Vídeo 360 (opcional)', 'Grava 12 s da peça girando no prato, para o Marketing.'],
+        ['De qual?', '', 'De qual peça é?', 'Escolha o modelo e a cor, ou "Ainda não cadastrada" para guardar no Estúdio.'],
+        ['255', '', 'O que o app faz na foto', 'Só o fundo vira branco 255. A armação não é alterada. Formato 3:2, sem esticar.']
+      ]]
+    ]
+  };
+  var EST_PASSOS = [[4, '1 · Monte o estúdio'], [13, '2 · Meça o fundo'], [25, '3 · Posicione a peça'], [36, '4 · Fotografe'], [43, '5 · Confira a nota'], [51, '6 · Faça a 3/4'], [58, '7 · Escolha a peça'], [66, 'Dicas']];
+  function estTutorial() {
+    lfJanela({
+      titulo: 'Como fotografar',
+      cls: 'estGuiaJn',
+      monta: function (c) {
+        var aba = 'est';
+        var lista = function (grupos) {
+          return grupos.map(function (g) {
+            return '<div class="egG">' + g[0] + '</div>' + g[1].map(function (x) {
+              return '<div class="egIt"><span class="egIc ' + x[1] + '">' + (x[1] === 'dot' ? '<i></i>' : esc(x[0])) + '</span><div><b>' + esc(x[2]) + '</b><small>' + esc(x[3]) + '</small></div></div>';
+            }).join('');
+          }).join('');
+        };
+        var pinta = function () {
+          var h = '<div class="hint" style="margin:0 0 10px">O que cada botão faz · vídeo no fim</div><div class="egTabs">' +
+            [['est', 'Estúdio'], ['cam', 'Câmera'], ['dep', 'Depois'], ['vid', '▶ Vídeo']].map(function (t) {
+              return '<button type="button" data-t="' + t[0] + '" class="' + (aba === t[0] ? 'on' : '') + '">' + t[1] + '</button>';
+            }).join('') + '</div>';
+          if (aba !== 'vid') h += lista(EST_GUIA[aba]);
+          else
+            h += '<video class="egVid" id="egVid" src="estudio-tutorial.mp4" muted playsinline controls preload="metadata"></video><div class="egG">No vídeo · toque para pular</div>' +
+              EST_PASSOS.map(function (p) {
+                return '<button type="button" class="egIt egPs" data-s="' + p[0] + '"><span class="egIc">' + Math.floor(p[0] / 60) + ':' + ('0' + (p[0] % 60)).slice(-2) + '</span><div><b>' + p[1] + '</b></div></button>';
+              }).join('');
+          c.innerHTML = h;
+          var v = $('egVid');
+          if (v) {
+            v.muted = true;
+            v.onerror = function () {
+              // APK antigo: o vídeo ainda não veio com o app → busca no site
+              if (!v._alt) {
+                v._alt = 1;
+                v.src = UPD_URL + 'estudio-tutorial.mp4';
+              }
+            };
+            v.play().catch(function () {});
+          }
+        };
+        pinta();
+        c.onclick = function (e) {
+          var b = e.target.closest('button');
+          if (!b) return;
+          if (b.dataset.t) {
+            aba = b.dataset.t;
+            return pinta();
+          }
+          if (b.dataset.s) {
+            var v = $('egVid');
+            if (v) {
+              v.currentTime = +b.dataset.s;
+              v.play().catch(function () {});
+            }
+          }
+        };
+      }
+    });
   }
   ACT.estAbre = function () {
     estAbre();
@@ -41945,7 +42054,7 @@
   if (/(^|[#&])test\b/.test(location.hash))
     window.__LF = {
       barMoedas: barMoedas,
-      animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
+      animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
       S: S, envFolha: window.__envFolha, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,

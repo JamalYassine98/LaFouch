@@ -2901,6 +2901,21 @@ async def main():
             if not ok: falhas.append('estudio nova peca'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Estúdio · Como fotografar (v436): guia com 4 abas e vídeo sem som
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, w = ms => new Promise(r => setTimeout(r, ms));
+              L.estAbre(); await w(200); document.querySelector('[data-e=tut]').click(); await w(400);
+              const j = document.querySelector('.estGuiaJn'), abas = [...j.querySelectorAll('.egTabs button')].map(b => b.textContent);
+              const n1 = j.querySelectorAll('.egIt').length; j.querySelector('[data-t=cam]').click(); await w(100);
+              const veloc = /Velocidade/.test(j.innerText); j.querySelector('[data-t=vid]').click(); await w(300);
+              const v = document.getElementById('egVid');
+              return [abas, n1 > 5, veloc, !!v && v.muted && /estudio-tutorial\.mp4/.test(v.src), j.querySelectorAll('.egPs').length]; }""")
+            total += 1
+            ok = got == [['Estúdio', 'Câmera', 'Depois', '▶ Vídeo'], True, True, True, 8] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Estúdio · Como fotografar: guia com 4 abas e vídeo sem som com os passos')
+            if not ok: falhas.append('estudio tutorial'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Marketing (v430): botão no Início, objetivo muda o plano, feito, criar post com fatos reais (urgência só real), lembrete, datas
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
