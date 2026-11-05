@@ -993,3 +993,9 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - iPad da loja = o APP em "modo cliente" (NÃO o site): mostra o Catálogo de VENDAS (todas as peças à venda, mesmo fora do site), SÓ PREÇO DE VAREJO, sem custo/lucro/piso/abas/barra/Ajustes, sair só com PIN, volta ao início parado. SEM "Quero provar" (o cliente mostra as peças ao dono na hora). Precisa do CATÁLOGO INTELIGENTE (reordena conforme o cliente usa — atdViu/atdPeso em 53-linhas.js).
 - Para o iPad: LIGAR a sincronização entre aparelhos ("temos que ligar isso") + fotos de TODAS as peças à venda chegarem ao iPad (hoje fotos não passam entre aparelhos).
 - Site "Qual combina com meu rosto?": dono acha que mostra todas as armações. Causa achada: ROSTO_DE (64-identidade.js) dá 2–3 rostos por formato e quem não tem formato vira ['oval'] → "oval" pega quase tudo. Deve ganhar o mesmo conceito de catálogo inteligente (reordena conforme o cliente abre peças).
+
+## 05/11/2026 19:38 — dono: catálogo inteligente e "combina" (ESBOÇO, não implementar)
+- iPad/catálogo: ideia do DONO = ao abrir a peça, o FUNDO fica desfocado (o cliente não vê os ajustes atrás); deslizar para a direita na peça que chamou atenção → próxima peça, e o sistema vai ajustando rápido (a fila das próximas é escolhida pelo que ele olha). O que está na tela nunca se mexe.
+- "Combina também" precisa saber DE ONDE a pessoa veio: só olhando óculos de sol → só sol; fez o teste do rosto → modelos que combinam com o rosto dela; gênero quando souber.
+- "Qual combina com meu rosto?" precisa ser MASSIVAMENTE melhor: dá "alongado" ~90% das vezes. Causa no código do site (faMeasure/faShape): comprimento do rosto = (queixo − sobrancelha) × 1,5 (chute, os 68 pontos não têm testa) ÷ largura 0–16; para rosto comum isso dá ~1,5 e o alongado ganha a partir de 1,40 → viés. Modelo tiny (68 pontos).
+- Gênero: precisa saber se é masculino ou feminino; SE NÃO TIVER CERTEZA, NÃO SELECIONA (para não ofender).
