@@ -1370,7 +1370,7 @@ async def main():
             fc = await fcs.value
             await fc.set_files(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'fixtures', 'peca.jpg')); await pg.wait_for_timeout(900)
             # v429: a foto passa pela conferência (Foto aprovada / Vamos tirar de novo?)
-            await pg.wait_for_timeout(600); await pg.evaluate("() => { const ok = /Foto aprovada/.test((document.querySelector('.fpJn') || {}).innerText || ''); const b = document.getElementById(ok ? 'fpA' : 'fpB'); if (b) b.click(); }"); await pg.wait_for_timeout(1200)
+            await pg.wait_for_selector('#estRes', timeout=15000); await pg.evaluate("() => { const b = document.querySelector('#estRes [data-r=usar]') || document.querySelector('#estRes [data-r=x]'); if (b) b.click(); }"); await pg.wait_for_timeout(1200)
             linha = await pg.evaluate("() => [document.querySelectorAll('#nvCoresL .cfRow.nova').length, document.querySelector('#nvCoresL .cfCor').textContent.replace('▾','').trim(), document.getElementById('nvFim').disabled]")
             await pg.click('#nvCoresL .cfStep [data-d="1"]'); await pg.wait_for_timeout(400)
             tot = await pg.inner_text('#nvTot')
@@ -1444,7 +1444,7 @@ async def main():
             await pg.locator('#mainnav button[data-id="estoque"]').click(); await pg.wait_for_timeout(300)
             r3 = await pg.evaluate("() => window.__LF.S.view")
             total += 1
-            ok = r == ['inicio', 12] and r2 == ['dash', 'giro'] and r3 == 'estoque' and not pg.erros
+            ok = r == ['inicio', 13] and r2 == ['dash', 'giro'] and r3 == 'estoque' and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'tela Início: 13 botões + barra levam às telas certas')
             if not ok: falhas.append('inicio'); print('        veio', r, r2, r3, pg.erros)
             await pg.close()
@@ -2437,7 +2437,7 @@ async def main():
             await pg.click('.tl.fant >> nth=0'); await pg.wait_for_timeout(400)
             nf2 = await pg.locator('.tl.fant').count()
             total += 1
-            ok = semChip and perto and oculto and voltou and o1 == [o0[0], o0[2], o0[1], o0[3]] and nf > 0 and nf2 == nf - 1 and not pg.erros
+            ok = semChip and perto and oculto and voltou and o1 == [{'desp': 'hist', 'hist': 'desp'}.get(x, x) for x in o0] and nf > 0 and nf2 == nf - 1 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Início: lixeira oculta (com Desfazer), soltar em outro botão troca, segurar no fundo mostra os ocultos')
             if not ok: falhas.append('inicio lixeira'); print('        veio', semChip, perto, oculto, voltou, o0, o1, nf, nf2, pg.erros)
             await pg.close()
@@ -2848,6 +2848,35 @@ async def main():
             ok = got == [True, True, True, 1200, 900, True, True, True, True] and aj and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'fotos: aprovada no padrão sem sombra (1200×900), recusada com motivo e "Usar mesmo assim", Ajustes › Fotos')
             if not ok: falhas.append('fotos padrao'); print('        veio', got, aj, pg.erros)
+            await pg.close()
+
+            # Estúdio (v432): botão no Início, fila, tratamento "só o fundo vira 255" sem mexer na armação, 3:2 sem esticar, salvar pela fila
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              L.setView('inicio'); await w(300);
+              const tem = !!document.querySelector('[data-act=inicio][data-id=est]');
+              const c = document.createElement('canvas'); c.width = 1200; c.height = 900; const g = c.getContext('2d');
+              const gr = g.createLinearGradient(0, 0, 1200, 0); gr.addColorStop(0, 'rgb(170,168,172)'); gr.addColorStop(1, 'rgb(186,184,188)'); g.fillStyle = gr; g.fillRect(0, 0, 1200, 900);
+              g.fillStyle = 'rgb(150,90,110)'; g.fillRect(250, 380, 700, 30); g.fillRect(250, 380, 30, 160); g.fillRect(920, 380, 30, 160); g.fillRect(250, 520, 280, 20); g.fillRect(670, 520, 280, 20);
+              const R = L.estProcessa(c), o = R.cv, og = o.getContext('2d');
+              const px = (x, y) => Array.from(og.getImageData(x, y, 1, 1).data.slice(0, 3));
+              // armação: pixel do meio da barra de cima deve ser o original (150,90,110)
+              let ach = null; for (let y = 0; y < 1000; y += 1) { const p = px(750, y); if (!ach || p[0] + p[1] + p[2] < ach[0] + ach[1] + ach[2]) ach = p; }
+              const fundo = px(20, 20).concat(px(1480, 980));
+              // proporção sem esticar: largura/altura da barra 700x160 → 4,375
+              let x0 = 1500, x1 = 0, y0 = 1000, y1 = 0; const d = og.getImageData(0, 0, 1500, 1000).data;
+              for (let y = 0; y < 1000; y += 2) for (let x = 0; x < 1500; x += 2) { const i = (y * 1500 + x) * 4; if (d[i] < 200) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; } }
+              const prop = (x1 - x0 + 2) / (y1 - y0 + 2);
+              // pela fila: abre a tela, salva frente com nota
+              L.estAbre(); await w(200); const fila = document.querySelectorAll('.estIt').length; const k0 = L.estFila()[0];
+              document.querySelector('.estOv .estX').click(); await w(100);
+              L.estResultado(R, null, {k: k0.k, passo: 'frente', salva: true, titulo: 'x'}); await w(100);
+              document.querySelector('#estRes [data-r=usar]').click(); await w(300);
+              return [tem, [o.width, o.height], ach && Math.abs(ach[0] - 150) <= 3 && Math.abs(ach[1] - 90) <= 3 && Math.abs(ach[2] - 110) <= 3, fundo.every(v => v >= 254), Math.abs(prop - 700 / 160) < 0.25, fila > 0, !!S.fotos[k0.k], !!S.fotoNota[k0.k]]; }""")
+            total += 1
+            ok = got == [True, [1500, 1000], True, True, True, True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Estúdio: Início, fundo 255 sem mexer na armação, 3:2 sem esticar, fila salva foto e nota')
+            if not ok: falhas.append('estudio'); print('        veio', got, pg.erros)
             await pg.close()
 
             # Marketing (v430): botão no Início, objetivo muda o plano, feito, criar post com fatos reais (urgência só real), lembrete, datas

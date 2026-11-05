@@ -282,13 +282,10 @@
   function camOpen0(done, title, opts) {
     opts = opts || {};
     // v429: câmera de produto → guia + conferência da foto (Foto aprovada / Vamos tirar de novo?)
+    // v432: câmera de produto → Estúdio (câmera Pro + resultado com fundo 255 sem mexer na armação)
     if (opts.peca && !opts.fpSem) {
-      var dOrig = done;
-      done = function (f) {
-        fpResultado(f, dOrig, function () {
-          camOpen(dOrig, title, opts);
-        }, opts);
-      };
+      estCam({ k: typeof opts.peca === 'string' ? opts.peca : null, titulo: title, passo: 'frente', done: done });
+      return;
     }
     LIVEX = null;
     var DZ = 1; /* zoom digital (quando o aparelho não oferece zoom na câmera) */

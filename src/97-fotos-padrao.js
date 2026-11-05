@@ -415,7 +415,7 @@
     camOpen(
       function (f2) {
         fpArqImg(f2).then(function (im) {
-          var R = fpProcessa(im),
+          var R = estProcessa(im),
             cv = R.cv || fitCanvas(im, 1800);
           setFoto(k + '|34', thumbOf(cv), cv.toDataURL('image/jpeg', 0.92));
           saveSoon();
@@ -437,7 +437,7 @@
   function fpAjHtml() {
     var n = fpChaves().length;
     return (
-      '<div class="col" style="gap:8px"><div class="hint" style="margin:0">Fundo branco limpo, sem sombra, peça centralizada e do mesmo tamanho, cor e brilho iguais, endireitada e sem pontinhos.</div>' +
+      '<div class="col" style="gap:8px"><div class="hint" style="margin:0">Só o fundo vira branco (255); a armação não é alterada. Peça no centro, formato 3:2, sem esticar. As fotos novas saem do Estúdio.</div>' +
       (n ? '<button type="button" class="go" data-act="fpLote">Padronizar ' + n + (n === 1 ? ' foto' : ' fotos') + '</button>' : '<div class="note n-ok">Todas as fotos já estão no padrão.</div>') +
       '</div>'
     );
@@ -490,14 +490,15 @@
             im.src = src;
           }).then(function (im) {
             if (!im) return;
-            var R = fpProcessa(im);
-            if (!R.cv || R.av.some(function (x) { return x === 'nada' || x === 'fundo' || x === 'borda'; })) {
+            var R = estProcessa(im);
+            if (!R.cv || R.n < 60) {
               fora++;
               return;
             }
             antes[k] = { t: S.fotos[k], h: src };
             setFoto(k, thumbOf(R.cv), R.cv.toDataURL('image/jpeg', 0.92));
             (S.fpOk = S.fpOk || {})[k] = Date.now();
+            S.fotoNota[k] = { n: R.n, mot: R.mot, ts: Date.now() };
             feitos++;
           });
         })

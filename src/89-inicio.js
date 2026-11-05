@@ -94,6 +94,10 @@
       if (S.inicioT.indexOf('onl') < 0) S.inicioT = S.inicioT.concat(['onl']);
     }
     // v430: quem já personalizou o Início recebe o botão Marketing uma única vez (pode esconder depois)
+    if (Array.isArray(S.inicioT) && !S.inicioEst) {
+      S.inicioEst = true;
+      if (S.inicioT.indexOf('est') < 0) S.inicioT = S.inicioT.slice(0, 3).concat(['est'], S.inicioT.slice(3));
+    }
     if (Array.isArray(S.inicioT) && !S.inicioMkt) {
       S.inicioMkt = true;
       if (S.inicioT.indexOf('mkt') < 0) S.inicioT = S.inicioT.concat(['mkt']);
@@ -132,7 +136,8 @@
       ped: ['Pedidos online', [pedNovos() + ' novos', pedNovos() ? 'w' : '']],
       onl: ['Loja online', ['Catálogo e site', '']],
       notif: ['Notificações', [notifContagem() + ' avisos', notifContagem() ? 'w' : '']],
-      mkt: ['Marketing', ['Posts, vídeos e plano', '']]
+      mkt: ['Marketing', ['Posts, vídeos e plano', '']],
+      est: ['Estúdio', [estFila().length ? estFila().length + ' para fotografar' : 'fotos em dia', estFila().length ? 'w' : '']]
     };
   }
   function renderInicio() {
@@ -205,6 +210,8 @@
       setView('vendas');
     } else if (id === 'mkt') {
       mkAbre();
+    } else if (id === 'est') {
+      estAbre();
     } else if (id === 'cli') {
       setView('clientes');
     } else if (id === 'novo') {
@@ -224,7 +231,7 @@
   var BARRA_NOME = {
     vendas: 'Catálogo', estoque: 'Inventário', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Resumo',
     din: 'Dinheiro', giro: 'Giro', prec: 'Preços', cat: 'Catálogo', ajustes: 'Ajustes', ped: 'Pedidos', onl: 'Loja',
-    cli: 'Clientes', cont: 'Contagem', lotes: 'Fornecedores', novo: 'Novo', notif: 'Avisos', mkt: 'Marketing'
+    cli: 'Clientes', cont: 'Contagem', lotes: 'Fornecedores', novo: 'Novo', notif: 'Avisos', mkt: 'Marketing', est: 'Estúdio'
   };
   function barraLista() {
     iniLista();
