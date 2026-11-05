@@ -941,3 +941,10 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Tocar em "Fundo travado 255" → "Medir de novo" / "Voltar ao automático" (apaga o perfil).
 - Aviso "Peça estourada · toque para corrigir" (>3% branco puro no meio com fundo travado) → escurece um passo.
 - Perfil salvo antes da v437 (sem v:2) é descartado ao abrir a câmera → volta ao automático sozinho.
+
+## Decisão 05/11/2026 18:21 — o que "não mexe na armação" quer dizer (dono)
+- "Não mexe na armação" = a armação continua nas CORES ORIGINAIS (fiel, transparente continua transparente). NÃO quer dizer "pixels intocados".
+- O recorte (estProcessa: armação com pixels originais + só o fundo vira 255) é o que deixa o Estúdio FEIO: acetato transparente mostra o cinza antigo e a armação fica apagada ao lado do branco.
+- Aprovado como referência visual: "luz de estúdio" = correção de luz uniforme na foto inteira (fundo da caixa estimado e dividido, branco neutro, níveis com transição suave até 255). Sem IA, sem recorte. Protótipo: scratchpad ff/compara.jpg (BR18072 C3).
+- Site automático: só foto com nota ALTA (proposto 85; dono não pode testar agora → mostrar nota e motivo para calibrar depois).
+- Aguardando "pode implementar" para trocar o tratamento do Estúdio pela luz de estúdio.
