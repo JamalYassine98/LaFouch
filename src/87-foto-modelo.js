@@ -481,7 +481,7 @@
                   });
                 },
                 'Foto da cor ' + c0,
-                { gallery: true, tip: 'Foto de UMA peça da cor ' + c0 + '.' }
+                { gallery: true, peca: ref + '|' + c0, tip: 'Foto de UMA peça da cor ' + c0 + '.' }
               );
             };
             corpo.appendChild(fb);

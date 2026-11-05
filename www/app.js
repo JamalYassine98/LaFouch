@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 428;
+  var APP_BUILD = 430;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.1.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.2.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -1013,7 +1013,7 @@
   // linha que sumiu = movimento "rem"; linha editada = rem da antiga + add da nova.
   var SYNC_LISTAS = { sales: 'id', exp: 0, cambios: 0, compras: 0, descartes: 0, retiradas: 0, melhUso: 0, cpay: 0, imprev: 0, dlog: 0, elog: 0, fechos: 'id', brindes: 0 };
   // Configurações (valor inteiro; vale a última alteração). Nada que seja de um aparelho só (PIN, biometria, tema, bloqueio, avisos).
-  var SYNC_CFG = ['faixas', 'pfaixa', 'linhaFix', 'pTrava', 'pAuto', 'pprice', 'metaUsd', 'metaDia', 'diasLoja', 'colchUsd', 'tolUsd', 'volume', 'formas', 'notaCidade', 'cat2', 'tiposX', 'tiposDel', 'tiposOrd', 'pnome', 'desc', 'attr', 'faixaAuto', 'ini', 'site', 'fxc', 'lm', 'objetivos', 'metaHist', 'siteOf', 'superEv', 'siteFora', 'lcPed', 'vit'];
+  var SYNC_CFG = ['faixas', 'pfaixa', 'linhaFix', 'pTrava', 'pAuto', 'pprice', 'metaUsd', 'metaDia', 'diasLoja', 'colchUsd', 'tolUsd', 'volume', 'formas', 'notaCidade', 'cat2', 'tiposX', 'tiposDel', 'tiposOrd', 'pnome', 'desc', 'attr', 'faixaAuto', 'ini', 'site', 'fxc', 'lm', 'objetivos', 'metaHist', 'siteOf', 'superEv', 'siteFora', 'lcPed', 'vit', 'mkt'];
   // Listas com cadastro que se edita (clientes): cada linha tem id; vale a última alteração de cada uma.
   // skip = campos pesados (fotos) que não viajam por aqui; ficam em cada aparelho.
   var SYNC_PUT = { clientes: { k: 'id', skip: [] }, pedidos: { k: 'id', skip: ['comp', 'qr'] }, espera: { k: 'id', skip: [] } };
@@ -1426,7 +1426,7 @@
           $('file').onchange({ target: { files: [f] } });
         },
         'Foto da cor ' + cor,
-        { gallery: true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
+        { gallery: true, peca: ref + '|' + cor, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
       );
     }
     var head = mk('div', '');
@@ -2024,7 +2024,7 @@
             $('file').onchange({ target: { files: [fl] } });
           },
           'Foto da cor ' + c,
-          { gallery: true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
+          { gallery: true, peca: ref + '|' + c, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
         );
       };
       var hd = mk('div', '');
@@ -2535,7 +2535,7 @@
             im.src = url;
           },
           'Foto da cor nova',
-          { gallery: true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
+          { gallery: true, peca: true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
         );
       }
       function edCorSheet(w) {
@@ -15869,6 +15869,15 @@
   // Câmera do app: visor, disparo, galeria, lanterna e prévia.
   function camOpen0(done, title, opts) {
     opts = opts || {};
+    // v429: câmera de produto → guia + conferência da foto (Foto aprovada / Vamos tirar de novo?)
+    if (opts.peca && !opts.fpSem) {
+      var dOrig = done;
+      done = function (f) {
+        fpResultado(f, dOrig, function () {
+          camOpen(dOrig, title, opts);
+        }, opts);
+      };
+    }
     LIVEX = null;
     var DZ = 1; /* zoom digital (quando o aparelho não oferece zoom na câmera) */
     var HZ = 0,
@@ -15948,6 +15957,7 @@
     stg.appendChild(gd);
     stg.appendChild(ring);
     stg.appendChild(tip);
+    if (opts.peca) fpGuia(stg, gd, vid, tip, opts);
     var LV = opts.live && !REDUCED ? leitorVisor(gd, stg) : null;
     /* leitor de documento: acha o contorno do papel (região clara) e o acompanha, como câmera de scanner */
     var DOC = null;
@@ -16323,6 +16333,11 @@
         c.toBlob(
           function (bl) {
             if (!bl) return;
+            if (opts.peca) {
+              camClose();
+              done(new File([bl], 'foto.jpg', { type: 'image/jpeg' }));
+              return;
+            }
             var url = URL.createObjectURL(bl);
             pv.src = url;
             pv.style.display = 'block';
@@ -19533,7 +19548,7 @@
         nvFoto(f);
       },
       titulo,
-      { gallery: true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
+      { gallery: true, peca: S._ref && NVC.fotoCor ? S._ref + '|' + NVC.fotoCor : true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
     );
   }
   function nvFoto(f) {
@@ -20347,7 +20362,7 @@
               }
             },
             'Foto da cor ' + p.cor,
-            { gallery: true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
+            { gallery: true, peca: p.ref + '|' + p.cor, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
           );
         });
         fb.innerHTML = NV_ICAM + '<span>Fotografar</span>';
@@ -20972,7 +20987,7 @@
                   });
                 },
                 'Foto da cor ' + c0,
-                { gallery: true, tip: 'Foto de UMA peça da cor ' + c0 + '.' }
+                { gallery: true, peca: ref + '|' + c0, tip: 'Foto de UMA peça da cor ' + c0 + '.' }
               );
             };
             corpo.appendChild(fb);
@@ -22472,6 +22487,11 @@
       S.inicioOnl = true;
       if (S.inicioT.indexOf('onl') < 0) S.inicioT = S.inicioT.concat(['onl']);
     }
+    // v430: quem já personalizou o Início recebe o botão Marketing uma única vez (pode esconder depois)
+    if (Array.isArray(S.inicioT) && !S.inicioMkt) {
+      S.inicioMkt = true;
+      if (S.inicioT.indexOf('mkt') < 0) S.inicioT = S.inicioT.concat(['mkt']);
+    }
     var l = Array.isArray(S.inicioT) ? S.inicioT : INI_PADRAO;
     return l.filter(function (id, i) {
       return INI_TODOS.indexOf(id) >= 0 && l.indexOf(id) === i;
@@ -22505,7 +22525,8 @@
       cli: ['Clientes', [S.clientes.length + (S.clientes.length === 1 ? ' cadastrado' : ' cadastrados'), '']],
       ped: ['Pedidos online', [pedNovos() + ' novos', pedNovos() ? 'w' : '']],
       onl: ['Loja online', ['Catálogo e site', '']],
-      notif: ['Notificações', [notifContagem() + ' avisos', notifContagem() ? 'w' : '']]
+      notif: ['Notificações', [notifContagem() + ' avisos', notifContagem() ? 'w' : '']],
+      mkt: ['Marketing', ['Posts, vídeos e plano', '']]
     };
   }
   function renderInicio() {
@@ -22576,6 +22597,8 @@
     } else if (id === 'cat') {
       S.catOpen = true;
       setView('vendas');
+    } else if (id === 'mkt') {
+      mkAbre();
     } else if (id === 'cli') {
       setView('clientes');
     } else if (id === 'novo') {
@@ -22595,7 +22618,7 @@
   var BARRA_NOME = {
     vendas: 'Catálogo', estoque: 'Inventário', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Resumo',
     din: 'Dinheiro', giro: 'Giro', prec: 'Preços', cat: 'Catálogo', ajustes: 'Ajustes', ped: 'Pedidos', onl: 'Loja',
-    cli: 'Clientes', cont: 'Contagem', lotes: 'Fornecedores', novo: 'Novo', notif: 'Avisos'
+    cli: 'Clientes', cont: 'Contagem', lotes: 'Fornecedores', novo: 'Novo', notif: 'Avisos', mkt: 'Marketing'
   };
   function barraLista() {
     iniLista();
@@ -26950,6 +26973,7 @@
       av: { t: 'Sons e avisos', r: av.q ? 'Silêncio ligado' : 'Ligados', h: achar('avisosCard') + resto },
       sync: sy ? { t: 'Sincronização', r: sy[1], al: sy[0] === 'bad' || sy[0] === 'warn', h: syncCard() } : null,
       upd: { t: 'Atualização', r: upN ? (um.nome || upN) + ' pronta' : APP_NOME, al: !!upN, h: updCard() },
+      foto: { t: 'Fotos', r: fpChaves().length ? fpChaves().length + ' fora do padrão' : 'No padrão', h: fpAjHtml() },
       bk: { t: 'Cópias e nuvem', r: bkd < 0 ? 'Nenhuma cópia' : bkd === 0 ? 'Hoje' : 'Há ' + bkd + (bkd === 1 ? ' dia' : ' dias'), al: bkd < 0 || bkd > 7, h: backupHtml().replace(/<\/section>$/, nv + '</section>') }
     };
     h += ajListaHtml(secs);
@@ -30996,6 +31020,537 @@
     $('sCartAdd').click();
   };
   window.__folha = { abre: folhaAbre, vitrine: folhaVitrine, fecha: folhaFecha };
+  // ===== Guia da câmera + fotos no padrão SEM SOMBRA (v429, aprovado 05/11/2026) =====
+  // Câmera de produto (opts.peca): contorno tracejado do óculos de FRENTE com hastes abertas, etiqueta
+  // "Frente · hastes abertas" e conferência ao vivo (Luz boa · Fundo branco · Dentro do guia · Reto).
+  // Depois da foto: "Foto aprovada" (já no padrão: fundo branco limpo, sem sombra, peça centralizada, mesmo
+  // tamanho, cor e brilho iguais, endireitada, sem pontinhos) ou "Vamos tirar de novo?" com o motivo e como
+  // resolver ("Usar mesmo assim" mantém a foto como foi tirada). 3/4 opcional. Ajustes › Fotos: padronizar em lote.
+  var FP_W = 1200,
+    FP_H = 900;
+  var FP_MOT = {
+    fundo: { t: 'O fundo não está branco', como: 'Use a caixa de luz ou uma folha branca atrás e embaixo da peça.' },
+    degrade: { t: 'Fundo com sombra ou degradê', como: 'Acenda as duas luzes dos lados e afaste a peça do fundo.' },
+    borda: { t: 'A peça está encostando na borda', como: 'Afaste o celular ou ponha a peça inteira dentro do contorno.' },
+    pequena: { t: 'A peça ficou pequena', como: 'Aproxime o celular até a peça preencher o contorno.' },
+    manchas: { t: "Manchas no fundo (marca d'água ou sujeira)", como: 'Limpe o fundo ou use uma foto sem marca.' },
+    nada: { t: 'Não achei a peça', como: 'Ponha o óculos de frente, com as hastes abertas, no centro do contorno.' },
+    escura: { t: 'Foto escura', como: 'Acenda a luz da caixa ou vá para perto da janela (sem sol direto).' },
+    desfocada: { t: 'A foto ficou desfocada', como: 'Toque na peça para focar e segure o celular firme (ou use o tripé).' }
+  };
+  // Analisa e padroniza. Devolve { av: [códigos], cv: canvas 1200×900 no padrão }.
+  function fpProcessa(src) {
+    var w0 = src.naturalWidth || src.width,
+      h0 = src.naturalHeight || src.height,
+      k = Math.min(1, 1400 / Math.max(w0, h0)),
+      W = Math.max(8, Math.round(w0 * k)),
+      H = Math.max(8, Math.round(h0 * k)),
+      c = mkCanvas(W, H),
+      g = c.getContext('2d', { willReadFrequently: true });
+    g.fillStyle = '#fff';
+    g.fillRect(0, 0, W, H);
+    g.drawImage(src, 0, 0, W, H);
+    var im = g.getImageData(0, 0, W, H),
+      a = im.data,
+      N = W * H,
+      av = [],
+      i,
+      x,
+      y;
+    // 1) fundo pelas bordas (média por canal)
+    var f = [0, 0, 0],
+      nb = 0,
+      soma = function (p) {
+        f[0] += a[p];
+        f[1] += a[p + 1];
+        f[2] += a[p + 2];
+        nb++;
+      };
+    for (x = 0; x < W; x++) {
+      soma(x * 4);
+      soma(((H - 1) * W + x) * 4);
+    }
+    for (y = 0; y < H; y++) {
+      soma(y * W * 4);
+      soma((y * W + W - 1) * 4);
+    }
+    f = f.map(function (v) {
+      return v / nb;
+    });
+    var lum = 0;
+    for (i = 0; i < N; i++) lum += a[i * 4] * 0.3 + a[i * 4 + 1] * 0.59 + a[i * 4 + 2] * 0.11;
+    lum /= N;
+    if (lum < 95) av.push('escura');
+    if (Math.min.apply(null, f) < 170 || Math.max.apply(null, f) - Math.min.apply(null, f) > 32) av.push('fundo');
+    // 2) branco do fundo = 255 (equilibra cor e brilho de todas as fotos)
+    var kr = 255 / Math.max(f[0], 1),
+      kg = 255 / Math.max(f[1], 1),
+      kb = 255 / Math.max(f[2], 1);
+    var d = new Float32Array(N);
+    for (i = 0; i < N; i++) {
+      var p = i * 4,
+        r = Math.min(255, a[p] * kr),
+        gg = Math.min(255, a[p + 1] * kg),
+        b = Math.min(255, a[p + 2] * kb);
+      a[p] = r;
+      a[p + 1] = gg;
+      a[p + 2] = b;
+      d[i] = (255 - Math.min(r, gg, b)) / 255;
+    }
+    // cantos: degradê ou sombra de estúdio
+    var kc = Math.max(4, Math.floor(Math.min(W, H) / 12)),
+      canto = function (x0, y0) {
+        var s = 0;
+        for (var yy = y0; yy < y0 + kc; yy++) for (var xx = x0; xx < x0 + kc; xx++) s += d[yy * W + xx];
+        return (s / (kc * kc)) * 255;
+      },
+      cs = [canto(0, 0), canto(W - kc, 0), canto(0, H - kc), canto(W - kc, H - kc)];
+    if (Math.max.apply(null, cs) - Math.min.apply(null, cs) > 18) av.push('degrade');
+    // 3) a peça: componentes numa grade 1/4 (o que for minúsculo e solto é poeira)
+    var s = 4,
+      GW = Math.ceil(W / s),
+      GH = Math.ceil(H / s),
+      G = new Uint8Array(GW * GH);
+    for (y = 0; y < H; y++)
+      for (x = 0; x < W; x++)
+        if (d[y * W + x] > 0.25) G[((y / s) | 0) * GW + ((x / s) | 0)] = 1;
+    var lab = new Int32Array(GW * GH),
+      comps = [],
+      st = [];
+    for (i = 0; i < GW * GH; i++) {
+      if (!G[i] || lab[i]) continue;
+      var id = comps.length + 1,
+        cp = { id: id, n: 0, x0: 1e9, y0: 1e9, x1: -1, y1: -1 };
+      lab[i] = id;
+      st.push(i);
+      while (st.length) {
+        var q = st.pop(),
+          qx = q % GW,
+          qy = (q / GW) | 0;
+        cp.n++;
+        if (qx < cp.x0) cp.x0 = qx;
+        if (qx > cp.x1) cp.x1 = qx;
+        if (qy < cp.y0) cp.y0 = qy;
+        if (qy > cp.y1) cp.y1 = qy;
+        for (var dy = -1; dy <= 1; dy++)
+          for (var dx = -1; dx <= 1; dx++) {
+            var nx = qx + dx,
+              ny = qy + dy;
+            if (nx < 0 || ny < 0 || nx >= GW || ny >= GH) continue;
+            var nq = ny * GW + nx;
+            if (G[nq] && !lab[nq]) {
+              lab[nq] = id;
+              st.push(nq);
+            }
+          }
+      }
+      comps.push(cp);
+    }
+    var maior = comps.reduce(function (m, cc) {
+      return Math.max(m, cc.n);
+    }, 0);
+    if (!maior) {
+      av.push('nada');
+      return { av: av, cv: null };
+    }
+    var fica = {},
+      bx = { x0: 1e9, y0: 1e9, x1: -1, y1: -1 };
+    comps.forEach(function (cc) {
+      if (cc.n < maior * 0.02) return;
+      fica[cc.id] = 1;
+      bx.x0 = Math.min(bx.x0, cc.x0);
+      bx.y0 = Math.min(bx.y0, cc.y0);
+      bx.x1 = Math.max(bx.x1, cc.x1);
+      bx.y1 = Math.max(bx.y1, cc.y1);
+    });
+    var X0 = bx.x0 * s,
+      Y0 = bx.y0 * s,
+      X1 = Math.min(W - 1, bx.x1 * s + s - 1),
+      Y1 = Math.min(H - 1, bx.y1 * s + s - 1);
+    if (X0 <= 2 || Y0 <= 2 || X1 >= W - 3 || Y1 >= H - 3) av.push('borda');
+    if (((X1 - X0) * (Y1 - Y0)) / N < 0.08) av.push('pequena');
+    // manchas longe da peça
+    var my = Math.round((Y1 - Y0) * 0.15),
+      mx = Math.round((X1 - X0) * 0.06),
+      lon = 0,
+      sujo = 0;
+    for (y = 0; y < H; y += 2)
+      for (x = 0; x < W; x += 2) {
+        if (x > X0 - mx && x < X1 + mx && y > Y0 - my && y < Y1 + my + (Y1 - Y0) * 0.6) continue; // embaixo da peça: a sombra dela (some no padrão)
+        lon++;
+        if (d[y * W + x] > 0.08) sujo++;
+      }
+    if (lon && sujo / lon > 0.01) av.push('manchas');
+    // 4) sem sombra: o que é quase branco vira branco; poeira (componentes soltos) some
+    for (y = 0; y < H; y++)
+      for (x = 0; x < W; x++) {
+        var j = y * W + x,
+          pp = j * 4,
+          l2 = lab[((y / s) | 0) * GW + ((x / s) | 0)],
+          dj = d[j],
+          fr = dj <= 0.07 ? 0 : dj >= 0.17 ? 1 : (dj - 0.07) / 0.1;
+        if (x < X0 || x > X1 || y < Y0 || y > Y1 || (l2 && !fica[l2] && dj > 0.25)) fr = 0;
+        a[pp] = 255 - (255 - a[pp]) * fr;
+        a[pp + 1] = 255 - (255 - a[pp + 1]) * fr;
+        a[pp + 2] = 255 - (255 - a[pp + 2]) * fr;
+      }
+    g.putImageData(im, 0, 0);
+    // 5) endireitar pelo eixo principal da peça (só inclinação pequena: 0,8° a 10°)
+    var m00 = 0,
+      m10 = 0,
+      m01 = 0;
+    for (y = Y0; y <= Y1; y += 2)
+      for (x = X0; x <= X1; x += 2)
+        if (d[y * W + x] > 0.25) {
+          m00++;
+          m10 += x;
+          m01 += y;
+        }
+    var ang = 0;
+    if (m00 > 50) {
+      var cx = m10 / m00,
+        cy = m01 / m00,
+        u20 = 0,
+        u02 = 0,
+        u11 = 0;
+      for (y = Y0; y <= Y1; y += 2)
+        for (x = X0; x <= X1; x += 2)
+          if (d[y * W + x] > 0.25) {
+            u20 += (x - cx) * (x - cx);
+            u02 += (y - cy) * (y - cy);
+            u11 += (x - cx) * (y - cy);
+          }
+      ang = 0.5 * Math.atan2(2 * u11, u20 - u02);
+      if (Math.abs(ang) < (0.8 * Math.PI) / 180 || Math.abs(ang) > (5 * Math.PI) / 180) ang = 0;
+    }
+    // 6) monta no padrão: 1200×900, fundo branco, peça centralizada com o mesmo tamanho
+    var pw = X1 - X0 + 1,
+      ph = Y1 - Y0 + 1,
+      out = mkCanvas(FP_W, FP_H),
+      o = out.getContext('2d'),
+      esca = Math.min((FP_W * 0.8) / pw, (FP_H * 0.62) / ph);
+    o.fillStyle = '#fff';
+    o.fillRect(0, 0, FP_W, FP_H);
+    o.imageSmoothingQuality = 'high';
+    o.save();
+    o.translate(FP_W / 2, FP_H / 2);
+    if (ang) o.rotate(-ang);
+    o.drawImage(c, X0, Y0, pw, ph, (-pw * esca) / 2, (-ph * esca) / 2, pw * esca, ph * esca);
+    o.restore();
+    try {
+      if (sharpOf(c) < 25) av.push('desfocada');
+    } catch (e) {}
+    return { av: av, cv: out, ang: ang };
+  }
+  function fpArqImg(f) {
+    return new Promise(function (ok, no) {
+      var u = URL.createObjectURL(f),
+        im = new Image();
+      im.onload = function () {
+        ok(im);
+      };
+      im.onerror = no;
+      im.src = u;
+    });
+  }
+  function fpCvArq(cv) {
+    return new Promise(function (ok) {
+      cv.toBlob(
+        function (b) {
+          ok(new File([b], 'foto.jpg', { type: 'image/jpeg' }));
+        },
+        'image/jpeg',
+        0.92
+      );
+    });
+  }
+  // ---- câmera: contorno + conferência ao vivo ----
+  var FP_OCULOS =
+    '<svg viewBox="0 0 200 80" preserveAspectRatio="xMidYMid meet" style="position:absolute;inset:6% 4%;width:92%;height:88%;overflow:visible" fill="none" stroke="#fff" stroke-width="2.2" stroke-dasharray="7 6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 22c-8 0-14 2-16 5"/><path d="M182 22c8 0 14 2 16 5"/><path d="M22 20h56c6 0 9 4 9 10l-3 22c-2 12-10 18-24 18H46c-14 0-22-6-24-18l-3-22c0-6 2-10 3-10z"/><path d="M178 20h-56c-6 0-9 4-9 10l3 22c2 12 10 18 24 18h14c14 0 22-6 24-18l3-22c0-6-2-10-3-10z"/><path d="M87 26c4-4 22-4 26 0"/></svg>';
+  function fpGuia(stg, gd, vid, tip, opts) {
+    gd.style.border = '0';
+    gd.style.height = '42%';
+    gd.innerHTML = FP_OCULOS + '<span class="fpEt">' + (opts.fp34 ? '3/4 · hastes abertas · 2 de 2' : 'Frente · hastes abertas' + (opts.peca && opts.peca !== true ? ' · 1 de 2' : '')) + '</span>';
+    tip.style.bottom = '54px';
+    tip.textContent = opts.fp34 ? 'Gire a peça uns 30–45° e fotografe de novo, hastes abertas.' : 'Óculos de FRENTE, hastes abertas, câmera na altura das lentes.';
+    var ch = document.createElement('div');
+    ch.className = 'fpCh';
+    var L = [
+      ['luz', 'Luz boa'],
+      ['fundo', 'Fundo branco'],
+      ['dentro', 'Dentro do guia'],
+      ['reto', 'Reto']
+    ];
+    ch.innerHTML = L.map(function (l) {
+      return '<span data-k="' + l[0] + '"><i></i>' + l[1] + '</span>';
+    }).join('');
+    stg.appendChild(ch);
+    var gama = null,
+      ori = function (e) {
+        if (e && e.gamma != null) gama = e.gamma;
+      };
+    try {
+      window.addEventListener('deviceorientation', ori);
+    } catch (e) {}
+    var cv = document.createElement('canvas'),
+      T = setInterval(function () {
+        if (!stg.isConnected) {
+          clearInterval(T);
+          window.removeEventListener('deviceorientation', ori);
+          return;
+        }
+        var vw = vid.videoWidth,
+          vh = vid.videoHeight;
+        if (!vw || !vh || vid.paused) return;
+        var Wd = 120,
+          Hd = Math.max(16, Math.round((Wd * vh) / vw));
+        cv.width = Wd;
+        cv.height = Hd;
+        var x2 = cv.getContext('2d', { willReadFrequently: true });
+        x2.drawImage(vid, 0, 0, Wd, Hd);
+        var dd = x2.getImageData(0, 0, Wd, Hd).data,
+          sr = stg.getBoundingClientRect(),
+          gr = gd.getBoundingClientRect(),
+          kk = Math.min(sr.width / vw, sr.height / vh),
+          ox = (sr.width - vw * kk) / 2,
+          oy = (sr.height - vh * kk) / 2,
+          gx0 = (((gr.left - sr.left - ox) / kk) * Wd) / vw,
+          gy0 = (((gr.top - sr.top - oy) / kk) * Hd) / vh,
+          gx1 = gx0 + ((gr.width / kk) * Wd) / vw,
+          gy1 = gy0 + ((gr.height / kk) * Hd) / vh,
+          lum = 0,
+          fb = [0, 0, 0],
+          nf = 0,
+          bb = [1e9, 1e9, -1, -1],
+          i,
+          x,
+          y;
+        for (i = 0; i < Wd * Hd; i++) lum += dd[i * 4] * 0.3 + dd[i * 4 + 1] * 0.59 + dd[i * 4 + 2] * 0.11;
+        lum /= Wd * Hd;
+        for (y = Math.max(0, gy0 | 0); y < Math.min(Hd, gy1); y++)
+          for (x = Math.max(0, gx0 | 0); x < Math.min(Wd, gx1); x++) {
+            var p = (y * Wd + x) * 4;
+            if (x < gx0 + 3 || x > gx1 - 4 || y < gy0 + 3 || y > gy1 - 4) {
+              fb[0] += dd[p];
+              fb[1] += dd[p + 1];
+              fb[2] += dd[p + 2];
+              nf++;
+            }
+          }
+        if (nf) fb = fb.map(function (v) { return v / nf; });
+        var fbm = Math.min(fb[0], fb[1], fb[2]),
+          okFundo = nf > 0 && fbm > 165 && Math.max(fb[0], fb[1], fb[2]) - fbm < 32,
+          lmx = 0,
+          lmy = 0,
+          rmx = 0,
+          rmy = 0,
+          ln = 0,
+          rn = 0;
+        for (y = 0; y < Hd; y++)
+          for (x = 0; x < Wd; x++) {
+            var q = (y * Wd + x) * 4,
+              dv = fbm - Math.min(dd[q], dd[q + 1], dd[q + 2]);
+            if (dv > 55) {
+              if (x < bb[0]) bb[0] = x;
+              if (y < bb[1]) bb[1] = y;
+              if (x > bb[2]) bb[2] = x;
+              if (y > bb[3]) bb[3] = y;
+              if (x < (gx0 + gx1) / 2) {
+                lmy += y;
+                ln++;
+              } else {
+                rmy += y;
+                rn++;
+              }
+            }
+          }
+        var temP = bb[2] > 0,
+          okDentro = temP && bb[0] > gx0 + 1 && bb[2] < gx1 - 1 && bb[1] > gy0 + 1 && bb[3] < gy1 - 1 && bb[2] - bb[0] > (gx1 - gx0) * 0.45,
+          okReto = gama != null ? Math.abs(gama) < 6 : ln > 5 && rn > 5 && Math.abs(lmy / ln - rmy / rn) < Hd * 0.04;
+        var st = { luz: lum > 110, fundo: okFundo, dentro: okDentro, reto: okReto };
+        [].forEach.call(ch.children, function (sp) {
+          sp.classList.toggle('ok', !!st[sp.dataset.k]);
+        });
+        gd.classList.toggle('fpOk', st.luz && st.fundo && st.dentro && st.reto);
+      }, 450);
+  }
+  // ---- depois da foto ----
+  function fpResultado(f, d0, reabre, opts) {
+    loadMsg(true, 'Conferindo a foto');
+    fpArqImg(f)
+      .then(function (im) {
+        var R = fpProcessa(im);
+        loadMsg(false);
+        var ok = !R.av.length && R.cv,
+          k34 = typeof opts.peca === 'string' && !opts.fp34 ? opts.peca : '';
+        lfJanela({
+          titulo: ok ? 'Foto aprovada' : 'Vamos tirar de novo?',
+          cls: 'fpJn',
+          monta: function (c, J) {
+            var m = R.av[0] && FP_MOT[R.av[0]];
+            c.innerHTML =
+              (ok
+                ? '<div class="fpPv"><div class="fpPc" style="background:#f4f1f4"><img id="fpI1" alt=""></div><div class="fpPc" style="background:#5a1d40"><img id="fpI2" alt=""></div></div>' +
+                  '<div class="fpLs">' + ['Fundo branco, sem sombra', 'Peça inteira e centralizada', 'Nítida', 'Sem marcas'].map(function (t) { return '<span class="ok"><i></i>' + t + '</span>'; }).join('') + '</div>'
+                : '<div class="fpPv"><div class="fpPc" style="background:#f4f1f4"><img id="fpI0" alt=""></div></div><div class="fpMot"><b>' + esc(m ? m.t : 'Foto fora do padrão') + '</b><div>' + esc(m ? m.como : '') + '</div>' +
+                  (R.av.length > 1 ? '<small>Também: ' + R.av.slice(1).map(function (x) { return FP_MOT[x].t.toLowerCase(); }).join(' · ') + '</small>' : '') + '</div>') +
+              '<button type="button" class="go" id="fpA">' + (ok ? 'Usar esta foto' : 'Tirar de novo') + '</button>' +
+              (ok ? (k34 ? '<button type="button" class="mini" id="fpB" style="width:100%">Agora a de 3/4 (opcional)</button>' : '') : '<button type="button" class="mini" id="fpB" style="width:100%">Usar mesmo assim</button>');
+            if (ok) {
+              var u = R.cv.toDataURL('image/jpeg', 0.85);
+              $('fpI1').src = u;
+              $('fpI2').src = u;
+            } else $('fpI0').src = URL.createObjectURL(f);
+            var usa = function (depois) {
+              J.fecha();
+              fpCvArq(R.cv).then(function (nf) {
+                d0(nf, { padrao: true });
+                if (depois) setTimeout(depois, 600);
+              });
+            };
+            $('fpA').onclick = function () {
+              if (ok) return usa();
+              J.fecha();
+              reabre();
+            };
+            var b = $('fpB');
+            if (b)
+              b.onclick = function () {
+                if (!ok) {
+                  J.fecha();
+                  return d0(f);
+                }
+                usa(function () {
+                  fpFoto34(k34);
+                });
+              };
+          }
+        });
+      })
+      .catch(function () {
+        loadMsg(false);
+        d0(f);
+      });
+  }
+  // 3/4 opcional: fica guardada junto da cor (ref|cor|34), no mesmo padrão.
+  function fpFoto34(k) {
+    camOpen(
+      function (f2) {
+        fpArqImg(f2).then(function (im) {
+          var R = fpProcessa(im),
+            cv = R.cv || fitCanvas(im, 1800);
+          setFoto(k + '|34', thumbOf(cv), cv.toDataURL('image/jpeg', 0.92));
+          saveSoon();
+          lfToast('Foto 3/4 guardada');
+          render();
+        });
+      },
+      'Foto 3/4',
+      { gallery: true, peca: true, fp34: true, fpSem: true }
+    );
+  }
+  // ---- lote: padronizar as fotos que já existem ----
+  function fpChaves() {
+    return Object.keys(S.fotos || {}).filter(function (k) {
+      var p = k.split('|');
+      return p.length === 2 && S.fotos[k] && itemDoRef(p[0]) && !(S.fpOk && S.fpOk[k]);
+    });
+  }
+  function fpAjHtml() {
+    var n = fpChaves().length;
+    return (
+      '<div class="col" style="gap:8px"><div class="hint" style="margin:0">Fundo branco limpo, sem sombra, peça centralizada e do mesmo tamanho, cor e brilho iguais, endireitada e sem pontinhos.</div>' +
+      (n ? '<button type="button" class="go" data-act="fpLote">Padronizar ' + n + (n === 1 ? ' foto' : ' fotos') + '</button>' : '<div class="note n-ok">Todas as fotos já estão no padrão.</div>') +
+      '</div>'
+    );
+  }
+  ACT.fpLote = function () {
+    var ks = fpChaves(),
+      feitos = 0,
+      fora = 0,
+      antes = {};
+    if (!ks.length) return;
+    loadMsg(true, 'Padronizando 0 de ' + ks.length);
+    var vai = function (i) {
+      if (i >= ks.length) {
+        loadMsg(false);
+        saveSoon();
+        render();
+        var J = lfJanela({
+          titulo: 'Fotos padronizadas',
+          monta: function (c, J2) {
+            c.innerHTML = '<div class="hint" style="margin:0 0 10px">' + feitos + ' no padrão' + (fora ? ' · ' + fora + ' ficaram como estavam (foto fora do padrão: tire de novo com o guia da câmera)' : '') + '.</div><button type="button" class="go" id="fpOk">Pronto</button><button type="button" class="mini" id="fpDesf" style="width:100%">Desfazer</button>';
+            $('fpOk').onclick = function () {
+              J2.fecha();
+            };
+            $('fpDesf').onclick = function () {
+              Object.keys(antes).forEach(function (k) {
+                setFoto(k, antes[k].t, antes[k].h);
+                delete S.fpOk[k];
+              });
+              saveSoon();
+              J2.fecha();
+              lfToast('Fotos voltaram como eram');
+              render();
+            };
+          }
+        });
+        return;
+      }
+      var k = ks[i];
+      loadMsg(true, 'Padronizando ' + (i + 1) + ' de ' + ks.length);
+      fpHq(k)
+        .then(function (src) {
+          return new Promise(function (ok) {
+            var im = new Image();
+            im.onload = function () {
+              ok(im);
+            };
+            im.onerror = function () {
+              ok(null);
+            };
+            im.src = src;
+          }).then(function (im) {
+            if (!im) return;
+            var R = fpProcessa(im);
+            if (!R.cv || R.av.some(function (x) { return x === 'nada' || x === 'fundo' || x === 'borda'; })) {
+              fora++;
+              return;
+            }
+            antes[k] = { t: S.fotos[k], h: src };
+            setFoto(k, thumbOf(R.cv), R.cv.toDataURL('image/jpeg', 0.92));
+            (S.fpOk = S.fpOk || {})[k] = Date.now();
+            feitos++;
+          });
+        })
+        .catch(function () {
+          fora++;
+        })
+        .then(function () {
+          setTimeout(function () {
+            vai(i + 1);
+          }, 0);
+        });
+    };
+    vai(0);
+  };
+  // Foto em alta da chave (IndexedDB 'hq'); sem ela, a miniatura.
+  function fpHq(k) {
+    return idbDo('hq', 'readonly', function (o) {
+      return o.get(k);
+    })
+      .then(function (v) {
+        return v || S.fotos[k];
+      })
+      .catch(function () {
+        return S.fotos[k];
+      });
+  }
+  // Ajustes › Fotos
+  if (typeof AJ_PADRAO !== 'undefined' && AJ_PADRAO.indexOf('foto') < 0) {
+    AJ_PADRAO.push('foto');
+    AJ_ICO.foto = AJ_SVG('<path d="M4 8h3l1.6-2.4h6.8L17 8h3v11H4z"/><circle cx="12" cy="13.2" r="3.6"/>');
+  }
   // ===== Histórico: resumo por mês, busca, filtros, calendário e carregamento aos poucos. =====
   S.hq = '';
   S.hF = { tipo: '', forma: '', faixa: '', moeda: '', vmin: '', vmax: '' };
@@ -31965,6 +32520,872 @@
     if (navigator.share) return navigator.share({ text: t }).catch(function () {});
     window.open('https://wa.me/?text=' + encodeURIComponent(t), '_blank');
   };
+  // ===== Marketing (v430, aprovado 04–05/11/2026) =====
+  // Botão Marketing no Início → central: Objetivo do mês (muda o plano), Plano da semana (marcar feito),
+  // Criar com um toque (Post, Story, Status, Carrossel, Vídeo, Roteiro): o app escolhe as peças pelo objetivo e
+  // mostra o PORQUÊ com fatos reais; versões A/B; legenda gancho/corpo/prova/chamada em PT, ES ou os dois;
+  // Postar agora (app lembrado) ou "Me lembra às 20h". Datas que vêm aí (BR/PY), Listas por perfil, Status de hoje,
+  // Resultados (vendas e pedidos do site depois de cada post → vira regra do plano) e Kit da marca.
+  // Urgência só quando é REAL: "Últimas unidades" (≤ 2 no estoque) e "Só até <dia>" (oferta com data de fim).
+  S.mkt = { obj: {}, feito: {}, posts: [], lemb: [], kit: null };
+  var MK_OBJ = [
+    { id: 'girar', t: 'Girar o parado', s: 'peças paradas há mais tempo, com motivo para comprar agora' },
+    { id: 'br', t: 'Novos clientes BR', s: 'preço em R$, endereço e “compre aqui e economize”' },
+    { id: 'solar', t: 'Mais solar', s: 'solares, proteção UV e época de sol' },
+    { id: 'lanc', t: 'Lançamentos', s: 'o que chegou nos últimos 30 dias' }
+  ];
+  var MK_FMT = {
+    post: { t: 'Post', w: 1080, h: 1350 },
+    story: { t: 'Story', w: 1080, h: 1920 },
+    status: { t: 'Status', w: 1080, h: 1920 },
+    carr: { t: 'Carrossel', w: 1080, h: 1350 },
+    video: { t: 'Vídeo', w: 720, h: 1280 },
+    rot: { t: 'Roteiro', w: 0, h: 0 }
+  };
+  var MK_DIAS = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+  function mkKit() {
+    if (!S.mkt.kit)
+      S.mkt.kit = {
+        nome: 'La Fouch',
+        slogan: 'Tudo em Óculos',
+        end: 'Galeria Jebai Center · Ciudad del Este',
+        wa: '+595 983 642 241',
+        site: 'lafouch.com',
+        tom: 'Próximo e direto, sem exagero',
+        idioma: 'ambos',
+        tags: '#lafouch #oculos #ciudaddeleste #cde #oculosdesol #anteojos'
+      };
+    return S.mkt.kit;
+  }
+  function mkMes() {
+    var d = new Date();
+    return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2);
+  }
+  // Objetivo sugerido pelos dados (o dono pode trocar).
+  function mkObjSug() {
+    var par = 0,
+      nov = 0;
+    try {
+      par = parados().length;
+    } catch (e) {}
+    mkPecas().forEach(function (p) {
+      if (p.f.nov) nov++;
+    });
+    var mes = new Date().getMonth();
+    if (nov >= 4) return 'lanc';
+    if (par >= 6) return 'girar';
+    if (sazonFator('solar', mes) >= 1.15) return 'solar';
+    return 'br';
+  }
+  function mkObj() {
+    return S.mkt.obj[mkMes()] || mkObjSug();
+  }
+  // Fatos reais de cada peça (nada inventado).
+  function mkFatos(ref) {
+    var it = itemDoRef(ref),
+      a = attrOf(ref) || {},
+      now = Date.now(),
+      st = S.items.reduce(function (n, i) {
+        return n + (i.ref === ref && i.qty > 0 ? i.qty : 0);
+      }, 0),
+      v30 = S.sales.reduce(function (n, s) {
+        return n + (!s.estorno && s.ref === ref && now - s.ts <= 30 * DAY ? s.qty : 0);
+      }, 0),
+      pr = (S.pprice || {})[ref] || {},
+      dEnt = (now - paPrimEntrada(ref)) / DAY,
+      dPar = paParado(ref),
+      preco = it ? precoTab(it, 'pub') : 0;
+    return {
+      ref: ref,
+      tipo: it ? it.tipo : '',
+      nome: pn(ref),
+      st: st,
+      v30: v30,
+      nov: dEnt <= 30,
+      dEnt: Math.round(dEnt),
+      par: dPar >= 60 ? Math.round(dPar) : 0,
+      of: pr.ant > pr.novo ? Math.round((1 - pr.novo / pr.ant) * 100) : 0,
+      de: pr.ant > pr.novo ? pr.ant : 0,
+      ate: pr.ant > pr.novo && pr.ate > now ? pr.ate : 0,
+      ult: st > 0 && st <= 2,
+      preco: preco,
+      brl: preco ? Math.ceil(preco / ratePyg('brl')) : 0,
+      fmt: a.formato || '',
+      mat: a.material || '',
+      pub: a.publico || '',
+      foto: photoOf(ref)
+    };
+  }
+  function mkPecas() {
+    var vis = {},
+      out = [];
+    S.items.forEach(function (i) {
+      if (vis[i.ref] || i.bulk || isSimple(i.tipo) || !(i.qty > 0)) return;
+      vis[i.ref] = 1;
+      if (!photoOf(i.ref)) return;
+      out.push({ ref: i.ref, f: mkFatos(i.ref) });
+    });
+    return out;
+  }
+  // Escolhe as peças pelo objetivo e diz o porquê.
+  function mkEscolhe(obj, n, pular) {
+    pular = pular || [];
+    var ps = mkPecas().filter(function (p) {
+      return pular.indexOf(p.ref) < 0;
+    });
+    var nota = function (f) {
+      var s = 0;
+      if (obj === 'girar') s = f.par * 2 + (f.of ? 30 : 0) - f.v30 * 5;
+      else if (obj === 'lanc') s = f.nov ? 100 - f.dEnt : -50;
+      else if (obj === 'solar') s = (f.tipo === 'solar' ? 100 : -50) + f.v30 * 3 + (f.of ? 10 : 0);
+      else s = f.v30 * 4 + (f.of ? 15 : 0) + (f.brl > 0 ? 5 : 0);
+      if (f.ult) s += 8;
+      return s;
+    };
+    ps.sort(function (a, b) {
+      return nota(b.f) - nota(a.f);
+    });
+    return ps.slice(0, n);
+  }
+  function mkPorque(f, obj) {
+    var m = [];
+    if (f.par) m.push('parada há ' + f.par + ' dias');
+    if (f.nov) m.push('chegou há ' + f.dEnt + (f.dEnt === 1 ? ' dia' : ' dias'));
+    if (f.of) m.push('em oferta (−' + f.of + '%)' + (f.ate ? ' até ' + mkDia(f.ate) : ''));
+    if (f.ult) m.push(f.st === 1 ? 'última unidade' : 'últimas ' + f.st + ' unidades');
+    if (f.v30 >= 3) m.push(f.v30 + ' vendidas em 30 dias');
+    if (obj === 'br' && f.brl) m.push('R$ ' + f.brl + ' na moeda do cliente');
+    if (obj === 'solar' && f.tipo === 'solar') m.push('época de sol');
+    return m.length ? m : ['boa foto e estoque'];
+  }
+  function mkDia(ts) {
+    var d = new Date(ts);
+    return ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'][d.getDay()] + ' (' + ('0' + d.getDate()).slice(-2) + '/' + ('0' + (d.getMonth() + 1)).slice(-2) + ')';
+  }
+  function mkDiaEs(ts) {
+    var d = new Date(ts);
+    return ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'][d.getDay()] + ' ' + ('0' + d.getDate()).slice(-2) + '/' + ('0' + (d.getMonth() + 1)).slice(-2);
+  }
+  // Legenda: gancho, corpo, prova, chamada — versão A ou B, PT/ES/os dois.
+  function mkLegenda(pecas, obj, ver, idi, fmt) {
+    var K = mkKit(),
+      f = pecas[0] ? pecas[0].f : null,
+      n = pecas.length,
+      gPT,
+      gES,
+      cPT,
+      cES,
+      pPT = [],
+      pES = [];
+    if (!f) return '';
+    var nm = f.nome,
+      pr = gs(f.preco),
+      br = f.brl ? 'R$ ' + f.brl : '';
+    if (obj === 'girar') {
+      gPT = ver === 'A' ? (f.of ? 'Baixou: ' + nm + ' com ' + f.of + '% off.' : nm + ' com preço que não volta.') : 'Quem chega primeiro leva: ' + nm + '.';
+      gES = ver === 'A' ? (f.of ? 'Bajó: ' + nm + ' con ' + f.of + '% off.' : nm + ' a un precio que no vuelve.') : 'El que llega primero se lo lleva: ' + nm + '.';
+    } else if (obj === 'lanc') {
+      gPT = ver === 'A' ? 'Acabou de chegar: ' + nm + '.' : 'Novidade na loja' + (n > 1 ? ' — ' + n + ' modelos novos.' : ': ' + nm + '.');
+      gES = ver === 'A' ? 'Recién llegado: ' + nm + '.' : 'Novedad en la tienda' + (n > 1 ? ' — ' + n + ' modelos nuevos.' : ': ' + nm + '.');
+    } else if (obj === 'solar') {
+      gPT = ver === 'A' ? 'Sol forte pede ' + nm + '.' : 'Proteção UV com estilo: ' + nm + '.';
+      gES = ver === 'A' ? 'Sol fuerte pide ' + nm + '.' : 'Protección UV con estilo: ' + nm + '.';
+    } else {
+      gPT = ver === 'A' ? (br ? nm + ' por ' + br + ' aqui em CDE.' : nm + ' aqui em CDE.') : 'Vem pra CDE? Separa ' + nm + ' antes de chegar.';
+      gES = ver === 'A' ? nm + ' por ' + pr + ' en CDE.' : '¿Venís a CDE? Reservá ' + nm + ' antes de llegar.';
+    }
+    var corpoPT = [f.fmt, f.mat && f.mat.toLowerCase(), f.pub && f.pub !== 'Unissex' ? f.pub.toLowerCase() : ''].filter(Boolean).join(', '),
+      corpoES = [f.fmt, f.mat && ({ Acetato: 'acetato', Metal: 'metal', TR90: 'TR90' }[f.mat] || f.mat.toLowerCase()), f.pub && f.pub !== 'Unissex' ? { Feminino: 'femenino', Masculino: 'masculino' }[f.pub] || '' : ''].filter(Boolean).join(', ');
+    if (f.ult) {
+      pPT.push(f.st === 1 ? 'Última unidade.' : 'Últimas ' + f.st + ' unidades.');
+      pES.push(f.st === 1 ? 'Última unidad.' : 'Últimas ' + f.st + ' unidades.');
+    }
+    if (f.ate) {
+      pPT.push('Oferta só até ' + mkDia(f.ate) + '.');
+      pES.push('Oferta solo hasta el ' + mkDiaEs(f.ate) + '.');
+    }
+    if (f.v30 >= 3) {
+      pPT.push(f.v30 + ' vendidos este mês.');
+      pES.push(f.v30 + ' vendidos este mes.');
+    }
+    var preco = pr + (br ? ' · ' + br : '') + (f.de ? ' (antes ' + gs(f.de) + ')' : '');
+    cPT = 'Reserve pelo WhatsApp ' + K.wa + ' e retire na loja — ' + K.end + '.' + (K.site ? ' Veja no site: ' + K.site + '/p/' + f.ref + '.html' : '');
+    cES = 'Reservá por WhatsApp ' + K.wa + ' y retirá en la tienda — ' + K.end + '.' + (K.site ? ' Mirá en ' + K.site + '/p/' + f.ref + '.html' : '');
+    if (n > 1) {
+      corpoPT = n + ' modelos: ' + pecas.map(function (p) { return p.f.nome + ' ' + gs(p.f.preco); }).join(' · ');
+      corpoES = n + ' modelos: ' + pecas.map(function (p) { return p.f.nome + ' ' + gs(p.f.preco); }).join(' · ');
+    }
+    var PT = [gPT, (corpoPT ? (n > 1 ? corpoPT : corpoPT.charAt(0).toUpperCase() + corpoPT.slice(1) + '. ' + preco + '.') : preco + '.'), pPT.join(' '), cPT].filter(Boolean).join('\n\n'),
+      ES = [gES, (corpoES ? (n > 1 ? corpoES : corpoES.charAt(0).toUpperCase() + corpoES.slice(1) + '. ' + preco + '.') : preco + '.'), pES.join(' '), cES].filter(Boolean).join('\n\n'),
+      tags = fmt === 'status' ? '' : '\n\n' + K.tags;
+    return (idi === 'es' ? ES : idi === 'pt' ? PT : PT + '\n\n— ES —\n' + ES) + tags;
+  }
+  // ---- imagem (post/story/status/carrossel) ----
+  function mkSelo(f) {
+    if (f.ult) return f.st === 1 ? 'ÚLTIMA UNIDADE' : 'ÚLTIMAS ' + f.st;
+    if (f.ate) return 'SÓ ATÉ ' + mkDia(f.ate).split(' ')[0].toUpperCase();
+    if (f.of) return '−' + f.of + '%';
+    if (f.nov) return 'NOVIDADE';
+    return '';
+  }
+  function mkImagem(f, im, fmt, est, k, n) {
+    var F = MK_FMT[fmt === 'carr' ? 'post' : fmt],
+      W = F.w,
+      H = F.h,
+      cv = mkCanvas(W, H),
+      x = cv.getContext('2d'),
+      s = EB_EST[est || 0],
+      K = mkKit();
+    x.fillStyle = s.bg;
+    x.fillRect(0, 0, W, H);
+    x.fillStyle = s.fg;
+    x.textAlign = 'center';
+    x.font = '400 44px Georgia, serif';
+    x.fillText('L A   F O U C H', W / 2, 110);
+    x.font = '400 26px sans-serif';
+    x.fillStyle = s.mu;
+    x.fillText((K.slogan || '').toUpperCase(), W / 2, 150);
+    var fy = 200,
+      fh = H > 1500 ? 1080 : 760,
+      fw = W - 120;
+    x.fillStyle = '#ffffff';
+    if (x.roundRect) {
+      x.beginPath();
+      x.roundRect(60, fy, fw, fh, 40);
+      x.fill();
+    } else x.fillRect(60, fy, fw, fh);
+    if (im) {
+      var r = Math.min((fw - 90) / im.width, (fh - 90) / im.height),
+        iw = im.width * r,
+        ih = im.height * r;
+      x.drawImage(im, 60 + (fw - iw) / 2, fy + (fh - ih) / 2, iw, ih);
+    }
+    var sl = mkSelo(f);
+    if (sl) {
+      x.font = '700 34px sans-serif';
+      var tw = x.measureText(sl).width + 48;
+      x.fillStyle = s.ac;
+      if (x.roundRect) {
+        x.beginPath();
+        x.roundRect(90, fy + 30, tw, 60, 30);
+        x.fill();
+      } else x.fillRect(90, fy + 30, tw, 60);
+      x.fillStyle = s.bg;
+      x.textAlign = 'left';
+      x.fillText(sl, 114, fy + 72);
+    }
+    var ty = fy + fh + 90;
+    x.textAlign = 'center';
+    x.fillStyle = s.fg;
+    x.font = '400 54px Georgia, serif';
+    x.fillText(f.nome.slice(0, 32), W / 2, ty);
+    x.font = '700 66px sans-serif';
+    x.fillStyle = s.ac;
+    x.fillText(gs(f.preco) + (f.brl ? '  ·  R$ ' + f.brl : ''), W / 2, ty + 90);
+    if (f.de) {
+      x.font = '400 34px sans-serif';
+      x.fillStyle = s.mu;
+      var antes = 'antes ' + gs(f.de);
+      x.fillText(antes, W / 2, ty + 145);
+      var aw = x.measureText(antes).width;
+      x.fillRect(W / 2 - aw / 2, ty + 133, aw, 3);
+    }
+    x.font = '500 34px sans-serif';
+    x.fillStyle = s.fg;
+    x.fillText('WhatsApp ' + K.wa + '  ·  ' + K.site, W / 2, H - 120);
+    x.font = '400 28px sans-serif';
+    x.fillStyle = s.mu;
+    x.fillText(K.end, W / 2, H - 72);
+    if (n > 1) {
+      x.textAlign = 'right';
+      x.font = '600 30px sans-serif';
+      x.fillStyle = s.mu;
+      x.fillText(k + 1 + '/' + n, W - 70, 110);
+    }
+    return cv;
+  }
+  // ---- vídeo 15 s gerado no celular (Elegante / Rápido / Oferta) ----
+  function mkVideo(pecas, est, estilo) {
+    var W = 720,
+      H = 1280,
+      cv = mkCanvas(W, H),
+      x = cv.getContext('2d'),
+      s = EB_EST[est || 0],
+      K = mkKit(),
+      DUR = 15000,
+      ok = cv.captureStream && window.MediaRecorder;
+    if (!ok) return Promise.reject(new Error('sem gravação de vídeo neste aparelho'));
+    return Promise.all(pecas.map(function (p) {
+      return envImg(p.f.foto);
+    })).then(function (ims) {
+      return new Promise(function (res, rej) {
+        var tipos = ['video/mp4;codecs=avc1', 'video/mp4', 'video/webm;codecs=vp9', 'video/webm'],
+          mt = tipos.filter(function (t) {
+            return MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t);
+          })[0] || '';
+        var st = cv.captureStream(30),
+          rec = new MediaRecorder(st, mt ? { mimeType: mt, videoBitsPerSecond: 4000000 } : undefined),
+          ch = [],
+          t0 = performance.now(),
+          n = pecas.length,
+          cena = (DUR - 4000) / Math.max(1, n);
+        rec.ondataavailable = function (e) {
+          if (e.data && e.data.size) ch.push(e.data);
+        };
+        rec.onstop = function () {
+          res(new Blob(ch, { type: mt || 'video/webm' }));
+        };
+        rec.onerror = rej;
+        var desenha = function () {
+          var t = performance.now() - t0;
+          x.fillStyle = s.bg;
+          x.fillRect(0, 0, W, H);
+          x.textAlign = 'center';
+          if (t < 2000) {
+            var a = Math.min(1, t / 700);
+            x.globalAlpha = a;
+            x.fillStyle = s.fg;
+            x.font = '400 54px Georgia, serif';
+            x.fillText('L A   F O U C H', W / 2, H / 2 - 10);
+            x.font = '400 26px sans-serif';
+            x.fillStyle = s.mu;
+            x.fillText(estilo === 'oferta' ? 'OFERTAS DA SEMANA' : estilo === 'rapido' ? 'CHEGOU NA LOJA' : (K.slogan || '').toUpperCase(), W / 2, H / 2 + 40);
+            x.globalAlpha = 1;
+          } else if (t < DUR - 2000) {
+            var i = Math.min(n - 1, Math.floor((t - 2000) / cena)),
+              u = (t - 2000 - i * cena) / cena,
+              f = pecas[i].f,
+              im = ims[i],
+              z = estilo === 'rapido' ? 1 + 0.12 * Math.sin(u * Math.PI) : 1 + 0.08 * u,
+              al = estilo === 'rapido' ? 1 : Math.min(1, u * 4, (1 - u) * 4);
+            x.globalAlpha = al;
+            x.fillStyle = '#fff';
+            x.fillRect(40, 220, W - 80, 640);
+            if (im) {
+              var r = Math.min((W - 140) / im.width, 560 / im.height) * z,
+                iw = im.width * r,
+                ih = im.height * r;
+              x.save();
+              x.beginPath();
+              x.rect(40, 220, W - 80, 640);
+              x.clip();
+              x.drawImage(im, W / 2 - iw / 2, 540 - ih / 2, iw, ih);
+              x.restore();
+            }
+            x.fillStyle = s.fg;
+            x.font = '400 44px Georgia, serif';
+            x.fillText(f.nome.slice(0, 26), W / 2, 960);
+            x.fillStyle = s.ac;
+            x.font = '700 52px sans-serif';
+            x.fillText(gs(f.preco) + (f.brl ? ' · R$ ' + f.brl : ''), W / 2, 1040);
+            var sl = mkSelo(f);
+            if (sl) {
+              x.font = '700 30px sans-serif';
+              x.fillStyle = s.mu;
+              x.fillText(sl, W / 2, 1100);
+            }
+            x.globalAlpha = 1;
+          } else {
+            x.fillStyle = s.fg;
+            x.font = '400 40px Georgia, serif';
+            x.fillText('Reserve pelo WhatsApp', W / 2, H / 2 - 60);
+            x.fillStyle = s.ac;
+            x.font = '700 50px sans-serif';
+            x.fillText(K.wa, W / 2, H / 2 + 10);
+            x.fillStyle = s.mu;
+            x.font = '400 28px sans-serif';
+            x.fillText(K.end, W / 2, H / 2 + 70);
+            x.fillText(K.site, W / 2, H / 2 + 115);
+          }
+          if (t < DUR) requestAnimationFrame(desenha);
+          else rec.stop();
+        };
+        rec.start(500);
+        desenha();
+      });
+    });
+  }
+  // ---- roteiro de vídeo + teleprompter ----
+  function mkRoteiro(pecas, obj) {
+    var f = pecas[0] ? pecas[0].f : null,
+      f2 = pecas[1] ? pecas[1].f : null,
+      K = mkKit();
+    if (!f) return [];
+    var g = mkLegenda(pecas.slice(0, 1), obj, 'A', 'pt', 'status').split('\n\n')[0];
+    return [
+      { t: '0–3 s', plano: 'Rosto com o óculos, olhando para a câmera', fala: g },
+      { t: '3–7 s', plano: 'Close na peça girando na mão (frente → lateral)', fala: [f.fmt, f.mat && f.mat.toLowerCase()].filter(Boolean).join(', ') + (f.of ? ', com ' + f.of + '% de desconto' : '') + '.' },
+      f2 ? { t: '7–11 s', plano: 'Troca rápida para a segunda peça', fala: 'E tem também ' + f2.nome + ', ' + gs(f2.preco) + '.' } : { t: '7–11 s', plano: 'Detalhe da haste e da dobradiça', fala: f.ult ? (f.st === 1 ? 'É a última unidade.' : 'São as últimas ' + f.st + ' unidades.') : 'Preço: ' + gs(f.preco) + (f.brl ? ', R$ ' + f.brl : '') + '.' },
+      { t: '11–15 s', plano: 'Fachada da loja ou balcão, com a peça na mão', fala: 'Reserve pelo WhatsApp e retire na ' + K.end.split('·')[0].trim() + '.' }
+    ];
+  }
+  function mkTeleprompter(txt) {
+    var ov = document.createElement('div');
+    ov.className = 'mkTp';
+    ov.innerHTML = '<div class="mkTpT" id="mkTpT">' + esc(txt).replace(/\n/g, '<br><br>') + '</div><div class="mkTpB"><button type="button" class="mini" data-v="-1">Mais devagar</button><button type="button" class="go" data-v="0">Pausar</button><button type="button" class="mini" data-v="1">Mais rápido</button><button type="button" class="mini" data-v="x">Fechar</button></div>';
+    document.body.appendChild(ov);
+    var v = 0.6,
+      on = true,
+      y = 0,
+      el = ov.querySelector('#mkTpT');
+    y = ov.clientHeight * 0.6;
+    var anda = function () {
+      if (!ov.isConnected) return;
+      if (on) y -= v;
+      el.style.transform = 'translateY(' + y + 'px)';
+      requestAnimationFrame(anda);
+    };
+    anda();
+    ov.querySelector('.mkTpB').onclick = function (e) {
+      var b = e.target.closest('button');
+      if (!b) return;
+      var d = b.dataset.v;
+      if (d === 'x') return ov.remove();
+      if (d === '0') {
+        on = !on;
+        b.textContent = on ? 'Pausar' : 'Continuar';
+      } else v = Math.max(0.2, Math.min(3, v + (+d) * 0.2));
+    };
+  }
+  // ---- plano da semana ----
+  function mkHoraBoa(fmt) {
+    var R = mkResultados();
+    return (R.horaBoa && R.horaBoa[fmt]) || (fmt === 'status' ? '12h' : '20h');
+  }
+  function mkSemana() {
+    var d = new Date();
+    d.setHours(0, 0, 0, 0);
+    var seg = new Date(d.getTime() - ((d.getDay() + 6) % 7) * DAY);
+    return seg.getTime();
+  }
+  function mkPlano() {
+    var obj = mkObj(),
+      seg = mkSemana(),
+      base = [
+        ['post', 'Peça do objetivo'],
+        ['status', 'Status do dia'],
+        ['carr', 'Carrossel com 4 peças'],
+        ['story', 'Bastidores / chegada'],
+        ['video', 'Vídeo de 15 s'],
+        ['post', 'Oferta ou mais vendido']
+      ];
+    var R = mkResultados();
+    if (R.fmtBom && R.fmtBom !== 'post') base[5] = [R.fmtBom, 'O que mais deu resultado'];
+    var usados = [];
+    return base.map(function (b, i) {
+      var n = b[0] === 'carr' ? 4 : b[0] === 'video' ? 3 : 1,
+        ps = mkEscolhe(obj, n, usados);
+      ps.forEach(function (p) {
+        usados.push(p.ref);
+      });
+      var dia = seg + i * DAY,
+        id = 'w' + seg + 'i' + i;
+      return { id: id, dia: dia, fmt: b[0], tema: b[1], hora: mkHoraBoa(b[0]), refs: ps.map(function (p) { return p.ref; }), feito: !!S.mkt.feito[id] };
+    });
+  }
+  // ---- datas que vêm aí (Brasil e Paraguai) ----
+  function mkPascoa(Y) {
+    var a = Y % 19,
+      b = Math.floor(Y / 100),
+      c = Y % 100,
+      d = Math.floor(b / 4),
+      e = b % 4,
+      f = Math.floor((b + 8) / 25),
+      g = Math.floor((b - f + 1) / 3),
+      h = (19 * a + b - d - g + 15) % 30,
+      i = Math.floor(c / 4),
+      k = c % 4,
+      l = (32 + 2 * e + 2 * i - h - k) % 7,
+      m = Math.floor((a + 11 * h + 22 * l) / 451),
+      mo = Math.floor((h + l - 7 * m + 114) / 31),
+      da = ((h + l - 7 * m + 114) % 31) + 1;
+    return new Date(Y, mo - 1, da);
+  }
+  function mkNdom(Y, mes, n) {
+    var d = new Date(Y, mes, 1);
+    while (d.getDay() !== 0) d.setDate(d.getDate() + 1);
+    d.setDate(d.getDate() + 7 * (n - 1));
+    return d;
+  }
+  function mkDatas() {
+    var out = [],
+      hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+    [hoje.getFullYear(), hoje.getFullYear() + 1].forEach(function (Y) {
+      var bf = new Date(Y, 10, 1);
+      while (bf.getDay() !== 4) bf.setDate(bf.getDate() + 1);
+      bf.setDate(bf.getDate() + 22);
+      var p = mkPascoa(Y);
+      [
+        [new Date(Y, 0, 1), 'Ano Novo', 'BR/PY', 'solar para o verão'],
+        [new Date(Y, 1, 1), 'Volta às aulas', 'BR/PY', 'armações e grau'],
+        [new Date(p.getTime() - 47 * DAY), 'Carnaval', 'BR', 'solar e viagem'],
+        [new Date(p.getTime() - 3 * DAY), 'Semana Santa', 'BR/PY', 'brasileiros vêm a CDE: preço em R$'],
+        [new Date(Y, 4, 15), 'Día de la Madre', 'PY', 'presente: solar feminino'],
+        [mkNdom(Y, 4, 2), 'Dia das Mães', 'BR', 'presente: solar feminino'],
+        [new Date(Y, 5, 12), 'Dia dos Namorados', 'BR', 'casal: dois óculos'],
+        [mkNdom(Y, 5, 2), 'Día del Padre', 'PY', 'presente: solar masculino'],
+        [new Date(Y, 6, 30), 'Día de la Amistad', 'PY', 'presente entre amigos'],
+        [mkNdom(Y, 7, 2), 'Dia dos Pais', 'BR', 'presente: solar masculino'],
+        [new Date(Y, 7, 16), 'Día del Niño', 'PY', 'óculos infantis'],
+        [new Date(Y, 8, 15), 'Dia do Cliente', 'BR', 'agradecer e oferta curta'],
+        [new Date(Y, 8, 21), 'Primavera / Día de la Juventud', 'PY', 'solar: começa o sol forte'],
+        [new Date(Y, 9, 12), 'Dia das Crianças', 'BR', 'óculos infantis'],
+        [bf, 'Black Friday', 'BR/PY', 'super evento no site'],
+        [new Date(Y, 11, 25), 'Natal', 'BR/PY', 'presente: embalagem e combo']
+      ].forEach(function (x) {
+        var dd = Math.round((x[0] - hoje) / DAY);
+        if (dd >= 0 && dd <= 60) out.push({ d: x[0].getTime(), em: dd, t: x[1], pais: x[2], ideia: x[3] });
+      });
+    });
+    return out.sort(function (a, b) {
+      return a.d - b.d;
+    });
+  }
+  // ---- listas por perfil (para lista de transmissão do WhatsApp Business) ----
+  function mkListas() {
+    var now = Date.now(),
+      compr = {};
+    S.sales.forEach(function (s) {
+      if (s.estorno || !s.cliId) return;
+      var c = (compr[s.cliId] = compr[s.cliId] || { ult: 0, tipos: {} });
+      if (s.ts > c.ult) c.ult = s.ts;
+      c.tipos[s.tipo] = 1;
+    });
+    var cl = (S.clientes || []).filter(function (c) {
+        return c.tel;
+      }),
+      L = [
+        { id: 'br', t: 'Estrangeiros (R$)', f: function (c) { return cliEstr(c); } },
+        { id: 'py', t: 'Paraguaios (G$)', f: function (c) { return !cliEstr(c); } },
+        { id: 'sol', t: 'Compraram solar', f: function (c) { return compr[c.id] && compr[c.id].tipos.solar; } },
+        { id: 'gr', t: 'Compraram grau', f: function (c) { return compr[c.id] && compr[c.id].tipos.pre; } },
+        { id: 'arm', t: 'Compraram armação', f: function (c) { return compr[c.id] && compr[c.id].tipos.sem; } },
+        { id: 'sum', t: 'Sem comprar há 90+ dias', s: 'só novidades, sem insistir', f: function (c) { return compr[c.id] && now - compr[c.id].ult > 90 * DAY; } }
+      ];
+    return L.map(function (l) {
+      l.cl = cl.filter(l.f);
+      return l;
+    });
+  }
+  // ---- resultados: vendas e pedidos do site nos 7 dias depois de cada post ----
+  function mkResultados() {
+    var now = Date.now(),
+      porFmt = {},
+      porHora = {},
+      ab = { A: { n: 0, v: 0 }, B: { n: 0, v: 0 } },
+      lista = [];
+    (S.mkt.posts || []).forEach(function (p) {
+      if (now - p.ts < 2 * DAY) return; // ainda medindo
+      var fim = p.ts + 7 * DAY,
+        v = 0,
+        pd = 0;
+      S.sales.forEach(function (s) {
+        if (!s.estorno && s.ts >= p.ts && s.ts < fim && p.refs.indexOf(s.ref) >= 0) v += s.qty;
+      });
+      (S.pedidos || []).forEach(function (o) {
+        if (o.ts >= p.ts && o.ts < fim && (o.itens || []).some(function (l) { return p.refs.indexOf(l.ref) >= 0; })) pd++;
+      });
+      var r = v + pd,
+        h = new Date(p.ts).getHours(),
+        hb = h < 11 ? '9h' : h < 15 ? '12h' : h < 19 ? '17h' : '20h';
+      lista.push({ p: p, v: v, pd: pd });
+      (porFmt[p.fmt] = porFmt[p.fmt] || { n: 0, r: 0 }).n++;
+      porFmt[p.fmt].r += r;
+      var kh = p.fmt + '|' + hb;
+      (porHora[kh] = porHora[kh] || { n: 0, r: 0, h: hb, fmt: p.fmt }).n++;
+      porHora[kh].r += r;
+      if (p.ver && ab[p.ver]) {
+        ab[p.ver].n++;
+        ab[p.ver].v += r;
+      }
+    });
+    var fmtBom = null,
+      mx = -1;
+    Object.keys(porFmt).forEach(function (k) {
+      var m = porFmt[k].r / porFmt[k].n;
+      if (porFmt[k].n >= 2 && m > mx) {
+        mx = m;
+        fmtBom = k;
+      }
+    });
+    var horaBoa = {};
+    Object.keys(porHora).forEach(function (k) {
+      var o = porHora[k],
+        m = o.r / o.n;
+      if (o.n >= 2 && (!horaBoa['_' + o.fmt] || m > horaBoa['_' + o.fmt])) {
+        horaBoa['_' + o.fmt] = m;
+        horaBoa[o.fmt] = o.h;
+      }
+    });
+    return { lista: lista, porFmt: porFmt, fmtBom: fmtBom, horaBoa: horaBoa, ab: ab };
+  }
+  // ---- central ----
+  function mkAbre() {
+    mkKit();
+    lfJanela({
+      titulo: 'Marketing',
+      cls: 'mkJn',
+      monta: function (c, J) {
+        var pinta = function () {
+          var obj = mkObj(),
+            P = mkPlano(),
+            D = mkDatas(),
+            st = mkEscolhe(obj, 1)[0],
+            R = mkResultados(),
+            h = '';
+          // objetivo
+          h += '<div class="mkSec">Objetivo do mês</div><div class="mkObj">' + MK_OBJ.map(function (o) {
+            return '<button type="button" class="chip' + (o.id === obj ? ' on' : '') + '" data-obj="' + o.id + '">' + o.t + '</button>';
+          }).join('') + '</div><div class="hint" style="margin:4px 0 0">' + esc(MK_OBJ.filter(function (o) { return o.id === obj; })[0].s) + (S.mkt.obj[mkMes()] ? '' : ' · sugerido pelos seus números') + '</div>';
+          // status de hoje
+          if (st)
+            h += '<div class="mkSec">Status de hoje</div><button type="button" class="mkSt" data-cria="status" data-refs="' + esc(st.ref) + '"><span class="vtI"><img src="' + esc(st.f.foto) + '" alt=""></span><span style="flex:1;text-align:left"><b>' + esc(st.f.nome) + '</b><small>' + esc(mkPorque(st.f, obj).join(' · ')) + '</small></span>›</button>';
+          // criar
+          h += '<div class="mkSec">Criar com um toque</div><div class="mkCr">' + ['post', 'story', 'status', 'carr', 'video', 'rot'].map(function (k) {
+            return '<button type="button" class="mini" data-cria="' + k + '">' + MK_FMT[k].t + '</button>';
+          }).join('') + '</div>';
+          // plano
+          var feitos = P.filter(function (x) { return x.feito; }).length;
+          h += '<div class="mkSec">Plano da semana · ' + feitos + ' de ' + P.length + '</div><div class="mkPl">' + P.map(function (x) {
+            return '<div class="mkPi' + (x.feito ? ' ok' : '') + '"><button type="button" class="mkCk" data-feito="' + x.id + '" aria-label="Feito">' + (x.feito ? '✓' : '') + '</button><button type="button" class="mkPb" data-cria="' + x.fmt + '" data-refs="' + esc(x.refs.join(',')) + '" data-pid="' + x.id + '"><b>' + MK_DIAS[new Date(x.dia).getDay()] + ' · ' + MK_FMT[x.fmt].t + ' · ' + x.hora + '</b><small>' + esc(x.tema) + (x.refs.length ? ' — ' + x.refs.map(pn).slice(0, 2).join(', ') + (x.refs.length > 2 ? '…' : '') : '') + '</small></button></div>';
+          }).join('') + '</div>';
+          // datas
+          if (D.length)
+            h += '<div class="mkSec">Datas que vêm aí</div><div class="split">' + D.slice(0, 4).map(function (d) {
+              return '<div class="sl"><span>' + esc(d.t) + ' <span class="hint" style="display:inline;margin:0">' + d.pais + '</span><small>' + esc(d.ideia) + '</small></span><b>' + (d.em === 0 ? 'hoje' : 'em ' + d.em + ' d') + '</b></div>';
+            }).join('') + '</div>';
+          // listas
+          var LS = mkListas();
+          h += '<details class="mkDt"><summary class="mkSec">Listas por perfil</summary><div class="hint" style="margin:0 0 6px">Para as listas de transmissão do WhatsApp Business: copie os números e cole na lista.</div><div class="split">' + LS.map(function (l) {
+            return '<div class="sl"><span>' + esc(l.t) + '<small>' + l.cl.length + ' com telefone' + (l.s ? ' · ' + l.s : '') + '</small></span>' + (l.cl.length ? '<button type="button" class="mini" data-lista="' + l.id + '">Copiar</button>' : '<b>—</b>') + '</div>';
+          }).join('') + '</div></details>';
+          // resultados
+          h += '<details class="mkDt"><summary class="mkSec">Resultados</summary>';
+          if (!R.lista.length) h += '<div class="hint" style="margin:0">Poste pelo app: em 2 dias começo a medir vendas e pedidos do site das peças de cada post.</div>';
+          else {
+            h += '<div class="split">' + Object.keys(R.porFmt).map(function (k) {
+              var o = R.porFmt[k];
+              return '<div class="sl"><span>' + MK_FMT[k].t + '<small>' + o.n + ' post(s)</small></span><b>' + (Math.round((o.r / o.n) * 10) / 10).toString().replace('.', ',') + ' vendas/post</b></div>';
+            }).join('') + '</div>';
+            if (R.fmtBom) h += '<div class="hint" style="margin:6px 0 0">Regra do plano: ' + MK_FMT[R.fmtBom].t + ' é o que mais vende' + (R.horaBoa[R.fmtBom] ? ', às ' + R.horaBoa[R.fmtBom] : '') + '.</div>';
+            if (R.ab.A.n && R.ab.B.n) h += '<div class="hint" style="margin:4px 0 0">Teste A/B: versão A ' + (R.ab.A.v / R.ab.A.n).toFixed(1).replace('.', ',') + ' × versão B ' + (R.ab.B.v / R.ab.B.n).toFixed(1).replace('.', ',') + ' vendas por post.</div>';
+          }
+          h += '</details>';
+          // kit
+          var K = mkKit();
+          h += '<details class="mkDt"><summary class="mkSec">Kit da marca</summary><div class="mkKit">' + [['nome', 'Nome'], ['slogan', 'Frase'], ['end', 'Endereço'], ['wa', 'WhatsApp'], ['site', 'Site'], ['tom', 'Tom de voz'], ['tags', 'Hashtags']].map(function (k) {
+            return '<label><span>' + k[1] + '</span><input class="in" data-kit="' + k[0] + '" value="' + esc(K[k[0]] || '') + '"></label>';
+          }).join('') + '<label><span>Idiomas</span><select class="in" data-kit="idioma"><option value="ambos"' + (K.idioma === 'ambos' ? ' selected' : '') + '>Português e Español</option><option value="pt"' + (K.idioma === 'pt' ? ' selected' : '') + '>Português</option><option value="es"' + (K.idioma === 'es' ? ' selected' : '') + '>Español</option></select></label><div class="mkCores">' + EB_EST.map(function (s) { return '<i style="background:' + s.bg + ';border-color:' + s.ac + '"></i>'; }).join('') + '</div></div></details>';
+          c.innerHTML = h;
+        };
+        pinta();
+        c.onclick = function (e) {
+          var b = e.target.closest('button');
+          if (!b) return;
+          if (b.dataset.obj) {
+            S.mkt.obj[mkMes()] = b.dataset.obj;
+            saveSoon();
+            return pinta();
+          }
+          if (b.dataset.feito) {
+            var id = b.dataset.feito;
+            if (S.mkt.feito[id]) delete S.mkt.feito[id];
+            else S.mkt.feito[id] = Date.now();
+            saveSoon();
+            return pinta();
+          }
+          if (b.dataset.lista) {
+            var l = mkListas().filter(function (x) { return x.id === b.dataset.lista; })[0],
+              tx = l.cl.map(function (x) { return x.tel; }).join('\n'),
+              okc = function () { lfToast(l.cl.length + ' números copiados'); };
+            if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(tx).then(okc, okc);
+            else okc();
+            return;
+          }
+          if (b.dataset.cria) mkCria(b.dataset.cria, b.dataset.refs ? b.dataset.refs.split(',').filter(Boolean) : null, b.dataset.pid, pinta);
+        };
+        c.onchange = function (e) {
+          var k = e.target.dataset && e.target.dataset.kit;
+          if (!k) return;
+          mkKit()[k] = e.target.value;
+          saveSoon();
+        };
+      }
+    });
+  }
+  // ---- criar ----
+  function mkCria(fmt, refs, pid, depois) {
+    var obj = mkObj(),
+      n = fmt === 'carr' ? 4 : fmt === 'video' || fmt === 'rot' ? 3 : 1,
+      pecas = refs && refs.length ? refs.filter(itemDoRef).map(function (r) { return { ref: r, f: mkFatos(r) }; }) : mkEscolhe(obj, n);
+    if (!pecas.length) return lfToast('Sem peças com foto e estoque');
+    var E = { ver: 'A', idi: mkKit().idioma || 'ambos', est: 0, estilo: obj === 'girar' ? 'oferta' : obj === 'lanc' ? 'rapido' : 'elegante' };
+    lfJanela({
+      titulo: MK_FMT[fmt].t + (fmt === 'rot' ? ' de vídeo' : ''),
+      cls: 'mkJn mkCrJn',
+      monta: function (c, J) {
+        var pinta = function () {
+          var h = '<div class="mkWhy"><b>Por que estas peças</b>' + pecas.map(function (p) {
+            return '<div><span>' + esc(p.f.nome) + '</span><small>' + esc(mkPorque(p.f, obj).join(' · ')) + '</small></div>';
+          }).join('') + '</div>';
+          if (fmt === 'rot') {
+            var rt = mkRoteiro(pecas, obj);
+            h += '<div class="mkRot">' + rt.map(function (r) {
+              return '<div><b>' + r.t + '</b><small>' + esc(r.plano) + '</small><p>“' + esc(r.fala) + '”</p></div>';
+            }).join('') + '</div><button type="button" class="go" id="mkTp">Abrir teleprompter</button><button type="button" class="mini" id="mkMv" style="width:100%">Montar vídeo com as fotos</button>';
+            c.innerHTML = h;
+            $('mkTp').onclick = function () {
+              mkTeleprompter(rt.map(function (r) { return r.fala; }).join('\n'));
+            };
+            $('mkMv').onclick = function () {
+              J.fecha();
+              mkCria('video', pecas.map(function (p) { return p.ref; }), pid, depois);
+            };
+            return;
+          }
+          if (fmt === 'video')
+            h += '<div class="trk mkTrk" id="mkEsl"><span class="trkTh"></span><button type="button" class="trkB" data-m="elegante">Elegante</button><button type="button" class="trkB" data-m="rapido">Rápido</button><button type="button" class="trkB" data-m="oferta">Oferta</button></div><div class="hint" style="margin:6px 0">15 segundos · gerado no celular · ' + pecas.length + ' peça(s)</div>';
+          else h += '<div class="mkPv" id="mkPv"></div>';
+          h += '<div class="mkLin"><div class="trk mkTrk" id="mkVer"><span class="trkTh"></span><button type="button" class="trkB" data-m="A">Versão A</button><button type="button" class="trkB" data-m="B">Versão B</button></div>' +
+            '<div class="trk mkTrk" id="mkIdi"><span class="trkTh"></span><button type="button" class="trkB" data-m="pt">PT</button><button type="button" class="trkB" data-m="es">ES</button><button type="button" class="trkB" data-m="ambos">PT+ES</button></div></div>' +
+            (fmt !== 'video' ? '<div class="ebEst" id="mkEst">' + EB_EST.map(function (s, k) { return '<button type="button" data-k="' + k + '" style="background:' + s.bg + '"' + (k === E.est ? ' class="on"' : '') + '></button>'; }).join('') + '</div>' : '') +
+            '<textarea class="in ebTx" id="mkTx" rows="7"></textarea>' +
+            '<button type="button" class="go" id="mkPost">Postar agora' + (shUlt() ? ' no ' + esc((SH_APPS.filter(function (a) { return a.id === shUlt(); })[0] || {}).nome || '') : '') + '</button>' +
+            '<button type="button" class="mini" id="mkLemb" style="width:100%">Me lembra às ' + mkHoraBoa(fmt) + '</button>';
+          c.innerHTML = h;
+          $('mkTx').value = mkLegenda(pecas, obj, E.ver, E.idi, fmt);
+          [['mkVer', 'ver'], ['mkIdi', 'idi'], ['mkEsl', 'estilo']].forEach(function (z) {
+            var t = $(z[0]);
+            if (!t) return;
+            trkMarca(t, E[z[1]]);
+            t.onclick = function (e) {
+              var bb = e.target.closest('.trkB');
+              if (!bb) return;
+              E[z[1]] = bb.dataset.m;
+              trkMarca(t, E[z[1]]);
+              if (z[1] !== 'estilo') $('mkTx').value = mkLegenda(pecas, obj, E.ver, E.idi, fmt);
+            };
+          });
+          if ($('mkEst'))
+            $('mkEst').onclick = function (e) {
+              var bb = e.target.closest('button');
+              if (!bb) return;
+              E.est = +bb.dataset.k;
+              [].forEach.call(this.children, function (x, k) {
+                x.classList.toggle('on', k === E.est);
+              });
+              prev();
+            };
+          var prev = function () {
+            var pv = $('mkPv');
+            if (!pv) return;
+            Promise.all(pecas.map(function (p) { return envImg(p.f.foto); })).then(function (ims) {
+              pv.innerHTML = '';
+              pecas.forEach(function (p, k) {
+                var cv = mkImagem(p.f, ims[k], fmt, E.est, k, pecas.length);
+                cv.className = 'mkCv';
+                pv.appendChild(cv);
+              });
+            });
+          };
+          prev();
+          $('mkPost').onclick = function () {
+            mkPosta(fmt, pecas, E, $('mkTx').value, pid).then(function () {
+              J.fecha();
+              if (depois) depois();
+            });
+          };
+          $('mkLemb').onclick = function () {
+            var hh = parseInt(mkHoraBoa(fmt), 10),
+              d = new Date();
+            d.setHours(hh, 0, 0, 0);
+            if (d.getTime() <= Date.now()) d = new Date(d.getTime() + DAY);
+            S.mkt.lemb.push({ ts: d.getTime(), fmt: fmt, refs: pecas.map(function (p) { return p.ref; }), pid: pid || '' });
+            saveSoon();
+            J.fecha();
+            lfToast('Te lembro às ' + hh + 'h');
+          };
+        };
+        pinta();
+      }
+    });
+  }
+  function mkPosta(fmt, pecas, E, txt, pid) {
+    var ap = SH_APPS.filter(function (a) { return a.id === shUlt(); })[0] || { id: 'mais', nome: 'Mais' },
+      P = shPlug(),
+      reg = function () {
+        S.mkt.posts.push({ ts: Date.now(), fmt: fmt, refs: pecas.map(function (p) { return p.ref; }), ver: E.ver, obj: mkObj() });
+        if (S.mkt.posts.length > 300) S.mkt.posts = S.mkt.posts.slice(-300);
+        if (pid) S.mkt.feito[pid] = Date.now();
+        saveSoon();
+      };
+    var envia = function (arqs, b64) {
+      reg();
+      if (P) return P.send({ pkg: ap.pkg || '', text: txt, files: b64 || [] }).catch(function () {});
+      if (navigator.share && (!arqs.length || (navigator.canShare && navigator.canShare({ files: arqs })))) return navigator.share(arqs.length ? { files: arqs, text: txt } : { text: txt }).catch(function () {});
+      window.open('https://wa.me/?text=' + encodeURIComponent(txt), '_blank');
+    };
+    if (fmt === 'video') {
+      loadMsg(true, 'Gravando o vídeo (15 s)');
+      return mkVideo(pecas, E.est, E.estilo)
+        .then(function (bl) {
+          loadMsg(false);
+          var ext = /mp4/.test(bl.type) ? 'mp4' : 'webm',
+            f = new File([bl], 'lafouch-video.' + ext, { type: bl.type });
+          if (P)
+            return new Promise(function (ok) {
+              var r = new FileReader();
+              r.onload = function () {
+                reg();
+                P.send({ pkg: ap.pkg || '', text: txt, files: [], video: String(r.result).split(',')[1], ext: ext }).catch(function () {}).then(ok);
+              };
+              r.readAsDataURL(bl);
+            });
+          return envia([f]);
+        })
+        .catch(function (e) {
+          loadMsg(false);
+          lfToast('Não consegui gravar o vídeo: ' + ((e && e.message) || 'erro'));
+        });
+    }
+    return Promise.all(pecas.map(function (p) { return envImg(p.f.foto); })).then(function (ims) {
+      var cvs = pecas.map(function (p, k) {
+        return mkImagem(p.f, ims[k], fmt, E.est, k, pecas.length);
+      });
+      if (fmt !== 'carr') cvs = cvs.slice(0, 1);
+      return Promise.all(cvs.map(envBlob)).then(function (bl) {
+        var arqs = bl.map(function (b, k) {
+          return new File([b], 'lafouch-' + fmt + '-' + (k + 1) + '.jpg', { type: 'image/jpeg' });
+        });
+        return envia(arqs, cvs.map(shB64));
+      });
+    });
+  }
+  ACT.mkAbre = function () {
+    mkAbre();
+  };
+  // Lembretes "Me lembra às 20h": viram aviso no sino na hora.
+  function mkLembra() {
+    var now = Date.now(),
+      vence = (S.mkt.lemb || []).filter(function (l) {
+        return l.ts <= now;
+      });
+    if (!vence.length) return;
+    S.mkt.lemb = S.mkt.lemb.filter(function (l) {
+      return l.ts > now;
+    });
+    vence.forEach(function (l) {
+      (S.notifs = S.notifs || []).unshift({ ts: now, lida: false, t: 'Hora de postar: ' + MK_FMT[l.fmt].t, s: l.refs.map(pn).slice(0, 3).join(', '), acts: [{ act: 'mkAbre', id: '', b: 'Abrir Marketing' }] });
+    });
+    saveSoon();
+    render();
+  }
+  if (!/#test/.test(location.hash)) setInterval(mkLembra, 60000);
+  // Botão Marketing no Início
+  ICO_D.mkt = '<path d="M3 10v4h3l7 5V5L6 10z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/>';
+  if (INI_PADRAO.indexOf('mkt') < 0) INI_PADRAO.push('mkt');
+  if (INI_TODOS.indexOf('mkt') < 0) INI_TODOS.push('mkt');
   // ===== Cliente na venda + tela "Venda confirmada" com o comprovante de venda (sempre em G$, IVA 10% incluso). =====
   // O app NÃO emite nota fiscal: imprime o comprovante (sem valor fiscal) para qualquer cliente.
   // Paraguaio com RUC: o comprovante leva Nombre/RUC (dados que a máquina fiscal usa). Estrangeiro: nome e CI/CPF, nunca RUC.
@@ -38911,6 +40332,8 @@
       'clientes',
       'cliNext',
       'inicioCli',
+      'inicioMkt',
+      'mkt',
       'inicioOnl',
       'notaCidade',
       'maxVar',
@@ -38944,6 +40367,7 @@
       'lcQtd',
       'lcPed',
       'vit',
+      'fpOk',
       'siteAutoLote',
       'superEv',
       'encAv',
@@ -39082,7 +40506,7 @@
   if (/(^|[#&])test\b/.test(location.hash))
     window.__LF = {
       barMoedas: barMoedas,
-      animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd,
+      animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
       S: S, envFolha: window.__envFolha, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,

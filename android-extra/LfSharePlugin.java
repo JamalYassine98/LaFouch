@@ -65,8 +65,24 @@ public class LfSharePlugin extends Plugin {
                 o.close();
                 uris.add(FileProvider.getUriForFile(getContext(), getContext().getPackageName() + ".fileprovider", f));
             }
+            String video = call.getString("video", "");
+            boolean ehVideo = false;
+            if (video != null && video.length() > 0) {
+                String ext = call.getString("ext", "mp4");
+                byte[] vb = Base64.decode(video, Base64.DEFAULT);
+                File vf = new File(dir, "lafouch_" + System.currentTimeMillis() + "_v." + ext);
+                FileOutputStream vo = new FileOutputStream(vf);
+                vo.write(vb);
+                vo.close();
+                uris.add(FileProvider.getUriForFile(getContext(), getContext().getPackageName() + ".fileprovider", vf));
+                ehVideo = true;
+            }
             Intent it;
-            if (uris.size() > 1) {
+            if (ehVideo) {
+                it = new Intent(Intent.ACTION_SEND);
+                it.putExtra(Intent.EXTRA_STREAM, uris.get(uris.size() - 1));
+                it.setType("video/*");
+            } else if (uris.size() > 1) {
                 it = new Intent(Intent.ACTION_SEND_MULTIPLE);
                 it.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
                 it.setType("image/jpeg");

@@ -100,7 +100,7 @@
               }
             },
             'Foto da cor ' + p.cor,
-            { gallery: true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
+            { gallery: true, peca: p.ref + '|' + p.cor, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
           );
         });
         fb.innerHTML = NV_ICAM + '<span>Fotografar</span>';

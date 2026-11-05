@@ -1368,6 +1368,8 @@ async def main():
                 await pg.evaluate("() => { const l = [...document.querySelectorAll('input[type=file][capture]')].filter(i => i.parentNode.querySelector('button')); l[l.length - 1].click(); }")
             fc = await fcs.value
             await fc.set_files(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'fixtures', 'peca.jpg')); await pg.wait_for_timeout(900)
+            # v429: a foto passa pela conferência (Foto aprovada / Vamos tirar de novo?)
+            await pg.wait_for_timeout(600); await pg.evaluate("() => { const ok = /Foto aprovada/.test((document.querySelector('.fpJn') || {}).innerText || ''); const b = document.getElementById(ok ? 'fpA' : 'fpB'); if (b) b.click(); }"); await pg.wait_for_timeout(1200)
             linha = await pg.evaluate("() => [document.querySelectorAll('#nvCoresL .cfRow.nova').length, document.querySelector('#nvCoresL .cfCor').textContent.replace('▾','').trim(), document.getElementById('nvFim').disabled]")
             await pg.click('#nvCoresL .cfStep [data-d="1"]'); await pg.wait_for_timeout(400)
             tot = await pg.inner_text('#nvTot')
@@ -1441,7 +1443,7 @@ async def main():
             await pg.locator('#mainnav button[data-id="estoque"]').click(); await pg.wait_for_timeout(300)
             r3 = await pg.evaluate("() => window.__LF.S.view")
             total += 1
-            ok = r == ['inicio', 11] and r2 == ['dash', 'giro'] and r3 == 'estoque' and not pg.erros
+            ok = r == ['inicio', 12] and r2 == ['dash', 'giro'] and r3 == 'estoque' and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'tela Início: 13 botões + barra levam às telas certas')
             if not ok: falhas.append('inicio'); print('        veio', r, r2, r3, pg.erros)
             await pg.close()
@@ -2820,6 +2822,55 @@ async def main():
             ok = not got[0].startswith('2 ') and got[1] == '2' and got[2] == [0, 0] and got[3].startswith('2') and got[4] is True and got[5] == ['solar'] and got[6] == ['F'] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'catálogo: janela de ajustes (rascunho, Cancelar desfaz, filtros, bolinha)')
             if not ok: falhas.append('janela ajustes'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # Fotos (v429): foto boa → "Foto aprovada" no padrão 1200×900 sem sombra; foto ruim → motivo + "Usar mesmo assim"; Ajustes › Fotos
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, w = ms => new Promise(r => setTimeout(r, ms));
+              const mkF = (fundo, encosta) => new Promise(ok => { const c = document.createElement('canvas'); c.width = 800; c.height = 600; const g = c.getContext('2d');
+                g.fillStyle = fundo; g.fillRect(0, 0, 800, 600); g.fillStyle = 'rgba(0,0,0,.08)'; g.fillRect(150, 380, 500, 60);
+                g.strokeStyle = '#222'; g.lineWidth = 14; g.strokeRect(encosta ? 0 : 160, 220, 200, 140); g.strokeRect(440, 220, 200, 140); g.beginPath(); g.moveTo(360, 250); g.lineTo(440, 250); g.stroke();
+                c.toBlob(b => ok(new File([b], 'x.jpg', {type: 'image/jpeg'})), 'image/jpeg', .95); });
+              let rec = null; L.fpResultado(await mkF('#f6f6f6', false), (f, i) => { rec = [f, i]; }, () => {}, {peca: 'X|Preto'}); await w(900);
+              const tit = document.querySelector('.ljJn .ljHd') ? document.querySelector('.ljJn').innerText : '';
+              document.getElementById('fpA').click(); await w(700);
+              const im = new Image(); im.src = URL.createObjectURL(rec[0]); await new Promise(r => im.onload = r);
+              const c2 = document.createElement('canvas'); c2.width = im.width; c2.height = im.height; const g2 = c2.getContext('2d'); g2.drawImage(im, 0, 0);
+              const px = g2.getImageData(600, 750, 1, 1).data; // onde estava a sombra
+              let rec2 = null; L.fpResultado(await mkF('#f6f6f6', true), f => { rec2 = f; }, () => {}, {peca: true}); await w(900);
+              const tit2 = document.querySelectorAll('.ljJn').length ? [...document.querySelectorAll('.ljJn')].pop().innerText : '';
+              document.getElementById('fpB').click(); await w(300);
+              return [/Foto aprovada/.test(tit), /3\/4/.test(tit), rec[1] && rec[1].padrao, im.width, im.height, px[0] > 250 && px[1] > 250, /tirar de novo/i.test(tit2), /borda/i.test(tit2), !!rec2 && rec2.name === 'x.jpg']; }""")
+            await pg.evaluate("() => { const L = window.__LF; L.setView('ajustes'); }"); await pg.wait_for_timeout(300)
+            aj = await pg.evaluate("() => !!document.querySelector('.ajS[data-k=foto]')")
+            total += 1
+            ok = got == [True, True, True, 1200, 900, True, True, True, True] and aj and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'fotos: aprovada no padrão sem sombra (1200×900), recusada com motivo e "Usar mesmo assim", Ajustes › Fotos')
+            if not ok: falhas.append('fotos padrao'); print('        veio', got, aj, pg.erros)
+            await pg.close()
+
+            # Marketing (v430): botão no Início, objetivo muda o plano, feito, criar post com fatos reais (urgência só real), lembrete, datas
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              L.setView('inicio'); await w(300);
+              const tem = !!document.querySelector('[data-act=inicio][data-id=mkt]'); document.querySelector('[data-act=inicio][data-id=mkt]').click(); await w(600);
+              const n6 = document.querySelectorAll('.mkPi').length;
+              document.querySelector('.mkObj [data-obj=solar]').click(); await w(200);
+              const plano = L.mkPlano(), solar = plano[0].refs.every(r => S.items.find(i => i.ref === r).tipo === 'solar');
+              document.querySelector('.mkCk').click(); await w(200); const feito = document.querySelector('.mkPi').classList.contains('ok');
+              const ref = plano[0].refs[0]; S.items.filter(i => i.ref === ref).forEach((i, k) => i.qty = k ? 0 : 1);
+              const leg = L.mkLegenda([{ref, f: L.mkFatos(ref)}], 'solar', 'A', 'ambos', 'post');
+              S.items.filter(i => i.ref === ref).forEach(i => i.qty = 5);
+              const leg2 = L.mkLegenda([{ref, f: L.mkFatos(ref)}], 'solar', 'B', 'pt', 'post');
+              document.querySelector('.mkCr [data-cria=post]').click(); await w(900);
+              const tx = document.getElementById('mkTx').value, cv = !!document.querySelector('.mkCv');
+              document.getElementById('mkLemb').click(); await w(200);
+              const p = L.mkPascoa(2027);
+              return [tem, n6, solar, feito, /Última unidade/.test(leg) && /Última unidad[.]/.test(leg) && /— ES —/.test(leg), !/Últimas? unidade/.test(leg2) && !/— ES —/.test(leg2), /WhatsApp/.test(tx), cv, S.mkt.lemb.length, p.getMonth() + '-' + p.getDate()]; }""")
+            total += 1
+            ok = got == [True, 6, True, True, True, True, True, True, 1, '2-28'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Marketing: Início, objetivo muda o plano, feito, legenda com fatos reais (urgência só real), PT/ES, lembrete, Páscoa')
+            if not ok: falhas.append('marketing'); print('        veio', got, pg.erros)
             await pg.close()
 
             # Giro (v428): lista de compras (sem cor, por grau, − / +, total × reposição, pedido que confere sozinho) e vitrine da semana

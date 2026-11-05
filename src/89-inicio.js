@@ -93,6 +93,11 @@
       S.inicioOnl = true;
       if (S.inicioT.indexOf('onl') < 0) S.inicioT = S.inicioT.concat(['onl']);
     }
+    // v430: quem já personalizou o Início recebe o botão Marketing uma única vez (pode esconder depois)
+    if (Array.isArray(S.inicioT) && !S.inicioMkt) {
+      S.inicioMkt = true;
+      if (S.inicioT.indexOf('mkt') < 0) S.inicioT = S.inicioT.concat(['mkt']);
+    }
     var l = Array.isArray(S.inicioT) ? S.inicioT : INI_PADRAO;
     return l.filter(function (id, i) {
       return INI_TODOS.indexOf(id) >= 0 && l.indexOf(id) === i;
@@ -126,7 +131,8 @@
       cli: ['Clientes', [S.clientes.length + (S.clientes.length === 1 ? ' cadastrado' : ' cadastrados'), '']],
       ped: ['Pedidos online', [pedNovos() + ' novos', pedNovos() ? 'w' : '']],
       onl: ['Loja online', ['Catálogo e site', '']],
-      notif: ['Notificações', [notifContagem() + ' avisos', notifContagem() ? 'w' : '']]
+      notif: ['Notificações', [notifContagem() + ' avisos', notifContagem() ? 'w' : '']],
+      mkt: ['Marketing', ['Posts, vídeos e plano', '']]
     };
   }
   function renderInicio() {
@@ -197,6 +203,8 @@
     } else if (id === 'cat') {
       S.catOpen = true;
       setView('vendas');
+    } else if (id === 'mkt') {
+      mkAbre();
     } else if (id === 'cli') {
       setView('clientes');
     } else if (id === 'novo') {
@@ -216,7 +224,7 @@
   var BARRA_NOME = {
     vendas: 'Catálogo', estoque: 'Inventário', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Resumo',
     din: 'Dinheiro', giro: 'Giro', prec: 'Preços', cat: 'Catálogo', ajustes: 'Ajustes', ped: 'Pedidos', onl: 'Loja',
-    cli: 'Clientes', cont: 'Contagem', lotes: 'Fornecedores', novo: 'Novo', notif: 'Avisos'
+    cli: 'Clientes', cont: 'Contagem', lotes: 'Fornecedores', novo: 'Novo', notif: 'Avisos', mkt: 'Marketing'
   };
   function barraLista() {
     iniLista();

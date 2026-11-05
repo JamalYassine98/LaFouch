@@ -281,6 +281,15 @@
   // Câmera do app: visor, disparo, galeria, lanterna e prévia.
   function camOpen0(done, title, opts) {
     opts = opts || {};
+    // v429: câmera de produto → guia + conferência da foto (Foto aprovada / Vamos tirar de novo?)
+    if (opts.peca && !opts.fpSem) {
+      var dOrig = done;
+      done = function (f) {
+        fpResultado(f, dOrig, function () {
+          camOpen(dOrig, title, opts);
+        }, opts);
+      };
+    }
     LIVEX = null;
     var DZ = 1; /* zoom digital (quando o aparelho não oferece zoom na câmera) */
     var HZ = 0,
@@ -360,6 +369,7 @@
     stg.appendChild(gd);
     stg.appendChild(ring);
     stg.appendChild(tip);
+    if (opts.peca) fpGuia(stg, gd, vid, tip, opts);
     var LV = opts.live && !REDUCED ? leitorVisor(gd, stg) : null;
     /* leitor de documento: acha o contorno do papel (região clara) e o acompanha, como câmera de scanner */
     var DOC = null;
@@ -735,6 +745,11 @@
         c.toBlob(
           function (bl) {
             if (!bl) return;
+            if (opts.peca) {
+              camClose();
+              done(new File([bl], 'foto.jpg', { type: 'image/jpeg' }));
+              return;
+            }
             var url = URL.createObjectURL(bl);
             pv.src = url;
             pv.style.display = 'block';

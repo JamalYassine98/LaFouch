@@ -379,7 +379,7 @@
         nvFoto(f);
       },
       titulo,
-      { gallery: true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
+      { gallery: true, peca: S._ref && NVC.fotoCor ? S._ref + '|' + NVC.fotoCor : true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
     );
   }
   function nvFoto(f) {

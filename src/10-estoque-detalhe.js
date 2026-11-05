@@ -196,7 +196,7 @@
           $('file').onchange({ target: { files: [f] } });
         },
         'Foto da cor ' + cor,
-        { gallery: true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
+        { gallery: true, peca: ref + '|' + cor, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
       );
     }
     var head = mk('div', '');
@@ -794,7 +794,7 @@
             $('file').onchange({ target: { files: [fl] } });
           },
           'Foto da cor ' + c,
-          { gallery: true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
+          { gallery: true, peca: ref + '|' + c, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
         );
       };
       var hd = mk('div', '');
@@ -1305,7 +1305,7 @@
             im.src = url;
           },
           'Foto da cor nova',
-          { gallery: true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
+          { gallery: true, peca: true, tip: 'Ponha UMA peça inteira dentro do retângulo. Toque na tela para focar.' }
         );
       }
       function edCorSheet(w) {
