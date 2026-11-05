@@ -132,9 +132,10 @@ TESTES = [
  ("primeira abertura: app limpo com os 20 modelos do catálogo", """
    L.primeiroUso();
    return [S.items.length>0, S.items.length<=40, S.sales.length, S.exp.length, S.cash.pyg, S.ini.rep, Object.keys(S.fotos).length>0, S.view]""", [True, True, 0, 0, 0, 0, True, 'dash']),
- ("piso: sem faixa só cobre o custo; com faixa entra a margem", """
-   L.primeiroUso(); const it=S.items[0], a=L.pisoPeca(it).piso; S.linhaFix={}; S.linhaFix[it.ref]='f3'; S._linK=null; S._linC=null; const b=L.pisoPeca(it);
-   return [a>0, b.piso>a, b.margem]""", [True, True, 0.5]),
+ ("piso: linha de 30% x linha de 50% (a de 50% tem piso maior e margem 0,5)", """
+   L.primeiroUso(); const it=S.items[0]; S.linhaFix={}; S.linhaFix[it.ref]='f1'; S._linK=null; S._linC=null; const a=L.pisoPeca(it);
+   S.linhaFix[it.ref]='f3'; S._linK=null; S._linC=null; const b=L.pisoPeca(it);
+   return [a.piso>0, b.piso>a.piso, a.margem<b.margem, b.margem]""", [True, True, True, 0.5]),
  ("rateio das contas: proporcional ao custo soma as contas do mês e peça cara carrega mais", """
    L.primeiroUso(); S.exp=[{id:1,nome:'Aluguel',cat:'loja',tipo:'fixa',moeda:'pyg',orig:1800000,valor:1800000,rate0:1,hist:[],dia:10}];
    const ids=[...new Set(S.items.map(i=>i.tipo))]; S.metaDia={}; ids.forEach(t=>{S.metaDia[t]=2}); S.diasLoja=26;

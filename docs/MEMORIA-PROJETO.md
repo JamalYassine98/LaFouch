@@ -887,3 +887,6 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
   - Plano da semana: 6 itens Seg–Sáb (Post, Status, Carrossel, Story, Vídeo, Post/o que mais deu resultado) com horário aprendido; tocar abre a criação; bolinha marca feito.
   - Datas que vêm aí (60 dias; BR e PY, incl. Páscoa/Carnaval/Semana Santa calculadas, Black Friday, Dia das Mães BR 2º dom. maio, Día de la Madre PY 15/05, Primavera PY 21/09…). Listas por perfil (Estrangeiros, Paraguaios, Compraram solar/grau/armação, Sem comprar há 90+ dias = só novidades, sem insistir) → "Copiar" números para a lista de transmissão. Resultados: vendas + pedidos do site das peças nos 7 dias depois de cada post (a partir de 2 dias), por formato e horário → vira regra do plano; teste A/B. Kit da marca editável (nome, frase, endereço, WhatsApp, site, tom, idiomas, hashtags, cores).
 - Site: o link da peça (lafouch.com/p/REF.html) já leva à reserva pelo WhatsApp ("Quero este").
+
+## 05/11/2026 07:05 — Teste do piso corrigido (aprovado: "Pode implementar")
+- Build do APK falhou no teste "piso: sem faixa…" (desatualizado desde a linha automática v423: toda peça já tem linha). Agora compara linha de 30% (f1) × 50% (f3). Só o teste mudou; o app não. 259/259 com TZ=America/Asuncion.
