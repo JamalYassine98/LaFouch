@@ -933,3 +933,11 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Botão "▶ Como fotografar" no topo do Estúdio (ao lado do ×) → janela de baixo com 4 abas: Estúdio, Câmera (Topo / Na imagem / Embaixo), Depois, ▶ Vídeo. Cada item com o desenho do botão + o que faz (EST_GUIA em 97-estudio.js).
 - Vídeo www/estudio-tutorial.mp4 (78 s, SEM SOM, 720×1280), passo 6 (3/4) com o giro REAL do vídeo do prato do dono; lista dos 8 passos com o tempo (toque pula). APK antigo sem o arquivo → busca no site (UPD_URL).
 - Fonte do vídeo: scratchpad tut/tut.html (cenas em HTML renderizadas por quadro). Dono pediu: sem som; 3/4 não pode ser girada falsa.
+
+## v437 (5.3.5) — 05/11/2026 — Medir fundo não estoura mais (dono: "confio que fará os ajustes corretos")
+- Problema (Xiaomi 13T, caixa de luz): imagem toda branca depois do Medir fundo e "trava nesse branco" ao mover. Causas: mirava 247; media só a borda; 1º chute de velocidade ~0,6 s (câmera manda 1 imagem a cada tanto = parece travada); o celular não deixa passar de 1/146 no manual, que já estoura; perfil travado sem como sair.
+- Agora: mira ~225 na hora da foto (a foto final continua 255 pelo tratamento, sem mexer na armação); mede borda + centro (75% mais claro do centro); se >1% estourado escurece 1 ponto por vez; usa o brilho AUTOMÁTICO + compensação EXP. (manual só se o celular não tiver EXP.; se nem o mínimo do manual basta → "Luz forte demais para o manual · usando automático").
+- Prévia nunca passa de 1/30 s. Régua da VELOC. em passos (1/1000, 1/500, 1/250, 1/125, 1/60, 1/30).
+- Tocar em "Fundo travado 255" → "Medir de novo" / "Voltar ao automático" (apaga o perfil).
+- Aviso "Peça estourada · toque para corrigir" (>3% branco puro no meio com fundo travado) → escurece um passo.
+- Perfil salvo antes da v437 (sem v:2) é descartado ao abrir a câmera → volta ao automático sozinho.

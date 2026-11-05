@@ -2916,6 +2916,46 @@ async def main():
             if not ok: falhas.append('estudio tutorial'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Medir fundo (v437): câmera falsa que estoura (caixa de luz forte). Mira ~225 sem estourar, usa EXP. no automático,
+            # perfil antigo travado é descartado, régua da VELOC. em passos até 1/30, menu Medir de novo / Voltar ao automático
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, w = ms => new Promise(r => setTimeout(r, ms));
+              const sim = { comp: 0, mode: 'continuous', et: null, pedidos: [] };
+              navigator.mediaDevices.getUserMedia = async () => {
+                const c = document.createElement('canvas'); c.width = 320; c.height = 180; const g = c.getContext('2d');
+                const pinta = () => { const k = sim.mode === 'manual' && sim.et ? sim.et / 68 : Math.pow(2, sim.comp);
+                  const cen = Math.min(255, Math.round(320 * k)), bor = Math.min(255, Math.round(290 * k));
+                  g.fillStyle = `rgb(${bor},${bor},${bor})`; g.fillRect(0, 0, 320, 180);
+                  g.fillStyle = `rgb(${cen},${cen},${cen})`; g.fillRect(30, 25, 260, 130);
+                  g.fillStyle = '#333'; g.fillRect(120, 80, 80, 12); };
+                pinta(); setInterval(pinta, 50);
+                const s = c.captureStream(30), t = s.getVideoTracks()[0];
+                t.getCapabilities = () => ({ exposureTime: { min: 68, max: 300000, step: 1 }, iso: { min: 50, max: 3200, step: 1 }, exposureCompensation: { min: -3, max: 3, step: 1/6 }, colorTemperature: { min: 2500, max: 10000, step: 100 }, exposureMode: ['continuous', 'manual'] });
+                t.getSettings = () => ({ exposureCompensation: sim.comp });
+                t.applyConstraints = async (o) => { const a = (o.advanced || [])[0] || {}; sim.pedidos.push(a);
+                  if (a.exposureMode) sim.mode = a.exposureMode; if (a.exposureTime != null) sim.et = a.exposureTime; if (a.exposureCompensation != null) sim.comp = a.exposureCompensation; };
+                return s; };
+              L.S.estPerfil = { salvo: true, et: 6000, iso: 50, k: 5500 };
+              L.estAbre(); await w(200); document.querySelector('[data-e=medir]').click(); await w(1800);
+              const descartou = L.S.estPerfil === null && sim.mode !== 'manual';
+              const b = document.getElementById('ecFundo'); b.click(); await w(9500);
+              const P = L.S.estPerfil || {}, m = document.getElementById('ecMsg').innerText;
+              const semManual = !sim.pedidos.some(a => a.exposureMode === 'manual' && a.exposureTime > 334);
+              const fundo = Math.round(320 * Math.pow(2, sim.comp));
+              b.click(); await w(100); const menu = [...document.querySelectorAll('#ecMsg .ecMsgB')].map(x => x.textContent);
+              document.querySelector('#ecMsg [data-c=auto]').click(); await w(200);
+              const auto = L.S.estPerfil === null && b.textContent === 'Medir fundo' && sim.comp === 0 && sim.mode === 'continuous';
+              document.querySelector('#ecPro [data-p=et]').click(); await w(50); const R = document.getElementById('ecR');
+              const passos = +R.max + 1; R.value = R.max; R.dispatchEvent(new Event('input')); await w(400);
+              const vel = document.getElementById('ecDv').textContent;
+              document.querySelector('[data-c=x]').click();
+              return [descartou, P.v === 2 && P.salvo, fundo >= 212 && fundo <= 240, /pronto/.test(m), semManual, menu, auto, passos, vel, sim.et <= 334]; }""")
+            total += 1
+            ok = got[:6] == [True, True, True, True, True, ['Medir de novo', 'Voltar ao automático']] and got[6:] == [True, 4, '1/30', True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Medir fundo: mira ~225 sem estourar pela EXP., descarta perfil travado, VELOC. em passos até 1/30, menu Medir de novo / Voltar ao automático')
+            if not ok: falhas.append('medir fundo v437'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Marketing (v430): botão no Início, objetivo muda o plano, feito, criar post com fatos reais (urgência só real), lembrete, datas
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
