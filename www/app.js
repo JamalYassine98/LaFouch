@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 433;
+  var APP_BUILD = 434;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.3.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.3.2'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -31326,6 +31326,13 @@
             }).join('') + (F.length > 40 ? '<div class="hint" style="margin:6px 0 0">e mais ' + (F.length - 40) + '…</div>' : '')
           : '<div class="note n-ok">Todas as peças com foto no padrão.</div>') +
         '</section>' +
+        ((S.estPend || []).length
+          ? '<section class="estCard"><div class="estLbl">Fotos aguardando cadastro · ' + S.estPend.length + '</div>' +
+            S.estPend.map(function (x) {
+              return '<div class="estIt estPd"><span class="estTh"><img src="' + esc(x.t) + '" alt=""></span><span class="estTx"><b>Peça sem cadastro</b><small>' + new Date(x.ts).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) + (x.t34 ? ' · frente e 3/4' : ' · frente') + ' · nota ' + x.n + '</small></span><button type="button" class="mini" data-pd="' + x.id + '" data-a="ligar">Ligar</button><button type="button" class="mini estApg" data-pd="' + x.id + '" data-a="apagar" aria-label="Apagar">×</button></div>';
+            }).join('') +
+            '</section>'
+          : '') +
         '<section class="estCard"><div class="estLbl">Catálogo</div><div class="estRow" style="justify-content:space-between"><span>Fotos no padrão</span><b style="color:var(--ok)">' + P.ok + ' de ' + P.t + '</b></div></section>' +
         '</div>';
     };
@@ -31345,10 +31352,17 @@
         return pinta();
       }
       if (b.dataset.e === 'medir') return estCam({ medir: true, depois: pinta });
-      if (b.dataset.e === 'nova') {
-        ov.remove();
-        setView('novo');
-        return;
+      if (b.dataset.e === 'nova') return estNova(pinta);
+      if (b.dataset.pd) {
+        var pd = (S.estPend || []).filter(function (x) { return x.id === b.dataset.pd; })[0];
+        if (!pd) return;
+        if (b.dataset.a === 'apagar') {
+          S.estPend = S.estPend.filter(function (x) { return x !== pd; });
+          idbDo('hq', 'readwrite', function (o) { o.delete('pend|' + pd.id); return o.delete('pend|' + pd.id + '|34'); }).catch(function () {});
+          saveSoon();
+          return pinta();
+        }
+        return estDestino({ pend: pd }, pinta);
       }
       if (b.dataset.e === 'sessao') return estSessao(F.slice(), 0, pinta);
       if (b.dataset.i != null) {
@@ -31889,7 +31903,7 @@
     var passo = ctx.passo || 'frente',
       ok = !!R.cv && R.n >= 60,
       cor = R.n >= 75 ? 'var(--ok)' : R.n >= 60 ? 'var(--warn)' : 'var(--bad)',
-      tem34 = !!ctx.k;
+      tem34 = !!ctx.k || !!ctx.nova;
     ov.innerHTML =
       '<div class="estHd"><h1 style="font-size:22px">' + esc(ctx.titulo || 'Foto da peça') + '</h1><button type="button" class="estX" data-r="x" aria-label="Fechar">×</button></div>' +
       '<div class="estBody">' +
@@ -31921,6 +31935,16 @@
       }
       if (r === 'usar') {
         ov.remove();
+        if (ctx.nova) {
+          // Nova peça: guarda e segue (frente → 3/4 → "De qual peça é?")
+          ctx.fotos = ctx.fotos || {};
+          ctx.fotos[passo] = R;
+          if (passo === 'frente' && ctx.vivo)
+            return setTimeout(function () {
+              estCam(Object.assign({}, ctx, { passo: '34' }));
+            }, 350);
+          return estDestino(ctx, ctx.fim);
+        }
         if (passo === 'frente') {
           if (ctx.salva && ctx.k) estGrava(ctx.k, 'frente', R);
           if (ctx.done) {
@@ -31949,6 +31973,13 @@
   // vídeo 360 no prato (opcional): grava 12 s pela câmera e oferece enviar/usar no Marketing
   function estVideo360(ctx, R) {
     if (R && R.cv && ctx.k) estGrava(ctx.k, '34', R);
+    if (ctx.nova) {
+      ctx.fotos = ctx.fotos || {};
+      if (R && R.cv) ctx.fotos['34'] = R;
+      ctx.prox = function () {
+        estDestino(ctx, ctx.fim);
+      };
+    }
     if (!(navigator.mediaDevices && window.MediaRecorder)) {
       lfToast('Este aparelho não grava vídeo pelo app');
       if (ctx.prox) ctx.prox();
@@ -31998,6 +32029,108 @@
       lfToast('Não consegui abrir a câmera');
       if (ctx.prox) ctx.prox();
     });
+  }
+  // ---------- Nova peça: câmera direto; no fim "De qual peça é?" ----------
+  S.estPend = []; // fotos aguardando cadastro: {id, ts, t (miniatura), t34, n}
+  function estNova(depois) {
+    estCam({ nova: true, passo: 'frente', titulo: 'Nova peça', fim: depois });
+  }
+  function estDestino(ctx, depois) {
+    var ov = document.createElement('div');
+    ov.className = 'estOv';
+    ov.id = 'estDest';
+    document.body.appendChild(ov);
+    var F = ctx.fotos || {},
+      fr = F.frente,
+      pd = ctx.pend,
+      th = fr ? thumbOf(fr.cv) : pd ? pd.t : '';
+    ov.innerHTML =
+      '<div class="estHd"><h1 style="font-size:22px">De qual peça é?</h1><button type="button" class="estX" data-d="x" aria-label="Fechar">×</button></div><div class="estBody">' +
+      '<div class="estImg" style="max-width:320px;margin:0 auto"><img src="' + esc(th) + '" alt=""></div>' +
+      (pd ? '' : '<button type="button" class="mini estNc" data-d="pend">Ainda não cadastrada · guardar no Estúdio</button>') +
+      '<input class="in" id="estBusca" placeholder="Código ou nome do modelo" autocomplete="off">' +
+      '<section class="estCard" id="estLista"></section>' +
+      '</div>';
+    var lista = function (q) {
+      q = String(q || '').toLowerCase().trim();
+      var vis = {},
+        l = [];
+      S.items.forEach(function (i) {
+        if (i.bulk || isSimple(i.tipo)) return;
+        var k = i.ref + '|' + i.cor;
+        if (vis[k]) return;
+        vis[k] = 1;
+        var nm = (pn(i.ref) + ' ' + i.ref + ' ' + i.cor).toLowerCase();
+        if (!q || nm.indexOf(q) >= 0) l.push({ k: k, ref: i.ref, cor: i.cor });
+      });
+      $('estLista').innerHTML = l.length
+        ? l.slice(0, 30).map(function (x) {
+            var ft = S.fotos && S.fotos[x.k];
+            return '<button type="button" class="estIt" data-k="' + esc(x.k) + '"><span class="estTh' + (ft ? '' : ' v') + '">' + (ft ? '<img src="' + esc(ft) + '" alt="">' : 'sem foto') + '</span><span class="estTx"><b>' + esc(pn(x.ref)) + ' · ' + esc(x.cor) + '</b><small>' + esc(x.ref) + (ft ? ' · a foto atual será trocada' : '') + '</small></span><span>›</span></button>';
+          }).join('')
+        : '<div class="hint" style="margin:0">Nenhum modelo com esse código ou nome.</div>';
+    };
+    lista('');
+    $('estBusca').oninput = function () {
+      lista(this.value);
+    };
+    var termina = function (msg) {
+      ov.remove();
+      saveSoon();
+      render();
+      if (msg) lfToast(msg);
+      if (!pd && ctx.vivo !== undefined) return estNova(depois); // próxima peça, até tocar em ×
+      if (depois) depois();
+    };
+    ov.onclick = function (e) {
+      var b = e.target.closest('button');
+      if (!b) return;
+      if (b.dataset.d === 'x') {
+        ov.remove();
+        if (depois) depois();
+        return;
+      }
+      if (b.dataset.d === 'pend') {
+        var id = 'p' + Date.now().toString(36);
+        S.estPend = (S.estPend || []).concat([{ id: id, ts: Date.now(), t: thumbOf(fr.cv), t34: F['34'] ? thumbOf(F['34'].cv) : '', n: fr.n }]);
+        idbDo('hq', 'readwrite', function (o) {
+          if (F['34']) o.put(F['34'].cv.toDataURL('image/jpeg', 0.92), 'pend|' + id + '|34');
+          return o.put(fr.cv.toDataURL('image/jpeg', 0.92), 'pend|' + id);
+        }).catch(function () {});
+        return termina('Fotos guardadas no Estúdio');
+      }
+      if (b.dataset.k) {
+        var k = b.dataset.k;
+        if (fr) {
+          estGrava(k, 'frente', fr);
+          if (F['34']) estGrava(k, '34', F['34']);
+          return termina('Fotos de ' + pn(k.split('|')[0]) + ' guardadas');
+        }
+        // ligar fotos que estavam aguardando cadastro
+        var hq = function (key) {
+          return idbDo('hq', 'readonly', function (o) {
+            return o.get(key);
+          }).catch(function () {
+            return null;
+          });
+        };
+        Promise.all([hq('pend|' + pd.id), hq('pend|' + pd.id + '|34')]).then(function (r) {
+          setFoto(k, pd.t, r[0] || pd.t);
+          S.fotoNota[k] = { n: pd.n, mot: [], ts: Date.now() };
+          if (pd.t34) setFoto(k + '|34', pd.t34, r[1] || pd.t34);
+          var ref = k.split('|')[0];
+          if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd');
+          S.estPend = S.estPend.filter(function (x) {
+            return x !== pd;
+          });
+          idbDo('hq', 'readwrite', function (o) {
+            o.delete('pend|' + pd.id);
+            return o.delete('pend|' + pd.id + '|34');
+          }).catch(function () {});
+          termina('Fotos ligadas a ' + pn(ref));
+        });
+      }
+    };
   }
   ACT.estAbre = function () {
     estAbre();
@@ -41513,6 +41646,7 @@
       'estMont',
       'estPerfil',
       'fotoNota',
+      'estPend',
       'mkt',
       'inicioOnl',
       'notaCidade',
@@ -41686,7 +41820,7 @@
   if (/(^|[#&])test\b/.test(location.hash))
     window.__LF = {
       barMoedas: barMoedas,
-      animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
+      animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
       S: S, envFolha: window.__envFolha, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,

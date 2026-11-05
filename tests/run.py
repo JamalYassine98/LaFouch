@@ -2879,6 +2879,28 @@ async def main():
             if not ok: falhas.append('estudio'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Estúdio · Nova peça (v434): câmera direto; "De qual peça é?" → guardar sem cadastro → Ligar depois a um modelo
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              const c = document.createElement('canvas'); c.width = 900; c.height = 600; const g = c.getContext('2d'); g.fillStyle = '#b4b2b6'; g.fillRect(0, 0, 900, 600); g.fillStyle = '#333'; g.fillRect(200, 260, 500, 24); g.fillRect(200, 260, 20, 120); g.fillRect(680, 260, 20, 120);
+              const R = L.estProcessa(c);
+              L.estAbre(); await w(200); document.querySelector('[data-e=nova]').click(); await w(800);
+              const abriu = !!document.getElementById('estCam') || !!document.querySelector('input[type=file][capture]');
+              document.querySelectorAll('#estCam').forEach(e => e.remove()); document.querySelectorAll('.estOv').forEach(e => e.remove());
+              L.estDestino({fotos: {frente: R}, nova: true}); await w(200);
+              const tit = document.querySelector('#estDest h1').textContent;
+              document.querySelector('#estDest [data-d=pend]').click(); await w(300);
+              const pend = (S.estPend || []).length;
+              L.estAbre(); await w(200); const temLista = /aguardando cadastro/i.test(document.querySelector('.estOv').innerText);
+              document.querySelector('[data-a=ligar]').click(); await w(200);
+              const k = document.querySelector('#estDest .estIt').dataset.k; document.querySelector('#estDest .estIt').click(); await w(600);
+              return [abriu, tit, pend, temLista, !!S.fotos[k], (S.estPend || []).length]; }""")
+            total += 1
+            ok = got == [True, 'De qual peça é?', 1, True, True, 0] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Estúdio · Nova peça: câmera direto, "De qual peça é?", guardar sem cadastro e ligar depois')
+            if not ok: falhas.append('estudio nova peca'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Marketing (v430): botão no Início, objetivo muda o plano, feito, criar post com fatos reais (urgência só real), lembrete, datas
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

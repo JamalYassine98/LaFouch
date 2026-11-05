@@ -917,3 +917,9 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Análise ao vivo 2×/s em 96 px e pausada durante o Medir fundo; peaking separado (400 ms, 180 px, em tempo ocioso).
 - Medir fundo: mede a borda do quadro na hora e calcula direto a exposição (brilho ~ proporcional), 2–3 passos (~1 s), botão "Medindo… n/3"; branco ajustado num passo só.
 - Régua Pro: número acompanha o dedo; câmera recebe no máximo 1 ajuste a cada 150 ms (o último).
+
+## v434 (5.3.2) — 05/11/2026 13:23 — Estúdio › Nova peça = câmera direto (aprovado "Por enquanto é isso sim")
+- Bug: "Nova peça" ia para setView('novo') (tela inexistente → tela vazia). Agora abre a câmera do Estúdio direto: frente → resultado → 3/4 (se câmera ao vivo) → "De qual peça é?" (botão "Ainda não cadastrada · guardar no Estúdio" no topo + busca por código/nome/cor; ao escolher, grava frente e 3/4 na cor; avisa "a foto atual será trocada").
+- Sem cadastro: S.estPend [{id, ts, t, t34, n}] (miniaturas) + alta em IndexedDB 'hq' (pend|id, pend|id|34). No Estúdio: seção "Fotos aguardando cadastro" com Ligar (escolhe o modelo/cor) e × (apagar).
+- Depois de salvar, a câmera volta sozinha para a próxima Nova peça até tocar em ×.
+- O DONO VAI REFORMULAR O CADASTRO: o cadastro novo deve oferecer as "Fotos aguardando cadastro" em vez de pedir foto de novo.
