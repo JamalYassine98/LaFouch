@@ -491,7 +491,7 @@
           return '<button type="button" class="' + (M[x[0]] ? 'on' : '') + '" data-mont="' + x[0] + '"><i></i>' + x[1] + '</button>';
         }).join('') +
         '</div><div class="estRow"><div class="mini estPf">' + (pf ? 'Perfil: ' + esc(pf.nome || 'Caixa de luz') + (pf.zoom > 1.5 ? ' · 2x' : ' · 1x') : 'Sem perfil: meça o fundo') + '</div><button type="button" class="mini" data-e="medir">Medir fundo</button></div><button type="button" class="estLib" data-e="lib">O que meu celular libera ›</button></section>' +
-        '<div class="estRow estAc"><button type="button" class="go" data-e="nova">Nova peça</button><button type="button" class="mini estSes" data-e="sessao"' + (F.length ? '' : ' disabled') + '>Sessão: ' + F.length + (F.length === 1 ? ' peça' : ' peças') + ' ›</button></div>' +
+        '<div class="estRow estAc"><button type="button" class="go" data-e="nova">Fotografar antes de cadastrar</button><button type="button" class="mini estGiroB" data-e="giro">Giro · frente + 3/4 + vídeo</button><button type="button" class="mini estSes" data-e="sessao"' + (F.length ? '' : ' disabled') + '>Sessão: ' + F.length + (F.length === 1 ? ' peça' : ' peças') + ' ›</button></div>' +
         '<section class="estCard"><div class="estLbl">Fila de fotos · ' + F.length + '</div>' +
         (F.length
           ? F.slice(0, 40).map(function (x, j) {
@@ -529,6 +529,7 @@
       if (b.dataset.e === 'lib') return estLibera();
       if (b.dataset.e === 'tut') return estTutorial();
       if (b.dataset.e === 'nova') return estNova(pinta);
+      if (b.dataset.e === 'giro') return estGiro({ fim: pinta });
       if (b.dataset.pd) {
         var pd = (S.estPend || []).filter(function (x) { return x.id === b.dataset.pd; })[0];
         if (!pd) return;
@@ -1466,7 +1467,7 @@
   // ---------- Nova peça: câmera direto; no fim "De qual peça é?" ----------
   S.estPend = []; // fotos aguardando cadastro: {id, ts, t (miniatura), t34, n}
   function estNova(depois) {
-    estCam({ nova: true, passo: 'frente', titulo: 'Nova peça', fim: depois });
+    estCam({ nova: true, passo: 'frente', titulo: 'Antes de cadastrar', fim: depois });
   }
   function estDestino(ctx, depois) {
     var ov = document.createElement('div');
@@ -1480,7 +1481,8 @@
     ov.innerHTML =
       '<div class="estHd"><h1 style="font-size:22px">De qual peça é?</h1><button type="button" class="estX" data-d="x" aria-label="Fechar">×</button></div><div class="estBody">' +
       '<div class="estImg" style="max-width:320px;margin:0 auto"><img src="' + esc(th) + '" alt=""></div>' +
-      (pd ? '' : '<button type="button" class="mini estNc" data-d="pend">Ainda não cadastrada · guardar no Estúdio</button>') +
+      (pd ? '' : '<button type="button" class="mini estNc" data-d="pend">Ainda não cadastrada · Aguardando cadastro</button>') +
+      '<section class="estCard" id="estParec" hidden></section>' +
       '<input class="in" id="estBusca" placeholder="Código ou nome do modelo" autocomplete="off">' +
       '<section class="estCard" id="estLista"></section>' +
       '</div>';
@@ -1507,6 +1509,21 @@
     $('estBusca').oninput = function () {
       lista(this.value);
     };
+    // v442: mesmo identificador do Adicionar — "Mais parecidas" pela foto (só acima de 80%)
+    if (fr && fr.cv && typeof fmRank === 'function')
+      fmRank(fr.cv)
+        .then(function (rk) {
+          var el = $('estParec');
+          if (!el || !rk || !rk.length) return;
+          el.hidden = false;
+          el.innerHTML =
+            '<div class="estLbl">Mais parecidas</div>' +
+            rk.slice(0, 3).map(function (r) {
+              var k = r.ref + '|' + r.cor;
+              return '<button type="button" class="estIt" data-k="' + esc(k) + '"><span class="estTh"><img src="' + esc(r.foto) + '" alt=""></span><span class="estTx"><b>' + esc(pn(r.ref)) + ' · ' + esc(r.cor) + '</b><small>' + esc(r.ref) + ' · a foto atual será trocada</small></span><b class="estPct">' + Math.round(r.score * 100) + '%</b></button>';
+            }).join('');
+        })
+        .catch(function () {});
     var termina = function (msg) {
       ov.remove();
       saveSoon();
@@ -1525,8 +1542,9 @@
       }
       if (b.dataset.d === 'pend') {
         var id = 'p' + Date.now().toString(36);
-        S.estPend = (S.estPend || []).concat([{ id: id, ts: Date.now(), t: thumbOf(fr.cv), t34: F['34'] ? thumbOf(F['34'].cv) : '', n: fr.n }]);
+        S.estPend = (S.estPend || []).concat([{ id: id, ts: Date.now(), t: thumbOf(fr.cv), t34: F['34'] ? thumbOf(F['34'].cv) : '', n: fr.n, giro: !!ctx.giro }]);
         idbDo('hq', 'readwrite', function (o) {
+          if (ctx.giro) o.put(ctx.giro, 'pend|' + id + '|giro');
           if (F['34']) o.put(F['34'].cv.toDataURL('image/jpeg', 0.92), 'pend|' + id + '|34');
           return o.put(fr.cv.toDataURL('image/jpeg', 0.92), 'pend|' + id);
         }).catch(function () {});
@@ -1537,6 +1555,7 @@
         if (fr) {
           estGrava(k, 'frente', fr);
           if (F['34']) estGrava(k, '34', F['34']);
+          if (ctx.giro && typeof estGiroGuarda === 'function') estGiroGuarda(k, ctx.giro);
           return termina('Fotos de ' + pn(k.split('|')[0]) + ' guardadas');
         }
         // ligar fotos que estavam aguardando cadastro
@@ -1625,7 +1644,7 @@
         ['Perfil', '', 'Perfil', 'Os ajustes da câmera que você mediu (brilho, branco, lente). Abre pronto da próxima vez.'],
         ['Medir fundo', '', 'Medir fundo', 'Abre a câmera para deixar a cartolina branca e travar o brilho. Faça 1× por sessão.'],
         ['libera ›', '', 'O que meu celular libera', 'Mostra quais controles da câmera o seu celular deixa usar.'],
-        ['Nova peça', 'go', 'Nova peça', 'Câmera direto: frente → 3/4 → "De qual peça é?".'],
+        ['Antes de cadastrar', 'go', 'Fotografar antes de cadastrar', 'Dia de fotos: frente → 3/4 → "De qual peça é?". Já existe → a foto vai para a peça; nova → fica em Adicionar › Aguardando cadastro.'],
         ['Sessão ›', '', 'Sessão', 'Fotografa a fila inteira, uma peça atrás da outra.'],
         ['nota 62', '', 'Fila de fotos', 'Peças sem foto, com nota baixa ou faltando a 3/4. Toque para fotografar.'],
         ['Ligar', '', 'Fotos aguardando cadastro', 'Fotos de peças sem cadastro. Ligar = escolher o modelo; × = apagar.']

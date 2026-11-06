@@ -3017,6 +3017,30 @@ async def main():
             if not ok: falhas.append('marketing'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Estúdio × Adicionar (v442): botão "Fotografar antes de cadastrar" + Giro; Adicionar com faixa de 2 abas que lembra a aba; foto aguardando leva a 3/4 junto; selos por cor; Completar fotos abre o Estúdio
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              const px = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/wAALCAABAAEBAREA/8QAFAABAAAAAAAAAAAAAAAAAAAACf/EABQQAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQEAAD8AKp//2Q==';
+              L.estAbre(); await w(200); const txt = document.querySelector('.estOv').innerText; const bot = /Fotografar antes de cadastrar/.test(txt) && !!document.querySelector('[data-e=giro]');
+              document.querySelector('.estOv .estX').click(); await w(100);
+              S.estPend = [{ id: 'p1', ts: Date.now(), t: px, t34: px, n: 84 }]; S.adAba = 'novo';
+              S.addOpen = true; S.addMode = 'menu'; L.render(); L.renderDeNovo(); await w(100);
+              const b = document.getElementById('addDeNovo'); const abas = [...b.querySelectorAll('.adSeg button')].map(x => x.textContent);
+              b.querySelector('[data-id=pend]').click(); await w(150);
+              const lembra = S.adAba === 'pend' && !!document.querySelector('#addDeNovo [data-act=adPend]');
+              const it = S.items.find(i => !i.bulk && !/pre/.test(i.tipo)); const k = it.ref + '|' + it.cor;
+              S._pendLig = { id: 'p1', ts: Date.now() }; L.setFoto(k, px, px); await w(400);
+              const levou = !!S.fotos[k + '|34'] && !S.estPend.length;
+              S.fotoNota[k] = { n: 62, mot: ['fundo cinza (mais luz)'], ts: 1 }; const s1 = L.cfSelos(it.ref, it);
+              S.fotoNota[k] = { n: 91, mot: [], ts: 1 }; const s2 = L.cfSelos(it.ref, it);
+              S.addOpen = false; L.render(); L.ACT.semfoto(); await w(200); const est = !!document.querySelector('.estOv');
+              return [bot, abas.length === 2 && /Aguardando cadastro · 1/.test(abas[0]), lembra, levou, /refazer · fundo cinza/.test(s1), /foto 91 ✓/.test(s2) && /catálogo/.test(s2), est]; }""")
+            total += 1
+            ok = got == [True] * 7 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Estúdio × Adicionar: antes de cadastrar + giro, faixa de 2 abas com memória, 3/4 vai junto, selos por cor, Completar fotos abre o Estúdio')
+            if not ok: falhas.append('estudio x adicionar'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Busca única (v441): no lugar da faixa de avisos urgentes; acha peça, cliente e venda; abre a tela certa
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 441;
+  var APP_BUILD = 442;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.3.9'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.4.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -2331,6 +2331,20 @@
           '<span class="cfCu">US$ <input class="cfCuI" inputmode="decimal" placeholder="custo" aria-label="Custo por peça em US$" value="' + esc(S.cDraft[ix] != null ? S.cDraft[ix] : i.custo != null ? String(i.custo).replace('.', ',') : '') + '"></span></div>' +
           '<span class="vstep cfStep"><span class="vs-b" role="button" tabindex="0" data-d="-1" aria-label="Diminuir estoque">−</span><input class="vs-n cfQI" type="number" min="0" inputmode="numeric" aria-label="Quantidade em estoque" value="' + qv + '"><span class="vs-b" role="button" tabindex="0" data-d="1" aria-label="Aumentar estoque">+</span></span>' +
           (ab ? '<div class="cfMais"><button type="button" class="mini" data-f="1">Trocar foto</button>' + '<button type="button" class="mini cfDel" data-x="1">Excluir cor</button>' + '</div>' : '');
+        // v442: selos da cor — foto no padrão ou "refazer · motivo" (abre o Estúdio nessa cor), sobra e onde a peça está
+        try {
+          var sel = cfSelos(ref, i);
+          if (sel) {
+            var sx = mk('div', 'cfSelos');
+            sx.innerHTML = sel;
+            r.appendChild(sx);
+            var rf = sx.querySelector('[data-refaz]');
+            if (rf)
+              rf.onclick = function () {
+                estCam({ k: ref + '|' + i.cor, ref: ref, cor: i.cor, passo: 'frente', titulo: pn(ref) + ' · ' + i.cor, salva: true, fim: function () { render(); } });
+              };
+          }
+        } catch (e) {}
         r.querySelector('.cfFt').onclick = function () {
           fotoDaCor(i.cor);
         };
@@ -24477,7 +24491,9 @@
       inicioGo(id);
     },
     semfoto: function () {
-      fotosFila();
+      // v442: "Completar fotos" abre a Fila de fotos do Estúdio (fila única)
+      if (typeof estAbre === 'function') estAbre();
+      else fotosFila();
     },
     view: function (id) {
       // sino: tocar de novo volta para a tela onde o dono estava antes de abrir as notificações
@@ -27025,7 +27041,7 @@
       av: { t: 'Sons e avisos', r: av.q ? 'Silêncio ligado' : 'Ligados', h: achar('avisosCard') + resto },
       sync: sy ? { t: 'Sincronização', r: sy[1], al: sy[0] === 'bad' || sy[0] === 'warn', h: syncCard() } : null,
       upd: { t: 'Atualização', r: upN ? (um.nome || upN) + ' pronta' : APP_NOME, al: !!upN, h: updCard() },
-      foto: { t: 'Fotos', r: fpChaves().length ? fpChaves().length + ' fora do padrão' : 'No padrão', h: fpAjHtml() },
+      foto: { t: 'Fotos', r: fpChaves().length ? fpChaves().length + ' fora do padrão' : 'No padrão', h: '<button type="button" class="go" data-act="inicio" data-id="est" style="width:100%;margin-bottom:8px">Abrir a Fila de fotos no Estúdio ›</button>' + fpAjHtml() },
       bk: { t: 'Cópias e nuvem', r: bkd < 0 ? 'Nenhuma cópia' : bkd === 0 ? 'Hoje' : 'Há ' + bkd + (bkd === 1 ? ' dia' : ' dias'), al: bkd < 0 || bkd > 7, h: backupHtml().replace(/<\/section>$/, nv + '</section>') }
     };
     h += ajListaHtml(secs);
@@ -30571,24 +30587,110 @@
     }
     return out;
   }
+  // v442: UMA faixa de fotos com 2 abas — "Aguardando cadastro" (fotos do Estúdio sem cadastro) e "Dar entrada de novo".
+  // O app lembra a última aba aberta (S.adAba).
+  S.adAba = 'novo';
   function renderDeNovo() {
     var b = $('addDeNovo');
     if (!b) return;
-    var us = S.addMode === 'menu' ? enUltimas() : [];
-    b.hidden = !us.length;
-    if (!us.length) {
+    var menu = S.addMode === 'menu',
+      us = menu ? enUltimas() : [],
+      pd = menu ? S.estPend || [] : [];
+    b.hidden = !us.length && !pd.length;
+    if (b.hidden) {
       b.innerHTML = '';
       return;
     }
-    b.innerHTML =
-      '<div class="lbl">Dar entrada de novo</div><div class="adNv">' +
-      us
-        .map(function (it, i) {
-          var f = photoOf(it.ref, it.cor) || photoOf(it.ref);
-          return '<button type="button" class="adNvI" data-act="enAbre" data-id="' + i + '"><span class="adNvF">' + (f ? '<img alt="" src="' + f + '">' : '') + '</span><b>' + esc(it.ref) + '</b><small>' + esc(it.tipo === 'pre' ? 'Pré-graduado' : it.cor && it.cor !== 'Sem cor' ? it.cor : 'Padrão') + '</small></button>';
-        })
-        .join('') +
-      '</div>';
+    var aba = S.adAba === 'pend' && pd.length ? 'pend' : us.length ? 'novo' : 'pend';
+    if (!pd.length) aba = 'novo';
+    var pill =
+      pd.length && us.length
+        ? '<div class="adSeg" role="tablist"><button type="button" role="tab" class="' + (aba === 'pend' ? 'on' : '') + '" data-act="adAba" data-id="pend">Aguardando cadastro · ' + pd.length + '</button><button type="button" role="tab" class="' + (aba === 'novo' ? 'on' : '') + '" data-act="adAba" data-id="novo">Dar entrada de novo</button></div>'
+        : '<div class="lbl">' + (aba === 'pend' ? 'Aguardando cadastro · ' + pd.length : 'Dar entrada de novo') + '</div>';
+    var corpo =
+      aba === 'pend'
+        ? '<div class="adNv adPd">' +
+          pd.slice(0, 12).map(function (x) {
+            return '<button type="button" class="adNvI" data-act="adPend" data-id="' + esc(x.id) + '"><span class="adNvF"><img alt="" src="' + x.t + '"></span><b>' + new Date(x.ts).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) + '</b><small>' + (x.t34 ? 'frente e 3/4' : 'frente') + '</small></button>';
+          }).join('') +
+          '</div>'
+        : '<div class="adNv">' +
+          us.map(function (it, i) {
+            var f = photoOf(it.ref, it.cor) || photoOf(it.ref);
+            return '<button type="button" class="adNvI" data-act="enAbre" data-id="' + i + '"><span class="adNvF">' + (f ? '<img alt="" src="' + f + '">' : '') + '</span><b>' + esc(it.ref) + '</b><small>' + esc(it.tipo === 'pre' ? 'Pré-graduado' : it.cor && it.cor !== 'Sem cor' ? it.cor : 'Padrão') + '</small></button>';
+          }).join('') +
+          '</div>';
+    b.innerHTML = pill + corpo;
+  }
+  ACT.adAba = function (id) {
+    S.adAba = id === 'pend' ? 'pend' : 'novo';
+    saveSoon();
+    renderDeNovo();
+  };
+  // Toque numa foto aguardando: o mesmo identificador do cartão "Foto" (leitura + Mais parecidas + Novo modelo já com a foto).
+  ACT.adPend = function (id) {
+    var pd = (S.estPend || []).filter(function (x) {
+      return x.id === id;
+    })[0];
+    if (!pd) return;
+    idbDo('hq', 'readonly', function (o) {
+      return o.get('pend|' + id);
+    })
+      .catch(function () {
+        return null;
+      })
+      .then(function (u) {
+        return fetch(u || pd.t).then(function (r) {
+          return r.blob();
+        });
+      })
+      .then(function (bl) {
+        S._pendLig = { id: id, ts: Date.now() };
+        fmAnalisa(bl);
+      })
+      .catch(function () {
+        lfToast('Não consegui abrir essa foto');
+      });
+  };
+  // Quando a foto aguardando vira a foto de uma peça: leva a 3/4 junto e tira da lista.
+  function pendDepoisDeSalvar(k) {
+    var L = S._pendLig;
+    if (!L || Date.now() - L.ts > 30 * 60000 || /\|34$/.test(k)) return;
+    S._pendLig = null;
+    var pd = (S.estPend || []).filter(function (x) {
+      return x.id === L.id;
+    })[0];
+    if (!pd) return;
+    var ap = function () {
+      if (pd.giro)
+        idbDo('hq', 'readonly', function (o) {
+          return o.get('pend|' + pd.id + '|giro');
+        }).then(function (v) {
+          if (v && typeof estGiroGuarda === 'function') estGiroGuarda(k, v);
+          idbDo('hq', 'readwrite', function (o) {
+            return o.delete('pend|' + pd.id + '|giro');
+          }).catch(function () {});
+        }).catch(function () {});
+      S.estPend = S.estPend.filter(function (x) {
+        return x !== pd;
+      });
+      idbDo('hq', 'readwrite', function (o) {
+        o.delete('pend|' + pd.id);
+        return o.delete('pend|' + pd.id + '|34');
+      }).catch(function () {});
+      saveSoon();
+    };
+    if (!pd.t34) return ap();
+    idbDo('hq', 'readonly', function (o) {
+      return o.get('pend|' + pd.id + '|34');
+    })
+      .catch(function () {
+        return null;
+      })
+      .then(function (u) {
+        setFoto(k + '|34', pd.t34, u || pd.t34);
+        ap();
+      });
   }
   ACT.enAbre = function (i) {
     var it = enUltimas()[+i];
@@ -30650,6 +30752,32 @@
     lfEntrada(n, it.ref + ' ' + it.cor);
     render();
   };
+  // ---------- v442: selos por cor no Inventário (Editar produto › Cores e fotos) ----------
+  var CF_LC = null;
+  function cfSelos(ref, it) {
+    var k = ref + '|' + it.cor,
+      nt = (S.fotoNota || {})[k],
+      tem = !!(S.fotos && S.fotos[k]),
+      h = '';
+    if (tem && nt && nt.n >= 80) h += '<span class="selo ok">foto ' + nt.n + ' ✓</span>';
+    else if (tem || nt) h += '<button type="button" class="selo warn" data-refaz="1">refazer' + (nt && nt.mot && nt.mot.length ? ' · ' + esc(nt.mot[0]) : nt ? ' · nota ' + nt.n : '') + ' ›</button>';
+    // sobra (do ideal da lista de compras; a conta é feita 1× a cada poucos segundos)
+    if (!CF_LC || Date.now() - CF_LC.t > 4000) {
+      try {
+        CF_LC = { t: Date.now(), L: lcLista() };
+      } catch (e) {
+        CF_LC = { t: Date.now(), L: null };
+      }
+    }
+    var b = CF_LC.L && CF_LC.L.porIdeal[lcChave(it.tipo, ref, it.tipo === 'pre' ? it.grau : '')];
+    if (b && b.sobra) h += '<span class="selo warn">sobra ' + b.sobra + '</span>';
+    // onde a peça está
+    var site = !!(S.site && S.site[ref]);
+    h += '<span class="selo ' + (site ? 'ok' : '') + '">' + (site ? '● site' : '○ fora do site') + '</span><span class="selo ok">● catálogo</span>';
+    var mk2 = S.mkt && S.mkt.kit && S.mkt.kit[ref];
+    if (mk2) h += '<span class="selo warn">● marketing</span>';
+    return h;
+  }
   // ===== Enviar bonito (v427, aprovado 04–05/11/2026) =====
   // 1) No catálogo, SEGURAR uma peça entra no modo seleção (✓); tocar nas outras marca/desmarca;
   //    a barra "N selecionadas · Enviar bonito ›" sobe. 2) Para quem (clientes recentes; a moeda vem do país) ou "Sem nome".
@@ -31185,6 +31313,189 @@
       return { w: cv.width, h: cv.height, n: p.length };
     });
   };
+  // ===== Estúdio: um giro, três fotos (v442, aprovado 05/11/2026) =====
+  // Filma uma volta da peça no prato; o app guarda quadros a cada 0,25 s e depois você só confirma, numa régua,
+  // o quadro da FRENTE (o app já sugere o mais simétrico) e o da 3/4. Saem frente + 3/4 (com a luz de estúdio) + o vídeo do giro.
+  function estGiroSug(sigs) {
+    // frente sugerida: o quadro mais simétrico (esquerda × direita) no miolo da imagem
+    var best = 0,
+      bv = -1;
+    sigs.forEach(function (s, i) {
+      if (s > bv) {
+        bv = s;
+        best = i;
+      }
+    });
+    return best;
+  }
+  function estGiroSim(cv) {
+    var w = 96,
+      h = 54,
+      c = mkCanvas(w, h),
+      g = c.getContext('2d', { willReadFrequently: true });
+    g.drawImage(cv, 0, 0, w, h);
+    var d = g.getImageData(0, 0, w, h).data,
+      s = 0,
+      n = 0;
+    for (var y = Math.round(h * 0.25); y < h * 0.75; y++)
+      for (var x = 0; x < w / 2; x++) {
+        var a = (y * w + x) * 4,
+          b = (y * w + (w - 1 - x)) * 4;
+        s += Math.abs(d[a] - d[b]) + Math.abs(d[a + 1] - d[b + 1]) + Math.abs(d[a + 2] - d[b + 2]);
+        n++;
+      }
+    return -s / (n || 1);
+  }
+  function estGiro(ctx) {
+    ctx = ctx || {};
+    if (!(navigator.mediaDevices && window.MediaRecorder)) return lfToast('Este aparelho não grava vídeo pelo app');
+    navigator.mediaDevices
+      .getUserMedia({ audio: false, video: { facingMode: { ideal: 'environment' }, width: { ideal: 1920 }, height: { ideal: 1080 } } })
+      .then(function (s) {
+        var ov = document.createElement('div');
+        ov.className = 'estCam';
+        ov.innerHTML = '<div class="ecVf" style="top:0;bottom:0"><video autoplay playsinline muted></video><div class="ecTag">Comece com a peça de frente · ligue o prato · 12 s</div></div>';
+        document.body.appendChild(ov);
+        var v = ov.querySelector('video');
+        v.srcObject = s;
+        var tipos = ['video/mp4;codecs=avc1', 'video/mp4', 'video/webm'],
+          mt = tipos.filter(function (t) { return MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t); })[0] || '',
+          rec = new MediaRecorder(s, mt ? { mimeType: mt, videoBitsPerSecond: 5000000 } : undefined),
+          ch = [],
+          Q = [],
+          cap = mkCanvas(16, 16);
+        rec.ondataavailable = function (e) {
+          if (e.data && e.data.size) ch.push(e.data);
+        };
+        var pega = setInterval(function () {
+          if (!v.videoWidth) return;
+          cap.width = v.videoWidth;
+          cap.height = v.videoHeight;
+          cap.getContext('2d').drawImage(v, 0, 0);
+          var sim = estGiroSim(cap),
+            i = Q.length;
+          Q.push({ sim: sim, b: null, t: thumbOf(cap) });
+          cap.toBlob(function (bl) {
+            if (Q[i]) Q[i].b = bl;
+          }, 'image/jpeg', 0.92);
+        }, 250);
+        rec.onstop = function () {
+          clearInterval(pega);
+          s.getTracks().forEach(function (t) { t.stop(); });
+          ov.remove();
+          var video = new Blob(ch, { type: mt || 'video/webm' });
+          setTimeout(function () {
+            estGiroEscolhe(ctx, Q, video);
+          }, 300);
+        };
+        rec.start(500);
+        var n = 12,
+          tg = ov.querySelector('.ecTag'),
+          iv = setInterval(function () {
+            n--;
+            tg.textContent = 'Gravando · ' + n + ' s';
+            if (n <= 0) {
+              clearInterval(iv);
+              rec.stop();
+            }
+          }, 1000);
+      })
+      .catch(function () {
+        lfToast('Não consegui abrir a câmera');
+      });
+  }
+  // Escolha dos quadros: régua com a sugestão da frente; depois a 3/4.
+  function estGiroEscolhe(ctx, Q, video) {
+    Q = Q.filter(function (q) {
+      return q.b;
+    });
+    if (Q.length < 4) return lfToast('O giro ficou curto demais');
+    var ix = estGiroSug(Q.map(function (q) { return q.sim; })),
+      passo = 'frente',
+      esc = {},
+      ov = document.createElement('div');
+    ov.className = 'estOv';
+    ov.id = 'estGiro';
+    document.body.appendChild(ov);
+    var pinta = function () {
+      ov.innerHTML =
+        '<div class="estHd"><h1 style="font-size:22px">' + (passo === 'frente' ? 'Qual é a frente?' : 'E a 3/4?') + '</h1><button type="button" class="estX" data-g="x" aria-label="Fechar">×</button></div><div class="estBody">' +
+        '<div class="estImg"><img id="egImg" src="' + Q[ix].t + '" alt=""></div>' +
+        '<input type="range" id="egR" min="0" max="' + (Q.length - 1) + '" value="' + ix + '" aria-label="Quadro do giro" style="width:100%">' +
+        '<div class="hint" style="margin:0">' + (passo === 'frente' ? 'Já deixei no quadro mais de frente. Arraste se precisar.' : 'Arraste até a peça ficar meio de lado (3/4).') + '</div>' +
+        '<button type="button" class="go" data-g="ok">Usar como ' + (passo === 'frente' ? 'frente' : '3/4') + '</button></div>';
+      ov.querySelector('#egR').oninput = function () {
+        ix = +this.value;
+        ov.querySelector('#egImg').src = Q[ix].t;
+      };
+    };
+    pinta();
+    ov.onclick = function (e) {
+      var b = e.target.closest('button');
+      if (!b) return;
+      if (b.dataset.g === 'x') return ov.remove();
+      if (b.dataset.g !== 'ok') return;
+      esc[passo] = Q[ix].b;
+      if (passo === 'frente') {
+        passo = '34';
+        ix = Math.min(Q.length - 1, ix + Math.max(2, Math.round(Q.length / 8)));
+        return pinta();
+      }
+      ov.remove();
+      loadMsg(true, 'Aplicando a luz de estúdio');
+      var abre = function (bl) {
+        return new Promise(function (ok, no) {
+          var u = URL.createObjectURL(bl),
+            im = new Image();
+          im.onload = function () {
+            ok(im);
+            URL.revokeObjectURL(u);
+          };
+          im.onerror = no;
+          im.src = u;
+        });
+      };
+      Promise.all([abre(esc.frente), abre(esc['34'])]).then(function (ims) {
+        var R1 = estProcessa(ims[0]),
+          R2 = estProcessa(ims[1]);
+        loadMsg(false);
+        if (!R1.cv) return lfToast('Não achei a peça no quadro da frente');
+        if (ctx.k) {
+          estGrava(ctx.k, 'frente', R1);
+          if (R2.cv) estGrava(ctx.k, '34', R2);
+          estGiroGuarda(ctx.k, video);
+          lfToast('Frente, 3/4 e giro salvos');
+          render();
+          if (ctx.fim) ctx.fim();
+          return;
+        }
+        // antes de cadastrar: "De qual peça é?" (a frente e a 3/4 vão juntas; o giro também)
+        var c2 = { nova: true, fotos: { frente: R1 }, fim: ctx.fim, giro: video };
+        if (R2.cv) c2.fotos['34'] = R2;
+        estDestino(c2, ctx.fim);
+      }, function () {
+        loadMsg(false);
+        lfToast('Não consegui abrir os quadros do giro');
+      });
+    };
+  }
+  // O vídeo do giro fica no aparelho (IndexedDB) para o Marketing (Status) e o site.
+  function estGiroGuarda(k, video) {
+    if (!video) return Promise.resolve();
+    S.giros = S.giros || {};
+    S.giros[k.split('|')[0]] = { k: k, ts: Date.now(), tipo: video.type };
+    saveSoon();
+    return idbDo('hq', 'readwrite', function (o) {
+      return o.put(video, 'giro|' + k.split('|')[0]);
+    }).catch(function () {});
+  }
+  function estGiroLe(ref) {
+    return idbDo('hq', 'readonly', function (o) {
+      return o.get('giro|' + ref);
+    }).catch(function () {
+      return null;
+    });
+  }
   // ===== Estúdio (v432, aprovado 05/11/2026 12:36: "Pode implementar") =====
   // Botão Estúdio no Início: TODAS as fotos da loja saem daqui (cadastro, Inventário, Catálogo, Site e Marketing).
   // Tela do Estúdio: montagem de hoje, perfil salvo + Medir fundo, Nova peça / Sessão e a fila (sem foto, nota
@@ -31678,7 +31989,7 @@
           return '<button type="button" class="' + (M[x[0]] ? 'on' : '') + '" data-mont="' + x[0] + '"><i></i>' + x[1] + '</button>';
         }).join('') +
         '</div><div class="estRow"><div class="mini estPf">' + (pf ? 'Perfil: ' + esc(pf.nome || 'Caixa de luz') + (pf.zoom > 1.5 ? ' · 2x' : ' · 1x') : 'Sem perfil: meça o fundo') + '</div><button type="button" class="mini" data-e="medir">Medir fundo</button></div><button type="button" class="estLib" data-e="lib">O que meu celular libera ›</button></section>' +
-        '<div class="estRow estAc"><button type="button" class="go" data-e="nova">Nova peça</button><button type="button" class="mini estSes" data-e="sessao"' + (F.length ? '' : ' disabled') + '>Sessão: ' + F.length + (F.length === 1 ? ' peça' : ' peças') + ' ›</button></div>' +
+        '<div class="estRow estAc"><button type="button" class="go" data-e="nova">Fotografar antes de cadastrar</button><button type="button" class="mini estGiroB" data-e="giro">Giro · frente + 3/4 + vídeo</button><button type="button" class="mini estSes" data-e="sessao"' + (F.length ? '' : ' disabled') + '>Sessão: ' + F.length + (F.length === 1 ? ' peça' : ' peças') + ' ›</button></div>' +
         '<section class="estCard"><div class="estLbl">Fila de fotos · ' + F.length + '</div>' +
         (F.length
           ? F.slice(0, 40).map(function (x, j) {
@@ -31716,6 +32027,7 @@
       if (b.dataset.e === 'lib') return estLibera();
       if (b.dataset.e === 'tut') return estTutorial();
       if (b.dataset.e === 'nova') return estNova(pinta);
+      if (b.dataset.e === 'giro') return estGiro({ fim: pinta });
       if (b.dataset.pd) {
         var pd = (S.estPend || []).filter(function (x) { return x.id === b.dataset.pd; })[0];
         if (!pd) return;
@@ -32653,7 +32965,7 @@
   // ---------- Nova peça: câmera direto; no fim "De qual peça é?" ----------
   S.estPend = []; // fotos aguardando cadastro: {id, ts, t (miniatura), t34, n}
   function estNova(depois) {
-    estCam({ nova: true, passo: 'frente', titulo: 'Nova peça', fim: depois });
+    estCam({ nova: true, passo: 'frente', titulo: 'Antes de cadastrar', fim: depois });
   }
   function estDestino(ctx, depois) {
     var ov = document.createElement('div');
@@ -32667,7 +32979,8 @@
     ov.innerHTML =
       '<div class="estHd"><h1 style="font-size:22px">De qual peça é?</h1><button type="button" class="estX" data-d="x" aria-label="Fechar">×</button></div><div class="estBody">' +
       '<div class="estImg" style="max-width:320px;margin:0 auto"><img src="' + esc(th) + '" alt=""></div>' +
-      (pd ? '' : '<button type="button" class="mini estNc" data-d="pend">Ainda não cadastrada · guardar no Estúdio</button>') +
+      (pd ? '' : '<button type="button" class="mini estNc" data-d="pend">Ainda não cadastrada · Aguardando cadastro</button>') +
+      '<section class="estCard" id="estParec" hidden></section>' +
       '<input class="in" id="estBusca" placeholder="Código ou nome do modelo" autocomplete="off">' +
       '<section class="estCard" id="estLista"></section>' +
       '</div>';
@@ -32694,6 +33007,21 @@
     $('estBusca').oninput = function () {
       lista(this.value);
     };
+    // v442: mesmo identificador do Adicionar — "Mais parecidas" pela foto (só acima de 80%)
+    if (fr && fr.cv && typeof fmRank === 'function')
+      fmRank(fr.cv)
+        .then(function (rk) {
+          var el = $('estParec');
+          if (!el || !rk || !rk.length) return;
+          el.hidden = false;
+          el.innerHTML =
+            '<div class="estLbl">Mais parecidas</div>' +
+            rk.slice(0, 3).map(function (r) {
+              var k = r.ref + '|' + r.cor;
+              return '<button type="button" class="estIt" data-k="' + esc(k) + '"><span class="estTh"><img src="' + esc(r.foto) + '" alt=""></span><span class="estTx"><b>' + esc(pn(r.ref)) + ' · ' + esc(r.cor) + '</b><small>' + esc(r.ref) + ' · a foto atual será trocada</small></span><b class="estPct">' + Math.round(r.score * 100) + '%</b></button>';
+            }).join('');
+        })
+        .catch(function () {});
     var termina = function (msg) {
       ov.remove();
       saveSoon();
@@ -32712,8 +33040,9 @@
       }
       if (b.dataset.d === 'pend') {
         var id = 'p' + Date.now().toString(36);
-        S.estPend = (S.estPend || []).concat([{ id: id, ts: Date.now(), t: thumbOf(fr.cv), t34: F['34'] ? thumbOf(F['34'].cv) : '', n: fr.n }]);
+        S.estPend = (S.estPend || []).concat([{ id: id, ts: Date.now(), t: thumbOf(fr.cv), t34: F['34'] ? thumbOf(F['34'].cv) : '', n: fr.n, giro: !!ctx.giro }]);
         idbDo('hq', 'readwrite', function (o) {
+          if (ctx.giro) o.put(ctx.giro, 'pend|' + id + '|giro');
           if (F['34']) o.put(F['34'].cv.toDataURL('image/jpeg', 0.92), 'pend|' + id + '|34');
           return o.put(fr.cv.toDataURL('image/jpeg', 0.92), 'pend|' + id);
         }).catch(function () {});
@@ -32724,6 +33053,7 @@
         if (fr) {
           estGrava(k, 'frente', fr);
           if (F['34']) estGrava(k, '34', F['34']);
+          if (ctx.giro && typeof estGiroGuarda === 'function') estGiroGuarda(k, ctx.giro);
           return termina('Fotos de ' + pn(k.split('|')[0]) + ' guardadas');
         }
         // ligar fotos que estavam aguardando cadastro
@@ -32812,7 +33142,7 @@
         ['Perfil', '', 'Perfil', 'Os ajustes da câmera que você mediu (brilho, branco, lente). Abre pronto da próxima vez.'],
         ['Medir fundo', '', 'Medir fundo', 'Abre a câmera para deixar a cartolina branca e travar o brilho. Faça 1× por sessão.'],
         ['libera ›', '', 'O que meu celular libera', 'Mostra quais controles da câmera o seu celular deixa usar.'],
-        ['Nova peça', 'go', 'Nova peça', 'Câmera direto: frente → 3/4 → "De qual peça é?".'],
+        ['Antes de cadastrar', 'go', 'Fotografar antes de cadastrar', 'Dia de fotos: frente → 3/4 → "De qual peça é?". Já existe → a foto vai para a peça; nova → fica em Adicionar › Aguardando cadastro.'],
         ['Sessão ›', '', 'Sessão', 'Fotografa a fila inteira, uma peça atrás da outra.'],
         ['nota 62', '', 'Fila de fotos', 'Peças sem foto, com nota baixa ou faltando a 3/4. Toque para fotografar.'],
         ['Ligar', '', 'Fotos aguardando cadastro', 'Fotos de peças sem cadastro. Ligar = escolher o modelo; × = apagar.']
@@ -35547,6 +35877,13 @@
           // status de hoje
           if (st)
             h += '<div class="mkSec">Status de hoje</div><button type="button" class="mkSt" data-cria="status" data-refs="' + esc(st.ref) + '"><span class="vtI"><img src="' + esc(st.f.foto) + '" alt=""></span><span style="flex:1;text-align:left"><b>' + esc(st.f.nome) + '</b><small>' + esc(mkPorque(st.f, obj).join(' · ')) + '</small></span>›</button>';
+          // v442: Status com o vídeo do giro (Estúdio)
+          var gr = Object.keys(S.giros || {}).filter(function (r) { return itemDoRef(r); }).sort(function (a, b) { return S.giros[b].ts - S.giros[a].ts; }).slice(0, 3);
+          if (gr.length)
+            h += '<div class="mkSec">Status com o giro</div>' + gr.map(function (r) {
+              var f = mkFatos(r);
+              return '<button type="button" class="mkSt" data-giro="' + esc(r) + '"><span class="vtI"><img src="' + esc(f.foto) + '" alt=""></span><span style="flex:1;text-align:left"><b>' + esc(f.nome) + '</b><small>vídeo de 12 s com nome e preço</small></span>›</button>';
+            }).join('');
           // criar
           h += '<div class="mkSec">Criar com um toque</div><div class="mkCr">' + ['post', 'story', 'status', 'carr', 'video', 'rot'].map(function (k) {
             return '<button type="button" class="mini" data-cria="' + k + '">' + MK_FMT[k].t + '</button>';
@@ -35609,6 +35946,7 @@
             else okc();
             return;
           }
+          if (b.dataset.giro) return mkGiroStatus(b.dataset.giro);
           if (b.dataset.cria) mkCria(b.dataset.cria, b.dataset.refs ? b.dataset.refs.split(',').filter(Boolean) : null, b.dataset.pid, pinta);
         };
         c.onchange = function (e) {
@@ -35792,6 +36130,89 @@
   ICO_D.mkt = '<path d="M3 10v4h3l7 5V5L6 10z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/>';
   if (INI_PADRAO.indexOf('mkt') < 0) INI_PADRAO.push('mkt');
   if (INI_TODOS.indexOf('mkt') < 0) INI_TODOS.push('mkt');
+  // ---------- v442: o giro do Estúdio vira Status (vídeo vertical com nome e preço, sem som) ----------
+  function mkGiroStatus(ref) {
+    estGiroLe(ref).then(function (bl) {
+      if (!bl) return lfToast('O vídeo do giro não está neste aparelho');
+      if (!window.MediaRecorder) return lfToast('Este aparelho não monta vídeo pelo app');
+      loadMsg(true, 'Montando o Status');
+      var f = mkFatos(ref),
+        K = mkKit ? mkKit() : {},
+        v = document.createElement('video'),
+        u = URL.createObjectURL(bl),
+        W = 1080,
+        H = 1920,
+        cv = mkCanvas(W, H),
+        g = cv.getContext('2d');
+      v.muted = true;
+      v.playsInline = true;
+      v.src = u;
+      v.onloadeddata = function () {
+        var st = cv.captureStream(30),
+          tipos = ['video/mp4;codecs=avc1', 'video/mp4', 'video/webm'],
+          mt = tipos.filter(function (t) { return MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t); })[0] || '',
+          rec = new MediaRecorder(st, mt ? { mimeType: mt, videoBitsPerSecond: 6000000 } : undefined),
+          ch = [],
+          fim = false;
+        rec.ondataavailable = function (e) {
+          if (e.data && e.data.size) ch.push(e.data);
+        };
+        rec.onstop = function () {
+          loadMsg(false);
+          URL.revokeObjectURL(u);
+          var out = new Blob(ch, { type: mt || 'video/webm' }),
+            fl = new File([out], 'status-' + ref + (/mp4/.test(out.type) ? '.mp4' : '.webm'), { type: out.type });
+          if (navigator.share && navigator.canShare && navigator.canShare({ files: [fl] })) navigator.share({ files: [fl] }).catch(function () {});
+          else {
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(out);
+            a.download = fl.name;
+            a.click();
+          }
+        };
+        var desenha = function () {
+          if (fim) return;
+          g.fillStyle = '#fff';
+          g.fillRect(0, 0, W, H);
+          var vw = v.videoWidth || 16,
+            vh = v.videoHeight || 9,
+            sc = W / vw,
+            dh = vh * sc;
+          g.drawImage(v, 0, (H - dh) / 2 - 120, W, dh);
+          g.fillStyle = '#2a1a26';
+          g.textAlign = 'center';
+          g.font = '600 64px Georgia, serif';
+          g.fillText(f.nome, W / 2, H - 420);
+          if (f.preco) {
+            g.font = '800 92px Inter, system-ui, sans-serif';
+            g.fillStyle = '#a2447c';
+            g.fillText(gs(f.preco), W / 2, H - 300);
+          }
+          g.font = '500 40px Inter, system-ui, sans-serif';
+          g.fillStyle = '#6b5563';
+          g.fillText((K.slogan || 'La Fouch · Tudo em óculos'), W / 2, H - 200);
+          requestAnimationFrame(desenha);
+        };
+        rec.start(500);
+        v.play().then(desenha, desenha);
+        v.onended = function () {
+          fim = true;
+          rec.stop();
+        };
+        setTimeout(function () {
+          if (!fim) {
+            fim = true;
+            try { v.pause(); } catch (e) {}
+            rec.stop();
+          }
+        }, 14000);
+      };
+      v.onerror = function () {
+        loadMsg(false);
+        lfToast('Não consegui abrir o vídeo do giro');
+      };
+    });
+  }
   // ===== Cliente na venda + tela "Venda confirmada" com o comprovante de venda (sempre em G$, IVA 10% incluso). =====
   // O app NÃO emite nota fiscal: imprime o comprovante (sem valor fiscal) para qualquer cliente.
   // Paraguaio com RUC: o comprovante leva Nombre/RUC (dados que a máquina fiscal usa). Estrangeiro: nome e CI/CPF, nunca RUC.
@@ -42644,6 +43065,11 @@
   // Guarda a foto (miniatura + original).
   function setFoto(k, thumb, hq) {
     S.fotos[k] = thumb;
+    if (S._pendLig && typeof pendDepoisDeSalvar === 'function') {
+      try {
+        pendDepoisDeSalvar(k);
+      } catch (e) {}
+    }
     if (hq && hq !== thumb)
       idbDo('hq', 'readwrite', function (o) {
         return o.put(hq, k);
@@ -42863,7 +43289,9 @@
       'arqRes',
       'arqAte',
       'arqVolta',
-      'arqDia'
+      'arqDia',
+      'adAba',
+      'giros'
     ];
   // Carrega o estado salvo.
   function loadSaved() {
@@ -43027,7 +43455,7 @@
       barMoedas: barMoedas,
       animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
-      S: S, lcPedResumoHtml: lcPedResumoHtml, lcComprarNovo: lcComprarNovo, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, envFolha: window.__envFolha, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
+      S: S, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcComprarNovo: lcComprarNovo, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, envFolha: window.__envFolha, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,
       grpTot: grpTot, grpFalta: grpFalta, effCusto: effCusto, parseLote: parseLote, parsePedido: parsePedido, parseHaste: parseHaste,
       parseVote: parseVote, flatParse: flatParse, numAmt: numAmt, hKey: hKey, lev: lev, normRef: normRef,

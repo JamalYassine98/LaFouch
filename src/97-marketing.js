@@ -619,6 +619,13 @@
           // status de hoje
           if (st)
             h += '<div class="mkSec">Status de hoje</div><button type="button" class="mkSt" data-cria="status" data-refs="' + esc(st.ref) + '"><span class="vtI"><img src="' + esc(st.f.foto) + '" alt=""></span><span style="flex:1;text-align:left"><b>' + esc(st.f.nome) + '</b><small>' + esc(mkPorque(st.f, obj).join(' · ')) + '</small></span>›</button>';
+          // v442: Status com o vídeo do giro (Estúdio)
+          var gr = Object.keys(S.giros || {}).filter(function (r) { return itemDoRef(r); }).sort(function (a, b) { return S.giros[b].ts - S.giros[a].ts; }).slice(0, 3);
+          if (gr.length)
+            h += '<div class="mkSec">Status com o giro</div>' + gr.map(function (r) {
+              var f = mkFatos(r);
+              return '<button type="button" class="mkSt" data-giro="' + esc(r) + '"><span class="vtI"><img src="' + esc(f.foto) + '" alt=""></span><span style="flex:1;text-align:left"><b>' + esc(f.nome) + '</b><small>vídeo de 12 s com nome e preço</small></span>›</button>';
+            }).join('');
           // criar
           h += '<div class="mkSec">Criar com um toque</div><div class="mkCr">' + ['post', 'story', 'status', 'carr', 'video', 'rot'].map(function (k) {
             return '<button type="button" class="mini" data-cria="' + k + '">' + MK_FMT[k].t + '</button>';
@@ -681,6 +688,7 @@
             else okc();
             return;
           }
+          if (b.dataset.giro) return mkGiroStatus(b.dataset.giro);
           if (b.dataset.cria) mkCria(b.dataset.cria, b.dataset.refs ? b.dataset.refs.split(',').filter(Boolean) : null, b.dataset.pid, pinta);
         };
         c.onchange = function (e) {
@@ -864,3 +872,86 @@
   ICO_D.mkt = '<path d="M3 10v4h3l7 5V5L6 10z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/>';
   if (INI_PADRAO.indexOf('mkt') < 0) INI_PADRAO.push('mkt');
   if (INI_TODOS.indexOf('mkt') < 0) INI_TODOS.push('mkt');
+  // ---------- v442: o giro do Estúdio vira Status (vídeo vertical com nome e preço, sem som) ----------
+  function mkGiroStatus(ref) {
+    estGiroLe(ref).then(function (bl) {
+      if (!bl) return lfToast('O vídeo do giro não está neste aparelho');
+      if (!window.MediaRecorder) return lfToast('Este aparelho não monta vídeo pelo app');
+      loadMsg(true, 'Montando o Status');
+      var f = mkFatos(ref),
+        K = mkKit ? mkKit() : {},
+        v = document.createElement('video'),
+        u = URL.createObjectURL(bl),
+        W = 1080,
+        H = 1920,
+        cv = mkCanvas(W, H),
+        g = cv.getContext('2d');
+      v.muted = true;
+      v.playsInline = true;
+      v.src = u;
+      v.onloadeddata = function () {
+        var st = cv.captureStream(30),
+          tipos = ['video/mp4;codecs=avc1', 'video/mp4', 'video/webm'],
+          mt = tipos.filter(function (t) { return MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t); })[0] || '',
+          rec = new MediaRecorder(st, mt ? { mimeType: mt, videoBitsPerSecond: 6000000 } : undefined),
+          ch = [],
+          fim = false;
+        rec.ondataavailable = function (e) {
+          if (e.data && e.data.size) ch.push(e.data);
+        };
+        rec.onstop = function () {
+          loadMsg(false);
+          URL.revokeObjectURL(u);
+          var out = new Blob(ch, { type: mt || 'video/webm' }),
+            fl = new File([out], 'status-' + ref + (/mp4/.test(out.type) ? '.mp4' : '.webm'), { type: out.type });
+          if (navigator.share && navigator.canShare && navigator.canShare({ files: [fl] })) navigator.share({ files: [fl] }).catch(function () {});
+          else {
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(out);
+            a.download = fl.name;
+            a.click();
+          }
+        };
+        var desenha = function () {
+          if (fim) return;
+          g.fillStyle = '#fff';
+          g.fillRect(0, 0, W, H);
+          var vw = v.videoWidth || 16,
+            vh = v.videoHeight || 9,
+            sc = W / vw,
+            dh = vh * sc;
+          g.drawImage(v, 0, (H - dh) / 2 - 120, W, dh);
+          g.fillStyle = '#2a1a26';
+          g.textAlign = 'center';
+          g.font = '600 64px Georgia, serif';
+          g.fillText(f.nome, W / 2, H - 420);
+          if (f.preco) {
+            g.font = '800 92px Inter, system-ui, sans-serif';
+            g.fillStyle = '#a2447c';
+            g.fillText(gs(f.preco), W / 2, H - 300);
+          }
+          g.font = '500 40px Inter, system-ui, sans-serif';
+          g.fillStyle = '#6b5563';
+          g.fillText((K.slogan || 'La Fouch · Tudo em óculos'), W / 2, H - 200);
+          requestAnimationFrame(desenha);
+        };
+        rec.start(500);
+        v.play().then(desenha, desenha);
+        v.onended = function () {
+          fim = true;
+          rec.stop();
+        };
+        setTimeout(function () {
+          if (!fim) {
+            fim = true;
+            try { v.pause(); } catch (e) {}
+            rec.stop();
+          }
+        }, 14000);
+      };
+      v.onerror = function () {
+        loadMsg(false);
+        lfToast('Não consegui abrir o vídeo do giro');
+      };
+    });
+  }

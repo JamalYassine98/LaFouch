@@ -58,7 +58,9 @@
       inicioGo(id);
     },
     semfoto: function () {
-      fotosFila();
+      // v442: "Completar fotos" abre a Fila de fotos do Estúdio (fila única)
+      if (typeof estAbre === 'function') estAbre();
+      else fotosFila();
     },
     view: function (id) {
       // sino: tocar de novo volta para a tela onde o dono estava antes de abrir as notificações

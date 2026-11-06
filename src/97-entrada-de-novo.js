@@ -21,24 +21,110 @@
     }
     return out;
   }
+  // v442: UMA faixa de fotos com 2 abas — "Aguardando cadastro" (fotos do Estúdio sem cadastro) e "Dar entrada de novo".
+  // O app lembra a última aba aberta (S.adAba).
+  S.adAba = 'novo';
   function renderDeNovo() {
     var b = $('addDeNovo');
     if (!b) return;
-    var us = S.addMode === 'menu' ? enUltimas() : [];
-    b.hidden = !us.length;
-    if (!us.length) {
+    var menu = S.addMode === 'menu',
+      us = menu ? enUltimas() : [],
+      pd = menu ? S.estPend || [] : [];
+    b.hidden = !us.length && !pd.length;
+    if (b.hidden) {
       b.innerHTML = '';
       return;
     }
-    b.innerHTML =
-      '<div class="lbl">Dar entrada de novo</div><div class="adNv">' +
-      us
-        .map(function (it, i) {
-          var f = photoOf(it.ref, it.cor) || photoOf(it.ref);
-          return '<button type="button" class="adNvI" data-act="enAbre" data-id="' + i + '"><span class="adNvF">' + (f ? '<img alt="" src="' + f + '">' : '') + '</span><b>' + esc(it.ref) + '</b><small>' + esc(it.tipo === 'pre' ? 'Pré-graduado' : it.cor && it.cor !== 'Sem cor' ? it.cor : 'Padrão') + '</small></button>';
-        })
-        .join('') +
-      '</div>';
+    var aba = S.adAba === 'pend' && pd.length ? 'pend' : us.length ? 'novo' : 'pend';
+    if (!pd.length) aba = 'novo';
+    var pill =
+      pd.length && us.length
+        ? '<div class="adSeg" role="tablist"><button type="button" role="tab" class="' + (aba === 'pend' ? 'on' : '') + '" data-act="adAba" data-id="pend">Aguardando cadastro · ' + pd.length + '</button><button type="button" role="tab" class="' + (aba === 'novo' ? 'on' : '') + '" data-act="adAba" data-id="novo">Dar entrada de novo</button></div>'
+        : '<div class="lbl">' + (aba === 'pend' ? 'Aguardando cadastro · ' + pd.length : 'Dar entrada de novo') + '</div>';
+    var corpo =
+      aba === 'pend'
+        ? '<div class="adNv adPd">' +
+          pd.slice(0, 12).map(function (x) {
+            return '<button type="button" class="adNvI" data-act="adPend" data-id="' + esc(x.id) + '"><span class="adNvF"><img alt="" src="' + x.t + '"></span><b>' + new Date(x.ts).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) + '</b><small>' + (x.t34 ? 'frente e 3/4' : 'frente') + '</small></button>';
+          }).join('') +
+          '</div>'
+        : '<div class="adNv">' +
+          us.map(function (it, i) {
+            var f = photoOf(it.ref, it.cor) || photoOf(it.ref);
+            return '<button type="button" class="adNvI" data-act="enAbre" data-id="' + i + '"><span class="adNvF">' + (f ? '<img alt="" src="' + f + '">' : '') + '</span><b>' + esc(it.ref) + '</b><small>' + esc(it.tipo === 'pre' ? 'Pré-graduado' : it.cor && it.cor !== 'Sem cor' ? it.cor : 'Padrão') + '</small></button>';
+          }).join('') +
+          '</div>';
+    b.innerHTML = pill + corpo;
+  }
+  ACT.adAba = function (id) {
+    S.adAba = id === 'pend' ? 'pend' : 'novo';
+    saveSoon();
+    renderDeNovo();
+  };
+  // Toque numa foto aguardando: o mesmo identificador do cartão "Foto" (leitura + Mais parecidas + Novo modelo já com a foto).
+  ACT.adPend = function (id) {
+    var pd = (S.estPend || []).filter(function (x) {
+      return x.id === id;
+    })[0];
+    if (!pd) return;
+    idbDo('hq', 'readonly', function (o) {
+      return o.get('pend|' + id);
+    })
+      .catch(function () {
+        return null;
+      })
+      .then(function (u) {
+        return fetch(u || pd.t).then(function (r) {
+          return r.blob();
+        });
+      })
+      .then(function (bl) {
+        S._pendLig = { id: id, ts: Date.now() };
+        fmAnalisa(bl);
+      })
+      .catch(function () {
+        lfToast('Não consegui abrir essa foto');
+      });
+  };
+  // Quando a foto aguardando vira a foto de uma peça: leva a 3/4 junto e tira da lista.
+  function pendDepoisDeSalvar(k) {
+    var L = S._pendLig;
+    if (!L || Date.now() - L.ts > 30 * 60000 || /\|34$/.test(k)) return;
+    S._pendLig = null;
+    var pd = (S.estPend || []).filter(function (x) {
+      return x.id === L.id;
+    })[0];
+    if (!pd) return;
+    var ap = function () {
+      if (pd.giro)
+        idbDo('hq', 'readonly', function (o) {
+          return o.get('pend|' + pd.id + '|giro');
+        }).then(function (v) {
+          if (v && typeof estGiroGuarda === 'function') estGiroGuarda(k, v);
+          idbDo('hq', 'readwrite', function (o) {
+            return o.delete('pend|' + pd.id + '|giro');
+          }).catch(function () {});
+        }).catch(function () {});
+      S.estPend = S.estPend.filter(function (x) {
+        return x !== pd;
+      });
+      idbDo('hq', 'readwrite', function (o) {
+        o.delete('pend|' + pd.id);
+        return o.delete('pend|' + pd.id + '|34');
+      }).catch(function () {});
+      saveSoon();
+    };
+    if (!pd.t34) return ap();
+    idbDo('hq', 'readonly', function (o) {
+      return o.get('pend|' + pd.id + '|34');
+    })
+      .catch(function () {
+        return null;
+      })
+      .then(function (u) {
+        setFoto(k + '|34', pd.t34, u || pd.t34);
+        ap();
+      });
   }
   ACT.enAbre = function (i) {
     var it = enUltimas()[+i];
@@ -100,3 +186,29 @@
     lfEntrada(n, it.ref + ' ' + it.cor);
     render();
   };
+  // ---------- v442: selos por cor no Inventário (Editar produto › Cores e fotos) ----------
+  var CF_LC = null;
+  function cfSelos(ref, it) {
+    var k = ref + '|' + it.cor,
+      nt = (S.fotoNota || {})[k],
+      tem = !!(S.fotos && S.fotos[k]),
+      h = '';
+    if (tem && nt && nt.n >= 80) h += '<span class="selo ok">foto ' + nt.n + ' ✓</span>';
+    else if (tem || nt) h += '<button type="button" class="selo warn" data-refaz="1">refazer' + (nt && nt.mot && nt.mot.length ? ' · ' + esc(nt.mot[0]) : nt ? ' · nota ' + nt.n : '') + ' ›</button>';
+    // sobra (do ideal da lista de compras; a conta é feita 1× a cada poucos segundos)
+    if (!CF_LC || Date.now() - CF_LC.t > 4000) {
+      try {
+        CF_LC = { t: Date.now(), L: lcLista() };
+      } catch (e) {
+        CF_LC = { t: Date.now(), L: null };
+      }
+    }
+    var b = CF_LC.L && CF_LC.L.porIdeal[lcChave(it.tipo, ref, it.tipo === 'pre' ? it.grau : '')];
+    if (b && b.sobra) h += '<span class="selo warn">sobra ' + b.sobra + '</span>';
+    // onde a peça está
+    var site = !!(S.site && S.site[ref]);
+    h += '<span class="selo ' + (site ? 'ok' : '') + '">' + (site ? '● site' : '○ fora do site') + '</span><span class="selo ok">● catálogo</span>';
+    var mk2 = S.mkt && S.mkt.kit && S.mkt.kit[ref];
+    if (mk2) h += '<span class="selo warn">● marketing</span>';
+    return h;
+  }

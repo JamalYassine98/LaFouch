@@ -1101,6 +1101,20 @@
           '<span class="cfCu">US$ <input class="cfCuI" inputmode="decimal" placeholder="custo" aria-label="Custo por peça em US$" value="' + esc(S.cDraft[ix] != null ? S.cDraft[ix] : i.custo != null ? String(i.custo).replace('.', ',') : '') + '"></span></div>' +
           '<span class="vstep cfStep"><span class="vs-b" role="button" tabindex="0" data-d="-1" aria-label="Diminuir estoque">−</span><input class="vs-n cfQI" type="number" min="0" inputmode="numeric" aria-label="Quantidade em estoque" value="' + qv + '"><span class="vs-b" role="button" tabindex="0" data-d="1" aria-label="Aumentar estoque">+</span></span>' +
           (ab ? '<div class="cfMais"><button type="button" class="mini" data-f="1">Trocar foto</button>' + '<button type="button" class="mini cfDel" data-x="1">Excluir cor</button>' + '</div>' : '');
+        // v442: selos da cor — foto no padrão ou "refazer · motivo" (abre o Estúdio nessa cor), sobra e onde a peça está
+        try {
+          var sel = cfSelos(ref, i);
+          if (sel) {
+            var sx = mk('div', 'cfSelos');
+            sx.innerHTML = sel;
+            r.appendChild(sx);
+            var rf = sx.querySelector('[data-refaz]');
+            if (rf)
+              rf.onclick = function () {
+                estCam({ k: ref + '|' + i.cor, ref: ref, cor: i.cor, passo: 'frente', titulo: pn(ref) + ' · ' + i.cor, salva: true, fim: function () { render(); } });
+              };
+          }
+        } catch (e) {}
         r.querySelector('.cfFt').onclick = function () {
           fotoDaCor(i.cor);
         };
