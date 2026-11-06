@@ -1069,3 +1069,9 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Atualização automática parou na v446/v447: www/version.json leva as notas de novidades; mudei novidades.json DEPOIS do build → "node build.js --check" do workflow falhou. REGRA: sempre rodar node build.js DEPOIS de editar docs/novidades.json.
 - FOTOS DO SITE: duas funções fotoHash no mesmo escopo (96-loja-online numérica e 97-sync2 texto); a última vencia → fv = (h*31 + "texto")>>>0 = 0 → painel "sem foto", site não buscava fotos, Destaque "Sem fotos". Renomeada a de 97-sync2 para fotoHashSync. As fotos sobem de novo uma vez.
 - Preço automático: S.pAuto salvo por versão antiga sem "mudas" → ACT.paLiga quebrava no push. paNorm() completa os campos; paLiga salva.
+
+## v449 (5.4.7) — 06/11/2026 — aprovados 1, 2, 3 (01:32)
+- App: Loja online (Site) sem a barra Vendas | WhatsApp | Site (uniAbasFill esconde uniS como já fazia com uniV).
+- Painel (admin.html, só >=1000px): setinha #pnTog na borda do painel; recolhe o painel com animação (grid 520px→0, .42s), o site fica no tamanho real; setinha vira ‹ na borda direita; lembra em localStorage lf_pfech.
+- Site: "Continuar comprando" do carrinho fecha e vai ao catálogo (goTo('vitrine')), mantendo os filtros.
+- Item 5 (CPF/CI/RUC legítimos): DESCARTADO por enquanto. Item 4 (delivery só no Paraguai): esboço sendo elaborado — o dono pediu: não avisar "é do Brasil", e sim "não fazemos entrega no Brasil/Argentina/fora"; delivery só no Paraguai.

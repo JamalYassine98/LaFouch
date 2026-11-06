@@ -608,8 +608,8 @@
     ['uniV', 'uniS', 'uniW'].forEach(function (id) {
       var h = $(id);
       if (!h) return;
-      if (id === 'uniV') {
-        h.hidden = true; // Catálogo único: Varejo | Atacado + ícone do WhatsApp, sem a barra de abas
+      if (id === 'uniV' || id === 'uniS') {
+        h.hidden = true; // Catálogo único: Varejo | Atacado + ícone do WhatsApp, sem a barra de abas; Site (Loja online) também sem a barra (v449)
         return;
       }
       var on = uniOn();

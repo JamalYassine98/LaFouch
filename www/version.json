@@ -1,1 +1,1 @@
-{"v":448,"nat":1,"nome":"5.4.6","notas":["Corrigido: as fotos não iam para o site (o site e o painel achavam que as peças estavam sem foto)","Corrigido: o Preço automático não ligava em Ajustes","Diagnóstico temporário em Catálogo › Site (sai depois)"]}
+{"v":449,"nat":1,"nome":"5.4.7","notas":["Catálogo › Site abre direto no painel do site, sem a barra antiga Vendas | WhatsApp | Site","Diagnóstico temporário em Catálogo › Site (sai depois)"]}
