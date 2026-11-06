@@ -3018,6 +3018,20 @@ async def main():
             if not ok: falhas.append('marketing'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Mais vistas e não vendidas (v445): soma das vistas do site × vendas de 30 dias → Marketing
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              const lim = Date.now() - 30 * 864e5, ven = {}; S.sales.forEach(s => { if (!s.estorno && s.ts >= lim) ven[s.ref] = (ven[s.ref] || 0) + s.qty; });
+              const its = S.items.filter(i => !i.bulk); const r = its[0].ref, r2 = its.find(i => i.ref !== r).ref;
+              S.vistas = {}; S.vistas[r] = (ven[r] || 0) * 30 + 20; S.vistas[r2] = 3;
+              const l = L.vistasNaoVendidas();
+              return [l.length === 1 && l[0].ref === r && l[0].v === S.vistas[r]]; }""")
+            total += 1
+            ok = got == [True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Mais vistas e não vendidas: vistas do site × vendas de 30 dias')
+            if not ok: falhas.append('vistas site'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Catálogo invisível + modo cliente (v444): o que está na tela não se mexe; iPad só com catálogo e varejo; fundo desfocado; parado volta ao início; sair pede PIN
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

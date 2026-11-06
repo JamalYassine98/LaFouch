@@ -1039,3 +1039,13 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - 60-vendas.js: no atendimento, a ordem nova só vale DEPOIS do que o cliente já viu (S._vOrd = ordem mostrada; S._vSeenMax = último cartão que chegou à tela, atualizado no scroll); sem deslize FLIP no atendimento. Teste antigo "catálogo traz o luxo primeiro" virou "o que está na tela não se mexe".
 - 97-modo-cliente.js (localStorage lf_modoCli; Ajustes › "Modo cliente (iPad da loja)" → "Ligar neste aparelho", exige PIN criado): body.modoCli esconde barra de baixo, sino, abas, WhatsApp, Varejo|Atacado, venda/quantidade; S.tabAtiva='pub'; setView preso em 'vendas'. Peça aberta: lista fica atrás desfocada (body.mcAberto) e a ficha flutua na frente; o deslizar entre peças já existia (89-gestos-ficha). Parado 2 min → mcInicio (limpa atendimento, busca, peça aberta, topo). Sair: segurar o logo do topo 1,5 s → mostrarLock('confirm') com o PIN.
 - Falta para o iPad de verdade: ligar a sincronização + fotos de todas as peças no iPad (etapa 9).
+
+## v445 (5.4.3) — 05/11/2026 — Etapa 8: vistas do site + site mais leve e rosto mais inteligente (IMPLEMENTADO)
+- App 97-vistas-site.js: vistasBusca lê a coleção Firestore 'vistas' (30 dias, em páginas, via nvApi); vistasNaoVendidas → seção do Marketing "Mais vistas e não vendidas · site".
+- Site (catalogo): 36 imagens base64 saíram do index.html para /media/i/<sha1> (2,6 MB → 0,44 MB); tools/gen_produtos.py aceita '/media/i/'.
+- Site rosto: faceLandmark68Net completo (cai para o tiny se falhar) + ageGenderNet; régua recalibrada (alongado só com rosto bem comprido); gênero só pré-seleciona com probabilidade ≥ 0,9; modo de teste ?rostoTeste=1 mostra os números.
+- Site "Combina también": mesmo tipo, filtro rosto/gênero, pontua formato, preço, cor, material e as peças vistas na sessão; sempre um mais barato perto do começo.
+- Site vistas: PATCH vistas/<visitId> {ts, r:{ref:n}} ao sair da página. O DONO PRECISA COLAR A REGRA no Firestore:
+  match /vistas/{id} { allow create, update: if request.resource.data.keys().hasOnly(['ts','r']) && request.resource.data.ts is int && request.resource.data.r is map && request.resource.data.r.size() <= 60; allow read, delete: if request.auth != null && request.auth.uid == 'jJzNDoMHtuRNOAF1GhJfNYDMlE63'; }
+- NÃO FEITO (bloqueio do ambiente): MediaPipe 478 pontos / contorno / íris em mm (downloads bloqueados aqui); giro no site (precisa de armazenamento para vídeo); botão "Ler haste" no Estúdio ficou de fora.
+- Falta: etapa 9 (sincronização + fotos no iPad) — arriscada, fazer com calma.

@@ -619,6 +619,13 @@
           // status de hoje
           if (st)
             h += '<div class="mkSec">Status de hoje</div><button type="button" class="mkSt" data-cria="status" data-refs="' + esc(st.ref) + '"><span class="vtI"><img src="' + esc(st.f.foto) + '" alt=""></span><span style="flex:1;text-align:left"><b>' + esc(st.f.nome) + '</b><small>' + esc(mkPorque(st.f, obj).join(' · ')) + '</small></span>›</button>';
+          // v445: mais vistas no site e não vendidas
+          var mv = typeof vistasNaoVendidas === 'function' ? vistasNaoVendidas() : [];
+          if (mv.length)
+            h += '<div class="mkSec">Mais vistas e não vendidas · site</div>' + mv.slice(0, 3).map(function (x) {
+              var f = mkFatos(x.ref);
+              return '<button type="button" class="mkSt" data-cria="status" data-refs="' + esc(x.ref) + '"><span class="vtI"><img src="' + esc(f.foto) + '" alt=""></span><span style="flex:1;text-align:left"><b>' + esc(f.nome) + '</b><small>' + x.v + ' aberturas no site · ' + x.q + ' vendida' + (x.q === 1 ? '' : 's') + ' em 30 dias · destacar no Status</small></span>›</button>';
+            }).join('');
           // v442: Status com o vídeo do giro (Estúdio)
           var gr = Object.keys(S.giros || {}).filter(function (r) { return itemDoRef(r); }).sort(function (a, b) { return S.giros[b].ts - S.giros[a].ts; }).slice(0, 3);
           if (gr.length)

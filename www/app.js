@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 444;
+  var APP_BUILD = 445;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.4.2'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.4.3'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -35927,6 +35927,13 @@
           // status de hoje
           if (st)
             h += '<div class="mkSec">Status de hoje</div><button type="button" class="mkSt" data-cria="status" data-refs="' + esc(st.ref) + '"><span class="vtI"><img src="' + esc(st.f.foto) + '" alt=""></span><span style="flex:1;text-align:left"><b>' + esc(st.f.nome) + '</b><small>' + esc(mkPorque(st.f, obj).join(' · ')) + '</small></span>›</button>';
+          // v445: mais vistas no site e não vendidas
+          var mv = typeof vistasNaoVendidas === 'function' ? vistasNaoVendidas() : [];
+          if (mv.length)
+            h += '<div class="mkSec">Mais vistas e não vendidas · site</div>' + mv.slice(0, 3).map(function (x) {
+              var f = mkFatos(x.ref);
+              return '<button type="button" class="mkSt" data-cria="status" data-refs="' + esc(x.ref) + '"><span class="vtI"><img src="' + esc(f.foto) + '" alt=""></span><span style="flex:1;text-align:left"><b>' + esc(f.nome) + '</b><small>' + x.v + ' aberturas no site · ' + x.q + ' vendida' + (x.q === 1 ? '' : 's') + ' em 30 dias · destacar no Status</small></span>›</button>';
+            }).join('');
           // v442: Status com o vídeo do giro (Estúdio)
           var gr = Object.keys(S.giros || {}).filter(function (r) { return itemDoRef(r); }).sort(function (a, b) { return S.giros[b].ts - S.giros[a].ts; }).slice(0, 3);
           if (gr.length)
@@ -40359,6 +40366,65 @@
         if (temaVal() === 'auto') temaMeta('auto');
       });
   } catch (e) {}
+  // ===== Mais vistas e não vendidas (v445, aprovado 05/11/2026) =====
+  // O site manda, ao fim de cada visita, quantas vezes cada peça foi aberta (vistas/<visita>). O app soma os últimos
+  // 30 dias e o Marketing mostra as peças que interessam mas não fecham — para destacar no Status ou pôr em oferta.
+  S.vistas = {}; // ref -> aberturas em 30 dias
+  S.vistasTs = 0;
+  function vistasBusca() {
+    if (!S.nuvem || !S.nuvem.rt || navigator.onLine === false || typeof nvApi !== 'function') return Promise.resolve(0);
+    var lim = Date.now() - 30 * DAY,
+      soma = {},
+      pag = function (tok, n) {
+        return nvApi('GET', 'vistas?pageSize=300' + (tok ? '&pageToken=' + encodeURIComponent(tok) : '')).then(function (j) {
+          (j.documents || []).forEach(function (d) {
+            var f = d.fields || {},
+              ts = +((f.ts || {}).integerValue || 0),
+              r = ((f.r || {}).mapValue || {}).fields || {};
+            if (ts < lim) return;
+            Object.keys(r).forEach(function (k) {
+              soma[k] = (soma[k] || 0) + Math.min(50, +(r[k].integerValue || 0));
+            });
+          });
+          if (j.nextPageToken && n < 6) return pag(j.nextPageToken, n + 1);
+        });
+      };
+    return pag('', 0).then(
+      function () {
+        S.vistas = soma;
+        S.vistasTs = Date.now();
+        saveSoon();
+        return Object.keys(soma).length;
+      },
+      function () {
+        return 0;
+      }
+    );
+  }
+  // peças com muita gente olhando e pouca venda (30 dias)
+  function vistasNaoVendidas() {
+    var lim = Date.now() - 30 * DAY,
+      ven = {};
+    (S.sales || []).forEach(function (s) {
+      if (!s.estorno && s.ts >= lim) ven[s.ref] = (ven[s.ref] || 0) + s.qty;
+    });
+    return Object.keys(S.vistas || {})
+      .filter(function (r) {
+        var v = S.vistas[r];
+        return v >= 5 && itemDoRef(r) && (ven[r] || 0) <= v * 0.05;
+      })
+      .map(function (r) {
+        return { ref: r, v: S.vistas[r], q: ven[r] || 0 };
+      })
+      .sort(function (a, b) {
+        return b.v - a.v;
+      })
+      .slice(0, 5);
+  }
+  if (!/#test/.test(location.hash)) {
+    setTimeout(vistasBusca, 40000);
+    setInterval(vistasBusca, 30 * 60000);
+  }
   // ===== Vitrine da semana (v428, aprovado 04/11/2026) =====
   // A vitrine física da loja: o app sugere o que ENTRA, o que SAI e o que FICA. O dono informa quantos lugares
   // tem (perguntado no próprio cartão), pode FIXAR peças (📌 nunca saem) e toca "Troquei a vitrine".
@@ -43647,7 +43713,9 @@
       'arqVolta',
       'arqDia',
       'adAba',
-      'giros'
+      'giros',
+      'vistas',
+      'vistasTs'
     ];
   // Carrega o estado salvo.
   function loadSaved() {
@@ -43811,7 +43879,7 @@
       barMoedas: barMoedas,
       animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
-      S: S, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcComprarNovo: lcComprarNovo, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, envFolha: window.__envFolha, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
+      S: S, vistasNaoVendidas: vistasNaoVendidas, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcComprarNovo: lcComprarNovo, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, envFolha: window.__envFolha, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,
       grpTot: grpTot, grpFalta: grpFalta, effCusto: effCusto, parseLote: parseLote, parsePedido: parsePedido, parseHaste: parseHaste,
       parseVote: parseVote, flatParse: flatParse, numAmt: numAmt, hKey: hKey, lev: lev, normRef: normRef,
