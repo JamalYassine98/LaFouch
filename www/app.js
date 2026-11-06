@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 446;
+  var APP_BUILD = 447;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.4.3'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.4.4'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -28201,7 +28201,9 @@
         }).then(function () {
           delete S.vitPend[ref];
           saveSoon();
-        }, function () {});
+        }, function (e) {
+          S._vitErr = { ref: ref, ts: Date.now(), msg: (e && e.status ? e.status + ' · ' : '') + ((e && e.message) || 'falhou') }; // diagnóstico temporário
+        });
       }, Promise.resolve())
       .then(function () {
         vitSync.busy = false;
@@ -28357,6 +28359,9 @@
     $('siteBox').classList.toggle('full', !!S.siteFull);
     uniAbasFill();
     vitSync();
+    try {
+      diagSiteRender(el);
+    } catch (e) {}
   }
   window.addEventListener('online', function () {
     if (S.view === 'onl') render();
@@ -30668,6 +30673,40 @@
     render();
     window.scrollTo(0, 0);
   };
+  // ===== DIAGNÓSTICO TEMPORÁRIO do envio ao site (v447, 06/11/2026) =====
+  // O dono aprovou mostrar o motivo do erro e TIRAR DEPOIS ("tem que tirar essa bagunça").
+  // Para remover: apagar este arquivo, a chamada diagSiteRender() em 96-loja-online.js e o S._vitErr em vitSync.
+  function diagSiteRender(el) {
+    var d = $('vitDiag');
+    if (!d) {
+      d = mk('section', 'card');
+      d.id = 'vitDiag';
+      d.style.cssText = 'padding:12px 14px;margin:0 0 10px;font-size:13px;line-height:1.45';
+      var sb = $('siteBox');
+      el.insertBefore(d, sb);
+    }
+    var refs = {},
+      pub = 0,
+      fila = 0,
+      ficha = 0,
+      semNuvem = !S.nuvem || !S.nuvem.rt;
+    (S.items || []).forEach(function (i) {
+      if (!i.bulk) refs[i.ref] = 1;
+    });
+    Object.keys(refs).forEach(function (r) {
+      if (S.site && S.site[r]) {
+        if (S.vitPend && S.vitPend[r]) fila++;
+        else pub++;
+      } else if (!siteCheck(r).ok) ficha++;
+    });
+    var e = S._vitErr,
+      h =
+        '<b>Diagnóstico do site (temporário)</b><div>Peças no site: <b>' + pub + '</b> publicadas · <b>' + fila + '</b> esperando envio' +
+        (ficha ? ' · ' + ficha + ' fora (falta foto em alguma cor ou estoque)' : '') + '</div>' +
+        (semNuvem ? '<div style="color:var(--warn)">Nuvem sem login neste aparelho.</div>' : '') +
+        (e ? '<div style="color:var(--warn)">Último erro (' + fh(e.ts) + ', ' + esc(e.ref) + '): ' + esc(e.msg) + '</div>' : fila ? '<div>Sem erro registrado ainda (o envio tenta de 1 em 1 minuto).</div>' : '');
+    if (d.innerHTML !== h) d.innerHTML = h;
+  }
   // ===== Adicionar A+1 (v417): "Dar entrada de novo" com as 3 últimas peças que entraram. =====
   // Toque numa delas abre a folhinha "Quantas chegaram?" (− N +) e "Dar entrada · N peças".
   // O custo e o resto vêm do cadastro que já existe; respeita o limite do lote (gCap) como a entrada rápida.

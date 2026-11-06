@@ -1,9 +1,6 @@
 {
- "nome": "5.4.4",
+ "nome": "5.4.5",
  "notas": [
-  "Giro 360° vai sozinho para o site depois de gravar no Estúdio (botão 360° na página da peça). Precisa configurar uma vez a função do Firebase (passo a passo em functions/LEIA-ME.txt)",
-  "Corrigido: peça presa como 'reservada pelo site' — pedido apagado ou cancelado solta a peça, e reserva paga de pedido que não existe mais sai sozinha depois de 10 min",
-  "Catálogo: o número de peças ficou na mesma linha do texto",
-  "Site: o 3 não aparece mais antes da análise do rosto; se a peça está no seu próprio pedido não pago, avisa 'Você já reservou esta peça'"
+  "Diagnóstico temporário em Catálogo › Site: quantas peças estão publicadas no site, quantas esperam e o motivo do erro (sai depois de resolver)"
  ]
 }

@@ -254,7 +254,9 @@
         }).then(function () {
           delete S.vitPend[ref];
           saveSoon();
-        }, function () {});
+        }, function (e) {
+          S._vitErr = { ref: ref, ts: Date.now(), msg: (e && e.status ? e.status + ' · ' : '') + ((e && e.message) || 'falhou') }; // diagnóstico temporário
+        });
       }, Promise.resolve())
       .then(function () {
         vitSync.busy = false;
@@ -410,6 +412,9 @@
     $('siteBox').classList.toggle('full', !!S.siteFull);
     uniAbasFill();
     vitSync();
+    try {
+      diagSiteRender(el);
+    } catch (e) {}
   }
   window.addEventListener('online', function () {
     if (S.view === 'onl') render();
