@@ -1257,7 +1257,7 @@ async def main():
             total += 1
             await pg.close()
 
-            # Linha automática no atendimento: depois de ver peças de luxo o catálogo traz o luxo primeiro; vitrine mostra "Parecidas"; nada visível
+            # Linha automática no atendimento (v444: o que está na tela NÃO se mexe — a nova ordem vale só para o que vem depois); vitrine mostra "Parecidas"; nada visível
             pg = await pagina()
             at = await pg.evaluate("""() => { const L = window.__LF, S = L.S; S._linK = null; S._linC = null; S.pfaixa = {}; S.linhaFix = {}; S.cart = []; S.vRef = ''; S.vAb = ''; S.tabAtiva = 'pub'; S.vModo = {v:'g'};
               try { localStorage.setItem('lf_modo_v', 'g'); } catch (e) {}
@@ -1270,8 +1270,8 @@ async def main():
               const depois = [...document.querySelectorAll('#vRows .pcard')].map(c => c.dataset.ref);
               const txt = document.getElementById('vListCard').innerText;
               return {antes, prim: depois[0], par, semNome: !/Luxo|Econômic|Intermediár/.test(txt)}; }""")
-            ok = [x for x in at['antes'].split(',') if x.startswith('AT')][0] == 'AT1' and at['prim'] in ('AT5', 'AT6') and at['par'] and at['par'][0] == 'AT5' and at['semNome'] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'linha automática: catálogo se arruma pelo que o cliente viu, Parecidas na vitrine, nenhum nome de linha')
+            ok = [x for x in at['antes'].split(',') if x.startswith('AT')][0] == 'AT1' and at['prim'] == at['antes'].split(',')[0] and at['par'] and at['par'][0] == 'AT5' and at['semNome'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'linha automática: o que está na tela não se mexe, Parecidas na vitrine, nenhum nome de linha')
             if not ok: falhas.append('atendimento linha'); print('        veio', at, pg.erros)
             total += 1
             await pg.close()
@@ -3016,6 +3016,29 @@ async def main():
             ok = got == [True, 6, True, True, True, True, True, True, 1, '2-28'] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Marketing: Início, objetivo muda o plano, feito, legenda com fatos reais (urgência só real), PT/ES, lembrete, Páscoa')
             if not ok: falhas.append('marketing'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # Catálogo invisível + modo cliente (v444): o que está na tela não se mexe; iPad só com catálogo e varejo; fundo desfocado; parado volta ao início; sair pede PIN
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              L.atdFim(); S.vRef = ''; S.vq = ''; S.vTipo = 'all'; L.setView('vendas'); await w(300); window.scrollTo(0, 0); window.dispatchEvent(new Event('scroll')); await w(100);
+              const vis = () => [...document.querySelectorAll('#vRows .pcard[data-ref]')].filter(c => { const r = c.getBoundingClientRect(); return r.height && r.top < innerHeight; }).map(c => c.dataset.ref);
+              const antes = vis(); const todos0 = [...document.querySelectorAll('#vRows .pcard[data-ref]')].map(c => c.dataset.ref);
+              const k = S._vOrd[todos0.length - 1]; S.vRef = k; L.render(); await w(100); S.vRef = ''; L.render(); await w(200);
+              const depois = vis(); const fixo = JSON.stringify(antes) === JSON.stringify(depois.slice(0, antes.length));
+              // modo cliente
+              S.pinHash = 'x'; L.ACT.mcLiga(); await w(200);
+              const mc = document.body.classList.contains('modoCli') && S.view === 'vendas' && getComputedStyle(document.getElementById('mainnav')).display === 'none';
+              L.setView('caixa'); await w(100); const preso = S.view === 'vendas';
+              S.vRef = S._vOrd[0]; L.render(); await w(100); const blur = document.body.classList.contains('mcAberto') && !document.getElementById('vListCard').hidden;
+              L.mcInicio(); await w(100); const volta = !S.vRef;
+              L.mcSair(); await w(100); const pin = !document.getElementById('lockScr').hidden;
+              try { localStorage.removeItem('lf_modoCli'); } catch (e) {} document.getElementById('lockScr').hidden = true; S.modoCli = false; document.body.classList.remove('modoCli', 'mcAberto'); S.pinHash = '';
+              return [antes.length > 0, fixo, mc, preso, blur, volta, pin]; }""")
+            total += 1
+            ok = got == [True] * 7 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Catálogo invisível + modo cliente: tela não se mexe, iPad só catálogo, fundo desfocado, volta ao início, sair pede PIN')
+            if not ok: falhas.append('modo cliente'); print('        veio', got, pg.erros)
             await pg.close()
 
             # Estúdio × Adicionar (v442): botão "Fotografar antes de cadastrar" + Giro; Adicionar com faixa de 2 abas que lembra a aba; foto aguardando leva a 3/4 junto; selos por cor; Completar fotos abre o Estúdio

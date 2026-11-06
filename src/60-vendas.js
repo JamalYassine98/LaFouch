@@ -224,7 +224,8 @@
       S._atdUlt = S.vAb;
       atdViu(S.vAb);
     }
-    if (atdAtivo()) {
+    var atdOn = atdAtivo();
+    if (atdOn) {
       var pos0 = {};
       order.forEach(function (k, i) {
         pos0[k] = i;
@@ -235,7 +236,23 @@
           d = atdPeso(pa.slice(1).join('|'), pa[0]) - atdPeso(pb.slice(1).join('|'), pb[0]);
         return d || pos0[a] - pos0[b];
       });
+      // v444: o cliente nunca vê o catálogo se mexer — o que ele já viu (até o fim da tela) fica no lugar;
+      // a nova ordem vale só para o que vem depois (o que ele ainda não viu)
+      var prevO = S._vOrd || [],
+        fixo = prevO.slice(0, (S._vSeenMax | 0) + 1).filter(function (k) {
+          return groups[k];
+        });
+      if (fixo.length && S._vSeenOk)
+        order = fixo.concat(
+          order.filter(function (k) {
+            return fixo.indexOf(k) < 0;
+          })
+        );
+    } else {
+      S._vSeenMax = 0;
     }
+    S._vSeenOk = true;
+    S._vOrd = order.slice();
     if (S.vMais) {
       var vend = {};
       S.sales.forEach(function (x) {
@@ -306,7 +323,7 @@
     renderMoedaBar();
     var rows = $('vRows');
     var flip0 = {};
-    if (!REDUCED && !S.vRef)
+    if (!REDUCED && !S.vRef && !atdOn)
       [].forEach.call(rows.querySelectorAll('.pcard[data-ref]'), function (c) {
         var r = c.getBoundingClientRect();
         if (r.height) flip0[c.dataset.ref] = r.top;
@@ -463,7 +480,10 @@
         });
       });
     // produto aberto: a mesma tela do catálogo, em modo venda; a lista some
-    $('vListCard').hidden = !!S.vRef;
+    // (modo cliente: a lista fica atrás, desfocada, e o produto aparece na frente)
+    $('vListCard').hidden = !!S.vRef && !S.modoCli;
+    document.body.classList.toggle('mcAberto', !!(S.modoCli && S.vRef));
+    setTimeout(vVistoAtualiza, 0);
     $('vSaleCard').hidden = true; // quantidade e botão Vender ficam na barra fixa do produto
     if (S.vRef && groups[S.vRef]) {
       var dsel = renderDetail(groups[S.vRef][0].ref, {
@@ -798,3 +818,20 @@
     w.appendChild(tr);
     host.appendChild(w);
   }
+  // v444: até onde o cliente já viu a grade (o que está na tela ou acima dela não muda de lugar)
+  function vVistoAtualiza() {
+    if (S.view !== 'vendas' || (S.vRef && !S.modoCli)) return;
+    var cs = document.querySelectorAll('#vRows .pcard[data-ref]'),
+      h = window.innerHeight || 800,
+      ult = -1;
+    for (var i = 0; i < cs.length; i++) {
+      var r = cs[i].getBoundingClientRect();
+      if (!r.height) continue;
+      if (r.top < h) ult = i;
+      else break;
+    }
+    if (ult > (S._vSeenMax | 0)) S._vSeenMax = ult;
+  }
+  window.addEventListener('scroll', function () {
+    if (S.view === 'vendas') vVistoAtualiza();
+  }, { passive: true });

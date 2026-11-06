@@ -1034,3 +1034,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 
 ## v443 (5.4.1) — 05/11/2026 — Etapa 6: animação de ENCAIXE dos grupos (IMPLEMENTADO)
 - 98-grupo-encaixe.js: encJunta (ao soltar sobre outro botão: peças aparecem 0,2 s, deslizam acelerando 0,45 s, clique = tremor 0,2 s + emenda amarela; "Novo grupo" abre aos 0,9 s), encCria (peças encaixadas encolhem para o botão do grupo e o ícone do grupo aparece), encCancela (Cancelar: desencaixam e somem), encDesfaz (arrastar para fora ou "Desfazer o grupo": tranco, desencaixam, cada peça volta ao seu botão). Respeita REDUCED. Ganchos em 98-botoes-barra.js (fim do arraste) e 95-barra-grupos.js (grpCria/grpFecha/grpDesfazer).
+
+## v444 (5.4.2) — 05/11/2026 — Etapa 7: catálogo invisível + modo cliente (IMPLEMENTADO)
+- 60-vendas.js: no atendimento, a ordem nova só vale DEPOIS do que o cliente já viu (S._vOrd = ordem mostrada; S._vSeenMax = último cartão que chegou à tela, atualizado no scroll); sem deslize FLIP no atendimento. Teste antigo "catálogo traz o luxo primeiro" virou "o que está na tela não se mexe".
+- 97-modo-cliente.js (localStorage lf_modoCli; Ajustes › "Modo cliente (iPad da loja)" → "Ligar neste aparelho", exige PIN criado): body.modoCli esconde barra de baixo, sino, abas, WhatsApp, Varejo|Atacado, venda/quantidade; S.tabAtiva='pub'; setView preso em 'vendas'. Peça aberta: lista fica atrás desfocada (body.mcAberto) e a ficha flutua na frente; o deslizar entre peças já existia (89-gestos-ficha). Parado 2 min → mcInicio (limpa atendimento, busca, peça aberta, topo). Sair: segurar o logo do topo 1,5 s → mostrarLock('confirm') com o PIN.
+- Falta para o iPad de verdade: ligar a sincronização + fotos de todas as peças no iPad (etapa 9).

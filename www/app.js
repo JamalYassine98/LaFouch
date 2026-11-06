@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 443;
+  var APP_BUILD = 444;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.4.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.4.2'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -10770,6 +10770,7 @@
   function atdFim() {
     ATD.vistos = [];
     ATD.t = 0;
+    S._vSeenMax = 0;
   }
   // Linha que o cliente procura agora (a das últimas peças vistas).
   function atdLinha() {
@@ -13993,7 +13994,8 @@
       S._atdUlt = S.vAb;
       atdViu(S.vAb);
     }
-    if (atdAtivo()) {
+    var atdOn = atdAtivo();
+    if (atdOn) {
       var pos0 = {};
       order.forEach(function (k, i) {
         pos0[k] = i;
@@ -14004,7 +14006,23 @@
           d = atdPeso(pa.slice(1).join('|'), pa[0]) - atdPeso(pb.slice(1).join('|'), pb[0]);
         return d || pos0[a] - pos0[b];
       });
+      // v444: o cliente nunca vê o catálogo se mexer — o que ele já viu (até o fim da tela) fica no lugar;
+      // a nova ordem vale só para o que vem depois (o que ele ainda não viu)
+      var prevO = S._vOrd || [],
+        fixo = prevO.slice(0, (S._vSeenMax | 0) + 1).filter(function (k) {
+          return groups[k];
+        });
+      if (fixo.length && S._vSeenOk)
+        order = fixo.concat(
+          order.filter(function (k) {
+            return fixo.indexOf(k) < 0;
+          })
+        );
+    } else {
+      S._vSeenMax = 0;
     }
+    S._vSeenOk = true;
+    S._vOrd = order.slice();
     if (S.vMais) {
       var vend = {};
       S.sales.forEach(function (x) {
@@ -14075,7 +14093,7 @@
     renderMoedaBar();
     var rows = $('vRows');
     var flip0 = {};
-    if (!REDUCED && !S.vRef)
+    if (!REDUCED && !S.vRef && !atdOn)
       [].forEach.call(rows.querySelectorAll('.pcard[data-ref]'), function (c) {
         var r = c.getBoundingClientRect();
         if (r.height) flip0[c.dataset.ref] = r.top;
@@ -14232,7 +14250,10 @@
         });
       });
     // produto aberto: a mesma tela do catálogo, em modo venda; a lista some
-    $('vListCard').hidden = !!S.vRef;
+    // (modo cliente: a lista fica atrás, desfocada, e o produto aparece na frente)
+    $('vListCard').hidden = !!S.vRef && !S.modoCli;
+    document.body.classList.toggle('mcAberto', !!(S.modoCli && S.vRef));
+    setTimeout(vVistoAtualiza, 0);
     $('vSaleCard').hidden = true; // quantidade e botão Vender ficam na barra fixa do produto
     if (S.vRef && groups[S.vRef]) {
       var dsel = renderDetail(groups[S.vRef][0].ref, {
@@ -14567,6 +14588,23 @@
     w.appendChild(tr);
     host.appendChild(w);
   }
+  // v444: até onde o cliente já viu a grade (o que está na tela ou acima dela não muda de lugar)
+  function vVistoAtualiza() {
+    if (S.view !== 'vendas' || (S.vRef && !S.modoCli)) return;
+    var cs = document.querySelectorAll('#vRows .pcard[data-ref]'),
+      h = window.innerHeight || 800,
+      ult = -1;
+    for (var i = 0; i < cs.length; i++) {
+      var r = cs[i].getBoundingClientRect();
+      if (!r.height) continue;
+      if (r.top < h) ult = i;
+      else break;
+    }
+    if (ult > (S._vSeenMax | 0)) S._vSeenMax = ult;
+  }
+  window.addEventListener('scroll', function () {
+    if (S.view === 'vendas') vVistoAtualiza();
+  }, { passive: true });
   // ===== Códigos parecidos e utilitários do leitor de haste. =====
   // Chave normalizada de um código (A–Z, 0–9).
   function hKey(t) {
@@ -22879,6 +22917,8 @@
   // window.__slide = +1 / -1 é posto por quem navega pela barra de baixo ou pelas abas Vendas·WhatsApp·Site: a tela desliza.
   // Sem isso (ex.: botão Catálogo na tela Início) vale a cascata de sempre.
   function setView(v) {
+    // v444: no modo cliente (iPad da loja) só existe o catálogo
+    if (S.modoCli && v !== 'vendas') v = 'vendas';
     S.view = v;
     if (v !== 'vendas') S.catOpen = false; // a tela do WhatsApp só existe dentro da aba de vendas: ao sair, fecha
     S.msg = '';
@@ -27050,6 +27090,7 @@
       av: { t: 'Sons e avisos', r: av.q ? 'Silêncio ligado' : 'Ligados', h: achar('avisosCard') + resto },
       sync: sy ? { t: 'Sincronização', r: sy[1], al: sy[0] === 'bad' || sy[0] === 'warn', h: syncCard() } : null,
       upd: { t: 'Atualização', r: upN ? (um.nome || upN) + ' pronta' : APP_NOME, al: !!upN, h: updCard() },
+      mcli: { t: 'Modo cliente (iPad da loja)', r: 'Desligado', h: mcAjHtml() },
       foto: { t: 'Fotos', r: fpChaves().length ? fpChaves().length + ' fora do padrão' : 'No padrão', h: '<button type="button" class="go" data-act="inicio" data-id="est" style="width:100%;margin-bottom:8px">Abrir a Fila de fotos no Estúdio ›</button>' + fpAjHtml() },
       bk: { t: 'Cópias e nuvem', r: bkd < 0 ? 'Nenhuma cópia' : bkd === 0 ? 'Hoje' : 'Há ' + bkd + (bkd === 1 ? ' dia' : ' dias'), al: bkd < 0 || bkd > 7, h: backupHtml().replace(/<\/section>$/, nv + '</section>') }
     };
@@ -36222,6 +36263,122 @@
       };
     });
   }
+  // ===== Modo cliente — iPad da loja (v444, aprovado 05/11/2026) =====
+  // O aparelho mostra SÓ o Catálogo de vendas (todas as peças à venda), só com o preço de VAREJO.
+  // Sem custo, lucro, piso, venda, caixa, barra de baixo ou Ajustes. Ao abrir uma peça, o catálogo fica atrás desfocado
+  // (o cliente não vê os ajustes) e deslizar passa para a próxima; o catálogo se arruma pelo que ele olha, sem se mexer na tela.
+  // Parado 2 minutos: volta ao início, sem o histórico do cliente anterior. Sair: segurar o logo + PIN do dono.
+  // Fica ligado só neste aparelho (localStorage lf_modoCli).
+  S.modoCli = false;
+  var MC_IDLE = 120000,
+    mcT = 0;
+  function mcLigado() {
+    try {
+      return localStorage.getItem('lf_modoCli') === '1';
+    } catch (e) {
+      return false;
+    }
+  }
+  // segurar o logo do topo (1,5 s) pede o PIN para sair
+  function mcTopo() {
+    var lg = document.querySelector('.logo-top .brand');
+    if (!lg || lg._mc) return;
+    lg._mc = 1;
+    var pt = 0;
+    var solta = function () {
+      clearTimeout(pt);
+      lg.classList.remove('mcSeg');
+    };
+    lg.addEventListener('pointerdown', function () {
+      if (!S.modoCli) return;
+      lg.classList.add('mcSeg');
+      pt = setTimeout(function () {
+        solta();
+        mcSair();
+      }, 1500);
+    });
+    ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (n) {
+      lg.addEventListener(n, solta);
+    });
+    lg.addEventListener('contextmenu', function (e) {
+      if (S.modoCli) e.preventDefault();
+    });
+  }
+  function mcAplica() {
+    S.modoCli = mcLigado();
+    document.body.classList.toggle('modoCli', S.modoCli);
+    if (!S.modoCli) {
+      document.body.classList.remove('mcAberto');
+      return;
+    }
+    mcTopo();
+    S.tabAtiva = 'pub';
+    S.cart = S.cart || [];
+    if (S.view !== 'vendas') setView('vendas');
+    mcAcorda();
+  }
+  function mcLiga() {
+    if (!pinAtivo()) return lfToast('Crie um PIN em Ajustes › Segurança primeiro: só o PIN tira do modo cliente');
+    try {
+      localStorage.setItem('lf_modoCli', '1');
+    } catch (e) {}
+    atdFim();
+    S.vRef = '';
+    mcAplica();
+    render();
+  }
+  function mcSair() {
+    mostrarLock('confirm', function () {
+      try {
+        localStorage.removeItem('lf_modoCli');
+      } catch (e) {}
+      S.modoCli = false;
+      document.body.classList.remove('modoCli', 'mcAberto');
+      clearTimeout(mcT);
+      render();
+      lfToast('Modo cliente desligado · app normal');
+    });
+  }
+  // parado 2 min: volta ao início para o próximo cliente
+  function mcInicio() {
+    if (!S.modoCli) return;
+    atdFim();
+    S.vRef = '';
+    S.vAb = '';
+    S.vq = '';
+    S.vTipo = 'all';
+    var q = $('vq');
+    if (q) q.value = '';
+    [].forEach.call(document.querySelectorAll('.folha,.ljJn,.ljBk'), function (e) {
+      if (e.classList.contains('ljJn') || e.classList.contains('ljBk')) e.remove();
+    });
+    if (S.view !== 'vendas') S.view = 'vendas';
+    render();
+    window.scrollTo(0, 0);
+  }
+  function mcAcorda() {
+    clearTimeout(mcT);
+    if (S.modoCli) mcT = setTimeout(mcInicio, MC_IDLE);
+  }
+  ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (n) {
+    document.addEventListener(n, function () {
+      if (S.modoCli) mcAcorda();
+    }, { passive: true, capture: true });
+  });
+  ACT.mcLiga = mcLiga;
+  // Ajustes › Modo cliente
+  function mcAjHtml() {
+    return (
+      '<div class="hint" style="margin:0 0 8px">Para o iPad da loja: o aparelho mostra só o catálogo, com o preço de varejo. Sem custo, lucro, venda nem Ajustes. Parado 2 minutos, volta ao início. Para sair: segure o logo e digite o PIN.</div>' +
+      (pinAtivo() ? '' : '<div class="note n-warn" style="margin:0 0 8px">Crie um PIN em Segurança antes: só o PIN tira do modo cliente.</div>') +
+      '<button type="button" class="go" data-act="mcLiga" style="width:100%"' + (pinAtivo() ? '' : ' disabled') + '>Ligar neste aparelho</button>'
+    );
+  }
+  if (typeof AJ_PADRAO !== 'undefined' && AJ_PADRAO.indexOf('mcli') < 0) {
+    AJ_PADRAO.push('mcli');
+    AJ_ICO.mcli = AJ_SVG('<rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M10 18h4"/>');
+  }
+  setTimeout(mcAplica, 0);
   // ===== Cliente na venda + tela "Venda confirmada" com o comprovante de venda (sempre em G$, IVA 10% incluso). =====
   // O app NÃO emite nota fiscal: imprime o comprovante (sem valor fiscal) para qualquer cliente.
   // Paraguaio com RUC: o comprovante leva Nombre/RUC (dados que a máquina fiscal usa). Estrangeiro: nome e CI/CPF, nunca RUC.
@@ -43654,7 +43811,7 @@
       barMoedas: barMoedas,
       animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
-      S: S, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcComprarNovo: lcComprarNovo, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, envFolha: window.__envFolha, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
+      S: S, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcComprarNovo: lcComprarNovo, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, envFolha: window.__envFolha, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,
       grpTot: grpTot, grpFalta: grpFalta, effCusto: effCusto, parseLote: parseLote, parsePedido: parsePedido, parseHaste: parseHaste,
       parseVote: parseVote, flatParse: flatParse, numAmt: numAmt, hKey: hKey, lev: lev, normRef: normRef,

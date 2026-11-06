@@ -3,6 +3,8 @@
   // window.__slide = +1 / -1 é posto por quem navega pela barra de baixo ou pelas abas Vendas·WhatsApp·Site: a tela desliza.
   // Sem isso (ex.: botão Catálogo na tela Início) vale a cascata de sempre.
   function setView(v) {
+    // v444: no modo cliente (iPad da loja) só existe o catálogo
+    if (S.modoCli && v !== 'vendas') v = 'vendas';
     S.view = v;
     if (v !== 'vendas') S.catOpen = false; // a tela do WhatsApp só existe dentro da aba de vendas: ao sair, fecha
     S.msg = '';

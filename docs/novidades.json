@@ -1,7 +1,7 @@
 {
- "nome": "5.4.1",
+ "nome": "5.4.2",
  "notas": [
-  "Grupos da barra com animação de ENCAIXE: os dois botões viram peças de quebra-cabeça e se encaixam com um clique; ao criar, viram o ícone do grupo",
-  "Desfazer o grupo: as peças desencaixam e cada botão volta ao seu lugar"
+  "Catálogo inteligente invisível: o que já está na tela nunca se mexe; a nova ordem vale só para o que o cliente ainda não viu",
+  "Modo cliente (iPad da loja), em Ajustes: só o catálogo, só preço de varejo, sem custo/lucro/venda/Ajustes; ao abrir uma peça o fundo fica desfocado; deslize para a próxima; parado 2 min volta ao início; sair = segurar o logo + PIN"
  ]
 }

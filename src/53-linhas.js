@@ -262,6 +262,7 @@
   function atdFim() {
     ATD.vistos = [];
     ATD.t = 0;
+    S._vSeenMax = 0;
   }
   // Linha que o cliente procura agora (a das últimas peças vistas).
   function atdLinha() {
