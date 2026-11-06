@@ -159,7 +159,8 @@
       lib: true,
       desc: S.desc && S.desc[ref] != null ? String(S.desc[ref]).trim().slice(0, 600) : '',
       gr: vitGraus(ref).map(function (g) { return g.g; }),
-      gq: vitGraus(ref).map(function (g) { return g.q; })
+      gq: vitGraus(ref).map(function (g) { return g.q; }),
+      gv: giroGv(ref)
     };
   }
   function vitFila(ref, op) {
@@ -167,7 +168,7 @@
     S.vitPend[ref] = op;
     saveSoon();
   }
-  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'desc', 'gr', 'gq', 'fv'];
+  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'desc', 'gr', 'gq', 'gv', 'fv'];
   function vitFotos(ref) {
     return vitCores(ref).map(function (c) {
       return S.fotos[ref + '|' + c.cor];

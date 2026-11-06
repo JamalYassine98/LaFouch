@@ -17,3 +17,19 @@ Android: ver docs/MEMORIA-PROJETO.md (google-services.json e segredo GOOGLE_SERV
 Opções por aparelho: o app grava em dispositivos/<token> os campos n, c, x, p (tipos de aviso), som, q, qi, qf (silêncio).
 Teste: o botão 'Enviar aviso de teste' cria pedidos/teste... (tipo cancel, ref 'teste'); a função manda o aviso de teste e o app apaga o documento.
 Sons: www/sons/*.mp3 (copiados para res/raw do APK pelo workflow).
+
+GIRO 360° E MÍDIA DO SITE (função "midia", v446) — configurar UMA vez
+A chave do GitHub fica só no Firebase. Nenhum aparelho, nem o chat, vê a chave.
+  1) GitHub > Settings > Developer settings > GitHub Apps > New GitHub App
+       Nome: LaFouch Midia (qualquer nome livre) · Homepage: https://lafouch.com
+       Webhook: DESMARCAR "Active"
+       Repository permissions > Contents: Read and write (o resto: No access)
+       Where can this be installed: Only on this account > Create GitHub App
+  2) Na página do App: anotar o "App ID" (número). Em "Private keys" > Generate a private key (baixa um arquivo .pem).
+  3) Menu "Install App" > Install > Only select repositories > catalogo > Install.
+  4) No computador, na pasta do projeto:
+       firebase functions:secrets:set GH_APP_ID      (digitar o número do App ID)
+       firebase functions:secrets:set GH_APP_KEY --data-file CAMINHO/DO/ARQUIVO.pem
+       firebase deploy --only functions
+  5) Pronto. Apague o arquivo .pem do computador depois (ou guarde num lugar seguro). Esse tipo de chave não vence.
+Teste: functions/teste-midia.js (node functions/teste-midia.js).

@@ -60,6 +60,53 @@
   function resLibera(p) {
     return resApi('liberar', p);
   }
+  // Solta a reserva de um pedido cancelado ou apagado. Sem internet (ou função fora do ar), fica na fila e tenta de novo.
+  function resSolta(p) {
+    var refs = resRefsDe(p);
+    if (!p || !p.sid || !refs.length) return;
+    if (!S.resPend) S.resPend = {};
+    S.resPend[p.sid] = { refs: refs, t: Date.now(), ja: 1 };
+    saveSoon();
+    resFlush();
+  }
+  // Reserva PAGA de um pedido que não existe mais no app (apagado antes desta correção): segurava a peça para sempre.
+  // Só solta depois de ver a mesma reserva órfã em duas buscas com 10 min de diferença (dá tempo da sincronização trazer o pedido).
+  function resOrfas() {
+    if (!S.nuvem || !S.nuvem.rt || !Array.isArray(S.pedidos) || Date.now() - (S._pedT || 0) > 120000) return;
+    var tem = {},
+      agora = Date.now(),
+      vistas = {};
+    S.pedidos.forEach(function (p) {
+      if (p.sid && p.st !== 'canc') tem[p.sid] = 1;
+    });
+    Object.keys(S.resPend || {}).forEach(function (sid) {
+      tem[sid] = 1; // já está na fila para soltar
+    });
+    S.resOrf = S.resOrf || {};
+    Object.keys(RES_EST).forEach(function (ref) {
+      var r = RES_EST[ref];
+      Object.keys(r).forEach(function (k) {
+        var x = r[k];
+        if (!x || !x.pago || !x.pid || tem[x.pid]) return;
+        var o = (vistas[x.pid] = vistas[x.pid] || { refs: {} });
+        o.refs[ref] = 1;
+      });
+    });
+    Object.keys(S.resOrf).forEach(function (pid) {
+      if (!vistas[pid]) delete S.resOrf[pid];
+    });
+    Object.keys(vistas).forEach(function (pid) {
+      var t0 = S.resOrf[pid];
+      if (!t0) S.resOrf[pid] = agora;
+      else if (agora - t0 >= 10 * 60000) {
+        delete S.resOrf[pid];
+        if (!S.resPend) S.resPend = {};
+        S.resPend[pid] = { refs: Object.keys(vistas[pid].refs), t: agora, ja: 1 };
+      }
+    });
+    saveSoon();
+    resFlush();
+  }
   // ---- liberar só depois que o site já recebeu o estoque novo (senão a peça volta ao ar por um instante)
   function resFlush() {
     var pend = S.resPend || {},
@@ -67,7 +114,7 @@
     if (!ks.length || !S.nuvem || !S.nuvem.rt || navigator.onLine === false) return;
     ks.forEach(function (sid) {
       var e = pend[sid],
-        espera = e.refs.some(function (r) {
+        espera = !e.ja && e.refs.some(function (r) {
           return S.vitPend && S.vitPend[r];
         });
       if (espera && Date.now() - e.t < 15 * 60000) {
@@ -179,6 +226,9 @@
         });
         RES_EST = o;
         RES_T = Date.now();
+        try {
+          resOrfas();
+        } catch (e) {}
       })
       .catch(function () {});
   }

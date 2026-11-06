@@ -136,3 +136,29 @@ exports.reserva = onRequest(
     }
   }
 );
+
+// ---------- Mídia do site (giro 360° e Destaque) direto no GitHub, sem chave no app ----------
+// Segredos (o dono cadastra uma vez no computador, NUNCA no chat):
+//   firebase functions:secrets:set GH_APP_ID    (número do App do GitHub)
+//   firebase functions:secrets:set GH_APP_KEY   (conteúdo do arquivo .pem do App)
+const { defineSecret } = require('firebase-functions/params');
+const Midia = require('./midia');
+const GH_APP_ID = defineSecret('GH_APP_ID');
+const GH_APP_KEY = defineSecret('GH_APP_KEY');
+
+exports.midia = onRequest(
+  { region: REGIAO, cors: true, maxInstances: 5, memory: '512MiB', timeoutSeconds: 120, secrets: [GH_APP_ID, GH_APP_KEY] },
+  async (req, res) => {
+    if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
+    if (!(await ehDono(req))) return res.status(403).json({ ok: false, motivo: 'sem-permissao' });
+    const b = req.body && typeof req.body === 'object' ? req.body : {};
+    try {
+      const r = await Midia.executa(b, { appId: GH_APP_ID.value(), chave: GH_APP_KEY.value() }, fetch);
+      return res.json(r);
+    } catch (e) {
+      if (e instanceof Midia.Falha) return res.status(e.status).json({ ok: false, motivo: e.motivo });
+      console.error('midia', e);
+      return res.status(500).json({ ok: false, motivo: 'erro' });
+    }
+  }
+);

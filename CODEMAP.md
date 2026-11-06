@@ -75,6 +75,7 @@ Regras que valem em todo o projeto: o estado fica em `S`; `render()` redesenha t
 | `98-grupo-encaixe.js` | 150 | Animação "encaixe" ao juntar/desfazer grupos na barra de acesso rápido (v443). |
 | `97-modo-cliente.js` | 200 | Modo cliente para o iPad (v444): só catálogo varejo, fundo desfocado, volta ao início em 2 min, sair = segurar logo + PIN. |
 | `97-vistas-site.js` | 120 | Mais vistas e não vendidas (v445): lê a coleção 'vistas' do Firestore (30 dias) para o Marketing. |
+| `97-giro-site.js` | 190 | Giro 360° para o site (v446): fila, compressão, envio pela função midia (GitHub App no Firebase), campo gv. |
 | `97-arquivo-vendas.js` | 160 | Arquivo das vendas com mais de 12 meses (v438): resumo por mês, IndexedDB, Trazer de volta. |
 | `97-estudio.js` | 1700 | Estúdio (v432; Medir fundo v437: mira 225, EXP. no automático, prévia ≤1/30, menu Medir de novo/Voltar ao automático, aviso peça estourada): botão no Início, tela (montagem, perfil, fila, sessão), câmera Pro (MediaStreamTrack: ISO/velocidade/branco/foco/exposição/zoom, Medir fundo, histograma, nível, peaking, 2s), tratamento estProcessa (só o fundo vira 255, armação intacta, 3:2 sem esticar, nota), resultado frente → 3/4 → vídeo 360. |
 | `97-ofertas-site.js` | 260 | Ofertas do site quando o dólar cai (1 em 5 modelos, parados primeiro, +3%/semana, teto 50%, nunca abaixo do piso), Super evento e Encalhadas (Vender na loja). |

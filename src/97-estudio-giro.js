@@ -172,6 +172,8 @@
     saveSoon();
     return idbDo('hq', 'readwrite', function (o) {
       return o.put(video, 'giro|' + k.split('|')[0]);
+    }).then(function () {
+      giroSiteFila(k.split('|')[0]); // vai sozinho para o site
     }).catch(function () {});
   }
   function estGiroLe(ref) {

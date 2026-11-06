@@ -887,7 +887,7 @@
     S.pedTok = null;
     S.pedF = 'canc';
     render();
-    if (p.orig === 'site') resLibera(p);
+    if (p.orig === 'site') resSolta(p);
   };
   ACT.peddel = function (id) {
     if (S._pedDel !== String(id)) {
@@ -904,6 +904,9 @@
     S._pedDel = null;
     S.pedSel = null;
     S.pedProd = null;
+    // pedido do site apagado: a peça que ele segurava no site volta a ficar livre (antes ficava presa para sempre)
+    var apg = pedAch(id);
+    if (apg && apg.orig === 'site' && apg.sid && !apg.baixa && apg.st !== 'canc') resSolta(apg);
     S.pedidos = S.pedidos.filter(function (p) {
       return String(p.id) !== String(id);
     });

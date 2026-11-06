@@ -3032,6 +3032,27 @@ async def main():
             if not ok: falhas.append('vistas site'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Reserva presa (v446): pedido do site apagado/cancelado solta a peça; reserva paga órfã é solta depois de 10 min
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              const nv0 = S.nuvem; S.nuvem = { rt: 'teste' }; S.resPend = {}; S.resOrf = {};
+              S.pedidos.push({ id: 'pT1', sid: 'SIDAPAGA1', orig: 'site', st: 'pag', itens: [{ ref: 'AAA1', cor: '', q: 1 }] });
+              S.pedidos.push({ id: 'pT2', sid: 'SIDVIVO22', orig: 'site', st: 'pag', itens: [{ ref: 'BBB2', cor: '', q: 1 }] });
+              L.ACT.peddel('pT1'); L.ACT.peddel('pT1'); await w(50);
+              const apagou = !!(S.resPend.SIDAPAGA1 && S.resPend.SIDAPAGA1.refs[0] === 'AAA1');
+              S._pedT = Date.now();
+              L.resEstSet({ CCC3: { 'ORFA1~': { pid: 'ORFA1', cor: '', q: 1, exp: 0, pago: true } }, BBB2: { 'SIDVIVO22~': { pid: 'SIDVIVO22', cor: '', q: 1, exp: 0, pago: true } } });
+              L.resOrfas(); const espera = !S.resPend.ORFA1 && !!S.resOrf.ORFA1;
+              S.resOrf.ORFA1 = Date.now() - 11 * 60000; L.resOrfas();
+              const solta = !!S.resPend.ORFA1 && !S.resPend.SIDVIVO22;
+              S.pedidos = S.pedidos.filter(p => p.id !== 'pT2'); S.resPend = {}; S.resOrf = {}; L.resEstSet({}); S.nuvem = nv0;
+              return [apagou, espera, solta]; }""")
+            total += 1
+            ok = got == [True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Reserva presa: pedido apagado solta a peça; reserva paga órfã sai depois de 10 min; pedido vivo fica')
+            if not ok: falhas.append('reserva presa'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Catálogo invisível + modo cliente (v444): o que está na tela não se mexe; iPad só com catálogo e varejo; fundo desfocado; parado volta ao início; sair pede PIN
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

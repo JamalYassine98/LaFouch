@@ -1457,7 +1457,7 @@ a[data-act],a.lk{display:inline-block;padding:14px 8px;margin:-14px -8px;-webkit
 .cjIc{position:relative;width:40px;height:40px;border-radius:12px;border:1px solid var(--line2);background:var(--panel2);color:var(--fg);display:flex;align-items:center;justify-content:center;margin:0;padding:0}
 .cjDot{position:absolute;top:6px;right:6px;width:7px;height:7px;border-radius:50%;background:var(--accent-fg);transform:scale(0);transition:transform .35s cubic-bezier(.3,1.8,.5,1)}
 .cjDot.in{transform:scale(1)}
-.cjOdo{display:inline-block;height:1.25em;overflow:hidden;vertical-align:bottom;position:relative}
+.cjOdo{display:inline-flex;flex-direction:column;height:1.25em;overflow:hidden;vertical-align:baseline;position:relative}
 .cjOdo>span{display:block;transition:transform .35s cubic-bezier(.3,1.3,.5,1)}
 /* janela de baixo */
 .ljBk{position:fixed;inset:0;background:#000;opacity:0;z-index:900}
