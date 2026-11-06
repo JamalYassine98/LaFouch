@@ -2353,6 +2353,7 @@ async def main():
             r0 = await pg.evaluate("() => [window.__LF.S.barra, !!document.getElementById('grpM')]")
             await pg.evaluate("() => window.__LF.S.barra = null"); await pg.evaluate("() => window.__LF.render()")
             await arrasta2('#mainnav .mn[data-id="caixa"]', '#mainnav .mn[data-id="ajustes"]', 900)
+            await pg.wait_for_timeout(500)  # v443: as peças encaixam (~0,9 s) antes do "Novo grupo"
             r1 = await pg.evaluate("() => [!!document.getElementById('grpM'), document.getElementById('grpNome') && document.getElementById('grpNome').value]")
             await pg.locator('[data-act="grpCria"]').click(); await pg.wait_for_timeout(500)
             r2 = await pg.evaluate("() => ({ barra: window.__LF.S.barra, g: window.__LF.S.grupos.map(g => g.itens), nav: [...document.querySelectorAll('#mainnav .mn')].map(m => m.getAttribute('data-id')), ic: document.querySelectorAll('#mainnav .mn[data-id^=\\'g:\\'] .mi svg').length, gi: document.querySelectorAll('#mainnav .gi').length })")

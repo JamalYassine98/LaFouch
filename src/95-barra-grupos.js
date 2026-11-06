@@ -174,6 +174,7 @@
     grpGerirAbre(id);
   };
   ACT.grpFecha = function () {
+    if (S._gn && typeof encCancela === 'function') encCancela();
     S._gn = S._gg = null;
     grpJanela('');
   };
@@ -188,9 +189,12 @@
     B[i] = g.id;
     B.splice(B.indexOf(n.b), 1);
     S.barra = B;
+    S._gn = null; // fechar a janela sem desmanchar as peças (elas viram o ícone do grupo logo abaixo)
     ACT.grpFecha();
     render();
     var b = $('mainnav').querySelector('.mn[data-id="' + g.id + '"]');
+    // v443: as peças encaixadas encolhem juntas e viram o ícone do grupo
+    if (typeof encCria === 'function' && encCria(g.id)) return;
     if (b && b.animate && !REDUCED) b.animate([{ transform: 'scale(.6)' }, { transform: 'scale(1.18)' }, { transform: 'scale(1)' }], { duration: 520, easing: 'ease-out' });
   };
   ACT.grpSalva = function () {
@@ -217,9 +221,14 @@
     }
   };
   ACT.grpDesfazer = function () {
+    var gb = $('mainnav').querySelector('.mn[data-id="' + S._gg + '"]'),
+      gg = grpGet(S._gg),
+      desf = gg && gb ? { itens: gg.itens.slice(), r: gb.getBoundingClientRect() } : null;
     grpDesfaz(S._gg);
     ACT.grpFecha();
     render();
+    // v443: o grupo vira as peças, desencaixa e cada uma volta ao seu lugar
+    if (desf && typeof encDesfaz === 'function') encDesfaz(desf.itens, desf.r);
   };
   // Botão direito (mouse) num grupo da barra abre o gerenciar.
   document.addEventListener('contextmenu', function (e) {

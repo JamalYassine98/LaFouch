@@ -1031,3 +1031,6 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Selos por cor no Editar produto › Cores e fotos (cfSelos): "foto N ✓" (≥80) ou "refazer · motivo ›" (abre estCam na cor), "sobra N" (ideal da lista), "● site/○ fora do site", "● catálogo".
 - 97-estudio-giro.js: grava 12 s, guarda quadros (0,25 s, JPEG); sugere a frente pelo quadro mais simétrico e o dono confirma numa régua a frente e a 3/4 (o automático não foi confiável no vídeo real do prato: borda do prato confunde). Luz de estúdio nos dois; vídeo guardado em hq 'giro|ref' (S.giros).
 - Marketing: "Status com o giro" (mkGiroStatus): vídeo 1080×1920 com o giro + nome + preço + slogan do kit, sem som, compartilhar.
+
+## v443 (5.4.1) — 05/11/2026 — Etapa 6: animação de ENCAIXE dos grupos (IMPLEMENTADO)
+- 98-grupo-encaixe.js: encJunta (ao soltar sobre outro botão: peças aparecem 0,2 s, deslizam acelerando 0,45 s, clique = tremor 0,2 s + emenda amarela; "Novo grupo" abre aos 0,9 s), encCria (peças encaixadas encolhem para o botão do grupo e o ícone do grupo aparece), encCancela (Cancelar: desencaixam e somem), encDesfaz (arrastar para fora ou "Desfazer o grupo": tranco, desencaixam, cada peça volta ao seu botão). Respeita REDUCED. Ganchos em 98-botoes-barra.js (fim do arraste) e 95-barra-grupos.js (grpCria/grpFecha/grpDesfazer).

@@ -286,6 +286,11 @@
       } else {
         var i = B.indexOf(d.id);
         if (grpGet(d.id) && o.zona === 'fora') {
+          var desf = { itens: grpGet(d.id).itens.slice(), r: g ? g.getBoundingClientRect() : d.el.getBoundingClientRect() };
+          setTimeout(function () {
+            if (typeof encDesfaz === 'function') encDesfaz(desf.itens, desf.r);
+          }, REDUCED ? 0 : 300);
+          if (g) g.style.opacity = '0';
           grpDesfaz(d.id);
           B = barraLista().slice();
           msg = 'Grupo desfeito: os botões voltaram';
@@ -308,6 +313,17 @@
           if (pend && pend[0] === 'ger') grpGerirAbre(pend[1]);
           else if (pend && pend[0] === 'novo') grpNovoAbre(pend[1], pend[2]);
         };
+      if (volta && pend && pend[0] === 'novo' && typeof encJunta === 'function' && !REDUCED) {
+        // v443: os dois viram peças e encaixam; depois abre o "Novo grupo"
+        var ea = encBtn(pend[1]),
+          rA = ea ? ea.getBoundingClientRect() : null,
+          rB = g ? g.getBoundingClientRect() : d.el.getBoundingClientRect();
+        if (g) g.style.opacity = '0';
+        if (d.el) d.el.classList.add('encEsc');
+        dicaOff();
+        encJunta(pend[1], pend[2], rA, rB, fecha);
+        return;
+      }
       if (volta) {
         if (g && !REDUCED) {
           var r = d.el.getBoundingClientRect();
