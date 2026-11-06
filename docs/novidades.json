@@ -1,6 +1,8 @@
 {
- "nome": "5.4.5",
+ "nome": "5.4.6",
  "notas": [
-  "Diagnóstico temporário em Catálogo › Site: quantas peças estão publicadas no site, quantas esperam e o motivo do erro (sai depois de resolver)"
+  "Corrigido: as fotos não iam para o site (o site e o painel achavam que as peças estavam sem foto)",
+  "Corrigido: o Preço automático não ligava em Ajustes",
+  "Diagnóstico temporário em Catálogo › Site (sai depois)"
  ]
 }

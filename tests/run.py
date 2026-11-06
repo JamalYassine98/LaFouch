@@ -3053,6 +3053,20 @@ async def main():
             if not ok: falhas.append('reserva presa'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Foto no site (v448): fv do produto é um número > 0 quando há foto (antes saía 0 e o site/painel achavam "sem foto"); preço automático liga com dados antigos sem listas
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              const it = S.items.find(i => !i.bulk && S.fotos[i.ref + '|' + i.cor]); const u = L.vitProduto(it.ref); const b = L.vitDocBody(it.ref, u);
+              const fvOk = typeof b.fv === 'number' && b.fv > 0;
+              S.pAuto = { on: false }; let erro = ''; try { L.ACT.paLiga(); } catch (e) { erro = e.message; }
+              const liga = S.pAuto.on === true && Array.isArray(S.pAuto.mudas) && !erro; S.pAuto.on = false;
+              return [fvOk, liga]; }""")
+            total += 1
+            ok = got == [True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Foto no site: fv > 0 quando há foto; preço automático liga mesmo com dados antigos')
+            if not ok: falhas.append('fv foto site'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Catálogo invisível + modo cliente (v444): o que está na tela não se mexe; iPad só com catálogo e varejo; fundo desfocado; parado volta ao início; sair pede PIN
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

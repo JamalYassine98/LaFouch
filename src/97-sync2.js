@@ -476,7 +476,7 @@
     for (i = 0; i < k.length; i++) h = ((h * 33) ^ k.charCodeAt(i)) >>> 0;
     return 'zf-' + h.toString(36) + k.length.toString(36);
   }
-  function fotoHash(d) {
+  function fotoHashSync(d) {
     var h = d.length,
       i;
     for (i = 0; i < d.length; i += 97) h = (h * 31 + d.charCodeAt(i)) >>> 0;
@@ -576,7 +576,7 @@
                 alt[k] = n;
                 delete S.fotosRest[k];
                 S.fotosV[k] = agora;
-                S.fotosH[k] = fotoHash(local);
+                S.fotosH[k] = fotoHashSync(local);
               } else {
                 delete S.fotos[k]; // outro aparelho apagou: sai daqui também (fica na lixeira da nuvem)
                 delete S.fotosH[k];
@@ -591,9 +591,9 @@
             if (S.fotosH[k] !== undefined) locais.push(k); // eu apaguei aqui
             else baixar.push(k);
           } else if (S.fotosH[k] === undefined) {
-            S.fotosH[k] = fotoHash(local); // primeira vez que vejo: considero igual
+            S.fotosH[k] = fotoHashSync(local); // primeira vez que vejo: considero igual
             S.fotosV[k] = e.v || 0;
-          } else if ((e.v || 0) > (S.fotosV[k] || 0) && fotoHash(local) === S.fotosH[k]) baixar.push(k); // trocada em outro aparelho
+          } else if ((e.v || 0) > (S.fotosV[k] || 0) && fotoHashSync(local) === S.fotosH[k]) baixar.push(k); // trocada em outro aparelho
         });
         // 3) o que eu apaguei aqui vai para a lixeira (sem exagero: muita coisa sumindo de uma vez não é apagar foto)
         if (locais.length > FOTO_MAX) {
@@ -631,7 +631,7 @@
             }
             return;
           }
-          if (S.fotosH[k] !== undefined && S.fotosH[k] !== fotoHash(d) && baixar.indexOf(k) < 0) {
+          if (S.fotosH[k] !== undefined && S.fotosH[k] !== fotoHashSync(d) && baixar.indexOf(k) < 0) {
             if ((e.v || 0) > (S.fotosV[k] || 0)) return; // trocaram nos dois lados: vale a que já está na nuvem
             if (subir.indexOf(k) < 0) subir.push(k);
           }
@@ -645,7 +645,7 @@
               var n = { i: id, v: ve, t: ve, by: S.aparelho };
               idx[k] = n;
               alt[k] = n;
-              S.fotosH[k] = fotoHash(d);
+              S.fotosH[k] = fotoHashSync(d);
               S.fotosV[k] = ve;
               feitas++;
             });
@@ -659,7 +659,7 @@
               var v = ((d.fields || {}).d || {}).stringValue;
               if (v && v.indexOf('data:image/') === 0) {
                 S.fotos[k] = v;
-                S.fotosH[k] = fotoHash(v);
+                S.fotosH[k] = fotoHashSync(v);
                 S.fotosV[k] = e.v || 0;
                 feitas++;
                 if (tinha && e.by && e.by !== S.aparelho) avisos.push('<span class="lfa-ic">' + lfaSvg('glass') + '</span><div><b>Foto de ' + esc(fotoNomeK(k)) + ' atualizada</b><div class="hint" style="margin:0">por ' + esc(apNome(e.by)) + '</div></div>');
@@ -812,7 +812,7 @@
       S.fotosRest = S.fotosRest || {};
       S.fotosRest[k] = 1;
       S.fotosH = S.fotosH || {};
-      if (S.fotosH[k] === undefined) S.fotosH[k] = fotoHash(v);
+      if (S.fotosH[k] === undefined) S.fotosH[k] = fotoHashSync(v);
       saveSoon();
       var linha = document.querySelector('[data-id="' + esc(encodeURIComponent(k)) + '"]');
       if (linha && linha.closest('.lfa-lin')) linha.closest('.lfa-lin').classList.add('lfa-col');

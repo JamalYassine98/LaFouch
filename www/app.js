@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 447;
+  var APP_BUILD = 448;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.4.5'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.4.6'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -38272,8 +38272,16 @@
     return reg;
   }
   // Revisão semanal (segunda-feira, ou ao abrir depois dela). forca = "Revisar agora".
+  // dados salvos por versões antigas podem vir sem as listas (aí "Ligar" quebrava e o botão não ligava)
+  function paNorm() {
+    if (!S.pAuto || typeof S.pAuto !== 'object') S.pAuto = { on: false };
+    if (!Array.isArray(S.pAuto.mudas)) S.pAuto.mudas = [];
+    if (!S.pAuto.ign || typeof S.pAuto.ign !== 'object') S.pAuto.ign = {};
+    if (!(S.pAuto.ult >= 0)) S.pAuto.ult = 0;
+  }
   function paRevisa(forca) {
-    if (!S.pAuto || !S.pAuto.on) return 0;
+    paNorm();
+    if (!S.pAuto.on) return 0;
     var agora = new Date(),
       seg = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate() - ((agora.getDay() + 6) % 7)).getTime();
     if (!forca && S.pAuto.ult >= seg) return 0;
@@ -38414,6 +38422,7 @@
     return h;
   }
   ACT.paTog = function () {
+    paNorm();
     if (!S.pAuto.on) {
       S.paPrev = !S.paPrev;
       render();
@@ -38425,7 +38434,9 @@
     render();
   };
   ACT.paLiga = function () {
+    paNorm();
     S.pAuto.on = true;
+    saveSoon();
     S.paPrev = false;
     var n = paRevisa(true);
     lfToast(n ? '✓ Preço automático ligado · ' + n + (n === 1 ? ' ajuste' : ' ajustes') : '✓ Preço automático ligado');
@@ -40099,7 +40110,7 @@
     for (i = 0; i < k.length; i++) h = ((h * 33) ^ k.charCodeAt(i)) >>> 0;
     return 'zf-' + h.toString(36) + k.length.toString(36);
   }
-  function fotoHash(d) {
+  function fotoHashSync(d) {
     var h = d.length,
       i;
     for (i = 0; i < d.length; i += 97) h = (h * 31 + d.charCodeAt(i)) >>> 0;
@@ -40199,7 +40210,7 @@
                 alt[k] = n;
                 delete S.fotosRest[k];
                 S.fotosV[k] = agora;
-                S.fotosH[k] = fotoHash(local);
+                S.fotosH[k] = fotoHashSync(local);
               } else {
                 delete S.fotos[k]; // outro aparelho apagou: sai daqui também (fica na lixeira da nuvem)
                 delete S.fotosH[k];
@@ -40214,9 +40225,9 @@
             if (S.fotosH[k] !== undefined) locais.push(k); // eu apaguei aqui
             else baixar.push(k);
           } else if (S.fotosH[k] === undefined) {
-            S.fotosH[k] = fotoHash(local); // primeira vez que vejo: considero igual
+            S.fotosH[k] = fotoHashSync(local); // primeira vez que vejo: considero igual
             S.fotosV[k] = e.v || 0;
-          } else if ((e.v || 0) > (S.fotosV[k] || 0) && fotoHash(local) === S.fotosH[k]) baixar.push(k); // trocada em outro aparelho
+          } else if ((e.v || 0) > (S.fotosV[k] || 0) && fotoHashSync(local) === S.fotosH[k]) baixar.push(k); // trocada em outro aparelho
         });
         // 3) o que eu apaguei aqui vai para a lixeira (sem exagero: muita coisa sumindo de uma vez não é apagar foto)
         if (locais.length > FOTO_MAX) {
@@ -40254,7 +40265,7 @@
             }
             return;
           }
-          if (S.fotosH[k] !== undefined && S.fotosH[k] !== fotoHash(d) && baixar.indexOf(k) < 0) {
+          if (S.fotosH[k] !== undefined && S.fotosH[k] !== fotoHashSync(d) && baixar.indexOf(k) < 0) {
             if ((e.v || 0) > (S.fotosV[k] || 0)) return; // trocaram nos dois lados: vale a que já está na nuvem
             if (subir.indexOf(k) < 0) subir.push(k);
           }
@@ -40268,7 +40279,7 @@
               var n = { i: id, v: ve, t: ve, by: S.aparelho };
               idx[k] = n;
               alt[k] = n;
-              S.fotosH[k] = fotoHash(d);
+              S.fotosH[k] = fotoHashSync(d);
               S.fotosV[k] = ve;
               feitas++;
             });
@@ -40282,7 +40293,7 @@
               var v = ((d.fields || {}).d || {}).stringValue;
               if (v && v.indexOf('data:image/') === 0) {
                 S.fotos[k] = v;
-                S.fotosH[k] = fotoHash(v);
+                S.fotosH[k] = fotoHashSync(v);
                 S.fotosV[k] = e.v || 0;
                 feitas++;
                 if (tinha && e.by && e.by !== S.aparelho) avisos.push('<span class="lfa-ic">' + lfaSvg('glass') + '</span><div><b>Foto de ' + esc(fotoNomeK(k)) + ' atualizada</b><div class="hint" style="margin:0">por ' + esc(apNome(e.by)) + '</div></div>');
@@ -40435,7 +40446,7 @@
       S.fotosRest = S.fotosRest || {};
       S.fotosRest[k] = 1;
       S.fotosH = S.fotosH || {};
-      if (S.fotosH[k] === undefined) S.fotosH[k] = fotoHash(v);
+      if (S.fotosH[k] === undefined) S.fotosH[k] = fotoHashSync(v);
       saveSoon();
       var linha = document.querySelector('[data-id="' + esc(encodeURIComponent(k)) + '"]');
       if (linha && linha.closest('.lfa-lin')) linha.closest('.lfa-lin').classList.add('lfa-col');
@@ -44145,7 +44156,7 @@
       barMoedas: barMoedas,
       animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
-      S: S, giroSiteFila: giroSiteFila, giroGv: giroGv, giroComprime: giroComprime, resSolta: resSolta, resOrfas: resOrfas, resEstSet: function (o) { RES_EST = o; }, vistasNaoVendidas: vistasNaoVendidas, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcComprarNovo: lcComprarNovo, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, envFolha: window.__envFolha, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
+      S: S, vitDocBody: vitDocBody, giroSiteFila: giroSiteFila, giroGv: giroGv, giroComprime: giroComprime, resSolta: resSolta, resOrfas: resOrfas, resEstSet: function (o) { RES_EST = o; }, vistasNaoVendidas: vistasNaoVendidas, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcComprarNovo: lcComprarNovo, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, envFolha: window.__envFolha, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,
       grpTot: grpTot, grpFalta: grpFalta, effCusto: effCusto, parseLote: parseLote, parsePedido: parsePedido, parseHaste: parseHaste,
       parseVote: parseVote, flatParse: flatParse, numAmt: numAmt, hKey: hKey, lev: lev, normRef: normRef,

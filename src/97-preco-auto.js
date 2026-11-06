@@ -173,8 +173,16 @@
     return reg;
   }
   // Revisão semanal (segunda-feira, ou ao abrir depois dela). forca = "Revisar agora".
+  // dados salvos por versões antigas podem vir sem as listas (aí "Ligar" quebrava e o botão não ligava)
+  function paNorm() {
+    if (!S.pAuto || typeof S.pAuto !== 'object') S.pAuto = { on: false };
+    if (!Array.isArray(S.pAuto.mudas)) S.pAuto.mudas = [];
+    if (!S.pAuto.ign || typeof S.pAuto.ign !== 'object') S.pAuto.ign = {};
+    if (!(S.pAuto.ult >= 0)) S.pAuto.ult = 0;
+  }
   function paRevisa(forca) {
-    if (!S.pAuto || !S.pAuto.on) return 0;
+    paNorm();
+    if (!S.pAuto.on) return 0;
     var agora = new Date(),
       seg = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate() - ((agora.getDay() + 6) % 7)).getTime();
     if (!forca && S.pAuto.ult >= seg) return 0;
@@ -315,6 +323,7 @@
     return h;
   }
   ACT.paTog = function () {
+    paNorm();
     if (!S.pAuto.on) {
       S.paPrev = !S.paPrev;
       render();
@@ -326,7 +335,9 @@
     render();
   };
   ACT.paLiga = function () {
+    paNorm();
     S.pAuto.on = true;
+    saveSoon();
     S.paPrev = false;
     var n = paRevisa(true);
     lfToast(n ? '✓ Preço automático ligado · ' + n + (n === 1 ? ' ajuste' : ' ajustes') : '✓ Preço automático ligado');

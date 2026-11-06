@@ -1064,3 +1064,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Situação: deploy da função midia OK (00:43), App do GitHub instalado no catalogo, mas o painel não mostra "Conectado pelo Firebase"; Firebase tem 0 produtos visíveis (1 oculto) e o site mostra o catálogo de exemplo embutido. As chaves "No site" estão ligadas no painel e aparece "sem foto".
 - App src/97-diag-site.js (TEMPORÁRIO): cartão em Catálogo › Site com publicadas/esperando/fora e o último erro do vitSync (S._vitErr). Painel: linha "Firebase (diagnóstico)" com o motivo (mdMotivo) e aviso do Destaque "N escolhidas, ainda não publicadas".
 - REMOVER depois de resolver: src/97-diag-site.js, chamada diagSiteRender em renderLojaOnline, S._vitErr no vitSync; no admin.html mdMotivo/S.mdErr/dg.
+
+## v448 (5.4.6) — 06/11/2026 — causa achada das fotos do site + preço automático
+- Atualização automática parou na v446/v447: www/version.json leva as notas de novidades; mudei novidades.json DEPOIS do build → "node build.js --check" do workflow falhou. REGRA: sempre rodar node build.js DEPOIS de editar docs/novidades.json.
+- FOTOS DO SITE: duas funções fotoHash no mesmo escopo (96-loja-online numérica e 97-sync2 texto); a última vencia → fv = (h*31 + "texto")>>>0 = 0 → painel "sem foto", site não buscava fotos, Destaque "Sem fotos". Renomeada a de 97-sync2 para fotoHashSync. As fotos sobem de novo uma vez.
+- Preço automático: S.pAuto salvo por versão antiga sem "mudas" → ACT.paLiga quebrava no push. paNorm() completa os campos; paLiga salva.
