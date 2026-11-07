@@ -1090,3 +1090,10 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - DONO PRECISA: (a) Resend + segredo RESEND_KEY ANTES do deploy das funções (functions/LEIA-ME.txt); o deploy também liga 15/30 min de reserva; (b) mandar print de uma notificação "Pix recebido" do Nubank para confirmar o formato; (c) APK novo para ler o Nubank e imprimir direto (só gerar quando ele pedir).
 - Continua pendente: tirar o diagnóstico temporário (v447) quando ele confirmar as fotos no site.
 - Testes 273/273 (novo: pagamento automático). sw v450. APK/Windows não gerados.
+
+## 07/11/2026 07:40 — Página inicial do site (ANOTADO, ainda NÃO implementar nem fazer esboço novo)
+- Problema: a página inicial é muito design e pouca compra (só título + 3 botões, nenhum produto).
+- Esboços: A (vitrine primeiro) e B (destaque + categorias); o dono preferiu o B. Depois o B2 (B melhorado): "muito melhor".
+- B2 = destaque que gira (até 4 peças, miniaturas no PC, bolinhas), selo 360°, botões "Ver el modelo" / "Ver catálogo"; linha de confiança logo abaixo (Delivery todo Paraguay · Pago seguro PIX o Itaú · Retiro en CDE); "Compra por categoría" (De sol / De grado / Armazones, com "N modelos"); abas Novedades / Más vendidos / Ofertas; cards SEM botão de carrinho (toca e abre a peça), com bolinhas das cores e selo -15% + preço antigo riscado; rodapé completo (Comprar / Ayuda / Contacto + termos).
+- EXCEÇÃO: os botões "¿Cuál combina con mi rostro?" e "Mayorista" ficam como no esboço B ANTERIOR (duas faixas iguais lado a lado, claras, com etiqueta pequena e seta), não a faixa roxa grande + linha discreta do B2.
+- Esboços em scratchpad (home_B_*.png, homeB2_*.png). Esperar o dono pedir o esboço final / implementação.
