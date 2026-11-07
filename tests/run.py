@@ -2763,6 +2763,19 @@ async def main():
             if not ok: falhas.append('la moneda'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # La Moneda, página nova (07/11): nomes só no seletor, tabelas na mesma ordem sem o nome
+            pg = await pagina()
+            total += 1
+            got = await pg.evaluate("""() => { const L = window.__LF;
+              const sel = '<script type="application/ld+json">{"@context":"x","name":"Sucursal Centro"}</script><div><button>Casa Matriz</button><button>Sucursal Jebai</button><button>Sucursal Centro</button><button>Caja Auxiliar Km7</button></div>';
+              const bl = (d, r, a) => '<table><tr><td>DOLAR</td><td>' + d[0] + '</td><td>' + d[1] + '</td><td>0.00%</td></tr><tr><td>REAL</td><td>' + r[0] + '</td><td>' + r[1] + '</td><td>2.50%</td></tr><tr><td>DOLAR / REAL</td><td>' + a[0] + '</td><td>' + a[1] + '</td></tr><tr><td>DOLAR INUSUAL / GUARANI</td><td>4.000</td><td>0</td></tr></table>';
+              const h = sel + bl(['6.050','6.350'],['1.120','1.170'],['5,380','5,470']) + bl(['6.150','6.430'],['1.110','1.185'],['5,350','5,480']) + bl(['6.000','6.350'],['1.100','1.170'],['5,400','5,500']) + bl(['6.000','6.350'],['1.100','1.180'],['5,360','5,490']);
+              const c = L.lmLer(h); return c && [c.usd.c, c.usd.v, c.brl.c, c.brl.v, c.arb.c, c.arb.v]; }""")
+            ok = got == [6150, 6430, 1110, 1185, 5.35, 5.48] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'La Moneda página nova: Jebai pela posição no seletor (6.150 / 6.430)')
+            if not ok: falhas.append('la moneda nova'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Meta automática + Objetivos da loja + plano de troca (v425)
             pg = await pagina()
             total += 1

@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 455;
+  var APP_BUILD = 456;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.5.5'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.5.6'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -35021,13 +35021,65 @@
       arb = par(/(usd\s*\/\s*brl|d[óo]lar\s*\/\s*real)/, function (x) {
         return x > 2 && x < 15;
       });
-    if (!usd || !brl) return null;
+    if (!usd || !brl) {
+      var bl = lmBlocos(t);
+      if (bl) return bl;
+      return null;
+    }
     // a arbitragem pode aparecer só na Casa Matriz
     if (!arb)
       arb = par(/(usd\s*\/\s*brl|d[óo]lar\s*\/\s*real)/, function (x) {
         return x > 2 && x < 15;
       }, true);
     if (!arb) arb = { c: Math.round((usd.c / brl.v) * 1000) / 1000, v: Math.round((usd.v / brl.c) * 1000) / 1000, calc: true };
+    return { usd: usd, brl: brl, arb: arb };
+  }
+  // 07/11: página nova da casa — os nomes das sucursais aparecem só no seletor (Casa Matriz, Sucursal Jebai, …) e depois vêm
+  // as tabelas na MESMA ordem, sem o nome. Pega a posição da Jebai no seletor e lê a tabela de mesma posição.
+  function lmBlocos(t) {
+    var linhas = function (rx, ok) {
+      var out = [],
+        m,
+        r = new RegExp(rx.source + '[^0-9]{0,80}?([\\d.,]+)[^0-9]{1,40}?([\\d.,]+)', 'gi');
+      while ((m = r.exec(t))) {
+        var a = lmNum(m[m.length - 2]),
+          b = lmNum(m[m.length - 1]);
+        if (a && b && ok(a) && ok(b)) out.push({ i: m.index, c: Math.min(a, b), v: Math.max(a, b) });
+      }
+      return out;
+    };
+    var U = linhas(/(\bd[óo]lar\b(?!\s*\/)(?!\s*inusual)|\busd\b(?!\s*\/))/, function (x) {
+        return x > 3000 && x < 20000;
+      }),
+      R = linhas(/(\breal\b(?!\s*\/)|\bbrl\b(?!\s*\/))/, function (x) {
+        return x > 400 && x < 4000;
+      }),
+      A = linhas(/(usd\s*\/\s*brl|d[óo]lar\s*\/\s*real)/, function (x) {
+        return x > 2 && x < 15;
+      });
+    if (U.length < 2 || !R.length) return null;
+    var antes = t.slice(Math.max(0, U[0].i - 6000), U[0].i),
+      nomes = [],
+      m,
+      rn = /(casa matriz|sucursal\s+[a-záéíóúç]+|caja auxiliar\s+[a-z0-9áéíóú]+)/gi;
+    while ((m = rn.exec(antes))) {
+      var n = m[1].toLowerCase().replace(/\s+/g, ' ');
+      if (nomes.indexOf(n) < 0) nomes.push(n);
+    }
+    var k = nomes.indexOf('sucursal jebai');
+    if (k < 0 || nomes.length !== U.length) return null;
+    var fimK = k + 1 < U.length ? U[k + 1].i : t.length,
+      dentro = function (L) {
+        return L.filter(function (x) {
+          return x.i > U[k].i && x.i < fimK;
+        })[0];
+      },
+      brl = dentro(R),
+      arb = dentro(A);
+    if (!brl) return null;
+    var usd = { c: U[k].c, v: U[k].v };
+    brl = { c: brl.c, v: brl.v };
+    arb = arb ? { c: arb.c, v: arb.v } : { c: Math.round((usd.c / brl.v) * 1000) / 1000, v: Math.round((usd.v / brl.c) * 1000) / 1000, calc: true };
     return { usd: usd, brl: brl, arb: arb };
   }
   // Grava só quando a cotação MUDA (não enche a sincronização); histórico de 1 ponto por hora.
@@ -35069,7 +35121,7 @@
         var c = lmLer(r && r.data);
         // 07/11: diagnóstico — guarda o que a página devolveu quando não dá para ler (ex.: bloqueio do Cloudflare)
         if (!c) {
-          var tx = String((r && r.data) || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+          var tx = String((r && r.data) || '').replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
           throw new Error('a página respondeu ' + ((r && r.status) || '?') + (/cloudflare|just a moment|attention required|checking your browser/i.test(tx) ? ' (bloqueio do Cloudflare)' : '') + ' e não achei a Sucursal Jebai: “' + tx.slice(0, 80) + '…”');
         }
         LM_FALHAS = 0;
