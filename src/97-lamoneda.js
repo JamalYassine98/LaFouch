@@ -93,12 +93,21 @@
     LM_PAUSA = 0;
   function lmBusca() {
     var H = lmHttp();
-    if (!H || Date.now() < LM_PAUSA) return Promise.resolve(false);
+    if (!H) {
+      S._lmErr = 'este aparelho não busca a casa (só o app instalado no celular busca)';
+      return Promise.resolve(false);
+    }
+    if (Date.now() < LM_PAUSA) return Promise.resolve(false);
     return H.get({ url: LM_URL, headers: { 'Accept-Language': 'es-PY,es;q=0.9', Accept: 'text/html' } })
       .then(function (r) {
         var c = lmLer(r && r.data);
-        if (!c) throw new Error('não li a sucursal Jebai');
+        // 07/11: diagnóstico — guarda o que a página devolveu quando não dá para ler (ex.: bloqueio do Cloudflare)
+        if (!c) {
+          var tx = String((r && r.data) || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+          throw new Error('a página respondeu ' + ((r && r.status) || '?') + (/cloudflare|just a moment|attention required|checking your browser/i.test(tx) ? ' (bloqueio do Cloudflare)' : '') + ' e não achei a Sucursal Jebai: “' + tx.slice(0, 80) + '…”');
+        }
         LM_FALHAS = 0;
+        S._lmErr = '';
         return lmGrava(c);
       })
       .catch(function (e) {
@@ -106,7 +115,8 @@
           LM_FALHAS = 0;
           LM_PAUSA = Date.now() + 5 * 60000;
         }
-        if (S.lm) S.lm.erro = String((e && e.message) || e);
+        S._lmErr = String((e && e.message) || e);
+        if (S.lm) S.lm.erro = S._lmErr;
         return false;
       });
   }

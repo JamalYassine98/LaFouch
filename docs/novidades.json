@@ -1,6 +1,6 @@
 {
- "nome": "5.5.4",
+ "nome": "5.5.5",
  "notas": [
-  "Câmbio: \"Cotação da casa\" com a bolinha verde (online) ou vermelha (offline) à direita"
+  "Câmbio: tocar em \"Cotação da casa\" mostra o motivo quando a La Moneda não carrega"
  ]
 }
