@@ -1145,3 +1145,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - APP: 97-site-v2.js (ofAte, mv no produto do site); oferta com "Termina em" já ao criar e o.prev (oferta anterior volta no fim); pedido com ACC-* → "registre a venda à mão".
 - FUNÇÕES novas: avaliacao e novidades (functions/loja.js, teste-loja.js 13 ok). DONO PRECISA: firebase deploy --only functions (o mesmo deploy da RESEND_KEY). Sem deploy: avaliações aparecem "Ainda sem avaliações" e inscrição por e-mail falha (WhatsApp funciona).
 - Testes app 274/274. APK/Windows não gerados.
+- 07/11 10:15 FEITO (site): cabeçalho = menu + Minha conta à esquerda, logo no centro (flex, nunca encosta), lupa (sem círculo) + carrinho à direita; perfil do menu com inicial e nome alinhados. Uma lupa só: no catálogo a barra de busca saiu (ficam filtro e lista); a lupa do cabeçalho filtra o catálogo enquanto digita; busca ativa vira etiqueta "termo" × com N resultados.
