@@ -1151,3 +1151,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - 07/11 10:43 FEITO: busca minimalista (variação recomendada): só o campo cinza com a lupa dentro; ao digitar a lupa vira seta ‹ que fecha; sem X e sem Cancelar; fecha também tocando fora ou no voltar do celular (history).
 - 07/11 10:45 FEITO: flicker do design antigo ao atualizar corrigido (classe v5 e tema do evento/aquecimento aplicados por script no <head>; página inicial desenhada no fim do script principal, antes da primeira pintura).
 - 07/11 10:47 FEITO: botão da lupa (#sbtn) agora está no HTML do cabeçalho (antes era criado pelo script e o logo pulava ao aparecer).
+- 07/11 10:51 FEITO: rodapé sem PIX/Itaú/Dinheiro e sem seletor ES/PT (idioma continua no menu). Linha final só com Termos · Privacidade · ©, centralizada.
