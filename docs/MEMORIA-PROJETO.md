@@ -1119,3 +1119,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - (10) Instagram no site — futuro.
 - "Combina com formato de rosto" no catálogo: o dono tinha removido; perguntou se volta (resposta: não como etiqueta fixa; só personalizado depois que o cliente faz o "¿Cuál combina?").
 - Capa de revista (bloco editorial com foto de modelo): sugerido junto com (1).
+- 07/11 08:09: (5) prazo de entrega DESCARTADO por enquanto (dono não sabe como funcionam as transportadoras). Esboços feitos dos demais: m_peca_* (foto no rosto, 'Ideal para tu rostro', Últimas 2 unidades, estojo+flanela opção A brinde / opção B à venda, avaliações no fim), m_home_* (capa de revista, coleções, faixa personalizada do rosto, novidades por WhatsApp/e-mail, Guía), m_guia_* (artigo). Aguardando aprovação.
