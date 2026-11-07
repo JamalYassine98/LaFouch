@@ -1121,3 +1121,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Capa de revista (bloco editorial com foto de modelo): sugerido junto com (1).
 - 07/11 08:09: (5) prazo de entrega DESCARTADO por enquanto (dono não sabe como funcionam as transportadoras). Esboços feitos dos demais: m_peca_* (foto no rosto, 'Ideal para tu rostro', Últimas 2 unidades, estojo+flanela opção A brinde / opção B à venda, avaliações no fim), m_home_* (capa de revista, coleções, faixa personalizada do rosto, novidades por WhatsApp/e-mail, Guía), m_guia_* (artigo). Aguardando aprovação.
 - 07/11 08:15: ESTOJO = as duas coisas: toda compra de óculos leva o estojo de BRINDE (selo na página da peça) E o estojo também pode ser comprado à parte ("Combina con"). Flanela: confirmar se também vai de brinde.
+- 07/11 08:16: flanela vai de brinde JUNTO com o estojo (selo "Incluye estuche y franela"); estojo (e flanela) também à venda em "Combina con".
