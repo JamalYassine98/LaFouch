@@ -3053,6 +3053,32 @@ async def main():
             if not ok: falhas.append('reserva presa'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              const n0 = S.pedidos.length;
+              S.pedidos.push({ id: 'pA1', sid: 'SIDPA1', cod: 'A1', orig: 'site', st: 'pag', pg: 'pagar', pag: 'pix', brl: '85.73', total: 100000, cli: 'Ana', tel: '+55 11 99999-0000', ts: Date.now(), itens: [{ ref: 'AAA1', t: 'Óculos', cor: 'Preto', q: 1, p: 100000 }], ent: 'delivery', endE: 'Av. Monseñor Rodríguez 123, Ciudad del Este · Alto Paraná', refE: 'portão azul', tok: 'K7Q2' });
+              S.pedidos.push({ id: 'pA2', sid: 'SIDPA2', cod: 'A2', orig: 'site', st: 'pag', pg: 'pagar', pag: 'pix', brl: '50.11', total: 60000, itens: [{ ref: 'B', q: 1, p: 60000 }] });
+              S.pedidos.push({ id: 'pA3', sid: 'SIDPA3', cod: 'A3', orig: 'site', st: 'pag', pg: 'pagar', pag: 'pix', brl: '50.11', total: 60000, itens: [{ ref: 'C', q: 1, p: 60000 }] });
+              const r0 = L.pixRecebido({ pkg: 'com.whatsapp', title: 'Pix recebido', text: 'R$ 85,73' });
+              const r1 = L.pixRecebido({ pkg: 'com.nu.production', title: 'Pix recebido', text: 'Você recebeu R$ 85,73 de ANA' });
+              const p1 = S.pedidos.find(p => p.id === 'pA1');
+              const r2 = L.pixRecebido({ pkg: 'com.nu.production', title: 'Transferência recebida', text: 'Você recebeu uma transferência de R$ 50,11' });
+              const amb = S.pedidos.find(p => p.id === 'pA2').pg === 'pagar';
+              const c1 = L.compLeTexto({ pag: 'alias', pagar: 250037 }, 'Transferencia exitosa  Monto Gs. 250.037  07/11/2026 14:32');
+              const c2 = L.compLeTexto({ pag: 'alias', pagar: 250037 }, 'Monto Gs. 250.000');
+              const c3 = L.compLeTexto({ pag: 'pix', brl: '85.73' }, 'Valor R$ 85,73');
+              const fl = L.fichaLinhas(p1), txt = fl.map(l => l.t || l.qr || '').join('|');
+              const b = L.impBytes(fl); let qr = false; for (let i = 0; i < b.length - 3; i++) if (b[i] === 0x1d && b[i+1] === 0x28 && b[i+2] === 0x6b) { qr = true; break; }
+              L.setView('ajustes'); await w(200); const aj = /Pagamento automático/.test(document.body.innerText);
+              S.pedidos.length = n0; S.pixLog = [];
+              return [r0, r1, p1.pg, !!p1.pgAuto, r2, amb, c1.ok, c2.ok, c2.v, c3.ok, /SEPARAR PEDIDO DO SITE/.test(txt) && /PAGO · PIX R\$ 85,73/.test(txt) && /RETIRAR|DELIVERY/.test(txt) && txt.indexOf(p1.tok) > 0, /separado|embalado/i.test(txt), qr, aj]; }""")
+            total += 1
+            ok = got == ['ignorada', 'confirmado', 'pago', True, 'ambiguo', True, True, False, 'G$ 250.000', True, True, False, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Pagamento automático: PIX do Nubank confirma pelo valor único; valor repetido não confirma; comprovante confere; ficha com QR e sem "separado/embalado"')
+            if not ok: falhas.append('pagamento auto'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Foto no site (v448): fv do produto é um número > 0 quando há foto (antes saía 0 e o site/painel achavam "sem foto"); preço automático liga com dados antigos sem listas
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

@@ -122,7 +122,7 @@ exports.reserva = onRequest(
       }
       const refs = (Array.isArray(b.itens) ? b.itens : []).map((i) => i && i.ref).filter(Boolean);
       let r;
-      if (acao === 'reservar') r = await Reserva.reservar(db, agora, b.pedido, b.itens);
+      if (acao === 'reservar') r = await Reserva.reservar(db, agora, b.pedido, b.itens, { pag: b.pag === 'alias' ? 'alias' : 'pix' });
       else if (acao === 'comp') r = await Reserva.comprovante(db, agora, b.pedido, b.itens);
       else if (acao === 'cancelar') r = await Reserva.liberar(db, agora, b.pedido, refs);
       else if (acao === 'pagar') r = await Reserva.pagar(db, agora, b.pedido, b.itens);
@@ -158,6 +158,51 @@ exports.midia = onRequest(
     } catch (e) {
       if (e instanceof Midia.Falha) return res.status(e.status).json({ ok: false, motivo: e.motivo });
       console.error('midia', e);
+      return res.status(500).json({ ok: false, motivo: 'erro' });
+    }
+  }
+);
+
+// ---------- Código de confirmação do e-mail (conta do site) ----------
+// Segredo (o dono cadastra uma vez, NUNCA no chat): firebase functions:secrets:set RESEND_KEY
+// Sem a chave a função responde "sem-config" e o site usa o link de confirmação do próprio Firebase.
+const Codigo = require('./codigo');
+const RESEND_KEY = defineSecret('RESEND_KEY');
+const codDb = {
+  get: async (uid) => { const d = await admin.firestore().doc('codigos/' + uid).get(); return d.exists ? d.data() : null; },
+  set: (uid, o) => admin.firestore().doc('codigos/' + uid).set(o),
+  del: (uid) => admin.firestore().doc('codigos/' + uid).delete(),
+};
+exports.codigo = onRequest(
+  { region: REGIAO, cors: ['https://lafouch.com', 'https://www.lafouch.com', 'http://localhost:8765', 'http://localhost:8772'], maxInstances: 10, secrets: [RESEND_KEY] },
+  async (req, res) => {
+    if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
+    const m = /^Bearer (.+)$/.exec(req.get('Authorization') || '');
+    let tk;
+    try { tk = await admin.auth().verifyIdToken(m ? m[1] : ''); } catch (e) { return res.status(401).json({ ok: false, motivo: 'login' }); }
+    const b = req.body && typeof req.body === 'object' ? req.body : {};
+    const user = await admin.auth().getUser(tk.uid);
+    const u = { uid: tk.uid, email: user.email, nome: user.displayName || b.nome || '', verificado: !!user.emailVerified };
+    let chave = '';
+    try { chave = RESEND_KEY.value() || ''; } catch (e) {}
+    const envia = chave ? async (msg) => {
+      const r = await fetch('https://api.resend.com/emails', {
+        method: 'POST', headers: { Authorization: 'Bearer ' + chave, 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.assign({ from: 'La Fouch <nao-responda@lafouch.com>' }, msg)),
+      });
+      if (!r.ok) { console.error('resend', r.status, await r.text().catch(() => '')); throw new Codigo.Falha('envio', 502); }
+    } : null;
+    try {
+      let r;
+      if (b.acao === 'enviar') r = await Codigo.enviar(codDb, envia, u, Date.now(), b.lang);
+      else if (b.acao === 'conferir') {
+        r = await Codigo.conferir(codDb, u, b.codigo, Date.now());
+        if (r.confirmado) await admin.auth().updateUser(u.uid, { emailVerified: true });
+      } else return res.status(400).json({ ok: false, motivo: 'acao' });
+      return res.json(r);
+    } catch (e) {
+      if (e instanceof Codigo.Falha) return res.status(e.status).json(Object.assign({ ok: false, motivo: e.motivo }, e.extra));
+      console.error('codigo', e);
       return res.status(500).json({ ok: false, motivo: 'erro' });
     }
   }

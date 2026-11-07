@@ -85,12 +85,13 @@
     if (!itens.length || !nome) return null;
     var ts = +f.ts > 0 && +f.ts <= Date.now() + 3600000 ? +f.ts : Date.now();
     var pag = f.pag === 'pix' || f.pag === 'alias' ? f.pag : '',
-      nac = f.nac === 'py' || f.nac === 'br' || f.nac === 'ar' ? f.nac : '';
+      nac = /^[a-z]{2}$/.test(String(f.nac || '')) ? f.nac : '';
     return {
       sid: sid, ts: ts, cli: cap1(nome), tel: tel, itens: itens, st: 'novo', orig: 'site', cod: pedTxt(f.cod, 8), pais: pedTxt(f.pais, 2),
       nac: nac, doc: pedTxt(f.doc, 20), nasc: pedTxt(f.nasc, 10), email: pedTxt(f.email, 80), obsC: pedTxt(f.obsC, 120), cidade: pedTxt(f.cidade, 60), end: pedTxt(f.end, 120),
       ent: f.ent === 'delivery' ? 'delivery' : 'loja', endE: pedTxt(f.endE, 160), refE: pedTxt(f.refE, 120),
-      pag: pag, pg: pag ? 'pagar' : '', total: Math.max(0, Math.round(+f.total) || 0), brl: pedTxt(f.brl, 12), teste: f.teste === true
+      pag: pag, pg: pag ? 'pagar' : '', total: Math.max(0, Math.round(+f.total) || 0), brl: pedTxt(f.brl, 12), teste: f.teste === true,
+      uq: Math.max(0, Math.min(99, Math.round(+f.uq) || 0)), pagar: Math.max(0, Math.round(+f.pagar) || 0), depE: pedTxt(f.depE, 60)
     };
   }
   // Acha o cliente pelo telefone (ou nome) e, se não existe, cadastra. Devolve o cliente e se foi criado agora.
@@ -347,8 +348,7 @@
       if (lista) h += '<button type="button" class="pdB1" data-act="pedab" data-id="' + p.id + '">' + (p.pg === 'comp' ? 'Conferir comprovante' : 'Ver pedido') + '</button>';
       else if (p.pg === 'comp') h += '<button type="button" class="pdB1" data-act="pedpago" data-id="' + p.id + '">✓ Confirmar pagamento</button><button type="button" class="pdB2 txt" data-act="pedrecus" data-id="' + p.id + '">Recusar</button>';
       else {
-        if (p.pag === 'alias') h += '<button type="button" class="pdB1" data-act="pedqr" data-id="' + p.id + '">' + (p.qr ? 'Trocar QR do Itaú' : 'Anexar QR do Itaú') + '</button>';
-        h += '<button type="button" class="' + (p.pag === 'alias' ? 'pdB2 txt' : 'pdB1') + '" data-act="pedpago" data-id="' + p.id + '">' + (p.pag === 'alias' ? 'Marcar como pago' : '✓ Confirmar pagamento') + '</button>';
+        h += '<button type="button" class="pdB2 txt" data-act="pedpago" data-id="' + p.id + '">Marcar como pago</button>';
       }
     } else if (pr && pr[2]) h += '<button type="button" class="pdB1" data-act="pedav" data-id="' + p.id + '">' + pr[2] + '</button>';
     else if (p.st === 'canc' || p.st === 'ent')
@@ -382,14 +382,16 @@
     if (!p.pag && p.ent !== 'delivery') return '';
     var est = pedEstado(p),
       h = '<section class="pdCd"><div class="pdLb">Pagamento</div><div class="pdLin"><div style="flex:1;min-width:0"><b>' +
-        (p.pag === 'pix' ? 'PIX' + (p.brl ? ' · R$ ' + esc(p.brl) : '') : p.pag === 'alias' ? 'Itaú (alias)' : 'Sem pagamento online') +
+        (p.pag === 'pix' ? 'PIX' + (p.brl ? ' · R$ ' + esc(String(p.brl).replace('.', ',')) : '') : p.pag === 'alias' ? 'Itaú (alias)' + (p.pagar ? ' · ' + gs(p.pagar) : '') : 'Sem pagamento online') +
         '</b><div class="pdMt">' + (pedTotal(p) ? gs(pedTotal(p)) : '') + '</div></div>' + (p.pg ? '<span class="pdPill ' + est[1] + '">' + est[0] + '</span>' : '') + '</div>';
-    if (p.pg === 'pagar' && p.pag === 'alias')
-      h += '<div class="pdMt" style="margin-top:6px">' + (p.qr ? 'QR anexado. O cliente já vê no site.' : 'Gere o QR no app do Itaú (valor do pedido, “QR sin vencimiento” ligado) e anexe aqui.') + '</div>';
-    if (p.pag === 'alias' && p.qr) h += '<img src="' + p.qr + '" alt="QR do Itaú" style="display:block;max-width:180px;margin:8px auto 0;border-radius:10px;background:#fff">';
-    if (p.comp) h += '<div class="pdMt" style="margin-top:10px">Comprovante enviado' + (p.compTs ? ' às ' + fh(p.compTs) : '') + '</div><img src="' + p.comp + '" alt="Comprovante" style="display:block;max-width:100%;max-height:420px;margin:6px auto 0;border-radius:10px">';
+    if (p.pgAuto) h += '<div class="pdMt" style="margin-top:6px;color:var(--ok,#5fd38d)">✓ Confirmado sozinho pelo Nubank às ' + fh(p.pgAuto.ts) + ' (' + esc(p.pgAuto.txt || '') + ')</div>';
+    if (p.comp) {
+      h += '<div class="pdMt" style="margin-top:10px">Comprovante enviado' + (p.compTs ? ' às ' + fh(p.compTs) : '') + '</div>' + compLeHtml(p) + '<img src="' + p.comp + '" alt="Comprovante" style="display:block;max-width:100%;max-height:420px;margin:6px auto 0;border-radius:10px">';
+      compLeAgenda(p);
+    }
     h += '</section><section class="pdCd"><div class="pdLb">Entrega</div><b>' + (p.ent === 'delivery' ? 'Delivery (transportadora)' : 'Retirada na loja') + '</b>';
-    if (p.ent === 'delivery') h += '<div class="pdMt">' + esc(p.endE || '') + (p.refE ? ' · ' + esc(p.refE) : '') + '</div><div class="pdMt">Frete: a cliente paga à transportadora na entrega.</div>';
+    if (p.ent === 'delivery') h += '<div class="pdMt">' + esc(p.endE || '') + (p.refE ? ' · Ref.: ' + esc(p.refE) : '') + '</div><div class="pdMt">Frete: a cliente paga à transportadora na entrega.</div>';
+    if (p.pg === 'pago') h += '<button type="button" class="pdB2 txt" data-act="pedficha" data-id="' + p.id + '" style="margin-top:8px">' + (p.impresso ? 'Imprimir a ficha de novo' : 'Imprimir ficha de separação') + '</button>';
     return h + '</section>';
   }
   function pedDetalhe(p) {
@@ -712,30 +714,6 @@
         return c.toDataURL('image/jpeg', 0.8);
       });
   }
-  ACT.pedqr = function (id) {
-    var p = pedAch(id),
-      i = document.createElement('input');
-    if (!p || !p.sid) return;
-    i.type = 'file';
-    i.accept = 'image/*';
-    i.onchange = function () {
-      var f = i.files && i.files[0];
-      if (!f) return;
-      pedImg(f)
-        .then(function (d) {
-          p.qr = d;
-          render();
-          return pedReserva(p, { qr: d });
-        })
-        .then(function () {
-          say('QR anexado. O cliente já vê no site.');
-        })
-        .catch(function () {
-          say('Não consegui enviar o QR ao site. Tente de novo.');
-        });
-    };
-    i.click();
-  };
   // Apaga os pedidos de teste (e os clientes que só existem por causa deles).
   ACT.pedteste = function () {
     if (!S._pedTst) {
@@ -887,7 +865,11 @@
     S.pedTok = null;
     S.pedF = 'canc';
     render();
-    if (p.orig === 'site') resSolta(p);
+    if (p.orig === 'site') {
+      resSolta(p);
+      // o site do cliente para o relógio e mostra "Cancelado pela loja"
+      if (p.sid) pedReserva(p, { cancelado: true }).catch(function () {});
+    }
   };
   ACT.peddel = function (id) {
     if (S._pedDel !== String(id)) {
@@ -906,7 +888,10 @@
     S.pedProd = null;
     // pedido do site apagado: a peça que ele segurava no site volta a ficar livre (antes ficava presa para sempre)
     var apg = pedAch(id);
-    if (apg && apg.orig === 'site' && apg.sid && !apg.baixa && apg.st !== 'canc') resSolta(apg);
+    if (apg && apg.orig === 'site' && apg.sid && !apg.baixa && apg.st !== 'canc') {
+      resSolta(apg);
+      pedReserva(apg, { cancelado: true }).catch(function () {});
+    }
     S.pedidos = S.pedidos.filter(function (p) {
       return String(p.id) !== String(id);
     });

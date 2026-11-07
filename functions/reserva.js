@@ -4,7 +4,8 @@
 // Reserva válida = paga, ou ainda dentro do prazo (exp). Quem decide a hora é SEMPRE o servidor.
 'use strict';
 
-const PRAZO_MS = 10 * 60 * 1000; // 10 minutos para pagar
+const PRAZO_MS = 15 * 60 * 1000; // PIX: 15 minutos para pagar
+const PRAZO_ITAU_MS = 30 * 60 * 1000; // Itaú (transferência): 30 minutos (07/11/2026)
 const COMP_MS = 12 * 3600 * 1000; // comprovante enviado: segura a peça até o dono conferir
 const MAX_ITENS = 30;
 const MAX_Q = 20;
@@ -90,7 +91,7 @@ async function ligada(db) {
 // -------- cliente (site): reservar / comprovante / cancelar --------
 async function reservar(db, agora, pid, itensBrutos, opcoes) {
   const itens = agrupa(confere(pid, itensBrutos));
-  const prazo = (opcoes && opcoes.ate) || agora + PRAZO_MS;
+  const prazo = (opcoes && opcoes.ate) || agora + (opcoes && opcoes.pag === 'alias' ? PRAZO_ITAU_MS : PRAZO_MS);
   return db.runTransaction(async (tx) => {
     const lidos = [];
     for (const it of itens) {

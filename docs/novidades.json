@@ -1,7 +1,10 @@
 {
- "nome": "5.4.7",
+ "nome": "5.5.0",
  "notas": [
-  "Catálogo › Site abre direto no painel do site, sem a barra antiga Vendas | WhatsApp | Site",
-  "Diagnóstico temporário em Catálogo › Site (sai depois)"
+  "Pedidos do site: o app lê o comprovante e mostra se o valor confere",
+  "PIX automático pelo Nubank (no Android, APK novo): confirma o pedido sozinho pelo valor",
+  "Ficha de separação impressa sozinha quando o pedido fica pago, com botão Imprimir de novo",
+  "Ajustes › Pagamento automático",
+  "Itaú sem anexar QR; cancelar pedido no app libera a peça também no site"
  ]
 }

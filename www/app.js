@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 449;
+  var APP_BUILD = 450;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.4.7'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.5.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -25868,12 +25868,13 @@
     if (!itens.length || !nome) return null;
     var ts = +f.ts > 0 && +f.ts <= Date.now() + 3600000 ? +f.ts : Date.now();
     var pag = f.pag === 'pix' || f.pag === 'alias' ? f.pag : '',
-      nac = f.nac === 'py' || f.nac === 'br' || f.nac === 'ar' ? f.nac : '';
+      nac = /^[a-z]{2}$/.test(String(f.nac || '')) ? f.nac : '';
     return {
       sid: sid, ts: ts, cli: cap1(nome), tel: tel, itens: itens, st: 'novo', orig: 'site', cod: pedTxt(f.cod, 8), pais: pedTxt(f.pais, 2),
       nac: nac, doc: pedTxt(f.doc, 20), nasc: pedTxt(f.nasc, 10), email: pedTxt(f.email, 80), obsC: pedTxt(f.obsC, 120), cidade: pedTxt(f.cidade, 60), end: pedTxt(f.end, 120),
       ent: f.ent === 'delivery' ? 'delivery' : 'loja', endE: pedTxt(f.endE, 160), refE: pedTxt(f.refE, 120),
-      pag: pag, pg: pag ? 'pagar' : '', total: Math.max(0, Math.round(+f.total) || 0), brl: pedTxt(f.brl, 12), teste: f.teste === true
+      pag: pag, pg: pag ? 'pagar' : '', total: Math.max(0, Math.round(+f.total) || 0), brl: pedTxt(f.brl, 12), teste: f.teste === true,
+      uq: Math.max(0, Math.min(99, Math.round(+f.uq) || 0)), pagar: Math.max(0, Math.round(+f.pagar) || 0), depE: pedTxt(f.depE, 60)
     };
   }
   // Acha o cliente pelo telefone (ou nome) e, se não existe, cadastra. Devolve o cliente e se foi criado agora.
@@ -26130,8 +26131,7 @@
       if (lista) h += '<button type="button" class="pdB1" data-act="pedab" data-id="' + p.id + '">' + (p.pg === 'comp' ? 'Conferir comprovante' : 'Ver pedido') + '</button>';
       else if (p.pg === 'comp') h += '<button type="button" class="pdB1" data-act="pedpago" data-id="' + p.id + '">✓ Confirmar pagamento</button><button type="button" class="pdB2 txt" data-act="pedrecus" data-id="' + p.id + '">Recusar</button>';
       else {
-        if (p.pag === 'alias') h += '<button type="button" class="pdB1" data-act="pedqr" data-id="' + p.id + '">' + (p.qr ? 'Trocar QR do Itaú' : 'Anexar QR do Itaú') + '</button>';
-        h += '<button type="button" class="' + (p.pag === 'alias' ? 'pdB2 txt' : 'pdB1') + '" data-act="pedpago" data-id="' + p.id + '">' + (p.pag === 'alias' ? 'Marcar como pago' : '✓ Confirmar pagamento') + '</button>';
+        h += '<button type="button" class="pdB2 txt" data-act="pedpago" data-id="' + p.id + '">Marcar como pago</button>';
       }
     } else if (pr && pr[2]) h += '<button type="button" class="pdB1" data-act="pedav" data-id="' + p.id + '">' + pr[2] + '</button>';
     else if (p.st === 'canc' || p.st === 'ent')
@@ -26165,14 +26165,16 @@
     if (!p.pag && p.ent !== 'delivery') return '';
     var est = pedEstado(p),
       h = '<section class="pdCd"><div class="pdLb">Pagamento</div><div class="pdLin"><div style="flex:1;min-width:0"><b>' +
-        (p.pag === 'pix' ? 'PIX' + (p.brl ? ' · R$ ' + esc(p.brl) : '') : p.pag === 'alias' ? 'Itaú (alias)' : 'Sem pagamento online') +
+        (p.pag === 'pix' ? 'PIX' + (p.brl ? ' · R$ ' + esc(String(p.brl).replace('.', ',')) : '') : p.pag === 'alias' ? 'Itaú (alias)' + (p.pagar ? ' · ' + gs(p.pagar) : '') : 'Sem pagamento online') +
         '</b><div class="pdMt">' + (pedTotal(p) ? gs(pedTotal(p)) : '') + '</div></div>' + (p.pg ? '<span class="pdPill ' + est[1] + '">' + est[0] + '</span>' : '') + '</div>';
-    if (p.pg === 'pagar' && p.pag === 'alias')
-      h += '<div class="pdMt" style="margin-top:6px">' + (p.qr ? 'QR anexado. O cliente já vê no site.' : 'Gere o QR no app do Itaú (valor do pedido, “QR sin vencimiento” ligado) e anexe aqui.') + '</div>';
-    if (p.pag === 'alias' && p.qr) h += '<img src="' + p.qr + '" alt="QR do Itaú" style="display:block;max-width:180px;margin:8px auto 0;border-radius:10px;background:#fff">';
-    if (p.comp) h += '<div class="pdMt" style="margin-top:10px">Comprovante enviado' + (p.compTs ? ' às ' + fh(p.compTs) : '') + '</div><img src="' + p.comp + '" alt="Comprovante" style="display:block;max-width:100%;max-height:420px;margin:6px auto 0;border-radius:10px">';
+    if (p.pgAuto) h += '<div class="pdMt" style="margin-top:6px;color:var(--ok,#5fd38d)">✓ Confirmado sozinho pelo Nubank às ' + fh(p.pgAuto.ts) + ' (' + esc(p.pgAuto.txt || '') + ')</div>';
+    if (p.comp) {
+      h += '<div class="pdMt" style="margin-top:10px">Comprovante enviado' + (p.compTs ? ' às ' + fh(p.compTs) : '') + '</div>' + compLeHtml(p) + '<img src="' + p.comp + '" alt="Comprovante" style="display:block;max-width:100%;max-height:420px;margin:6px auto 0;border-radius:10px">';
+      compLeAgenda(p);
+    }
     h += '</section><section class="pdCd"><div class="pdLb">Entrega</div><b>' + (p.ent === 'delivery' ? 'Delivery (transportadora)' : 'Retirada na loja') + '</b>';
-    if (p.ent === 'delivery') h += '<div class="pdMt">' + esc(p.endE || '') + (p.refE ? ' · ' + esc(p.refE) : '') + '</div><div class="pdMt">Frete: a cliente paga à transportadora na entrega.</div>';
+    if (p.ent === 'delivery') h += '<div class="pdMt">' + esc(p.endE || '') + (p.refE ? ' · Ref.: ' + esc(p.refE) : '') + '</div><div class="pdMt">Frete: a cliente paga à transportadora na entrega.</div>';
+    if (p.pg === 'pago') h += '<button type="button" class="pdB2 txt" data-act="pedficha" data-id="' + p.id + '" style="margin-top:8px">' + (p.impresso ? 'Imprimir a ficha de novo' : 'Imprimir ficha de separação') + '</button>';
     return h + '</section>';
   }
   function pedDetalhe(p) {
@@ -26495,30 +26497,6 @@
         return c.toDataURL('image/jpeg', 0.8);
       });
   }
-  ACT.pedqr = function (id) {
-    var p = pedAch(id),
-      i = document.createElement('input');
-    if (!p || !p.sid) return;
-    i.type = 'file';
-    i.accept = 'image/*';
-    i.onchange = function () {
-      var f = i.files && i.files[0];
-      if (!f) return;
-      pedImg(f)
-        .then(function (d) {
-          p.qr = d;
-          render();
-          return pedReserva(p, { qr: d });
-        })
-        .then(function () {
-          say('QR anexado. O cliente já vê no site.');
-        })
-        .catch(function () {
-          say('Não consegui enviar o QR ao site. Tente de novo.');
-        });
-    };
-    i.click();
-  };
   // Apaga os pedidos de teste (e os clientes que só existem por causa deles).
   ACT.pedteste = function () {
     if (!S._pedTst) {
@@ -26670,7 +26648,11 @@
     S.pedTok = null;
     S.pedF = 'canc';
     render();
-    if (p.orig === 'site') resSolta(p);
+    if (p.orig === 'site') {
+      resSolta(p);
+      // o site do cliente para o relógio e mostra "Cancelado pela loja"
+      if (p.sid) pedReserva(p, { cancelado: true }).catch(function () {});
+    }
   };
   ACT.peddel = function (id) {
     if (S._pedDel !== String(id)) {
@@ -26689,7 +26671,10 @@
     S.pedProd = null;
     // pedido do site apagado: a peça que ele segurava no site volta a ficar livre (antes ficava presa para sempre)
     var apg = pedAch(id);
-    if (apg && apg.orig === 'site' && apg.sid && !apg.baixa && apg.st !== 'canc') resSolta(apg);
+    if (apg && apg.orig === 'site' && apg.sid && !apg.baixa && apg.st !== 'canc') {
+      resSolta(apg);
+      pedReserva(apg, { cancelado: true }).catch(function () {});
+    }
     S.pedidos = S.pedidos.filter(function (p) {
       return String(p.id) !== String(id);
     });
@@ -26971,7 +26956,7 @@
   // ===== Aba Ajustes: faixas, meta, contas e backup dos dados. =====
   // Gera o texto do backup (dados + fotos em miniatura).
   // dados que pertencem a ESTE aparelho e nunca viajam em cópia de segurança (a identidade de sincronização inclusa)
-  var SEM_BACKUP = ['pinHash', 'pinSalt', 'bioOn', 'lockMin', 'lockSens', 'nuvem', 'syncOn', 'aparelho', 'syncSnap', 'syncSeq', 'syncFeitos', 'syncOut', 'syncCur', 'resPend', 'resOrf', 'aparNome', 'syncCfgTs', 'syncPutTs', 'syncPend', 'atv', 'atvPp', 'fotosH', 'fotosV', 'fotosRest'];
+  var SEM_BACKUP = ['pinHash', 'pinSalt', 'bioOn', 'lockMin', 'lockSens', 'nuvem', 'syncOn', 'aparelho', 'syncSnap', 'syncSeq', 'syncFeitos', 'syncOut', 'syncCur', 'resPend', 'resOrf', 'pixAuto', 'pixLog', 'aparNome', 'syncCfgTs', 'syncPutTs', 'syncPend', 'atv', 'atvPp', 'fotosH', 'fotosV', 'fotosRest'];
   function backupDados(semFotos) {
     var d = {};
     PERSIST.forEach(function (k) {
@@ -27143,6 +27128,7 @@
       av: { t: 'Sons e avisos', r: av.q ? 'Silêncio ligado' : 'Ligados', h: achar('avisosCard') + resto },
       sync: sy ? { t: 'Sincronização', r: sy[1], al: sy[0] === 'bad' || sy[0] === 'warn', h: syncCard() } : null,
       upd: { t: 'Atualização', r: upN ? (um.nome || upN) + ' pronta' : APP_NOME, al: !!upN, h: updCard() },
+      pauto: { t: 'Pagamento automático', r: S.pixAuto ? 'PIX ligado' : 'Desligado', h: pautoCard() },
       mcli: { t: 'Modo cliente (iPad da loja)', r: 'Desligado', h: mcAjHtml() },
       foto: { t: 'Fotos', r: fpChaves().length ? fpChaves().length + ' fora do padrão' : 'No padrão', h: '<button type="button" class="go" data-act="inicio" data-id="est" style="width:100%;margin-bottom:8px">Abrir a Fila de fotos no Estúdio ›</button>' + fpAjHtml() },
       bk: { t: 'Cópias e nuvem', r: bkd < 0 ? 'Nenhuma cópia' : bkd === 0 ? 'Hoje' : 'Há ' + bkd + (bkd === 1 ? ' dia' : ' dias'), al: bkd < 0 || bkd > 7, h: backupHtml().replace(/<\/section>$/, nv + '</section>') }
@@ -34767,6 +34753,16 @@
       o = [0x1b, 0x40, 0x1b, 0x74, 2]; // inicia + PC850
     linhas.forEach(function (l) {
       o.push(0x1b, 0x61, l.centro ? 1 : 0, 0x1b, 0x45, l.negrito ? 1 : 0, 0x1d, 0x21, l.grande ? 0x11 : 0);
+      if (l.qr) {
+        // QR nativo (GS ( k): modelo 2, módulo 6, correção M
+        var d = impTxt(l.qr),
+          n = d.length + 3;
+        o.push(0x1b, 0x61, 1, 0x1d, 0x28, 0x6b, 4, 0, 0x31, 0x41, 0x32, 0, 0x1d, 0x28, 0x6b, 3, 0, 0x31, 0x43, 6, 0x1d, 0x28, 0x6b, 3, 0, 0x31, 0x45, 0x31);
+        o.push(0x1d, 0x28, 0x6b, n & 255, n >> 8, 0x31, 0x50, 0x30);
+        o.push.apply(o, d);
+        o.push(0x1d, 0x28, 0x6b, 3, 0, 0x31, 0x51, 0x30, 0x0a);
+        return;
+      }
       var t;
       if (l.traco) t = new Array(col + 1).join('-');
       else if (l.b !== undefined) {
@@ -38097,6 +38093,289 @@
     setTimeout(encAvisa, 12000);
     setInterval(encAvisa, 6 * 3600000);
   }
+  // ===== Pagamento automático e ficha de separação (v450, aprovado 07/11/2026) =====
+  // 1) PIX automático: o app lê a notificação "Pix recebido" do Nubank (plugin LfNotif, só no APK) e confirma o pedido
+  //    cujo valor (com os centavos únicos) bate. Mais de um pedido com o mesmo valor: não confirma sozinho, avisa.
+  // 2) Leitura do comprovante (Itaú e PIX): o leitor de texto do app acha o valor e a data e mostra "✓ valor confere".
+  // 3) Ficha de separação: quando um pedido fica pago, o aparelho com a impressora (e a opção ligada) imprime uma vez.
+  S.pixAuto = false; // ler as notificações do Nubank (só neste aparelho)
+  S.pixLog = []; // últimas notificações lidas [{ts, txt, v, ped}]
+  var NU_PKG = /^com\.nu\.production$/;
+  function notifPl() {
+    var C = window.Capacitor;
+    if (!C) return null;
+    if (C.Plugins && C.Plugins.LfNotif) return C.Plugins.LfNotif;
+    try {
+      if (C.isPluginAvailable && C.isPluginAvailable('LfNotif') && C.registerPlugin) return C.registerPlugin('LfNotif');
+    } catch (e) {}
+    return null;
+  }
+  // "R$ 1.234,56" → 123456 (centavos)
+  function pixCentavos(txt) {
+    var m = /R\$\s*([\d.]+,\d{2})/.exec(String(txt || ''));
+    return m ? Math.round(parseFloat(m[1].replace(/\./g, '').replace(',', '.')) * 100) : 0;
+  }
+  function pedPixCent(p) {
+    return Math.round((parseFloat(String(p.brl || '0').replace(',', '.')) || 0) * 100);
+  }
+  // Notificação do banco → pedido. Devolve o que fez (para o registro e os testes).
+  function pixRecebido(n) {
+    n = n || {};
+    var txt = String((n.title || '') + ' ' + (n.text || '')).trim();
+    if (!NU_PKG.test(n.pkg || '') || !/receb/i.test(txt)) return 'ignorada';
+    var v = pixCentavos(txt);
+    if (!v) return 'sem-valor';
+    var cands = (S.pedidos || []).filter(function (p) {
+      return p.orig === 'site' && p.pag === 'pix' && (p.pg === 'pagar' || p.pg === 'comp') && p.st !== 'canc' && pedPixCent(p) === v;
+    });
+    var reg = { ts: n.ts || Date.now(), txt: txt.slice(0, 90), v: v, ped: '' };
+    S.pixLog = [reg].concat(S.pixLog || []).slice(0, 20);
+    if (cands.length === 1) {
+      var p = cands[0];
+      reg.ped = p.cod || String(p.id);
+      p.pgAuto = { ts: reg.ts, txt: 'Pix recebido R$ ' + (v / 100).toFixed(2).replace('.', ',') };
+      var sel = S.pedSel,
+        y = window.scrollY;
+      ACT.pedpago(p.id); // confirmado sem o dono tocar: não muda a tela em que ele está
+      S.pedSel = sel;
+      window.scrollTo(0, y);
+      lfToast('PIX recebido: pedido ' + (p.cod || '') + ' confirmado sozinho');
+      saveSoon();
+      return 'confirmado';
+    }
+    if (cands.length > 1) {
+      reg.ped = 'vários';
+      cands.forEach(function (p) {
+        p.pixAmb = reg.ts;
+      });
+      lfToast('PIX de R$ ' + (v / 100).toFixed(2).replace('.', ',') + ' recebido: mais de um pedido com esse valor, confirme você');
+      saveSoon();
+      return 'ambiguo';
+    }
+    saveSoon();
+    return 'sem-pedido';
+  }
+  var NOTIF_OUVE = false;
+  function notifLiga() {
+    var P = notifPl();
+    if (!P || !S.pixAuto) return;
+    if (!NOTIF_OUVE) {
+      NOTIF_OUVE = true;
+      try {
+        P.addListener('notificacao', function (n) {
+          pixRecebido(n);
+          if (S.view === 'ped' || S.view === 'ajustes') render();
+        });
+      } catch (e) {}
+    }
+    // as que chegaram com o app fechado
+    P.pendentes()
+      .then(function (r) {
+        (r && r.itens ? r.itens : []).forEach(pixRecebido);
+      })
+      .catch(function () {});
+  }
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) notifLiga();
+  });
+  setTimeout(notifLiga, 4000);
+  var NOTIF_OK = null;
+  function notifStatus() {
+    var P = notifPl();
+    if (!P) return;
+    P.status()
+      .then(function (r) {
+        var a = !!(r && r.acesso);
+        if (a !== NOTIF_OK) {
+          NOTIF_OK = a;
+          if (S.view === 'ajustes') render();
+        }
+      })
+      .catch(function () {});
+  }
+  function pautoSw(act, tit, sub, on, dis) {
+    return '<button type="button" class="paSw" data-act="' + act + '" role="switch" aria-checked="' + on + '"' + (dis ? ' disabled style="opacity:.5"' : '') + '><span><b>' + tit + '</b><small>' + sub + '</small></span><span class="sw"><input type="checkbox" tabindex="-1" aria-hidden="true"' + (on ? ' checked' : '') + '><i></i></span></button>';
+  }
+  function pautoCard() {
+    var P = notifPl(),
+      u = (S.pixLog || [])[0];
+    if (P && NOTIF_OK === null) notifStatus();
+    return (
+      '<section class="card col paCard">' +
+      pautoSw('pautoTog', 'PIX pelo Nubank', P ? 'confirma sozinho quando chega a notificação "Pix recebido"' : 'só no app do Android (precisa do APK novo)', !!S.pixAuto, !P) +
+      (P && S.pixAuto ? '<div class="sl"><span>Acesso às notificações</span><b style="color:var(--' + (NOTIF_OK ? 'ok)">✓ permitido' : 'warn)">precisa permitir') + '</b></div>' + (NOTIF_OK ? '' : '<button type="button" class="btn go" data-act="pautoAcesso" style="width:100%">Permitir acesso</button>') : '') +
+      '<div class="sl"><span>Última notificação lida</span><b>' + (u ? fd(u.ts) + ' ' + fh(u.ts) : 'nenhuma') + '</b></div>' +
+      (u ? '<div class="hint" style="margin:0">' + esc(u.txt) + (u.ped ? ' → pedido ' + esc(u.ped) : ' → nenhum pedido com esse valor') + '</div>' : '') +
+      '<div class="hint" style="margin:0">O Itaú não avisa transferências: continua com comprovante (o app lê o valor).</div>' +
+      '</section><section class="card col paCard">' +
+      pautoSw('fichaTog', 'Imprimir pedidos pagos sozinho', imp ? 'ficha de separação nesta impressora, uma vez por pedido' : 'conecte uma impressora neste aparelho', fichaAutoOn(), !imp) +
+      '</section>'
+    );
+  }
+  ACT.pautoTog = function () {
+    S.pixAuto = !S.pixAuto;
+    saveSoon();
+    if (S.pixAuto) {
+      var P = notifPl();
+      if (P)
+        P.status().then(function (r) {
+          if (!r || !r.acesso) P.pedirAcesso().catch(function () {});
+        });
+      notifLiga();
+    }
+    render();
+  };
+  ACT.pautoAcesso = function () {
+    var P = notifPl();
+    if (P) P.pedirAcesso().catch(function () {});
+    NOTIF_OK = null;
+  };
+  if (typeof AJ_PADRAO !== 'undefined' && AJ_PADRAO.indexOf('pauto') < 0) {
+    AJ_PADRAO.push('pauto');
+    AJ_ICO.pauto = AJ_SVG('<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>');
+  }
+
+  // ---- Leitura do comprovante ----
+  var COMP_LENDO = {};
+  // Acha o valor no texto do comprovante e compara com o valor esperado do pedido.
+  function compLeTexto(p, txt) {
+    var t = String(txt || ''),
+      ok = false,
+      ach = 0,
+      data = (/(\d{2})[\/.-](\d{2})[\/.-](\d{2,4})/.exec(t) || [''])[0],
+      hora = (/\b(\d{1,2}):(\d{2})\b/.exec(t) || [''])[0];
+    if (p.pag === 'pix') {
+      var esp = pedPixCent(p),
+        re = /R?\$?\s*(\d{1,3}(?:\.\d{3})*,\d{2})/g,
+        m;
+      while ((m = re.exec(t))) {
+        var c = Math.round(parseFloat(m[1].replace(/\./g, '').replace(',', '.')) * 100);
+        if (c === esp) ok = true;
+        if (!ach || Math.abs(c - esp) < Math.abs(ach - esp)) ach = c;
+      }
+      return { ok: ok, v: ach ? 'R$ ' + (ach / 100).toFixed(2).replace('.', ',') : '', esp: 'R$ ' + (esp / 100).toFixed(2).replace('.', ','), d: (data + ' ' + hora).trim() };
+    }
+    var espG = p.pagar || pedTotal(p),
+      reG = /(\d{1,3}(?:[.\s]\d{3})+|\d{4,9})/g,
+      mg;
+    while ((mg = reG.exec(t))) {
+      var n = +mg[1].replace(/[.\s]/g, '');
+      if (n < 1000 || n > 100000000) continue;
+      if (n === espG) ok = true;
+      if (Math.abs(n - espG) / espG < 0.6 && (!ach || Math.abs(n - espG) < Math.abs(ach - espG))) ach = n;
+    }
+    return { ok: ok, v: ach ? gs(ach) : '', esp: gs(espG), d: (data + ' ' + hora).trim() };
+  }
+  function compLeHtml(p) {
+    var r = p.compLe;
+    if (!r) return COMP_LENDO[p.id] ? '<div class="pdMt" style="margin-top:4px">Lendo o comprovante…</div>' : '';
+    if (r.ok) return '<div class="pdMt" style="margin-top:4px;color:var(--ok,#5fd38d)"><b>✓ Valor confere: ' + esc(r.esp) + '</b>' + (r.d ? ' · ' + esc(r.d) : '') + '</div>';
+    if (r.v) return '<div class="pdMt" style="margin-top:4px;color:var(--bad,#e88)"><b>⚠ Valor diferente: ' + esc(r.v) + '</b> (esperado ' + esc(r.esp) + ') · confira antes de confirmar</div>';
+    return '<div class="pdMt" style="margin-top:4px">Não consegui ler o valor (esperado ' + esc(r.esp) + '). Confira na imagem.</div>';
+  }
+  function compLeAgenda(p) {
+    if (p.compLe || COMP_LENDO[p.id] || !p.comp || typeof getWorker !== 'function' || /(^|[#&])test\b/.test(location.hash)) return;
+    COMP_LENDO[p.id] = 1;
+    var im = new Image();
+    im.onload = function () {
+      var k = Math.min(1, 1600 / Math.max(im.width, im.height)),
+        c = mkCanvas(Math.round(im.width * k), Math.round(im.height * k));
+      c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+      getWorker()
+        .then(function (w) {
+          return w.setParameters({ tessedit_pageseg_mode: '3' }).then(function () {
+            return w.recognize(c);
+          });
+        })
+        .then(function (r) {
+          p.compLe = compLeTexto(p, r && r.data ? r.data.text : '');
+          saveSoon();
+        })
+        .catch(function () {
+          p.compLe = { ok: false, v: '', esp: p.pag === 'pix' ? 'R$ ' + String(p.brl || '').replace('.', ',') : gs(p.pagar || pedTotal(p)), d: '' };
+        })
+        .then(function () {
+          delete COMP_LENDO[p.id];
+          if (S.view === 'ped') render();
+        });
+    };
+    im.onerror = function () {
+      delete COMP_LENDO[p.id];
+    };
+    im.src = p.comp;
+  }
+
+  // ---- Ficha de separação ----
+  function fichaAutoOn() {
+    try {
+      return localStorage.getItem('lf_fichaAuto') === '1';
+    } catch (e) {
+      return false;
+    }
+  }
+  ACT.fichaTog = function () {
+    try {
+      localStorage.setItem('lf_fichaAuto', fichaAutoOn() ? '' : '1');
+    } catch (e) {}
+    render();
+  };
+  function fichaLinhas(p) {
+    var L = [{ t: 'LA FOUCH', centro: 1, negrito: 1 }, { t: 'SEPARAR PEDIDO DO SITE', centro: 1 }, { t: '#' + (p.cod || p.id), centro: 1, negrito: 1, grande: 1 }];
+    L.push({ t: 'PAGO · ' + (p.pag === 'pix' ? 'PIX R$ ' + String(p.brl || '').replace('.', ',') : 'ITAU ' + gs(p.pagar || pedTotal(p))), centro: 1, negrito: 1 });
+    L.push({ t: fd(p.ts) + ' ' + fh(p.ts) }, { t: 'Cliente: ' + (p.cli || '') }, { t: 'Tel: ' + (p.tel || '') }, { traco: 1 });
+    (p.itens || []).forEach(function (l) {
+      L.push({ t: l.q + 'x ' + (l.ref || '') + ' ' + (l.t || ''), negrito: 1 });
+      if (l.cor) L.push({ t: '   cor: ' + l.cor });
+    });
+    L.push({ traco: 1 });
+    if (p.ent === 'delivery') {
+      L.push({ t: 'DELIVERY', negrito: 1 }, { t: p.endE || '' });
+      if (p.refE) L.push({ t: 'Ref.: ' + p.refE });
+    } else L.push({ t: 'RETIRAR NA LOJA', negrito: 1 });
+    L.push({ traco: 1 });
+    if (p.tok) L.push({ qr: p.tok }, { t: 'Codigo de retirada: ' + p.tok, centro: 1, negrito: 1 });
+    return L;
+  }
+  function fichaImprime(p) {
+    if (!imp) return Promise.reject(new Error('Nenhuma impressora'));
+    return impEnviar(impBytes(fichaLinhas(p))).then(function () {
+      p.impresso = Date.now();
+      saveSoon();
+    });
+  }
+  ACT.pedficha = function (id) {
+    var p = pedAch(id);
+    if (!p) return;
+    if (!imp || !impPlugin()) {
+      lfToast('Conecte a impressora em Ajustes › Impressora');
+      return;
+    }
+    fichaImprime(p).then(
+      function () {
+        lfToast('Ficha impressa');
+        render();
+      },
+      function () {
+        lfToast('A impressora não respondeu');
+      }
+    );
+  };
+  // Pedido pago e ainda não impresso → imprime sozinho (só no aparelho com a impressora e a opção ligada).
+  var FICHA_BUSY = false;
+  function fichaCheck() {
+    if (FICHA_BUSY || !fichaAutoOn() || !imp || !impPlugin()) return;
+    var p = (S.pedidos || []).filter(function (x) {
+      return x.orig === 'site' && x.pg === 'pago' && !x.impresso && x.st !== 'canc' && x.st !== 'ent';
+    })[0];
+    if (!p) return;
+    FICHA_BUSY = true;
+    fichaImprime(p)
+      .catch(function () {})
+      .then(function () {
+        FICHA_BUSY = false;
+      });
+  }
+  setInterval(fichaCheck, 15000);
   // ===== Preço automático (v422, aprovado 04/11/2026) =====
   // Um interruptor. O app revisa toda segunda e explica cada ajuste; o dono só desfaz ou trava (cadeado no produto).
   // Regras fixas: preço normal revisa no máximo 1 vez por mês (só se o dólar/custo mudou de verdade ou se vende muito rápido);
@@ -43947,6 +44226,8 @@
       'baixaAuto', 'baixaAutoV', 'fechos', 'fechoAdia', 'espera',
       'resPend',
       'resOrf',
+      'pixAuto',
+      'pixLog',
       'syncOn',
       'syncPend',
       'atv',
@@ -44154,6 +44435,7 @@
   if (/(^|[#&])test\b/.test(location.hash))
     window.__LF = {
       barMoedas: barMoedas,
+      pixRecebido: pixRecebido, compLeTexto: compLeTexto, fichaLinhas: fichaLinhas, impBytes: impBytes,
       animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
       S: S, vitDocBody: vitDocBody, giroSiteFila: giroSiteFila, giroGv: giroGv, giroComprime: giroComprime, resSolta: resSolta, resOrfas: resOrfas, resEstSet: function (o) { RES_EST = o; }, vistasNaoVendidas: vistasNaoVendidas, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcComprarNovo: lcComprarNovo, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, envFolha: window.__envFolha, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,

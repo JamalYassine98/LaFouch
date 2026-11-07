@@ -11,6 +11,8 @@ pkg = os.path.join(andr, 'app/src/main/java/com/lafouch/app')
 os.makedirs(pkg, exist_ok=True)
 shutil.copy('android-extra/LfPrinterPlugin.java', os.path.join(pkg, 'LfPrinterPlugin.java'))
 shutil.copy('android-extra/LfSharePlugin.java', os.path.join(pkg, 'LfSharePlugin.java'))  # v427: compartilhar direto no app
+for f in ('LfNotifPlugin.java', 'LfNotifService.java'):  # v450: PIX automático pelo Nubank
+    shutil.copy('android-extra/' + f, os.path.join(pkg, f))
 
 # MainActivity: registerPlugin antes do super.onCreate
 ma = os.path.join(pkg, 'MainActivity.java')
@@ -27,6 +29,10 @@ if 'LfSharePlugin' not in s:
     s = s.replace('registerPlugin(LfPrinterPlugin.class);', 'registerPlugin(LfPrinterPlugin.class);\n        registerPlugin(LfSharePlugin.class);', 1)
     open(ma, 'w').write(s)
 assert 'registerPlugin(LfSharePlugin.class)' in s, 'MainActivity sem o LfShare'
+if 'LfNotifPlugin' not in s:
+    s = s.replace('registerPlugin(LfSharePlugin.class);', 'registerPlugin(LfSharePlugin.class);\n        registerPlugin(LfNotifPlugin.class);', 1)
+    open(ma, 'w').write(s)
+assert 'registerPlugin(LfNotifPlugin.class)' in s, 'MainActivity sem o LfNotif'
 
 # Permissões
 mf = os.path.join(andr, 'app/src/main/AndroidManifest.xml')
@@ -50,4 +56,13 @@ if '<queries>' not in m:
     q = '<queries>\n        <package android:name="com.whatsapp.w4b" />\n        <package android:name="com.whatsapp" />\n        <package android:name="com.instagram.android" />\n    </queries>\n    '
     m = m.replace('<application', q + '<application', 1)
     open(mf, 'w').write(m)
-print('LfPrinter e LfShare instalados;', len(add), 'permissões novas')
+# v450: serviço que lê só as notificações do Nubank (o dono liga o acesso no Android)
+m = open(mf).read()
+if 'LfNotifService' not in m:
+    sv = ('<service android:name=".LfNotifService" android:exported="true" '
+          'android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">\n'
+          '            <intent-filter><action android:name="android.service.notification.NotificationListenerService" /></intent-filter>\n'
+          '        </service>\n    ')
+    m = m.replace('</application>', '    ' + sv + '</application>', 1)
+    open(mf, 'w').write(m)
+print('LfPrinter, LfShare e LfNotif instalados;', len(add), 'permissões novas')

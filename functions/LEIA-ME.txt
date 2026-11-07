@@ -33,3 +33,14 @@ A chave do GitHub fica só no Firebase. Nenhum aparelho, nem o chat, vê a chave
        firebase deploy --only functions
   5) Pronto. Apague o arquivo .pem do computador depois (ou guarde num lugar seguro). Esse tipo de chave não vence.
 Teste: functions/teste-midia.js (node functions/teste-midia.js).
+
+CÓDIGO DE CONFIRMAÇÃO POR E-MAIL (função "codigo", v450) — configurar UMA vez
+A chave do Resend fica só no Firebase. Enquanto não estiver configurado, o site manda o link do Firebase.
+  1) resend.com > criar conta > Domains > Add domain > lafouch.com
+  2) Copiar os registros DNS que o Resend mostra (normalmente 3: MX/SPF e DKIM) para o painel do domínio lafouch.com. Esperar ficar "Verified".
+  3) API Keys > Create API key (permissão "Sending access", domínio lafouch.com). A chave aparece uma vez só.
+  4) No computador, na pasta do projeto (ANTES do deploy, senão o deploy falha):
+       firebase functions:secrets:set RESEND_KEY      (colar a chave no terminal, nunca no chat)
+       firebase deploy --only functions
+     O mesmo deploy também liga as reservas de 15 min (PIX) e 30 min (Itaú).
+Teste: functions/teste-codigo.js (node functions/teste-codigo.js).

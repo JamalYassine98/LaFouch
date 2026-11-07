@@ -1,7 +1,7 @@
   // ===== Aba Ajustes: faixas, meta, contas e backup dos dados. =====
   // Gera o texto do backup (dados + fotos em miniatura).
   // dados que pertencem a ESTE aparelho e nunca viajam em cópia de segurança (a identidade de sincronização inclusa)
-  var SEM_BACKUP = ['pinHash', 'pinSalt', 'bioOn', 'lockMin', 'lockSens', 'nuvem', 'syncOn', 'aparelho', 'syncSnap', 'syncSeq', 'syncFeitos', 'syncOut', 'syncCur', 'resPend', 'resOrf', 'aparNome', 'syncCfgTs', 'syncPutTs', 'syncPend', 'atv', 'atvPp', 'fotosH', 'fotosV', 'fotosRest'];
+  var SEM_BACKUP = ['pinHash', 'pinSalt', 'bioOn', 'lockMin', 'lockSens', 'nuvem', 'syncOn', 'aparelho', 'syncSnap', 'syncSeq', 'syncFeitos', 'syncOut', 'syncCur', 'resPend', 'resOrf', 'pixAuto', 'pixLog', 'aparNome', 'syncCfgTs', 'syncPutTs', 'syncPend', 'atv', 'atvPp', 'fotosH', 'fotosV', 'fotosRest'];
   function backupDados(semFotos) {
     var d = {};
     PERSIST.forEach(function (k) {
@@ -173,6 +173,7 @@
       av: { t: 'Sons e avisos', r: av.q ? 'Silêncio ligado' : 'Ligados', h: achar('avisosCard') + resto },
       sync: sy ? { t: 'Sincronização', r: sy[1], al: sy[0] === 'bad' || sy[0] === 'warn', h: syncCard() } : null,
       upd: { t: 'Atualização', r: upN ? (um.nome || upN) + ' pronta' : APP_NOME, al: !!upN, h: updCard() },
+      pauto: { t: 'Pagamento automático', r: S.pixAuto ? 'PIX ligado' : 'Desligado', h: pautoCard() },
       mcli: { t: 'Modo cliente (iPad da loja)', r: 'Desligado', h: mcAjHtml() },
       foto: { t: 'Fotos', r: fpChaves().length ? fpChaves().length + ' fora do padrão' : 'No padrão', h: '<button type="button" class="go" data-act="inicio" data-id="est" style="width:100%;margin-bottom:8px">Abrir a Fila de fotos no Estúdio ›</button>' + fpAjHtml() },
       bk: { t: 'Cópias e nuvem', r: bkd < 0 ? 'Nenhuma cópia' : bkd === 0 ? 'Hoje' : 'Há ' + bkd + (bkd === 1 ? ' dia' : ' dias'), al: bkd < 0 || bkd > 7, h: backupHtml().replace(/<\/section>$/, nv + '</section>') }
