@@ -1099,3 +1099,9 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Esboços em scratchpad (home_B_*.png, homeB2_*.png). Esperar o dono pedir o esboço final / implementação.
 - 07/11 07:50 (ANOTADO sobre o esboço final fin_*.png: página inicial + menu + rodapé): no PC, NADA de links escritos no cabeçalho — só o botão de menu (três riscos) que abre o mesmo painel lateral do celular. Busca: só o ícone da lupa; ao clicar abre com animação o campo de pesquisa (PC e celular). Ainda não implementar. Dono perguntou se uma "introdução" (tela de abertura) é boa ideia — respondido com análise de marketing.
 - 07/11 07:54 FEITO: animação de abertura (#intro, logo desenhando ~4 s na primeira visita) REMOVIDA do site, a pedido do dono ("pode ser removida"). O site abre direto.
+- 07/11 08:06 MELHORIAS DO SITE (decisões do dono, ainda NÃO implementar sem esboço):
+  - Provador virtual: TESTAR protótipo usando o giro 360° do Estúdio (quadro do vídeo conforme o ângulo da cabeça, escala pela íris, lente recortada, hastes escondidas atrás da orelha), com 2-3 peças; mandar vídeos curtos. "Se der certo é vendas na certa".
+  - (1) Fotos no rosto além da foto da peça: dono quer, aceita pessoa gerada por IA (ver ressalva: o óculos tem que ser a peça real, não inventado pela IA).
+  - (2) Coleções com nome: boa ideia.  (4) Avaliações de clientes: sim, no FINAL de cada página.  (5) Prazo de entrega na página da peça: explicar como funciona (precisa das regras de entrega do dono).
+  - (6) "Últimas N unidades" (só verdade): é exatamente o que ele quer.  (7) "Combina con…": incluir ESTOJOS e FLANELA junto.  (8) Inscrição novidades/ofertas: pode ser.  (9) Blog/guia: quer ver esboço.  (10) Instagram no site: futuro.
+  - "Para qué rostro" na peça: ele tinha tirado (cliente não precisa saber); perguntou se recomendo voltar.
