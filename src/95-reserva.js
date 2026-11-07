@@ -161,6 +161,10 @@
         falhas.push((l.t || 'Item') + ': sem código, registre à mão');
         return;
       }
+      if (/^ACC-/.test(l.ref)) {
+        falhas.push((l.t || 'Acessório') + ' (acessório do site): registre a venda à mão');
+        return;
+      }
       var falta = l.q || 1,
         preco = l.preco > 0 ? l.preco * falta : soma > 0 ? 0 : Math.round(tot / Math.max(1, (p.itens || []).length)),
         total = falta;

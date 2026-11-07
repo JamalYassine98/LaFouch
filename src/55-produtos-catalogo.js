@@ -212,6 +212,16 @@
   function ofertaFim(ref) {
     var o = S.pprice[ref];
     if (!o || !(o.ant > 0)) return;
+    // v451: oferta de evento com data de fim — a oferta que a peça tinha antes volta sozinha
+    var pv = o.prev;
+    delete o.prev;
+    if (pv && pv.nu > 0 && (!pv.ate || pv.ate > Date.now())) {
+      ppPutUsd(o, 'novo', pv.nu);
+      if (pv.ate) o.ate = pv.ate;
+      else delete o.ate;
+      saveSoon();
+      return;
+    }
     o.novo = o.ant;
     delete o.ant;
     delete o.ate;
@@ -310,11 +320,15 @@
         return;
       }
       if (!(v > 0) || v >= base) return;
-      var o = S.pprice[ref] || {};
+      var o = S.pprice[ref] || {},
+        nu = campoParaUsd(inp.value);
+      // v451: oferta nova com data de fim por cima de outra oferta: guarda a de antes para voltar no fim
+      if (emOf && ateNovo && o.nu > 0 && o.nu !== nu && (!o.ate || o.ate > ateNovo)) o.prev = { nu: o.nu, ate: o.ate || 0 };
       o.ant = base;
       delete o.au;
       delete o.ga;
-      ppPutUsd(o, 'novo', campoParaUsd(inp.value));
+      ppPutUsd(o, 'novo', nu);
+      if (ateNovo) o.ate = ateNovo;
       S.pprice[ref] = o;
       S.ofOpen = null;
       saveSoon();
@@ -370,6 +384,20 @@
       } catch (e) {}
     });
     pinta();
+    // v451: "Termina em" já na hora de criar (ou trocar) a oferta — acaba sozinha às 23:59 desse dia (horário do Paraguai)
+    var ateNovo = 0,
+      lbN = mk('div', 'zlb', emOf ? 'NOVA OFERTA TERMINA EM (OPCIONAL)' : 'TERMINA EM (OPCIONAL)');
+    lbN.style.marginTop = '4px';
+    var diN = mk('input', 'in');
+    diN.type = 'date';
+    diN.id = 'ofAteNovo';
+    diN.setAttribute('aria-label', 'Data em que a nova oferta termina');
+    diN.onchange = function () {
+      var p2 = diN.value ? diN.value.split('-') : null;
+      ateNovo = p2 ? new Date(+p2[0], +p2[1] - 1, +p2[2], 23, 59, 59).getTime() : 0;
+    };
+    c.appendChild(lbN);
+    c.appendChild(diN);
     c.appendChild(ok);
     var cn2 = btn('chip ofCancel', 'Cancelar', fecha);
     cn2.id = 'ofCancel';

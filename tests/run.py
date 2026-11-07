@@ -3079,6 +3079,31 @@ async def main():
             if not ok: falhas.append('pagamento auto'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # Site novo (v451): oferta com data de fim vai ao site (ofAte); mais vendidas só com a posição; oferta de evento devolve a oferta anterior
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S;
+              const it = S.items.find(i => !i.bulk && S.fotos[i.ref + '|' + i.cor] && i.qty > 0); const ref = it.ref;
+              const pp0 = JSON.stringify(S.pprice[ref] || null), site0 = JSON.stringify(S.site || {});
+              S.site = Object.assign({}, S.site, { [ref]: true });
+              const base = L.vitProduto(ref);
+              const ate = Date.now() + 3 * 864e5;
+              S.pprice[ref] = { ant: (base.de || base.n) + 100000, nu: 10, novo: base.n, gn: base.n, ate: ate };
+              const o = L.vitProduto(ref);
+              const temAte = o.de > o.n ? o.ofAte === ate : o.ofAte === 0;
+              const n0 = S.sales.length; S.sales.push({ id: 'tv1', ref: ref, qty: 3, ts: Date.now() - 864e5 });
+              const mv = L.siteMaisVendidas()[ref] >= 1 && L.vitProduto(ref).mv >= 1 && !('qtd' in L.vitProduto(ref));
+              S.sales.length = n0; L.siteMaisVendidas();
+              S.pprice[ref] = { ant: 500000, nu: 20, novo: 300000, gn: 300000, ate: Date.now() - 1000, prev: { nu: 30, ate: 0 } };
+              L.ofertaFim(ref); const volta = S.pprice[ref].nu === 30 && S.pprice[ref].ant === 500000 && !S.pprice[ref].prev && !S.pprice[ref].ate;
+              S.pprice[ref] = { ant: 500000, nu: 20, novo: 300000, gn: 300000 }; L.ofertaFim(ref); const fim = !S.pprice[ref] || S.pprice[ref].novo === 500000;
+              if (pp0 === 'null') delete S.pprice[ref]; else S.pprice[ref] = JSON.parse(pp0); S.site = JSON.parse(site0);
+              return [temAte, mv, volta, fim]; }""")
+            total += 1
+            ok = got == [True, True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Site novo: oferta com data de fim vai ao site; mais vendidas só com a posição; oferta de evento devolve a oferta anterior')
+            if not ok: falhas.append('site v451'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Foto no site (v448): fv do produto é um número > 0 quando há foto (antes saía 0 e o site/painel achavam "sem foto"); preço automático liga com dados antigos sem listas
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

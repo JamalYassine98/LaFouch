@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 450;
+  var APP_BUILD = 451;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.5.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.5.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -11608,6 +11608,16 @@
   function ofertaFim(ref) {
     var o = S.pprice[ref];
     if (!o || !(o.ant > 0)) return;
+    // v451: oferta de evento com data de fim — a oferta que a peça tinha antes volta sozinha
+    var pv = o.prev;
+    delete o.prev;
+    if (pv && pv.nu > 0 && (!pv.ate || pv.ate > Date.now())) {
+      ppPutUsd(o, 'novo', pv.nu);
+      if (pv.ate) o.ate = pv.ate;
+      else delete o.ate;
+      saveSoon();
+      return;
+    }
     o.novo = o.ant;
     delete o.ant;
     delete o.ate;
@@ -11706,11 +11716,15 @@
         return;
       }
       if (!(v > 0) || v >= base) return;
-      var o = S.pprice[ref] || {};
+      var o = S.pprice[ref] || {},
+        nu = campoParaUsd(inp.value);
+      // v451: oferta nova com data de fim por cima de outra oferta: guarda a de antes para voltar no fim
+      if (emOf && ateNovo && o.nu > 0 && o.nu !== nu && (!o.ate || o.ate > ateNovo)) o.prev = { nu: o.nu, ate: o.ate || 0 };
       o.ant = base;
       delete o.au;
       delete o.ga;
-      ppPutUsd(o, 'novo', campoParaUsd(inp.value));
+      ppPutUsd(o, 'novo', nu);
+      if (ateNovo) o.ate = ateNovo;
       S.pprice[ref] = o;
       S.ofOpen = null;
       saveSoon();
@@ -11766,6 +11780,20 @@
       } catch (e) {}
     });
     pinta();
+    // v451: "Termina em" já na hora de criar (ou trocar) a oferta — acaba sozinha às 23:59 desse dia (horário do Paraguai)
+    var ateNovo = 0,
+      lbN = mk('div', 'zlb', emOf ? 'NOVA OFERTA TERMINA EM (OPCIONAL)' : 'TERMINA EM (OPCIONAL)');
+    lbN.style.marginTop = '4px';
+    var diN = mk('input', 'in');
+    diN.type = 'date';
+    diN.id = 'ofAteNovo';
+    diN.setAttribute('aria-label', 'Data em que a nova oferta termina');
+    diN.onchange = function () {
+      var p2 = diN.value ? diN.value.split('-') : null;
+      ateNovo = p2 ? new Date(+p2[0], +p2[1] - 1, +p2[2], 23, 59, 59).getTime() : 0;
+    };
+    c.appendChild(lbN);
+    c.appendChild(diN);
     c.appendChild(ok);
     var cn2 = btn('chip ofCancel', 'Cancelar', fecha);
     cn2.id = 'ofCancel';
@@ -26843,6 +26871,10 @@
         falhas.push((l.t || 'Item') + ': sem código, registre à mão');
         return;
       }
+      if (/^ACC-/.test(l.ref)) {
+        falhas.push((l.t || 'Acessório') + ' (acessório do site): registre a venda à mão');
+        return;
+      }
       var falta = l.q || 1,
         preco = l.preco > 0 ? l.preco * falta : soma > 0 ? 0 : Math.round(tot / Math.max(1, (p.itens || []).length)),
         total = falta;
@@ -39316,6 +39348,48 @@
       if (siteAutoRevisa().length) render();
     }, 5 * 60000);
   }
+  // ===== Site novo (v451, aprovado 07/11/2026): dados extras que o site usa =====
+  // ofAte: quando a oferta da peça acaba (data de fim da oferta ou fim do Super evento) — o site mostra a contagem regressiva.
+  // mv: posição entre as mais vendidas dos últimos 30 dias (1 a 8; 0 = fora). Só a posição vai ao site, nunca quantidades.
+  VIT_CAMPOS.push('ofAte', 'mv');
+  var MV_CACHE = { ts: 0, r: {} };
+  function siteMaisVendidas() {
+    if (Date.now() - MV_CACHE.ts < 10 * 60000) return MV_CACHE.r;
+    var lim = Date.now() - 30 * DAY,
+      no = S.site || {},
+      cont = {};
+    (S.sales || []).forEach(function (s) {
+      if (s.estorno || !s.ref || !no[s.ref] || s.ts < lim) return;
+      cont[s.ref] = (cont[s.ref] || 0) + (+s.qty || 0);
+    });
+    var r = {};
+    Object.keys(cont)
+      .filter(function (ref) {
+        return cont[ref] >= 2;
+      })
+      .sort(function (a, b) {
+        return cont[b] - cont[a] || (a < b ? -1 : 1);
+      })
+      .slice(0, 8)
+      .forEach(function (ref, i) {
+        r[ref] = i + 1;
+      });
+    MV_CACHE = { ts: Date.now(), r: r };
+    return r;
+  }
+  function siteOfAte(ref, o) {
+    if (!(o.de > o.n)) return 0;
+    if (superAtivo()) return S.superEv.ate;
+    var pp = S.pprice && S.pprice[ref];
+    return pp && pp.ant > 0 && pp.ate > Date.now() ? pp.ate : 0;
+  }
+  var _vitProdutoV1 = vitProduto;
+  vitProduto = function (ref) {
+    var o = _vitProdutoV1(ref);
+    o.ofAte = siteOfAte(ref, o);
+    o.mv = siteMaisVendidas()[ref] || 0;
+    return o;
+  };
   // ===== Sincronização entre aparelhos: transporte (nuvem) em cima do motor de src/05-sync.js. DESLIGADO por padrão (S.syncOn). =====
   // Coleção `mov` no Firestore: um documento por movimento, id = id do movimento, campos a (aparelho), ts, p (JSON do movimento).
   // Ciclo: 1) baixa movimentos dos outros e aplica  2) compara com a última foto e gera movimentos novos  3) envia a fila.
@@ -44435,7 +44509,7 @@
   if (/(^|[#&])test\b/.test(location.hash))
     window.__LF = {
       barMoedas: barMoedas,
-      pixRecebido: pixRecebido, compLeTexto: compLeTexto, fichaLinhas: fichaLinhas, impBytes: impBytes,
+      pixRecebido: pixRecebido, ofertaFim: ofertaFim, siteMaisVendidas: function () { MV_CACHE.ts = 0; return siteMaisVendidas(); }, compLeTexto: compLeTexto, fichaLinhas: fichaLinhas, impBytes: impBytes,
       animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
       S: S, vitDocBody: vitDocBody, giroSiteFila: giroSiteFila, giroGv: giroGv, giroComprime: giroComprime, resSolta: resSolta, resOrfas: resOrfas, resEstSet: function (o) { RES_EST = o; }, vistasNaoVendidas: vistasNaoVendidas, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcComprarNovo: lcComprarNovo, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, envFolha: window.__envFolha, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,

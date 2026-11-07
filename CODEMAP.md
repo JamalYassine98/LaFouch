@@ -75,6 +75,7 @@ Regras que valem em todo o projeto: o estado fica em `S`; `render()` redesenha t
 | `98-grupo-encaixe.js` | 150 | Animação "encaixe" ao juntar/desfazer grupos na barra de acesso rápido (v443). |
 | `97-modo-cliente.js` | 200 | Modo cliente para o iPad (v444): só catálogo varejo, fundo desfocado, volta ao início em 2 min, sair = segurar logo + PIN. |
 | `97-pagamento-auto.js` | 330 | Pagamento automático (v450): PIX pelo Nubank (plugin LfNotif), leitura do comprovante (✓ valor confere) e ficha de separação impressa sozinha. |
+| `97-site-v2.js` | 45 | Site novo (v451): campos ofAte (fim da oferta/Super evento) e mv (posição nas mais vendidas) enviados ao site. |
 | `97-vistas-site.js` | 120 | Mais vistas e não vendidas (v445): lê a coleção 'vistas' do Firestore (30 dias) para o Marketing. |
 | `97-giro-site.js` | 190 | Giro 360° para o site (v446): fila, compressão, envio pela função midia (GitHub App no Firebase), campo gv. |
 | `97-arquivo-vendas.js` | 160 | Arquivo das vendas com mais de 12 meses (v438): resumo por mês, IndexedDB, Trazer de volta. |

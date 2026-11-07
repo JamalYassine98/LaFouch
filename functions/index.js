@@ -207,3 +207,77 @@ exports.codigo = onRequest(
     }
   }
 );
+
+// ---------- Avaliações das peças e novidades do site (v451) ----------
+// avaliacao: GET ?ref=X (público: lista e média) · POST {acao:'posso'|'avaliar'} com login do cliente
+//            · POST {acao:'recentes'|'ocultar'|'mostrar'} só o dono (painel do site).
+// novidades: POST {acao:'inscrever', email} público · POST {acao:'lista'} só o dono.
+const Loja = require('./loja');
+const CORS_SITE = ['https://lafouch.com', 'https://www.lafouch.com', 'http://localhost:8765', 'http://localhost:8772'];
+const lojaDb = {
+  pedidosDoEmail: async (email) => {
+    const q = await admin.firestore().collection('pedidos').where('email', '==', email).limit(50).get();
+    return q.docs.map((d) => Object.assign({ id: d.id }, d.data()));
+  },
+  reservaPaga: async (id) => { const d = await admin.firestore().doc('reservas/' + id).get(); return d.exists && d.data().pago === true; },
+  getAval: async (id) => { const d = await admin.firestore().doc('avaliacoes/' + id).get(); return d.exists ? d.data() : null; },
+  setAval: (id, o) => admin.firestore().doc('avaliacoes/' + id).set(o),
+  listaAval: async (ref) => (await admin.firestore().collection('avaliacoes').where('ref', '==', ref).limit(200).get()).docs.map((d) => d.data()),
+  setInscricao: (id, o) => admin.firestore().doc('inscricoes/' + id).set(o, { merge: true }),
+};
+async function clienteDe(req) {
+  const m = /^Bearer (.+)$/.exec(req.get('Authorization') || '');
+  if (!m) return null;
+  try {
+    const t = await admin.auth().verifyIdToken(m[1]);
+    const u = await admin.auth().getUser(t.uid);
+    return { uid: t.uid, email: (u.email || '').toLowerCase(), nome: u.displayName || '', verificado: !!u.emailVerified || (u.providerData || []).some((p) => p.providerId === 'google.com') };
+  } catch (e) {
+    return null;
+  }
+}
+exports.avaliacao = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 10 }, async (req, res) => {
+  try {
+    if (req.method === 'GET') {
+      res.set('Cache-Control', 'public, max-age=120');
+      return res.json(await Loja.lista(lojaDb, String(req.query.ref || '')));
+    }
+    if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
+    const b = req.body && typeof req.body === 'object' ? req.body : {};
+    if (b.acao === 'recentes' || b.acao === 'ocultar' || b.acao === 'mostrar') {
+      if (!(await ehDono(req))) return res.status(403).json({ ok: false, motivo: 'sem-permissao' });
+      if (b.acao === 'recentes') {
+        const q = await admin.firestore().collection('avaliacoes').orderBy('ts', 'desc').limit(100).get();
+        return res.json({ ok: true, itens: q.docs.map((d) => Object.assign({ id: d.id }, d.data())) });
+      }
+      await admin.firestore().doc('avaliacoes/' + String(b.id || '').replace(/[^A-Za-z0-9._-]/g, '')).update({ ok: b.acao === 'mostrar' });
+      return res.json({ ok: true });
+    }
+    const u = await clienteDe(req);
+    if (!u) return res.status(401).json({ ok: false, motivo: 'login' });
+    if (b.acao === 'posso') return res.json(await Loja.posso(lojaDb, u, b.ref));
+    if (b.acao === 'avaliar') return res.json(await Loja.avaliar(lojaDb, u, b, Date.now()));
+    return res.status(400).json({ ok: false, motivo: 'acao' });
+  } catch (e) {
+    if (e instanceof Loja.Falha) return res.status(e.status).json({ ok: false, motivo: e.motivo });
+    console.error('avaliacao', e);
+    return res.status(500).json({ ok: false, motivo: 'erro' });
+  }
+});
+exports.novidades = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 5 }, async (req, res) => {
+  if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
+  const b = req.body && typeof req.body === 'object' ? req.body : {};
+  try {
+    if (b.acao === 'lista') {
+      if (!(await ehDono(req))) return res.status(403).json({ ok: false, motivo: 'sem-permissao' });
+      const q = await admin.firestore().collection('inscricoes').orderBy('ts', 'desc').limit(1000).get();
+      return res.json({ ok: true, itens: q.docs.map((d) => d.data()) });
+    }
+    if (b.acao === 'inscrever') return res.json(await Loja.inscrever(lojaDb, b, Date.now()));
+    return res.status(400).json({ ok: false, motivo: 'acao' });
+  } catch (e) {
+    if (e instanceof Loja.Falha) return res.status(e.status).json({ ok: false, motivo: e.motivo });
+    console.error('novidades', e);
+    return res.status(500).json({ ok: false, motivo: 'erro' });
+  }
+});
