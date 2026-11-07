@@ -1,7 +1,7 @@
 {
- "nome": "5.5.2",
+ "nome": "5.5.3",
  "notas": [
-  "Câmbio: botão Venda / Compra ao lado do título mostra as cotações da casa de cada lado",
-  "Troca: o app já usa o lado certo da casa (compra quando você entrega dólar, venda quando compra dólar; o mesmo com o real)"
+  "Câmbio: \"Cotação da casa online/offline\" com bolinha verde ou vermelha (toque para ver o detalhe)",
+  "O botão Venda/Compra só aparece quando há a cotação da casa"
  ]
 }

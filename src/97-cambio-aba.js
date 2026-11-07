@@ -19,6 +19,10 @@
     return (S.fxModo === 'c' ? o.c : o.v) || fxHoje(k);
   }
   var FX_SETAS = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16M7 20l-3-3M7 20l3-3M17 20V4M17 4l-3 3M17 4l3 3"/></svg>';
+  ACT.fxSt = function () {
+    S.fxStD = !S.fxStD;
+    renderFx();
+  };
   ACT.fxModo = function () {
     S.fxModo = S.fxModo === 'c' ? 'v' : 'c';
     try {
@@ -210,11 +214,13 @@
   }
   // ---- Tela ----
   function fxAbaHtml() {
+    // v452 (07/11): indicador "Cotação da casa online/offline" (bolinha verde/vermelha); tocar mostra o detalhe.
     var casa = lmOk(),
-      hd = casa
-        ? 'La Moneda · Jebai · atualizado às ' + fh(S.lm.ts)
-        : 'Aguardando a cotação da La Moneda (o app do celular busca sozinho) · valores provisórios',
-      h = '<div class="top fxTopo"><div><h1>Câmbio</h1><div class="crumb">' + hd + '</div></div><button type="button" class="fxModo" data-act="fxModo" aria-label="Mostrando a ' + (S.fxModo === 'c' ? 'compra' : 'venda') + ' da casa. Tocar para ver a ' + (S.fxModo === 'c' ? 'venda' : 'compra') + '">' + (S.fxModo === 'c' ? 'Compra' : 'Venda') + FX_SETAS + '</button></div>';
+      ag = Date.now(),
+      on = casa && ((S._lmVisto && ag - S._lmVisto < 5 * 60000) || ag - S.lm.ts < 12 * 3600000),
+      det = casa ? 'La Moneda · Jebai · atualizado às ' + fh(S.lm.ts) + (on ? '' : ' de ' + fd(S.lm.ts)) + (S.lm.erro && !on ? ' · ' + S.lm.erro : '') : 'Ainda sem cotação da La Moneda: o app instalado no celular busca sozinho. Por enquanto os valores são a média do mercado.',
+      hd = '<button type="button" class="fxSt ' + (on ? 'ok' : 'no') + '" data-act="fxSt"><i></i>Cotação da casa ' + (on ? 'online' : 'offline') + '</button>' + (S.fxStD ? '<div class="hint fxStD" style="margin:4px 0 0">' + esc(det) + '</div>' : ''),
+      h = '<div class="top fxTopo"><div><h1>Câmbio</h1><div class="crumb">' + hd + '</div></div>' + (casa ? '<button type="button" class="fxModo" data-act="fxModo" aria-label="Mostrando a ' + (S.fxModo === 'c' ? 'compra' : 'venda') + ' da casa. Tocar para ver a ' + (S.fxModo === 'c' ? 'venda' : 'compra') + '">' + (S.fxModo === 'c' ? 'Compra' : 'Venda') + FX_SETAS + '</button>' : '') + '</div>';
     h += '<section class="card fxTop">';
     ['usd', 'brl', 'arb'].forEach(function (k) {
       h += '<button type="button" class="fxLin" data-act="fjAbre" data-id="' + k + '"><span><span class="lbl">' + FX_NOME[k] + '</span><b>' + fxValTxt(k, fxTopVal(k)) + '</b></span>' + fxVarHtml(k) + '</button>';
