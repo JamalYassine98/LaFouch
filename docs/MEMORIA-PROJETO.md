@@ -1154,3 +1154,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - 07/11 10:51 FEITO: rodapé sem PIX/Itaú/Dinheiro e sem seletor ES/PT (idioma continua no menu). Linha final só com Termos · Privacidade · ©, centralizada.
 - 07/11 10:54 FEITO (aprovada opção A): Idioma e Tamanho do texto no fim do menu em duas linhas (🌐 Idioma — Português ›, Aa Tamanho do texto — Normal ›); ao tocar abre folha por baixo com as opções e ✓ (Automático/Español/Português; Normal/Grande/Maior). Chips Feminino/Masculino/Unissex na fonte do menu (sem serifa).
 - 07/11 11:00 FEITO: menu com serifa só nos itens principais (Comprar/Descobrir/Ajuda); Idioma, Tamanho do texto e chips de gênero sem serifa.
+- 07/11 11:03 FEITO: menu — "Qual combina com meu rosto?" → "Descubra o seu formato" (ES: Descubrí tu forma) e "Dúvidas frequentes" → "Dúvidas" (ES: Dudas). Formato de texto do menu: frase normal, serifa 500 18px nos itens, etiquetas pequenas em maiúsculas espaçadas.
