@@ -1,9 +1,7 @@
 {
- "nome": "5.5.1",
+ "nome": "5.5.2",
  "notas": [
-  "Oferta: dá para escolher a data de fim já ao criar; oferta de evento devolve a oferta anterior quando acaba",
-  "O site mostra a contagem da oferta e as mais vendidas (só a posição)",
-  "Site novo: página inicial, menu, busca, rodapé e eventos (Natal, Halloween, Black Friday, Ano Novo)",
-  "Estojo e flanela à venda no site: o pedido chega no app para registrar à mão"
+  "Câmbio: botão Venda / Compra ao lado do título mostra as cotações da casa de cada lado",
+  "Troca: o app já usa o lado certo da casa (compra quando você entrega dólar, venda quando compra dólar; o mesmo com o real)"
  ]
 }

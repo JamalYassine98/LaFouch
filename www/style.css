@@ -1412,6 +1412,9 @@ a[data-act],a.lk{display:inline-block;padding:14px 8px;margin:-14px -8px;-webkit
 .cxChips .chip{display:inline-flex;width:auto;flex:none;margin:0;min-height:30px;padding:0 12px;font-size:12.5px}
 .cxPasso b{text-align:right}
 .fxTop{padding:0 18px}
+.fxTopo{align-items:flex-start;flex-wrap:nowrap}.fxTopo>div{flex:1;min-width:0}
+.fxModo{display:inline-flex;align-items:center;gap:6px;flex:none;width:auto;min-height:0;margin:4px 0 0;padding:7px 13px;border:1px solid var(--line2);border-radius:999px;background:transparent;color:var(--fg);font:600 14px inherit;box-shadow:none}
+.fxModo svg{opacity:.75}
 .fxLin{display:flex;justify-content:space-between;align-items:center;width:100%;padding:14px 0;border:0;border-top:1px solid var(--line2);background:transparent;color:var(--fg);text-align:left;margin:0;border-radius:0;font:inherit}
 .fxLin:first-child{border-top:0}
 .fxLin .lbl{display:block;margin:0}.fxLin b{display:block;font-size:26px;font-variant-numeric:tabular-nums;margin-top:2px}

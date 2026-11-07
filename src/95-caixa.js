@@ -7,6 +7,14 @@
   function conv(v, a, b) {
     return (v * ratePyg(a)) / ratePyg(b);
   }
+  // v452 (07/11): numa troca, a casa usa a compra ou a venda conforme o lado: ela VENDE o dólar a quem dá guarani/real
+  // e COMPRA o dólar de quem entrega dólar; entre real e guarani, compra o real de quem entrega real e vende a quem dá guarani.
+  function casaConv(v, de, para) {
+    if (!lmOk() || de === para) return conv(v, de, para);
+    var L = S.lm,
+      x = { 'pyg>usd': 1 / L.usd.v, 'usd>pyg': L.usd.c, 'brl>usd': 1 / L.arb.v, 'usd>brl': L.arb.c, 'brl>pyg': L.brl.c, 'pyg>brl': 1 / L.brl.v }[de + '>' + para];
+    return x > 0 ? v * x : conv(v, de, para);
+  }
   // Total da carteira em guaranis.
   function walletGs() {
     return S.cash.pyg + S.cash.usd * ratePyg('usd') + S.cash.brl * ratePyg('brl');
@@ -305,14 +313,14 @@
   function updateTr() {
     var t = S.tr,
       v = parseDec(t.v, t.de),
-      mkt = conv(v, t.de, t.para);
+      mkt = casaConv(v, t.de, t.para);
     if (!t.edited) {
       t.rec = v ? inVal(mkt, t.para) : '';
       var r = $('trRec');
       if (r) r.value = t.rec;
     }
     var rec = parseDec(t.rec, t.para),
-      dif = rec * ratePyg(t.para) - v * ratePyg(t.de),
+      dif = (rec - mkt) * ratePyg(t.para),
       p = $('trPrev'),
       fo = null;
     if (t.de === 'usd' && v > 0 && v <= (S.cash.usd || 0) + 0.005 && t.para !== 'usd') fo = fonteDolar(v);

@@ -49,7 +49,7 @@ Regras que valem em todo o projeto: o estado fica em `S`; `render()` redesenha t
 | `92-despesas.js` | 251 | Aba Despesas. |
 | `93-historico.js` | 568 | Aba Histórico: dias, vendas e registros. |
 | `94-acoes.js` | 587 | Ações dos botões (data-act) e eventos globais. |
-| `95-caixa.js` | 445 | Aba Caixa: carteira, conversão de moedas e reservas. |
+| `95-caixa.js` | 455 | Aba Caixa: carteira, conversão de moedas e reservas. `casaConv` (v452): troca pelo lado certo da La Moneda (compra/venda). |
 | `95-pedidos.js` | 230 | Pedidos: pedidos do catálogo online para a loja (por enquanto lançados à mão; o catálogo online ligará aqui). |
 | `96-ajustes.js` | 278 | Aba Ajustes: faixas, meta, contas e backup dos dados. |
 | `97-contagem.js` | 308 | Contagem de estoque (aba Estoque): por produto, do mais valioso ao menos, com resumo em dinheiro. |
@@ -59,7 +59,7 @@ Regras que valem em todo o projeto: o estado fica em `S`; `render()` redesenha t
 | `97-preco-auto.js` | 420 | Preço automático: revisão semanal, ofertas em degraus, desfazer, cadeado, aba Preços e limite secreto. |
 | `97-lamoneda.js` | 160 | Cotação da La Moneda · Sucursal Jebai: busca no celular (CapacitorHttp, 30 min), leitor da página, histórico, proteção (+1% máx. quando dispara), cotação da loja = casa + 1% de 50 em 50; busca a cada 1 min. |
 | `97-objetivos.js` | 380 | Meta automática do mês (congelada; 3 meses + época + estoque), cartão no Resumo, Objetivos da loja no Caixa (enchem na ordem, valor por venda automático, Usar, segurar para reordenar). |
-| `97-cambio-aba.js` | 420 | Aba Câmbio simples (v426): 3 valores da La Moneda com variação de 7 dias, cartão Reposição com selo, janelas (gráfico, motivos, trocas, site, proteção, registrar troca), previsão e aviso no sino. |
+| `97-cambio-aba.js` | 420 | Aba Câmbio simples (v426): 3 valores da La Moneda com variação de 7 dias, cartão Reposição com selo, janelas (gráfico, motivos, trocas, site, proteção, registrar troca), previsão e aviso no sino. Botão Venda/Compra no título (`S.fxModo`, `fxTopVal`, `ACT.fxModo`, v452). |
 | `97-janela.js` | 108 | Janela genérica de baixo (lfJanela: mola, arrastar para fechar) e número que rola (lfOdo) — v427. |
 | `97-catalogo-ajustes.js` | 273 | Catálogo v427: linha "N peças · Varejo · G$" + ajustes + compartilhar; janela Ajustes do catálogo (filtros S.cjF, cjOk). |
 | `97-compartilhar.js` | 171 | Compartilhar inteligente (apps, último primeiro, plugin LfShare/fallback) e linha Enviar bonito. |

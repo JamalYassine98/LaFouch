@@ -8,6 +8,24 @@
   S.fxPer = 90;
   S.fxAvisos = {};
   var FX_NOME = { usd: 'Dólar', brl: 'Real', arb: 'Dólar em reais' };
+  // v452 (07/11, opção 2): botão "Venda ⇅ / Compra ⇅" ao lado do título alterna as três cotações do topo entre a compra e a venda da casa.
+  S.fxModo = 'v';
+  try {
+    if (localStorage.getItem('lf_fxmodo') === 'c') S.fxModo = 'c';
+  } catch (e) {}
+  function fxTopVal(k) {
+    if (!lmOk()) return fxHoje(k);
+    var o = k === 'usd' ? S.lm.usd : k === 'brl' ? S.lm.brl : S.lm.arb;
+    return (S.fxModo === 'c' ? o.c : o.v) || fxHoje(k);
+  }
+  var FX_SETAS = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16M7 20l-3-3M7 20l3-3M17 20V4M17 4l-3 3M17 4l3 3"/></svg>';
+  ACT.fxModo = function () {
+    S.fxModo = S.fxModo === 'c' ? 'v' : 'c';
+    try {
+      localStorage.setItem('lf_fxmodo', S.fxModo);
+    } catch (e) {}
+    renderFx();
+  };
   // Série diária (último valor de cada dia). Casa (La Moneda) desde que existe; antes disso, o histórico de mercado
   // ajustado ao nível da casa, só para o desenho do gráfico não começar vazio.
   function fxSerie(k) {
@@ -196,10 +214,10 @@
       hd = casa
         ? 'La Moneda · Jebai · atualizado às ' + fh(S.lm.ts)
         : 'Aguardando a cotação da La Moneda (o app do celular busca sozinho) · valores provisórios',
-      h = '<div class="top"><div><h1>Câmbio</h1><div class="crumb">' + hd + '</div></div></div>';
+      h = '<div class="top fxTopo"><div><h1>Câmbio</h1><div class="crumb">' + hd + '</div></div><button type="button" class="fxModo" data-act="fxModo" aria-label="Mostrando a ' + (S.fxModo === 'c' ? 'compra' : 'venda') + ' da casa. Tocar para ver a ' + (S.fxModo === 'c' ? 'venda' : 'compra') + '">' + (S.fxModo === 'c' ? 'Compra' : 'Venda') + FX_SETAS + '</button></div>';
     h += '<section class="card fxTop">';
     ['usd', 'brl', 'arb'].forEach(function (k) {
-      h += '<button type="button" class="fxLin" data-act="fjAbre" data-id="' + k + '"><span><span class="lbl">' + FX_NOME[k] + '</span><b>' + fxValTxt(k, fxHoje(k)) + '</b></span>' + fxVarHtml(k) + '</button>';
+      h += '<button type="button" class="fxLin" data-act="fjAbre" data-id="' + k + '"><span><span class="lbl">' + FX_NOME[k] + '</span><b>' + fxValTxt(k, fxTopVal(k)) + '</b></span>' + fxVarHtml(k) + '</button>';
     });
     h += '</section>';
     var vd = fxVeredito(),

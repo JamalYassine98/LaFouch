@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 451;
+  var APP_BUILD = 452;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.5.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.5.2'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -25452,6 +25452,14 @@
   function conv(v, a, b) {
     return (v * ratePyg(a)) / ratePyg(b);
   }
+  // v452 (07/11): numa troca, a casa usa a compra ou a venda conforme o lado: ela VENDE o dólar a quem dá guarani/real
+  // e COMPRA o dólar de quem entrega dólar; entre real e guarani, compra o real de quem entrega real e vende a quem dá guarani.
+  function casaConv(v, de, para) {
+    if (!lmOk() || de === para) return conv(v, de, para);
+    var L = S.lm,
+      x = { 'pyg>usd': 1 / L.usd.v, 'usd>pyg': L.usd.c, 'brl>usd': 1 / L.arb.v, 'usd>brl': L.arb.c, 'brl>pyg': L.brl.c, 'pyg>brl': 1 / L.brl.v }[de + '>' + para];
+    return x > 0 ? v * x : conv(v, de, para);
+  }
   // Total da carteira em guaranis.
   function walletGs() {
     return S.cash.pyg + S.cash.usd * ratePyg('usd') + S.cash.brl * ratePyg('brl');
@@ -25750,14 +25758,14 @@
   function updateTr() {
     var t = S.tr,
       v = parseDec(t.v, t.de),
-      mkt = conv(v, t.de, t.para);
+      mkt = casaConv(v, t.de, t.para);
     if (!t.edited) {
       t.rec = v ? inVal(mkt, t.para) : '';
       var r = $('trRec');
       if (r) r.value = t.rec;
     }
     var rec = parseDec(t.rec, t.para),
-      dif = rec * ratePyg(t.para) - v * ratePyg(t.de),
+      dif = (rec - mkt) * ratePyg(t.para),
       p = $('trPrev'),
       fo = null;
     if (t.de === 'usd' && v > 0 && v <= (S.cash.usd || 0) + 0.005 && t.para !== 'usd') fo = fonteDolar(v);
@@ -29521,6 +29529,24 @@
   S.fxPer = 90;
   S.fxAvisos = {};
   var FX_NOME = { usd: 'Dólar', brl: 'Real', arb: 'Dólar em reais' };
+  // v452 (07/11, opção 2): botão "Venda ⇅ / Compra ⇅" ao lado do título alterna as três cotações do topo entre a compra e a venda da casa.
+  S.fxModo = 'v';
+  try {
+    if (localStorage.getItem('lf_fxmodo') === 'c') S.fxModo = 'c';
+  } catch (e) {}
+  function fxTopVal(k) {
+    if (!lmOk()) return fxHoje(k);
+    var o = k === 'usd' ? S.lm.usd : k === 'brl' ? S.lm.brl : S.lm.arb;
+    return (S.fxModo === 'c' ? o.c : o.v) || fxHoje(k);
+  }
+  var FX_SETAS = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16M7 20l-3-3M7 20l3-3M17 20V4M17 4l-3 3M17 4l3 3"/></svg>';
+  ACT.fxModo = function () {
+    S.fxModo = S.fxModo === 'c' ? 'v' : 'c';
+    try {
+      localStorage.setItem('lf_fxmodo', S.fxModo);
+    } catch (e) {}
+    renderFx();
+  };
   // Série diária (último valor de cada dia). Casa (La Moneda) desde que existe; antes disso, o histórico de mercado
   // ajustado ao nível da casa, só para o desenho do gráfico não começar vazio.
   function fxSerie(k) {
@@ -29709,10 +29735,10 @@
       hd = casa
         ? 'La Moneda · Jebai · atualizado às ' + fh(S.lm.ts)
         : 'Aguardando a cotação da La Moneda (o app do celular busca sozinho) · valores provisórios',
-      h = '<div class="top"><div><h1>Câmbio</h1><div class="crumb">' + hd + '</div></div></div>';
+      h = '<div class="top fxTopo"><div><h1>Câmbio</h1><div class="crumb">' + hd + '</div></div><button type="button" class="fxModo" data-act="fxModo" aria-label="Mostrando a ' + (S.fxModo === 'c' ? 'compra' : 'venda') + ' da casa. Tocar para ver a ' + (S.fxModo === 'c' ? 'venda' : 'compra') + '">' + (S.fxModo === 'c' ? 'Compra' : 'Venda') + FX_SETAS + '</button></div>';
     h += '<section class="card fxTop">';
     ['usd', 'brl', 'arb'].forEach(function (k) {
-      h += '<button type="button" class="fxLin" data-act="fjAbre" data-id="' + k + '"><span><span class="lbl">' + FX_NOME[k] + '</span><b>' + fxValTxt(k, fxHoje(k)) + '</b></span>' + fxVarHtml(k) + '</button>';
+      h += '<button type="button" class="fxLin" data-act="fjAbre" data-id="' + k + '"><span><span class="lbl">' + FX_NOME[k] + '</span><b>' + fxValTxt(k, fxTopVal(k)) + '</b></span>' + fxVarHtml(k) + '</button>';
     });
     h += '</section>';
     var vd = fxVeredito(),
