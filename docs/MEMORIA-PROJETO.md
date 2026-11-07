@@ -1105,3 +1105,17 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
   - (2) Coleções com nome: boa ideia.  (4) Avaliações de clientes: sim, no FINAL de cada página.  (5) Prazo de entrega na página da peça: explicar como funciona (precisa das regras de entrega do dono).
   - (6) "Últimas N unidades" (só verdade): é exatamente o que ele quer.  (7) "Combina con…": incluir ESTOJOS e FLANELA junto.  (8) Inscrição novidades/ofertas: pode ser.  (9) Blog/guia: quer ver esboço.  (10) Instagram no site: futuro.
   - "Para qué rostro" na peça: ele tinha tirado (cliente não precisa saber); perguntou se recomendo voltar.
+
+## 07/11/2026 08:07 — Melhorias do site (ANOTADO, nada implementado ainda)
+- PROVADOR VIRTUAL: testar protótipo usando o giro 360° do Estúdio (quadro do vídeo conforme o ângulo da cabeça, escala pela íris, lente recortada, hastes escondidas atrás da orelha). 2–3 peças (sol, grau, metal fino), mandar vídeos ao dono. Dono: "se der certo é vendas na certa".
+- (1) Fotos no rosto além da foto do produto — dono quer; aceita imagem de pessoa gerada por IA (cuidado: a peça tem que ser fiel à real).
+- (2) Coleções com nome — aprovado como ideia.
+- (4) Avaliações de clientes — sim, no FINAL de cada página de peça.
+- (5) Prazo de entrega na página da peça — dono perguntou como funciona (explicado; falta ele passar as regras reais de entrega).
+- (6) Aviso honesto de estoque ("Últimas 2 unidades", só quando verdade) — "exatamente isso que eu quero".
+- (7) "Combina con…" — incluir estojos e flanela (perguntado se vão de brinde ou à venda).
+- (8) Inscrição para novidades/ofertas — pode ser.
+- (9) Blog/guia — dono quer ver como ficaria (esboço).
+- (10) Instagram no site — futuro.
+- "Combina com formato de rosto" no catálogo: o dono tinha removido; perguntou se volta (resposta: não como etiqueta fixa; só personalizado depois que o cliente faz o "¿Cuál combina?").
+- Capa de revista (bloco editorial com foto de modelo): sugerido junto com (1).
