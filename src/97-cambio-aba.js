@@ -19,6 +19,30 @@
     return (S.fxModo === 'c' ? o.c : o.v) || fxHoje(k);
   }
   var FX_SETAS = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16M7 20l-3-3M7 20l3-3M17 20V4M17 4l-3 3M17 4l3 3"/></svg>';
+  // diagnóstico: copia o texto que o app recebeu da La Moneda (para mandar ao suporte)
+  ACT.fxCopia = function () {
+    var t = S._lmTxt || '';
+    try {
+      navigator.clipboard.writeText(t).then(
+        function () {
+          alertaCopia(true);
+        },
+        function () {
+          alertaCopia(false);
+        }
+      );
+    } catch (e) {
+      alertaCopia(false);
+    }
+  };
+  function alertaCopia(ok) {
+    S.fxCopiado = ok ? 'Copiado. Cole na conversa com o suporte.' : 'Não deu para copiar.';
+    renderFx();
+    setTimeout(function () {
+      S.fxCopiado = '';
+      renderFx();
+    }, 4000);
+  }
   ACT.fxSt = function () {
     S.fxStD = !S.fxStD;
     renderFx();
@@ -219,7 +243,7 @@
       ag = Date.now(),
       on = casa && ((S._lmVisto && ag - S._lmVisto < 5 * 60000) || ag - S.lm.ts < 12 * 3600000),
       det = casa ? 'La Moneda · Jebai · atualizado às ' + fh(S.lm.ts) + (on ? '' : ' de ' + fd(S.lm.ts)) + (S.lm.erro && !on ? ' · ' + S.lm.erro : '') : 'Ainda sem cotação da La Moneda. Por enquanto os valores são a média do mercado.' + (S._lmErr ? ' Motivo: ' + S._lmErr : ' (o app instalado no celular tenta a cada 1 minuto)'),
-      hd = '<button type="button" class="fxSt ' + (on ? 'ok' : 'no') + '" data-act="fxSt" aria-label="Cotação da casa ' + (on ? 'online' : 'offline') + '">Cotação da casa<i></i></button>' + (S.fxStD ? '<div class="hint fxStD" style="margin:4px 0 0">' + esc(det) + '</div>' : ''),
+      hd = '<button type="button" class="fxSt ' + (on ? 'ok' : 'no') + '" data-act="fxSt" aria-label="Cotação da casa ' + (on ? 'online' : 'offline') + '">Cotação da casa<i></i></button>' + (S.fxStD ? '<div class="hint fxStD" style="margin:4px 0 0">' + esc(det) + (S._lmTxt && !on ? ' <button type="button" class="btn-sc" data-act="fxCopia" style="margin-top:8px">Copiar o texto da página</button>' + (S.fxCopiado ? '<div>' + esc(S.fxCopiado) + '</div>' : '') : '') + '</div>' : ''),
       h = '<div class="top fxTopo"><div><h1>Câmbio</h1><div class="crumb">' + hd + '</div></div>' + (casa ? '<button type="button" class="fxModo" data-act="fxModo" aria-label="Mostrando a ' + (S.fxModo === 'c' ? 'compra' : 'venda') + ' da casa. Tocar para ver a ' + (S.fxModo === 'c' ? 'venda' : 'compra') + '">' + (S.fxModo === 'c' ? 'Compra' : 'Venda') + FX_SETAS + '</button>' : '') + '</div>';
     h += '<section class="card fxTop">';
     ['usd', 'brl', 'arb'].forEach(function (k) {

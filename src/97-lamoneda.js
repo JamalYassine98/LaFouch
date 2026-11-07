@@ -101,7 +101,9 @@
       if (nomes.indexOf(n) < 0) nomes.push(n);
     }
     var k = nomes.indexOf('sucursal jebai');
-    if (k < 0 || nomes.length !== U.length) return null;
+    S._lmDiag = 'sucursais ' + nomes.length + ', tabelas de dólar ' + U.length + ', real ' + R.length;
+    if (k < 0 || U.length < nomes.length) return null;
+    if (U.length > nomes.length) U = U.slice(U.length - nomes.length); // linhas a mais antes (ex.: conversor) ficam de fora
     var fimK = k + 1 < U.length ? U[k + 1].i : t.length,
       dentro = function (L) {
         return L.filter(function (x) {
@@ -156,7 +158,8 @@
         // 07/11: diagnóstico — guarda o que a página devolveu quando não dá para ler (ex.: bloqueio do Cloudflare)
         if (!c) {
           var tx = String((r && r.data) || '').replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-          throw new Error('a página respondeu ' + ((r && r.status) || '?') + (/cloudflare|just a moment|attention required|checking your browser/i.test(tx) ? ' (bloqueio do Cloudflare)' : '') + ' e não achei a Sucursal Jebai: “' + tx.slice(0, 80) + '…”');
+          S._lmTxt = tx.slice(0, 20000);
+          throw new Error((S._lmDiag ? '[' + S._lmDiag + '] ' : '') + 'a página respondeu ' + ((r && r.status) || '?') + (/cloudflare|just a moment|attention required|checking your browser/i.test(tx) ? ' (bloqueio do Cloudflare)' : '') + ' e não achei a Sucursal Jebai: “' + tx.slice(0, 80) + '…”');
         }
         LM_FALHAS = 0;
         S._lmErr = '';

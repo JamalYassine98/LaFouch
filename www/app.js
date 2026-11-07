@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 456;
+  var APP_BUILD = 457;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.5.6'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.5.7'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -29540,6 +29540,30 @@
     return (S.fxModo === 'c' ? o.c : o.v) || fxHoje(k);
   }
   var FX_SETAS = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16M7 20l-3-3M7 20l3-3M17 20V4M17 4l-3 3M17 4l3 3"/></svg>';
+  // diagnóstico: copia o texto que o app recebeu da La Moneda (para mandar ao suporte)
+  ACT.fxCopia = function () {
+    var t = S._lmTxt || '';
+    try {
+      navigator.clipboard.writeText(t).then(
+        function () {
+          alertaCopia(true);
+        },
+        function () {
+          alertaCopia(false);
+        }
+      );
+    } catch (e) {
+      alertaCopia(false);
+    }
+  };
+  function alertaCopia(ok) {
+    S.fxCopiado = ok ? 'Copiado. Cole na conversa com o suporte.' : 'Não deu para copiar.';
+    renderFx();
+    setTimeout(function () {
+      S.fxCopiado = '';
+      renderFx();
+    }, 4000);
+  }
   ACT.fxSt = function () {
     S.fxStD = !S.fxStD;
     renderFx();
@@ -29740,7 +29764,7 @@
       ag = Date.now(),
       on = casa && ((S._lmVisto && ag - S._lmVisto < 5 * 60000) || ag - S.lm.ts < 12 * 3600000),
       det = casa ? 'La Moneda · Jebai · atualizado às ' + fh(S.lm.ts) + (on ? '' : ' de ' + fd(S.lm.ts)) + (S.lm.erro && !on ? ' · ' + S.lm.erro : '') : 'Ainda sem cotação da La Moneda. Por enquanto os valores são a média do mercado.' + (S._lmErr ? ' Motivo: ' + S._lmErr : ' (o app instalado no celular tenta a cada 1 minuto)'),
-      hd = '<button type="button" class="fxSt ' + (on ? 'ok' : 'no') + '" data-act="fxSt" aria-label="Cotação da casa ' + (on ? 'online' : 'offline') + '">Cotação da casa<i></i></button>' + (S.fxStD ? '<div class="hint fxStD" style="margin:4px 0 0">' + esc(det) + '</div>' : ''),
+      hd = '<button type="button" class="fxSt ' + (on ? 'ok' : 'no') + '" data-act="fxSt" aria-label="Cotação da casa ' + (on ? 'online' : 'offline') + '">Cotação da casa<i></i></button>' + (S.fxStD ? '<div class="hint fxStD" style="margin:4px 0 0">' + esc(det) + (S._lmTxt && !on ? ' <button type="button" class="btn-sc" data-act="fxCopia" style="margin-top:8px">Copiar o texto da página</button>' + (S.fxCopiado ? '<div>' + esc(S.fxCopiado) + '</div>' : '') : '') + '</div>' : ''),
       h = '<div class="top fxTopo"><div><h1>Câmbio</h1><div class="crumb">' + hd + '</div></div>' + (casa ? '<button type="button" class="fxModo" data-act="fxModo" aria-label="Mostrando a ' + (S.fxModo === 'c' ? 'compra' : 'venda') + ' da casa. Tocar para ver a ' + (S.fxModo === 'c' ? 'venda' : 'compra') + '">' + (S.fxModo === 'c' ? 'Compra' : 'Venda') + FX_SETAS + '</button>' : '') + '</div>';
     h += '<section class="card fxTop">';
     ['usd', 'brl', 'arb'].forEach(function (k) {
@@ -35067,7 +35091,9 @@
       if (nomes.indexOf(n) < 0) nomes.push(n);
     }
     var k = nomes.indexOf('sucursal jebai');
-    if (k < 0 || nomes.length !== U.length) return null;
+    S._lmDiag = 'sucursais ' + nomes.length + ', tabelas de dólar ' + U.length + ', real ' + R.length;
+    if (k < 0 || U.length < nomes.length) return null;
+    if (U.length > nomes.length) U = U.slice(U.length - nomes.length); // linhas a mais antes (ex.: conversor) ficam de fora
     var fimK = k + 1 < U.length ? U[k + 1].i : t.length,
       dentro = function (L) {
         return L.filter(function (x) {
@@ -35122,7 +35148,8 @@
         // 07/11: diagnóstico — guarda o que a página devolveu quando não dá para ler (ex.: bloqueio do Cloudflare)
         if (!c) {
           var tx = String((r && r.data) || '').replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-          throw new Error('a página respondeu ' + ((r && r.status) || '?') + (/cloudflare|just a moment|attention required|checking your browser/i.test(tx) ? ' (bloqueio do Cloudflare)' : '') + ' e não achei a Sucursal Jebai: “' + tx.slice(0, 80) + '…”');
+          S._lmTxt = tx.slice(0, 20000);
+          throw new Error((S._lmDiag ? '[' + S._lmDiag + '] ' : '') + 'a página respondeu ' + ((r && r.status) || '?') + (/cloudflare|just a moment|attention required|checking your browser/i.test(tx) ? ' (bloqueio do Cloudflare)' : '') + ' e não achei a Sucursal Jebai: “' + tx.slice(0, 80) + '…”');
         }
         LM_FALHAS = 0;
         S._lmErr = '';
