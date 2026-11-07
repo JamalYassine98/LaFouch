@@ -219,7 +219,7 @@
       ag = Date.now(),
       on = casa && ((S._lmVisto && ag - S._lmVisto < 5 * 60000) || ag - S.lm.ts < 12 * 3600000),
       det = casa ? 'La Moneda · Jebai · atualizado às ' + fh(S.lm.ts) + (on ? '' : ' de ' + fd(S.lm.ts)) + (S.lm.erro && !on ? ' · ' + S.lm.erro : '') : 'Ainda sem cotação da La Moneda: o app instalado no celular busca sozinho. Por enquanto os valores são a média do mercado.',
-      hd = '<button type="button" class="fxSt ' + (on ? 'ok' : 'no') + '" data-act="fxSt"><i></i>Cotação da casa ' + (on ? 'online' : 'offline') + '</button>' + (S.fxStD ? '<div class="hint fxStD" style="margin:4px 0 0">' + esc(det) + '</div>' : ''),
+      hd = '<button type="button" class="fxSt ' + (on ? 'ok' : 'no') + '" data-act="fxSt" aria-label="Cotação da casa ' + (on ? 'online' : 'offline') + '">Cotação da casa<i></i></button>' + (S.fxStD ? '<div class="hint fxStD" style="margin:4px 0 0">' + esc(det) + '</div>' : ''),
       h = '<div class="top fxTopo"><div><h1>Câmbio</h1><div class="crumb">' + hd + '</div></div>' + (casa ? '<button type="button" class="fxModo" data-act="fxModo" aria-label="Mostrando a ' + (S.fxModo === 'c' ? 'compra' : 'venda') + ' da casa. Tocar para ver a ' + (S.fxModo === 'c' ? 'venda' : 'compra') + '">' + (S.fxModo === 'c' ? 'Compra' : 'Venda') + FX_SETAS + '</button>' : '') + '</div>';
     h += '<section class="card fxTop">';
     ['usd', 'brl', 'arb'].forEach(function (k) {
