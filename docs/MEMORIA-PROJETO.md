@@ -1166,3 +1166,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - 07/11 12:04 FEITO (pedido direto): cartão "Compre por categoria" De sol → Solar (só o cartão; menu continua "De sol").
 - 07/11 12:06 FEITO (pedido direto): menu De sol → Solar; espanhol "De grau" = "De lectura" (antes De receta). Rodapé ainda diz "De sol" (perguntado). Endereço ES /recetados mantido.
 - 07/11 12:08 FEITO: rodapé De sol → Solar; endereço ES de grau /recetados → /lectura (+ -mujer/-hombre/-unisex); /recetados antigos continuam abrindo (apelido no RTM); páginas recetados*.html apagadas, robô gera lectura*.html.
+- 07/11 12:15 ESBOÇO (fav_esboco.png): favoritos na página da peça = mesmo botão do catálogo (#ftog) na barra da peça, à direita do "Volver al catálogo"; ao favoritar ele se desenha (mesma animação do catálogo) e o coração voa para dentro; fica com o nº; tocar abre o catálogo filtrado em favoritos. Some se zerar. Aguardando aprovação.
