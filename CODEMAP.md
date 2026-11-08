@@ -110,3 +110,9 @@ Produto → "Adicionar pedido" (`98-carrinho.js`, `S.cart`) → Pedido (`cartPai
 
 ## Site: navegação (08/11) — `catalogo/index.html`
 `NAVO` guarda de onde a peça foi aberta (captura de clique: home/vitrine/busca/favoritos; sem clique = link). `navTxt` dá o texto do voltar (B′, `.navb`), `navVolta` leva ao destino (busca reabre `V5.sabre`, favoritos `__fshAbre`, link abre a vitrine da categoria). Vitrine: `openPanel` empilha `{lfv:1}` no histórico; popstate fecha/abre; `.vnav` (‹ Início + título `#vtitT` com `#vtitN`), folha `#vcs`. Logo = Início. `navRel` troca "Combina também" por "Mais <cat> · Ver todas ›". `NAV_LV` = "Você estava vendo" no destaque (24 h, nova visita). Abrir/fechar peça desliza (`navIn` / `#lfGhost`).
+
+## Inventário v469
+- `98-graus-folha.js`: botão `#btnGraus` (criado por JS ao lado da busca; só com Pré-graduados) abre a folha `#grFolha` (grade sóbria 4×4, `ACT.grauToca` filtra por grau, `ACT.grauRepor` vai à Reposição); `grauAtalhoRepo` põe o atalho `#grRepo` no topo da Reposição. `renderMapaGraus` (14-estoque-abas.js) só esconde o `#mapaB` antigo e chama `grauBotao`.
+- `98-trava-rolagem.js`: trava única — MutationObserver vê `.modal`, `.lfa-ov`, `.ljBk`, `.lfEspia`; aberto → `html.lfTrava` + `body.top=-y`; fechou → volta na posição (scroll instantâneo). Não age com `html.mcTrava` (modo cliente).
+- Contador `#kCont`: sem outline; `aria-pressed=true` deixa `.lbl/.hint` rosa (CSS) e a dica vira "contando · toque para fechar" (97-contagem.js).
+- Barra `#lt/#btnSelP/#lh` escondida por JS (11-estoque-lista.js); seleção pelo espiar no Inventário (`espSelP`).

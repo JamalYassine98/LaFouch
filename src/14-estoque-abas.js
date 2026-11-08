@@ -87,54 +87,14 @@
   // Mapa de graus: 16 quadradinhos com as peças de cada grau.
   function renderMapaGraus() {
     var h = $('mapaB');
-    if (!h) return;
+    if (h) {
+      h.hidden = true;
+      h.textContent = '';
+    }
     var ts = tSel(),
       on = ts.length === 1 && ts[0] === 'pre' && !S.lotesView && !S.repoView && !S.cont && !S.det;
-    h.hidden = !on;
-    h.textContent = '';
-    if (!on) return;
-    var tot = grauTotais(),
-      total = 0,
-      ac = [],
-      bx = [];
-    h.appendChild(mk('div', 'lbl', 'Mapa de graus · peças no estoque'));
-    var gd = mk('div', 'gmap');
-    graus16().forEach(function (g) {
-      var q = tot[g],
-        lv = grauNivel(q);
-      total += q;
-      if (lv === 'r') ac.push(g);
-      else if (lv === 'y') bx.push(g + ' (' + q + ')');
-      var c = btn(
-        'gcell ' + lv + (S.q === g ? ' on' : ''),
-        '',
-        function () {
-          S.q = S.q === g ? '' : g;
-          S.open = '';
-          S.det = false;
-          render();
-        },
-        S.q === g
-      );
-      c.appendChild(mk('small', '', g));
-      c.appendChild(mk('b', '', String(q)));
-      c.setAttribute('aria-label', g + ': ' + q + ' peças');
-      gd.appendChild(c);
-    });
-    h.appendChild(gd);
-    var msg = [];
-    if (ac.length) msg.push(ac.join(', ') + (ac.length > 1 ? ' acabaram' : ' acabou'));
-    if (bx.length) msg.push(bx.join(', ') + ' com pouco');
-    var nt = mk(
-      'div',
-      msg.length ? 'note n-warn' : 'note n-ok',
-      msg.length ? 'Atenção: ' + msg.join(' · ') : 'Todos os graus estão bem abastecidos.'
-    );
-    nt.id = 'mapaNota';
-    h.appendChild(nt);
-    var sm = mk('div', 'hint', 'Total: ' + total + ' peças. Toque num grau para ver os modelos dele.');
-    sm.style.margin = '4px 0 0';
-    h.appendChild(sm);
+    // v469: o mapa virou a folha "Graus de leitura" (98-graus-folha.js), aberta pelo botão redondo
+    if (typeof grauBotao === 'function') grauBotao(on);
   }
   // Aba Reposição: o que comprar por grau, em pacotes.
   function renderReposicao() {
@@ -143,6 +103,9 @@
     h.hidden = !S.repoView;
     h.textContent = '';
     if (!S.repoView) return;
+    setTimeout(function () {
+      if (typeof grauAtalhoRepo === 'function') grauAtalhoRepo();
+    }, 0);
     var tot = grauTotais(),
       pk = packPre(),
       cu = custoPreUsd(),

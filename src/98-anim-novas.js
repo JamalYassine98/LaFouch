@@ -270,7 +270,9 @@
         ? [['espEst', 'Fotografar agora'], ['espCat', 'Abrir no catálogo']]
         : c.closest('#v-vendas')
           ? [['espVende', 'Vender'], ['espSel', 'Selecionar para enviar'], ['espShare', 'Compartilhar'], ['espEdit', 'Editar']]
-          : [['espVende', 'Vender'], ['espShare', 'Compartilhar'], ['espEdit', 'Editar']];
+          : c.closest('#v-estoque')
+            ? [['espVende', 'Vender'], ['espSelP', 'Selecionar'], ['espShare', 'Compartilhar'], ['espEdit', 'Editar']]
+            : [['espVende', 'Vender'], ['espShare', 'Compartilhar'], ['espEdit', 'Editar']];
       var o = document.createElement('div');
       o.className = 'lfEspia';
       o.innerHTML = '<div class="lfEspCx" role="dialog" aria-modal="true" aria-label="Prévia de ' + esc(nome) + '">' + (src ? '<img src="' + src + '" alt="">' : '') + '<div class="lfEspTx"><b>' + esc(nome) + '</b><small>' + esc(sub) + '</small></div>' +
@@ -300,6 +302,13 @@
             render();
           } else if (k === 'espShare') {
             if (typeof shAbre === 'function') shAbre({ tipo: 'peca', ref: ref });
+          } else if (k === 'espSelP') {
+            S.selMode = true;
+            S.pdMode = false;
+            S.det = false;
+            S.open = '';
+            S.selP = [ref];
+            render();
           } else if (k === 'espSel') {
             if (typeof window.ebSeleciona === 'function') window.ebSeleciona(ref);
           } else if (k === 'espEst') c.click();

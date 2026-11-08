@@ -1048,9 +1048,9 @@
     return s !== tks.join(' ') ? s : '';
   }
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 468;
+  var APP_BUILD = 469;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.8.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.8.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -4083,6 +4083,10 @@
 
     renderDetail(openRef);
     selBarra();
+    // v469: a barra do título com Selecionar/lixeira saiu (selecionar: segurar o produto › Selecionar)
+    var ltB = $('lt');
+    if (ltB && ltB.parentElement) ltB.parentElement.style.display = 'none';
+    if ($('lh')) $('lh').style.display = 'none';
     var bsel = $('btnSelP');
     if (bsel) {
       bsel.hidden = !refs.length || !!S.todos;
@@ -5458,54 +5462,14 @@
   // Mapa de graus: 16 quadradinhos com as peças de cada grau.
   function renderMapaGraus() {
     var h = $('mapaB');
-    if (!h) return;
+    if (h) {
+      h.hidden = true;
+      h.textContent = '';
+    }
     var ts = tSel(),
       on = ts.length === 1 && ts[0] === 'pre' && !S.lotesView && !S.repoView && !S.cont && !S.det;
-    h.hidden = !on;
-    h.textContent = '';
-    if (!on) return;
-    var tot = grauTotais(),
-      total = 0,
-      ac = [],
-      bx = [];
-    h.appendChild(mk('div', 'lbl', 'Mapa de graus · peças no estoque'));
-    var gd = mk('div', 'gmap');
-    graus16().forEach(function (g) {
-      var q = tot[g],
-        lv = grauNivel(q);
-      total += q;
-      if (lv === 'r') ac.push(g);
-      else if (lv === 'y') bx.push(g + ' (' + q + ')');
-      var c = btn(
-        'gcell ' + lv + (S.q === g ? ' on' : ''),
-        '',
-        function () {
-          S.q = S.q === g ? '' : g;
-          S.open = '';
-          S.det = false;
-          render();
-        },
-        S.q === g
-      );
-      c.appendChild(mk('small', '', g));
-      c.appendChild(mk('b', '', String(q)));
-      c.setAttribute('aria-label', g + ': ' + q + ' peças');
-      gd.appendChild(c);
-    });
-    h.appendChild(gd);
-    var msg = [];
-    if (ac.length) msg.push(ac.join(', ') + (ac.length > 1 ? ' acabaram' : ' acabou'));
-    if (bx.length) msg.push(bx.join(', ') + ' com pouco');
-    var nt = mk(
-      'div',
-      msg.length ? 'note n-warn' : 'note n-ok',
-      msg.length ? 'Atenção: ' + msg.join(' · ') : 'Todos os graus estão bem abastecidos.'
-    );
-    nt.id = 'mapaNota';
-    h.appendChild(nt);
-    var sm = mk('div', 'hint', 'Total: ' + total + ' peças. Toque num grau para ver os modelos dele.');
-    sm.style.margin = '4px 0 0';
-    h.appendChild(sm);
+    // v469: o mapa virou a folha "Graus de leitura" (98-graus-folha.js), aberta pelo botão redondo
+    if (typeof grauBotao === 'function') grauBotao(on);
   }
   // Aba Reposição: o que comprar por grau, em pacotes.
   function renderReposicao() {
@@ -5514,6 +5478,9 @@
     h.hidden = !S.repoView;
     h.textContent = '';
     if (!S.repoView) return;
+    setTimeout(function () {
+      if (typeof grauAtalhoRepo === 'function') grauAtalhoRepo();
+    }, 0);
     var tot = grauTotais(),
       pk = packPre(),
       cu = custoPreUsd(),
@@ -30800,7 +30767,10 @@
     var c = $('contCard');
     c.hidden = !S.cont;
     $('kCont').setAttribute('aria-pressed', !!S.cont);
-    $('kCont').style.outline = S.cont ? '2px solid var(--accent)' : '';
+    // v469: sem quadrado; enquanto conta, as letras ficam rosa suave (CSS) e a dica diz como fechar
+    $('kCont').style.outline = '';
+    var kh = $('kCont').querySelector('.hint');
+    if (kh) kh.textContent = S.cont ? 'contando · toque para fechar' : 'toque para contar';
     if (!S.cont) return;
     $('listCard').hidden = true;
     $('detail').hidden = true;
@@ -42974,7 +42944,9 @@
         ? [['espEst', 'Fotografar agora'], ['espCat', 'Abrir no catálogo']]
         : c.closest('#v-vendas')
           ? [['espVende', 'Vender'], ['espSel', 'Selecionar para enviar'], ['espShare', 'Compartilhar'], ['espEdit', 'Editar']]
-          : [['espVende', 'Vender'], ['espShare', 'Compartilhar'], ['espEdit', 'Editar']];
+          : c.closest('#v-estoque')
+            ? [['espVende', 'Vender'], ['espSelP', 'Selecionar'], ['espShare', 'Compartilhar'], ['espEdit', 'Editar']]
+            : [['espVende', 'Vender'], ['espShare', 'Compartilhar'], ['espEdit', 'Editar']];
       var o = document.createElement('div');
       o.className = 'lfEspia';
       o.innerHTML = '<div class="lfEspCx" role="dialog" aria-modal="true" aria-label="Prévia de ' + esc(nome) + '">' + (src ? '<img src="' + src + '" alt="">' : '') + '<div class="lfEspTx"><b>' + esc(nome) + '</b><small>' + esc(sub) + '</small></div>' +
@@ -43004,6 +42976,13 @@
             render();
           } else if (k === 'espShare') {
             if (typeof shAbre === 'function') shAbre({ tipo: 'peca', ref: ref });
+          } else if (k === 'espSelP') {
+            S.selMode = true;
+            S.pdMode = false;
+            S.det = false;
+            S.open = '';
+            S.selP = [ref];
+            render();
           } else if (k === 'espSel') {
             if (typeof window.ebSeleciona === 'function') window.ebSeleciona(ref);
           } else if (k === 'espEst') c.click();
@@ -45463,6 +45442,87 @@
     else S.perAte = t.value;
     renderDash();
   });
+  // ===== v469 (aprovado 08/11, opção C): mapa de graus numa folha, aberto por um botão redondo discreto =====
+  // O mapa saiu da lista de produtos. Botão de barras ao lado do leitor/filtro (só com Pré-graduados filtrado)
+  // e atalho "Graus de leitura" na aba Reposição. Grade sóbria 4×4: "—" = acabou, ponto âmbar = pouco.
+  var GR_IC = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 20V12M10 20V6M15 20v-9M20 20V9"/></svg>';
+  function grauResumo() {
+    var tot = grauTotais(),
+      r = { tot: tot, n: 0, falta: [], pouco: [], bem: 0 };
+    graus16().forEach(function (g) {
+      var q = tot[g],
+        lv = grauNivel(q);
+      r.n += q;
+      if (lv === 'r') r.falta.push(g);
+      else if (lv === 'y') r.pouco.push(g);
+      else r.bem++;
+    });
+    return r;
+  }
+  // botão ao lado da busca (criado por JS: a atualização automática não troca o index.html do APK)
+  function grauBotao(on) {
+    var q = $('q'),
+      row = q && q.parentElement && q.parentElement.parentElement,
+      b = $('btnGraus');
+    if (row && !b) {
+      b = document.createElement('button');
+      b.type = 'button';
+      b.id = 'btnGraus';
+      b.className = 'gbtn';
+      b.setAttribute('aria-label', 'Graus de leitura');
+      b.innerHTML = GR_IC;
+      b.setAttribute('data-act', 'grauAbre');
+      row.appendChild(b);
+    }
+    if (b) b.hidden = !on;
+    if (typeof lfaSlot === 'function' && lfaSlot('grFolha')) grauFolha();
+  }
+  function grauFolha() {
+    var r = grauResumo(),
+      h =
+        '<h3 class="grT">Graus de leitura</h3><p class="grP">' + r.n + (r.n === 1 ? ' peça' : ' peças') + ' · toque num grau para ver os modelos</p><div class="grGd">' +
+        graus16()
+          .map(function (g) {
+            var q = r.tot[g],
+              lv = grauNivel(q);
+            return '<button type="button" class="gcell ' + lv + (S.q === g ? ' on' : '') + '" data-act="grauToca" data-id="' + g + '" aria-label="' + g + ': ' + q + ' peças"><b>' + (q > 0 ? q : '—') + '</b><small>' + g + '</small></button>';
+          })
+          .join('') +
+        '</div><div class="grLeg"><span><i class="lt"></i>tem</span><span><i class="ly"></i>pouco</span><span><i class="lr"></i>acabou</span></div>' +
+        (r.falta.length
+          ? '<button type="button" class="go grRep" data-act="grauRepor">Repor ' + (r.falta.length === 1 ? 'o grau em falta' : 'os ' + r.falta.length + ' graus em falta') + '</button>'
+          : '<div class="grOk">Todos os graus estão abastecidos.</div>');
+    lfaAbre('grFolha', h);
+  }
+  ACT.grauAbre = function () {
+    grauFolha();
+  };
+  ACT.grauToca = function (g) {
+    S.q = S.q === g ? '' : g;
+    S.open = '';
+    S.det = false;
+    lfaFecha('grFolha');
+    render();
+  };
+  ACT.grauRepor = function () {
+    lfaFecha('grFolha');
+    var t = $('eTabR');
+    if (t) t.click();
+  };
+  // atalho discreto no topo da aba Reposição
+  function grauAtalhoRepo() {
+    var h = $('repoView');
+    if (!h || h.hidden || $('grRepo')) return;
+    var r = grauResumo(),
+      d = document.createElement('div');
+    d.id = 'grRepo';
+    d.className = 'grRepo';
+    d.setAttribute('data-act', 'grauAbre');
+    d.setAttribute('role', 'button');
+    d.tabIndex = 0;
+    d.innerHTML = '<span class="grIc">' + GR_IC + '</span><span class="grTx"><b>Graus de leitura</b><small>' + (r.falta.length ? r.falta.length + ' em falta' : 'nenhum em falta') + (r.pouco.length ? ' · ' + r.pouco.length + ' com pouco' : '') + '</small></span><span class="grVer">Ver ›</span>';
+    h.insertBefore(d, h.firstChild);
+  }
   // ===== Grupos da barra: animação de ENCAIXE (v443, aprovada 05/11/2026 — docs/esbocos/grupo-encaixe-anim.html) =====
   // Juntar: os dois ícones viram peças de quebra-cabeça (o de baixo com o dente, o arrastado com o encaixe), deslizam
   // acelerando e encaixam com um clique (tremor curto + linha que acende na emenda). Ao criar o grupo, as peças encaixadas
@@ -45657,6 +45717,49 @@
     window.addEventListener('pageshow', volta);
     window.addEventListener('focus', volta);
     window.__repinta = repinta;
+  })();
+  // ===== v469 (aprovado 08/11): trava única de rolagem =====
+  // Qualquer janela aberta (foto ampliada, Editar produto, folhas, janelas) trava a tela de baixo; ao fechar, volta
+  // exatamente onde estava. Vale para todas as janelas, inclusive as futuras. O modo cliente continua com a trava dele.
+  (function () {
+    var SEL = '.modal,.lfa-ov:not(.sai),.ljBk,.lfEspia:not(.sai)',
+      y = 0,
+      on = false,
+      pend = false;
+    function aberta() {
+      var l = document.querySelectorAll(SEL);
+      for (var i = 0; i < l.length; i++) if (l[i].getClientRects().length) return true;
+      return false;
+    }
+    function aplica() {
+      pend = false;
+      var de = document.documentElement;
+      if (de.classList.contains('mcTrava')) return;
+      var q = aberta();
+      if (q === on) return;
+      on = q;
+      if (q) {
+        y = window.scrollY || de.scrollTop || 0;
+        de.classList.add('lfTrava');
+        document.body.style.top = -y + 'px';
+      } else {
+        de.classList.remove('lfTrava');
+        document.body.style.top = '';
+        // devolve na hora (o app usa rolagem suave, que deixava a tela parar no meio do caminho)
+        try {
+          window.scrollTo({ top: y, left: 0, behavior: 'instant' });
+        } catch (e) {
+          window.scrollTo(0, y);
+        }
+      }
+    }
+    function agenda() {
+      if (pend) return;
+      pend = true;
+      requestAnimationFrame(aplica);
+    }
+    new MutationObserver(agenda).observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'hidden'] });
+    window.__lfTravaAplica = aplica;
   })();
   // ===== Dados de exemplo: fotos desenhadas e cerca de 14 meses de histórico (para testar o app). =====
   // Números pseudo-aleatórios repetíveis (mesmo exemplo todas as vezes).

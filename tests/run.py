@@ -960,13 +960,17 @@ async def main():
               S.grp = [{id:'G1',forn:'Kaz',tipo:'pre',qty:24,usd:0.5,totalUsd:12,moeda:'usd',sold:0,ts:Date.now()}];
               S.tipo = 'pre'; S.todos = false; S.selSet = []; S.q = ''; S.repQ = {}; S.repMix = ''; S.repLista = false; S.repoView = false; S.lotesView = false; L.setView('estoque'); }""")
             await pg.wait_for_timeout(300)
-            mapa = await pg.evaluate("""() => [...document.querySelectorAll('#mapaB .gcell')].map(c => c.className.replace('gcell','').replace('on','').trim() + ':' + c.querySelector('b').innerText)""")
+            botao = await pg.evaluate("() => { const b = document.getElementById('btnGraus'); return !!b && !b.hidden && document.getElementById('mapaB').hidden; }")
+            await pg.click('#btnGraus'); await pg.wait_for_timeout(450)
+            mapa = await pg.evaluate("""() => [...document.querySelectorAll('#grFolha .gcell')].map(c => c.className.replace('gcell','').replace('on','').trim() + ':' + c.querySelector('b').innerText.replace('—','0'))""")
             abas = await pg.evaluate("() => [...document.querySelectorAll('#eTabs .chip')].map(b => b.innerText.replace(/\\s+/g,' '))")
             kl = await pg.evaluate("() => document.getElementById('kLot').hidden")
-            await pg.locator('#mapaB .gcell', has_text='+1.50').click(); await pg.wait_for_timeout(300)
+            await pg.locator('#grFolha .gcell', has_text='+1.50').click(); await pg.wait_for_timeout(500)
             filtro = await pg.evaluate("() => window.__LF.S.q")
-            await pg.locator('#mapaB .gcell', has_text='+1.50').click(); await pg.wait_for_timeout(200)
+            await pg.click('#btnGraus'); await pg.wait_for_timeout(450)
+            await pg.locator('#grFolha .gcell', has_text='+1.50').click(); await pg.wait_for_timeout(500)
             await pg.click('#eTabR'); await pg.wait_for_timeout(300)
+            atalho0 = await pg.evaluate("() => !!document.querySelector('#repoView #grRepo')")
             rep = await pg.evaluate("""() => ({ vis: !document.getElementById('repoView').hidden, lista: document.getElementById('listCard').hidden, mapa: document.getElementById('mapaB').hidden,
                 itens: [...document.querySelectorAll('#repoView .repit[data-g]')].map(r => r.dataset.g + ':' + r.querySelector('.st2 i').innerText) })""")
             await pg.locator('#repoView .repit[data-g="+3.50"] button[aria-label^="Mais"]').click(); await pg.wait_for_timeout(200)
@@ -974,14 +978,35 @@ async def main():
             txt = await pg.evaluate("() => document.querySelector('#repoView .replist').innerText")
             await pg.click('#eTabP'); await pg.wait_for_timeout(300)
             volta = await pg.evaluate("() => [document.getElementById('repoView').hidden, document.getElementById('listCard').hidden]")
-            ok = (mapa.count('r:0') == 12 and mapa.count('y:5') == 2 and 'y:2' in mapa and 'g:12' in mapa and abas == ['Produtos', 'Fornecedores 1', 'Reposição'] and kl is True
+            ok = (botao and atalho0 and mapa.count('r:0') == 12 and mapa.count('y:5') == 2 and 'y:2' in mapa and 'g:12' in mapa and abas == ['Produtos', 'Fornecedores 1', 'Reposição'] and kl is True
                   and filtro == '+1.50' and rep['vis'] and rep['lista'] and rep['mapa']
                   and rep['itens'][0] == '+0.50:1' and '+3.50:1' in rep['itens'] and '+3.00:0' in rep['itens'] and '+1.50:0' in rep['itens']
                   and '+3.50 · 2 pacotes de 24' in txt and 'Total: 336 peças' in txt
                   and volta == [True, False] and not pg.erros)
             total += 1
             print(('  ok  ' if ok else ' FALHA ') + 'Estoque: abas, mapa de graus e lista de compra em pacotes')
-            if not ok: falhas.append('estoque abas'); print('        veio', mapa, abas, kl, filtro, rep, txt, volta, pg.erros)
+            if not ok: falhas.append('estoque abas'); print('        veio', botao, atalho0, mapa, abas, kl, filtro, rep, txt, volta, pg.erros)
+            await pg.close()
+
+            # v469: contador sem quadrado, barra Selecionar/lixeira fora, trava única de rolagem
+            pg = await pagina()
+            await pg.evaluate("() => { const L = window.__LF, S = L.S; S.tipo = 'sem'; S.todos = false; S.cont = false; L.setView('estoque'); }"); await pg.wait_for_timeout(400)
+            await pg.click('#kCont'); await pg.wait_for_timeout(300)
+            k1 = await pg.evaluate("() => { const k = document.getElementById('kCont'); return [k.style.outline, k.querySelector('.hint').innerText, getComputedStyle(k.querySelector('.lbl')).color !== getComputedStyle(document.querySelector('#kpisE .kpi:not(#kCont) .lbl')).color]; }")
+            await pg.click('#kCont'); await pg.wait_for_timeout(300)
+            k2 = await pg.evaluate("() => document.querySelector('#kCont .hint').innerText")
+            barra = await pg.evaluate("() => getComputedStyle(document.getElementById('lt').parentElement).display === 'none' && getComputedStyle(document.getElementById('lh')).display === 'none'")
+            await pg.evaluate("() => { const S = window.__LF.S; S.todos = true; window.__LF.render(); }"); await pg.wait_for_timeout(500)
+            y0 = await pg.evaluate("() => { window.scrollTo({top: 600, behavior: 'instant'}); return Math.round(window.scrollY); }"); await pg.wait_for_timeout(200)
+            await pg.evaluate("() => { const m = document.createElement('div'); m.className = 'modal'; m.id = 'mTeste'; m.style.cssText = 'position:fixed;inset:0;display:flex'; document.body.appendChild(m); }"); await pg.wait_for_timeout(250)
+            tr1 = await pg.evaluate("() => [document.documentElement.classList.contains('lfTrava'), document.body.style.top]")
+            await pg.mouse.wheel(0, 500); await pg.wait_for_timeout(200)
+            await pg.evaluate("() => document.getElementById('mTeste').remove()"); await pg.wait_for_timeout(250)
+            tr2 = await pg.evaluate("() => [document.documentElement.classList.contains('lfTrava'), Math.round(window.scrollY)]")
+            total += 1
+            ok = k1 == ['', 'contando · toque para fechar', True] and k2 == 'toque para contar' and barra and y0 > 100 and tr1 == [True, '-' + str(y0) + 'px'] and tr2 == [False, y0] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'v469: contador sem quadrado (cor suave), barra Selecionar/lixeira fora, janela aberta trava o fundo e devolve a posição')
+            if not ok: falhas.append('v469 inventario'); print('        veio', k1, k2, barra, y0, tr1, tr2, pg.erros)
             await pg.close()
 
             # Pedido com linhas, frete rateado e cadastro enxuto
@@ -2435,7 +2460,7 @@ async def main():
             await pg.evaluate("r => { const S = window.__LF.S; S.pprice[r] = {novo: 123500, ant: 200000}; window.__LF.render(); }", ref0); await pg.wait_for_timeout(300)
             txt = await pg.evaluate("r => document.querySelector('#rows .pcard[data-ref=\"' + r + '\"] .zp').innerText", ref0)
             site = await pg.evaluate("r => document.querySelectorAll('#rows .zch').length === 0", ref0)
-            await pg.click('#btnSelP'); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => document.getElementById('btnSelP').click()"); await pg.wait_for_timeout(300)
             cs = pg.locator('#rows .pcard[data-ref]')
             await cs.nth(0).click(); await pg.wait_for_timeout(200); await cs.nth(1).click(); await pg.wait_for_timeout(300)
             nsel = await pg.evaluate("() => window.__LF.S.selP.length")

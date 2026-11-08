@@ -2013,3 +2013,39 @@ html[data-tema="claro"]{--accent:#8d3a69;--accent-fg:#8d3a69;--accent-soft:#f6e9
 #nvCmpF .ttCan{text-align:center}
 #nvCmpF .ttOk{margin-top:14px}
 #nvCmpF .ttCan{display:block;width:100%;background:none;border:0;color:var(--mute);font-size:14px;padding:12px 0;text-align:center}
+
+/* v469 trava única de rolagem: janela aberta = a tela de baixo não rola */
+html.lfTrava,html.lfTrava body{overflow:hidden!important;overscroll-behavior:none}
+html.lfTrava body{position:fixed;left:0;right:0;width:100%}
+.modal,.lfa-sh,.ljJn,.lfEspCx{overscroll-behavior:contain}
+/* v469 contador sem quadrado: ao tocar só as letras mudam, suave */
+#kCont{outline:none!important;-webkit-tap-highlight-color:transparent}
+#kCont .lbl,#kCont .hint{transition:color .35s cubic-bezier(.2,.8,.2,1)}
+#kCont b{display:inline-block;transition:transform .14s cubic-bezier(.2,.8,.2,1)}
+#kCont:active b{transform:scale(.95)}
+#kCont[aria-pressed="true"] .lbl,#kCont[aria-pressed="true"] .hint{color:var(--pri)}
+/* v469 graus de leitura: botão redondo + folha (grade sóbria) */
+.gbtn{width:46px;height:46px;border-radius:50%;flex:none;display:grid;place-items:center;background:transparent;border:1px solid var(--line,rgba(127,127,127,.25));color:var(--fg);-webkit-tap-highlight-color:transparent;transition:transform .14s}
+.gbtn:active{transform:scale(.94)}
+.gbtn[hidden]{display:none}
+#grFolha .grT{margin:2px 0 2px;font-size:18px}
+#grFolha .grP{margin:0 0 14px;font-size:13.5px;color:var(--mute)}
+#grFolha .grGd{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line2,rgba(127,127,127,.15));border:1px solid var(--line2,rgba(127,127,127,.15));border-radius:18px;overflow:hidden}
+#grFolha .gcell{background:var(--panel,#171a21);border:0;border-radius:0;padding:14px 4px 12px;text-align:center;position:relative;color:var(--fg);transition:background .2s}
+#grFolha .gcell b{display:block;font:600 22px var(--display,'Fraunces'),Georgia,serif;line-height:1.1}
+#grFolha .gcell small{font-size:12px;color:var(--mute)}
+#grFolha .gcell.r b{color:var(--mute);opacity:.55;font-weight:500}
+#grFolha .gcell.y::after{content:'';position:absolute;top:9px;right:9px;width:6px;height:6px;border-radius:50%;background:#e9c27a}
+#grFolha .gcell.on{background:var(--sel-bg,rgba(243,192,220,.1))}
+#grFolha .gcell.on b{color:var(--pri)}
+#grFolha .gcell:active{background:var(--sel-bg,rgba(243,192,220,.1))}
+#grFolha .grLeg{display:flex;gap:14px;margin:12px 0 4px;font-size:12px;color:var(--mute)}
+#grFolha .grLeg i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;vertical-align:1px}
+#grFolha .grLeg .lt{background:var(--fg)}#grFolha .grLeg .ly{background:#e9c27a}#grFolha .grLeg .lr{background:var(--mute);opacity:.55}
+#grFolha .grRep{margin-top:14px;width:100%}
+#grFolha .grOk{margin-top:14px;font-size:14px;color:var(--mute);text-align:center}
+.grRepo{display:flex;align-items:center;gap:12px;border:1px solid var(--line2,rgba(127,127,127,.15));border-radius:18px;padding:12px 14px;margin:0 0 12px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .14s}
+.grRepo:active{transform:scale(.98)}
+.grRepo .grIc{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--sel-bg,rgba(243,192,220,.12));color:var(--pri);flex:none}
+.grRepo .grTx{display:flex;flex-direction:column;gap:2px;min-width:0}.grRepo .grTx b{font-size:15px}.grRepo .grTx small{color:var(--mute);font-size:12.5px}
+.grRepo .grVer{margin-left:auto;color:var(--pri);font-weight:600;font-size:14px}

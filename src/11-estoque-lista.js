@@ -1082,6 +1082,10 @@
 
     renderDetail(openRef);
     selBarra();
+    // v469: a barra do título com Selecionar/lixeira saiu (selecionar: segurar o produto › Selecionar)
+    var ltB = $('lt');
+    if (ltB && ltB.parentElement) ltB.parentElement.style.display = 'none';
+    if ($('lh')) $('lh').style.display = 'none';
     var bsel = $('btnSelP');
     if (bsel) {
       bsel.hidden = !refs.length || !!S.todos;
