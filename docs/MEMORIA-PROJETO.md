@@ -1286,3 +1286,11 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - 2026-11-08 16:51 BUG do site leve (meu): contain-intrinsic-size:auto 420px também reservava LARGURA e alargava #wrap (página desalinhada/cortada no celular). Corrigido para "none auto 420px" (só altura). Conferido em 360/390/412/430 px sem nada passando da tela.
 - 2026-11-08 v471 (5.8.3) PUBLICADO: Inventário limpo (aprovado: 1 abrir sem ligar filtro, 2 espiar segurando a foto, 3 sem selo da faixa, 4 sem linhas/vão; indicador C; busca igual ao Catálogo; folha de filtros no estilo do Catálogo com Situação; Preços para corrigir com "Usar X" = mínimo das regras; lote do fornecedor sem foto). 284/284. Obs.: sugestão = mínimo (piso) das regras do dono.
 - 2026-11-08 17:17 SITE (esboço site_leitura.png, NADA implementado): tirar a cotação (#cbl) da vitrine; título da vitrine sem contagem e sem corte (contagem fica só na folha de categorias); etiqueta do tipo nos cartões só em Catálogo/Todos (some quando a categoria está escolhida); cliente vê "Leitura" no lugar de "Grau/De grau" (categoria, etiqueta LEITURA, folha); novo artigo do Guia "ESCOLHA CERTA · Leitura, armação ou solar: qual é a diferença?" com aviso "Só vendemos óculos de leitura prontos" (sem lentes para longe/astigmatismo → armação + ótica). Obs.: nomes de produto vindos do app (ex.: "Óculos de grau quadrado preto") não mudam sozinhos.
+
+## 08/11/2026 — Site: "Leitura", sem cotação, guia de tipos (aprovado e implementado)
+- Cotação (#cbl) escondida para o cliente.
+- Título da vitrine sem contagem de modelos; contagem só na folha de categorias, sem o ✓.
+- Etiqueta do tipo no cartão some quando há categoria escolhida (html.vtipo); aparece em Catálogo/Ofertas.
+- Para o cliente "De grau" virou "Leitura" (es: "De lectura"); etiqueta GRAU aparece como LEITURA. Rota /grau e /lectura mantidas.
+- Guia novo "Leitura, armação ou solar: qual é a diferença?" (ESCOLHA CERTA) com caixa IMPORTANTE "Só vendemos óculos de leitura prontos". Espaçamento justo no guia (.det gap 0).
+- Pendente (não feito, aguarda o dono): nomes dos produtos ainda dizem "Óculos de grau…" (es: "Lentes con receta…").
