@@ -1299,3 +1299,9 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - App: src/98-leitura-nomes.js (leitMigra/leitNome) troca S.pnome "Óculos de grau…" → "Óculos de leitura…" ao abrir e a cada saveSoon; manda para a fila do site. Etiqueta enviada ao site: LEITURA. Folha de troca de tipo fala "Leitura".
 - Site: nomes normalizados no syncProds e no seed; es "Lentes de lectura…"; menu "Leitura"; graus +0.25 a +4.00 (correção do dono); destaque "Óculos de leitura · Lentes prontas, de +0.25 a +4.00…"; FAQ "Fazem lentes com a minha receita? Não…" (aprovado).
 - Em esboço: como organizar Guia La Fouch × Dúvidas frequentes × Como comprar.
+
+## 08/11/2026 — Site: página Ajuda (aprovado e implementado)
+- #como virou a página "Ajuda": sanfona com Como comprar / Dúvidas frequentes / Guia La Fouch (só texto, sem ícones). Abrir uma fecha a anterior; + gira para ×, abertura fluida (grid-rows), toque com scale(.98). "Falar no WhatsApp ›" no fim.
+- Seção #duvidas removida; /duvidas e /dudas abrem a Ajuda já em Dúvidas (wrappers de openPanel/goTo antes do rtEntra).
+- Menu: grupo "Ajuda" com um item "Como comprar, dúvidas e guia"; rodapé idem; nav do topo "Ajuda".
+- Dúvidas: 4 perguntas do esboço (pagamento, reserva, receita, troca). As antigas "delivery fora do PY" e "frete" saíram (delivery coberto no passo 4).
