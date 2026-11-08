@@ -1,7 +1,7 @@
 {
- "nome": "5.6.2",
+ "nome": "5.6.3",
  "notas": [
-  "Modo cliente: botão de tablet no topo do Catálogo (sem PIN); para sair, segure o logo 5 segundos",
-  "Ajustes sem \"Modo cliente\" e \"Fotos\"; padronizar fotos em lote fica na Fila de fotos do Estúdio"
+  "Modo cliente: sair segurando o logo 5 s volta a funcionar no Android (ou tocar no logo 7 vezes)",
+  "Modo cliente: a peça abre sem pular na tela"
  ]
 }

@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 462;
+  var APP_BUILD = 463;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.6.2'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.6.3'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -36798,31 +36798,51 @@
       return false;
     }
   }
-  // segurar o logo do topo (1,5 s) pede o PIN para sair
-  function mcTopo() {
-    var lg = document.querySelector('.logo-top .brand');
-    if (!lg || lg._mc) return;
-    lg._mc = 1;
-    var pt = 0;
-    var solta = function () {
-      clearTimeout(pt);
-      lg.classList.remove('mcSeg');
-    };
-    lg.addEventListener('pointerdown', function () {
-      if (!S.modoCli) return;
-      lg.classList.add('mcSeg');
-      pt = setTimeout(function () {
-        solta();
-        mcSair();
-      }, 5000);
-    });
-    ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (n) {
-      lg.addEventListener(n, solta);
-    });
-    lg.addEventListener('contextmenu', function (e) {
-      if (S.modoCli) e.preventDefault();
-    });
+  // segurar o logo do topo 5 s sai do modo cliente. v463 (07/11): no Android o toque longo na imagem cancelava o gesto
+  // (pointercancel); agora escuta o documento, ignora o cancelamento e as imagens não recebem o toque.
+  // Reserva: tocar no logo 7 vezes seguidas (em até 4 s) também sai.
+  var mcPt = 0,
+    mcTaps = [];
+  function mcNoLogo(e) {
+    return !!(S.modoCli && e.target && e.target.closest && e.target.closest('.logo-top .brand'));
   }
+  function mcSolta() {
+    clearTimeout(mcPt);
+    mcPt = 0;
+    var lg = document.querySelector('.logo-top .brand');
+    if (lg) lg.classList.remove('mcSeg');
+  }
+  function mcComeca(e) {
+    if (!mcNoLogo(e) || mcPt) return;
+    var lg = document.querySelector('.logo-top .brand');
+    if (lg) lg.classList.add('mcSeg');
+    var ag = Date.now();
+    mcTaps = mcTaps.filter(function (t) {
+      return ag - t < 4000;
+    });
+    mcTaps.push(ag);
+    if (mcTaps.length >= 7) {
+      mcTaps = [];
+      mcSolta();
+      mcSair();
+      return;
+    }
+    mcPt = setTimeout(function () {
+      mcSolta();
+      mcSair();
+    }, 5000);
+  }
+  document.addEventListener('touchstart', mcComeca, { passive: true, capture: true });
+  document.addEventListener('mousedown', mcComeca, true);
+  ['touchend', 'mouseup'].forEach(function (n) {
+    document.addEventListener(n, function () {
+      if (mcPt) mcSolta();
+    }, true);
+  });
+  document.addEventListener('contextmenu', function (e) {
+    if (mcNoLogo(e)) e.preventDefault();
+  }, true);
+  function mcTopo() {}
   function mcAplica() {
     S.modoCli = mcLigado();
     document.body.classList.toggle('modoCli', S.modoCli);

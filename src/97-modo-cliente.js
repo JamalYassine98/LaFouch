@@ -16,31 +16,51 @@
       return false;
     }
   }
-  // segurar o logo do topo (1,5 s) pede o PIN para sair
-  function mcTopo() {
-    var lg = document.querySelector('.logo-top .brand');
-    if (!lg || lg._mc) return;
-    lg._mc = 1;
-    var pt = 0;
-    var solta = function () {
-      clearTimeout(pt);
-      lg.classList.remove('mcSeg');
-    };
-    lg.addEventListener('pointerdown', function () {
-      if (!S.modoCli) return;
-      lg.classList.add('mcSeg');
-      pt = setTimeout(function () {
-        solta();
-        mcSair();
-      }, 5000);
-    });
-    ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (n) {
-      lg.addEventListener(n, solta);
-    });
-    lg.addEventListener('contextmenu', function (e) {
-      if (S.modoCli) e.preventDefault();
-    });
+  // segurar o logo do topo 5 s sai do modo cliente. v463 (07/11): no Android o toque longo na imagem cancelava o gesto
+  // (pointercancel); agora escuta o documento, ignora o cancelamento e as imagens não recebem o toque.
+  // Reserva: tocar no logo 7 vezes seguidas (em até 4 s) também sai.
+  var mcPt = 0,
+    mcTaps = [];
+  function mcNoLogo(e) {
+    return !!(S.modoCli && e.target && e.target.closest && e.target.closest('.logo-top .brand'));
   }
+  function mcSolta() {
+    clearTimeout(mcPt);
+    mcPt = 0;
+    var lg = document.querySelector('.logo-top .brand');
+    if (lg) lg.classList.remove('mcSeg');
+  }
+  function mcComeca(e) {
+    if (!mcNoLogo(e) || mcPt) return;
+    var lg = document.querySelector('.logo-top .brand');
+    if (lg) lg.classList.add('mcSeg');
+    var ag = Date.now();
+    mcTaps = mcTaps.filter(function (t) {
+      return ag - t < 4000;
+    });
+    mcTaps.push(ag);
+    if (mcTaps.length >= 7) {
+      mcTaps = [];
+      mcSolta();
+      mcSair();
+      return;
+    }
+    mcPt = setTimeout(function () {
+      mcSolta();
+      mcSair();
+    }, 5000);
+  }
+  document.addEventListener('touchstart', mcComeca, { passive: true, capture: true });
+  document.addEventListener('mousedown', mcComeca, true);
+  ['touchend', 'mouseup'].forEach(function (n) {
+    document.addEventListener(n, function () {
+      if (mcPt) mcSolta();
+    }, true);
+  });
+  document.addEventListener('contextmenu', function (e) {
+    if (mcNoLogo(e)) e.preventDefault();
+  }, true);
+  function mcTopo() {}
   function mcAplica() {
     S.modoCli = mcLigado();
     document.body.classList.toggle('modoCli', S.modoCli);

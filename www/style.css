@@ -1803,6 +1803,9 @@ body.modoCli .vbar.vsale,body.modoCli [data-act=folhavender],body.modoCli .folha
 body.modoCli header .topBtns,body.modoCli #notifBtn,body.modoCli #lfAppHd{display:none!important}
 body.modoCli{padding-bottom:0!important}
 body.modoCli.mcAberto #vListCard{filter:blur(14px) saturate(.9);pointer-events:none;transform:scale(.99);transition:filter .25s}
-body.modoCli.mcAberto #vDetail{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(820px,94vw);max-height:92vh;overflow:auto;z-index:60;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+/* v463: centralizado sem transform (os gestos de deslizar usam transform e faziam a janela pular) */
+body.modoCli.mcAberto #vDetail{position:fixed;inset:0;margin:auto;height:fit-content;width:min(820px,94vw);max-height:92vh;overflow:auto;z-index:60;box-shadow:0 30px 80px rgba(0,0,0,.45);animation:mcIn .24s cubic-bezier(.2,.8,.2,1)}
+@keyframes mcIn{from{opacity:0;scale:.96}to{opacity:1;scale:1}}
 body.modoCli #sino,body.modoCli #sino2{display:none!important}
 #v-vendas>.top{flex-wrap:nowrap;align-items:flex-start}#v-vendas>.top>div{flex:1;min-width:0}.mcBtn{margin-top:2px}body.modoCli .mcBtn{display:none!important}
+body.modoCli .logo-top .brand{touch-action:none}.logo-top .brand img{pointer-events:none;-webkit-user-drag:none}
