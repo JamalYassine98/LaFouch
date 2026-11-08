@@ -29,12 +29,24 @@
     var lo = t.toLowerCase(),
       i = lo.indexOf('sucursal jebai');
     if (i < 0) return null;
-    var fim = t.length;
-    ['sucursal centro', 'caja auxiliar', 'casa matriz'].forEach(function (m) {
-      var j = lo.indexOf(m, i + 10);
-      if (j > 0 && j < fim) fim = j;
-    });
-    var segJ = t.slice(i, fim);
+    // 07/11: o nome aparece várias vezes (seletor, título de cada tabela); usa o primeiro trecho que tem a cotação
+    var segJ = '',
+      trecho = function (i) {
+        var fim = t.length;
+        ['sucursal centro', 'caja auxiliar', 'casa matriz'].forEach(function (m) {
+          var j = lo.indexOf(m, i + 10);
+          if (j > 0 && j < fim) fim = j;
+        });
+        return t.slice(i, fim);
+      };
+    for (var ii = i; ii >= 0; ii = lo.indexOf('sucursal jebai', ii + 10)) {
+      var sg = trecho(ii);
+      if (/d[óo]lar[^0-9]{0,80}?\d/i.test(sg) && /\breal\b[^0-9]{0,80}?\d/i.test(sg)) {
+        segJ = sg;
+        break;
+      }
+    }
+    if (!segJ) segJ = trecho(i);
     var par = function (rx, ok, tudo) {
       var m,
         seg = tudo ? t : segJ,

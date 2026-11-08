@@ -1,6 +1,6 @@
 {
- "nome": "5.5.7",
+ "nome": "5.5.8",
  "notas": [
-  "Câmbio: leitura da La Moneda mais tolerante e botão para copiar o que a página devolveu (diagnóstico)"
+  "Câmbio: lê a cotação da Sucursal Jebai no site novo da La Moneda"
  ]
 }

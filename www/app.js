@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 457;
+  var APP_BUILD = 458;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.5.7'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.5.8'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -35019,12 +35019,24 @@
     var lo = t.toLowerCase(),
       i = lo.indexOf('sucursal jebai');
     if (i < 0) return null;
-    var fim = t.length;
-    ['sucursal centro', 'caja auxiliar', 'casa matriz'].forEach(function (m) {
-      var j = lo.indexOf(m, i + 10);
-      if (j > 0 && j < fim) fim = j;
-    });
-    var segJ = t.slice(i, fim);
+    // 07/11: o nome aparece várias vezes (seletor, título de cada tabela); usa o primeiro trecho que tem a cotação
+    var segJ = '',
+      trecho = function (i) {
+        var fim = t.length;
+        ['sucursal centro', 'caja auxiliar', 'casa matriz'].forEach(function (m) {
+          var j = lo.indexOf(m, i + 10);
+          if (j > 0 && j < fim) fim = j;
+        });
+        return t.slice(i, fim);
+      };
+    for (var ii = i; ii >= 0; ii = lo.indexOf('sucursal jebai', ii + 10)) {
+      var sg = trecho(ii);
+      if (/d[óo]lar[^0-9]{0,80}?\d/i.test(sg) && /\breal\b[^0-9]{0,80}?\d/i.test(sg)) {
+        segJ = sg;
+        break;
+      }
+    }
+    if (!segJ) segJ = trecho(i);
     var par = function (rx, ok, tudo) {
       var m,
         seg = tudo ? t : segJ,
