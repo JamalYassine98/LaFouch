@@ -512,7 +512,7 @@
         ((S.estPend || []).length
           ? '<div class="estLbl estLbl2"><span>Fotos aguardando cadastro · ' + S.estPend.length + '</span></div>' +
             S.estPend.map(function (x) {
-              return '<div class="estIt estPd"><span class="estTh"><img src="' + esc(x.t) + '" alt=""></span><span class="estTx"><b>Peça sem cadastro</b><small>' + new Date(x.ts).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) + (x.t34 ? ' · frente e 3/4' : ' · frente') + ' · nota ' + x.n + '</small></span><button type="button" class="mini" data-pd="' + x.id + '" data-a="ligar">Ligar</button><button type="button" class="mini estApg" data-pd="' + x.id + '" data-a="apagar" aria-label="Apagar">×</button></div>';
+              return '<div class="estIt estPd"><span class="estTh"><img src="' + esc(x.t) + '" alt=""></span><span class="estTx"><b>' + (x.cod ? esc(x.cod) + ' · sem cadastro' : 'Peça sem cadastro') + '</b><small>' + new Date(x.ts).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) + (x.t34 ? ' · frente e 3/4' : ' · frente') + ' · nota ' + x.n + '</small></span><button type="button" class="mini" data-pd="' + x.id + '" data-a="ligar">Ligar</button><button type="button" class="mini estApg" data-pd="' + x.id + '" data-a="apagar" aria-label="Apagar">×</button></div>';
             }).join('')
           : '') +
         (fpChaves().length ? '<div class="estPadr">' + fpAjHtml() + '</div>' : '') +
@@ -608,7 +608,12 @@
   function estGrava(k, passo, R) {
     var kk = passo === '34' ? k + '|34' : k;
     vibrar(15);
-    if (EST_SES) EST_SES.fotos++;
+    if (EST_SES) {
+      EST_SES.fotos++;
+      var rf = k.split('|')[0];
+      if (!EST_SES.refs) EST_SES.refs = [];
+      if (EST_SES.refs.indexOf(rf) < 0) EST_SES.refs.push(rf);
+    }
     // v465: fica a melhor foto — se a nova for pior que a que já existe, a antiga continua (a nova fica guardada 30 dias)
     var ant = passo !== '34' && S.fotoNota[k];
     if (ant && S.fotos && S.fotos[k] && ant.n > R.n + 5) {
@@ -1403,6 +1408,20 @@
   }
   function estResultado(R, f, ctx) {
     // v465: na sessão, foto aprovada (nota 75+) segue sozinha, sem tela no meio; foto ruim mostra o porquê e pede de novo
+    if (ctx.sessao && R.cv && R.n >= 75 && !ctx.nova && !ctx.corOk) {
+      // v465 (Estúdio extra 3): confere a cor — só quando a cor já tem foto; na dúvida fica quieto; nunca trava
+      return estCorConfere(R.cv, ctx).then(function (outra) {
+        if (!outra) return estResultado(R, f, Object.assign({}, ctx, { corOk: true }));
+        lfaAbre('estCorF', '<div class="estCorT">Parece a ' + esc(outra) + ', não a ' + esc(ctx.cor) + '</div><div class="estCorB"><button type="button" class="go" data-act="estCor" data-id="outra">Salvar na ' + esc(outra) + '</button><button type="button" class="mini" data-act="estCor" data-id="manter">Manter na ' + esc(ctx.cor) + '</button></div>');
+        ACT.estCor = function (q) {
+          lfaFecha('estCorF');
+          if (q === 'outra') {
+            var k2 = ctx.ref + '|' + outra;
+            estResultado(R, f, Object.assign({}, ctx, { k: k2, cor: outra, corOk: true }));
+          } else estResultado(R, f, Object.assign({}, ctx, { corOk: true }));
+        };
+      });
+    }
     if (ctx.sessao && R.cv && R.n >= 75 && !ctx.nova) {
       var passoA = ctx.passo || 'frente';
       if (passoA === 'frente') {
@@ -1623,6 +1642,35 @@
             }).join('');
         })
         .catch(function () {});
+    // v465 (Estúdio extra 8): lê o código da haste na foto e já procura o modelo; se não existe, guarda o código junto
+    var codLido = '';
+    if (fr && fr.cv && !pd && typeof readTess === 'function')
+      readTess(fr.cv)
+        .then(function (r) {
+          var cod = r && r.referencia ? String(r.referencia).toUpperCase() : '';
+          if (!cod || !ov.isConnected) return;
+          codLido = cod;
+          var existe = S.items.some(function (i) {
+              return i.ref === cod;
+            }),
+            bx = document.createElement('div');
+          bx.className = 'estCod';
+          bx.innerHTML = '<small>Li na haste</small><b>' + esc(cod) + (r.medidas ? ' · ' + esc(r.medidas) : '') + '</b><span>' + (existe ? 'Já cadastrada: escolha a cor abaixo' : 'Ainda não cadastrada · guarde as fotos e o código vai junto') + '</span>';
+          var bs = $('estBusca');
+          if (bs) {
+            bs.parentNode.insertBefore(bx, bs);
+            if (existe) {
+              bs.value = cod;
+              lista(cod);
+            }
+          }
+          var nc = ov.querySelector('.estNc');
+          if (nc && !existe) {
+            nc.textContent = 'Guardar com o código ' + cod + ' · cadastrar depois';
+            nc.classList.add('go');
+          }
+        })
+        .catch(function () {});
     var termina = function (msg) {
       ov.remove();
       saveSoon();
@@ -1641,7 +1689,7 @@
       }
       if (b.dataset.d === 'pend') {
         var id = 'p' + Date.now().toString(36);
-        S.estPend = (S.estPend || []).concat([{ id: id, ts: Date.now(), t: thumbOf(fr.cv), t34: F['34'] ? thumbOf(F['34'].cv) : '', n: fr.n, giro: !!ctx.giro }]);
+        S.estPend = (S.estPend || []).concat([{ id: id, ts: Date.now(), t: thumbOf(fr.cv), t34: F['34'] ? thumbOf(F['34'].cv) : '', n: fr.n, giro: !!ctx.giro, cod: codLido || '' }]);
         idbDo('hq', 'readwrite', function (o) {
           if (ctx.giro) o.put(ctx.giro, 'pend|' + id + '|giro');
           if (F['34']) o.put(F['34'].cv.toDataURL('image/jpeg', 0.92), 'pend|' + id + '|34');
@@ -1884,11 +1932,24 @@
         '<div class="estResT">Sessão concluída</div><div class="estResS">' + r.n + (r.n === 1 ? ' peça' : ' peças') + ' · ' + r.fotos + (r.fotos === 1 ? ' foto' : ' fotos') + ' · ' + min + ' min</div>' +
         '<div class="estResL"><span>Já no catálogo e no site<small>as fotos novas entraram sozinhas</small></span><b class="ok">✓</b></div>' +
         (r.refazer.length ? '<div class="estResL"><span>' + r.refazer.length + ' para refazer<small>' + esc(r.refazer.slice(0, 3).join(' · ')) + '</small></span><b>›</b></div>' : '') +
-        '<button type="button" class="go" data-act="estResFecha">Fechar</button>';
+        // v465 (Estúdio extra 7): posts prontos com as peças desta sessão (Marketing monta com nome e preço)
+        ((r.refs || []).length && typeof mkCria === 'function'
+          ? '<div class="estResP">Posts prontos com ' + (r.refs.length === 1 ? 'a peça nova' : 'as ' + Math.min(r.refs.length, 4) + ' peças novas') + '</div><div class="estResB"><button type="button" class="go" data-act="estPost" data-id="status">Status do WhatsApp</button><button type="button" class="mini" data-act="estPost" data-id="post">Instagram</button></div>'
+          : '') +
+        '<button type="button" class="estResX" data-act="estResFecha">Fechar</button>';
     lfaAbre('estResF', h);
     ACT.estResFecha = function () {
       lfaFecha('estResF');
       if (depois) depois();
+    };
+    ACT.estPost = function (fmt) {
+      lfaFecha('estResF');
+      [].forEach.call(document.querySelectorAll('.estOv'), function (x) {
+        x.remove();
+      });
+      setTimeout(function () {
+        mkCria(fmt === 'post' ? 'post' : 'status', (r.refs || []).slice(0, 4));
+      }, 260);
     };
   }
   // v465: o "?" do Estúdio — tudo o que antes ficava na tela (montagem, medir fundo, o que o celular libera, giro, guia)
@@ -1921,4 +1982,72 @@
         else if (id === 'lib') estLibera();
       }, 240);
     };
+  }
+  // v465: cor média da peça (o que não é fundo branco) para conferir a cor
+  function estCorMedia(src) {
+    var c = document.createElement('canvas'),
+      W = 64,
+      H = Math.max(1, Math.round((64 * (src.height || 1)) / (src.width || 1)));
+    c.width = W;
+    c.height = H;
+    var g = c.getContext('2d', { willReadFrequently: true });
+    g.drawImage(src, 0, 0, W, H);
+    var d = g.getImageData(0, 0, W, H).data,
+      r = 0,
+      gg = 0,
+      b = 0,
+      n = 0;
+    for (var i = 0; i < d.length; i += 4) {
+      var l = d[i] * 0.3 + d[i + 1] * 0.59 + d[i + 2] * 0.11;
+      if (l < 225) {
+        r += d[i];
+        gg += d[i + 1];
+        b += d[i + 2];
+        n++;
+      }
+    }
+    return n > 20 ? [r / n, gg / n, b / n] : null;
+  }
+  function estImgDe(url) {
+    return new Promise(function (ok) {
+      var im = new Image();
+      im.onload = function () {
+        ok(im);
+      };
+      im.onerror = function () {
+        ok(null);
+      };
+      im.src = url;
+    });
+  }
+  // Devolve o nome de outra cor do mesmo modelo que parece MUITO mais com a foto, ou null.
+  function estCorConfere(cv, ctx) {
+    if (!ctx.k || !ctx.ref || !(S.fotos && S.fotos[ctx.k])) return Promise.resolve(null);
+    var outras = estChaves().filter(function (x) {
+      return x.ref === ctx.ref && x.k !== ctx.k && S.fotos && S.fotos[x.k];
+    });
+    if (!outras.length) return Promise.resolve(null);
+    var nova = estCorMedia(cv);
+    if (!nova) return Promise.resolve(null);
+    var dist = function (a, b) {
+      return a && b ? Math.sqrt(Math.pow(a[0] - b[0], 2) + Math.pow(a[1] - b[1], 2) + Math.pow(a[2] - b[2], 2)) : 1e9;
+    };
+    return Promise.all([estImgDe(S.fotos[ctx.k])].concat(outras.map(function (x) {
+      return estImgDe(S.fotos[x.k]);
+    }))).then(function (ims) {
+      var dEla = dist(nova, ims[0] ? estCorMedia(ims[0]) : null),
+        melhor = null,
+        dm = 1e9;
+      outras.forEach(function (x, i) {
+        var d = dist(nova, ims[i + 1] ? estCorMedia(ims[i + 1]) : null);
+        if (d < dm) {
+          dm = d;
+          melhor = x.cor;
+        }
+      });
+      // margem grande: a outra cor tem de estar MUITO mais perto (metade da distância) e a própria bem longe
+      return melhor && dEla > 40 && dm < dEla * 0.5 ? melhor : null;
+    }).catch(function () {
+      return null;
+    });
   }
