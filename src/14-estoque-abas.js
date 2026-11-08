@@ -95,6 +95,7 @@
       on = ts.length === 1 && ts[0] === 'pre' && !S.lotesView && !S.repoView && !S.cont && !S.det;
     // v469: o mapa virou a folha "Graus de leitura" (98-graus-folha.js), aberta pelo botão redondo
     if (typeof grauBotao === 'function') grauBotao(on);
+    if (typeof invPos === 'function') invPos();
   }
   // Aba Reposição: o que comprar por grau, em pacotes.
   function renderReposicao() {

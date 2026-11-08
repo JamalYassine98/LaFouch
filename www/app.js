@@ -1048,9 +1048,9 @@
     return s !== tks.join(' ') ? s : '';
   }
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 470;
+  var APP_BUILD = 471;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.8.2'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.8.3'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -3005,6 +3005,15 @@
     // v441: fora do Inventário (e sem nada dele aberto por cima) não redesenha a lista inteira — era a maior conta de cada toque
     var ve = $('v-estoque');
     if (S.view !== 'estoque' && !S._rtudo && !S.addOpen && ve && ve.childElementCount && !(ve.offsetParent || ve.getClientRects().length)) return;
+    // v471: a peça aberta a partir de "Todos" não deixa filtro ligado: ao fechar, a lista volta como estava
+    if (S.tipoAuto && !S.det) {
+      var ta = S.tipoAuto;
+      S.tipoAuto = null;
+      S.todos = true;
+      S.selSet = ta.selSet || [];
+      S.q = ta.q || '';
+      if ($('q')) $('q').value = S.q;
+    }
     S.fmtF = 'all';
     var t = T(),
       isPre = S.tipo === 'pre',
@@ -3602,7 +3611,7 @@
           $('q').value = '';
         }
       ]);
-    if (!S.todos && !S.lotesView)
+    if (!S.todos && !S.lotesView && !S.tipoAuto)
       act.unshift([
         t.label,
         function () {
@@ -3655,6 +3664,10 @@
     fs.hidden = !act.length;
 
     var refs = Array.from(new Set(fl.map(kOf))).sort();
+    if (S.sitF && typeof invSitOk === 'function')
+      refs = refs.filter(function (k) {
+        return invSitOk(k.split('|').pop());
+      });
     if (S.sortO) {
       var rn = function (k) {
         return pn(k.indexOf('|') >= 0 ? k.slice(k.indexOf('|') + 1) : k);
@@ -3800,6 +3813,7 @@
             return;
           }
           if (S.todos) {
+            S.tipoAuto = { selSet: (S.selSet || []).slice(), q: S.q };
             S.todos = false;
             S.lotesView = false;
             S.tipo = ri[0].tipo;
@@ -3826,21 +3840,17 @@
         })
       ) {
         var bg = mk('span', 'cbadge', '!');
+        bg.hidden = true; // v471: o aviso de custo virou o ! âmbar ao lado do preço
         bg.title = 'Sem preço de custo detalhado';
         bg.setAttribute('role', 'img');
         bg.setAttribute('aria-label', 'Sem preço de custo detalhado');
         card.appendChild(bg);
       }
-      card.appendChild(photoBox(photoOf(rr), 'pbox'));
+      if (!ri[0].bulk) card.appendChild(photoBox(photoOf(rr), 'pbox')); // v471: lote do fornecedor não tem foto
       card.appendChild(mk('b', '', pn(rr)));
       var encD = encDias(rr); // v426: parada 120+ dias
       if (encD) card.appendChild(mk('span', 'encTag', 'Encalhada · ' + encD + ' dias'));
-      var fxe = faixaOf(rr);
-      if (fxe) {
-        var fte = faixaTag(fxe);
-        fte.style.alignSelf = 'flex-start';
-        card.appendChild(fte);
-      }
+      // v471: o selo da faixa saiu do cartão (o preço já diz a faixa)
       if (S.pnome && S.pnome[rr]) {
         var cdl = mk('span', 's', 'Código ' + rr);
         if (gk) {
@@ -5470,6 +5480,7 @@
       on = ts.length === 1 && ts[0] === 'pre' && !S.lotesView && !S.repoView && !S.cont && !S.det;
     // v469: o mapa virou a folha "Graus de leitura" (98-graus-folha.js), aberta pelo botão redondo
     if (typeof grauBotao === 'function') grauBotao(on);
+    if (typeof invPos === 'function') invPos();
   }
   // Aba Reposição: o que comprar por grau, em pacotes.
   function renderReposicao() {
@@ -11637,11 +11648,13 @@
     if (atual > 0) {
       var p = mk('div', 'zp');
       p.innerHTML =
-        (pr.ant > atual ? '<s>' + gs(pr.ant) + '</s>' : '') + '<span' + (pr.ant > atual ? ' class="of"' : '') + '>' + gs(atual) + '</span>';
+        (pr.ant > atual ? '<s>' + gs(pr.ant) + '</s>' : '') + '<span' + (pr.ant > atual ? ' class="of"' : '') + '>' + gs(atual) + '</span>' + (typeof invSinal === 'function' ? invSinal(ref, tipo, ps) : '');
       var anchor = card.querySelector('.cell');
       card.insertBefore(p, anchor || null);
     }
-    if (ps && ps.st) {
+    if (atual > 0 || typeof invSinal !== 'function') {
+    } else card.insertBefore(mk('div', 'zp zpSem', 'sem preço'), card.querySelector('.cell'));
+    if (ps && ps.st && typeof invSinal !== 'function') {
       var b = mk('span', 'zbd ' + ps.st, ps.st === 'o' ? '✓ ok' : ps.st === 'w' ? '⚠ piso ' + gsRaw(ps.pp.piso) : 'custo ' + gsRaw(ps.pp.trava));
       card.appendChild(b);
     }
@@ -45699,6 +45712,357 @@
       });
     }, 1080);
   }
+  // ===== v471 (aprovado 08/11): Inventário limpo =====
+  // Sinal C no preço (✓ rosa = certo · ! âmbar = pede atenção), busca igual ao Catálogo, filtros no estilo do Catálogo
+  // com "Situação", e a lista "Preços para corrigir" (como a lista de compra da Reposição).
+
+  // ---------- preço: problema e sugestão ----------
+  function invSemCusto(ref) {
+    return S.items.some(function (i) {
+      return i.ref === ref && i.qty > 0 && !i.bulk && effCusto(i) == null;
+    });
+  }
+  // null = preço em ordem; senão { k: 'r' abaixo do custo | 'w' perto do mínimo | 'c' sem custo | 'p' sem preço, sug, txt }
+  function invPrecoProb(ref, tipo, ps) {
+    var it = itemDoRef(ref, tipo);
+    if (!it || it.bulk) return null;
+    if (ps === undefined) ps = pisoDoRef(ref, tipo || it.tipo);
+    var atual = precoAtual(ref, tipo || it.tipo),
+      piso = ps && ps.pp && ps.pp.piso > 0 ? ps.pp.piso : 0;
+    if (invSemCusto(ref)) return { k: 'c', sug: 0, txt: 'sem preço de custo' };
+    if (!(atual > 0)) return { k: 'p', sug: piso, txt: 'sem preço' };
+    if (ps && ps.st === 'r') return { k: 'r', sug: piso, txt: 'abaixo do custo', custo: ps.pp.trava, atual: atual };
+    if (ps && ps.st === 'w') return { k: 'w', sug: piso, txt: 'perto do mínimo', atual: atual };
+    return null;
+  }
+  // sinal fino ao lado do preço (opção C)
+  function invSinal(ref, tipo, ps) {
+    var pb = invPrecoProb(ref, tipo, ps);
+    if (pb) return '<i class="pSin ex" title="' + esc(pb.txt) + '" aria-label="Preço: ' + esc(pb.txt) + '">!</i>';
+    return ps && ps.st === 'o' ? '<i class="pSin ok" title="Preço certo" aria-label="Preço certo">✓</i>' : '';
+  }
+  // todas as peças com preço a corrigir (uma por código)
+  function invPrecosAcorrigir() {
+    var vis = {},
+      L = [];
+    S.items.forEach(function (i) {
+      if (vis[i.ref] || i.bulk || !(i.qty > 0)) return;
+      vis[i.ref] = 1;
+      var pb = invPrecoProb(i.ref, i.tipo);
+      if (pb) L.push({ ref: i.ref, tipo: i.tipo, pb: pb });
+    });
+    var ord = { r: 0, p: 1, w: 2, c: 3 };
+    return L.sort(function (a, b) {
+      return ord[a.pb.k] - ord[b.pb.k];
+    });
+  }
+
+  // ---------- Situação (filtro) ----------
+  var INV_SIT = [
+    ['preco', 'Preço a corrigir'],
+    ['pouco', 'Pouco estoque'],
+    ['esg', 'Esgotado'],
+    ['enc', 'Encalhada']
+  ];
+  function invSitOk(ref, sit) {
+    sit = sit || S.sitF;
+    if (!sit) return true;
+    var n = estoqueDoRef(ref);
+    if (sit === 'preco') return !!invPrecoProb(ref);
+    if (sit === 'pouco') return n > 0 && n <= 2;
+    if (sit === 'esg') return n === 0;
+    if (sit === 'enc') return typeof encDias === 'function' && encDias(ref) > 0;
+    return true;
+  }
+  try {
+    if (FKEYS.indexOf('sitF') < 0) FKEYS.push('sitF');
+  } catch (e) {}
+
+  // peças que a lista mostra agora (tipo, faixa, busca e situação)
+  function invPecas() {
+    var k = document.querySelector('#kCont b'),
+      n = k ? +String(k.textContent).replace(/\D/g, '') || 0 : 0;
+    if (!S.sitF) return n;
+    var ts = tSel();
+    return S.items.reduce(function (a, i) {
+      var noTipo = S.lotesView ? false : ts.length ? ts.indexOf(i.tipo) >= 0 : true;
+      return a + (noTipo && !i.bulk && invSitOk(i.ref) ? i.qty || 0 : 0);
+    }, 0);
+  }
+  // ---------- busca igual ao Catálogo (montada uma vez; o index.html do APK não muda) ----------
+  var ICO_AJ = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>';
+  function invBuscaMonta() {
+    var q = $('q'),
+      bf = $('btnFilt');
+    if (!q || !bf || $('invBs')) return;
+    var row = q.parentElement && q.parentElement.parentElement,
+      box = row && row.parentElement;
+    if (!row || !box) return;
+    var cam = row.querySelector('.ic:not(#btnFilt)');
+    var bs = document.createElement('div');
+    bs.className = 'bs';
+    bs.id = 'invBs';
+    bs.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>';
+    q.className = '';
+    q.style.cssText = '';
+    q.placeholder = 'Buscar peça, código, cor…';
+    bs.appendChild(q);
+    if (cam) {
+      cam.className = 'ic cam';
+      cam.style.cssText = '';
+      bs.appendChild(cam);
+    }
+    var sub = document.createElement('div');
+    sub.className = 'vsub';
+    sub.id = 'invSub';
+    var info = document.createElement('div');
+    info.id = 'invInfo';
+    info.className = 'vpcs';
+    sub.appendChild(info);
+    var dir = document.createElement('div');
+    dir.className = 'vdir';
+    sub.appendChild(dir);
+    bf.className = 'ic0';
+    bf.style.cssText = '';
+    bf.innerHTML = ICO_AJ;
+    dir.appendChild(bf);
+    var gb = $('btnGraus');
+    if (gb) dir.appendChild(gb);
+    row.textContent = '';
+    row.style.cssText = 'display:flex;flex-direction:column;gap:10px;max-width:560px;width:100%';
+    row.appendChild(bs);
+    row.appendChild(sub);
+    // sem as duas linhas e o vão em volta da busca
+    box.style.cssText = 'margin:14px 0 4px;padding:0;border:0;gap:10px';
+  }
+  // resumo "86 peças · Todos" e arrumações que dependem do desenho da lista
+  function invPos() {
+    invBuscaMonta();
+    var gb = $('btnGraus'),
+      dir = $('invSub') && $('invSub').querySelector('.vdir');
+    if (gb && dir && gb.parentElement !== dir) dir.appendChild(gb);
+    var info = $('invInfo');
+    if (info) {
+      var n = String(invPecas());
+      var lab = S.lotesView
+        ? 'Lotes'
+        : !S.todos
+          ? tipoOf(S.tipo).label
+          : S.selSet && S.selSet.length
+            ? S.selSet.map(function (id) { return tipoOf(id).label; }).join(' + ')
+            : 'Todos';
+      var extra = [];
+      if (S.faixaF) {
+        var fx = (S.faixas || []).filter(function (f) { return f.id === S.faixaF; })[0];
+        if (fx) extra.push(fx.nome);
+      }
+      if (S.sitF) {
+        var st = INV_SIT.filter(function (s) { return s[0] === S.sitF; })[0];
+        if (st) extra.push(st[1]);
+      }
+      info.textContent = (n ? n + (n === '1' ? ' peça' : ' peças') + ' · ' : '') + [lab].concat(extra).join(' · ');
+    }
+    invFiltrosEnfeita();
+    invAviso();
+  }
+
+  // ---------- folha de filtros no estilo do Catálogo ----------
+  function invFiltrosEnfeita() {
+    var fb = $('filtBox');
+    if (!fb) return;
+    if (!$('fbHd')) {
+      var hd = document.createElement('div');
+      hd.id = 'fbHd';
+      hd.innerHTML = '<span class="fbGr" aria-hidden="true"></span><div class="fbHdL"><h3>Filtros do inventário</h3><button type="button" id="fLimpar" data-act="invLimpa">Limpar</button></div>';
+      fb.insertBefore(hd, fb.firstChild);
+    }
+    // tipos: "Nome · 12" → nome à esquerda, número à direita; "Todos os produtos" vira "Todos"
+    [].forEach.call(document.querySelectorAll('#tipos > .tab'), function (b) {
+      if (b.querySelector('em')) return;
+      var m = (b.textContent || '').match(/^(.*) · (\d+)$/);
+      if (m) b.innerHTML = '<span>' + esc(m[1] === 'Todos os produtos' ? 'Todos' : m[1]) + '</span><em>' + m[2] + '</em>';
+    });
+    // Situação
+    var tp = $('tipos'),
+      sec = tp && tp.closest('section');
+    if (sec && !$('fSitB')) {
+      var d = document.createElement('div');
+      d.id = 'fSitB';
+      d.innerHTML = '<div class="lbl">Situação</div><div id="fSit"></div>';
+      sec.parentNode.insertBefore(d, sec.nextSibling);
+    }
+    var fs = $('fSit');
+    if (fs && S.filtOpen) {
+      fs.innerHTML = INV_SIT.map(function (s) {
+        var n = 0,
+          vis = {};
+        S.items.forEach(function (i) {
+          if (vis[i.ref] || i.bulk) return;
+          vis[i.ref] = 1;
+          if (invSitOk(i.ref, s[0])) n++;
+        });
+        var on = S.sitF === s[0];
+        return '<button type="button" class="tab' + (on ? ' on' : '') + '" data-act="invSit" data-id="' + s[0] + '" aria-pressed="' + on + '">' + (s[0] === 'preco' ? '<b class="pSin ex">!</b> ' : '') + '<span>' + s[1] + '</span><em>' + n + '</em></button>';
+      }).join('');
+    }
+    var ap = $('filtApply');
+    if (ap && S.filtOpen) {
+      var np = invPecas();
+      ap.textContent = 'Ver ' + np + (np === 1 ? ' peça' : ' peças');
+    }
+  }
+  // abrir a folha: vários tipos de uma vez (o botão "Selecionar vários" sai)
+  (function () {
+    var bf = $('btnFilt');
+    if (!bf) return;
+    var or = bf.onclick;
+    bf.onclick = function () {
+      or.apply(this, arguments);
+      if (S.filtOpen && !S.multi) {
+        S.multi = true;
+        render();
+      }
+    };
+  })();
+  ACT.invSit = function (k) {
+    S.sitF = S.sitF === k ? '' : k;
+    S.open = '';
+    S.det = false;
+    render();
+  };
+  ACT.invLimpa = function () {
+    S.todos = true;
+    S.selSet = [];
+    S.sortO = '';
+    S.faixaF = '';
+    S.fmtF = 'all';
+    S.corF = 'all';
+    S.sitF = '';
+    S.q = '';
+    if ($('q')) $('q').value = '';
+    S.open = '';
+    S.det = false;
+    render();
+  };
+
+  // ---------- Preços para corrigir ----------
+  function invAviso() {
+    var rows = $('rows');
+    if (!rows) return;
+    var av = $('invFix'),
+      mostra = S.view === 'estoque' && !S.lotesView && !S.repoView && !S.cont && !S.det && !S.selMode && !S.pdMode && S.sitF !== 'preco';
+    var L = mostra ? invPrecosAcorrigir() : [];
+    if (!L.length) {
+      if (av) av.remove();
+      return;
+    }
+    if (!av) {
+      av = document.createElement('div');
+      av.id = 'invFix';
+      av.className = 'invFix';
+      av.setAttribute('role', 'button');
+      av.tabIndex = 0;
+      av.setAttribute('data-act', 'pcAbre');
+    }
+    if (av.nextSibling !== rows) rows.parentNode.insertBefore(av, rows);
+    var c = { r: 0, w: 0, c: 0, p: 0 };
+    L.forEach(function (x) {
+      c[x.pb.k]++;
+    });
+    var det = [];
+    if (c.w) det.push(c.w + ' perto do mínimo');
+    if (c.r) det.push(c.r + ' abaixo do custo');
+    if (c.p) det.push(c.p + ' sem preço');
+    if (c.c) det.push(c.c + ' sem custo');
+    av.innerHTML = '<span class="ifIc" aria-hidden="true">!</span><span class="ifTx"><b>' + L.length + (L.length === 1 ? ' preço para corrigir' : ' preços para corrigir') + '</b><small>' + det.join(' · ') + '</small></span><span class="ifVer">Corrigir ›</span>';
+  }
+  function pcFolha() {
+    var L = invPrecosAcorrigir(),
+      comSug = L.filter(function (x) { return x.pb.sug > 0; });
+    var h = '<h3 class="pcT">Preços para corrigir</h3>';
+    if (!L.length) h += '<p class="pcVazio">Tudo certo: nenhum preço para corrigir.</p>';
+    h += L.map(function (x) {
+      var pb = x.pb,
+        ph = photoOf(x.ref),
+        linha2 =
+          pb.k === 'r'
+            ? 'custo ' + gs(pb.custo) + ' · mínimo pelas suas regras ' + gs(pb.sug)
+            : pb.k === 'w'
+              ? 'mínimo pelas suas regras ' + gs(pb.sug)
+              : pb.k === 'p'
+                ? pb.sug > 0 ? 'mínimo pelas suas regras ' + gs(pb.sug) : 'defina o preço do produto'
+                : 'informe o custo para o app calcular';
+      return (
+        '<div class="pcLi">' + (ph ? '<img src="' + ph + '" alt="">' : '<span class="pcSf"></span>') +
+        '<span class="pcTx"><b>' + esc(pn(x.ref)) + '</b><small class="' + (pb.k === 'r' ? 'r' : '') + '">' + esc(pb.txt) + (pb.atual ? ' · ' + gs(pb.atual) : '') + '</small><span>' + linha2 + '</span></span>' +
+        (pb.sug > 0
+          ? '<button type="button" class="pcUsa" data-act="pcUsa" data-id="' + esc(x.ref) + '">Usar ' + gsRaw(pb.sug) + '</button>'
+          : '<button type="button" class="pcUsa" data-act="pcInforma" data-id="' + esc(x.ref) + '">Informar</button>') +
+        '</div>'
+      );
+    }).join('');
+    if (L.length)
+      h += '<div class="pcTot"><span>' + L.length + (L.length === 1 ? ' peça' : ' peças') + ' · ' + comSug.length + ' com sugestão</span></div>';
+    h += '<div class="pcFt">' + (comSug.length ? '<button type="button" class="go" data-act="pcUsaTodos">Usar os sugeridos (' + comSug.length + ')</button>' : '') + '<button type="button" class="pcFe" data-act="pcFecha">Fechar</button></div>';
+    lfaAbre('pcFolha', h);
+  }
+  function pcPoe(ref, g) {
+    var r = fxUsdLoja();
+    if (!(g > 0) || !(r > 0)) return false;
+    var o = S.pprice[ref] || {};
+    // preço corrigido vira o preço normal (sai a oferta antiga, se houver)
+    delete o.ant;
+    delete o.au;
+    delete o.ga;
+    delete o.prev;
+    delete o.ate;
+    ppPutUsd(o, 'novo', Math.ceil((g / r) * 100 - 1e-9) / 100);
+    S.pprice[ref] = o;
+    return true;
+  }
+  ACT.pcAbre = function () {
+    pcFolha();
+  };
+  ACT.pcFecha = function () {
+    lfaFecha('pcFolha');
+  };
+  ACT.pcUsa = function (ref) {
+    var x = invPrecosAcorrigir().filter(function (y) { return y.ref === ref; })[0];
+    if (x && pcPoe(ref, x.pb.sug)) {
+      vibrar(10);
+      saveSoon();
+      render();
+      if (invPrecosAcorrigir().length) pcFolha();
+      else lfaFecha('pcFolha');
+    }
+  };
+  ACT.pcUsaTodos = function () {
+    var n = 0;
+    invPrecosAcorrigir().forEach(function (x) {
+      if (x.pb.sug > 0 && pcPoe(x.ref, x.pb.sug)) n++;
+    });
+    if (n) {
+      vibrar(12);
+      saveSoon();
+      render();
+    }
+    if (invPrecosAcorrigir().length) pcFolha();
+    else lfaFecha('pcFolha');
+  };
+  // sem custo: abre a peça para informar o custo
+  ACT.pcInforma = function (ref) {
+    lfaFecha('pcFolha');
+    var it = itemDoRef(ref);
+    if (!it) return;
+    S.tipoAuto = S.todos ? { selSet: (S.selSet || []).slice(), q: S.q } : S.tipoAuto;
+    S.todos = false;
+    S.tipo = it.tipo;
+    S.open = ref;
+    S.det = true;
+    S.selItem = null;
+    S.qEdit = true;
+    render();
+  };
   // Volta do segundo plano: alguns celulares deixam a tela vazia até encostar nela (o app já está pronto, só não foi desenhado).
   // Força um novo desenho ao voltar, e de novo um instante depois.
   (function () {

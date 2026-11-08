@@ -99,11 +99,13 @@
     if (atual > 0) {
       var p = mk('div', 'zp');
       p.innerHTML =
-        (pr.ant > atual ? '<s>' + gs(pr.ant) + '</s>' : '') + '<span' + (pr.ant > atual ? ' class="of"' : '') + '>' + gs(atual) + '</span>';
+        (pr.ant > atual ? '<s>' + gs(pr.ant) + '</s>' : '') + '<span' + (pr.ant > atual ? ' class="of"' : '') + '>' + gs(atual) + '</span>' + (typeof invSinal === 'function' ? invSinal(ref, tipo, ps) : '');
       var anchor = card.querySelector('.cell');
       card.insertBefore(p, anchor || null);
     }
-    if (ps && ps.st) {
+    if (atual > 0 || typeof invSinal !== 'function') {
+    } else card.insertBefore(mk('div', 'zp zpSem', 'sem preço'), card.querySelector('.cell'));
+    if (ps && ps.st && typeof invSinal !== 'function') {
       var b = mk('span', 'zbd ' + ps.st, ps.st === 'o' ? '✓ ok' : ps.st === 'w' ? '⚠ piso ' + gsRaw(ps.pp.piso) : 'custo ' + gsRaw(ps.pp.trava));
       card.appendChild(b);
     }

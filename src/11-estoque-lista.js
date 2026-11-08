@@ -4,6 +4,15 @@
     // v441: fora do Inventário (e sem nada dele aberto por cima) não redesenha a lista inteira — era a maior conta de cada toque
     var ve = $('v-estoque');
     if (S.view !== 'estoque' && !S._rtudo && !S.addOpen && ve && ve.childElementCount && !(ve.offsetParent || ve.getClientRects().length)) return;
+    // v471: a peça aberta a partir de "Todos" não deixa filtro ligado: ao fechar, a lista volta como estava
+    if (S.tipoAuto && !S.det) {
+      var ta = S.tipoAuto;
+      S.tipoAuto = null;
+      S.todos = true;
+      S.selSet = ta.selSet || [];
+      S.q = ta.q || '';
+      if ($('q')) $('q').value = S.q;
+    }
     S.fmtF = 'all';
     var t = T(),
       isPre = S.tipo === 'pre',
@@ -601,7 +610,7 @@
           $('q').value = '';
         }
       ]);
-    if (!S.todos && !S.lotesView)
+    if (!S.todos && !S.lotesView && !S.tipoAuto)
       act.unshift([
         t.label,
         function () {
@@ -654,6 +663,10 @@
     fs.hidden = !act.length;
 
     var refs = Array.from(new Set(fl.map(kOf))).sort();
+    if (S.sitF && typeof invSitOk === 'function')
+      refs = refs.filter(function (k) {
+        return invSitOk(k.split('|').pop());
+      });
     if (S.sortO) {
       var rn = function (k) {
         return pn(k.indexOf('|') >= 0 ? k.slice(k.indexOf('|') + 1) : k);
@@ -799,6 +812,7 @@
             return;
           }
           if (S.todos) {
+            S.tipoAuto = { selSet: (S.selSet || []).slice(), q: S.q };
             S.todos = false;
             S.lotesView = false;
             S.tipo = ri[0].tipo;
@@ -825,21 +839,17 @@
         })
       ) {
         var bg = mk('span', 'cbadge', '!');
+        bg.hidden = true; // v471: o aviso de custo virou o ! âmbar ao lado do preço
         bg.title = 'Sem preço de custo detalhado';
         bg.setAttribute('role', 'img');
         bg.setAttribute('aria-label', 'Sem preço de custo detalhado');
         card.appendChild(bg);
       }
-      card.appendChild(photoBox(photoOf(rr), 'pbox'));
+      if (!ri[0].bulk) card.appendChild(photoBox(photoOf(rr), 'pbox')); // v471: lote do fornecedor não tem foto
       card.appendChild(mk('b', '', pn(rr)));
       var encD = encDias(rr); // v426: parada 120+ dias
       if (encD) card.appendChild(mk('span', 'encTag', 'Encalhada · ' + encD + ' dias'));
-      var fxe = faixaOf(rr);
-      if (fxe) {
-        var fte = faixaTag(fxe);
-        fte.style.alignSelf = 'flex-start';
-        card.appendChild(fte);
-      }
+      // v471: o selo da faixa saiu do cartão (o preço já diz a faixa)
       if (S.pnome && S.pnome[rr]) {
         var cdl = mk('span', 's', 'Código ' + rr);
         if (gk) {

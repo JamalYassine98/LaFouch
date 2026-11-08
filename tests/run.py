@@ -1022,6 +1022,31 @@ async def main():
             if not ok: falhas.append('v470 ajustes grupo'); print('        veio', aj, pg.erros)
             await pg.close()
 
+            # v471: Inventário limpo — sinal C no preço, sem selo de faixa, busca do Catálogo, Situação, preços para corrigir, abrir sem ligar filtro
+            pg = await pagina()
+            await pg.evaluate("() => { const L = window.__LF, S = L.S; S.todos = true; S.selSet = []; S.det = false; S.cont = false; S.sitF = ''; L.setView('estoque'); }"); await pg.wait_for_timeout(500)
+            v1 = await pg.evaluate("""() => { const c = [...document.querySelectorAll('#rows .pcard')];
+              return [!!document.getElementById('invBs') && document.getElementById('invBs').contains(document.getElementById('q')), /peças · Todos/.test(document.getElementById('invInfo').innerText),
+                c.some(x => x.querySelector('.pSin')), !document.querySelector('#rows .pcard .ftag, #rows .pcard .zbd:not([hidden])') || getComputedStyle(document.querySelector('#rows .pcard .zbd') || document.body).display === 'none', !!document.getElementById('invFix')]; }""")
+            f1 = await pg.evaluate("""async () => { const w = ms => new Promise(r => setTimeout(r, ms)); const S = window.__LF.S; const c = [...document.querySelectorAll('#rows .pcard[data-ref]')].find(x => !/Lote|modelos/.test(x.innerText));
+              c.click(); await w(400); const durante = [S.todos, S.det, /×/.test(document.getElementById('fsum').innerText)]; S.det = false; S.open = ''; window.__LF.render(); await w(300); return durante.concat([S.todos]); }""")
+            await pg.click('#btnFilt'); await pg.wait_for_timeout(400)
+            n0 = await pg.evaluate("() => document.getElementById('filtApply').innerText")
+            await pg.click('#fSit [data-id="preco"]'); await pg.wait_for_timeout(400)
+            n1 = await pg.evaluate("() => [document.getElementById('filtApply').innerText, window.__LF.S.multi, [...document.querySelectorAll('#rows .pcard[data-ref]')].length]")
+            await pg.click('#filtApply'); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => window.__LF.ACT.invLimpa()"); await pg.wait_for_timeout(300)
+            await pg.click('#invFix'); await pg.wait_for_timeout(500)
+            antes = await pg.evaluate("() => document.querySelectorAll('#pcFolha .pcLi').length")
+            ref1 = await pg.evaluate("() => { const b = document.querySelector('#pcFolha [data-act=pcUsa]'); return b ? b.getAttribute('data-id') : ''; }")
+            if ref1: await pg.click('#pcFolha [data-act=pcUsa]'); await pg.wait_for_timeout(500)
+            depois = await pg.evaluate("(r) => [document.querySelectorAll('#pcFolha .pcLi').length, !!(window.__LF.S.pprice[r] && window.__LF.S.pprice[r].novo)]", ref1)
+            total += 1
+            ok = v1 == [True, True, True, True, True] and f1 == [False, True, False, True] and n0 != n1[0] and n1[1] is True and n1[2] > 0 and ref1 and depois == [antes - 1, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'v471: Inventário limpo — busca do Catálogo, sinal no preço, Situação, preços para corrigir (Usar X), abrir peça não liga filtro')
+            if not ok: falhas.append('v471 inventario limpo'); print('        veio', v1, f1, n0, n1, antes, ref1, depois, pg.erros)
+            await pg.close()
+
             # Pedido com linhas, frete rateado e cadastro enxuto
             pg = await pagina()
             await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.grp = []; S.cash.usd = 1000; S.addOpen = true; S.addMode = 'lote';

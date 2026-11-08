@@ -116,3 +116,11 @@ Produto → "Adicionar pedido" (`98-carrinho.js`, `S.cart`) → Pedido (`cartPai
 - `98-trava-rolagem.js`: trava única — MutationObserver vê `.modal`, `.lfa-ov`, `.ljBk`, `.lfEspia`; aberto → `html.lfTrava` + `body.top=-y`; fechou → volta na posição (scroll instantâneo). Não age com `html.mcTrava` (modo cliente).
 - Contador `#kCont`: sem outline; `aria-pressed=true` deixa `.lbl/.hint` rosa (CSS) e a dica vira "contando · toque para fechar" (97-contagem.js).
 - Barra `#lt/#btnSelP/#lh` escondida por JS (11-estoque-lista.js); seleção pelo espiar no Inventário (`espSelP`).
+
+## Inventário limpo v471 — `98-inv-limpo.js`
+- `invPrecoProb(ref,tipo,ps)` → r (abaixo do custo) / w (perto do mínimo) / p (sem preço) / c (sem custo), `sug` = piso (`pisoPeca`). `invSinal` = ✓ rosa / ! âmbar ao lado do preço (chamado em `prodDecor`).
+- Situação: `S.sitF` (preco/pouco/esg/enc) em FKEYS; `invSitOk` filtra `refs` em 11-estoque-lista.js.
+- Busca: `invBuscaMonta` remonta a linha (#q dentro de `.bs#invBs`, leitor dentro; `#invSub` com `#invInfo` + `#btnFilt` (ícone ajustes) + `#btnGraus`). `invPos` roda no fim de `renderMapaGraus`.
+- Folha de filtros: CSS em #filtPanel/#filtBox (folha de baixo), `#fbHd` (Limpar = `ACT.invLimpa`), `#fSit`; abrir liga `S.multi` (vários tipos); "Ver N peças" (`invPecas`).
+- Preços para corrigir: aviso `#invFix` acima de #rows; folha `#pcFolha` (`ACT.pcUsa`, `pcUsaTodos` gravam `S.pprice[ref].novo` = piso e tiram a oferta; `pcInforma` abre a peça).
+- `S.tipoAuto`: abrir peça a partir de "Todos" não mostra filtro e volta ao fechar. Lote a granel (fornecedor) sem foto no cartão.
