@@ -1305,3 +1305,5 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Seção #duvidas removida; /duvidas e /dudas abrem a Ajuda já em Dúvidas (wrappers de openPanel/goTo antes do rtEntra).
 - Menu: grupo "Ajuda" com um item "Como comprar, dúvidas e guia"; rodapé idem; nav do topo "Ajuda".
 - Dúvidas: 4 perguntas do esboço (pagamento, reserva, receita, troca). As antigas "delivery fora do PY" e "frete" saíram (delivery coberto no passo 4).
+
+- 08/11: rodapé do celular — Contato na coluna da direita, embaixo de Ajuda (pedido do dono).
