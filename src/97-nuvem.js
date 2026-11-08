@@ -122,7 +122,10 @@
         if (lf && lf.getAttribute('src')) lf.src = LOJA_URL; // o painel abre já conectado, com esta mesma sessão
         lfaToast('<span class="lfa-ic">' + lfaSvg('check') + '</span><div><b>Nuvem conectada</b><div class="hint" style="margin:0">O painel do site entra sozinho, com a mesma conta</div></div>', 3200, 'b');
         nvMsg('Conectado. Procurando cópias na nuvem…');
-        return nvBackup().then(nvCotacao);
+        try {
+          apReg(true);
+        } catch (e) {}
+        return nvAoConectar();
       })
       .catch(function () {
         nvMsg('E-mail ou senha incorretos (ou sem internet).');
@@ -183,7 +186,10 @@
                 ts: { integerValue: String(S.siteFx ? S.siteFx.ts : Date.now()) },
                 partes: { integerValue: String(n) },
                 gz: { booleanValue: p.gz },
-                kb: { integerValue: String(Math.round(txt.length / 1024)) }
+                kb: { integerValue: String(Math.round(txt.length / 1024)) },
+                tsr: { integerValue: String(Date.now()) },
+                mod: { integerValue: String(nvContagem().mod) },
+                ven: { integerValue: String(nvContagem().ven) }
               }
             })
           );
@@ -257,7 +263,7 @@
       (j.documents || []).forEach(function (d) {
         var id = d.name.split('/').pop();
         if (/^\d{4}-\d{2}-\d{2}$/.test(id) && d.fields)
-          l.push({ id: id, ts: +(d.fields.ts || {}).integerValue || 0, kb: +(d.fields.kb || {}).integerValue || 0 });
+          l.push({ id: id, ts: +(d.fields.ts || {}).integerValue || 0, kb: +(d.fields.kb || {}).integerValue || 0, tsr: +(d.fields.tsr || {}).integerValue || 0, mod: +(d.fields.mod || {}).integerValue || 0, ven: +(d.fields.ven || {}).integerValue || 0 });
       });
       l.sort(function (a, b) {
         return b.id < a.id ? -1 : 1;
@@ -437,7 +443,7 @@
   // ---------- cartão em Ajustes
   function nvCard() {
     var h =
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Nuvem</h2><div class="hint" style="margin:2px 0 0">Cópia de segurança automática (1 por dia, as últimas ' +
+      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Nuvem</h2><div class="hint" style="margin:2px 0 0">Cópia de segurança automática (até 1 h depois de qualquer mudança; guarda a última de cada dia, as últimas ' +
       NV_GUARDA +
       ') e cotação da loja no site. Usa o mesmo e-mail e senha do catálogo.</div></div>';
     if (S.nvMsg) h += '<div class="note n-ok" role="status">' + esc(S.nvMsg) + '</div>';
@@ -487,5 +493,5 @@
       });
     }
     h += '</section>';
-    return h;
+    return h + (typeof apCardHtml === 'function' ? apCardHtml() : '');
   }

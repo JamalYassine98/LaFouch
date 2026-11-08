@@ -229,6 +229,8 @@
       'vitPend',
       'vitFoto',
       'vitErr',
+      'excl',
+      'nvHash',
       'cad',
       'memo',
       'cadInit',
@@ -518,6 +520,9 @@
       } catch (e) {}
       try {
         if (typeof vitAgora === 'function') vitAgora();
+      } catch (e) {}
+      try {
+        if (typeof exclConfere === 'function') exclConfere();
       } catch (e) {}
     }, 400);
   }

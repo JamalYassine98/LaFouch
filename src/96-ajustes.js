@@ -1,7 +1,7 @@
   // ===== Aba Ajustes: faixas, meta, contas e backup dos dados. =====
   // Gera o texto do backup (dados + fotos em miniatura).
   // dados que pertencem a ESTE aparelho e nunca viajam em cópia de segurança (a identidade de sincronização inclusa)
-  var SEM_BACKUP = ['pinHash', 'pinSalt', 'bioOn', 'lockMin', 'lockSens', 'nuvem', 'syncOn', 'aparelho', 'syncSnap', 'syncSeq', 'syncFeitos', 'syncOut', 'syncCur', 'resPend', 'resOrf', 'pixAuto', 'pixLog', 'aparNome', 'syncCfgTs', 'syncPutTs', 'syncPend', 'atv', 'atvPp', 'fotosH', 'fotosV', 'fotosRest'];
+  var SEM_BACKUP = ['pinHash', 'pinSalt', 'bioOn', 'lockMin', 'lockSens', 'nuvem', 'syncOn', 'aparelho', 'syncSnap', 'syncSeq', 'syncFeitos', 'syncOut', 'syncCur', 'resPend', 'resOrf', 'pixAuto', 'pixLog', 'aparNome', 'syncCfgTs', 'syncPutTs', 'syncPend', 'atv', 'atvPp', 'fotosH', 'fotosV', 'fotosRest', 'nvHash'];
   function backupDados(semFotos) {
     var d = {};
     PERSIST.forEach(function (k) {

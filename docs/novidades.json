@@ -1,8 +1,11 @@
 {
- "nome": "5.7.2",
+ "nome": "5.8.0",
  "notas": [
-  "Site em tempo real: venda, edição e troca de tipo chegam ao site em segundos",
-  "Um produto com problema não atrasa mais os outros no site",
-  "O envio ao site nunca fica travado: tenta de novo sozinho quando a internet volta"
+  "Nuvem: produto excluído não volta mais ao restaurar ou conectar",
+  "Ao conectar, o app compara a nuvem com este aparelho e você escolhe",
+  "Cópia automática até 1 hora depois de qualquer mudança",
+  "Ajustes › Aparelhos: desconecte um celular perdido ou roubado (ele apaga só os dados dele)",
+  "Sair de todos os aparelhos: troca a senha da nuvem e corta o acesso de todos",
+  "App novo abre vazio, pronto para trazer seus dados da nuvem"
  ]
 }

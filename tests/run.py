@@ -3032,6 +3032,47 @@ async def main():
             if not ok: falhas.append('salvamento seguro'); print('        veio', got, got2, pg.erros, pg2.erros)
             await pg2.close(); await pg.close(); await ctx.close()
 
+            # v468 NUVEM SEGURA: excluído não volta; ao conectar compara; cópia com contagens; aparelho desconectado apaga SÓ os dados dele
+            ctx = await b.new_context(viewport={'width': 420, 'height': 900}, color_scheme='dark', service_workers='block')
+            pg = await pagina(ctx=ctx)
+            nuv = []
+            async def falso468(route):
+                u, m = route.request.url, route.request.method
+                nuv.append(m + ' ' + u.split('/documents/')[-1].split('?')[0] if '/documents/' in u else m + ' ' + u[:60])
+                if 'securetoken' in u: await route.fulfill(json={'id_token': 't', 'refresh_token': 'r'})
+                elif m == 'GET' and '/documents/backups/zap-' in u: await route.fulfill(json={'fields': {'rev': {'booleanValue': True}}})
+                elif m == 'GET' and u.split('?')[0].endswith('/documents/backups'): await route.fulfill(json={'documents': [{'name': 'x/backups/2026-11-08', 'fields': {'ts': {'integerValue': '1'}, 'tsr': {'integerValue': '1794150000000'}, 'kb': {'integerValue': '900'}, 'mod': {'integerValue': '22'}, 'ven': {'integerValue': '34'}}}]})
+                else: await route.fulfill(json={})
+            await pg.context.route(re.compile(r'(securetoken|firestore|identitytoolkit)\.googleapis\.com'), falso468)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              const ref0 = S.items[0].ref; const bk = L.backupDados(true);
+              S.items = S.items.filter(i => i.ref !== ref0); L.limpaRefExcluido(ref0); const marcou = !!(S.excl && S.excl[ref0]);
+              const er = L.restaurarDados(bk); const voltou = S.items.some(i => i.ref === ref0);
+              S.items.push(Object.assign({}, JSON.parse(bk).d.items.find(i => i.ref === ref0))); L.saveSoon(); await w(900); const er2 = L.restaurarDados(bk); const recad = S.items.some(i => i.ref === ref0);
+              return [marcou, er, voltou, er2, recad]; }""")
+            got2 = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              S.nuvem.rt = 'x'; S.nvLista = null; await window.__nvSeg.nvAoConectar(); await w(500);
+              const f = document.getElementById('nvCmpF'); const t = f ? f.innerText : '';
+              return [!!f, /22 modelos · 34 vendas/.test(t), /Trazer meus dados da nuvem/.test(t), /Manter os dados deste aparelho/.test(t)]; }""")
+            nuv.clear()
+            await pg.evaluate("() => { window.__LF.ACT.nvCmpTraz(); }"); await pg.wait_for_timeout(800)
+            trouxe = any(x.startswith('GET backups/2026-11-08') for x in nuv)
+            card = await pg.evaluate("() => { const S = window.__LF.S; S.view = 'ajustes'; S._syncAps = [{ap: S.aparelho || 'APEU', nome: 'Celular Android', ts: Date.now()}, {ap: 'APXY', nome: 'PC Windows', ts: Date.now() - 3600000}]; if (!S.aparelho) S.aparelho = 'APEU'; return window.__nvSeg.apCard(); }")
+            okcard = 'este aparelho' in card and 'data-act="syncdesc" data-id="APXY"' in card and 'Sair de todos os aparelhos' in card
+            nuv.clear()
+            await pg.evaluate("() => { const S = window.__LF.S; S.sales[0].obs = 'marca-v468'; window.__LF.salvarAgora(); }"); await pg.wait_for_timeout(700)
+            await pg.evaluate("() => { const S = window.__LF.S; S.nuvem.rt = 'x'; S.aparelho = 'APEU'; window.__nvSeg.apConfere(); }")
+            await pg.wait_for_timeout(3500)
+            pg2 = await ctx.new_page(); pg2.erros = []; pg2.on('pageerror', lambda e: pg2.erros.append(str(e)))
+            await pg2.goto(f'http://localhost:{PORTA}/index.html#test'); await pg2.wait_for_function('window.__LF', timeout=10000); await pg2.wait_for_timeout(600)
+            got3 = await pg2.evaluate("() => { const S = window.__LF.S; return [!!localStorage.getItem('lf_desc'), !(S.nuvem && S.nuvem.rt), !(S.sales[0] && S.sales[0].obs === 'marca-v468')]; }")
+            apagouNuvem = [x for x in nuv if x.startswith('DELETE')]
+            total += 1
+            ok = got == [True, '', False, '', True] and got2 == [True, True, True, True] and trouxe and okcard and got3 == [True, True, True] and not apagouNuvem and not pg.erros and not pg2.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'v468 nuvem segura: excluído não volta (só se recadastrar), ao conectar compara e traz, Aparelhos/Sair de todos, desconectado apaga só os dados dele (nada na nuvem)')
+            if not ok: falhas.append('v468 nuvem segura'); print('        veio', got, got2, trouxe, okcard, got3, apagouNuvem, pg.erros, pg2.erros)
+            await pg2.close(); await pg.close(); await ctx.close()
+
             # Arquivo das vendas antigas (v438): >12 meses viram resumo por mês; nada se perde; volta pelo Histórico; vai na cópia
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

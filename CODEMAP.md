@@ -100,3 +100,13 @@ Produto → "Adicionar pedido" (`98-carrinho.js`, `S.cart`) → Pedido (`cartPai
 
 ## App → site (v467)
 `96-loja-online.js`: `vitConfere` (a cada 60 s, ao abrir/voltar a internet e ~1 s depois de qualquer `saveSoon` via `vitAgora`) compara a assinatura de cada produto liberado e enfileira (`S.vitPend`). `vitSync` envia os produtos em paralelo e independentes (`vitUm`): 1º os dados (sem `fv`), depois as fotos e por fim `fv`; `vitApi` desiste em 15 s e renova o token 1 vez em 401/403. Erro fica só interno (`S.vitErr`, espera crescente por produto, sem tela). Depois de publicar, grava `config/site.pv`; o site (`prodVivo`, a cada 20 s) só busca os produtos de novo quando `pv` muda.
+
+## Nuvem segura (v468) — `97-nuvem-segura.js`
+- Excluídos: `S.excl {ref: ts}` marcado em `limpaRefExcluido` (wrapper). `restaurarDados` (wrapper) junta as marcas e chama `exclLimpa`; `syncAplica` (wrapper) ignora movimento que recriaria modelo marcado; `exclConfere` (no `saveSoon`) tira a marca se o modelo existir de novo no aparelho. Marca perde efeito se `S.cad[ref]` for mais novo.
+- Conectar: `ACT.nvEntrar` → `nvAoConectar` (folha `#nvCmpF`: nuvem × aparelho; `nvCmpTraz` restaura a cópia mais recente, `nvCmpFica` mantém). Cópias guardam `tsr`, `mod`, `ven`.
+- Cópia automática: `nvAuto2` (a cada 5 min; copia se passou 1 h e os dados mudaram — hash em `S.nvHash`; ou 20 h).
+- Aparelhos: `apReg` (doc `backups/zap-<AP>`, só nome/ts/ap), `apConfere` (rev → `apApagaTudo`), `nvToken` (wrapper: token revogado → `apApagaTudo`). `apApagaTudo` limpa localStorage/sessionStorage/IndexedDB `lafouch-fotos` e recarrega; NUNCA chama a nuvem. Tela: `apCardHtml` (dentro de Ajustes › Cópias e nuvem): desconectar (`ACT.syncdesc`) e "Sair de todos" (`ACT.apSairTodos` → identitytoolkit accounts:update + rev nos outros).
+- App novo abre vazio (`primeiroUso` só carrega SEED no `#test`); Início mostra `nvBemVindoHtml`.
+
+## Site: navegação (08/11) — `catalogo/index.html`
+`NAVO` guarda de onde a peça foi aberta (captura de clique: home/vitrine/busca/favoritos; sem clique = link). `navTxt` dá o texto do voltar (B′, `.navb`), `navVolta` leva ao destino (busca reabre `V5.sabre`, favoritos `__fshAbre`, link abre a vitrine da categoria). Vitrine: `openPanel` empilha `{lfv:1}` no histórico; popstate fecha/abre; `.vnav` (‹ Início + título `#vtitT` com `#vtitN`), folha `#vcs`. Logo = Início. `navRel` troca "Combina também" por "Mais <cat> · Ver todas ›". `NAV_LV` = "Você estava vendo" no destaque (24 h, nova visita). Abrir/fechar peça desliza (`navIn` / `#lfGhost`).

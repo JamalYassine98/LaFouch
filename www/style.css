@@ -1996,3 +1996,20 @@ html[data-tema="claro"]{--accent:#8d3a69;--accent-fg:#8d3a69;--accent-soft:#f6e9
 #estResF .estResX{display:block;width:100%;background:none;border:0;color:var(--mute);font-size:14px;padding:14px 0 4px}
 #estCorF{z-index:400}#estCorF .estCorT{font-size:17px;font-weight:700;margin:2px 0 10px}#estCorF .estCorB{display:flex;gap:10px}#estCorF .estCorB button{flex:1;min-height:48px}
 .estCod{border:1px solid var(--line2);border-radius:14px;padding:12px 14px;margin:0 0 10px}.estCod small{display:block;font-size:12.5px;color:var(--mute)}.estCod b{display:block;font-size:18px;margin-top:2px}.estCod span{display:block;font-size:13px;color:var(--mute);margin-top:4px}
+
+/* v468 nuvem segura */
+.nvCmp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 14px}
+.nvCmp>div{border:1px solid var(--line,rgba(127,127,127,.2));border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:3px;background:var(--panel2,transparent)}
+.nvCmp small{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);font-weight:700}
+.nvCmp b{font-size:15px}.nvCmp span{font-size:13px;color:var(--mut)}
+.apLn{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line,rgba(127,127,127,.15))}
+.apLn>span{display:flex;flex-direction:column;gap:2px;min-width:0}.apLn small{color:var(--mut);font-size:12.5px}
+.apEu{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:999px;background:var(--sel-bg,rgba(243,192,220,.18));color:var(--pri);font-size:11px;font-weight:700}
+.apSair{align-self:flex-start;color:#e0707a}
+
+#nvCmpF .ttT{margin:2px 0 4px;font-size:18px}
+#nvCmpF .ttP{margin:0 0 8px;font-size:14px;color:var(--mute);line-height:1.45}
+#nvCmpF .ttDiv,#nvCmpF .ttCan{display:block;width:100%;background:none;border:0;color:var(--mute);font-size:14px;padding:12px 0;text-align:left}
+#nvCmpF .ttCan{text-align:center}
+#nvCmpF .ttOk{margin-top:14px}
+#nvCmpF .ttCan{display:block;width:100%;background:none;border:0;color:var(--mute);font-size:14px;padding:12px 0;text-align:center}
