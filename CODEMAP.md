@@ -128,3 +128,9 @@ Produto → "Adicionar pedido" (`98-carrinho.js`, `S.cart`) → Pedido (`cartPai
 ## Nomes de leitura v472 — `98-leitura-nomes.js`
 - `leitNome(n)`: "Óculos de grau…" → "Óculos de leitura…". `leitMigra()`: aplica em S.pnome, põe na fila do site (vitFila) e salva. Chamado no lfBoot e no saveSoon (99-render-persistencia.js).
 - 96-loja-online.js: etiqueta do pré-graduado no site = LEITURA.
+
+## Site 08/11 noite (catalogo, commit c678df5) — bloco "08/11 LaFouch" em js/lf-site.js (antes do boot final)
+- `lfBootFim()`: tira `html.bootprod` só depois de a tela final e a foto estarem prontas (substitui os `classList.remove('bootprod')` de `pgInit` e `pgCart`). CSS `html.bootprod body>*{visibility:hidden}`.
+- Enquadramento: `LFQ_CFG` [seletor, largura, altura, centro-y] → `lfqVe`/`lfqFaz` (cache `LFQ_C` por src+tipo+proporção, `LFQ_PEND`, `LFQ_RO` para fotos ainda invisíveis), `lfqMede` (caixa da armação). Original guardado em `img.dataset.lfqo`.
+- Início: `abas5()` devolve as seções já sem repetição; o render faz um `.hsh.hsh1` por seção com `.hg[data-hsec]`; `card5(p,idl,sec)` e `selo5(p,sec)`; `.hmx` = MAIS VENDIDO na oferta.
+- Cores no cartão: `LF_CORC`, `lfCorPinta`, clique em `.hc .hsw i` (captura), `product` envolto para abrir na cor.

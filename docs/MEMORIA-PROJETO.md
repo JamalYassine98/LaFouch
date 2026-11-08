@@ -1321,3 +1321,26 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
   - 3: #vgr linha de graus (só texto, sublinhado rosa) em Leitura; st.fgr filtra modelos com o grau em estoque; abre o produto já no grau.
   - 4: dono preferiu a versão do TOPO do início (não acima das categorias): .hlv "Você estava vendo" para quem viu em outro dia (até 7 dias), some se esgotar/sair ou depois de tocar. O "VOCÊ ESTAVA VENDO" do destaque saiu.
   - 5: âncora do cartão tocado; ao voltar a lista fica no mesmo lugar (para se o cliente tocar na tela).
+
+## 08/11/2026 (noite) — NOVA SESSÃO "Projeto LaFouch" (outra conta do Claude; dono exportou a conversa e o estudo foi feito do zero)
+- Backup emergencial antes de começar: export + os 2 repositórios completos (todas as branches) entregues ao dono como arquivo; branch remota `backup-2026-11-08-antes-lafouch` no catalogo.
+- Testes internos: app 285/285; funções do Firebase ok (teste-endpoint precisa de firebase-functions instalado); tests/sync-nuvem.py, sync-migracao.py e sync-motor.js estão DESATUALIZADOS (último ajuste 02/11; motor procura src/05-sync.js, hoje 97-sync.js) — não são bugs do app.
+- REGRAS DE OURO confirmadas ao dono (lista de 11): esboço primeiro inclusive bug; só implementa com "pode implementar"; exatamente o esboço; memória na hora; conferir item por item; não remover nada não pedido; dizer o que foi testado no celular real × simulação; todos os tamanhos de tela/letra; APK só se pedir; testes → versão → push; respostas curtas.
+- Versão do app nesta data: v472 (última numerada 5.8.3 = v471).
+
+### Site — APROVADO e IMPLEMENTADO 08/11 ~20:15 (commit c678df5 no catalogo; "Implementar tudo")
+- Folha "Categorias" REMOVIDA: título da vitrine é só "Catálogo"/nome da categoria (div.vtit, sem ⌄, sem toque); tipo pelo Filtrar.
+- Sem flicker ao abrir/atualizar endereço (produto, carrinho, conta): `html.bootprod body>*` invisível (página inteira no fundo liso) até a tela final + foto principal prontas (`lfBootFim`, 2 rAF, máx. 0,9 s; segurança de 4 s no head). Sem animação de entrada no carregamento (navIn pulado e animação da foto desligada). Regra geral: animação de entrada só responde a toque.
+- ENQUADRAMENTO AUTOMÁTICO das fotos (`LFQ_CFG`, `lfqFaz`, `lfqMede`): mede a armação (diferença para a cor dos cantos) num canvas de 96 px e gera uma cópia (blob) com a armação no mesmo tamanho e centro; a foto fica invisível (`img.lfq0`) até a cópia estar pronta (sem troca na frente do cliente). Vale para início (cartões, categorias), destaque, catálogo (#grid .pf) e vistos da busca. Fotos ainda invisíveis são enquadradas quando aparecem (ResizeObserver). `.hc .hci img` perdeu o cover + scale(1.08) que cortava as pontas.
+- Compre por categoria = OPÇÃO B (foto e nome centralizados).
+- Início SEM ABAS: Novidades, Mais vendidos, Ofertas, cada uma com título + "Ver todos ›" (ordem de sempre; Black Friday põe Ofertas primeiro). Cada peça em UMA seção só, pela hierarquia Ofertas > Mais vendidos > Novidades. Dentro da seção some o selo que repete o nome (Mais vendido em Mais vendidos, Novo em Novidades); −X% e Esgotado sempre aparecem.
+- Ofertas: mais vendida primeiro (depois maior desconto). Oferta que também é mais vendida: selo continua SÓ −X% (regra de 07/11: um selo e um riscado por peça) + texto "MAIS VENDIDO" pequeno em caixa-alta (.hmx, estilo do DESTAQUE DA SEMANA) no espaço entre foto e nome, SEM aumentar o cartão. Esboços recusados: selo duplo "−16% · Mais vendido" (cobria a armação) e "Mais vendido" na linha das cores.
+- Preço riscado na MESMA linha do preço novo também no celular (riscado antes, como no PC): cartões com e sem oferta com a mesma altura (197 px a 390 px). Se não couber (guaranis em celular estreito), desce para a linha de baixo.
+- PRÉVIA DAS CORES no cartão (.hc .hsw i): toque mostra a foto da cor (colorFoto), anel na cor escolhida, bolinha afunda, troca suave; tocar na bolinha NÃO abre a peça; abrir o cartão abre já na cor escolhida (clica o [data-sw] da página). Peça de 1 cor: sem anel.
+- Página do produto: miniatura de cor (.cth) SEM a bolinha.
+
+### Pendências desta sessão (aguardam o dono)
+- Ícone "Minha conta" no PC aparece achatado (9×19 px): esboço com opção A (igual aos outros, 15×18) ou B (os 4 ícones 20 px). Sem resposta.
+- Textos pequenos (DESTAQUE DA SEMANA, faixa Delivery/Pagamento/Retirada, 9–10 px efetivos no PC e celular pequeno): esboço enviado, sem resposta.
+- "Você estava vendo" (início): o dono disse que "não aparece". Conferido: funciona como aprovado (só para quem viu a peça em OUTRO dia, até 7 dias). Mudar a regra só com esboço novo.
+- Versão com o topo do site visível durante a cortina: só oferecida.
