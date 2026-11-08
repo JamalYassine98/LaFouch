@@ -228,6 +228,7 @@
       'esgDesde',
       'vitPend',
       'vitFoto',
+      'vitErr',
       'cad',
       'memo',
       'cadInit',
@@ -514,6 +515,9 @@
       saveFotos();
       try {
         if (S.syncOn) syncAgenda();
+      } catch (e) {}
+      try {
+        if (typeof vitAgora === 'function') vitAgora();
       } catch (e) {}
     }, 400);
   }

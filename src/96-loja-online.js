@@ -63,7 +63,7 @@
     if (v === null || v === undefined) return { nullValue: null };
     if (typeof v === 'string') return { stringValue: v };
     if (typeof v === 'boolean') return { booleanValue: v };
-    if (typeof v === 'number') return Number.isInteger(v) ? { integerValue: String(v) } : { doubleValue: v };
+    if (typeof v === 'number') return !isFinite(v) ? { integerValue: '0' } : Number.isInteger(v) ? { integerValue: String(v) } : { doubleValue: v };
     if (Array.isArray(v)) return { arrayValue: { values: v.map(vTf) } };
     var f = {};
     Object.keys(v).forEach(function (k) {
@@ -181,24 +181,93 @@
   }
   // A cada minuto: o app compara o que está liberado com o que já foi enviado e enfileira só o que mudou.
   function vitConfere() {
-    siteFxConfere();
+    try {
+      siteFxConfere();
+    } catch (e) {}
     if (!S.nuvem || !S.nuvem.rt || navigator.onLine === false) return Promise.resolve();
     if (!vitConfere.sig) vitConfere.sig = {};
     Object.keys(S.site || {}).forEach(function (ref) {
-      if (!itemDoRef(ref)) {
-        delete S.site[ref];
-        vitFila(ref, 'del');
-        return;
+      // 08/11: um produto com problema não impede a conferência dos outros
+      try {
+        if (!itemDoRef(ref)) {
+          delete S.site[ref];
+          vitFila(ref, 'del');
+          return;
+        }
+        if (S.vitPend && S.vitPend[ref]) return;
+        if (!(vitProduto(ref).n > 0)) return;
+        var sg = JSON.stringify(vitSig(ref));
+        if (vitConfere.sig[ref] !== sg) vitFila(ref, 'upd');
+      } catch (e) {
+        vitErro(ref, e);
       }
-      if (S.vitPend && S.vitPend[ref]) return;
-      if (!(vitProduto(ref).n > 0)) return;
-      var sg = JSON.stringify(vitSig(ref));
-      if (vitConfere.sig[ref] !== sg) vitFila(ref, 'upd');
     });
     return vitSync();
   }
-  setTimeout(vitConfere, 25000);
+  setTimeout(vitConfere, 4000);
   setInterval(vitConfere, 60000);
+  // 08/11: envio na hora — qualquer mudança salva (venda, edição, troca de tipo) confere o site em ~1 s
+  function vitAgora() {
+    clearTimeout(vitAgora.t);
+    vitAgora.t = setTimeout(function () {
+      try {
+        vitConfere();
+      } catch (e) {}
+    }, 900);
+  }
+  window.addEventListener('online', vitAgora);
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) vitAgora();
+  });
+  // erro do envio: fica só interno (sem tela), com espera crescente por produto
+  function vitErro(ref, e) {
+    if (!S.vitErr) S.vitErr = {};
+    var o = S.vitErr[ref] || { n: 0 };
+    o.n++;
+    o.ts = Date.now();
+    o.st = (e && e.status) || 0;
+    o.m = String((e && e.message) || e || '').slice(0, 200);
+    S.vitErr[ref] = o;
+  }
+  function vitEspera(ref) {
+    var o = S.vitErr && S.vitErr[ref];
+    if (!o) return 0;
+    return Math.max(0, o.ts + Math.min(60000, 3000 * Math.pow(2, Math.min(5, o.n - 1))) - Date.now());
+  }
+  // chamada à nuvem que nunca fica pendurada: desiste em 15 s; token recusado → renova e tenta 1 vez
+  function vitApi(method, path, body, tentou) {
+    var ac = typeof AbortController === 'function' ? new AbortController() : null,
+      tm;
+    var corre = nvToken().then(function (t) {
+      return fetch(nvDb() + path, { method: method, headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: body, signal: ac ? ac.signal : undefined }).then(nvJson);
+    });
+    var limite = new Promise(function (_, rej) {
+      tm = setTimeout(function () {
+        try {
+          if (ac) ac.abort();
+        } catch (x) {}
+        var e = new Error('tempo');
+        e.status = 408;
+        rej(e);
+      }, 15000);
+    });
+    return Promise.race([corre, limite]).then(
+      function (j) {
+        clearTimeout(tm);
+        return j;
+      },
+      function (e) {
+        clearTimeout(tm);
+        if (!tentou && e && (e.status === 401 || e.status === 403)) {
+          try {
+            nvTok = { t: '', exp: 0 };
+          } catch (x) {}
+          return vitApi(method, path, body, true);
+        }
+        throw e;
+      }
+    );
+  }
   function vitDocBody(ref, o) {
     var f = {};
     VIT_CAMPOS.forEach(function (k) {
@@ -211,58 +280,96 @@
     return f;
   }
   function vitSync() {
-    var pend = S.vitPend || {},
-      refs = Object.keys(pend);
-    if (!refs.length || !S.nuvem || !S.nuvem.rt || navigator.onLine === false || vitSync.busy || Date.now() - (vitSync.fail || 0) < 60000) return Promise.resolve();
-    vitSync.busy = true;
+    var pend = S.vitPend || {};
+    if (!S.nuvem || !S.nuvem.rt || navigator.onLine === false) return Promise.resolve();
+    // trava de segurança: um envio nunca segura a fila por mais de 1 minuto
+    if (vitSync.busy && Date.now() - vitSync.busy < 60000) return Promise.resolve();
+    var refs = Object.keys(pend).filter(function (r) {
+      return vitEspera(r) <= 0;
+    });
+    if (!refs.length) return Promise.resolve();
+    var meu = (vitSync.busy = Date.now()),
+      mudou = 0;
     if (!S.vitFoto) S.vitFoto = {};
-    return refs
-      .reduce(function (p, ref) {
-        return p.then(function () {
-          var op = pend[ref];
-          if (op === 'del' || !S.site || !S.site[ref]) {
-            var dels = [nvApi('DELETE', 'produtos/' + ref).catch(function () {})];
-            for (var k = 0; k < 8; k++) dels.push(nvApi('DELETE', 'fotos/' + ref + (k ? '~' + k : '')).catch(function () {}));
-            return Promise.all(dels).then(function () {
-              delete S.vitFoto[ref];
-            });
+    // cada produto é independente: o erro de um não atrasa nem impede os outros
+    return Promise.all(
+      refs.map(function (ref) {
+        return vitUm(ref, pend[ref]).then(
+          function () {
+            if (S.vitPend && S.vitPend[ref] === pend[ref]) delete S.vitPend[ref];
+            if (S.vitErr) delete S.vitErr[ref];
+            mudou++;
+          },
+          function (e) {
+            vitErro(ref, e);
           }
-          var u = vitProduto(ref);
-          if (!(u.n > 0)) return Promise.resolve();
-          var fs = vitFotos(ref),
-            body = vitDocBody(ref, u),
-            sg = JSON.stringify(vitSig(ref)),
-            hs = fs.map(fotoHash).join('.');
-          var envia = S.vitFoto[ref] === hs ? Promise.resolve() : fs.reduce(function (q, d, i) {
-            return q.then(function () {
-              return nvApi('PATCH', 'fotos/' + ref + (i ? '~' + i : ''), vBody({ d: d }));
-            });
-          }, Promise.resolve());
-          return envia
-            .then(function () {
-              S.vitFoto[ref] = hs;
-              return nvApi(
-                'PATCH',
-                'produtos/' + ref + '?' + VIT_CAMPOS.map(function (m) { return 'updateMask.fieldPaths=' + m; }).join('&') + '&updateMask.fieldPaths=ref',
-                vBody(Object.assign({ ref: ref }, body))
-              );
-            })
-            .then(function () {
-              if (!vitConfere.sig) vitConfere.sig = {};
-              vitConfere.sig[ref] = sg;
-            });
-        }).then(function () {
-          delete S.vitPend[ref];
-          saveSoon();
-        }, function (e) {
-          void e;
-        });
-      }, Promise.resolve())
-      .then(function () {
-        vitSync.busy = false;
-        if (Object.keys(S.vitPend || {}).length) vitSync.fail = Date.now();
-        if (S.view === 'onl') render();
+        );
+      })
+    ).then(function () {
+      if (vitSync.busy === meu) vitSync.busy = 0;
+      if (mudou) {
+        // avisa o site aberto (um só campo, leitura barata) que os produtos mudaram
+        vitApi('PATCH', 'config/site?updateMask.fieldPaths=pv', vBody({ pv: Date.now() })).catch(function () {});
+        saveSoon();
+      }
+      if (S.view === 'onl') render();
+      var falta = Object.keys(S.vitPend || {});
+      if (falta.length) {
+        var w = Math.min.apply(null, falta.map(vitEspera));
+        clearTimeout(vitSync.t);
+        vitSync.t = setTimeout(vitSync, Math.max(1500, w + 200));
+      }
+    });
+  }
+  function vitUm(ref, op) {
+    if (op === 'del' || !S.site || !S.site[ref]) {
+      var dels = [vitApi('DELETE', 'produtos/' + ref).catch(function () {})];
+      for (var k = 0; k < 8; k++) dels.push(vitApi('DELETE', 'fotos/' + ref + (k ? '~' + k : '')).catch(function () {}));
+      return Promise.all(dels).then(function () {
+        delete S.vitFoto[ref];
       });
+    }
+    var u = vitProduto(ref);
+    if (!(u.n > 0)) return Promise.resolve();
+    var fs = vitFotos(ref),
+      body = vitDocBody(ref, u),
+      sg = JSON.stringify(vitSig(ref)),
+      hs = fs.map(fotoHash).join('.'),
+      fotoOk = S.vitFoto[ref] === hs,
+      campos = VIT_CAMPOS.filter(function (m) {
+        return fotoOk || m !== 'fv';
+      }),
+      mask = function (l) {
+        return l.map(function (m) { return 'updateMask.fieldPaths=' + m; }).join('&');
+      };
+    var dados = {};
+    campos.forEach(function (m) {
+      dados[m] = body[m];
+    });
+    dados.ref = ref;
+    // 1º os dados (estoque, preço, tipo): chegam ao site mesmo se a foto demorar ou falhar
+    return vitApi('PATCH', 'produtos/' + ref + '?' + mask(campos) + '&updateMask.fieldPaths=ref', vBody(dados)).then(function () {
+      if (fotoOk) {
+        if (!vitConfere.sig) vitConfere.sig = {};
+        vitConfere.sig[ref] = sg;
+        return;
+      }
+      // 2º as fotos, e só depois a versão delas (o site só troca a foto quando todas chegaram)
+      return fs
+        .reduce(function (q, d, i) {
+          return q.then(function () {
+            return vitApi('PATCH', 'fotos/' + ref + (i ? '~' + i : ''), vBody({ d: d }));
+          });
+        }, Promise.resolve())
+        .then(function () {
+          return vitApi('PATCH', 'produtos/' + ref + '?updateMask.fieldPaths=fv', vBody({ fv: body.fv }));
+        })
+        .then(function () {
+          S.vitFoto[ref] = hs;
+          if (!vitConfere.sig) vitConfere.sig = {};
+          vitConfere.sig[ref] = sg;
+        });
+    });
   }
   // Aba Site: o painel completo ocupa a tela; o botão de tela cheia fica dentro do painel, ao lado de "Cliente"
   window.addEventListener('message', function (e) {

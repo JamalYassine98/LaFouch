@@ -97,3 +97,6 @@ Regras que valem em todo o projeto: o estado fica em `S`; `render()` redesenha t
 ## Fluxo de venda
 Produto → "Adicionar pedido" (`98-carrinho.js`, `S.cart`) → Pedido (`cartPainel`, passo `ped`) → Confirmar → Pagamento (passo `pag`, `95-caixa.js` + `62-pagamento-misto.js`) → `cartFinalizar`. O desconto é o que falta do valor recebido; `descAbrir` confirma e pede o motivo. Piso/trava: `cartPrevia` e `renderPiso` (`60-vendas.js`).
 
+
+## App → site (v467)
+`96-loja-online.js`: `vitConfere` (a cada 60 s, ao abrir/voltar a internet e ~1 s depois de qualquer `saveSoon` via `vitAgora`) compara a assinatura de cada produto liberado e enfileira (`S.vitPend`). `vitSync` envia os produtos em paralelo e independentes (`vitUm`): 1º os dados (sem `fv`), depois as fotos e por fim `fv`; `vitApi` desiste em 15 s e renova o token 1 vez em 401/403. Erro fica só interno (`S.vitErr`, espera crescente por produto, sem tela). Depois de publicar, grava `config/site.pv`; o site (`prodVivo`, a cada 20 s) só busca os produtos de novo quando `pv` muda.

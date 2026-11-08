@@ -168,8 +168,15 @@ TESTES = [
    S.cad.ZZ100=0; S.items.forEach(i=>{ if(i.cor==='Preto') i.qty=9 });
    const av2=L.siteAviso('ZZ100'); S.cad.ZZ100=Date.now(); const av3=L.siteAviso('ZZ100'); S.cad.ZZ100=0; S.items.find(i=>i.cor==='Preto').qty=2;
    return L.vitSync().then(()=>{ const pr=calls.filter(x=>/produtos\/ZZ100/.test(x[0])&&x[1]==='PATCH'); const fo=calls.filter(x=>/fotos\/ZZ100/.test(x[0])).length;
-     const f=pr.length?JSON.parse(pr[0][2]).fields:{}; const cn=((f.cn||{}).arrayValue||{}).values||[];
-     return [ok0, p.cn.join(','), p.qs.join(','), p.med.join(','), p.rosto.join(','), av, av2, av3, pr.length, fo, cn.length, !!(f.lib||{}).booleanValue]})""", [True, 'Preto,Rosa,Azul', '2,0,0', '53,18,140', 'oval,coracao', 'Últimas 2 unidades', '', 'Chegou esta semana', 1, 3, 3, True]),
+     const f=pr.length?JSON.parse(pr[0][2]).fields:{}; if(f.fv||!/fieldPaths=fv$/.test(pr[pr.length-1][0])) return ['fv fora de ordem']; const cn=((f.cn||{}).arrayValue||{}).values||[];
+     return [ok0, p.cn.join(','), p.qs.join(','), p.med.join(','), p.rosto.join(','), av, av2, av3, pr.length, fo, cn.length, !!(f.lib||{}).booleanValue]})""", [True, 'Preto,Rosa,Azul', '2,0,0', '53,18,140', 'oval,coracao', 'Últimas 2 unidades', '', 'Chegou esta semana', 2, 3, 3, True]),
+ ("site: um produto com erro não segura os outros; erro fica só interno (v467)", """
+   const mk=(ref,cor)=>({tipo:'sem',ref,grau:'',cor,qty:3,fmt:'',med:'',vr:'',custo:2});
+   S.items.push(mk('YY1','Preto'), mk('YY2','Preto')); S.fotos['YY1|Preto']='data:image/png;base64,a'; S.fotos['YY2|Preto']='data:image/png;base64,b';
+   L.siteSet('YY1',true); L.siteSet('YY2',true); S.nuvem.rt='x'; S.vitErr={};
+   const calls=[]; window.fetch=(u,o)=>{calls.push([u,o&&o.method]); if(/fotos\/YY1/.test(u)) return Promise.resolve({ok:false,status:400,json:()=>Promise.resolve({error:{message:'grande'}})}); return Promise.resolve({ok:true,status:200,json:()=>Promise.resolve({})})};
+   return L.vitSync().then(()=>new Promise(r=>setTimeout(r,80))).then(()=>{ const d1=calls.filter(x=>/produtos\/YY1\?/.test(x[0])).length, d2=calls.filter(x=>/produtos\/YY2/.test(x[0])).length;
+     return [d1>=1, d2, !S.vitPend.YY2, !!S.vitPend.YY1, (S.vitErr.YY1||{}).st, calls.some(x=>/config\/site\?updateMask.fieldPaths=pv/.test(x[0])), !!document.body.innerText.match(/grande/)]})""", [True, 2, True, True, 400, True, False]),
  ("oferta: data final vencida volta ao preço anterior; sem data continua", """
    L.primeiroUso(); const r1=S.items[0].ref, r2=S.items[1].ref; S.pprice={};
    S.pprice[r1]={ant:100000,novo:80000,ate:Date.now()-1000}; S.pprice[r2]={ant:90000,novo:70000};
