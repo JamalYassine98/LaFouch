@@ -1009,6 +1009,19 @@ async def main():
             if not ok: falhas.append('v469 inventario'); print('        veio', k1, k2, barra, y0, tr1, tr2, pg.erros)
             await pg.close()
 
+            # v470: com a nuvem conectada, todas as seções de Ajustes ficam no mesmo grupo (Aparelhos não desarruma o HTML)
+            pg = await pagina()
+            await pg.context.route(re.compile(r'googleapis'), lambda r: r.fulfill(json={}))
+            aj = await pg.evaluate("""async () => { const L = window.__LF, S = L.S; S.nuvem.rt = 'x'; S.nuvem.email = 'a@b.c'; S.nvLista = [{id: '2026-11-08', kb: 900}];
+              S._syncAps = [{ap: 'APEU', nome: 'Celular', ts: Date.now()}, {ap: 'APXY', nome: 'PC', ts: Date.now()}]; S.aparelho = 'APEU'; L.setView('ajustes'); S._ajForce = true; L.render();
+              await new Promise(r => setTimeout(r, 400)); const g = document.getElementById('ajGrp');
+              return [[...document.querySelectorAll('.ajS')].every(x => g.contains(x)), !!g.querySelector('.ajS[data-k="bk"] .apLn'), !!g.querySelector('.ajS[data-k="pauto"]')]; }""")
+            total += 1
+            ok = aj == [True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'v470: Ajustes com a nuvem conectada — Aparelhos dentro de Cópias e nuvem, Pagamento automático no mesmo grupo')
+            if not ok: falhas.append('v470 ajustes grupo'); print('        veio', aj, pg.erros)
+            await pg.close()
+
             # Pedido com linhas, frete rateado e cadastro enxuto
             pg = await pagina()
             await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.grp = []; S.cash.usd = 1000; S.addOpen = true; S.addMode = 'lote';

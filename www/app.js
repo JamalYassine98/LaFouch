@@ -1048,9 +1048,9 @@
     return s !== tks.join(' ') ? s : '';
   }
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 469;
+  var APP_BUILD = 470;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.8.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.8.2'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -27301,9 +27301,11 @@
       segH = partes.filter(function (x) {
         return x.indexOf('id="baixaCard"') < 0 && x.indexOf('id="avisosCard"') < 0;
       })[0] || '';
-    var nv = nvCard()
-      .replace('<section class="card col">', '<div class="col" style="border-top:1px solid var(--line);padding-top:12px">')
-      .replace(/<\/section>$/, '</div>');
+    var emDiv = function (x) {
+      return x.replace('<section class="card col">', '<div class="col" style="border-top:1px solid var(--line);padding-top:12px">').replace(/<\/section>$/, '</div>');
+    };
+    // v469: "Aparelhos" entra separado (antes ia dentro do cartão da nuvem e desarrumava o HTML: o Pagamento automático saía do grupo)
+    var nv = emDiv(nvCard()) + (typeof apCardHtml === 'function' && apCardHtml() ? emDiv(apCardHtml()) : '');
     var tv = temaVal(),
       sy = typeof syncVisivel === 'function' && syncVisivel() ? syncEstadoTxt() : null,
       upN = typeof updPendente === 'function' ? updPendente() : 0,
@@ -38717,7 +38719,7 @@
       });
     }
     h += '</section>';
-    return h + (typeof apCardHtml === 'function' ? apCardHtml() : '');
+    return h;
   }
   // ===== Meta automática + Objetivos da loja (v425, aprovado 04/11/2026) =====
   // META: uma só, automática, sem campo nem botão. Fica fixa no mês: é calculada no 1º uso do mês com as vendas

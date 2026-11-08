@@ -1,6 +1,7 @@
 {
- "nome": "5.8.1",
+ "nome": "5.8.2",
  "notas": [
+  "Ajustes: Pagamento automático volta para o mesmo grupo das outras opções (com a nuvem conectada ele ficava separado)",
   "Inventário mais limpo: o contador muda de cor ao tocar, sem o quadrado",
   "Saiu a barra com Selecionar e lixeira (para selecionar, segure o produto › Selecionar)",
   "Mapa de graus novo: botão redondo ao lado do filtro abre a folha Graus de leitura",

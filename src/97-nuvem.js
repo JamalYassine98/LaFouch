@@ -493,5 +493,5 @@
       });
     }
     h += '</section>';
-    return h + (typeof apCardHtml === 'function' ? apCardHtml() : '');
+    return h;
   }

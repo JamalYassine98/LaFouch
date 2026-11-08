@@ -155,9 +155,11 @@
       segH = partes.filter(function (x) {
         return x.indexOf('id="baixaCard"') < 0 && x.indexOf('id="avisosCard"') < 0;
       })[0] || '';
-    var nv = nvCard()
-      .replace('<section class="card col">', '<div class="col" style="border-top:1px solid var(--line);padding-top:12px">')
-      .replace(/<\/section>$/, '</div>');
+    var emDiv = function (x) {
+      return x.replace('<section class="card col">', '<div class="col" style="border-top:1px solid var(--line);padding-top:12px">').replace(/<\/section>$/, '</div>');
+    };
+    // v469: "Aparelhos" entra separado (antes ia dentro do cartão da nuvem e desarrumava o HTML: o Pagamento automático saía do grupo)
+    var nv = emDiv(nvCard()) + (typeof apCardHtml === 'function' && apCardHtml() ? emDiv(apCardHtml()) : '');
     var tv = temaVal(),
       sy = typeof syncVisivel === 'function' && syncVisivel() ? syncEstadoTxt() : null,
       upN = typeof updPendente === 'function' ? updPendente() : 0,
