@@ -1315,3 +1315,9 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - 4 "Você estava vendo": fica ACIMA de "Compre por categoria" — em elaboração.
 - 1 voltar arrastando: em elaboração (proposta: usar o gesto do próprio celular + produto desliza para a direita; sem gesto próprio, para não dar clique errado).
 - 6 barra fixa embaixo: REJEITADO.
+- 08/11 IMPLEMENTADO (navegação 2, bloco "NAVEGAÇÃO 2" em js/lf-site.js):
+  - 1: gesto do próprio celular; saída do produto desliza 32% + some (300 ms).
+  - 2: busca vazia mostra "VISTOS POR ÚLTIMO" (lf_vistos, até 3); digitando mostra "SUGESTÕES" (categorias, 1 grau, nomes) acima dos resultados; grau abre Leitura já filtrada.
+  - 3: #vgr linha de graus (só texto, sublinhado rosa) em Leitura; st.fgr filtra modelos com o grau em estoque; abre o produto já no grau.
+  - 4: dono preferiu a versão do TOPO do início (não acima das categorias): .hlv "Você estava vendo" para quem viu em outro dia (até 7 dias), some se esgotar/sair ou depois de tocar. O "VOCÊ ESTAVA VENDO" do destaque saiu.
+  - 5: âncora do cartão tocado; ao voltar a lista fica no mesmo lugar (para se o cliente tocar na tela).
