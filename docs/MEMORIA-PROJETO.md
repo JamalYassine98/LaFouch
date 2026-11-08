@@ -1344,3 +1344,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Textos pequenos (DESTAQUE DA SEMANA, faixa Delivery/Pagamento/Retirada, 9–10 px efetivos no PC e celular pequeno): esboço enviado, sem resposta.
 - "Você estava vendo" (início): o dono disse que "não aparece". Conferido: funciona como aprovado (só para quem viu a peça em OUTRO dia, até 7 dias). Mudar a regra só com esboço novo.
 - Versão com o topo do site visível durante a cortina: só oferecida.
+- 08/11 20:17 DONO: "Você estava vendo" deve valer "até a próxima visita". ESBOÇO (aguarda "pode implementar"): aparece na PRÓXIMA visita (mesmo dia ou outro); visita nova = abrir o site de novo depois de fechar, ou voltar após 30 min sem usar; aparece só nessa visita e some quando ela acaba; continua sumindo se tocar, se a peça esgotar ou sair do site; design igual ao aprovado (topo do início). Substitui a regra "outro dia, até 7 dias".
