@@ -17,7 +17,18 @@
     return isFinite(n) ? n : null;
   }
   // Lê a página (texto) e devolve os valores da Sucursal Jebai.
+  // 07/11: lê a Sucursal Jebai; se ela não aparecer na página, usa a Casa Matriz (mesmo site, preços quase iguais).
   function lmLer(html) {
+    var c = lmLerSuc(html, 'sucursal jebai');
+    if (c) {
+      c.suc = 'Jebai';
+      return c;
+    }
+    c = lmLerSuc(html, 'casa matriz');
+    if (c) c.suc = 'Casa Matriz';
+    return c;
+  }
+  function lmLerSuc(html, NOME) {
     var t = String(html || '')
       .replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, ' ')
       .replace(/<[^>]+>/g, ' | ')
@@ -27,19 +38,20 @@
       .replace(/&amp;/g, '&')
       .replace(/\s+/g, ' ');
     var lo = t.toLowerCase(),
-      i = lo.indexOf('sucursal jebai');
+      i = lo.indexOf(NOME);
     if (i < 0) return null;
     // 07/11: o nome aparece várias vezes (seletor, título de cada tabela); usa o primeiro trecho que tem a cotação
     var segJ = '',
       trecho = function (i) {
         var fim = t.length;
-        ['sucursal centro', 'caja auxiliar', 'casa matriz'].forEach(function (m) {
+        ['casa matriz', 'sucursal jebai', 'sucursal centro', 'caja auxiliar'].forEach(function (m) {
+          if (m === NOME) return;
           var j = lo.indexOf(m, i + 10);
           if (j > 0 && j < fim) fim = j;
         });
         return t.slice(i, fim);
       };
-    for (var ii = i; ii >= 0; ii = lo.indexOf('sucursal jebai', ii + 10)) {
+    for (var ii = i; ii >= 0; ii = lo.indexOf(NOME, ii + 10)) {
       var sg = trecho(ii);
       if (/d[óo]lar[^0-9]{0,80}?\d/i.test(sg) && /\breal\b[^0-9]{0,80}?\d/i.test(sg)) {
         segJ = sg;
@@ -68,12 +80,12 @@
         return x > 2 && x < 15;
       });
     if (!usd || !brl) {
-      var bl = lmBlocos(t);
+      var bl = lmBlocos(t, NOME);
       if (bl) return bl;
       return null;
     }
     // a arbitragem pode aparecer só na Casa Matriz
-    if (!arb)
+    if (!arb && NOME !== 'casa matriz')
       arb = par(/(usd\s*\/\s*brl|d[óo]lar\s*\/\s*real)/, function (x) {
         return x > 2 && x < 15;
       }, true);
@@ -82,7 +94,7 @@
   }
   // 07/11: página nova da casa — os nomes das sucursais aparecem só no seletor (Casa Matriz, Sucursal Jebai, …) e depois vêm
   // as tabelas na MESMA ordem, sem o nome. Pega a posição da Jebai no seletor e lê a tabela de mesma posição.
-  function lmBlocos(t) {
+  function lmBlocos(t, NOME) {
     var linhas = function (rx, ok) {
       var out = [],
         m,
@@ -112,7 +124,7 @@
       var n = m[1].toLowerCase().replace(/\s+/g, ' ');
       if (nomes.indexOf(n) < 0) nomes.push(n);
     }
-    var k = nomes.indexOf('sucursal jebai');
+    var k = nomes.indexOf(NOME || 'sucursal jebai');
     S._lmDiag = 'sucursais ' + nomes.length + ', tabelas de dólar ' + U.length + ', real ' + R.length;
     if (k < 0 || U.length < nomes.length) return null;
     if (U.length > nomes.length) U = U.slice(U.length - nomes.length); // linhas a mais antes (ex.: conversor) ficam de fora
@@ -135,7 +147,7 @@
     var agora = Date.now(),
       a = S.lm,
       h = (a && a.hist) || [],
-      mudou = !a || !a.usd || a.usd.c !== c.usd.c || a.usd.v !== c.usd.v || a.brl.c !== c.brl.c || a.brl.v !== c.brl.v || a.arb.v !== c.arb.v,
+      mudou = !a || !a.usd || a.usd.c !== c.usd.c || a.usd.v !== c.usd.v || a.brl.c !== c.brl.c || a.brl.v !== c.brl.v || a.arb.v !== c.arb.v || (a.suc || 'Jebai') !== (c.suc || 'Jebai'),
       hora = !h.length || agora - h[h.length - 1][0] >= 55 * 60000;
     S._lmVisto = agora; // última leitura certa (só neste aparelho)
     if (!mudou && !hora) return false;
@@ -143,7 +155,7 @@
     h = h.filter(function (x) {
       return agora - x[0] <= 400 * DAY;
     });
-    S.lm = { ts: agora, usd: c.usd, brl: c.brl, arb: c.arb, hist: h, erro: '' };
+    S.lm = { ts: agora, usd: c.usd, brl: c.brl, arb: c.arb, hist: h, erro: '', suc: c.suc || 'Jebai' };
     saveSoon();
     try {
       fxDaCasa();
@@ -210,3 +222,24 @@
       });
     }, 60000);
   }
+  // 07/11: aviso no sino quando a cotação da casa fica mais de 3 h sem atualizar no horário da loja (seg–sáb, 7h30–15h), 1 vez por dia.
+  function lmVisto() {
+    var h = (S.lm && S.lm.hist) || [];
+    return Math.max(S._lmVisto || 0, (S.lm && S.lm.ts) || 0, h.length ? h[h.length - 1][0] : 0);
+  }
+  function lmAvisaParada() {
+    if (!lmOk()) return;
+    var d = new Date(),
+      min = d.getHours() * 60 + d.getMinutes();
+    if (d.getDay() === 0 || min < 7 * 60 + 30 || min > 15 * 60) return;
+    var parada = Date.now() - lmVisto();
+    if (parada < 3 * 3600000) return;
+    var dia = d.toDateString();
+    if (!S.fxAvisos) S.fxAvisos = {};
+    if (S.fxAvisos.lm === dia) return;
+    S.fxAvisos.lm = dia;
+    (S.notifs = S.notifs || []).unshift({ ts: Date.now(), lida: false, t: 'Cotação da casa sem atualizar', s: 'Há ' + Math.floor(parada / 3600000) + ' h sem ler a La Moneda. Os preços seguem a última cotação (' + gsRaw(S.lm.usd.v) + '). Confira a placa da casa.' });
+    saveSoon();
+    render();
+  }
+  if (!/#test/.test(location.hash)) setInterval(lmAvisaParada, 15 * 60000);

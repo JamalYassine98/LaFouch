@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 459;
+  var APP_BUILD = 460;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.5.9'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.6.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -23617,8 +23617,9 @@
   function fxDaCasa() {
     if (!lmOk()) return false;
     var c = S.lm;
-    if (S.fx && S.fx.pyg === c.usd.v && S.fx.brl === c.arb.v && S.fx.src === 'La Moneda · Jebai') return true;
-    setFx(c.usd.v, c.arb.v, 'La Moneda · Jebai', true, 'Cotação da La Moneda (Sucursal Jebai).');
+    var src = 'La Moneda · ' + (c.suc || 'Jebai');
+    if (S.fx && S.fx.pyg === c.usd.v && S.fx.brl === c.arb.v && S.fx.src === src) return true;
+    setFx(c.usd.v, c.arb.v, src, true, 'Cotação da La Moneda (' + (c.suc && c.suc !== 'Jebai' ? c.suc + ', a Sucursal Jebai não apareceu' : 'Sucursal Jebai') + ').');
     S.fxHist[S.fxHist.length - 1].c = 1; // ponto da casa (o histórico de mercado não substitui)
     S.fxNext = Date.now() + 60000;
     return true;
@@ -29778,7 +29779,7 @@
     var casa = lmOk(),
       ag = Date.now(),
       on = casa && ((S._lmVisto && ag - S._lmVisto < 5 * 60000) || ag - S.lm.ts < 12 * 3600000),
-      det = casa ? 'La Moneda · Jebai · atualizado às ' + fh(S.lm.ts) + (on ? '' : ' de ' + fd(S.lm.ts)) + (S.lm.erro && !on ? ' · ' + S.lm.erro : '') : 'Ainda sem cotação da La Moneda. Por enquanto os valores são a média do mercado.' + (S._lmErr ? ' Motivo: ' + S._lmErr : ' (o app instalado no celular tenta a cada 1 minuto)'),
+      det = casa ? 'La Moneda · ' + (S.lm.suc && S.lm.suc !== 'Jebai' ? S.lm.suc + ' (a Sucursal Jebai não apareceu na página)' : 'Jebai') + ' · atualizado às ' + fh(S.lm.ts) + (on ? '' : ' de ' + fd(S.lm.ts)) + (S.lm.erro && !on ? ' · ' + S.lm.erro : '') : 'Ainda sem cotação da La Moneda. Por enquanto os valores são a média do mercado.' + (S._lmErr ? ' Motivo: ' + S._lmErr : ' (o app instalado no celular tenta a cada 1 minuto)'),
       hd = '<button type="button" class="fxSt ' + (on ? 'ok' : 'no') + '" data-act="fxSt" aria-label="Cotação da casa ' + (on ? 'online' : 'offline') + '">Cotação da casa<i></i></button>' + (S.fxStD ? '<div class="hint fxStD" style="margin:4px 0 0">' + esc(det) + (S._lmTxt && !on ? ' <button type="button" class="btn-sc" data-act="fxCopia" style="margin-top:8px">Copiar o texto da página</button>' + (S.fxCopiado ? '<div>' + esc(S.fxCopiado) + '</div>' : '') : '') + '</div>' : ''),
       h = '<div class="top fxTopo"><div><h1>Câmbio</h1><div class="crumb">' + hd + '</div></div>' + (casa ? '<button type="button" class="fxModo" data-act="fxModo" aria-label="Mostrando a ' + (S.fxModo === 'c' ? 'compra' : 'venda') + ' da casa. Tocar para ver a ' + (S.fxModo === 'c' ? 'venda' : 'compra') + '">' + (S.fxModo === 'c' ? 'Compra' : 'Venda') + FX_SETAS + '</button>' : '') + '</div>';
     h += '<section class="card fxTop">';
@@ -35039,7 +35040,18 @@
     return isFinite(n) ? n : null;
   }
   // Lê a página (texto) e devolve os valores da Sucursal Jebai.
+  // 07/11: lê a Sucursal Jebai; se ela não aparecer na página, usa a Casa Matriz (mesmo site, preços quase iguais).
   function lmLer(html) {
+    var c = lmLerSuc(html, 'sucursal jebai');
+    if (c) {
+      c.suc = 'Jebai';
+      return c;
+    }
+    c = lmLerSuc(html, 'casa matriz');
+    if (c) c.suc = 'Casa Matriz';
+    return c;
+  }
+  function lmLerSuc(html, NOME) {
     var t = String(html || '')
       .replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, ' ')
       .replace(/<[^>]+>/g, ' | ')
@@ -35049,19 +35061,20 @@
       .replace(/&amp;/g, '&')
       .replace(/\s+/g, ' ');
     var lo = t.toLowerCase(),
-      i = lo.indexOf('sucursal jebai');
+      i = lo.indexOf(NOME);
     if (i < 0) return null;
     // 07/11: o nome aparece várias vezes (seletor, título de cada tabela); usa o primeiro trecho que tem a cotação
     var segJ = '',
       trecho = function (i) {
         var fim = t.length;
-        ['sucursal centro', 'caja auxiliar', 'casa matriz'].forEach(function (m) {
+        ['casa matriz', 'sucursal jebai', 'sucursal centro', 'caja auxiliar'].forEach(function (m) {
+          if (m === NOME) return;
           var j = lo.indexOf(m, i + 10);
           if (j > 0 && j < fim) fim = j;
         });
         return t.slice(i, fim);
       };
-    for (var ii = i; ii >= 0; ii = lo.indexOf('sucursal jebai', ii + 10)) {
+    for (var ii = i; ii >= 0; ii = lo.indexOf(NOME, ii + 10)) {
       var sg = trecho(ii);
       if (/d[óo]lar[^0-9]{0,80}?\d/i.test(sg) && /\breal\b[^0-9]{0,80}?\d/i.test(sg)) {
         segJ = sg;
@@ -35090,12 +35103,12 @@
         return x > 2 && x < 15;
       });
     if (!usd || !brl) {
-      var bl = lmBlocos(t);
+      var bl = lmBlocos(t, NOME);
       if (bl) return bl;
       return null;
     }
     // a arbitragem pode aparecer só na Casa Matriz
-    if (!arb)
+    if (!arb && NOME !== 'casa matriz')
       arb = par(/(usd\s*\/\s*brl|d[óo]lar\s*\/\s*real)/, function (x) {
         return x > 2 && x < 15;
       }, true);
@@ -35104,7 +35117,7 @@
   }
   // 07/11: página nova da casa — os nomes das sucursais aparecem só no seletor (Casa Matriz, Sucursal Jebai, …) e depois vêm
   // as tabelas na MESMA ordem, sem o nome. Pega a posição da Jebai no seletor e lê a tabela de mesma posição.
-  function lmBlocos(t) {
+  function lmBlocos(t, NOME) {
     var linhas = function (rx, ok) {
       var out = [],
         m,
@@ -35134,7 +35147,7 @@
       var n = m[1].toLowerCase().replace(/\s+/g, ' ');
       if (nomes.indexOf(n) < 0) nomes.push(n);
     }
-    var k = nomes.indexOf('sucursal jebai');
+    var k = nomes.indexOf(NOME || 'sucursal jebai');
     S._lmDiag = 'sucursais ' + nomes.length + ', tabelas de dólar ' + U.length + ', real ' + R.length;
     if (k < 0 || U.length < nomes.length) return null;
     if (U.length > nomes.length) U = U.slice(U.length - nomes.length); // linhas a mais antes (ex.: conversor) ficam de fora
@@ -35157,7 +35170,7 @@
     var agora = Date.now(),
       a = S.lm,
       h = (a && a.hist) || [],
-      mudou = !a || !a.usd || a.usd.c !== c.usd.c || a.usd.v !== c.usd.v || a.brl.c !== c.brl.c || a.brl.v !== c.brl.v || a.arb.v !== c.arb.v,
+      mudou = !a || !a.usd || a.usd.c !== c.usd.c || a.usd.v !== c.usd.v || a.brl.c !== c.brl.c || a.brl.v !== c.brl.v || a.arb.v !== c.arb.v || (a.suc || 'Jebai') !== (c.suc || 'Jebai'),
       hora = !h.length || agora - h[h.length - 1][0] >= 55 * 60000;
     S._lmVisto = agora; // última leitura certa (só neste aparelho)
     if (!mudou && !hora) return false;
@@ -35165,7 +35178,7 @@
     h = h.filter(function (x) {
       return agora - x[0] <= 400 * DAY;
     });
-    S.lm = { ts: agora, usd: c.usd, brl: c.brl, arb: c.arb, hist: h, erro: '' };
+    S.lm = { ts: agora, usd: c.usd, brl: c.brl, arb: c.arb, hist: h, erro: '', suc: c.suc || 'Jebai' };
     saveSoon();
     try {
       fxDaCasa();
@@ -35232,6 +35245,27 @@
       });
     }, 60000);
   }
+  // 07/11: aviso no sino quando a cotação da casa fica mais de 3 h sem atualizar no horário da loja (seg–sáb, 7h30–15h), 1 vez por dia.
+  function lmVisto() {
+    var h = (S.lm && S.lm.hist) || [];
+    return Math.max(S._lmVisto || 0, (S.lm && S.lm.ts) || 0, h.length ? h[h.length - 1][0] : 0);
+  }
+  function lmAvisaParada() {
+    if (!lmOk()) return;
+    var d = new Date(),
+      min = d.getHours() * 60 + d.getMinutes();
+    if (d.getDay() === 0 || min < 7 * 60 + 30 || min > 15 * 60) return;
+    var parada = Date.now() - lmVisto();
+    if (parada < 3 * 3600000) return;
+    var dia = d.toDateString();
+    if (!S.fxAvisos) S.fxAvisos = {};
+    if (S.fxAvisos.lm === dia) return;
+    S.fxAvisos.lm = dia;
+    (S.notifs = S.notifs || []).unshift({ ts: Date.now(), lida: false, t: 'Cotação da casa sem atualizar', s: 'Há ' + Math.floor(parada / 3600000) + ' h sem ler a La Moneda. Os preços seguem a última cotação (' + gsRaw(S.lm.usd.v) + '). Confira a placa da casa.' });
+    saveSoon();
+    render();
+  }
+  if (!/#test/.test(location.hash)) setInterval(lmAvisaParada, 15 * 60000);
   // ===== Lista de compras melhorada (v428, aprovado 04/11/2026) =====
   // Sem cor (o dono não controla cor na compra). Pré-graduados por GRAU. Três seções: Acabando, Época chegando
   // e Não recompre. Quantidade com − / +. Total comparado com o dinheiro da reposição. Compartilhar com o
@@ -44675,7 +44709,7 @@
     window.__LF = {
       barMoedas: barMoedas,
       pixRecebido: pixRecebido, ofertaFim: ofertaFim, siteMaisVendidas: function () { MV_CACHE.ts = 0; return siteMaisVendidas(); }, compLeTexto: compLeTexto, fichaLinhas: fichaLinhas, impBytes: impBytes,
-      animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
+      animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, lmAvisaParada: lmAvisaParada, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
       S: S, vitDocBody: vitDocBody, giroSiteFila: giroSiteFila, giroGv: giroGv, giroComprime: giroComprime, resSolta: resSolta, resOrfas: resOrfas, resEstSet: function (o) { RES_EST = o; }, vistasNaoVendidas: vistasNaoVendidas, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcComprarNovo: lcComprarNovo, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, envFolha: window.__envFolha, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,

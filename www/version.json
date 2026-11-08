@@ -1,1 +1,1 @@
-{"v":459,"nat":1,"nome":"5.5.9","notas":["Câmbio: previsão de 7 dias também no Real e no Dólar em reais","O gráfico de cada moeda segue o botão Venda/Compra"]}
+{"v":460,"nat":1,"nome":"5.6.0","notas":["Câmbio: se a Sucursal Jebai sumir do site da casa, o app usa a Casa Matriz","Aviso no sino quando a cotação da casa fica mais de 3 h sem atualizar no horário da loja"]}

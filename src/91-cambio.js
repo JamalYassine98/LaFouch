@@ -344,8 +344,9 @@
   function fxDaCasa() {
     if (!lmOk()) return false;
     var c = S.lm;
-    if (S.fx && S.fx.pyg === c.usd.v && S.fx.brl === c.arb.v && S.fx.src === 'La Moneda · Jebai') return true;
-    setFx(c.usd.v, c.arb.v, 'La Moneda · Jebai', true, 'Cotação da La Moneda (Sucursal Jebai).');
+    var src = 'La Moneda · ' + (c.suc || 'Jebai');
+    if (S.fx && S.fx.pyg === c.usd.v && S.fx.brl === c.arb.v && S.fx.src === src) return true;
+    setFx(c.usd.v, c.arb.v, src, true, 'Cotação da La Moneda (' + (c.suc && c.suc !== 'Jebai' ? c.suc + ', a Sucursal Jebai não apareceu' : 'Sucursal Jebai') + ').');
     S.fxHist[S.fxHist.length - 1].c = 1; // ponto da casa (o histórico de mercado não substitui)
     S.fxNext = Date.now() + 60000;
     return true;

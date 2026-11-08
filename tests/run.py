@@ -2778,6 +2778,19 @@ async def main():
             ok2 = got2 == [6000, 6350, 1110, 1185, 5.38, 5.5]
             print(('  ok  ' if ok2 else ' FALHA ') + 'La Moneda texto real de 07/11: Sucursal Jebai 6.000 / 6.350')
             if not ok2: falhas.append('la moneda real'); print('        veio', got2)
+            total += 1
+            got3 = await pg.evaluate('''() => { const L = window.__LF, S = L.S;
+              const h = '<h3>Casa Matriz</h3><table><tr><td>Dólar</td><td>6.050</td><td>6.350</td></tr><tr><td>Real</td><td>1.120</td><td>1.170</td></tr><tr><td>Dólar / Real</td><td>5,38</td><td>5,47</td></tr></table><h3>Sucursal Centro</h3><table><tr><td>Dólar</td><td>6.000</td><td>6.350</td></tr><tr><td>Real</td><td>1.100</td><td>1.170</td></tr></table>';
+              const c = L.lmLer(h); L.lmGrava(c); L.fxDaCasa();
+              const r = [c.suc, c.usd.v, c.brl.c, S.fx.src];
+              const n0 = (S.notifs||[]).length, real = Date; const fake = new real(2026, 10, 9, 11, 0); 
+              S.lm.ts = fake.getTime() - 4*3600000; S.lm.hist = []; S._lmVisto = 0; S.fxAvisos = {};
+              window.Date = class extends real { constructor(...a){ return a.length ? new real(...a) : new real(fake.getTime()) } static now(){ return fake.getTime() } };
+              try { L.lmAvisaParada(); L.lmAvisaParada(); } finally { window.Date = real; }
+              r.push((S.notifs||[]).length - n0, (S.notifs||[])[0] && S.notifs[0].t); return r; }''')
+            ok3 = got3 == ['Casa Matriz', 6350, 1120, 'La Moneda · Casa Matriz', 1, 'Cotação da casa sem atualizar'] and not pg.erros
+            print(('  ok  ' if ok3 else ' FALHA ') + 'La Moneda: Casa Matriz de reserva quando a Jebai some; aviso no sino depois de 3 h parada (1 vez)')
+            if not ok3: falhas.append('la moneda reserva'); print('        veio', got3, pg.erros)
             if not ok: falhas.append('la moneda nova'); print('        veio', got, pg.erros)
             await pg.close()
 
