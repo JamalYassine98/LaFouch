@@ -1307,3 +1307,5 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Dúvidas: 4 perguntas do esboço (pagamento, reserva, receita, troca). As antigas "delivery fora do PY" e "frete" saíram (delivery coberto no passo 4).
 
 - 08/11: rodapé do celular — Contato na coluna da direita, embaixo de Ajuda (pedido do dono).
+
+- 08/11: início do site = lafouch.com (rtSlug devolve vazio no início; rtUrl home sem slug). /oculos e /lentes antigos ainda abrem o início.
