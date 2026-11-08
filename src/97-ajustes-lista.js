@@ -84,7 +84,11 @@
       if (!r || (e.pointerType === 'mouse' && e.button !== 0)) return;
       var s = r.parentNode;
       st = { s: s, r: r, y0: e.clientY, x0: e.clientX, id: e.pointerId, arr: false, t: 0 };
-      r.classList.add('ajSeg');
+      // v465: o anel só aparece se o dedo ficar parado um instante (rolar a tela não dispara mais a animação)
+      var st0 = st;
+      st.ta = setTimeout(function () {
+        if (st === st0 && !st0.arr) r.classList.add('ajSeg');
+      }, 150);
       st.t = setTimeout(function () {
         if (st) ajLevanta(st);
       }, 400);
@@ -102,6 +106,7 @@
       if (!st || (e && e.pointerId !== st.id)) return;
       var era = st;
       clearTimeout(era.t);
+      clearTimeout(era.ta);
       era.r.classList.remove('ajSeg');
       st = null;
       if (era.arr) ajSolta(era);
@@ -110,6 +115,7 @@
     var ajCancela = function () {
       if (!st) return;
       clearTimeout(st.t);
+      clearTimeout(st.ta);
       st.r.classList.remove('ajSeg');
       st = null;
     };

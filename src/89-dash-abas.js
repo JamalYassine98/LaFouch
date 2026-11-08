@@ -277,7 +277,7 @@
       totBtn() +
       '<div class="hint" style="margin:0">' + cambioHojeTxt() + '</div>' +
       '<div class="bar">' +
-      [[r.repGs, '#00c8ff'], [r.con, '#a2447c'], [r.colch, '#ffc766'], [r.melh, 'var(--info)'], [lv.livreEq, '#00ff88']]
+      [[r.repGs, '#6cc3e0'], [r.con, '#a2447c'], [r.colch, '#e9c27a'], [r.melh, 'var(--info)'], [lv.livreEq, '#5fd39a']]
         .map(function (p) {
           return '<i style="width:' + part(p[0]) + '%;background:' + p[1] + '"></i>';
         })
@@ -285,7 +285,7 @@
       '</div><div class="hint" style="margin:0">De ' + totFmt(r.wal) + ' na carteira, ' + totFmt(dono) + ' já têm dono: reposição, contas, colchão e melhorias.</div>' +
       (aberto
         ? '<div class="split">' +
-          [['Reposição de mercadoria', r.repGs, '#00c8ff'], ['Contas do mês', r.con, '#a2447c'], ['Colchão de segurança', r.colch, '#ffc766'], ['Objetivos da loja', r.melh, 'var(--info)']]
+          [['Reposição de mercadoria', r.repGs, '#6cc3e0'], ['Contas do mês', r.con, '#a2447c'], ['Colchão de segurança', r.colch, '#e9c27a'], ['Objetivos da loja', r.melh, 'var(--info)']]
             .map(function (p) {
               return '<div class="sl"><span><span class="sp" style="background:' + p[2] + '"></span>' + p[0] + '</span><b>' + totFmt(p[1]) + '</b></div>';
             })

@@ -242,24 +242,18 @@
         '" role="status">' +
         esc(S.cxMsg) +
         '</div>';
+    // v465 (aprovado 08/11): caixa limpo em linhas — Guarani / Dólar / Real e o total, sem caixas dentro de caixas
     html +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Dinheiro no caixa agora</h2><div class="hint" style="margin:2px 0 0">O que você tem em mãos, em cada moeda.</div></div><div class="kpis">' +
+      '<section class="cxSaldo" aria-label="Dinheiro no caixa agora"><div class="cxLb">No caixa agora</div>' +
       ['pyg', 'usd', 'brl']
         .map(function (m) {
           return (
-            '<div class="kpi" style="background:var(--panel2)"><div class="lbl">' +
-            { pyg: 'Guaranis', usd: 'Dólares', brl: 'Reais' }[m] +
-            '</div><b style="font-size:24px">' +
-            fmtM(c[m], m) +
-            '</b><div class="hint">' +
-            (m === 'pyg' ? 'moeda base' : '≈ ' + gsRaw(Math.round(c[m] * ratePyg(m)))) +
-            '</div></div>'
+            '<div class="cxL"><span>' + { pyg: 'Guarani', usd: 'Dólar', brl: 'Real' }[m] + '<small>' + (m === 'pyg' ? 'moeda base' : '≈ ' + gsRaw(Math.round(c[m] * ratePyg(m)))) + '</small></span><b>' + fmtM(c[m], m) + '</b></div>'
           );
         })
         .join('') +
-      '</div><div class="hint" style="margin:0">Total aproximado: <b>' +
-      gs(Math.round(r.wal)) +
-      '</b> ao câmbio de hoje. O que está livre e o que já tem dono ficam no <a href="#dash" data-act="view" data-id="dash" style="color:var(--accent-fg)">Dashboard</a>, aba Dinheiro.</div></section>';
+      '<div class="cxTot"><span>Total aproximado</span><b>' + gs(Math.round(r.wal)) + '</b></div>' +
+      '<div class="hint cxDica">O que está livre e o que já tem dono ficam no <a href="#dash" data-act="view" data-id="dash" style="color:var(--accent-fg)">Dashboard</a>, aba Dinheiro.</div></section>';
     html += objCardHtml(); // v425: Objetivos da loja (antiga caixa de melhorias)
     if (r.livre < 0)
       html +=

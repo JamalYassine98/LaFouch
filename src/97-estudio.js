@@ -33,8 +33,18 @@
       else if (nt && nt.n < 75) f.push({ k: x.k, ref: x.ref, cor: x.cor, st: 'nota', o: 1, sub: (nt.mot || []).slice(0, 2).join(' · ') || 'refazer', n: nt.n });
       else if (!(S.fotos && S.fotos[x.k + '|34'])) f.push({ k: x.k, ref: x.ref, cor: x.cor, st: '34', o: 2, sub: 'sem a de 3/4' });
     });
+    // v465: primeiro as sem foto e as que mais vendem; as cores do mesmo modelo ficam juntas (fotos iguais entre si)
+    var vend = {};
+    (S.sales || []).forEach(function (s) {
+      if (s.ref) vend[s.ref] = (vend[s.ref] || 0) + (s.qty || 1);
+    });
+    var ordRef = {};
+    f.forEach(function (x) {
+      var k = x.o * 1e6 - (vend[x.ref] || 0);
+      if (ordRef[x.ref] == null || k < ordRef[x.ref]) ordRef[x.ref] = k;
+    });
     return f.sort(function (a, b) {
-      return a.o - b.o;
+      return ordRef[a.ref] - ordRef[b.ref] || (a.ref < b.ref ? -1 : a.ref > b.ref ? 1 : a.o - b.o);
     });
   }
   function estNoPadrao() {
@@ -483,32 +493,30 @@
         P = estNoPadrao(),
         M = S.estMont || {},
         pf = S.estPerfil;
+      // v465 (aprovado 08/11): Estúdio automático — 1 botão, a fila e o resto no "?"
+      var mostra = S.estTodas ? F.length : Math.min(F.length, 6);
       ov.innerHTML =
-        '<div class="estHd"><h1>Estúdio</h1><div class="estHdR"><button type="button" class="estTut" data-e="tut"><i></i>Como fotografar</button><button type="button" class="estX" data-e="fecha" aria-label="Fechar">×</button></div></div>' +
+        '<div class="estHd"><h1>Estúdio</h1><div class="estHdR"><button type="button" class="estIc" data-e="ajuda" aria-label="Ajuda e ajustes do Estúdio">?</button><button type="button" class="estX" data-e="fecha" aria-label="Fechar">×</button></div></div>' +
         '<div class="estBody">' +
-        '<section class="estCard"><div class="estLbl">Montagem de hoje</div><div class="estChk">' +
-        [['cart', 'Cartolina em curva'], ['caixa', 'Luz da caixa'], ['frontal', 'Luz frontal'], ['tripe', 'Tripé']].map(function (x) {
-          return '<button type="button" class="' + (M[x[0]] ? 'on' : '') + '" data-mont="' + x[0] + '"><i></i>' + x[1] + '</button>';
-        }).join('') +
-        '</div><div class="estRow"><div class="mini estPf">' + (pf ? 'Perfil: ' + esc(pf.nome || 'Caixa de luz') + (pf.zoom > 1.5 ? ' · 2x' : ' · 1x') : 'Sem perfil: meça o fundo') + '</div><button type="button" class="mini" data-e="medir">Medir fundo</button></div><button type="button" class="estLib" data-e="lib">O que meu celular libera ›</button></section>' +
-        '<div class="estRow estAc"><button type="button" class="go" data-e="nova">Fotografar antes de cadastrar</button><button type="button" class="mini estGiroB" data-e="giro">Giro · frente + 3/4 + vídeo</button><button type="button" class="mini estSes" data-e="sessao"' + (F.length ? '' : ' disabled') + '>Sessão: ' + F.length + (F.length === 1 ? ' peça' : ' peças') + ' ›</button></div>' +
-        '<section class="estCard"><div class="estLbl">Fila de fotos · ' + F.length + '</div>' +
+        '<p class="estSub">Você só tira as fotos. O app ajusta a luz, o fundo branco e o enquadramento sozinho.</p>' +
+        '<button type="button" class="go estGo" data-e="sessao"' + (F.length ? '' : ' disabled') + '>' + (F.length ? 'Começar · ' + F.length + (F.length === 1 ? ' peça na fila' : ' peças na fila') : 'Nada na fila') + '</button>' +
+        '<button type="button" class="estLink" data-e="nova">Peça nova, ainda sem cadastro ›</button>' +
         (F.length
-          ? F.slice(0, 40).map(function (x, j) {
+          ? '<div class="estLbl estLbl2"><span>Na fila</span>' + (F.length > 6 ? '<button type="button" class="estLink" data-e="todas">' + (S.estTodas ? 'Mostrar menos' : 'Ver todas ›') + '</button>' : '') + '</div>' +
+            F.slice(0, mostra).map(function (x, j) {
               var ft = S.fotos && S.fotos[x.k];
-              return '<button type="button" class="estIt" data-i="' + j + '"><span class="estTh' + (ft ? '' : ' v') + '">' + (ft ? '<img src="' + esc(ft) + '" alt="">' : 'sem foto') + '</span><span class="estTx"><b>' + esc(pn(x.ref)) + ' · ' + esc(x.cor) + '</b><small>' + esc(x.sub) + '</small></span><span class="estTag t' + x.o + '">' + (x.st === 'sem' ? 'sem foto' : x.st === 'nota' ? 'nota ' + x.n : 'falta 3/4') + '</span></button>';
-            }).join('') + (F.length > 40 ? '<div class="hint" style="margin:6px 0 0">e mais ' + (F.length - 40) + '…</div>' : '')
-          : '<div class="note n-ok">Todas as peças com foto no padrão.</div>') +
-        (fpChaves().length ? '<div style="margin-top:10px">' + fpAjHtml() + '</div>' : '') +
-        '</section>' +
+              return '<button type="button" class="estIt" data-i="' + j + '" data-ref="' + esc(x.ref) + '" data-cor="' + esc(x.cor) + '"><span class="estTh' + (ft ? '' : ' v') + '">' + (ft ? '<img src="' + esc(ft) + '" alt="">' : '') + '</span><span class="estTx"><b>' + esc(pn(x.ref)) + '</b><small>' + esc(x.cor) + ' · ' + (x.st === 'sem' ? 'sem foto' : x.st === 'nota' ? 'refazer: ' + esc(x.sub) : 'falta a foto de 3/4') + '</small></span></button>';
+            }).join('') +
+            (!S.estTodas && F.length > 6 ? '<button type="button" class="estMais" data-e="todas">+ ' + (F.length - 6) + (F.length - 6 === 1 ? ' peça' : ' peças') + '</button>' : '')
+          : '<div class="estOk">Todas as peças com foto no padrão ✓</div>') +
         ((S.estPend || []).length
-          ? '<section class="estCard"><div class="estLbl">Fotos aguardando cadastro · ' + S.estPend.length + '</div>' +
+          ? '<div class="estLbl estLbl2"><span>Fotos aguardando cadastro · ' + S.estPend.length + '</span></div>' +
             S.estPend.map(function (x) {
               return '<div class="estIt estPd"><span class="estTh"><img src="' + esc(x.t) + '" alt=""></span><span class="estTx"><b>Peça sem cadastro</b><small>' + new Date(x.ts).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) + (x.t34 ? ' · frente e 3/4' : ' · frente') + ' · nota ' + x.n + '</small></span><button type="button" class="mini" data-pd="' + x.id + '" data-a="ligar">Ligar</button><button type="button" class="mini estApg" data-pd="' + x.id + '" data-a="apagar" aria-label="Apagar">×</button></div>';
-            }).join('') +
-            '</section>'
+            }).join('')
           : '') +
-        '<section class="estCard"><div class="estLbl">Catálogo</div><div class="estRow" style="justify-content:space-between"><span>Fotos no padrão</span><b style="color:var(--ok)">' + P.ok + ' de ' + P.t + '</b></div></section>' +
+        (fpChaves().length ? '<div class="estPadr">' + fpAjHtml() + '</div>' : '') +
+        '<div class="estRod">Fotos no padrão: ' + P.ok + ' de ' + P.t + '</div>' +
         '</div>';
     };
     pinta();
@@ -542,30 +550,53 @@
         }
         return estDestino({ pend: pd }, pinta);
       }
-      if (b.dataset.e === 'sessao') return estSessao(F.slice(), 0, pinta);
+      if (b.dataset.e === 'todas') {
+        S.estTodas = !S.estTodas;
+        return pinta();
+      }
+      if (b.dataset.e === 'ajuda') return estAjuda(pinta);
+      if (b.dataset.e === 'sessao') {
+        EST_SES = { t0: Date.now(), n: 0, fotos: 0, refazer: [], total: F.length };
+        return estSessao(F.slice(), 0, pinta);
+      }
       if (b.dataset.i != null) {
         var x = F[+b.dataset.i];
+        EST_SES = null;
         estSessao([x], 0, pinta);
       }
     };
     return ov;
   }
   // Sessão: uma peça atrás da outra (frente → 3/4), salvando na cor certa.
+  var EST_SES = null; // v465: contagem da sessão para o resumo do fim
   function estSessao(lista, i, depois) {
     if (i >= lista.length) {
-      lfToast('Sessão concluída');
+      if (EST_SES && lista.length > 1) estResumo(EST_SES, depois);
+      else lfToast('Fotos guardadas');
+      EST_SES = null;
       if (depois) depois();
       render();
       return;
     }
     var x = lista[i],
-      passo = x.st === '34' ? '34' : 'frente';
+      passo = x.st === '34' ? '34' : 'frente',
+      mesmas = lista.filter(function (y) {
+        return y.ref === x.ref;
+      }),
+      ic = mesmas.indexOf(x),
+      ref0 = mesmas.filter(function (y) {
+        return y !== x && S.fotos && S.fotos[y.k];
+      })[0];
     estCam({
       k: x.k,
       ref: x.ref,
       cor: x.cor,
       passo: passo,
-      titulo: pn(x.ref) + ' · ' + x.cor,
+      vivo: true,
+      sessao: true,
+      corRef: ref0 ? { cor: ref0.cor, foto: S.fotos[ref0.k] } : null,
+      corTxt: mesmas.length > 1 ? 'cor ' + (ic + 1) + ' de ' + mesmas.length : '',
+      titulo: (lista.length > 1 ? i + 1 + ' de ' + lista.length + ' · ' : '') + pn(x.ref) + ' · ' + x.cor,
       salva: true,
       prox: function () {
         estSessao(lista, i + 1, depois);
@@ -576,6 +607,16 @@
   // Grava a foto (frente ou 3/4) na cor e marca a nota.
   function estGrava(k, passo, R) {
     var kk = passo === '34' ? k + '|34' : k;
+    vibrar(15);
+    if (EST_SES) EST_SES.fotos++;
+    // v465: fica a melhor foto — se a nova for pior que a que já existe, a antiga continua (a nova fica guardada 30 dias)
+    var ant = passo !== '34' && S.fotoNota[k];
+    if (ant && S.fotos && S.fotos[k] && ant.n > R.n + 5) {
+      if (!S.fotoReserva) S.fotoReserva = {};
+      S.fotoReserva[kk] = { ts: Date.now(), n: R.n };
+      lfToast('A foto anterior era melhor (nota ' + ant.n + ') e continua');
+      return;
+    }
     setFoto(kk, thumbOf(R.cv), R.cv.toDataURL('image/jpeg', 0.92));
     if (passo !== '34') S.fotoNota[k] = { n: R.n, mot: R.mot, ts: Date.now() };
     var ref = k.split('|')[0];
@@ -611,7 +652,9 @@
       '<div class="ecVf"><video id="ecV" autoplay playsinline muted></video><canvas id="ecPkC"></canvas>' +
       '<div class="ecLvl" id="ecLvl"><span>0,0°</span></div><canvas class="ecHist" id="ecHist" width="92" height="40"></canvas>' +
       '<div class="ecMsg" id="ecMsg" hidden></div>' +
-      '<div class="ecTag">' + (ctx.medir ? 'Aponte só para a cartolina e toque em Medir fundo' : (ctx.passo === '34' ? '3/4 · 2 de 2' : 'Frente · 1 de 2') + (ctx.titulo ? ' · ' + esc(ctx.titulo) : '')) + '</div>' +
+      '<div class="ecTag">' + (ctx.medir ? 'Aponte só para a cartolina e toque em Medir fundo' : (ctx.passo === '34' ? '3/4 · 2 de 2' : 'Frente · 1 de 2') + (ctx.titulo ? ' · ' + esc(ctx.titulo) : '') + (ctx.corTxt ? ' · ' + esc(ctx.corTxt) : '')) + '</div>' +
+      (ctx.corRef && !ctx.medir ? '<div class="ecRef"><img src="' + esc(ctx.corRef.foto) + '" alt=""><span>Mesma posição da ' + esc(ctx.corRef.cor) + '</span></div>' : '') +
+      (ctx.sessao && !ctx.medir ? '<div class="ecAuto" id="ecAuto">' + (ctx.passo === '34' ? 'Gire a peça um pouco (3/4) e deixe parada' : 'Peça de frente, centralizada e parada') + '</div>' : '') +
       '<div class="ecGd"><i class="c1"></i><i class="c2"></i><i class="c3"></i><i class="c4"></i></div>' +
       '<div class="ecChips" id="ecChips"><span data-k="fundo"><i></i>Fundo branco</span><span data-k="foco"><i></i>Foco</span><span data-k="reto"><i></i>Reto</span><span data-k="dist"><i></i>Distância</span></div></div>' +
       '<div class="ecPro" id="ecPro"></div><div class="ecDial" id="ecDial"><input type="range" id="ecR" min="0" max="100" value="50" aria-label="Ajuste"><div class="ecDv" id="ecDv"></div></div>' +
@@ -896,6 +939,28 @@
           lv.firstChild.textContent = (Math.round(gama * 10) / 10).toString().replace('.', ',') + '°';
         }
         st.bf = bf;
+        // v465: dispara sozinho quando a peça fica parada e certinha (~1 s); o botão e o volume continuam valendo
+        if (ctx.sessao && !ctx.medir && !st.medindo) {
+          var mov = 0;
+          if (st.ant && st.ant.length === d.length) {
+            for (i = 0; i < d.length; i += 16) mov += Math.abs(d[i] - st.ant[i]);
+            mov /= d.length / 16;
+          } else mov = 99;
+          st.ant = new Uint8ClampedArray(d);
+          var tudo = ok.fundo && ok.foco && ok.reto && ok.dist && mov < 3.5,
+            sh0 = $('ecSh'),
+            au = $('ecAuto');
+          st.parado = tudo ? (st.parado || 0) + 1 : 0;
+          if (sh0) sh0.style.setProperty('--p', Math.min(1, st.parado / 3));
+          if (sh0) sh0.classList.toggle('auto', st.parado > 0);
+          if (au) au.textContent = tudo ? 'Parado… tirando sozinho' : !ok.dist ? 'Aproxime ou afaste até a peça caber na moldura' : !ok.foco ? 'Esperando o foco' : !ok.fundo ? 'Fundo escuro: aproxime a luz' : mov >= 3.5 ? 'Deixe a peça parada' : 'Peça de frente, centralizada e parada';
+          if (au) au.classList.toggle('ok', tudo);
+          if (st.parado >= 3 && !st.autoFoi && typeof dispara === 'function') {
+            st.autoFoi = true;
+            vibrar(10);
+            dispara();
+          }
+        }
         // peça estourada: muito branco puro no meio da imagem com o fundo travado
         var nc = 0,
           ncl = 0;
@@ -978,6 +1043,12 @@
       var b = $('ecFundo');
       if (!b || st.medindo) return;
       var ok = pronta();
+      // v465: sem perfil medido, a primeira foto da sessão mede o fundo sozinha
+      if (ok && ctx.sessao && !S.estPerfil && !st.autoMed && typeof medir === 'function') {
+        st.autoMed = true;
+        msg('Ajustando a luz e o fundo…', 'ok');
+        medir();
+      }
       b.disabled = !ok;
       if (!ok) b.textContent = 'Abrindo câmera…';
       else if (b.textContent === 'Abrindo câmera…') b.textContent = S.estPerfil && S.estPerfil.salvo && st.travado ? 'Fundo travado 255' : 'Medir fundo';
@@ -1331,6 +1402,33 @@
       });
   }
   function estResultado(R, f, ctx) {
+    // v465: na sessão, foto aprovada (nota 75+) segue sozinha, sem tela no meio; foto ruim mostra o porquê e pede de novo
+    if (ctx.sessao && R.cv && R.n >= 75 && !ctx.nova) {
+      var passoA = ctx.passo || 'frente';
+      if (passoA === 'frente') {
+        if (ctx.k) estGrava(ctx.k, 'frente', R);
+        estBarra('✓ Frente salva · agora a 3/4');
+        return setTimeout(function () {
+          estCam(Object.assign({}, ctx, { passo: '34', salva: true, done: null }));
+        }, 450);
+      }
+      if (ctx.k) estGrava(ctx.k, '34', R);
+      if (EST_SES) EST_SES.n++;
+      estBarra('Fotos salvas ✓', [
+        ['Gravar vídeo 360', function () {
+          estVideo360(ctx, null);
+        }],
+        ['Refazer', function () {
+          estCam(Object.assign({}, ctx, { passo: 'frente' }));
+        }]
+      ], function () {
+        render();
+        if (ctx.prox) ctx.prox();
+        else if (ctx.fim) ctx.fim();
+      });
+      return;
+    }
+    if (ctx.sessao && EST_SES && R.n < 75) EST_SES.refazer.push((R.mot || [])[0] || 'nota baixa');
     var ov = document.createElement('div');
     ov.className = 'estOv estRes';
     ov.id = 'estRes';
@@ -1752,3 +1850,75 @@
   ICO_D.est = EST_ICO;
   if (INI_PADRAO.indexOf('est') < 0) INI_PADRAO.splice(3, 0, 'est');
   if (INI_TODOS.indexOf('est') < 0) INI_TODOS.push('est');
+  // v465: barra que aparece embaixo por um instante (com ações opcionais) e segue sozinha
+  function estBarra(txt, acoes, depois) {
+    var b = document.createElement('div'),
+      feito = false;
+    b.className = 'estBarra';
+    b.innerHTML = '<b>' + esc(txt) + '</b>' + (acoes || []).map(function (a, i) {
+      return '<button type="button" data-b="' + i + '">' + esc(a[0]) + '</button>';
+    }).join('');
+    document.body.appendChild(b);
+    var segue = function (fn) {
+      if (feito) return;
+      feito = true;
+      b.classList.add('sai');
+      setTimeout(function () {
+        b.remove();
+      }, 260);
+      if (fn) fn();
+      else if (depois) depois();
+    };
+    b.onclick = function (e) {
+      var x = e.target.closest('[data-b]');
+      if (x) segue(acoes[+x.dataset.b][1]);
+    };
+    setTimeout(function () {
+      segue();
+    }, acoes && acoes.length ? 2600 : 900);
+  }
+  // v465: resumo no fim da sessão
+  function estResumo(r, depois) {
+    var min = Math.max(1, Math.round((Date.now() - r.t0) / 60000)),
+      h =
+        '<div class="estResT">Sessão concluída</div><div class="estResS">' + r.n + (r.n === 1 ? ' peça' : ' peças') + ' · ' + r.fotos + (r.fotos === 1 ? ' foto' : ' fotos') + ' · ' + min + ' min</div>' +
+        '<div class="estResL"><span>Já no catálogo e no site<small>as fotos novas entraram sozinhas</small></span><b class="ok">✓</b></div>' +
+        (r.refazer.length ? '<div class="estResL"><span>' + r.refazer.length + ' para refazer<small>' + esc(r.refazer.slice(0, 3).join(' · ')) + '</small></span><b>›</b></div>' : '') +
+        '<button type="button" class="go" data-act="estResFecha">Fechar</button>';
+    lfaAbre('estResF', h);
+    ACT.estResFecha = function () {
+      lfaFecha('estResF');
+      if (depois) depois();
+    };
+  }
+  // v465: o "?" do Estúdio — tudo o que antes ficava na tela (montagem, medir fundo, o que o celular libera, giro, guia)
+  function estAjuda(pinta) {
+    var M = S.estMont || {},
+      pf = S.estPerfil,
+      h =
+        '<div class="estAjT"><span>ESTÚDIO</span></div>' +
+        '<button type="button" class="estAjL" data-act="estAj" data-id="tut"><span>Como fotografar<small>vídeo curto e o que cada coisa faz</small></span><i>›</i></button>' +
+        '<div class="estAjG">Montagem<small>o app avisa sozinho se algo estiver errado</small></div><div class="estChk">' +
+        [['cart', 'Cartolina em curva'], ['caixa', 'Luz da caixa'], ['frontal', 'Luz frontal'], ['tripe', 'Tripé']].map(function (x) {
+          return '<button type="button" class="' + (M[x[0]] ? 'on' : '') + '" data-act="estAj" data-id="m:' + x[0] + '"><i></i>' + x[1] + '</button>';
+        }).join('') + '</div>' +
+        '<button type="button" class="estAjL" data-act="estAj" data-id="medir"><span>Medir o fundo de novo<small>' + (pf ? 'medido · ' + esc(pf.nome || 'Caixa de luz') : 'o app mede sozinho na primeira foto') + '</small></span><i>›</i></button>' +
+        '<button type="button" class="estAjL" data-act="estAj" data-id="giro"><span>Vídeo 360 (giro)<small>frente + 3/4 + vídeo no prato</small></span><i>›</i></button>' +
+        '<button type="button" class="estAjL" data-act="estAj" data-id="lib"><span>O que meu celular libera<small>controles da câmera deste aparelho</small></span><i>›</i></button>';
+    lfaAbre('estAjF', h);
+    ACT.estAj = function (id) {
+      if (id.indexOf('m:') === 0) {
+        var k = id.slice(2);
+        S.estMont[k] = !S.estMont[k];
+        saveSoon();
+        return estAjuda(pinta);
+      }
+      lfaFecha('estAjF');
+      setTimeout(function () {
+        if (id === 'tut') estTutorial();
+        else if (id === 'medir') estCam({ medir: true, titulo: 'Medir fundo', fim: pinta });
+        else if (id === 'giro') estGiro({ fim: pinta });
+        else if (id === 'lib') estLibera();
+      }, 240);
+    };
+  }

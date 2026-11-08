@@ -167,6 +167,10 @@
   }
   // Aviso do sistema (Windows/navegador) para pedidos achados pela busca automática; respeita as opções de Ajustes.
   function avisoLocal(titulo, corpo, q) {
+    // v465 (animação k): com o app aberto, o pedido novo desce do topo com mola
+    try {
+      if (q && q.n && !document.hidden && typeof lfAvisoTopo === 'function') lfAvisoTopo(q.n === 1 ? 'Pedido novo do site' : q.n + ' pedidos novos do site', corpo || 'Toque para ver', function () { setView('ped'); });
+    } catch (e) {}
     try {
       var C = window.Capacitor;
       if (C && C.isNativePlatform && C.isNativePlatform()) return;

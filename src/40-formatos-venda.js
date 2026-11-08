@@ -385,7 +385,7 @@
         'Reposição da mercadoria',
         usd(sale.repUSD) + ' ao câmbio de hoje (US$ 1 = ' + gsRaw(S.fx.pyg) + '). Obrigatório.',
         sale.rep,
-        '#00c8ff'
+        '#6cc3e0'
       ],
       [
         'Contas da loja e de casa',
@@ -397,11 +397,11 @@
         'Colchão de segurança',
         pc(sale.pct) + ' da reposição, pela alta recente do dólar e do custo.',
         sale.colch,
-        '#ffc766'
+        '#e9c27a'
       ],
       ['Caixa de melhorias', 'Meta flexível. Não trava a venda.', sale.melh, 'var(--info)'],
       ['Taxa da maquininha', 'Sai do seu lucro. Já descontada do que entra no caixa.', sale.taxa || 0, '#ff9d7a'],
-      ['Lucro livre', 'O que sobra para você.', sale.livre, '#00ff88']
+      ['Lucro livre', 'O que sobra para você.', sale.livre, '#5fd39a']
     ];
     SPLIT_OK = true;
     vibrar(25);

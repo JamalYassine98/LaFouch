@@ -911,7 +911,8 @@
           tpOk = function (id) {
             if (id === 'outro') return !!smp;
             var x = tipoOf(id);
-            return !!x && !smp && (id === 'pre') === (f.tipo === 'pre');
+            // v465: Armação ↔ Pré-graduado agora pode (abre a folha que pergunta o grau / a cor)
+            return !!x && !smp && ((id === 'pre') === (f.tipo === 'pre') || (id === 'pre' && f.tipo === 'sem') || (id === 'sem' && f.tipo === 'pre'));
           },
           tt = mk('div', 'trk');
         tt.id = 'edTipoTrk';
@@ -923,6 +924,7 @@
         tt.onclick = function (e) {
           var b = e.target.closest('.trkB');
           if (!b || b.disabled || b.dataset.m === 'outro') return;
+          if ((b.dataset.m === 'pre') !== (f.tipo === 'pre')) return tipoTrocaAbre(ref, f.tipo, b.dataset.m);
           S.edTipo = b.dataset.m === f.tipo ? '' : b.dataset.m;
           trkMarca(tt, b.dataset.m);
         };

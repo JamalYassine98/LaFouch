@@ -102,7 +102,7 @@ html[data-tema="claro"] #lfIntro{background:#f4f1f4;--lg:url(logo-app-claro.png)
     </div>
     <div id="emsg" role="status" style="color:var(--ok);font-size:14px"></div>
   </div>
-  <section class="card col" id="photoCard" hidden aria-label="Confirmar foto da peça" style="border-left:4px solid var(--accent)">
+  <section class="card col" id="photoCard" hidden aria-label="Confirmar foto da peça">
     <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center"><h2 style="margin:0;font-size:16px">Confirmar foto da peça</h2><button class="tab" id="phCancel" type="button">Cancelar</button></div>
     <div class="phgrid">
       <img id="phImg" class="phimg" alt="Foto da peça tirada agora">
@@ -131,7 +131,7 @@ html[data-tema="claro"] #lfIntro{background:#f4f1f4;--lg:url(logo-app-claro.png)
       </div>
     </div>
   </section>
-  <section class="card col" id="batchCard" hidden aria-label="Várias peças na foto" style="border-left:4px solid var(--accent)">
+  <section class="card col" id="batchCard" hidden aria-label="Várias peças na foto">
     <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center"><h2 style="margin:0;font-size:16px">Várias peças na foto</h2><button class="tab" id="bCancel" type="button">Cancelar</button></div>
     <div id="bInfo" class="note n-info" role="status"></div>
     <div><div class="lbl">Nome do produto <span class="hint" style="display:inline;margin:0">(opcional)</span></div><input class="in" id="bNome" placeholder="Ex.: Gatinho preto fosco" maxlength="60"></div>
@@ -172,7 +172,7 @@ html[data-tema="claro"] #lfIntro{background:#f4f1f4;--lg:url(logo-app-claro.png)
         <div class="list" id="vRows"></div>
         <div id="vLinesB" hidden><div class="lbl" id="vProdL"></div><div class="nav" id="sLines"></div></div>
       </section>
-      <section class="card col" id="vDetail" hidden aria-label="Produto" style="border-left:4px solid var(--accent)"></section>
+      <section class="card col" id="vDetail" hidden aria-label="Produto"></section>
       <section class="card col" id="vSaleCard" hidden aria-label="Venda">
         <div id="pagHead" hidden><div style="display:flex;align-items:center;gap:10px"><button type="button" class="chip" data-act="cartvolta" aria-label="Voltar ao pedido" style="min-height:42px;width:42px;padding:0;justify-content:center;font-size:20px;flex:0 0 auto">←</button><h2 style="margin:0;font-size:20px">Pagamento</h2></div></div>
         <div class="hint" id="spc" style="margin:0"></div>
@@ -279,7 +279,7 @@ html[data-tema="claro"] #lfIntro{background:#f4f1f4;--lg:url(logo-app-claro.png)
 
 
 
-  <section class="card col" id="detail" hidden aria-label="Catálogo do produto" style="border-left:4px solid var(--accent)"></section>
+  <section class="card col" id="detail" hidden aria-label="Catálogo do produto"></section>
 
   <div id="lotes" class="col" style="gap:12px"></div>
   </div>
@@ -288,7 +288,7 @@ html[data-tema="claro"] #lfIntro{background:#f4f1f4;--lg:url(logo-app-claro.png)
 <section id="notaOv" class="catov" aria-label="Venda registrada" hidden></section>
   <div id="notaCf" class="notacf" hidden></div>
   <div id="notaPrint" aria-hidden="true"></div>
-  <script>/*LOADER*/(function(){var EMB=464,d=document,m=null;try{m=JSON.parse(localStorage.getItem('lf_upd')||'null')}catch(e){}
+  <script>/*LOADER*/(function(){var EMB=465,d=document,m=null;try{m=JSON.parse(localStorage.getItem('lf_upd')||'null')}catch(e){}
 function std(){var s=d.createElement('script');s.src='app.js';d.body.appendChild(s)}
 if(!m||!(m.v>EMB)||!window.caches||(m.tent||0)>=2){if(m&&m.v>EMB&&(m.tent||0)>=2){try{localStorage.removeItem('lf_upd');caches.delete('lafouch-upd')}catch(e){}}std();return}
 try{localStorage.setItem('lf_upd',JSON.stringify({v:m.v,tent:(m.tent||0)+1}))}catch(e){}

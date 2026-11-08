@@ -1,6 +1,10 @@
 {
- "nome": "5.6.4",
+ "nome": "5.7.0",
  "notas": [
-  "Barras do Android (em cima e embaixo) na cor do app, acompanhando o tema claro/escuro (precisa do APK novo)"
+  "Visual mais suave em todo o app: sem rosa neon, botões principais com contorno rosa suave e botões que afundam ao tocar",
+  "Dashboard com 2 botões só: \"Resumo ⌄\" e \"Este mês ⌄\", com as datas certas; dólar sempre da casa de câmbio",
+  "Busca tolerante: acha mesmo sem acento ou com letra errada (oculos, exagonal, coracao), em português e espanhol",
+  "Estúdio automático: um botão para começar, a câmera ajusta a luz e tira a foto sozinha com a peça parada",
+  "Trocar Armação ↔ Pré-graduado escolhendo o grau, segurar um produto para espiar a foto grande e mais animações"
  ]
 }

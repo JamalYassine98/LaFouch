@@ -182,7 +182,6 @@
         // 07/11: diagnóstico — guarda o que a página devolveu quando não dá para ler (ex.: bloqueio do Cloudflare)
         if (!c) {
           var tx = String((r && r.data) || '').replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-          S._lmTxt = tx.slice(0, 20000);
           throw new Error((S._lmDiag ? '[' + S._lmDiag + '] ' : '') + 'a página respondeu ' + ((r && r.status) || '?') + (/cloudflare|just a moment|attention required|checking your browser/i.test(tx) ? ' (bloqueio do Cloudflare)' : '') + ' e não achei a Sucursal Jebai: “' + tx.slice(0, 80) + '…”');
         }
         LM_FALHAS = 0;

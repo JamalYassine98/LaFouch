@@ -250,6 +250,11 @@
   }
   // Um cartão de valores com uma moeda por linha, na mesma ordem em todos os cartões.
   function kpi3(rotulo, o, ms, cor, dica) {
+    // v465: só as moedas que têm valor (nada de "R$ 0,00" quando o real foi todo para a reposição)
+    var com = ms.filter(function (m) {
+      return (o[m] || 0) > 0.004;
+    });
+    ms = com.length ? com : ['pyg'];
     var tam = ms.length > 2 ? 18 : ms.length > 1 ? 22 : 26;
     return (
       '<div class="kpi"><div class="lbl">' + rotulo + '</div><b style="' + (cor ? 'color:' + cor + ';' : '') + 'font-size:' + tam + 'px;line-height:1.5;display:block;font-variant-numeric:tabular-nums">' +
@@ -280,12 +285,12 @@
       }).join('') +
       '</div>' +
       ln('Vendido', 'entrou no período', sp.vend, '#9aa', true, false) +
-      ln('Reposição', 'dólar primeiro, depois real, resto em guarani', sp.rep, '#00c8ff', false, true) +
+      ln('Reposição', 'dólar primeiro, depois real, resto em guarani', sp.rep, '#6cc3e0', false, true) +
       ln('Contas', 'cada uma na sua moeda', sp.con, '#a2447c', false, false) +
       (sp.brT && sp.brT.itens.length ? ln('Brindes', 'separar ' + gs(Math.round(sp.brT.porVenda)) + ' por venda · guardado ' + gs(Math.round(sp.brT.guardado)), sp.br, '#c9a0dc', false, false) : '') +
-      ln('Colchão', 'proporcional ao que sobrou', sp.colch, '#ffc766', false, false) +
+      ln('Colchão', 'proporcional ao que sobrou', sp.colch, '#e9c27a', false, false) +
       ln('Objetivos', 'da loja', sp.melh, 'var(--info)', false, false) +
-      ln('Lucro livre', 'o que sobrou', sp.livre, '#00ff88', true, true) +
+      ln('Lucro livre', 'o que sobrou', sp.livre, '#5fd39a', true, true) +
       '</section>'
     );
   }
@@ -302,7 +307,7 @@
       })
       .forEach(function (t) {
         linhas +=
-          '<div class="sl"><span>Trocar <b>' + v3(t.v, t.de) + '</b> por <b>' + usd(t.rec) + '</b><small>cotação de mercado ' +
+          '<div class="sl"><span>Trocar <b>' + v3(t.v, t.de) + '</b> por <b>' + usd(t.rec) + '</b><small>' + (lmOk() ? 'cotação da casa ' : 'cotação de mercado ') +
           (t.de === 'brl' ? 'R$ ' + nf(S.fx.brl, 'brl') + ' por US$ 1' : gsRaw(S.fx.pyg) + ' por US$ 1') + '</small></span><b>' + v3(t.v, t.de) + '</b></div>';
       });
     var sobra = {};

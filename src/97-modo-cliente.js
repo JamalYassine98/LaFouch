@@ -65,7 +65,7 @@
     S.modoCli = mcLigado();
     document.body.classList.toggle('modoCli', S.modoCli);
     if (!S.modoCli) {
-      document.body.classList.remove('mcAberto');
+      mcTrava(false);
       return;
     }
     mcTopo();
@@ -89,7 +89,8 @@
         localStorage.removeItem('lf_modoCli');
       } catch (e) {}
       S.modoCli = false;
-      document.body.classList.remove('modoCli', 'mcAberto');
+      mcTrava(false);
+      document.body.classList.remove('modoCli');
       clearTimeout(mcT);
       render();
       lfToast('Modo cliente desligado · app normal');
@@ -142,3 +143,22 @@
     mcBotao();
     mcAplica();
   }, 0);
+  // v465: produto aberto no modo cliente = a página de trás fica TRAVADA (mesma regra do site, html.ppop):
+  // só a janela do produto rola, sem "vazar" para o catálogo; ao fechar, o catálogo volta para onde estava.
+  var mcY = 0;
+  function mcTrava(on) {
+    var de = document.documentElement,
+      era = document.body.classList.contains('mcAberto');
+    if (on === era) return;
+    if (on) {
+      mcY = window.scrollY || de.scrollTop || 0;
+      document.body.classList.add('mcAberto');
+      de.classList.add('mcTrava');
+      document.body.style.top = -mcY + 'px';
+    } else {
+      document.body.classList.remove('mcAberto');
+      de.classList.remove('mcTrava');
+      document.body.style.top = '';
+      window.scrollTo(0, mcY);
+    }
+  }

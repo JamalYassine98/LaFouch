@@ -482,7 +482,7 @@
     // produto aberto: a mesma tela do catálogo, em modo venda; a lista some
     // (modo cliente: a lista fica atrás, desfocada, e o produto aparece na frente)
     $('vListCard').hidden = !!S.vRef && !S.modoCli;
-    document.body.classList.toggle('mcAberto', !!(S.modoCli && S.vRef));
+    mcTrava(!!(S.modoCli && S.vRef));
     setTimeout(vVistoAtualiza, 0);
     $('vSaleCard').hidden = true; // quantidade e botão Vender ficam na barra fixa do produto
     if (S.vRef && groups[S.vRef]) {

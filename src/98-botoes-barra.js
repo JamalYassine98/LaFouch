@@ -97,6 +97,8 @@
         dg.troca = ts;
       }
       var B = barraLista();
+      lugarBarra(o, B);
+      lugarInicio(o);
       // segurar sobre outro botão da barra por um instante = juntar
       var kk = dg.deBarra && !grpGet(dg.id) && o.zona === 'barra' && o.k > 0 && B[o.k - 1] !== dg.id ? o.k : -1;
       if (kk !== dg.hk) {
@@ -133,6 +135,70 @@
       }
       dg.o = o;
     }
+    // v465: botão vindo do Início entra NA POSIÇÃO onde soltar (espaço tracejado abre entre os botões da barra)
+    function lugarBarra(o, B) {
+      var ins = -1;
+      if (dg && !dg.deBarra && o.zona === 'barra' && B.length < BARRA_MAX && !(o.k > 0 && grpGet(B[o.k - 1]))) {
+        ins = 0;
+        (dg.cBar || []).forEach(function (cx, i) {
+          if (i > 0 && cx < dg.cx) ins = i;
+        });
+      }
+      if (ins === dg.ins) return;
+      dg.ins = ins;
+      var ph = barEl().querySelector('.qph');
+      if (ins < 0) {
+        if (ph) ph.remove();
+        return;
+      }
+      if (!ph) {
+        ph = document.createElement('div');
+        ph.className = 'qph';
+        ph.setAttribute('aria-hidden', 'true');
+      }
+      var l = slots(),
+        ref = l[ins + 1] || null;
+      barEl().insertBefore(ph, ref);
+    }
+    // v465: botão vindo da barra volta ao Início NO LUGAR onde soltar (quadrado tracejado entre os outros)
+    function lugarInicio(o) {
+      var antes = null,
+        on = dg && dg.deBarra && !grpGet(dg.id) && o.zona === 'fora' && dg.cIni && dg.cIni.length && S.view === 'inicio';
+      if (on) {
+        var best = null,
+          bd = 1e9;
+        dg.cIni.forEach(function (t) {
+          var d = Math.abs(t.x - dg.cx) + Math.abs(t.y - dg.cy) * 1.2;
+          if (d < bd) {
+            bd = d;
+            best = t;
+          }
+        });
+        if (best && Math.abs(best.y - dg.cy) < best.h * 1.6) {
+          if (dg.cx < best.x) antes = best.id;
+          else {
+            var k = dg.cIni.indexOf(best);
+            antes = dg.cIni[k + 1] ? dg.cIni[k + 1].id : '__fim';
+          }
+        } else on = false;
+      }
+      var alvo = on ? antes : null;
+      if (alvo === dg.iniAntes) return;
+      dg.iniAntes = alvo;
+      var ph = document.querySelector('#v-inicio .tl.qphT');
+      if (!alvo) {
+        if (ph) ph.remove();
+        return;
+      }
+      if (!ph) {
+        ph = document.createElement('div');
+        ph.className = 'tl qphT';
+        ph.setAttribute('aria-hidden', 'true');
+      }
+      var ref = alvo === '__fim' ? null : document.querySelector('#v-inicio .tl[data-act="inicio"][data-id="' + alvo + '"]');
+      var pai = (ref && ref.parentNode) || (dg.cIni[0] && dg.cIni[0].el.parentNode);
+      if (pai) pai.insertBefore(ph, ref);
+    }
     function inicia() {
       if (!dg || dg.on) return;
       var src = dg.el,
@@ -146,6 +212,17 @@
       dg.gw = r.width;
       dg.gh = r.height;
       dg.on = true;
+      // v465: posições guardadas no começo (o espaço tracejado não muda a conta enquanto arrasta)
+      dg.cBar = slots().map(function (s) {
+        var q = s.getBoundingClientRect();
+        return q.left + q.width / 2;
+      });
+      dg.cIni = [].slice.call(document.querySelectorAll('#v-inicio .tl[data-act="inicio"]')).filter(function (t) {
+        return t !== src;
+      }).map(function (t) {
+        var q = t.getBoundingClientRect();
+        return { id: t.getAttribute('data-id'), el: t, x: q.left + q.width / 2, y: q.top + q.height / 2, w: q.width, h: q.height };
+      });
       src.classList.add('qorig');
       document.body.classList.add('arrastaBarra');
       barEl().classList.add('qd');
@@ -213,6 +290,9 @@
       });
       barEl().classList.remove('qd');
       document.body.classList.remove('arrastaBarra');
+      [].slice.call(document.querySelectorAll('.qph,.qphT')).forEach(function (x) {
+        x.remove();
+      });
       var lx = $('inLixo');
       if (lx) lx.classList.remove('on', 'perto');
       [].slice.call(document.querySelectorAll('#v-inicio .tl.troca')).forEach(function (el) {
@@ -268,7 +348,8 @@
       } else if (!d.deBarra) {
         if (o.zona === 'barra') {
           if (B.length < BARRA_MAX) {
-            B.push(d.id);
+            if (d.ins >= 0 && d.ins <= B.length) B.splice(d.ins, 0, d.id);
+            else B.push(d.id);
             pr = d.id;
             msg = nome + ' entrou na barra · ' + (B.length + 1) + '/5';
           } else if (o.k > 0) {
@@ -301,7 +382,7 @@
           msg = 'Botão de lugar trocado';
         } else if (o.zona === 'fora') {
           B.splice(i, 1);
-          barraDevolve(d.id);
+          barraDevolve(d.id, d.iniAntes && d.iniAntes !== '__fim' ? d.iniAntes : null);
           pt = d.id;
           msg = nome + ' voltou para o Início';
         } else volta = true;

@@ -34,6 +34,8 @@
       segurou = false;
       clearTimeout(t);
       if (S.ebSel) return;
+      // v465: segurar agora abre o "espiar" (98-anim-novas.js), que tem "Selecionar para enviar" — o mesmo começo de seleção
+      if (window.lfEspiaOn) return;
       t = setTimeout(function () {
         if (!alvo) return;
         segurou = true;
@@ -371,3 +373,10 @@
     x.fillText('Galeria Jebai Center · Ciudad del Este', 70, 1290);
     return cv;
   }
+  // v465: começa a seleção a partir do "espiar"
+  window.ebSeleciona = function (ref) {
+    if (!ref || ebNao(ref)) return;
+    S.ebSel = [ref];
+    vibrar(18);
+    ebDecora();
+  };

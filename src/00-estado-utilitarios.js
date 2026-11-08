@@ -240,37 +240,38 @@
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '');
   }
-  // Monta o filtro de busca por palavras.
+  // Monta o filtro de busca por palavras. v465: tolerante (sem acento, sons iguais, 1 letra errada, PT/ES) — btol().
+  var MK_CACHE = {};
   function mkMatch(q) {
-    var toks = nrm(q).split(/\s+/).filter(Boolean);
-    if (!toks.length) return null;
-    var tk = toks.map(function (t) {
-      return { a: t, b: t.replace(/[^a-z0-9]/g, '') };
-    });
-    return function (i) {
+    var bt = btol(q);
+    if (!bt) return null;
+    MK_CACHE = {};
+    var fn = function (i) {
+      return fn.score(i) > 0;
+    };
+    fn.score = function (i) {
       var g = String(i.grau || ''),
         tl = tipoOf(i.tipo),
-        t1 = nrm(
-          [
-            i.ref,
-            i.cor,
-            g,
-            g.replace('.', ''),
-            g.replace('.', ','),
-            i.fmt,
-            i.med,
-            i.vr,
-            tl ? tl.label : '',
-            S.desc[i.ref] || '',
-            (S.pnome && S.pnome[i.ref]) || '',
-            identTxt(i.ref)
-          ].join(' ')
-        ),
-        t2 = t1.replace(/[^a-z0-9]/g, '');
-      return tk.every(function (t) {
-        return t1.indexOf(t.a) >= 0 || (t.b && t2.indexOf(t.b) >= 0);
-      });
+        k = i.ref + '|' + i.cor + '|' + g + '|' + i.tipo;
+      if (MK_CACHE[k] != null) return MK_CACHE[k];
+      var txt = [
+        i.ref,
+        i.cor,
+        g,
+        g.replace('.', ''),
+        i.fmt,
+        i.med,
+        i.vr,
+        tl ? tl.label : '',
+        S.desc[i.ref] || '',
+        (S.pnome && S.pnome[i.ref]) || '',
+        typeof pubNome === 'function' ? pubNome(i.ref) : '',
+        i.tipo === 'pre' ? 'óculos de leitura grau' : i.tipo === 'solar' ? 'óculos solar sol' : 'armação',
+        identTxt(i.ref)
+      ].join(' ');
+      return (MK_CACHE[k] = bt(txt));
     };
+    return fn;
   }
   // O tipo usa referência simples (sem código de haste)?
   function isSimple(id) {

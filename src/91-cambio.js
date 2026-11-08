@@ -198,7 +198,7 @@
       pos = Math.round(c.pos * 100);
     return (
       '<div class="card col" style="padding:10px;margin:0"><div class="lbl" style="margin:0">' + c.nome + ' hoje</div><b style="font-size:24px">' + f(c.hoje) + '</b>' +
-      '<div style="position:relative;height:10px;border-radius:6px;background:linear-gradient(90deg,var(--ok),#ffc766,var(--bad))"><i style="position:absolute;left:' + pos + '%;top:-4px;width:6px;height:18px;border-radius:3px;background:#fff;transform:translateX(-50%)"></i></div>' +
+      '<div style="position:relative;height:10px;border-radius:6px;background:linear-gradient(90deg,var(--ok),#e9c27a,var(--bad))"><i style="position:absolute;left:' + pos + '%;top:-4px;width:6px;height:18px;border-radius:3px;background:#fff;transform:translateX(-50%)"></i></div>' +
       '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--mute)"><span>mínimo ' + f(c.min) + '</span><span>média ' + f(c.media) + '</span><span>máximo ' + f(c.max) + '</span></div>' +
       '<div class="note ' + (c.barato ? 'n-ok' : c.caro ? 'n-warn' : 'n-info') + '">' +
       (c.barato ? 'Perto do mínimo dos últimos ' + S.janela + ' dias: bom momento para trocar.' : c.caro ? 'Perto do máximo dos últimos ' + S.janela + ' dias: troque só o necessário.' : 'Cotação no meio do intervalo dos últimos ' + S.janela + ' dias.') +
@@ -283,6 +283,8 @@
   // Busca a cotação online.
   // Outro aparelho já buscou a cotação há pouco: usa a mesma (câmbio único entre aparelhos).
   function fxAdota() {
+    // v465: com cotação da casa, a casa sempre ganha (a compartilhada só vale para quem nunca leu a casa)
+    if (lmOk()) return fxDaCasa();
     var c = S.fxc;
     if (!S.syncOn || !c || !(c.pyg > 0) || !(c.ts > (S.fx.ts || 0))) return false;
     var last = S.fxHist[S.fxHist.length - 1],

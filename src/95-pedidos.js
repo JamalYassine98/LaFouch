@@ -604,7 +604,7 @@
           if (gAtual === 'novo') return (b.pg === 'comp') - (a.pg === 'comp') || a.ts - b.ts;
           return b.ts - a.ts;
         });
-    if (!lista.length) h += '<div class="hint">' + (S.pedidos.length ? 'Nenhum pedido nesta situação.' : 'Nenhum pedido ainda. Quando um cliente fizer um pedido no site, ele aparece aqui sozinho.') + '</div>';
+    if (!lista.length) h += S.pedidos.length ? '<div class="hint">Nenhum pedido nesta situação.</div>' : lfVazioHtml('<path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/>', 'Nenhum pedido ainda', 'Quando um cliente fizer um pedido no site, ele aparece aqui sozinho.');
     lista.forEach(function (p) {
       var tot = pedTotal(p),
         est = pedEstado(p),

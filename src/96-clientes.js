@@ -159,7 +159,7 @@
   function cliListaHtml() {
     var l = cliLista();
     if (!l.length)
-      return '<div class="hint">' + (S.clientes.length ? 'Nenhum cliente com essa busca.' : 'Nenhum cliente ainda. Eles entram sozinhos quando você salva um pedido online, ou toque em "+ Novo cliente".') + '</div>';
+      return S.clientes.length ? '<div class="hint">Nenhum cliente com essa busca.</div>' : lfVazioHtml('<circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/>', 'Nenhum cliente ainda', 'Eles entram sozinhos quando você salva um pedido online, ou toque em “+ Novo cliente”.');
     return l
       .map(function (c) {
         var ps = cliPedidos(c),

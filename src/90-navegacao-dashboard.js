@@ -113,16 +113,13 @@
       con30 = sumBy(m30, 'contas'),
       tm = totalMensal(),
       cp = Math.min(100, (con30 / tm) * 100);
-    var perHtml = periodoHtml();
-    var html =
-      '<div class="top"><div><h1>Dashboard</h1><div class="crumb">Quanto vendeu e quanto separar para manter a loja em ordem</div></div></div>' +
-      dTabsHtml();
+    var perHtml = ''; // v465: o período agora fica no cabeçalho ("Este mês ⌄")
+    var html = dHeadHtml();
     var sp = separacaoMoedas(ps),
       ms = moedasVistas(sp),
       sepEq = eq3(sp.sep),
       livEq = eq3(sp.livre);
     var kpHtml =
-      '<div class="card col" style="padding:10px 12px"><div class="hint" style="margin:0">Total convertido em · ' + cambioHojeTxt() + '</div>' + totBtn() + '</div>' +
       '<section class="kpis" aria-label="Resumo">' +
       kpi3('Vendido', sp.vend, ms, '', '≈ ' + totVendas(ps, 'price') + ' · ' + pcs + ' peça(s) em ' + ps.length + ' venda(s)') +
       kpi3('Separar das vendas', sp.sep, ms, 'var(--warn)', (tot ? pc(sepEq / tot) : '0%') + ' do vendido') +
@@ -168,16 +165,16 @@
     var head = html;
     html = '';
     var parts = [
-      ['Reposição da mercadoria', usd0(repU) + ' guardados em dólar', rep, '#00c8ff'],
+      ['Reposição da mercadoria', usd0(repU) + ' guardados em dólar', rep, '#6cc3e0'],
       ['Contas da loja e de casa', 'Obrigatório', con, '#a2447c'],
       [
         'Colchão de segurança',
         'Reserva contra alta do dólar e do custo (' + pc(c.pct) + ')',
         col,
-        '#ffc766'
+        '#e9c27a'
       ],
       ['Caixa de melhorias', 'Opcional, nunca trava venda', mel, 'var(--info)'],
-      ['Lucro livre', 'Seu dinheiro', liv, '#00ff88']
+      ['Lucro livre', 'Seu dinheiro', liv, '#5fd39a']
     ];
     html +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Quanto separar do que você vendeu</h2><div class="hint" style="margin:2px 0 0">Soma de todas as vendas do período, na ordem em que o dinheiro deve ser separado.</div></div>';

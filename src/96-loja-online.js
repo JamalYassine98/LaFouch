@@ -255,7 +255,7 @@
           delete S.vitPend[ref];
           saveSoon();
         }, function (e) {
-          S._vitErr = { ref: ref, ts: Date.now(), msg: (e && e.status ? e.status + ' · ' : '') + ((e && e.message) || 'falhou') }; // diagnóstico temporário
+          void e;
         });
       }, Promise.resolve())
       .then(function () {
@@ -412,9 +412,6 @@
     $('siteBox').classList.toggle('full', !!S.siteFull);
     uniAbasFill();
     vitSync();
-    try {
-      diagSiteRender(el);
-    } catch (e) {}
   }
   window.addEventListener('online', function () {
     if (S.view === 'onl') render();

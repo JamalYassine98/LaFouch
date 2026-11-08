@@ -1,5 +1,5 @@
   // ===== Faixas de qualidade, piso de preço, brindes e sazonalidade. =====
-  var FAIXA_CORES = ['#7fd8ff', '#ffc766', '#e08bc0', '#8be08f', '#b79cff', '#ff9d7a'];
+  var FAIXA_CORES = ['#7fd8ff', '#e9c27a', '#e08bc0', '#8be08f', '#b79cff', '#ff9d7a'];
   // Faixas criadas pelo dono: nome, margem mínima (% de lucro sobre o preço) e preço próprio por tipo (opcional).
   S.faixas = [
     { id: 'f1', nome: 'Econômico', margem: 30, precos: {} },

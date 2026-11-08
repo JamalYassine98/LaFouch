@@ -6,7 +6,7 @@
       det = grpDet(g),
       tp = tipoOf(g.tipo),
       c = mk('section', 'card');
-    c.style.borderLeft = '4px solid #00c8ff';
+    c.style.borderLeft = '4px solid #6cc3e0';
     var a = mk('div', '');
     a.style.cssText = 'display:flex;justify-content:space-between;align-items:flex-start;gap:10px';
     var ta = mk('div', '');
@@ -581,7 +581,7 @@
     bar.style.margin = '10px 0 8px';
     var bi = mk('i', '');
     bi.style.cssText =
-      'background:#00c8ff;width:' + Math.min(100, tot ? (det / tot) * 100 : 0) + '%';
+      'background:#6cc3e0;width:' + Math.min(100, tot ? (det / tot) * 100 : 0) + '%';
     bar.appendChild(bi);
     c.appendChild(bar);
     var recem = progAnim(g.id, det, tot, bar, bi);

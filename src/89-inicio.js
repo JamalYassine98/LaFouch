@@ -269,12 +269,14 @@
     return v === id;
   }
   // Garante que um botão que saiu da barra volte para a tela Início.
-  function barraDevolve(id) {
-    var l = iniLista();
-    if (l.indexOf(id) < 0) {
-      l.push(id);
-      S.inicioT = l;
-    }
+  // v465: "antes" = id do botão do Início antes do qual ele entra (onde o dono soltou); sem isso, vai para o fim.
+  function barraDevolve(id, antes) {
+    var l = iniLista().slice();
+    if (l.indexOf(id) >= 0) return;
+    var k = antes ? l.indexOf(antes) : -1;
+    if (k >= 0) l.splice(k, 0, id);
+    else l.push(id);
+    S.inicioT = l;
   }
   function iniSalvar(l) {
     S.inicioT = l;

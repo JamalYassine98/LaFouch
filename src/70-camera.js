@@ -764,7 +764,7 @@
                 : 'Confira se a peça está inteira e nítida.'
             );
             wm.style.cssText =
-              'width:100%;text-align:center;font-size:14px;color:' + (sp < 25 ? '#ffc766' : '#fff');
+              'width:100%;text-align:center;font-size:14px;color:' + (sp < 25 ? '#e9c27a' : '#fff');
             bar.appendChild(wm);
             bar.style.cssText =
               'display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px 10px;padding:12px 22px max(18px,env(safe-area-inset-bottom,0px))';

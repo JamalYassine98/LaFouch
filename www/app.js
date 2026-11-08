@@ -241,37 +241,38 @@
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '');
   }
-  // Monta o filtro de busca por palavras.
+  // Monta o filtro de busca por palavras. v465: tolerante (sem acento, sons iguais, 1 letra errada, PT/ES) — btol().
+  var MK_CACHE = {};
   function mkMatch(q) {
-    var toks = nrm(q).split(/\s+/).filter(Boolean);
-    if (!toks.length) return null;
-    var tk = toks.map(function (t) {
-      return { a: t, b: t.replace(/[^a-z0-9]/g, '') };
-    });
-    return function (i) {
+    var bt = btol(q);
+    if (!bt) return null;
+    MK_CACHE = {};
+    var fn = function (i) {
+      return fn.score(i) > 0;
+    };
+    fn.score = function (i) {
       var g = String(i.grau || ''),
         tl = tipoOf(i.tipo),
-        t1 = nrm(
-          [
-            i.ref,
-            i.cor,
-            g,
-            g.replace('.', ''),
-            g.replace('.', ','),
-            i.fmt,
-            i.med,
-            i.vr,
-            tl ? tl.label : '',
-            S.desc[i.ref] || '',
-            (S.pnome && S.pnome[i.ref]) || '',
-            identTxt(i.ref)
-          ].join(' ')
-        ),
-        t2 = t1.replace(/[^a-z0-9]/g, '');
-      return tk.every(function (t) {
-        return t1.indexOf(t.a) >= 0 || (t.b && t2.indexOf(t.b) >= 0);
-      });
+        k = i.ref + '|' + i.cor + '|' + g + '|' + i.tipo;
+      if (MK_CACHE[k] != null) return MK_CACHE[k];
+      var txt = [
+        i.ref,
+        i.cor,
+        g,
+        g.replace('.', ''),
+        i.fmt,
+        i.med,
+        i.vr,
+        tl ? tl.label : '',
+        S.desc[i.ref] || '',
+        (S.pnome && S.pnome[i.ref]) || '',
+        typeof pubNome === 'function' ? pubNome(i.ref) : '',
+        i.tipo === 'pre' ? 'óculos de leitura grau' : i.tipo === 'solar' ? 'óculos solar sol' : 'armação',
+        identTxt(i.ref)
+      ].join(' ');
+      return (MK_CACHE[k] = bt(txt));
     };
+    return fn;
   }
   // O tipo usa referência simples (sem código de haste)?
   function isSimple(id) {
@@ -874,10 +875,182 @@
     moldura:
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
+  // ===== v465: busca tolerante (aprovada 08/11/2026) — o MESMO código vai no site (index.html, function btol...) =====
+  // oculos = Óculos · exagonal = hexagonal · coracao = Coração · armasao = armação · 1 letra errada passa.
+  // Cada palavra vale sozinha e em qualquer ordem; português e espanhol juntos; o mais parecido vem primeiro.
+  var BTOL_SIN = [
+    ['oculos', 'lentes', 'anteojos', 'gafas'],
+    ['armacao', 'armacoes', 'armazon', 'armazones', 'montura'],
+    ['solar', 'sol', 'solares'],
+    ['leitura', 'lectura', 'pregraduado', 'pregrad', 'receta', 'grau'],
+    ['preto', 'preta', 'negro', 'negra'],
+    ['branco', 'branca', 'blanco', 'blanca'],
+    ['dourado', 'dourada', 'dorado', 'dorada', 'ouro', 'oro'],
+    ['prateado', 'prateada', 'plateado', 'plateada', 'prata', 'plata'],
+    ['vermelho', 'vermelha', 'rojo', 'roja'],
+    ['azul'],
+    ['verde'],
+    ['rosa', 'rosado', 'rosada'],
+    ['roxo', 'roxa', 'morado', 'morada', 'lilas', 'violeta'],
+    ['marrom', 'marron', 'cafe'],
+    ['tartaruga', 'carey', 'havana'],
+    ['transparente', 'cristal', 'translucido', 'translucida'],
+    ['coracao', 'corazon'],
+    ['redondo', 'redonda'],
+    ['quadrado', 'quadrada', 'cuadrado', 'cuadrada'],
+    ['retangular', 'rectangular'],
+    ['gatinho', 'gatito', 'gato', 'cateye'],
+    ['aviador', 'aviadores'],
+    ['hexagonal', 'hexagono'],
+    ['feminino', 'feminina', 'femenino', 'mujer', 'dama'],
+    ['masculino', 'hombre', 'caballero'],
+    ['unissex', 'unisex'],
+    ['acetato'],
+    ['metal', 'metalico', 'metalica'],
+    ['polarizado', 'polarizada'],
+    ['espelhado', 'espelhada', 'espejado', 'espejada']
+  ];
+  var BTOL_IX = (function () {
+    var m = {};
+    BTOL_SIN.forEach(function (g) {
+      g.forEach(function (w) {
+        m[btolFold(w)] = g.map(btolFold);
+      });
+    });
+    return m;
+  })();
+  // minúsculo, sem acento e com os sons iguais juntos (h mudo, ç/s/ss/z, ch/x, y/i, k/qu/c, lh, nh, letra dobrada)
+  function btolFold(t) {
+    t = String(t == null ? '' : t)
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[̀-ͯ]/g, '');
+    t = t
+      .replace(/(\d),(\d)/g, '$1.$2')
+      .replace(/ç/g, 's')
+      .replace(/ch|sh/g, 'x')
+      .replace(/lh/g, 'li')
+      .replace(/nh/g, 'ni')
+      .replace(/qu([ei])/g, 'k$1')
+      .replace(/c([ei])/g, 's$1')
+      .replace(/ss/g, 's')
+      .replace(/z/g, 's')
+      .replace(/y/g, 'i')
+      .replace(/w/g, 'v')
+      .replace(/k/g, 'c')
+      .replace(/(^|[^a-z])h/g, '$1')
+      .replace(/([a-z])h/g, '$1');
+    return t.replace(/([a-z])\1+/g, '$1');
+  }
+  // distância de edição com troca de vizinhas (Damerau), parando cedo
+  function btolDist(a, b, max) {
+    var la = a.length,
+      lb = b.length;
+    if (Math.abs(la - lb) > max) return max + 1;
+    var p2 = null,
+      p = [],
+      i,
+      j;
+    for (j = 0; j <= lb; j++) p[j] = j;
+    for (i = 1; i <= la; i++) {
+      var c = [i],
+        mn = i;
+      for (j = 1; j <= lb; j++) {
+        var v = Math.min(p[j] + 1, c[j - 1] + 1, p[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+        if (p2 && i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) v = Math.min(v, p2[j - 2] + 1);
+        c[j] = v;
+        if (v < mn) mn = v;
+      }
+      if (mn > max) return max + 1;
+      p2 = p;
+      p = c;
+    }
+    return p[lb];
+  }
+  // pontos de uma palavra da busca contra as palavras do produto: 3 exata/começo · 2 contém · 1 parecida · 0 não
+  function btolTok(tk, palavras, junto) {
+    var alts = BTOL_IX[tk] || [tk],
+      best = 0;
+    alts.forEach(function (a) {
+      if (best >= 3 || !a) return;
+      var lim = /\d/.test(a) ? 0 : a.length >= 8 ? 2 : a.length >= 5 ? 1 : 0;
+      for (var i = 0; i < palavras.length; i++) {
+        var w = palavras[i];
+        if (w === a || w.indexOf(a) === 0) {
+          best = 3;
+          return;
+        }
+        if (a.length >= 3 && w.indexOf(a) > 0) best = Math.max(best, 2);
+        else if (lim && (btolDist(a, w, lim) <= lim || (w.length > a.length && btolDist(a, w.slice(0, a.length), lim) <= lim))) best = Math.max(best, 1);
+      }
+      if (best < 2 && a.length >= 3 && junto.indexOf(a) >= 0) best = Math.max(best, 2);
+    });
+    return best;
+  }
+  var BTOL_VAZIAS = { de: 1, do: 1, da: 1, dos: 1, das: 1, e: 1, com: 1, con: 1, para: 1, pra: 1, el: 1, la: 1, los: 1, las: 1, em: 1, en: 1, um: 1, uma: 1, un: 1, una: 1, o: 1, a: 1, os: 1, as: 1, i: 1 };
+  // Monta a busca: devolve fn(texto) → pontos (0 = não aparece). Todas as palavras precisam aparecer.
+  function btol(q) {
+    var tks = btolFold(q)
+      .split(/[^a-z0-9.+,]+/)
+      .map(function (t) {
+        return t.replace(/^[.,]+|[.,]+$/g, '');
+      })
+      .filter(Boolean);
+    if (!tks.length) return null;
+    var sv = tks.filter(function (t) {
+      return !BTOL_VAZIAS[t];
+    });
+    if (sv.length) tks = sv;
+    var f = function (txt) {
+      var ft = btolFold(txt),
+        pal = ft.split(/[^a-z0-9.+,]+/).filter(Boolean),
+        junto = ft.replace(/[^a-z0-9]/g, ''),
+        tot = 0;
+      for (var i = 0; i < tks.length; i++) {
+        var pt = btolTok(tks[i], pal, junto);
+        if (!pt) {
+          var sem = tks[i].replace(/[^a-z0-9]/g, '');
+          if (sem.length >= 3 && junto.indexOf(sem) >= 0) pt = 2;
+          else return 0;
+        }
+        tot += pt;
+      }
+      return tot;
+    };
+    f.toks = tks;
+    return f;
+  }
+  // "Você quis dizer…": a palavra conhecida mais parecida com o que foi digitado
+  function btolSugere(q, textos) {
+    var tks = btolFold(q).split(/[^a-z0-9]+/).filter(Boolean),
+      vist = {},
+      out = [];
+    textos.forEach(function (t) {
+      String(t || '')
+        .split(/[^A-Za-zÀ-ÿ0-9]+/)
+        .forEach(function (w) {
+          if (w.length >= 3) vist[btolFold(w)] = vist[btolFold(w)] || w.toLowerCase();
+        });
+    });
+    tks.forEach(function (tk) {
+      var melhor = null,
+        md = 4;
+      Object.keys(vist).forEach(function (k) {
+        var d = btolDist(tk, k, 3);
+        if (d < md) {
+          md = d;
+          melhor = vist[k];
+        }
+      });
+      out.push(melhor && md <= Math.max(2, Math.floor(tk.length / 3)) ? melhor : tk);
+    });
+    var s = out.join(' ');
+    return s !== tks.join(' ') ? s : '';
+  }
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 464;
+  var APP_BUILD = 465;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.6.4'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.7.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -2141,7 +2314,8 @@
           tpOk = function (id) {
             if (id === 'outro') return !!smp;
             var x = tipoOf(id);
-            return !!x && !smp && (id === 'pre') === (f.tipo === 'pre');
+            // v465: Armação ↔ Pré-graduado agora pode (abre a folha que pergunta o grau / a cor)
+            return !!x && !smp && ((id === 'pre') === (f.tipo === 'pre') || (id === 'pre' && f.tipo === 'sem') || (id === 'sem' && f.tipo === 'pre'));
           },
           tt = mk('div', 'trk');
         tt.id = 'edTipoTrk';
@@ -2153,6 +2327,7 @@
         tt.onclick = function (e) {
           var b = e.target.closest('.trkB');
           if (!b || b.disabled || b.dataset.m === 'outro') return;
+          if ((b.dataset.m === 'pre') !== (f.tipo === 'pre')) return tipoTrocaAbre(ref, f.tipo, b.dataset.m);
           S.edTipo = b.dataset.m === f.tipo ? '' : b.dataset.m;
           trkMarca(tt, b.dataset.m);
         };
@@ -7342,7 +7517,7 @@
         'Reposição da mercadoria',
         usd(sale.repUSD) + ' ao câmbio de hoje (US$ 1 = ' + gsRaw(S.fx.pyg) + '). Obrigatório.',
         sale.rep,
-        '#00c8ff'
+        '#6cc3e0'
       ],
       [
         'Contas da loja e de casa',
@@ -7354,11 +7529,11 @@
         'Colchão de segurança',
         pc(sale.pct) + ' da reposição, pela alta recente do dólar e do custo.',
         sale.colch,
-        '#ffc766'
+        '#e9c27a'
       ],
       ['Caixa de melhorias', 'Meta flexível. Não trava a venda.', sale.melh, 'var(--info)'],
       ['Taxa da maquininha', 'Sai do seu lucro. Já descontada do que entra no caixa.', sale.taxa || 0, '#ff9d7a'],
-      ['Lucro livre', 'O que sobra para você.', sale.livre, '#00ff88']
+      ['Lucro livre', 'O que sobra para você.', sale.livre, '#5fd39a']
     ];
     SPLIT_OK = true;
     vibrar(25);
@@ -8499,7 +8674,7 @@
       det = grpDet(g),
       tp = tipoOf(g.tipo),
       c = mk('section', 'card');
-    c.style.borderLeft = '4px solid #00c8ff';
+    c.style.borderLeft = '4px solid #6cc3e0';
     var a = mk('div', '');
     a.style.cssText = 'display:flex;justify-content:space-between;align-items:flex-start;gap:10px';
     var ta = mk('div', '');
@@ -9074,7 +9249,7 @@
     bar.style.margin = '10px 0 8px';
     var bi = mk('i', '');
     bi.style.cssText =
-      'background:#00c8ff;width:' + Math.min(100, tot ? (det / tot) * 100 : 0) + '%';
+      'background:#6cc3e0;width:' + Math.min(100, tot ? (det / tot) * 100 : 0) + '%';
     bar.appendChild(bi);
     c.appendChild(bar);
     var recem = progAnim(g.id, det, tot, bar, bi);
@@ -10200,7 +10375,7 @@
     if (f) readNota(f);
   };
   // ===== Faixas de qualidade, piso de preço, brindes e sazonalidade. =====
-  var FAIXA_CORES = ['#7fd8ff', '#ffc766', '#e08bc0', '#8be08f', '#b79cff', '#ff9d7a'];
+  var FAIXA_CORES = ['#7fd8ff', '#e9c27a', '#e08bc0', '#8be08f', '#b79cff', '#ff9d7a'];
   // Faixas criadas pelo dono: nome, margem mínima (% de lucro sobre o preço) e preço próprio por tipo (opcional).
   S.faixas = [
     { id: 'f1', nome: 'Econômico', margem: 30, precos: {} },
@@ -13131,6 +13306,11 @@
   }
   // Um cartão de valores com uma moeda por linha, na mesma ordem em todos os cartões.
   function kpi3(rotulo, o, ms, cor, dica) {
+    // v465: só as moedas que têm valor (nada de "R$ 0,00" quando o real foi todo para a reposição)
+    var com = ms.filter(function (m) {
+      return (o[m] || 0) > 0.004;
+    });
+    ms = com.length ? com : ['pyg'];
     var tam = ms.length > 2 ? 18 : ms.length > 1 ? 22 : 26;
     return (
       '<div class="kpi"><div class="lbl">' + rotulo + '</div><b style="' + (cor ? 'color:' + cor + ';' : '') + 'font-size:' + tam + 'px;line-height:1.5;display:block;font-variant-numeric:tabular-nums">' +
@@ -13161,12 +13341,12 @@
       }).join('') +
       '</div>' +
       ln('Vendido', 'entrou no período', sp.vend, '#9aa', true, false) +
-      ln('Reposição', 'dólar primeiro, depois real, resto em guarani', sp.rep, '#00c8ff', false, true) +
+      ln('Reposição', 'dólar primeiro, depois real, resto em guarani', sp.rep, '#6cc3e0', false, true) +
       ln('Contas', 'cada uma na sua moeda', sp.con, '#a2447c', false, false) +
       (sp.brT && sp.brT.itens.length ? ln('Brindes', 'separar ' + gs(Math.round(sp.brT.porVenda)) + ' por venda · guardado ' + gs(Math.round(sp.brT.guardado)), sp.br, '#c9a0dc', false, false) : '') +
-      ln('Colchão', 'proporcional ao que sobrou', sp.colch, '#ffc766', false, false) +
+      ln('Colchão', 'proporcional ao que sobrou', sp.colch, '#e9c27a', false, false) +
       ln('Objetivos', 'da loja', sp.melh, 'var(--info)', false, false) +
-      ln('Lucro livre', 'o que sobrou', sp.livre, '#00ff88', true, true) +
+      ln('Lucro livre', 'o que sobrou', sp.livre, '#5fd39a', true, true) +
       '</section>'
     );
   }
@@ -13183,7 +13363,7 @@
       })
       .forEach(function (t) {
         linhas +=
-          '<div class="sl"><span>Trocar <b>' + v3(t.v, t.de) + '</b> por <b>' + usd(t.rec) + '</b><small>cotação de mercado ' +
+          '<div class="sl"><span>Trocar <b>' + v3(t.v, t.de) + '</b> por <b>' + usd(t.rec) + '</b><small>' + (lmOk() ? 'cotação da casa ' : 'cotação de mercado ') +
           (t.de === 'brl' ? 'R$ ' + nf(S.fx.brl, 'brl') + ' por US$ 1' : gsRaw(S.fx.pyg) + ' por US$ 1') + '</small></span><b>' + v3(t.v, t.de) + '</b></div>';
       });
     var sobra = {};
@@ -14280,7 +14460,7 @@
     // produto aberto: a mesma tela do catálogo, em modo venda; a lista some
     // (modo cliente: a lista fica atrás, desfocada, e o produto aparece na frente)
     $('vListCard').hidden = !!S.vRef && !S.modoCli;
-    document.body.classList.toggle('mcAberto', !!(S.modoCli && S.vRef));
+    mcTrava(!!(S.modoCli && S.vRef));
     setTimeout(vVistoAtualiza, 0);
     $('vSaleCard').hidden = true; // quantidade e botão Vender ficam na barra fixa do produto
     if (S.vRef && groups[S.vRef]) {
@@ -16446,7 +16626,7 @@
                 : 'Confira se a peça está inteira e nítida.'
             );
             wm.style.cssText =
-              'width:100%;text-align:center;font-size:14px;color:' + (sp < 25 ? '#ffc766' : '#fff');
+              'width:100%;text-align:center;font-size:14px;color:' + (sp < 25 ? '#e9c27a' : '#fff');
             bar.appendChild(wm);
             bar.style.cssText =
               'display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px 10px;padding:12px 22px max(18px,env(safe-area-inset-bottom,0px))';
@@ -22147,7 +22327,7 @@
       totBtn() +
       '<div class="hint" style="margin:0">' + cambioHojeTxt() + '</div>' +
       '<div class="bar">' +
-      [[r.repGs, '#00c8ff'], [r.con, '#a2447c'], [r.colch, '#ffc766'], [r.melh, 'var(--info)'], [lv.livreEq, '#00ff88']]
+      [[r.repGs, '#6cc3e0'], [r.con, '#a2447c'], [r.colch, '#e9c27a'], [r.melh, 'var(--info)'], [lv.livreEq, '#5fd39a']]
         .map(function (p) {
           return '<i style="width:' + part(p[0]) + '%;background:' + p[1] + '"></i>';
         })
@@ -22155,7 +22335,7 @@
       '</div><div class="hint" style="margin:0">De ' + totFmt(r.wal) + ' na carteira, ' + totFmt(dono) + ' já têm dono: reposição, contas, colchão e melhorias.</div>' +
       (aberto
         ? '<div class="split">' +
-          [['Reposição de mercadoria', r.repGs, '#00c8ff'], ['Contas do mês', r.con, '#a2447c'], ['Colchão de segurança', r.colch, '#ffc766'], ['Objetivos da loja', r.melh, 'var(--info)']]
+          [['Reposição de mercadoria', r.repGs, '#6cc3e0'], ['Contas do mês', r.con, '#a2447c'], ['Colchão de segurança', r.colch, '#e9c27a'], ['Objetivos da loja', r.melh, 'var(--info)']]
             .map(function (p) {
               return '<div class="sl"><span><span class="sp" style="background:' + p[2] + '"></span>' + p[0] + '</span><b>' + totFmt(p[1]) + '</b></div>';
             })
@@ -22760,12 +22940,14 @@
     return v === id;
   }
   // Garante que um botão que saiu da barra volte para a tela Início.
-  function barraDevolve(id) {
-    var l = iniLista();
-    if (l.indexOf(id) < 0) {
-      l.push(id);
-      S.inicioT = l;
-    }
+  // v465: "antes" = id do botão do Início antes do qual ele entra (onde o dono soltou); sem isso, vai para o fim.
+  function barraDevolve(id, antes) {
+    var l = iniLista().slice();
+    if (l.indexOf(id) >= 0) return;
+    var k = antes ? l.indexOf(antes) : -1;
+    if (k >= 0) l.splice(k, 0, id);
+    else l.push(id);
+    S.inicioT = l;
   }
   function iniSalvar(l) {
     S.inicioT = l;
@@ -23055,16 +23237,13 @@
       con30 = sumBy(m30, 'contas'),
       tm = totalMensal(),
       cp = Math.min(100, (con30 / tm) * 100);
-    var perHtml = periodoHtml();
-    var html =
-      '<div class="top"><div><h1>Dashboard</h1><div class="crumb">Quanto vendeu e quanto separar para manter a loja em ordem</div></div></div>' +
-      dTabsHtml();
+    var perHtml = ''; // v465: o período agora fica no cabeçalho ("Este mês ⌄")
+    var html = dHeadHtml();
     var sp = separacaoMoedas(ps),
       ms = moedasVistas(sp),
       sepEq = eq3(sp.sep),
       livEq = eq3(sp.livre);
     var kpHtml =
-      '<div class="card col" style="padding:10px 12px"><div class="hint" style="margin:0">Total convertido em · ' + cambioHojeTxt() + '</div>' + totBtn() + '</div>' +
       '<section class="kpis" aria-label="Resumo">' +
       kpi3('Vendido', sp.vend, ms, '', '≈ ' + totVendas(ps, 'price') + ' · ' + pcs + ' peça(s) em ' + ps.length + ' venda(s)') +
       kpi3('Separar das vendas', sp.sep, ms, 'var(--warn)', (tot ? pc(sepEq / tot) : '0%') + ' do vendido') +
@@ -23110,16 +23289,16 @@
     var head = html;
     html = '';
     var parts = [
-      ['Reposição da mercadoria', usd0(repU) + ' guardados em dólar', rep, '#00c8ff'],
+      ['Reposição da mercadoria', usd0(repU) + ' guardados em dólar', rep, '#6cc3e0'],
       ['Contas da loja e de casa', 'Obrigatório', con, '#a2447c'],
       [
         'Colchão de segurança',
         'Reserva contra alta do dólar e do custo (' + pc(c.pct) + ')',
         col,
-        '#ffc766'
+        '#e9c27a'
       ],
       ['Caixa de melhorias', 'Opcional, nunca trava venda', mel, 'var(--info)'],
-      ['Lucro livre', 'Seu dinheiro', liv, '#00ff88']
+      ['Lucro livre', 'Seu dinheiro', liv, '#5fd39a']
     ];
     html +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Quanto separar do que você vendeu</h2><div class="hint" style="margin:2px 0 0">Soma de todas as vendas do período, na ordem em que o dinheiro deve ser separado.</div></div>';
@@ -23472,7 +23651,7 @@
       pos = Math.round(c.pos * 100);
     return (
       '<div class="card col" style="padding:10px;margin:0"><div class="lbl" style="margin:0">' + c.nome + ' hoje</div><b style="font-size:24px">' + f(c.hoje) + '</b>' +
-      '<div style="position:relative;height:10px;border-radius:6px;background:linear-gradient(90deg,var(--ok),#ffc766,var(--bad))"><i style="position:absolute;left:' + pos + '%;top:-4px;width:6px;height:18px;border-radius:3px;background:#fff;transform:translateX(-50%)"></i></div>' +
+      '<div style="position:relative;height:10px;border-radius:6px;background:linear-gradient(90deg,var(--ok),#e9c27a,var(--bad))"><i style="position:absolute;left:' + pos + '%;top:-4px;width:6px;height:18px;border-radius:3px;background:#fff;transform:translateX(-50%)"></i></div>' +
       '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--mute)"><span>mínimo ' + f(c.min) + '</span><span>média ' + f(c.media) + '</span><span>máximo ' + f(c.max) + '</span></div>' +
       '<div class="note ' + (c.barato ? 'n-ok' : c.caro ? 'n-warn' : 'n-info') + '">' +
       (c.barato ? 'Perto do mínimo dos últimos ' + S.janela + ' dias: bom momento para trocar.' : c.caro ? 'Perto do máximo dos últimos ' + S.janela + ' dias: troque só o necessário.' : 'Cotação no meio do intervalo dos últimos ' + S.janela + ' dias.') +
@@ -23557,6 +23736,8 @@
   // Busca a cotação online.
   // Outro aparelho já buscou a cotação há pouco: usa a mesma (câmbio único entre aparelhos).
   function fxAdota() {
+    // v465: com cotação da casa, a casa sempre ganha (a compartilhada só vale para quem nunca leu a casa)
+    if (lmOk()) return fxDaCasa();
     var c = S.fxc;
     if (!S.syncOn || !c || !(c.pyg > 0) || !(c.ts > (S.fx.ts || 0))) return false;
     var last = S.fxHist[S.fxHist.length - 1],
@@ -23827,7 +24008,7 @@
             '<i style="width:' +
             (tm ? (v / tm) * 100 : 0) +
             '%;background:' +
-            ['#00c8ff', '#a2447c', '#ffc766', 'var(--info)', '#00ff88'][i] +
+            ['#6cc3e0', '#a2447c', '#e9c27a', 'var(--info)', '#5fd39a'][i] +
             '"></i>'
           );
         })
@@ -23845,7 +24026,7 @@
           if (!v) return '';
           return (
             '<span class="cell"><span class="sp" style="background:' +
-            ['#00c8ff', '#a2447c', '#ffc766', 'var(--info)', '#00ff88'][i] +
+            ['#6cc3e0', '#a2447c', '#e9c27a', 'var(--info)', '#5fd39a'][i] +
             '"></span>' +
             CATS[c] +
             ' · ' +
@@ -25689,24 +25870,18 @@
         '" role="status">' +
         esc(S.cxMsg) +
         '</div>';
+    // v465 (aprovado 08/11): caixa limpo em linhas — Guarani / Dólar / Real e o total, sem caixas dentro de caixas
     html +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Dinheiro no caixa agora</h2><div class="hint" style="margin:2px 0 0">O que você tem em mãos, em cada moeda.</div></div><div class="kpis">' +
+      '<section class="cxSaldo" aria-label="Dinheiro no caixa agora"><div class="cxLb">No caixa agora</div>' +
       ['pyg', 'usd', 'brl']
         .map(function (m) {
           return (
-            '<div class="kpi" style="background:var(--panel2)"><div class="lbl">' +
-            { pyg: 'Guaranis', usd: 'Dólares', brl: 'Reais' }[m] +
-            '</div><b style="font-size:24px">' +
-            fmtM(c[m], m) +
-            '</b><div class="hint">' +
-            (m === 'pyg' ? 'moeda base' : '≈ ' + gsRaw(Math.round(c[m] * ratePyg(m)))) +
-            '</div></div>'
+            '<div class="cxL"><span>' + { pyg: 'Guarani', usd: 'Dólar', brl: 'Real' }[m] + '<small>' + (m === 'pyg' ? 'moeda base' : '≈ ' + gsRaw(Math.round(c[m] * ratePyg(m)))) + '</small></span><b>' + fmtM(c[m], m) + '</b></div>'
           );
         })
         .join('') +
-      '</div><div class="hint" style="margin:0">Total aproximado: <b>' +
-      gs(Math.round(r.wal)) +
-      '</b> ao câmbio de hoje. O que está livre e o que já tem dono ficam no <a href="#dash" data-act="view" data-id="dash" style="color:var(--accent-fg)">Dashboard</a>, aba Dinheiro.</div></section>';
+      '<div class="cxTot"><span>Total aproximado</span><b>' + gs(Math.round(r.wal)) + '</b></div>' +
+      '<div class="hint cxDica">O que está livre e o que já tem dono ficam no <a href="#dash" data-act="view" data-id="dash" style="color:var(--accent-fg)">Dashboard</a>, aba Dinheiro.</div></section>';
     html += objCardHtml(); // v425: Objetivos da loja (antiga caixa de melhorias)
     if (r.livre < 0)
       html +=
@@ -26425,7 +26600,7 @@
           if (gAtual === 'novo') return (b.pg === 'comp') - (a.pg === 'comp') || a.ts - b.ts;
           return b.ts - a.ts;
         });
-    if (!lista.length) h += '<div class="hint">' + (S.pedidos.length ? 'Nenhum pedido nesta situação.' : 'Nenhum pedido ainda. Quando um cliente fizer um pedido no site, ele aparece aqui sozinho.') + '</div>';
+    if (!lista.length) h += S.pedidos.length ? '<div class="hint">Nenhum pedido nesta situação.</div>' : lfVazioHtml('<path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/>', 'Nenhum pedido ainda', 'Quando um cliente fizer um pedido no site, ele aparece aqui sozinho.');
     lista.forEach(function (p) {
       var tot = pedTotal(p),
         est = pedEstado(p),
@@ -27720,7 +27895,7 @@
   function cliListaHtml() {
     var l = cliLista();
     if (!l.length)
-      return '<div class="hint">' + (S.clientes.length ? 'Nenhum cliente com essa busca.' : 'Nenhum cliente ainda. Eles entram sozinhos quando você salva um pedido online, ou toque em "+ Novo cliente".') + '</div>';
+      return S.clientes.length ? '<div class="hint">Nenhum cliente com essa busca.</div>' : lfVazioHtml('<circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/>', 'Nenhum cliente ainda', 'Eles entram sozinhos quando você salva um pedido online, ou toque em “+ Novo cliente”.');
     return l
       .map(function (c) {
         var ps = cliPedidos(c),
@@ -28228,7 +28403,7 @@
           delete S.vitPend[ref];
           saveSoon();
         }, function (e) {
-          S._vitErr = { ref: ref, ts: Date.now(), msg: (e && e.status ? e.status + ' · ' : '') + ((e && e.message) || 'falhou') }; // diagnóstico temporário
+          void e;
         });
       }, Promise.resolve())
       .then(function () {
@@ -28385,9 +28560,6 @@
     $('siteBox').classList.toggle('full', !!S.siteFull);
     uniAbasFill();
     vitSync();
-    try {
-      diagSiteRender(el);
-    } catch (e) {}
   }
   window.addEventListener('online', function () {
     if (S.view === 'onl') render();
@@ -28726,7 +28898,11 @@
       if (!r || (e.pointerType === 'mouse' && e.button !== 0)) return;
       var s = r.parentNode;
       st = { s: s, r: r, y0: e.clientY, x0: e.clientX, id: e.pointerId, arr: false, t: 0 };
-      r.classList.add('ajSeg');
+      // v465: o anel só aparece se o dedo ficar parado um instante (rolar a tela não dispara mais a animação)
+      var st0 = st;
+      st.ta = setTimeout(function () {
+        if (st === st0 && !st0.arr) r.classList.add('ajSeg');
+      }, 150);
       st.t = setTimeout(function () {
         if (st) ajLevanta(st);
       }, 400);
@@ -28744,6 +28920,7 @@
       if (!st || (e && e.pointerId !== st.id)) return;
       var era = st;
       clearTimeout(era.t);
+      clearTimeout(era.ta);
       era.r.classList.remove('ajSeg');
       st = null;
       if (era.arr) ajSolta(era);
@@ -28752,6 +28929,7 @@
     var ajCancela = function () {
       if (!st) return;
       clearTimeout(st.t);
+      clearTimeout(st.ta);
       st.r.classList.remove('ajSeg');
       st = null;
     };
@@ -29540,30 +29718,6 @@
     return (S.fxModo === 'c' ? o.c : o.v) || fxHoje(k);
   }
   var FX_SETAS = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16M7 20l-3-3M7 20l3-3M17 20V4M17 4l-3 3M17 4l3 3"/></svg>';
-  // diagnóstico: copia o texto que o app recebeu da La Moneda (para mandar ao suporte)
-  ACT.fxCopia = function () {
-    var t = S._lmTxt || '';
-    try {
-      navigator.clipboard.writeText(t).then(
-        function () {
-          alertaCopia(true);
-        },
-        function () {
-          alertaCopia(false);
-        }
-      );
-    } catch (e) {
-      alertaCopia(false);
-    }
-  };
-  function alertaCopia(ok) {
-    S.fxCopiado = ok ? 'Copiado. Cole na conversa com o suporte.' : 'Não deu para copiar.';
-    renderFx();
-    setTimeout(function () {
-      S.fxCopiado = '';
-      renderFx();
-    }, 4000);
-  }
   ACT.fxSt = function () {
     S.fxStD = !S.fxStD;
     renderFx();
@@ -29782,8 +29936,8 @@
     var casa = lmOk(),
       ag = Date.now(),
       on = casa && ((S._lmVisto && ag - S._lmVisto < 5 * 60000) || ag - S.lm.ts < 12 * 3600000),
-      det = casa ? 'La Moneda · ' + (S.lm.suc && S.lm.suc !== 'Jebai' ? S.lm.suc + ' (a Sucursal Jebai não apareceu na página)' : 'Jebai') + ' · atualizado às ' + fh(S.lm.ts) + (on ? '' : ' de ' + fd(S.lm.ts)) + (S.lm.erro && !on ? ' · ' + S.lm.erro : '') : 'Ainda sem cotação da La Moneda. Por enquanto os valores são a média do mercado.' + (S._lmErr ? ' Motivo: ' + S._lmErr : ' (o app instalado no celular tenta a cada 1 minuto)'),
-      hd = '<button type="button" class="fxSt ' + (on ? 'ok' : 'no') + '" data-act="fxSt" aria-label="Cotação da casa ' + (on ? 'online' : 'offline') + '">Cotação da casa<i></i></button>' + (S.fxStD ? '<div class="hint fxStD" style="margin:4px 0 0">' + esc(det) + (S._lmTxt && !on ? ' <button type="button" class="btn-sc" data-act="fxCopia" style="margin-top:8px">Copiar o texto da página</button>' + (S.fxCopiado ? '<div>' + esc(S.fxCopiado) + '</div>' : '') : '') + '</div>' : ''),
+      det = casa ? 'La Moneda · ' + (S.lm.suc && S.lm.suc !== 'Jebai' ? S.lm.suc + ' (a Sucursal Jebai não apareceu na página)' : 'Jebai') + ' · atualizado às ' + fh(S.lm.ts) + (on ? '' : ' de ' + fd(S.lm.ts)) + '' : 'Ainda sem cotação da La Moneda. Por enquanto os valores são a média do mercado.',
+      hd = '<button type="button" class="fxSt ' + (on ? 'ok' : 'no') + '" data-act="fxSt" aria-label="Cotação da casa ' + (on ? 'online' : 'offline') + '">Cotação da casa<i></i></button>' + (S.fxStD ? '<div class="hint fxStD" style="margin:4px 0 0">' + esc(det) + '</div>' : ''),
       h = '<div class="top fxTopo"><div><h1>Câmbio</h1><div class="crumb">' + hd + '</div></div>' + (casa ? '<button type="button" class="fxModo" data-act="fxModo" aria-label="Mostrando a ' + (S.fxModo === 'c' ? 'compra' : 'venda') + ' da casa. Tocar para ver a ' + (S.fxModo === 'c' ? 'venda' : 'compra') + '">' + (S.fxModo === 'c' ? 'Compra' : 'Venda') + FX_SETAS + '</button>' : '') + '</div>';
     h += '<section class="card fxTop">';
     ['usd', 'brl', 'arb'].forEach(function (k) {
@@ -30783,40 +30937,6 @@
     render();
     window.scrollTo(0, 0);
   };
-  // ===== DIAGNÓSTICO TEMPORÁRIO do envio ao site (v447, 06/11/2026) =====
-  // O dono aprovou mostrar o motivo do erro e TIRAR DEPOIS ("tem que tirar essa bagunça").
-  // Para remover: apagar este arquivo, a chamada diagSiteRender() em 96-loja-online.js e o S._vitErr em vitSync.
-  function diagSiteRender(el) {
-    var d = $('vitDiag');
-    if (!d) {
-      d = mk('section', 'card');
-      d.id = 'vitDiag';
-      d.style.cssText = 'padding:12px 14px;margin:0 0 10px;font-size:13px;line-height:1.45';
-      var sb = $('siteBox');
-      el.insertBefore(d, sb);
-    }
-    var refs = {},
-      pub = 0,
-      fila = 0,
-      ficha = 0,
-      semNuvem = !S.nuvem || !S.nuvem.rt;
-    (S.items || []).forEach(function (i) {
-      if (!i.bulk) refs[i.ref] = 1;
-    });
-    Object.keys(refs).forEach(function (r) {
-      if (S.site && S.site[r]) {
-        if (S.vitPend && S.vitPend[r]) fila++;
-        else pub++;
-      } else if (!siteCheck(r).ok) ficha++;
-    });
-    var e = S._vitErr,
-      h =
-        '<b>Diagnóstico do site (temporário)</b><div>Peças no site: <b>' + pub + '</b> publicadas · <b>' + fila + '</b> esperando envio' +
-        (ficha ? ' · ' + ficha + ' fora (falta foto em alguma cor ou estoque)' : '') + '</div>' +
-        (semNuvem ? '<div style="color:var(--warn)">Nuvem sem login neste aparelho.</div>' : '') +
-        (e ? '<div style="color:var(--warn)">Último erro (' + fh(e.ts) + ', ' + esc(e.ref) + '): ' + esc(e.msg) + '</div>' : fila ? '<div>Sem erro registrado ainda (o envio tenta de 1 em 1 minuto).</div>' : '');
-    if (d.innerHTML !== h) d.innerHTML = h;
-  }
   // ===== Adicionar A+1 (v417): "Dar entrada de novo" com as 3 últimas peças que entraram. =====
   // Toque numa delas abre a folhinha "Quantas chegaram?" (− N +) e "Dar entrada · N peças".
   // O custo e o resto vêm do cadastro que já existe; respeita o limite do lote (gCap) como a entrada rápida.
@@ -31067,6 +31187,8 @@
       segurou = false;
       clearTimeout(t);
       if (S.ebSel) return;
+      // v465: segurar agora abre o "espiar" (98-anim-novas.js), que tem "Selecionar para enviar" — o mesmo começo de seleção
+      if (window.lfEspiaOn) return;
       t = setTimeout(function () {
         if (!alvo) return;
         segurou = true;
@@ -31404,6 +31526,13 @@
     x.fillText('Galeria Jebai Center · Ciudad del Este', 70, 1290);
     return cv;
   }
+  // v465: começa a seleção a partir do "espiar"
+  window.ebSeleciona = function (ref) {
+    if (!ref || ebNao(ref)) return;
+    S.ebSel = [ref];
+    vibrar(18);
+    ebDecora();
+  };
   // ===== Enviar catálogo no WhatsApp: escolhe o formato, edita a mensagem (com validade) e compartilha =====
   S.envFmt = 'folha'; // 'folha' (uma imagem com todas as peças) | 'fotos' (uma imagem por peça) | 'texto'
   function envValidade() {
@@ -31786,8 +31915,18 @@
       else if (nt && nt.n < 75) f.push({ k: x.k, ref: x.ref, cor: x.cor, st: 'nota', o: 1, sub: (nt.mot || []).slice(0, 2).join(' · ') || 'refazer', n: nt.n });
       else if (!(S.fotos && S.fotos[x.k + '|34'])) f.push({ k: x.k, ref: x.ref, cor: x.cor, st: '34', o: 2, sub: 'sem a de 3/4' });
     });
+    // v465: primeiro as sem foto e as que mais vendem; as cores do mesmo modelo ficam juntas (fotos iguais entre si)
+    var vend = {};
+    (S.sales || []).forEach(function (s) {
+      if (s.ref) vend[s.ref] = (vend[s.ref] || 0) + (s.qty || 1);
+    });
+    var ordRef = {};
+    f.forEach(function (x) {
+      var k = x.o * 1e6 - (vend[x.ref] || 0);
+      if (ordRef[x.ref] == null || k < ordRef[x.ref]) ordRef[x.ref] = k;
+    });
     return f.sort(function (a, b) {
-      return a.o - b.o;
+      return ordRef[a.ref] - ordRef[b.ref] || (a.ref < b.ref ? -1 : a.ref > b.ref ? 1 : a.o - b.o);
     });
   }
   function estNoPadrao() {
@@ -32236,32 +32375,30 @@
         P = estNoPadrao(),
         M = S.estMont || {},
         pf = S.estPerfil;
+      // v465 (aprovado 08/11): Estúdio automático — 1 botão, a fila e o resto no "?"
+      var mostra = S.estTodas ? F.length : Math.min(F.length, 6);
       ov.innerHTML =
-        '<div class="estHd"><h1>Estúdio</h1><div class="estHdR"><button type="button" class="estTut" data-e="tut"><i></i>Como fotografar</button><button type="button" class="estX" data-e="fecha" aria-label="Fechar">×</button></div></div>' +
+        '<div class="estHd"><h1>Estúdio</h1><div class="estHdR"><button type="button" class="estIc" data-e="ajuda" aria-label="Ajuda e ajustes do Estúdio">?</button><button type="button" class="estX" data-e="fecha" aria-label="Fechar">×</button></div></div>' +
         '<div class="estBody">' +
-        '<section class="estCard"><div class="estLbl">Montagem de hoje</div><div class="estChk">' +
-        [['cart', 'Cartolina em curva'], ['caixa', 'Luz da caixa'], ['frontal', 'Luz frontal'], ['tripe', 'Tripé']].map(function (x) {
-          return '<button type="button" class="' + (M[x[0]] ? 'on' : '') + '" data-mont="' + x[0] + '"><i></i>' + x[1] + '</button>';
-        }).join('') +
-        '</div><div class="estRow"><div class="mini estPf">' + (pf ? 'Perfil: ' + esc(pf.nome || 'Caixa de luz') + (pf.zoom > 1.5 ? ' · 2x' : ' · 1x') : 'Sem perfil: meça o fundo') + '</div><button type="button" class="mini" data-e="medir">Medir fundo</button></div><button type="button" class="estLib" data-e="lib">O que meu celular libera ›</button></section>' +
-        '<div class="estRow estAc"><button type="button" class="go" data-e="nova">Fotografar antes de cadastrar</button><button type="button" class="mini estGiroB" data-e="giro">Giro · frente + 3/4 + vídeo</button><button type="button" class="mini estSes" data-e="sessao"' + (F.length ? '' : ' disabled') + '>Sessão: ' + F.length + (F.length === 1 ? ' peça' : ' peças') + ' ›</button></div>' +
-        '<section class="estCard"><div class="estLbl">Fila de fotos · ' + F.length + '</div>' +
+        '<p class="estSub">Você só tira as fotos. O app ajusta a luz, o fundo branco e o enquadramento sozinho.</p>' +
+        '<button type="button" class="go estGo" data-e="sessao"' + (F.length ? '' : ' disabled') + '>' + (F.length ? 'Começar · ' + F.length + (F.length === 1 ? ' peça na fila' : ' peças na fila') : 'Nada na fila') + '</button>' +
+        '<button type="button" class="estLink" data-e="nova">Peça nova, ainda sem cadastro ›</button>' +
         (F.length
-          ? F.slice(0, 40).map(function (x, j) {
+          ? '<div class="estLbl estLbl2"><span>Na fila</span>' + (F.length > 6 ? '<button type="button" class="estLink" data-e="todas">' + (S.estTodas ? 'Mostrar menos' : 'Ver todas ›') + '</button>' : '') + '</div>' +
+            F.slice(0, mostra).map(function (x, j) {
               var ft = S.fotos && S.fotos[x.k];
-              return '<button type="button" class="estIt" data-i="' + j + '"><span class="estTh' + (ft ? '' : ' v') + '">' + (ft ? '<img src="' + esc(ft) + '" alt="">' : 'sem foto') + '</span><span class="estTx"><b>' + esc(pn(x.ref)) + ' · ' + esc(x.cor) + '</b><small>' + esc(x.sub) + '</small></span><span class="estTag t' + x.o + '">' + (x.st === 'sem' ? 'sem foto' : x.st === 'nota' ? 'nota ' + x.n : 'falta 3/4') + '</span></button>';
-            }).join('') + (F.length > 40 ? '<div class="hint" style="margin:6px 0 0">e mais ' + (F.length - 40) + '…</div>' : '')
-          : '<div class="note n-ok">Todas as peças com foto no padrão.</div>') +
-        (fpChaves().length ? '<div style="margin-top:10px">' + fpAjHtml() + '</div>' : '') +
-        '</section>' +
+              return '<button type="button" class="estIt" data-i="' + j + '" data-ref="' + esc(x.ref) + '" data-cor="' + esc(x.cor) + '"><span class="estTh' + (ft ? '' : ' v') + '">' + (ft ? '<img src="' + esc(ft) + '" alt="">' : '') + '</span><span class="estTx"><b>' + esc(pn(x.ref)) + '</b><small>' + esc(x.cor) + ' · ' + (x.st === 'sem' ? 'sem foto' : x.st === 'nota' ? 'refazer: ' + esc(x.sub) : 'falta a foto de 3/4') + '</small></span></button>';
+            }).join('') +
+            (!S.estTodas && F.length > 6 ? '<button type="button" class="estMais" data-e="todas">+ ' + (F.length - 6) + (F.length - 6 === 1 ? ' peça' : ' peças') + '</button>' : '')
+          : '<div class="estOk">Todas as peças com foto no padrão ✓</div>') +
         ((S.estPend || []).length
-          ? '<section class="estCard"><div class="estLbl">Fotos aguardando cadastro · ' + S.estPend.length + '</div>' +
+          ? '<div class="estLbl estLbl2"><span>Fotos aguardando cadastro · ' + S.estPend.length + '</span></div>' +
             S.estPend.map(function (x) {
               return '<div class="estIt estPd"><span class="estTh"><img src="' + esc(x.t) + '" alt=""></span><span class="estTx"><b>Peça sem cadastro</b><small>' + new Date(x.ts).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) + (x.t34 ? ' · frente e 3/4' : ' · frente') + ' · nota ' + x.n + '</small></span><button type="button" class="mini" data-pd="' + x.id + '" data-a="ligar">Ligar</button><button type="button" class="mini estApg" data-pd="' + x.id + '" data-a="apagar" aria-label="Apagar">×</button></div>';
-            }).join('') +
-            '</section>'
+            }).join('')
           : '') +
-        '<section class="estCard"><div class="estLbl">Catálogo</div><div class="estRow" style="justify-content:space-between"><span>Fotos no padrão</span><b style="color:var(--ok)">' + P.ok + ' de ' + P.t + '</b></div></section>' +
+        (fpChaves().length ? '<div class="estPadr">' + fpAjHtml() + '</div>' : '') +
+        '<div class="estRod">Fotos no padrão: ' + P.ok + ' de ' + P.t + '</div>' +
         '</div>';
     };
     pinta();
@@ -32295,30 +32432,53 @@
         }
         return estDestino({ pend: pd }, pinta);
       }
-      if (b.dataset.e === 'sessao') return estSessao(F.slice(), 0, pinta);
+      if (b.dataset.e === 'todas') {
+        S.estTodas = !S.estTodas;
+        return pinta();
+      }
+      if (b.dataset.e === 'ajuda') return estAjuda(pinta);
+      if (b.dataset.e === 'sessao') {
+        EST_SES = { t0: Date.now(), n: 0, fotos: 0, refazer: [], total: F.length };
+        return estSessao(F.slice(), 0, pinta);
+      }
       if (b.dataset.i != null) {
         var x = F[+b.dataset.i];
+        EST_SES = null;
         estSessao([x], 0, pinta);
       }
     };
     return ov;
   }
   // Sessão: uma peça atrás da outra (frente → 3/4), salvando na cor certa.
+  var EST_SES = null; // v465: contagem da sessão para o resumo do fim
   function estSessao(lista, i, depois) {
     if (i >= lista.length) {
-      lfToast('Sessão concluída');
+      if (EST_SES && lista.length > 1) estResumo(EST_SES, depois);
+      else lfToast('Fotos guardadas');
+      EST_SES = null;
       if (depois) depois();
       render();
       return;
     }
     var x = lista[i],
-      passo = x.st === '34' ? '34' : 'frente';
+      passo = x.st === '34' ? '34' : 'frente',
+      mesmas = lista.filter(function (y) {
+        return y.ref === x.ref;
+      }),
+      ic = mesmas.indexOf(x),
+      ref0 = mesmas.filter(function (y) {
+        return y !== x && S.fotos && S.fotos[y.k];
+      })[0];
     estCam({
       k: x.k,
       ref: x.ref,
       cor: x.cor,
       passo: passo,
-      titulo: pn(x.ref) + ' · ' + x.cor,
+      vivo: true,
+      sessao: true,
+      corRef: ref0 ? { cor: ref0.cor, foto: S.fotos[ref0.k] } : null,
+      corTxt: mesmas.length > 1 ? 'cor ' + (ic + 1) + ' de ' + mesmas.length : '',
+      titulo: (lista.length > 1 ? i + 1 + ' de ' + lista.length + ' · ' : '') + pn(x.ref) + ' · ' + x.cor,
       salva: true,
       prox: function () {
         estSessao(lista, i + 1, depois);
@@ -32329,6 +32489,16 @@
   // Grava a foto (frente ou 3/4) na cor e marca a nota.
   function estGrava(k, passo, R) {
     var kk = passo === '34' ? k + '|34' : k;
+    vibrar(15);
+    if (EST_SES) EST_SES.fotos++;
+    // v465: fica a melhor foto — se a nova for pior que a que já existe, a antiga continua (a nova fica guardada 30 dias)
+    var ant = passo !== '34' && S.fotoNota[k];
+    if (ant && S.fotos && S.fotos[k] && ant.n > R.n + 5) {
+      if (!S.fotoReserva) S.fotoReserva = {};
+      S.fotoReserva[kk] = { ts: Date.now(), n: R.n };
+      lfToast('A foto anterior era melhor (nota ' + ant.n + ') e continua');
+      return;
+    }
     setFoto(kk, thumbOf(R.cv), R.cv.toDataURL('image/jpeg', 0.92));
     if (passo !== '34') S.fotoNota[k] = { n: R.n, mot: R.mot, ts: Date.now() };
     var ref = k.split('|')[0];
@@ -32364,7 +32534,9 @@
       '<div class="ecVf"><video id="ecV" autoplay playsinline muted></video><canvas id="ecPkC"></canvas>' +
       '<div class="ecLvl" id="ecLvl"><span>0,0°</span></div><canvas class="ecHist" id="ecHist" width="92" height="40"></canvas>' +
       '<div class="ecMsg" id="ecMsg" hidden></div>' +
-      '<div class="ecTag">' + (ctx.medir ? 'Aponte só para a cartolina e toque em Medir fundo' : (ctx.passo === '34' ? '3/4 · 2 de 2' : 'Frente · 1 de 2') + (ctx.titulo ? ' · ' + esc(ctx.titulo) : '')) + '</div>' +
+      '<div class="ecTag">' + (ctx.medir ? 'Aponte só para a cartolina e toque em Medir fundo' : (ctx.passo === '34' ? '3/4 · 2 de 2' : 'Frente · 1 de 2') + (ctx.titulo ? ' · ' + esc(ctx.titulo) : '') + (ctx.corTxt ? ' · ' + esc(ctx.corTxt) : '')) + '</div>' +
+      (ctx.corRef && !ctx.medir ? '<div class="ecRef"><img src="' + esc(ctx.corRef.foto) + '" alt=""><span>Mesma posição da ' + esc(ctx.corRef.cor) + '</span></div>' : '') +
+      (ctx.sessao && !ctx.medir ? '<div class="ecAuto" id="ecAuto">' + (ctx.passo === '34' ? 'Gire a peça um pouco (3/4) e deixe parada' : 'Peça de frente, centralizada e parada') + '</div>' : '') +
       '<div class="ecGd"><i class="c1"></i><i class="c2"></i><i class="c3"></i><i class="c4"></i></div>' +
       '<div class="ecChips" id="ecChips"><span data-k="fundo"><i></i>Fundo branco</span><span data-k="foco"><i></i>Foco</span><span data-k="reto"><i></i>Reto</span><span data-k="dist"><i></i>Distância</span></div></div>' +
       '<div class="ecPro" id="ecPro"></div><div class="ecDial" id="ecDial"><input type="range" id="ecR" min="0" max="100" value="50" aria-label="Ajuste"><div class="ecDv" id="ecDv"></div></div>' +
@@ -32649,6 +32821,28 @@
           lv.firstChild.textContent = (Math.round(gama * 10) / 10).toString().replace('.', ',') + '°';
         }
         st.bf = bf;
+        // v465: dispara sozinho quando a peça fica parada e certinha (~1 s); o botão e o volume continuam valendo
+        if (ctx.sessao && !ctx.medir && !st.medindo) {
+          var mov = 0;
+          if (st.ant && st.ant.length === d.length) {
+            for (i = 0; i < d.length; i += 16) mov += Math.abs(d[i] - st.ant[i]);
+            mov /= d.length / 16;
+          } else mov = 99;
+          st.ant = new Uint8ClampedArray(d);
+          var tudo = ok.fundo && ok.foco && ok.reto && ok.dist && mov < 3.5,
+            sh0 = $('ecSh'),
+            au = $('ecAuto');
+          st.parado = tudo ? (st.parado || 0) + 1 : 0;
+          if (sh0) sh0.style.setProperty('--p', Math.min(1, st.parado / 3));
+          if (sh0) sh0.classList.toggle('auto', st.parado > 0);
+          if (au) au.textContent = tudo ? 'Parado… tirando sozinho' : !ok.dist ? 'Aproxime ou afaste até a peça caber na moldura' : !ok.foco ? 'Esperando o foco' : !ok.fundo ? 'Fundo escuro: aproxime a luz' : mov >= 3.5 ? 'Deixe a peça parada' : 'Peça de frente, centralizada e parada';
+          if (au) au.classList.toggle('ok', tudo);
+          if (st.parado >= 3 && !st.autoFoi && typeof dispara === 'function') {
+            st.autoFoi = true;
+            vibrar(10);
+            dispara();
+          }
+        }
         // peça estourada: muito branco puro no meio da imagem com o fundo travado
         var nc = 0,
           ncl = 0;
@@ -32731,6 +32925,12 @@
       var b = $('ecFundo');
       if (!b || st.medindo) return;
       var ok = pronta();
+      // v465: sem perfil medido, a primeira foto da sessão mede o fundo sozinha
+      if (ok && ctx.sessao && !S.estPerfil && !st.autoMed && typeof medir === 'function') {
+        st.autoMed = true;
+        msg('Ajustando a luz e o fundo…', 'ok');
+        medir();
+      }
       b.disabled = !ok;
       if (!ok) b.textContent = 'Abrindo câmera…';
       else if (b.textContent === 'Abrindo câmera…') b.textContent = S.estPerfil && S.estPerfil.salvo && st.travado ? 'Fundo travado 255' : 'Medir fundo';
@@ -33084,6 +33284,33 @@
       });
   }
   function estResultado(R, f, ctx) {
+    // v465: na sessão, foto aprovada (nota 75+) segue sozinha, sem tela no meio; foto ruim mostra o porquê e pede de novo
+    if (ctx.sessao && R.cv && R.n >= 75 && !ctx.nova) {
+      var passoA = ctx.passo || 'frente';
+      if (passoA === 'frente') {
+        if (ctx.k) estGrava(ctx.k, 'frente', R);
+        estBarra('✓ Frente salva · agora a 3/4');
+        return setTimeout(function () {
+          estCam(Object.assign({}, ctx, { passo: '34', salva: true, done: null }));
+        }, 450);
+      }
+      if (ctx.k) estGrava(ctx.k, '34', R);
+      if (EST_SES) EST_SES.n++;
+      estBarra('Fotos salvas ✓', [
+        ['Gravar vídeo 360', function () {
+          estVideo360(ctx, null);
+        }],
+        ['Refazer', function () {
+          estCam(Object.assign({}, ctx, { passo: 'frente' }));
+        }]
+      ], function () {
+        render();
+        if (ctx.prox) ctx.prox();
+        else if (ctx.fim) ctx.fim();
+      });
+      return;
+    }
+    if (ctx.sessao && EST_SES && R.n < 75) EST_SES.refazer.push((R.mot || [])[0] || 'nota baixa');
     var ov = document.createElement('div');
     ov.className = 'estOv estRes';
     ov.id = 'estRes';
@@ -33505,6 +33732,78 @@
   ICO_D.est = EST_ICO;
   if (INI_PADRAO.indexOf('est') < 0) INI_PADRAO.splice(3, 0, 'est');
   if (INI_TODOS.indexOf('est') < 0) INI_TODOS.push('est');
+  // v465: barra que aparece embaixo por um instante (com ações opcionais) e segue sozinha
+  function estBarra(txt, acoes, depois) {
+    var b = document.createElement('div'),
+      feito = false;
+    b.className = 'estBarra';
+    b.innerHTML = '<b>' + esc(txt) + '</b>' + (acoes || []).map(function (a, i) {
+      return '<button type="button" data-b="' + i + '">' + esc(a[0]) + '</button>';
+    }).join('');
+    document.body.appendChild(b);
+    var segue = function (fn) {
+      if (feito) return;
+      feito = true;
+      b.classList.add('sai');
+      setTimeout(function () {
+        b.remove();
+      }, 260);
+      if (fn) fn();
+      else if (depois) depois();
+    };
+    b.onclick = function (e) {
+      var x = e.target.closest('[data-b]');
+      if (x) segue(acoes[+x.dataset.b][1]);
+    };
+    setTimeout(function () {
+      segue();
+    }, acoes && acoes.length ? 2600 : 900);
+  }
+  // v465: resumo no fim da sessão
+  function estResumo(r, depois) {
+    var min = Math.max(1, Math.round((Date.now() - r.t0) / 60000)),
+      h =
+        '<div class="estResT">Sessão concluída</div><div class="estResS">' + r.n + (r.n === 1 ? ' peça' : ' peças') + ' · ' + r.fotos + (r.fotos === 1 ? ' foto' : ' fotos') + ' · ' + min + ' min</div>' +
+        '<div class="estResL"><span>Já no catálogo e no site<small>as fotos novas entraram sozinhas</small></span><b class="ok">✓</b></div>' +
+        (r.refazer.length ? '<div class="estResL"><span>' + r.refazer.length + ' para refazer<small>' + esc(r.refazer.slice(0, 3).join(' · ')) + '</small></span><b>›</b></div>' : '') +
+        '<button type="button" class="go" data-act="estResFecha">Fechar</button>';
+    lfaAbre('estResF', h);
+    ACT.estResFecha = function () {
+      lfaFecha('estResF');
+      if (depois) depois();
+    };
+  }
+  // v465: o "?" do Estúdio — tudo o que antes ficava na tela (montagem, medir fundo, o que o celular libera, giro, guia)
+  function estAjuda(pinta) {
+    var M = S.estMont || {},
+      pf = S.estPerfil,
+      h =
+        '<div class="estAjT"><span>ESTÚDIO</span></div>' +
+        '<button type="button" class="estAjL" data-act="estAj" data-id="tut"><span>Como fotografar<small>vídeo curto e o que cada coisa faz</small></span><i>›</i></button>' +
+        '<div class="estAjG">Montagem<small>o app avisa sozinho se algo estiver errado</small></div><div class="estChk">' +
+        [['cart', 'Cartolina em curva'], ['caixa', 'Luz da caixa'], ['frontal', 'Luz frontal'], ['tripe', 'Tripé']].map(function (x) {
+          return '<button type="button" class="' + (M[x[0]] ? 'on' : '') + '" data-act="estAj" data-id="m:' + x[0] + '"><i></i>' + x[1] + '</button>';
+        }).join('') + '</div>' +
+        '<button type="button" class="estAjL" data-act="estAj" data-id="medir"><span>Medir o fundo de novo<small>' + (pf ? 'medido · ' + esc(pf.nome || 'Caixa de luz') : 'o app mede sozinho na primeira foto') + '</small></span><i>›</i></button>' +
+        '<button type="button" class="estAjL" data-act="estAj" data-id="giro"><span>Vídeo 360 (giro)<small>frente + 3/4 + vídeo no prato</small></span><i>›</i></button>' +
+        '<button type="button" class="estAjL" data-act="estAj" data-id="lib"><span>O que meu celular libera<small>controles da câmera deste aparelho</small></span><i>›</i></button>';
+    lfaAbre('estAjF', h);
+    ACT.estAj = function (id) {
+      if (id.indexOf('m:') === 0) {
+        var k = id.slice(2);
+        S.estMont[k] = !S.estMont[k];
+        saveSoon();
+        return estAjuda(pinta);
+      }
+      lfaFecha('estAjF');
+      setTimeout(function () {
+        if (id === 'tut') estTutorial();
+        else if (id === 'medir') estCam({ medir: true, titulo: 'Medir fundo', fim: pinta });
+        else if (id === 'giro') estGiro({ fim: pinta });
+        else if (id === 'lib') estLibera();
+      }, 240);
+    };
+  }
   // ===== Folha da peça (grade de vendas): foto, cores, quantidade e Vender. Subir abre a vitrine; descer fecha. =====
   var _fo = null; // { k, g, it, qty }
   function folhaVars(g) {
@@ -34152,8 +34451,10 @@
         render();
         var J = lfJanela({
           titulo: 'Fotos padronizadas',
+          cls: 'fpJn',
           monta: function (c, J2) {
-            c.innerHTML = '<div class="hint" style="margin:0 0 10px">' + feitos + ' no padrão' + (fora ? ' · ' + fora + ' ficaram como estavam (foto fora do padrão: tire de novo com o guia da câmera)' : '') + '.</div><button type="button" class="go" id="fpOk">Pronto</button><button type="button" class="mini" id="fpDesf" style="width:100%">Desfazer</button>';
+            // v465 (aprovado 08/11): ✓ verde suave, frase clara, Pronto como botão principal e Desfazer só em texto
+            c.innerHTML = '<div class="fpFim"><span class="fpOkIc" aria-hidden="true">✓</span><span>' + feitos + (feitos === 1 ? ' foto no padrão' : ' fotos no padrão') + ': fundo branco e mesmo tamanho' + (fora ? '<small>' + fora + ' ficaram como estavam (tire de novo pelo Estúdio)</small>' : '') + '</span></div><button type="button" class="go" id="fpOk">Pronto</button><button type="button" class="fpDesf" id="fpDesf">Desfazer</button>';
             $('fpOk').onclick = function () {
               J2.fecha();
             };
@@ -35205,7 +35506,6 @@
         // 07/11: diagnóstico — guarda o que a página devolveu quando não dá para ler (ex.: bloqueio do Cloudflare)
         if (!c) {
           var tx = String((r && r.data) || '').replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-          S._lmTxt = tx.slice(0, 20000);
           throw new Error((S._lmDiag ? '[' + S._lmDiag + '] ' : '') + 'a página respondeu ' + ((r && r.status) || '?') + (/cloudflare|just a moment|attention required|checking your browser/i.test(tx) ? ' (bloqueio do Cloudflare)' : '') + ' e não achei a Sucursal Jebai: “' + tx.slice(0, 80) + '…”');
         }
         LM_FALHAS = 0;
@@ -36847,7 +37147,7 @@
     S.modoCli = mcLigado();
     document.body.classList.toggle('modoCli', S.modoCli);
     if (!S.modoCli) {
-      document.body.classList.remove('mcAberto');
+      mcTrava(false);
       return;
     }
     mcTopo();
@@ -36871,7 +37171,8 @@
         localStorage.removeItem('lf_modoCli');
       } catch (e) {}
       S.modoCli = false;
-      document.body.classList.remove('modoCli', 'mcAberto');
+      mcTrava(false);
+      document.body.classList.remove('modoCli');
       clearTimeout(mcT);
       render();
       lfToast('Modo cliente desligado · app normal');
@@ -36924,6 +37225,25 @@
     mcBotao();
     mcAplica();
   }, 0);
+  // v465: produto aberto no modo cliente = a página de trás fica TRAVADA (mesma regra do site, html.ppop):
+  // só a janela do produto rola, sem "vazar" para o catálogo; ao fechar, o catálogo volta para onde estava.
+  var mcY = 0;
+  function mcTrava(on) {
+    var de = document.documentElement,
+      era = document.body.classList.contains('mcAberto');
+    if (on === era) return;
+    if (on) {
+      mcY = window.scrollY || de.scrollTop || 0;
+      document.body.classList.add('mcAberto');
+      de.classList.add('mcTrava');
+      document.body.style.top = -mcY + 'px';
+    } else {
+      document.body.classList.remove('mcAberto');
+      de.classList.remove('mcTrava');
+      document.body.style.top = '';
+      window.scrollTo(0, mcY);
+    }
+  }
   // ===== Cliente na venda + tela "Venda confirmada" com o comprovante de venda (sempre em G$, IVA 10% incluso). =====
   // O app NÃO emite nota fiscal: imprime o comprovante (sem valor fiscal) para qualquer cliente.
   // Paraguaio com RUC: o comprovante leva Nombre/RUC (dados que a máquina fiscal usa). Estrangeiro: nome e CI/CPF, nunca RUC.
@@ -39237,6 +39557,10 @@
   }
   // Aviso do sistema (Windows/navegador) para pedidos achados pela busca automática; respeita as opções de Ajustes.
   function avisoLocal(titulo, corpo, q) {
+    // v465 (animação k): com o app aberto, o pedido novo desce do topo com mola
+    try {
+      if (q && q.n && !document.hidden && typeof lfAvisoTopo === 'function') lfAvisoTopo(q.n === 1 ? 'Pedido novo do site' : q.n + ' pedidos novos do site', corpo || 'Toque para ver', function () { setView('ped'); });
+    } catch (e) {}
     try {
       var C = window.Capacitor;
       if (C && C.isNativePlatform && C.isNativePlatform()) return;
@@ -41245,6 +41569,217 @@
         if (temaVal() === 'auto') temaMeta('auto');
       });
   } catch (e) {}
+  // ===== v465: trocar Armação ↔ Pré-graduado (aprovado 08/11/2026, esboço trocar_tipo.png) =====
+  // Pré-graduado é contado por GRAU; armação, por COR. A folha pergunta o grau de cada cor (ou a cor de cada grau)
+  // e muda as linhas do estoque sem perder peça nenhuma. No site o modelo passa para "De grau" (ou volta a Armação).
+  var TT_GRAUS = (function () {
+    var l = [];
+    for (var g = 0.5; g <= 4.001; g += 0.25) l.push('+' + g.toFixed(2));
+    return l;
+  })();
+  function ttGrausDe() {
+    var vis = {};
+    TT_GRAUS.forEach(function (g) {
+      vis[g] = 1;
+    });
+    (S.items || []).forEach(function (i) {
+      if (i.tipo === 'pre' && i.grau) vis[i.grau] = 1;
+    });
+    return Object.keys(vis).sort(function (a, b) {
+      return parseFloat(a) - parseFloat(b);
+    });
+  }
+  // grau escrito no código ou no nome (ex.: "+1.50", "1,75") vira a sugestão
+  function ttGrauSug(ref) {
+    var t = ref + ' ' + ((S.pnome && S.pnome[ref]) || ''),
+      m = t.match(/([+-]?\d)[.,](\d{2})/);
+    if (!m) return '+1.00';
+    var g = '+' + Math.abs(parseFloat(m[1] + '.' + m[2])).toFixed(2);
+    return TT_GRAUS.indexOf(g) >= 0 ? g : '+1.00';
+  }
+  S.tt = null;
+  function tipoTrocaAbre(ref, de, para) {
+    var rows = S.items.filter(function (i) {
+      return i.ref === ref && i.tipo === de && i.qty > 0;
+    });
+    var grupos = [];
+    if (para === 'pre') {
+      // uma linha por cor (soma das peças daquela cor)
+      var porCor = {};
+      rows.forEach(function (i) {
+        var c = i.cor || 'Sem cor';
+        porCor[c] = (porCor[c] || 0) + i.qty;
+      });
+      Object.keys(porCor).forEach(function (c) {
+        grupos.push({ k: c, n: porCor[c], partes: [{ g: ttGrauSug(ref), n: porCor[c] }] });
+      });
+    } else {
+      // uma linha por grau (+ a cor que ele tinha)
+      var porG = {};
+      rows.forEach(function (i) {
+        var k = (i.grau || 'sem grau') + '|' + (i.cor || 'Sem cor');
+        porG[k] = (porG[k] || 0) + i.qty;
+      });
+      Object.keys(porG).forEach(function (k) {
+        var pp = k.split('|');
+        grupos.push({ k: k, grau: pp[0], cor: pp[1], n: porG[k], dest: pp[1] });
+      });
+    }
+    S.tt = { ref: ref, de: de, para: para, g: grupos };
+    ttDesenha();
+  }
+  function ttCores(ref) {
+    var c = {};
+    S.items.forEach(function (i) {
+      if (i.ref === ref && i.cor) c[i.cor] = 1;
+    });
+    return Object.keys(c);
+  }
+  function ttSel(nome, val, ops) {
+    return '<select class="ttSel" data-tt="' + nome + '">' + ops.map(function (o) {
+      return '<option' + (o === val ? ' selected' : '') + '>' + esc(o) + '</option>';
+    }).join('') + '</select>';
+  }
+  function ttDesenha() {
+    var t = S.tt;
+    if (!t) return;
+    var h = '';
+    if (t.para === 'pre') {
+      var gs0 = ttGrausDe();
+      h += '<h3 class="ttT">Mudar para Pré-graduado</h3><p class="ttP">Pré-graduado é contado por grau. Diga em qual grau estão as peças de cada cor. No site ele passa a aparecer em <b>De grau</b>.</p>';
+      t.g.forEach(function (gr, gi) {
+        gr.partes.forEach(function (pt, pi) {
+          var resto = pi === 0 && gr.partes.length > 1;
+          h += '<div class="ttR"><span>' + esc(gr.k) + '<small>' + (gr.partes.length > 1 ? (resto ? pt.n + ' peças' : '<input class="ttN" inputmode="numeric" data-tt="n:' + gi + ':' + pi + '" value="' + pt.n + '"> peças') : gr.n + ' peças') + '</small></span>' + ttSel('g:' + gi + ':' + pi, pt.g, gs0) + (pi > 0 ? '<button type="button" class="ttX" data-act="ttTira" data-id="' + gi + ':' + pi + '" aria-label="Tirar este grau">×</button>' : '') + '</div>';
+        });
+        if (gr.n > 1) h += '<button type="button" class="ttDiv" data-act="ttDivide" data-id="' + gi + '">' + (gr.partes.length > 1 ? '+ outro grau em ' + esc(gr.k) : 'Graus diferentes em ' + esc(gr.k) + '? Dividir por grau ›') + '</button>';
+      });
+    } else {
+      var cs = ttCores(t.ref),
+        tot = {};
+      h += '<h3 class="ttT">Mudar para Armação</h3><p class="ttP">Armação é contada por cor, sem grau. As peças de cada grau passam para a cor que você escolher.</p>';
+      t.g.forEach(function (gr, gi) {
+        tot[gr.dest] = (tot[gr.dest] || 0) + gr.n;
+        h += '<div class="ttR"><span>' + esc(gr.grau) + '<small>' + esc(gr.cor) + ' · ' + gr.n + ' peças</small></span>' + ttSel('c:' + gi, gr.dest, cs) + '</div>';
+      });
+      h += '<div class="ttFica">Fica: <b>' + Object.keys(tot).map(function (c) {
+        return esc(c) + ' · ' + tot[c] + (tot[c] === 1 ? ' peça' : ' peças');
+      }).join(' · ') + '</b></div>';
+    }
+    if (t.err) h += '<div class="ttErr">' + esc(t.err) + '</div>';
+    h += '<button type="button" class="go ttOk" data-act="ttConfirma">Mudar para ' + (t.para === 'pre' ? 'Pré-graduado' : 'Armação') + '</button><button type="button" class="ttCan" data-act="ttCancela">Cancelar</button>';
+    var o = lfaAbre('ttFolha', h);
+    if (!o._tt) {
+      o._tt = 1;
+      o.addEventListener('change', ttLe);
+      o.addEventListener('input', ttLe);
+    }
+  }
+  function ttLe(e) {
+    var t = S.tt,
+      k = e.target && e.target.dataset && e.target.dataset.tt;
+    if (!t || !k) return;
+    var p = k.split(':');
+    if (p[0] === 'g') t.g[+p[1]].partes[+p[2]].g = e.target.value;
+    else if (p[0] === 'c') {
+      t.g[+p[1]].dest = e.target.value;
+      if (e.type === 'change') ttDesenha();
+    } else if (p[0] === 'n') {
+      var gr = t.g[+p[1]],
+        v = Math.max(0, parseInt(e.target.value.replace(/\D/g, ''), 10) || 0);
+      gr.partes[+p[2]].n = v;
+      var outros = gr.partes.reduce(function (a, x, i) {
+        return i > 0 ? a + x.n : a;
+      }, 0);
+      gr.partes[0].n = gr.n - outros;
+      if (e.type === 'change') ttDesenha();
+    }
+  }
+  ACT.ttDivide = function (id) {
+    var gr = S.tt && S.tt.g[+id];
+    if (!gr) return;
+    var gs0 = ttGrausDe(),
+      ult = gr.partes[gr.partes.length - 1].g,
+      prox = gs0[Math.min(gs0.length - 1, gs0.indexOf(ult) + 1)] || ult;
+    gr.partes.push({ g: prox, n: 1 });
+    gr.partes[0].n = Math.max(0, gr.partes[0].n - 1);
+    ttDesenha();
+  };
+  ACT.ttTira = function (id) {
+    var p = String(id).split(':'),
+      gr = S.tt && S.tt.g[+p[0]];
+    if (!gr) return;
+    var x = gr.partes.splice(+p[1], 1)[0];
+    gr.partes[0].n += x ? x.n : 0;
+    ttDesenha();
+  };
+  ACT.ttCancela = function () {
+    S.tt = null;
+    lfaFecha('ttFolha');
+  };
+  ACT.ttConfirma = function () {
+    var t = S.tt;
+    if (!t) return;
+    t.err = '';
+    if (t.para === 'pre') {
+      var ruim = t.g.some(function (gr) {
+        return gr.partes.some(function (pt) {
+          return pt.n < 0;
+        });
+      });
+      if (ruim) {
+        t.err = 'A soma dos graus passou do total de peças da cor.';
+        return ttDesenha();
+      }
+    }
+    var ref = t.ref,
+      velhas = S.items.filter(function (i) {
+        return i.ref === ref && i.tipo === t.de;
+      }),
+      base = velhas[0] || {},
+      novas = [];
+    var poe = function (cor, grau, n) {
+      if (!(n > 0)) return;
+      var ja = novas.filter(function (x) {
+        return x.cor === cor && x.grau === grau;
+      })[0];
+      if (ja) return (ja.qty += n);
+      var molde = velhas.filter(function (i) {
+        return i.cor === cor;
+      })[0] || base;
+      novas.push(Object.assign({}, molde, { tipo: t.para, ref: ref, cor: cor, grau: grau, qty: n }));
+    };
+    if (t.para === 'pre') {
+      t.g.forEach(function (gr) {
+        gr.partes.forEach(function (pt) {
+          poe(gr.k, pt.g, pt.n);
+        });
+      });
+    } else {
+      t.g.forEach(function (gr) {
+        poe(gr.dest, '', gr.n);
+      });
+    }
+    // linhas sem estoque (zeradas) também mudam de tipo, para o modelo não ficar dividido
+    velhas.forEach(function (i) {
+      if (!(i.qty > 0) && !novas.some(function (x) {
+        return x.cor === i.cor;
+      })) novas.push(Object.assign({}, i, { tipo: t.para, grau: t.para === 'pre' ? i.grau || '' : '' }));
+    });
+    S.items = S.items.filter(function (i) {
+      return !(i.ref === ref && i.tipo === t.de);
+    }).concat(novas);
+    S.elog.push({ ts: Date.now(), tipo: t.para, ref: ref, cor: '', grau: '', qty: 0, ajuste: true, motivo: 'Tipo: ' + (t.de === 'pre' ? 'Pré-graduado' : 'Armação') + ' → ' + (t.para === 'pre' ? 'Pré-graduado' : 'Armação') });
+    if (S.site && S.site[ref] && typeof vitFila === 'function') vitFila(ref, 'upd');
+    S.tipo = t.para;
+    S.edTipo = '';
+    S.tt = null;
+    lfaFecha('ttFolha');
+    S.msg = 'Tipo alterado para ' + (t.para === 'pre' ? 'Pré-graduado' : 'Armação') + '.';
+    if (typeof saveSoon === 'function') saveSoon();
+    render();
+    if (typeof lfToast === 'function') lfToast(S.msg);
+  };
   // ===== Mais vistas e não vendidas (v445, aprovado 05/11/2026) =====
   // O site manda, ao fim de cada visita, quantas vezes cada peça foi aberta (vistas/<visita>). O app soma os últimos
   // 30 dias e o Marketing mostra as peças que interessam mas não fecham — para destacar no Status ou pôr em oferta.
@@ -41522,6 +42057,437 @@
     setTimeout(vitAvisa, 20000);
     setInterval(vitAvisa, 60 * 60000);
   }
+  // ===== v465: animações novas aprovadas em 08/11/2026 (vídeos a–m) =====
+  // b fotos com brilho cinza até carregar · c câmbio rolando + bolinha pulsa · d telas vazias desenhando o ícone ·
+  // e tirar peça do pedido deslizando · f puxar para atualizar no Câmbio · g linha das abas deslizando ·
+  // h foto do produto expande do cartão · i segurar = espiar · j tema em círculo · k aviso de pedido novo do topo ·
+  // l busca em cascata · m meta batida com confete. (a: folhas = lfaAbre/lfaGestos, já com mola e arrastar.)
+  (function () {
+    // ---------- b. fotos carregando ----------
+    function fotoPronta(im) {
+      if (!im || im._lfOk) return;
+      var ok = function () {
+        im._lfOk = 1;
+        im.classList.add('lfOk');
+        var bx = im.closest('.pbox,.lfImg');
+        if (bx) bx.classList.add('lfOk');
+      };
+      if (im.complete && im.naturalWidth) ok();
+      else im.addEventListener('load', ok, { once: true });
+      im.addEventListener('error', ok, { once: true });
+    }
+    function fotosVarre(root) {
+      [].forEach.call((root || document).querySelectorAll('.pbox img:not(.lfOk)'), fotoPronta);
+    }
+    try {
+      new MutationObserver(function (ms) {
+        for (var i = 0; i < ms.length; i++) if (ms[i].addedNodes.length) return requestAnimationFrame(function () { fotosVarre(); });
+      }).observe(document.body, { childList: true, subtree: true });
+    } catch (e) {}
+
+    // ---------- c. câmbio rolando (contador) + bolinha pulsa ----------
+    var fxAnt = {};
+    function rolaNumero(el, de, para) {
+      if (REDUCED || !el || de === para || de.length !== para.length) return;
+      el.textContent = '';
+      for (var i = 0; i < para.length; i++) {
+        var a = de[i],
+          b = para[i],
+          sp = document.createElement('span');
+        sp.className = 'odo';
+        if (a === b || !/\d/.test(a) || !/\d/.test(b)) {
+          sp.textContent = b;
+          el.appendChild(sp);
+          continue;
+        }
+        var seq = [],
+          k = +a,
+          sobe = +b > +a;
+        while (k !== +b) {
+          seq.push(k);
+          k = sobe ? k + 1 : k - 1;
+        }
+        seq.push(+b);
+        sp.innerHTML = '<span class="odoR">' + seq.map(function (x) { return '<span>' + x + '</span>'; }).join('') + '</span>';
+        el.appendChild(sp);
+        var r = sp.firstChild;
+        r.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-' + (seq.length - 1) * 1.15 + 'em)' }], { duration: 650 + i * 90, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards' });
+      }
+      var st = document.querySelector('#v-fx .fxSt i');
+      if (st && st.animate) st.animate([{ boxShadow: '0 0 0 0 rgba(95,211,154,.7)' }, { boxShadow: '0 0 0 10px rgba(95,211,154,0)' }], { duration: 900 });
+    }
+    function fxDepois() {
+      var l = document.querySelectorAll('#v-fx .fxTop .fxLin');
+      [].forEach.call(l, function (b) {
+        var k = b.getAttribute('data-id'),
+          el = b.querySelector('b'),
+          t = el ? el.textContent : '';
+        if (fxAnt[k] && fxAnt[k] !== t && S.view === 'fx') rolaNumero(el, fxAnt[k], t);
+        fxAnt[k] = t;
+      });
+    }
+
+    // ---------- d. telas vazias: ícone desenha em linha ----------
+    window.lfVazioHtml = function (ico, titulo, texto) {
+      return '<div class="lfVazio"><svg viewBox="0 0 24 24" width="84" height="84" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ico.replace(/<(path|circle|rect)\b/g, '<$1 pathLength="1"') + '</svg><b>' + titulo + '</b><span>' + texto + '</span></div>';
+    };
+
+    // ---------- e. tirar peça do pedido ----------
+    var cartRm0 = ACT.cartrm;
+    ACT.cartrm = function (id) {
+      var bt = document.querySelector('[data-act="cartrm"][data-id="' + id + '"]'),
+        ln = bt && bt.closest('.sl');
+      if (REDUCED || !ln || !ln.animate) return cartRm0(id);
+      if (ln._sai) return;
+      ln._sai = 1;
+      var h = ln.offsetHeight;
+      ln.style.overflow = 'hidden';
+      ln.animate([{ transform: 'translateX(0)', opacity: 1 }, { transform: 'translateX(-110%)', opacity: 0 }], { duration: 280, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' }).onfinish = function () {
+        ln.animate([{ height: h + 'px' }, { height: '0px', paddingTop: '0px', paddingBottom: '0px', marginTop: '0px', marginBottom: '0px' }], { duration: 240, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards' }).onfinish = function () {
+          cartRm0(id);
+        };
+      };
+    };
+
+    // ---------- f. puxar para atualizar no Câmbio ----------
+    var pu = null;
+    document.addEventListener('touchstart', function (e) {
+      if (S.view !== 'fx' || (window.scrollY || 0) > 2 || e.touches.length !== 1) return;
+      if (e.target.closest && e.target.closest('input,select,textarea,.lfa-ov,#mainnav')) return;
+      pu = { y0: e.touches[0].clientY, x0: e.touches[0].clientX, dy: 0, on: false };
+    }, { passive: true });
+    document.addEventListener('touchmove', function (e) {
+      if (!pu) return;
+      var dy = e.touches[0].clientY - pu.y0,
+        dx = Math.abs(e.touches[0].clientX - pu.x0);
+      if (!pu.on) {
+        if (dy > 10 && dy > dx) pu.on = true;
+        else if (dy < -4 || dx > 12) return (pu = null);
+        else return;
+      }
+      pu.dy = Math.max(0, dy);
+      var v = $('v-fx'),
+        sp = puxaEl(),
+        d = Math.min(110, pu.dy * 0.5);
+      v.style.transform = 'translateY(' + d + 'px)';
+      sp.style.opacity = Math.min(1, d / 60);
+      sp.style.transform = 'translateX(-50%) rotate(' + d * 4 + 'deg)';
+      if (e.cancelable) e.preventDefault();
+    }, { passive: false });
+    document.addEventListener('touchend', function () {
+      if (!pu) return;
+      var p = pu,
+        v = $('v-fx'),
+        sp = puxaEl();
+      pu = null;
+      if (!p.on) return;
+      var volta = function () {
+        v.style.transition = 'transform .35s cubic-bezier(.2,.8,.2,1)';
+        v.style.transform = '';
+        sp.classList.remove('gira');
+        sp.style.opacity = 0;
+        setTimeout(function () {
+          v.style.transition = '';
+        }, 360);
+      };
+      if (p.dy * 0.5 < 60) return volta();
+      v.style.transition = 'transform .25s';
+      v.style.transform = 'translateY(56px)';
+      sp.classList.add('gira');
+      vibrar(10);
+      var fim = function () {
+        volta();
+        S.fxStD = false;
+        if (typeof lfToast === 'function') lfToast(lmOk() ? 'Cotação da casa atualizada agora' : 'Sem resposta da casa agora');
+      };
+      try {
+        var r = typeof lmBusca === 'function' ? lmBusca().then(function (ok) { if (ok) render(); }) : null;
+        if (r && r.then) r.then(fim, fim);
+        else setTimeout(fim, 1200);
+      } catch (e) {
+        setTimeout(fim, 600);
+      }
+    });
+    function puxaEl() {
+      var e = $('lfPuxa');
+      if (!e) {
+        e = document.createElement('div');
+        e.id = 'lfPuxa';
+        e.setAttribute('aria-hidden', 'true');
+        e.innerHTML = '<svg viewBox="0 0 40 40" width="34" height="34"><circle cx="20" cy="20" r="15" fill="none" stroke="var(--line)" stroke-width="3"/><path d="M20 5 A15 15 0 0 1 35 20" fill="none" stroke="var(--pri)" stroke-width="3" stroke-linecap="round"/></svg>';
+        document.body.appendChild(e);
+      }
+      return e;
+    }
+
+    // ---------- g. abas de texto: a linha desliza ----------
+    var abaAnt = {};
+    function linhaAbas(id, sel) {
+      var c = $(id);
+      if (!c || REDUCED) return;
+      var on = c.querySelector(sel);
+      if (!on) return;
+      var ln = c.querySelector('.lfLinha');
+      if (!ln) {
+        ln = document.createElement('i');
+        ln.className = 'lfLinha';
+        ln.setAttribute('aria-hidden', 'true');
+      }
+      c.appendChild(ln);
+      c.classList.add('lfLinhaOn');
+      var x = on.offsetLeft,
+        w = on.offsetWidth,
+        a = abaAnt[id];
+      ln.style.left = x + 'px';
+      ln.style.width = w + 'px';
+      if (a && (a.x !== x || a.w !== w) && ln.animate) ln.animate([{ left: a.x + 'px', width: a.w + 'px' }, { left: x + 'px', width: w + 'px' }], { duration: 380, easing: 'cubic-bezier(.2,.9,.3,1)' });
+      abaAnt[id] = { x: x, w: w };
+    }
+
+    // ---------- h. foto do produto expande do cartão até o produto ----------
+    var expDe = null;
+    document.addEventListener('click', function (e) {
+      var c = e.target.closest && e.target.closest('#v-vendas .pcard');
+      if (!c || REDUCED) return;
+      var im = c.querySelector('.pbox img');
+      expDe = im ? { r: im.getBoundingClientRect(), src: im.src, ref: c.getAttribute('data-ref') } : null;
+    }, true);
+    function expandeDepois() {
+      if (!expDe) return;
+      var d = expDe;
+      expDe = null;
+      if (!S.vRef) return;
+      var alvo = document.querySelector('#vDetail img');
+      if (!alvo) return;
+      var r = alvo.getBoundingClientRect();
+      if (!r.width) return;
+      var cl = document.createElement('img');
+      cl.src = d.src;
+      cl.className = 'lfExp';
+      cl.style.cssText = 'left:' + d.r.left + 'px;top:' + d.r.top + 'px;width:' + d.r.width + 'px;height:' + d.r.height + 'px';
+      document.body.appendChild(cl);
+      alvo.style.opacity = '0';
+      var a = cl.animate([{ left: d.r.left + 'px', top: d.r.top + 'px', width: d.r.width + 'px', height: d.r.height + 'px' }, { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px' }], { duration: 420, easing: 'cubic-bezier(.2,.9,.3,1)', fill: 'forwards' });
+      a.onfinish = function () {
+        alvo.style.opacity = '';
+        cl.remove();
+      };
+    }
+
+    // ---------- i. segurar o cartão = espiar ----------
+    window.lfEspiaOn = true;
+    var es = null;
+    document.addEventListener('pointerdown', function (e) {
+      var c = e.target.closest && e.target.closest('#v-vendas .pcard,#v-estoque .pcard,.estOv .estIt[data-ref]');
+      if (!c || S.modoCli || document.body.classList.contains('arrastaBarra') || (e.pointerType === 'mouse' && e.button !== 0)) return;
+      if ((S.selP && S.selP.length) || (S.vSel && S.vSel.length) || S.ebSel) return;
+      es = { c: c, x: e.clientX, y: e.clientY, t: setTimeout(function () { espiar(c); }, 480) };
+      c.classList.add('lfAperta');
+    }, true);
+    var esSolta = function (e) {
+      if (!es) return;
+      clearTimeout(es.t);
+      es.c.classList.remove('lfAperta');
+      if (e && e.type === 'pointermove' && Math.abs(e.clientX - es.x) + Math.abs(e.clientY - es.y) < 10) return;
+      es = null;
+    };
+    document.addEventListener('pointermove', function (e) {
+      if (es && Math.abs(e.clientX - es.x) + Math.abs(e.clientY - es.y) >= 10) esSolta(e);
+    }, true);
+    document.addEventListener('pointerup', esSolta, true);
+    document.addEventListener('pointercancel', esSolta, true);
+    var espiouEm = 0;
+    document.addEventListener('click', function (e) {
+      // só o "clique" do próprio soltar depois de espiar é ignorado (o próximo toque já vale)
+      if (espiouEm && Date.now() - espiouEm < 900 && e.target.closest && e.target.closest('.pcard,.estOv .estIt')) {
+        espiouEm = 0;
+        e.stopPropagation();
+        e.preventDefault();
+      }
+    }, true);
+    document.addEventListener('contextmenu', function (e) {
+      if (e.target.closest && e.target.closest('#v-vendas .pcard,#v-estoque .pcard,.estOv .estIt[data-ref]')) e.preventDefault();
+    });
+    function espiar(c) {
+      es = null;
+      c.classList.remove('lfAperta');
+      var ref = c.getAttribute('data-ref') || c.getAttribute('data-id') || '',
+        cor = c.getAttribute('data-cor') || '',
+        im = c.querySelector('img'),
+        src = im ? im.src : '',
+        its = S.items.filter(function (i) { return i.ref === ref; }),
+        nome = typeof pubNome === 'function' && ref ? pubNome(ref) : (c.querySelector('b') || {}).textContent || ref,
+        cores = {},
+        estudio = c.classList.contains('estIt');
+      its.forEach(function (i) {
+        if (i.qty > 0) cores[i.cor || 'Sem cor'] = (cores[i.cor || 'Sem cor'] || 0) + i.qty;
+      });
+      var sub = estudio ? (c.querySelector('small') || {}).textContent || '' : Object.keys(cores).map(function (k) { return k + ' · ' + cores[k] + ' un.'; }).join(' · ');
+      espiouEm = Date.now();
+      vibrar(12);
+      var ac = estudio
+        ? [['espEst', 'Fotografar agora'], ['espCat', 'Abrir no catálogo']]
+        : c.closest('#v-vendas')
+          ? [['espVende', 'Vender'], ['espSel', 'Selecionar para enviar'], ['espShare', 'Compartilhar'], ['espEdit', 'Editar']]
+          : [['espVende', 'Vender'], ['espShare', 'Compartilhar'], ['espEdit', 'Editar']];
+      var o = document.createElement('div');
+      o.className = 'lfEspia';
+      o.innerHTML = '<div class="lfEspCx" role="dialog" aria-modal="true" aria-label="Prévia de ' + esc(nome) + '">' + (src ? '<img src="' + src + '" alt="">' : '') + '<div class="lfEspTx"><b>' + esc(nome) + '</b><small>' + esc(sub) + '</small></div>' +
+        ac.map(function (a) { return '<button type="button" data-esp="' + a[0] + '">' + a[1] + '</button>'; }).join('') + '</div>';
+      document.body.appendChild(o);
+      var fecha = function () {
+        o.classList.add('sai');
+        setTimeout(function () { o.remove(); }, 220);
+      };
+      o.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-esp]');
+        if (!b && e.target.closest('.lfEspCx')) return;
+        fecha();
+        if (!b) return;
+        var k = b.getAttribute('data-esp');
+        setTimeout(function () {
+          if (k === 'espVende' || k === 'espCat') {
+            [].forEach.call(document.querySelectorAll('.estOv'), function (x) { x.remove(); });
+            S.vRef = ref;
+            setView('vendas');
+          } else if (k === 'espEdit') {
+            S.ref = ref;
+            setView('estoque');
+            var pc = document.querySelector('#v-estoque .pcard[data-ref="' + ref + '"]');
+            if (pc) pc.click();
+            S.qEdit = true;
+            render();
+          } else if (k === 'espShare') {
+            if (typeof shAbre === 'function') shAbre({ tipo: 'peca', ref: ref });
+          } else if (k === 'espSel') {
+            if (typeof window.ebSeleciona === 'function') window.ebSeleciona(ref);
+          } else if (k === 'espEst') c.click();
+        }, 230);
+      });
+    }
+
+    // j. troca de tema em círculo: já existia (97-tema.js, temaSet com startViewTransition)
+    // ---------- k. aviso de pedido novo desce do topo ----------
+    window.lfAvisoTopo = function (titulo, sub, acao) {
+      var t = document.createElement('div');
+      t.className = 'lfTopo';
+      t.setAttribute('role', 'status');
+      t.innerHTML = '<span class="ic">' + (typeof lfaSvg === 'function' ? lfaSvg('cart') : '') + '</span><span class="tx"><b>' + esc(titulo) + '</b><small>' + esc(sub || '') + '</small></span>' + (acao ? '<button type="button">Ver</button>' : '');
+      document.body.appendChild(t);
+      var fecha = function () {
+        t.classList.add('sai');
+        setTimeout(function () { t.remove(); }, 320);
+      };
+      t.addEventListener('click', function () {
+        fecha();
+        if (acao) acao();
+      });
+      setTimeout(fecha, 4500);
+      vibrar(15);
+    };
+
+    // ---------- l. busca em cascata ----------
+    var buscaAnt = null;
+    function buscaCascata() {
+      var q = S.view === 'vendas' ? S.vq || '' : S.view === 'estoque' ? S.q || '' : null;
+      if (q == null) return;
+      if (buscaAnt === null) buscaAnt = q;
+      if (q === buscaAnt) return;
+      buscaAnt = q;
+      if (REDUCED) return;
+      var l = [].slice.call(document.querySelectorAll('#v-' + S.view + ' .pcard')).slice(0, 12);
+      l.forEach(function (c, i) {
+        c.animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 280, delay: i * 45, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' });
+      });
+    }
+
+    // ---------- m. meta do mês batida: confete leve nas cores da loja ----------
+    function metaConfere() {
+      if (S.view !== 'dash' || S.dTab !== 'hoje' || typeof metaInfo !== 'function') return;
+      var m;
+      try {
+        m = metaInfo();
+      } catch (e) {
+        return;
+      }
+      if (!m || !(m.meta > 0) || !(m.lucro >= m.meta)) return;
+      var ym = new Date().getFullYear() + '-' + new Date().getMonth();
+      if (!S.metaFesta) S.metaFesta = {};
+      if (S.metaFesta[ym]) return;
+      S.metaFesta[ym] = 1;
+      saveSoon();
+      confete();
+      var c = document.querySelector('.mtCard');
+      if (c) c.classList.add('mtBateu');
+    }
+    function confete() {
+      if (REDUCED) return;
+      var cv = document.createElement('canvas'),
+        W = innerWidth,
+        H = innerHeight;
+      cv.width = W;
+      cv.height = H;
+      cv.className = 'lfConf';
+      document.body.appendChild(cv);
+      var x = cv.getContext('2d'),
+        cs = ['#f3c0dc', '#a44a7e', '#5fd39a', '#e9c27a'],
+        ps = [];
+      for (var i = 0; i < 80; i++) ps.push({ x: W / 2, y: H * 0.35, vx: (Math.random() - 0.5) * 10, vy: -Math.random() * 10 - 3, c: cs[i % 4], r: Math.random() * 3 + 2 });
+      var t0 = performance.now();
+      (function fr() {
+        var k = (performance.now() - t0) / 1700;
+        x.clearRect(0, 0, W, H);
+        ps.forEach(function (p) {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.35;
+          x.globalAlpha = Math.max(0, 1 - k);
+          x.fillStyle = p.c;
+          x.fillRect(p.x, p.y, p.r, p.r * 1.6);
+        });
+        if (k < 1) requestAnimationFrame(fr);
+        else cv.remove();
+      })();
+      vibrar(25);
+    }
+    window.lfConfete = confete;
+
+    // ---------- ganchos depois de desenhar ----------
+    function depois() {
+      try {
+        fotosVarre();
+        if (S.view === 'fx') fxDepois();
+        linhaAbas('eTabs', '.chip.on');
+        expandeDepois();
+        buscaCascata();
+        metaConfere();
+      } catch (e) {}
+    }
+    var r0 = render;
+    render = function () {
+      var x = r0.apply(this, arguments);
+      depois();
+      return x;
+    };
+    var rf0 = renderFx;
+    renderFx = function () {
+      var x = rf0.apply(this, arguments);
+      try {
+        if (S.view === 'fx') fxDepois();
+      } catch (e) {}
+      return x;
+    };
+    var rv0 = renderVendas;
+    renderVendas = function () {
+      var x = rv0.apply(this, arguments);
+      try {
+        fotosVarre();
+        expandeDepois();
+        buscaCascata();
+      } catch (e) {}
+      return x;
+    };
+  })();
   // ===== Animações dos botões: ondinha, realce deslizante, cascata, contagem, ✓, segurar para apagar, sino e arrastar. =====
   (function () {
     function q(s, r) {
@@ -41531,7 +42497,8 @@
     document.addEventListener(
       'pointerdown',
       function (e) {
-        if (REDUCED) return;
+        // v465: a ondinha saiu — os botões agora AFUNDAM ao tocar (CSS :active, aprovado 08/11)
+        if (REDUCED || true) return;
         var t = e.target.closest && e.target.closest('.tl,.mn,.go,.mini,.chip,.tab');
         if (!t || t.disabled || t.closest('.twrap')) return;
         var r = t.getBoundingClientRect(),
@@ -42075,6 +43042,8 @@
         dg.troca = ts;
       }
       var B = barraLista();
+      lugarBarra(o, B);
+      lugarInicio(o);
       // segurar sobre outro botão da barra por um instante = juntar
       var kk = dg.deBarra && !grpGet(dg.id) && o.zona === 'barra' && o.k > 0 && B[o.k - 1] !== dg.id ? o.k : -1;
       if (kk !== dg.hk) {
@@ -42111,6 +43080,70 @@
       }
       dg.o = o;
     }
+    // v465: botão vindo do Início entra NA POSIÇÃO onde soltar (espaço tracejado abre entre os botões da barra)
+    function lugarBarra(o, B) {
+      var ins = -1;
+      if (dg && !dg.deBarra && o.zona === 'barra' && B.length < BARRA_MAX && !(o.k > 0 && grpGet(B[o.k - 1]))) {
+        ins = 0;
+        (dg.cBar || []).forEach(function (cx, i) {
+          if (i > 0 && cx < dg.cx) ins = i;
+        });
+      }
+      if (ins === dg.ins) return;
+      dg.ins = ins;
+      var ph = barEl().querySelector('.qph');
+      if (ins < 0) {
+        if (ph) ph.remove();
+        return;
+      }
+      if (!ph) {
+        ph = document.createElement('div');
+        ph.className = 'qph';
+        ph.setAttribute('aria-hidden', 'true');
+      }
+      var l = slots(),
+        ref = l[ins + 1] || null;
+      barEl().insertBefore(ph, ref);
+    }
+    // v465: botão vindo da barra volta ao Início NO LUGAR onde soltar (quadrado tracejado entre os outros)
+    function lugarInicio(o) {
+      var antes = null,
+        on = dg && dg.deBarra && !grpGet(dg.id) && o.zona === 'fora' && dg.cIni && dg.cIni.length && S.view === 'inicio';
+      if (on) {
+        var best = null,
+          bd = 1e9;
+        dg.cIni.forEach(function (t) {
+          var d = Math.abs(t.x - dg.cx) + Math.abs(t.y - dg.cy) * 1.2;
+          if (d < bd) {
+            bd = d;
+            best = t;
+          }
+        });
+        if (best && Math.abs(best.y - dg.cy) < best.h * 1.6) {
+          if (dg.cx < best.x) antes = best.id;
+          else {
+            var k = dg.cIni.indexOf(best);
+            antes = dg.cIni[k + 1] ? dg.cIni[k + 1].id : '__fim';
+          }
+        } else on = false;
+      }
+      var alvo = on ? antes : null;
+      if (alvo === dg.iniAntes) return;
+      dg.iniAntes = alvo;
+      var ph = document.querySelector('#v-inicio .tl.qphT');
+      if (!alvo) {
+        if (ph) ph.remove();
+        return;
+      }
+      if (!ph) {
+        ph = document.createElement('div');
+        ph.className = 'tl qphT';
+        ph.setAttribute('aria-hidden', 'true');
+      }
+      var ref = alvo === '__fim' ? null : document.querySelector('#v-inicio .tl[data-act="inicio"][data-id="' + alvo + '"]');
+      var pai = (ref && ref.parentNode) || (dg.cIni[0] && dg.cIni[0].el.parentNode);
+      if (pai) pai.insertBefore(ph, ref);
+    }
     function inicia() {
       if (!dg || dg.on) return;
       var src = dg.el,
@@ -42124,6 +43157,17 @@
       dg.gw = r.width;
       dg.gh = r.height;
       dg.on = true;
+      // v465: posições guardadas no começo (o espaço tracejado não muda a conta enquanto arrasta)
+      dg.cBar = slots().map(function (s) {
+        var q = s.getBoundingClientRect();
+        return q.left + q.width / 2;
+      });
+      dg.cIni = [].slice.call(document.querySelectorAll('#v-inicio .tl[data-act="inicio"]')).filter(function (t) {
+        return t !== src;
+      }).map(function (t) {
+        var q = t.getBoundingClientRect();
+        return { id: t.getAttribute('data-id'), el: t, x: q.left + q.width / 2, y: q.top + q.height / 2, w: q.width, h: q.height };
+      });
       src.classList.add('qorig');
       document.body.classList.add('arrastaBarra');
       barEl().classList.add('qd');
@@ -42191,6 +43235,9 @@
       });
       barEl().classList.remove('qd');
       document.body.classList.remove('arrastaBarra');
+      [].slice.call(document.querySelectorAll('.qph,.qphT')).forEach(function (x) {
+        x.remove();
+      });
       var lx = $('inLixo');
       if (lx) lx.classList.remove('on', 'perto');
       [].slice.call(document.querySelectorAll('#v-inicio .tl.troca')).forEach(function (el) {
@@ -42246,7 +43293,8 @@
       } else if (!d.deBarra) {
         if (o.zona === 'barra') {
           if (B.length < BARRA_MAX) {
-            B.push(d.id);
+            if (d.ins >= 0 && d.ins <= B.length) B.splice(d.ins, 0, d.id);
+            else B.push(d.id);
             pr = d.id;
             msg = nome + ' entrou na barra · ' + (B.length + 1) + '/5';
           } else if (o.k > 0) {
@@ -42279,7 +43327,7 @@
           msg = 'Botão de lugar trocado';
         } else if (o.zona === 'fora') {
           B.splice(i, 1);
-          barraDevolve(d.id);
+          barraDevolve(d.id, d.iniAntes && d.iniAntes !== '__fim' ? d.iniAntes : null);
           pt = d.id;
           msg = nome + ' voltou para o Início';
         } else volta = true;
@@ -43216,6 +44264,87 @@
   ACT.cartSugX = function (k) {
     if (S.cartSug) S.cartSug[k] = false;
     render();
+  };
+  // ===== v465: cabeçalho do Dashboard com 2 botões só (aprovado 08/11, esboço esbocos_todos.png) =====
+  // "Resumo ⌄" abre a folha VER (as 4 partes) e "Este mês ⌄" (só texto) abre a folha PERÍODO, com as datas de verdade.
+  var DT_FRASE = { hoje: 'Quanto vendeu e quanto separar', din: 'Caixa, contas e reserva', giro: 'O que vende e o que está parado', prec: 'Margem e preço por tipo' };
+  var PER_OP = [
+    ['hoje', 'Hoje'],
+    ['semana', 'Esta semana'],
+    ['mes', 'Este mês'],
+    ['30', 'Últimos 30 dias']
+  ];
+  function dDia(ts, ano) {
+    return new Date(ts).toLocaleDateString('pt-BR', ano ? { day: 'numeric', month: 'long', year: 'numeric' } : { day: 'numeric', month: 'long' });
+  }
+  function dFaixa(a, b) {
+    var da = new Date(a),
+      db = new Date(b);
+    if (da.toDateString() === db.toDateString()) return dDia(a);
+    if (da.getMonth() === db.getMonth() && da.getFullYear() === db.getFullYear()) return da.getDate() + ' a ' + dDia(b);
+    return dDia(a) + ' a ' + dDia(b);
+  }
+  function perDatas(p) {
+    var d = new Date(),
+      hj = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+    if (p === 'hoje') return d.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
+    if (p === 'semana') return dFaixa(new Date(d.getFullYear(), d.getMonth(), d.getDate() - ((d.getDay() + 6) % 7)).getTime(), hj);
+    if (p === '30') return dFaixa(hj - 29 * DAY, hj);
+    if (p === 'custom') {
+      var a = dataLocal(S.perDe),
+        b = dataLocal(S.perAte);
+      return a != null && b != null ? dFaixa(a, b) : 'de um dia até outro';
+    }
+    return dFaixa(new Date(d.getFullYear(), d.getMonth(), 1).getTime(), hj);
+  }
+  function perRotulo() {
+    var o = PER_OP.filter(function (x) {
+      return x[0] === S.per;
+    })[0];
+    return o ? o[1] : S.per === 'custom' ? 'Datas' : 'Este mês';
+  }
+  function dHeadHtml() {
+    var t = DTABS.filter(function (x) {
+        return x[0] === S.dTab;
+      })[0] || DTABS[0],
+      resumo = S.dTab === 'hoje',
+      cam = 'US$ 1 = ' + gsRaw(Math.round(S.fx.pyg)) + (lmOk() ? ' na casa' : ''),
+      h =
+        '<div class="dHd"><button type="button" class="dHdT" data-act="dVer" aria-haspopup="dialog">' + t[1] + ' <i aria-hidden="true">⌄</i></button>' +
+        (resumo ? '<button type="button" class="dHdP" data-act="dPer" aria-haspopup="dialog">' + perRotulo() + ' <i aria-hidden="true">⌄</i></button>' : '') +
+        '</div><div class="dHdS">' + (resumo ? esc(perDatas(S.per)) + ' · ' : esc(DT_FRASE[t[0]]) + ' · ') + cam + '</div>';
+    if (resumo && S.per === 'custom')
+      h +=
+        '<div class="sel dHdD" style="flex-wrap:wrap"><input class="in" type="date" data-pdat="de" value="' + esc(S.perDe) + '" aria-label="Data inicial" style="flex:1 1 140px;width:auto"><input class="in" type="date" data-pdat="ate" value="' + esc(S.perAte) + '" aria-label="Data final" style="flex:1 1 140px;width:auto"></div>';
+    return h;
+  }
+  function dOpHtml(act, id, nome, sub, on, seta) {
+    return '<button type="button" class="dOp' + (on ? ' on' : '') + '" data-act="' + act + '" data-id="' + id + '"' + (on ? ' aria-current="true"' : '') + '><span><b>' + nome + '</b><small>' + sub + '</small></span><i aria-hidden="true">' + (on ? '✓' : seta ? '›' : '') + '</i></button>';
+  }
+  ACT.dVer = function () {
+    lfaAbre('dFolha', '<div class="dFt"><span>VER</span><button type="button" class="dFx" data-act="dFecha" aria-label="Fechar">×</button></div>' + DTABS.map(function (t) {
+      return dOpHtml('dVerEsc', t[0], t[1], DT_FRASE[t[0]], S.dTab === t[0], true);
+    }).join(''));
+  };
+  ACT.dPer = function () {
+    lfaAbre('dFolha', '<div class="dFt"><span>PERÍODO</span><button type="button" class="dFx" data-act="dFecha" aria-label="Fechar">×</button></div>' + PER_OP.map(function (o) {
+      return dOpHtml('dPerEsc', o[0], o[1], perDatas(o[0]), S.per === o[0], false);
+    }).join('') + dOpHtml('dPerEsc', 'custom', 'Escolher datas', S.per === 'custom' ? perDatas('custom') : 'de um dia até outro', S.per === 'custom', true));
+  };
+  ACT.dFecha = function () {
+    lfaFecha('dFolha');
+  };
+  ACT.dVerEsc = function (id) {
+    lfaFecha('dFolha');
+    if (S.dTab === id) return;
+    S.dTab = id;
+    renderDash();
+    animEnter($('dtabBody'));
+  };
+  ACT.dPerEsc = function (id) {
+    lfaFecha('dFolha');
+    S.per = id;
+    renderDash();
   };
   // ===== Fechamento do caixa: automático (depois das 17h, ou dias passados sem registro) e flexível (o dono fecha quando quiser). =====
   S.fechos = S.fechos || [];
@@ -44761,6 +45890,7 @@
   // Gancho de teste: expõe funções internas só quando a URL termina em #test (usado por tests/).
   if (/(^|[#&])test\b/.test(location.hash))
     window.__LF = {
+      btol: btol, lfaFecha: lfaFecha, tipoTrocaAbre: tipoTrocaAbre,
       barMoedas: barMoedas,
       pixRecebido: pixRecebido, ofertaFim: ofertaFim, siteMaisVendidas: function () { MV_CACHE.ts = 0; return siteMaisVendidas(); }, compLeTexto: compLeTexto, fichaLinhas: fichaLinhas, impBytes: impBytes,
       animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, lmAvisaParada: lmAvisaParada, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,

@@ -160,7 +160,7 @@
             '<i style="width:' +
             (tm ? (v / tm) * 100 : 0) +
             '%;background:' +
-            ['#00c8ff', '#a2447c', '#ffc766', 'var(--info)', '#00ff88'][i] +
+            ['#6cc3e0', '#a2447c', '#e9c27a', 'var(--info)', '#5fd39a'][i] +
             '"></i>'
           );
         })
@@ -178,7 +178,7 @@
           if (!v) return '';
           return (
             '<span class="cell"><span class="sp" style="background:' +
-            ['#00c8ff', '#a2447c', '#ffc766', 'var(--info)', '#00ff88'][i] +
+            ['#6cc3e0', '#a2447c', '#e9c27a', 'var(--info)', '#5fd39a'][i] +
             '"></span>' +
             CATS[c] +
             ' · ' +

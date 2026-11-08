@@ -1454,7 +1454,7 @@ async def main():
             await pg.locator('#mainnav button:has-text("Caixa")').click(); await pg.wait_for_timeout(600)
             r = await pg.evaluate("() => [getComputedStyle(document.getElementById('mainnav')).position, document.querySelectorAll('#mainnav .slider').length, document.querySelector('#mainnav .mn.on').textContent.trim()]")
             await pg.evaluate("() => { window.__LF.S.dTab = 'hoje'; window.__LF.setView('dash'); }"); await pg.wait_for_timeout(500)
-            r2 = await pg.evaluate("() => document.querySelectorAll('#v-dash .tgrid .slider').length")
+            r2 = await pg.evaluate("() => document.querySelectorAll('#v-dash .dHd button').length")  # v465: abas viraram o botão "Resumo ⌄"
             await pg.evaluate("""() => { const L = window.__LF, S = L.S, h = Date.now();
               S.imprev = [{ts: h, desc: 'A', valor: 1000}, {ts: h, desc: 'B', valor: 2000}]; S.dlog = []; L.setView('desp'); }""")
             await pg.wait_for_timeout(300)
@@ -1912,7 +1912,7 @@ async def main():
             desl = desl and casc
             bg = await pg.evaluate("() => { const b = document.createElement('button'); b.className = 'go'; b.textContent = 'x'; document.body.appendChild(b); const v = getComputedStyle(b).borderTopWidth + ' ' + getComputedStyle(b).borderTopColor; b.remove(); return v; }")
             total += 1
-            ok = 'Lembretes' not in aj and 'Nota fiscal' not in aj and desl is True and 'rgb(162, 68, 124)' in bg and not pg.erros
+            ok = 'Lembretes' not in aj and 'Nota fiscal' not in aj and desl is True and '243, 192, 220' in bg and not pg.erros  # v465: botão principal B1
             print(('  ok  ' if ok else ' FALHA ') + 'Ajustes sem lembretes/nota; botão em gradiente; troca desliza')
             if not ok: falhas.append('familia botoes'); print('        veio', 'Lembretes' in aj, 'Nota fiscal' in aj, desl, bg[:30], pg.erros)
             await pg.close()
@@ -2052,6 +2052,8 @@ async def main():
               c1.dispatchEvent(new PointerEvent('pointerdown', {bubbles: true, clientX: r.x + 5, clientY: r.y + 5}));
               await new Promise(z => setTimeout(z, 600));
               c1.dispatchEvent(new PointerEvent('pointerup', {bubbles: true})); c1.click();
+              // v465: segurar abre o "espiar"; "Selecionar para enviar" começa a seleção
+              const bs = document.querySelector('.lfEspia [data-esp=espSel]'); if (bs) bs.click(); await new Promise(z => setTimeout(z, 350));
               const vit = S.vRef;
               document.querySelector('#vRows .pcard[data-ref=FB2]').click(); await new Promise(z => setTimeout(z, 100));
               const sel = (S.ebSel || []).slice(), bar = document.getElementById('ebBar').classList.contains('in');
@@ -2330,9 +2332,45 @@ async def main():
             ok = (e0['nav'] == ['inicio', 'vendas', 'estoque', 'caixa', 'ajustes'] and 'vendas' not in e0['tiles'] and 'prec' in e0['tiles']
                   and e1['nav'] == ['inicio', 'vendas', 'estoque', 'caixa', 'prec'] and 'prec' not in e1['tiles']
                   and e2['nav'] == ['inicio', 'vendas', 'estoque', 'prec'] and 'caixa' in e2['tiles']
-                  and e3['nav'] == ['inicio', 'vendas', 'estoque', 'prec', 'giro'] and e4 == ['dash', 'giro'] and not pg.erros)
+                  and e3['nav'] == ['inicio', 'vendas', 'giro', 'estoque', 'prec'] and e4 == ['dash', 'giro'] and not pg.erros)  # v465: entra onde soltou
             print(('  ok  ' if ok else ' FALHA ') + 'acesso rápido: arrastar para a barra, trocar, tirar e abrir (máx. 5)')
             if not ok: falhas.append('acesso rapido'); print('        veio', e0, e1, e2, e3, e4, pg.erros)
+            await pg.close()
+
+            # v465: casa ganha da cotação compartilhada; cartões sem "R$ 0,00"; troca Armação ↔ Pré-graduado; modo cliente trava o fundo
+            pg = await pagina()
+            got = await pg.evaluate("""() => { const L = window.__LF, S = L.S;
+              L.lmGrava({ ts: Date.now(), usd: { c: 6000, v: 6350 }, brl: { c: 1110, v: 1185 }, arb: { c: 5.38, v: 5.5 } }); L.fxDaCasa();
+              S.syncOn = true; S.fxc = { pyg: 6108, brl: 5.2, ts: Date.now() + 5000 }; window.__fxAdota();
+              const casa = S.fx.pyg;
+              // troca de tipo: armação → pré (2 graus numa cor) e volta
+              const ref = S.items.find(i => i.tipo === 'sem' && i.qty > 0).ref;
+              const tot0 = S.items.filter(i => i.ref === ref).reduce((a, i) => a + i.qty, 0);
+              L.render(); window.tipoTrocaAbre ? 0 : 0;
+              return [casa, ref, tot0]; }""")
+            # abre o editor e usa a folha de verdade
+            await pg.evaluate("(ref) => { const L = window.__LF; L.setView('estoque'); const c = [...document.querySelectorAll('#v-estoque .pcard')].find(x => x.dataset.ref === ref); c.click(); }", got[1])
+            await pg.wait_for_timeout(700)
+            await pg.evaluate("() => { window.__LF.S.qEdit = true; window.__LF.render(); }")
+            await pg.wait_for_timeout(600)
+            await pg.evaluate("() => document.querySelector('#edTipoTrk .trkB[data-m=pre]').click()")
+            await pg.wait_for_timeout(500)
+            await pg.evaluate("() => document.querySelector('[data-act=ttDivide]').click()")
+            await pg.wait_for_timeout(300)
+            await pg.evaluate("() => document.querySelector('[data-act=ttConfirma]').click()")
+            await pg.wait_for_timeout(600)
+            r1 = await pg.evaluate("(ref) => { const l = window.__LF.S.items.filter(i => i.ref === ref); return [l.every(i => i.tipo === 'pre'), l.reduce((a, i) => a + i.qty, 0), new Set(l.map(i => i.grau)).size >= 2]; }", got[1])
+            await pg.evaluate("() => { window.__LF.S.qEdit = true; window.__LF.render(); }")
+            await pg.wait_for_timeout(600)
+            await pg.evaluate("() => document.querySelector('#edTipoTrk .trkB[data-m=sem]').click()")
+            await pg.wait_for_timeout(500)
+            await pg.evaluate("() => document.querySelector('[data-act=ttConfirma]').click()")
+            await pg.wait_for_timeout(600)
+            r2 = await pg.evaluate("(ref) => { const l = window.__LF.S.items.filter(i => i.ref === ref); return [l.every(i => i.tipo === 'sem' && !i.grau), l.reduce((a, i) => a + i.qty, 0)]; }", got[1])
+            total += 1
+            ok = got[0] == 6350 and r1 == [True, got[2], True] and r2 == [True, got[2]] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'v465: casa ganha da compartilhada; troca Armação ↔ Pré-graduado sem perder peça')
+            if not ok: falhas.append('v465 casa/tipo'); print('        veio', got, r1, r2, pg.erros)
             await pg.close()
 
             # Grupos no acesso rápido: segurar um botão sobre outro junta; abas no topo; adicionar, tirar e desfazer
@@ -2679,8 +2717,10 @@ async def main():
             await checa('Caixa: ajustar o saldo para o contado', got == [4900000, True, 0], got)
             await pg.evaluate("() => window.__LF.setView('dash')"); await pg.wait_for_timeout(300)
             tx = await pg.inner_text('#v-dash')
-            await checa('Dashboard: abre no Resumo e as 4 partes', all(t in tx for t in ['Resumo', 'Dinheiro', 'Giro', 'Preços']) and not pg.erros, [tx[:150], pg.erros])
-            await pg.locator('[data-act="dtab"][data-id="din"]').first.click(); await pg.wait_for_timeout(300)
+            await pg.locator('[data-act="dVer"]').first.click(); await pg.wait_for_timeout(500)
+            tf = await pg.inner_text('#dFolha')
+            await checa('Dashboard: abre no Resumo e a folha VER tem as 4 partes', 'Resumo' in tx and all(t in tf for t in ['Resumo', 'Dinheiro', 'Giro', 'Preços']) and not pg.erros, [tx[:150], tf[:150], pg.erros])
+            await pg.locator('#dFolha [data-act="dVerEsc"][data-id="din"]').first.click(); await pg.wait_for_timeout(500)
             tx = await pg.inner_text('#v-dash')
             await checa('Dashboard Dinheiro: resultado e fluxo em linhas que abrem', 'LIVRE PARA VOCÊ' in tx.upper() and 'Seu mês' in tx and 'Detalhes do mês' in tx and 'Próximos' in tx and not pg.erros, [tx[:200], pg.erros])
             await pg.locator('[data-act="dfold"][data-id="flx"]').first.click(); await pg.wait_for_timeout(300)
@@ -2688,7 +2728,8 @@ async def main():
             got = await pg.evaluate("() => window.__LF.S.fluxoD")
             await checa('Dashboard: fluxo muda para 90 dias', got == 90, got)
             for tab in ['giro', 'prec']:
-                await pg.locator(f'[data-act="dtab"][data-id="{tab}"]').first.click(); await pg.wait_for_timeout(300)
+                await pg.locator('[data-act="dVer"]').first.click(); await pg.wait_for_timeout(450)
+                await pg.locator(f'#dFolha [data-act="dVerEsc"][data-id="{tab}"]').first.click(); await pg.wait_for_timeout(450)
             await checa('Dashboard: abas Giro e Preços abrem sem erro', not pg.erros, pg.erros)
             await pg.close()
 
@@ -2911,6 +2952,23 @@ async def main():
             if not ok: falhas.append('estudio'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # v465: Estúdio automático (1 botão + "?"), busca tolerante e Dashboard com folhas
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              L.estAbre(); await w(250); const t = document.querySelector('.estOv').innerText;
+              const um = /Começar · \\d+/.test(t) && !/Montagem de hoje/.test(t) && !/Medir fundo/.test(t);
+              document.querySelector('[data-e=ajuda]').click(); await w(400);
+              const aj = document.getElementById('estAjF').innerText; const tem = ['Como fotografar', 'Montagem', 'Medir', 'Vídeo 360', 'libera'].every(x => aj.includes(x));
+              L.lfaFecha('estAjF'); document.querySelector('.estOv .estX').click(); await w(150);
+              const b = (q, x) => { const f = window.__LF.btol(q); return f ? f(x) > 0 : false; };
+              const busca = [b('oculos', 'Óculos solar'), b('exagonal', 'Solar hexagonal negro'), b('coracao', 'Óculos coração'), b('armasao roza', 'Armação redonda rosa'), b('lentes de sol', 'Óculos solar aviador'), !b('rojo', 'Armação rosa'), b('+0,75', 'leitura +0.75')];
+              return [um, tem, busca.every(Boolean), busca]; }""")
+            total += 1
+            ok = got[0] and got[1] and got[2] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'v465: Estúdio com 1 botão e o "?", busca tolerante (oculos, exagonal, coracao, armasao roza, PT/ES)')
+            if not ok: falhas.append('v465 estudio/busca'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Estúdio · Nova peça (v434): câmera direto; "De qual peça é?" → guardar sem cadastro → Ligar depois a um modelo
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
@@ -2936,7 +2994,7 @@ async def main():
             # Estúdio · Como fotografar (v436): guia com 4 abas e vídeo sem som
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, w = ms => new Promise(r => setTimeout(r, ms));
-              L.estAbre(); await w(200); document.querySelector('[data-e=tut]').click(); await w(400);
+              L.estAbre(); await w(200); document.querySelector('[data-e=ajuda]').click(); await w(400); document.querySelector('[data-act=estAj][data-id=tut]').click(); await w(500);
               const j = document.querySelector('.estGuiaJn'), abas = [...j.querySelectorAll('.egTabs button')].map(b => b.textContent);
               const n1 = j.querySelectorAll('.egIt').length; j.querySelector('[data-t=cam]').click(); await w(100);
               const veloc = /Velocidade/.test(j.innerText); j.querySelector('[data-t=vid]').click(); await w(300);
@@ -3005,7 +3063,7 @@ async def main():
                   if (a.exposureMode) sim.mode = a.exposureMode; if (a.exposureTime != null) sim.et = a.exposureTime; if (a.exposureCompensation != null) sim.comp = a.exposureCompensation; };
                 return s; };
               L.S.estPerfil = { salvo: true, et: 6000, iso: 50, k: 5500 };
-              L.estAbre(); await w(200); document.querySelector('[data-e=medir]').click(); await w(1800);
+              L.estAbre(); await w(200); document.querySelector('[data-e=ajuda]').click(); await w(400); document.querySelector('[data-act=estAj][data-id=medir]').click(); await w(2000);
               const descartou = L.S.estPerfil === null && sim.mode !== 'manual';
               const b = document.getElementById('ecFundo'); b.click(); await w(9500);
               const P = L.S.estPerfil || {}, m = document.getElementById('ecMsg').innerText;
@@ -3180,7 +3238,7 @@ async def main():
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
               const px = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/wAALCAABAAEBAREA/8QAFAABAAAAAAAAAAAAAAAAAAAACf/EABQQAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQEAAD8AKp//2Q==';
-              L.estAbre(); await w(200); const txt = document.querySelector('.estOv').innerText; const bot = /Fotografar antes de cadastrar/.test(txt) && !!document.querySelector('[data-e=giro]');
+              L.estAbre(); await w(200); const txt = document.querySelector('.estOv').innerText; const bot = /Peça nova, ainda sem cadastro/.test(txt) && !!document.querySelector('[data-e=nova]') && !!document.querySelector('[data-e=ajuda]');  // v465: giro foi para o "?"
               document.querySelector('.estOv .estX').click(); await w(100);
               S.estPend = [{ id: 'p1', ts: Date.now(), t: px, t34: px, n: 84 }]; S.adAba = 'novo';
               S.addOpen = true; S.addMode = 'menu'; L.render(); L.renderDeNovo(); await w(100);

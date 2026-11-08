@@ -7,7 +7,8 @@
     document.addEventListener(
       'pointerdown',
       function (e) {
-        if (REDUCED) return;
+        // v465: a ondinha saiu — os botões agora AFUNDAM ao tocar (CSS :active, aprovado 08/11)
+        if (REDUCED || true) return;
         var t = e.target.closest && e.target.closest('.tl,.mn,.go,.mini,.chip,.tab');
         if (!t || t.disabled || t.closest('.twrap')) return;
         var r = t.getBoundingClientRect(),
