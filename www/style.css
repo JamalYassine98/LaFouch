@@ -1805,3 +1805,4 @@ body.modoCli{padding-bottom:0!important}
 body.modoCli.mcAberto #vListCard{filter:blur(14px) saturate(.9);pointer-events:none;transform:scale(.99);transition:filter .25s}
 body.modoCli.mcAberto #vDetail{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(820px,94vw);max-height:92vh;overflow:auto;z-index:60;box-shadow:0 30px 80px rgba(0,0,0,.45)}
 body.modoCli #sino,body.modoCli #sino2{display:none!important}
+#v-vendas>.top{flex-wrap:nowrap;align-items:flex-start}#v-vendas>.top>div{flex:1;min-width:0}.mcBtn{margin-top:2px}body.modoCli .mcBtn{display:none!important}

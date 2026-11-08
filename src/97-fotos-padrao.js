@@ -525,8 +525,4 @@
         return S.fotos[k];
       });
   }
-  // Ajustes › Fotos
-  if (typeof AJ_PADRAO !== 'undefined' && AJ_PADRAO.indexOf('foto') < 0) {
-    AJ_PADRAO.push('foto');
-    AJ_ICO.foto = AJ_SVG('<path d="M4 8h3l1.6-2.4h6.8L17 8h3v11H4z"/><circle cx="12" cy="13.2" r="3.6"/>');
-  }
+  // v462 (07/11): "Padronizar em lote" saiu de Ajustes e fica na Fila de fotos do Estúdio (fpAjHtml).

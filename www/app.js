@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 461;
+  var APP_BUILD = 462;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.6.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.6.2'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -27171,8 +27171,6 @@
       sync: sy ? { t: 'Sincronização', r: sy[1], al: sy[0] === 'bad' || sy[0] === 'warn', h: syncCard() } : null,
       upd: { t: 'Atualização', r: upN ? (um.nome || upN) + ' pronta' : APP_NOME, al: !!upN, h: updCard() },
       pauto: { t: 'Pagamento automático', r: S.pixAuto ? 'PIX ligado' : 'Desligado', h: pautoCard() },
-      mcli: { t: 'Modo cliente (iPad da loja)', r: 'Desligado', h: mcAjHtml() },
-      foto: { t: 'Fotos', r: fpChaves().length ? fpChaves().length + ' fora do padrão' : 'No padrão', h: '<button type="button" class="go" data-act="inicio" data-id="est" style="width:100%;margin-bottom:8px">Abrir a Fila de fotos no Estúdio ›</button>' + fpAjHtml() },
       bk: { t: 'Cópias e nuvem', r: bkd < 0 ? 'Nenhuma cópia' : bkd === 0 ? 'Hoje' : 'Há ' + bkd + (bkd === 1 ? ' dia' : ' dias'), al: bkd < 0 || bkd > 7, h: backupHtml().replace(/<\/section>$/, nv + '</section>') }
     };
     h += ajListaHtml(secs);
@@ -32254,6 +32252,7 @@
               return '<button type="button" class="estIt" data-i="' + j + '"><span class="estTh' + (ft ? '' : ' v') + '">' + (ft ? '<img src="' + esc(ft) + '" alt="">' : 'sem foto') + '</span><span class="estTx"><b>' + esc(pn(x.ref)) + ' · ' + esc(x.cor) + '</b><small>' + esc(x.sub) + '</small></span><span class="estTag t' + x.o + '">' + (x.st === 'sem' ? 'sem foto' : x.st === 'nota' ? 'nota ' + x.n : 'falta 3/4') + '</span></button>';
             }).join('') + (F.length > 40 ? '<div class="hint" style="margin:6px 0 0">e mais ' + (F.length - 40) + '…</div>' : '')
           : '<div class="note n-ok">Todas as peças com foto no padrão.</div>') +
+        (fpChaves().length ? '<div style="margin-top:10px">' + fpAjHtml() + '</div>' : '') +
         '</section>' +
         ((S.estPend || []).length
           ? '<section class="estCard"><div class="estLbl">Fotos aguardando cadastro · ' + S.estPend.length + '</div>' +
@@ -34222,11 +34221,7 @@
         return S.fotos[k];
       });
   }
-  // Ajustes › Fotos
-  if (typeof AJ_PADRAO !== 'undefined' && AJ_PADRAO.indexOf('foto') < 0) {
-    AJ_PADRAO.push('foto');
-    AJ_ICO.foto = AJ_SVG('<path d="M4 8h3l1.6-2.4h6.8L17 8h3v11H4z"/><circle cx="12" cy="13.2" r="3.6"/>');
-  }
+  // v462 (07/11): "Padronizar em lote" saiu de Ajustes e fica na Fila de fotos do Estúdio (fpAjHtml).
   // ===== Giro 360° no site (v446, aprovado 06/11/2026) =====
   // Depois de gravar o giro no Estúdio, o vídeo vai sozinho para o site: o app comprime (até 1280 px, ~1,6 Mbps)
   // e manda para a função "midia" do Firebase, que guarda no GitHub (repositório catalogo) com a chave que fica
@@ -36789,7 +36784,9 @@
   // O aparelho mostra SÓ o Catálogo de vendas (todas as peças à venda), só com o preço de VAREJO.
   // Sem custo, lucro, piso, venda, caixa, barra de baixo ou Ajustes. Ao abrir uma peça, o catálogo fica atrás desfocado
   // (o cliente não vê os ajustes) e deslizar passa para a próxima; o catálogo se arruma pelo que ele olha, sem se mexer na tela.
-  // Parado 2 minutos: volta ao início, sem o histórico do cliente anterior. Sair: segurar o logo + PIN do dono.
+  // Parado 2 minutos: volta ao início, sem o histórico do cliente anterior.
+  // v462 (07/11): liga pelo botão de tablet no topo do Catálogo (sem precisar de PIN); sai segurando o logo 5 s
+  // (gesto escondido) + PIN/biometria se estiverem ligados.
   // Fica ligado só neste aparelho (localStorage lf_modoCli).
   S.modoCli = false;
   var MC_IDLE = 120000,
@@ -36817,7 +36814,7 @@
       pt = setTimeout(function () {
         solta();
         mcSair();
-      }, 1500);
+      }, 5000);
     });
     ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (n) {
       lg.addEventListener(n, solta);
@@ -36840,7 +36837,6 @@
     mcAcorda();
   }
   function mcLiga() {
-    if (!pinAtivo()) return lfToast('Crie um PIN em Ajustes › Segurança primeiro: só o PIN tira do modo cliente');
     try {
       localStorage.setItem('lf_modoCli', '1');
     } catch (e) {}
@@ -36850,7 +36846,7 @@
     render();
   }
   function mcSair() {
-    mostrarLock('confirm', function () {
+    var sai = function () {
       try {
         localStorage.removeItem('lf_modoCli');
       } catch (e) {}
@@ -36859,7 +36855,15 @@
       clearTimeout(mcT);
       render();
       lfToast('Modo cliente desligado · app normal');
-    });
+    };
+    if (pinAtivo() || S.bioOn) mostrarLock('confirm', sai);
+    else sai();
+  }
+  // botão de tablet no topo do Catálogo (só fora do modo cliente)
+  function mcBotao() {
+    var tp = document.querySelector('#v-vendas > .top');
+    if (!tp || tp.querySelector('.mcBtn')) return;
+    tp.insertAdjacentHTML('beforeend', '<button type="button" class="ic mcBtn" data-act="mcLiga" aria-label="Modo cliente (iPad da loja)" title="Modo cliente"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M10 18h4"/></svg></button>');
   }
   // parado 2 min: volta ao início para o próximo cliente
   function mcInicio() {
@@ -36896,11 +36900,10 @@
       '<button type="button" class="go" data-act="mcLiga" style="width:100%"' + (pinAtivo() ? '' : ' disabled') + '>Ligar neste aparelho</button>'
     );
   }
-  if (typeof AJ_PADRAO !== 'undefined' && AJ_PADRAO.indexOf('mcli') < 0) {
-    AJ_PADRAO.push('mcli');
-    AJ_ICO.mcli = AJ_SVG('<rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M10 18h4"/>');
-  }
-  setTimeout(mcAplica, 0);
+  setTimeout(function () {
+    mcBotao();
+    mcAplica();
+  }, 0);
   // ===== Cliente na venda + tela "Venda confirmada" com o comprovante de venda (sempre em G$, IVA 10% incluso). =====
   // O app NÃO emite nota fiscal: imprime o comprovante (sem valor fiscal) para qualquer cliente.
   // Paraguaio com RUC: o comprovante leva Nombre/RUC (dados que a máquina fiscal usa). Estrangeiro: nome e CI/CPF, nunca RUC.

@@ -174,8 +174,6 @@
       sync: sy ? { t: 'Sincronização', r: sy[1], al: sy[0] === 'bad' || sy[0] === 'warn', h: syncCard() } : null,
       upd: { t: 'Atualização', r: upN ? (um.nome || upN) + ' pronta' : APP_NOME, al: !!upN, h: updCard() },
       pauto: { t: 'Pagamento automático', r: S.pixAuto ? 'PIX ligado' : 'Desligado', h: pautoCard() },
-      mcli: { t: 'Modo cliente (iPad da loja)', r: 'Desligado', h: mcAjHtml() },
-      foto: { t: 'Fotos', r: fpChaves().length ? fpChaves().length + ' fora do padrão' : 'No padrão', h: '<button type="button" class="go" data-act="inicio" data-id="est" style="width:100%;margin-bottom:8px">Abrir a Fila de fotos no Estúdio ›</button>' + fpAjHtml() },
       bk: { t: 'Cópias e nuvem', r: bkd < 0 ? 'Nenhuma cópia' : bkd === 0 ? 'Hoje' : 'Há ' + bkd + (bkd === 1 ? ' dia' : ' dias'), al: bkd < 0 || bkd > 7, h: backupHtml().replace(/<\/section>$/, nv + '</section>') }
     };
     h += ajListaHtml(secs);

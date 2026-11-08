@@ -2875,10 +2875,10 @@ async def main():
               document.getElementById('fpB').click(); await w(300);
               return [/Foto aprovada/.test(tit), /3\/4/.test(tit), rec[1] && rec[1].padrao, im.width, im.height, px[0] > 250 && px[1] > 250, /tirar de novo/i.test(tit2), /borda/i.test(tit2), !!rec2 && rec2.name === 'x.jpg']; }""")
             await pg.evaluate("() => { const L = window.__LF; L.setView('ajustes'); }"); await pg.wait_for_timeout(300)
-            aj = await pg.evaluate("() => !!document.querySelector('.ajS[data-k=foto]')")
+            aj = await pg.evaluate("() => !document.querySelector('.ajS[data-k=foto]') && !document.querySelector('.ajS[data-k=mcli]')")  # v462: Fotos e Modo cliente saíram de Ajustes
             total += 1
             ok = got == [True, True, True, 1200, 900, True, True, True, True] and aj and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'fotos: aprovada no padrão sem sombra (1200×900), recusada com motivo e "Usar mesmo assim", Ajustes › Fotos')
+            print(('  ok  ' if ok else ' FALHA ') + 'fotos: aprovada no padrão sem sombra (1200×900), recusada com motivo e "Usar mesmo assim"; Ajustes sem Fotos e Modo cliente')
             if not ok: falhas.append('fotos padrao'); print('        veio', got, aj, pg.erros)
             await pg.close()
 
@@ -3165,9 +3165,13 @@ async def main():
               L.mcInicio(); await w(100); const volta = !S.vRef;
               L.mcSair(); await w(100); const pin = !document.getElementById('lockScr').hidden;
               try { localStorage.removeItem('lf_modoCli'); } catch (e) {} document.getElementById('lockScr').hidden = true; S.modoCli = false; document.body.classList.remove('modoCli', 'mcAberto'); S.pinHash = '';
-              return [antes.length > 0, fixo, mc, preso, blur, volta, pin]; }""")
+              // v462: sem PIN também liga (botão de tablet no Catálogo) e sai direto
+              const btn = !!document.querySelector('#v-vendas > .top .mcBtn');
+              const bio0 = S.bioOn; S.bioOn = false; L.ACT.mcLiga(); await w(150); const semPin = S.modoCli === true;
+              L.mcSair(); await w(150); const saiu = S.modoCli === false && document.getElementById('lockScr').hidden; S.bioOn = bio0;
+              return [antes.length > 0, fixo, mc, preso, blur, volta, pin, btn, semPin, saiu]; }""")
             total += 1
-            ok = got == [True] * 7 and not pg.erros
+            ok = got == [True] * 10 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Catálogo invisível + modo cliente: tela não se mexe, iPad só catálogo, fundo desfocado, volta ao início, sair pede PIN')
             if not ok: falhas.append('modo cliente'); print('        veio', got, pg.erros)
             await pg.close()

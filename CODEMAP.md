@@ -73,7 +73,7 @@ Regras que valem em todo o projeto: o estado fica em `S`; `render()` redesenha t
 | `97-entrada-de-novo.js` | 300 | Faixa única com abas "Aguardando cadastro" / "Dar entrada de novo" (v442), lembra a última aba (S.adAba). |
 | `97-estudio-giro.js` | 300 | Giro (v442): grava 12 s, quadros a cada 0,25 s, frente e 3/4 escolhidos no deslizador, vídeo em hq 'giro|ref'. |
 | `98-grupo-encaixe.js` | 150 | Animação "encaixe" ao juntar/desfazer grupos na barra de acesso rápido (v443). |
-| `97-modo-cliente.js` | 200 | Modo cliente para o iPad (v444): só catálogo varejo, fundo desfocado, volta ao início em 2 min, sair = segurar logo + PIN. |
+| `97-modo-cliente.js` | 200 | Modo cliente para o iPad (v444): só catálogo varejo, fundo desfocado, volta ao início em 2 min, sair = segurar logo + PIN. Botão de tablet no Catálogo, sem PIN; sair: segurar o logo 5 s (v462). |
 | `97-pagamento-auto.js` | 330 | Pagamento automático (v450): PIX pelo Nubank (plugin LfNotif), leitura do comprovante (✓ valor confere) e ficha de separação impressa sozinha. |
 | `97-site-v2.js` | 45 | Site novo (v451): campos ofAte (fim da oferta/Super evento) e mv (posição nas mais vendidas) enviados ao site. |
 | `97-vistas-site.js` | 120 | Mais vistas e não vendidas (v445): lê a coleção 'vistas' do Firestore (30 dias) para o Marketing. |

@@ -2,7 +2,9 @@
   // O aparelho mostra SÓ o Catálogo de vendas (todas as peças à venda), só com o preço de VAREJO.
   // Sem custo, lucro, piso, venda, caixa, barra de baixo ou Ajustes. Ao abrir uma peça, o catálogo fica atrás desfocado
   // (o cliente não vê os ajustes) e deslizar passa para a próxima; o catálogo se arruma pelo que ele olha, sem se mexer na tela.
-  // Parado 2 minutos: volta ao início, sem o histórico do cliente anterior. Sair: segurar o logo + PIN do dono.
+  // Parado 2 minutos: volta ao início, sem o histórico do cliente anterior.
+  // v462 (07/11): liga pelo botão de tablet no topo do Catálogo (sem precisar de PIN); sai segurando o logo 5 s
+  // (gesto escondido) + PIN/biometria se estiverem ligados.
   // Fica ligado só neste aparelho (localStorage lf_modoCli).
   S.modoCli = false;
   var MC_IDLE = 120000,
@@ -30,7 +32,7 @@
       pt = setTimeout(function () {
         solta();
         mcSair();
-      }, 1500);
+      }, 5000);
     });
     ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (n) {
       lg.addEventListener(n, solta);
@@ -53,7 +55,6 @@
     mcAcorda();
   }
   function mcLiga() {
-    if (!pinAtivo()) return lfToast('Crie um PIN em Ajustes › Segurança primeiro: só o PIN tira do modo cliente');
     try {
       localStorage.setItem('lf_modoCli', '1');
     } catch (e) {}
@@ -63,7 +64,7 @@
     render();
   }
   function mcSair() {
-    mostrarLock('confirm', function () {
+    var sai = function () {
       try {
         localStorage.removeItem('lf_modoCli');
       } catch (e) {}
@@ -72,7 +73,15 @@
       clearTimeout(mcT);
       render();
       lfToast('Modo cliente desligado · app normal');
-    });
+    };
+    if (pinAtivo() || S.bioOn) mostrarLock('confirm', sai);
+    else sai();
+  }
+  // botão de tablet no topo do Catálogo (só fora do modo cliente)
+  function mcBotao() {
+    var tp = document.querySelector('#v-vendas > .top');
+    if (!tp || tp.querySelector('.mcBtn')) return;
+    tp.insertAdjacentHTML('beforeend', '<button type="button" class="ic mcBtn" data-act="mcLiga" aria-label="Modo cliente (iPad da loja)" title="Modo cliente"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M10 18h4"/></svg></button>');
   }
   // parado 2 min: volta ao início para o próximo cliente
   function mcInicio() {
@@ -109,8 +118,7 @@
       '<button type="button" class="go" data-act="mcLiga" style="width:100%"' + (pinAtivo() ? '' : ' disabled') + '>Ligar neste aparelho</button>'
     );
   }
-  if (typeof AJ_PADRAO !== 'undefined' && AJ_PADRAO.indexOf('mcli') < 0) {
-    AJ_PADRAO.push('mcli');
-    AJ_ICO.mcli = AJ_SVG('<rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M10 18h4"/>');
-  }
-  setTimeout(mcAplica, 0);
+  setTimeout(function () {
+    mcBotao();
+    mcAplica();
+  }, 0);

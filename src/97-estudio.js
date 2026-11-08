@@ -499,6 +499,7 @@
               return '<button type="button" class="estIt" data-i="' + j + '"><span class="estTh' + (ft ? '' : ' v') + '">' + (ft ? '<img src="' + esc(ft) + '" alt="">' : 'sem foto') + '</span><span class="estTx"><b>' + esc(pn(x.ref)) + ' · ' + esc(x.cor) + '</b><small>' + esc(x.sub) + '</small></span><span class="estTag t' + x.o + '">' + (x.st === 'sem' ? 'sem foto' : x.st === 'nota' ? 'nota ' + x.n : 'falta 3/4') + '</span></button>';
             }).join('') + (F.length > 40 ? '<div class="hint" style="margin:6px 0 0">e mais ' + (F.length - 40) + '…</div>' : '')
           : '<div class="note n-ok">Todas as peças com foto no padrão.</div>') +
+        (fpChaves().length ? '<div style="margin-top:10px">' + fpAjHtml() + '</div>' : '') +
         '</section>' +
         ((S.estPend || []).length
           ? '<section class="estCard"><div class="estLbl">Fotos aguardando cadastro · ' + S.estPend.length + '</div>' +
