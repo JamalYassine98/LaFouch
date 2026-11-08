@@ -253,6 +253,10 @@
   }
   // ---- Tela ----
   function fxAbaHtml() {
+    if (S.view === 'fx' && S._fxVisto !== 1) {
+      S._fxVisto = 1;
+      setTimeout(lmAgora, 0);
+    }
     // v452 (07/11): indicador "Cotação da casa online/offline" (bolinha verde/vermelha); tocar mostra o detalhe.
     var casa = lmOk(),
       ag = Date.now(),

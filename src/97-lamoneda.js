@@ -243,3 +243,24 @@
     render();
   }
   if (!/#test/.test(location.hash)) setInterval(lmAvisaParada, 15 * 60000);
+  // 07/11: lê a casa na hora ao voltar para o app (estava em segundo plano) e ao abrir a aba Câmbio; no máximo 1 vez a cada 15 s.
+  var LM_ULT = 0;
+  function lmAgora() {
+    if (Date.now() - LM_ULT < 15000) return;
+    LM_ULT = Date.now();
+    lmBusca().then(function (ok) {
+      if (ok) render();
+    });
+  }
+  if (!/#test/.test(location.hash)) {
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) lmAgora();
+    });
+    try {
+      var CA = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App;
+      if (CA && CA.addListener)
+        CA.addListener('appStateChange', function (st) {
+          if (st && st.isActive) lmAgora();
+        });
+    } catch (e) {}
+  }

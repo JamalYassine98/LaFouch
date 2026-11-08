@@ -875,9 +875,9 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><g transform="translate(5 3.2) scale(.58)"><path d="M3.5 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM15.1 13.5a2.7 2.7 0 1 0 5.4 0 2.7 2.7 0 0 0-5.4 0zM8.9 13.2c1.7-1 4.5-1 6.2 0"/></g></svg>'
   };
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 460;
+  var APP_BUILD = 461;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.6.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.6.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -22947,6 +22947,7 @@
   function setView(v) {
     // v444: no modo cliente (iPad da loja) só existe o catálogo
     if (S.modoCli && v !== 'vendas') v = 'vendas';
+    if (v !== 'fx') S._fxVisto = 0; // ao voltar para a aba Câmbio, lê a casa na hora
     S.view = v;
     if (v !== 'vendas') S.catOpen = false; // a tela do WhatsApp só existe dentro da aba de vendas: ao sair, fecha
     S.msg = '';
@@ -29775,6 +29776,10 @@
   }
   // ---- Tela ----
   function fxAbaHtml() {
+    if (S.view === 'fx' && S._fxVisto !== 1) {
+      S._fxVisto = 1;
+      setTimeout(lmAgora, 0);
+    }
     // v452 (07/11): indicador "Cotação da casa online/offline" (bolinha verde/vermelha); tocar mostra o detalhe.
     var casa = lmOk(),
       ag = Date.now(),
@@ -35266,6 +35271,27 @@
     render();
   }
   if (!/#test/.test(location.hash)) setInterval(lmAvisaParada, 15 * 60000);
+  // 07/11: lê a casa na hora ao voltar para o app (estava em segundo plano) e ao abrir a aba Câmbio; no máximo 1 vez a cada 15 s.
+  var LM_ULT = 0;
+  function lmAgora() {
+    if (Date.now() - LM_ULT < 15000) return;
+    LM_ULT = Date.now();
+    lmBusca().then(function (ok) {
+      if (ok) render();
+    });
+  }
+  if (!/#test/.test(location.hash)) {
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) lmAgora();
+    });
+    try {
+      var CA = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App;
+      if (CA && CA.addListener)
+        CA.addListener('appStateChange', function (st) {
+          if (st && st.isActive) lmAgora();
+        });
+    } catch (e) {}
+  }
   // ===== Lista de compras melhorada (v428, aprovado 04/11/2026) =====
   // Sem cor (o dono não controla cor na compra). Pré-graduados por GRAU. Três seções: Acabando, Época chegando
   // e Não recompre. Quantidade com − / +. Total comparado com o dinheiro da reposição. Compartilhar com o
