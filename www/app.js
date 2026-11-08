@@ -1048,9 +1048,9 @@
     return s !== tks.join(' ') ? s : '';
   }
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 471;
+  var APP_BUILD = 472;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.8.3'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.8.4'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -28275,7 +28275,7 @@
       de: sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).de,
       est: v.est,
       aviso: siteAviso(ref),
-      tag: solar ? 'SOLAR' : v.tipo === 'pre' ? 'GRAU' : 'ARMAÇÃO',
+      tag: solar ? 'SOLAR' : v.tipo === 'pre' ? 'LEITURA' : 'ARMAÇÃO',
       mat: a.material || '',
       gen: a.publico === 'Masculino' ? 'm' : a.publico === 'Feminino' ? 'f' : 'u',
       cor: cs.length ? hexOf(cs[0].cor) : '#2a2d33',
@@ -42201,7 +42201,7 @@
   } catch (e) {}
   // ===== v465: trocar Armação ↔ Pré-graduado (aprovado 08/11/2026, esboço trocar_tipo.png) =====
   // Pré-graduado é contado por GRAU; armação, por COR. A folha pergunta o grau de cada cor (ou a cor de cada grau)
-  // e muda as linhas do estoque sem perder peça nenhuma. No site o modelo passa para "De grau" (ou volta a Armação).
+  // e muda as linhas do estoque sem perder peça nenhuma. No site o modelo passa para "Leitura" (ou volta a Armação).
   var TT_GRAUS = (function () {
     var l = [];
     for (var g = 0.5; g <= 4.001; g += 0.25) l.push('+' + g.toFixed(2));
@@ -42276,7 +42276,7 @@
     var h = '';
     if (t.para === 'pre') {
       var gs0 = ttGrausDe();
-      h += '<h3 class="ttT">Mudar para Pré-graduado</h3><p class="ttP">Pré-graduado é contado por grau. Diga em qual grau estão as peças de cada cor. No site ele passa a aparecer em <b>De grau</b>.</p>';
+      h += '<h3 class="ttT">Mudar para Pré-graduado</h3><p class="ttP">Pré-graduado é contado por grau. Diga em qual grau estão as peças de cada cor. No site ele passa a aparecer em <b>Leitura</b>.</p>';
       t.g.forEach(function (gr, gi) {
         gr.partes.forEach(function (pt, pi) {
           var resto = pi === 0 && gr.partes.length > 1;
@@ -46063,6 +46063,25 @@
     S.qEdit = true;
     render();
   };
+  // ===== v472 (aprovado 08/11/2026): para o cliente, "grau" é "Leitura" =====
+  // Nomes "Óculos de grau…" passam a "Óculos de leitura…" (no app e, pela fila, no site). Roda ao abrir e a cada
+  // salvamento (pega também nomes vindos da nuvem ou de um backup). Não mexe em vendas nem no histórico.
+  function leitNome(n) {
+    return typeof n === 'string' ? n.replace(/^[ÓO]culos de grau(?=\s|$)/i, 'Óculos de leitura') : n;
+  }
+  function leitMigra() {
+    var m = 0;
+    if (!S.pnome) return 0;
+    Object.keys(S.pnome).forEach(function (r) {
+      var v = leitNome(S.pnome[r]);
+      if (v === S.pnome[r]) return;
+      S.pnome[r] = v;
+      m++;
+      if (S.site && S.site[r] && typeof vitFila === 'function') vitFila(r, 'upd');
+    });
+    if (m && typeof saveSoon === 'function') saveSoon();
+    return m;
+  }
   // Volta do segundo plano: alguns celulares deixam a tela vazia até encostar nela (o app já está pronto, só não foi desenhado).
   // Força um novo desenho ao voltar, e de novo um instante depois.
   (function () {
@@ -46993,6 +47012,9 @@
       try {
         if (typeof exclConfere === 'function') exclConfere();
       } catch (e) {}
+      try {
+        if (typeof leitMigra === 'function') leitMigra();
+      } catch (e) {}
     }, 400);
   }
   var haviaSalvo = false;
@@ -47009,12 +47031,15 @@
   if (!haviaSalvo && !/#test/.test(location.hash)) primeiroUso();
   iniciarLock();
   syncTipos();
+  try {
+    leitMigra();
+  } catch (e) {}
   render();
   loadFotos();
   // Gancho de teste: expõe funções internas só quando a URL termina em #test (usado por tests/).
   if (/(^|[#&])test\b/.test(location.hash))
     window.__LF = {
-      btol: btol, lfaFecha: lfaFecha, tipoTrocaAbre: tipoTrocaAbre,
+      btol: btol, leitMigra: leitMigra, leitNome: leitNome, vitProduto: vitProduto, lfaFecha: lfaFecha, tipoTrocaAbre: tipoTrocaAbre,
       barMoedas: barMoedas,
       pixRecebido: pixRecebido, ofertaFim: ofertaFim, siteMaisVendidas: function () { MV_CACHE.ts = 0; return siteMaisVendidas(); }, compLeTexto: compLeTexto, fichaLinhas: fichaLinhas, impBytes: impBytes,
       animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, lmAvisaParada: lmAvisaParada, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,

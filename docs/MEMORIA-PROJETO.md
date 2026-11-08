@@ -1294,3 +1294,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Para o cliente "De grau" virou "Leitura" (es: "De lectura"); etiqueta GRAU aparece como LEITURA. Rota /grau e /lectura mantidas.
 - Guia novo "Leitura, armação ou solar: qual é a diferença?" (ESCOLHA CERTA) com caixa IMPORTANTE "Só vendemos óculos de leitura prontos". Espaçamento justo no guia (.det gap 0).
 - Pendente (não feito, aguarda o dono): nomes dos produtos ainda dizem "Óculos de grau…" (es: "Lentes con receta…").
+
+## 08/11/2026 — v472: "Óculos de grau" → "Óculos de leitura" (aprovado e implementado)
+- App: src/98-leitura-nomes.js (leitMigra/leitNome) troca S.pnome "Óculos de grau…" → "Óculos de leitura…" ao abrir e a cada saveSoon; manda para a fila do site. Etiqueta enviada ao site: LEITURA. Folha de troca de tipo fala "Leitura".
+- Site: nomes normalizados no syncProds e no seed; es "Lentes de lectura…"; menu "Leitura"; graus +0.25 a +4.00 (correção do dono); destaque "Óculos de leitura · Lentes prontas, de +0.25 a +4.00…"; FAQ "Fazem lentes com a minha receita? Não…" (aprovado).
+- Em esboço: como organizar Guia La Fouch × Dúvidas frequentes × Como comprar.

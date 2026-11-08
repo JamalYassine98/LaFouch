@@ -124,3 +124,7 @@ Produto → "Adicionar pedido" (`98-carrinho.js`, `S.cart`) → Pedido (`cartPai
 - Folha de filtros: CSS em #filtPanel/#filtBox (folha de baixo), `#fbHd` (Limpar = `ACT.invLimpa`), `#fSit`; abrir liga `S.multi` (vários tipos); "Ver N peças" (`invPecas`).
 - Preços para corrigir: aviso `#invFix` acima de #rows; folha `#pcFolha` (`ACT.pcUsa`, `pcUsaTodos` gravam `S.pprice[ref].novo` = piso e tiram a oferta; `pcInforma` abre a peça).
 - `S.tipoAuto`: abrir peça a partir de "Todos" não mostra filtro e volta ao fechar. Lote a granel (fornecedor) sem foto no cartão.
+
+## Nomes de leitura v472 — `98-leitura-nomes.js`
+- `leitNome(n)`: "Óculos de grau…" → "Óculos de leitura…". `leitMigra()`: aplica em S.pnome, põe na fila do site (vitFila) e salva. Chamado no lfBoot e no saveSoon (99-render-persistencia.js).
+- 96-loja-online.js: etiqueta do pré-graduado no site = LEITURA.

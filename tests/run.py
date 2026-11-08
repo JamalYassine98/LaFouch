@@ -1047,6 +1047,18 @@ async def main():
             if not ok: falhas.append('v471 inventario limpo'); print('        veio', v1, f1, n0, n1, antes, ref1, depois, pg.erros)
             await pg.close()
 
+            # v472: "grau" vira "Leitura" para o cliente — nomes "Óculos de grau…" migram e o site recebe a etiqueta LEITURA
+            pg = await pagina()
+            g1 = await pg.evaluate("""async () => { const w = ms => new Promise(r => setTimeout(r, ms)); const L = window.__LF, S = L.S;
+              const it = S.items.find(i => i.tipo === 'pre'); const ref = it.ref; S.pnome = S.pnome || {}; S.pnome[ref] = 'Óculos de grau quadrado preto'; S.pnome['ZZ1'] = 'Armação de grau fina';
+              const n = L.leitMigra(); const doc = JSON.stringify(L.vitProduto(ref) || {});
+              return [n, S.pnome[ref], S.pnome['ZZ1'], L.leitNome('Óculos de graus'), L.leitMigra(), /GRAU/.test(doc)]; }""")
+            total += 1
+            ok = g1[:5] == [1, 'Óculos de leitura quadrado preto', 'Armação de grau fina', 'Óculos de graus', 0] and not g1[5] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'v472: nomes "Óculos de grau…" viram "Óculos de leitura…" (uma vez, sem mexer em outros nomes); site sem GRAU')
+            if not ok: falhas.append('v472 leitura'); print('        veio', g1, pg.erros)
+            await pg.close()
+
             # Pedido com linhas, frete rateado e cadastro enxuto
             pg = await pagina()
             await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.grp = []; S.cash.usd = 1000; S.addOpen = true; S.addMode = 'lote';

@@ -1,6 +1,6 @@
   // ===== v465: trocar Armação ↔ Pré-graduado (aprovado 08/11/2026, esboço trocar_tipo.png) =====
   // Pré-graduado é contado por GRAU; armação, por COR. A folha pergunta o grau de cada cor (ou a cor de cada grau)
-  // e muda as linhas do estoque sem perder peça nenhuma. No site o modelo passa para "De grau" (ou volta a Armação).
+  // e muda as linhas do estoque sem perder peça nenhuma. No site o modelo passa para "Leitura" (ou volta a Armação).
   var TT_GRAUS = (function () {
     var l = [];
     for (var g = 0.5; g <= 4.001; g += 0.25) l.push('+' + g.toFixed(2));
@@ -75,7 +75,7 @@
     var h = '';
     if (t.para === 'pre') {
       var gs0 = ttGrausDe();
-      h += '<h3 class="ttT">Mudar para Pré-graduado</h3><p class="ttP">Pré-graduado é contado por grau. Diga em qual grau estão as peças de cada cor. No site ele passa a aparecer em <b>De grau</b>.</p>';
+      h += '<h3 class="ttT">Mudar para Pré-graduado</h3><p class="ttP">Pré-graduado é contado por grau. Diga em qual grau estão as peças de cada cor. No site ele passa a aparecer em <b>Leitura</b>.</p>';
       t.g.forEach(function (gr, gi) {
         gr.partes.forEach(function (pt, pi) {
           var resto = pi === 0 && gr.partes.length > 1;
