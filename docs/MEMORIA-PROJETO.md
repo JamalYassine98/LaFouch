@@ -1309,3 +1309,9 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - 08/11: rodapé do celular — Contato na coluna da direita, embaixo de Ajuda (pedido do dono).
 
 - 08/11: início do site = lafouch.com (rtSlug devolve vazio no início; rtUrl home sem slug). /oculos e /lentes antigos ainda abrem o início.
+
+## 08/11/2026 — Navegação do site: ideias (esboço navegacao3/4)
+- Aprovados (aguardando "pode implementar"): 2 busca com sugestões (últimos vistos + sugestões de texto); 3 linha de graus só texto no topo de Leitura; 5 catálogo volta no mesmo cartão sem pular.
+- 4 "Você estava vendo": fica ACIMA de "Compre por categoria" — em elaboração.
+- 1 voltar arrastando: em elaboração (proposta: usar o gesto do próprio celular + produto desliza para a direita; sem gesto próprio, para não dar clique errado).
+- 6 barra fixa embaixo: REJEITADO.
