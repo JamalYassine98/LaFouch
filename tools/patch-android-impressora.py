@@ -11,7 +11,7 @@ pkg = os.path.join(andr, 'app/src/main/java/com/lafouch/app')
 os.makedirs(pkg, exist_ok=True)
 shutil.copy('android-extra/LfPrinterPlugin.java', os.path.join(pkg, 'LfPrinterPlugin.java'))
 shutil.copy('android-extra/LfSharePlugin.java', os.path.join(pkg, 'LfSharePlugin.java'))  # v427: compartilhar direto no app
-for f in ('LfNotifPlugin.java', 'LfNotifService.java'):  # v450: PIX automático pelo Nubank
+for f in ('LfNotifPlugin.java', 'LfNotifService.java', 'LfBarsPlugin.java'):  # v450: PIX automático pelo Nubank · v464: barras do Android no tema
     shutil.copy('android-extra/' + f, os.path.join(pkg, f))
 
 # MainActivity: registerPlugin antes do super.onCreate
@@ -33,6 +33,10 @@ if 'LfNotifPlugin' not in s:
     s = s.replace('registerPlugin(LfSharePlugin.class);', 'registerPlugin(LfSharePlugin.class);\n        registerPlugin(LfNotifPlugin.class);', 1)
     open(ma, 'w').write(s)
 assert 'registerPlugin(LfNotifPlugin.class)' in s, 'MainActivity sem o LfNotif'
+if 'LfBarsPlugin' not in s:
+    s = s.replace('registerPlugin(LfNotifPlugin.class);', 'registerPlugin(LfNotifPlugin.class);\n        registerPlugin(LfBarsPlugin.class);', 1)
+    open(ma, 'w').write(s)
+assert 'registerPlugin(LfBarsPlugin.class)' in s, 'MainActivity sem o LfBars'
 
 # Permissões
 mf = os.path.join(andr, 'app/src/main/AndroidManifest.xml')
@@ -65,4 +69,4 @@ if 'LfNotifService' not in m:
           '        </service>\n    ')
     m = m.replace('</application>', '    ' + sv + '</application>', 1)
     open(mf, 'w').write(m)
-print('LfPrinter, LfShare e LfNotif instalados;', len(add), 'permissões novas')
+print('LfPrinter, LfShare, LfNotif e LfBars instalados;', len(add), 'permissões novas')

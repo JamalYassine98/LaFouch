@@ -17,6 +17,11 @@
     m.name = 'theme-color';
     m.content = temaEscuro(v) ? '#0f1216' : '#f4f1f4';
     document.head.appendChild(m);
+    // v464: no app instalado, as barras do Android (em cima e embaixo) também seguem o tema (plugin LfBars, APK novo)
+    try {
+      var P = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.LfBars;
+      if (P && P.set) P.set({ cor: m.content, escuro: temaEscuro(v) }).catch(function () {});
+    } catch (e) {}
   }
   function temaMarca() {
     var v = temaVal();

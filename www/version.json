@@ -1,1 +1,1 @@
-{"v":463,"nat":1,"nome":"5.6.3","notas":["Modo cliente: sair segurando o logo 5 s volta a funcionar no Android (ou tocar no logo 7 vezes)","Modo cliente: a peça abre sem pular na tela"]}
+{"v":464,"nat":1,"nome":"5.6.4","notas":["Barras do Android (em cima e embaixo) na cor do app, acompanhando o tema claro/escuro (precisa do APK novo)"]}

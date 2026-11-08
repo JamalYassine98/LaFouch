@@ -9,7 +9,7 @@ open(res + '/values/lf_colors.xml', 'w').write('<?xml version="1.0" encoding="ut
 open(res + '/values-night/lf_colors.xml', 'w').write('<?xml version="1.0" encoding="utf-8"?>\n<resources><color name="lf_bg">#0f1216</color></resources>\n')
 p = res + '/values/styles.xml'
 s = open(p).read()
-ITENS = '\n        <item name="android:windowBackground">@color/lf_bg</item>\n        <item name="android:background">@color/lf_bg</item>'
+ITENS = '\n        <item name="android:windowBackground">@color/lf_bg</item>\n        <item name="android:background">@color/lf_bg</item>\n        <item name="android:navigationBarColor">@color/lf_bg</item>\n        <item name="android:statusBarColor">@color/lf_bg</item>'
 def conserta(m):
     nome, attrs, corpo = m.group(1), m.group(2), m.group(3)
     if nome not in ('AppTheme', 'AppTheme.NoActionBar', 'AppTheme.NoActionBarLaunch'):
