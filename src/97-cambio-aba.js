@@ -56,7 +56,7 @@
   };
   // Série diária (último valor de cada dia). Casa (La Moneda) desde que existe; antes disso, o histórico de mercado
   // ajustado ao nível da casa, só para o desenho do gráfico não começar vazio.
-  function fxSerie(k) {
+  function fxSerie(k, m) {
     var dia = {},
       chave = function (ts) {
         var d = new Date(ts);
@@ -71,10 +71,20 @@
       lmH = (S.lm && S.lm.hist) || [],
       ini = lmH.length ? lmH[0][0] : Infinity;
     lmH.forEach(function (x) {
-      var v = k === 'usd' ? x[2] : k === 'brl' ? x[3] : x[5] || (x[3] > 0 ? x[2] / x[3] : 0);
+      var v = m
+        ? k === 'usd'
+          ? x[m === 'c' ? 1 : 2]
+          : k === 'brl'
+          ? x[m === 'c' ? 3 : 4]
+          : (m === 'c' ? x[6] : 0) || x[5] || (x[3] > 0 ? x[2] / x[3] : 0)
+        : k === 'usd'
+        ? x[2]
+        : k === 'brl'
+        ? x[3]
+        : x[5] || (x[3] > 0 ? x[2] / x[3] : 0);
       put(x[0], v, true);
     });
-    if (lmOk()) put(S.lm.ts, k === 'usd' ? S.lm.usd.v : k === 'brl' ? S.lm.brl.c : S.lm.arb.v, true);
+    if (lmOk()) put(S.lm.ts, fxHoje(k, m), true);
     var mk = [];
     (S.fxHist || []).forEach(function (p) {
       if (p.c || p.ts >= ini) return;
@@ -100,15 +110,19 @@
         return Date.now() - p.ts <= 400 * DAY;
       });
   }
-  function fxHoje(k) {
+  function fxHoje(k, m) {
+    if (lmOk() && m) {
+      var o = k === 'usd' ? S.lm.usd : k === 'brl' ? S.lm.brl : S.lm.arb;
+      return (m === 'c' ? o.c : o.v) || fxHoje(k);
+    }
     if (lmOk()) return k === 'usd' ? S.lm.usd.v : k === 'brl' ? S.lm.brl.c : S.lm.arb.v;
     var f = S.fx || {};
     return k === 'usd' ? f.pyg : k === 'brl' ? (f.brl > 0 ? f.pyg / f.brl : 0) : f.brl;
   }
   // Variação em 7 dias (fração).
-  function fxVar7(k) {
-    var s = fxSerie(k),
-      h = fxHoje(k),
+  function fxVar7(k, m) {
+    var s = fxSerie(k, m),
+      h = fxHoje(k, m),
       lim = Date.now() - 7 * DAY,
       ant = 0;
     s.forEach(function (p) {
@@ -139,10 +153,11 @@
     return { b: den ? (n * sxy - sx * sy) / den : 0, r2: den && vy > 0 ? Math.pow(n * sxy - sx * sy, 2) / (den * vy) : 0 };
   }
   // Previsão de 7 dias do dólar (reta de 2 semanas 70% + posição × média 30% + real).
-  function fxPrevisao() {
-    var s = fxSerie('usd');
+  function fxPrevisao(k, m) {
+    k = k || 'usd';
+    var s = fxSerie(k, m);
     if (s.length < 7) return { ok: false, n: s.length };
-    var ult = fxHoje('usd') || s[s.length - 1].v,
+    var ult = fxHoje(k, m) || s[s.length - 1].v,
       u14 = s.filter(function (p) {
         return Date.now() - p.ts <= 14 * DAY;
       });
@@ -230,7 +245,7 @@
     return k === 'arb' ? 'R$ ' + nf(v, 'brl') : gsRaw(Math.round(v));
   }
   function fxVarHtml(k) {
-    var v = fxVar7(k);
+    var v = fxVar7(k, lmOk() ? S.fxModo : '');
     if (Math.abs(v) < 0.002) return '<span class="fxVar">— estável</span>';
     var desce = v < 0,
       cls = k === 'brl' ? '' : desce ? ' ok' : ' up';
@@ -282,9 +297,12 @@
           return '<div class="' + (m.ok ? 'ok' : 'no') + '"><i>' + (m.ok ? '✓' : '!') + '</i><span>' + m.t + '</span></div>';
         }).join('') + '</div><div class="hint" style="margin:8px 0 0">Ninguém acerta sempre. O app olha o histórico da casa, a semana e a tendência.</div>';
     } else if (id === 'usd' || id === 'brl' || id === 'arb') {
-      tit = FX_NOME[id] + ' · ' + fxValTxt(id, fxHoje(id));
-      sub = id === 'usd' ? 'Guaranis por dólar (venda da casa)' : id === 'brl' ? 'Guaranis por real (compra da casa)' : 'Reais por dólar (arbitragem da casa)';
-      corpo = fjPerHtml() + fjGraf(id, id === 'usd');
+      // v459: a janela segue o botão Venda/Compra; previsão de 7 dias em todas as moedas
+      var md = lmOk() ? S.fxModo : '',
+        lado = md === 'c' ? 'compra' : 'venda';
+      tit = FX_NOME[id] + ' · ' + fxValTxt(id, md ? fxHoje(id, md) : fxHoje(id));
+      sub = !md ? (id === 'usd' ? 'Guaranis por dólar' : id === 'brl' ? 'Guaranis por real' : 'Reais por dólar') + ' (média do mercado)' : id === 'usd' ? 'Guaranis por dólar (' + lado + ' da casa)' : id === 'brl' ? 'Guaranis por real (' + lado + ' da casa)' : 'Reais por dólar (arbitragem, ' + lado + ' da casa)';
+      corpo = fjPerHtml() + fjGraf(id, true, md) + fjPrevTxt(id, md);
     } else if (id === 'trocas') {
       tit = 'Últimas trocas';
       corpo = (S.cambios || []).length ? trHistHtml().replace('<div class="lbl" style="margin-top:6px">Trocas feitas</div>', '') : '<div class="hint" style="margin:0">Nenhuma troca registrada.</div>';
@@ -310,18 +328,18 @@
       }).join('') + '</div>';
   }
   // Gráfico: linha da casa, média, faixa barata (os 25% mais baratos do período), hoje e previsão pontilhada (só dólar).
-  function fjGraf(k, prev) {
+  function fjGraf(k, prev, m) {
     var per = S.fxPer || 90,
-      s = fxSerie(k).filter(function (p) {
+      s = fxSerie(k, m).filter(function (p) {
         return Date.now() - p.ts <= per * DAY;
       }),
-      hoje = fxHoje(k);
+      hoje = fxHoje(k, m);
     if (hoje > 0 && (!s.length || Date.now() - s[s.length - 1].ts > 3600000)) s.push({ ts: Date.now(), v: hoje });
     if (s.length < 2) return '<div class="hint" style="margin:12px 0">Ainda sem histórico suficiente para o gráfico.</div>';
     var vals = s.map(function (p) {
         return p.v;
       }),
-      pv = prev ? fxPrevisao() : { ok: false },
+      pv = prev ? fxPrevisao(k, m) : { ok: false },
       fim = pv.ok ? hoje * (1 + pv.pct) : null,
       mn = Math.min.apply(null, vals.concat(fim ? [fim] : [])),
       mx = Math.max.apply(null, vals.concat(fim ? [fim] : [])),
@@ -368,6 +386,20 @@
     g += '<circle cx="' + hx.toFixed(1) + '" cy="' + hy.toFixed(1) + '" r="5" class="fjPt"/><text x="' + (hx - 8).toFixed(1) + '" y="' + (Math.abs(Y(med) - hy) < 16 || hy < 26 ? hy + 18 : hy - 9).toFixed(1) + '" font-size="11" font-weight="700" text-anchor="end" class="fjTxB">hoje ' + f(hoje) + '</text>';
     g += '<text x="2" y="' + (H - 6) + '" font-size="10" class="fjTx">' + lab(t0) + '</text><text x="' + (xr / 2) + '" y="' + (H - 6) + '" font-size="10" text-anchor="middle" class="fjTx">' + lab((t0 + t1) / 2) + '</text><text x="' + xr + '" y="' + (H - 6) + '" font-size="10" text-anchor="middle" class="fjTx">' + lab(t1) + '</text>';
     return g + '</svg>';
+  }
+  // v459: frase da previsão de 7 dias (cor pelo interesse da loja: dólar barato é bom; real caro é bom)
+  function fjPrevTxt(k, m) {
+    var pv = fxPrevisao(k, m);
+    if (!pv.ok) return '<div class="hint" style="margin:8px 0 0">Previsão: ainda sem histórico suficiente.</div>';
+    var fim = pv.ult * (1 + pv.pct),
+      f = function (v) {
+        return k === 'arb' ? 'R$ ' + nf(v, 'brl') : gsRaw(Math.round(v));
+      },
+      bom = pv.dir === 'estavel' || (k === 'brl' ? pv.dir === 'sobe' : pv.dir === 'cai');
+    return (
+      '<div class="fjMot"><div class="' + (bom ? 'ok' : 'no') + '"><i>' + (pv.dir === 'sobe' ? '▲' : pv.dir === 'cai' ? '▼' : '—') + '</i><span>Próximos 7 dias: <b>' + (pv.dir === 'sobe' ? 'deve subir' : pv.dir === 'cai' ? 'deve cair' : 'estável') + '</b>' + (pv.dir === 'estavel' ? '' : ' (por volta de ' + f(fim) + ')') + ' <span class="hint" style="display:inline;margin:0">· certeza ' + pv.cert + '</span></span></div></div>' +
+      '<div class="hint" style="margin:6px 0 0">Ninguém acerta sempre. É uma estimativa pelo histórico da casa.</div>'
+    );
   }
   function fjProtHtml() {
     var c = colchao(),

@@ -1,6 +1,7 @@
 {
- "nome": "5.5.8",
+ "nome": "5.5.9",
  "notas": [
-  "Câmbio: lê a cotação da Sucursal Jebai no site novo da La Moneda"
+  "Câmbio: previsão de 7 dias também no Real e no Dólar em reais",
+  "O gráfico de cada moeda segue o botão Venda/Compra"
  ]
 }

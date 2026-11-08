@@ -139,7 +139,7 @@
       hora = !h.length || agora - h[h.length - 1][0] >= 55 * 60000;
     S._lmVisto = agora; // última leitura certa (só neste aparelho)
     if (!mudou && !hora) return false;
-    if (hora) h.push([agora, c.usd.c, c.usd.v, c.brl.c, c.brl.v, c.arb.v]);
+    if (hora) h.push([agora, c.usd.c, c.usd.v, c.brl.c, c.brl.v, c.arb.v, c.arb.c]);
     h = h.filter(function (x) {
       return agora - x[0] <= 400 * DAY;
     });
