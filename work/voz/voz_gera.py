@@ -37,7 +37,7 @@ def corta(f,n,textos=None):
       if r<0.45 or r>2.2:return None
   return segs
 def processa(src,ini,fim,out):
-  subprocess.run(['ffmpeg','-v','error','-y','-i',src,'-ss',str(max(0,ini-0.04)),'-to',str(fim+0.06),'-af',SOFT+',loudnorm=I=-18,apad=pad_dur=0.04','-ar','44100','-ac','1','-b:a','128k',out],check=True)
+  subprocess.run(['ffmpeg','-v','error','-y','-ss',str(max(0,ini-0.05)),'-to',str(fim+0.12),'-i',src,'-af',SOFT+',loudnorm=I=-18,apad=pad_dur=0.04','-ar','44100','-ac','1','-b:a','128k',out],check=True)
 if __name__=='__main__':
   modo=sys.argv[1];lang=sys.argv[2]
   U,pre=itens(lang)
