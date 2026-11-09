@@ -1,0 +1,72 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+:root{--bg:#fbf7fa;--ln:#efe3ea;--tx:#2a1f27;--ac:#8d3a69;--mu:#7a6b75}
+body{margin:0;background:#efe8ed;font-family:Inter,system-ui,sans-serif;color:var(--tx);padding:26px;width:1300px}
+h1{font:600 25px Fraunces,Georgia,serif;margin:0 0 4px}.sub{color:var(--mu);font-size:14.5px;margin:0 0 16px;max-width:1240px}
+.row{display:flex;gap:22px;align-items:flex-start}
+.ph{width:300px;height:640px;background:var(--bg);border-radius:30px;border:8px solid #1d1a1c;overflow:hidden;position:relative;flex:none}
+.top{height:44px;border-bottom:1px solid var(--ln);display:flex;align-items:center;justify-content:center;font:600 14px Fraunces,serif;color:var(--ac)}
+.ey{font-size:10.5px;letter-spacing:1.5px;font-weight:700;color:var(--ac);margin:12px 16px 0}
+.mo{position:absolute;left:8px;top:64px}
+.bal{position:absolute;left:104px;top:72px;right:12px;background:#fff;border:1px solid var(--ln);border-radius:16px;padding:9px 11px;font-size:13px;line-height:1.38;box-shadow:0 6px 16px #8d3a6912}
+.q{position:absolute;left:14px;right:14px;top:182px;background:#fff;border:1px solid var(--ln);border-radius:18px;padding:12px 12px 8px}
+.q .hd{display:flex;justify-content:space-between;font-size:9.5px;letter-spacing:1.2px;font-weight:700;color:var(--mu);margin-bottom:4px}
+.l{display:flex;align-items:center;gap:8px;font-family:Georgia,serif;padding:3px 6px;border-radius:8px;white-space:nowrap;overflow:hidden}
+.l i{font:700 9.5px Inter;font-style:normal;color:var(--mu);width:34px;flex:none;text-align:right}
+.l.hl{background:#fdeaf3}.l.ok i{color:#2e7d4f}.l.no{opacity:.45}
+.btn{position:absolute;left:14px;right:14px;border-radius:999px;padding:12px;font-weight:700;font-size:14px;text-align:center}
+.b1{background:var(--ac);color:#fff}.b2{border:1.5px solid var(--ac);color:var(--ac)}
+.lab{font-weight:700;font-size:13.5px;margin:0 0 7px}.note{width:300px;font-size:12px;line-height:1.5;color:#4a3d46;margin-top:8px}
+.fr{position:absolute;left:8px;width:284px;top:176px;height:238px;pointer-events:none}
+.box{background:#fff;border-radius:18px;padding:16px 18px;font-size:13.5px;line-height:1.55;flex:1}
+.box h3{font:600 17px Fraunces,serif;margin:0 0 6px;color:var(--ac)}
+</style><script src="../s52/mochi.js"></script></head><body>
+<h1>S53 · A consulta do Mochi, do jeito que o oftalmologista faz</h1>
+<p class="sub">O quadro de leitura de perto inteiro, com linhas do maior para o menor (cada linha corresponde a um grau). O Mochi aponta linha por linha; a última que você lê sem esforço, a 40 cm e sem óculos, dá o grau. No fim ele "coloca o óculos" no quadro <b>inteiro</b> — a moldura cobre o quadro todo, sem lupa, porque o óculos de leitura não aumenta a letra: ele faz o olho focar de perto.</p>
+<div class="row">
+
+<div><div class="lab">1 · O quadro inteiro</div><div class="ph"><div class="top">LA FOUCH</div><div class="ey">O QUADRO · A 40 CM ✓</div>
+<div class="mo" id="m1"></div><div class="bal">Leia <b>de cima para baixo</b>. Eu aponto a linha — você me diz se lê sem esforço.</div>
+<div class="q" id="q1"></div>
+<div class="btn b1" style="top:540px">Consigo ler</div><div class="btn b2" style="top:588px">Não consigo</div></div>
+<div class="note">Linhas como no cartão de leitura do consultório: a maior em cima, a menor embaixo. O número ao lado é o grau que costuma precisar quem só lê até ali.</div></div>
+
+<div><div class="lab">2 · Parou numa linha</div><div class="ph"><div class="top">LA FOUCH</div><div class="ey">O QUADRO · A 40 CM ✓</div>
+<div class="mo" id="m2"></div><div class="bal">Você leu até a linha do <b>+2.00</b>. A de baixo já ficou difícil — normal!</div>
+<div class="q" id="q2"></div>
+<div class="btn b1" style="top:540px">Continuar</div></div>
+<div class="note">Leu ✓, não leu fica clarinho. Na dúvida entre duas linhas, ele mostra de novo a linha difícil (como o médico faz "e agora?").</div></div>
+
+<div><div class="lab">3 · "Colocando o óculos" no quadro</div><div class="ph"><div class="top">LA FOUCH</div><div class="ey">COM O ÓCULOS +2.00</div>
+<div class="mo" id="m3"></div><div class="bal">Com o óculos <b>+2.00</b>, o seu olho foca de perto: você vai ler <b>até a última linha</b>, a 40 cm.</div>
+<div class="q" id="q3"></div><svg class="fr" viewBox="0 0 284 238" fill="none"><rect x="6" y="6" width="272" height="226" rx="38" stroke="#8d3a69" stroke-width="7"/><path d="M6 40 L0 36 M278 40 L284 36" stroke="#8d3a69" stroke-width="7" stroke-linecap="round"/><path d="M122 6 q20 -12 40 0" stroke="#8d3a69" stroke-width="7" fill="none"/><path d="M26 34 q14 -16 38 -20" stroke="#fff" stroke-width="5" stroke-linecap="round"/><rect x="10" y="10" width="264" height="218" rx="34" fill="#e9f1fa" opacity=".12"/></svg>
+<div class="btn b1" style="top:540px">Ver óculos de leitura +2.00</div><div class="btn b2" style="top:588px">Guardar meu grau</div></div>
+<div class="note">A moldura do óculos cobre o quadro <b>inteiro</b>. As letras continuam do mesmo tamanho (é assim no óculos de verdade); as linhas que você não lia ganham ✓.</div></div>
+
+<div class="box"><h3>Como o óculos de leitura funciona de verdade</h3>
+<svg width="100%" viewBox="0 0 350 220" fill="none" style="margin:4px 0 8px">
+<text x="0" y="14" font-size="11" font-weight="700" fill="#7a6b75" font-family="Inter">SEM ÓCULOS (depois dos 40)</text>
+<rect x="4" y="34" width="10" height="44" rx="2" fill="#fff" stroke="#2a1f27" stroke-width="2"/>
+<path d="M14 46 L150 50 L232 60 M14 66 L150 62 L232 52" stroke="#c9b3c1" stroke-width="1.6"/>
+<ellipse cx="190" cy="56" rx="44" ry="40" stroke="#2a1f27" stroke-width="2"/><ellipse cx="150" cy="56" rx="6" ry="16" fill="#f3e7ee" stroke="#8d3a69" stroke-width="1.6"/>
+<circle cx="232" cy="56" r="4" fill="#b3261e"/><text x="242" y="60" font-size="10" fill="#b3261e" font-family="Inter">foca atrás → borrado</text>
+<text x="0" y="128" font-size="11" font-weight="700" fill="#7a6b75" font-family="Inter">COM ÓCULOS DE LEITURA (+)</text>
+<rect x="4" y="148" width="10" height="44" rx="2" fill="#fff" stroke="#2a1f27" stroke-width="2"/>
+<path d="M14 160 L96 164 L150 166 L234 170 M14 180 L96 176 L150 174 L234 170" stroke="#8d3a69" stroke-width="1.6"/>
+<path d="M96 146 q8 24 0 48 M96 146 q-8 24 0 48" stroke="#8d3a69" stroke-width="2.4" fill="#f9e3ee"/>
+<ellipse cx="190" cy="170" rx="44" ry="40" stroke="#2a1f27" stroke-width="2"/><ellipse cx="150" cy="170" rx="6" ry="16" fill="#f3e7ee" stroke="#8d3a69" stroke-width="1.6"/>
+<circle cx="234" cy="170" r="4" fill="#2e7d4f"/><text x="244" y="174" font-size="10" fill="#2e7d4f" font-family="Inter">foca no fundo → nítido</text>
+</svg>
+Com a idade, a lente de dentro do olho perde a força de focar de perto: a imagem cai <b>atrás</b> do fundo do olho e a letra borra (por isso a pessoa afasta o celular). A lente "+" do óculos de leitura dá essa força que falta e a imagem volta a cair <b>no lugar certo</b>.<br><br>
+<b>O que muda para a consulta:</b> o óculos não é uma lupa — ele não aumenta a letra, ele deixa nítida <b>na distância de leitura</b>. Por isso o teste é: celular fixo a 40 cm, quadro inteiro, e o grau sai da menor linha que você consegue ler.<br><br>
+<span style="color:#7a6b75">Grau maior que o necessário também atrapalha: obriga a chegar muito perto. Por isso o Mochi confere uma linha abaixo e, na dúvida, fica com o menor.</span></div>
+</div>
+<script>
+const LN=[['+2.50',24,'Bom dia!'],['+2.25',20,'A casa é azul.'],['+2.00',17,'O café está pronto.'],['+1.75',14.5,'Ligue para a farmácia.'],['+1.50',12.5,'O ônibus passa às oito.'],['+1.25',11,'Leia a receita com calma antes.'],['+1.00',9.5,'O jornal de hoje fala do tempo e da chuva.'],['+0.75',8.3,'Pequenas letras de bula e de etiqueta de preço.']];
+function quadro(est){return '<div class="hd"><span>QUADRO DE LEITURA</span><span style="color:#2e7d4f">40 cm ✓</span></div>'+LN.map((l,i)=>{const e=est(i);return `<div class="l ${e}" style="font-size:${l[1]}px"><i>${e==='ok'?'✓ ':''}${l[0]}</i>${l[2]}</div>`}).join('')}
+document.getElementById('q1').innerHTML=quadro(i=>i===1?'hl':i<1?'ok':'');
+document.getElementById('q2').innerHTML=quadro(i=>i<=2?'ok':i===3?'no hl':'no');
+document.getElementById('q3').innerHTML=quadro(i=>'ok');
+document.getElementById('m1').innerHTML=mSvg({ad:30,id:'vara',olha:1},96,104);
+document.getElementById('m2').innerHTML=mSvg({fala:1,ad:-20},96,104);
+document.getElementById('m3').innerHTML=mSvg({feliz:1,ae:-120,ad:-60},96,104);
+</script></body></html>

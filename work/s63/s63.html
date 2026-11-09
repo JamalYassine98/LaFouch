@@ -1,0 +1,44 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;background:#efe8ed;font-family:Inter,system-ui,sans-serif;color:#2a1f27;padding:22px;width:980px}
+h1{font:600 22px Fraunces,Georgia,serif;margin:0 0 4px}.sub{color:#7a6b75;font-size:14px;margin:0 0 12px;line-height:1.5}
+.row{display:flex;gap:20px;align-items:flex-start}
+.ph{width:300px;height:580px;background:#fbf7fa;border-radius:28px;border:7px solid #1d1a1c;overflow:hidden;position:relative;flex:none}
+.box{background:#fff;border-radius:16px;padding:14px 16px;font-size:13.5px;line-height:1.6;flex:1}
+.box b.t{color:#8d3a69}
+</style><script src="../s52/mochi.js"></script></head><body>
+<h1>S63 · O Mochi anda pela tela à vontade</h1>
+<p class="sub">Ele não tem lugar fixo: passeia por <b>zonas livres</b> (onde não cobre o quadro nem os botões). Só quando vai apontar ele corre até o lado da frase — e como o quadro sobe, a frase da vez está sempre na mesma altura, então ele sempre acha o ponto.</p>
+<div class="row"><div class="ph" id="ph"></div>
+<div class="box"><b class="t">Zonas onde ele pode ficar</b> (rosinhas no desenho)<br>
+① <b>Em cima do quadro</b> — senta na borda, balança os pezinhos, espia lá de cima.<br>
+② <b>Faixa da esquerda</b> — o lugar de apontar; também anda para cima e para baixo nela.<br>
+③ <b>Cantinho de baixo</b>, entre o quadro e os botões — passeia, deita, cantarola.<br>
+④ <b>Espiando atrás do quadro</b> — só os olhinhos e o espelho aparecem pela lateral direita.<br><br>
+<b class="t">Quando ele se mexe</b><br>
+• Esperando você: a cada 4–8 s pode <b>trocar de zona</b> (pulinho, rolando como bolinha, ou "puff" e aparece em outro canto) — sorteado, sem repetir.<br>
+• Hora de perguntar: volta correndo para a faixa ② e aponta a frase da frente.<br>
+• "Consigo": comemora onde estiver e puxa o quadro.<br>
+• Lente: vai buscar a lente fora da tela (sai pela direita e volta com ela).<br>
+• Resultado: pula para o meio e comemora.<br><br>
+<b class="t">Regras</b> · nunca para em cima do texto do quadro nem dos botões · nunca se mexe enquanto você está tocando num botão · com "movimento reduzido" ele só troca de zona com um "puff" simples.</div></div>
+<script>
+const ph=document.getElementById('ph');
+const lv=`<g transform="translate(119 94)"><path d="M0 0 H14" stroke="#8d3a69" stroke-width="3.2" stroke-linecap="round"/><g transform="translate(14 0) scale(.75)"><rect x="-6" y="-9" width="7" height="18" rx="2.5" fill="#8d3a69"/><rect x="0" y="-8" width="17" height="16" rx="6" fill="#fff" stroke="#8d3a69" stroke-width="1.8"/><rect x="12" y="-7.5" width="20" height="6.5" rx="3.2" fill="#fff" stroke="#8d3a69" stroke-width="1.8"/></g></g>`;
+ph.innerHTML=`<div style="height:40px;border-bottom:1px solid #efe3ea;display:flex;align-items:center;justify-content:center;font:600 13px Fraunces,serif;color:#8d3a69">LA FOUCH</div>
+<div style="position:absolute;left:84px;right:12px;top:58px;height:54px;background:#fde4ef;border-radius:12px;opacity:.7"></div>
+<div style="position:absolute;left:8px;width:72px;top:120px;height:290px;background:#fde4ef;border-radius:12px;opacity:.7"></div>
+<div style="position:absolute;left:8px;right:12px;top:414px;height:52px;background:#fde4ef;border-radius:12px;opacity:.7"></div>
+<div style="position:absolute;right:0;width:14px;top:150px;height:200px;background:#fde4ef;opacity:.7"></div>
+<div style="position:absolute;left:84px;right:12px;top:116px;height:294px;background:#fff;border:1px solid #efe3ea;border-radius:18px;padding:16px 14px 0 30px;font-family:Georgia,serif;color:#2a1f27">
+<div style="font-size:19px;color:#bbb;margin:30px 0 22px">A casa é azul.</div><div style="font-size:15px;background:#fdeaf3;border-radius:6px;display:inline-block;padding:0 4px;margin-left:-4px">O café está pronto.</div><div style="font-size:12.5px;margin-top:22px">Ligue para a farmácia.</div><div style="font-size:10.5px;margin-top:22px">O ônibus passa às oito.</div></div>
+<div style="position:absolute;left:12px;right:12px;top:474px;background:#8d3a69;color:#fff;border-radius:99px;padding:10px;text-align:center;font-weight:700;font-size:13px">Consigo ler</div>
+<div style="position:absolute;left:12px;right:12px;top:520px;border:1.5px solid #8d3a69;color:#8d3a69;border-radius:99px;padding:9px;text-align:center;font-weight:700;font-size:13px">Não consigo</div>
+<svg width="300" height="580" style="position:absolute;left:0;top:0;overflow:visible" fill="none">
+ <path d="M200 92 C 120 70, 40 110, 40 200 S 60 420, 150 440 S 290 330, 292 250" stroke="#c46a9c" stroke-width="2" stroke-dasharray="5 6"/>
+ <g transform="translate(166 46) scale(.42)" opacity=".55">${mochi({pisca:1})}</g>
+ <g transform="translate(-6 186) scale(.62)">${mochi({ad:0,olha:1})}${lv}</g>
+ <g transform="translate(118 412) scale(.42)" opacity=".55">${mochi({feliz:1,ae:-120})}</g>
+ <g transform="translate(276 214) scale(.42)" opacity=".55">${mochi({olha:-1})}</g>
+ <g font-family="Inter" font-weight="700" font-size="13" fill="#8d3a69"><text x="94" y="74">①</text><text x="14" y="138">②</text><text x="18" y="432">③</text><text x="262" y="160">④</text></g>
+</svg>`;
+</script></body></html>

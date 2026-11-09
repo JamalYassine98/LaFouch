@@ -1,0 +1,35 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;background:#efe8ed;font-family:Inter,system-ui,sans-serif;color:#2a1f27;padding:22px;width:1240px}
+h1{font:600 22px Fraunces,Georgia,serif;margin:0 0 4px}.sub{color:#7a6b75;font-size:14px;margin:0 0 12px;line-height:1.5}
+.g{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.c{background:#fff;border-radius:16px;padding:10px 12px}.c b{display:block;font-size:13.5px;margin-top:2px}.c span{font-size:12px;color:#4a3d46;line-height:1.4;display:block}
+.st{position:relative;height:130px;background:#fbf7fa;border-radius:12px;overflow:hidden}
+.ln{position:absolute;left:156px;top:80px;font:13.5px Georgia,serif;white-space:nowrap;background:#fdeaf3;border-radius:6px;padding:0 5px}
+.ln2{position:absolute;left:156px;top:106px;white-space:nowrap;font:11.5px Georgia,serif;color:#555}.ln0{position:absolute;left:156px;top:44px;white-space:nowrap;font:17px Georgia,serif;color:#aaa}
+.fx{position:absolute;font-size:16px}
+.box{background:#fff;border-radius:16px;padding:12px 16px;font-size:13.5px;line-height:1.6;margin-top:12px}
+</style><script src="../s52/mochi.js"></script></head><body>
+<h1>S62 · O Mochi fica no lugar dele, mas sempre vivo</h1>
+<p class="sub">O lugar é fixo (para a mãozinha nunca errar a frase), mas o corpo nunca congela: ele respira, se mexe, reage. <b>A ponta da mãozinha fica "presa" no começo da frase</b> — o braço compensa quando o corpo balança, então o movimento é livre e o ponteiro não treme.</p>
+<div class="g" id="g"></div>
+<div class="box"><b style="color:#8d3a69">Como ele se comporta em cada momento</b><br>
+• <b>Esperando você ler</b> (a cada 2–4 s, sem repetir): balança o corpo, pisca duas vezes, olha para você, ajusta os óculos, balança os pezinhos, cantarola (notinhas ♪).<br>
+• <b>"Consigo ler"</b>: comemora pequeno (pulinho ou "joinha") <b>e puxa o quadro para cima com a outra mão</b>, de um jeito diferente a cada vez (puxa, empurra com o ombro, dá um pulinho segurando).<br>
+• <b>"Não consigo"</b>: inclina a cabeça, "hmm…", coça o espelhinho pensando e vai buscar a lente.<br>
+• <b>Frase muito miúda</b>: chega mais perto do quadro e aperta os olhinhos junto com você (brincadeira), depois volta.<br>
+• <b>Demorou mais de 8 s</b>: olha para você, acena de leve e lembra: "Sem pressa, me diz se consegue ler."</div>
+<script>
+function luva(){return `<g transform="translate(119 94)"><path d="M0 0 H14" stroke="#8d3a69" stroke-width="3.2" stroke-linecap="round"/><g transform="translate(14 0) scale(.75)"><rect x="-6" y="-9" width="7" height="18" rx="2.5" fill="#8d3a69"/><rect x="0" y="-8" width="17" height="16" rx="6" fill="#fff" stroke="#8d3a69" stroke-width="1.8"/><rect x="12" y="-7.5" width="20" height="6.5" rx="3.2" fill="#fff" stroke="#8d3a69" stroke-width="1.8"/><ellipse cx="7" cy="-8.5" rx="4.5" ry="3" fill="#fff" stroke="#8d3a69" stroke-width="1.6"/></g></g>`}
+const P=[
+ [{ad:0,olha:1},'','Apontando','olha para a frase junto com você'],
+ [{ad:0,olha:-1,fala:1},'','Olha para você','"Consegue ler?" — e espera'],
+ [{ad:0,pisca:1},'rotate(-6 60 124)','Balança e pisca','respira e balança de leve'],
+ [{ad:0,olha:1,ae:154},'','Ajusta os óculos','com a outra mão'],
+ [{ad:0,olha:1},'translate(0 -4)','Cantarola','notinhas ♪ saindo, pezinhos balançam','♪'],
+ [{ad:0,feliz:1,ae:-120},'translate(0 -8)','"Consigo!" + puxa','comemora e puxa o quadro para cima','⇡'],
+ [{ad:0,olha:-1},'rotate(8 60 124)','"Não consigo"','cabeça inclinada, "hmm…"','?'],
+ [{ad:0,pisca:1},'translate(10 0)','Frase miúda','chega pertinho e aperta os olhos com você','']];
+document.getElementById('g').innerHTML=P.map(([o,tr,t,d,fx])=>`<div class="c"><div class="st"><div class="ln0">A casa é azul.</div><div class="ln">O café está pronto.</div><div class="ln2">Ligue para a farmácia.</div>
+ <svg viewBox="0 0 150 130" width="150" height="118" style="position:absolute;left:6px;top:4px;overflow:visible"><g transform="${tr}">${mochi(o)}</g>${luva()}</svg>
+ ${fx?`<div class="fx" style="left:${fx==='♪'?40:fx==='⇡'?128:44}px;top:${fx==='⇡'?14:6}px;color:#c46a9c">${fx}${fx==='♪'?' ♫':''}</div>`:''}</div><b>${t}</b><span>${d}</span></div>`).join('');
+</script></body></html>

@@ -1,0 +1,98 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+:root{--bg:#fbf7fa;--ln:#efe3ea;--tx:#2a1f27;--ac:#8d3a69;--mu:#7a6b75}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,system-ui,sans-serif;color:var(--tx);width:390px;height:780px;overflow:hidden;position:relative}
+.top{height:52px;border-bottom:1px solid var(--ln);display:flex;align-items:center;justify-content:center;font:600 16px Fraunces,Georgia,serif;color:var(--ac)}
+.ey{position:absolute;left:20px;top:62px;font-size:11px;letter-spacing:1.6px;font-weight:700;color:var(--ac)}
+#bal{position:absolute;left:150px;top:88px;width:222px;background:#fff;border:1px solid var(--ln);border-radius:18px;padding:11px 14px;font-size:14.5px;line-height:1.4;box-shadow:0 6px 18px #8d3a6914;opacity:0;transform:translateY(8px) scale(.94);transform-origin:0 50%;transition:opacity .28s,transform .38s cubic-bezier(.3,1.5,.5,1);z-index:7}
+#bal.on{opacity:1;transform:none}
+.puff{position:absolute;border-radius:50%;background:#f3d6e4;pointer-events:none;z-index:5}
+#q{position:absolute;left:20px;top:236px;width:350px;height:300px;background:#fff;border:1px solid var(--ln);border-radius:22px;box-shadow:0 10px 30px #8d3a6918;padding:14px 16px;z-index:2;overflow:hidden;transform:translateX(400px)}
+#q .hd{display:flex;justify-content:space-between;font-size:10.5px;letter-spacing:1.2px;font-weight:700;color:var(--mu);margin-bottom:6px}
+#qi{display:flex;flex-direction:column;align-items:center;padding-top:14px;transform-origin:50% 0;transition:transform .8s cubic-bezier(.3,1.1,.4,1)}
+.ln{font-family:Georgia,serif;color:var(--tx);border-radius:8px;padding:1px 6px;margin:3px 0;transition:background .35s;white-space:nowrap;display:flex;align-items:center;gap:6px;width:max-content}
+.ln.hl{background:#fdeaf3}.ln b{font:700 11px Inter;color:#2e7d4f;opacity:0;transform:scale(.4);transition:opacity .3s,transform .35s cubic-bezier(.3,1.8,.5,1)}.ln.ok b{opacity:1;transform:none}
+#fr{position:absolute;left:0;top:0;width:366px;height:320px;z-index:5;opacity:0;transform-origin:0 0;pointer-events:none}
+#tag{position:absolute;left:50%;top:-14px;transform:translateX(-50%);background:#8d3a69;color:#fff;font:700 15px Inter;padding:5px 14px;border-radius:20px;box-shadow:0 4px 12px #8d3a6940;transition:transform .3s cubic-bezier(.3,1.8,.5,1)}
+.spark{position:absolute;width:6px;height:6px;border-radius:50%;background:#f2b24c;z-index:8}
+.btns{position:absolute;left:20px;right:20px;top:574px;opacity:0;transition:opacity .4s;z-index:3}
+.btn{display:flex;align-items:center;justify-content:center;border-radius:999px;padding:14px;font-weight:700;font-size:16px;margin-top:10px;transition:transform .15s,box-shadow .2s}
+.b1{background:var(--ac);color:#fff}.b2{border:1.5px solid var(--ac);color:var(--ac);background:#fff}
+.tap{transform:scale(.95);box-shadow:0 0 0 6px #8d3a6926}
+.dist{position:absolute;left:20px;right:20px;top:548px;font-size:12.5px;color:#2e7d4f;font-weight:700;text-align:center;opacity:0;transition:opacity .4s}
+.cf{position:absolute;width:8px;height:12px;border-radius:2px;z-index:9}
+.res{position:absolute;left:20px;right:20px;top:240px;background:#fff;border:1px solid var(--ln);border-radius:22px;padding:20px;text-align:center;opacity:0;transform:scale(.9);transition:all .5s cubic-bezier(.3,1.4,.5,1);z-index:3}
+.res b{font:700 64px Inter;color:var(--ac);display:block;line-height:1.1}
+.cap{position:absolute;left:0;right:0;bottom:0;background:#2a1f27;color:#fff;font-size:12px;padding:7px 12px;text-align:center;z-index:10}
+</style><script src="../s52/mochi.js"></script><script src="rig.js"></script></head><body>
+<div class="top">LA FOUCH</div><div class="ey" id="ey">DESCUBRA O SEU GRAU</div>
+<div id="bal"></div>
+<div id="q"><div class="hd"><span>QUADRO DE LEITURA</span><span style="color:#2e7d4f">40 cm ✓</span></div><div id="qi"></div></div>
+<div id="fr"><svg viewBox="0 0 366 320" width="366" height="320" fill="none">
+ <defs><linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".4"/><stop offset=".5" stop-color="#eaf2fb" stop-opacity=".06"/><stop offset="1" stop-color="#ffffff" stop-opacity=".25"/></linearGradient></defs>
+ <rect x="-8" y="148" width="22" height="24" rx="8" fill="#8d3a69"/><rect x="352" y="148" width="22" height="24" rx="8" fill="#8d3a69"/>
+ <rect x="8" y="10" width="350" height="300" rx="90" fill="url(#gl)" stroke="#8d3a69" stroke-width="10"/>
+ <rect x="16" y="18" width="334" height="284" rx="84" stroke="#fff" stroke-width="2" opacity=".7"/>
+ <path d="M40 80 q24 -40 78 -50" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".9"/><path d="M322 250 q-14 26 -46 36" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".6"/>
+</svg><div id="tag">+1.00</div></div>
+<div class="dist" id="dist">● A câmera confere: celular a 40 cm, sem óculos</div>
+<div class="btns" id="btns"><div class="btn b1" id="sim">Consigo ler</div><div class="btn b2" id="nao">Não consigo</div></div>
+<div class="res" id="res"><small style="font-size:11px;letter-spacing:1.4px;font-weight:700;color:var(--ac)">SEU GRAU PARA COMEÇAR</small><b>+2.00</b><span style="color:var(--mu);font-size:14px;line-height:1.5;display:block">Com a lente +2.00 você leu até a última linha.<br>Com +1.75 a bula ainda ficou difícil.</span><div class="btn b1" style="margin-top:14px">Ver óculos de leitura +2.00</div></div>
+<div class="cap" id="cap">esboço S55 · Mochi com movimentos fluidos</div>
+<script>
+const $=id=>document.getElementById(id);
+const L=[['Bom dia!',21],['A casa é azul.',17],['O café está pronto.',14],['Ligue para a farmácia.',11.5],['Tome 1 comprimido ao dia.',9.5]];
+$('qi').innerHTML=L.map((l,i)=>`<div class="ln" id="l${i}" style="font-size:${l[1]}px">${l[0]}<b>✓</b></div>`).join('');
+const ESC={'+1.00':1.3,'+1.50':1.55,'+1.75':1.68,'+2.00':1.8};
+const m=Mochi(document.body,4,66);m.el.style.opacity=0;
+function fala(t,x,y){const b=$('bal');b.classList.remove('on');setTimeout(()=>{if(x!=null){b.style.left=x+'px';b.style.top=y+'px'}b.innerHTML=t;b.classList.add('on');m.fala(Math.min(3200,500+t.replace(/<[^>]+>/g,'').length*45))},140)}
+function cala(){$('bal').classList.remove('on')}
+function puff(cx,cy){for(let i=0;i<12;i++){const p=document.createElement('div');p.className='puff';const r=14+Math.random()*18,a=i/12*Math.PI*2;p.style.cssText+=`left:${cx-r/2}px;top:${cy-r/2}px;width:${r}px;height:${r}px`;document.body.appendChild(p);
+ p.animate([{transform:'translate(0,0) scale(.3)',opacity:.95},{transform:`translate(${Math.cos(a)*60}px,${Math.sin(a)*48}px) scale(1.35)`,opacity:0}],{duration:750,easing:'cubic-bezier(.2,.8,.3,1)'}).onfinish=()=>p.remove()}}
+function brilho(x,y){for(let i=0;i<10;i++){const s=document.createElement('div');s.className='spark';s.style.left=x+'px';s.style.top=y+'px';document.body.appendChild(s);const a=i/10*Math.PI*2;
+ s.animate([{transform:'translate(0,0) scale(1)',opacity:1},{transform:`translate(${Math.cos(a)*30}px,${Math.sin(a)*30}px) scale(.2)`,opacity:0}],{duration:550,easing:'ease-out'}).onfinish=()=>s.remove()}}
+function tap(id){const e=$(id);e.classList.add('tap');setTimeout(()=>e.classList.remove('tap'),300)}
+function hl(i){for(let k=0;k<5;k++)$('l'+k).classList.toggle('hl',k===i)}
+function ok(i){$('l'+i).classList.add('ok')}function okReset(){for(let k=0;k<5;k++)$('l'+k).classList.remove('ok')}
+function confete(){const C=['#8d3a69','#f3d6e4','#f2b24c','#7fc4a4'];for(let i=0;i<46;i++){const c=document.createElement('div');c.className='cf';c.style.left=(50+Math.random()*290)+'px';c.style.top='230px';c.style.background=C[i%4];document.body.appendChild(c);
+ c.animate([{transform:'translate(0,0) rotate(0)',opacity:1},{transform:`translate(${(Math.random()-.5)*170}px,${260+Math.random()*220}px) rotate(${Math.random()*720}deg)`,opacity:0}],{duration:1800+Math.random()*900,easing:'cubic-bezier(.2,.6,.4,1)'}).onfinish=()=>c.remove()}}
+/* coisas que seguem a mão do Mochi a cada quadro */
+let segQ=false,segL=false,qOff=0;const FR=$('fr'),FS=.32;
+(function loop(){const h=m.mao();if(segQ){$('q').style.transform=`translateX(${h[0]-20+qOff}px)`}
+ if(segL){FR.style.transform=`translate(${h[0]-6}px,${h[1]-FS*160}px) scale(${FS}) rotate(-6deg)`}requestAnimationFrame(loop)})();
+function poeLente(){segL=false;FR.animate([{transform:FR.style.transform},{transform:'translate(12px,226px) scale(1) rotate(0)'}],{duration:650,easing:'cubic-bezier(.3,1.25,.5,1)',fill:'forwards'});FR.style.transform='translate(12px,226px)'}
+function pegaLente(){FR.getAnimations().forEach(a=>a.cancel());segL=true;FR.style.opacity=1}
+function troca(g){const t=$('tag');t.textContent=g;t.style.transform='translateX(-50%) scale(1.3)';setTimeout(()=>t.style.transform='translateX(-50%)',260);brilho(195,236);$('qi').style.transform=`scale(${ESC[g]})`}
+const S=[
+ [300,()=>{puff(80,150);setTimeout(()=>{m.el.style.opacity=1;m.amassa(.6,1.3);setTimeout(()=>m.amassa(1.15,.85),120);setTimeout(()=>m.amassa(1,1),260);m.cara('f');m.bracos(-30,-60)},160)}],
+ [700,()=>{const w=[-60,-20,-60,-20,-55];w.forEach((a,i)=>setTimeout(()=>m.bracos(null,a),i*230))}],
+ [800,()=>{fala('Oi! Eu sou o <b>Mochi</b>. Vamos fazer como na consulta?')}],
+ [2400,()=>{m.cara('n');m.bracos(-35,35);m.olha(1,0)}],
+ [3000,()=>{m.olha(0,0);fala('<b>Tire os óculos</b> e segure o celular a <b>40 cm</b>, um palmo e meio.');$('dist').style.opacity=1;m.bracos(-35,-10)}],
+ [5600,()=>{cala();$('ey').textContent='PASSO 1 · SEM LENTE';m.olha(1,0);m.bracos(-40,40);m.pula(270,320,750,50)}],
+ [6600,()=>{m.bracos(-40,90);segQ=true;qOff=-300;m.olha(-1,0)}],
+ [6700,()=>{m.desliza(60,320,1100)}],
+ [7900,()=>{segQ=false;$('q').animate([{transform:$('q').style.transform},{transform:'translateX(0)'}],{duration:350,easing:'cubic-bezier(.3,1.4,.5,1)',fill:'forwards'});m.bracos(-40,40);m.pula(4,66,700,46)}],
+ [8900,()=>{m.olha(1,.5);fala('Leia de cima para baixo. Eu aponto a linha.');m.vara(1);m.bracos(-40,18)}],
+ [10000,()=>{hl(0);$('btns').style.opacity=1;m.bracos(-40,26)}],
+ [10900,()=>{tap('sim');ok(0);hl(1);m.bracos(-40,32)}],
+ [11800,()=>{tap('sim');ok(1);hl(2);m.bracos(-40,38)}],
+ [12700,()=>{tap('sim');ok(2);hl(3);m.bracos(-40,44);fala('E esta?')}],
+ [14000,()=>{tap('nao');hl(-1);m.vara(0);m.olha(-1,-.5);m.bracos(-50,-20);fala('Tudo bem — é aqui que a lente entra!')}],
+ [15300,()=>{m.olha(1,0);m.bracos(-40,-35);pegaLente()}],
+ [16100,()=>{m.bracos(-40,20);setTimeout(poeLente,250);okReset();setTimeout(()=>{troca('+1.00');m.cara('f');m.amassa(1.08,.92);setTimeout(()=>m.amassa(1,1),200)},700)}],
+ [17300,()=>{m.cara('n');m.vara(1);m.bracos(-40,48);hl(4);fala('Com a lente <b>+1.00</b>. Consegue ler a <b>última linha</b>?')}],
+ [19400,()=>{tap('nao');m.olha(1,-.4);m.bracos(-40,10);fala('Vou trocar por uma mais forte…')}],
+ [20300,()=>{troca('+1.50');m.amassa(1.06,.94);setTimeout(()=>m.amassa(1,1),180)}],
+ [21000,()=>{m.olha(0,.4);m.bracos(-40,48);fala('Lente <b>+1.50</b>. E agora?')}],
+ [22800,()=>{tap('nao');m.bracos(-40,10);fala('Mais um pouquinho…')}],
+ [23400,()=>{troca('+2.00');m.amassa(1.06,.94);setTimeout(()=>m.amassa(1,1),180)}],
+ [24300,()=>{m.bracos(-40,48);fala('Lente <b>+2.00</b>. Consegue ler até a última?')}],
+ [26200,()=>{tap('sim');for(let k=0;k<5;k++)setTimeout(()=>ok(k),k*90);hl(-1);m.vara(0);m.cara('f');m.bracos(-130,-60);m.pula(4,66,520,30);fala('Isso! Agora confiro uma um pouco mais fraca, como o médico faz.')}],
+ [28600,()=>{m.cara('n');m.vara(1);okReset();troca('+1.75');hl(4);m.bracos(-40,48)}],
+ [30000,()=>{tap('nao');m.olha(1,0);m.bracos(-40,10);fala('Com <b>+1.75</b> ainda não. Então é <b>+2.00</b>!')}],
+ [31800,()=>{m.vara(0);FR.animate([{opacity:1},{opacity:0}],{duration:300,fill:'forwards'});$('q').animate([{transform:'translateX(0)'},{transform:'translateX(-420px)'}],{duration:600,easing:'cubic-bezier(.5,0,.7,.4)',fill:'forwards'});$('btns').style.opacity=0;$('dist').style.opacity=0;$('ey').textContent='SEU GRAU PARA COMEÇAR';
+   setTimeout(()=>{$('res').style.opacity=1;$('res').style.transform='none';confete();m.cara('f');m.bracos(-130,-50);m.pula(4,62,560,36);fala('Pronto! O seu grau é <b>+2.00</b>. 🎉');
+    [0,260,520,780].forEach((t,i)=>setTimeout(()=>m.bracos(i%2?-110:-140,i%2?-70:-40),t+600))},450)}],
+ [36000,()=>{}]];
+S.forEach(s=>setTimeout(s[1],s[0]));
+</script></body></html>

@@ -1,0 +1,16 @@
+from playwright.sync_api import sync_playwright
+with sync_playwright() as p:
+    b=p.chromium.launch(executable_path='/opt/pw-browsers/chromium',args=['--no-sandbox'])
+    ctx=b.new_context(viewport={'width':390,'height':844},device_scale_factor=2,is_mobile=True,has_touch=True,locale='pt-BR',record_video_dir='s24/vid',record_video_size={'width':390,'height':844})
+    pg=ctx.new_page(); pg.goto('http://localhost:8766/'); pg.wait_for_timeout(2500)
+    pg.evaluate("document.querySelector(\"[data-open='GR3350']\").click()"); pg.wait_for_timeout(1800)
+    pg.evaluate("()=>{var l=document.querySelector('#layer .cthl');var s=document.querySelector('#layer .scrim');s.scrollTop=l.getBoundingClientRect().top+s.scrollTop-330}"); pg.wait_for_timeout(500)
+    pg.evaluate("document.querySelectorAll('#layer .dgr .gb')[3].click()"); pg.wait_for_timeout(900)
+    pg.screenshot(path='s24/g1.png')
+    print(pg.evaluate("[...document.querySelectorAll('#layer .dgr .gb')].map(b=>b.textContent+':'+b.className+':'+b.style.display).join(' | ')"))
+    pg.evaluate("document.querySelector('#layer .cthm [data-cth=\"1\"]').click()"); pg.wait_for_timeout(1400)
+    pg.screenshot(path='s24/g2.png')
+    print(pg.evaluate("[...document.querySelectorAll('#layer .dgr .gb')].map(b=>b.textContent+':'+b.className+':'+b.style.display).join(' | ')"))
+    pg.evaluate("document.querySelector('#layer .cthm [data-cth=\"0\"]').click()"); pg.wait_for_timeout(1400)
+    pg.evaluate("document.querySelector('#layer .cthm [data-cth=\"1\"]').click()"); pg.wait_for_timeout(1400)
+    ctx.close()

@@ -1,0 +1,47 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+:root{--bg:#fbf7fa;--ln:#efe3ea;--tx:#2a1f27;--ac:#8d3a69;--mu:#7a6b75}
+body{margin:0;background:#efe8ed;font-family:Inter,system-ui,sans-serif;color:var(--tx);padding:24px;width:1180px}
+h1{font:600 23px Fraunces,Georgia,serif;margin:0 0 4px}.sub{color:var(--mu);font-size:14.5px;margin:0 0 14px;line-height:1.5}
+.row{display:flex;gap:18px}.ph{width:300px;height:560px;background:var(--bg);border-radius:28px;border:7px solid #1d1a1c;overflow:hidden;position:relative;flex:none}
+.top{height:40px;border-bottom:1px solid var(--ln);display:flex;align-items:center;justify-content:center;font:600 13px Fraunces,serif;color:var(--ac)}
+.bal{position:absolute;left:14px;right:14px;top:50px;background:#fff;border:1px solid var(--ln);border-radius:14px;padding:8px 11px;font-size:12.5px}
+.jan{position:absolute;left:80px;right:12px;top:100px;height:300px;background:#fff;border:1px solid var(--ln);border-radius:18px;overflow:hidden}
+.jan:before,.jan:after{content:'';position:absolute;left:0;right:0;height:70px;z-index:2;pointer-events:none}
+.jan:before{top:0;background:linear-gradient(#fff,#fff0)}.jan:after{bottom:0;background:linear-gradient(#fff0,#fff)}
+.fita{position:absolute;left:30px;right:10px}
+.l{font-family:Georgia,serif;white-space:nowrap;height:var(--h);display:flex;align-items:center;gap:6px}
+.l b{font:700 10px Inter;color:#2e7d4f}
+.l.hl span{background:#fdeaf3;border-radius:6px;padding:0 4px;margin-left:-4px}
+.l.fut{opacity:.9}
+.mira{display:none}
+.mo{position:absolute;left:-4px;top:185px}
+.fr{position:absolute;left:74px;right:6px;top:92px;height:316px;border:7px solid #8d3a69;border-radius:60px;pointer-events:none;z-index:3}
+.fr i{position:absolute;left:50%;top:-16px;transform:translateX(-50%);background:#8d3a69;color:#fff;font:700 12px Inter;font-style:normal;padding:3px 10px;border-radius:20px}
+.seta{position:absolute;right:16px;top:300px;font-size:20px;color:#c46a9c;z-index:4}
+.btn{position:absolute;left:12px;right:12px;border-radius:99px;padding:10px;text-align:center;font-weight:700;font-size:13px}
+.b1{background:#8d3a69;color:#fff;top:440px}.b2{border:1.5px solid #8d3a69;color:#8d3a69;top:486px}
+.lab{font-weight:700;font-size:13.5px;margin:0 0 6px}.note{font-size:12.5px;color:#4a3d46;margin-top:6px;width:300px;line-height:1.45}
+.box{background:#fff;border-radius:16px;padding:14px 16px;font-size:13.5px;line-height:1.6;margin-top:14px}
+.box b.t{color:#8d3a69}
+</style><script src="../s52/mochi.js"></script></head><body>
+<h1>S61 · O Mochi fica parado e o quadro sobe</h1>
+<p class="sub">O Mochi fica num lugar só, apontando a frase <b>bem na frente dele</b>. Cada "Consigo ler" faz o quadro <b>subir</b> (com uma puxadinha dele) e a próxima frase, <b>menor</b>, chega na frente da mãozinha. São <b>9 frases</b>, da grande até letra de bula bem miúda — teste mais completo.</p>
+<div class="row" id="row"></div>
+<div class="box"><b class="t">Regra importante — a letra aumentada não mexe no teste:</b> o "Texto grande / muito grande" do site e o tamanho de letra do celular <b>não</b> mudam as frases do quadro (elas têm tamanho fixo de verdade, senão o grau sairia errado). O resto da tela — balão do Mochi, botões, títulos — continua aumentando normalmente para quem precisa. Só a <b>lente</b> do Mochi muda o tamanho do quadro.<br>
+<b class="t">Por que 9 frases:</b> cada degrau é um passo pequeno de letra, então o ponto onde a pessoa para fica mais preciso (antes eram 5 saltos grandes).</div>
+<script>
+const LS=['Bom dia!','A casa é azul.','O café está pronto.','Ligue para a farmácia.','O ônibus passa às oito.','Leia a receita com calma.','O jornal fala do tempo e da chuva.','Tome 1 comprimido ao dia, após o almoço.','Agite antes de usar. Conserve em local fresco.'];
+const FS=[22,19,16.5,14.5,12.6,11,9.6,8.4,7.3],H=46;
+function tela(at,lente,txt,lab,nota){const esc=lente?1.35:1;
+ const linhas=LS.map((t,i)=>`<div class="l ${i===at?'hl':i>at?'fut':''}" style="--h:${H}px;font-size:${FS[i]*esc}px">${i<at?'<b>✓</b>':''}<span>${t}</span></div>`).join('');
+ const off=150-H/2-at*H; /* frase da vez na altura da mira (meio da janela) */
+ return `<div><div class="lab">${lab}</div><div class="ph"><div class="top">LA FOUCH</div><div class="bal">${txt}</div>
+ <div class="jan"><div class="fita" style="top:${off}px">${linhas}</div></div><div class="mira"></div>${lente?'<div class="fr"><i>'+lente+'</i></div>':''}
+ <div class="seta">${at>0?'⇡':''}</div>
+ <div class="mo"><svg viewBox="0 0 150 130" width="104" height="90" style="overflow:visible">${mochi({ad:0,olha:1})}<g transform="translate(119 94)"><path d="M0 0 H14" stroke="#8d3a69" stroke-width="3.2" stroke-linecap="round"/><g transform="translate(14 0) scale(.75)"><rect x="-6" y="-9" width="7" height="18" rx="2.5" fill="#8d3a69"/><rect x="0" y="-8" width="17" height="16" rx="6" fill="#fff" stroke="#8d3a69" stroke-width="1.8"/><rect x="12" y="-7.5" width="20" height="6.5" rx="3.2" fill="#fff" stroke="#8d3a69" stroke-width="1.8"/><ellipse cx="7" cy="-8.5" rx="4.5" ry="3" fill="#fff" stroke="#8d3a69" stroke-width="1.6"/></g></g></svg></div>
+ <div class="btn b1">Consigo ler</div><div class="btn b2">Não consigo</div></div><div class="note">${nota}</div></div>`}
+document.getElementById('row').innerHTML=
+ tela(0,'','Consegue ler esta frase?','1 · Começa na frase grande','O Mochi aponta a frase da frente; as de baixo já aparecem menores.')+
+ tela(4,'','E esta?','2 · O quadro subiu 4 vezes','A cada "Consigo ler" ele dá uma puxadinha e o quadro sobe; as lidas ganham ✓ e somem por cima.')+
+ tela(5,'+1.50','Com a lente +1.50, consegue?','3 · Travou → entra a lente','Na frase em que travou, entra a lente (o quadro todo cresce) e ele continua descendo até a bula.');
+</script></body></html>

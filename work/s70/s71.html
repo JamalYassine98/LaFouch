@@ -1,0 +1,42 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;background:#efe8ed;font-family:Inter,system-ui,sans-serif;color:#2a1f27;padding:22px;width:1320px}
+h1{font:600 22px Fraunces,Georgia,serif;margin:0 0 12px}
+.g{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.c{background:#fff;border-radius:16px;padding:12px 14px}.c h3{font:600 16px Fraunces,serif;color:#8d3a69;margin:0 0 6px}
+.c p{font-size:12.8px;line-height:1.5;color:#4a3d46;margin:6px 0 0}
+.pair{display:flex;gap:8px;justify-content:center}.pair div{text-align:center;font-size:11.5px;font-weight:700}
+.x{color:#b3261e}.ok{color:#2e7d4f}
+</style><script src="../s52/mochi.js"></script></head><body>
+<h1>S71 · Braços saindo da lateral do corpo (não das bochechas)</h1><p style="color:#7a6b75;font-size:14px;margin:-6px 0 12px">O braço nasce na <b>borda do corpo</b>, um pouco abaixo da metade, por <b>trás</b> do corpo (a raiz fica escondida, como um bracinho de verdade) — longe das bochechas.</p>
+<div class="g" id="g"></div>
+<script>
+/* corpo do Mochi sem braços (usa o desenho aprovado) */
+function corpo(o){let s=mochi(Object.assign({ae:9999,ad:9999},o||{}));return s}
+const MH='url(#mh)';
+function braco(lado,ang,len){const sx=lado<0?24:96,sy=106,a=ang*Math.PI/180,ex=sx+lado*Math.cos(a)*len,ey=sy+Math.sin(a)*len;
+ const s=`<path d="M${sx} ${sy} L${ex} ${ey}" stroke="#e8c3d6" stroke-width="12.5" stroke-linecap="round"/><path d="M${sx} ${sy} L${ex} ${ey}" stroke="${MH}" stroke-width="9" stroke-linecap="round"/><circle cx="${ex}" cy="${ey}" r="6.5" fill="${MH}" stroke="#ecc9da" stroke-width="1.2"/>`;return {s,ex,ey}}
+function semBracos(o){return mochi(o).replace(/<path d="M(22|98) 94 Q[^>]*\/>/g,'').replace(/<circle cx="[0-9.]+" cy="[0-9.]+" r="6.5" fill="url\(#mh\)"[^>]*\/>/g,'')}
+function mo(o,ae,ad,extra,len){len=len||24;const E=braco(-1,ae,len),D=braco(1,ad,len);return `<svg viewBox="-10 20 150 115" width="230" height="176" style="overflow:visible">${MD}${E.s}${D.s}${semBracos(o)}${extra?extra(D):''}</svg>`}
+function moS70(){const E=(l,a)=>{const sx=l<0?23:97,sy=94,r=a*Math.PI/180,ex=sx+l*Math.cos(r)*21,ey=sy+Math.sin(r)*21;return `<path d="M${sx} ${sy} L${ex} ${ey}" stroke="#e8c3d6" stroke-width="12.5" stroke-linecap="round"/><path d="M${sx} ${sy} L${ex} ${ey}" stroke="url(#mh)" stroke-width="9" stroke-linecap="round"/><circle cx="${ex}" cy="${ey}" r="6.5" fill="url(#mh)"/>`};return `<svg viewBox="-10 20 150 115" width="230" height="176" style="overflow:visible">${semBracos({})}${E(-1,35)}${E(1,35)}</svg>`}
+function moHoje(){return `<svg viewBox="-10 20 150 115" width="230" height="176" style="overflow:visible">${semBracos({})}<path d="M22 94 L0 94" stroke="#e8c3d6" stroke-width="12.5" stroke-linecap="round" transform="rotate(-35 22 94)"/><path d="M22 94 L0 94" stroke="url(#mh)" stroke-width="9" stroke-linecap="round" transform="rotate(-35 22 94)"/><path d="M98 94 L120 94" stroke="#e8c3d6" stroke-width="12.5" stroke-linecap="round" transform="rotate(40 98 94)"/><path d="M98 94 L120 94" stroke="url(#mh)" stroke-width="9" stroke-linecap="round" transform="rotate(40 98 94)"/></svg>`}
+/* ponteiro: cabo comprido (hoje 14) */
+function ponteiro(D,cabo){const a=0;let s=`<g transform="translate(${D.ex} ${D.ey})"><rect x="-2" y="-3.2" width="${cabo*.32}" height="6.4" rx="3" fill="#8d3a69"/><path d="M${cabo*.32-2} 0 H${cabo}" stroke="#8d3a69" stroke-width="3" stroke-linecap="round"/>
+ <g transform="translate(${cabo} 0) scale(.75)"><rect x="-6" y="-9" width="7" height="18" rx="2.5" fill="#8d3a69"/><rect x="0" y="-8" width="17" height="16" rx="6" fill="#fff" stroke="#8d3a69" stroke-width="1.8"/><rect x="12" y="-7.5" width="20" height="6.5" rx="3.2" fill="#fff" stroke="#8d3a69" stroke-width="1.8"/><ellipse cx="7" cy="-8.5" rx="4.5" ry="3" fill="#fff" stroke="#8d3a69" stroke-width="1.6"/></g></g>`;return s}
+/* lente com hastes (como um óculos de leitura de uma lente só, nas cores da loja) */
+function lenteHastes(w,h,g){return `<svg width="${w+70}" height="${h+40}" viewBox="-35 -24 ${w+70} ${h+40}" fill="none">
+ <defs><linearGradient id="ar" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c46a9c"/><stop offset=".45" stop-color="#8d3a69"/><stop offset=".75" stop-color="#5e2347"/><stop offset="1" stop-color="#e7a6c7"/></linearGradient></defs>
+ <path d="M4 ${h*.22} C -14 ${h*.24} -26 ${h*.3} -30 ${h*.5} q -3 10 5 14" stroke="url(#ar)" stroke-width="6" stroke-linecap="round"/>
+ <path d="M${w-4} ${h*.22} C ${w+14} ${h*.24} ${w+26} ${h*.3} ${w+30} ${h*.5} q 3 10 -5 14" stroke="url(#ar)" stroke-width="6" stroke-linecap="round"/>
+ <circle cx="4" cy="${h*.22}" r="4" fill="#e7a6c7"/><circle cx="${w-4}" cy="${h*.22}" r="4" fill="#e7a6c7"/>
+ <rect x="0" y="0" width="${w}" height="${h}" rx="${w*.3}" fill="#ffffff" fill-opacity=".3" stroke="url(#ar)" stroke-width="9"/>
+ <path d="M${w*.14} ${h*.28} q ${w*.08} ${-h*.16} ${w*.3} ${-h*.18}" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".85"/>
+ <rect x="${w/2-26}" y="-16" width="52" height="20" rx="7" fill="#8d3a69" stroke="#e7a6c7" stroke-width="1.5"/><text x="${w/2}" y="-1.5" font-family="Inter" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">${g}</text></svg>`}
+const C=[
+ ['Hoje (S70)',`<div style="text-align:center">${moS70()}</div>`,'O braço nasce na altura das bochechas e por cima do rosto.'],
+ ['Proposto · descanso',`<div style="text-align:center">${mo({},50,50)}</div>`,'Sai da lateral do corpo, abaixo da metade, por trás. Os dois lados iguais em relação ao corpo.'],
+ ['Proposto · acenando',`<div style="text-align:center">${mo({feliz:1},-40,-40)}</div>`,'Mesmo levantado, o braço continua saindo da lateral — não passa na frente das bochechas.'],
+ ['Apontando (cabo maior)',`<div style="text-align:center">${mo({olha:1},50,-8,D=>ponteiro(D,46)).replace('viewBox="-10 20 150 115" width="230"','viewBox="-10 20 200 115" width="300"')}</div>`,'Braço que aponta fica na altura do quadro; o outro descansa.'],
+ ['Segurando a lente pela haste',`<div style="position:relative;height:190px">${(()=>{const sv=mo({olha:1},50,-30);return `<div style="position:absolute;left:0;top:20px">${sv}</div><div style="position:absolute;left:156px;top:6px;transform:scale(.5);transform-origin:0 0">${lenteHastes(150,180,'+1.50')}</div>`})()}</div>`,'A mão chega na haste, sem o braço cruzar o rosto.'],
+ ['Comemorando',`<div style="text-align:center">${mo({feliz:1},-48,-48,null,30)}</div>`,'Os dois para cima, simétricos ao corpo.']];
+document.getElementById('g').innerHTML=C.map(c=>`<div class="c"><h3>${c[0]}</h3>${c[1]}<p>${c[2]}</p></div>`).join('');
+</script></body></html>

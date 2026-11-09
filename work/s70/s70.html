@@ -1,0 +1,43 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;background:#efe8ed;font-family:Inter,system-ui,sans-serif;color:#2a1f27;padding:22px;width:1320px}
+h1{font:600 22px Fraunces,Georgia,serif;margin:0 0 12px}
+.g{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.c{background:#fff;border-radius:16px;padding:12px 14px}.c h3{font:600 16px Fraunces,serif;color:#8d3a69;margin:0 0 6px}
+.c p{font-size:12.8px;line-height:1.5;color:#4a3d46;margin:6px 0 0}
+.pair{display:flex;gap:8px;justify-content:center}.pair div{text-align:center;font-size:11.5px;font-weight:700}
+.x{color:#b3261e}.ok{color:#2e7d4f}
+</style><script src="../s52/mochi.js"></script></head><body>
+<h1>S70 · Braços simétricos · lente com hastes · ponteiro com cabo maior</h1>
+<div class="g" id="g"></div>
+<script>
+/* corpo do Mochi sem braços (usa o desenho aprovado) */
+function corpo(o){let s=mochi(Object.assign({ae:9999,ad:9999},o||{}));return s}
+const MH='url(#mh)';
+function braco(lado,ang,len,item){/* ombro simétrico: x=60±37, y=94; ang medido para fora (0 = horizontal, + = para baixo) */
+ const sx=lado<0?23:97,sy=94,a=ang*Math.PI/180,ex=sx+lado*Math.cos(a)*len,ey=sy+Math.sin(a)*len;
+ let s=`<path d="M${sx} ${sy} L${ex} ${ey}" stroke="#e8c3d6" stroke-width="12.5" stroke-linecap="round"/><path d="M${sx} ${sy} L${ex} ${ey}" stroke="${MH}" stroke-width="9" stroke-linecap="round"/><circle cx="${ex}" cy="${ey}" r="6.5" fill="${MH}" stroke="#ecc9da" stroke-width="1.2"/>`;
+ return {s,ex,ey}}
+function semBracos(o){return mochi(o).replace(/<path d="M(22|98) 94 Q[^>]*\/>/g,'').replace(/<circle cx="[0-9.]+" cy="[0-9.]+" r="6.5" fill="url\(#mh\)"[^>]*\/>/g,'')}
+function mo(o,ae,ad,extra,len){len=len||21;const E=braco(-1,ae,len),D=braco(1,ad,len);return `<svg viewBox="-10 20 150 115" width="230" height="176" style="overflow:visible">${semBracos(o)}${E.s}${D.s}${extra?extra(D):''}</svg>`}
+function moHoje(){return `<svg viewBox="-10 20 150 115" width="230" height="176" style="overflow:visible">${semBracos({})}<path d="M22 94 L0 94" stroke="#e8c3d6" stroke-width="12.5" stroke-linecap="round" transform="rotate(-35 22 94)"/><path d="M22 94 L0 94" stroke="url(#mh)" stroke-width="9" stroke-linecap="round" transform="rotate(-35 22 94)"/><path d="M98 94 L120 94" stroke="#e8c3d6" stroke-width="12.5" stroke-linecap="round" transform="rotate(40 98 94)"/><path d="M98 94 L120 94" stroke="url(#mh)" stroke-width="9" stroke-linecap="round" transform="rotate(40 98 94)"/></svg>`}
+/* ponteiro: cabo comprido (hoje 14) */
+function ponteiro(D,cabo){const a=0;let s=`<g transform="translate(${D.ex} ${D.ey})"><rect x="-2" y="-3.2" width="${cabo*.32}" height="6.4" rx="3" fill="#8d3a69"/><path d="M${cabo*.32-2} 0 H${cabo}" stroke="#8d3a69" stroke-width="3" stroke-linecap="round"/>
+ <g transform="translate(${cabo} 0) scale(.75)"><rect x="-6" y="-9" width="7" height="18" rx="2.5" fill="#8d3a69"/><rect x="0" y="-8" width="17" height="16" rx="6" fill="#fff" stroke="#8d3a69" stroke-width="1.8"/><rect x="12" y="-7.5" width="20" height="6.5" rx="3.2" fill="#fff" stroke="#8d3a69" stroke-width="1.8"/><ellipse cx="7" cy="-8.5" rx="4.5" ry="3" fill="#fff" stroke="#8d3a69" stroke-width="1.6"/></g></g>`;return s}
+/* lente com hastes (como um óculos de leitura de uma lente só, nas cores da loja) */
+function lenteHastes(w,h,g){return `<svg width="${w+70}" height="${h+40}" viewBox="-35 -24 ${w+70} ${h+40}" fill="none">
+ <defs><linearGradient id="ar" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c46a9c"/><stop offset=".45" stop-color="#8d3a69"/><stop offset=".75" stop-color="#5e2347"/><stop offset="1" stop-color="#e7a6c7"/></linearGradient></defs>
+ <path d="M4 ${h*.22} C -14 ${h*.24} -26 ${h*.3} -30 ${h*.5} q -3 10 5 14" stroke="url(#ar)" stroke-width="6" stroke-linecap="round"/>
+ <path d="M${w-4} ${h*.22} C ${w+14} ${h*.24} ${w+26} ${h*.3} ${w+30} ${h*.5} q 3 10 -5 14" stroke="url(#ar)" stroke-width="6" stroke-linecap="round"/>
+ <circle cx="4" cy="${h*.22}" r="4" fill="#e7a6c7"/><circle cx="${w-4}" cy="${h*.22}" r="4" fill="#e7a6c7"/>
+ <rect x="0" y="0" width="${w}" height="${h}" rx="${w*.3}" fill="#ffffff" fill-opacity=".3" stroke="url(#ar)" stroke-width="9"/>
+ <path d="M${w*.14} ${h*.28} q ${w*.08} ${-h*.16} ${w*.3} ${-h*.18}" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".85"/>
+ <rect x="${w/2-26}" y="-16" width="52" height="20" rx="7" fill="#8d3a69" stroke="#e7a6c7" stroke-width="1.5"/><text x="${w/2}" y="-1.5" font-family="Inter" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">${g}</text></svg>`}
+const C=[
+ ['1 · Braços',`<div class="pair"><div><span class="x">hoje</span>${moHoje()}</div><div><span class="ok">proposto</span>${mo({},35,35)}</div></div>`,'Os dois ombros na mesma altura e distância do centro, mesmo tamanho de braço, e cada pose é espelhada (o mesmo ângulo vale para os dois lados). Hoje o esquerdo sai reto e o direito caído.'],
+ ['1 · Poses espelhadas',`<div class="pair"><div>acena${mo({feliz:1},-55,-55)}</div><div>parado${mo({},55,55)}</div></div>`,'Acenar, comemorar e descansar ficam iguais dos dois lados; quando só um braço trabalha (apontar), o outro fica no descanso simétrico.'],
+ ['3 · Ponteiro com cabo maior',`<div class="pair"><div><span class="x">hoje</span>${mo({olha:1},35,0,D=>ponteiro(D,14)).replace('width="230"','width="200"')}</div><div><span class="ok">proposto</span>${mo({olha:1},35,0,D=>ponteiro(D,46)).replace('viewBox="-10 20 150 115" width="230"','viewBox="-10 20 200 115" width="300"')}</div></div>`,'Cabo vinho para segurar + haste fina, uns 3× mais comprido. A mãozinha fica longe do corpo do Mochi e sempre antes da primeira letra (nunca em cima).'],
+ ['2 · Lente com hastes',`<div style="display:flex;justify-content:center">${lenteHastes(150,180,'+1.50')}</div>`,'A lente ganha hastes de óculos (vinho/rosa, com dobradiça rosinha e ponteira curvada), como um óculos de leitura de verdade. Ela encaixa na frente do quadro com as hastes abertas para os lados.'],
+ ['2 · Na mão do Mochi',`<div style="position:relative;height:200px">${(()=>{const s=mo({olha:1},35,-40);return `<div style="position:absolute;left:0;top:30px">${s}</div><div style="position:absolute;left:150px;top:10px;transform:scale(.55);transform-origin:0 0">${lenteHastes(150,180,'+1.50')}</div>`})()}</div>`,'Ele segura pela haste (como a gente segura um óculos) e leva até o quadro.'],
+ ['2 · Encaixada no quadro',`<div style="position:relative;height:220px;display:flex;justify-content:center"><div style="position:absolute;left:65px;top:20px;width:150px;height:180px;background:#fff;border-radius:16px;border:1px solid #efe3ea;font-family:Georgia;padding:30px 0 0 18px;font-size:13px;line-height:2">A casa é azul.<br>O café está pronto.<br><small>Ligue para a farmácia.</small></div><div style="position:absolute;left:30px;top:10px">${lenteHastes(150,180,'+1.50')}</div></div>`,'Por dentro funciona como no S68 (aumenta um pouco e curva levemente nas bordas); as hastes ficam de fora, sem cobrir nada do quadro.']];
+document.getElementById('g').innerHTML=C.map(c=>`<div class="c"><h3>${c[0]}</h3>${c[1]}<p>${c[2]}</p></div>`).join('');
+</script></body></html>

@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;background:#efe8ed;font-family:Inter,system-ui,sans-serif;color:#2a1f27;padding:22px;width:1500px}
+h1{font:600 22px Fraunces,Georgia,serif;margin:0 0 4px}h2{font:600 17px Fraunces,Georgia,serif;margin:16px 0 8px;color:#8d3a69}
+.row{display:flex;gap:14px;align-items:flex-start}.sh img{width:200px;border-radius:12px;border:1px solid #ddd;display:block}.sh b{font-size:12.5px;display:block;margin:4px 0}
+.x{color:#b3261e;font-weight:700}.ok{color:#2e7d4f;font-weight:700}
+.c{background:#fff;border-radius:16px;padding:12px 16px;font-size:13.2px;line-height:1.55;flex:1}
+.lad{display:flex;gap:8px;margin:8px 0}.lad span{flex:1;text-align:center;border-radius:10px;padding:8px 4px;font-size:12px;background:#f6eef3}.lad span.ok2{background:#e3f3e8}.lad span.no{background:#fde4e4}.lad span.res{background:#8d3a69;color:#fff;font-weight:700}
+</style></head><body>
+<h1>S69 · Revisão das correções + grau que se ajusta para baixo</h1>
+<h2>Bugs que ainda aparecem no seu celular (causa achada)</h2>
+<div class="row">
+<div class="sh"><b class="x">Guia hoje (letra maior)</b><img src="guia.jpg"></div>
+<div class="sh"><b class="ok">Guia corrigido</b><img src="guia_dep.png" style="height:433px;object-fit:cover;object-position:top"></div>
+<div class="c"><b>1 · Guia — foto por cima do texto e cartão cortado na direita</b><br><span class="x">Causa:</span> o quadrado da foto tem "altura = largura"; com letra grande o cartão fica alto, então a foto fica <b>larga</b> e invade a coluna do texto (e empurra o cartão para fora da tela). Minha correção anterior não mexeu nisso.<br><span class="ok">Correção:</span> a foto fica presa na coluna dela (encolhe junto) e, se mesmo assim não couber, o cartão empilha (foto em cima, texto embaixo). Vale para Guia, "Para lojistas" e cartões iguais.<br><br>
+<b>2 · Menu aparecendo por trás da tela do grau</b> (seu print com "Ofertas / Femenino" em cima)<br><span class="x">Causa:</span> no seu celular o menu demorou mais para fechar que o tempo que eu esperava (1,5 s) e a tela do grau abriu por cima dele.<br><span class="ok">Correção:</span> ao abrir a tela do grau o menu é <b>fechado à força e escondido</b> (não espera a animação); o cabeçalho volta a aparecer limpo.<br><br>
+<b>3 · O aviso repetido no balão</b> — já está no S67 aprovado (balão só se apresenta).<br><br>
+<b>4 · Por que o meu teste não pegou</b><br><span class="x">Causa:</span> o detector de colisões <b>ignorava fotos</b> por cima de texto e não olhava cartão saindo da tela.<br><span class="ok">Correção do detector:</span> passa a contar foto sobre texto, qualquer coisa saindo da largura da tela, e o Mochi como obstáculo; e testa também em espanhol (textos maiores). Rodo de novo as 160 combinações + espanhol antes de publicar.</div>
+<div class="sh"><b class="x">Seu print · menu por trás</b><img src="menu.jpg"></div>
+</div>
+<h2>Grau que se ajusta para baixo (ideias 1 e 4 aprovadas)</h2>
+<div class="c">Quando a pessoa lê a bula, o Mochi <b>não para</b>: vai tirando 0,25 de cada vez até ela <b>não conseguir</b> mais. O resultado é a <b>lente mais fraca com que ela leu a bula</b> — se ele começou alto demais, isso corrige sozinho.
+<div class="lad"><span>travou cedo → começa na +2.00</span><span class="ok2">+2.00 · leu ✓</span><span>desce ↓</span><span class="ok2">+1.75 · leu ✓</span><span class="ok2">+1.50 · leu ✓</span><span class="no">+1.25 · não leu</span><span class="res">Resultado +1.50</span></div>
+Mochi: "Leu! Agora vou tirando um pouquinho de grau, como o médico, até achar o mais leve que ainda funciona." · se a pessoa lê com +0.75 (a mais fraca) → resultado +0.75.<br>
+<b>Resultado (ideia 4):</b> mostra o grau e a <b>faixa provável</b> ("+1.50 · provável entre +1.25 e +1.75"), com "na dúvida, fique com o menor" — sem idade e sem botão "forte demais" (reprovados).</div>
+</body></html>

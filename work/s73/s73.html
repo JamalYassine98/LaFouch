@@ -1,0 +1,36 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;background:#efe8ed;font-family:Inter,system-ui,sans-serif;color:#2a1f27;padding:22px;width:1400px}
+h1{font:600 22px Fraunces,Georgia,serif;margin:0 0 4px}h2{font:600 16px Fraunces,Georgia,serif;margin:16px 0 8px;color:#8d3a69}.sub{color:#7a6b75;font-size:14px;margin:0 0 10px;line-height:1.5}
+.g{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.g4{grid-template-columns:repeat(4,1fr)}
+.c{background:#fff;border-radius:14px;padding:8px 8px 10px;text-align:center}.c b{display:block;font-size:12.5px;margin-top:2px}.c span{font-size:11px;color:#4a3d46;line-height:1.35;display:block}
+.c.rec{outline:3px solid #8d3a69}
+</style><script src="../s52/mochi.js"></script></head><body>
+<h1>S73 · Braço com silhueta que encaixa no corpo · espelho de testa · a "linha preta"</h1>
+<p class="sub">O braço passa a ser uma forma de <b>gota/feijão</b>: larga na raiz (que nasce do contorno do corpo, sem emenda) e arredondada na ponta — volta ao tamanho de antes (não curtinho). Desenho próprio do Mochi, nas cores dele.</p>
+<div class="g" id="a"></div>
+<h2>A "linha preta" na cabeça = defeito meu</h2>
+<p class="sub">Era para ser o <b>brilho branco</b> da bolinha (luz batendo em cima). Faltou uma instrução no desenho e ele saiu preenchido de preto. Corrigido: vira um brilho suave.</p>
+<div class="g g4" id="b"></div>
+<h2>O espelho de testa está na posição certa?</h2>
+<p class="sub">Sim: o oftalmologista usa o espelho <b>preso por uma faixa na testa</b>, no centro, e quando vai examinar ele baixa sobre um dos olhos. Duas opções:</p>
+<div class="g g4" id="c"></div>
+<script>
+function limpa(o,esp){let s=mochi(Object.assign({},o));
+ s=s.replace(/<path d="M(22|98) 94 Q[^>]*\/>/g,'').replace(/<circle cx="[0-9.]+" cy="[0-9.]+" r="6.5" fill="url\(#mh\)"[^>]*\/>/g,'');
+ s=s.replace('<path d="M28 64 C30 48 42 38 58 36" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".9"/>','<path d="M30 62 C32 50 41 42 54 39" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".85"/>');
+ if(esp==='lado'){s=s.replace(/<circle cx="60" cy="47" r="12"([^>]*)\/><circle cx="60" cy="47" r="3.2"([^>]*)\/><path d="M53.5 42 q3 -3 7 -3.5"([^>]*)\/>/,'<g transform="rotate(-14 60 66) translate(-14 4)"><circle cx="60" cy="47" r="12"$1/><circle cx="60" cy="47" r="3.2"$2/><path d="M53.5 42 q3 -3 7 -3.5"$3/></g>')}
+ return s}
+function velho(o){return mochi(o).replace(/<path d="M(22|98) 94 Q[^>]*\/>/g,'').replace(/<circle cx="[0-9.]+" cy="[0-9.]+" r="6.5" fill="url\(#mh\)"[^>]*\/>/g,'')}
+/* braço em gota: raiz larga dentro do contorno (fica atrás do corpo), ponta redonda */
+function gota(lado,ang,L){L=L||30;const sx=lado<0?22:98,sy=92;
+ const p=`M0 -10 C${L*.45} -11 ${L-2} -8.5 ${L} -1 C${L+1.5} 5 ${L-4} 9 ${L-9} 8.5 C${L*.45} 8 ${L*.2} 10 0 10 Z`;
+ const rot=lado<0?180-ang:ang;
+ return `<g transform="translate(${sx} ${sy}) rotate(${rot})${lado<0?' scale(1 -1)':''}"><path d="${p}" fill="url(#mh)" stroke="#e8c3d6" stroke-width="1.6"/><path d="M${L*.35} -5 Q${L*.62} -6.5 ${L*.8} -3.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".8"/></g>`}
+function M(o,ae,ad,opt){opt=opt||{};const extra=opt.extra||'';return `<svg viewBox="-16 22 152 112" width="200" height="147" style="overflow:visible">${MD}<g transform="${opt.tr||''}">${gota(-1,ae,opt.L)}${gota(1,ad,opt.L)}${opt.velho?velho(o):limpa(o,opt.esp)}${extra}</g></svg>`}
+function ponteiro(ad){const a=ad*Math.PI/180,x=98+Math.cos(a)*30,y=92+Math.sin(a)*30;return `<g transform="translate(${x} ${y})"><rect x="-3" y="-3.4" width="15" height="6.8" rx="3.4" fill="#8d3a69"/><path d="M12 0 H40" stroke="#8d3a69" stroke-width="3" stroke-linecap="round"/><g transform="translate(40 0) scale(.72)"><rect x="-6" y="-9" width="7" height="18" rx="2.5" fill="#8d3a69"/><rect x="0" y="-8" width="17" height="16" rx="6" fill="#fff" stroke="#8d3a69" stroke-width="1.8"/><rect x="12" y="-7.5" width="20" height="6.5" rx="3.2" fill="#fff" stroke="#8d3a69" stroke-width="1.8"/></g></g>`}
+const A=[['Descanso',M({},40,40),'gotinhas para baixo e para fora'],['Oi!',M({feliz:1},-35,40),'um braço para cima'],['Comemora',M({feliz:1},-40,-40),'os dois para cima'],
+ ['Apontando',M({olha:1},40,0,{extra:ponteiro(0)}),'segura o cabo com a ponta da gota'],['Pensando',M({olha:1},-78,40,{L:26}),'pontinha no rosto'],['Ajusta os óculos',M({olha:1},-95,0,{L:28,extra:ponteiro(0)}),'com a mão livre']];
+document.getElementById('a').innerHTML=A.map(a=>`<div class="c">${a[1]}<b>${a[0]}</b><span>${a[2]}</span></div>`).join('');
+document.getElementById('b').innerHTML=`<div class="c">${M({},40,40,{velho:1})}<b>Antes</b><span>mancha preta (defeito)</span></div><div class="c rec">${M({},40,40)}<b>Corrigido</b><span>brilho branco suave</span></div>`;
+document.getElementById('c').innerHTML=`<div class="c rec">${M({},40,40)}<b>A · No centro da testa (como hoje)</b><span>posição de "pronto para examinar"; mais simétrico e fofo — recomendado</span></div><div class="c">${M({},40,40,{esp:'lado'})}<b>B · Inclinado sobre um olho</b><span>como o médico quando examina; dá para usar só no momento de "olhar de perto" e voltar ao centro</span></div>`;
+</script></body></html>

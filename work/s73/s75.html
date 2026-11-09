@@ -1,0 +1,35 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;background:#efe8ed;font-family:Inter,system-ui,sans-serif;color:#2a1f27;padding:22px;width:1400px}
+h1{font:600 22px Fraunces,Georgia,serif;margin:0 0 4px}h2{font:600 16px Fraunces,Georgia,serif;margin:16px 0 8px;color:#8d3a69}.sub{color:#7a6b75;font-size:14px;margin:0 0 10px;line-height:1.5}
+.g{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.g4{grid-template-columns:repeat(4,1fr)}
+.c{background:#fff;border-radius:14px;padding:8px 8px 10px;text-align:center}.c b{display:block;font-size:12.5px;margin-top:2px}.c span{font-size:11px;color:#4a3d46;line-height:1.35;display:block}
+.c.rec{outline:3px solid #8d3a69}
+</style><script src="../s52/mochi.js"></script></head><body>
+<h1>S75 · Bracinho inteiro, sem corte em nenhum gesto</h1>
+<p class="sub">Causa do "cortado": o braço era uma forma <b>aberta</b> na raiz (sem contorno ali), então sobre o corpo aparecia a borda reta da emenda; e o brilho fininho girado dava o serrilhado. Agora o bracinho é uma <b>forma oval inteira</b>, com contorno contínuo dos dois lados, que gira num ponto <b>dentro da borda do corpo</b> — em qualquer ângulo ele aparece completo, com uma sombrinha suave no corpo (dá volume). Brilho mais grosso e liso.</p>
+<div class="g" id="a"></div>
+<script>
+function limpa(o,esp){let s=mochi(Object.assign({},o));
+ s=s.replace(/<path d="M(22|98) 94 Q[^>]*\/>/g,'').replace(/<circle cx="[0-9.]+" cy="[0-9.]+" r="6.5" fill="url\(#mh\)"[^>]*\/>/g,'');
+ s=s.replace('<path d="M28 64 C30 48 42 38 58 36" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".9"/>','<path d="M30 62 C32 50 41 42 54 39" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".85"/>');
+ if(esp==='lado'){s=s.replace(/<circle cx="60" cy="47" r="12"([^>]*)\/><circle cx="60" cy="47" r="3.2"([^>]*)\/><path d="M53.5 42 q3 -3 7 -3.5"([^>]*)\/>/,'<g transform="rotate(-14 60 66) translate(-14 4)"><circle cx="60" cy="47" r="12"$1/><circle cx="60" cy="47" r="3.2"$2/><path d="M53.5 42 q3 -3 7 -3.5"$3/></g>')}
+ return s}
+function velho(o){return mochi(o).replace(/<path d="M(22|98) 94 Q[^>]*\/>/g,'').replace(/<circle cx="[0-9.]+" cy="[0-9.]+" r="6.5" fill="url\(#mh\)"[^>]*\/>/g,'')}
+/* braço em gota: raiz larga dentro do contorno (fica atrás do corpo), ponta redonda */
+/* bracinho inteiro (forma oval completa, contorno contínuo) que gira num pivô dentro da borda do corpo:
+   nunca aparece "cortado", em qualquer ângulo; sombrinha suave no corpo dá a profundidade */
+function gota(lado,ang,L){L=L||30;const sx=lado<0?21:99,sy=92,rot=lado<0?180-ang:ang,rx=L/2+3,cx=L/2-3;
+ return `<g transform="translate(${sx} ${sy}) rotate(${rot})${lado<0?' scale(1 -1)':''}">
+  <ellipse cx="${cx+1}" cy="2.5" rx="${rx}" ry="10" fill="#c58aa8" opacity=".18" filter="url(#bsh)"/>
+  <ellipse cx="${cx}" cy="0" rx="${rx}" ry="10.2" fill="url(#bg)" stroke="#e8c3d6" stroke-width="1.5"/>
+  <path d="M${cx-rx*.45} -5.6 Q${cx} -8.4 ${cx+rx*.5} -5.4" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" opacity=".9"/></g>`}
+const DEF2='<defs><radialGradient id="bg" cx="40%" cy="30%" r="80%"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#fbeef4"/><stop offset="1" stop-color="#efd3e1"/></radialGradient><filter id="bsh" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2"/></filter></defs>';
+const HASTES='<path d="M32 81 C26 79 21 78 16.5 79" fill="none" stroke="#8d3a69" stroke-width="2.6" stroke-linecap="round"/><path d="M88 81 C94 79 99 78 103.5 79" fill="none" stroke="#8d3a69" stroke-width="2.6" stroke-linecap="round"/><circle cx="32.5" cy="81" r="1.8" fill="#e7a6c7"/><circle cx="87.5" cy="81" r="1.8" fill="#e7a6c7"/>';
+function M(o,ae,ad,opt){opt=opt||{};const extra=opt.extra||'';return `<svg viewBox="-16 22 152 112" width="200" height="147" style="overflow:visible">${MD}${DEF2}<g transform="${opt.tr||''}">${opt.velho?velho(o):limpa(o,opt.esp)}${opt.sem?'':HASTES}${gota(-1,ae,opt.L)}${gota(1,ad,opt.Ld||opt.L)}${extra}</g></svg>`}
+function ponteiro(ad){const a=ad*Math.PI/180,x=100+Math.cos(a)*30,y=92+Math.sin(a)*30;return `<g transform="translate(${x} ${y})"><rect x="-3" y="-3.4" width="15" height="6.8" rx="3.4" fill="#8d3a69"/><path d="M12 0 H40" stroke="#8d3a69" stroke-width="3" stroke-linecap="round"/><g transform="translate(40 0) scale(.72)"><rect x="-6" y="-9" width="7" height="18" rx="2.5" fill="#8d3a69"/><rect x="0" y="-8" width="17" height="16" rx="6" fill="#fff" stroke="#8d3a69" stroke-width="1.8"/><rect x="12" y="-7.5" width="20" height="6.5" rx="3.2" fill="#fff" stroke="#8d3a69" stroke-width="1.8"/></g></g>`}
+const A=[['Descanso',M({},40,40)],['Oi!',M({feliz:1},-35,40)],['Comemora',M({feliz:1},-40,-40)],['Apontando',M({olha:1},40,0,{extra:ponteiro(0)})],
+ ['Pensando',M({olha:1},150,40,{L:26})],['Ajusta os óculos',M({olha:1},192,0,{L:17,Ld:30,extra:ponteiro(0)})],['Palminha',M({feliz:1},155,155,{L:33})],['Joinha',M({feliz:1},-60,0,{extra:ponteiro(0)})],
+ ['Espreguiça',M({pisca:1},-70,-70,{L:32})],['Limpa os óculos',M({pisca:1},192,192,{L:17})],['Bocejo',M({pisca:1,fala:1},163,40,{L:36})],['Tapinha no espelho',M({olha:1},-115,40,{L:34})]];
+document.getElementById('a').innerHTML=A.map(a=>`<div class="c">${a[1]}<b>${a[0]}</b></div>`).join('');
+//`<div class="c">${M({},40,40,{sem:1})}<b>Sem hastes (hoje)</b></div><div class="c rec">${M({},40,40)}<b>Com hastes</b></div><div class="c">${M({olha:1},40,40,{tr:'rotate(-8 60 120)'})}<b>Inclinando a cabeça</b><span>as hastes acompanham</span></div><div class="c">${M({feliz:1},-40,-40)}<b>Feliz</b></div>`;
+</script></body></html>

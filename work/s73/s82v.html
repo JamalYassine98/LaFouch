@@ -1,0 +1,71 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;background:#efe8ed;font-family:Inter,system-ui,sans-serif;color:#2a1f27;padding:0;width:600px;height:520px;overflow:hidden}
+h1{font:600 22px Fraunces,Georgia,serif;margin:0 0 4px}h2{font:600 16px Fraunces,Georgia,serif;margin:16px 0 8px;color:#8d3a69}.sub{color:#7a6b75;font-size:14px;margin:0 0 10px;line-height:1.5}
+.g{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.g4{grid-template-columns:repeat(4,1fr)}
+.c{background:#fff;border-radius:14px;padding:8px 8px 10px;text-align:center}.c b{display:block;font-size:12.5px;margin-top:2px}.c span{font-size:11px;color:#4a3d46;line-height:1.35;display:block}
+.c.rec{outline:3px solid #8d3a69}
+</style><script src="../s52/mochi.js"></script></head><body>
+<div style="width:600px;height:520px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fbf6f9"><div id="st" style="height:400px;display:flex;align-items:center"></div><div id="cap" style="font:600 22px Inter,system-ui,sans-serif;color:#8d3a69;margin-top:6px"></div><div style="font-size:12px;color:#9a8b95;margin-top:4px">S82 · braço do S73 com união suave</div></div><script>
+function limpa(o,esp){let s=mochi(Object.assign({},o));
+ s=s.replace(/<path d="M(22|98) 94 Q[^>]*\/>/g,'').replace(/<circle cx="[0-9.]+" cy="[0-9.]+" r="6.5" fill="url\(#mh\)"[^>]*\/>/g,'');
+ s=s.replace('<path d="M28 64 C30 48 42 38 58 36" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".9"/>','<path d="M30 62 C32 50 41 42 54 39" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".85"/>');
+ if(esp==='lado'){s=s.replace(/<circle cx="60" cy="47" r="12"([^>]*)\/><circle cx="60" cy="47" r="3.2"([^>]*)\/><path d="M53.5 42 q3 -3 7 -3.5"([^>]*)\/>/,'<g transform="rotate(-14 60 66) translate(-14 4)"><circle cx="60" cy="47" r="12"$1/><circle cx="60" cy="47" r="3.2"$2/><path d="M53.5 42 q3 -3 7 -3.5"$3/></g>')}
+ return s}
+function velho(o){return mochi(o).replace(/<path d="M(22|98) 94 Q[^>]*\/>/g,'').replace(/<circle cx="[0-9.]+" cy="[0-9.]+" r="6.5" fill="url\(#mh\)"[^>]*\/>/g,'')}
+/* braço em gota: raiz larga dentro do contorno (fica atrás do corpo), ponta redonda */
+function gota(lado,ang,L){L=L||30;const sx=lado<0?22:98,sy=92;
+ const p=`M0 -10 C${L*.45} -11 ${L-2} -8.5 ${L} -1 C${L+1.5} 5 ${L-4} 9 ${L-9} 8.5 C${L*.45} 8 ${L*.2} 10 0 10 Z`;
+ const rot=lado<0?180-ang:ang;
+ return `<g transform="translate(${sx} ${sy}) rotate(${rot})${lado<0?' scale(1 -1)':''}"><path d="${p}" fill="url(#mh)" stroke="#e8c3d6" stroke-width="1.6"/><path d="M${L*.35} -5 Q${L*.62} -6.5 ${L*.8} -3.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".8"/></g>`}
+function M(o,ae,ad,opt){opt=opt||{};const extra=opt.extra||'';return `<svg viewBox="-16 22 152 112" width="200" height="147" style="overflow:visible">${MD}<g transform="${opt.tr||''}">${gota(-1,ae,opt.L)}${gota(1,ad,opt.L)}${opt.velho?velho(o):limpa(o,opt.esp)}${extra}</g></svg>`}
+function ponteiro(ad){const a=ad*Math.PI/180,x=98+Math.cos(a)*30,y=92+Math.sin(a)*30;return `<g transform="translate(${x} ${y})"><rect x="-3" y="-3.4" width="15" height="6.8" rx="3.4" fill="#8d3a69"/><path d="M12 0 H40" stroke="#8d3a69" stroke-width="3" stroke-linecap="round"/><g transform="translate(40 0) scale(.72)"><rect x="-6" y="-9" width="7" height="18" rx="2.5" fill="#8d3a69"/><rect x="0" y="-8" width="17" height="16" rx="6" fill="#fff" stroke="#8d3a69" stroke-width="1.8"/><rect x="12" y="-7.5" width="20" height="6.5" rx="3.2" fill="#fff" stroke="#8d3a69" stroke-width="1.8"/></g></g>`}
+const HASTES='<path d="M32 81 C26 79 21 78 16.5 79" fill="none" stroke="#8d3a69" stroke-width="2.6" stroke-linecap="round"/><path d="M88 81 C94 79 99 78 103.5 79" fill="none" stroke="#8d3a69" stroke-width="2.6" stroke-linecap="round"/><circle cx="32.5" cy="81" r="1.8" fill="#e7a6c7"/><circle cx="87.5" cy="81" r="1.8" fill="#e7a6c7"/>';
+/* braço na frente com união suave: mesma gota do S73; a raiz desaparece em degradê sobre o corpo */
+function frente(lado,ang,L){L=L||30;const sx=lado<0?22:98,sy=92,rot=lado<0?180-ang:ang,r=rot*Math.PI/180;
+ const p=`M0 -10 C${L*.45} -11 ${L-2} -8.5 ${L} -1 C${L+1.5} 5 ${L-4} 9 ${L-9} 8.5 C${L*.45} 8 ${L*.2} 10 0 10 Z`;
+ const px=sx+Math.cos(r)*4,py=sy+Math.sin(r)*4;
+ return `<g transform="translate(${sx} ${sy}) rotate(${rot})${lado<0?' scale(1 -1)':''}"><path d="${p}" transform="translate(2 3)" fill="#c98aab" opacity=".22" filter="url(#sb)"/><path d="${p}" fill="url(#mh)" stroke="#e3b3cc" stroke-width="1.7"/><path d="M${L*.42} -5 Q${L*.66} -6.5 ${L*.84} -3.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".85"/></g>`+
+ /* união suave: a pele do corpo "cobre" a raiz por dentro do contorno, em degradê */
+ `<g clip-path="url(#cc)"><circle cx="${px}" cy="${py}" r="12.5" fill="url(#mbU)" filter="url(#ub)"/></g>`}
+const FZ='<defs><radialGradient id="mbU" gradientUnits="userSpaceOnUse" cx="49" cy="55.8" r="73.6"><stop offset="0" stop-color="#ffffff"/><stop offset=".45" stop-color="#fff7fa"/><stop offset=".85" stop-color="#f6dfea"/><stop offset="1" stop-color="#ecc9da"/></radialGradient><clipPath id="cc"><path d="M60 30 C95 30 106 58 106 84 C106 108 88 122 60 122 C32 122 14 108 14 84 C14 58 25 30 60 30Z"/></clipPath><filter id="ub" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3"/></filter><filter id="sb" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.6"/></filter></defs>';
+function M2(o,ae,ad,opt){opt=opt||{};const extra=opt.extra||'',fe=Math.abs(ae)>100,fd=Math.abs(ad)>100,Le=opt.Le||opt.L,Ld=opt.Ld||opt.L;
+ return `<svg viewBox="-16 22 152 112" width="200" height="147" style="overflow:visible">${MD}${FZ}${fe?'':gota(-1,ae,Le)}${fd?'':gota(1,ad,Ld)}${limpa(o)}${HASTES}${fe?frente(-1,ae,Le):''}${fd?frente(1,ad,Ld):''}${extra}</svg>`}
+function M1(o,ae,ad,opt){opt=opt||{};return `<svg viewBox="-16 22 152 112" width="200" height="147" style="overflow:visible">${MD}${gota(-1,ae,opt.Le||opt.L)}${gota(1,ad,opt.Ld||opt.L)}${limpa(o)}${HASTES}${opt.extra||''}</svg>`}
+
+const E=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;      // ease in-out suave
+/* quadros-chave: [tempo, braçoEsq, braçoDir, Lesq, Ldir, rosto, legenda] */
+const K=[[0,40,40,30,30,{},'Descanso'],[1.2,40,40,30,30,{},'Descanso'],
+ [1.9,40,-40,30,30,{feliz:1},'Oi!'],[3.3,40,-40,30,30,{feliz:1},'Oi!'],
+ [4.0,162,40,26,30,{olha:1},'Pensando'],[5.4,162,40,26,30,{olha:1},'Pensando'],
+ [6.1,-150,40,27,30,{olha:1},'Ajusta os óculos'],[7.3,-150,40,27,30,{olha:1},'Ajusta os óculos'],
+ [8.0,165,165,28,28,{feliz:1},'Palminha'],[9.4,165,165,28,28,{feliz:1},'Palminha'],
+ [10.1,-165,-165,27,27,{pisca:1},'Limpa os óculos'],[11.5,-165,-165,27,27,{pisca:1},'Limpa os óculos'],
+ [12.2,168,40,30,30,{pisca:1,fala:1},'Bocejo'],[13.4,168,40,30,30,{pisca:1,fala:1},'Bocejo'],
+ [14.1,-118,40,33,30,{olha:1},'Tapinha no espelho'],[15.3,-118,40,33,30,{olha:1},'Tapinha no espelho'],
+ [16.0,-40,-40,30,30,{feliz:1},'Comemora'],[17.4,-40,-40,30,30,{feliz:1},'Comemora'],
+ [18.2,40,40,30,30,{},'Descanso'],[19.2,40,40,30,30,{},'Descanso']];
+const DUR=19.2;
+function R(t){let i=0;while(i<K.length-2&&K[i+1][0]<=t)i++;const a=K[i],b=K[i+1],u=Math.min(1,Math.max(0,(t-a[0])/(b[0]-a[0]||1))),e=E(u);
+ const lp=(x,y)=>x+(y-x)*e;let ae=lp(a[1],b[1]),ad=lp(a[2],b[2]),Le=lp(a[3],b[3]),Ld=lp(a[4],b[4]);
+ const face=u<.5?a[5]:b[5],cap=u<.5?a[6]:b[6],hold=a[6]===b[6];
+ const ht=t-a[0];let hop=0;
+ // gestos vivos durante a pose (oscilações suaves, entram e saem em degradê)
+ const env=hold?Math.sin(Math.PI*Math.min(1,ht/(b[0]-a[0]))):0;
+ if(hold&&cap==='Oi!')ad+=Math.sin(ht*9)*16*env;
+ if(hold&&cap==='Palminha'){const c=Math.abs(Math.sin(ht*7));ae+=c*-14*env;ad+=c*-14*env}
+ if(hold&&cap==='Limpa os óculos'){ae+=Math.sin(ht*10)*7*env;ad+=Math.sin(ht*10+Math.PI)*7*env}
+ if(hold&&cap==='Ajusta os óculos')ae+=Math.sin(ht*5)*5*env;
+ if(hold&&cap==='Tapinha no espelho')ae+=Math.abs(Math.sin(ht*8))*-9*env;
+ if(hold&&cap==='Pensando')ae+=Math.sin(ht*3)*4*env;
+ if(hold&&cap==='Comemora'){hop=Math.abs(Math.sin(ht*5.5))*8*env;ae+=Math.sin(ht*11)*8*env;ad-=Math.sin(ht*11)*8*env}
+ // respiração + squash and stretch no pulinho + leve balanço
+ const br=Math.sin(t*2.4)*.018,sq=hop>0?(hop<2?-.05*(1-hop/2):.03):0;
+ const sx=1+br*.6-sq,sy=1-br+sq,tilt=Math.sin(t*1.1)*1.8;
+ // piscada natural (exceto quando o rosto já está fechado)
+ const bl=((t%3.7)<.12)&&!face.pisca&&!face.feliz;const f=Object.assign({},face,bl?{pisca:1}:{});
+ const fe=Math.abs(ae)>100,fd=Math.abs(ad)>100;
+ const inner=`${fe?'':gota(-1,ae,Le)}${fd?'':gota(1,ad,Ld)}${limpa(f)}${HASTES}${fe?frente(-1,ae,Le):''}${fd?frente(1,ad,Ld):''}`;
+ document.getElementById('st').innerHTML=`<svg viewBox="-22 18 164 116" width="560" height="396" style="overflow:visible">${MD}${FZ}<ellipse cx="60" cy="126" rx="${30-hop*1.2}" ry="4" fill="#8d3a69" opacity="${.12-hop*.006}"/><g transform="translate(60 124) translate(0 ${-hop}) rotate(${tilt}) scale(${sx} ${sy}) translate(-60 -124)">${inner}</g></svg>`;
+ document.getElementById('cap').textContent=cap}
+window.R=R;window.DUR=DUR;
+R(0);</script></body></html>

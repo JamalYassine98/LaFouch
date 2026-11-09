@@ -1,0 +1,15 @@
+<html><body style="margin:0;background:#efe9ee;font:15px Inter,system-ui,sans-serif;color:#2a1f28;width:900px;padding:24px">
+<h2 style="margin:0 0 4px;color:#3a1f36">S46 · Correção geral: navegação, fotos e grau</h2>
+<style>table{border-collapse:collapse;width:100%;background:#fff;border-radius:14px;overflow:hidden;margin-top:12px}td,th{padding:9px 11px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}th{background:#7b2d6b;color:#fff;font-size:13.5px}.x{color:#b3261e;font-weight:700}.o{color:#1e7b3a;font-weight:700}.c{background:#fff;border-radius:14px;padding:14px 16px;margin-top:12px;border:1px solid #d9d0d8;line-height:1.5}</style>
+<div class="c"><b>Regra única de navegação</b><br>1. Cada tela é um passo. O voltar do Android e o "‹" da tela levam <b>sempre para o mesmo lugar</b>: a tela de onde a pessoa veio.<br>2. O "‹" sempre diz o nome desse lugar ("‹ Início", "‹ Catálogo", "‹ Leitura").<br>3. Toda tela aberta pelo menu ganha o "‹". O logo continua levando ao Início.<br>4. Cada tela tem o seu endereço (/atacado, /como-comprar…), nunca o de outra.</div>
+<table><tr><th>Teste (simulador)</th><th>Hoje</th><th>Proposta</th></tr>
+<tr><td>Catálogo → menu → Atacado → voltar</td><td class=x>Vai ao Início (o catálogo se perde); endereço fica /catalogo; sem "‹"</td><td class=o>Volta ao Catálogo; "‹ Catálogo"; endereço /atacado</td></tr>
+<tr><td>Início → menu → Atacado → voltar</td><td>Início; sem "‹"</td><td class=o>Início; "‹ Início"</td></tr>
+<tr><td>Catálogo → menu → Como comprar → voltar</td><td class=x>Início, mas o "‹" diz Início sem ter vindo de lá</td><td class=o>Catálogo; "‹ Catálogo"</td></tr>
+<tr><td>Peça aberta → menu → Atacado</td><td class=x>Não abre nada</td><td class=o>Abre Atacado; voltar → a peça</td></tr>
+<tr><td>Menu → Descubra o seu grau</td><td class=x>Janela embaralha com o menu e sem cabeçalho; "‹ Leitura"</td><td class=o>Menu fecha antes; tela certa abaixo do cabeçalho; "‹ Início" (ou a tela de onde veio)</td></tr>
+<tr><td>No celular: voltar às vezes Início, às vezes Catálogo</td><td class=x>Depende da ordem em que o menu fecha e a tela abre</td><td class=o>Sempre a tela de onde veio (o menu fecha primeiro, depois abre)</td></tr>
+</table>
+<div class="c"><b>Fotos que piscam ao atualizar</b> (todas as fotos do site)<br>Causa: ao atualizar, a foto aparece com o endereço guardado; quando chega a da nuvem (endereço novo), o site esconde a foto para enquadrar de novo e mostra outra vez — por isso pisca e às vezes fica apagada.<br>Proposta: <b>uma foto que já está na tela nunca some</b>. A nova é preparada por trás e só troca quando estiver pronta, sem piscar. E o enquadramento fica guardado no celular, então ao atualizar a foto já aparece pronta.</div>
+<div class="c"><b>Grau</b>: mínimo <b>+0.25</b> (antes +0.75), máximo +4.00.</div>
+</body></html>

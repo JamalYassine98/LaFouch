@@ -1,0 +1,67 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+:root{--bg:#fbf7fa;--ln:#efe3ea;--ac:#8d3a69}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,system-ui,sans-serif;color:#2a1f27;width:390px;height:700px;overflow:hidden;position:relative}
+.top{height:50px;border-bottom:1px solid var(--ln);display:flex;align-items:center;justify-content:center;font:600 16px Fraunces,Georgia,serif;color:var(--ac)}
+#bal{position:absolute;left:14px;right:120px;top:62px;background:#fff;border:1px solid var(--ln);border-radius:16px;padding:10px 12px;font-size:14px;line-height:1.38;min-height:58px;transition:opacity .25s}
+#q,#qc{position:absolute;width:250px;height:300px;background:#fff;border-radius:20px;overflow:hidden;padding:28px 0 0 22px;font-family:Georgia,serif}
+#q{left:124px;top:150px;border:1px solid var(--ln);box-shadow:0 10px 30px #8d3a6914}
+#q div,#qc div{margin:0 0 16px;white-space:nowrap}
+#lens{position:absolute;left:114px;top:140px;width:270px;height:320px;z-index:4;transform:translateX(320px) rotate(8deg);transition:transform .8s cubic-bezier(.3,1.2,.4,1)}
+#vid{position:absolute;inset:10px;border-radius:70px;overflow:hidden;background:#fff}
+#qc{left:0;top:0;transform-origin:14px 40%;transition:transform .7s cubic-bezier(.3,1.1,.4,1);filter:url(#pin)}
+#aro{position:absolute;inset:0;border-radius:80px;padding:10px;background:linear-gradient(135deg,#c46a9c,#8d3a69 40%,#5e2347 70%,#e7a6c7);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;filter:drop-shadow(0 8px 14px #8d3a6950)}
+
+#tab{position:absolute;left:50%;top:-18px;transform:translateX(-50%);background:linear-gradient(#a4497d,#7a2f5b);color:#fff;font:800 15px Inter;padding:5px 16px;border-radius:9px;box-shadow:0 3px 8px #5e234760;border:1.5px solid #e7a6c7}
+#brilho{position:absolute;inset:10px;border-radius:70px;overflow:hidden;pointer-events:none}
+#brilho:before{content:'';position:absolute;top:-40%;left:-60%;width:40%;height:180%;background:linear-gradient(90deg,#fff0,#ffffffb0,#fff0);transform:rotate(20deg) translateX(-200px);transition:transform 0s}
+#brilho.on:before{transform:rotate(20deg) translateX(700px);transition:transform .9s ease-out}
+#vid:after{content:'';position:absolute;inset:0;border-radius:70px;box-shadow:inset 0 0 30px #8d3a6922;pointer-events:none}
+#band{position:absolute;left:124px;width:250px;top:474px;height:52px;background:linear-gradient(#8d3a69,#6b2a50);border-radius:14px;display:flex;align-items:center;justify-content:space-around;padding:0 6px}
+.mini{width:17px;height:17px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#fbe9f2 60%,#f0c7db);border:2.5px solid #e7a6c7;position:relative;transition:transform .3s,opacity .3s}
+.mini small{position:absolute;top:19px;left:50%;transform:translateX(-50%);font:700 6.5px Inter;color:#fbe1ee;white-space:nowrap}
+.mini.vez{transform:translateY(-8px);border-color:#ffd34d}.mini.us{opacity:.4}
+.btn{position:absolute;left:16px;right:16px;border-radius:999px;padding:13px;font-weight:700;font-size:15px;text-align:center}
+.b1{background:#8d3a69;color:#fff;top:560px}.b2{border:1.5px solid #8d3a69;color:#8d3a69;top:614px;background:#fff}
+.tap{box-shadow:0 0 0 7px #8d3a6926;transform:scale(.97)}
+#nota{position:absolute;left:16px;right:16px;top:536px;font-size:10px;color:#9b8b95;text-align:center}
+#cap{position:absolute;left:0;right:0;bottom:0;background:#2a1f27;color:#fff;font-size:12px;padding:7px;text-align:center;z-index:9}
+#mo{position:absolute;left:6px;top:268px;z-index:5}
+</style><script src="../s52/mochi.js"></script></head><body>
+<svg width="0" height="0" style="position:absolute"><filter id="pin" x="-10%" y="-10%" width="120%" height="120%"><feImage id="dmap" result="m" preserveAspectRatio="none" x="0" y="0" width="250" height="300"/><feDisplacementMap in="SourceGraphic" in2="m" id="dsp" scale="0" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+<div class="top">LA FOUCH</div>
+<div id="bal">Você travou nesta frase. Vou pegar uma lente de leitura.</div>
+<div id="q"></div>
+<div id="lens"><div id="vid"><div id="qc"></div></div><div id="brilho"></div><div id="aro"></div><div id="tab">+1.25</div></div>
+<div id="band"></div>
+<div id="nota">a tela não muda o foco do olho · pela lente o quadro fica do tamanho que você leria com ela</div>
+<div class="btn b1" id="sim">Consigo ler</div><div class="btn b2" id="nao">Não consigo</div>
+<div id="mo"></div>
+<div id="cap">esboço S68 · lente de leitura nas cores da loja</div>
+<script>
+const $=id=>document.getElementById(id);
+const L=[['A casa é azul.',17],['O café está pronto.',14.5],['Ligue para a farmácia.',12.5],['Tome 1 comprimido ao dia.',9.5],['Agite antes de usar.',7.8]];
+const H=L.map(l=>`<div style="font-size:${l[1]}px">${l[0]}</div>`).join('');$('q').innerHTML=H;$('qc').innerHTML=H;
+$('qc').querySelectorAll('div')[4].style.cssText+='background:#fdeaf3;border-radius:5px;display:inline-block;padding:0 3px;margin-left:-3px';
+const P=['0.75','1.00','1.25','1.50','1.75','2.00','2.50','3.00','4.00'];$('band').innerHTML=P.map(p=>`<div class="mini" id="m${p}"><small>+${p}</small></div>`).join('');
+/* mapa de distorção "almofada" (pincushion) das lentes positivas: empurra mais forte perto da borda */
+(function(){const c=document.createElement('canvas');c.width=125;c.height=150;const x=c.getContext('2d'),d=x.createImageData(125,150);
+ for(let j=0;j<150;j++)for(let i=0;i<125;i++){const u=(i/124)*2-1,v=(j/149)*2-1,r2=u*u+v*v,k=.5*r2;const o=(j*125+i)*4;d.data[o]=128+u*k*127;d.data[o+1]=128+v*k*127;d.data[o+2]=128;d.data[o+3]=255}
+ x.putImageData(d,0,0);$('dmap').setAttribute('href',c.toDataURL())})();
+function mo(o){$('mo').innerHTML=`<svg viewBox="0 0 132 110" width="118" height="98" style="overflow:visible"><g transform="translate(6 -24)">${mochi(o)}</g></svg>`}
+function fala(t){const b=$('bal');b.style.opacity=0;setTimeout(()=>{b.innerHTML=t;b.style.opacity=1},200)}
+function lente(g,mag,dist){$('tab').textContent=g;$('qc').style.transform=`scale(${mag})`;$('dsp').setAttribute('scale',dist);$('brilho').classList.remove('on');void $('brilho').offsetWidth;$('brilho').classList.add('on')}
+function tap(id){$(id).classList.add('tap');setTimeout(()=>$(id).classList.remove('tap'),300)}
+mo({ad:0,olha:1});
+const S=[
+ [600,()=>{mo({ad:-40,olha:1,fala:1});$('m1.25').classList.add('vez')}],
+ [1500,()=>{fala('Esta é a <b>+1.25</b>.');mo({ad:20,olha:1})}],
+ [2300,()=>{$('lens').style.transform='none';$('m1.25').classList.remove('vez');$('m1.25').classList.add('us');lente('+1.25',1.18,-14)}],
+ [3400,()=>{fala('Olhando pela lente… consegue ler a <b>última frase</b>?');mo({ad:0,olha:1})}],
+ [6400,()=>{tap('nao');mo({ad:0,olha:-1});fala('Vou testar uma um pouco mais forte.')}],
+ [7200,()=>{$('lens').style.transform='translateX(320px) rotate(8deg)';$('m1.50').classList.add('vez')}],
+ [8200,()=>{$('tab').textContent='+1.50';$('lens').style.transform='none';$('m1.50').classList.remove('vez');$('m1.50').classList.add('us');lente('+1.50',1.32,-20)}],
+ [9400,()=>{fala('Com a <b>+1.50</b>. E agora?');mo({ad:0,olha:1})}],
+ [12000,()=>{tap('sim');mo({feliz:1,ae:-120,ad:-50});fala('Isso! Leu até a bula. 🎉')}],
+ [14500,()=>{}]];
+S.forEach(s=>setTimeout(s[1],s[0]));
+</script></body></html>

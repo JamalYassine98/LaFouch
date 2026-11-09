@@ -1,0 +1,71 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+:root{--bg:#fbf7fa;--ln:#efe3ea;--tx:#2a1f27;--ac:#8d3a69;--mu:#7a6b75;--pn:#fff}
+body{margin:0;background:#efe8ed;font-family:Inter,system-ui,sans-serif;color:var(--tx);padding:28px;width:1560px}
+h1{font:600 26px Fraunces,Georgia,serif;margin:0 0 4px}.sub{color:var(--mu);font-size:15px;margin:0 0 10px}
+.row{display:flex;gap:18px;align-items:flex-start}
+.ph{width:236px;height:500px;background:var(--bg);border-radius:26px;border:7px solid #1d1a1c;overflow:hidden;position:relative;flex:none}
+.top{height:38px;border-bottom:1px solid var(--ln);display:flex;align-items:center;justify-content:center;font:600 12px Fraunces,serif;color:var(--ac)}
+.in{padding:10px 14px}
+.ey{font-size:9.5px;letter-spacing:1.4px;font-weight:700;color:var(--ac)}
+.tt{font:600 16px/1.25 Fraunces,Georgia,serif;margin:4px 0 6px}
+.st{background:var(--pn);border:1px solid var(--ln);border-radius:16px;height:150px;display:flex;align-items:center;justify-content:center;margin:6px 0 8px}
+.btn{text-align:center;background:var(--ac);color:#fff;border-radius:12px;padding:10px;font-weight:600;font-size:12.5px;margin-top:8px}
+.p{font-size:11px;line-height:1.45;color:var(--mu);margin:0}
+.txt{background:#fff;border:1px solid var(--ln);border-radius:10px;padding:7px 9px;font:10px/1.5 Georgia,serif}
+.voz{position:absolute;left:8px;right:8px;bottom:8px;background:#2a1f27;color:#fff;border-radius:13px;padding:8px 10px;font-size:10.5px;line-height:1.35;display:flex;gap:8px;align-items:center}
+.voz svg{flex:none}
+.lab{font-weight:700;font-size:13px;margin:0 0 6px}
+.note{width:236px;font-size:11.5px;line-height:1.45;color:#4a3d46;margin-top:6px}
+.box{background:#fff;border-radius:16px;padding:14px 18px;font-size:13.5px;line-height:1.55;margin-top:18px;display:flex;gap:26px}
+.box div{flex:1}.box b.t{font:600 15px Fraunces,serif;display:block;margin-bottom:4px;color:var(--ac)}
+</style></head><body>
+<h1>S49 · O guia ganha um bonequinho que mostra o que fazer</h1>
+<p class="sub">Desenho de traço fino, nas cores da loja, sem rosto detalhado (combina com o site minimalista). Ele aparece num quadro em cima e "fala" na barra da voz. Ao medir, <b>ele imita você</b>: o braço dele estica e encolhe junto com a distância real do seu celular.</p>
+<div class="row" id="row"></div>
+<div class="box">
+<div><b class="t">Como ele se comporta</b>Fica parado e respira de leve; a boca mexe enquanto a voz fala; muda de pose a cada passo (acena, tira os óculos, aproxima, afasta, para, comemora). Na medida, o braço segue a câmera ao vivo — a pessoa vê "o que ela está fazendo" e entende sem ler.</div>
+<div><b class="t">Ele ou ela?</b><b>Recomendo neutro</b> (cabelo curto arredondado, sem traços de homem ou mulher) — serve para todo cliente e não "adivinha" nada pela câmera. Opção: dois bonequinhos (homem/mulher) alternando a cada visita.</div>
+<div><b class="t">Reage ao vai e vem</b>Se a pessoa faz o vai e vem, o bonequinho faz junto e a voz diz "Sem pressa…"; quando ela para, ele para e aparece o anel do "Segure parado". Movimento suave, sem nada piscando. Com "movimento reduzido" ligado no celular, ele só troca de pose.</div>
+</div>
+<script>
+const AC='#8d3a69',TX='#2a1f27',MU='#c9b3c1';
+function fig(o){o=Object.assign({d:30,oc:'rosto',acena:false,seta:'',ok:false,parado:false,w:200,h:140,fala:false},o);
+ // vista de lado, olhando para a direita
+ const hx=52,hy=42,r=17, sx=hx-2, sy=hy+30; // ombro
+ const px=Math.min(hx+24+o.d*1.25,o.w-16), py=hy+6; // celular na altura dos olhos
+ // braço (2 partes) por IK
+ const L1=46,L2=46; let tx=px-5,ty=py+9; let dx=tx-sx,dy=ty-sy,D=Math.min(Math.hypot(dx,dy),L1+L2-0.5);
+ const a=Math.atan2(dy,dx),b=Math.acos((L1*L1+D*D-L2*L2)/(2*L1*D)); const ex=sx+L1*Math.cos(a+b),ey=sy+L1*Math.sin(a+b); const hx2=sx+D*Math.cos(a),hy2=sy+D*Math.sin(a);
+ let s=`<svg width="${o.w}" height="${o.h}" viewBox="0 0 ${o.w} ${o.h}" fill="none" stroke-linecap="round" stroke-linejoin="round">`;
+ // linha do olhar
+ if(!o.ok&&o.oc!=='mao')s+=`<path d="M${hx+12} ${hy-1} L${px-4} ${py}" stroke="${MU}" stroke-width="1.4" stroke-dasharray="3 4"/>`;
+ // corpo
+ s+=`<path d="M${hx-14} ${hy+26} Q${hx-4} ${hy+20} ${hx+8} ${hy+26} L${hx+12} ${hy+90} L${hx-20} ${hy+90} Z" fill="#f3e7ee" stroke="${AC}" stroke-width="2.2"/>`;
+ // cabeça + cabelo neutro
+ s+=`<circle cx="${hx}" cy="${hy}" r="${r}" fill="#fff" stroke="${AC}" stroke-width="2.2"/><path d="M${hx-17} ${hy-2} Q${hx-16} ${hy-22} ${hx+2} ${hy-19} Q${hx+16} ${hy-17} ${hx+16} ${hy-6} Q${hx+4} ${hy-10} ${hx-6} ${hy-5} Q${hx-12} ${hy-2} ${hx-17} ${hy-2}Z" fill="${AC}"/>`;
+ // olho e boca
+ s+=o.parado?`<path d="M${hx+7} ${hy-1} h4" stroke="${TX}" stroke-width="2"/>`:`<circle cx="${hx+9}" cy="${hy-1}" r="1.8" fill="${TX}"/>`;
+ s+=o.ok?`<path d="M${hx+5} ${hy+8} q5 4 10 0" stroke="${TX}" stroke-width="1.8"/>`:o.fala?`<ellipse cx="${hx+10}" cy="${hy+8}" rx="2.4" ry="1.8" fill="${TX}"/>`:`<path d="M${hx+7} ${hy+8} h6" stroke="${TX}" stroke-width="1.8"/>`;
+ if(o.oc==='rosto')s+=`<circle cx="${hx+10}" cy="${hy-1}" r="5.5" stroke="${TX}" stroke-width="1.6"/><path d="M${hx+4} ${hy-2} L${hx-8} ${hy-4}" stroke="${TX}" stroke-width="1.6"/>`;
+ if(o.acena){s+=`<path d="M${sx} ${sy} L${sx+22} ${sy-14} L${sx+34} ${sy-36}" stroke="${AC}" stroke-width="5"/><path d="M${sx+40} ${sy-46} q4 4 2 9 M${sx+46} ${sy-40} q4 4 1 9" stroke="${MU}" stroke-width="1.5"/>`;}
+ else if(o.oc==='mao'){s+=`<path d="M${sx} ${sy} L${sx+26} ${sy+14} L${sx+52} ${sy+10}" stroke="${AC}" stroke-width="5"/><g transform="translate(${sx+56},${sy+6})"><circle cx="0" cy="0" r="5.5" stroke="${TX}" stroke-width="1.6"/><circle cx="13" cy="0" r="5.5" stroke="${TX}" stroke-width="1.6"/><path d="M5.5 0h2" stroke="${TX}" stroke-width="1.6"/></g><path d="M${sx+80} ${sy-2} l8 -6 M${sx+80} ${sy+8} l9 2" stroke="${MU}" stroke-width="1.5"/>`;}
+ else if(o.ok){s+=`<path d="M${sx} ${sy} L${sx+24} ${sy+6} L${sx+34} ${sy-14}" stroke="${AC}" stroke-width="5"/><path d="M${sx+34} ${sy-14} l0 -9" stroke="${AC}" stroke-width="5"/>`;}
+ else{s+=`<path d="M${sx} ${sy} L${ex} ${ey} L${hx2} ${hy2}" stroke="${AC}" stroke-width="5"/><rect x="${px-5}" y="${py-14}" width="9" height="26" rx="2.5" fill="#fff" stroke="${TX}" stroke-width="2"/><path d="M${px-2} ${py-7} h3 M${px-2} ${py-2} h3 M${px-2} ${py+3} h3" stroke="${MU}" stroke-width="1.2"/>`;
+   if(!o.parado)s+=`<text x="${(hx+px)/2+4}" y="${hy-12}" font-size="11" font-family="Inter" font-weight="700" fill="${AC}" text-anchor="middle">${o.d} cm</text>`;}
+ if(o.seta==='>')s+=`<path d="M${px+10} ${py+26} h22 m-6 -5 l6 5 l-6 5" stroke="${AC}" stroke-width="2"/>`;
+ if(o.seta==='<')s+=`<path d="M${px+32} ${py+26} h-22 m6 -5 l-6 5 l6 5" stroke="${AC}" stroke-width="2"/>`;
+ if(o.parado)s+=`<path d="M${px+12} ${py-12} v8 M${px+17} ${py-12} v8" stroke="${AC}" stroke-width="2.4"/>`;
+ return s+'</svg>'}
+function head(fala){return fig({w:30,h:30}).replace(/<svg[^>]*>/,'<svg width="30" height="30" viewBox="27 17 50 50" fill="none" stroke-linecap="round">')}
+const CAB='<svg width="30" height="30" viewBox="30 18 46 46" fill="none" stroke-linecap="round"><circle cx="52" cy="42" r="17" fill="#fff" stroke="#f3e7ee" stroke-width="2.2"/><path d="M35 40 Q36 20 54 23 Q68 25 68 36 Q56 32 46 37 Q40 40 35 40Z" fill="#d9a6c4"/><circle cx="61" cy="41" r="1.8" fill="#2a1f27"/><ellipse cx="62" cy="50" rx="2.4" ry="1.8" fill="#2a1f27"/></svg>';const voz=(t)=>`<div class="voz">${CAB}<span>${t}</span></div>`;
+const T=[
+ ['1 · Oi (entrada)','DESCUBRA O SEU GRAU','Descubra o grau do seu óculos de leitura em 1 minuto',fig({acena:true,oc:'',fala:true}),'<p class="p">Serve só para ler de perto. <b style="color:#8d3a69">Não funciona</b> para miopia, astigmatismo ou multifocal.</p><div class="btn">Começar</div>','Oi! Eu vou te guiar. Este teste é para óculos de leitura.','Acena enquanto fala o aviso.'],
+ ['2 · Tire os óculos','PREPARANDO','Se usa óculos, tire agora',fig({oc:'mao',fala:true}),'<p class="p" style="text-align:center">Começa sozinho em 5 s quando achar o seu rosto.</p>','Faz como eu: tire os óculos. Lente pode ficar.','Ele tira os óculos do rosto — a pessoa copia sem precisar ler.'],
+ ['3 · Aproxime','MEDIDA 1 DE 2','Aproxime o celular do rosto',fig({d:18,oc:'',seta:'<'}),'<div class="txt">Para ler bem de perto, o olho precisa focar…</div>','Traga o celular bem perto, assim, a um palmo.','O braço dele já segue a câmera: 18 cm.'],
+ ['4 · Afaste (imita você)','MEDIDA 1 DE 2','Afaste devagar até ficar nítido',fig({d:46,oc:'',seta:'>'}),'<div class="txt">Para ler bem de perto, o olho precisa focar…</div><div class="btn">Ficou nítido</div>','Agora afaste devagar, junto comigo.','Você afasta → ele afasta. Vai e vem → ele faz junto e diz "Sem pressa".'],
+ ['5 · Segure parado','ANALISANDO','Segure parado onde está',fig({d:58,oc:'',parado:true}),'<p class="p" style="text-align:center">● ● ○ &nbsp;2 segundos</p>','Isso, fica assim, parado…','Ele "congela" (olho fechado, sinal de pausa).'],
+ ['6 · Pronto','SEU GRAU PARA COMEÇAR','+1.50',fig({ok:true,oc:'',fala:true}),'<p class="p" style="text-align:center">Medido 2 vezes: 57 e 60 cm</p><div class="btn">Ver óculos de leitura +1.50</div>','Pronto! O grau que mais combina com você é +1,50.','Comemora (sorriso + polegar).'],
+];
+document.getElementById('row').innerHTML=T.map(t=>`<div><div class="lab">${t[0]}</div><div class="ph"><div class="top">LA FOUCH</div><div class="in"><div class="ey">${t[1]}</div><div class="tt" ${t[2].startsWith('+')?'style="font:700 30px Inter;color:#8d3a69;text-align:center"':''}>${t[2]}</div><div class="st">${t[3]}</div>${t[4]}</div>${voz(t[5])}</div><div class="note">${t[6]}</div></div>`).join('');
+</script>
+</body></html>

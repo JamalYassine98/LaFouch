@@ -1,0 +1,2675 @@
+[
+ {
+  "vp": "320x568",
+  "z": "0",
+  "screen": "home",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "span.hlb",
+    "d": "9.2px: DESTAQUE DA SEMANA"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span",
+    "d": "9.2px: Delivery todo o Paraguai"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "b",
+    "d": "9.2px: Delivery"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "320x568",
+  "z": "0",
+  "screen": "vitrine",
+  "issues": [
+   {
+    "k": "texto-cortado-x",
+    "s": "span.nm.corta",
+    "d": "165>152: Solar quadrado dourado"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "div",
+    "d": "9.6px: Termos · Privacidade · ©"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "a",
+    "d": "9.6px: Termos"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "div.frc",
+    "d": "9.2px: Protegido pelo reCAPTCHA"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "320x568",
+  "z": "0",
+  "screen": "rosto",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "span",
+    "d": "10.4px: Armações de quase qualqu"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "em.go",
+    "d": "9.6px: Escolher"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "320x568",
+  "z": "0",
+  "screen": "atacado",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "320x568",
+  "z": "0",
+  "screen": "como",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "b x b",
+    "d": "256x12px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajL",
+    "d": "256x19px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "span.ajn x b",
+    "d": "8x9px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "span.ajn x a.ajL",
+    "d": "8x15px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x p",
+    "d": "256x49px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x b",
+    "d": "256x19px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajL",
+    "d": "256x34px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x p",
+    "d": "256x12px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "span.ajn x p",
+    "d": "8x9px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "256x6px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "320x568",
+  "z": "0",
+  "screen": "duvidas",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "320x568",
+  "z": "0",
+  "screen": "login",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "label.cfl",
+    "d": "9.6px: Usuário ou e-mail"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "320x568",
+  "z": "0",
+  "screen": "conta",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "label.cfl",
+    "d": "10.0px: Nome completo"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "label#mpdl",
+    "d": "10.0px: CPF"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "div.note",
+    "d": "10.0px: Falta telefone e documen"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "small",
+    "d": "9.6px: Não deu para verificar a"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "320x568",
+  "z": "0",
+  "screen": "sacola",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "button.cs-c",
+    "d": "10.4px: Continuar comprando"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "320x568",
+  "z": "0",
+  "screen": "produto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "360x640",
+  "z": "0",
+  "screen": "home",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "span.hlb",
+    "d": "10.2px: DESTAQUE DA SEMANA"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span",
+    "d": "10.2px: Delivery todo o Paraguai"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "b",
+    "d": "10.2px: Delivery"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "360x640",
+  "z": "0",
+  "screen": "vitrine",
+  "issues": [
+   {
+    "k": "texto-cortado-x",
+    "s": "span.nm.corta",
+    "d": "165>154: Solar quadrado dourado"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "div.frc",
+    "d": "10.2px: Protegido pelo reCAPTCHA"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "a",
+    "d": "10.2px: Privacidade"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "360x640",
+  "z": "0",
+  "screen": "rosto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "360x640",
+  "z": "0",
+  "screen": "atacado",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "360x640",
+  "z": "0",
+  "screen": "como",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "p x b",
+    "d": "289x21px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x button.ajB",
+    "d": "289x21px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajL",
+    "d": "289x38px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x span",
+    "d": "7x24px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajwa",
+    "d": "289x15px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x p",
+    "d": "289x34px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajL",
+    "d": "289x21px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x span",
+    "d": "7x20px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "span.ajn x a.ajL",
+    "d": "9x16px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "289x7px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "360x640",
+  "z": "0",
+  "screen": "duvidas",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "360x640",
+  "z": "0",
+  "screen": "login",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "360x640",
+  "z": "0",
+  "screen": "conta",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "360x640",
+  "z": "0",
+  "screen": "sacola",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "360x640",
+  "z": "0",
+  "screen": "produto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "390x844",
+  "z": "0",
+  "screen": "home",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "390x844",
+  "z": "0",
+  "screen": "vitrine",
+  "issues": [
+   {
+    "k": "texto-cortado-x",
+    "s": "span.nm.corta",
+    "d": "165>155: Solar quadrado dourado"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "390x844",
+  "z": "0",
+  "screen": "rosto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "390x844",
+  "z": "0",
+  "screen": "atacado",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "390x844",
+  "z": "0",
+  "screen": "como",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "p x b",
+    "d": "313x22px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x button.ajB",
+    "d": "313x22px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajL",
+    "d": "313x41px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x span",
+    "d": "7x26px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajwa",
+    "d": "313x17px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x p",
+    "d": "313x37px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajL",
+    "d": "313x22px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x span",
+    "d": "7x21px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "span.ajn x a.ajL",
+    "d": "10x17px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "313x8px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "390x844",
+  "z": "0",
+  "screen": "duvidas",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "313x8px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "390x844",
+  "z": "0",
+  "screen": "login",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "390x844",
+  "z": "0",
+  "screen": "conta",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "390x844",
+  "z": "0",
+  "screen": "sacola",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "390x844",
+  "z": "0",
+  "screen": "produto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "430x932",
+  "z": "0",
+  "screen": "home",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "430x932",
+  "z": "0",
+  "screen": "vitrine",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.n",
+    "d": "10.5px: Chegou esta semana"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.uvc",
+    "d": "10.5px: UV400"
+   },
+   {
+    "k": "texto-cortado-x",
+    "s": "span.nm.corta",
+    "d": "165>155: Solar quadrado dourado"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.u",
+    "d": "10.5px: Últimas 2 unidades"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.e",
+    "d": "10.5px: Esgotado"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "430x932",
+  "z": "0",
+  "screen": "rosto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "430x932",
+  "z": "0",
+  "screen": "atacado",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "430x932",
+  "z": "0",
+  "screen": "como",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "p x b",
+    "d": "345x25px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x button.ajB",
+    "d": "345x24px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajL",
+    "d": "345x46px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x span",
+    "d": "8x29px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajwa",
+    "d": "345x19px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x p",
+    "d": "345x40px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajL",
+    "d": "345x25px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x span",
+    "d": "8x23px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "span.ajn x a.ajL",
+    "d": "11x19px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "345x9px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "430x932",
+  "z": "0",
+  "screen": "duvidas",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "345x9px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "430x932",
+  "z": "0",
+  "screen": "login",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "430x932",
+  "z": "0",
+  "screen": "conta",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "430x932",
+  "z": "0",
+  "screen": "sacola",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "430x932",
+  "z": "0",
+  "screen": "produto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "600x960",
+  "z": "0",
+  "screen": "home",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "600x960",
+  "z": "0",
+  "screen": "vitrine",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.n",
+    "d": "10.5px: Chegou esta semana"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.uvc",
+    "d": "10.5px: UV400"
+   },
+   {
+    "k": "texto-cortado-x",
+    "s": "span.nm.corta",
+    "d": "149>144: Solar hexagonal preto"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.u",
+    "d": "10.5px: Últimas 2 unidades"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.e",
+    "d": "10.5px: Esgotado"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "600x960",
+  "z": "0",
+  "screen": "rosto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "600x960",
+  "z": "0",
+  "screen": "atacado",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "600x960",
+  "z": "0",
+  "screen": "como",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "p x p",
+    "d": "514x16px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x b",
+    "d": "514x16px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajL",
+    "d": "514x46px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x span",
+    "d": "8x29px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajwa",
+    "d": "514x19px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajL",
+    "d": "514x25px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x span",
+    "d": "8x22px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "514x9px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "600x960",
+  "z": "0",
+  "screen": "duvidas",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "514x9px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "600x960",
+  "z": "0",
+  "screen": "login",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "600x960",
+  "z": "0",
+  "screen": "conta",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "600x960",
+  "z": "0",
+  "screen": "sacola",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "600x960",
+  "z": "0",
+  "screen": "produto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "768x1024",
+  "z": "0",
+  "screen": "home",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "768x1024",
+  "z": "0",
+  "screen": "vitrine",
+  "issues": [
+   {
+    "k": "texto-cortado-x",
+    "s": "span.nm.corta",
+    "d": "180>169: Solar esportivo polariza"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "768x1024",
+  "z": "0",
+  "screen": "rosto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "768x1024",
+  "z": "0",
+  "screen": "atacado",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "768x1024",
+  "z": "0",
+  "screen": "como",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "p x p",
+    "d": "672x46px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x b",
+    "d": "672x28px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajL",
+    "d": "672x52px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x span",
+    "d": "9x32px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajwa",
+    "d": "672x20px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x button.ajB",
+    "d": "672x17px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajL",
+    "d": "672x28px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x span",
+    "d": "9x27px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajwa",
+    "d": "672x10px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "672x10px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "768x1024",
+  "z": "0",
+  "screen": "duvidas",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "672x10px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "768x1024",
+  "z": "0",
+  "screen": "login",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "768x1024",
+  "z": "0",
+  "screen": "conta",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "768x1024",
+  "z": "0",
+  "screen": "sacola",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "768x1024",
+  "z": "0",
+  "screen": "produto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "820x1180",
+  "z": "0",
+  "screen": "home",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "820x1180",
+  "z": "0",
+  "screen": "vitrine",
+  "issues": [
+   {
+    "k": "texto-cortado-x",
+    "s": "span.nm.corta",
+    "d": "202>183: Solar aviador preto e do"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "820x1180",
+  "z": "0",
+  "screen": "rosto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "820x1180",
+  "z": "0",
+  "screen": "atacado",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "820x1180",
+  "z": "0",
+  "screen": "como",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "p x p",
+    "d": "724x46px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x b",
+    "d": "724x28px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajL",
+    "d": "724x52px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x span",
+    "d": "9x32px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajwa",
+    "d": "724x20px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x button.ajB",
+    "d": "724x17px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajL",
+    "d": "724x28px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x span",
+    "d": "9x27px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajwa",
+    "d": "724x10px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "724x10px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "820x1180",
+  "z": "0",
+  "screen": "duvidas",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "724x10px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "820x1180",
+  "z": "0",
+  "screen": "login",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "820x1180",
+  "z": "0",
+  "screen": "conta",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "820x1180",
+  "z": "0",
+  "screen": "sacola",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "820x1180",
+  "z": "0",
+  "screen": "produto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "844x390",
+  "z": "0",
+  "screen": "home",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "844x390",
+  "z": "0",
+  "screen": "vitrine",
+  "issues": [
+   {
+    "k": "texto-cortado-x",
+    "s": "span.nm.corta",
+    "d": "257>236: Óculos de leitura retang"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "844x390",
+  "z": "0",
+  "screen": "rosto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "844x390",
+  "z": "0",
+  "screen": "atacado",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "844x390",
+  "z": "0",
+  "screen": "como",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "844x390",
+  "z": "0",
+  "screen": "duvidas",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "844x390",
+  "z": "0",
+  "screen": "login",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "844x390",
+  "z": "0",
+  "screen": "conta",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "844x390",
+  "z": "0",
+  "screen": "sacola",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "844x390",
+  "z": "0",
+  "screen": "produto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1024x768",
+  "z": "0",
+  "screen": "home",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1024x768",
+  "z": "0",
+  "screen": "vitrine",
+  "issues": [
+   {
+    "k": "texto-cortado-x",
+    "s": "span.nm.corta",
+    "d": "180>167: Solar esportivo polariza"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1024x768",
+  "z": "0",
+  "screen": "rosto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1024x768",
+  "z": "0",
+  "screen": "atacado",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1024x768",
+  "z": "0",
+  "screen": "como",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "p x p",
+    "d": "758x46px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x b",
+    "d": "758x28px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajL",
+    "d": "758x52px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x span",
+    "d": "9x32px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajwa",
+    "d": "758x20px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x button.ajB",
+    "d": "758x17px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajL",
+    "d": "758x28px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x span",
+    "d": "9x27px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajwa",
+    "d": "758x10px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "758x10px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1024x768",
+  "z": "0",
+  "screen": "duvidas",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1024x768",
+  "z": "0",
+  "screen": "login",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1024x768",
+  "z": "0",
+  "screen": "conta",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1024x768",
+  "z": "0",
+  "screen": "sacola",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1024x768",
+  "z": "0",
+  "screen": "produto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1180x820",
+  "z": "0",
+  "screen": "home",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "span.hlb",
+    "d": "9.2px: DESTAQUE DA SEMANA"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span",
+    "d": "10.4px: Delivery todo o Paraguai"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "b",
+    "d": "10.4px: Delivery"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "small",
+    "d": "9.6px: 13 modelos"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1180x820",
+  "z": "0",
+  "screen": "vitrine",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "span.tg",
+    "d": "10.4px: NOVO"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.n",
+    "d": "9.6px: Chegou esta semana"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.uvc",
+    "d": "9.6px: UV400"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.u",
+    "d": "9.6px: Últimas 2 unidades"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.e",
+    "d": "9.6px: Esgotado"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "div",
+    "d": "9.6px: Termos · Privacidade · ©"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "a",
+    "d": "9.6px: Termos"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "div.frc",
+    "d": "9.2px: Protegido pelo reCAPTCHA"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1180x820",
+  "z": "0",
+  "screen": "rosto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1180x820",
+  "z": "0",
+  "screen": "atacado",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "span.eyebrow",
+    "d": "10.4px: Para lojistas"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1180x820",
+  "z": "0",
+  "screen": "como",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "p x p",
+    "d": "506x30px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x b",
+    "d": "506x19px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajL",
+    "d": "506x34px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajwa",
+    "d": "506x15px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x button.ajB",
+    "d": "506x12px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajL",
+    "d": "506x19px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajwa",
+    "d": "506x8px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "506x6px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1180x820",
+  "z": "0",
+  "screen": "duvidas",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "506x6px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1180x820",
+  "z": "0",
+  "screen": "login",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "label.cfl",
+    "d": "9.6px: Usuário ou e-mail"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span",
+    "d": "10.4px: ou"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1180x820",
+  "z": "0",
+  "screen": "conta",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "small",
+    "d": "9.6px: Não deu para verificar a"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1180x820",
+  "z": "0",
+  "screen": "sacola",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1180x820",
+  "z": "0",
+  "screen": "produto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1280x720",
+  "z": "0",
+  "screen": "home",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "span.hlb",
+    "d": "9.2px: DESTAQUE DA SEMANA"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span",
+    "d": "10.4px: Delivery todo o Paraguai"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "b",
+    "d": "10.4px: Delivery"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "small",
+    "d": "9.6px: 13 modelos"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "div",
+    "d": "9.6px: Termos · Privacidade · ©"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "a",
+    "d": "9.6px: Termos"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "div.frc",
+    "d": "9.2px: Protegido pelo reCAPTCHA"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1280x720",
+  "z": "0",
+  "screen": "vitrine",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "span.tg",
+    "d": "10.4px: NOVO"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.n",
+    "d": "9.6px: Chegou esta semana"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.uvc",
+    "d": "9.6px: UV400"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.u",
+    "d": "9.6px: Últimas 2 unidades"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.e",
+    "d": "9.6px: Esgotado"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "div",
+    "d": "9.6px: Termos · Privacidade · ©"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "a",
+    "d": "9.6px: Termos"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "div.frc",
+    "d": "9.2px: Protegido pelo reCAPTCHA"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1280x720",
+  "z": "0",
+  "screen": "rosto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1280x720",
+  "z": "0",
+  "screen": "atacado",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "span.eyebrow",
+    "d": "10.4px: Para lojistas"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1280x720",
+  "z": "0",
+  "screen": "como",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "p x p",
+    "d": "506x30px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x b",
+    "d": "506x19px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajL",
+    "d": "506x34px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajwa",
+    "d": "506x15px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x button.ajB",
+    "d": "506x12px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajL",
+    "d": "506x19px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajwa",
+    "d": "506x8px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "506x6px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1280x720",
+  "z": "0",
+  "screen": "duvidas",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "506x6px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1280x720",
+  "z": "0",
+  "screen": "login",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "label.cfl",
+    "d": "9.6px: Usuário ou e-mail"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span",
+    "d": "10.4px: ou"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1280x720",
+  "z": "0",
+  "screen": "conta",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1280x720",
+  "z": "0",
+  "screen": "sacola",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1280x720",
+  "z": "0",
+  "screen": "produto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1366x768",
+  "z": "0",
+  "screen": "home",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "span.hlb",
+    "d": "9.2px: DESTAQUE DA SEMANA"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span",
+    "d": "10.4px: Delivery todo o Paraguai"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "b",
+    "d": "10.4px: Delivery"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "small",
+    "d": "9.6px: 13 modelos"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "div",
+    "d": "9.6px: Termos · Privacidade · ©"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "a",
+    "d": "9.6px: Termos"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "div.frc",
+    "d": "9.2px: Protegido pelo reCAPTCHA"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1366x768",
+  "z": "0",
+  "screen": "vitrine",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "span.tg",
+    "d": "10.4px: NOVO"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.n",
+    "d": "9.6px: Chegou esta semana"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.uvc",
+    "d": "9.6px: UV400"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.u",
+    "d": "9.6px: Últimas 2 unidades"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.e",
+    "d": "9.6px: Esgotado"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "div",
+    "d": "9.6px: Termos · Privacidade · ©"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "a",
+    "d": "9.6px: Termos"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "div.frc",
+    "d": "9.2px: Protegido pelo reCAPTCHA"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1366x768",
+  "z": "0",
+  "screen": "rosto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1366x768",
+  "z": "0",
+  "screen": "atacado",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "span.eyebrow",
+    "d": "10.4px: Para lojistas"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1366x768",
+  "z": "0",
+  "screen": "como",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "p x p",
+    "d": "506x30px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x b",
+    "d": "506x19px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajL",
+    "d": "506x34px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajwa",
+    "d": "506x15px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x button.ajB",
+    "d": "506x12px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajL",
+    "d": "506x19px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajwa",
+    "d": "506x8px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "506x6px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1366x768",
+  "z": "0",
+  "screen": "duvidas",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "506x6px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1366x768",
+  "z": "0",
+  "screen": "login",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "label.cfl",
+    "d": "9.6px: Usuário ou e-mail"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span",
+    "d": "10.4px: ou"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1366x768",
+  "z": "0",
+  "screen": "conta",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "small",
+    "d": "9.6px: Não deu para verificar a"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1366x768",
+  "z": "0",
+  "screen": "sacola",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1366x768",
+  "z": "0",
+  "screen": "produto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1440x900",
+  "z": "0",
+  "screen": "home",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "span.hlb",
+    "d": "9.2px: DESTAQUE DA SEMANA"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span",
+    "d": "10.4px: Delivery todo o Paraguai"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "b",
+    "d": "10.4px: Delivery"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "small",
+    "d": "9.6px: 13 modelos"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1440x900",
+  "z": "0",
+  "screen": "vitrine",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "span.tg",
+    "d": "10.4px: NOVO"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.n",
+    "d": "9.6px: Chegou esta semana"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.uvc",
+    "d": "9.6px: UV400"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.u",
+    "d": "9.6px: Últimas 2 unidades"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.e",
+    "d": "9.6px: Esgotado"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "div",
+    "d": "9.6px: Termos · Privacidade · ©"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "a",
+    "d": "9.6px: Termos"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "div.frc",
+    "d": "9.2px: Protegido pelo reCAPTCHA"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1440x900",
+  "z": "0",
+  "screen": "rosto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1440x900",
+  "z": "0",
+  "screen": "atacado",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "span.eyebrow",
+    "d": "10.4px: Para lojistas"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1440x900",
+  "z": "0",
+  "screen": "como",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "p x p",
+    "d": "506x30px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x b",
+    "d": "506x19px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajL",
+    "d": "506x34px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajwa",
+    "d": "506x15px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x button.ajB",
+    "d": "506x12px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajL",
+    "d": "506x19px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajwa",
+    "d": "506x8px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "506x6px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1440x900",
+  "z": "0",
+  "screen": "duvidas",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "506x6px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1440x900",
+  "z": "0",
+  "screen": "login",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "label.cfl",
+    "d": "9.6px: Usuário ou e-mail"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span",
+    "d": "10.4px: ou"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1440x900",
+  "z": "0",
+  "screen": "conta",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "small",
+    "d": "9.6px: Não deu para verificar a"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1440x900",
+  "z": "0",
+  "screen": "sacola",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1440x900",
+  "z": "0",
+  "screen": "produto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1536x864",
+  "z": "0",
+  "screen": "home",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "span.hlb",
+    "d": "9.2px: DESTAQUE DA SEMANA"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span",
+    "d": "10.4px: Delivery todo o Paraguai"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "b",
+    "d": "10.4px: Delivery"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "small",
+    "d": "9.6px: 13 modelos"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1536x864",
+  "z": "0",
+  "screen": "vitrine",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "span.tg",
+    "d": "10.4px: NOVO"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.n",
+    "d": "9.6px: Chegou esta semana"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.uvc",
+    "d": "9.6px: UV400"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.u",
+    "d": "9.6px: Últimas 2 unidades"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.e",
+    "d": "9.6px: Esgotado"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "div",
+    "d": "9.6px: Termos · Privacidade · ©"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "a",
+    "d": "9.6px: Termos"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "div.frc",
+    "d": "9.2px: Protegido pelo reCAPTCHA"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1536x864",
+  "z": "0",
+  "screen": "rosto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1536x864",
+  "z": "0",
+  "screen": "atacado",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1536x864",
+  "z": "0",
+  "screen": "como",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "p x p",
+    "d": "506x30px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x b",
+    "d": "506x19px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajL",
+    "d": "506x34px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajwa",
+    "d": "506x15px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x button.ajB",
+    "d": "506x12px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajL",
+    "d": "506x19px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajwa",
+    "d": "506x8px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "506x6px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1536x864",
+  "z": "0",
+  "screen": "duvidas",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "506x6px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1536x864",
+  "z": "0",
+  "screen": "login",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "label.cfl",
+    "d": "9.6px: Usuário ou e-mail"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span",
+    "d": "10.4px: ou"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1536x864",
+  "z": "0",
+  "screen": "conta",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "small",
+    "d": "9.6px: Não deu para verificar a"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1536x864",
+  "z": "0",
+  "screen": "sacola",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1536x864",
+  "z": "0",
+  "screen": "produto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1920x1080",
+  "z": "0",
+  "screen": "home",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "span.hlb",
+    "d": "9.2px: DESTAQUE DA SEMANA"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span",
+    "d": "10.4px: Delivery todo o Paraguai"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "b",
+    "d": "10.4px: Delivery"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "small",
+    "d": "9.6px: 13 modelos"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1920x1080",
+  "z": "0",
+  "screen": "vitrine",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "span.tg",
+    "d": "10.4px: NOVO"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.n",
+    "d": "9.6px: Chegou esta semana"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.uvc",
+    "d": "9.6px: UV400"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.u",
+    "d": "9.6px: Últimas 2 unidades"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.e",
+    "d": "9.6px: Esgotado"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "div",
+    "d": "9.6px: Termos · Privacidade · ©"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "a",
+    "d": "9.6px: Termos"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "div.frc",
+    "d": "9.2px: Protegido pelo reCAPTCHA"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1920x1080",
+  "z": "0",
+  "screen": "rosto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1920x1080",
+  "z": "0",
+  "screen": "atacado",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1920x1080",
+  "z": "0",
+  "screen": "como",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "p x p",
+    "d": "506x30px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x b",
+    "d": "506x19px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajL",
+    "d": "506x34px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajwa",
+    "d": "506x15px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x button.ajB",
+    "d": "506x12px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajL",
+    "d": "506x19px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajwa",
+    "d": "506x8px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "506x6px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1920x1080",
+  "z": "0",
+  "screen": "duvidas",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "506x6px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1920x1080",
+  "z": "0",
+  "screen": "login",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "label.cfl",
+    "d": "9.6px: Usuário ou e-mail"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span",
+    "d": "10.4px: ou"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1920x1080",
+  "z": "0",
+  "screen": "conta",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "small",
+    "d": "9.6px: Não deu para verificar a"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "1920x1080",
+  "z": "0",
+  "screen": "sacola",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "1920x1080",
+  "z": "0",
+  "screen": "produto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "2560x1440",
+  "z": "0",
+  "screen": "home",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "span.hlb",
+    "d": "9.2px: DESTAQUE DA SEMANA"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span",
+    "d": "10.4px: Delivery todo o Paraguai"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "b",
+    "d": "10.4px: Delivery"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "small",
+    "d": "9.6px: 13 modelos"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "2560x1440",
+  "z": "0",
+  "screen": "vitrine",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "span.tg",
+    "d": "10.4px: NOVO"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.n",
+    "d": "9.6px: Chegou esta semana"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.uvc",
+    "d": "9.6px: UV400"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.u",
+    "d": "9.6px: Últimas 2 unidades"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span.stk.e",
+    "d": "9.6px: Esgotado"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "div",
+    "d": "9.6px: Termos · Privacidade · ©"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "a",
+    "d": "9.6px: Termos"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "div.frc",
+    "d": "9.2px: Protegido pelo reCAPTCHA"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "2560x1440",
+  "z": "0",
+  "screen": "rosto",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "2560x1440",
+  "z": "0",
+  "screen": "atacado",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "2560x1440",
+  "z": "0",
+  "screen": "como",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "p x p",
+    "d": "506x30px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x b",
+    "d": "506x19px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajL",
+    "d": "506x34px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x a.ajwa",
+    "d": "506x15px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "p x button.ajB",
+    "d": "506x12px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajL",
+    "d": "506x19px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "b x a.ajwa",
+    "d": "506x8px"
+   },
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "506x6px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "2560x1440",
+  "z": "0",
+  "screen": "duvidas",
+  "issues": [
+   {
+    "k": "sobreposicao",
+    "s": "a.ajL x a.ajwa",
+    "d": "506x6px"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "2560x1440",
+  "z": "0",
+  "screen": "login",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "label.cfl",
+    "d": "9.6px: Usuário ou e-mail"
+   },
+   {
+    "k": "texto-pequeno",
+    "s": "span",
+    "d": "10.4px: ou"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "2560x1440",
+  "z": "0",
+  "screen": "conta",
+  "issues": [
+   {
+    "k": "texto-pequeno",
+    "s": "small",
+    "d": "9.6px: Não deu para verificar a"
+   }
+  ],
+  "errs": []
+ },
+ {
+  "vp": "2560x1440",
+  "z": "0",
+  "screen": "sacola",
+  "issues": [],
+  "errs": []
+ },
+ {
+  "vp": "2560x1440",
+  "z": "0",
+  "screen": "produto",
+  "issues": [],
+  "errs": []
+ }
+]

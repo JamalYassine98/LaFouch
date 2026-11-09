@@ -1,0 +1,61 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+:root{--bg:#fbf7fa;--ln:#efe3ea;--tx:#2a1f27;--ac:#8d3a69;--mu:#7a6b75}
+body{margin:0;background:#efe8ed;font-family:Inter,system-ui,sans-serif;color:var(--tx);padding:26px;width:1880px}
+h1{font:600 26px Fraunces,Georgia,serif;margin:0 0 4px}h2{font:600 20px Fraunces,Georgia,serif;margin:26px 0 8px}.sub{color:var(--mu);font-size:15px;margin:0 0 12px;line-height:1.5}
+.row{display:flex;gap:16px;align-items:flex-start}
+.sh{width:290px}.sh img{width:290px;height:560px;object-fit:cover;object-position:top;border-radius:14px;border:1px solid #ddd;display:block}
+.sh b{display:block;font-size:14px;margin-top:6px}.sh span{font-size:12.5px;color:#b3261e}
+table{border-collapse:collapse;width:100%;background:#fff;border-radius:16px;overflow:hidden}td,th{padding:9px 12px;border-bottom:1px solid var(--ln);text-align:left;vertical-align:top;font-size:14px;line-height:1.45}
+th{font-size:11.5px;letter-spacing:1px;color:var(--ac);background:#fdf7fa}
+.ok{color:#2e7d4f;font-weight:700}
+.card{background:#fff;border-radius:18px;padding:16px;text-align:center;flex:1}
+.card.rec{outline:3px solid #8d3a69}.card h3{font:600 17px Fraunces,serif;margin:8px 0 4px}.card p{font-size:13px;color:#4a3d46;margin:0;line-height:1.5}
+.tag{display:inline-block;background:#8d3a69;color:#fff;border-radius:20px;font-size:11px;font-weight:700;padding:3px 10px}
+</style><script src="../s52/mochi.js"></script></head><body>
+<h1>S57 · Colisões com letra grande + ponteiro adorável</h1>
+<p class="sub">Nos seus prints (letra do celular aumentada) e no detector automático que eu montei, os problemas se repetem em 6 tipos. A correção é por <b>regra</b> (vale para o site todo), não ponto a ponto.</p>
+<div class="row" id="prints"></div>
+<h2>Regras de correção</h2>
+<table>
+<tr><th>PROBLEMA</th><th>CAUSA</th><th>CORREÇÃO (REGRA)</th></tr>
+<tr><td><b>1</b> WhatsApp por cima de textos e fotos (Início, peça, Guia)</td><td>O botão flutua fixo no canto e não "sabe" o que tem embaixo.</td><td><span class="ok">✓</span> Na <b>peça</b> ele sai do canto e vira um botão redondo <b>dentro da barra de compra</b>. <span class="ok">✓</span> Nas outras telas ele <b>some enquanto você rola</b> e volta quando para; o fim de toda página ganha espaço para ele nunca cobrir a última linha.</td></tr>
+<tr><td><b>2</b> Botões redondos por cima do título do catálogo</td><td>Título e botões dividem a mesma linha; título grande + 3 botões não cabem.</td><td><span class="ok">✓</span> Os botões ficam na linha do "‹ Início" (que é curta) e o título ganha <b>a linha inteira embaixo</b>, quebrando em 2 linhas se precisar.</td></tr>
+<tr><td><b>3</b> Catálogo "vazando" atrás da barra da peça</td><td>Entre o cabeçalho e a barra da peça sobra uma faixa transparente.</td><td><span class="ok">✓</span> Barra da peça <b>opaca</b> e colada no cabeçalho, cobrindo a faixa toda.</td></tr>
+<tr><td><b>4</b> "‹ Mais vendidos" quebrando em 2 linhas; "Comprar · R$ 105" em 2 linhas</td><td>Texto sem limite de largura dentro de botões.</td><td><span class="ok">✓</span> Voltar numa linha só ("‹ Mais vendid…" se não couber). <span class="ok">✓</span> Comprar: com letra grande mostra só <b>"Comprar"</b> e o preço vai para cima da barra; a quantidade fica mais estreita.</td></tr>
+<tr><td><b>5</b> Etiqueta (ARMAÇÃO) encostando no coração</td><td>Etiqueta e coração ficam soltos em cima da foto.</td><td><span class="ok">✓</span> Etiqueta com largura máxima = cartão − coração; se não couber, a letra da etiqueta diminui um pouco (nunca encosta).</td></tr>
+<tr><td><b>6</b> Guia: texto por cima da foto</td><td>Foto e texto lado a lado com largura fixa.</td><td><span class="ok">✓</span> Com letra grande (ou tela estreita) o cartão <b>empilha</b>: foto em cima, texto embaixo.</td></tr>
+<tr><td colspan="3" style="background:#fdf7fa"><b>Garantia:</b> o detector automático passa em todas as telas (Início, Catálogo, categorias, peça, Ajuda/Guia, Atacado, Formato, Grau, carrinho, conta) com letra <b>normal, grande e muito grande</b> do site <b>e</b> letra do celular em 130% e 150%, larguras 320/360/390/430 — só publico com <b>0 colisões</b>. Fica salvo para rodar em toda mudança futura.</td></tr>
+</table>
+<h2>Ponteiro adorável do Mochi</h2>
+<p class="sub">Gomos gordinhos cor de rosa com brilho e anéis vinho, cabo redondinho, e a pontinha com personalidade. Abre com "plim-plim" (os gomos saem com mola) e a ponta dá uma piscadinha de brilho quando aponta a linha.</p>
+<div class="row" id="pts"></div>
+<script>
+const A=[['a_25d3f3e6-image.png','Início','WhatsApp por cima de "Retirada em CDE"'],['a_b2901b52-image.png','Catálogo','botões por cima do título'],['a_bc61fc3d-image.png','Peça','catálogo vazando atrás da barra · WhatsApp no título'],['a_48af2e53-image.png','Peça (letra maior)','voltar e Comprar quebrando · WhatsApp na foto'],['a_e6ddef2a-image.png','Novidades','etiqueta encostando no coração'],['a_4aa799e1-image.png','Guia','texto por cima da foto']];
+document.getElementById('prints').innerHTML=A.map(a=>`<div class="sh"><img src="${a[0]}"><b>${a[1]}</b><span>${a[2]}</span></div>`).join('');
+let N=0;
+function ponteiro(ext,pt){const id='p'+(N++);const nS=4,L=[30,26,24,22],R=[9.5,8.2,7,6];
+ let s=`<defs><linearGradient id="${id}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9f3"/><stop offset=".45" stop-color="#f6bcd6"/><stop offset="1" stop-color="#e094b9"/></linearGradient>
+ <radialGradient id="${id}g" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#c46a9c"/><stop offset=".7" stop-color="#8d3a69"/><stop offset="1" stop-color="#6b2a50"/></radialGradient>
+ <radialGradient id="${id}t" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff3c9"/><stop offset=".6" stop-color="#f7c95c"/><stop offset="1" stop-color="#e3a43a"/></radialGradient>
+ <radialGradient id="${id}h" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ffd0e3"/><stop offset=".6" stop-color="#f07aa8"/><stop offset="1" stop-color="#c94f82"/></radialGradient>
+ <radialGradient id="${id}l" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#e6f0fb"/><stop offset="1" stop-color="#bcd0e6"/></radialGradient></defs>`;
+ let x=30;const tubes=[];for(let i=0;i<nS;i++){const len=i===0?L[0]:L[i]*ext+8;tubes.push({x,len,r:R[i]});x+=len-8}
+ const tip=tubes[nS-1].x+tubes[nS-1].len;
+ for(let i=nS-1;i>=0;i--){const t=tubes[i];s+=`<rect x="${t.x}" y="${-t.r}" width="${t.len}" height="${t.r*2}" rx="${t.r}" fill="url(#${id}s)"/><rect x="${t.x+3}" y="${-t.r+1.6}" width="${t.len-6}" height="${t.r*.55}" rx="${t.r*.3}" fill="#fff" opacity=".75"/><rect x="${t.x+t.len-4.5}" y="${-t.r-1.2}" width="4.5" height="${t.r*2+2.4}" rx="2.2" fill="#8d3a69"/>`}
+ // cabo gordinho
+ s+=`<rect x="0" y="-12.5" width="36" height="25" rx="12.5" fill="url(#${id}g)"/><circle cx="9" cy="-4" r="2.6" fill="#fff" opacity=".55"/><circle cx="16" cy="-5" r="1.6" fill="#fff" opacity=".45"/><circle cx="-1" cy="0" r="7.5" fill="url(#${id}g)"/>`;
+ const cx=tip+12;
+ if(pt==='estrela')s+=`<g transform="translate(${cx} 0)"><path d="M0 -14 C2 -6 4 -5 13 -4 C6 1 5 3 8 12 C1 7 -1 7 -8 12 C-5 3 -6 1 -13 -4 C-4 -5 -2 -6 0 -14Z" fill="url(#${id}t)" stroke="#e3a43a" stroke-width="1.4" stroke-linejoin="round"/><ellipse cx="-3" cy="-5" rx="3" ry="2" fill="#fff" opacity=".8"/></g>`;
+ if(pt==='coracao')s+=`<g transform="translate(${cx} 1)"><path d="M0 11 C-14 2 -14 -10 -6 -11 C-2 -11 0 -8 0 -6 C0 -8 2 -11 6 -11 C14 -10 14 2 0 11Z" fill="url(#${id}h)" stroke="#c94f82" stroke-width="1.4"/><ellipse cx="-5" cy="-5" rx="3" ry="2" fill="#fff" opacity=".85"/></g>`;
+ if(pt==='lupa')s+=`<g transform="translate(${cx+2} 0)"><circle r="12" fill="url(#${id}l)" stroke="#8d3a69" stroke-width="4.5"/><path d="M-6 -4 q3 -5 8 -6" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/><circle cx="5" cy="5" r="1.6" fill="#fff" opacity=".8"/></g>`;
+ s+=`<g opacity="${ext>.9?1:0}"><path d="M${cx+20} -14 l3 -3 M${cx+22} 0 h4 M${cx+20} 14 l3 3" stroke="#f2b24c" stroke-width="2.2" stroke-linecap="round"/></g>`;
+ return s}
+function cartao(pt,nome,desc,rec){return `<div class="card ${rec?'rec':''}">${rec?'<span class="tag">RECOMENDADO</span>':'<span class="tag" style="opacity:0">-</span>'}
+ <div><svg width="400" height="96" viewBox="-14 -32 200 64">${ponteiro(1,pt)}</svg></div>
+ <div style="display:flex;justify-content:center;gap:18px"><svg width="130" height="40" viewBox="-12 -20 110 40">${ponteiro(0,pt)}</svg><svg width="170" height="40" viewBox="-12 -20 150 40">${ponteiro(.45,pt)}</svg></div>
+ <h3>${nome}</h3><p>${desc}</p></div>`}
+function mochiCom(pt){const ad=24,a=ad*Math.PI/180,hx=98+21*Math.cos(a),hy=94+21*Math.sin(a);
+ return `<div class="card" style="flex:1.2"><svg viewBox="0 0 360 160" width="360" height="160" fill="none" style="overflow:visible">${mochi({ad,olha:1,fala:1})}<g transform="translate(${hx-6} ${hy}) rotate(8) scale(.85)">${ponteiro(1,pt)}</g>
+ <g transform="translate(222 148)"><rect x="0" y="-13" width="134" height="26" rx="9" fill="#fdeaf3"/><text x="10" y="5" font-family="Georgia" font-size="13.5" fill="#2a1f27">O café está pronto.</text></g></svg><h3>Na mão do Mochi</h3><p>apontando a linha, com a piscadinha de brilho</p></div>`}
+document.getElementById('pts').innerHTML=cartao('lupa','A · Lupinha','A ponta é uma lentinha redonda com brilho — tem tudo a ver com ótica e com a consulta.',1)+cartao('estrela','B · Estrelinha','Ponta de estrela fofinha dourada; ar de "varinha mágica".')+cartao('coracao','C · Coraçãozinho','Ponta de coração rosado; o mais meigo.')+mochiCom('lupa');
+</script></body></html>

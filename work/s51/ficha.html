@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;background:#efe8ed;font-family:Inter,system-ui,sans-serif;color:#2a1f27;padding:28px;width:1240px}
+h1{font:600 26px Fraunces,Georgia,serif;margin:0 0 4px}.sub{color:#7a6b75;font-size:15px;margin:0 0 18px}
+.g{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.c{background:#fbf7fa;border-radius:22px;padding:18px;text-align:center}.c.rec{outline:3px solid #8d3a69}
+.c h3{font:600 19px Fraunces,serif;margin:8px 0 4px}.c p{font-size:13.5px;line-height:1.5;color:#4a3d46;margin:0;text-align:left}
+.tag{display:inline-block;background:#8d3a69;color:#fff;border-radius:20px;font-size:11px;font-weight:700;padding:3px 10px;letter-spacing:.5px}
+.poses{display:flex;justify-content:center;gap:4px;margin-top:10px}
+</style><script src="m.js"></script></head><body>
+<h1>S51 · Ideias do bonequinho guia</h1>
+<p class="sub">Todos: olhos grandes com brilho, bochechas rosadas, sorriso pequeno, cores da loja, formas redondas (nada pontudo). Embaixo: 3 expressões de cada.</p>
+<div class="g" id="g"></div>
+<script>
+const L=[[mA,'A · Gotinha','Gotinha rosada de óculos redondos e golinha de jaleco branco. Mãozinhas livres para segurar a régua e as lentes. A mais "doutora" e fácil de animar.',1],
+[mB,'B · Lentinho','Ele É o óculos: as lentes são os olhos, a ponte é a "testa". Bem a cara de uma ótica e fácil de lembrar; para segurar ferramentas usa as hastes como bracinhos.',0],
+[mC,'C · Mochi doutor','Bolinha creme macia, com o espelhinho de testa do oftalmologista. Muito fofo e calmo; combina com público mais velho.',0],
+[mD,'D · Corujinha','Coruja (símbolo de boa visão e sabedoria) de óculos. Carismática; um pouco mais "infantil".',0]];
+document.getElementById('g').innerHTML=L.map(x=>`<div class="c ${x[3]?'rec':''}">${x[3]?'<span class="tag">RECOMENDADO</span>':'<span class="tag" style="opacity:0">-</span>'}<div>${svg(x[0],{},200,216)}</div><h3>${x[1]}</h3><p>${x[2]}</p>
+<div class="poses">${svg(x[0],{feliz:1,ae:-120,ad:-60},70,76)}${svg(x[0],{pisca:1},70,76)}${svg(x[0],{olha:1,ad:-20},70,76)}</div></div>`).join('');
+</script></body></html>

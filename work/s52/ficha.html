@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;background:#efe8ed;font-family:Inter,system-ui,sans-serif;color:#2a1f27;padding:28px;width:1240px}
+h1{font:600 26px Fraunces,Georgia,serif;margin:0 0 4px}.sub{color:#7a6b75;font-size:15px;margin:0 0 18px}
+.wrap{display:flex;gap:18px}.big{background:#fbf7fa;border-radius:24px;padding:20px;display:flex;align-items:center;justify-content:center;width:420px}
+.g{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.c{background:#fbf7fa;border-radius:18px;padding:10px;text-align:center;font-size:13px;color:#4a3d46}
+.c b{display:block;color:#2a1f27;font-size:14px;margin-top:2px}
+.dk{background:#0f1216}.dk b{color:#eef0f3}
+</style><script src="mochi.js"></script></head><body>
+<h1>S52 · Mochi doutor (caprichado)</h1>
+<p class="sub">Bolinha macia cor de creme, olhos grandes com dois brilhos atrás de óculos redondos, bochechas rosadas, espelhinho de testa de oftalmologista. Expressões e poses para cada momento do teste.</p>
+<div class="wrap"><div class="big" id="big"></div><div class="g" id="g"></div></div>
+<script>
+document.getElementById('big').innerHTML=mSvg({},380,412);
+const P=[[{ae:-130,ad:-50,feliz:1},'Oi!','aparece com o puff'],[{fala:1,ad:-15},'Falando','boca mexe com a voz'],[{ad:-5,id:'vara',olha:1},'Aponta','varinha na linha'],
+[{pisca:1},'Pisca','fica vivo, respira'],[{olha:1,ad:20},'Pensando','"vou trocar a lente…"'],[{feliz:1,ae:-120,ad:-60,bl:6},'Comemora','quando você lê'],
+[{olha:-1},'Olhando você','esperando a resposta'],[{ae:160,ad:20,sq:1},'Puxando','arrasta o quadro'],[{},'No modo escuro','continua claro e fofo',1]];
+document.getElementById('g').innerHTML=P.map(p=>`<div class="c ${p[3]?'dk':''}">${mSvg(p[0],120,130)}<b>${p[1]}</b>${p[2]}</div>`).join('');
+</script></body></html>

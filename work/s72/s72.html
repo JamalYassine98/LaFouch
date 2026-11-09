@@ -1,0 +1,52 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;background:#efe8ed;font-family:Inter,system-ui,sans-serif;color:#2a1f27;padding:22px;width:1400px}
+h1{font:600 22px Fraunces,Georgia,serif;margin:0 0 4px}h2{font:600 16px Fraunces,Georgia,serif;margin:16px 0 8px;color:#8d3a69}.sub{color:#7a6b75;font-size:14px;margin:0 0 10px;line-height:1.5}
+.g{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.c{background:#fff;border-radius:14px;padding:8px 8px 10px;text-align:center}.c b{display:block;font-size:12.5px;margin-top:2px}.c span{font-size:11px;color:#4a3d46;line-height:1.35;display:block}
+.tag{display:inline-block;font-size:10px;font-weight:700;border-radius:20px;padding:2px 8px;margin-top:4px}
+.t{background:#e3f3e8;color:#1f6b40}.l{background:#fdeaf3;color:#8d3a69}
+</style><script src="../s52/mochi.js"></script></head><body>
+<h1>S72 · Bracinhos curtos na lateral + gestos que dão vida</h1>
+<p class="sub">Referência de <b>posição</b>: bracinhos curtos e gordinhos que saem do <b>meio da lateral</b> do corpo, na altura dos olhos/óculos, quase inteiros à mostra (só a raiz encosta no corpo). Longe das bochechas.</p>
+<div class="g" id="a"></div>
+<h2>Gestos novos</h2>
+<p class="sub"><span class="tag t">TRABALHANDO</span> só o corpo e a mão livre — a mão do ponteiro não se mexe e nada atrasa a pergunta · <span class="tag l">LIVRE</span> antes de começar, no resultado ou se você demorar mais de 8 s</p>
+<div class="g" id="b"></div>
+<script>
+const MH='url(#mh)';
+function semBracos(o){return mochi(o).replace(/<path d="M(22|98) 94 Q[^>]*\/>/g,'').replace(/<circle cx="[0-9.]+" cy="[0-9.]+" r="6.5" fill="url\(#mh\)"[^>]*\/>/g,'')}
+/* bracinho: cápsula gordinha, raiz na borda (x 15/105, y 88), ângulo para fora (0 = horizontal, + baixo, - cima) */
+function nub(lado,ang,len){len=len||20;const sx=lado<0?17:103,sy=88,a=ang*Math.PI/180,ex=sx+lado*Math.cos(a)*len,ey=sy+Math.sin(a)*len;
+ return {s:`<path d="M${sx} ${sy} L${ex} ${ey}" stroke="#e8c3d6" stroke-width="15.5" stroke-linecap="round"/><path d="M${sx} ${sy} L${ex} ${ey}" stroke="${MH}" stroke-width="12.5" stroke-linecap="round"/><ellipse cx="${(sx+ex)/2-lado*2}" cy="${(sy+ey)/2-3}" rx="4" ry="2" fill="#fff" opacity=".7" transform="rotate(${lado*ang} ${(sx+ex)/2} ${(sy+ey)/2})"/>`,ex,ey}}
+function M(o,ae,ad,extra,tr,len){const E=nub(-1,ae,len),D=nub(1,ad,len);return `<svg viewBox="-14 22 178 112" width="200" height="126" style="overflow:visible">${MD}<g transform="${tr||''}">${semBracos(o)}${E.s}${D.s}${extra?extra(E,D):''}</g></svg>`}
+function ponteiro(D){return `<g transform="translate(${D.ex} ${D.ey})"><rect x="-2" y="-3.4" width="15" height="6.8" rx="3.4" fill="#8d3a69"/><path d="M13 0 H40" stroke="#8d3a69" stroke-width="3" stroke-linecap="round"/><g transform="translate(40 0) scale(.72)"><rect x="-6" y="-9" width="7" height="18" rx="2.5" fill="#8d3a69"/><rect x="0" y="-8" width="17" height="16" rx="6" fill="#fff" stroke="#8d3a69" stroke-width="1.8"/><rect x="12" y="-7.5" width="20" height="6.5" rx="3.2" fill="#fff" stroke="#8d3a69" stroke-width="1.8"/></g></g>`}
+const fx=(t,x,y,c)=>`<text x="${x}" y="${y}" font-size="14" fill="${c||'#c46a9c'}" font-family="Inter">${t}</text>`;
+const A=[
+ ['Descanso',M({},30,30),'para baixo e para fora'],
+ ['Oi!',M({feliz:1},-40,30),'um braço para cima'],
+ ['Apontando',M({olha:1},30,0,(E,D)=>ponteiro(D)),'o do ponteiro reto, na altura do quadro'],
+ ['Comemora',M({feliz:1},-45,-45),'os dois para cima'],
+ ['Pensando',M({olha:1},-75,30,null,'',16),'mãozinha no queixo/rosto'],
+ ['Segura a lente',M({olha:1},30,-25),'a lente vai na mão da direita']];
+document.getElementById('a').innerHTML=A.map(a=>`<div class="c">${a[1]}<b>${a[0]}</b><span>${a[2]}</span></div>`).join('');
+const B=[
+ ['t','Olha para você',M({olha:-1},30,0,(E,D)=>ponteiro(D)),'vira os olhos para a pessoa e volta'],
+ ['t','Pisca duplo',M({pisca:1},30,0,(E,D)=>ponteiro(D)),'dois piscos rápidos'],
+ ['t','Inclina a cabeça',M({olha:1},30,0,(E,D)=>ponteiro(D),'rotate(-7 60 120)'),'curioso, esperando a resposta'],
+ ['t','Ajusta os óculos',M({olha:1},-80,0,(E,D)=>ponteiro(D),'',16),'com a mão livre'],
+ ['t','Balança os pezinhos',M({olha:1},30,0,(E,D)=>ponteiro(D)+fx('~',30,128)+fx('~',78,128)),'bate os pés de leve'],
+ ['t','Respira fundo',M({olha:1},26,0,(E,D)=>ponteiro(D),'translate(0 -3) scale(1.02 .98)'),'enche e esvazia, calmo'],
+ ['t','"Joinha"',M({feliz:1},-60,0,(E,D)=>ponteiro(D)+fx('👍',-10,62,'#000')),'depois de "Consigo", com a mão livre'],
+ ['t','"Hmm…"',M({olha:1},-75,0,(E,D)=>ponteiro(D)+fx('…',2,50),'rotate(6 60 120)',16),'depois de "Não consigo"'],
+ ['l','Limpa os óculos',M({pisca:1},-55,-55,(E,D)=>fx('✦',40,60,'#f2b24c')+fx('✦',80,58,'#f2b24c')),'tira, sopra e limpa com uma flanelinha'],
+ ['l','Espreguiça',M({pisca:1},-70,-70,null,'translate(0 -6) scale(.96 1.06)',24),'estica os bracinhos para cima'],
+ ['l','Cantarola',M({pisca:1},40,40,()=>fx('♪',100,40)+fx('♫',112,30)),'notinhas e balanço'],
+ ['l','Bate palminha',M({feliz:1},-10,-10,()=>fx('✨',52,40,'#f2b24c'),'',16),'no resultado'],
+ ['l','Bocejo fofo',M({pisca:1,fala:1},-80,30,null,'',16),'se a pessoa demora muito'],
+ ['l','Acena tchau',M({feliz:1},30,-55),'quando a pessoa sai'],
+ ['l','Espia',M({olha:1},30,30,null,'translate(30 0)'),'atrás do quadro, só a metade'],
+ ['l','Pulinho',M({feliz:1},-30,-30,null,'translate(0 -10)'),'pula no lugar e cai amassando'],
+ ['l','Dança curtinha',M({feliz:1},-40,40,()=>fx('♪',100,42),'rotate(8 60 120)'),'balança de um lado ao outro'],
+ ['l','Bate no espelho',M({olha:1},-95,30,()=>fx('✦',72,34,'#f2b24c'),'',22),'dá um tapinha no espelho de testa']];
+document.getElementById('b').innerHTML=B.map(b=>`<div class="c">${b[2]}<b>${b[1]}</b><span>${b[3]}</span><span class="tag ${b[0]}">${b[0]==='t'?'TRABALHANDO':'LIVRE'}</span></div>`).join('');
+</script></body></html>

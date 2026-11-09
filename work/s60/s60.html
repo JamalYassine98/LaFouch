@@ -1,0 +1,42 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+:root{--bg:#fbf7fa;--ln:#efe3ea;--tx:#2a1f27;--ac:#8d3a69;--mu:#7a6b75}
+body{margin:0;background:#efe8ed;font-family:Inter,system-ui,sans-serif;color:var(--tx);padding:24px;width:1180px}
+h1{font:600 23px Fraunces,Georgia,serif;margin:0 0 4px}.sub{color:var(--mu);font-size:14.5px;margin:0 0 14px;line-height:1.5}
+.row{display:flex;gap:18px}.ph{width:300px;height:560px;background:var(--bg);border-radius:28px;border:7px solid #1d1a1c;overflow:hidden;position:relative;flex:none}
+.top{height:40px;border-bottom:1px solid var(--ln);display:flex;align-items:center;justify-content:center;font:600 13px Fraunces,serif;color:var(--ac)}
+.bal{position:absolute;left:14px;right:14px;top:50px;background:#fff;border:1px solid var(--ln);border-radius:14px;padding:8px 11px;font-size:12.5px}
+.trilho{position:absolute;left:0;top:100px;width:78px;bottom:90px;background:repeating-linear-gradient(180deg,#f3e3ec 0 6px,transparent 6px 12px);background-size:2px 100%;background-repeat:no-repeat;background-position:38px 0}
+.q{position:absolute;left:80px;right:12px;top:100px;height:300px;background:#fff;border:1px solid var(--ln);border-radius:18px;padding:12px 12px 12px 18px}
+.q .hd{font-size:9.5px;letter-spacing:1.2px;font-weight:700;color:var(--mu);margin-bottom:10px}
+.l{font-family:Georgia,serif;margin:0 0 14px;white-space:nowrap;border-radius:6px;padding:1px 4px;margin-left:-4px}
+.l.hl{background:#fdeaf3}
+.fr{position:absolute;left:74px;right:6px;top:92px;height:316px;border:7px solid #8d3a69;border-radius:60px;pointer-events:none}
+.fr i{position:absolute;left:50%;top:-16px;transform:translateX(-50%);background:#8d3a69;color:#fff;font:700 12px Inter;font-style:normal;padding:3px 10px;border-radius:20px}
+.mo{position:absolute;left:-4px}
+.btn{position:absolute;left:12px;right:12px;border-radius:99px;padding:10px;text-align:center;font-weight:700;font-size:13px}
+.b1{background:#8d3a69;color:#fff;top:440px}.b2{border:1.5px solid #8d3a69;color:#8d3a69;top:486px}
+.lab{font-weight:700;font-size:13.5px;margin:0 0 6px}.note{font-size:12.5px;color:#4a3d46;margin-top:6px;width:300px;line-height:1.45}
+.box{background:#fff;border-radius:16px;padding:14px 16px;font-size:13.5px;line-height:1.55;flex:1}
+</style><script src="../s52/mochi.js"></script></head><body>
+<h1>S60 · O Mochi desce pelo cantinho e aponta de lado</h1>
+<p class="sub">O quadro fica um pouco à direita e sobra uma <b>faixa só para o Mochi</b> do lado esquerdo. Ele desliza para baixo até a altura da linha e aponta <b>de lado</b>, com o ponteiro curtinho parando <b>antes da primeira letra</b> — nunca por cima das palavras. A linha da vez fica rosinha.</p>
+<div class="row" id="row"></div>
+<script>
+const LS=[['Bom dia!',20],['A casa é azul.',16],['O café está pronto.',13],['Ligue para a farmácia.',11],['Tome 1 comprimido ao dia.',9.5]];
+function luva(len){return `<g><path d="M0 0 H${len}" stroke="#8d3a69" stroke-width="3.2" stroke-linecap="round"/><g transform="translate(${len} 0) scale(.75)"><rect x="-6" y="-9" width="7" height="18" rx="2.5" fill="#8d3a69"/><rect x="0" y="-8" width="17" height="16" rx="6" fill="#fff" stroke="#8d3a69" stroke-width="1.8"/><rect x="12" y="-7.5" width="20" height="6.5" rx="3.2" fill="#fff" stroke="#8d3a69" stroke-width="1.8"/><ellipse cx="7" cy="-8.5" rx="4.5" ry="3" fill="#fff" stroke="#8d3a69" stroke-width="1.6"/></g></g>`}
+function tela(lin,lente,txt,lab,nota){
+ const esc=lente?1.4:1,ys=[];let y=100+12+9.5+10;
+ const linhas=LS.map((l,i)=>{const fs=l[1]*esc,top=y;y+=fs*1.25+14;ys.push(top+fs*.62);return `<div class="l ${i===lin?'hl':''}" style="font-size:${fs}px">${l[0]}</div>`}).join('');
+ const my=ys[lin]-74; /* centro do Mochi na altura da linha */
+ return `<div><div class="lab">${lab}</div><div class="ph"><div class="top">LA FOUCH</div><div class="bal">${txt}</div><div class="trilho"></div>
+ <div class="q"><div class="hd">QUADRO DE LEITURA · 40 cm ✓</div>${linhas}</div>${lente?'<div class="fr"><i>'+lente+'</i></div>':''}
+ <div class="mo" style="top:${my}px"><svg viewBox="0 0 150 130" width="104" height="90" style="overflow:visible">${mochi({ad:0,olha:1})}<g transform="translate(119 94)">${luva(14)}</g></svg></div>
+ <div class="btn b1">Consigo ler</div><div class="btn b2">Não consigo</div></div><div class="note">${nota}</div></div>`}
+document.getElementById('row').innerHTML=
+ tela(0,'','Leia de cima para baixo.','1 · Primeira linha','Mochi no alto da faixa; a mãozinha para no espaço antes do "B".')+
+ tela(3,'','E esta aqui?','2 · Desceu até a 4ª linha','Ele <b>desliza</b> pela faixa (com o pulinho fofo) até a altura da linha. O ponteiro não muda de tamanho — some o "estica e erra".')+
+ tela(4,'+1.50','Com a lente +1.50, e a última?','3 · Com a lente','A lente cobre o quadro mas <b>não</b> a faixa; o Mochi continua do lado, apontando a última linha.');
+document.querySelectorAll('.ph').forEach(ph=>{const h=ph.querySelector('.l.hl'),m=ph.querySelector('.mo'),P=ph.getBoundingClientRect(),r=h.getBoundingClientRect();m.style.top=(r.top-P.top+r.height/2-65)+'px'});
+</script>
+<div class="box" style="margin-top:14px"><b style="color:#8d3a69">Regras</b> · faixa do Mochi = 78 px à esquerda (em tela estreita o quadro encolhe um pouco, a faixa fica) · ponteiro curto e fixo, sempre <b>horizontal</b>, parando a 6 px da primeira letra · o texto do quadro fica alinhado à esquerda para a ponta sempre achar o começo da linha · o Mochi desce/sobe com a mesma animação fluida do S59 (pulinho, mola, olhar) · com "movimento reduzido" ele só aparece na altura certa.</div>
+</body></html>

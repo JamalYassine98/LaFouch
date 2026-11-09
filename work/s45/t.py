@@ -1,0 +1,15 @@
+from playwright.sync_api import sync_playwright
+with sync_playwright() as p:
+    b=p.chromium.launch(executable_path='/opt/pw-browsers/chromium',args=['--no-sandbox','--use-fake-ui-for-media-stream','--use-fake-device-for-media-stream'])
+    ctx=b.new_context(viewport={'width':390,'height':844},device_scale_factor=2,is_mobile=True,has_touch=True,locale='pt-BR',permissions=['camera'])
+    pg=ctx.new_page();er=[];pg.on('pageerror',lambda e:er.append(str(e)))
+    pg.goto('http://localhost:8768/');pg.wait_for_timeout(2500)
+    pg.evaluate("[...document.querySelectorAll('#home button,#home a')].find(e=>e.textContent.trim()=='Leitura').click()");pg.wait_for_timeout(1500)
+    pg.evaluate("document.getElementById('gzf').click()");pg.wait_for_timeout(4500);pg.screenshot(path='t1.png')
+    print(pg.evaluate("[document.querySelector('#gw h2').textContent,document.getElementById('gzst').innerText,document.getElementById('gzgv').textContent,document.querySelectorAll('#gw .gzgo').length]"))
+    pg.evaluate("document.querySelector('[data-gz=mais]').click()");pg.wait_for_timeout(300)
+    print(pg.evaluate("[document.getElementById('gzgv').textContent,document.getElementById('gzct').textContent]"))
+    pg.evaluate("document.querySelector('[data-gz=leio]').click()");pg.wait_for_timeout(1800)
+    print(pg.evaluate("[document.querySelector('#gw .gzres').textContent,document.querySelector('#gw .gzp').textContent]"));pg.screenshot(path='t2.png')
+    pg.evaluate("document.querySelector('[data-gz=ver]').click()");pg.wait_for_timeout(1500)
+    print('ver',pg.evaluate("location.pathname"),pg.evaluate("[...document.querySelectorAll('#vgr button.on')].map(e=>e.textContent)"),er)

@@ -1,0 +1,14 @@
+<html><body style="margin:0;background:#efe9ee;font:16px Inter,system-ui,sans-serif;color:#2a1f28;width:820px;padding:26px">
+<h2 style="margin:0 0 4px;color:#3a1f36">S36 · "Você estava vendo" não some ao atualizar</h2>
+<p style="margin:0 0 14px;color:#555">Causa: o site decidia mostrar só no instante em que a página abria. Atualizar a página contava como "a mesma visita, já mostrado" e o aviso não voltava.</p>
+<style>table{border-collapse:collapse;width:100%;background:#fff;border-radius:14px;overflow:hidden}td,th{padding:10px 12px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}th{background:#7b2d6b;color:#fff;font-size:14px}.x{color:#b3261e;font-weight:700}.o{color:#1e7b3a;font-weight:700}</style>
+<table><tr><th>Situação</th><th>Hoje</th><th>Proposta</th></tr>
+<tr><td>Visita nova (abriu o site de novo ou voltou após 30 min)</td><td class=o>Aparece</td><td class=o>Aparece (igual)</td></tr>
+<tr><td>Atualizar a página / puxar para atualizar</td><td class=x>Some</td><td class=o>Continua até o fim da visita</td></tr>
+<tr><td>Tocou no aviso (abriu a peça)</td><td class=o>Some</td><td class=o>Some (igual)</td></tr>
+<tr><td>Peça esgotou ou saiu do site</td><td class=o>Some</td><td class=o>Some (igual)</td></tr>
+<tr><td>2 dias sem ver nenhuma peça</td><td class=o>Não aparece</td><td class=o>Não aparece (igual)</td></tr>
+<tr><td>Durante a visita viu outras peças</td><td>—</td><td>Continua mostrando a da visita anterior (não troca no meio)</td></tr>
+</table>
+<p style="margin:14px 0 0;color:#444">Como: a peça escolhida no começo da visita fica guardada para essa visita; atualizar a página lê de novo o que foi guardado. Design igual ao aprovado (topo do Início).</p>
+</body></html>

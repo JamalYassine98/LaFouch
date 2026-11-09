@@ -1,0 +1,85 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+:root{--bg:#fbf7fa;--ln:#efe3ea;--tx:#2a1f27;--ac:#8d3a69;--mu:#7a6b75}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,system-ui,sans-serif;color:var(--tx);width:390px;height:760px;overflow:hidden;position:relative}
+.top{height:52px;border-bottom:1px solid var(--ln);display:flex;align-items:center;justify-content:center;font:600 16px Fraunces,Georgia,serif;color:var(--ac);letter-spacing:.5px}
+.ey{position:absolute;left:20px;top:66px;font-size:11px;letter-spacing:1.6px;font-weight:700;color:var(--ac)}
+#m{position:absolute;left:24px;top:96px;width:120px;height:130px;transition:transform .5s cubic-bezier(.3,1.4,.5,1)}
+#bal{position:absolute;left:150px;top:104px;width:220px;background:#fff;border:1px solid var(--ln);border-radius:18px;padding:12px 14px;font-size:15.5px;line-height:1.4;box-shadow:0 6px 18px #8d3a6914;opacity:0;transform:translateY(6px);transition:all .35s}
+#bal:before{content:'';position:absolute;left:-8px;top:26px;width:14px;height:14px;background:#fff;border-left:1px solid var(--ln);border-bottom:1px solid var(--ln);transform:rotate(45deg)}
+#bal.on{opacity:1;transform:none}
+#area{position:absolute;left:20px;right:20px;top:250px;bottom:20px}
+.card{background:#fff;border:1px solid var(--ln);border-radius:20px;padding:16px;transition:all .4s}
+.btn{display:flex;align-items:center;justify-content:center;border-radius:999px;padding:14px;font-weight:700;font-size:16px;margin-top:10px;transition:transform .15s,box-shadow .2s}
+.b1{background:var(--ac);color:#fff}.b2{border:1.5px solid var(--ac);color:var(--ac)}
+.tap{transform:scale(.95);box-shadow:0 0 0 6px #8d3a6926}
+.meter{position:relative;height:56px;margin:8px 0 6px}
+.meter .rail{position:absolute;left:0;right:0;top:24px;height:8px;border-radius:9px;background:var(--ln)}
+.meter .zone{position:absolute;top:18px;height:20px;border-radius:9px;background:#2e7d4f26;border:1.5px solid #2e7d4f}
+.meter .dot{position:absolute;top:15px;width:26px;height:26px;border-radius:50%;background:var(--ac);border:3px solid #fff;box-shadow:0 2px 8px #0003;transition:left .25s linear;margin-left:-13px}
+.meter .lbl{position:absolute;top:-2px;font-size:12px;color:var(--mu);transform:translateX(-50%)}
+.big{font:700 34px Inter;text-align:center;color:var(--ac)}
+.gr{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.gr b{font:700 26px Inter;color:var(--ac)}.gr small{font-size:12px;color:var(--mu)}
+.linha{font-family:Georgia,serif;text-align:center;color:var(--tx);transition:font-size .45s;min-height:96px;display:flex;align-items:center;justify-content:center;line-height:1.3}
+.ok{color:#2e7d4f;font-weight:700}
+.cap{position:absolute;left:0;right:0;bottom:0;background:#2a1f27;color:#fff;font-size:12.5px;padding:7px 12px;text-align:center;opacity:.92}
+.res{font:700 64px Inter;color:var(--ac);text-align:center;margin:4px 0}
+</style></head><body>
+<div class="top">LA FOUCH</div>
+<div class="ey" id="ey">DESCUBRA O SEU GRAU</div>
+<div id="m"></div>
+<div id="bal"></div>
+<div id="area"></div>
+<div class="cap" id="cap">esboço S50 · o guia faz como o oftalmologista</div>
+<script>
+/* mascote "3D": gota arredondada com sombra, óculos grandes, sem rosto humano (só brilho nas lentes) */
+function masc(o){o=o||{};const sq=o.sq||0,acena=o.acena,aponta=o.aponta,feliz=o.feliz;
+return `<svg viewBox="0 0 120 130" width="120" height="130"><defs>
+<radialGradient id="g" cx="38%" cy="30%" r="75%"><stop offset="0" stop-color="#e9b8d3"/><stop offset=".55" stop-color="#b45d8e"/><stop offset="1" stop-color="#6e2752"/></radialGradient>
+<radialGradient id="s" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#2a1f27" stop-opacity=".22"/><stop offset="1" stop-color="#2a1f27" stop-opacity="0"/></radialGradient>
+<linearGradient id="l" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".95"/><stop offset="1" stop-color="#dfe9f3" stop-opacity=".75"/></linearGradient></defs>
+<ellipse cx="60" cy="122" rx="34" ry="6" fill="url(#s)"/>
+<g transform="translate(0 ${sq}) scale(1 ${1-sq/60})" style="transform-origin:60px 120px">
+${acena?'<path d="M96 70 q14 -10 16 -26" stroke="#8d3a69" stroke-width="9" stroke-linecap="round" fill="none"/>':aponta?'<path d="M96 74 q14 2 22 -6" stroke="#8d3a69" stroke-width="9" stroke-linecap="round" fill="none"/>':'<path d="M96 80 q8 8 6 18" stroke="#8d3a69" stroke-width="9" stroke-linecap="round" fill="none"/>'}
+<path d="M24 82 q-8 8 -6 18" stroke="#8d3a69" stroke-width="9" stroke-linecap="round" fill="none"/>
+<path d="M60 14 C92 14 100 44 100 74 C100 104 84 118 60 118 C36 118 20 104 20 74 C20 44 28 14 60 14Z" fill="url(#g)"/>
+<ellipse cx="44" cy="34" rx="12" ry="7" fill="#fff" opacity=".35" transform="rotate(-25 44 34)"/>
+<g stroke="#2a1f27" stroke-width="4" fill="url(#l)"><rect x="26" y="50" width="30" height="24" rx="10"/><rect x="64" y="50" width="30" height="24" rx="10"/></g>
+<path d="M56 60 q4 -4 8 0" stroke="#2a1f27" stroke-width="4" fill="none"/>
+<path d="M30 56 l8 -3 M68 56 l8 -3" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+${feliz?'<path d="M48 90 q12 10 24 0" stroke="#2a1f27" stroke-width="4" fill="none" stroke-linecap="round"/>':'<path d="M51 91 q9 5 18 0" stroke="#2a1f27" stroke-width="3.5" fill="none" stroke-linecap="round"/>'}
+</g></svg>`}
+const $=id=>document.getElementById(id);let pose={};
+function M(o){pose=o||{};$('m').innerHTML=masc(pose)}
+function fala(t){const b=$('bal');b.classList.remove('on');setTimeout(()=>{b.innerHTML=t;b.classList.add('on')},120)}
+function pula(){$('m').style.transform='translateY(-10px)';setTimeout(()=>$('m').style.transform='',250)}
+function tap(id){const e=$(id);if(e){e.classList.add('tap');setTimeout(()=>e.classList.remove('tap'),300)}}
+const A=h=>$('area').innerHTML=h;
+let dist=60;function meter(){return `<div class="card"><div style="font-size:14px;color:var(--mu)">Distância do celular até os olhos</div><div class="big" id="dv">${dist} cm</div>
+<div class="meter"><div class="rail"></div><div class="zone" style="left:${(36-15)/(75-15)*100}%;width:${8/(60)*100}%"></div><div class="lbl" style="left:${(40-15)/60*100}%">40 cm</div><div class="dot" id="dot" style="left:${(dist-15)/60*100}%"></div></div><div id="dm" style="text-align:center;font-weight:600;color:var(--ac)">Chegue mais perto</div></div>`}
+function setD(d){dist=d;const dv=$('dv'),dot=$('dot'),dm=$('dm');if(dv)dv.textContent=Math.round(d)+' cm';if(dot)dot.style.left=((d-15)/60*100)+'%';
+ if(dm){if(d>43){dm.textContent='Chegue um pouco mais perto';dm.className=''}else if(d<37){dm.textContent='Afaste um pouco';dm.className=''}else{dm.textContent='✓ Perfeito, fique assim';dm.className='ok'}}}
+function linha(g,px){return `<div class="card"><div class="gr"><div><small>O GUIA ESTÁ TESTANDO</small><br><b id="gv">${g}</b></div><small style="text-align:right">a 40 cm ✓</small></div>
+<div class="linha" id="ln" style="font-size:${px}px">O café fica pronto às sete.</div></div>
+<div class="btn b1" id="sim">Consigo ler</div><div class="btn b2" id="nao">Não consigo</div>`}
+function setL(g,px){$('gv').textContent=g;$('ln').style.fontSize=px+'px'}
+const S=[
+ [0,()=>{M({});A('');pula()}],
+ [400,()=>{M({acena:1});fala('Oi! Eu vou te ajudar a achar o seu grau, <b>como numa consulta</b>.')}],
+ [2600,()=>{M({});$('ey').textContent='PASSO 1 · PREPARAR';fala('Primeiro, <b>tire os óculos</b>. Lente de contato pode ficar.')}],
+ [5000,()=>{M({aponta:1});$('ey').textContent='PASSO 2 · DISTÂNCIA';fala('Segure o celular a <b>40 cm</b> dos olhos — um palmo e meio. Eu te aviso quando estiver certo.');A(meter())}],
+ [6200,()=>{let t0=performance.now();const f=()=>{const k=Math.min(1,(performance.now()-t0)/2000);setD(60-20*k);if(k<1)requestAnimationFrame(f)};f()}],
+ [8600,()=>{M({feliz:1});pula();fala('Isso! Fique assim. Eu vigio a distância pela câmera.')}],
+ [10400,()=>{M({aponta:1});$('ey').textContent='PASSO 3 · O GRAU';fala('Agora eu vou <b>ajustando o grau</b>. Consegue ler esta frase?');A(linha('+1.00',13))}],
+ [12600,()=>tap('nao')],
+ [12900,()=>{M({});fala('Sem problema. Vou subir o grau…');setL('+1.50',18)}],
+ [14600,()=>tap('nao')],
+ [14900,()=>{fala('E agora, com mais um pouco?');setL('+2.00',24)}],
+ [16700,()=>tap('sim')],
+ [17000,()=>{M({feliz:1});pula();fala('Ótimo! Vou conferir um pouquinho menos, como o médico faz.');setL('+1.75',21)}],
+ [19200,()=>tap('nao')],
+ [19500,()=>{M({feliz:1});$('ey').textContent='SEU GRAU PARA COMEÇAR';fala('Pronto! O seu grau é <b>+2.00</b>.');A('<div class="card"><div class="res">+2.00</div><p style="text-align:center;color:var(--mu);margin:0">Leu bem a 40 cm com +2.00 · não leu com +1.75</p></div><div class="btn b1">Ver óculos de leitura +2.00</div><div class="btn b2">Guardar meu grau</div>');pula()}],
+ [23000,()=>{}]];
+S.forEach(s=>setTimeout(s[1],s[0]));
+setInterval(()=>{const m=$('m');if(!m.style.transform)m.firstChild&&(m.style.transform='scale(1.015)'),setTimeout(()=>{if(m.style.transform==='scale(1.015)')m.style.transform=''},600)},1400);
+</script></body></html>

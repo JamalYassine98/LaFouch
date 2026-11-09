@@ -1,0 +1,42 @@
+<!doctype html><html><head><meta charset="utf-8"><style>body{margin:0;background:#fbf7fa;font-family:Inter,system-ui;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh}
+#c{background:#fff;border:1px solid #efe3ea;border-radius:22px;padding:10px}#t{font:600 20px Fraunces,Georgia,serif;color:#2a1f27;margin:14px 0 4px}#v{font-size:15px;color:#7a6b75;height:22px}</style></head><body>
+<div id="t">O bonequinho imita você</div><div id="v"></div><div id="c"></div>
+<script>
+const AC='#8d3a69',TX='#2a1f27',MU='#c9b3c1';
+function fig(o){o=Object.assign({d:30,oc:'rosto',acena:false,seta:'',ok:false,parado:false,w:200,h:140,fala:false},o);
+ // vista de lado, olhando para a direita
+ const hx=52,hy=42,r=17, sx=hx-2, sy=hy+30; // ombro
+ const px=Math.min(hx+24+o.d*1.25,o.w-16), py=hy+6; // celular na altura dos olhos
+ // braço (2 partes) por IK
+ const L1=46,L2=46; let tx=px-5,ty=py+9; let dx=tx-sx,dy=ty-sy,D=Math.min(Math.hypot(dx,dy),L1+L2-0.5);
+ const a=Math.atan2(dy,dx),b=Math.acos((L1*L1+D*D-L2*L2)/(2*L1*D)); const ex=sx+L1*Math.cos(a+b),ey=sy+L1*Math.sin(a+b); const hx2=sx+D*Math.cos(a),hy2=sy+D*Math.sin(a);
+ let s=`<svg width="${o.w}" height="${o.h}" viewBox="0 0 ${o.w} ${o.h}" fill="none" stroke-linecap="round" stroke-linejoin="round">`;
+ // linha do olhar
+ if(!o.ok&&o.oc!=='mao')s+=`<path d="M${hx+12} ${hy-1} L${px-4} ${py}" stroke="${MU}" stroke-width="1.4" stroke-dasharray="3 4"/>`;
+ // corpo
+ s+=`<path d="M${hx-14} ${hy+26} Q${hx-4} ${hy+20} ${hx+8} ${hy+26} L${hx+12} ${hy+90} L${hx-20} ${hy+90} Z" fill="#f3e7ee" stroke="${AC}" stroke-width="2.2"/>`;
+ // cabeça + cabelo neutro
+ s+=`<circle cx="${hx}" cy="${hy}" r="${r}" fill="#fff" stroke="${AC}" stroke-width="2.2"/><path d="M${hx-17} ${hy-2} Q${hx-16} ${hy-22} ${hx+2} ${hy-19} Q${hx+16} ${hy-17} ${hx+16} ${hy-6} Q${hx+4} ${hy-10} ${hx-6} ${hy-5} Q${hx-12} ${hy-2} ${hx-17} ${hy-2}Z" fill="${AC}"/>`;
+ // olho e boca
+ s+=o.parado?`<path d="M${hx+7} ${hy-1} h4" stroke="${TX}" stroke-width="2"/>`:`<circle cx="${hx+9}" cy="${hy-1}" r="1.8" fill="${TX}"/>`;
+ s+=o.ok?`<path d="M${hx+5} ${hy+8} q5 4 10 0" stroke="${TX}" stroke-width="1.8"/>`:o.fala?`<ellipse cx="${hx+10}" cy="${hy+8}" rx="2.4" ry="1.8" fill="${TX}"/>`:`<path d="M${hx+7} ${hy+8} h6" stroke="${TX}" stroke-width="1.8"/>`;
+ if(o.oc==='rosto')s+=`<circle cx="${hx+10}" cy="${hy-1}" r="5.5" stroke="${TX}" stroke-width="1.6"/><path d="M${hx+4} ${hy-2} L${hx-8} ${hy-4}" stroke="${TX}" stroke-width="1.6"/>`;
+ if(o.acena){s+=`<path d="M${sx} ${sy} L${sx+22} ${sy-14} L${sx+34} ${sy-36}" stroke="${AC}" stroke-width="5"/><path d="M${sx+40} ${sy-46} q4 4 2 9 M${sx+46} ${sy-40} q4 4 1 9" stroke="${MU}" stroke-width="1.5"/>`;}
+ else if(o.oc==='mao'){s+=`<path d="M${sx} ${sy} L${sx+26} ${sy+14} L${sx+52} ${sy+10}" stroke="${AC}" stroke-width="5"/><g transform="translate(${sx+56},${sy+6})"><circle cx="0" cy="0" r="5.5" stroke="${TX}" stroke-width="1.6"/><circle cx="13" cy="0" r="5.5" stroke="${TX}" stroke-width="1.6"/><path d="M5.5 0h2" stroke="${TX}" stroke-width="1.6"/></g><path d="M${sx+80} ${sy-2} l8 -6 M${sx+80} ${sy+8} l9 2" stroke="${MU}" stroke-width="1.5"/>`;}
+ else if(o.ok){s+=`<path d="M${sx} ${sy} L${sx+24} ${sy+6} L${sx+34} ${sy-14}" stroke="${AC}" stroke-width="5"/><path d="M${sx+34} ${sy-14} l0 -9" stroke="${AC}" stroke-width="5"/>`;}
+ else{s+=`<path d="M${sx} ${sy} L${ex} ${ey} L${hx2} ${hy2}" stroke="${AC}" stroke-width="5"/><rect x="${px-5}" y="${py-14}" width="9" height="26" rx="2.5" fill="#fff" stroke="${TX}" stroke-width="2"/><path d="M${px-2} ${py-7} h3 M${px-2} ${py-2} h3 M${px-2} ${py+3} h3" stroke="${MU}" stroke-width="1.2"/>`;
+   if(!o.parado)s+=`<text x="${(hx+px)/2+4}" y="${hy-12}" font-size="11" font-family="Inter" font-weight="700" fill="${AC}" text-anchor="middle">${o.d} cm</text>`;}
+ if(o.seta==='>')s+=`<path d="M${px+10} ${py+26} h22 m-6 -5 l6 5 l-6 5" stroke="${AC}" stroke-width="2"/>`;
+ if(o.seta==='<')s+=`<path d="M${px+32} ${py+26} h-22 m6 -5 l-6 5 l6 5" stroke="${AC}" stroke-width="2"/>`;
+ if(o.parado)s+=`<path d="M${px+12} ${py-12} v8 M${px+17} ${py-12} v8" stroke="${AC}" stroke-width="2.4"/>`;
+ return s+'</svg>'}
+function head(fala){return fig({w:30,h:30}).replace(/<svg[^>]*>/,'<svg width="30" height="30" viewBox="27 17 50 50" fill="none" stroke-linecap="round">')}
+const voz=(t)=>`<div class="voz">${fig({w:34,h:34,oc:'',fala:true}).replace(/<svg[^>]*>/,'<svg width="32" height="32" viewBox="27 17 50 50" fill="none" stroke-linecap="round" stroke-linejoin="round">')}<span>${t}</span></div>`;
+
+const steps=[[0,18,'Traga o celular bem perto'],[1.2,18,''],[3.6,46,'Agora afaste devagar, junto comigo'],[4.2,36,'Sem pressa. Esse vai e vem é normal'],[4.8,50,''],[5.4,40,''],[6.2,58,''],[8.6,58,'Isso, fica assim, parado…'],[10.6,58,'']];
+const t0=performance.now();function f(){const t=(performance.now()-t0)/1000;let d=18,msg='',par=false;
+for(let i=0;i<steps.length-1;i++){const[a,da,m]=steps[i],[b,db]=steps[i+1];if(t>=a){if(m)msg=m;if(t<b){const k=(t-a)/(b-a),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;d=Math.round(da+(db-da)*e)}else d=db}}
+par=t>6.9;if(msg)document.getElementById('v').textContent=msg;
+document.getElementById('c').innerHTML=fig({d,oc:'',seta:par?'':(t>2.2&&t<6.2?'>':(t<1.5?'<':'')),parado:par,w:360,h:250,fala:Math.floor(t*6)%2===0}).replace(/<svg width="360" height="250" viewBox="0 0 360 250"/,'<svg width="540" height="300" viewBox="0 0 220 125"');
+if(t<11)requestAnimationFrame(f)}f();
+</script></body></html>

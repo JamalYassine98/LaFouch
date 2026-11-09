@@ -1,0 +1,46 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;background:#efe8ed;font-family:Inter,system-ui,sans-serif;color:#2a1f27;padding:22px;width:1400px}
+h1{font:600 22px Fraunces,Georgia,serif;margin:0 0 4px}h2{font:600 16px Fraunces,Georgia,serif;margin:16px 0 8px;color:#8d3a69}.sub{color:#7a6b75;font-size:14px;margin:0 0 10px;line-height:1.5}
+.g{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.g4{grid-template-columns:repeat(4,1fr)}
+.c{background:#fff;border-radius:14px;padding:8px 8px 10px;text-align:center}.c b{display:block;font-size:12.5px;margin-top:2px}.c span{font-size:11px;color:#4a3d46;line-height:1.35;display:block}
+.c.rec{outline:3px solid #8d3a69}
+</style><script src="../s52/mochi.js"></script></head><body>
+<h1>S82 · Braço do S73 + união suave nos gestos em que ele "sumia"</h1>
+<p class="sub">O braço é <b>exatamente o do S73</b> (mesma gota, mesmo tamanho, mesma posição). Mudou só uma coisa: quando a mão vai para o rosto, antes o braço ficava atrás do corpo e sumia. Agora ele <b>passa para a frente</b> e nasce do contorno como no S73, mas a <b>raiz se funde na pele do corpo</b> em degradê (sem emenda), com uma sombrinha leve embaixo para dar volume. Gestos para fora ficam iguais ao S73.</p>
+<h2>Gestos que mudaram (antes S73 → agora)</h2>
+<div class="g" id="d" style="grid-template-columns:repeat(3,1fr)"></div>
+<h2>Todos os gestos com o braço do S73</h2>
+<div class="g" id="a"></div>
+<script>
+function limpa(o,esp){let s=mochi(Object.assign({},o));
+ s=s.replace(/<path d="M(22|98) 94 Q[^>]*\/>/g,'').replace(/<circle cx="[0-9.]+" cy="[0-9.]+" r="6.5" fill="url\(#mh\)"[^>]*\/>/g,'');
+ s=s.replace('<path d="M28 64 C30 48 42 38 58 36" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".9"/>','<path d="M30 62 C32 50 41 42 54 39" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".85"/>');
+ if(esp==='lado'){s=s.replace(/<circle cx="60" cy="47" r="12"([^>]*)\/><circle cx="60" cy="47" r="3.2"([^>]*)\/><path d="M53.5 42 q3 -3 7 -3.5"([^>]*)\/>/,'<g transform="rotate(-14 60 66) translate(-14 4)"><circle cx="60" cy="47" r="12"$1/><circle cx="60" cy="47" r="3.2"$2/><path d="M53.5 42 q3 -3 7 -3.5"$3/></g>')}
+ return s}
+function velho(o){return mochi(o).replace(/<path d="M(22|98) 94 Q[^>]*\/>/g,'').replace(/<circle cx="[0-9.]+" cy="[0-9.]+" r="6.5" fill="url\(#mh\)"[^>]*\/>/g,'')}
+/* braço em gota: raiz larga dentro do contorno (fica atrás do corpo), ponta redonda */
+function gota(lado,ang,L){L=L||30;const sx=lado<0?22:98,sy=92;
+ const p=`M0 -10 C${L*.45} -11 ${L-2} -8.5 ${L} -1 C${L+1.5} 5 ${L-4} 9 ${L-9} 8.5 C${L*.45} 8 ${L*.2} 10 0 10 Z`;
+ const rot=lado<0?180-ang:ang;
+ return `<g transform="translate(${sx} ${sy}) rotate(${rot})${lado<0?' scale(1 -1)':''}"><path d="${p}" fill="url(#mh)" stroke="#e8c3d6" stroke-width="1.6"/><path d="M${L*.35} -5 Q${L*.62} -6.5 ${L*.8} -3.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".8"/></g>`}
+function M(o,ae,ad,opt){opt=opt||{};const extra=opt.extra||'';return `<svg viewBox="-16 22 152 112" width="200" height="147" style="overflow:visible">${MD}<g transform="${opt.tr||''}">${gota(-1,ae,opt.L)}${gota(1,ad,opt.L)}${opt.velho?velho(o):limpa(o,opt.esp)}${extra}</g></svg>`}
+function ponteiro(ad){const a=ad*Math.PI/180,x=98+Math.cos(a)*30,y=92+Math.sin(a)*30;return `<g transform="translate(${x} ${y})"><rect x="-3" y="-3.4" width="15" height="6.8" rx="3.4" fill="#8d3a69"/><path d="M12 0 H40" stroke="#8d3a69" stroke-width="3" stroke-linecap="round"/><g transform="translate(40 0) scale(.72)"><rect x="-6" y="-9" width="7" height="18" rx="2.5" fill="#8d3a69"/><rect x="0" y="-8" width="17" height="16" rx="6" fill="#fff" stroke="#8d3a69" stroke-width="1.8"/><rect x="12" y="-7.5" width="20" height="6.5" rx="3.2" fill="#fff" stroke="#8d3a69" stroke-width="1.8"/></g></g>`}
+const HASTES='<path d="M32 81 C26 79 21 78 16.5 79" fill="none" stroke="#8d3a69" stroke-width="2.6" stroke-linecap="round"/><path d="M88 81 C94 79 99 78 103.5 79" fill="none" stroke="#8d3a69" stroke-width="2.6" stroke-linecap="round"/><circle cx="32.5" cy="81" r="1.8" fill="#e7a6c7"/><circle cx="87.5" cy="81" r="1.8" fill="#e7a6c7"/>';
+/* braço na frente com união suave: mesma gota do S73; a raiz desaparece em degradê sobre o corpo */
+function frente(lado,ang,L){L=L||30;const sx=lado<0?22:98,sy=92,rot=lado<0?180-ang:ang,r=rot*Math.PI/180;
+ const p=`M0 -10 C${L*.45} -11 ${L-2} -8.5 ${L} -1 C${L+1.5} 5 ${L-4} 9 ${L-9} 8.5 C${L*.45} 8 ${L*.2} 10 0 10 Z`;
+ const px=sx+Math.cos(r)*4,py=sy+Math.sin(r)*4;
+ return `<g transform="translate(${sx} ${sy}) rotate(${rot})${lado<0?' scale(1 -1)':''}"><path d="${p}" transform="translate(2 3)" fill="#c98aab" opacity=".22" filter="url(#sb)"/><path d="${p}" fill="url(#mh)" stroke="#e3b3cc" stroke-width="1.7"/><path d="M${L*.42} -5 Q${L*.66} -6.5 ${L*.84} -3.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".85"/></g>`+
+ /* união suave: a pele do corpo "cobre" a raiz por dentro do contorno, em degradê */
+ `<g clip-path="url(#cc)"><circle cx="${px}" cy="${py}" r="12.5" fill="url(#mbU)" filter="url(#ub)"/></g>`}
+const FZ='<defs><radialGradient id="mbU" gradientUnits="userSpaceOnUse" cx="49" cy="55.8" r="73.6"><stop offset="0" stop-color="#ffffff"/><stop offset=".45" stop-color="#fff7fa"/><stop offset=".85" stop-color="#f6dfea"/><stop offset="1" stop-color="#ecc9da"/></radialGradient><clipPath id="cc"><path d="M60 30 C95 30 106 58 106 84 C106 108 88 122 60 122 C32 122 14 108 14 84 C14 58 25 30 60 30Z"/></clipPath><filter id="ub" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3"/></filter><filter id="sb" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.6"/></filter></defs>';
+function M2(o,ae,ad,opt){opt=opt||{};const extra=opt.extra||'',fe=Math.abs(ae)>100,fd=Math.abs(ad)>100,Le=opt.Le||opt.L,Ld=opt.Ld||opt.L;
+ return `<svg viewBox="-16 22 152 112" width="200" height="147" style="overflow:visible">${MD}${FZ}${fe?'':gota(-1,ae,Le)}${fd?'':gota(1,ad,Ld)}${limpa(o)}${HASTES}${fe?frente(-1,ae,Le):''}${fd?frente(1,ad,Ld):''}${extra}</svg>`}
+function M1(o,ae,ad,opt){opt=opt||{};return `<svg viewBox="-16 22 152 112" width="200" height="147" style="overflow:visible">${MD}${gota(-1,ae,opt.Le||opt.L)}${gota(1,ad,opt.Ld||opt.L)}${limpa(o)}${HASTES}${opt.extra||''}</svg>`}
+const G=[['Descanso',{},40,40],['Oi!',{feliz:1},-35,40],['Comemora',{feliz:1},-40,-40],['Apontando',{olha:1},40,0,{extra:ponteiro(0)}],
+ ['Pensando',{olha:1},162,40,{Le:26}],['Ajusta os óculos',{olha:1},-150,0,{Le:27,extra:ponteiro(0)}],['Palminha',{feliz:1},165,165,{L:28}],['Joinha',{feliz:1},-60,0,{extra:ponteiro(0)}],
+ ['Espreguiça',{pisca:1},-70,-70,{L:32}],['Limpa os óculos',{pisca:1},-165,-165,{L:27}],['Bocejo',{pisca:1,fala:1},168,40,{Le:30}],['Tapinha no espelho',{olha:1},-118,40,{Le:33}]];
+const mud=G.filter(g=>Math.abs(g[2])>100||Math.abs(g[3])>100);
+document.getElementById('d').innerHTML=mud.map(g=>`<div class="c"><div style="display:flex;justify-content:center;align-items:center">${M1(g[1],g[2],g[3],g[4]).replace('width="200" height="147"','width="170" height="125"')}<span style="font-size:20px;color:#8d3a69">→</span>${M2(g[1],g[2],g[3],g[4]).replace('width="200" height="147"','width="170" height="125"')}</div><b>${g[0]}</b><span>antes (S73): braço sumia atrás do corpo · agora: na frente, raiz fundida no corpo</span></div>`).join('');
+document.getElementById('a').innerHTML=G.map(g=>`<div class="c${mud.includes(g)?' rec':''}">${M2(g[1],g[2],g[3],g[4])}<b>${g[0]}</b></div>`).join('');
+</script></body></html>
