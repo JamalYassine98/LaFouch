@@ -124,6 +124,17 @@
         return { g: g, q: m[g] };
       });
   }
+  function vitGrausCor(ref, cs) {
+    var G = vitGraus(ref).map(function (g) { return g.g; });
+    if (!G.length) return [];
+    return cs.map(function (c) {
+      return G.map(function (g) {
+        return S.items.reduce(function (n, i) {
+          return n + (i.ref === ref && i.tipo === 'pre' && i.cor === c.cor && i.grau === g ? Math.max(0, i.qty || 0) : 0);
+        }, 0);
+      }).join(',');
+    });
+  }
   function vitProduto(ref) {
     var v = vitInfo(ref),
       a = attrOf(ref),
@@ -160,6 +171,8 @@
       desc: S.desc && S.desc[ref] != null ? String(S.desc[ref]).trim().slice(0, 600) : '',
       gr: vitGraus(ref).map(function (g) { return g.g; }),
       gq: vitGraus(ref).map(function (g) { return g.q; }),
+      // v475 (aprovado 09/11): graus de CADA cor, na ordem de 'cores' e de 'gr' (texto "q,q,q" por cor; o site risca o grau que não tem na cor)
+      gc: vitGrausCor(ref, cs),
       gv: giroGv(ref)
     };
   }
@@ -168,7 +181,7 @@
     S.vitPend[ref] = op;
     saveSoon();
   }
-  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'desc', 'gr', 'gq', 'gv', 'fv'];
+  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'desc', 'gr', 'gq', 'gc', 'gv', 'fv'];
   function vitFotos(ref) {
     return vitCores(ref).map(function (c) {
       return S.fotos[ref + '|' + c.cor];
