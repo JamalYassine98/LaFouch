@@ -86,11 +86,13 @@ jobs:
           print([l for l in s.splitlines() if 'default_notification' in l])
           PY
 
-      - name: Icone do app (opcional)
-        continue-on-error: true
+      - name: Icone do app (pronto no projeto, sem baixar nada)
         run: |
-          npm install --no-save @capacitor/assets@3
-          npx capacitor-assets generate --android
+          cp -r assets/android-res/* android/app/src/main/res/
+          for d in mdpi hdpi xhdpi xxhdpi xxxhdpi; do for f in ic_launcher ic_launcher_round ic_launcher_foreground ic_launcher_background; do
+            test -s android/app/src/main/res/mipmap-$d/$f.png || { echo "::error::Falta o icone mipmap-$d/$f.png — o APK nao sai sem o icone da loja"; exit 1; }; done; done
+          test -s android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml || { echo "::error::Falta o icone adaptativo"; exit 1; }
+          echo "icone da loja instalado"
 
       - name: Copiar o app para o Android
         run: npx cap sync android
