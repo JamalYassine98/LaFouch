@@ -1823,6 +1823,8 @@ body.modoCli.mcAberto #vDetail{overscroll-behavior:contain;-webkit-overflow-scro
 #ttFolha .ttSel{height:38px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--fg);font-weight:600;font-size:14px}
 #ttFolha .ttN{width:52px;height:30px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--fg);text-align:center;font-size:14px}
 #ttFolha .ttX{width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--mute)}
+/* v477 (S31): a 1ª linha da cor (o resto das peças, sem ×) guarda o mesmo espaço, para os graus ficarem na mesma coluna */
+#ttFolha .ttX0{width:32px;height:32px;flex:none}
 #ttFolha .ttDiv,#ttFolha .ttCan{display:block;width:100%;background:none;border:0;color:var(--mute);font-size:14px;padding:12px 0;text-align:left}
 #ttFolha .ttDiv{color:var(--accent-fg)}#ttFolha .ttCan{text-align:center}
 #ttFolha .ttFica{font-size:14px;color:var(--mute);padding:12px 0}#ttFolha .ttFica b{color:var(--fg)}

@@ -79,7 +79,7 @@
       t.g.forEach(function (gr, gi) {
         gr.partes.forEach(function (pt, pi) {
           var resto = pi === 0 && gr.partes.length > 1;
-          h += '<div class="ttR"><span>' + esc(gr.k) + '<small>' + (gr.partes.length > 1 ? (resto ? pt.n + ' peças' : '<input class="ttN" inputmode="numeric" data-tt="n:' + gi + ':' + pi + '" value="' + pt.n + '"> peças') : gr.n + ' peças') + '</small></span>' + ttSel('g:' + gi + ':' + pi, pt.g, gs0) + (pi > 0 ? '<button type="button" class="ttX" data-act="ttTira" data-id="' + gi + ':' + pi + '" aria-label="Tirar este grau">×</button>' : '') + '</div>';
+          h += '<div class="ttR"><span>' + esc(gr.k) + '<small>' + (gr.partes.length > 1 ? (resto ? pt.n + (pt.n === 1 ? ' peça' : ' peças') : '<input class="ttN" inputmode="numeric" data-tt="n:' + gi + ':' + pi + '" value="' + pt.n + '"> peças') : gr.n + (gr.n === 1 ? ' peça' : ' peças')) + '</small></span>' + ttSel('g:' + gi + ':' + pi, pt.g, gs0) + (pi > 0 ? '<button type="button" class="ttX" data-act="ttTira" data-id="' + gi + ':' + pi + '" aria-label="Tirar este grau">×</button>' : gr.partes.length > 1 ? '<i class="ttX0" aria-hidden="true"></i>' : '') + '</div>';
         });
         if (gr.n > 1) h += '<button type="button" class="ttDiv" data-act="ttDivide" data-id="' + gi + '">' + (gr.partes.length > 1 ? '+ outro grau em ' + esc(gr.k) : 'Graus diferentes em ' + esc(gr.k) + '? Dividir por grau ›') + '</button>';
       });

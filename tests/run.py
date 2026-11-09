@@ -2520,6 +2520,21 @@ async def main():
             if not ok: falhas.append('v476 graus/nome'); print('        veio', r76, pg.erros)
             await pg.close()
 
+            # v477: folha "Mudar para Pré-graduado" — o grau da 1ª linha fica na mesma coluna dos outros; "1 peça" no singular
+            pg = await pagina()
+            r77 = await pg.evaluate("""() => { const L = window.__LF, S = L.S; const it = S.items.find(i => i.tipo === 'sem' && i.qty > 0 && !i.bulk);
+              S.items.push(Object.assign({}, it, {qty: 2})); L.tipoTrocaAbre(it.ref, 'sem', 'pre'); return it.ref; }""")
+            await pg.wait_for_timeout(600)
+            for _ in range(3):
+                await pg.locator('#ttFolha .ttDiv').first.click(); await pg.wait_for_timeout(250)
+            r77b = await pg.evaluate("""() => { const rs = [...document.querySelectorAll('#ttFolha .ttR')]; const g = rs.filter(r => r.querySelector('.ttX') || r.querySelector('.ttX0'));
+              const xs = g.map(r => Math.round(r.querySelector('.ttSel').getBoundingClientRect().right)); return [xs.length, new Set(xs).size, /peças/.test(g[0].querySelector('small').textContent) || /peça/.test(g[0].querySelector('small').textContent)]; }""")
+            total += 1
+            ok = r77b[0] >= 3 and r77b[1] == 1 and r77b[2] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'v477: Mudar para Pré-graduado — graus da mesma cor alinhados na mesma coluna')
+            if not ok: falhas.append('v477 alinhamento'); print('        veio', r77, r77b, pg.erros)
+            await pg.close()
+
             # Grupos no acesso rápido: segurar um botão sobre outro junta; abas no topo; adicionar, tirar e desfazer
             pg = await pagina()
             await pg.evaluate("() => { window.__LF.S.barra = null; window.__LF.S.grupos = []; window.__LF.setView('inicio'); }")

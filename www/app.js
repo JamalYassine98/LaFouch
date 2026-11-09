@@ -1048,7 +1048,7 @@
     return s !== tks.join(' ') ? s : '';
   }
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 476;
+  var APP_BUILD = 477;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
   var APP_NOME = '5.8.4'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
@@ -42327,7 +42327,7 @@
       t.g.forEach(function (gr, gi) {
         gr.partes.forEach(function (pt, pi) {
           var resto = pi === 0 && gr.partes.length > 1;
-          h += '<div class="ttR"><span>' + esc(gr.k) + '<small>' + (gr.partes.length > 1 ? (resto ? pt.n + ' peças' : '<input class="ttN" inputmode="numeric" data-tt="n:' + gi + ':' + pi + '" value="' + pt.n + '"> peças') : gr.n + ' peças') + '</small></span>' + ttSel('g:' + gi + ':' + pi, pt.g, gs0) + (pi > 0 ? '<button type="button" class="ttX" data-act="ttTira" data-id="' + gi + ':' + pi + '" aria-label="Tirar este grau">×</button>' : '') + '</div>';
+          h += '<div class="ttR"><span>' + esc(gr.k) + '<small>' + (gr.partes.length > 1 ? (resto ? pt.n + (pt.n === 1 ? ' peça' : ' peças') : '<input class="ttN" inputmode="numeric" data-tt="n:' + gi + ':' + pi + '" value="' + pt.n + '"> peças') : gr.n + (gr.n === 1 ? ' peça' : ' peças')) + '</small></span>' + ttSel('g:' + gi + ':' + pi, pt.g, gs0) + (pi > 0 ? '<button type="button" class="ttX" data-act="ttTira" data-id="' + gi + ':' + pi + '" aria-label="Tirar este grau">×</button>' : gr.partes.length > 1 ? '<i class="ttX0" aria-hidden="true"></i>' : '') + '</div>';
         });
         if (gr.n > 1) h += '<button type="button" class="ttDiv" data-act="ttDivide" data-id="' + gi + '">' + (gr.partes.length > 1 ? '+ outro grau em ' + esc(gr.k) : 'Graus diferentes em ' + esc(gr.k) + '? Dividir por grau ›') + '</button>';
       });
