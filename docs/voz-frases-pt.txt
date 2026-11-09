@@ -1,0 +1,53 @@
+Olá! Segure o celular como você costuma ler e tente ler a frase.
+Eu vou ajustando o grau para você.
+Toque em “Leio bem” quando estiver confortável.
+Pronto!
+Percebi que você afastou o celular.
+Percebi que você apertou os olhos.
+Percebi que você franziu a testa.
+Percebi que você afastou o celular e apertou os olhos.
+Percebi que você afastou o celular e franziu a testa.
+Percebi que você apertou os olhos e franziu a testa.
+Percebi que você afastou o celular e apertou os olhos e franziu a testa.
+Sugiro +0.75.
++0.75.
+O seu grau para começar é +0.75.
+Sugiro +1.00.
++1.00.
+O seu grau para começar é +1.00.
+Sugiro +1.25.
++1.25.
+O seu grau para começar é +1.25.
+Sugiro +1.50.
++1.50.
+O seu grau para começar é +1.50.
+Sugiro +1.75.
++1.75.
+O seu grau para começar é +1.75.
+Sugiro +2.00.
++2.00.
+O seu grau para começar é +2.00.
+Sugiro +2.25.
++2.25.
+O seu grau para começar é +2.25.
+Sugiro +2.50.
++2.50.
+O seu grau para começar é +2.50.
+Sugiro +2.75.
++2.75.
+O seu grau para começar é +2.75.
+Sugiro +3.00.
++3.00.
+O seu grau para começar é +3.00.
+Sugiro +3.25.
++3.25.
+O seu grau para começar é +3.25.
+Sugiro +3.50.
++3.50.
+O seu grau para começar é +3.50.
+Sugiro +3.75.
++3.75.
+O seu grau para começar é +3.75.
+Sugiro +4.00.
++4.00.
+O seu grau para começar é +4.00.
