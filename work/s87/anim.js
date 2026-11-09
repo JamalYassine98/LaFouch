@@ -12,9 +12,6 @@ function ponteiro(len,op){return `<g opacity="${op}"><rect x="23" y="-3.2" width
 /* lente de prova com hastes (S68/S70), desenhada com centro (cx,cy), largura w, altura h */
 function lente(cx,cy,w,h,rot,br,tag){const x=-w/2,y=-h/2,a=h*.22,sw=Math.max(2,w*.04);const bx=lerp(-w*.9,w*1.2,br);
  return `<g transform="translate(${cx} ${cy}) rotate(${rot})">
- <path d="M${x+4} ${y+a} C ${x-w*.08} ${y+a+2} ${x-w*.12} ${y+a+8} ${x-w*.14} ${y+a+h*.08} q -2 6 3 8" stroke="url(#lzar)" stroke-width="${sw*.75}" stroke-linecap="round" fill="none"/>
- <path d="M${-x-4} ${y+a} C ${-x+w*.08} ${y+a+2} ${-x+w*.12} ${y+a+8} ${-x+w*.14} ${y+a+h*.08} q 2 6 -3 8" stroke="url(#lzar)" stroke-width="${sw*.75}" stroke-linecap="round" fill="none"/>
- <circle cx="${x+4}" cy="${y+a}" r="${sw*.55}" fill="#e7a6c7"/><circle cx="${-x-4}" cy="${y+a}" r="${sw*.55}" fill="#e7a6c7"/>
  <clipPath id="lzc${Math.round(w)}"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${w*.32}"/></clipPath>
  <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${w*.32}" fill="#ffffff" fill-opacity=".28"/>
  ${br>0&&br<1?`<g clip-path="url(#lzc${Math.round(w)})"><rect x="${bx}" y="${y-h*.2}" width="${w*.28}" height="${h*1.4}" fill="url(#lzbr)" transform="rotate(20 ${bx} ${y})"/></g>`:''}
