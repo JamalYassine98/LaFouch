@@ -1048,7 +1048,7 @@
     return s !== tks.join(' ') ? s : '';
   }
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 475;
+  var APP_BUILD = 476;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
   var APP_NOME = '5.8.4'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
@@ -28281,8 +28281,28 @@
         return S.items.reduce(function (n, i) {
           return n + (i.ref === ref && i.tipo === 'pre' && i.cor === c.cor && i.grau === g ? Math.max(0, i.qty || 0) : 0);
         }, 0);
+      }).map(function (q, k) {
+        // v476 (S24, aprovado 09/11): "-" = esse grau não existe nessa cor (o site esconde); 0 = existe mas esgotou (o site risca)
+        var tem = S.items.some(function (i) {
+          return i.ref === ref && i.tipo === 'pre' && i.cor === c.cor && i.grau === G[k];
+        });
+        return tem ? q : '-';
       }).join(',');
     });
+  }
+  // v476 (S27h, aprovado 09/11): o código é o nome; o site monta a descrição com formato (fm), material e marca de verdade (mr).
+  // Título da página: tipo + marca + formato ("Óculos de leitura quadrado", "Armação Kazwini gatinho"). Sem cor, nada inventado.
+  // Sem formato e sem marca marcados: continua o nome de antes.
+  var VIT_FM = { Redondo: ['redondo', 'redonda'], Quadrado: ['quadrado', 'quadrada'], Retangular: ['retangular', 'retangular'], Gatinho: ['gatinho', 'gatinho'], Aviador: ['aviador', 'aviador'], Oval: ['oval', 'oval'], Hexagonal: ['hexagonal', 'hexagonal'] };
+  function vitTitulo(ref, tipo, a, velho) {
+    var fm = String(a.formato || '').trim(),
+      mr = String(a.marca || '').trim();
+    if (!fm && !mr) return velho;
+    var arm = tipo !== 'pre' && tipo !== 'solar',
+      base = tipo === 'pre' ? 'Óculos de leitura' : tipo === 'solar' ? 'Óculos de sol' : 'Armação',
+      F = VIT_FM[fm],
+      adj = F ? F[arm ? 1 : 0] : fm.toLowerCase();
+    return base + (mr ? ' ' + mr : '') + (adj ? ' ' + adj : '');
   }
   function vitProduto(ref) {
     var v = vitInfo(ref),
@@ -28292,7 +28312,9 @@
       cs = vitCores(ref);
     return {
       ref: ref,
-      nome: v.nome,
+      nome: vitTitulo(ref, v.tipo, a, v.nome),
+      fm: a.formato || '',
+      mr: a.marca || '',
       tipo: solar ? 'solar' : v.tipo === 'pre' ? 'grau' : 'armacao',
       n: sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).n,
       de: sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).de,
@@ -28330,7 +28352,7 @@
     S.vitPend[ref] = op;
     saveSoon();
   }
-  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'desc', 'gr', 'gq', 'gc', 'gv', 'fv'];
+  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'desc', 'gr', 'gq', 'gc', 'gv', 'fv', 'fm', 'mr'];
   function vitFotos(ref) {
     return vitCores(ref).map(function (c) {
       return S.fotos[ref + '|' + c.cor];

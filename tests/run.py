@@ -2502,6 +2502,24 @@ async def main():
             if not ok: falhas.append('v474 graus/barra/foto'); print('        veio', blocos, a1, a2, a3, a4, el, cu, sb, fotos, sobra, pg.erros)
             await pg.close()
 
+            # v476: graus por cor mandam "-" quando o grau não existe na cor (0 = esgotado); nome do site = tipo + marca + formato (S27h)
+            pg = await pagina()
+            r76 = await pg.evaluate("""() => { const L = window.__LF, S = L.S; const c0 = L.vitProduto('SP58110').cn[0]; const b = S.items.find(i => i.ref === 'SP58110' && !i.bulk && i.cor === c0); const n = Object.assign({}, b, {grau: '+3.75', qty: 0}); delete n.lote; S.items.push(n);
+              const o = Object.assign({}, b, {cor: 'Cor Teste 76', grau: '+3.25', qty: 2}); delete o.lote; S.items.push(o);
+              S.attr = S.attr || {}; S.attr['SP58110'] = {formato: 'Quadrado', material: 'Acetato'};
+              const p = L.vitProduto('SP58110'); const ic = p.cn.indexOf(c0), g = String(p.gc[ic]).split(',');
+              const temC0 = gr => S.items.some(i => i.ref === 'SP58110' && i.tipo === 'pre' && i.cor === c0 && i.grau === gr);
+              const certo = p.gr.every((gr, k) => temC0(gr) ? g[k] !== '-' : g[k] === '-');
+              S.attr['SP58110'].marca = 'Kazwini'; const p2 = L.vitProduto('SP58110');
+              delete S.attr['SP58110']; const p3 = L.vitProduto('SP58110');
+              return [g[p.gr.indexOf('+3.75')], g[p.gr.indexOf('+3.25')], certo, p.nome, p.fm, p.mr, p2.nome, p3.fm, !/^Óculos de leitura quadrado$/.test(p3.nome)]; }""")
+            total += 1
+            ok = (r76[0] == '0' and r76[1] == '-' and r76[2] and r76[3] == 'Óculos de leitura quadrado' and r76[4] == 'Quadrado' and r76[5] == ''
+                  and r76[6] == 'Óculos de leitura Kazwini quadrado' and r76[7] == '' and r76[8] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'v476: grau sem linha na cor = "-" (esgotado = 0); nome do site = tipo + marca + formato; sem formato/marca fica o nome de antes')
+            if not ok: falhas.append('v476 graus/nome'); print('        veio', r76, pg.erros)
+            await pg.close()
+
             # Grupos no acesso rápido: segurar um botão sobre outro junta; abas no topo; adicionar, tirar e desfazer
             pg = await pagina()
             await pg.evaluate("() => { window.__LF.S.barra = null; window.__LF.S.grupos = []; window.__LF.setView('inicio'); }")
