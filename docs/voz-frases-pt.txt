@@ -1,45 +1,21 @@
-# Frases do guia de voz do "Descubra o seu grau" (S47/S47b/S47c, 09/11) — para gravar com voz neural.
+# Frases do Mochi no "Descubra o seu grau" (S54–S64, 09/11) — para gravar com voz neural.
 # O site toca o arquivo de cada frase (media/voz/<pt|es>/lista.json: "frase exata" → "arquivo.mp3").
-# Cada linha = uma frase (o site separa por ponto final). As com {G} precisam de 1 arquivo por grau (+0.25 a +4.00).
+# Cada linha = uma frase (o site separa por ponto final). {G} = um arquivo por grau (+0.75 a +4.00).
+Oi! Eu sou o Mochi.
 Este teste é para óculos de leitura.
 Se você tem miopia, astigmatismo ou usa multifocal, ele não vai servir para você.
-Se usa óculos, tire agora.
-Lente pode ficar.
-Segure o celular bem perto do rosto.
-Agora afaste o celular devagar.
-Quando as letras ficarem nítidas, toque em “Ficou nítido”.
-Aproxime o celular do rosto, a um palmo.
-Aproxime o celular do rosto primeiro.
-Isso.
-Agora afaste devagar.
-Isso, devagar…
-Sem pressa.
-Esse vai e vem é normal.
-Pare onde ficou mais fácil de ler.
-Um pouquinho mais devagar.
-Tente não apertar os olhos.
-Deixe o rosto relaxado e a letra aparecer sozinha.
-Não estou vendo o seu rosto.
-Deixe a câmera de cima livre.
-Deixe a câmera de cima livre e olhe para a tela.
-Segure aí um instante…
-Segure parado…
-Pode continuar afastando até ficar nítido.
-Se as letras já estão nítidas, é só tocar em “Ficou nítido”.
-Ficou nítido aí?
-Se ficou, toque em “Ficou nítido”.
-Primeiro aproxime o celular do rosto, depois afaste devagar.
-Agora mais uma vez, para ter certeza.
-Aproxime o celular do rosto e afaste de novo até ficar nítido.
-As duas medidas ficaram diferentes.
-Vamos fazer mais uma: aproxime e afaste de novo.
-Pronto.
-Para começar, o grau que mais combina com você é {G}.
-Parece que precisou esticar o braço todo.
-Boa notícia: você lê bem de perto sem óculos.
-Óculos de leitura não são para você.
-As medidas ficaram bem diferentes entre si.
+Faz como eu: tire os óculos…
+…e segure o celular a 40 centímetros, um palmo e meio.
+Consegue ler a frase aqui na minha frente, sem esforço?
+E esta?
+E esta, mais miudinha?
+Hmm… tudo bem! É aqui que a lente entra.
+Vou trocar por uma mais forte…
+Com a lente {G}.
+Consegue ler a última frase?
+Isso! Agora confiro uma um pouco mais fraca, como o médico faz.
+Pronto! O grau que mais combina com você é {G}.
+Boa notícia: você lê bem de perto sem óculos!
 Para não chutar um grau, vale consultar um oftalmologista.
-A câmera não abriu, sem problema.
-Afaste o celular devagar e me diga onde as letras ficaram nítidas.
-{G}.
+Chegue o celular um pouquinho mais perto, a 40 centímetros.
+Afaste um pouquinho o celular, para uns 40 centímetros.
