@@ -1,53 +1,45 @@
-Olá! Segure o celular como você costuma ler e tente ler a frase.
-Eu vou ajustando o grau para você.
-Toque em “Leio bem” quando estiver confortável.
-Pronto!
-Percebi que você afastou o celular.
-Percebi que você apertou os olhos.
-Percebi que você franziu a testa.
-Percebi que você afastou o celular e apertou os olhos.
-Percebi que você afastou o celular e franziu a testa.
-Percebi que você apertou os olhos e franziu a testa.
-Percebi que você afastou o celular e apertou os olhos e franziu a testa.
-Sugiro +0.75.
-+0.75.
-O seu grau para começar é +0.75.
-Sugiro +1.00.
-+1.00.
-O seu grau para começar é +1.00.
-Sugiro +1.25.
-+1.25.
-O seu grau para começar é +1.25.
-Sugiro +1.50.
-+1.50.
-O seu grau para começar é +1.50.
-Sugiro +1.75.
-+1.75.
-O seu grau para começar é +1.75.
-Sugiro +2.00.
-+2.00.
-O seu grau para começar é +2.00.
-Sugiro +2.25.
-+2.25.
-O seu grau para começar é +2.25.
-Sugiro +2.50.
-+2.50.
-O seu grau para começar é +2.50.
-Sugiro +2.75.
-+2.75.
-O seu grau para começar é +2.75.
-Sugiro +3.00.
-+3.00.
-O seu grau para começar é +3.00.
-Sugiro +3.25.
-+3.25.
-O seu grau para começar é +3.25.
-Sugiro +3.50.
-+3.50.
-O seu grau para começar é +3.50.
-Sugiro +3.75.
-+3.75.
-O seu grau para começar é +3.75.
-Sugiro +4.00.
-+4.00.
-O seu grau para começar é +4.00.
+# Frases do guia de voz do "Descubra o seu grau" (S47/S47b/S47c, 09/11) — para gravar com voz neural.
+# O site toca o arquivo de cada frase (media/voz/<pt|es>/lista.json: "frase exata" → "arquivo.mp3").
+# Cada linha = uma frase (o site separa por ponto final). As com {G} precisam de 1 arquivo por grau (+0.25 a +4.00).
+Este teste é para óculos de leitura.
+Se você tem miopia, astigmatismo ou usa multifocal, ele não vai servir para você.
+Se usa óculos, tire agora.
+Lente pode ficar.
+Segure o celular bem perto do rosto.
+Agora afaste o celular devagar.
+Quando as letras ficarem nítidas, toque em “Ficou nítido”.
+Aproxime o celular do rosto, a um palmo.
+Aproxime o celular do rosto primeiro.
+Isso.
+Agora afaste devagar.
+Isso, devagar…
+Sem pressa.
+Esse vai e vem é normal.
+Pare onde ficou mais fácil de ler.
+Um pouquinho mais devagar.
+Tente não apertar os olhos.
+Deixe o rosto relaxado e a letra aparecer sozinha.
+Não estou vendo o seu rosto.
+Deixe a câmera de cima livre.
+Deixe a câmera de cima livre e olhe para a tela.
+Segure aí um instante…
+Segure parado…
+Pode continuar afastando até ficar nítido.
+Se as letras já estão nítidas, é só tocar em “Ficou nítido”.
+Ficou nítido aí?
+Se ficou, toque em “Ficou nítido”.
+Primeiro aproxime o celular do rosto, depois afaste devagar.
+Agora mais uma vez, para ter certeza.
+Aproxime o celular do rosto e afaste de novo até ficar nítido.
+As duas medidas ficaram diferentes.
+Vamos fazer mais uma: aproxime e afaste de novo.
+Pronto.
+Para começar, o grau que mais combina com você é {G}.
+Parece que precisou esticar o braço todo.
+Boa notícia: você lê bem de perto sem óculos.
+Óculos de leitura não são para você.
+As medidas ficaram bem diferentes entre si.
+Para não chutar um grau, vale consultar um oftalmologista.
+A câmera não abriu, sem problema.
+Afaste o celular devagar e me diga onde as letras ficaram nítidas.
+{G}.
