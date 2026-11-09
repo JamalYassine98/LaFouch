@@ -185,34 +185,159 @@
       abaAnt[id] = { x: x, w: w };
     }
 
-    // ---------- h. foto do produto expande do cartão até o produto ----------
-    var expDe = null;
+    // ---------- h. (v474, aprovado em vídeo 08/11) foto do cartão vira a foto do produto — IGUAL no Catálogo e no Inventário ----------
+    // Abrir: cartão afunda (CSS) → o fundo da tela do produto cresce a partir do cartão enquanto a foto voa até o lugar dela
+    // (380 ms, sem esticar: caixa branca + contain) → o conteúdo aparece quando a foto chega (180 ms, sobe 14 px).
+    // Voltar: o conteúdo some (110 ms) → o fundo encolhe até o cartão e a foto volta para ele (340 ms).
+    // Abaixo da barra de navegação (z 40). Fica de fora com "menos movimento", modo cliente e seleção.
+    var FE = 'cubic-bezier(.2,.9,.3,1)', abrindo = null, fechando = null, voltaOk = false;
+    // o produto abre sempre no topo da tela, com a barra inteira (Catálogo e Inventário)
+    window.prodTopo = function (det) {
+      if (!det || det.hidden) return;
+      // 'instant': o CSS tem scroll-behavior:smooth; rolando suave a foto mediria fora do lugar
+      window.scrollTo({ top: Math.max(0, det.getBoundingClientRect().top + window.scrollY - 12), left: 0, behavior: 'instant' });
+    };
+    var ultCard = null;
+    function fRet(r) { return { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px' }; }
+    function fDet(view) {
+      if (view === 'vendas') return S.view === 'vendas' && S.vRef ? $('vDetail') : null;
+      var d = $('detail');
+      return S.view === 'estoque' && d && !d.hidden ? d : null;
+    }
+    function fCamada(cls, r, z, extra) {
+      var e = document.createElement('div');
+      e.className = cls;
+      e.style.cssText = 'position:fixed;pointer-events:none;z-index:' + z + ';left:' + r.left + 'px;top:' + r.top + 'px;width:' + r.width + 'px;height:' + r.height + 'px;' + (extra || '');
+      document.body.appendChild(e);
+      return e;
+    }
+    function fFoto(r, src) {
+      var e = fCamada('lfVoa', r, 37, 'background:#fff;border-radius:8px;overflow:hidden');
+      e.innerHTML = '<img alt="" src="' + src + '" style="width:100%;height:100%;object-fit:contain;display:block">';
+      return e;
+    }
+    function fSemMov() {
+      return REDUCED || S.modoCli || S.selMode || (S.selP && S.selP.length) || (S.vSel && S.vSel.length && S.vSelMode) || S.ebSel;
+    }
     document.addEventListener('click', function (e) {
-      var c = e.target.closest && e.target.closest('#v-vendas .pcard');
-      if (!c || REDUCED) return;
-      var im = c.querySelector('.pbox img');
-      expDe = im ? { r: im.getBoundingClientRect(), src: im.src, ref: c.getAttribute('data-ref') } : null;
+      var c = e.target.closest && e.target.closest('#v-vendas .pcard[data-ref],#v-estoque .pcard[data-ref]');
+      if (!c || fSemMov()) return;
+      var pb = c.querySelector('.pbox'), im = pb && pb.querySelector('img');
+      if (!im || !im.complete) return;
+      var view = c.closest('#v-vendas') ? 'vendas' : 'estoque', vw = $('v-' + view), r = vw.getBoundingClientRect(), snap = vw.cloneNode(true);
+      snap.removeAttribute('id');
+      [].forEach.call(snap.querySelectorAll('[id]'), function (x) { x.removeAttribute('id'); });
+      snap.style.cssText = 'position:fixed;left:0;right:0;top:0;bottom:0;margin:0;z-index:34;pointer-events:none;background:var(--bg);overflow:hidden';
+      var sIn = document.createElement('div');
+      sIn.style.cssText = 'position:absolute;left:' + r.left + 'px;top:' + r.top + 'px;width:' + r.width + 'px';
+      while (snap.firstChild) sIn.appendChild(snap.firstChild);
+      snap.appendChild(sIn);
+      abrindo = { view: view, ref: c.getAttribute('data-ref'), card: c.getBoundingClientRect(), box: pb.getBoundingClientRect(), src: im.src, snap: snap, rad: getComputedStyle(c).borderRadius };
+      if (view === 'estoque') S._semAnimFicha = true;
     }, true);
-    function expandeDepois() {
-      if (!expDe) return;
-      var d = expDe;
-      expDe = null;
-      if (!S.vRef) return;
-      var alvo = document.querySelector('#vDetail img');
-      if (!alvo) return;
-      var r = alvo.getBoundingClientRect();
-      if (!r.width) return;
-      var cl = document.createElement('img');
-      cl.src = d.src;
-      cl.className = 'lfExp';
-      cl.style.cssText = 'left:' + d.r.left + 'px;top:' + d.r.top + 'px;width:' + d.r.width + 'px;height:' + d.r.height + 'px';
-      document.body.appendChild(cl);
-      alvo.style.opacity = '0';
-      var a = cl.animate([{ left: d.r.left + 'px', top: d.r.top + 'px', width: d.r.width + 'px', height: d.r.height + 'px' }, { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px' }], { duration: 420, easing: 'cubic-bezier(.2,.9,.3,1)', fill: 'forwards' });
-      a.onfinish = function () {
-        alvo.style.opacity = '';
-        cl.remove();
+    function abreDepois() {
+      if (!abrindo) return;
+      var a = abrindo, det = fDet(a.view);
+      abrindo = null;
+      if (!det) return;
+      ultCard = { view: a.view, ref: a.ref };
+      // o que o cliente vê na hora: a lista parada (cópia) + o fundo e a foto saindo do cartão; o produto fica escondido até a foto chegar
+      document.body.appendChild(a.snap);
+      var bg = fCamada('lfFundo', a.card, 35, 'background:var(--bg);border-radius:' + a.rad), fl = fFoto(a.box, a.src);
+      det.style.position = 'relative';
+      det.style.zIndex = '36';
+      // escondido por uma animação nossa (ganha das animações antigas de entrada da tela)
+      var an = det.animate([{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }], { duration: 180, delay: 330, easing: 'ease-out', fill: 'both' });
+      an.pause();
+      var limpa = function () {
+        try { an.cancel(); } catch (_) {}
+        det.style.position = '';
+        det.style.zIndex = '';
+        fl.remove();
+        bg.remove();
+        a.snap.remove();
       };
+      // mede no próximo quadro: a tela já está com o produto no topo
+      requestAnimationFrame(function () {
+        try {
+          window.prodTopo(det);
+          var alvo = det.querySelector('.pbox'), ai = alvo && alvo.querySelector('img');
+          if (!alvo || !ai) { limpa(); return; }
+          var r1 = alvo.getBoundingClientRect(), W = window.innerWidth, H = window.innerHeight;
+          ai.style.visibility = 'hidden';
+          bg.animate([fRet(a.card), { left: '0px', top: '0px', width: W + 'px', height: H + 'px', borderRadius: '0px' }], { duration: 380, easing: FE, fill: 'forwards' });
+          an.play();
+          var fim = function () {
+            ai.style.visibility = '';
+            limpa();
+          };
+          fl.animate([fRet(a.box), fRet(r1)], { duration: 380, easing: FE, fill: 'forwards' }).onfinish = function () {
+            if (an.playState === 'finished') fim();
+            else an.onfinish = fim;
+          };
+        } catch (e) {
+          limpa();
+        }
+      });
+    }
+    // voltar pelo botão da tela do produto: o conteúdo some primeiro, depois a tela volta para o cartão
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('#vDetail .tab.ibtn[aria-label="Voltar"],#detail .tab.ibtn[aria-label="Voltar"]');
+      if (!b || voltaOk) return;
+      if (fSemMov()) return;
+      var det = b.closest('#vDetail,#detail'), pb = det.querySelector('.pbox'), im = pb && pb.querySelector('img');
+      if (!im) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      var vv = det.id === 'vDetail' ? 'vendas' : 'estoque';
+      fechando = { view: vv, ref: ultCard && ultCard.view === vv ? ultCard.ref : S.view === 'vendas' ? S.vRef : S.open || S.ref, box: pb.getBoundingClientRect(), src: im.src };
+      var an = det.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 110, easing: 'ease-in', fill: 'forwards' });
+      an.onfinish = function () {
+        voltaOk = true;
+        try { b.click(); } finally { voltaOk = false; }
+        try { an.cancel(); } catch (_) {}
+      };
+    }, true);
+    function fechaDepois() {
+      if (!fechando || fDet(fechando.view)) return;
+      var f = fechando, W = window.innerWidth, H = window.innerHeight;
+      fechando = null;
+      // o fundo cobre a tela já; as medidas saem no próximo quadro (o voltar ainda rola a lista depois de desenhar)
+      var bg = fCamada('lfFundo', { left: 0, top: 0, width: W, height: H }, 35, 'background:var(--bg)'), fl = fFoto(f.box, f.src);
+      var limpa = function () { fl.remove(); bg.remove(); };
+      requestAnimationFrame(function () {
+        try {
+          var vw = $('v-' + f.view), c = vw && vw.querySelector('.pcard[data-ref="' + f.ref + '"]');
+          var pb = c && c.querySelector('.pbox'), ci = pb && pb.querySelector('img');
+          if (!pb) {
+            bg.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, fill: 'forwards' }).onfinish = limpa;
+            fl.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, fill: 'forwards' });
+            return;
+          }
+          var cr = c.getBoundingClientRect();
+          if (cr.top < 70 || cr.bottom > H - 90) {
+            window.scrollBy({ top: cr.top - (H - cr.height) / 2, left: 0, behavior: 'instant' });
+            cr = c.getBoundingClientRect();
+          }
+          var r0 = pb.getBoundingClientRect();
+          if (ci) ci.style.visibility = 'hidden';
+          bg.animate([{ left: '0px', top: '0px', width: W + 'px', height: H + 'px', borderRadius: '0px' }, { left: cr.left + 'px', top: cr.top + 'px', width: cr.width + 'px', height: cr.height + 'px', borderRadius: getComputedStyle(c).borderRadius }], { duration: 340, easing: FE, fill: 'forwards' });
+          fl.animate([fRet(f.box), fRet(r0)], { duration: 340, easing: FE, fill: 'forwards' }).onfinish = function () {
+            if (ci) ci.style.visibility = '';
+            limpa();
+          };
+        } catch (e) {
+          limpa();
+        }
+      });
+    }
+    function expandeDepois() {
+      try {
+        abreDepois();
+        fechaDepois();
+      } catch (e) {
+        [].forEach.call(document.querySelectorAll('.lfVoa,.lfFundo'), function (x) { x.remove(); });
+      }
     }
 
     // ---------- i. segurar o cartão = espiar ----------

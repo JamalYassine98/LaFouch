@@ -2455,6 +2455,53 @@ async def main():
             if not ok: falhas.append('v465 casa/tipo'); print('        veio', got, r1, r2, pg.erros)
             await pg.close()
 
+            # v474: graus por cor (trocar junta, mudar de cor, adicionar vários, tirar vai ao histórico, custo único) + barra de seleção + animação da foto
+            pg = await pagina()
+            await pg.evaluate("() => { const S = window.__LF.S; const b = S.items.find(i => i.ref === 'SP58110'); const n = Object.assign({}, b, {cor: 'Tartaruga', grau: '+0.75', qty: 1}); delete n.lote; S.items.push(n); window.__LF.setView('estoque'); }")
+            await pg.wait_for_timeout(600)
+            await pg.evaluate("() => { [...document.querySelectorAll('#v-estoque .pcard')].find(x => x.dataset.ref === 'SP58110').click(); }")
+            await pg.wait_for_timeout(800)
+            await pg.evaluate("() => { window.__LF.S.qEdit = true; window.__LF.render(); document.getElementById('edTab2').click(); }")
+            await pg.wait_for_timeout(900)
+            L = "() => window.__LF.S.items.filter(i => i.ref === 'SP58110' && !i.bulk).map(i => i.cor + ' ' + i.grau + ' x' + i.qty).sort().join('|')"
+            async def folha(chip, passos):
+                await pg.locator('.gcChip', has_text=chip).first.click(); await pg.wait_for_timeout(600)
+                for s_ in passos: await pg.locator('.ljJn ' + s_).first.click(); await pg.wait_for_timeout(200)
+                await pg.locator('.ljJn [data-ok]').click(); await pg.wait_for_timeout(700)
+            blocos = await pg.evaluate("() => document.querySelectorAll('.gcCorB').length")
+            await folha('+0.75', ['.gcG[data-g="+1.25"]']); a1 = await pg.evaluate(L)
+            await folha('+2.00', ['.gcTrk [data-m="1"]', '[data-c="Tartaruga"]', '.gcQm .vs-b[data-d="-1"]', '.gcQm .vs-b[data-d="-1"]']); a2 = await pg.evaluate(L)
+            await pg.locator('.gcAdd').click(); await pg.wait_for_timeout(600)
+            for s_ in ['.gcG[data-g="+1.50"]', '.gcG[data-g="+3.00"]']: await pg.locator('.ljJn ' + s_).click()
+            await pg.locator('.ljJn [data-ok]').click(); await pg.wait_for_timeout(700); a3 = await pg.evaluate(L)
+            await folha('+3.00', ['.gcTrk [data-m="2"]']); a4 = await pg.evaluate(L)
+            el = await pg.evaluate("() => window.__LF.S.elog.slice(-3).map(e => e.grau + ':' + e.qty).join(',')")
+            await pg.locator('.gcCusto input').fill('2,5'); await pg.locator('.gcCusto input').dispatch_event('change'); await pg.wait_for_timeout(400)
+            await pg.locator('#editModal button', has_text='Salvar alterações').click(); await pg.wait_for_timeout(800)
+            cu = await pg.evaluate("() => window.__LF.S.items.filter(i => i.ref === 'SP58110' && i.cor === 'Preto').every(i => i.custo === 2.5)")
+            # barra de seleção no padrão e animação da foto (Catálogo e Inventário)
+            await pg.evaluate("() => { const L = window.__LF; L.S.qEdit = false; L.S.det = false; L.S.open = ''; L.S.selMode = true; L.S.selP = []; L.render(); }")
+            await pg.wait_for_timeout(500)
+            sb = await pg.evaluate("() => { const b = document.getElementById('selBar'); return !!b && b.classList.contains('ebBar') && b.querySelector('.ebGo').disabled && /Toque nos produtos/.test(b.textContent); }")
+            await pg.evaluate("() => { const L = window.__LF; L.S.selMode = false; L.render(); }")
+            fotos = []
+            for v_ in ['vendas', 'estoque']:
+                await pg.evaluate("(v) => window.__LF.setView(v)", v_); await pg.wait_for_timeout(700)
+                await pg.evaluate("(v) => { const c = [...document.querySelectorAll('#v-' + v + ' .pcard[data-ref]')].find((c, i) => i > 1 && c.querySelector('.pbox img')); c.querySelector('.pbox').click(); }", v_)
+                await pg.wait_for_timeout(1200)
+                fotos.append(await pg.evaluate("(v) => { const d = document.getElementById(v === 'vendas' ? 'vDetail' : 'detail'); const r = d.querySelector('.pbox').getBoundingClientRect(); return [Math.round(r.top), Math.round(r.width), Math.round(r.height), document.querySelectorAll('.lfVoa,.lfFundo').length]; }", v_))
+                await pg.evaluate("(v) => document.querySelector((v === 'vendas' ? '#vDetail' : '#detail') + ' .tab.ibtn[aria-label=Voltar]').click()", v_)
+                await pg.wait_for_timeout(1000)
+            sobra = await pg.evaluate("() => document.querySelectorAll('.lfVoa,.lfFundo').length")
+            total += 1
+            ok = (blocos == 2 and a1 == 'Preto +1.25 x5|Preto +2.00 x4|Tartaruga +0.75 x1' and a2 == 'Preto +1.25 x5|Preto +2.00 x2|Tartaruga +0.75 x1|Tartaruga +2.00 x2'
+                  and a3 == 'Preto +1.25 x5|Preto +1.50 x1|Preto +2.00 x2|Preto +3.00 x1|Tartaruga +0.75 x1|Tartaruga +2.00 x2'
+                  and a4 == 'Preto +1.25 x5|Preto +1.50 x1|Preto +2.00 x2|Tartaruga +0.75 x1|Tartaruga +2.00 x2' and el.endswith('+3.00:-1') and cu and sb
+                  and fotos[0] == fotos[1] and fotos[0][3] == 0 and sobra == 0 and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'v474: graus por cor (trocar/mudar de cor/adicionar/tirar/custo), barra de seleção padrão, foto abre igual no Catálogo e no Inventário')
+            if not ok: falhas.append('v474 graus/barra/foto'); print('        veio', blocos, a1, a2, a3, a4, el, cu, sb, fotos, sobra, pg.erros)
+            await pg.close()
+
             # Grupos no acesso rápido: segurar um botão sobre outro junta; abas no topo; adicionar, tirar e desfazer
             pg = await pagina()
             await pg.evaluate("() => { window.__LF.S.barra = null; window.__LF.S.grupos = []; window.__LF.setView('inicio'); }")
@@ -2514,7 +2561,7 @@ async def main():
             cs = pg.locator('#rows .pcard[data-ref]')
             await cs.nth(0).click(); await pg.wait_for_timeout(200); await cs.nth(1).click(); await pg.wait_for_timeout(300)
             nsel = await pg.evaluate("() => window.__LF.S.selP.length")
-            await pg.locator('#selBar button:has-text("Preço…")').click(); await pg.wait_for_timeout(300)
+            await pg.locator('#selBar .ebGo').click(); await pg.wait_for_timeout(300)
             await pg.locator('.modal-box:has(.zlb) input').nth(1).fill('0,2'); await pg.locator('.modal-box:has(.zlb) button:has-text("Aplicar")').first.click(); await pg.wait_for_timeout(300)
             tem3 = await pg.evaluate("() => [...document.querySelectorAll('.modal-box:has(.zlb) button, .modal-box:has(.zalerta) button')].map(b => b.textContent.trim())")
             await pg.locator('.modal-box button:has-text("Reajustar")').click(); await pg.wait_for_timeout(400)

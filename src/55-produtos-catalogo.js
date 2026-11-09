@@ -447,40 +447,52 @@
     else S.selP.push(ref);
     render();
   }
+  // v474 (aprovado 08/11, esboço S17): mesma barra do Catálogo (.ebBar) — uma linha: × (sai) · "Toque nos produtos" / "N selecionados" · Todos · Preço ›
   function selBarra() {
-    var b = $('selBar');
-    if (!S.selMode || S.view !== 'estoque') {
-      if (b) b.remove();
+    var b = $('selBar'),
+      on = S.selMode && S.view === 'estoque';
+    if (!on) {
+      if (b) {
+        b.classList.remove('in');
+        setTimeout(function () {
+          if (!(S.selMode && S.view === 'estoque') && b.parentNode) b.remove();
+        }, 340);
+      }
       return;
     }
     if (!b) {
-      b = mk('div', '');
+      b = mk('div', 'ebBar selBar');
       b.id = 'selBar';
+      b.innerHTML =
+        '<button type="button" class="ebX" aria-label="Sair da seleção">×</button><span class="ebN"><span class="cjOdo" id="selNn"><span>1</span></span> <span id="selNt">Toque nos produtos</span></span>' +
+        '<button type="button" class="selTodos">Todos</button><button type="button" class="ebGo">Preço ›</button>';
       document.body.appendChild(b);
-    }
-    b.textContent = '';
-    b.appendChild(mk('b', '', S.selP.length ? S.selP.length + ' selecionado(s)' : 'Toque nos produtos'));
-    var todos = btn('chip', 'Todos da lista', function () {
-      var seen = {};
-      Array.from(document.querySelectorAll('#rows .pcard[data-ref]')).forEach(function (c) {
-        seen[c.getAttribute('data-ref')] = 1;
-      });
-      S.selP = Object.keys(seen);
-      render();
-    });
-    b.appendChild(todos);
-    var ap = btn('mini', 'Preço…', function () {
-      if (S.selP.length) selDialogo();
-    });
-    ap.disabled = !S.selP.length;
-    b.appendChild(ap);
-    b.appendChild(
-      btn('chip', 'Sair', function () {
+      b.querySelector('.ebX').onclick = function () {
         S.selMode = false;
         S.selP = [];
         render();
-      })
-    );
+      };
+      b.querySelector('.selTodos').onclick = function () {
+        var seen = {};
+        Array.from(document.querySelectorAll('#rows .pcard[data-ref]')).forEach(function (c) {
+          seen[c.getAttribute('data-ref')] = 1;
+        });
+        S.selP = Object.keys(seen);
+        render();
+      };
+      b.querySelector('.ebGo').onclick = function () {
+        if (S.selP.length) selDialogo();
+      };
+      requestAnimationFrame(function () {
+        b.classList.add('in');
+      });
+    } else b.classList.add('in');
+    var n = S.selP.length,
+      nn = $('selNn');
+    nn.style.display = n ? '' : 'none';
+    if (n) lfOdo(nn, n);
+    $('selNt').textContent = n ? (n === 1 ? 'selecionado' : 'selecionados') : 'Toque nos produtos';
+    b.querySelector('.ebGo').disabled = !n;
   }
   var selU = null; // últimos preços digitados em dólar no aplicar em grupo
   function selAplica(refs, novo, ant, site, wpp, modo) {

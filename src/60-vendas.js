@@ -403,7 +403,7 @@
           S.detRow = null;
           S.detCor = '';
           render();
-          window.scrollTo(0, 0);
+          prodTopo($('vDetail')); // v474: o produto abre no topo (igual ao Inventário)
         },
         k === S.vRef
       );

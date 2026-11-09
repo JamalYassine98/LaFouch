@@ -1048,7 +1048,7 @@
     return s !== tks.join(' ') ? s : '';
   }
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 472;
+  var APP_BUILD = 474;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
   var APP_NOME = '5.8.4'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
@@ -3829,7 +3829,7 @@
           S.qty = 1;
           S.msg = '';
           render();
-          $('detail').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          prodTopo($('detail')); // v474: o produto abre no topo (igual ao Catálogo), sem rolar no meio da animação
         },
         r === openRef
       );
@@ -11996,40 +11996,52 @@
     else S.selP.push(ref);
     render();
   }
+  // v474 (aprovado 08/11, esboço S17): mesma barra do Catálogo (.ebBar) — uma linha: × (sai) · "Toque nos produtos" / "N selecionados" · Todos · Preço ›
   function selBarra() {
-    var b = $('selBar');
-    if (!S.selMode || S.view !== 'estoque') {
-      if (b) b.remove();
+    var b = $('selBar'),
+      on = S.selMode && S.view === 'estoque';
+    if (!on) {
+      if (b) {
+        b.classList.remove('in');
+        setTimeout(function () {
+          if (!(S.selMode && S.view === 'estoque') && b.parentNode) b.remove();
+        }, 340);
+      }
       return;
     }
     if (!b) {
-      b = mk('div', '');
+      b = mk('div', 'ebBar selBar');
       b.id = 'selBar';
+      b.innerHTML =
+        '<button type="button" class="ebX" aria-label="Sair da seleção">×</button><span class="ebN"><span class="cjOdo" id="selNn"><span>1</span></span> <span id="selNt">Toque nos produtos</span></span>' +
+        '<button type="button" class="selTodos">Todos</button><button type="button" class="ebGo">Preço ›</button>';
       document.body.appendChild(b);
-    }
-    b.textContent = '';
-    b.appendChild(mk('b', '', S.selP.length ? S.selP.length + ' selecionado(s)' : 'Toque nos produtos'));
-    var todos = btn('chip', 'Todos da lista', function () {
-      var seen = {};
-      Array.from(document.querySelectorAll('#rows .pcard[data-ref]')).forEach(function (c) {
-        seen[c.getAttribute('data-ref')] = 1;
-      });
-      S.selP = Object.keys(seen);
-      render();
-    });
-    b.appendChild(todos);
-    var ap = btn('mini', 'Preço…', function () {
-      if (S.selP.length) selDialogo();
-    });
-    ap.disabled = !S.selP.length;
-    b.appendChild(ap);
-    b.appendChild(
-      btn('chip', 'Sair', function () {
+      b.querySelector('.ebX').onclick = function () {
         S.selMode = false;
         S.selP = [];
         render();
-      })
-    );
+      };
+      b.querySelector('.selTodos').onclick = function () {
+        var seen = {};
+        Array.from(document.querySelectorAll('#rows .pcard[data-ref]')).forEach(function (c) {
+          seen[c.getAttribute('data-ref')] = 1;
+        });
+        S.selP = Object.keys(seen);
+        render();
+      };
+      b.querySelector('.ebGo').onclick = function () {
+        if (S.selP.length) selDialogo();
+      };
+      requestAnimationFrame(function () {
+        b.classList.add('in');
+      });
+    } else b.classList.add('in');
+    var n = S.selP.length,
+      nn = $('selNn');
+    nn.style.display = n ? '' : 'none';
+    if (n) lfOdo(nn, n);
+    $('selNt').textContent = n ? (n === 1 ? 'selecionado' : 'selecionados') : 'Toque nos produtos';
+    b.querySelector('.ebGo').disabled = !n;
   }
   var selU = null; // últimos preços digitados em dólar no aplicar em grupo
   function selAplica(refs, novo, ant, site, wpp, modo) {
@@ -14361,7 +14373,7 @@
           S.detRow = null;
           S.detCor = '';
           render();
-          window.scrollTo(0, 0);
+          prodTopo($('vDetail')); // v474: o produto abre no topo (igual ao Inventário)
         },
         k === S.vRef
       );
@@ -42874,34 +42886,159 @@
       abaAnt[id] = { x: x, w: w };
     }
 
-    // ---------- h. foto do produto expande do cartão até o produto ----------
-    var expDe = null;
+    // ---------- h. (v474, aprovado em vídeo 08/11) foto do cartão vira a foto do produto — IGUAL no Catálogo e no Inventário ----------
+    // Abrir: cartão afunda (CSS) → o fundo da tela do produto cresce a partir do cartão enquanto a foto voa até o lugar dela
+    // (380 ms, sem esticar: caixa branca + contain) → o conteúdo aparece quando a foto chega (180 ms, sobe 14 px).
+    // Voltar: o conteúdo some (110 ms) → o fundo encolhe até o cartão e a foto volta para ele (340 ms).
+    // Abaixo da barra de navegação (z 40). Fica de fora com "menos movimento", modo cliente e seleção.
+    var FE = 'cubic-bezier(.2,.9,.3,1)', abrindo = null, fechando = null, voltaOk = false;
+    // o produto abre sempre no topo da tela, com a barra inteira (Catálogo e Inventário)
+    window.prodTopo = function (det) {
+      if (!det || det.hidden) return;
+      // 'instant': o CSS tem scroll-behavior:smooth; rolando suave a foto mediria fora do lugar
+      window.scrollTo({ top: Math.max(0, det.getBoundingClientRect().top + window.scrollY - 12), left: 0, behavior: 'instant' });
+    };
+    var ultCard = null;
+    function fRet(r) { return { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px' }; }
+    function fDet(view) {
+      if (view === 'vendas') return S.view === 'vendas' && S.vRef ? $('vDetail') : null;
+      var d = $('detail');
+      return S.view === 'estoque' && d && !d.hidden ? d : null;
+    }
+    function fCamada(cls, r, z, extra) {
+      var e = document.createElement('div');
+      e.className = cls;
+      e.style.cssText = 'position:fixed;pointer-events:none;z-index:' + z + ';left:' + r.left + 'px;top:' + r.top + 'px;width:' + r.width + 'px;height:' + r.height + 'px;' + (extra || '');
+      document.body.appendChild(e);
+      return e;
+    }
+    function fFoto(r, src) {
+      var e = fCamada('lfVoa', r, 37, 'background:#fff;border-radius:8px;overflow:hidden');
+      e.innerHTML = '<img alt="" src="' + src + '" style="width:100%;height:100%;object-fit:contain;display:block">';
+      return e;
+    }
+    function fSemMov() {
+      return REDUCED || S.modoCli || S.selMode || (S.selP && S.selP.length) || (S.vSel && S.vSel.length && S.vSelMode) || S.ebSel;
+    }
     document.addEventListener('click', function (e) {
-      var c = e.target.closest && e.target.closest('#v-vendas .pcard');
-      if (!c || REDUCED) return;
-      var im = c.querySelector('.pbox img');
-      expDe = im ? { r: im.getBoundingClientRect(), src: im.src, ref: c.getAttribute('data-ref') } : null;
+      var c = e.target.closest && e.target.closest('#v-vendas .pcard[data-ref],#v-estoque .pcard[data-ref]');
+      if (!c || fSemMov()) return;
+      var pb = c.querySelector('.pbox'), im = pb && pb.querySelector('img');
+      if (!im || !im.complete) return;
+      var view = c.closest('#v-vendas') ? 'vendas' : 'estoque', vw = $('v-' + view), r = vw.getBoundingClientRect(), snap = vw.cloneNode(true);
+      snap.removeAttribute('id');
+      [].forEach.call(snap.querySelectorAll('[id]'), function (x) { x.removeAttribute('id'); });
+      snap.style.cssText = 'position:fixed;left:0;right:0;top:0;bottom:0;margin:0;z-index:34;pointer-events:none;background:var(--bg);overflow:hidden';
+      var sIn = document.createElement('div');
+      sIn.style.cssText = 'position:absolute;left:' + r.left + 'px;top:' + r.top + 'px;width:' + r.width + 'px';
+      while (snap.firstChild) sIn.appendChild(snap.firstChild);
+      snap.appendChild(sIn);
+      abrindo = { view: view, ref: c.getAttribute('data-ref'), card: c.getBoundingClientRect(), box: pb.getBoundingClientRect(), src: im.src, snap: snap, rad: getComputedStyle(c).borderRadius };
+      if (view === 'estoque') S._semAnimFicha = true;
     }, true);
-    function expandeDepois() {
-      if (!expDe) return;
-      var d = expDe;
-      expDe = null;
-      if (!S.vRef) return;
-      var alvo = document.querySelector('#vDetail img');
-      if (!alvo) return;
-      var r = alvo.getBoundingClientRect();
-      if (!r.width) return;
-      var cl = document.createElement('img');
-      cl.src = d.src;
-      cl.className = 'lfExp';
-      cl.style.cssText = 'left:' + d.r.left + 'px;top:' + d.r.top + 'px;width:' + d.r.width + 'px;height:' + d.r.height + 'px';
-      document.body.appendChild(cl);
-      alvo.style.opacity = '0';
-      var a = cl.animate([{ left: d.r.left + 'px', top: d.r.top + 'px', width: d.r.width + 'px', height: d.r.height + 'px' }, { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px' }], { duration: 420, easing: 'cubic-bezier(.2,.9,.3,1)', fill: 'forwards' });
-      a.onfinish = function () {
-        alvo.style.opacity = '';
-        cl.remove();
+    function abreDepois() {
+      if (!abrindo) return;
+      var a = abrindo, det = fDet(a.view);
+      abrindo = null;
+      if (!det) return;
+      ultCard = { view: a.view, ref: a.ref };
+      // o que o cliente vê na hora: a lista parada (cópia) + o fundo e a foto saindo do cartão; o produto fica escondido até a foto chegar
+      document.body.appendChild(a.snap);
+      var bg = fCamada('lfFundo', a.card, 35, 'background:var(--bg);border-radius:' + a.rad), fl = fFoto(a.box, a.src);
+      det.style.position = 'relative';
+      det.style.zIndex = '36';
+      // escondido por uma animação nossa (ganha das animações antigas de entrada da tela)
+      var an = det.animate([{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }], { duration: 180, delay: 330, easing: 'ease-out', fill: 'both' });
+      an.pause();
+      var limpa = function () {
+        try { an.cancel(); } catch (_) {}
+        det.style.position = '';
+        det.style.zIndex = '';
+        fl.remove();
+        bg.remove();
+        a.snap.remove();
       };
+      // mede no próximo quadro: a tela já está com o produto no topo
+      requestAnimationFrame(function () {
+        try {
+          window.prodTopo(det);
+          var alvo = det.querySelector('.pbox'), ai = alvo && alvo.querySelector('img');
+          if (!alvo || !ai) { limpa(); return; }
+          var r1 = alvo.getBoundingClientRect(), W = window.innerWidth, H = window.innerHeight;
+          ai.style.visibility = 'hidden';
+          bg.animate([fRet(a.card), { left: '0px', top: '0px', width: W + 'px', height: H + 'px', borderRadius: '0px' }], { duration: 380, easing: FE, fill: 'forwards' });
+          an.play();
+          var fim = function () {
+            ai.style.visibility = '';
+            limpa();
+          };
+          fl.animate([fRet(a.box), fRet(r1)], { duration: 380, easing: FE, fill: 'forwards' }).onfinish = function () {
+            if (an.playState === 'finished') fim();
+            else an.onfinish = fim;
+          };
+        } catch (e) {
+          limpa();
+        }
+      });
+    }
+    // voltar pelo botão da tela do produto: o conteúdo some primeiro, depois a tela volta para o cartão
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('#vDetail .tab.ibtn[aria-label="Voltar"],#detail .tab.ibtn[aria-label="Voltar"]');
+      if (!b || voltaOk) return;
+      if (fSemMov()) return;
+      var det = b.closest('#vDetail,#detail'), pb = det.querySelector('.pbox'), im = pb && pb.querySelector('img');
+      if (!im) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      var vv = det.id === 'vDetail' ? 'vendas' : 'estoque';
+      fechando = { view: vv, ref: ultCard && ultCard.view === vv ? ultCard.ref : S.view === 'vendas' ? S.vRef : S.open || S.ref, box: pb.getBoundingClientRect(), src: im.src };
+      var an = det.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 110, easing: 'ease-in', fill: 'forwards' });
+      an.onfinish = function () {
+        voltaOk = true;
+        try { b.click(); } finally { voltaOk = false; }
+        try { an.cancel(); } catch (_) {}
+      };
+    }, true);
+    function fechaDepois() {
+      if (!fechando || fDet(fechando.view)) return;
+      var f = fechando, W = window.innerWidth, H = window.innerHeight;
+      fechando = null;
+      // o fundo cobre a tela já; as medidas saem no próximo quadro (o voltar ainda rola a lista depois de desenhar)
+      var bg = fCamada('lfFundo', { left: 0, top: 0, width: W, height: H }, 35, 'background:var(--bg)'), fl = fFoto(f.box, f.src);
+      var limpa = function () { fl.remove(); bg.remove(); };
+      requestAnimationFrame(function () {
+        try {
+          var vw = $('v-' + f.view), c = vw && vw.querySelector('.pcard[data-ref="' + f.ref + '"]');
+          var pb = c && c.querySelector('.pbox'), ci = pb && pb.querySelector('img');
+          if (!pb) {
+            bg.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, fill: 'forwards' }).onfinish = limpa;
+            fl.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, fill: 'forwards' });
+            return;
+          }
+          var cr = c.getBoundingClientRect();
+          if (cr.top < 70 || cr.bottom > H - 90) {
+            window.scrollBy({ top: cr.top - (H - cr.height) / 2, left: 0, behavior: 'instant' });
+            cr = c.getBoundingClientRect();
+          }
+          var r0 = pb.getBoundingClientRect();
+          if (ci) ci.style.visibility = 'hidden';
+          bg.animate([{ left: '0px', top: '0px', width: W + 'px', height: H + 'px', borderRadius: '0px' }, { left: cr.left + 'px', top: cr.top + 'px', width: cr.width + 'px', height: cr.height + 'px', borderRadius: getComputedStyle(c).borderRadius }], { duration: 340, easing: FE, fill: 'forwards' });
+          fl.animate([fRet(f.box), fRet(r0)], { duration: 340, easing: FE, fill: 'forwards' }).onfinish = function () {
+            if (ci) ci.style.visibility = '';
+            limpa();
+          };
+        } catch (e) {
+          limpa();
+        }
+      });
+    }
+    function expandeDepois() {
+      try {
+        abreDepois();
+        fechaDepois();
+      } catch (e) {
+        [].forEach.call(document.querySelectorAll('.lfVoa,.lfFundo'), function (x) { x.remove(); });
+      }
     }
 
     // ---------- i. segurar o cartão = espiar ----------
@@ -45457,6 +45594,317 @@
     else S.perAte = t.value;
     renderDash();
   });
+  // ===== v474 (aprovado 08/11, esboço S16): Editar produto › Cores e fotos de pré-graduado (leitura) agrupado por COR =====
+  // Cada cor é um bloco que abre/fecha (foto, "N graus · N peças", selos uma vez, custo único da cor).
+  // Cada grau é um botão "+0.75 ▾" que abre a folha com 3 abas: Trocar grau · Mudar de cor · Tirar.
+  // "+ Adicionar graus em <cor>": vários graus de uma vez, mesma quantidade para todos ou um a um.
+  // Quantidade e custo continuam como rascunho (S.qDraft/S.cDraft) e valem ao tocar em "Salvar alterações";
+  // trocar, mudar de cor, tirar e adicionar são ações confirmadas na folha e valem na hora (vão para o histórico).
+  var GC_G = [];
+  for (var gci = 1; gci <= 16; gci++) GC_G.push('+' + (gci * 0.25).toFixed(2));
+  function gcRef() {
+    return S.qEdRef || '';
+  }
+  function gcLinhas(ref) {
+    return S.items.filter(function (i) {
+      return i.ref === ref && i.tipo === 'pre' && !i.bulk;
+    });
+  }
+  function gcQ(i) {
+    var k = S.items.indexOf(i);
+    return S.qDraft[k] != null ? S.qDraft[k] : i.qty;
+  }
+  // guarda os rascunhos pelo objeto (os índices mudam quando linhas entram/saem) e devolve depois
+  function gcMexe(fn) {
+    var q = new Map(),
+      c = new Map();
+    S.items.forEach(function (it, k) {
+      if (S.qDraft[k] != null) q.set(it, S.qDraft[k]);
+      if (S.cDraft[k] != null) c.set(it, S.cDraft[k]);
+    });
+    fn();
+    S.qDraft = {};
+    S.cDraft = {};
+    S.items.forEach(function (it, k) {
+      if (q.has(it)) S.qDraft[k] = q.get(it);
+      if (c.has(it)) S.cDraft[k] = c.get(it);
+    });
+    saveSoon();
+    render();
+  }
+  function gcIgual(a, b) {
+    return a.ref === b.ref && a.tipo === b.tipo && a.cor === b.cor && a.grau === b.grau && (Number(a.custo) || 0) === (Number(b.custo) || 0) && (a.lote || '') === (b.lote || '');
+  }
+  function gcNova(base, cor, grau, q) {
+    var n = {};
+    Object.keys(base).forEach(function (k) {
+      if (k !== 'qty' && k !== 'lote') n[k] = base[k];
+    });
+    n.cor = cor;
+    n.grau = grau;
+    n.qty = q;
+    return n;
+  }
+  // põe q peças de "it" em (cor, grau): junta numa linha igual se existir
+  function gcMove(it, cor, grau, q) {
+    var dest = { ref: it.ref, tipo: it.tipo, cor: cor, grau: grau, custo: it.custo, lote: it.lote },
+      alvo = S.items.filter(function (x) {
+        return x !== it && gcIgual(x, dest);
+      })[0];
+    if (q >= it.qty) {
+      if (alvo) {
+        alvo.qty += it.qty;
+        S.items.splice(S.items.indexOf(it), 1);
+      } else {
+        it.cor = cor;
+        it.grau = grau;
+      }
+    } else {
+      it.qty -= q;
+      if (alvo) alvo.qty += q;
+      else {
+        var n = gcNova(it, cor, grau, q);
+        if (it.lote) n.lote = it.lote;
+        S.items.splice(S.items.indexOf(it) + 1, 0, n);
+      }
+    }
+  }
+  function gcGradeHtml(tem, sel, off) {
+    return (
+      '<div class="gcGrade">' +
+      GC_G.map(function (g) {
+        var t = tem[g];
+        return '<button type="button" class="tab gcG' + (sel.indexOf(g) >= 0 ? ' on' : '') + (g === off ? ' off' : '') + '" data-g="' + g + '"' + (g === off ? ' disabled' : '') + '><b>' + g + '</b><small>' + (t ? t + ' pç' : '&nbsp;') + '</small></button>';
+      }).join('') +
+      '</div>'
+    );
+  }
+  function gcTem(ref, cor) {
+    var t = {};
+    gcLinhas(ref).forEach(function (i) {
+      if (i.cor === cor) t[i.grau] = (t[i.grau] || 0) + i.qty;
+    });
+    return t;
+  }
+  function gcStep(v, cls) {
+    return '<span class="vstep cfStep ' + (cls || '') + '"><span class="vs-b" role="button" tabindex="0" data-d="-1" aria-label="Menos">−</span><span class="vs-n">' + v + '</span><span class="vs-b" role="button" tabindex="0" data-d="1" aria-label="Mais">+</span></span>';
+  }
+  function gcLigaStep(el, get, set, min) {
+    [].forEach.call(el.querySelectorAll('.vs-b'), function (b) {
+      b.onclick = function () {
+        var n = Math.max(min || 0, Math.min(999, get() + +b.dataset.d));
+        set(n);
+        b.parentNode.querySelector('.vs-n').textContent = n;
+      };
+    });
+  }
+  // ---- folha do grau: Trocar grau · Mudar de cor · Tirar ----
+  function gcFolhaGrau(it, aba) {
+    var ref = it.ref,
+      cor = it.cor,
+      g0 = it.grau,
+      q0 = it.qty;
+    lfJanela({
+      titulo: g0 + ' · ' + cor + ' (' + q0 + ' peça' + (q0 === 1 ? '' : 's') + ')',
+      cls: 'gcJn',
+      monta: function (c, api) {
+        var st = { aba: aba || 0, g: '', cor: '', q: q0 };
+        var outras = [];
+        gcLinhas(ref).forEach(function (i) {
+          if (i.cor !== cor && outras.indexOf(i.cor) < 0) outras.push(i.cor);
+        });
+        var pinta = function () {
+          var tem = gcTem(ref, cor),
+            h = '<div class="trk gcTrk"><span class="trkTh"></span>' + ['Trocar grau', 'Mudar de cor', 'Tirar'].map(function (t, k) {
+              return '<button type="button" class="trkB' + (k === st.aba ? ' on' : '') + '" data-m="' + k + '">' + t + '</button>';
+            }).join('') + '</div>';
+          var ok = '';
+          if (st.aba === 0) {
+            h += '<div class="hint">Escolha o grau certo.</div>' + gcGradeHtml(tem, st.g ? [st.g] : [], g0);
+            if (st.g && tem[st.g]) h += '<div class="note gcNota">' + st.g + ' já tem ' + tem[st.g] + ' peça' + (tem[st.g] === 1 ? '' : 's') + ' nesta cor. As ' + q0 + ' de ' + g0 + ' se juntam: <b>' + st.g + ' fica com ' + (tem[st.g] + q0) + '</b>.</div>';
+            ok = st.g ? 'Trocar para ' + st.g : '';
+          } else if (st.aba === 1) {
+            if (!outras.length) h += '<div class="note">Este modelo só tem a cor ' + esc(cor) + '. Para outra cor, use "Cor nova" e tire a foto.</div>';
+            else {
+              h += '<div class="hint">Para qual cor vão estas peças?</div>' + outras.map(function (oc) {
+                var t2 = gcTem(ref, oc)[g0] || 0,
+                  ft = S.fotos[ref + '|' + oc];
+                return '<button type="button" class="tab gcCor' + (st.cor === oc ? ' on' : '') + '" data-c="' + esc(oc) + '">' + (ft ? '<img alt="" src="' + ft + '">' : '<i></i>') + '<span><b>' + esc(oc) + '</b><small>' + (t2 ? g0 + ' já tem ' + t2 + ' → fica com ' + (t2 + st.q) : g0 + ' entra nesta cor') + '</small></span>' + (st.cor === oc ? '<em>✓</em>' : '') + '</button>';
+              }).join('');
+              if (q0 > 1) h += '<div class="gcLinha"><span class="hint">Quantas mudar?</span>' + gcStep(st.q, 'gcQm') + '</div>';
+            }
+            ok = st.cor ? 'Mudar ' + st.q + ' para ' + st.cor : '';
+          } else {
+            var cu = (Number(effCusto(it)) || 0) * q0;
+            h += '<div class="note n-bad"><b>Tirar as ' + q0 + ' peça' + (q0 === 1 ? '' : 's') + ' de ' + g0 + '?</b><br>' + (cu > 0 ? usd(cu) + ' em custo. ' : '') + 'Fica registrado no histórico.</div>';
+            ok = 'Sim, tirar';
+          }
+          h += '<div class="gcPe"><button type="button" class="tab" data-x>Cancelar</button><button type="button" class="go" data-ok' + (ok ? '' : ' disabled') + '>' + (ok || (st.aba === 0 ? 'Escolha o grau' : 'Escolha a cor')) + '</button></div>';
+          c.innerHTML = h;
+          var tk = c.querySelector('.gcTrk');
+          requestAnimationFrame(function () { try { trkMarca(tk, String(st.aba)); } catch (_) {} });
+          [].forEach.call(c.querySelectorAll('.gcTrk [data-m]'), function (b) { b.onclick = function () { st.aba = +b.dataset.m; pinta(); }; });
+          [].forEach.call(c.querySelectorAll('.gcG[data-g]'), function (b) { b.onclick = function () { st.g = b.dataset.g; pinta(); }; });
+          [].forEach.call(c.querySelectorAll('[data-c]'), function (b) { b.onclick = function () { st.cor = b.dataset.c; pinta(); }; });
+          var qm = c.querySelector('.gcQm');
+          if (qm) gcLigaStep(qm, function () { return st.q; }, function (n) { st.q = Math.min(q0, n); pinta(); }, 1);
+          c.querySelector('[data-x]').onclick = api.fecha;
+          c.querySelector('[data-ok]').onclick = function () {
+            if (!S.items.indexOf || S.items.indexOf(it) < 0) return api.fecha();
+            if (st.aba === 0 && st.g) gcMexe(function () { gcMove(it, cor, st.g, it.qty); S.msg = g0 + ' virou ' + st.g + ' em ' + cor + '.'; });
+            else if (st.aba === 1 && st.cor) gcMexe(function () { gcMove(it, st.cor, g0, st.q); S.msg = st.q + ' peça(s) de ' + g0 + ' foram para ' + st.cor + '.'; });
+            else if (st.aba === 2)
+              gcMexe(function () {
+                var xr = exclusaoEstoque([it], 'grau tirado');
+                S.items.splice(S.items.indexOf(it), 1);
+                limpaRefExcluido(ref);
+                S.msg = g0 + ' tirado de ' + cor + '.' + (xr.n ? ' Saíram ' + xr.n + ' peça(s), ' + usd(xr.usd) + ' em custo, registradas no histórico.' : '');
+              });
+            else return;
+            api.fecha();
+          };
+        };
+        pinta();
+      }
+    });
+  }
+  // ---- folha Adicionar graus (vários de uma vez) ----
+  function gcFolhaAdd(ref, cor) {
+    lfJanela({
+      titulo: 'Adicionar graus · ' + cor,
+      cls: 'gcJn',
+      monta: function (c, api) {
+        var st = { sel: [], q: {}, igual: 1 },
+          base = gcLinhas(ref).filter(function (i) { return i.cor === cor; })[0] || gcLinhas(ref)[0];
+        var pinta = function () {
+          var tem = gcTem(ref, cor),
+            tot = st.sel.reduce(function (a, g) { return a + (st.q[g] || 0); }, 0),
+            h = '<div class="hint">Toque em quantos graus quiser. Os que têm número já existem nesta cor.</div>' + gcGradeHtml(tem, st.sel, '');
+          if (st.sel.length) {
+            h += '<div class="gcLinha"><span class="hint">Mesma quantidade para todos</span>' + gcStep(st.igual, 'gcIg') + '</div>';
+            h += st.sel.map(function (g) { return '<div class="gcLinha"><b>' + g + '</b>' + gcStep(st.q[g], 'gcQ" data-g="' + g) + '</div>'; }).join('');
+          }
+          h += '<div class="gcPe"><button type="button" class="tab" data-x>Cancelar</button><button type="button" class="go" data-ok' + (tot ? '' : ' disabled') + '>' + (tot ? 'Adicionar ' + tot + ' peça' + (tot === 1 ? '' : 's') : 'Escolha os graus') + '</button></div>';
+          c.innerHTML = h;
+          [].forEach.call(c.querySelectorAll('.gcG[data-g]'), function (b) {
+            b.onclick = function () {
+              var g = b.dataset.g, k = st.sel.indexOf(g);
+              if (k >= 0) st.sel.splice(k, 1);
+              else { st.sel.push(g); st.sel.sort(function (a, b) { return parseFloat(a) - parseFloat(b); }); st.q[g] = st.igual; }
+              pinta();
+            };
+          });
+          var ig = c.querySelector('.gcIg');
+          if (ig) gcLigaStep(ig, function () { return st.igual; }, function (n) { st.igual = n; st.sel.forEach(function (g) { st.q[g] = n; }); pinta(); }, 1);
+          [].forEach.call(c.querySelectorAll('.gcQ'), function (e) {
+            var g = e.getAttribute('data-g');
+            gcLigaStep(e, function () { return st.q[g]; }, function (n) { st.q[g] = n; pinta(); }, 1);
+          });
+          c.querySelector('[data-x]').onclick = api.fecha;
+          c.querySelector('[data-ok]').onclick = function () {
+            if (!tot || !base) return;
+            gcMexe(function () {
+              st.sel.forEach(function (g) {
+                var q = st.q[g] || 0;
+                if (!q) return;
+                var cu = S.items.filter(function (i) { return i.ref === ref && i.cor === cor && i.tipo === 'pre' && !i.bulk; })[0],
+                  ex = S.items.filter(function (i) { return i.ref === ref && i.cor === cor && i.grau === g && i.tipo === 'pre' && !i.bulk && !i.lote; })[0];
+                if (ex) { ajusteEstoque(ex, q, 'graus adicionados'); ex.qty += q; }
+                else {
+                  var n = gcNova(cu || base, cor, g, q);
+                  if (cu && cu.custo != null) n.custo = cu.custo;
+                  S.items.push(n);
+                  ajusteEstoque(n, q, 'graus adicionados');
+                }
+              });
+              S.msg = tot + ' peça(s) adicionadas em ' + cor + '.';
+            });
+            api.fecha();
+          };
+        };
+        pinta();
+      }
+    });
+  }
+  // ---- monta os blocos por cor no lugar das linhas soltas ----
+  function gcMonta() {
+    var cl = document.getElementById('edCores');
+    if (!cl || cl._gc || S.edStep !== 2) return;
+    var ref = gcRef(),
+      L = gcLinhas(ref);
+    if (!L.length || L.length !== S.items.filter(function (i) { return i.ref === ref && !i.bulk; }).length) return; // só pré-graduado puro
+    cl._gc = 1;
+    var rowsDom = [].slice.call(cl.querySelectorAll(':scope > .cfRow:not(.nova)')),
+      cores = [];
+    L.forEach(function (i) { if (cores.indexOf(i.cor) < 0) cores.push(i.cor); });
+    if (!S.gcAb || cores.indexOf(S.gcAb) < 0) S.gcAb = cores[0];
+    var frag = document.createElement('div');
+    frag.className = 'gcLista';
+    cores.forEach(function (cor, ci) {
+      var its = L.filter(function (i) { return i.cor === cor; }).sort(function (a, b) { return parseFloat(a.grau) - parseFloat(b.grau); }),
+        r0 = rowsDom.filter(function (r) { var b = r.querySelector('.cfFt'); return b && b.getAttribute('aria-label') === 'Foto da cor ' + cor; })[0],
+        nq = its.reduce(function (a, i) { return a + gcQ(i); }, 0),
+        ng = {};
+      its.forEach(function (i) { ng[i.grau] = 1; });
+      var ab = S.gcAb === cor,
+        bl = mk('div', 'gcCorB' + (ab ? ' ab' : ''));
+      if (ci) bl.appendChild(mk('div', 'gcSep'));
+      var hd = mk('div', 'gcHd');
+      var ft = r0 && r0.querySelector('.cfFt');
+      if (ft) hd.appendChild(ft);
+      var tx = mk('button', 'gcTit');
+      tx.type = 'button';
+      tx.innerHTML = '<b>' + esc(cor) + '</b><small>' + Object.keys(ng).length + ' grau' + (Object.keys(ng).length === 1 ? '' : 's') + ' · ' + nq + ' peça' + (nq === 1 ? '' : 's') + '</small><i aria-hidden="true">' + (ab ? '⌃' : '⌄') + '</i>';
+      tx.onclick = function () { S.gcAb = ab ? '' : cor; render(); };
+      hd.appendChild(tx);
+      bl.appendChild(hd);
+      if (ab) {
+        var sl = r0 && r0.querySelector('.cfSelos');
+        if (sl) bl.appendChild(sl);
+        // custo único da cor (vale para todos os graus)
+        var k0 = S.items.indexOf(its[0]),
+          cv = S.cDraft[k0] != null ? S.cDraft[k0] : its[0].custo != null ? String(its[0].custo).replace('.', ',') : '',
+          cu = mk('div', 'gcCusto');
+        cu.innerHTML = '<span class="hint">Custo de cada peça <small>(todos os graus)</small></span><span class="cfCu">US$ <input class="cfCuI" inputmode="decimal" placeholder="custo" aria-label="Custo por peça em US$ desta cor" value="' + esc(cv) + '"></span>';
+        cu.querySelector('input').onchange = function (e) {
+          var v = e.target.value;
+          its.forEach(function (i) { S.cDraft[S.items.indexOf(i)] = v; });
+          render();
+        };
+        bl.appendChild(cu);
+        its.forEach(function (i) {
+          var k = S.items.indexOf(i),
+            ln = mk('div', 'gcLn' + (S.qDraft[k] != null ? ' mud' : ''));
+          ln.innerHTML = '<button type="button" class="tab gcChip">' + esc(i.grau) + ' <span aria-hidden="true">▾</span></button>' + gcStep(gcQ(i));
+          ln.querySelector('.gcChip').onclick = function () { gcFolhaGrau(i, 0); };
+          gcLigaStep(ln, function () { return gcQ(i); }, function (n) {
+            var kk = S.items.indexOf(i);
+            if (n === i.qty) delete S.qDraft[kk]; else S.qDraft[kk] = n;
+            ln.classList.toggle('mud', S.qDraft[kk] != null);
+          }, 0);
+          bl.appendChild(ln);
+        });
+        var ad = btn('mini gcAdd', '+ Adicionar graus em ' + cor, function () { gcFolhaAdd(ref, cor); });
+        bl.appendChild(ad);
+        var xc = btn('mini gcXcor', 'Excluir cor', function () {
+          S.edAbre = S.items.indexOf(its[0]);
+          S.cdMode = true;
+          S.cdCor = cor;
+          render();
+        });
+        bl.appendChild(xc);
+      }
+      frag.appendChild(bl);
+    });
+    rowsDom.forEach(function (r) { r.style.display = 'none'; });
+    cl.insertBefore(frag, cl.firstChild);
+  }
+  var _renderGc = render;
+  render = function () {
+    var x = _renderGc.apply(this, arguments);
+    try { gcMonta(); } catch (e) {}
+    return x;
+  };
   // ===== v469 (aprovado 08/11, opção C): mapa de graus numa folha, aberto por um botão redondo discreto =====
   // O mapa saiu da lista de produtos. Botão de barras ao lado do leitor/filtro (só com Pré-graduados filtrado)
   // e atalho "Graus de leitura" na aba Reposição. Grade sóbria 4×4: "—" = acabou, ponto âmbar = pouco.

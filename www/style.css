@@ -345,8 +345,6 @@ body.arrastaBarra{-webkit-user-select:none;user-select:none;touch-action:none}
 .zsw:after{content:'';position:absolute;top:3px;left:3px;width:21px;height:21px;border-radius:50%;background:#fff;transition:left .15s}
 .zsw.on{background:var(--accent)}.zsw.on:after{left:22px}
 .zalerta{color:var(--warn);font-weight:800;margin-bottom:6px}.zr{color:var(--bad)}.zw{color:var(--warn)}
-#selBar{position:fixed;left:12px;right:12px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--panel);border:1px solid var(--accent);border-radius:16px;padding:10px 12px;box-shadow:0 12px 30px rgba(0,0,0,.5)}
-#selBar b{flex:1 1 120px}
 
 /* campos lado a lado: rótulo, campo e dica de cada coluna ficam nas mesmas linhas, mesmo quando o rótulo quebra em duas linhas */
 .erow2{align-items:start}
@@ -2108,3 +2106,45 @@ html.lfTrava body{position:fixed;left:0;right:0;width:100%}
 #pcFolha .pcFt{display:flex;gap:10px;margin-top:14px}
 #pcFolha .pcFt .go{flex:1.2}
 #pcFolha .pcFe{flex:1;min-height:50px;border-radius:14px;background:none;border:1px solid var(--line);color:var(--fg)}
+
+/* v474 (aprovado 08/11, S17): barra de seleção do Inventário no padrão da do Catálogo; fundo legível no tema escuro nas duas */
+.ebBar{background:var(--panel)!important;border:1px solid var(--line)}
+.ebBar .selTodos{flex:none;border:0;background:none;color:var(--accent-fg);font-weight:600;font-size:14px;padding:8px 6px;white-space:nowrap}
+.ebBar .ebGo:disabled{opacity:.45}
+body.modoCli #selBar{display:none!important}
+
+/* v474 (aprovado em vídeo 08/11): foto do produto do Inventário em 4:3, igual ao Catálogo (mesma altura e tamanho nos dois) */
+#detail .pbox{aspect-ratio:4/3;max-height:300px}
+/* v474 (aprovado 08/11, S16): graus por cor no Editar produto (pré-graduado) */
+.gcLista{display:flex;flex-direction:column;gap:2px}
+.gcSep{height:1px;background:var(--line);margin:8px 0 10px}
+.gcHd{display:flex;gap:12px;align-items:center}
+.gcHd .cfFt{flex:none}
+.gcTit{flex:1;min-width:0;display:grid;grid-template-columns:1fr auto;align-items:center;text-align:left;background:none;border:0;color:inherit;padding:4px 0}
+.gcTit b{font-size:16px}.gcTit small{grid-column:1;color:var(--mute);font-size:13px;margin-top:2px}.gcTit i{grid-column:2;grid-row:1/span 2;font-style:normal;color:var(--mute);font-size:18px}
+.gcCorB .cfSelos{margin:10px 0 4px}
+.gcCusto{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:8px 0}
+.gcCusto .hint{margin:0}.gcCusto .cfCuI{width:70px}
+.gcLn{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 0;border-top:1px solid var(--line2)}
+.gcLn.mud .vs-n{color:var(--accent-fg)}
+.gcChip{min-height:36px;padding:6px 12px;font-weight:700;border-radius:12px;white-space:nowrap}
+.gcChip span{opacity:.6;font-size:12px}
+.gcAdd{width:100%;justify-content:center;border-style:dashed;margin-top:8px}
+.gcXcor{align-self:flex-start;margin-top:8px;background:none;border:0;color:var(--bad);font-size:13px;padding:4px 0}
+.gcJn .ljCorpo{display:flex;flex-direction:column;gap:10px}
+.gcTrk{display:grid;grid-template-columns:repeat(3,1fr)}
+.gcGrade{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.gcG{min-height:50px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-radius:12px}
+.gcG b{font-size:15px}.gcG small{font-size:11px;opacity:.7}
+.gcG.on{outline:2px solid var(--accent);background:var(--accent-soft)}
+.gcG.off{opacity:.35}
+.gcNota{margin:0}
+.gcCor{display:flex;gap:12px;align-items:center;width:100%;padding:10px;border-radius:14px;text-align:left}
+.gcCor img,.gcCor>i{width:56px;height:42px;border-radius:8px;background:#fff;object-fit:contain;flex:none}
+.gcCor span{flex:1;display:flex;flex-direction:column}.gcCor small{opacity:.7}.gcCor em{font-style:normal;color:var(--accent-fg);font-weight:700}
+.gcCor.on{outline:2px solid var(--accent)}
+.gcLinha{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.gcLinha .hint{margin:0}
+.gcPe{display:flex;gap:10px;margin-top:6px}.gcPe .tab{flex:1}.gcPe .go{flex:2}
+.gcPe .go:disabled{opacity:.45}
+.gcXcor{color:var(--bad)!important;background:none!important;border:0!important;box-shadow:none!important;min-height:0!important}

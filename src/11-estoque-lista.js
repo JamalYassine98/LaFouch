@@ -828,7 +828,7 @@
           S.qty = 1;
           S.msg = '';
           render();
-          $('detail').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          prodTopo($('detail')); // v474: o produto abre no topo (igual ao Catálogo), sem rolar no meio da animação
         },
         r === openRef
       );
