@@ -75,3 +75,40 @@ NOVO=dict(tras='',frente='''<defs><linearGradient id="ng" x1="0" y1="0" x2="1" y
 <path d="M38 37 Q60 27 82 37" stroke="#b5861f" stroke-width="2.6" fill="none" stroke-linecap="round"/>
 <g fill="#fff6d8" stroke="#e6b84c" stroke-width=".6"><circle cx="56.3" cy="-10" r="2.6"/><circle cx="63.7" cy="-10" r="2.6"/><circle cx="60" cy="-13.5" r="2.6"/><circle cx="60" cy="-8.5" r="3.4"/></g></g>''',fundo=NOVO['fundo'])
 T=[('🎄 Natal (aprovado)',NATAL,'#eef4fb'),('🎃 Halloween',HALL,'#f6eefa'),('⚡ Black Friday',BF,'#f3f1ee'),('✨ Ano Novo',NOVO,'#fbf6e9')]
+# ---- S102 v3: sem a faixa do espelho, Natal sem sombra, copas mais largas que a cabeça, Ano Novo com base quase reta ----
+_com=com
+def com(tras,frente,sem_espelho=True,fundo=''):
+  s=_com(tras,frente,sem_espelho,fundo)
+  return s.replace('<path d="M17 66 Q60 44 103 66" stroke="#8d3a69"','<path display="none" d="M17 66 Q60 44 103 66" stroke="#8d3a69"',1) if sem_espelho else s
+NATAL=dict(NATAL);NATAL['frente']=NATAL['frente'].replace(sombra(41,33),'')
+HALL=dict(tras='<g transform="rotate(-5 60 43)"><ellipse cx="60" cy="43" rx="54" ry="10.5" fill="#2b1636"/><ellipse cx="60" cy="42.5" rx="47" ry="7.5" fill="#3a2149"/></g>',
+ frente='''<g transform="rotate(-5 60 43)">
+<path d="M6 43 A54 10.5 0 0 0 114 43 Z" fill="#2b1636"/><path d="M13 43.6 A47 7.5 0 0 0 107 43.6" stroke="#4a2a5e" stroke-width="1" fill="none" opacity=".7"/>
+<path d="M22 44 C28 31 38 18 48 9 C54 3 62 -2 71 -3 C75 -3 78 -1 80 2 C74 0 69 2 68 7 C76 17 89 31 98 44 Q60 52 22 44 Z" fill="#3a1f4a"/>
+<path d="M44 14 C47 10 51 7 55 5" stroke="#fff" stroke-width="1.6" opacity=".22" fill="none" stroke-linecap="round"/>
+<path d="M22 44 Q60 52 98 44 L94.6 38 Q60 45.5 25.4 38 Z" fill="#f08a24"/><rect x="55" y="38.5" width="10" height="9.5" rx="1.8" fill="none" stroke="#ffd166" stroke-width="1.9"/></g>''',fundo=HALL['fundo'])
+BF=dict(tras='<g transform="rotate(-3 60 43)"><ellipse cx="60" cy="43" rx="50" ry="9" fill="#0b0b0b"/></g>',
+ frente='''<defs><linearGradient id="bk" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0d0d0d"/><stop offset=".32" stop-color="#2c2c2c"/><stop offset=".6" stop-color="#121212"/><stop offset="1" stop-color="#050505"/></linearGradient>
+<linearGradient id="go" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c3922a"/><stop offset=".5" stop-color="#f6dc8c"/><stop offset="1" stop-color="#c3922a"/></linearGradient></defs>
+<g transform="rotate(-3 60 43)">
+<path d="M10 43 A50 9 0 0 0 110 43 Z" fill="#0b0b0b"/><path d="M17 43.5 A43 6 0 0 0 103 43.5" stroke="#2a2a2a" stroke-width="1" fill="none"/>
+<path d="M23 44 L26 3 Q60 -2 94 3 L97 44 Q60 50 23 44 Z" fill="url(#bk)"/><ellipse cx="60" cy="2.6" rx="34" ry="4.6" fill="#1d1d1d" stroke="#3a3a3a" stroke-width=".8"/>
+<text x="60" y="17" text-anchor="middle" font-family="Inter,Arial" font-weight="900" font-size="9.5" letter-spacing=".3" fill="url(#go)">BLACK</text>
+<text x="60" y="27.5" text-anchor="middle" font-family="Inter,Arial" font-weight="900" font-size="9.5" letter-spacing=".3" fill="url(#go)">FRIDAY</text>
+<path d="M23.8 33 Q60 38.5 96.2 33 L96.9 43.2 Q60 49.2 23.1 43.2 Z" fill="url(#go)"/>
+<text x="60" y="43" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="7.4" fill="#141414">La Fouch</text></g>''')
+NOVO=dict(tras='',frente='''<defs><linearGradient id="ng" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f6dc8c"/><stop offset=".55" stop-color="#e6b84c"/><stop offset="1" stop-color="#c3922a"/></linearGradient></defs>
+<g transform="rotate(7 60 34)">
+<path d="M42 35 L60 -6 L78 35 Q60 31.5 42 35 Z" fill="url(#ng)"/>
+<path d="M46.8 24 Q60 21.5 73.2 24 M51.4 13.5 Q60 11.8 68.6 13.5 M44.4 30 Q60 27 75.6 30" stroke="#fff6d8" stroke-width="2" fill="none" opacity=".95"/>
+<path d="M42 35 Q60 31.5 78 35" stroke="#b5861f" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+<g fill="#fff6d8" stroke="#e6b84c" stroke-width=".6"><circle cx="56.6" cy="-8" r="2.5"/><circle cx="63.4" cy="-8" r="2.5"/><circle cx="60" cy="-11.3" r="2.5"/><circle cx="60" cy="-6.6" r="3.2"/></g></g>''',fundo=NOVO['fundo'])
+T=[('🎄 Natal (aprovado)',NATAL,'#eef4fb'),('🎃 Halloween',HALL,'#f6eefa'),('⚡ Black Friday',BF,'#f3f1ee'),('✨ Ano Novo',NOVO,'#fbf6e9')]
+# Ano Novo v4: base com a borda da frente levemente para baixo (como a boca de um cone visto de frente), toda dentro da cabeça
+NOVO=dict(tras='',frente='''<defs><linearGradient id="ng" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f6dc8c"/><stop offset=".55" stop-color="#e6b84c"/><stop offset="1" stop-color="#c3922a"/></linearGradient></defs>
+<g transform="rotate(5 60 35)">
+<path d="M43 34 L60 -6 L77 34 Q60 38.5 43 34 Z" fill="url(#ng)"/>
+<path d="M47.3 24 Q60 26.5 72.7 24 M51.7 13.5 Q60 15 68.3 13.5 M45 29.5 Q60 32.5 75 29.5" stroke="#fff6d8" stroke-width="2" fill="none" opacity=".95"/>
+<path d="M43 34 Q60 38.5 77 34" stroke="#b5861f" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+<g fill="#fff6d8" stroke="#e6b84c" stroke-width=".6"><circle cx="56.6" cy="-8" r="2.5"/><circle cx="63.4" cy="-8" r="2.5"/><circle cx="60" cy="-11.3" r="2.5"/><circle cx="60" cy="-6.6" r="3.2"/></g></g>''',fundo=NOVO['fundo'])
+T=[('🎄 Natal (aprovado)',NATAL,'#eef4fb'),('🎃 Halloween',HALL,'#f6eefa'),('⚡ Black Friday',BF,'#f3f1ee'),('✨ Ano Novo',NOVO,'#fbf6e9')]
