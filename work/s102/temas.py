@@ -112,3 +112,12 @@ NOVO=dict(tras='',frente='''<defs><linearGradient id="ng" x1="0" y1="0" x2="1" y
 <path d="M43 34 Q60 38.5 77 34" stroke="#b5861f" stroke-width="2.4" fill="none" stroke-linecap="round"/>
 <g fill="#fff6d8" stroke="#e6b84c" stroke-width=".6"><circle cx="56.6" cy="-8" r="2.5"/><circle cx="63.4" cy="-8" r="2.5"/><circle cx="60" cy="-11.3" r="2.5"/><circle cx="60" cy="-6.6" r="3.2"/></g></g>''',fundo=NOVO['fundo'])
 T=[('🎄 Natal (aprovado)',NATAL,'#eef4fb'),('🎃 Halloween',HALL,'#f6eefa'),('⚡ Black Friday',BF,'#f3f1ee'),('✨ Ano Novo',NOVO,'#fbf6e9')]
+# ---- S103: chapéus mais baixos (a aba fica onde era a faixa) → a testa volta ao tamanho que parecia antes ----
+def baixa(d,dy,sx=1.0):
+  # desce o chapéu dy unidades e alarga sx em volta do centro da cabeça (x=60)
+  g=f'<g transform="translate(60 {dy}) scale({sx} {sx}) translate(-60 0)">'
+  return dict(tras=g+d['tras']+'</g>' if d['tras'] else '',frente=g+d['frente']+'</g>',fundo=d.get('fundo',''))
+NATAL2=baixa(NATAL,9,1.1);HALL2=baixa(HALL,12,1.16);BF2=baixa(BF,12,1.14);NOVO2=baixa(NOVO,7,1.15)
+T=[('🎄 Natal',NATAL2,'#eef4fb'),('🎃 Halloween',HALL2,'#f6eefa'),('⚡ Black Friday',BF2,'#f3f1ee'),('✨ Ano Novo',NOVO2,'#fbf6e9')]
+HALL2=baixa(HALL,9,1.14);NOVO2=baixa(NOVO,11,1.32)
+T=[('🎄 Natal',NATAL2,'#eef4fb'),('🎃 Halloween',HALL2,'#f6eefa'),('⚡ Black Friday',BF2,'#f3f1ee'),('✨ Ano Novo',NOVO2,'#fbf6e9')]
