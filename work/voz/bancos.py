@@ -1,10 +1,10 @@
 PT=[
-['Bom dia!','Boa tarde!','Boa noite!','Tudo bem?','Bem-vindo!','Que calor!','Até logo!','Que bom!','Volto já!','Que frio!','Parabéns!','Boa sorte!'],
+['Bom dia!','Boa tarde!','Boa noite!','Tudo bem?','Bom café!','Que calor!','Até logo!','Que bom!','Volto já!','Que frio!','Parabéns!','Boa sorte!'],
 ['A casa é azul.','A porta é verde.','O gato dorme.','A sopa é boa.','O mar é calmo.','A rua é longa.','O bolo é doce.','A flor é rosa.','O sol já saiu.','A água é fria.','O chá esfriou.','A mesa é nova.'],
-['O café está pronto.','O pão está quentinho.','A chave está na mesa.','Compre leite e pão.','A janela está aberta.','Feche bem a porta.','O bolo saiu do forno.','A loja está fechada.','Hoje vai fazer sol.','A roupa já secou.','O almoço está bom.','Traga o guarda-chuva.'],
+['O café está pronto.','O pão está quentinho.','A chave está na mesa.','Compre leite e pão.','A janela está aberta.','Feche bem a porta.','O bolo saiu do forno.','A loja está fechada.','Hoje vai fazer sol.','A roupa já secou.','O almoço está bom.','Traga o casaco hoje.'],
 ['Ligue para a farmácia.','Feche a janela da sala.','A loja abre às nove.','O gato dorme no sofá.','Regue as plantas cedo.','Leve a sacola de feira.','Lave bem a fruta antes.','Guarde em lugar seco.','Apague a luz do quarto.','Passe na padaria hoje.','O pão chega bem cedo.','Tire o lixo à noite.'],
 ['O ônibus passa às oito.','A feira começa cedinho.','O vizinho trouxe bolo.','A chuva molhou a roupa.','O mercado fecha tarde.','Esquente a sopa no fogo.','O carteiro já passou.','As flores abriram hoje.','O filme começa às dez.','A praça está cheia hoje.','Deixe a chave com ela.','O trem chegou na hora.'],
-['Leia a receita com calma.','Guarde o troco na bolsa.','Coloque o casaco na cama.','A farmácia fica na esquina.','Ponha mais água no feijão.','O jantar fica pronto já.','Leve o guarda-chuva hoje.','Compre frutas na quitanda.','A reunião vai começar logo.','Separe as roupas brancas.','Lembre de tomar mais água.','O bolo de milho esfriou.'],
+['Leia a receita com calma.','Guarde o troco na bolsa.','Coloque o casaco na cama.','A farmácia fica na esquina.','Ponha mais água no feijão.','O jantar fica pronto já.','Leve o casaco de lã hoje.','Compre frutas na quitanda.','A reunião vai começar logo.','Separe as roupas brancas.','Lembre de tomar mais água.','O bolo de milho esfriou.'],
 ['O jornal fala do tempo.','A novela começa tarde.','O rádio toca uma música.','A sala ficou bem limpa.','O vento fechou a porta.','A torta de limão acabou.','O livro está na estante.','A chuva parou à tarde.','O café ficou bem forte.','A janela dá para o mar.','O banco abre mais cedo.','Hoje o almoço é peixe.'],
 ['Tome 1 comprimido ao dia.','Use duas gotas à noite.','Tome com um copo de água.','Conservar em local fresco.','Manter longe do sol forte.','Tomar depois das refeições.','Validade impressa na caixa.','Aplicar duas vezes ao dia.','Lavar as mãos antes do uso.','Agite bem o frasco antes.','Guardar fora do alcance.','Uso adulto e pediátrico.'],
 ['Agite antes de usar.','Manter em local seco.','Uso somente externo.','Proteger da luz forte.','Não congelar o frasco.','Contém cinco cápsulas.','Tampe após cada uso.','Guarde na geladeira.','Não use se violado.','Diluir em pouca água.','Tomar com alimentos.','Leia a bula antes.']]
@@ -27,3 +27,8 @@ for nome,B in (('PT',PT),('ES',ES)):
 print('ok' if ok else 'ERRO')
 if ok and len(sys.argv)>1:
   print('var BQ_PT='+json.dumps(PT,ensure_ascii=False)+',BQ_ES='+json.dumps(ES,ensure_ascii=False)+';')
+# S97: frases curtas/médias da lupa (sem hífen, sem palavra longa), da mais curta à mais longa
+LZ_PT=['Oi!','Sim.','Paz.','Bom!','Bom dia!','Até já!','Boa viagem.','Bom apetite.','Tudo pronto.','Água gelada.','Leite fresco.','O sol nasceu.','A porta abriu.','O bolo saiu.','Dia de chuva.','Hoje tem feira.','Café com leite.','Feche a porta.','Leia com calma.','Compre pão hoje.','O ônibus atrasou.','A sopa está quente.','O gato dormiu cedo.','Ligue mais tarde.']
+LZ_ES=['¡Hola!','Sí.','Paz.','¡Qué bien!','¡Buen día!','¡Ya vuelvo!','Buen viaje.','Buen provecho.','Todo listo.','Agua fría.','Leche fresca.','Salió el sol.','Se abrió la puerta.','Salió la torta.','Día de lluvia.','Hoy hay feria.','Café con leche.','Cerrá la puerta.','Leé con calma.','Comprá pan hoy.','El colectivo tardó.','La sopa está caliente.','El gato durmió temprano.','Llamá más tarde.']
+if len(sys.argv)>1:
+  print('var LZ_PT='+json.dumps(sorted(LZ_PT,key=len),ensure_ascii=False)+',LZ_ES='+json.dumps(sorted(LZ_ES,key=len),ensure_ascii=False)+';')
