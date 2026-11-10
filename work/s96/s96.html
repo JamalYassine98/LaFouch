@@ -1,0 +1,43 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>S96 · letra fixa (sem ajuste pela distância)</title>
+<style>body{margin:0;background:#fbf5f8;font:15px/1.5 Inter,system-ui,sans-serif;color:#2a1a24}main{max-width:760px;margin:auto;padding:20px 16px 60px}
+h1{font-size:21px;margin:0 0 4px}h2{font-size:18px;margin:28px 0 8px;color:#8d3a69}.mu{color:#7a6670;font-size:13.5px}
+.c{background:#fff;border:1px solid #efe3ea;border-radius:16px;padding:14px 16px;margin:10px 0}.c b{color:#8d3a69}.rec{border:2px solid #8d3a69}
+.ok{color:#2e7d4f;font-weight:600}.no{color:#b3261e;font-weight:600}
+.bar{position:relative;height:34px;border-radius:10px;background:#f3e6ee;margin:12px 0 4px;overflow:hidden}.bar span{position:absolute;top:0;bottom:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+.tk{display:flex;justify-content:space-between;font-size:11.5px;color:#7a6670}
+.ph{display:flex;gap:12px;flex-wrap:wrap}.tel{width:220px;border:1px solid #e6d5df;border-radius:22px;background:#fff;padding:12px;font-size:12.5px}
+.tel .bal{background:#fbf5f8;border:1px solid #efe3ea;border-radius:12px;padding:7px 9px;margin-bottom:8px}.tel .chip{float:right;font-size:11px;border:1px solid #efe3ea;border-radius:99px;padding:2px 7px}
+.tel .q{border:2px solid #8d3a69;border-radius:14px;padding:10px;font-family:Georgia,serif;text-align:center}.tel .b{background:#8d3a69;color:#fff;border-radius:99px;text-align:center;padding:7px;margin-top:8px;font-weight:700}
+</style></head><body><main>
+<h1>S96 · Letra fixa: sem ajuste de tamanho pela distância</h1><p class="mu">Esboço — nada implementado. S95 A, B, D, E aprovados e C reprovado; +0.50 = “zero cinquenta” (anotado).</p>
+
+<h2>O que muda</h2>
+<div class="c">• As letras do quadro ficam <b>sempre do mesmo tamanho</b> (o tamanho certo para 30 cm). A câmera não muda mais a letra quando o cliente se aproxima ou se afasta.
+<br>• A única coisa que muda o tamanho continua sendo a <b>lente</b> (cada lente mostra o quadro do tamanho que você leria com ela).
+<br>• O cliente pode mexer o celular à vontade, como numa leitura real.
+<br><b>Você tem razão sobre a imprecisão:</b> o ajuste mudava a letra entre uma frase e outra, e a distância medida pela câmera ainda erra (até ±15% hoje). Era um erro em cima de outro.</div>
+
+<h2>Análise crítica — o único cuidado</h2>
+<div class="c">Quem tem vista cansada tem um truque natural: <b>esticar o braço</b>. A 45–50 cm a pessoa lê sem óculos uma letra que a 30 cm não conseguiria. Se o “Consigo ler” valer em qualquer distância, o teste vai dar <b>grau menor do que a pessoa precisa</b>.
+<br>Chegar mais perto não tem esse problema (para quem tem vista cansada, perto fica ainda mais difícil).</div>
+
+<h2>Proposta</h2>
+<div class="c rec"><b>Recomendado · letra fixa + o “Consigo ler” só vale com o celular perto o suficiente</b>
+<div class="bar"><span style="left:0;width:50%;background:#e7f3ec;color:#2e7d4f">vale</span><span style="left:50%;width:50%;background:#fbe9e7;color:#b3261e">esticou o braço</span></div>
+<div class="tk"><span>colado no rosto</span><span>30 cm</span><span>38 cm</span><span>50 cm+</span></div>
+<br>• Até <b>38 cm</b>: o toque vale normalmente. Perto ou longe dentro disso, o cliente mexe à vontade e o Mochi não fala nada.
+<br>• Mais de 38 cm <b>no momento do toque</b>: a resposta não conta, e o Mochi explica com gentileza (uma vez):
+<br><i>“Você afastou o celular para conseguir ler — isso é sinal de vista cansada. Segure a um palmo e me diga de novo.”</i>
+<br>• Os avisos falados de distância de hoje (“chegue mais perto” / “afaste”) <b>saem</b>; fica só a etiqueta com os cm.
+<br>• Sem câmera: letra fixa, como já é hoje.</div>
+<div class="ph" style="margin-top:12px">
+<div class="tel"><span class="chip" style="color:#2e7d4f">27 cm ✓</span><div style="clear:both"></div><div class="bal">Consegue ler a frase aqui na minha frente?</div><div class="q">A loja abre às nove.</div><div class="b">Consigo ler</div><p class="mu" style="margin:6px 0 0">mexeu um pouco: vale</p></div>
+<div class="tel"><span class="chip" style="color:#b3261e">46 cm</span><div style="clear:both"></div><div class="bal">Você afastou o celular para conseguir ler — isso é sinal de vista cansada. Segure a um palmo e me diga de novo.</div><div class="q">A loja abre às nove.</div><p class="mu" style="margin:6px 0 0">esticou o braço: não conta</p></div></div>
+<div class="c"><b>Alternativa · letra fixa e nenhum controle</b> — mais simples, mas volta o erro do braço esticado (grau menor). <span class="no">Não recomendo.</span></div>
+
+<h2>Como encaixa no que você aprovou</h2>
+<div class="c">• <b>S95 B</b> (ponto próximo é a medida principal) não depende do tamanho da letra — fica igual.
+<br>• <b>S95 A</b> (distância pela íris) deixa o limite de 38 cm confiável (erro ~±5%).
+<br>• <b>S95 D</b> (ler a última linha duas vezes) também passa a exigir até 38 cm nas duas.
+<br>• Frase nova para gravar (PT e ES): a do braço esticado.</div>
+</main></body></html>
