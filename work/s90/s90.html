@@ -1,0 +1,57 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;background:#efe8ed;font-family:Inter,system-ui,sans-serif;color:#2a1f27;padding:22px;width:1560px}
+h1{font:600 24px Georgia,serif;margin:0 0 4px}h2{font:600 18px Georgia,serif;margin:22px 0 8px;color:#8d3a69}.sub{color:#6b5b66;font-size:14px;margin:0 0 10px}
+.row{display:flex;gap:14px;align-items:flex-start}.ph{width:250px;height:520px;background:#fbf6f9;border:6px solid #1d1a1c;border-radius:26px;position:relative;overflow:hidden;flex:none}
+.top{height:40px;border-bottom:1px solid #efe3ea;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font:600 13px Georgia;color:#8d3a69;background:#fbf6f9}
+.hd{height:30px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;font:600 11px Inter;color:#8d3a69}.chip{font:700 9.5px Inter;color:#6b5b66;border:1px solid #efe3ea;background:#fff;border-radius:99px;padding:3px 8px}
+.bal{position:absolute;left:92px;right:8px;top:80px;background:#fff;border:1px solid #efe3ea;border-radius:14px;padding:7px 9px;font-size:10.5px;line-height:1.35}
+.mo{position:absolute;left:0;top:76px;width:92px}
+.card{position:absolute;left:10px;right:10px;background:#fff;border:1px solid #efe3ea;border-radius:14px;padding:9px 11px;font-size:10px;line-height:1.45}
+.card.glow{box-shadow:0 0 0 4px #8d3a6930;border-color:#c46a9c}
+.btn{position:absolute;left:10px;right:10px;border-radius:99px;padding:10px;text-align:center;font-weight:700;font-size:12.5px}.b1{background:#8d3a69;color:#fff}.b2{border:1.5px solid #8d3a69;color:#8d3a69;background:#fff}
+.dlg{position:absolute;left:8px;right:8px;top:250px;background:#2f2729;color:#f3e4e9;border-radius:16px;padding:12px;font-size:10.5px}.dlg b{color:#ffb4c4;float:right;margin-left:14px}
+.dim:after{content:'';position:absolute;inset:0;background:#0006}
+.c{background:#fff;border-radius:16px;padding:14px 16px;font-size:13px;line-height:1.55;flex:1;min-width:280px}.c b.ok{color:#2e7d4f}.c b.x{color:#b3261e}
+.lab{font:700 11.5px Inter;color:#8d3a69;margin:0 0 4px}.cap{font-size:11px;color:#6b5b66;width:250px;margin-top:5px;line-height:1.4}
+.arm{position:absolute;width:30px;height:3px;background:#c46a9c;border-radius:3px;transform-origin:0 50%}
+.drw{position:absolute;left:0;top:0;bottom:0;width:190px;background:#fff;box-shadow:4px 0 20px #0003;z-index:5;padding:10px 12px;font:15px Georgia}.drw div{padding:9px 0;border-bottom:1px solid #efe3ea}
+.scr{position:absolute;inset:0;background:#0005;z-index:4}
+.x{color:#b3261e;font-weight:700}.okk{color:#2e7d4f;font-weight:700}
+</style></head><body>
+<h1>S90 · Mochi avisa antes de começar · câmera com pergunta · menu por cima da consulta</h1>
+<p class="sub">Esboço — nada implementado. A, B, C, D do S89 aprovados (fica para depois do seu teste na loja).</p>
+
+<h2>1 · Entrada: o Mochi se apresenta e explica o aviso, realçando o cartão (sem cobrir o texto)</h2>
+<div class="row">
+ <div><div class="lab">1 · se apresenta</div><div class="ph"><div class="top">≡ LA FOUCH 🛒</div><div class="hd">‹ Início<span></span></div><img class="mo" src="mochi.png"><div class="bal">Oi! Eu sou o Mochi. Vou te ajudar a achar o grau do seu óculos de leitura.</div>
+  <div class="card" style="top:190px"><b>Serve só para ler de perto.</b><br><b style="color:#8d3a69">Não funciona</b> para miopia, astigmatismo ou multifocal.<br><span style="color:#8a7a85">Não substitui a consulta.</span></div><div class="btn b1" style="top:290px">Começar</div></div></div>
+ <div><div class="lab">2 · aponta o cartão e explica</div><div class="ph"><div class="top">≡ LA FOUCH 🛒</div><div class="hd">‹ Início<span></span></div><img class="mo" src="mochi.png"><div class="bal">Antes, um aviso importante: este teste é só para óculos de leitura. Não serve para miopia, astigmatismo nem multifocal, e não substitui o oftalmologista.</div>
+  <div class="card glow" style="top:190px"><b>Serve só para ler de perto.</b><br><b style="color:#8d3a69">Não funciona</b> para miopia, astigmatismo ou multifocal.<br><span style="color:#8a7a85">Não substitui a consulta.</span></div><div class="btn b1" style="top:290px">Começar</div>
+  <div class="arm" style="left:62px;top:160px;transform:rotate(62deg)"></div></div><div class="cap">O cartão ganha um contorno rosa que pulsa enquanto ele fala; ele aponta com a mão (sem o ponteiro), de cima, sem encostar no texto.</div></div>
+ <div><div class="lab">3 · chama o Começar (uma vez)</div><div class="ph"><div class="top">≡ LA FOUCH 🛒</div><div class="hd">‹ Início<span></span></div><img class="mo" src="mochi.png"><div class="bal">Quando quiser, é só tocar em Começar.</div>
+  <div class="card" style="top:190px"><b>Serve só para ler de perto.</b><br><b style="color:#8d3a69">Não funciona</b> para miopia, astigmatismo ou multifocal.<br><span style="color:#8a7a85">Não substitui a consulta.</span></div><div class="btn b1" style="top:290px;box-shadow:0 0 0 6px #8d3a6926">Começar</div></div><div class="cap">O botão pulsa 2 vezes. Depois ele não fala mais (fica vivo ao lado).</div></div>
+ <div class="c"><b>Ordem nova da entrada</b><br>1. "Oi! Eu sou o Mochi. Vou te ajudar a achar o grau do seu óculos de leitura."<br>2. O cartão do aviso acende e ele explica: <i>"Antes, um aviso importante: este teste é só para óculos de leitura. Não serve para miopia, astigmatismo nem multifocal, e não substitui o oftalmologista."</i><br>3. "Quando quiser, é só tocar em Começar." (o botão pulsa)<br><br>• O botão Começar funciona desde o início (quem já conhece pode tocar antes; aí ele para de falar no fim da frase).<br>• Substitui o "balão só se apresenta" do S67 (você agora quer o aviso falado).<br>• Frases novas para gravar: a do aviso (PT e ES).</div>
+</div>
+
+<h2>2 · Câmera: o Mochi explica e pergunta — e espera a resposta</h2>
+<div class="row">
+ <div><div class="lab">1 · explica antes de pedir</div><div class="ph"><div class="top">≡ LA FOUCH 🛒</div><div class="hd">‹ Início<span></span></div><img class="mo" src="mochi.png"><div class="bal">Posso usar a câmera? É só para medir a distância do celular até o seu rosto. Nada é gravado. Se preferir, a gente faz sem.</div>
+  <div class="card" style="top:190px;font-size:11px"><b>📷 Câmera só para medir a distância</b><br>Nada é gravado nem enviado.</div><div class="btn b1" style="top:268px">Usar a câmera</div><div class="btn b2" style="top:312px">Fazer sem câmera</div></div></div>
+ <div><div class="lab">2 · espera a pessoa decidir</div><div class="ph dim"><div class="top">≡ LA FOUCH 🛒</div><div class="hd">‹ Início<span></span></div><img class="mo" src="mochi.png"><div class="bal">É só tocar em "Permitir" na janelinha.</div>
+  <div class="dlg" style="z-index:3">📷 lafouch.com quer usar sua câmera<br><br><b>Permitir</b><b>Bloquear</b><br></div></div><div class="cap">Enquanto a janelinha do celular está aberta, o Mochi <b>espera</b>: não fala mais nada e o teste não começa.</div></div>
+ <div><div class="lab">3a · permitiu</div><div class="ph"><div class="top">≡ LA FOUCH 🛒</div><div class="hd">‹ Início<span class="chip" style="color:#2e7d4f;border-color:#bfe3cc">31 cm ✓</span></div><img class="mo" src="mochi.png"><div class="bal">Obrigado! Faz como eu: tire os óculos…</div></div><div class="cap">Segue para o preparo normal.</div></div>
+ <div><div class="lab">3b · bloqueou ou "sem câmera"</div><div class="ph"><div class="top">≡ LA FOUCH 🛒</div><div class="hd">‹ Início<span class="chip">Segure a 30 cm</span></div><img class="mo" src="mochi.png"><div class="bal">Tudo bem, sem problema! Vamos sem a câmera: segure o celular a uns 30 centímetros, um palmo.</div></div><div class="cap">Teste funciona igual, com a letra no tamanho de 30 cm. Nunca insiste.</div></div>
+ <div class="c" style="min-width:220px"><b>Regras</b><br>• A janelinha do celular <b>só aparece depois</b> que ele explica e a pessoa toca em "Usar a câmera".<br>• Se o celular já tem a permissão (pessoa já aceitou antes), pula a pergunta.<br>• Se já bloqueou antes, vai direto para "sem câmera" com a mesma frase gentil.<br>• Sem câmera não há ajuste de letra pela distância nem a etapa do ponto próximo (C do S89).</div>
+</div>
+
+<h2>3 · Bug: menu aberto com a consulta aberta (seu print)</h2>
+<div class="row">
+ <div><div class="lab"><span class="x">hoje</span> · o menu abre POR BAIXO da consulta</div><div class="ph"><div class="top" style="position:relative;z-index:1">≡ LA FOUCH 🛒</div>
+  <div class="drw" style="z-index:0;top:0">Leitura ›<div>Armações ›</div></div><div style="position:absolute;left:0;right:0;top:40px;bottom:0;background:#fbf6f9;z-index:2;padding:8px 10px;font-size:11px">‹ Início<br><br><img src="mochi.png" style="width:80px"><br>Descubra o grau…</div></div>
+  <div class="cap">Causa: a consulta fica embaixo do cabeçalho, e o menu abre atrás dela. Só aparece o pedaço no lugar do cabeçalho, que fica escuro.</div></div>
+ <div><div class="lab"><span class="okk">proposto</span> · o menu abre POR CIMA, inteiro</div><div class="ph"><div class="top">≡ LA FOUCH 🛒</div><div style="position:absolute;left:0;right:0;top:40px;bottom:0;background:#fbf6f9;padding:8px 10px;font-size:11px">‹ Início<br><br><img src="mochi.png" style="width:80px"></div><div class="scr"></div>
+  <div class="drw">Leitura ›<div>Armações ›</div><div>Solar ›</div><div>Ferramentas</div><div style="font-size:12px;font-family:Inter;color:#8d3a69">Descubra o seu grau ✓</div></div></div>
+  <div class="cap">O menu cobre tudo como em qualquer página; a consulta fica pausada atrás (Mochi para de falar).</div></div>
+ <div class="c"><b>O que acontece depois</b><br>• <b>Escolheu outra página</b> (ex.: Armações): a consulta fecha e abre a página escolhida.<br>• <b>Fechou o menu</b> (tocou fora ou ✕): volta para a consulta <b>exatamente onde estava</b>, e o Mochi retoma.<br>• <b>Tocou em "Descubra o seu grau"</b>: só fecha o menu.<br>• Lupa e carrinho do cabeçalho seguem a mesma regra (abrem por cima; fechar volta para a consulta).<br><br><b>Teste antes de publicar:</b> abrir o menu, a busca e o carrinho em cada etapa da consulta (entrada, câmera, teste, lente, resultado), no celular pequeno e grande, com letra grande.</div>
+</div>
+</body></html>
