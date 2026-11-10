@@ -1,0 +1,4 @@
+🎄 Natal: pixels da cabeça para fora do chapéu = 0 | menor folga chapéu↔óculos = 8.2 unid (7.0 px no celular)
+🎃 Halloween: pixels da cabeça para fora do chapéu = 0 | menor folga chapéu↔óculos = 4.6 unid (4.0 px no celular)
+⚡ Black Friday: pixels da cabeça para fora do chapéu = 0 | menor folga chapéu↔óculos = 4.9 unid (4.2 px no celular)
+✨ Ano Novo: pixels da cabeça para fora do chapéu = 0 | menor folga chapéu↔óculos = 10.8 unid (9.3 px no celular)
