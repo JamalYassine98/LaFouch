@@ -208,3 +208,13 @@ BF7['fr']=BF6['fr'].replace('<path d="M-6 57 A66 9.5 0 0 0 126 57 Z" fill="#0b0b
  '</g><path d="M-18 55.5 A78 11 0 0 0 138 55.5 Z" fill="#0b0b0b"/><path d="M-9 56.1 A69 8 0 0 0 129 56.1" stroke="#2a2a2a" stroke-width="1" fill="none"/><g transform="translate(0 -1.5)">')
 NOVO7=dict(NOVO6);NOVO7['ocl']=OCL_NOVO7
 TEMAS=[NATAL7,HALL7,BF7,NOVO7]
+# S107b: Ano Novo — estrelas centradas no olho (o olho fechado fica em y≈81) e ponte/hastes presas nas pontas das estrelas
+EY=81.6;ER_=13
+def est8(cx):return ' '.join(f'{cx+(ER_ if i%2==0 else 9.8)*math.cos(-math.pi/2+i*math.pi/5):.2f},{EY+(ER_ if i%2==0 else 9.8)*math.sin(-math.pi/2+i*math.pi/5):.2f}' for i in range(10))
+_a=math.radians(-18);PX=ER_*math.cos(_a);PY=EY+ER_*math.sin(_a)
+OCL_NOVO8='<defs><linearGradient id="go2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6dc8c"/><stop offset=".5" stop-color="#d9a93a"/><stop offset="1" stop-color="#f3d27a"/></linearGradient></defs>'+\
+ ''.join(f'<polygon points="{est8(c)}" fill="url(#lfmlz)" stroke="url(#go2)" stroke-width="2.3" stroke-linejoin="round"/>' for c in (OL,OR))+\
+ f'<path d="M{OL+PX:.2f} {PY:.2f} Q60 {PY-3.2:.2f} {OR-PX:.2f} {PY:.2f}" stroke="#d9a93a" stroke-width="2.3" fill="none" stroke-linecap="round"/>'+\
+ f'<path d="M{OL-PX:.2f} {PY:.2f} C26 {PY-1.5:.2f} 21 78 16.5 79" fill="none" stroke="#d9a93a" stroke-width="2.4" stroke-linecap="round"/><path d="M{OR+PX:.2f} {PY:.2f} C94 {PY-1.5:.2f} 99 78 103.5 79" fill="none" stroke="#d9a93a" stroke-width="2.4" stroke-linecap="round"/>'+\
+ f'<path d="M60 {PY-6.4:.2f} l.8 -2.4 .8 2.4 2.4 .8 -2.4 .8 -.8 2.4 -.8 -2.4 -2.4 -.8z" fill="#f6dc8c"/><path d="M38 {EY-5.5} l.9 -2.7 .9 2.7 2.7 .9 -2.7 .9 -.9 2.7 -.9 -2.7 -2.7 -.9z" fill="#fff"/>'
+NOVO7['ocl']=OCL_NOVO8;TEMAS=[NATAL7,HALL7,BF7,NOVO7]
