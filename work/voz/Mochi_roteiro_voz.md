@@ -61,8 +61,8 @@ Voz B aprovada (Laura, calorosa e calma). Cada bloco é gravado de uma vez, como
 
 | Português | Espanhol |
 |---|---|
-| Leu! Agora vou tirando um pouquinho de grau, como o médico, até achar o mais leve que ainda funciona. | ¡Leíste! Ahora voy a ir sacando un poquito de graduación, como el médico, hasta encontrar la más suave que todavía funciona. |
-| Agora uma mais fraca, como o médico faz. | Ahora una más suave, como hace el médico. |
+| Leu! Agora vou tirando um pouquinho de grau, até achar o mais leve que ainda funciona. | ¡Leíste! Ahora voy a ir sacando un poquito de graduación, hasta encontrar la más suave que todavía funciona. |
+| Agora uma mais fraca. | Ahora una más suave. |
 | Só para ter certeza: e com esta? | Solo para estar seguros: ¿y con esta? |
 | Sem pressa. | Sin apuro. |
 | Se estiver difícil, pode dizer que não consegue — sem problema. | Si cuesta, podés decir que no podés — no hay problema. |
@@ -71,7 +71,7 @@ Voz B aprovada (Laura, calorosa e calma). Cada bloco é gravado de uma vez, como
 
 | Português | Espanhol |
 |---|---|
-| Pronto! | ? |
+| Pronto! | ¡Listo! |
 | Boa notícia: você lê bem de perto sem óculos! | ¡Buena noticia: leés bien de cerca sin lentes! |
 | Para não chutar um grau, vale consultar um oftalmologista. | Para no adivinar una graduación, conviene consultar a un oftalmólogo. |
 
@@ -79,11 +79,11 @@ Voz B aprovada (Laura, calorosa e calma). Cada bloco é gravado de uma vez, como
 
 | Português | Espanhol |
 |---|---|
-| Com a lente mais um e meio. | Con la lente más uno y medio. |
-| Esta é mais um e meio. | Esta es más uno y medio. |
-| O grau que mais combina com você é mais um e meio. | La graduación que mejor te va es más uno y medio. |
+| Com a lente um e meio. | Con la lente uno y medio. |
+| Esta é um e meio. | Esta es uno y medio. |
+| O grau que mais combina com você é um e meio. | La graduación que mejor te va es uno y medio. |
 
-Como o grau é falado: +0.75 "mais zero vírgula setenta e cinco" · +1.00 "mais um" · +1.25 "mais um vírgula vinte e cinco" · +1.50 "mais um e meio" · +1.75 "mais um vírgula setenta e cinco" · +2.00 "mais dois"… até +4.00 "mais quatro". Espanhol: "más uno coma veinticinco", "más uno y medio", "más dos"…
+Como o grau é falado (sem "mais", natural): +0.75 "zero setenta e cinco" / "cero setenta y cinco" · +1.00 "um" / "uno" · +1.25 "um e vinte e cinco" / "uno veinticinco" · +1.50 "um e meio" / "uno y medio" · +1.75 "um e setenta e cinco" / "uno setenta y cinco" · +2.00 "dois" / "dos" · +2.25 "dois e vinte e cinco" / "dos veinticinco" · +2.50 "dois e meio" / "dos y medio" · … até +4.00 "quatro" / "cuatro".
 
 ## Custo
 
