@@ -1681,3 +1681,10 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - "‹ Voltar…" sem moldura de foco ao abrir (moldura só com Tab, html.kbd).
 - Carrinho: "−" não desce de 1 (desabilitado em 1; remover é pelo Remover).
 - Testado só no simulador (390 e 1440, PT e ES). Não testado no celular real: envio de pedido, Minha conta logada.
+
+## 11/11 06:40 — IMPLEMENTADOS BLOCOS 2 e 3 — catalogo 83e64c3, versão 1794388729 (porteiro 77/0)
+- PEÇA: pgBar sem bolinhas (pgacts/pgfav escondidos); trilha "Catálogo › Tipo › REF" com botões data-crumb (vinho no mouse) que fecham a peça e abrem o catálogo filtrado; Comparar/Compartilhar = ícones finos cinza (.dmi) à direita da linha "REF · NOVO · MATERIAL", vinho + fundinho no mouse, nome em dica só no PC.
+- ESTOJO/FLANELA: bloco .pbr removido do código; faixa do Natal virou "🎄 Natal La Fouch · presentes com retirada no mesmo dia". (Chave CFG.brinde no painel fica sem efeito — tirar no bloco do painel.)
+- FAVORITOS: ♡ do catálogo (#ftog) e da peça (#ftogp) escondidos; coração da foto continua favoritando + aviso "Salvo nos favoritos · Ver no carrinho ›"; carrinho com abas "Carrinho n | Favoritos n" (só aparecem se houver favorito); aba Favoritos: foto (abre a peça), ref, nome, preço, "Colocar no carrinho" (botão A) em cima e "Remover" embaixo (PC) / lado a lado (celular); esgotado mostra "Esgotado".
+- CATÁLOGO: #fbtn/#vtog/#ftog escondidos; linha #lfgen Todos · Feminino · Masculino · Unissex só texto (sublinhado vinho na escolhida, vinho no mouse) + "Filtros ›" (abre a caixa de filtros de sempre) na mesma linha, centros alinhados (medido).
+- Testado só no simulador (390/1440).
