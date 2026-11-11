@@ -1,0 +1,63 @@
+pt_sT t1 ritmo ok 4/4 perfeitas créditos 45
+   pt7_000.mp3 Vou tirar mais um pouquinho. ok
+   pt7_001.mp3 Mais leve agora. ok
+   pt7_002.mp3 Vamos para uma mais suave. ok
+   pt7_003.mp3 Mais um passinho para baixo. ok
+pt_sC t1 ritmo 1.24× da referência (por sílaba) 0/4 perfeitas créditos 89
+pt_sC t2 ritmo 1.25× da referência (por sílaba) 0/4 perfeitas créditos 133
+pt_sC t3 ritmo ok 4/4 perfeitas créditos 177
+   pt7_004.mp3 Mais uma, para ter certeza. ok
+   pt7_005.mp3 E esta outra aqui? ok
+   pt7_006.mp3 Confirma para mim: e esta? ok
+   pt7_007.mp3 Agora esta, para conferir. ok
+pt_tE t1 ritmo 0.84× da referência (por sílaba) 0/16 perfeitas créditos 474
+pt_tE t2 ritmo 0.82× da referência (por sílaba) 0/16 perfeitas créditos 771
+pt_tE t3 ritmo ok 15/16 perfeitas créditos 1068
+   pt7_008.mp3 Agora com +0.25. Ainda consegue ler? ok
+   pt7_009.mp3 Agora com +0.50. Ainda consegue ler? ['ritmo 0.84× da referência (por sílaba)']
+   pt7_010.mp3 Agora com +0.75. Ainda consegue ler? ok
+   pt7_011.mp3 Agora com +1.00. Ainda consegue ler? ok
+   pt7_012.mp3 Agora com +1.25. Ainda consegue ler? ok
+   pt7_013.mp3 Agora com +1.50. Ainda consegue ler? ok
+   pt7_014.mp3 Agora com +1.75. Ainda consegue ler? ok
+   pt7_015.mp3 Agora com +2.00. Ainda consegue ler? ok
+   pt7_016.mp3 Agora com +2.25. Ainda consegue ler? ok
+   pt7_017.mp3 Agora com +2.50. Ainda consegue ler? ok
+   pt7_018.mp3 Agora com +2.75. Ainda consegue ler? ok
+   pt7_019.mp3 Agora com +3.00. Ainda consegue ler? ok
+   pt7_020.mp3 Agora com +3.25. Ainda consegue ler? ok
+   pt7_021.mp3 Agora com +3.50. Ainda consegue ler? ok
+   pt7_022.mp3 Agora com +3.75. Ainda consegue ler? ok
+   pt7_023.mp3 Agora com +4.00. Ainda consegue ler? ok
+es_sT t1 ritmo ok 1/4 perfeitas créditos 1110
+es_sT t2 ritmo ok 2/4 perfeitas créditos 1152
+es_sT t3 ritmo ok 2/4 perfeitas créditos 1194
+   es8_000.mp3 Voy a sacar un poquito más. ok
+   es8_001.mp3 Más suave ahora. ['voz diferente (0.816)']
+   es8_002.mp3 Vamos con una más suave. ['voz diferente (0.837)']
+   es8_003.mp3 Un pasito más para abajo. ok
+es_sC t1 ritmo 1.24× da referência (por sílaba) 0/4 perfeitas créditos 1234
+es_sC t2 ritmo 1.22× da referência (por sílaba) 0/4 perfeitas créditos 1274
+es_sC t3 ritmo 1.24× da referência (por sílaba) 0/4 perfeitas créditos 1314
+   es8_004.mp3 Una más, para estar seguros. ['ritmo 1.24× da referência (por sílaba)']
+   es8_005.mp3 ¿Y esta otra? ['ritmo 1.24× da referência (por sílaba)']
+   es8_006.mp3 Confirmame: ¿y esta? ['ritmo 1.24× da referência (por sílaba)']
+   es8_007.mp3 Ahora esta, para comprobar. ['ritmo 1.24× da referência (por sílaba)']
+PARADO no teto de créditos 1314
+  SEM GRAVAÇÃO Ahora con +0.25. ¿Todavía podés leer?
+  SEM GRAVAÇÃO Ahora con +0.50. ¿Todavía podés leer?
+  SEM GRAVAÇÃO Ahora con +0.75. ¿Todavía podés leer?
+  SEM GRAVAÇÃO Ahora con +1.00. ¿Todavía podés leer?
+  SEM GRAVAÇÃO Ahora con +1.25. ¿Todavía podés leer?
+  SEM GRAVAÇÃO Ahora con +1.50. ¿Todavía podés leer?
+  SEM GRAVAÇÃO Ahora con +1.75. ¿Todavía podés leer?
+  SEM GRAVAÇÃO Ahora con +2.00. ¿Todavía podés leer?
+  SEM GRAVAÇÃO Ahora con +2.25. ¿Todavía podés leer?
+  SEM GRAVAÇÃO Ahora con +2.50. ¿Todavía podés leer?
+  SEM GRAVAÇÃO Ahora con +2.75. ¿Todavía podés leer?
+  SEM GRAVAÇÃO Ahora con +3.00. ¿Todavía podés leer?
+  SEM GRAVAÇÃO Ahora con +3.25. ¿Todavía podés leer?
+  SEM GRAVAÇÃO Ahora con +3.50. ¿Todavía podés leer?
+  SEM GRAVAÇÃO Ahora con +3.75. ¿Todavía podés leer?
+  SEM GRAVAÇÃO Ahora con +4.00. ¿Todavía podés leer?
+FIM créditos 1314
