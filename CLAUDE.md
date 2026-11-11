@@ -9,3 +9,14 @@
   - `gh workflow run` e GraphQL são bloqueados; usar o comando acima. Conferir com `gh run list`.
 - Subir a versão do cache em www/sw.js (lafouch-vNNN) a cada release.
 - REGRA DE OURO (04/11/2026): sempre esboço primeiro (INCLUSIVE correção de bug); implementar só quando o dono avisar; guardar o aprovado em docs/MEMORIA-PROJETO.md; entregar EXATAMENTE o esboço aprovado, sem mudanças não pedidas.
+
+## Economia de tokens (pedido do dono, 11/11/2026)
+- Português, respostas curtas: no máximo 8 linhas, salvo se o dono pedir "detalhe".
+- Formato: 1 linha com o que fez ou propõe · lista curta só do que ele precisa decidir ou saber · 1 linha com o próximo passo ou a pergunta. Tabela só para comparar números.
+- Não repetir o pedido, não recapitular passos, não explicar o óbvio. Se faltar informação: UMA pergunta curta e parar.
+- Palavras-chave do dono: ESBOÇO, IMPLEMENTAR, PUBLICAR, PARAR. Comandos podem vir em tags <tarefa> <onde> <modo> <limite> <contexto>; sem tags, extrair esses campos sozinho.
+- "COMPRIMA:" no começo da mensagem = não executar; só reescrever o texto dele no formato das tags, com o mínimo de palavras e sem perder decisão.
+- Usar a memória do projeto em vez de pedir histórico; ler trechos de arquivos, não arquivos inteiros; não reenviar arquivos que ele já tem.
+- Mensagens no meio do trabalho só para: rascunho pronto, problema que muda o resultado, ou pergunta.
+- ElevenLabs: nunca gravar (nem teste) sem o dono autorizar o valor em créditos.
+- Sempre dizer o que foi testado no simulador e o que NÃO foi testado no celular.
