@@ -289,7 +289,8 @@ const msgDb = {
   salva: (id, o) => admin.firestore().doc('mensagens/' + id).set(o),
   lista: async (n) => (await admin.firestore().collection('mensagens').orderBy('ts', 'desc').limit(n).get()).docs.map((d) => Object.assign({ id: d.id }, d.data())),
   muda: (id, c) => admin.firestore().doc('mensagens/' + id).update(c),
-  contaRecentes: async (k, desde) => (await admin.firestore().collection('mensagens').where('ipk', '==', k).where('ts', '>=', desde).limit(10).get()).size,
+  // só igualdade (não precisa de índice composto no Firestore); o filtro de hora é feito aqui
+  contaRecentes: async (k, desde) => (await admin.firestore().collection('mensagens').where('ipk', '==', k).get()).docs.filter((d) => (d.get('ts') || 0) >= desde).length,
 };
 exports.mensagem = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 5, secrets: [RESEND_KEY] }, async (req, res) => {
   if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
