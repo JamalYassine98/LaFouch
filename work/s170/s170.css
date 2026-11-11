@@ -64,3 +64,5 @@ html[data-ev=bf]{--evb:#111}
 html[data-ev^=anonovo] .evlf{background:linear-gradient(135deg,#9c7a3c,#d9bd84 45%,#a8854a);color:#1f1d1a}
 html[data-ev=pais] .evlf{color:#e0b878}html[data-ev=halloween] .evlf{background:#2a1530;color:#ffb15c}html[data-ev=bf] .evlf{background:#000}
 #grid .card .ph{position:relative}#grid .card .evse{left:12px;top:12px;font-size:10.5px;padding:6px 10px}
+/* v2 contorno: mais visível (1,5 px a 42% + sombra leve na cor do tema) */
+html[data-ev]:not([data-ev=bf]) .hc,html[data-ev]:not([data-ev=bf]) .hcat a,html[data-ev]:not([data-ev=bf]) #grid .card{border:2px solid color-mix(in srgb,var(--evb) 72%,transparent);box-shadow:0 4px 14px color-mix(in srgb,var(--evb) 10%,transparent)}
