@@ -6,7 +6,7 @@ TEMAS=['natal','anonovo','maes','pais','bf','halloween']
 with sync_playwright() as p:
     b=p.chromium.launch();pg=b.new_page(viewport={'width':1200,'height':630})
     pg.route('**/*',lambda r:r.continue_() if 'localhost' in r.request.url else r.abort())
-    for lg in ('pt',):
+    for lg in ('pt','es'):
         h,s=TX[lg]
         for t in TEMAS:
             pg.set_content('''<html><body style="margin:0"><div style="width:1200px;height:630px;position:relative;overflow:hidden;background:linear-gradient(135deg,#f8eef3 0%,#f4e3ec 100%);font-family:Georgia,serif">
