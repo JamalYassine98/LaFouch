@@ -31,7 +31,7 @@ window.__s44=function(){
   document.querySelectorAll('.top .bar button').forEach(function(b){var l=(b.getAttribute('aria-label')||'')+b.id;if(/busca|Buscar|search|srch/i.test(l))b.style.setProperty('display','none','important')});
   var q=document.getElementById('q');if(q)q.placeholder='Buscar modelo ou referência';
   var g=document.querySelectorAll('#home .hgu');
-  if(g[0]){var im=[...document.querySelectorAll('#home .hg img')].slice(0,3).map(function(i){return '<img src="'+i.getAttribute('src')+'">'}).join('');
+  if(g[0]&&innerWidth>=1100){var im=[...document.querySelectorAll('#home .hg img')].slice(0,3).map(function(i){return '<img src="'+i.getAttribute('src')+'">'}).join('');
     g[0].classList.add('s44a');g[0].innerHTML='<div class="card"><div class="im">'+im+'</div><div class="tx"><small>PARA REVENDER</small><h3>Compre em quantidade</h3><p>Preços especiais para lojas, revendedores e empresas, com atendimento exclusivo.</p><button class="bt" type="button">Solicitar orçamento</button></div></div>'}
   if(g[1])g[1].classList.add('s44g');
   /* WhatsApp na borda do conteúdo */
