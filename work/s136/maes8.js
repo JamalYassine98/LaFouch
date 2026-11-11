@@ -10,7 +10,7 @@ const HO='M39.36 73.26 L38.91 73.42 L38.45 73.42 L38.00 73.42 L37.54 73.59 L37.0
 const WG='M42.90 71.22 C37.90 70.22 31.40 68.80 26.40 68.20 C26.80 73.20 30.92 77.60 32.52 81.60 L33.51 81.74 L33.69 80.78 L33.95 79.84 L34.29 78.92 L34.71 78.04 L35.21 77.20 L35.77 76.40 L36.41 75.66 L37.11 74.98 L37.86 74.36 L38.66 73.80 L39.52 73.32 L40.40 72.92 L41.33 72.59 L42.27 72.34 Z';
 const TOP='M28.6 72.4 C34 71.6 40 71.4 46 72.2 C50.4 72.8 54.4 74 57.6 75.6';
 const oclA=D+CO+`<path class="lfcL" d="${HO}" fill="url(#lfmlz)"/><path d="${mir(HO)}" fill="url(#lfmlz)"/>`+
- `<path d="M28 73 C23.6 74.6 21 77 16.5 79" fill="none" stroke="#a4697a" stroke-width="2.4" stroke-linecap="round"/><path d="M92 73 C96.4 74.6 99 77 103.5 79" fill="none" stroke="#a4697a" stroke-width="2.4" stroke-linecap="round"/>`+
+ `<path d="M28.6 73.6 C24.4 75 20.2 77.4 16.5 79" fill="none" stroke="#a4697a" stroke-width="2.4" stroke-linecap="round"/><path d="M91.4 73.6 C95.6 75 99.8 77.4 103.5 79" fill="none" stroke="#a4697a" stroke-width="2.4" stroke-linecap="round"/>`+
  `<path d="${OF} ${HO}" fill="url(#lftnu)" fill-rule="evenodd" stroke="url(#lftnu)" stroke-width="1.1" stroke-linejoin="round"/><path d="${mir(OF)} ${mir(HO)}" fill="url(#lftnu)" fill-rule="evenodd" stroke="url(#lftnu)" stroke-width="1.1" stroke-linejoin="round"/>`+
  ``+
  `<path d="${TOP}" stroke="#f7e4e6" stroke-width=".9" fill="none" stroke-linecap="round" opacity=".9"/><path d="${mir(TOP)}" stroke="#f7e4e6" stroke-width=".9" fill="none" stroke-linecap="round" opacity=".9"/>`+
@@ -31,6 +31,6 @@ TEMA_M.maes={corte:"M-40 54 L160 54 L160 200 L-40 200 Z",tr:'<ellipse cx="60" cy
  fundo:flor(-3,70,4.2,'#f2a7bf')+flor(116,38,3.2,'#f6c3d3')+flor(113,104,3,'#f2a7bf')};
 
 TEMA_M.maesS=Object.assign({},TEMA_M.maes);
-TEMA_M.maesS.fr=TEMA_M.maes.fr.split('M17.43 54.00 C16.14 35.76 30.33 20.94 60.00 20.94 C89.67 20.94 103.86 35.76 102.57 54.00 Q60.00 60.84 17.43 54.00Z').join('M21.72 54.00 C20.56 37.36 33.32 23.84 60.00 23.84 C86.68 23.84 99.44 37.36 98.28 54.00 Q60.00 60.24 21.72 54.00Z').replace('M-6 53 A66 11 0 0 0 126 53 Z','M0 53 A60 10 0 0 0 120 53 Z').replace('M-5 53.6 Q60 71.5 125 53.6','M1 53.6 Q60 69.6 119 53.6').replace('M28 36 C33 28 40.5 23.6 50 22.4','M31 38 C35.6 31 42 27 50 25.8');
-TEMA_M.maesS.tr='<ellipse cx="60" cy="53" rx="60" ry="10" fill="#d7a9b8"/><ellipse cx="60" cy="52.6" rx="51.5" ry="7.3" fill="#c18fa1"/>';
+TEMA_M.maesS.fr=TEMA_M.maes.fr.split('M17.43 54.00 C16.14 35.76 30.33 20.94 60.00 20.94 C89.67 20.94 103.86 35.76 102.57 54.00 Q60.00 60.84 17.43 54.00Z').join('M21.72 54.00 C20.56 37.36 33.32 23.84 60.00 23.84 C86.68 23.84 99.44 37.36 98.28 54.00 Q60.00 60.24 21.72 54.00Z').replace('M-6 53 A66 11 0 0 0 126 53 Z','M-3.5 53 A63.5 10.5 0 0 0 123.5 53 Z').replace('M-5 53.6 Q60 71.5 125 53.6','M-2.5 53.6 Q60 70.6 122.5 53.6').replace('M28 36 C33 28 40.5 23.6 50 22.4','M31 38 C35.6 31 42 27 50 25.8');
+TEMA_M.maesS.tr='<ellipse cx="60" cy="53" rx="63.5" ry="10.5" fill="#d7a9b8"/><ellipse cx="60" cy="52.6" rx="54.5" ry="7.6" fill="#c18fa1"/>';
 })();
