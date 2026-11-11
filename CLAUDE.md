@@ -1,6 +1,7 @@
 # Regras do projeto LaFouch
 
 - Antes de qualquer trabalho, leia docs/MEMORIA-PROJETO.md (decisões do dono e pendências) e atualize-o a cada decisão nova.
+- Site (lafouch.com): antes de mexer, leia docs/SITE-COMO-FUNCIONA.md; ao atualizar ou modificar o site, atualize esse arquivo no mesmo commit (pedido do dono, 11/11/2026).
 
 - ATUALIZAÇÃO 27/10/2026: o dono mandou NÃO gerar APK nem instalador do Windows (economizar tokens). Só gerar quando ele pedir. Continua valendo: testes, sw.js, commit/push em main.
 - (Regra antiga, suspensa) Ao terminar qualquer mudança no app (src/, www/), depois de os testes passarem (python3 tests/run.py) e do commit/push em main, gerar SEMPRE os dois: o APK e o instalador do Windows. O dono pediu isso (25/10/2026).
