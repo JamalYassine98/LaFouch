@@ -314,3 +314,27 @@ exports.mensagem = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 5,
     return res.status(500).json({ ok: false, motivo: 'erro' });
   }
 });
+
+// ---------- Analisador (11/11/2026): contagens anônimas por visita; o painel lê os totais ----------
+const Analise = require('./analise');
+const anDb = {
+  salva: (id, o) => admin.firestore().doc('analise/' + id).set(o),
+  desde: async (ts) => (await admin.firestore().collection('analise').where('ts', '>=', ts).limit(20000).get()).docs.map((d) => d.data()),
+};
+exports.analise = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 10 }, async (req, res) => {
+  if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
+  let b = req.body;
+  if (typeof b === 'string') { try { b = JSON.parse(b); } catch (e) { b = {}; } }
+  b = b && typeof b === 'object' ? b : {};
+  try {
+    if (b.acao === 'resumo') {
+      if (!(await ehDono(req))) return res.status(403).json({ ok: false, motivo: 'sem-permissao' });
+      return res.json(await Analise.resumo(anDb, b.dias, Date.now()));
+    }
+    return res.json(await Analise.registra(anDb, b, Date.now()));
+  } catch (e) {
+    if (e instanceof Analise.Falha) return res.status(e.status).json({ ok: false, motivo: e.motivo });
+    console.error('analise', e);
+    return res.status(500).json({ ok: false, motivo: 'erro' });
+  }
+});
