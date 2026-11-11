@@ -1,0 +1,24 @@
+<style id="s177">
+/* S176-3: no celular a foto da peça fica mais baixa, para preço e chips aparecerem sem rolar */
+@media (max-width:700px){.pgl .big{aspect-ratio:16/10!important;max-height:none!important}.pgl .big img.pf{object-fit:contain}}
+/* 1: miniaturas da galeria */
+.s177t{display:flex;gap:8px;margin:10px 2px 0}.s177t button{width:48px;height:48px;border-radius:14px;border:1.5px solid var(--ln2);background:#fff center/contain no-repeat;font:700 11px Inter;color:#8a7f85;display:grid;place-items:center;padding:0}.s177t button.on{border-color:var(--ac);box-shadow:0 0 0 2px color-mix(in srgb,var(--ac) 20%,transparent)}
+.s177t .q{border-style:dashed}
+/* 2: esqueleto enquanto carrega */
+.s177k{background:#fff;border:1px solid var(--ln);border-radius:16px;overflow:hidden;height:300px;position:relative}
+.s177k i{position:absolute;left:12px;right:12px;border-radius:8px;background:#f1ecef;display:block}
+.s177k:after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,#ffffffb0 50%,transparent 70%);animation:s177s 1.3s infinite}
+@keyframes s177s{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+/* 3: PC: destaque mais baixo */
+@media (min-width:1000px){#home #hdst{max-height:300px}#home #hdst .hdi{max-height:276px}#home #hdst img{max-height:240px;object-fit:contain}}
+/* 4: filtros presos no topo ao rolar o catálogo */
+#vscr #lfgen{position:sticky!important;top:0;z-index:30;background:var(--bg);box-shadow:0 8px 10px -10px #0004;padding-top:6px;padding-bottom:6px}
+/* 6: rodapé mais compacto + selos em uma linha */
+.s177s{display:flex;justify-content:center;gap:18px;font:600 12px Inter;color:var(--mu);padding:14px 0 4px;grid-column:1/-1;border-bottom:1px solid var(--ln)}
+@media (max-width:700px){.lfft .in{gap:12px!important;padding-top:16px!important}.lfft .in p{margin:3px 0}}
+</style>
+<script>(function(){function go(){
+ var g=document.querySelector('.pgl');if(g&&!g.querySelector('.s177t')){var im=g.querySelector('img.pf');if(im){var t=document.createElement('div');t.className='s177t';t.innerHTML='<button class="on" style="background-image:url('+im.src+')"></button><button class="q">3/4</button><button class="q">360°</button>';g.querySelector('.big').after(t)}}
+ if(window.__s177k){var gr=document.getElementById('grid');if(gr&&!gr.querySelector('.s177k')){gr.innerHTML=Array(6).fill('<div class="s177k"><i style="top:14px;height:150px"></i><i style="top:182px;height:14px;right:40%"></i><i style="top:206px;height:14px;right:55%"></i><i style="top:240px;height:22px;right:35%"></i></div>').join('')}}
+ var f=document.querySelector('.lfft .in');if(f&&!f.querySelector('.s177s')){var s=document.createElement('div');s.className='s177s';s.textContent='🚚 Delivery a todo Paraguay · 🔒 Pago seguro · 📍 Retiro en CDE';f.insertBefore(s,f.firstChild)}
+}setInterval(go,600)})()</script>
