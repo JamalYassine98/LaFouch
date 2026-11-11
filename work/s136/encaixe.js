@@ -28,3 +28,9 @@ TEMA_M.maesE=Object.assign({},TEMA_M.maesS,{fr:encaixe(TEMA_M.maesS.fr,1.0,1.03,
 TEMA_M.paisE=Object.assign({},TEMA_M.paisB,{fr:encaixe(TEMA_M.paisB.fr,1.0,1.065,14,50,1.05),tr:encaixe(TEMA_M.paisB.tr,1.05,1.05,0,1)});
 
 TEMA_M.maesF=Object.assign({},TEMA_M.maesS,{fr:encaixe(TEMA_M.maesS.fr,1.0,1.105,23,50)});TEMA_M.paisF=Object.assign({},TEMA_M.paisB,{fr:encaixe(TEMA_M.paisB.fr,1.0,1.145,14,50)});
+function altura(t,f){const NS='http://www.w3.org/2000/svg',sv=document.createElementNS(NS,'svg');sv.setAttribute('viewBox','-40 -40 200 200');sv.style.cssText='position:absolute;left:-9999px;width:400px;height:400px';sv.innerHTML=t;document.body.appendChild(sv);
+ sv.querySelectorAll('path').forEach(el=>{if(el.closest('defs')&&!el.closest('clipPath'))return;const bb=el.getBBox();if(bb.y>=50.5&&!el.closest('clipPath'))return;
+  el.setAttribute('d',el.getAttribute('d').replace(/(-?\d+\.?\d*) (-?\d+\.?\d*)/g,(m,x,y)=>{y=+y;return x+' '+(y<53?(53-(53-y)*f):y).toFixed(2)}))});
+ const o=sv.innerHTML;sv.remove();return o}
+TEMA_M.paisH90=Object.assign({},TEMA_M.paisE,{fr:altura(TEMA_M.paisE.fr,.9)});
+TEMA_M.paisH82=Object.assign({},TEMA_M.paisE,{fr:altura(TEMA_M.paisE.fr,.82)});
