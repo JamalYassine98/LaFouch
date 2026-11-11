@@ -51,3 +51,8 @@ html[data-ev=maes] .evse{background:#8e2f55}html[data-ev=pais] .evse{background:
 .evfx .mo svg{width:100%;height:100%;fill:#1a0d20;animation:evasa .28s ease-in-out infinite;transform-origin:50% 60%}
 .evfx .sh{top:0;bottom:0;width:22%;background:linear-gradient(90deg,transparent,#ffffff2e,transparent);animation:evbri 3.2s ease-in-out .6s 3}
 @media (prefers-reduced-motion:reduce){.evfx{display:none}}
+/* contornos leves na cor do tema (cards de Novidades e Categoria); BF fica com os cards pretos */
+html[data-ev=natal]{--evb:#1f5c3a}html[data-ev^=anonovo]{--evb:#a8854a}html[data-ev=maes]{--evb:#b8436f}html[data-ev=pais]{--evb:#1e2f4d}html[data-ev=halloween]{--evb:#5a2f72}
+html[data-ev]:not([data-ev=bf]) .hc,html[data-ev]:not([data-ev=bf]) .hcat a{border-color:color-mix(in srgb,var(--evb) 24%,transparent);transition:border-color .2s,box-shadow .2s}
+@media (hover:hover){html[data-ev]:not([data-ev=bf]) .hc:hover,html[data-ev]:not([data-ev=bf]) .hcat a:hover{border-color:color-mix(in srgb,var(--evb) 60%,transparent);box-shadow:0 6px 18px color-mix(in srgb,var(--evb) 14%,transparent)}}
+html[data-ev]:not([data-ev=bf]) .hc:active,html[data-ev]:not([data-ev=bf]) .hcat a:active{border-color:color-mix(in srgb,var(--evb) 60%,transparent)}
