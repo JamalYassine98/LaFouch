@@ -1731,3 +1731,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - 11/11 11:11 DONO: "Voz Mochi aprovado implementar" → voz PT+ES e S167 APROVADOS em definitivo (já estavam publicados: catalogo 377d657 + 494b4f7). Nada pendente na voz.
 - 11/11 11:15 Removidas media/voz/ouvir-es.html e ouvir-novas.html (dono). ouvir.html (PT) continua.
 - 11/11 11:15 Removida também media/voz/ouvir.html (PT).
+- 11/11 11:16 DONO: prévia do WhatsApp na versão Mochi. ESBOÇO S168 (work/s168/og_mochi_pt/es.jpg, 1200×630: logo, 'Descubra o grau do seu óculos de leitura' / 'Descubrí la graduación…', 'Em 1 minuto, com o Mochi · grátis, pelo celular', Mochi grande à direita). Perguntado: só nos links do teste (descubra-o-grau / descubri-tu-graduacion) ou também no lafouch.com. Aguardando.
