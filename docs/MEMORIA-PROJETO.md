@@ -1688,3 +1688,11 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - FAVORITOS: ♡ do catálogo (#ftog) e da peça (#ftogp) escondidos; coração da foto continua favoritando + aviso "Salvo nos favoritos · Ver no carrinho ›"; carrinho com abas "Carrinho n | Favoritos n" (só aparecem se houver favorito); aba Favoritos: foto (abre a peça), ref, nome, preço, "Colocar no carrinho" (botão A) em cima e "Remover" embaixo (PC) / lado a lado (celular); esgotado mostra "Esgotado".
 - CATÁLOGO: #fbtn/#vtog/#ftog escondidos; linha #lfgen Todos · Feminino · Masculino · Unissex só texto (sublinhado vinho na escolhida, vinho no mouse) + "Filtros ›" (abre a caixa de filtros de sempre) na mesma linha, centros alinhados (medido).
 - Testado só no simulador (390/1440).
+
+## 11/11 07:05 — IMPLEMENTADO BLOCO 4 (PC e Início) — catalogo 2edf670, versão 1794389346 (porteiro 77/0)
+- PC: LFK no PC = 1 (acima de 1920 = largura/1920; 2560 → 1,333); LFZ PC [1,1.1,1.2] (antes .8/.9/1); classe zl não liga no PC nível 0. Largura única min(1320px,92vw) no topo, Início e rodapé.
+- Topo PC (≥1100): ☰ à esquerda, logo central absoluto 120 px, lupa · conta (ícone 20 px) · carrinho à direita.
+- Início: ordem Destaque → faixa → Categorias → Novidades/Mais vendidos/Ofertas → "Comece por aqui" (#hguia, .hcom: TESTE DE LEITURA com o Mochi desenhado [data-gzopen], ESTILO [rosto], AJUDA "Tire suas dúvidas · Pagamento, entrega e troca" [goTo('como')]) → "Para lojistas" (.hata: foto quadrada à esquerda no PC/em cima no celular, PARA REVENDER, Compre em quantidade, texto A, botão "Solicitar orçamento" [atacado]) → Novidades e ofertas (brilho B) → rodapé. Cartões do Guia saíram do Início (vão para Dicas e cuidados no bloco 5). window.__lfMochiSvg expõe o desenho do Mochi.
+- Botões: Destaque "Ver modelo" + .lfba = botão A (contorno 1 px vinho, enche no mouse); "Ver catálogo ›" link com seta que anda.
+- Busca vazia: "OU VEJA POR CATEGORIA" Solar · Leitura · Armações · Ofertas (vinho) · Atacado (separado); abre com animação suave; no PC centralizada 640 px.
+- Testado no simulador 390/1440/2560. Pendente: Filtros no PC (como abre) não decidido.
