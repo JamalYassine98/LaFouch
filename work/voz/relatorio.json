@@ -1,0 +1,36 @@
+{
+ "1_entrada": {
+  "escolhida": "1_entrada_t1",
+  "problemas": [
+   "\"¡Hola!\" 5.2 dB mais alto que as outras",
+   "tom de \"¡Hola!\" 421 Hz (faixa 237–363)",
+   "tom de \"Soy Mochi.\" 364 Hz (faixa 237–363)"
+  ],
+  "medidas": {
+   "ritmo": 0.94,
+   "sem": 0.974
+  },
+  "tentativas": 3
+ },
+ "2_preparo": {
+  "escolhida": "2_preparo_t1",
+  "problemas": [],
+  "medidas": {
+   "ritmo": 1.04,
+   "sem": 0.951
+  },
+  "tentativas": 1
+ },
+ "3_teste": {
+  "escolhida": "3_teste_t3",
+  "problemas": [
+   "voz diferente da aprovada (semelhança 0.923, mínimo 0,93)",
+   "tom de \"Muy bien.\" 235 Hz (faixa 237–363)"
+  ],
+  "medidas": {
+   "ritmo": 0.95,
+   "sem": 0.923
+  },
+  "tentativas": 3
+ }
+}

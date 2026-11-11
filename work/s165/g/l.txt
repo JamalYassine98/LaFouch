@@ -1,0 +1,6 @@
+file '/home/claude/lafouch/work/s165/g/f_3_teste_00_g.mp3'
+file '/home/claude/lafouch/work/s165/g/f_3_teste_01_g.mp3'
+file '/home/claude/lafouch/work/s165/g/f_3_teste_02_g.mp3'
+file '/home/claude/lafouch/work/s165/g/f_3_teste_03_g.mp3'
+file '/home/claude/lafouch/work/s165/g/f_3_teste_04_g.mp3'
+file '/home/claude/lafouch/work/s165/g/f_3_teste_05_g.mp3'
