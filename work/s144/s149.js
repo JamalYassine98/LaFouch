@@ -16,13 +16,17 @@ var css=document.createElement('style');css.textContent=
 '.h49 .bs{display:flex;align-items:center;gap:8px;height:40px;width:260px;padding:0 16px;border:1px solid #e2d3dc;border-radius:999px;background:#fff;color:#7a6772;font-size:14px}'+
 /* A */ '.h49.A .in{height:76px;gap:40px}.h49.A nav{flex:1;justify-content:center}'+
 /* B */ '.h49.B .r1{height:84px;display:grid;grid-template-columns:1fr auto 1fr}.h49.B .r1 .lg{width:150px;height:64px;background-position:center}.h49.B .r1 .ic{justify-self:end}.h49.B .r2{height:50px;border-top:1px solid #efe3ea;justify-content:center}'+
+'.h49 .mn{border:0;background:none;display:flex;align-items:center;gap:10px;font:500 15px var(--body);color:#2a1f27;padding:4px}'+'.h49.D .r1{height:84px;display:grid;grid-template-columns:1fr auto 1fr}.h49.D .r1 .lg{width:150px;height:64px;background-position:center}.h49.D .r1 .ic:last-child{justify-self:end}'+
 /* C */ '.h49.C .in{height:60px;gap:36px}.h49.C .lg{width:86px;height:40px}.h49.C nav{flex:1;justify-content:center;gap:26px}';
 document.head.appendChild(css);
 function nav(){return '<nav><a class="on">Solar</a><a>Leitura</a><a class="hv">Armações</a><a class="of">Ofertas</a><span class="sep"></span><a>Atacado</a><a>Ajuda</a></nav>'}
 var lng='<button class="lng">PT · R$</button>',conta='<button aria-label="Conta">'+I.conta+'</button>',sac='<button aria-label="Carrinho">'+I.sac+'<b>2</b></button>',lupa='<button aria-label="Buscar">'+I.bus+'</button>',bs='<div class="bs">'+I.bus+'Buscar modelo ou referência</div>';
+I.menu='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 8h16M4 16h16"/></svg>';
+var mn='<button class="mn">'+I.menu+'<span>Menu</span></button>';
 window.__s49=function(o){var h=document.querySelector('.h49');if(h)h.remove();h=document.createElement('header');h.className='h49 '+o;
  if(o==='A')h.innerHTML='<div class="in"><span class="lg"></span>'+nav()+'<div class="ic">'+lupa+lng+conta+sac+'</div></div>';
  if(o==='B')h.innerHTML='<div class="in r1">'+bs+'<span class="lg"></span><div class="ic">'+lng+conta+sac+'</div></div><div class="in r2">'+nav()+'</div>';
+ if(o==='D')h.innerHTML='<div class="in r1"><div class="ic">'+mn+'</div><span class="lg"></span><div class="ic">'+lupa+conta+sac+'</div></div>';
  if(o==='C')h.innerHTML='<div class="in"><span class="lg"></span>'+nav()+'<div class="ic">'+lupa+lng+sac+'</div></div>';
  document.body.appendChild(h);var hh=h.offsetHeight;document.getElementById('topo').style.paddingTop=(hh-60)+'px'};
 })();
