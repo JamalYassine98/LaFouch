@@ -444,6 +444,79 @@ def r_gzbk(p):
             else: passou('6 bug nunca volta', f'Consulta 320 letra grande · botão {n}')
     finally: b.close()
 
+JS_CLICAVEIS = """(()=>{const H=document.querySelector('.top');if(!H)return [];const hr=H.getBoundingClientRect(),o=[];
+  const L=[...document.querySelectorAll('a[href],button,[data-open],[role=button],input,select')].filter(e=>!H.contains(e)&&!e.closest('#evbar,#drw,#sov,[hidden]'));
+  for(const e of L){const r=e.getBoundingClientRect(),c=getComputedStyle(e);if(r.width<8||r.height<8||c.visibility==='hidden'||+c.opacity===0||c.pointerEvents==='none')continue;
+    if(r.top<0||r.bottom>innerHeight||r.left<0||r.right>innerWidth)continue;
+    const P=[[r.left+2,r.top+2],[r.right-2,r.top+2],[r.left+2,r.bottom-2],[r.right-2,r.bottom-2]];
+    for(const [x,y] of P){const t=document.elementFromPoint(x,y);if(t&&(H.contains(t)||(t.closest&&t.closest('#evbar')))){o.push((e.getAttribute('aria-label')||e.textContent||e.tagName).trim().slice(0,30));break}}}
+  return o})()"""
+
+@regressao('11/11', 'Nada clicável escondido atrás do cabeçalho (coração cortado, S150)')
+def r_cabecalho(p):
+    for W, H in ((390, 844), (1440, 900), (2560, 1440)):
+        b, c, pg, E = novo(p, W=W, H=H, touch=W < 700)
+        try:
+            for nome, abre in (('Início', lambda pg: None), ('Catálogo', a_cat('grau')), ('Produto', a_prod)):
+                if RAPIDO and nome == 'Catálogo': continue
+                carrega(pg); abre(pg); pg.wait_for_timeout(600)
+                o = pg.evaluate(JS_CLICAVEIS)
+                if o: falha('6 bug nunca volta', f'{W}px · {nome} · cabeçalho por cima', 'botões cobertos pelo cabeçalho: ' + ' | '.join(sorted(set(o))[:5]), pg)
+                else: passou('6 bug nunca volta', f'{W}px · {nome} · nada atrás do cabeçalho')
+        finally: b.close()
+
+JS_LINHA = """(sels=>{const o=[];for(const s of sels)for(const box of document.querySelectorAll(s)){
+  const K=[...box.children].filter(e=>{const r=e.getBoundingClientRect(),c=getComputedStyle(e);return r.width>4&&r.height>4&&c.visibility!=='hidden'&&c.position!=='absolute'&&c.position!=='fixed'});
+  for(let i=0;i<K.length;i++)for(let j=i+1;j<K.length;j++){const a=K[i].getBoundingClientRect(),b=K[j].getBoundingClientRect();
+    if(Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top)<Math.min(a.height,b.height)*.5)continue;
+    const d=Math.abs((a.top+a.bottom)/2-(b.top+b.bottom)/2);if(d>1.01)o.push(s+': '+(K[i].getAttribute('aria-label')||K[i].textContent||K[i].tagName).trim().slice(0,16)+' × '+(K[j].getAttribute('aria-label')||K[j].textContent||K[j].tagName).trim().slice(0,16)+' ('+d.toFixed(1)+' px)')}}
+  return o})"""
+
+@regressao('11/11', 'Itens da mesma linha fora do centro (favoritos/compartilhar no PC, S150)')
+def r_alinha(p):
+    for W, H in ((390, 844), (1440, 900)):
+        b, c, pg, E = novo(p, W=W, H=H, touch=W < 700)
+        try:
+            for nome, abre, sels in (('Cabeçalho', lambda pg: None, ['.top']), ('Produto', a_prod, ['.dmi', '#layer .dm']), ('Catálogo', a_cat('grau'), ['#lfgen'])):
+                carrega(pg); abre(pg); pg.wait_for_timeout(600)
+                o = pg.evaluate(JS_LINHA + '(' + json.dumps(sels) + ')')
+                if o: falha('6 bug nunca volta', f'{W}px · {nome} · alinhamento', 'fora do centro da linha: ' + ' | '.join(o[:4]), pg)
+                else: passou('6 bug nunca volta', f'{W}px · {nome} · mesma linha centralizada')
+        finally: b.close()
+
+@regressao('11/11', 'Texto em português na versão em espanhol (Ajuda, Atacado, Seu formato, Favoritos)')
+def r_idioma(p):
+    b, c, pg, E = novo(p, lang='es-PY')
+    try:
+        telas = (('Ajuda', lambda pg: menu(pg, 'a[href="#como"]')), ('Atacado', lambda pg: menu(pg, 'a[href="#atacado"]')), ('Seu formato', lambda pg: menu(pg, 'a[href="#rosto"]')),
+                 ('Favoritos', lambda pg: (pg.click('#bagbtn'), pg.wait_for_timeout(900), pg.locator('#layer .ctb button').last.click() if pg.locator('#layer .ctb button').count() else None, pg.wait_for_timeout(600))),
+                 ('Busca vazia', lambda pg: (pg.click('#sbtn'), pg.wait_for_timeout(800))))
+        for nome, abre in telas:
+            carrega(pg); abre(pg); pg.wait_for_timeout(700)
+            T = pg.evaluate("""(()=>{const vis=e=>{const r=e.getBoundingClientRect(),c=getComputedStyle(e);return r.width>0&&r.height>0&&c.visibility!=='hidden'&&+c.opacity>0&&r.bottom>0&&r.top<innerHeight};
+              const T=[],w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){const e=n.parentElement;if(!e||e.closest('script,style,[lang^=pt],[translate=no]'))continue;const t=n.textContent.trim();if(t.length>=2&&vis(e))T.push(t)}return T})()""")
+            pt = [t for t in T if re.search(r'[ãõçÃÕÇ]|\b(você|óculos|não|carrinho|obrigad[oa]|também|seu|sua|pedido de orçamento)\b', t, re.I)]
+            if pt: falha('6 bug nunca volta', f'ES · {nome} · português', 'texto em português na versão em espanhol: ' + ' | '.join(sorted(set(pt))[:5]), pg)
+            else: passou('6 bug nunca volta', f'ES · {nome} · sem português')
+    finally: b.close()
+
+@regressao('11/11', 'Carrinho: o “−” não pode passar de 1 (S153)')
+def r_cart_min(p):
+    b, c, pg, E = novo(p)
+    try:
+        carrega(pg); a_prod(pg); pg.click('#layer [data-addm]'); pg.wait_for_timeout(1300)
+        pg.keyboard.press('Escape'); pg.wait_for_timeout(800); pg.keyboard.press('Escape'); pg.wait_for_timeout(800)
+        carrega(pg); pg.click('#bagbtn'); pg.wait_for_timeout(1200)
+        d = pg.locator('#layer [data-dec]:visible').first
+        dis = d.is_disabled()
+        try: d.click(timeout=800, force=True)
+        except Exception: pass
+        pg.wait_for_timeout(500)
+        q = pg.evaluate("(()=>{const s=document.querySelector('#layer .qty span');return s?s.textContent.trim():''})()")
+        if dis and q == '1': passou('6 bug nunca volta', 'Carrinho · − para em 1')
+        else: falha('6 bug nunca volta', 'Carrinho · − para em 1', f'com 1 peça o − {"está ligado" if not dis else "está desligado"} e a quantidade ficou “{q}”', pg)
+    finally: b.close()
+
 # ---------- execução ----------
 t0 = time.time()
 PARTES = os.environ.get('FISCAL_PARTES', '1,2,3,4,5,6').split(',')
