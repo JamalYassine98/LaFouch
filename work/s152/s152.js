@@ -17,7 +17,7 @@ window.__s52=function(toast){
   var pr=[...document.querySelectorAll('#layer *')].find(function(e){return /^(R\$|Gs\.)\s?[\d.]+$/.test((e.textContent||'').trim())&&e.children.length===0&&e.getBoundingClientRect().height>20});
   if(pr){var r=document.createElement('div');r.className='s52a';r.innerHTML='<a href="#">'+CMP+'Comparar</a><span class="sp"></span><a href="#" class="hv">'+SHR+'Compartilhar</a>';(pr.closest('div')||pr).insertAdjacentElement('afterend',r)}
   /* coração da foto já salvo + aviso */
-  var fv=document.querySelector('#layer .dfav');if(fv&&toast){fv.style.color='#8d3a69';var p=fv.querySelector('path');if(p)p.setAttribute('fill','#8d3a69')}
+  var fv=document.querySelector('#layer .dfav');if(fv&&toast){fv.style.color='#8d3a69';var sv=fv.querySelector('svg');if(sv)sv.querySelectorAll('path').forEach(function(p){p.setAttribute('fill','#8d3a69')});fv.style.background='#fff'}
   document.querySelectorAll('.s52t').forEach(function(e){e.remove()});
   if(toast){var t=document.createElement('div');t.className='s52t';t.innerHTML='Salvo nos favoritos <a href="#">Ver lista ›</a>';document.body.appendChild(t)}
 };
