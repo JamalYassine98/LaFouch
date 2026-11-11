@@ -1,0 +1,18 @@
+<!doctype html><meta charset="utf-8"><style>
+body{margin:0;background:#f4eef2;font-family:Inter,system-ui,sans-serif;color:#2a1f27;padding:28px}
+h1{font:600 26px Inter;margin:0 0 4px}p.s{margin:0 0 18px;color:#6b5a66}
+.n4{display:flex;gap:16px;margin-bottom:26px}.n4 div{width:120px;background:#fff;border:1px solid #efe3ea;border-radius:18px;padding:16px 8px;text-align:center;color:#8d3a69}.n4 b{display:block;color:#2a1f27;font:600 14px Inter;margin-top:8px}
+h2{font:700 15px Inter;color:#8d3a69;margin:18px 0 10px;letter-spacing:.04em;text-transform:uppercase}
+.g{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}.g div{background:#fff;border:1px solid #efe3ea;border-radius:14px;padding:12px 6px;text-align:center;color:#8d3a69;min-height:96px}.g span{display:block;color:#2a1f27;font:500 11.5px/1.25 Inter;margin-top:6px}.g small{display:block;color:#a99aa4;font-size:10px;margin-top:2px}
+</style><body><h1>4 botões novos e todas as combinações</h1><p class="s">Juntar 2 botões cria um grupo com ícone e nome próprios — igual aos grupos de hoje.</p><div class="n4" id="n4"></div><div id="G"></div>
+<script src="gi_base.js"></script><script>
+fetch('dados.json').then(r=>r.json()).then(D=>{
+ for(const k in D.novos){ICO_D[k]=D.novos[k][1];GI_ORD.push(k);GI_REC.push(k);GI_CORPO[k]=D.corpo[k]}
+ const nm=Object.assign({},D.nome0);for(const k in D.novos)nm[k]=D.novos[k][0];
+ D.pares.forEach(([a,b,t])=>{GI_NOME[grpChave(a,b)]=t});
+ const ic=(k,px)=>'<svg width="'+px+'" height="'+px+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+ICO_D[k]+'</svg>';
+ document.getElementById('n4').innerHTML=Object.keys(D.novos).map(k=>'<div>'+ic(k,38)+'<b>'+nm[k]+'</b></div>').join('');
+ let h='';for(const k in D.novos){h+='<h2>'+nm[k]+' + …</h2><div class="g">';D.pares.filter(p=>p[0]===k).forEach(([a,b,t])=>{h+='<div>'+grpIcoPar(a,b,36)+'<span>'+t+'</span><small>'+nm[a]+' + '+nm[b]+'</small></div>'});h+='</div>'}
+ document.getElementById('G').innerHTML=h;document.title='ok';
+});
+</script>
