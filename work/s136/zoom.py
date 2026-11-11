@@ -8,5 +8,5 @@ async def m():
     for I in (0,):
       r=await pg.evaluate('''(I)=>{const e=document.querySelectorAll('.lfcL')[I];const s=e.ownerSVGElement,pt=s.createSVGPoint();let bad=0;for(let k=0;k<72;k++){const a=k/72*2*Math.PI;pt.x=45+7.2*Math.cos(a);pt.y=83+8.4*Math.sin(a);if(!e.isPointInFill(pt))bad++}return bad}''',I)
       print('fora',I,r)
-    await pg.screenshot(path='S136.png',full_page=True);await b.close()
+    await pg.screenshot(path='S137.png',full_page=True);await b.close()
 asyncio.run(m())
