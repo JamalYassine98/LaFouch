@@ -347,8 +347,8 @@ def p5_segundo_plano(p):
         pg.wait_for_function("!!document.querySelector('#gw [data-gz=comeca]')", timeout=10000); pg.click('#gw [data-gz=comeca]'); pg.wait_for_timeout(1500)
         pg.evaluate("Object.defineProperty(document,'visibilityState',{configurable:true,get:()=>'hidden'});Object.defineProperty(document,'hidden',{configurable:true,get:()=>true});document.dispatchEvent(new Event('visibilitychange'))")
         pg.wait_for_timeout(1200)
-        tocando = pg.evaluate("(()=>{const a=[...document.querySelectorAll('audio')];const z=window.__LFGZ&&__LFGZ.Z;return {fala:!!(z&&z.falando),audio:a.some(x=>!x.paused)}})()")
-        if tocando['fala'] or tocando['audio']: falha('5 situações difíceis', 'Consulta em segundo plano', 'o Mochi continua falando com o site em segundo plano (correção prevista no S108, ainda não aprovada)', None, grave=False)
+        tocando = pg.evaluate("(()=>{const a=[...document.querySelectorAll('audio')];const z=window.__LFGZ&&__LFGZ.Z;return {fala:!!(z&&z.m&&z.m.fal),audio:(window.__aud||[]).some(x=>!x.paused&&!x.ended)}})()")
+        if tocando['fala'] or tocando['audio']: falha('5 situações difíceis', 'Consulta em segundo plano', 'o Mochi continua falando com o site em segundo plano (S108)', pg)
         else: passou('5 situações difíceis', 'Consulta em segundo plano pausa')
     finally: b.close()
 
@@ -376,15 +376,35 @@ def regressao(data, nome):
 @regressao('10/11', 'Busca não rolava com o dedo (S110-1)')
 def r_busca_rola(p): p1_rola(p, 'Busca com 2 letras', lambda pg: (pg.click('#sbtn'), pg.wait_for_timeout(600), pg.fill('#q5', 'a'), pg.wait_for_timeout(600)), True)
 
-@regressao('10/11', 'Catálogo aberto pelo menu: o voltar do celular sai do site (achado pelo fiscal)')
+@regressao('10/11', 'Tudo que abre pelo menu: o voltar do celular saía do site (S113)')
 def r_menu_voltar(p):
     b, c, pg, E = novo(p)
     try:
-        carrega(pg); menu(pg, 'a[data-mf="tipo:solar"]'); pg.go_back(); pg.wait_for_timeout(1500)
-        if not pg.url.startswith('http'): falha('2 navegação', 'Catálogo pelo menu · voltar do celular', 'abriu Solar pelo menu e o voltar do celular saiu do site (já era assim antes de hoje)', None)
-        elif inicio(est(pg)): passou('2 navegação', 'Catálogo pelo menu · voltar do celular')
-        else: falha('2 navegação', 'Catálogo pelo menu · voltar do celular', f'ficou em: {txt(est(pg))}', pg)
+        for sel, n in (('a[data-mf="tipo:solar"]', 'Solar'), ('a[data-mf="tipo:of"]', 'Ofertas'), ('a[data-mf="gen:f"]', 'Feminino'), ('a[href="#rosto"]', 'Seu formato'),
+                       ('a[href="#atacado"]', 'Atacado'), ('a[href="#como"]', 'Ajuda'), ('[data-gzopen]', 'Descubra o seu grau'), ('[data-cta=minha]', 'Minha conta')):
+            if RAPIDO and n not in ('Solar', 'Seu formato', 'Minha conta'): continue
+            carrega(pg); menu(pg, sel); pg.go_back(); pg.wait_for_timeout(1500)
+            if not pg.url.startswith('http'): falha('6 bug nunca volta', f'Menu → {n} · voltar do celular', 'o voltar saiu do site', None)
+            elif fora(est(pg)): passou('6 bug nunca volta', f'Menu → {n} · voltar do celular')
+            else: falha('6 bug nunca volta', f'Menu → {n} · voltar do celular', f'ficou em: {txt(est(pg))}', pg)
+        carrega(pg); menu(pg, 'a[data-mf="tipo:solar"]'); pg.locator('#grid [data-open]:visible').first.click(); pg.wait_for_timeout(1700)
+        pg.go_back(); pg.wait_for_timeout(1500); a = est(pg) if pg.url.startswith('http') else None
+        pg.go_back(); pg.wait_for_timeout(1500); b2 = est(pg) if pg.url.startswith('http') else None
+        if a and a['abertos'] == ['painel:vitrine'] and b2 and fora(b2): passou('6 bug nunca volta', 'Menu → Solar → produto · voltar, voltar')
+        else: falha('6 bug nunca volta', 'Menu → Solar → produto · voltar, voltar', f'esperado Solar e depois Início; ficou {txt(a) if a else "fora do site"} e {txt(b2) if b2 else "fora do site"}', None)
     finally: b.close()
+
+@regressao('10/11', 'WhatsApp da peça: o antigo, flutuando acima da barra de compra (S112)')
+def r_wa(p):
+    for W, H in ((390, 844), (320, 568)):
+        b, c, pg, E = novo(p, W=W, H=H)
+        try:
+            carrega(pg); a_prod(pg); pg.wait_for_timeout(700)
+            r = pg.evaluate("""(()=>{const w=document.querySelector('a.wa'),r=w.getBoundingClientRect(),b=document.querySelector('#layer .buy,#layer .buyrow'),t=document.elementFromPoint(r.left+r.width/2,r.top+r.height/2);
+              return {vis:getComputedStyle(w).display!=='none'&&r.width>30,acima:!b||r.bottom<=b.getBoundingClientRect().top+1,toque:!!t&&w.contains(t),barra:document.querySelectorAll('#layer .bbwa').length,pulso:getComputedStyle(w).animationName!=='none'}})()""")
+            if r['vis'] and r['acima'] and r['toque'] and not r['barra'] and r['pulso']: passou('6 bug nunca volta', f'WhatsApp da peça {W}px')
+            else: falha('6 bug nunca volta', f'WhatsApp da peça {W}px', 'esperado: redondo, com pulso, acima da barra e sem botão dentro da barra; veio ' + json.dumps(r), pg)
+        finally: b.close()
 
 @regressao('10/11', 'Busca em Solar não achava óculos de leitura (S110-2)')
 def r_busca_solar(p):
