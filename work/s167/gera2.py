@@ -7,7 +7,7 @@ from bloco import frases, pcm, ponto_calmo
 from voz import emb, sim
 from mede import mede
 W = '/home/claude/lafouch/work/s167'; D = W + '/g'; os.makedirs(D, exist_ok=True)
-TETO = 2000; gf = D + '/gasto.txt'; gasto = int(open(gf).read()) if os.path.exists(gf) else 0
+TETO = 2214; gf = D + '/gasto.txt'; gasto = int(open(gf).read()) if os.path.exists(gf) else 0
 COMP = "acompressor=threshold=-22dB:ratio=3:attack=5:release=120:makeup=1,loudnorm=I=-18:TP=-3:LRA=7,alimiter=limit=0.6:level=0"
 FILT = ('silenceremove=start_periods=1:start_threshold=-50dB:start_silence=0.03,areverse,silenceremove=start_periods=1:start_threshold=-50dB:start_silence=0.08,areverse,'
         'silenceremove=stop_periods=-1:stop_duration=0.42:stop_threshold=-50dB:stop_silence=0.4,' + COMP +
@@ -76,17 +76,21 @@ def analisa(j, base, lang, refj):
         R.append((ini, fim, pr, s, f0(seg)))
     return gp, R
 TOT = {}
+SO = os.environ.get('SO', '')
+TOT['pt_tE'] = 'pt_tE_t3'; TOT['pt_sT'] = TOT.get('pt_sT', ''); TOT['pt_sC'] = TOT.get('pt_sC', '')
 for lang in ('pt', 'es'):
     C = LG[lang]; MAPA = json.load(open(C['lista'])); usados = [int(m.group(1)) for v in MAPA.values() for m in [re.match(C['pre'] + r'_(\d+)', v)] if m]; n_arq = max(usados) + 1 if usados else 0
     ptmed = 130
     for j in cenas(lang == 'es'):
-        nome = lang + '_' + j['nome']; txt = j['ctx'] + ' ' + ' '.join(it[1] for it in j['itens'])
+        nome = lang + '_' + j['nome']
+        if SO and nome != SO: continue
+        txt = j['ctx'] + ' ' + ' '.join(it[1] for it in j['itens'])
         refj = j['ref'] if lang == 'pt' else f"{D}/{TOT['pt_' + j['nome']]}.json"  # o espanhol segue o ritmo do português novo
         melhor = [None] * len(j['itens'])
         for t in range(1, 4):
             base = f'{D}/{nome}_t{t}'
             if not os.path.exists(base + '.mp3'):
-                if gasto + len(txt) > TETO: log('PARADO no teto de créditos', gasto); break
+                if gasto + int(len(txt) * 0.41) > TETO: log('PARADO no teto de créditos', gasto); break  # teto: 1.314 + 900 autorizados; custo real ≈ 0,41/letra
                 try: c = grava(lang, txt, base)
                 except Exception as e: log(nome, 'erro', e); break
                 gasto += int(c or len(txt)); open(gf, 'w').write(str(gasto))

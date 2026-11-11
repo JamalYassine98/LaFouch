@@ -61,3 +61,43 @@ PARADO no teto de créditos 1314
   SEM GRAVAÇÃO Ahora con +3.75. ¿Todavía podés leer?
   SEM GRAVAÇÃO Ahora con +4.00. ¿Todavía podés leer?
 FIM créditos 1314
+es_tE t1 ritmo ok 6/16 perfeitas créditos 1610
+es_tE t2 ritmo ok 11/16 perfeitas créditos 1906
+PARADO no teto de créditos 1906
+   es8_008.mp3 Ahora con +0.25. ¿Todavía podés leer? ['tom 274 Hz fora do tipo (318)']
+   es8_009.mp3 Ahora con +0.50. ¿Todavía podés leer? ok
+   es8_010.mp3 Ahora con +0.75. ¿Todavía podés leer? ok
+   es8_011.mp3 Ahora con +1.00. ¿Todavía podés leer? ok
+   es8_012.mp3 Ahora con +1.25. ¿Todavía podés leer? ok
+   es8_013.mp3 Ahora con +1.50. ¿Todavía podés leer? ['tom 258 Hz fora do tipo (318)']
+   es8_014.mp3 Ahora con +1.75. ¿Todavía podés leer? ['tom 377 Hz em "¿Todavía podés leer?"']
+   es8_015.mp3 Ahora con +2.00. ¿Todavía podés leer? ['tom 246 Hz fora do tipo (318)']
+   es8_016.mp3 Ahora con +2.25. ¿Todavía podés leer? ['tom 372 Hz em "¿Todavía podés leer?"']
+   es8_017.mp3 Ahora con +2.50. ¿Todavía podés leer? ok
+   es8_018.mp3 Ahora con +2.75. ¿Todavía podés leer? ok
+   es8_019.mp3 Ahora con +3.00. ¿Todavía podés leer? ['tom 372 Hz em "¿Todavía podés leer?"']
+   es8_020.mp3 Ahora con +3.25. ¿Todavía podés leer? ['tom 278 Hz fora do tipo (318)']
+   es8_021.mp3 Ahora con +3.50. ¿Todavía podés leer? ['tom 281 Hz fora do tipo (318)']
+   es8_022.mp3 Ahora con +3.75. ¿Todavía podés leer? ['tom 364 Hz em "¿Todavía podés leer?"']
+   es8_023.mp3 Ahora con +4.00. ¿Todavía podés leer? ['tom 364 Hz em "¿Todavía podés leer?"']
+FIM créditos 1906
+es_tE t1 ritmo ok 6/16 perfeitas créditos 1906
+es_tE t2 ritmo ok 11/16 perfeitas créditos 1906
+es_tE t3 ritmo 1.34× da referência (por sílaba) 11/16 perfeitas créditos 2202
+   es8_008.mp3 Ahora con +0.25. ¿Todavía podés leer? ['tom 274 Hz fora do tipo (308)']
+   es8_009.mp3 Ahora con +0.50. ¿Todavía podés leer? ok
+   es8_010.mp3 Ahora con +0.75. ¿Todavía podés leer? ok
+   es8_011.mp3 Ahora con +1.00. ¿Todavía podés leer? ['tom 333 Hz fora do tipo (308)']
+   es8_012.mp3 Ahora con +1.25. ¿Todavía podés leer? ok
+   es8_013.mp3 Ahora con +1.50. ¿Todavía podés leer? ['tom 258 Hz fora do tipo (308)']
+   es8_014.mp3 Ahora con +1.75. ¿Todavía podés leer? ['ritmo 1.34× da referência (por sílaba)', 'tom 278 Hz fora do tipo (308)']
+   es8_015.mp3 Ahora con +2.00. ¿Todavía podés leer? ['tom 246 Hz fora do tipo (308)']
+   es8_016.mp3 Ahora con +2.25. ¿Todavía podés leer? ['tom 372 Hz em "¿Todavía podés leer?"']
+   es8_017.mp3 Ahora con +2.50. ¿Todavía podés leer? ok
+   es8_018.mp3 Ahora con +2.75. ¿Todavía podés leer? ok
+   es8_019.mp3 Ahora con +3.00. ¿Todavía podés leer? ['tom 372 Hz em "¿Todavía podés leer?"', 'tom 333 Hz fora do tipo (308)']
+   es8_020.mp3 Ahora con +3.25. ¿Todavía podés leer? ['tom 278 Hz fora do tipo (308)']
+   es8_021.mp3 Ahora con +3.50. ¿Todavía podés leer? ['tom 281 Hz fora do tipo (308)']
+   es8_022.mp3 Ahora con +3.75. ¿Todavía podés leer? ['ritmo 1.34× da referência (por sílaba)', 'tom 281 Hz fora do tipo (308)']
+   es8_023.mp3 Ahora con +4.00. ¿Todavía podés leer? ['tom 364 Hz em "¿Todavía podés leer?"']
+FIM créditos 2202
