@@ -1696,3 +1696,9 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Botões: Destaque "Ver modelo" + .lfba = botão A (contorno 1 px vinho, enche no mouse); "Ver catálogo ›" link com seta que anda.
 - Busca vazia: "OU VEJA POR CATEGORIA" Solar · Leitura · Armações · Ofertas (vinho) · Atacado (separado); abre com animação suave; no PC centralizada 640 px.
 - Testado no simulador 390/1440/2560. Pendente: Filtros no PC (como abre) não decidido.
+
+## 11/11 07:40 — IMPLEMENTADO BLOCO 5 (Ajuda) — catalogo 5546666, versão 1794389901 (porteiro 77/0)
+- #como vira páginas (ajPinta/ajHtml, AJ.pg; cada página entra no histórico com {lfaj}; o voltar do celular volta página a página via __lfPop): menu Ajuda (Como comprar · Dúvidas frequentes · Dicas e cuidados · Entre em contato); Como comprar (4 passos, PIX/Itaú); Dúvidas (6, incluindo fora do Paraguai e "Não sei qual grau" → Fazer o teste ›); Dicas e cuidados (4 cartões de foto: rosto, art-tipos, art-uv, art-limpar); artigos em página: Leitura/armação/solar por categoria com 2 peças + "Ver catálogo ›"; Como limpar (Enxágue/Lave/Seque + HORA DE TROCAR? com "Ver catálogo ›" no filtro novo st.tipo='la' "Leitura e armações"); UV reaproveita o texto do guia antigo.
+- Entre em contato: Nome completo, E-mail, Telefone, Mensagem, Enviar (anti-robô; preenche com a conta) → função "mensagem" (functions/mensagem.js, testes 9/9) → e-mail para lafouch.eyewear@gmail.com (responder vai ao cliente) + cópia em Firestore "mensagens"; sucesso volta ao Início com "Mensagem enviada…". Limite 5/h por endereço.
+- **DONO PRECISA**: no Cloud Shell, `firebase deploy --only functions:mensagem`. Até lá o formulário mostra "Não deu para enviar agora…".
+- Menu AJUDA sem "Entre em contato"; rodapé B (Ajuda com 4 itens, sem coluna Contato); link "Falar no WhatsApp" da Ajuda saiu.
