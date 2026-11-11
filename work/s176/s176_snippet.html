@@ -1,0 +1,21 @@
+<style id="s176">
+/* 2: WhatsApp sobe um pouco na página da peça (não cobre preço nem Comprar) */
+html.onprod a.wa{bottom:calc(var(--buyh,96px) + 10px)!important;right:8px!important;transform:scale(.78)!important;transform-origin:100% 100%}
+/* 4: preço no tom escuro da marca; verde só em oferta */
+.card .pr,.dp .pr,.hc .hp,#home .hd .hpr{color:#3a1f33!important}
+.card.of .pr,.hc.of .hp,.dof .pr{color:#c2185b!important}
+/* 5: card com o nome em destaque, referência pequena, preço abaixo */
+#grid .card .info .s176n{display:block;font:600 15.5px/1.25 'GFS Baskerville',Georgia,serif;color:#24161f;margin:2px 0 2px;letter-spacing:.005em}
+#grid .card .info .nm{font-size:11.5px!important;color:#8a7f85!important;font-weight:600;letter-spacing:.06em}
+#grid .card .info .rr .ref{display:none}
+#grid .card .info .pr{font-size:19px!important;margin-top:4px}
+/* 6: caminho da peça só com o voltar */
+.pgbar .pgcr{display:none!important}
+/* 7: PC: ícones do cabeçalho maiores e com nome */
+@media (max-width:999px){.top .ib .s176t{display:none}}@media (min-width:1000px){.top .ib.s176l{width:auto!important;padding:0 14px!important;gap:8px;display:inline-flex!important;align-items:center}.top .ib.s176l svg{width:24px!important;height:24px!important}.top .ib.s176l span.s176t{font:600 14px Inter,system-ui;color:inherit}.top .ib.s176l{position:relative}.top .ib.s176l .s176t{margin-right:6px}}
+</style>
+<script>(function(){function go(){
+ document.querySelectorAll('.top .ib').forEach(function(b){var a=b.getAttribute('aria-label')||'',t={'Menú':'Menú','Buscar':'Buscar','Abrir el carrito':'Carrito','Mi cuenta':'Cuenta'}[a];if(t&&!b.querySelector('.s176t')&&b.offsetWidth){b.classList.add('s176l');var s=document.createElement('span');s.className='s176t';s.textContent=t;b.appendChild(s)}});
+ document.querySelectorAll('#grid .card').forEach(function(c){var i=c.querySelector('.info');if(!i||i.querySelector('.s176n'))return;var ref=(c.querySelector('[data-open]')||{}).getAttribute?c.querySelector('[data-open]').getAttribute('data-open'):'';var P=(window.__LFP||[]).filter(function(x){return x.ref===ref})[0];var n=document.createElement('span');n.className='s176n';n.textContent=c.getAttribute('data-nm')||'';var rr=i.querySelector('.rr');i.insertBefore(n,rr||i.firstChild)});
+ var bb=document.querySelector('.buy');if(bb)document.documentElement.style.setProperty('--buyh',bb.offsetHeight+'px');
+}setInterval(go,700)})()</script>
