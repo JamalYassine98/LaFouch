@@ -281,3 +281,36 @@ exports.novidades = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 5
     return res.status(500).json({ ok: false, motivo: 'erro' });
   }
 });
+
+// ---------- Mensagens do site (11/11/2026): "Entre em contato" (e-mail para lafouch.eyewear@gmail.com) e cópia dos pedidos de Atacado ----------
+// POST {acao:'enviar', tipo:'contato'|'atacado', ...} público · POST {acao:'lista'} e {acao:'estado', id, est} só o dono (painel › Mensagens).
+const Mensagem = require('./mensagem');
+const msgDb = {
+  salva: (id, o) => admin.firestore().doc('mensagens/' + id).set(o),
+  lista: async (n) => (await admin.firestore().collection('mensagens').orderBy('ts', 'desc').limit(n).get()).docs.map((d) => Object.assign({ id: d.id }, d.data())),
+  muda: (id, c) => admin.firestore().doc('mensagens/' + id).update(c),
+  contaRecentes: async (k, desde) => (await admin.firestore().collection('mensagens').where('ipk', '==', k).where('ts', '>=', desde).limit(10).get()).size,
+};
+exports.mensagem = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 5, secrets: [RESEND_KEY] }, async (req, res) => {
+  if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
+  const b = req.body && typeof req.body === 'object' ? req.body : {};
+  try {
+    if (b.acao === 'lista' || b.acao === 'estado') {
+      if (!(await ehDono(req))) return res.status(403).json({ ok: false, motivo: 'sem-permissao' });
+      return res.json(b.acao === 'lista' ? await Mensagem.lista(msgDb, b.n) : await Mensagem.estado(msgDb, b.id, b.est));
+    }
+    if (b.acao !== 'enviar') return res.status(400).json({ ok: false, motivo: 'acao' });
+    let chave = '';
+    try { chave = RESEND_KEY.value() || ''; } catch (e) {}
+    const envia = chave ? async (m) => {
+      const r = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + chave, 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.assign({ from: 'La Fouch <nao-responda@lafouch.com>' }, m)) });
+      if (!r.ok) { console.error('resend', r.status, await r.text().catch(() => '')); throw new Mensagem.Falha('envio', 502); }
+    } : null;
+    return res.json(await Mensagem.enviar(msgDb, envia, b, req.ip || req.get('x-forwarded-for') || '', Date.now()));
+  } catch (e) {
+    if (e instanceof Mensagem.Falha) return res.status(e.status).json({ ok: false, motivo: e.motivo });
+    console.error('mensagem', e);
+    return res.status(500).json({ ok: false, motivo: 'erro' });
+  }
+});
