@@ -63,4 +63,4 @@ html[data-ev=bf]{--evb:#111}
 .evlf{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 0 14px;padding:9px 14px;border-radius:12px;font:600 13px var(--body);color:#fff;background:var(--evb);grid-column:1/-1}
 html[data-ev^=anonovo] .evlf{background:linear-gradient(135deg,#9c7a3c,#d9bd84 45%,#a8854a);color:#1f1d1a}
 html[data-ev=pais] .evlf{color:#e0b878}html[data-ev=halloween] .evlf{background:#2a1530;color:#ffb15c}html[data-ev=bf] .evlf{background:#000}
-#grid .card .ph{position:relative}#grid .card .evse{left:10px;top:42px}
+#grid .card .ph{position:relative}#grid .card .evse{left:12px;top:12px;font-size:10.5px;padding:6px 10px}
