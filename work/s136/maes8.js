@@ -10,7 +10,7 @@ const HO='M39.36 73.26 L38.91 73.42 L38.45 73.42 L38.00 73.42 L37.54 73.59 L37.0
 const WG='M42.90 71.22 C37.90 70.22 31.40 68.80 26.40 68.20 C26.80 73.20 30.92 77.60 32.52 81.60 L33.51 81.74 L33.69 80.78 L33.95 79.84 L34.29 78.92 L34.71 78.04 L35.21 77.20 L35.77 76.40 L36.41 75.66 L37.11 74.98 L37.86 74.36 L38.66 73.80 L39.52 73.32 L40.40 72.92 L41.33 72.59 L42.27 72.34 Z';
 const TOP='M28.6 72.4 C34 71.6 40 71.4 46 72.2 C50.4 72.8 54.4 74 57.6 75.6';
 const oclA=D+CO+`<path class="lfcL" d="${HO}" fill="url(#lfmlz)"/><path d="${mir(HO)}" fill="url(#lfmlz)"/>`+
- `<path d="M28.6 73.5 C24.8 73.2 20.6 72.8 16.2 72.4" fill="none" stroke="#a4697a" stroke-width="2.4" stroke-linecap="round"/><path d="M91.4 73.5 C95.2 73.2 99.4 72.8 103.8 72.4" fill="none" stroke="#a4697a" stroke-width="2.4" stroke-linecap="round"/>`+
+ `<path d="M30 74.6 C25.6 74.2 20.8 73.6 16.2 73" fill="none" stroke="#a4697a" stroke-width="2.4" stroke-linecap="round"/><path d="M90 74.6 C94.4 74.2 99.2 73.6 103.8 73" fill="none" stroke="#a4697a" stroke-width="2.4" stroke-linecap="round"/>`+
  `<path d="${OF} ${HO}" fill="url(#lftnu)" fill-rule="evenodd" stroke="url(#lftnu)" stroke-width="1.1" stroke-linejoin="round"/><path d="${mir(OF)} ${mir(HO)}" fill="url(#lftnu)" fill-rule="evenodd" stroke="url(#lftnu)" stroke-width="1.1" stroke-linejoin="round"/>`+
  ``+
  `<path d="${TOP}" stroke="#f7e4e6" stroke-width=".9" fill="none" stroke-linecap="round" opacity=".9"/><path d="${mir(TOP)}" stroke="#f7e4e6" stroke-width=".9" fill="none" stroke-linecap="round" opacity=".9"/>`+
