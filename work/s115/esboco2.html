@@ -1,0 +1,90 @@
+<!doctype html><meta charset="utf-8"><title>S115b · Guia La Fouch (A, B, C)</title>
+<style>
+:root{--bg:#fbf7fa;--pn:#fff;--ln:#efe3ea;--tx:#2a1f27;--mu:#6b5a66;--ac:#8d3a69}
+*{box-sizing:border-box}body{margin:0;background:#e9e3e7;font-family:Inter,system-ui,sans-serif;color:var(--tx)}
+.wrap{padding:26px 28px;display:flex;flex-direction:column;gap:30px}
+.row{display:flex;gap:28px;align-items:flex-start}.rt{font:700 17px Inter;color:#2a1f27;margin:0 0 -14px}
+.col{display:flex;flex-direction:column;gap:10px;width:390px}
+.lbl{font:700 15px Inter;color:var(--ac)}.lbl small{display:block;font:500 12.5px Inter;color:#6b5a66;margin-top:3px}
+.ph{width:390px;height:844px;background:var(--bg);border-radius:30px;overflow:hidden;position:relative;box-shadow:0 18px 50px #3c142d30}
+.top{height:74px;border-bottom:1px solid var(--ln);display:flex;align-items:center;justify-content:space-between;padding:0 18px}
+.top .ic{width:24px;height:24px;stroke:#2a1f27;fill:none;stroke-width:1.8}.top .ics{display:flex;gap:18px}
+.logo{height:46px;width:110px;background:url(/media/i/926f9307ba28.png) center/contain no-repeat}
+.pad{padding:22px 20px 0}
+.ser{font-family:Fraunces,Georgia,serif;font-weight:500;letter-spacing:-.01em}
+.h2{font-size:25px;margin:0}
+.hrow{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}.hrow a{color:var(--ac);font:600 14px Inter}
+.back{color:var(--ac);font:600 15px Inter;margin-bottom:10px}
+.tag{font:700 10.5px Inter;letter-spacing:.16em;color:var(--ac);text-transform:uppercase}
+.mu{color:var(--mu)}
+.ghost{border:1px dashed #d8c3d0;border-radius:16px;height:110px;display:grid;place-items:center;color:#bfaab7;font-size:12.5px;margin-bottom:26px}
+/* A: índice */
+.idx{border-top:1px solid var(--ln)}
+.idx a{display:grid;grid-template-columns:34px 1fr 14px;gap:10px;align-items:start;padding:16px 0;border-bottom:1px solid var(--ln);color:inherit;text-decoration:none}
+.idx .n{font:500 13px Inter;color:var(--ac);padding-top:4px;letter-spacing:.04em}
+.idx b{display:block;font-family:Fraunces,Georgia,serif;font-weight:500;font-size:18px;line-height:1.25}
+.idx small{display:block;font-size:13.5px;color:var(--mu);margin-top:4px;line-height:1.4}
+.idx .ch{color:#b9a3b1;font-size:20px;padding-top:2px}
+/* B: capas */
+.capa{display:block;background:#fff;border:1px solid var(--ln);border-radius:16px;overflow:hidden}
+.capa .f{aspect-ratio:4/3;background:#fff center/cover no-repeat;border-bottom:1px solid var(--ln)}
+.capa .t{padding:12px 14px 14px}.capa b{display:block;font-family:Fraunces,Georgia,serif;font-weight:500;font-size:17px;line-height:1.25;margin-top:6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid2 .capa b{font-size:15px}
+.strip{display:flex;gap:12px;margin:0 -20px;padding:0 20px;overflow:hidden}.strip .capa{flex:0 0 250px}
+.trio{display:flex;align-items:center;justify-content:center;gap:2px;background:#fff}.trio i{flex:1;height:100%;background:#fff center/contain no-repeat}
+/* C */
+.dest .f{aspect-ratio:16/10}.dest b{font-size:21px}
+/* artigo */
+.art h1{font-family:Fraunces,Georgia,serif;font-weight:500;font-size:29px;line-height:1.15;margin:8px 0 10px}
+.art .meta{font-size:13px;color:var(--mu);padding-bottom:16px;border-bottom:1px solid var(--ln);margin-bottom:18px}
+.art p{font-size:15.5px;line-height:1.62;margin:0 0 14px;color:#3a2e36}
+.art h3{font-family:Fraunces,Georgia,serif;font-weight:500;font-size:20px;margin:22px 0 6px}
+.art .foto{aspect-ratio:16/9;border-radius:14px;background:#fff center/cover no-repeat;border:1px solid var(--ln);margin:0 0 18px}
+.imp{border-top:1px solid var(--tx);border-bottom:1px solid var(--ln);padding:12px 0 14px;margin:18px 0}
+.imp .tag{color:var(--tx)}.imp p{margin:6px 0 0;font-size:15px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{background:#fff;border:1px solid var(--ln);border-radius:16px;padding:10px}
+.card i{display:block;aspect-ratio:1;background:#fff center/contain no-repeat}
+.card small{display:block;font-size:11px;color:var(--mu);margin-top:6px}.card span{display:block;font-weight:700;font-size:13.5px}.card b{display:block;color:#14803f;font-size:17px;margin-top:4px}
+.mark{outline:3px dashed #e0a02a;outline-offset:6px;border-radius:12px}
+</style>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></symbol>
+<symbol id="i-busca" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></symbol><symbol id="i-bag" viewBox="0 0 24 24"><path d="M3 5h2l2 10h11l2-7H7"/><circle cx="9" cy="19" r="1.3"/><circle cx="17" cy="19" r="1.3"/></symbol>
+</defs></svg>
+<div class="wrap" id="W"></div>
+<script>
+const TOPO=`<div class="top"><div class="ics"><svg class="ic"><use href="#i-menu"/></svg><svg class="ic"><use href="#i-user"/></svg></div><div class="logo"></div><div class="ics"><svg class="ic"><use href="#i-busca"/></svg><svg class="ic"><use href="#i-bag"/></svg></div></div>`;
+const F={preto:'/media/i/b0ce33cc336d.jpg',transp:'/media/i/b95b382e346d.jpg',tart:'/media/i/64906105e7b5.jpg',hex:'/media/i/3c5853357cf4.jpg',verde:'/media/i/2c4d351d1f1c.jpg',arm:'/media/i/80f4857cb1cf.jpg'};
+// capas escolhidas de propósito (corte fechado): posição e zoom de cada foto
+const G=[
+ {n:'01',tag:'Seu rosto',t:'Qual óculos combina com o meu rosto?',s:'Os formatos que equilibram cada tipo de rosto. Com a câmera, em 1 minuto.',meta:'1 min · com a câmera',capa:`background-image:url(${F.preto});background-size:118%;background-position:50% 55%`},
+ {n:'02',tag:'Escolha certa',t:'Leitura, armação ou solar: qual é a diferença?',s:'Para que serve cada um, antes de comprar.',meta:'2 min de leitura',trio:[F.transp,F.arm,F.hex]},
+ {n:'03',tag:'Sol',t:'UV400 e polarizado: qual é a diferença?',s:'O que protege os olhos e o que só tira o reflexo.',meta:'2 min de leitura',capa:`background-image:url(${F.hex});background-size:230%;background-position:22% 52%`},
+ {n:'04',tag:'Cuidados',t:'Como limpar seus óculos sem riscar',s:'Três passos e o que nunca usar.',meta:'1 min de leitura',capa:`background-image:url(${F.transp});background-size:210%;background-position:88% 48%`}];
+const capaF=g=>g.trio?`<div class="f trio">${g.trio.map(u=>`<i style="background-image:url(${u})"></i>`).join('')}</div>`:`<div class="f" style="${g.capa}"></div>`;
+const idx=L=>`<div class="idx">${L.map(g=>`<a><span class="n">${g.n}</span><span><b>${g.t}</b><small>${g.s}</small></span><span class="ch">›</span></a>`).join('')}</div>`;
+const capa=(g,cls='')=>`<a class="capa ${cls}">${capaF(g)}<div class="t"><span class="tag">${g.tag}</span><b>${g.t}</b><small class="mu" style="display:block;font-size:12.5px;margin-top:6px">${g.meta}</small></div></a>`;
+const ini=c=>`${TOPO}<div class="pad"><div class="ghost">(seções de cima do Início, como hoje)</div>${c}<div class="ghost" style="margin-top:26px">(rodapé)</div></div>`;
+const head=`<div class="hrow"><h2 class="ser h2">Guia La Fouch</h2><a>Ver tudo ›</a></div>`;
+const pg=c=>`${TOPO}<div class="pad"><div class="back">‹ Início</div><h2 class="ser" style="font-size:31px;margin:0 0 6px">Guia La Fouch</h2><p class="mu" style="margin:0 0 20px;font-size:14.5px">Dicas curtas para escolher e cuidar do seu óculos.</p>${c}</div>`;
+const COL=(t,s,h)=>`<div class="col"><div class="lbl">${t}<small>${s}</small></div><div class="ph">${h}</div></div>`;
+const R1=[
+ COL('A · Índice (só texto)','Número, título na serifada, uma frase, linha fina. Sem foto, sem caixa.',ini(`<div class="mark">${head}${idx(G)}</div>`)),
+ COL('B · Capas fotográficas','Fotos dos próprios óculos, com corte fechado escolhido para cada assunto. Desliza para o lado.',ini(`<div class="mark">${head}<div class="strip">${G.map(g=>capa(g)).join('')}</div></div>`)),
+ COL('C · Destaque + índice (recomendo)','Um artigo com a foto grande; os outros em linhas de texto.',ini(`<div class="mark">${head}${capa(G[1],'dest')}<div style="height:6px"></div>${idx(G.filter((_,i)=>i!==1))}</div>`))];
+const R2=[
+ COL('A · Página do Guia (pelo menu)','A mesma lista, com todos os artigos.',pg(idx(G))),
+ COL('B · Página do Guia (pelo menu)','As mesmas capas, em grade de duas colunas.',pg(`<div class="grid2">${G.map(g=>capa(g)).join('')}</div>`)),
+ COL('C · Página do Guia (pelo menu)','O destaque em cima e o índice embaixo.',pg(`${capa(G[0],'dest')}<div style="height:6px"></div>${idx(G.slice(1))}`))];
+const art1=`${TOPO}<div class="pad art"><div class="back">‹ Guia</div><span class="tag">Escolha certa</span><h1>Leitura, armação ou solar: qual é a diferença?</h1><div class="meta">2 min de leitura</div>
+ <div class="foto trio" style="display:flex">${G[1].trio.map(u=>`<i style="flex:1;background:#fff url(${u}) center/contain no-repeat"></i>`).join('')}</div>
+ <p>Na La Fouch você encontra três tipos de óculos. Cada um serve para uma coisa — vale conferir antes de comprar.</p><h3>Óculos de leitura</h3><p>Já vêm com lentes prontas, de +0.25 a +4.00, para enxergar de perto: ler, usar o celular, costurar.</p></div>`;
+const art2=`${TOPO}<div class="pad art"><h3 style="margin-top:0">Solar</h3><p>Óculos de sol com proteção UV400, para o dia a dia.</p>
+ <div class="imp"><span class="tag">Importante</span><p>Só vendemos óculos de leitura prontos. Para miopia ou astigmatismo, escolha uma armação e leve a receita a uma ótica.</p></div>
+ <h3>Óculos para isso</h3><div class="cards"><div class="card"><i style="background-image:url(${F.preto})"></i><small>LEITURA</small><span>Quadrado GR3340</span><b>R$ 70</b></div><div class="card"><i style="background-image:url(${F.arm})"></i><small>ARMAÇÃO</small><span>Quadrada AC1050</span><b>R$ 90</b></div></div>
+ <h3>Leia também</h3>${idx([G[2]])}</div>`;
+const R3=[COL('Artigo (igual nos três) · topo','Página inteira, no formato da página do produto. Sem caixas coloridas.',art1),COL('Artigo · fim','“Importante” só com rótulo e linhas finas; óculos com os cartões do catálogo; “Leia também” como linha do índice. WhatsApp no botão flutuante de sempre.',art2)];
+document.getElementById('W').innerHTML=`<p class="rt">1 · No Início</p><div class="row">${R1.join('')}</div><p class="rt">2 · Página do Guia (aberta pelo menu)</p><div class="row">${R2.join('')}</div><p class="rt">3 · Artigo</p><div class="row">${R3.join('')}</div>`;
+</script>
