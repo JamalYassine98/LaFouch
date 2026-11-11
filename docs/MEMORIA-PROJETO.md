@@ -1796,3 +1796,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
    - Nada sai do aparelho (privacidade), funciona com câmera ao vivo ou foto; comparar 2 modelos lado a lado; tirar foto para mandar a alguém.
    - Fora do escopo inicial: hastes em 3D e reflexo realista.
 3. Melhoria principal agora: "QUAL O SEU FORMATO DE ROSTO" (página #rosto já existe: câmera, 6 formatos, face-api 68 pontos, recomendações "Combina também"). Provador pode nascer dentro dela.
+   - ACHADO: lfx/mp já tem o MediaPipe Face Landmarker (face_landmarker.task: ~478 pontos e posição da cabeça) — base certa para o provador; face-api 68 pontos fica para o formato do rosto.
