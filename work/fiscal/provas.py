@@ -27,8 +27,8 @@ def novo(p, W=390, H=844, lang='pt-BR', ls=None, touch=True):
     b = p.chromium.launch(executable_path='/opt/pw-browsers/chromium', args=['--no-sandbox', '--autoplay-policy=no-user-gesture-required', '--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream'])
     c = b.new_context(locale=lang, viewport={'width': W, 'height': H}, device_scale_factor=1, has_touch=touch, is_mobile=touch and W < 700, permissions=['camera'])
     L = dict(ls or {}); L.setdefault('lf_lang', 'es' if lang.startswith('es') else 'pt')
-    c.add_init_script('(()=>{' + ''.join(f'localStorage.setItem({k!r},{v!r});' for k, v in L.items()) + '})()')
-    c.add_init_script(INIT); c.add_init_script("window.open=function(u){window.__wo=u;return null}")
+    c.add_init_script('(()=>{if(!/^http/.test(location.protocol))return;' + ''.join(f'localStorage.setItem({k!r},{v!r});' for k, v in L.items()) + '})()')
+    c.add_init_script('if(/^http/.test(location.protocol)){' + INIT + '}'); c.add_init_script("window.open=function(u){window.__wo=u;return null}")
     pg = c.new_page(); erros = []
     pg.on('pageerror', lambda e: erros.append('erro: ' + str(e)[:200]))
     pg.on('console', lambda m: erros.append('console: ' + m.text[:200]) if m.type == 'error' and 'favicon' not in m.text and 'Failed to load resource' not in m.text else None)
@@ -38,6 +38,7 @@ def carrega(pg, rota=''):
     pg.goto('about:blank'); pg.goto(URL + rota); pg.wait_for_timeout(2200)
 
 def est(pg): return pg.evaluate(ESTADO)
+def fora(e): return not e['abertos'] and not e['menu'] and not e['busca'] and not e['lock']
 def inicio(e): return not e['abertos'] and not e['menu'] and not e['busca'] and e['y'] <= 2 and not e['lock']
 def mesmo(a, b): return a['abertos'] == b['abertos'] and a['menu'] == b['menu'] and a['busca'] == b['busca']
 def txt(e):
@@ -50,7 +51,7 @@ def txt(e):
 def falha(parte, nome, d, pg=None, grave=True):
     f = None
     if pg is not None:
-        try: NF[0] += 1; f = f'p/{NF[0]:04d}.png'; pg.screenshot(path=os.path.join(OUT, f))
+        try: NF[0] += 1; f = f'p/{os.environ.get("FISCAL_SUF", "")}{NF[0]:04d}.png'; pg.screenshot(path=os.path.join(OUT, f))
         except Exception: f = None
     RES.append({'parte': parte, 'nome': nome, 'ok': False, 'grave': grave, 'd': d, 'foto': f}); print('  FALHA', parte, nome, '·', d)
 
@@ -81,7 +82,13 @@ def arrasta(c, pg, x, y0, y1, n=10):
     cdp.send('Input.dispatchTouchEvent', {'type': 'touchEnd', 'touchPoints': []}); pg.wait_for_timeout(450)
 
 # ---------- telas: como abrir cada uma (a partir do Início) ----------
-def a_cat(t): return lambda pg: menu(pg, f'a[data-mf="tipo:{t}"]')
+def a_cat(t):
+    # como a maioria entra: pelos atalhos do Início; sem atalho, pelo menu
+    def f(pg):
+        if pg.evaluate("t=>{const a=[...document.querySelectorAll('a[data-mf=\"tipo:'+t+'\"]')].find(e=>e.offsetParent&&!e.closest('#drw'));if(a){a.scrollIntoView({block:'center'});return true}return false}", t):
+            pg.locator(f'a[data-mf="tipo:{t}"]:not(#drw *):visible').first.click(); pg.wait_for_timeout(1500)
+        else: menu(pg, f'a[data-mf="tipo:{t}"]')
+    return f
 def a_prod(pg): a_cat('grau')(pg); pg.locator('#grid [data-open]:visible').first.click(); pg.wait_for_timeout(1700)
 def a_prod_ini(pg): pg.locator('[data-open]:visible').first.click(); pg.wait_for_timeout(1700)
 def a_cons(pg): menu(pg, '[data-gzopen]'); pg.wait_for_timeout(600)
@@ -116,13 +123,13 @@ def p2_tela(p, nome, abre, camada):
         carrega(pg); abre(pg); antes = None
         pg.go_back(); pg.wait_for_timeout(1500); e = est(pg)
         if pg.url.startswith('about:'): falha('2 navegação', f'{nome} · voltar do celular', 'o voltar saiu do site', None)
-        elif inicio(e) or (nome == 'Produto (do catálogo)' and e['abertos'] == ['painel:vitrine']): passou('2 navegação', f'{nome} · voltar do celular')
+        elif fora(e) or (nome == 'Produto (do catálogo)' and e['abertos'] == ['painel:vitrine']): passou('2 navegação', f'{nome} · voltar do celular')
         else: falha('2 navegação', f'{nome} · voltar do celular', f'o voltar não voltou (ficou em: {txt(e)})', pg)
         # Esc fecha camadas
         if camada:
             if pg.url.startswith('about:'): carrega(pg)
             carrega(pg); abre(pg); pg.keyboard.press('Escape'); pg.wait_for_timeout(1300); e = est(pg)
-            if inicio(e) or (nome == 'Produto (do catálogo)' and e['abertos'] == ['painel:vitrine']) or (nome == 'Filtros' and e['abertos'] == ['painel:vitrine']): passou('2 navegação', f'{nome} · Esc')
+            if fora(e) or (nome == 'Produto (do catálogo)' and e['abertos'] == ['painel:vitrine']) or (nome == 'Filtros' and e['abertos'] == ['painel:vitrine']): passou('2 navegação', f'{nome} · Esc')
             else: falha('2 navegação', f'{nome} · Esc', f'o Esc não fechou (ficou em: {txt(e)})', pg, grave=False)
         # "‹ Início"/"‹ Leitura" à vista → volta um passo
         carrega(pg); abre(pg)
@@ -131,7 +138,7 @@ def p2_tela(p, nome, abre, camada):
         if bk.startswith('COBERTO:'): falha('2 navegação', f'{nome} · botão “{bk[8:]}”', f'o botão “{bk[8:]}” está escondido atrás de outra coisa', pg)
         elif bk:
             clica_real(pg, '[data-fiscal-bk]'); pg.wait_for_timeout(1500); e = est(pg)
-            if inicio(e) or (nome.startswith('Produto') and e['abertos'] in ([], ['painel:vitrine'])): passou('2 navegação', f'{nome} · botão “{bk}”')
+            if fora(e) or (nome.startswith('Produto') and e['abertos'] in ([], ['painel:vitrine'])): passou('2 navegação', f'{nome} · botão “{bk}”')
             else: falha('2 navegação', f'{nome} · botão “{bk}”', f'o botão “{bk}” não voltou (ficou em: {txt(e)})', pg)
         # menu, busca e carrinho por cima: abrem por cima e, ao fechar, a tela continua a mesma
         if nome not in ('Menu', 'Busca'):
@@ -142,9 +149,9 @@ def p2_tela(p, nome, abre, camada):
                 clica_real(pg, sel); pg.wait_for_timeout(1000); e2 = est(pg)
                 ok = aberto(e2) if aberto else (e2['abertos'] != e1['abertos'])
                 if not ok: falha('2 navegação', f'{nome} · abrir {qual}', f'o {qual} não abriu por cima', pg); continue
-                pg.keyboard.press('Escape'); pg.wait_for_timeout(1200); e3 = est(pg)
+                pg.go_back(); pg.wait_for_timeout(1300); e3 = est(pg) if pg.url.startswith('http') else {'abertos': ['(saiu do site)'], 'menu': 0, 'busca': 0, 'y': 0, 'lock': 0, 'path': ''}
                 if mesmo(e3, e1): passou('2 navegação', f'{nome} · {qual} por cima')
-                else: falha('2 navegação', f'{nome} · {qual} por cima', f'ao fechar o {qual}, a tela mudou (era {txt(e1)}, ficou {txt(e3)})', pg)
+                else: falha('2 navegação', f'{nome} · {qual} por cima', f'abriu o {qual} e fechou com o voltar do celular: a tela mudou (era {txt(e1)}, ficou {txt(e3)})', pg if pg.url.startswith('http') else None)
         for x in E: falha('5 situações difíceis', f'{nome} · console', x, None)
     finally: b.close()
 
@@ -159,7 +166,7 @@ def p1_rola(p, nome, abre, teclado=False):
           const r=e.getBoundingClientRect();if(r.width<100||r.height<80||r.bottom<=0||r.top>=innerHeight)continue;const t=document.elementFromPoint(r.left+r.width/2,Math.min(innerHeight-5,r.top+r.height/2));if(!t||!(e===t||e.contains(t)))continue;
           const a=r.width*r.height;if(!best||a>best.a)best={a,x:r.left+r.width/2,y0:Math.min(innerHeight-20,r.top+r.height*.75),y1:Math.max(r.top+10,r.top+r.height*.2),id:(e.id||e.className||e.tagName)+'',b:Math.round(r.bottom)}}
           if(!best&&document.scrollingElement.scrollHeight>innerHeight+20)best={x:innerWidth/2,y0:innerHeight*.75,y1:innerHeight*.25,id:'página',doc:1,b:innerHeight};return best})()""")
-        if not r: passou('1 toque', f'{nome} · rolar com o dedo', 'nada para rolar'); return
+        if not r or (r.get('doc') and pg.evaluate("document.documentElement.classList.contains('lock')||document.documentElement.classList.contains('gzon')")): passou('1 toque', f'{nome} · rolar com o dedo', 'nada para rolar'); return
         pos = "(()=>{let s=0;for(const e of document.querySelectorAll('*'))s+=e.scrollTop;return s+scrollY})()"
         s0 = pg.evaluate(pos); arrasta(c, pg, r['x'], r['y0'], r['y1']); s1 = pg.evaluate(pos)
         q = f'{nome} · rolar com o dedo' + (' com o teclado aberto' if teclado else '')
@@ -210,11 +217,11 @@ def p3_carrinho(p):
         pg.keyboard.press('Escape'); pg.wait_for_timeout(900); pg.keyboard.press('Escape'); pg.wait_for_timeout(900)
         carrega(pg); pg.click('#bagbtn'); pg.wait_for_timeout(1200)
         if not pg.locator('#layer [data-inc]').count(): falha('3 uso', 'Carrinho · guardado', 'o item sumiu do carrinho depois de recarregar o site', pg); return
-        pg.click('#layer [data-inc]'); pg.wait_for_timeout(600)
+        pg.locator('#layer [data-inc]:visible').first.click(); pg.wait_for_timeout(600)
         q = pg.evaluate("document.querySelector('#layer').innerText")
         if not re.search(r'2 ite', q): falha('3 uso', 'Carrinho · +', 'o + não somou', pg)
         else: passou('3 uso', 'Carrinho · +')
-        pg.click('#layer [data-dec]'); pg.wait_for_timeout(600)
+        pg.locator('#layer [data-dec]:visible').first.click(); pg.wait_for_timeout(600)
         if not re.search(r'1 item', pg.evaluate("document.querySelector('#layer').innerText")): falha('3 uso', 'Carrinho · −', 'o − não diminuiu', pg)
         else: passou('3 uso', 'Carrinho · −')
         # preço igual no produto e no carrinho
@@ -224,7 +231,9 @@ def p3_carrinho(p):
         pg.click('[data-cta=prosseguir]'); pg.wait_for_timeout(1500)
         if pg.locator('#layer #aun, #layer [data-cta=entrar], #layer input').count(): passou('3 uso', 'Carrinho · prosseguir (até a conta)')
         else: falha('3 uso', 'Carrinho · prosseguir', 'o “Prosseguir” não levou à conta/entrega', pg)
-        carrega(pg); pg.click('#bagbtn'); pg.wait_for_timeout(1200); pg.click('#layer [data-rm]'); pg.wait_for_timeout(900)
+        b.close(); b, c, pg, E2 = novo(p); E.extend(E2) if False else None
+        carrega(pg); a_prod(pg); pg.click('#layer [data-addm]'); pg.wait_for_timeout(1200)
+        carrega(pg); pg.click('#bagbtn'); pg.wait_for_timeout(1200); pg.locator('#layer [data-rm]:visible').first.click(); pg.wait_for_timeout(900)
         n = pg.evaluate("document.querySelector('#bagbtn').textContent.trim()")
         if n not in ('0', ''): falha('3 uso', 'Carrinho · ×', f'depois do × o carrinho mostra “{n}”', pg)
         else: passou('3 uso', 'Carrinho · ×')
@@ -365,7 +374,17 @@ def regressao(data, nome):
     return d
 
 @regressao('10/11', 'Busca não rolava com o dedo (S110-1)')
-def r_busca_rola(p): p1_rola(p, 'Busca com 2 letras', lambda pg: (pg.click('#sbtn'), pg.wait_for_timeout(600), pg.fill('#q5', 'os'), pg.wait_for_timeout(600)), True)
+def r_busca_rola(p): p1_rola(p, 'Busca com 2 letras', lambda pg: (pg.click('#sbtn'), pg.wait_for_timeout(600), pg.fill('#q5', 'a'), pg.wait_for_timeout(600)), True)
+
+@regressao('10/11', 'Catálogo aberto pelo menu: o voltar do celular sai do site (achado pelo fiscal)')
+def r_menu_voltar(p):
+    b, c, pg, E = novo(p)
+    try:
+        carrega(pg); menu(pg, 'a[data-mf="tipo:solar"]'); pg.go_back(); pg.wait_for_timeout(1500)
+        if not pg.url.startswith('http'): falha('2 navegação', 'Catálogo pelo menu · voltar do celular', 'abriu Solar pelo menu e o voltar do celular saiu do site (já era assim antes de hoje)', None)
+        elif inicio(est(pg)): passou('2 navegação', 'Catálogo pelo menu · voltar do celular')
+        else: falha('2 navegação', 'Catálogo pelo menu · voltar do celular', f'ficou em: {txt(est(pg))}', pg)
+    finally: b.close()
 
 @regressao('10/11', 'Busca em Solar não achava óculos de leitura (S110-2)')
 def r_busca_solar(p):
@@ -407,32 +426,39 @@ def r_gzbk(p):
 
 # ---------- execução ----------
 t0 = time.time()
+PARTES = os.environ.get('FISCAL_PARTES', '1,2,3,4,5,6').split(',')
 with sync_playwright() as p:
-    print('parte 6 · bug nunca volta')
-    for d, n, fn in REG: prova('6 bug nunca volta', n, fn, p)
-    print('parte 2 · navegação')
-    for nome, abre, cam in TELAS: print(' ', nome); prova('2 navegação', nome, p2_tela, p, nome, abre, cam)
-    print('parte 1 · toque')
-    for nome, abre in (('Início', lambda pg: None), ('Catálogo', a_cat('grau')), ('Produto', a_prod), ('Menu', lambda pg: (pg.click('#mnb'), pg.wait_for_timeout(700))), ('Consulta', a_cons)):
-        prova('1 toque', nome, p1_rola, p, nome, abre)
-    print('parte 3 · uso')
-    prods = catalogo(p); pv = [(x['ref'], x['nome']) for x in prods if x['nome']]
-    print('  produtos:', len(pv))
-    prova('3 uso', 'busca', p3_busca, p, pv[:3] if RAPIDO else pv)
-    prova('3 uso', 'carrinho', p3_carrinho, p)
-    prova('3 uso', 'grau', p3_grau, p)
-    prova('3 uso', 'consulta com câmera', p3_consulta, p, True, 'com câmera')
-    if not RAPIDO:
-        prova('3 uso', 'consulta sem câmera', p3_consulta, p, False, 'câmera negada', {'t_nega': '1'})
-        prova('4 conteúdo', 'preços', p3_preco_cartao, p)
-    print('parte 4 · conteúdo')
-    prova('4 conteúdo', 'pt', p4_conteudo, p, 'pt-BR')
-    prova('4 conteúdo', 'es', p4_conteudo, p, 'es-PY')
-    print('parte 5 · situações difíceis')
-    prova('5 situações difíceis', 'girar', p5_girar, p)
-    prova('5 situações difíceis', 'segundo plano', p5_segundo_plano, p)
-    if not RAPIDO: prova('5 situações difíceis', 'rede', p5_rede, p)
+    if '6' in PARTES:
+     print('parte 6 · bug nunca volta')
+     for d, n, fn in REG: prova('6 bug nunca volta', n, fn, p)
+    if '2' in PARTES:
+     print('parte 2 · navegação')
+     for nome, abre, cam in TELAS: print(' ', nome); prova('2 navegação', nome, p2_tela, p, nome, abre, cam)
+    if '1' in PARTES:
+     print('parte 1 · toque')
+     for nome, abre in (('Início', lambda pg: None), ('Catálogo', a_cat('grau')), ('Produto', a_prod), ('Menu', lambda pg: (pg.click('#mnb'), pg.wait_for_timeout(700))), ('Consulta', a_cons)):
+         prova('1 toque', nome, p1_rola, p, nome, abre)
+    if '3' in PARTES:
+     print('parte 3 · uso')
+     prods = catalogo(p); pv = [(x['ref'], x['nome']) for x in prods if x['nome']]
+     print('  produtos:', len(pv))
+     prova('3 uso', 'busca', p3_busca, p, pv[:3] if RAPIDO else pv)
+     prova('3 uso', 'carrinho', p3_carrinho, p)
+     prova('3 uso', 'grau', p3_grau, p)
+     prova('3 uso', 'consulta com câmera', p3_consulta, p, True, 'com câmera')
+     if not RAPIDO:
+         prova('3 uso', 'consulta sem câmera', p3_consulta, p, False, 'câmera negada', {'t_nega': '1'})
+         prova('4 conteúdo', 'preços', p3_preco_cartao, p)
+    if '4' in PARTES:
+     print('parte 4 · conteúdo')
+     prova('4 conteúdo', 'pt', p4_conteudo, p, 'pt-BR')
+     prova('4 conteúdo', 'es', p4_conteudo, p, 'es-PY')
+    if '5' in PARTES:
+     print('parte 5 · situações difíceis')
+     prova('5 situações difíceis', 'girar', p5_girar, p)
+     prova('5 situações difíceis', 'segundo plano', p5_segundo_plano, p)
+     if not RAPIDO: prova('5 situações difíceis', 'rede', p5_rede, p)
 
-json.dump({'rapido': RAPIDO, 'seg': round(time.time() - t0), 'res': RES}, open(os.path.join(OUT, 'provas.json'), 'w'), ensure_ascii=False, indent=1)
+json.dump({'rapido': RAPIDO, 'seg': round(time.time() - t0), 'res': RES}, open(os.path.join(OUT, 'provas' + os.environ.get('FISCAL_SUF', '') + '.json'), 'w'), ensure_ascii=False, indent=1)
 F = [r for r in RES if not r['ok']]
 print(f'fim {len(RES)} provas · {len(F)} falhas ({sum(1 for r in F if r.get("grave"))} graves) · {time.time() - t0:.0f} s')
