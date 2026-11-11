@@ -1,0 +1,123 @@
+c00 t1 ritmo ok 3/4 frases perfeitas créditos 48
+c00 t2 ritmo 0.90× do português 3/4 frases perfeitas créditos 96
+c00 t3 ritmo 0.92× do português 3/4 frases perfeitas créditos 144
+c01 t1 ritmo ok 3/3 frases perfeitas créditos 199
+c02 t1 ritmo 0.77× do português 0/2 frases perfeitas créditos 222
+c02 t2 ritmo 0.77× do português 0/2 frases perfeitas créditos 245
+c02 t3 ritmo 0.81× do português 0/2 frases perfeitas créditos 268
+c03 t1 ritmo 0.92× do português 0/6 frases perfeitas créditos 294
+c03 t2 ritmo ok 4/6 frases perfeitas créditos 320
+c03 t3 ritmo ok 4/6 frases perfeitas créditos 346
+c04 t1 ritmo ok 4/6 frases perfeitas créditos 390
+c04 t2 ritmo ok 4/6 frases perfeitas créditos 434
+c04 t3 ritmo 1.19× do português 4/6 frases perfeitas créditos 478
+c05 t1 ritmo ok 3/5 frases perfeitas créditos 528
+c05 t2 ritmo ok 5/5 frases perfeitas créditos 578
+c06 t1 ritmo ok 3/4 frases perfeitas créditos 620
+c06 t2 ritmo ok 4/4 frases perfeitas créditos 662
+c07 t1 ritmo 1.29× do português 0/4 frases perfeitas créditos 704
+c07 t2 ritmo 1.19× do português 0/4 frases perfeitas créditos 746
+c07 t3 ritmo 1.28× do português 0/4 frases perfeitas créditos 788
+c08 t1 ritmo 1.23× do português 0/4 frases perfeitas créditos 855
+c08 t2 ritmo 1.22× do português 0/4 frases perfeitas créditos 922
+--- regra de ritmo trocada para sílabas (0,90–1,20) ---
+c00 t1 ritmo ok 3/4 frases perfeitas créditos 922
+c00 t2 ritmo 0.87× do português (por sílaba) 3/4 frases perfeitas créditos 922
+c00 t3 ritmo 0.89× do português (por sílaba) 3/4 frases perfeitas créditos 922
+c01 t1 ritmo ok 3/3 frases perfeitas créditos 922
+c02 t1 ritmo 0.84× do português (por sílaba) 0/2 frases perfeitas créditos 922
+c02 t2 ritmo 0.84× do português (por sílaba) 0/2 frases perfeitas créditos 922
+c02 t3 ritmo 0.88× do português (por sílaba) 0/2 frases perfeitas créditos 922
+c03 t1 ritmo ok 5/6 frases perfeitas créditos 922
+c03 t2 ritmo ok 6/6 frases perfeitas créditos 922
+c04 t1 ritmo 1.29× do português (por sílaba) 0/6 frases perfeitas créditos 922
+c04 t2 ritmo ok 2/6 frases perfeitas créditos 922
+c04 t3 ritmo 1.29× do português (por sílaba) 2/6 frases perfeitas créditos 922
+c05 t1 ritmo ok 3/5 frases perfeitas créditos 922
+c05 t2 ritmo ok 5/5 frases perfeitas créditos 922
+c06 t1 ritmo ok 3/4 frases perfeitas créditos 922
+c06 t2 ritmo ok 4/4 frases perfeitas créditos 922
+c07 t1 ritmo 1.25× do português (por sílaba) 0/4 frases perfeitas créditos 922
+c07 t2 ritmo ok 2/4 frases perfeitas créditos 922
+c07 t3 ritmo 1.24× do português (por sílaba) 2/4 frases perfeitas créditos 922
+c08 t1 ritmo ok 3/4 frases perfeitas créditos 922
+c08 t2 ritmo ok 3/4 frases perfeitas créditos 922
+c08 t3 ritmo ok 3/4 frases perfeitas créditos 989
+c09 t1 ritmo 1.31× do português (por sílaba) 0/2 frases perfeitas créditos 1015
+c09 t2 ritmo 1.34× do português (por sílaba) 0/2 frases perfeitas créditos 1041
+c09 t3 ritmo 1.52× do português (por sílaba) 0/2 frases perfeitas créditos 1067
+c10 t1 ritmo ok 3/3 frases perfeitas créditos 1117
+n00 t1 ritmo ok 2/2 frases perfeitas créditos 1177
+n01 t1 ritmo ok 3/4 frases perfeitas créditos 1230
+n01 t2 ritmo ok 3/4 frases perfeitas créditos 1283
+n01 t3 ritmo ok 3/4 frases perfeitas créditos 1336
+n02 t1 ritmo ok 2/2 frases perfeitas créditos 1354
+n03 t1 ritmo ok 1/2 frases perfeitas créditos 1396
+n03 t2 ritmo ok 1/2 frases perfeitas créditos 1438
+n03 t3 ritmo ok 1/2 frases perfeitas créditos 1480
+n04 t1 ritmo 1.22× do português (por sílaba) 0/2 frases perfeitas créditos 1512
+n04 t2 ritmo ok 1/2 frases perfeitas créditos 1544
+n04 t3 ritmo ok 1/2 frases perfeitas créditos 1576
+n05 t1 ritmo ok 1/2 frases perfeitas créditos 1626
+n05 t2 ritmo ok 1/2 frases perfeitas créditos 1676
+n05 t3 ritmo ok 1/2 frases perfeitas créditos 1726
+n06 t1 ritmo 0.79× do português (por sílaba) 0/3 frases perfeitas créditos 1754
+n06 t2 ritmo 0.88× do português (por sílaba) 0/3 frases perfeitas créditos 1782
+n06 t3 ritmo ok 2/3 frases perfeitas créditos 1810
+tA t1 ritmo ok 16/16 frases perfeitas créditos 2177
+tB t1 ritmo ok 8/16 frases perfeitas créditos 2416
+tB t2 ritmo ok 15/16 frases perfeitas créditos 2655
+tB t3 ritmo ok 16/16 frases perfeitas créditos 2894
+tC t1 ritmo 1.65× do português (por sílaba) 0/16 frases perfeitas créditos 3107
+tC t2 ritmo 1.58× do português (por sílaba) 0/16 frases perfeitas créditos 3320
+tC t3 ritmo 1.65× do português (por sílaba) 0/16 frases perfeitas créditos 3533
+tD t1 ritmo ok 16/16 frases perfeitas créditos 3842
+tN t1 ritmo 1.24× do português (por sílaba) 0/8 frases perfeitas créditos 3979
+tN t2 ritmo ok 6/8 frases perfeitas créditos 4116
+tN t3 ritmo 1.21× do português (por sílaba) 6/8 frases perfeitas créditos 4253
+FIM: arquivos 146 créditos 4253 frases com algum aviso 45
+   ('Soy Mochi.', ['tom 410 Hz em "Soy Mochi."'])
+   ('Acercá un poquito el celular.', ['ritmo 0.84× do português (por sílaba)'])
+   ('Alejá un poquito el celular.', ['ritmo 0.84× do português (por sílaba)'])
+   ('Vamos bajando…', ['voz diferente (0.723)'])
+   ('Vas muy bien.', ['tom 364 Hz em "Vas muy bien."'])
+   ('Esta es un poquito más chica.', ['tom 364 Hz em "Esta es un poquito más chica."'])
+   ('Sin apuro: ¿y esta?', ['ritmo 1.29× do português (por sílaba)'])
+   ('Voy a probar una un poco más fuerte.', ['ritmo 1.25× do português (por sílaba)'])
+   ('¿Y ahora?', ['voz diferente (0.699)'])
+   ('Ahora una más suave.', ['voz diferente (0.833)'])
+   ('Sin apuro.', ['ritmo 1.31× do português (por sílaba)'])
+   ('Si cuesta, podés decir que no podés — no hay problema.', ['ritmo 1.52× do português (por sílaba)'])
+   ('Si preferís, lo hacemos sin ella.', ['voz diferente (0.840)'])
+   ('¡Está bien, no hay problema!', ['tom 372 Hz em "¡Está bien, no hay problema!"'])
+   ('Está un poquito oscuro.', ['ritmo 1.22× do português (por sílaba)'])
+   ('Sostené ahí un momento…', ['voz diferente (0.839)'])
+   ('Repitamos una vez.', ['voz diferente (0.825)'])
+   ('Con la lente +3.00. ¿Y esta?', ['tom 271 Hz fora do tipo (296)'])
+   ('Con la lente +3.50. ¿Y esta?', ['tom 260 Hz fora do tipo (296)'])
+   ('Esta es +0.25. ¿Y ahora?', ['ritmo 1.65× do português (por sílaba)'])
+   ('Esta es +0.50. ¿Y ahora?', ['ritmo 1.65× do português (por sílaba)'])
+   ('Esta es +0.75. ¿Y ahora?', ['ritmo 1.65× do português (por sílaba)'])
+   ('Esta es +1.00. ¿Y ahora?', ['ritmo 1.65× do português (por sílaba)'])
+   ('Esta es +1.25. ¿Y ahora?', ['ritmo 1.65× do português (por sílaba)'])
+   ('Esta es +1.50. ¿Y ahora?', ['ritmo 1.65× do português (por sílaba)'])
+   ('Esta es +1.75. ¿Y ahora?', ['ritmo 1.65× do português (por sílaba)'])
+   ('Esta es +2.00. ¿Y ahora?', ['ritmo 1.65× do português (por sílaba)'])
+   ('Esta es +2.25. ¿Y ahora?', ['ritmo 1.65× do português (por sílaba)'])
+   ('Esta es +2.50. ¿Y ahora?', ['ritmo 1.65× do português (por sílaba)'])
+   ('Esta es +2.75. ¿Y ahora?', ['ritmo 1.65× do português (por sílaba)'])
+   ('Esta es +3.00. ¿Y ahora?', ['ritmo 1.65× do português (por sílaba)'])
+   ('Esta es +3.25. ¿Y ahora?', ['ritmo 1.65× do português (por sílaba)'])
+   ('Esta es +3.50. ¿Y ahora?', ['ritmo 1.65× do português (por sílaba)'])
+   ('Esta es +3.75. ¿Y ahora?', ['ritmo 1.65× do português (por sílaba)', 'tom 219 Hz em "¿Y ahora?"'])
+   ('Esta es +4.00. ¿Y ahora?', ['ritmo 1.65× do português (por sílaba)'])
+   ('La graduación que mejor te va es +0.50.', ['tom 269 Hz fora do tipo (294)'])
+   ('La graduación que mejor te va es +1.00.', ['tom 262 Hz fora do tipo (294)'])
+   ('La graduación que mejor te va es +1.25.', ['tom 333 Hz fora do tipo (294)'])
+   ('La graduación que mejor te va es +2.00.', ['tom 356 Hz fora do tipo (294)'])
+   ('La graduación que mejor te va es +2.50.', ['tom 327 Hz fora do tipo (294)'])
+   ('La graduación que mejor te va es +3.00.', ['tom 356 Hz fora do tipo (294)'])
+   ('La graduación que mejor te va es +3.50.', ['tom 327 Hz fora do tipo (294)'])
+   ('La graduación que mejor te va es +4.00.', ['tom 340 Hz fora do tipo (294)'])
+   ('Probemos con otra frase.', ['ritmo 1.24× do português (por sílaba)'])
+   ('Si dudás, quedate con el menor.', ['ritmo 1.24× do português (por sílaba)'])

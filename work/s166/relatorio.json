@@ -1,0 +1,753 @@
+{
+ "¡Hola!": {
+  "arq": "es7_000.mp3",
+  "de": "c00_t1",
+  "problemas": []
+ },
+ "Soy Mochi.": {
+  "arq": "es7_001.mp3",
+  "de": "c00_t1",
+  "problemas": [
+   "tom 410 Hz em \"Soy Mochi.\""
+  ]
+ },
+ "Te voy a ayudar a encontrar la graduación de tus lentes de lectura.": {
+  "arq": "es7_002.mp3",
+  "de": "c00_t1",
+  "problemas": []
+ },
+ "Cuando quieras, solo tocá Empezar.": {
+  "arq": "es7_003.mp3",
+  "de": "c00_t1",
+  "problemas": []
+ },
+ "Hacé como yo: sacate los lentes…": {
+  "arq": "es7_005.mp3",
+  "de": "c01_t1",
+  "problemas": []
+ },
+ "…y sostené el celular a 30 centímetros, un palmo.": {
+  "arq": "es7_006.mp3",
+  "de": "c01_t1",
+  "problemas": []
+ },
+ "¿Podés leer la frase acá frente a mí, sin esfuerzo?": {
+  "arq": "es7_007.mp3",
+  "de": "c01_t1",
+  "problemas": []
+ },
+ "Acercá un poquito el celular.": {
+  "arq": "es7_008.mp3",
+  "de": "c02_t2",
+  "problemas": [
+   "ritmo 0.84× do português (por sílaba)"
+  ]
+ },
+ "Alejá un poquito el celular.": {
+  "arq": "es7_009.mp3",
+  "de": "c02_t1",
+  "problemas": [
+   "ritmo 0.84× do português (por sílaba)"
+  ]
+ },
+ "¡Eso!": {
+  "arq": "es7_010.mp3",
+  "de": "c03_t1",
+  "problemas": []
+ },
+ "¿Y esta?": {
+  "arq": "es7_011.mp3",
+  "de": "c03_t2",
+  "problemas": []
+ },
+ "Muy bien.": {
+  "arq": "es7_012.mp3",
+  "de": "c03_t1",
+  "problemas": []
+ },
+ "¿Podés esta?": {
+  "arq": "es7_013.mp3",
+  "de": "c03_t1",
+  "problemas": []
+ },
+ "Genial.": {
+  "arq": "es7_014.mp3",
+  "de": "c03_t1",
+  "problemas": []
+ },
+ "Ahora esta de acá.": {
+  "arq": "es7_015.mp3",
+  "de": "c03_t1",
+  "problemas": []
+ },
+ "Perfecto, la siguiente.": {
+  "arq": "es7_016.mp3",
+  "de": "c04_t2",
+  "problemas": []
+ },
+ "Vamos bajando…": {
+  "arq": "es7_017.mp3",
+  "de": "c04_t2",
+  "problemas": [
+   "voz diferente (0.723)"
+  ]
+ },
+ "¿y esta?": {
+  "arq": "es7_018.mp3",
+  "de": "c04_t2",
+  "problemas": []
+ },
+ "Vas muy bien.": {
+  "arq": "es7_019.mp3",
+  "de": "c04_t2",
+  "problemas": [
+   "tom 364 Hz em \"Vas muy bien.\""
+  ]
+ },
+ "Esta es un poquito más chica.": {
+  "arq": "es7_020.mp3",
+  "de": "c04_t2",
+  "problemas": [
+   "tom 364 Hz em \"Esta es un poquito más chica.\""
+  ]
+ },
+ "Sin apuro: ¿y esta?": {
+  "arq": "es7_021.mp3",
+  "de": "c04_t1",
+  "problemas": [
+   "ritmo 1.29× do português (por sílaba)"
+  ]
+ },
+ "Ahora viene una letra más chica.": {
+  "arq": "es7_022.mp3",
+  "de": "c05_t2",
+  "problemas": []
+ },
+ "Esta es bien chiquita.": {
+  "arq": "es7_023.mp3",
+  "de": "c05_t2",
+  "problemas": []
+ },
+ "¿Podés leer?": {
+  "arq": "es7_024.mp3",
+  "de": "c05_t2",
+  "problemas": []
+ },
+ "Esta es letra de prospecto.": {
+  "arq": "es7_025.mp3",
+  "de": "c05_t2",
+  "problemas": []
+ },
+ "La última, la más chiquita.": {
+  "arq": "es7_026.mp3",
+  "de": "c05_t2",
+  "problemas": []
+ },
+ "Todo bien, es normal.": {
+  "arq": "es7_027.mp3",
+  "de": "c06_t2",
+  "problemas": []
+ },
+ "No hay problema — para eso están las lentes.": {
+  "arq": "es7_028.mp3",
+  "de": "c06_t2",
+  "problemas": []
+ },
+ "Bueno saberlo.": {
+  "arq": "es7_029.mp3",
+  "de": "c06_t2",
+  "problemas": []
+ },
+ "Voy a buscar una lente.": {
+  "arq": "es7_030.mp3",
+  "de": "c06_t1",
+  "problemas": []
+ },
+ "Voy a probar una un poco más fuerte.": {
+  "arq": "es7_031.mp3",
+  "de": "c07_t1",
+  "problemas": [
+   "ritmo 1.25× do português (por sílaba)"
+  ]
+ },
+ "Un pasito más de graduación…": {
+  "arq": "es7_032.mp3",
+  "de": "c07_t2",
+  "problemas": []
+ },
+ "¿Podés leer la última frase?": {
+  "arq": "es7_033.mp3",
+  "de": "c07_t2",
+  "problemas": []
+ },
+ "¿Y ahora?": {
+  "arq": "es7_034.mp3",
+  "de": "c07_t2",
+  "problemas": [
+   "voz diferente (0.699)"
+  ]
+ },
+ "¡Leíste!": {
+  "arq": "es7_035.mp3",
+  "de": "c08_t1",
+  "problemas": []
+ },
+ "Ahora voy a ir sacando un poquito de graduación, hasta encontrar la más suave que todavía funciona.": {
+  "arq": "es7_036.mp3",
+  "de": "c08_t3",
+  "problemas": []
+ },
+ "Ahora una más suave.": {
+  "arq": "es7_037.mp3",
+  "de": "c08_t1",
+  "problemas": [
+   "voz diferente (0.833)"
+  ]
+ },
+ "Solo para estar seguros: ¿y con esta?": {
+  "arq": "es7_038.mp3",
+  "de": "c08_t2",
+  "problemas": []
+ },
+ "Sin apuro.": {
+  "arq": "es7_039.mp3",
+  "de": "c09_t1",
+  "problemas": [
+   "ritmo 1.31× do português (por sílaba)"
+  ]
+ },
+ "Si cuesta, podés decir que no podés — no hay problema.": {
+  "arq": "es7_040.mp3",
+  "de": "c09_t3",
+  "problemas": [
+   "ritmo 1.52× do português (por sílaba)"
+  ]
+ },
+ "¡Listo!": {
+  "arq": "es7_041.mp3",
+  "de": "c10_t1",
+  "problemas": []
+ },
+ "¡Buena noticia: leés bien de cerca sin lentes!": {
+  "arq": "es7_042.mp3",
+  "de": "c10_t1",
+  "problemas": []
+ },
+ "Para no adivinar una graduación, conviene consultar a un oftalmólogo.": {
+  "arq": "es7_043.mp3",
+  "de": "c10_t1",
+  "problemas": []
+ },
+ "Antes, un aviso importante: este test es solo para lentes de lectura.": {
+  "arq": "es7_044.mp3",
+  "de": "n00_t1",
+  "problemas": []
+ },
+ "No sirve para miopía, astigmatismo ni multifocal, y no reemplaza al oftalmólogo.": {
+  "arq": "es7_045.mp3",
+  "de": "n00_t1",
+  "problemas": []
+ },
+ "¿Puedo usar la cámara?": {
+  "arq": "es7_046.mp3",
+  "de": "n01_t1",
+  "problemas": []
+ },
+ "Es solo para medir la distancia del celular hasta tu cara.": {
+  "arq": "es7_047.mp3",
+  "de": "n01_t2",
+  "problemas": []
+ },
+ "No se graba nada.": {
+  "arq": "es7_048.mp3",
+  "de": "n01_t1",
+  "problemas": []
+ },
+ "Si preferís, lo hacemos sin ella.": {
+  "arq": "es7_049.mp3",
+  "de": "n01_t2",
+  "problemas": [
+   "voz diferente (0.840)"
+  ]
+ },
+ "Solo tocá \"Permitir\" en la ventanita.": {
+  "arq": "es7_050.mp3",
+  "de": "n02_t1",
+  "problemas": []
+ },
+ "¡Gracias!": {
+  "arq": "es7_051.mp3",
+  "de": "n02_t1",
+  "problemas": []
+ },
+ "¡Está bien, no hay problema!": {
+  "arq": "es7_052.mp3",
+  "de": "n03_t2",
+  "problemas": [
+   "tom 372 Hz em \"¡Está bien, no hay problema!\""
+  ]
+ },
+ "Vamos sin la cámara: sostené el celular a unos 30 centímetros, un palmo.": {
+  "arq": "es7_053.mp3",
+  "de": "n03_t3",
+  "problemas": []
+ },
+ "Está un poquito oscuro.": {
+  "arq": "es7_054.mp3",
+  "de": "n04_t1",
+  "problemas": [
+   "ritmo 1.22× do português (por sílaba)"
+  ]
+ },
+ "Andá a un lugar más iluminado: con poca luz leemos peor.": {
+  "arq": "es7_055.mp3",
+  "de": "n04_t3",
+  "problemas": []
+ },
+ "Ahora una última cosa: acercá el celular despacio y tocá cuando las letras empiecen a verse borrosas.": {
+  "arq": "es7_056.mp3",
+  "de": "n05_t1",
+  "problemas": []
+ },
+ "Sostené ahí un momento…": {
+  "arq": "es7_057.mp3",
+  "de": "n05_t1",
+  "problemas": [
+   "voz diferente (0.839)"
+  ]
+ },
+ "Salió un poco diferente.": {
+  "arq": "es7_058.mp3",
+  "de": "n06_t3",
+  "problemas": []
+ },
+ "Repitamos una vez.": {
+  "arq": "es7_059.mp3",
+  "de": "n06_t3",
+  "problemas": [
+   "voz diferente (0.825)"
+  ]
+ },
+ "Las dos medidas coinciden.": {
+  "arq": "es7_060.mp3",
+  "de": "n06_t3",
+  "problemas": []
+ },
+ "Con la lente +0.25. ¿Podés leer la última frase?": {
+  "arq": "es7_061.mp3",
+  "de": "tA_t1",
+  "problemas": []
+ },
+ "Con la lente +0.50. ¿Podés leer la última frase?": {
+  "arq": "es7_062.mp3",
+  "de": "tA_t1",
+  "problemas": []
+ },
+ "Con la lente +0.75. ¿Podés leer la última frase?": {
+  "arq": "es7_063.mp3",
+  "de": "tA_t1",
+  "problemas": []
+ },
+ "Con la lente +1.00. ¿Podés leer la última frase?": {
+  "arq": "es7_064.mp3",
+  "de": "tA_t1",
+  "problemas": []
+ },
+ "Con la lente +1.25. ¿Podés leer la última frase?": {
+  "arq": "es7_065.mp3",
+  "de": "tA_t1",
+  "problemas": []
+ },
+ "Con la lente +1.50. ¿Podés leer la última frase?": {
+  "arq": "es7_066.mp3",
+  "de": "tA_t1",
+  "problemas": []
+ },
+ "Con la lente +1.75. ¿Podés leer la última frase?": {
+  "arq": "es7_067.mp3",
+  "de": "tA_t1",
+  "problemas": []
+ },
+ "Con la lente +2.00. ¿Podés leer la última frase?": {
+  "arq": "es7_068.mp3",
+  "de": "tA_t1",
+  "problemas": []
+ },
+ "Con la lente +2.25. ¿Podés leer la última frase?": {
+  "arq": "es7_069.mp3",
+  "de": "tA_t1",
+  "problemas": []
+ },
+ "Con la lente +2.50. ¿Podés leer la última frase?": {
+  "arq": "es7_070.mp3",
+  "de": "tA_t1",
+  "problemas": []
+ },
+ "Con la lente +2.75. ¿Podés leer la última frase?": {
+  "arq": "es7_071.mp3",
+  "de": "tA_t1",
+  "problemas": []
+ },
+ "Con la lente +3.00. ¿Podés leer la última frase?": {
+  "arq": "es7_072.mp3",
+  "de": "tA_t1",
+  "problemas": []
+ },
+ "Con la lente +3.25. ¿Podés leer la última frase?": {
+  "arq": "es7_073.mp3",
+  "de": "tA_t1",
+  "problemas": []
+ },
+ "Con la lente +3.50. ¿Podés leer la última frase?": {
+  "arq": "es7_074.mp3",
+  "de": "tA_t1",
+  "problemas": []
+ },
+ "Con la lente +3.75. ¿Podés leer la última frase?": {
+  "arq": "es7_075.mp3",
+  "de": "tA_t1",
+  "problemas": []
+ },
+ "Con la lente +4.00. ¿Podés leer la última frase?": {
+  "arq": "es7_076.mp3",
+  "de": "tA_t1",
+  "problemas": []
+ },
+ "Con la lente +0.25. ¿Y esta?": {
+  "arq": "es7_088.mp3",
+  "de": "tB_t3",
+  "problemas": []
+ },
+ "Con la lente +0.50. ¿Y esta?": {
+  "arq": "es7_089.mp3",
+  "de": "tB_t1",
+  "problemas": []
+ },
+ "Con la lente +0.75. ¿Y esta?": {
+  "arq": "es7_090.mp3",
+  "de": "tB_t2",
+  "problemas": []
+ },
+ "Con la lente +1.00. ¿Y esta?": {
+  "arq": "es7_091.mp3",
+  "de": "tB_t3",
+  "problemas": []
+ },
+ "Con la lente +1.25. ¿Y esta?": {
+  "arq": "es7_092.mp3",
+  "de": "tB_t1",
+  "problemas": []
+ },
+ "Con la lente +1.50. ¿Y esta?": {
+  "arq": "es7_093.mp3",
+  "de": "tB_t3",
+  "problemas": []
+ },
+ "Con la lente +1.75. ¿Y esta?": {
+  "arq": "es7_094.mp3",
+  "de": "tB_t1",
+  "problemas": []
+ },
+ "Con la lente +2.00. ¿Y esta?": {
+  "arq": "es7_095.mp3",
+  "de": "tB_t2",
+  "problemas": []
+ },
+ "Con la lente +2.25. ¿Y esta?": {
+  "arq": "es7_096.mp3",
+  "de": "tB_t2",
+  "problemas": []
+ },
+ "Con la lente +2.50. ¿Y esta?": {
+  "arq": "es7_097.mp3",
+  "de": "tB_t3",
+  "problemas": []
+ },
+ "Con la lente +2.75. ¿Y esta?": {
+  "arq": "es7_098.mp3",
+  "de": "tB_t2",
+  "problemas": []
+ },
+ "Con la lente +3.00. ¿Y esta?": {
+  "arq": "es7_099.mp3",
+  "de": "tB_t3",
+  "problemas": [
+   "tom 271 Hz fora do tipo (296)"
+  ]
+ },
+ "Con la lente +3.25. ¿Y esta?": {
+  "arq": "es7_100.mp3",
+  "de": "tB_t2",
+  "problemas": []
+ },
+ "Con la lente +3.50. ¿Y esta?": {
+  "arq": "es7_101.mp3",
+  "de": "tB_t1",
+  "problemas": [
+   "tom 260 Hz fora do tipo (296)"
+  ]
+ },
+ "Con la lente +3.75. ¿Y esta?": {
+  "arq": "es7_102.mp3",
+  "de": "tB_t3",
+  "problemas": []
+ },
+ "Con la lente +4.00. ¿Y esta?": {
+  "arq": "es7_103.mp3",
+  "de": "tB_t3",
+  "problemas": []
+ },
+ "Esta es +0.25. ¿Y ahora?": {
+  "arq": "es7_104.mp3",
+  "de": "tC_t3",
+  "problemas": [
+   "ritmo 1.65× do português (por sílaba)"
+  ]
+ },
+ "Esta es +0.50. ¿Y ahora?": {
+  "arq": "es7_105.mp3",
+  "de": "tC_t3",
+  "problemas": [
+   "ritmo 1.65× do português (por sílaba)"
+  ]
+ },
+ "Esta es +0.75. ¿Y ahora?": {
+  "arq": "es7_106.mp3",
+  "de": "tC_t3",
+  "problemas": [
+   "ritmo 1.65× do português (por sílaba)"
+  ]
+ },
+ "Esta es +1.00. ¿Y ahora?": {
+  "arq": "es7_107.mp3",
+  "de": "tC_t3",
+  "problemas": [
+   "ritmo 1.65× do português (por sílaba)"
+  ]
+ },
+ "Esta es +1.25. ¿Y ahora?": {
+  "arq": "es7_108.mp3",
+  "de": "tC_t3",
+  "problemas": [
+   "ritmo 1.65× do português (por sílaba)"
+  ]
+ },
+ "Esta es +1.50. ¿Y ahora?": {
+  "arq": "es7_109.mp3",
+  "de": "tC_t1",
+  "problemas": [
+   "ritmo 1.65× do português (por sílaba)"
+  ]
+ },
+ "Esta es +1.75. ¿Y ahora?": {
+  "arq": "es7_110.mp3",
+  "de": "tC_t3",
+  "problemas": [
+   "ritmo 1.65× do português (por sílaba)"
+  ]
+ },
+ "Esta es +2.00. ¿Y ahora?": {
+  "arq": "es7_111.mp3",
+  "de": "tC_t1",
+  "problemas": [
+   "ritmo 1.65× do português (por sílaba)"
+  ]
+ },
+ "Esta es +2.25. ¿Y ahora?": {
+  "arq": "es7_112.mp3",
+  "de": "tC_t3",
+  "problemas": [
+   "ritmo 1.65× do português (por sílaba)"
+  ]
+ },
+ "Esta es +2.50. ¿Y ahora?": {
+  "arq": "es7_113.mp3",
+  "de": "tC_t3",
+  "problemas": [
+   "ritmo 1.65× do português (por sílaba)"
+  ]
+ },
+ "Esta es +2.75. ¿Y ahora?": {
+  "arq": "es7_114.mp3",
+  "de": "tC_t1",
+  "problemas": [
+   "ritmo 1.65× do português (por sílaba)"
+  ]
+ },
+ "Esta es +3.00. ¿Y ahora?": {
+  "arq": "es7_115.mp3",
+  "de": "tC_t3",
+  "problemas": [
+   "ritmo 1.65× do português (por sílaba)"
+  ]
+ },
+ "Esta es +3.25. ¿Y ahora?": {
+  "arq": "es7_116.mp3",
+  "de": "tC_t3",
+  "problemas": [
+   "ritmo 1.65× do português (por sílaba)"
+  ]
+ },
+ "Esta es +3.50. ¿Y ahora?": {
+  "arq": "es7_117.mp3",
+  "de": "tC_t3",
+  "problemas": [
+   "ritmo 1.65× do português (por sílaba)"
+  ]
+ },
+ "Esta es +3.75. ¿Y ahora?": {
+  "arq": "es7_118.mp3",
+  "de": "tC_t1",
+  "problemas": [
+   "ritmo 1.65× do português (por sílaba)",
+   "tom 219 Hz em \"¿Y ahora?\""
+  ]
+ },
+ "Esta es +4.00. ¿Y ahora?": {
+  "arq": "es7_119.mp3",
+  "de": "tC_t3",
+  "problemas": [
+   "ritmo 1.65× do português (por sílaba)"
+  ]
+ },
+ "La graduación que mejor te va es +0.25.": {
+  "arq": "es7_122.mp3",
+  "de": "tD_t1",
+  "problemas": []
+ },
+ "La graduación que mejor te va es +0.50.": {
+  "arq": "es7_123.mp3",
+  "de": "tD_t1",
+  "problemas": [
+   "tom 269 Hz fora do tipo (294)"
+  ]
+ },
+ "La graduación que mejor te va es +0.75.": {
+  "arq": "es7_124.mp3",
+  "de": "tD_t1",
+  "problemas": []
+ },
+ "La graduación que mejor te va es +1.00.": {
+  "arq": "es7_125.mp3",
+  "de": "tD_t1",
+  "problemas": [
+   "tom 262 Hz fora do tipo (294)"
+  ]
+ },
+ "La graduación que mejor te va es +1.25.": {
+  "arq": "es7_126.mp3",
+  "de": "tD_t1",
+  "problemas": [
+   "tom 333 Hz fora do tipo (294)"
+  ]
+ },
+ "La graduación que mejor te va es +1.50.": {
+  "arq": "es7_127.mp3",
+  "de": "tD_t1",
+  "problemas": []
+ },
+ "La graduación que mejor te va es +1.75.": {
+  "arq": "es7_128.mp3",
+  "de": "tD_t1",
+  "problemas": []
+ },
+ "La graduación que mejor te va es +2.00.": {
+  "arq": "es7_129.mp3",
+  "de": "tD_t1",
+  "problemas": [
+   "tom 356 Hz fora do tipo (294)"
+  ]
+ },
+ "La graduación que mejor te va es +2.25.": {
+  "arq": "es7_130.mp3",
+  "de": "tD_t1",
+  "problemas": []
+ },
+ "La graduación que mejor te va es +2.50.": {
+  "arq": "es7_131.mp3",
+  "de": "tD_t1",
+  "problemas": [
+   "tom 327 Hz fora do tipo (294)"
+  ]
+ },
+ "La graduación que mejor te va es +2.75.": {
+  "arq": "es7_132.mp3",
+  "de": "tD_t1",
+  "problemas": []
+ },
+ "La graduación que mejor te va es +3.00.": {
+  "arq": "es7_133.mp3",
+  "de": "tD_t1",
+  "problemas": [
+   "tom 356 Hz fora do tipo (294)"
+  ]
+ },
+ "La graduación que mejor te va es +3.25.": {
+  "arq": "es7_134.mp3",
+  "de": "tD_t1",
+  "problemas": []
+ },
+ "La graduación que mejor te va es +3.50.": {
+  "arq": "es7_135.mp3",
+  "de": "tD_t1",
+  "problemas": [
+   "tom 327 Hz fora do tipo (294)"
+  ]
+ },
+ "La graduación que mejor te va es +3.75.": {
+  "arq": "es7_136.mp3",
+  "de": "tD_t1",
+  "problemas": []
+ },
+ "La graduación que mejor te va es +4.00.": {
+  "arq": "es7_137.mp3",
+  "de": "tD_t1",
+  "problemas": [
+   "tom 340 Hz fora do tipo (294)"
+  ]
+ },
+ "Solo para confirmar: ¿y esta otra?": {
+  "arq": "es7_138.mp3",
+  "de": "tN_t2",
+  "problemas": []
+ },
+ "Probemos con otra frase.": {
+  "arq": "es7_139.mp3",
+  "de": "tN_t1",
+  "problemas": [
+   "ritmo 1.24× do português (por sílaba)"
+  ]
+ },
+ "Alejaste el celular para poder leer — eso es señal de vista cansada.": {
+  "arq": "es7_140.mp3",
+  "de": "tN_t2",
+  "problemas": []
+ },
+ "Sostenelo a un palmo y decime de nuevo.": {
+  "arq": "es7_141.mp3",
+  "de": "tN_t2",
+  "problemas": []
+ },
+ "Una vez más: alejá un poco y acercá de nuevo, despacio.": {
+  "arq": "es7_142.mp3",
+  "de": "tN_t2",
+  "problemas": []
+ },
+ "Una última vez, para estar seguros.": {
+  "arq": "es7_143.mp3",
+  "de": "tN_t2",
+  "problemas": []
+ },
+ "Las medidas salieron un poco diferentes.": {
+  "arq": "es7_144.mp3",
+  "de": "tN_t2",
+  "problemas": []
+ },
+ "Si dudás, quedate con el menor.": {
+  "arq": "es7_145.mp3",
+  "de": "tN_t1",
+  "problemas": [
+   "ritmo 1.24× do português (por sílaba)"
+  ]
+ }
+}

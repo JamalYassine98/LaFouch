@@ -1,0 +1,827 @@
+[
+ {
+  "nome": "c00",
+  "ctx": "",
+  "itens": [
+   [
+    "¡Hola!",
+    "¡Hola!",
+    "Oi!"
+   ],
+   [
+    "Soy Mochi.",
+    "Soy Mochi.",
+    "Eu sou o Mochi."
+   ],
+   [
+    "Te voy a ayudar a encontrar la graduación de tus lentes de lectura.",
+    "Te voy a ayudar a encontrar la graduación de tus lentes de lectura.",
+    "Vou te ajudar a achar o grau do seu óculos de leitura."
+   ],
+   [
+    "Cuando quieras, solo tocá Empezar.",
+    "Cuando quieras, solo tocá Empezar.",
+    "Quando quiser, é só tocar em Começar."
+   ]
+  ],
+  "pt": "/home/claude/voz_final/pt/c00.json"
+ },
+ {
+  "nome": "c01",
+  "ctx": "",
+  "itens": [
+   [
+    "Hacé como yo: sacate los lentes…",
+    "Hacé como yo: sacate los lentes…",
+    "Faz como eu: tire os óculos…"
+   ],
+   [
+    "…y sostené el celular a 30 centímetros, un palmo.",
+    "y sostené el celular a treinta centímetros, un palmo.",
+    "…e segure o celular a 30 centímetros, um palmo."
+   ],
+   [
+    "¿Podés leer la frase acá frente a mí, sin esfuerzo?",
+    "¿Podés leer la frase acá frente a mí, sin esfuerzo?",
+    "Consegue ler a frase aqui na minha frente, sem esforço?"
+   ]
+  ],
+  "pt": "/home/claude/voz_final/pt/c01.json"
+ },
+ {
+  "nome": "c02",
+  "ctx": "",
+  "itens": [
+   [
+    "Acercá un poquito el celular.",
+    "Acercá un poquito el celular.",
+    "Chegue o celular um pouquinho mais perto."
+   ],
+   [
+    "Alejá un poquito el celular.",
+    "Alejá un poquito el celular.",
+    "Afaste um pouquinho o celular."
+   ]
+  ],
+  "pt": "/home/claude/voz_final/pt/c02.json"
+ },
+ {
+  "nome": "c03",
+  "ctx": "",
+  "itens": [
+   [
+    "¡Eso!",
+    "¡Eso!",
+    "Isso!"
+   ],
+   [
+    "¿Y esta?",
+    "¿Y esta?",
+    "E esta?"
+   ],
+   [
+    "Muy bien.",
+    "Muy bien.",
+    "Muito bem."
+   ],
+   [
+    "¿Podés esta?",
+    "¿Podés esta?",
+    "Consegue esta?"
+   ],
+   [
+    "Genial.",
+    "Genial.",
+    "Ótimo."
+   ],
+   [
+    "Ahora esta de acá.",
+    "Ahora esta de acá.",
+    "Agora esta aqui."
+   ]
+  ],
+  "pt": "/home/claude/voz_final/pt/c03.json"
+ },
+ {
+  "nome": "c04",
+  "ctx": "",
+  "itens": [
+   [
+    "Perfecto, la siguiente.",
+    "Perfecto, la siguiente.",
+    "Perfeito, próxima."
+   ],
+   [
+    "Vamos bajando…",
+    "Vamos bajando…",
+    "Vamos descendo…"
+   ],
+   [
+    "¿y esta?",
+    "¿y esta?",
+    "e esta?"
+   ],
+   [
+    "Vas muy bien.",
+    "Vas muy bien.",
+    "Você está indo bem."
+   ],
+   [
+    "Esta es un poquito más chica.",
+    "Esta es un poquito más chica.",
+    "Esta é um pouquinho menor."
+   ],
+   [
+    "Sin apuro: ¿y esta?",
+    "Sin apuro: ¿y esta?",
+    "Sem pressa: e esta?"
+   ]
+  ],
+  "pt": "/home/claude/voz_final/pt/c04.json"
+ },
+ {
+  "nome": "c05",
+  "ctx": "",
+  "itens": [
+   [
+    "Ahora viene una letra más chica.",
+    "Ahora viene una letra más chica.",
+    "Agora vem uma letra menor."
+   ],
+   [
+    "Esta es bien chiquita.",
+    "Esta es bien chiquita.",
+    "Esta é bem pequena."
+   ],
+   [
+    "¿Podés leer?",
+    "¿Podés leer?",
+    "Consegue ler?"
+   ],
+   [
+    "Esta es letra de prospecto.",
+    "Esta es letra de prospecto.",
+    "Esta é letra de bula."
+   ],
+   [
+    "La última, la más chiquita.",
+    "La última, la más chiquita.",
+    "Última, a mais pequena."
+   ]
+  ],
+  "pt": "/home/claude/voz_final/pt/c05.json"
+ },
+ {
+  "nome": "c06",
+  "ctx": "",
+  "itens": [
+   [
+    "Todo bien, es normal.",
+    "Todo bien, es normal.",
+    "Tudo bem, é normal."
+   ],
+   [
+    "No hay problema — para eso están las lentes.",
+    "No hay problema — para eso están las lentes.",
+    "Sem problema — é para isso que servem as lentes."
+   ],
+   [
+    "Bueno saberlo.",
+    "Bueno saberlo.",
+    "Ótimo saber."
+   ],
+   [
+    "Voy a buscar una lente.",
+    "Voy a buscar una lente.",
+    "Vou pegar uma lente."
+   ]
+  ],
+  "pt": "/home/claude/voz_final/pt/c06.json"
+ },
+ {
+  "nome": "c07",
+  "ctx": "",
+  "itens": [
+   [
+    "Voy a probar una un poco más fuerte.",
+    "Voy a probar una un poco más fuerte.",
+    "Vou testar uma um pouco mais forte."
+   ],
+   [
+    "Un pasito más de graduación…",
+    "Un pasito más de graduación…",
+    "Mais um passinho de grau…"
+   ],
+   [
+    "¿Podés leer la última frase?",
+    "¿Podés leer la última frase?",
+    "Consegue ler a última frase?"
+   ],
+   [
+    "¿Y ahora?",
+    "¿Y ahora?",
+    "E agora?"
+   ]
+  ],
+  "pt": "/home/claude/voz_final/pt/c07.json"
+ },
+ {
+  "nome": "c08",
+  "ctx": "",
+  "itens": [
+   [
+    "¡Leíste!",
+    "¡Leíste!",
+    "Leu!"
+   ],
+   [
+    "Ahora voy a ir sacando un poquito de graduación, hasta encontrar la más suave que todavía funciona.",
+    "Ahora voy a ir sacando un poquito de graduación, hasta encontrar la más suave que todavía funciona.",
+    "Agora vou tirando um pouquinho de grau, até achar o mais leve que ainda funciona."
+   ],
+   [
+    "Ahora una más suave.",
+    "Ahora una más suave.",
+    "Agora uma mais fraca."
+   ],
+   [
+    "Solo para estar seguros: ¿y con esta?",
+    "Solo para estar seguros: ¿y con esta?",
+    "Só para ter certeza: e com esta?"
+   ]
+  ],
+  "pt": "/home/claude/voz_final/pt/c08.json"
+ },
+ {
+  "nome": "c09",
+  "ctx": "",
+  "itens": [
+   [
+    "Sin apuro.",
+    "Sin apuro.",
+    "Sem pressa."
+   ],
+   [
+    "Si cuesta, podés decir que no podés — no hay problema.",
+    "Si cuesta, podés decir que no podés — no hay problema.",
+    "Se estiver difícil, pode dizer que não consegue — sem problema."
+   ]
+  ],
+  "pt": "/home/claude/voz_final/pt/c09.json"
+ },
+ {
+  "nome": "c10",
+  "ctx": "",
+  "itens": [
+   [
+    "¡Listo!",
+    "¡Listo!",
+    "Pronto!"
+   ],
+   [
+    "¡Buena noticia: leés bien de cerca sin lentes!",
+    "¡Buena noticia: leés bien de cerca sin lentes!",
+    "Boa notícia: você lê bem de perto sem óculos!"
+   ],
+   [
+    "Para no adivinar una graduación, conviene consultar a un oftalmólogo.",
+    "Para no adivinar una graduación, conviene consultar a un oftalmólogo.",
+    "Para não chutar um grau, vale consultar um oftalmologista."
+   ]
+  ],
+  "pt": "/home/claude/voz_final/pt/c10.json"
+ },
+ {
+  "nome": "n00",
+  "ctx": "",
+  "itens": [
+   [
+    "Antes, un aviso importante: este test es solo para lentes de lectura.",
+    "Antes, un aviso importante: este test es solo para lentes de lectura.",
+    "Antes, um aviso importante: este teste é só para óculos de leitura."
+   ],
+   [
+    "No sirve para miopía, astigmatismo ni multifocal, y no reemplaza al oftalmólogo.",
+    "No sirve para miopía, astigmatismo ni multifocal, y no reemplaza al oftalmólogo.",
+    "Não serve para miopia, astigmatismo nem multifocal, e não substitui o oftalmologista."
+   ]
+  ],
+  "pt": "/home/claude/voz_final/novas/n00.json"
+ },
+ {
+  "nome": "n01",
+  "ctx": "",
+  "itens": [
+   [
+    "¿Puedo usar la cámara?",
+    "¿Puedo usar la cámara?",
+    "Posso usar a câmera?"
+   ],
+   [
+    "Es solo para medir la distancia del celular hasta tu cara.",
+    "Es solo para medir la distancia del celular hasta tu cara.",
+    "É só para medir a distância do celular até o seu rosto."
+   ],
+   [
+    "No se graba nada.",
+    "No se graba nada.",
+    "Nada é gravado."
+   ],
+   [
+    "Si preferís, lo hacemos sin ella.",
+    "Si preferís, lo hacemos sin ella.",
+    "Se preferir, a gente faz sem."
+   ]
+  ],
+  "pt": "/home/claude/voz_final/novas/n01.json"
+ },
+ {
+  "nome": "n02",
+  "ctx": "",
+  "itens": [
+   [
+    "Solo tocá \"Permitir\" en la ventanita.",
+    "Solo tocá Permitir en la ventanita.",
+    "É só tocar em \"Permitir\" na janelinha."
+   ],
+   [
+    "¡Gracias!",
+    "¡Gracias!",
+    "Obrigado!"
+   ]
+  ],
+  "pt": "/home/claude/voz_final/novas/n02.json"
+ },
+ {
+  "nome": "n03",
+  "ctx": "",
+  "itens": [
+   [
+    "¡Está bien, no hay problema!",
+    "¡Está bien, no hay problema!",
+    "Tudo bem, sem problema!"
+   ],
+   [
+    "Vamos sin la cámara: sostené el celular a unos 30 centímetros, un palmo.",
+    "Vamos sin la cámara: sostené el celular a unos treinta centímetros, un palmo.",
+    "Vamos sem a câmera: segure o celular a uns 30 centímetros, um palmo."
+   ]
+  ],
+  "pt": "/home/claude/voz_final/novas/n03.json"
+ },
+ {
+  "nome": "n04",
+  "ctx": "",
+  "itens": [
+   [
+    "Está un poquito oscuro.",
+    "Está un poquito oscuro.",
+    "Está um pouquinho escuro."
+   ],
+   [
+    "Andá a un lugar más iluminado: con poca luz leemos peor.",
+    "Andá a un lugar más iluminado: con poca luz leemos peor.",
+    "Vá para um lugar mais iluminado: com pouca luz a gente lê pior."
+   ]
+  ],
+  "pt": "/home/claude/voz_final/novas/n04.json"
+ },
+ {
+  "nome": "n05",
+  "ctx": "",
+  "itens": [
+   [
+    "Ahora una última cosa: acercá el celular despacio y tocá cuando las letras empiecen a verse borrosas.",
+    "Ahora una última cosa: acercá el celular despacio y tocá cuando las letras empiecen a verse borrosas.",
+    "Agora uma última coisa: aproxime o celular devagar e toque quando as letras começarem a embaçar."
+   ],
+   [
+    "Sostené ahí un momento…",
+    "Sostené ahí un momento…",
+    "Segure aí um instante…"
+   ]
+  ],
+  "pt": "/home/claude/voz_final/novas/n05.json"
+ },
+ {
+  "nome": "n06",
+  "ctx": "",
+  "itens": [
+   [
+    "Salió un poco diferente.",
+    "Salió un poco diferente.",
+    "Ficou um pouco diferente."
+   ],
+   [
+    "Repitamos una vez.",
+    "Repitamos una vez.",
+    "Vamos repetir uma vez."
+   ],
+   [
+    "Las dos medidas coinciden.",
+    "Las dos medidas coinciden.",
+    "As duas medidas combinam."
+   ]
+  ],
+  "pt": "/home/claude/voz_final/novas/n06.json"
+ },
+ {
+  "nome": "tA",
+  "ctx": "Muy bien.",
+  "itens": [
+   [
+    "Con la lente +0.25. ¿Podés leer la última frase?",
+    "Con la lente cero veinticinco. ¿Podés leer la última frase?",
+    "Com a lente +0.25. Consegue ler a última frase?"
+   ],
+   [
+    "Con la lente +0.50. ¿Podés leer la última frase?",
+    "Con la lente cero cincuenta. ¿Podés leer la última frase?",
+    "Com a lente +0.50. Consegue ler a última frase?"
+   ],
+   [
+    "Con la lente +0.75. ¿Podés leer la última frase?",
+    "Con la lente cero setenta y cinco. ¿Podés leer la última frase?",
+    "Com a lente +0.75. Consegue ler a última frase?"
+   ],
+   [
+    "Con la lente +1.00. ¿Podés leer la última frase?",
+    "Con la lente uno. ¿Podés leer la última frase?",
+    "Com a lente +1.00. Consegue ler a última frase?"
+   ],
+   [
+    "Con la lente +1.25. ¿Podés leer la última frase?",
+    "Con la lente uno veinticinco. ¿Podés leer la última frase?",
+    "Com a lente +1.25. Consegue ler a última frase?"
+   ],
+   [
+    "Con la lente +1.50. ¿Podés leer la última frase?",
+    "Con la lente uno y medio. ¿Podés leer la última frase?",
+    "Com a lente +1.50. Consegue ler a última frase?"
+   ],
+   [
+    "Con la lente +1.75. ¿Podés leer la última frase?",
+    "Con la lente uno setenta y cinco. ¿Podés leer la última frase?",
+    "Com a lente +1.75. Consegue ler a última frase?"
+   ],
+   [
+    "Con la lente +2.00. ¿Podés leer la última frase?",
+    "Con la lente dos. ¿Podés leer la última frase?",
+    "Com a lente +2.00. Consegue ler a última frase?"
+   ],
+   [
+    "Con la lente +2.25. ¿Podés leer la última frase?",
+    "Con la lente dos veinticinco. ¿Podés leer la última frase?",
+    "Com a lente +2.25. Consegue ler a última frase?"
+   ],
+   [
+    "Con la lente +2.50. ¿Podés leer la última frase?",
+    "Con la lente dos y medio. ¿Podés leer la última frase?",
+    "Com a lente +2.50. Consegue ler a última frase?"
+   ],
+   [
+    "Con la lente +2.75. ¿Podés leer la última frase?",
+    "Con la lente dos setenta y cinco. ¿Podés leer la última frase?",
+    "Com a lente +2.75. Consegue ler a última frase?"
+   ],
+   [
+    "Con la lente +3.00. ¿Podés leer la última frase?",
+    "Con la lente tres. ¿Podés leer la última frase?",
+    "Com a lente +3.00. Consegue ler a última frase?"
+   ],
+   [
+    "Con la lente +3.25. ¿Podés leer la última frase?",
+    "Con la lente tres veinticinco. ¿Podés leer la última frase?",
+    "Com a lente +3.25. Consegue ler a última frase?"
+   ],
+   [
+    "Con la lente +3.50. ¿Podés leer la última frase?",
+    "Con la lente tres y medio. ¿Podés leer la última frase?",
+    "Com a lente +3.50. Consegue ler a última frase?"
+   ],
+   [
+    "Con la lente +3.75. ¿Podés leer la última frase?",
+    "Con la lente tres setenta y cinco. ¿Podés leer la última frase?",
+    "Com a lente +3.75. Consegue ler a última frase?"
+   ],
+   [
+    "Con la lente +4.00. ¿Podés leer la última frase?",
+    "Con la lente cuatro. ¿Podés leer la última frase?",
+    "Com a lente +4.00. Consegue ler a última frase?"
+   ]
+  ],
+  "pt": "/home/claude/voz_final/s93/tA.json",
+  "grau": 1
+ },
+ {
+  "nome": "tB",
+  "ctx": "Muy bien.",
+  "itens": [
+   [
+    "Con la lente +0.25. ¿Y esta?",
+    "Con la lente cero veinticinco. ¿Y esta?",
+    "Com a lente +0.25. E esta?"
+   ],
+   [
+    "Con la lente +0.50. ¿Y esta?",
+    "Con la lente cero cincuenta. ¿Y esta?",
+    "Com a lente +0.50. E esta?"
+   ],
+   [
+    "Con la lente +0.75. ¿Y esta?",
+    "Con la lente cero setenta y cinco. ¿Y esta?",
+    "Com a lente +0.75. E esta?"
+   ],
+   [
+    "Con la lente +1.00. ¿Y esta?",
+    "Con la lente uno. ¿Y esta?",
+    "Com a lente +1.00. E esta?"
+   ],
+   [
+    "Con la lente +1.25. ¿Y esta?",
+    "Con la lente uno veinticinco. ¿Y esta?",
+    "Com a lente +1.25. E esta?"
+   ],
+   [
+    "Con la lente +1.50. ¿Y esta?",
+    "Con la lente uno y medio. ¿Y esta?",
+    "Com a lente +1.50. E esta?"
+   ],
+   [
+    "Con la lente +1.75. ¿Y esta?",
+    "Con la lente uno setenta y cinco. ¿Y esta?",
+    "Com a lente +1.75. E esta?"
+   ],
+   [
+    "Con la lente +2.00. ¿Y esta?",
+    "Con la lente dos. ¿Y esta?",
+    "Com a lente +2.00. E esta?"
+   ],
+   [
+    "Con la lente +2.25. ¿Y esta?",
+    "Con la lente dos veinticinco. ¿Y esta?",
+    "Com a lente +2.25. E esta?"
+   ],
+   [
+    "Con la lente +2.50. ¿Y esta?",
+    "Con la lente dos y medio. ¿Y esta?",
+    "Com a lente +2.50. E esta?"
+   ],
+   [
+    "Con la lente +2.75. ¿Y esta?",
+    "Con la lente dos setenta y cinco. ¿Y esta?",
+    "Com a lente +2.75. E esta?"
+   ],
+   [
+    "Con la lente +3.00. ¿Y esta?",
+    "Con la lente tres. ¿Y esta?",
+    "Com a lente +3.00. E esta?"
+   ],
+   [
+    "Con la lente +3.25. ¿Y esta?",
+    "Con la lente tres veinticinco. ¿Y esta?",
+    "Com a lente +3.25. E esta?"
+   ],
+   [
+    "Con la lente +3.50. ¿Y esta?",
+    "Con la lente tres y medio. ¿Y esta?",
+    "Com a lente +3.50. E esta?"
+   ],
+   [
+    "Con la lente +3.75. ¿Y esta?",
+    "Con la lente tres setenta y cinco. ¿Y esta?",
+    "Com a lente +3.75. E esta?"
+   ],
+   [
+    "Con la lente +4.00. ¿Y esta?",
+    "Con la lente cuatro. ¿Y esta?",
+    "Com a lente +4.00. E esta?"
+   ]
+  ],
+  "pt": "/home/claude/voz_final/s93/tB.json",
+  "grau": 1
+ },
+ {
+  "nome": "tC",
+  "ctx": "Muy bien.",
+  "itens": [
+   [
+    "Esta es +0.25. ¿Y ahora?",
+    "Esta es cero veinticinco. ¿Y ahora?",
+    "Esta é +0.25. E agora?"
+   ],
+   [
+    "Esta es +0.50. ¿Y ahora?",
+    "Esta es cero cincuenta. ¿Y ahora?",
+    "Esta é +0.50. E agora?"
+   ],
+   [
+    "Esta es +0.75. ¿Y ahora?",
+    "Esta es cero setenta y cinco. ¿Y ahora?",
+    "Esta é +0.75. E agora?"
+   ],
+   [
+    "Esta es +1.00. ¿Y ahora?",
+    "Esta es uno. ¿Y ahora?",
+    "Esta é +1.00. E agora?"
+   ],
+   [
+    "Esta es +1.25. ¿Y ahora?",
+    "Esta es uno veinticinco. ¿Y ahora?",
+    "Esta é +1.25. E agora?"
+   ],
+   [
+    "Esta es +1.50. ¿Y ahora?",
+    "Esta es uno y medio. ¿Y ahora?",
+    "Esta é +1.50. E agora?"
+   ],
+   [
+    "Esta es +1.75. ¿Y ahora?",
+    "Esta es uno setenta y cinco. ¿Y ahora?",
+    "Esta é +1.75. E agora?"
+   ],
+   [
+    "Esta es +2.00. ¿Y ahora?",
+    "Esta es dos. ¿Y ahora?",
+    "Esta é +2.00. E agora?"
+   ],
+   [
+    "Esta es +2.25. ¿Y ahora?",
+    "Esta es dos veinticinco. ¿Y ahora?",
+    "Esta é +2.25. E agora?"
+   ],
+   [
+    "Esta es +2.50. ¿Y ahora?",
+    "Esta es dos y medio. ¿Y ahora?",
+    "Esta é +2.50. E agora?"
+   ],
+   [
+    "Esta es +2.75. ¿Y ahora?",
+    "Esta es dos setenta y cinco. ¿Y ahora?",
+    "Esta é +2.75. E agora?"
+   ],
+   [
+    "Esta es +3.00. ¿Y ahora?",
+    "Esta es tres. ¿Y ahora?",
+    "Esta é +3.00. E agora?"
+   ],
+   [
+    "Esta es +3.25. ¿Y ahora?",
+    "Esta es tres veinticinco. ¿Y ahora?",
+    "Esta é +3.25. E agora?"
+   ],
+   [
+    "Esta es +3.50. ¿Y ahora?",
+    "Esta es tres y medio. ¿Y ahora?",
+    "Esta é +3.50. E agora?"
+   ],
+   [
+    "Esta es +3.75. ¿Y ahora?",
+    "Esta es tres setenta y cinco. ¿Y ahora?",
+    "Esta é +3.75. E agora?"
+   ],
+   [
+    "Esta es +4.00. ¿Y ahora?",
+    "Esta es cuatro. ¿Y ahora?",
+    "Esta é +4.00. E agora?"
+   ]
+  ],
+  "pt": "/home/claude/voz_final/s93/tC.json",
+  "grau": 1
+ },
+ {
+  "nome": "tD",
+  "ctx": "Muy bien.",
+  "itens": [
+   [
+    "La graduación que mejor te va es +0.25.",
+    "La graduación que mejor te va es cero veinticinco.",
+    "O grau que mais combina com você é +0.25."
+   ],
+   [
+    "La graduación que mejor te va es +0.50.",
+    "La graduación que mejor te va es cero cincuenta.",
+    "O grau que mais combina com você é +0.50."
+   ],
+   [
+    "La graduación que mejor te va es +0.75.",
+    "La graduación que mejor te va es cero setenta y cinco.",
+    "O grau que mais combina com você é +0.75."
+   ],
+   [
+    "La graduación que mejor te va es +1.00.",
+    "La graduación que mejor te va es uno.",
+    "O grau que mais combina com você é +1.00."
+   ],
+   [
+    "La graduación que mejor te va es +1.25.",
+    "La graduación que mejor te va es uno veinticinco.",
+    "O grau que mais combina com você é +1.25."
+   ],
+   [
+    "La graduación que mejor te va es +1.50.",
+    "La graduación que mejor te va es uno y medio.",
+    "O grau que mais combina com você é +1.50."
+   ],
+   [
+    "La graduación que mejor te va es +1.75.",
+    "La graduación que mejor te va es uno setenta y cinco.",
+    "O grau que mais combina com você é +1.75."
+   ],
+   [
+    "La graduación que mejor te va es +2.00.",
+    "La graduación que mejor te va es dos.",
+    "O grau que mais combina com você é +2.00."
+   ],
+   [
+    "La graduación que mejor te va es +2.25.",
+    "La graduación que mejor te va es dos veinticinco.",
+    "O grau que mais combina com você é +2.25."
+   ],
+   [
+    "La graduación que mejor te va es +2.50.",
+    "La graduación que mejor te va es dos y medio.",
+    "O grau que mais combina com você é +2.50."
+   ],
+   [
+    "La graduación que mejor te va es +2.75.",
+    "La graduación que mejor te va es dos setenta y cinco.",
+    "O grau que mais combina com você é +2.75."
+   ],
+   [
+    "La graduación que mejor te va es +3.00.",
+    "La graduación que mejor te va es tres.",
+    "O grau que mais combina com você é +3.00."
+   ],
+   [
+    "La graduación que mejor te va es +3.25.",
+    "La graduación que mejor te va es tres veinticinco.",
+    "O grau que mais combina com você é +3.25."
+   ],
+   [
+    "La graduación que mejor te va es +3.50.",
+    "La graduación que mejor te va es tres y medio.",
+    "O grau que mais combina com você é +3.50."
+   ],
+   [
+    "La graduación que mejor te va es +3.75.",
+    "La graduación que mejor te va es tres setenta y cinco.",
+    "O grau que mais combina com você é +3.75."
+   ],
+   [
+    "La graduación que mejor te va es +4.00.",
+    "La graduación que mejor te va es cuatro.",
+    "O grau que mais combina com você é +4.00."
+   ]
+  ],
+  "pt": "/home/claude/voz_final/s93/tD.json",
+  "grau": 1
+ },
+ {
+  "nome": "tN",
+  "ctx": "Muy bien.",
+  "itens": [
+   [
+    "Solo para confirmar: ¿y esta otra?",
+    "Solo para confirmar: ¿y esta otra?",
+    "Só para confirmar: e esta outra?"
+   ],
+   [
+    "Probemos con otra frase.",
+    "Probemos con otra frase.",
+    "Vamos tentar com outra frase."
+   ],
+   [
+    "Alejaste el celular para poder leer — eso es señal de vista cansada.",
+    "Alejaste el celular para poder leer — eso es señal de vista cansada.",
+    "Você afastou o celular para conseguir ler — isso é sinal de vista cansada."
+   ],
+   [
+    "Sostenelo a un palmo y decime de nuevo.",
+    "Sostenelo a un palmo y decime de nuevo.",
+    "Segure a um palmo e me diga de novo."
+   ],
+   [
+    "Una vez más: alejá un poco y acercá de nuevo, despacio.",
+    "Una vez más: alejá un poco y acercá de nuevo, despacio.",
+    "Mais uma vez: afaste um pouco e aproxime de novo, devagar."
+   ],
+   [
+    "Una última vez, para estar seguros.",
+    "Una última vez, para estar seguros.",
+    "Uma última vez, para ter certeza."
+   ],
+   [
+    "Las medidas salieron un poco diferentes.",
+    "Las medidas salieron un poco diferentes.",
+    "As medidas ficaram um pouco diferentes."
+   ],
+   [
+    "Si dudás, quedate con el menor.",
+    "Si dudás, quedate con el menor.",
+    "Na dúvida, fique com o menor."
+   ]
+  ],
+  "pt": "/home/claude/voz_final/s93/tN.json"
+ }
+]
