@@ -339,3 +339,42 @@ exports.analise = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 10 
     return res.status(500).json({ ok: false, motivo: 'erro' });
   }
 });
+
+// ---------- "Avisarme cuando vuelva" (11/11/2026, S173-3A): e-mail na peça esgotada; 1 e-mail quando o app tira o "Esgotado" ----------
+const { onDocumentUpdated } = require('firebase-functions/v2/firestore');
+const Volta = require('./volta');
+const voltaDb = {
+  salva: (id, o) => admin.firestore().doc('voltas/' + id).set(o),
+  get: async (id) => { const d = await admin.firestore().doc('voltas/' + id).get(); return d.exists ? d.data() : null; },
+  // só igualdade (sem índice composto); o filtro "não enviado" é feito aqui
+  pendentes: async (ref) => (await admin.firestore().collection('voltas').where('ref', '==', ref).get()).docs.map((d) => Object.assign({ id: d.id }, d.data())).filter((o) => !o.env),
+  muda: (id, c) => admin.firestore().doc('voltas/' + id).update(c),
+  contaEmail: async (e) => (await admin.firestore().collection('voltas').where('email', '==', e).get()).docs.filter((d) => !d.get('env')).length,
+  inscreve: (email, lang) => Loja.inscrever(lojaDb, { email, lang }, Date.now()),
+};
+exports.volta = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 5 }, async (req, res) => {
+  if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
+  const b = req.body && typeof req.body === 'object' ? req.body : {};
+  try {
+    if (b.acao !== 'pedir') return res.status(400).json({ ok: false, motivo: 'acao' });
+    return res.json(await Volta.pedir(voltaDb, b, Date.now()));
+  } catch (e) {
+    if (e instanceof Volta.Falha) return res.status(e.status).json({ ok: false, motivo: e.motivo });
+    console.error('volta', e);
+    return res.status(500).json({ ok: false, motivo: 'erro' });
+  }
+});
+exports.voltaAvisa = onDocumentUpdated({ document: 'produtos/{ref}', region: REGIAO, secrets: [RESEND_KEY] }, async (ev) => {
+  const antes = ev.data.before.data(), depois = ev.data.after.data();
+  if (!Volta.voltou(antes, depois)) return;
+  let chave = '';
+  try { chave = RESEND_KEY.value() || ''; } catch (e) {}
+  if (!chave) return console.error('voltaAvisa: sem RESEND_KEY');
+  const envia = async (m) => {
+    const r = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + chave, 'Content-Type': 'application/json' },
+      body: JSON.stringify(Object.assign({ from: 'La Fouch <nao-responda@lafouch.com>' }, m)) });
+    if (!r.ok) throw new Error('resend ' + r.status);
+  };
+  const n = await Volta.dispara(voltaDb, envia, ev.params.ref, depois.nome, Date.now());
+  console.log('voltaAvisa', ev.params.ref, n);
+});
