@@ -1733,3 +1733,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - 11/11 11:15 Removida também media/voz/ouvir.html (PT).
 - 11/11 11:16 DONO: prévia do WhatsApp na versão Mochi. ESBOÇO S168 (work/s168/og_mochi_pt/es.jpg, 1200×630: logo, 'Descubra o grau do seu óculos de leitura' / 'Descubrí la graduación…', 'Em 1 minuto, com o Mochi · grátis, pelo celular', Mochi grande à direita). Perguntado: só nos links do teste (descubra-o-grau / descubri-tu-graduacion) ou também no lafouch.com. Aguardando.
 - 11/11 11:17 DONO: faltavam os braços do Mochi na prévia → S168 v2: Mochi capturado da consulta acenando (olhos fechados sorrindo, 2 braços). Aguardando aprovação e onde usar.
+- 11/11 11:23 DONO: manter design da v2, boca = a do esboço anterior (ω fechada sorrindo); SÓ nos links do teste do Mochi (descubra-o-grau / descubri-tu-graduacion). S168 v3 enviada (work/s168/og_mochi_pt/es.jpg; Mochi em work/s168/og_mochi_final.png). Aguardando IMPLEMENTAR.

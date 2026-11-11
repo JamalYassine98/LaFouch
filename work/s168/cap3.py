@@ -5,7 +5,7 @@ with sync_playwright() as p:
     pg.add_init_script("localStorage.setItem('lf_gzmudo','1')")
     pg.goto('http://localhost:8160/');pg.wait_for_timeout(2500);pg.evaluate("window.__lfGzAbre()");pg.wait_for_timeout(9000)
     pg.evaluate("(()=>{const m=__LFGZ.Z.m;try{m.vara(0)}catch(e){}try{m.paraGesto()}catch(e){}m.ocioso=false;try{m.acena(8)}catch(e){}})()");pg.wait_for_timeout(150)
-    for i in range(10):
+    for i in range(8):
         r=pg.evaluate("""(()=>{const m=__LFGZ.Z.m.el;const keep=new Set();let e=m;while(e){keep.add(e);e=e.parentElement}
           const st=document.getElementById('xx')||document.head.appendChild(Object.assign(document.createElement('style'),{id:'xx'}));
           st.textContent='html,body,#gw,#gzstg{background:transparent!important}';
@@ -13,6 +13,6 @@ with sync_playwright() as p:
           document.querySelectorAll('body *').forEach(x=>{if(keep.has(x))x.style.visibility=''});
           const R=m.getBoundingClientRect();return [R.left,R.top,R.width,R.height]})()""")
         x,y,w,h=r;pad=w*.45
-        pg.wait_for_timeout(180)
+        pg.wait_for_timeout(110)
         pg.screenshot(path=f'n{i}.png',omit_background=True,clip={'x':max(0,x-pad),'y':max(0,y-pad*.6),'width':w+2*pad,'height':h+pad*1.2})
     b.close()
