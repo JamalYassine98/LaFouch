@@ -1048,7 +1048,7 @@
     return s !== tks.join(' ') ? s : '';
   }
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 477;
+  var APP_BUILD = 478;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
   var APP_NOME = '5.8.4'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
@@ -22718,7 +22718,11 @@
   ICO_D.novo = '<rect x="2.5" y="9" width="8" height="7" rx="2.5"/><rect x="13.5" y="9" width="8" height="7" rx="2.5"/><path d="M10.5 11.5h3M2.5 11L1 10M21.5 11l1.5-1"/>';
   ICO_D.cont = '<path d="M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h9"/>';
   ICO_D.lotes = '<path d="M3 7l9-4 9 4-9 4zM3 12l9 4 9-4M3 17l9 4 9-4"/>';
-  var INI_PADRAO = ['estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'ajustes', 'ped', 'cli', 'cont', 'lotes'];
+  ICO_D.msg = '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>';
+  ICO_D.anl = '<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21M8 12.5v-1.5M10.5 12.5V8M13 12.5V10"/>';
+  ICO_D.tem = '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 12.6l1.2 2.3 2.5.4-1.8 1.7.4 2.5-2.3-1.2-2.3 1.2.4-2.5-1.8-1.7 2.5-.4z"/>';
+  ICO_D.ata = '<rect x="3" y="12" width="8" height="8" rx="1"/><rect x="13" y="12" width="8" height="8" rx="1"/><rect x="8" y="3.5" width="8" height="8" rx="1"/>';
+  var INI_PADRAO = ['estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'ajustes', 'ped', 'msg', 'anl', 'tem', 'ata', 'cli', 'cont', 'lotes'];
   var INI_TODOS = INI_PADRAO.concat(['vendas', 'cat', 'onl', 'novo', 'notif']);
   function iniLista() {
     // Vendas, Catálogo WhatsApp e Loja online passaram a ser abas de Produtos: saem do Início e da barra uma única vez
@@ -22765,6 +22769,17 @@
       S.inicioMkt = true;
       if (S.inicioT.indexOf('mkt') < 0) S.inicioT = S.inicioT.concat(['mkt']);
     }
+    // v-b9 (11/11/2026): quem já personalizou o Início recebe Mensagens, Analisador, Temática e Atacado uma única vez (pode esconder depois)
+    if (Array.isArray(S.inicioT) && !S.inicioB9) {
+      S.inicioB9 = true;
+      var k9 = S.inicioT.indexOf('ped');
+      ['msg', 'anl', 'tem', 'ata'].forEach(function (x, j) {
+        if (S.inicioT.indexOf(x) < 0 && !(Array.isArray(S.barra) && S.barra.indexOf(x) >= 0)) {
+          if (k9 >= 0) S.inicioT.splice(k9 + 1 + j, 0, x);
+          else S.inicioT.push(x);
+        }
+      });
+    }
     var l = Array.isArray(S.inicioT) ? S.inicioT : INI_PADRAO;
     return l.filter(function (id, i) {
       return INI_TODOS.indexOf(id) >= 0 && l.indexOf(id) === i;
@@ -22800,7 +22815,11 @@
       onl: ['Loja online', ['Catálogo e site', '']],
       notif: ['Notificações', [notifContagem() + ' avisos', notifContagem() ? 'w' : '']],
       mkt: ['Marketing', ['Posts, vídeos e plano', '']],
-      est: ['Estúdio', [estFila().length ? estFila().length + ' para fotografar' : 'fotos em dia', estFila().length ? 'w' : '']]
+      est: ['Estúdio', [estFila().length ? estFila().length + ' para fotografar' : 'fotos em dia', estFila().length ? 'w' : '']],
+      msg: ['Mensagens', pnlFaixa('msg')],
+      anl: ['Analisador', pnlFaixa('anl')],
+      tem: ['Temática', pnlFaixa('tem')],
+      ata: ['Atacado', pnlFaixa('ata')]
     };
   }
   function renderInicio() {
@@ -22878,6 +22897,8 @@
     } else if (id === 'cat') {
       S.catOpen = true;
       setView('vendas');
+    } else if (id === 'msg' || id === 'anl' || id === 'tem' || id === 'ata') {
+      onlPainel(id);
     } else if (id === 'mkt') {
       mkAbre();
     } else if (id === 'est') {
@@ -22901,7 +22922,8 @@
   var BARRA_NOME = {
     vendas: 'Catálogo', estoque: 'Inventário', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Resumo',
     din: 'Dinheiro', giro: 'Giro', prec: 'Preços', cat: 'Catálogo', ajustes: 'Ajustes', ped: 'Pedidos', onl: 'Loja',
-    cli: 'Clientes', cont: 'Contagem', lotes: 'Fornecedores', novo: 'Novo', notif: 'Avisos', mkt: 'Marketing', est: 'Estúdio'
+    cli: 'Clientes', cont: 'Contagem', lotes: 'Fornecedores', novo: 'Novo', notif: 'Avisos', mkt: 'Marketing', est: 'Estúdio',
+    msg: 'Mensagens', anl: 'Analisador', tem: 'Temática', ata: 'Atacado'
   };
   function barraLista() {
     iniLista();
@@ -22935,6 +22957,7 @@
     if (id === 'lotes') return v === 'estoque' && !!S.lotesView;
     if (id === 'vendas') return (v === 'vendas' && !(S.catOpen && grpPlana().indexOf('cat') >= 0)) || (v === 'onl' && grpPlana().indexOf('onl') < 0);
     if (id === 'estoque') return v === 'estoque' && !(S.lotesView && grpPlana().indexOf('lotes') >= 0);
+    if (id === 'msg' || id === 'anl' || id === 'tem' || id === 'ata') return v === 'onl' && S.onlAba === id;
     if (id === 'cont' || id === 'novo') return false;
     return v === id;
   }
@@ -23129,11 +23152,16 @@
     // v444: no modo cliente (iPad da loja) só existe o catálogo
     if (S.modoCli && v !== 'vendas') v = 'vendas';
     if (v !== 'fx') S._fxVisto = 0; // ao voltar para a aba Câmbio, lê a casa na hora
+    // v-b9: o voltar do celular volta para a tela anterior (cada troca de tela entra no histórico)
+    var mudou = S.view !== v;
+    S.onlAba = v === 'onl' ? window.__onlAba || '' : '';
+    window.__onlAba = '';
     S.view = v;
     if (v !== 'vendas') S.catOpen = false; // a tela do WhatsApp só existe dentro da aba de vendas: ao sair, fecha
     S.msg = '';
     try {
-      history.replaceState(null, '', '#' + v);
+      if (mudou && !window.__navVolta && location.hash !== '#' + v) history.pushState(null, '', '#' + v);
+      else history.replaceState(null, '', '#' + v);
     } catch (e) {}
     render();
     window.scrollTo(0, 0);
@@ -25317,24 +25345,28 @@
   function tm2(e, v) {
     return totalMensal() - e.valor + v;
   }
-  window.addEventListener('hashchange', function () {
+  // v-b9 (11/11/2026): o voltar do celular (ou do navegador) volta para a tela anterior
+  function navVolta() {
     var v = location.hash.slice(1);
+    // a primeira entrada (sem tela no endereço) é o Início
     if (
-      VIEWS.some(function (x) {
+      !VIEWS.some(function (x) {
         return x[0] === v;
-      }) &&
-      v !== S.view
-    ) {
-      S.view = v;
-      render();
+      })
+    )
+      v = 'inicio';
+    if (v !== S.view) {
+      window.__navVolta = true;
+      try {
+        setView(v);
+      } finally {
+        window.__navVolta = false;
+      }
     }
-  });
-  if (
-    VIEWS.some(function (x) {
-      return x[0] === location.hash.slice(1);
-    })
-  )
-    S.view = location.hash.slice(1);
+  }
+  window.addEventListener('hashchange', navVolta);
+  window.addEventListener('popstate', navVolta);
+  // v-b9: o app abre SEMPRE no Início (antes reabria a última tela guardada no endereço)
   setTimeout(fetchFx, 1200);
 
   // ================= Moedas, Caixa =================
@@ -25353,7 +25385,7 @@
   S.cambios = [{ ts: tAgo(7), de: 'pyg', para: 'usd', dado: 650000, rec: 100, difGs: -2500 }];
   S.tr = { de: 'pyg', para: 'usd', v: '300000', rec: '', edited: false };
   S.cxMsg = '';
-  // ===== Ícone único e nome sugerido para cada par de telas que vira grupo (171 pares). =====
+  // ===== Ícone único e nome sugerido para cada par de telas que vira grupo (171 pares + 82 dos botões novos de 11/11/2026). =====
   // 39 pares têm desenho próprio (GI_MAO); nos demais, a tela de maior "recipiente" (GI_REC) é o contorno e a outra aparece dentro.
   var GI_ORD = ["vendas","estoque","caixa","fx","desp","hist","hoje","din","giro","prec","cat","ajustes","ped","onl","cli","cont","lotes","novo","notif"];
   var GI_REC = ["vendas","estoque","caixa","desp","ped","onl","notif","cont","lotes","hist","hoje","cat","ajustes","prec","din","cli","giro","novo","fx"];
@@ -25363,6 +25395,11 @@
   function grpChave(a, b) {
     return GI_ORD.indexOf(a) <= GI_ORD.indexOf(b) ? a + '+' + b : b + '+' + a;
   }
+
+  // v-b9 (11/11/2026, S133): 4 botões novos (Mensagens, Analisador, Temática, Atacado) e as 82 combinações com os botões de antes e entre si
+  ["msg","anl","tem","ata"].forEach(function (k) { GI_ORD.push(k); GI_REC.push(k); });
+  Object.assign(GI_CORPO, {"msg": ["<rect x=\"2.5\" y=\"5\" width=\"19\" height=\"14\" rx=\"2\"/>", 12, 12, 0.42], "anl": ["<circle cx=\"10.5\" cy=\"10.5\" r=\"7.5\"/><path d=\"M16 16l5 5\"/>", 10.5, 10.5, 0.36], "tem": ["<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 10h18M8 3v4M16 3v4\"/>", 12, 15.5, 0.3], "ata": ["<rect x=\"3\" y=\"7\" width=\"18\" height=\"14\" rx=\"1.5\"/><path d=\"M3 11h18M10 7V4h4v3\"/>", 12, 16, 0.3]});
+  [["msg", "vendas", "Vendas e mensagens"], ["msg", "estoque", "Estoque e mensagens"], ["msg", "caixa", "Caixa e mensagens"], ["msg", "fx", "Câmbio e mensagens"], ["msg", "desp", "Despesas e mensagens"], ["msg", "hist", "Histórico e mensagens"], ["msg", "hoje", "Hoje e mensagens"], ["msg", "din", "Dinheiro e mensagens"], ["msg", "giro", "Giro e mensagens"], ["msg", "prec", "Preços e mensagens"], ["msg", "cat", "Catálogo e mensagens"], ["msg", "ajustes", "Ajustes e mensagens"], ["msg", "ped", "Atendimento online"], ["msg", "onl", "Loja e mensagens"], ["msg", "cli", "Atendimento"], ["msg", "cont", "Contagem e mensagens"], ["msg", "lotes", "Fornecedores e mensagens"], ["msg", "novo", "Novidades e mensagens"], ["msg", "notif", "Caixa de entrada"], ["anl", "vendas", "Análise de vendas"], ["anl", "estoque", "Análise do estoque"], ["anl", "caixa", "Análise do caixa"], ["anl", "fx", "Análise do câmbio"], ["anl", "desp", "Análise de gastos"], ["anl", "hist", "Histórico analisado"], ["anl", "hoje", "Hoje em números"], ["anl", "din", "Análise do dinheiro"], ["anl", "giro", "Giro analisado"], ["anl", "prec", "Análise de preços"], ["anl", "cat", "Análise do catálogo"], ["anl", "ajustes", "Ajustes e análise"], ["anl", "ped", "Análise de pedidos"], ["anl", "onl", "Análise da loja online"], ["anl", "cli", "Análise de clientes"], ["anl", "cont", "Contagem e análise"], ["anl", "lotes", "Análise de fornecedores"], ["anl", "novo", "Análise das novidades"], ["anl", "notif", "Avisos e análise"], ["tem", "vendas", "Vendas nos eventos"], ["tem", "estoque", "Estoque para eventos"], ["tem", "caixa", "Caixa nos eventos"], ["tem", "fx", "Câmbio nos eventos"], ["tem", "desp", "Gastos com eventos"], ["tem", "hist", "Histórico dos eventos"], ["tem", "hoje", "Evento de hoje"], ["tem", "din", "Dinheiro nos eventos"], ["tem", "giro", "Giro nos eventos"], ["tem", "prec", "Preços de evento"], ["tem", "cat", "Catálogo do evento"], ["tem", "ajustes", "Ajustes da temática"], ["tem", "ped", "Pedidos nos eventos"], ["tem", "onl", "Loja em clima de evento"], ["tem", "cli", "Clientes nos eventos"], ["tem", "cont", "Contagem para eventos"], ["tem", "lotes", "Compras para eventos"], ["tem", "novo", "Novidades do evento"], ["tem", "notif", "Avisos de eventos"], ["ata", "vendas", "Vendas e atacado"], ["ata", "estoque", "Estoque do atacado"], ["ata", "caixa", "Caixa do atacado"], ["ata", "fx", "Câmbio do atacado"], ["ata", "desp", "Despesas do atacado"], ["ata", "hist", "Histórico do atacado"], ["ata", "hoje", "Atacado hoje"], ["ata", "din", "Dinheiro do atacado"], ["ata", "giro", "Giro do atacado"], ["ata", "prec", "Preços de atacado"], ["ata", "cat", "Catálogo do atacado"], ["ata", "ajustes", "Ajustes do atacado"], ["ata", "ped", "Pedidos de atacado"], ["ata", "onl", "Atacado online"], ["ata", "cli", "Clientes do atacado"], ["ata", "cont", "Contagem do atacado"], ["ata", "lotes", "Atacado e fornecedores"], ["ata", "novo", "Novidades do atacado"], ["ata", "notif", "Avisos do atacado"], ["msg", "anl", "Mensagens e análise"], ["msg", "tem", "Campanhas e mensagens"], ["msg", "ata", "Atendimento do atacado"], ["anl", "tem", "Resultado dos eventos"], ["anl", "ata", "Análise do atacado"], ["tem", "ata", "Atacado nos eventos"]].forEach(function (x) { GI_NOME[grpChave(x[0], x[1])] = x[2]; });
   function grpNomeSugerido(a, b) {
     return GI_NOME[grpChave(a, b)] || '';
   }
@@ -28699,7 +28736,7 @@
     var online = navigator.onLine !== false;
     $('siteOff').hidden = online;
     $('lojaFrame').hidden = !online;
-    if (online && !$('lojaFrame').getAttribute('src')) $('lojaFrame').src = LOJA_URL;
+    if (online && !$('lojaFrame').getAttribute('src')) $('lojaFrame').src = onlUrl();
     $('siteBox').classList.toggle('full', !!S.siteFull);
     uniAbasFill();
     vitSync();
@@ -28710,6 +28747,70 @@
   ACT.lojaRecarregar = function () {
     render();
   };
+  // ===== v-b9 (11/11/2026, S133): atalhos do Início para as abas do painel (Mensagens, Analisador, Temática, Atacado) =====
+  // O painel conta as mensagens novas, os avisos do Analisador e o próximo evento e manda para o app (lfResumo); o app guarda o último resumo.
+  function onlAbaDe(id) {
+    return id === 'ata' ? { aba: 'msg', mf: 'atacado' } : id === 'msg' ? { aba: 'msg', mf: 'all' } : { aba: id, mf: '' };
+  }
+  function onlUrl() {
+    var a = S.onlAba ? onlAbaDe(S.onlAba) : null;
+    return LOJA_URL + (a ? '?aba=' + a.aba + (a.mf ? '&mf=' + a.mf : '') : '');
+  }
+  function onlPainel(id) {
+    window.__onlAba = id;
+    S.onlPend = onlAbaDe(id);
+    setView('onl');
+    var f = $('lojaFrame');
+    if (f && f._pronto) {
+      try {
+        f.contentWindow.postMessage({ lfGo: S.onlPend.aba, mf: S.onlPend.mf }, '*');
+      } catch (e) {}
+      S.onlPend = null;
+    }
+  }
+  function pnlFaixa(id) {
+    var r = S.pnlRes || {};
+    if (id === 'msg') return r.msg ? [r.msg + (r.msg === 1 ? ' nova' : ' novas'), 'w'] : ['Contato e atacado', ''];
+    if (id === 'ata') return r.ata ? [r.ata + (r.ata === 1 ? ' orçamento novo' : ' orçamentos novos'), 'w'] : ['Orçamentos', ''];
+    if (id === 'anl') return r.av ? [r.av + (r.av === 1 ? ' aviso' : ' avisos'), 'w'] : ['Visitas do site', ''];
+    var p = r.prox,
+      ag = Date.now();
+    if (p && p.fim >= ag) {
+      if (p.ini <= ag) return [p.nm + ' no ar', 'g'];
+      var d = Math.max(1, Math.ceil((p.ini - ag) / DAY));
+      return [p.nm + ' em ' + d + (d === 1 ? ' dia' : ' dias'), ''];
+    }
+    return ['Calendário do site', ''];
+  }
+  window.addEventListener('message', function (e) {
+    var f = $('lojaFrame');
+    if (!f || e.source !== f.contentWindow || !e.data) return;
+    if (e.data.lfPronto) {
+      f._pronto = true;
+      if (S.onlPend) {
+        try {
+          f.contentWindow.postMessage({ lfGo: S.onlPend.aba, mf: S.onlPend.mf }, '*');
+        } catch (x) {}
+        S.onlPend = null;
+      }
+      return;
+    }
+    if (e.data.lfResumo && typeof e.data.lfResumo === 'object') {
+      var r = e.data.lfResumo,
+        n = function (x) {
+          return Math.max(0, Math.min(999, Math.round(+x || 0)));
+        };
+      S.pnlRes = {
+        msg: n(r.msg),
+        ata: n(r.ata),
+        av: n(r.av),
+        prox: r.prox && r.prox.nm ? { nm: String(r.prox.nm).slice(0, 40), ini: +r.prox.ini || 0, fim: +r.prox.fim || 0 } : null,
+        ts: Date.now()
+      };
+      saveSoon();
+      if (S.view === 'inicio') render();
+    }
+  });
   // ===== Preço estável no site: a cotação usada nos preços do site fica travada (no mínimo 30 dias) =====
   // v426 (aprovado 04/11): cotação do SITE = cotação da loja + 2% de folga, arredondada para cima de 100 em 100.
   // Fica travada enquanto a loja estiver abaixo dela (sem prazo). Se a loja passar (a folga acabou), trava de novo na hora.
@@ -46966,7 +47067,7 @@
     if (SEED_TXT && /#test/.test(location.hash)) restaurarDados(SEED_TXT);
     S.rateio = 'custo';
     S.faixaAuto = { on: true, lim: [4, 10] };
-    S.view = 'dash';
+    S.view = 'inicio';
     saveSoon();
   }
   // ===== Render geral e persistência (localStorage + IndexedDB). =====
@@ -47219,6 +47320,8 @@
       'cliNext',
       'inicioCli',
       'inicioMkt',
+      'inicioB9',
+      'pnlRes',
       'inicioEst',
       'estMont',
       'estPerfil',
@@ -47523,7 +47626,7 @@
   if (/(^|[#&])test\b/.test(location.hash))
     window.__LF = {
       btol: btol, leitMigra: leitMigra, leitNome: leitNome, vitProduto: vitProduto, lfaFecha: lfaFecha, tipoTrocaAbre: tipoTrocaAbre,
-      barMoedas: barMoedas,
+      barMoedas: barMoedas, grpIcoPar: grpIcoPar, grpNomeSugerido: grpNomeSugerido, pnlFaixa: pnlFaixa, onlPainel: onlPainel, inicioGo: inicioGo,
       pixRecebido: pixRecebido, ofertaFim: ofertaFim, siteMaisVendidas: function () { MV_CACHE.ts = 0; return siteMaisVendidas(); }, compLeTexto: compLeTexto, fichaLinhas: fichaLinhas, impBytes: impBytes,
       animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, lmAvisaParada: lmAvisaParada, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,

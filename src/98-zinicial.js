@@ -8,6 +8,6 @@
     if (SEED_TXT && /#test/.test(location.hash)) restaurarDados(SEED_TXT);
     S.rateio = 'custo';
     S.faixaAuto = { on: true, lim: [4, 10] };
-    S.view = 'dash';
+    S.view = 'inicio';
     saveSoon();
   }

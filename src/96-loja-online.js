@@ -550,7 +550,7 @@
     var online = navigator.onLine !== false;
     $('siteOff').hidden = online;
     $('lojaFrame').hidden = !online;
-    if (online && !$('lojaFrame').getAttribute('src')) $('lojaFrame').src = LOJA_URL;
+    if (online && !$('lojaFrame').getAttribute('src')) $('lojaFrame').src = onlUrl();
     $('siteBox').classList.toggle('full', !!S.siteFull);
     uniAbasFill();
     vitSync();
@@ -561,3 +561,67 @@
   ACT.lojaRecarregar = function () {
     render();
   };
+  // ===== v-b9 (11/11/2026, S133): atalhos do Início para as abas do painel (Mensagens, Analisador, Temática, Atacado) =====
+  // O painel conta as mensagens novas, os avisos do Analisador e o próximo evento e manda para o app (lfResumo); o app guarda o último resumo.
+  function onlAbaDe(id) {
+    return id === 'ata' ? { aba: 'msg', mf: 'atacado' } : id === 'msg' ? { aba: 'msg', mf: 'all' } : { aba: id, mf: '' };
+  }
+  function onlUrl() {
+    var a = S.onlAba ? onlAbaDe(S.onlAba) : null;
+    return LOJA_URL + (a ? '?aba=' + a.aba + (a.mf ? '&mf=' + a.mf : '') : '');
+  }
+  function onlPainel(id) {
+    window.__onlAba = id;
+    S.onlPend = onlAbaDe(id);
+    setView('onl');
+    var f = $('lojaFrame');
+    if (f && f._pronto) {
+      try {
+        f.contentWindow.postMessage({ lfGo: S.onlPend.aba, mf: S.onlPend.mf }, '*');
+      } catch (e) {}
+      S.onlPend = null;
+    }
+  }
+  function pnlFaixa(id) {
+    var r = S.pnlRes || {};
+    if (id === 'msg') return r.msg ? [r.msg + (r.msg === 1 ? ' nova' : ' novas'), 'w'] : ['Contato e atacado', ''];
+    if (id === 'ata') return r.ata ? [r.ata + (r.ata === 1 ? ' orçamento novo' : ' orçamentos novos'), 'w'] : ['Orçamentos', ''];
+    if (id === 'anl') return r.av ? [r.av + (r.av === 1 ? ' aviso' : ' avisos'), 'w'] : ['Visitas do site', ''];
+    var p = r.prox,
+      ag = Date.now();
+    if (p && p.fim >= ag) {
+      if (p.ini <= ag) return [p.nm + ' no ar', 'g'];
+      var d = Math.max(1, Math.ceil((p.ini - ag) / DAY));
+      return [p.nm + ' em ' + d + (d === 1 ? ' dia' : ' dias'), ''];
+    }
+    return ['Calendário do site', ''];
+  }
+  window.addEventListener('message', function (e) {
+    var f = $('lojaFrame');
+    if (!f || e.source !== f.contentWindow || !e.data) return;
+    if (e.data.lfPronto) {
+      f._pronto = true;
+      if (S.onlPend) {
+        try {
+          f.contentWindow.postMessage({ lfGo: S.onlPend.aba, mf: S.onlPend.mf }, '*');
+        } catch (x) {}
+        S.onlPend = null;
+      }
+      return;
+    }
+    if (e.data.lfResumo && typeof e.data.lfResumo === 'object') {
+      var r = e.data.lfResumo,
+        n = function (x) {
+          return Math.max(0, Math.min(999, Math.round(+x || 0)));
+        };
+      S.pnlRes = {
+        msg: n(r.msg),
+        ata: n(r.ata),
+        av: n(r.av),
+        prox: r.prox && r.prox.nm ? { nm: String(r.prox.nm).slice(0, 40), ini: +r.prox.ini || 0, fim: +r.prox.fim || 0 } : null,
+        ts: Date.now()
+      };
+      saveSoon();
+      if (S.view === 'inicio') render();
+    }
+  });

@@ -55,7 +55,11 @@
   ICO_D.novo = '<rect x="2.5" y="9" width="8" height="7" rx="2.5"/><rect x="13.5" y="9" width="8" height="7" rx="2.5"/><path d="M10.5 11.5h3M2.5 11L1 10M21.5 11l1.5-1"/>';
   ICO_D.cont = '<path d="M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h9"/>';
   ICO_D.lotes = '<path d="M3 7l9-4 9 4-9 4zM3 12l9 4 9-4M3 17l9 4 9-4"/>';
-  var INI_PADRAO = ['estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'ajustes', 'ped', 'cli', 'cont', 'lotes'];
+  ICO_D.msg = '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>';
+  ICO_D.anl = '<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21M8 12.5v-1.5M10.5 12.5V8M13 12.5V10"/>';
+  ICO_D.tem = '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 12.6l1.2 2.3 2.5.4-1.8 1.7.4 2.5-2.3-1.2-2.3 1.2.4-2.5-1.8-1.7 2.5-.4z"/>';
+  ICO_D.ata = '<rect x="3" y="12" width="8" height="8" rx="1"/><rect x="13" y="12" width="8" height="8" rx="1"/><rect x="8" y="3.5" width="8" height="8" rx="1"/>';
+  var INI_PADRAO = ['estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'ajustes', 'ped', 'msg', 'anl', 'tem', 'ata', 'cli', 'cont', 'lotes'];
   var INI_TODOS = INI_PADRAO.concat(['vendas', 'cat', 'onl', 'novo', 'notif']);
   function iniLista() {
     // Vendas, Catálogo WhatsApp e Loja online passaram a ser abas de Produtos: saem do Início e da barra uma única vez
@@ -102,6 +106,17 @@
       S.inicioMkt = true;
       if (S.inicioT.indexOf('mkt') < 0) S.inicioT = S.inicioT.concat(['mkt']);
     }
+    // v-b9 (11/11/2026): quem já personalizou o Início recebe Mensagens, Analisador, Temática e Atacado uma única vez (pode esconder depois)
+    if (Array.isArray(S.inicioT) && !S.inicioB9) {
+      S.inicioB9 = true;
+      var k9 = S.inicioT.indexOf('ped');
+      ['msg', 'anl', 'tem', 'ata'].forEach(function (x, j) {
+        if (S.inicioT.indexOf(x) < 0 && !(Array.isArray(S.barra) && S.barra.indexOf(x) >= 0)) {
+          if (k9 >= 0) S.inicioT.splice(k9 + 1 + j, 0, x);
+          else S.inicioT.push(x);
+        }
+      });
+    }
     var l = Array.isArray(S.inicioT) ? S.inicioT : INI_PADRAO;
     return l.filter(function (id, i) {
       return INI_TODOS.indexOf(id) >= 0 && l.indexOf(id) === i;
@@ -137,7 +152,11 @@
       onl: ['Loja online', ['Catálogo e site', '']],
       notif: ['Notificações', [notifContagem() + ' avisos', notifContagem() ? 'w' : '']],
       mkt: ['Marketing', ['Posts, vídeos e plano', '']],
-      est: ['Estúdio', [estFila().length ? estFila().length + ' para fotografar' : 'fotos em dia', estFila().length ? 'w' : '']]
+      est: ['Estúdio', [estFila().length ? estFila().length + ' para fotografar' : 'fotos em dia', estFila().length ? 'w' : '']],
+      msg: ['Mensagens', pnlFaixa('msg')],
+      anl: ['Analisador', pnlFaixa('anl')],
+      tem: ['Temática', pnlFaixa('tem')],
+      ata: ['Atacado', pnlFaixa('ata')]
     };
   }
   function renderInicio() {
@@ -215,6 +234,8 @@
     } else if (id === 'cat') {
       S.catOpen = true;
       setView('vendas');
+    } else if (id === 'msg' || id === 'anl' || id === 'tem' || id === 'ata') {
+      onlPainel(id);
     } else if (id === 'mkt') {
       mkAbre();
     } else if (id === 'est') {
@@ -238,7 +259,8 @@
   var BARRA_NOME = {
     vendas: 'Catálogo', estoque: 'Inventário', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Resumo',
     din: 'Dinheiro', giro: 'Giro', prec: 'Preços', cat: 'Catálogo', ajustes: 'Ajustes', ped: 'Pedidos', onl: 'Loja',
-    cli: 'Clientes', cont: 'Contagem', lotes: 'Fornecedores', novo: 'Novo', notif: 'Avisos', mkt: 'Marketing', est: 'Estúdio'
+    cli: 'Clientes', cont: 'Contagem', lotes: 'Fornecedores', novo: 'Novo', notif: 'Avisos', mkt: 'Marketing', est: 'Estúdio',
+    msg: 'Mensagens', anl: 'Analisador', tem: 'Temática', ata: 'Atacado'
   };
   function barraLista() {
     iniLista();
@@ -272,6 +294,7 @@
     if (id === 'lotes') return v === 'estoque' && !!S.lotesView;
     if (id === 'vendas') return (v === 'vendas' && !(S.catOpen && grpPlana().indexOf('cat') >= 0)) || (v === 'onl' && grpPlana().indexOf('onl') < 0);
     if (id === 'estoque') return v === 'estoque' && !(S.lotesView && grpPlana().indexOf('lotes') >= 0);
+    if (id === 'msg' || id === 'anl' || id === 'tem' || id === 'ata') return v === 'onl' && S.onlAba === id;
     if (id === 'cont' || id === 'novo') return false;
     return v === id;
   }

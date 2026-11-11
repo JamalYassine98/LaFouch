@@ -129,9 +129,19 @@ TESTES = [
    const igual=JSON.stringify([S.items,S.sales,S.fotos])===antes;
    const bom=JSON.parse(L.backupDados()); bom.d.items=[]; const e4=L.restaurarDados(JSON.stringify(bom));
    return [!!e1&&!!e2&&!!e3, igual, e4==='', S.items.length===0]""", [True, True, True, True]),
+ ("v-b9: 4 botões novos (Mensagens, Analisador, Temática, Atacado) e as 82 combinações têm nome e ícone próprios", """
+   const V=['vendas','estoque','caixa','fx','desp','hist','hoje','din','giro','prec','cat','ajustes','ped','onl','cli','cont','lotes','novo','notif'],N=['msg','anl','tem','ata'];let n=0,ruim=[];
+   N.forEach((a,i)=>{V.concat(N.slice(i+1)).forEach(b=>{n++;const ic=L.grpIcoPar(a,b,24),nm=L.grpNomeSugerido(a,b);if(!ic||!nm||ic.indexOf('<g')<0&&ic.length<120)ruim.push(a+'+'+b)})});
+   return [n, ruim, L.grpNomeSugerido('tem','ata'), L.grpNomeSugerido('vendas','msg')]""", [82, [], 'Atacado nos eventos', 'Vendas e mensagens']),
+ ("v-b9: faixas dos botões novos usam o resumo do painel (novas, avisos, próximo evento)", """
+   const d=Date.now(); S.pnlRes=null; const a=[L.pnlFaixa('msg')[0],L.pnlFaixa('tem')[0]];
+   S.pnlRes={msg:2,ata:1,av:3,prox:{nm:'Black Friday CDE',ini:d+7.5*864e5,fim:d+10*864e5}};
+   const b=[L.pnlFaixa('msg')[0],L.pnlFaixa('ata')[0],L.pnlFaixa('anl')[0],L.pnlFaixa('tem')[0]];
+   S.pnlRes.prox.ini=d-1000; const c=L.pnlFaixa('tem'); S.pnlRes=null;
+   return [a,b,c]""", [['Contato e atacado','Calendário do site'],['2 novas','1 orçamento novo','3 avisos','Black Friday CDE em 8 dias'],['Black Friday CDE no ar','g']]),
  ("primeira abertura: app limpo com os 20 modelos do catálogo", """
    L.primeiroUso();
-   return [S.items.length>0, S.items.length<=40, S.sales.length, S.exp.length, S.cash.pyg, S.ini.rep, Object.keys(S.fotos).length>0, S.view]""", [True, True, 0, 0, 0, 0, True, 'dash']),
+   return [S.items.length>0, S.items.length<=40, S.sales.length, S.exp.length, S.cash.pyg, S.ini.rep, Object.keys(S.fotos).length>0, S.view]""", [True, True, 0, 0, 0, 0, True, 'inicio']),  # v-b9: o app abre sempre no Início
  ("piso: linha de 30% x linha de 50% (a de 50% tem piso maior e margem 0,5)", """
    L.primeiroUso(); const it=S.items[0]; S.linhaFix={}; S.linhaFix[it.ref]='f1'; S._linK=null; S._linC=null; const a=L.pisoPeca(it);
    S.linhaFix[it.ref]='f3'; S._linK=null; S._linC=null; const b=L.pisoPeca(it);
@@ -1526,9 +1536,26 @@ async def main():
             await pg.locator('#mainnav button[data-id="estoque"]').click(); await pg.wait_for_timeout(300)
             r3 = await pg.evaluate("() => window.__LF.S.view")
             total += 1
-            ok = r == ['inicio', 13] and r2 == ['dash', 'giro'] and r3 == 'estoque' and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'tela Início: 13 botões + barra levam às telas certas')
+            ok = r == ['inicio', 17] and r2 == ['dash', 'giro'] and r3 == 'estoque' and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'tela Início: 17 botões (v-b9: + Mensagens, Analisador, Temática, Atacado) + barra levam às telas certas')
             if not ok: falhas.append('inicio'); print('        veio', r, r2, r3, pg.erros)
+            await pg.close()
+
+            # v-b9: o voltar do celular volta para a tela anterior; Mensagens abre o painel na aba certa
+            pg = await pagina()
+            await pg.locator('#mainnav button[data-id="estoque"]').click(); await pg.wait_for_timeout(300)
+            await pg.locator('#mainnav button:has-text("Caixa")').click(); await pg.wait_for_timeout(300)
+            await pg.go_back(); await pg.wait_for_timeout(400)
+            r = await pg.evaluate("() => window.__LF.S.view")
+            await pg.go_back(); await pg.wait_for_timeout(400)
+            r2 = await pg.evaluate("() => window.__LF.S.view")
+            await pg.evaluate("() => { window.__LF.S.view = 'inicio'; window.__LF.render(); }"); await pg.wait_for_timeout(200)
+            await pg.locator('#v-inicio .tl[data-id="ata"]').click(); await pg.wait_for_timeout(300)
+            r3 = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.onlAba, (document.getElementById('lojaFrame') || {}).getAttribute ? document.getElementById('lojaFrame').getAttribute('src') : '']")
+            total += 1
+            ok = r == 'estoque' and r2 == 'inicio' and r3[0] == 'onl' and r3[1] == 'ata' and 'aba=msg&mf=atacado' in (r3[2] or '') and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'v-b9: voltar do celular volta para a tela anterior; atalho Atacado abre o painel em Mensagens › Atacado')
+            if not ok: falhas.append('v-b9 voltar'); print('        veio', r, r2, r3, pg.erros)
             await pg.close()
 
             # animações dos botões: barra fixa embaixo, realce deslizante, segurar para apagar
