@@ -22,7 +22,14 @@
     var ev=(document.documentElement.getAttribute('data-ev')||'').replace(/-[nd]$/,'');if(!SELO[ev])return;
     document.querySelectorAll('#home .hc .hci').forEach(function(x,k){if(k>3||x.querySelector('.evse'))return;if(getComputedStyle(x).position==='static')x.style.position='relative';var s=document.createElement('span');s.className='evse';s.textContent=SELO[ev];x.appendChild(s)});
   }
-  function vai(){fx();selo()}
+  var FX={natal:'🎄 Regalos de Navidad · retiro el mismo día',anonovo:'✨ Año nuevo, nuevo mirar',maes:'🌷 Regalos para mamá · retiro el mismo día',pais:'Regalos para papá · retiro el mismo día',bf:'⚡ Black Friday · ofertas en toda la tienda',halloween:'🎃 Semana de Halloween'};
+  function cat(){
+    var ev=(document.documentElement.getAttribute('data-ev')||'').replace(/-[nd]$/,''),g=document.getElementById('grid');if(!g||!FX[ev])return;
+    if(!g.parentNode.querySelector('.evlf')){var f=document.createElement('div');f.className='evlf';f.textContent=FX[ev];g.parentNode.insertBefore(f,g)}
+    g.querySelectorAll('.card').forEach(function(cd,k){var x=cd.querySelector('.ph');if(!x)return;var o=x.querySelector('.evse');if(k>3){if(o)o.remove();return}if(o)return;var s=document.createElement('span');s.className='evse';s.textContent=SELO[ev];x.appendChild(s)});
+  }
+  function vai(){fx();selo();cat()}
   if(document.readyState==='complete')setTimeout(vai,800);else addEventListener('load',function(){setTimeout(vai,800)});
   new MutationObserver(function(){setTimeout(vai,300)}).observe(document.documentElement,{attributes:true,attributeFilter:['data-ev']});
+  setInterval(cat,1000);
 })();

@@ -56,3 +56,11 @@ html[data-ev=natal]{--evb:#1f5c3a}html[data-ev^=anonovo]{--evb:#a8854a}html[data
 html[data-ev]:not([data-ev=bf]) .hc,html[data-ev]:not([data-ev=bf]) .hcat a{border-color:color-mix(in srgb,var(--evb) 24%,transparent);transition:border-color .2s,box-shadow .2s}
 @media (hover:hover){html[data-ev]:not([data-ev=bf]) .hc:hover,html[data-ev]:not([data-ev=bf]) .hcat a:hover{border-color:color-mix(in srgb,var(--evb) 60%,transparent);box-shadow:0 6px 18px color-mix(in srgb,var(--evb) 14%,transparent)}}
 html[data-ev]:not([data-ev=bf]) .hc:active,html[data-ev]:not([data-ev=bf]) .hcat a:active{border-color:color-mix(in srgb,var(--evb) 60%,transparent)}
+/* catálogo: mesmo contorno leve, faixa fina do tema no topo da lista, filtro escolhido na cor do tema (já usa --ac) */
+html[data-ev]:not([data-ev=bf]) #grid .card{border-color:color-mix(in srgb,var(--evb) 24%,transparent)}
+@media (hover:hover){html[data-ev]:not([data-ev=bf]) #grid .card:hover{border-color:color-mix(in srgb,var(--evb) 60%,transparent);box-shadow:0 8px 22px color-mix(in srgb,var(--evb) 14%,transparent)}}
+html[data-ev=bf]{--evb:#111}
+.evlf{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 0 14px;padding:9px 14px;border-radius:12px;font:600 13px var(--body);color:#fff;background:var(--evb);grid-column:1/-1}
+html[data-ev^=anonovo] .evlf{background:linear-gradient(135deg,#9c7a3c,#d9bd84 45%,#a8854a);color:#1f1d1a}
+html[data-ev=pais] .evlf{color:#e0b878}html[data-ev=halloween] .evlf{background:#2a1530;color:#ffb15c}html[data-ev=bf] .evlf{background:#000}
+#grid .card .ph{position:relative}#grid .card .evse{left:10px;top:42px}
