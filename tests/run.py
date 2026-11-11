@@ -3055,9 +3055,9 @@ async def main():
               S.lm.usd.v = 5800; S.siteOf = {since: n - 4 * D, ativo: false, sem: 0, refs: {}}; L.siteOfRevisa();
               const of = S.siteOf.ativo && S.siteOf.q >= 0.09;
               const ref = Object.keys(S.items.reduce((a, i) => (a[i.ref] = 1, a), {}))[0], it = S.items.find(i => i.ref === ref);
-              S.superEv = {pct: 0.9, ate: n + D, ini: n};
+              const so0 = S.siteOf; S.siteOf = {ativo: true, q: 0.9, refs: {[ref]: {extra: 0}}};
               const po = L.sitePrecoOferta(ref, 380000, 0, it.tipo);
-              S.superEv = null;
+              S.siteOf = so0;
               return [/Dólar em reais/i.test(tx), /Reposição/i.test(tx), /Registrar troca/i.test(tx), /Atualizar agora/i.test(tx), jan, tr, s1, s2, s3, of, po.de > 0 && po.n >= po.de * 0.5 - 1 && po.n < po.de]; }""")
             ok = got == [True, True, True, False, True, True, [6400, 6250], 6400, 6800, True, True] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Câmbio simples: 3 valores, reposição com selo e janelas; site = loja + 2% travado; ofertas do site com teto de 50%')

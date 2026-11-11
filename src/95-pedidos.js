@@ -91,7 +91,8 @@
       nac: nac, doc: pedTxt(f.doc, 20), nasc: pedTxt(f.nasc, 10), email: pedTxt(f.email, 80), obsC: pedTxt(f.obsC, 120), cidade: pedTxt(f.cidade, 60), end: pedTxt(f.end, 120),
       ent: f.ent === 'delivery' ? 'delivery' : 'loja', endE: pedTxt(f.endE, 160), refE: pedTxt(f.refE, 120),
       pag: pag, pg: pag ? 'pagar' : '', total: Math.max(0, Math.round(+f.total) || 0), brl: pedTxt(f.brl, 12), teste: f.teste === true,
-      uq: Math.max(0, Math.min(99, Math.round(+f.uq) || 0)), pagar: Math.max(0, Math.round(+f.pagar) || 0), depE: pedTxt(f.depE, 60)
+      uq: Math.max(0, Math.min(99, Math.round(+f.uq) || 0)), pagar: Math.max(0, Math.round(+f.pagar) || 0), depE: pedTxt(f.depE, 60),
+      l2: Math.max(0, Math.round(+f.l2) || 0)
     };
   }
   // Acha o cliente pelo telefone (ou nome) e, se não existe, cadastra. Devolve o cliente e se foi criado agora.
@@ -436,6 +437,8 @@
         '<span style="flex:1;min-width:0"><b>' + esc(l.t || l.ref) + '</b><span class="pdMt" style="display:block">' + esc(l.ref || '') + (l.cor ? ' · ' + esc(l.cor) : '') + ' · ' + l.q + '×</span></span>' +
         (l.preco ? '<b>' + gs(l.preco * l.q) + '</b>' : '') + '</button>';
     });
+    // Leve 2 do site (11/11/2026): o preço das linhas já vem com o desconto; aqui só mostra quanto foi
+    if (p.l2 > 0) h += '<div class="pdTot"><span class="pdMt">Leve 2 do site (30% na 2ª peça)</span><b>− ' + gs(p.l2) + '</b></div>';
     h += '<div class="pdTot"><span class="pdMt">Total</span><b>' + (tot ? gs(tot) : '—') + '</b></div></section>';
     h += pedAcoes(p, false);
     return h;

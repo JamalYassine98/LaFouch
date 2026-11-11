@@ -79,8 +79,9 @@
     }
     if (JSON.stringify(o) !== antes) saveSoon();
   }
+  // Super evento REMOVIDO (dono, 11/11/2026: as temáticas do site já cobrem). Fica sempre desligado.
   function superAtivo() {
-    return !!(S.superEv && S.superEv.ate > Date.now() && S.superEv.pct > 0);
+    return false;
   }
   // Desconto extra do site (fração) para um produto.
   function siteOfPct(ref) {
@@ -99,6 +100,15 @@
     });
   }
   // Preço do site com as ofertas: {n, de}. cheio/atual em guaranis da loja.
+  // Leve 2 no site (aprovado 11/11/2026): 30% na 2ª peça (a mais barata), só pré-graduado e solar.
+  // O site só recebe "pode" (l2:true) quando 70% do preço do site não fura o piso; o piso nunca vai para o site.
+  var SITE_L2 = 0.3;
+  function siteL2(ref, tipo, n) {
+    if ((tipo !== 'pre' && tipo !== 'solar') || !(n > 0)) return false;
+    var ps = pisoDoRef(ref, tipo),
+      piso = ps && ps.pp && ps.pp.piso > 0 ? sitePreco(Math.ceil(ps.pp.piso / 1000) * 1000) : 0;
+    return Math.floor((n * (1 - SITE_L2)) / SITE_ARRED) * SITE_ARRED >= piso;
+  }
   function sitePrecoOferta(ref, atual, cheio, tipo) {
     var base = sitePreco(cheio > atual ? cheio : atual),
       n = sitePreco(atual),
@@ -113,51 +123,6 @@
     if (n > base) n = base;
     return { n: n, de: n < base ? base : 0 };
   }
-  // ---- Super evento (Dashboard › Preços) ----
-  function superEvHtml() {
-    var on = superAtivo();
-    return dFold(
-      'sev',
-      'Super evento',
-      on ? '−' + Math.round(S.superEv.pct * 100) + '% em todo o site até ' + fd(S.superEv.ate) : 'só quando você organizar',
-      on ? 'var(--ok)' : 'var(--sub)',
-      '<div class="col" style="gap:10px;padding:0 14px 14px">' +
-        (on
-          ? '<div class="hint" style="margin:0">Todas as peças do site com −' + Math.round(S.superEv.pct * 100) + '% (nunca abaixo do piso). Acaba sozinho em ' + fd(S.superEv.ate) + '.</div><div><button type="button" class="mini ghost" data-act="seFim">Encerrar agora</button></div>'
-          : '<div class="hint" style="margin:0">Desconto em todas as peças do site por alguns dias (no máximo 50%, nunca abaixo do piso). Depois volta tudo sozinho.</div>' +
-            '<div class="nvg2"><label class="paIn"><span>Desconto (%)</span><input class="in" id="seP" inputmode="numeric" placeholder="Ex.: 20"></label><label class="paIn"><span>Dias</span><input class="in" id="seD" inputmode="numeric" placeholder="Ex.: 3"></label></div>' +
-            '<div><button type="button" class="mini" data-act="seIni">Começar super evento</button></div>') +
-        '</div>'
-    );
-  }
-  ACT.seIni = function () {
-    var p = parseInt(($('seP') || {}).value, 10),
-      d = parseInt(($('seD') || {}).value, 10);
-    if (!(p > 0)) {
-      popErr('Informe o desconto.');
-      return;
-    }
-    if (!(d > 0)) {
-      popErr('Informe quantos dias.');
-      return;
-    }
-    S.superEv = { pct: Math.min(50, p) / 100, ate: Date.now() + d * DAY, ini: Date.now() };
-    saveSoon();
-    try {
-      vitConfere();
-    } catch (e) {}
-    lfToast('✓ Super evento no site: −' + Math.min(50, p) + '% por ' + d + (d === 1 ? ' dia' : ' dias'));
-    render();
-  };
-  ACT.seFim = function () {
-    S.superEv = null;
-    saveSoon();
-    try {
-      vitConfere();
-    } catch (e) {}
-    lfToast('Super evento encerrado');
-    render();
-  };
   // ---- Encalhadas: paradas há 120 dias ou mais ----
   function encalhadas() {
     return paRefs()

@@ -1048,7 +1048,7 @@
     return s !== tks.join(' ') ? s : '';
   }
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 478;
+  var APP_BUILD = 479;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
   var APP_NOME = '5.8.4'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
@@ -26123,7 +26123,8 @@
       nac: nac, doc: pedTxt(f.doc, 20), nasc: pedTxt(f.nasc, 10), email: pedTxt(f.email, 80), obsC: pedTxt(f.obsC, 120), cidade: pedTxt(f.cidade, 60), end: pedTxt(f.end, 120),
       ent: f.ent === 'delivery' ? 'delivery' : 'loja', endE: pedTxt(f.endE, 160), refE: pedTxt(f.refE, 120),
       pag: pag, pg: pag ? 'pagar' : '', total: Math.max(0, Math.round(+f.total) || 0), brl: pedTxt(f.brl, 12), teste: f.teste === true,
-      uq: Math.max(0, Math.min(99, Math.round(+f.uq) || 0)), pagar: Math.max(0, Math.round(+f.pagar) || 0), depE: pedTxt(f.depE, 60)
+      uq: Math.max(0, Math.min(99, Math.round(+f.uq) || 0)), pagar: Math.max(0, Math.round(+f.pagar) || 0), depE: pedTxt(f.depE, 60),
+      l2: Math.max(0, Math.round(+f.l2) || 0)
     };
   }
   // Acha o cliente pelo telefone (ou nome) e, se não existe, cadastra. Devolve o cliente e se foi criado agora.
@@ -26468,6 +26469,8 @@
         '<span style="flex:1;min-width:0"><b>' + esc(l.t || l.ref) + '</b><span class="pdMt" style="display:block">' + esc(l.ref || '') + (l.cor ? ' · ' + esc(l.cor) : '') + ' · ' + l.q + '×</span></span>' +
         (l.preco ? '<b>' + gs(l.preco * l.q) + '</b>' : '') + '</button>';
     });
+    // Leve 2 do site (11/11/2026): o preço das linhas já vem com o desconto; aqui só mostra quanto foi
+    if (p.l2 > 0) h += '<div class="pdTot"><span class="pdMt">Leve 2 do site (30% na 2ª peça)</span><b>− ' + gs(p.l2) + '</b></div>';
     h += '<div class="pdTot"><span class="pdMt">Total</span><b>' + (tot ? gs(tot) : '—') + '</b></div></section>';
     h += pedAcoes(p, false);
     return h;
@@ -28356,6 +28359,7 @@
       n: sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).n,
       de: sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).de,
       est: v.est,
+      l2: siteL2(ref, v.tipo, sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).n),
       aviso: siteAviso(ref),
       tag: solar ? 'SOLAR' : v.tipo === 'pre' ? 'LEITURA' : 'ARMAÇÃO',
       mat: a.material || '',
@@ -28389,7 +28393,7 @@
     S.vitPend[ref] = op;
     saveSoon();
   }
-  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'desc', 'gr', 'gq', 'gc', 'gv', 'fv', 'fm', 'mr'];
+  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'desc', 'gr', 'gq', 'gc', 'gv', 'fv', 'fm', 'mr', 'l2'];
   function vitFotos(ref) {
     return vitCores(ref).map(function (c) {
       return S.fotos[ref + '|' + c.cor];
@@ -28864,9 +28868,7 @@
       '<div class="fjB"><span class="lbl">US$ 1 no site</span><b class="fjBig">' + gsRaw(L ? L.usd : vivo) + '</b><div class="hint" style="margin:0">' + (L ? 'travada em ' + fd(L.ts) + ' · ' : '') + 'loja hoje ' + gsRaw(vivo) + (folga > 0 ? ' · folga de ' + pc(folga) : '') + '</div></div>' +
       '<div class="fjB"><div class="hint" style="margin:0">Só muda quando a cotação da loja passar a do site. Se o dólar cair muito (5% por 3 dias), o app faz ofertas em poucas peças, começando pelas mais paradas, no máximo 50% de desconto.</div></div>' +
       '<div class="fjB"><span class="lbl">Ofertas do site</span>' +
-      (S.superEv && S.superEv.ate > Date.now()
-        ? '<div>Super evento: <b>−' + Math.round(S.superEv.pct * 100) + '%</b> em tudo até ' + fd(S.superEv.ate) + '</div>'
-        : of.length
+      (of.length
           ? '<div class="hint" style="margin:0 0 6px">Dólar ' + (q > 0 ? pc(q) + ' abaixo da trava' : '') + ' · ' + of.length + ' peça(s) nesta semana</div>' + of.map(function (o) {
               return '<div class="sl"><span>' + esc(pn(o.ref)) + '<small>' + esc(o.mot) + '</small></span><b>−' + Math.round(o.pct * 100) + '%</b></div>';
             }).join('')
@@ -39339,8 +39341,9 @@
     }
     if (JSON.stringify(o) !== antes) saveSoon();
   }
+  // Super evento REMOVIDO (dono, 11/11/2026: as temáticas do site já cobrem). Fica sempre desligado.
   function superAtivo() {
-    return !!(S.superEv && S.superEv.ate > Date.now() && S.superEv.pct > 0);
+    return false;
   }
   // Desconto extra do site (fração) para um produto.
   function siteOfPct(ref) {
@@ -39359,6 +39362,15 @@
     });
   }
   // Preço do site com as ofertas: {n, de}. cheio/atual em guaranis da loja.
+  // Leve 2 no site (aprovado 11/11/2026): 30% na 2ª peça (a mais barata), só pré-graduado e solar.
+  // O site só recebe "pode" (l2:true) quando 70% do preço do site não fura o piso; o piso nunca vai para o site.
+  var SITE_L2 = 0.3;
+  function siteL2(ref, tipo, n) {
+    if ((tipo !== 'pre' && tipo !== 'solar') || !(n > 0)) return false;
+    var ps = pisoDoRef(ref, tipo),
+      piso = ps && ps.pp && ps.pp.piso > 0 ? sitePreco(Math.ceil(ps.pp.piso / 1000) * 1000) : 0;
+    return Math.floor((n * (1 - SITE_L2)) / SITE_ARRED) * SITE_ARRED >= piso;
+  }
   function sitePrecoOferta(ref, atual, cheio, tipo) {
     var base = sitePreco(cheio > atual ? cheio : atual),
       n = sitePreco(atual),
@@ -39373,51 +39385,6 @@
     if (n > base) n = base;
     return { n: n, de: n < base ? base : 0 };
   }
-  // ---- Super evento (Dashboard › Preços) ----
-  function superEvHtml() {
-    var on = superAtivo();
-    return dFold(
-      'sev',
-      'Super evento',
-      on ? '−' + Math.round(S.superEv.pct * 100) + '% em todo o site até ' + fd(S.superEv.ate) : 'só quando você organizar',
-      on ? 'var(--ok)' : 'var(--sub)',
-      '<div class="col" style="gap:10px;padding:0 14px 14px">' +
-        (on
-          ? '<div class="hint" style="margin:0">Todas as peças do site com −' + Math.round(S.superEv.pct * 100) + '% (nunca abaixo do piso). Acaba sozinho em ' + fd(S.superEv.ate) + '.</div><div><button type="button" class="mini ghost" data-act="seFim">Encerrar agora</button></div>'
-          : '<div class="hint" style="margin:0">Desconto em todas as peças do site por alguns dias (no máximo 50%, nunca abaixo do piso). Depois volta tudo sozinho.</div>' +
-            '<div class="nvg2"><label class="paIn"><span>Desconto (%)</span><input class="in" id="seP" inputmode="numeric" placeholder="Ex.: 20"></label><label class="paIn"><span>Dias</span><input class="in" id="seD" inputmode="numeric" placeholder="Ex.: 3"></label></div>' +
-            '<div><button type="button" class="mini" data-act="seIni">Começar super evento</button></div>') +
-        '</div>'
-    );
-  }
-  ACT.seIni = function () {
-    var p = parseInt(($('seP') || {}).value, 10),
-      d = parseInt(($('seD') || {}).value, 10);
-    if (!(p > 0)) {
-      popErr('Informe o desconto.');
-      return;
-    }
-    if (!(d > 0)) {
-      popErr('Informe quantos dias.');
-      return;
-    }
-    S.superEv = { pct: Math.min(50, p) / 100, ate: Date.now() + d * DAY, ini: Date.now() };
-    saveSoon();
-    try {
-      vitConfere();
-    } catch (e) {}
-    lfToast('✓ Super evento no site: −' + Math.min(50, p) + '% por ' + d + (d === 1 ? ' dia' : ' dias'));
-    render();
-  };
-  ACT.seFim = function () {
-    S.superEv = null;
-    saveSoon();
-    try {
-      vitConfere();
-    } catch (e) {}
-    lfToast('Super evento encerrado');
-    render();
-  };
   // ---- Encalhadas: paradas há 120 dias ou mais ----
   function encalhadas() {
     return paRefs()
@@ -40075,7 +40042,7 @@
               '</div>'
           : ''
       );
-    h += venderNaLojaHtml() + superEvHtml(); // v426
+    h += venderNaLojaHtml(); // v426 (Super evento removido 11/11/2026)
     return h;
   }
   ACT.paTog = function () {

@@ -319,7 +319,7 @@
               '</div>'
           : ''
       );
-    h += venderNaLojaHtml() + superEvHtml(); // v426
+    h += venderNaLojaHtml(); // v426 (Super evento removido 11/11/2026)
     return h;
   }
   ACT.paTog = function () {

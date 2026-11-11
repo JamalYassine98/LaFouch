@@ -51,9 +51,7 @@
       '<div class="fjB"><span class="lbl">US$ 1 no site</span><b class="fjBig">' + gsRaw(L ? L.usd : vivo) + '</b><div class="hint" style="margin:0">' + (L ? 'travada em ' + fd(L.ts) + ' · ' : '') + 'loja hoje ' + gsRaw(vivo) + (folga > 0 ? ' · folga de ' + pc(folga) : '') + '</div></div>' +
       '<div class="fjB"><div class="hint" style="margin:0">Só muda quando a cotação da loja passar a do site. Se o dólar cair muito (5% por 3 dias), o app faz ofertas em poucas peças, começando pelas mais paradas, no máximo 50% de desconto.</div></div>' +
       '<div class="fjB"><span class="lbl">Ofertas do site</span>' +
-      (S.superEv && S.superEv.ate > Date.now()
-        ? '<div>Super evento: <b>−' + Math.round(S.superEv.pct * 100) + '%</b> em tudo até ' + fd(S.superEv.ate) + '</div>'
-        : of.length
+      (of.length
           ? '<div class="hint" style="margin:0 0 6px">Dólar ' + (q > 0 ? pc(q) + ' abaixo da trava' : '') + ' · ' + of.length + ' peça(s) nesta semana</div>' + of.map(function (o) {
               return '<div class="sl"><span>' + esc(pn(o.ref)) + '<small>' + esc(o.mot) + '</small></span><b>−' + Math.round(o.pct * 100) + '%</b></div>';
             }).join('')
