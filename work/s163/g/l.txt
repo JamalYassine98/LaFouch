@@ -1,0 +1,6 @@
+file 'r_3_teste_B_aka_00.mp3'
+file 'r_3_teste_B_aka_01.mp3'
+file 'r_3_teste_B_aka_02.mp3'
+file 'r_3_teste_B_aka_03.mp3'
+file 'r_3_teste_B_aka_04.mp3'
+file 'r_3_teste_B_aka_05.mp3'
