@@ -1,0 +1,15 @@
+#atx{font-family:var(--body);color:var(--tx);padding:14px 16px 140px;position:relative}
+#atx h2{font:600 28px/1.15 var(--display);margin:6px 0 4px}#atx .mu{color:var(--mu);font-size:14px}
+#atx .cd{background:var(--pn);border:1px solid var(--ln);border-radius:20px;padding:14px;margin:12px 0}
+#atx .pill{display:inline-block;padding:5px 11px;border-radius:99px;background:var(--hero);color:var(--ac);font:700 12px var(--body);letter-spacing:.06em}
+#atx .bt{display:block;text-align:center;padding:15px;border-radius:99px;background:linear-gradient(90deg,#7a2e5c,#b0578b);color:#fff;font-weight:700;font-size:16px}
+#atx .in{border:1.5px solid var(--ln2);border-radius:14px;padding:13px 14px;font-size:16px;color:var(--mu);background:#fff}
+#atx .code{display:flex;gap:8px;justify-content:center;margin:14px 0}#atx .code i{width:42px;height:52px;border:1.5px solid var(--ln2);border-radius:12px;display:flex;align-items:center;justify-content:center;font:700 22px var(--body);font-style:normal;background:#fff}
+#atx .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}#atx .it{background:var(--pn);border:1px solid var(--ln);border-radius:18px;overflow:hidden;position:relative}
+#atx .it img{width:100%;height:120px;object-fit:contain;background:#fff}#atx .it div{padding:8px 10px 10px;font-size:13px}#atx .it b{display:block;font-size:15px;color:var(--ac)}
+#atx .wm{position:absolute;inset:0;pointer-events:none;display:flex;align-items:center;justify-content:center;transform:rotate(-24deg);font:700 13px var(--body);color:rgba(141,58,105,.13);white-space:nowrap}
+#atx .ftb{position:fixed;left:0;right:0;bottom:0;background:var(--pn);border-top:1px solid var(--ln);padding:12px 16px 18px;box-shadow:0 -6px 20px rgba(60,20,45,.08)}
+#atx .pbar{height:8px!important;padding:0!important;border-radius:9px;background:var(--ln);overflow:hidden;margin:6px 0 10px}#atx .pbar i{display:block;height:100%;background:var(--ac)}
+#atx .cr{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--ln)}#atx .cr:first-of-type{border-top:0}#atx .cr img{width:64px;height:44px;object-fit:contain;background:#fff;border:1px solid var(--ln);border-radius:10px}
+#atx .cr .q{margin-left:auto;display:flex;align-items:center;border:1.5px solid var(--ln2);border-radius:99px}#atx .cr .q span{width:34px;text-align:center;font-weight:700;font-size:18px;color:var(--ac)}#atx .cr .q b{width:30px;text-align:center}
+#atx .tag{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 8px;border-radius:99px;background:#e9f6ee;color:var(--ok)}
