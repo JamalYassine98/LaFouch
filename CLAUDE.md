@@ -1,6 +1,7 @@
 # Regras do projeto LaFouch
 
 - Antes de qualquer trabalho, leia docs/MEMORIA-PROJETO.md (decisões do dono e pendências) e atualize-o a cada decisão nova.
+- App: antes de criar tela/botão/módulo, leia docs/APP-COMO-FUNCIONA.md e atualize-o no mesmo commit (pedido do dono, 12/11/2026).
 - Site (lafouch.com): antes de mexer, leia docs/SITE-COMO-FUNCIONA.md; ao atualizar ou modificar o site, atualize esse arquivo no mesmo commit (pedido do dono, 11/11/2026).
 
 - ATUALIZAÇÃO 27/10/2026: o dono mandou NÃO gerar APK nem instalador do Windows (economizar tokens). Só gerar quando ele pedir. Continua valendo: testes, sw.js, commit/push em main.
