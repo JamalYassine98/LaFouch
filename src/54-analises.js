@@ -411,7 +411,10 @@
         html += dxRow(
           dxNome(m),
           Math.round(m.diasParado) + ' dias sem vender · ' + m.stock + ' un. · ' + usd0(m.costUsd) + ' parados',
-          gs(m.pp.saida),
+          gs(m.pp.saida) + (function () {
+            var sd = saidaSiteAtiva(m.key.split('|').slice(1).join('|'));
+            return sd ? '<small style="display:block;color:var(--ok)">no site' + (sd.ate ? ' até ' + fd(sd.ate) : ' até vender') + '</small>' : '';
+          })(),
           '<button class="chip" data-act="saida" data-id="' + esc(m.key) + '">Vender com saída</button>'
         );
       });

@@ -408,7 +408,71 @@
     S.sugIgn[id] = d.getFullYear() + '-' + (d.getMonth() + 1);
     render();
   };
+  // S173-4 (aprovado 11/11/2026): "Vender com saída" pergunta onde vale — Só na loja (abre a venda, como antes)
+  // ou Loja + site (o preço de saída vai ao site por 7/15 dias ou até vender; termina sozinho ao vender 3).
   ACT.saida = function (key) {
+    var it = S.items.filter(function (i) {
+      return i.tipo + '|' + i.ref === key && i.qty > 0;
+    })[0];
+    if (!it) return;
+    var pp = pisoPeca(it),
+      onde = 'loja',
+      dias = 7,
+      ja = saidaSiteAtiva(it.ref);
+    lfJanela({
+      titulo: 'Vender com saída',
+      monta: function (c, J) {
+        c.innerHTML =
+          '<div class="col" style="gap:12px;padding:0 16px 16px"><div class="hint" style="margin:0">' + esc(pn(it.ref)) + ' · preço de saída <b>' + gs(pp.saida) + '</b> (nunca abaixo do piso)</div>' +
+          (ja ? '<div class="hint" style="margin:0;color:var(--ok)">Já está no site' + (ja.ate ? ' até ' + fd(ja.ate) : ' até vender') + ' · ' + saidaVendidas(it.ref, ja.ini) + '/' + (ja.max || 3) + ' vendidas. <button type="button" class="mini ghost" id="sdFim">Encerrar no site</button></div>' : '') +
+          '<div class="trk" id="sdOnde"><span class="trkTh"></span><button type="button" class="trkB" data-m="loja">Só na loja</button><button type="button" class="trkB" data-m="site">Loja + site</button></div>' +
+          '<div id="sdPz" hidden><div class="hint" style="margin:0 0 6px">Quanto tempo no site? Termina sozinho no prazo ou quando vender 3.</div><div class="trk" id="sdDias"><span class="trkTh"></span><button type="button" class="trkB" data-m="7">7 dias</button><button type="button" class="trkB" data-m="15">15 dias</button><button type="button" class="trkB" data-m="0">Até vender</button></div></div>' +
+          '<button type="button" class="btn" id="sdOk">Vender agora na loja</button></div>';
+        var to = $('sdOnde'),
+          td = $('sdDias'),
+          pz = $('sdPz'),
+          ok = $('sdOk');
+        trkMarca(to, onde);
+        trkMarca(td, String(dias));
+        to.onclick = function (e) {
+          var b = e.target.closest('.trkB');
+          if (!b) return;
+          onde = b.dataset.m;
+          trkMarca(to, onde);
+          pz.hidden = onde !== 'site';
+          if (!pz.hidden) requestAnimationFrame(function () { trkMarca(td, String(dias)); });
+          ok.textContent = onde === 'site' ? 'Pôr no site e na loja' : 'Vender agora na loja';
+        };
+        td.onclick = function (e) {
+          var b = e.target.closest('.trkB');
+          if (!b) return;
+          dias = +b.dataset.m;
+          trkMarca(td, String(dias));
+        };
+        var fim = $('sdFim');
+        if (fim)
+          fim.onclick = function () {
+            delete S.saidaSite[it.ref];
+            saveSoon();
+            try { vitConfere(); } catch (e) {}
+            J.fecha();
+            lfToast('Saída encerrada no site');
+            render();
+          };
+        ok.onclick = function () {
+          J.fecha();
+          if (onde !== 'site') return saidaLoja(key);
+          S.saidaSite = S.saidaSite || {};
+          S.saidaSite[it.ref] = { tipo: it.tipo, n: pp.saida, ini: Date.now(), ate: dias ? Date.now() + dias * DAY : 0, max: 3 };
+          saveSoon();
+          try { vitConfere(); } catch (e) {}
+          lfToast('✓ No site ' + (dias ? 'por ' + dias + ' dias' : 'até vender') + '. Na loja, use "Vender com saída" na hora da venda.');
+          render();
+        };
+      }
+    });
+  };
+  function saidaLoja(key) {
     var m = prodStats().filter(function (x) {
       return x.key === key;
     })[0];

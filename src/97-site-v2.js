@@ -30,6 +30,8 @@
   function siteOfAte(ref, o) {
     if (!(o.de > o.n)) return 0;
     if (superAtivo()) return S.superEv.ate;
+    var sd = saidaSiteAtiva(ref);
+    if (sd && sd.ate) return sd.ate;
     var pp = S.pprice && S.pprice[ref];
     return pp && pp.ant > 0 && pp.ate > Date.now() ? pp.ate : 0;
   }

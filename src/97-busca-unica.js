@@ -20,7 +20,7 @@
   function buBusca(q0) {
     var q = nrm(String(q0 || '').trim());
     if (q.length < 2) return null;
-    var R = { pec: [], cli: [], ven: [], ped: [], desp: [] },
+    var R = { fun: buFuncoes(q), pec: [], cli: [], ven: [], ped: [], desp: [] },
       vis = {};
     // peças (código, nome, cor)
     (S.items || []).forEach(function (i) {
@@ -62,10 +62,52 @@
     });
     return R;
   }
+  // Navegação 3 (aprovado 11/11/2026): a busca única também acha FUNÇÕES do app (telas, abas, ajustes) e leva até elas.
+  // [id, nome, onde fica, palavras que também acham]
+  var BU_FUN = [
+    ['vendas', 'Catálogo (vender)', 'Barra › Catálogo', 'venda vender cobrar balcao carrinho'],
+    ['estoque', 'Inventário', 'Barra › Inventário', 'estoque pecas produtos cadastro'],
+    ['repo', 'Reposição', 'Inventário › Reposição', 'repor comprar lista de compra pacotes grau leitura o que o site pediu'],
+    ['lotes', 'Fornecedores e lotes', 'Inventário › Fornecedores', 'compra lote fornecedor kazwini'],
+    ['novo', 'Cadastrar peça nova', 'Inventário › +', 'novo cadastrar adicionar entrada'],
+    ['cont', 'Contagem do estoque', 'Inventário › Contagem', 'contar conferir inventario'],
+    ['caixa', 'Caixa', 'Barra › Caixa', 'dinheiro gaveta fechar caixa sangria'],
+    ['fx', 'Câmbio', 'Início › Câmbio', 'dolar cotacao real guarani troca moeda'],
+    ['desp', 'Despesas', 'Início › Despesas', 'gasto conta aluguel luz salario'],
+    ['hist', 'Histórico de vendas', 'Início › Histórico', 'vendas antigas dia estorno'],
+    ['hoje', 'Resumo do dia', 'Números › Resumo', 'hoje vendido relatorio'],
+    ['din', 'Dinheiro e lucro', 'Números › Dinheiro', 'lucro margem financas descontos cupons'],
+    ['giro', 'Giro do estoque', 'Números › Giro', 'giro parado vitrine da semana lista de compras'],
+    ['parado', 'Estoque parado (vender com saída)', 'Números › Giro › Estoque parado', 'parado encalhado liquidacao saida vender com saida oferta'],
+    ['prec', 'Preços e faixas', 'Números › Preços', 'preco faixa piso margem tabela'],
+    ['cli', 'Clientes', 'Início › Clientes', 'cliente cadastro telefone'],
+    ['ped', 'Pedidos do site', 'Início › Pedidos', 'pedido site reserva pix'],
+    ['onl', 'Loja online (painel do site)', 'Início › Loja', 'site painel lafouch.com vitrine destaque'],
+    ['msg', 'Mensagens do site', 'Loja › Mensagens', 'contato email mensagem'],
+    ['anl', 'Analisador do site', 'Loja › Analisador', 'visitas analise relatorio semana do site'],
+    ['tem', 'Temática do site', 'Loja › Temática', 'tema natal black friday maes pais calendario'],
+    ['ata', 'Atacado', 'Loja › Atacado', 'atacado lojista revenda mayorista'],
+    ['mkt', 'Marketing', 'Início › Marketing', 'divulgar video post instagram'],
+    ['est', 'Estúdio de fotos', 'Início › Estúdio', 'foto fundo branco camera 360'],
+    ['notif', 'Avisos', 'Sino', 'aviso notificacao alerta'],
+    ['ajustes', 'Ajustes', 'Barra › Ajustes', 'configuracao nuvem backup impressora avisos de pedidos senha tema escuro']
+  ];
+  function buFuncoes(q) {
+    var out = [];
+    BU_FUN.forEach(function (f) {
+      if (out.length >= 4) return;
+      var txt = nrm(f[1] + ' ' + f[3]);
+      var ok = txt.indexOf(q) >= 0 || q.split(/\s+/).every(function (w) {
+        return w.length >= 2 && txt.indexOf(w) >= 0;
+      });
+      if (ok) out.push({ id: 'fun:' + f[0], t: f[1], s: f[2] });
+    });
+    return out;
+  }
   function buResHtml(q) {
     var R = buBusca(q);
     if (!R) return '';
-    var G = [['pec', 'Peças'], ['cli', 'Clientes'], ['ven', 'Vendas'], ['ped', 'Pedidos do site'], ['desp', 'Despesas']],
+    var G = [['fun', 'Funções'], ['pec', 'Peças'], ['cli', 'Clientes'], ['ven', 'Vendas'], ['ped', 'Pedidos do site'], ['desp', 'Despesas']],
       h = '',
       n = 0;
     G.forEach(function (g) {
@@ -118,5 +160,17 @@
       setView('hist');
       if (ACT.opendia) ACT.opendia(v);
     } else if (k === 'desp') setView('desp');
+    else if (k === 'fun') {
+      if (v === 'repo') {
+        S.repoView = true;
+        S.lotesView = false;
+        setView('estoque');
+      } else if (v === 'parado') {
+        S.dTab = 'giro';
+        S.dfold = S.dfold || {};
+        S.dfold.par = true;
+        setView('dash');
+      } else inicioGo(v);
+    }
     window.scrollTo(0, 0);
   }

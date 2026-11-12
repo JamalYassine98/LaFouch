@@ -3064,6 +3064,21 @@ async def main():
             if not ok: falhas.append('cambio simples'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # S173-4 + Leve 2 (12/11/2026): saída no site com prazo e limite de 3; Leve 2 só sem furar o piso
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, n = Date.now(), D = 864e5;
+              const it = S.items.find(i => i.qty > 0 && (i.tipo === 'pre' || i.tipo === 'solar')), ref = it.ref;
+              const p0 = L.sitePrecoOferta(ref, 380000, 0, it.tipo).n;
+              S.saidaSite = {[ref]: {tipo: it.tipo, n: 1000, ini: n, ate: n + 7 * D, max: 3}};
+              const p1 = L.sitePrecoOferta(ref, 380000, 0, it.tipo), a1 = !!L.saidaSiteAtiva(ref);
+              S.saidaSite[ref].ate = n - 1; const a2 = !!L.saidaSiteAtiva(ref);
+              S.saidaSite[ref].ate = 0; const s0 = S.sales; S.sales = [{ref, ts: n + 1, qty: 3}].concat(s0); const a3 = !!L.saidaSiteAtiva(ref); S.sales = s0; S.saidaSite = null;
+              return [p1.n < p0, p1.n >= 1000, a1, a2, a3, L.siteL2(ref, 'armacao', 380000), typeof L.siteL2(ref, it.tipo, 380000)] }""")
+            ok = got == [True, True, True, False, False, False, 'boolean'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Vender com saída no site: prazo, termina ao vender 3, piso; Leve 2 só leitura/solar')
+            if not ok: falhas.append('saida site'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Catálogo (v427): janela de ajustes — rascunho só vale no "Ver", Cancelar desfaz, filtros e bolinha
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

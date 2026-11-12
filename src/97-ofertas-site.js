@@ -7,6 +7,7 @@
   // Encalhada: parada 120+ dias — na loja o preço vai ao piso (preço automático) e entra na lista "Vender na loja".
   S.siteOf = null; // {since, ativo, sem, q, refs:{ref:{ini, extra}}}
   S.superEv = null; // {pct, ate, ini}
+  S.saidaSite = null; // S173-4: {ref: {tipo, n, ini, ate, max}} — preço de saída também no site
   S.encAv = {}; // encalhadas já avisadas no sino
   var SITE_TETO = 0.5;
   function siteQueda() {
@@ -100,6 +101,19 @@
     });
   }
   // Preço do site com as ofertas: {n, de}. cheio/atual em guaranis da loja.
+  // S173-4 (aprovado 11/11/2026): "Vender com saída" em Loja + site — o preço de saída vai ao site
+  // por 7 ou 15 dias ou até vender; termina sozinho no prazo ou quando vende 3 (nunca abaixo do piso).
+  function saidaVendidas(ref, ini) {
+    return S.sales.reduce(function (a, s) {
+      return a + (s.ref === ref && s.ts >= ini && !s.estorno ? s.qty || 1 : 0);
+    }, 0);
+  }
+  function saidaSiteAtiva(ref) {
+    var o = S.saidaSite && S.saidaSite[ref];
+    if (!o) return null;
+    if ((o.ate && o.ate <= Date.now()) || saidaVendidas(ref, o.ini) >= (o.max || 3)) return null;
+    return o;
+  }
   // Leve 2 no site (aprovado 11/11/2026): 30% na 2ª peça (a mais barata), só pré-graduado e solar.
   // O site só recebe "pode" (l2:true) quando 70% do preço do site não fura o piso; o piso nunca vai para o site.
   var SITE_L2 = 0.3;
@@ -115,6 +129,8 @@
       ex = siteOfPct(ref);
     if (!(base > 0)) return { n: n, de: 0 };
     if (ex > 0) n = Math.min(n, Math.ceil((n * (1 - ex)) / SITE_ARRED - 1e-9) * SITE_ARRED);
+    var sd = saidaSiteAtiva(ref);
+    if (sd && sd.n > 0) n = Math.min(n, sitePreco(sd.n));
     var teto = Math.ceil((base * (1 - SITE_TETO)) / SITE_ARRED - 1e-9) * SITE_ARRED;
     if (n < teto) n = teto; // nunca mais que 50% (piso não aparece no site)
     var ps = pisoDoRef(ref, tipo),

@@ -393,9 +393,10 @@
       no[r] = 1;
     });
     var agora = Date.now(),
+      fr = S.dstFraco || {},
       l = prodStats()
         .filter(function (m) {
-          return no[m.ref] && m.stock > 0;
+          return no[m.ref] && m.stock > 0 && !(fr[m.ref] > agora - 14 * DAY);
         })
         .map(function (m) {
           var d = Math.min(365, (agora - (m.last || S.appStart || agora)) / DAY);
@@ -405,16 +406,31 @@
         })
         .sort(function (a, b) {
           return b.sc - a.sc;
-        })
-        .slice(0, 6),
-      refs = l.map(function (m) {
+        }),
+      // S172-B: a lista maior de paradas (até 30) vai junto para a ordem "Vender parados"/"Equilibrada" do catálogo
+      cpar = l.slice(0, 30).map(function (m) {
+        return m.ref;
+      }),
+      cvis = (S.dstVis && S.dstVis.refs) || [],
+      refs = (l = l.slice(0, 6)).map(function (m) {
         return m.ref;
       }),
       mot = {};
     l.forEach(function (m) {
       mot[m.ref] = m.stock + (m.stock === 1 ? ' peça' : ' peças') + ' no estoque · ' + (m.last ? m.dd + ' dias sem vender' : 'ainda sem vendas');
     });
-    var chave = JSON.stringify([refs, mot]);
+    // S172-A (12/11/2026): a 1ª peça de "Girar" ficou 3 dias no destaque com poucos toques (menos de 5% das vistas,
+    // com 30 vistas ou mais) → sai por 14 dias e entra a próxima peça parada. Os números vêm do Analisador (3 dias).
+    var h = S.dstGir || {};
+    if (refs[0] && h.ref !== refs[0]) {
+      S.dstGir = { ref: refs[0], ini: agora };
+      saveSoon();
+    } else if (refs[0] && agora - (h.ini || agora) >= 3 * DAY && !(h.conf > agora - 6 * 3600000)) {
+      h.conf = agora;
+      dstConfereToques(refs[0]);
+    }
+    if (!S.dstVis || agora - S.dstVis.ts > 12 * 3600000) dstMaisVistos();
+    var chave = JSON.stringify([refs, mot, cpar, cvis]);
     if (S.nuvem.dst === chave) return Promise.resolve();
     var mf = {};
     Object.keys(mot).forEach(function (r) {
@@ -422,12 +438,54 @@
     });
     return nvApi(
       'PATCH',
-      'config/site?updateMask.fieldPaths=dauto&updateMask.fieldPaths=dmot',
-      JSON.stringify({ fields: { dauto: { stringValue: refs.join(',') }, dmot: { mapValue: { fields: mf } } } })
+      'config/site?updateMask.fieldPaths=dauto&updateMask.fieldPaths=dmot&updateMask.fieldPaths=cpar&updateMask.fieldPaths=cvis',
+      JSON.stringify({ fields: { dauto: { stringValue: refs.join(',') }, dmot: { mapValue: { fields: mf } }, cpar: { stringValue: cpar.join(',') }, cvis: { stringValue: cvis.join(',') } } })
     ).then(function () {
       S.nuvem.dst = chave;
       saveSoon();
     });
+  }
+  // S172-B: os mais vistos da semana (Analisador, 7 dias), no máximo a cada 12 h; só os códigos vão ao site
+  function dstMaisVistos() {
+    S.dstVis = { ts: Date.now(), refs: (S.dstVis && S.dstVis.refs) || [] };
+    return nvToken()
+      .then(function (t) {
+        return fetch('https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/analise', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: JSON.stringify({ acao: 'resumo', dias: 7 }) });
+      })
+      .then(function (r) {
+        return r.json();
+      })
+      .then(function (j) {
+        if (!j || !j.ok) return;
+        S.dstVis = { ts: Date.now(), refs: (j.pecas || []).slice(0, 20).map(function (x) { return x[0]; }), an: j };
+        saveSoon();
+      })
+      .catch(function () {});
+  }
+  function dstConfereToques(ref) {
+    return nvToken()
+      .then(function (t) {
+        return fetch('https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/analise', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: JSON.stringify({ acao: 'resumo', dias: 3 }) });
+      })
+      .then(function (r) {
+        return r.json();
+      })
+      .then(function (j) {
+        if (!j || !j.ok) return;
+        var v = (j.destaqueVistas || {})[ref] || 0,
+          tq = (j.destaqueToques || {})[ref] || 0;
+        if (dstFraca(v, tq)) {
+          S.dstFraco = S.dstFraco || {};
+          S.dstFraco[ref] = Date.now();
+          S.dstGir = null;
+          saveSoon();
+          nvDestaque();
+        }
+      })
+      .catch(function () {});
+  }
+  function dstFraca(v, t) {
+    return v >= 30 && t / v < 0.05;
   }
   // ---------- automático: cópia a cada ~20 h e cotação quando muda
   function nvAuto() {

@@ -2150,3 +2150,8 @@ body.modoCli #selBar{display:none!important}
 .gcPe{display:flex;gap:10px;margin-top:6px}.gcPe .tab{flex:1}.gcPe .go{flex:2}
 .gcPe .go:disabled{opacity:.45}
 .gcXcor{color:var(--bad)!important;background:none!important;border:0!important;box-shadow:none!important;min-height:0!important}
+/* S172 C e D (12/11/2026): o que o site pediu (Reposição) e "Semana do site" (Início) */
+.repSite{margin:14px 0 4px;padding:10px 12px;border:1px solid var(--line,rgba(127,127,127,.25));border-radius:14px;display:grid;gap:6px}
+.repSite .sl,.semSite .sl{display:flex;justify-content:space-between;gap:10px;font-size:14px}.semSite .sl span{white-space:nowrap}.semSite .sl b{text-align:right}
+.semSite{display:grid;gap:8px;padding:12px}
+.semG{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.semG>div{display:grid;text-align:center}.semG b{font-size:20px}.semG small{font-size:11px;opacity:.75}

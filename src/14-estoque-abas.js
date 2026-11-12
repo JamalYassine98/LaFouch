@@ -44,11 +44,14 @@
     return (t && (t.repUSD || t.pago)) || 0;
   }
   // Sugestão de pacotes por grau: esgotado ou até 3 peças = 1 pacote; 4 a 5, você decide.
-  function repSug(q) {
-    return q <= 3 ? 1 : 0;
+  // S172-C: se 20 ou mais pessoas deram esse grau no teste do Mochi (30 dias), o grau esgotado/baixo ganha 2 pacotes
+  function repSug(q, g) {
+    var b = q <= 3 ? 1 : 0;
+    if (b && g && typeof sitePedeGrau === 'function' && sitePedeGrau(g) >= SITE_PEDE_MIN) b = 2;
+    return b;
   }
   function repQtd(g, q) {
-    return S.repQ && S.repQ[g] != null ? S.repQ[g] : repSug(q);
+    return S.repQ && S.repQ[g] != null ? S.repQ[g] : repSug(q, g);
   }
   // Texto da lista de compra.
   function repTexto() {
@@ -199,6 +202,8 @@
     }
     if (!esg.length && !bai.length)
       h.appendChild(mk('div', 'note n-ok', 'Todos os graus estão com mais de ' + POUCO + ' peças.'));
+    // S172-C: o que o site pediu (teste do Mochi, esgotados visitados, buscas sem resultado)
+    if (typeof sitePediuEl === 'function') h.appendChild(sitePediuEl());
     // mix surtido: você diz o total de peças
     var mx = mk('div', 'repmix');
     mx.appendChild(mk('div', 'lbl', 'Mix surtido (qualquer grau de +0.25 a +4.00)'));

@@ -11,6 +11,11 @@ let f = 0; const ok = (c, t) => { console.log((c ? '  ok  ' : ' FALHA ') + t); i
   ok(r.visitas === 2 && r.vistas === 6 && r.pedidos === 1 && r.mochi === 1, 'totais');
   ok(r.pecas[0][0] === 'SL2210' && r.vistasSemCarrinho[0][0] === 'GR3340', 'mais vistas e vistas sem carrinho');
   ok(r.semResultado[0][0] === 'gatinho' && r.eventos.maes === 1 && r.pc === 1, 'buscas sem resultado, evento e PC');
+  const db2 = { m: {}, salva: async (id, o) => { db2.m[id] = o; }, desde: async () => Object.values(db2.m) };
+  await A.registra(db2, { id: 'vaaaaaaaa1', dv: { SL2255: 1, BR1: 3 }, dt: { SL2255: 9 }, gm: '+1.50' }, 5);
+  await A.registra(db2, { id: 'vaaaaaaaa2', dv: { SL2255: 1 }, gm: '+9.99' }, 6);
+  const r2 = await A.resumo(db2, 3, 10);
+  ok(r2.destaqueVistas.SL2255 === 2 && r2.destaqueVistas.BR1 === 1 && r2.destaqueToques.SL2255 === 5 && r2.mochiGraus.length === 1 && r2.mochiGraus[0][0] === '+1.50' && r2.dias_periodo === 3, 'destaque (vistas/toques) e grau do teste do Mochi');
   let e = ''; try { await A.registra(db, { id: '../x' }, 1) } catch (x) { e = x.motivo } ok(e === 'id', 'id inválido barrado');
   process.exit(f ? 1 : 0);
 })();
