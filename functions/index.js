@@ -547,3 +547,48 @@ exports.pix = onRequest({ region: REGIAO, cors: false, maxInstances: 2, secrets:
     return res.status(500).json({ ok: false, motivo: 'erro' });
   }
 });
+
+// ---------- S198 segurança do painel (12/11/2026): passkey, Google Authenticator, aparelhos, sair de todos ----------
+const Seg = require('./seg');
+const segDb = {
+  get: async (k) => { const d = await fsx().doc('seg/' + k).get(); return d.exists ? d.data() : null; },
+  salva: (k, o) => fsx().doc('seg/' + k).set(o),
+  muda: (k, o) => fsx().doc('seg/' + k).set(o, { merge: true }),
+  salvaDesafio: (c, ts) => fsx().doc('segDesafio/' + crypto.createHash('sha256').update(c).digest('hex').slice(0, 40)).set({ ts }),
+  usaDesafio: async (c, desde) => {
+    const r = fsx().doc('segDesafio/' + crypto.createHash('sha256').update(String(c)).digest('hex').slice(0, 40));
+    return fsx().runTransaction(async (tx) => { const d = await tx.get(r); if (!d.exists) return false; tx.delete(r); return d.data().ts >= desde; });
+  },
+};
+exports.seg = onRequest({ region: REGIAO, cors: ['https://lafouch.com'], maxInstances: 3 }, async (req, res) => {
+  if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
+  const b = req.body && typeof req.body === 'object' ? req.body : {}, agora = Date.now();
+  const wa = require('@simplewebauthn/server');
+  try {
+    // sem login: entrar com a chave de acesso (passkey)
+    if (b.acao === 'pkEntOpc') return res.json(await Seg.pkEntOpc(segDb, wa, agora));
+    if (b.acao === 'pkEnt') {
+      const r = await Seg.pkEntOk(segDb, wa, b.resp || {}, agora);
+      if (!r.ok) return res.status(403).json(r);
+      return res.json({ ok: true, nome: r.nome, token: await admin.auth().createCustomToken(DONO_UID, { pk: true }) });
+    }
+    if (!(await ehDono(req))) return res.status(403).json({ ok: false, motivo: 'sem-permissao' });
+    if (b.acao === 'totpVe') return res.json(await Seg.totpVe(segDb, b.cod, agora));
+    if (b.acao === 'totpCria') return res.json(await Seg.totpCria(segDb, agora));
+    if (b.acao === 'totpLiga') return res.json(await Seg.totpLiga(segDb, b.cod, agora));
+    if (b.acao === 'estado') {
+      const t = (await segDb.get('totp')) || {}, p = ((await segDb.get('passkeys')) || {}).L || [];
+      const ap = (await fsx().collection('logins').orderBy('ts', 'desc').limit(40).get()).docs.filter((d) => !d.id.startsWith('_l')).map((d) => Object.assign({ id: d.id }, d.data()));
+      return res.json({ ok: true, totp: !!t.seg, passkeys: p.map((x) => ({ id: x.id, nome: x.nome, ts: x.ts, uso: x.uso || 0 })), aparelhos: ap.slice(0, 20) });
+    }
+    if (b.acao === 'pkRegOpc') return res.json(await Seg.pkRegOpc(segDb, wa, agora));
+    if (b.acao === 'pkReg') return res.json(await Seg.pkRegOk(segDb, wa, b.resp || {}, b.nome, agora));
+    if (b.acao === 'pkTira') { const L = (((await segDb.get('passkeys')) || {}).L || []).filter((x) => x.id !== b.id); await segDb.salva('passkeys', { L }); return res.json({ ok: true }); }
+    if (b.acao === 'sairTodos') { await admin.auth().revokeRefreshTokens(DONO_UID); return res.json({ ok: true }); }
+    return res.status(400).json({ ok: false, motivo: 'acao' });
+  } catch (e) {
+    if (e instanceof Seg.Falha) return res.status(e.status).json({ ok: false, motivo: e.motivo });
+    console.error('seg', e);
+    return res.status(500).json({ ok: false, motivo: 'erro' });
+  }
+});
