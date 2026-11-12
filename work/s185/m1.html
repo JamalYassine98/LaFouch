@@ -1,0 +1,96 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>S185 compartilhar</title><style>
+body{margin:0;background:#efe9ec;font:15px/1.4 Inter,system-ui,sans-serif;color:#231a22}h1{font:700 30px Georgia,serif;margin:24px 28px 4px}.sub{margin:0 28px 18px;color:#6b5d67}
+.g{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:0 28px 28px}.f{background:#fff;border-radius:22px;box-shadow:0 6px 22px rgba(0,0,0,.08);overflow:hidden;display:flex;flex-direction:column}
+.cap{padding:12px 16px 16px;font-size:13.5px;color:#3b2f39}.cap b{display:block;font-size:15px;margin-bottom:3px;color:#7a2e5c}
+.ph{height:640px;position:relative;overflow:hidden;box-sizing:border-box}
+.hoje{display:flex;gap:8px;padding:10px;background:#f6f2f4;height:100%;box-sizing:border-box}.hoje img{width:50%;object-fit:contain;background:#fff;border-radius:8px}
+.x{position:absolute;background:#b3261e;color:#fff;font:700 11px Inter;padding:3px 7px;border-radius:6px}
+/* cartão varejo */
+.cv{background:#f7efe9;height:100%;padding:18px 18px 14px;box-sizing:border-box;display:flex;flex-direction:column}
+.cv .lg{display:flex;justify-content:space-between;align-items:center}.cv .lg img{height:34px}.cv .lg span{font:600 10px Inter;letter-spacing:.14em;color:#8a6a7e}
+.cv .fo{background:#fff;border-radius:18px;margin-top:10px;height:250px;display:flex;align-items:center;justify-content:center;position:relative}.cv .fo img{max-width:88%;max-height:210px}
+.cv .sel{position:absolute;left:12px;top:12px;background:#1d5236;color:#fff;font:700 11px Inter;letter-spacing:.06em;padding:5px 10px;border-radius:99px}
+.cv .nm{font:700 21px/1.15 Georgia,serif;margin-top:12px}.cv .cd{font-size:12px;color:#8a7a85;margin-top:3px;letter-spacing:.05em}
+.cv .pr{display:flex;align-items:baseline;gap:8px;margin-top:8px}.cv .pr b{font:800 26px Inter;color:#1d7a46}.cv .pr s{color:#9a8a95;font-size:14px}
+.cv .co{display:flex;gap:10px;margin-top:8px;font-size:12px;color:#6b5d67;align-items:center}.cv .co i{width:16px;height:16px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 0 0 1px #ccc;vertical-align:-3px;margin-right:4px}
+.cv .gr{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}.cv .gr span{font-size:11px;padding:3px 7px;border-radius:7px;background:#efe3ea;color:#5a3a4f}
+.cv .ft{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-size:11.5px;color:#6b5d67}.cv .ft b{display:block;color:#7a2e5c;font-size:13px}.cv .qr{width:54px;height:54px;background:repeating-conic-gradient(#231a22 0 25%,#fff 0 50%) 0 0/9px 9px;border-radius:4px;border:4px solid #fff}
+/* whatsapp */
+.wa{background:#e9dfd5;height:100%;padding:12px;box-sizing:border-box;font-size:13.5px}.wh{background:#075e54;color:#fff;margin:-12px -12px 12px;padding:12px 14px;font-weight:600}.wh small{display:block;font-weight:400;opacity:.8}
+.bb{background:#d9fdd3;border-radius:10px;padding:6px;max-width:88%;margin-left:auto;margin-bottom:10px;box-shadow:0 1px 1px rgba(0,0,0,.1)}.bb.l{background:#fff;margin-left:0}
+.pv{background:#f0f2f1;border-radius:8px;overflow:hidden}.pv .im{height:150px;background:#fff;display:flex;align-items:center;justify-content:center}.pv .im img{max-width:86%;max-height:130px}.pv .t{padding:7px 9px;font-size:12.5px}.pv .t b{display:block}.pv .t small{color:#667}
+.bb p{margin:6px 4px 2px}.bb .h{font-size:10.5px;color:#667;text-align:right}
+.lnk{color:#027eb5}
+/* página / pdf */
+.pg{background:#fff;height:100%;padding:16px;box-sizing:border-box;font-size:12px}.pg .hd{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #7a2e5c;padding-bottom:8px}.pg .hd img{height:30px}.pg .hd div{text-align:right;font-size:11px;color:#6b5d67}.pg .hd b{display:block;color:#7a2e5c;font-size:13px}
+.mr{display:grid;grid-template-columns:70px 1fr auto;gap:8px;padding:9px 0;border-bottom:1px solid #eee;align-items:center}.mr img{width:70px;height:48px;object-fit:contain;background:#f8f1f4;border-radius:6px}.mr b{font-size:12.5px}.mr small{display:block;color:#7a6d78;font-size:11px}.mr .p{text-align:right;font-weight:800;font-size:13px;color:#1d7a46}.mr .p small{font-weight:400}
+.gt{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;margin-top:4px}.gt span{background:#f3ecf0;text-align:center;font-size:9.5px;padding:2px 0;border-radius:3px}.gt span.z{color:#c3b3be}
+.st{display:flex;align-items:center;gap:6px}.st span{width:24px;height:24px;border-radius:50%;border:1.5px solid #7a2e5c;color:#7a2e5c;display:flex;align-items:center;justify-content:center;font-weight:700}.st b{min-width:18px;text-align:center}
+.go{display:block;text-align:center;padding:12px;border-radius:14px;background:#7a2e5c;color:#fff;font-weight:700;margin-top:10px}
+/* app compartilhar */
+.ap{background:#f6f2f4;height:100%;padding:14px;box-sizing:border-box;font-size:13.5px}.lb{font-size:11px;letter-spacing:.08em;color:#8a7a85;margin:10px 0 5px;text-transform:uppercase}
+.seg{display:flex;gap:4px;background:#ebe2e8;border-radius:12px;padding:3px}.seg span{flex:1;text-align:center;padding:8px 0;border-radius:9px;font-weight:600;font-size:12.5px;color:#6b5d67}.seg span.on{background:#fff;color:#7a2e5c;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.op{display:grid;grid-template-columns:1fr 1fr;gap:6px}.op span{background:#fff;border-radius:12px;padding:9px 10px;font-size:12.5px;border:1.5px solid transparent}.op span.on{border-color:#7a2e5c}.op small{display:block;color:#8a7a85;font-size:11px}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}.tbl td,.tbl th{padding:7px 8px;border-top:1px solid #eee;text-align:left;vertical-align:top}.tbl th{color:#7a2e5c}
+</style></head><body>
+<h1>S185 · Compartilhar produtos pelo WhatsApp (varejo e atacado)</h1><div class="sub">Esboço — nada implementado. Números e nomes de exemplo.</div>
+<div class="g">
+<div class="f"><div class="ph"><div class="hoje"><img src="hoje_folha.jpg"><img src="hoje_card.jpg"></div><span class="x" style="left:14px;top:150px">nomes cortados</span><span class="x" style="left:14px;top:300px">sem código nem cor</span><span class="x" style="right:16px;top:470px">nome cortado</span><span class="x" style="right:16px;top:560px">link genérico</span></div>
+<div class="cap"><b>Hoje · por que parece amador</b>Nomes cortados, sem código, cores, graus nem selo. A fonte é a do celular e não há logo. O link vai para a página inicial do site e o WhatsApp não mostra a foto da peça.</div></div>
+
+<div class="f"><div class="ph"><div class="cv"><div class="lg"><img src="logo.png"><span>RETIRO HOY · CDE</span></div><div class="fo"><span class="sel">−10% · NAVIDAD</span><img src="b95b382e346d.jpg"></div>
+<div class="nm">Lentes de lectura transparentes</div><div class="cd">GR3350 · ACETATO · RECETA</div><div class="pr"><b>Gs. 115.000</b><s>Gs. 128.000</s><span style="font-size:12px;color:#6b5d67">≈ R$ 82</span></div>
+<div class="co"><span><i style="background:#cfd6dc"></i>Transparente</span><span><i style="background:#1d1d1f"></i>Negro</span></div><div class="gr"><span>+1,00</span><span>+1,50</span><span>+2,00</span><span>+3,00</span></div>
+<div class="ft"><div><b>lafouch.com/p/GR3350</b>Galería Jebai Center · Ciudad del Este<br>Delivery a todo Paraguay</div><div class="qr"></div></div></div></div>
+<div class="cap"><b>1 · Cartão novo da peça (varejo)</b>Mesmo visual do site, com logo de verdade e nome inteiro. Traz código, preço (riscado se tem oferta), cores com nome e graus com estoque. Mostra o selo do tema quando houver e um QR para a peça. Sai em português ou espanhol e na moeda do país do cliente. Formatos post 4:5 e story 9:16.</div></div>
+
+<div class="f"><div class="ph"><div class="wa"><div class="wh">Ana Souza<small>en línea</small></div>
+<div class="bb"><div class="pv"><div class="im"><img src="b95b382e346d.jpg"></div><div class="t"><b>Lentes de lectura transparentes · Gs. 115.000</b><small>Receta +1,00 a +3,00 · retiro hoy en CDE · lafouch.com</small></div></div><p>¡Hola Ana! Te separé este modelo 😊 <span class="lnk">lafouch.com/p/GR3350</span></p><div class="h">10:42 ✓✓</div></div>
+<div class="bb l"><p>¡Qué lindo! ¿Lo tienen en +2,00?</p><div class="h">10:44</div></div></div></div>
+<div class="cap"><b>2 · Link com a foto da peça</b>Cada peça ganha um endereço próprio (lafouch.com/p/CÓDIGO), e o WhatsApp mostra a foto, o nome e o preço no próprio chat. As páginas são feitas sozinhas todo dia a partir do catálogo, como a prévia do Mochi. Funciona também em grupos e listas de transmissão.</div></div>
+
+<div class="f"><div class="ph"><div class="wa"><div class="wh">Ana Souza<small>en línea</small></div>
+<div class="bb"><div class="pv"><div class="im" style="gap:6px"><img src="b95b382e346d.jpg" style="max-width:30%"><img src="1e59e39c9c89.jpg" style="max-width:30%"><img src="80f4857cb1cf.jpg" style="max-width:30%"></div><div class="t"><b>4 modelos separados para vos, Ana</b><small>La Fouch · desde Gs. 96.000 · lafouch.com</small></div></div><p>Ana, te armé una selección 👓 <span class="lnk">lafouch.com/s/ANA7</span></p><div class="h">10:42 ✓✓</div></div>
+<div style="background:#fff;border-radius:14px;padding:10px;margin-top:6px;font-size:12px"><b style="font:700 15px Georgia,serif">Separado para vos, Ana</b><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px"><div style="background:#f8f1f4;border-radius:8px;height:58px;display:flex;align-items:center;justify-content:center"><img src="b95b382e346d.jpg" style="max-height:44px"></div><div style="background:#f8f1f4;border-radius:8px;height:58px;display:flex;align-items:center;justify-content:center"><img src="1e59e39c9c89.jpg" style="max-height:44px"></div></div><div style="margin-top:6px;color:#6b5d67">Tocá una para ver · "Lo quiero" avisa a la tienda</div></div></div></div>
+<div class="cap"><b>3 · Várias peças num link só</b>Em vez de 10 fotos soltas, vai um link com a seleção ("Separado para vos, Ana") que abre no site com as peças escolhidas. Os cartões (1) continuam como opção para quem prefere fotos.</div></div>
+
+<div class="f"><div class="ph"><div class="pg"><div class="hd"><img src="logo.png"><div><b>Catálogo mayorista</b>Tabla USD · válido hasta 30/11 · pág. 1/6</div></div>
+<div style="font-weight:700;color:#7a2e5c;margin:8px 0 2px">LECTURA · pedido mínimo 12 piezas por modelo</div>
+<div class="mr"><img src="b95b382e346d.jpg"><div><b>GR3350 · Acetato transparente</b><small>Transparente 48 · Negro 24</small><div class="gt"><span>+1,00</span><span>+1,25</span><span>+1,50</span><span>+1,75</span><span>+2,00</span><span>+2,50</span><span class="z">+3,00</span><span>+3,50</span></div></div><div class="p">US$ 4,90<small><br>caja 12</small></div></div>
+<div class="mr"><img src="b0ce33cc336d.jpg"><div><b>GR3340 · Acetato negro</b><small>Negro 60</small><div class="gt"><span>+1,00</span><span>+1,50</span><span>+2,00</span><span>+2,50</span><span>+3,00</span><span class="z">+3,50</span><span class="z">+4,00</span><span>+2,25</span></div></div><div class="p">US$ 4,50<small><br>caja 12</small></div></div>
+<div style="font-weight:700;color:#7a2e5c;margin:10px 0 2px">SOLAR</div>
+<div class="mr"><img src="3c5853357cf4.jpg"><div><b>SL2210 · Hexagonal</b><small>Negro 30 · Carey 18 · UV400</small></div><div class="p">US$ 6,80<small><br>mín. 6</small></div></div>
+<div class="mr"><img src="8c1802baa300.jpg"><div><b>SL2250 · Cuadrado metal</b><small>Dorado 24 · Plata 12</small></div><div class="p">US$ 7,40<small><br>mín. 6</small></div></div>
+<div style="margin-top:8px;font-size:11px;color:#6b5d67">WhatsApp +595 ··· · Galería Jebai Center, CDE · precios sin impuestos · envío a convenir</div></div></div>
+<div class="cap"><b>4 · Catálogo de atacado em PDF</b>Usa a tabela de atacado do app (US$, R$ ou Gs.), separado por categoria. Mostra código, cores com quantidade, grade de graus com o que tem e mínimo por modelo, com validade e número de página. Você escolhe "só com estoque a partir de N". Também sai em planilha para o lojista.</div></div>
+
+<div class="f"><div class="ph"><div class="pg" style="background:#f8f1f4"><div class="hd" style="background:#fff;margin:-16px -16px 10px;padding:12px 16px"><img src="logo.png"><div><b>Óptica Sol · lista mayorista</b>precios exclusivos · US$</div></div>
+<div style="background:#fff;border-radius:12px;padding:10px"><div class="mr" style="border:0;padding:0"><img src="b95b382e346d.jpg"><div><b>GR3350 · Transparente</b><small>US$ 4,90 · caja de 12</small></div><div class="st"><span>−</span><b>2</b><span>+</span></div></div>
+<div class="gt" style="grid-template-columns:repeat(4,1fr);margin-top:8px"><span>+1,00 · 6</span><span>+1,50 · 6</span><span>+2,00 · 6</span><span>+2,50 · 6</span></div></div>
+<div style="background:#fff;border-radius:12px;padding:10px;margin-top:8px"><div class="mr" style="border:0;padding:0"><img src="3c5853357cf4.jpg"><div><b>SL2210 · Negro</b><small>US$ 6,80 · mín. 6</small></div><div class="st"><span>−</span><b>6</b><span>+</span></div></div></div>
+<div style="background:#fff;border-radius:12px;padding:10px;margin-top:8px;display:flex;justify-content:space-between"><span>30 piezas</span><b>US$ 158,40</b></div>
+<span class="go">Enviar pedido a La Fouch</span><div style="font-size:11px;color:#6b5d67;text-align:center;margin-top:6px">Link personal de esta óptica · los precios no aparecen en el site público</div></div></div>
+<div class="cap"><b>5 · Link privado do lojista</b>Cada lojista recebe um link só dele com os preços de atacado (não aparecem no site). Ele marca as quantidades por cor e grau e toca "Enviar pedido". O pedido chega no app em Pedidos › Atacado e o link pode ser desligado quando você quiser.</div></div>
+
+<div class="f"><div class="ph"><div class="ap"><b style="font-size:17px">Compartilhar</b><div style="font-size:12px;color:#8a7a85">4 peças selecionadas</div>
+<div class="lb">Para quem</div><div class="seg"><span class="on">Cliente (varejo)</span><span>Lojista (atacado)</span></div>
+<div class="lb">Cliente</div><div class="op"><span class="on">👤 Ana Souza<small>Paraguay · Gs. · español</small></span><span>Sem nome<small>moeda e idioma: escolher</small></span></div>
+<div class="lb">O que mandar</div><div class="op"><span class="on">🔗 Link com foto<small>1 peça: prévia · várias: seleção</small></span><span>🖼️ Cartões<small>post ou story</small></span><span>📄 Catálogo PDF<small>todas ou um filtro</small></span><span>📊 Planilha<small>para lojista</small></span></div>
+<div class="lb">Mensagem</div><div style="background:#fff;border-radius:12px;padding:9px 10px;font-size:12.5px">¡Hola Ana! Te armé una selección 👓 lafouch.com/s/ANA7</div>
+<span class="go">Enviar pelo WhatsApp Business</span><div style="font-size:11px;color:#8a7a85;text-align:center;margin-top:6px">Fica registrado na ficha da Ana · o último app usado vem primeiro</div></div></div>
+<div class="cap"><b>6 · Uma tela só para compartilhar</b>Primeiro escolhe para quem: cliente ou lojista. Moeda e idioma vêm do país da pessoa. Depois escolhe o formato e vê a mensagem pronta (editável). Abre direto no WhatsApp Business. Lojista mostra os formatos 4, 5 e planilha.</div></div>
+
+<div class="f"><div class="ph"><div class="cv" style="background:#111;color:#fff"><div class="lg"><img src="logo.png" style="filter:invert(1) brightness(2)"><span style="color:#bbb">NOVEDADES DE LA SEMANA</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+<div style="background:#fff;border-radius:12px;height:120px;display:flex;align-items:center;justify-content:center"><img src="3c5853357cf4.jpg" style="max-width:86%;max-height:100px"></div><div style="background:#fff;border-radius:12px;height:120px;display:flex;align-items:center;justify-content:center"><img src="8c1802baa300.jpg" style="max-width:86%;max-height:100px"></div>
+<div style="background:#fff;border-radius:12px;height:120px;display:flex;align-items:center;justify-content:center"><img src="9afe335de059.jpg" style="max-width:86%;max-height:100px"></div><div style="background:#fff;border-radius:12px;height:120px;display:flex;align-items:center;justify-content:center"><img src="80f4857cb1cf.jpg" style="max-width:86%;max-height:100px"></div></div>
+<div style="font:700 22px Georgia,serif;margin-top:14px">4 modelos nuevos</div><div style="color:#ccc;font-size:13px;margin-top:4px">desde Gs. 118.000 · retiro hoy en CDE</div><div class="ft" style="color:#bbb"><div><b style="color:#e8b6d2">lafouch.com/s/NOV46</b>Galería Jebai Center</div><div class="qr"></div></div></div></div>
+<div class="cap"><b>7 · Capa de status e grupos</b>Para status, grupos e listas de transmissão: uma capa com 4 peças e um link da seleção (3). Uma escolha rápida pronta: "Novidades da semana", "Ofertas" e "Mais vendidas", no estilo do tema quando houver.</div></div>
+
+<div class="f" style="padding:16px 18px"><b style="color:#7a2e5c;font-size:16px">O que precisa por trás</b><table class="tbl" style="font-size:13px">
+<tr><th>Link com foto (2)</th><td>Página por peça feita sozinha 1 vez por dia (mesmo jeito da prévia do Mochi). Sem custo.</td></tr>
+<tr><th>Seleção (3, 7)</th><td>Guarda a lista no Firebase com um código curto; abre no site como "Separado para…".</td></tr>
+<tr><th>Lojista (5)</th><td>Link com código secreto por lojista; os preços de atacado ficam guardados à parte e não aparecem no site. Pedido chega no app.</td></tr>
+<tr><th>Cartões e PDF (1, 4)</th><td>Feitos no próprio app, sem internet. Fontes e logo iguais ao site.</td></tr>
+<tr><th>Custo</th><td>Nada novo pago; WhatsApp normal/Business, sem API da Meta.</td></tr></table></div>
+</div></body></html>
