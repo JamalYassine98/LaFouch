@@ -1851,3 +1851,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - 12/11 10:28 DONO: APROVADA a Ficha S190 no app (s190_app.jpg). Perguntou como funciona o envio para ATACADO.
 - 12/11 10:56 DONO (atacado no site): quer catálogo atacado privado no site, meio-termo entre B (link limitado) e C (conta): link do WhatsApp vira convite + cliente confirma e-mail com código; MAS a conta NÃO nasce sozinha: o DONO controla a conta no app. Proposta enviada (controles no app); aguardando OK para esboço realista.
 - 12/11 10:57 DONO: validade do atacado no site: cliente associado à loja (com conta, controlada pelo dono no app) = SEM VENCER; quem não é cliente associado = acesso de 3 dias. Controles no app: tabela, aparelhos 1-3, o que vê (tudo/categorias/peças), pausar, cancelar, atividade; marca d'água + aviso de aparelho novo.
+- 12/11 10:58 DONO: nome na aba Clientes = 'Conta Atacadista/Mayorista' (para não confundir com outras contas).
