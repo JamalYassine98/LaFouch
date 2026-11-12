@@ -300,6 +300,8 @@
       '<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span>Sobra do mês</span><b style="color:' + (rVal(rm, 'sobra') >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + rFmt(rm, 'sobra') + '</b></div>' +
       '<div><button type="button" class="chip" data-act="view" data-id="caixa" style="min-height:34px">Registrar retirada (Caixa)</button></div></section>';
     h += dFold('res', 'Detalhes do mês', 'receitas, despesas e resultado', rm.sobra >= 0 ? 'var(--ok)' : 'var(--bad)', resultadoHtml());
+    // S200: lucro real do mês (IVA da venda sai, IVA da compra vira custo, frete e descontos)
+    if (typeof lucroRealHtml === 'function') { var lrT = lrMes(new Date().getFullYear(), new Date().getMonth()); h += dFold('lr', 'Lucro real do mês', lrT.qty ? gs(lrT.lucro) + ' de ' + gs(lrT.vendido) + ' vendidos' : 'sem vendas ainda', lrT.lucro >= 0 ? 'var(--ok)' : 'var(--bad)', lucroRealHtml()); }
     h += dFold(
       'flx',
       'Próximos ' + (S.fluxoD || 30) + ' dias',

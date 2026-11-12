@@ -64,3 +64,8 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 
 ## Polarizado (S195, 12/11/2026)
 - Ficha da peça (`src/10-estoque-detalhe.js`, bloco de atributos): só em solar aparece "Polarizado?" (Polarizado / Não polarizado) em `S.attr[ref].polarizado`. `vitProduto` (`src/96-loja-online.js`) manda `pol` (true/false; vazio = null, aí o site olha o nome). `pol` está em `VIT_CAMPOS`.
+
+## Lucro real (S200, 12/11/2026)
+- `src/97y-lucro-real.js`: `lrVenda(venda)` = preço ÷ 1,10 (IVA da venda sai) − custo (`rep`, já com o frete da compra rateado no lote) − IVA da compra (10% do custo; `S.ivaCompraPct` muda) − taxa − frete da entrega pago pela loja (`freteLoja`); desconto (cupom/Leve 2) já está no preço. Sem crédito fiscal.
+- Ficha da peça (inventário): cartão recolhível `.lrcard` no fim (`renderDetail` embrulhado) com a conta da última venda (ou do preço de hoje) e "Se vender com…" (cupom 10%, Leve 2, delivery se houver `S.fretes`).
+- Dinheiro (Números › Dinheiro): dobra "Lucro real do mês" (`lucroRealHtml`, `lrMes`) com IVA, custo+IVA da compra, taxas, fretes, descontos e as peças de mais/menos lucro (toque abre a peça: `ACT.lrpeca`).
