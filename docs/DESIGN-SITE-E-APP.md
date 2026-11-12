@@ -3,7 +3,7 @@ Use isto + o kit (work/kit/kit.py) em vez de simular do zero. Fotos de referênc
 
 ## Kit de esboço realista
 - `python3 work/kit/kit.py site <tela> saida.png [inject.js|inject.html] [--y 600] [--es]`
-  telas: home, produto (peça de teste KIT3C com 3 cores), carrinho, entrega, delivery (conta de teste logada com endereço salvo), conta, atacado.
+  telas: home, produto (peça de teste KIT3C com 3 cores), carrinho, entrega, delivery (conta de teste logada com endereço salvo), pagamento, conta, atacado.
   - `.js` = função `(a)=>{...}` rodada na tela real: acrescentar cartões com as classes do site (ver abaixo). Melhor opção: fica idêntico.
   - `.html` = tela nova abaixo do cabeçalho real, com `site-comp.css` (prefixo `#atx`).
 - `python3 work/kit/kit.py app <tela> saida.png [inject.html] [--escuro]` — tela real do app (#test, dados de exemplo); `.html` = tela cheia com `app-comp.css` (prefixo `#fx`).

@@ -4,7 +4,7 @@ uso:
   python3 work/kit/kit.py site <tela> <saida.png> [inject.js|inject.html] [--y N] [--es]
   python3 work/kit/kit.py app  <tela> <saida.png> [inject.html] [--escuro]
   python3 work/kit/kit.py prancha <saida.jpg> "Título" "sub" tela1.png:"Título 1":"sub 1" ...
-telas do site: home produto carrinho entrega delivery conta atacado
+telas do site: home produto carrinho entrega delivery pagamento conta atacado
 telas do app : inicio estoque caixa clientes ped hist ajustes fx desp dash (qualquer id de setView)
 inject .html no site = vira <main> abaixo do cabeçalho (classes reais do site + site-comp.css, prefixo #atx)
 inject .js  no site = função JS (a)=>{...} rodada na tela real (para acrescentar cartões .cfo/.note/.cfc)
@@ -37,15 +37,16 @@ def site(tela,out,inj=None,y=0,es=False):
     prep_site(); serve(SITE,PS); U=f'http://localhost:{PS}/'
     with sync_playwright() as pw:
         b,c=ctx(pw,'es-PY' if es else 'pt-BR')
-        logado=tela in ('entrega','delivery','conta')
+        logado=tela in ('entrega','delivery','pagamento','conta')
         c.add_init_script("localStorage.setItem('lf_lang',%r);"%('es' if es else 'pt')+("localStorage.setItem('lf_conta',%r);localStorage.setItem('lf_auth',%r);"%(CONTA,AUTH) if logado else "")+"try{sessionStorage.setItem('lf_ni','1')}catch(e){}")
         pg=c.new_page(); pg.goto(U+'?kit=1'); pg.wait_for_timeout(1800)
         def abre(ref): pg.evaluate("r=>{const e=document.querySelector('[data-open=\"'+r+'\"]');e&&e.click()}",ref); pg.wait_for_timeout(1100)
         if tela=='produto': abre('KIT3C')
-        elif tela in ('carrinho','entrega','delivery'):
+        elif tela in ('carrinho','entrega','delivery','pagamento'):
             abre('SL2210'); [e for e in pg.query_selector_all('button') if e.is_visible() and 'Comprar' in (e.inner_text() or '')][0].click(); pg.wait_for_timeout(1100)
             pg.click('text=Finalizar compra'); pg.wait_for_timeout(1100)
             if tela!='carrinho': pg.click('text=Prosseguir com o pagamento'); pg.wait_for_timeout(1100)
+            if tela=='pagamento': pg.click('text=Forma de pagamento'); pg.wait_for_timeout(1300)
             if tela=='delivery': pg.evaluate("(document.querySelector('button.cfo[data-ent=delivery]')||[...document.querySelectorAll('button')].find(b=>/^Delivery/.test(b.innerText.trim()))).click()"); pg.wait_for_timeout(900)
         elif tela=='conta': pg.evaluate("(document.querySelector('[aria-label*=\"onta\"]')||{click(){}}).click()"); pg.wait_for_timeout(1100)
         elif tela=='atacado': pg.goto(U+'?r=atacado'); pg.wait_for_timeout(1600)
