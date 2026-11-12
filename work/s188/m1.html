@@ -1,0 +1,60 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><style>
+body{margin:0;background:#efe9ec;font:15px/1.4 Inter,system-ui,sans-serif;color:#231a22}h1{font:700 30px Georgia,serif;margin:24px 28px 4px}.sub{margin:0 28px 18px;color:#6b5d67}
+.g{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:0 28px 26px}.f{background:#fff;border-radius:22px;box-shadow:0 6px 22px rgba(0,0,0,.08);overflow:hidden;display:flex;flex-direction:column}
+.cap{padding:12px 16px 16px;font-size:13.5px;color:#3b2f39}.cap b{display:block;font-size:15px;margin-bottom:3px;color:#7a2e5c}
+.ph{height:660px;background:#f6f2f4;padding:14px;box-sizing:border-box;overflow:hidden;position:relative;font-size:13.5px}
+.hd{display:flex;align-items:center;gap:10px;margin-bottom:10px}.av{width:40px;height:40px;border-radius:50%;background:#7a2e5c;color:#fff;display:flex;align-items:center;justify-content:center;font:700 16px Georgia}.hd b{display:block;font-size:16px}.hd small{color:#8a7a85}
+.c{background:#fff;border-radius:14px;padding:10px 12px;margin-bottom:8px}.c h5{margin:0 0 6px;font-size:11.5px;color:#8a7a85;letter-spacing:.08em;text-transform:uppercase}
+.kp{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}.k{background:#fff;border-radius:14px;padding:9px 11px}.k small{display:block;font-size:11.5px;color:#8a7a85}.k b{font-size:18px}.k i{font-style:normal;font-size:11.5px}
+.ok{color:#1d7a46}.bad{color:#b3261e}.wa{color:#b06b00}
+.sl{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-top:1px solid #f1eaee}.sl:first-of-type{border-top:0}.sl small{display:block;color:#8a7a85;font-size:12px}
+.bt{display:inline-block;padding:7px 12px;border-radius:99px;background:#7a2e5c;color:#fff;font-weight:700;font-size:12.5px;margin:6px 6px 0 0}.bt.o{background:none;border:1.5px solid #7a2e5c;color:#7a2e5c}
+.msg{background:#fff;border-radius:14px 14px 14px 4px;padding:10px 12px;margin-bottom:8px}.me{background:#7a2e5c;color:#fff;border-radius:14px 14px 4px 14px;margin-left:30px}
+.bar{height:16px;border-radius:6px;overflow:hidden;display:flex;margin:6px 0}.bar i{display:block;height:100%}
+.lg{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:11.5px}.lg span::before{content:"";display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px;background:var(--c)}
+.in{background:#fff;border:1.5px solid #e3d5dd;border-radius:10px;padding:8px 10px;font-weight:600}.rg{display:flex;gap:6px;align-items:center;margin:6px 0}.rg input{flex:1}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}.tbl td,.tbl th{padding:7px 8px;border-top:1px solid #eee;text-align:left;vertical-align:top}.tbl th{color:#7a2e5c}
+</style></head><body>
+<h1>S188 · Contador virtual: tudo de preço num lugar só</h1><div class="sub">Esboço — nada implementado. Junta o que hoje está espalhado (faixas, piso, trava, preço automático, sugestão de margem, preço do site, ofertas, saída, Leve 2, cupons, temas, tabelas de atacado) e explica cada número como um contador. Números de exemplo.</div>
+<div class="g">
+<div class="f"><div class="ph"><div class="hd"><span class="av">C</span><span><b>Contador</b><small>revisado hoje 08:00</small></span></div>
+<div class="kp"><div class="k"><small>Margem média real</small><b>38%</b><i class="ok"> ▲ 2 pts</i></div><div class="k"><small>Lucro por peça</small><b>G$ 41.200</b></div><div class="k"><small>Contas do mês cobertas</small><b>72%</b><i class="wa"> faltam 31 peças</i></div><div class="k"><small>Abaixo do piso</small><b class="bad">2</b></div></div>
+<div class="c"><h5>Para decidir esta semana · 4</h5>
+<div class="sl"><span>⬆️ Subir 6 solares Kazwini<small>dólar subiu 4% desde a compra</small></span><b>+G$ 5.000</b></div>
+<div class="sl"><span>⬇️ SL2255 parado 74 dias<small>oferta −10% (degrau de 60 dias)</small></span><b>G$ 121.500</b></div>
+<div class="sl"><span>🎄 Natal em 19 dias<small>sugestão do tema pronta (S183)</small></span><b>ver</b></div>
+<div class="sl"><span>📦 Atacado GR3350 com margem 9%<small>abaixo do mínimo de 12% da tabela</small></span><b class="bad">ajustar</b></div>
+<span class="bt">Aceitar tudo</span><span class="bt o">Ver um por um</span></div>
+<div class="c" style="font-size:12.5px;color:#6b5d67">"Este mês os descontos (cupons, saída, Leve 2, ofertas) custaram G$ 410 mil e trouxeram 23 vendas. Valeu a pena: lucro líquido +G$ 520 mil."</div></div>
+<div class="cap"><b>1 · Tela do Contador (no lugar de Números › Preços)</b>Primeiro, a saúde dos preços: margem real, lucro por peça, quanto das contas já foi pago com as vendas e o que está abaixo do piso. Depois, as decisões da semana, cada uma com o motivo. Aceita tudo ou uma por uma.</div></div>
+
+<div class="f"><div class="ph"><div class="hd"><span class="av">C</span><span><b>De onde vem o preço</b><small>SL2210 · Solar hexagonal negro</small></span></div>
+<div class="c"><h5>G$ 130.000 no balcão</h5><div class="bar"><i style="width:34%;background:#7a2e5c"></i><i style="width:14%;background:#c2577f"></i><i style="width:6%;background:#e8a8c6"></i><i style="width:4%;background:#d9c3cf"></i><i style="width:42%;background:#1d7a46"></i></div>
+<div class="lg"><span style="--c:#7a2e5c">Repor a peça G$ 44.000</span><span style="--c:#c2577f">Contas da loja G$ 18.200</span><span style="--c:#e8a8c6">Colchão do dólar G$ 7.800</span><span style="--c:#d9c3cf">Taxa média G$ 5.200</span><span style="--c:#1d7a46">Lucro G$ 54.800</span></div></div>
+<div class="c"><div class="sl"><span>Piso (não perde)<small>repor + contas + colchão</small></span><b>G$ 70.000</b></div><div class="sl"><span>Trava (perde se vender abaixo)</span><b>G$ 62.000</b></div><div class="sl"><span>Faixa de margem<small>Média · 42%</small></span><b>G$ 130.000</b></div><div class="sl"><span>Site (loja + 2%, câmbio travado)</span><b>G$ 133.000</b></div><div class="sl"><span>Atacado (tabela Mayorista)</span><b>US$ 6,80</b></div></div>
+<div class="c" style="font-size:12.5px">💬 "Pode dar até 46% de desconto sem perder dinheiro. Para Black Friday sugiro 20%: ainda sobra G$ 28.800 de lucro."</div></div>
+<div class="cap"><b>2 · Cada preço explicado</b>Em qualquer peça (aba Preço da ficha, S184), uma barra mostra para onde vai cada guarani e os preços de cada canal (balcão, site, atacado). O contador diz até onde dá para descer.</div></div>
+
+<div class="f"><div class="ph"><div class="hd"><span class="av">C</span><span><b>Calculadora de preço</b><small>peça nova ou lote</small></span></div>
+<div class="c"><h5>Custo</h5><div class="rg"><span>US$</span><input class="in" value="6,20"><span style="font-size:12px;color:#8a7a85">por peça · lote de 48</span></div><div class="rg"><span>Tipo</span><span class="in" style="flex:1">Solar · faixa Média</span></div></div>
+<div class="c"><h5>O contador sugere</h5><div class="sl"><span>Balcão</span><b>G$ 145.000</b></div><div class="sl"><span>Site</span><b>G$ 148.000</b></div><div class="sl"><span>Atacado</span><b>US$ 8,40</b></div><div class="sl"><span>Piso</span><b>G$ 78.000</b></div>
+<div class="sl"><span>Parecidos no estoque<small>SL2210 G$ 130.000 · SL2250 G$ 148.000</small></span><span class="ok">coerente</span></div></div>
+<div class="c" style="font-size:12.5px">💬 "Com 48 peças e o giro dos solares (11 por mês), o lote vende em ~4 meses. O lucro previsto do lote é G$ 2,9 mi."</div>
+<span class="bt">Usar estes preços</span><span class="bt o">Ajustar</span></div>
+<div class="cap"><b>3 · Calculadora antes de cadastrar</b>Digita o custo (ou abre um lote) e o contador sugere balcão, site, atacado e piso. Compara com peças parecidas e diz quanto tempo o lote leva para vender e quanto vai dar de lucro.</div></div>
+
+<div class="f"><div class="ph"><div class="hd"><span class="av">C</span><span><b>E se…?</b><small>simulador</small></span></div>
+<div class="msg me">E se o dólar for a 7.600?</div>
+<div class="msg">Os preços do site sobem 3% na próxima revisão (G$ 3.000 a 5.000 por peça). O lucro do mês cai G$ 180 mil se você não mexer. Sugestão: subir só as peças que vendem bem e segurar as paradas.</div>
+<div class="msg me">E se eu der 15% no Natal em todas as leituras?</div>
+<div class="msg">Lucro por peça de leitura: G$ 29.000 → 15.300. Precisa vender +90% para empatar (Natal passado: +41%). Com 10% precisa de +38%: <b>10% é o mais seguro</b>.</div>
+<div class="c"><h5>Perguntas prontas</h5><span class="bt o">Contas subirem 10%</span><span class="bt o">Cupom 15%</span><span class="bt o">Vender tudo parado</span><span class="bt o">Meta do mês</span></div></div>
+<div class="cap"><b>4 · Simulador "e se"</b>Escolha a pergunta pronta e mude o número (dólar, contas, desconto, cupom, meta). O contador responde com o efeito no preço e no lucro do mês, sem mudar nada até você aceitar. Não usa internet nem IA paga: são as contas do próprio app.</div></div>
+</div>
+<div style="padding:0 28px 28px"><div class="f" style="padding:18px 20px"><b style="color:#7a2e5c;font-size:16px">5 · O que muda no app</b><table class="tbl">
+<tr><th>Hoje (espalhado)</th><th>No Contador</th></tr>
+<tr><td>Números › Preços (faixas, preço automático, pré-graduados, travados) · Câmbio (preço do site) · Ofertas do site · Encalhadas · Vender com saída · Preço abaixo do piso · Sugestão de margem · Tabelas de preço · Cupons · Leve 2 · Temas</td><td><b>Uma tela só</b>, com 4 partes: Saúde dos preços · Decisões da semana · Calculadora · E se. As regras (faixas, colchão, arredondamento, tabelas, preço automático) ficam em "Regras do contador".</td></tr>
+<tr><td>Cada sugestão aparece num lugar diferente</td><td>Todas na lista "Para decidir", com motivo, valor e Desfazer; o sino só avisa que há decisões.</td></tr>
+<tr><td>Fechamento do mês só em Finanças</td><td>No dia 1, o contador manda o "fechamento": resultado, margem por categoria, quanto custaram os descontos e o que mudar no mês.</td></tr></table>
+<div style="font-size:13px;color:#6b5d67;margin-top:8px">As regras de hoje continuam iguais (nunca abaixo do piso, no máximo 10% por semana, cadeado vence sempre); muda o lugar e a explicação.</div></div></div>
+</body></html>

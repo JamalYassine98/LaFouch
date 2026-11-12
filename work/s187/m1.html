@@ -1,0 +1,53 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><style>
+body{margin:0;background:#efe9ec;font:15px/1.4 Inter,system-ui,sans-serif;color:#231a22}h1{font:700 30px Georgia,serif;margin:24px 28px 4px}.sub{margin:0 28px 18px;color:#6b5d67}h2{font:700 20px Georgia,serif;margin:6px 28px 10px}
+.g{display:grid;gap:20px;padding:0 28px 26px}.f{background:#fff;border-radius:22px;box-shadow:0 6px 22px rgba(0,0,0,.08);overflow:hidden;display:flex;flex-direction:column}
+.cap{padding:12px 16px 16px;font-size:13.5px;color:#3b2f39}.cap b{display:block;font-size:15px;margin-bottom:3px;color:#7a2e5c}
+.tl{display:flex;gap:10px;padding:14px;background:#f6f2f4;align-items:flex-start}.tl .st{flex:1;background:#fff;border-radius:14px;padding:10px;font-size:12.5px;min-height:150px}.tl .st b{display:block;color:#7a2e5c;margin-bottom:4px}.tl .ar{align-self:center;font-size:20px;color:#7a2e5c}
+.bad{color:#b3261e;font-weight:700}.ok{color:#1d7a46;font-weight:700}
+.dev{display:flex;gap:14px;align-items:flex-end;padding:16px;background:#f6f2f4}
+.ph{width:150px;height:300px;border:6px solid #222;border-radius:24px;background:#fff;overflow:hidden;position:relative;font-size:8px}
+.tb{width:300px;height:220px;border:7px solid #222;border-radius:18px;background:#fff;overflow:hidden;position:relative}
+.pc{width:430px;height:260px;border:7px solid #222;border-radius:10px;background:#fff;overflow:hidden;position:relative}
+.bar{position:absolute;left:0;right:0;bottom:0;height:22px;background:#f3ecf0;display:flex;justify-content:space-around;align-items:center;font-size:7px;color:#7a2e5c}
+.gr{display:grid;gap:4px;padding:6px}.gr div{background:#f3ecf0;border-radius:5px;height:44px;display:flex;align-items:center;justify-content:center}.gr img{max-width:85%;max-height:36px}
+.side{position:absolute;left:0;top:0;bottom:0;width:70px;background:#2b1a2a;color:#e9d6e3;font-size:8px;padding:8px 6px;box-sizing:border-box;line-height:2}
+.det{position:absolute;right:0;top:0;bottom:0;width:120px;background:#faf6f8;border-left:1px solid #eee;padding:8px;box-sizing:border-box;font-size:8px}.det img{width:100%}
+.hd{height:18px;background:#f8f1f4;font:700 8px Georgia;display:flex;align-items:center;justify-content:center;color:#6d2f55}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}.tbl td,.tbl th{padding:7px 8px;border-top:1px solid #eee;text-align:left;vertical-align:top}.tbl th{color:#7a2e5c}
+.rep{padding:14px 16px;font-size:13px}.rp{border:1px solid #eee;border-radius:10px;padding:8px 10px;margin:6px 0}.rp.rg{border-left:5px solid #c62828}.rp.rl{border-left:5px solid #f9a825}.rp.ro{border-left:5px solid #2e7d4f}
+</style></head><body>
+<h1>S187 · Bug do voltar no catálogo + porteiro do app + app em qualquer tela</h1><div class="sub">Esboço — a correção do bug também espera sua aprovação. O relatório do porteiro (3) é exemplo, com os 2 problemas reais encontrados hoje.</div>
+<h2>1 · O bug (reproduzido no simulador)</h2>
+<div class="g" style="grid-template-columns:1fr 1fr"><div class="f"><div class="tl">
+<div class="st"><b>Catálogo rolado</b>A lista está na peça nº 30, rolada até o meio.</div><span class="ar">→</span>
+<div class="st"><b>Abre uma peça</b>A ficha aparece por cima, mas o app não "marca" esse passo no voltar do celular.</div><span class="ar">→</span>
+<div class="st"><b>Aperta voltar</b><span class="bad">Em vez de fechar a peça, sai do catálogo</span> e vai para o Início. A animação da ficha é cortada no meio e a tela vai para o topo.</div><span class="ar">→</span>
+<div class="st"><b>Volta ao catálogo</b><span class="bad">A peça antiga ainda está marcada</span> e a lista começa do topo: você perdeu onde estava.</div></div>
+<div class="cap"><b>Hoje</b>Testado em celular (390 px) e tablet (820 px): o voltar pula o passo "fechar a peça" e a posição da lista se perde.</div></div>
+<div class="f"><div class="tl">
+<div class="st"><b>Abre uma peça</b>O app marca o passo (igual ao site).</div><span class="ar">→</span>
+<div class="st"><b>1º voltar</b><span class="ok">Fecha só a peça</span>, com a animação de descer até o fim. A lista fica exatamente onde estava.</div><span class="ar">→</span>
+<div class="st"><b>2º voltar</b><span class="ok">Sai do catálogo</span> com a transição normal de tela.</div><span class="ar">→</span>
+<div class="st"><b>Volta ao catálogo</b><span class="ok">Abre na mesma rolagem e filtro</span>, sem peça aberta. Vale para todas as janelas do app (ficha, carrinho, cliente, pedido).</div></div>
+<div class="cap"><b>Corrigido</b>Mesma regra do site: cada janela aberta = 1 passo do voltar; a página de trás fica travada (não rola nem pula) enquanto a janela está aberta; ao fechar, nada se mexe.</div></div></div>
+<h2>2 · O app em qualquer aparelho (mesma lógica de tamanho do site)</h2>
+<div class="g" style="grid-template-columns:1fr"><div class="f"><div class="dev">
+<div><div class="ph"><div class="hd">LA FOUCH</div><div class="gr" style="grid-template-columns:1fr 1fr"><div><img src="b95b382e346d.jpg"></div><div><img src="3c5853357cf4.jpg"></div><div><img src="1e59e39c9c89.jpg"></div><div><img src="80f4857cb1cf.jpg"></div><div><img src="8c1802baa300.jpg"></div><div><img src="9afe335de059.jpg"></div></div><div class="bar"><span>Início</span><span>Catálogo</span><span>Estoque</span><span>Caixa</span><span>Ajustes</span></div></div><div style="font-size:12px;text-align:center;margin-top:6px"><b>Celular</b> (até 699 px)<br>barra embaixo · 2 colunas · ficha por cima</div></div>
+<div><div class="tb"><div class="hd">LA FOUCH</div><div class="gr" style="grid-template-columns:repeat(3,1fr);margin-right:110px"><div><img src="b95b382e346d.jpg"></div><div><img src="3c5853357cf4.jpg"></div><div><img src="1e59e39c9c89.jpg"></div><div><img src="80f4857cb1cf.jpg"></div><div><img src="8c1802baa300.jpg"></div><div><img src="9afe335de059.jpg"></div></div><div class="det" style="top:18px;width:110px"><img src="b95b382e346d.jpg"><b>GR3350</b><br>Vender · Estoque · Histórico<br><br>G$ 115.000</div><div class="bar"><span>Início</span><span>Catálogo</span><span>Estoque</span><span>Caixa</span><span>Ajustes</span></div></div><div style="font-size:12px;text-align:center;margin-top:6px"><b>Tablet</b> (700 a 1099 px)<br>3 colunas · ficha ao lado da lista</div></div>
+<div><div class="pc"><div class="side"><b style="color:#fff">LA FOUCH</b><br>Início<br>Catálogo<br>Estoque<br>Números<br>Caixa<br>Pedidos<br>Clientes<br>Loja online<br>Ajustes</div><div class="gr" style="grid-template-columns:repeat(4,1fr);margin:0 128px 0 74px"><div><img src="b95b382e346d.jpg"></div><div><img src="3c5853357cf4.jpg"></div><div><img src="1e59e39c9c89.jpg"></div><div><img src="80f4857cb1cf.jpg"></div><div><img src="8c1802baa300.jpg"></div><div><img src="9afe335de059.jpg"></div><div><img src="b0ce33cc336d.jpg"></div><div><img src="3716fea484c8.jpg"></div></div><div class="det"><img src="b95b382e346d.jpg"><b>GR3350 · Lentes de leitura</b><br>Vender · Estoque · Histórico · Site · Preço<br><br>G$ 115.000</div></div><div style="font-size:12px;text-align:center;margin-top:6px"><b>Computador</b> (1100 px ou mais)<br>menu na lateral · 4 a 6 colunas · ficha fixa à direita · atalhos de teclado</div></div>
+</div><div class="cap"><b>Mesmos 3 tamanhos do site</b>O app usa as mesmas faixas de largura do site (699 e 1100 px) e as mesmas regras anti-colisão: botão fixo nunca cobre texto, barra de comprar sobe acima do teclado, texto grande (Ajustes › tamanho) quebra linha em vez de cortar. Girar o tablet muda o layout na hora.</div></div></div>
+<h2>3 · Porteiro do app (igual ao do site)</h2>
+<div class="g" style="grid-template-columns:1.2fr 1fr"><div class="f"><div class="rep"><b style="font-size:16px">Porteiro do app · rápido</b> <span style="color:#6b5d67">· 128 provas · 3 falharam · 2 graves novas · 6 min</span>
+<div class="rp rg"><b>Voltar · Catálogo → peça → voltar</b><br>esperado: fecha a peça e mantém a rolagem 1400 · veio: saiu para Início, rolagem 0</div>
+<div class="rp rg"><b>Animação · ficha da peça fechando</b><br>a tela pulou 1.135 px durante a animação (celular 390)</div>
+<div class="rp rl"><b>Colisão · Caixa (tablet deitado 1180)</b><br>(exemplo) botão "Finalizar venda" cobre o total em 12 px</div>
+<div class="rp ro"><b>125 passaram</b> · Início, Catálogo, Inventário, Números (5 abas), Caixa, Pedidos, Clientes, Ajustes, janelas de PIN, compartilhar, cupons…</div></div>
+<div class="cap"><b>Relatório com foto de cada problema</b>Mesmo formato do porteiro do site (vermelho = grave, amarelo = leve). Falha grave nova = a versão do app não sobe.</div></div>
+<div class="f" style="padding:16px 18px"><b style="color:#7a2e5c;font-size:16px">O que o porteiro do app confere</b><table class="tbl" style="font-size:13px">
+<tr><th>Aparelhos</th><td>celular pequeno 320, celular 390, Android grande 412, tablet em pé 820 e deitado 1180, notebook 1366, monitor 1920; letra normal e grande; claro e escuro</td></tr>
+<tr><th>Telas</th><td>todas as abas e janelas, uma por uma, rolando até o fim</td></tr>
+<tr><th>Colisões</th><td>mesmo detector do site: texto cortado, sobreposto, botão pequeno, fora da tela, coberto por barra fixa ou teclado</td></tr>
+<tr><th>Animações</th><td>grava quadro a quadro abrir/fechar janelas e trocar de tela: pulo de rolagem, tremida, janela que fica pela metade, piscada</td></tr>
+<tr><th>Voltar</th><td>cada janela fecha com 1 voltar e a tela de trás fica no mesmo lugar</td></tr>
+<tr><th>Quando</th><td>antes de cada versão do app, junto com os testes (python3 tests/run.py); o completo, 1 vez por semana</td></tr></table></div></div>
+</body></html>
