@@ -506,3 +506,44 @@ exports.cupom = onRequest({ region: REGIAO, cors: true, maxInstances: 10, secret
     return res.status(500).json({ ok: false, motivo: 'erro' });
   }
 });
+
+// ---------- S197 PIX automático por e-mail (12/11/2026): o robô do Gmail chama esta função com a chave PIX_ROBO ----------
+const Pix = require('./pix');
+const PIX_ROBO = defineSecret('PIX_ROBO');
+const pixDb = {
+  jaVisto: async (m) => (await fsx().doc('pixVistos/' + crypto.createHash('sha256').update(m).digest('hex').slice(0, 40)).get()).exists,
+  visto: (m, ts) => fsx().doc('pixVistos/' + crypto.createHash('sha256').update(m).digest('hex').slice(0, 40)).set({ ts }),
+  // só um filtro (sem índice composto); o pago/cancelado vem da reserva
+  pedidosPix: async (desde) => {
+    const L = (await fsx().collection('pedidos').where('ts', '>=', desde).limit(400).get()).docs
+      .map((d) => Object.assign({ id: d.id }, d.data())).filter((p) => p.pag === 'pix' && !p.tipo);
+    for (const p of L) {
+      const r = await fsx().doc('reservas/' + p.id).get(), o = r.exists ? r.data() : {};
+      p.pago = !!(o.pago || o.cancelado || p.pixAuto);
+    }
+    return L;
+  },
+  esperas: async (desde) => (await fsx().collection('pixEspera').where('ts', '>=', desde).limit(100).get()).docs.map((d) => Object.assign({ id: d.id }, d.data())),
+  confirmaPedido: async (id, o) => {
+    const tok = crypto.randomBytes(6).toString('hex');
+    await fsx().doc('reservas/' + id).set({ pago: true, tok, pixAuto: o }, { merge: true });
+    await fsx().doc('pedidos/' + id).update({ pixAuto: o });
+  },
+  confirmaEspera: (id, o) => fsx().doc('pixEspera/' + id).update({ ok: o }),
+  semPar: (o) => fsx().collection('pixSemPar').add(o),
+};
+exports.pix = onRequest({ region: REGIAO, cors: false, maxInstances: 2, secrets: [PIX_ROBO] }, async (req, res) => {
+  if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
+  let chave = '';
+  try { chave = PIX_ROBO.value() || ''; } catch (e) {}
+  const vem = String(req.get('x-robo') || '');
+  if (!chave || vem.length !== chave.length || !crypto.timingSafeEqual(Buffer.from(vem), Buffer.from(chave))) return res.status(403).json({ ok: false, motivo: 'sem-permissao' });
+  const b = req.body && typeof req.body === 'object' ? req.body : {};
+  try {
+    return res.json(await Pix.recebe(pixDb, b, Date.now()));
+  } catch (e) {
+    if (e instanceof Pix.Falha) return res.status(e.status).json({ ok: false, motivo: e.motivo });
+    console.error('pix', e);
+    return res.status(500).json({ ok: false, motivo: 'erro' });
+  }
+});

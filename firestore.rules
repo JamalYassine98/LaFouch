@@ -56,6 +56,10 @@ service cloud.firestore {
     match /estoque/{d} {
       allow read: if true;
     }
+    // S197 PIX automático: o app (dono) registra a espera da venda da loja e lê os PIX sem par; a função escreve com o admin
+    match /pixEspera/{d} { allow read, write: if dono(); }
+    match /pixSemPar/{d} { allow read, delete: if dono(); }
+    match /pixVistos/{d} { allow read: if dono(); }
     match /pedidos/{d} {
       // o cliente só CRIA (nunca lê, muda ou apaga um pedido, nem o dele)
       allow create: if pedidoOk() || comprovanteOk() || cancelOk() || aviseOk();

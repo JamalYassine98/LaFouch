@@ -58,5 +58,8 @@ Ler antes de mexer no site. Atualizar este arquivo SEMPRE que o site mudar (estr
 - **Entrega (S192):** cartões `.cfo` marcados (fundo rosa, borda vinho, ✓ no espaço reservado, toque leve; CSS `#s192`). Delivery mostra `trHtml()` com PedidosYa Envíos, Bolt Envío, Tiemsa e MCGroup (`TRANSP`); preço e "desligada" vêm do app em `config/site.fretes` (`{id:{p,off}}`); sem preço = "pago na entrega". Resumo mostra a transportadora e "Total com frete". A escolha fica em `lf_ent` (próxima compra já vem marcada: "Igual à sua última compra"); transportadora salva que saiu reabre a escolha com aviso `.trno`. No pedido: frete soma no `total` e no PIX; transportadora vai no `obsC` (regras atuais). 
 - **Final único (S197):** `uq` agora sempre DESCONTA (`pagar = total − uq`, `brl − uq/100`).
 
+- **PIX automático (S197):** na tela "Pague com PIX" o link "Envie o comprovante" (`#pgcl`) só aparece 10 min depois do pedido. A confirmação vem do robô do Gmail (`work/pix/robo-pix.gs` na conta lafouch.eyewear) → função `pix` (`functions/pix.js`, chave `PIX_ROBO` só como segredo do servidor) → `reservas/{id}.pago` (o site já acompanha). Sem par ou valor repetido vai para `pixSemPar` (nunca confirma no chute).
+- **RUC / factura:** paraguaio vê o campo opcional "RUC" no perfil e no pagamento (`#mpr`/`#ppr`), validado com o dígito verificador da SET (`rucDV`, `rucNorm` → `1234567-8`); fica em `clientes/{uid}.ruc` e vai no pedido em `obsC` ("RUC …"). Sem RUC (ou estrangeiro) = factura Sin nombre / RUC X.
+
 ## Aprovado e ainda NÃO implementado (conferir em MEMORIA-PROJETO.md)
 (nada do S172/S173; ver segurança), Leve 2 no site, S174 (cupons/cartões virtuais), segurança do painel (2FA TOTP, passkey, sessão, aviso de login, regras, App Check, retenção 12 meses, CSP).
