@@ -2,6 +2,7 @@
 
 - Antes de qualquer trabalho, leia docs/MEMORIA-PROJETO.md (decisões do dono e pendências) e atualize-o a cada decisão nova.
 - App: antes de criar tela/botão/módulo, leia docs/APP-COMO-FUNCIONA.md e atualize-o no mesmo commit (pedido do dono, 12/11/2026).
+- ESBOÇOS ANIMADOS: não mandar GIF (não carrega no celular do dono); mandar imagem com os quadros lado a lado (+ MP4 se precisar).
 - ESBOÇOS: usar o design guardado e o kit (docs/DESIGN-SITE-E-APP.md, work/kit/kit.py) — telas reais, só injetar o que muda, 1 prévia (pedido do dono, 12/11/2026).
 - Site (lafouch.com): antes de mexer, leia docs/SITE-COMO-FUNCIONA.md; ao atualizar ou modificar o site, atualize esse arquivo no mesmo commit (pedido do dono, 11/11/2026).
 
