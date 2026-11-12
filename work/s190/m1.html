@@ -44,21 +44,32 @@ body{margin:0;background:#efe9ec;font:15px/1.4 Inter,system-ui,sans-serif;color:
 <div class="c"><h5>Etapa 5 · Canais</h5><span class="ch on">Loja</span><span class="ch on">Site</span><span class="ch on">Atacado</span></div>
 <div class="c gd"><h5>Etapa 6 · Automática (designer)</h5><small>Lido das fotos e da ficha, sem digitar nada:</small>
 <div class="sl"><span>Formato<small>das fotos</small></span><b>Gatinho</b></div>
-<div class="sl"><span>Cor e acabamento<small>das fotos</small></span><b>Tartaruga brilho</b></div>
+<div class="sl"><span>Cores<small>uma por foto</small></span><b>Tartaruga · Transparente · Preto</b></div>
 <div class="sl"><span>Tamanho<small>medida da haste</small></span><b>Médio 52-18</b></div>
 <div class="sl"><span>Material<small>categoria</small></span><b>Acetato</b></div>
-<div style="border:1px solid #e3d7de;border-radius:10px;padding:7px;margin-top:6px;font-size:12.5px">“Armação gatinho em acetato tartaruga, tamanho médio. Elegante para o dia a dia.”</div>
+<div style="border:1px solid #e3d7de;border-radius:10px;padding:7px;margin-top:6px;font-size:12.5px">“Armação gatinho em acetato, tamanho médio. Disponível em 3 cores.”<br><b>Cor: Transparente</b> <small class="dim">← troca com a cor escolhida</small></div>
 <div style="margin-top:6px"><span class="bt o">Corrigir (opcional)</span></div></div></div><div class="cap"><b>3. Preço, canais, venda</b>Etapa 6 sem digitação: o designer lê as fotos e a ficha e escreve sozinho.</div></div>
 
 <div class="f"><div class="ph">
 <div class="c"><h5>Quem lê a ficha</h5>
 <table class="tbl"><tr><th>Onde</th><th>Usa</th></tr>
 <tr><td>Site</td><td>fotos, preço, texto automático</td></tr>
-<tr><td>WhatsApp varejo</td><td>foto, preço, formato e cor</td></tr>
+<tr><td>WhatsApp varejo</td><td>foto e nome da cor escolhida</td></tr>
 <tr><td>WhatsApp atacado</td><td>foto, preço atacado, cores</td></tr>
 <tr><td>Marketing</td><td>formato, cor, tamanho</td></tr>
 <tr><td>Destaque</td><td>vendas, vistas, formato</td></tr></table></div>
-<div class="c"><h5>Prévia WhatsApp</h5><div class="wa2"><b>Ref. 2250 · Gs 139.000</b><br>Gatinho · Tartaruga · Médio<br><small>3 cores · lafouch.com/p/2250</small></div></div>
+<div class="c"><h5>Prévia WhatsApp</h5><div class="wa2"><b>Ref. 2250 · Gs 139.000</b><br>Gatinho · Médio<br>Cor: <b>Transparente</b> (foto desta cor)<br><small>3 cores · lafouch.com/p/2250</small></div></div>
 <div class="c"><small>Mudou na ficha → muda em todos na hora.</small></div>
 </div><div class="cap"><b>4. Marketing lê da ficha</b>Fim dos textos montados à parte em 4 módulos de compartilhar.</div></div>
-</div></body></html>
+</div><style>.g2{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:0 28px 26px}.pi{height:170px;border-radius:12px;background:linear-gradient(135deg,#eef3f6,#dfe8ee);display:flex;align-items:center;justify-content:center;font-size:44px;position:relative}
+.pi.tt{background:linear-gradient(135deg,#7a4a2a,#c08a5a)}.dots{display:flex;gap:8px;margin:8px 0}.dots i{width:24px;height:24px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1.5px #ccc}.dots i.on{box-shadow:0 0 0 2.5px #7a2e5c}
+.tag{position:absolute;left:8px;top:8px;background:#fff;border-radius:99px;padding:3px 9px;font-size:11.5px;font-weight:700}.tag.r{background:#b3261e;color:#fff}.x{color:#b3261e;font-weight:700}</style><h1 style="font-size:24px">Site · cor escolhida e Destaque</h1><p class="sub">Texto igual para todas as cores; só a linha "Cor" troca.</p><div class="g2">
+<div class="f"><div class="ph" style="height:440px"><div class="c"><div class="pi">👓</div><div class="dots"><i style="background:#8a5a34"></i><i class="on" style="background:#e9f1f5"></i><i style="background:#222"></i></div>
+<b>Ref. 2250 · Gs 139.000</b><br><small>Armação gatinho em acetato, tamanho médio. Disponível em 3 cores.</small><br>Cor: <b>Transparente</b></div></div>
+<div class="cap"><b>A. Produto no site</b>Tocou na cor → foto, nome da cor e linha "Cor" trocam. O resto do texto não cita cor.</div></div>
+<div class="f"><div class="ph" style="height:440px"><div class="c"><h5>Destaque hoje</h5><div class="pi tt">👓<span class="tag r">Esgotada</span></div><b>DESTAQUE DA SEMANA</b><br><small>Ref. 2250</small><br><span class="bt">Ver modelo</span>
+<div style="margin-top:8px"><span class="x">✗</span> <small>mostra a foto principal (Tartaruga) mesmo esgotada</small><br><span class="x">✗</span> <small>não avisa que há outras cores</small><br><span class="x">✗</span> <small>"Ver modelo" pode abrir em outra cor</small></div></div></div>
+<div class="cap"><b>B. Destaque hoje (falha)</b>Lido no código; ainda não testado no simulador.</div></div>
+<div class="f"><div class="ph" style="height:440px"><div class="c"><h5>Destaque corrigido</h5><div class="pi">👓<span class="tag">3 cores</span></div><b>DESTAQUE DA SEMANA</b><br><small>Ref. 2250 · Cor: Transparente</small><br><span class="bt">Ver modelo</span>
+<div style="margin-top:8px"><span class="ok">✓</span> <small>mostra a cor com estoque que mais vende</small><br><span class="ok">✓</span> <small>selo "3 cores" no canto (sem somar a outros selos)</small><br><span class="ok">✓</span> <small>"Ver modelo" abre já nessa cor</small></div></div></div>
+<div class="cap"><b>C. Destaque corrigido</b>Se todas as cores esgotarem, a peça sai do Destaque.</div></div></div></body></html>
