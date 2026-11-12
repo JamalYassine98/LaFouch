@@ -4,7 +4,7 @@ uso:
   python3 work/kit/kit.py site <tela> <saida.png> [inject.js|inject.html] [--y N] [--es] [--ref CODIGO]
   python3 work/kit/kit.py app  <tela> <saida.png> [inject.html] [--escuro]
   python3 work/kit/kit.py prancha <saida.jpg> "Título" "sub" tela1.png:"Título 1":"sub 1" ...
-telas do site: home produto carrinho entrega delivery pagamento conta atacado
+telas do site: home catalogo produto carrinho entrega delivery pagamento conta atacado
 telas do app : inicio estoque caixa clientes ped hist ajustes fx desp dash (qualquer id de setView)
 inject .html no site = vira <main> abaixo do cabeçalho (classes reais do site + site-comp.css, prefixo #atx)
 inject .js  no site = função JS (a)=>{...} rodada na tela real (para acrescentar cartões .cfo/.note/.cfc)
@@ -50,6 +50,7 @@ def site(tela,out,inj=None,y=0,es=False,ref=None):
             if tela=='delivery': pg.evaluate("(document.querySelector('button.cfo[data-ent=delivery]')||[...document.querySelectorAll('button')].find(b=>/^Delivery/.test(b.innerText.trim()))).click()"); pg.wait_for_timeout(900)
         elif tela=='conta': pg.evaluate("(document.querySelector('[aria-label*=\"onta\"]')||{click(){}}).click()"); pg.wait_for_timeout(1100)
         elif tela=='atacado': pg.goto(U+'?r=atacado'); pg.wait_for_timeout(1600)
+        elif tela=='catalogo': pg.goto(U+'?r=vitrine'); pg.wait_for_timeout(1600)
         if inj:
             t=open(inj).read()
             if inj.endswith('.js'): pg.evaluate(t)
