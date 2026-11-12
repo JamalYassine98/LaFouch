@@ -947,7 +947,7 @@
           ['formato', 'Formato', FORMATOS.concat(S.formats || [])],
           ['material', 'Material', MATERIAIS.concat(S.matX || [])],
           ['publico', 'Gênero', PUBLICOS]
-        ].forEach(function (d) {
+        ].concat(f.tipo === 'solar' ? [['polarizado', 'Polarizado?', ['Polarizado', 'Não polarizado']]] : []).forEach(function (d) { // S195: interruptor Polarizado (só solar)
           var v = idc[d[0]] || '',
             lista = d[2].filter(function (x, k) {
               return d[2].indexOf(x) === k;
@@ -964,7 +964,7 @@
               }
               if (d[0] === 'formato' && (S.formats || []).indexOf(nv) < 0 && FORMATOS.indexOf(nv) < 0) S.formats.push(nv);
               idc[d[0]] = nv;
-              setAttr(ref, Object.assign({ marca: '', formato: '', material: '', publico: '', colecao: '' }, idc));
+              setAttr(ref, Object.assign({ marca: '', formato: '', material: '', publico: '', colecao: '', polarizado: '' }, idc));
               render();
             });
           };

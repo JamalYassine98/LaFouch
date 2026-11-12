@@ -190,6 +190,8 @@
       med: parseMed(v.it && v.it.med),
       rosto: ROSTO_DE[a.formato] || ['oval'],
       uv: solar,
+      // S195: Polarizado vem do interruptor da ficha; sem marcar, o site olha o nome
+      pol: solar && a.polarizado ? a.polarizado === 'Polarizado' : null,
       cad: (S.cad && S.cad[ref]) || 0,
       lib: true,
       desc: S.desc && S.desc[ref] != null ? String(S.desc[ref]).trim().slice(0, 600) : '',
@@ -205,7 +207,7 @@
     S.vitPend[ref] = op;
     saveSoon();
   }
-  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'desc', 'gr', 'gq', 'gc', 'gv', 'fv', 'fm', 'mr', 'l2', 'cmx'];
+  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'desc', 'gr', 'gq', 'gc', 'gv', 'fv', 'fm', 'mr', 'l2', 'cmx', 'pol'];
   function vitFotos(ref) {
     return vitCores(ref).map(function (c) {
       return S.fotos[ref + '|' + c.cor];

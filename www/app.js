@@ -1098,7 +1098,7 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 484;
+  var APP_BUILD = 485;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
   var APP_NOME = '5.9.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
@@ -2400,7 +2400,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           ['formato', 'Formato', FORMATOS.concat(S.formats || [])],
           ['material', 'Material', MATERIAIS.concat(S.matX || [])],
           ['publico', 'Gênero', PUBLICOS]
-        ].forEach(function (d) {
+        ].concat(f.tipo === 'solar' ? [['polarizado', 'Polarizado?', ['Polarizado', 'Não polarizado']]] : []).forEach(function (d) { // S195: interruptor Polarizado (só solar)
           var v = idc[d[0]] || '',
             lista = d[2].filter(function (x, k) {
               return d[2].indexOf(x) === k;
@@ -2417,7 +2417,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
               }
               if (d[0] === 'formato' && (S.formats || []).indexOf(nv) < 0 && FORMATOS.indexOf(nv) < 0) S.formats.push(nv);
               idc[d[0]] = nv;
-              setAttr(ref, Object.assign({ marca: '', formato: '', material: '', publico: '', colecao: '' }, idc));
+              setAttr(ref, Object.assign({ marca: '', formato: '', material: '', publico: '', colecao: '', polarizado: '' }, idc));
               render();
             });
           };
@@ -28521,6 +28521,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       med: parseMed(v.it && v.it.med),
       rosto: ROSTO_DE[a.formato] || ['oval'],
       uv: solar,
+      // S195: Polarizado vem do interruptor da ficha; sem marcar, o site olha o nome
+      pol: solar && a.polarizado ? a.polarizado === 'Polarizado' : null,
       cad: (S.cad && S.cad[ref]) || 0,
       lib: true,
       desc: S.desc && S.desc[ref] != null ? String(S.desc[ref]).trim().slice(0, 600) : '',
@@ -28536,7 +28538,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.vitPend[ref] = op;
     saveSoon();
   }
-  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'desc', 'gr', 'gq', 'gc', 'gv', 'fv', 'fm', 'mr', 'l2', 'cmx'];
+  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'desc', 'gr', 'gq', 'gc', 'gv', 'fv', 'fm', 'mr', 'l2', 'cmx', 'pol'];
   function vitFotos(ref) {
     return vitCores(ref).map(function (c) {
       return S.fotos[ref + '|' + c.cor];
