@@ -299,6 +299,7 @@
       'siteAn',
       'semSiteX',
       'semSiteV',
+      'devAviso',
       'encAv',
       'fxPer',
       'fxAvisos',

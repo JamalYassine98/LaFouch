@@ -20,6 +20,15 @@ for i in range(len(grupos)):
     f = f'{OUT}/provas_{i}.json'
     if os.path.exists(f): R += json.load(open(f))['res']
     else: R.append({'parte': '?', 'nome': f'grupo {grupos[i]}', 'ok': False, 'grave': True, 'd': 'as provas não terminaram (ver log)'})
+# regras do Firestore (12/11/2026): o que o site manda tem que caber nas regras do projeto
+try:
+    for x in json.loads(subprocess.run(['python3', os.path.join(D, 'regras.py')], capture_output=True, text=True).stdout):
+        R.append({'parte': 'regras', 'nome': x['nome'], 'ok': x['ok'], 'grave': True, 'd': x['d']})
+except Exception as e: R.append({'parte': 'regras', 'nome': 'regras do Firestore', 'ok': False, 'grave': True, 'd': 'a prova não rodou: ' + str(e)[:80]})
+try:
+    for x in json.loads(subprocess.run(['python3', os.path.join(D, 'csp.py'), str(PORTA)], capture_output=True, text=True, env=dict(os.environ, PLAYWRIGHT_BROWSERS_PATH='/opt/pw-browsers')).stdout):
+        R.append({'parte': 'regras', 'nome': x['nome'], 'ok': x['ok'], 'grave': True, 'd': x['d']})
+except Exception as e: R.append({'parte': 'regras', 'nome': 'CSP', 'ok': False, 'grave': True, 'd': 'a prova não rodou: ' + str(e)[:80]})
 # visual: só o que é novo em relação à linha de base guardada
 VIS = []; base = set(json.load(open(os.path.join(D, 'base_visual.json')))) if os.path.exists(os.path.join(D, 'base_visual.json')) else set()
 try:

@@ -25,7 +25,7 @@ ESTADO = """(()=>{const H=document.documentElement,q=s=>document.querySelector(s
 
 def novo(p, W=390, H=844, lang='pt-BR', ls=None, touch=True):
     b = p.chromium.launch(executable_path='/opt/pw-browsers/chromium', args=['--no-sandbox', '--autoplay-policy=no-user-gesture-required', '--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream'])
-    c = b.new_context(locale=lang, viewport={'width': W, 'height': H}, device_scale_factor=1, has_touch=touch, is_mobile=touch and W < 700, permissions=['camera'])
+    c = b.new_context(bypass_csp=True, locale=lang, viewport={'width': W, 'height': H}, device_scale_factor=1, has_touch=touch, is_mobile=touch and W < 700, permissions=['camera'])
     L = dict(ls or {}); L.setdefault('lf_lang', 'es' if lang.startswith('es') else 'pt')
     c.add_init_script('(()=>{if(!/^http/.test(location.protocol))return;' + ''.join(f'localStorage.setItem({k!r},{v!r});' for k, v in L.items()) + '})()')
     c.add_init_script('if(/^http/.test(location.protocol)){' + INIT + '}'); c.add_init_script("window.open=function(u){window.__wo=u;return null}")

@@ -1,0 +1,92 @@
+rules_version = '2';
+// Regras do Firestore da La Fouch (cópia oficial no projeto desde 12/11/2026).
+// Publicar: copiar TUDO e colar em Firebase › Firestore › Regras › Publicar
+// (ou: npx firebase-tools deploy --only firestore:rules). O porteiro confere este arquivo com o que o site envia.
+// Coleções sem "match" aqui (mensagens, inscricoes, voltas, analise, codigos, avaliacoes…) ficam FECHADAS:
+// só as funções do Firebase (servidor) leem e gravam nelas.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function dono() {
+      return request.auth != null
+        && request.auth.uid == 'jJzNDoMHtuRNOAF1GhJfNYDMlE63'
+        && request.auth.token.email == 'jamalaliyassine@gmail.com';
+    }
+    function txt(k, n) {
+      return !(k in request.resource.data) || (request.resource.data[k] is string && request.resource.data[k].size() < n);
+    }
+    function pedidoOk() {
+      return request.resource.data.keys().hasOnly(['ts','nome','tel','lang','moeda','total','rosto','itens','pais','cod','ate',
+                                                   'nac','doc','nasc','email','cidade','end','ent','endE','refE','depE','pag','uq','brl','pagar','teste','obsC'])
+        && request.resource.data.nome is string && request.resource.data.nome.size() < 80
+        && request.resource.data.itens is list && request.resource.data.itens.size() <= 30
+        && txt('tel', 30) && txt('email', 200) && txt('doc', 30) && txt('obsC', 200)
+        && txt('endE', 300) && txt('refE', 200) && txt('depE', 80) && txt('cidade', 80)
+        && (!('total' in request.resource.data) || (request.resource.data.total is number && request.resource.data.total >= 0 && request.resource.data.total < 1000000000));
+    }
+    function comprovanteOk() {
+      return request.resource.data.keys().hasOnly(['tipo','ref','img','ts','cod'])
+        && request.resource.data.tipo == 'comp'
+        && request.resource.data.ref is string && request.resource.data.ref.size() < 40
+        && request.resource.data.img is string && request.resource.data.img.size() < 900000;
+    }
+    function cancelOk() {
+      return request.resource.data.keys().hasOnly(['tipo','ref','ts','cod'])
+        && request.resource.data.tipo == 'cancel'
+        && request.resource.data.ref is string && request.resource.data.ref.size() < 40;
+    }
+    function aviseOk() {
+      return request.resource.data.keys().hasOnly(['tipo','ref','nome','tel','pais','ts'])
+        && request.resource.data.tipo == 'avise'
+        && request.resource.data.ref is string && request.resource.data.ref.size() < 40
+        && request.resource.data.nome is string && request.resource.data.nome.size() < 80
+        && request.resource.data.tel is string && request.resource.data.tel.size() < 30;
+    }
+    match /produtos/{d} {
+      allow read: if true;
+      allow write: if dono();
+    }
+    match /fotos/{d} {
+      allow read: if true;
+      allow write: if dono();
+    }
+    match /config/{d} {
+      allow read: if true;
+      allow write: if dono();
+    }
+    match /estoque/{d} {
+      allow read: if true;
+    }
+    match /pedidos/{d} {
+      // o cliente só CRIA (nunca lê, muda ou apaga um pedido, nem o dele)
+      allow create: if pedidoOk() || comprovanteOk() || cancelOk() || aviseOk();
+      allow read, delete: if dono();
+    }
+    match /mov/{d} {
+      allow read, create: if dono();
+    }
+    match /reservas/{d} {
+      allow get: if true;
+      allow create, update: if dono();
+    }
+    match /backups/{d} {
+      allow read, write: if dono();
+    }
+    match /dispositivos/{t} {
+      allow read, write: if dono();
+    }
+    match /clientes/{uid} {
+      // 12/11: a leitura separada da gravação (antes o "get" dependia de request.resource, que não existe na leitura)
+      allow get: if (request.auth != null && request.auth.uid == uid) || dono();
+      allow create, update: if request.auth != null && request.auth.uid == uid
+        && request.resource.data.keys().size() <= 30;
+    }
+    match /usuarios/{u} {
+      allow get: if true;
+      allow create: if request.auth != null
+        && u.size() >= 3 && u.size() <= 30
+        && request.resource.data.keys().hasOnly(['uid','email'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.email == request.auth.token.email;
+    }
+  }
+}

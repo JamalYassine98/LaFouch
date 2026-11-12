@@ -378,3 +378,46 @@ exports.voltaAvisa = onDocumentUpdated({ document: 'produtos/{ref}', region: REG
   const n = await Volta.dispara(voltaDb, envia, ev.params.ref, depois.nome, Date.now());
   console.log('voltaAvisa', ev.params.ref, n);
 });
+
+// ---------- Aviso de login (12/11/2026, bloco 5 item 5): e-mail para lafouch.eyewear@gmail.com a cada entrada com senha ----------
+const Login = require('./login');
+const loginDb = {
+  get: async (id) => { const d = await admin.firestore().doc('logins/' + id).get(); return d.exists ? d.data() : null; },
+  salva: (id, o) => admin.firestore().doc('logins/' + id).set(o),
+  conta: async (desde) => (await admin.firestore().collection('logins').where('ts', '>=', desde).get()).docs.filter((d) => d.id.startsWith('_l')).length,
+};
+exports.login = onRequest({ region: REGIAO, cors: true, maxInstances: 3, secrets: [RESEND_KEY] }, async (req, res) => {
+  if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
+  const b = req.body && typeof req.body === 'object' ? req.body : {};
+  try {
+    if (b.acao !== 'aviso') return res.status(400).json({ ok: false, motivo: 'acao' });
+    if (!(await ehDono(req))) return res.status(403).json({ ok: false, motivo: 'sem-permissao' });
+    let chave = '';
+    try { chave = RESEND_KEY.value() || ''; } catch (e) {}
+    const envia = async (m) => {
+      if (!chave) throw new Error('sem RESEND_KEY');
+      const r = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + chave, 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.assign({ from: 'La Fouch <nao-responda@lafouch.com>' }, m)) });
+      if (!r.ok) throw new Error('resend ' + r.status);
+    };
+    return res.json(await Login.avisa(loginDb, envia, b, req.get('user-agent') || '', req.ip || req.get('x-forwarded-for') || '', Date.now()));
+  } catch (e) {
+    if (e instanceof Login.Falha) return res.status(e.status).json({ ok: false, motivo: e.motivo });
+    console.error('login', e);
+    return res.status(500).json({ ok: false, motivo: 'erro' });
+  }
+});
+
+// ---------- Retenção de 12 meses (12/11/2026, bloco 5 item 8): roda sozinha todo dia às 4h do Paraguai ----------
+const { onSchedule } = require('firebase-functions/v2/scheduler');
+const Limpeza = require('./limpeza');
+const limpaDb = {
+  // só igualdade/um filtro (sem índice composto); máximo 500 por dia
+  velhos: async (col, antes) => (await admin.firestore().collection(col).where('ts', '<', antes).limit(500).get()).docs.map((d) => Object.assign({ id: d.id }, d.data())),
+  muda: (col, id, c) => admin.firestore().doc(col + '/' + id).update(c),
+  apaga: (col, id) => admin.firestore().doc(col + '/' + id).delete(),
+};
+exports.limpeza = onSchedule({ schedule: '0 4 * * *', timeZone: FUSO, region: REGIAO }, async () => {
+  const r = await Limpeza.limpa(limpaDb, Date.now());
+  console.log('limpeza', JSON.stringify(r));
+});

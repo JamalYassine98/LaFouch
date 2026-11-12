@@ -118,6 +118,11 @@
         S.nuvem.rt = j.refreshToken;
         nvTok = { t: j.idToken, exp: Date.now() + 50 * 60000 };
         saveSoon();
+        // bloco 5 item 5 (12/11/2026): entrada com senha manda e-mail de aviso para lafouch.eyewear@gmail.com
+        try {
+          if (!S.devAviso) S.devAviso = (Date.now().toString(36) + Math.random().toString(36).slice(2, 10)).replace(/[^a-z0-9]/g, '');
+          fetch('https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/login', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + j.idToken }, body: JSON.stringify({ acao: 'aviso', dev: S.devAviso, onde: 'app' }) }).catch(function () {});
+        } catch (e) {}
         var lf = $('lojaFrame');
         if (lf && lf.getAttribute('src')) lf.src = LOJA_URL; // o painel abre já conectado, com esta mesma sessão
         lfaToast('<span class="lfa-ic">' + lfaSvg('check') + '</span><div><b>Nuvem conectada</b><div class="hint" style="margin:0">O painel do site entra sozinho, com a mesma conta</div></div>', 3200, 'b');
