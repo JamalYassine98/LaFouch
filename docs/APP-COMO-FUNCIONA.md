@@ -72,3 +72,7 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 
 ## Nota / comprovante da loja (12/11/2026)
 - `src/97-nota.js`: chave "Emitir nota fiscal" aparece sempre (estrangeiro também). LIGADA → comprovante com dados da nota (paraguaio com RUC: nome + RUC; estrangeiro ou paraguaio sem RUC: Sin nombre / RUC X) + Imprimir. DESLIGADA → só registra a venda: sem comprovante na tela e sem Imprimir (`#notaPap` e `.vimp` escondidos; `ACT.notaImp` recusa).
+
+## Cupom e fretes no app (S194/S192, 12/11/2026)
+- `src/97-cupons.js`: no caixa o cupom é sempre cheio; peça em que o % furaria o piso fica sem cupom (aviso "Peça sem cupom"). Tipos: sai o VIP (botão removido da ficha do cliente em `96-clientes.js`), entra "Cliente fiel" (10% a cada 3 compras pagas, feito pelo servidor). Sem teto do mês (só mostra quanto os cupons deram).
+- `src/97x-fretes.js`: Ajustes › Pedidos do site › "Transportadoras do Delivery": preço (G$) e liga/desliga de PedidosYa, Bolt, Tiemsa e MCGroup → `config/site.fretes` (o site lê). `S.fretes` fica salvo no aparelho.

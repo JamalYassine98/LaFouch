@@ -342,7 +342,7 @@
       'notifs',
       'pedidos',
       'pedNext',
-      'baixaAuto', 'baixaAutoV', 'fechos', 'fechoAdia', 'espera',
+      'baixaAuto', 'fretes', 'ivaCompraPct', 'baixaAutoV', 'fechos', 'fechoAdia', 'espera',
       'resPend',
       'resOrf',
       'pixAuto',

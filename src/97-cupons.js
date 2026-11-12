@@ -5,8 +5,8 @@
   S.cupFila = []; // chamadas que falharam (sem internet): tenta de novo sozinho
   S.cupTipos = {}; // código → tipo (para os relatórios)
   S.cupLista = null; // {ts, j}
-  var CUP_N = { bv: 'Boas-vindas', px: 'Próxima compra', am: 'Indique uma amiga', vip: 'Cliente VIP', ev: 'Cupom do evento' };
-  var CUP_IC = { bv: '✉️', px: '🎟️', am: '👭', vip: '⭐', ev: '🎄' };
+  var CUP_N = { bv: 'Boas-vindas', px: 'Próxima compra', am: 'Indique uma amiga', vip: 'Cliente VIP', fiel: 'Cliente fiel', ev: 'Cupom do evento' };
+  var CUP_IC = { bv: '✉️', px: '🎟️', am: '👭', vip: '⭐', fiel: '💜', ev: '🎄' };
   function cupApi(b) {
     return nvToken().then(function (t) {
       return fetch('https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/cupom', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: JSON.stringify(b) }).then(function (r) {
@@ -53,7 +53,7 @@
     if (S.cartCup)
       return (
         '<div class="sl cupCx"><span>🎟️ ' + esc(S.cartCup.cod) + ' · ' + esc(CUP_N[S.cartCup.tipo] || 'Código') + ' −' + S.cartCup.pct + '%' +
-        (S.cartCup.lim ? '<small>' + S.cartCup.lim + ' peça(s) com desconto limitado ao piso</small>' : '<small>✓ válido · nunca abaixo do piso</small>') +
+        (S.cartCup.lim ? '<small>' + S.cartCup.lim + ' peça(s) sem cupom (furaria o piso)</small>' : '<small>✓ válido · nunca abaixo do piso</small>') +
         '</span><span style="display:flex;gap:6px;align-items:center"><b>− ' + gs(S.cartCup.desc) + '</b><button type="button" class="chip" data-act="cupCxX" aria-label="Tirar o código" style="min-height:36px;width:36px;padding:0;justify-content:center">×</button></span></div>'
       );
     return '<div class="cupCxR"><input class="in" id="cupCxIn" placeholder="🎟️ Código de desconto (LF-XXXX)" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Código de desconto"><button type="button" class="mini" data-act="cupCx">Aplicar</button></div>';
@@ -67,8 +67,9 @@
         pp = pisoPeca(l.it),
         d = Math.round((base * c.pct) / 100 / 500) * 500,
         mx = Math.max(0, base - pp.piso * l.qty);
+      // S194: cupom sempre cheio; se furar o piso, a peça fica fora (sem cupom), igual à OFERTA no site
       if (d > mx) {
-        d = Math.floor(mx / 500) * 500;
+        d = 0;
         lim++;
       }
       l.preco = base - d;
@@ -77,7 +78,7 @@
     });
     S.cartCup = { cod: c.cod, pct: c.pct, tipo: c.tipo, desc: tot, lim: lim };
     S.cupTipos[c.cod] = c.tipo;
-    if (lim && primeira) cupAvisoLocal('✂️ Desconto limitado ao piso', c.cod + ' · ' + lim + ' peça(s)');
+    if (lim && primeira) cupAvisoLocal('✂️ Peça sem cupom (furaria o piso)', c.cod + ' · ' + lim + ' peça(s)');
     saveSoon();
   }
   ACT.cupCx = function () {
@@ -217,7 +218,7 @@
   function cupDesenha(c, j, off) {
     var T = j.tipos || {},
       t = j.teto || { usado: 0, teto: 500000 },
-      pc = Math.min(100, Math.round((t.usado / t.teto) * 100)),
+      pc = 0,
       tp = function (k, d) {
         var x = T[k] || { gerados: 0, usados: 0 };
         return '<div class="sl"><span>' + CUP_IC[k] + ' <b>' + CUP_N[k] + '</b><small>' + d + '</small></span><b>' + x.usados + ' de ' + x.gerados + '</b></div>';
@@ -235,8 +236,8 @@
     var ev = cupTemaProx();
     c.innerHTML =
       '<div class="col cupJ" style="gap:12px;padding:0 16px 16px">' + (off ? '<div class="hint" style="margin:0">Sem internet: números da última vez.</div>' : '') +
-      '<div class="lbl">Tipos</div>' + tp('bv', '5% automático ao se inscrever · 30 dias') + tp('px', '10% · vem com a compra paga e no caixa') + tp('am', '10% + 10%: a amiga usa e quem indicou ganha outro') + tp('vip', '15% pessoal, vale sempre · você escolhe quem') + tp('ev', 'um código para todos, 1 vez por pessoa') +
-      '<div class="lbl">Teto do mês (todos os cupons)</div><div class="cupBar"><i style="width:' + pc + '%"></i></div><div class="hint" style="margin:0">Usado: ' + gs(t.usado) + ' de ' + gs(t.teto) + (pc >= 80 ? ' · ⚠️ ' + pc + '% do teto: ao chegar em 100% os códigos novos pausam (os entregues continuam valendo).' : '') + '</div>' +
+      '<div class="lbl">Tipos</div>' + tp('bv', '5% automático ao se inscrever · 30 dias') + tp('px', '10% · vem com a compra paga e no caixa') + tp('am', '10% + 10%: a amiga usa e quem indicou ganha outro') + tp('fiel', '10% sozinho a cada 3 compras pagas · 1 uso') + tp('ev', 'um código para todos, 1 vez por pessoa') +
+      /* S194: sem teto do mês; mostra só quanto os cupons deram no mês */'<div class="lbl">Descontos de cupons no mês</div><div class="hint" style="margin:0">' + gs(t.usado || 0) + '</div>' +
       '<div class="lbl">O que o app fez sozinho</div>' + (av || '<div class="hint" style="margin:0">Nada por enquanto.</div>') +
       '<div class="lbl">Cupom do evento</div>' +
       (ev ? '<div class="hint" style="margin:0">' + ev.ic + ' ' + ev.nome + (ev.dias > 0 ? ' começa em ' + ev.dias + ' dias' : ' está acontecendo') + ' · sugerido:</div>' : '') +

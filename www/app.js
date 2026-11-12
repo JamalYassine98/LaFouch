@@ -1098,7 +1098,7 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 487;
+  var APP_BUILD = 488;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
   var APP_NOME = '5.9.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
@@ -27461,7 +27461,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       pa: { t: 'Preço automático', r: S.pAuto && S.pAuto.on ? 'Ligado' : 'Desligado', h: paSwitchHtml() },
       tema: { t: 'Tema', r: { auto: 'Auto', claro: 'Claro', escuro: 'Escuro' }[tv] || 'Auto', h: temaCard() },
       seg: { t: 'Segurança', r: S.bioOn ? 'Biometria' : pinAtivo() ? 'PIN' : 'Desligada', h: segH },
-      ped: { t: 'Pedidos do site', r: S.baixaAuto ? 'Baixa automática' : 'Baixa manual', h: achar('baixaCard') },
+      ped: { t: 'Pedidos do site', r: S.baixaAuto ? 'Baixa automática' : 'Baixa manual', h: achar('baixaCard') + (typeof fretesCard === 'function' ? fretesCard() : '') },
       av: { t: 'Sons e avisos', r: av.q ? 'Silêncio ligado' : 'Ligados', h: achar('avisosCard') + resto },
       sync: sy ? { t: 'Sincronização', r: sy[1], al: sy[0] === 'bad' || sy[0] === 'warn', h: syncCard() } : null,
       upd: { t: 'Atualização', r: upN ? (um.nome || upN) + ' pronta' : APP_NOME, al: !!upN, h: updCard() },
@@ -28148,7 +28148,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         '<div class="hint" id="cH" style="margin:0"></div>' +
         '<div class="col" style="gap:12px;margin-top:6px"><button type="button" class="go" data-act="clisave">Salvar</button>' +
         (c.id && (z || c.email) ? '<button type="button" class="go" data-act="cliavisa">Avisar cliente</button>' : '') +
-        (c.id ? '<button type="button" class="mini ghost" data-act="cupVip" data-id="' + c.id + '">⭐ Dar cartão VIP 15%</button>' : '') +
+        /* S194: VIP saiu; o Cliente fiel chega sozinho a cada 3 compras pagas */
         (c.id && c.aviso ? '<div class="hint" style="margin:0">Último aviso: ' + esc(c.aviso.canal) + ' · ' + esc(c.aviso.modelo) + ' · ' + fd(c.aviso.ts) + ' ' + fh(c.aviso.ts) + '</div>' : '') +
         (z ? '<a class="chip" href="' + z + '" target="_blank" rel="noopener" style="color:#25d366;width:100%;min-height:48px;justify-content:center;text-decoration:none;display:flex;align-items:center">' + CLI_WA + '<span style="margin-left:8px">Conversar no WhatsApp</span></a>' : '') +
         (c.id ? '<div style="border-top:1px solid var(--line);margin-top:6px"></div><button type="button" data-act="clidel" style="color:#ff7b7b;background:transparent;border:0;min-height:44px;width:100%;font:inherit;cursor:pointer">' + (S._cliDel === c.id ? 'Remover mesmo?' : 'Remover') + '</button>' : '') +
@@ -31394,8 +31394,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   S.cupFila = []; // chamadas que falharam (sem internet): tenta de novo sozinho
   S.cupTipos = {}; // código → tipo (para os relatórios)
   S.cupLista = null; // {ts, j}
-  var CUP_N = { bv: 'Boas-vindas', px: 'Próxima compra', am: 'Indique uma amiga', vip: 'Cliente VIP', ev: 'Cupom do evento' };
-  var CUP_IC = { bv: '✉️', px: '🎟️', am: '👭', vip: '⭐', ev: '🎄' };
+  var CUP_N = { bv: 'Boas-vindas', px: 'Próxima compra', am: 'Indique uma amiga', vip: 'Cliente VIP', fiel: 'Cliente fiel', ev: 'Cupom do evento' };
+  var CUP_IC = { bv: '✉️', px: '🎟️', am: '👭', vip: '⭐', fiel: '💜', ev: '🎄' };
   function cupApi(b) {
     return nvToken().then(function (t) {
       return fetch('https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/cupom', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: JSON.stringify(b) }).then(function (r) {
@@ -31442,7 +31442,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (S.cartCup)
       return (
         '<div class="sl cupCx"><span>🎟️ ' + esc(S.cartCup.cod) + ' · ' + esc(CUP_N[S.cartCup.tipo] || 'Código') + ' −' + S.cartCup.pct + '%' +
-        (S.cartCup.lim ? '<small>' + S.cartCup.lim + ' peça(s) com desconto limitado ao piso</small>' : '<small>✓ válido · nunca abaixo do piso</small>') +
+        (S.cartCup.lim ? '<small>' + S.cartCup.lim + ' peça(s) sem cupom (furaria o piso)</small>' : '<small>✓ válido · nunca abaixo do piso</small>') +
         '</span><span style="display:flex;gap:6px;align-items:center"><b>− ' + gs(S.cartCup.desc) + '</b><button type="button" class="chip" data-act="cupCxX" aria-label="Tirar o código" style="min-height:36px;width:36px;padding:0;justify-content:center">×</button></span></div>'
       );
     return '<div class="cupCxR"><input class="in" id="cupCxIn" placeholder="🎟️ Código de desconto (LF-XXXX)" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Código de desconto"><button type="button" class="mini" data-act="cupCx">Aplicar</button></div>';
@@ -31456,8 +31456,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         pp = pisoPeca(l.it),
         d = Math.round((base * c.pct) / 100 / 500) * 500,
         mx = Math.max(0, base - pp.piso * l.qty);
+      // S194: cupom sempre cheio; se furar o piso, a peça fica fora (sem cupom), igual à OFERTA no site
       if (d > mx) {
-        d = Math.floor(mx / 500) * 500;
+        d = 0;
         lim++;
       }
       l.preco = base - d;
@@ -31466,7 +31467,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     });
     S.cartCup = { cod: c.cod, pct: c.pct, tipo: c.tipo, desc: tot, lim: lim };
     S.cupTipos[c.cod] = c.tipo;
-    if (lim && primeira) cupAvisoLocal('✂️ Desconto limitado ao piso', c.cod + ' · ' + lim + ' peça(s)');
+    if (lim && primeira) cupAvisoLocal('✂️ Peça sem cupom (furaria o piso)', c.cod + ' · ' + lim + ' peça(s)');
     saveSoon();
   }
   ACT.cupCx = function () {
@@ -31606,7 +31607,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function cupDesenha(c, j, off) {
     var T = j.tipos || {},
       t = j.teto || { usado: 0, teto: 500000 },
-      pc = Math.min(100, Math.round((t.usado / t.teto) * 100)),
+      pc = 0,
       tp = function (k, d) {
         var x = T[k] || { gerados: 0, usados: 0 };
         return '<div class="sl"><span>' + CUP_IC[k] + ' <b>' + CUP_N[k] + '</b><small>' + d + '</small></span><b>' + x.usados + ' de ' + x.gerados + '</b></div>';
@@ -31624,8 +31625,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var ev = cupTemaProx();
     c.innerHTML =
       '<div class="col cupJ" style="gap:12px;padding:0 16px 16px">' + (off ? '<div class="hint" style="margin:0">Sem internet: números da última vez.</div>' : '') +
-      '<div class="lbl">Tipos</div>' + tp('bv', '5% automático ao se inscrever · 30 dias') + tp('px', '10% · vem com a compra paga e no caixa') + tp('am', '10% + 10%: a amiga usa e quem indicou ganha outro') + tp('vip', '15% pessoal, vale sempre · você escolhe quem') + tp('ev', 'um código para todos, 1 vez por pessoa') +
-      '<div class="lbl">Teto do mês (todos os cupons)</div><div class="cupBar"><i style="width:' + pc + '%"></i></div><div class="hint" style="margin:0">Usado: ' + gs(t.usado) + ' de ' + gs(t.teto) + (pc >= 80 ? ' · ⚠️ ' + pc + '% do teto: ao chegar em 100% os códigos novos pausam (os entregues continuam valendo).' : '') + '</div>' +
+      '<div class="lbl">Tipos</div>' + tp('bv', '5% automático ao se inscrever · 30 dias') + tp('px', '10% · vem com a compra paga e no caixa') + tp('am', '10% + 10%: a amiga usa e quem indicou ganha outro') + tp('fiel', '10% sozinho a cada 3 compras pagas · 1 uso') + tp('ev', 'um código para todos, 1 vez por pessoa') +
+      /* S194: sem teto do mês; mostra só quanto os cupons deram no mês */'<div class="lbl">Descontos de cupons no mês</div><div class="hint" style="margin:0">' + gs(t.usado || 0) + '</div>' +
       '<div class="lbl">O que o app fez sozinho</div>' + (av || '<div class="hint" style="margin:0">Nada por enquanto.</div>') +
       '<div class="lbl">Cupom do evento</div>' +
       (ev ? '<div class="hint" style="margin:0">' + ev.ic + ' ' + ev.nome + (ev.dias > 0 ? ' começa em ' + ev.dias + ' dias' : ' está acontecendo') + ' · sugerido:</div>' : '') +
@@ -43755,6 +43756,46 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     setTimeout(vitAvisa, 20000);
     setInterval(vitAvisa, 60 * 60000);
   }
+  // ===== S192 (aprovado 12/11/2026): transportadoras do Delivery do site =====
+  // O dono põe o preço de cada uma (G$) e pode desligar a que não está atendendo. Vai para config/site.fretes
+  // ({pya:{p,off}, bolt, tiemsa, mcg}); sem preço o site mostra "pago na entrega". Quando as contas da PedidosYa/Bolt
+  // forem ligadas, o preço automático entra no mesmo campo.
+  var FRT = [['pya', 'PedidosYa Envíos', 'em até 60 min'], ['bolt', 'Bolt Envío', 'em até 60 min'], ['tiemsa', 'Tiemsa', '1 a 2 dias úteis'], ['mcg', 'MCGroup', '1 a 2 dias úteis']];
+  S.fretes = S.fretes || {};
+  function fretesCard() {
+    return (
+      '<section class="card col" id="fretesCard" style="gap:10px"><div><b>Transportadoras do Delivery</b><div class="hint" style="margin:2px 0 0">Preço que o cliente vê no site (vazio = pago na entrega). Desligue a que não está atendendo.</div></div>' +
+      FRT.map(function (t) {
+        var f = S.fretes[t[0]] || {};
+        return (
+          '<div class="sl" style="gap:10px;align-items:center"><span>' + t[1] + '<small>' + t[2] + '</small></span><span style="display:flex;gap:8px;align-items:center">' +
+          '<input class="in frtP" data-id="' + t[0] + '" inputmode="numeric" placeholder="G$" value="' + (f.p ? String(f.p).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '') + '" style="width:110px;text-align:right" aria-label="Preço ' + t[1] + '">' +
+          '<button type="button" class="nfTg' + (f.off ? '' : ' on') + '" data-act="frtTg" data-id="' + t[0] + '" role="switch" aria-checked="' + !f.off + '" aria-label="' + t[1] + ' ligada"><i></i></button></span></div>'
+        );
+      }).join('') +
+      '<button type="button" class="go" data-act="frtSalva">Salvar no site</button></section>'
+    );
+  }
+  ACT.frtTg = function (id) {
+    var f = (S.fretes[id] = S.fretes[id] || {});
+    f.off = !f.off;
+    var b = document.querySelector('[data-act=frtTg][data-id="' + id + '"]');
+    if (b) { b.classList.toggle('on', !f.off); b.setAttribute('aria-checked', String(!f.off)); }
+    saveSoon();
+  };
+  ACT.frtSalva = function () {
+    document.querySelectorAll('#fretesCard .frtP').forEach(function (i) {
+      var id = i.getAttribute('data-id'), v = parseInt(String(i.value).replace(/\D/g, ''), 10) || 0, f = (S.fretes[id] = S.fretes[id] || {});
+      f.p = v > 0 && v < 5000000 ? v : 0;
+    });
+    saveSoon();
+    var o = {};
+    FRT.forEach(function (t) { var f = S.fretes[t[0]] || {}; o[t[0]] = { p: f.p || 0, off: !!f.off }; });
+    if (typeof vitApi !== 'function') { lfToast('Salvo neste aparelho'); return; }
+    vitApi('PATCH', 'config/site?updateMask.fieldPaths=fretes', vBody({ fretes: o }))
+      .then(function () { lfToast('✓ Fretes no site'); })
+      .catch(function () { lfToast('Salvo aqui; vai para o site quando houver internet'); S.fretesPend = 1; saveSoon(); });
+  };
   // ===== S200 (aprovado 12/11/2026): LUCRO REAL por peça e do mês =====
   // Regra do dono: IVA da venda (10% dentro do preço) sai da receita (preço ÷ 1,10); IVA pago na compra vira CUSTO
   // (sem crédito fiscal); frete da compra já está rateado no custo da peça (lote); frete da entrega pago pela loja,
@@ -48525,7 +48566,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       'notifs',
       'pedidos',
       'pedNext',
-      'baixaAuto', 'baixaAutoV', 'fechos', 'fechoAdia', 'espera',
+      'baixaAuto', 'fretes', 'ivaCompraPct', 'baixaAutoV', 'fechos', 'fechoAdia', 'espera',
       'resPend',
       'resOrf',
       'pixAuto',
