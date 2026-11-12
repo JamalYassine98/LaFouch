@@ -1098,7 +1098,7 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 486;
+  var APP_BUILD = 487;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
   var APP_NOME = '5.9.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
@@ -38436,11 +38436,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       return a + x.tot;
     }, 0);
     // Dados da nota (só saem com "Emitir nota fiscal" ligado). Paraguaio sem RUC ou sem cliente: Sin nombre / RUC X.
-    // Estrangeiro nunca tem nota (podeNota = false): a chave nem aparece.
+    // 12/11/2026 (dono): estrangeiro também tem nota (Sin nombre / RUC X); a chave aparece sempre.
     var fis = cli && temRuc(cli);
     return {
       ts: Date.now(),
-      podeNota: !cliEstr(cli),
+      podeNota: true,
       nombre: fis ? cli.nome || 'Sin nombre' : 'Sin nombre',
       ruc: fis ? String(cli.ruc).trim() : 'X',
       ciudad: 'CDE',
@@ -38488,7 +38488,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   var NOTA_PAP = 'background:#fff;color:#111;padding:14px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.5;border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.4)';
   function notaSwHtml() {
     return (
-      '<div class="nfSw vst"><span><b>Emitir nota fiscal</b><small id="nfSwH">' + (notaFis ? 'Ligado: comprovante com dados da nota' : 'Desligado: só o comprovante') + '</small></span>' +
+      '<div class="nfSw vst"><span><b>Emitir nota fiscal</b><small id="nfSwH">' + (notaFis ? 'Ligado: comprovante com dados da nota' : 'Desligado: só registra a venda') + '</small></span>' +
       '<button type="button" class="nfTg' + (notaFis ? ' on' : '') + '" data-act="notaFis" role="switch" aria-checked="' + notaFis + '" aria-label="Emitir nota fiscal"><i></i></button></div>'
     );
   }
@@ -38505,8 +38505,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       t.classList.toggle('on', notaFis);
       t.setAttribute('aria-checked', String(notaFis));
     }
-    if (h) h.textContent = notaFis ? 'Ligado: comprovante com dados da nota' : 'Desligado: só o comprovante';
-    if (p) {
+    if (h) h.textContent = notaFis ? 'Ligado: comprovante com dados da nota' : 'Desligado: só registra a venda';
+    // 12/11/2026 (dono): nota desligada = sem comprovante e sem imprimir
+    var bi = document.querySelector('#notaOv .vimp');
+    if (bi) bi.hidden = !notaFis;
+    if (p) p.hidden = !notaFis;
+    if (p && notaFis) {
       var h0 = p.offsetHeight;
       p.innerHTML = notaHtml(notaAtual, NOTA_PAP, notaFis);
       var h1 = p.offsetHeight;
@@ -38532,9 +38536,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<div class="vcc' + (REDUCED ? ' done' : '') + '"><div class="vspn"></div><div class="vck"><svg viewBox="0 0 56 56" aria-hidden="true"><path d="M13 29l10 10 20-22"/></svg></div></div>' +
       '<h2 class="vst">Venda confirmada</h2><div class="hint vst vsub">' + sub + '</div>' +
       '<div class="vtot vst" id="vtot">' + gs(nota.total) + '</div>' +
-      '<div class="vst" id="notaPap">' + notaHtml(nota, NOTA_PAP, notaFisOn(nota)) + '</div>' +
+      '<div class="vst" id="notaPap"' + (notaFisOn(nota) ? '' : ' hidden') + '>' + notaHtml(nota, NOTA_PAP, true) + '</div>' +
       (nota.podeNota ? notaSwHtml() : '') +
-      '<button type="button" class="go vst vimp" data-act="notaImp"><svg viewBox="0 0 24 24" aria-hidden="true" class="nfIc"><path d="M7 9V3h10v6M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2M7 14h10v7H7z"/></svg>Imprimir comprovante</button>' +
+      '<button type="button" class="go vst vimp" data-act="notaImp"' + (notaFisOn(nota) ? '' : ' hidden') + '><svg viewBox="0 0 24 24" aria-hidden="true" class="nfIc"><path d="M7 9V3h10v6M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2M7 14h10v7H7z"/></svg>Imprimir comprovante</button>' +
       '</div>';
     ov.hidden = false;
     document.body.classList.add('noscroll');
@@ -38609,7 +38613,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   // Pergunta antes de imprimir, para um toque sem querer não gastar papel.
   ACT.notaImp = function () {
-    if (!notaAtual || vcfBusy) return;
+    if (!notaAtual || vcfBusy || !notaFisOn(notaAtual)) return;
     notaConfirma('Imprimir o comprovante?', 'O comprovante será enviado para a impressora agora.', 'Imprimir', 'notaImpOk');
   };
   ACT.notaImpOk = function () {

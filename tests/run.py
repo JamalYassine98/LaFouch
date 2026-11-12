@@ -635,7 +635,8 @@ async def main():
             total += 1
             await vender()
             tx = await pg.inner_text('#notaOv')
-            a0 = ['LA FOUCH' in tx, 'COMPROBANTE DE VENTA' in tx, 'Ciudad: CDE' in tx, 'Pago: Contado' in tx, 'Sin nombre' not in tx, 'RUC' not in tx, 'IVA' not in tx]
+            # 12/11/2026 (dono): nota desligada = só registra a venda (sem comprovante e sem imprimir)
+            a0 = ['COMPROBANTE DE VENTA' not in tx, 'Sin nombre' not in tx, 'RUC' not in tx, 'IVA' not in tx, await pg.locator('[data-act=notaImp]').is_hidden(), 'Venda confirmada' in tx, await pg.locator('[data-act=notaFis]').count() == 1]
             await pg.click('[data-act=notaFis]'); await pg.wait_for_timeout(450); tx = await pg.inner_text('#notaOv')
             a = [await pg.locator('#notaOv').is_visible(), 'Sin nombre' in tx, 'RUC: X' in tx, 'Ciudad: CDE' in tx, 'Armazón' in tx, '50.000' in tx, '4.545' in tx, await pg.locator('[data-act=notaImp]').count()] + a0
             await pg.click('[data-act=notaX]'); b1 = await pg.locator('#notaCf').is_visible()
@@ -643,7 +644,7 @@ async def main():
             await pg.click('[data-act=notaImp]'); await pg.wait_for_timeout(200); b3a = await pg.locator('#notaCf').is_visible(); await pg.click('[data-act=notaImpOk]'); await pg.wait_for_timeout(2200); b3 = await pg.locator('#notaCf').is_hidden()
             c1 = [await pg.locator('#notaOv').is_hidden(), 'Sin nombre' in await pg.evaluate('() => window.__imp || ""')]
             ok = a == [True, True, True, True, True, True, True, 1] + [True] * 7 and b1 and b2 and b3a and b3 and c1 == [True, True]
-            print(('  ok  ' if ok else ' FALHA ') + 'venda sem cliente: comprovante (LA FOUCH, Ciudad, Pago, sem RUC/IVA); chave liga a nota Sin nombre / X / IVA; imprime e confirma ao fechar')
+            print(('  ok  ' if ok else ' FALHA ') + 'venda sem cliente: nota desligada só registra (sem comprovante nem imprimir); chave liga a nota Sin nombre / X / IVA; imprime e confirma ao fechar')
             if not ok: falhas.append('nota sem cliente'); print('        veio', a, b1, b2, b3, c1, pg.erros)
             total += 1
             await vender('mar')
@@ -657,11 +658,11 @@ async def main():
             await vender('Joã')
             tx = await pg.inner_text('#notaOv')
             got = await pg.evaluate("() => window.__LF.S.sales[0].cliId")
-            ok = 'João Souza · estrangeiro' in tx and 'CI/CPF' not in tx and 'RUC' not in tx and 'Nombre' not in tx and 'COMPROBANTE DE VENTA' in tx and await pg.locator('[data-act=notaImp]').count() == 1 and await pg.locator('[data-act=notaFis]').count() == 0 and got == 2
+            ok = 'João Souza · estrangeiro' in tx and 'CI/CPF' not in tx and 'Sin nombre' in tx and 'RUC: X' in tx and 'COMPROBANTE DE VENTA' in tx and await pg.locator('[data-act=notaImp]').count() == 1 and await pg.locator('[data-act=notaFis]').count() == 1 and got == 2
             await pg.wait_for_timeout(4000)
             ok = ok and await pg.locator('#notaOv').is_visible()
             await pg.click('[data-act=notaX]'); await pg.click('[data-act=notaSair]'); await pg.wait_for_timeout(500)
-            print(('  ok  ' if ok else ' FALHA ') + 'estrangeiro (do site): só comprovante, sem chave de nota, sem nome/documento no papel, não fecha sozinho')
+            print(('  ok  ' if ok else ' FALHA ') + 'estrangeiro (do site): nota ligada = Sin nombre / RUC X (sem CPF), chave de nota aparece, não fecha sozinho')
             if not ok: falhas.append('nota sem RUC'); print('        veio', tx, got)
             total += 1
             await pg.evaluate("() => { const L = window.__LF; L.S.cliSel = 1; L.setView('clientes'); L.render(); }"); await pg.wait_for_timeout(300)
