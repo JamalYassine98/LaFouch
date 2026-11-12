@@ -421,3 +421,80 @@ exports.limpeza = onSchedule({ schedule: '0 4 * * *', timeZone: FUSO, region: RE
   const r = await Limpeza.limpa(limpaDb, Date.now());
   console.log('limpeza', JSON.stringify(r));
 });
+
+// ---------- Cupons e cartões virtuais (12/11/2026, S174 v1+v2+v3) ----------
+const Cupom = require('./cupom');
+const crypto = require('crypto');
+const fsx = () => admin.firestore();
+const cupDb = {
+  get: async (k) => { if (!/^[A-Z0-9-]{4,24}$/.test(k)) return null; const d = await fsx().doc('cupons/' + k).get(); return d.exists ? d.data() : null; },
+  salva: (k, o) => fsx().doc('cupons/' + k).set(o),
+  muda: (k, c) => fsx().doc('cupons/' + k).update(c),
+  getMes: async (k) => { const d = await fsx().doc('cupomMes/' + k).get(); return d.exists ? d.data() : null; },
+  somaMes: (k, v) => fsx().doc('cupomMes/' + k).set({ desc: admin.firestore.FieldValue.increment(v) }, { merge: true }),
+  getTent: async (k) => { const d = await fsx().doc('cupomTent/' + k).get(); return d.exists ? d.data() : null; },
+  salvaTent: (k, o) => fsx().doc('cupomTent/' + k).set(o),
+  aviso: (o) => fsx().collection('cupomAvisos').add(o),
+  avisos: async (n) => (await fsx().collection('cupomAvisos').orderBy('ts', 'desc').limit(n).get()).docs.map((d) => Object.assign({ id: d.id }, d.data())),
+  // "já comprou": pedido do site com esse e-mail, ou comprador marcado quando o app confirmou um pagamento
+  jaComprou: async (tel, em) => {
+    if (tel && (await fsx().doc('compradores/t' + tel).get()).exists) return true;
+    if (em && (await fsx().doc('compradores/e' + crypto.createHash('sha256').update(em).digest('hex').slice(0, 32)).get()).exists) return true;
+    if (em && !(await fsx().collection('pedidos').where('email', '==', em).limit(1).get()).empty) return true;
+    return false;
+  },
+  comprou: async (tel, em) => {
+    if (tel) await fsx().doc('compradores/t' + tel).set({ ts: Date.now() });
+    if (em) await fsx().doc('compradores/e' + crypto.createHash('sha256').update(em).digest('hex').slice(0, 32)).set({ ts: Date.now() });
+  },
+  bvDe: async (em, tel) => {
+    if (em && !(await fsx().collection('cupons').where('tipo', '==', 'bv').where('email', '==', em).limit(1).get()).empty) return true;
+    if (tel && !(await fsx().collection('cupons').where('tipo', '==', 'bv').where('tel', '==', tel).limit(1).get()).empty) return true;
+    return false;
+  },
+  porPid: async (pid, tipo) => { const q = await fsx().collection('cupons').where('pid', '==', pid).where('tipo', '==', tipo).limit(1).get(); return q.empty ? null : q.docs[0].data(); },
+  comUsoDe: async (pid) => (await fsx().collection('cupons').where('pids', 'array-contains', pid).get()).docs.map((d) => d.data()),
+  todos: async () => (await fsx().collection('cupons').orderBy('ts', 'desc').limit(500).get()).docs.map((d) => d.data()),
+  doEmail: async (em) => (await fsx().collection('cupons').where('email', '==', em).get()).docs.map((d) => d.data()),
+};
+exports.cupom = onRequest({ region: REGIAO, cors: true, maxInstances: 10, secrets: [RESEND_KEY] }, async (req, res) => {
+  if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
+  const b = req.body && typeof req.body === 'object' ? req.body : {};
+  const ipk = crypto.createHash('sha256').update(String(req.ip || req.get('x-forwarded-for') || '')).digest('hex').slice(0, 24);
+  let chave = '';
+  try { chave = RESEND_KEY.value() || ''; } catch (e) {}
+  const envia = chave ? async (m) => {
+    const r = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + chave, 'Content-Type': 'application/json' },
+      body: JSON.stringify(Object.assign({ from: 'La Fouch <nao-responda@lafouch.com>' }, m)) });
+    if (!r.ok) throw new Error('resend ' + r.status);
+  } : null;
+  const agora = Date.now();
+  try {
+    // público (site)
+    if (b.acao === 'ver') return res.json(await Cupom.ver(cupDb, b, ipk, agora));
+    if (b.acao === 'usar') return res.json(await Cupom.usar(cupDb, b, ipk, agora, false));
+    if (b.acao === 'bv') return res.json(await Cupom.boasVindas(cupDb, envia, b, agora));
+    if (b.acao === 'proxima') return res.json(await Cupom.proxima(cupDb, b, agora));
+    if (b.acao === 'meus') {
+      const m = /^Bearer (.+)$/.exec(req.get('Authorization') || '');
+      if (!m) return res.status(401).json({ ok: false, motivo: 'login' });
+      let t = null;
+      try { t = await admin.auth().verifyIdToken(m[1]); } catch (e) { return res.status(401).json({ ok: false, motivo: 'login' }); }
+      return res.json(await Cupom.meus(cupDb, t.email, agora));
+    }
+    // só o dono (app)
+    if (!(await ehDono(req))) return res.status(403).json({ ok: false, motivo: 'sem-permissao' });
+    if (b.acao === 'caixa') return res.json(await Cupom.usar(cupDb, b, ipk, agora, true));
+    if (b.acao === 'confirma') return res.json(await Cupom.confirma(cupDb, envia, b, agora));
+    if (b.acao === 'libera') return res.json(await Cupom.libera(cupDb, b, agora));
+    if (b.acao === 'emitir') return res.json(await Cupom.emitir(cupDb, b, agora));
+    if (b.acao === 'cancelar') return res.json(await Cupom.cancelar(cupDb, b));
+    if (b.acao === 'destrava') return res.json(await Cupom.destrava(cupDb, b));
+    if (b.acao === 'lista') return res.json(await Cupom.lista(cupDb, agora));
+    return res.status(400).json({ ok: false, motivo: 'acao' });
+  } catch (e) {
+    if (e instanceof Cupom.Falha) return res.status(e.status).json({ ok: false, motivo: e.motivo });
+    console.error('cupom', e);
+    return res.status(500).json({ ok: false, motivo: 'erro' });
+  }
+});

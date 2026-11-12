@@ -2155,3 +2155,9 @@ body.modoCli #selBar{display:none!important}
 .repSite .sl,.semSite .sl{display:flex;justify-content:space-between;gap:10px;font-size:14px}.semSite .sl span{white-space:nowrap}.semSite .sl b{text-align:right}
 .semSite{display:grid;gap:8px;padding:12px}
 .semG{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.semG>div{display:grid;text-align:center}.semG b{font-size:20px}.semG small{font-size:11px;opacity:.75}
+/* S174 (12/11/2026): cupons e cartões */
+.cupCxR{display:flex;gap:8px;align-items:center}.cupCxR .in{flex:1;text-transform:uppercase}
+.cupCard{display:grid;gap:4px;padding:16px 18px;border-radius:16px;background:linear-gradient(135deg,#2b1a2a,#5a2f4f);color:#fff}.cupCard small{font-size:11px;letter-spacing:.22em;opacity:.8}.cupCard b{font:700 20px Georgia,serif}.cupCard code{font:700 24px monospace;letter-spacing:.12em}.cupCard i{font-style:normal;font-size:12px;opacity:.85}
+.cupQr{display:flex;justify-content:center}.cupQr svg{width:200px;height:200px;background:#fff;padding:8px;border-radius:12px}
+.cupBar{height:10px;border-radius:99px;background:var(--panel2,rgba(127,127,127,.2));overflow:hidden}.cupBar i{display:block;height:100%;background:var(--accent,#a44a7e)}
+.cupEv{display:grid;grid-template-columns:2fr 1fr 1fr;gap:6px}

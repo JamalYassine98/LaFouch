@@ -105,6 +105,9 @@
       return a + (s.taxa || 0);
     }, 0);
     r.lucroLivre = sumBy(vs, 'livre');
+    // S174: descontos de cupons (o valor das vendas já vem com o desconto; esta linha mostra quanto foi)
+    var vcup = vs.filter(function (s) { return s.cup && s.cup.desc > 0; }).map(function (s) { return Object.assign({}, s, { cupd: s.cup.desc }); });
+    r.cupons = sumBy(vcup, 'cupd');
     var pg = S.cpay || [];
     r.contasLoja = somaCampo(pg, 'valor', lim, function (x) {
       return GRUPO_LOJA[x.cat];
@@ -137,6 +140,7 @@
         cmv: somaEq(vs, 'rep', null, null, true),
         taxas: somaEq(vs, 'taxa', null, null, true),
         lucroLivre: somaEq(vs, 'livre', null, null, true),
+        cupons: somaEq(vcup, 'cupd', null, null, true),
         contasLoja: somaEq(pg, 'valor', lim, function (x) {
           return GRUPO_LOJA[x.cat];
         }),
@@ -171,6 +175,7 @@
   }
   var LINHAS_RES = [
     ['Vendas', 'vendas'],
+    ['Descontos de cupons (já fora das vendas)', 'cupons'],
     ['Custo de repor a mercadoria vendida', 'cmv'],
     ['Taxas de maquininha', 'taxas'],
     ['Contas da loja pagas', 'contasLoja'],
@@ -235,7 +240,7 @@
           '</b></div>'
         : dxRow(l[0], ap, rFmt(c.a, k));
     });
-    return h + '</div></section>';
+    return h + '</div></section>' + (typeof cupValeuHtml === 'function' ? cupValeuHtml() : '');
   }
   // Texto CSV do resultado do mês e das vendas do mês.
   function resultadoCsv() {

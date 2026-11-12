@@ -93,6 +93,7 @@
       pag: pag, pg: pag ? 'pagar' : '', total: Math.max(0, Math.round(+f.total) || 0), brl: pedTxt(f.brl, 12), teste: f.teste === true,
       uq: Math.max(0, Math.min(99, Math.round(+f.uq) || 0)), pagar: Math.max(0, Math.round(+f.pagar) || 0), depE: pedTxt(f.depE, 60),
       // Leve 2: o desconto vem dentro de cada linha (as regras do Firestore só aceitam os campos conhecidos no pedido)
+      cup: pedTxt(f.cup, 24), cupd: Math.max(0, Math.round(+f.cupd) || 0),
       l2: (Array.isArray(f.itens) ? f.itens : []).slice(0, 30).reduce(function (a, l) {
         return a + Math.max(0, Math.round(+(l && l.l2)) || 0);
       }, Math.max(0, Math.round(+f.l2) || 0))
@@ -170,6 +171,7 @@
             if (qc) {
               if (qc.st === 'novo' && (qc.pg === 'pagar' || qc.pg === 'comp')) {
                 qc.st = 'canc';
+                if (typeof cupPedido === 'function') cupPedido(qc, 'libera');
                 qc.cancSite = true;
                 cancs++;
               }
@@ -441,6 +443,7 @@
         (l.preco ? '<b>' + gs(l.preco * l.q) + '</b>' : '') + '</button>';
     });
     // Leve 2 do site (11/11/2026): o preço das linhas já vem com o desconto; aqui só mostra quanto foi
+    if (p.cupd > 0) h += '<div class="pdTot"><span class="pdMt">Código ' + esc(p.cup || '') + ' (cupom do site)</span><b>− ' + gs(p.cupd) + '</b></div>';
     if (p.l2 > 0) h += '<div class="pdTot"><span class="pdMt">Leve 2 do site (30% na 2ª peça)</span><b>− ' + gs(p.l2) + '</b></div>';
     h += '<div class="pdTot"><span class="pdMt">Total</span><b>' + (tot ? gs(tot) : '—') + '</b></div></section>';
     h += pedAcoes(p, false);
@@ -684,6 +687,7 @@
     S.pedSel = p.id;
     render();
     window.scrollTo(0, 0);
+    if (typeof cupPedido === 'function') cupPedido(p, 'confirma');
     pedReserva(p, { pago: true, tok: p.tok })
       .then(function () {
         say('Pagamento confirmado. O cliente já vê no site.');
@@ -875,6 +879,7 @@
       resSolta(p);
       // o site do cliente para o relógio e mostra "Cancelado pela loja"
       if (p.sid) pedReserva(p, { cancelado: true }).catch(function () {});
+      if (typeof cupPedido === 'function') cupPedido(p, 'libera');
     }
   };
   ACT.peddel = function (id) {
@@ -897,6 +902,7 @@
     if (apg && apg.orig === 'site' && apg.sid && !apg.baixa && apg.st !== 'canc') {
       resSolta(apg);
       pedReserva(apg, { cancelado: true }).catch(function () {});
+      if (typeof cupPedido === 'function') cupPedido(apg, 'libera');
     }
     S.pedidos = S.pedidos.filter(function (p) {
       return String(p.id) !== String(id);

@@ -210,7 +210,7 @@
     var el = $('v-clientes');
     if (!el || S.view !== 'clientes') return;
     var h = '<div class="top"><div><h1>Clientes</h1><div class="crumb">Quem compra de você, com telefone e documento</div></div>' +
-      '<div class="tabs"><button class="mini" data-act="clinovo">+ Novo cliente</button></div></div>';
+      '<div class="tabs"><button class="mini" data-act="clinovo">+ Novo cliente</button><button class="mini ghost" data-act="cupAbre">🎟️ Cartões</button></div></div>';
     var c = S.cliSel === 'novo' ? { id: 0, nome: '', tel: '', ruc: '', obs: '' } : cliAtual();
     if (c) {
       var ps = c.id ? cliPedidos(c) : [],
@@ -228,6 +228,7 @@
         '<div class="hint" id="cH" style="margin:0"></div>' +
         '<div class="col" style="gap:12px;margin-top:6px"><button type="button" class="go" data-act="clisave">Salvar</button>' +
         (c.id && (z || c.email) ? '<button type="button" class="go" data-act="cliavisa">Avisar cliente</button>' : '') +
+        (c.id ? '<button type="button" class="mini ghost" data-act="cupVip" data-id="' + c.id + '">⭐ Dar cartão VIP 15%</button>' : '') +
         (c.id && c.aviso ? '<div class="hint" style="margin:0">Último aviso: ' + esc(c.aviso.canal) + ' · ' + esc(c.aviso.modelo) + ' · ' + fd(c.aviso.ts) + ' ' + fh(c.aviso.ts) + '</div>' : '') +
         (z ? '<a class="chip" href="' + z + '" target="_blank" rel="noopener" style="color:#25d366;width:100%;min-height:48px;justify-content:center;text-decoration:none;display:flex;align-items:center">' + CLI_WA + '<span style="margin-left:8px">Conversar no WhatsApp</span></a>' : '') +
         (c.id ? '<div style="border-top:1px solid var(--line);margin-top:6px"></div><button type="button" data-act="clidel" style="color:#ff7b7b;background:transparent;border:0;min-height:44px;width:100%;font:inherit;cursor:pointer">' + (S._cliDel === c.id ? 'Remover mesmo?' : 'Remover') + '</button>' : '') +

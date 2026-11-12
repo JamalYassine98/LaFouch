@@ -1047,8 +1047,58 @@
     var s = out.join(' ');
     return s !== tks.join(' ') ? s : '';
   }
+/* Gerador de QR Code (modo bytes, correção M). Usado no pagamento por PIX. window.LFqr.svg(texto) devolve um <svg>. */
+(function(){
+var EPB=[-1,10,16,26,18,24,16,18,22,22,26,30,22,22,24,24,28,28,26,26,26,26,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28];
+var NB=[-1,1,1,1,2,2,4,4,4,5,5,5,8,9,9,10,10,11,13,14,16,17,17,18,20,21,23,25,26,28,29,31,33,35,37,38,40,43,45,47,49];
+function raw(v){var r=(16*v+128)*v+64;if(v>=2){var n=Math.floor(v/7)+2;r-=(25*n-10)*n-55;if(v>=7)r-=36}return r}
+function ndata(v){return Math.floor(raw(v)/8)-EPB[v]*NB[v]}
+function utf8(s){return Array.prototype.slice.call(unescape(encodeURIComponent(s))).map(function(c){return c.charCodeAt(0)})}
+function mul(x,y){var z=0;for(var i=7;i>=0;i--){z=(z<<1)^((z>>>7)*0x11D);z^=((y>>>i)&1)*x}return z&255}
+function rsGen(d){var r=[];for(var i=0;i<d-1;i++)r.push(0);r.push(1);var root=1;for(var i=0;i<d;i++){for(var j=0;j<r.length;j++){r[j]=mul(r[j],root);if(j+1<r.length)r[j]^=r[j+1]}root=mul(root,2)}return r}
+function rsRem(data,gen){var r=gen.map(function(){return 0});data.forEach(function(b){var f=b^r.shift();r.push(0);gen.forEach(function(c,i){r[i]^=mul(c,f)})});return r}
+function bit(x,i){return((x>>>i)&1)!==0}
+function make(text){
+  var data=utf8(text),ver,cap;
+  for(ver=1;ver<=40;ver++){var cc=ver<10?8:16;if(4+cc+data.length*8<=ndata(ver)*8)break}
+  if(ver>40)throw new Error('texto grande demais');
+  var bits=[];function put(v,n){for(var i=n-1;i>=0;i--)bits.push((v>>>i)&1)}
+  put(4,4);put(data.length,ver<10?8:16);data.forEach(function(b){put(b,8)});
+  cap=ndata(ver)*8;put(0,Math.min(4,cap-bits.length));while(bits.length%8)bits.push(0);
+  for(var pad=0xEC;bits.length<cap;pad^=0xEC^0x11)put(pad,8);
+  var cw=[];for(var i=0;i<bits.length;i+=8){var b=0;for(var j=0;j<8;j++)b=(b<<1)|bits[i+j];cw.push(b)}
+  var nb=NB[ver],eb=EPB[ver],rc=Math.floor(raw(ver)/8),ns=nb-rc%nb,sl=Math.floor(rc/nb),gen=rsGen(eb),blocks=[],k=0;
+  for(var i=0;i<nb;i++){var dat=cw.slice(k,k+sl-eb+(i<ns?0:1));k+=dat.length;var ec=rsRem(dat,gen);if(i<ns)dat.push(0);blocks.push(dat.concat(ec))}
+  var all=[];for(var i=0;i<blocks[0].length;i++)blocks.forEach(function(bl,j){if(i!==sl-eb||j>=ns)all.push(bl[i])});
+  var size=ver*4+17,M=[],F=[];for(var y=0;y<size;y++){M.push(new Array(size).fill(false));F.push(new Array(size).fill(false))}
+  function sf(x,y,d){M[y][x]=d;F[y][x]=true}
+  for(var i=0;i<size;i++){sf(6,i,i%2===0);sf(i,6,i%2===0)}
+  function finder(x,y){for(var dy=-4;dy<=4;dy++)for(var dx=-4;dx<=4;dx++){var d=Math.max(Math.abs(dx),Math.abs(dy)),xx=x+dx,yy=y+dy;if(xx>=0&&xx<size&&yy>=0&&yy<size)sf(xx,yy,d!==2&&d!==4)}}
+  finder(3,3);finder(size-4,3);finder(3,size-4);
+  var ap=[];if(ver>1){var na=Math.floor(ver/7)+2,st=ver===32?26:Math.ceil((ver*4+4)/(na*2-2))*2;ap=[6];for(var p=size-7;ap.length<na;p-=st)ap.splice(1,0,p)}
+  for(var a=0;a<ap.length;a++)for(var c=0;c<ap.length;c++){if((a===0&&c===0)||(a===0&&c===ap.length-1)||(a===ap.length-1&&c===0))continue;for(var dy=-2;dy<=2;dy++)for(var dx=-2;dx<=2;dx++)sf(ap[a]+dx,ap[c]+dy,Math.max(Math.abs(dx),Math.abs(dy))!==1)}
+  function fmt(mask){var d=(0<<3)|mask,r=d;for(var i=0;i<10;i++)r=(r<<1)^((r>>>9)*0x537);var b=((d<<10)|r)^0x5412;
+    for(var i=0;i<=5;i++)sf(8,i,bit(b,i));sf(8,7,bit(b,6));sf(8,8,bit(b,7));sf(7,8,bit(b,8));for(var i=9;i<15;i++)sf(14-i,8,bit(b,i));
+    for(var i=0;i<8;i++)sf(size-1-i,8,bit(b,i));for(var i=8;i<15;i++)sf(8,size-15+i,bit(b,i));sf(8,size-8,true)}
+  fmt(0);
+  if(ver>=7){var r=ver;for(var i=0;i<12;i++)r=(r<<1)^((r>>>11)*0x1F25);var vb=(ver<<12)|r;for(var i=0;i<18;i++){var a=size-11+i%3,b=Math.floor(i/3);sf(a,b,bit(vb,i));sf(b,a,bit(vb,i))}}
+  var i=0;for(var right=size-1;right>=1;right-=2){if(right===6)right=5;for(var vert=0;vert<size;vert++)for(var j=0;j<2;j++){var x=right-j,up=((right+1)&2)===0,y=up?size-1-vert:vert;if(!F[y][x]&&i<all.length*8){M[y][x]=bit(all[i>>>3],7-(i&7));i++}}}
+  function apply(m){for(var y=0;y<size;y++)for(var x=0;x<size;x++){var inv;switch(m){case 0:inv=(x+y)%2===0;break;case 1:inv=y%2===0;break;case 2:inv=x%3===0;break;case 3:inv=(x+y)%3===0;break;case 4:inv=(Math.floor(x/3)+Math.floor(y/2))%2===0;break;case 5:inv=x*y%2+x*y%3===0;break;case 6:inv=(x*y%2+x*y%3)%2===0;break;default:inv=((x+y)%2+x*y%3)%2===0}if(!F[y][x]&&inv)M[y][x]=!M[y][x]}}
+  function pen(){var s=0,dark=0;
+    function line(get){var run=1,prev=get(0),w=[];for(var t=1;t<size;t++){var c=get(t);if(c===prev)run++;else{if(run>=5)s+=run-2;run=1;prev=c}}if(run>=5)s+=run-2;
+      var str='';for(var t=0;t<size;t++)str+=get(t)?'1':'0';var pa=['10111010000','00001011101'];pa.forEach(function(p){var at=-1;while((at=str.indexOf(p,at+1))>=0)s+=40})}
+    for(var y=0;y<size;y++)line(function(t){return M[y][t]});for(var x=0;x<size;x++)line(function(t){return M[t][x]});
+    for(var y=0;y<size-1;y++)for(var x=0;x<size-1;x++){var c=M[y][x];if(c===M[y][x+1]&&c===M[y+1][x]&&c===M[y+1][x+1])s+=3}
+    for(var y=0;y<size;y++)for(var x=0;x<size;x++)if(M[y][x])dark++;
+    var k=Math.ceil(Math.abs(dark*20-size*size*10)/(size*size))-1;s+=k*10;return s}
+  var best=0,bp=1e9;for(var m=0;m<8;m++){apply(m);fmt(m);var p=pen();if(p<bp){bp=p;best=m}apply(m)}
+  apply(best);fmt(best);return M}
+function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)for(var x=0;x<n;x++)if(M[y][x])d+='M'+(x+b)+' '+(y+b)+'h1v1h-1z';
+  var t=n+b*2;return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+t+' '+t+'" width="'+(px||240)+'" height="'+(px||240)+'" shape-rendering="crispEdges" role="img" aria-label="QR Code"><rect width="'+t+'" height="'+t+'" fill="#fff"/><path d="'+d+'" fill="#000"/></svg>'}
+window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
+})();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 482;
+  var APP_BUILD = 483;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
   var APP_NOME = '5.9.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
@@ -12492,6 +12542,9 @@
       return a + (s.taxa || 0);
     }, 0);
     r.lucroLivre = sumBy(vs, 'livre');
+    // S174: descontos de cupons (o valor das vendas já vem com o desconto; esta linha mostra quanto foi)
+    var vcup = vs.filter(function (s) { return s.cup && s.cup.desc > 0; }).map(function (s) { return Object.assign({}, s, { cupd: s.cup.desc }); });
+    r.cupons = sumBy(vcup, 'cupd');
     var pg = S.cpay || [];
     r.contasLoja = somaCampo(pg, 'valor', lim, function (x) {
       return GRUPO_LOJA[x.cat];
@@ -12524,6 +12577,7 @@
         cmv: somaEq(vs, 'rep', null, null, true),
         taxas: somaEq(vs, 'taxa', null, null, true),
         lucroLivre: somaEq(vs, 'livre', null, null, true),
+        cupons: somaEq(vcup, 'cupd', null, null, true),
         contasLoja: somaEq(pg, 'valor', lim, function (x) {
           return GRUPO_LOJA[x.cat];
         }),
@@ -12558,6 +12612,7 @@
   }
   var LINHAS_RES = [
     ['Vendas', 'vendas'],
+    ['Descontos de cupons (já fora das vendas)', 'cupons'],
     ['Custo de repor a mercadoria vendida', 'cmv'],
     ['Taxas de maquininha', 'taxas'],
     ['Contas da loja pagas', 'contasLoja'],
@@ -12622,7 +12677,7 @@
           '</b></div>'
         : dxRow(l[0], ap, rFmt(c.a, k));
     });
-    return h + '</div></section>';
+    return h + '</div></section>' + (typeof cupValeuHtml === 'function' ? cupValeuHtml() : '');
   }
   // Texto CSV do resultado do mês e das vendas do mês.
   function resultadoCsv() {
@@ -26133,6 +26188,7 @@
       pag: pag, pg: pag ? 'pagar' : '', total: Math.max(0, Math.round(+f.total) || 0), brl: pedTxt(f.brl, 12), teste: f.teste === true,
       uq: Math.max(0, Math.min(99, Math.round(+f.uq) || 0)), pagar: Math.max(0, Math.round(+f.pagar) || 0), depE: pedTxt(f.depE, 60),
       // Leve 2: o desconto vem dentro de cada linha (as regras do Firestore só aceitam os campos conhecidos no pedido)
+      cup: pedTxt(f.cup, 24), cupd: Math.max(0, Math.round(+f.cupd) || 0),
       l2: (Array.isArray(f.itens) ? f.itens : []).slice(0, 30).reduce(function (a, l) {
         return a + Math.max(0, Math.round(+(l && l.l2)) || 0);
       }, Math.max(0, Math.round(+f.l2) || 0))
@@ -26210,6 +26266,7 @@
             if (qc) {
               if (qc.st === 'novo' && (qc.pg === 'pagar' || qc.pg === 'comp')) {
                 qc.st = 'canc';
+                if (typeof cupPedido === 'function') cupPedido(qc, 'libera');
                 qc.cancSite = true;
                 cancs++;
               }
@@ -26481,6 +26538,7 @@
         (l.preco ? '<b>' + gs(l.preco * l.q) + '</b>' : '') + '</button>';
     });
     // Leve 2 do site (11/11/2026): o preço das linhas já vem com o desconto; aqui só mostra quanto foi
+    if (p.cupd > 0) h += '<div class="pdTot"><span class="pdMt">Código ' + esc(p.cup || '') + ' (cupom do site)</span><b>− ' + gs(p.cupd) + '</b></div>';
     if (p.l2 > 0) h += '<div class="pdTot"><span class="pdMt">Leve 2 do site (30% na 2ª peça)</span><b>− ' + gs(p.l2) + '</b></div>';
     h += '<div class="pdTot"><span class="pdMt">Total</span><b>' + (tot ? gs(tot) : '—') + '</b></div></section>';
     h += pedAcoes(p, false);
@@ -26724,6 +26782,7 @@
     S.pedSel = p.id;
     render();
     window.scrollTo(0, 0);
+    if (typeof cupPedido === 'function') cupPedido(p, 'confirma');
     pedReserva(p, { pago: true, tok: p.tok })
       .then(function () {
         say('Pagamento confirmado. O cliente já vê no site.');
@@ -26915,6 +26974,7 @@
       resSolta(p);
       // o site do cliente para o relógio e mostra "Cancelado pela loja"
       if (p.sid) pedReserva(p, { cancelado: true }).catch(function () {});
+      if (typeof cupPedido === 'function') cupPedido(p, 'libera');
     }
   };
   ACT.peddel = function (id) {
@@ -26937,6 +26997,7 @@
     if (apg && apg.orig === 'site' && apg.sid && !apg.baixa && apg.st !== 'canc') {
       resSolta(apg);
       pedReserva(apg, { cancelado: true }).catch(function () {});
+      if (typeof cupPedido === 'function') cupPedido(apg, 'libera');
     }
     S.pedidos = S.pedidos.filter(function (p) {
       return String(p.id) !== String(id);
@@ -27135,6 +27196,11 @@
         S.cash.pyg -= rec; // o pagamento do site entra no banco, não na gaveta da loja
         s.site = p.num;
         s.orig = 'site';
+        // S174: venda com código do site guarda o código e a parte do desconto desta peça (para "Descontos de cupons")
+        if (p.cup && p.cupd > 0) {
+          var lcd = (p.itens || []).reduce(function (a, x) { return a + (x.preco || 0) * (x.q || 1); }, 0) || 1;
+          s.cup = { cod: p.cup, desc: Math.round((p.cupd * (l.preco || 0) * q) / lcd) };
+        }
         if (p.cliId) s.cliId = p.cliId;
         vendas.push(s.id);
         if (S.site && S.site[l.ref]) vitFila(l.ref, 'upd');
@@ -28062,7 +28128,7 @@
     var el = $('v-clientes');
     if (!el || S.view !== 'clientes') return;
     var h = '<div class="top"><div><h1>Clientes</h1><div class="crumb">Quem compra de você, com telefone e documento</div></div>' +
-      '<div class="tabs"><button class="mini" data-act="clinovo">+ Novo cliente</button></div></div>';
+      '<div class="tabs"><button class="mini" data-act="clinovo">+ Novo cliente</button><button class="mini ghost" data-act="cupAbre">🎟️ Cartões</button></div></div>';
     var c = S.cliSel === 'novo' ? { id: 0, nome: '', tel: '', ruc: '', obs: '' } : cliAtual();
     if (c) {
       var ps = c.id ? cliPedidos(c) : [],
@@ -28080,6 +28146,7 @@
         '<div class="hint" id="cH" style="margin:0"></div>' +
         '<div class="col" style="gap:12px;margin-top:6px"><button type="button" class="go" data-act="clisave">Salvar</button>' +
         (c.id && (z || c.email) ? '<button type="button" class="go" data-act="cliavisa">Avisar cliente</button>' : '') +
+        (c.id ? '<button type="button" class="mini ghost" data-act="cupVip" data-id="' + c.id + '">⭐ Dar cartão VIP 15%</button>' : '') +
         (c.id && c.aviso ? '<div class="hint" style="margin:0">Último aviso: ' + esc(c.aviso.canal) + ' · ' + esc(c.aviso.modelo) + ' · ' + fd(c.aviso.ts) + ' ' + fh(c.aviso.ts) + '</div>' : '') +
         (z ? '<a class="chip" href="' + z + '" target="_blank" rel="noopener" style="color:#25d366;width:100%;min-height:48px;justify-content:center;text-decoration:none;display:flex;align-items:center">' + CLI_WA + '<span style="margin-left:8px">Conversar no WhatsApp</span></a>' : '') +
         (c.id ? '<div style="border-top:1px solid var(--line);margin-top:6px"></div><button type="button" data-act="clidel" style="color:#ff7b7b;background:transparent;border:0;min-height:44px;width:100%;font:inherit;cursor:pointer">' + (S._cliDel === c.id ? 'Remover mesmo?' : 'Remover') + '</button>' : '') +
@@ -28435,6 +28502,7 @@
       de: sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).de,
       est: v.est,
       l2: siteL2(ref, v.tipo, sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).n),
+      cmx: siteCupMax(ref, v.tipo, sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).n),
       aviso: siteAviso(ref),
       tag: solar ? 'SOLAR' : v.tipo === 'pre' ? 'LEITURA' : 'ARMAÇÃO',
       mat: a.material || '',
@@ -28468,7 +28536,7 @@
     S.vitPend[ref] = op;
     saveSoon();
   }
-  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'desc', 'gr', 'gq', 'gc', 'gv', 'fv', 'fm', 'mr', 'l2'];
+  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'desc', 'gr', 'gq', 'gc', 'gv', 'fv', 'fm', 'mr', 'l2', 'cmx'];
   function vitFotos(ref) {
     return vitCores(ref).map(function (c) {
       return S.fotos[ref + '|' + c.cor];
@@ -31315,6 +31383,479 @@
     render();
     window.scrollTo(0, 0);
   };
+  // ===== Cupons e cartões virtuais (S174 v1+v2+v3, aprovados 11/11/2026) =====
+  // O mesmo código vale no site e no caixa; tudo é conferido no Firebase (função "cupom").
+  // Caixa: campo "Código de desconto" no pedido (nunca abaixo do piso) e, depois da venda, "Entregar cartão" (WhatsApp ou QR).
+  // Clientes › Cartões: tipos, teto do mês, o que o app fez sozinho, proteções, VIP, cupom do evento (simulação + post/story).
+  S.cupFila = []; // chamadas que falharam (sem internet): tenta de novo sozinho
+  S.cupTipos = {}; // código → tipo (para os relatórios)
+  S.cupLista = null; // {ts, j}
+  var CUP_N = { bv: 'Boas-vindas', px: 'Próxima compra', am: 'Indique uma amiga', vip: 'Cliente VIP', ev: 'Cupom do evento' };
+  var CUP_IC = { bv: '✉️', px: '🎟️', am: '👭', vip: '⭐', ev: '🎄' };
+  function cupApi(b) {
+    return nvToken().then(function (t) {
+      return fetch('https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/cupom', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: JSON.stringify(b) }).then(function (r) {
+        return r.json();
+      });
+    });
+  }
+  function cupFilaPoe(b) {
+    S.cupFila = (S.cupFila || []).concat([{ b: b, ts: Date.now() }]).slice(-200);
+    saveSoon();
+  }
+  function cupFilaRoda() {
+    if (!S.cupFila || !S.cupFila.length || !S.nuvem || !S.nuvem.rt || navigator.onLine === false || cupFilaRoda.on) return;
+    cupFilaRoda.on = 1;
+    var x = S.cupFila[0];
+    cupApi(x.b)
+      .then(function (j) {
+        if (j && (j.ok || j.motivo)) {
+          S.cupFila.shift();
+          saveSoon();
+        }
+      })
+      .catch(function () {})
+      .then(function () {
+        cupFilaRoda.on = 0;
+      });
+  }
+  setInterval(cupFilaRoda, 60000);
+  // pedido do site pago → os códigos do pedido ficam usados e o cartão "Próxima compra" passa a valer; cancelado → solta
+  function cupPedido(p, acao) {
+    if (!p || p.orig !== 'site' || !p.sid) return;
+    var b = { acao: acao, pid: p.sid };
+    if (!S.nuvem || !S.nuvem.rt) return cupFilaPoe(b);
+    cupApi(b).catch(function () {
+      cupFilaPoe(b);
+    });
+  }
+  function cupTipoDe(cod) {
+    return S.cupTipos[cod] || (/^LF-/.test(cod) ? 'px' : 'ev');
+  }
+  // ---------- caixa ----------
+  S.cartCup = null; // {cod, pct, tipo, desc, lim}
+  function cupCaixaHtml() {
+    if (S.cartCup)
+      return (
+        '<div class="sl cupCx"><span>🎟️ ' + esc(S.cartCup.cod) + ' · ' + esc(CUP_N[S.cartCup.tipo] || 'Código') + ' −' + S.cartCup.pct + '%' +
+        (S.cartCup.lim ? '<small>' + S.cartCup.lim + ' peça(s) com desconto limitado ao piso</small>' : '<small>✓ válido · nunca abaixo do piso</small>') +
+        '</span><span style="display:flex;gap:6px;align-items:center"><b>− ' + gs(S.cartCup.desc) + '</b><button type="button" class="chip" data-act="cupCxX" aria-label="Tirar o código" style="min-height:36px;width:36px;padding:0;justify-content:center">×</button></span></div>'
+      );
+    return '<div class="cupCxR"><input class="in" id="cupCxIn" placeholder="🎟️ Código de desconto (LF-XXXX)" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Código de desconto"><button type="button" class="mini" data-act="cupCx">Aplicar</button></div>';
+  }
+  function cupCaixaAplica(c, primeira) {
+    var tot = 0,
+      lim = 0;
+    S.cart.forEach(function (l) {
+      if (l._cupBase == null) l._cupBase = l.preco != null ? l.preco : null;
+      var base = l._cupBase != null ? l._cupBase : precoTab(l.it, l.tab || S.tabAtiva) * l.qty,
+        pp = pisoPeca(l.it),
+        d = Math.round((base * c.pct) / 100 / 500) * 500,
+        mx = Math.max(0, base - pp.piso * l.qty);
+      if (d > mx) {
+        d = Math.floor(mx / 500) * 500;
+        lim++;
+      }
+      l.preco = base - d;
+      l._cupD = d;
+      tot += d;
+    });
+    S.cartCup = { cod: c.cod, pct: c.pct, tipo: c.tipo, desc: tot, lim: lim };
+    S.cupTipos[c.cod] = c.tipo;
+    if (lim && primeira) cupAvisoLocal('✂️ Desconto limitado ao piso', c.cod + ' · ' + lim + ' peça(s)');
+    saveSoon();
+  }
+  ACT.cupCx = function () {
+    var i = $('cupCxIn'),
+      cod = String((i && i.value) || '').trim();
+    if (!cod) return;
+    var cli = S.vCli ? cliPorId(S.vCli) : null;
+    lfToast('Conferindo o código…', 1500);
+    cupApi({ acao: 'ver', cod: cod, tel: cli ? cli.tel : '', email: cli ? cli.email || '' : '' })
+      .then(function (j) {
+        if (!j || !j.ok) return popErr(cupMotivo(j && j.motivo, j && j.cupom));
+        cupCaixaAplica(j.cupom, true);
+        render();
+      })
+      .catch(function () {
+        popErr('Sem internet para conferir o código. Confira de novo quando a internet voltar.');
+      });
+  };
+  ACT.cupCxX = function () {
+    S.cart.forEach(function (l) {
+      if (l._cupD != null) {
+        if (l._cupBase != null) l.preco = l._cupBase;
+        else delete l.preco;
+      }
+      delete l._cupBase;
+      delete l._cupD;
+    });
+    S.cartCup = null;
+    render();
+  };
+  function cupMotivo(m, c) {
+    return {
+      nao: 'Código não encontrado.', usado: 'Este código já foi usado.', vencido: 'Este código venceu.', cancelado: 'Este código foi cancelado.', ja: 'Este cliente já usou ' + ((c && c.cod) || 'este código') + '.',
+      esgotado: 'O cupom acabou (limite total).', outro: 'Código pessoal de outro telefone.', trava: 'Código travado por 24 h (tentativas com telefones diferentes).', proprio: 'É o código de amiga do próprio cliente.',
+      cliente: 'Este código é só para quem nunca comprou.', cedo: 'Este código ainda não começou a valer.', pendente: 'Este cartão ainda espera o pagamento do pedido.', espera: 'Muitas tentativas erradas. Tente em 1 hora.'
+    }[m] || 'Não deu para conferir o código.';
+  }
+  // chamado pelo carrinho depois de registrar as vendas
+  function cupCaixaFim(vendas, cartId, cli, linhas) {
+    var c = S.cartCup;
+    if (!c) return;
+    var total = 0;
+    linhas.forEach(function (l, i) {
+      var d = l._cupD || 0;
+      total += (l.preco || 0) + d;
+      if (vendas[i] && d > 0) vendas[i].cup = { cod: c.cod, desc: d };
+    });
+    var b = { acao: 'caixa', cod: c.cod, pid: 'loja:' + cartId, tel: cli ? cli.tel || '' : '', email: cli ? cli.email || '' : '', total: total, desc: c.desc };
+    cupApi(b)
+      .then(function (j) {
+        if (j && !j.ok && j.motivo) cupAvisoLocal('⚠️ Código conferido depois', c.cod + ': ' + cupMotivo(j.motivo, j.cupom));
+      })
+      .catch(function () {
+        cupFilaPoe(b);
+      });
+    S.cartCup = null;
+  }
+  // depois da venda: entregar o cartão "Próxima compra" (WhatsApp normal ou QR na tela)
+  function cupEntregaOferta(cli) {
+    setTimeout(function () {
+      lfJanela({
+        titulo: 'Cartão do cliente',
+        monta: function (c, J) {
+          c.innerHTML = '<div class="col" style="gap:10px;padding:0 16px 16px"><div class="hint" style="margin:0">10% na próxima compra · vale na loja e em lafouch.com · 1 uso</div><button type="button" class="go" id="cupEnt">🎟️ Entregar cartão "Próxima compra"' + (cli && cli.nome ? ' a ' + esc(cli.nome) : '') + '</button></div>';
+          $('cupEnt').onclick = function () {
+            this.disabled = true;
+            cupApi({ acao: 'emitir', tipo: 'px', pct: 10, tel: cli ? cli.tel || '' : '', email: cli ? cli.email || '' : '', nome: cli ? cli.nome || '' : '' })
+              .then(function (j) {
+                if (!j || !j.ok) {
+                  c.innerHTML = '<div class="hint" style="padding:0 16px 16px">' + (j && j.motivo === 'pausa' ? '⏸️ Teto do mês atingido: cartões novos voltam no mês que vem.' : 'Não deu para criar o cartão agora.') + '</div>';
+                  return;
+                }
+                S.cupTipos[j.cod] = 'px';
+                cupCartaoMostra(c, j.cupom, cli);
+              })
+              .catch(function () {
+                c.innerHTML = '<div class="hint" style="padding:0 16px 16px">Sem internet: entregue o cartão quando a internet voltar (Clientes › Cartões).</div>';
+              });
+          };
+        }
+      });
+    }, 700);
+  }
+  function cupLink(cod) {
+    return 'https://lafouch.com/t/' + encodeURIComponent(cod);
+  }
+  function cupCartaoMostra(c, cp, cli) {
+    var z = cli && cli.tel ? cliZap(cli) : '',
+      txt = '🎟️ ' + (cp.pct || 10) + '% na próxima compra na La Fouch · código ' + cp.cod + ' · ' + cupLink(cp.cod);
+    c.innerHTML =
+      '<div class="col" style="gap:10px;padding:0 16px 16px"><div class="cupCard"><small>LA FOUCH</small><b>' + cp.pct + '% ' + (cp.tipo === 'vip' ? 'sempre (VIP)' : cp.tipo === 'am' ? 'para a amiga' : 'na próxima compra') + '</b><code>' + esc(cp.cod) + '</code><i>' + (cp.fim ? 'vale até ' + fd(cp.fim) + ' · ' : '') + 'na loja e em lafouch.com</i></div>' +
+      (z ? '<button type="button" class="go" id="cupZap">Enviar pelo WhatsApp</button><div class="hint" style="margin:0">Abre o WhatsApp normal com a mensagem e o link do cartão (' + esc(cupLink(cp.cod).replace('https://', '')) + '). Sem custo.</div>' : '') +
+      '<div class="cupQr" id="cupQr"></div><div class="hint" style="margin:0;text-align:center">' + (z ? 'Ou mostre o QR para ela ler' : 'Sem telefone: mostre o QR para ela ler') + '</div></div>';
+    try {
+      $('cupQr').innerHTML = window.LFqr ? window.LFqr.svg(cupLink(cp.cod)) : '';
+    } catch (e) {}
+    var b = $('cupZap');
+    if (b)
+      b.onclick = function () {
+        window.open(z.split('?')[0] + '?text=' + encodeURIComponent(txt), '_blank');
+      };
+  }
+  // ---------- Clientes › Cartões ----------
+  function cupCarrega(cb) {
+    cupApi({ acao: 'lista' })
+      .then(function (j) {
+        if (!j || !j.ok) throw 0;
+        S.cupLista = { ts: Date.now(), j: j };
+        (j.cupons || []).forEach(function (c) {
+          S.cupTipos[c.cod] = c.tipo;
+        });
+        saveSoon();
+        cb(j);
+      })
+      .catch(function () {
+        cb(S.cupLista ? S.cupLista.j : null, true);
+      });
+  }
+  function cupAvisoLocal(t, d) {
+    S.cupAvL = (S.cupAvL || []).concat([{ ts: Date.now(), t: t, d: d }]).slice(-30);
+  }
+  ACT.cupAbre = function () {
+    lfJanela({
+      titulo: 'Cartões de desconto',
+      monta: function (c, J) {
+        c.innerHTML = '<div class="hint" style="padding:0 16px 16px">Carregando…</div>';
+        cupCarrega(function (j, off) {
+          if (!j) {
+            c.innerHTML = '<div class="hint" style="padding:0 16px 16px">Entre na nuvem (Ajustes › Nuvem) e conecte à internet para ver os cartões.</div>';
+            return;
+          }
+          cupDesenha(c, j, off);
+        });
+      }
+    });
+  };
+  function cupDesenha(c, j, off) {
+    var T = j.tipos || {},
+      t = j.teto || { usado: 0, teto: 500000 },
+      pc = Math.min(100, Math.round((t.usado / t.teto) * 100)),
+      tp = function (k, d) {
+        var x = T[k] || { gerados: 0, usados: 0 };
+        return '<div class="sl"><span>' + CUP_IC[k] + ' <b>' + CUP_N[k] + '</b><small>' + d + '</small></span><b>' + x.usados + ' de ' + x.gerados + '</b></div>';
+      };
+    var av = (j.avisos || [])
+      .map(function (a) {
+        var ic = a.t === 'trava' ? '🔒' : a.t === 'esgotado' ? '🎄' : a.t === 'pausa' ? '⏸️' : 'ℹ️';
+        return '<div class="sl"><span>' + ic + ' ' + esc(a.cod ? a.cod + ' · ' : '') + esc(a.d || '') + '<small>' + fd(a.ts) + '</small></span>' + (a.t === 'trava' && a.cod ? '<button type="button" class="mini ghost" data-cupdes="' + esc(a.cod) + '">Desfazer</button>' : '') + '</div>';
+      })
+      .concat((S.cupAvL || []).slice().reverse().map(function (a) {
+        return '<div class="sl"><span>' + esc(a.t) + '<small>' + esc(a.d) + ' · ' + fd(a.ts) + '</small></span></div>';
+      }))
+      .slice(0, 12)
+      .join('');
+    var ev = cupTemaProx();
+    c.innerHTML =
+      '<div class="col cupJ" style="gap:12px;padding:0 16px 16px">' + (off ? '<div class="hint" style="margin:0">Sem internet: números da última vez.</div>' : '') +
+      '<div class="lbl">Tipos</div>' + tp('bv', '5% automático ao se inscrever · 30 dias') + tp('px', '10% · vem com a compra paga e no caixa') + tp('am', '10% + 10%: a amiga usa e quem indicou ganha outro') + tp('vip', '15% pessoal, vale sempre · você escolhe quem') + tp('ev', 'um código para todos, 1 vez por pessoa') +
+      '<div class="lbl">Teto do mês (todos os cupons)</div><div class="cupBar"><i style="width:' + pc + '%"></i></div><div class="hint" style="margin:0">Usado: ' + gs(t.usado) + ' de ' + gs(t.teto) + (pc >= 80 ? ' · ⚠️ ' + pc + '% do teto: ao chegar em 100% os códigos novos pausam (os entregues continuam valendo).' : '') + '</div>' +
+      '<div class="lbl">O que o app fez sozinho</div>' + (av || '<div class="hint" style="margin:0">Nada por enquanto.</div>') +
+      '<div class="lbl">Cupom do evento</div>' +
+      (ev ? '<div class="hint" style="margin:0">' + ev.ic + ' ' + ev.nome + (ev.dias > 0 ? ' começa em ' + ev.dias + ' dias' : ' está acontecendo') + ' · sugerido:</div>' : '') +
+      '<div class="cupEv"><input class="in" id="cevCod" value="' + esc(ev ? ev.cod : '') + '" placeholder="Código (ex.: NAVIDAD10)" autocapitalize="characters"><input class="in" id="cevPct" inputmode="numeric" value="10" aria-label="Desconto %"><input class="in" id="cevMax" inputmode="numeric" value="50" aria-label="Limite total"></div>' +
+      '<div class="hint" style="margin:0" id="cevSim"></div>' +
+      '<button type="button" class="go" id="cevOk">Publicar e baixar post + story</button>' +
+      '<div class="lbl">Proteções (sempre ligadas)</div><div class="hint" style="margin:0;line-height:1.6">✓ Boas-vindas: 1 por e-mail e 1 por telefone, só para quem nunca comprou<br>✓ Código pessoal fica preso ao telefone do 1º uso<br>✓ Cupom do evento: 1 vez por pessoa e até o limite total<br>✓ Amiga: prêmio só depois de pago + 7 dias, até 5 por mês<br>✓ Nunca abaixo do piso · 1 código por compra · vale o maior desconto<br>✓ Teto do mês: ao chegar, pausa códigos novos (os entregues valem)<br>✓ Muitas tentativas erradas: o código trava sozinho por 24 h<br>✓ Percentual que não cabe no estoque: o app não deixa criar e sugere outro</div>' +
+      '<div class="lbl">Códigos ativos</div>' + (j.cupons || []).filter(function (x) { return x.estado === 'ok' && x.tipo !== 'bv'; }).slice(0, 20).map(function (x) {
+        return '<div class="sl"><span>' + CUP_IC[x.tipo] + ' ' + esc(x.cod) + ' · ' + x.pct + '%<small>' + esc(x.nome || x.tel || x.email || CUP_N[x.tipo]) + (x.fim ? ' · até ' + fd(x.fim) : '') + (x.tipo === 'ev' ? ' · ' + x.usos + ' de ' + x.max : '') + '</small></span><button type="button" class="mini ghost" data-cupcan="' + esc(x.cod) + '">Cancelar</button></div>';
+      }).join('') +
+      '</div>';
+    var sim = function () {
+      var p = parseInt($('cevPct').value, 10) || 0,
+        mx = parseInt($('cevMax').value, 10) || 0,
+        r = cupSimula(p),
+        ok = r.cabe >= 0.8;
+      $('cevSim').innerHTML = p > 0 ? 'Simulação no estoque de hoje: cabe inteiro em <b>' + Math.round(r.cabe * 100) + '%</b> dos modelos · ' + r.lim + ' limitados pelo piso · ' + r.of + ' em oferta (não vale) · ' + mx + ' usos ≈ ' + gs(Math.round(mx * r.desc)) + ' de desconto' + (mx * r.desc > (t.teto - t.usado) ? ' (passa do teto do mês)' : ' (cabe no teto do mês)') + (ok ? ' ✓' : ' · ⚠️ com ' + p + '% cabe em pouco: use ' + r.sug + '%') : '';
+      $('cevOk').disabled = !(p > 0 && ok && mx > 0);
+    };
+    $('cevPct').oninput = sim;
+    $('cevMax').oninput = sim;
+    sim();
+    $('cevOk').onclick = function () {
+      var p = parseInt($('cevPct').value, 10),
+        mx = parseInt($('cevMax').value, 10),
+        cod = $('cevCod').value.trim().toUpperCase();
+      this.disabled = true;
+      cupApi({ acao: 'emitir', tipo: 'ev', cod: cod, pct: p, max: mx, ini: ev ? ev.ini : Date.now(), fim: ev ? ev.fim : Date.now() + 14 * DAY, tema: ev ? ev.tema : '' })
+        .then(function (r) {
+          if (!r || !r.ok) return popErr(r && r.motivo === 'existe' ? 'Esse código já existe. Escolha outro.' : 'Não deu para criar o cupom.');
+          S.cupTipos[r.cod] = 'ev';
+          lfToast('✓ Cupom ' + r.cod + ' publicado', 2500);
+          cupArte(r.cod, p, mx, ev);
+          ACT.cupAbre();
+        })
+        .catch(function () {
+          popErr('Sem internet para publicar o cupom.');
+        });
+    };
+    c.onclick = function (e) {
+      var d = e.target.closest('[data-cupdes],[data-cupcan]');
+      if (!d) return;
+      var cod = d.getAttribute('data-cupdes') || d.getAttribute('data-cupcan'),
+        ac = d.hasAttribute('data-cupdes') ? 'destrava' : 'cancelar';
+      d.disabled = true;
+      cupApi({ acao: ac, cod: cod })
+        .then(function () {
+          lfToast(ac === 'destrava' ? '✓ ' + cod + ' destravado' : '✓ ' + cod + ' cancelado', 2000);
+          cupCarrega(function (j2) {
+            if (j2) cupDesenha(c, j2);
+          });
+        })
+        .catch(function () {
+          popErr('Sem internet.');
+        });
+    };
+  }
+  // Simulação: % que cabe inteiro sem furar o piso nas peças do site (as mesmas contas do site)
+  function cupSimula(p) {
+    var refs = Object.keys(S.site || {}),
+      n = 0,
+      cabe = 0,
+      lim = 0,
+      of = 0,
+      soma = 0,
+      cnt = {};
+    refs.forEach(function (ref) {
+      var v = vitInfo(ref);
+      if (!v || !(v.preco > 0)) return;
+      var pp = S.pprice && S.pprice[ref],
+        it = { tipo: v.tipo },
+        o = sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo);
+      n++;
+      if (o.de > o.n) {
+        of++;
+        return;
+      }
+      var m = siteCupMax(ref, it.tipo, o.n);
+      [5, 10, 15].forEach(function (x) {
+        if (m >= x) cnt[x] = (cnt[x] || 0) + 1;
+      });
+      if (m >= p) cabe++;
+      else if (m > 0) lim++;
+      soma += (o.n * Math.min(p, m)) / 100;
+    });
+    var base = Math.max(1, n - of),
+      sug = [15, 10, 5].filter(function (x) {
+        return (cnt[x] || 0) / base >= 0.9;
+      })[0] || 5;
+    return { n: n, cabe: n ? cabe / base : 0, lim: lim, of: of, desc: base ? soma / base : 0, sug: sug };
+  }
+  // Próximo tema do calendário (as mesmas datas do painel) para sugerir o cupom do evento
+  function cupTemaProx() {
+    var ag = Date.now(),
+      y = new Date().getFullYear(),
+      L = [];
+    [y, y + 1].forEach(function (a) {
+      var d = function (M, D, f) {
+          return new Date(a, M - 1, D, f ? 23 : 0, f ? 59 : 0).getTime();
+        },
+        n1 = new Date(a, 10, 1),
+        bf = 1 + ((4 - n1.getDay() + 7) % 7) + 21 + 1,
+        j1 = new Date(a, 5, 1),
+        p2 = 1 + ((7 - j1.getDay()) % 7) + 7;
+      L.push({ tema: 'bf', nome: 'Black Friday', ic: '🖤', cod: 'BLACK10', ini: d(11, bf), fim: d(11, bf + 3, 1) });
+      L.push({ tema: 'natal', nome: 'Natal', ic: '🎄', cod: 'NAVIDAD10', ini: d(12, 1), fim: d(12, 25, 1) });
+      L.push({ tema: 'anonovo', nome: 'Ano Novo', ic: '🥂', cod: 'ANONUEVO10', ini: d(12, 26), fim: d(12, 31, 1) });
+      L.push({ tema: 'maes', nome: 'Dia das Mães', ic: '💐', cod: 'MAMA10', ini: d(5, 1), fim: d(5, 15, 1) });
+      L.push({ tema: 'pais', nome: 'Dia dos Pais', ic: '👔', cod: 'PAPA10', ini: d(6, 1), fim: d(6, p2, 1) });
+    });
+    var x = L.filter(function (e) {
+      return e.fim >= ag;
+    }).sort(function (a, b) {
+      return a.ini - b.ini;
+    })[0];
+    if (!x) return null;
+    x.dias = Math.max(0, Math.ceil((x.ini - ag) / DAY));
+    return x;
+  }
+  // Post quadrado (1080×1080) e story (1080×1920) no estilo do tema, com o Mochi temático
+  var CUP_ARTE = {
+    natal: ['#f7e9ef', '#1f5a3a', '#b3202f', 'Regalá estilo esta Navidad'], bf: ['#f4f1f3', '#141014', '#a44a7e', 'Black Friday La Fouch'], anonovo: ['#f6efe4', '#2a2140', '#b38a2e', 'Empezá el año con estilo'],
+    maes: ['#f9e8ee', '#7a2e55', '#c2577f', 'Para la mamá más linda'], pais: ['#eef0f4', '#1e2a3a', '#a77b2d', 'Para el papá con estilo'], '': ['#f7e9ef', '#2b1a2a', '#a44a7e', 'Un regalo para vos']
+  };
+  function cupArte(cod, pct, mx, ev) {
+    var tema = ev ? ev.tema : '',
+      A = CUP_ARTE[tema] || CUP_ARTE[''],
+      img = new Image(),
+      fimTxt = ev ? new Date(ev.fim).getDate() + '/' + (new Date(ev.fim).getMonth() + 1) : '';
+    img.crossOrigin = 'anonymous';
+    var faz = function (ok) {
+      [['post', 1080, 1080], ['story', 1080, 1920]].forEach(function (f) {
+        var cv = document.createElement('canvas'),
+          W = f[1],
+          H = f[2],
+          x = cv.getContext('2d');
+        cv.width = W;
+        cv.height = H;
+        x.fillStyle = A[0];
+        x.fillRect(0, 0, W, H);
+        if (ok) {
+          var sw = 560, sh = 630, s = f[0] === 'post' ? 0.95 : 1.55, dw = sw * s, dh = sh * s;
+          x.drawImage(img, 640, 0, sw, sh, W - dw + (f[0] === 'post' ? 30 : -10), H - dh - (f[0] === 'post' ? 0 : 60), dw, dh);
+        }
+        var y = f[0] === 'post' ? 120 : 220;
+        x.fillStyle = A[1];
+        x.font = '600 34px Georgia, serif';
+        x.fillText('LA FOUCH', 80, y);
+        x.font = '700 ' + (f[0] === 'post' ? 64 : 84) + 'px Georgia, serif';
+        var lines = A[3].split(' '), l1 = '', ls = [];
+        lines.forEach(function (w) {
+          if ((l1 + ' ' + w).trim().length > (f[0] === 'post' ? 16 : 14)) {
+            ls.push(l1.trim());
+            l1 = w;
+          } else l1 += ' ' + w;
+        });
+        ls.push(l1.trim());
+        ls.forEach(function (t, i) {
+          x.fillText(t, 80, y + 110 + i * (f[0] === 'post' ? 76 : 100));
+        });
+        var cy = y + 140 + ls.length * (f[0] === 'post' ? 76 : 100);
+        x.fillStyle = A[2];
+        x.fillRect(80, cy, f[0] === 'post' ? 520 : 640, f[0] === 'post' ? 120 : 150);
+        x.fillStyle = '#fff';
+        x.font = '700 ' + (f[0] === 'post' ? 64 : 80) + 'px monospace';
+        x.fillText(cod, 110, cy + (f[0] === 'post' ? 82 : 102));
+        x.fillStyle = A[1];
+        x.font = '500 ' + (f[0] === 'post' ? 30 : 40) + 'px Arial, sans-serif';
+        x.fillText(pct + '% en tu compra', 80, cy + (f[0] === 'post' ? 180 : 230));
+        x.fillText('primeras ' + mx + ' personas' + (fimTxt ? ' · hasta el ' + fimTxt : ''), 80, cy + (f[0] === 'post' ? 225 : 290));
+        x.fillText('1 uso por persona', 80, cy + (f[0] === 'post' ? 270 : 350));
+        x.font = '700 ' + (f[0] === 'post' ? 36 : 48) + 'px Arial, sans-serif';
+        x.fillText('lafouch.com', 80, H - (f[0] === 'post' ? 70 : 140));
+        try {
+          var a = document.createElement('a');
+          a.href = cv.toDataURL('image/png');
+          a.download = cod + '-' + f[0] + '.png';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        } catch (e) {}
+      });
+    };
+    img.onload = function () {
+      faz(true);
+    };
+    img.onerror = function () {
+      faz(false);
+    };
+    img.src = 'https://lafouch.com/og/mochi-' + (tema && tema !== 'halloween' ? tema + '-' : '') + 'es.jpg';
+  }
+  // VIP: na ficha do cliente
+  ACT.cupVip = function (id) {
+    var cli = cliPorId(+id);
+    if (!cli) return;
+    lfJanela({
+      titulo: 'Cartão VIP',
+      monta: function (c) {
+        c.innerHTML = '<div class="hint" style="padding:0 16px 16px">Criando o cartão de ' + esc(cli.nome || 'cliente') + '…</div>';
+        cupApi({ acao: 'emitir', tipo: 'vip', pct: 15, tel: cli.tel || '', email: cli.email || '', nome: cli.nome || '' })
+          .then(function (j) {
+            if (!j || !j.ok) throw 0;
+            S.cupTipos[j.cod] = 'vip';
+            cupCartaoMostra(c, j.cupom, cli);
+          })
+          .catch(function () {
+            c.innerHTML = '<div class="hint" style="padding:0 16px 16px">Não deu para criar agora (precisa de internet e da nuvem conectada).</div>';
+          });
+      }
+    });
+  };
+  // Finanças › "Cada cartão valeu a pena?" (mês atual; o valor das vendas já vem com o desconto)
+  function cupValeuHtml() {
+    var d = new Date(),
+      ini = new Date(d.getFullYear(), d.getMonth(), 1).getTime(),
+      T = {};
+    S.sales.forEach(function (s) {
+      if (s.estorno || s.ts < ini || !s.cup) return;
+      var k = cupTipoDe(s.cup.cod),
+        t = (T[k] = T[k] || { lucro: 0, desc: 0, n: 0 });
+      t.lucro += (s.livre || 0) + (s.cup.desc || 0);
+      t.desc += s.cup.desc || 0;
+      t.n++;
+    });
+    var ks = Object.keys(T);
+    if (!ks.length) return '';
+    return (
+      '<section class="card col"><h2 style="margin:0;font-size:16px">Cada cartão valeu a pena?</h2><div class="hint" style="margin:0">Lucro das vendas com código − desconto = lucro líquido (' + MESES_L[d.getMonth()] + ').</div>' +
+      ks.map(function (k) {
+        var t = T[k], liq = t.lucro - t.desc;
+        return '<div class="sl"><span>' + (CUP_IC[k] || '') + ' ' + (CUP_N[k] || k) + '<small>' + t.n + ' venda(s) · lucro ' + gs(t.lucro) + ' · desconto −' + gs(t.desc) + (liq < 0 ? ' · ⚠️ lucro negativo: baixe o %' : '') + '</small></span><b style="color:' + (liq >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + gs(liq) + '</b></div>';
+      }).join('') + '</section>'
+    );
+  }
   // ===== Adicionar A+1 (v417): "Dar entrada de novo" com as 3 últimas peças que entraram. =====
   // Toque numa delas abre a folhinha "Quantas chegaram?" (− N +) e "Dar entrada · N peças".
   // O custo e o resto vêm do cadastro que já existe; respeita o limite do lote (gCap) como a entrada rápida.
@@ -39577,6 +40118,15 @@
       piso = ps && ps.pp && ps.pp.piso > 0 ? sitePreco(Math.ceil(ps.pp.piso / 1000) * 1000) : 0;
     return Math.floor((n * (1 - SITE_L2)) / SITE_ARRED) * SITE_ARRED >= piso;
   }
+  // Cupons (S174, 12/11/2026): o maior % de cupom (15, 10 ou 5) que esta peça aguenta sem furar o piso. Só esse número vai ao site.
+  function siteCupMax(ref, tipo, n) {
+    if (!(n > 0)) return 0;
+    var ps = pisoDoRef(ref, tipo),
+      piso = ps && ps.pp && ps.pp.piso > 0 ? sitePreco(Math.ceil(ps.pp.piso / 1000) * 1000) : 0;
+    var l = [15, 10, 5];
+    for (var i = 0; i < l.length; i++) if (Math.floor((n * (1 - l[i] / 100)) / SITE_ARRED) * SITE_ARRED >= piso) return l[i];
+    return 0;
+  }
   function sitePrecoOferta(ref, atual, cheio, tipo) {
     var base = sitePreco(cheio > atual ? cheio : atual),
       n = sitePreco(atual),
@@ -45111,7 +45661,8 @@
         '<input class="in" inputmode="' + mpMode() + '" data-in="cartpreco" data-id="' + i + '" value="' + gsParaCampo(v) + '" aria-label="Preço combinado de ' + esc(cartDesc(l)) + ' em ' + mpSim() + '" style="flex:0 1 130px;width:130px">' +
         '<button type="button" class="chip" style="flex:0 0 40px;width:40px;padding:0;justify-content:center" data-act="cartrm" data-id="' + i + '" aria-label="Tirar do pedido">×</button></div>';
     });
-    h += '</div>' + cartSugHtml() + '<button type="button" id="cartSlot" data-act="cartclose" style="min-height:56px;border:2px dashed var(--line);border-radius:12px;background:transparent;color:var(--accent-fg);font:inherit;font-weight:700;width:100%">＋ Adicionar produto</button>' +
+    if (S.cartCup && typeof cupCaixaAplica === 'function') cupCaixaAplica(S.cartCup);
+    h += '</div>' + cartSugHtml() + (typeof cupCaixaHtml === 'function' ? cupCaixaHtml() : '') + '<button type="button" id="cartSlot" data-act="cartclose" style="min-height:56px;border:2px dashed var(--line);border-radius:12px;background:transparent;color:var(--accent-fg);font:inherit;font-weight:700;width:100%">＋ Adicionar produto</button>' +
       '<div class="sum"><span class="lbl" style="margin:0">Total</span><b id="cartSub" style="font-size:26px">' + gs(cartSub()) + '</b></div>' +
       '<button type="button" class="go" id="cartConf" data-act="cartconf">Confirmar pedido</button>' +
       '<div><button type="button" class="chip" data-act="cartclear">Esvaziar pedido</button></div>';
@@ -45261,6 +45812,8 @@
     agg.cor = '';
     agg.tipo = 'x';
     agg.vr = '';
+    var cupTinha = !!S.cartCup;
+    if (typeof cupCaixaFim === 'function') cupCaixaFim(vendas, cartId, cli, S.cart);
     var n = S.cart.length;
     S.cart = [];
     S.cartBrNome = '';
@@ -45281,6 +45834,8 @@
     render();
     showSplit(agg);
     notaAbrir(nota, cli);
+    // S174: depois da venda, entregar o cartão "Próxima compra" (só quando a venda não usou código)
+    if (!cupTinha && typeof cupEntregaOferta === 'function' && S.nuvem && S.nuvem.rt) cupEntregaOferta(cli);
     $('splitH').textContent = 'Pedido com ' + n + ' produto(s), ' + agg.qty + ' peça(s), por ' + gs(agg.price) + ' (vendas ' + agg.id + ')';
     $('splitNote').textContent =
       'Preço mínimo seguro (trava) do pedido: ' + gs(agg.trava) + '. Vendido por ' + gs(agg.price) + ', ' + (agg.livre >= 0 ? 'então o preço está seguro.' : 'abaixo do seguro. Veja a aba Dashboard.') + ' Cada peça foi gravada no Histórico.';
@@ -47734,6 +48289,10 @@
       'semSiteX',
       'semSiteV',
       'devAviso',
+      'cupFila',
+      'cupTipos',
+      'cupLista',
+      'cupAvL',
       'encAv',
       'fxPer',
       'fxAvisos',
@@ -47998,7 +48557,7 @@
       btol: btol, leitMigra: leitMigra, leitNome: leitNome, vitProduto: vitProduto, lfaFecha: lfaFecha, tipoTrocaAbre: tipoTrocaAbre,
       barMoedas: barMoedas, grpIcoPar: grpIcoPar, grpNomeSugerido: grpNomeSugerido, pnlFaixa: pnlFaixa, onlPainel: onlPainel, inicioGo: inicioGo,
       pixRecebido: pixRecebido, ofertaFim: ofertaFim, siteMaisVendidas: function () { MV_CACHE.ts = 0; return siteMaisVendidas(); }, compLeTexto: compLeTexto, fichaLinhas: fichaLinhas, impBytes: impBytes,
-      animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, saidaSiteAtiva: saidaSiteAtiva, siteL2: siteL2, dstFraca: dstFraca, nvDestaque: nvDestaque, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, lmAvisaParada: lmAvisaParada, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
+      animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, saidaSiteAtiva: saidaSiteAtiva, siteL2: siteL2, siteCupMax: siteCupMax, cupSimula: cupSimula, cupCaixaAplica: cupCaixaAplica, cupValeuHtml: cupValeuHtml, dstFraca: dstFraca, nvDestaque: nvDestaque, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, lmAvisaParada: lmAvisaParada, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
       S: S, vitDocBody: vitDocBody, giroSiteFila: giroSiteFila, giroGv: giroGv, giroComprime: giroComprime, resSolta: resSolta, resOrfas: resOrfas, resEstSet: function (o) { RES_EST = o; }, vistasNaoVendidas: vistasNaoVendidas, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcComprarNovo: lcComprarNovo, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, envFolha: window.__envFolha, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,

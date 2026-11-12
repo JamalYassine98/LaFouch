@@ -52,7 +52,7 @@ peds = literais("{ts:Date.now(),nome:c.nome,")
 ok_p = lista('pedidoOk')
 if not peds or ok_p is None: res('regras: pedido do site', False, 'não achei o pedido no site ou o pedidoOk nas regras')
 else:
-    k = set().union(*[chaves(p) for p in peds]); fora = sorted(k - ok_p)
+    k = set().union(*[chaves(p) for p in peds + literais('{cup:st.cup.cod')]); fora = sorted(k - ok_p)
     res('regras: pedido do site', not fora, 'campos recusados pelas regras: ' + ', '.join(fora) if fora else f'{len(peds)} jeitos de pedir, {len(k)} campos aceitos')
 for tipo, fn in (('cancel', 'cancelOk'), ('comp', 'comprovanteOk'), ('avise', 'aviseOk')):
     lt = literais("{tipo:'" + tipo + "'"); ok_l = lista(fn)

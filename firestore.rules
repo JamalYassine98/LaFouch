@@ -16,7 +16,7 @@ service cloud.firestore {
     }
     function pedidoOk() {
       return request.resource.data.keys().hasOnly(['ts','nome','tel','lang','moeda','total','rosto','itens','pais','cod','ate',
-                                                   'nac','doc','nasc','email','cidade','end','ent','endE','refE','depE','pag','uq','brl','pagar','teste','obsC'])
+                                                   'nac','doc','nasc','email','cidade','end','ent','endE','refE','depE','pag','uq','brl','pagar','teste','obsC','cup','cupd'])
         && request.resource.data.nome is string && request.resource.data.nome.size() < 80
         && request.resource.data.itens is list && request.resource.data.itens.size() <= 30
         && txt('tel', 30) && txt('email', 200) && txt('doc', 30) && txt('obsC', 200)

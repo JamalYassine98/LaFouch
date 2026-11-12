@@ -139,7 +139,8 @@
         '<input class="in" inputmode="' + mpMode() + '" data-in="cartpreco" data-id="' + i + '" value="' + gsParaCampo(v) + '" aria-label="Preço combinado de ' + esc(cartDesc(l)) + ' em ' + mpSim() + '" style="flex:0 1 130px;width:130px">' +
         '<button type="button" class="chip" style="flex:0 0 40px;width:40px;padding:0;justify-content:center" data-act="cartrm" data-id="' + i + '" aria-label="Tirar do pedido">×</button></div>';
     });
-    h += '</div>' + cartSugHtml() + '<button type="button" id="cartSlot" data-act="cartclose" style="min-height:56px;border:2px dashed var(--line);border-radius:12px;background:transparent;color:var(--accent-fg);font:inherit;font-weight:700;width:100%">＋ Adicionar produto</button>' +
+    if (S.cartCup && typeof cupCaixaAplica === 'function') cupCaixaAplica(S.cartCup);
+    h += '</div>' + cartSugHtml() + (typeof cupCaixaHtml === 'function' ? cupCaixaHtml() : '') + '<button type="button" id="cartSlot" data-act="cartclose" style="min-height:56px;border:2px dashed var(--line);border-radius:12px;background:transparent;color:var(--accent-fg);font:inherit;font-weight:700;width:100%">＋ Adicionar produto</button>' +
       '<div class="sum"><span class="lbl" style="margin:0">Total</span><b id="cartSub" style="font-size:26px">' + gs(cartSub()) + '</b></div>' +
       '<button type="button" class="go" id="cartConf" data-act="cartconf">Confirmar pedido</button>' +
       '<div><button type="button" class="chip" data-act="cartclear">Esvaziar pedido</button></div>';
@@ -289,6 +290,8 @@
     agg.cor = '';
     agg.tipo = 'x';
     agg.vr = '';
+    var cupTinha = !!S.cartCup;
+    if (typeof cupCaixaFim === 'function') cupCaixaFim(vendas, cartId, cli, S.cart);
     var n = S.cart.length;
     S.cart = [];
     S.cartBrNome = '';
@@ -309,6 +312,8 @@
     render();
     showSplit(agg);
     notaAbrir(nota, cli);
+    // S174: depois da venda, entregar o cartão "Próxima compra" (só quando a venda não usou código)
+    if (!cupTinha && typeof cupEntregaOferta === 'function' && S.nuvem && S.nuvem.rt) cupEntregaOferta(cli);
     $('splitH').textContent = 'Pedido com ' + n + ' produto(s), ' + agg.qty + ' peça(s), por ' + gs(agg.price) + ' (vendas ' + agg.id + ')';
     $('splitNote').textContent =
       'Preço mínimo seguro (trava) do pedido: ' + gs(agg.trava) + '. Vendido por ' + gs(agg.price) + ', ' + (agg.livre >= 0 ? 'então o preço está seguro.' : 'abaixo do seguro. Veja a aba Dashboard.') + ' Cada peça foi gravada no Histórico.';

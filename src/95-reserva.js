@@ -190,6 +190,11 @@
         S.cash.pyg -= rec; // o pagamento do site entra no banco, não na gaveta da loja
         s.site = p.num;
         s.orig = 'site';
+        // S174: venda com código do site guarda o código e a parte do desconto desta peça (para "Descontos de cupons")
+        if (p.cup && p.cupd > 0) {
+          var lcd = (p.itens || []).reduce(function (a, x) { return a + (x.preco || 0) * (x.q || 1); }, 0) || 1;
+          s.cup = { cod: p.cup, desc: Math.round((p.cupd * (l.preco || 0) * q) / lcd) };
+        }
         if (p.cliId) s.cliId = p.cliId;
         vendas.push(s.id);
         if (S.site && S.site[l.ref]) vitFila(l.ref, 'upd');

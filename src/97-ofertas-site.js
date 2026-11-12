@@ -123,6 +123,15 @@
       piso = ps && ps.pp && ps.pp.piso > 0 ? sitePreco(Math.ceil(ps.pp.piso / 1000) * 1000) : 0;
     return Math.floor((n * (1 - SITE_L2)) / SITE_ARRED) * SITE_ARRED >= piso;
   }
+  // Cupons (S174, 12/11/2026): o maior % de cupom (15, 10 ou 5) que esta peça aguenta sem furar o piso. Só esse número vai ao site.
+  function siteCupMax(ref, tipo, n) {
+    if (!(n > 0)) return 0;
+    var ps = pisoDoRef(ref, tipo),
+      piso = ps && ps.pp && ps.pp.piso > 0 ? sitePreco(Math.ceil(ps.pp.piso / 1000) * 1000) : 0;
+    var l = [15, 10, 5];
+    for (var i = 0; i < l.length; i++) if (Math.floor((n * (1 - l[i] / 100)) / SITE_ARRED) * SITE_ARRED >= piso) return l[i];
+    return 0;
+  }
   function sitePrecoOferta(ref, atual, cheio, tipo) {
     var base = sitePreco(cheio > atual ? cheio : atual),
       n = sitePreco(atual),
