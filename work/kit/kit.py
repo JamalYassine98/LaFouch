@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Kit de esboço realista (12/11/2026). Abre a tela REAL do site ou do app, injeta só o que muda e fotografa.
 uso:
-  python3 work/kit/kit.py site <tela> <saida.png> [inject.js|inject.html] [--y N] [--es]
+  python3 work/kit/kit.py site <tela> <saida.png> [inject.js|inject.html] [--y N] [--es] [--ref CODIGO]
   python3 work/kit/kit.py app  <tela> <saida.png> [inject.html] [--escuro]
   python3 work/kit/kit.py prancha <saida.jpg> "Título" "sub" tela1.png:"Título 1":"sub 1" ...
 telas do site: home produto carrinho entrega delivery pagamento conta atacado
@@ -33,7 +33,7 @@ def ctx(pw,lang='pt-BR',scheme='light'):
     c=b.new_context(bypass_csp=True,viewport={'width':390,'height':844},device_scale_factor=2,is_mobile=True,has_touch=True,locale=lang,color_scheme=scheme,service_workers='block')
     c.route('**/*',lambda r: r.continue_() if r.request.url.startswith('http://localhost') or r.request.url.startswith('http://127.') else r.abort()); return b,c
 def rolar(pg,y): pg.evaluate("y=>{[...document.querySelectorAll('*')].forEach(e=>{if(e.scrollHeight>e.clientHeight+50&&/(auto|scroll)/.test(getComputedStyle(e).overflowY))e.scrollTop=y});window.scrollTo(0,y)}",y); pg.wait_for_timeout(350)
-def site(tela,out,inj=None,y=0,es=False):
+def site(tela,out,inj=None,y=0,es=False,ref=None):
     prep_site(); serve(SITE,PS); U=f'http://localhost:{PS}/'
     with sync_playwright() as pw:
         b,c=ctx(pw,'es-PY' if es else 'pt-BR')
@@ -41,7 +41,7 @@ def site(tela,out,inj=None,y=0,es=False):
         c.add_init_script("localStorage.setItem('lf_lang',%r);"%('es' if es else 'pt')+("localStorage.setItem('lf_conta',%r);localStorage.setItem('lf_auth',%r);"%(CONTA,AUTH) if logado else "")+"try{sessionStorage.setItem('lf_ni','1')}catch(e){}")
         pg=c.new_page(); pg.goto(U+'?kit=1'); pg.wait_for_timeout(1800)
         def abre(ref): pg.evaluate("r=>{const e=document.querySelector('[data-open=\"'+r+'\"]');e&&e.click()}",ref); pg.wait_for_timeout(1100)
-        if tela=='produto': abre('KIT3C')
+        if tela=='produto': abre(ref or 'KIT3C')
         elif tela in ('carrinho','entrega','delivery','pagamento'):
             abre('SL2210'); [e for e in pg.query_selector_all('button') if e.is_visible() and 'Comprar' in (e.inner_text() or '')][0].click(); pg.wait_for_timeout(1100)
             pg.click('text=Finalizar compra'); pg.wait_for_timeout(1100)
@@ -76,6 +76,6 @@ def prancha(out,tit,sub,itens):
     B.resize((B.width//2,B.height//2),Image.LANCZOS).save(out,quality=86)
 if __name__=='__main__':
     a=sys.argv[1:]; op=lambda k:(a[a.index(k)+1] if k in a else None)
-    if a[0]=='site': site(a[1],a[2],a[3] if len(a)>3 and not a[3].startswith('--') else None,int(op('--y') or 0),'--es' in a)
+    if a[0]=='site': site(a[1],a[2],a[3] if len(a)>3 and not a[3].startswith('--') else None,int(op('--y') or 0),'--es' in a,op('--ref'))
     elif a[0]=='app': app(a[1],a[2],a[3] if len(a)>3 and not a[3].startswith('--') else None,'--escuro' in a)
     elif a[0]=='prancha': prancha(a[1],a[2],a[3],a[4:])
