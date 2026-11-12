@@ -1880,3 +1880,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - 12/11 13:35 DONO: Polarizado igual aos outros selos + ícone bonito; ícones para Masculino/Feminino/Unissex no mesmo padrão. Esboço S195 v2 (work/s190/s195_selos.jpg): traço 1.9 igual ao UV400 (♂ ♀ ⚥ em linha; polarizado = óculos com riscos diagonais nas lentes).
 - 12/11 13:40 DONO: ícone do polarizado deve ser o efeito de refletir os raios solares (não óculos). Opções em work/s190/s195_polarizado.png: A raio que bate e volta (recomendado), B sol barrado pela lente, C lente refletindo.
 - 12/11 13:45 DONO quer ícone entre A e C. Opções D (raio bate na lente deitada e volta) e E (lente de lado refletindo) em work/s190/s195_polarizado2.png.
+- 12/11 13:50 DONO escolheu E (lente de lado refletindo) com sol afastado da lente. Versões E4 (1 raio) e E5 (2 raios) em work/s190/s195_polarizado3.png.
