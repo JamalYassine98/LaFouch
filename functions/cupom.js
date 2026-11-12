@@ -1,17 +1,18 @@
 // Cupons e cartões virtuais (S174 v1+v2+v3, aprovados 11/11/2026). Um sistema só: o site e o caixa do app usam os mesmos códigos.
 // Tipos: bv Boas-vindas 5% (ao se inscrever, 30 dias, 1 por e-mail e por telefone, só quem nunca comprou, compra mínima)
 //        px Próxima compra 10% (vem com a compra paga) · am Indique uma amiga 10% (a amiga usa; você ganha outro px depois de pago + 7 dias, até 5 por mês)
-//        vip 15% (pessoal, vale sempre) · ev cupom do evento (um código para todos, 1 vez por pessoa, limite total)
+//        vip 15% (pessoal, vale sempre; emitido à mão) · fiel Cliente fiel 10% (S194: a cada 3 compras pagas, 1 uso, sozinho) · ev cupom do evento
 // Proteções sempre ligadas: 1 código por compra (o site/caixa aplicam só 1), vale o maior desconto (site/caixa), nunca abaixo do piso (site/caixa),
-// código pessoal preso ao 1º telefone, código trava 24 h com 4+ telefones diferentes no dia, 10 códigos errados por hora por endereço = espera,
-// teto do mês (todos os cupons) pausa códigos NOVOS (os entregues continuam valendo).
+// código pessoal preso ao 1º telefone (outro telefone = recusa + aviso ao dono com 4+ telefones no dia; S194: sem trava de 24 h),
+// anti-robô invisível: 30+ códigos errados por hora no mesmo endereço passam a receber 'não encontrado' (sem espera visível).
+// S194: SEM teto do mês.
 // Regra pura: o banco vem por "db" (ver index.js). Datas em ms.
 const crypto = require('crypto');
 class Falha extends Error { constructor(m, s) { super(m); this.motivo = m; this.status = s || 400; } }
 const DIA = 864e5;
 const LETRAS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // sem O/0 e I/1
-const PADRAO = { bv: { pct: 5, dias: 30, min: 100000 }, px: { pct: 10, dias: 120, min: 0 }, am: { pct: 10, dias: 365, min: 0 }, vip: { pct: 15, dias: 0, min: 0 } };
-const TETO_MES = 500000, AMIGA_MES = 5, TEL_DIF = 4, ERRADOS_HORA = 10;
+const PADRAO = { bv: { pct: 5, dias: 30, min: 100000 }, px: { pct: 10, dias: 120, min: 0 }, am: { pct: 10, dias: 365, min: 0 }, vip: { pct: 15, dias: 0, min: 0 }, fiel: { pct: 10, dias: 120, min: 0, cada: 3 } };
+const TETO_MES = 500000, AMIGA_MES = 5, TEL_DIF = 4, ERRADOS_HORA = 30;
 const EMAIL_OK = /^[^\s@]{1,64}@[^\s@]{1,190}\.[a-z]{2,}$/i;
 const limpa = (t, n) => String(t == null ? '' : t).replace(/[\u0000-\u001f<>]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, n);
 const telN = (t) => String(t || '').replace(/\D/g, '').slice(-9); // compara pelos 9 últimos dígitos (com ou sem +595/0)
@@ -44,7 +45,7 @@ function publico(c, agora) {
 }
 async function teto(db, agora) {
   const m = (await db.getMes(mesDe(agora))) || {};
-  return { usado: m.desc || 0, teto: TETO_MES, pausa: (m.desc || 0) >= TETO_MES };
+  return { usado: m.desc || 0, teto: 0, pausa: false }; // S194: teto do mês removido
 }
 async function aviso(db, agora, t, d, cod) { try { await db.aviso({ ts: agora, t, d, cod: cod || '' }); } catch (e) {} }
 async function cria(db, o, agora) {
@@ -69,8 +70,8 @@ async function bloqueado(db, ipk, agora) {
 }
 // confere tudo antes de usar (sem gravar o uso)
 async function confere(db, b, ipk, agora) {
-  if (await bloqueado(db, ipk, agora)) throw new Falha('espera', 429);
-  const cod = codN(b.cod), c = cod.length >= 4 ? await db.get(cod) : null;
+  const bloq = await bloqueado(db, ipk, agora);
+  const cod = codN(b.cod), c = !bloq && cod.length >= 4 ? await db.get(cod) : null;
   if (!c) { await errou(db, ipk, agora); return { ok: false, motivo: 'nao' }; }
   const v = vivo(c, agora);
   if (v) return { ok: false, motivo: v, c: publico(c, agora) };
@@ -83,9 +84,9 @@ async function confere(db, b, ipk, agora) {
     // código pessoal usado por outro telefone: conta e trava com 4+ telefones diferentes no dia
     const dia = (c.outros || []).filter((x) => agora - x.ts < DIA);
     if (!dia.some((x) => x.tel === tel)) dia.push({ tel, ts: agora });
-    const trava = dia.length >= TEL_DIF;
-    await db.muda(cod, Object.assign({ outros: dia }, trava ? { travaAte: agora + DIA } : {}));
-    if (trava) await aviso(db, agora, 'trava', dia.length + ' tentativas com telefones diferentes', cod);
+    const muitos = dia.length >= TEL_DIF;
+    await db.muda(cod, { outros: dia });
+    if (muitos && dia.length === TEL_DIF) await aviso(db, agora, 'trava', dia.length + ' telefones diferentes tentaram este código pessoal hoje', cod);
     return { ok: false, motivo: 'outro' };
   }
   if (c.tipo === 'am' && c.por && ((tel && c.por.tel === tel) || (em && c.por.email === em))) return { ok: false, motivo: 'proprio' };
@@ -160,6 +161,16 @@ async function confirma(db, envia, b, agora) {
   }
   const px = await db.porPid(pid, 'px');
   if (px && db.comprou) try { await db.comprou(px.tel, px.email); } catch (e) {}
+  // S194 Cliente fiel: a cada 3 compras pagas (contadas uma vez por pedido) ganha 10% para 1 compra
+  if (px && px.tel && db.contaPaga) {
+    let n = null;
+    try { n = await db.contaPaga(px.tel, pid); } catch (e) {}
+    if (n && n % PADRAO.fiel.cada === 0) {
+      const P = PADRAO.fiel, fi = await cria(db, { tipo: 'fiel', pct: P.pct, fim: agora + P.dias * DIA, max: 1, email: px.email || '', tel: px.tel, de: 'fiel:' + n }, agora);
+      out.cartoes.push(fi.cod);
+      if (envia && px.email) try { await envia(mail(fi, px.lang === 'es')); } catch (e) {}
+    }
+  }
   if (px && px.st === 'pend') {
     await db.muda(px.cod, { st: 'ativo', ini: agora, fim: agora + PADRAO.px.dias * DIA });
     const am = await cria(db, { tipo: 'am', pct: PADRAO.am.pct, fim: agora + PADRAO.am.dias * DIA, max: 0, por: { tel: px.tel, email: px.email }, email: px.email, tel: '', de: 'pedido:' + pid }, agora);
@@ -230,7 +241,7 @@ async function meus(db, email, agora) {
 }
 function mail(c, es, am) {
   const n = c.pct + '%', l = 'https://lafouch.com/?t=' + encodeURIComponent(c.cod), f = c.fim ? new Date(c.fim).toLocaleDateString(es ? 'es-PY' : 'pt-BR', { timeZone: 'America/Asuncion' }) : '';
-  const tit = c.tipo === 'bv' ? (es ? '¡Bienvenida a La Fouch! Tu regalo: ' + n + ' en tu primera compra' : 'Bem-vinda à La Fouch! Seu presente: ' + n + ' na primeira compra') : (es ? 'Tu tarjeta: ' + n + ' en tu próxima compra' : 'Seu cartão: ' + n + ' na próxima compra');
+  const tit = c.tipo === 'fiel' ? (es ? '¡Gracias por ser cliente fiel! Tu regalo: ' + n + ' en tu próxima compra' : 'Obrigado por ser cliente fiel! Seu presente: ' + n + ' na próxima compra') : c.tipo === 'bv' ? (es ? '¡Bienvenida a La Fouch! Tu regalo: ' + n + ' en tu primera compra' : 'Bem-vinda à La Fouch! Seu presente: ' + n + ' na primeira compra') : (es ? 'Tu tarjeta: ' + n + ' en tu próxima compra' : 'Seu cartão: ' + n + ' na próxima compra');
   const card = (x, t) => '<div style="border-radius:16px;background:#2b1a2a;color:#fff;padding:18px 20px;margin:12px 0;max-width:360px"><div style="font:600 12px Arial;letter-spacing:.2em;opacity:.8">LA FOUCH</div><div style="font:700 20px Georgia,serif;margin:8px 0">' + t + '</div><div style="font:700 26px monospace;letter-spacing:.1em">' + x.cod + '</div>' + (x.fim ? '<div style="font:12px Arial;opacity:.8;margin-top:6px">' + (es ? 'Válido hasta ' : 'Vale até ') + new Date(x.fim).toLocaleDateString(es ? 'es-PY' : 'pt-BR', { timeZone: 'America/Asuncion' }) + ' · ' + (es ? 'en lafouch.com y en la tienda' : 'em lafouch.com e na loja') + '</div>' : '') + '</div>';
   return {
     to: c.email,

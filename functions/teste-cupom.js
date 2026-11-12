@@ -44,8 +44,8 @@ function dbFake(compras) {
   ok(!r.ok && r.motivo === 'outro', 'código pessoal preso ao telefone da dona');
   r = await C.ver(db, { cod: px, tel: '0981123456' }, 'ip2', T0 + 6000); ok(r.ok, 'a dona ainda usa (antes da trava)');
   await C.ver(db, { cod: px, tel: '0982000004' }, 'ip2', T0 + 7000);
-  r = await C.ver(db, { cod: px, tel: '0981123456' }, 'ip2', T0 + 8000); ok(!r.ok && r.motivo === 'trava' && db.av.some((a) => a.t === 'trava'), '4 telefones diferentes no dia: trava 24 h e avisa o app');
-  r = await C.ver(db, { cod: px, tel: '0981123456' }, 'ip2', T0 + 8000 + D); ok(r.ok, 'depois de 24 h volta a valer');
+  r = await C.ver(db, { cod: px, tel: '0981123456' }, 'ip2', T0 + 8000); ok(r.ok && db.av.some((a) => a.t === 'trava'), 'S194: 4 telefones diferentes no dia NÃO travam a dona; só avisa o dono');
+  r = await C.ver(db, { cod: px, tel: '0981123456' }, 'ip2', T0 + 8000 + D); ok(r.ok, 'a dona continua usando no dia seguinte');
   // amiga
   r = await C.ver(db, { cod: am, tel: '0981123456' }, 'ip3', T0 + 9000); ok(!r.ok && r.motivo === 'proprio', 'amiga: a própria dona não usa');
   r = await C.usar(db, { cod: am, tel: '0983111222', email: 'bia@x.com', total: 150000, desc: 15000, pid: 'P3' }, 'ip3', T0 + 9000); ok(r.ok, 'amiga nova usa 10%');
@@ -62,14 +62,23 @@ function dbFake(compras) {
   r = await C.ver(db, { cod: 'NAVIDAD10', tel: '0984000003' }, 'ip4', T0); ok(!r.ok && r.motivo === 'esgotado' && db.av.some((a) => a.t === 'esgotado'), 'evento acaba no limite total e avisa');
   // teto do mês
   db.mes['2026-11'].desc = C.TETO_MES;
-  r = await C.boasVindas(db, envia, { email: 'nova@x.com' }, T0); ok(!r.ok && r.motivo === 'pausa', 'teto do mês: pausa códigos novos');
+  r = await C.boasVindas(db, envia, { email: 'nova@x.com' }, T0); ok(r.ok, 'S194: sem teto do mês (códigos novos continuam saindo)');
   r = await C.ver(db, { cod: am, tel: '0985000000' }, 'ip5', T0 + 12000); ok(r.ok, '…os já entregues continuam valendo');
   // força bruta
   for (let i = 0; i < 10; i++) await C.ver(db, { cod: 'LF-ZZZ' + i }, 'ipX', T0);
-  e = ''; try { await C.ver(db, { cod: 'LF-ZZZZ' }, 'ipX', T0) } catch (x) { e = x.motivo } ok(e === 'espera', '10 códigos errados por hora: espera');
+  r = await C.ver(db, { cod: am, tel: '0985000111' }, 'ipX', T0 + 1); ok(r.motivo !== 'espera' && r.motivo !== 'nao', 'S194: 10 erros de digitação não fazem esperar');
+  for (let i = 0; i < 30; i++) await C.ver(db, { cod: 'LF-ZZY' + i }, 'ipY', T0);
+  r = await C.ver(db, { cod: am, tel: '0985000222' }, 'ipY', T0 + 1); ok(!r.ok && r.motivo === 'nao', 'robô (30+ erros na hora) recebe só "não encontrado", sem espera visível');
   // VIP, lista, Mis tarjetas
   r = await C.emitir(db, { tipo: 'vip', tel: '0986', nome: 'Carla', email: 'carla@x.com' }, T0); ok(r.ok && r.cupom.pct === 15 && r.cupom.fim === 0, 'VIP 15% sem vencimento');
-  const l = await C.lista(db, T0); ok(l.tipos.bv.usados === 1 && l.tipos.ev.usados === 0 && l.teto.pausa, 'lista com resultado por tipo e teto');
+  const l = await C.lista(db, T0); ok(l.tipos.bv.usados === 1 && l.tipos.ev.usados === 0 && !l.teto.pausa, 'lista com resultado por tipo (sem teto)');
+  // S194 Cliente fiel: a cada 3 compras pagas, 10% para 1 compra
+  const cnt = {}; db.contaPaga = async (tel, pid) => { cnt[tel] = cnt[tel] || []; if (cnt[tel].includes(pid)) return null; cnt[tel].push(pid); return cnt[tel].length; };
+  for (const pid of ['F1', 'F2', 'F3']) { await C.proxima(db, { pid, tel: '0987111222', email: 'fiel@x.com' }, T0); await C.confirma(db, envia, { pid }, T0 + 1000); }
+  let fi = Object.values(db.m).filter((c) => c.tipo === 'fiel');
+  ok(fi.length === 1 && fi[0].pct === 10 && fi[0].max === 1 && fi[0].tel === '987111222', 'Cliente fiel: 3ª compra paga gera 10% de 1 uso');
+  await C.confirma(db, envia, { pid: 'F3' }, T0 + 2000);
+  fi = Object.values(db.m).filter((c) => c.tipo === 'fiel'); ok(fi.length === 1, 'Cliente fiel: confirmar o mesmo pedido de novo não conta 2 vezes');
   const mt = await C.meus(db, 'ANA@gmail.com', T0 + 20000); ok(mt.cupons.some((c) => c.cod === px) && mt.cupons.some((c) => c.cod === bv && c.usado), 'Mis tarjetas: cartões da cliente e o que já usou');
   process.exit(falhas ? 1 : 0);
 })();

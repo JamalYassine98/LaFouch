@@ -25,7 +25,7 @@ def prep_site():
     shutil.rmtree(SITE,ignore_errors=True); shutil.copytree(SITE_SRC,SITE,ignore=shutil.ignore_patterns('.git'))
     import re; f=os.path.join(SITE,'js','lf-site.js'); s=open(f).read()
     g=lambda r: re.search(r"ref:'"+r+"'[^}]*foto:'([^']*)'",s).group(1)
-    p="{ref:'KIT3C',gen:'f',nome:'Armação metal gatinho',tipo:'armacao',n:139000,cor:'#6b4a2b',raio:22,aviso:'',tag:'METAL',rosto:['quadrado','redondo'],mat:'Metal',med:[52,18,140],foto:'%s',fc:[null,'%s','%s'],cores:['#6b4a2b','#cfd6dc','#1d1d1f'],cn:['Tartaruga','Transparente','Preto'],qs:[2,3,2],lib:1,cad:9e12},\n"%(g('SL2275'),g('GR3350'),g('BR44140'))
+    p="{ref:'KIT3C',gen:'f',nome:'Armação metal gatinho',tipo:'armacao',n:139000,cor:'#6b4a2b',raio:22,aviso:'',tag:'METAL',rosto:['quadrado','redondo'],mat:'Metal',med:[52,18,140],foto:'%s',fc:[null,'%s','%s'],cores:['#6b4a2b','#cfd6dc','#1d1d1f'],cn:['Tartaruga','Transparente','Preto'],qs:[2,3,2],lib:1,cad:9e12,cmx:20},\n"%(g('SL2275'),g('GR3350'),g('BR44140'))
     open(f,'w').write(s.replace("var P=[\n","var P=[\n    "+p,1)); os.utime(SITE,None)
 CONTA=json.dumps({'nome':'Maria González','email':'maria@exemplo.com','tel':'+595 983 000 000','ends':[{'nome':'Casa','cidade':'Ciudad del Este','dep':'Alto Paraná','end':'Calle Los Lapachos 123','ref':'portão verde'}]})
 AUTH=json.dumps({'uid':'kit','idToken':'kit','refresh':'kit','exp':9e15,'ev':True,'email':'maria@exemplo.com'})
@@ -39,7 +39,7 @@ def site(tela,out,inj=None,y=0,es=False,ref=None):
     with sync_playwright() as pw:
         b,c=ctx(pw,'es-PY' if es else 'pt-BR')
         logado=tela in ('entrega','delivery','pagamento','conta')
-        c.add_init_script("localStorage.setItem('lf_lang',%r);"%('es' if es else 'pt')+("localStorage.setItem('lf_conta',%r);localStorage.setItem('lf_auth',%r);"%(CONTA,AUTH) if logado else "")+"try{sessionStorage.setItem('lf_ni','1')}catch(e){}")
+        c.add_init_script("localStorage.setItem('lf_lang',%r);"%('es' if es else 'pt')+("localStorage.setItem('lf_conta',%r);localStorage.setItem('lf_auth',%r);"%(CONTA,AUTH) if logado else "")+"try{sessionStorage.setItem('lf_ni','1')}catch(e){}"+os.environ.get('KIT_INIT',''))
         pg=c.new_page(); pg.goto(U+'?kit=1'); pg.wait_for_timeout(1800)
         def abre(ref): pg.evaluate("r=>{const e=document.querySelector('[data-open=\"'+r+'\"]');e&&e.click()}",ref); pg.wait_for_timeout(1100)
         if tela=='produto': abre(ref or 'KIT3C')

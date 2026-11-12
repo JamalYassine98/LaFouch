@@ -447,6 +447,14 @@ const cupDb = {
     if (tel) await fsx().doc('compradores/t' + tel).set({ ts: Date.now() });
     if (em) await fsx().doc('compradores/e' + crypto.createHash('sha256').update(em).digest('hex').slice(0, 32)).set({ ts: Date.now() });
   },
+  // S194 Cliente fiel: conta compras pagas por telefone (cada pedido só uma vez); devolve o total ou null se o pedido já contou
+  contaPaga: async (tel, pid) => fsx().runTransaction(async (tx) => {
+    const r = fsx().doc('compradores/t' + tel), d = await tx.get(r), o = d.exists ? d.data() : {}, pp = o.pagos || [];
+    if (pp.indexOf(pid) >= 0) return null;
+    const n = (o.n || 0) + 1;
+    tx.set(r, { ts: Date.now(), n, pagos: pp.concat([pid]).slice(-60) }, { merge: true });
+    return n;
+  }),
   bvDe: async (em, tel) => {
     if (em && !(await fsx().collection('cupons').where('tipo', '==', 'bv').where('email', '==', em).limit(1).get()).empty) return true;
     if (tel && !(await fsx().collection('cupons').where('tipo', '==', 'bv').where('tel', '==', tel).limit(1).get()).empty) return true;
