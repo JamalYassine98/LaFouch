@@ -58,4 +58,4 @@ ${MK('e')}${MK('d')}
  ${ARM('aFe',1)}${ARM('aFd',1)}
  <g class="pon" opacity="0"><g class="ponT"><circle class="mao" cx="25" cy="0" r="6" opacity="0"/><rect x="23" y="-3.2" width="14.7" height="6.4" rx="3" fill="#8d3a69"/><path class="haste" d="M36.7 0 H71" stroke="#8d3a69" stroke-width="3" stroke-linecap="round"/><g class="luva" transform="translate(71 0) scale(.75)">${LUVA}</g></g></g>
  <g class="itF"></g>
-</g></g></g></g></svg>`;;return MOCHI_SVG})();
+</g></g></g></g></svg>`;;return {svg:MOCHI_SVG,ARMP,ARMH,ARMHF,armT,dentro,cl}})();
