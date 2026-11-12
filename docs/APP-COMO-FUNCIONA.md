@@ -55,3 +55,6 @@ fadd, fdel, faixaauto, volauto, lojaRecarregar, nvAgora, nvRestaurar, pautoTog, 
 
 ## Fluxo do produto hoje
 Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 OU 31) → `vitProduto` copia campos para o site → Marketing/WhatsApp montam texto por conta própria (não leem descrição única) → Destaque usa vendas/vistas (`nvDestaque`).
+
+## Voltar (S187, 12/11/2026)
+- `src/99b-voltar-janela.js`: abrir uma peça no Catálogo (`S.vRef`) ou no Inventário (`S.det`/`S.open`) cria 1 passo no histórico (pela `prodTopo` e pelo `render`); o voltar do celular fecha a peça e a lista volta na mesma rolagem (`S._volY`). Fechar pelo botão da tela tira o passo que sobrou (`history.back` ignorado no `navVolta`).
