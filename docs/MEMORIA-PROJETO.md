@@ -1882,3 +1882,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - 12/11 13:45 DONO quer ícone entre A e C. Opções D (raio bate na lente deitada e volta) e E (lente de lado refletindo) em work/s190/s195_polarizado2.png.
 - 12/11 13:50 DONO escolheu E (lente de lado refletindo) com sol afastado da lente. Versões E4 (1 raio) e E5 (2 raios) em work/s190/s195_polarizado3.png.
 - 12/11 13:40 DONO: APROVADO ícone Polarizado = E4 (sol afastado, 1 raio bate na lente de lado e volta; traço 1.8). S195 aprovado no conjunto: selos com ícone (♂ ♀ ⚥ em linha, Polarizado E4 no mesmo padrão), armação sem 'Aceita lentes de grau'; interruptor 'Polarizado' na Ficha (até lá, detecta no nome). Pendentes: tirar selo da leitura? e teto do mês dos cupons.
+- 12/11 13:41 DONO: SIM tirar 'Aceita lentes de grau' também da leitura. Teto do mês: ainda não entendeu (explicado com exemplo). Perguntou se recomendo remover os selos da leitura na página da peça.
