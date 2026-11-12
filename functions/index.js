@@ -57,6 +57,8 @@ exports.avisarPedido = onDocumentCreated({ document: 'pedidos/{id}', region: REG
   const f = snap.data() || {};
   const t = texto(f);
   const db = admin.firestore();
+  // S197: pedido do site com PIX → guarda o valor exato para o robô do e-mail achar (o app apaga o pedido depois de importar)
+  if (f.pag === 'pix' && !f.tipo && +f.brl > 0) { try { await db.doc('pixEspera/' + ev.params.id).set({ tipo: 'site', brl: +f.brl, ts: +f.ts || Date.now(), cod: String(f.cod || '').slice(0, 8) }); } catch (e) { console.error('pixEspera', e); } }
   const lista = await db.collection('dispositivos').get();
   const alvo = lista.docs.filter((d) => quer(d.data() || {}, t.tipo));
   if (!alvo.length) return;
@@ -514,20 +516,21 @@ const pixDb = {
   jaVisto: async (m) => (await fsx().doc('pixVistos/' + crypto.createHash('sha256').update(m).digest('hex').slice(0, 40)).get()).exists,
   visto: (m, ts) => fsx().doc('pixVistos/' + crypto.createHash('sha256').update(m).digest('hex').slice(0, 40)).set({ ts }),
   // só um filtro (sem índice composto); o pago/cancelado vem da reserva
+  // pedidos do site: a espera (pixEspera tipo 'site') nasce no avisarPedido; o pago/cancelado vem da reserva
   pedidosPix: async (desde) => {
-    const L = (await fsx().collection('pedidos').where('ts', '>=', desde).limit(400).get()).docs
-      .map((d) => Object.assign({ id: d.id }, d.data())).filter((p) => p.pag === 'pix' && !p.tipo);
+    const L = (await fsx().collection('pixEspera').where('ts', '>=', desde).limit(200).get()).docs
+      .map((d) => Object.assign({ id: d.id }, d.data())).filter((p) => p.tipo === 'site');
     for (const p of L) {
       const r = await fsx().doc('reservas/' + p.id).get(), o = r.exists ? r.data() : {};
-      p.pago = !!(o.pago || o.cancelado || p.pixAuto);
+      p.pago = !!(o.pago || o.cancelado || p.ok);
     }
     return L;
   },
-  esperas: async (desde) => (await fsx().collection('pixEspera').where('ts', '>=', desde).limit(100).get()).docs.map((d) => Object.assign({ id: d.id }, d.data())),
+  esperas: async (desde) => (await fsx().collection('pixEspera').where('ts', '>=', desde).limit(200).get()).docs.map((d) => Object.assign({ id: d.id }, d.data())).filter((e) => e.tipo !== 'site'),
   confirmaPedido: async (id, o) => {
     const tok = crypto.randomBytes(6).toString('hex');
     await fsx().doc('reservas/' + id).set({ pago: true, tok, pixAuto: o }, { merge: true });
-    await fsx().doc('pedidos/' + id).update({ pixAuto: o });
+    await fsx().doc('pixEspera/' + id).set({ ok: o }, { merge: true });
   },
   confirmaEspera: (id, o) => fsx().doc('pixEspera/' + id).update({ ok: o }),
   semPar: (o) => fsx().collection('pixSemPar').add(o),
