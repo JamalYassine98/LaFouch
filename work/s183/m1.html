@@ -1,0 +1,47 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;background:#efe9ec;font:15px/1.4 Inter,system-ui,sans-serif;color:#231a22}
+h1{font:700 30px Georgia,serif;margin:24px 28px 4px}.sub{margin:0 28px 18px;color:#6b5d67}
+.g{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:0 28px 28px}
+.f{background:#fff;border-radius:22px;box-shadow:0 6px 22px rgba(0,0,0,.08);overflow:hidden;display:flex;flex-direction:column}
+.f img{width:100%;display:block}.cap{padding:12px 16px 16px;font-size:14px;color:#3b2f39}.cap b{display:block;font-size:15px;margin-bottom:3px;color:#7a2e5c}
+.ph{position:relative;height:600px;overflow:hidden;background:#f8f1f4;display:flex;flex-direction:column;align-items:center}
+.logo{margin-top:30px;font:500 30px Georgia,serif;letter-spacing:.04em;color:#6d2f55}.logo small{display:block;text-align:center;font:600 9px Inter;letter-spacing:.3em;color:#8a6a7e}
+.dots{display:flex;gap:16px;margin:26px 0 10px}.dots i{width:16px;height:16px;border-radius:50%;border:2px solid #8a3c66}.dots i.on{background:#8a3c66}
+.msg{font-size:14px;color:#6b5d67;height:20px}
+.kp{display:grid;grid-template-columns:repeat(3,76px);gap:14px;margin-top:16px}.kp span{height:76px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font:500 30px Inter;color:#231a22;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.kp span.t{background:none;box-shadow:none;font-size:15px;color:#7a2e5c}.kp span.bio{background:#7a2e5c;color:#fff}
+.bio svg,.kp span svg{width:30px;height:30px}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:24px 24px 0 0;padding:20px 22px 28px;box-shadow:0 -6px 24px rgba(0,0,0,.18)}
+.dim{position:absolute;inset:0;background:rgba(20,12,20,.45)}
+.it{display:flex;gap:12px;align-items:center;padding:10px 0;border-top:1px solid #f0e6ec}.it img{width:64px;height:48px;object-fit:contain;background:#f8f1f4;border-radius:10px}.it span{flex:1}.it small{display:block;color:#8a7a85}
+.bt{display:block;text-align:center;padding:14px;border-radius:999px;background:#7a2e5c;color:#fff;font-weight:700;margin-top:14px}.bt2{display:block;text-align:center;padding:12px;border-radius:999px;border:1.5px solid #7a2e5c;color:#7a2e5c;font-weight:700;margin-top:8px}
+.ring{width:120px;height:120px;border-radius:50%;background:conic-gradient(#7a2e5c 0 70%,#ead9e3 0);display:flex;align-items:center;justify-content:center;margin-top:30px}.ring div{width:104px;height:104px;border-radius:50%;background:#f8f1f4;display:flex;align-items:center;justify-content:center;font:500 22px Georgia,serif;color:#6d2f55}
+.shake{animation:none;transform:translateX(-6px)}
+.prm{position:absolute;left:18px;right:18px;bottom:24px;background:#fff;border-radius:22px;padding:22px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.25)}
+.prm .fp{width:64px;height:64px;margin:10px auto;border-radius:50%;background:#f4e6ee;display:flex;align-items:center;justify-content:center;color:#7a2e5c}
+.prm .bt2{border:0;color:#7a2e5c}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}.tbl td,.tbl th{padding:7px 8px;border-top:1px solid #eee;text-align:left;vertical-align:top}.tbl th{color:#7a2e5c}
+.app{height:640px;background:#f4f1f3;padding:18px;box-sizing:border-box;position:relative;overflow:hidden}.card{background:#fff;border-radius:16px;padding:14px 16px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.card h4{margin:0 0 4px;font-size:16px}.mu{color:#7b6d78;font-size:13px}.chip{display:inline-block;padding:7px 12px;border-radius:99px;background:#7a2e5c;color:#fff;font-weight:700;font-size:13px;margin-top:8px}.chip.o{background:none;border:1.5px solid #7a2e5c;color:#7a2e5c}
+.row{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid #f0e8ed;font-size:14px}.row img{width:54px;height:40px;object-fit:contain;background:#f8f1f4;border-radius:8px}.row span{flex:1}.row small{display:block;color:#8a7a85}.ok{color:#2e7d4f;font-weight:700}.wa{color:#b06b00;font-weight:700}
+.sim{background:#f8f1f4;border-radius:12px;padding:10px 12px;font-size:13px;margin-top:8px}.sim b{color:#231a22}
+.bar{height:44px;background:#1d5236;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;border-radius:12px;margin-bottom:12px}</style></head><body><h1>S183 · Temáticas no catálogo da loja + descontos sugeridos pelo tema</h1><div class="sub">Esboço — nada implementado. Continua do S181 (catálogo igual ao site) e S182 descartado: PIN = teclado da La Fouch + botão de biometria (nada abre sozinho).</div><div class="g">
+<div class="f"><img src="a_cat_ipad.png" style="height:640px;object-fit:cover;object-position:top"><div class="cap"><b>1 · O catálogo da loja pega a temática do site</b>A mesma faixa, cores, enfeites e selos do tema (Natal, Black Friday, Mães, Pais, Ano Novo, Halloween), ligados pelo calendário do painel; sem internet, usa o tema da última vez. Correção junto: peça em oferta no tema fica com <strong>um selo só</strong> ("−10% · Regalo ideal"; hoje o selo OFERTA e o do tema se sobrepõem no site) e o cartão de oferta usa a cor do tema.</div></div>
+<div class="f"><div class="app"><div class="card"><h4>🎄 Natal começa em 19 dias</h4><div class="mu">Sugestão de desconto pronta: leitura como presente · 18 modelos · 1/12 a 25/12</div><span class="chip">Ver sugestão</span> <span class="chip o">Agora não</span></div>
+<div class="card" style="opacity:.55"><h4>Vendido hoje · 7 venda(s)</h4><div class="mu">G$ 466.500</div></div><div class="card" style="opacity:.55"><h4>📊 Semana do site</h4><div class="mu">1.240 visitas · 9 pedidos</div></div></div><div class="cap"><b>2 · O app avisa 20 dias antes</b>Cartão no Início (e no sino) quando um tema do calendário está chegando. "Agora não" esconde até 7 dias antes.</div></div>
+<div class="f"><div class="app" style="background:#fff"><b style="font:700 20px Georgia,serif">Sugestão para o Natal</b><div class="mu">1/12 a 25/12 · termina sozinho · site + catálogo da loja + caixa</div>
+<div class="row"><img src="b0ce33cc336d.jpg"><span>Leitura (presente mais pedido)<small>14 modelos · cabe no piso em todos</small></span><b>−10%</b></div>
+<div class="row"><img src="b95b382e346d.jpg"><span>Leitura parada há 60+ dias<small>4 modelos · +5% para girar</small></span><b>−15%</b></div>
+<div class="row"><img src="1e59e39c9c89.jpg"><span>Novidades e as 3 mais vendidas<small>vendem sozinhas</small></span><b>sem desconto</b></div>
+<div class="row"><img src="8c1802baa300.jpg"><span>2 modelos limitados pelo piso<small>ficam com o que cabe</small></span><b class="wa">−5%</b></div>
+<div class="sim">Lucro médio por venda: <b>Gs. 46.000 → 37.500</b><br>Para empatar, precisa vender <b>+23%</b> no Natal (Natal passado: +41%)<br>Com o cupom NAVIDAD10 junto, vale o maior desconto (não soma)</div>
+<span class="chip">Aplicar no Natal</span> <span class="chip o">Ajustar %</span> <span class="chip o">Agora não</span></div><div class="cap"><b>3 · Sugestão com simulação</b>O app escolhe as peças do tema, o % de cada grupo e mostra quanto o lucro muda e quanto precisa vender a mais para valer a pena. Você aplica com 1 toque ou ajusta. Números de exemplo.</div></div>
+</div><div style="padding:0 28px 28px"><div class="f" style="padding:18px 20px"><b style="color:#7a2e5c;font-size:16px">4 · Como o app sugere (por tema)</b><table class="tbl">
+<tr><th>Tema</th><th>Peças</th><th>% sugerido</th><th>Por quê</th></tr>
+<tr><td>🎄 Natal</td><td>Leitura (presente)</td><td>10% · paradas 15%</td><td>é o presente mais pedido; a margem da leitura aguenta</td></tr>
+<tr><td>🖤 Black Friday</td><td>Paradas 60+ dias e encalhadas</td><td>20% a 30% (máx. 50% no site)</td><td>é a data para girar o estoque parado</td></tr>
+<tr><td>💐 Dia das Mães</td><td>Femininas</td><td>10% · paradas 15%</td><td>presente; as femininas sobem no catálogo</td></tr>
+<tr><td>👔 Dia dos Pais</td><td>Masculinas</td><td>10% · paradas 15%</td><td>presente; as masculinas sobem no catálogo</td></tr>
+<tr><td>🥂 Ano Novo</td><td>Solares</td><td>10%</td><td>verão e viagens</td></tr>
+<tr><td>🎃 Halloween</td><td>—</td><td>sem desconto</td><td>tema só de visual (já vem desligado)</td></tr></table>
+<div class="mu" style="margin-top:10px;line-height:1.6">Regras sempre: nunca abaixo do piso · novidades (menos de 30 dias) e as 3 mais vendidas ficam sem desconto · parada há 60+ dias ganha +5% · com cupom do evento vale o maior · termina sozinho no fim do tema · fica no sino "o que o app fez" com Desfazer · no fim do tema o app mostra o resultado (vendas com desconto, desconto dado, lucro líquido) e usa isso para sugerir melhor no ano seguinte.</div></div></div></body></html>
