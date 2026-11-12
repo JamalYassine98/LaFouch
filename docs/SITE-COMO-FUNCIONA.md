@@ -50,5 +50,8 @@ Ler antes de mexer no site. Atualizar este arquivo SEMPRE que o site mudar (estr
 - **Peça esgotada (S173-3A):** `voltaSec` mostra e-mail + "Avisar-me quando voltar" → função `volta` (`functions/volta.js`, coleção `voltas`, máx. 10 pendentes por e-mail, campo escondido anti-robô, e-mail entra nos inscritos); o gatilho `voltaAvisa` (produtos/{ref} sai de "Esgotado") manda 1 e-mail só (Resend). Já pedido: `localStorage lf_voltas`.
 - **Favorito que voltou (S173-3B):** `favVolta` (depois do estoque real do Firestore) compara com `lf_favesg` (favoritos esgotados na visita anterior) e mostra a faixa `#fvolta` no topo (12 s, Ver/×).
 
+- **Selos da peça (S195/S196, 12/11/2026):** na foto da página da peça só aparecem OFERTA (`.ofpill`) e/ou ÚLTIMAS UNIDADES (`.stk u`); saíram o selo de tipo/material (`.pgtag`) e o NOVO/"Chegou esta semana". Na linha da referência, tag NOVO vira o tipo (SOLAR/LEITURA/ARMAÇÃO). Chips (`.chips .bd`): gênero com ícone (`GENI` ♂ ♀ ⚥), material, UV400 e **Polarizado** (`POLI`, ícone E4) só em solar com `p.pol===true` ou "polarizad" no nome (`isPol`). "Aceita lentes de grau" foi removido de tudo.
+- **Mochi (12/11/2026):** botão de som usa `audio.muted` (não pausa; a frase termina e a conversa não trava). Junção braço-corpo (S204): `filSet` no esqueleto desenha uma união curva só no canto (grupos `.filE/.filD` depois do corpo `.corpoF`), calculada por pose (cache `G._k`) e cobrindo a quina da raiz do braço.
+
 ## Aprovado e ainda NÃO implementado (conferir em MEMORIA-PROJETO.md)
 (nada do S172/S173; ver segurança), Leve 2 no site, S174 (cupons/cartões virtuais), segurança do painel (2FA TOTP, passkey, sessão, aviso de login, regras, App Check, retenção 12 meses, CSP).
