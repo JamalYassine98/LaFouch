@@ -3,6 +3,7 @@
 uso:
   python3 work/kit/kit.py site <tela> <saida.png> [inject.js|inject.html] [--y N] [--es] [--ref CODIGO]
   python3 work/kit/kit.py app  <tela> <saida.png> [inject.html] [--escuro]
+  python3 work/kit/kit.py revisa tela1.png tela2.png   (designer: confere centralização)
   python3 work/kit/kit.py prancha <saida.jpg> "Título" "sub" tela1.png:"Título 1":"sub 1" ...
 telas do site: home catalogo produto carrinho entrega delivery pagamento conta atacado
 telas do app : inicio estoque caixa clientes ped hist ajustes fx desp dash (qualquer id de setView)
@@ -75,8 +76,19 @@ def prancha(out,tit,sub,itens):
         f,t,s=(it.split(':')+['',''])[:3]; x=p+k*(W+p); B.paste(Image.open(f).convert('RGB').resize((W,H)),(x,top+70))
         d.text((x,top-4),t,font=F(30,1),fill='#b3261e' if t.lower().startswith('hoje') else '#8d3a69'); d.text((x,top+34),s,font=F(22),fill='#3b2f39')
     B.resize((B.width//2,B.height//2),Image.LANCZOS).save(out,quality=86)
+
+def revisa(png,tol=0.03):
+    """Revisor de design (parte 1): confere se o conteúdo está centralizado na largura. Fundo = cor do canto."""
+    from PIL import Image, ImageChops
+    im=Image.open(png).convert('RGB'); bg=Image.new('RGB',im.size,im.getpixel((2,im.height-3)))
+    bb=ImageChops.difference(im,bg).convert('L').point(lambda v:255 if v>18 else 0).getbbox()
+    if not bb: return True
+    meio=(bb[0]+bb[2])/2/im.width; ok=abs(meio-0.5)<=tol
+    print(('OK centralizado' if ok else 'ATENÇÃO: fora do centro (%.0f%% para %s)'%(abs(meio-0.5)*100,'a esquerda' if meio<0.5 else 'a direita'))+' · '+os.path.basename(png))
+    return ok
 if __name__=='__main__':
     a=sys.argv[1:]; op=lambda k:(a[a.index(k)+1] if k in a else None)
     if a[0]=='site': site(a[1],a[2],a[3] if len(a)>3 and not a[3].startswith('--') else None,int(op('--y') or 0),'--es' in a,op('--ref'))
     elif a[0]=='app': app(a[1],a[2],a[3] if len(a)>3 and not a[3].startswith('--') else None,'--escuro' in a)
     elif a[0]=='prancha': prancha(a[1],a[2],a[3],a[4:])
+    elif a[0]=='revisa': [revisa(x) for x in a[1:]]
