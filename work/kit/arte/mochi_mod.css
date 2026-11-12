@@ -1,0 +1,14 @@
+
+.mochi{position:absolute;left:0;top:0;will-change:transform;z-index:6}
+/* S88: corpo, inclinação, espelho e óculos andam pelo mesmo relógio do esqueleto (molas), sem transições CSS em degraus */
+.mochi .sq,.mochi .tilt{transform-origin:60px 124px}
+.mochi .resp{transform-origin:60px 124px;animation:resp 2.6s ease-in-out infinite}
+@keyframes resp{0%,100%{transform:translateY(0) scale(1,1)}50%{transform:translateY(-2.5px) scale(1.012,.988)}}
+.mochi .sombra{transform-origin:60px 125px;animation:somb 2.6s ease-in-out infinite}
+@keyframes somb{0%,100%{transform:scale(1)}50%{transform:scale(.94)}}
+.mochi .pup{transition:transform .35s ease}
+.mochi .pis{transform-origin:60px 83px}
+.mochi .pis.p{animation:pisca .16s ease-in-out}
+@keyframes pisca{50%{transform:scaleY(.08)}}
+.mochi .olhos,.mochi .olhosF,.mochi .olhosZ,.mochi .bW,.mochi .bO,.mochi .bF,.mochi .bH,.mochi .bY,.mochi .pon{transition:opacity .22s ease}
+@media (prefers-reduced-motion:reduce){.mochi .resp,.mochi .sombra{animation:none}}
