@@ -266,7 +266,7 @@ exports.avaliacao = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 1
     return res.status(500).json({ ok: false, motivo: 'erro' });
   }
 });
-exports.novidades = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 5 }, async (req, res) => {
+exports.novidades = onRequest({ region: REGIAO, cors: true, maxInstances: 5, secrets: [RESEND_KEY] }, async (req, res) => {
   if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
   const b = req.body && typeof req.body === 'object' ? req.body : {};
   try {
@@ -276,6 +276,33 @@ exports.novidades = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 5
       return res.json({ ok: true, itens: q.docs.map((d) => d.data()) });
     }
     if (b.acao === 'inscrever') return res.json(await Loja.inscrever(lojaDb, b, Date.now()));
+    // S183: no começo do tema o app (dono) manda 1 e-mail aos inscritos (1 vez por tema e ano)
+    if (b.acao === 'tema') {
+      if (!(await ehDono(req))) return res.status(403).json({ ok: false, motivo: 'sem-permissao' });
+      const k = String(b.chave || '').replace(/[^a-z0-9-]/gi, '').slice(0, 30);
+      if (!k) return res.status(400).json({ ok: false, motivo: 'chave' });
+      const g = admin.firestore().doc('temaEnvios/' + k);
+      if ((await g.get()).exists) return res.json({ ok: true, ja: true });
+      let chave = '';
+      try { chave = RESEND_KEY.value() || ''; } catch (e) {}
+      if (!chave) return res.status(500).json({ ok: false, motivo: 'sem-chave' });
+      const esc2 = (t) => String(t || '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]).slice(0, 600);
+      const q = await admin.firestore().collection('inscricoes').limit(1000).get();
+      let n = 0;
+      for (const d of q.docs) {
+        const o = d.data(), em = String(o.email || '').toLowerCase();
+        if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(em) || o.sair) continue;
+        const es = o.lang === 'es';
+        const html = '<div style="font-family:Arial,sans-serif;max-width:520px"><div style="font:700 22px Georgia,serif;letter-spacing:2px;color:#7a2a59">LA FOUCH</div><h2 style="font-family:Georgia,serif">' + esc2(es ? b.tituloEs || b.titulo : b.titulo) + '</h2><p>' + esc2(es ? b.textoEs || b.texto : b.texto) + '</p><p><a href="https://lafouch.com" style="background:#7a2a59;color:#fff;padding:12px 20px;border-radius:999px;text-decoration:none">' + (es ? 'Ver en lafouch.com' : 'Ver em lafouch.com') + '</a></p><p style="color:#999;font-size:12px">' + (es ? 'Recibís este e-mail porque te inscribiste en las novedades de La Fouch. Para no recibir más, respondé SALIR.' : 'Você recebe este e-mail porque se inscreveu nas novidades da La Fouch. Para não receber mais, responda SAIR.') + '</p></div>';
+        try {
+          const r = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + chave, 'Content-Type': 'application/json' }, body: JSON.stringify({ from: 'La Fouch <nao-responda@lafouch.com>', reply_to: 'lafouch.eyewear@gmail.com', to: em, subject: String(es ? b.tituloEs || b.titulo : b.titulo).slice(0, 120), html }) });
+          if (r.ok) n++;
+        } catch (e) {}
+        await new Promise((ok) => setTimeout(ok, 120));
+      }
+      await g.set({ ts: Date.now(), n });
+      return res.json({ ok: true, n });
+    }
     return res.status(400).json({ ok: false, motivo: 'acao' });
   } catch (e) {
     if (e instanceof Loja.Falha) return res.status(e.status).json({ ok: false, motivo: e.motivo });

@@ -342,7 +342,7 @@
       'notifs',
       'pedidos',
       'pedNext',
-      'baixaAuto', 'temaOf', 'temaRes', 'temaNao', 'temaOrc', 'ataContas', 'ataPeds', 'ataConvMax', 'fotoOk', 'fotoRev', 'ataPub', 'guardMudo', 'recentes', 'fnTab', 'fretes', 'ivaCompraPct', 'baixaAutoV', 'fechos', 'fechoAdia', 'espera',
+      'baixaAuto', 'temaOf', 'temaRes', 'temaNao', 'temaOrc', 'temaMail', 'ataContas', 'ataPeds', 'ataConvMax', 'fotoOk', 'fotoRev', 'ataPub', 'guardMudo', 'recentes', 'fnTab', 'fretes', 'ivaCompraPct', 'baixaAutoV', 'fechos', 'fechoAdia', 'espera',
       'resPend',
       'resOrf',
       'pixAuto',

@@ -43868,6 +43868,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           saveSoon();
           if (typeof vitFila === 'function') Object.keys(sg.refs).forEach(function (r) { if (S.site && S.site[r]) vitFila(r, 'upd'); });
           lfToast('✓ Desconto do tema aplicado · entra no site no dia ' + fd(S.temaOf.ini));
+          S.temaMail = { chave: temaAno(t), ini: S.temaOf.ini, nome: t.nome };
+          temaMailTenta();
           render();
         };
       }
@@ -43880,6 +43882,22 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     try { var t = temaAtual(); if (t && t.tema !== 'halloween' && t.dias <= 20 && !S.temaNao[temaAno(t)] && !(S.temaOf && S.temaOf.tema === t.tema)) it.push({ t: t.nome + (t.dias ? ' em ' + t.dias + ' dias' : ''), s: 'sugestão de desconto pronta', c: 'var(--ac)', b: 'Ver', act: 'temaVer', id: '' }); } catch (e) {}
     return it;
   };
+  // e-mail aos inscritos no começo do tema (1 vez; a função "novidades" guarda que já foi)
+  var TEMA_TXT = { natal: ['Natal na La Fouch 🎄', 'Presentes com desconto e retirada no mesmo dia em Ciudad del Este.', 'Navidad en La Fouch 🎄', 'Regalos con descuento y retiro el mismo día en Ciudad del Este.'],
+    bf: ['Black Friday La Fouch ⚡', 'Ofertas em toda a loja enquanto durar o estoque.', 'Black Friday La Fouch ⚡', 'Ofertas en toda la tienda mientras dure el stock.'],
+    maes: ['Dia das Mães 🌷', 'Um presente com carinho, com desconto.', 'Día de la Madre 🌷', 'Un regalo con cariño, con descuento.'],
+    pais: ['Dia dos Pais 👔', 'Óculos para o seu pai, com desconto.', 'Día del Padre 👔', 'Lentes para tu papá, con descuento.'],
+    anonovo: ['Ano Novo com estilo 🥂', 'Solares com desconto para o verão.', 'Año Nuevo con estilo 🥂', 'Lentes de sol con descuento para el verano.'] };
+  function temaMailTenta() {
+    var m = S.temaMail;
+    if (!m || m.feito || Date.now() < m.ini || typeof nvToken !== 'function' || navigator.onLine === false) return;
+    var tm = String(m.chave).split('-')[0], tx = TEMA_TXT[tm];
+    if (!tx) { m.feito = 1; saveSoon(); return; }
+    nvToken().then(function (tk) {
+      return fetch('https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/novidades', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + tk }, body: JSON.stringify({ acao: 'tema', chave: m.chave, titulo: tx[0], texto: tx[1], tituloEs: tx[2], textoEs: tx[3] }) }).then(function (r) { return r.json(); });
+    }).then(function (j) { if (j && j.ok) { m.feito = 1; saveSoon(); if (j.n) lfToast('✉️ E-mail do tema enviado a ' + j.n + ' inscritos'); } }, function () {});
+  }
+  setTimeout(temaMailTenta, 15000);
   // ===== S191 v2 (aprovado 12/11/2026): Conta Atacadista/Mayorista (Clientes) =====
   // Conta ASSOCIADA (cliente da loja): não vence, 3 aparelhos (editável), "Cliente pode trocar aparelho" (o dono é avisado;
   // +2 trocas em 30 dias = cartão "Bloquear trocas"), Pausar (some o catálogo, nada é apagado), Cancelar (apaga o acesso).
@@ -49443,7 +49461,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       'notifs',
       'pedidos',
       'pedNext',
-      'baixaAuto', 'temaOf', 'temaRes', 'temaNao', 'temaOrc', 'ataContas', 'ataPeds', 'ataConvMax', 'fotoOk', 'fotoRev', 'ataPub', 'guardMudo', 'recentes', 'fnTab', 'fretes', 'ivaCompraPct', 'baixaAutoV', 'fechos', 'fechoAdia', 'espera',
+      'baixaAuto', 'temaOf', 'temaRes', 'temaNao', 'temaOrc', 'temaMail', 'ataContas', 'ataPeds', 'ataConvMax', 'fotoOk', 'fotoRev', 'ataPub', 'guardMudo', 'recentes', 'fnTab', 'fretes', 'ivaCompraPct', 'baixaAutoV', 'fechos', 'fechoAdia', 'espera',
       'resPend',
       'resOrf',
       'pixAuto',
