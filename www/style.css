@@ -2172,3 +2172,14 @@ body.modoCli #selBar{display:none!important}
 .gMudo{background:none;border:0;color:var(--mu);font-size:12px;text-decoration:underline;padding:4px;cursor:pointer}
 .gLink{background:none;border:0;color:var(--ac,#8d3a69);font-weight:600;font-size:14px;padding:4px;align-self:center;cursor:pointer}
 .guardL b{font-weight:600}
+/* S185 compartilhar */
+.s185{display:flex;flex-direction:column;gap:8px;margin:0 0 10px}.s185 .lbl{margin:4px 0 0}
+.s185Seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--card2,rgba(0,0,0,.05));border-radius:12px;padding:4px}
+.s185Seg button{border:0;background:none;border-radius:9px;padding:9px;font-weight:600;color:var(--mu)}.s185Seg button.on{background:var(--card,#fff);color:var(--ac,#8d3a69);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.s185G{display:grid;grid-template-columns:1fr 1fr;gap:8px}.s185G button{text-align:left;border:1.5px solid var(--line);background:var(--card,#fff);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:2px;color:inherit}
+.s185G button.on{border-color:var(--ac,#8d3a69);background:color-mix(in srgb,var(--ac,#8d3a69) 8%,var(--card,#fff))}.s185G small{color:var(--mu);font-size:12px}
+#s185Print{display:none}
+@media print{body.s185imp>*:not(#s185Print){display:none!important}body.s185imp #s185Print{display:block!important;color:#111;background:#fff;font:13px/1.4 Arial,sans-serif}}
+.s185ph{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid #8a2f66;padding-bottom:6px;margin-bottom:8px}.s185ph b{font:700 20px Georgia,serif;letter-spacing:2px}.s185ph span{color:#8a2f66;font-weight:600}
+.s185pdf h3{color:#8a2f66;font-size:13px;letter-spacing:.08em;margin:12px 0 4px}.s185pr{display:grid;grid-template-columns:70px 1fr auto;gap:10px;align-items:center;border-bottom:1px solid #eee;padding:6px 0;break-inside:avoid}
+.s185pr img{width:70px;height:40px;object-fit:contain}.s185pr small{display:block;color:#666}.s185pv{text-align:right}.s185pv b{color:#1f8a4c}.s185pf{color:#777;font-size:11px;margin-top:12px}

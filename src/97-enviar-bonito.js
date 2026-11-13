@@ -155,12 +155,13 @@
     return 'Oi' + (nm ? ' ' + nm : '') + '! Separei ' + (n === 1 ? 'esta peça' : 'estas ' + n + ' peças') + ' para você 😊 Qualquer dúvida, é só chamar.';
   }
   function ebAbre(refs) {
-    var E = { cli: null, moeda: 'pyg', est: 0, i: 0, pecas: refs.map(ebDados) },
+    var E = { cli: null, moeda: 'pyg', est: 0, i: 0, pecas: refs.map(ebDados), refs: refs },
       app = SH_APPS.filter(function (a) {
         return a.id === (shUlt() || 'wab');
       })[0] || SH_APPS[0];
+    window.__ebE = E;
     var J = lfJanela({
-      titulo: 'Enviar bonito',
+      titulo: 'Compartilhar',
       cls: 'ebJn',
       extra: '<span class="hint" style="margin:0" id="ebPg"></span>',
       monta: function (c, J) {
@@ -297,6 +298,7 @@
         $('ebOutro').onclick = function () {
           envia({ id: 'mais', nome: 'Mais' });
         };
+        if (typeof s185Liga === 'function') s185Liga(E, J, app);
       }
     });
   }
