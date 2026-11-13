@@ -743,6 +743,39 @@ def p7_varredura(p):
             else: passou(P7, f'Varredura de todos os botões · {W}px', f'{len(alvos)} botões')
         finally: b.close()
 
+# animações (13/11/2026): grava cada quadro da abertura; acusa painel que nasce fora do lugar, "pulo" no fim e quadros travados
+ANIM_GRAVA = """(sel)=>new Promise(ok=>{const Q=[];let t0=performance.now(),ult=t0;const f=()=>{const n=performance.now();const e=document.querySelector(sel);
+  if(e){const r=e.getBoundingClientRect();Q.push({t:Math.round(n-t0),dt:Math.round(n-ult),l:Math.round(r.left),r:Math.round(r.right),t2:Math.round(r.top),w:Math.round(r.width),op:+getComputedStyle(e).opacity})}
+  ult=n;if(n-t0<900)requestAnimationFrame(f);else ok(Q)};requestAnimationFrame(f)})"""
+
+def anima_confere(Q, W):
+    if len(Q) < 5: return 'não deu para gravar a abertura'
+    fim = Q[-1]; prob = []
+    vis = [q for q in Q if q['op'] > 0.15 and q['w'] > 0]
+    fora = [q for q in vis if q['l'] < fim['l'] - 12 or q['r'] > fim['r'] + 12 and q['r'] > W]
+    if fora: prob.append(f'nasce fora do lugar ({fora[0]["l"]}→{fim["l"]}px da esquerda)')
+    pulos = [b for a, b in zip(vis, vis[1:]) if abs(b['l'] - a['l']) > 40]
+    if pulos: prob.append(f'dá um pulo de {abs(pulos[-1]["l"]-vis[vis.index(pulos[-1])-1]["l"])}px')
+    lentos = [q for q in Q[1:] if q['dt'] > 50]
+    if len(lentos) > 2: prob.append(f'{len(lentos)} quadros travados (>50 ms)')
+    return '; '.join(prob)
+
+ABRE = [('Busca (lupa)', '#sbtn', '#sov .sopn'), ('Menu', '#mnb', '#drw'), ('Carrinho', '#bagbtn', '#layer .scrim > *'), ('Mi cuenta', '#contabtn', '#layer .scrim > *')]
+
+def p7_animacoes(p):
+    for W, H in ((390, 844), (820, 1180), (1440, 900)):
+        for nome, bt, alvo in ABRE:
+            b, c, pg, E = novo(p, W, H, 'es-PY', touch=W < 1000)
+            try:
+                carrega(pg)
+                if not pg.locator(bt).count(): continue
+                pg.evaluate("s=>document.querySelector(s).click()", bt)
+                Q = pg.evaluate(ANIM_GRAVA, alvo)
+                d = anima_confere(Q, W)
+                if d: falha(P7, f'Animação · {nome} · {W}px', d, pg)
+                else: passou(P7, f'Animação · {nome} · {W}px', f'{len(Q)} quadros')
+            finally: b.close()
+
 # ---------- execução ----------
 t0 = time.time()
 PARTES = os.environ.get('FISCAL_PARTES', '1,2,3,4,5,6').split(',')
@@ -777,7 +810,7 @@ with sync_playwright() as p:
      print('parte 7 · olho do dono')
      for nome, fn in (('rodapé', p7_rodape), ('teste da ajuda', p7_teste_ajuda), ('foto e mouse', p7_foto_mouse), ('tamanho e letras', p7_tamanho), ('Mochi com braços', p7_mochi_bracos),
                       ('Mi cuenta', p7_conta_spam), ('idioma', p7_idioma), ('endereço', p7_endereco), ('código', p7_codigo), ('ícone da conta', p7_icone_conta),
-                      ('Últimas N', p7_ultimas), ('dica', p7_dica), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
+                      ('Últimas N', p7_ultimas), ('dica', p7_dica), ('animações', p7_animacoes), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
          print(' ', nome); prova(P7, nome, fn, p)
     if '5' in PARTES:
      print('parte 5 · situações difíceis')
