@@ -7,12 +7,12 @@ F = lambda s, bd=False: ImageFont.truetype('/usr/share/fonts/truetype/dejavu/Dej
 def rota(r): return r.continue_() if r.request.url.startswith('http://localhost') else r.abort()
 ABRE = "()=>document.querySelector('#grid .card .open').click()"
 PRETO = ".card .pr,.hc .hp,#layer .det .pr,#layer .det .dp .pr,.hstage .hp,.hdst .hp,#layer .pof b{color:#1d1418!important}#layer .pof em{background:#8d3a69!important;color:#fff!important}"
-LF = open(OUT+'lf2.css').read(); NV = open(OUT+'nav.js').read().strip()
-SUB = 'Mesma LaFouch (vinho, letra serifada, cartões arredondados, fundo rosado), com mais ar e menos ruído: fios finos no lugar de sombras, preço preto, um só tipo de botão, categorias à vista no PC. Ajustes pequenos: vinho um tom mais profundo, botão liso, cantos 20→14, títulos mais leves.'
+LF = open(OUT+'lf3.css').read(); NV = open(OUT+'nav3.js').read().strip()
+SUB = 'S212 + navegação: PC com as categorias sempre à vista; no celular o título do catálogo vira as abas (troca de categoria com 1 toque); um só caminho na peça; cartões alinhados; foto maior no Destaque; selo de tamanho em palavras.'
 VIT = "()=>{const e=document.querySelector('.hsh');e&&e.scrollIntoView()}"
 IDEIAS = {
- 'lf2_pc': ('Luxo com identidade (ajustes) · PC', SUB, LF, NV, [('PC · Início (topo)', '', 1440, 900, None, None), ('PC · Início (vitrine)', '', 1440, 900, VIT, None), ('PC · Catálogo', '?r=armazones', 1440, 900, None, None), ('PC · peça', '?r=armazones', 1440, 900, ABRE, None)]),
- 'lf2_celular': ('Luxo com identidade (ajustes) · celular', SUB, LF, NV, [('Celular · Início', '', 390, 844, None, None), ('Celular · Novidades', '', 390, 844, VIT, None), ('Celular · Catálogo', '?r=armazones', 390, 844, None, None), ('Celular · peça', '?r=armazones', 390, 844, ABRE, None)]),
+ 'lf3_pc': ('Luxo com identidade + navegação · PC', SUB, LF, NV, [('PC · Início (topo)', '', 1440, 900, None, None), ('PC · Início (vitrine)', '', 1440, 900, VIT, None), ('PC · Catálogo', '?r=armazones', 1440, 900, None, None), ('PC · peça', '?r=armazones', 1440, 900, ABRE, None)]),
+ 'lf3_celular': ('Luxo com identidade + navegação · celular', SUB, LF, NV, [('Celular · Início', '', 390, 844, None, None), ('Celular · Novidades', '', 390, 844, VIT, None), ('Celular · Catálogo', '?r=armazones', 390, 844, None, None), ('Celular · peça', '?r=armazones', 390, 844, ABRE, None)]),
 }
 def shot(pw, url, W, H, css, js, acao, out):
     mob = W < 700
