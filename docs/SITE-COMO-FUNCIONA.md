@@ -67,5 +67,7 @@ Ler antes de mexer no site. Atualizar este arquivo SEMPRE que o site mudar (estr
 
 - **Seleção "Separado para vos" (S185, 12/11/2026):** `lafouch.com/s/REF.REF~Nome` → `404.html` manda para `/?s=REF.REF&n=Nome` → painel `.sepp` com as peças (`card5`) e "Quero estas · falar com a loja" (WhatsApp com os códigos). O app monta esse link no Compartilhar.
 
+- **Conta Atacadista/Mayorista (S191, 12/11/2026):** `lafouch.com/atacado?c=ID` abre o painel `.atp`: e-mail → código de 6 números → aparelho guardado (`lf_atdev` + token `lf_at_<ID>`). Catálogo pela função `atacado` (preço US$ + Gs. da tabela do cliente, filtros, marca d'água `.atwm` com o nome), peça com quantidade por cor, barra do pedido com o mínimo ("faltam US$ X"), "Meus aparelhos" (remover só se a conta deixa), telas de bloqueio (pausada, cancelada, vencida, acesso pessoal cheio). Os preços NUNCA estão no site público.
+
 ## Aprovado e ainda NÃO implementado (conferir em MEMORIA-PROJETO.md)
 (nada do S172/S173; ver segurança), Leve 2 no site, S174 (cupons/cartões virtuais), segurança do painel (2FA TOTP, passkey, sessão, aviso de login, regras, App Check, retenção 12 meses, CSP).
