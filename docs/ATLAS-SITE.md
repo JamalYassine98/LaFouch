@@ -87,3 +87,7 @@ Regras de conduta do designer (não são medidas, são decisões do dono): ver d
 - Pulo de layout: abrir o ☰ no PC (0,11–0,15) e a peça no celular pequeno (0,109) passam do limite bom (0,1).
 - Voltar da peça devolve a posição da lista nos 16 aparelhos (certo, não mexer). Cabeçalho fica sempre fixo (certo).
 - Alarmes falsos conhecidos nesta rodada: "tampado" contava conteúdo passando por baixo do cabeçalho (corrigido no olho.js depois da rodada); "fileira torta: Comprar" é o botão ao lado da quantidade; "não rolou" na peça do PC é porque a página cabe na tela. O designer aponta, quem decide se é falha sou eu olhando a foto.
+
+## 7. Correção (13/11, depois de investigar)
+- O "pulo de layout" ao abrir o ☰ no PC (0,11–0,15) e na peça do celular pequeno (0,109) era ALARME FALSO: quem se mexe é a página de trás (MAIN#topo sobe 62 px) já coberta pela camada aberta — o cliente não vê. Abrir o ☰ no PC mede 0; carregar o Início mede 0 (PC e celular).
+- Regra nova para o designer: pulo de layout só conta se o elemento que se mexeu está VISÍVEL (não coberto). Sempre abrir a causa (qual elemento, de onde para onde) antes de recomendar.
