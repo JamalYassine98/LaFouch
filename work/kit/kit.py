@@ -26,7 +26,12 @@ def prep_site():
     import re; f=os.path.join(SITE,'js','lf-site.js'); s=open(f).read()
     g=lambda r: re.search(r"ref:'"+r+"'[^}]*foto:'([^']*)'",s).group(1)
     p="{ref:'KIT3C',gen:'f',nome:'Armação metal gatinho',tipo:'armacao',n:139000,cor:'#6b4a2b',raio:22,aviso:'',tag:'METAL',rosto:['quadrado','redondo'],mat:'Metal',med:[52,18,140],foto:'%s',fc:[null,'%s','%s'],cores:['#6b4a2b','#cfd6dc','#1d1d1f'],cn:['Tartaruga','Transparente','Preto'],qs:[2,3,2],lib:1,cad:9e12,cmx:20},\n"%(g('SL2275'),g('GR3350'),g('BR44140'))
-    open(f,'w').write(s.replace("var P=[\n","var P=[\n    "+p,1)); os.utime(SITE,None)
+    s=s.replace("var P=[\n","var P=[\n    "+p,1)
+    # como o site no ar: produtos com fm/mr/mat (o nome vira "Tipo Formato" e a linha de cima mostra o material)
+    FM={'GR3340':'Quadrado','GR3350':'Quadrado','GR3345':'Retangular','SL2295':'Aviador','BR44140':'Gatinho','AC1050':'Quadrado','SL2210':'Hexagonal'}
+    s=re.sub(r"\{ref:'([A-Z0-9]+)',",lambda m:"{ref:'%s',fm:'%s',mr:'',"%(m.group(1),FM.get(m.group(1),'')),s)
+    s=s.replace('function syncProds(docs){',"P.forEach(function(p){if(p.fm!=null||p.mr!=null){var nn=lfnNomes(p);p.nome=nn.tit;p.ds=nn.ds}});/*KIT*/function syncProds(docs){",1)
+    open(f,'w').write(s); os.utime(SITE,None)
 CONTA=json.dumps({'nome':'Maria González','email':'maria@exemplo.com','tel':'+595 983 000 000','ends':[{'nome':'Casa','cidade':'Ciudad del Este','dep':'Alto Paraná','end':'Calle Los Lapachos 123','ref':'portão verde'}]})
 AUTH=json.dumps({'uid':'kit','idToken':'kit','refresh':'kit','exp':9e15,'ev':True,'email':'maria@exemplo.com'})
 PC=[0,0]; ALVO=[None]; ESP=[0]
