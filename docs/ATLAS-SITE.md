@@ -99,3 +99,25 @@ Regras de conduta do designer (não são medidas, são decisões do dono): ver d
 - **Cabeçalho do celular está cheio:** ☰, conta, logo, busca, sacola; em 320 px não cabe um 6º item.
 - **Catálogo no celular não tem WhatsApp** (`.ppop .wa{display:none}`); margem da grade ~14–17 px.
 - **Regra nova:** testar as 3 letras em TODOS os aparelhos de toque (não só em 4). Ao medir um botão que anima, medir com a animação desligada.
+
+## 9. As 3 letras nos 16 aparelhos — Início (13/11, work/s222/letras.py)
+
+Margem direita do conteúdo (px; negativo = conteúdo passa da tela e é cortado), letra normal / média / maior:
+
+| Aparelho | Margem | 
+|---|---|
+| celulares 320–430 | 26–34 / 28–38 / **−5 a 3** |
+| tablet 600 | 34 / 38 / 43 |
+| iPad 768 | **8 / −83 / −181** |
+| iPad Air 820 | 58 / **−31 / −129** |
+| celular deitado 844 | 48 / 54 / 53 |
+| iPad deitado 1024 | 58 / 65 / 72 |
+| notebook 1280 | 51 / **−33 / −152** |
+| notebook 1366 | 55 / **−34 / −161** |
+| notebook 1536 | 108 / 42 / **−67** |
+| monitor 1920 · 2K | 300 / 234 / 168 · 620 / 554 / 488 |
+
+- **A Início não cabe na tela em 16 das 48 combinações** (aparelho × letra). É defeito de hoje.
+- **WhatsApp hoje:** em toda letra, celular e tablet têm paradas com a bola pela metade/apagada; notebooks 1280/1366 têm a bola por cima de conteúdo em 4–7 de 9 paradas em toda letra.
+- **Lingueta (S222):** 0 paradas cobrindo algo onde a página cabe (celulares normal e média, tablet 600, 820 normal, deitado — salvo 2 paradas isoladas); falha onde a página não cabe (celulares na maior, iPad 768 sempre, 820 média/maior).
+- Conclusão: primeiro a Início tem de caber na tela nas 3 letras; depois a regra do WhatsApp.
