@@ -2646,7 +2646,7 @@ async def main():
 
             # Início: sem botão "Personalizar"; arrastar até a lixeira oculta (Desfazer volta), soltar em outro botão troca, segurar no fundo mostra os ocultos
             pg = await pagina()
-            await pg.evaluate("() => { const M = 9e15; window.__LF.S.guardMudo = {caixa:M,contas:M,cambio:M,neg:M,custo:M,piso:M,foto:M,sep:M,pix:M,itau:M,ata:M,sync:M,bk:M,lote:M}; window.__LF.S.inicioT = null; window.__LF.setView('inicio'); }"); await pg.wait_for_timeout(400)
+            await pg.evaluate("() => { const M = 9e15; const TN = {}; ['bf','natal','anonovo','maes','pais'].forEach(t => [2025,2026,2027,2028].forEach(y => TN[t + '-' + y] = 1)); window.__LF.S.temaNao = TN; window.__LF.S.temaOf = null; window.__LF.S.guardMudo = {caixa:M,contas:M,cambio:M,neg:M,custo:M,piso:M,foto:M,sep:M,pix:M,itau:M,ata:M,sync:M,bk:M,lote:M}; window.__LF.S.inicioT = null; window.__LF.setView('inicio'); }"); await pg.wait_for_timeout(400)
             semChip = await pg.evaluate("() => !document.querySelector('[data-act=inicioEd]')")
             await pg.locator('#v-inicio .tl[data-id=fx]').scroll_into_view_if_needed(); await pg.wait_for_timeout(200)  # S189: o cartão do guardião empurra os azulejos
             t = await pg.locator('#v-inicio .tl[data-id=fx]').bounding_box()

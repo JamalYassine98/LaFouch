@@ -2218,3 +2218,6 @@ body.modoCli #selBar{display:none!important}
 .ataAl{border-left:4px solid var(--bad);gap:6px}.ataAl small{color:var(--mu)}.gBtn.ataRm{background:var(--bad,#c62828)}
 .sl small{display:block}
 .fiW .sl,.ataAl~section .sl,.ataTopo~section .sl{padding:6px 0}
+/* S183 temas */
+.temaC{display:flex;gap:12px;align-items:center;border-left:4px solid var(--ac,#8d3a69)}.temaC>span:first-child{font-size:26px}.temaC>div{flex:1;min-width:0}.temaC small{display:block;color:var(--mu)}
+.temaB{display:flex;flex-direction:column;gap:4px;align-items:center}
