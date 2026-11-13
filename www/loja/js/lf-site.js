@@ -496,7 +496,7 @@
     r=pageOf(r);var HA=r.length?r.map(function(p,i){
       var esg=p.aviso==='Esgotado',n=st.cart[p.ref]||0;
       var sk=esg?'<span class="stk e">'+(p.esgRes?'Reservada agora':'Esgotado')+'</span>':(/Últim/.test(p.aviso)?'<span class="stk u">'+esc(p.aviso)+'</span>':''),tm0=isOf(p)?temaDe(p):'';
-      return '<article class="card'+(esg?' esg':'')+(isOf(p)?' of':'')+(tm0?' ot t-'+tm0:'')+'" style="--i:'+i+'">'+selo1(p)+edb(p)+'<button class="fav'+(st.fav[p.ref]?' on':'')+'" data-fav="'+p.ref+'" aria-label="Favoritar '+esc(p.nome)+'" aria-pressed="'+(!!st.fav[p.ref])+'">'+HEART+'</button><button class="open" data-open="'+p.ref+'" aria-label="Ver '+esc(p.nome)+'"><div class="ph">'+sk+ofx(p)+vis(p)+'<span class="shine"></span>'+(p.fotos&&p.fotos[1]?'<span class="alt2"><img src="'+p.fotos[1]+'" alt=""></span>':(!p.foto&&p.cores&&p.cores[1]?'<span class="alt2">'+glasses(p.cores[1],p.raio,5)+'</span>':''))+'</div><div class="info"><span class="rr">'+(p.ds!=null?'<span class="ref lfds">'+esc(p.ds)+'</span>':'<span class="ref">'+p.ref+'</span>')+(p.uv?'<span class="uvc" title="Proteção UV400">UV400</span>':'')+'</span><span class="nm'+(p.ds!=null?' lfcod':'')+'">'+esc(p.ds!=null?p.ref:p.nome)+'</span>'+(p.cores&&p.cores.length?'<span class="esw">'+p.cores.slice(0,6).map(function(c){return '<i style="background:'+c+'"></i>'}).join('')+'</span>':'')+'<span class="pr">'+prx(p)+'</span>'+eco(p)+'<span class="av">'+esc(p.aviso)+'</span></div></button></article>'}):null,GH=HA?HA.join(''):'<div class="empty">Nenhum modelo com esses filtros. Tire um filtro ou limpe a busca.</div>';
+      return '<article class="card'+(esg?' esg':'')+(isOf(p)?' of':'')+(tm0?' ot t-'+tm0:'')+'" style="--i:'+i+'">'+selo1(p)+edb(p)+'<button class="fav'+(st.fav[p.ref]?' on':'')+'" data-fav="'+p.ref+'" aria-label="Favoritar '+esc(p.nome)+'" aria-pressed="'+(!!st.fav[p.ref])+'">'+HEART+'</button><button class="open" data-open="'+p.ref+'" aria-label="Ver '+esc(p.nome)+'"><div class="ph">'+(esg?sk:'')+ofx(p)+vis(p)+'<span class="shine"></span>'+(p.fotos&&p.fotos[1]?'<span class="alt2"><img src="'+p.fotos[1]+'" alt=""></span>':(!p.foto&&p.cores&&p.cores[1]?'<span class="alt2">'+glasses(p.cores[1],p.raio,5)+'</span>':''))+'</div><div class="info">'+(!esg&&/Últim/.test(p.aviso||'')?'<span class="ulin"><i></i>'+esc(p.aviso)+'</span>':'')+'<span class="rr">'+(p.ds!=null?'<span class="ref lfds">'+esc(p.ds)+'</span>':'<span class="ref">'+p.ref+'</span>')+(p.uv?'<span class="uvc" title="Proteção UV400">UV400</span>':'')+'</span><span class="nm'+(p.ds!=null?' lfcod':'')+'">'+esc(p.ds!=null?p.ref:p.nome)+'</span>'+(p.cores&&p.cores.length?'<span class="esw">'+p.cores.slice(0,6).map(function(c){return '<i style="background:'+c+'"></i>'}).join('')+'</span>':'')+'<span class="pr">'+prx(p)+'</span>'+eco(p)+'<span class="av">'+esc(p.aviso)+'</span></div></button></article>'}):null,GH=HA?HA.join(''):'<div class="empty">Nenhum modelo com esses filtros. Tire um filtro ou limpe a busca.</div>';
     var G=$('grid');
     /* S186: mais da metade dos cartões em oferta (ex.: Black Friday) = versão clara (cartão branco, selo vermelho) */
     try{if(G&&r){var nOf=r.filter(function(p){return isOf(p)}).length;G.classList.toggle('ofl',r.length>3&&nOf*2>r.length)}}catch(_){}
@@ -2210,7 +2210,7 @@
 
   /* ---- cards ---- */
   function selo5(p,sec){if(p.aviso==='Esgotado')return '<span class="hb esg">'+LFI.tr('Esgotado')+'</span>';var h=selo1(p,'hb');if((sec==='nov'&&/ nv"/.test(h))||(sec==='mv'&&/ rk"/.test(h)))return '';return h}
-  function card5(p,idl,sec){return '<button type="button" class="hc" data-open="'+p.ref+'" aria-label="'+LFI.tr('Ver')+' '+esc(p.nome)+'">'+(idl?'<span class="hidl">'+LFI.tr('Ideal para você')+'</span>':selo5(p,sec))+'<span class="hci">'+img5(p)+'</span>'+(/Últim/.test(p.aviso||'')?'<span class="stk u hstk">'+esc(p.aviso)+'</span>':'')+(p.ds!=null?'<span class="hn lfcod"><small class="hds">'+esc(p.ds)+'</small>'+esc(p.ref)+'</span>':'<span class="hn">'+esc(p.nome)+'</span>')+'<span class="hsw">'+(p.cores||[]).slice(0,5).map(function(c){return '<i style="background:'+c+'"></i>'}).join('')+'</span><span class="hp">'+prc5(p)+'</span></button>'}
+  function card5(p,idl,sec){return '<button type="button" class="hc" data-open="'+p.ref+'" aria-label="'+LFI.tr('Ver')+' '+esc(p.nome)+'">'+(idl?'<span class="hidl">'+LFI.tr('Ideal para você')+'</span>':selo5(p,sec))+'<span class="hci">'+img5(p)+'</span>'+(/Últim/.test(p.aviso||'')?'<span class="ulin hlin"><i></i>'+esc(p.aviso)+'</span>':'')+(p.ds!=null?'<span class="hn lfcod"><small class="hds">'+esc(p.ds)+'</small>'+esc(p.ref)+'</span>':'<span class="hn">'+esc(p.nome)+'</span>')+'<span class="hsw">'+(p.cores||[]).slice(0,5).map(function(c){return '<i style="background:'+c+'"></i>'}).join('')+'</span><span class="hp">'+prc5(p)+'</span></button>'}
   function abas5(){var C=cat5(),ok=function(p){return p.aviso!=='Esgotado'};
     /* 08/11 (aprovado): cada peça aparece em UMA seção só, na de maior hierarquia — Ofertas > Mais vendidos > Novidades.
        Em Ofertas a mais vendida vem primeiro, depois o maior desconto. */
@@ -3397,12 +3397,18 @@
     addEventListener('resize',ajusta);
     /* parado: se o botão ficaria por cima de algum texto ou botão, ele se recolhe para a beirada (aba) — toque nela abre o WhatsApp */
     function naPeca(){return document.documentElement.classList.contains('onprod')||!!document.querySelector('#layer .buyrow')}
-    function cobre(){var w=document.querySelector('a.wa'),H=document.documentElement;if(!w||!matchMedia('(max-width:860px)').matches||naPeca()){H.classList.remove('wamin');return}
-      var era=H.classList.contains('wamin'),tr=w.style.transition;if(era){w.style.transition='none';H.classList.remove('wamin')}var r=w.getBoundingClientRect();if(!r.width){if(era)H.classList.add('wamin');w.style.transition=tr;return}var pe=w.style.pointerEvents;w.style.pointerEvents='none';var hit=false;
-      [[.5,.5],[.15,.5],[.85,.5],[.5,.15],[.5,.85]].forEach(function(f){if(hit)return;var x=r.left+r.width*f[0],y=r.top+r.height*f[1],e=document.elementFromPoint(x,y);if(!e||e===document.body||e===H)return;
-        if(e.closest('a.wa'))return;if(/^(BUTTON|A|IMG|INPUT|SELECT|TEXTAREA|SVG|PATH)$/i.test(e.tagName)||e.closest('button,a,input')){hit=true;return}
-        if([].some.call(e.childNodes,function(n){return n.nodeType===3&&n.textContent.trim()})){hit=true}});
-      w.style.pointerEvents=pe;if(era&&hit){H.classList.add('wamin');void w.offsetWidth;w.style.transition=tr}else{w.style.transition=tr;H.classList.toggle('wamin',hit)}}
+    function cobre(){/* S230 (14/11): vale em qualquer largura; mede a bola SEM animação, em 9 pontos (inclui os cantos); se cobriria algo vira lingueta (html.wamin) */
+      var w=document.querySelector('a.wa'),H=document.documentElement;if(!w||naPeca()){H.classList.remove('wamin');return}
+      var sv=w.querySelector('svg'),tr=w.style.transition,ts=sv?sv.style.transition:'',era=H.classList.contains('wamin'),rol=H.classList.contains('warol');
+      w.style.transition='none';if(sv)sv.style.transition='none';H.classList.remove('wamin','warol');
+      var r=w.getBoundingClientRect(),hit=false;
+      if(r.width){w.style.setProperty('pointer-events','none','important');
+        [.08,.5,.92].forEach(function(fx){[.08,.5,.92].forEach(function(fy){if(hit)return;var e=document.elementFromPoint(r.left+r.width*fx,r.top+r.height*fy);if(!e||e===document.body||e===H||e.closest('a.wa'))return;
+          if(/^(BUTTON|A|IMG|INPUT|SELECT|TEXTAREA|SVG|PATH)$/i.test(e.tagName)||e.closest('button,a,input')){hit=true;return}
+          if([].some.call(e.childNodes,function(n){return n.nodeType===3&&n.textContent.trim()}))hit=true})});
+        w.style.removeProperty('pointer-events')}else hit=era;
+      if(era)H.classList.add('wamin');if(rol)H.classList.add('warol');void w.offsetWidth;
+      w.style.transition=tr;if(sv)sv.style.transition=ts;void w.offsetWidth;H.classList.toggle('wamin',hit)}
     var rt=0;document.addEventListener('scroll',function(){var H=document.documentElement;if(naPeca()){H.classList.remove('warol');return}H.classList.add('warol');clearTimeout(rt);rt=setTimeout(function(){H.classList.remove('warol');cobre()},700)},true);
     setTimeout(cobre,1500);addEventListener('resize',function(){setTimeout(cobre,200)});document.addEventListener('click',function(){setTimeout(cobre,900)},true);
     window.__lfAjusta=ajusta})();
@@ -4551,7 +4557,7 @@ function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpo
         if(PC()&&l&&d){var w=document.createElement('div');w.className='pgtop';m.insertBefore(w,l);w.appendChild(l);w.appendChild(d)}
         else if(!PC()){var w2=m.querySelector(':scope>.pgtop');if(w2){while(w2.firstChild)m.insertBefore(w2.firstChild,w2);w2.remove()}}
         if(!m.querySelector(':scope>.lfft'))m.insertAdjacentHTML('beforeend',rodape5())}
-      document.querySelectorAll('.hc .hstk').forEach(function(t){var i=t.closest('.hc').querySelector('.hci');if(i&&t.parentElement!==i)i.appendChild(t)});
+      /* S208 (13/11): o Últimas fica abaixo da foto (.ulin) — não vai mais para dentro da foto */
       document.querySelectorAll('#layer .cs details.cupf').forEach(function(c){var t=c.parentElement.querySelector(':scope>.cs-t');if(t&&c.nextElementSibling!==t)c.parentElement.insertBefore(c,t)});
       document.querySelectorAll('.hd .hnc').forEach(function(x){x.remove()});if(typeof liga==='function')liga()}
     var tm=0;new MutationObserver(function(){if(tm)return;tm=requestAnimationFrame(function(){tm=0;arruma()})}).observe(document.body,{childList:true,subtree:true});
