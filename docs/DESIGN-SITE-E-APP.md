@@ -38,3 +38,11 @@ O designer olha como um profissional de loja online (conversão primeiro) e o ki
 - Preço SEMPRE em preto (normal), em todas as telas e temáticas; oferta = antigo riscado + selo −N%.
 - Letra: nunca aumentar além do mínimo (aumentar tudo deixa gigante e amador).
 - Uma cor = um significado: verde só para OK/confirmado, vermelho só para urgência/erro, vinho para marca e ações.
+
+## Estudo filtros e catálogo de óculos (13/11/2026)
+- Baymard: filtro promovido (à vista acima da lista) TEM que aparecer também dentro da caixa de filtros — quem vai direto à caixa procura lá. Repetir gênero/tipo na caixa é CERTO; tirar é erro (corrige a proposta S210b).
+- Baymard: sempre mostrar os filtros aplicados (etiquetas removíveis) perto da lista; só um número "(2)" não basta.
+- Baymard: barra horizontal funciona com poucos tipos de filtro (até 6–8); mais que isso, caixa/lateral.
+- Baymard: atributo que se vê (formato da armação) = filtro com desenho + texto.
+- Ótica (Warby Parker): à vista ficam "Formato" e "Largura da armação", ao lado de Filtros e Ordenar, todos numa barra só; gênero fica no menu.
+- Gestalt (NN/g): o que parece desorganizado não é ter vários controles, é estarem espalhados e com estilos diferentes. Regra: uma linha só (proximidade) e o mesmo estilo de letra (semelhança).
