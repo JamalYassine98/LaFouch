@@ -139,3 +139,8 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - `src/97v-produtos-chave-s233.js` (`pcChave`, depois de cada `render`): põe a chave `.pcSeg` logo abaixo do `.top` do Catálogo (`v-vendas`) e do Inventário (`v-estoque`); tocar troca de tela com `setView` deslizando para o lado. Some no modo cliente e na tela do WhatsApp do catálogo. CSS no bloco "S233" do `style.css`.
 - É o 1º passo da fusão Catálogo + Inventário (docs/APP-NADA-SE-PERDE.md). As duas telas e os dois botões da barra continuam existindo; a busca e a posição ainda NÃO passam de uma para a outra.
 - Sem teste próprio em `tests/run.py` ainda (conferido à mão no simulador: celular claro/escuro e 1366).
+
+## Menu ao lado completo e letra mínima (S234, 14/11/2026)
+- `src/97w-menu-pc-s234.js` (`rxMonta`, depois de cada `render`): cria `#railX` dentro de `#mainnav` com Pedidos, Clientes, Histórico, Números, Despesas e Câmbio (botões `.rx`, `setView`). NÃO são `.mn` de propósito: a barra de baixo continua sendo a de atalhos que o dono arrasta (máx. 5) e o código dela só enxerga `.mn`. `#railX` só aparece com mouse e 1100 px ou mais; Ajustes vai para o pé do menu (`order:99`).
+- Letra mínima de 12 px em `.lbl`, `.tp`, `.pSin`, `small`, `th`, `.cxLb`, `.ajVer` dentro de `.view` (eram 10,5 a 11,5). Sobraram 12 textos abaixo de 12 px (não identificados um a um).
+- ATENÇÃO para a estrutura nova: a barra de baixo é personalizável (teste "acesso rápido: arrastar para a barra"). Trocar por uma barra fixa Início · Produtos · Vendas · Dinheiro · Mais tiraria essa função — decidir com o dono antes.
