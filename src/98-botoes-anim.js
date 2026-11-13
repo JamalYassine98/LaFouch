@@ -113,7 +113,8 @@
       var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT),
         n,
         l = [];
-      while ((n = w.nextNode())) if (/\d/.test(n.nodeValue)) l.push(n);
+      // .noconta: códigos de peça, pedidos e horários não contam (guardião, recentes)
+      while ((n = w.nextNode())) if (/\d/.test(n.nodeValue) && !(n.parentNode && n.parentNode.closest && n.parentNode.closest('.noconta'))) l.push(n);
       l.forEach(function (node) {
         var orig = node.nodeValue,
           t0 = performance.now();

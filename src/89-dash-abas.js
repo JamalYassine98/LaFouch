@@ -9,7 +9,7 @@
   ];
   function dTabsHtml() {
     return (
-      '<div class="tgrid g4" role="group" aria-label="Partes do Dashboard">' +
+      '<div class="tgrid g' + DTABS.length + '" role="group" aria-label="Partes do Dashboard">' +
       DTABS.map(function (t) {
         return tileHtml('data-act="dtab" data-id="' + t[0] + '"', t[0], t[1], null, 'sm', S.dTab === t[0]);
       }).join('') +

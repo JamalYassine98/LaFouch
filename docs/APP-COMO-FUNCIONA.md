@@ -83,3 +83,8 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 
 ## Compartilhar (S185, 12/11/2026)
 - `src/97v-compartilhar-s185.js` entra no "Enviar bonito" (agora com o título "Compartilhar"; `s185Liga(E, J, app)`): TIPO DE ENVIO Cliente (varejo) | Lojista (atacado). Cliente: Link com foto (1 peça = `lafouch.com/p/CÓDIGO.html`; várias = `lafouch.com/s/REF.REF~Nome`, que o site abre como "Separado para vos"), Cartões (o envio de sempre) ou Capa de status (1080×1920, até 4 peças + link). Lojista: Catálogo PDF (tabela escolhida, por categoria, cor com quantidade, graus, preço US$, mínimo, validade 30 dias; impressão → "Salvar como PDF") ou Planilha (CSV). Fica registrado na ficha do cliente (`cli.env` com `modo`).
+
+## Navegação (S184, 12/11/2026)
+- `src/97u-navegacao-s184.js`: a ficha da peça (`renderDetail`, venda ou inventário) ganha no topo o caminho ("Catálogo › SP58110 · 3 de 16") e as 5 abas Vender · Estoque · Histórico · Site · Preço (`ACT.fnTab`; Histórico/Site/Preço aparecem dentro da ficha com `.fnAlt`; volta para a aba usada por último, `S.fnTab`). Deslizar para o lado passa para a próxima peça da lista de onde veio (`S.fnLista`). Inventário: botão "Vender esta".
+- Códigos de peça viram link (`fnLinkifica` depois de cada `render`) no Histórico, Pedidos, Avisos, Clientes, Caixa e Dia. Recentes (5) embaixo da busca do Início (`S.recentes`: peças e clientes). Números: aba Online (`DTABS` + `onlResumoHtml`) e cartões de número que abrem a lista por trás (`FN_KPI`).
+- `.noconta` (em `98-botoes-anim.js`): textos que não entram na contagem animada dos números (códigos, horários).

@@ -53,9 +53,9 @@
   function guardInicioHtml() {
     var L = guardChecks(), pr = L.filter(function (c) { return !c.ok && !c.mudo; }).sort(function (a, b) { return (b.urg ? 1 : 0) - (a.urg ? 1 : 0); });
     var hr = fh(S.guardTs);
-    if (!pr.length) return '<section class="card guardOk" data-act="guardAbre" role="button" tabindex="0">' + guardIco() + '<span><b>Tudo certo</b> · conferido ' + hr + '</span></section>';
+    if (!pr.length) return '<section class="card guardOk noconta" data-act="guardAbre" role="button" tabindex="0">' + guardIco() + '<span><b>Tudo certo</b> · conferido ' + hr + '</span></section>';
     return (
-      '<section class="card guardC"><div class="guardT" data-act="guardAbre" role="button" tabindex="0">' + guardIco() + '<b>Guardião · ' + pr.length + (pr.length === 1 ? ' coisa' : ' coisas') + ' para olhar</b></div>' +
+      '<section class="card guardC noconta"><div class="guardT" data-act="guardAbre" role="button" tabindex="0">' + guardIco() + '<b>Guardião · ' + pr.length + (pr.length === 1 ? ' coisa' : ' coisas') + ' para olhar</b></div>' +
       pr.slice(0, 3).map(function (c) {
         return '<div class="guardL"><span><b>' + esc(c.tp || c.t) + (c.n > 1 ? ' · ' + c.n : '') + '</b>' + (c.s ? '<small>' + esc(c.s) + '</small>' : '') + '</span><button type="button" class="gBtn" data-act="' + c.act + '" data-id="' + esc(c.id || '') + '">' + esc(c.b || 'Ver') + '</button></div>';
       }).join('') +
