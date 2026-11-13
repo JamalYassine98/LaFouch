@@ -49,7 +49,7 @@ def site(tela,out,inj=None,y=0,es=False,ref=None):
             if tela!='carrinho': pg.click('text=Prosseguir com o pagamento'); pg.wait_for_timeout(1100)
             if tela=='pagamento': pg.click('text=Forma de pagamento'); pg.wait_for_timeout(1300)
             if tela=='delivery': pg.evaluate("(document.querySelector('button.cfo[data-ent=delivery]')||[...document.querySelectorAll('button')].find(b=>/^Delivery/.test(b.innerText.trim()))).click()"); pg.wait_for_timeout(900)
-        elif tela=='conta': pg.evaluate("(document.querySelector('[aria-label*=\"onta\"]')||{click(){}}).click()"); pg.wait_for_timeout(1100)
+        elif tela=='conta': pg.evaluate("(document.querySelector('#contabtn')||{click(){}}).click()"); pg.wait_for_timeout(1100)
         elif tela=='atacado': pg.goto(U+'?r=atacado'); pg.wait_for_timeout(1600)
         elif tela=='catalogo': pg.goto(U+'?r=vitrine'); pg.wait_for_timeout(1600)
         if inj:
