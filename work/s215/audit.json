@@ -1,0 +1,4852 @@
+{
+ "inicio_390_core": {
+  "url": "http://localhost:8811/",
+  "viewport": [
+   390,
+   844
+  ],
+  "contrast": {
+   "checked": 70,
+   "measured": 70,
+   "unparseable": 0,
+   "failures": [],
+   "unverifiable": []
+  },
+  "tapTargets": {
+   "checked": 42,
+   "tooSmall": [
+    {
+     "text": "1",
+     "tag": "button",
+     "selector": "section#hdst > div.hdt > div.hdots > button.on",
+     "size": "29 x 8",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "2",
+     "tag": "button",
+     "selector": "section#hdst > div.hdt > div.hdots > button",
+     "size": "8 x 8",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "3",
+     "tag": "button",
+     "selector": "section#hdst > div.hdt > div.hdots > button",
+     "size": "8 x 8",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "4",
+     "tag": "button",
+     "selector": "section#hdst > div.hdt > div.hdots > button",
+     "size": "8 x 8",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Ver todos ›",
+     "tag": "a",
+     "selector": "div#home > div.hsh > a",
+     "size": "76 x 17",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Prefiero por e-mail",
+     "tag": "button",
+     "selector": "div#hnf > button.nlk",
+     "size": "130 x 18",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Cómo llegar ›",
+     "tag": "a",
+     "selector": "div.in > div > p > a.mp",
+     "size": "85 x 18",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Solar",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "31 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "De lectura",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "63 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Armazones",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "69 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Ofertas",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "45 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Mayorista",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "60 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Preguntas frecuentes",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "132 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Consejos y cuidados",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "128 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Contáctanos",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "78 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Términos",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div > a",
+     "size": "50 x 14",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Privacidad",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div > a",
+     "size": "57 x 14",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Privacidad",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div.frc > a",
+     "size": "55 x 14",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Términos",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div.frc > a",
+     "size": "48 x 14",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    }
+   ],
+   "between24and44": 10
+  },
+  "naming": {
+   "unnamed": [],
+   "pollutedNames": [],
+   "duplicateNames": [
+    {
+     "name": "términos",
+     "count": 2,
+     "destinations": [
+      "/termos.html",
+      "https://policies.google.com/terms"
+     ]
+    },
+    {
+     "name": "privacidad",
+     "count": 2,
+     "destinations": [
+      "/privacidade.html",
+      "https://policies.google.com/privacy"
+     ]
+    }
+   ]
+  },
+  "duplicateDestinations": [],
+  "head": {
+   "lang": "es-PY",
+   "dir": "ltr",
+   "title": "Catálogo La Fouch",
+   "description": "Catálogo online: reserve pelo WhatsApp e retire na loja.",
+   "viewport": "width=device-width,initial-scale=1,viewport-fit=cover",
+   "canonical": null,
+   "openGraph": [
+    "og:type",
+    "og:site_name",
+    "og:title",
+    "og:description",
+    "og:url",
+    "og:image",
+    "og:image:type",
+    "og:image:width",
+    "og:image:height",
+    "og:image:alt",
+    "og:locale"
+   ],
+   "twitter": [
+    "twitter:card",
+    "twitter:title",
+    "twitter:description",
+    "twitter:image"
+   ],
+   "hreflang": [],
+   "structuredData": 2
+  },
+  "structure": {
+   "h1Count": 1,
+   "outline": [
+    "H1: Solar hexagonal negro",
+    "H2: Comprá por categoría",
+    "H2: Novedades",
+    "H2: Empieza por aquí",
+    "H2: Para comerciantes",
+    "H3: Compra en cantidad",
+    "H2: Novedades y ofertas primero"
+   ],
+   "skippedLevels": [],
+   "landmarks": "main=1  nav=2  header=0  footer=1  aside=1  [role=main]=0  [role=navigation]=0",
+   "skipLink": true,
+   "imagesMissingAlt": [],
+   "totalImages": 39
+  },
+  "forms": [],
+  "disabledSubmits": [],
+  "layout": {
+   "horizontalOverflow": null,
+   "pageHeight": 3347,
+   "screensOfScroll": 4,
+   "overflowingElements": [
+    {
+     "selector": "html.lite > body > a.wa",
+     "right": 409,
+     "text": ""
+    }
+   ]
+  },
+  "performance": {
+   "ttfb": 5,
+   "domContentLoaded": 570,
+   "loadEvent": 688,
+   "paints": {
+    "first-paint": 204,
+    "first-contentful-paint": 288
+   },
+   "requestCount": 32,
+   "transferKB": 1580,
+   "note": "transferKB reads 0 for cached resources — hard-reload before trusting it"
+  }
+ },
+ "inicio_390_heuristics": {
+  "url": "http://localhost:8811/",
+  "viewport": [
+   390,
+   844
+  ],
+  "cognitiveLoad": {
+   "interactiveTotal": 42,
+   "interactiveFirstScreen": 19,
+   "hickIndexFirstScreen": 4.32,
+   "reference": "Typical well-scoped screen: 8–15 interactive targets on first view (index ~3.2–4.0). Density is not automatically wrong — an expert dashboard earns it. Ask whether the screen has one obvious primary task.",
+   "distinctTextBlocks": 1,
+   "navigationGroups": [],
+   "forms": [],
+   "longSelects": []
+  },
+  "fitts": {
+   "inputMode": "touch (origin: thumb rest, bottom centre)",
+   "primaryActions": [
+    {
+     "text": "Ver Solar hexagonal negro",
+     "selector": "section#hdst > button.hdi",
+     "index": 1.81,
+     "distance": 561,
+     "width": 327,
+     "height": 225,
+     "reachability": "top of screen — requires regripping the device"
+    },
+    {
+     "text": "Solar",
+     "selector": "div#home > div.hcat > a",
+     "index": 1.13,
+     "distance": 124,
+     "width": 104,
+     "height": 116,
+     "reachability": "easy thumb reach"
+    },
+    {
+     "text": "De lectura",
+     "selector": "div#home > div.hcat > a",
+     "index": 0.6,
+     "distance": 54,
+     "width": 104,
+     "height": 116,
+     "reachability": "easy thumb reach"
+    },
+    {
+     "text": "Armazones",
+     "selector": "div#home > div.hcat > a",
+     "index": 1.13,
+     "distance": 124,
+     "width": 104,
+     "height": 116,
+     "reachability": "easy thumb reach"
+    },
+    {
+     "text": "Solar hexagonal negro Gs. 130.00",
+     "selector": "div#home > div.hg > button.hc",
+     "index": 1.13,
+     "distance": 189,
+     "width": 159,
+     "height": 198,
+     "reachability": "easy thumb reach"
+    },
+    {
+     "text": "Armazón de acetato morado Gs. 11",
+     "selector": "div#home > div.hg > button.hc",
+     "index": 1.13,
+     "distance": 189,
+     "width": 159,
+     "height": 198,
+     "reachability": "easy thumb reach"
+    }
+   ],
+   "competingPrimaries": {
+    "count": 6,
+    "labels": [
+     "Ver Solar hexagonal negro",
+     "Solar",
+     "De lectura",
+     "Armazones",
+     "Solar hexagonal negro Gs. 130.00",
+     "Armazón de acetato morado Gs. 11"
+    ],
+    "note": "More than one control styled as primary on one screen means none of them is. Give the intended action the filled treatment and demote the rest to outline or text."
+   },
+   "hardestTargets": [
+    {
+     "text": "4",
+     "selector": "div.hdt > div.hdots > button",
+     "index": 5.16,
+     "distance": 267,
+     "width": 8,
+     "height": 8
+    },
+    {
+     "text": "1",
+     "selector": "div.hdt > div.hdots > button.on",
+     "index": 5.15,
+     "distance": 266,
+     "width": 29,
+     "height": 8
+    },
+    {
+     "text": "2",
+     "selector": "div.hdt > div.hdots > button",
+     "index": 5.15,
+     "distance": 265,
+     "width": 8,
+     "height": 8
+    },
+    {
+     "text": "3",
+     "selector": "div.hdt > div.hdots > button",
+     "index": 5.15,
+     "distance": 265,
+     "width": 8,
+     "height": 8
+    },
+    {
+     "text": "Menú",
+     "selector": "button#mnb",
+     "index": 4.28,
+     "distance": 741,
+     "width": 40,
+     "height": 40
+    },
+    {
+     "text": "0",
+     "selector": "button#bagbtn",
+     "index": 4.28,
+     "distance": 741,
+     "width": 40,
+     "height": 40
+    },
+    {
+     "text": "Buscar",
+     "selector": "button#sbtn",
+     "index": 4.26,
+     "distance": 732,
+     "width": 40,
+     "height": 40
+    },
+    {
+     "text": "Mi cuenta",
+     "selector": "button#contabtn",
+     "index": 4.26,
+     "distance": 732,
+     "width": 44,
+     "height": 40
+    }
+   ]
+  },
+  "designSystem": {
+   "distinctFontSizes": {
+    "count": 14,
+    "verdict": "14 — above a typical type scale (10 or fewer); check whether these are tokens or one-off values",
+    "values": [
+     "16px ×39",
+     "13.5px ×26",
+     "11.5px ×12",
+     "15px ×10",
+     "14px ×10",
+     "12px ×7",
+     "13px ×6",
+     "28px ×4",
+     "22px ×4",
+     "16.5px ×3",
+     "11px ×2",
+     "20px ×1"
+    ]
+   },
+   "distinctFontWeights": {
+    "count": 5,
+    "values": [
+     "400 ×89",
+     "500 ×16",
+     "700 ×15",
+     "600 ×4",
+     "800 ×2"
+    ]
+   },
+   "distinctFontFamilies": {
+    "count": 2,
+    "values": [
+     "Inter ×110",
+     "Fraunces ×16"
+    ]
+   },
+   "distinctSpacingValues": {
+    "count": 18,
+    "verdict": "18 — above a typical spacing scale (14 or fewer); check whether these are tokens or one-off values",
+    "values": [
+     "12px ×56",
+     "10px ×29",
+     "6px ×17",
+     "8px ×15",
+     "16px ×11",
+     "1px ×9",
+     "5px ×9",
+     "20px ×7",
+     "14px ×7",
+     "normal 6px ×6",
+     "24px ×4",
+     "4px ×4"
+    ]
+   },
+   "distinctBorderRadii": {
+    "count": 8,
+    "verdict": "8 — above a typical radius scale (6 or fewer); check whether these are tokens or one-off values",
+    "values": [
+     "pill  ×7",
+     "50% ×7",
+     "18px ×6",
+     "16px ×6",
+     "8px ×4",
+     "14px ×3",
+     "20px ×1",
+     "22px ×1"
+    ]
+   },
+   "distinctTextColors": {
+    "count": 5,
+    "verdict": "5 — consistent",
+    "values": [
+     "rgb(42, 31, 39) ×62",
+     "rgb(107, 90, 102) ×46",
+     "rgb(141, 58, 105) ×16",
+     "rgb(255, 255, 255) ×1",
+     "rgb(211, 47, 47) ×1"
+    ]
+   },
+   "usesCustomProperties": 16,
+   "note": "Counts include third-party embeds. Cross-check a surprising number against the token file before reporting it."
+  },
+  "interactionStates": {
+   "ruleCounts": {
+    "hover": 19,
+    "focus": 2,
+    "focusVisible": 9,
+    "active": 27,
+    "disabled": 5,
+    "checked": 5,
+    "ariaExpanded": 0,
+    "ariaBusy": 0
+   },
+   "stylesheetsRead": 25,
+   "stylesheetsBlockedByCORS": 1,
+   "missing": [
+    "ariaExpanded",
+    "ariaBusy"
+   ],
+   "pointerCursorMissing": [],
+   "transitionsPresent": 7,
+   "liveRegions": 1,
+   "note": "1 stylesheet(s) unreadable (cross-origin) — the counts are a floor, not a total."
+  },
+  "microcopy": {
+   "fieldsTotal": 0,
+   "withHelperText": 0,
+   "withoutHelperText": [],
+   "placeholderAsOnlyLabel": [],
+   "requiredMarked": 0,
+   "errorContainers": 0,
+   "submitBlockedWithoutExplanation": []
+  },
+  "visualHierarchy": {
+   "largestTextOnScreen": {
+    "px": 28,
+    "text": "negro",
+    "tag": "EM"
+   },
+   "typeScaleSteps": [
+    28,
+    22,
+    20,
+    15,
+    11.5
+   ],
+   "medianBodySize": 15,
+   "headlineToBodyRatio": 1.87,
+   "ratioNote": "Below ~1.5 the headline does not separate from body text and the eye has no entry point. Above ~3 on a dense screen the jump can leave the middle of the hierarchy empty.",
+   "smallTextUnder12px": [
+    {
+     "text": "DESTACADO DE LA SEMANA",
+     "size": "11.5px"
+    },
+    {
+     "text": "Delivery",
+     "size": "11.5px"
+    },
+    {
+     "text": "Pago seguro",
+     "size": "11.5px"
+    },
+    {
+     "text": "Retiro",
+     "size": "11.5px"
+    }
+   ],
+   "requiresScreenshot": "Gestalt grouping, scan path, and whether the visual emphasis matches the task priority cannot be derived from the DOM. Capture the viewport and assess those separately."
+  }
+ },
+ "inicio_390_perception": {
+  "url": "http://localhost:8811/",
+  "viewport": [
+   390,
+   844
+  ],
+  "proximity": {
+   "uniformlySpacedGroups": [
+    {
+     "selector": "div#home > div.hg",
+     "children": 6,
+     "gap": "10px",
+     "note": "identical spacing throughout — no visual grouping is expressed"
+    },
+    {
+     "selector": "g.[object > g.[object > g.[object",
+     "children": 8,
+     "gap": "1px",
+     "note": "identical spacing throughout — no visual grouping is expressed"
+    }
+   ],
+   "orphanedHeadings": []
+  },
+  "similarity": [
+   {
+    "role": "button",
+    "distinctTreatments": 9,
+    "variants": [
+     {
+      "style": "rgba(0, 0, 0, 0) | 14px | 16px | 400 | 40px tall",
+      "count": 3,
+      "examples": [
+       "Menú",
+       "0",
+       "Mi cuenta"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | pill | 16px | 400 | 40px tall",
+      "count": 1,
+      "examples": [
+       "Buscar"
+      ]
+     },
+     {
+      "style": "rgb(255, 255, 255) | 0px | 16px | 400 | 225px tall",
+      "count": 1,
+      "examples": [
+       "Ver Solar hexagonal negro"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | pill | 15px | 500 | 42px tall",
+      "count": 2,
+      "examples": [
+       "Ver modelo",
+       "Solicitar presupuesto"
+      ]
+     },
+     {
+      "style": "rgb(255, 255, 255) | 16px | 16px | 400 | 198px tall",
+      "count": 4,
+      "examples": [
+       "Solar hexagonal negro Gs. 130.000",
+       "Armazón de acetato morado Gs. 118.",
+       "Armazón redondo rosa Gs. 105.000",
+       "Lentes de lectura cuadrados negros"
+      ]
+     },
+     {
+      "style": "rgb(255, 255, 255) | 16px | 16px | 400 | 226px tall",
+      "count": 2,
+      "examples": [
+       "Solar cuadrado dorado Gs. 148.000",
+       "ÚLTIMAS 2 UNIDADES Solar deportivo"
+      ]
+     },
+     {
+      "style": "rgb(255, 255, 255) | 18px | 16px | 400 | 120px tall",
+      "count": 3,
+      "examples": [
+       "PRUEBA DE LECTURA Descubre tu grad",
+       "ESTILO El armazón ideal para tu ro",
+       "AYUDA Resuelve tus dudas Pago, ent"
+      ]
+     },
+     {
+      "style": "color(srgb 0.552941 0.227451 0.411765 / 0.06) | pill | 16px | 500 | 44px tall",
+      "count": 1,
+      "examples": [
+       "Recibir por WhatsApp"
+      ]
+     }
+    ],
+    "note": "many visual treatments for one control type — check these are deliberate tiers (primary/secondary/tertiary) and not drift"
+   },
+   {
+    "role": "link-styled-control",
+    "distinctTreatments": 8,
+    "variants": [
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 16px | 400 | 54px tall",
+      "count": 1,
+      "examples": [
+       "La Fouch, todo en lentes"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | pill | 15px | 500 | 42px tall",
+      "count": 1,
+      "examples": [
+       "Ver catálogo ›"
+      ]
+     },
+     {
+      "style": "rgb(255, 255, 255) | 18px | 16px | 400 | 116px tall",
+      "count": 3,
+      "examples": [
+       "Solar",
+       "De lectura",
+       "Armazones"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 15px | 600 | 17px tall",
+      "count": 1,
+      "examples": [
+       "Ver todos ›"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 13.5px | 700 | 18px tall",
+      "count": 1,
+      "examples": [
+       "Cómo llegar ›"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 13.5px | 400 | 16px tall",
+      "count": 7,
+      "examples": [
+       "De lectura",
+       "Armazones",
+       "Ofertas",
+       "Mayorista"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 12px | 400 | 14px tall",
+      "count": 2,
+      "examples": [
+       "Términos",
+       "Privacidad"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 11.5px | 400 | 14px tall",
+      "count": 2,
+      "examples": [
+       "Privacidad",
+       "Términos"
+      ]
+     }
+    ],
+    "note": "many visual treatments for one control type — check these are deliberate tiers (primary/secondary/tertiary) and not drift"
+   }
+  ],
+  "alignment": {
+   "readingEdge": "inline-start = left (LTR)",
+   "blocksMeasured": 26,
+   "distinctEdges": 10,
+   "dominantEdges": [
+    "31px ×8",
+    "0px ×4",
+    "32px ×4",
+    "15px ×2",
+    "74px ×2",
+    "201px ×2"
+   ],
+   "strayEdges": 4,
+   "note": "A handful of dominant edges carrying most blocks indicates a grid. A long tail of one-off edges is where visual noise comes from — check the stray ones first."
+  },
+  "chunking": [],
+  "responsiveness": {
+   "dohertyThresholdMs": 400,
+   "longTasksOver50ms": 0,
+   "slowInteractionEvents": [],
+   "skeletonElements": 0,
+   "spinnerElements": 0,
+   "loadingStrategy": "no loading affordance detected on this snapshot",
+   "note": "Event timings only cover interactions that happened while this page was open. Interact with the primary flow first, then re-run, or these will read empty."
+  },
+  "emphasis": {
+   "textElementsOnScreen": 10,
+   "boldOrHeavier": 6,
+   "proportionBold": "60%",
+   "largerThanMedian1_5x": 1,
+   "note": "over 40% of on-screen text is semibold or heavier — weight has stopped carrying hierarchy"
+  },
+  "affordance": {
+   "indistinctInlineLinks": [],
+   "noPointerCursor": []
+  },
+  "constraints": [],
+  "topBand": {
+   "heightExamined": "0–120px",
+   "elements": 14,
+   "interactive": 6,
+   "contentBearing": [],
+   "note": "Branding alone in this band costs the user a scroll before the first useful thing. Confirm the most-requested action or the key status is reachable without scrolling."
+  }
+ },
+ "catalogo_390_core": {
+  "url": "http://localhost:8811/",
+  "viewport": [
+   390,
+   844
+  ],
+  "contrast": {
+   "checked": 70,
+   "measured": 70,
+   "unparseable": 0,
+   "failures": [],
+   "unverifiable": []
+  },
+  "tapTargets": {
+   "checked": 42,
+   "tooSmall": [
+    {
+     "text": "1",
+     "tag": "button",
+     "selector": "section#hdst > div.hdt > div.hdots > button.on",
+     "size": "29 x 8",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "2",
+     "tag": "button",
+     "selector": "section#hdst > div.hdt > div.hdots > button",
+     "size": "8 x 8",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "3",
+     "tag": "button",
+     "selector": "section#hdst > div.hdt > div.hdots > button",
+     "size": "8 x 8",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "4",
+     "tag": "button",
+     "selector": "section#hdst > div.hdt > div.hdots > button",
+     "size": "8 x 8",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Ver todos ›",
+     "tag": "a",
+     "selector": "div#home > div.hsh > a",
+     "size": "76 x 17",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Prefiero por e-mail",
+     "tag": "button",
+     "selector": "div#hnf > button.nlk",
+     "size": "130 x 18",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Cómo llegar ›",
+     "tag": "a",
+     "selector": "div.in > div > p > a.mp",
+     "size": "85 x 18",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Solar",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "31 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "De lectura",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "63 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Armazones",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "69 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Ofertas",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "45 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Mayorista",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "60 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Preguntas frecuentes",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "132 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Consejos y cuidados",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "128 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Contáctanos",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "78 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Términos",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div > a",
+     "size": "50 x 14",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Privacidad",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div > a",
+     "size": "57 x 14",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Privacidad",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div.frc > a",
+     "size": "55 x 14",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Términos",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div.frc > a",
+     "size": "48 x 14",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    }
+   ],
+   "between24and44": 10
+  },
+  "naming": {
+   "unnamed": [],
+   "pollutedNames": [],
+   "duplicateNames": [
+    {
+     "name": "términos",
+     "count": 2,
+     "destinations": [
+      "/termos.html",
+      "https://policies.google.com/terms"
+     ]
+    },
+    {
+     "name": "privacidad",
+     "count": 2,
+     "destinations": [
+      "/privacidade.html",
+      "https://policies.google.com/privacy"
+     ]
+    }
+   ]
+  },
+  "duplicateDestinations": [],
+  "head": {
+   "lang": "es-PY",
+   "dir": "ltr",
+   "title": "Catálogo La Fouch",
+   "description": "Catálogo online: reserve pelo WhatsApp e retire na loja.",
+   "viewport": "width=device-width,initial-scale=1,viewport-fit=cover",
+   "canonical": null,
+   "openGraph": [
+    "og:type",
+    "og:site_name",
+    "og:title",
+    "og:description",
+    "og:url",
+    "og:image",
+    "og:image:type",
+    "og:image:width",
+    "og:image:height",
+    "og:image:alt",
+    "og:locale"
+   ],
+   "twitter": [
+    "twitter:card",
+    "twitter:title",
+    "twitter:description",
+    "twitter:image"
+   ],
+   "hreflang": [],
+   "structuredData": 2
+  },
+  "structure": {
+   "h1Count": 1,
+   "outline": [
+    "H1: Solar hexagonal negro",
+    "H2: Comprá por categoría",
+    "H2: Novedades",
+    "H2: Empieza por aquí",
+    "H2: Para comerciantes",
+    "H3: Compra en cantidad",
+    "H2: Novedades y ofertas primero"
+   ],
+   "skippedLevels": [],
+   "landmarks": "main=1  nav=2  header=0  footer=1  aside=1  [role=main]=0  [role=navigation]=0",
+   "skipLink": true,
+   "imagesMissingAlt": [],
+   "totalImages": 39
+  },
+  "forms": [],
+  "disabledSubmits": [],
+  "layout": {
+   "horizontalOverflow": null,
+   "pageHeight": 3347,
+   "screensOfScroll": 4,
+   "overflowingElements": [
+    {
+     "selector": "html.lite > body > a.wa",
+     "right": 409,
+     "text": ""
+    }
+   ]
+  },
+  "performance": {
+   "ttfb": 1,
+   "domContentLoaded": 294,
+   "loadEvent": 367,
+   "paints": {
+    "first-paint": 104,
+    "first-contentful-paint": 140
+   },
+   "requestCount": 32,
+   "transferKB": 1580,
+   "note": "transferKB reads 0 for cached resources — hard-reload before trusting it"
+  }
+ },
+ "catalogo_390_heuristics": {
+  "url": "http://localhost:8811/",
+  "viewport": [
+   390,
+   844
+  ],
+  "cognitiveLoad": {
+   "interactiveTotal": 42,
+   "interactiveFirstScreen": 19,
+   "hickIndexFirstScreen": 4.32,
+   "reference": "Typical well-scoped screen: 8–15 interactive targets on first view (index ~3.2–4.0). Density is not automatically wrong — an expert dashboard earns it. Ask whether the screen has one obvious primary task.",
+   "distinctTextBlocks": 1,
+   "navigationGroups": [],
+   "forms": [],
+   "longSelects": []
+  },
+  "fitts": {
+   "inputMode": "touch (origin: thumb rest, bottom centre)",
+   "primaryActions": [
+    {
+     "text": "Ver Solar hexagonal negro",
+     "selector": "section#hdst > button.hdi",
+     "index": 1.81,
+     "distance": 561,
+     "width": 327,
+     "height": 225,
+     "reachability": "top of screen — requires regripping the device"
+    },
+    {
+     "text": "Solar",
+     "selector": "div#home > div.hcat > a",
+     "index": 1.13,
+     "distance": 124,
+     "width": 104,
+     "height": 116,
+     "reachability": "easy thumb reach"
+    },
+    {
+     "text": "De lectura",
+     "selector": "div#home > div.hcat > a",
+     "index": 0.6,
+     "distance": 54,
+     "width": 104,
+     "height": 116,
+     "reachability": "easy thumb reach"
+    },
+    {
+     "text": "Armazones",
+     "selector": "div#home > div.hcat > a",
+     "index": 1.13,
+     "distance": 124,
+     "width": 104,
+     "height": 116,
+     "reachability": "easy thumb reach"
+    },
+    {
+     "text": "Solar hexagonal negro Gs. 130.00",
+     "selector": "div#home > div.hg > button.hc",
+     "index": 1.13,
+     "distance": 189,
+     "width": 159,
+     "height": 198,
+     "reachability": "easy thumb reach"
+    },
+    {
+     "text": "Armazón de acetato morado Gs. 11",
+     "selector": "div#home > div.hg > button.hc",
+     "index": 1.13,
+     "distance": 189,
+     "width": 159,
+     "height": 198,
+     "reachability": "easy thumb reach"
+    }
+   ],
+   "competingPrimaries": {
+    "count": 6,
+    "labels": [
+     "Ver Solar hexagonal negro",
+     "Solar",
+     "De lectura",
+     "Armazones",
+     "Solar hexagonal negro Gs. 130.00",
+     "Armazón de acetato morado Gs. 11"
+    ],
+    "note": "More than one control styled as primary on one screen means none of them is. Give the intended action the filled treatment and demote the rest to outline or text."
+   },
+   "hardestTargets": [
+    {
+     "text": "4",
+     "selector": "div.hdt > div.hdots > button",
+     "index": 5.16,
+     "distance": 267,
+     "width": 8,
+     "height": 8
+    },
+    {
+     "text": "1",
+     "selector": "div.hdt > div.hdots > button.on",
+     "index": 5.15,
+     "distance": 266,
+     "width": 29,
+     "height": 8
+    },
+    {
+     "text": "2",
+     "selector": "div.hdt > div.hdots > button",
+     "index": 5.15,
+     "distance": 265,
+     "width": 8,
+     "height": 8
+    },
+    {
+     "text": "3",
+     "selector": "div.hdt > div.hdots > button",
+     "index": 5.15,
+     "distance": 265,
+     "width": 8,
+     "height": 8
+    },
+    {
+     "text": "Menú",
+     "selector": "button#mnb",
+     "index": 4.28,
+     "distance": 741,
+     "width": 40,
+     "height": 40
+    },
+    {
+     "text": "0",
+     "selector": "button#bagbtn",
+     "index": 4.28,
+     "distance": 741,
+     "width": 40,
+     "height": 40
+    },
+    {
+     "text": "Buscar",
+     "selector": "button#sbtn",
+     "index": 4.26,
+     "distance": 732,
+     "width": 40,
+     "height": 40
+    },
+    {
+     "text": "Mi cuenta",
+     "selector": "button#contabtn",
+     "index": 4.26,
+     "distance": 732,
+     "width": 44,
+     "height": 40
+    }
+   ]
+  },
+  "designSystem": {
+   "distinctFontSizes": {
+    "count": 14,
+    "verdict": "14 — above a typical type scale (10 or fewer); check whether these are tokens or one-off values",
+    "values": [
+     "16px ×39",
+     "13.5px ×26",
+     "11.5px ×12",
+     "15px ×10",
+     "14px ×10",
+     "12px ×7",
+     "13px ×6",
+     "28px ×4",
+     "22px ×4",
+     "16.5px ×3",
+     "11px ×2",
+     "20px ×1"
+    ]
+   },
+   "distinctFontWeights": {
+    "count": 5,
+    "values": [
+     "400 ×89",
+     "500 ×16",
+     "700 ×15",
+     "600 ×4",
+     "800 ×2"
+    ]
+   },
+   "distinctFontFamilies": {
+    "count": 2,
+    "values": [
+     "Inter ×110",
+     "Fraunces ×16"
+    ]
+   },
+   "distinctSpacingValues": {
+    "count": 18,
+    "verdict": "18 — above a typical spacing scale (14 or fewer); check whether these are tokens or one-off values",
+    "values": [
+     "12px ×56",
+     "10px ×29",
+     "6px ×17",
+     "8px ×15",
+     "16px ×11",
+     "1px ×9",
+     "5px ×9",
+     "20px ×7",
+     "14px ×7",
+     "normal 6px ×6",
+     "24px ×4",
+     "4px ×4"
+    ]
+   },
+   "distinctBorderRadii": {
+    "count": 8,
+    "verdict": "8 — above a typical radius scale (6 or fewer); check whether these are tokens or one-off values",
+    "values": [
+     "pill  ×7",
+     "50% ×7",
+     "18px ×6",
+     "16px ×6",
+     "8px ×4",
+     "14px ×3",
+     "20px ×1",
+     "22px ×1"
+    ]
+   },
+   "distinctTextColors": {
+    "count": 5,
+    "verdict": "5 — consistent",
+    "values": [
+     "rgb(42, 31, 39) ×62",
+     "rgb(107, 90, 102) ×46",
+     "rgb(141, 58, 105) ×16",
+     "rgb(255, 255, 255) ×1",
+     "rgb(211, 47, 47) ×1"
+    ]
+   },
+   "usesCustomProperties": 16,
+   "note": "Counts include third-party embeds. Cross-check a surprising number against the token file before reporting it."
+  },
+  "interactionStates": {
+   "ruleCounts": {
+    "hover": 19,
+    "focus": 2,
+    "focusVisible": 9,
+    "active": 27,
+    "disabled": 5,
+    "checked": 5,
+    "ariaExpanded": 0,
+    "ariaBusy": 0
+   },
+   "stylesheetsRead": 25,
+   "stylesheetsBlockedByCORS": 1,
+   "missing": [
+    "ariaExpanded",
+    "ariaBusy"
+   ],
+   "pointerCursorMissing": [],
+   "transitionsPresent": 7,
+   "liveRegions": 1,
+   "note": "1 stylesheet(s) unreadable (cross-origin) — the counts are a floor, not a total."
+  },
+  "microcopy": {
+   "fieldsTotal": 0,
+   "withHelperText": 0,
+   "withoutHelperText": [],
+   "placeholderAsOnlyLabel": [],
+   "requiredMarked": 0,
+   "errorContainers": 0,
+   "submitBlockedWithoutExplanation": []
+  },
+  "visualHierarchy": {
+   "largestTextOnScreen": {
+    "px": 28,
+    "text": "negro",
+    "tag": "EM"
+   },
+   "typeScaleSteps": [
+    28,
+    22,
+    20,
+    15,
+    11.5
+   ],
+   "medianBodySize": 15,
+   "headlineToBodyRatio": 1.87,
+   "ratioNote": "Below ~1.5 the headline does not separate from body text and the eye has no entry point. Above ~3 on a dense screen the jump can leave the middle of the hierarchy empty.",
+   "smallTextUnder12px": [
+    {
+     "text": "DESTACADO DE LA SEMANA",
+     "size": "11.5px"
+    },
+    {
+     "text": "Delivery",
+     "size": "11.5px"
+    },
+    {
+     "text": "Pago seguro",
+     "size": "11.5px"
+    },
+    {
+     "text": "Retiro",
+     "size": "11.5px"
+    }
+   ],
+   "requiresScreenshot": "Gestalt grouping, scan path, and whether the visual emphasis matches the task priority cannot be derived from the DOM. Capture the viewport and assess those separately."
+  }
+ },
+ "catalogo_390_perception": {
+  "url": "http://localhost:8811/",
+  "viewport": [
+   390,
+   844
+  ],
+  "proximity": {
+   "uniformlySpacedGroups": [
+    {
+     "selector": "div#home > div.hg",
+     "children": 6,
+     "gap": "10px",
+     "note": "identical spacing throughout — no visual grouping is expressed"
+    },
+    {
+     "selector": "g.[object > g.[object > g.[object",
+     "children": 8,
+     "gap": "1px",
+     "note": "identical spacing throughout — no visual grouping is expressed"
+    }
+   ],
+   "orphanedHeadings": []
+  },
+  "similarity": [
+   {
+    "role": "button",
+    "distinctTreatments": 9,
+    "variants": [
+     {
+      "style": "rgba(0, 0, 0, 0) | 14px | 16px | 400 | 40px tall",
+      "count": 3,
+      "examples": [
+       "Menú",
+       "0",
+       "Mi cuenta"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | pill | 16px | 400 | 40px tall",
+      "count": 1,
+      "examples": [
+       "Buscar"
+      ]
+     },
+     {
+      "style": "rgb(255, 255, 255) | 0px | 16px | 400 | 225px tall",
+      "count": 1,
+      "examples": [
+       "Ver Solar hexagonal negro"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | pill | 15px | 500 | 42px tall",
+      "count": 2,
+      "examples": [
+       "Ver modelo",
+       "Solicitar presupuesto"
+      ]
+     },
+     {
+      "style": "rgb(255, 255, 255) | 16px | 16px | 400 | 198px tall",
+      "count": 4,
+      "examples": [
+       "Solar hexagonal negro Gs. 130.000",
+       "Armazón de acetato morado Gs. 118.",
+       "Armazón redondo rosa Gs. 105.000",
+       "Lentes de lectura cuadrados negros"
+      ]
+     },
+     {
+      "style": "rgb(255, 255, 255) | 16px | 16px | 400 | 226px tall",
+      "count": 2,
+      "examples": [
+       "Solar cuadrado dorado Gs. 148.000",
+       "ÚLTIMAS 2 UNIDADES Solar deportivo"
+      ]
+     },
+     {
+      "style": "rgb(255, 255, 255) | 18px | 16px | 400 | 120px tall",
+      "count": 3,
+      "examples": [
+       "PRUEBA DE LECTURA Descubre tu grad",
+       "ESTILO El armazón ideal para tu ro",
+       "AYUDA Resuelve tus dudas Pago, ent"
+      ]
+     },
+     {
+      "style": "color(srgb 0.552941 0.227451 0.411765 / 0.06) | pill | 16px | 500 | 44px tall",
+      "count": 1,
+      "examples": [
+       "Recibir por WhatsApp"
+      ]
+     }
+    ],
+    "note": "many visual treatments for one control type — check these are deliberate tiers (primary/secondary/tertiary) and not drift"
+   },
+   {
+    "role": "link-styled-control",
+    "distinctTreatments": 8,
+    "variants": [
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 16px | 400 | 54px tall",
+      "count": 1,
+      "examples": [
+       "La Fouch, todo en lentes"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | pill | 15px | 500 | 42px tall",
+      "count": 1,
+      "examples": [
+       "Ver catálogo ›"
+      ]
+     },
+     {
+      "style": "rgb(255, 255, 255) | 18px | 16px | 400 | 116px tall",
+      "count": 3,
+      "examples": [
+       "Solar",
+       "De lectura",
+       "Armazones"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 15px | 600 | 17px tall",
+      "count": 1,
+      "examples": [
+       "Ver todos ›"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 13.5px | 700 | 18px tall",
+      "count": 1,
+      "examples": [
+       "Cómo llegar ›"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 13.5px | 400 | 16px tall",
+      "count": 7,
+      "examples": [
+       "De lectura",
+       "Armazones",
+       "Ofertas",
+       "Mayorista"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 12px | 400 | 14px tall",
+      "count": 2,
+      "examples": [
+       "Términos",
+       "Privacidad"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 11.5px | 400 | 14px tall",
+      "count": 2,
+      "examples": [
+       "Privacidad",
+       "Términos"
+      ]
+     }
+    ],
+    "note": "many visual treatments for one control type — check these are deliberate tiers (primary/secondary/tertiary) and not drift"
+   }
+  ],
+  "alignment": {
+   "readingEdge": "inline-start = left (LTR)",
+   "blocksMeasured": 26,
+   "distinctEdges": 10,
+   "dominantEdges": [
+    "31px ×8",
+    "0px ×4",
+    "32px ×4",
+    "15px ×2",
+    "74px ×2",
+    "201px ×2"
+   ],
+   "strayEdges": 4,
+   "note": "A handful of dominant edges carrying most blocks indicates a grid. A long tail of one-off edges is where visual noise comes from — check the stray ones first."
+  },
+  "chunking": [],
+  "responsiveness": {
+   "dohertyThresholdMs": 400,
+   "longTasksOver50ms": 0,
+   "slowInteractionEvents": [],
+   "skeletonElements": 0,
+   "spinnerElements": 0,
+   "loadingStrategy": "no loading affordance detected on this snapshot",
+   "note": "Event timings only cover interactions that happened while this page was open. Interact with the primary flow first, then re-run, or these will read empty."
+  },
+  "emphasis": {
+   "textElementsOnScreen": 10,
+   "boldOrHeavier": 6,
+   "proportionBold": "60%",
+   "largerThanMedian1_5x": 1,
+   "note": "over 40% of on-screen text is semibold or heavier — weight has stopped carrying hierarchy"
+  },
+  "affordance": {
+   "indistinctInlineLinks": [],
+   "noPointerCursor": []
+  },
+  "constraints": [],
+  "topBand": {
+   "heightExamined": "0–120px",
+   "elements": 14,
+   "interactive": 6,
+   "contentBearing": [],
+   "note": "Branding alone in this band costs the user a scroll before the first useful thing. Confirm the most-requested action or the key status is reachable without scrolling."
+  }
+ },
+ "peca_390_core": {
+  "url": "http://localhost:8811/modelo/AC1050",
+  "viewport": [
+   390,
+   844
+  ],
+  "contrast": {
+   "checked": 98,
+   "measured": 98,
+   "unparseable": 0,
+   "failures": [],
+   "unverifiable": [
+    {
+     "text": "Comprar · Gs. 118.000",
+     "selector": "div.buy > div.buyrow > button.bb > span",
+     "fontSize": "16px",
+     "fontWeight": "700",
+     "color": "rgb(255, 255, 255)",
+     "background": "rgb(251, 247, 250)",
+     "ratio": 1.06,
+     "required": 4.5,
+     "warning": "background-image/gradient in stack: linear-gradient(125deg, rgb(111, 34, 80), rgb(180, 82, 138) "
+    },
+    {
+     "text": "· Gs. 118.000",
+     "selector": "div.buyrow > button.bb > span > small.bt",
+     "fontSize": "13.3333px",
+     "fontWeight": "700",
+     "color": "rgb(255, 255, 255)",
+     "background": "rgb(251, 247, 250)",
+     "ratio": 1.06,
+     "required": 4.5,
+     "warning": "background-image/gradient in stack: linear-gradient(125deg, rgb(111, 34, 80), rgb(180, 82, 138) "
+    }
+   ]
+  },
+  "tapTargets": {
+   "checked": 60,
+   "tooSmall": [
+    {
+     "text": "Filtros ›",
+     "tag": "a",
+     "selector": "div#lfgen > a.lfgf",
+     "size": "49 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Cómo llegar ›",
+     "tag": "a",
+     "selector": "div.in > div > p > a.mp",
+     "size": "85 x 18",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Solar",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "31 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "De lectura",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "63 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Armazones",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "69 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Ofertas",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "45 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Mayorista",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "60 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Preguntas frecuentes",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "132 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Consejos y cuidados",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "128 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Contáctanos",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "78 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Términos",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div > a",
+     "size": "50 x 14",
+     "exemptInlineLink": true,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Privacidad",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div > a",
+     "size": "57 x 14",
+     "exemptInlineLink": true,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Privacidad",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div.frc > a",
+     "size": "55 x 14",
+     "exemptInlineLink": true,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Términos",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div.frc > a",
+     "size": "48 x 14",
+     "exemptInlineLink": true,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Catálogo",
+     "tag": "button",
+     "selector": "div.scrim > div.pgbar > span.pgcr > button",
+     "size": "55 x 21",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Armazones",
+     "tag": "button",
+     "selector": "div.scrim > div.pgbar > span.pgcr > button",
+     "size": "69 x 21",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Ver todas ›",
+     "tag": "a",
+     "selector": "div.modal > div.rel > b.navrh > a.navv",
+     "size": "76 x 17",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Cómo llegar ›",
+     "tag": "a",
+     "selector": "div.in > div > p > a.mp",
+     "size": "85 x 18",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Solar",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "31 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "De lectura",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "63 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Armazones",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "69 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Ofertas",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "45 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Mayorista",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "60 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Preguntas frecuentes",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "132 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Consejos y cuidados",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "128 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Contáctanos",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "78 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Términos",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div > a",
+     "size": "50 x 14",
+     "exemptInlineLink": true,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Privacidad",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div > a",
+     "size": "57 x 14",
+     "exemptInlineLink": true,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Privacidad",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div.frc > a",
+     "size": "55 x 14",
+     "exemptInlineLink": true,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Términos",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div.frc > a",
+     "size": "48 x 14",
+     "exemptInlineLink": true,
+     "belowRecommended44": true
+    }
+   ],
+   "between24and44": 21
+  },
+  "naming": {
+   "unnamed": [],
+   "pollutedNames": [],
+   "duplicateNames": [
+    {
+     "name": "términos",
+     "count": 4,
+     "destinations": [
+      "/termos.html",
+      "https://policies.google.com/terms"
+     ]
+    },
+    {
+     "name": "privacidad",
+     "count": 4,
+     "destinations": [
+      "/privacidade.html",
+      "https://policies.google.com/privacy"
+     ]
+    }
+   ]
+  },
+  "duplicateDestinations": [],
+  "head": {
+   "lang": "es-PY",
+   "dir": "ltr",
+   "title": "Armazón de acetato morado (AC1050) · La Fouch",
+   "description": "Catálogo online: reserve pelo WhatsApp e retire na loja.",
+   "viewport": "width=device-width,initial-scale=1,viewport-fit=cover",
+   "canonical": null,
+   "openGraph": [
+    "og:type",
+    "og:site_name",
+    "og:title",
+    "og:description",
+    "og:url",
+    "og:image",
+    "og:image:type",
+    "og:image:width",
+    "og:image:height",
+    "og:image:alt",
+    "og:locale"
+   ],
+   "twitter": [
+    "twitter:card",
+    "twitter:title",
+    "twitter:description",
+    "twitter:image"
+   ],
+   "hreflang": [],
+   "structuredData": 2
+  },
+  "structure": {
+   "h1Count": 0,
+   "outline": [
+    "H2: Armazón de acetato morado"
+   ],
+   "skippedLevels": [],
+   "landmarks": "main=1  nav=2  header=1  footer=1  aside=1  [role=main]=0  [role=navigation]=0",
+   "skipLink": true,
+   "imagesMissingAlt": [],
+   "totalImages": 27
+  },
+  "forms": [],
+  "disabledSubmits": [],
+  "layout": {
+   "horizontalOverflow": null,
+   "pageHeight": 3273,
+   "screensOfScroll": 3.9,
+   "overflowingElements": []
+  },
+  "performance": {
+   "ttfb": 1,
+   "domContentLoaded": 285,
+   "loadEvent": 360,
+   "paints": {
+    "first-paint": 80,
+    "first-contentful-paint": 100
+   },
+   "requestCount": 37,
+   "transferKB": 1641,
+   "note": "transferKB reads 0 for cached resources — hard-reload before trusting it"
+  }
+ },
+ "peca_390_heuristics": {
+  "url": "http://localhost:8811/modelo/AC1050",
+  "viewport": [
+   390,
+   844
+  ],
+  "cognitiveLoad": {
+   "interactiveTotal": 60,
+   "interactiveFirstScreen": 27,
+   "hickIndexFirstScreen": 4.81,
+   "reference": "Typical well-scoped screen: 8–15 interactive targets on first view (index ~3.2–4.0). Density is not automatically wrong — an expert dashboard earns it. Ask whether the screen has one obvious primary task.",
+   "distinctTextBlocks": 4,
+   "navigationGroups": [],
+   "forms": [],
+   "longSelects": []
+  },
+  "fitts": {
+   "inputMode": "touch (origin: thumb rest, bottom centre)",
+   "primaryActions": [],
+   "competingPrimaries": null,
+   "hardestTargets": [
+    {
+     "text": "Filtros ›",
+     "selector": "div#lfgen > a.lfgf",
+     "index": 5.29,
+     "distance": 610,
+     "width": 49,
+     "height": 16
+    },
+    {
+     "text": "Catálogo",
+     "selector": "div.pgbar > span.pgcr > button",
+     "index": 5.04,
+     "distance": 656,
+     "width": 55,
+     "height": 21
+    },
+    {
+     "text": "Armazones",
+     "selector": "div.pgbar > span.pgcr > button",
+     "index": 5.04,
+     "distance": 660,
+     "width": 69,
+     "height": 21
+    },
+    {
+     "text": "Inicio",
+     "selector": "div.mobsearch > div.vnav > button.navb",
+     "index": 4.53,
+     "distance": 679,
+     "width": 63,
+     "height": 31
+    },
+    {
+     "text": "Todos",
+     "selector": "div#lfgen > button.on",
+     "index": 4.38,
+     "distance": 611,
+     "width": 41,
+     "height": 31
+    },
+    {
+     "text": "Femenino",
+     "selector": "div#lfgen > button",
+     "index": 4.35,
+     "distance": 596,
+     "width": 65,
+     "height": 31
+    },
+    {
+     "text": "Hombre",
+     "selector": "div#lfgen > button",
+     "index": 4.34,
+     "distance": 590,
+     "width": 53,
+     "height": 31
+    },
+    {
+     "text": "Unisex",
+     "selector": "div#lfgen > button",
+     "index": 4.34,
+     "distance": 592,
+     "width": 45,
+     "height": 31
+    }
+   ]
+  },
+  "designSystem": {
+   "distinctFontSizes": {
+    "count": 17,
+    "verdict": "17 — above a typical type scale (10 or fewer); check whether these are tokens or one-off values",
+    "values": [
+     "13.5px ×58",
+     "16px ×57",
+     "12px ×24",
+     "14px ×11",
+     "11px ×9",
+     "11.5px ×6",
+     "15px ×4",
+     "14.5px ×4",
+     "21px ×4",
+     "24px ×4",
+     "22px ×3",
+     "13px ×2"
+    ]
+   },
+   "distinctFontWeights": {
+    "count": 6,
+    "values": [
+     "400 ×137",
+     "700 ×23",
+     "600 ×17",
+     "800 ×9",
+     "500 ×6",
+     "900 ×1"
+    ]
+   },
+   "distinctFontFamilies": {
+    "count": 2,
+    "values": [
+     "Inter ×185",
+     "Fraunces ×8"
+    ]
+   },
+   "distinctSpacingValues": {
+    "count": 19,
+    "verdict": "19 — above a typical spacing scale (14 or fewer); check whether these are tokens or one-off values",
+    "values": [
+     "6px ×36",
+     "8px ×31",
+     "12px ×25",
+     "16px ×20",
+     "1px ×20",
+     "2px ×17",
+     "10px ×15",
+     "4px ×11",
+     "20px ×4",
+     "18px ×4",
+     "13px ×4",
+     "14px ×3"
+    ]
+   },
+   "distinctBorderRadii": {
+    "count": 9,
+    "verdict": "9 — above a typical radius scale (6 or fewer); check whether these are tokens or one-off values",
+    "values": [
+     "50% ×13",
+     "pill  ×11",
+     "14px ×7",
+     "10px ×5",
+     "20px ×4",
+     "12px ×4",
+     "16px ×3",
+     "99px ×2"
+    ]
+   },
+   "distinctTextColors": {
+    "count": 7,
+    "verdict": "7 — consistent",
+    "values": [
+     "rgb(107, 90, 102) ×92",
+     "rgb(42, 31, 39) ×79",
+     "rgb(141, 58, 105) ×9",
+     "rgb(255, 255, 255) ×5",
+     "rgb(20, 128, 63) ×5",
+     "rgb(211, 47, 47) ×2",
+     "rgb(122, 42, 89) ×1"
+    ]
+   },
+   "usesCustomProperties": 20,
+   "note": "Counts include third-party embeds. Cross-check a surprising number against the token file before reporting it."
+  },
+  "interactionStates": {
+   "ruleCounts": {
+    "hover": 19,
+    "focus": 2,
+    "focusVisible": 9,
+    "active": 27,
+    "disabled": 5,
+    "checked": 5,
+    "ariaExpanded": 0,
+    "ariaBusy": 0
+   },
+   "stylesheetsRead": 25,
+   "stylesheetsBlockedByCORS": 1,
+   "missing": [
+    "ariaExpanded",
+    "ariaBusy"
+   ],
+   "pointerCursorMissing": [],
+   "transitionsPresent": 23,
+   "liveRegions": 1,
+   "note": "1 stylesheet(s) unreadable (cross-origin) — the counts are a floor, not a total."
+  },
+  "microcopy": {
+   "fieldsTotal": 0,
+   "withHelperText": 0,
+   "withoutHelperText": [],
+   "placeholderAsOnlyLabel": [],
+   "requiredMarked": 0,
+   "errorContainers": 0,
+   "submitBlockedWithoutExplanation": []
+  },
+  "visualHierarchy": {
+   "largestTextOnScreen": {
+    "px": 30,
+    "text": "Armazón de acetato morado",
+    "tag": "H2"
+   },
+   "typeScaleSteps": [
+    30,
+    26,
+    24,
+    21,
+    16,
+    15,
+    14.5,
+    14,
+    13.5,
+    13
+   ],
+   "medianBodySize": 14,
+   "headlineToBodyRatio": 2.14,
+   "ratioNote": "Below ~1.5 the headline does not separate from body text and the eye has no entry point. Above ~3 on a dense screen the jump can leave the middle of the hierarchy empty.",
+   "smallTextUnder12px": [
+    {
+     "text": "Llegó esta semana",
+     "size": "9px"
+    }
+   ],
+   "requiresScreenshot": "Gestalt grouping, scan path, and whether the visual emphasis matches the task priority cannot be derived from the DOM. Capture the viewport and assess those separately."
+  }
+ },
+ "peca_390_perception": {
+  "url": "http://localhost:8811/modelo/AC1050",
+  "viewport": [
+   390,
+   844
+  ],
+  "proximity": {
+   "uniformlySpacedGroups": [],
+   "orphanedHeadings": []
+  },
+  "similarity": [
+   {
+    "role": "button",
+    "distinctTreatments": 13,
+    "variants": [
+     {
+      "style": "rgba(0, 0, 0, 0) | 14px | 16px | 400 | 40px tall",
+      "count": 3,
+      "examples": [
+       "Menú",
+       "0",
+       "Mi cuenta"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | pill | 16px | 400 | 40px tall",
+      "count": 1,
+      "examples": [
+       "Buscar"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 10px | 15px | 600 | 31px tall",
+      "count": 1,
+      "examples": [
+       "Inicio"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 14.5px | 500 | 31px tall",
+      "count": 4,
+      "examples": [
+       "Todos",
+       "Femenino",
+       "Hombre",
+       "Unisex"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 16px | 400 | 267px tall",
+      "count": 2,
+      "examples": [
+       "AC1050 Armazón de acetato morado G",
+       "AC1055 Armazón redondo rosa Gs. 10"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 16px | 400 | 299px tall",
+      "count": 2,
+      "examples": [
+       "ÚLTIMA UNIDAD BR44140 Armazón de m",
+       "ÚLTIMA UNIDAD BR44145 Armazón de m"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 10px | 16px | 600 | 42px tall",
+      "count": 1,
+      "examples": [
+       "Armazones"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 13.5px | 400 | 21px tall",
+      "count": 2,
+      "examples": [
+       "Catálogo",
+       "Armazones"
+      ]
+     }
+    ],
+    "note": "many visual treatments for one control type — check these are deliberate tiers (primary/secondary/tertiary) and not drift"
+   },
+   {
+    "role": "link-styled-control",
+    "distinctTreatments": 7,
+    "variants": [
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 16px | 400 | 54px tall",
+      "count": 1,
+      "examples": [
+       "La Fouch, todo en lentes"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 14px | 500 | 16px tall",
+      "count": 1,
+      "examples": [
+       "Filtros ›"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 13.5px | 700 | 18px tall",
+      "count": 2,
+      "examples": [
+       "Cómo llegar ›",
+       "Cómo llegar ›"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 13.5px | 400 | 16px tall",
+      "count": 14,
+      "examples": [
+       "De lectura",
+       "Armazones",
+       "Ofertas",
+       "Mayorista"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 12px | 400 | 14px tall",
+      "count": 4,
+      "examples": [
+       "Términos",
+       "Privacidad",
+       "Términos",
+       "Privacidad"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 11.5px | 400 | 14px tall",
+      "count": 4,
+      "examples": [
+       "Privacidad",
+       "Términos",
+       "Privacidad",
+       "Términos"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 15px | 600 | 17px tall",
+      "count": 1,
+      "examples": [
+       "Ver todas ›"
+      ]
+     }
+    ],
+    "note": "many visual treatments for one control type — check these are deliberate tiers (primary/secondary/tertiary) and not drift"
+   }
+  ],
+  "alignment": {
+   "readingEdge": "inline-start = left (LTR)",
+   "blocksMeasured": 56,
+   "distinctEdges": 11,
+   "dominantEdges": [
+    "15px ×20",
+    "0px ×9",
+    "16px ×5",
+    "26px ×4",
+    "202px ×4",
+    "211px ×4"
+   ],
+   "strayEdges": 1,
+   "note": "A handful of dominant edges carrying most blocks indicates a grid. A long tail of one-off edges is where visual noise comes from — check the stray ones first."
+  },
+  "chunking": [],
+  "responsiveness": {
+   "dohertyThresholdMs": 400,
+   "longTasksOver50ms": 0,
+   "slowInteractionEvents": [],
+   "skeletonElements": 0,
+   "spinnerElements": 0,
+   "loadingStrategy": "no loading affordance detected on this snapshot",
+   "note": "Event timings only cover interactions that happened while this page was open. Interact with the primary flow first, then re-run, or these will read empty."
+  },
+  "emphasis": {
+   "textElementsOnScreen": 31,
+   "boldOrHeavier": 16,
+   "proportionBold": "52%",
+   "largerThanMedian1_5x": 8,
+   "note": "over 40% of on-screen text is semibold or heavier — weight has stopped carrying hierarchy"
+  },
+  "affordance": {
+   "indistinctInlineLinks": [],
+   "noPointerCursor": []
+  },
+  "constraints": [],
+  "topBand": {
+   "heightExamined": "0–120px",
+   "elements": 25,
+   "interactive": 9,
+   "contentBearing": [
+    "Armazones",
+    "Armazones",
+    "Catálogo",
+    "Armazones",
+    "AC1050"
+   ],
+   "note": "Branding alone in this band costs the user a scroll before the first useful thing. Confirm the most-requested action or the key status is reachable without scrolling."
+  }
+ },
+ "inicio_1440_core": {
+  "url": "http://localhost:8811/",
+  "viewport": [
+   1440,
+   900
+  ],
+  "contrast": {
+   "checked": 77,
+   "measured": 77,
+   "unparseable": 0,
+   "failures": [],
+   "unverifiable": []
+  },
+  "tapTargets": {
+   "checked": 48,
+   "tooSmall": [
+    {
+     "text": "1",
+     "tag": "button",
+     "selector": "section#hdst > div.hdt > div.hdots > button.on",
+     "size": "30 x 8",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "2",
+     "tag": "button",
+     "selector": "section#hdst > div.hdt > div.hdots > button",
+     "size": "8 x 8",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "3",
+     "tag": "button",
+     "selector": "section#hdst > div.hdt > div.hdots > button",
+     "size": "8 x 8",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "4",
+     "tag": "button",
+     "selector": "section#hdst > div.hdt > div.hdots > button",
+     "size": "8 x 8",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Ver todos ›",
+     "tag": "a",
+     "selector": "div#home > div.hsh > a",
+     "size": "80 x 19",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Prefiero por e-mail",
+     "tag": "button",
+     "selector": "div#hnf > button.nlk",
+     "size": "136 x 19",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Cómo llegar ›",
+     "tag": "a",
+     "selector": "div.in > div > p > a.mp",
+     "size": "88 x 19",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Solar",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "33 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "De lectura",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "65 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Armazones",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "72 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Ofertas",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "47 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Mayorista",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "63 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Preguntas frecuentes",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "137 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Consejos y cuidados",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "133 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Contáctanos",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "81 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Términos",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div > a",
+     "size": "53 x 15",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Privacidad",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div > a",
+     "size": "60 x 15",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Privacidad",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div.frc > a",
+     "size": "57 x 14",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Términos",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div.frc > a",
+     "size": "50 x 14",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    }
+   ],
+   "between24and44": 2
+  },
+  "naming": {
+   "unnamed": [],
+   "pollutedNames": [],
+   "duplicateNames": [
+    {
+     "name": "términos",
+     "count": 2,
+     "destinations": [
+      "/termos.html",
+      "https://policies.google.com/terms"
+     ]
+    },
+    {
+     "name": "privacidad",
+     "count": 2,
+     "destinations": [
+      "/privacidade.html",
+      "https://policies.google.com/privacy"
+     ]
+    }
+   ]
+  },
+  "duplicateDestinations": [],
+  "head": {
+   "lang": "es-PY",
+   "dir": "ltr",
+   "title": "Catálogo La Fouch",
+   "description": "Catálogo online: reserve pelo WhatsApp e retire na loja.",
+   "viewport": "width=device-width,initial-scale=1,viewport-fit=cover",
+   "canonical": null,
+   "openGraph": [
+    "og:type",
+    "og:site_name",
+    "og:title",
+    "og:description",
+    "og:url",
+    "og:image",
+    "og:image:type",
+    "og:image:width",
+    "og:image:height",
+    "og:image:alt",
+    "og:locale"
+   ],
+   "twitter": [
+    "twitter:card",
+    "twitter:title",
+    "twitter:description",
+    "twitter:image"
+   ],
+   "hreflang": [],
+   "structuredData": 2
+  },
+  "structure": {
+   "h1Count": 1,
+   "outline": [
+    "H1: Solar hexagonal negro",
+    "H2: Comprá por categoría",
+    "H2: Novedades",
+    "H2: Empieza por aquí",
+    "H2: Para comerciantes",
+    "H3: Compra en cantidad",
+    "H2: Novedades y ofertas primero"
+   ],
+   "skippedLevels": [],
+   "landmarks": "main=1  nav=2  header=0  footer=1  aside=1  [role=main]=0  [role=navigation]=0",
+   "skipLink": true,
+   "imagesMissingAlt": [],
+   "totalImages": 39
+  },
+  "forms": [],
+  "disabledSubmits": [],
+  "layout": {
+   "horizontalOverflow": null,
+   "pageHeight": 3617,
+   "screensOfScroll": 4,
+   "overflowingElements": []
+  },
+  "performance": {
+   "ttfb": 1,
+   "domContentLoaded": 342,
+   "loadEvent": 509,
+   "paints": {
+    "first-paint": 144,
+    "first-contentful-paint": 144
+   },
+   "requestCount": 32,
+   "transferKB": 1580,
+   "note": "transferKB reads 0 for cached resources — hard-reload before trusting it"
+  }
+ },
+ "inicio_1440_heuristics": {
+  "url": "http://localhost:8811/",
+  "viewport": [
+   1440,
+   900
+  ],
+  "cognitiveLoad": {
+   "interactiveTotal": 48,
+   "interactiveFirstScreen": 20,
+   "hickIndexFirstScreen": 4.39,
+   "reference": "Typical well-scoped screen: 8–15 interactive targets on first view (index ~3.2–4.0). Density is not automatically wrong — an expert dashboard earns it. Ask whether the screen has one obvious primary task.",
+   "distinctTextBlocks": 1,
+   "navigationGroups": [],
+   "forms": [],
+   "longSelects": []
+  },
+  "fitts": {
+   "inputMode": "pointer (origin: viewport centre)",
+   "primaryActions": [
+    {
+     "text": "Ver Solar hexagonal negro",
+     "selector": "section#hdst > button.hdi",
+     "index": 0.89,
+     "distance": 323,
+     "width": 758,
+     "height": 378,
+     "reachability": "n/a"
+    },
+    {
+     "text": "Solar hexagonal negro",
+     "selector": "div.hdt > div.hth > button.on",
+     "index": 2.83,
+     "distance": 280,
+     "width": 64,
+     "height": 46,
+     "reachability": "n/a"
+    },
+    {
+     "text": "Armazón de acetato morado",
+     "selector": "div.hdt > div.hth > button",
+     "index": 3.11,
+     "distance": 350,
+     "width": 64,
+     "height": 46,
+     "reachability": "n/a"
+    },
+    {
+     "text": "Armazón redondo rosa",
+     "selector": "div.hdt > div.hth > button",
+     "index": 3.34,
+     "distance": 421,
+     "width": 64,
+     "height": 46,
+     "reachability": "n/a"
+    },
+    {
+     "text": "Lentes de lectura cuadrados negr",
+     "selector": "div.hdt > div.hth > button",
+     "index": 3.55,
+     "distance": 492,
+     "width": 64,
+     "height": 46,
+     "reachability": "n/a"
+    },
+    {
+     "text": "13 modelos Solar",
+     "selector": "div#home > div.hcat > a",
+     "index": 1.51,
+     "distance": 539,
+     "width": 429,
+     "height": 291,
+     "reachability": "n/a"
+    },
+    {
+     "text": "3 modelos De lectura",
+     "selector": "div#home > div.hcat > a",
+     "index": 1.03,
+     "distance": 304,
+     "width": 429,
+     "height": 291,
+     "reachability": "n/a"
+    },
+    {
+     "text": "4 modelos Armazones",
+     "selector": "div#home > div.hcat > a",
+     "index": 1.51,
+     "distance": 539,
+     "width": 429,
+     "height": 291,
+     "reachability": "n/a"
+    },
+    {
+     "text": "Hablar por WhatsApp",
+     "selector": "html.lite > body > a.wa",
+     "index": 3.75,
+     "distance": 775,
+     "width": 62,
+     "height": 62,
+     "reachability": "n/a"
+    }
+   ],
+   "competingPrimaries": {
+    "count": 9,
+    "labels": [
+     "Ver Solar hexagonal negro",
+     "Solar hexagonal negro",
+     "Armazón de acetato morado",
+     "Armazón redondo rosa",
+     "Lentes de lectura cuadrados negr",
+     "13 modelos Solar",
+     "3 modelos De lectura",
+     "4 modelos Armazones",
+     "Hablar por WhatsApp"
+    ],
+    "note": "More than one control styled as primary on one screen means none of them is. Give the intended action the filled treatment and demote the rest to outline or text."
+   },
+   "hardestTargets": [
+    {
+     "text": "4",
+     "selector": "div.hdt > div.hdots > button",
+     "index": 5.71,
+     "distance": 412,
+     "width": 8,
+     "height": 8
+    },
+    {
+     "text": "3",
+     "selector": "div.hdt > div.hdots > button",
+     "index": 5.66,
+     "distance": 398,
+     "width": 8,
+     "height": 8
+    },
+    {
+     "text": "2",
+     "selector": "div.hdt > div.hdots > button",
+     "index": 5.61,
+     "distance": 384,
+     "width": 8,
+     "height": 8
+    },
+    {
+     "text": "1",
+     "selector": "div.hdt > div.hdots > button.on",
+     "index": 5.52,
+     "distance": 359,
+     "width": 30,
+     "height": 8
+    },
+    {
+     "text": "Mi cuenta",
+     "selector": "button#contabtn",
+     "index": 4.01,
+     "distance": 695,
+     "width": 46,
+     "height": 52
+    },
+    {
+     "text": "Menú",
+     "selector": "button#mnb",
+     "index": 3.96,
+     "distance": 755,
+     "width": 52,
+     "height": 52
+    },
+    {
+     "text": "0",
+     "selector": "button#bagbtn",
+     "index": 3.96,
+     "distance": 755,
+     "width": 52,
+     "height": 52
+    },
+    {
+     "text": "Hablar por WhatsApp",
+     "selector": "html.lite > body > a.wa",
+     "index": 3.75,
+     "distance": 775,
+     "width": 62,
+     "height": 62
+    }
+   ]
+  },
+  "designSystem": {
+   "distinctFontSizes": {
+    "count": 14,
+    "verdict": "14 — above a typical type scale (10 or fewer); check whether these are tokens or one-off values",
+    "values": [
+     "16px ×49",
+     "13.5px ×26",
+     "14px ×12",
+     "12px ×10",
+     "15px ×7",
+     "13px ×7",
+     "28px ×6",
+     "11.5px ×5",
+     "22px ×3",
+     "20px ×3",
+     "11px ×2",
+     "40px ×2"
+    ]
+   },
+   "distinctFontWeights": {
+    "count": 5,
+    "values": [
+     "400 ×93",
+     "700 ×17",
+     "500 ×16",
+     "600 ×7",
+     "800 ×2"
+    ]
+   },
+   "distinctFontFamilies": {
+    "count": 2,
+    "values": [
+     "Inter ×119",
+     "Fraunces ×16"
+    ]
+   },
+   "distinctSpacingValues": {
+    "count": 24,
+    "verdict": "24 — above a typical spacing scale (14 or fewer); check whether these are tokens or one-off values",
+    "values": [
+     "12px ×61",
+     "16px ×21",
+     "8px ×19",
+     "10px ×17",
+     "2px ×17",
+     "6px ×13",
+     "5px ×11",
+     "1px ×9",
+     "18px ×9",
+     "normal 6px ×8",
+     "40px ×6",
+     "14px ×6"
+    ]
+   },
+   "distinctBorderRadii": {
+    "count": 9,
+    "verdict": "9 — above a typical radius scale (6 or fewer); check whether these are tokens or one-off values",
+    "values": [
+     "50% ×9",
+     "16px ×8",
+     "pill  ×7",
+     "18px ×6",
+     "12px ×4",
+     "8px ×4",
+     "14px ×3",
+     "24px ×1"
+    ]
+   },
+   "distinctTextColors": {
+    "count": 5,
+    "verdict": "5 — consistent",
+    "values": [
+     "rgb(42, 31, 39) ×66",
+     "rgb(107, 90, 102) ×48",
+     "rgb(141, 58, 105) ×19",
+     "rgb(255, 255, 255) ×1",
+     "rgb(211, 47, 47) ×1"
+    ]
+   },
+   "usesCustomProperties": 17,
+   "note": "Counts include third-party embeds. Cross-check a surprising number against the token file before reporting it."
+  },
+  "interactionStates": {
+   "ruleCounts": {
+    "hover": 19,
+    "focus": 2,
+    "focusVisible": 9,
+    "active": 27,
+    "disabled": 5,
+    "checked": 5,
+    "ariaExpanded": 0,
+    "ariaBusy": 0
+   },
+   "stylesheetsRead": 25,
+   "stylesheetsBlockedByCORS": 1,
+   "missing": [
+    "ariaExpanded",
+    "ariaBusy"
+   ],
+   "pointerCursorMissing": [],
+   "transitionsPresent": 6,
+   "liveRegions": 1,
+   "note": "1 stylesheet(s) unreadable (cross-origin) — the counts are a floor, not a total."
+  },
+  "microcopy": {
+   "fieldsTotal": 0,
+   "withHelperText": 0,
+   "withoutHelperText": [],
+   "placeholderAsOnlyLabel": [],
+   "requiredMarked": 0,
+   "errorContainers": 0,
+   "submitBlockedWithoutExplanation": []
+  },
+  "visualHierarchy": {
+   "largestTextOnScreen": {
+    "px": 40,
+    "text": "negro",
+    "tag": "EM"
+   },
+   "typeScaleSteps": [
+    40,
+    28,
+    24,
+    15,
+    13,
+    12,
+    11.5
+   ],
+   "medianBodySize": 13,
+   "headlineToBodyRatio": 3.08,
+   "ratioNote": "Below ~1.5 the headline does not separate from body text and the eye has no entry point. Above ~3 on a dense screen the jump can leave the middle of the hierarchy empty.",
+   "smallTextUnder12px": [
+    {
+     "text": "DESTACADO DE LA SEMANA",
+     "size": "11.5px"
+    }
+   ],
+   "requiresScreenshot": "Gestalt grouping, scan path, and whether the visual emphasis matches the task priority cannot be derived from the DOM. Capture the viewport and assess those separately."
+  }
+ },
+ "inicio_1440_perception": {
+  "url": "http://localhost:8811/",
+  "viewport": [
+   1440,
+   900
+  ],
+  "proximity": {
+   "uniformlySpacedGroups": [
+    {
+     "selector": "g.[object > g.[object > g.[object",
+     "children": 8,
+     "gap": "4px",
+     "note": "identical spacing throughout — no visual grouping is expressed"
+    }
+   ],
+   "orphanedHeadings": [
+    {
+     "heading": "Solar hexagonal negro",
+     "selector": "section#hdst > div.hdt > h1",
+     "spaceAbove": "10px",
+     "spaceBelow": "16px",
+     "note": "closer to the preceding block than to the content it labels — the eye groups it upward"
+    }
+   ]
+  },
+  "similarity": [
+   {
+    "role": "button",
+    "distinctTreatments": 10,
+    "variants": [
+     {
+      "style": "rgba(0, 0, 0, 0) | 14px | 16px | 400 | 52px tall",
+      "count": 3,
+      "examples": [
+       "Menú",
+       "0",
+       "Mi cuenta"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | pill | 16px | 400 | 52px tall",
+      "count": 1,
+      "examples": [
+       "Buscar"
+      ]
+     },
+     {
+      "style": "rgb(255, 255, 255) | 0px | 16px | 400 | 378px tall",
+      "count": 1,
+      "examples": [
+       "Ver Solar hexagonal negro"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | pill | 15px | 500 | 44px tall",
+      "count": 2,
+      "examples": [
+       "Ver modelo",
+       "Solicitar presupuesto"
+      ]
+     },
+     {
+      "style": "rgb(255, 255, 255) | 12px | 16px | 400 | 46px tall",
+      "count": 4,
+      "examples": [
+       "Solar hexagonal negro",
+       "Armazón de acetato morado",
+       "Armazón redondo rosa",
+       "Lentes de lectura cuadrados negros"
+      ]
+     },
+     {
+      "style": "rgb(255, 255, 255) | 16px | 16px | 400 | 322px tall",
+      "count": 4,
+      "examples": [
+       "Solar hexagonal negro Gs. 130.000",
+       "Armazón de acetato morado Gs. 118.",
+       "Armazón redondo rosa Gs. 105.000",
+       "Lentes de lectura cuadrados negros"
+      ]
+     },
+     {
+      "style": "rgb(255, 255, 255) | 16px | 16px | 400 | 352px tall",
+      "count": 4,
+      "examples": [
+       "Solar cuadrado dorado Gs. 148.000",
+       "ÚLTIMAS 2 UNIDADES Solar deportivo",
+       "Solar redondo negro Gs. 128.000",
+       "Solar gatito blanco Gs. 132.000"
+      ]
+     },
+     {
+      "style": "rgb(255, 255, 255) | 18px | 16px | 400 | 435px tall",
+      "count": 3,
+      "examples": [
+       "PRUEBA DE LECTURA Descubre tu grad",
+       "ESTILO El armazón ideal para tu ro",
+       "AYUDA Resuelve tus dudas Pago, ent"
+      ]
+     }
+    ],
+    "note": "many visual treatments for one control type — check these are deliberate tiers (primary/secondary/tertiary) and not drift"
+   },
+   {
+    "role": "link-styled-control",
+    "distinctTreatments": 9,
+    "variants": [
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 16px | 400 | 62px tall",
+      "count": 1,
+      "examples": [
+       "La Fouch, todo en lentes"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | pill | 15px | 500 | 44px tall",
+      "count": 1,
+      "examples": [
+       "Ver catálogo ›"
+      ]
+     },
+     {
+      "style": "rgb(255, 255, 255) | 18px | 16px | 400 | 291px tall",
+      "count": 3,
+      "examples": [
+       "13 modelos Solar",
+       "3 modelos De lectura",
+       "4 modelos Armazones"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 15px | 600 | 19px tall",
+      "count": 1,
+      "examples": [
+       "Ver todos ›"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 13.5px | 700 | 19px tall",
+      "count": 1,
+      "examples": [
+       "Cómo llegar ›"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 13.5px | 400 | 16px tall",
+      "count": 7,
+      "examples": [
+       "De lectura",
+       "Armazones",
+       "Ofertas",
+       "Mayorista"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 12px | 400 | 15px tall",
+      "count": 2,
+      "examples": [
+       "Términos",
+       "Privacidad"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 11.5px | 400 | 14px tall",
+      "count": 2,
+      "examples": [
+       "Privacidad",
+       "Términos"
+      ]
+     }
+    ],
+    "note": "many visual treatments for one control type — check these are deliberate tiers (primary/secondary/tertiary) and not drift"
+   }
+  ],
+  "alignment": {
+   "readingEdge": "inline-start = left (LTR)",
+   "blocksMeasured": 30,
+   "distinctEdges": 16,
+   "dominantEdges": [
+    "60px ×7",
+    "0px ×4",
+    "61px ×3",
+    "973px ×2",
+    "506px ×2",
+    "952px ×2"
+   ],
+   "strayEdges": 10,
+   "note": "A handful of dominant edges carrying most blocks indicates a grid. A long tail of one-off edges is where visual noise comes from — check the stray ones first."
+  },
+  "chunking": [],
+  "responsiveness": {
+   "dohertyThresholdMs": 400,
+   "longTasksOver50ms": 0,
+   "slowInteractionEvents": [],
+   "skeletonElements": 0,
+   "spinnerElements": 0,
+   "loadingStrategy": "no loading affordance detected on this snapshot",
+   "note": "Event timings only cover interactions that happened while this page was open. Interact with the primary flow first, then re-run, or these will read empty."
+  },
+  "emphasis": {
+   "textElementsOnScreen": 11,
+   "boldOrHeavier": 8,
+   "proportionBold": "73%",
+   "largerThanMedian1_5x": 3,
+   "note": "over 40% of on-screen text is semibold or heavier — weight has stopped carrying hierarchy"
+  },
+  "affordance": {
+   "indistinctInlineLinks": [],
+   "noPointerCursor": []
+  },
+  "constraints": [],
+  "topBand": {
+   "heightExamined": "0–120px",
+   "elements": 14,
+   "interactive": 6,
+   "contentBearing": [],
+   "note": "Branding alone in this band costs the user a scroll before the first useful thing. Confirm the most-requested action or the key status is reachable without scrolling."
+  }
+ },
+ "catalogo_1440_core": {
+  "url": "http://localhost:8811/",
+  "viewport": [
+   1440,
+   900
+  ],
+  "contrast": {
+   "checked": 77,
+   "measured": 77,
+   "unparseable": 0,
+   "failures": [],
+   "unverifiable": []
+  },
+  "tapTargets": {
+   "checked": 48,
+   "tooSmall": [
+    {
+     "text": "1",
+     "tag": "button",
+     "selector": "section#hdst > div.hdt > div.hdots > button.on",
+     "size": "30 x 8",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "2",
+     "tag": "button",
+     "selector": "section#hdst > div.hdt > div.hdots > button",
+     "size": "8 x 8",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "3",
+     "tag": "button",
+     "selector": "section#hdst > div.hdt > div.hdots > button",
+     "size": "8 x 8",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "4",
+     "tag": "button",
+     "selector": "section#hdst > div.hdt > div.hdots > button",
+     "size": "8 x 8",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Ver todos ›",
+     "tag": "a",
+     "selector": "div#home > div.hsh > a",
+     "size": "80 x 19",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Prefiero por e-mail",
+     "tag": "button",
+     "selector": "div#hnf > button.nlk",
+     "size": "136 x 19",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Cómo llegar ›",
+     "tag": "a",
+     "selector": "div.in > div > p > a.mp",
+     "size": "88 x 19",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Solar",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "33 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "De lectura",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "65 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Armazones",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "72 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Ofertas",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "47 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Mayorista",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "63 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Preguntas frecuentes",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "137 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Consejos y cuidados",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "133 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Contáctanos",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "81 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Términos",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div > a",
+     "size": "53 x 15",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Privacidad",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div > a",
+     "size": "60 x 15",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Privacidad",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div.frc > a",
+     "size": "57 x 14",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Términos",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div.frc > a",
+     "size": "50 x 14",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    }
+   ],
+   "between24and44": 2
+  },
+  "naming": {
+   "unnamed": [],
+   "pollutedNames": [],
+   "duplicateNames": [
+    {
+     "name": "términos",
+     "count": 2,
+     "destinations": [
+      "/termos.html",
+      "https://policies.google.com/terms"
+     ]
+    },
+    {
+     "name": "privacidad",
+     "count": 2,
+     "destinations": [
+      "/privacidade.html",
+      "https://policies.google.com/privacy"
+     ]
+    }
+   ]
+  },
+  "duplicateDestinations": [],
+  "head": {
+   "lang": "es-PY",
+   "dir": "ltr",
+   "title": "Catálogo La Fouch",
+   "description": "Catálogo online: reserve pelo WhatsApp e retire na loja.",
+   "viewport": "width=device-width,initial-scale=1,viewport-fit=cover",
+   "canonical": null,
+   "openGraph": [
+    "og:type",
+    "og:site_name",
+    "og:title",
+    "og:description",
+    "og:url",
+    "og:image",
+    "og:image:type",
+    "og:image:width",
+    "og:image:height",
+    "og:image:alt",
+    "og:locale"
+   ],
+   "twitter": [
+    "twitter:card",
+    "twitter:title",
+    "twitter:description",
+    "twitter:image"
+   ],
+   "hreflang": [],
+   "structuredData": 2
+  },
+  "structure": {
+   "h1Count": 1,
+   "outline": [
+    "H1: Solar hexagonal negro",
+    "H2: Comprá por categoría",
+    "H2: Novedades",
+    "H2: Empieza por aquí",
+    "H2: Para comerciantes",
+    "H3: Compra en cantidad",
+    "H2: Novedades y ofertas primero"
+   ],
+   "skippedLevels": [],
+   "landmarks": "main=1  nav=2  header=0  footer=1  aside=1  [role=main]=0  [role=navigation]=0",
+   "skipLink": true,
+   "imagesMissingAlt": [],
+   "totalImages": 39
+  },
+  "forms": [],
+  "disabledSubmits": [],
+  "layout": {
+   "horizontalOverflow": null,
+   "pageHeight": 3617,
+   "screensOfScroll": 4,
+   "overflowingElements": []
+  },
+  "performance": {
+   "ttfb": 1,
+   "domContentLoaded": 259,
+   "loadEvent": 343,
+   "paints": {
+    "first-paint": 108,
+    "first-contentful-paint": 160
+   },
+   "requestCount": 32,
+   "transferKB": 1580,
+   "note": "transferKB reads 0 for cached resources — hard-reload before trusting it"
+  }
+ },
+ "catalogo_1440_heuristics": {
+  "url": "http://localhost:8811/",
+  "viewport": [
+   1440,
+   900
+  ],
+  "cognitiveLoad": {
+   "interactiveTotal": 48,
+   "interactiveFirstScreen": 20,
+   "hickIndexFirstScreen": 4.39,
+   "reference": "Typical well-scoped screen: 8–15 interactive targets on first view (index ~3.2–4.0). Density is not automatically wrong — an expert dashboard earns it. Ask whether the screen has one obvious primary task.",
+   "distinctTextBlocks": 1,
+   "navigationGroups": [],
+   "forms": [],
+   "longSelects": []
+  },
+  "fitts": {
+   "inputMode": "pointer (origin: viewport centre)",
+   "primaryActions": [
+    {
+     "text": "Ver Solar hexagonal negro",
+     "selector": "section#hdst > button.hdi",
+     "index": 0.89,
+     "distance": 323,
+     "width": 758,
+     "height": 378,
+     "reachability": "n/a"
+    },
+    {
+     "text": "Solar hexagonal negro",
+     "selector": "div.hdt > div.hth > button.on",
+     "index": 2.83,
+     "distance": 280,
+     "width": 64,
+     "height": 46,
+     "reachability": "n/a"
+    },
+    {
+     "text": "Armazón de acetato morado",
+     "selector": "div.hdt > div.hth > button",
+     "index": 3.11,
+     "distance": 350,
+     "width": 64,
+     "height": 46,
+     "reachability": "n/a"
+    },
+    {
+     "text": "Armazón redondo rosa",
+     "selector": "div.hdt > div.hth > button",
+     "index": 3.34,
+     "distance": 421,
+     "width": 64,
+     "height": 46,
+     "reachability": "n/a"
+    },
+    {
+     "text": "Lentes de lectura cuadrados negr",
+     "selector": "div.hdt > div.hth > button",
+     "index": 3.55,
+     "distance": 492,
+     "width": 64,
+     "height": 46,
+     "reachability": "n/a"
+    },
+    {
+     "text": "13 modelos Solar",
+     "selector": "div#home > div.hcat > a",
+     "index": 1.51,
+     "distance": 539,
+     "width": 429,
+     "height": 291,
+     "reachability": "n/a"
+    },
+    {
+     "text": "3 modelos De lectura",
+     "selector": "div#home > div.hcat > a",
+     "index": 1.03,
+     "distance": 304,
+     "width": 429,
+     "height": 291,
+     "reachability": "n/a"
+    },
+    {
+     "text": "4 modelos Armazones",
+     "selector": "div#home > div.hcat > a",
+     "index": 1.51,
+     "distance": 539,
+     "width": 429,
+     "height": 291,
+     "reachability": "n/a"
+    },
+    {
+     "text": "Hablar por WhatsApp",
+     "selector": "html.lite > body > a.wa",
+     "index": 3.75,
+     "distance": 775,
+     "width": 62,
+     "height": 62,
+     "reachability": "n/a"
+    }
+   ],
+   "competingPrimaries": {
+    "count": 9,
+    "labels": [
+     "Ver Solar hexagonal negro",
+     "Solar hexagonal negro",
+     "Armazón de acetato morado",
+     "Armazón redondo rosa",
+     "Lentes de lectura cuadrados negr",
+     "13 modelos Solar",
+     "3 modelos De lectura",
+     "4 modelos Armazones",
+     "Hablar por WhatsApp"
+    ],
+    "note": "More than one control styled as primary on one screen means none of them is. Give the intended action the filled treatment and demote the rest to outline or text."
+   },
+   "hardestTargets": [
+    {
+     "text": "4",
+     "selector": "div.hdt > div.hdots > button",
+     "index": 5.71,
+     "distance": 412,
+     "width": 8,
+     "height": 8
+    },
+    {
+     "text": "3",
+     "selector": "div.hdt > div.hdots > button",
+     "index": 5.66,
+     "distance": 398,
+     "width": 8,
+     "height": 8
+    },
+    {
+     "text": "2",
+     "selector": "div.hdt > div.hdots > button",
+     "index": 5.61,
+     "distance": 384,
+     "width": 8,
+     "height": 8
+    },
+    {
+     "text": "1",
+     "selector": "div.hdt > div.hdots > button.on",
+     "index": 5.52,
+     "distance": 359,
+     "width": 30,
+     "height": 8
+    },
+    {
+     "text": "Mi cuenta",
+     "selector": "button#contabtn",
+     "index": 4.01,
+     "distance": 695,
+     "width": 46,
+     "height": 52
+    },
+    {
+     "text": "Menú",
+     "selector": "button#mnb",
+     "index": 3.96,
+     "distance": 755,
+     "width": 52,
+     "height": 52
+    },
+    {
+     "text": "0",
+     "selector": "button#bagbtn",
+     "index": 3.96,
+     "distance": 755,
+     "width": 52,
+     "height": 52
+    },
+    {
+     "text": "Hablar por WhatsApp",
+     "selector": "html.lite > body > a.wa",
+     "index": 3.75,
+     "distance": 775,
+     "width": 62,
+     "height": 62
+    }
+   ]
+  },
+  "designSystem": {
+   "distinctFontSizes": {
+    "count": 14,
+    "verdict": "14 — above a typical type scale (10 or fewer); check whether these are tokens or one-off values",
+    "values": [
+     "16px ×49",
+     "13.5px ×26",
+     "14px ×12",
+     "12px ×10",
+     "15px ×7",
+     "13px ×7",
+     "28px ×6",
+     "11.5px ×5",
+     "22px ×3",
+     "20px ×3",
+     "11px ×2",
+     "40px ×2"
+    ]
+   },
+   "distinctFontWeights": {
+    "count": 5,
+    "values": [
+     "400 ×93",
+     "700 ×17",
+     "500 ×16",
+     "600 ×7",
+     "800 ×2"
+    ]
+   },
+   "distinctFontFamilies": {
+    "count": 2,
+    "values": [
+     "Inter ×119",
+     "Fraunces ×16"
+    ]
+   },
+   "distinctSpacingValues": {
+    "count": 24,
+    "verdict": "24 — above a typical spacing scale (14 or fewer); check whether these are tokens or one-off values",
+    "values": [
+     "12px ×61",
+     "16px ×21",
+     "8px ×19",
+     "10px ×17",
+     "2px ×17",
+     "6px ×13",
+     "5px ×11",
+     "1px ×9",
+     "18px ×9",
+     "normal 6px ×8",
+     "40px ×6",
+     "14px ×6"
+    ]
+   },
+   "distinctBorderRadii": {
+    "count": 9,
+    "verdict": "9 — above a typical radius scale (6 or fewer); check whether these are tokens or one-off values",
+    "values": [
+     "50% ×9",
+     "16px ×8",
+     "pill  ×7",
+     "18px ×6",
+     "12px ×4",
+     "8px ×4",
+     "14px ×3",
+     "24px ×1"
+    ]
+   },
+   "distinctTextColors": {
+    "count": 5,
+    "verdict": "5 — consistent",
+    "values": [
+     "rgb(42, 31, 39) ×66",
+     "rgb(107, 90, 102) ×48",
+     "rgb(141, 58, 105) ×19",
+     "rgb(255, 255, 255) ×1",
+     "rgb(211, 47, 47) ×1"
+    ]
+   },
+   "usesCustomProperties": 17,
+   "note": "Counts include third-party embeds. Cross-check a surprising number against the token file before reporting it."
+  },
+  "interactionStates": {
+   "ruleCounts": {
+    "hover": 19,
+    "focus": 2,
+    "focusVisible": 9,
+    "active": 27,
+    "disabled": 5,
+    "checked": 5,
+    "ariaExpanded": 0,
+    "ariaBusy": 0
+   },
+   "stylesheetsRead": 25,
+   "stylesheetsBlockedByCORS": 1,
+   "missing": [
+    "ariaExpanded",
+    "ariaBusy"
+   ],
+   "pointerCursorMissing": [],
+   "transitionsPresent": 6,
+   "liveRegions": 1,
+   "note": "1 stylesheet(s) unreadable (cross-origin) — the counts are a floor, not a total."
+  },
+  "microcopy": {
+   "fieldsTotal": 0,
+   "withHelperText": 0,
+   "withoutHelperText": [],
+   "placeholderAsOnlyLabel": [],
+   "requiredMarked": 0,
+   "errorContainers": 0,
+   "submitBlockedWithoutExplanation": []
+  },
+  "visualHierarchy": {
+   "largestTextOnScreen": {
+    "px": 40,
+    "text": "negro",
+    "tag": "EM"
+   },
+   "typeScaleSteps": [
+    40,
+    28,
+    24,
+    15,
+    13,
+    12,
+    11.5
+   ],
+   "medianBodySize": 13,
+   "headlineToBodyRatio": 3.08,
+   "ratioNote": "Below ~1.5 the headline does not separate from body text and the eye has no entry point. Above ~3 on a dense screen the jump can leave the middle of the hierarchy empty.",
+   "smallTextUnder12px": [
+    {
+     "text": "DESTACADO DE LA SEMANA",
+     "size": "11.5px"
+    }
+   ],
+   "requiresScreenshot": "Gestalt grouping, scan path, and whether the visual emphasis matches the task priority cannot be derived from the DOM. Capture the viewport and assess those separately."
+  }
+ },
+ "catalogo_1440_perception": {
+  "url": "http://localhost:8811/",
+  "viewport": [
+   1440,
+   900
+  ],
+  "proximity": {
+   "uniformlySpacedGroups": [
+    {
+     "selector": "g.[object > g.[object > g.[object",
+     "children": 8,
+     "gap": "4px",
+     "note": "identical spacing throughout — no visual grouping is expressed"
+    }
+   ],
+   "orphanedHeadings": [
+    {
+     "heading": "Solar hexagonal negro",
+     "selector": "section#hdst > div.hdt > h1",
+     "spaceAbove": "10px",
+     "spaceBelow": "16px",
+     "note": "closer to the preceding block than to the content it labels — the eye groups it upward"
+    }
+   ]
+  },
+  "similarity": [
+   {
+    "role": "button",
+    "distinctTreatments": 10,
+    "variants": [
+     {
+      "style": "rgba(0, 0, 0, 0) | 14px | 16px | 400 | 52px tall",
+      "count": 3,
+      "examples": [
+       "Menú",
+       "0",
+       "Mi cuenta"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | pill | 16px | 400 | 52px tall",
+      "count": 1,
+      "examples": [
+       "Buscar"
+      ]
+     },
+     {
+      "style": "rgb(255, 255, 255) | 0px | 16px | 400 | 378px tall",
+      "count": 1,
+      "examples": [
+       "Ver Solar hexagonal negro"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | pill | 15px | 500 | 44px tall",
+      "count": 2,
+      "examples": [
+       "Ver modelo",
+       "Solicitar presupuesto"
+      ]
+     },
+     {
+      "style": "rgb(255, 255, 255) | 12px | 16px | 400 | 46px tall",
+      "count": 4,
+      "examples": [
+       "Solar hexagonal negro",
+       "Armazón de acetato morado",
+       "Armazón redondo rosa",
+       "Lentes de lectura cuadrados negros"
+      ]
+     },
+     {
+      "style": "rgb(255, 255, 255) | 16px | 16px | 400 | 322px tall",
+      "count": 4,
+      "examples": [
+       "Solar hexagonal negro Gs. 130.000",
+       "Armazón de acetato morado Gs. 118.",
+       "Armazón redondo rosa Gs. 105.000",
+       "Lentes de lectura cuadrados negros"
+      ]
+     },
+     {
+      "style": "rgb(255, 255, 255) | 16px | 16px | 400 | 352px tall",
+      "count": 4,
+      "examples": [
+       "Solar cuadrado dorado Gs. 148.000",
+       "ÚLTIMAS 2 UNIDADES Solar deportivo",
+       "Solar redondo negro Gs. 128.000",
+       "Solar gatito blanco Gs. 132.000"
+      ]
+     },
+     {
+      "style": "rgb(255, 255, 255) | 18px | 16px | 400 | 435px tall",
+      "count": 3,
+      "examples": [
+       "PRUEBA DE LECTURA Descubre tu grad",
+       "ESTILO El armazón ideal para tu ro",
+       "AYUDA Resuelve tus dudas Pago, ent"
+      ]
+     }
+    ],
+    "note": "many visual treatments for one control type — check these are deliberate tiers (primary/secondary/tertiary) and not drift"
+   },
+   {
+    "role": "link-styled-control",
+    "distinctTreatments": 9,
+    "variants": [
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 16px | 400 | 62px tall",
+      "count": 1,
+      "examples": [
+       "La Fouch, todo en lentes"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | pill | 15px | 500 | 44px tall",
+      "count": 1,
+      "examples": [
+       "Ver catálogo ›"
+      ]
+     },
+     {
+      "style": "rgb(255, 255, 255) | 18px | 16px | 400 | 291px tall",
+      "count": 3,
+      "examples": [
+       "13 modelos Solar",
+       "3 modelos De lectura",
+       "4 modelos Armazones"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 15px | 600 | 19px tall",
+      "count": 1,
+      "examples": [
+       "Ver todos ›"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 13.5px | 700 | 19px tall",
+      "count": 1,
+      "examples": [
+       "Cómo llegar ›"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 13.5px | 400 | 16px tall",
+      "count": 7,
+      "examples": [
+       "De lectura",
+       "Armazones",
+       "Ofertas",
+       "Mayorista"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 12px | 400 | 15px tall",
+      "count": 2,
+      "examples": [
+       "Términos",
+       "Privacidad"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 11.5px | 400 | 14px tall",
+      "count": 2,
+      "examples": [
+       "Privacidad",
+       "Términos"
+      ]
+     }
+    ],
+    "note": "many visual treatments for one control type — check these are deliberate tiers (primary/secondary/tertiary) and not drift"
+   }
+  ],
+  "alignment": {
+   "readingEdge": "inline-start = left (LTR)",
+   "blocksMeasured": 30,
+   "distinctEdges": 16,
+   "dominantEdges": [
+    "60px ×7",
+    "0px ×4",
+    "61px ×3",
+    "973px ×2",
+    "506px ×2",
+    "952px ×2"
+   ],
+   "strayEdges": 10,
+   "note": "A handful of dominant edges carrying most blocks indicates a grid. A long tail of one-off edges is where visual noise comes from — check the stray ones first."
+  },
+  "chunking": [],
+  "responsiveness": {
+   "dohertyThresholdMs": 400,
+   "longTasksOver50ms": 0,
+   "slowInteractionEvents": [],
+   "skeletonElements": 0,
+   "spinnerElements": 0,
+   "loadingStrategy": "no loading affordance detected on this snapshot",
+   "note": "Event timings only cover interactions that happened while this page was open. Interact with the primary flow first, then re-run, or these will read empty."
+  },
+  "emphasis": {
+   "textElementsOnScreen": 11,
+   "boldOrHeavier": 8,
+   "proportionBold": "73%",
+   "largerThanMedian1_5x": 3,
+   "note": "over 40% of on-screen text is semibold or heavier — weight has stopped carrying hierarchy"
+  },
+  "affordance": {
+   "indistinctInlineLinks": [],
+   "noPointerCursor": []
+  },
+  "constraints": [],
+  "topBand": {
+   "heightExamined": "0–120px",
+   "elements": 14,
+   "interactive": 6,
+   "contentBearing": [],
+   "note": "Branding alone in this band costs the user a scroll before the first useful thing. Confirm the most-requested action or the key status is reachable without scrolling."
+  }
+ },
+ "peca_1440_core": {
+  "url": "http://localhost:8811/modelo/AC1050",
+  "viewport": [
+   1440,
+   900
+  ],
+  "contrast": {
+   "checked": 99,
+   "measured": 99,
+   "unparseable": 0,
+   "failures": [],
+   "unverifiable": [
+    {
+     "text": "Comprar",
+     "selector": "div.buy > div.buyrow > button.bb > span",
+     "fontSize": "16px",
+     "fontWeight": "700",
+     "color": "rgb(255, 255, 255)",
+     "background": "rgb(251, 247, 250)",
+     "ratio": 1.06,
+     "required": 4.5,
+     "warning": "background-image/gradient in stack: linear-gradient(125deg, rgb(111, 34, 80), rgb(180, 82, 138) "
+    }
+   ]
+  },
+  "tapTargets": {
+   "checked": 60,
+   "tooSmall": [
+    {
+     "text": "Filtros ›",
+     "tag": "a",
+     "selector": "div#lfgen > a.lfgf",
+     "size": "51 x 17",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Cómo llegar ›",
+     "tag": "a",
+     "selector": "div.in > div > p > a.mp",
+     "size": "88 x 19",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Solar",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "33 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "De lectura",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "65 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Armazones",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "72 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Ofertas",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "47 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Mayorista",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "63 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Preguntas frecuentes",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "137 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Consejos y cuidados",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "133 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Contáctanos",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "81 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Términos",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div > a",
+     "size": "53 x 15",
+     "exemptInlineLink": true,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Privacidad",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div > a",
+     "size": "60 x 15",
+     "exemptInlineLink": true,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Privacidad",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div.frc > a",
+     "size": "57 x 14",
+     "exemptInlineLink": true,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Términos",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div.frc > a",
+     "size": "50 x 14",
+     "exemptInlineLink": true,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Catálogo",
+     "tag": "button",
+     "selector": "div.scrim > div.pgbar > span.pgcr > button",
+     "size": "57 x 22",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Armazones",
+     "tag": "button",
+     "selector": "div.scrim > div.pgbar > span.pgcr > button",
+     "size": "72 x 22",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Ver todas ›",
+     "tag": "a",
+     "selector": "div.modal > div.rel > b.navrh > a.navv",
+     "size": "79 x 19",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Cómo llegar ›",
+     "tag": "a",
+     "selector": "div.in > div > p > a.mp",
+     "size": "88 x 19",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Solar",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "33 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "De lectura",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "65 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Armazones",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "72 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Ofertas",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "47 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Mayorista",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "63 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Preguntas frecuentes",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "137 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Consejos y cuidados",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "133 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Contáctanos",
+     "tag": "a",
+     "selector": "div.in > div > p > a",
+     "size": "81 x 16",
+     "exemptInlineLink": false,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Términos",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div > a",
+     "size": "53 x 15",
+     "exemptInlineLink": true,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Privacidad",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div > a",
+     "size": "60 x 15",
+     "exemptInlineLink": true,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Privacidad",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div.frc > a",
+     "size": "57 x 14",
+     "exemptInlineLink": true,
+     "belowRecommended44": true
+    },
+    {
+     "text": "Términos",
+     "tag": "a",
+     "selector": "div.lfft > div.fbt > div.frc > a",
+     "size": "50 x 14",
+     "exemptInlineLink": true,
+     "belowRecommended44": true
+    }
+   ],
+   "between24and44": 13
+  },
+  "naming": {
+   "unnamed": [],
+   "pollutedNames": [],
+   "duplicateNames": [
+    {
+     "name": "términos",
+     "count": 4,
+     "destinations": [
+      "/termos.html",
+      "https://policies.google.com/terms"
+     ]
+    },
+    {
+     "name": "privacidad",
+     "count": 4,
+     "destinations": [
+      "/privacidade.html",
+      "https://policies.google.com/privacy"
+     ]
+    }
+   ]
+  },
+  "duplicateDestinations": [],
+  "head": {
+   "lang": "es-PY",
+   "dir": "ltr",
+   "title": "Armazón de acetato morado (AC1050) · La Fouch",
+   "description": "Catálogo online: reserve pelo WhatsApp e retire na loja.",
+   "viewport": "width=device-width,initial-scale=1,viewport-fit=cover",
+   "canonical": null,
+   "openGraph": [
+    "og:type",
+    "og:site_name",
+    "og:title",
+    "og:description",
+    "og:url",
+    "og:image",
+    "og:image:type",
+    "og:image:width",
+    "og:image:height",
+    "og:image:alt",
+    "og:locale"
+   ],
+   "twitter": [
+    "twitter:card",
+    "twitter:title",
+    "twitter:description",
+    "twitter:image"
+   ],
+   "hreflang": [],
+   "structuredData": 2
+  },
+  "structure": {
+   "h1Count": 0,
+   "outline": [
+    "H2: Armazón de acetato morado"
+   ],
+   "skippedLevels": [],
+   "landmarks": "main=1  nav=2  header=1  footer=1  aside=1  [role=main]=0  [role=navigation]=0",
+   "skipLink": true,
+   "imagesMissingAlt": [],
+   "totalImages": 27
+  },
+  "forms": [],
+  "disabledSubmits": [],
+  "layout": {
+   "horizontalOverflow": null,
+   "pageHeight": 3536,
+   "screensOfScroll": 3.9,
+   "overflowingElements": []
+  },
+  "performance": {
+   "ttfb": 1,
+   "domContentLoaded": 300,
+   "loadEvent": 432,
+   "paints": {
+    "first-paint": 88,
+    "first-contentful-paint": 136
+   },
+   "requestCount": 37,
+   "transferKB": 1641,
+   "note": "transferKB reads 0 for cached resources — hard-reload before trusting it"
+  }
+ },
+ "peca_1440_heuristics": {
+  "url": "http://localhost:8811/modelo/AC1050",
+  "viewport": [
+   1440,
+   900
+  ],
+  "cognitiveLoad": {
+   "interactiveTotal": 60,
+   "interactiveFirstScreen": 41,
+   "hickIndexFirstScreen": 5.39,
+   "reference": "Typical well-scoped screen: 8–15 interactive targets on first view (index ~3.2–4.0). Density is not automatically wrong — an expert dashboard earns it. Ask whether the screen has one obvious primary task.",
+   "distinctTextBlocks": 7,
+   "navigationGroups": [],
+   "forms": [],
+   "longSelects": []
+  },
+  "fitts": {
+   "inputMode": "pointer (origin: viewport centre)",
+   "primaryActions": [
+    {
+     "text": "Morado",
+     "selector": "section.dsec > div.cth > button.on",
+     "index": 2.07,
+     "distance": 243,
+     "width": 76,
+     "height": 76,
+     "reachability": "n/a"
+    }
+   ],
+   "competingPrimaries": null,
+   "hardestTargets": [
+    {
+     "text": "Filtros ›",
+     "selector": "div#lfgen > a.lfgf",
+     "index": 5.46,
+     "distance": 730,
+     "width": 51,
+     "height": 17
+    },
+    {
+     "text": "Cómo llegar ›",
+     "selector": "div > p > a.mp",
+     "index": 5.28,
+     "distance": 715,
+     "width": 88,
+     "height": 19
+    },
+    {
+     "text": "Términos",
+     "selector": "div.fbt > div > a",
+     "index": 4.99,
+     "distance": 462,
+     "width": 53,
+     "height": 15
+    },
+    {
+     "text": "Consejos y cuidados",
+     "selector": "div > p > a",
+     "index": 4.98,
+     "distance": 488,
+     "width": 133,
+     "height": 16
+    },
+    {
+     "text": "Contáctanos",
+     "selector": "div > p > a",
+     "index": 4.97,
+     "distance": 487,
+     "width": 81,
+     "height": 16
+    },
+    {
+     "text": "Privacidad",
+     "selector": "div.fbt > div > a",
+     "index": 4.97,
+     "distance": 454,
+     "width": 60,
+     "height": 15
+    },
+    {
+     "text": "Preguntas frecuentes",
+     "selector": "div > p > a",
+     "index": 4.93,
+     "distance": 473,
+     "width": 137,
+     "height": 16
+    },
+    {
+     "text": "Catálogo",
+     "selector": "div.pgbar > span.pgcr > button",
+     "index": 4.92,
+     "distance": 630,
+     "width": 57,
+     "height": 22
+    }
+   ]
+  },
+  "designSystem": {
+   "distinctFontSizes": {
+    "count": 15,
+    "verdict": "15 — above a typical type scale (10 or fewer); check whether these are tokens or one-off values",
+    "values": [
+     "16px ×59",
+     "13.5px ×58",
+     "12px ×21",
+     "14px ×14",
+     "11px ×9",
+     "15px ×8",
+     "11.5px ×6",
+     "26px ×5",
+     "24px ×5",
+     "17px ×4",
+     "22px ×3",
+     "18px ×2"
+    ]
+   },
+   "distinctFontWeights": {
+    "count": 6,
+    "values": [
+     "400 ×141",
+     "700 ×24",
+     "600 ×15",
+     "800 ×10",
+     "500 ×6",
+     "900 ×1"
+    ]
+   },
+   "distinctFontFamilies": {
+    "count": 2,
+    "values": [
+     "Inter ×189",
+     "Fraunces ×8"
+    ]
+   },
+   "distinctSpacingValues": {
+    "count": 24,
+    "verdict": "24 — above a typical spacing scale (14 or fewer); check whether these are tokens or one-off values",
+    "values": [
+     "6px ×33",
+     "8px ×28",
+     "1px ×20",
+     "12px ×19",
+     "10px ×18",
+     "2px ×17",
+     "16px ×11",
+     "4px ×10",
+     "18px ×6",
+     "22px ×4",
+     "13px ×4",
+     "57.6px ×3"
+    ]
+   },
+   "distinctBorderRadii": {
+    "count": 9,
+    "verdict": "9 — above a typical radius scale (6 or fewer); check whether these are tokens or one-off values",
+    "values": [
+     "50% ×13",
+     "pill  ×11",
+     "14px ×6",
+     "10px ×5",
+     "20px ×4",
+     "12px ×4",
+     "16px ×4",
+     "99px ×2"
+    ]
+   },
+   "distinctTextColors": {
+    "count": 7,
+    "verdict": "7 — consistent",
+    "values": [
+     "rgb(107, 90, 102) ×94",
+     "rgb(42, 31, 39) ×82",
+     "rgb(141, 58, 105) ×9",
+     "rgb(20, 128, 63) ×5",
+     "rgb(255, 255, 255) ×4",
+     "rgb(211, 47, 47) ×2",
+     "rgb(122, 42, 89) ×1"
+    ]
+   },
+   "usesCustomProperties": 21,
+   "note": "Counts include third-party embeds. Cross-check a surprising number against the token file before reporting it."
+  },
+  "interactionStates": {
+   "ruleCounts": {
+    "hover": 19,
+    "focus": 2,
+    "focusVisible": 9,
+    "active": 27,
+    "disabled": 5,
+    "checked": 5,
+    "ariaExpanded": 0,
+    "ariaBusy": 0
+   },
+   "stylesheetsRead": 25,
+   "stylesheetsBlockedByCORS": 1,
+   "missing": [
+    "ariaExpanded",
+    "ariaBusy"
+   ],
+   "pointerCursorMissing": [],
+   "transitionsPresent": 22,
+   "liveRegions": 1,
+   "note": "1 stylesheet(s) unreadable (cross-origin) — the counts are a floor, not a total."
+  },
+  "microcopy": {
+   "fieldsTotal": 0,
+   "withHelperText": 0,
+   "withoutHelperText": [],
+   "placeholderAsOnlyLabel": [],
+   "requiredMarked": 0,
+   "errorContainers": 0,
+   "submitBlockedWithoutExplanation": []
+  },
+  "visualHierarchy": {
+   "largestTextOnScreen": {
+    "px": 46.08,
+    "text": "Armazón de acetato morado",
+    "tag": "H2"
+   },
+   "typeScaleSteps": [
+    46.08,
+    34,
+    26,
+    24,
+    17,
+    16,
+    15,
+    14,
+    13.5,
+    12
+   ],
+   "medianBodySize": 14,
+   "headlineToBodyRatio": 3.29,
+   "ratioNote": "Below ~1.5 the headline does not separate from body text and the eye has no entry point. Above ~3 on a dense screen the jump can leave the middle of the hierarchy empty.",
+   "smallTextUnder12px": [
+    {
+     "text": "Llegó esta semana",
+     "size": "9px"
+    },
+    {
+     "text": "Lente",
+     "size": "11px"
+    },
+    {
+     "text": "Puente",
+     "size": "11px"
+    },
+    {
+     "text": "Varilla",
+     "size": "11px"
+    }
+   ],
+   "requiresScreenshot": "Gestalt grouping, scan path, and whether the visual emphasis matches the task priority cannot be derived from the DOM. Capture the viewport and assess those separately."
+  }
+ },
+ "peca_1440_perception": {
+  "url": "http://localhost:8811/modelo/AC1050",
+  "viewport": [
+   1440,
+   900
+  ],
+  "proximity": {
+   "uniformlySpacedGroups": [],
+   "orphanedHeadings": []
+  },
+  "similarity": [
+   {
+    "role": "button",
+    "distinctTreatments": 13,
+    "variants": [
+     {
+      "style": "rgba(0, 0, 0, 0) | 14px | 16px | 400 | 52px tall",
+      "count": 3,
+      "examples": [
+       "Menú",
+       "0",
+       "Mi cuenta"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | pill | 16px | 400 | 52px tall",
+      "count": 1,
+      "examples": [
+       "Buscar"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 10px | 15px | 600 | 32px tall",
+      "count": 1,
+      "examples": [
+       "Inicio"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 15px | 500 | 32px tall",
+      "count": 4,
+      "examples": [
+       "Todos",
+       "Femenino",
+       "Hombre",
+       "Unisex"
+      ]
+     },
+     {
+      "style": "rgba(255, 255, 255, 0.92) | 50% | 16px | 400 | 40px tall",
+      "count": 4,
+      "examples": [
+       "Agregar a favoritos: Armazón de ac",
+       "Agregar a favoritos: Armazón redon",
+       "Agregar a favoritos: Armazón de me",
+       "Agregar a favoritos: Armazón de me"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 16px | 400 | 404px tall",
+      "count": 4,
+      "examples": [
+       "AC1050 Armazón de acetato morado G",
+       "AC1055 Armazón redondo rosa Gs. 10",
+       "ÚLTIMA UNIDAD BR44140 Armazón de m",
+       "ÚLTIMA UNIDAD BR44145 Armazón de m"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 10px | 16px | 600 | 44px tall",
+      "count": 1,
+      "examples": [
+       "Armazones"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 13.5px | 400 | 22px tall",
+      "count": 2,
+      "examples": [
+       "Catálogo",
+       "Armazones"
+      ]
+     }
+    ],
+    "note": "many visual treatments for one control type — check these are deliberate tiers (primary/secondary/tertiary) and not drift"
+   },
+   {
+    "role": "link-styled-control",
+    "distinctTreatments": 8,
+    "variants": [
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 16px | 400 | 62px tall",
+      "count": 1,
+      "examples": [
+       "La Fouch, todo en lentes"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 14px | 500 | 17px tall",
+      "count": 1,
+      "examples": [
+       "Filtros ›"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 13.5px | 700 | 19px tall",
+      "count": 2,
+      "examples": [
+       "Cómo llegar ›",
+       "Cómo llegar ›"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 13.5px | 400 | 16px tall",
+      "count": 14,
+      "examples": [
+       "De lectura",
+       "Armazones",
+       "Ofertas",
+       "Mayorista"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 12px | 400 | 15px tall",
+      "count": 4,
+      "examples": [
+       "Términos",
+       "Privacidad",
+       "Términos",
+       "Privacidad"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 11.5px | 400 | 14px tall",
+      "count": 4,
+      "examples": [
+       "Privacidad",
+       "Términos",
+       "Privacidad",
+       "Términos"
+      ]
+     },
+     {
+      "style": "rgb(31, 143, 78) | pill | 16px | 400 | 48px tall",
+      "count": 1,
+      "examples": [
+       "Hablar por WhatsApp"
+      ]
+     },
+     {
+      "style": "rgba(0, 0, 0, 0) | 0px | 15px | 600 | 19px tall",
+      "count": 1,
+      "examples": [
+       "Ver todas ›"
+      ]
+     }
+    ],
+    "note": "many visual treatments for one control type — check these are deliberate tiers (primary/secondary/tertiary) and not drift"
+   }
+  ],
+  "alignment": {
+   "readingEdge": "inline-start = left (LTR)",
+   "blocksMeasured": 76,
+   "distinctEdges": 31,
+   "dominantEdges": [
+    "790px ×16",
+    "0px ×9",
+    "16px ×8",
+    "60px ×5",
+    "17px ×3",
+    "58px ×3"
+   ],
+   "strayEdges": 18,
+   "note": "A handful of dominant edges carrying most blocks indicates a grid. A long tail of one-off edges is where visual noise comes from — check the stray ones first."
+  },
+  "chunking": [],
+  "responsiveness": {
+   "dohertyThresholdMs": 400,
+   "longTasksOver50ms": 0,
+   "slowInteractionEvents": [],
+   "skeletonElements": 0,
+   "spinnerElements": 0,
+   "loadingStrategy": "no loading affordance detected on this snapshot",
+   "note": "Event timings only cover interactions that happened while this page was open. Interact with the primary flow first, then re-run, or these will read empty."
+  },
+  "emphasis": {
+   "textElementsOnScreen": 56,
+   "boldOrHeavier": 27,
+   "proportionBold": "48%",
+   "largerThanMedian1_5x": 9,
+   "note": "over 40% of on-screen text is semibold or heavier — weight has stopped carrying hierarchy"
+  },
+  "affordance": {
+   "indistinctInlineLinks": [
+    {
+     "text": "Solar",
+     "selector": "div > p > a",
+     "colour": "rgb(107, 90, 102)",
+     "note": "identical to surrounding text in colour, weight and decoration — nothing marks it as clickable"
+    },
+    {
+     "text": "De lectura",
+     "selector": "div > p > a",
+     "colour": "rgb(107, 90, 102)",
+     "note": "identical to surrounding text in colour, weight and decoration — nothing marks it as clickable"
+    },
+    {
+     "text": "Armazones",
+     "selector": "div > p > a",
+     "colour": "rgb(107, 90, 102)",
+     "note": "identical to surrounding text in colour, weight and decoration — nothing marks it as clickable"
+    },
+    {
+     "text": "Ofertas",
+     "selector": "div > p > a",
+     "colour": "rgb(107, 90, 102)",
+     "note": "identical to surrounding text in colour, weight and decoration — nothing marks it as clickable"
+    },
+    {
+     "text": "Mayorista",
+     "selector": "div > p > a",
+     "colour": "rgb(107, 90, 102)",
+     "note": "identical to surrounding text in colour, weight and decoration — nothing marks it as clickable"
+    },
+    {
+     "text": "Preguntas frecuentes",
+     "selector": "div > p > a",
+     "colour": "rgb(107, 90, 102)",
+     "note": "identical to surrounding text in colour, weight and decoration — nothing marks it as clickable"
+    },
+    {
+     "text": "Consejos y cuidados",
+     "selector": "div > p > a",
+     "colour": "rgb(107, 90, 102)",
+     "note": "identical to surrounding text in colour, weight and decoration — nothing marks it as clickable"
+    },
+    {
+     "text": "Contáctanos",
+     "selector": "div > p > a",
+     "colour": "rgb(107, 90, 102)",
+     "note": "identical to surrounding text in colour, weight and decoration — nothing marks it as clickable"
+    },
+    {
+     "text": "Términos",
+     "selector": "div.fbt > div > a",
+     "colour": "rgb(107, 90, 102)",
+     "note": "identical to surrounding text in colour, weight and decoration — nothing marks it as clickable"
+    },
+    {
+     "text": "Privacidad",
+     "selector": "div.fbt > div > a",
+     "colour": "rgb(107, 90, 102)",
+     "note": "identical to surrounding text in colour, weight and decoration — nothing marks it as clickable"
+    }
+   ],
+   "noPointerCursor": []
+  },
+  "constraints": [],
+  "topBand": {
+   "heightExamined": "0–120px",
+   "elements": 23,
+   "interactive": 9,
+   "contentBearing": [
+    "Armazones",
+    "Catálogo",
+    "Armazones",
+    "AC1050"
+   ],
+   "note": "Branding alone in this band costs the user a scroll before the first useful thing. Confirm the most-requested action or the key status is reachable without scrolling."
+  }
+ }
+}
