@@ -52,3 +52,9 @@ O designer olha como um profissional de loja online (conversão primeiro) e o ki
 - Regra: luxo = mais ar e menos ruído DENTRO da identidade LaFouch. Não trocar: vinho #8d3a69 nas ações, títulos serifados com a cor em itálico, cartões brancos arredondados, fundo rosado, Mochi, temáticas.
 - Filtros: linha enxuta (gênero + "Filtros ›"); nada de Formato/Ordenar/etiquetas à vista enquanto o catálogo for pequeno.
 - Um só tipo de botão: cheio vinho (principal) + link fino sublinhado (secundário).
+
+## Inteireza e estados (13/11/2026, dono achou o WhatsApp pela metade)
+- Falha do designer: só conferia a tela parada no topo e ignorava botões flutuantes; o WhatsApp recolhido (html.wamin, S57) aparece só depois de rolar e parar. Medido: recolhido em 18 de 45 posições no celular.
+- Regra nova: nada clicável pode aparecer CORTADO na borda, MEIO APAGADO ou ENCOLHIDO. Um botão está inteiro ou não está na tela.
+- ecom.js (10): "cortado", "apagado", "largura"; kit.py confere de novo DEPOIS DE ROLAR E PARAR. Estudo geral: work/s214/estudo.py (4 telas × 6 tamanhos × 5 posições).
+- Categoria é NAVEGAÇÃO (onde estou), filtro é REFINO (dentro da categoria). Não repetir categoria como abas no catálogo do celular (S213 retirado): já existe no ☰ e na caixa Filtros.

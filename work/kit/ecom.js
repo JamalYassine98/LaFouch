@@ -41,5 +41,12 @@
   if (rep.length) out.push('ECOM fotos: ' + rep.length + ' foto(s) repetida(s) 4+ vezes no Início (cansa e parece catálogo pequeno)');
   // 9 · botão flutuante tampando conteúdo
   const wa = document.querySelector('a.wa'); if (wa && vis(wa)) { const r = wa.getBoundingClientRect(), x = document.elementsFromPoint(r.left + r.width / 2, r.top + r.height / 2).find((e) => e !== wa && !wa.contains(e) && /^(BUTTON|A)$/.test(e.tagName) && !e.closest('a.wa')); if (x) out.push('ECOM flutuante: botão do WhatsApp em cima de ' + nome(x)); }
+  // 10 · INTEIREZA (13/11, dono: WhatsApp pela metade passou despercebido): nada clicável pode aparecer cortado, meio apagado ou encolhido
+  const rolaX = (e) => { for (let x = e.parentElement; x && x !== document.body; x = x.parentElement) { const o = getComputedStyle(x).overflowX; if ((o === 'auto' || o === 'scroll') && x.scrollWidth > x.clientWidth + 2) return true; } return false; };
+  const cort = [...document.querySelectorAll('button,a[href],[role=button]')].filter((e) => vis(e) && naCamada(e)).filter((e) => { const r = e.getBoundingClientRect(); if (r.bottom < 0 || r.top > H) return false; return (r.right > W + 3 || r.left < -3) && !rolaX(e); });
+  if (cort.length) out.push('ECOM cortado: ' + cort.length + ' botão(ões) aparecendo pela metade na borda da tela (parece defeito) · ex.: ' + cort.slice(0, 3).map(nome).join(', '));
+  const apag = [...document.querySelectorAll('button,a[href]')].filter((e) => vis(e) && naCamada(e) && !e.disabled).filter((e) => { const r = e.getBoundingClientRect(); if (r.bottom < 0 || r.top > H) return false; let o = 1; for (let x = e; x && x !== document.body; x = x.parentElement) o *= +getComputedStyle(x).opacity; return o < 0.95 && o > 0.05; });
+  if (apag.length) out.push('ECOM apagado: ' + apag.length + ' botão(ões) meio transparente(s) (o cliente não sabe se funciona) · ex.: ' + apag.slice(0, 3).map(nome).join(', '));
+  if (document.documentElement.scrollWidth > W + 3) out.push('ECOM largura: a página passa ' + (document.documentElement.scrollWidth - W) + ' px da tela (rola para o lado)');
   return out;
 })()
