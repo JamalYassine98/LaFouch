@@ -45,18 +45,19 @@ def faz(k):
             hh = 1100; a = a.resize((int(a.width * hh / a.height), hh)); b2 = b2.resize((int(b2.width * hh / b2.height), hh))
             bw, bh = a.width * 2 + 50, hh + 50; pos = [(a, 0, 50, 'HOJE', '#b42318'), (b2, a.width + 50, 50, 'PROPOSTA', '#1f8a4c')]
         blocos.append((r, bw, bh, pos))
-    Wt = max(1500, max(b[1] for b in blocos) + 80); Ht = 190 + sum(b[2] + 90 for b in blocos)
-    B = Image.new('RGB', (Wt, Ht), '#ece6ea'); d = ImageDraw.Draw(B)
-    d.text((40, 30), 'S210 · ' + tit, font=F(50, 1), fill='#2a1a28')
+    # 13/11 (dono): um arquivo por tela, para dar para ler no celular
     import textwrap
-    for n, ln in enumerate(textwrap.wrap(sub, 95)): d.text((40, 100 + n * 36), ln, font=F(28), fill='#5b4a56')
-    y = 190 + 36 * max(0, len(textwrap.wrap(sub, 95)) - 1)
-    for r, bw, bh, pos in blocos:
-        d.text((40, y), r, font=F(32, 1), fill='#2a1a28')
+    for n, (r, bw, bh, pos) in enumerate(blocos, 1):
+        lin = textwrap.wrap(sub, 70)
+        Wt = max(1100, bw + 80); Ht = 200 + 36 * len(lin) + bh
+        B = Image.new('RGB', (Wt, Ht), '#ece6ea'); d = ImageDraw.Draw(B)
+        d.text((40, 30), tit + ' · ' + str(n) + '/' + str(len(blocos)), font=F(44, 1), fill='#2a1a28')
+        for m, ln in enumerate(lin): d.text((40, 92 + m * 36), ln, font=F(28), fill='#5b4a56')
+        y = 110 + 36 * len(lin)
+        d.text((40, y), r, font=F(34, 1), fill='#8d3a69')
         for im, dx, dy, t, c in pos:
-            d.text((40 + dx, y + dy - 6), t, font=F(26, 1), fill=c); B.paste(im, (40 + dx, y + dy + 30))
-        y += bh + 90
-    B.save(OUT + k + '.jpg', quality=86)
+            d.text((40 + dx, y + dy), t, font=F(28, 1), fill=c); B.paste(im, (40 + dx, y + dy + 40))
+        B.save(OUT + '%s_%d.jpg' % (k, n), quality=86)
     print('ok', k)
 if __name__ == '__main__':
     for k in (sys.argv[1:] or list(IDEIAS)): faz(k)
