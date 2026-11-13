@@ -681,15 +681,20 @@ def p7_icone_conta(p):
     finally: b.close()
 
 def p7_ultimas(p):
+    # S208 (13/11, dono): "Últimas N" fica ABAIXO da foto, em VERMELHO, sem fundo, com espaço da foto (nunca encostado nos óculos)
     for W, H in ((390, 844), (1440, 900)):
-        b, c, pg, E = novo(p, W, H, 'es-PY', touch=W < 700)
-        try:
-            carrega(pg)
-            r = pg.evaluate("(()=>{return [...document.querySelectorAll('.hc .stk.u, .card .stk.u')].filter(e=>e.getBoundingClientRect().width).map(e=>{const im=e.closest('.hc,.card').querySelector('.hci,.ph');const a=e.getBoundingClientRect(),b=im.getBoundingClientRect();return [(a.top+a.height/2-b.top)/b.height]})})()")
-            ruim = [x for x in r if x[0] < 0.7]
-            if ruim: falha(P7, f'“Últimas N” embaixo da foto · {W}px', f'{len(ruim)} cartão(ões) com o aviso no meio da foto', pg)
-            else: passou(P7, f'“Últimas N” embaixo da foto · {W}px', f'{len(r)} cartões')
-        finally: b.close()
+        for esc in ('light', 'dark'):
+            b, c, pg, E = novo(p, W, H, 'es-PY', touch=W < 700)
+            try:
+                carrega(pg)
+                if esc == 'dark': pg.evaluate("()=>document.documentElement.setAttribute('data-theme','dark')")
+                r = pg.evaluate("""()=>{const L=[...document.querySelectorAll('.hc .stk.u,.card .ph .stk.u,.hc .hci .ulin,.card .ph .ulin')].filter(e=>e.getBoundingClientRect().width);
+                  const M=[...document.querySelectorAll('.ulin')].filter(e=>e.getBoundingClientRect().width).map(e=>{const s=getComputedStyle(e),c=s.color.match(/\\d+/g).map(Number),im=e.closest('.hc,.card').querySelector('.hci,.ph'),gap=e.getBoundingClientRect().top-(im?im.getBoundingClientRect().bottom:0);
+                    return {v:c[0]>=180&&c[1]<=120&&c[2]<=120,bg:s.backgroundColor==='rgba(0, 0, 0, 0)'||s.backgroundColor==='transparent',gap:gap}});return {dentro:L.length,n:M.length,ruins:M.filter(x=>!x.v||!x.bg||x.gap<8).length}}""")
+                t = f'“Últimas N” abaixo da foto, vermelho · {W}px · {esc}'
+                if r['dentro'] or r['ruins']: falha(P7, t, f"{r['dentro']} dentro da foto · {r['ruins']} sem vermelho/sem espaço/com fundo", pg)
+                else: passou(P7, t, f"{r['n']} cartões")
+            finally: b.close()
 
 DICA_MEDE = """(b)=>{const a=getComputedStyle(b,'::after');if(!a.content||a.content==='none'||a.content==='normal'||parseFloat(a.opacity)<.5)return null;
   const t=a.content.replace(/^"|"$/g,'');const cv=document.createElement('canvas').getContext('2d');cv.font=a.fontWeight+' '+a.fontSize+' '+a.fontFamily;
