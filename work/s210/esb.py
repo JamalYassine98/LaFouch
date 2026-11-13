@@ -14,6 +14,9 @@ IDEIAS = {
    [('PC · Início (topo)', '', 1440, 900, None, None), ('PC · Início (vitrine)', '', 1440, 900, "()=>{const e=document.querySelector('.hsh');e&&e.scrollIntoView()}", None), ('PC · Catálogo', '?r=armazones', 1440, 900, None, None), ('PC · peça', '?r=armazones', 1440, 900, ABRE, None)]),
  'luxo_celular': ('Esboço de luxo · celular', 'O mesmo padrão no celular: ☰ continua, cartões sem moldura, preço preto, selos numa linha fina, Comprar sóbrio (fica no lugar, sem acompanhar a rolagem).', LX, NAV,
    [('Celular · Início', '', 390, 844, None, None), ('Celular · Novidades', '', 390, 844, "()=>{const e=document.querySelector('.hsh');e&&e.scrollIntoView()}", None), ('Celular · Catálogo', '?r=armazones', 390, 844, None, None), ('Celular · peça', '?r=armazones', 390, 844, ABRE + ";", None)]),
+
+ 'filtros': ('Filtros sem repetir', 'Cada filtro num lugar só. PC: a linha de cima escolhe o tipo (sublinhado = onde você está), a linha do título escolhe o gênero, e no canto fica só Ordenar. Celular: sem a linha de cima, a caixa Filtrar mantém Tipo e Ordenar e tira o Gênero (já está à vista).', LX + open(OUT+'fil.css').read(), open(OUT+'fil.js').read().strip(),
+   [('PC · Catálogo', '?r=armazones', 1440, 900, None, None), ('Celular · caixa Filtrar', '?r=armazones', 390, 844, "()=>document.querySelector('.lfgf').click()", None)]),
 }
 def shot(pw, url, W, H, css, js, acao, out):
     mob = W < 700
