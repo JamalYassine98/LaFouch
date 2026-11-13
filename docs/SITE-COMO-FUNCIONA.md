@@ -65,5 +65,7 @@ Ler antes de mexer no site. Atualizar este arquivo SEMPRE que o site mudar (estr
 
 - **Selo único (S186 v3, 12/11/2026):** `selo1(p)` dá UM selo por peça (catálogo `.sel1`, início `.hb`): 1 Oferta "−N%" (no tema "−N% · Presente ideal…", cartão `.ot.t-<tema>` na cor do tema) · 2 Tema (`temaDe` com `DST_TEMA`, nomes em `TSEL`) · 3 "Nº k em Leitura/Sol/Armações" (`catRank`, pelo `mv`) · 4 "Chegou esta semana". Saíram o selo preto de tipo (`.tg`), "OFERTA" escrito, NOVO e "Mais vendido" repetido. "Últimas N" fica sempre dentro da foto. Cartão de oferta em cor sólida; com mais da metade em oferta o `#grid.ofl` usa a versão clara. Destaque: sem a vaga Mais vendido; 2ª vaga = Girar de outra categoria; Tema pega a peça que não vendeu; peça Nº 1-2-3 nunca entra.
 
+- **Seleção "Separado para vos" (S185, 12/11/2026):** `lafouch.com/s/REF.REF~Nome` → `404.html` manda para `/?s=REF.REF&n=Nome` → painel `.sepp` com as peças (`card5`) e "Quero estas · falar com a loja" (WhatsApp com os códigos). O app monta esse link no Compartilhar.
+
 ## Aprovado e ainda NÃO implementado (conferir em MEMORIA-PROJETO.md)
 (nada do S172/S173; ver segurança), Leve 2 no site, S174 (cupons/cartões virtuais), segurança do painel (2FA TOTP, passkey, sessão, aviso de login, regras, App Check, retenção 12 meses, CSP).
