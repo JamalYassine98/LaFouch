@@ -1,0 +1,37 @@
+import re
+s=open('/home/claude/catalogo/termos.html').read()
+N=' <span class="nv">novo</span>'
+PT=[('1. A loja e o site','<p>A La Fouch é uma loja física na Galeria Jebai Center, 3° piso, torre A, n°2242, em Ciudad del Este. O site mostra o catálogo e permite reservar, pagar e receber as peças.</p>',0),
+('2. Pedido e reserva','<ul><li>Ao pedir, as peças ficam separadas para você.</li><li>A compra é confirmada quando o pagamento é confirmado (na maioria das vezes, sozinho, em poucos minutos).</li><li>A peça fica reservada até a retirada ou a entrega, por no máximo <b>180 dias</b>, ou até o cancelamento do pedido.</li><li>Em caso de cancelamento, <b>não há devolução do valor pago</b>. O cliente pode falar com a loja para analisar o caso.</li></ul>',1),
+('3. Preços e moeda','<p>Em português os valores aparecem em reais e em espanhol em guaranis. A conversão é uma referência e os preços podem mudar. Vale o preço confirmado no pagamento. Para identificar o seu pagamento, o valor final pode ter <b>alguns centavos (ou guaranis) a menos</b> — nunca a mais.</p>',1),
+('4. Pagamento','<ul><li><b>PIX</b> (em reais) ou <b>transferência Itaú Paraguay</b> (em guaranis, por alias), na hora do pedido.</li><li>A confirmação é automática quando o banco avisa a loja. Se demorar, o site pede o comprovante.</li><li>Se o pagamento não for identificado nem o comprovante aceito, o pedido não é confirmado.</li><li>Toda venda tem <b>factura electrónica</b>. Com RUC, ela sai no seu nome; sem RUC, sai como consumidor final.</li></ul>',1),
+('5. Retirada e entrega','<p>Você pode retirar na loja e conferir as peças na hora, antes de sair. No Paraguai há também <b>delivery por transportadora</b>: você escolhe a transportadora no pedido; o frete aparece no total ou, quando indicado, é pago à transportadora na entrega. Confira o pacote ao receber. Fora do Paraguai, só retirada na loja.</p>',1),
+('6. Troca, devolução e garantia','<ul><li><b>Não há devolução.</b></li><li>A troca só é feita pessoalmente, na loja, com ajuste de preço quando o novo item custar diferente.</li><li><b>Não há garantia.</b></li></ul>',0),
+('7. Óculos de leitura e armações','<p>Vendemos óculos de leitura prontos e armações sem lentes. Não fazemos lentes com receita. Seguem as mesmas regras acima: sem devolução e sem garantia.</p>',1),
+('8. Cupons e descontos','<ul><li>Vale <b>um cupom por pedido</b>, dentro do prazo e das regras de cada cupom; algumas peças podem ficar de fora.</li><li>O desconto nunca deixa o pedido abaixo do valor mínimo da loja.</li><li>Cupons são pessoais. Uso indevido (contas falsas, tentativas repetidas) bloqueia o cupom.</li></ul>',1),
+('9. Atacado','<p>O atacado é para grandes volumes. Com uma <b>conta atacadista</b> liberada pela loja, você vê os preços de atacado e faz o pedido pelo site; a retirada e a conferência são feitas na loja.</p>',1),
+('10. Opiniões','<p>Só quem comprou e recebeu a peça pode opinar, pela Mi cuenta. A loja revisa as opiniões e pode não publicar as que tenham links, telefones, ofensas ou propaganda.</p>',1),
+('11. Conta e dados','<p>Você pode entrar com e-mail e senha ou com o Google. Ao excluir a conta, os pedidos ainda não pagos são cancelados. Seus dados são tratados conforme a <a href="/privacidade.html">Política de Privacidade</a>.</p>',1)]
+ES=[('1. La tienda y el sitio','<p>La Fouch es una tienda física en la Galería Jebai Center, 3.er piso, torre A, n.º 2242, en Ciudad del Este. El sitio muestra el catálogo y permite reservar, pagar y recibir las piezas.</p>',0),
+('2. Pedido y reserva','<ul><li>Al hacer el pedido, las piezas quedan apartadas para ti.</li><li>La compra se confirma cuando se confirma el pago (casi siempre solo, en pocos minutos).</li><li>La pieza queda reservada hasta el retiro o la entrega, por un máximo de <b>180 días</b>, o hasta la cancelación del pedido.</li><li>En caso de cancelación, <b>no hay devolución del valor pagado</b>. El cliente puede hablar con la tienda para analizar el caso.</li></ul>',1),
+('3. Precios y moneda','<p>En portugués los valores aparecen en reales y en español en guaraníes. La conversión es una referencia y los precios pueden cambiar. Vale el precio confirmado en el pago. Para identificar tu pago, el valor final puede tener <b>algunos guaraníes (o centavos) menos</b> — nunca más.</p>',1),
+('4. Pago','<ul><li><b>PIX</b> (en reales) o <b>transferencia Itaú Paraguay</b> (en guaraníes, por alias), al hacer el pedido.</li><li>La confirmación es automática cuando el banco avisa a la tienda. Si demora, el sitio pide el comprobante.</li><li>Si el pago no se identifica ni se acepta el comprobante, el pedido no se confirma.</li><li>Toda venta tiene <b>factura electrónica</b>. Con RUC, sale a tu nombre; sin RUC, como consumidor final.</li></ul>',1),
+('5. Retiro y entrega','<p>Puedes retirar en la tienda y revisar las piezas en el momento, antes de salir. En Paraguay también hay <b>delivery por transportadora</b>: eliges la transportadora en el pedido; el flete aparece en el total o, cuando se indica, se paga a la transportadora en la entrega. Revisa el paquete al recibirlo. Fuera de Paraguay, solo retiro en la tienda.</p>',1),
+('6. Cambio, devolución y garantía','<ul><li><b>No hay devolución.</b></li><li>El cambio solo se hace en persona, en la tienda, con ajuste de precio cuando el nuevo artículo cueste distinto.</li><li><b>No hay garantía.</b></li></ul>',0),
+('7. Lentes de lectura y armazones','<p>Vendemos lentes de lectura listos y armazones sin cristales. No hacemos cristales con receta. Siguen las mismas reglas: sin devolución y sin garantía.</p>',1),
+('8. Cupones y descuentos','<ul><li>Vale <b>un cupón por pedido</b>, dentro del plazo y las reglas de cada cupón; algunas piezas pueden quedar afuera.</li><li>El descuento nunca deja el pedido por debajo del valor mínimo de la tienda.</li><li>Los cupones son personales. El uso indebido (cuentas falsas, intentos repetidos) bloquea el cupón.</li></ul>',1),
+('9. Mayorista','<p>El mayorista es para grandes volúmenes. Con una <b>cuenta mayorista</b> habilitada por la tienda, ves los precios mayoristas y haces el pedido por el sitio; el retiro y la revisión se hacen en la tienda.</p>',1),
+('10. Opiniones','<p>Solo quien compró y recibió la pieza puede opinar, desde Mi cuenta. La tienda revisa las opiniones y puede no publicar las que tengan enlaces, teléfonos, ofensas o propaganda.</p>',1),
+('11. Cuenta y datos','<p>Puedes entrar con e-mail y contraseña o con Google. Al eliminar la cuenta, los pedidos aún no pagados se cancelan. Tus datos se tratan según la <a href="/privacidade.html">Política de Privacidad</a>.</p>',1)]
+def troca(sec,L,dt,nv):
+    i=s.index('<section id="%s"'%sec);j=s.index('</section>',i)
+    b=s[i:j];h=b.index('<h2>');n=b.index('<p class="nota">')
+    corpo=''.join('<h2>'+t+(nv if m else '')+'</h2>'+c for t,c,m in L)
+    b=b[:h]+corpo+b[n:];b=re.sub(r'Atualizados em [^<]*|Actualizados el [^<]*',dt,b)
+    return s[:i]+b+s[j:]
+import sys
+marca=len(sys.argv)>1
+s=troca('pt',PT,'Atualizados em 13 de novembro de 2026',N if marca else '')
+s=troca('es',ES,'Actualizados el 13 de noviembre de 2026',N.replace('novo','nuevo') if marca else '')
+if marca: s=s.replace('</head>','<style>.nv{font:700 10px/1 Inter,system-ui,sans-serif;background:#e8f5ec;color:#1e7a46;border-radius:999px;padding:3px 7px;vertical-align:middle;margin-left:6px;letter-spacing:.04em;text-transform:uppercase}</style></head>',1)
+open(sys.argv[1] if marca else '/tmp/tc/termos.html','w').write(s)
