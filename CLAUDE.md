@@ -12,7 +12,7 @@
   - Windows: gh api -X POST repos/JamalYassine98/LaFouch/actions/workflows/build-windows.yml/dispatches -f ref=main
   - `gh workflow run` e GraphQL são bloqueados; usar o comando acima. Conferir com `gh run list`.
 - Subir a versão do cache em www/sw.js (lafouch-vNNN) a cada release.
-- DESIGNER/PORTEIRO (13/11/2026): testar TODAS as condições antes de esboço ou publicação: tema claro, escuro e temáticas, as 3 letras, celular/tablet/PC até 2560, logado/deslogado, com e sem biometria, contraste do texto.
+- DESIGNER/PORTEIRO (13/11/2026): testar TODAS as condições antes de esboço ou publicação: SITE = tema claro + todas as temáticas (o site não tem tema escuro); APP = claro e escuro; as 3 letras, celular/tablet/PC até 2560, logado/deslogado, com e sem biometria, contraste do texto.
 - REGRA DE OURO (04/11/2026): sempre esboço primeiro (INCLUSIVE correção de bug); implementar só quando o dono avisar; guardar o aprovado em docs/MEMORIA-PROJETO.md; entregar EXATAMENTE o esboço aprovado, sem mudanças não pedidas.
 
 ## Economia de tokens (pedido do dono, 11/11/2026)

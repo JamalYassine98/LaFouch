@@ -28,11 +28,13 @@ Use isto + o kit (work/kit/kit.py) em vez de simular do zero. Fotos de referênc
 O designer olha como um profissional de loja online (conversão primeiro) e o kit mede sozinho (`work/kit/ecom.js`, linhas "DESIGNER ECOM"):
 - Toque: todo botão ≥ 40×40 px no celular (ideal 44).
 - Letra: ≥ 11 px no celular e ≥ 12 px no PC em qualquer texto; preço e nome do produto bem maiores que os detalhes.
-- Contraste: texto ≥ 4,5:1 (texto grande ≥ 3:1), em claro, escuro e temáticas.
-- Nome do produto inteiro (2 linhas se precisar), nunca cortado no meio da palavra.
+- Contraste: texto ≥ 4,5:1 (texto grande ≥ 3:1), no tema claro e em TODAS as temáticas. O SITE NÃO TEM TEMA ESCURO (decisão 02/11, só o app tem).
+- Cartão do catálogo = formato + código (SKU); nada de nome do modelo nem cor no cartão (o cliente escolhe a cor na peça). Decisões 11/11 e 13/11.
 - Vitrine: na mesma fileira, fotos, nomes e preços na mesma altura.
-- Página do produto: preço + botão de comprar na primeira tela do celular, sem rolar.
+- Página do produto: o botão Comprar fica no lugar dele, NÃO acompanha a rolagem (decisão do dono).
 - PC: categorias (Sol, Leitura, Armações, Ofertas) visíveis no topo, não só no ☰.
 - Início: variedade de fotos (a mesma peça não pode aparecer em 4+ blocos).
 - Botão flutuante (WhatsApp) nunca em cima de botão, preço ou foto.
-- Uma cor = um significado: verde só para preço/OK, vermelho só para urgência/erro, vinho para marca e ações.
+- Preço SEMPRE em preto (normal), em todas as telas e temáticas; oferta = antigo riscado + selo −N%.
+- Letra: nunca aumentar além do mínimo (aumentar tudo deixa gigante e amador).
+- Uma cor = um significado: verde só para OK/confirmado, vermelho só para urgência/erro, vinho para marca e ações.

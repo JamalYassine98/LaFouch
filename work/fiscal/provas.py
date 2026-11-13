@@ -683,7 +683,7 @@ def p7_icone_conta(p):
 def p7_ultimas(p):
     # S208 (13/11, dono): "Últimas N" fica ABAIXO da foto, em VERMELHO, sem fundo, com espaço da foto (nunca encostado nos óculos)
     for W, H in ((390, 844), (1440, 900)):
-        for esc in ('light', 'dark'):
+        for esc in ('light',):  # o site não tem tema escuro (só o app)
             b, c, pg, E = novo(p, W, H, 'es-PY', touch=W < 700)
             try:
                 carrega(pg)

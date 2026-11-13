@@ -26,17 +26,13 @@
     if (r < (gr ? 3 : 4.5)) baixo.push(nome(e) + ' ' + r.toFixed(1) + ':1');
   });
   if (baixo.length) out.push('ECOM contraste: ' + baixo.length + ' texto(s) abaixo do mínimo de leitura · ex.: ' + baixo.slice(0, 3).join(', '));
-  // 4 · nome do produto cortado (o cliente não lê a cor/modelo)
-  const cort = [...document.querySelectorAll('.card .nm,.hc .hn')].filter((e) => vis(e) && e.scrollWidth > e.clientWidth + 2);
-  if (cort.length) out.push('ECOM nome: ' + cort.length + ' nome(s) de produto cortados · ex.: ' + cort.slice(0, 2).map(nome).join(', '));
+  // 4 · (decisão do dono 11/11 e 13/11) o cartão mostra formato + código (SKU), não o nome; a cor o cliente escolhe na peça → não medir nome cortado
   // 5 · preços desalinhados na mesma fileira (vitrine profissional = preços na mesma linha)
   const linhas = {};
   [...document.querySelectorAll('.card .pr,.hc .hp')].filter(vis).forEach((e) => { const c = e.closest('.card,.hc').getBoundingClientRect(); const k = (e.closest('#grid,.hgr,.hcar,section,div[id]') || document.body).id + '|' + Math.round(c.top / 8); (linhas[k] = linhas[k] || []).push(Math.round(e.getBoundingClientRect().top)); });
   const des = Object.values(linhas).filter((l) => l.length > 1 && Math.max(...l) - Math.min(...l) > 3);
   if (des.length) out.push('ECOM vitrine: ' + des.length + ' fileira(s) com preços em alturas diferentes (até ' + Math.max(...des.map((l) => Math.max(...l) - Math.min(...l))) + ' px)');
-  // 6 · página do produto: botão de compra na primeira tela (sem rolar)
-  const buy = document.querySelector('#layer .pgm [data-addm],#layer .pgm .bb.p,#layer .pgm [data-add]');
-  if (buy && vis(buy) && buy.getBoundingClientRect().top > H) out.push('ECOM compra: botão de comprar só aparece depois de rolar (' + Math.round(buy.getBoundingClientRect().top - H) + ' px abaixo da tela)');
+  // 6 · (decisão do dono 13/11) o botão Comprar NÃO acompanha a rolagem e fica no lugar dele → não exigir na primeira tela
   // 7 · PC: categorias visíveis no topo (loja sem menu aparente perde clique)
   if (!mob) { const nav = [...document.querySelectorAll('header a,header button,.top a,.top button')].filter((e) => vis(e) && /solar|sol|lectura|leitura|armaz|arma|oferta/i.test(e.innerText || '')); if (!nav.length) out.push('ECOM navegação: no PC as categorias não aparecem no topo (só o menu ☰)'); }
   // 8 · mesma foto repetida em muitos blocos da página inicial
