@@ -48,7 +48,7 @@
         t: a.e.nome,
         s: prazoTxt(a.dias) + (a.ok ? '' : ' · ' + a.dica),
         c: a.dias < 0 ? 'var(--bad)' : 'var(--warn)',
-        b: 'Ver',
+        b: 'Ver conta',
         act: 'view',
         id: 'desp'
       });
@@ -72,7 +72,7 @@
         t: dv.barato ? 'Dólar barato hoje' : 'Dólar caro hoje',
         s: Math.round(Math.abs(dv.hoje / dv.media - 1) * 100) + '% ' + (dv.barato ? 'abaixo' : 'acima') + ' da média de ' + S.janela + ' dias',
         c: dv.barato ? 'var(--ok)' : 'var(--warn)',
-        b: 'Ver',
+        b: 'Ver câmbio',
         act: 'view',
         id: 'fx'
       });
@@ -82,7 +82,7 @@
         t: 'Preço ficou perigoso',
         s: pp + ' produto(s) com preço que não cobre custo e contas',
         c: 'var(--bad)',
-        b: 'Ver',
+        b: 'Ver preços',
         act: 'dtab',
         id: 'prec'
       });
@@ -92,7 +92,7 @@
         t: 'Repor mercadoria',
         s: rp + ' produto(s) vão acabar logo',
         c: 'var(--warn)',
-        b: 'Ver',
+        b: 'Ver reposição',
         act: 'dtab',
         id: 'giro'
       });
@@ -102,7 +102,7 @@
         t: 'Estoque parado',
         s: pa + ' produto(s) sem vender há 60 dias ou mais',
         c: 'var(--warn)',
-        b: 'Ver',
+        b: 'Ver peças',
         act: 'dtab',
         id: 'giro'
       });

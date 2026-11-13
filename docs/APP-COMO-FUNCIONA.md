@@ -122,3 +122,9 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - Calculadora: custo US$ + lote + tipo + faixa → balcão, site, atacado, piso, parecidos, tempo e lucro do lote; "Usar estes preços" anota (`S.cntCalc`) e copia.
 - E se…?: dólar, contas +%, desconto numa categoria, cupom, vender tudo parado, meta do mês (só contas do app).
 - Dias 1–5: Guardião "Fechamento do mês pronto" (resultado, margem por categoria, descontos).
+
+## Passo 1 da simplificação (S231, 14/11/2026)
+- `www/style.css`, bloco "S231" no fim: topo compacto (logo 52 px, `.wrap` com 10 px em cima) e toque de 44 px em lista FECHADA de classes (`.btn-sc`, `.chip`, `.pdSeg button`, `.ic`, `.pdLink`). NÃO usar regra geral em `.view button`: quebrou o teste v474 (graus por cor) e mudou botões que não deviam.
+- Botões "Ver" dos avisos dizem o que abrem: `src/89-notificacoes.js` (Ver margem, Ver pedidos) e `src/89-dash-abas.js` (Ver conta, Ver câmbio, Ver preços, Ver reposição, Ver peças). Aviso novo: nunca só "Ver".
+- Teste do atalho fantasma do Início (`tests/run.py` ~l.2666) segura no vazio em y=95 (era 150): com o topo compacto o vazio fica entre o logo e a busca.
+- AINDA NÃO FEITO do S226/S228: letra mínima de 12 px, menu ao lado no computador, nova barra (Início · Produtos · Vendas · Dinheiro · Mais) e as fusões de telas. Ver docs/APP-NADA-SE-PERDE.md.

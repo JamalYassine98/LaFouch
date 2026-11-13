@@ -1098,7 +1098,7 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 500;
+  var APP_BUILD = 501;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
   var APP_NOME = '5.9.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
@@ -22156,7 +22156,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         t: a.e.nome,
         s: prazoTxt(a.dias) + (a.ok ? '' : ' · ' + a.dica),
         c: a.dias < 0 ? 'var(--bad)' : 'var(--warn)',
-        b: 'Ver',
+        b: 'Ver conta',
         act: 'view',
         id: 'desp'
       });
@@ -22180,7 +22180,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         t: dv.barato ? 'Dólar barato hoje' : 'Dólar caro hoje',
         s: Math.round(Math.abs(dv.hoje / dv.media - 1) * 100) + '% ' + (dv.barato ? 'abaixo' : 'acima') + ' da média de ' + S.janela + ' dias',
         c: dv.barato ? 'var(--ok)' : 'var(--warn)',
-        b: 'Ver',
+        b: 'Ver câmbio',
         act: 'view',
         id: 'fx'
       });
@@ -22190,7 +22190,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         t: 'Preço ficou perigoso',
         s: pp + ' produto(s) com preço que não cobre custo e contas',
         c: 'var(--bad)',
-        b: 'Ver',
+        b: 'Ver preços',
         act: 'dtab',
         id: 'prec'
       });
@@ -22200,7 +22200,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         t: 'Repor mercadoria',
         s: rp + ' produto(s) vão acabar logo',
         c: 'var(--warn)',
-        b: 'Ver',
+        b: 'Ver reposição',
         act: 'dtab',
         id: 'giro'
       });
@@ -22210,7 +22210,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         t: 'Estoque parado',
         s: pa + ' produto(s) sem vender há 60 dias ou mais',
         c: 'var(--warn)',
-        b: 'Ver',
+        b: 'Ver peças',
         act: 'dtab',
         id: 'giro'
       });
@@ -23095,7 +23095,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         t: 'Margem da loja em ' + pc(mx),
         s: fxMgTxt() + 'Dólar da loja: ' + gsRaw(fxLoja('usd')) + '.',
         c: 'var(--warn)',
-        b: 'Ver',
+        b: 'Ver margem',
         act: 'view',
         id: 'fx'
       });
@@ -23115,7 +23115,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         t: pedNovos() + (pedNovos() === 1 ? ' pedido novo' : ' pedidos novos'),
         s: 'Esperando você começar a separar' + (pedUltimo() ? ' · último às ' + fh(pedUltimo()) : '') + '.',
         c: 'var(--accent)',
-        b: 'Ver',
+        b: 'Ver pedidos',
         act: 'pedver',
         id: 'novo'
       });

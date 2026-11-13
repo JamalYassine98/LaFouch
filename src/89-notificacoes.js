@@ -47,7 +47,7 @@
         t: 'Margem da loja em ' + pc(mx),
         s: fxMgTxt() + 'Dólar da loja: ' + gsRaw(fxLoja('usd')) + '.',
         c: 'var(--warn)',
-        b: 'Ver',
+        b: 'Ver margem',
         act: 'view',
         id: 'fx'
       });
@@ -67,7 +67,7 @@
         t: pedNovos() + (pedNovos() === 1 ? ' pedido novo' : ' pedidos novos'),
         s: 'Esperando você começar a separar' + (pedUltimo() ? ' · último às ' + fh(pedUltimo()) : '') + '.',
         c: 'var(--accent)',
-        b: 'Ver',
+        b: 'Ver pedidos',
         act: 'pedver',
         id: 'novo'
       });

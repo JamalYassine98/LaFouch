@@ -2663,7 +2663,7 @@ async def main():
             o0 = await pg.evaluate("() => [...document.querySelectorAll('#v-inicio .tl')].map(e => e.dataset.id).slice(0, 4)")
             await pg.mouse.move(a['x'] + 40, a['y'] + 30); await pg.mouse.down(); await pg.mouse.move(a['x'] + 60, a['y'] + 50, steps=3); await pg.mouse.move(c['x'] + 40, c['y'] + 30, steps=8); await pg.mouse.up(); await pg.wait_for_timeout(600)
             o1 = await pg.evaluate("() => [...document.querySelectorAll('#v-inicio .tl')].map(e => e.dataset.id).slice(0, 4)")
-            await pg.mouse.move(200, 150); await pg.mouse.down(); await pg.wait_for_timeout(900); await pg.mouse.up(); await pg.wait_for_timeout(500)
+            await pg.mouse.move(200, 95); await pg.mouse.down(); await pg.wait_for_timeout(900); await pg.mouse.up(); await pg.wait_for_timeout(500)
             nf = await pg.locator('.tl.fant').count()
             await pg.click('.tl.fant >> nth=0'); await pg.wait_for_timeout(400)
             nf2 = await pg.locator('.tl.fant').count()
