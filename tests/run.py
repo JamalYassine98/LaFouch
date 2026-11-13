@@ -2646,7 +2646,7 @@ async def main():
 
             # Início: sem botão "Personalizar"; arrastar até a lixeira oculta (Desfazer volta), soltar em outro botão troca, segurar no fundo mostra os ocultos
             pg = await pagina()
-            await pg.evaluate("() => { window.__LF.S.inicioT = null; window.__LF.setView('inicio'); }"); await pg.wait_for_timeout(400)
+            await pg.evaluate("() => { const M = 9e15; window.__LF.S.guardMudo = {caixa:M,contas:M,cambio:M,neg:M,custo:M,piso:M,foto:M,sep:M,pix:M,itau:M,ata:M,sync:M,bk:M,lote:M}; window.__LF.S.inicioT = null; window.__LF.setView('inicio'); }"); await pg.wait_for_timeout(400)
             semChip = await pg.evaluate("() => !document.querySelector('[data-act=inicioEd]')")
             await pg.locator('#v-inicio .tl[data-id=fx]').scroll_into_view_if_needed(); await pg.wait_for_timeout(200)  # S189: o cartão do guardião empurra os azulejos
             t = await pg.locator('#v-inicio .tl[data-id=fx]').bounding_box()
@@ -2658,6 +2658,7 @@ async def main():
             oculto = await pg.evaluate("() => !document.querySelector('#v-inicio .tl[data-id=fx]') && window.__LF.S.inicioT.indexOf('fx') < 0")
             await pg.click('#lfDesf button'); await pg.wait_for_timeout(400)
             voltou = await pg.evaluate("() => !!document.querySelector('#v-inicio .tl[data-id=fx]')")
+            await pg.locator('#v-inicio .tl[data-id=hist]').scroll_into_view_if_needed(); await pg.wait_for_timeout(200)
             a = await pg.locator('#v-inicio .tl[data-id=desp]').bounding_box(); c = await pg.locator('#v-inicio .tl[data-id=hist]').bounding_box()
             o0 = await pg.evaluate("() => [...document.querySelectorAll('#v-inicio .tl')].map(e => e.dataset.id).slice(0, 4)")
             await pg.mouse.move(a['x'] + 40, a['y'] + 30); await pg.mouse.down(); await pg.mouse.move(a['x'] + 60, a['y'] + 50, steps=3); await pg.mouse.move(c['x'] + 40, c['y'] + 30, steps=8); await pg.mouse.up(); await pg.wait_for_timeout(600)
