@@ -1856,7 +1856,7 @@ service cloud.firestore {
     function dono() {
       return request.auth != null
         && request.auth.uid == 'jJzNDoMHtuRNOAF1GhJfNYDMlE63'
-        && request.auth.token.email == 'jamalaliyassine@gmail.com';
+        && request.auth.token.email == '<e-mail do dono>';
     }
     function pedidoOk() {
       return request.resource.data.keys().hasOnly(['ts','nome','tel','lang','moeda','total','rosto','itens','pais','cod','ate',

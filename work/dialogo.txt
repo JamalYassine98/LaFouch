@@ -6213,7 +6213,7 @@ Deixar o e-mail com cara mais profissional, mas continua sendo link:
 | | Remetente | Configuração | Limite grátis |
 |---|---|---|---|
 | **Resend** | La Fouch <nao-responda@lafouch.com> | conta + 3 registros DNS + chave no Firebase | 3.000/mês |
-| **Seu Gmail** | o seu Gmail (ex.: jamalaliyassine@gmail.com) | senha de app do Google + chave no Firebase, sem DNS | ~500/dia |
+| **Seu Gmail** | o seu Gmail (ex.: <e-mail do dono>) | senha de app do Google + chave no Firebase, sem DNS | ~500/dia |
 
 O Gmail é mais rápido de configurar, mas o e-mail sai do seu endereço pessoal, o que é menos profissional e expõe o seu e-mail. O Resend é o jeito realmente profissional.
 
@@ -8278,7 +8278,7 @@ service cloud.firestore {
     function dono() {
       return request.auth != null
         && request.auth.uid == 'jJzNDoMHtuRNOAF1GhJfNYDMlE63'
-        && request.auth.token.email == 'jamalaliyassine@gmail.com';
+        && request.auth.token.email == '<e-mail do dono>';
     }
     function pedidoOk() {
       return request.resource.data.keys().hasOnly(['ts','nome','tel','lang','moeda','total','rosto','itens','pais','cod','ate',
@@ -8316,7 +8316,7 @@ service cloud.firestore {
     function dono() {
       return request.auth != null
         && request.auth.uid == 'jJzNDoMHtuRNOAF1GhJfNYDMlE63'
-        && request.auth.token.email == 'jamalaliyassine@gmail.com';
+        && request.auth.token.email == '<e-mail do dono>';
     }
     function pedidoOk() {
       return request.resource.data.keys().hasOnly(['ts','nome','tel','lang','moeda','total','rosto','itens','pais','cod','ate',
