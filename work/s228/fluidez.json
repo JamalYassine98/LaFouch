@@ -1,0 +1,107 @@
+{
+ "site menu abre": {
+  "quadros": 85,
+  "media": 17.3,
+  "pior": 50,
+  "travadas": 1,
+  "pct": 1
+ },
+ "site menu fecha": {
+  "quadros": 86,
+  "media": 17.1,
+  "pior": 50,
+  "travadas": 1,
+  "pct": 1
+ },
+ "site rolar catálogo": {
+  "quadros": 118,
+  "media": 16.7,
+  "pior": 17,
+  "travadas": 0,
+  "pct": 0
+ },
+ "site abre peça": {
+  "quadros": 55,
+  "media": 27.6,
+  "pior": 200,
+  "travadas": 4,
+  "pct": 7
+ },
+ "site volta": {
+  "quadros": 81,
+  "media": 17.5,
+  "pior": 50,
+  "travadas": 2,
+  "pct": 2
+ },
+ "site filtros": {
+  "quadros": 85,
+  "media": 16.7,
+  "pior": 17,
+  "travadas": 0,
+  "pct": 0
+ },
+ "site rolar início": {
+  "quadros": 117,
+  "media": 17.2,
+  "pior": 33,
+  "travadas": 0,
+  "pct": 0
+ },
+ "app início→catálogo": {
+  "quadros": 84,
+  "media": 17.9,
+  "pior": 100,
+  "travadas": 1,
+  "pct": 1
+ },
+ "app catálogo→inventário": {
+  "quadros": 85,
+  "media": 18,
+  "pior": 133,
+  "travadas": 1,
+  "pct": 1
+ },
+ "app rolar inventário": {
+  "quadros": 104,
+  "media": 20.7,
+  "pior": 67,
+  "travadas": 5,
+  "pct": 5
+ },
+ "app abre ficha": {
+  "quadros": 83,
+  "media": 18.9,
+  "pior": 150,
+  "travadas": 2,
+  "pct": 2
+ },
+ "app volta": {
+  "quadros": 80,
+  "media": 17.7,
+  "pior": 100,
+  "travadas": 1,
+  "pct": 1
+ },
+ "app →caixa": {
+  "quadros": 83,
+  "media": 19.3,
+  "pior": 217,
+  "travadas": 1,
+  "pct": 1
+ },
+ "app →início": {
+  "quadros": 84,
+  "media": 18.5,
+  "pior": 167,
+  "travadas": 1,
+  "pct": 1
+ },
+ "app sino": {
+  "quadros": 85,
+  "media": 17.1,
+  "pior": 33,
+  "travadas": 0,
+  "pct": 0
+ }
+}

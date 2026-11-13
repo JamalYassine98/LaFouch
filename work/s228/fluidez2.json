@@ -1,0 +1,102 @@
+{
+ "site|abrir o menu|hoje": {
+  "quadros": 86,
+  "pior": 50,
+  "travadas": 1
+ },
+ "site|fechar o menu|hoje": {
+  "quadros": 61,
+  "pior": 83,
+  "travadas": 3
+ },
+ "site|abrir uma peça|hoje": {
+  "quadros": 72,
+  "pior": 233,
+  "travadas": 5
+ },
+ "site|voltar|hoje": {
+  "quadros": 82,
+  "pior": 67,
+  "travadas": 2
+ },
+ "site|abrir o menu|prop": {
+  "quadros": 85,
+  "pior": 67,
+  "travadas": 1
+ },
+ "site|fechar o menu|prop": {
+  "quadros": 74,
+  "pior": 33,
+  "travadas": 0
+ },
+ "site|abrir uma peça|prop": {
+  "quadros": 52,
+  "pior": 367,
+  "travadas": 5
+ },
+ "site|voltar|prop": {
+  "quadros": 80,
+  "pior": 117,
+  "travadas": 2
+ },
+ "app|Início → Catálogo|hoje": {
+  "quadros": 84,
+  "pior": 83,
+  "travadas": 1
+ },
+ "app|Catálogo → Inventário|hoje": {
+  "quadros": 84,
+  "pior": 133,
+  "travadas": 1
+ },
+ "app|abrir a ficha|hoje": {
+  "quadros": 90,
+  "pior": 150,
+  "travadas": 3
+ },
+ "app|voltar|hoje": {
+  "quadros": 75,
+  "pior": 183,
+  "travadas": 1
+ },
+ "app|Inventário → Caixa|hoje": {
+  "quadros": 82,
+  "pior": 217,
+  "travadas": 2
+ },
+ "app|abrir o sino|hoje": {
+  "quadros": 85,
+  "pior": 83,
+  "travadas": 1
+ },
+ "app|Início → Catálogo|prop": {
+  "quadros": 84,
+  "pior": 83,
+  "travadas": 1
+ },
+ "app|Catálogo → Inventário|prop": {
+  "quadros": 84,
+  "pior": 100,
+  "travadas": 1
+ },
+ "app|abrir a ficha|prop": {
+  "quadros": 87,
+  "pior": 150,
+  "travadas": 4
+ },
+ "app|voltar|prop": {
+  "quadros": 73,
+  "pior": 150,
+  "travadas": 2
+ },
+ "app|Inventário → Caixa|prop": {
+  "quadros": 84,
+  "pior": 167,
+  "travadas": 2
+ },
+ "app|abrir o sino|prop": {
+  "quadros": 85,
+  "pior": 83,
+  "travadas": 1
+ }
+}
