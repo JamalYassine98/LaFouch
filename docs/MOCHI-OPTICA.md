@@ -60,3 +60,14 @@ Estudo de leitura, NÃO é orientação médica. Eu não sou oftalmologista; ant
 - O site desenha a letra em "pontos da tela". O tamanho real de 1 ponto muda com o aparelho (contas pela densidade divulgada; valores aproximados): iPhone ≈ 0,166 mm · Android comum de 6,5" HD+ ≈ 0,188 mm (13% maior) · notebook ≈ 0,23–0,26 mm (40–57% maior). O ajuste "tamanho da tela/zoom" do celular muda mais ±15%.
 - Cada degrau do quadro da Mochi muda a letra em 13–15% (ex.: 9,6 → 8,4). Ou seja: a diferença entre dois celulares já vale 1 degrau = 0,25 de grau; no notebook, 2 a 3 degraus.
 - O navegador não informa o tamanho real da tela. Jeitos de saber: (a) cartão na tela 1 vez (certo em qualquer aparelho); (b) reconhecer o modelo (bom no iPhone, falho no Android). Proposta do esboço: (a), guardado no aparelho, com "Ahora no" para pular.
+
+## 7. Decisão de 13/11 (tarde): cartão REPROVADO; computador APROVADO; dono perguntou "e se seguir o mesmo quadro sempre?"
+- Passo do cartão (calibrar tamanho real): REPROVADO. Não propor de novo.
+- Mesmo quadro sempre (como é hoje), sem perguntar nada ao cliente — o que acontece:
+  - Celulares: o ponto da tela varia pouco entre eles (≈ 0,16 a 0,19 mm, contas aproximadas). Erro típico: até 1 degrau (0,25) entre o celular de letra menor e o de letra maior; na maioria, meio degrau.
+  - Computador: varia muito mais (≈ 0,16 a 0,27 mm conforme tela e escala do sistema) → 2 a 3 degraus. Por isso o computador continua sendo "estimativa" e a Mochi recomenda o celular (QR).
+- Opções SEM passo para o cliente (aguardam decisão):
+  A. Não fazer nada (hoje).
+  B. Reconhecimento silencioso: iPhone/iPad têm tamanho de ponto conhecido por modelo de tela → corrigir a letra sozinho; Android usa um valor médio. Nenhuma tela nova. Reduz o erro nos aparelhos reconhecidos; não resolve Android nem computador.
+  C. Honestidade no resultado do computador: mostrar o grau como estimativa e sugerir confirmar no celular.
+- Recomendação: B + C (nada muda na tela do celular; no computador muda só a frase do resultado).
