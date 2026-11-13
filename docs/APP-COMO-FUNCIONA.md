@@ -128,3 +128,9 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - Botões "Ver" dos avisos dizem o que abrem: `src/89-notificacoes.js` (Ver margem, Ver pedidos) e `src/89-dash-abas.js` (Ver conta, Ver câmbio, Ver preços, Ver reposição, Ver peças). Aviso novo: nunca só "Ver".
 - Teste do atalho fantasma do Início (`tests/run.py` ~l.2666) segura no vazio em y=95 (era 150): com o topo compacto o vazio fica entre o logo e a busca.
 - AINDA NÃO FEITO do S226/S228: letra mínima de 12 px, menu ao lado no computador, nova barra (Início · Produtos · Vendas · Dinheiro · Mais) e as fusões de telas. Ver docs/APP-NADA-SE-PERDE.md.
+
+## Computador: menu ao lado (S232, 14/11/2026)
+- `www/style.css`, bloco "S232": com mouse (`hover:hover` + `pointer:fine`) e 1100 px ou mais, `#mainnav` vira coluna fixa à esquerda (`--rail:232px`), o logo (`.top.logo-top`) fica fixo no canto por cima do menu, o sino fixo no alto à direita e `.wrap` ocupa o resto com conteúdo de até 1320 px. Ajustes é o último item, no pé do menu.
+- `--lfz` repete o número do `zoom` de tela grande (1,15 / 1,3 / 1,5 / 2) para as contas de largura; se mudar o zoom, mudar `--lfz` junto.
+- Toque (celular, tablet, notebook virado tablet) continua com a barra embaixo. O menu ainda tem só os 5 destinos de hoje; os outros (Pedidos, Clientes, Histórico…) entram com a estrutura nova (docs/APP-NADA-SE-PERDE.md).
+- Alarme falso conhecido do olho.js no computador: "fileira torta" (logo sobre o menu).
