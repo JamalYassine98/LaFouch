@@ -91,3 +91,11 @@ Regras de conduta do designer (não são medidas, são decisões do dono): ver d
 ## 7. Correção (13/11, depois de investigar)
 - O "pulo de layout" ao abrir o ☰ no PC (0,11–0,15) e na peça do celular pequeno (0,109) era ALARME FALSO: quem se mexe é a página de trás (MAIN#topo sobe 62 px) já coberta pela camada aberta — o cliente não vê. Abrir o ☰ no PC mede 0; carregar o Início mede 0 (PC e celular).
 - Regra nova para o designer: pulo de layout só conta se o elemento que se mexeu está VISÍVEL (não coberto). Sempre abrir a causa (qual elemento, de onde para onde) antes de recomendar.
+
+## 8. Achados de 13/11 (S222)
+
+- **Início mais larga que a tela com letra grande (defeito de hoje):** margem direita do conteúdo — iPad 768: 8 px (normal), −83 (média), −181 (maior); iPad 820: 58 / −31 / −129; celulares 320–430: 26–34 / 28–38 / 0 a −5. Conteúdo cortado à direita (3ª categoria, 4º cartão, "Retiro").
+- **Margem livre à direita na Início, letra normal:** 320→26 · 360→28 · 390→31 · 412→32 · 430→34 · 600→34 · 768→8 · 820→58 · 844 deitado→48. Uma peça fixa de até 24 px (celular) cabe na margem sem cobrir nada.
+- **Cabeçalho do celular está cheio:** ☰, conta, logo, busca, sacola; em 320 px não cabe um 6º item.
+- **Catálogo no celular não tem WhatsApp** (`.ppop .wa{display:none}`); margem da grade ~14–17 px.
+- **Regra nova:** testar as 3 letras em TODOS os aparelhos de toque (não só em 4). Ao medir um botão que anima, medir com a animação desligada.

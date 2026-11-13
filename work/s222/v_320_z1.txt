@@ -1,0 +1,2 @@
+celular pequeno   320 hoje  pontos 15 | livre  7 min  8 | inteiro(vis=100)  7 | apagado  8 | cobre>0  3 ['Ayuda', 'La Fouch', 'Retiro en CDE'] | ícone<100  0 | rolando: visível  0/15 | olho {'cortado': 8, 'apagado': 10, 'tampado': 0, 'toque<24': 25, 'toque<40': 77, 'largura': 0}
+celular pequeno   320 prop  pontos 15 | livre  5 min 10 | inteiro(vis=100) 15 | apagado  0 | cobre>0  2 ['4 modelosArmazones', 'La Fouch'] | ícone<100  0 | rolando: visível 15/15 | olho {'cortado': 0, 'apagado': 2, 'tampado': 1, 'toque<24': 25, 'toque<40': 79, 'largura': 0}

@@ -1,0 +1,2 @@
+tablet pequeno    600 hoje  pontos 14 | livre  5 min  9 | inteiro(vis=100)  5 | apagado  9 | cobre>0  2 ['Retiro en CDE', 'Términos · Privacida'] | ícone<100  0 | rolando: visível  1/14 | olho {'cortado': 9, 'apagado': 11, 'tampado': 1, 'toque<24': 16, 'toque<40': 8, 'largura': 0}
+tablet pequeno    600 prop  pontos 14 | livre  4 min 10 | inteiro(vis=100) 14 | apagado  0 | cobre>0  1 ['Ver todos ›'] | ícone<100  0 | rolando: visível 14/14 | olho {'cortado': 0, 'apagado': 2, 'tampado': 1, 'toque<24': 16, 'toque<40': 17, 'largura': 0}

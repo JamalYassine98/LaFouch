@@ -1,0 +1,2 @@
+iPhone            390 hoje  pontos 13 | livre  8 min  5 | inteiro(vis=100)  8 | apagado  5 | cobre>0  3 ['Lunes a sábado, de 7', 'Protegido por reCAPT', 'Términos · Privacida'] | ícone<100  5 | rolando: visível  1/13 | olho {'cortado': 5, 'apagado': 9, 'tampado': 0, 'toque<24': 28, 'toque<40': 5, 'largura': 0}
+iPhone            390 prop  pontos 13 | livre  4 min  9 | inteiro(vis=100) 13 | apagado  0 | cobre>0  0 [] | ícone<100  0 | rolando: visível 13/13 | olho {'cortado': 0, 'apagado': 4, 'tampado': 0, 'toque<24': 27, 'toque<40': 9, 'largura': 0}
