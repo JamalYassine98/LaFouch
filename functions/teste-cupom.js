@@ -87,5 +87,13 @@ function dbFake(compras) {
   await C.confirma(db, envia, { pid: 'A9' }, T0 + 100); ok(db.m[pa.amiga.cod].st === 'ativo' && Object.values(db.m).filter((c) => c.tipo === 'am' && c.pid === 'A9').length === 1, 'S201: confirmar ativa a mesma amiga (sem criar outra)');
   const pb = await C.proxima(db, { pid: 'B9', tel: '0982333555', email: 'cris@x.com' }, T0); await C.libera(db, { pid: 'B9' }, T0 + 50); ok(db.m[pb.amiga.cod].st === 'canc', 'S201: cancelar o pedido cancela a amiga pendente');
   const mb = await C.meus(db, 'bea@x.com', T0 + 200), ca = mb.cupons.find((c) => c.tipo === 'am'); ok(ca && ca.amigas === 0 && ca.ganhos === 0 && ca.porMes === 5, 'S201: Mis tarjetas com amigas/ganhos/limite');
+  // 13/11: dois pedidos no mesmo segundo com um cupom de 1 uso → só um leva (transação; o falso serializa como o Firestore)
+  let fila = Promise.resolve();
+  db.trans = (k, fn) => { const p = fila.then(async () => { const c = JSON.parse(JSON.stringify(db.m[k] || null)); let w = null; const r = await fn(c, (o) => { w = o; }); if (w) Object.assign(db.m[k], w); return r; }); fila = p.catch(() => {}); return p; };
+  const u1 = await C.emitir(db, { tipo: 'px', tel: '0983444555', email: 'dup@x.com' }, T0), cu = u1.cupom.cod;
+  const [ra, rb] = await Promise.all([C.usar(db, { cod: cu, tel: '0983444555', email: 'dup@x.com', total: 200000, desc: 20000, pid: 'Q1' }, 'ipQ', T0 + 1), C.usar(db, { cod: cu, tel: '0983444555', email: 'dup@x.com', total: 200000, desc: 20000, pid: 'Q2' }, 'ipQ', T0 + 1)]);
+  ok([ra, rb].filter((x) => x.ok).length === 1 && [ra, rb].some((x) => !x.ok && x.motivo === 'usado') && db.m[cu].usos.length === 1, 'mesmo segundo: cupom de 1 uso vale só para um pedido');
+  const am2 = Object.values(db.m).find((c) => c.tipo === 'am' && c.st === 'ativo');
+  if (am2) { const n0 = (am2.usos || []).length; const rr = await Promise.all([C.usar(db, { cod: am2.cod, tel: '0984000111', email: 'f1@x.com', total: 200000, desc: 20000, pid: 'R1' }, 'ipR1', T0 + 9000), C.usar(db, { cod: am2.cod, tel: '0984000222', email: 'f2@x.com', total: 200000, desc: 20000, pid: 'R2' }, 'ipR2', T0 + 9000)]); ok(db.m[am2.cod].usos.length === n0 + 2, 'mesmo segundo: cupom de amiga guarda as duas amigas'); }
   process.exit(falhas ? 1 : 0);
 })();

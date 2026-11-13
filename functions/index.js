@@ -474,6 +474,11 @@ const cupDb = {
   get: async (k) => { if (!/^[A-Z0-9-]{4,24}$/.test(k)) return null; const d = await fsx().doc('cupons/' + k).get(); return d.exists ? d.data() : null; },
   salva: (k, o) => fsx().doc('cupons/' + k).set(o),
   muda: (k, c) => fsx().doc('cupons/' + k).update(c),
+  // 13/11: uso do cupom um de cada vez (dois pedidos no mesmo segundo não apagam o uso um do outro)
+  trans: (k, fn) => fsx().runTransaction(async (tx) => {
+    const r = fsx().doc('cupons/' + k), d = await tx.get(r);
+    return fn(d.exists ? d.data() : null, (o) => tx.update(r, o));
+  }),
   getMes: async (k) => { const d = await fsx().doc('cupomMes/' + k).get(); return d.exists ? d.data() : null; },
   somaMes: (k, v) => fsx().doc('cupomMes/' + k).set({ desc: admin.firestore.FieldValue.increment(v) }, { merge: true }),
   getTent: async (k) => { const d = await fsx().doc('cupomTent/' + k).get(); return d.exists ? d.data() : null; },

@@ -108,10 +108,29 @@ async function usar(db, b, ipk, agora, caixa) {
   const pid = limpa(b.pid, 40);
   if (!pid) throw new Falha('pid');
   const tel = telN(b.tel), em = emN(b.email);
-  const usos = (c.usos || []).filter((u) => u.pid !== pid).concat([{ pid, tel, email: em, ts: agora, st: caixa ? 'ok' : 'res', desc, total, canal: caixa ? 'loja' : 'site' }]);
-  const muda = { usos, pids: usos.map((u) => u.pid) };
-  if (!c.tel && tel && c.tipo !== 'ev' && c.tipo !== 'am') muda.tel = tel; // preso ao 1º telefone
-  await db.muda(c.cod, muda);
+  const monta = (cc) => {
+    const usos = (cc.usos || []).filter((u) => u.pid !== pid).concat([{ pid, tel, email: em, ts: agora, st: caixa ? 'ok' : 'res', desc, total, canal: caixa ? 'loja' : 'site' }]);
+    const m = { usos, pids: usos.map((u) => u.pid) };
+    if (!cc.tel && tel && cc.tipo !== 'ev' && cc.tipo !== 'am') m.tel = tel; // preso ao 1º telefone
+    return m;
+  };
+  let muda;
+  if (db.trans) {
+    // relê o cupom dentro da transação: se outro pedido acabou de usar o último uso, este recebe "usado"/"esgotado"
+    const fim = await db.trans(c.cod, (fresco, grava) => {
+      if (!fresco) return { e: 'nao' };
+      const so = Object.assign({}, fresco, { usos: (fresco.usos || []).filter((u) => u.pid !== pid) }), v = vivo(so, agora);
+      if (v) return { e: v, c: fresco };
+      const m = monta(fresco);
+      grava(m);
+      return { m, c: fresco };
+    });
+    if (fim.e) return { ok: false, motivo: fim.e, cupom: fim.c ? publico(fim.c, agora) : null };
+    muda = fim.m;
+  } else {
+    muda = monta(c);
+    await db.muda(c.cod, muda);
+  }
   await db.somaMes(mesDe(agora), desc);
   const t = await teto(db, agora);
   if (t.pausa && t.usado - desc < TETO_MES) await aviso(db, agora, 'pausa', 'teto do mês atingido · novos códigos pausados até o mês que vem');
