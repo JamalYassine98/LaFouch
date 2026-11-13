@@ -56,6 +56,11 @@ service cloud.firestore {
     match /estoque/{d} {
       allow read: if true;
     }
+    // S191 Conta Atacadista/Mayorista: só o dono (app) lê e escreve; o site passa pela função "atacado"
+    match /atacadoContas/{d} { allow read, write: if dono(); }
+    match /atacadoPrecos/{d} { allow read, write: if dono(); }
+    match /atacadoPedidos/{d} { allow read, write: if dono(); }
+    match /atacadoAvisos/{d} { allow read, delete: if dono(); }
     // S197 PIX automático: o app (dono) registra a espera da venda da loja e lê os PIX sem par; a função escreve com o admin
     match /pixEspera/{d} { allow read, write: if dono(); }
     match /pixSemPar/{d} { allow read, delete: if dono(); }

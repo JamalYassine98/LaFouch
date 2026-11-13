@@ -595,3 +595,37 @@ exports.seg = onRequest({ region: REGIAO, cors: ['https://lafouch.com'], maxInst
     return res.status(500).json({ ok: false, motivo: 'erro' });
   }
 });
+
+// ---------- S191 Conta Atacadista/Mayorista (12/11/2026): o site chama com o link do cliente; o app (dono) cria as contas ----------
+const Atacado = require('./atacado');
+const ataDb = {
+  get: async (k) => { if (!/^[A-Za-z0-9_-]{4,40}$/.test(k)) return null; const d = await fsx().doc('atacadoContas/' + k).get(); return d.exists ? d.data() : null; },
+  muda: (k, o) => fsx().doc('atacadoContas/' + k).set(o, { merge: true }),
+  precos: async (t) => { const d = await fsx().doc('atacadoPrecos/' + String(t).replace(/[^a-z0-9]/gi, '')).get(); return d.exists ? d.data() : null; },
+  pedido: (k, o) => fsx().doc('atacadoPedidos/' + k).set(o),
+};
+const ataAviso = (o) => fsx().collection('atacadoAvisos').add(o);
+exports.atacado = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 5, secrets: [RESEND_KEY] }, async (req, res) => {
+  if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
+  const b = req.body && typeof req.body === 'object' ? req.body : {};
+  let chave = '';
+  try { chave = RESEND_KEY.value() || ''; } catch (e) {}
+  const envia = async (m) => {
+    if (!chave) throw new Error('sem RESEND_KEY');
+    const r = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + chave, 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ from: 'La Fouch <nao-responda@lafouch.com>' }, m)) });
+    if (!r.ok) throw new Error('resend ' + r.status);
+  };
+  try {
+    const ag = Date.now();
+    if (b.acao === 'entrar') return res.json(await Atacado.entrar(ataDb, envia, b, ag));
+    if (b.acao === 'confirma') return res.json(await Atacado.confirma(ataDb, ataAviso, b, ag));
+    if (b.acao === 'catalogo') return res.json(await Atacado.catalogo(ataDb, b, ag));
+    if (b.acao === 'remove') return res.json(await Atacado.remove(ataDb, ataAviso, b, ag));
+    if (b.acao === 'pedido') return res.json(await Atacado.pedido(ataDb, b, ag));
+    return res.status(400).json({ ok: false, motivo: 'acao' });
+  } catch (e) {
+    if (e instanceof Atacado.Falha) return res.status(e.status).json({ ok: false, motivo: e.motivo });
+    console.error('atacado', e);
+    return res.status(500).json({ ok: false, motivo: 'erro' });
+  }
+});
