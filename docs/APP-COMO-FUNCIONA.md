@@ -109,3 +109,16 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - Janela do lote: Ativo/Cancelado/Vencido, modelos, ✅ confirmados (`atacadoPedidos.lote`), 🧺 montando agora (`atacadoSep` dentro dos 30 min), ⛔ esgotaram; Editar e "Encerrar lote" (o link mostra "Lote finalizado").
 - Conta Atacadista: "Moeda que ele vê primeiro" (`moeda` na conta). Guardião: "Lote de atacado vence amanhã".
 - PIN v2: sempre 4 números, entra sozinho ao acertar (sem botão Entrar); digital cancelada não mostra erro; PIN antigo de outro tamanho → depois de entrar pede um novo de 4.
+
+## Modo loja (S181, 13/11/2026)
+- `src/97-modo-cliente2-loja.js`: com o Modo cliente ligado, o app abre por cima de tudo o próprio site (`www/loja/loja.html?loja=1&nosync`, copiado do repositório do site pelo `node build.js`). Funciona sem internet: o app manda por postMessage todo o inventário com estoque (`vitProduto` + fotos do app), de novo a cada 30 s.
+- O cliente toca "Quero este" e junta em "Meu pedido"; "Chamar um vendedor" → o tablet apita, as peças entram no carrinho do app (cor pelo índice, grau, sem passar do estoque) e grava `lojaChama/{id}` (a função `avisarChama` manda o aviso para os celulares).
+- Sair: segurar o logo 5 s (anel roxo enche) ou 7 toques → PIN/biometria. Parado 2 min (o site avisa a atividade a cada 5 s) → o site volta ao início e o Meu pedido some.
+
+## Contador virtual (S188, 13/11/2026)
+- `src/97z2-contador.js`: Números › Preços abre com o Contador — saúde (margem média real 30 dias com ▲/▼, lucro por peça, contas do mês cobertas + faltam N peças, abaixo do piso), "Para decidir esta semana" (preço automático `paPlano`, tema chegando, atacado com margem < 10%) com Aceitar tudo / Ver um por um (Aceitar · Agora não), frase dos descontos do mês, botões Calculadora de preço e E se…?.
+- As regras de antes ficam recolhidas em "Regras do contador" (Preço automático, Abaixo do piso, Contas, taxas e meta). Mesmas regras: nunca abaixo do piso, máx. 10%/semana, cadeado vence.
+- Ficha da peça: "De onde vem o preço" (barra repor/contas/colchão/taxa/lucro, piso, trava, faixa, site, atacado, quanto dá para descer).
+- Calculadora: custo US$ + lote + tipo + faixa → balcão, site, atacado, piso, parecidos, tempo e lucro do lote; "Usar estes preços" anota (`S.cntCalc`) e copia.
+- E se…?: dólar, contas +%, desconto numa categoria, cupom, vender tudo parado, meta do mês (só contas do app).
+- Dias 1–5: Guardião "Fechamento do mês pronto" (resultado, margem por categoria, descontos).

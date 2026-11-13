@@ -80,5 +80,12 @@ function dbFake(compras) {
   await C.confirma(db, envia, { pid: 'F3' }, T0 + 2000);
   fi = Object.values(db.m).filter((c) => c.tipo === 'fiel'); ok(fi.length === 1, 'Cliente fiel: confirmar o mesmo pedido de novo não conta 2 vezes');
   const mt = await C.meus(db, 'ANA@gmail.com', T0 + 20000); ok(mt.cupons.some((c) => c.cod === px) && mt.cupons.some((c) => c.cod === bv && c.usado), 'Mis tarjetas: cartões da cliente e o que já usou');
+  // S201: cartão da amiga nasce pendente com o pedido; vale ao confirmar; cai se cancelar; Mis tarjetas mostra o contador
+  const pa = await C.proxima(db, { pid: 'A9', tel: '0982333444', email: 'bea@x.com' }, T0);
+  ok(pa.amiga && pa.amiga.estado === 'pendente' && pa.amiga.tipo === 'am', 'S201: amiga pendente junto com o pedido');
+  const pa2 = await C.proxima(db, { pid: 'A9', tel: '0982333444', email: 'bea@x.com' }, T0 + 5); ok(pa2.amiga && pa2.amiga.cod === pa.amiga.cod, 'S201: pedir de novo devolve o mesmo código');
+  await C.confirma(db, envia, { pid: 'A9' }, T0 + 100); ok(db.m[pa.amiga.cod].st === 'ativo' && Object.values(db.m).filter((c) => c.tipo === 'am' && c.pid === 'A9').length === 1, 'S201: confirmar ativa a mesma amiga (sem criar outra)');
+  const pb = await C.proxima(db, { pid: 'B9', tel: '0982333555', email: 'cris@x.com' }, T0); await C.libera(db, { pid: 'B9' }, T0 + 50); ok(db.m[pb.amiga.cod].st === 'canc', 'S201: cancelar o pedido cancela a amiga pendente');
+  const mb = await C.meus(db, 'bea@x.com', T0 + 200), ca = mb.cupons.find((c) => c.tipo === 'am'); ok(ca && ca.amigas === 0 && ca.ganhos === 0 && ca.porMes === 5, 'S201: Mis tarjetas com amigas/ganhos/limite');
   process.exit(falhas ? 1 : 0);
 })();

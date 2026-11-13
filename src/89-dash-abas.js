@@ -166,7 +166,10 @@
       pg = precoPerigoso().length,
       pr = perdasPropositais();
     // v422: aba Preços = preço automático (um interruptor, meta, esta semana, travados) + contas/taxas/meta recolhidas
-    h += precosAutoHtml();
+    // S188 (13/11): o Contador vem primeiro; as regras de sempre ficam recolhidas em "Regras do contador"
+    h += contadorHtml();
+    h += '<div class="lbl" style="margin:16px 4px 6px">REGRAS DO CONTADOR</div>';
+    h += dFold('pau', 'Preço automático', S.pAuto && S.pAuto.on ? 'ligado · revisa toda segunda' : 'desligado', 'var(--sub)', precosAutoHtml());
     if (!(S.pAuto && S.pAuto.on)) h += dFold('abp', 'Preço abaixo do piso', ab ? ab + ' produto(s) com o câmbio de hoje' : 'nenhum', ab ? 'var(--warn)' : 'var(--ok)', x3.abaixo);
     h += dFold('cfg', 'Contas, taxas e meta', 'o que entra no custo de cada peça', 'var(--sub)', precosCfgHtml() + pagamentoHtml());
     return h;

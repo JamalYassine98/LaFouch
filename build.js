@@ -42,3 +42,18 @@ if (process.argv.includes('--check')) {
   fs.writeFileSync(path.join(__dirname, 'www', 'version.json'), VER);
   console.log('www/app.js gerado: ' + modulos.length + ' módulos, ' + saida.split('\n').length + ' linhas');
 }
+// S181 (13/11/2026): modo loja — cópia do site dentro do app (www/loja/), para o tablet funcionar sem internet.
+// Só o necessário (página, scripts, fotos pequenas); caminhos "/js/", "/media/", "/p/" passam a apontar para /loja/.
+if (!process.argv.includes('--check')) {
+  const SITE = path.join(__dirname, '..', 'catalogo'), LJ = path.join(__dirname, 'www', 'loja');
+  if (fs.existsSync(path.join(SITE, 'index.html'))) {
+    const muda = (t) => t.replace(/(["'(])\/(js|media|p|lfx)\//g, '$1/loja/$2/');
+    const copia = (de, para, txt) => { fs.mkdirSync(path.dirname(para), { recursive: true }); if (txt) fs.writeFileSync(para, muda(fs.readFileSync(de, 'utf8'))); else fs.copyFileSync(de, para); };
+    const pasta = (rel, txt) => { const d = path.join(SITE, rel); if (!fs.existsSync(d)) return; for (const f of fs.readdirSync(d)) { const a = path.join(d, f); if (fs.statSync(a).isFile()) copia(a, path.join(LJ, rel, f), txt); } };
+    fs.rmSync(LJ, { recursive: true, force: true });
+    copia(path.join(SITE, 'index.html'), path.join(LJ, 'loja.html'), true);
+    pasta('js', true); pasta('p'); pasta(path.join('media', 'i'));
+    ['favicon-48.png', 'icon-192.png'].forEach((f) => { if (fs.existsSync(path.join(SITE, f))) copia(path.join(SITE, f), path.join(LJ, f)); });
+    console.log('www/loja/ (modo loja) copiado do site');
+  }
+}

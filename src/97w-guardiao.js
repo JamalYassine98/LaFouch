@@ -37,6 +37,7 @@
     add('Site e pedidos', 'itau', 'Comprovante aguardando conferência', itau.length, { s: itau.slice(0, 2).map(function (p) { return '#' + (p.num || p.id); }).join(', '), b: 'Conferir', act: 'view', id: 'ped', urg: itau.length > 0 });
     var ata = typeof ataTrocasEstranhas === 'function' ? ataTrocasEstranhas() : [];
     if (typeof ataTrocasEstranhas === 'function') add('Site e pedidos', 'ata', 'Conta atacadista trocando muito de aparelho', ata.length, { s: ata.slice(0, 2).map(function (a) { return a.nome; }).join(', '), b: 'Ver', act: 'view', id: 'clientes' });
+    if (typeof cntFechPend === 'function') add('Dinheiro', 'fech', 'Fechamento do mês pronto', cntFechPend(), { s: 'resultado, margem por categoria e descontos', b: 'Ver', act: 'cntFech' });
     var ltv = typeof ataLotesVencendo === 'function' ? ataLotesVencendo() : [];
     if (typeof ataLotesVencendo === 'function') add('Site e pedidos', 'atalote', 'Lote de atacado vence amanhã', ltv.length, { s: ltv.slice(0, 2).map(function (a) { return a.nome; }).join(', '), b: 'Ver', act: 'ataLotes' });
     // Aparelhos e cópias

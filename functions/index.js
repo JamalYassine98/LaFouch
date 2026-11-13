@@ -86,6 +86,21 @@ exports.avisarPedido = onDocumentCreated({ document: 'pedidos/{id}', region: REG
   await Promise.all(resp.filter(Boolean).map((tk) => db.collection('dispositivos').doc(tk).delete()));
 });
 
+// S181 (13/11): modo loja — o cliente toca "Chamar um vendedor" no tablet; o app grava lojaChama/{id} e o celular do vendedor apita
+exports.avisarChama = onDocumentCreated({ document: 'lojaChama/{id}', region: REGIAO }, async (ev) => {
+  const f = (ev.data && ev.data.data()) || {};
+  const n = Math.max(0, Math.min(99, +f.n || 0));
+  const db = admin.firestore();
+  const lista = await db.collection('dispositivos').get();
+  await Promise.all(lista.docs.filter((d) => d.id !== f.de && !quieto(d.data() || {})).map(async (d) => {
+    const dd = d.data() || {}, som = dd.sn || dd.som || 'sino';
+    try {
+      await admin.messaging().send({ token: d.id, notification: { title: '🛎️ Cliente chamando na loja', body: n ? n + (n === 1 ? ' peça no Meu pedido · já estão no carrinho do app' : ' peças no Meu pedido · já estão no carrinho do app') : 'Um cliente pediu ajuda no tablet' },
+        data: { tipo: 'chama', id: String(ev.params.id) }, android: { priority: 'high', notification: { channelId: 'pedidos_' + som, tag: 'chama-' + ev.params.id, defaultVibrateTimings: true } } });
+    } catch (e) {}
+  }));
+});
+
 // ---------- Reserva de estoque (site e app) ----------
 // Só funciona se config/site tiver reserva = true (interruptor do dono). Desligada, responde {ok:true, off:true}
 // e o site segue vendendo como antes.

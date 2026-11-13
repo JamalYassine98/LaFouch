@@ -135,10 +135,13 @@ async function proxima(db, b, agora) {
   const pid = limpa(b.pid, 40), em = emN(b.email), tel = telN(b.tel);
   if (!pid || !tel) throw new Falha('pid');
   const ja = await db.porPid(pid, 'px');
-  if (ja) return { ok: true, cupom: publico(ja, agora) };
+  // S201 (13/11): o cartão "Indique uma amiga" nasce junto, PENDENTE, para o site mostrar o código na tela de pagamento confirmado
+  const amJa = ja ? await db.porPid(pid, 'am') : null;
+  if (ja) return { ok: true, cupom: publico(ja, agora), amiga: amJa ? publico(amJa, agora) : null };
   if ((await teto(db, agora)).pausa) return { ok: false, motivo: 'pausa' };
   const P = PADRAO.px, c = await cria(db, { tipo: 'px', pct: P.pct, fim: agora + P.dias * DIA, min: P.min, email: em, tel, pid, st: 'pend', lang: b.lang === 'es' ? 'es' : 'pt' }, agora);
-  return { ok: true, cupom: publico(c, agora) };
+  const am = await cria(db, { tipo: 'am', pct: PADRAO.am.pct, fim: agora + PADRAO.am.dias * DIA, max: 0, por: { tel, email: em }, email: em, tel: '', pid, st: 'pend', de: 'pedido:' + pid }, agora);
+  return { ok: true, cupom: publico(c, agora), amiga: publico(am, agora) };
 }
 // app (dono): pagamento do pedido confirmado → usos viram "ok", o cartão Próxima compra e o da Amiga ficam valendo e vão por e-mail;
 // quem indicou ganha outro Próxima compra que começa a valer 7 dias depois (até 5 por mês)
@@ -173,7 +176,9 @@ async function confirma(db, envia, b, agora) {
   }
   if (px && px.st === 'pend') {
     await db.muda(px.cod, { st: 'ativo', ini: agora, fim: agora + PADRAO.px.dias * DIA });
-    const am = await cria(db, { tipo: 'am', pct: PADRAO.am.pct, fim: agora + PADRAO.am.dias * DIA, max: 0, por: { tel: px.tel, email: px.email }, email: px.email, tel: '', de: 'pedido:' + pid }, agora);
+    let am = await db.porPid(pid, 'am');
+    if (am && am.st === 'pend') { await db.muda(am.cod, { st: 'ativo', ini: agora, fim: agora + PADRAO.am.dias * DIA }); am = Object.assign({}, am, { st: 'ativo' }); }
+    else if (!am) am = await cria(db, { tipo: 'am', pct: PADRAO.am.pct, fim: agora + PADRAO.am.dias * DIA, max: 0, por: { tel: px.tel, email: px.email }, email: px.email, tel: '', pid, de: 'pedido:' + pid }, agora);
     out.cartoes.push(px.cod, am.cod);
     if (envia && px.email) try { await envia(mail(Object.assign({}, px, { st: 'ativo' }), px.lang === 'es', am)); } catch (e) {}
   }
@@ -192,6 +197,8 @@ async function libera(db, b, agora) {
   }
   const px = await db.porPid(pid, 'px');
   if (px && px.st === 'pend') await db.muda(px.cod, { st: 'canc' });
+  const am = await db.porPid(pid, 'am');
+  if (am && am.st === 'pend') await db.muda(am.cod, { st: 'canc' });
   return { ok: true, n };
 }
 // app (dono): criar VIP / Próxima compra na loja / cupom do evento; cancelar; listar
@@ -237,7 +244,7 @@ async function lista(db, agora) {
 async function meus(db, email, agora) {
   const em = emN(email);
   if (!em) throw new Falha('login', 401);
-  return { ok: true, cupons: (await db.doEmail(em)).filter((c) => c.st !== 'canc').map((c) => Object.assign(publico(c, agora), { usado: (c.usos || []).some((u) => u.st === 'ok' && u.email === em) })) };
+  return { ok: true, cupons: (await db.doEmail(em)).filter((c) => c.st !== 'canc').map((c) => Object.assign(publico(c, agora), { usado: (c.usos || []).some((u) => u.st === 'ok' && u.email === em) }, c.tipo === 'am' ? { amigas: (c.usos || []).filter((u) => u.st === 'ok').length, ganhos: (c.premios || []).length, porMes: AMIGA_MES } : {})) };
 }
 function mail(c, es, am) {
   const n = c.pct + '%', l = 'https://lafouch.com/?t=' + encodeURIComponent(c.cod), f = c.fim ? new Date(c.fim).toLocaleDateString(es ? 'es-PY' : 'pt-BR', { timeZone: 'America/Asuncion' }) : '';

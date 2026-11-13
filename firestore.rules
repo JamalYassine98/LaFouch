@@ -65,6 +65,8 @@ service cloud.firestore {
     match /atacadoLotes/{d} { allow read, write: if dono(); }
     match /atacadoSep/{d} { allow read: if dono(); }
     match /temaEnvios/{d} { allow read: if dono(); }
+    // S181 modo loja: o tablet (dono) grava o chamado; a função avisarChama apita o celular do vendedor
+    match /lojaChama/{d} { allow create, read: if dono(); }
     // S197 PIX automático: o app (dono) registra a espera da venda da loja e lê os PIX sem par; a função escreve com o admin
     match /pixEspera/{d} { allow read, write: if dono(); }
     match /pixSemPar/{d} { allow read, delete: if dono(); }
