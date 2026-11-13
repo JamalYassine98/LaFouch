@@ -1,0 +1,8 @@
+()=>{const vis=e=>{const s=getComputedStyle(e);return s.visibility!=='hidden'&&s.display!=='none'&&+s.opacity>0.2};
+const T=[];document.querySelectorAll('body *').forEach(e=>{if(!vis(e))return;const own=[...e.childNodes].some(n=>n.nodeType===3&&n.textContent.trim().length>1);if(!own)return;
+ const rg=document.createRange();rg.selectNodeContents(e);[...rg.getClientRects()].forEach(r=>{if(r.width>2&&r.height>2&&r.bottom>0&&r.top<innerHeight)T.push({e,r})})});
+const R=[],vis2=new Set();for(let i=0;i<T.length;i++)for(let j=i+1;j<T.length;j++){const a=T[i],b=T[j];if(a.e===b.e||a.e.contains(b.e)||b.e.contains(a.e))continue;
+ const w=Math.min(a.r.right,b.r.right)-Math.max(a.r.left,b.r.left),h=Math.min(a.r.bottom,b.r.bottom)-Math.max(a.r.top,b.r.top);
+ if(w>3&&h>3&&w*h>Math.min(a.r.width*a.r.height,b.r.width*b.r.height)*.15){const k=a.e.textContent.trim().slice(0,20)+' × '+b.e.textContent.trim().slice(0,20);if(vis2.has(k))continue;
+  const fa=document.elementFromPoint(Math.max(a.r.left,b.r.left)+w/2,Math.max(a.r.top,b.r.top)+h/2);const cobre=fa&&!(a.e.contains(fa)||b.e.contains(fa)||fa.contains(a.e)||fa.contains(b.e));if(cobre)continue;const vivo=t=>{const x=t.r.left+t.r.width/2,y=t.r.top+t.r.height/2;if(x<0||y<0||x>innerWidth||y>innerHeight)return true;const q=document.elementFromPoint(x,y);if(!q)return false;if(t.e.contains(q)||q.contains(t.e)||a.e.contains(q)||b.e.contains(q))return true;const ly=q.closest('#layer,#drw,#sov,#dsh');return !ly||ly.contains(t.e)};if(!vivo(a)||!vivo(b))continue;const L=document.querySelector('#layer .scrim');if(L&&(L.contains(a.e)!==L.contains(b.e)))continue;
+  vis2.add(k);R.push('texto em cima de texto: “'+k+'”')}}return R.slice(0,12)}

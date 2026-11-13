@@ -776,6 +776,23 @@ def p7_animacoes(p):
                 else: passou(P7, f'Animação · {nome} · {W}px', f'{len(Q)} quadros')
             finally: b.close()
 
+# texto em cima de texto (13/11/2026): rola cada página inteira em celular/tablet/PC e nas letras normal/maior
+SOBRE = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'kit', 'sobre.js')).read()
+def p7_sobreposto(p):
+    for W, H in ((390, 844), (820, 1180), (1440, 900), (2560, 1440)):
+        for zi in ('0', '2'):
+            for nome, abre in (('Início', lambda pg: None), ('Catálogo', a_cat('grau')), ('Peça', a_prod)):
+                b, c, pg, E = novo(p, W, H, 'es-PY', ls={'lf_zoom': zi}, touch=W < 1000)
+                try:
+                    carrega(pg); abre(pg); A = set()
+                    for i in range(14):
+                        for x in pg.evaluate(SOBRE): A.add(x)
+                        pg.evaluate("()=>{const L=[document.scrollingElement,...document.querySelectorAll('#layer .scrim,#vscr')];L.forEach(e=>{if(e)e.scrollTop+=innerHeight*.8})}"); pg.wait_for_timeout(200)
+                    t = f'Sem texto sobreposto · {nome} · {W}px · letra {zi}'
+                    if A: falha(P7, t, ' | '.join(sorted(A)[:3]), pg)
+                    else: passou(P7, t)
+                finally: b.close()
+
 # ---------- execução ----------
 t0 = time.time()
 PARTES = os.environ.get('FISCAL_PARTES', '1,2,3,4,5,6').split(',')
@@ -810,7 +827,7 @@ with sync_playwright() as p:
      print('parte 7 · olho do dono')
      for nome, fn in (('rodapé', p7_rodape), ('teste da ajuda', p7_teste_ajuda), ('foto e mouse', p7_foto_mouse), ('tamanho e letras', p7_tamanho), ('Mochi com braços', p7_mochi_bracos),
                       ('Mi cuenta', p7_conta_spam), ('idioma', p7_idioma), ('endereço', p7_endereco), ('código', p7_codigo), ('ícone da conta', p7_icone_conta),
-                      ('Últimas N', p7_ultimas), ('dica', p7_dica), ('animações', p7_animacoes), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
+                      ('Últimas N', p7_ultimas), ('dica', p7_dica), ('animações', p7_animacoes), ('texto sobreposto', p7_sobreposto), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
          print(' ', nome); prova(P7, nome, fn, p)
     if '5' in PARTES:
      print('parte 5 · situações difíceis')

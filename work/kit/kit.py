@@ -69,6 +69,7 @@ def site(tela,out,inj=None,y=0,es=False,ref=None):
         if ALVO[0]: pg.evaluate("s=>{const e=document.querySelector(s);if(e)e.scrollIntoView({block:'center'})}",ALVO[0]); pg.wait_for_timeout(400)
         if ESP[0]: pg.wait_for_timeout(ESP[0])
         for x in pg.evaluate(open(os.path.join(K,'centro.js')).read()): print('DESIGNER: botões fora do centro ·',x)
+        for x in pg.evaluate(open(os.path.join(K,'sobre.js')).read()): print('DESIGNER:',x)
         pg.screenshot(path=out); b.close()
 def app(tela,out,inj=None,escuro=False):
     serve(os.path.join(RAIZ,'www'),PA)
@@ -78,6 +79,7 @@ def app(tela,out,inj=None,escuro=False):
         if tela!='inicio': pg.evaluate("t=>window.__LF.setView(t)",tela); pg.wait_for_timeout(700)
         if inj: pg.evaluate("a=>{const s=document.createElement('style');s.textContent=a[0];document.head.appendChild(s);const d=document.createElement('div');d.id='fx';d.innerHTML=a[1];document.body.appendChild(d)}",[open(os.path.join(K,'app-comp.css')).read(),open(inj).read()]); pg.wait_for_timeout(500)
         for x in pg.evaluate(open(os.path.join(K,'centro.js')).read()): print('DESIGNER: botões fora do centro ·',x)
+        for x in pg.evaluate(open(os.path.join(K,'sobre.js')).read()): print('DESIGNER:',x)
         pg.screenshot(path=out); b.close()
 def prancha(out,tit,sub,itens):
     from PIL import Image,ImageDraw,ImageFont
