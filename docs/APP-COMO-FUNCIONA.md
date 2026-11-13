@@ -134,3 +134,8 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - `--lfz` repete o número do `zoom` de tela grande (1,15 / 1,3 / 1,5 / 2) para as contas de largura; se mudar o zoom, mudar `--lfz` junto.
 - Toque (celular, tablet, notebook virado tablet) continua com a barra embaixo. O menu ainda tem só os 5 destinos de hoje; os outros (Pedidos, Clientes, Histórico…) entram com a estrutura nova (docs/APP-NADA-SE-PERDE.md).
 - Alarme falso conhecido do olho.js no computador: "fileira torta" (logo sobre o menu).
+
+## Produtos: chave Vender / Cuidar do estoque (S233, 14/11/2026)
+- `src/97v-produtos-chave-s233.js` (`pcChave`, depois de cada `render`): põe a chave `.pcSeg` logo abaixo do `.top` do Catálogo (`v-vendas`) e do Inventário (`v-estoque`); tocar troca de tela com `setView` deslizando para o lado. Some no modo cliente e na tela do WhatsApp do catálogo. CSS no bloco "S233" do `style.css`.
+- É o 1º passo da fusão Catálogo + Inventário (docs/APP-NADA-SE-PERDE.md). As duas telas e os dois botões da barra continuam existindo; a busca e a posição ainda NÃO passam de uma para a outra.
+- Sem teste próprio em `tests/run.py` ainda (conferido à mão no simulador: celular claro/escuro e 1366).
