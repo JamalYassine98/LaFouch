@@ -2161,3 +2161,14 @@ body.modoCli #selBar{display:none!important}
 .cupQr{display:flex;justify-content:center}.cupQr svg{width:200px;height:200px;background:#fff;padding:8px;border-radius:12px}
 .cupBar{height:10px;border-radius:99px;background:var(--panel2,rgba(127,127,127,.2));overflow:hidden}.cupBar i{display:block;height:100%;background:var(--accent,#a44a7e)}
 .cupEv{display:grid;grid-template-columns:2fr 1fr 1fr;gap:6px}
+/* S189 guardião */
+.guardC{border-left:4px solid var(--warn);display:flex;flex-direction:column;gap:8px;padding:12px 14px}
+.guardT{display:flex;align-items:center;gap:8px;cursor:pointer}.guardT svg,.guardOk svg{color:var(--ac,#8d3a69);flex:none}
+.guardL{display:flex;justify-content:space-between;align-items:center;gap:10px;border-top:1px solid var(--line);padding-top:8px}
+.guardL span{display:flex;flex-direction:column;min-width:0}.guardL small{color:var(--mu);font-size:12px}
+.guardOk{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;color:var(--ok);font-size:14px;cursor:pointer}
+.guardI small{display:block;color:var(--mu);font-size:12px}
+.gBtn{min-height:32px;padding:4px 14px;border-radius:999px;background:var(--ac,#8d3a69);color:#fff;font:600 13px inherit;border:0;white-space:nowrap;flex:none;cursor:pointer}
+.gMudo{background:none;border:0;color:var(--mu);font-size:12px;text-decoration:underline;padding:4px;cursor:pointer}
+.gLink{background:none;border:0;color:var(--ac,#8d3a69);font-weight:600;font-size:14px;padding:4px;align-self:center;cursor:pointer}
+.guardL b{font-weight:600}

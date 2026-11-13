@@ -76,3 +76,7 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 ## Cupom e fretes no app (S194/S192, 12/11/2026)
 - `src/97-cupons.js`: no caixa o cupom é sempre cheio; peça em que o % furaria o piso fica sem cupom (aviso "Peça sem cupom"). Tipos: sai o VIP (botão removido da ficha do cliente em `96-clientes.js`), entra "Cliente fiel" (10% a cada 3 compras pagas, feito pelo servidor). Sem teto do mês (só mostra quanto os cupons deram).
 - `src/97x-fretes.js`: Ajustes › Pedidos do site › "Transportadoras do Delivery": preço (G$) e liga/desliga de PedidosYa, Bolt, Tiemsa e MCGroup → `config/site.fretes` (o site lê). `S.fretes` fica salvo no aparelho.
+
+## Guardião (S189, 12/11/2026)
+- `src/97w-guardiao.js`: `guardChecks()` confere no aparelho (sem internet) Dinheiro (caixa, contas em 3 dias, câmbio > 24 h), Estoque e preço (estoque negativo, peça sem custo, venda abaixo do piso sem motivo, publicada sem foto), Site e pedidos (pago não separado +2 h, PIX esperando > 15 min, comprovante aguardando conferência, atacadista com trocas estranhas quando existir `ataTrocasEstranhas`), Aparelhos e cópias (sincronização, cópia > 7 dias, lote sem detalhe).
+- Início: cartão `.guardC` (até 3 avisos + "Ver todas") ou linha verde "Tudo certo · conferido HH:MM". `ACT.guardAbre` abre todas por assunto; "silenciar" = 7 dias (`S.guardMudo`). Urgentes entram no sino (`atencaoItens` embrulhado).

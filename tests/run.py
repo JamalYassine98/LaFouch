@@ -2648,6 +2648,7 @@ async def main():
             pg = await pagina()
             await pg.evaluate("() => { window.__LF.S.inicioT = null; window.__LF.setView('inicio'); }"); await pg.wait_for_timeout(400)
             semChip = await pg.evaluate("() => !document.querySelector('[data-act=inicioEd]')")
+            await pg.locator('#v-inicio .tl[data-id=fx]').scroll_into_view_if_needed(); await pg.wait_for_timeout(200)  # S189: o cartão do guardião empurra os azulejos
             t = await pg.locator('#v-inicio .tl[data-id=fx]').bounding_box()
             await pg.mouse.move(t['x'] + 40, t['y'] + 30); await pg.mouse.down(); await pg.mouse.move(t['x'] + 60, t['y'] + 80, steps=4); await pg.wait_for_timeout(300)
             lb = await pg.locator('#inLixo').bounding_box()
