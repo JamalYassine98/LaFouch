@@ -46,3 +46,9 @@ O designer olha como um profissional de loja online (conversão primeiro) e o ki
 - Baymard: atributo que se vê (formato da armação) = filtro com desenho + texto.
 - Ótica (Warby Parker): à vista ficam "Formato" e "Largura da armação", ao lado de Filtros e Ordenar, todos numa barra só; gênero fica no menu.
 - Gestalt (NN/g): o que parece desorganizado não é ter vários controles, é estarem espalhados e com estilos diferentes. Regra: uma linha só (proximidade) e o mesmo estilo de letra (semelhança).
+
+## Identidade primeiro (13/11/2026, dono)
+- O esboço S210 (preto, maiúsculas espaçadas, cartões sem moldura) foi REPROVADO: genérico, sem identidade, filtros carregados.
+- Regra: luxo = mais ar e menos ruído DENTRO da identidade LaFouch. Não trocar: vinho #8d3a69 nas ações, títulos serifados com a cor em itálico, cartões brancos arredondados, fundo rosado, Mochi, temáticas.
+- Filtros: linha enxuta (gênero + "Filtros ›"); nada de Formato/Ordenar/etiquetas à vista enquanto o catálogo for pequeno.
+- Um só tipo de botão: cheio vinho (principal) + link fino sublinhado (secundário).
