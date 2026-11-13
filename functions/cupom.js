@@ -48,11 +48,20 @@ async function teto(db, agora) {
   return { usado: m.desc || 0, teto: 0, pausa: false }; // S194: teto do mês removido
 }
 async function aviso(db, agora, t, d, cod) { try { await db.aviso({ ts: agora, t, d, cod: cod || '' }); } catch (e) {} }
+// 13/11: toda mudança que depende do que está gravado passa por aqui — relê o cupom e grava de uma vez (transação),
+// para dois pedidos/aparelhos no mesmo segundo nunca apagarem o que o outro gravou. fn(cupom) → { muda, r } ou null (não grava).
+async function mudaT(db, cod, fn) {
+  if (db.trans) return db.trans(cod, (c, grava) => { const x = c ? fn(c) : null; if (x && x.muda) grava(x.muda); return x ? x.r : undefined; });
+  const c = await db.get(cod), x = c ? fn(c) : null;
+  if (x && x.muda) await db.muda(cod, x.muda);
+  return x ? x.r : undefined;
+}
 async function cria(db, o, agora) {
   for (let i = 0; i < 6; i++) {
     const cod = o.cod || novoCod();
-    if (await db.get(cod)) { if (o.cod) throw new Falha('existe'); continue; }
     const c = Object.assign({ cod, ts: agora, ini: agora, usos: [], st: 'ativo', max: 1 }, o, { cod });
+    if (db.criaSe) { if (await db.criaSe(cod, c)) return c; if (o.cod) throw new Falha('existe'); continue; } // cria só se o código não existe (atômico)
+    if (await db.get(cod)) { if (o.cod) throw new Falha('existe'); continue; }
     await db.salva(cod, c);
     return c;
   }
@@ -82,10 +91,8 @@ async function confere(db, b, ipk, agora) {
   }
   if (c.tel && tel && c.tel !== tel && c.tipo !== 'ev' && c.tipo !== 'am') {
     // código pessoal usado por outro telefone: conta e trava com 4+ telefones diferentes no dia
-    const dia = (c.outros || []).filter((x) => agora - x.ts < DIA);
-    if (!dia.some((x) => x.tel === tel)) dia.push({ tel, ts: agora });
+    const dia = await mudaT(db, cod, (f) => { const d = (f.outros || []).filter((x) => agora - x.ts < DIA); if (!d.some((x) => x.tel === tel)) d.push({ tel, ts: agora }); return { muda: { outros: d }, r: d }; }) || [];
     const muitos = dia.length >= TEL_DIF;
-    await db.muda(cod, { outros: dia });
     if (muitos && dia.length === TEL_DIF) await aviso(db, agora, 'trava', dia.length + ' telefones diferentes tentaram este código pessoal hoje', cod);
     return { ok: false, motivo: 'outro' };
   }
@@ -145,6 +152,7 @@ async function boasVindas(db, envia, b, agora) {
   if (await db.bvDe(em, tel)) return { ok: false, motivo: 'ja' };
   if (await db.jaComprou(tel, em)) return { ok: false, motivo: 'cliente' };
   if ((await teto(db, agora)).pausa) return { ok: false, motivo: 'pausa' };
+  if (db.trava && !(await db.trava('bv:' + em))) return { ok: false, motivo: 'ja' }; // 2 inscrições no mesmo segundo
   const P = PADRAO.bv, c = await cria(db, { tipo: 'bv', pct: P.pct, fim: agora + P.dias * DIA, min: P.min, email: em, tel: tel || '' }, agora);
   if (envia) try { await envia(mail(c, b.lang === 'es')); } catch (e) {}
   return { ok: true, cupom: publico(c, agora) };
@@ -158,6 +166,11 @@ async function proxima(db, b, agora) {
   const amJa = ja ? await db.porPid(pid, 'am') : null;
   if (ja) return { ok: true, cupom: publico(ja, agora), amiga: amJa ? publico(amJa, agora) : null };
   if ((await teto(db, agora)).pausa) return { ok: false, motivo: 'pausa' };
+  if (db.trava && !(await db.trava('px:' + pid))) {
+    // outra chamada do mesmo pedido está criando os cartões agora: espera um pouco e devolve os dela
+    for (let i = 0; i < 6; i++) { await new Promise((r) => setTimeout(r, db.espera != null ? db.espera : 400)); const x = await db.porPid(pid, 'px'); if (x) { const y = await db.porPid(pid, 'am'); return { ok: true, cupom: publico(x, agora), amiga: y ? publico(y, agora) : null }; } }
+    return { ok: false, motivo: 'tente' };
+  }
   const P = PADRAO.px, c = await cria(db, { tipo: 'px', pct: P.pct, fim: agora + P.dias * DIA, min: P.min, email: em, tel, pid, st: 'pend', lang: b.lang === 'es' ? 'es' : 'pt' }, agora);
   const am = await cria(db, { tipo: 'am', pct: PADRAO.am.pct, fim: agora + PADRAO.am.dias * DIA, max: 0, por: { tel, email: em }, email: em, tel: '', pid, st: 'pend', de: 'pedido:' + pid }, agora);
   return { ok: true, cupom: publico(c, agora), amiga: publico(am, agora) };
@@ -168,17 +181,16 @@ async function confirma(db, envia, b, agora) {
   const pid = limpa(b.pid, 40);
   if (!pid) throw new Falha('pid');
   const out = { usados: 0, cartoes: [] };
-  for (const c of await db.comUsoDe(pid)) {
-    const usos = (c.usos || []).map((u) => (u.pid === pid ? Object.assign({}, u, { st: 'ok' }) : u));
-    await db.muda(c.cod, { usos });
+  for (const c0 of await db.comUsoDe(pid)) {
+    const r = await mudaT(db, c0.cod, (c) => {
+      const novo = (c.usos || []).some((u) => u.pid === pid && u.st !== 'ok'), usos = (c.usos || []).map((u) => (u.pid === pid ? Object.assign({}, u, { st: 'ok' }) : u));
+      const mes = mesDe(agora), n = (c.premios || []).filter((x) => mesDe(x) === mes).length, ganha = novo && c.tipo === 'am' && c.por && n < AMIGA_MES;
+      return { muda: Object.assign({ usos }, ganha ? { premios: (c.premios || []).concat([agora]) } : {}), r: { ganha, por: c.por, cod: c.cod } };
+    });
     out.usados++;
-    if (c.tipo === 'am' && c.por) {
-      const mes = mesDe(agora), n = (c.premios || []).filter((x) => mesDe(x) === mes).length;
-      if (n < AMIGA_MES) {
-        const P = PADRAO.px, pr = await cria(db, { tipo: 'px', pct: P.pct, ini: agora + 7 * DIA, fim: agora + 7 * DIA + P.dias * DIA, email: c.por.email || '', tel: c.por.tel || '', de: 'amiga:' + c.cod }, agora);
-        await db.muda(c.cod, { premios: (c.premios || []).concat([agora]) });
-        out.cartoes.push(pr.cod);
-      }
+    if (r && r.ganha) {
+      const P = PADRAO.px, pr = await cria(db, { tipo: 'px', pct: P.pct, ini: agora + 7 * DIA, fim: agora + 7 * DIA + P.dias * DIA, email: r.por.email || '', tel: r.por.tel || '', de: 'amiga:' + r.cod }, agora);
+      out.cartoes.push(pr.cod);
     }
   }
   const px = await db.porPid(pid, 'px');
@@ -193,10 +205,11 @@ async function confirma(db, envia, b, agora) {
       if (envia && px.email) try { await envia(mail(fi, px.lang === 'es')); } catch (e) {}
     }
   }
-  if (px && px.st === 'pend') {
-    await db.muda(px.cod, { st: 'ativo', ini: agora, fim: agora + PADRAO.px.dias * DIA });
+  // ativa só uma vez: se dois aparelhos confirmarem juntos, só o primeiro ativa e manda o e-mail
+  const ativou = px && px.st === 'pend' ? await mudaT(db, px.cod, (f) => (f.st === 'pend' ? { muda: { st: 'ativo', ini: agora, fim: agora + PADRAO.px.dias * DIA }, r: true } : null)) : false;
+  if (ativou) {
     let am = await db.porPid(pid, 'am');
-    if (am && am.st === 'pend') { await db.muda(am.cod, { st: 'ativo', ini: agora, fim: agora + PADRAO.am.dias * DIA }); am = Object.assign({}, am, { st: 'ativo' }); }
+    if (am && am.st === 'pend') { await mudaT(db, am.cod, (f) => (f.st === 'pend' ? { muda: { st: 'ativo', ini: agora, fim: agora + PADRAO.am.dias * DIA } } : null)); am = Object.assign({}, am, { st: 'ativo' }); }
     else if (!am) am = await cria(db, { tipo: 'am', pct: PADRAO.am.pct, fim: agora + PADRAO.am.dias * DIA, max: 0, por: { tel: px.tel, email: px.email }, email: px.email, tel: '', pid, de: 'pedido:' + pid }, agora);
     out.cartoes.push(px.cod, am.cod);
     if (envia && px.email) try { await envia(mail(Object.assign({}, px, { st: 'ativo' }), px.lang === 'es', am)); } catch (e) {}
@@ -208,16 +221,14 @@ async function libera(db, b, agora) {
   const pid = limpa(b.pid, 40);
   let n = 0;
   for (const c of await db.comUsoDe(pid)) {
-    const u = (c.usos || []).find((x) => x.pid === pid && x.st === 'res');
-    const us = (c.usos || []).filter((x) => !(x.pid === pid && x.st === 'res'));
-    await db.muda(c.cod, { usos: us, pids: us.map((x) => x.pid) });
+    const u = await mudaT(db, c.cod, (f) => { const uu = (f.usos || []).find((x) => x.pid === pid && x.st === 'res'); if (!uu) return null; const us = (f.usos || []).filter((x) => !(x.pid === pid && x.st === 'res')); return { muda: { usos: us, pids: us.map((x) => x.pid) }, r: uu }; });
     if (u) await db.somaMes(mesDe(u.ts), -(u.desc || 0));
     n++;
   }
   const px = await db.porPid(pid, 'px');
-  if (px && px.st === 'pend') await db.muda(px.cod, { st: 'canc' });
+  if (px && px.st === 'pend') await mudaT(db, px.cod, (f) => (f.st === 'pend' ? { muda: { st: 'canc' } } : null));
   const am = await db.porPid(pid, 'am');
-  if (am && am.st === 'pend') await db.muda(am.cod, { st: 'canc' });
+  if (am && am.st === 'pend') await mudaT(db, am.cod, (f) => (f.st === 'pend' ? { muda: { st: 'canc' } } : null));
   return { ok: true, n };
 }
 // app (dono): criar VIP / Próxima compra na loja / cupom do evento; cancelar; listar

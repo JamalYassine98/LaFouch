@@ -474,6 +474,9 @@ const cupDb = {
   get: async (k) => { if (!/^[A-Z0-9-]{4,24}$/.test(k)) return null; const d = await fsx().doc('cupons/' + k).get(); return d.exists ? d.data() : null; },
   salva: (k, o) => fsx().doc('cupons/' + k).set(o),
   muda: (k, c) => fsx().doc('cupons/' + k).update(c),
+  // 13/11: cria o cupom só se o código ainda não existe (atômico) e travas de "uma vez só" (boas-vindas por e-mail, cartões por pedido)
+  criaSe: (k, o) => fsx().doc('cupons/' + k).create(o).then(() => true, (e) => { if (e && (e.code === 6 || /already exists/i.test(e.message || ''))) return false; throw e; }),
+  trava: (k) => fsx().doc('cupomTrava/' + crypto.createHash('sha256').update(String(k)).digest('hex').slice(0, 40)).create({ ts: Date.now() }).then(() => true, (e) => { if (e && (e.code === 6 || /already exists/i.test(e.message || ''))) return false; throw e; }),
   // 13/11: uso do cupom um de cada vez (dois pedidos no mesmo segundo não apagam o uso um do outro)
   trans: (k, fn) => fsx().runTransaction(async (tx) => {
     const r = fsx().doc('cupons/' + k), d = await tx.get(r);

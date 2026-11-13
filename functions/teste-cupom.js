@@ -95,5 +95,20 @@ function dbFake(compras) {
   ok([ra, rb].filter((x) => x.ok).length === 1 && [ra, rb].some((x) => !x.ok && x.motivo === 'usado') && db.m[cu].usos.length === 1, 'mesmo segundo: cupom de 1 uso vale só para um pedido');
   const am2 = Object.values(db.m).find((c) => c.tipo === 'am' && c.st === 'ativo');
   if (am2) { const n0 = (am2.usos || []).length; const rr = await Promise.all([C.usar(db, { cod: am2.cod, tel: '0984000111', email: 'f1@x.com', total: 200000, desc: 20000, pid: 'R1' }, 'ipR1', T0 + 9000), C.usar(db, { cod: am2.cod, tel: '0984000222', email: 'f2@x.com', total: 200000, desc: 20000, pid: 'R2' }, 'ipR2', T0 + 9000)]); ok(db.m[am2.cod].usos.length === n0 + 2, 'mesmo segundo: cupom de amiga guarda as duas amigas'); }
+  // 13/11: todas as gravações protegidas — travas e criação atômica (falsos iguais ao Firestore: create falha se existe)
+  const tv = {}; db.trava = async (k) => { if (tv[k]) return false; tv[k] = 1; return true; }; db.criaSe = async (k, o) => { if (db.m[k]) return false; db.m[k] = JSON.parse(JSON.stringify(o)); return true; }; db.espera = 5;
+  const [b1, b2] = await Promise.all([C.boasVindas(db, envia, { email: 'gemea@x.com', tel: '0985111222' }, T0), C.boasVindas(db, envia, { email: 'gemea@x.com', tel: '0985111222' }, T0)]);
+  ok([b1, b2].filter((x) => x.ok).length === 1 && Object.values(db.m).filter((c) => c.tipo === 'bv' && c.email === 'gemea@x.com').length === 1, 'boas-vindas: 2 toques juntos = 1 cupom só');
+  const [p1, p2] = await Promise.all([C.proxima(db, { pid: 'Z1', tel: '0986111222', email: 'z@x.com' }, T0), C.proxima(db, { pid: 'Z1', tel: '0986111222', email: 'z@x.com' }, T0)]);
+  ok(p1.ok && p2.ok && p1.cupom.cod === p2.cupom.cod && Object.values(db.m).filter((c) => c.pid === 'Z1').length === 2, 'próxima compra: 2 chamadas juntas = 1 par de cartões');
+  const ind = Object.values(db.m).find((c) => c.tipo === 'am' && c.st === 'ativo' && c.por);
+  const pr0 = (ind.premios || []).length;
+  await C.usar(db, { cod: ind.cod, tel: '0987222333', email: 'nova@x.com', total: 200000, desc: 20000, pid: 'W1' }, 'ipW', T0 + 9000);
+  await Promise.all([C.confirma(db, envia, { pid: 'W1' }, T0 + 9500), C.confirma(db, envia, { pid: 'W1' }, T0 + 9500)]);
+  await C.confirma(db, envia, { pid: 'W1' }, T0 + 9900);
+  ok(db.m[ind.cod].premios.length === pr0 + 1, 'confirmar o mesmo pedido 3 vezes (2 juntas) = 1 prêmio só para quem indicou');
+  const cz = Object.values(db.m).find((c) => c.tipo === 'px' && c.pid === 'Z1');
+  await Promise.all([C.confirma(db, envia, { pid: 'Z1' }, T0 + 9600), C.confirma(db, envia, { pid: 'Z1' }, T0 + 9600)]);
+  ok(db.m[cz.cod].st === 'ativo' && Object.values(db.m).filter((c) => c.tipo === 'am' && c.pid === 'Z1').length === 1, 'confirmar junto em 2 aparelhos ativa 1 vez (sem cartão de amiga duplicado)');
   process.exit(falhas ? 1 : 0);
 })();
