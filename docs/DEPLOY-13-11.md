@@ -9,13 +9,11 @@ cd ~/LaFouch 2>/dev/null && git pull || (git clone https://github.com/JamalYassi
 cd functions && npm install && cd ..
 ```
 
-## 2. Conferir as regras antes de trocar (IMPORTANTE)
-As regras do console podem ter coisas que o projeto não tem. Rode:
-```
-firebase firestore:rules:get > /tmp/regras-atuais.txt 2>/dev/null; diff /tmp/regras-atuais.txt firestore.rules | head -60
-```
-- Se aparecerem só linhas novas com `atacadoLotes` / `atacadoSep` → pode seguir.
-- Se aparecerem linhas removidas (começando com `<`) → PARE e mande o print para o Claude juntar as duas.
+## 2. Regras (já conferidas em 13/11 com as do console)
+O arquivo `firestore.rules` do projeto já tem TUDO o que o console tinha (inclusive `vistas`) + o novo:
+coleções do atacado (contas, preços, pedidos, avisos, lotes, separação), temaEnvios, PIX (espera, sem par, vistos),
+cupom no pedido (`cup`, `cupd`) e limite de tamanho nos textos do pedido (o site já corta antes de enviar).
+Nada que funciona hoje deixa de funcionar.
 
 ## 3. Chave do robô do Pix (só uma vez)
 ```

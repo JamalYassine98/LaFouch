@@ -87,6 +87,14 @@ service cloud.firestore {
     match /dispositivos/{t} {
       allow read, write: if dono();
     }
+    // vistas: o site soma as visitas de cada peça; só o dono lê (app › Vistas do site)
+    match /vistas/{id} {
+      allow create, update: if request.resource.data.keys().hasOnly(['ts','r'])
+        && request.resource.data.ts is int
+        && request.resource.data.r is map
+        && request.resource.data.r.size() <= 60;
+      allow read, delete: if dono();
+    }
     match /clientes/{uid} {
       // 12/11: a leitura separada da gravação (antes o "get" dependia de request.resource, que não existe na leitura)
       allow get: if (request.auth != null && request.auth.uid == uid) || dono();
