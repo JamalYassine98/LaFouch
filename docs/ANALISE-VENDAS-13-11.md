@@ -121,3 +121,11 @@ Nada aqui está implementado.
 - Pouco estoque verdadeiro × falso: https://conversionledger.beehiiv.com/p/scarcity-messaging-when-urgency-drives-conversions-and-when-it-backfires · https://fixmystore.com/hub/?p=909
 - WhatsApp na América Latina (fornecedor, só direção): https://www.aurorainbox.com/en/2026/03/04/estadisticas-ecommerce-whatsapp-latam/
 - Teste guiado/quiz (fornecedor; taxa de quem faz o quiz não se compara à do site inteiro): https://revenuehunt.com/state-of-product-recommendation-quizzes/
+
+## 7. Correção (13/11, informação do dono): o site ainda não está aberto ao público
+
+- Produtos são amostras; não há visita real nem cliente antigo.
+- **Cai:** "medir 1 semana antes" (não há o que medir) e o risco de "cliente estranhar a mudança" (não há cliente acostumado). Lançar em ondas deixa de ser necessário.
+- **Vale mais agora:** fazer tudo o que está aprovado ANTES de abrir — é o momento mais barato para mudar.
+- **Continua valendo:** abrir já com a contagem pronta (visitas por aparelho, toques em Comprar e WhatsApp, Mochi começou/terminou), para as decisões depois da abertura serem por número.
+- **Continua valendo:** ordem de importância (WhatsApp primeiro) e os defeitos abertos (WhatsApp cobrindo, nomes cortados, cartão QR 6 px).
