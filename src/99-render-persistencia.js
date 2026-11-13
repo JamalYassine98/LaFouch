@@ -377,6 +377,7 @@
       'ccLemb',
       'formas',
       'pinHash',
+      'pinN',
       'pinSalt',
       'bioOn',
       'avisos',

@@ -215,15 +215,9 @@
     $('lockCancel').hidden = modo === 'open';
     var bo = !!(S.bioOn && bioPlugin());
     $('lockBio').hidden = !bo;
+    // S182 (jeito 1): o teclado da La Fouch fica na tela; a janela da biometria só abre ao tocar no botão da digital
     if (bo) {
-      lockMsg('Confirme com a biometria ou use o PIN.');
-      // um instante para a tela do app voltar ao primeiro plano antes de abrir o leitor
-      setTimeout(function () {
-        if (!LOCK.locked) return;
-        bioPedir(liberar, function (e) {
-          lockMsg('Não reconheceu. Use o PIN.' + bioErro(e));
-        });
-      }, 350);
+      lockMsg('Digite o PIN ou use a digital.');
     } else
       setTimeout(function () {
         try {
@@ -236,8 +230,9 @@
       lockMsg('Muitas tentativas. Espere ' + Math.ceil((LOCK.bloq - Date.now()) / 1000) + ' segundos.');
       return;
     }
-    confereHash($('lockPin').value).then(function (ok) {
-      if (ok) return liberar();
+    var pv = $('lockPin').value;
+    confereHash(pv).then(function (ok) {
+      if (ok) { if (S.pinN !== pv.length) { S.pinN = pv.length; saveSoon(); } return liberar(); }
       LOCK.tent++;
       $('lockPin').value = '';
       if (LOCK.tent >= 5) {

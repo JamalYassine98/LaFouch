@@ -2221,3 +2221,8 @@ body.modoCli #selBar{display:none!important}
 /* S183 temas */
 .temaC{display:flex;gap:12px;align-items:center;border-left:4px solid var(--ac,#8d3a69)}.temaC>span:first-child{font-size:26px}.temaC>div{flex:1;min-width:0}.temaC small{display:block;color:var(--mu)}
 .temaB{display:flex;flex-direction:column;gap:4px;align-items:center}
+/* S182 teclado do PIN */
+#pinKb{display:flex;flex-direction:column;align-items:center;gap:18px;margin:8px 0}.pkHid{position:absolute!important;opacity:0;pointer-events:none;width:1px!important;height:1px!important}
+.pkDots{display:flex;gap:14px;min-height:18px}.pkDots i{width:16px;height:16px;border-radius:50%;border:2px solid var(--ac,#8d3a69)}.pkDots i.on{background:var(--ac,#8d3a69)}
+.pkGrid{display:grid;grid-template-columns:repeat(3,76px);gap:14px}.pkGrid button{width:76px;height:76px;border-radius:50%;border:0;background:var(--card,#fff);color:var(--tx,inherit);font:500 30px/1 inherit;font-family:inherit;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.pkGrid button:active{transform:scale(.94)}.pkGrid .pkBio{background:var(--ac,#8d3a69);color:#fff}.pkGrid .pkDel{background:none;box-shadow:none;font-size:24px;color:var(--mu)}

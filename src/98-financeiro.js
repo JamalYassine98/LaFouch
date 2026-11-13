@@ -269,6 +269,7 @@
       S.pinSalt = sal;
       S.pinHash = h;
       S.pinNovo = false;
+      S.pinN = a.length; // S182: o teclado entra sozinho ao completar
       saveSoon();
       $('pinModal').hidden = true;
       S._pinModo = '';

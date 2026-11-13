@@ -2949,10 +2949,10 @@ async def main():
             await pg.reload(); await pg.wait_for_function('window.__LF')
             vis = await pg.evaluate("() => !document.getElementById('lockScr').hidden")
             await checa('PIN: o app abre bloqueado', vis is True, vis)
-            await pg.fill('#lockPin', '0000'); await pg.click('#lockGo'); await pg.wait_for_timeout(300)
+            await pg.fill('#lockPin', '0000'); await pg.evaluate("() => document.getElementById('lockGo').click()"); await pg.wait_for_timeout(300)
             msg = await pg.inner_text('#lockM')
             await checa('PIN: errado não abre', 'incorreto' in msg, msg)
-            await pg.fill('#lockPin', '4321'); await pg.click('#lockGo')
+            await pg.fill('#lockPin', '4321'); await pg.evaluate("() => document.getElementById('lockGo').click()")
             try: await pg.wait_for_function("() => document.getElementById('lockScr').hidden", timeout=4000)
             except Exception: pass
             vis = await pg.evaluate("() => !document.getElementById('lockScr').hidden")
