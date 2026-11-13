@@ -58,3 +58,4 @@ O designer olha como um profissional de loja online (conversão primeiro) e o ki
 - Regra nova: nada clicável pode aparecer CORTADO na borda, MEIO APAGADO ou ENCOLHIDO. Um botão está inteiro ou não está na tela.
 - ecom.js (10): "cortado", "apagado", "largura"; kit.py confere de novo DEPOIS DE ROLAR E PARAR. Estudo geral: work/s214/estudo.py (4 telas × 6 tamanhos × 5 posições).
 - Categoria é NAVEGAÇÃO (onde estou), filtro é REFINO (dentro da categoria). Não repetir categoria como abas no catálogo do celular (S213 retirado): já existe no ☰ e na caixa Filtros.
+- 13/11 (dono): REPROVADO mudar os botões — "Ver modelo" continua contorno vinho e "Comprar" continua com o degradê de hoje. Não propor "um só tipo de botão" de novo. As demais ideias do S214 estão só guardadas (work/s214), sem aprovação.
