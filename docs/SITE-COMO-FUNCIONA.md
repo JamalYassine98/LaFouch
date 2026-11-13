@@ -71,3 +71,9 @@ Ler antes de mexer no site. Atualizar este arquivo SEMPRE que o site mudar (estr
 
 ## Aprovado e ainda NÃO implementado (conferir em MEMORIA-PROJETO.md)
 (nada do S172/S173; ver segurança), Leve 2 no site, S174 (cupons/cartões virtuais), segurança do painel (2FA TOTP, passkey, sessão, aviso de login, regras, App Check, retenção 12 meses, CSP).
+
+## Atacado com lote e moeda (S206, 13/11/2026)
+- `/atacado?c=CONTA&l=LOTE`: título do lote + faixa "LOTE · VÁLIDO HASTA…" (preço garantido; quem confirma primeiro leva). Câmbio do dia numa linha + seletor US$/Gs./R$ (começa na moeda do dono; a loja troca à vontade, guardado em `lf_atmo_<conta>`).
+- Estoque ao vivo (relê a cada 20 s): "quedan N" (≤12), esgotado com "Ver parecido" e "Avisame" (avisa o dono e a loja quando volta). Ao tocar "+" o servidor separa a peça 30 min (transação, nunca passa do estoque; o relógio conta do 1º item e não renova); sobra → "Solo quedan N…".
+- Barra: "mínimo alcanzado", relógio "Tus piezas quedan separadas m:ss", "Confirmar pedido del lote". Lote vencido/cancelado → "Lote finalizado"; pedido repetido → "Pedido ya confirmado".
+- S207 (13/11): rodapé 3 colunas + Termos centralizado (também no fim da página do produto), 2560 = 1920, Idioma/Tamaño em popover no PC, "Últimas N" em pílula, Mochi com braços, endereço salvo sozinho, Cédula o RUC num campo, Mi cuenta (Google centralizado, Cerrar sesión com ícone, Eliminar discreto), opiniões só em Mi cuenta › Pedidos (suspeitas vão ao dono), "Cómo comprar" dentro de Dudas, busca cresce da lupa, sem selo Nº 1, temática sem Cyber Monday/Black Friday internacional + Dia das Mães/Pais PY e BR pelo fuso, estojo vendido com flanela.

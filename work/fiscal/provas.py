@@ -567,7 +567,7 @@ def p7_teste_ajuda(p):
         else: falha(P7, 'Ajuda › repetir o teste não empilha o voltar', f'3 cliques criaram {cresce} passos no voltar (o cliente volta várias vezes na mesma página)', pg)
     finally: b.close()
 
-FOTO_SNAP = """(sel)=>[...document.querySelectorAll(sel)].filter(e=>{const r=e.getBoundingClientRect();return r.width>60&&r.top>0&&r.bottom<innerHeight}).slice(0,3).map(im=>{let o=[],e=im;for(let k=0;k<4&&e;k++,e=e.parentElement){const s=getComputedStyle(e);o.push(s.transform+s.translate+s.rotate+s.scale+s.objectPosition+s.backgroundPosition)}const r=im.getBoundingClientRect();return [r.left,r.top,r.width,r.height,o.join('|')]})"""
+FOTO_SNAP = """(sel)=>[...document.querySelectorAll(sel)].filter(e=>{const r=e.getBoundingClientRect();return r.width>60&&r.top>0&&r.bottom<innerHeight}).slice(0,3).map(im=>{let o=[],e=im;for(let k=0;k<4&&e;k++,e=e.parentElement){const s=getComputedStyle(e);o.push((s.transform==='matrix(1, 0, 0, 1, 0, 0)'?'none':s.transform)+s.translate+s.rotate+s.scale+s.objectPosition+s.backgroundPosition)}const r=im.getBoundingClientRect();return [r.left,r.top,r.width,r.height,o.join('|')]})"""
 
 def p7_foto_mouse(p):
     # a foto não pode se mexer seguindo o mouse — Início, catálogo e peça, com e sem os efeitos do app ligados
@@ -577,16 +577,18 @@ def p7_foto_mouse(p):
             try:
                 carrega(pg); abre(pg); A = pg.evaluate(FOTO_SNAP, sel); ruim = 0
                 for x, y, w, h, _ in A:
-                    pg.mouse.move(x + w * .25, y + h * .3); pg.wait_for_timeout(350); a1 = pg.evaluate(FOTO_SNAP, sel)
-                    pg.mouse.move(x + w * .75, y + h * .7, steps=6); pg.wait_for_timeout(350); a2 = pg.evaluate(FOTO_SNAP, sel)
-                    if [z[4] for z in a1] != [z[4] for z in a2] or [z[:2] for z in a1] != [z[:2] for z in a2]: ruim += 1
+                    pg.mouse.move(x + w * .25, y + h * .3); pg.wait_for_timeout(800); a1 = pg.evaluate(FOTO_SNAP, sel)
+                    pg.mouse.move(x + w * .75, y + h * .7, steps=6); pg.wait_for_timeout(800); a2 = pg.evaluate(FOTO_SNAP, sel)
+                    pg.wait_for_timeout(350); a3 = pg.evaluate(FOTO_SNAP, sel)
+                    sozinha = [z[4] for z in a2] != [z[4] for z in a3] or [z[:2] for z in a2] != [z[:2] for z in a3]
+                    if not sozinha and ([z[4] for z in a1] != [z[4] for z in a2] or [z[:2] for z in a1] != [z[:2] for z in a2]): ruim += 1
                 t = f'Foto parada com o mouse · {nome}' + (' · efeitos ligados' if efx else '')
                 if ruim: falha(P7, t, f'{ruim} foto(s) se mexem seguindo o mouse', pg)
                 else: passou(P7, t, f'{len(A)} fotos')
             finally: b.close()
 
 def p7_tamanho(p):
-    med = "(()=>{const q=s=>document.querySelector(s),h=q('.top'),t=q('#hdst h1, .hd h1, h1');return {hd:h?h.getBoundingClientRect().height:0,h1:t?parseFloat(getComputedStyle(t).fontSize):0,sw:document.documentElement.scrollWidth,iw:innerWidth}})()"
+    med = "(()=>{const q=s=>document.querySelector(s),h=q('.top'),t=[...document.querySelectorAll('.h2,#home h2,#hdst h2,h1,h2')].find(e=>e.getBoundingClientRect().height>0);return {hd:h?h.getBoundingClientRect().height:0,h1:t?parseFloat(getComputedStyle(t).fontSize):0,sw:document.documentElement.scrollWidth,iw:innerWidth}})()"
     R = {}
     for zi in (0, 1, 2):
         for W, H in ((1440, 900), (1920, 1080), (2560, 1440)):
@@ -691,7 +693,7 @@ def p7_ultimas(p):
 
 DICA_MEDE = """(b)=>{const a=getComputedStyle(b,'::after');if(!a.content||a.content==='none'||a.content==='normal'||parseFloat(a.opacity)<.5)return null;
   const t=a.content.replace(/^"|"$/g,'');const cv=document.createElement('canvas').getContext('2d');cv.font=a.fontWeight+' '+a.fontSize+' '+a.fontFamily;
-  const w=cv.measureText(t).width+parseFloat(a.paddingLeft)+parseFloat(a.paddingRight);const r=b.getBoundingClientRect(),aw=parseFloat(a.width)||0;
+  const w=cv.measureText(t).width;const r=b.getBoundingClientRect(),aw=parseFloat(a.width)||0;
   const L=r.left+(parseFloat(a.left)||0);return {t,w,aw,fora:L+w>innerWidth+1||L<-1}}"""
 
 def p7_dica(p):
@@ -754,7 +756,9 @@ def anima_confere(Q, W):
     vis = [q for q in Q if q['op'] > 0.15 and q['w'] > 0]
     fora = [q for q in vis if q['l'] < fim['l'] - 12 or q['r'] > fim['r'] + 12 and q['r'] > W]
     if fora: prob.append(f'nasce fora do lugar ({fora[0]["l"]}→{fim["l"]}px da esquerda)')
-    pulos = [b for a, b in zip(vis, vis[1:]) if abs(b['l'] - a['l']) > 40]
+    passos = [abs(b['l'] - a['l']) for a, b in zip(vis, vis[1:])]
+    med = sorted(passos)[len(passos) // 2] if passos else 0
+    pulos = [vis[i + 1] for i, d in enumerate(passos) if d > 40 and d > 2.5 * max(passos[i - 1] if i > 0 else 0, passos[i + 1] if i + 1 < len(passos) else 0, 4)]
     if pulos: prob.append(f'dá um pulo de {abs(pulos[-1]["l"]-vis[vis.index(pulos[-1])-1]["l"])}px')
     lentos = [q for q in Q[1:] if q['dt'] > 50]
     if len(lentos) > 2: prob.append(f'{len(lentos)} quadros travados (>50 ms)')

@@ -1098,7 +1098,7 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 496;
+  var APP_BUILD = 497;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
   var APP_NOME = '5.9.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
@@ -13923,7 +13923,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
     var pv = $('lockPin').value;
     confereHash(pv).then(function (ok) {
-      if (ok) { if (S.pinN !== pv.length) { S.pinN = pv.length; saveSoon(); } return liberar(); }
+      if (ok) {
+        if (S.pinN !== pv.length) { S.pinN = pv.length; saveSoon(); }
+        liberar();
+        // PIN v2 (13/11): o padrão é 4 números (como o Android); quem tem outro tamanho cria um novo de 4
+        if (pv.length !== 4 && typeof pinDlgAbrir === 'function') setTimeout(function () { try { pinDlgAbrir('troca'); var h = $('pinMH'); if (h) h.textContent = 'O PIN agora tem 4 números (como no celular). Crie o seu novo PIN de 4 números.'; } catch (er) {} }, 600);
+        return;
+      }
       LOCK.tent++;
       $('lockPin').value = '';
       if (LOCK.tent >= 5) {
@@ -13939,7 +13945,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   });
   $('lockBio').onclick = function () {
     bioPedir(liberar, function (e) {
-      lockMsg('Não reconheceu. Use o PIN.' + bioErro(e));
+      // PIN v2 (13/11): cancelar a digital não mostra erro; só avisa quando ela não reconheceu
+      var m = String((e && (e.message || e.code)) || '');
+      lockMsg(/cancel/i.test(m) ? 'Digite seu PIN de 4 números' : 'Não reconheceu. Use o PIN.');
     });
   };
   $('lockCancel').onclick = function () {
@@ -28125,7 +28133,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var el = $('v-clientes');
     if (!el || S.view !== 'clientes') return;
     var h = '<div class="top"><div><h1>Clientes</h1><div class="crumb">Quem compra de você, com telefone e documento</div></div>' +
-      '<div class="tabs"><button class="mini" data-act="clinovo">+ Novo cliente</button><button class="mini ghost" data-act="ataNovo">🏬 Novo acesso atacado</button><button class="mini ghost" data-act="cupAbre">🎟️ Cartões</button></div></div>';
+      '<div class="tabs"><button class="mini" data-act="clinovo">+ Novo cliente</button><button class="mini ghost" data-act="ataNovo">🏬 Novo acesso atacado</button><button class="mini ghost" data-act="ataLotes">📦 Lotes atacado</button><button class="mini ghost" data-act="cupAbre">🎟️ Cartões</button></div></div>';
     var c = S.cliSel === 'novo' ? { id: 0, nome: '', tel: '', ruc: '', obs: '' } : cliAtual();
     if (c) {
       var ps = c.id ? cliPedidos(c) : [],
@@ -28495,7 +28503,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       nome: vitTitulo(ref, v.tipo, a, v.nome),
       fm: a.formato || '',
       mr: a.marca || '',
-      tipo: solar ? 'solar' : v.tipo === 'pre' ? 'grau' : 'armacao',
+      // estojo/flanela (13/11, aprovado): tipo simples do estoque vai ao site como acessório ('Combina com') e é vendido no caixa como qualquer peça
+      tipo: solar ? 'solar' : v.tipo === 'pre' ? 'grau' : (typeof tipoOf === 'function' && (tipoOf(v.tipo) || {}).simple) ? 'acessorio' : 'armacao',
       n: sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).n,
       de: sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).de,
       est: v.est,
@@ -43771,9 +43780,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     inp.classList.add('pkHid');
     inp.setAttribute('inputmode', 'none'); // o teclado do celular não abre
     var pinta = function () {
-      var n = S.pinN || 0, v = inp.value.length, k = Math.max(n || 4, v);
+      var n = S.pinN || 4, v = inp.value.length, k = Math.max(n, v);
       $('pkDots').innerHTML = new Array(k + 1).join('.').split('').map(function (_, i) { return '<i class="' + (i < v ? 'on' : '') + '"></i>'; }).join('');
-      $('lockGo').hidden = !!n; // PIN de tamanho conhecido entra sozinho
+      $('lockGo').hidden = true; // PIN v2: sem botão Entrar — entra sozinho
       var b = w.querySelector('.pkBio');
       b.style.visibility = $('lockBio').hidden ? 'hidden' : 'visible';
     };
@@ -43786,7 +43795,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       else if (inp.value.length < 8) inp.value += k;
       if (navigator.vibrate) try { navigator.vibrate(8); } catch (er) {}
       pinta();
-      if (S.pinN && inp.value.length === S.pinN) setTimeout(function () { $('lockGo').click(); setTimeout(pinta, 250); }, 120);
+      clearTimeout(w._t);
+      if (S.pinN && inp.value.length === S.pinN) w._t = setTimeout(function () { $('lockGo').click(); setTimeout(pinta, 250); }, 120);
+      else if (!S.pinN && inp.value.length === 4) { var v4 = inp.value; confereHash(v4).then(function (ok) { if (ok && inp.value === v4) { $('lockGo').click(); setTimeout(pinta, 250); } }); }
+      else if (!S.pinN && inp.value.length > 4) w._t = setTimeout(function () { $('lockGo').click(); setTimeout(pinta, 250); }, 1200); // PIN antigo de outro tamanho: entra depois de uma pausa
     });
     // a cada abertura da tela: zera e redesenha (o mostrarLock já limpa o valor)
     new MutationObserver(function () { if (!scr.hidden) { inp.value = ''; pinta(); } }).observe(scr, { attributes: true, attributeFilter: ['hidden'] });
@@ -43948,7 +43960,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     saveSoon();
     if (typeof nvApi !== 'function' || !S.nuvem || !S.nuvem.rt) return Promise.resolve(false);
     var o = {};
-    (campos || ['nome', 'email', 'tel', 'tipo', 'tab', 'dispMax', 'trocaOk', 'pausada', 'cancelada', 'fim', 'refs', 'cliId', 'ts']).forEach(function (k) { if (c[k] !== undefined) o[k] = c[k]; });
+    (campos || ['nome', 'email', 'tel', 'tipo', 'tab', 'dispMax', 'trocaOk', 'pausada', 'cancelada', 'fim', 'refs', 'cliId', 'ts', 'moeda']).forEach(function (k) { if (c[k] !== undefined) o[k] = c[k]; });
     var m = Object.keys(o).map(function (k) { return 'updateMask.fieldPaths=' + k; }).join('&');
     return nvApi('PATCH', 'atacadoContas/' + encodeURIComponent(c.id) + '?' + m, vBody(o)).then(function () { return true; }, function () { return false; });
   }
@@ -43999,6 +44011,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       (c.tipo !== 'visita' ? '<div class="sl"><span><b>Cliente pode trocar aparelho</b><small>Desligado: ele não troca mais sozinho</small></span>' + ataTgl(c.trocaOk !== false, 'ataTroca', c.id) + '</div>' : '<div class="sl"><span><b>Cliente remove aparelho</b><small>Visitante nunca remove</small></span><b>Não</b></div>') +
       '<div class="sl"><span><b>Pausar</b><small>Some o catálogo. Nada é apagado. Volta com 1 toque</small></span><button type="button" class="gBtn" data-act="ataPausa" data-id="' + esc(c.id) + '">' + (c.pausada ? 'Voltar' : 'Pausar') + '</button></div>' +
       '<div class="sl"><span><b>Cancelar conta</b><small>Apaga o acesso. Para voltar, novo convite</small></span><button type="button" class="gBtn ataRm" data-act="ataCanc" data-id="' + esc(c.id) + '">Cancelar</button></div></section>' +
+      '<section class="card col" style="gap:0"><div class="lbl">MOEDA QUE ELE VÊ PRIMEIRO (ELE PODE TROCAR)</div><div class="ataRw" style="padding:8px 0">' + [['usd', 'US$'], ['gs', 'Gs.'], ['brl', 'R$']].map(function (m) { return '<button type="button" class="mini' + ((c.moeda || 'usd') === m[0] ? '' : ' ghost') + '" data-act="ataMoeda" data-id="' + esc(c.id + '|' + m[0]) + '">' + m[1] + '</button>'; }).join('') + '</div></section>' +
+      '<button type="button" class="mini ghost" data-act="ataLotes" style="align-self:center">📦 Lotes de atacado</button>' +
       '<button type="button" class="go" data-act="ataEnvia" data-id="' + esc(c.id) + '">Enviar convite pelo WhatsApp</button></div>';
   }
   function ataJanela(id) {
@@ -44054,6 +44068,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     window.open('https://wa.me/' + d + '?text=' + encodeURIComponent(tx), '_blank');
   };
   function ataMuda(id, o, msg) { var c = S.ataContas[id]; if (!c) return; Object.assign(c, o); ataGrava(c, Object.keys(o)); if (msg) lfToast(msg); ataJanela(id); }
+  ACT.ataMoeda = function (v) { var p = String(v).split('|'); ataMuda(p[0], { moeda: p[1] }); };
   ACT.ataTroca = function (id) { var c = S.ataContas[id]; if (c) ataMuda(id, { trocaOk: c.trocaOk === false }, c.trocaOk === false ? 'Trocas liberadas' : 'Trocas bloqueadas'); };
   ACT.ataPausa = function (id) { var c = S.ataContas[id]; if (c) ataMuda(id, { pausada: !c.pausada }, c.pausada ? 'Catálogo de volta' : 'Pausada: o catálogo sumiu'); };
   ACT.ataCanc = function (id) { if (!window.confirm('Cancelar a conta? O acesso é apagado; para voltar, só com novo convite.')) return; ataMuda(id, { cancelada: true }, 'Conta cancelada'); };
@@ -44077,6 +44092,152 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }, function () { return 0; });
   }
   setTimeout(function () { ataPedidosBusca(); Object.keys(S.ataContas || {}).slice(0, 20).forEach(function (k) { ataLe(k); }); }, 8000);
+  // ===== S206 (aprovado 13/11/2026): LOTES de atacado =====
+  // O dono cria um lote (peças escolhidas e/ou um filtro: "todos os acetatos", "todas as armações"), escolhe para quais contas
+  // vai, a moeda inicial e a validade. O preço fica congelado (US$) até a validade; peças novas que entram no filtro aparecem
+  // sozinhas no site. Vários lotes podem ter as mesmas peças: o estoque é ao vivo e quem confirma primeiro leva (o site separa
+  // 30 min por peça ao tocar "+"). O link só existe depois de salvar. Cancelado ou vencido → no site aparece "Lote finalizado".
+  S.ataLotes = S.ataLotes || {};
+  function ataLoteId() { return 'L' + Date.now().toString(36).slice(-5) + Math.random().toString(36).slice(2, 5); }
+  function ataLoteLink(L, cid) { return 'https://lafouch.com/atacado?c=' + encodeURIComponent(cid) + '&l=' + encodeURIComponent(L.id); }
+  function ataLoteSt(L) { var ag = Date.now(); return L.cancelado ? 'Cancelado' : L.ate && L.ate < ag ? 'Vencido' : 'Ativo'; }
+  // peças que o filtro pega agora (para o dono ver a contagem e congelar o preço de cada uma)
+  function ataLoteRefs(L) {
+    var P = ataPrecos(L.tab || 'a1'), out = {};
+    if (!P) return out;
+    Object.keys(P.itens).forEach(function (r) {
+      var it = P.itens[r], f = L.filtro;
+      if (f && (!f.tipo || it.tipo === f.tipo) && (!f.mat || String(it.mat || '').toLowerCase() === String(f.mat).toLowerCase())) out[r] = it;
+      if (L.itens && L.itens[r]) out[r] = it;
+    });
+    return out;
+  }
+  function ataLoteGrava(L) {
+    S.ataLotes[L.id] = L;
+    saveSoon();
+    if (typeof nvApi !== 'function' || !S.nuvem || !S.nuvem.rt) return Promise.resolve(false);
+    var o = {};
+    ['nome', 'tab', 'ate', 'contas', 'moeda', 'filtro', 'itens', 'cancelado', 'ts'].forEach(function (k) { if (L[k] !== undefined) o[k] = L[k]; });
+    return nvApi('PATCH', 'atacadoLotes/' + encodeURIComponent(L.id), vBody(o)).then(function () { return true; }, function () { return false; });
+  }
+  // situação do lote: confirmados (pedidos com este lote), montando (separações dentro dos 30 min), avisos "avise-me"
+  function ataLoteSituacao(L) {
+    var conf = Object.keys(S.ataPeds || {}).map(function (k) { return S.ataPeds[k]; }).filter(function (p) { return p && p.lote === L.id; });
+    if (typeof nvApi !== 'function' || !S.nuvem || !S.nuvem.rt) return Promise.resolve({ conf: conf, mont: [] });
+    return nvApi('GET', 'atacadoSep?pageSize=100').then(function (j) {
+      var ag = Date.now(), mont = (j.documents || []).map(function (d) { return ataFv(d.fields); }).filter(function (x) { return x && x.l === L.id && x.ini > ag - 30 * 60000 && Object.keys(x.itens || {}).length; });
+      return { conf: conf, mont: mont };
+    }, function () { return { conf: conf, mont: [] }; });
+  }
+  // guardião: lote que vence amanhã
+  function ataLotesVencendo() { var ag = Date.now(); return Object.keys(S.ataLotes).map(function (k) { return S.ataLotes[k]; }).filter(function (L) { return L && !L.cancelado && L.ate > ag && L.ate - ag < DAY; }); }
+  function ataContasAtivas() { var ag = Date.now(); return Object.keys(S.ataContas || {}).map(function (k) { return S.ataContas[k]; }).filter(function (c) { return c && !c.cancelada && !c.pausada && !(c.tipo === 'visita' && c.fim < ag); }); }
+  var ATA_MOEDAS = [['usd', 'US$'], ['gs', 'Gs.'], ['brl', 'R$']];
+  function ataLotesHtml() {
+    var L = Object.keys(S.ataLotes).map(function (k) { return S.ataLotes[k]; }).sort(function (a, b) { return (b.ts || 0) - (a.ts || 0); });
+    return '<div class="col" style="gap:12px;padding:0 16px 16px">' +
+      '<button type="button" class="go" data-act="ataLoteNovo">+ Criar lote</button>' +
+      (L.length ? '<section class="card col" style="gap:0"><div class="lbl">LOTES · ' + L.length + '</div>' + L.map(function (x) {
+        var st = ataLoteSt(x), n = Object.keys(ataLoteRefs(x)).length;
+        return '<button type="button" class="sl ataLn" data-act="ataLoteAbre" data-id="' + esc(x.id) + '"><span><b>' + esc(x.nome || 'Lote') + '</b><small>' + n + ' modelos · ' + (x.contas || []).length + ' loja(s) · até ' + fd(x.ate) + '</small></span><em class="ataSt ' + (st === 'Ativo' ? 'ok' : 'off') + '">' + st + '</em></button>';
+      }).join('') + '</section>' : '<div class="hint" style="text-align:center">Nenhum lote ainda. Um lote é um catálogo preparado: você escolhe as peças (ou "todos os acetatos"), para quem vai e até quando o preço vale.</div>') + '</div>';
+  }
+  ACT.ataLotes = function () { lfJanela({ titulo: 'Lotes de atacado', monta: function (box) { box.innerHTML = ataLotesHtml(); } }); };
+  // criar / editar
+  function ataLoteForm(L) {
+    var novo = !L;
+    L = L || { id: '', nome: '', tab: ((tabLista().filter(function (t) { return !t.pub && /^a/.test(t.id); })[0] || {}).id) || 'a1', ate: Date.now() + 7 * DAY, contas: [], moeda: 'usd', filtro: null, itens: {}, cancelado: false };
+    lfJanela({
+      titulo: novo ? 'Novo lote' : 'Editar lote',
+      monta: function (box) {
+        var cs = ataContasAtivas(), f = L.filtro || {}, dias = Math.max(1, Math.round((L.ate - Date.now()) / DAY));
+        box.innerHTML = '<div class="col" style="gap:10px;padding:0 16px 16px">' +
+          '<input class="in" id="ltNm" placeholder="Nome (ex.: Acetatos novembro)" value="' + esc(L.nome) + '">' +
+          '<div class="lbl">TABELA DE PREÇO</div><select class="in" id="ltTab">' + tabLista().filter(function (t) { return !t.pub; }).map(function (t) { return '<option value="' + t.id + '"' + (t.id === L.tab ? ' selected' : '') + '>' + esc(t.nome) + '</option>'; }).join('') + '</select>' +
+          '<div class="lbl">PEÇAS POR FILTRO (ENTRAM SOZINHAS AS NOVAS)</div>' +
+          '<div class="ataRw2"><select class="in" id="ltTp"><option value="">Sem filtro</option><option value="armacao"' + (f.tipo === 'armacao' ? ' selected' : '') + '>Todas as armações</option><option value="sol"' + (f.tipo === 'sol' ? ' selected' : '') + '>Todos os óculos de sol</option><option value="leitura"' + (f.tipo === 'leitura' ? ' selected' : '') + '>Todos os de leitura</option><option value="*"' + (f.tipo === '' && f.mat ? ' selected' : '') + '>Todos os tipos</option></select>' +
+          '<input class="in" id="ltMat" placeholder="Material (ex.: Acetato)" value="' + esc(f.mat || '') + '"></div>' +
+          '<div class="lbl">E/OU PEÇAS ESCOLHIDAS · CÓDIGO=QUANTIDADE</div>' +
+          '<textarea class="in" id="ltIt" rows="3" placeholder="AC1050, SL2210=6 (vazio = só o filtro)">' + esc(Object.keys(L.itens || {}).map(function (r) { var q = L.itens[r].q || {}, n = Object.keys(q).reduce(function (a, k) { return a + (+q[k] || 0); }, 0); return n ? r + '=' + n : r; }).join(', ')) + '</textarea>' +
+          '<div class="lbl">PARA QUAIS LOJAS</div>' + (cs.length ? cs.map(function (c) { return '<label class="sl"><span>' + esc(c.nome) + '<small>' + (c.tipo === 'visita' ? 'visitante' : 'cliente') + '</small></span><input type="checkbox" class="ltC" value="' + esc(c.id) + '"' + ((L.contas || []).indexOf(c.id) >= 0 ? ' checked' : '') + '></label>'; }).join('') : '<div class="hint">Nenhuma conta ativa. Crie em Clientes › Conta Atacadista.</div>') +
+          '<div class="lbl">MOEDA QUE ELES VEEM PRIMEIRO (PODEM TROCAR)</div><div class="ataRw">' + ATA_MOEDAS.map(function (m) { return '<button type="button" class="mini' + (L.moeda === m[0] ? '' : ' ghost') + '" data-mo="' + m[0] + '">' + m[1] + '</button>'; }).join('') + '</div>' +
+          '<div class="sl"><span>Preço vale por</span><span style="display:flex;gap:6px;align-items:center"><button type="button" class="gMudo" id="ltD-">−</button><b id="ltD">' + dias + '</b> dias<button type="button" class="gMudo" id="ltD+">+</button></span></div>' +
+          '<div class="hint" id="ltCt" style="margin:0;text-align:center"></div>' +
+          '<button type="button" class="go" id="ltOk">' + (novo ? 'Salvar lote' : 'Salvar mudanças') + '</button></div>';
+        var mo = L.moeda;
+        box.querySelectorAll('[data-mo]').forEach(function (b) { b.onclick = function () { mo = b.getAttribute('data-mo'); box.querySelectorAll('[data-mo]').forEach(function (x) { x.classList.toggle('ghost', x !== b); }); }; });
+        $('ltD-').onclick = function () { dias = Math.max(1, dias - 1); $('ltD').textContent = dias; };
+        $('ltD+').onclick = function () { dias = Math.min(60, dias + 1); $('ltD').textContent = dias; };
+        var le = function () {
+          var tp = $('ltTp').value, mat = $('ltMat').value.trim(), itens = {}, ruins = [];
+          var x = { tab: $('ltTab').value, filtro: tp || mat ? { tipo: tp === '*' ? '' : tp, mat: mat } : null, itens: itens };
+          var P = ataPrecos(x.tab) || { itens: {} };
+          $('ltIt').value.split(/[,\n]+/).map(function (s) { return s.trim(); }).filter(Boolean).forEach(function (s) {
+            var p = s.split('='), r = p[0].trim().toUpperCase(), n = +p[1] || 0, it = P.itens[r];
+            if (!it) { ruins.push(r); return; }
+            var q = {};
+            if (n) { var rest = n; (it.cores || []).forEach(function (c) { var t = Math.min(rest, c[1]); if (t > 0) { q[c[0]] = t; rest -= t; } }); }
+            itens[r] = { usd: it.usd, q: q };
+          });
+          // congela o preço de tudo que o filtro pega agora; peças novas entram com o preço do dia em que entrarem
+          Object.keys(ataLoteRefs(x)).forEach(function (r) { if (!itens[r]) itens[r] = { usd: P.itens[r].usd, q: {} }; });
+          return { x: x, ruins: ruins, n: Object.keys(itens).length };
+        };
+        var conta = function () { var r = le(); $('ltCt').textContent = r.n + ' modelos no lote' + (r.ruins.length ? ' · não achei: ' + r.ruins.join(', ') : ''); };
+        ['ltTp', 'ltMat', 'ltIt', 'ltTab'].forEach(function (id) { $(id).oninput = conta; $(id).onchange = conta; });
+        conta();
+        $('ltOk').onclick = function () {
+          var r = le(), contas = [].slice.call(box.querySelectorAll('.ltC:checked')).map(function (c) { return c.value; });
+          if (!r.n) { lfToast('O lote está vazio: escolha um filtro ou peças'); return; }
+          if (!contas.length) { lfToast('Escolha pelo menos uma loja'); return; }
+          if (r.ruins.length) { lfToast('Código não encontrado: ' + r.ruins.join(', ')); return; }
+          var o = Object.assign({}, L, r.x, { id: L.id || ataLoteId(), nome: $('ltNm').value.trim() || 'Lote ' + fd(Date.now()), contas: contas, moeda: mo, ate: Date.now() + dias * DAY, cancelado: false, ts: Date.now() });
+          ataPublica(o.tab);
+          ataLoteGrava(o).then(function (ok) { lfToast(ok ? (novo ? '✓ Lote salvo. Agora dá para enviar o link' : '✓ Lote atualizado (as lojas veem na hora)') : 'Salvo aqui; vai para a nuvem quando conectar'); ataLoteJanela(o.id); });
+        };
+      }
+    });
+  }
+  ACT.ataLoteNovo = function () { ataLoteForm(null); };
+  ACT.ataLoteEdita = function (id) { if (S.ataLotes[id]) ataLoteForm(Object.assign({}, S.ataLotes[id])); };
+  ACT.ataLoteCanc = function (id) {
+    var L = S.ataLotes[id];
+    if (!L || !window.confirm('Encerrar o lote? O link passa a mostrar "Lote finalizado". As peças separadas voltam para o estoque.')) return;
+    L.cancelado = true; ataLoteGrava(L); lfToast('Lote encerrado'); ataLoteJanela(id);
+  };
+  ACT.ataLoteEnvia = function (v) {
+    var p = String(v).split('|'), L = S.ataLotes[p[0]], c = S.ataContas[p[1]];
+    if (!L || !c) return;
+    var es = !/^\+?55/.test(String(c.tel || '').replace(/\s/g, '')), nm = String(c.nome).split(' ')[0];
+    var tx = (es ? '¡Hola ' + nm + '! Te preparé un lote en La Fouch: ' + L.nome + '. Precio garantizado hasta el ' + fd(L.ate) + '. Quien confirma primero se lo lleva: ' : 'Olá ' + nm + '! Preparei um lote para você na La Fouch: ' + L.nome + '. Preço garantido até ' + fd(L.ate) + '. Quem confirma primeiro leva: ') + ataLoteLink(L, c.id);
+    window.open('https://wa.me/' + String(c.tel || '').replace(/\D/g, '') + '?text=' + encodeURIComponent(tx), '_blank');
+  };
+  ACT.ataLoteAbre = function (id) { ataLoteJanela(id); };
+  function ataLoteJanela(id) {
+    var L = S.ataLotes[id];
+    if (!L) return;
+    lfJanela({
+      titulo: L.nome || 'Lote',
+      monta: function (box) {
+        var st = ataLoteSt(L), refs = ataLoteRefs(L), ativo = st === 'Ativo';
+        var pinta = function (si) {
+          box.innerHTML = '<div class="col" style="gap:12px;padding:0 16px 16px">' +
+            '<section class="card col" style="gap:0"><div class="lbl">' + st.toUpperCase() + ' · VALE ATÉ ' + fd(L.ate) + '</div>' +
+            '<div class="sl"><span>Modelos</span><b>' + Object.keys(refs).length + '</b></div>' +
+            (L.filtro ? '<div class="sl"><span>Filtro</span><b>' + esc(({ armacao: 'Armações', sol: 'Sol', leitura: 'Leitura' }[L.filtro.tipo] || 'Todos') + (L.filtro.mat ? ' · ' + L.filtro.mat : '')) + '</b></div>' : '') +
+            '<div class="sl"><span>Moeda inicial</span><b>' + (ATA_MOEDAS.filter(function (m) { return m[0] === L.moeda; })[0] || ATA_MOEDAS[0])[1] + '</b></div></section>' +
+            '<section class="card col" style="gap:0"><div class="lbl">COMO ESTÁ</div>' +
+            '<div class="sl"><span>✅ Confirmados</span><b>' + (si ? si.conf.length : '…') + '</b></div>' +
+            '<div class="sl"><span>🧺 Montando agora (30 min)</span><b>' + (si ? si.mont.length : '…') + '</b></div>' +
+            '<div class="sl"><span>⛔ Esgotaram</span><b>' + Object.keys(refs).filter(function (r) { return !(refs[r].cores || []).some(function (c) { return c[1] > 0; }); }).length + '</b></div></section>' +
+            '<section class="card col" style="gap:0"><div class="lbl">ENVIAR O LINK</div>' + (L.contas || []).map(function (cid) { var c = S.ataContas[cid]; return c ? '<div class="sl"><span>' + esc(c.nome) + '</span>' + (ativo ? '<button type="button" class="gBtn" data-act="ataLoteEnvia" data-id="' + esc(L.id + '|' + cid) + '">WhatsApp</button>' : '<b>—</b>') + '</div>' : ''; }).join('') + '</section>' +
+            '<div class="ataRw"><button type="button" class="mini ghost" data-act="ataLoteEdita" data-id="' + esc(L.id) + '">Editar</button>' + (ativo ? '<button type="button" class="mini ghost ataRm" data-act="ataLoteCanc" data-id="' + esc(L.id) + '">Encerrar lote</button>' : '') + '</div></div>';
+        };
+        pinta(null);
+        ataLoteSituacao(L).then(function (si) { if (document.body.contains(box)) pinta(si); });
+      }
+    });
+  }
   // ===== S190 (aprovado 12/11/2026): FICHA ÚNICA do produto =====
   // 6 etapas com o que falta: 1 Identidade · 2 Cores e graus · 3 Fotos (uma por cor + revisão do designer: ok/refazer)
   // · 4 Preço (Contador: custo US$ → venda US$ → G$/R$ no site) · 5 Canais (loja/site/atacado) · 6 Texto de venda AUTOMÁTICO
@@ -44623,6 +44784,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     add('Site e pedidos', 'itau', 'Comprovante aguardando conferência', itau.length, { s: itau.slice(0, 2).map(function (p) { return '#' + (p.num || p.id); }).join(', '), b: 'Conferir', act: 'view', id: 'ped', urg: itau.length > 0 });
     var ata = typeof ataTrocasEstranhas === 'function' ? ataTrocasEstranhas() : [];
     if (typeof ataTrocasEstranhas === 'function') add('Site e pedidos', 'ata', 'Conta atacadista trocando muito de aparelho', ata.length, { s: ata.slice(0, 2).map(function (a) { return a.nome; }).join(', '), b: 'Ver', act: 'view', id: 'clientes' });
+    var ltv = typeof ataLotesVencendo === 'function' ? ataLotesVencendo() : [];
+    if (typeof ataLotesVencendo === 'function') add('Site e pedidos', 'atalote', 'Lote de atacado vence amanhã', ltv.length, { s: ltv.slice(0, 2).map(function (a) { return a.nome; }).join(', '), b: 'Ver', act: 'ataLotes' });
     // Aparelhos e cópias
     var sy = typeof syncVisivel === 'function' && syncVisivel() && typeof syncEstadoTxt === 'function' ? syncEstadoTxt() : null;
     if (sy) add('Aparelhos e cópias', 'sync', 'Sincronização', sy[0] === 'bad' ? 1 : 0, { tp: 'Sincronização com erro', s: sy[1], b: 'Ver', act: 'view', id: 'ajustes' });
@@ -47682,7 +47845,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     $('pinMT').textContent = modo === 'troca' ? 'Mudar PIN' : 'PIN de emergência';
     $('pinMH').textContent =
       modo === 'troca'
-        ? 'Digite o novo PIN (4 a 8 números).'
+        ? 'Digite o novo PIN de 4 números.'
         : 'Para usar a biometria, crie um PIN de emergência. Ele abre o app quando a digital ou o rosto não funcionar. Anote-o: se esquecer, só reinstalando o app (e os dados voltam apenas pelo backup).';
     $('pinMOk').textContent = modo === 'troca' ? 'Salvar PIN' : 'Criar e ativar';
     $('pinM1').value = '';
@@ -47705,8 +47868,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       b = $('pinM2').value,
       er = $('pinME'),
       modo = S._pinModo;
-    if (!/^\d{4,8}$/.test(a) || a !== b) {
-      er.textContent = !/^\d{4,8}$/.test(a) ? 'O PIN deve ter de 4 a 8 números.' : 'Os dois PINs não são iguais.';
+    if (!/^\d{4}$/.test(a) || a !== b) {
+      er.textContent = !/^\d{4}$/.test(a) ? 'O PIN tem 4 números.' : 'Os dois PINs não são iguais.';
       er.hidden = false;
       return;
     }

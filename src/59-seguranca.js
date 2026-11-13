@@ -232,7 +232,13 @@
     }
     var pv = $('lockPin').value;
     confereHash(pv).then(function (ok) {
-      if (ok) { if (S.pinN !== pv.length) { S.pinN = pv.length; saveSoon(); } return liberar(); }
+      if (ok) {
+        if (S.pinN !== pv.length) { S.pinN = pv.length; saveSoon(); }
+        liberar();
+        // PIN v2 (13/11): o padrão é 4 números (como o Android); quem tem outro tamanho cria um novo de 4
+        if (pv.length !== 4 && typeof pinDlgAbrir === 'function') setTimeout(function () { try { pinDlgAbrir('troca'); var h = $('pinMH'); if (h) h.textContent = 'O PIN agora tem 4 números (como no celular). Crie o seu novo PIN de 4 números.'; } catch (er) {} }, 600);
+        return;
+      }
       LOCK.tent++;
       $('lockPin').value = '';
       if (LOCK.tent >= 5) {
@@ -248,7 +254,9 @@
   });
   $('lockBio').onclick = function () {
     bioPedir(liberar, function (e) {
-      lockMsg('Não reconheceu. Use o PIN.' + bioErro(e));
+      // PIN v2 (13/11): cancelar a digital não mostra erro; só avisa quando ela não reconheceu
+      var m = String((e && (e.message || e.code)) || '');
+      lockMsg(/cancel/i.test(m) ? 'Digite seu PIN de 4 números' : 'Não reconheceu. Use o PIN.');
     });
   };
   $('lockCancel').onclick = function () {

@@ -52,6 +52,17 @@ async function posso(db, u, ref) {
   return { ok: true, pode: true, ja: ja ? { nota: ja.nota, txt: ja.txt } : null };
 }
 
+// 13/11 (aprovado): opinião com link, telefone, e-mail, palavrão ou propaganda de outra loja não publica sozinha — vai para o dono revisar
+const PALAVROES = /\b(put[ao]s?|mierda|carajo|pelotud[oa]|boludo|idiota|estafa(dor)?|ladr[oó]n(es)?|porra|merda|caralho|vagabund[oa]|lixo|golpe|golpista|fdp|hdp)\b/i;
+function suspeita(t) {
+  const x = String(t || '');
+  if (/https?:\/\/|www\.|\b[a-z0-9-]+\.(com|net|org|py|br|ar|shop|store)\b|wa\.me|t\.me|bit\.ly/i.test(x)) return 'link';
+  if (/(\d[\s.\-()]?){7,}/.test(x)) return 'telefone';
+  if (/[\w.+-]+@[\w-]+\./.test(x) || /(^|\s)@[a-z0-9_.]{3,}/i.test(x)) return 'contato';
+  if (PALAVROES.test(x)) return 'palavrao';
+  if (/\b(otra|outra)s?\s+(tienda|loja|[oó]ptica|ótica)\b|\b(compren|comprem|compr[aá]\s+en|comprar\s+na)\b|\b(instagram|facebook|tiktok|whatsapp)\b/i.test(x)) return 'outra-loja';
+  return '';
+}
 async function avaliar(db, u, b, agora) {
   const ref = String(b.ref || '');
   if (!REF_OK.test(ref)) throw new Falha('ref');
@@ -75,8 +86,10 @@ async function avaliar(db, u, b, agora) {
     ed: antes ? agora : 0,
     ok: antes && antes.ok === false ? false : true, // oculta pelo dono continua oculta
   };
+  const sus = suspeita(txt);
+  if (sus) { o.ok = false; o.rev = true; o.sus = sus; } else if (antes && antes.rev) { o.rev = false; o.ok = true; }
   await db.setAval(id, o);
-  return { ok: true, id };
+  return { ok: true, id, rev: !!o.rev };
 }
 
 // Lista pública de uma peça: só as visíveis, mais novas primeiro, com a média.
@@ -103,4 +116,4 @@ async function inscrever(db, b, agora) {
   return { ok: true };
 }
 
-module.exports = { Falha, nomeCurto, compra, posso, avaliar, lista, inscrever, avalId };
+module.exports = { suspeita, Falha, nomeCurto, compra, posso, avaliar, lista, inscrever, avalId };

@@ -46,3 +46,15 @@ function mkDb() {
   console.log('loja: ' + ok + ' testes ok' + (falhou ? ', ' + falhou + ' falharam' : ''));
   process.exit(falhou ? 1 : 0);
 })();
+
+// 13/11: opiniões suspeitas não publicam sozinhas
+{
+  const L = require('./loja');
+  const ok = (c, m) => { if (!c) { console.error('FALHOU', m); process.exit(1); } console.log('  ok ', m); };
+  ok(L.suspeita('Muy lindos, me encantaron') === '', 'opinião normal publica');
+  ok(L.suspeita('compren en www.otra.com') === 'link', 'link vai para revisão');
+  ok(L.suspeita('llamame 0983 123 456') === 'telefone', 'telefone vai para revisão');
+  ok(L.suspeita('son una estafa') === 'palavrao', 'ofensa vai para revisão');
+  ok(L.suspeita('mejor en otra tienda') === 'outra-loja', 'outra loja vai para revisão');
+  ok(L.suspeita('me queda perfecto, +2.00') === '', 'grau não conta como telefone');
+}

@@ -34,5 +34,35 @@ function dbFake() {
   r = await A.catalogo(db, { c: 'V1', dev: 'v1', tok: 'tokV' }, T + 10); ok(r.ok && r.itens.length === 1 && r.itens[0].ref === 'SL2210', 'visitante vê só as peças marcadas');
   r = await A.remove(db, aviso, { c: 'V1', dev: 'v1', tok: 'tokV', alvo: 'v1' }, T + 20); ok(r.motivo === 'bloqueado', 'visitante não remove aparelho');
   r = await A.catalogo(db, { c: 'V1', dev: 'v1', tok: 'tokV' }, T + 3 * D + 1); ok(r.motivo === 'vencida', 'convite vence em 3 dias');
+
+  // S206 (13/11): lotes, separação de 30 min, preço do lote, uma confirmação
+  {
+    const dbL = dbFake(); const SEP = {}, LO = {};
+    dbL.lote = async (k) => LO[k] || null;
+    dbL.sepAtivas = async () => Object.values(SEP);
+    dbL.sepGrava = async (k, o) => { SEP[k] = o; };
+    dbL.trans = async (f) => f({ sepAtivas: dbL.sepAtivas, sepGrava: dbL.sepGrava });
+    dbL.existe = async (k) => !!dbL.ped[k];
+    const tk = (id) => require('crypto').createHash('sha256').update(id).digest('hex');
+    dbL.m.LA = { nome: 'Loja A', email: 'a@x', tipo: 'assoc', tab: 'a1', aparelhos: [{ id: 'da', tokH: tk('ta') }] };
+    dbL.m.LB = { nome: 'Loja B', email: 'b@x', tipo: 'assoc', tab: 'a1', aparelhos: [{ id: 'db', tokH: tk('tb') }] };
+    LO.L7 = { nome: 'Acetato · novembro', ate: T + 7 * D, contas: ['LA', 'LB'], itens: { GR3350: { usd: 4.5, q: { Transparente: 12 } } } };
+    LO.LF = { nome: 'Todas', ate: T + 7 * D, contas: [], filtro: { tipo: '' } };
+    const A1 = { c: 'LA', dev: 'da', tok: 'ta' }, B1 = { c: 'LB', dev: 'db', tok: 'tb' };
+    let x = await A.catalogo(dbL, Object.assign({ l: 'L7' }, A1), T); ok(x.ok && x.lote && x.itens.length === 1 && x.itens[0].usd === 4.5 && x.lote.q.GR3350.Transparente === 12, 'lote abre só com as peças dele, preço garantido e quantidades marcadas');
+    x = await A.catalogo(dbL, Object.assign({ l: 'LF' }, B1), T); ok(x.ok && x.itens.length === 2, 'lote por filtro pega as peças sozinho (mesma peça pode estar em vários lotes)');
+    x = await A.separa(dbL, Object.assign({ ref: 'GR3350', cor: 'Transparente', q: 40 }, A1), T); ok(x.ok && x.q === 40, 'Loja A separa 40');
+    x = await A.separa(dbL, Object.assign({ ref: 'GR3350', cor: 'Transparente', q: 20 }, B1), T + 1000); ok(x.ok && x.q === 8 && x.falta === 12, 'Loja B só consegue as 8 que sobram (nunca passa do estoque)');
+    x = await A.catalogo(dbL, Object.assign({ l: 'L7' }, B1), T + 2000); ok(x.itens[0].cores[0][1] === 8, 'estoque ao vivo: B vê só o que não está separado pela A');
+    x = await A.catalogo(dbL, Object.assign({ l: 'L7' }, B1), T + 31 * 60000); ok(x.itens[0].cores[0][1] === 48, 'A não confirmou em 30 min: as peças voltam');
+    x = await A.separa(dbL, Object.assign({ ref: 'GR3350', cor: 'Transparente', q: 20 }, A1), T + 2000); ok(x.fim === T + 30 * 60000, '30 min contam da 1ª peça e não renovam');
+    x = await A.pedido(dbL, Object.assign({ l: 'L7', itens: [{ ref: 'GR3350', cor: 'Transparente', q: 30 }] }, A1), T + 3000); ok(x.ok && Math.abs(x.usd - 135) < 1e-6, 'pedido usa o preço do lote');
+    const pid = x.pid; SEP.LA = { conta: 'LA', ini: T, itens: {} };
+    x = await A.pedido(dbL, Object.assign({ l: 'L7', itens: [{ ref: 'GR3350', cor: 'Transparente', q: 30 }] }, A1), T + 4000); ok(!x.ok && x.motivo === 'ja-confirmado' && x.pid === pid, 'confirmar duas vezes não duplica o pedido');
+    LO.L7.cancelado = true; x = await A.catalogo(dbL, Object.assign({ l: 'L7' }, A1), T); ok(!x.ok && x.motivo === 'lote-fim', 'lote cancelado: "Lote finalizado"');
+    LO.L7.cancelado = false; x = await A.catalogo(dbL, Object.assign({ l: 'L7' }, A1), T + 8 * D); ok(!x.ok && x.motivo === 'lote-fim', 'lote vencido: "Lote finalizado"');
+    LO.L8 = { ate: T + D, contas: ['LB'], itens: {} }; x = await A.catalogo(dbL, Object.assign({ l: 'L8' }, A1), T); ok(!x.ok, 'link de lote de outra loja não abre');
+    const av2 = []; x = await A.avisame(dbL, async (o) => av2.push(o), Object.assign({ ref: 'GR3350', cor: 'Transparente', l: 'L7' }, A1), T); ok(x.ok && av2[0].t === 'volta', '"Avisame si vuelve" avisa o dono');
+  }
   console.log(falhas ? falhas + ' FALHAS' : 'tudo ok'); process.exit(falhas ? 1 : 0);
 })();

@@ -2226,3 +2226,19 @@ body.modoCli #selBar{display:none!important}
 .pkDots{display:flex;gap:14px;min-height:18px}.pkDots i{width:16px;height:16px;border-radius:50%;border:2px solid var(--ac,#8d3a69)}.pkDots i.on{background:var(--ac,#8d3a69)}
 .pkGrid{display:grid;grid-template-columns:repeat(3,76px);gap:14px}.pkGrid button{width:76px;height:76px;border-radius:50%;border:0;background:var(--card,#fff);color:var(--tx,inherit);font:500 30px/1 inherit;font-family:inherit;box-shadow:0 2px 10px rgba(0,0,0,.08)}
 .pkGrid button:active{transform:scale(.94)}.pkGrid .pkBio{background:var(--ac,#8d3a69);color:#fff}.pkGrid .pkDel{background:none;box-shadow:none;font-size:24px;color:var(--mu)}
+
+/* PIN v2 (13/11/2026, aprovado): teclas legíveis no claro e no escuro; digital no canto, no mesmo estilo do apagar; sem Entrar */
+#lockScr .pkGrid button{background:color-mix(in srgb,currentColor 8%,transparent)!important;border:1px solid color-mix(in srgb,currentColor 14%,transparent)!important;color:inherit!important;box-shadow:none!important;font-weight:400}
+#lockScr .pkGrid .pkDel,#lockScr .pkGrid .pkBio{background:none!important;border:0!important;color:inherit!important}
+#lockScr .pkGrid .pkBio svg{width:30px;height:30px}
+#lockScr #lockGo{display:none!important}
+/* S206 lotes de atacado */
+.ataLn{width:100%;background:none;border:0;border-top:1px solid var(--line,rgba(0,0,0,.08));color:inherit;font:inherit;text-align:left;cursor:pointer}
+.ataLn:first-of-type{border-top:0}
+.ataSt{font-style:normal;font-size:12px;font-weight:700;border-radius:999px;padding:2px 9px}
+.ataSt.ok{background:rgba(31,138,76,.14);color:#1f8a4c}
+.ataSt.off{background:rgba(120,120,120,.16);color:var(--mu,#777)}
+.ataRw{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.ataRw .mini{min-width:72px;justify-content:center;text-align:center}
+.ataRw2{display:flex;flex-direction:column;gap:8px}
+.ataRw .mini:not(.ghost){background:#7a2a59!important;color:#fff!important;border-color:#7a2a59!important}

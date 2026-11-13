@@ -37,6 +37,8 @@
     add('Site e pedidos', 'itau', 'Comprovante aguardando conferência', itau.length, { s: itau.slice(0, 2).map(function (p) { return '#' + (p.num || p.id); }).join(', '), b: 'Conferir', act: 'view', id: 'ped', urg: itau.length > 0 });
     var ata = typeof ataTrocasEstranhas === 'function' ? ataTrocasEstranhas() : [];
     if (typeof ataTrocasEstranhas === 'function') add('Site e pedidos', 'ata', 'Conta atacadista trocando muito de aparelho', ata.length, { s: ata.slice(0, 2).map(function (a) { return a.nome; }).join(', '), b: 'Ver', act: 'view', id: 'clientes' });
+    var ltv = typeof ataLotesVencendo === 'function' ? ataLotesVencendo() : [];
+    if (typeof ataLotesVencendo === 'function') add('Site e pedidos', 'atalote', 'Lote de atacado vence amanhã', ltv.length, { s: ltv.slice(0, 2).map(function (a) { return a.nome; }).join(', '), b: 'Ver', act: 'ataLotes' });
     // Aparelhos e cópias
     var sy = typeof syncVisivel === 'function' && syncVisivel() && typeof syncEstadoTxt === 'function' ? syncEstadoTxt() : null;
     if (sy) add('Aparelhos e cópias', 'sync', 'Sincronização', sy[0] === 'bad' ? 1 : 0, { tp: 'Sincronização com erro', s: sy[1], b: 'Ver', act: 'view', id: 'ajustes' });

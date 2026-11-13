@@ -15,9 +15,9 @@
     inp.classList.add('pkHid');
     inp.setAttribute('inputmode', 'none'); // o teclado do celular não abre
     var pinta = function () {
-      var n = S.pinN || 0, v = inp.value.length, k = Math.max(n || 4, v);
+      var n = S.pinN || 4, v = inp.value.length, k = Math.max(n, v);
       $('pkDots').innerHTML = new Array(k + 1).join('.').split('').map(function (_, i) { return '<i class="' + (i < v ? 'on' : '') + '"></i>'; }).join('');
-      $('lockGo').hidden = !!n; // PIN de tamanho conhecido entra sozinho
+      $('lockGo').hidden = true; // PIN v2: sem botão Entrar — entra sozinho
       var b = w.querySelector('.pkBio');
       b.style.visibility = $('lockBio').hidden ? 'hidden' : 'visible';
     };
@@ -30,7 +30,10 @@
       else if (inp.value.length < 8) inp.value += k;
       if (navigator.vibrate) try { navigator.vibrate(8); } catch (er) {}
       pinta();
-      if (S.pinN && inp.value.length === S.pinN) setTimeout(function () { $('lockGo').click(); setTimeout(pinta, 250); }, 120);
+      clearTimeout(w._t);
+      if (S.pinN && inp.value.length === S.pinN) w._t = setTimeout(function () { $('lockGo').click(); setTimeout(pinta, 250); }, 120);
+      else if (!S.pinN && inp.value.length === 4) { var v4 = inp.value; confereHash(v4).then(function (ok) { if (ok && inp.value === v4) { $('lockGo').click(); setTimeout(pinta, 250); } }); }
+      else if (!S.pinN && inp.value.length > 4) w._t = setTimeout(function () { $('lockGo').click(); setTimeout(pinta, 250); }, 1200); // PIN antigo de outro tamanho: entra depois de uma pausa
     });
     // a cada abertura da tela: zera e redesenha (o mostrarLock já limpa o valor)
     new MutationObserver(function () { if (!scr.hidden) { inp.value = ''; pinta(); } }).observe(scr, { attributes: true, attributeFilter: ['hidden'] });

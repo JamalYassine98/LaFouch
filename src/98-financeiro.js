@@ -236,7 +236,7 @@
     $('pinMT').textContent = modo === 'troca' ? 'Mudar PIN' : 'PIN de emergência';
     $('pinMH').textContent =
       modo === 'troca'
-        ? 'Digite o novo PIN (4 a 8 números).'
+        ? 'Digite o novo PIN de 4 números.'
         : 'Para usar a biometria, crie um PIN de emergência. Ele abre o app quando a digital ou o rosto não funcionar. Anote-o: se esquecer, só reinstalando o app (e os dados voltam apenas pelo backup).';
     $('pinMOk').textContent = modo === 'troca' ? 'Salvar PIN' : 'Criar e ativar';
     $('pinM1').value = '';
@@ -259,8 +259,8 @@
       b = $('pinM2').value,
       er = $('pinME'),
       modo = S._pinModo;
-    if (!/^\d{4,8}$/.test(a) || a !== b) {
-      er.textContent = !/^\d{4,8}$/.test(a) ? 'O PIN deve ter de 4 a 8 números.' : 'Os dois PINs não são iguais.';
+    if (!/^\d{4}$/.test(a) || a !== b) {
+      er.textContent = !/^\d{4}$/.test(a) ? 'O PIN tem 4 números.' : 'Os dois PINs não são iguais.';
       er.hidden = false;
       return;
     }

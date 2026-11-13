@@ -252,7 +252,7 @@ exports.avaliacao = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 1
         const q = await admin.firestore().collection('avaliacoes').orderBy('ts', 'desc').limit(100).get();
         return res.json({ ok: true, itens: q.docs.map((d) => Object.assign({ id: d.id }, d.data())) });
       }
-      await admin.firestore().doc('avaliacoes/' + String(b.id || '').replace(/[^A-Za-z0-9._-]/g, '')).update({ ok: b.acao === 'mostrar' });
+      await admin.firestore().doc('avaliacoes/' + String(b.id || '').replace(/[^A-Za-z0-9._-]/g, '')).update({ ok: b.acao === 'mostrar', rev: false });
       return res.json({ ok: true });
     }
     const u = await clienteDe(req);
@@ -636,6 +636,15 @@ const ataDb = {
   muda: (k, o) => fsx().doc('atacadoContas/' + k).set(o, { merge: true }),
   precos: async (t) => { const d = await fsx().doc('atacadoPrecos/' + String(t).replace(/[^a-z0-9]/gi, '')).get(); return d.exists ? d.data() : null; },
   pedido: (k, o) => fsx().doc('atacadoPedidos/' + k).set(o),
+  existe: async (k) => (await fsx().doc('atacadoPedidos/' + k).get()).exists,
+  // S206: lotes (o dono cria no app) e separação de 30 min enquanto a loja monta o pedido
+  lote: async (k) => { if (!/^[A-Za-z0-9_-]{2,40}$/.test(k)) return null; const d = await fsx().doc('atacadoLotes/' + k).get(); return d.exists ? d.data() : null; },
+  sepAtivas: async (agora) => (await fsx().collection('atacadoSep').where('ini', '>', agora - Atacado.SEP).get()).docs.map((d) => d.data()),
+  sepGrava: (k, o) => fsx().doc('atacadoSep/' + k).set(o),
+  trans: (f) => fsx().runTransaction(async (tx) => f({
+    sepAtivas: async (agora) => (await tx.get(fsx().collection('atacadoSep').where('ini', '>', agora - Atacado.SEP))).docs.map((d) => d.data()),
+    sepGrava: async (k, o) => { tx.set(fsx().doc('atacadoSep/' + k), o); },
+  })),
 };
 const ataAviso = (o) => fsx().collection('atacadoAvisos').add(o);
 exports.atacado = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 5, secrets: [RESEND_KEY] }, async (req, res) => {
@@ -655,6 +664,8 @@ exports.atacado = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 5, 
     if (b.acao === 'catalogo') return res.json(await Atacado.catalogo(ataDb, b, ag));
     if (b.acao === 'remove') return res.json(await Atacado.remove(ataDb, ataAviso, b, ag));
     if (b.acao === 'pedido') return res.json(await Atacado.pedido(ataDb, b, ag));
+    if (b.acao === 'separa') return res.json(await Atacado.separa(ataDb, b, ag));
+    if (b.acao === 'avisame') return res.json(await Atacado.avisame(ataDb, ataAviso, b, ag));
     return res.status(400).json({ ok: false, motivo: 'acao' });
   } catch (e) {
     if (e instanceof Atacado.Falha) return res.status(e.status).json({ ok: false, motivo: e.motivo });

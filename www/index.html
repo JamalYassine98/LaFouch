@@ -43,8 +43,8 @@ html[data-tema="claro"] #lfIntro{background:#f4f1f4;--lg:url(logo-app-claro.png)
   <div class="gtabs" id="grpTabs" hidden role="group" aria-label="Telas do grupo"></div>
 <div id="pinModal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="pinMT"><div class="modal-box" style="max-width:420px;margin-top:12vh">
   <div><h2 id="pinMT" style="margin:0;font-size:18px">PIN de emergência</h2><div class="hint" id="pinMH" style="margin:6px 0 0"></div></div>
-  <input class="in" id="pinM1" type="password" inputmode="numeric" maxlength="8" placeholder="PIN (4 a 8 números)" autocomplete="off" aria-label="PIN">
-  <input class="in" id="pinM2" type="password" inputmode="numeric" maxlength="8" placeholder="Repita o PIN" autocomplete="off" aria-label="Repita o PIN">
+  <input class="in" id="pinM1" type="password" inputmode="numeric" maxlength="4" placeholder="PIN (4 números)" autocomplete="off" aria-label="PIN">
+  <input class="in" id="pinM2" type="password" inputmode="numeric" maxlength="4" placeholder="Repita o PIN" autocomplete="off" aria-label="Repita o PIN">
   <div class="note n-warn" id="pinME" role="alert" hidden></div>
   <div style="display:flex;gap:8px;justify-content:flex-end"><button class="chip" id="pinMC" type="button">Cancelar</button><button class="chip on" id="pinMOk" type="button">Criar e ativar</button></div>
 </div></div>
@@ -288,7 +288,7 @@ html[data-tema="claro"] #lfIntro{background:#f4f1f4;--lg:url(logo-app-claro.png)
 <section id="notaOv" class="catov" aria-label="Venda registrada" hidden></section>
   <div id="notaCf" class="notacf" hidden></div>
   <div id="notaPrint" aria-hidden="true"></div>
-  <script>/*LOADER*/(function(){var EMB=496,d=document,m=null;try{m=JSON.parse(localStorage.getItem('lf_upd')||'null')}catch(e){}
+  <script>/*LOADER*/(function(){var EMB=497,d=document,m=null;try{m=JSON.parse(localStorage.getItem('lf_upd')||'null')}catch(e){}
 function std(){var s=d.createElement('script');s.src='app.js';d.body.appendChild(s)}
 if(!m||!(m.v>EMB)||!window.caches||(m.tent||0)>=2){if(m&&m.v>EMB&&(m.tent||0)>=2){try{localStorage.removeItem('lf_upd');caches.delete('lafouch-upd')}catch(e){}}std();return}
 try{localStorage.setItem('lf_upd',JSON.stringify({v:m.v,tent:(m.tent||0)+1}))}catch(e){}

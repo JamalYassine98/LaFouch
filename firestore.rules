@@ -61,6 +61,9 @@ service cloud.firestore {
     match /atacadoPrecos/{d} { allow read, write: if dono(); }
     match /atacadoPedidos/{d} { allow read, write: if dono(); }
     match /atacadoAvisos/{d} { allow read, delete: if dono(); }
+    // S206 lotes de atacado: o dono cria/edita no app; a separação de 30 min só a função escreve (o dono pode ler)
+    match /atacadoLotes/{d} { allow read, write: if dono(); }
+    match /atacadoSep/{d} { allow read: if dono(); }
     match /temaEnvios/{d} { allow read: if dono(); }
     // S197 PIX automático: o app (dono) registra a espera da venda da loja e lê os PIX sem par; a função escreve com o admin
     match /pixEspera/{d} { allow read, write: if dono(); }

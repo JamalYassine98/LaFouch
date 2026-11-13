@@ -166,7 +166,8 @@
       nome: vitTitulo(ref, v.tipo, a, v.nome),
       fm: a.formato || '',
       mr: a.marca || '',
-      tipo: solar ? 'solar' : v.tipo === 'pre' ? 'grau' : 'armacao',
+      // estojo/flanela (13/11, aprovado): tipo simples do estoque vai ao site como acessório ('Combina com') e é vendido no caixa como qualquer peça
+      tipo: solar ? 'solar' : v.tipo === 'pre' ? 'grau' : (typeof tipoOf === 'function' && (tipoOf(v.tipo) || {}).simple) ? 'acessorio' : 'armacao',
       n: sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).n,
       de: sitePrecoOferta(ref, v.preco || 0, pp && pp.ant > v.preco ? pp.ant : 0, v.tipo).de,
       est: v.est,

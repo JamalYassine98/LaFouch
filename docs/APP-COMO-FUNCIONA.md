@@ -103,3 +103,9 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 
 ## PIN (S182, 12/11/2026, jeito 1)
 - `src/97q-pin-s182.js`: a tela `#lockScr` ganha o teclado da La Fouch (`#pinKb`: bolinhas + 0–9 + ⌫ + botão roxo da digital). O campo `#lockPin` fica escondido (`inputmode=none`, o teclado do celular não abre). Com o tamanho do PIN conhecido (`S.pinN`, gravado ao criar ou na 1ª entrada certa) entra sozinho ao completar e o "Entrar" some. A biometria NÃO abre sozinha (`mostrarLock`): só ao tocar no botão da digital.
+
+## Lotes de atacado (S206, 13/11/2026)
+- `src/97s2-atacado-lotes.js`: Clientes › "📦 Lotes atacado" (ou dentro da Conta Atacadista). "+ Criar lote": nome, tabela, filtro (tipo + material, ex.: todas as armações · Acetato; peças novas entram sozinhas), peças escolhidas `CÓDIGO=quantidade`, lojas (contas ativas), moeda inicial US$/Gs./R$, validade em dias. Salvar grava `atacadoLotes/{id}` com o preço US$ congelado de cada peça; só depois aparece "Enviar o link" (WhatsApp `lafouch.com/atacado?c=CONTA&l=LOTE`).
+- Janela do lote: Ativo/Cancelado/Vencido, modelos, ✅ confirmados (`atacadoPedidos.lote`), 🧺 montando agora (`atacadoSep` dentro dos 30 min), ⛔ esgotaram; Editar e "Encerrar lote" (o link mostra "Lote finalizado").
+- Conta Atacadista: "Moeda que ele vê primeiro" (`moeda` na conta). Guardião: "Lote de atacado vence amanhã".
+- PIN v2: sempre 4 números, entra sozinho ao acertar (sem botão Entrar); digital cancelada não mostra erro; PIN antigo de outro tamanho → depois de entrar pede um novo de 4.

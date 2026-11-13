@@ -14,7 +14,7 @@
     saveSoon();
     if (typeof nvApi !== 'function' || !S.nuvem || !S.nuvem.rt) return Promise.resolve(false);
     var o = {};
-    (campos || ['nome', 'email', 'tel', 'tipo', 'tab', 'dispMax', 'trocaOk', 'pausada', 'cancelada', 'fim', 'refs', 'cliId', 'ts']).forEach(function (k) { if (c[k] !== undefined) o[k] = c[k]; });
+    (campos || ['nome', 'email', 'tel', 'tipo', 'tab', 'dispMax', 'trocaOk', 'pausada', 'cancelada', 'fim', 'refs', 'cliId', 'ts', 'moeda']).forEach(function (k) { if (c[k] !== undefined) o[k] = c[k]; });
     var m = Object.keys(o).map(function (k) { return 'updateMask.fieldPaths=' + k; }).join('&');
     return nvApi('PATCH', 'atacadoContas/' + encodeURIComponent(c.id) + '?' + m, vBody(o)).then(function () { return true; }, function () { return false; });
   }
@@ -65,6 +65,8 @@
       (c.tipo !== 'visita' ? '<div class="sl"><span><b>Cliente pode trocar aparelho</b><small>Desligado: ele não troca mais sozinho</small></span>' + ataTgl(c.trocaOk !== false, 'ataTroca', c.id) + '</div>' : '<div class="sl"><span><b>Cliente remove aparelho</b><small>Visitante nunca remove</small></span><b>Não</b></div>') +
       '<div class="sl"><span><b>Pausar</b><small>Some o catálogo. Nada é apagado. Volta com 1 toque</small></span><button type="button" class="gBtn" data-act="ataPausa" data-id="' + esc(c.id) + '">' + (c.pausada ? 'Voltar' : 'Pausar') + '</button></div>' +
       '<div class="sl"><span><b>Cancelar conta</b><small>Apaga o acesso. Para voltar, novo convite</small></span><button type="button" class="gBtn ataRm" data-act="ataCanc" data-id="' + esc(c.id) + '">Cancelar</button></div></section>' +
+      '<section class="card col" style="gap:0"><div class="lbl">MOEDA QUE ELE VÊ PRIMEIRO (ELE PODE TROCAR)</div><div class="ataRw" style="padding:8px 0">' + [['usd', 'US$'], ['gs', 'Gs.'], ['brl', 'R$']].map(function (m) { return '<button type="button" class="mini' + ((c.moeda || 'usd') === m[0] ? '' : ' ghost') + '" data-act="ataMoeda" data-id="' + esc(c.id + '|' + m[0]) + '">' + m[1] + '</button>'; }).join('') + '</div></section>' +
+      '<button type="button" class="mini ghost" data-act="ataLotes" style="align-self:center">📦 Lotes de atacado</button>' +
       '<button type="button" class="go" data-act="ataEnvia" data-id="' + esc(c.id) + '">Enviar convite pelo WhatsApp</button></div>';
   }
   function ataJanela(id) {
@@ -120,6 +122,7 @@
     window.open('https://wa.me/' + d + '?text=' + encodeURIComponent(tx), '_blank');
   };
   function ataMuda(id, o, msg) { var c = S.ataContas[id]; if (!c) return; Object.assign(c, o); ataGrava(c, Object.keys(o)); if (msg) lfToast(msg); ataJanela(id); }
+  ACT.ataMoeda = function (v) { var p = String(v).split('|'); ataMuda(p[0], { moeda: p[1] }); };
   ACT.ataTroca = function (id) { var c = S.ataContas[id]; if (c) ataMuda(id, { trocaOk: c.trocaOk === false }, c.trocaOk === false ? 'Trocas liberadas' : 'Trocas bloqueadas'); };
   ACT.ataPausa = function (id) { var c = S.ataContas[id]; if (c) ataMuda(id, { pausada: !c.pausada }, c.pausada ? 'Catálogo de volta' : 'Pausada: o catálogo sumiu'); };
   ACT.ataCanc = function (id) { if (!window.confirm('Cancelar a conta? O acesso é apagado; para voltar, só com novo convite.')) return; ataMuda(id, { cancelada: true }, 'Conta cancelada'); };
