@@ -22,7 +22,28 @@ function valorDoTexto(t) {
   const m = /R\$\s*([\d.]+,\d{2})/.exec(String(t || ''));
   return m ? centavos(m[1]) : NaN;
 }
+// Itaú Paraguay (13/11/2026): e-mail "Aviso de transferencia recibida" de info@itau.com.py, "Moneda y Monto: Gs. 1.000"
+function gsDoTexto(t) {
+  const m = /Monto:?\s*Gs\.?\s*([\d.]+)/i.exec(String(t || ''));
+  return m ? +m[1].replace(/\./g, '') : NaN;
+}
+async function recebeItau(db, b, agora) {
+  const g = Math.round(+String(b.valor).replace(/\./g, ''));
+  if (!(g > 0 && g < 1e10)) throw new Falha('valor');
+  const mid = String(b.mid || '').slice(0, 120);
+  if (!mid) throw new Falha('mid');
+  if (b.dkim !== true || !/(^|\.)itau\.com\.py$/i.test(String(b.dom || ''))) throw new Falha('origem', 403);
+  if (await db.jaVisto(mid)) return { ok: true, repetido: true };
+  await db.visto(mid, agora);
+  const site = (await db.pedidosItau(agora - SITE_H * H)).filter((p) => !p.pago && Math.round(+p.pagar || 0) === g);
+  if (site.length === 1) { await db.confirmaPedido(site[0].id, { valor: g, banco: 'itau', mid, ts: agora }); return { ok: true, tipo: 'site', id: site[0].id }; }
+  const loja = site.length ? [] : (await db.esperas(agora - LOJA_H * H)).filter((e) => !e.ok && e.banco === 'itau' && Math.round(+e.gs || 0) === g);
+  if (loja.length === 1) { await db.confirmaEspera(loja[0].id, { valor: g, banco: 'itau', mid, ts: agora }); return { ok: true, tipo: 'loja', id: loja[0].id }; }
+  await db.semPar({ valor: g, banco: 'itau', mid, ts: agora, candidatos: site.length + loja.length });
+  return { ok: true, tipo: 'sem-par', candidatos: site.length + loja.length };
+}
 async function recebe(db, b, agora) {
+  if (b.banco === 'itau') return recebeItau(db, b, agora);
   const c = centavos(b.valor);
   if (!Number.isFinite(c)) throw new Falha('valor');
   const mid = String(b.mid || '').slice(0, 120);
@@ -43,4 +64,4 @@ async function recebe(db, b, agora) {
   await db.semPar({ valor: c / 100, mid, ts: agora, candidatos: site.length + loja.length });
   return { ok: true, tipo: 'sem-par', candidatos: site.length + loja.length };
 }
-module.exports = { Falha, centavos, valorDoTexto, recebe, SITE_H, LOJA_H };
+module.exports = { Falha, centavos, valorDoTexto, gsDoTexto, recebe, SITE_H, LOJA_H };

@@ -553,6 +553,12 @@ const pixDb = {
     }
     return L;
   },
+  pedidosItau: async (desde) => {
+    const L = (await fsx().collection('pedidos').where('ts', '>=', desde).limit(400).get()).docs
+      .map((d) => Object.assign({ id: d.id }, d.data())).filter((p) => p.pag === 'alias' && !p.tipo);
+    for (const p of L) { const r = await fsx().doc('reservas/' + p.id).get(), o = r.exists ? r.data() : {}; p.pago = !!(o.pago || o.cancelado || p.pixAuto); }
+    return L;
+  },
   esperas: async (desde) => (await fsx().collection('pixEspera').where('ts', '>=', desde).limit(200).get()).docs.map((d) => Object.assign({ id: d.id }, d.data())).filter((e) => e.tipo !== 'site'),
   confirmaPedido: async (id, o) => {
     const tok = crypto.randomBytes(6).toString('hex');

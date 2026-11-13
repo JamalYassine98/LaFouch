@@ -7,8 +7,11 @@
 var URL_PIX = 'https://southamerica-east1-lafouch-2f6bd.cloudfunctions.net/pix';
 var ASSUNTO = 'Você recebeu uma transferência';
 var REMETENTE = 'todomundo@nubank.com.br';
+// Itaú Paraguay (13/11/2026)
+var ITAU_DE = 'info@itau.com.py', ITAU_ASSUNTO = 'Aviso de transferencia recibida';
 
 function verifica() {
+  verificaItau();
   var chave = PropertiesService.getScriptProperties().getProperty('PIX_ROBO');
   if (!chave) throw new Error('Falta a propriedade PIX_ROBO');
   var rot = GmailApp.getUserLabelByName('pix-lido') || GmailApp.createLabel('pix-lido');
@@ -28,6 +31,25 @@ function verifica() {
         payload: JSON.stringify({ valor: v[1], mid: m.getId(), dkim: dkim, dom: 'nubank.com.br' })
       });
       if (r.getResponseCode() >= 500) throw new Error('função pix ' + r.getResponseCode()); // tenta de novo no próximo minuto
+    });
+    f.addLabel(rot);
+  });
+}
+
+function verificaItau() {
+  var chave = PropertiesService.getScriptProperties().getProperty('PIX_ROBO');
+  if (!chave) return;
+  var rot = GmailApp.getUserLabelByName('itau-lido') || GmailApp.createLabel('itau-lido');
+  GmailApp.search('from:' + ITAU_DE + ' subject:"' + ITAU_ASSUNTO + '" -label:itau-lido newer_than:2d', 0, 20).forEach(function (f) {
+    f.getMessages().forEach(function (m) {
+      var cab = m.getRawContent().split(/\r?\n\r?\n/)[0].replace(/\r?\n[ \t]+/g, ' ');
+      var dkim = /^(?:ARC-)?Authentication-Results:.*dkim=pass[^;]*header\.(?:i|d)=@?(?:[a-z0-9-]+\.)*itau\.com\.py/im.test(cab);
+      var de = (m.getFrom().match(/<([^>]+)>/) || [, m.getFrom()])[1].toLowerCase();
+      var v = m.getPlainBody().match(/Monto:?\s*Gs\.?\s*([\d.]+)/i);
+      if (de !== ITAU_DE || !v) return;
+      var r = UrlFetchApp.fetch(URL_PIX, { method: 'post', contentType: 'application/json', muteHttpExceptions: true, headers: { 'x-robo': chave },
+        payload: JSON.stringify({ banco: 'itau', valor: v[1], mid: m.getId(), dkim: dkim, dom: 'itau.com.py' }) });
+      if (r.getResponseCode() >= 500) throw new Error('função pix ' + r.getResponseCode());
     });
     f.addLabel(rot);
   });

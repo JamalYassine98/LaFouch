@@ -517,9 +517,236 @@ def r_cart_min(p):
         else: falha('6 bug nunca volta', 'Carrinho · − para em 1', f'com 1 peça o − {"está ligado" if not dis else "está desligado"} e a quantidade ficou “{q}”', pg)
     finally: b.close()
 
+# ---------- parte 7 · olho do dono (13/11/2026): cada bug da lista do dono vira prova; aparelhos de 320 a 2560 e as 3 letras ----------
+CONTA7 = json.dumps({'nome': 'Maria González', 'email': 'maria@exemplo.com', 'tel': '+595 983 000 000', 'nac': 'py', 'doc': '1234567', 'ends': [{'nome': 'Casa', 'cidade': 'Ciudad del Este', 'dep': 'Alto Paraná', 'end': 'Calle Los Lapachos 123', 'ref': 'portón verde'}]})
+AUTH7 = json.dumps({'uid': 'kit', 'idToken': 'kit', 'refresh': 'kit', 'exp': 9e15, 'ev': True, 'email': 'maria@exemplo.com'})
+LOG7 = {'lf_conta': CONTA7, 'lf_auth': AUTH7}
+TAM7 = [(390, 844), (1440, 900), (2560, 1440)]
+P7 = '7 olho do dono'
+
+def fim_da_pagina(pg, onde='window'):
+    pg.evaluate("""o=>{const s=o==='layer'?document.querySelector('#layer .scrim')||document.querySelector('#layer .modal')||document.querySelector('#layer'):document.scrollingElement;
+      [...document.querySelectorAll('*')].forEach(e=>{if(e.scrollHeight>e.clientHeight+50&&/(auto|scroll)/.test(getComputedStyle(e).overflowY))e.scrollTop=e.scrollHeight});if(s)s.scrollTop=s.scrollHeight;scrollTo(0,1e7)}""", onde)
+    pg.wait_for_timeout(900)
+
+RODAPE_VISIVEL = """()=>{const F=[...document.querySelectorAll('footer,.lfft')].filter(f=>{const r=f.getBoundingClientRect();return r.width>0&&r.height>0&&r.top<innerHeight&&r.bottom>0&&getComputedStyle(f).visibility!=='hidden'});
+  const V=F.filter(f=>{const r=f.getBoundingClientRect(),x=r.left+r.width/2;return [.2,.5,.8].some(k=>{const y=Math.min(innerHeight-2,Math.max(1,r.top+r.height*k));const e=document.elementFromPoint(x,y);return e&&f.contains(e)})});
+  if(!V.length)return {ok:false,d:F.length?'o rodapé fica escondido atrás da tela aberta (o cliente não vê)':'o rodapé não aparece'};const f=V[V.length-1];
+  if(innerWidth>=1024){const L=[...f.querySelectorAll('p,li,a,span,h3,h4,b,small,div')].filter(e=>e.children.length===0&&e.textContent.trim().length>3);
+    const ruim=L.filter(e=>{const r=e.getBoundingClientRect(),lh=parseFloat(getComputedStyle(e).lineHeight)||18;return r.width>0&&r.width<140&&r.height>lh*2.6});
+    if(ruim.length>2)return {ok:false,d:'rodapé espremido: '+ruim.length+' textos quebrando em 3+ linhas (ex.: “'+ruim[0].textContent.trim().slice(0,30)+'”)'};}
+  return {ok:true}}"""
+
+def p7_rodape(p):
+    for W, H in TAM7:
+        for nome, abre, onde in (('Início', lambda pg: None, 'window'), ('Catálogo', a_cat('grau'), 'window'), ('Peça aberta', a_prod, 'layer')):
+            b, c, pg, E = novo(p, W, H, 'es-PY', touch=W < 700)
+            try:
+                carrega(pg); abre(pg); fim_da_pagina(pg, onde); r = pg.evaluate(RODAPE_VISIVEL)
+                if r['ok']: passou(P7, f'Rodapé · {nome} · {W}px')
+                else: falha(P7, f'Rodapé · {nome} · {W}px', r['d'], pg)
+            finally: b.close()
+
+def abre_duvidas(pg):
+    carrega(pg); pg.click('#mnb'); pg.wait_for_timeout(800); pg.locator('#drw [data-ajp="duvidas"]').first.click(); pg.wait_for_timeout(1500)
+
+def p7_teste_ajuda(p):
+    b, c, pg, E = novo(p, 1440, 900, 'es-PY', touch=False)
+    try:
+        abre_duvidas(pg); h0 = pg.evaluate('history.length')
+        ok_abre = True
+        for i in range(3):
+            if not pg.locator('[data-gzopen].ajl:visible').count(): break
+            pg.locator('[data-gzopen].ajl:visible').first.click(); pg.wait_for_timeout(1800)
+            if 'consulta' not in est(pg)['abertos']: ok_abre = False
+            else: pg.keyboard.press('Escape'); pg.wait_for_timeout(900)
+        if ok_abre: passou(P7, 'Ajuda › “Hacer la prueba” abre o Mochi e fica')
+        else: falha(P7, 'Ajuda › “Hacer la prueba” abre o Mochi e fica', 'o Mochi abre e volta na hora para a página anterior', pg)
+        cresce = pg.evaluate('history.length') - h0
+        if cresce <= 2: passou(P7, 'Ajuda › repetir o teste não empilha o voltar')
+        else: falha(P7, 'Ajuda › repetir o teste não empilha o voltar', f'3 cliques criaram {cresce} passos no voltar (o cliente volta várias vezes na mesma página)', pg)
+    finally: b.close()
+
+FOTO_SNAP = """(sel)=>[...document.querySelectorAll(sel)].filter(e=>{const r=e.getBoundingClientRect();return r.width>60&&r.top>0&&r.bottom<innerHeight}).slice(0,3).map(im=>{let o=[],e=im;for(let k=0;k<4&&e;k++,e=e.parentElement){const s=getComputedStyle(e);o.push(s.transform+s.translate+s.rotate+s.scale+s.objectPosition+s.backgroundPosition)}const r=im.getBoundingClientRect();return [r.left,r.top,r.width,r.height,o.join('|')]})"""
+
+def p7_foto_mouse(p):
+    # a foto não pode se mexer seguindo o mouse — Início, catálogo e peça, com e sem os efeitos do app ligados
+    for efx in ('', 'incl,refl'):
+        for nome, abre, sel in (('Início', lambda pg: None, '#home img, #stage img, #hdst img'), ('Catálogo', a_cat('grau'), '#grid .ph img'), ('Peça', a_prod, '#layer .big img')):
+            b, c, pg, E = novo(p, 1440, 900, 'es-PY', ls={'lf_cfg': json.dumps({'ativo': True, 'efx': efx})} if efx else None, touch=False)
+            try:
+                carrega(pg); abre(pg); A = pg.evaluate(FOTO_SNAP, sel); ruim = 0
+                for x, y, w, h, _ in A:
+                    pg.mouse.move(x + w * .25, y + h * .3); pg.wait_for_timeout(350); a1 = pg.evaluate(FOTO_SNAP, sel)
+                    pg.mouse.move(x + w * .75, y + h * .7, steps=6); pg.wait_for_timeout(350); a2 = pg.evaluate(FOTO_SNAP, sel)
+                    if [z[4] for z in a1] != [z[4] for z in a2] or [z[:2] for z in a1] != [z[:2] for z in a2]: ruim += 1
+                t = f'Foto parada com o mouse · {nome}' + (' · efeitos ligados' if efx else '')
+                if ruim: falha(P7, t, f'{ruim} foto(s) se mexem seguindo o mouse', pg)
+                else: passou(P7, t, f'{len(A)} fotos')
+            finally: b.close()
+
+def p7_tamanho(p):
+    med = "(()=>{const q=s=>document.querySelector(s),h=q('.top'),t=q('#hdst h1, .hd h1, h1');return {hd:h?h.getBoundingClientRect().height:0,h1:t?parseFloat(getComputedStyle(t).fontSize):0,sw:document.documentElement.scrollWidth,iw:innerWidth}})()"
+    R = {}
+    for zi in (0, 1, 2):
+        for W, H in ((1440, 900), (1920, 1080), (2560, 1440)):
+            b, c, pg, E = novo(p, W, H, 'es-PY', ls={'lf_zoom': str(zi)}, touch=False)
+            try:
+                carrega(pg); R[(zi, W)] = m = pg.evaluate(med)
+                if m['sw'] > m['iw'] + 2: falha(P7, f'Sem rolagem para o lado · {W}px · letra {zi}', f'a página fica {m["sw"]-m["iw"]}px mais larga que a tela', pg)
+            finally: b.close()
+        a, z = R[(zi, 1920)], R[(zi, 2560)]
+        cres = (z['h1'] / a['h1']) if a['h1'] else 1
+        if cres <= 1.15 and (z['hd'] <= a['hd'] * 1.15 + 1): passou(P7, f'Tamanho padrão no monitor 2560 · letra {zi}')
+        else: falha(P7, f'Tamanho padrão no monitor 2560 · letra {zi}', f'em 2560px o título fica {cres:.2f}× maior e o topo {z["hd"]/max(1,a["hd"]):.2f}× (site gigante)')
+
+def p7_mochi_bracos(p):
+    b, c, pg, E = novo(p, 1440, 900, 'es-PY', touch=False)
+    try:
+        carrega(pg)
+        r = pg.evaluate("""(()=>{const L=[...document.querySelectorAll('button[data-gzopen]')].filter(e=>e.querySelector('.mo svg')&&e.getBoundingClientRect().width);if(!L.length)return null;const e=L[0];const v=e.querySelector('.mo svg'),c=v.querySelector('.corpoF').getBoundingClientRect();const ok=x=>{const a=v.querySelector(x);if(!a)return false;const r=a.getBoundingClientRect();return r.width>3&&r.height>3&&(r.left<c.left-2||r.right>c.right+2)};
+          e.scrollIntoView({block:'center'});return ok('.aBe')||ok('.aBd')})()""")
+        if r is None: falha(P7, 'Mochi com braços no cartão “Prueba de lectura”', 'o cartão do teste de leitura não foi achado', pg, grave=False)
+        elif r: passou(P7, 'Mochi com braços no cartão “Prueba de lectura”')
+        else: falha(P7, 'Mochi com braços no cartão “Prueba de lectura”', 'o Mochi do cartão está sem braços', pg)
+    finally: b.close()
+
+def p7_conta_spam(p):
+    b, c, pg, E = novo(p, 390, 844, 'es-PY', ls=LOG7)
+    try:
+        carrega(pg); pg.click('#contabtn'); pg.wait_for_timeout(1200)
+        abas = pg.locator('#layer [data-a]:visible'); n = abas.count()
+        if n < 2: falha(P7, 'Mi cuenta · cliques repetidos', 'as abas de Mi cuenta não foram achadas', pg, grave=False); return
+        pg.evaluate("window.__an=0;document.addEventListener('animationstart',()=>__an++,true);document.addEventListener('transitionrun',()=>__an++,true)")
+        for i in range(6): pg.locator('#layer [data-a]:visible').first.click(force=True); pg.wait_for_timeout(60)
+        mesma = pg.evaluate('__an'); pg.wait_for_timeout(800); pg.evaluate('__an=0')
+        for i in range(8): pg.locator('#layer [data-a]:visible').nth(i % n).click(force=True); pg.wait_for_timeout(60)
+        troca = pg.evaluate('__an')
+        if mesma <= 2: passou(P7, 'Mi cuenta · tocar de novo na mesma aba não anima', f'{mesma}')
+        else: falha(P7, 'Mi cuenta · tocar de novo na mesma aba não anima', f'6 toques na aba já aberta dispararam {mesma} animações (spam)', pg)
+        if troca <= 8 * 3: passou(P7, 'Mi cuenta · trocar de aba rápido sem chuva de animações', f'{troca}')
+        else: falha(P7, 'Mi cuenta · trocar de aba rápido sem chuva de animações', f'8 trocas rápidas dispararam {troca} animações', pg)
+    finally: b.close()
+
+def p7_idioma(p):
+    for W, H in ((390, 844), (1440, 900)):
+        b, c, pg, E = novo(p, W, H, 'es-PY', touch=W < 700)
+        try:
+            carrega(pg); pg.click('#mnb'); pg.wait_for_timeout(700)
+            pg.locator('[data-dset="lg"]').first.click(); pg.wait_for_timeout(700)
+            t = pg.evaluate("document.body.innerText")
+            if re.search(r'seg[uú]n tu celular|conforme o seu celular', t, re.I): falha(P7, f'Idioma sem “(según tu celular)” · {W}px', 'ainda aparece “(según tu celular)”', pg)
+            else: passou(P7, f'Idioma sem “(según tu celular)” · {W}px')
+            if W >= 1024:
+                r = pg.evaluate("(()=>{const L=[...document.querySelectorAll('*')].filter(e=>/^Idioma$/.test((e.textContent||'').trim())&&e.tagName==='H4');if(!L.length)return null;let e=L[0];while(e.parentElement&&e.parentElement!==document.body&&e.getBoundingClientRect().height<120)e=e.parentElement;const r=e.getBoundingClientRect();return [r.bottom,innerHeight,r.width,innerWidth]})()")
+                if r and r[0] >= r[1] - 2: falha(P7, 'Idioma e tamanho do texto no padrão de computador', 'no computador abre como gaveta de celular presa embaixo da tela', pg)
+                else: passou(P7, 'Idioma e tamanho do texto no padrão de computador')
+        finally: b.close()
+
+def p7_endereco(p):
+    b, c, pg, E = novo(p, 390, 844, 'es-PY', ls=dict(LOG7, lf_conta=json.dumps({'nome': 'Maria González', 'email': 'maria@exemplo.com', 'tel': '+595 983 000 000', 'nac': 'py', 'doc': '1234567', 'ends': []})))
+    try:
+        carrega(pg); a_prod(pg); pg.click('#layer [data-addm]'); pg.wait_for_timeout(1200)
+        pg.evaluate("(()=>{const b=[...document.querySelectorAll('button')].find(b=>/Finalizar|Continuar con el pago|Prosseguir/.test(b.innerText));b&&b.click()})()"); pg.wait_for_timeout(1200)
+        pg.evaluate("(()=>{const b=[...document.querySelectorAll('button')].find(b=>/Continuar con el pago|Prosseguir com o pagamento/.test(b.innerText));b&&b.click()})()"); pg.wait_for_timeout(1200)
+        pg.evaluate("(()=>{const b=document.querySelector('button.cfo[data-ent=delivery]');b&&b.click()})()"); pg.wait_for_timeout(900)
+        if pg.locator('#esv').count() or re.search(r'Guardar en Mis direcciones|Salvar em Meus endereços', pg.evaluate('document.body.innerText')):
+            falha(P7, 'Endereço salva sozinho na conta (sem “Guardar en Mis direcciones”)', 'ainda aparece a chave “Guardar en Mis direcciones”', pg)
+        else: passou(P7, 'Endereço salva sozinho na conta (sem “Guardar en Mis direcciones”)')
+    finally: b.close()
+
+def p7_codigo(p):
+    b, c, pg, E = novo(p, 390, 844, 'es-PY')
+    try:
+        carrega(pg); a_prod(pg); pg.click('#layer [data-addm]'); pg.wait_for_timeout(1200)
+        pg.evaluate("(()=>{const b=[...document.querySelectorAll('button')].find(b=>/Finalizar compra/.test(b.innerText));b&&b.click()})()"); pg.wait_for_timeout(1200)
+        r = pg.evaluate("(()=>{const s=document.querySelector('#layer .cs');if(!s)return null;const k=[...s.children];const i=k.findIndex(e=>e.matches('details.cupf'));const t=k.findIndex(e=>e.matches('.cs-t'));const sub=k.findIndex(e=>e.matches('.cs-r.cs-h'));return [i,t,sub,k.length]})()")
+        if not r or r[0] < 0: passou(P7, 'Posição do “¿Tenés un código?”', 'sem o campo nesta tela'); return
+        if r[0] == r[2] + 1: falha(P7, 'Posição do “¿Tenés un código?”', 'o campo fica colado no Subtotal, no meio das linhas do resumo (antes do Llevá 2/Entrega)', pg)
+        else: passou(P7, 'Posição do “¿Tenés un código?”')
+    finally: b.close()
+
+def p7_icone_conta(p):
+    b, c, pg, E = novo(p, 1440, 900, 'es-PY', touch=False)
+    try:
+        carrega(pg)
+        cor = "s=>{const e=document.querySelector(s);if(!e)return '';const v=e.querySelector('svg')||e;return getComputedStyle(v).color}"
+        a, s0 = pg.evaluate(cor, '#contabtn'), pg.evaluate(cor, '#sbtn')
+        pg.hover('#contabtn'); pg.wait_for_timeout(300); ah = pg.evaluate(cor, '#contabtn'); pg.mouse.move(5, 500)
+        pg.hover('#sbtn'); pg.wait_for_timeout(300); sh = pg.evaluate(cor, '#sbtn')
+        if a == s0 and ah == sh: passou(P7, 'Ícone de Mi cuenta igual aos outros (cor e mouse por cima)')
+        else: falha(P7, 'Ícone de Mi cuenta igual aos outros (cor e mouse por cima)', f'conta {a} / mouse {ah} × busca {s0} / mouse {sh}', pg)
+    finally: b.close()
+
+def p7_ultimas(p):
+    for W, H in ((390, 844), (1440, 900)):
+        b, c, pg, E = novo(p, W, H, 'es-PY', touch=W < 700)
+        try:
+            carrega(pg)
+            r = pg.evaluate("(()=>{return [...document.querySelectorAll('.hc .stk.u, .card .stk.u')].filter(e=>e.getBoundingClientRect().width).map(e=>{const im=e.closest('.hc,.card').querySelector('.hci,.ph');const a=e.getBoundingClientRect(),b=im.getBoundingClientRect();return [(a.top+a.height/2-b.top)/b.height]})})()")
+            ruim = [x for x in r if x[0] < 0.7]
+            if ruim: falha(P7, f'“Últimas N” embaixo da foto · {W}px', f'{len(ruim)} cartão(ões) com o aviso no meio da foto', pg)
+            else: passou(P7, f'“Últimas N” embaixo da foto · {W}px', f'{len(r)} cartões')
+        finally: b.close()
+
+DICA_MEDE = """(b)=>{const a=getComputedStyle(b,'::after');if(!a.content||a.content==='none'||a.content==='normal'||parseFloat(a.opacity)<.5)return null;
+  const t=a.content.replace(/^"|"$/g,'');const cv=document.createElement('canvas').getContext('2d');cv.font=a.fontWeight+' '+a.fontSize+' '+a.fontFamily;
+  const w=cv.measureText(t).width+parseFloat(a.paddingLeft)+parseFloat(a.paddingRight);const r=b.getBoundingClientRect(),aw=parseFloat(a.width)||0;
+  const L=r.left+(parseFloat(a.left)||0);return {t,w,aw,fora:L+w>innerWidth+1||L<-1}}"""
+
+def p7_dica(p):
+    b, c, pg, E = novo(p, 1440, 900, 'es-PY', touch=False)
+    try:
+        carrega(pg); a_prod(pg)
+        bt = pg.locator('#layer button[aria-label]:visible'); ruim = []
+        for i in range(min(bt.count(), 25)):
+            try: bt.nth(i).hover(timeout=1500); pg.wait_for_timeout(450)
+            except Exception: continue
+            r = bt.nth(i).evaluate(DICA_MEDE)
+            if r and (r['aw'] < r['w'] - 2 or r['fora']): ruim.append(r['t'])
+        if ruim: falha(P7, 'Dicas inteiras ao passar o mouse', 'dica cortada: ' + ', '.join(ruim[:4]), pg)
+        else: passou(P7, 'Dicas inteiras ao passar o mouse')
+    finally: b.close()
+
+def p7_produto_topo(p):
+    for W, H in ((1440, 900), (2560, 1440)):
+        b, c, pg, E = novo(p, W, H, 'es-PY', touch=False)
+        try:
+            carrega(pg); a_prod_ini(pg)
+            r = pg.evaluate("(()=>{const ly=document.querySelector('#layer');const x=innerWidth/2;let y=0;const t=document.querySelector('.top');if(t)y=t.getBoundingClientRect().bottom;const pts=[y+3,y+30,y+60];return pts.map(yy=>{const e=document.elementFromPoint(x,yy);return !!e&&(ly.contains(e)||e.closest('.top'))})})()")
+            if all(r): passou(P7, f'Peça aberta cobre a página de trás · {W}px')
+            else: falha(P7, f'Peça aberta cobre a página de trás · {W}px', 'a página de trás (Destaque) aparece entre o topo e o caminho da peça', pg)
+        finally: b.close()
+
+def p7_varredura(p):
+    # passa por todos os botões e links visíveis do Início (celular e computador): nenhum erro, nada travado, nada mais largo que a tela
+    for W, H in ((390, 844), (1440, 900)):
+        b, c, pg, E = novo(p, W, H, 'es-PY', touch=W < 700)
+        try:
+            carrega(pg)
+            alvos = pg.evaluate("""(()=>{const L=[...document.querySelectorAll('button,a,[data-open],[data-cta],[role=button]')].filter(e=>{const r=e.getBoundingClientRect();return r.width>8&&r.height>8&&!e.closest('#layer')&&!/^(https?:|mailto:|tel:)/.test(e.getAttribute('href')||'')||/lafouch/.test(e.getAttribute('href')||'')});
+              const k=new Set();return L.map((e,i)=>{e.setAttribute('data-vz',i);return i}).filter(i=>{const e=document.querySelector('[data-vz="'+i+'"]');const t=(e.getAttribute('aria-label')||e.textContent||'').trim().slice(0,30);if(k.has(t))return false;k.add(t);return true}).slice(0,60)})()""")
+            ruins = []
+            for i in alvos:
+                E.clear()
+                try:
+                    if not pg.locator(f'[data-vz="{i}"]').count(): continue
+                    pg.locator(f'[data-vz="{i}"]').first.click(timeout=1500, force=True); pg.wait_for_timeout(500)
+                    m = pg.evaluate("[document.documentElement.scrollWidth,innerWidth]")
+                    if E: ruins.append(f'botão {i}: ' + E[0][:80])
+                    elif m[0] > m[1] + 2: ruins.append(f'botão {i}: página mais larga que a tela')
+                except Exception: pass
+                pg.keyboard.press('Escape'); pg.wait_for_timeout(200)
+                if pg.url.rstrip('/') != URL.rstrip('/') or est(pg)['abertos'] or est(pg)['lock']:
+                    carrega(pg); pg.evaluate("""(()=>{const L=[...document.querySelectorAll('button,a,[data-open],[data-cta],[role=button]')].filter(e=>{const r=e.getBoundingClientRect();return r.width>8&&r.height>8&&!e.closest('#layer')});L.forEach((e,i)=>e.setAttribute('data-vz',i))})()""")
+            if ruins: falha(P7, f'Varredura de todos os botões · {W}px', f'{len(ruins)} problema(s): ' + ' | '.join(ruins[:3]), pg)
+            else: passou(P7, f'Varredura de todos os botões · {W}px', f'{len(alvos)} botões')
+        finally: b.close()
+
 # ---------- execução ----------
 t0 = time.time()
 PARTES = os.environ.get('FISCAL_PARTES', '1,2,3,4,5,6').split(',')
+if os.environ.get('FISCAL_SO_FUNCOES'): PARTES = []
 with sync_playwright() as p:
     if '6' in PARTES:
      print('parte 6 · bug nunca volta')
@@ -546,6 +773,12 @@ with sync_playwright() as p:
      print('parte 4 · conteúdo')
      prova('4 conteúdo', 'pt', p4_conteudo, p, 'pt-BR')
      prova('4 conteúdo', 'es', p4_conteudo, p, 'es-PY')
+    if '7' in PARTES:
+     print('parte 7 · olho do dono')
+     for nome, fn in (('rodapé', p7_rodape), ('teste da ajuda', p7_teste_ajuda), ('foto e mouse', p7_foto_mouse), ('tamanho e letras', p7_tamanho), ('Mochi com braços', p7_mochi_bracos),
+                      ('Mi cuenta', p7_conta_spam), ('idioma', p7_idioma), ('endereço', p7_endereco), ('código', p7_codigo), ('ícone da conta', p7_icone_conta),
+                      ('Últimas N', p7_ultimas), ('dica', p7_dica), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
+         print(' ', nome); prova(P7, nome, fn, p)
     if '5' in PARTES:
      print('parte 5 · situações difíceis')
      prova('5 situações difíceis', 'girar', p5_girar, p)

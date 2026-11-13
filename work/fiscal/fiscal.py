@@ -4,9 +4,9 @@ import sys,os,json,time;sys.path.insert(0,'/home/claude/gz');from base import *
 PORTA=sys.argv[1];OUT=sys.argv[2];RAP=len(sys.argv)>3;os.makedirs(OUT+'/f',exist_ok=True)
 AUD=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'audita.js')).read()
 AP=[('celular pequeno',320,568),('celular',360,640),('iPhone SE',375,667),('iPhone',390,844),('Android grande',412,915),('iPhone Max',430,932),('celular deitado',844,390),
-    ('tablet pequeno',600,960),('iPad em pé',768,1024),('iPad Air em pé',820,1180),('iPad deitado',1024,768),('iPad Air deitado',1180,820),('notebook',1366,768),('notebook grande',1536,864),('monitor',1920,1080)]
+    ('tablet pequeno',600,960),('iPad em pé',768,1024),('iPad Air em pé',820,1180),('iPad deitado',1024,768),('iPad Air deitado',1180,820),('notebook',1366,768),('notebook grande',1536,864),('monitor',1920,1080),('monitor 2K',2560,1440)]
 if RAP:AP=[AP[3]]
-VAR=[('pt','normal')] if RAP else [('pt','normal'),('pt','grande'),('es','normal')]
+VAR=[('pt','normal')] if RAP else [('pt','normal'),('pt','grande'),('pt','maior'),('es','normal')]
 DRAW="""(rs)=>{document.querySelectorAll('.__fx').forEach(e=>e.remove());rs.forEach(([x,y,w,h])=>{const d=document.createElement('div');d.className='__fx';d.style.cssText=`position:fixed;left:${x-2}px;top:${y-2}px;width:${w+4}px;height:${h+4}px;border:2px solid #ff0040;background:#ff004022;z-index:2147483647;pointer-events:none;border-radius:3px`;document.body.appendChild(d)})}"""
 res=[];n=[0]
 def audita(pg,ap,var,tela):

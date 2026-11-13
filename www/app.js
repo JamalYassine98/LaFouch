@@ -1098,7 +1098,7 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 495;
+  var APP_BUILD = 496;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
   var APP_NOME = '5.9.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
@@ -44849,17 +44849,18 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function pixEspVarre() {
     var ag = {}, ag0 = Date.now() - PIXM_H;
     (S.sales || []).slice(0, 40).forEach(function (s) {
-      if (s.forma !== 'pix' || s.moeda !== 'brl' || !(+s.ts >= ag0)) return;
-      var k = String(s.carrinho || s.id).replace(/[^A-Za-z0-9-]/g, '');
+      // Nubank = transferência em reais; Itaú (13/11) = transferência em guaranis
+      if (s.forma !== 'pix' || (s.moeda !== 'brl' && s.moeda !== 'pyg') || !(+s.ts >= ag0)) return;
+      var k = String(s.carrinho || s.id).replace(/[^A-Za-z0-9-]/g, '') + (s.moeda === 'pyg' ? 'G' : '');
       if (!k) return;
       ag[k] = (ag[k] || 0) + (+s.recebido || 0);
     });
     Object.keys(ag).forEach(function (k) {
       if (S.pixEsp[k] || !(ag[k] > 0)) return;
-      var o = { ts: Date.now(), brl: Math.round(ag[k] * 100) / 100, ok: 0 };
+      var gs0 = /G$/.test(k), o = gs0 ? { ts: Date.now(), gs: Math.round(ag[k]), banco: 'itau', ok: 0 } : { ts: Date.now(), brl: Math.round(ag[k] * 100) / 100, ok: 0 };
       S.pixEsp[k] = o;
       if (S.nuvem && S.nuvem.rt)
-        nvApi('PATCH', 'pixEspera/L' + k, JSON.stringify({ fields: { tipo: { stringValue: 'loja' }, brl: { doubleValue: o.brl }, ts: { integerValue: String(o.ts) } } })).catch(function () { o.sync = 0; });
+        nvApi('PATCH', 'pixEspera/L' + k, JSON.stringify({ fields: gs0 ? { tipo: { stringValue: 'loja' }, banco: { stringValue: 'itau' }, gs: { integerValue: String(o.gs) }, ts: { integerValue: String(o.ts) } } : { tipo: { stringValue: 'loja' }, brl: { doubleValue: o.brl }, ts: { integerValue: String(o.ts) } } })).catch(function () { o.sync = 0; });
       saveSoon();
     });
   }
@@ -44870,12 +44871,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     _pxT = Date.now();
     var tarefas = [];
     (S.pedidos || []).filter(function (p) {
-      return p.orig === 'site' && p.pag === 'pix' && (p.pg === 'pagar' || p.pg === 'comp') && p.st !== 'canc' && p.sid;
+      return p.orig === 'site' && (p.pag === 'pix' || p.pag === 'alias') && (p.pg === 'pagar' || p.pg === 'comp') && p.st !== 'canc' && p.sid;
     }).slice(0, 15).forEach(function (p) {
       tarefas.push(nvApi('GET', 'reservas/' + encodeURIComponent(p.sid)).then(function (j) {
         var pa = j && j.fields && j.fields.pixAuto ? pxFv(j.fields.pixAuto) : null;
         if (!pa || p.pg === 'pago') return;
-        p.pgAuto = { ts: pa.ts || Date.now(), txt: 'PIX confirmado pelo e-mail do Nubank · R$ ' + (+pa.valor || 0).toFixed(2).replace('.', ',') };
+        p.pgAuto = { ts: pa.ts || Date.now(), txt: pa.banco === 'itau' ? 'Transferência confirmada pelo e-mail do Itaú · Gs. ' + String(Math.round(+pa.valor || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : 'PIX confirmado pelo e-mail do Nubank · R$ ' + (+pa.valor || 0).toFixed(2).replace('.', ',') };
         var sel = S.pedSel, y = window.scrollY;
         ACT.pedpago(p.id); // sem o dono tocar: não muda a tela em que ele está
         S.pedSel = sel;
@@ -44891,7 +44892,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         var ok = j && j.fields && j.fields.ok ? pxFv(j.fields.ok) : null;
         if (!ok) return;
         o.ok = ok.ts || Date.now();
-        lfToast('PIX da venda confirmado · R$ ' + o.brl.toFixed(2).replace('.', ','));
+        lfToast(o.banco === 'itau' ? 'Transferência Itaú da venda confirmada · Gs. ' + String(o.gs).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : 'PIX da venda confirmado · R$ ' + o.brl.toFixed(2).replace('.', ','));
         saveSoon();
       }).catch(function () {}));
     });

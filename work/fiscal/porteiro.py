@@ -8,7 +8,7 @@ PORTA = 8790; OUT = '/tmp/porteiro'
 shutil.rmtree(OUT, ignore_errors=True); os.makedirs(OUT)
 subprocess.run(['bash', os.path.join(D, '..', 'mkcopy.sh'), 'porteiro', str(PORTA)], check=True, stdout=subprocess.DEVNULL)
 modo = [] if COMP else ['rapido']
-grupos = ['6,1', '2', '3', '4,5']
+grupos = ['6,1', '2', '3', '4,5', '7']
 t0 = time.time(); P = []
 for i, g in enumerate(grupos):
     env = dict(os.environ, FISCAL_PARTES=g, FISCAL_SUF=f'_{i}')

@@ -7,7 +7,7 @@ function dbFake(peds, esp) {
     jaVisto: async (m) => !!vis[m], visto: async (m) => { vis[m] = 1; },
     pedidosPix: async (desde) => peds.filter((p) => p.ts >= desde),
     esperas: async (desde) => (esp || []).filter((e) => e.ts >= desde),
-    confirmaPedido: async (id, o) => { conf.push([id, o]); const p = peds.find((x) => x.id === id); p.pago = true; },
+    confirmaPedido: async (id, o) => { conf.push([id, o]); const p = peds.find((x) => x.id === id); if (p) p.pago = true; },
     confirmaEspera: async (id, o) => { cesp.push([id, o]); },
     semPar: async (o) => { sp.push(o); },
   };
@@ -33,6 +33,12 @@ function dbFake(peds, esp) {
   const db2 = dbFake([{ id: 'b1', brl: 70, ts: T - H }, { id: 'b2', brl: 70, ts: T - H }]);
   r = await X.recebe(db2, { valor: '70,00', mid: 'n1', dkim: true, dom: 'nubank.com.br' }, T);
   ok(r.tipo === 'sem-par' && r.candidatos === 2 && !db2.conf.length, 'dois pedidos com o mesmo valor: não chuta, avisa');
+  ok(X.gsDoTexto('Moneda y Monto: Gs. 1.000') === 1000 && X.gsDoTexto('Moneda y Monto:\n Gs. 139.958') === 139958, 'Itaú: lê o valor em guaranis');
+  const db3 = dbFake([]); db3.pedidosItau = async () => [{ id: 'i1', pagar: 139958, ts: T - H }, { id: 'i2', pagar: 139940, ts: T - H }];
+  e = ''; try { await X.recebe(db3, { banco: 'itau', valor: '139.958', mid: 'k0', dkim: true, dom: 'nubank.com.br' }, T); } catch (x) { e = x.motivo; } ok(e === 'origem', 'Itaú: só aceita e-mail assinado por itau.com.py');
+  r = await X.recebe(db3, { banco: 'itau', valor: '139.958', mid: 'k1', dkim: true, dom: 'itau.com.py' }, T); ok(r.tipo === 'site' && r.id === 'i1', 'Itaú: pedido do site confirmado pelo valor com o final único');
+  const db4 = dbFake([], [{ id: 'v9', banco: 'itau', gs: 250000, ts: T - 0.2 * H }]); db4.pedidosItau = async () => [];
+  r = await X.recebe(db4, { banco: 'itau', valor: '250.000', mid: 'k2', dkim: true, dom: 'itau.com.py' }, T); ok(r.tipo === 'loja', 'Itaú: venda da loja confirmada');
   console.log(falhas ? falhas + ' FALHAS' : 'tudo ok');
   process.exit(falhas ? 1 : 0);
 })();

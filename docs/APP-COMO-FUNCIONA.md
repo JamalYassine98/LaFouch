@@ -60,6 +60,7 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - `src/99b-voltar-janela.js`: abrir uma peça no Catálogo (`S.vRef`) ou no Inventário (`S.det`/`S.open`) cria 1 passo no histórico (pela `prodTopo` e pelo `render`); o voltar do celular fecha a peça e a lista volta na mesma rolagem (`S._volY`). Fechar pelo botão da tela tira o passo que sobrou (`history.back` ignorado no `navVolta`).
 
 ## PIX automático (S197, 12/11/2026)
+- Itaú (13/11, v496): venda da loja em Pix/guaranis e pedido do site pago por alias ficam esperando o aviso do Itaú (info@itau.com.py, "Moneda y Monto: Gs."); o robô lê o e-mail e a função pix confirma pelo valor em Gs.
 - `src/97z-pix-email.js`: pedido do site pago por PIX e venda da loja "Venda · PIX" são confirmados pelo e-mail do Nubank (robô `work/pix/robo-pix.gs` → função `pix`). A espera da venda da loja nasce no servidor (`pixEspera`); sem par vai para `pixSemPar`.
 
 ## Polarizado (S195, 12/11/2026)
