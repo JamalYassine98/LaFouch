@@ -17,6 +17,9 @@ IDEIAS = {
 
  'filtros': ('Filtros sem repetir', 'Cada filtro num lugar só. PC: a linha de cima escolhe o tipo (sublinhado = onde você está), a linha do título escolhe o gênero, e no canto fica só Ordenar. Celular: sem a linha de cima, a caixa Filtrar mantém Tipo e Ordenar e tira o Gênero (já está à vista).', LX + open(OUT+'fil.css').read(), open(OUT+'fil.js').read().strip(),
    [('PC · Catálogo', '?r=armazones', 1440, 900, None, None), ('Celular · caixa Filtrar', '?r=armazones', 390, 844, "()=>document.querySelector('.lfgf').click()", None)]),
+
+ 'filtros2': ('Filtros numa linha só + Destaque', 'Filtros: tudo numa linha, com o mesmo estilo (gênero à esquerda; Formato, Filtrar e Ordenar à direita no PC). Logo abaixo, o que está filtrado com ✕ para tirar. A caixa Filtrar tem TODOS os filtros (inclusive os que estão à vista) e o Formato com desenho. Destaque: Ver modelo igual ao Comprar (preto) e Ver catálogo como link fino, para não ter dois tipos de botão no site.', LX + open(OUT+'fil2.css').read(), open(OUT+'fil2.js').read().strip(),
+   [('PC · Catálogo', '?r=armazones', 1440, 900, None, None), ('PC · Início (Destaque)', '', 1440, 900, None, None), ('Celular · Catálogo', '?r=armazones', 390, 844, None, None), ('Celular · caixa Filtrar', '?r=armazones', 390, 844, "()=>{document.querySelector('.lfgf').click();setTimeout(()=>{const b=document.querySelector('#fsh [data-fgn=\"f\"]');b&&b.click()},400)}", None), ('Celular · Início (Destaque)', '', 390, 844, None, None)]),
 }
 def shot(pw, url, W, H, css, js, acao, out):
     mob = W < 700

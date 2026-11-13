@@ -1,0 +1,18 @@
+/* S210c: filtros numa linha só, mesmo estilo; Destaque com os botões do mesmo sistema do Comprar */
+@media (min-width:900px){#vitrine.sec{top:126px!important}}
+.lfgen .lfgf,.lfgen .lxt{color:var(--lx-ink)!important;font:500 14px Inter,system-ui,sans-serif!important;text-decoration:none}
+.lfgen .lxr{margin-left:auto;display:flex;gap:28px;align-items:center}
+.lfgen .lxr .lfgf{margin-left:0}
+.lfgen .lxt i,.lfgen .lfgf i{font-style:normal;font-size:10px;margin-left:3px;color:var(--lx-mu)}
+.lxap{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:2px 0 14px}
+.lxap b{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 12px;border:1px solid var(--lx-hair);border-radius:2px;font:500 13px Inter,system-ui,sans-serif;color:var(--lx-ink)}
+.lxap b i{font-style:normal;color:var(--lx-mu)}
+.lxap a{font:500 13px Inter,system-ui,sans-serif;color:var(--lx-mu);text-decoration:underline;text-underline-offset:4px;margin-left:4px}
+.lxfm{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:6px 0 14px}
+.lxfm button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 4px;border:1px solid var(--lx-hair);border-radius:2px;background:transparent;font:500 13px Inter,system-ui,sans-serif;color:var(--lx-ink)}
+.lxfm button.on{border-color:var(--lx-hair);box-shadow:inset 0 -2px 0 var(--ac,#8d3a69)}
+.lxfm svg{width:46px;height:20px;fill:none;stroke:var(--lx-ink);stroke-width:1.6}
+.hbt{gap:22px!important;align-items:center}
+html.v5 #hdst .p1,html.v5 #hdst .p1:hover,.hbt .p1{background:var(--lx-ink)!important;color:#fff!important;border:0!important;border-radius:2px!important;font:600 13px Inter,system-ui,sans-serif!important;letter-spacing:.14em!important;text-transform:uppercase;padding:0 26px!important;height:46px}
+html.v5 #hdst .p2,.hbt .p2{border:0!important;padding:0!important;color:var(--lx-ink)!important;font:500 12px Inter,system-ui,sans-serif!important;letter-spacing:.12em!important;text-transform:uppercase;text-decoration:underline;text-underline-offset:5px}
+.hbt .p2 i{display:none}
