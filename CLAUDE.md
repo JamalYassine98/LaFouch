@@ -4,6 +4,7 @@
 - App: antes de criar tela/botão/módulo, leia docs/APP-COMO-FUNCIONA.md e atualize-o no mesmo commit (pedido do dono, 12/11/2026).
 - ESBOÇOS ANIMADOS: não mandar GIF (não carrega no celular do dono); mandar imagem com os quadros lado a lado (+ MP4 se precisar).
 - ESBOÇOS SEPARADOS (13/11/2026, pedido do dono): UM ARQUIVO POR TELA (Hoje × Proposta lado a lado no celular; PC Hoje em cima e Proposta embaixo). Nunca juntar várias telas numa imagem só (não dá para ler). Gerador: work/s210/esb.py.
+- ATLAS (13/11/2026, pedido do dono): antes de qualquer esboço ou análise do site, ler docs/ATLAS-SITE.md (medidas reais em 16 aparelhos, movimentos, falhas) e usar as fotos de work/atlas/img — não inventar tela do zero. Todo esboço passa pelo work/kit/olho.js (parado e depois de rolar) e NÃO pode criar falha nova em relação ao 'hoje'; testar a própria proposta antes de mandar.
 - ESBOÇOS: usar o design guardado e o kit (docs/DESIGN-SITE-E-APP.md, work/kit/kit.py) — telas reais, só injetar o que muda, 1 prévia (pedido do dono, 12/11/2026).
 - Site (lafouch.com): antes de mexer, leia docs/SITE-COMO-FUNCIONA.md; ao atualizar ou modificar o site, atualize esse arquivo no mesmo commit (pedido do dono, 11/11/2026).
 

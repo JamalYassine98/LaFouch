@@ -71,10 +71,12 @@ def site(tela,out,inj=None,y=0,es=False,ref=None):
         for x in pg.evaluate(open(os.path.join(K,'centro.js')).read()): print('DESIGNER: botões fora do centro ·',x)
         for x in pg.evaluate(open(os.path.join(K,'sobre.js')).read()): print('DESIGNER:',x)
         for x in pg.evaluate(open(os.path.join(K,'ecom.js')).read()): print('DESIGNER',x)
+        for x in pg.evaluate(open(os.path.join(K,'olho.js')).read()): print('DESIGNER OLHO (parado):',x['r'],x['n'],x['ex'])
         # 13/11: estados que só aparecem depois de ROLAR E PARAR (ex.: WhatsApp recolhido) — rola, espera e confere de novo
         y0=pg.evaluate('scrollY'); pg.mouse.wheel(0,500); pg.wait_for_timeout(1500)
         for x in pg.evaluate(open(os.path.join(K,'ecom.js')).read()):
             if 'cortado' in x or 'apagado' in x or 'flutuante' in x: print('DESIGNER (depois de rolar)',x)
+        for x in pg.evaluate(open(os.path.join(K,'olho.js')).read()): print('DESIGNER OLHO (depois de rolar):',x['r'],x['n'],x['ex'])
         pg.evaluate('y=>scrollTo(0,y)',y0); pg.wait_for_timeout(1200)
         pg.screenshot(path=out); b.close()
 def app(tela,out,inj=None,escuro=False):
