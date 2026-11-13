@@ -96,6 +96,8 @@
         if (!S.fnLista || S.fnLista.indexOf(ref) < 0) fnCapturaLista();
         w.innerHTML = fnBarHtml(ref, modo);
         det.insertBefore(w.firstChild, det.firstChild);
+        var fb = det.querySelector(':scope > .fiBtn'), cam = det.querySelector('.fnCam');
+        if (fb && cam) cam.appendChild(fb); // S190: o botão da Ficha fica na linha do caminho
         if (S.fnTab !== 'his' && S.fnTab !== 'sit' && S.fnTab !== 'pre') S.fnTab = modo === 'venda' ? 'ven' : 'est';
         fnPinta(det, ref, modo);
         fnRecente('ref', ref, pn(ref));

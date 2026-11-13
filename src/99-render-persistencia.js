@@ -342,7 +342,7 @@
       'notifs',
       'pedidos',
       'pedNext',
-      'baixaAuto', 'guardMudo', 'recentes', 'fnTab', 'fretes', 'ivaCompraPct', 'baixaAutoV', 'fechos', 'fechoAdia', 'espera',
+      'baixaAuto', 'fotoOk', 'fotoRev', 'ataPub', 'guardMudo', 'recentes', 'fnTab', 'fretes', 'ivaCompraPct', 'baixaAutoV', 'fechos', 'fechoAdia', 'espera',
       'resPend',
       'resOrf',
       'pixAuto',
