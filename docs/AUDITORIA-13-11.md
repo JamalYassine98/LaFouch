@@ -20,3 +20,15 @@ LIMITE: o endereço ?r=solar não abriu o catálogo no teste (mediu o Início de
 - Mantêm-se: WhatsApp inteiro (resolve 1), preços alinhados, categorias no PC, um só caminho na peça, fios finos.
 - Falta no S214: alvos de toque (2), H1 da peça (3), reduzir tamanhos de letra/espaços a uma escala (4), menos negrito (6).
 - Reprovado pelo dono e fora: mudar Ver modelo e Comprar.
+
+## Falhas achadas nas MINHAS propostas (autocrítica, 13/11, medido)
+1. WhatsApp inteiro (S214/S215): parado, fica em cima de algo clicável em 2 de 6 posições (360) e 3 de 6 (390) — "Ver todos ›", cartão "Últimas 2 unidades", "Ayuda". Troca um defeito por outro.
+2. Barra de categorias no PC (S214): cabeçalho fixo cresce de ~82 para 147–155 px; no notebook 1366×768 o Comprar já fica fora da 1ª tela hoje (topo em 780) e desce mais 24 px (804). Em 900–1024 a barra fica com 55 px de altura.
+3. Esconder o ☰ no PC (S214): o menu tem mais coisas que as 4 categorias; some o acesso a elas no PC.
+4. Área de toque 44 nas bolinhas do Destaque (S215): os centros estão a 13–24 px; áreas de 44 se sobrepõem — impossível como desenhado.
+5. Escala de letras/espaços (S215): nomes cortados nos cartões do Início passam de 3 para 6 de 8.
+6. Um só caminho na peça no PC (S214): tira o "‹ Armazones" — não conferi se o caminho devolve o cliente com filtros e posição guardados como o voltar faz.
+7. Linha reservada para "Última unidad" (S214): cria um vão em branco nos cartões sem aviso.
+8. Foto do Destaque 30% maior (S214): feito por ampliação; só testado com 1 peça — armação larga pode cortar.
+9. Links de texto 14/500 (S215): "Ver todos" fica menor e mais fraco (era 15/600).
+10. Tudo testado só no tema claro padrão (Natal: só a cor da barra conferida), sem letra maior.
