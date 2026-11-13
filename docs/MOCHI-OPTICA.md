@@ -46,3 +46,17 @@ Estudo de leitura, NÃO é orientação médica. Eu não sou oftalmologista; ant
 - Faixa de visão e intermediário: https://open-exam-prep.com/study-guides/noce/lens-characteristics-calculations/usable-accommodation-range-of-vision
 - Ponto próximo superestima: https://avehjournal.org/index.php/aveh/article/view/358/652
 - Óculos prontos: https://open-exam-prep.com/study-guides/noce/specialty-products-low-vision/preassembled-eyewear-otc-readers
+
+## 6. Decisões do dono (13/11/2026)
+| Ponto | Decisão |
+|---|---|
+| 1 · letra em tamanho real | pediu o PORQUÊ (abaixo) e esboço (work/s221/s221_1_tamanho_real.jpg). Aguarda |
+| 2 · perguntar para que vai usar | REPROVADO |
+| 3 · perguntar a idade | REPROVADO |
+| 4 · computador: webcam mede a distância e a letra cresce; sem webcam "um braço até a tela" | APROVADO (esboço work/s221/s221_4_computador.jpg). Implementar só quando ele mandar |
+| 5 · validar na loja | o dono faz por conta dele; NADA disso aparece para o cliente |
+
+### Por que medir a letra em milímetros (ponto 1)
+- O site desenha a letra em "pontos da tela". O tamanho real de 1 ponto muda com o aparelho (contas pela densidade divulgada; valores aproximados): iPhone ≈ 0,166 mm · Android comum de 6,5" HD+ ≈ 0,188 mm (13% maior) · notebook ≈ 0,23–0,26 mm (40–57% maior). O ajuste "tamanho da tela/zoom" do celular muda mais ±15%.
+- Cada degrau do quadro da Mochi muda a letra em 13–15% (ex.: 9,6 → 8,4). Ou seja: a diferença entre dois celulares já vale 1 degrau = 0,25 de grau; no notebook, 2 a 3 degraus.
+- O navegador não informa o tamanho real da tela. Jeitos de saber: (a) cartão na tela 1 vez (certo em qualquer aparelho); (b) reconhecer o modelo (bom no iPhone, falho no Android). Proposta do esboço: (a), guardado no aparelho, com "Ahora no" para pular.

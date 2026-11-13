@@ -30,3 +30,8 @@ Roteiro (10,9 s): fala 1 → antecipa e pula em arco até o lado do código (0,7
 - Só usa gestos existentes; o braço fica sempre atrás do corpo (nenhuma troca de camada).
 - Conferido: 324 quadros no fundo escuro (1366×768): nenhum pedaço solto do corpo ou do braço; os pedaços apontados eram a luva e o QR. Geometria conferida também em 1280×720 e 1920×1080 (ela pousa dentro da tela, ao lado do código).
 - Cartão: texto à esquerda, código à direita, para ela pousar FORA do cartão, no espaço livre, sem cobrir nada.
+
+## 5. S220 — vídeo v3 (v2 APROVADO pelo dono em 13/11 com a condição "apontar corretamente ao botão e ao código")
+- A ponta da luva agora é MEDIDA antes de gravar (work/s218/video3.py): o pouso é corrigido até a ponta ficar a menos de 3 px do alvo (10 px para dentro da borda direita do código, na metade da altura).
+- Medido em 5 telas (1280×720, 1366×768, 1536×864, 1920×1080, 2560×1440): erro no código ≤ 1,7 px em todas; ponta DENTRO do código e DENTRO do botão Empezar (a 45 px da borda direita) em todas; ela cabe na tela em todas.
+- Regra para implementar: calcular o pouso pela posição real do código na hora (não usar número fixo), como o ensaio do vídeo faz.
