@@ -1098,7 +1098,7 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 499;
+  var APP_BUILD = 500;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
   var APP_NOME = '5.9.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
@@ -38367,8 +38367,16 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
   }
   function mlLimpa() { ML.ped = []; mlPosta({ t: 'limpa' }); }
+  // a cópia do site (www/loja/) só chega com um APK novo; a atualização automática traz só app.js/style.css.
+  // Sem a cópia, fica o modo cliente antigo (catálogo do app) em vez de uma tela em branco.
+  var mlTem = null;
+  function mlConfere() {
+    if (mlTem !== null) return Promise.resolve(mlTem);
+    return fetch('loja/loja.html', { cache: 'no-store' }).then(function (r) { mlTem = !!(r && r.ok); return mlTem; }, function () { mlTem = false; return false; });
+  }
   function mlAbre() {
     if (document.getElementById('mlWrap')) return;
+    if (mlTem !== true) { mlConfere().then(function (ok) { if (ok && S.modoCli && mcLigado()) mlAbre(); }); return; }
     var w = document.createElement('div');
     w.id = 'mlWrap';
     w.innerHTML = '<iframe id="mlFr" title="Catálogo da loja" src="loja/loja.html?loja=1&nosync" allow="autoplay"></iframe>' +

@@ -113,7 +113,7 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 ## Modo loja (S181, 13/11/2026)
 - `src/97-modo-cliente2-loja.js`: com o Modo cliente ligado, o app abre por cima de tudo o próprio site (`www/loja/loja.html?loja=1&nosync`, copiado do repositório do site pelo `node build.js`). Funciona sem internet: o app manda por postMessage todo o inventário com estoque (`vitProduto` + fotos do app), de novo a cada 30 s.
 - O cliente toca "Quero este" e junta em "Meu pedido"; "Chamar um vendedor" → o tablet apita, as peças entram no carrinho do app (cor pelo índice, grau, sem passar do estoque) e grava `lojaChama/{id}` (a função `avisarChama` manda o aviso para os celulares).
-- Sair: segurar o logo 5 s (anel roxo enche) ou 7 toques → PIN/biometria. Parado 2 min (o site avisa a atividade a cada 5 s) → o site volta ao início e o Meu pedido some.
+- Só abre se a cópia do site existir (APK novo); com APK antigo fica o modo cliente de antes. Sair: segurar o logo 5 s (anel roxo enche) ou 7 toques → PIN/biometria. Parado 2 min (o site avisa a atividade a cada 5 s) → o site volta ao início e o Meu pedido some.
 
 ## Contador virtual (S188, 13/11/2026)
 - `src/97z2-contador.js`: Números › Preços abre com o Contador — saúde (margem média real 30 dias com ▲/▼, lucro por peça, contas do mês cobertas + faltam N peças, abaixo do piso), "Para decidir esta semana" (preço automático `paPlano`, tema chegando, atacado com margem < 10%) com Aceitar tudo / Ver um por um (Aceitar · Agora não), frase dos descontos do mês, botões Calculadora de preço e E se…?.
