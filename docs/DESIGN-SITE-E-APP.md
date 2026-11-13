@@ -23,3 +23,16 @@ Use isto + o kit (work/kit/kit.py) em vez de simular do zero. Fotos de referênc
 - Topo com logo grande + sino (contador vermelho); título da tela em negrito grande; abas sublinhadas vinho (Produtos · Fornecedores · Reposição); barra inferior: Início · Catálogo · Inventário · Caixa · Ajustes (ativo em vinho).
 - Cartões brancos raio ~18, borda fina; listas "rótulo ›" (Ajustes); botões pílula: cheio vinho (principal), borda vinho (secundário), vermelho (cancelar/excluir); números grandes verdes (estoque, dinheiro).
 - Esboços do app no kit usam `app-comp.css`: `.cd` cartão, `.kv` linha rótulo/valor, `.rw` linha com ação, `.bt`/`.bt.o` botões, `.ch`/`.ch.on` pílulas, `.gd` aviso com faixa à esquerda, `.ft` rodapé fixo, `.tb` topo com "‹".
+
+## Designer de e-commerce (13/11/2026, pedido do dono)
+O designer olha como um profissional de loja online (conversão primeiro) e o kit mede sozinho (`work/kit/ecom.js`, linhas "DESIGNER ECOM"):
+- Toque: todo botão ≥ 40×40 px no celular (ideal 44).
+- Letra: ≥ 11 px no celular e ≥ 12 px no PC em qualquer texto; preço e nome do produto bem maiores que os detalhes.
+- Contraste: texto ≥ 4,5:1 (texto grande ≥ 3:1), em claro, escuro e temáticas.
+- Nome do produto inteiro (2 linhas se precisar), nunca cortado no meio da palavra.
+- Vitrine: na mesma fileira, fotos, nomes e preços na mesma altura.
+- Página do produto: preço + botão de comprar na primeira tela do celular, sem rolar.
+- PC: categorias (Sol, Leitura, Armações, Ofertas) visíveis no topo, não só no ☰.
+- Início: variedade de fotos (a mesma peça não pode aparecer em 4+ blocos).
+- Botão flutuante (WhatsApp) nunca em cima de botão, preço ou foto.
+- Uma cor = um significado: verde só para preço/OK, vermelho só para urgência/erro, vinho para marca e ações.

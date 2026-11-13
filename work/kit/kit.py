@@ -70,6 +70,7 @@ def site(tela,out,inj=None,y=0,es=False,ref=None):
         if ESP[0]: pg.wait_for_timeout(ESP[0])
         for x in pg.evaluate(open(os.path.join(K,'centro.js')).read()): print('DESIGNER: botões fora do centro ·',x)
         for x in pg.evaluate(open(os.path.join(K,'sobre.js')).read()): print('DESIGNER:',x)
+        for x in pg.evaluate(open(os.path.join(K,'ecom.js')).read()): print('DESIGNER',x)
         pg.screenshot(path=out); b.close()
 def app(tela,out,inj=None,escuro=False):
     serve(os.path.join(RAIZ,'www'),PA)
