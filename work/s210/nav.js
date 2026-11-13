@@ -1,0 +1,1 @@
+()=>{const t=document.querySelector('.top');if(!t||document.querySelector('.lxnav'))return;const n=document.createElement('nav');n.className='lxnav';const q=location.search;n.innerHTML=['Solar','De lectura','Armazones','Ofertas'].map(x=>'<a href="#" class="'+(/armaz/.test(q)&&x==='Armazones'?'on':'')+'">'+x+'</a>').join('');t.appendChild(n)}

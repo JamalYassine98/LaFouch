@@ -1,0 +1,47 @@
+/* S210 esboço de luxo: menos ruído, mais ar, uma hierarquia clara (nada é implementado no site) */
+:root{--lx-ink:#1d1418;--lx-mu:#7a6b74;--lx-hair:rgba(29,20,24,.10);--lx-bg:#fbf8f9;--lx-ph:#f4eff1}
+body{background:var(--lx-bg)!important}
+/* topo: logo no centro, linha fina de categorias embaixo (PC), sem sombra */
+.top{box-shadow:none!important;border-bottom:1px solid var(--lx-hair)!important;background:rgba(251,248,249,.96)!important;backdrop-filter:saturate(1.2) blur(8px)}
+.lxnav{display:none}
+@media (min-width:900px){
+ .lxnav{display:flex;justify-content:center;gap:44px;height:44px;align-items:center;border-top:1px solid var(--lx-hair);width:100%;order:9}
+ .lxnav a{font:500 12px Inter,system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--lx-ink);text-decoration:none;padding:13px 0;border-bottom:1px solid transparent}
+ .lxnav a.on{border-color:var(--lx-ink)}
+ .top{flex-wrap:wrap!important;height:auto!important;padding-bottom:0!important}
+ #mnb{visibility:hidden}
+}
+/* títulos de seção: serifa, com ar; "Ver todos" discreto sublinhado */
+.h2{font-weight:400!important;letter-spacing:.01em!important}
+.hsh{margin-top:44px!important;margin-bottom:18px!important}
+.hsh a{font:500 12px Inter,system-ui,sans-serif!important;letter-spacing:.12em!important;text-transform:uppercase;color:var(--lx-ink)!important;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px}
+/* cartões: sem borda nem sombra; foto num fundo neutro; texto alinhado à esquerda, preço preto */
+.hc,.card{border:0!important;box-shadow:none!important;background:transparent!important;border-radius:0!important}
+.hc .hci,.card .ph{background:var(--lx-ph)!important;border-radius:4px!important}
+.card .ph img,.hc .hci img{mix-blend-mode:multiply}
+.hc .hn,.card .nm{font:400 13px Inter,system-ui,sans-serif!important;color:var(--lx-ink)!important;letter-spacing:.01em}
+.card .ref,.hc .hds,.card .lfds{font:500 10.5px Inter,system-ui,sans-serif!important;letter-spacing:.14em!important;color:var(--lx-mu)!important;text-transform:uppercase}
+.card .pr,.hc .hp{color:var(--lx-ink)!important;font:600 14px Inter,system-ui,sans-serif!important;letter-spacing:.02em}
+.card .info,.hc{padding-left:2px!important;padding-right:2px!important}
+.card .fav{background:transparent!important;box-shadow:none!important}
+.esw i,.hsw i{width:9px!important;height:9px!important}
+.sel1{background:transparent!important;color:var(--lx-ink)!important;font:600 11px Inter,system-ui,sans-serif!important;letter-spacing:.04em!important;text-transform:none!important;padding:0!important}
+.ulin{color:#9b2c2c!important;font-weight:600!important;letter-spacing:.12em!important}
+/* selos de confiança: uma linha fina, sem caixas */
+.htr{border-top:1px solid var(--lx-hair)!important;border-bottom:1px solid var(--lx-hair)!important;padding:14px 0!important;margin:28px 0 0!important}
+.htr b{color:var(--lx-ink)!important;font-weight:600!important}
+.htr span{color:var(--lx-mu)!important;font-size:12px!important}
+.htr svg{color:var(--lx-ink)!important}
+/* Destaque: sem moldura, tipografia editorial */
+.hdst,.hstage,#hdst{box-shadow:none!important}
+.hdst .hlb,.hlb{letter-spacing:.2em!important;color:var(--lx-mu)!important}
+/* categorias: foto e nome, sem caixa */
+.hcat a,.hcat button,.hcats>*{border:0!important;box-shadow:none!important}
+/* página da peça: preço preto, botão sóbrio */
+#layer .det .pr,#layer .dp .pr{color:var(--lx-ink)!important;font-weight:600!important}
+#layer .bb.p{background:var(--lx-ink)!important;border-radius:2px!important;letter-spacing:.14em!important;text-transform:uppercase;font-size:13px!important}
+#layer .chips .bd{border-color:var(--lx-hair)!important;background:transparent!important}
+/* WhatsApp discreto */
+.wa{width:48px!important;height:48px!important;box-shadow:0 4px 14px rgba(0,0,0,.12)!important}
+.wa::before,.wa::after{display:none!important}
+@media (min-width:900px){main#topo{margin-top:44px!important}#layer .pgbar{margin-top:44px!important}}
