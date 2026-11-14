@@ -102,7 +102,8 @@ Ler antes de mexer no site. Atualizar este arquivo SEMPRE que o site mudar (estr
 - Favoritar (`.fav`) no catálogo em grade: só o coração, sem círculo nem sombra, 44 px de toque, canto de cima à direita; ligado = coração cheio na cor do tema. As regras ficam logo depois do bloco `/*CARD-PC-A*/` (fora da consulta de 1100 px).
 - Ao favoritar (`favVoa`, chamada por `favIn` e `favMais`): um coração vai do cartão até a sacola (`#bagbtn`) em 0,62 s e a sacola dá um toque (0,32 s); o contador de favoritos muda quando o coração chega. Saíram o anel, o contorno desenhado, o "+1" e o botão pulsando (1,9 s). Desfavoritar (`favOut`, `favMenos`) não mudou.
 
-## Busca de luxo — lote 3 (S286, 14/11/2026)
+## Busca e sacola de luxo — lote 3 (S286, 14/11/2026)
 - Busca (`js/lf-site.js`, bloco "busca na lupa": `soEntra`, `soSai`, `soBase`, `soOrigem`): ao abrir, o fundo escurece em 0,32 s, a página de trás recua um pouco (escala .985 + desfoque 2 px; sem desfoque no site leve), o painel cresce a partir da lupa (`#sbtn`) em 0,44 s e as linhas entram uma atrás da outra (22 ms). Ao fechar volta para a lupa em 0,26–0,30 s; `fecha()` só tira a classe `on` no fim da saída. `#sov.lux` desliga as animações antigas (`index.html`, depois de `@keyframes sofd`).
-- Sacola: NÃO publicada. A entrada pela direita (S252) está pronta em `work/s286/busca+sacola.patch`, mas o porteiro acusa "nasce fora do lugar" (regra de 13/11) — espera decisão do dono.
+- Sacola (`bagEntra`, chamada por `bag()` só na primeira abertura, não ao redesenhar): a tela inteira entra da direita em 0,46 s (`cubic-bezier(.16,1,.3,1)`); `.scrim.pg.bgLux>.panel` desliga o `pgrise` antigo. Saída: dentro do `closeLayer` que já fazia o fantasma `#lfGhost`; quando a camada tem `.cartp` ela sai inteira para a direita (100%, sem apagar) em 0,3 s e mantém a altura abaixo do cabeçalho. As outras páginas continuam com a saída de antes (32% + apagar).
+- Porteiro (`work/fiscal/provas.py`, `ENTRA_DIREITA`): só a sacola pode nascer à direita (dono liberou em 14/11); continua acusando se passar do lugar, voltar no meio, mudar de altura, pular ou travar.
 - Movimento reduzido no aparelho: nada disso anima.

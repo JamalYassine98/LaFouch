@@ -755,11 +755,16 @@ ANIM_GRAVA = """(sel)=>new Promise(ok=>{const Q=[];let t0=performance.now(),ult=
   if(e){const r=e.getBoundingClientRect();Q.push({t:Math.round(n-t0),dt:Math.round(n-ult),l:Math.round(r.left),r:Math.round(r.right),t2:Math.round(r.top),w:Math.round(r.width),op:+getComputedStyle(e).opacity})}
   ult=n;if(n-t0<900)requestAnimationFrame(f);else ok(Q)};requestAnimationFrame(f)})"""
 
-def anima_confere(Q, W):
+def anima_confere(Q, W, entra=None):
     if len(Q) < 5: return 'não deu para gravar a abertura'
     fim = Q[-1]; prob = []
     vis = [q for q in Q if q['op'] > 0.15 and q['w'] > 0]
     fora = [q for q in vis if q['l'] < fim['l'] - 12 or q['r'] > fim['r'] + 12 and q['r'] > W]
+    if entra == 'direita':  # 14/11 (dono liberou só para a sacola, vídeo S252): pode vir da direita, mas sem passar do lugar, sem voltar e sem mexer na altura
+        fora = [q for q in vis if q['l'] < fim['l'] - 12]
+        volta = [b2 for a2, b2 in zip(vis, vis[1:]) if b2['l'] > a2['l'] + 2]
+        if volta: prob.append(f'volta para a direita no meio da entrada ({volta[0]["l"]}px)')
+        if any(abs(q['t2'] - fim['t2']) > 2 for q in vis): prob.append('muda de altura durante a entrada')
     if fora: prob.append(f'nasce fora do lugar ({fora[0]["l"]}→{fim["l"]}px da esquerda)')
     passos = [abs(b['l'] - a['l']) for a, b in zip(vis, vis[1:])]
     med = sorted(passos)[len(passos) // 2] if passos else 0
@@ -770,6 +775,7 @@ def anima_confere(Q, W):
     return '; '.join(prob)
 
 ABRE = [('Busca (lupa)', '#sbtn', '#sov .sopn'), ('Menu', '#mnb', '#drw'), ('Carrinho', '#bagbtn', '#layer .scrim > *'), ('Mi cuenta', '#contabtn', '#layer .scrim > *')]
+ENTRA_DIREITA = {'Carrinho'}
 
 def p7_animacoes(p):
     for W, H in ((390, 844), (820, 1180), (1440, 900)):
@@ -780,7 +786,7 @@ def p7_animacoes(p):
                 if not pg.locator(bt).count(): continue
                 pg.evaluate("s=>document.querySelector(s).click()", bt)
                 Q = pg.evaluate(ANIM_GRAVA, alvo)
-                d = anima_confere(Q, W)
+                d = anima_confere(Q, W, 'direita' if nome in ENTRA_DIREITA else None)
                 if d: falha(P7, f'Animação · {nome} · {W}px', d, pg)
                 else: passou(P7, f'Animação · {nome} · {W}px', f'{len(Q)} quadros')
             finally: b.close()

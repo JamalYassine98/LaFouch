@@ -2397,3 +2397,7 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Sacola (S252, entra inteira da direita 0,46 s / sai 0,3 s): feita e testada no simulador (mesma posição final, olho igual, voltar do celular, 0 erros), mas o porteiro deu 3 falhas "nasce fora do lugar" (regra de 13/11, criada pelo defeito da busca torta). A regra e o vídeo aprovado se contradizem → NÃO publiquei nem mexi na regra. Guardado em `work/s286/busca+sacola.patch` e `work/s286/sacola_teste.py`. PERGUNTA AO DONO: liberar no porteiro a entrada pela direita só para a sacola?
 - Não testado: celular real, iPhone, temáticas, abas da conta (precisa de conta logada).
 - Falta do site: sacola (decisão acima), abas da conta, troca de tela e janelas; itens 16, 19, 21, 22 de 13/11.
+
+### S287 · 14/11/2026 08:53 · sacola de luxo PUBLICADA + ordem do dono
+- DONO: "Sim, pare de fazer perguntas e só implementa" → liberada no porteiro a entrada pela direita SÓ para a sacola (`ENTRA_DIREITA` em `work/fiscal/provas.py`; ainda acusa passar do lugar, voltar, mudar de altura, pulo e travada). Daqui em diante: implementar o aprovado sem perguntar; decisões pequenas eu tomo e anoto aqui.
+- Sacola no site: entra inteira da direita 0,46 s, sai 0,3 s. Não testado: celular real, iPhone, temáticas.
