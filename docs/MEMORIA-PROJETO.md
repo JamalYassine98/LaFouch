@@ -2248,3 +2248,12 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - (1) As junções (Vendas, Dinheiro etc.) devem ser feitas DENTRO do sistema de junção de botões que já existe (grupos): aplicar todas as possibilidades, dar nome a todas, interface de luxo para todos os grupos.
 - (2) Inventário + Catálogo (Produtos): design ainda feio, elaborar melhor.
 - (3) O ícone criado no menu rápido (grupo) tem de ter o MESMO tamanho dos outros.
+
+### S266 · 14/11/2026 03:45 · Elaboração: Produtos de luxo, ícone do grupo, grupo como tela única (ESBOÇO, aguardando; nada implementado)
+- Estudo do sistema de grupos atual (src/95-barra-grupos.js, -icones.js): juntar 2 botões da barra cria grupo; telas viram abas em pílula no topo (.gtabs); ícone e nome sugeridos só para PARES (GI_NOME, 171 + 82); grupos de 3+ não têm nome sugerido; janela "Grupo" genérica. Ícone do grupo na barra mede 24 px, os outros 22 px, e o nome do grupo fica ~2 px mais baixo.
+- work/s266/gera.py (claro e escuro, celular 390):
+  · s266_app_produtos: Produtos = cartão único (foto quadrada, nome em 2 linhas, "código · estoque", preço, "+" 38 px para vender; tocar no cartão abre a ficha); números viram 1 linha ("470 em estoque · 16 referências"); aviso de preços vira 1 linha; lote sem foto ganha caixa neutra; "Catálogo" sai da barra. A 1ª peça aparece na 1ª tela (hoje só depois de rolar).
+  · s266_app_barra_icone_grupo: ícone do grupo 24 → 22 px, nomes na mesma linha.
+  · s266_app_grupo_tela_unica: regra geral testada em Clientes + Histórico (nome sugerido pelo app: "Histórico clientes"): título = nome do grupo, um bloco de cada tela cortado em 560 px + "Ver tudo em X". 6.423 px → 1.074 px. FALHA MINHA à vista: o corte automático mostra o que estiver no topo de cada tela (filtros, "Fechamento do caixa"), não o que importa; para ficar de luxo em QUALQUER combinação cada tela precisa de um "resumo" próprio desenhado (≈23 telas).
+- Conferido: 0 erros de JS; olho parado sem piora em Produtos e no grupo. Não conferido: rolado, tablet/PC, 3 letras, celular real, ficha da peça, Fornecedores/Reposição.
+- DÚVIDA aberta: o dono quer o grupo como (A) abas no topo redesenhadas ou (B) uma tela única que rola (como Vendas/Dinheiro do S265) para toda combinação.
