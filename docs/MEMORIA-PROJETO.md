@@ -2319,3 +2319,10 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Testes 291/291 (4 testes ajustados: tocavam o item "Caixa" da barra, agora "Dinheiro"). Olho antes × agora em 390 claro/escuro, 820, 1366, 2560: sem piora. Mudei o olho.js: colunas de página declaradas (`data-coluna`) não contam como "fileira torta" (têm alturas diferentes por natureza).
 - Olhei a tela: celular claro/escuro e computador 1366. Não olhei: tablet e 2560 (só medição). Não testado: celular real, letra grande, ações dentro dos blocos copiados (ex.: pagar conta pelo bloco "Contas para pagar" em Dinheiro).
 - FALTA do bloco 2: capa para grupos livres (resumo desenhado de cada tela), palavras em linha no lugar das pílulas, nomes para grupos de 3+, janela Grupo no padrão novo, família Site, Voltar no tempo (backup por mudança).
+
+### S277 · 14/11/2026 06:20 · bloco 2, parte 3 PUBLICADA (app v512 / 5.13.1): grupos no padrão de luxo
+- Pílulas → nome do grupo + telas como palavras em linha com fio fino (cresce em 0,32 s ao trocar); janela Grupo com fios e botões discretos; nome de família para grupos de 3+ (Dinheiro, Dashboard, Site, Clientes e atacado, Estoque). Todas as funções mantidas.
+- Testes 291/291. Olho antes × agora (390 claro/escuro, 820, 1366, 2560) em Catálogo, Dinheiro e Pedidos com grupos: sem piora. Olhei: celular claro/escuro e a janela Grupo. Não testado: celular real, arrastar para criar grupo (não mexi nisso), letra grande.
+- DEIXADO DE FORA DO BLOCO 2, com motivo:
+  · CAPA do grupo com resumo desenhado por tela (≈24 resumos): não feita; é o maior pedaço e 8 telas ainda não foram abertas no simulador.
+  · VOLTAR NO TEMPO (backup por mudança + restaurar uma peça): NÃO implementado de propósito. Restaurar mexe em estoque e preço de verdade; o preço do app é calculado (tabelas/tipos/pisos), não um campo da peça, e estoque restaurado sem registro quebra a contagem. Precisa de uma decisão do dono: quais campos podem voltar (sugestão: custo, dólar, nome/descrição e fotos; estoque só por estorno/ajuste registrado; preço só onde houver preço escrito à mão).

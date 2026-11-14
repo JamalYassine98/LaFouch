@@ -185,3 +185,9 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - Como os blocos são copiados: a tela irmã é desenhada escondida (`S._rtudo`) e o bloco verdadeiro é clonado sem `id` (`famCopia`). Os botões dos clones funcionam pela delegação de `data-act`.
 - Colunas: celular 1 (os invólucros `.famC` usam `display:contents`), tablet 2, computador 3 (`.view.fam`). As colunas levam `data-coluna="1"`: o `work/kit/olho.js` não as trata como fileira de cartões.
 - As telas Despesas, Câmbio, Histórico e os números continuam existindo inteiras e com os mesmos atalhos.
+
+## Grupos no padrão de luxo (S269, 14/11/2026 · v512 / 5.13.1)
+- `grpAbasRender` (`src/95-barra-grupos.js`): `#grpTabs` ganha a classe `gtL`: nome do grupo (`.gtNm`) em cima e as telas como palavras em linha (`.gtRw`), com fio fino sob a ativa; o fio cresce em 0,32 s só quando a tela do grupo muda (`.gtIn`, `S._gtUlt`). O "⋯" (`.gmais`) continua abrindo a janela Grupo. Área de toque 44 px.
+- `grpNomeAuto(itens)`: com 3 ou mais telas da mesma família (`GRP_FAM`: Dinheiro, Dashboard, Site, Clientes e atacado, Estoque) sugere o nome da família; senão o nome do par principal. Ao acrescentar tela (`grpAdd`), o nome só muda se ainda era o sugerido.
+- Janela Grupo (`#grpM`): mesmas funções; aparência só por CSS (título serifado, linhas, "Tirar"/"Desfazer" em texto, "Salvar" em fio cinza).
+- NÃO FEITO: capa do grupo com o resumo de cada tela (docs/ESTUDO-ARQUITETURA-14-11.md, seção 1).

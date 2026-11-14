@@ -24,6 +24,15 @@
   function grpNomePadrao(a, b) {
     return grpNomeSugerido(a, b) || BARRA_NOME[a] + ' e ' + BARRA_NOME[b];
   }
+  // Nome sugerido para qualquer tamanho de grupo: família (3 ou mais telas da mesma família) ou o nome do par principal.
+  var GRP_FAM = [['Dinheiro', ['caixa', 'desp', 'fx', 'din']], ['Dashboard', ['hoje', 'hist', 'giro', 'prec']], ['Site', ['ped', 'onl', 'msg', 'anl', 'tem']], ['Clientes e atacado', ['cli', 'ata']], ['Estoque', ['estoque', 'cont', 'lotes', 'novo', 'est']]];
+  function grpNomeAuto(itens) {
+    if (itens.length >= 3) {
+      var f = GRP_FAM.filter(function (x) { return itens.every(function (i) { return x[1].indexOf(i) >= 0; }); })[0];
+      if (f) return f[0];
+    }
+    return itens.length >= 2 ? grpNomePadrao(itens[0], itens[1]) : '';
+  }
   function grpAbre(g) {
     var t = g.ult && g.itens.indexOf(g.ult) >= 0 ? g.ult : g.itens[0];
     inicioGo(t);
@@ -43,15 +52,18 @@
       el.textContent = '';
       return;
     }
-    var h = '';
+    // S269 (14/11/2026): no lugar das pílulas, o nome do grupo em cima e as telas como palavras em linha, com fio fino sob a ativa
+    var h = '<span class="gtNm">' + esc(g.nome) + '</span><span class="gtRw">', ativa = '';
     g.itens.forEach(function (t) {
       var on = navOn(t),
         n = t === 'ped' ? pedNovos() : 0;
-      if (on) g.ult = t;
+      if (on) { g.ult = t; ativa = t; }
       h += '<button type="button" class="' + (on ? 'on' : '') + '" data-act="grpTela" data-id="' + t + '" aria-pressed="' + on + '">' + BARRA_NOME[t] + (n ? ' <b>' + n + '</b>' : '') + '</button>';
     });
-    h += '<button type="button" class="gmais" data-act="grpGerir" data-id="' + g.id + '" aria-label="Gerenciar grupo ' + esc(g.nome) + '">⋯</button>';
+    h += '</span><button type="button" class="gmais" data-act="grpGerir" data-id="' + g.id + '" aria-label="Gerenciar grupo ' + esc(g.nome) + '">⋯</button>';
     el.hidden = false;
+    el.className = 'gtabs gtL' + (ativa && S._gtUlt && S._gtUlt !== g.id + ':' + ativa ? ' gtIn' : ''); // o fio só se move quando a tela do grupo muda
+    S._gtUlt = g.id + ':' + ativa;
     el.innerHTML = h;
   }
   // Coloca o botão no lugar do grupo na barra (ou no Início se a barra estiver cheia).
@@ -67,7 +79,9 @@
     S.barra = barraLista().filter(function (x) {
       return x !== id;
     });
+    var eraAuto = g.nome === grpNomeAuto(g.itens);
     g.itens.push(id);
+    if (eraAuto) g.nome = grpNomeAuto(g.itens); // o nome sugerido acompanha o grupo; nome escrito pelo dono não é trocado
     return true;
   }
   function grpTira(gid, id) {

@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 511;
+  var APP_BUILD = 512;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.13.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.13.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -25007,6 +25007,15 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function grpNomePadrao(a, b) {
     return grpNomeSugerido(a, b) || BARRA_NOME[a] + ' e ' + BARRA_NOME[b];
   }
+  // Nome sugerido para qualquer tamanho de grupo: família (3 ou mais telas da mesma família) ou o nome do par principal.
+  var GRP_FAM = [['Dinheiro', ['caixa', 'desp', 'fx', 'din']], ['Dashboard', ['hoje', 'hist', 'giro', 'prec']], ['Site', ['ped', 'onl', 'msg', 'anl', 'tem']], ['Clientes e atacado', ['cli', 'ata']], ['Estoque', ['estoque', 'cont', 'lotes', 'novo', 'est']]];
+  function grpNomeAuto(itens) {
+    if (itens.length >= 3) {
+      var f = GRP_FAM.filter(function (x) { return itens.every(function (i) { return x[1].indexOf(i) >= 0; }); })[0];
+      if (f) return f[0];
+    }
+    return itens.length >= 2 ? grpNomePadrao(itens[0], itens[1]) : '';
+  }
   function grpAbre(g) {
     var t = g.ult && g.itens.indexOf(g.ult) >= 0 ? g.ult : g.itens[0];
     inicioGo(t);
@@ -25026,15 +25035,18 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       el.textContent = '';
       return;
     }
-    var h = '';
+    // S269 (14/11/2026): no lugar das pílulas, o nome do grupo em cima e as telas como palavras em linha, com fio fino sob a ativa
+    var h = '<span class="gtNm">' + esc(g.nome) + '</span><span class="gtRw">', ativa = '';
     g.itens.forEach(function (t) {
       var on = navOn(t),
         n = t === 'ped' ? pedNovos() : 0;
-      if (on) g.ult = t;
+      if (on) { g.ult = t; ativa = t; }
       h += '<button type="button" class="' + (on ? 'on' : '') + '" data-act="grpTela" data-id="' + t + '" aria-pressed="' + on + '">' + BARRA_NOME[t] + (n ? ' <b>' + n + '</b>' : '') + '</button>';
     });
-    h += '<button type="button" class="gmais" data-act="grpGerir" data-id="' + g.id + '" aria-label="Gerenciar grupo ' + esc(g.nome) + '">⋯</button>';
+    h += '</span><button type="button" class="gmais" data-act="grpGerir" data-id="' + g.id + '" aria-label="Gerenciar grupo ' + esc(g.nome) + '">⋯</button>';
     el.hidden = false;
+    el.className = 'gtabs gtL' + (ativa && S._gtUlt && S._gtUlt !== g.id + ':' + ativa ? ' gtIn' : ''); // o fio só se move quando a tela do grupo muda
+    S._gtUlt = g.id + ':' + ativa;
     el.innerHTML = h;
   }
   // Coloca o botão no lugar do grupo na barra (ou no Início se a barra estiver cheia).
@@ -25050,7 +25062,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.barra = barraLista().filter(function (x) {
       return x !== id;
     });
+    var eraAuto = g.nome === grpNomeAuto(g.itens);
     g.itens.push(id);
+    if (eraAuto) g.nome = grpNomeAuto(g.itens); // o nome sugerido acompanha o grupo; nome escrito pelo dono não é trocado
     return true;
   }
   function grpTira(gid, id) {
