@@ -2349,3 +2349,30 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Porteiro: 180 provas, 0 falhas, 0 defeitos visuais novos (628 s). Olho antes × agora no catálogo (390, 820, 1366, 2560): sem piora; no celular "toque<40" caiu de 11 para 5. Favoritar/desfavoritar 2 peças na cópia local: contador certo, sem sobra de elementos. Olhei a tela em celular e 1366.
 - Não testado: temáticas (não dá para forçar na cópia local), modo lista (`html.vlist`, não mexi), página da peça, celular real.
 - FALTA do site: busca, sacola, abas de Minha conta, troca de tela e janelas nas versões S252; itens 16, 19, 21, 22 de 13/11.
+
+## ESTADO EM 14/11/2026 09:35 — depois do "IMPLEMENTAR TUDO" (04:31)
+**PUBLICADO (tudo com testes/porteiro passando; NADA testado em celular real):**
+- App v509: um papel por lugar (Catálogo vende · Inventário ficha · atalhos com o Estúdio), nomes (Dashboard, Reservas, Pendências, Enviar catálogo, Site), ícone do grupo 22 px, limpeza de 35 funções sem uso, compartilhar da peça direto no novo.
+- App v510: Guardião = 1 linha no Início; lista inteira nas Pendências.
+- App v511: famílias Dinheiro e Dashboard (1, 2 ou 3 colunas).
+- App v512: grupos em palavras em linha, janela Grupo discreta, nome de família para 3+ telas.
+- App v513: trava de rolagem única + 3 regras de rolagem no olho.
+- App v514: cartão de carregando com etapas e Cancelar; modo de editar sobe 2 px.
+- Site lote 1: menu 0,44 s / fecha 0,2 s; pedido sem confete; Mochi trava o fundo.
+- Site lote 2: favoritar só o coração; "Últimas unidades" dentro da foto; coração até a sacola em 0,62 s.
+
+**PAREI AQUI, por decisão minha (dizer ao dono):** a sessão ficou muito longa e o que falta é o mais arriscado; continuar sem ele ver nada no celular aumentaria a chance de erro no site público. Não é falta de aprovação.
+
+**FALTA (aprovado, não feito):**
+1. Site lote 3: busca e sacola nas versões S252 (a busca tem 4 camadas de regras antigas com !important + um observador; precisa de reescrita cuidadosa), abas de Minha conta (não dá para testar sem conta), troca de tela, janelas; itens 16, 19, 21, 22 de 13/11.
+2. App: leitor da haste de luxo; janelas num padrão só; resto do relatório S253; capa do grupo com resumo por tela; levar cor/grau entre Catálogo e Inventário; PC "ação ao lado do título", Inventário largura toda, Ajustes em 2 colunas; Nuvem enxuta.
+3. Mochi (molas calmas, piscar sorteado, respirar 4 s, boca parada no mudo) e Mochi no computador partes 2–3; depois vozes (chave só na sessão, teto 3.300, autorizar cada gravação).
+4. Bloco 4: giro no site (30 quadros/s em vídeo desmontado, troca de cor, Vista inicial, dica) e Estúdio em vídeo/automático/tutorial/19 melhorias — depende do vídeo do prato.
+5. Bloco 5: designer explorador.
+
+**DECISÕES QUE SÓ O DONO PODE TOMAR:**
+- Voltar no tempo: quais campos podem ser restaurados (sugestão: custo, dólar, descrição, fotos; estoque só por estorno/ajuste registrado).
+- Janela antiga de compartilhar o catálogo inteiro (Folha · Fotos · Só texto): apagar ou manter (é a única porta para mandar o catálogo filtrado de uma vez).
+- GitHub Pages × regra de "não é para loja".
+
+**DESVIOS DO COMBINADO (já ditos ao dono):** remoções da limpeza num commit só; Cancelar do cartão de carregando só cancela de verdade na leitura por foto; "Câmbio do dia"/"Despesas do dia" ficaram recolhidos no Dashboard em vez de sair; olho.js passou a ignorar colunas de página em "fileira torta"; 6 testes ajustados (1 por causa da altura da foto, 5 pelo nome "Dinheiro" na barra).
