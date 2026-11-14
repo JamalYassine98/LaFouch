@@ -130,3 +130,19 @@ Lido: estrutura e textos de `97-estudio.js` (2.053 linhas), `97-estudio-giro.js`
 19. Sem internet ou sem espaço: o giro fica guardado e sobe sozinho depois; o app avisa quanto espaço resta antes da sessão.
 
 Ordem que eu sugiro: 1–6 (automático) → 7–9 (esteira) → 10–12 (padrão) → 13–15 (saídas).
+
+## Conhecer o prato giratório (pedido do dono, 14/11 02:57) — proposta, não testada
+
+Objetivo: o fundo infinito sair preciso porque o app SABE onde está o prato, como ele é e como gira, em vez de adivinhar.
+
+1. **Aprender o prato vazio (1 vez por sessão, 3 s girando sem peça).** O app guarda: o contorno exato do prato (a elipse que a câmera vê), o centro do giro, o tom de cada ponto da superfície e da parede, e as marcas do próprio prato (riscos, poeira), que ele reconhece porque andam em círculo.
+2. **Três zonas com luz própria:** parede atrás, superfície do prato, borda da frente. Com o contorno conhecido, a linha de trás do prato some exatamente onde está, sem faixa de folga — e sem risco de apagar a ponta da haste que cruza essa linha.
+3. **Sombra exata:** sombra = quanto cada ponto ficou mais escuro do que o prato vazio naquele mesmo ponto. Fica a sombra natural e nada mais.
+4. **Câmera na mão ou tripé que balança:** em cada quadro o app reencontra o contorno inteiro do prato (não dois pontos, como tentei hoje e falhou) e alinha por ele.
+5. **Ângulo certo de cada quadro:** lendo uma marca na beira do prato (um ponto adesivo fosco, ou as marcas naturais), o app sabe quantos graus girou mesmo que a velocidade varie; os 36 ângulos saem iguais em todas as peças.
+6. **Altura da câmera:** o achatamento da elipse diz de que altura a câmera olha; o app compara com o padrão da loja e orienta ("suba/abaixe o celular").
+7. **Perfil do prato salvo:** nas sessões seguintes basta 1 s para conferir; só reaprende se a câmera ou a luz mudarem.
+8. **Confirmação visível uma vez:** "Achei o prato", com o contorno desenhado por cima, para o dono ver que entendeu certo.
+
+Para testar preciso, no próximo vídeo: 3 s do prato vazio girando antes de pôr a peça; o prato INTEIRO dentro do quadro (a borda da frente também); celular no tripé.
+Honestidade: itens 1–3 são a mesma conta da estratégia aprovada, só que com o prato conhecido; 4–6 dependem de achar a elipse com segurança, que ainda não provei.
