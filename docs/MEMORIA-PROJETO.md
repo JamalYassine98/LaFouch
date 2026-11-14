@@ -2149,3 +2149,9 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 **Ordem do dono:** NÃO implementar por enquanto — ele ainda quer elaborar pontos. Só implementar quando ele mandar.
 
 **Erros meus desta madrugada (para não repetir):** chamei de "sem fim" enfeites que encerram aos 10 s; pus no relatório efeitos de código antigo que não aparecem na tela (palco, capa, onda de toque); propus criar microgestos da Mochi que já existiam; nunca incluí a tela de bloqueio nas conferências; um vídeo saiu com o painel deslocado. Lição: o código não é a tela — conferir na tela antes de afirmar.
+
+### S258 · Estúdio e 360° completo — estudo e propostas (14/11/2026 02:01) — aguardando
+- DONO: quer melhorar o Estúdio do app, pediu propostas e "uma forma de usar o sistema de 360 graus completo".
+- Estudo em docs/ESTUDO-ESTUDIO-14-11.md. Hoje o giro fica escondido no "?", filma 12 s, guarda ~48 quadros e aproveita só 2 (frente e 3/4) + um vídeo; no site o 360 é um vídeo que toca (botão 360°), o cliente não gira. Fila do Estúdio acumula "falta a 3/4".
+- 12 propostas: giro como caminho principal ("um giro = tudo"), peça giratória com 36 ângulos tratados, arrastar para girar no site e no app, trocar de cor mantendo o ângulo, vídeo de Marketing a partir do giro tratado, anel de 0–360° na câmera; fila com o que cada peça tem, câmera no padrão de luxo, resultado em uma tela, fundo infinito, coerência entre peças.
+- Falta saber do dono: equipamento (prato motorizado? tempo da volta?), o que "completo" significa para ele, e um giro real para medir peso. Sem esboço ainda; nada implementado.
