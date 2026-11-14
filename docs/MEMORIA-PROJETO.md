@@ -2376,3 +2376,7 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - GitHub Pages × regra de "não é para loja".
 
 **DESVIOS DO COMBINADO (já ditos ao dono):** remoções da limpeza num commit só; Cancelar do cartão de carregando só cancela de verdade na leitura por foto; "Câmbio do dia"/"Despesas do dia" ficaram recolhidos no Dashboard em vez de sair; olho.js passou a ignorar colunas de página em "fileira torta"; 6 testes ajustados (1 por causa da altura da foto, 5 pelo nome "Dinheiro" na barra).
+
+### S283 · 14/11/2026 (manhã) · DECISÕES DO DONO
+- Voltar no tempo: vale a minha recomendação — podem voltar custo, dólar, descrição e fotos; estoque só por estorno/ajuste registrado; preço só onde houver preço escrito à mão.
+- Janela antiga de compartilhar o catálogo inteiro (Folha · Fotos · Só texto): PODE REMOVER.
