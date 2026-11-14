@@ -2257,3 +2257,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
   · s266_app_grupo_tela_unica: regra geral testada em Clientes + Histórico (nome sugerido pelo app: "Histórico clientes"): título = nome do grupo, um bloco de cada tela cortado em 560 px + "Ver tudo em X". 6.423 px → 1.074 px. FALHA MINHA à vista: o corte automático mostra o que estiver no topo de cada tela (filtros, "Fechamento do caixa"), não o que importa; para ficar de luxo em QUALQUER combinação cada tela precisa de um "resumo" próprio desenhado (≈23 telas).
 - Conferido: 0 erros de JS; olho parado sem piora em Produtos e no grupo. Não conferido: rolado, tablet/PC, 3 letras, celular real, ficha da peça, Fornecedores/Reposição.
 - DÚVIDA aberta: o dono quer o grupo como (A) abas no topo redesenhadas ou (B) uma tela única que rola (como Vendas/Dinheiro do S265) para toda combinação.
+
+### S266b · 14/11/2026 03:55 · DONO sobre S266 (nada implementado)
+- Grupo de botões: não basta "rolar"; quer uma interface INTEIRA pensada como se as telas fossem uma coisa só desde a origem.
+- NÃO gostou de Inventário + Catálogo juntos ("Produtos", item 5 de 13/11 — fica RETIRADO): propósitos muito diferentes (um é especificação/detalhe da peça, o outro é vender).
+- Notou que o Estúdio parece ter cadastro, como o Inventário. Pediu ESTUDO dessas abas e proposta melhor: "atualmente parece tudo bagunçado".
