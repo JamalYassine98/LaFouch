@@ -54,12 +54,12 @@ Limite honesto: Giro, Preços, Mensagens, Analisador, Temática, Atacado, Market
 |---|---|---|---|
 | Grupo Caixa + Despesas + Câmbio | — | **Dinheiro** | nome que você aprovou |
 | Aba de Números chamada "Dinheiro" | Dinheiro | **Reservas** | o atalho do Início já a descreve como "Reservas"; o conteúdo é "livre para você" e reservas |
-| Grupo Dia + Histórico + Números | Vendas (S265) | **Resultados** | "Vendas" confunde com Vender e com o Catálogo (você já apontou isso em 12/11) |
-| Tela de números | Resumo (barra) · Painel (atalho) · Dashboard (texto do Caixa) | **Números** | quatro nomes para a mesma tela; "Resumo" fica só como a 1ª aba |
+| Grupo Dia + Histórico + números | Vendas (S265) | **Dashboard** (decisão do dono, 04:28) | é o nome que ele usa e prefere |
+| Tela de números | Resumo (barra) · Painel (atalho) · Dashboard (texto do Caixa) | **Dashboard** (decisão do dono) | um nome só; "Resumo" fica só como a 1ª aba |
 | Botão da barra | Avisos | **Pendências** | a tela se chama Pendências |
 | Segundo botão "Catálogo" | Catálogo | **Enviar catálogo** | hoje há dois botões com o mesmo nome; este abre o envio pelo WhatsApp |
 | Painel do site | Loja | **Site** | "Loja" confunde com a loja física |
-| Texto do Caixa | "Dashboard, aba Dinheiro" | "Números, aba Reservas" | acompanha as trocas acima |
+| Texto do Caixa | "Dashboard, aba Dinheiro" | "Dashboard, aba Reservas" | acompanha as trocas acima |
 
 ## 3 · Compartilhar
 
@@ -67,7 +67,9 @@ Limite honesto: Giro, Preços, Mensagens, Analisador, Temática, Atacado, Market
 
 **Correção (dono, 04:23):** o compartilhar por link já existe e é a base — link da peça com foto (`/p/CÓDIGO`), seleção "Separado para vos" (`/s/`), capa de status, PDF/planilha do lojista (S185, implementado em 12/11), convite de atacado que vira conta controlada pelo dono (S191) e link de lote protegido por conta/aparelho (S206). A porta única tem de partir disso, sem recriar nada.
 
-**Proposta: uma porta só, em três passos.** 1) Para quem · 2) O que mandar · 3) Por onde. A tela S185 já faz 1 e 2; "folha, fotos, texto" do Enviar catálogo viram opções do passo 2; o passo 3 é sempre a escolha de app que já existe. Marketing, Estúdio, Lista de compras e convite mantêm o próprio conteúdo e entram direto no passo 3. Nenhuma função some; somem as janelas repetidas.
+**Decisão do dono (04:28):** o modelo por link é o NOVO; as janelas de compartilhar antigas do app são versão velha e devem ser DESCARTADAS. Ele quer uma limpeza do app para tirar tudo o que é velho. Regra que vou seguir: só apago o que tem substituto novo funcionando; o que não tiver substituto fica e entra numa lista para ele decidir.
+
+**Proposta anterior (uma porta em três passos) — vale só para o que sobrar depois da limpeza:** 1) Para quem · 2) O que mandar · 3) Por onde. A tela S185 já faz 1 e 2; "folha, fotos, texto" do Enviar catálogo viram opções do passo 2; o passo 3 é sempre a escolha de app que já existe. Marketing, Estúdio, Lista de compras e convite mantêm o próprio conteúdo e entram direto no passo 3. Nenhuma função some; somem as janelas repetidas.
 
 ## 4 · Computador, notebook e tablet
 

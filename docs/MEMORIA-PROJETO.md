@@ -2290,3 +2290,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Lembrou que o compartilhar por link já foi feito (S185 link com foto, /s/, status, PDF/planilha; S191 convite de atacado → conta controlada pelo dono; S206 link de lote protegido). Corrigido no estudo: a porta única parte disso.
 - Mandou a chave do ElevenLabs no chat: guardada SÓ na sessão (arquivo temporário fora do projeto), não está no repositório nem nesta memória. NÃO gravar nada sem ele autorizar o valor de cada gravação; vozes só depois da Mochi no computador (partes 2–3).
 - Obs.: o S267 (um papel por lugar) desfaz a "ficha única com abas Vender/Estoque/…" do S184 (implementada em 12/11) — aprovado hoje pelo dono com a tela na frente.
+
+### S269c · 14/11/2026 04:28 · DECISÕES DO DONO (não implementar até o comando)
+- Nome: prefere "DASHBOARD" (não "Resultados" nem "Números"): grupo Dia + Histórico + números = Dashboard; a tela de números se chama Dashboard em todo lugar.
+- COMPARTILHAR: o modelo por LINK (S185/S191/S206) é o novo. As janelas de compartilhar antigas do app (as que analisei: Compartilhar inteligente v427, Enviar catálogo folha/fotos/texto e afins) são versão VELHA e devem ser descartadas.
+- LIMPEZA DO APP: quer tirar tudo o que é velho. Regra de execução: apagar só o que tem substituto novo funcionando; sem substituto → fica e vai para uma lista para ele decidir. Atenção: a tela S185 nova mora DENTRO do "Enviar bonito" — conferir na tela o que é novo e o que é velho antes de apagar.
