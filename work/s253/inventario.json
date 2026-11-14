@@ -1,0 +1,8404 @@
+{
+ "site": {
+  "kf": [
+   {
+    "nome": "amsp",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".amsp",
+      "dur": 2.2,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     2.2
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "amtk",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".amtk",
+      "dur": 2.6,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     2.6
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "arr",
+    "props": [
+     "box-shadow"
+    ],
+    "usos": [
+     {
+      "onde": ".arrive",
+      "dur": 1.0,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.0
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "EFEITO PESADO (box-shadow)",
+     "LONGA (1s)",
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "cadd",
+    "props": [
+     "stroke-dashoffset"
+    ],
+    "usos": [
+     {
+      "onde": ".cadk .c",
+      "dur": 0.6,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     },
+     {
+      "onde": ".cadk .t",
+      "dur": 0.4,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     0.4,
+     0.6
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "cadf",
+    "props": [
+     "opacity"
+    ],
+    "usos": [
+     {
+      "onde": "/*ADICIONADO-DLG*/\n.cad",
+      "dur": 0.2,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.2
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "cadp",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".cadb",
+      "dur": 0.42,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.9,.25,1.15)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.42
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA COM MOLA (cubic-bezier(.2,.9,.25,1.15))"
+    ]
+   },
+   {
+    "nome": "cardout",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".card.out",
+      "dur": 0.33,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.33
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "ccdraw",
+    "props": [
+     "stroke-dashoffset"
+    ],
+    "usos": [
+     {
+      "onde": ".cck svg path",
+      "dur": 0.45,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.45
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "ccpop",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "/*CONTA-ACOES*/\n.cck",
+      "dur": 0.55,
+      "sf": false,
+      "curva": "cubic-bezier(.2,1.5,.4,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.55
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA COM MOLA (cubic-bezier(.2,1.5,.4,1))"
+    ]
+   },
+   {
+    "nome": "ccring",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".cck::before",
+      "dur": 0.9,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.9
+    ],
+    "semfim": false,
+    "carga": true,
+    "falhas": [
+     "LONGA (0.9s)",
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "ccsp",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".cck .sp",
+      "dur": 0.7,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.7
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (0.7s)",
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "ccup",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".ccok h2",
+      "dur": 0.5,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     },
+     {
+      "onde": ".ccok .note",
+      "dur": 0.5,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     },
+     {
+      "onde": ".ccok .btn",
+      "dur": 0.5,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 3,
+    "durs": [
+     0.5
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "cfall",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#pkok .cf",
+      "dur": null,
+      "sf": false,
+      "curva": "cubic-bezier(.3,.1,.5,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "ckpop",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#layer .cfo.on::after",
+      "dur": 0.22,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.9,.3,1.4)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.22
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA COM MOLA (cubic-bezier(.2,.9,.3,1.4))"
+    ]
+   },
+   {
+    "nome": "ctash",
+    "props": [
+     "left"
+    ],
+    "usos": [
+     {
+      "onde": ".cta .shn",
+      "dur": 4.2,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     4.2
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "MEXE NO TAMANHO/POSIÇÃO (left)",
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "draw",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".motto::after",
+      "dur": 1.2,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.2
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (1.2s)",
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "dsup",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#dsh .dsp",
+      "dur": 0.28,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     },
+     {
+      "onde": "#fvs .dsp",
+      "dur": 0.28,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     0.28
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "efd",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".stage[data-cx][data-fx~=cascata] .tag",
+      "dur": 0.6,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.6
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "efi",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".stage[data-cx][data-fx~=cascata] img.pf",
+      "dur": 1.0,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     },
+     {
+      "onde": ".stage[data-cx][data-fx~=cascata] .sli.on",
+      "dur": 1.0,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     1.0
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (1s)"
+    ]
+   },
+   {
+    "nome": "evasa",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".evfx .mo svg",
+      "dur": 0.28,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.28
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "evbri",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".evfx .sh",
+      "dur": 3.2,
+      "sf": false,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     3.2
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (3.2s)",
+     "CURVA PADRÃO (ease-in-out)"
+    ]
+   },
+   {
+    "nome": "evcai",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".evfx .fl",
+      "dur": null,
+      "sf": true,
+      "curva": "linear",
+      "tipo": "css"
+     },
+     {
+      "onde": ".evfx .pt",
+      "dur": null,
+      "sf": true,
+      "curva": "linear",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 2,
+    "durs": [],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "evpis",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".evfx .br",
+      "dur": null,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "evvoa",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".evfx .mo",
+      "dur": null,
+      "sf": false,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease-in-out)"
+    ]
+   },
+   {
+    "nome": "fade",
+    "props": [
+     "opacity"
+    ],
+    "usos": [
+     {
+      "onde": "/* gaveta e janelas */\n.scrim",
+      "dur": 0.2,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     },
+     {
+      "onde": ".toast",
+      "dur": 0.2,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     0.2
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "farEl",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "ao tocar, o feedback */\n.fcar.in .far.l",
+      "dur": 0.9,
+      "sf": false,
+      "curva": "cubic-bezier(.22,.9,.3,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.9
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (0.9s)"
+    ]
+   },
+   {
+    "nome": "farEr",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".fcar.in .far.r",
+      "dur": 0.9,
+      "sf": false,
+      "curva": "cubic-bezier(.22,.9,.3,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.9
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (0.9s)"
+    ]
+   },
+   {
+    "nome": "farIl",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "ao tocar, o feedback */\n.fcar.in .far.l",
+      "dur": 2.6,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     2.6
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "farIr",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".fcar.in .far.r",
+      "dur": 2.6,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     2.6
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "farTl",
+    "props": [
+     "filter",
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".fcar.in .far.l.tap",
+      "dur": 0.45,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.45
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "QUICA (cresce até 1.2× e volta)",
+     "EFEITO PESADO (filter)",
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "farTr",
+    "props": [
+     "filter",
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".fcar.in .far.r.tap",
+      "dur": 0.45,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.45
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "QUICA (cresce até 1.2× e volta)",
+     "EFEITO PESADO (filter)",
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "fl",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".hero::before",
+      "dur": 14.0,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     },
+     {
+      "onde": ".hero::after",
+      "dur": 17.0,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     14.0,
+     17.0
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "flo",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".stage>svg,.stage>img",
+      "dur": 5.5,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     },
+     {
+      "onde": ".stage[data-cx][data-fx~=cascata] img.pf",
+      "dur": 5.5,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     },
+     {
+      "onde": " piscar quando os produtos chegam do servidor */\nhtml.nr .stage>img.pf",
+      "dur": 5.5,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 3,
+    "durs": [
+     5.5
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "fup",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".stage[data-cx][data-fx~=cascata]",
+      "dur": 0.9,
+      "sf": false,
+      "curva": "cubic-bezier(.22,.9,.3,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.9
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (0.9s)"
+    ]
+   },
+   {
+    "nome": "gzac",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#gw .gzbt.acende .gzgo",
+      "dur": 0.5,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.5
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "gzgl",
+    "props": [
+     "box-shadow"
+    ],
+    "usos": [
+     {
+      "onde": "#gw .gzav.gzbr",
+      "dur": 1.6,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.6
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "EFEITO PESADO (box-shadow)",
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "gzpis",
+    "props": [
+     "box-shadow"
+    ],
+    "usos": [
+     {
+      "onde": "#gw .gzmu.gzpis",
+      "dur": 1.4,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.4
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "EFEITO PESADO (box-shadow)",
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "gzvpg",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#gw .gzvp i",
+      "dur": 0.8,
+      "sf": true,
+      "curva": "linear",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.8
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "hb",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#pkok .hrt",
+      "dur": 1.2,
+      "sf": false,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.2
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (1.2s)",
+     "CURVA PADRÃO (ease-in-out)"
+    ]
+   },
+   {
+    "nome": "hdkb",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#hdst .hdi img",
+      "dur": 6.2,
+      "sf": false,
+      "curva": "linear",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     6.2
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (6.2s)",
+     "CURVA PADRÃO (linear)"
+    ]
+   },
+   {
+    "nome": "hdpg",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#hdst .hdots button.on::after",
+      "dur": 6.0,
+      "sf": false,
+      "curva": "linear",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     6.0
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (6s)",
+     "CURVA PADRÃO (linear)"
+    ]
+   },
+   {
+    "nome": "hin",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".hero h1,.hero p,.cta .btn,.gar",
+      "dur": 1.2,
+      "sf": false,
+      "curva": "cubic-bezier(.16,1,.3,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.2
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (1.2s)"
+    ]
+   },
+   {
+    "nome": "hlvIn",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#home .hlv",
+      "dur": 0.5,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.5
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "imgin",
+    "props": [
+     "opacity"
+    ],
+    "usos": [
+     {
+      "onde": ".pf",
+      "dur": 0.7,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.7
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (0.7s)",
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "iout",
+    "props": [
+     "opacity",
+     "visibility"
+    ],
+    "usos": [
+     {
+      "onde": "/* ideias 1-7 */\n#intro",
+      "dur": 0.8,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.8
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (0.8s)",
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "ipulse",
+    "props": [
+     "filter"
+    ],
+    "usos": [],
+    "nusos": 0,
+    "durs": [],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "EFEITO PESADO (filter)",
+     "SEM USO (apagar)"
+    ]
+   },
+   {
+    "nome": "iw1",
+    "props": [
+     "clip-path"
+    ],
+    "usos": [
+     {
+      "onde": ".ilogo .la",
+      "dur": 1.2,
+      "sf": false,
+      "curva": "cubic-bezier(.3,.7,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.2
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "EFEITO PESADO (clip-path)",
+     "LONGA (1.2s)"
+    ]
+   },
+   {
+    "nome": "iw2",
+    "props": [
+     "clip-path"
+    ],
+    "usos": [
+     {
+      "onde": ".ilogo .lb",
+      "dur": 1.0,
+      "sf": false,
+      "curva": "cubic-bezier(.3,.7,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.0
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "EFEITO PESADO (clip-path)",
+     "LONGA (1s)"
+    ]
+   },
+   {
+    "nome": "iw3",
+    "props": [
+     "opacity"
+    ],
+    "usos": [
+     {
+      "onde": ".ilogo .lc",
+      "dur": 0.8,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.8
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (0.8s)",
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "lfsoGrow",
+    "props": [
+     "border-radius",
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#sov.on .sopn",
+      "dur": 0.42,
+      "sf": false,
+      "curva": "cubic-bezier(.32,.72,0,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.42
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "lfsoIn",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#sov.on .sopn",
+      "dur": 0.3,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.3
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "lfsoInPc",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#sov.on .sopn",
+      "dur": 0.3,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.3
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "lfsoTx",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#sov.on .sopn>*",
+      "dur": 0.42,
+      "sf": false,
+      "curva": "cubic-bezier(.32,.72,0,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.42
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "navIn",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "html[data-nav]::view-transition-new(root)",
+      "dur": 0.6,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.6
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "navOut",
+    "props": [
+     "filter",
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "/* transição entre seções */\nhtml[data-nav]::view-transition-old(root)",
+      "dur": 0.28,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.28
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "EFEITO PESADO (filter)",
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "navPgIn",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "html .scrim.pg.navIn",
+      "dur": 0.38,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.38
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "navbIn",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".navb.ent",
+      "dur": 0.5,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     },
+     {
+      "onde": ".mobsearch .vback.ent",
+      "dur": 0.5,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     0.5
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "navbSeta",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".navb.ent svg",
+      "dur": 0.6,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.6
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "olho",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".pwo.on svg",
+      "dur": 0.35,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.35
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "pgin",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [],
+    "nusos": 0,
+    "durs": [],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "SEM USO (apagar)"
+    ]
+   },
+   {
+    "nome": "pgrise",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "g):not(.cmp):not(.try),html .scrim.pg>.panel,html .scrim.pg.acc>.panel",
+      "dur": 0.28,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.28
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "pisca",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "lf-site.js:3623",
+      "dur": 0.16,
+      "sf": false,
+      "curva": "ease-in-out",
+      "tipo": "js"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.16
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease-in-out)"
+    ]
+   },
+   {
+    "nome": "pkck",
+    "props": [
+     "stroke-dashoffset"
+    ],
+    "usos": [
+     {
+      "onde": "#pkok .pkc path",
+      "dur": 0.5,
+      "sf": false,
+      "curva": "cubic-bezier(.5,0,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.5
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "pkfi",
+    "props": [
+     "opacity"
+    ],
+    "usos": [
+     {
+      "onde": "#pkok",
+      "dur": 0.4,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.4
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "pkgl",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#pkok .pkc u",
+      "dur": 1.0,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.0
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "QUICA (cresce até 1.8× e volta)",
+     "LONGA (1s)",
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "pksp",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#pkok .pkc .pks",
+      "dur": 0.9,
+      "sf": true,
+      "curva": "linear",
+      "tipo": "css"
+     },
+     {
+      "onde": ".spn",
+      "dur": 0.9,
+      "sf": true,
+      "curva": "linear",
+      "tipo": "css"
+     },
+     {
+      "onde": "#prevld i",
+      "dur": 0.9,
+      "sf": true,
+      "curva": "linear",
+      "tipo": "css"
+     },
+     {
+      "onde": "lf-site.js:1678",
+      "dur": 0.9,
+      "sf": true,
+      "curva": "linear",
+      "tipo": "js"
+     }
+    ],
+    "nusos": 4,
+    "durs": [
+     0.9
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "pktm",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#pkok .pktm",
+      "dur": 1800.0,
+      "sf": false,
+      "curva": "linear",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1800.0
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (1.8e+03s)",
+     "CURVA PADRÃO (linear)"
+    ]
+   },
+   {
+    "nome": "pkup",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "</style><style id=\"s201\">.amwrap",
+      "dur": 0.5,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     },
+     {
+      "onde": "#pkok .pkcod",
+      "dur": 0.4,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     },
+     {
+      "onde": "#pkok .pkl",
+      "dur": 0.5,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     },
+     {
+      "onde": "#pkok h2",
+      "dur": 0.4,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     },
+     {
+      "onde": "#pkok .pkt",
+      "dur": 0.4,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     },
+     {
+      "onde": "#pkok .pkb",
+      "dur": 0.45,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 11,
+    "durs": [
+     0.4,
+     0.45,
+     0.5
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "pop",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".badge.pop",
+      "dur": 0.5,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     },
+     {
+      "onde": ".fav.on svg",
+      "dur": 0.5,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     0.5
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "QUICA (cresce até 1.7× e volta)",
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "ptrG",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#ptr5.gira svg",
+      "dur": 0.8,
+      "sf": true,
+      "curva": "linear",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.8
+    ],
+    "semfim": true,
+    "carga": true,
+    "falhas": []
+   },
+   {
+    "nome": "resp",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "lf-site.js:3617",
+      "dur": 2.6,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "js"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     2.6
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "reveal",
+    "props": [
+     "clip-path",
+     "opacity"
+    ],
+    "usos": [],
+    "nusos": 0,
+    "durs": [],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "EFEITO PESADO (clip-path)",
+     "SEM USO (apagar)"
+    ]
+   },
+   {
+    "nome": "rfl",
+    "props": [
+     "left"
+    ],
+    "usos": [
+     {
+      "onde": ".stage .rfl i",
+      "dur": 3.0,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     3.0
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "MEXE NO TAMANHO/POSIÇÃO (left)",
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "ring",
+    "props": [
+     "box-shadow"
+    ],
+    "usos": [
+     {
+      "onde": "/* flutuante */\n.wa",
+      "dur": 3.0,
+      "sf": true,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     3.0
+    ],
+    "semfim": true,
+    "carga": true,
+    "falhas": [
+     "EFEITO PESADO (box-shadow)"
+    ]
+   },
+   {
+    "nome": "rise",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#cmpbar",
+      "dur": 0.35,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     },
+     {
+      "onde": ".res",
+      "dur": 0.5,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     },
+     {
+      "onde": ".fares",
+      "dur": 0.4,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     },
+     {
+      "onde": ".card",
+      "dur": 0.6,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     },
+     {
+      "onde": ".modal",
+      "dur": 0.35,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     },
+     {
+      "onde": ".scrim.acc .panel",
+      "dur": 0.35,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 6,
+    "durs": [
+     0.35,
+     0.4,
+     0.5,
+     0.6
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "rsp",
+    "props": [
+     "scale",
+     "translate"
+    ],
+    "usos": [
+     {
+      "onde": ".stage[data-fx~=resp] img.pf",
+      "dur": 3.4,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     },
+     {
+      "onde": ".stage[data-fx~=resp] .sli.on",
+      "dur": 3.4,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     3.4
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "sg",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".seal",
+      "dur": 9.0,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     9.0
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "shd",
+    "props": [
+     "box-shadow"
+    ],
+    "usos": [
+     {
+      "onde": ".stage",
+      "dur": 1.6,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     },
+     {
+      "onde": ".stage[data-cx][data-fx~=cascata]",
+      "dur": 1.6,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     1.6
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "EFEITO PESADO (box-shadow)",
+     "LONGA (1.6s)",
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "shine",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".stage .shine,.ph .shine",
+      "dur": 4.5,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     },
+     {
+      "onde": "lf-site.js:1117",
+      "dur": 4.5,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "js"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     4.5
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "sin",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".stage",
+      "dur": 1.1,
+      "sf": false,
+      "curva": "cubic-bezier(.22,.9,.3,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.1
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (1.1s)"
+    ]
+   },
+   {
+    "nome": "slide",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".panel",
+      "dur": 0.3,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.3
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "sofd",
+    "props": [
+     "opacity"
+    ],
+    "usos": [
+     {
+      "onde": "#dsh .dsp.dspc",
+      "dur": 0.18,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     },
+     {
+      "onde": "#sov .sosc",
+      "dur": 0.25,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     },
+     {
+      "onde": "#dsh .dsc2",
+      "dur": 0.2,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     },
+     {
+      "onde": "#fvs .dsc2",
+      "dur": 0.2,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 4,
+    "durs": [
+     0.18,
+     0.2,
+     0.25
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "soin",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#sov .sopn",
+      "dur": 0.32,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.32
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "somb",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "lf-site.js:3619",
+      "dur": 2.6,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "js"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     2.6
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "spin",
+    "props": [
+     "transform"
+    ],
+    "usos": [],
+    "nusos": 0,
+    "durs": [],
+    "semfim": false,
+    "carga": true,
+    "falhas": [
+     "SEM USO (apagar)"
+    ]
+   },
+   {
+    "nome": "swap",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#theme.spin svg",
+      "dur": 0.6,
+      "sf": false,
+      "curva": "cubic-bezier(.3,1.4,.5,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.6
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA COM MOLA (cubic-bezier(.3,1.4,.5,1))"
+    ]
+   },
+   {
+    "nome": "tbeat",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".tring svg",
+      "dur": 1.4,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     },
+     {
+      "onde": ".tload span",
+      "dur": 1.4,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     1.4
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "tspin",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".tring i",
+      "dur": 1.0,
+      "sf": true,
+      "curva": "linear",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.0
+    ],
+    "semfim": true,
+    "carga": true,
+    "falhas": []
+   },
+   {
+    "nome": "ulinp",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".ulin i",
+      "dur": 1.6,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.6
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "wap",
+    "props": [
+     "box-shadow"
+    ],
+    "usos": [
+     {
+      "onde": ".wa",
+      "dur": 3.2,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     3.2
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "EFEITO PESADO (box-shadow)",
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "wap2",
+    "props": [
+     "opacity"
+    ],
+    "usos": [
+     {
+      "onde": ".stk.u::before",
+      "dur": 1.6,
+      "sf": true,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.6
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   }
+  ],
+  "tr": [
+   {
+    "onde": ".wa",
+    "prop": "opacity",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".wa",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".cfa .cfe i",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".cartp .btn",
+    "prop": "transform",
+    "dur": 0.12,
+    "curva": null
+   },
+   {
+    "onde": ".cartp .btn",
+    "prop": "background",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".cartp .btn",
+    "prop": "color",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".cartp .cs-c,.cartp .crl",
+    "prop": "color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".pgcr button",
+    "prop": "color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".dh .dm .dmi .pgact",
+    "prop": "color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".dh .dm .dmi .pgact",
+    "prop": "background",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".cartp .fvb",
+    "prop": "background",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".cartp .fvb",
+    "prop": "color",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".lfgen button",
+    "prop": "color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".lfgen button:after",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".lfgen .lfgf i",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "links com seta que anda */\nhtml.v5 #hdst .p1,.lfba",
+    "prop": "background",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "links com seta que anda */\nhtml.v5 #hdst .p1,.lfba",
+    "prop": "color",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "html.v5 #hdst .p2 i",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "#sov .socat button i",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "#como .ajm a i",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "#como .ajl i,#como .ajvc i",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "#atacado .atp button",
+    "prop": "all",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".atmo button",
+    "prop": "background",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".atmo button",
+    "prop": "color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": "#amov",
+    "prop": "opacity",
+    "dur": 0.3,
+    "curva": "ease"
+   },
+   {
+    "onde": ".amsc",
+    "prop": "transform",
+    "dur": 0.38,
+    "curva": "cubic-bezier(.2,.9,.3,1.2)"
+   },
+   {
+    "onde": ".bar #sbtn svg",
+    "prop": "color",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".bar #sbtn svg",
+    "prop": "filter",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".bar #sbtn svg",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "html body a.wa",
+    "prop": "width",
+    "dur": 0.32,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": "html body a.wa",
+    "prop": "height",
+    "dur": 0.32,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": "html body a.wa",
+    "prop": "right",
+    "dur": 0.32,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": "html body a.wa",
+    "prop": "border-radius",
+    "dur": 0.32,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": "html body a.wa",
+    "prop": "box-shadow",
+    "dur": 0.32,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": "html body a.wa",
+    "prop": "opacity",
+    "dur": 0.2,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": "html body a.wa svg",
+    "prop": "width",
+    "dur": 0.32,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": "html body a.wa svg",
+    "prop": "height",
+    "dur": 0.32,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": "html body a.wa svg",
+    "prop": "transform",
+    "dur": 0.32,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": "]):not(.on),a.btn:active,#grid .card:active,#home .hc:active",
+    "prop": "scale",
+    "dur": 0.08,
+    "curva": null
+   },
+   {
+    "onde": "o QR na entrada do teste da Mochi, só no computador */\n.lxqr",
+    "prop": "opacity",
+    "dur": 0.48,
+    "curva": null
+   },
+   {
+    "onde": "o QR na entrada do teste da Mochi, só no computador */\n.lxqr",
+    "prop": "transform",
+    "dur": 0.48,
+    "curva": null
+   },
+   {
+    "onde": ".lxqr",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": "if(fb)",
+    "prop": "opacity",
+    "dur": 0.5,
+    "curva": "ease"
+   },
+   {
+    "onde": ".cta .btn",
+    "prop": "transform",
+    "dur": 0.3,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": ".cta .btn",
+    "prop": "box-shadow",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".cta .btn",
+    "prop": "background",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".cta .btn",
+    "prop": "color",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".cta .ar",
+    "prop": "transform",
+    "dur": 0.3,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": ".cta .ar",
+    "prop": "background",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".rv",
+    "prop": "opacity",
+    "dur": 0.8,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": ".rv",
+    "prop": "transform",
+    "dur": 0.8,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": ".stage",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": "ease-out"
+   },
+   {
+    "onde": ".stage",
+    "prop": "box-shadow",
+    "dur": 0.4,
+    "curva": null
+   },
+   {
+    "onde": ".stage::after",
+    "prop": "opacity",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".card::after,.face::after",
+    "prop": "opacity",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".face",
+    "prop": "transform",
+    "dur": 0.35,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": ".face",
+    "prop": "border-color",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".face",
+    "prop": "box-shadow",
+    "dur": 0.35,
+    "curva": null
+   },
+   {
+    "onde": ".sec h2::after",
+    "prop": "width",
+    "dur": 1.0,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": ".top",
+    "prop": "box-shadow",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".top",
+    "prop": "background",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".nav a::after",
+    "prop": "transform",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".ib",
+    "prop": "transform",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".chip,.chips button",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "/* ideias extras */\n.card .fav",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".big>svg,.big>img",
+    "prop": "transform",
+    "dur": 0.35,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": ".big.dg>svg,.big.dg>img",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": ".ri",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".ri",
+    "prop": "border-color",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".faq details",
+    "prop": "border-color",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".faq summary::after",
+    "prop": "transform",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".ia",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".ia",
+    "prop": "border-color",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".ia",
+    "prop": "background",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".tl",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".tl",
+    "prop": "border-color",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".tl",
+    "prop": "background",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".bb",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".bb",
+    "prop": "box-shadow",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".card .alt2",
+    "prop": "opacity",
+    "dur": 0.35,
+    "curva": null
+   },
+   {
+    "onde": ".fc2 button",
+    "prop": "border-color",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".fc2 button",
+    "prop": "background",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".face",
+    "prop": "border-color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".face",
+    "prop": "transform",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".card",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": "ease"
+   },
+   {
+    "onde": ".card",
+    "prop": "box-shadow",
+    "dur": 0.25,
+    "curva": "ease"
+   },
+   {
+    "onde": ".ph svg",
+    "prop": "transform",
+    "dur": 0.35,
+    "curva": "ease"
+   },
+   {
+    "onde": ".tt,.tt *",
+    "prop": "background-color",
+    "dur": 0.6,
+    "curva": "ease"
+   },
+   {
+    "onde": ".tt,.tt *",
+    "prop": "color",
+    "dur": 0.6,
+    "curva": "ease"
+   },
+   {
+    "onde": ".tt,.tt *",
+    "prop": "border-color",
+    "dur": 0.6,
+    "curva": "ease"
+   },
+   {
+    "onde": ".tt,.tt *",
+    "prop": "box-shadow",
+    "dur": 0.6,
+    "curva": "ease"
+   },
+   {
+    "onde": "#theme svg",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": ".pf",
+    "prop": "transform",
+    "dur": 0.35,
+    "curva": "ease"
+   },
+   {
+    "onde": ".fac1 .go",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".camov",
+    "prop": "border-color",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".stage .sli",
+    "prop": "opacity",
+    "dur": 0.7,
+    "curva": "ease"
+   },
+   {
+    "onde": ".stage[data-sa=slide] .sli",
+    "prop": "transform",
+    "dur": 0.95,
+    "curva": "cubic-bezier(.45,.05,.25,1)"
+   },
+   {
+    "onde": ".stage[data-sa=slide] .sli",
+    "prop": "opacity",
+    "dur": 0.95,
+    "curva": "ease"
+   },
+   {
+    "onde": ".stage[data-sa=slide] .sli.nt",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": ".stage[data-sa=flip] .sli",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": ".stage[data-sa=zoom] .sli",
+    "prop": "opacity",
+    "dur": 0.7,
+    "curva": "ease"
+   },
+   {
+    "onde": ".stage[data-sa=zoom] .sli",
+    "prop": "transform",
+    "dur": 0.7,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": ".stage[data-sa=zoom] .sli.nt",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": ".stage[data-sa=circle] .sli",
+    "prop": "clip-path",
+    "dur": 0.8,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": ".stage[data-sa=circle] .sli.nt",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": ".stage[data-sa=pile] .sli",
+    "prop": "opacity",
+    "dur": 0.7,
+    "curva": "ease"
+   },
+   {
+    "onde": ".stage[data-sa=pile] .sli",
+    "prop": "transform",
+    "dur": 0.7,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": ".stage[data-sa=pile] .sli.nt",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": ".stage .dots button::before",
+    "prop": "width",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".stage .dots button::before",
+    "prop": "opacity",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": "#fsh .fsc",
+    "prop": "opacity",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "#fsh .fpn",
+    "prop": "transform",
+    "dur": 0.28,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": "#drw",
+    "prop": "visibility",
+    "dur": 0.0,
+    "curva": "linear"
+   },
+   {
+    "onde": "#drw.on",
+    "prop": "visibility",
+    "dur": 0.0,
+    "curva": null
+   },
+   {
+    "onde": "#drw .dsc",
+    "prop": "opacity",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "#drw .dpn",
+    "prop": "transform",
+    "dur": 0.28,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": "#drw nav a",
+    "prop": "background",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".cdb .cdv",
+    "prop": "transform",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".stage .tag",
+    "prop": "opacity",
+    "dur": 0.22,
+    "curva": "ease"
+   },
+   {
+    "onde": ".pwo",
+    "prop": "color",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".pwo",
+    "prop": "transform",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".pwo .sl",
+    "prop": "stroke-dashoffset",
+    "dur": 0.3,
+    "curva": "ease"
+   },
+   {
+    "onde": ".pwo .pp",
+    "prop": "transform",
+    "dur": 0.3,
+    "curva": "cubic-bezier(.3,1.6,.5,1)"
+   },
+   {
+    "onde": "/*/CONTA-COMPACTA*/\n/*ROSTO-CARROSSEL*/\n.fcar .face",
+    "prop": "border-color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": "/*/CONTA-COMPACTA*/\n/*ROSTO-CARROSSEL*/\n.fcar .face",
+    "prop": "transform",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": "/*/CONTA-COMPACTA*/\n/*ROSTO-CARROSSEL*/\n.fcar .face",
+    "prop": "opacity",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".dts i",
+    "prop": "width",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".dts i",
+    "prop": "background",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".fcar .face .go,.fcar .face.cur .go",
+    "prop": "background",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".fcar .face .go,.fcar .face.cur .go",
+    "prop": "color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": "ABECALHO-SEM-CIRCULO*/\n.bar #mnb,.bar #bagbtn,.bar #contabtn",
+    "prop": "background",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "ABECALHO-SEM-CIRCULO*/\n.bar #mnb,.bar #bagbtn,.bar #contabtn",
+    "prop": "box-shadow",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "ABECALHO-SEM-CIRCULO*/\n.bar #mnb,.bar #bagbtn,.bar #contabtn",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".bar #mnb svg,.bar #bagbtn svg,.bar #contabtn svg",
+    "prop": "color",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".bar #mnb svg,.bar #bagbtn svg,.bar #contabtn svg",
+    "prop": "filter",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".bar #mnb svg,.bar #bagbtn svg,.bar #contabtn svg",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".rem i",
+    "prop": "background",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".rem i",
+    "prop": "border-color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".crm",
+    "prop": "color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".crm",
+    "prop": "border-color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": "/*LOGIN-MINIMO*/\n.rem i",
+    "prop": "background",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".rem i::before",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".pgback",
+    "prop": "transform",
+    "dur": 0.18,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": ".pgback",
+    "prop": "background",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".pgback",
+    "prop": "border-color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".pgback",
+    "prop": "box-shadow",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".pgback svg",
+    "prop": "transform",
+    "dur": 0.22,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": ".cat .arr",
+    "prop": "color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".cat .arr svg",
+    "prop": "transform",
+    "dur": 0.35,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": ".cat .sub",
+    "prop": "max-height",
+    "dur": 0.45,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": ".dpn nav .sub a",
+    "prop": "opacity",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".dpn nav .sub a",
+    "prop": "transform",
+    "dur": 0.35,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": ".dpn nav .sub a",
+    "prop": "background",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".sub a::before",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".cat .sub,.cat .sub a,.cat .arr svg",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": "/*MENU-X*/\n.dhd .ib",
+    "prop": "color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": "/*MENU-FECHAR*/\n#drw:not(.on) .dpn",
+    "prop": "transform",
+    "dur": 0.34,
+    "curva": "cubic-bezier(.55,0,.8,.45)"
+   },
+   {
+    "onde": "#drw:not(.on) .dsc",
+    "prop": "opacity",
+    "dur": 0.32,
+    "curva": "ease-in"
+   },
+   {
+    "onde": "/*MENU-SUAVE*/\n.cat .arr svg",
+    "prop": "transform",
+    "dur": 0.5,
+    "curva": "cubic-bezier(.25,.8,.25,1)"
+   },
+   {
+    "onde": ".cat .arr",
+    "prop": "color",
+    "dur": 0.35,
+    "curva": "ease"
+   },
+   {
+    "onde": ".cat .sub",
+    "prop": "max-height",
+    "dur": 0.55,
+    "curva": "cubic-bezier(.25,.8,.25,1)"
+   },
+   {
+    "onde": ".dpn nav .sub a",
+    "prop": "opacity",
+    "dur": 0.45,
+    "curva": "ease"
+   },
+   {
+    "onde": ".dpn nav .sub a",
+    "prop": "transform",
+    "dur": 0.5,
+    "curva": "cubic-bezier(.25,.8,.25,1)"
+   },
+   {
+    "onde": ".dpn nav .sub a",
+    "prop": "background",
+    "dur": 0.35,
+    "curva": "ease"
+   },
+   {
+    "onde": ".sub a::before",
+    "prop": "transform",
+    "dur": 0.35,
+    "curva": "ease"
+   },
+   {
+    "onde": ".dpn nav .cat>a",
+    "prop": "background",
+    "dur": 0.35,
+    "curva": "ease"
+   },
+   {
+    "onde": "/*REDES-RODAPE*/\n.so",
+    "prop": "background",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": "/*REDES-RODAPE*/\n.so",
+    "prop": "color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": "/*REDES-RODAPE*/\n.so",
+    "prop": "transform",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": "/*REDES-RODAPE*/\n.so",
+    "prop": "border-color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": "#pkok .cdx i u",
+    "prop": "width",
+    "dur": 1.0,
+    "curva": "linear"
+   },
+   {
+    "onde": ".hd .hdi img,.hd .hdi svg",
+    "prop": "opacity",
+    "dur": 0.45,
+    "curva": null
+   },
+   {
+    "onde": ".hd .hdi img,.hd .hdi svg",
+    "prop": "transform",
+    "dur": 0.6,
+    "curva": null
+   },
+   {
+    "onde": "tml[data-ev] body,html[data-ev] .top,html[data-ev] #home .hd",
+    "prop": "background-color",
+    "dur": 0.8,
+    "curva": null
+   },
+   {
+    "onde": "B′): voltar no padrão do \"Ver todos ›\" */\n.pgback.navb,.navb",
+    "prop": "transform",
+    "dur": 0.14,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": "B′): voltar no padrão do \"Ver todos ›\" */\n.pgback.navb,.navb",
+    "prop": "opacity",
+    "dur": 0.14,
+    "curva": null
+   },
+   {
+    "onde": ".navb svg",
+    "prop": "transform",
+    "dur": 0.28,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": ".vtit",
+    "prop": "transform",
+    "dur": 0.14,
+    "curva": null
+   },
+   {
+    "onde": ".vtit",
+    "prop": "opacity",
+    "dur": 0.14,
+    "curva": null
+   },
+   {
+    "onde": ".vtit svg",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "#vcs .vcsc",
+    "prop": "opacity",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "#vcs .vcp",
+    "prop": "transform",
+    "dur": 0.38,
+    "curva": "cubic-bezier(.2,.9,.25,1)"
+   },
+   {
+    "onde": "#vcs .vcp",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": "#como .ajB",
+    "prop": "transform",
+    "dur": 0.3,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": "#como .ajB",
+    "prop": "color",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": "#como .ajB i",
+    "prop": "transform",
+    "dur": 0.45,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": "#como .ajC",
+    "prop": "grid-template-rows",
+    "dur": 0.45,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": "#como .ajIn",
+    "prop": "opacity",
+    "dur": 0.35,
+    "curva": "ease"
+   },
+   {
+    "onde": "#como .ajIn",
+    "prop": "transform",
+    "dur": 0.45,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": "#como .ajC,#como .ajIn,#como .ajB i",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": "#sov .srs button",
+    "prop": "background",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": "#sov .srv button",
+    "prop": "transform",
+    "dur": 0.3,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": "#vgr button",
+    "prop": "color",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "#vgr button",
+    "prop": "border-color",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "#vgr button",
+    "prop": "transform",
+    "dur": 0.3,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": "#home .hlv",
+    "prop": "transform",
+    "dur": 0.3,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": "#home .hc .hci img,#home .hcat .hci img,.srv img",
+    "prop": "opacity",
+    "dur": 0.22,
+    "curva": "ease"
+   },
+   {
+    "onde": "#grid .ph img.pf",
+    "prop": "opacity",
+    "dur": 0.22,
+    "curva": "ease"
+   },
+   {
+    "onde": "#grid .ph img.pf",
+    "prop": "transform",
+    "dur": 0.35,
+    "curva": "ease"
+   },
+   {
+    "onde": " maior, afunda ao tocar, anel na cor escolhida */\n.hc .hsw i",
+    "prop": "transform",
+    "dur": 0.14,
+    "curva": "ease"
+   },
+   {
+    "onde": " maior, afunda ao tocar, anel na cor escolhida */\n.hc .hsw i",
+    "prop": "box-shadow",
+    "dur": 0.2,
+    "curva": "ease"
+   },
+   {
+    "onde": "#grid .card .info .esw i",
+    "prop": "transform",
+    "dur": 0.14,
+    "curva": "ease"
+   },
+   {
+    "onde": "#grid .card .info .esw i",
+    "prop": "box-shadow",
+    "dur": 0.2,
+    "curva": "ease"
+   },
+   {
+    "onde": ".dgr .gb",
+    "prop": "border-color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".dgr .gb",
+    "prop": "transform",
+    "dur": 0.14,
+    "curva": null
+   },
+   {
+    "onde": "#gw .gzbar i",
+    "prop": "width",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "#gw .gztx",
+    "prop": "filter",
+    "dur": 0.35,
+    "curva": null
+   },
+   {
+    "onde": "#gw .gzpm",
+    "prop": "transform",
+    "dur": 0.14,
+    "curva": null
+   },
+   {
+    "onde": "#gw .gzgo",
+    "prop": "transform",
+    "dur": 0.14,
+    "curva": null
+   },
+   {
+    "onde": "#gw .gzbal",
+    "prop": "opacity",
+    "dur": 0.28,
+    "curva": null
+   },
+   {
+    "onde": "#gw .gzbal",
+    "prop": "transform",
+    "dur": 0.38,
+    "curva": "cubic-bezier(.3,1.5,.5,1)"
+   },
+   {
+    "onde": "#gw .gzfita",
+    "prop": "top",
+    "dur": 0.65,
+    "curva": "cubic-bezier(.3,1.35,.5,1)"
+   },
+   {
+    "onde": "#gw .gzl",
+    "prop": "font-size",
+    "dur": 0.6,
+    "curva": "cubic-bezier(.3,1.2,.4,1)"
+   },
+   {
+    "onde": "#gw .gzl span",
+    "prop": "background",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": "#gw .gzl span",
+    "prop": "color",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": "#gw .gzl b",
+    "prop": "opacity",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": "#gw .gzl b",
+    "prop": "transform",
+    "dur": 0.35,
+    "curva": "cubic-bezier(.3,1.8,.5,1)"
+   },
+   {
+    "onde": "#gw .gzfr",
+    "prop": "opacity",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": "o ele termina (toque antes fica guardado) */\n#gw .gzbt .gzgo",
+    "prop": "opacity",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "o ele termina (toque antes fica guardado) */\n#gw .gzbt .gzgo",
+    "prop": "transform",
+    "dur": 0.14,
+    "curva": null
+   },
+   {
+    "onde": "o ele termina (toque antes fica guardado) */\n#gw .gzbt .gzgo",
+    "prop": "box-shadow",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": "inha e o cartão pulsa enquanto ele explica */\n#gw .gzav.gzrv",
+    "prop": "margin-right",
+    "dur": 0.55,
+    "curva": "cubic-bezier(.3,.7,.2,1)"
+   },
+   {
+    "onde": "inha e o cartão pulsa enquanto ele explica */\n#gw .gzav.gzrv",
+    "prop": "border-color",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": "#gw .gzav p[data-r]",
+    "prop": "background",
+    "dur": 0.35,
+    "curva": null
+   },
+   {
+    "onde": "por tela, foco na apontada, lupa de uma frase */\n#gw .gzl.p3",
+    "prop": "font-size",
+    "dur": 0.6,
+    "curva": "cubic-bezier(.3,1.2,.4,1)"
+   },
+   {
+    "onde": "por tela, foco na apontada, lupa de uma frase */\n#gw .gzl.p3",
+    "prop": "opacity",
+    "dur": 0.35,
+    "curva": null
+   },
+   {
+    "onde": "#gw .gzl.p3",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": "#gw .gzav.gzrv",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": "#gw .gzfr.br .gzv:before",
+    "prop": "transform",
+    "dur": 0.9,
+    "curva": "ease-out"
+   },
+   {
+    "onde": " não chegou) · lupa larga com a frase no centro */\n#gw .gzvp",
+    "prop": "opacity",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": " não chegou) · lupa larga com a frase no centro */\n#gw .gzvp",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "deja de lentes de prova (só na fase das lentes) */\n#gw .gzbd",
+    "prop": "opacity",
+    "dur": 0.35,
+    "curva": null
+   },
+   {
+    "onde": "deja de lentes de prova (só na fase das lentes) */\n#gw .gzbd",
+    "prop": "transform",
+    "dur": 0.35,
+    "curva": null
+   },
+   {
+    "onde": "#gw .gzmi",
+    "prop": "transform",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": "#gw .gzmi",
+    "prop": "opacity",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": "#gw .gzmi",
+    "prop": "border-color",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": "#gw .gznt",
+    "prop": "opacity",
+    "dur": 0.35,
+    "curva": null
+   },
+   {
+    "onde": ".evfx",
+    "prop": "opacity",
+    "dur": 1.2,
+    "curva": null
+   },
+   {
+    "onde": "ot([data-ev=bf]) .hc,html[data-ev]:not([data-ev=bf]) .hcat a",
+    "prop": "border-color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": "ot([data-ev=bf]) .hc,html[data-ev]:not([data-ev=bf]) .hcat a",
+    "prop": "box-shadow",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": "spaço reservado), preços alinhados, toque leve */#layer .cfo",
+    "prop": "transform",
+    "dur": 0.12,
+    "curva": "ease"
+   },
+   {
+    "onde": "spaço reservado), preços alinhados, toque leve */#layer .cfo",
+    "prop": "background-color",
+    "dur": 0.18,
+    "curva": "ease"
+   },
+   {
+    "onde": "spaço reservado), preços alinhados, toque leve */#layer .cfo",
+    "prop": "border-color",
+    "dur": 0.18,
+    "curva": "ease"
+   },
+   {
+    "onde": "#layer .cfo,#layer .cfo.on::after",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": "var nw=function(la,ln)",
+    "prop": "opacity",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "var nw=function(la,ln)",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "yy++)",
+    "prop": "opacity",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "catch(_)",
+    "prop": "opacity",
+    "dur": 0.28,
+    "curva": "ease"
+   },
+   {
+    "onde": ".mochi .pup",
+    "prop": "transform",
+    "dur": 0.35,
+    "curva": "ease"
+   },
+   {
+    "onde": " .bW,.mochi .bO,.mochi .bF,.mochi .bH,.mochi .bY,.mochi .pon",
+    "prop": "opacity",
+    "dur": 0.22,
+    "curva": "ease"
+   }
+  ],
+  "js": {
+   "animate(": 48,
+   "requestAnimationFrame": 50,
+   "setInterval": 20,
+   "style.transition=": 25,
+   "style.animation=": 5
+  }
+ },
+ "app": {
+  "kf": [
+   {
+    "nome": "ajAnel",
+    "props": [
+     "border-bottom-color",
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ": anel cinza enche em volta do ícone (0,4 s) */\n.ajR.ajSeg .ajIc:after",
+      "dur": 0.25,
+      "sf": false,
+      "curva": "linear",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.25
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (linear)"
+    ]
+   },
+   {
+    "nome": "avBar",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".avdentro .adb",
+      "dur": 4.0,
+      "sf": false,
+      "curva": "linear",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     4.0
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (4s)",
+     "CURVA PADRÃO (linear)"
+    ]
+   },
+   {
+    "nome": "avDesce",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "/* ===== Cartão de aviso dentro do app ===== */\n.avdentro",
+      "dur": 0.45,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.45
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "avSobe",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".avdentro.sai",
+      "dur": 0.35,
+      "sf": false,
+      "curva": "ease-in",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.35
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease-in)"
+    ]
+   },
+   {
+    "nome": "bsPul",
+    "props": [
+     "box-shadow",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".bsolid.new .bi",
+      "dur": 1.4,
+      "sf": true,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.4
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "EFEITO PESADO (box-shadow)",
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "bsRing",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".ring.tocando2",
+      "dur": 0.7,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.7
+    ],
+    "semfim": false,
+    "carga": true,
+    "falhas": [
+     "BALANÇA (gira para os dois lados)",
+     "LONGA (0.7s)",
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "bsSpin",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lfa-spin",
+      "dur": 1.0,
+      "sf": true,
+      "curva": "linear",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.0
+    ],
+    "semfim": true,
+    "carga": true,
+    "falhas": []
+   },
+   {
+    "nome": "bump",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".bump",
+      "dur": 0.38,
+      "sf": false,
+      "curva": "var(--ease)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.38
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "camLeitura",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".bs:focus-within .ic.cam svg",
+      "dur": 1.1,
+      "sf": false,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.1
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (1.1s)",
+     "CURVA PADRÃO (ease-in-out)"
+    ]
+   },
+   {
+    "nome": "camflash",
+    "props": [
+     "opacity"
+    ],
+    "usos": [
+     {
+      "onde": ".lffl",
+      "dur": 0.35,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     },
+     {
+      "onde": "88-movimento.js:41",
+      "dur": 0.28,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "js"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     0.28,
+     0.35
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "cas",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".cascata .tl,.cascata .hero",
+      "dur": 0.5,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.5
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "cfEntra",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".cfRow.entra",
+      "dur": 0.45,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     },
+     {
+      "onde": ".edLixoBox",
+      "dur": 0.35,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     },
+     {
+      "onde": "ente achou caro — limite secreto e sugestões do pedido ===== */\n.vtLim",
+      "dur": 0.2,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 3,
+    "durs": [
+     0.2,
+     0.35,
+     0.45
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "cgBrilho",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".cg-par.top:after",
+      "dur": 0.9,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.9
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (0.9s)",
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "cgIn",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".cg-card",
+      "dur": 0.45,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.45
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "chkPop",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".chk.on svg",
+      "dur": 0.28,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.28
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "cjDesenha",
+    "props": [
+     "stroke-dashoffset"
+    ],
+    "usos": [
+     {
+      "onde": ".cjC.on .k",
+      "dur": 0.5,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.5
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "cxMenuIn",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "Retirar/Melhorias/Conferir em gaveta */\n.cxMenu",
+      "dur": 0.3,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.3
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "ebPop",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".ebCk",
+      "dur": 0.28,
+      "sf": false,
+      "curva": "cubic-bezier(.3,1.6,.5,1)",
+      "tipo": "css"
+     },
+     {
+      "onde": ".mkPi.ok .mkCk",
+      "dur": 0.28,
+      "sf": false,
+      "curva": "cubic-bezier(.3,1.6,.5,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     0.28
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA COM MOLA (cubic-bezier(.3,1.6,.5,1))"
+    ]
+   },
+   {
+    "nome": "edEntraD",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "10-estoque-detalhe.js:1356",
+      "dur": 0.32,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "js"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.32
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "edEntraE",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [],
+    "nusos": 0,
+    "durs": [],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "SEM USO (apagar)"
+    ]
+   },
+   {
+    "nome": "enche",
+    "props": [
+     "width"
+    ],
+    "usos": [
+     {
+      "onde": "[data-act=impdel].segura::after",
+      "dur": 0.9,
+      "sf": false,
+      "curva": "linear",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.9
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "MEXE NO TAMANHO/POSIÇÃO (width)",
+     "LONGA (0.9s)",
+     "CURVA PADRÃO (linear)"
+    ]
+   },
+   {
+    "nome": "enterUp",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".enter",
+      "dur": 0.26,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.26
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "fadein",
+    "props": [
+     "opacity"
+    ],
+    "usos": [
+     {
+      "onde": ".fadein",
+      "dur": 0.2,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     },
+     {
+      "onde": "#lockScr:not([hidden])",
+      "dur": 0.2,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     },
+     {
+      "onde": ".splitBk",
+      "dur": 0.22,
+      "sf": false,
+      "curva": "var(--ease)",
+      "tipo": "css"
+     },
+     {
+      "onde": "#splitRows .sl",
+      "dur": 0.35,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 4,
+    "durs": [
+     0.2,
+     0.22,
+     0.35
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "fantAnel",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".fantAnel",
+      "dur": 0.5,
+      "sf": false,
+      "curva": "linear",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.5
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "QUICA (cresce até 1.6× e volta)",
+     "CURVA PADRÃO (linear)"
+    ]
+   },
+   {
+    "nome": "fantIn",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".tl.fant",
+      "dur": 0.28,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.28
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "fbSobe",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#filtBox",
+      "dur": 0.32,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.9,.25,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.32
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "fichaGrow",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#detail.fichaIn .pbox",
+      "dur": 0.75,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.75
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (0.75s)"
+    ]
+   },
+   {
+    "nome": "fichaUp",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#detail.fichaIn .detgrid>.col:last-child>*",
+      "dur": 0.5,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.5
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "fjF",
+    "props": [
+     "opacity"
+    ],
+    "usos": [
+     {
+      "onde": ".fjBk.in",
+      "dur": 0.25,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.25
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "fjS",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".fjJn.in",
+      "dur": 0.32,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.32
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "growx",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#splitBar i",
+      "dur": 0.7,
+      "sf": false,
+      "curva": "var(--ease)",
+      "tipo": "css"
+     },
+     {
+      "onde": "#splitBar i",
+      "dur": 0.7,
+      "sf": false,
+      "curva": "var(--ease)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     0.7
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (0.7s)"
+    ]
+   },
+   {
+    "nome": "impG",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".impSp",
+      "dur": 0.9,
+      "sf": true,
+      "curva": "linear",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.9
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "impbar",
+    "props": [
+     "width"
+    ],
+    "usos": [
+     {
+      "onde": "#impOv .pb s",
+      "dur": 1.4,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.4
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "MEXE NO TAMANHO/POSIÇÃO (width)",
+     "LONGA (1.4s)",
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "impck",
+    "props": [
+     "stroke-dashoffset"
+    ],
+    "usos": [
+     {
+      "onde": "#impOv .ic path",
+      "dur": 0.45,
+      "sf": false,
+      "curva": "cubic-bezier(.5,0,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.45
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "impfi",
+    "props": [
+     "opacity"
+    ],
+    "usos": [
+     {
+      "onde": "#impOv",
+      "dur": 0.25,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.25
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "impgl",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#impOv .ic u",
+      "dur": 1.0,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.0
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "QUICA (cresce até 1.9× e volta)",
+     "LONGA (1s)",
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "impsh",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#impOv .er svg",
+      "dur": 0.45,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.45
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "TREME (vai e volta)",
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "impsp",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#impOv .sp",
+      "dur": 0.8,
+      "sf": true,
+      "curva": "linear",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.8
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "impup",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#impOv .bx",
+      "dur": 0.35,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.35
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "lfBrilha",
+    "props": [
+     "filter"
+    ],
+    "usos": [
+     {
+      "onde": ".mtBateu .bar i,.mtBateu [style*=\"background\"]",
+      "dur": 0.8,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.8
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "EFEITO PESADO (filter)",
+     "LONGA (0.8s)",
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "lfDesenha",
+    "props": [
+     "stroke-dashoffset"
+    ],
+    "usos": [
+     {
+      "onde": ".lfVazio svg path,.lfVazio svg circle,.lfVazio svg rect",
+      "dur": 1.0,
+      "sf": false,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.0
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (1s)",
+     "CURVA PADRÃO (ease-in-out)"
+    ]
+   },
+   {
+    "nome": "lfEntra",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".view.enter",
+      "dur": 0.2,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.2
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "lfEspIn",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lfEspCx",
+      "dur": 0.38,
+      "sf": false,
+      "curva": "cubic-bezier(.2,1.25,.35,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.38
+    ],
+    "semfim": false,
+    "carga": true,
+    "falhas": [
+     "CURVA COM MOLA (cubic-bezier(.2,1.25,.35,1))"
+    ]
+   },
+   {
+    "nome": "lfEspSai",
+    "props": [
+     "opacity"
+    ],
+    "usos": [
+     {
+      "onde": ".lfEspia.sai",
+      "dur": 0.2,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.2
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "lfGira",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#lfPuxa.gira",
+      "dur": 0.7,
+      "sf": true,
+      "curva": "linear",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.7
+    ],
+    "semfim": true,
+    "carga": true,
+    "falhas": []
+   },
+   {
+    "nome": "lfShm",
+    "props": [
+     "background-position"
+    ],
+    "usos": [
+     {
+      "onde": ".pbox:not(.lfOk)::after",
+      "dur": 1.2,
+      "sf": true,
+      "curva": "linear",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.2
+    ],
+    "semfim": true,
+    "carga": true,
+    "falhas": []
+   },
+   {
+    "nome": "lfSobe",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lfVazio b",
+      "dur": 0.45,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     },
+     {
+      "onde": ".lfVazio span",
+      "dur": 0.45,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     0.45
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "lfTopoIn",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "/* k: aviso do topo */\n.lfTopo",
+      "dur": 0.55,
+      "sf": false,
+      "curva": "cubic-bezier(.2,1.25,.35,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.55
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA COM MOLA (cubic-bezier(.2,1.25,.35,1))"
+    ]
+   },
+   {
+    "nome": "lfTopoInB",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".estBarra",
+      "dur": 0.4,
+      "sf": false,
+      "curva": "cubic-bezier(.2,1.25,.35,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.4
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA COM MOLA (cubic-bezier(.2,1.25,.35,1))"
+    ]
+   },
+   {
+    "nome": "lfTopoSai",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lfTopo.sai",
+      "dur": 0.3,
+      "sf": false,
+      "curva": "ease-in",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.3
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease-in)"
+    ]
+   },
+   {
+    "nome": "lfTopoSaiB",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".estBarra.sai",
+      "dur": 0.26,
+      "sf": false,
+      "curva": "ease-in",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.26
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease-in)"
+    ]
+   },
+   {
+    "nome": "lfaAmb",
+    "props": [
+     "box-shadow"
+    ],
+    "usos": [
+     {
+      "onde": ".lfa-amb",
+      "dur": 0.8,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.8
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "EFEITO PESADO (box-shadow)",
+     "LONGA (0.8s)",
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "lfaBot",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lfa-toast.b",
+      "dur": null,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "lfaBump",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lfa-bump",
+      "dur": 0.5,
+      "sf": false,
+      "curva": "cubic-bezier(.34,1.56,.64,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.5
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "QUICA (cresce até 1.4× e volta)",
+     "CURVA COM MOLA (cubic-bezier(.34,1.56,.64,1))"
+    ]
+   },
+   {
+    "nome": "lfaBurst",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lfa-lg.ok .rg",
+      "dur": 0.9,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.9
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (0.9s)",
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "lfaCd",
+    "props": [
+     "width"
+    ],
+    "usos": [
+     {
+      "onde": ".lfa-toast .cd",
+      "dur": 5.0,
+      "sf": false,
+      "curva": "linear",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     5.0
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "MEXE NO TAMANHO/POSIÇÃO (width)",
+     "LONGA (5s)",
+     "CURVA PADRÃO (linear)"
+    ]
+   },
+   {
+    "nome": "lfaCol",
+    "props": [
+     "margin",
+     "max-height",
+     "opacity",
+     "padding-bottom",
+     "padding-top"
+    ],
+    "usos": [
+     {
+      "onde": ".lfa-col",
+      "dur": 0.45,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.45
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "MEXE NO TAMANHO/POSIÇÃO (margin,max-height,padding-bottom)",
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "lfaDr",
+    "props": [
+     "stroke-dashoffset"
+    ],
+    "usos": [
+     {
+      "onde": ".lfa-dr path",
+      "dur": 0.5,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.5
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "lfaEq",
+    "props": [
+     "height"
+    ],
+    "usos": [
+     {
+      "onde": ".eq b",
+      "dur": 0.6,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.6
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "MEXE NO TAMANHO/POSIÇÃO (height)",
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "lfaExp",
+    "props": [
+     "max-height",
+     "opacity"
+    ],
+    "usos": [
+     {
+      "onde": ".lfa-exp",
+      "dur": 0.65,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.9,.3,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.65
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "MEXE NO TAMANHO/POSIÇÃO (max-height)",
+     "LONGA (0.65s)"
+    ]
+   },
+   {
+    "nome": "lfaFade",
+    "props": [
+     "opacity"
+    ],
+    "usos": [
+     {
+      "onde": ".lfa-ov",
+      "dur": 0.25,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     },
+     {
+      "onde": ".cxBack.on",
+      "dur": 0.25,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     },
+     {
+      "onde": ".lfEspia",
+      "dur": 0.2,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 3,
+    "durs": [
+     0.2,
+     0.25
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "lfaFadeO",
+    "props": [
+     "opacity"
+    ],
+    "usos": [
+     {
+      "onde": ".lfa-ov.sai",
+      "dur": 0.3,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     },
+     {
+      "onde": ".lfa-toast.sai",
+      "dur": 0.3,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     0.3
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "lfaFill",
+    "props": [
+     "width"
+    ],
+    "usos": [
+     {
+      "onde": ".lfa-fill",
+      "dur": 2.0,
+      "sf": false,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     2.0
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "MEXE NO TAMANHO/POSIÇÃO (width)",
+     "LONGA (2s)",
+     "CURVA PADRÃO (ease-in-out)"
+    ]
+   },
+   {
+    "nome": "lfaFl",
+    "props": [
+     "background",
+     "box-shadow"
+    ],
+    "usos": [
+     {
+      "onde": ".lfa-fl",
+      "dur": 1.5,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.5
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "EFEITO PESADO (box-shadow)",
+     "LONGA (1.5s)",
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "lfaIn",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "ividade, fotos): rápido, só opacidade/posição/tamanho ===== */\n.lfa-in",
+      "dur": 0.5,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.9,.3,1)",
+      "tipo": "css"
+     },
+     {
+      "onde": ".lfa-full .lfa-sh",
+      "dur": 0.35,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     0.35,
+     0.5
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "lfaPop",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lfa-pop",
+      "dur": 0.45,
+      "sf": false,
+      "curva": "cubic-bezier(.34,1.56,.64,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.45
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA COM MOLA (cubic-bezier(.34,1.56,.64,1))"
+    ]
+   },
+   {
+    "nome": "lfaRg",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lfa-lg .rg",
+      "dur": 1.8,
+      "sf": true,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.8
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "lfaSDn",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lfa-ov.sai .lfa-sh",
+      "dur": 0.35,
+      "sf": false,
+      "curva": "ease-in",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.35
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease-in)"
+    ]
+   },
+   {
+    "nome": "lfaSUp",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lfa-sh",
+      "dur": 0.5,
+      "sf": false,
+      "curva": "cubic-bezier(.34,1.25,.5,1)",
+      "tipo": "css"
+     },
+     {
+      "onde": ".cxAcao.on",
+      "dur": 0.45,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     0.45,
+     0.5
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA COM MOLA (cubic-bezier(.34,1.25,.5,1))"
+    ]
+   },
+   {
+    "nome": "lfaShk",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lfa-shk",
+      "dur": 0.55,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.55
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "TREME (vai e volta)",
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "lfaSlr",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lfa-slr",
+      "dur": 0.5,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.9,.3,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.5
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "lfaSpin",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lfa-sp",
+      "dur": 1.7,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.7
+    ],
+    "semfim": true,
+    "carga": true,
+    "falhas": []
+   },
+   {
+    "nome": "lfaTop",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lfa-toast",
+      "dur": 0.4,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.9,.3,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.4
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "lfbandown",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lfban.nova",
+      "dur": 0.5,
+      "sf": false,
+      "curva": "cubic-bezier(.2,1.2,.3,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.5
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA COM MOLA (cubic-bezier(.2,1.2,.3,1))"
+    ]
+   },
+   {
+    "nome": "lfbar",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".vcf.cont .vpb i",
+      "dur": 3.0,
+      "sf": false,
+      "curva": "linear",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     3.0
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (3s)",
+     "CURVA PADRÃO (linear)"
+    ]
+   },
+   {
+    "nome": "lfcp",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".vcc.done .vck",
+      "dur": 0.55,
+      "sf": false,
+      "curva": "cubic-bezier(.2,1.7,.3,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.55
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA COM MOLA (cubic-bezier(.2,1.7,.3,1))"
+    ]
+   },
+   {
+    "nome": "lfd60",
+    "props": [
+     "stroke-dashoffset"
+    ],
+    "usos": [
+     {
+      "onde": ".vcc.done .vck path",
+      "dur": 0.5,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.5
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "lfdr",
+    "props": [
+     "stroke-dashoffset"
+    ],
+    "usos": [
+     {
+      "onde": ".lfban.nova .lfck circle",
+      "dur": 0.5,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     },
+     {
+      "onde": ".lfban.nova .lfck path",
+      "dur": 0.35,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     0.35,
+     0.5
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "lfdraw",
+    "props": [
+     "stroke-dashoffset"
+    ],
+    "usos": [
+     {
+      "onde": ".lfallok path",
+      "dur": 0.6,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.6
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "lfgl",
+    "props": [
+     "box-shadow"
+    ],
+    "usos": [
+     {
+      "onde": ".vcc.done .vck",
+      "dur": 1.6,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.6
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "EFEITO PESADO (box-shadow)",
+     "LONGA (1.6s)",
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "lfglowk",
+    "props": [
+     "border-color",
+     "box-shadow"
+    ],
+    "usos": [
+     {
+      "onde": ".lfglow",
+      "dur": 0.9,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.9
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "EFEITO PESADO (box-shadow)",
+     "LONGA (0.9s)",
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "lfi1",
+    "props": [
+     "clip-path"
+    ],
+    "usos": [
+     {
+      "onde": "#lfIntro .la",
+      "dur": 1.2,
+      "sf": false,
+      "curva": "cubic-bezier(.3,.7,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.2
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "EFEITO PESADO (clip-path)",
+     "LONGA (1.2s)"
+    ]
+   },
+   {
+    "nome": "lfi2",
+    "props": [
+     "clip-path"
+    ],
+    "usos": [
+     {
+      "onde": "#lfIntro .lb",
+      "dur": 1.0,
+      "sf": false,
+      "curva": "cubic-bezier(.3,.7,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.0
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "EFEITO PESADO (clip-path)",
+     "LONGA (1s)"
+    ]
+   },
+   {
+    "nome": "lfi3",
+    "props": [
+     "opacity"
+    ],
+    "usos": [
+     {
+      "onde": "#lfIntro .lc",
+      "dur": 0.8,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.8
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (0.8s)",
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "lfiOut",
+    "props": [
+     "opacity",
+     "visibility"
+    ],
+    "usos": [
+     {
+      "onde": "f=\"icon-192.png\">\n<title>LaFouch</title>\n\n<style id=\"lfiCss\">\n#lfIntro",
+      "dur": 0.8,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.8
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (0.8s)",
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "lfl",
+    "props": [
+     "color",
+     "opacity",
+     "text-shadow",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lfbig span",
+      "dur": 1.0,
+      "sf": false,
+      "curva": "cubic-bezier(.2,1.6,.3,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.0
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "QUICA (cresce até 1.1× e volta)",
+     "LONGA (1s)",
+     "CURVA COM MOLA (cubic-bezier(.2,1.6,.3,1))"
+    ]
+   },
+   {
+    "nome": "lfm",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lfmed",
+      "dur": 0.45,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.45
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "lfpl",
+    "props": [
+     "box-shadow"
+    ],
+    "usos": [
+     {
+      "onde": "#lfSitePv .lv i",
+      "dur": 1.2,
+      "sf": true,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.2
+    ],
+    "semfim": true,
+    "carga": true,
+    "falhas": [
+     "EFEITO PESADO (box-shadow)"
+    ]
+   },
+   {
+    "nome": "lfpop",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lfok.on",
+      "dur": 0.45,
+      "sf": false,
+      "curva": "cubic-bezier(.2,1.8,.3,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.45
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA COM MOLA (cubic-bezier(.2,1.8,.3,1))"
+    ]
+   },
+   {
+    "nome": "lfrg",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lfrg",
+      "dur": 0.9,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.9
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (0.9s)",
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "lfrot",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".vspn",
+      "dur": 0.8,
+      "sf": true,
+      "curva": "linear",
+      "tipo": "css"
+     },
+     {
+      "onde": ".vsp2",
+      "dur": 0.7,
+      "sf": true,
+      "curva": "linear",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     0.7,
+     0.8
+    ],
+    "semfim": true,
+    "carga": true,
+    "falhas": []
+   },
+   {
+    "nome": "lfshine",
+    "props": [
+     "left"
+    ],
+    "usos": [
+     {
+      "onde": ".bar.lfp i.sh:after",
+      "dur": 0.9,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.9
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "MEXE NO TAMANHO/POSIÇÃO (left)",
+     "LONGA (0.9s)",
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "lfshk",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lfshake",
+      "dur": 0.5,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.5
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "TREME (vai e volta)",
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "lfsw",
+    "props": [
+     "left"
+    ],
+    "usos": [
+     {
+      "onde": ".lfl",
+      "dur": 1.5,
+      "sf": true,
+      "curva": "cubic-bezier(.45,0,.55,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.5
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "MEXE NO TAMANHO/POSIÇÃO (left)",
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "lfup",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lfallok",
+      "dur": 0.5,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.9,.3,1)",
+      "tipo": "css"
+     },
+     {
+      "onde": ".vst.on",
+      "dur": 0.55,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.9,.3,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     0.5,
+     0.55
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "lfwv",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#edSiteBtn.lfwave:after",
+      "dur": 1.0,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.0
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "QUICA (cresce até 2.4× e volta)",
+     "LONGA (1s)",
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "lixoTampa",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#edLixeira.on svg",
+      "dur": 1.3,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.3
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (1.3s)",
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "lsIn",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lsList",
+      "dur": 0.18,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.18
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "mcIn",
+    "props": [
+     "opacity",
+     "scale"
+    ],
+    "usos": [
+     {
+      "onde": "m transform e faziam a janela pular) */\nbody.modoCli.mcAberto #vDetail",
+      "dur": 0.24,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.24
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "mlAnel",
+    "props": [
+     "stroke-dashoffset"
+    ],
+    "usos": [
+     {
+      "onde": "#mlWrap .brand.mcSeg .mlAnel circle",
+      "dur": 5.0,
+      "sf": false,
+      "curva": "linear",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     5.0
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (5s)",
+     "CURVA PADRÃO (linear)"
+    ]
+   },
+   {
+    "nome": "msgpop",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".msgpop",
+      "dur": 0.28,
+      "sf": false,
+      "curva": "var(--ease)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.28
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "nvGira",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".nvSp",
+      "dur": 0.75,
+      "sf": true,
+      "curva": "linear",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.75
+    ],
+    "semfim": true,
+    "carga": true,
+    "falhas": []
+   },
+   {
+    "nome": "nvPede",
+    "props": [
+     "box-shadow"
+    ],
+    "usos": [
+     {
+      "onde": ".nvBtn.ask",
+      "dur": 1.3,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.3
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "EFEITO PESADO (box-shadow)",
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
+    "nome": "nvPula",
+    "props": [
+     "box-shadow",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".nvBtn.ok",
+      "dur": 0.6,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.6
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "EFEITO PESADO (box-shadow)",
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "nvTraco",
+    "props": [
+     "stroke-dashoffset"
+    ],
+    "usos": [
+     {
+      "onde": ".nvCk path",
+      "dur": 0.45,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.45
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "nvVarre",
+    "props": [
+     "left"
+    ],
+    "usos": [
+     {
+      "onde": ".nvBtn.busy::after",
+      "dur": 1.15,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.15
+    ],
+    "semfim": true,
+    "carga": true,
+    "falhas": [
+     "MEXE NO TAMANHO/POSIÇÃO (left)"
+    ]
+   },
+   {
+    "nome": "nvokp",
+    "props": [
+     "box-shadow"
+    ],
+    "usos": [
+     {
+      "onde": ".nvf.okp",
+      "dur": 0.9,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.9
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "EFEITO PESADO (box-shadow)",
+     "LONGA (0.9s)",
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "ofMola",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#ofModal .ofModal",
+      "dur": 0.8,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.9,.3,1)",
+      "tipo": "css"
+     },
+     {
+      "onde": "#edLixoAviso",
+      "dur": 0.7,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.9,.3,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     0.7,
+     0.8
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (0.8s)"
+    ]
+   },
+   {
+    "nome": "ofPulso",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".ofChips .chip.on",
+      "dur": 0.45,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.45
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "QUICA (cresce até 1.2× e volta)",
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "okb",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".okflash",
+      "dur": 0.35,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.35
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "okdraw",
+    "props": [
+     "stroke-dashoffset"
+    ],
+    "usos": [
+     {
+      "onde": ".okck path",
+      "dur": 0.45,
+      "sf": false,
+      "curva": "var(--ease)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.45
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "okpop",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".okck",
+      "dur": 0.45,
+      "sf": false,
+      "curva": "var(--ease)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.45
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "QUICA (cresce até 1.1× e volta)"
+    ]
+   },
+   {
+    "nome": "pdFade",
+    "props": [
+     "opacity"
+    ],
+    "usos": [
+     {
+      "onde": ".pdOv",
+      "dur": 0.2,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.2
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "pdIn",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".pdCard",
+      "dur": 0.35,
+      "sf": false,
+      "curva": "ease",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.35
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "pdSobe",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".pdSh",
+      "dur": 0.3,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.3
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "pdTokIn",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".pdTok",
+      "dur": 0.55,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.55
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "pdTrema",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".pdKey.erra",
+      "dur": 0.4,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.4
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "popin",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".popin",
+      "dur": 0.26,
+      "sf": false,
+      "curva": "var(--ease)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.26
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "pulinho",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "98-botoes-anim.js:69",
+      "dur": 0.45,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "js"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.45
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "QUICA (cresce até 1.2× e volta)"
+    ]
+   },
+   {
+    "nome": "pulinho2",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".sino.toca i",
+      "dur": 0.4,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.4
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "QUICA (cresce até 1.1× e volta)",
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "pulinhoN",
+    "props": [
+     "transform"
+    ],
+    "usos": [],
+    "nusos": 0,
+    "durs": [],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "QUICA (cresce até 1.3× e volta)",
+     "SEM USO (apagar)"
+    ]
+   },
+   {
+    "nome": "qphIn",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "ço tracejado onde o botão vai entrar (barra e Início) */\n#mainnav .qph",
+      "dur": 0.22,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     },
+     {
+      "onde": "#v-inicio .tl.qphT",
+      "dur": 0.22,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     0.22
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "ripa",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".rip",
+      "dur": 0.6,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.6
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "shBrilho",
+    "props": [
+     "box-shadow"
+    ],
+    "usos": [
+     {
+      "onde": ".shA.pri .shI",
+      "dur": 1.2,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.2
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "EFEITO PESADO (box-shadow)",
+     "LONGA (1.2s)",
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "shSobe",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".shAp.in .shA",
+      "dur": 0.45,
+      "sf": false,
+      "curva": "cubic-bezier(.2,1.3,.4,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.45
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA COM MOLA (cubic-bezier(.2,1.3,.4,1))"
+    ]
+   },
+   {
+    "nome": "shVoa",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".shA.voa .shI",
+      "dur": 0.4,
+      "sf": false,
+      "curva": "cubic-bezier(.5,0,.7,.4)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.4
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "siteLuz",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".siteSpk",
+      "dur": 1.0,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.0
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (1s)",
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "siteOnda",
+    "props": [
+     "box-shadow"
+    ],
+    "usos": [
+     {
+      "onde": ".siteWave",
+      "dur": 0.8,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.8
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "EFEITO PESADO (box-shadow)",
+     "LONGA (0.8s)",
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
+    "nome": "slideInL",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".slideL",
+      "dur": 0.38,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.38
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "slideInR",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".slideR",
+      "dur": 0.38,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.38
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "spinr",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".spinr",
+      "dur": 0.8,
+      "sf": true,
+      "curva": "linear",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.8
+    ],
+    "semfim": true,
+    "carga": true,
+    "falhas": []
+   },
+   {
+    "nome": "splitUp",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#splitCard:not([hidden])",
+      "dur": 0.4,
+      "sf": false,
+      "curva": "var(--ease)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.4
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "tabIn",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".tabchip",
+      "dur": 0.28,
+      "sf": false,
+      "curva": null,
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.28
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "CURVA PADRÃO (ease)"
+    ]
+   },
+   {
+    "nome": "telaSobe",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [],
+    "nusos": 0,
+    "durs": [],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "SEM USO (apagar)"
+    ]
+   },
+   {
+    "nome": "toca",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".sino.toca",
+      "dur": 0.7,
+      "sf": false,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.7
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "BALANÇA (gira para os dois lados)",
+     "LONGA (0.7s)",
+     "CURVA PADRÃO (ease-in-out)"
+    ]
+   },
+   {
+    "nome": "vlAbre",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".vlSub",
+      "dur": 0.3,
+      "sf": false,
+      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.3
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "wob",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".twrap .tl",
+      "dur": 0.5,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.5
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   }
+  ],
+  "tr": [
+   {
+    "onde": ".dragging",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": ".mn .mi",
+    "prop": "transform",
+    "dur": 0.2,
+    "curva": "var(--ease)"
+   },
+   {
+    "onde": ".trash",
+    "prop": "color",
+    "dur": 0.12,
+    "curva": null
+   },
+   {
+    "onde": ".trash",
+    "prop": "opacity",
+    "dur": 0.12,
+    "curva": null
+   },
+   {
+    "onde": ".trash",
+    "prop": "background",
+    "dur": 0.12,
+    "curva": null
+   },
+   {
+    "onde": "button,.pcard,.chip,.tab,.mini,.go,.step,.mn",
+    "prop": "background-color",
+    "dur": 0.18,
+    "curva": "var(--ease)"
+   },
+   {
+    "onde": "button,.pcard,.chip,.tab,.mini,.go,.step,.mn",
+    "prop": "border-color",
+    "dur": 0.18,
+    "curva": "var(--ease)"
+   },
+   {
+    "onde": "button,.pcard,.chip,.tab,.mini,.go,.step,.mn",
+    "prop": "color",
+    "dur": 0.18,
+    "curva": "var(--ease)"
+   },
+   {
+    "onde": "button,.pcard,.chip,.tab,.mini,.go,.step,.mn",
+    "prop": "transform",
+    "dur": 0.14,
+    "curva": "var(--ease)"
+   },
+   {
+    "onde": "button,.pcard,.chip,.tab,.mini,.go,.step,.mn",
+    "prop": "box-shadow",
+    "dur": 0.2,
+    "curva": "var(--ease)"
+   },
+   {
+    "onde": "button,.pcard,.chip,.tab,.mini,.go,.step,.mn",
+    "prop": "opacity",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": "#lockScr.sai",
+    "prop": "opacity",
+    "dur": 0.2,
+    "curva": "ease-in"
+   },
+   {
+    "onde": ".sw i",
+    "prop": "background",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".sw i::after",
+    "prop": "transform",
+    "dur": 0.2,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": ".qghost",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": "#qchip",
+    "prop": "opacity",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".zsw:after",
+    "prop": "left",
+    "dur": 0.15,
+    "curva": null
+   },
+   {
+    "onde": ".lfc",
+    "prop": "border-color",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".lfc",
+    "prop": "transform",
+    "dur": 0.5,
+    "curva": "cubic-bezier(.2,1.2,.3,1)"
+   },
+   {
+    "onde": ".bar.lfp.done i",
+    "prop": "background",
+    "dur": 0.6,
+    "curva": null
+   },
+   {
+    "onde": "#lfSitePv",
+    "prop": "transform",
+    "dur": 0.7,
+    "curva": "cubic-bezier(.2,1,.3,1)"
+   },
+   {
+    "onde": "#lfSitePv",
+    "prop": "opacity",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": "/* venda confirmada (v13) */\n#notaOv",
+    "prop": "opacity",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".vx",
+    "prop": "opacity",
+    "dur": 0.4,
+    "curva": null
+   },
+   {
+    "onde": ".vspn",
+    "prop": "opacity",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".vspn",
+    "prop": "transform",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "#lfToast",
+    "prop": "transform",
+    "dur": 0.5,
+    "curva": "cubic-bezier(.2,1.2,.3,1)"
+   },
+   {
+    "onde": "#lfToast",
+    "prop": "opacity",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".nvf",
+    "prop": "border-color",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".nvf",
+    "prop": "box-shadow",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".nvtg",
+    "prop": "background",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".nvtg i",
+    "prop": "left",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".fmCard.sel",
+    "prop": "border-color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".fmCard.sel",
+    "prop": "box-shadow",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".fmChip,.fmG",
+    "prop": "background",
+    "dur": 0.15,
+    "curva": null
+   },
+   {
+    "onde": ".fmChip,.fmG",
+    "prop": "transform",
+    "dur": 0.1,
+    "curva": null
+   },
+   {
+    "onde": ".cpBar i",
+    "prop": "width",
+    "dur": 0.5,
+    "curva": null
+   },
+   {
+    "onde": " apertar os botões */\nbutton,.btn,.chip,.tab,.go,.mini,.step",
+    "prop": "transform",
+    "dur": 0.12,
+    "curva": "ease"
+   },
+   {
+    "onde": " apertar os botões */\nbutton,.btn,.chip,.tab,.go,.mini,.step",
+    "prop": "box-shadow",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": " apertar os botões */\nbutton,.btn,.chip,.tab,.go,.mini,.step",
+    "prop": "background-color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": " apertar os botões */\nbutton,.btn,.chip,.tab,.go,.mini,.step",
+    "prop": "border-color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": " apertar os botões */\nbutton,.btn,.chip,.tab,.go,.mini,.step",
+    "prop": "filter",
+    "dur": 0.15,
+    "curva": null
+   },
+   {
+    "onde": ".ofChips .chip",
+    "prop": "transform",
+    "dur": 0.18,
+    "curva": null
+   },
+   {
+    "onde": ".ofChips .chip",
+    "prop": "background",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".ofChips .chip",
+    "prop": "border-color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".ofSt",
+    "prop": "border-color",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".ofSt",
+    "prop": "color",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": "/*NVBTN*/\n.nvBtn",
+    "prop": "background",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "/*NVBTN*/\n.nvBtn",
+    "prop": "box-shadow",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "/*NVBTN*/\n.nvBtn",
+    "prop": "transform",
+    "dur": 0.12,
+    "curva": null
+   },
+   {
+    "onde": ".pdProg i",
+    "prop": "width",
+    "dur": 0.6,
+    "curva": null
+   },
+   {
+    "onde": ".pdStep:after",
+    "prop": "width",
+    "dur": 0.5,
+    "curva": null
+   },
+   {
+    "onde": ".lfa-cnt i",
+    "prop": "width",
+    "dur": 0.6,
+    "curva": "ease"
+   },
+   {
+    "onde": "artões, botões cheios (bsolid), faixa do silêncio */\n.avcard",
+    "prop": "opacity",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".bsolid",
+    "prop": "transform",
+    "dur": 0.12,
+    "curva": null
+   },
+   {
+    "onde": "/* botão da faixa de atualização */\n.updbtn",
+    "prop": "transform",
+    "dur": 0.12,
+    "curva": null
+   },
+   {
+    "onde": "ipal, secundário, perigo, desligado) ===== */\n.go,.mini,.btn",
+    "prop": "transform",
+    "dur": 0.12,
+    "curva": null
+   },
+   {
+    "onde": "ipal, secundário, perigo, desligado) ===== */\n.go,.mini,.btn",
+    "prop": "box-shadow",
+    "dur": 0.12,
+    "curva": null
+   },
+   {
+    "onde": "ipal, secundário, perigo, desligado) ===== */\n.go,.mini,.btn",
+    "prop": "filter",
+    "dur": 0.15,
+    "curva": null
+   },
+   {
+    "onde": ".chip",
+    "prop": "background-color",
+    "dur": 0.15,
+    "curva": null
+   },
+   {
+    "onde": ".chip",
+    "prop": "border-color",
+    "dur": 0.15,
+    "curva": null
+   },
+   {
+    "onde": ".chip",
+    "prop": "color",
+    "dur": 0.15,
+    "curva": null
+   },
+   {
+    "onde": ".chip",
+    "prop": "transform",
+    "dur": 0.12,
+    "curva": null
+   },
+   {
+    "onde": ".vprog-b i",
+    "prop": "width",
+    "dur": 0.35,
+    "curva": null
+   },
+   {
+    "onde": ".vprog-b i",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": ".tmseg button",
+    "prop": "background",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".tmseg button",
+    "prop": "color",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".tt,.tt *",
+    "prop": "background-color",
+    "dur": 0.6,
+    "curva": "ease"
+   },
+   {
+    "onde": ".tt,.tt *",
+    "prop": "color",
+    "dur": 0.6,
+    "curva": "ease"
+   },
+   {
+    "onde": ".tt,.tt *",
+    "prop": "border-color",
+    "dur": 0.6,
+    "curva": "ease"
+   },
+   {
+    "onde": ".tt,.tt *",
+    "prop": "box-shadow",
+    "dur": 0.6,
+    "curva": "ease"
+   },
+   {
+    "onde": ".chk",
+    "prop": "background",
+    "dur": 0.28,
+    "curva": null
+   },
+   {
+    "onde": ".chk",
+    "prop": "border-color",
+    "dur": 0.28,
+    "curva": null
+   },
+   {
+    "onde": ".chk",
+    "prop": "transform",
+    "dur": 0.14,
+    "curva": null
+   },
+   {
+    "onde": "#lfDesf",
+    "prop": "transform",
+    "dur": 0.45,
+    "curva": null
+   },
+   {
+    "onde": "#lfDesf",
+    "prop": "opacity",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".cdel",
+    "prop": "transform",
+    "dur": 0.28,
+    "curva": null
+   },
+   {
+    "onde": ".cdel",
+    "prop": "opacity",
+    "dur": 0.28,
+    "curva": null
+   },
+   {
+    "onde": ".cdel",
+    "prop": "max-height",
+    "dur": 0.28,
+    "curva": null
+   },
+   {
+    "onde": " lixeira, trocar de lugar e botões ocultos (v407) */\n#inLixo",
+    "prop": "transform",
+    "dur": 0.45,
+    "curva": null
+   },
+   {
+    "onde": " lixeira, trocar de lugar e botões ocultos (v407) */\n#inLixo",
+    "prop": "opacity",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": " lixeira, trocar de lugar e botões ocultos (v407) */\n#inLixo",
+    "prop": "background",
+    "dur": 0.14,
+    "curva": null
+   },
+   {
+    "onde": " lixeira, trocar de lugar e botões ocultos (v407) */\n#inLixo",
+    "prop": "box-shadow",
+    "dur": 0.14,
+    "curva": null
+   },
+   {
+    "onde": "#inLixo svg path:last-child",
+    "prop": "transform",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": "usca larga, linha de baixo e seletor Varejo | Atacado */\n.bs",
+    "prop": "box-shadow",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "usca larga, linha de baixo e seletor Varejo | Atacado */\n.bs",
+    "prop": "border-color",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".chip",
+    "prop": "background-color",
+    "dur": 0.22,
+    "curva": null
+   },
+   {
+    "onde": ".chip",
+    "prop": "border-color",
+    "dur": 0.22,
+    "curva": null
+   },
+   {
+    "onde": ".chip",
+    "prop": "color",
+    "dur": 0.22,
+    "curva": null
+   },
+   {
+    "onde": ".chip",
+    "prop": "transform",
+    "dur": 0.18,
+    "curva": "ease"
+   },
+   {
+    "onde": ".cliNac .cb3",
+    "prop": "background",
+    "dur": 0.28,
+    "curva": null
+   },
+   {
+    "onde": ".cliNac .cb3",
+    "prop": "color",
+    "dur": 0.28,
+    "curva": null
+   },
+   {
+    "onde": ".cliNac .cb3",
+    "prop": "box-shadow",
+    "dur": 0.28,
+    "curva": null
+   },
+   {
+    "onde": ".docL",
+    "prop": "opacity",
+    "dur": 0.16,
+    "curva": null
+   },
+   {
+    "onde": ".docL",
+    "prop": "transform",
+    "dur": 0.16,
+    "curva": null
+   },
+   {
+    "onde": ".nfTg",
+    "prop": "background",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".nfTg",
+    "prop": "box-shadow",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".nfTg i",
+    "prop": "transform",
+    "dur": 0.28,
+    "curva": null
+   },
+   {
+    "onde": ".nfTg,.nfTg i",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": ".trkTh",
+    "prop": "transform",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".trkTh",
+    "prop": "width",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".trkB",
+    "prop": "color",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".trkTh",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": ".mtx",
+    "prop": "color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".mtx",
+    "prop": "border-color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".edLixo .tampa",
+    "prop": "transform",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".edLixo .tampa",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": ".ajIc",
+    "prop": "background",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".ajIc",
+    "prop": "color",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".ajCh",
+    "prop": "transform",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".ajB",
+    "prop": "grid-template-rows",
+    "dur": 0.32,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": ".ajBi",
+    "prop": "opacity",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".ajGrp.arr .ajS",
+    "prop": "transform",
+    "dur": 0.22,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": ".ajB,.ajCh,.ajBi,.ajGrp.arr .ajS",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": ".ajS:not(.on) .ajBi",
+    "prop": "opacity",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".ajS:not(.on) .ajBi",
+    "prop": "visibility",
+    "dur": 0.0,
+    "curva": null
+   },
+   {
+    "onde": "cores abrem logo abaixo) ===== */\n#vRows.vlist .pcard.vlb",
+    "prop": "border-color",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "cores abrem logo abaixo) ===== */\n#vRows.vlist .pcard.vlb",
+    "prop": "background",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".vlCh",
+    "prop": "transform",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": ".vlCh",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": ".obIt",
+    "prop": "transform",
+    "dur": 0.15,
+    "curva": null
+   },
+   {
+    "onde": ".obIt",
+    "prop": "box-shadow",
+    "dur": 0.15,
+    "curva": null
+   },
+   {
+    "onde": ".fjBk.sai",
+    "prop": "opacity",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".fjJn.sai",
+    "prop": "transform",
+    "dur": 0.22,
+    "curva": "ease-in"
+   },
+   {
+    "onde": ".cjDot",
+    "prop": "transform",
+    "dur": 0.35,
+    "curva": "cubic-bezier(.3,1.8,.5,1)"
+   },
+   {
+    "onde": ".cjOdo>span",
+    "prop": "transform",
+    "dur": 0.35,
+    "curva": "cubic-bezier(.3,1.3,.5,1)"
+   },
+   {
+    "onde": ".ljBk.anim",
+    "prop": "opacity",
+    "dur": 0.32,
+    "curva": null
+   },
+   {
+    "onde": ".ljJn.anim",
+    "prop": "transform",
+    "dur": 0.4,
+    "curva": "cubic-bezier(.2,1.25,.4,1)"
+   },
+   {
+    "onde": ".cjDot,.cjOdo>span",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": ".scSw",
+    "prop": "background",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".scSw::after",
+    "prop": "left",
+    "dur": 0.25,
+    "curva": "cubic-bezier(.3,1.5,.5,1)"
+   },
+   {
+    "onde": "/* v427 · Enviar bonito */\n#vRows .pcard.ebOn",
+    "prop": "transform",
+    "dur": 0.18,
+    "curva": null
+   },
+   {
+    "onde": ".ebBar",
+    "prop": "transform",
+    "dur": 0.32,
+    "curva": "cubic-bezier(.3,1.3,.5,1)"
+   },
+   {
+    "onde": ".ebPc span",
+    "prop": "transform",
+    "dur": 0.15,
+    "curva": null
+   },
+   {
+    "onde": ".ebDot",
+    "prop": "opacity",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".ebDot",
+    "prop": "transform",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".lcBar i",
+    "prop": "width",
+    "dur": 0.4,
+    "curva": null
+   },
+   {
+    "onde": ".fpOk svg",
+    "prop": "stroke",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".fpCh i",
+    "prop": "background",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": ".mkCk",
+    "prop": "background",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".mkCk",
+    "prop": "border-color",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".ecSh i",
+    "prop": "transform",
+    "dur": 0.12,
+    "curva": null
+   },
+   {
+    "onde": "modo cliente (iPad da loja) */\nbody.modoCli .logo-top .brand",
+    "prop": "transform",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": "body.modoCli.mcAberto #vListCard",
+    "prop": "filter",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "mini,.btn,.btn-sc,.chip,.tl,.mn,.pdB1,.bsolid,.tab,.trkB,.ib",
+    "prop": "transform",
+    "dur": 0.32,
+    "curva": "cubic-bezier(.2,1.25,.35,1)"
+   },
+   {
+    "onde": "mini,.btn,.btn-sc,.chip,.tl,.mn,.pdB1,.bsolid,.tab,.trkB,.ib",
+    "prop": "background-color",
+    "dur": 0.18,
+    "curva": null
+   },
+   {
+    "onde": "mini,.btn,.btn-sc,.chip,.tl,.mn,.pdB1,.bsolid,.tab,.trkB,.ib",
+    "prop": "border-color",
+    "dur": 0.18,
+    "curva": null
+   },
+   {
+    "onde": "mini,.btn,.btn-sc,.chip,.tl,.mn,.pdB1,.bsolid,.tab,.trkB,.ib",
+    "prop": "color",
+    "dur": 0.18,
+    "curva": null
+   },
+   {
+    "onde": ".pbox img",
+    "prop": "opacity",
+    "dur": 0.45,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": ".pbox img",
+    "prop": "transform",
+    "dur": 0.45,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": "/* i: espiar */\n.lfAperta",
+    "prop": "transform",
+    "dur": 0.45,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": ".ecSh.auto::before",
+    "prop": "background",
+    "dur": 0.3,
+    "curva": null
+   },
+   {
+    "onde": "#kCont .lbl,#kCont .hint",
+    "prop": "color",
+    "dur": 0.35,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": "#kCont b",
+    "prop": "transform",
+    "dur": 0.14,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": "us de leitura: botão redondo + folha (grade sóbria) */\n.gbtn",
+    "prop": "transform",
+    "dur": 0.14,
+    "curva": null
+   },
+   {
+    "onde": "#grFolha .gcell",
+    "prop": "background",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": ".grRepo",
+    "prop": "transform",
+    "dur": 0.14,
+    "curva": null
+   },
+   {
+    "onde": "/* aviso de preços */\n.invFix",
+    "prop": "transform",
+    "dur": 0.14,
+    "curva": null
+   },
+   {
+    "onde": "#mlWrap .mlAnel",
+    "prop": "opacity",
+    "dur": 0.2,
+    "curva": null
+   },
+   {
+    "onde": " .mini:not(.ghost),.view .btn-sc.p,.view #btnAdd,.view .gBtn",
+    "prop": "transform",
+    "dur": 0.08,
+    "curva": "ease-out"
+   },
+   {
+    "onde": " .mini:not(.ghost),.view .btn-sc.p,.view #btnAdd,.view .gBtn",
+    "prop": "background-color",
+    "dur": 0.08,
+    "curva": "ease-out"
+   },
+   {
+    "onde": "var sk = btn('chip', opts.skipTxt || 'Pular', function ()",
+    "prop": "opacity",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "ACT.updgo = function ()",
+    "prop": "width",
+    "dur": 1.3,
+    "curva": "ease"
+   },
+   {
+    "onde": "div class=\"lfa-chips\">' +\n      ATV_FILTROS.map(function (c)",
+    "prop": "background",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": "div class=\"lfa-chips\">' +\n      ATV_FILTROS.map(function (c)",
+    "prop": "border-color",
+    "dur": 0.25,
+    "curva": null
+   },
+   {
+    "onde": " reforçada (digitar ESVAZIAR)\n  ACT.fotolixvaz = function ()",
+    "prop": "opacity",
+    "dur": 0.3,
+    "curva": null
+   }
+  ],
+  "js": {
+   "animate(": 49,
+   "requestAnimationFrame": 42,
+   "setInterval": 40,
+   "style.transition=": 45,
+   "style.animation=": 9
+  }
+ }
+}
