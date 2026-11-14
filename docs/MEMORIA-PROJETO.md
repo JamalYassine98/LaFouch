@@ -2435,3 +2435,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - NÃO SEI (só o teste real mostra): se o e-mail do banco vem assinado (DKIM/DMARC) — se não vier, a função recusa e eu preciso do "Mostrar original" do aviso; se o aviso de transferência vinda de dentro do próprio Familiar/Eko tem o mesmo formato (o robô aceita qualquer aviso desse remetente com "RECIBIDA" e "Monto: PYG").
 - Depois que funcionar: tirar o filtro do Itaú no Gmail pessoal.
 - Nota técnica: o plugin de privacidade recusa comandos que citam o arquivo principal das funções (tem o e-mail do dono); ler com a ferramenta de leitura, não pelo terminal.
+
+### S293 · 14/11/2026 11:42 · Vídeos do prato (4 testes do dono) — análise, nada implementado
+- Vídeos ficam fora do projeto (/tmp/giro_in). Todos 1080×1920 EM PÉ, 30 quadros/s. …49: óculos girando 1 volta em 43 s, perto (prato cortado dos lados e embaixo), arquivo comprimido (2,5 Mb/s; os outros 8–20 Mb/s). …51: prato vazio muito perto. …52: câmera mudou de distância no meio. …53: longe (tenda inteira, costuras, lâmpada e cabo no quadro).
+- Medido: fundo perto = liso (variação 2 em 255); longe = variação 13 (bordas da tenda entram). Brilho do fundo muda entre vídeos (176 / 202 / 187) = exposição automática.
+- RESPOSTA ao dono (perto ou longe?): meio-termo — prato inteiro com pouca folga e só o branco da tenda atrás; celular DEITADO; exposição e foco travados; não mexer a câmera entre o prato vazio e as peças; mandar o arquivo original. Falta o dono regravar assim para eu começar o bloco 4.
