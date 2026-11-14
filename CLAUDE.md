@@ -13,7 +13,7 @@
   - APK: gh api -X POST repos/JamalYassine98/LaFouch/actions/workflows/build-apk.yml/dispatches -f ref=main
   - Windows: gh api -X POST repos/JamalYassine98/LaFouch/actions/workflows/build-windows.yml/dispatches -f ref=main
   - `gh workflow run` e GraphQL são bloqueados; usar o comando acima. Conferir com `gh run list`.
-- Subir a versão do cache em www/sw.js (lafouch-vNNN) a cada release.
+- Subir a versão do cache em www/sw.js (lafouch-vNNN) a cada release. JUNTO, atualizar docs/novidades.json ("nome" = versão que o dono vê, "build" = o mesmo NNN, "notas" = o que mudou) — sem isso o app atualiza mas continua mostrando o nome antigo (bug de 13/11/2026: ficou preso em 5.9.0 da v501 à v506).
 - DESIGNER/PORTEIRO (13/11/2026): testar TODAS as condições antes de esboço ou publicação: SITE = tema claro + todas as temáticas (o site não tem tema escuro); APP = claro e escuro; as 3 letras, celular/tablet/PC até 2560, logado/deslogado, com e sem biometria, contraste do texto.
 - REGRA DE OURO (04/11/2026): sempre esboço primeiro (INCLUSIVE correção de bug); implementar só quando o dono avisar; guardar o aprovado em docs/MEMORIA-PROJETO.md; entregar EXATAMENTE o esboço aprovado, sem mudanças não pedidas.
 

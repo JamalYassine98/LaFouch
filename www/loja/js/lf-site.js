@@ -4019,8 +4019,16 @@ function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpo
       conteudo('<div class="gzeb">'+T('DESCUBRA O SEU GRAU')+'</div><h2>'+T('Descubra o grau do seu óculos de leitura em 1 minuto')+'</h2>'+
         '<div class="gzav gzrv" id="gzav"><p data-r="0">'+T('Serve só para ler de perto.')+'</p><p data-r="1"><b>'+T('Não funciona')+'</b> '+T('para miopia, astigmatismo ou multifocal.')+'</p><p class="mu" data-r="2">'+T('Não substitui a consulta.')+'</p></div>'+
         '<button type="button" class="gzgo" data-gz="comeca" id="gzcom">'+T('Começar')+'</button>');
+      qrPc();
       setTimeout(function(){if(!Z.m)return;entra();setTimeout(function(){Z.m&&Z.m.acena()},RM.matches?0:950);
         fala(T('Oi! Eu sou Mochi.')+' '+T('Vou te ajudar a achar o grau do seu óculos de leitura.'),function(){if(!Z.m||Z.fase!=='intro'||Z.vaiCom)return;Z.m.cara('n');Z.ti=setTimeout(aviso,450)})},360)}
+    /* S238 (14/11, aprovado): no computador (mouse, 900 px ou mais) a tela de entrada mostra um cartão com código QR — o teste sai melhor no celular, mas dá para seguir aqui */
+    function ehPc(){try{return matchMedia('(hover:hover) and (pointer:fine)').matches&&innerWidth>=900}catch(_){return false}}
+    function qrPc(){if(!ehPc())return;var b=q('#gzcom');if(!b||q('.lxqr'))return;
+      var d=document.createElement('div');d.className='lxqr';d.innerHTML='<span class="t"><b>'+T('Melhor no celular')+'</b><small>'+T('Aponte a câmera do celular para este código e continue lá.')+'</small><small class="m2">'+T('Ou toque em Começar para fazer neste computador.')+'</small></span><span class="q" aria-hidden="true"></span>';
+      b.insertAdjacentElement('afterend',d);
+      var poe=function(){var e=d.querySelector('.q');if(!e||!window.LFqr){d.remove();return}e.innerHTML=window.LFqr.svg(location.href.split('#')[0]);setTimeout(function(){d.classList.add('on')},RM.matches?0:900)};
+      if(window.LFqr){poe();return}var sc=document.createElement('script');sc.src='lfx/qr.js';sc.onload=poe;sc.onerror=function(){d.remove()};document.head.appendChild(sc)}
     function naIntro(){return !!(Z.m&&Z.fase==='intro'&&!Z.vaiCom)}
     /* ponta do dedo do ponteiro em relação ao canto do Mochi (px), com ele virado para a esquerda: braço no ângulo a (graus), haste com len */
     function ponta(a,len){var k=L.k,r=60.7+len,c=Math.cos(a*Math.PI/180),n=Math.sin(a*Math.PI/180),u=98+r*c+3.2*n,v=92+r*n-3.2*c;return [(120-u+6)*k,(v-24)*k]}
@@ -4055,7 +4063,9 @@ function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpo
       vaiA('intro',RM.matches?'ja':'pula');lay();
       if(!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)){semCam();return}
       var pq;try{pq=navigator.permissions.query({name:'camera'}).then(function(r){return r.state},function(){return 'prompt'})}catch(_){pq=Promise.resolve('prompt')}
-      pq.then(function(st){if(!Z.el||Z.fase!=='cam')return;if(st==='granted'){prep();return}if(st==='denied'){semCam();return}
+      /* S238: se o aparelho não tem nenhuma câmera, não pergunta — segue direto sem câmera */
+      var tc;try{tc=navigator.mediaDevices.enumerateDevices().then(function(d){return d.some(function(x){return x.kind==='videoinput'})},function(){return true})}catch(_){tc=Promise.resolve(true)}
+      Promise.all([pq,tc]).then(function(rr){var st=rr[0];if(!Z.el||Z.fase!=='cam')return;if(st==='granted'){prep();return}if(st==='denied'||!rr[1]){semCam();return}
         conteudo('<div class="gzav gzcam"><p><b>📷 '+T('Câmera só para medir a distância')+'</b></p><p class="mu">'+T('Nada é gravado nem enviado.')+'</p></div>'+
           '<button type="button" class="gzgo" data-gz="camsim">'+T('Usar a câmera')+'</button><button type="button" class="gzgo o" data-gz="camnao">'+T('Fazer sem câmera')+'</button>');
         fala(T('Posso usar a câmera?')+' '+T('É só para medir a distância do celular até o seu rosto.')+' '+T('Nada é gravado.')+' '+T('Se preferir, a gente faz sem.'),function(){if(Z.m&&Z.fase==='cam'&&!Z.escolheu)Z.m.ocioso=true})})}

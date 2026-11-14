@@ -2310,17 +2310,10 @@ html.mlOn,html.mlOn body{overflow:hidden}
  .view>.top{padding-right:70px}
 }
 
-/* 14/11 S233 (aprovado, esboço S228): chave Vender / Cuidar do estoque no topo do Catálogo e do Inventário */
-.pcSeg{display:flex;background:color-mix(in srgb,var(--line) 55%,transparent);border-radius:14px;padding:4px;gap:4px;margin:2px 0 14px;max-width:520px}
-.pcSeg[hidden]{display:none}
-.pcSeg button{flex:1;min-height:44px;border:0;border-radius:11px;background:transparent;font:600 15px Inter,system-ui,sans-serif;color:var(--muted,#6b5a66);cursor:pointer;transition:background .2s cubic-bezier(.2,.8,.2,1),color .2s cubic-bezier(.2,.8,.2,1)}
-.pcSeg button.on{background:var(--panel);color:#8d3a69;box-shadow:0 1px 4px rgba(0,0,0,.12)}
-
 /* 14/11 S234: fora do computador o resto do menu não aparece; letra mínima de 12 px nos textos medidos como menores */
 #railX{display:none}
 @media (min-width:1100px) and (hover:hover) and (pointer:fine){#railX{display:flex}}
 .view .lbl,.view .tp,.view .pSin,.view small,.view th,.view .cxLb,.view .ajVer{font-size:12px}
-.pcSeg.gaSeg button{font-size:14px;padding:0 6px}
 
 /* 14/11 S237 (aprovado, esboço S228): Clientes — um botão principal e as três ações de atacado numa fileira só, do mesmo tamanho */
 #v-clientes .top{flex-wrap:wrap}

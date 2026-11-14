@@ -153,3 +153,8 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 ## Clientes em fileira e Pendências (S237, 14/11/2026)
 - Clientes (`src/96-clientes.js` l.213 + bloco "S237" do `style.css`): "+ Novo cliente" é o botão principal; "Acesso atacado", "Lotes" e "Cartões" (sem emoji; mesmas ações `ataNovo`, `ataLotes`, `cupAbre`) ficam numa fileira só. São AÇÕES que abrem janela, não abas.
 - A tela `notif` chama-se "Pendências" (título, atalho do Início, nome em `40-formatos-venda.js` e `aria-label` do sino). O cartão do Guardião no Início continua com o nome Guardião (ele confere; o resultado aparece em Pendências). Juntar a lista do Guardião dentro de Pendências ainda NÃO foi feito.
+
+## RETIRADOS em 13/11/2026 (dono reprovou): chave Vender/Cuidar (S233) e abas entre telas irmãs (S236)
+- Motivo do dono: faziam a mesma coisa que juntar os atalhos num GRUPO da barra (função que já existe: segurar um atalho sobre outro → grupo com abas no topo, `src/95-barra-grupos.js`) e ficavam feios. Eram um segundo mecanismo para a mesma coisa (regra anti-lixo: nunca ter 2).
+- Os módulos `97v-produtos-chave-s233.js` e `97x-abas-grupos-s236.js` e o CSS `.pcSeg` foram apagados. NÃO propor de novo fileira de abas/chave para trocar entre telas: para isso existem os grupos.
+- Antes de desenhar qualquer navegação nova no app: conferir os GRUPOS e o acesso rápido da barra (personalizável, máx. 5).

@@ -1098,9 +1098,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 506;
+  var APP_BUILD = 507;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.9.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.10.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -44850,54 +44850,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     x.font = '400 30px Inter, Arial'; x.fillStyle = '#aaa'; x.fillText('Galería Jebai Center · Ciudad del Este', 80, 1810);
     return cv;
   }
-  // ===== S233 (14/11/2026, esboço S228 aprovado): Produtos — chave "Vender / Cuidar do estoque" no topo do Catálogo e do Inventário =====
-  // Primeiro passo da fusão Catálogo + Inventário: a mesma chave nas duas telas troca de uma para a outra (desliza para o lado).
-  // Não aparece no modo cliente (iPad da loja) nem na tela do WhatsApp do catálogo.
-  function pcChave() {
-    [['vendas', 'Vender'], ['estoque', 'Cuidar do estoque']].forEach(function (p) {
-      var v = $('v-' + p[0]);
-      if (!v) return;
-      var seg = v.querySelector('.pcSeg');
-      if (S.view !== p[0] || S.modoCli || (p[0] === 'vendas' && S.catOpen)) {
-        if (seg) seg.hidden = true;
-        return;
-      }
-      var top = v.querySelector('.top');
-      if (!top) return;
-      if (!seg) {
-        seg = document.createElement('div');
-        seg.className = 'pcSeg';
-        seg.setAttribute('role', 'group');
-        seg.setAttribute('aria-label', 'Produtos: vender ou cuidar do estoque');
-        [['vendas', 'Vender'], ['estoque', 'Cuidar do estoque']].forEach(function (t) {
-          var b = document.createElement('button');
-          b.type = 'button';
-          b.setAttribute('data-pc', t[0]);
-          b.textContent = t[1];
-          b.addEventListener('click', function () {
-            if (S.view === t[0]) return;
-            window.__slide = t[0] === 'estoque' ? 1 : -1;
-            S.catOpen = false;
-            setView(t[0]);
-          });
-          seg.appendChild(b);
-        });
-      }
-      if (seg.previousElementSibling !== top) top.parentNode.insertBefore(seg, top.nextSibling);
-      seg.hidden = false;
-      [].forEach.call(seg.children, function (b) {
-        var on = b.getAttribute('data-pc') === p[0];
-        b.classList.toggle('on', on);
-        b.setAttribute('aria-pressed', on ? 'true' : 'false');
-      });
-    });
-  }
-  var _renderPc = render;
-  render = function () {
-    var r = _renderPc.apply(this, arguments);
-    try { pcChave(); } catch (e) {}
-    return r;
-  };
   // ===== S189 (aprovado 12/11/2026): GUARDIÃO DO APP =====
   // Confere os dados no próprio aparelho, sem internet e sem mandar nada para fora (ao abrir, 08:00, ao fechar o caixa e
   // depois de sincronizar = sempre que o Início é desenhado). No Início: 1 cartão só com o que precisa do dono + botão;
@@ -45042,61 +44994,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   render = function () {
     var r = _renderRx.apply(this, arguments);
     try { rxMonta(); } catch (e) {}
-    return r;
-  };
-  // ===== S236 (14/11/2026, esboço S228 aprovado; barra de baixo continua personalizável por decisão do dono) =====
-  // Telas que respondem à mesma pergunta ganham a mesma fileira de abas no topo e trocam entre si:
-  //   Dinheiro = Caixa · Contas a pagar · Câmbio      Vendas = Hoje · Histórico · Números      Site = Pedidos · Loja
-  // Nenhuma tela some e a barra de baixo não muda; é só um caminho mais curto entre telas irmãs.
-  var GA_GRUPOS = [
-    { nome: 'Dinheiro', ids: ['caixa', 'desp', 'fx'], rot: ['Caixa', 'Contas a pagar', 'Câmbio'] },
-    { nome: 'Vendas', ids: ['dia', 'hist', 'dash'], rot: ['Hoje', 'Histórico', 'Números'] },
-    { nome: 'Site', ids: ['ped', 'onl'], rot: ['Pedidos', 'Loja'] }
-  ];
-  function gaAbas() {
-    GA_GRUPOS.forEach(function (g) {
-      g.ids.forEach(function (id, i) {
-        var v = $('v-' + id);
-        if (!v) return;
-        var seg = v.querySelector('.gaSeg');
-        if (S.view !== id || S.modoCli) {
-          if (seg) seg.hidden = true;
-          return;
-        }
-        if (!seg) {
-          seg = document.createElement('div');
-          seg.className = 'pcSeg gaSeg';
-          seg.setAttribute('role', 'group');
-          seg.setAttribute('aria-label', g.nome);
-          g.ids.forEach(function (alvo, k) {
-            var b = document.createElement('button');
-            b.type = 'button';
-            b.setAttribute('data-ga', alvo);
-            b.textContent = g.rot[k];
-            b.addEventListener('click', function () {
-              if (S.view === alvo) return;
-              window.__slide = g.ids.indexOf(alvo) > g.ids.indexOf(S.view) ? 1 : -1;
-              setView(alvo);
-            });
-            seg.appendChild(b);
-          });
-        }
-        var top = v.querySelector(':scope > .top');
-        if (top) { if (seg.previousElementSibling !== top) v.insertBefore(seg, top.nextSibling); }
-        else if (v.firstElementChild !== seg) v.insertBefore(seg, v.firstChild);
-        seg.hidden = false;
-        [].forEach.call(seg.children, function (b) {
-          var on = b.getAttribute('data-ga') === id;
-          b.classList.toggle('on', on);
-          b.setAttribute('aria-pressed', on ? 'true' : 'false');
-        });
-      });
-    });
-  }
-  var _renderGa = render;
-  render = function () {
-    var r = _renderGa.apply(this, arguments);
-    try { gaAbas(); } catch (e) {}
     return r;
   };
   // ===== S192 (aprovado 12/11/2026): transportadoras do Delivery do site =====

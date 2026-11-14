@@ -20,6 +20,8 @@ let NOV = {};
 try { NOV = JSON.parse(fs.readFileSync(NOTAS_F, 'utf8')); } catch (e) {}
 if (Array.isArray(NOV)) NOV = { notas: NOV };
 const NOME = String(NOV.nome || BUILD);
+// 13/11/2026 (bug do dono: 'a versão trava na 5.9.0'): o nome e as novidades vêm de docs/novidades.json e são manuais. Se o número do sw.js subiu e o arquivo não, avisa bem alto.
+if (NOV.build !== BUILD) console.warn('\n*** ATENÇÃO: docs/novidades.json é da versão ' + (NOV.build || '?') + ' e o sw.js está na ' + BUILD + '. Atualize "nome", "build" e "notas" — senão o app continua mostrando ' + NOME + ' ***\n');
 const NOTAS = NOV.notas || [];
 const saida = '(function () {\n' + corpo.replace('__APP_BUILD__', BUILD).replace('__APP_NOME__', NOME) + '})();\n';
 const IDX = path.join(__dirname, 'www', 'index.html');
