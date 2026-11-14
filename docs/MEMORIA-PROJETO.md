@@ -2391,3 +2391,9 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Decisões minhas dentro da regra do dono: "descrição" = nome da peça (`S.pnome`); a primeira nomeação automática não é guardada; preço à mão é comparado pela base em dólar para o câmbio não gerar linhas.
 - Testes 292/292 (1 teste novo). Simulador, celular claro e escuro: guardar 4 tipos de mudança, restaurar custo/nome/preço, recusar estoque, sobreviver a recarregar, 0 erros. Corrigi depois de olhar a tela: o "‹ Todas as mudanças" saía como botão vinho e as setas não alinhavam — esse acerto de CSS entrou sem novo olhar.
 - Não testado: celular real; tablet/PC; como ficam os degraus com dias de uso de verdade (só existe 1 dia de dados no simulador); sincronização entre aparelhos gerando linhas.
+
+### S286 · 14/11/2026 · site lote 3: busca de luxo PUBLICADA; sacola PARADA no porteiro
+- Busca (S252): cresce a partir da lupa e volta para ela. Detalhes em `docs/SITE-COMO-FUNCIONA.md` (lote 3). Simulador 390/820/1366/2560: posição igual à de antes, olho igual, trava liga/desliga, abre-fecha-abre rápido, tocar num resultado abre a peça, 0 erros.
+- Sacola (S252, entra inteira da direita 0,46 s / sai 0,3 s): feita e testada no simulador (mesma posição final, olho igual, voltar do celular, 0 erros), mas o porteiro deu 3 falhas "nasce fora do lugar" (regra de 13/11, criada pelo defeito da busca torta). A regra e o vídeo aprovado se contradizem → NÃO publiquei nem mexi na regra. Guardado em `work/s286/busca+sacola.patch` e `work/s286/sacola_teste.py`. PERGUNTA AO DONO: liberar no porteiro a entrada pela direita só para a sacola?
+- Não testado: celular real, iPhone, temáticas, abas da conta (precisa de conta logada).
+- Falta do site: sacola (decisão acima), abas da conta, troca de tela e janelas; itens 16, 19, 21, 22 de 13/11.
