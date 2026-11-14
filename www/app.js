@@ -1098,7 +1098,7 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 505;
+  var APP_BUILD = 506;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
   var APP_NOME = '5.9.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
@@ -7237,7 +7237,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     ['ped', 'Pedidos online'],
     ['onl', 'Loja online'],
     ['clientes', 'Clientes'],
-    ['notif', 'Notificações'],
+    ['notif', 'Pendências'],
     ['ajustes', 'Ajustes']
   ];
 
@@ -22884,7 +22884,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       cli: ['Clientes', [S.clientes.length + (S.clientes.length === 1 ? ' cadastrado' : ' cadastrados'), '']],
       ped: ['Pedidos online', [pedNovos() + ' novos', pedNovos() ? 'w' : '']],
       onl: ['Loja online', ['Catálogo e site', '']],
-      notif: ['Notificações', [notifContagem() + ' avisos', notifContagem() ? 'w' : '']],
+      notif: ['Pendências', [notifContagem() + ' avisos', notifContagem() ? 'w' : '']],
       mkt: ['Marketing', ['Posts, vídeos e plano', '']],
       est: ['Estúdio', [estFila().length ? estFila().length + ' para fotografar' : 'fotos em dia', estFila().length ? 'w' : '']],
       msg: ['Mensagens', pnlFaixa('msg')],
@@ -23186,7 +23186,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var el = $('v-notif');
     if (!el || S.view !== 'notif') return;
     var ag = notifAgora(),
-      h = '<div class="top"><div><h1>Notificações</h1><div class="crumb">O que precisa de atenção e os avisos do dólar</div></div></div>';
+      h = '<div class="top"><div><h1>Pendências</h1><div class="crumb">Tudo o que precisa de você num lugar só: avisos, Guardião e dólar</div></div></div>';
     function cartao(i) {
       return (
         '<section class="card" style="border-left:4px solid ' + i.c + ';display:flex;align-items:center;gap:10px;justify-content:space-between"><div><b style="font-size:15px">' + esc(i.t) + '</b><div class="hint" style="margin:2px 0 0">' + esc(i.s) + '</div></div>' +
@@ -28136,7 +28136,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var el = $('v-clientes');
     if (!el || S.view !== 'clientes') return;
     var h = '<div class="top"><div><h1>Clientes</h1><div class="crumb">Quem compra de você, com telefone e documento</div></div>' +
-      '<div class="tabs"><button class="mini" data-act="clinovo">+ Novo cliente</button><button class="mini ghost" data-act="ataNovo">🏬 Novo acesso atacado</button><button class="mini ghost" data-act="ataLotes">📦 Lotes atacado</button><button class="mini ghost" data-act="cupAbre">🎟️ Cartões</button></div></div>';
+      '<div class="tabs"><button class="mini" data-act="clinovo">+ Novo cliente</button><button class="mini ghost" data-act="ataNovo">Acesso atacado</button><button class="mini ghost" data-act="ataLotes">Lotes</button><button class="mini ghost" data-act="cupAbre">Cartões</button></div></div>';
     var c = S.cliSel === 'novo' ? { id: 0, nome: '', tel: '', ruc: '', obs: '' } : cliAtual();
     if (c) {
       var ps = c.id ? cliPedidos(c) : [],

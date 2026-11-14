@@ -72,7 +72,7 @@
     ['ped', 'Pedidos online'],
     ['onl', 'Loja online'],
     ['clientes', 'Clientes'],
-    ['notif', 'Notificações'],
+    ['notif', 'Pendências'],
     ['ajustes', 'Ajustes']
   ];
 

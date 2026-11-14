@@ -149,3 +149,7 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - DECISÃO DO DONO (13/11 21:03): a barra de baixo continua PERSONALIZÁVEL (arrastar atalhos). Não existe barra fixa nova; a simplificação é feita por abas dentro das telas.
 - `src/97x-abas-grupos-s236.js` (`gaAbas`, depois de cada `render`): fileira `.pcSeg.gaSeg` no topo de telas irmãs, trocando entre elas com `setView`: Dinheiro = `caixa` · `desp` · `fx`; Vendas = `dia` · `hist` · `dash`; Site = `ped` · `onl`. Fica depois do `.top` da tela (ou no começo, se a tela não tem `.top`). Some no modo cliente. Para juntar outra tela a um grupo: acrescentar em `GA_GRUPOS`.
 - Nenhuma tela foi removida; os atalhos do Início continuam todos. Sem teste próprio em `tests/run.py` ainda.
+
+## Clientes em fileira e Pendências (S237, 14/11/2026)
+- Clientes (`src/96-clientes.js` l.213 + bloco "S237" do `style.css`): "+ Novo cliente" é o botão principal; "Acesso atacado", "Lotes" e "Cartões" (sem emoji; mesmas ações `ataNovo`, `ataLotes`, `cupAbre`) ficam numa fileira só. São AÇÕES que abrem janela, não abas.
+- A tela `notif` chama-se "Pendências" (título, atalho do Início, nome em `40-formatos-venda.js` e `aria-label` do sino). O cartão do Guardião no Início continua com o nome Guardião (ele confere; o resultado aparece em Pendências). Juntar a lista do Guardião dentro de Pendências ainda NÃO foi feito.

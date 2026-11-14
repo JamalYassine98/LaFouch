@@ -150,7 +150,7 @@
       cli: ['Clientes', [S.clientes.length + (S.clientes.length === 1 ? ' cadastrado' : ' cadastrados'), '']],
       ped: ['Pedidos online', [pedNovos() + ' novos', pedNovos() ? 'w' : '']],
       onl: ['Loja online', ['Catálogo e site', '']],
-      notif: ['Notificações', [notifContagem() + ' avisos', notifContagem() ? 'w' : '']],
+      notif: ['Pendências', [notifContagem() + ' avisos', notifContagem() ? 'w' : '']],
       mkt: ['Marketing', ['Posts, vídeos e plano', '']],
       est: ['Estúdio', [estFila().length ? estFila().length + ' para fotografar' : 'fotos em dia', estFila().length ? 'w' : '']],
       msg: ['Mensagens', pnlFaixa('msg')],

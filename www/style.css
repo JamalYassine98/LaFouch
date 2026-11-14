@@ -2321,3 +2321,12 @@ html.mlOn,html.mlOn body{overflow:hidden}
 @media (min-width:1100px) and (hover:hover) and (pointer:fine){#railX{display:flex}}
 .view .lbl,.view .tp,.view .pSin,.view small,.view th,.view .cxLb,.view .ajVer{font-size:12px}
 .pcSeg.gaSeg button{font-size:14px;padding:0 6px}
+
+/* 14/11 S237 (aprovado, esboço S228): Clientes — um botão principal e as três ações de atacado numa fileira só, do mesmo tamanho */
+#v-clientes .top{flex-wrap:wrap}
+#v-clientes .top .tabs{display:flex;flex-wrap:wrap;gap:8px;width:100%}
+#v-clientes .top .tabs .mini{min-height:44px;white-space:nowrap}
+#v-clientes .top .tabs .mini.ghost{flex:1 1 auto;min-width:0;padding-left:8px;padding-right:8px}
+#v-clientes .top .tabs .mini:not(.ghost){flex:1 0 100%}
+@media (min-width:700px){#v-clientes .top .tabs .mini:not(.ghost){flex:0 0 auto}#v-clientes .top .tabs .mini.ghost{flex:0 0 auto;padding-left:16px;padding-right:16px}}
+@media (max-width:340px){#v-clientes .top .tabs .mini.ghost{font-size:13px;padding-left:5px;padding-right:5px}#v-clientes .top .tabs{gap:6px}}
