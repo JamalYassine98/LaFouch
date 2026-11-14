@@ -1644,7 +1644,7 @@
   var PKT=0;function pkStop(){clearInterval(PKT);PKT=0}
   function pkPoll(id,fn){pkStop();var go=function(){if(!$('pkok')){pkStop();return}fbg('reservas/'+encodeURIComponent(id)).then(function(d){var o=fbd(d);if($('pkok'))fn(o||{})}).catch(function(){})};go();PKT=setInterval(go,4000)}
   var PK_LOGO='<div class="pkl"></div>';
-  var ITAU={alias:'983642241',titular:'Jamal Ali Yassine'},TRF_AUTO=false /* 14/11: Banco Familiar — fica false até o robô ler o aviso do banco; enquanto isso o comprovante aparece na hora */;
+  var ITAU={alias:'+595983642241',titular:'Jamal Ali Yassine'},TRF_AUTO=false /* 14/11: Banco Familiar — fica false até o robô ler o aviso do banco; enquanto isso o comprovante aparece na hora */;
   function compZap(e){var m=LFI.lang==='es'?'¡Hola! Pagué el pedido '+e.cod+' y el sitio no procesó el comprobante. Te lo envío por aquí.':'Olá! Paguei o pedido '+e.cod+' e o site não processou o comprovante. Estou enviando por aqui.';
     return '<a class="pgwa" target="_blank" rel="noopener" href="https://wa.me/'+NUM_LOJA+'?text='+encodeURIComponent(m)+'"><span>O envio não funcionou? Mande o comprovante pelo WhatsApp</span></a>'}
   function pkPagar(id){

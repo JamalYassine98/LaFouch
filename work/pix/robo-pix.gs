@@ -9,8 +9,12 @@ var ASSUNTO = 'Você recebeu uma transferência';
 var REMETENTE = 'todomundo@nubank.com.br';
 // Itaú Paraguay (13/11/2026)
 var ITAU_DE = 'info@itau.com.py', ITAU_ASSUNTO = 'Aviso de transferencia recibida';
+// Banco Familiar / Eko (14/11/2026, no lugar do Itaú): o aviso chega DIRETO neste Gmail (não precisa de filtro de reenvio).
+// Assunto visto: "Transferencia de otros bancos"; corpo: "TRANSFERENCIA DE OTRAS ENTIDADES RECIBIDA" + "Moneda y Monto: PYG 200.000".
+var FAM_DE = 'operbancaweb@familiar.com.py';
 
 function verifica() {
+  verificaFamiliar();
   verificaItau();
   var chave = PropertiesService.getScriptProperties().getProperty('PIX_ROBO');
   if (!chave) throw new Error('Falta a propriedade PIX_ROBO');
@@ -50,6 +54,29 @@ function verificaItau() {
       var r = UrlFetchApp.fetch(URL_PIX, { method: 'post', contentType: 'application/json', muteHttpExceptions: true, headers: { 'x-robo': chave },
         payload: JSON.stringify({ banco: 'itau', valor: v[1], mid: m.getId(), dkim: dkim, dom: 'itau.com.py' }) });
       if (r.getResponseCode() >= 500) throw new Error('função pix ' + r.getResponseCode());
+    });
+    f.addLabel(rot);
+  });
+}
+
+function verificaFamiliar() {
+  var chave = PropertiesService.getScriptProperties().getProperty('PIX_ROBO');
+  if (!chave) return;
+  var rot = GmailApp.getUserLabelByName('familiar-lido') || GmailApp.createLabel('familiar-lido');
+  GmailApp.search('from:' + FAM_DE + ' -label:familiar-lido newer_than:2d', 0, 20).forEach(function (f) {
+    f.getMessages().forEach(function (m) {
+      var cab = m.getRawContent().split(/\r?\n\r?\n/)[0].replace(/\r?\n[ \t]+/g, ' ');
+      // autêntico = assinatura (DKIM) do familiar.com.py OU DMARC aprovado para o remetente familiar.com.py
+      var auth = /^(?:ARC-)?Authentication-Results:.*dkim=pass[^;]*header\.(?:i|d)=@?(?:[a-z0-9-]+\.)*familiar\.com\.py/im.test(cab) ||
+        /^(?:ARC-)?Authentication-Results:.*dmarc=pass[^;]*header\.from=(?:[a-z0-9-]+\.)*familiar\.com\.py/im.test(cab);
+      var de = (m.getFrom().match(/<([^>]+)>/) || [, m.getFrom()])[1].toLowerCase();
+      var txt = m.getPlainBody();
+      var v = txt.match(/Monto:?\s*(?:PYG|Gs\.?)\s*([\d.]+)/i);
+      if (de !== FAM_DE || !v || !/RECIBIDA/i.test(txt)) return; // só transferência RECEBIDA; o resto do banco é ignorado
+      var r = UrlFetchApp.fetch(URL_PIX, { method: 'post', contentType: 'application/json', muteHttpExceptions: true, headers: { 'x-robo': chave },
+        payload: JSON.stringify({ banco: 'familiar', valor: v[1], mid: m.getId(), dkim: auth, dom: 'familiar.com.py' }) });
+      if (r.getResponseCode() >= 500) throw new Error('função pix ' + r.getResponseCode());
+      if (r.getResponseCode() === 403) console.log('Familiar: aviso recusado (autenticação do e-mail = ' + auth + ')');
     });
     f.addLabel(rot);
   });

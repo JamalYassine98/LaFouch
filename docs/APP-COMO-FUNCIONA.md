@@ -223,3 +223,10 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 ## Banco da transferência: Banco Familiar no lugar do Itaú (v518 / 5.14.2, 14/11/2026)
 - Só os TEXTOS mudaram (`95-pedidos.js`, `97-pagamento-auto.js`, `97z-pix-email.js`): "Banco Familiar (alias)", ficha "PAGO · B. FAMILIAR". Por dentro o pedido continua `pag:'alias'` e as esperas/avisos continuam `banco:'itau'` (não mexer sem migrar os dados e a função `pix`).
 - A confirmação sozinha por e-mail (`functions/pix.js` `recebeItau`, robô `work/pix/robo-pix.gs` `verificaItau`) ainda só reconhece o Itaú. Falta o modelo do aviso do Banco Familiar (remetente, assunto, linha do valor).
+
+## Confirmação sozinha do Banco Familiar (v519 / 5.14.3, 14/11/2026)
+- Aviso do banco: remetente "operbancaweb" do domínio familiar.com.py (endereço exato em `FAM_DE` no robô), chega direto no Gmail da loja; corpo "TRANSFERENCIA … RECIBIDA" e "Moneda y Monto: PYG 200.000".
+- Robô (`work/pix/robo-pix.gs`, `verificaFamiliar`): lê o aviso, exige autenticação do e-mail (DKIM do familiar.com.py ou DMARC aprovado) e chama a função `pix` com `banco:'familiar'`. Etiqueta `familiar-lido`.
+- Função (`functions/pix.js`): `DOM_PY` aceita itau.com.py e familiar.com.py; grava `banco:'familiar'` na confirmação; as esperas da loja continuam nascendo como `banco:'itau'` no app e valem para os dois. O arquivo principal das funções não mudou.
+- App (`97z-pix-email.js`): o texto "Transferência confirmada pelo e-mail do Banco Familiar" aparece para `itau` e `familiar`.
+- PARA VALER: o dono precisa (1) colar o robô novo no Apps Script da conta da loja e (2) publicar a função (`firebase deploy --only functions:pix`, no computador). Depois de um teste real: `TRF_AUTO=true` no site.

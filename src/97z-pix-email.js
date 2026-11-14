@@ -46,7 +46,7 @@
       tarefas.push(nvApi('GET', 'reservas/' + encodeURIComponent(p.sid)).then(function (j) {
         var pa = j && j.fields && j.fields.pixAuto ? pxFv(j.fields.pixAuto) : null;
         if (!pa || p.pg === 'pago') return;
-        p.pgAuto = { ts: pa.ts || Date.now(), txt: pa.banco === 'itau' ? 'Transferência confirmada pelo e-mail do Banco Familiar · Gs. ' + String(Math.round(+pa.valor || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : 'PIX confirmado pelo e-mail do Nubank · R$ ' + (+pa.valor || 0).toFixed(2).replace('.', ',') };
+        p.pgAuto = { ts: pa.ts || Date.now(), txt: pa.banco === 'itau' || pa.banco === 'familiar' ? 'Transferência confirmada pelo e-mail do Banco Familiar · Gs. ' + String(Math.round(+pa.valor || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : 'PIX confirmado pelo e-mail do Nubank · R$ ' + (+pa.valor || 0).toFixed(2).replace('.', ',') };
         var sel = S.pedSel, y = window.scrollY;
         ACT.pedpago(p.id); // sem o dono tocar: não muda a tela em que ele está
         S.pedSel = sel;

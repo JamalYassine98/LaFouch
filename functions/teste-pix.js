@@ -39,6 +39,13 @@ function dbFake(peds, esp) {
   r = await X.recebe(db3, { banco: 'itau', valor: '139.958', mid: 'k1', dkim: true, dom: 'itau.com.py' }, T); ok(r.tipo === 'site' && r.id === 'i1', 'Itaú: pedido do site confirmado pelo valor com o final único');
   const db4 = dbFake([], [{ id: 'v9', banco: 'itau', gs: 250000, ts: T - 0.2 * H }]); db4.pedidosItau = async () => [];
   r = await X.recebe(db4, { banco: 'itau', valor: '250.000', mid: 'k2', dkim: true, dom: 'itau.com.py' }, T); ok(r.tipo === 'loja', 'Itaú: venda da loja confirmada');
+  ok(X.gsDoTexto('Moneda y Monto: PYG 200.000') === 200000, 'Banco Familiar: lê o valor em guaranis (PYG)');
+  const db5 = dbFake([]); db5.pedidosItau = async () => [{ id: 'f1', pagar: 183983, ts: T - H }];
+  e = ''; try { await X.recebe(db5, { banco: 'familiar', valor: '183.983', mid: 'q0', dkim: true, dom: 'itau.com.py' }, T); } catch (x) { e = x.motivo; } ok(e === 'origem', 'Banco Familiar: só aceita e-mail de familiar.com.py');
+  e = ''; try { await X.recebe(db5, { banco: 'familiar', valor: '183.983', mid: 'q0', dkim: false, dom: 'familiar.com.py' }, T); } catch (x) { e = x.motivo; } ok(e === 'origem', 'Banco Familiar: sem autenticação do e-mail não confirma');
+  r = await X.recebe(db5, { banco: 'familiar', valor: '183.983', mid: 'q1', dkim: true, dom: 'familiar.com.py' }, T); ok(r.tipo === 'site' && r.id === 'f1' && db5.conf[0][1].banco === 'familiar', 'Banco Familiar: pedido do site confirmado pelo valor com o final único');
+  const db6 = dbFake([], [{ id: 'v7', banco: 'itau', gs: 90000, ts: T - 0.2 * H }]); db6.pedidosItau = async () => [];
+  r = await X.recebe(db6, { banco: 'familiar', valor: '90.000', mid: 'q2', dkim: true, dom: 'familiar.com.py' }, T); ok(r.tipo === 'loja', 'Banco Familiar: venda da loja confirmada (espera gravada pelo app)');
   console.log(falhas ? falhas + ' FALHAS' : 'tudo ok');
   process.exit(falhas ? 1 : 0);
 })();
