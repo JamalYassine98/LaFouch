@@ -6,7 +6,7 @@
 #   5) começa pela frente e recorta 3:2 igual em todas as imagens.
 # uso: python3 trata_giro2.py video.mp4 QUADRO_INICIAL PERIODO pasta_saida [N=360] [folga=9]      O vídeo original NÃO entra no projeto.
 import cv2, numpy as np, sys, os, json
-V, I0, PER, OUT = sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), sys.argv[4]; N = int(sys.argv[5]) if len(sys.argv) > 5 else 360; FOLGA = int(sys.argv[6]) if len(sys.argv) > 6 else 9
+V, I0, PER, OUT = sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), sys.argv[4]; N = int(sys.argv[5]) if len(sys.argv) > 5 else 360; FOLGA = int(sys.argv[6]) if len(sys.argv) > 6 else 9; FRENTE = sys.argv[7] if len(sys.argv) > 7 else 'acha'   # 'inicio' = a peça foi posta de frente e o giro começa no QUADRO_INICIAL
 os.makedirs(OUT, exist_ok=True); c = cv2.VideoCapture(V)
 def quadro(i):
     c.set(cv2.CAP_PROP_POS_FRAMES, i); ok, f = c.read(); assert ok, i; return f
@@ -48,7 +48,7 @@ print('passeio da peça: de lado ±%.0f px · de altura ±%.0f px (em %d px de l
 # frente = a mais simétrica; entre frente e costas, a frente é onde o miolo escuro (hastes) aparece mais baixo em altura
 sim = med[:, 4] / np.maximum(med[:, 2], 1); cand = int(np.argmin(sim)); outro = (cand + N // 2) % N
 jan = lambda i: med[[(i + d) % N for d in range(-4, 5)], 6].mean(); frente = cand if jan(cand) <= jan(outro) else outro   # de costas as hastes vêm para a câmera e o miolo escuro fica mais alto
-alvo_nit = float(np.percentile(med[:, 5], 70)); print('frente no grau', frente, '(a outra candidata era', outro if frente == cand else cand, ') · nitidez min/mediana/máx %.0f/%.0f/%.0f' % (med[:, 5].min(), np.median(med[:, 5]), med[:, 5].max()))
+frente = 0 if FRENTE == 'inicio' else frente; alvo_nit = float(np.percentile(med[:, 5], 70)); print('frente no grau', frente, '(a outra candidata era', outro if frente == cand else cand, ') · nitidez min/mediana/máx %.0f/%.0f/%.0f' % (med[:, 5].min(), np.median(med[:, 5]), med[:, 5].max()))
 # caixa do recorte depois de tirar o passeio
 bx0 = (med[:, 0] - med[:, 2] / 2 - dx).min(); bx1 = (med[:, 0] + med[:, 2] / 2 - dx).max(); by0 = (med[:, 1] - med[:, 3] / 2 - dy).min(); by1 = (med[:, 1] + med[:, 3] / 2 - dy).max()
 cx = (bx0 + bx1) / 2; cy = (by0 + by1) / 2; w = (bx1 - bx0) * 1.12; h = max((by1 - by0) * 1.45, w / 1.5); w = min(max(w, h * 1.5), W, H * 1.5); h = w / 1.5
@@ -62,7 +62,7 @@ for j in range(N):
     t = (t.astype(np.float32) * perto + 255. * (1 - perto))
     falta = alvo_nit / max(med[n, 5], 1.); forca = float(np.clip(np.sqrt(falta) - 1, 0, 1.1))
     if forca > .03: bor = cv2.GaussianBlur(t, (0, 0), 1.6); t = t + forca * (t - bor)
-    t = np.clip(t, 0, 255).astype(np.uint8)
+    t = np.clip(t * (255. / 238.), 0, 255).astype(np.uint8)   # ponto de branco em 238: manchas creme/cinza muito claras (borda do prato que balança ao girar) viram branco; a sombra mais marcada fica
     M = np.float32([[1, 0, -dx[n]], [0, 1, -dy[n]]]); t = cv2.warpAffine(t, M, (W, H), flags=cv2.INTER_LINEAR, borderValue=(255, 255, 255))
     o = cv2.resize(t[Y0:Y0 + h, X0:X0 + w], SAIDA, interpolation=cv2.INTER_AREA); cv2.imwrite('%s/q%04d.png' % (OUT, j), o); brancos.append(float((o.min(axis=2) > 250).mean()))
 json.dump({'inicio': I0, 'periodo': PER, 'n': N, 'frente': frente, 'recorte': [X0, Y0, w, h], 'passeio_x': float(np.hypot(cox[1], cox[2])), 'passeio_y': float(np.hypot(coy[1], coy[2]))}, open(OUT + '/giro.json', 'w'))
