@@ -2221,3 +2221,7 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Medido (quadros 720×480): pulo médio entre quadros vizinhos (0–255) 6/s 4,01 · 30/s 1,43 · 60/s 0,86. Peso do trecho: 30/s fotos JPEG 5,7 MB × vídeo 0,6 MB; 60/s fotos 11,3 MB × vídeo 0,86 MB. Fotos × vídeo desmontado: diferença média 0,58 de 255.
 - Arquivos: work/s264/prep.py, fps.py · s264_video_giro_6x30x60.mp4 · s264_video_giro_fotos_x_video.mp4 · s264_qualidade_fotos_x_video.jpg. Quadros em /tmp/kitsite/s264_30, s264_60, s264_30v (fora do repositório).
 - NÃO testado: desmontar vídeo em quadros dentro do navegador (aqui foi feito no computador), celular real, iPhone, câmera do app a 30/60.
+
+### S264f · 14/11/2026 03:28 · DECIDIDO pelo dono (aprovado, NÃO implementar até ele avisar)
+- Giro do site: 30 quadros/s, guardado como VÍDEO e desmontado em quadros no site ("fica muito melhor"). Giro livre (sem encaixe). 60/s descartado.
+- Falta provar antes de implementar: desmontar o vídeo dentro do navegador no celular (iPhone é o risco), câmera do app gravando a 30/s, tempo de abertura.
