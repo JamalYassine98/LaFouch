@@ -50,7 +50,9 @@ Sonda: work/s249/sonda.py (toca em cada controle visível de 13 telas do app e 3
 | 18 | App Pedidos e Clientes: desenho da tela vazia 1 vez e em 0,6 s | leva 1,5 s e se redesenha a cada "Verificar agora" | sem vídeo |
 | 19 | Site: busca fecha em 0,2 s | abre em 0,42 s, fecha seca | sem vídeo |
 | 20 | Site: menu fecha em 0,2 s | 0,53 s com 14 itens em fila | sem vídeo |
-| 21 | Temáticas: enfeites animam ~8 s na chegada e repousam | Natal, Ano-novo (2), Mães, Pais: 6–7 flocos/brilhos/pétalas sem fim; Halloween: 2 morcegos sem fim | sem vídeo |
+| 21 | ~~Temáticas: enfeites repousam~~ — RETIRADO em 14/11: JÁ EXISTE. O site encerra os enfeites aos 10 s (`js/lf-site.js` l.4605, classe `fim`); a sonda mediu antes dos 10 s e eu li errado como "sem fim" | — | — |
 | 22 | Limpeza sem mudança visual: animar deslocamento em vez de largura/posição (abas do Inventário, linha da barra, WhatsApp, Câmbio, Ajustes do catálogo); catálogo não refazer 40 animações ao fechar a busca | medido na sonda; o refazer do catálogo NÃO aparece na tela (0% de diferença) | sem esboço |
 
 Sem animação sem fim em nenhuma das 13 telas do app paradas; no site só o ponto das "Últimas" (fora das temáticas).
+
+Vídeos dos itens 17, 19 e 20 em work/s251 (S251). Medido nos vídeos: calendário do Histórico muda 0,7% da tela (invisível, vídeo descartado); tela vazia de Pedidos 1,4% (só o ícone); + Novo cliente 5,5%; fechar busca 95%; fechar menu 68%.

@@ -2075,3 +2075,10 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Diferença para o esboço S245: em Pedidos e Câmbio a descrição fica na 1ª linha e os controles que o esboço apagava (última busca, apagar testes, Cotação da casa) foram MANTIDOS na linha de baixo (regra: manter as funções).
 - Testes: 291/291; work/s250/confere.py: 0 erro de JS, 0 estouro, 0 piora no olho.js (390, 820, 1366, 2560 · claro e escuro · 13 telas, parado e rolado). Não testado: celular real, janelas e fichas abertas, toque real do "afundar".
 - FALTA implementar (aprovado): app — janelas num padrão só (15), entradas secas (17), tela vazia (18), limpeza (22), Produtos catálogo único (5), Site como tela (6), PC ação ao lado do título/Inventário largo/2 colunas (7, 8), Nuvem enxuta + backup por mudança (11, 12; 12 precisa de esboço), junções (13; precisa de esboço). Site — favoritar sem círculo + Últimas (1), coração até a sacola (2), menu 0,45/0,2 s (3, 20), abas de Minha conta e mouse na peça (S247), sacola com entrada (16), busca fecha 0,2 s (19), enfeites repousam (21), limpeza (22). Mais a lista antiga (Mochi partes 2–3, porteiro+designer, etc.).
+
+### S251 · Vídeos dos itens 17–21 (14/11/2026 00:36)
+- DONO: "ainda não" (não seguir para o site); quer saber por que não faço mais vídeos das melhorias de animação. Feitos (work/s251/video.py): s251_video_app_novo_cliente, s251_video_site_fechar_busca, s251_video_site_fechar_menu, s251_video_app_pedidos_vazio (diferença pequena, só o ícone; não enviado).
+- ERRO MEU corrigido: item 21 (enfeites das temáticas "sem fim") NÃO procede — o site já encerra os enfeites aos 10 s (lf-site.js l.4605). Item retirado. Lição: antes de dizer "sem fim", medir depois de 15 s e ler o código que cria o elemento.
+- Descartado: vídeo do calendário do Histórico (0,7% de diferença; é um campo de data que aparece).
+- Regra para os próximos vídeos: medir a diferença Hoje × Proposta quadro a quadro; abaixo de ~3% da tela não vale vídeo (o dono já reclamou de fotos iguais).
+- Implementação do site e do resto do app: PARADA até o dono mandar.
