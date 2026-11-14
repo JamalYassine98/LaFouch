@@ -2273,3 +2273,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 ### S267b · 14/11/2026 04:01 · DONO: "Perfeito" para um papel por lugar (S267) — APROVADO, não implementar até o comando
 - Catálogo = só vender (peça sem abas) · Inventário = só a peça (sem aba Vender nem "Vender esta") · Estúdio = só imagem.
 - Pediu: ligar a navegação entre os três para ficar fluido. Proposta em texto (sem esboço ainda): Catálogo › peça → "Ver a ficha no Inventário" abre a MESMA peça e o voltar devolve ao Catálogo no mesmo ponto; Inventário › peça → "Vender no Catálogo" abre a venda da mesma peça (cor/grau já escolhidos); ficha → "Fotografar no Estúdio" abre a câmera já nessa peça e volta para a ficha; fila do Estúdio → "Ver ficha".
+
+### S268 · 14/11/2026 04:05 · REGRA DO DONO + pergunta "falta algo que não vi ou não aprovei?"
+- Não quer vídeo do vai-e-volta. Atalhos de navegação entre Catálogo/Inventário/Estúdio: "Perfeito" (aprovados em texto). Cor e grau continuam na tela de venda (conferido no simulador com SL2201: bloco "Cor" com miniaturas e unidades).
+- REGRA: fazer todo o design do app e do site para todos os dispositivos, app em claro e escuro, na ideia de luxo estabelecida; não precisa de esboços. (Gravado no CLAUDE.md.) Ainda NÃO deu o comando de implementar.
+- Lista entregue do que ele não viu/não aprovou: grupos como interface única (sem desenho); nome "Dinheiro" repetido com a aba de Números; compartilhar único (sem estudo); versões tablet/PC de S264–S267 e do Estúdio; 3 tamanhos de letra e temáticas do site nas telas novas; partes do Estúdio não vistas no simulador; o que depende dele (vídeo do prato vazio, teste no Xiaomi/iPhone, Firebase, chave ElevenLabs).
