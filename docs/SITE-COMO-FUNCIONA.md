@@ -112,3 +112,9 @@ Ler antes de mexer no site. Atualizar este arquivo SEMPRE que o site mudar (estr
 ## Transferência: Banco Familiar no lugar do Itaú (S290, 14/11/2026)
 - `js/lf-site.js`: `ITAU={alias:'+595983642241',titular:…}` (o nome da variável ficou; o alias é o celular) e todos os textos passaram a "Banco Familiar" / "Alias (celular)"; traduções em `js/lf-i18n.js`; `termos.html` nos dois idiomas. Por dentro o pedido continua `pag:'alias'`.
 - `TRF_AUTO=false` (ao lado de `ITAU`): enquanto o robô não lê o aviso do Banco Familiar, a tela da transferência diz "Depois de transferir, envie o comprovante para confirmarmos" e o campo do comprovante aparece na hora (no PIX continua aparecendo só depois de 10 min). Quando o robô estiver pronto: `TRF_AUTO=true`.
+
+## Página de teste do giro (S294, 14/11/2026) — fora do catálogo
+- `teste-giro/` no site (não está em nenhum menu; `noindex`): `index.html` + `giro.mp4` (H.264, 720×480, 360 imagens = 1 por grau, toda imagem inteira, 2,3 MB) + `giro.webm` (reserva) + `capa.jpg`. Serve para provar no celular real o giro em vídeo antes de entrar na página da peça.
+- Como funciona: o arquivo inteiro é baixado para a memória (`fetch` → `blob`), então pular para qualquer imagem não depende do servidor. Modo 1 "vídeo direto": cada ponto do arrasto vira `video.currentTime`. Modo 2 "desmontado": 180 imagens viram `ImageBitmap` 540×360 (~133 MB de memória) e o arrasto desenha num `canvas`. A tabela mostra tempo para abrir, imagens novas por segundo e atraso.
+- Já traz o manuseio aprovado (S264): giro livre com embalo, aceno de 20° ao abrir, dica "Deslize para girar", pílula "Vista inicial"; só o deslize de lado gira (para cima/baixo a página rola).
+- O giro foi tratado por `work/s294/trata_giro.py` (lafouch): só acerta a luz, recorte 3:2 fixo. O vídeo original do dono não está em nenhum repositório. Apagar a pasta quando o giro entrar na página da peça.
