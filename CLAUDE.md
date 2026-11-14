@@ -25,5 +25,6 @@
 - "COMPRIMA:" no começo da mensagem = não executar; só reescrever o texto dele no formato das tags, com o mínimo de palavras e sem perder decisão.
 - Usar a memória do projeto em vez de pedir histórico; ler trechos de arquivos, não arquivos inteiros; não reenviar arquivos que ele já tem.
 - Mensagens no meio do trabalho só para: rascunho pronto, problema que muda o resultado, ou pergunta.
+- COTA NOS TESTES (14/11/2026, aprovado pelo dono): cota do plano é gasto. Nos testes de app e site, a medição por programa faz quase tudo; a IA só olha os suspeitos das telas MEXIDAS, dentro da sessão em que já se publica; nunca olha duas vezes a mesma tela sem mudança; cada achado vira regra/defeito plantado; usar recortes, não telas inteiras; nada de rodada agendada nem chave de IA paga. Detalhes em docs/MEMORIA-PROJETO.md ("ESTADO EM 14/11/2026 02:00").
 - ElevenLabs: nunca gravar (nem teste) sem o dono autorizar o valor em créditos.
 - Sempre dizer o que foi testado no simulador e o que NÃO foi testado no celular.
