@@ -64,3 +64,26 @@ Só leitura do código (`src/97-estudio.js`, `97-estudio-giro.js`, `97-giro-site
 - **Um único ícone** (canto de cima, espelhando o coração): "ver em grande" — tela inteira branca, peça grande, a mesma régua, ✕ para fechar.
 - A dica "Arrastá para girar" aparece uma vez e some no primeiro toque. Ao chegar, a peça gira devagar até a 3/4 e volta para a frente.
 - Folhas: `work/s260/s260_site_celular_peca.jpg`, `s260_site_celular_manuseio.jpg`, `s260_site_pc_peca.jpg`, `s260_giro_tratado.jpg`; vídeo `s260_video_site_peca_giratoria_real.mp4` (14 s, quadros reais).
+
+## S260 v2/v3 (14/11 02:29) · aro e manchas corrigidos; manuseio mais simples
+
+### O que o dono apontou
+1. No fim da armação aparece um ARO que não foi tratado. 2. Há MANCHAS no fundo, perto da armação. 3. Quer um jeito de mover mais minimalista e mais simples para o cliente.
+
+### Por que apareciam
+- O aro é a borda de trás do prato giratório. Meu primeiro tratamento adivinhava o fundo quadro a quadro (borrando a imagem) e uma borda nítida como a do prato não some assim.
+- As manchas são a sombra da peça no prato e o tom lilás visto através das lentes; o primeiro tratamento só clareava, não separava "peça" de "resto".
+
+### Tratamento novo (`work/s260/trata2.py`)
+- A câmera fica parada e só a peça se move. Então, em cada ponto da imagem, o que aparece na maior parte do tempo É o fundo. O sistema monta o fundo vazio a partir do próprio giro e divide cada quadro por ele: o aro some por inteiro, porque ele está parado.
+- Depois separa o que é peça (mais escuro que o fundo, ou colorido) do resto, e o resto vira branco puro: sombras e manchas saem.
+- Medido nos seus quadros: sujeira longe da peça caiu de 4,7% da imagem para 0,3% (frente), 4,6% → 0,25% (3/4). Peso: 36 quadros ≈ 485 kB.
+- Preço: partes muito claras da peça (ponta prateada da haste, fio de baixo das lentes) ficam fracas ou falhadas contra o branco. Solução no produto: filmar 2 s do prato vazio no começo de cada sessão (fundo exato) e proteger as bordas finas; e a opção de deixar uma sombra de chão suave e regular, em vez de apagar tudo.
+
+### Manuseio simples — "só a peça" (S260 v3, `gera3.py`)
+- Sai a régua e sai o ícone. Fica a peça e três pontinhos (frente, 3/4, perfil), como numa galeria.
+- Arrastar gira; ao soltar, a peça encaixa sozinha na parada mais próxima e o nome da parada aparece por um instante e some.
+- Um toque na peça abre em tela inteira; lá, arrastar gira igual e pinça amplia; toque duplo volta.
+- A altura da página não muda em relação a hoje.
+- Folhas: `s260_tratamento_v1_x_v2.jpg`, `s260_site_celular_peca_v3.jpg`, `s260_site_celular_manuseio_v3.jpg`; vídeo `s260_video_site_manuseio_v3.mp4`.
+- olho.js: celular parado 0 pioras; rolado 1 aviso ("Hablar por WhatsApp" colado) que não vem da proposta (a altura da página é a mesma; é o estado da lingueta do WhatsApp no instante da medição) — a confirmar.
