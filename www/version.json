@@ -1,1 +1,1 @@
-{"v":517,"nat":1,"nome":"5.14.1","notas":["Trocar de tela ficou com direção: ao abrir uma tela ela entra pela direita; ao voltar (ou ir para o Início) entra pela esquerda. Mais suave e um pouco mais lenta (0,36 s)."]}
+{"v":518,"nat":1,"nome":"5.14.2","notas":["O banco da transferência em guaranis mudou: saiu o Itaú, entrou o Banco Familiar (pedidos, ficha impressa e avisos).","Por enquanto a transferência é conferida pelo comprovante; a confirmação sozinha volta quando o robô aprender o aviso do Banco Familiar."]}

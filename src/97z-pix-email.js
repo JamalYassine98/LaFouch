@@ -19,7 +19,7 @@
   function pixEspVarre() {
     var ag = {}, ag0 = Date.now() - PIXM_H;
     (S.sales || []).slice(0, 40).forEach(function (s) {
-      // Nubank = transferência em reais; Itaú (13/11) = transferência em guaranis
+      // Nubank = transferência em reais; Banco Familiar (13/11) = transferência em guaranis
       if (s.forma !== 'pix' || (s.moeda !== 'brl' && s.moeda !== 'pyg') || !(+s.ts >= ag0)) return;
       var k = String(s.carrinho || s.id).replace(/[^A-Za-z0-9-]/g, '') + (s.moeda === 'pyg' ? 'G' : '');
       if (!k) return;
@@ -46,7 +46,7 @@
       tarefas.push(nvApi('GET', 'reservas/' + encodeURIComponent(p.sid)).then(function (j) {
         var pa = j && j.fields && j.fields.pixAuto ? pxFv(j.fields.pixAuto) : null;
         if (!pa || p.pg === 'pago') return;
-        p.pgAuto = { ts: pa.ts || Date.now(), txt: pa.banco === 'itau' ? 'Transferência confirmada pelo e-mail do Itaú · Gs. ' + String(Math.round(+pa.valor || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : 'PIX confirmado pelo e-mail do Nubank · R$ ' + (+pa.valor || 0).toFixed(2).replace('.', ',') };
+        p.pgAuto = { ts: pa.ts || Date.now(), txt: pa.banco === 'itau' ? 'Transferência confirmada pelo e-mail do Banco Familiar · Gs. ' + String(Math.round(+pa.valor || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : 'PIX confirmado pelo e-mail do Nubank · R$ ' + (+pa.valor || 0).toFixed(2).replace('.', ',') };
         var sel = S.pedSel, y = window.scrollY;
         ACT.pedpago(p.id); // sem o dono tocar: não muda a tela em que ele está
         S.pedSel = sel;
@@ -62,7 +62,7 @@
         var ok = j && j.fields && j.fields.ok ? pxFv(j.fields.ok) : null;
         if (!ok) return;
         o.ok = ok.ts || Date.now();
-        lfToast(o.banco === 'itau' ? 'Transferência Itaú da venda confirmada · Gs. ' + String(o.gs).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : 'PIX da venda confirmado · R$ ' + o.brl.toFixed(2).replace('.', ','));
+        lfToast(o.banco === 'itau' ? 'Transferência Banco Familiar da venda confirmada · Gs. ' + String(o.gs).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : 'PIX da venda confirmado · R$ ' + o.brl.toFixed(2).replace('.', ','));
         saveSoon();
       }).catch(function () {}));
     });

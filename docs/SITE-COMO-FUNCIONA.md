@@ -108,3 +108,7 @@ Ler antes de mexer no site. Atualizar este arquivo SEMPRE que o site mudar (estr
 - Porteiro (`work/fiscal/provas.py`, `ENTRA_DIREITA`): só a sacola pode nascer à direita (dono liberou em 14/11); continua acusando se passar do lugar, voltar no meio, mudar de altura, pular ou travar.
 - Abas de Minha conta (`minhaConta` embrulhada no fim do arquivo, bloco S288; `.mcPl`, `.mct.lx`, `.scrim.mcLx` no `index.html`): ao trocar de aba a pílula desliza da aba antiga até a nova (0,36 s) e o conteúdo vem do lado da aba tocada (22 px); a janela não refaz a entrada e a animação antiga (subir em fila) é cancelada só na troca. Abrir a conta continua como antes. A pílula é temporária: some no fim e a aba volta a ter o fundo dela.
 - Movimento reduzido no aparelho: nada disso anima.
+
+## Transferência: Banco Familiar no lugar do Itaú (S290, 14/11/2026)
+- `js/lf-site.js`: `ITAU={alias:'+595983642241',titular:…}` (o nome da variável ficou; o alias é o celular) e todos os textos passaram a "Banco Familiar" / "Alias (celular)"; traduções em `js/lf-i18n.js`; `termos.html` nos dois idiomas. Por dentro o pedido continua `pag:'alias'`.
+- `TRF_AUTO=false` (ao lado de `ITAU`): enquanto o robô não lê o aviso do Banco Familiar, a tela da transferência diz "Depois de transferir, envie o comprovante para confirmarmos" e o campo do comprovante aparece na hora (no PIX continua aparecendo só depois de 10 min). Quando o robô estiver pronto: `TRF_AUTO=true`.

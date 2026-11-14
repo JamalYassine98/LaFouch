@@ -383,7 +383,7 @@
     if (!p.pag && p.ent !== 'delivery') return '';
     var est = pedEstado(p),
       h = '<section class="pdCd"><div class="pdLb">Pagamento</div><div class="pdLin"><div style="flex:1;min-width:0"><b>' +
-        (p.pag === 'pix' ? 'PIX' + (p.brl ? ' · R$ ' + esc(String(p.brl).replace('.', ',')) : '') : p.pag === 'alias' ? 'Itaú (alias)' + (p.pagar ? ' · ' + gs(p.pagar) : '') : 'Sem pagamento online') +
+        (p.pag === 'pix' ? 'PIX' + (p.brl ? ' · R$ ' + esc(String(p.brl).replace('.', ',')) : '') : p.pag === 'alias' ? 'Banco Familiar (alias)' + (p.pagar ? ' · ' + gs(p.pagar) : '') : 'Sem pagamento online') +
         '</b><div class="pdMt">' + (pedTotal(p) ? gs(pedTotal(p)) : '') + '</div></div>' + (p.pg ? '<span class="pdPill ' + est[1] + '">' + est[0] + '</span>' : '') + '</div>';
     if (p.pgAuto) h += '<div class="pdMt" style="margin-top:6px;color:var(--ok,#5fd38d)">✓ Confirmado sozinho pelo Nubank às ' + fh(p.pgAuto.ts) + ' (' + esc(p.pgAuto.txt || '') + ')</div>';
     if (p.comp) {

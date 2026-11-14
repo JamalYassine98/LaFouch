@@ -219,3 +219,7 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 ## Troca de tela com direção (S252 · v517 / 5.14.1, 14/11/2026)
 - `setView` (`src/90-navegacao-dashboard.js`): fora da barra de baixo, a tela nova recebe `lxIr` (entra pela direita) ou `lxVolta` (voltar do celular ou ir ao Início: entra pela esquerda). Pela barra continua `slideL`/`slideR` conforme a ordem dos botões.
 - `www/style.css`: `slideInL`/`slideInR` = 30 px + aparecer, 0,36 s, curva `cubic-bezier(.16,1,.3,1)`; as regras com `.enter` junto ganham da entrada antiga (`lfEntra`), que o observador de `88-movimento.js` põe em toda tela que aparece. Tocar na tela em que já está não anima. Movimento reduzido: nada anima.
+
+## Banco da transferência: Banco Familiar no lugar do Itaú (v518 / 5.14.2, 14/11/2026)
+- Só os TEXTOS mudaram (`95-pedidos.js`, `97-pagamento-auto.js`, `97z-pix-email.js`): "Banco Familiar (alias)", ficha "PAGO · B. FAMILIAR". Por dentro o pedido continua `pag:'alias'` e as esperas/avisos continuam `banco:'itau'` (não mexer sem migrar os dados e a função `pix`).
+- A confirmação sozinha por e-mail (`functions/pix.js` `recebeItau`, robô `work/pix/robo-pix.gs` `verificaItau`) ainda só reconhece o Itaú. Falta o modelo do aviso do Banco Familiar (remetente, assunto, linha do valor).

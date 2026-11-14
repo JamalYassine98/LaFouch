@@ -1139,9 +1139,9 @@
   function ajPeca(re,n){var vi=0;return cat5().filter(function(p){return p.aviso!=='Esgotado'&&re(p)&&vi++<n}).map(function(p){return card5(p,0)}).join('')}
   function ajHtml(pg){var T=LFI.tr,vt=function(v,t){return '<a href="#" class="ajbk" data-ajv="'+v+'">‹ '+T(t)+'</a>'},vc=function(t){return '<a href="#vitrine" class="ajvc" data-mf="tipo:'+t+'">'+T('Ver catálogo')+' <i>›</i></a>'};
     if(pg==='comprar')return vt('','Ajuda')+'<h2>'+T('Como comprar')+'</h2><div class="ajtx">'+
-      [['Escolha','Coloque no carrinho os modelos que gostou.'],['Entre ou crie sua conta','É rápido: nome, e-mail e senha, ou com o Google.'],['Entrega','Retire na loja em Ciudad del Este ou receba por delivery no Paraguai.'],['Pagamento','PIX (em reais) ou transferência Itaú Paraguai (em guaranis). As peças ficam reservadas enquanto você paga.']].map(function(x,k){return '<p><b><span class="ajn">'+(k+1)+'</span>'+T(x[0])+'</b>'+T(x[1])+'</p>'}).join('')+'</div>';
+      [['Escolha','Coloque no carrinho os modelos que gostou.'],['Entre ou crie sua conta','É rápido: nome, e-mail e senha, ou com o Google.'],['Entrega','Retire na loja em Ciudad del Este ou receba por delivery no Paraguai.'],['Pagamento','PIX (em reais) ou transferência Banco Familiar (Paraguai) (em guaranis). As peças ficam reservadas enquanto você paga.']].map(function(x,k){return '<p><b><span class="ajn">'+(k+1)+'</span>'+T(x[0])+'</b>'+T(x[1])+'</p>'}).join('')+'</div>';
     if(pg==='duvidas')return vt('','Ajuda')+'<h2>'+T('Dúvidas frequentes')+'</h2><div class="ajtx">'+
-      [['Como eu compro?','Coloque os modelos no carrinho, entre com a sua conta (ou com o Google), escolha retirar na loja ou delivery e pague. Pronto.'],['Como pago?','PIX (em reais) ou transferência Itaú Paraguai (em guaranis), na hora do pedido.'],['Até quando fica reservado?','Enquanto você paga e, depois do pagamento, até a entrega ou a retirada.'],['Fazem delivery?','Sim, para todo o Paraguai. De outros países, você retira na loja em Ciudad del Este.'],['Fazem lentes com a minha receita?','Não. Só vendemos óculos de leitura prontos. Com receita, escolha uma armação e leve a uma ótica.'],['Posso trocar se não gostar?','Na retirada, sim, por outro modelo (pode haver ajuste de preço).']].map(function(x){return '<p><b>'+T(x[0])+'</b>'+T(x[1])+'</p>'}).join('')+
+      [['Como eu compro?','Coloque os modelos no carrinho, entre com a sua conta (ou com o Google), escolha retirar na loja ou delivery e pague. Pronto.'],['Como pago?','PIX (em reais) ou transferência Banco Familiar (Paraguai) (em guaranis), na hora do pedido.'],['Até quando fica reservado?','Enquanto você paga e, depois do pagamento, até a entrega ou a retirada.'],['Fazem delivery?','Sim, para todo o Paraguai. De outros países, você retira na loja em Ciudad del Este.'],['Fazem lentes com a minha receita?','Não. Só vendemos óculos de leitura prontos. Com receita, escolha uma armação e leve a uma ótica.'],['Posso trocar se não gostar?','Na retirada, sim, por outro modelo (pode haver ajuste de preço).']].map(function(x){return '<p><b>'+T(x[0])+'</b>'+T(x[1])+'</p>'}).join('')+
       '<p><b>'+T('Não sei qual grau de leitura usar')+'</b>'+T('Faça o teste de leitura com o Mochi: leva 1 minuto.')+' <a href="#" class="ajl" data-gzopen>'+T('Fazer o teste')+' <i>›</i></a></p></div>';
     if(pg==='dicas'){var GF=guiaFotos(),f=function(id){var x=GF.filter(function(y){return y.g.id===id})[0];return x?x.f:null};
       return vt('','Ajuda')+'<h2>'+T('Dicas e cuidados')+'</h2><div class="hgu ajg">'+ajCard('data-gpan="rosto"',f('formato'),'SEU ROSTO','Qual óculos combina com o meu rosto?','Leva menos de 1 minuto')+ajCard('data-ajp="art-tipos"',f('tipos'),'ESCOLHA CERTA','Leitura, armação ou solar: qual é a diferença?','Entenda antes de comprar')+ajCard('data-ajp="art-uv"',f('uv'),'SOL','UV400 e polarizado: qual é a diferença?','')+ajCard('data-ajp="art-limpar"',f('limpar'),'CUIDADOS','Como limpar seus óculos sem riscar','')+'</div>'}
@@ -1327,7 +1327,7 @@
     $('layer').dataset.msg=t}
 
   /*CONTA*/
-  /* cadastro do cliente, entrega ou retirada e pagamento (PIX / QR do Itaú) */
+  /* cadastro do cliente, entrega ou retirada e pagamento (PIX / QR do Banco Familiar) */
   var NAC={py:{f:'🇵🇾',n:'Paraguaio',d:'Cédula ou RUC',ph:'1234567-8'},br:{f:'🇧🇷',n:'Brasileiro',d:'CPF',ph:'000.000.000-00'},ar:{f:'🇦🇷',n:'Argentino',d:'DNI',ph:'12.345.678'}};
   var PIXD={key:'ddfd40f9-a52b-4fdf-a570-f974e6667f91',nome:'JAMAL ALI YASSINE',cid:'FOZ DO IGUACU'};
   var TESTE=false;try{var _q=new URLSearchParams(location.search).get('teste');if(_q==='1')localStorage.setItem('lf_teste','1');else if(_q==='0')localStorage.removeItem('lf_teste');TESTE=localStorage.getItem('lf_teste')==='1'}catch(_){}
@@ -1644,7 +1644,7 @@
   var PKT=0;function pkStop(){clearInterval(PKT);PKT=0}
   function pkPoll(id,fn){pkStop();var go=function(){if(!$('pkok')){pkStop();return}fbg('reservas/'+encodeURIComponent(id)).then(function(d){var o=fbd(d);if($('pkok'))fn(o||{})}).catch(function(){})};go();PKT=setInterval(go,4000)}
   var PK_LOGO='<div class="pkl"></div>';
-  var ITAU={alias:'9175078',titular:'Jamal Ali Yassine'};
+  var ITAU={alias:'983642241',titular:'Jamal Ali Yassine'},TRF_AUTO=false /* 14/11: Banco Familiar — fica false até o robô ler o aviso do banco; enquanto isso o comprovante aparece na hora */;
   function compZap(e){var m=LFI.lang==='es'?'¡Hola! Pagué el pedido '+e.cod+' y el sitio no procesó el comprobante. Te lo envío por aquí.':'Olá! Paguei o pedido '+e.cod+' e o site não processou o comprovante. Estou enviando por aqui.';
     return '<a class="pgwa" target="_blank" rel="noopener" href="https://wa.me/'+NUM_LOJA+'?text='+encodeURIComponent(m)+'"><span>O envio não funcionou? Mande o comprovante pelo WhatsApp</span></a>'}
   function pkPagar(id){
@@ -1654,8 +1654,8 @@
       '<div class="pgv">'+val+'</div>'+(resLeft(e)>0&&e.est==='pagar'?'<div class="cdx" id="cdx"><small>Sua peça está reservada por</small><b id="cdxt">--:--</b><i><u id="cdxb"></u></i><small>Depois disso ela volta para o site.</small></div>':'')+(e.teste?'<div class="pgt">MODO TESTE</div>':'')+
       '<div class="pgq" id="pgq">'+(pix?'':'<div class="pks" style="width:44px;height:44px;border-radius:50%;border:4px solid var(--ln2);border-top-color:#e6a3c9;animation:pksp .9s linear infinite"></div><div class="pgw">Estamos gerando o QR com o valor do seu pedido. Ele aparece aqui em instantes.</div>')+'</div>'+
       (pix?'<button type="button" class="pgc" data-pgcopy>Copiar código PIX</button><div class="pgw">Abra o app do seu banco, escolha PIX e leia o QR (ou use o copia e cola). Favorecido: La Fouch · Jamal Ali Yassine.</div>':'<div class="pgw" id="pgfav">Favorecido: Jamal Ali Yassine · La Fouch.</div><button type="button" class="pgc" id="pgsave" data-pgsave hidden>Salvar QR na galeria</button><div class="pgw" id="pgsavet" hidden>Está pagando pelo celular? Salve o QR e, no app do banco, escolha ler QR pela galeria.</div>'+
-        '<div class="pgm"><b>Ou transfira manualmente</b><small>Não consegue ler o QR? Use o alias do Itaú.</small>'+
-        [['Alias (Itaú)',ITAU.alias,ITAU.alias],['Titular',ITAU.titular,ITAU.titular],['Valor','Gs. '+mil(e.total),String(Math.round(e.total))]].map(function(r){return '<div class="pgr"><div><small>'+r[0]+'</small><b>'+esc(r[1])+'</b></div><button type="button" data-pgc2="'+esc(r[2])+'">Copiar</button></div>'}).join('')+
+        '<div class="pgm"><b>Ou transfira manualmente</b><small>Não consegue ler o QR? Use o alias do Banco Familiar.</small>'+
+        [['Alias (celular)',ITAU.alias,ITAU.alias],['Titular',ITAU.titular,ITAU.titular],['Valor','Gs. '+mil(e.total),String(Math.round(e.total))]].map(function(r){return '<div class="pgr"><div><small>'+r[0]+'</small><b>'+esc(r[1])+'</b></div><button type="button" data-pgc2="'+esc(r[2])+'">Copiar</button></div>'}).join('')+
         '<small>Depois, toque em "Já paguei" e envie o comprovante.</small></div>')+
       '<label class="pgb" for="pgf" id="pgbtn">Já paguei · enviar comprovante</label><input type="file" id="pgf" accept="image/*" hidden>'+
       '<a class="vend" target="_blank" rel="noopener" href="https://wa.me/'+NUM_LOJA+'?text='+encodeURIComponent(LFI.lang==='es'?'¡Hola! Tengo una duda sobre el pago de mi pedido '+e.cod:'Olá! Tenho uma dúvida sobre o pagamento do meu pedido '+e.cod)+'"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.200zm4.5-6.100c-.2-.1-1.500-.7-1.700-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.700 6.700 0 0 1-3.300-2.900c-.2-.4.200-.4.700-1.300.1-.2 0-.3 0-.5l-.8-1.800c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.100-.7.300-.3.300-1 1-1 2.400s1 2.800 1.200 3c.1.200 2 3.100 4.900 4.300 1.800.8 2.500.8 3.400.7.500-.1 1.600-.7 1.800-1.300.2-.6.2-1.200.2-1.300-.1-.1-.3-.2-.5-.3z"/></svg><span>Falar com um vendedor</span></a>'+compZap(e)+
@@ -1704,7 +1704,7 @@
     var e=pedGet(id)||{},c=getConta()||{},pix=e.pag==='pix',tok=e.tok||('LF-'+(e.cod||''));
     var L=[['Cliente',c.nome||''],['Pedido',(e.cod||'')+' · '+new Date(e.ts).toLocaleDateString('pt-BR')]];
     if(e.itens&&e.itens.length)L.push(['Itens',e.itens.map(function(i){return i.q+'× '+i.nome+' ('+i.ref+')'+(i.cor?' · '+i.cor:'')}).join('; ')]);
-    L.push(['Forma de pagamento',pix?'PIX':'QR do banco (Itaú)'],[e.ent==='delivery'?'Entrega':'Retirada',e.ent==='delivery'?'Delivery':'Loja · seg a sáb, 7h30–15h'],['Valor pago',pix?brl(e.brl):'Gs. '+mil(e.total)]);
+    L.push(['Forma de pagamento',pix?'PIX':'QR do banco'],[e.ent==='delivery'?'Entrega':'Retirada',e.ent==='delivery'?'Delivery':'Loja · seg a sáb, 7h30–15h'],['Valor pago',pix?brl(e.brl):'Gs. '+mil(e.total)]);
     return {rows:L,tok:tok}}
   function pkRecibo(id){
     var d=reciboDados(id);
@@ -1901,7 +1901,7 @@
         '<button type="button" class="mcadd" data-cta="mcended" data-i="novo">+ Adicionar endereço</button>'}
     else if(A==='cart')h='<div id="mtj"><div class="note">'+LFI.tr('Carregando…')+'</div></div>';
     else{var L=lsG('lf_ped',[]).slice().reverse();
-      h=L.length?L.map(function(e){return '<button type="button" class="cfp" data-cta="ped" data-id="'+esc(e.id)+'"><span><b>Pedido '+esc(e.cod)+(e.teste?' · teste':'')+'</b><small>'+new Date(e.ts).toLocaleDateString('pt-BR')+' · '+(e.pag==='pix'?'PIX':e.pag==='alias'?'Itaú':'')+' · '+(e.ent==='delivery'?'Delivery':'Retirada')+(e.est==='pago'?' · Código '+esc(e.tok||('LF-'+e.cod)):'')+'</small></span><em class="'+(e.est==='pago'?'ok':e.est==='cancelado'?'er':'')+'">'+estLabel(e)+'</em></button>'}).join(''):'<div class="note">Você ainda não fez nenhum pedido.</div>';
+      h=L.length?L.map(function(e){return '<button type="button" class="cfp" data-cta="ped" data-id="'+esc(e.id)+'"><span><b>Pedido '+esc(e.cod)+(e.teste?' · teste':'')+'</b><small>'+new Date(e.ts).toLocaleDateString('pt-BR')+' · '+(e.pag==='pix'?'PIX':e.pag==='alias'?'Banco Familiar':'')+' · '+(e.ent==='delivery'?'Delivery':'Retirada')+(e.est==='pago'?' · Código '+esc(e.tok||('LF-'+e.cod)):'')+'</small></span><em class="'+(e.est==='pago'?'ok':e.est==='cancelado'?'er':'')+'">'+estLabel(e)+'</em></button>'}).join(''):'<div class="note">Você ainda não fez nenhum pedido.</div>';
       pedAtualiza()}
     layer('<aside class="panel" role="dialog" aria-modal="true" aria-label="Minha conta"><div style="display:flex;align-items:center;justify-content:space-between"><h2 style="font-size:28px">Minha conta</h2><button class="x" data-close aria-label="Fechar" style="align-self:auto">×</button></div>'+tabs+h+'</aside>');
     if(A==='perfil')gCard();if(A==='cart')mtjCarrega()};
@@ -2004,7 +2004,7 @@
       '<div class="cfr"><small>'+LFI.tr('Entrega')+'</small><div class="cfv">'+en+'</div><button type="button" class="cfe" data-cta="voltarent">'+LFI.tr('Editar')+' <i>›</i></button></div></div>'}
   function pagHtml(c){var pg=st.pag,h=confHtml(c)+'<div class="note"><b style="color:var(--tx)">Forma de pagamento</b></div>'+
       '<button type="button" class="cfo'+(pg==='pix'?' on':'')+'" data-cta="pg" data-v="pix" aria-pressed="'+(pg==='pix')+'">'+cki('pix')+'<b>PIX</b><small>Em reais, pelo app do banco.</small></button>'+
-      '<button type="button" class="cfo'+(pg==='alias'?' on':'')+'" data-cta="pg" data-v="alias" aria-pressed="'+(pg==='alias')+'">'+cki('alias')+'<b>Transferência Itaú Paraguai</b><small>Em guaranis, pelo alias.</small></button>';
+      '<button type="button" class="cfo'+(pg==='alias'?' on':'')+'" data-cta="pg" data-v="alias" aria-pressed="'+(pg==='alias')+'">'+cki('alias')+'<b>Transferência Banco Familiar (Paraguai)</b><small>Em guaranis, pelo alias.</small></button>';
     if(pg&&(!c.tel||!c.doc))h+='<div class="cfc">'+perfilCampos(c,'pp','falta')+'<small class="cfh" style="display:block">Pedimos uma vez só; fica salvo no seu Perfil.</small></div>';
     return h}
   function irPag(){var c=contaNorm(getConta());if(!c){AUTH_VOLTA=true;cadastrarTela();return}
@@ -2015,12 +2015,12 @@
     endLe('e').then(function(a){if(bt)bt.disabled=false;if(!a){toast('Confira os campos em vermelho.');return}
       st.entD=a;if(!E.some(function(x){return x.end===a.end&&x.cidade===a.cidade})){c.ends=E.concat([Object.assign({id:'e'+Date.now().toString(36),nome:E.length?'Endereço '+(E.length+1):'Casa'},a)]);st.endIdx=c.ends.length-1;st.endMode='';contaGrava(c)}
       st.step='pag';bag()})}
-  /* valor final único (centavos no PIX, alguns guaranis no Itaú): a confirmação automática acha o pedido certo */
+  /* valor final único (centavos no PIX, alguns guaranis no Banco Familiar): a confirmação automática acha o pedido certo */
   function uqGera(){return 1+Math.floor(Math.random()*98)}
   enviarPedido=function(retry){
     var c=contaNorm(getConta());if(!sessG()||!c){AUTH_VOLTA=true;cadastrarTela();return}st.nome=c.nome;
     var ks=Object.keys(st.cart);if(!ks.length&&!retry)return;
-    if(!retry){if(!st.pag){toast('Escolha PIX ou Transferência Itaú.');return}
+    if(!retry){if(!st.pag){toast('Escolha PIX ou Transferência Banco Familiar.');return}
       document.querySelectorAll('#layer .field.bad').forEach(function(e){e.classList.remove('bad')});
       if($('ppz')||$('ppd')){var o=perfilLer(c,'pp',true);if(!o)return;Object.assign(c,o);contaGrava(c)}
       if(!c.tel||!c.doc){bag(true);toast('Complete telefone e documento.');return}}
@@ -2057,7 +2057,7 @@
     },function(er){
       if(er&&er.message==='esgotado'){resEsgotou(er.falta,doc);return}
       pkTela('<div class="pkl"></div><h2 style="animation-delay:0s">Quase lá!</h2><div class="pkt" style="animation-delay:.1s"><span>Não deu para enviar o pedido agora. Tente de novo ou fale com a loja pelo WhatsApp.</span></div><div class="pkb" style="animation-delay:.2s"><a class="pkw" target="_blank" rel="noopener" href="'+wa+'">'+PK_WA+'Enviar pelo WhatsApp</a><button type="button" data-pkretry>Tentar de novo</button></div><div class="pkcod">'+LFI.tr('código do erro')+': '+esc(pkCodErro(er))+'</div>')})};
-  /* tela de pagar: PIX (automático) ou Itaú (alias + comprovante) */
+  /* tela de pagar: PIX (automático) ou Banco Familiar (alias + comprovante) */
   pkPagar=function(id){
     var e=pedGet(id);if(!e){return}window.__pgid=id;
     var pix=e.pag==='pix',vg=e.pagar||e.total;
@@ -2072,16 +2072,16 @@
       '<div class="pgq" id="pgq"></div><button type="button" class="pgc" data-pgcopy>Copiar código PIX</button>'+
       '<div class="pgau"><span class="spn"></span><span>Esperando o PIX… confirmamos sozinhos, não precisa mandar nada</span></div>'+
       '<div class="pgcl" id="pgcl" hidden>'+LFI.tr('Pagou e ainda não confirmou?')+'<br><label for="pgf">'+LFI.tr('Envie o comprovante')+'</label></div>'+fim).className='pgw0';
-    else pkTela(PK_LOGO+'<h2 style="animation-delay:0s">Transferência Itaú</h2><div class="pgv">Gs. '+mil(vg)+'</div><div class="pgsub">Transfira o valor exato</div>'+timer+(e.teste?'<div class="pgt">MODO TESTE</div>':'')+
-      '<div class="pgm">'+[['Alias Itaú',ITAU.alias,ITAU.alias],['Valor exato','Gs. '+mil(vg),String(Math.round(vg))]].map(function(r){return '<div class="pgr"><div><small>'+r[0]+'</small><b>'+esc(r[1])+'</b></div><button type="button" data-pgc2="'+esc(r[2])+'">Copiar</button></div>'}).join('')+
+    else pkTela(PK_LOGO+'<h2 style="animation-delay:0s">Transferência Banco Familiar</h2><div class="pgv">Gs. '+mil(vg)+'</div><div class="pgsub">Transfira o valor exato</div>'+timer+(e.teste?'<div class="pgt">MODO TESTE</div>':'')+
+      '<div class="pgm">'+[['Alias (celular)',ITAU.alias,ITAU.alias],['Valor exato','Gs. '+mil(vg),String(Math.round(vg))]].map(function(r){return '<div class="pgr"><div><small>'+r[0]+'</small><b>'+esc(r[1])+'</b></div><button type="button" data-pgc2="'+esc(r[2])+'">Copiar</button></div>'}).join('')+
       '<div class="pgtit">Titular: '+esc(ITAU.titular)+'</div></div>'+
-      '<div class="pgau"><span class="spn"></span><span>'+LFI.tr('Esperando a transferência… confirmamos sozinhos, não precisa mandar nada')+'</span></div>'+
+      '<div class="pgau"><span class="spn"></span><span>'+LFI.tr(TRF_AUTO?'Esperando a transferência… confirmamos sozinhos, não precisa mandar nada':'Depois de transferir, envie o comprovante para confirmarmos')+'</span></div>'+
       '<div class="pgcl" id="pgcl" hidden>'+LFI.tr('Pagou e ainda não confirmou?')+'<br><label for="pgf">'+LFI.tr('Envie o comprovante')+'</label></div>'+fim).className='pgw0';
     if(pix){var code=pixCode(e.brl,'LF'+e.cod);e.code=code;loadQr().then(function(){var q=$('pgq');if(q&&window.LFqr)q.innerHTML=LFqr.svg(code,240)}).catch(function(){var q=$('pgq');if(q)q.innerHTML='<div class="pgw">Não consegui desenhar o QR. Use o botão "Copiar código PIX".</div>'})}
     window.__pgcode=pix?pixCode(e.brl,'LF'+e.cod):'';
     /* S197: o comprovante só aparece depois de 10 min sem a confirmação automática */
-    /* 13/11: Itaú também confirma sozinho pelo e-mail do banco; o comprovante só depois de 10 min */
-    {var pgW=Math.max(0,600000-(Date.now()-(+e.ts||Date.now())));clearTimeout(window.__pgclT);window.__pgclT=setTimeout(function(){var x=$('pgcl');if(x)x.hidden=false},pgW)}
+    /* 13/11: Banco Familiar também confirma sozinho pelo e-mail do banco; o comprovante só depois de 10 min */
+    {var pgW=!pix&&!TRF_AUTO?0:Math.max(0,600000-(Date.now()-(+e.ts||Date.now())));clearTimeout(window.__pgclT);window.__pgclT=setTimeout(function(){var x=$('pgcl');if(x)x.hidden=false},pgW)}
     resRelogio(id);
     pkPoll(id,function(o){
       if(o.cancelado){pedSet(id,{est:'cancelado'});pkStop();pkTela(PK_LOGO+'<h2 style="animation-delay:0s">Pedido cancelado pela loja</h2><div class="pkt"><span>Este pedido foi cancelado e as peças voltaram para o site. Dúvidas? Fale com a loja pelo WhatsApp.</span></div><div class="pkb"><button type="button" data-pkfim>Voltar ao catálogo</button></div>').className='pkw0';return}
@@ -2203,7 +2203,7 @@
     pin:'<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>'};
   function homeHtml(){
     var C=cat5(),h=dstHtml();
-    h+='<div class="htr"><span>'+IC5.sol+'<b>Delivery</b> '+LFI.tr('todo o Paraguai')+'</span><span>'+IC5.lock+'<b>'+LFI.tr('Pagamento seguro')+'</b> '+LFI.tr('PIX ou Itaú')+'</span><span>'+IC5.pin+'<b>'+LFI.tr('Retirada')+'</b> '+LFI.tr('em CDE')+'</span></div>';
+    h+='<div class="htr"><span>'+IC5.sol+'<b>Delivery</b> '+LFI.tr('todo o Paraguai')+'</span><span>'+IC5.lock+'<b>'+LFI.tr('Pagamento seguro')+'</b> '+LFI.tr('PIX ou Banco Familiar')+'</span><span>'+IC5.pin+'<b>'+LFI.tr('Retirada')+'</b> '+LFI.tr('em CDE')+'</span></div>';
     /* coleções com nome (campo "Coleção" do painel) */
     var cols={};C.forEach(function(p){var c=String(p.col||'').trim();if(c){(cols[c]=cols[c]||[]).push(p)}});
     var CL=Object.keys(cols).filter(function(c){return cols[c].length>=2}).sort(function(a,b){return cols[b].length-cols[a].length}).slice(0,4);

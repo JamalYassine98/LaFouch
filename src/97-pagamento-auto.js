@@ -1,7 +1,7 @@
   // ===== Pagamento automático e ficha de separação (v450, aprovado 07/11/2026) =====
   // 1) PIX automático: o app lê a notificação "Pix recebido" do Nubank (plugin LfNotif, só no APK) e confirma o pedido
   //    cujo valor (com os centavos únicos) bate. Mais de um pedido com o mesmo valor: não confirma sozinho, avisa.
-  // 2) Leitura do comprovante (Itaú e PIX): o leitor de texto do app acha o valor e a data e mostra "✓ valor confere".
+  // 2) Leitura do comprovante (Banco Familiar e PIX): o leitor de texto do app acha o valor e a data e mostra "✓ valor confere".
   // 3) Ficha de separação: quando um pedido fica pago, o aparelho com a impressora (e a opção ligada) imprime uma vez.
   S.pixAuto = false; // ler as notificações do Nubank (só neste aparelho)
   S.pixLog = []; // últimas notificações lidas [{ts, txt, v, ped}]
@@ -111,7 +111,7 @@
       (P && S.pixAuto ? '<div class="sl"><span>Acesso às notificações</span><b style="color:var(--' + (NOTIF_OK ? 'ok)">✓ permitido' : 'warn)">precisa permitir') + '</b></div>' + (NOTIF_OK ? '' : '<button type="button" class="btn go" data-act="pautoAcesso" style="width:100%">Permitir acesso</button>') : '') +
       '<div class="sl"><span>Última notificação lida</span><b>' + (u ? fd(u.ts) + ' ' + fh(u.ts) : 'nenhuma') + '</b></div>' +
       (u ? '<div class="hint" style="margin:0">' + esc(u.txt) + (u.ped ? ' → pedido ' + esc(u.ped) : ' → nenhum pedido com esse valor') + '</div>' : '') +
-      '<div class="hint" style="margin:0">O Itaú não avisa transferências: continua com comprovante (o app lê o valor).</div>' +
+      '<div class="hint" style="margin:0">Transferência (Banco Familiar): por enquanto com comprovante (o app lê o valor).</div>' +
       '</section><section class="card col paCard">' +
       pautoSw('fichaTog', 'Imprimir pedidos pagos sozinho', imp ? 'ficha de separação nesta impressora, uma vez por pedido' : 'conecte uma impressora neste aparelho', fichaAutoOn(), !imp) +
       '</section>'
@@ -226,7 +226,7 @@
   };
   function fichaLinhas(p) {
     var L = [{ t: 'LA FOUCH', centro: 1, negrito: 1 }, { t: 'SEPARAR PEDIDO DO SITE', centro: 1 }, { t: '#' + (p.cod || p.id), centro: 1, negrito: 1, grande: 1 }];
-    L.push({ t: 'PAGO · ' + (p.pag === 'pix' ? 'PIX R$ ' + String(p.brl || '').replace('.', ',') : 'ITAU ' + gs(p.pagar || pedTotal(p))), centro: 1, negrito: 1 });
+    L.push({ t: 'PAGO · ' + (p.pag === 'pix' ? 'PIX R$ ' + String(p.brl || '').replace('.', ',') : 'B. FAMILIAR ' + gs(p.pagar || pedTotal(p))), centro: 1, negrito: 1 });
     L.push({ t: fd(p.ts) + ' ' + fh(p.ts) }, { t: 'Cliente: ' + (p.cli || '') }, { t: 'Tel: ' + (p.tel || '') }, { traco: 1 });
     (p.itens || []).forEach(function (l) {
       L.push({ t: l.q + 'x ' + (l.ref || '') + ' ' + (l.t || ''), negrito: 1 });

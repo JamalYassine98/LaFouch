@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 517;
+  var APP_BUILD = 518;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.14.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.14.2'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -26026,7 +26026,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!p.pag && p.ent !== 'delivery') return '';
     var est = pedEstado(p),
       h = '<section class="pdCd"><div class="pdLb">Pagamento</div><div class="pdLin"><div style="flex:1;min-width:0"><b>' +
-        (p.pag === 'pix' ? 'PIX' + (p.brl ? ' · R$ ' + esc(String(p.brl).replace('.', ',')) : '') : p.pag === 'alias' ? 'Itaú (alias)' + (p.pagar ? ' · ' + gs(p.pagar) : '') : 'Sem pagamento online') +
+        (p.pag === 'pix' ? 'PIX' + (p.brl ? ' · R$ ' + esc(String(p.brl).replace('.', ',')) : '') : p.pag === 'alias' ? 'Banco Familiar (alias)' + (p.pagar ? ' · ' + gs(p.pagar) : '') : 'Sem pagamento online') +
         '</b><div class="pdMt">' + (pedTotal(p) ? gs(pedTotal(p)) : '') + '</div></div>' + (p.pg ? '<span class="pdPill ' + est[1] + '">' + est[0] + '</span>' : '') + '</div>';
     if (p.pgAuto) h += '<div class="pdMt" style="margin-top:6px;color:var(--ok,#5fd38d)">✓ Confirmado sozinho pelo Nubank às ' + fh(p.pgAuto.ts) + ' (' + esc(p.pgAuto.txt || '') + ')</div>';
     if (p.comp) {
@@ -39500,7 +39500,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // ===== Pagamento automático e ficha de separação (v450, aprovado 07/11/2026) =====
   // 1) PIX automático: o app lê a notificação "Pix recebido" do Nubank (plugin LfNotif, só no APK) e confirma o pedido
   //    cujo valor (com os centavos únicos) bate. Mais de um pedido com o mesmo valor: não confirma sozinho, avisa.
-  // 2) Leitura do comprovante (Itaú e PIX): o leitor de texto do app acha o valor e a data e mostra "✓ valor confere".
+  // 2) Leitura do comprovante (Banco Familiar e PIX): o leitor de texto do app acha o valor e a data e mostra "✓ valor confere".
   // 3) Ficha de separação: quando um pedido fica pago, o aparelho com a impressora (e a opção ligada) imprime uma vez.
   S.pixAuto = false; // ler as notificações do Nubank (só neste aparelho)
   S.pixLog = []; // últimas notificações lidas [{ts, txt, v, ped}]
@@ -39610,7 +39610,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       (P && S.pixAuto ? '<div class="sl"><span>Acesso às notificações</span><b style="color:var(--' + (NOTIF_OK ? 'ok)">✓ permitido' : 'warn)">precisa permitir') + '</b></div>' + (NOTIF_OK ? '' : '<button type="button" class="btn go" data-act="pautoAcesso" style="width:100%">Permitir acesso</button>') : '') +
       '<div class="sl"><span>Última notificação lida</span><b>' + (u ? fd(u.ts) + ' ' + fh(u.ts) : 'nenhuma') + '</b></div>' +
       (u ? '<div class="hint" style="margin:0">' + esc(u.txt) + (u.ped ? ' → pedido ' + esc(u.ped) : ' → nenhum pedido com esse valor') + '</div>' : '') +
-      '<div class="hint" style="margin:0">O Itaú não avisa transferências: continua com comprovante (o app lê o valor).</div>' +
+      '<div class="hint" style="margin:0">Transferência (Banco Familiar): por enquanto com comprovante (o app lê o valor).</div>' +
       '</section><section class="card col paCard">' +
       pautoSw('fichaTog', 'Imprimir pedidos pagos sozinho', imp ? 'ficha de separação nesta impressora, uma vez por pedido' : 'conecte uma impressora neste aparelho', fichaAutoOn(), !imp) +
       '</section>'
@@ -39725,7 +39725,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   function fichaLinhas(p) {
     var L = [{ t: 'LA FOUCH', centro: 1, negrito: 1 }, { t: 'SEPARAR PEDIDO DO SITE', centro: 1 }, { t: '#' + (p.cod || p.id), centro: 1, negrito: 1, grande: 1 }];
-    L.push({ t: 'PAGO · ' + (p.pag === 'pix' ? 'PIX R$ ' + String(p.brl || '').replace('.', ',') : 'ITAU ' + gs(p.pagar || pedTotal(p))), centro: 1, negrito: 1 });
+    L.push({ t: 'PAGO · ' + (p.pag === 'pix' ? 'PIX R$ ' + String(p.brl || '').replace('.', ',') : 'B. FAMILIAR ' + gs(p.pagar || pedTotal(p))), centro: 1, negrito: 1 });
     L.push({ t: fd(p.ts) + ' ' + fh(p.ts) }, { t: 'Cliente: ' + (p.cli || '') }, { t: 'Tel: ' + (p.tel || '') }, { traco: 1 });
     (p.itens || []).forEach(function (l) {
       L.push({ t: l.q + 'x ' + (l.ref || '') + ' ' + (l.t || ''), negrito: 1 });
@@ -44483,7 +44483,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function pixEspVarre() {
     var ag = {}, ag0 = Date.now() - PIXM_H;
     (S.sales || []).slice(0, 40).forEach(function (s) {
-      // Nubank = transferência em reais; Itaú (13/11) = transferência em guaranis
+      // Nubank = transferência em reais; Banco Familiar (13/11) = transferência em guaranis
       if (s.forma !== 'pix' || (s.moeda !== 'brl' && s.moeda !== 'pyg') || !(+s.ts >= ag0)) return;
       var k = String(s.carrinho || s.id).replace(/[^A-Za-z0-9-]/g, '') + (s.moeda === 'pyg' ? 'G' : '');
       if (!k) return;
@@ -44510,7 +44510,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       tarefas.push(nvApi('GET', 'reservas/' + encodeURIComponent(p.sid)).then(function (j) {
         var pa = j && j.fields && j.fields.pixAuto ? pxFv(j.fields.pixAuto) : null;
         if (!pa || p.pg === 'pago') return;
-        p.pgAuto = { ts: pa.ts || Date.now(), txt: pa.banco === 'itau' ? 'Transferência confirmada pelo e-mail do Itaú · Gs. ' + String(Math.round(+pa.valor || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : 'PIX confirmado pelo e-mail do Nubank · R$ ' + (+pa.valor || 0).toFixed(2).replace('.', ',') };
+        p.pgAuto = { ts: pa.ts || Date.now(), txt: pa.banco === 'itau' ? 'Transferência confirmada pelo e-mail do Banco Familiar · Gs. ' + String(Math.round(+pa.valor || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : 'PIX confirmado pelo e-mail do Nubank · R$ ' + (+pa.valor || 0).toFixed(2).replace('.', ',') };
         var sel = S.pedSel, y = window.scrollY;
         ACT.pedpago(p.id); // sem o dono tocar: não muda a tela em que ele está
         S.pedSel = sel;
@@ -44526,7 +44526,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         var ok = j && j.fields && j.fields.ok ? pxFv(j.fields.ok) : null;
         if (!ok) return;
         o.ok = ok.ts || Date.now();
-        lfToast(o.banco === 'itau' ? 'Transferência Itaú da venda confirmada · Gs. ' + String(o.gs).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : 'PIX da venda confirmado · R$ ' + o.brl.toFixed(2).replace('.', ','));
+        lfToast(o.banco === 'itau' ? 'Transferência Banco Familiar da venda confirmada · Gs. ' + String(o.gs).replace(/\B(?=(\d{3})+(?!\d))/g, '.') : 'PIX da venda confirmado · R$ ' + o.brl.toFixed(2).replace('.', ','));
         saveSoon();
       }).catch(function () {}));
     });

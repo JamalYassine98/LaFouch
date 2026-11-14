@@ -1621,7 +1621,7 @@ async def main():
             tokflow = [st_err, 'não é o do pedido' in errtk, st_ok]
             total += 1
             ok = (n1 == 1 and n2 == 0 and r == [1, 'Maria souza', 2, 'novo', 'site', 1, '0981123456', True, True] and sorted(set(apagados)) == ['abc1', 'abc1c', 'abc2']
-                  and 'Conferir comprovante' in txt and 'TESTE' in txt and extra == ['comp', 'delivery', 'alias', True, 210000, '1234567-8', True] and 'Itaú (alias)' in pagtxt and 'Delivery' in pagtxt and 'LF-' in txt2 and len(reservas) == 1 and reservas[0].startswith('reservas/abc1|') and 'pago' in reservas[0] and 'Nova' in det and 'novo pedido' not in txt.lower() and tokok and 'Maria souza' in det and 'Armação azul' in det
+                  and 'Conferir comprovante' in txt and 'TESTE' in txt and extra == ['comp', 'delivery', 'alias', True, 210000, '1234567-8', True] and 'Banco Familiar (alias)' in pagtxt and 'Delivery' in pagtxt and 'LF-' in txt2 and len(reservas) == 1 and reservas[0].startswith('reservas/abc1|') and 'pago' in reservas[0] and 'Nova' in det and 'novo pedido' not in txt.lower() and tokok and 'Maria souza' in det and 'Armação azul' in det
                   and '3 peças' in jan and 'neste pedido' in jan.lower() and r2 == ['sep', 'sep'] and tokflow == ['pronto', True, 'ent'] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'pedidos do site: chegam sozinhos, cadastram o cliente, detalhe e janela da peça')
             if not ok: falhas.append('pedidos'); print('        veio', n1, n2, r, apagados, txt[:200], det[:200], jan[:200], r2, pg.erros)
