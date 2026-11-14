@@ -426,7 +426,7 @@ async def main():
             await pg.evaluate("() => { const S = window.__LF.S; S.cash = {pyg: 5000000, usd: 500, brl: 0}; S.compras = []; S.dlog = []; S.imprev = []; S.melhUso = []; S.cpay = []; window.__LF.render(); }")
             total += 1
             await pg.evaluate("() => { const S = window.__LF.S; S.ini.melh = 400000; window.__LF.render(); }")
-            await pg.locator('#mainnav >> text="Caixa"').first.click(); await pg.wait_for_timeout(300)
+            await pg.locator('#mainnav >> text="Dinheiro"').first.click(); await pg.wait_for_timeout(300)
             await pg.click('#cxIc'); await pg.wait_for_timeout(150); await pg.click('#cxIc ~ .cxMenu [data-act=cxabre][data-id=mel]'); await pg.wait_for_timeout(300)
             await pg.fill('#obNome', 'Tinta'); await pg.fill('#obCusto', '50000')
             await pg.locator('[data-act="obAdd"]').first.click(); await pg.wait_for_timeout(300)
@@ -1545,7 +1545,7 @@ async def main():
             # v-b9: o voltar do celular volta para a tela anterior; Mensagens abre o painel na aba certa
             pg = await pagina()
             await pg.locator('#mainnav button[data-id="estoque"]').click(); await pg.wait_for_timeout(300)
-            await pg.locator('#mainnav button:has-text("Caixa")').click(); await pg.wait_for_timeout(300)
+            await pg.locator('#mainnav button:has-text("Dinheiro")').click(); await pg.wait_for_timeout(300)
             await pg.go_back(); await pg.wait_for_timeout(400)
             r = await pg.evaluate("() => window.__LF.S.view")
             await pg.go_back(); await pg.wait_for_timeout(400)
@@ -1561,7 +1561,7 @@ async def main():
 
             # animações dos botões: barra fixa embaixo, realce deslizante, segurar para apagar
             pg = await pagina()
-            await pg.locator('#mainnav button:has-text("Caixa")').click(); await pg.wait_for_timeout(600)
+            await pg.locator('#mainnav button:has-text("Dinheiro")').click(); await pg.wait_for_timeout(600)
             r = await pg.evaluate("() => [getComputedStyle(document.getElementById('mainnav')).position, document.querySelectorAll('#mainnav .slider').length, document.querySelector('#mainnav .mn.on').textContent.trim()]")
             await pg.evaluate("() => { window.__LF.S.dTab = 'hoje'; window.__LF.setView('dash'); }"); await pg.wait_for_timeout(500)
             r2 = await pg.evaluate("() => document.querySelectorAll('#v-dash .dHd button').length")  # v465: abas viraram o botão "Resumo ⌄"
@@ -1574,7 +1574,7 @@ async def main():
             await pg.mouse.down(); await pg.wait_for_timeout(1200); await pg.mouse.up(); await pg.wait_for_timeout(400)
             r3 = await pg.evaluate("() => window.__LF.S.imprev.map(x => x.desc)")
             total += 1
-            ok = r == ['fixed', 1, 'Caixa'] and r2 >= 1 and r3 == ['B'] and not pg.erros
+            ok = r == ['fixed', 1, 'Dinheiro'] and r2 >= 1 and r3 == ['B'] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'animações: barra fixa, realce deslizante e segurar para apagar')
             if not ok: falhas.append('animacoes'); print('        veio', r, r2, r3, pg.erros)
             await pg.close()
@@ -2891,7 +2891,7 @@ async def main():
             # finanças pela tela: retirada, conferência do caixa, resultado e fluxo no Dashboard
             pg = await pagina()
             await pg.evaluate("() => { const S = window.__LF.S; S.cash = {pyg: 5000000, usd: 500, brl: 0}; S.retiradas = []; S.confCx = []; S.dlog = []; window.__LF.render(); }")
-            await pg.locator('#mainnav >> text="Caixa"').first.click(); await pg.wait_for_timeout(300)
+            await pg.locator('#mainnav >> text="Dinheiro"').first.click(); await pg.wait_for_timeout(300)
             await pg.click('#cxIc'); await pg.wait_for_timeout(150); await pg.click('[data-act=cxabre][data-id=ret]'); await pg.wait_for_timeout(300)
             await pg.fill('#rtV', '200000'); await pg.fill('#rtN', 'Almoço')
             await pg.locator('[data-act="rtgo"]').first.click(); await pg.wait_for_timeout(300)

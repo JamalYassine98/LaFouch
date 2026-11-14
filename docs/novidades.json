@@ -1,9 +1,10 @@
 {
- "nome": "5.12.1",
+ "nome": "5.13.0",
  "notas": [
-  "Guardião: no Início virou uma linha; tocar abre as Pendências.",
-  "Pendências: uma lista só, com tudo o que o Guardião achou (antes só o urgente aparecia lá).",
-  "As conferências completas do Guardião continuam em Pendências › Ver todas as conferências."
+  "Dinheiro: Caixa, contas do mês e câmbio na mesma tela. Cada parte tem Ver tudo, que abre a tela inteira.",
+  "Dashboard: o dia, os três dias anteriores e os números do mês juntos. O atalho Dashboard abre essa tela.",
+  "No computador as partes ficam em três colunas; no tablet, em duas.",
+  "Câmbio do dia e Despesas do dia continuam no Dashboard, recolhidos em uma linha."
  ],
- "build": 510
+ "build": 511
 }

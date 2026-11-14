@@ -4,7 +4,7 @@
     ['ped', 'Pedidos', 'M6 7h12l-1 13H7L6 7zm3 0a3 3 0 0 1 6 0'],
     ['clientes', 'Clientes', 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm-7 9a7 7 0 0 1 14 0'],
     ['hist', 'Histórico', 'M12 7v5l3 2M21 12a9 9 0 1 1-3-6.7'],
-    ['dash', 'Números', 'M4 20V10m6 10V4m6 16v-7m4 7H2'],
+    ['dia', 'Dashboard', 'M4 20V10m6 10V4m6 16v-7m4 7H2'], // S265: abre a família Dashboard (o dia + dias anteriores + números do mês)
     ['desp', 'Despesas', 'M6 3h12v18l-3-2-3 2-3-2-3 2V3zm3 5h6m-6 4h6'],
     ['fx', 'Câmbio', 'M4 8h14l-3-3m5 11H6l3 3']
   ];
