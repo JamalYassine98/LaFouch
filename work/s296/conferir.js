@@ -40,23 +40,28 @@ function medeQuadro(img){
 /* Decide, a partir das medidas (média dos últimos quadros), o que está certo e o que fazer. Cada item: {id, nome, ok (true/false/null = não deu para conferir), fazer}.
    A peça deve estar DE FRENTE para a câmera na hora de conferir. */
 function confereGiro(m,ex){
-  ex=ex||{};var it=[],p=m.peca,W=m.W,H=m.H,add=function(id,nome,ok,fazer){it.push({id:id,nome:nome,ok:ok,fazer:ok===false?fazer:''})};
+  ex=ex||{};var it=[],p=m.peca,W=m.W,H=m.H,ant=ex.ant||{},add=function(id,nome,ok,fazer){it.push({id:id,nome:nome,ok:ok,fazer:ok===false?fazer:''})};
+  /* 14/11 (celular real: o aviso ficava trocando com tudo parado): cada item tem FOLGA de troca — quem estava certo só vira errado se sair da faixa
+     com folga, e quem estava errado só vira certo se entrar com folga. Assim o chiado da câmera perto do limite não faz o aviso piscar. */
+  function faixa(id,v,a,b,f){var era=ant[id];if(era===true)return v>=a-f&&v<=b+f;if(era===false)return v>=a+f&&v<=b-f;return v>=a&&v<=b}
+  function acima(id,v,a,f){var era=ant[id];if(era===true)return v>=a-f;if(era===false)return v>=a+f;return v>=a}
   add('deitado','Celular deitado',ex.emPe?false:true,'Deite o celular');
-  add('firme','Celular parado',ex.mexe==null?null:ex.mexe<1.2,'O celular está mexendo: apoie ou prenda melhor');
-  add('luz','Luz do fundo',m.parede>=120&&m.desv<.05,m.parede<120?'Falta luz: aumente a luz da caixa':'Fundo manchado: tire sombras e reflexos de trás da peça');
+  add('firme','Celular parado',ex.mexe==null?null:!acima('firme_',ex.mexe,1.6,.5),'O celular está mexendo: apoie ou prenda melhor');
+  add('luz','Luz do fundo',acima('luz',m.parede,118,6)&&m.desv<.06,m.parede<124?'Falta luz: aumente a luz da caixa':'Fundo manchado: tire sombras e reflexos de trás da peça');
   if(!p){add('peca','Peça no prato',m.cortada?false:null,m.cortada?'A peça está saindo do quadro ou encostada numa costura: afaste o celular e centralize':'Coloque a peça no prato, de frente para a câmera');return fim(it)}
   var larg=(p.x1-p.x0)/W,cx=(p.x0+p.x1)/2/W,zona=[(cx-.75*larg)*W,(cx+.75*larg)*W];
   add('peca','Peça no prato',true,'');
-  add('dist','Distância',larg>=.45&&larg<=.58,larg<.45?'Aproxime o celular (a peça está pequena)':'Afaste um pouco o celular (a peça gira e precisa de folga)');
-  add('meio','Peça no meio do quadro',Math.abs(cx-.5)<=.05,cx<.5?'Vire o celular um pouco para a esquerda (a peça está à esquerda)':'Vire o celular um pouco para a direita (a peça está à direita)');
+  /* distância: faixa larga de propósito (0,36 a 0,62 da largura). O tratamento aguenta essa variação; o aviso é só para erro grande. */
+  add('dist','Distância',faixa('dist',larg,.36,.62,.035),larg<.45?'Aproxime o celular (a peça está pequena)':'Afaste um pouco o celular (a peça gira e precisa de folga)');
+  add('meio','Peça no meio do quadro',faixa('meio',cx,.43,.57,.025),cx<.5?'Vire o celular um pouco para a esquerda (a peça está à esquerda)':'Vire o celular um pouco para a direita (a peça está à direita)');
   var r=m.borda>0?(m.borda-p.y0)/Math.max(1,p.y1-p.y0):null;
-  add('altura','Altura da câmera',r==null?null:(r>=.45&&r<=.85),r!=null&&r<.45?'Câmera alta: abaixe o celular até quase a altura da peça':'Câmera baixa demais: suba um pouco o celular');
+  add('altura','Altura da câmera',r==null?null:faixa('altura',r,.4,.9,.06),r!=null&&r<.5?'Câmera alta: abaixe o celular até quase a altura da peça':'Câmera baixa demais: suba um pouco o celular');
   var dentro=m.cost.filter(function(c){return c>zona[0]&&c<zona[1]}).length;
-  add('costura','Fundo sem costura atrás da peça',dentro===0,'Costura da tenda atrás do caminho da peça: cubra com a cartolina branca');
-  add('foco','Foco na peça',p.nit>=.6,'Fora de foco: toque e segure na peça para travar o foco');
-  add('folga','Folga nas bordas',zona[0]>W*.02&&zona[1]<W*.98&&p.y0>H*.06&&p.y1<H*.97,'Sem folga: a peça vai sair do quadro quando girar; afaste o celular');
+  add('costura','Fundo sem costura atrás da peça',ant.costura===true?dentro<3:dentro===0,'Costura da tenda atrás do caminho da peça: cubra com a cartolina branca');
+  add('foco','Foco na peça',acima('foco',p.nit,.55,.08),'Fora de foco: toque e segure na peça para travar o foco');
+  add('folga','Folga nas bordas',zona[0]>W*(ant.folga===true?0:.02)&&zona[1]<W*(ant.folga===true?1:.98)&&p.y0>H*.05&&p.y1<H*.98,'Sem folga: a peça vai sair do quadro quando girar; afaste o celular');
   return fim(it);
   function fim(it){var ruim=it.filter(function(i){return i.ok===false}),nao=it.filter(function(i){return i.ok===null});
-    return {itens:it,tudo:!ruim.length&&!nao.length,frase:ruim.length?ruim[0].fazer:(nao.length?(nao[0].id==='peca'?'Coloque a peça no prato, de frente para a câmera':'Conferindo…'):'Tudo certo · pode gravar')}}
+    var mapa={};it.forEach(function(i){mapa[i.id]=i.ok});mapa.firme_=ex.mexe==null?null:!(it.filter(function(i){return i.id==='firme'})[0]||{}).ok;return {itens:it,mapa:mapa,tudo:!ruim.length&&!nao.length,frase:ruim.length?ruim[0].fazer:(nao.length?(nao[0].id==='peca'?'Coloque a peça no prato, de frente para a câmera':'Conferindo…'):'Tudo certo · pode gravar')}}
 }
 if(typeof module!=='undefined')module.exports={medeQuadro:medeQuadro,confereGiro:confereGiro};

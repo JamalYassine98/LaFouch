@@ -5,7 +5,7 @@
 *{box-sizing:border-box}html,body{margin:0;background:#17121a;color:#f4eef2;font:15px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
 main{max-width:980px;margin:0 auto;padding:10px}
 h1{font:600 18px/1.2 Georgia,serif;margin:4px 2px 8px}
-.cam{position:relative;border-radius:16px;overflow:hidden;background:#000;aspect-ratio:16/9;max-height:calc(100vh - 20px);margin:0 auto;outline:3px solid rgba(255,255,255,.75);outline-offset:-3px;transition:outline-color .3s}
+.cam{position:relative;border-radius:16px;overflow:hidden;background:#000;aspect-ratio:16/9;max-height:calc(100vh - 20px);max-height:calc(100dvh - 20px);margin:0 auto;outline:3px solid rgba(255,255,255,.75);outline-offset:-3px;transition:outline-color .3s}
 .cam.ok{outline-color:#3ecf7a}.cam video,.cam canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
 .frase{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);max-width:92%;padding:10px 16px;border-radius:999px;background:rgba(23,18,26,.82);color:#fff;font:600 16px/1.25 inherit;text-align:center}
 .cam.ok .frase{background:rgba(22,110,62,.92)}
@@ -19,7 +19,10 @@ h1{font:600 18px/1.2 Georgia,serif;margin:4px 2px 8px}
 .it{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}.it span{padding:7px 11px;border-radius:999px;font:600 13px inherit;background:#2a2230;color:#b9aab4}
 .it span.s{background:#173a27;color:#8fe3b0}.it span.n{background:#4a1f2c;color:#ffb3c4}
 p{margin:6px 2px;color:#b9aab4;font-size:13px}
-@media (orientation:landscape) and (max-height:520px){h1,p{display:none}main{padding:4px}.it{position:fixed;left:8px;top:8px;margin:0;max-width:46vw;z-index:2}.it span{font-size:11px;padding:4px 8px}}
+@media (orientation:landscape) and (max-height:560px){h1,p{display:none}main{max-width:none;padding:6px;display:grid;grid-template-columns:minmax(120px,19vw) auto minmax(120px,19vw);gap:8px;align-items:start;justify-content:center;height:100vh;height:100dvh}
+.cam{grid-column:2;grid-row:1;height:calc(100vh - 12px);height:calc(100dvh - 12px);max-height:none;width:auto;margin:0}
+.it{grid-column:1;grid-row:1;margin:0;flex-direction:column;flex-wrap:nowrap;gap:4px;overflow:hidden}.it span{font-size:11px;padding:4px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.it span.s{background:transparent;color:#7fcf9f;padding:2px 8px}
+.bar{grid-column:3;grid-row:1;margin:0;flex-direction:column;align-items:stretch;align-self:end}.bar button,.bar a{justify-content:center;padding:0 10px;font-size:14px}.frase{font-size:14px;bottom:8px}}
 </style></head><body><main>
 <h1>Conferir e gravar o giro</h1>
 <div class="cam" id="cam"><video id="v" muted playsinline autoplay></video><canvas id="o"></canvas>
@@ -34,7 +37,7 @@ p{margin:6px 2px;color:#b9aab4;font-size:13px}
 <script>
 (function(){
   var v=document.getElementById('v'),o=document.getElementById('o'),cam=document.getElementById('cam'),fr=document.getElementById('fr'),itE=document.getElementById('it'),abre=document.getElementById('abre');
-  var c=document.createElement('canvas');c.width=640;c.height=360;var x=c.getContext('2d',{willReadFrequently:true}),ox=o.getContext('2d'),hist=[],ant=null,bons=0;
+  var c=document.createElement('canvas');c.width=640;c.height=360;var x=c.getContext('2d',{willReadFrequently:true}),ox=o.getContext('2d'),hist=[],ant=null,bons=0,antR={};
   function erro(t){abre.hidden=false;abre.firstElementChild.textContent=t}
   document.getElementById('go').addEventListener('click',function(){
     if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){erro('Este navegador não deixa abrir a câmera por aqui.');return}
@@ -74,11 +77,11 @@ p{margin:6px 2px;color:#b9aab4;font-size:13px}
     /* celular parado? compara a faixa de cima (parede, que não gira) com a do quadro anterior */
     var at=new Uint8Array(160*40),k=0;for(var yy=18;yy<98;yy+=2)for(var xx=160;xx<480;xx+=2)at[k++]=d[(yy*640+xx)*4+1];
     if(ant){var s=0;for(k=0;k<at.length;k++)s+=Math.abs(at[k]-ant[k]);mexe=s/at.length}ant=at;
-    hist.push({m:m,mexe:mexe});if(hist.length>5)hist.shift();
+    hist.push({m:m,mexe:mexe});if(hist.length>12)hist.shift();   /* ~3,5 s de memória: a medida usada é a do meio desses quadros */
     /* média dos últimos quadros para o aviso não ficar piscando */
     var com=hist.filter(function(h){return h.m.peca}),mm={W:640,H:360,parede:mediana(hist.map(function(h){return h.m.parede})),desv:mediana(hist.map(function(h){return h.m.desv})),cost:m.cost,borda:mediana(hist.map(function(h){return h.m.borda})),cortada:m.cortada,peca:null};
     if(com.length>=Math.ceil(hist.length/2)){var f=function(q){return mediana(com.map(function(h){return h.m.peca[q]}))};mm.peca={x0:f('x0'),x1:f('x1'),y0:f('y0'),y1:f('y1'),nit:f('nit')}}
-    var mx=hist.filter(function(h){return h.mexe!=null}).map(function(h){return h.mexe}),r=confereGiro(mm,{emPe:emPe,mexe:mx.length?Math.max.apply(null,mx):null});
+    var mx=hist.filter(function(h){return h.mexe!=null}).map(function(h){return h.mexe}),r=confereGiro(mm,{emPe:emPe,mexe:mx.length?mediana(mx):null,ant:antR});antR=r.mapa;
     bons=r.tudo?bons+1:0;var ok=bons>=4;cam.classList.toggle('ok',ok);fr.textContent=r.tudo&&!ok?'Quase… segure assim':r.frase;gr.textContent=ok?'Gravar a volta':'Gravar mesmo assim';
     itE.innerHTML=r.itens.map(function(i){return '<span class="'+(i.ok===true?'s':i.ok===false?'n':'')+'">'+(i.ok===true?'✓ ':i.ok===false?'✕ ':'… ')+i.nome+'</span>'}).join('');
     /* desenho por cima: caixa da peça, zona por onde ela passa girando e costuras */
