@@ -65,6 +65,8 @@ Limite honesto: Giro, Preços, Mensagens, Analisador, Temática, Atacado, Market
 
 **O que existe (lido no código, não percorrido na tela):** Compartilhar inteligente (escolha do app: WhatsApp Business, WhatsApp, Instagram, Copiar link, Mais; lembra o último); Enviar bonito com a tela única S185 (para quem → o que mandar: link com foto, cartões, capa de status; lojista: PDF ou planilha); Enviar catálogo (folha, fotos ou texto, com validade); e saídas próprias em Marketing, Estúdio, Lista de compras e convite de atacado.
 
+**Correção (dono, 04:23):** o compartilhar por link já existe e é a base — link da peça com foto (`/p/CÓDIGO`), seleção "Separado para vos" (`/s/`), capa de status, PDF/planilha do lojista (S185, implementado em 12/11), convite de atacado que vira conta controlada pelo dono (S191) e link de lote protegido por conta/aparelho (S206). A porta única tem de partir disso, sem recriar nada.
+
 **Proposta: uma porta só, em três passos.** 1) Para quem · 2) O que mandar · 3) Por onde. A tela S185 já faz 1 e 2; "folha, fotos, texto" do Enviar catálogo viram opções do passo 2; o passo 3 é sempre a escolha de app que já existe. Marketing, Estúdio, Lista de compras e convite mantêm o próprio conteúdo e entram direto no passo 3. Nenhuma função some; somem as janelas repetidas.
 
 ## 4 · Computador, notebook e tablet

@@ -2284,3 +2284,9 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Decidido por mim (aguarda só o comando): grupo = CAPA (nome + um resumo desenhado por tela + "Ver tudo") + telas com palavras em linha no lugar das pílulas; 3 famílias à mão (Dinheiro, Resultados, Site); ícone 22 px; movimento no padrão de luxo. Nomes: aba "Dinheiro" de Números → "Reservas"; grupo Dia+Histórico+Números → "Resultados" (em vez de "Vendas"); tela = "Números"; "Avisos" → "Pendências"; 2º "Catálogo" → "Enviar catálogo"; "Loja" → "Site". Compartilhar = uma porta em 3 passos (para quem · o que mandar · por onde), aproveitando a tela S185.
 - Teste por programa (work/s269/teste.py): S265 + S267 em 390/820/1366/2560, claro e escuro: 0 erros JS, 0 falhas novas no olho, sem estouro de largura. Não medido: rolado, letra, temáticas, janelas novas.
 - Limites: 8 telas (Giro, Preços, Mensagens, Analisador, Temática, Atacado, Marketing, Contagem) não foram abertas nesta sessão; compartilhar foi lido no código, não percorrido na tela.
+
+### S269b · 14/11/2026 04:23 · DONO
+- Perguntou o que é "Resultados" (explicado: grupo Dia + Histórico + Números = o que a loja vendeu e ganhou). Nome ainda não decidido por ele.
+- Lembrou que o compartilhar por link já foi feito (S185 link com foto, /s/, status, PDF/planilha; S191 convite de atacado → conta controlada pelo dono; S206 link de lote protegido). Corrigido no estudo: a porta única parte disso.
+- Mandou a chave do ElevenLabs no chat: guardada SÓ na sessão (arquivo temporário fora do projeto), não está no repositório nem nesta memória. NÃO gravar nada sem ele autorizar o valor de cada gravação; vozes só depois da Mochi no computador (partes 2–3).
+- Obs.: o S267 (um papel por lugar) desfaz a "ficha única com abas Vender/Estoque/…" do S184 (implementada em 12/11) — aprovado hoje pelo dono com a tela na frente.
