@@ -2131,14 +2131,12 @@ async def main():
             ok = gs_['antes'] == 'solar|GA1' and gs_['dep'] == 'solar|GB2' and gs_['fechou'] == '' and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'vitrine: arrastar de lado troca a peça e para baixo fecha')
             if not ok: falhas.append('vitrine gestos'); print('        veio', gs_, pg.erros)
-            ev_ = await pg.evaluate("""async () => { const L = window.__LF, S = L.S; S.tabAtiva = 'pub'; S._vVis = []; S.pprice = {GA1: {novo: 400000, ant: 0}, GB2: {novo: 300000, ant: 0}}; S.vRef = ''; L.setView('vendas'); L.render();
+            ev_ = await pg.evaluate("""async () => { const L = window.__LF, S = L.S; S.tabAtiva = 'pub'; S._vVis = []; S.pprice = {GA1: {novo: 400000, ant: 0}, GB2: {novo: 300000, ant: 0}}; S.vRef = ''; S.ebSel = null; L.setView('vendas'); L.render();
               document.getElementById('cjSh').click(); await new Promise(r => setTimeout(r, 500));
-              const msg = (document.getElementById('shTx') || {}).value || ''; const fmts = document.querySelectorAll('#shFmt .trkB').length;
-              const apps = [...document.querySelectorAll('#shAp .shA')].map(b => b.dataset.id); document.querySelector('.ljBk').click();
-              const fo = await L.envFolha(); return {msg, fmts, fo, apps}; }""")
+              const r = {sel: Array.isArray(S.ebSel), velha: !!document.querySelector('.shJn'), barra: !!document.querySelector('#selBar, .ebBar')}; S.ebSel = null; L.render(); return r; }""")
             total += 1
-            ok = 'válidos até' in ev_['msg'] and ev_['fmts'] == 3 and ev_['fo']['n'] >= 2 and ev_['fo']['w'] > 1000 and ev_['apps'] == ['wab', 'wa', 'ig', 'link', 'mais'] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'compartilhar catálogo: janela com os apps, formatos, mensagem com validade e folha em imagem')
+            ok = ev_['sel'] and not ev_['velha'] and ev_['barra'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'compartilhar catálogo: o botão entra no modo de escolher peças do Compartilhar novo (a janela antiga saiu)')
             if not ok: falhas.append('enviar catalogo'); print('        veio', ev_, pg.erros)
             fl = await pg.evaluate("""async () => { const L = window.__LF, S = L.S; S.cart = []; S.tabAtiva = 'pub'; S.vRef = ''; S.vModo = {v:'g'}; S.vAb = ''; try { localStorage.setItem('lf_modo_v', 'g'); } catch (e) {}
               S.items = [{tipo:'solar',ref:'FA1',grau:'',cor:'Preto',qty:5,fmt:'',med:'',vr:'',lote:'',custo:20},{tipo:'solar',ref:'FA1',grau:'',cor:'Azul',qty:4,fmt:'',med:'',vr:'',lote:'',custo:20},{tipo:'solar',ref:'FB2',grau:'',cor:'Vinho',qty:3,fmt:'',med:'',vr:'',lote:'',custo:20}];

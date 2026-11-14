@@ -82,8 +82,11 @@
       '<button type="button" class="ic0 cjIc" id="cjSh" aria-label="Compartilhar" title="Compartilhar">' + CJ_ICO.sh + '</button>';
     sub.appendChild(bx);
     $('cjAj').onclick = cjAbre;
+    // limpeza 14/11/2026 (decisão do dono): a janela antiga (Folha · Fotos · Só texto) saiu. O botão entra no modo de escolher as peças
+    // do Compartilhar novo (por link): toque nas peças e depois em "Enviar bonito".
     $('cjSh').onclick = function () {
-      shAbre({ tipo: 'catalogo' });
+      if (!S.ebSel) S.ebSel = [];
+      if (typeof ebDecora === 'function') ebDecora();
     };
   }
   // Depois de cada desenho do Catálogo: texto da linha, bolinha e o progresso do atacado.

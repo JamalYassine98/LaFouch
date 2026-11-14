@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 514;
+  var APP_BUILD = 515;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.13.3'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.13.4'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -30177,8 +30177,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<button type="button" class="ic0 cjIc" id="cjSh" aria-label="Compartilhar" title="Compartilhar">' + CJ_ICO.sh + '</button>';
     sub.appendChild(bx);
     $('cjAj').onclick = cjAbre;
+    // limpeza 14/11/2026 (decisão do dono): a janela antiga (Folha · Fotos · Só texto) saiu. O botão entra no modo de escolher as peças
+    // do Compartilhar novo (por link): toque nas peças e depois em "Enviar bonito".
     $('cjSh').onclick = function () {
-      shAbre({ tipo: 'catalogo' });
+      if (!S.ebSel) S.ebSel = [];
+      if (typeof ebDecora === 'function') ebDecora();
     };
   }
   // Depois de cada desenho do Catálogo: texto da linha, bolinha e o progresso do atacado.
@@ -30395,147 +30398,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       localStorage.setItem('lf_shUlt', id);
     } catch (e) {}
   }
-  function shOrdem() {
-    var u = shUlt(),
-      l = SH_APPS.filter(function (a) {
-        return !a.pkg || !SH_INST || SH_INST.indexOf(a.pkg) >= 0;
-      });
-    var ap = l.filter(function (a) {
-        return a.pkg;
-      }),
-      out = l.filter(function (a) {
-        return !a.pkg;
-      });
-    ap.sort(function (a, b) {
-      return (b.id === u) - (a.id === u);
-    });
-    return ap.concat(out);
-  }
-  function shLinkPeca(ref) {
-    return S.site && S.site[ref] ? 'https://lafouch.com/p/' + encodeURIComponent(ref) + '.html' : 'https://lafouch.com';
-  }
-  function shPecaDados(ref) {
-    var it = itemDoRef(ref),
-      p = it ? precoTab(it) : 0;
-    return { ref: ref, nome: pn(ref), preco: p, foto: photoOf(ref) };
-  }
-  function shTextoPeca(d) {
-    var m = vMoeda(),
-      pr = m === 'pyg' ? gs(d.preco) : fmtM(Math.round((d.preco / ratePyg(m)) * 100) / 100, m) + ' · ' + gs(d.preco);
-    return d.nome + ' · ' + pr + '\n' + shLinkPeca(d.ref) + '\nLa Fouch · Galeria Jebai Center, Ciudad del Este';
-  }
   function shB64(cv) {
     return cv.toDataURL('image/jpeg', 0.9).split(',')[1];
-  }
-  // Monta o que vai: {text, files:[base64], blobs:[File]}
-  function shConteudo(o, fmt, txt) {
-    if (o.tipo === 'peca') {
-      var d = shPecaDados(o.ref);
-      return envImg(d.foto).then(function (im) {
-        var cv = envFoto(d, im);
-        return { text: txt || shTextoPeca(d), cvs: [cv], nome: ['lafouch-' + d.ref + '.jpg'] };
-      });
-    }
-    var pecas = envPecas();
-    if (fmt === 'texto' || !pecas.length) return Promise.resolve({ text: txt || envMsg(), cvs: [], nome: [] });
-    return Promise.all(pecas.map(function (p) {
-      return envImg(p.foto);
-    })).then(function (imgs) {
-      var cvs = fmt === 'folha' ? [envFolha(pecas, imgs)] : pecas.map(function (p, k) {
-        return envFoto(p, imgs[k]);
-      });
-      return { text: txt || envMsg(), cvs: cvs, nome: cvs.map(function (c, k) { return fmt === 'folha' ? 'catalogo-lafouch.jpg' : 'lafouch-' + pecas[k].ref + '.jpg'; }) };
-    });
-  }
-  function shEnvia(app, o, fmt, txt) {
-    return shConteudo(o, fmt, txt).then(function (c) {
-      if (app.id === 'link') {
-        var lk = o.tipo === 'peca' ? shLinkPeca(o.ref) : 'https://lafouch.com';
-        var ok = function () {
-          lfToast('✓ Link copiado');
-        };
-        if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(lk).then(ok, ok);
-        ok();
-        return;
-      }
-      var P = shPlug();
-      if (P) return P.send({ pkg: app.pkg || '', text: c.text, files: c.cvs.map(shB64) });
-      // app antigo (sem o plugin): lista do celular com as imagens; sem isso, WhatsApp só com o texto
-      return Promise.all(c.cvs.map(envBlob)).then(function (bl) {
-        var arqs = bl.map(function (b, k) {
-          return new File([b], c.nome[k], { type: 'image/jpeg' });
-        });
-        if (navigator.share && (!arqs.length || (navigator.canShare && navigator.canShare({ files: arqs }))))
-          return navigator.share(arqs.length ? { files: arqs, text: c.text } : { text: c.text }).catch(function () {});
-        window.open('https://wa.me/?text=' + encodeURIComponent(c.text), '_blank');
-      });
-    });
-  }
-  function shAbre(o) {
-    var P = shPlug();
-    if (P && SH_INST == null)
-      P.apps().then(function (r) {
-        SH_INST = (r && r.apps) || [];
-      }, function () {
-        SH_INST = [];
-      });
-    var fmt = S.envFmt || 'folha',
-      d = o.tipo === 'peca' ? shPecaDados(o.ref) : null,
-      ttl = d ? d.nome : 'Catálogo · ' + envPecas().length + ' peça(s)',
-      sub = d ? 'foto + preço + link do site' : (tabDe(S.tabAtiva).pub ? 'preços de balcão' : 'tabela ' + tabDe(S.tabAtiva).nome),
-      u = shUlt();
-    var J = lfJanela({
-      titulo: 'Compartilhar',
-      cls: 'shJn',
-      monta: function (c, J) {
-        c.innerHTML =
-          '<div class="shTopo">' + (d && d.foto ? '<img src="' + esc(d.foto) + '" alt="">' : '<span class="shIc0">' + CJ_ICO.sh + '</span>') + '<div><b>' + esc(ttl) + '</b><div class="hint" style="margin:0">' + esc(sub) + '</div></div></div>' +
-          (d ? '' : '<div class="trk shFmt" id="shFmt"><span class="trkTh"></span><button type="button" class="trkB" data-m="folha">Folha</button><button type="button" class="trkB" data-m="fotos">Fotos</button><button type="button" class="trkB" data-m="texto">Só texto</button></div>') +
-          '<div class="shAp" id="shAp">' + shOrdem().map(function (a) {
-            return '<button type="button" class="shA' + (a.id === u && a.pkg ? ' pri' : '') + '" data-id="' + a.id + '"><span class="shI" style="' + (a.cor ? 'color:' + a.cor : '') + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round">' + a.ico + '</svg></span><span class="shN">' + a.nome + '</span></button>';
-          }).join('') + '</div>' +
-          '<button type="button" class="ebEnt" id="shEb"><span class="shIc0">' + CJ_ICO.sh + '</span><span style="flex:1;text-align:left"><b>Enviar bonito</b><small>' + (d ? 'cartão com o nome do cliente' : 'segure as peças no catálogo para escolher') + '</small></span>›</button>' +
-          '<details class="shMsg"><summary>Mensagem</summary><textarea class="in" id="shTx" rows="4"></textarea></details>';
-        $('shTx').value = d ? shTextoPeca(d) : envMsg();
-        var tf = $('shFmt');
-        if (tf) {
-          trkMarca(tf, fmt);
-          tf.onclick = function (e) {
-            var b = e.target.closest('.trkB');
-            if (!b) return;
-            fmt = S.envFmt = b.dataset.m;
-            trkMarca(tf, fmt);
-          };
-        }
-        requestAnimationFrame(function () {
-          var ap = $('shAp');
-          if (ap) ap.classList.add('in');
-        });
-        $('shEb').onclick = function () {
-          J.fecha();
-          if (d) return ebAbre([o.ref]);
-          S.ebSel = [];
-          lfToast('Segure uma peça para começar');
-        };
-        $('shAp').onclick = function (e) {
-          var b = e.target.closest('.shA');
-          if (!b || J._indo) return;
-          var app = SH_APPS.filter(function (a) {
-            return a.id === b.dataset.id;
-          })[0];
-          J._indo = 1;
-          if (app.pkg) shGuardaUlt(app.id);
-          b.classList.add('voa');
-          var tx = $('shTx').value;
-          setTimeout(function () {
-            J.fecha();
-            shEnvia(app, o, fmt, tx).catch(function () {
-              lfToast('Não consegui abrir o ' + app.nome);
-            });
-          }, REDUCED ? 0 : 360);
-        };
-      }
-    });
   }
   // ===== Contagem de estoque (aba Estoque): por produto, do mais valioso ao menos, com resumo em dinheiro. =====
   // Custo em US$ de uma peça (própria, do lote ou do tipo).
@@ -31645,12 +31509,15 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         ebAbre(refs);
       };
     }
-    var on = !!sel.length && S.view === 'vendas';
+    // 14/11/2026: o botão de compartilhar do Catálogo entra aqui com a seleção vazia — a barra aparece pedindo para tocar nas peças
+    var on = !!S.ebSel && S.view === 'vendas', go = b.querySelector('.ebGo');
     b.classList.toggle('in', on);
-    if (on) {
+    if (go) go.disabled = !sel.length;
+    $('ebNn').style.display = sel.length ? '' : 'none';
+    if (on && sel.length) {
       lfOdo($('ebNn'), sel.length);
       $('ebNt').textContent = sel.length === 1 ? 'selecionada' : 'selecionadas';
-    }
+    } else if (on) $('ebNt').textContent = 'Toque nas peças que quer mandar';
   }
   // ---- tela Enviar bonito ----
   function ebDados(ref) {
@@ -31909,29 +31776,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     vibrar(18);
     ebDecora();
   };
-  // ===== Enviar catálogo no WhatsApp: escolhe o formato, edita a mensagem (com validade) e compartilha =====
-  S.envFmt = 'folha'; // 'folha' (uma imagem com todas as peças) | 'fotos' (uma imagem por peça) | 'texto'
-  function envValidade() {
-    var d = new Date(Date.now() + 7 * 864e5);
-    return ('0' + d.getDate()).slice(-2) + '/' + ('0' + (d.getMonth() + 1)).slice(-2);
-  }
-  function envPecas() {
-    var refs = S._vVis || [],
-      vistos = {},
-      out = [];
-    S.items.forEach(function (i) {
-      if (!(i.qty > 0) || vistos[i.ref] || (refs.length && refs.indexOf(i.ref) < 0)) return;
-      var p = precoTab(i);
-      if (!(p > 0)) return;
-      vistos[i.ref] = 1;
-      out.push({ ref: i.ref, nome: pn(i.ref), preco: p, foto: photoOf(i.ref) });
-    });
-    return out;
-  }
-  function envMsg() {
-    var T = tabDe(S.tabAtiva);
-    return 'Olá! Segue o catálogo La Fouch — ' + (T.pub ? 'preços de balcão' : 'tabela ' + T.nome) + '.\nPreços válidos até ' + envValidade() + '.\n\nPara pedir, é só responder aqui. La Fouch · Ciudad del Este';
-  }
+  // ===== Ajudantes de imagem usados pelo Compartilhar novo, pelo Enviar bonito e pelo Marketing (o envio antigo do catálogo saiu em 14/11/2026) =====
   function envImg(src) {
     return new Promise(function (ok) {
       if (!src) return ok(null);
@@ -31950,127 +31795,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       cv.toBlob(ok, 'image/jpeg', 0.9);
     });
   }
-  function envCartao(ctx, p, im, x, y, w, h) {
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(x, y, w, h);
-    ctx.strokeStyle = '#e4dce2';
-    ctx.strokeRect(x + 0.5, y + 0.5, w - 1, h - 1);
-    var fh = h - 76;
-    if (im) {
-      var r = Math.min((w - 16) / im.width, (fh - 8) / im.height),
-        iw = im.width * r,
-        ih = im.height * r;
-      ctx.drawImage(im, x + (w - iw) / 2, y + 8 + (fh - 8 - ih) / 2, iw, ih);
-    }
-    ctx.fillStyle = '#2a1f27';
-    ctx.font = '600 22px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText(p.nome.slice(0, 22), x + w / 2, y + h - 40);
-    ctx.fillStyle = '#7a2f63';
-    ctx.font = '700 26px sans-serif';
-    ctx.fillText(gs(p.preco), x + w / 2, y + h - 10);
-  }
-  // Uma imagem com todas as peças marcadas (3 por linha).
-  function envFolha(pecas, imgs) {
-    var cols = 3,
-      cw = 360,
-      ch = 420,
-      gap = 16,
-      topo = 110,
-      linhas = Math.ceil(pecas.length / cols),
-      cv = document.createElement('canvas');
-    cv.width = cols * cw + (cols + 1) * gap;
-    cv.height = topo + linhas * (ch + gap) + 60;
-    var ctx = cv.getContext('2d');
-    ctx.fillStyle = '#f4f1f4';
-    ctx.fillRect(0, 0, cv.width, cv.height);
-    ctx.fillStyle = '#4d2a43';
-    ctx.font = '700 44px sans-serif';
-    ctx.textAlign = 'left';
-    ctx.fillText('La Fouch', gap + 8, 62);
-    ctx.font = '24px sans-serif';
-    ctx.fillStyle = '#6b5a66';
-    var T = tabDe(S.tabAtiva);
-    ctx.fillText((T.pub ? 'Preços de balcão' : 'Tabela ' + T.nome) + ' · válido até ' + envValidade(), gap + 8, 96);
-    pecas.forEach(function (p, k) {
-      envCartao(ctx, p, imgs[k], gap + (k % cols) * (cw + gap), topo + Math.floor(k / cols) * (ch + gap), cw, ch);
-    });
-    return cv;
-  }
-  function envFoto(p, im) {
-    var cv = document.createElement('canvas');
-    cv.width = 800;
-    cv.height = 900;
-    envCartao(cv.getContext('2d'), p, im, 0, 0, 800, 900);
-    return cv;
-  }
-  function envSheet() {
-    var pecas = envPecas();
-    lfaAbre(
-      'lfa-env',
-      '<h3 style="margin:0 0 8px">Enviar catálogo no WhatsApp</h3><div class="hint" style="margin:0 0 8px">' + pecas.length + ' peça(s) com preço · ' + esc(tabDe(S.tabAtiva).nome) + '</div>' +
-        '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">' +
-        [['folha', 'Folha (1 imagem)'], ['fotos', 'Fotos separadas'], ['texto', 'Só texto']].map(function (f) {
-          return '<button type="button" class="chip' + (S.envFmt === f[0] ? ' on' : '') + '" data-act="envfmt" data-id="' + f[0] + '">' + f[1] + '</button>';
-        }).join('') +
-        '</div><textarea class="in" id="envMsg" rows="6" style="width:100%">' + esc(envMsg()) + '</textarea>' +
-        '<div style="display:flex;gap:8px;margin-top:10px"><button type="button" class="btn ghost" data-act="envfecha" style="flex:1">Cancelar</button><button type="button" class="btn" data-act="envvai" style="flex:1">Enviar</button></div>' +
-        '<div class="hint" id="envSt" style="margin-top:6px">O WhatsApp abre para você escolher o contato.</div>'
-    );
-  }
-  ACT.tabenviar = envSheet;
-  ACT.envfecha = function () {
-    lfaFecha('lfa-env');
-  };
-  ACT.envfmt = function (id) {
-    var m = document.getElementById('envMsg'),
-      tx = m ? m.value : '';
-    S.envFmt = id;
-    envSheet();
-    if (tx) document.getElementById('envMsg').value = tx;
-  };
-  ACT.envvai = function () {
-    var tx = (document.getElementById('envMsg') || {}).value || envMsg(),
-      st = document.getElementById('envSt'),
-      pecas = envPecas();
-    function texto() {
-      window.open('https://wa.me/?text=' + encodeURIComponent(tx), '_blank');
-      lfaFecha('lfa-env');
-    }
-    if (S.envFmt === 'texto' || !pecas.length) return texto();
-    if (st) st.textContent = 'Montando as imagens…';
-    Promise.all(pecas.map(function (p) { return envImg(p.foto); })).then(function (imgs) {
-      var cvs = S.envFmt === 'folha' ? [envFolha(pecas, imgs)] : pecas.map(function (p, k) { return envFoto(p, imgs[k]); });
-      return Promise.all(cvs.map(envBlob)).then(function (bl) {
-        var arqs = bl.map(function (b, k) {
-          return new File([b], S.envFmt === 'folha' ? 'catalogo-lafouch.jpg' : 'lafouch-' + pecas[k].ref + '.jpg', { type: 'image/jpeg' });
-        });
-        if (navigator.canShare && navigator.canShare({ files: arqs })) {
-          return navigator.share({ files: arqs, text: tx }).then(function () {
-            lfaFecha('lfa-env');
-          }, function (e) {
-            if (e && e.name === 'AbortError') return;
-            texto();
-          });
-        }
-        // sem compartilhamento nativo: baixa a imagem e abre o WhatsApp com o texto
-        arqs.forEach(function (f) {
-          var a = document.createElement('a');
-          a.href = URL.createObjectURL(f);
-          a.download = f.name;
-          a.click();
-        });
-        texto();
-      });
-    });
-  };
-  window.__envFolha = function () {
-    var p = envPecas();
-    return Promise.all(p.map(function (x) { return envImg(x.foto); })).then(function (im) {
-      var cv = envFolha(p, im);
-      return { w: cv.width, h: cv.height, n: p.length };
-    });
-  };
   // ===== Estúdio: um giro, três fotos (v442, aprovado 05/11/2026) =====
   // Filma uma volta da peça no prato; o app guarda quadros a cada 0,25 s e depois você só confirma, numa régua,
   // o quadro da FRENTE (o app já sugere o mais simétrico) e o da 3/4. Saem frente + 3/4 (com a luz de estúdio) + o vídeo do giro.
@@ -49798,7 +49522,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       pixRecebido: pixRecebido, ofertaFim: ofertaFim, siteMaisVendidas: function () { MV_CACHE.ts = 0; return siteMaisVendidas(); }, compLeTexto: compLeTexto, fichaLinhas: fichaLinhas, impBytes: impBytes,
       loadMsg: loadMsg, animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, saidaSiteAtiva: saidaSiteAtiva, siteL2: siteL2, siteCupMax: siteCupMax, cupSimula: cupSimula, cupCaixaAplica: cupCaixaAplica, cupValeuHtml: cupValeuHtml, dstFraca: dstFraca, nvDestaque: nvDestaque, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, lmAvisaParada: lmAvisaParada, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
-      S: S, vitDocBody: vitDocBody, giroSiteFila: giroSiteFila, giroGv: giroGv, giroComprime: giroComprime, resSolta: resSolta, resOrfas: resOrfas, resEstSet: function (o) { RES_EST = o; }, vistasNaoVendidas: vistasNaoVendidas, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcComprarNovo: lcComprarNovo, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, envFolha: window.__envFolha, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
+      S: S, vitDocBody: vitDocBody, giroSiteFila: giroSiteFila, giroGv: giroGv, giroComprime: giroComprime, resSolta: resSolta, resOrfas: resOrfas, resEstSet: function (o) { RES_EST = o; }, vistasNaoVendidas: vistasNaoVendidas, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcComprarNovo: lcComprarNovo, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,
       grpTot: grpTot, grpFalta: grpFalta, effCusto: effCusto, parseLote: parseLote, parsePedido: parsePedido, parseHaste: parseHaste,
       parseVote: parseVote, flatParse: flatParse, numAmt: numAmt, hKey: hKey, lev: lev, normRef: normRef,

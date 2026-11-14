@@ -118,12 +118,15 @@
         ebAbre(refs);
       };
     }
-    var on = !!sel.length && S.view === 'vendas';
+    // 14/11/2026: o botão de compartilhar do Catálogo entra aqui com a seleção vazia — a barra aparece pedindo para tocar nas peças
+    var on = !!S.ebSel && S.view === 'vendas', go = b.querySelector('.ebGo');
     b.classList.toggle('in', on);
-    if (on) {
+    if (go) go.disabled = !sel.length;
+    $('ebNn').style.display = sel.length ? '' : 'none';
+    if (on && sel.length) {
       lfOdo($('ebNn'), sel.length);
       $('ebNt').textContent = sel.length === 1 ? 'selecionada' : 'selecionadas';
-    }
+    } else if (on) $('ebNt').textContent = 'Toque nas peças que quer mandar';
   }
   // ---- tela Enviar bonito ----
   function ebDados(ref) {

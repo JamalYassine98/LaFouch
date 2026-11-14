@@ -2380,3 +2380,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 ### S283 · 14/11/2026 (manhã) · DECISÕES DO DONO
 - Voltar no tempo: vale a minha recomendação — podem voltar custo, dólar, descrição e fotos; estoque só por estorno/ajuste registrado; preço só onde houver preço escrito à mão.
 - Janela antiga de compartilhar o catálogo inteiro (Folha · Fotos · Só texto): PODE REMOVER.
+
+### S284 · 14/11/2026 (manhã) · app v515 / 5.13.4 PUBLICADO: janela antiga de compartilhar removida
+- Botão de compartilhar do Catálogo entra no modo de escolher peças do Compartilhar novo (barra "Toque nas peças que quer mandar"; "Enviar bonito ›" só liga com peça). Apagadas 17 funções/ações do envio antigo (docs/LIMPEZA-14-11.md, seção 5). Deixou de existir: mandar o catálogo filtrado inteiro como folha, fotos ou texto.
+- Testes 291/291 (1 teste reescrito: o antigo conferia a janela velha). Conferido no simulador em 390 e 1366: seleção, 2 peças, "Enviar bonito" abre o novo, 0 erros. Não testado: celular real; envio de verdade pelo WhatsApp.
+- Sobra escondido e sem uso: botão `#vWa` e `ACT.tabenviar`/`tabMensagem`.

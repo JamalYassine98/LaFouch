@@ -61,3 +61,11 @@ Para devolver um item: `git show 40da984:src/<módulo>` traz o módulo como era 
 - Telas que existem mas a que nenhum botão chega: precisa do explorador (bloco 5), que ainda não foi construído.
 - Estilos (CSS) sem uso.
 - Dados da loja: nada foi tocado.
+
+## 5 · Depois da decisão do dono (14/11, manhã): a janela antiga de compartilhar o catálogo saiu (v515)
+
+- O botão de compartilhar do Catálogo (`#cjSh`) entra no modo de escolher peças do Compartilhar novo: a barra aparece com "Toque nas peças que quer mandar" e "Enviar bonito ›" só liga com pelo menos uma peça.
+- Apagado: `shAbre`, `shEnvia`, `shOrdem`, `shConteudo`, `shTextoPeca`, `shPecaDados`, `shLinkPeca` (`97-compartilhar.js`) e, de `97-enviar-catalogo.js`, `envValidade`, `envPecas`, `envMsg`, `envCartao`, `envFolha`, `envFoto`, `envSheet`, as ações `envfecha`, `envfmt`, `envvai` e o ajuste `S.envFmt`. Ficaram `envImg` e `envBlob`, usados pelo Compartilhar novo, pelo Enviar bonito e pelo Marketing; e `SH_APPS`, `shUlt`, `shGuardaUlt`, `shPlug`, `shB64` (escolha do app).
+- O que deixou de existir: mandar o catálogo filtrado inteiro de uma vez como folha única, fotos soltas ou só texto.
+- Ainda sobra, escondido e sem uso: o botão `#vWa` ("Enviar no WhatsApp", só texto) e `ACT.tabenviar`/`tabMensagem` em `96-tabelas-preco.js` — o Catálogo novo o esconde com `cjOculta`.
+- Para devolver: `git show b20012e:src/97-compartilhar.js` e `src/97-enviar-catalogo.js` (versão v514).

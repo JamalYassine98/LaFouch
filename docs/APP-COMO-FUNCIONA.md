@@ -204,3 +204,6 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - Modo de editar os atalhos do Início: `.twrap .tl` usa `lfSobe` (sobe 2 px com sombra, 0,32 s, para); `wob` continua definido, sem uso.
 - `loadMsg` está exposto em `window.__LF` para os testes.
 - NÃO FEITO do S254: leitor da haste no padrão de luxo.
+
+## Compartilhar: só o novo (14/11/2026 · v515 / 5.13.4)
+- A janela antiga "Compartilhar" (apps + Folha/Fotos/Só texto) e o envio antigo do catálogo foram apagados (docs/LIMPEZA-14-11.md, seção 5). `#cjSh` faz `S.ebSel = []` + `ebDecora()`: a barra `#ebBar` aparece mesmo com a seleção vazia ("Toque nas peças que quer mandar"; `.ebGo` desligado até haver peça). Daí em diante é o fluxo de sempre do Enviar bonito / S185.
