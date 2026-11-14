@@ -2055,3 +2055,9 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Observação minha: "Conferir" só texto fica com cara de texto comum; alternativa = fio neutro também ali.
 - Não testado: PC e tablet dos botões, 3 letras, temáticas do site, celular real. Aguarda aprovação; nada implementado.
 - 13/11 23:38 DONO: "Quero vídeos". Feitos 4 MP4 (work/s247/video.py; Hoje × Proposta, velocidade real → câmera lenta 4× → real; quadros exatos por tempo): s247_video_site_conta_abas, s247_video_site_pc_mouse_na_peca, s247_video_app_abrir_caixa, s247_video_app_botao_afunda (claro e escuro). Sem vídeo: favorito → sacola (só quadros no S240), linha apagada com Desfazer, remoções. Aguarda aprovação.
+
+### S248 · Mais propostas de movimento + relatório do que falta aprovar (13/11/2026 23:42)
+- DONO: S247 APROVADO (botões e as 4 animações em vídeo; remoções incluídas). Pediu estudar app e site inteiros com a mesma lógica, mais propostas em vídeo e um relatório do que falta aprovar reaproveitando os esboços.
+- Sonda work/s248/sonda.py (o que se mexe em cada toque; resultado em sonda.json). Vídeos work/s248/video.py: s248_video_site_menu (1,05 → 0,45 s), s248_video_site_favoritar (1,9 → 0,62 s até a sacola), s248_video_app_notif e s248_video_app_desp (fila de blocos → 1 movimento 0,2 s).
+- Relatório: docs/FALTA-APROVAR-13-11.md (14 itens numerados a aprovar; lista do aprovado a implementar). "Conferir" segue só texto até o dono decidir (item 14).
+- Não testado: celular real, PC nas propostas do app, temáticas. Nada implementado.

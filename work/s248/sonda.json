@@ -1,0 +1,448 @@
+{
+ "SITE início parado (sem fim)": {
+  "ulinp | i. | 1600ms SEMFIM | opacity+transform": {
+   "n": 1,
+   "dl": 0
+  }
+ },
+ "SITE abrir menu": {
+  "tr:opacity | div.dsc | 250ms | opacity": {
+   "n": 1,
+   "dl": 0
+  },
+  "tr:transform | aside.dpn | 280ms | transform": {
+   "n": 1,
+   "dl": 0
+  },
+  "tr:undefined | a.dacc | 380ms | opacity+translate": {
+   "n": 1,
+   "dl": 80
+  },
+  "tr:undefined | a. | 380ms | opacity+translate": {
+   "n": 11,
+   "dl": 620
+  },
+  "tr:undefined | a.dof | 380ms | opacity+translate": {
+   "n": 1,
+   "dl": 260
+  },
+  "tr:undefined | div.dpf | 380ms | opacity+translate": {
+   "n": 1,
+   "dl": 665
+  }
+ },
+ "SITE fechar menu": {
+  "tr:opacity | div.dsc | 320ms | opacity": {
+   "n": 1,
+   "dl": 40
+  },
+  "tr:transform | aside.dpn | 340ms | transform": {
+   "n": 1,
+   "dl": 60
+  },
+  "tr:undefined | a.dacc | 220ms | opacity+translate": {
+   "n": 1,
+   "dl": 0
+  },
+  "tr:undefined | a. | 220ms | opacity+translate": {
+   "n": 8,
+   "dl": 252
+  },
+  "tr:undefined | a.dof | 220ms | opacity+translate": {
+   "n": 1,
+   "dl": 112
+  },
+  "tr:undefined | div.dpf | 220ms | opacity+translate": {
+   "n": 1,
+   "dl": 280
+  },
+  "tr:undefined | div.dct.dct5 | 220ms | opacity+translate": {
+   "n": 1,
+   "dl": 308
+  }
+ },
+ "SITE abrir busca": {
+  "sofd | div.sosc | 250ms | opacity": {
+   "n": 1,
+   "dl": 0
+  },
+  "lfsoGrow | div.sopn | 420ms | borderTopLeftRadius+borderBottomLeftRadius+borderBottomRightRadius+opacity+transform+borderTopRightRadius": {
+   "n": 1,
+   "dl": 0
+  },
+  "lfsoTx | div.sobar | 420ms | opacity+transform": {
+   "n": 1,
+   "dl": 0
+  },
+  "lfsoTx | div#sores.sores | 420ms | opacity+transform": {
+   "n": 1,
+   "dl": 0
+  }
+ },
+ "SITE rolar 600": {
+  "tr:box-shadow | div.top.sc | 300ms | boxShadow": {
+   "n": 1,
+   "dl": 0
+  },
+  "tr:border-bottom-left-radius | a.wa | 320ms | borderBottomLeftRadius": {
+   "n": 1,
+   "dl": 0
+  },
+  "tr:border-bottom-right-radius | a.wa | 320ms | borderBottomRightRadius": {
+   "n": 1,
+   "dl": 0
+  },
+  "tr:border-top-left-radius | a.wa | 320ms | borderTopLeftRadius": {
+   "n": 1,
+   "dl": 0
+  },
+  "tr:border-top-right-radius | a.wa | 320ms | borderTopRightRadius": {
+   "n": 1,
+   "dl": 0
+  },
+  "tr:height | a.wa | 320ms | height": {
+   "n": 1,
+   "dl": 0
+  },
+  "tr:right | a.wa | 320ms | right": {
+   "n": 1,
+   "dl": 0
+  },
+  "tr:width | a.wa | 320ms | width": {
+   "n": 1,
+   "dl": 0
+  },
+  "tr:height | svg. | 320ms | height": {
+   "n": 1,
+   "dl": 0
+  },
+  "tr:width | svg. | 320ms | width": {
+   "n": 1,
+   "dl": 0
+  }
+ },
+ "SITE voltar ao topo": {
+  "tr:box-shadow | div.top | 300ms | boxShadow": {
+   "n": 1,
+   "dl": 0
+  }
+ },
+ "SITE favoritar": {
+  "pop | svg. | 500ms | transform": {
+   "n": 1,
+   "dl": 0
+  },
+  "fade | div.toast | 200ms | opacity": {
+   "n": 1,
+   "dl": 0
+  },
+  "tr:undefined | button#ftog.ib.fbtn | 480ms | opacity+transform": {
+   "n": 1,
+   "dl": 480
+  },
+  "tr:undefined | path. | 700ms | stroke+strokeDashoffset": {
+   "n": 1,
+   "dl": 520
+  },
+  "tr:undefined | svg. | 900ms | fill": {
+   "n": 1,
+   "dl": 1220
+  },
+  "tr:undefined | path. | 900ms | stroke": {
+   "n": 1,
+   "dl": 1220
+  },
+  "tr:undefined | i.favgh | 650ms | opacity+transform": {
+   "n": 1,
+   "dl": 1250
+  },
+  "tr:undefined | i.favgh | 520ms | opacity+transform": {
+   "n": 1,
+   "dl": 90
+  },
+  "tr:undefined | i.favfly | 520ms | opacity+transform": {
+   "n": 1,
+   "dl": 0
+  }
+ },
+ "SITE abrir filtros": {
+  "sofd | div.dsc2 | 200ms | opacity": {
+   "n": 1,
+   "dl": 0
+  },
+  "dsup | div.dsp | 280ms | transform": {
+   "n": 1,
+   "dl": 0
+  }
+ },
+ "SITE abrir peça": {},
+ "SITE pôr na sacola": {},
+ "SITE abrir sacola": {},
+ "SITE fechar sacola": {
+  "tr:undefined | div.scrim.pg | 300ms | opacity+transform": {
+   "n": 1,
+   "dl": 0
+  }
+ },
+ "SITE voltar da peça": {},
+ "SITE botões": "navb vback",
+ "APP → estoque": {
+  "pulinhoN | span.mi | 450ms | transform": {
+   "n": 1,
+   "dl": 0
+  },
+  "enterUp | div#v-estoque.view.enter | 260ms | opacity+transform": {
+   "n": 1,
+   "dl": 0
+  },
+  "telaSobe | section#kpisE.kpis | 500ms | opacity+transform": {
+   "n": 1,
+   "dl": 170
+  },
+  "tr:undefined | i.lfLinha | 380ms | left+width": {
+   "n": 1,
+   "dl": 0
+  }
+ },
+ "APP parado estoque": {},
+ "APP → vendas": {
+  "tr:opacity | img.lfOk | 450ms | opacity": {
+   "n": 1,
+   "dl": 0
+  },
+  "tr:transform | img.lfOk | 450ms | transform": {
+   "n": 1,
+   "dl": 0
+  },
+  "pulinhoN | span.mi | 450ms | transform": {
+   "n": 1,
+   "dl": 0
+  },
+  "enterUp | div#v-vendas.view.enter | 260ms | opacity+transform": {
+   "n": 1,
+   "dl": 0
+  },
+  "tr:undefined | i.lfLinha | 380ms | left+width": {
+   "n": 1,
+   "dl": 0
+  }
+ },
+ "APP parado vendas": {},
+ "APP → ped": {
+  "enterUp | div#v-ped.view.enter | 260ms | opacity+transform": {
+   "n": 1,
+   "dl": 0
+  },
+  "lfDesenha | path. | 1000ms | strokeDashoffset": {
+   "n": 2,
+   "dl": 350
+  },
+  "lfSobe | b. | 450ms | opacity+transform": {
+   "n": 1,
+   "dl": 900
+  },
+  "lfSobe | span. | 450ms | opacity+transform": {
+   "n": 1,
+   "dl": 1050
+  }
+ },
+ "APP parado ped": {},
+ "APP → clientes": {
+  "enterUp | div#v-clientes.view.enter | 260ms | opacity+transform": {
+   "n": 1,
+   "dl": 0
+  },
+  "lfDesenha | circle. | 1000ms | strokeDashoffset": {
+   "n": 1,
+   "dl": 0
+  },
+  "lfDesenha | path. | 1000ms | strokeDashoffset": {
+   "n": 1,
+   "dl": 350
+  },
+  "lfSobe | b. | 450ms | opacity+transform": {
+   "n": 1,
+   "dl": 900
+  },
+  "lfSobe | span. | 450ms | opacity+transform": {
+   "n": 1,
+   "dl": 1050
+  }
+ },
+ "APP parado clientes": {},
+ "APP → hist": {
+  "enterUp | div#v-hist.view.enter | 260ms | opacity+transform": {
+   "n": 1,
+   "dl": 0
+  },
+  "telaSobe | section.card.col | 500ms | opacity+transform": {
+   "n": 2,
+   "dl": 115
+  }
+ },
+ "APP parado hist": {},
+ "APP → dash": {
+  "enterUp | div#v-dash.view.enter | 260ms | opacity+transform": {
+   "n": 1,
+   "dl": 0
+  }
+ },
+ "APP parado dash": {},
+ "APP → dia": {
+  "enterUp | div#v-dia.view.enter | 260ms | opacity+transform": {
+   "n": 1,
+   "dl": 0
+  },
+  "telaSobe | section.card.col | 500ms | opacity+transform": {
+   "n": 4,
+   "dl": 335
+  },
+  "telaSobe | section.kpis | 500ms | opacity+transform": {
+   "n": 1,
+   "dl": 115
+  },
+  "telaSobe | section.col | 500ms | opacity+transform": {
+   "n": 1,
+   "dl": 225
+  }
+ },
+ "APP parado dia": {},
+ "APP → fx": {
+  "enterUp | div#v-fx.view.enter | 260ms | opacity+transform": {
+   "n": 1,
+   "dl": 0
+  },
+  "telaSobe | section.card.fxTop | 500ms | opacity+transform": {
+   "n": 1,
+   "dl": 60
+  },
+  "telaSobe | section.card.fxRepo | 500ms | opacity+transform": {
+   "n": 1,
+   "dl": 115
+  },
+  "telaSobe | section.card.fxRows | 500ms | opacity+transform": {
+   "n": 1,
+   "dl": 170
+  }
+ },
+ "APP parado fx": {},
+ "APP → desp": {
+  "enterUp | div#v-desp.view.enter | 260ms | opacity+transform": {
+   "n": 1,
+   "dl": 0
+  },
+  "telaSobe | section.kpis | 500ms | opacity+transform": {
+   "n": 1,
+   "dl": 60
+  },
+  "telaSobe | section.card.col | 500ms | opacity+transform": {
+   "n": 4,
+   "dl": 555
+  },
+  "telaSobe | section.col | 500ms | opacity+transform": {
+   "n": 5,
+   "dl": 445
+  },
+  "chkPop | svg. | 280ms | transform": {
+   "n": 4,
+   "dl": 0
+  },
+  "telaSobe | section.card | 500ms | opacity+transform": {
+   "n": 1,
+   "dl": 610
+  },
+  "tr:undefined | i. | 800ms | transform": {
+   "n": 12,
+   "dl": 570
+  }
+ },
+ "APP parado desp": {},
+ "APP → onl": {
+  "enterUp | div#v-onl.view.enter | 260ms | opacity+transform": {
+   "n": 1,
+   "dl": 0
+  }
+ },
+ "APP parado onl": {},
+ "APP → notif": {
+  "enterUp | div#v-notif.view.enter | 260ms | opacity+transform": {
+   "n": 1,
+   "dl": 0
+  },
+  "telaSobe | section.card | 500ms | opacity+transform": {
+   "n": 11,
+   "dl": 610
+  }
+ },
+ "APP parado notif": {},
+ "APP → ajustes": {
+  "pulinhoN | span.mi | 450ms | transform": {
+   "n": 1,
+   "dl": 0
+  },
+  "enterUp | div#v-ajustes.view.enter | 260ms | opacity+transform": {
+   "n": 1,
+   "dl": 0
+  }
+ },
+ "APP parado ajustes": {},
+ "APP → inicio": {
+  "pulinhoN | span.mi | 450ms | transform": {
+   "n": 1,
+   "dl": 0
+  },
+  "enterUp | div#v-inicio.view.cascata | 260ms | opacity+transform": {
+   "n": 1,
+   "dl": 0
+  },
+  "cas | div.hero | 500ms | opacity+transform": {
+   "n": 1,
+   "dl": 0
+  },
+  "cas | button.tl | 500ms | opacity+transform": {
+   "n": 17,
+   "dl": 880
+  }
+ },
+ "APP parado inicio": {},
+ "APP sino": {
+  "enterUp | div#v-notif.view.enter | 260ms | opacity+transform": {
+   "n": 1,
+   "dl": 0
+  },
+  "telaSobe | section.card | 500ms | opacity+transform": {
+   "n": 11,
+   "dl": 610
+  }
+ },
+ "APP Inventário trocar aba": {
+  "tr:left | div.lfPill | 300ms | left": {
+   "n": 1,
+   "dl": 0
+  },
+  "tr:width | div.lfPill | 300ms | width": {
+   "n": 1,
+   "dl": 0
+  },
+  "tr:undefined | i.lfLinha | 380ms | left+width": {
+   "n": 1,
+   "dl": 0
+  }
+ },
+ "APP abrir ficha": {},
+ "APP ficha aberta?": "",
+ "APP fechar ficha": {},
+ "APP + Adicionar": {
+  "fadein | div#addModal.modal.fadein | 200ms | opacity": {
+   "n": 1,
+   "dl": 0
+  },
+  "popin | div.modal-box.popin | 260ms | opacity+transform": {
+   "n": 1,
+   "dl": 0
+  }
+ },
+ "APP adicionar aberto?": "",
+ "APP Ajustes abrir seção": {},
+ "APP Catálogo tocar peça": {}
+}
