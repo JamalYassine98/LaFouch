@@ -2338,3 +2338,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Modo de editar atalhos: sobe 2 px com sombra e para (0 animações sem fim no Início em modo de editar).
 - Testes 291/291. Conferido no simulador em celular claro e escuro (cartão, troca de etapa sem reabrir, Cancelar aos 4 s, 0 erros). Não testado: celular real, tablet/PC, o cartão disparado por uma foto de verdade (no simulador a foto processa rápido demais para aparecer).
 - FALTA do bloco 3 (app): leitor da haste de luxo; janelas num padrão só (item 15); demais itens do relatório S253 (137 animações do app: 70 ajustar, 32 trocar, 4 apagar). Site: tudo (busca, sacola, abas de Minha conta, troca de tela, janelas, favoritar, coração até a sacola, menu, confete do pedido, trava da Mochi). Mochi por último.
+
+### S281 · 14/11/2026 08:05 · bloco 3, SITE lote 1 PUBLICADO (lafouch.com)
+- Menu: itens entram em 0,26 s com 16 ms de atraso por item (último aos 0,44 s; antes 1,05 s); fecha tudo em 0,2 s (antes 0,53 s). Pedido confirmado sem confete (decisão 2). Mochi aberta trava o fundo (`html.gwLock`) e solta ao fechar.
+- Porteiro: 180 provas, 0 falhas, 0 defeitos visuais novos (620 s). Medido na cópia local (celular 390, espanhol): tempos do menu; com a Mochi aberta a roda não rola o fundo e ao fechar volta a rolar. NÃO vi a tela "Obrigado pela preferência!" (precisa de pedido pago); não testado: temáticas, tablet/PC, celular real.
+- FALTA do site: favoritar sem círculo + "Últimas unidades" em etiqueta; coração até a sacola; busca, sacola, abas de Minha conta, troca de tela e janelas (S252); itens 16, 19, 21, 22 da lista de 13/11.

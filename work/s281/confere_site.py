@@ -1,0 +1,17 @@
+import subprocess, sys, time
+from playwright.sync_api import sync_playwright
+srv = subprocess.Popen([sys.executable, '-m', 'http.server', '8812', '-d', '/tmp/site_novo'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True); time.sleep(1)
+try:
+    with sync_playwright() as pw:
+        b = pw.chromium.launch(executable_path='/opt/pw-browsers/chromium', args=['--no-sandbox']); c = b.new_context(viewport={'width': 390, 'height': 844}, is_mobile=True, has_touch=True, service_workers='block', locale='es-PY'); c.route('**/*', lambda r: r.continue_() if r.request.url.startswith('http://localhost') else r.abort())
+        pg = c.new_page(); er = []; pg.on('pageerror', lambda e: er.append(str(e)[:120])); pg.goto('http://localhost:8812/'); pg.wait_for_timeout(2600)
+        pg.evaluate("document.querySelector('#mnb').click()"); pg.wait_for_timeout(30)
+        print('menu abrir:', pg.evaluate("(()=>{const as=document.getAnimations().filter(a=>a.effect&&a.effect.target&&a.effect.target.closest&&a.effect.target.closest('#drw nav, #drw .dpf'));const f=Math.max(...as.map(a=>{const t=a.effect.getComputedTiming();return t.delay+t.duration}));return as.length+' animações, última termina em '+Math.round(f)+' ms'})()"))
+        pg.wait_for_timeout(900); pg.evaluate("window.__old=new Set(document.getAnimations())"); pg.keyboard.press('Escape'); pg.wait_for_timeout(30)
+        print('menu fechar:', pg.evaluate("(()=>{const as=document.getAnimations().filter(a=>!window.__old.has(a)&&a.effect.getComputedTiming().iterations!==Infinity);const f=Math.max(0,...as.map(a=>{const t=a.effect.getComputedTiming();return t.delay+t.duration}));return as.length+' animações, última termina em '+Math.round(f)+' ms · '+as.filter(a=>{const t=a.effect.getComputedTiming();return t.delay+t.duration>210}).map(a=>(a.transitionProperty||a.animationName||'waapi')+'@'+(a.effect.target.id||a.effect.target.className||a.effect.target.tagName)+' '+Math.round(a.effect.getComputedTiming().delay+a.effect.getComputedTiming().duration)).slice(0,6).join(' | ')})()")); pg.wait_for_timeout(700)
+        ok = pg.evaluate("(()=>{const b=[...document.querySelectorAll('button,a')].find(e=>/gradua|grau/i.test(e.textContent)&&e.getBoundingClientRect().width);return b?(b.textContent.trim().slice(0,40)):'sem botão'})()"); print('botão da Mochi:', ok)
+        pg.evaluate("document.querySelector('#mnb').click()"); pg.wait_for_timeout(900); pg.evaluate("(()=>{const b=[...document.querySelectorAll('#drw a,#drw button')].find(e=>/gradua|grau/i.test(e.textContent));b&&b.click()})()"); pg.wait_for_timeout(2500)
+        a = pg.evaluate("[!!document.querySelector('#gw'),document.documentElement.classList.contains('gwLock'),Math.round(scrollY),document.documentElement.scrollHeight]"); pg.mouse.move(195, 420); pg.mouse.wheel(0, 600); pg.wait_for_timeout(500); print('Mochi aberta/trava/y/altura:', a, '→ depois de rolar y =', pg.evaluate("Math.round(scrollY)"))
+        pg.evaluate("(()=>{const x=document.querySelector('#gw [data-gz=x]');x&&x.click()})()"); pg.wait_for_timeout(1500); pg.keyboard.press('Escape'); pg.wait_for_timeout(600); pg.mouse.wheel(0, 600); pg.wait_for_timeout(500); print('fechada: gw', pg.evaluate("!!document.querySelector('#gw')"), 'trava', pg.evaluate("document.documentElement.classList.contains('gwLock')"), 'rola de novo y =', pg.evaluate("Math.round(scrollY)"))
+        print('erros', er[:3])
+finally: srv.terminate()
