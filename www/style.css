@@ -112,7 +112,7 @@ body{padding-bottom:86px}
 .tl .tp.w{background:#7a5200;color:#ffe2a8}.tl .tp.g{background:#0f6b43;color:#fff}
 .tl.sm{min-height:74px;padding:9px 2px 8px;gap:5px;border-radius:14px}.tl.sm .ti{width:30px;height:30px;border-radius:9px}.tl.sm .tn{font-size:11.5px;white-space:nowrap}
 .tl.on{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent) inset}
-.twrap{position:relative}.twrap .tl{opacity:.75;width:100%;pointer-events:none;animation:wob .5s ease-in-out infinite alternate}
+.twrap{position:relative}.twrap .tl{opacity:1;width:100%;pointer-events:none;animation:lfSobe .32s cubic-bezier(.16,1,.3,1) both}
 .tedit{position:absolute;right:5px;top:5px;display:flex;z-index:2}
 .tedit button{width:30px;height:30px;min-height:0;border-radius:50%;border:1px solid var(--line);background:var(--panel2);color:var(--fg);font-size:12px;padding:0;display:flex;align-items:center;justify-content:center}
 .tedit button.x{width:24px;height:24px;font-size:11px;box-shadow:0 1px 4px rgba(0,0,0,.5);background:#a12a2a;color:#fff;border-color:#a12a2a}.tedit button:disabled{opacity:.3}
@@ -2419,3 +2419,21 @@ html.mlOn,html.mlOn body{overflow:hidden}
 #grpM .gadd .chip{background:transparent!important;background-image:none!important;border:1px solid color-mix(in srgb,currentColor 18%,transparent)!important;color:var(--fg)!important;min-height:44px}
 /* ===== S257 (14/11/2026) · sem elástico na borda: a tela não estica nem puxa o fundo ao chegar no fim ===== */
 html{overscroll-behavior-y:none}
+/* ===== S254 (14/11/2026) · modo de editar os atalhos: sobem 2 px com sombra e param (antes balançavam sem parar) ===== */
+@keyframes lfSobe{from{transform:none;filter:drop-shadow(0 0 0 rgba(42,31,39,0))}to{transform:translateY(-2px);filter:drop-shadow(0 6px 10px rgba(42,31,39,.16))}}
+@media (prefers-reduced-motion:reduce){.twrap .tl{animation:none;transform:translateY(-2px)}}
+/* ===== S254 · cartão de carregando ===== */
+#loadFoto.lcOv{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;background:rgba(20,12,18,.42);touch-action:none;animation:lcFundo .32s cubic-bezier(.16,1,.3,1)}
+#loadFoto.lcOv.sai{opacity:0;transition:opacity .2s cubic-bezier(.4,0,.2,1);pointer-events:none}
+.lcCard{width:min(292px,calc(100vw - 48px));background:var(--panel);color:var(--fg);border-radius:26px;padding:24px 22px 12px;box-shadow:0 24px 60px -24px rgba(20,12,18,.55);text-align:center;animation:lcNasce .32s cubic-bezier(.16,1,.3,1)}
+.lcTx{font-size:15.5px;font-weight:600;min-height:22px}
+.lcTx.lcIn{animation:lcTx .24s cubic-bezier(.16,1,.3,1)}
+.lcBar{height:2px;border-radius:2px;background:color-mix(in srgb,var(--fg) 12%,transparent);margin:16px 0 12px;overflow:hidden}
+.lcBar i{display:block;height:100%;background:var(--fg);transform-origin:left center;animation:lcAnda 12s cubic-bezier(.1,.7,.2,1) forwards}
+.lcX{display:block;width:100%;min-height:44px;border:0;background:none;color:var(--fg);font-family:inherit;font-size:14px;font-weight:500;animation:lcTx .32s cubic-bezier(.16,1,.3,1)}
+.lcX[hidden]{display:none}
+@keyframes lcFundo{from{background:rgba(20,12,18,0)}}
+@keyframes lcNasce{from{opacity:0;transform:scale(.62)}to{opacity:1;transform:none}}
+@keyframes lcTx{from{opacity:0}to{opacity:1}}
+@keyframes lcAnda{from{transform:scaleX(0)}to{transform:scaleX(.9)}}
+@media (prefers-reduced-motion:reduce){#loadFoto.lcOv,.lcCard,.lcTx.lcIn,.lcX{animation:none}.lcBar i{animation:none;transform:scaleX(.5)}}

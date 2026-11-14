@@ -2332,3 +2332,9 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - olho.js: +3 regras (fundo rola com camada aberta; rola sem ter o que rolar; elástico na borda). A 4ª (volta a rolar ao fechar) é medida por work/s279/rolagem_app.py.
 - Medido (celular 390): 13 janelas do app — nenhuma rola atrás, nenhuma fica presa ao fechar (antes: PIN, Filtros, Câmbio e menu do Caixa rolavam). A janela do Guardião não foi medida (o atalho mudou de lugar; ela usa a janela padrão, que trava).
 - Testes 291/291. Não testado: celular real (o print do dono era da tela do PIN no aparelho); site (Mochi) ainda sem a trava.
+
+### S280 · 14/11/2026 07:35 · bloco 3, parte 2 PUBLICADA (app v514 / 5.13.3): cartão de carregando + modo de editar
+- Cartão de carregando (S254): nasce do toque, etapa real, linha fina, "Cancelar" aos 4 s. Cancelar de verdade só na leitura do código por foto (`loadMsg.tok`); nas outras 15 esperas ele fecha o aviso e o trabalho continua por trás. Sem miniatura da foto (diferença do vídeo aprovado).
+- Modo de editar atalhos: sobe 2 px com sombra e para (0 animações sem fim no Início em modo de editar).
+- Testes 291/291. Conferido no simulador em celular claro e escuro (cartão, troca de etapa sem reabrir, Cancelar aos 4 s, 0 erros). Não testado: celular real, tablet/PC, o cartão disparado por uma foto de verdade (no simulador a foto processa rápido demais para aparecer).
+- FALTA do bloco 3 (app): leitor da haste de luxo; janelas num padrão só (item 15); demais itens do relatório S253 (137 animações do app: 70 ajustar, 32 trocar, 4 apagar). Site: tudo (busca, sacola, abas de Minha conta, troca de tela, janelas, favoritar, coração até a sacola, menu, confete do pedido, trava da Mochi). Mochi por último.

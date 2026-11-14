@@ -197,3 +197,10 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - `html{overscroll-behavior-y:none}`: sem elástico na borda.
 - `work/kit/olho.js` ganhou 3 regras: "fundo rola com camada aberta", "rola sem ter o que rolar" e "elástico na borda". A 4ª regra aprovada (volta a rolar ao fechar) depende de abrir e fechar: medida por `work/s279/rolagem_app.py` (14 janelas: nenhuma rola atrás, nenhuma fica presa); entra no explorador quando ele existir.
 - Continuam existindo dois mecanismos antigos, inofensivos: `document.body.style.overflow` no Inventário (`11-estoque-lista.js`) e a classe `noscroll` na nota.
+
+## Cartão de carregando e modo de editar (S254, 14/11/2026 · v514 / 5.13.3)
+- `loadMsg(on, txt, cap)` (`src/80-leitor-dialogos.js`): mesmo contrato de antes (16 chamadas não mudaram). Agora desenha `#loadFoto.lcOv` + `.lcCard`: nasce do último toque (`LC_TOQUE`), texto da etapa (`.lcTx`; chamar de novo com outro texto só troca a etapa, sem reabrir), linha fina (`.lcBar`) e "Cancelar" (`.lcX`) aos 4 s. Cancelar soma 1 em `loadMsg.tok` e fecha; quem quiser cancelar de verdade guarda o número antes e confere depois (feito em `leitorFromPhoto`). Nas outras esperas o Cancelar só fecha o aviso e destrava a tela — o trabalho continua por trás.
+- Diferença do vídeo aprovado: sem a miniatura da foto no cartão (a função não recebe a foto) e as etapas são os textos reais que cada função já mandava.
+- Modo de editar os atalhos do Início: `.twrap .tl` usa `lfSobe` (sobe 2 px com sombra, 0,32 s, para); `wob` continua definido, sem uso.
+- `loadMsg` está exposto em `window.__LF` para os testes.
+- NÃO FEITO do S254: leitor da haste no padrão de luxo.

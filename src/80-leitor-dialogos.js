@@ -34,30 +34,53 @@
   }
   var LM = null;
   // Aviso animado de carregamento.
+  // S254 (aprovado 14/11/2026): cartão de carregando no padrão de luxo — nasce de onde o dedo tocou, mostra a etapa de verdade
+  // (o texto que cada função manda), uma linha fina de andamento e "Cancelar" depois de 4 s. Trocar de etapa não reabre o cartão.
+  var LC_TOQUE = null;
+  document.addEventListener('pointerdown', function (e) { LC_TOQUE = { x: e.clientX, y: e.clientY, t: Date.now() }; }, { capture: true, passive: true });
   function loadMsg(on, txt, cap) {
-    /* aviso animado padrão (mesmo do leitor) */
     try {
-      if (LM && LM.parentNode) LM.parentNode.removeChild(LM);
-      LM = null;
       clearTimeout(loadMsg._t);
       clearTimeout(armReturn._t);
-      if (!on) return;
-      var d = document.createElement('div');
-      d.id = 'loadFoto';
-      d.style.cssText =
-        'position:fixed;inset:0;z-index:99999;display:flex;justify-content:center;align-items:flex-start;padding-top:calc(env(safe-area-inset-top,0px) + 70px);background:rgba(0,0,0,.38);pointer-events:auto;touch-action:none';
-      d.setAttribute('aria-busy', 'true');
-      var pl = document.createElement('div');
-      pl.className = 'busyPill';
-      pl.appendChild(busyEl(txt || 'Carregando foto'));
-      d.appendChild(pl);
-      document.body.appendChild(d);
-      LM = d;
+      if (!on) {
+        clearTimeout(loadMsg._c);
+        if (LM) {
+          var d0 = LM;
+          LM = null;
+          d0.classList.add('sai');
+          setTimeout(function () { if (d0.parentNode) d0.parentNode.removeChild(d0); }, REDUCED ? 0 : 200);
+        }
+        return;
+      }
+      txt = String(txt || 'Carregando foto').replace(/[….]+\s*$/, '');
+      var d = LM && LM.parentNode ? LM : null;
+      if (d) {
+        var t = d.querySelector('.lcTx');
+        if (t && t.textContent !== txt) { t.classList.remove('lcIn'); void t.offsetWidth; t.textContent = txt; t.classList.add('lcIn'); }
+      } else {
+        d = document.createElement('div');
+        d.id = 'loadFoto';
+        d.className = 'lcOv';
+        d.setAttribute('aria-busy', 'true');
+        d.innerHTML = '<div class="lcCard" role="status"><div class="lcTx lcIn"></div><div class="lcBar"><i></i></div><button type="button" class="lcX" hidden>Cancelar</button></div>';
+        d.querySelector('.lcTx').textContent = txt;
+        var c = d.firstChild, q = LC_TOQUE && Date.now() - LC_TOQUE.t < 3000 ? LC_TOQUE : null;
+        if (q) c.style.transformOrigin = Math.round(q.x - (window.innerWidth - 292) / 2) + 'px ' + Math.round(q.y - (window.innerHeight - 130) / 2) + 'px';
+        d.querySelector('.lcX').onclick = function () {
+          loadMsg.tok = (loadMsg.tok || 0) + 1; // quem pediu o carregamento confere este número antes de usar o resultado
+          loadMsg(false);
+        };
+        document.body.appendChild(d);
+        LM = d;
+        clearTimeout(loadMsg._c);
+        loadMsg._c = setTimeout(function () { var x = LM === d && d.querySelector('.lcX'); if (x) x.hidden = false; }, 4000);
+      }
       loadMsg._t = setTimeout(function () {
         if (LM === d) loadMsg(false);
       }, cap || 20000);
     } catch (e) {}
   }
+  loadMsg.tok = 0;
   // Nome e custo já conhecidos de um código.
   function refInfo(ref) {
     /* nome e custo já conhecidos de um código do estoque */
@@ -439,6 +462,7 @@
   // Lê o código de uma foto.
   function leitorFromPhoto(f) {
     loadMsg(true, 'Analisando código', 75000);
+    var tkL = loadMsg.tok;
     (window.createImageBitmap
       ? createImageBitmap(f, { imageOrientation: 'from-image' })
       : Promise.reject()
@@ -451,7 +475,10 @@
       .catch(function () {
         return null;
       })
-      .then(leitorResult);
+      .then(function (r) {
+        if (loadMsg.tok !== tkL) return; // o dono tocou em Cancelar: a leitura é descartada
+        return leitorResult(r);
+      });
   }
   // Abre a câmera do leitor de código.
   function leitorOpen() {
