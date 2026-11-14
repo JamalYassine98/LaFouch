@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 516;
+  var APP_BUILD = 517;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.14.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.14.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -22955,7 +22955,17 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         el.classList.remove('slideL', 'slideR');
       }, 450);
     } else {
-      animEnter(el);
+      // S289 (luxo, vídeo S252): fora da barra, ir entra pela direita e voltar (ou ir ao Início) pela esquerda
+      if (mudou && !REDUCED && el) {
+        var cl = window.__navVolta || v === 'inicio' ? 'lxVolta' : 'lxIr';
+        el.classList.remove('lxIr', 'lxVolta', 'enter');
+        void el.offsetWidth;
+        el.classList.add(cl);
+        setTimeout(function () {
+          el.classList.remove(cl);
+        }, 420);
+        if (typeof animGraficos === 'function') animGraficos(el);
+      } else animEnter(el);
       if (v === 'inicio' && window.animInicio) window.animInicio();
       else if (window.animTela) window.animTela(v);
     }

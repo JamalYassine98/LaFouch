@@ -215,3 +215,7 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - Tela: Ajustes › Cópias e nuvem › "Voltar no tempo" (`ACT.vtAbre`, janela padrão `lfJanela`). Tocar numa mudança mostra Antes · Depois · Agora. "Restaurar só esta peça" (`vtRestaura`) existe para custo, nome e preço à mão; estoque e foto só explicam onde resolver (estorno/ajuste; Lixeira de fotos). Restaurar grava e redesenha; a própria restauração vira linha.
 - `window.__vt` (registra, log, restaura, pronto) serve aos testes. Teste: "voltar no tempo: guarda mudança…" em `tests/run.py`.
 - Limites: a "descrição" restaurável é o nome da peça (`S.pnome`); texto do site e outros campos (tipo, formato, medida) não são acompanhados; fotos não são guardadas aqui.
+
+## Troca de tela com direção (S252 · v517 / 5.14.1, 14/11/2026)
+- `setView` (`src/90-navegacao-dashboard.js`): fora da barra de baixo, a tela nova recebe `lxIr` (entra pela direita) ou `lxVolta` (voltar do celular ou ir ao Início: entra pela esquerda). Pela barra continua `slideL`/`slideR` conforme a ordem dos botões.
+- `www/style.css`: `slideInL`/`slideInR` = 30 px + aparecer, 0,36 s, curva `cubic-bezier(.16,1,.3,1)`; as regras com `.enter` junto ganham da entrada antiga (`lfEntra`), que o observador de `88-movimento.js` põe em toda tela que aparece. Tocar na tela em que já está não anima. Movimento reduzido: nada anima.

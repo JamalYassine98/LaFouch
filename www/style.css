@@ -884,11 +884,11 @@ button:not(:disabled):active.go,.go:not(:disabled):active{box-shadow:0 0 0 6px #
 .chip:active{transform:scale(.95)}
 .btn[style*="transparent"]{box-shadow:none}
 /* ===== Transições direcionais entre seções ===== */
-@keyframes slideInL{from{opacity:0;transform:translateX(26%)}to{opacity:1;transform:none}}
-@keyframes slideInR{from{opacity:0;transform:translateX(-26%)}to{opacity:1;transform:none}}
-.slideL{animation:slideInL .38s cubic-bezier(.2,.8,.2,1)}
-.slideR{animation:slideInR .38s cubic-bezier(.2,.8,.2,1)}
-@media (prefers-reduced-motion:reduce){.slideL,.slideR{animation:none}}
+@keyframes slideInL{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
+@keyframes slideInR{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:none}}
+.slideL,.view.lxIr,.view.slideL.enter,.view.lxIr.enter{animation:slideInL .36s cubic-bezier(.16,1,.3,1)}
+.slideR,.view.lxVolta,.view.slideR.enter,.view.lxVolta.enter{animation:slideInR .36s cubic-bezier(.16,1,.3,1)}
+@media (prefers-reduced-motion:reduce){.slideL,.slideR,.view.lxIr,.view.lxVolta{animation:none}}
 #vRows.vlist .vpreco{margin-left:auto;white-space:nowrap;text-align:right}
 #vRows.vlist .vplus{margin-left:2px}
 

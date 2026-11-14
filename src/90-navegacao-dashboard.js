@@ -31,7 +31,17 @@
         el.classList.remove('slideL', 'slideR');
       }, 450);
     } else {
-      animEnter(el);
+      // S289 (luxo, vídeo S252): fora da barra, ir entra pela direita e voltar (ou ir ao Início) pela esquerda
+      if (mudou && !REDUCED && el) {
+        var cl = window.__navVolta || v === 'inicio' ? 'lxVolta' : 'lxIr';
+        el.classList.remove('lxIr', 'lxVolta', 'enter');
+        void el.offsetWidth;
+        el.classList.add(cl);
+        setTimeout(function () {
+          el.classList.remove(cl);
+        }, 420);
+        if (typeof animGraficos === 'function') animGraficos(el);
+      } else animEnter(el);
       if (v === 'inicio' && window.animInicio) window.animInicio();
       else if (window.animTela) window.animTela(v);
     }

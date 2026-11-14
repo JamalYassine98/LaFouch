@@ -2407,3 +2407,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Achado: na versão anterior o conteúdo ainda estava subindo ~1 s depois do toque (fila de 55 ms por linha); agora assenta em 0,36 s.
 - Não testado: celular real, iPhone, temáticas, conta real com pedidos e cartões.
 - Com isso o S252 do SITE está completo (busca, sacola, abas). Falta do site: itens 16, 19, 21, 22 de 13/11. Troca de tela e janelas do S252 são do APP.
+
+### S289 · 14/11/2026 · app v517 / 5.14.1: troca de tela com direção (S252)
+- Ir = entra pela direita; voltar do celular ou ir ao Início = pela esquerda; 30 px, 0,36 s, curva de luxo. Achado: o deslize da barra (`slideL/R`) estava sendo vencido pela entrada de 0,2 s desde a v508 — agora vale o deslize.
+- Decisão minha: fora da barra, "voltar" = botão voltar do celular ou destino Início; todo o resto é "ir".
+- Simulador 390 e 1366: classe e animação certas em 5 trocas + voltar do celular, sem sobra lateral, 0 erros. Não testado: celular real, tablet, escuro (só muda movimento).
