@@ -2046,3 +2046,11 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Medido: hoje só `.gBtn` (Guardião no Início) é vinho cheio; "+ Adicionar" (`#btnAdd`, `.mini`) já é contorno com letra vinho.
 - Variantes em work/s246 (gera.py; Inventário e Início, celular 390, claro e escuro): A fio fino vinho · B só texto · C tinta suave · D grafite cheio · E fio neutro sem vinho.
 - Recomendação: E (fio neutro) para todos + D só para a ação principal da tela. Nada implementado. PC não desenhado.
+
+### S247 · Botões (padrão escolhido) + animações a alterar/adicionar/remover (13/11/2026 23:30) — ESBOÇO
+- DONO sobre S246: "vamos por sua recomendação", lembrando do tema escuro e da animação de afundar. Padrão: ação principal (`#btnAdd`, `.mini` cheio, `.btn-sc.p`) = fio cinza fino, letra na cor do texto; ação dentro de lista (`.gBtn`) = só texto na cor do texto; SEM vinho; ao toque afunda (scale .96 + fundo 12% da cor do texto, 0,08 s). Vinho cheio do S241 fica rejeitado.
+- Folhas (work/s247/gera.py): s247_app_botoes_estoque, s247_app_botoes_inicio (repouso × apertado, claro e escuro; olho.js 0 pioras); s247_site_conta_abas; s247_site_pc_mouse_na_peca; s247_app_abrir_caixa.
+- Medido HOJE: Minha conta — ao trocar de aba a janela inteira refaz a entrada (pgrise 0,28 s + cada filho sobe 12 px em 0,38 s, abas incluídas). Site PC — cartão sobe 6 px, sombra 0 18px 34px, foto 1,06 em 0,35 s. App — abrir tela = enterUp 0,26 s + telaSobe 0,5 s em cada bloco (2 movimentos) + pulinho do ícone da barra 0,45 s. Catálogo do site já entra em cascata (rise 0,6 s, imgin 0,7 s).
+- Proposta: ALTERAR Minha conta (só o conteúdo troca, 0,2 s), mouse na peça (cartão parado, foto 1,035 em 0,48 s, sombra leve), abrir tela do app (1 movimento 0,2 s). ADICIONAR total do Caixa contando até o valor (0,48 s). REMOVER pulinho do ícone da barra, brilhos/setas sem fim (sem fim só "carregando" e o ponto das Últimas), salto do cartão.
+- Observação minha: "Conferir" só texto fica com cara de texto comum; alternativa = fio neutro também ali.
+- Não testado: PC e tablet dos botões, 3 letras, temáticas do site, celular real. Aguarda aprovação; nada implementado.
