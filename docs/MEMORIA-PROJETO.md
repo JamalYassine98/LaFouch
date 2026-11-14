@@ -2230,3 +2230,7 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 ### S264g · 14/11/2026 03:31 · APROVADO pelo dono (não implementar até o comando)
 - Aprovado o conjunto do giro no site (S264): trocar de cor no mesmo ângulo, "Vista inicial", dica ao abrir, giro livre, 30 quadros/s em vídeo desmontado. Teste no celular fica como condição antes de publicar.
 - REGRA NOVA: comando "IMPLEMENTAR TUDO" = implementar tudo o que está aprovado, em sequência, SEM perguntar bloco a bloco. Só parar por: algo que depende de ação/segredo do dono, gasto (ElevenLabs), item sem esboço aprovado, ou teste que falha. O que ficar de fora entra numa lista no final.
+
+### S264h · 14/11/2026 03:33 · DONO: "Aprovado tudo" (não implementar até o comando)
+- Aprovados: S261 (funcionamento do Estúdio com giro, fundo infinito, sombras naturais, padrão da loja, resultado), S262 (câmera automática), S263 (tutorial novo + 19 melhorias do Estúdio), aprender o prato giratório, tratamento só pela luz (S260 estratégia nova), página da peça com giro no computador (S260).
+- Pediu esboço dos itens 12 e 13 de docs/FALTA-APROVAR-13-11.md (aprovados sem esboço).
