@@ -35,3 +35,13 @@ Não confirmado: rostos sobrepostos na troca de expressão (medi 0 quadros com d
 ## Limites
 - Simulador, sem som (bloqueado) e com câmera falsa; só a chegada e o começo do teste. Não medi: teste de leitura completo, resultado, comemoração, despedida, versão de computador.
 - Tudo acima muda números do esqueleto (constantes das molas, tempos, sorteios); o desenho, a voz e as falas da Mochi ficam iguais.
+
+## Vídeo Hoje × Proposta (S256, 14/11 01:29)
+
+`work/s256/s256_video_mochi_hoje_x_proposta.mp4` (45 s, tempo real, sem som). A proposta roda numa CÓPIA do site (`/tmp/kitsite_mochi`) com 14 trocas de números no esqueleto (lista em `work/s256/video.py`): molas sem passar do ponto, achatar/esticar a 30%, piscar sorteado (2,5–6 s, 1 em 5 dupla, fecha rápido e abre devagar), respirar em 4 s, andar ~2× mais lento saindo e chegando devagar com os olhos indo primeiro, parada com 1 gesto a cada 10–16 s, e boca parada quando não há som.
+
+Medido na proposta (40 s): piscadas em 10,4 · 15,8+16,0 · 18,8+19,1 · 22,2 · 27,2 · 30,0 · 34,9 s; boca abre 0 vezes; achatar ±3%; em movimento 15% do tempo (hoje 20%); sem erro de JS.
+
+## Sem som (mudo pelo botão ou bloqueado pelo aparelho) — consulta do dono
+- Hoje a boca mexe por relógio (`M.fala(ms)`: abre 2 de cada 3 batidas de 110–200 ms), com ou sem som.
+- Proposta: sem som, a boca fica fechada num sorriso leve; ela "fala" pelo balão — olha para o balão quando a frase aparece, faz um aceno curto de cabeça no começo de cada frase e mantém os gestos. Com som, a boca segue o volume da voz.
