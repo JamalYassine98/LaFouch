@@ -2372,3 +2372,8 @@ html.mlOn,html.mlOn body{overflow:hidden}
 .estFi{flex:none;min-height:44px;min-width:44px;padding:0 2px 0 12px;border:0;background:none;color:var(--fg);font-family:inherit;font-size:13px;font-weight:500}
 /* ===== S266 · ícone do grupo no menu rápido do mesmo tamanho dos outros (era 24 px, os outros 22 px) ===== */
 #mainnav .mn .mi svg{width:22px;height:22px}
+/* ===== S265 (14/11/2026) · Guardião: 1 linha no Início; a lista fica nas Pendências ===== */
+.guard1,.view .guard1{padding:0 14px!important;gap:0!important;cursor:pointer}
+.guard1 .guardT{min-height:56px;cursor:inherit}
+.guardCh{margin-left:auto;font-style:normal;font-size:22px;line-height:1;opacity:.5}
+.ntGd{display:flex;align-items:center;justify-content:center;width:100%;min-height:46px;margin:2px 0 6px}

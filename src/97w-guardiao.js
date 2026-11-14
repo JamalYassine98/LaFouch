@@ -57,14 +57,10 @@
     var L = guardChecks(), pr = L.filter(function (c) { return !c.ok && !c.mudo; }).sort(function (a, b) { return (b.urg ? 1 : 0) - (a.urg ? 1 : 0); });
     var hr = fh(S.guardTs);
     if (!pr.length) return '<section class="card guardOk noconta" data-act="guardAbre" role="button" tabindex="0">' + guardIco() + '<span><b>Tudo certo</b> · conferido ' + hr + '</span></section>';
-    return (
-      '<section class="card guardC noconta"><div class="guardT" data-act="guardAbre" role="button" tabindex="0">' + guardIco() + '<b>Guardião · ' + pr.length + (pr.length === 1 ? ' coisa' : ' coisas') + ' para olhar</b></div>' +
-      pr.slice(0, 3).map(function (c) {
-        return '<div class="guardL"><span><b>' + esc(c.tp || c.t) + (c.n > 1 ? ' · ' + c.n : '') + '</b>' + (c.s ? '<small>' + esc(c.s) + '</small>' : '') + '</span><button type="button" class="gBtn" data-act="' + c.act + '" data-id="' + esc(c.id || '') + '">' + esc(c.b || 'Ver') + '</button></div>';
-      }).join('') +
-      (pr.length > 3 ? '<button type="button" class="gLink" data-act="guardAbre">Ver todas (' + pr.length + ')</button>' : '') +
-      '</section>'
-    );
+    // S265 (14/11/2026): no Início o Guardião é UMA linha que abre as Pendências; a lista mora lá (uma lista só)
+    var nG = pr.length; // o número é o mesmo que as Pendências mostram em "precisa de você agora"
+    try { if (typeof notifAgora === 'function' && typeof urgente === 'function') nG = Math.max(nG, notifAgora().filter(urgente).length); } catch (e) {}
+    return '<section class="card guardC guard1 noconta" data-act="view" data-id="notif" role="button" tabindex="0"><div class="guardT">' + guardIco() + '<b>Guardião · ' + nG + (nG === 1 ? ' coisa' : ' coisas') + ' para olhar</b><i class="guardCh" aria-hidden="true">›</i></div></section>';
   }
   // todas as conferências por assunto
   ACT.guardAbre = function () {
@@ -90,13 +86,19 @@
     lfToast('Silenciado por 7 dias');
     ACT.guardAbre();
   };
-  // urgentes também tocam o sino
+  // o que o Guardião achou entra nas Pendências (e no sino)
   var _atGuard = atencaoItens;
   atencaoItens = function () {
     var it = _atGuard.apply(this, arguments);
     try {
+      // S265: TUDO o que o Guardião achou entra nas Pendências (antes só o urgente); o que as Pendências já mostram por conta própria não repete
       guardChecks().forEach(function (c) {
-        if (!c.ok && c.urg && !c.mudo && !it.some(function (x) { return x.t === c.t; })) it.push({ t: 'Guardião: ' + (c.tp || c.t), s: c.s || '', c: 'var(--bad)', urg: true, b: c.b || 'Ver', act: c.act, id: c.id || '' });
+        if (c.ok || c.mudo) return;
+        var tt = c.tp || c.t;
+        if (it.some(function (x) { return x.t === tt || x.t === c.t || x.t === 'Guardião: ' + tt; })) return;
+        if (c.k === 'contas' && it.some(function (x) { return /venc/i.test((x.s || '') + ' ' + (x.t || '')); })) return;
+        if (c.k === 'bk' && it.some(function (x) { return /backup|cópia/i.test(x.t || ''); })) return;
+        it.push({ t: tt + (c.n > 1 ? ' · ' + c.n : ''), s: c.s || '', c: c.urg ? 'var(--bad)' : 'var(--warn)', urg: true, b: c.b || 'Ver', act: c.act, id: c.id || '', guard: c.k });
       });
     } catch (e) {}
     return it;

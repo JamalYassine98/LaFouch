@@ -2307,3 +2307,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - DESVIO DO COMBINADO: as remoções foram num commit só e os testes rodaram no lote (não um por remoção); cada item volta pelo histórico (git show 40da984:src/<módulo>).
 - NÃO FEITO no bloco 1: levar cor/grau escolhidos entre Catálogo e Inventário; fotografar pela ficha peça que já tem todas as fotos; janela antiga de compartilhar do catálogo inteiro (única porta — decisão do dono); CSS sem uso; telas órfãs (precisa do explorador). Não testado: celular real, letra grande, tablet/PC olhando a tela (só medição).
 - PRÓXIMO: bloco 2 (grupos com capa + resumos por tela, Dashboard e Dinheiro, Guardião em Pendências, Voltar no tempo).
+
+### S274 · 14/11/2026 05:10 · bloco 2, parte 1 PUBLICADA (app v510 / 5.12.1): Guardião em Pendências
+- Início: Guardião = 1 linha ("Guardião · N coisas para olhar ›") que abre as Pendências; N = o mesmo número de "precisa de você agora". Pendências: rótulo "Guardião · precisa de você agora · N"; entra tudo o que o Guardião achou (antes só o urgente); sem repetir caixa/contas/backup; "Ver todas as conferências do Guardião ›" abre a janela de sempre (silenciar continua).
+- Testes 291/291. Olho antes × agora (390 claro/escuro, 820, 1366, 2560 escuro): sem piora; Início no celular melhorou (toque<24 1→0, toque<40 4→0). Não testado: celular real.
+- Diferença do esboço: o esboço mostrava 5; a contagem real junta Guardião + Pendências (6 no exemplo). Itens do Guardião entram todos em "precisa de você agora".

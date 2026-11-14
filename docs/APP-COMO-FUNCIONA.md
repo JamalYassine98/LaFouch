@@ -152,7 +152,7 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 
 ## Clientes em fileira e Pendências (S237, 14/11/2026)
 - Clientes (`src/96-clientes.js` l.213 + bloco "S237" do `style.css`): "+ Novo cliente" é o botão principal; "Acesso atacado", "Lotes" e "Cartões" (sem emoji; mesmas ações `ataNovo`, `ataLotes`, `cupAbre`) ficam numa fileira só. São AÇÕES que abrem janela, não abas.
-- A tela `notif` chama-se "Pendências" (título, atalho do Início, nome em `40-formatos-venda.js` e `aria-label` do sino). O cartão do Guardião no Início continua com o nome Guardião (ele confere; o resultado aparece em Pendências). Juntar a lista do Guardião dentro de Pendências ainda NÃO foi feito.
+- A tela `notif` chama-se "Pendências" (título, atalho do Início, nome em `40-formatos-venda.js` e `aria-label` do sino). O Guardião no Início é uma linha só (ver "Guardião em Pendências", v510).
 
 ## RETIRADOS em 13/11/2026 (dono reprovou): chave Vender/Cuidar (S233) e abas entre telas irmãs (S236)
 - Motivo do dono: faziam a mesma coisa que juntar os atalhos num GRUPO da barra (função que já existe: segurar um atalho sobre outro → grupo com abas no topo, `src/95-barra-grupos.js`) e ficavam feios. Eram um segundo mecanismo para a mesma coisa (regra anti-lixo: nunca ter 2).
@@ -174,3 +174,7 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - Nomes (`BARRA_NOME`, atalhos do Início, abas do Dashboard, busca, nomes sugeridos de grupos): a tela de números é **Dashboard** (atalho "Dashboard · Resumo"); a aba "Dinheiro" do Dashboard virou **Reservas**; "Avisos" virou **Pendências**; o segundo "Catálogo" (envio pelo WhatsApp) virou **Enviar catálogo**; "Loja" (painel do site) virou **Site**. "Dinheiro" fica reservado para o grupo Caixa + Despesas + Câmbio.
 - Menu rápido: o ícone do grupo mede 22 px, como os outros (`#mainnav .mn .mi svg`).
 - Limpeza (docs/LIMPEZA-14-11.md): 35 funções/ações sem nenhum chamador apagadas (678 linhas); o compartilhar da PEÇA abre direto o Compartilhar novo (`ebAbre([ref])`); a janela antiga `shAbre` ficou só para o catálogo inteiro. O teste v474 passou a comparar tamanho e animação da foto, não a altura (o Catálogo não tem mais as abas).
+
+## Guardião em Pendências (S265, 14/11/2026 · v510 / 5.12.1)
+- Início (`guardInicioHtml`, `src/97w-guardiao.js`): o cartão virou UMA linha (`.guard1`: "Guardião · N coisas para olhar ›") que abre a tela Pendências (`data-act="view" data-id="notif"`). N é o mesmo número de "precisa de você agora" das Pendências. Tudo certo = a linha verde de antes (abre as conferências).
+- Pendências (`renderNotif`): o rótulo é "Guardião · precisa de você agora · N". TUDO o que o Guardião achou e não está silenciado entra na lista (antes só o urgente): `atencaoItens` (embrulhado no módulo do Guardião) acrescenta cada conferência que falhou, sem repetir o que as Pendências já mostram (mesmo título; contas a vencer; backup). No fim da lista, "Ver todas as conferências do Guardião ›" (`.ntGd`) abre a janela de sempre (`ACT.guardAbre`: conferências por assunto, as que estão certas e "silenciar 7 dias").
