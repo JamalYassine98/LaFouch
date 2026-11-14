@@ -87,3 +87,46 @@ Só leitura do código (`src/97-estudio.js`, `97-estudio-giro.js`, `97-giro-site
 - A altura da página não muda em relação a hoje.
 - Folhas: `s260_tratamento_v1_x_v2.jpg`, `s260_site_celular_peca_v3.jpg`, `s260_site_celular_manuseio_v3.jpg`; vídeo `s260_video_site_manuseio_v3.mp4`.
 - olho.js: celular parado 0 pioras; rolado 1 aviso ("Hablar por WhatsApp" colado) que não vem da proposta (a altura da página é a mesma; é o estado da lingueta do WhatsApp no instante da medição) — a confirmar.
+
+## S262–S263 (14/11 02:55) · Estúdio todo automático, tutorial novo e propostas para o Estúdio inteiro
+
+Lido: estrutura e textos de `97-estudio.js` (2.053 linhas), `97-estudio-giro.js`, `97-fotos-padrao.js`; telas vistas no simulador: Estúdio, "?", câmera, tutorial. Não abri: resultado com nota, "De qual peça é?", sessão até o fim, padronizar, fotos aguardando cadastro.
+
+### Tutorial (S263, `work/s263/s263_app_tutorial_estudio.jpg`)
+- Hoje: "Como fotografar" tem 4 abas (Estúdio, Câmera, Depois, Vídeo) e cerca de 35 explicações de botões técnicos (ISO, velocidade, branco, Peaking, histograma, Medir fundo…).
+- Proposta: uma tela, quatro passos — acenda a luz da caixa · ponha a peça no meio do prato · ligue o prato e toque em Começar · confira e salve — e uma lista "Se o app pedir" com a tradução de cada aviso em ação. O vídeo do tutorial precisa ser regravado depois que o fluxo novo existir.
+
+### Propostas para o Estúdio inteiro
+
+**Tudo automático**
+1. Um caminho só: o giro. Foto avulsa vira opção guardada em "Controles manuais".
+2. "Medir fundo" deixa de ser botão: o app mede sozinho nos 2 primeiros segundos com o prato vazio e mede de novo se a luz mudar.
+3. "Montagem de hoje" (4 lembretes que você marca à mão) sai: a câmera confere sozinha se há luz, fundo claro e celular parado, e diz o que falta.
+4. A nota 0–100 vira "Aprovada" ou "Refazer: motivo". O número fica nos detalhes.
+5. Todo aviso diz o que fazer, sem número nem termo técnico (ex.: "Seu celular não deixa o app mudar o brilho…" → "Falta luz: acenda a luz da caixa").
+6. "Peça estourada · toque para corrigir" passa a corrigir sozinho.
+
+**Menos toques por peça**
+7. Esteira: você põe a peça, o app percebe, grava, avisa com som e vibração "pode trocar", e espera a próxima. O celular não é tocado durante a sessão.
+8. "De qual peça é?" respondido pelo app: durante o giro a parte de dentro da haste passa na frente da câmera; o app lê o código e já sugere a peça e a cor (hoje ele já compara a cor média).
+9. Resumo no fim da sessão em três linhas: prontas, para refazer (com o motivo), enviadas ao site.
+
+**Padrão e acabamento**
+10. Padrão da loja (S261): tamanho, altura e linha das lentes iguais; peças antigas refeitas.
+11. Acabamento único: fundo infinito com sombra natural, sem recorte (regra do S261). "Padronizar N fotos" deixa de ser botão e roda sozinho.
+12. Coerência: avisa a peça que destoa das outras em tamanho, claridade ou cor.
+
+**O que sai de cada giro**
+13. Site: peça giratória "só a peça" (S260 v3) + fotos frente, 3/4 e perfil.
+14. App: girar com o dedo na ficha e no Catálogo.
+15. Marketing e Status: vídeo em pé, fundo infinito.
+
+**Tela do Estúdio**
+16. Fila mostra o que cada peça já tem e começa pelas mais vendidas sem 360°.
+17. O "?" fica com duas linhas: "Como fotografar" e "Controles manuais".
+
+**Quando algo falha**
+18. Erro com saída: "Não consegui abrir a câmera" passa a dizer o que fazer (permitir a câmera, fechar outro app).
+19. Sem internet ou sem espaço: o giro fica guardado e sobe sozinho depois; o app avisa quanto espaço resta antes da sessão.
+
+Ordem que eu sugiro: 1–6 (automático) → 7–9 (esteira) → 10–12 (padrão) → 13–15 (saídas).
