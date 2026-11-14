@@ -2209,3 +2209,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 ### S264c · 14/11/2026 03:16 · Giro no site: decisão do dono
 - Giro LIVRE (sem encaixe/ímã nas paradas; descartar o "encaixa na parada" do S264b). Dica ao abrir e "Vista inicial" continuam como propostas.
 - Diagnóstico do dono: falta fluidez = o Estúdio precisa capturar mais quadros por giro. A elaborar: quantos quadros, peso no site, como gravar.
+
+### S264d · 14/11/2026 03:20 · Guardar o giro com menos peso (medido, nada implementado)
+- Medição com os 70 quadros 720×480 do giro do dono (~150°): JPEG 1.143 kB · WebP q78 466 kB · vídeo H.264 crf24 379 kB (todo quadro inteiro) / 178 kB (chave a cada 6) / 151 kB (chave a cada 30). Qualidade NÃO comparada no olho.
+- Ideia: guardar o giro como 1 arquivo de vídeo e o site desmontar em quadros na memória para o arrasto ficar liso. Não testado em celular (iPhone é o risco).
+- GitHub Pages: 1 GB por site, 100 GB/mês de banda (limites flexíveis); as regras dizem que Pages não é para loja/comércio — dono avisado.
