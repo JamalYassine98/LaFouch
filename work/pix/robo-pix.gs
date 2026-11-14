@@ -73,8 +73,14 @@ function verificaFamiliar() {
       var txt = m.getPlainBody();
       var v = txt.match(/Monto:?\s*(?:PYG|Gs\.?)\s*([\d.]+)/i);
       if (de !== FAM_DE || !v || !/RECIBIDA/i.test(txt)) return; // só transferência RECEBIDA; o resto do banco é ignorado
+      // quem pagou e quando (14/11): o servidor usa só para desempatar pedidos de mesmo valor
+      var np = txt.match(/Pagador[^:\n]*:\s*([^\n\r]+)/i) || txt.match(/Ordenante[^:\n]*:\s*([^\n\r]+)/i);
+      var fh = txt.match(/(\d{2})\/(\d{2})\/(\d{4})\s+(\d{2}):(\d{2})(?::(\d{2}))?/);
+      var hora = fh ? Date.UTC(+fh[3], +fh[2] - 1, +fh[1], +fh[4] + 3, +fh[5], +(fh[6] || 0)) : 0; // Paraguai = UTC-3 o ano todo
+      var chegou = m.getDate().getTime();
+      if (!hora || Math.abs(hora - chegou) > 6 * 36e5) hora = chegou; // data estranha no texto: vale a hora em que o e-mail chegou
       var r = UrlFetchApp.fetch(URL_PIX, { method: 'post', contentType: 'application/json', muteHttpExceptions: true, headers: { 'x-robo': chave },
-        payload: JSON.stringify({ banco: 'familiar', valor: v[1], mid: m.getId(), dkim: auth, dom: 'familiar.com.py' }) });
+        payload: JSON.stringify({ banco: 'familiar', valor: v[1], mid: m.getId(), dkim: auth, dom: 'familiar.com.py', nome: np ? np[1].trim().slice(0, 60) : '', hora: hora }) });
       if (r.getResponseCode() >= 500) throw new Error('função pix ' + r.getResponseCode());
       if (r.getResponseCode() === 403) console.log('Familiar: aviso recusado (autenticação do e-mail = ' + auth + ')');
     });

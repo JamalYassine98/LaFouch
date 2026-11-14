@@ -30,6 +30,9 @@ function gsDoTexto(t) {
 // Banco Familiar / Eko (14/11/2026, no lugar do Itaú): e-mail "Transferencia de otros bancos" de operbancaweb@familiar.com.py,
 // "Moneda y Monto: PYG 200.000". Mesma regra do Itaú; as esperas da loja gravadas como 'itau' pelo app antigo também valem.
 const DOM_PY = { itau: /(^|\.)itau\.com\.py$/i, familiar: /(^|\.)familiar\.com\.py$/i };
+// nomes iguais = 2 ou mais palavras (3+ letras, sem acento, sem "de/da/dos") em comum entre o cliente do pedido e o pagador do banco
+function palavras(n) { return String(n || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().split(/[^a-z]+/).filter((w) => w.length > 2 && !/^(dos|das|del|los|las)$/.test(w)); }
+function mesmoNome(a, b) { const x = palavras(a), y = palavras(b); return x.filter((w, i) => x.indexOf(w) === i && y.indexOf(w) >= 0).length >= 2; }
 async function recebeItau(db, b, agora) {
   const g = Math.round(+String(b.valor).replace(/\./g, ''));
   if (!(g > 0 && g < 1e10)) throw new Falha('valor');
@@ -39,18 +42,38 @@ async function recebeItau(db, b, agora) {
   if (b.dkim !== true || !DOM_PY[bc].test(String(b.dom || ''))) throw new Falha('origem', 403);
   if (await db.jaVisto(mid)) return { ok: true, repetido: true };
   await db.visto(mid, agora);
-  const site = (await db.pedidosItau(agora - SITE_H * H)).filter((p) => !p.pago && Math.round(+p.pagar || 0) === g);
-  if (site.length === 1) { await db.confirmaPedido(site[0].id, { valor: g, banco: bc, mid, ts: agora }); return { ok: true, tipo: 'site', id: site[0].id }; }
+  // 14/11/2026 (dono: "por que não considera a hora + nome + valor?"): o robô manda também QUEM pagou (nome) e QUANDO (hora).
+  // Valor continua sendo a prova; hora e nome só DESEMPATAM — nunca são exigidos, porque outra pessoa pode pagar pelo cliente.
+  //  · hora: pedido criado DEPOIS do pagamento não pode ser o dono dele (folga de 2 min de relógio);
+  //  · nome: entre vários candidatos, vale o único cujo cliente tem 2+ nomes iguais aos do pagador;
+  //  · senão, o único feito nos 40 min antes do pagamento; senão "sem par", com o nome do pagador como pista.
+  const hr = +b.hora > agora - 72 * H && +b.hora < agora + 10 * 60e3 ? +b.hora : 0;
+  const de = String(b.nome || '').replace(/\s+/g, ' ').trim().slice(0, 60);
+  const antes = (p) => !hr || !(+p.ts > 0) || +p.ts <= hr + 2 * 60e3;
+  const pista = de ? { de } : {};
+  const escolhe = (l) => {
+    if (l.length < 2) return l[0] || null;
+    const n = l.filter((p) => mesmoNome(p.nome, de));
+    if (n.length === 1) return Object.assign({ por: 'nome' }, n[0]);
+    const base = n.length ? n : l;
+    const t = hr ? base.filter((p) => +p.ts > hr - 40 * 60e3) : [];
+    return t.length === 1 ? Object.assign({ por: 'hora' }, t[0]) : null;
+  };
+  const todos = (await db.pedidosItau(agora - SITE_H * H)).filter((p) => !p.pago && antes(p));
+  const site = todos.filter((p) => Math.round(+p.pagar || 0) === g);
+  const s1 = escolhe(site);
+  if (s1) { await db.confirmaPedido(s1.id, Object.assign({ valor: g, banco: bc, mid, ts: agora }, pista, s1.por ? { por: s1.por } : {})); return Object.assign({ ok: true, tipo: 'site', id: s1.id }, s1.por ? { por: s1.por } : {}); }
   // 14/11/2026 (dono: "e se o cliente enviar 114 mil em vez de 113.926?"): quem arredonda PARA CIMA, até o total cheio do pedido, pagou a mais e é confirmado
-  // — desde que só exista UM pedido esperando nessa faixa (pagar < valor <= total). Dois pedidos possíveis, ou valor a menos, não confirma no chute: vai para "sem par".
+  // — desde que dê para saber QUAL pedido (um só na faixa pagar < valor <= total, ou desempate por nome/hora). Valor a menos nunca confirma sozinho.
   if (!site.length) {
-    const arr = (await db.pedidosItau(agora - SITE_H * H)).filter((p) => !p.pago && +p.pagar > 0 && +p.total > 0 && g > Math.round(+p.pagar) && g <= Math.round(+p.total));
-    if (arr.length === 1) { await db.confirmaPedido(arr[0].id, { valor: g, banco: bc, mid, ts: agora, arred: Math.round(g - arr[0].pagar) }); return { ok: true, tipo: 'site', id: arr[0].id, arredondado: true }; }
-    if (arr.length > 1) { await db.semPar({ valor: g, banco: bc, mid, ts: agora, candidatos: arr.length, arred: true }); return { ok: true, tipo: 'sem-par', candidatos: arr.length }; }
+    const arr = todos.filter((p) => +p.pagar > 0 && +p.total > 0 && g > Math.round(+p.pagar) && g <= Math.round(+p.total));
+    const a1 = escolhe(arr);
+    if (a1) { await db.confirmaPedido(a1.id, Object.assign({ valor: g, banco: bc, mid, ts: agora, arred: Math.round(g - a1.pagar) }, pista, a1.por ? { por: a1.por } : {})); return Object.assign({ ok: true, tipo: 'site', id: a1.id, arredondado: true }, a1.por ? { por: a1.por } : {}); }
+    if (arr.length > 1) { await db.semPar(Object.assign({ valor: g, banco: bc, mid, ts: agora, candidatos: arr.length, arred: true }, pista)); return { ok: true, tipo: 'sem-par', candidatos: arr.length }; }
   }
   const loja = site.length ? [] : (await db.esperas(agora - LOJA_H * H)).filter((e) => !e.ok && (e.banco === 'itau' || e.banco === 'familiar') && Math.round(+e.gs || 0) === g);
   if (loja.length === 1) { await db.confirmaEspera(loja[0].id, { valor: g, banco: bc, mid, ts: agora }); return { ok: true, tipo: 'loja', id: loja[0].id }; }
-  await db.semPar({ valor: g, banco: bc, mid, ts: agora, candidatos: site.length + loja.length });
+  await db.semPar(Object.assign({ valor: g, banco: bc, mid, ts: agora, candidatos: site.length + loja.length }, pista));
   return { ok: true, tipo: 'sem-par', candidatos: site.length + loja.length };
 }
 async function recebe(db, b, agora) {
@@ -75,4 +98,4 @@ async function recebe(db, b, agora) {
   await db.semPar({ valor: c / 100, mid, ts: agora, candidatos: site.length + loja.length });
   return { ok: true, tipo: 'sem-par', candidatos: site.length + loja.length };
 }
-module.exports = { Falha, centavos, valorDoTexto, gsDoTexto, recebe, SITE_H, LOJA_H };
+module.exports = { Falha, centavos, valorDoTexto, gsDoTexto, mesmoNome, recebe, SITE_H, LOJA_H };

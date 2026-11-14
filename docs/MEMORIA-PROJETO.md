@@ -2514,3 +2514,11 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - ANTES: só o valor exato confirmava; arredondado ia para "sem par" (aviso no Guardião; o dono confirmava pelo comprovante).
 - AGORA (`functions/pix.js`, 5 testes novos, todos ok): se não achar o valor exato, procura pedido esperando em que `pagar < valor <= total` (o `total` é o valor cheio do pedido; `pagar` = total − final único de 1 a 98). Um só candidato → confirma e guarda quanto veio a mais (`arred`). Dois ou mais candidatos, valor a menos ou acima do total → NÃO confirma, vai para "sem par". Vale para Banco Familiar e Itaú; PIX não mudou.
 - Só vale depois de o dono publicar a função (`firebase deploy --only functions:pix`) — o mesmo passo que já estava pendente.
+
+### S305 (14/11/2026) — transferência: hora + nome + valor (pedido do dono)
+- Dono: "E por que não considera a hora + nome + valor do pagamento?". Feito: o robô (work/pix/robo-pix.gs, verificaFamiliar) manda também `nome` (linha "…Pagador: …" do e-mail) e `hora` (data/hora do texto, UTC-3; se estranha, a hora em que o e-mail chegou).
+- Servidor (functions/pix.js, recebeItau): VALOR continua sendo a prova; hora e nome só DESEMPATAM (decisão minha: nunca exigir o nome, porque outra pessoa pode pagar pelo cliente).
+  · pedido criado depois do pagamento (folga 2 min) não é candidato; · vários candidatos → o único com 2+ palavras do nome iguais às do pagador; senão o único feito nos 40 min antes do pagamento; senão "sem par" com o nome do pagador guardado como pista (`de`).
+  · valor a menos continua sem confirmar sozinho. Confirmação guarda `de` (pagador) e `por` ('nome'/'hora') quando houve desempate.
+- Testado: functions/teste-pix.js (tudo ok, 7 provas novas) e leitura do texto do e-mail no simulador. NÃO testado: e-mail real do banco (o texto exato da linha do pagador vem das fotos do dono) nem transferência real.
+- Só vale depois de o dono colar o robô novo e publicar a função (`firebase deploy --only functions:pix`).

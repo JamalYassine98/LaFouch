@@ -55,6 +55,20 @@ function dbFake(peds, esp) {
   const db9 = dbFake([]); db9.pedidosItau = async () => [{ id: 'r1', pagar: 113926, total: 114000, ts: T - H }, { id: 'r3', pagar: 113951, total: 114000, ts: T - H }];
   r = await X.recebe(db9, { banco: 'familiar', valor: '114.000', mid: 's4', dkim: true, dom: 'familiar.com.py' }, T); ok(r.tipo === 'sem-par' && r.candidatos === 2 && !db9.conf.length, 'dois pedidos com o mesmo total cheio: não chuta, avisa');
   r = await X.recebe(db9, { banco: 'familiar', valor: '113.951', mid: 's5', dkim: true, dom: 'familiar.com.py' }, T); ok(r.tipo === 'site' && r.id === 'r3', 'valor exato continua achando o pedido certo mesmo com outro de total igual');
+  // hora + nome + valor (14/11): só desempatam
+  ok(X.mesmoNome('María José Benítez', 'BENITEZ GONZALEZ MARIA JOSE') && !X.mesmoNome('Maria Lopez', 'MARIA BENITEZ') && !X.mesmoNome('', 'X Y'), 'nome: 2+ palavras iguais, sem acento; só o primeiro nome não basta');
+  const F = { banco: 'familiar', dkim: true, dom: 'familiar.com.py' };
+  const dbA = dbFake([]); dbA.pedidosItau = async () => [{ id: 'n1', nome: 'Carlos Duarte', pagar: 113926, total: 114000, ts: T - 20 * H }, { id: 'n2', nome: 'María Benítez', pagar: 113951, total: 114000, ts: T - 19 * H }];
+  r = await X.recebe(dbA, Object.assign({ valor: '114.000', mid: 'h1', nome: 'BENITEZ ROJAS MARIA', hora: T - 60e3 }, F), T); ok(r.id === 'n2' && r.por === 'nome' && dbA.conf[0][1].de === 'BENITEZ ROJAS MARIA', 'dois pedidos no mesmo total cheio: o nome do pagador escolhe');
+  const dbB = dbFake([]); dbB.pedidosItau = async () => [{ id: 'n1', nome: 'Carlos Duarte', pagar: 113926, total: 114000, ts: T - 20 * H }, { id: 'n2', nome: 'María Benítez', pagar: 113951, total: 114000, ts: T - 10 * 60e3 }];
+  r = await X.recebe(dbB, Object.assign({ valor: '114.000', mid: 'h2', nome: 'OUTRA PESSOA QUALQUER', hora: T - 60e3 }, F), T); ok(r.id === 'n2' && r.por === 'hora', 'outra pessoa pagou: vale o único pedido feito pouco antes do pagamento');
+  const dbC = dbFake([]); dbC.pedidosItau = async () => [{ id: 'n1', nome: 'Carlos Duarte', pagar: 113926, total: 114000, ts: T - 20 * H }, { id: 'n2', nome: 'María Benítez', pagar: 113951, total: 114000, ts: T - 19 * H }];
+  r = await X.recebe(dbC, Object.assign({ valor: '114.000', mid: 'h3', nome: 'OUTRA PESSOA QUALQUER', hora: T - 60e3 }, F), T); ok(r.tipo === 'sem-par' && !dbC.conf.length && dbC.sp[0].de === 'OUTRA PESSOA QUALQUER', 'nem nome nem hora decidem: não chuta e guarda o nome do pagador como pista');
+  const dbD = dbFake([]); dbD.pedidosItau = async () => [{ id: 'n1', nome: 'Carlos Duarte', pagar: 113926, total: 114000, ts: T - 5 * 60e3 }];
+  r = await X.recebe(dbD, Object.assign({ valor: '113.926', mid: 'h4', nome: 'CARLOS DUARTE', hora: T - 30 * 60e3 }, F), T); ok(r.tipo === 'sem-par' && !dbD.conf.length, 'pedido feito DEPOIS do pagamento não é confirmado por ele');
+  r = await X.recebe(dbD, Object.assign({ valor: '113.926', mid: 'h5', nome: 'TIA DO CARLOS', hora: T - 60e3 }, F), T); ok(r.tipo === 'site' && r.id === 'n1' && !r.por, 'um só pedido no valor: confirma mesmo com outro nome (nome nunca é exigido)');
+  const dbE = dbFake([]); dbE.pedidosItau = async () => [{ id: 'n1', nome: 'Carlos Duarte', pagar: 113926, total: 114000, ts: T - H }];
+  r = await X.recebe(dbE, Object.assign({ valor: '113.926', mid: 'h6', hora: 'lixo' }, F), T); ok(r.id === 'n1', 'robô antigo (sem nome nem hora) continua funcionando');
   console.log(falhas ? falhas + ' FALHAS' : 'tudo ok');
   process.exit(falhas ? 1 : 0);
 })();
