@@ -2243,3 +2243,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - 13 · sem tela nova: "+" (hoje já é uma janela só, "Adicionar"; falta as outras entradas abrirem ela), fila de fotos (feito na v462), Preço automático só em Números (sai a linha de Ajustes). NÃO esboçado: compartilhar único (há 6+ janelas de compartilhar diferentes no código; precisa de estudo próprio).
 - 12 · janela "Voltar no tempo" (em Ajustes › Cópias e nuvem): degraus propostos por mim = hoje cada mudança · 7 dias 1 cópia por dia · mês 1 por semana · mais antigo 1 por mês; tocar numa mudança mostra Antes × Agora e "Restaurar só esta peça" (o resto não muda; dá para desfazer). Dados de exemplo.
 - Conferido: 0 erros de JS; olho.js parado sem piora em Dia, Caixa, Início e Pendências (claro e escuro). Não conferido: olho depois de rolar, janela contra uma janela de hoje ("fileira torta": 2), tablet/PC, 3 letras, celular real.
+
+### S265b · 14/11/2026 03:45 · DONO: "Aprovado tudo" (S265), com 3 pontos a elaborar (nada implementado)
+- (1) As junções (Vendas, Dinheiro etc.) devem ser feitas DENTRO do sistema de junção de botões que já existe (grupos): aplicar todas as possibilidades, dar nome a todas, interface de luxo para todos os grupos.
+- (2) Inventário + Catálogo (Produtos): design ainda feio, elaborar melhor.
+- (3) O ícone criado no menu rápido (grupo) tem de ter o MESMO tamanho dos outros.
