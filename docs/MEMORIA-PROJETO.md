@@ -2214,3 +2214,10 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Medição com os 70 quadros 720×480 do giro do dono (~150°): JPEG 1.143 kB · WebP q78 466 kB · vídeo H.264 crf24 379 kB (todo quadro inteiro) / 178 kB (chave a cada 6) / 151 kB (chave a cada 30). Qualidade NÃO comparada no olho.
 - Ideia: guardar o giro como 1 arquivo de vídeo e o site desmontar em quadros na memória para o arrasto ficar liso. Não testado em celular (iPhone é o risco).
 - GitHub Pages: 1 GB por site, 100 GB/mês de banda (limites flexíveis); as regras dizem que Pages não é para loja/comércio — dono avisado.
+
+### S264e · 14/11/2026 03:22 · Fluidez do giro: 6 × 30 × 60 quadros/s e fotos × vídeo desmontado (ESBOÇO/medição; nada implementado)
+- Pedido do dono: vídeo fotos × vídeo desmontado e comparativo "giro atual × 30 × 60" simulando no site.
+- Feito com o vídeo dele (30/s reais, 349 quadros ≈ 150°); 60/s é SIMULADO (quadros do meio criados por computador, ffmpeg minterpolate), não é câmera a 60. Tela real da página da peça, só a foto trocada; mesmo arrasto nos painéis; vídeos a 60 quadros/s.
+- Medido (quadros 720×480): pulo médio entre quadros vizinhos (0–255) 6/s 4,01 · 30/s 1,43 · 60/s 0,86. Peso do trecho: 30/s fotos JPEG 5,7 MB × vídeo 0,6 MB; 60/s fotos 11,3 MB × vídeo 0,86 MB. Fotos × vídeo desmontado: diferença média 0,58 de 255.
+- Arquivos: work/s264/prep.py, fps.py · s264_video_giro_6x30x60.mp4 · s264_video_giro_fotos_x_video.mp4 · s264_qualidade_fotos_x_video.jpg. Quadros em /tmp/kitsite/s264_30, s264_60, s264_30v (fora do repositório).
+- NÃO testado: desmontar vídeo em quadros dentro do navegador (aqui foi feito no computador), celular real, iPhone, câmera do app a 30/60.
