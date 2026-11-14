@@ -2200,3 +2200,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Imprecisão entre cores (respondido): posição = cada cor alinhada ao molde da 1ª cor (frente por simetria + mesma escala/centro); cor = branco do fundo como referência em todo quadro + luz/exposição travadas. Limites: peças transparentes/espelhadas e metal brilhante mudam com o reflexo; a tela do cliente também muda a cor. NÃO testado (só existe 1 peça gravada).
 - Arquivos: work/s264/gera.py · s264_site_trocar_cor_e_voltar.jpg · s264_site_celular_peca.jpg · s264_video_site_cor_e_vista_inicial.mp4. 2ª cor SIMULADA por computador (dourado). Quadros em /tmp/kitsite/s260c e s260d (fora do repositório).
 - olho.js (celular 390, claro): parado 0 pioras; rolado "tampado" 4→5 = miniaturas passando por baixo da barra fixa "Catálogo", igual a hoje (hoje 1 cor, esboço 2 cores). Não testado: outras temáticas, tablet/PC, 3 letras, celular real.
+
+### S264b · 14/11/2026 · Site: giro mais fácil (ESBOÇO, aguardando aprovação; nada implementado)
+- Dono: "Perfeito" para trocar de cor + "Vista inicial" (S264; "foto de perfil" = vista inicial, não contestou). Pediu facilitar o giro ("no vídeo não parece fácil").
+- Proposta: (1) ao abrir, a peça se mexe sozinha UMA vez (~20° e volta, 1,2 s) e mostra a dica "Deslizá para girar" no lugar onde depois fica "Vista inicial"; some no 1º toque; (2) deslize curto (~60 px) basta: solta, a peça continua com embalo e encaixa na parada seguinte (frente · 3/4 · perfil); (3) só o deslize de lado gira — deslizar para cima/baixo continua rolando a página (não mostrado no vídeo, não testado).
+- Arquivos: work/s264/gera2.py · s264_site_giro_facil.jpg · s264_video_site_giro_facil.mp4. Só simulador (celular 390, claro).
