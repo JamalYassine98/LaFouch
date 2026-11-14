@@ -2225,3 +2225,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 ### S264f · 14/11/2026 03:28 · DECIDIDO pelo dono (aprovado, NÃO implementar até ele avisar)
 - Giro do site: 30 quadros/s, guardado como VÍDEO e desmontado em quadros no site ("fica muito melhor"). Giro livre (sem encaixe). 60/s descartado.
 - Falta provar antes de implementar: desmontar o vídeo dentro do navegador no celular (iPhone é o risco), câmera do app gravando a 30/s, tempo de abertura.
+- 14/11 03:29: celular do dono = Xiaomi 13T (Android). Serve para testar o Estúdio (câmera a 30/s) e o giro no Chrome; iPhone dos clientes continua sem teste.
