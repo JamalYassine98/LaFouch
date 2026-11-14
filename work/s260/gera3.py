@@ -1,5 +1,5 @@
 # S260 v3 · manuseio mais simples: só a peça. Arrastar gira (com ímã leve nas paradas), tocar abre em grande, pinça amplia. Sem régua e sem ícone; três pontinhos mostram a parada.
-# Usa os quadros do tratamento novo (trata2.py).  python3 gera3.py
+# Usa os quadros do tratamento que não apaga (trata2.py).  python3 gera3.py
 import os, subprocess, sys, time, shutil, json, math
 A = os.path.dirname(os.path.abspath(__file__)) + '/'
 src = open(A + 'gera.py').read(); exec(src[:src.index('CSS = """')]); exec(src[src.index('def site('):src.index('def poe(')])
@@ -11,8 +11,8 @@ CSS = """.pgl .big{touch-action:none;position:relative}.pgl .big img.s260i{width
 #s3g .fx{position:absolute;right:14px;top:12px;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;border:1px solid color-mix(in srgb,currentColor 18%,transparent);font-size:18px;background:#fff}
 #s3g .dd{position:absolute;left:0;right:0;bottom:44px;display:flex;justify-content:center;gap:9px}#s3g .dd i{width:6px;height:6px;border-radius:50%;background:color-mix(in srgb,currentColor 22%,transparent)}#s3g .dd i.on{background:currentColor}
 #s3f{position:fixed;width:46px;height:46px;border-radius:50%;background:rgba(141,58,105,.2);border:1.5px solid rgba(141,58,105,.65);pointer-events:none;z-index:99999;opacity:0;transform:translate(-50%,-50%)}"""
-JS = """([N,FR,Q34,QPF])=>{const b=document.querySelector('.pgl .big'),im=b.querySelector('img');im.classList.add('s260i');const z=b.querySelector('.zh');[...z.childNodes].filter(n=>n.nodeType===3).forEach(n=>n.textContent=' Arrastá para girar');
- window.__P=[];window.__Gd=[];for(let i=0;i<N;i++){const a=new Image();a.src='/s260b/p'+String(i).padStart(3,'0')+'.jpg';window.__P.push(a);const g=new Image();g.src='/s260b/g'+String(i).padStart(3,'0')+'.jpg';window.__Gd.push(g)}
+JS = """([N,FR,Q34,QPF,PASTA])=>{const b=document.querySelector('.pgl .big'),im=b.querySelector('img');im.classList.add('s260i');const z=b.querySelector('.zh');[...z.childNodes].filter(n=>n.nodeType===3).forEach(n=>n.textContent=' Arrastá para girar');
+ window.__P=[];window.__Gd=[];for(let i=0;i<N;i++){const a=new Image();a.src='/s260c/p'+String(i).padStart(3,'0')+'.jpg';window.__P.push(a);const g=new Image();g.src='/s260c/g'+String(i).padStart(3,'0')+'.jpg';window.__Gd.push(g)}
  b.insertAdjacentHTML('beforeend','<div id="s3n"></div><div id="s3d"><i></i><i></i><i></i></div>');document.body.insertAdjacentHTML('beforeend','<div id="s3g"><span class="fx">✕</span><img><div class="dd"><i></i><i></i><i></i></div></div><i id="s3f"></i>');
  const PR=[[FR,'FRENTE'],[Q34,'3/4'],[QPF,'PERFIL']];
  window.s3=(q,zoom,ox,oy,dx,dy,dica,grande,nome)=>{q=Math.max(0,Math.min(N-1,q));const i=Math.round(q);zoom=zoom||1;const G=document.querySelector('#s3g');G.classList.toggle('on',!!grande);
@@ -22,13 +22,14 @@ JS = """([N,FR,Q34,QPF])=>{const b=document.querySelector('.pgl .big'),im=b.quer
   document.querySelectorAll('#s3d i').forEach((x,k)=>x.classList.toggle('on',k===perto));const n=document.querySelector('#s3n');n.textContent=PR[perto][1];n.style.opacity=nome||0;
   z.style.opacity=dica?1:0;const d=document.querySelector('#s3f');if(dx!=null){d.style.opacity=1;d.style.left=dx+'px';d.style.top=dy+'px'}else d.style.opacity=0};
  return Promise.all([...window.__P,...window.__Gd].map(a=>a.decode().catch(()=>0))).then(()=>'ok')}"""
+SUF = os.environ.get('SUF', 'v3')
 def poe(pg, *a): pg.evaluate("a=>window.s3(...a)", list(a)); pg.wait_for_timeout(60)
 with sync_playwright() as pw:
     b = pw.chromium.launch(executable_path='/opt/pw-browsers/chromium', args=['--no-sandbox'])
     im = {}; ol = {}
     for modo in ('hoje', 'prop'):
         c, pg = site(b, 390, 844)
-        if modo == 'prop': pg.add_style_tag(content=CSS); print('  quadros:', pg.evaluate(JS, [N, FR, Q34, QPF])); poe(pg, FR, 1, 50, 50, None, None, 1, 0, 0)
+        if modo == 'prop': pg.add_style_tag(content=CSS); print('  quadros:', pg.evaluate(JS, [N, FR, Q34, QPF, os.environ.get('PASTA', 's260b')])); poe(pg, FR, 1, 50, 50, None, None, 1, 0, 0)
         pg.wait_for_timeout(300); ol[modo, 0] = {x['r']: x['n'] for x in pg.evaluate(OLHO)}; im[modo] = shot(pg, None, 430)
         if modo == 'prop':
             clip = {'x': 0, 'y': 137, 'width': 390, 'height': 350}; q = []
@@ -36,7 +37,7 @@ with sync_playwright() as pw:
                 poe(pg, *a); pg.wait_for_timeout(150); q.append((leg, '#5b4a57', shot(pg, clip, 380)))
             poe(pg, Q34, 1, 50, 50, None, None, 0, 1, 0); pg.wait_for_timeout(200); q.append(('4 · toca: grande', '#5b4a57', shot(pg, None, 230)))
             poe(pg, Q34, 2.7, 62, 52, None, None, 0, 1, 0); pg.wait_for_timeout(200); q.append(('5 · pinça', '#5b4a57', shot(pg, None, 230)))
-            folha('s260_site_celular_manuseio_v3', 'Site · manuseio simples · só a peça', 'Sem régua e sem ícone. Arrastar gira, soltar encaixa na parada, tocar abre em grande, pinça amplia. Quadros reais, tratamento novo.', q)
+            folha('s260_site_celular_manuseio_' + SUF, 'Site · manuseio simples · só a peça', 'Sem régua e sem ícone. Arrastar gira, soltar encaixa na parada, tocar abre em grande, pinça amplia. Quadros reais, tratamento que não apaga.', q)
             poe(pg, FR, 1, 50, 50, None, None, 1, 0, 0)
         pg.evaluate("document.querySelector('.scrim.pg').scrollBy(0,500)"); pg.wait_for_timeout(300); _o = pg.evaluate(OLHO); ol[modo, 1] = {x['r']: x['n'] for x in _o}; print('   ', modo, 'rolado colados ex:', [x.get('ex') for x in _o if x['r'] == 'colados']); pg.evaluate("document.querySelector('.scrim.pg').scrollTo(0,0)")
         if modo == 'prop' and not os.environ.get('SEMVIDEO'):
@@ -58,8 +59,8 @@ with sync_playwright() as pw:
             for t in range(0, 13800, 40):
                 e = est(t); poe(pg, *e[:9]); x = shot(pg, {'x': 0, 'y': 71, 'width': 390, 'height': 600}, 480)
                 Bq = Image.new('RGB', (x.width + 40, x.height + 126), '#ece6ea'); dr = ImageDraw.Draw(Bq); dr.text((20, 14), 'Site · manuseio simples · só a peça', font=F(23, 1), fill='#2a1a28'); dr.text((20, 52), e[9], font=F(18, 1), fill=G); Bq.paste(x, (20, 96)); Bq = Bq.crop((0, 0, Bq.width - Bq.width % 2, Bq.height - Bq.height % 2)); Bq.save('%s/%05d.png' % (d, n)); n += 1
-            subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-framerate', '25', '-i', d + '/%05d.png', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '22', '-movflags', '+faststart', A + 's260_video_site_manuseio_v3.mp4'], check=True); print('ok vídeo', n, 'quadros')
+            subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-framerate', '25', '-i', d + '/%05d.png', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '22', '-movflags', '+faststart', A + 's260_video_site_manuseio_' + SUF + '.mp4'], check=True); print('ok vídeo', n, 'quadros')
         c.close()
     print('colados rolado:', ol.get(('prop', 1), {}).get('colados'), ol.get(('hoje', 1), {}).get('colados'))
     for k in (0, 1): print('olho celular', 'rolado' if k else 'parado', 'pioras:', [(r, ol['hoje', k].get(r, 0), v) for r, v in ol['prop', k].items() if v > ol['hoje', k].get(r, 0)])
-    folha('s260_site_celular_peca_v3', 'Site · página da peça · celular · versão simples', 'Só a peça e três pontinhos. A página não muda de altura.', [('HOJE', V, im['hoje']), ('PROPOSTA (peça do seu vídeo, tratamento novo)', G, im['prop'])])
+    folha('s260_site_celular_peca_' + SUF, 'Site · página da peça · celular · versão simples', 'Só a peça e três pontinhos. A página não muda de altura.', [('HOJE', V, im['hoje']), ('PROPOSTA (peça do seu vídeo, tratamento que não apaga)', G, im['prop'])])
