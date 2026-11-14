@@ -2401,3 +2401,9 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 ### S287 · 14/11/2026 08:53 · sacola de luxo PUBLICADA + ordem do dono
 - DONO: "Sim, pare de fazer perguntas e só implementa" → liberada no porteiro a entrada pela direita SÓ para a sacola (`ENTRA_DIREITA` em `work/fiscal/provas.py`; ainda acusa passar do lugar, voltar, mudar de altura, pulo e travada). Daqui em diante: implementar o aprovado sem perguntar; decisões pequenas eu tomo e anoto aqui.
 - Sacola no site: entra inteira da direita 0,46 s, sai 0,3 s. Não testado: celular real, iPhone, temáticas.
+
+### S288 · 14/11/2026 · site: abas de Minha conta de luxo (S252)
+- Pílula desliza até a aba tocada e o conteúdo vem do lado dela (0,36 s); a janela não refaz a entrada. Simulador com conta de teste, 390/820/1366/2560: 4 abas, toques rápidos, sem pílula sobrando, olho igual, 0 erros.
+- Achado: na versão anterior o conteúdo ainda estava subindo ~1 s depois do toque (fila de 55 ms por linha); agora assenta em 0,36 s.
+- Não testado: celular real, iPhone, temáticas, conta real com pedidos e cartões.
+- Com isso o S252 do SITE está completo (busca, sacola, abas). Falta do site: itens 16, 19, 21, 22 de 13/11. Troca de tela e janelas do S252 são do APP.
