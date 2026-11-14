@@ -96,3 +96,8 @@ Ler antes de mexer no site. Atualizar este arquivo SEMPRE que o site mudar (estr
 - Menu (`drwSet`, `js/lf-site.js`): os itens entram em 0,26 s com atraso de 16 ms por item (teto 180 ms) — o último chega em 0,44 s (antes 1,05 s). Ao fechar, tudo sai em 0,2 s (itens, painel `#drw .dpn`, véu `.dsc` e a espera do `visibility`).
 - Pedido confirmado (`pkTela` "Obrigado pela preferência!"): sem confete (a função `confete()` do pagamento foi apagada; o CSS `#pkok .cf` ficou sem uso). O confete do jogo da Mochi (`#gzstg`) é outro e continua.
 - Mochi (`#gw`): ao abrir, `html.gwLock` trava o fundo; ao fechar, solta.
+
+## Favoritar e "Últimas unidades" — lote 2 (S240, 14/11/2026)
+- Cartão do catálogo (`js/lf-site.js`, montagem do `.card`): a etiqueta `.ulin` ("Últimas N unidades") saiu de `.info` e fica DENTRO da foto (`.ph`), no canto de baixo à esquerda: fundo claro, letra escura, pontinho que respira em 2,6 s (`lfresp`). Na lista (`html.vlist`) continua escondida.
+- Favoritar (`.fav`) no catálogo em grade: só o coração, sem círculo nem sombra, 44 px de toque, canto de cima à direita; ligado = coração cheio na cor do tema. As regras ficam logo depois do bloco `/*CARD-PC-A*/` (fora da consulta de 1100 px).
+- Ao favoritar (`favVoa`, chamada por `favIn` e `favMais`): um coração vai do cartão até a sacola (`#bagbtn`) em 0,62 s e a sacola dá um toque (0,32 s); o contador de favoritos muda quando o coração chega. Saíram o anel, o contorno desenhado, o "+1" e o botão pulsando (1,9 s). Desfavoritar (`favOut`, `favMenos`) não mudou.

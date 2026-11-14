@@ -2343,3 +2343,9 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Menu: itens entram em 0,26 s com 16 ms de atraso por item (último aos 0,44 s; antes 1,05 s); fecha tudo em 0,2 s (antes 0,53 s). Pedido confirmado sem confete (decisão 2). Mochi aberta trava o fundo (`html.gwLock`) e solta ao fechar.
 - Porteiro: 180 provas, 0 falhas, 0 defeitos visuais novos (620 s). Medido na cópia local (celular 390, espanhol): tempos do menu; com a Mochi aberta a roda não rola o fundo e ao fechar volta a rolar. NÃO vi a tela "Obrigado pela preferência!" (precisa de pedido pago); não testado: temáticas, tablet/PC, celular real.
 - FALTA do site: favoritar sem círculo + "Últimas unidades" em etiqueta; coração até a sacola; busca, sacola, abas de Minha conta, troca de tela e janelas (S252); itens 16, 19, 21, 22 da lista de 13/11.
+
+### S282 · 14/11/2026 08:55 · bloco 3, SITE lote 2 PUBLICADO (lafouch.com)
+- Favoritar só com o coração (sem círculo, 44 px de toque); "Últimas unidades" como etiqueta clara dentro da foto, pontinho respirando 2,6 s; ao favoritar, um coração vai até a sacola em 0,62 s e a sacola dá um toque (antes 1,9 s de efeitos em corrente). Desfavoritar não mudou.
+- Porteiro: 180 provas, 0 falhas, 0 defeitos visuais novos (628 s). Olho antes × agora no catálogo (390, 820, 1366, 2560): sem piora; no celular "toque<40" caiu de 11 para 5. Favoritar/desfavoritar 2 peças na cópia local: contador certo, sem sobra de elementos. Olhei a tela em celular e 1366.
+- Não testado: temáticas (não dá para forçar na cópia local), modo lista (`html.vlist`, não mexi), página da peça, celular real.
+- FALTA do site: busca, sacola, abas de Minha conta, troca de tela e janelas nas versões S252; itens 16, 19, 21, 22 de 13/11.
