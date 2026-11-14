@@ -2295,3 +2295,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Nome: prefere "DASHBOARD" (não "Resultados" nem "Números"): grupo Dia + Histórico + números = Dashboard; a tela de números se chama Dashboard em todo lugar.
 - COMPARTILHAR: o modelo por LINK (S185/S191/S206) é o novo. As janelas de compartilhar antigas do app (as que analisei: Compartilhar inteligente v427, Enviar catálogo folha/fotos/texto e afins) são versão VELHA e devem ser descartadas.
 - LIMPEZA DO APP: quer tirar tudo o que é velho. Regra de execução: apagar só o que tem substituto novo funcionando; sem substituto → fica e vai para uma lista para ele decidir. Atenção: a tela S185 nova mora DENTRO do "Enviar bonito" — conferir na tela o que é novo e o que é velho antes de apagar.
+
+### S269d · 14/11/2026 04:30 · LIMPEZA SEM SUPERVISÃO — APROVADA pelo dono (executar só com o comando de implementar)
+- Critério: velho = provado por programa (nenhum botão chega até aquilo, OU duas portas para a mesma função e uma é a nova). Única porta para uma função → NÃO apaga, vai para a lista final.
+- Travas: uma remoção por commit; 291 testes depois de cada uma; dados da loja intocados (só telas e código); lista final do que saiu; devolver item a item se ele sentir falta.
+- Ordem de trabalho proposta e não contestada: (1) limpeza + nomes + papéis Catálogo/Inventário/Estúdio; (2) grupos, Dashboard, Dinheiro; (3) movimento de luxo app e site; (4) giro no site + Estúdio em vídeo; (5) designer explorador.
