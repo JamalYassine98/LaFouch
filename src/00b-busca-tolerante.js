@@ -143,30 +143,3 @@
     f.toks = tks;
     return f;
   }
-  // "Você quis dizer…": a palavra conhecida mais parecida com o que foi digitado
-  function btolSugere(q, textos) {
-    var tks = btolFold(q).split(/[^a-z0-9]+/).filter(Boolean),
-      vist = {},
-      out = [];
-    textos.forEach(function (t) {
-      String(t || '')
-        .split(/[^A-Za-zÀ-ÿ0-9]+/)
-        .forEach(function (w) {
-          if (w.length >= 3) vist[btolFold(w)] = vist[btolFold(w)] || w.toLowerCase();
-        });
-    });
-    tks.forEach(function (tk) {
-      var melhor = null,
-        md = 4;
-      Object.keys(vist).forEach(function (k) {
-        var d = btolDist(tk, k, 3);
-        if (d < md) {
-          md = d;
-          melhor = vist[k];
-        }
-      });
-      out.push(melhor && md <= Math.max(2, Math.floor(tk.length / 3)) ? melhor : tk);
-    });
-    var s = out.join(' ');
-    return s !== tks.join(' ') ? s : '';
-  }

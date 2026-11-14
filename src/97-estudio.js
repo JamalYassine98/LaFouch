@@ -505,7 +505,7 @@
           ? '<div class="estLbl estLbl2"><span>Na fila</span>' + (F.length > 6 ? '<button type="button" class="estLink" data-e="todas">' + (S.estTodas ? 'Mostrar menos' : 'Ver todas ›') + '</button>' : '') + '</div>' +
             F.slice(0, mostra).map(function (x, j) {
               var ft = S.fotos && S.fotos[x.k];
-              return '<button type="button" class="estIt" data-i="' + j + '" data-ref="' + esc(x.ref) + '" data-cor="' + esc(x.cor) + '"><span class="estTh' + (ft ? '' : ' v') + '">' + (ft ? '<img src="' + esc(ft) + '" alt="">' : '') + '</span><span class="estTx"><b>' + esc(pn(x.ref)) + '</b><small>' + esc(x.cor) + ' · ' + (x.st === 'sem' ? 'sem foto' : x.st === 'nota' ? 'refazer: ' + esc(x.sub) : 'falta a foto de 3/4') + '</small></span></button>';
+              return '<div class="estRw"><button type="button" class="estIt" data-i="' + j + '" data-ref="' + esc(x.ref) + '" data-cor="' + esc(x.cor) + '"><span class="estTh' + (ft ? '' : ' v') + '">' + (ft ? '<img src="' + esc(ft) + '" alt="">' : '') + '</span><span class="estTx"><b>' + esc(pn(x.ref)) + '</b><small>' + esc(x.cor) + ' · ' + (x.st === 'sem' ? 'sem foto' : x.st === 'nota' ? 'refazer: ' + esc(x.sub) : 'falta a foto de 3/4') + '</small></span></button><button type="button" class="estFi" data-e="ficha" data-ref="' + esc(x.ref) + '" aria-label="Ver a ficha de ' + esc(pn(x.ref)) + '">Ficha</button></div>';
             }).join('') +
             (!S.estTodas && F.length > 6 ? '<button type="button" class="estMais" data-e="todas">+ ' + (F.length - 6) + (F.length - 6 === 1 ? ' peça' : ' peças') + '</button>' : '')
           : '<div class="estOk">Todas as peças com foto no padrão ✓</div>') +
@@ -527,6 +527,11 @@
       if (b.dataset.e === 'fecha') {
         ov.remove();
         render();
+        return;
+      }
+      if (b.dataset.e === 'ficha') { // S267: da fila direto para a ficha da peça no Inventário
+        ov.remove();
+        if (typeof fnAbreEstoque === 'function') fnAbreEstoque(b.dataset.ref);
         return;
       }
       if (b.dataset.mont) {
@@ -566,6 +571,13 @@
       }
     };
     return ov;
+  }
+  // S267: fotografar UMA peça a partir da ficha do Inventário (as cores dela que ainda estão na fila); ao terminar volta para a ficha.
+  function estFotografaRef(ref) {
+    var F = estFila().filter(function (x) { return x.ref === ref; });
+    if (!F.length) return lfToast('As fotos desta peça já estão completas');
+    EST_SES = null;
+    estSessao(F, 0, function () {});
   }
   // Sessão: uma peça atrás da outra (frente → 3/4), salvando na cor certa.
   var EST_SES = null; // v465: contagem da sessão para o resumo do fim

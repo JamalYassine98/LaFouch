@@ -365,11 +365,6 @@
       h += '<button type="button" class="pdCanc" data-act="pedcanc" data-id="' + p.id + '">Cancelar pedido</button>';
     return h;
   }
-  function pedStLabel(p) {
-    return PED_ST.filter(function (s) {
-      return s[0] === p.st;
-    })[0][1];
-  }
   function pedPassos(p) {
     var ix = { novo: 0, sep: 1, pronto: 2, ent: 3 }[p.st],
       cur = ix === 0 && p.pg === 'pago' ? 1 : ix,
@@ -711,19 +706,6 @@
       .catch(pedFalhaSite);
     resRecusar(p);
   };
-  // Foto do QR gerado no app do Itaú → JPEG pequeno → o site da cliente mostra no pagamento.
-  function pedImg(file) {
-    return normFile(file)
-      .then(function (f) {
-        return createImageBitmap(f);
-      })
-      .then(function (bm) {
-        var k = Math.min(1, 900 / Math.max(bm.width, bm.height)),
-          c = mkCanvas(Math.round(bm.width * k), Math.round(bm.height * k));
-        c.getContext('2d').drawImage(bm, 0, 0, c.width, c.height);
-        return c.toDataURL('image/jpeg', 0.8);
-      });
-  }
   // Apaga os pedidos de teste (e os clientes que só existem por causa deles).
   ACT.pedteste = function () {
     if (!S._pedTst) {

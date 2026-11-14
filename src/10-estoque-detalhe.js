@@ -269,7 +269,7 @@
     else {
       // v427 (aprovado 04/11): o "$" (para onde foi o dinheiro) saiu; no lugar, o compartilhar da peça
       var bd = btn('tab ibtn shBtn', '', function () {
-        shAbre({ tipo: 'peca', ref: ref });
+        ebAbre([ref]); // limpeza 14/11/2026: a peça abre direto o Compartilhar novo (por link); a janela antiga ficou só para o catálogo inteiro
       });
       bd.id = 'btnSh';
       bd.innerHTML = CJ_ICO.sh;

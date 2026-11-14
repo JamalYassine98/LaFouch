@@ -48,9 +48,6 @@
     o.som = o.sn;
     return o;
   }
-  function avSomDe(tipo) {
-    return avPref()['s' + tipo] || 'sino';
-  }
   // Toca o som do tipo, respeitando ligado/desligado e o horário silencioso.
   function avTocaTipo(tipo) {
     var a = avPref();

@@ -563,9 +563,6 @@
   window.addEventListener('online', function () {
     if (S.view === 'onl') render();
   });
-  ACT.lojaRecarregar = function () {
-    render();
-  };
   // ===== v-b9 (11/11/2026, S133): atalhos do Início para as abas do painel (Mensagens, Analisador, Temática, Atacado) =====
   // O painel conta as mensagens novas, os avisos do Analisador e o próximo evento e manda para o app (lfResumo); o app guarda o último resumo.
   function onlAbaDe(id) {

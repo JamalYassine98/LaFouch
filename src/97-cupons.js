@@ -429,26 +429,6 @@
     };
     img.src = 'https://lafouch.com/og/mochi-' + (tema && tema !== 'halloween' ? tema + '-' : '') + 'es.jpg';
   }
-  // VIP: na ficha do cliente
-  ACT.cupVip = function (id) {
-    var cli = cliPorId(+id);
-    if (!cli) return;
-    lfJanela({
-      titulo: 'Cartão VIP',
-      monta: function (c) {
-        c.innerHTML = '<div class="hint" style="padding:0 16px 16px">Criando o cartão de ' + esc(cli.nome || 'cliente') + '…</div>';
-        cupApi({ acao: 'emitir', tipo: 'vip', pct: 15, tel: cli.tel || '', email: cli.email || '', nome: cli.nome || '' })
-          .then(function (j) {
-            if (!j || !j.ok) throw 0;
-            S.cupTipos[j.cod] = 'vip';
-            cupCartaoMostra(c, j.cupom, cli);
-          })
-          .catch(function () {
-            c.innerHTML = '<div class="hint" style="padding:0 16px 16px">Não deu para criar agora (precisa de internet e da nuvem conectada).</div>';
-          });
-      }
-    });
-  };
   // Finanças › "Cada cartão valeu a pena?" (mês atual; o valor das vendas já vem com o desconto)
   function cupValeuHtml() {
     var d = new Date(),

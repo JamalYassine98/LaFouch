@@ -75,9 +75,4 @@
     }).catch(function () {}));
     return Promise.all(tarefas);
   }
-  // PIX da venda da loja ainda sem confirmação (para o guardião: >15 min)
-  function pixLojaEsperando(min) {
-    var lim = Date.now() - (min || 15) * 60000;
-    return Object.keys(S.pixEsp).map(function (k) { return Object.assign({ k: k }, S.pixEsp[k]); }).filter(function (o) { return !o.ok && o.ts < lim && Date.now() - o.ts < PIXM_H; });
-  }
   setInterval(function () { try { pixEspVarre(); pixEmailCheca(); } catch (e) {} }, 20000);

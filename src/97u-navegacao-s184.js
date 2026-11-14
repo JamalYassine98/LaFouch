@@ -1,9 +1,8 @@
   // ===== S184 (aprovado 12/11/2026): navegar rápido entre as telas =====
-  // 1 Ficha única: a mesma peça com 5 abas no topo (Vender · Estoque · Histórico · Site · Preço), igual em qualquer lugar;
-  //   volta para a aba usada por último. 5 Caminho no topo (Catálogo › GR3350) e o voltar certo (S187).
+  // 1 Ficha da peça (S267, 14/11/2026): no Inventário, 4 abas (Estoque · Histórico · Site · Preço); no Catálogo, só a venda, sem abas.
+  //   Atalhos: Catálogo → "Ver a ficha no Inventário"; Inventário → "Vender no Catálogo" e "Fotografar no Estúdio". 5 Caminho no topo (Catálogo › GR3350) e o voltar certo (S187).
   // 8 Deslizar na ficha passa para a próxima peça da lista de onde veio. 2 Códigos de peça viram link nas listas.
   // 3 Números do Resumo abrem o que está por trás. 4 Aba Online nos Números. 6 Recentes embaixo da busca do Início.
-  // 7 Botão de ação na ficha (Vender esta).
   S.fnTab = S.fnTab || '';
   S.recentes = S.recentes || [];
   function fnItem(ref) { return (S.items || []).filter(function (x) { return x.ref === ref; })[0]; }
@@ -15,6 +14,7 @@
   function fnAbreEstoque(ref) {
     var it = fnItem(ref);
     if (!it) return;
+    S._fnDe = null;
     S.fnTab = 'est';
     setView('estoque');
     S.todos = false; S.tipo = it.tipo; S.fmtF = 'all'; S.corF = 'all'; S.q = ''; S.open = ref; S.det = true;
@@ -23,17 +23,21 @@
   function fnAbreVenda(ref) {
     var it = fnItem(ref);
     if (!it) return;
+    S._fnDe = null;
     S.fnTab = 'ven';
     setView('vendas');
     S.vRef = it.tipo + '|' + ref;
     render();
   }
+  // a barra da peça que está NA TELA (a da outra tela continua no documento, escondida)
+  function fnBarAtiva() { var v = $('v-' + S.view); return (v && v.querySelector('.fnBar[data-ref]')) || document.querySelector('.fnBar[data-ref]'); }
   ACT.abreRef = function (ref) { if (S.fnTab === 'ven') fnAbreVenda(ref); else fnAbreEstoque(ref); };
   ACT.fnTab = function (t) {
-    var det = document.querySelector('.fnBar[data-ref]'), ref = det && det.getAttribute('data-ref');
+    var det = fnBarAtiva(), ref = det && det.getAttribute('data-ref');
     if (!ref) return;
-    if (t === 'ven') { fnAbreVenda(ref); return; }
-    if (t === 'est') { fnAbreEstoque(ref); return; }
+    // S267: atalho entre Catálogo e Inventário leva a MESMA peça; o voltar do celular devolve à tela de onde veio num toque só
+    if (t === 'ven') { fnAbreVenda(ref); S._fnDe = { para: 'vendas', ref: ref }; return; }
+    if (t === 'est') { fnAbreEstoque(ref); S._fnDe = { para: 'estoque', ref: ref }; return; }
     S.fnTab = t;
     saveSoon();
     fnPinta(det.parentNode, ref, det.getAttribute('data-modo'));
@@ -75,9 +79,23 @@
     var de = modo === 'venda' ? 'Catálogo' : 'Inventário';
     return '<div class="fnBar" data-ref="' + esc(ref) + '" data-modo="' + modo + '"><div class="fnCam"><span>' + de + '</span><i>›</i><b>' + esc(ref) + '</b>' +
       (S.fnLista && S.fnLista.length > 1 && S.fnLista.indexOf(ref) >= 0 ? '<small>' + (S.fnLista.indexOf(ref) + 1) + ' de ' + S.fnLista.length + '</small>' : '') + '</div>' +
-      '<div class="fnTabs" role="tablist">' + [['ven', 'Vender'], ['est', 'Estoque'], ['his', 'Histórico'], ['sit', 'Site'], ['pre', 'Preço']].map(function (x) { return '<button type="button" data-act="fnTab" data-id="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div></div>';
+      (modo === 'venda' ? '' : '<div class="fnTabs fnTabs4" role="tablist">' + [['est', 'Estoque'], ['his', 'Histórico'], ['sit', 'Site'], ['pre', 'Preço']].map(function (x) { return '<button type="button" data-act="fnTab" data-id="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>') +
+      // S267 (14/11/2026): um papel por lugar. Catálogo = só vender (sem abas); Inventário = só a ficha (sem "Vender"). Atalhos levam a MESMA peça de um para o outro.
+      '<div class="fnAt">' + (modo === 'venda' ? '<button type="button" class="fnLk" data-act="fnTab" data-id="est">Ver a ficha no Inventário ›</button>' : '<button type="button" class="fnLk" data-act="fnTab" data-id="ven">Vender no Catálogo ›</button><button type="button" class="fnLk" data-act="fnEstudio">Fotografar no Estúdio ›</button>') + '</div></div>';
   }
-  ACT.fnVolta = function () { try { history.back(); } catch (e) {} };
+  window.addEventListener('popstate', function () {
+    setTimeout(function () {
+      var d = S._fnDe;
+      if (!d) return;
+      S._fnDe = null;
+      var v = $('v-' + S.view), bar = v && v.querySelector('.fnBar[data-ref]');
+      if (S.view === d.para && !(bar && bar.getBoundingClientRect().width)) { try { history.back(); } catch (e) {} }
+    }, 0);
+  });
+  ACT.fnEstudio = function () {
+    var det = fnBarAtiva(), ref = det && det.getAttribute('data-ref');
+    if (ref && typeof estFotografaRef === 'function') estFotografaRef(ref);
+  };
   // lista de onde a peça veio (para deslizar): as peças visíveis na tela, na ordem
   function fnCapturaLista() {
     var v = $('v-' + S.view), L = [];
@@ -98,15 +116,9 @@
         det.insertBefore(w.firstChild, det.firstChild);
         var fb = det.querySelector(':scope > .fiBtn'), cam = det.querySelector('.fnCam');
         if (fb && cam) cam.appendChild(fb); // S190: o botão da Ficha fica na linha do caminho
-        if (S.fnTab !== 'his' && S.fnTab !== 'sit' && S.fnTab !== 'pre') S.fnTab = modo === 'venda' ? 'ven' : 'est';
+        if (modo === 'venda' || (S.fnTab !== 'his' && S.fnTab !== 'sit' && S.fnTab !== 'pre')) S.fnTab = modo === 'venda' ? 'ven' : 'est';
         fnPinta(det, ref, modo);
         fnRecente('ref', ref, pn(ref));
-        // 7 botão de ação: na ficha do estoque, "Vender esta"
-        if (modo === 'est' && !det.querySelector('.fnFab')) {
-          var f = document.createElement('button');
-          f.type = 'button'; f.className = 'fnFab'; f.textContent = 'Vender esta'; f.setAttribute('data-act', 'fnTab'); f.setAttribute('data-id', 'ven');
-          det.appendChild(f);
-        }
         fnSwipe(det, ref);
       }
     } catch (e) {}

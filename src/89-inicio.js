@@ -138,8 +138,8 @@
       fx: ['Câmbio', [gsRaw(Math.round(ratePyg('usd'))), '']],
       desp: ['Despesas', [gs(totalMensal()) + '/mês', 'w']],
       hist: ['Histórico', [S.sales.length + ' vendas', '']],
-      hoje: ['Resumo', ['Painel', '']],
-      din: ['Dinheiro', ['Reservas', 'g']],
+      hoje: ['Dashboard', ['Resumo', '']],
+      din: ['Reservas', ['Livre e separado', 'g']],
       giro: ['Giro', [rep + ' a repor', rep ? 'w' : '']],
       prec: ['Preços', [(S.faixas || []).length + ' faixas', '']],
       cat: ['Catálogo', ['WhatsApp', '']],
@@ -257,9 +257,9 @@
   var BARRA_PADRAO = ['vendas', 'estoque', 'caixa', 'ajustes'];
   var BARRA_MAX = 4;
   var BARRA_NOME = {
-    vendas: 'Catálogo', estoque: 'Inventário', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Resumo',
-    din: 'Dinheiro', giro: 'Giro', prec: 'Preços', cat: 'Catálogo', ajustes: 'Ajustes', ped: 'Pedidos', onl: 'Loja',
-    cli: 'Clientes', cont: 'Contagem', lotes: 'Fornecedores', novo: 'Novo', notif: 'Avisos', mkt: 'Marketing', est: 'Estúdio',
+    vendas: 'Catálogo', estoque: 'Inventário', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Dashboard',
+    din: 'Reservas', giro: 'Giro', prec: 'Preços', cat: 'Enviar catálogo', ajustes: 'Ajustes', ped: 'Pedidos', onl: 'Site',
+    cli: 'Clientes', cont: 'Contagem', lotes: 'Fornecedores', novo: 'Novo', notif: 'Pendências', mkt: 'Marketing', est: 'Estúdio',
     msg: 'Mensagens', anl: 'Analisador', tem: 'Temática', ata: 'Atacado'
   };
   function barraLista() {

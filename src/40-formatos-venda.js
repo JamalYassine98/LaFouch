@@ -456,23 +456,4 @@
     var bk = $('splitBk');
     if (bk) bk.hidden = true;
   }
-  function splitAbre() {
-    if (!SPLIT_OK) {
-      $('splitH').textContent = 'Ainda não há venda feita nesta sessão. Depois de vender, toque no $ para ver a divisão.';
-      $('splitBar').textContent = '';
-      $('splitRows').textContent = '';
-      $('splitNote').textContent = '';
-    }
-    var bk = $('splitBk');
-    if (!bk) {
-      bk = document.createElement('div');
-      bk.id = 'splitBk';
-      bk.className = 'splitBk';
-      bk.onclick = splitFecha;
-      document.body.appendChild(bk);
-    }
-    bk.hidden = false;
-    $('splitCard').hidden = false;
-    vibrar(15);
-  }
   $('splitX').onclick = splitFecha;

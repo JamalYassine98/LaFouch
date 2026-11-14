@@ -2525,7 +2525,7 @@ async def main():
             ok = (blocos == 2 and a1 == 'Preto +1.25 x5|Preto +2.00 x4|Tartaruga +0.75 x1' and a2 == 'Preto +1.25 x5|Preto +2.00 x2|Tartaruga +0.75 x1|Tartaruga +2.00 x2'
                   and a3 == 'Preto +1.25 x5|Preto +1.50 x1|Preto +2.00 x2|Preto +3.00 x1|Tartaruga +0.75 x1|Tartaruga +2.00 x2'
                   and a4 == 'Preto +1.25 x5|Preto +1.50 x1|Preto +2.00 x2|Tartaruga +0.75 x1|Tartaruga +2.00 x2' and el.endswith('+3.00:-1') and cu and sb
-                  and fotos[0] == fotos[1] and fotos[0][3] == 0 and sobra == 0 and not pg.erros)
+                  and fotos[0][1:] == fotos[1][1:] and fotos[0][3] == 0 and sobra == 0 and not pg.erros)  # S267 (14/11/2026): o Catálogo não tem mais as abas, então a foto fica mais alta lá; tamanho e animação continuam iguais
             print(('  ok  ' if ok else ' FALHA ') + 'v474: graus por cor (trocar/mudar de cor/adicionar/tirar/custo), barra de seleção padrão, foto abre igual no Catálogo e no Inventário')
             if not ok: falhas.append('v474 graus/barra/foto'); print('        veio', blocos, a1, a2, a3, a4, el, cu, sb, fotos, sobra, pg.erros)
             await pg.close()
@@ -2911,7 +2911,7 @@ async def main():
             tx = await pg.inner_text('#v-dash')
             await pg.locator('[data-act="dVer"]').first.click(); await pg.wait_for_timeout(500)
             tf = await pg.inner_text('#dFolha')
-            await checa('Dashboard: abre no Resumo e a folha VER tem as 4 partes', 'Resumo' in tx and all(t in tf for t in ['Resumo', 'Dinheiro', 'Giro', 'Preços']) and not pg.erros, [tx[:150], tf[:150], pg.erros])
+            await checa('Dashboard: abre no Resumo e a folha VER tem as 4 partes', 'Resumo' in tx and all(t in tf for t in ['Resumo', 'Reservas', 'Giro', 'Preços']) and not pg.erros, [tx[:150], tf[:150], pg.erros])
             await pg.locator('#dFolha [data-act="dVerEsc"][data-id="din"]').first.click(); await pg.wait_for_timeout(500)
             tx = await pg.inner_text('#v-dash')
             await checa('Dashboard Dinheiro: resultado e fluxo em linhas que abrem', 'LIVRE PARA VOCÊ' in tx.upper() and 'Seu mês' in tx and 'Detalhes do mês' in tx and 'Próximos' in tx and not pg.erros, [tx[:200], pg.erros])

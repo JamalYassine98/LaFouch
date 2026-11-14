@@ -3,19 +3,10 @@
   S.dfold = {};
   var DTABS = [
     ['hoje', 'Resumo'],
-    ['din', 'Dinheiro'],
+    ['din', 'Reservas'],
     ['giro', 'Giro'],
     ['prec', 'Preços']
   ];
-  function dTabsHtml() {
-    return (
-      '<div class="tgrid g' + DTABS.length + '" role="group" aria-label="Partes do Dashboard">' +
-      DTABS.map(function (t) {
-        return tileHtml('data-act="dtab" data-id="' + t[0] + '"', t[0], t[1], null, 'sm', S.dTab === t[0]);
-      }).join('') +
-      '</div>'
-    );
-  }
   // Bloco que abre ao toque: cabeçalho com resumo de uma linha e, aberto, o detalhe logo abaixo.
   function dFold(id, titulo, resumo, cor, corpo) {
     if (!corpo) return '';
@@ -215,34 +206,6 @@
     return S.sales.filter(function (s) {
       return !s.estorno && s.ts >= r.ini && s.ts < r.fim;
     });
-  }
-  function periodoHtml() {
-    var r = periodoAtual(),
-      op = [
-        ['hoje', 'Hoje'],
-        ['semana', 'Semana'],
-        ['mes', 'Mês'],
-        ['30', '30 dias'],
-        ['custom', 'Outro']
-      ],
-      h =
-        '<div class="col" style="gap:8px"><div class="hint" style="margin:0">Vendas de: ' +
-        r.txt +
-        '</div><div class="tgrid g5" role="group" aria-label="Período das vendas">' +
-        op
-          .map(function (o) {
-            return tileHtml('data-act="per" data-id="' + o[0] + '"', 'p_' + o[0], o[1], null, 'sm', S.per === o[0]);
-          })
-          .join('') +
-        '</div>';
-    if (S.per === 'custom')
-      h +=
-        '<div class="sel" style="flex-wrap:wrap"><input class="in" type="date" data-pdat="de" value="' +
-        esc(S.perDe) +
-        '" aria-label="Data inicial" style="flex:1 1 140px;width:auto"><input class="in" type="date" data-pdat="ate" value="' +
-        esc(S.perAte) +
-        '" aria-label="Data final" style="flex:1 1 140px;width:auto"></div>';
-    return h + '</div>';
   }
 
   // Aba Dinheiro: o que sobra para você, como foi o mês e os próximos 30 dias.

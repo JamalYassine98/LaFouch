@@ -208,26 +208,6 @@
     });
   };
 
-  // ---------- preço perigoso: leva cada produto da faixa ao seu piso
-  ACT.precoap = function (key) {
-    var l = precoPerigoso(),
-      m = l.filter(function (x) {
-        return x.key === key;
-      })[0];
-    if (!m) return;
-    var f = faixaOf(m.ref);
-    if (!f) return;
-    l.forEach(function (x) {
-      var xf = faixaOf(x.ref);
-      if (x.tipo !== m.tipo || !xf || xf.id !== f.id) return;
-      var o = S.pprice[x.ref] || {};
-      if (!o.ant && x.pp.lista > x.pp.piso) o.ant = x.pp.lista;
-      o.novo = x.pp.piso;
-      S.pprice[x.ref] = o;
-    });
-    saveSoon();
-    render();
-  };
 
   // ---------- PIN e cópias
   // Janela do PIN: 'bio' cria o PIN de emergência ao ligar a biometria; 'troca' muda o PIN.

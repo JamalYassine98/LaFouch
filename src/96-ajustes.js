@@ -302,32 +302,6 @@
       b.focus();
     }
   }
-  // Ações da aba Ajustes e das análises do Dashboard.
-  ACT.fadd = function () {
-    var n = String(S.fnewTxt || ($('fnew') && $('fnew').value) || '').trim();
-    if (!n) return;
-    S.faixas.push({ id: 'f' + Date.now().toString(36), nome: n, margem: 40, precos: {} });
-    S.fnewTxt = '';
-    S._ajForce = true;
-    render();
-  };
-  ACT.fdel = function (id) {
-    if (S.fDelConf !== id) {
-      S.fDelConf = id;
-      S._ajForce = true;
-      render();
-      return;
-    }
-    S.faixas = S.faixas.filter(function (f) {
-      return f.id !== id;
-    });
-    Object.keys(S.pfaixa).forEach(function (k) {
-      if (S.pfaixa[k] === id) delete S.pfaixa[k];
-    });
-    S.fDelConf = '';
-    S._ajForce = true;
-    render();
-  };
   // Restaurar cópia: confirmação reforçada. Mostra o que será substituído, pede para digitar RESTAURAR, pede o PIN
   // e guarda antes uma cópia do estado atual (lafouch_antes_restaurar).
   function restConfirma(descr, fn) {
@@ -382,18 +356,6 @@
     S.rateio = id === 'custo' ? 'custo' : 'peca';
     S._ajForce = true;
     saveSoon();
-    render();
-  };
-  ACT.faixaauto = function () {
-    if (!S.faixaAuto) S.faixaAuto = { on: false, lim: [4, 10] };
-    S.faixaAuto.on = !S.faixaAuto.on;
-    S._ajForce = true;
-    saveSoon();
-    render();
-  };
-  ACT.volauto = function () {
-    S.volAuto = S.volAuto === false;
-    S._ajForce = true;
     render();
   };
   ACT.sugap = function (id) {

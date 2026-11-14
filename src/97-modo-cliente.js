@@ -131,14 +131,6 @@
     }, { passive: true, capture: true });
   });
   ACT.mcLiga = mcLiga;
-  // Ajustes › Modo cliente
-  function mcAjHtml() {
-    return (
-      '<div class="hint" style="margin:0 0 8px">Para o iPad da loja: o aparelho mostra só o catálogo, com o preço de varejo. Sem custo, lucro, venda nem Ajustes. Parado 2 minutos, volta ao início. Para sair: segure o logo e digite o PIN.</div>' +
-      (pinAtivo() ? '' : '<div class="note n-warn" style="margin:0 0 8px">Crie um PIN em Segurança antes: só o PIN tira do modo cliente.</div>') +
-      '<button type="button" class="go" data-act="mcLiga" style="width:100%"' + (pinAtivo() ? '' : ' disabled') + '>Ligar neste aparelho</button>'
-    );
-  }
   setTimeout(function () {
     mcBotao();
     mcAplica();

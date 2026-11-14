@@ -19,19 +19,6 @@
     }
     requestAnimationFrame(passo);
   }
-  // Marca de "ok" que se desenha dentro de um cartão (venda concluída).
-  function marcaOk(host) {
-    if (!host) return;
-    var velho = host.querySelector('.okck');
-    if (velho) velho.remove();
-    var d = document.createElement('div');
-    d.className = 'okck';
-    d.setAttribute('aria-hidden', 'true');
-    d.innerHTML =
-      '<svg viewBox="0 0 24 24" width="26" height="26"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-    host.style.position = 'relative';
-    host.appendChild(d);
-  }
   // Flash branco rápido sobre a imagem da câmera ao tirar a foto.
   function flashCamera(host) {
     if (!host) return;

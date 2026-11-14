@@ -253,7 +253,7 @@
         })
         .join('') +
       '<div class="cxTot"><span>Total aproximado</span><b>' + gs(Math.round(r.wal)) + '</b></div>' +
-      '<div class="hint cxDica">O que está livre e o que já tem dono ficam no <a href="#dash" data-act="view" data-id="dash" style="color:var(--accent-fg)">Dashboard</a>, aba Dinheiro.</div></section>';
+      '<div class="hint cxDica">O que está livre e o que já tem dono ficam no <a href="#dash" data-act="view" data-id="dash" style="color:var(--accent-fg)">Dashboard</a>, aba Reservas.</div></section>';
     html += objCardHtml(); // v425: Objetivos da loja (antiga caixa de melhorias)
     if (r.livre < 0)
       html +=

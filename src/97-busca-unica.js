@@ -89,7 +89,7 @@
     ['ata', 'Atacado', 'Loja › Atacado', 'atacado lojista revenda mayorista'],
     ['mkt', 'Marketing', 'Início › Marketing', 'divulgar video post instagram'],
     ['est', 'Estúdio de fotos', 'Início › Estúdio', 'foto fundo branco camera 360'],
-    ['notif', 'Avisos', 'Sino', 'aviso notificacao alerta'],
+    ['notif', 'Pendências', 'Sino', 'aviso avisos notificacao alerta pendencia'],
     ['ajustes', 'Ajustes', 'Barra › Ajustes', 'configuracao nuvem backup impressora avisos de pedidos senha tema escuro']
   ];
   function buFuncoes(q) {

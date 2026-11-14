@@ -426,7 +426,7 @@
             S.qEdit = true;
             render();
           } else if (k === 'espShare') {
-            if (typeof shAbre === 'function') shAbre({ tipo: 'peca', ref: ref });
+            if (typeof ebAbre === 'function') ebAbre([ref]);
           } else if (k === 'espSelP') {
             S.selMode = true;
             S.pdMode = false;

@@ -80,20 +80,6 @@
     });
     return h + '<button type="button" class="btn" data-act="revfechar" style="width:100%;margin-top:6px">Fechar</button></div></div>';
   }
-  function apHistHtml(ap) {
-    var hoje = dayKey(Date.now()),
-      v = (S.sales || []).filter(function (s) {
-        return s.ap === ap && !s.estorno && dayKey(s.ts) === hoje;
-      }),
-      tot = v.reduce(function (a, s) {
-        return a + (s.price || 0);
-      }, 0);
-    var h = '<div class="hint" style="margin:4px 0 8px;padding-left:8px;border-left:2px solid var(--line)"><b>' + esc(apNome(ap)) + ' · hoje</b><br>' + (v.length ? v.length + (v.length === 1 ? ' venda' : ' vendas') + ' · ' + gs(tot) : 'Nenhuma venda registrada por este aparelho hoje.');
-    v.slice(0, 8).forEach(function (s) {
-      h += '<br>' + fh(s.ts) + ' · ' + esc(descOf(s)) + ' · ' + gs(s.price) + (s.off ? ' 🕓' : '');
-    });
-    return h + '</div>';
-  }
   ACT.syncver = function (ap) {
     atvAbre(ap);
   };

@@ -15,10 +15,6 @@
   function campoParaGs(txt) {
     return Math.round(toNum(txt));
   }
-  // Valor em dólares -> texto do campo (meta, tolerância).
-  function usdParaCampo(u) {
-    return u ? String(u).replace('.', ',') : '';
-  }
   // Texto digitado -> dólares.
   function campoParaUsd(txt) {
     return Math.max(0, parseDec(txt, 'usd'));

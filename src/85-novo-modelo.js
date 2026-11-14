@@ -36,26 +36,6 @@
       e.classList.remove('nvbad');
     }, 2600);
   }
-  // Campo que abre opções ao tocar.
-  function nvFld(key, rotulo) {
-    var w = mk('div', ''),
-      b = mk('button', 'in nvf ph');
-    w.appendChild(mk('div', 'lbl', rotulo));
-    b.type = 'button';
-    b.id = 'nv_' + key;
-    b.onclick = function () {
-      S.nPop = S.nPop === key ? '' : key;
-      render();
-    };
-    var p = mk('div', 'nav');
-    p.id = 'nvp_' + key;
-    p.style.marginTop = '8px';
-    p.hidden = true;
-    w.appendChild(b);
-    w.appendChild(p);
-    w.id = 'nvw_' + key;
-    return w;
-  }
   // Limpa as medidas digitadas ao abrir um cadastro novo.
   function nvLimpaMed() {
     ['nvL', 'nvP', 'nvH'].forEach(function (k) {
@@ -256,104 +236,6 @@
     try {
       $('addModal').scrollTop = 0;
     } catch (e) {}
-  }
-  // Lista suspensa no estilo "Label Select": caixa de busca com lupa e seta, itens embaixo.
-  function nvOpcoes(key, lista, atual, set, extra) {
-    var p = $('nvp_' + key);
-    if (!p) return;
-    p.hidden = S.nPop !== key;
-    p.textContent = '';
-    p.className = 'lsel';
-    if (p.hidden) return;
-    var cx = mk('div', 'lsBox'),
-      lupa = mk('span', 'lsIc', '🔍'),
-      q = document.createElement('input'),
-      seta = mk('span', 'lsSeta', '▲'),
-      ul = mk('div', 'lsList');
-    q.className = 'lsIn';
-    q.placeholder = 'Buscar ' + ({ tipo: 'tipo', fmt: 'formato', mat: 'material', pub: 'gênero' }[key] || '');
-    q.autocomplete = 'off';
-    q.setAttribute('aria-label', 'Buscar');
-    cx.appendChild(lupa);
-    cx.appendChild(q);
-    cx.appendChild(seta);
-    seta.onclick = function () {
-      S.nPop = '';
-      render();
-    };
-    p.appendChild(cx);
-    p.appendChild(ul);
-    function pinta() {
-      var t = q.value.trim().toLowerCase();
-      ul.textContent = '';
-      lista.forEach(function (v) {
-        if (t && String(v).toLowerCase().indexOf(t) < 0) return;
-        var c = mk('button', 'lsOpt' + (atual === v ? ' on' : ''), v);
-        c.type = 'button';
-        c.setAttribute('role', 'option');
-        c.setAttribute('aria-selected', atual === v ? 'true' : 'false');
-        c.onclick = function () {
-          set(v);
-          S.nPop = '';
-          render();
-        };
-        ul.appendChild(c);
-      });
-      if (!ul.firstChild) ul.appendChild(mk('div', 'lsVazio', 'Nada com esse nome'));
-      if (extra) ul.appendChild(extra);
-    }
-    q.oninput = pinta;
-    pinta();
-  }
-  function nvCampo(key, valor) {
-    var b = $('nv_' + key);
-    if (!b) return;
-    b.className = 'in nvf ' + (valor ? 'ok' : 'ph');
-    b.textContent = '';
-    var s = mk('span', '', valor || 'Escolher');
-    b.appendChild(s);
-    if (valor) {
-      var c = mk('span', 'nvck', '✓');
-      b.appendChild(c);
-    }
-  }
-  // Nome, rosto e faixa que o app preenche sozinho.
-  function nvAutoCard() {
-    var au = $('nvAuto'),
-      t = tipoOf(S.tipo) || {},
-      at = nvAtr(S._ref),
-      fm = S._fmtUsed || '',
-      mt = S.eMat || at.material || '',
-      cu = parseFloat(String($('eCusto').value || '').replace(',', '.')),
-      pg = pickG(S.tipo, S.gSel),
-      c = pg.g ? gUnit(pg.g) : cu;
-    au.hidden = !!t.simple || !fm;
-    if (au.hidden) return;
-    var base = S.tipo === 'solar' ? 'Solar' : S.tipo === 'pre' ? 'Pré-graduado' : 'Armação',
-      nome = (base + ' ' + fm.toLowerCase() + ' ' + mt.toLowerCase()).replace(/\s+/g, ' ').trim(),
-      rosto = (ROSTO_DE[fm] || []).join(', ').replace('coracao', 'coração'),
-      fx = null;
-    if (S.eFaixa)
-      fx = S.faixas.filter(function (x) {
-        return x.id === S.eFaixa;
-      })[0];
-    else if (S._ref && faixaOf(S._ref)) fx = faixaOf(S._ref);
-    else if (S.faixaAuto && S.faixaAuto.on && S.faixas.length && c > 0) {
-      var lim = S.faixaAuto.lim || [],
-        k = 0;
-      while (k < lim.length && k < S.faixas.length - 1 && c > lim[k]) k++;
-      fx = S.faixas[k];
-    }
-    var pr = fx && fx.precos && fx.precos[S.tipo] > 0 ? fx.precos[S.tipo] : t.price > 0 ? t.price : 0;
-    au.innerHTML =
-      '<h3>O app preenche sozinho</h3><div class="r"><span>Nome no site</span><b>' +
-      esc(nome) +
-      '</b></div>' +
-      (rosto ? '<div class="r"><span>Rosto que combina</span><b>' + esc(rosto) + '</b></div>' : '') +
-      '<div class="r"><span>Faixa e preço</span><b>' +
-      esc(fx ? fx.nome : c > 0 ? 'Sem faixa' : 'Falta o custo') +
-      (pr > 0 ? ' · ' + gs(pr) : '') +
-      '</b></div>';
   }
   // Cores já cadastradas do modelo, com quantidade e foto.
   function nvCores(ref) {

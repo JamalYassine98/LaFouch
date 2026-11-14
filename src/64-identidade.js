@@ -203,48 +203,6 @@
       }, 1100);
     }, 30);
   }
-  function siteSwitch(ref) {
-    var w = mk('div', 'col'),
-      on = siteOn(ref),
-      ck = siteCheck(ref);
-    w.id = 'edSite';
-    w.style.gap = '6px';
-    var b = btn(
-      'chip' + (on ? ' on' : ''),
-      on ? '✓ Liberado para o site' : 'Liberar para o site',
-      function () {
-        if (!on && !ck.ok) return;
-        siteSet(ref, !on);
-        render();
-        if (!on) {
-          siteFx(ref);
-          siteOnda();
-        }
-      },
-      on
-    );
-    b.id = 'edSiteBtn';
-    b.style.cssText += ';width:100%;justify-content:center';
-    if (!on && !ck.ok) {
-      b.disabled = true;
-      b.style.opacity = '.55';
-    }
-    w.appendChild(b);
-    var msg = on
-      ? 'Aparece no catálogo online com ' + ck.cores.length + (ck.cores.length === 1 ? ' cor' : ' cores') + '. Preço, estoque e avisos o app atualiza sozinho.'
-      : !ck.cores.length
-        ? 'Cadastre ao menos uma cor para liberar.'
-        : ck.sem
-          ? 'Sem peças em estoque: não dá para publicar o que você não tem.'
-          : ck.falta.length
-          ? 'Falta foto em: ' + ck.falta.map(function (c) { return c.cor; }).join(', ') + '. Toda cor liberada precisa de foto.'
-          : 'Todas as cores têm foto. Toque para mostrar no catálogo online.';
-    if (on && ck.falta.length) msg = 'Atenção: falta foto em ' + ck.falta.map(function (c) { return c.cor; }).join(', ') + '. Essa cor não aparece no site até ter foto.';
-    var h = mk('div', 'hint', msg);
-    h.style.margin = '0';
-    w.appendChild(h);
-    return w;
-  }
   /* campos de identificação (cartão da foto e Editar produto): cur é o objeto editado */
   function identBox(host, cur, onCh) {
     host.textContent = '';

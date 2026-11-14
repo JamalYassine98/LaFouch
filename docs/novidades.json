@@ -1,11 +1,12 @@
 {
- "nome": "5.11.0",
+ "nome": "5.12.0",
  "notas": [
-  "Botões mais discretos: fio fino ou só texto, sem vinho, e afundam ao toque (claro e escuro).",
-  "Acabamento novo: títulos serifados, cartões leves, barra sem sombra.",
-  "Cada tela abre com um movimento só e mais rápido; o total do Caixa conta até o valor.",
-  "Sai o pulinho do ícone da barra; os atalhos do Início aparecem mais depressa.",
-  "Descrições novas e curtas em 9 telas."
+  "Catálogo só vende: a peça abre direto na venda, sem abas. Um toque leva à ficha no Inventário.",
+  "Inventário só guarda a ficha: saem a aba Vender e o botão flutuante. Atalhos para vender no Catálogo e fotografar no Estúdio.",
+  "Estúdio: cada peça da fila ganha o atalho Ficha.",
+  "Nomes: Dashboard (antes Resumo/Painel), Reservas (antes aba Dinheiro), Pendências (antes Avisos), Enviar catálogo e Site.",
+  "O ícone dos grupos no menu rápido ficou do mesmo tamanho dos outros.",
+  "Limpeza: 35 funções antigas que nada usava foram apagadas; compartilhar uma peça abre direto o Compartilhar novo, por link."
  ],
- "build": 508
+ "build": 509
 }

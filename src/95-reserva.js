@@ -57,9 +57,6 @@
   function resRecusar(p) {
     return resApi('recusar', p);
   }
-  function resLibera(p) {
-    return resApi('liberar', p);
-  }
   // Solta a reserva de um pedido cancelado ou apagado. Sem internet (ou função fora do ar), fica na fila e tenta de novo.
   function resSolta(p) {
     var refs = resRefsDe(p);
@@ -273,10 +270,4 @@
       if ((x.pago || x.exp > agora) && (cor == null || String(x.cor || '').toLowerCase() === c)) n += x.q;
     });
     return n;
-  }
-  // tempo que falta para o pedido pagar (ms), ou 0
-  function resRestaDe(p) {
-    var r = RES_EST[(resItensDe(p)[0] || {}).ref],
-      x = r && Object.keys(r).map(function (k) { return r[k]; }).filter(function (y) { return y.pid === p.sid; })[0];
-    return x && !x.pago && x.exp > Date.now() ? x.exp - Date.now() : 0;
   }

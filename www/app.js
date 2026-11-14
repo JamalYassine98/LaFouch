@@ -1020,33 +1020,6 @@
     f.toks = tks;
     return f;
   }
-  // "Você quis dizer…": a palavra conhecida mais parecida com o que foi digitado
-  function btolSugere(q, textos) {
-    var tks = btolFold(q).split(/[^a-z0-9]+/).filter(Boolean),
-      vist = {},
-      out = [];
-    textos.forEach(function (t) {
-      String(t || '')
-        .split(/[^A-Za-zÀ-ÿ0-9]+/)
-        .forEach(function (w) {
-          if (w.length >= 3) vist[btolFold(w)] = vist[btolFold(w)] || w.toLowerCase();
-        });
-    });
-    tks.forEach(function (tk) {
-      var melhor = null,
-        md = 4;
-      Object.keys(vist).forEach(function (k) {
-        var d = btolDist(tk, k, 3);
-        if (d < md) {
-          md = d;
-          melhor = vist[k];
-        }
-      });
-      out.push(melhor && md <= Math.max(2, Math.floor(tk.length / 3)) ? melhor : tk);
-    });
-    var s = out.join(' ');
-    return s !== tks.join(' ') ? s : '';
-  }
 /* Gerador de QR Code (modo bytes, correção M). Usado no pagamento por PIX. window.LFqr.svg(texto) devolve um <svg>. */
 (function(){
 var EPB=[-1,10,16,26,18,24,16,18,22,22,26,30,22,22,24,24,28,28,26,26,26,26,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28];
@@ -1098,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 508;
+  var APP_BUILD = 509;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.11.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.12.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -1722,7 +1695,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     else {
       // v427 (aprovado 04/11): o "$" (para onde foi o dinheiro) saiu; no lugar, o compartilhar da peça
       var bd = btn('tab ibtn shBtn', '', function () {
-        shAbre({ tipo: 'peca', ref: ref });
+        ebAbre([ref]); // limpeza 14/11/2026: a peça abre direto o Compartilhar novo (por link); a janela antiga ficou só para o catálogo inteiro
       });
       bd.id = 'btnSh';
       bd.innerHTML = CJ_ICO.sh;
@@ -7621,25 +7594,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var bk = $('splitBk');
     if (bk) bk.hidden = true;
   }
-  function splitAbre() {
-    if (!SPLIT_OK) {
-      $('splitH').textContent = 'Ainda não há venda feita nesta sessão. Depois de vender, toque no $ para ver a divisão.';
-      $('splitBar').textContent = '';
-      $('splitRows').textContent = '';
-      $('splitNote').textContent = '';
-    }
-    var bk = $('splitBk');
-    if (!bk) {
-      bk = document.createElement('div');
-      bk.id = 'splitBk';
-      bk.className = 'splitBk';
-      bk.onclick = splitFecha;
-      document.body.appendChild(bk);
-    }
-    bk.hidden = false;
-    $('splitCard').hidden = false;
-    vibrar(15);
-  }
   $('splitX').onclick = splitFecha;
   // ===== Campos de valor: guaranis por padrão; metas e tolerâncias em dólar. =====
   // Símbolo da moeda dos campos de valor.
@@ -7657,10 +7611,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // Texto digitado em guaranis -> guaranis.
   function campoParaGs(txt) {
     return Math.round(toNum(txt));
-  }
-  // Valor em dólares -> texto do campo (meta, tolerância).
-  function usdParaCampo(u) {
-    return u ? String(u).replace('.', ',') : '';
   }
   // Texto digitado -> dólares.
   function campoParaUsd(txt) {
@@ -11162,47 +11112,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     });
     return { meta: metaMes(), lucro: tot, por: por, restam: dias - d.getDate() + 1, dias: dias };
   }
-  // O que a meta do mês pede por dia, com o mix e os preços de hoje (estimativa: não desconta taxas de pagamento).
-  function metaDiaHtml() {
-    var v = volTipos(),
-      ks = Object.keys(v).filter(function (k) {
-        var t = tipoOf(k);
-        return t && t.price > 0 && v[k] > 0;
-      });
-    if (!ks.length) return '';
-    var fx = S.fx.pyg,
-      dias = S.diasLoja > 0 ? S.diasLoja : 26,
-      tot = 0,
-      ctb = 0;
-    ks.forEach(function (k) {
-      var t = tipoOf(k);
-      tot += v[k];
-      ctb += v[k] * (t.price - Math.round((t.repUSD || 0) * fx));
-    });
-    ctb = ctb / tot;
-    if (!(ctb > 0)) return '';
-    var contas = totalMensal() + reservaCambioContas(),
-      eq = contas / ctb,
-      meta = metaMes() > 0 ? (metaMes() * fx + contas) / ctb : 0,
-      f1 = function (n) {
-        return String(Math.round(n * 10) / 10).replace('.', ',');
-      },
-      h =
-        '<section class="card col"><div><h2 style="margin:0;font-size:16px">O que a meta pede por dia</h2><div class="hint" style="margin:2px 0 0">Com os preços de hoje, o mix da sua meta de vendas e ' +
-        dias +
-        ' dias de loja aberta.</div></div>';
-    ks.forEach(function (k) {
-      var t = tipoOf(k);
-      h += dxRow(esc(t.label), 'sua meta mínima: ' + f1(S.metaDia[k] || v[k] / dias) + '/dia', meta > 0 ? f1((meta / dias) * (v[k] / tot)) + ' /dia' : '');
-    });
-    h +=
-      '<div class="hint" style="margin:0"><b>Ponto de equilíbrio: ' +
-      f1(eq / dias) +
-      ' peças/dia</b> (abaixo disso as contas do mês não fecham)' +
-      (meta > 0 ? '. Para bater a meta de US$ ' + Math.round(metaMes()) + ': ~' + f1(meta / dias) + ' peças/dia.' : '. Defina a meta do mês para ver quanto ela pede.') +
-      '</div></section>';
-    return h;
-  }
   // Ritmo de venda esperado para os próximos 30 dias (já corrigido pela estação).
   function esperado30(m) {
     var f = sazonFator(m.tipo, new Date(Date.now() + 15 * DAY).getMonth());
@@ -13087,26 +12996,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return abaixoDoPiso().filter(function (m) {
       return m.pp.lista < m.pp.trava + m.pp.colch;
     });
-  }
-  function perigosoHtml() {
-    var l = precoPerigoso().slice(0, 6);
-    if (!l.length) return '';
-    var h =
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Preço ficou perigoso</h2><div class="hint" style="margin:2px 0 0">O preço de tabela já não cobre custo, contas e o colchão com o câmbio de hoje. Sugestão: subir para o piso da faixa.</div></div><div class="split">';
-    l.forEach(function (m) {
-      var f = faixaOf(m.ref),
-        novo = m.pp.piso;
-      h += dxRow(
-        dxNome(m),
-        'tabela ' + gs(m.pp.lista) + ' → sugerido ' + gs(novo) + (f ? '' : ' · defina uma faixa para ajustar por aqui'),
-        f
-          ? '<button class="mini" data-act="precoap" data-id="' +
-              esc(m.key) +
-              '">Aplicar</button>'
-          : ''
-      );
-    });
-    return h + '</div><div class="hint" style="margin:0">Aplicar leva cada produto da mesma faixa e tipo ao seu próprio piso (o preço antigo fica riscado).</div></section>';
   }
 
   // ===== Separação do que foi vendido, moeda por moeda (guarani, real e dólar). =====
@@ -15596,48 +15485,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         sp.remove();
       }, 1100);
     }, 30);
-  }
-  function siteSwitch(ref) {
-    var w = mk('div', 'col'),
-      on = siteOn(ref),
-      ck = siteCheck(ref);
-    w.id = 'edSite';
-    w.style.gap = '6px';
-    var b = btn(
-      'chip' + (on ? ' on' : ''),
-      on ? '✓ Liberado para o site' : 'Liberar para o site',
-      function () {
-        if (!on && !ck.ok) return;
-        siteSet(ref, !on);
-        render();
-        if (!on) {
-          siteFx(ref);
-          siteOnda();
-        }
-      },
-      on
-    );
-    b.id = 'edSiteBtn';
-    b.style.cssText += ';width:100%;justify-content:center';
-    if (!on && !ck.ok) {
-      b.disabled = true;
-      b.style.opacity = '.55';
-    }
-    w.appendChild(b);
-    var msg = on
-      ? 'Aparece no catálogo online com ' + ck.cores.length + (ck.cores.length === 1 ? ' cor' : ' cores') + '. Preço, estoque e avisos o app atualiza sozinho.'
-      : !ck.cores.length
-        ? 'Cadastre ao menos uma cor para liberar.'
-        : ck.sem
-          ? 'Sem peças em estoque: não dá para publicar o que você não tem.'
-          : ck.falta.length
-          ? 'Falta foto em: ' + ck.falta.map(function (c) { return c.cor; }).join(', ') + '. Toda cor liberada precisa de foto.'
-          : 'Todas as cores têm foto. Toque para mostrar no catálogo online.';
-    if (on && ck.falta.length) msg = 'Atenção: falta foto em ' + ck.falta.map(function (c) { return c.cor; }).join(', ') + '. Essa cor não aparece no site até ter foto.';
-    var h = mk('div', 'hint', msg);
-    h.style.margin = '0';
-    w.appendChild(h);
-    return w;
   }
   /* campos de identificação (cartão da foto e Editar produto): cur é o objeto editado */
   function identBox(host, cur, onCh) {
@@ -19534,26 +19381,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       e.classList.remove('nvbad');
     }, 2600);
   }
-  // Campo que abre opções ao tocar.
-  function nvFld(key, rotulo) {
-    var w = mk('div', ''),
-      b = mk('button', 'in nvf ph');
-    w.appendChild(mk('div', 'lbl', rotulo));
-    b.type = 'button';
-    b.id = 'nv_' + key;
-    b.onclick = function () {
-      S.nPop = S.nPop === key ? '' : key;
-      render();
-    };
-    var p = mk('div', 'nav');
-    p.id = 'nvp_' + key;
-    p.style.marginTop = '8px';
-    p.hidden = true;
-    w.appendChild(b);
-    w.appendChild(p);
-    w.id = 'nvw_' + key;
-    return w;
-  }
   // Limpa as medidas digitadas ao abrir um cadastro novo.
   function nvLimpaMed() {
     ['nvL', 'nvP', 'nvH'].forEach(function (k) {
@@ -19754,104 +19581,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     try {
       $('addModal').scrollTop = 0;
     } catch (e) {}
-  }
-  // Lista suspensa no estilo "Label Select": caixa de busca com lupa e seta, itens embaixo.
-  function nvOpcoes(key, lista, atual, set, extra) {
-    var p = $('nvp_' + key);
-    if (!p) return;
-    p.hidden = S.nPop !== key;
-    p.textContent = '';
-    p.className = 'lsel';
-    if (p.hidden) return;
-    var cx = mk('div', 'lsBox'),
-      lupa = mk('span', 'lsIc', '🔍'),
-      q = document.createElement('input'),
-      seta = mk('span', 'lsSeta', '▲'),
-      ul = mk('div', 'lsList');
-    q.className = 'lsIn';
-    q.placeholder = 'Buscar ' + ({ tipo: 'tipo', fmt: 'formato', mat: 'material', pub: 'gênero' }[key] || '');
-    q.autocomplete = 'off';
-    q.setAttribute('aria-label', 'Buscar');
-    cx.appendChild(lupa);
-    cx.appendChild(q);
-    cx.appendChild(seta);
-    seta.onclick = function () {
-      S.nPop = '';
-      render();
-    };
-    p.appendChild(cx);
-    p.appendChild(ul);
-    function pinta() {
-      var t = q.value.trim().toLowerCase();
-      ul.textContent = '';
-      lista.forEach(function (v) {
-        if (t && String(v).toLowerCase().indexOf(t) < 0) return;
-        var c = mk('button', 'lsOpt' + (atual === v ? ' on' : ''), v);
-        c.type = 'button';
-        c.setAttribute('role', 'option');
-        c.setAttribute('aria-selected', atual === v ? 'true' : 'false');
-        c.onclick = function () {
-          set(v);
-          S.nPop = '';
-          render();
-        };
-        ul.appendChild(c);
-      });
-      if (!ul.firstChild) ul.appendChild(mk('div', 'lsVazio', 'Nada com esse nome'));
-      if (extra) ul.appendChild(extra);
-    }
-    q.oninput = pinta;
-    pinta();
-  }
-  function nvCampo(key, valor) {
-    var b = $('nv_' + key);
-    if (!b) return;
-    b.className = 'in nvf ' + (valor ? 'ok' : 'ph');
-    b.textContent = '';
-    var s = mk('span', '', valor || 'Escolher');
-    b.appendChild(s);
-    if (valor) {
-      var c = mk('span', 'nvck', '✓');
-      b.appendChild(c);
-    }
-  }
-  // Nome, rosto e faixa que o app preenche sozinho.
-  function nvAutoCard() {
-    var au = $('nvAuto'),
-      t = tipoOf(S.tipo) || {},
-      at = nvAtr(S._ref),
-      fm = S._fmtUsed || '',
-      mt = S.eMat || at.material || '',
-      cu = parseFloat(String($('eCusto').value || '').replace(',', '.')),
-      pg = pickG(S.tipo, S.gSel),
-      c = pg.g ? gUnit(pg.g) : cu;
-    au.hidden = !!t.simple || !fm;
-    if (au.hidden) return;
-    var base = S.tipo === 'solar' ? 'Solar' : S.tipo === 'pre' ? 'Pré-graduado' : 'Armação',
-      nome = (base + ' ' + fm.toLowerCase() + ' ' + mt.toLowerCase()).replace(/\s+/g, ' ').trim(),
-      rosto = (ROSTO_DE[fm] || []).join(', ').replace('coracao', 'coração'),
-      fx = null;
-    if (S.eFaixa)
-      fx = S.faixas.filter(function (x) {
-        return x.id === S.eFaixa;
-      })[0];
-    else if (S._ref && faixaOf(S._ref)) fx = faixaOf(S._ref);
-    else if (S.faixaAuto && S.faixaAuto.on && S.faixas.length && c > 0) {
-      var lim = S.faixaAuto.lim || [],
-        k = 0;
-      while (k < lim.length && k < S.faixas.length - 1 && c > lim[k]) k++;
-      fx = S.faixas[k];
-    }
-    var pr = fx && fx.precos && fx.precos[S.tipo] > 0 ? fx.precos[S.tipo] : t.price > 0 ? t.price : 0;
-    au.innerHTML =
-      '<h3>O app preenche sozinho</h3><div class="r"><span>Nome no site</span><b>' +
-      esc(nome) +
-      '</b></div>' +
-      (rosto ? '<div class="r"><span>Rosto que combina</span><b>' + esc(rosto) + '</b></div>' : '') +
-      '<div class="r"><span>Faixa e preço</span><b>' +
-      esc(fx ? fx.nome : c > 0 ? 'Sem faixa' : 'Falta o custo') +
-      (pr > 0 ? ' · ' + gs(pr) : '') +
-      '</b></div>';
   }
   // Cores já cadastradas do modelo, com quantidade e foto.
   function nvCores(ref) {
@@ -22033,19 +21762,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
     requestAnimationFrame(passo);
   }
-  // Marca de "ok" que se desenha dentro de um cartão (venda concluída).
-  function marcaOk(host) {
-    if (!host) return;
-    var velho = host.querySelector('.okck');
-    if (velho) velho.remove();
-    var d = document.createElement('div');
-    d.className = 'okck';
-    d.setAttribute('aria-hidden', 'true');
-    d.innerHTML =
-      '<svg viewBox="0 0 24 24" width="26" height="26"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-    host.style.position = 'relative';
-    host.appendChild(d);
-  }
   // Flash branco rápido sobre a imagem da câmera ao tirar a foto.
   function flashCamera(host) {
     if (!host) return;
@@ -22111,19 +21827,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   S.dfold = {};
   var DTABS = [
     ['hoje', 'Resumo'],
-    ['din', 'Dinheiro'],
+    ['din', 'Reservas'],
     ['giro', 'Giro'],
     ['prec', 'Preços']
   ];
-  function dTabsHtml() {
-    return (
-      '<div class="tgrid g' + DTABS.length + '" role="group" aria-label="Partes do Dashboard">' +
-      DTABS.map(function (t) {
-        return tileHtml('data-act="dtab" data-id="' + t[0] + '"', t[0], t[1], null, 'sm', S.dTab === t[0]);
-      }).join('') +
-      '</div>'
-    );
-  }
   // Bloco que abre ao toque: cabeçalho com resumo de uma linha e, aberto, o detalhe logo abaixo.
   function dFold(id, titulo, resumo, cor, corpo) {
     if (!corpo) return '';
@@ -22323,34 +22030,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return S.sales.filter(function (s) {
       return !s.estorno && s.ts >= r.ini && s.ts < r.fim;
     });
-  }
-  function periodoHtml() {
-    var r = periodoAtual(),
-      op = [
-        ['hoje', 'Hoje'],
-        ['semana', 'Semana'],
-        ['mes', 'Mês'],
-        ['30', '30 dias'],
-        ['custom', 'Outro']
-      ],
-      h =
-        '<div class="col" style="gap:8px"><div class="hint" style="margin:0">Vendas de: ' +
-        r.txt +
-        '</div><div class="tgrid g5" role="group" aria-label="Período das vendas">' +
-        op
-          .map(function (o) {
-            return tileHtml('data-act="per" data-id="' + o[0] + '"', 'p_' + o[0], o[1], null, 'sm', S.per === o[0]);
-          })
-          .join('') +
-        '</div>';
-    if (S.per === 'custom')
-      h +=
-        '<div class="sel" style="flex-wrap:wrap"><input class="in" type="date" data-pdat="de" value="' +
-        esc(S.perDe) +
-        '" aria-label="Data inicial" style="flex:1 1 140px;width:auto"><input class="in" type="date" data-pdat="ate" value="' +
-        esc(S.perAte) +
-        '" aria-label="Data final" style="flex:1 1 140px;width:auto"></div>';
-    return h + '</div>';
   }
 
   // Aba Dinheiro: o que sobra para você, como foi o mês e os próximos 30 dias.
@@ -22872,8 +22551,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       fx: ['Câmbio', [gsRaw(Math.round(ratePyg('usd'))), '']],
       desp: ['Despesas', [gs(totalMensal()) + '/mês', 'w']],
       hist: ['Histórico', [S.sales.length + ' vendas', '']],
-      hoje: ['Resumo', ['Painel', '']],
-      din: ['Dinheiro', ['Reservas', 'g']],
+      hoje: ['Dashboard', ['Resumo', '']],
+      din: ['Reservas', ['Livre e separado', 'g']],
       giro: ['Giro', [rep + ' a repor', rep ? 'w' : '']],
       prec: ['Preços', [(S.faixas || []).length + ' faixas', '']],
       cat: ['Catálogo', ['WhatsApp', '']],
@@ -22991,9 +22670,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   var BARRA_PADRAO = ['vendas', 'estoque', 'caixa', 'ajustes'];
   var BARRA_MAX = 4;
   var BARRA_NOME = {
-    vendas: 'Catálogo', estoque: 'Inventário', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Resumo',
-    din: 'Dinheiro', giro: 'Giro', prec: 'Preços', cat: 'Catálogo', ajustes: 'Ajustes', ped: 'Pedidos', onl: 'Loja',
-    cli: 'Clientes', cont: 'Contagem', lotes: 'Fornecedores', novo: 'Novo', notif: 'Avisos', mkt: 'Marketing', est: 'Estúdio',
+    vendas: 'Catálogo', estoque: 'Inventário', caixa: 'Caixa', fx: 'Câmbio', desp: 'Despesas', hist: 'Histórico', hoje: 'Dashboard',
+    din: 'Reservas', giro: 'Giro', prec: 'Preços', cat: 'Enviar catálogo', ajustes: 'Ajustes', ped: 'Pedidos', onl: 'Site',
+    cli: 'Clientes', cont: 'Contagem', lotes: 'Fornecedores', novo: 'Novo', notif: 'Pendências', mkt: 'Marketing', est: 'Estúdio',
     msg: 'Mensagens', anl: 'Analisador', tem: 'Temática', ata: 'Atacado'
   };
   function barraLista() {
@@ -23549,87 +23228,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
 
   // ---------- câmbio
-  // ===== Aba Câmbio: cotação, gráfico e atualização. =====
-  // Gráfico de linha em SVG.
-  function lineSvg(vals, labs, fmt) {
-    var W = 640,
-      H = 230,
-      pl = 64,
-      pr = 16,
-      pt = 14,
-      pb = 30,
-      mn = Math.min.apply(null, vals),
-      mx = Math.max.apply(null, vals),
-      pad = (mx - mn) * 0.15 || 1;
-    mn -= pad;
-    mx += pad;
-    var X = function (i) {
-        return pl + (i * (W - pl - pr)) / (vals.length - 1);
-      },
-      Y = function (v) {
-        return pt + ((mx - v) * (H - pt - pb)) / (mx - mn);
-      };
-    var g = '',
-      i;
-    for (i = 0; i < 4; i++) {
-      var v = mn + ((mx - mn) * i) / 3,
-        y = Y(v);
-      g +=
-        '<line x1="' +
-        pl +
-        '" x2="' +
-        (W - pr) +
-        '" y1="' +
-        y +
-        '" y2="' +
-        y +
-        '" style="stroke:var(--line)" stroke-width="1"/><text x="' +
-        (pl - 8) +
-        '" y="' +
-        (y + 4) +
-        '" text-anchor="end" font-size="11" style="fill:var(--mute)">' +
-        fmt(v) +
-        '</text>';
-    }
-    var pts = vals
-      .map(function (v, i) {
-        return X(i).toFixed(1) + ',' + Y(v).toFixed(1);
-      })
-      .join(' ');
-    var xl = [0, Math.floor((vals.length - 1) / 2), vals.length - 1]
-      .map(function (i) {
-        return (
-          '<text x="' +
-          X(i) +
-          '" y="' +
-          (H - 8) +
-          '" text-anchor="' +
-          (i === 0 ? 'start' : i === vals.length - 1 ? 'end' : 'middle') +
-          '" font-size="11" style="fill:var(--mute)">' +
-          labs[i] +
-          '</text>'
-        );
-      })
-      .join('');
-    var li = vals.length - 1;
-    return (
-      '<svg viewBox="0 0 ' +
-      W +
-      ' ' +
-      H +
-      '" style="width:100%;height:auto;display:block" role="img" aria-label="Gráfico do dólar nos últimos dias">' +
-      g +
-      '<polyline points="' +
-      pts +
-      '" fill="none" style="stroke:var(--accent-fg)" stroke-width="2.5" stroke-linejoin="round"/><circle cx="' +
-      X(li) +
-      '" cy="' +
-      Y(vals[li]) +
-      '" r="5" style="fill:var(--accent-fg)"/>' +
-      xl +
-      '</svg>'
-    );
-  }
   // Aba Câmbio.
   // Dois gráficos (dólar em guaranis e real por dólar) com o mesmo período, escolhido nos botões.
   var FX_PERS = [
@@ -23638,58 +23236,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     [90, '3 meses'],
     [365, 'Ano']
   ];
-  function fxGrafico(k, titulo, sub, fmt) {
-    var per = S.fxPer ? S.fxPer : 30,
-      lim = per ? Date.now() - per * 86400000 : 0,
-      h = S.fxHist.filter(function (p) {
-        return p[k] > 0 && p.ts >= lim;
-      });
-    if (h.length < 2) h = S.fxHist.filter(function (p) { return p[k] > 0; }).slice(-2);
-    var vals = h.map(function (p) {
-        return p[k];
-      }),
-      first = vals[0],
-      last = vals[vals.length - 1];
-    if (vals.length < 2) return '';
-    return (
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">' +
-      titulo +
-      '</h2><div class="hint" style="margin:2px 0 0">' +
-      sub +
-      '. Mínimo ' +
-      fmt(Math.min.apply(null, vals)) +
-      ' · Máximo ' +
-      fmt(Math.max.apply(null, vals)) +
-      ' · Variação no período ' +
-      (last >= first ? '+' : '−') +
-      pc(Math.abs(last / first - 1)) +
-      '</div></div>' +
-      lineSvg(
-        vals,
-        h.map(function (p) {
-          return fd(p.ts);
-        }),
-        fmt
-      ) +
-      '</section>'
-    );
-  }
-  function fxGraficos() {
-    var per = S.fxPer ? S.fxPer : 30,
-      h =
-        '<section class="card col"><div class="lbl">Período dos gráficos</div><div class="nav" role="group" aria-label="Período dos gráficos">' +
-        FX_PERS.map(function (o) {
-          return '<button class="chip' + (per === o[0] ? ' on' : '') + '" data-act="fxper" data-id="' + o[0] + '" aria-pressed="' + (per === o[0]) + '">' + o[1] + '</button>';
-        }).join('') +
-        '</div></section>';
-    h += fxGrafico('pyg', 'Dólar em guaranis', 'Guaranis por dólar', function (v) {
-      return dots(Math.round(v));
-    });
-    h += fxGrafico('brl', 'Dólar em reais', 'Reais por dólar', function (v) {
-      return v.toFixed(2).replace('.', ',');
-    });
-    return h;
-  }
 
   // Cartão "Trocar agora": o dólar de hoje no intervalo dos últimos dias e o que dá para trocar.
   // "cotação: R$ 5,43 por US$ 1 (mercado R$ 5,42)" a partir do que foi entregue e recebido.
@@ -23738,64 +23284,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return '<div class="lbl" style="margin-top:6px">Trocas feitas</div>' + S.cambios.slice(0, 8).map(function (x, i) {
       return '<div class="sl"><span>' + fmtM(x.dado, x.de) + ' → ' + fmtM(x.rec, x.para || 'usd') + '<small>' + fd(x.ts) + ' às ' + fh(x.ts) + ' · ' + (x.difGs >= 0 ? '+' : '−') + gs(Math.abs(x.difGs)) + ' em relação ao câmbio do dia</small></span><button class="btn-sc p" data-act="trdesfaz" data-id="' + i + '">Desfazer</button></div>';
     }).join('');
-  }
-  // Medidor da cotação do par escolhido (muda com as moedas de Trocar moedas).
-  function parGaugeHtml() {
-    var c = cotacaoPar(S.tr.de, S.tr.para);
-    if (!c) return ''; // medidor único: acompanha as moedas escolhidas em "Outra troca"
-    var f = function (v) {
-        return c.un === 'pyg' ? gsRaw(Math.round(v)) : 'R$ ' + nf(v, 'brl');
-      },
-      pos = Math.round(c.pos * 100);
-    return (
-      '<div class="card col" style="padding:10px;margin:0"><div class="lbl" style="margin:0">' + c.nome + ' hoje</div><b style="font-size:24px">' + f(c.hoje) + '</b>' +
-      '<div style="position:relative;height:10px;border-radius:6px;background:linear-gradient(90deg,var(--ok),#e9c27a,var(--bad))"><i style="position:absolute;left:' + pos + '%;top:-4px;width:6px;height:18px;border-radius:3px;background:#fff;transform:translateX(-50%)"></i></div>' +
-      '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--mute)"><span>mínimo ' + f(c.min) + '</span><span>média ' + f(c.media) + '</span><span>máximo ' + f(c.max) + '</span></div>' +
-      '<div class="note ' + (c.barato ? 'n-ok' : c.caro ? 'n-warn' : 'n-info') + '">' +
-      (c.barato ? 'Perto do mínimo dos últimos ' + S.janela + ' dias: bom momento para trocar.' : c.caro ? 'Perto do máximo dos últimos ' + S.janela + ' dias: troque só o necessário.' : 'Cotação no meio do intervalo dos últimos ' + S.janela + ' dias.') +
-      '</div></div>'
-    );
-  }
-  function trocarMoedasHtml() {
-    var t = S.tr,
-      html = '';
-    html +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Trocar moedas</h2><div class="hint" style="margin:2px 0 0">Registre a troca ou a venda de dólar que você fez. Os saldos mudam nas duas moedas.</div></div>' +
-      (trocarAgoraHtml() ? '<div class="lbl" style="margin:4px 0 0">Sugestão de hoje</div>' + trocarAgoraHtml() + '<div class="lbl" style="margin:8px 0 0">Outra troca</div>' : '') +
-      '<div class="sel" style="flex-wrap:wrap">' +
-      trSel('trDe', t.de) +
-      '<button class="btn-sc" data-act="trflip" aria-label="Inverter as moedas">⇄ Inverter</button>' +
-      trSel('trPara', t.para) +
-      '</div>' +
-      parGaugeHtml() +
-      '<div class="sel" style="flex-wrap:wrap"><div style="flex:1 1 160px"><div class="lbl">Você troca (' +
-      MN[t.de] +
-      ')</div><input class="in" id="trV" inputmode="decimal" data-in="trV" value="' +
-      esc(t.v) +
-      '" aria-label="Valor a trocar"></div>' +
-      '<div style="flex:1 1 160px"><div class="lbl">Você recebe (' +
-      MN[t.para] +
-      ')</div><input class="in" id="trRec" inputmode="decimal" data-in="trRec" value="' +
-      esc(t.rec) +
-      '" aria-label="Valor recebido na troca"></div></div>' +
-      '<div class="hint" id="trPrev" role="status" style="margin:0"></div><button class="go" data-act="trocar">Registrar troca</button>' +
-      trHistHtml() +
-      '</section>';
-    html += '';
-    return html;
-  }
-  // Quanto falta para completar a reposição em dólar (depois de vender dólar da reposição).
-  function faltamHtml() {
-    var r = reservas(),
-      falta = Math.max(0, r.rUSD - Math.max(0, S.cash.usd));
-    if (!(r.rUSD > 0.004) || falta < 0.004) return '';
-    var pct = Math.round(Math.min(1, Math.max(0, S.cash.usd) / r.rUSD) * 100);
-    return (
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Faltam ' + usd(falta) + ' para a reposição</h2></div>' +
-      '<div style="height:10px;border-radius:6px;background:var(--line);overflow:hidden"><i style="display:block;height:100%;width:' + pct + '%;background:var(--ok)"></i></div>' +
-      '<div class="hint" style="margin:0">' + usd(Math.max(0, S.cash.usd)) + ' em dólar de ' + usd(r.rUSD) + ' reservados (' + pct + '%). Falta valor ao dólar de hoje: ' + gs(Math.round(falta * S.fx.pyg)) + '.</div>' +
-      '<div class="note n-warn">Evite retiradas até completar a reposição.</div></section>'
-    );
   }
   // v426: aba Câmbio simples (esboço aprovado 04/11, versão A) — montada em 97-cambio-aba.js
   function renderFx() {
@@ -25462,7 +24950,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   var GI_REC = ["vendas","estoque","caixa","desp","ped","onl","notif","cont","lotes","hist","hoje","cat","ajustes","prec","din","cli","giro","novo","fx"];
   var GI_CORPO = {"vendas":["<path d=\"M3 9l1.5-5h15L21 9a2.5 2.5 0 0 1-4.5 1.5 2.5 2.5 0 0 1-4.5 0 2.5 2.5 0 0 1-4.5 0A2.5 2.5 0 0 1 3 9zM5 13v8h14v-8\"/>",12,17,0.34],"estoque":["<path d=\"M3 7.5l9-4.5 9 4.5v9l-9 4.5-9-4.5z\"/>",12,12,0.42],"caixa":["<rect x=\"2.5\" y=\"5\" width=\"19\" height=\"14\" rx=\"2.5\"/>",12,12,0.46],"desp":["<path d=\"M5.5 2.5h13v19l-3-2-3.5 2-3.5-2-3 2z\"/>",12,11.5,0.4],"ped":["<path d=\"M4.5 8h15l-1.2 13H5.7zM8.5 8V6.500a3.500 3.500 0 0 1 7 0V8\"/>",12,15,0.4],"onl":["<rect x=\"2.5\" y=\"4\" width=\"19\" height=\"16\" rx=\"2.5\"/><path d=\"M2.5 9h19\"/>",12,14.5,0.4],"notif":["<path d=\"M18.500 16.500V11a6.500 6.500 0 1 0-13 0v5.500L3.500 19h17zM10 21.500h4\"/>",12,12.5,0.38],"cont":["<rect x=\"4.5\" y=\"4\" width=\"15\" height=\"17.500\" rx=\"2.5\"/><path d=\"M9 4V2.800h6V4\"/>",12,13.2,0.4],"lotes":["<path d=\"M2 6h12v11H2zM14 10h4l4 3.500V17h-8\"/><circle cx=\"6.500\" cy=\"18\" r=\"1.600\"/><circle cx=\"17\" cy=\"18\" r=\"1.600\"/>",8,11.5,0.36],"hist":["<circle cx=\"12\" cy=\"12\" r=\"9.500\"/>",12,12,0.5],"hoje":["<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"3\"/>",12,12,0.5],"cat":["<path d=\"M12 6c-2-2-5-2.500-9-2v14c4-.5 7 0 9 2 2-2 5-2.500 9-2V4c-4-.5-7 0-9 2z\"/>",12,11.5,0.34],"ajustes":["<path d=\"M19.500 12a7.500 7.500 0 0 0-.1-1.300l2-1.600-2-3.400-2.400 1a7 7 0 0 0-2.200-1.300L14.500 3h-5l-.3 2.400a7 7 0 0 0-2.200 1.300l-2.400-1-2 3.400 2 1.600a7.500 7.500 0 0 0 0 2.600l-2 1.600 2 3.400 2.400-1a7 7 0 0 0 2.200 1.300l.3 2.400h5l.3-2.400a7 7 0 0 0 2.200-1.300l2.400 1 2-3.400-2-1.600c.1-.4.100-.9.100-1.300z\"/>",12,12,0.4],"prec":["<path d=\"M2.500 12.500l9.500-9.500h8.500v8.500l-9.500 9.500z\"/>",12.5,12.5,0.38],"din":["<circle cx=\"12\" cy=\"12\" r=\"9.500\"/>",12,12,0.5],"cli":["<circle cx=\"12\" cy=\"7\" r=\"4\"/><path d=\"M4 21c0-4.400 3.600-7.500 8-7.500s8 3.100 8 7.500z\"/>",12,17.5,0.28],"giro":["<path d=\"M21 12a9 9 0 1 1-3-6.700M21 3.500v5h-5\"/>",12,12,0.46],"novo":["<path d=\"M12 2l2.600 6.400L21 11l-6.400 2.600L12 20l-2.600-6.400L3 11l6.400-2.600z\"/>",12,11,0.3],"fx":["<path d=\"M4 8.500h14l-3.500-3.500M20 15.500H6l3.500 3.500\"/>",12,12,0.5]};
   var GI_MAO = {"vendas+estoque":"<path d=\"M3 9l1.5-5h15L21 9a2.5 2.5 0 0 1-4.5 1.5 2.5 2.5 0 0 1-4.5 0 2.5 2.5 0 0 1-4.5 0A2.5 2.5 0 0 1 3 9zM5 13v7h14v-7M10 20v-4h4v4\"/>","vendas+caixa":"<path d=\"M3 10h18l-1-5H4zM5 10v10h14V10M9 14h6\"/>","vendas+hist":"<path d=\"M6 3h12v18l-3-2-3 2-3-2-3 2z\"/><path d=\"M9 11l2 2 4-4\"/>","vendas+din":"<circle cx=\"12\" cy=\"14\" r=\"7\"/><path d=\"M12 2v6M9.5 4.500L12 2l2.500 2.500\"/>","vendas+prec":"<path d=\"M3 12l9-9h8v8l-9 9z\"/><path d=\"M8.5 12.5l2.5 2.5 5-5\"/>","vendas+cat":"<path d=\"M12 6c-2-2-5-2.5-9-2v14c4-.5 7 0 9 2 2-2 5-2.5 9-2V4c-4-.5-7 0-9 2zM12 6v14\"/>","vendas+ped":"<path d=\"M4 5h16v11H9l-5 4z\"/><path d=\"M8 9h8M8 12h5\"/>","vendas+onl":"<path d=\"M3 9l1.5-5h15L21 9a2.5 2.5 0 0 1-4.5 1.5 2.5 2.5 0 0 1-4.5 0 2.5 2.5 0 0 1-4.5 0A2.5 2.5 0 0 1 3 9zM5 13v7h14v-7\"/><circle cx=\"12\" cy=\"16.5\" r=\"2.4\"/><path d=\"M9.6 16.5h4.8\"/>","vendas+cli":"<circle cx=\"8.5\" cy=\"7.5\" r=\"3.2\"/><path d=\"M2.5 19.5c0-3.400 2.700-5.500 6-5.500M12 15l4.500-4.500H21v4.500L16.500 19.500z\"/>","estoque+hist":"<path d=\"M3 8l9-5 9 5v9l-9 5-9-5z\"/><path d=\"M15.500 12.500a3.500 3.500 0 1 1-1-2.500M15.500 8.500v2.500h-2.500\"/>","estoque+ped":"<path d=\"M5 8h14l-1 12H6zM9 8V6a3 3 0 0 1 6 0v2M9.5 14l2 2 3.5-3.5\"/>","estoque+cont":"<path d=\"M3 8l9-5 9 5v9l-9 5-9-5zM3 8l9 5 9-5\"/><path d=\"M8.5 17l2.5 2.5 5-5\"/>","estoque+lotes":"<path d=\"M2 20h20M4 20V10h6v10M14 20V6h6v14M6.5 13h1M16.5 10h1M16.5 14h1\"/>","estoque+novo":"<rect x=\"5\" y=\"4\" width=\"14\" height=\"17\" rx=\"2\"/><path d=\"M9 4V3h6v1M12 10v7M8.5 13.5h7\"/>","caixa+fx":"<rect x=\"3\" y=\"7\" width=\"18\" height=\"13\" rx=\"2\"/><path d=\"M8 12h8l-2-2M16 16H8l2 2\"/>","caixa+desp":"<rect x=\"2.5\" y=\"6\" width=\"19\" height=\"12\" rx=\"2\"/><circle cx=\"12\" cy=\"12\" r=\"2.8\"/><path d=\"M6 9.5v.01M18 14.5v.01\"/>","caixa+din":"<rect x=\"2.5\" y=\"8\" width=\"17\" height=\"11\" rx=\"2\"/><path d=\"M5.5 5h15a1 1 0 0 1 1 1v9\"/><circle cx=\"11\" cy=\"13.5\" r=\"2.5\"/>","caixa+ped":"<rect x=\"3\" y=\"9\" width=\"18\" height=\"11\" rx=\"2\"/><path d=\"M12 2v8M8.5 6.5L12 10l3.5-3.5\"/>","caixa+cli":"<circle cx=\"9\" cy=\"8\" r=\"3.5\"/><path d=\"M2.5 20c0-3.6 2.9-6 6.5-6\"/><circle cx=\"17\" cy=\"16\" r=\"4.5\"/><path d=\"M17 14v4M15.5 15.5h3\"/>","fx+desp":"<path d=\"M6 3h12v18l-3-2-3 2-3-2-3 2z\"/><path d=\"M9 9h6l-1.5-1.5M15 13H9l1.5 1.5\"/>","fx+din":"<circle cx=\"9\" cy=\"12\" r=\"6\"/><circle cx=\"16\" cy=\"12\" r=\"6\"/>","fx+lotes":"<path d=\"M2 12l20-8-6 16-4-6zM12 14L22 4\"/>","desp+din":"<path d=\"M6 3h12v18l-3-2-3 2-3-2-3 2z\"/><circle cx=\"12\" cy=\"11\" r=\"3\"/><path d=\"M12 9.8v2.4\"/>","desp+lotes":"<path d=\"M3 4h2l2.5 11h11l2-8H6\"/><circle cx=\"9\" cy=\"19\" r=\"1.5\"/><circle cx=\"17\" cy=\"19\" r=\"1.5\"/>","hist+hoje":"<rect x=\"3\" y=\"4\" width=\"18\" height=\"17\" rx=\"2\"/><path d=\"M3 9h18M8 2.5v3M16 2.5v3M8 18v-4M12 18v-6M16 18v-3\"/>","hist+giro":"<path d=\"M3 17l5-5 4 4 8-9M15 7h5v5M3 21h18\"/>","hist+ajustes":"<path d=\"M4 17a8 8 0 1 1 16 0M12 17l4-5\"/><path d=\"M4 20h16\"/>","hoje+giro":"<path d=\"M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4M8 15v-3M12 15V9M16 15v-2\"/>","prec+cat":"<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M3 9h18M3 15h18M10 3v18\"/>","prec+onl":"<circle cx=\"10.5\" cy=\"10.5\" r=\"7.5\"/><path d=\"M3 10.5h15M10.5 3c3 3 3 12 0 15\"/><path d=\"M15 19.5l4.5-4.5h2.5v2.5L17.500 22z\"/>","cat+onl":"<rect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 9h18M9 9v11M15 9v11\"/>","ajustes+notif":"<path d=\"M4 7h10M18 7h2M4 17h2M10 17h10\"/><circle cx=\"16\" cy=\"7\" r=\"2\"/><circle cx=\"8\" cy=\"17\" r=\"2\"/>","ped+onl":"<rect x=\"4\" y=\"5\" width=\"16\" height=\"11\" rx=\"1.5\"/><path d=\"M2 20h20M9 9h6\"/>","ped+cli":"<circle cx=\"9\" cy=\"7\" r=\"3.2\"/><path d=\"M3 19c0-3.4 2.7-5.5 6-5.5\"/><path d=\"M13 12h8l-1 7h-6zM14.5 12v-1a2.5 2.5 0 0 1 5 0v1\"/>","ped+notif":"<path d=\"M5 9h14l-1 11H6zM9 9V7a3 3 0 0 1 6 0v2\"/><circle cx=\"19\" cy=\"4.5\" r=\"2.3\"/>","onl+notif":"<path d=\"M3 10v4h4l8 5V5L7 10zM18 9a4 4 0 0 1 0 6\"/>","cont+lotes":"<path d=\"M2 6h11v10H2zM13 9h4l3 3v4h-7\"/><circle cx=\"6.5\" cy=\"18\" r=\"1.6\"/><circle cx=\"16.5\" cy=\"18\" r=\"1.6\"/>","cont+novo":"<rect x=\"5\" y=\"4\" width=\"14\" height=\"17\" rx=\"2\"/><path d=\"M9 4V3h6v1M8.5 13l2.5 2.5 4.5-5\"/>","lotes+novo":"<path d=\"M3 14l9-4 9 4v5l-9 3-9-3zM12 2v8M8.5 6.5L12 10l3.5-3.5\"/>"};
-  var GI_NOME = {"vendas+estoque":"Loja e estoque","vendas+caixa":"Balcão","vendas+fx":"Vendas em moeda","vendas+desp":"Lucro da loja","vendas+hist":"Vendas feitas","vendas+hoje":"Vendas de hoje","vendas+din":"Receita","vendas+giro":"Mais vendidos","vendas+prec":"Vender","vendas+cat":"Catálogos","vendas+ajustes":"Loja e ajustes","vendas+ped":"Atendimento","vendas+onl":"Vendas online","vendas+cli":"Clientes e vendas","vendas+cont":"Conferir vendas","vendas+lotes":"Reposição","vendas+novo":"Lançamentos","vendas+notif":"Avisos de venda","estoque+caixa":"Estoque e caixa","estoque+fx":"Estoque em moeda","estoque+desp":"Custo do estoque","estoque+hist":"Giro do estoque","estoque+hoje":"Estoque hoje","estoque+din":"Valor em estoque","estoque+giro":"Giro de estoque","estoque+prec":"Tabela do estoque","estoque+cat":"Estoque e vitrine","estoque+ajustes":"Config. do estoque","estoque+ped":"Separação","estoque+onl":"Estoque online","estoque+cli":"Retirada","estoque+cont":"Conferência","estoque+lotes":"Estoque e compras","estoque+novo":"Cadastro","estoque+notif":"Estoque baixo","caixa+fx":"Caixa e câmbio","caixa+desp":"Financeiro","caixa+hist":"Movimento do caixa","caixa+hoje":"Caixa de hoje","caixa+din":"Dinheiro vivo","caixa+giro":"Fechamento","caixa+prec":"Preço no balcão","caixa+cat":"Caixa e catálogo","caixa+ajustes":"Ajustes do caixa","caixa+ped":"Recebimentos","caixa+onl":"Pagamentos online","caixa+cli":"Cobranças","caixa+cont":"Conferir o caixa","caixa+lotes":"Pagar fornecedor","caixa+novo":"Nova venda","caixa+notif":"Avisos do caixa","fx+desp":"Gastos e câmbio","fx+hist":"Histórico câmbio","fx+hoje":"Câmbio de hoje","fx+din":"Moedas","fx+giro":"Trocas de moeda","fx+prec":"Preço por moeda","fx+cat":"Catálogo em moeda","fx+ajustes":"Config. câmbio","fx+ped":"Pedido em moeda","fx+onl":"Câmbio da loja","fx+cli":"Cliente de fora","fx+cont":"Contar moedas","fx+lotes":"Importação","fx+novo":"Nova cotação","fx+notif":"Aviso de câmbio","desp+hist":"Gastos passados","desp+hoje":"Gastos de hoje","desp+din":"Contas","desp+giro":"Gastos recorrentes","desp+prec":"Custo e preço","desp+cat":"Gastos do catálogo","desp+ajustes":"Config. de gastos","desp+ped":"Gasto por pedido","desp+onl":"Custo online","desp+cli":"Gasto com clientes","desp+cont":"Conferir gastos","desp+lotes":"Compras e gastos","desp+novo":"Novo gasto","desp+notif":"Contas a pagar","hist+hoje":"Resumo do dia","hist+din":"Histórico de caixa","hist+giro":"Desempenho","hist+prec":"Preços antigos","hist+cat":"Catálogo antigo","hist+ajustes":"Painel","hist+ped":"Perfil de clientes","hist+onl":"Histórico online","hist+cli":"Histórico clientes","hist+cont":"Contagens feitas","hist+lotes":"Compras feitas","hist+novo":"Cadastros antigos","hist+notif":"Avisos anteriores","hoje+din":"Lucro do dia","hoje+giro":"Giro de hoje","hoje+prec":"Preços do dia","hoje+cat":"Catálogo do dia","hoje+ajustes":"Painel e ajustes","hoje+ped":"Pedidos de hoje","hoje+onl":"Loja hoje","hoje+cli":"Clientes de hoje","hoje+cont":"Contagem de hoje","hoje+lotes":"Compras de hoje","hoje+novo":"Novidades de hoje","hoje+notif":"Resumo e avisos","din+giro":"Fluxo de dinheiro","din+prec":"Margem","din+cat":"Valor do catálogo","din+ajustes":"Ajustes de valores","din+ped":"Pedidos pagos","din+onl":"Ganhos online","din+cli":"Quanto devem","din+cont":"Conferir dinheiro","din+lotes":"Investimento","din+novo":"Novo dinheiro","din+notif":"Avisos de dinheiro","giro+prec":"Preço e giro","giro+cat":"Giro do catálogo","giro+ajustes":"Ajustar o giro","giro+ped":"Giro de pedidos","giro+onl":"Giro online","giro+cli":"Clientes fiéis","giro+cont":"Giro contado","giro+lotes":"Reposição de giro","giro+novo":"Giro dos novos","giro+notif":"Avisos de giro","prec+cat":"Tabela de preços","prec+ajustes":"Regras de preço","prec+ped":"Preço do pedido","prec+onl":"Preços online","prec+cli":"Preço por cliente","prec+cont":"Conferir preços","prec+lotes":"Custo de compra","prec+novo":"Preço do novo","prec+notif":"Avisos de preço","cat+ajustes":"Config. catálogo","cat+ped":"Pedir do catálogo","cat+onl":"Vitrine","cat+cli":"Catálogo cliente","cat+cont":"Conferir catálogo","cat+lotes":"Catálogo de compra","cat+novo":"Novo no catálogo","cat+notif":"Avisos do catálogo","ajustes+ped":"Contato","ajustes+onl":"Config. da loja","ajustes+cli":"Config. clientes","ajustes+cont":"Config. contagem","ajustes+lotes":"Config. compras","ajustes+novo":"Config. cadastro","ajustes+notif":"Configuração","ped+onl":"Pedidos online","ped+cli":"Clientes e pedidos","ped+cont":"Conferir pedidos","ped+lotes":"Pedidos e compras","ped+novo":"Novo pedido","ped+notif":"Novos pedidos","onl+cli":"Clientes online","onl+cont":"Conferir loja","onl+lotes":"Compras da loja","onl+novo":"Novidades online","onl+notif":"Avisos da loja","cli+cont":"Conferir clientes","cli+lotes":"Fornecedores","cli+novo":"Novo cliente","cli+notif":"Avisos de clientes","cont+lotes":"Recebimento","cont+novo":"Cadastro e conf.","cont+notif":"Avisos de contagem","lotes+novo":"Entradas","lotes+notif":"Avisos de compra","novo+notif":"Novidades"};
+  var GI_NOME = {"vendas+estoque":"Loja e estoque","vendas+caixa":"Balcão","vendas+fx":"Vendas em moeda","vendas+desp":"Lucro da loja","vendas+hist":"Vendas feitas","vendas+hoje":"Vendas de hoje","vendas+din":"Receita","vendas+giro":"Mais vendidos","vendas+prec":"Vender","vendas+cat":"Catálogos","vendas+ajustes":"Loja e ajustes","vendas+ped":"Atendimento","vendas+onl":"Vendas online","vendas+cli":"Clientes e vendas","vendas+cont":"Conferir vendas","vendas+lotes":"Reposição","vendas+novo":"Lançamentos","vendas+notif":"Pendências de venda","estoque+caixa":"Estoque e caixa","estoque+fx":"Estoque em moeda","estoque+desp":"Custo do estoque","estoque+hist":"Giro do estoque","estoque+hoje":"Estoque hoje","estoque+din":"Valor em estoque","estoque+giro":"Giro de estoque","estoque+prec":"Tabela do estoque","estoque+cat":"Estoque e vitrine","estoque+ajustes":"Config. do estoque","estoque+ped":"Separação","estoque+onl":"Estoque online","estoque+cli":"Retirada","estoque+cont":"Conferência","estoque+lotes":"Estoque e compras","estoque+novo":"Cadastro","estoque+notif":"Estoque baixo","caixa+fx":"Caixa e câmbio","caixa+desp":"Financeiro","caixa+hist":"Movimento do caixa","caixa+hoje":"Caixa de hoje","caixa+din":"Reservas vivo","caixa+giro":"Fechamento","caixa+prec":"Preço no balcão","caixa+cat":"Caixa e catálogo","caixa+ajustes":"Ajustes do caixa","caixa+ped":"Recebimentos","caixa+onl":"Pagamentos online","caixa+cli":"Cobranças","caixa+cont":"Conferir o caixa","caixa+lotes":"Pagar fornecedor","caixa+novo":"Nova venda","caixa+notif":"Pendências do caixa","fx+desp":"Gastos e câmbio","fx+hist":"Histórico câmbio","fx+hoje":"Câmbio de hoje","fx+din":"Moedas","fx+giro":"Trocas de moeda","fx+prec":"Preço por moeda","fx+cat":"Catálogo em moeda","fx+ajustes":"Config. câmbio","fx+ped":"Pedido em moeda","fx+onl":"Câmbio da loja","fx+cli":"Cliente de fora","fx+cont":"Contar moedas","fx+lotes":"Importação","fx+novo":"Nova cotação","fx+notif":"Aviso de câmbio","desp+hist":"Gastos passados","desp+hoje":"Gastos de hoje","desp+din":"Contas","desp+giro":"Gastos recorrentes","desp+prec":"Custo e preço","desp+cat":"Gastos do catálogo","desp+ajustes":"Config. de gastos","desp+ped":"Gasto por pedido","desp+onl":"Custo online","desp+cli":"Gasto com clientes","desp+cont":"Conferir gastos","desp+lotes":"Compras e gastos","desp+novo":"Novo gasto","desp+notif":"Contas a pagar","hist+hoje":"Dashboard do dia","hist+din":"Histórico de caixa","hist+giro":"Desempenho","hist+prec":"Preços antigos","hist+cat":"Catálogo antigo","hist+ajustes":"Painel","hist+ped":"Perfil de clientes","hist+onl":"Histórico online","hist+cli":"Histórico clientes","hist+cont":"Contagens feitas","hist+lotes":"Compras feitas","hist+novo":"Cadastros antigos","hist+notif":"Pendências anteriores","hoje+din":"Lucro do dia","hoje+giro":"Giro de hoje","hoje+prec":"Preços do dia","hoje+cat":"Catálogo do dia","hoje+ajustes":"Painel e ajustes","hoje+ped":"Pedidos de hoje","hoje+onl":"Loja hoje","hoje+cli":"Clientes de hoje","hoje+cont":"Contagem de hoje","hoje+lotes":"Compras de hoje","hoje+novo":"Novidades de hoje","hoje+notif":"Dashboard e avisos","din+giro":"Fluxo de dinheiro","din+prec":"Margem","din+cat":"Valor do catálogo","din+ajustes":"Ajustes de valores","din+ped":"Pedidos pagos","din+onl":"Ganhos online","din+cli":"Quanto devem","din+cont":"Conferir dinheiro","din+lotes":"Investimento","din+novo":"Novo dinheiro","din+notif":"Pendências de dinheiro","giro+prec":"Preço e giro","giro+cat":"Giro do catálogo","giro+ajustes":"Ajustar o giro","giro+ped":"Giro de pedidos","giro+onl":"Giro online","giro+cli":"Clientes fiéis","giro+cont":"Giro contado","giro+lotes":"Reposição de giro","giro+novo":"Giro dos novos","giro+notif":"Pendências de giro","prec+cat":"Tabela de preços","prec+ajustes":"Regras de preço","prec+ped":"Preço do pedido","prec+onl":"Preços online","prec+cli":"Preço por cliente","prec+cont":"Conferir preços","prec+lotes":"Custo de compra","prec+novo":"Preço do novo","prec+notif":"Pendências de preço","cat+ajustes":"Config. catálogo","cat+ped":"Pedir do catálogo","cat+onl":"Vitrine","cat+cli":"Catálogo cliente","cat+cont":"Conferir catálogo","cat+lotes":"Catálogo de compra","cat+novo":"Novo no catálogo","cat+notif":"Pendências do catálogo","ajustes+ped":"Contato","ajustes+onl":"Config. da loja","ajustes+cli":"Config. clientes","ajustes+cont":"Config. contagem","ajustes+lotes":"Config. compras","ajustes+novo":"Config. cadastro","ajustes+notif":"Configuração","ped+onl":"Pedidos online","ped+cli":"Clientes e pedidos","ped+cont":"Conferir pedidos","ped+lotes":"Pedidos e compras","ped+novo":"Novo pedido","ped+notif":"Novos pedidos","onl+cli":"Clientes online","onl+cont":"Conferir loja","onl+lotes":"Compras da loja","onl+novo":"Novidades online","onl+notif":"Pendências da loja","cli+cont":"Conferir clientes","cli+lotes":"Fornecedores","cli+novo":"Novo cliente","cli+notif":"Pendências de clientes","cont+lotes":"Recebimento","cont+novo":"Cadastro e conf.","cont+notif":"Pendências de contagem","lotes+novo":"Entradas","lotes+notif":"Pendências de compra","novo+notif":"Novidades"};
   function grpChave(a, b) {
     return GI_ORD.indexOf(a) <= GI_ORD.indexOf(b) ? a + '+' + b : b + '+' + a;
   }
@@ -25470,7 +24958,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // v-b9 (11/11/2026, S133): 4 botões novos (Mensagens, Analisador, Temática, Atacado) e as 82 combinações com os botões de antes e entre si
   ["msg","anl","tem","ata"].forEach(function (k) { GI_ORD.push(k); GI_REC.push(k); });
   Object.assign(GI_CORPO, {"msg": ["<rect x=\"2.5\" y=\"5\" width=\"19\" height=\"14\" rx=\"2\"/>", 12, 12, 0.42], "anl": ["<circle cx=\"10.5\" cy=\"10.5\" r=\"7.5\"/><path d=\"M16 16l5 5\"/>", 10.5, 10.5, 0.36], "tem": ["<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 10h18M8 3v4M16 3v4\"/>", 12, 15.5, 0.3], "ata": ["<rect x=\"3\" y=\"7\" width=\"18\" height=\"14\" rx=\"1.5\"/><path d=\"M3 11h18M10 7V4h4v3\"/>", 12, 16, 0.3]});
-  [["msg", "vendas", "Vendas e mensagens"], ["msg", "estoque", "Estoque e mensagens"], ["msg", "caixa", "Caixa e mensagens"], ["msg", "fx", "Câmbio e mensagens"], ["msg", "desp", "Despesas e mensagens"], ["msg", "hist", "Histórico e mensagens"], ["msg", "hoje", "Hoje e mensagens"], ["msg", "din", "Dinheiro e mensagens"], ["msg", "giro", "Giro e mensagens"], ["msg", "prec", "Preços e mensagens"], ["msg", "cat", "Catálogo e mensagens"], ["msg", "ajustes", "Ajustes e mensagens"], ["msg", "ped", "Atendimento online"], ["msg", "onl", "Loja e mensagens"], ["msg", "cli", "Atendimento"], ["msg", "cont", "Contagem e mensagens"], ["msg", "lotes", "Fornecedores e mensagens"], ["msg", "novo", "Novidades e mensagens"], ["msg", "notif", "Caixa de entrada"], ["anl", "vendas", "Análise de vendas"], ["anl", "estoque", "Análise do estoque"], ["anl", "caixa", "Análise do caixa"], ["anl", "fx", "Análise do câmbio"], ["anl", "desp", "Análise de gastos"], ["anl", "hist", "Histórico analisado"], ["anl", "hoje", "Hoje em números"], ["anl", "din", "Análise do dinheiro"], ["anl", "giro", "Giro analisado"], ["anl", "prec", "Análise de preços"], ["anl", "cat", "Análise do catálogo"], ["anl", "ajustes", "Ajustes e análise"], ["anl", "ped", "Análise de pedidos"], ["anl", "onl", "Análise da loja online"], ["anl", "cli", "Análise de clientes"], ["anl", "cont", "Contagem e análise"], ["anl", "lotes", "Análise de fornecedores"], ["anl", "novo", "Análise das novidades"], ["anl", "notif", "Avisos e análise"], ["tem", "vendas", "Vendas nos eventos"], ["tem", "estoque", "Estoque para eventos"], ["tem", "caixa", "Caixa nos eventos"], ["tem", "fx", "Câmbio nos eventos"], ["tem", "desp", "Gastos com eventos"], ["tem", "hist", "Histórico dos eventos"], ["tem", "hoje", "Evento de hoje"], ["tem", "din", "Dinheiro nos eventos"], ["tem", "giro", "Giro nos eventos"], ["tem", "prec", "Preços de evento"], ["tem", "cat", "Catálogo do evento"], ["tem", "ajustes", "Ajustes da temática"], ["tem", "ped", "Pedidos nos eventos"], ["tem", "onl", "Loja em clima de evento"], ["tem", "cli", "Clientes nos eventos"], ["tem", "cont", "Contagem para eventos"], ["tem", "lotes", "Compras para eventos"], ["tem", "novo", "Novidades do evento"], ["tem", "notif", "Avisos de eventos"], ["ata", "vendas", "Vendas e atacado"], ["ata", "estoque", "Estoque do atacado"], ["ata", "caixa", "Caixa do atacado"], ["ata", "fx", "Câmbio do atacado"], ["ata", "desp", "Despesas do atacado"], ["ata", "hist", "Histórico do atacado"], ["ata", "hoje", "Atacado hoje"], ["ata", "din", "Dinheiro do atacado"], ["ata", "giro", "Giro do atacado"], ["ata", "prec", "Preços de atacado"], ["ata", "cat", "Catálogo do atacado"], ["ata", "ajustes", "Ajustes do atacado"], ["ata", "ped", "Pedidos de atacado"], ["ata", "onl", "Atacado online"], ["ata", "cli", "Clientes do atacado"], ["ata", "cont", "Contagem do atacado"], ["ata", "lotes", "Atacado e fornecedores"], ["ata", "novo", "Novidades do atacado"], ["ata", "notif", "Avisos do atacado"], ["msg", "anl", "Mensagens e análise"], ["msg", "tem", "Campanhas e mensagens"], ["msg", "ata", "Atendimento do atacado"], ["anl", "tem", "Resultado dos eventos"], ["anl", "ata", "Análise do atacado"], ["tem", "ata", "Atacado nos eventos"]].forEach(function (x) { GI_NOME[grpChave(x[0], x[1])] = x[2]; });
+  [["msg", "vendas", "Vendas e mensagens"], ["msg", "estoque", "Estoque e mensagens"], ["msg", "caixa", "Caixa e mensagens"], ["msg", "fx", "Câmbio e mensagens"], ["msg", "desp", "Despesas e mensagens"], ["msg", "hist", "Histórico e mensagens"], ["msg", "hoje", "Hoje e mensagens"], ["msg", "din", "Reservas e mensagens"], ["msg", "giro", "Giro e mensagens"], ["msg", "prec", "Preços e mensagens"], ["msg", "cat", "Catálogo e mensagens"], ["msg", "ajustes", "Ajustes e mensagens"], ["msg", "ped", "Atendimento online"], ["msg", "onl", "Loja e mensagens"], ["msg", "cli", "Atendimento"], ["msg", "cont", "Contagem e mensagens"], ["msg", "lotes", "Fornecedores e mensagens"], ["msg", "novo", "Novidades e mensagens"], ["msg", "notif", "Caixa de entrada"], ["anl", "vendas", "Análise de vendas"], ["anl", "estoque", "Análise do estoque"], ["anl", "caixa", "Análise do caixa"], ["anl", "fx", "Análise do câmbio"], ["anl", "desp", "Análise de gastos"], ["anl", "hist", "Histórico analisado"], ["anl", "hoje", "Hoje em números"], ["anl", "din", "Análise do dinheiro"], ["anl", "giro", "Giro analisado"], ["anl", "prec", "Análise de preços"], ["anl", "cat", "Análise do catálogo"], ["anl", "ajustes", "Ajustes e análise"], ["anl", "ped", "Análise de pedidos"], ["anl", "onl", "Análise da loja online"], ["anl", "cli", "Análise de clientes"], ["anl", "cont", "Contagem e análise"], ["anl", "lotes", "Análise de fornecedores"], ["anl", "novo", "Análise das novidades"], ["anl", "notif", "Pendências e análise"], ["tem", "vendas", "Vendas nos eventos"], ["tem", "estoque", "Estoque para eventos"], ["tem", "caixa", "Caixa nos eventos"], ["tem", "fx", "Câmbio nos eventos"], ["tem", "desp", "Gastos com eventos"], ["tem", "hist", "Histórico dos eventos"], ["tem", "hoje", "Evento de hoje"], ["tem", "din", "Reservas nos eventos"], ["tem", "giro", "Giro nos eventos"], ["tem", "prec", "Preços de evento"], ["tem", "cat", "Catálogo do evento"], ["tem", "ajustes", "Ajustes da temática"], ["tem", "ped", "Pedidos nos eventos"], ["tem", "onl", "Loja em clima de evento"], ["tem", "cli", "Clientes nos eventos"], ["tem", "cont", "Contagem para eventos"], ["tem", "lotes", "Compras para eventos"], ["tem", "novo", "Novidades do evento"], ["tem", "notif", "Pendências de eventos"], ["ata", "vendas", "Vendas e atacado"], ["ata", "estoque", "Estoque do atacado"], ["ata", "caixa", "Caixa do atacado"], ["ata", "fx", "Câmbio do atacado"], ["ata", "desp", "Despesas do atacado"], ["ata", "hist", "Histórico do atacado"], ["ata", "hoje", "Atacado hoje"], ["ata", "din", "Reservas do atacado"], ["ata", "giro", "Giro do atacado"], ["ata", "prec", "Preços de atacado"], ["ata", "cat", "Catálogo do atacado"], ["ata", "ajustes", "Ajustes do atacado"], ["ata", "ped", "Pedidos de atacado"], ["ata", "onl", "Atacado online"], ["ata", "cli", "Clientes do atacado"], ["ata", "cont", "Contagem do atacado"], ["ata", "lotes", "Atacado e fornecedores"], ["ata", "novo", "Novidades do atacado"], ["ata", "notif", "Pendências do atacado"], ["msg", "anl", "Mensagens e análise"], ["msg", "tem", "Campanhas e mensagens"], ["msg", "ata", "Atendimento do atacado"], ["anl", "tem", "Resultado dos eventos"], ["anl", "ata", "Análise do atacado"], ["tem", "ata", "Atacado nos eventos"]].forEach(function (x) { GI_NOME[grpChave(x[0], x[1])] = x[2]; });
   function grpNomeSugerido(a, b) {
     return GI_NOME[grpChave(a, b)] || '';
   }
@@ -25988,7 +25476,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         })
         .join('') +
       '<div class="cxTot"><span>Total aproximado</span><b>' + gs(Math.round(r.wal)) + '</b></div>' +
-      '<div class="hint cxDica">O que está livre e o que já tem dono ficam no <a href="#dash" data-act="view" data-id="dash" style="color:var(--accent-fg)">Dashboard</a>, aba Dinheiro.</div></section>';
+      '<div class="hint cxDica">O que está livre e o que já tem dono ficam no <a href="#dash" data-act="view" data-id="dash" style="color:var(--accent-fg)">Dashboard</a>, aba Reservas.</div></section>';
     html += objCardHtml(); // v425: Objetivos da loja (antiga caixa de melhorias)
     if (r.livre < 0)
       html +=
@@ -26468,11 +25956,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       h += '<button type="button" class="pdCanc" data-act="pedcanc" data-id="' + p.id + '">Cancelar pedido</button>';
     return h;
   }
-  function pedStLabel(p) {
-    return PED_ST.filter(function (s) {
-      return s[0] === p.st;
-    })[0][1];
-  }
   function pedPassos(p) {
     var ix = { novo: 0, sep: 1, pronto: 2, ent: 3 }[p.st],
       cur = ix === 0 && p.pg === 'pago' ? 1 : ix,
@@ -26814,19 +26297,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       .catch(pedFalhaSite);
     resRecusar(p);
   };
-  // Foto do QR gerado no app do Itaú → JPEG pequeno → o site da cliente mostra no pagamento.
-  function pedImg(file) {
-    return normFile(file)
-      .then(function (f) {
-        return createImageBitmap(f);
-      })
-      .then(function (bm) {
-        var k = Math.min(1, 900 / Math.max(bm.width, bm.height)),
-          c = mkCanvas(Math.round(bm.width * k), Math.round(bm.height * k));
-        c.getContext('2d').drawImage(bm, 0, 0, c.width, c.height);
-        return c.toDataURL('image/jpeg', 0.8);
-      });
-  }
   // Apaga os pedidos de teste (e os clientes que só existem por causa deles).
   ACT.pedteste = function () {
     if (!S._pedTst) {
@@ -27071,9 +26541,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function resRecusar(p) {
     return resApi('recusar', p);
   }
-  function resLibera(p) {
-    return resApi('liberar', p);
-  }
   // Solta a reserva de um pedido cancelado ou apagado. Sem internet (ou função fora do ar), fica na fila e tenta de novo.
   function resSolta(p) {
     var refs = resRefsDe(p);
@@ -27287,12 +26754,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if ((x.pago || x.exp > agora) && (cor == null || String(x.cor || '').toLowerCase() === c)) n += x.q;
     });
     return n;
-  }
-  // tempo que falta para o pedido pagar (ms), ou 0
-  function resRestaDe(p) {
-    var r = RES_EST[(resItensDe(p)[0] || {}).ref],
-      x = r && Object.keys(r).map(function (k) { return r[k]; }).filter(function (y) { return y.pid === p.sid; })[0];
-    return x && !x.pago && x.exp > Date.now() ? x.exp - Date.now() : 0;
   }
   // ===== Aba Ajustes: faixas, meta, contas e backup dos dados. =====
   // Gera o texto do backup (dados + fotos em miniatura).
@@ -27598,32 +27059,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       b.focus();
     }
   }
-  // Ações da aba Ajustes e das análises do Dashboard.
-  ACT.fadd = function () {
-    var n = String(S.fnewTxt || ($('fnew') && $('fnew').value) || '').trim();
-    if (!n) return;
-    S.faixas.push({ id: 'f' + Date.now().toString(36), nome: n, margem: 40, precos: {} });
-    S.fnewTxt = '';
-    S._ajForce = true;
-    render();
-  };
-  ACT.fdel = function (id) {
-    if (S.fDelConf !== id) {
-      S.fDelConf = id;
-      S._ajForce = true;
-      render();
-      return;
-    }
-    S.faixas = S.faixas.filter(function (f) {
-      return f.id !== id;
-    });
-    Object.keys(S.pfaixa).forEach(function (k) {
-      if (S.pfaixa[k] === id) delete S.pfaixa[k];
-    });
-    S.fDelConf = '';
-    S._ajForce = true;
-    render();
-  };
   // Restaurar cópia: confirmação reforçada. Mostra o que será substituído, pede para digitar RESTAURAR, pede o PIN
   // e guarda antes uma cópia do estado atual (lafouch_antes_restaurar).
   function restConfirma(descr, fn) {
@@ -27678,18 +27113,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.rateio = id === 'custo' ? 'custo' : 'peca';
     S._ajForce = true;
     saveSoon();
-    render();
-  };
-  ACT.faixaauto = function () {
-    if (!S.faixaAuto) S.faixaAuto = { on: false, lim: [4, 10] };
-    S.faixaAuto.on = !S.faixaAuto.on;
-    S._ajForce = true;
-    saveSoon();
-    render();
-  };
-  ACT.volauto = function () {
-    S.volAuto = S.volAuto === false;
-    S._ajForce = true;
     render();
   };
   ACT.sugap = function (id) {
@@ -28903,9 +28326,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   window.addEventListener('online', function () {
     if (S.view === 'onl') render();
   });
-  ACT.lojaRecarregar = function () {
-    render();
-  };
   // ===== v-b9 (11/11/2026, S133): atalhos do Início para as abas do painel (Mensagens, Analisador, Temática, Atacado) =====
   // O painel conta as mensagens novas, os avisos do Analisador e o próximo evento e manda para o app (lfResumo); o app guarda o último resumo.
   function onlAbaDe(id) {
@@ -30067,7 +29487,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     ['ata', 'Atacado', 'Loja › Atacado', 'atacado lojista revenda mayorista'],
     ['mkt', 'Marketing', 'Início › Marketing', 'divulgar video post instagram'],
     ['est', 'Estúdio de fotos', 'Início › Estúdio', 'foto fundo branco camera 360'],
-    ['notif', 'Avisos', 'Sino', 'aviso notificacao alerta'],
+    ['notif', 'Pendências', 'Sino', 'aviso avisos notificacao alerta pendencia'],
     ['ajustes', 'Ajustes', 'Barra › Ajustes', 'configuracao nuvem backup impressora avisos de pedidos senha tema escuro']
   ];
   function buFuncoes(q) {
@@ -31826,26 +31246,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     };
     img.src = 'https://lafouch.com/og/mochi-' + (tema && tema !== 'halloween' ? tema + '-' : '') + 'es.jpg';
   }
-  // VIP: na ficha do cliente
-  ACT.cupVip = function (id) {
-    var cli = cliPorId(+id);
-    if (!cli) return;
-    lfJanela({
-      titulo: 'Cartão VIP',
-      monta: function (c) {
-        c.innerHTML = '<div class="hint" style="padding:0 16px 16px">Criando o cartão de ' + esc(cli.nome || 'cliente') + '…</div>';
-        cupApi({ acao: 'emitir', tipo: 'vip', pct: 15, tel: cli.tel || '', email: cli.email || '', nome: cli.nome || '' })
-          .then(function (j) {
-            if (!j || !j.ok) throw 0;
-            S.cupTipos[j.cod] = 'vip';
-            cupCartaoMostra(c, j.cupom, cli);
-          })
-          .catch(function () {
-            c.innerHTML = '<div class="hint" style="padding:0 16px 16px">Não deu para criar agora (precisa de internet e da nuvem conectada).</div>';
-          });
-      }
-    });
-  };
   // Finanças › "Cada cartão valeu a pena?" (mês atual; o valor das vendas já vem com o desconto)
   function cupValeuHtml() {
     var d = new Date(),
@@ -33321,7 +32721,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           ? '<div class="estLbl estLbl2"><span>Na fila</span>' + (F.length > 6 ? '<button type="button" class="estLink" data-e="todas">' + (S.estTodas ? 'Mostrar menos' : 'Ver todas ›') + '</button>' : '') + '</div>' +
             F.slice(0, mostra).map(function (x, j) {
               var ft = S.fotos && S.fotos[x.k];
-              return '<button type="button" class="estIt" data-i="' + j + '" data-ref="' + esc(x.ref) + '" data-cor="' + esc(x.cor) + '"><span class="estTh' + (ft ? '' : ' v') + '">' + (ft ? '<img src="' + esc(ft) + '" alt="">' : '') + '</span><span class="estTx"><b>' + esc(pn(x.ref)) + '</b><small>' + esc(x.cor) + ' · ' + (x.st === 'sem' ? 'sem foto' : x.st === 'nota' ? 'refazer: ' + esc(x.sub) : 'falta a foto de 3/4') + '</small></span></button>';
+              return '<div class="estRw"><button type="button" class="estIt" data-i="' + j + '" data-ref="' + esc(x.ref) + '" data-cor="' + esc(x.cor) + '"><span class="estTh' + (ft ? '' : ' v') + '">' + (ft ? '<img src="' + esc(ft) + '" alt="">' : '') + '</span><span class="estTx"><b>' + esc(pn(x.ref)) + '</b><small>' + esc(x.cor) + ' · ' + (x.st === 'sem' ? 'sem foto' : x.st === 'nota' ? 'refazer: ' + esc(x.sub) : 'falta a foto de 3/4') + '</small></span></button><button type="button" class="estFi" data-e="ficha" data-ref="' + esc(x.ref) + '" aria-label="Ver a ficha de ' + esc(pn(x.ref)) + '">Ficha</button></div>';
             }).join('') +
             (!S.estTodas && F.length > 6 ? '<button type="button" class="estMais" data-e="todas">+ ' + (F.length - 6) + (F.length - 6 === 1 ? ' peça' : ' peças') + '</button>' : '')
           : '<div class="estOk">Todas as peças com foto no padrão ✓</div>') +
@@ -33343,6 +32743,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (b.dataset.e === 'fecha') {
         ov.remove();
         render();
+        return;
+      }
+      if (b.dataset.e === 'ficha') { // S267: da fila direto para a ficha da peça no Inventário
+        ov.remove();
+        if (typeof fnAbreEstoque === 'function') fnAbreEstoque(b.dataset.ref);
         return;
       }
       if (b.dataset.mont) {
@@ -33382,6 +32787,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       }
     };
     return ov;
+  }
+  // S267: fotografar UMA peça a partir da ficha do Inventário (as cores dela que ainda estão na fila); ao terminar volta para a ficha.
+  function estFotografaRef(ref) {
+    var F = estFila().filter(function (x) { return x.ref === ref; });
+    if (!F.length) return lfToast('As fotos desta peça já estão completas');
+    EST_SES = null;
+    estSessao(F, 0, function () {});
   }
   // Sessão: uma peça atrás da outra (frente → 3/4), salvando na cor certa.
   var EST_SES = null; // v465: contagem da sessão para o resumo do fim
@@ -38276,14 +37688,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }, { passive: true, capture: true });
   });
   ACT.mcLiga = mcLiga;
-  // Ajustes › Modo cliente
-  function mcAjHtml() {
-    return (
-      '<div class="hint" style="margin:0 0 8px">Para o iPad da loja: o aparelho mostra só o catálogo, com o preço de varejo. Sem custo, lucro, venda nem Ajustes. Parado 2 minutos, volta ao início. Para sair: segure o logo e digite o PIN.</div>' +
-      (pinAtivo() ? '' : '<div class="note n-warn" style="margin:0 0 8px">Crie um PIN em Segurança antes: só o PIN tira do modo cliente.</div>') +
-      '<button type="button" class="go" data-act="mcLiga" style="width:100%"' + (pinAtivo() ? '' : ' disabled') + '>Ligar neste aparelho</button>'
-    );
-  }
   setTimeout(function () {
     mcBotao();
     mcAplica();
@@ -41062,9 +40466,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     o.som = o.sn;
     return o;
   }
-  function avSomDe(tipo) {
-    return avPref()['s' + tipo] || 'sino';
-  }
   // Toca o som do tipo, respeitando ligado/desligado e o horário silencioso.
   function avTocaTipo(tipo) {
     var a = avPref();
@@ -41854,20 +41255,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         '<button type="button" class="btn" data-act="revfalta" data-id="' + esc(s.id) + '" style="width:100%;background:transparent;color:var(--accent-fg);border:1.5px solid var(--accent)">Faltou a peça (tratar com a cliente)</button></div>';
     });
     return h + '<button type="button" class="btn" data-act="revfechar" style="width:100%;margin-top:6px">Fechar</button></div></div>';
-  }
-  function apHistHtml(ap) {
-    var hoje = dayKey(Date.now()),
-      v = (S.sales || []).filter(function (s) {
-        return s.ap === ap && !s.estorno && dayKey(s.ts) === hoje;
-      }),
-      tot = v.reduce(function (a, s) {
-        return a + (s.price || 0);
-      }, 0);
-    var h = '<div class="hint" style="margin:4px 0 8px;padding-left:8px;border-left:2px solid var(--line)"><b>' + esc(apNome(ap)) + ' · hoje</b><br>' + (v.length ? v.length + (v.length === 1 ? ' venda' : ' vendas') + ' · ' + gs(tot) : 'Nenhuma venda registrada por este aparelho hoje.');
-    v.slice(0, 8).forEach(function (s) {
-      h += '<br>' + fh(s.ts) + ' · ' + esc(descOf(s)) + ' · ' + gs(s.price) + (s.off ? ' 🕓' : '');
-    });
-    return h + '</div>';
   }
   ACT.syncver = function (ap) {
     atvAbre(ap);
@@ -44497,11 +43884,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return r;
   };
   // ===== S184 (aprovado 12/11/2026): navegar rápido entre as telas =====
-  // 1 Ficha única: a mesma peça com 5 abas no topo (Vender · Estoque · Histórico · Site · Preço), igual em qualquer lugar;
-  //   volta para a aba usada por último. 5 Caminho no topo (Catálogo › GR3350) e o voltar certo (S187).
+  // 1 Ficha da peça (S267, 14/11/2026): no Inventário, 4 abas (Estoque · Histórico · Site · Preço); no Catálogo, só a venda, sem abas.
+  //   Atalhos: Catálogo → "Ver a ficha no Inventário"; Inventário → "Vender no Catálogo" e "Fotografar no Estúdio". 5 Caminho no topo (Catálogo › GR3350) e o voltar certo (S187).
   // 8 Deslizar na ficha passa para a próxima peça da lista de onde veio. 2 Códigos de peça viram link nas listas.
   // 3 Números do Resumo abrem o que está por trás. 4 Aba Online nos Números. 6 Recentes embaixo da busca do Início.
-  // 7 Botão de ação na ficha (Vender esta).
   S.fnTab = S.fnTab || '';
   S.recentes = S.recentes || [];
   function fnItem(ref) { return (S.items || []).filter(function (x) { return x.ref === ref; })[0]; }
@@ -44513,6 +43899,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function fnAbreEstoque(ref) {
     var it = fnItem(ref);
     if (!it) return;
+    S._fnDe = null;
     S.fnTab = 'est';
     setView('estoque');
     S.todos = false; S.tipo = it.tipo; S.fmtF = 'all'; S.corF = 'all'; S.q = ''; S.open = ref; S.det = true;
@@ -44521,17 +43908,21 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function fnAbreVenda(ref) {
     var it = fnItem(ref);
     if (!it) return;
+    S._fnDe = null;
     S.fnTab = 'ven';
     setView('vendas');
     S.vRef = it.tipo + '|' + ref;
     render();
   }
+  // a barra da peça que está NA TELA (a da outra tela continua no documento, escondida)
+  function fnBarAtiva() { var v = $('v-' + S.view); return (v && v.querySelector('.fnBar[data-ref]')) || document.querySelector('.fnBar[data-ref]'); }
   ACT.abreRef = function (ref) { if (S.fnTab === 'ven') fnAbreVenda(ref); else fnAbreEstoque(ref); };
   ACT.fnTab = function (t) {
-    var det = document.querySelector('.fnBar[data-ref]'), ref = det && det.getAttribute('data-ref');
+    var det = fnBarAtiva(), ref = det && det.getAttribute('data-ref');
     if (!ref) return;
-    if (t === 'ven') { fnAbreVenda(ref); return; }
-    if (t === 'est') { fnAbreEstoque(ref); return; }
+    // S267: atalho entre Catálogo e Inventário leva a MESMA peça; o voltar do celular devolve à tela de onde veio num toque só
+    if (t === 'ven') { fnAbreVenda(ref); S._fnDe = { para: 'vendas', ref: ref }; return; }
+    if (t === 'est') { fnAbreEstoque(ref); S._fnDe = { para: 'estoque', ref: ref }; return; }
     S.fnTab = t;
     saveSoon();
     fnPinta(det.parentNode, ref, det.getAttribute('data-modo'));
@@ -44573,9 +43964,23 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var de = modo === 'venda' ? 'Catálogo' : 'Inventário';
     return '<div class="fnBar" data-ref="' + esc(ref) + '" data-modo="' + modo + '"><div class="fnCam"><span>' + de + '</span><i>›</i><b>' + esc(ref) + '</b>' +
       (S.fnLista && S.fnLista.length > 1 && S.fnLista.indexOf(ref) >= 0 ? '<small>' + (S.fnLista.indexOf(ref) + 1) + ' de ' + S.fnLista.length + '</small>' : '') + '</div>' +
-      '<div class="fnTabs" role="tablist">' + [['ven', 'Vender'], ['est', 'Estoque'], ['his', 'Histórico'], ['sit', 'Site'], ['pre', 'Preço']].map(function (x) { return '<button type="button" data-act="fnTab" data-id="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div></div>';
+      (modo === 'venda' ? '' : '<div class="fnTabs fnTabs4" role="tablist">' + [['est', 'Estoque'], ['his', 'Histórico'], ['sit', 'Site'], ['pre', 'Preço']].map(function (x) { return '<button type="button" data-act="fnTab" data-id="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>') +
+      // S267 (14/11/2026): um papel por lugar. Catálogo = só vender (sem abas); Inventário = só a ficha (sem "Vender"). Atalhos levam a MESMA peça de um para o outro.
+      '<div class="fnAt">' + (modo === 'venda' ? '<button type="button" class="fnLk" data-act="fnTab" data-id="est">Ver a ficha no Inventário ›</button>' : '<button type="button" class="fnLk" data-act="fnTab" data-id="ven">Vender no Catálogo ›</button><button type="button" class="fnLk" data-act="fnEstudio">Fotografar no Estúdio ›</button>') + '</div></div>';
   }
-  ACT.fnVolta = function () { try { history.back(); } catch (e) {} };
+  window.addEventListener('popstate', function () {
+    setTimeout(function () {
+      var d = S._fnDe;
+      if (!d) return;
+      S._fnDe = null;
+      var v = $('v-' + S.view), bar = v && v.querySelector('.fnBar[data-ref]');
+      if (S.view === d.para && !(bar && bar.getBoundingClientRect().width)) { try { history.back(); } catch (e) {} }
+    }, 0);
+  });
+  ACT.fnEstudio = function () {
+    var det = fnBarAtiva(), ref = det && det.getAttribute('data-ref');
+    if (ref && typeof estFotografaRef === 'function') estFotografaRef(ref);
+  };
   // lista de onde a peça veio (para deslizar): as peças visíveis na tela, na ordem
   function fnCapturaLista() {
     var v = $('v-' + S.view), L = [];
@@ -44596,15 +44001,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         det.insertBefore(w.firstChild, det.firstChild);
         var fb = det.querySelector(':scope > .fiBtn'), cam = det.querySelector('.fnCam');
         if (fb && cam) cam.appendChild(fb); // S190: o botão da Ficha fica na linha do caminho
-        if (S.fnTab !== 'his' && S.fnTab !== 'sit' && S.fnTab !== 'pre') S.fnTab = modo === 'venda' ? 'ven' : 'est';
+        if (modo === 'venda' || (S.fnTab !== 'his' && S.fnTab !== 'sit' && S.fnTab !== 'pre')) S.fnTab = modo === 'venda' ? 'ven' : 'est';
         fnPinta(det, ref, modo);
         fnRecente('ref', ref, pn(ref));
-        // 7 botão de ação: na ficha do estoque, "Vender esta"
-        if (modo === 'est' && !det.querySelector('.fnFab')) {
-          var f = document.createElement('button');
-          f.type = 'button'; f.className = 'fnFab'; f.textContent = 'Vender esta'; f.setAttribute('data-act', 'fnTab'); f.setAttribute('data-id', 'ven');
-          det.appendChild(f);
-        }
         fnSwipe(det, ref);
       }
     } catch (e) {}
@@ -45216,11 +44615,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       });
     }).catch(function () {}));
     return Promise.all(tarefas);
-  }
-  // PIX da venda da loja ainda sem confirmação (para o guardião: >15 min)
-  function pixLojaEsperando(min) {
-    var lim = Date.now() - (min || 15) * 60000;
-    return Object.keys(S.pixEsp).map(function (k) { return Object.assign({ k: k }, S.pixEsp[k]); }).filter(function (o) { return !o.ok && o.ts < lim && Date.now() - o.ts < PIXM_H; });
   }
   setInterval(function () { try { pixEspVarre(); pixEmailCheca(); } catch (e) {} }, 20000);
   // ===== S188 (aprovado 12/11/2026): CONTADOR VIRTUAL — tudo de preço num lugar só =====
@@ -45834,7 +45228,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             S.qEdit = true;
             render();
           } else if (k === 'espShare') {
-            if (typeof shAbre === 'function') shAbre({ tipo: 'peca', ref: ref });
+            if (typeof ebAbre === 'function') ebAbre([ref]);
           } else if (k === 'espSelP') {
             S.selMode = true;
             S.pdMode = false;
@@ -48152,26 +47546,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     });
   };
 
-  // ---------- preço perigoso: leva cada produto da faixa ao seu piso
-  ACT.precoap = function (key) {
-    var l = precoPerigoso(),
-      m = l.filter(function (x) {
-        return x.key === key;
-      })[0];
-    if (!m) return;
-    var f = faixaOf(m.ref);
-    if (!f) return;
-    l.forEach(function (x) {
-      var xf = faixaOf(x.ref);
-      if (x.tipo !== m.tipo || !xf || xf.id !== f.id) return;
-      var o = S.pprice[x.ref] || {};
-      if (!o.ant && x.pp.lista > x.pp.piso) o.ant = x.pp.lista;
-      o.novo = x.pp.piso;
-      S.pprice[x.ref] = o;
-    });
-    saveSoon();
-    render();
-  };
 
   // ---------- PIN e cópias
   // Janela do PIN: 'bio' cria o PIN de emergência ao ligar a biometria; 'troca' muda o PIN.

@@ -651,24 +651,4 @@
       return m.pp.lista < m.pp.trava + m.pp.colch;
     });
   }
-  function perigosoHtml() {
-    var l = precoPerigoso().slice(0, 6);
-    if (!l.length) return '';
-    var h =
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Preço ficou perigoso</h2><div class="hint" style="margin:2px 0 0">O preço de tabela já não cobre custo, contas e o colchão com o câmbio de hoje. Sugestão: subir para o piso da faixa.</div></div><div class="split">';
-    l.forEach(function (m) {
-      var f = faixaOf(m.ref),
-        novo = m.pp.piso;
-      h += dxRow(
-        dxNome(m),
-        'tabela ' + gs(m.pp.lista) + ' → sugerido ' + gs(novo) + (f ? '' : ' · defina uma faixa para ajustar por aqui'),
-        f
-          ? '<button class="mini" data-act="precoap" data-id="' +
-              esc(m.key) +
-              '">Aplicar</button>'
-          : ''
-      );
-    });
-    return h + '</div><div class="hint" style="margin:0">Aplicar leva cada produto da mesma faixa e tipo ao seu próprio piso (o preço antigo fica riscado).</div></section>';
-  }
 
