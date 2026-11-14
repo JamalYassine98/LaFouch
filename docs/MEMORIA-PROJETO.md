@@ -2269,3 +2269,7 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - PROPOSTA (um papel por lugar): Catálogo = só vender (peça abre sem abas; "Ver a ficha desta peça no Inventário ›"); Inventário = só a peça (sai a aba Vender e o "Vender esta"; "Vender esta peça no Catálogo ›"; único lugar que cadastra); Estúdio = só imagem.
 - Arquivos: work/s267/gera.py · s267_app_catalogo_peca(_escuro).jpg · s267_app_inventario_peca(_escuro).jpg. 0 erros de JS, olho parado sem piora (celular 390, claro e escuro). Não conferido: rolado, tablet/PC, 3 letras, celular real, modo cliente.
 - Pendente de desenho: grupos como interface única (dono quer "pensada como uma coisa só"), depois de definir os papéis.
+
+### S267b · 14/11/2026 04:01 · DONO: "Perfeito" para um papel por lugar (S267) — APROVADO, não implementar até o comando
+- Catálogo = só vender (peça sem abas) · Inventário = só a peça (sem aba Vender nem "Vender esta") · Estúdio = só imagem.
+- Pediu: ligar a navegação entre os três para ficar fluido. Proposta em texto (sem esboço ainda): Catálogo › peça → "Ver a ficha no Inventário" abre a MESMA peça e o voltar devolve ao Catálogo no mesmo ponto; Inventário › peça → "Vender no Catálogo" abre a venda da mesma peça (cor/grau já escolhidos); ficha → "Fotografar no Estúdio" abre a câmera já nessa peça e volta para a ficha; fila do Estúdio → "Ver ficha".
