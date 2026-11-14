@@ -2205,3 +2205,7 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Dono: "Perfeito" para trocar de cor + "Vista inicial" (S264; "foto de perfil" = vista inicial, não contestou). Pediu facilitar o giro ("no vídeo não parece fácil").
 - Proposta: (1) ao abrir, a peça se mexe sozinha UMA vez (~20° e volta, 1,2 s) e mostra a dica "Deslizá para girar" no lugar onde depois fica "Vista inicial"; some no 1º toque; (2) deslize curto (~60 px) basta: solta, a peça continua com embalo e encaixa na parada seguinte (frente · 3/4 · perfil); (3) só o deslize de lado gira — deslizar para cima/baixo continua rolando a página (não mostrado no vídeo, não testado).
 - Arquivos: work/s264/gera2.py · s264_site_giro_facil.jpg · s264_video_site_giro_facil.mp4. Só simulador (celular 390, claro).
+
+### S264c · 14/11/2026 03:16 · Giro no site: decisão do dono
+- Giro LIVRE (sem encaixe/ímã nas paradas; descartar o "encaixa na parada" do S264b). Dica ao abrir e "Vista inicial" continuam como propostas.
+- Diagnóstico do dono: falta fluidez = o Estúdio precisa capturar mais quadros por giro. A elaborar: quantos quadros, peso no site, como gravar.
