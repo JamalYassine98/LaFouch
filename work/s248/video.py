@@ -3,7 +3,7 @@ import os, subprocess, sys, time, shutil
 A = os.path.dirname(os.path.abspath(__file__)) + '/'
 src = open(A + '../s247/gera.py').read().replace("os.path.dirname(os.path.abspath(__file__)) + '/'", "'%s../s247/'" % A); exec(src[:src.index("try:\n  with sync_playwright")])
 v = open(A + '../s247/video.py').read(); exec(v[v.index('def grava'):v.index('LOG = ')].replace("for leg, rep in (('velocidade real', 1), ('câmera lenta 4×', 4), ('velocidade real', 1)):", "for leg, rep in (('velocidade real', 1), ('câmera lenta 3×', 3), ('velocidade real', 1)):").replace("A + nome + '.mp4'", "AQ + nome + '.mp4'"))
-AQ = A; FPS = 30
+AQ = os.path.dirname(os.path.abspath(__file__)) + '/'; FPS = 30
 s40 = open(A + '../s240/gera.py').read(); j = s40.index('VOA = """') + 9; VOA = s40[j: s40.index('"""', j)]
 FIM = "(v)=>{const r=document.querySelector(v);document.getAnimations().forEach(a=>{const t=a.effect&&a.effect.target;if(t&&(t===r||r.contains(t))&&a.effect.getComputedTiming().iterations!==Infinity)a.finish()})}"
 # encurta cascatas: mesma animação, atraso = posição × passo, duração nova
