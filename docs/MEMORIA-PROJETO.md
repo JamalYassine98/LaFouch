@@ -2326,3 +2326,9 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - DEIXADO DE FORA DO BLOCO 2, com motivo:
   · CAPA do grupo com resumo desenhado por tela (≈24 resumos): não feita; é o maior pedaço e 8 telas ainda não foram abertas no simulador.
   · VOLTAR NO TEMPO (backup por mudança + restaurar uma peça): NÃO implementado de propósito. Restaurar mexe em estoque e preço de verdade; o preço do app é calculado (tabelas/tipos/pisos), não um campo da peça, e estoque restaurado sem registro quebra a contagem. Precisa de uma decisão do dono: quais campos podem voltar (sugestão: custo, dólar, nome/descrição e fotos; estoque só por estorno/ajuste registrado; preço só onde houver preço escrito à mão).
+
+### S279 · 14/11/2026 07:05 · bloco 3, parte 1 PUBLICADA (app v513 / 5.13.2): trava de rolagem única
+- `98-trava-rolagem.js` cobre PIN, Filtros e ordem, janela do Câmbio, menu do Caixa, Estúdio e qualquer camada fixa que cubra ≥ metade da tela (filha direta do body). `html{overscroll-behavior-y:none}`.
+- olho.js: +3 regras (fundo rola com camada aberta; rola sem ter o que rolar; elástico na borda). A 4ª (volta a rolar ao fechar) é medida por work/s279/rolagem_app.py.
+- Medido (celular 390): 13 janelas do app — nenhuma rola atrás, nenhuma fica presa ao fechar (antes: PIN, Filtros, Câmbio e menu do Caixa rolavam). A janela do Guardião não foi medida (o atalho mudou de lugar; ela usa a janela padrão, que trava).
+- Testes 291/291. Não testado: celular real (o print do dono era da tela do PIN no aparelho); site (Mochi) ainda sem a trava.

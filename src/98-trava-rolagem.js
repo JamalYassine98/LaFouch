@@ -2,13 +2,24 @@
   // Qualquer janela aberta (foto ampliada, Editar produto, folhas, janelas) trava a tela de baixo; ao fechar, volta
   // exatamente onde estava. Vale para todas as janelas, inclusive as futuras. O modo cliente continua com a trava dele.
   (function () {
-    var SEL = '.modal,.lfa-ov:not(.sai),.ljBk,.lfEspia:not(.sai)',
+    // S257 (aprovado 14/11/2026): entram a tela do PIN, Filtros e ordem, a janela do Câmbio e o menu do Caixa, que não travavam;
+    // e QUALQUER camada fixa que cubra metade da tela ou mais (filha direta do body), para as janelas futuras.
+    var SEL = '.modal,.lfa-ov:not(.sai),.ljBk,.lfEspia:not(.sai),#lockScr:not([hidden]),#filtPanel,.fjBk,.cxMenu,.estOv,#estCam',
       y = 0,
       on = false,
       pend = false;
     function aberta() {
       var l = document.querySelectorAll(SEL);
       for (var i = 0; i < l.length; i++) if (l[i].getClientRects().length) return true;
+      var f = document.body.children, A = window.innerWidth * window.innerHeight * 0.5;
+      for (var j = 0; j < f.length; j++) {
+        var e = f[j];
+        if (e.classList.contains('wrap') || e.tagName === 'SCRIPT' || e.tagName === 'STYLE' || e.id === 'lfIntro' || !e.getClientRects().length) continue;
+        var r = e.getBoundingClientRect();
+        if (r.width * r.height < A) continue;
+        var cs = getComputedStyle(e);
+        if (cs.position === 'fixed' && cs.visibility !== 'hidden' && cs.pointerEvents !== 'none' && +cs.opacity > 0.05) return true;
+      }
       return false;
     }
     function aplica() {

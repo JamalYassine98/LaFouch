@@ -49,5 +49,12 @@
   let fx = 0; document.querySelectorAll('body *').forEach((e) => { const s = cs(e); if ((s.position === 'fixed' || s.position === 'sticky') && opac(e) > 0.05) { const r = e.getBoundingClientRect(); if (naTela(r) && r.width > W * 0.9 && r.height < H * 0.6 && (r.top <= 1 || r.bottom >= H - 1)) fx += Math.min(r.bottom, H) - Math.max(r.top, 0); } });
   if (fx > H * 0.25) out.push({ r: 'barras fixas', n: Math.round(100 * fx / H), ex: [Math.round(fx) + ' px de ' + H] });
   add('imagem quebrada', [...document.images].filter((i) => i.complete && !i.naturalWidth && naTela(i.getBoundingClientRect())));
+  // 13–15 rolagem (S257, 14/11/2026). Camada = algo fixo que cobre metade da tela ou mais, por cima do conteúdo.
+  const dE = document.documentElement, podeRolar = () => { const a = cs(dE).overflowY, b = cs(document.body).overflowY; return a !== 'hidden' && a !== 'clip' && b !== 'hidden' && b !== 'clip' && cs(document.body).position !== 'fixed'; };
+  const camadas = [...document.querySelectorAll('body *')].filter((e) => { if (e.id === 'mainnav' || e.closest('#mainnav')) return false; const r = e.getBoundingClientRect(); if (r.width * r.height < W * H * 0.5 || !naTela(r)) return false; const s = cs(e); return s.position === 'fixed' && s.pointerEvents !== 'none' && opac(e) > 0.05; });
+  const cabe = dE.scrollHeight <= H + 2;
+  if (camadas.length && !cabe && podeRolar()) out.push({ r: 'fundo rola com camada aberta', n: 1, ex: [nome(camadas[camadas.length - 1]) + ' · página ' + dE.scrollHeight + ' px'] });
+  if (!camadas.length && !cabe) { const v = [...document.querySelectorAll('.view')].find((e) => e.getBoundingClientRect().width > 0); if (v) { const fim = v.getBoundingClientRect().bottom + scrollY; if (fim <= H - 40 && dE.scrollHeight > H + 40) out.push({ r: 'rola sem ter o que rolar', n: 1, ex: ['conteúdo acaba em ' + Math.round(fim) + ' px, página tem ' + dE.scrollHeight + ' px'] }); } }
+  if (cs(dE).overscrollBehaviorY === 'auto' && cs(document.body).overscrollBehaviorY === 'auto') out.push({ r: 'elástico na borda', n: 1, ex: ['overscroll-behavior-y: auto'] });
   return out;
 })()

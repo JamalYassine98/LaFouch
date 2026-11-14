@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 512;
+  var APP_BUILD = 513;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.13.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.13.2'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -48808,13 +48808,24 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // Qualquer janela aberta (foto ampliada, Editar produto, folhas, janelas) trava a tela de baixo; ao fechar, volta
   // exatamente onde estava. Vale para todas as janelas, inclusive as futuras. O modo cliente continua com a trava dele.
   (function () {
-    var SEL = '.modal,.lfa-ov:not(.sai),.ljBk,.lfEspia:not(.sai)',
+    // S257 (aprovado 14/11/2026): entram a tela do PIN, Filtros e ordem, a janela do Câmbio e o menu do Caixa, que não travavam;
+    // e QUALQUER camada fixa que cubra metade da tela ou mais (filha direta do body), para as janelas futuras.
+    var SEL = '.modal,.lfa-ov:not(.sai),.ljBk,.lfEspia:not(.sai),#lockScr:not([hidden]),#filtPanel,.fjBk,.cxMenu,.estOv,#estCam',
       y = 0,
       on = false,
       pend = false;
     function aberta() {
       var l = document.querySelectorAll(SEL);
       for (var i = 0; i < l.length; i++) if (l[i].getClientRects().length) return true;
+      var f = document.body.children, A = window.innerWidth * window.innerHeight * 0.5;
+      for (var j = 0; j < f.length; j++) {
+        var e = f[j];
+        if (e.classList.contains('wrap') || e.tagName === 'SCRIPT' || e.tagName === 'STYLE' || e.id === 'lfIntro' || !e.getClientRects().length) continue;
+        var r = e.getBoundingClientRect();
+        if (r.width * r.height < A) continue;
+        var cs = getComputedStyle(e);
+        if (cs.position === 'fixed' && cs.visibility !== 'hidden' && cs.pointerEvents !== 'none' && +cs.opacity > 0.05) return true;
+      }
       return false;
     }
     function aplica() {

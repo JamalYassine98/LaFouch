@@ -2417,3 +2417,5 @@ html.mlOn,html.mlOn body{overflow:hidden}
 #grpM .grow .chip,#grpM [data-act=grpDesfazer],#grpM [data-act=grpFecha]{background:none!important;background-image:none!important;border:0!important;box-shadow:none!important;color:var(--fg)!important;font-weight:500;min-height:44px}
 #grpM .go{background:transparent!important;background-image:none!important;color:var(--fg)!important;border:1px solid color-mix(in srgb,currentColor 26%,transparent)!important;box-shadow:none!important}
 #grpM .gadd .chip{background:transparent!important;background-image:none!important;border:1px solid color-mix(in srgb,currentColor 18%,transparent)!important;color:var(--fg)!important;min-height:44px}
+/* ===== S257 (14/11/2026) · sem elástico na borda: a tela não estica nem puxa o fundo ao chegar no fim ===== */
+html{overscroll-behavior-y:none}

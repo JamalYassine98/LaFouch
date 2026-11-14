@@ -191,3 +191,9 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - `grpNomeAuto(itens)`: com 3 ou mais telas da mesma família (`GRP_FAM`: Dinheiro, Dashboard, Site, Clientes e atacado, Estoque) sugere o nome da família; senão o nome do par principal. Ao acrescentar tela (`grpAdd`), o nome só muda se ainda era o sugerido.
 - Janela Grupo (`#grpM`): mesmas funções; aparência só por CSS (título serifado, linhas, "Tirar"/"Desfazer" em texto, "Salvar" em fio cinza).
 - NÃO FEITO: capa do grupo com o resumo de cada tela (docs/ESTUDO-ARQUITETURA-14-11.md, seção 1).
+
+## Trava de rolagem única (S257, 14/11/2026 · v513 / 5.13.2)
+- `src/98-trava-rolagem.js`: a trava (`html.lfTrava`) vale também para a tela do PIN (`#lockScr`), Filtros e ordem (`#filtPanel`), janela do Câmbio (`.fjBk`), menu do Caixa (`.cxMenu`), Estúdio (`.estOv`, `#estCam`) e para QUALQUER filha direta do `body` que seja fixa e cubra metade da tela ou mais. Janela nova não precisa de código próprio para travar.
+- `html{overscroll-behavior-y:none}`: sem elástico na borda.
+- `work/kit/olho.js` ganhou 3 regras: "fundo rola com camada aberta", "rola sem ter o que rolar" e "elástico na borda". A 4ª regra aprovada (volta a rolar ao fechar) depende de abrir e fechar: medida por `work/s279/rolagem_app.py` (14 janelas: nenhuma rola atrás, nenhuma fica presa); entra no explorador quando ele existir.
+- Continuam existindo dois mecanismos antigos, inofensivos: `document.body.style.overflow` no Inventário (`11-estoque-lista.js`) e a classe `noscroll` na nota.
