@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
-<title>LaFouch · conferir antes de gravar</title>
+<title>LaFouch · conferir e gravar o giro</title>
 <style>
 *{box-sizing:border-box}html,body{margin:0;background:#17121a;color:#f4eef2;font:15px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
 main{max-width:980px;margin:0 auto;padding:10px}
@@ -11,18 +11,23 @@ h1{font:600 18px/1.2 Georgia,serif;margin:4px 2px 8px}
 .cam.ok .frase{background:rgba(22,110,62,.92)}
 .abre{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:20px;text-align:center}
 .abre[hidden],.frase[hidden]{display:none}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}.bar button,.bar a{min-height:48px;padding:0 20px;border:0;border-radius:999px;background:#fff;color:#2a1a28;font:600 15px inherit;text-decoration:none;display:inline-flex;align-items:center}
+.bar button.rec{background:#d92d4b;color:#fff}.bar button.sec,.bar a.sec{background:#2a2230;color:#f4eef2}.bar [hidden]{display:none}.bar .tm{font:600 15px inherit;font-variant-numeric:tabular-nums;color:#ffb3c4}
+.pt{position:absolute;right:12px;top:12px;padding:6px 12px;border-radius:999px;background:rgba(217,45,75,.92);color:#fff;font:600 14px inherit;font-variant-numeric:tabular-nums}.pt[hidden]{display:none}
+@media (orientation:landscape) and (max-height:520px){.bar{position:fixed;right:8px;bottom:8px;margin:0;z-index:3}}
 .abre button{min-height:48px;padding:0 22px;border:0;border-radius:999px;background:#fff;color:#2a1a28;font:600 16px inherit}
 .it{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}.it span{padding:7px 11px;border-radius:999px;font:600 13px inherit;background:#2a2230;color:#b9aab4}
 .it span.s{background:#173a27;color:#8fe3b0}.it span.n{background:#4a1f2c;color:#ffb3c4}
 p{margin:6px 2px;color:#b9aab4;font-size:13px}
 @media (orientation:landscape) and (max-height:520px){h1,p{display:none}main{padding:4px}.it{position:fixed;left:8px;top:8px;margin:0;max-width:46vw;z-index:2}.it span{font-size:11px;padding:4px 8px}}
 </style></head><body><main>
-<h1>Conferir antes de gravar</h1>
+<h1>Conferir e gravar o giro</h1>
 <div class="cam" id="cam"><video id="v" muted playsinline autoplay></video><canvas id="o"></canvas>
 <div class="abre" id="abre"><div>Deixe o celular no tripé, deitado, com a peça no prato de frente para a câmera.</div><button id="go" type="button">Abrir a câmera</button></div>
-<div class="frase" id="fr" hidden></div></div>
+<div class="frase" id="fr" hidden></div><div class="pt" id="pt" hidden></div></div>
+<div class="bar" id="bar" hidden><button id="gr" class="rec" type="button">Gravar a volta</button><button id="pa" class="sec" type="button" hidden>Parar</button><a id="sv" hidden>Salvar o vídeo</a><button id="cp" class="sec" type="button" hidden>Enviar…</button><button id="dn" class="sec" type="button" hidden>Gravar de novo</button><span class="tm" id="tm"></span></div>
 <div class="it" id="it"></div>
-<p>Quando ficar verde, não mexa no tripé: saia desta página, abra a câmera do celular, trave o foco na peça e grave a volta inteira.</p>
+<p>Quando ficar verde, toque em <b>Gravar a volta</b> e ligue o prato. A página trava o foco e a luz, grava 60 s e para sozinha. Depois toque em <b>Salvar o vídeo</b> e mande o arquivo para mim como documento.</p>
 <p>O que ainda não é conferido aqui: se a peça está bem no centro do prato (o tratamento corrige isso depois).</p>
 </main>
 <script src="conferir.js" charset="utf-8"></script>
@@ -33,11 +38,36 @@ p{margin:6px 2px;color:#b9aab4;font-size:13px}
   function erro(t){abre.hidden=false;abre.firstElementChild.textContent=t}
   document.getElementById('go').addEventListener('click',function(){
     if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){erro('Este navegador não deixa abrir a câmera por aqui.');return}
-    navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080}}}).then(function(s){v.srcObject=s;abre.hidden=true;fr.hidden=false;fr.textContent='Conferindo…';v.play();setTimeout(roda,600)},
+    navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080},frameRate:{ideal:30}}}).then(function(s){v.srcObject=s;abre.hidden=true;fr.hidden=false;fr.textContent='Conferindo…';bar.hidden=false;mostra();v.play();setTimeout(roda,600)},
       function(e){erro('Não consegui abrir a câmera ('+(e&&e.name||'erro')+'). Permita o uso da câmera para lafouch.com e toque de novo.')})});
+  /* ===== gravar por aqui (14/11, pedido do dono: "não quero mais usar minha câmera") ===== */
+  var bar=document.getElementById('bar'),gr=document.getElementById('gr'),pa=document.getElementById('pa'),sv=document.getElementById('sv'),cp=document.getElementById('cp'),dn=document.getElementById('dn'),tm=document.getElementById('tm'),pt=document.getElementById('pt');
+  var rec=null,partes=[],gravando=false,tRel=0,DUR=Math.max(3,+(new URLSearchParams(location.search).get('t'))||60),arq=null,trava='';
+  function fmt(){var c=['video/mp4;codecs=avc1.640028','video/mp4;codecs=avc1','video/mp4','video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm'];for(var i=0;i<c.length;i++)if(window.MediaRecorder&&MediaRecorder.isTypeSupported(c[i]))return c[i];return ''}
+  /* trava foco, luz e branco no valor que a câmera está usando agora (o que o aparelho deixar) */
+  function travar(){var t=v.srcObject&&v.srcObject.getVideoTracks()[0];if(!t||!t.getCapabilities)return Promise.resolve('sem trava neste navegador');
+    var c=t.getCapabilities(),s=t.getSettings?t.getSettings():{},a={},q=[];
+    if(c.focusMode&&c.focusMode.indexOf('manual')>=0){a.focusMode='manual';if(s.focusDistance)a.focusDistance=s.focusDistance;q.push('foco')}
+    if(c.exposureMode&&c.exposureMode.indexOf('manual')>=0){a.exposureMode='manual';if(s.exposureTime)a.exposureTime=s.exposureTime;q.push('luz')}
+    if(c.whiteBalanceMode&&c.whiteBalanceMode.indexOf('manual')>=0){a.whiteBalanceMode='manual';if(s.colorTemperature)a.colorTemperature=s.colorTemperature;q.push('branco')}
+    if(!q.length)return Promise.resolve('este aparelho não deixa travar foco/luz por aqui');
+    return t.applyConstraints({advanced:[a]}).then(function(){return 'travado: '+q.join(', ')},function(){return 'não consegui travar foco/luz'})}
+  function soltar(){var t=v.srcObject&&v.srcObject.getVideoTracks()[0];if(!t||!t.getCapabilities)return;var c=t.getCapabilities(),a={};if(c.focusMode&&c.focusMode.indexOf('continuous')>=0)a.focusMode='continuous';if(c.exposureMode&&c.exposureMode.indexOf('continuous')>=0)a.exposureMode='continuous';if(c.whiteBalanceMode&&c.whiteBalanceMode.indexOf('continuous')>=0)a.whiteBalanceMode='continuous';try{t.applyConstraints({advanced:[a]})}catch(e){}}
+  function mostra(){gr.hidden=gravando||!!arq;pa.hidden=!gravando;sv.hidden=!arq;dn.hidden=!arq;cp.hidden=!(arq&&navigator.canShare&&navigator.canShare({files:[arq]}));pt.hidden=!gravando}
+  gr.addEventListener('click',function(){var f=fmt();if(!f||!v.srcObject){tm.textContent='Este navegador não grava por aqui.';return}
+    gr.disabled=true;travar().then(function(tx){trava=tx;partes=[];try{rec=new MediaRecorder(v.srcObject,{mimeType:f,videoBitsPerSecond:16000000})}catch(e){tm.textContent='Não consegui começar a gravar.';gr.disabled=false;return}
+      rec.ondataavailable=function(e){if(e.data&&e.data.size)partes.push(e.data)};
+      rec.onstop=function(){gravando=false;var tipo=f.split(';')[0],b=new Blob(partes,{type:tipo}),d=new Date(),z=function(n){return (n<10?'0':'')+n},nome='giro-'+d.getFullYear()+z(d.getMonth()+1)+z(d.getDate())+'-'+z(d.getHours())+z(d.getMinutes())+(tipo==='video/mp4'?'.mp4':'.webm');
+        arq=new File([b],nome,{type:tipo});sv.href=URL.createObjectURL(b);sv.download=nome;tm.textContent=(b.size/1048576).toFixed(1)+' MB · '+trava;soltar();mostra();fr.textContent='Gravado. Toque em Salvar o vídeo e mande o arquivo como documento.';window.__grav={tam:b.size,tipo:tipo,nome:nome,trava:trava}};
+      rec.start(1000);gravando=true;tRel=Date.now();gr.disabled=false;mostra();try{navigator.wakeLock&&navigator.wakeLock.request('screen').catch(function(){})}catch(e){}
+      (function tic(){if(!gravando)return;var s=Math.max(0,DUR-Math.floor((Date.now()-tRel)/1000));pt.textContent='● gravando · '+s+' s';fr.textContent=s>DUR-6?'Ligue o prato agora e não toque mais no celular':'Gravando a volta… não toque no celular';if(s<=0){try{rec.stop()}catch(e){}return}setTimeout(tic,250)})()})});
+  pa.addEventListener('click',function(){try{rec&&rec.stop()}catch(e){}});
+  dn.addEventListener('click',function(){arq=null;tm.textContent='';mostra()});
+  cp.addEventListener('click',function(){try{navigator.share({files:[arq],title:arq.name})}catch(e){}});
   function mediana(a){a=a.slice().sort(function(p,q){return p-q});return a[a.length>>1]}
   function roda(){
     var vw=v.videoWidth,vh=v.videoHeight;if(!vw){setTimeout(roda,300);return}
+    if(gravando||arq){setTimeout(roda,500);return}   /* durante a gravação não mede nada: o celular fica só gravando */
     var emPe=vw<vh;x.fillStyle='#000';x.fillRect(0,0,640,360);
     if(emPe){var ww=360*vw/vh;x.drawImage(v,(640-ww)/2,0,ww,360)}else x.drawImage(v,0,0,640,360);
     var img=x.getImageData(0,0,640,360),m=medeQuadro(img),d=img.data,mexe=null;
@@ -49,7 +79,7 @@ p{margin:6px 2px;color:#b9aab4;font-size:13px}
     var com=hist.filter(function(h){return h.m.peca}),mm={W:640,H:360,parede:mediana(hist.map(function(h){return h.m.parede})),desv:mediana(hist.map(function(h){return h.m.desv})),cost:m.cost,borda:mediana(hist.map(function(h){return h.m.borda})),cortada:m.cortada,peca:null};
     if(com.length>=Math.ceil(hist.length/2)){var f=function(q){return mediana(com.map(function(h){return h.m.peca[q]}))};mm.peca={x0:f('x0'),x1:f('x1'),y0:f('y0'),y1:f('y1'),nit:f('nit')}}
     var mx=hist.filter(function(h){return h.mexe!=null}).map(function(h){return h.mexe}),r=confereGiro(mm,{emPe:emPe,mexe:mx.length?Math.max.apply(null,mx):null});
-    bons=r.tudo?bons+1:0;var ok=bons>=4;cam.classList.toggle('ok',ok);fr.textContent=r.tudo&&!ok?'Quase… segure assim':r.frase;
+    bons=r.tudo?bons+1:0;var ok=bons>=4;cam.classList.toggle('ok',ok);fr.textContent=r.tudo&&!ok?'Quase… segure assim':r.frase;gr.textContent=ok?'Gravar a volta':'Gravar mesmo assim';
     itE.innerHTML=r.itens.map(function(i){return '<span class="'+(i.ok===true?'s':i.ok===false?'n':'')+'">'+(i.ok===true?'✓ ':i.ok===false?'✕ ':'… ')+i.nome+'</span>'}).join('');
     /* desenho por cima: caixa da peça, zona por onde ela passa girando e costuras */
     o.width=640;o.height=360;ox.clearRect(0,0,640,360);
