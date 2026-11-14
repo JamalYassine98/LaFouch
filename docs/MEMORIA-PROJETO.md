@@ -2262,3 +2262,10 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Grupo de botões: não basta "rolar"; quer uma interface INTEIRA pensada como se as telas fossem uma coisa só desde a origem.
 - NÃO gostou de Inventário + Catálogo juntos ("Produtos", item 5 de 13/11 — fica RETIRADO): propósitos muito diferentes (um é especificação/detalhe da peça, o outro é vender).
 - Notou que o Estúdio parece ter cadastro, como o Inventário. Pediu ESTUDO dessas abas e proposta melhor: "atualmente parece tudo bagunçado".
+
+### S267 · 14/11/2026 03:55 · Estudo Catálogo × Inventário × Estúdio + proposta de papéis (ESBOÇO, aguardando; nada implementado)
+- MEDIDO no simulador: a ficha da peça é a MESMA tela no Catálogo e no Inventário, com as mesmas 5 abas (Vender, Estoque, Histórico, Site, Preço); pelo Catálogo abre em "Vender", pelo Inventário em "Estoque". No Inventário há ainda o botão flutuante "Vender esta". No Inventário a ficha abre embaixo do cabeçalho da lista (título, abas Produtos/Fornecedores/Reposição, números).
+- Estúdio NÃO cadastra: tira fotos da fila; "Peça nova, ainda sem cadastro ›" fotografa e pergunta "De qual peça é?" (existe → foto vai para a peça; nova → fica em "aguardando cadastro" até cadastrar em Adicionar). A foto entra por 2 lugares (Estúdio e Adicionar › Foto) — o que Adicionar › Foto faz NÃO foi conferido.
+- PROPOSTA (um papel por lugar): Catálogo = só vender (peça abre sem abas; "Ver a ficha desta peça no Inventário ›"); Inventário = só a peça (sai a aba Vender e o "Vender esta"; "Vender esta peça no Catálogo ›"; único lugar que cadastra); Estúdio = só imagem.
+- Arquivos: work/s267/gera.py · s267_app_catalogo_peca(_escuro).jpg · s267_app_inventario_peca(_escuro).jpg. 0 erros de JS, olho parado sem piora (celular 390, claro e escuro). Não conferido: rolado, tablet/PC, 3 letras, celular real, modo cliente.
+- Pendente de desenho: grupos como interface única (dono quer "pensada como uma coisa só"), depois de definir os papéis.
