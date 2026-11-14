@@ -19,7 +19,10 @@ fundo[SUJA] = meio[SUJA]; fundo = cv2.GaussianBlur(fundo, (0, 0), 1.2) + 1
 nuc = np.ones((FOLGA, FOLGA), np.uint8); fmin = cv2.erode(fundo, nuc); fmax = cv2.dilate(fundo, nuc); H, W = am[0].shape[:2]; del am
 def trata(f):
     f = f.astype(np.float32); o = np.clip(f / np.clip(f, fmin, fmax) / .985, 0, 1)
-    igual = SUJA & ((np.abs(f - fundo) - np.maximum(.16 * fundo, 16)).max(axis=2) < 0); o[igual] = 1.   # tolerância também em valor absoluto: a costura é escura e o chiado da câmera pesa mais ali
+    igual = SUJA & ((np.abs(f - fundo) - np.maximum(.16 * fundo, 16)).max(axis=2) < 0); o[igual] = 1.
+    # LIMITE CONHECIDO (14/11, dono: "a armação some sempre no mesmo ponto"): peça escura passando na frente da costura escura tem o mesmo tom do
+    # fundo e some ali. Tentei 2 remendos (refazer a faixa pelo OpenCV; ligar linha a linha os dois lados da faixa): os dois criavam pedaços falsos
+    # de haste. Ficou a regra simples; a solução é não ter costura atrás da peça (cartolina branca curva atrás do prato).
     return (o * 255).astype(np.uint8)
 def peca(t):  # peça inteira = tudo o que não é branco (armação clara, lentes, sombra) e está ligado ao miolo escuro; riscos soltos longe dela ficam de fora
     mn = t.min(axis=2); nu = (mn < 125).astype(np.uint8); nu = cv2.morphologyEx(nu, cv2.MORPH_OPEN, np.ones((5, 5), np.uint8)); nu[:, :int(W * .06)] = 0; nu[:, int(W * .94):] = 0; nu[:int(H * .15)] = 0
