@@ -144,3 +144,8 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - `src/97w-menu-pc-s234.js` (`rxMonta`, depois de cada `render`): cria `#railX` dentro de `#mainnav` com Pedidos, Clientes, Histórico, Números, Despesas e Câmbio (botões `.rx`, `setView`). NÃO são `.mn` de propósito: a barra de baixo continua sendo a de atalhos que o dono arrasta (máx. 5) e o código dela só enxerga `.mn`. `#railX` só aparece com mouse e 1100 px ou mais; Ajustes vai para o pé do menu (`order:99`).
 - Letra mínima de 12 px em `.lbl`, `.tp`, `.pSin`, `small`, `th`, `.cxLb`, `.ajVer` dentro de `.view` (eram 10,5 a 11,5). Sobraram 12 textos abaixo de 12 px (não identificados um a um).
 - ATENÇÃO para a estrutura nova: a barra de baixo é personalizável (teste "acesso rápido: arrastar para a barra"). Trocar por uma barra fixa Início · Produtos · Vendas · Dinheiro · Mais tiraria essa função — decidir com o dono antes.
+
+## Abas entre telas irmãs (S236, 14/11/2026)
+- DECISÃO DO DONO (13/11 21:03): a barra de baixo continua PERSONALIZÁVEL (arrastar atalhos). Não existe barra fixa nova; a simplificação é feita por abas dentro das telas.
+- `src/97x-abas-grupos-s236.js` (`gaAbas`, depois de cada `render`): fileira `.pcSeg.gaSeg` no topo de telas irmãs, trocando entre elas com `setView`: Dinheiro = `caixa` · `desp` · `fx`; Vendas = `dia` · `hist` · `dash`; Site = `ped` · `onl`. Fica depois do `.top` da tela (ou no começo, se a tela não tem `.top`). Some no modo cliente. Para juntar outra tela a um grupo: acrescentar em `GA_GRUPOS`.
+- Nenhuma tela foi removida; os atalhos do Início continuam todos. Sem teste próprio em `tests/run.py` ainda.
