@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<title>LaFouch · conferir antes de gravar</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;background:#17121a;color:#f4eef2;font:15px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+main{max-width:980px;margin:0 auto;padding:10px}
+h1{font:600 18px/1.2 Georgia,serif;margin:4px 2px 8px}
+.cam{position:relative;border-radius:16px;overflow:hidden;background:#000;aspect-ratio:16/9;max-height:calc(100vh - 20px);margin:0 auto;outline:3px solid rgba(255,255,255,.75);outline-offset:-3px;transition:outline-color .3s}
+.cam.ok{outline-color:#3ecf7a}.cam video,.cam canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.frase{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);max-width:92%;padding:10px 16px;border-radius:999px;background:rgba(23,18,26,.82);color:#fff;font:600 16px/1.25 inherit;text-align:center}
+.cam.ok .frase{background:rgba(22,110,62,.92)}
+.abre{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:20px;text-align:center}
+.abre[hidden],.frase[hidden]{display:none}
+.abre button{min-height:48px;padding:0 22px;border:0;border-radius:999px;background:#fff;color:#2a1a28;font:600 16px inherit}
+.it{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}.it span{padding:7px 11px;border-radius:999px;font:600 13px inherit;background:#2a2230;color:#b9aab4}
+.it span.s{background:#173a27;color:#8fe3b0}.it span.n{background:#4a1f2c;color:#ffb3c4}
+p{margin:6px 2px;color:#b9aab4;font-size:13px}
+@media (orientation:landscape) and (max-height:520px){h1,p{display:none}main{padding:4px}.it{position:fixed;left:8px;top:8px;margin:0;max-width:46vw;z-index:2}.it span{font-size:11px;padding:4px 8px}}
+</style></head><body><main>
+<h1>Conferir antes de gravar</h1>
+<div class="cam" id="cam"><video id="v" muted playsinline autoplay></video><canvas id="o"></canvas>
+<div class="abre" id="abre"><div>Deixe o celular no tripé, deitado, com a peça no prato de frente para a câmera.</div><button id="go" type="button">Abrir a câmera</button></div>
+<div class="frase" id="fr" hidden></div></div>
+<div class="it" id="it"></div>
+<p>Quando ficar verde, não mexa no tripé: saia desta página, abra a câmera do celular, trave o foco na peça e grave a volta inteira.</p>
+<p>O que ainda não é conferido aqui: se a peça está bem no centro do prato (o tratamento corrige isso depois).</p>
+</main>
+<script src="conferir.js" charset="utf-8"></script>
+<script>
+(function(){
+  var v=document.getElementById('v'),o=document.getElementById('o'),cam=document.getElementById('cam'),fr=document.getElementById('fr'),itE=document.getElementById('it'),abre=document.getElementById('abre');
+  var c=document.createElement('canvas');c.width=640;c.height=360;var x=c.getContext('2d',{willReadFrequently:true}),ox=o.getContext('2d'),hist=[],ant=null,bons=0;
+  function erro(t){abre.hidden=false;abre.firstElementChild.textContent=t}
+  document.getElementById('go').addEventListener('click',function(){
+    if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){erro('Este navegador não deixa abrir a câmera por aqui.');return}
+    navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080}}}).then(function(s){v.srcObject=s;abre.hidden=true;fr.hidden=false;fr.textContent='Conferindo…';v.play();setTimeout(roda,600)},
+      function(e){erro('Não consegui abrir a câmera ('+(e&&e.name||'erro')+'). Permita o uso da câmera para lafouch.com e toque de novo.')})});
+  function mediana(a){a=a.slice().sort(function(p,q){return p-q});return a[a.length>>1]}
+  function roda(){
+    var vw=v.videoWidth,vh=v.videoHeight;if(!vw){setTimeout(roda,300);return}
+    var emPe=vw<vh;x.fillStyle='#000';x.fillRect(0,0,640,360);
+    if(emPe){var ww=360*vw/vh;x.drawImage(v,(640-ww)/2,0,ww,360)}else x.drawImage(v,0,0,640,360);
+    var img=x.getImageData(0,0,640,360),m=medeQuadro(img),d=img.data,mexe=null;
+    /* celular parado? compara a faixa de cima (parede, que não gira) com a do quadro anterior */
+    var at=new Uint8Array(160*40),k=0;for(var yy=18;yy<98;yy+=2)for(var xx=160;xx<480;xx+=2)at[k++]=d[(yy*640+xx)*4+1];
+    if(ant){var s=0;for(k=0;k<at.length;k++)s+=Math.abs(at[k]-ant[k]);mexe=s/at.length}ant=at;
+    hist.push({m:m,mexe:mexe});if(hist.length>5)hist.shift();
+    /* média dos últimos quadros para o aviso não ficar piscando */
+    var com=hist.filter(function(h){return h.m.peca}),mm={W:640,H:360,parede:mediana(hist.map(function(h){return h.m.parede})),desv:mediana(hist.map(function(h){return h.m.desv})),cost:m.cost,borda:mediana(hist.map(function(h){return h.m.borda})),cortada:m.cortada,peca:null};
+    if(com.length>=Math.ceil(hist.length/2)){var f=function(q){return mediana(com.map(function(h){return h.m.peca[q]}))};mm.peca={x0:f('x0'),x1:f('x1'),y0:f('y0'),y1:f('y1'),nit:f('nit')}}
+    var mx=hist.filter(function(h){return h.mexe!=null}).map(function(h){return h.mexe}),r=confereGiro(mm,{emPe:emPe,mexe:mx.length?Math.max.apply(null,mx):null});
+    bons=r.tudo?bons+1:0;var ok=bons>=4;cam.classList.toggle('ok',ok);fr.textContent=r.tudo&&!ok?'Quase… segure assim':r.frase;
+    itE.innerHTML=r.itens.map(function(i){return '<span class="'+(i.ok===true?'s':i.ok===false?'n':'')+'">'+(i.ok===true?'✓ ':i.ok===false?'✕ ':'… ')+i.nome+'</span>'}).join('');
+    /* desenho por cima: caixa da peça, zona por onde ela passa girando e costuras */
+    o.width=640;o.height=360;ox.clearRect(0,0,640,360);
+    if(mm.peca&&!emPe){var p=mm.peca,lg=p.x1-p.x0,cx=(p.x0+p.x1)/2;ox.lineWidth=2;ox.strokeStyle=ok?'#3ecf7a':'rgba(255,255,255,.9)';ox.strokeRect(p.x0,p.y0,lg,p.y1-p.y0);
+      ox.setLineDash([6,6]);ox.strokeStyle='rgba(255,255,255,.55)';ox.beginPath();ox.moveTo(cx-.75*lg,p.y0-10);ox.lineTo(cx-.75*lg,p.y1+10);ox.moveTo(cx+.75*lg,p.y0-10);ox.lineTo(cx+.75*lg,p.y1+10);ox.stroke();ox.setLineDash([]);
+      ox.fillStyle='rgba(255,70,110,.85)';m.cost.forEach(function(q){if(q>cx-.75*lg&&q<cx+.75*lg)ox.fillRect(q,0,1,360)})}
+    window.__conf={r:r,m:mm};setTimeout(roda,280)}
+})();
+</script></body></html>
