@@ -21,6 +21,7 @@
 - Português, respostas curtas: no máximo 8 linhas, salvo se o dono pedir "detalhe".
 - Formato: 1 linha com o que fez ou propõe · lista curta só do que ele precisa decidir ou saber · 1 linha com o próximo passo ou a pergunta. Tabela só para comparar números.
 - Não repetir o pedido, não recapitular passos, não explicar o óbvio. Se faltar informação: UMA pergunta curta e parar.
+- "IMPLEMENTAR TUDO" (14/11/2026, pedido do dono): implementar tudo o que está aprovado em sequência, sem perguntar bloco a bloco; só parar por ação/segredo do dono, gasto, item sem esboço aprovado ou teste que falha; listar no final o que ficou de fora.
 - Palavras-chave do dono: ESBOÇO, IMPLEMENTAR, PUBLICAR, PARAR. Comandos podem vir em tags <tarefa> <onde> <modo> <limite> <contexto>; sem tags, extrair esses campos sozinho.
 - "COMPRIMA:" no começo da mensagem = não executar; só reescrever o texto dele no formato das tags, com o mínimo de palavras e sem perder decisão.
 - Usar a memória do projeto em vez de pedir histórico; ler trechos de arquivos, não arquivos inteiros; não reenviar arquivos que ele já tem.

@@ -2226,3 +2226,7 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Giro do site: 30 quadros/s, guardado como VÍDEO e desmontado em quadros no site ("fica muito melhor"). Giro livre (sem encaixe). 60/s descartado.
 - Falta provar antes de implementar: desmontar o vídeo dentro do navegador no celular (iPhone é o risco), câmera do app gravando a 30/s, tempo de abertura.
 - 14/11 03:29: celular do dono = Xiaomi 13T (Android). Serve para testar o Estúdio (câmera a 30/s) e o giro no Chrome; iPhone dos clientes continua sem teste.
+
+### S264g · 14/11/2026 03:31 · APROVADO pelo dono (não implementar até o comando)
+- Aprovado o conjunto do giro no site (S264): trocar de cor no mesmo ângulo, "Vista inicial", dica ao abrir, giro livre, 30 quadros/s em vídeo desmontado. Teste no celular fica como condição antes de publicar.
+- REGRA NOVA: comando "IMPLEMENTAR TUDO" = implementar tudo o que está aprovado, em sequência, SEM perguntar bloco a bloco. Só parar por: algo que depende de ação/segredo do dono, gasto (ElevenLabs), item sem esboço aprovado, ou teste que falha. O que ficar de fora entra numa lista no final.
