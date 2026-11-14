@@ -41,6 +41,13 @@ async function recebeItau(db, b, agora) {
   await db.visto(mid, agora);
   const site = (await db.pedidosItau(agora - SITE_H * H)).filter((p) => !p.pago && Math.round(+p.pagar || 0) === g);
   if (site.length === 1) { await db.confirmaPedido(site[0].id, { valor: g, banco: bc, mid, ts: agora }); return { ok: true, tipo: 'site', id: site[0].id }; }
+  // 14/11/2026 (dono: "e se o cliente enviar 114 mil em vez de 113.926?"): quem arredonda PARA CIMA, até o total cheio do pedido, pagou a mais e é confirmado
+  // — desde que só exista UM pedido esperando nessa faixa (pagar < valor <= total). Dois pedidos possíveis, ou valor a menos, não confirma no chute: vai para "sem par".
+  if (!site.length) {
+    const arr = (await db.pedidosItau(agora - SITE_H * H)).filter((p) => !p.pago && +p.pagar > 0 && +p.total > 0 && g > Math.round(+p.pagar) && g <= Math.round(+p.total));
+    if (arr.length === 1) { await db.confirmaPedido(arr[0].id, { valor: g, banco: bc, mid, ts: agora, arred: Math.round(g - arr[0].pagar) }); return { ok: true, tipo: 'site', id: arr[0].id, arredondado: true }; }
+    if (arr.length > 1) { await db.semPar({ valor: g, banco: bc, mid, ts: agora, candidatos: arr.length, arred: true }); return { ok: true, tipo: 'sem-par', candidatos: arr.length }; }
+  }
   const loja = site.length ? [] : (await db.esperas(agora - LOJA_H * H)).filter((e) => !e.ok && (e.banco === 'itau' || e.banco === 'familiar') && Math.round(+e.gs || 0) === g);
   if (loja.length === 1) { await db.confirmaEspera(loja[0].id, { valor: g, banco: bc, mid, ts: agora }); return { ok: true, tipo: 'loja', id: loja[0].id }; }
   await db.semPar({ valor: g, banco: bc, mid, ts: agora, candidatos: site.length + loja.length });

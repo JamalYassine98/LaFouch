@@ -46,6 +46,15 @@ function dbFake(peds, esp) {
   r = await X.recebe(db5, { banco: 'familiar', valor: '183.983', mid: 'q1', dkim: true, dom: 'familiar.com.py' }, T); ok(r.tipo === 'site' && r.id === 'f1' && db5.conf[0][1].banco === 'familiar', 'Banco Familiar: pedido do site confirmado pelo valor com o final único');
   const db6 = dbFake([], [{ id: 'v7', banco: 'itau', gs: 90000, ts: T - 0.2 * H }]); db6.pedidosItau = async () => [];
   r = await X.recebe(db6, { banco: 'familiar', valor: '90.000', mid: 'q2', dkim: true, dom: 'familiar.com.py' }, T); ok(r.tipo === 'loja', 'Banco Familiar: venda da loja confirmada (espera gravada pelo app)');
+  // arredondado para cima (14/11): 113.926 a pagar, total cheio 114.000
+  const db7 = dbFake([]); db7.pedidosItau = async () => [{ id: 'r1', pagar: 113926, total: 114000, ts: T - H }, { id: 'r2', pagar: 250960, total: 251000, ts: T - H }];
+  r = await X.recebe(db7, { banco: 'familiar', valor: '114.000', mid: 's1', dkim: true, dom: 'familiar.com.py' }, T); ok(r.tipo === 'site' && r.id === 'r1' && r.arredondado === true && db7.conf[0][1].arred === 74, 'arredondou para cima até o total: confirma (pagou 74 a mais)');
+  const db8 = dbFake([]); db8.pedidosItau = async () => [{ id: 'r1', pagar: 113926, total: 114000, ts: T - H }];
+  r = await X.recebe(db8, { banco: 'familiar', valor: '113.900', mid: 's2', dkim: true, dom: 'familiar.com.py' }, T); ok(r.tipo === 'sem-par' && !db8.conf.length, 'mandou a menos: não confirma');
+  r = await X.recebe(db8, { banco: 'familiar', valor: '115.000', mid: 's3', dkim: true, dom: 'familiar.com.py' }, T); ok(r.tipo === 'sem-par' && !db8.conf.length, 'mandou acima do total do pedido: não confirma no chute');
+  const db9 = dbFake([]); db9.pedidosItau = async () => [{ id: 'r1', pagar: 113926, total: 114000, ts: T - H }, { id: 'r3', pagar: 113951, total: 114000, ts: T - H }];
+  r = await X.recebe(db9, { banco: 'familiar', valor: '114.000', mid: 's4', dkim: true, dom: 'familiar.com.py' }, T); ok(r.tipo === 'sem-par' && r.candidatos === 2 && !db9.conf.length, 'dois pedidos com o mesmo total cheio: não chuta, avisa');
+  r = await X.recebe(db9, { banco: 'familiar', valor: '113.951', mid: 's5', dkim: true, dom: 'familiar.com.py' }, T); ok(r.tipo === 'site' && r.id === 'r3', 'valor exato continua achando o pedido certo mesmo com outro de total igual');
   console.log(falhas ? falhas + ' FALHAS' : 'tudo ok');
   process.exit(falhas ? 1 : 0);
 })();
