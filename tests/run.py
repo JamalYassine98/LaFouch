@@ -2138,6 +2138,16 @@ async def main():
             ok = ev_['sel'] and not ev_['velha'] and ev_['barra'] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'compartilhar catálogo: o botão entra no modo de escolher peças do Compartilhar novo (a janela antiga saiu)')
             if not ok: falhas.append('enviar catalogo'); print('        veio', ev_, pg.erros)
+            vt_ = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, V = window.__vt; for (let i = 0; i < 60 && !V.pronto(); i++) await new Promise(r => setTimeout(r, 50)); V.registra(); const n0 = V.log().length;
+              const ref = S.items[0].ref, it = S.items.filter(i => i.ref === ref), c0 = JSON.stringify(it.map(i => i.custo)); S.pnome = S.pnome || {}; const nm0 = S.pnome[ref] || 'Nome A'; S.pnome[ref] = nm0; V.registra();
+              S.pnome[ref] = 'Nome B'; it.forEach(i => i.custo = 9.5); it[0].qty = (+it[0].qty || 0) + 3; V.registra(); const novas = V.log().slice(n0).filter(e => e.ref === ref).map(e => e.k).sort().join(',');
+              const acha = k => V.log().findIndex((e, i) => i >= n0 && e.ref === ref && e.k === k);
+              const rQ = V.restaura(acha('estoque')); V.restaura(acha('nome')); V.restaura(acha('custo')); it[0].qty -= 3; V.registra();
+              return {novas, nome: S.pnome[ref] === nm0, custo: JSON.stringify(it.map(i => i.custo)) === c0, rQ}; }""")
+            total += 1
+            ok = vt_['novas'] == 'custo,estoque,nome' and vt_['nome'] and vt_['custo'] and vt_['rQ'] is False and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'voltar no tempo: guarda mudança de nome, custo e estoque; restaura nome e custo; não restaura estoque')
+            if not ok: falhas.append('voltar no tempo'); print('        veio', vt_, pg.erros)
             fl = await pg.evaluate("""async () => { const L = window.__LF, S = L.S; S.cart = []; S.tabAtiva = 'pub'; S.vRef = ''; S.vModo = {v:'g'}; S.vAb = ''; try { localStorage.setItem('lf_modo_v', 'g'); } catch (e) {}
               S.items = [{tipo:'solar',ref:'FA1',grau:'',cor:'Preto',qty:5,fmt:'',med:'',vr:'',lote:'',custo:20},{tipo:'solar',ref:'FA1',grau:'',cor:'Azul',qty:4,fmt:'',med:'',vr:'',lote:'',custo:20},{tipo:'solar',ref:'FB2',grau:'',cor:'Vinho',qty:3,fmt:'',med:'',vr:'',lote:'',custo:20}];
               S.pprice = {FA1: {novo: 400000, ant: 0}, FB2: {novo: 300000, ant: 0}}; L.setView('vendas'); L.render(); document.getElementById('vRows').classList.remove('vlist'); L.render();

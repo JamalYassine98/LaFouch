@@ -2385,3 +2385,9 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Botão de compartilhar do Catálogo entra no modo de escolher peças do Compartilhar novo (barra "Toque nas peças que quer mandar"; "Enviar bonito ›" só liga com peça). Apagadas 17 funções/ações do envio antigo (docs/LIMPEZA-14-11.md, seção 5). Deixou de existir: mandar o catálogo filtrado inteiro como folha, fotos ou texto.
 - Testes 291/291 (1 teste reescrito: o antigo conferia a janela velha). Conferido no simulador em 390 e 1366: seleção, 2 peças, "Enviar bonito" abre o novo, 0 erros. Não testado: celular real; envio de verdade pelo WhatsApp.
 - Sobra escondido e sem uso: botão `#vWa` e `ACT.tabenviar`/`tabMensagem`.
+
+### S285 · 14/11/2026 (manhã) · app v516 / 5.14.0 PUBLICADO: Voltar no tempo
+- `src/97z-voltar-tempo.js`: cada mudança de produto (custo/dólar, nome, preço à mão, estoque, foto) é guardada no aparelho (IndexedDB, fora do backup e da sincronização). Ajustes › Cópias e nuvem › "Voltar no tempo": lista por degraus (hoje cada uma; 7 dias uma por dia; depois semana e mês), detalhe Antes · Depois · Agora, "Restaurar só esta peça" para custo, nome e preço à mão. Estoque e foto só explicam onde resolver. A restauração vira linha (dá para desfazer).
+- Decisões minhas dentro da regra do dono: "descrição" = nome da peça (`S.pnome`); a primeira nomeação automática não é guardada; preço à mão é comparado pela base em dólar para o câmbio não gerar linhas.
+- Testes 292/292 (1 teste novo). Simulador, celular claro e escuro: guardar 4 tipos de mudança, restaurar custo/nome/preço, recusar estoque, sobreviver a recarregar, 0 erros. Corrigi depois de olhar a tela: o "‹ Todas as mudanças" saía como botão vinho e as setas não alinhavam — esse acerto de CSS entrou sem novo olhar.
+- Não testado: celular real; tablet/PC; como ficam os degraus com dias de uso de verdade (só existe 1 dia de dados no simulador); sincronização entre aparelhos gerando linhas.

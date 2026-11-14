@@ -207,3 +207,11 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 
 ## Compartilhar: só o novo (14/11/2026 · v515 / 5.13.4)
 - A janela antiga "Compartilhar" (apps + Folha/Fotos/Só texto) e o envio antigo do catálogo foram apagados (docs/LIMPEZA-14-11.md, seção 5). `#cjSh` faz `S.ebSel = []` + `ebDecora()`: a barra `#ebBar` aparece mesmo com a seleção vazia ("Toque nas peças que quer mandar"; `.ebGo` desligado até haver peça). Daí em diante é o fluxo de sempre do Enviar bonito / S185.
+
+## Voltar no tempo (S265 + decisão do dono, 14/11/2026 · v516 / 5.14.0)
+- `src/97z-voltar-tempo.js`. A cada `salvarAgora` o estado dos produtos (`vtEstado`: por código — custo/dólar de cada linha, nome `S.pnome`, preço à mão `S.pprice`, estoque total, assinatura das fotos) é comparado com o anterior (`vtRegistra`) e cada diferença vira uma linha `{ts, ref, k, de, para, v}` em `VT.log`. Fica no IndexedDB (loja `estado`, chave `vt`), só neste aparelho: não entra no backup nem na sincronização.
+- Não vira linha: peça nova; a primeira vez que a peça ganha nome (o app nomeia sozinho ao abrir); preço à mão que só mudou em guarani por causa do câmbio (compara a base em dólar, `vtBaseP`).
+- Degraus (`vtDegraus`): hoje cada mudança; até 7 dias uma por dia; até 31 dias uma por semana; depois uma por mês; some depois de 12 meses; no máximo 3.000 linhas.
+- Tela: Ajustes › Cópias e nuvem › "Voltar no tempo" (`ACT.vtAbre`, janela padrão `lfJanela`). Tocar numa mudança mostra Antes · Depois · Agora. "Restaurar só esta peça" (`vtRestaura`) existe para custo, nome e preço à mão; estoque e foto só explicam onde resolver (estorno/ajuste; Lixeira de fotos). Restaurar grava e redesenha; a própria restauração vira linha.
+- `window.__vt` (registra, log, restaura, pronto) serve aos testes. Teste: "voltar no tempo: guarda mudança…" em `tests/run.py`.
+- Limites: a "descrição" restaurável é o nome da peça (`S.pnome`); texto do site e outros campos (tipo, formato, medida) não são acompanhados; fotos não são guardadas aqui.

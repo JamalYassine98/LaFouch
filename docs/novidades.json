@@ -1,8 +1,10 @@
 {
- "nome": "5.13.4",
+ "nome": "5.14.0",
  "notas": [
-  "Compartilhar: a janela antiga do catálogo (Folha · Fotos · Só texto) saiu. O botão de compartilhar do Catálogo agora pede para tocar nas peças e abre o Compartilhar novo, por link.",
-  "Limpeza: mais 17 funções antigas de envio foram apagadas."
+  "Voltar no tempo (Ajustes › Cópias e nuvem): cada mudança de produto fica guardada no aparelho — custo, nome, preço escrito à mão, estoque e foto.",
+  "Dá para restaurar só uma peça: custo, nome ou preço à mão. A restauração também fica guardada e pode ser desfeita.",
+  "Estoque não volta por aqui (só por estorno ou ajuste na ficha) e fotos apagadas continuam na Lixeira de fotos.",
+  "As mudanças antigas são juntadas: hoje cada uma; até 7 dias uma por dia; depois por semana e por mês."
  ],
- "build": 515
+ "build": 516
 }
