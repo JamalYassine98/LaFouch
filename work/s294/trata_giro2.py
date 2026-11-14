@@ -25,7 +25,10 @@ def trata(f):
     # de haste. Ficou a regra simples; a solução é não ter costura atrás da peça (cartolina branca curva atrás do prato).
     return (o * 255).astype(np.uint8)
 def peca(t):  # peça inteira = tudo o que não é branco (armação clara, lentes, sombra) e está ligado ao miolo escuro; riscos soltos longe dela ficam de fora
-    mn = t.min(axis=2); nu = (mn < 125).astype(np.uint8); nu = cv2.morphologyEx(nu, cv2.MORPH_OPEN, np.ones((5, 5), np.uint8)); nu[:, :int(W * .06)] = 0; nu[:, int(W * .94):] = 0; nu[:int(H * .15)] = 0
+    mn = t.min(axis=2)
+    for lim in (125, 170, 200):   # peça clara (bege, transparente) quase não tem parte escura: o limite do "miolo" sobe até achar um pedaço de verdade
+        nu = (mn < lim).astype(np.uint8); nu = cv2.morphologyEx(nu, cv2.MORPH_OPEN, np.ones((5, 5), np.uint8)); nu[:, :int(W * .06)] = 0; nu[:, int(W * .94):] = 0; nu[:int(H * .15)] = 0
+        if int(nu.sum()) > 400: break
     n, lab, st, _ = cv2.connectedComponentsWithStats(nu, 8)
     if n > 1:
         gr = st[1:, cv2.CC_STAT_AREA]; maior = gr.max(); nu = np.isin(lab, [i + 1 for i, a in enumerate(gr) if a > max(150, maior * .02)]).astype(np.uint8)
@@ -36,18 +39,21 @@ def peca(t):  # peça inteira = tudo o que não é branco (armação clara, lent
 med = []
 for n in range(N):
     t = trata(quadro(I0 + round(n * PER / N))); m, nu = peca(t); ys, xs = np.where(m)
+    if len(xs) < 50: med.append(med[-1] if med else (W / 2, H / 2, 10, 10, 1e9, 1., .5)); continue   # não achou a peça neste grau: repete a medida do grau anterior
     g = cv2.cvtColor(t, cv2.COLOR_BGR2GRAY); x0, x1, y0, y1 = xs.min(), xs.max(), ys.min(), ys.max()
     rec = g[y0:y1 + 1, x0:x1 + 1].astype(np.float32); sim = float(np.abs(rec - rec[:, ::-1]).mean())
     nit = float(cv2.Laplacian(g, cv2.CV_32F)[cv2.dilate(m, np.ones((9, 9), np.uint8)) > 0].var())
-    yn = np.where(nu)[0]; med.append(((x0 + x1) / 2, (y0 + y1) / 2, x1 - x0, y1 - y0, sim, nit, int(yn.max() - yn.min()) if len(yn) else 0))
+    bx = ys > y1 - (y1 - y0) * .12; lado = float(np.abs(xs[bx] - (x0 + x1) / 2).mean() / max(1, x1 - x0)) if bx.any() else .5   # onde ficam os pontos mais baixos: nas pontas (hastes vindo para a câmera = costas) ou perto do meio (aros = frente)
+    med.append(((x0 + x1) / 2, (y0 + y1) / 2, x1 - x0, y1 - y0, sim, nit, lado))
 med = np.array(med); th = np.arange(N) * 2 * np.pi / N; A = np.stack([np.ones(N), np.cos(th), np.sin(th)], 1)
 def harm(v):  # parte que dá UMA volta por volta = passeio da peça em torno do eixo do prato
     co = np.linalg.lstsq(A, v, rcond=None)[0]; return A[:, 1:] @ co[1:], co
 dx, cox = harm(med[:, 0]); dy, coy = harm(med[:, 1])
 print('passeio da peça: de lado ±%.0f px · de altura ±%.0f px (em %d px de largura)' % (np.hypot(cox[1], cox[2]), np.hypot(coy[1], coy[2]), W))
-# frente = a mais simétrica; entre frente e costas, a frente é onde o miolo escuro (hastes) aparece mais baixo em altura
+# frente = a mais simétrica; entre frente e costas, a frente é onde os pontos mais baixos da peça ficam perto do meio (aros).
+# De costas as pontas das hastes vêm para a câmera e são elas, nas laterais, que ficam mais baixas. (A regra antiga, pela altura do miolo escuro, errava em peça clara.)
 sim = med[:, 4] / np.maximum(med[:, 2], 1); cand = int(np.argmin(sim)); outro = (cand + N // 2) % N
-jan = lambda i: med[[(i + d) % N for d in range(-4, 5)], 6].mean(); frente = cand if jan(cand) <= jan(outro) else outro   # de costas as hastes vêm para a câmera e o miolo escuro fica mais alto
+jan = lambda i: med[[(i + d) % N for d in range(-4, 5)], 6].mean(); frente = cand if jan(cand) <= jan(outro) else outro; print('pontos baixos: candidata %.2f · oposta %.2f' % (jan(cand), jan(outro)))
 frente = 0 if FRENTE == 'inicio' else frente; alvo_nit = float(np.percentile(med[:, 5], 70)); print('frente no grau', frente, '(a outra candidata era', outro if frente == cand else cand, ') · nitidez min/mediana/máx %.0f/%.0f/%.0f' % (med[:, 5].min(), np.median(med[:, 5]), med[:, 5].max()))
 # caixa do recorte depois de tirar o passeio
 bx0 = (med[:, 0] - med[:, 2] / 2 - dx).min(); bx1 = (med[:, 0] + med[:, 2] / 2 - dx).max(); by0 = (med[:, 1] - med[:, 3] / 2 - dy).min(); by1 = (med[:, 1] + med[:, 3] / 2 - dy).max()
