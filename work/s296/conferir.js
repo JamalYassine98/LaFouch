@@ -26,7 +26,7 @@ function medeQuadro(img){
   for(i=0;i<w*h;i++){if(!M[i]||rot[i])continue;np_++;var t=0;pilha[t++]=i;rot[i]=np_;var c={a:0,x0:w,x1:0,y0:h,y1:0};
     while(t){var p=pilha[--t],xx=p%w,yy=(p-xx)/w;c.a++;if(xx<c.x0)c.x0=xx;if(xx>c.x1)c.x1=xx;if(yy<c.y0)c.y0=yy;if(yy>c.y1)c.y1=yy;
       for(var dy=-1;dy<=1;dy++)for(var dx=-1;dx<=1;dx++){var x2=xx+dx,y2=yy+dy;if(x2<0||y2<0||x2>=w||y2>=h)continue;var p2=y2*w+x2;if(M[p2]&&!rot[p2]){rot[p2]=np_;pilha[t++]=p2}}}
-    c.cen=(c.y0<=h*.1)||c.y1>=h-3||c.x0<=2||c.x1>=w-3||((c.y1-c.y0)>h*.2&&(c.x1-c.x0)<w*.05);ped.push(c)}
+    c.cen=(c.y0<=h*.1)||c.y1>=h-3||c.x0<=2||c.x1>=w-3||((c.y1-c.y0)>h*.2&&(c.x1-c.x0)<w*.05)||((c.y1-c.y0)<h*.1&&(c.x1-c.x0)>w*.3);ped.push(c)}   /* risco deitado e comprido = linha do prato ou sombra, não é a peça (14/11: inflava a largura medida) */
   var bons=ped.filter(function(c){return !c.cen&&c.a>=25}).sort(function(a,b){return b.a-a.a}),peca=null,cortada=ped.some(function(c){return c.cen&&c.a>w*h*.01&&c.y0>h*.12&&(c.x1-c.x0)>w*.2&&(c.y1-c.y0)>h*.08});
   if(bons.length&&bons[0].a>w*h*.008&&(bons[0].x1-bons[0].x0)>w*.12){var s0=bons[0],ex=(s0.x1-s0.x0)*.25+6,ey=(s0.y1-s0.y0)*.35+6,bx={x0:s0.x0,x1:s0.x1,y0:s0.y0,y1:s0.y1,n:0};
     bons.forEach(function(c){var mx=(c.x0+c.x1)/2,my=(c.y0+c.y1)/2;if(mx>s0.x0-ex&&mx<s0.x1+ex&&my>s0.y0-ey&&my<s0.y1+ey){bx.x0=Math.min(bx.x0,c.x0);bx.x1=Math.max(bx.x1,c.x1);bx.y0=Math.min(bx.y0,c.y0);bx.y1=Math.max(bx.y1,c.y1);bx.n+=c.a}});
