@@ -1098,9 +1098,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 507;
+  var APP_BUILD = 508;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.10.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.11.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -23186,7 +23186,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var el = $('v-notif');
     if (!el || S.view !== 'notif') return;
     var ag = notifAgora(),
-      h = '<div class="top"><div><h1>Pendências</h1><div class="crumb">Tudo o que precisa de você num lugar só: avisos, Guardião e dólar</div></div></div>';
+      h = '<div class="top"><div><h1>Pendências</h1><div class="crumb">O que precisa de você agora.</div></div></div>';
     function cartao(i) {
       return (
         '<section class="card" style="border-left:4px solid ' + i.c + ';display:flex;align-items:center;gap:10px;justify-content:space-between"><div><b style="font-size:15px">' + esc(i.t) + '</b><div class="hint" style="margin:2px 0 0">' + esc(i.s) + '</div></div>' +
@@ -24060,7 +24060,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         return a + o.x.valor;
       }, 0);
     var html =
-      '<div class="top"><div><h1>Despesas</h1><div class="crumb">Contas que o dinheiro das vendas precisa cobrir todo mês</div></div></div>';
+      '<div class="top"><div><h1>Despesas</h1><div class="crumb">Contas do mês e quanto cada venda separa.</div></div></div>';
     html +=
       '<section class="kpis"><div class="kpi"><div class="lbl">Total obrigatório por mês</div><b id="tmTot">' +
       gs(tm) +
@@ -25961,7 +25961,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       r = reservas(),
       c = S.cash;
     var html =
-      '<div class="top" style="flex-wrap:nowrap;align-items:flex-start"><div style="min-width:0;flex:1"><h1>Caixa</h1><div class="crumb">Quanto dinheiro existe, quanto já tem dono e quanto é seu</div></div><div style="position:relative;flex:none"><button type="button" class="ic' + (S.cxMenu ? ' on' : '') + '" id="cxIc" data-act="cxmenu" aria-label="Ações do caixa" aria-expanded="' + !!S.cxMenu + '">' + ICO.caixa + '</button>' +
+      '<div class="top" style="flex-wrap:nowrap;align-items:flex-start"><div style="min-width:0;flex:1"><h1>Caixa</h1><div class="crumb">O dinheiro da loja, por moeda.</div></div><div style="position:relative;flex:none"><button type="button" class="ic' + (S.cxMenu ? ' on' : '') + '" id="cxIc" data-act="cxmenu" aria-label="Ações do caixa" aria-expanded="' + !!S.cxMenu + '">' + ICO.caixa + '</button>' +
       (S.cxMenu
         ? '<div class="cxMenu" role="menu"><button type="button" role="menuitem" data-act="cxabre" data-id="ret">' + ICO.sobe + 'Retirar</button><button type="button" role="menuitem" data-act="cxabre" data-id="mel">' + ICO.ferr + 'Novo objetivo</button><button type="button" role="menuitem" data-act="cxabre" data-id="cc">' + ICO.chk + 'Conferir</button></div>'
         : '') +
@@ -26690,7 +26690,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       },
       gAtual = gp(S.pedF),
       h =
-        '<div class="top"><div><h1>Pedidos online</h1><div class="crumb">' +
+        '<div class="top"><div><h1>Pedidos online</h1><div class="crumb">Pedidos que chegaram pelo site.<br>' +
         (PED_INFO.ts ? (PED_INFO.err ? '<span style="color:var(--bad)">Não consegui buscar os pedidos: ' + esc(PED_INFO.err) + '</span>' : 'Última busca às ' + fh(PED_INFO.ts)) : 'Buscando pedidos…') +
         ' · <button type="button" class="pdLink" data-act="pedver">Verificar agora</button>' +
         (S.pedidos.some(function (p) { return p.teste; }) ? ' · <button type="button" class="pdLink" data-act="pedteste">' + (S._pedTst ? 'Apagar os testes? Toque de novo' : 'Apagar pedidos de teste') + '</button>' : '') +
@@ -27434,7 +27434,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!S._ajForce && ae && ae.tagName === 'INPUT' && el.contains(ae)) return;
     S._ajForce = false;
     // v419: Ajustes minimalista (esboço aprovado 04/11): um grupo, linhas que abrem no lugar e ordem livre
-    var h = '<div class="top"><div><h1>Ajustes</h1></div></div>';
+    var h = '<div class="top"><div><h1>Ajustes</h1><div class="crumb">Aparelho, loja, site e segurança.</div></div></div>';
     if (S.ajMsg) h += '<div class="note n-ok" role="status">' + esc(S.ajMsg) + '</div>';
     S.notaCidade = 'CDE'; // nota fiscal e comprovante: sempre CDE (onde são feitas as vendas)
     // Segurança, Pedidos do site e Sons e avisos vêm juntos: separa cada seção
@@ -28135,7 +28135,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     cliSync();
     var el = $('v-clientes');
     if (!el || S.view !== 'clientes') return;
-    var h = '<div class="top"><div><h1>Clientes</h1><div class="crumb">Quem compra de você, com telefone e documento</div></div>' +
+    var h = '<div class="top"><div><h1>Clientes</h1><div class="crumb">Quem compra na loja e no atacado.</div></div>' +
       '<div class="tabs"><button class="mini" data-act="clinovo">+ Novo cliente</button><button class="mini ghost" data-act="ataNovo">Acesso atacado</button><button class="mini ghost" data-act="ataLotes">Lotes</button><button class="mini ghost" data-act="cupAbre">Cartões</button></div></div>';
     var c = S.cliSel === 'novo' ? { id: 0, nome: '', tel: '', ruc: '', obs: '' } : cliAtual();
     if (c) {
@@ -30393,7 +30393,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       on = casa && ((S._lmVisto && ag - S._lmVisto < 5 * 60000) || ag - S.lm.ts < 12 * 3600000),
       det = casa ? 'La Moneda · ' + (S.lm.suc && S.lm.suc !== 'Jebai' ? S.lm.suc + ' (a Sucursal Jebai não apareceu na página)' : 'Jebai') + ' · atualizado às ' + fh(S.lm.ts) + (on ? '' : ' de ' + fd(S.lm.ts)) + '' : 'Ainda sem cotação da La Moneda. Por enquanto os valores são a média do mercado.',
       hd = '<button type="button" class="fxSt ' + (on ? 'ok' : 'no') + '" data-act="fxSt" aria-label="Cotação da casa ' + (on ? 'online' : 'offline') + '">Cotação da casa<i></i></button>' + (S.fxStD ? '<div class="hint fxStD" style="margin:4px 0 0">' + esc(det) + '</div>' : ''),
-      h = '<div class="top fxTopo"><div><h1>Câmbio</h1><div class="crumb">' + hd + '</div></div>' + (casa ? '<button type="button" class="fxModo" data-act="fxModo" aria-label="Mostrando a ' + (S.fxModo === 'c' ? 'compra' : 'venda') + ' da casa. Tocar para ver a ' + (S.fxModo === 'c' ? 'venda' : 'compra') + '">' + (S.fxModo === 'c' ? 'Compra' : 'Venda') + FX_SETAS + '</button>' : '') + '</div>';
+      h = '<div class="top fxTopo"><div><h1>Câmbio</h1><div class="crumb">Cotação do dia e trocas de moeda.<br>' + hd + '</div></div>' + (casa ? '<button type="button" class="fxModo" data-act="fxModo" aria-label="Mostrando a ' + (S.fxModo === 'c' ? 'compra' : 'venda') + ' da casa. Tocar para ver a ' + (S.fxModo === 'c' ? 'venda' : 'compra') + '">' + (S.fxModo === 'c' ? 'Compra' : 'Venda') + FX_SETAS + '</button>' : '') + '</div>';
     h += '<section class="card fxTop">';
     ['usd', 'brl', 'arb'].forEach(function (k) {
       h += '<button type="button" class="fxLin" data-act="fjAbre" data-id="' + k + '"><span><span class="lbl">' + FX_NOME[k] + '</span><b>' + fxValTxt(k, fxTopVal(k)) + '</b></span>' + fxVarHtml(k) + '</button>';
@@ -35940,7 +35940,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!el) return;
     var ativo = hFiltrando();
     el.innerHTML =
-      '<div class="top"><div><h1>Histórico</h1><div class="crumb">Busque, filtre ou toque num dia para abrir tudo o que aconteceu nele.</div></div></div>' +
+      '<div class="top"><div><h1>Histórico</h1><div class="crumb">Todas as vendas, dia por dia.</div></div></div>' +
       '<section class="card col" style="gap:10px"><div class="sel"><input class="in" id="hq" type="search" data-in="hq" placeholder="Buscar produto ou conta" value="' + esc(S.hq) + '" aria-label="Buscar no histórico" style="flex:1">' +
       '<button type="button" class="chip" data-act="hcal" aria-label="Ir para uma data" title="Ir para uma data" style="min-width:44px">📅</button>' +
       '<button type="button" class="chip' + (S.hFopen || ativo ? ' on' : '') + '" data-act="hfopen" aria-expanded="' + !!S.hFopen + '">Filtros</button></div>' +
@@ -46036,7 +46036,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       cont.classList.add('sl-ok');
       POS[key] = to;
       var i = on.querySelector('.ti,.mi');
-      if (i && mudou && !REDUCED) {
+      if (i && mudou && !REDUCED && ic !== 0) {
         i.style.animation = 'none';
         void i.offsetWidth;
         i.style.animation = (ic || 'pulinho') + ' .45s cubic-bezier(.2,.8,.2,1)';
@@ -46047,7 +46047,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       agenda = 0;
       var gs = document.querySelectorAll('#v-dash .tgrid');
       for (var i = 0; i < gs.length; i++) desliza(gs[i], 'dash' + i, '.tl.on', 'pulinho');
-      desliza($('mainnav'), 'nav', '.mn.on', 'pulinhoN');
+      desliza($('mainnav'), 'nav', '.mn.on', 0); // S250: sem pulinho no ícone da barra
     }
     function pede() {
       if (!agenda) agenda = requestAnimationFrame(desliza_tudo);
@@ -46082,7 +46082,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       } catch (eRo) {}
     }
     // 4 e 7. Início: botões entram em cascata e os números contam subindo.
-    function contaNumeros(el) {
+    function contaNumeros(el, dur) {
       var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT),
         n,
         l = [];
@@ -46092,7 +46092,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         var orig = node.nodeValue,
           t0 = performance.now();
         function passo(t) {
-          var k = Math.min(1, (t - t0) / 900),
+          var k = Math.min(1, (t - t0) / (dur || 900)),
             e = 1 - Math.pow(1 - k, 3);
           node.nodeValue =
             k < 1
@@ -46116,7 +46116,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       v.classList.remove('cascata');
       void v.offsetWidth;
       v.querySelectorAll('.tl').forEach(function (t, i) {
-        t.style.animationDelay = i * 55 + 'ms';
+        t.style.animationDelay = Math.min(i * 12, 180) + 'ms'; // S250: fila curta (antes i*55, último em 1,38 s)
       });
       v.classList.add('cascata');
       contaNumeros(v);
@@ -46132,9 +46132,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       var v = $('v-' + nome);
       if (REDUCED || !v) return;
       var l = [].slice.call(v.querySelectorAll(':scope > .card, :scope > section, :scope > .tgrid > .tl, :scope > div > .tl')).slice(0, 14);
-      l.forEach(function (e, i) {
-        e.style.animation = 'telaSobe .5s cubic-bezier(.2,.8,.2,1) ' + (60 + i * 55) + 'ms both';
-      });
+      // S250 (aprovado 14/11): 1 movimento só ao abrir a tela (o da .enter, 0,2 s); os blocos não sobem mais em fila.
+      l = [];
+      if (nome === 'caixa') {
+        var tot = v.querySelector('.cxTot b');
+        if (tot) contaNumeros(tot, 480);
+      }
       v.querySelectorAll('.tl').forEach(function (t) {
         contaNumeros(t);
       });

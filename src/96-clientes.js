@@ -209,7 +209,7 @@
     cliSync();
     var el = $('v-clientes');
     if (!el || S.view !== 'clientes') return;
-    var h = '<div class="top"><div><h1>Clientes</h1><div class="crumb">Quem compra de você, com telefone e documento</div></div>' +
+    var h = '<div class="top"><div><h1>Clientes</h1><div class="crumb">Quem compra na loja e no atacado.</div></div>' +
       '<div class="tabs"><button class="mini" data-act="clinovo">+ Novo cliente</button><button class="mini ghost" data-act="ataNovo">Acesso atacado</button><button class="mini ghost" data-act="ataLotes">Lotes</button><button class="mini ghost" data-act="cupAbre">Cartões</button></div></div>';
     var c = S.cliSel === 'novo' ? { id: 0, nome: '', tel: '', ruc: '', obs: '' } : cliAtual();
     if (c) {

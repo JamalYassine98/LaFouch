@@ -38,7 +38,7 @@ Aviso: as folhas S241–S245 ainda mostram o botão vinho cheio; vale o botão n
 - Site: WhatsApp e a linha da barra do app animam largura/posição (custa fluidez); trocar por deslocamento, sem mudar o visual.
 - Site abrir peça: quadro parado de ~200 ms (código; já anotado no S228).
 
-## D · Propostas novas (S249, 14/11) — falta aprovar
+## D · Propostas S249 — APROVADAS em 14/11 00:19 (itens 15 a 22)
 
 Sonda: work/s249/sonda.py (toca em cada controle visível de 13 telas do app e 3 do site) e sonda2.py (diferença de imagem ao abrir e fechar).
 

@@ -63,7 +63,7 @@
       cont.classList.add('sl-ok');
       POS[key] = to;
       var i = on.querySelector('.ti,.mi');
-      if (i && mudou && !REDUCED) {
+      if (i && mudou && !REDUCED && ic !== 0) {
         i.style.animation = 'none';
         void i.offsetWidth;
         i.style.animation = (ic || 'pulinho') + ' .45s cubic-bezier(.2,.8,.2,1)';
@@ -74,7 +74,7 @@
       agenda = 0;
       var gs = document.querySelectorAll('#v-dash .tgrid');
       for (var i = 0; i < gs.length; i++) desliza(gs[i], 'dash' + i, '.tl.on', 'pulinho');
-      desliza($('mainnav'), 'nav', '.mn.on', 'pulinhoN');
+      desliza($('mainnav'), 'nav', '.mn.on', 0); // S250: sem pulinho no ícone da barra
     }
     function pede() {
       if (!agenda) agenda = requestAnimationFrame(desliza_tudo);
@@ -109,7 +109,7 @@
       } catch (eRo) {}
     }
     // 4 e 7. Início: botões entram em cascata e os números contam subindo.
-    function contaNumeros(el) {
+    function contaNumeros(el, dur) {
       var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT),
         n,
         l = [];
@@ -119,7 +119,7 @@
         var orig = node.nodeValue,
           t0 = performance.now();
         function passo(t) {
-          var k = Math.min(1, (t - t0) / 900),
+          var k = Math.min(1, (t - t0) / (dur || 900)),
             e = 1 - Math.pow(1 - k, 3);
           node.nodeValue =
             k < 1
@@ -143,7 +143,7 @@
       v.classList.remove('cascata');
       void v.offsetWidth;
       v.querySelectorAll('.tl').forEach(function (t, i) {
-        t.style.animationDelay = i * 55 + 'ms';
+        t.style.animationDelay = Math.min(i * 12, 180) + 'ms'; // S250: fila curta (antes i*55, último em 1,38 s)
       });
       v.classList.add('cascata');
       contaNumeros(v);
@@ -159,9 +159,12 @@
       var v = $('v-' + nome);
       if (REDUCED || !v) return;
       var l = [].slice.call(v.querySelectorAll(':scope > .card, :scope > section, :scope > .tgrid > .tl, :scope > div > .tl')).slice(0, 14);
-      l.forEach(function (e, i) {
-        e.style.animation = 'telaSobe .5s cubic-bezier(.2,.8,.2,1) ' + (60 + i * 55) + 'ms both';
-      });
+      // S250 (aprovado 14/11): 1 movimento só ao abrir a tela (o da .enter, 0,2 s); os blocos não sobem mais em fila.
+      l = [];
+      if (nome === 'caixa') {
+        var tot = v.querySelector('.cxTot b');
+        if (tot) contaNumeros(tot, 480);
+      }
       v.querySelectorAll('.tl').forEach(function (t) {
         contaNumeros(t);
       });

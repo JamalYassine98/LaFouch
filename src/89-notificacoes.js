@@ -138,7 +138,7 @@
     var el = $('v-notif');
     if (!el || S.view !== 'notif') return;
     var ag = notifAgora(),
-      h = '<div class="top"><div><h1>Pendências</h1><div class="crumb">Tudo o que precisa de você num lugar só: avisos, Guardião e dólar</div></div></div>';
+      h = '<div class="top"><div><h1>Pendências</h1><div class="crumb">O que precisa de você agora.</div></div></div>';
     function cartao(i) {
       return (
         '<section class="card" style="border-left:4px solid ' + i.c + ';display:flex;align-items:center;gap:10px;justify-content:space-between"><div><b style="font-size:15px">' + esc(i.t) + '</b><div class="hint" style="margin:2px 0 0">' + esc(i.s) + '</div></div>' +

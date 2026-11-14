@@ -2323,3 +2323,40 @@ html.mlOn,html.mlOn body{overflow:hidden}
 #v-clientes .top .tabs .mini:not(.ghost){flex:1 0 100%}
 @media (min-width:700px){#v-clientes .top .tabs .mini:not(.ghost){flex:0 0 auto}#v-clientes .top .tabs .mini.ghost{flex:0 0 auto;padding-left:16px;padding-right:16px}}
 @media (max-width:340px){#v-clientes .top .tabs .mini.ghost{font-size:13px;padding-left:5px;padding-right:5px}#v-clientes .top .tabs{gap:6px}}
+
+/* ===== S250 (14/11/2026) · aprovado pelo dono: acabamento S241 + botões S247 + movimentos S247/S248 ===== */
+/* 1 · títulos na letra serifada do site; subtítulo mais leve */
+.view h1{font-family:Fraunces,Georgia,'Times New Roman',serif!important;font-weight:500!important;letter-spacing:-.01em;font-size:28px!important;line-height:1.15!important}
+.view .crumb{font-size:13.5px!important;opacity:.85;margin-top:4px}
+.view h2,.view .card>b:first-child{font-family:Fraunces,Georgia,serif;font-weight:500}
+/* 2 · cartões sem contorno pesado: fundo limpo, sombra quase invisível, mais respiro */
+.view .card,.view .kpi,.view .hero,.view .tl,.view section.cxSaldo{border-color:transparent!important;box-shadow:0 1px 2px rgba(42,31,39,.05),0 8px 24px -18px rgba(42,31,39,.25)!important;border-radius:20px!important}
+.view .card{padding-top:18px;padding-bottom:18px}
+.view .guardC{border-left:0!important;border-top:2px solid #8d3a69!important;border-radius:4px 4px 20px 20px!important}
+/* 3 · rótulos pequenos discretos e números com algarismos alinhados */
+.view .lbl{letter-spacing:.12em!important;font-weight:600!important;opacity:.7}
+.view .kpi b,.view .kpi strong,.view .hero b,.view .cxSaldo b,.view .num,.view .v{font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+/* 4 · botão secundário em fio fino (o principal vem logo abaixo, S247) */
+.view .mini.ghost,.view .btn-sc:not(.p){background:transparent!important;border:1px solid color-mix(in srgb,currentColor 22%,transparent)!important;border-radius:999px!important;box-shadow:none!important}
+/* 5 · atalhos do Início: ícone fino em vinho, sem caixa em volta */
+#v-inicio .tl .tic,#v-inicio .tl svg{color:#8d3a69}
+#v-inicio .tl{background:var(--panel)!important}
+/* 6 · busca e campos: fio fino, cantos iguais aos dos cartões */
+.view input.in,.view .buIn,.view label.buIn{border-radius:16px!important;border-color:color-mix(in srgb,currentColor 14%,transparent)!important;box-shadow:none!important}
+/* 7 · barra de baixo e menu ao lado: sem sombra, fio fino, item ativo com um ponto */
+#mainnav{box-shadow:none!important;border-top:1px solid var(--line)!important}
+#mainnav .mn.on{position:relative}
+@media (max-width:1099px){#mainnav .mn.on::after{content:"";position:absolute;left:50%;bottom:4px;width:4px;height:4px;border-radius:4px;background:#8d3a69;transform:translateX(-50%)}}
+/* 8 · Ajustes: linhas mais altas e calmas */
+#v-ajustes .ajR{min-height:60px}
+/* botões (S247): ação principal = fio cinza fino; ação dentro de lista = só texto; sem vinho; afunda ao toque; vale no claro e no escuro */
+.view .mini:not(.ghost),.view .btn-sc.p,.view #btnAdd{background:transparent!important;color:var(--fg,inherit)!important;-webkit-text-fill-color:currentColor;border:1px solid color-mix(in srgb,currentColor 28%,transparent)!important;border-radius:999px!important;box-shadow:none!important;font-weight:600!important}
+.view .gBtn{background:transparent!important;color:var(--fg,inherit)!important;-webkit-text-fill-color:currentColor;border:0!important;box-shadow:none!important;font-weight:600!important;border-radius:999px!important}
+.view .mini:not(.ghost),.view .btn-sc.p,.view #btnAdd,.view .gBtn{transition:transform .08s ease-out,background-color .08s ease-out!important}
+.view .mini:not(.ghost):active,.view .btn-sc.p:active,.view #btnAdd:active,.view .gBtn:active{transform:scale(.96)!important;background:color-mix(in srgb,currentColor 12%,transparent)!important}
+/* movimento: 1 só ao abrir a tela (0,2 s); fila curta nos atalhos do Início */
+@keyframes lfEntra{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.view.enter{animation:lfEntra .2s cubic-bezier(.2,.8,.2,1)}
+.cascata .tl,.cascata .hero{animation-duration:.24s}
+@media (prefers-reduced-motion:reduce){.view.enter{animation:none}.view .mini:not(.ghost):active,.view .btn-sc.p:active,.view #btnAdd:active,.view .gBtn:active{transform:none!important}}
+#v-ped .top .crumb,#v-fx .top .crumb{opacity:1!important}

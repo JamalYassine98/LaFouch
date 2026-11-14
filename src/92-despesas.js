@@ -114,7 +114,7 @@
         return a + o.x.valor;
       }, 0);
     var html =
-      '<div class="top"><div><h1>Despesas</h1><div class="crumb">Contas que o dinheiro das vendas precisa cobrir todo mês</div></div></div>';
+      '<div class="top"><div><h1>Despesas</h1><div class="crumb">Contas do mês e quanto cada venda separa.</div></div></div>';
     html +=
       '<section class="kpis"><div class="kpi"><div class="lbl">Total obrigatório por mês</div><b id="tmTot">' +
       gs(tm) +

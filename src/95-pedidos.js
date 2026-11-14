@@ -587,7 +587,7 @@
       },
       gAtual = gp(S.pedF),
       h =
-        '<div class="top"><div><h1>Pedidos online</h1><div class="crumb">' +
+        '<div class="top"><div><h1>Pedidos online</h1><div class="crumb">Pedidos que chegaram pelo site.<br>' +
         (PED_INFO.ts ? (PED_INFO.err ? '<span style="color:var(--bad)">Não consegui buscar os pedidos: ' + esc(PED_INFO.err) + '</span>' : 'Última busca às ' + fh(PED_INFO.ts)) : 'Buscando pedidos…') +
         ' · <button type="button" class="pdLink" data-act="pedver">Verificar agora</button>' +
         (S.pedidos.some(function (p) { return p.teste; }) ? ' · <button type="button" class="pdLink" data-act="pedteste">' + (S._pedTst ? 'Apagar os testes? Toque de novo' : 'Apagar pedidos de teste') + '</button>' : '') +

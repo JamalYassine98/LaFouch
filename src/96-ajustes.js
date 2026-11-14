@@ -138,7 +138,7 @@
     if (!S._ajForce && ae && ae.tagName === 'INPUT' && el.contains(ae)) return;
     S._ajForce = false;
     // v419: Ajustes minimalista (esboço aprovado 04/11): um grupo, linhas que abrem no lugar e ordem livre
-    var h = '<div class="top"><div><h1>Ajustes</h1></div></div>';
+    var h = '<div class="top"><div><h1>Ajustes</h1><div class="crumb">Aparelho, loja, site e segurança.</div></div></div>';
     if (S.ajMsg) h += '<div class="note n-ok" role="status">' + esc(S.ajMsg) + '</div>';
     S.notaCidade = 'CDE'; // nota fiscal e comprovante: sempre CDE (onde são feitas as vendas)
     // Segurança, Pedidos do site e Sons e avisos vêm juntos: separa cada seção

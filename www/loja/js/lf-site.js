@@ -3409,7 +3409,7 @@
         w.style.removeProperty('pointer-events')}else hit=era;
       if(era)H.classList.add('wamin');if(rol)H.classList.add('warol');void w.offsetWidth;
       w.style.transition=tr;if(sv)sv.style.transition=ts;void w.offsetWidth;H.classList.toggle('wamin',hit)}
-    var rt=0;document.addEventListener('scroll',function(){var H=document.documentElement;if(naPeca()){H.classList.remove('warol');return}H.classList.add('warol');clearTimeout(rt);rt=setTimeout(function(){H.classList.remove('warol');cobre()},700)},true);
+    var rt=0;document.addEventListener('scroll',function(){var H=document.documentElement;if(naPeca()){H.classList.remove('warol');return}H.classList.add('warol');clearTimeout(rt);rt=setTimeout(function(){cobre();H.classList.remove('warol')},700)/* S239: mede ANTES de soltar o 'rolando' — assim a lingueta abre na bola com a mesma animação suave de quando recolhe (antes a medição cortava a animação) */},true);
     setTimeout(cobre,1500);addEventListener('resize',function(){setTimeout(cobre,200)});document.addEventListener('click',function(){setTimeout(cobre,900)},true);
     window.__lfAjusta=ajusta})();
   function syncProds(docs){

@@ -158,3 +158,10 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - Motivo do dono: faziam a mesma coisa que juntar os atalhos num GRUPO da barra (função que já existe: segurar um atalho sobre outro → grupo com abas no topo, `src/95-barra-grupos.js`) e ficavam feios. Eram um segundo mecanismo para a mesma coisa (regra anti-lixo: nunca ter 2).
 - Os módulos `97v-produtos-chave-s233.js` e `97x-abas-grupos-s236.js` e o CSS `.pcSeg` foram apagados. NÃO propor de novo fileira de abas/chave para trocar entre telas: para isso existem os grupos.
 - Antes de desenhar qualquer navegação nova no app: conferir os GRUPOS e o acesso rápido da barra (personalizável, máx. 5).
+
+## Acabamento, botões e movimento (S250, 14/11/2026 · v508 / 5.11.0)
+- Bloco "S250" no fim do `www/style.css`: títulos serifados, cartões sem contorno e sombra leve, Guardião com fio em cima, rótulos discretos, números alinhados, campos de cantos 16 px, barra sem sombra com ponto no item ativo (celular), linhas de Ajustes com 60 px.
+- BOTÕES: ação principal (`.mini` sem `.ghost`, `.btn-sc.p`, `#btnAdd`) = fio cinza fino com a letra na cor do texto; ação dentro de lista (`.gBtn`, Guardião) = só texto; sem vinho; ao toque afunda (scale .96 + fundo 12%, 0,08 s). Vale no claro e no escuro (usa `--fg`). Não renomear nem redesenhar botão sem pedido.
+- MOVIMENTO: abrir tela = 1 movimento (`lfEntra`, 0,2 s, na `.view.enter`); `animTela` (`src/98-botoes-anim.js`) não sobe mais os blocos em fila; o ícone da barra não dá mais pulinho; atalhos do Início em fila curta (12 ms cada, teto 180 ms, 0,24 s); o total do Caixa (`.cxTot b`) conta até o valor em 0,48 s (`contaNumeros(el, dur)`).
+- DESCRIÇÕES (frase curta do que a tela faz): Catálogo, Caixa, Pedidos, Clientes, Histórico, Câmbio, Despesas, Pendências, Ajustes. Em Pedidos e Câmbio a frase fica na 1ª linha e os controles que já existiam (última busca / Verificar agora; Cotação da casa) continuam na linha de baixo.
+- Conferência: `work/s250/confere.py` (v507 × v508 em 390, 820, 1366 e 2560, claro e escuro, 13 telas).

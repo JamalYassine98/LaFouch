@@ -185,7 +185,7 @@
     if (!el) return;
     var ativo = hFiltrando();
     el.innerHTML =
-      '<div class="top"><div><h1>Histórico</h1><div class="crumb">Busque, filtre ou toque num dia para abrir tudo o que aconteceu nele.</div></div></div>' +
+      '<div class="top"><div><h1>Histórico</h1><div class="crumb">Todas as vendas, dia por dia.</div></div></div>' +
       '<section class="card col" style="gap:10px"><div class="sel"><input class="in" id="hq" type="search" data-in="hq" placeholder="Buscar produto ou conta" value="' + esc(S.hq) + '" aria-label="Buscar no histórico" style="flex:1">' +
       '<button type="button" class="chip" data-act="hcal" aria-label="Ir para uma data" title="Ir para uma data" style="min-width:44px">📅</button>' +
       '<button type="button" class="chip' + (S.hFopen || ativo ? ' on' : '') + '" data-act="hfopen" aria-expanded="' + !!S.hFopen + '">Filtros</button></div>' +
