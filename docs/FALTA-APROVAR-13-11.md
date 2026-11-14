@@ -2,7 +2,7 @@
 
 Responder com os números (ex.: "1, 3, 5 aprovados; 4 não"). Cada item aponta o esboço que já existe.
 
-## A · Falta aprovar
+## A · APROVADO em 14/11 00:08 ("Tudo aprovado") — itens 1 a 14; 14 = "Conferir" só texto
 
 | Nº | O quê | Onde | Esboço |
 |---|---|---|---|
@@ -37,3 +37,20 @@ Aviso: as folhas S241–S245 ainda mostram o botão vinho cheio; vale o botão n
 - App Pedidos e Clientes: desenho do estado vazio leva 1,5 s.
 - Site: WhatsApp e a linha da barra do app animam largura/posição (custa fluidez); trocar por deslocamento, sem mudar o visual.
 - Site abrir peça: quadro parado de ~200 ms (código; já anotado no S228).
+
+## D · Propostas novas (S249, 14/11) — falta aprovar
+
+Sonda: work/s249/sonda.py (toca em cada controle visível de 13 telas do app e 3 do site) e sonda2.py (diferença de imagem ao abrir e fechar).
+
+| Nº | O quê | Medido hoje | Esboço |
+|---|---|---|---|
+| 15 | App: toda janela abre e fecha do mesmo jeito (abre 0,32 s, fecha 0,2 s) | 6 tempos de abrir (260, 300, 320, 400, 450–500, 650 ms); "+ Novo objetivo" e "+ Adicionar" fecham secos; outras fecham em 220–350 ms | work/s249/s249_video_app_janela_abre_fecha.mp4 |
+| 16 | Site: sacola abre com o mesmo movimento de Minha conta | abre seca (0 animação), fecha em 0,3 s | work/s249/s249_video_site_sacola.mp4 |
+| 17 | App: o que aparece seco entra suave (0,2 s) | calendário e filtros do Histórico, calendário do Dia, "+ Novo cliente": 0 animação ao abrir | sem vídeo |
+| 18 | App Pedidos e Clientes: desenho da tela vazia 1 vez e em 0,6 s | leva 1,5 s e se redesenha a cada "Verificar agora" | sem vídeo |
+| 19 | Site: busca fecha em 0,2 s | abre em 0,42 s, fecha seca | sem vídeo |
+| 20 | Site: menu fecha em 0,2 s | 0,53 s com 14 itens em fila | sem vídeo |
+| 21 | Temáticas: enfeites animam ~8 s na chegada e repousam | Natal, Ano-novo (2), Mães, Pais: 6–7 flocos/brilhos/pétalas sem fim; Halloween: 2 morcegos sem fim | sem vídeo |
+| 22 | Limpeza sem mudança visual: animar deslocamento em vez de largura/posição (abas do Inventário, linha da barra, WhatsApp, Câmbio, Ajustes do catálogo); catálogo não refazer 40 animações ao fechar a busca | medido na sonda; o refazer do catálogo NÃO aparece na tela (0% de diferença) | sem esboço |
+
+Sem animação sem fim em nenhuma das 13 telas do app paradas; no site só o ponto das "Últimas" (fora das temáticas).

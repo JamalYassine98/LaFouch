@@ -2061,3 +2061,10 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Sonda work/s248/sonda.py (o que se mexe em cada toque; resultado em sonda.json). Vídeos work/s248/video.py: s248_video_site_menu (1,05 → 0,45 s), s248_video_site_favoritar (1,9 → 0,62 s até a sacola), s248_video_app_notif e s248_video_app_desp (fila de blocos → 1 movimento 0,2 s).
 - Relatório: docs/FALTA-APROVAR-13-11.md (14 itens numerados a aprovar; lista do aprovado a implementar). "Conferir" segue só texto até o dono decidir (item 14).
 - Não testado: celular real, PC nas propostas do app, temáticas. Nada implementado.
+- 14/11 00:08 DONO: "Tudo aprovado" — os 14 itens de docs/FALTA-APROVAR-13-11.md ficam APROVADOS (1 favoritar sem círculo + Últimas em etiqueta; 2 coração até a sacola; 3 menu 0,45 s; 4 telas do app em 1 movimento; 5 catálogo único Produtos; 6 Site como tela do app; 7 PC ação ao lado do título + Inventário largura toda; 8 PC Caixa/Ajustes 2 colunas; 9 as 9 descrições; 10 app inteiro S245; 11 Nuvem enxuta; 12 backup por mudança; 13 junções Vendas/Dinheiro etc.; 14 "Conferir" fica só texto, como no esboço). Itens 12 e 13 não têm esboço de tela: desenhar antes de implementar. Pediu AINDA MAIS propostas com a mesma lógica (medir → propor), o máximo que eu achar necessário.
+
+### S249 · Mais propostas pela mesma lógica (14/11/2026 00:10) — ESBOÇO, aguardando
+- Sonda funda (work/s249/sonda.py, sonda2.py): 54 toques em 13 telas do app e 3 do site, abrir e fechar, + temáticas paradas.
+- Propostas 15–22 em docs/FALTA-APROVAR-13-11.md (seção D): janelas do app num padrão só (abre 0,32 / fecha 0,2 s); sacola do site com entrada; entradas secas suaves; tela vazia de Pedidos/Clientes; fechar busca e menu em 0,2 s; enfeites das temáticas repousam; limpeza técnica.
+- Vídeos: s249_video_app_janela_abre_fecha, s249_video_site_sacola. Descartei o vídeo "fechar a busca refaz o catálogo": medido 0% de diferença na tela (as 40 animações existem mas não aparecem).
+- Não conferido: "abrir peça" pela sonda (o clique não abriu a peça); botões de fechar de 12 janelas não achados (só Esc); PC; celular real. Nada implementado.

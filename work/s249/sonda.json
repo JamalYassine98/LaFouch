@@ -1,0 +1,1014 @@
+{
+ "toques": [
+  {
+   "tela": "app inicio",
+   "k": "guardAbre",
+   "txt": "Guardião · 5 coisas para olh",
+   "abre": {
+    "n": 2,
+    "fim": 400,
+    "lay": 0,
+    "nomes": {
+     "tr:opacity+computedOffset": 1,
+     "tr:transform+computedOffset": 1
+    }
+   },
+   "abriu": "div.ljJn",
+   "fecha": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {},
+    "fechou": false
+   }
+  },
+  {
+   "tela": "app inicio",
+   "k": "view",
+   "txt": "Conferir",
+   "abre": {
+    "n": 5,
+    "fim": 670,
+    "lay": 0,
+    "nomes": {
+     "pulinhoN": 1,
+     "enterUp": 1,
+     "telaSobe": 3
+    }
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app inicio",
+   "k": "inicio",
+   "txt": "343 peças da compra de 31/12",
+   "abre": {
+    "n": 4,
+    "fim": 670,
+    "lay": 1,
+    "nomes": {
+     "pulinhoN": 1,
+     "enterUp": 1,
+     "telaSobe": 1,
+     "tr:left+width+computedOffset": 1
+    }
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app inicio",
+   "k": "chip",
+   "txt": "343",
+   "abre": {
+    "n": 3,
+    "fim": 450,
+    "lay": 1,
+    "nomes": {
+     "pulinhoN": 1,
+     "enterUp": 1,
+     "tr:left+width+computedOffset": 1
+    }
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app estoque",
+   "k": "btnAdd",
+   "txt": "+ Adicionar",
+   "abre": {
+    "n": 2,
+    "fim": 260,
+    "lay": 0,
+    "nomes": {
+     "fadein": 1,
+     "popin": 1
+    }
+   },
+   "abriu": "div#addModal",
+   "fecha": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {},
+    "fechou": true
+   }
+  },
+  {
+   "tela": "app estoque",
+   "k": "eTabP",
+   "txt": "Produtos",
+   "abre": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {}
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app estoque",
+   "k": "eTabL",
+   "txt": "Fornecedores 1",
+   "abre": {
+    "n": 3,
+    "fim": 380,
+    "lay": 3,
+    "nomes": {
+     "tr:left+computedOffset": 1,
+     "tr:width+computedOffset": 1,
+     "tr:left+width+computedOffset": 1
+    }
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app estoque",
+   "k": "eTabR",
+   "txt": "Reposição",
+   "abre": {
+    "n": 4,
+    "fim": 380,
+    "lay": 3,
+    "nomes": {
+     "tr:left+computedOffset": 1,
+     "tr:width+computedOffset": 1,
+     "enterUp": 1,
+     "tr:left+width+computedOffset": 1
+    }
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app estoque",
+   "k": "kCont",
+   "txt": "EM ESTOQUE (FILTRO) 470 toqu",
+   "abre": {
+    "n": 2,
+    "fim": 350,
+    "lay": 0,
+    "nomes": {
+     "tr:color+computedOffset": 2
+    }
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app estoque",
+   "k": "ic",
+   "txt": "Buscar com a câmera",
+   "abre": {
+    "n": 4,
+    "fim": 650,
+    "lay": 0,
+    "nomes": {
+     "lfaFade": 1,
+     "lfaSUp": 1,
+     "cgIn": 2
+    }
+   },
+   "abriu": "div.lfa-sh",
+   "fecha": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {},
+    "fechou": false
+   }
+  },
+  {
+   "tela": "app estoque",
+   "k": "btnFilt",
+   "txt": "Filtros e ordem",
+   "abre": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {}
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app estoque",
+   "k": "pcAbre",
+   "txt": "! 15 preços para corrigir 2 ",
+   "abre": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {}
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app vendas",
+   "k": "mcLiga",
+   "txt": "Modo cliente (iPad da loja)",
+   "abre": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {}
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app vendas",
+   "k": "ic",
+   "txt": "Buscar com a câmera",
+   "abre": {
+    "n": 4,
+    "fim": 650,
+    "lay": 0,
+    "nomes": {
+     "lfaFade": 1,
+     "lfaSUp": 1,
+     "cgIn": 2
+    }
+   },
+   "abriu": "div.lfa-sh",
+   "fecha": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {},
+    "fechou": false
+   }
+  },
+  {
+   "tela": "app vendas",
+   "k": "cjAj",
+   "txt": "Ajustes do catálogo",
+   "abre": {
+    "n": 11,
+    "fim": 400,
+    "lay": 3,
+    "nomes": {
+     "tr:opacity+computedOffset": 1,
+     "tr:transform+computedOffset": 4,
+     "tr:width+computedOffset": 3,
+     "tr:color+computedOffset": 3
+    }
+   },
+   "abriu": "div.lfa-sh,div.ljJn",
+   "fecha": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {},
+    "fechou": false
+   }
+  },
+  {
+   "tela": "app vendas",
+   "k": "cjSh",
+   "txt": "Compartilhar",
+   "abre": {
+    "n": 9,
+    "fim": 650,
+    "lay": 1,
+    "nomes": {
+     "tr:opacity+computedOffset": 1,
+     "tr:transform+computedOffset": 2,
+     "tr:width+computedOffset": 1,
+     "shSobe": 5
+    }
+   },
+   "abriu": "div.lfa-sh,div.ljJn,div.ljJn",
+   "fecha": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {},
+    "fechou": false
+   }
+  },
+  {
+   "tela": "app vendas",
+   "k": "pcard",
+   "txt": "Lote Kazwini G$ 25.000",
+   "abre": {
+    "n": 32,
+    "fim": 450,
+    "lay": 0,
+    "nomes": {
+     "tr:filter+computedOffset": 1,
+     "tr:opacity+computedOffset": 15,
+     "tr:transform+computedOffset": 15,
+     "mcIn": 1
+    }
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app caixa",
+   "k": "cxmenu",
+   "txt": "Ações do caixa",
+   "abre": {
+    "n": 1,
+    "fim": 300,
+    "lay": 0,
+    "nomes": {
+     "cxMenuIn": 1
+    }
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app caixa",
+   "k": "view",
+   "txt": "Dashboard",
+   "abre": {
+    "n": 1,
+    "fim": 260,
+    "lay": 0,
+    "nomes": {
+     "enterUp": 1
+    }
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app caixa",
+   "k": "cxabre",
+   "txt": "+ Novo objetivo",
+   "abre": {
+    "n": 2,
+    "fim": 450,
+    "lay": 0,
+    "nomes": {
+     "lfaFade": 1,
+     "lfaSUp": 1
+    }
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app ped",
+   "k": "pedver",
+   "txt": "Verificar agora",
+   "abre": {
+    "n": 5,
+    "fim": 1500,
+    "lay": 0,
+    "nomes": {
+     "enterUp": 1,
+     "lfDesenha": 2,
+     "lfSobe": 2
+    }
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app ped",
+   "k": "pedf",
+   "txt": "Agir agora",
+   "abre": {
+    "n": 4,
+    "fim": 1500,
+    "lay": 0,
+    "nomes": {
+     "lfDesenha": 2,
+     "lfSobe": 2
+    }
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app clientes",
+   "k": "clinovo",
+   "txt": "+ Novo cliente",
+   "abre": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {}
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app clientes",
+   "k": "ataNovo",
+   "txt": "Acesso atacado",
+   "abre": {
+    "n": 2,
+    "fim": 400,
+    "lay": 0,
+    "nomes": {
+     "tr:opacity+computedOffset": 1,
+     "tr:transform+computedOffset": 1
+    }
+   },
+   "abriu": "div.ljJn",
+   "fecha": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {},
+    "fechou": false
+   }
+  },
+  {
+   "tela": "app clientes",
+   "k": "ataLotes",
+   "txt": "Lotes",
+   "abre": {
+    "n": 2,
+    "fim": 400,
+    "lay": 0,
+    "nomes": {
+     "tr:opacity+computedOffset": 1,
+     "tr:transform+computedOffset": 1
+    }
+   },
+   "abriu": "div.ljJn,div.ljJn",
+   "fecha": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {},
+    "fechou": false
+   }
+  },
+  {
+   "tela": "app clientes",
+   "k": "cupAbre",
+   "txt": "Cartões",
+   "abre": {
+    "n": 2,
+    "fim": 400,
+    "lay": 0,
+    "nomes": {
+     "tr:opacity+computedOffset": 1,
+     "tr:transform+computedOffset": 1
+    }
+   },
+   "abriu": "div.ljJn,div.ljJn,div.ljJn",
+   "fecha": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {},
+    "fechou": false
+   }
+  },
+  {
+   "tela": "app hist",
+   "k": "hcal",
+   "txt": "📅",
+   "abre": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {}
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app hist",
+   "k": "hfopen",
+   "txt": "Filtros",
+   "abre": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {}
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app hist",
+   "k": "fechar",
+   "txt": "Fechar o dia agora",
+   "abre": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {}
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app hist",
+   "k": "opendia",
+   "txt": "14/11 · hoje Sáb G$ 483.500 ",
+   "abre": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {}
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app dash",
+   "k": "dVer",
+   "txt": "Resumo ⌄",
+   "abre": {
+    "n": 2,
+    "fim": 500,
+    "lay": 0,
+    "nomes": {
+     "lfaFade": 1,
+     "lfaSUp": 1
+    }
+   },
+   "abriu": "div.lfa-sh",
+   "fecha": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {},
+    "fechou": false
+   }
+  },
+  {
+   "tela": "app dash",
+   "k": "dPer",
+   "txt": "Este mês ⌄",
+   "abre": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {}
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app dia",
+   "k": "dayprev",
+   "txt": "‹",
+   "abre": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {}
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app dia",
+   "k": "daycal",
+   "txt": "14/11/2026 ▾",
+   "abre": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {}
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app dia",
+   "k": "daynext",
+   "txt": "›",
+   "abre": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {}
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app fx",
+   "k": "fxSt",
+   "txt": "Cotação da casa",
+   "abre": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {}
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app fx",
+   "k": "fjAbre",
+   "txt": "DÓLAR G$ 6.487 — estável",
+   "abre": {
+    "n": 4,
+    "fim": 320,
+    "lay": 1,
+    "nomes": {
+     "tr:width+computedOffset": 1,
+     "tr:transform+computedOffset": 1,
+     "fjF": 1,
+     "fjS": 1
+    }
+   },
+   "abriu": "div.fjJn",
+   "fecha": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {},
+    "fechou": false
+   }
+  },
+  {
+   "tela": "app notif",
+   "k": "view",
+   "txt": "Ver margem",
+   "abre": {
+    "n": 4,
+    "fim": 670,
+    "lay": 0,
+    "nomes": {
+     "enterUp": 1,
+     "telaSobe": 3
+    }
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app notif",
+   "k": "dtab",
+   "txt": "Ver preços",
+   "abre": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {}
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "app ajustes",
+   "k": "ajR",
+   "txt": "Impressora Nenhuma",
+   "abre": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {}
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "site início",
+   "k": "mnb",
+   "txt": "Menú",
+   "abre": {
+    "n": 16,
+    "fim": 1045,
+    "lay": 0,
+    "nomes": {
+     "tr:opacity+computedOffset": 1,
+     "tr:transform+computedOffset": 1,
+     "tr:opacity+translate+computedOffset": 14
+    }
+   },
+   "abriu": "div.dsc,aside.dpn",
+   "fecha": {
+    "n": 14,
+    "fim": 528,
+    "lay": 0,
+    "nomes": {
+     "tr:opacity+computedOffset": 1,
+     "tr:transform+computedOffset": 1,
+     "tr:opacity+translate+computedOffset": 12
+    },
+    "fechou": true
+   }
+  },
+  {
+   "tela": "site início",
+   "k": "logo",
+   "txt": "La Fouch, todo en lentes",
+   "abre": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {}
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "site início",
+   "k": "sbtn",
+   "txt": "Buscar",
+   "abre": {
+    "n": 4,
+    "fim": 420,
+    "lay": 0,
+    "nomes": {
+     "sofd": 1,
+     "lfsoGrow": 1,
+     "lfsoTx": 2
+    }
+   },
+   "abriu": "div.sosc,div.sopn",
+   "fecha": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {},
+    "fechou": true
+   }
+  },
+  {
+   "tela": "site início",
+   "k": "bagbtn",
+   "txt": "0",
+   "abre": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {}
+   },
+   "abriu": "div.scrim,aside.panel",
+   "fecha": {
+    "n": 1,
+    "fim": 300,
+    "lay": 0,
+    "nomes": {
+     "tr:opacity+transform+computedOffset": 1
+    },
+    "fechou": true
+   }
+  },
+  {
+   "tela": "site início",
+   "k": "minha",
+   "txt": "Mi cuenta",
+   "abre": {
+    "n": 1,
+    "fim": 280,
+    "lay": 0,
+    "nomes": {
+     "pgrise": 1
+    }
+   },
+   "abriu": "div.scrim,aside.panel",
+   "fecha": {
+    "n": 2,
+    "fim": 300,
+    "lay": 0,
+    "nomes": {
+     "pgrise": 1,
+     "tr:opacity+transform+computedOffset": 1
+    },
+    "fechou": true
+   }
+  },
+  {
+   "tela": "site catálogo",
+   "k": "mnb",
+   "txt": "Menú",
+   "abre": {
+    "n": 16,
+    "fim": 1045,
+    "lay": 0,
+    "nomes": {
+     "tr:opacity+computedOffset": 1,
+     "tr:transform+computedOffset": 1,
+     "tr:opacity+translate+computedOffset": 14
+    }
+   },
+   "abriu": "div.dsc,aside.dpn,section#vitrine",
+   "fecha": {
+    "n": 15,
+    "fim": 3000,
+    "lay": 0,
+    "nomes": {
+     "tr:opacity+computedOffset": 1,
+     "tr:transform+computedOffset": 1,
+     "ring": 1,
+     "tr:opacity+translate+computedOffset": 12
+    },
+    "fechou": false
+   }
+  },
+  {
+   "tela": "site catálogo",
+   "k": "logo",
+   "txt": "La Fouch, todo en lentes",
+   "abre": {
+    "n": 1,
+    "fim": 120,
+    "lay": 0,
+    "nomes": {
+     "tr:opacity+computedOffset": 1
+    }
+   },
+   "abriu": "",
+   "fecha": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {},
+    "fechou": false
+   }
+  },
+  {
+   "tela": "site catálogo",
+   "k": "sbtn",
+   "txt": "Buscar",
+   "abre": {
+    "n": 4,
+    "fim": 420,
+    "lay": 0,
+    "nomes": {
+     "sofd": 1,
+     "lfsoGrow": 1,
+     "lfsoTx": 2
+    }
+   },
+   "abriu": "section#vitrine,div.sosc,div.sopn",
+   "fecha": {
+    "n": 40,
+    "fim": 1930,
+    "lay": 0,
+    "nomes": {
+     "rise": 20,
+     "imgin": 20
+    },
+    "fechou": true
+   }
+  },
+  {
+   "tela": "site catálogo",
+   "k": "bagbtn",
+   "txt": "0",
+   "abre": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {}
+   },
+   "abriu": "section#vitrine,div.scrim,aside.panel",
+   "fecha": {
+    "n": 1,
+    "fim": 300,
+    "lay": 0,
+    "nomes": {
+     "tr:opacity+transform+computedOffset": 1
+    },
+    "fechou": true
+   }
+  },
+  {
+   "tela": "site catálogo",
+   "k": "minha",
+   "txt": "Mi cuenta",
+   "abre": {
+    "n": 1,
+    "fim": 280,
+    "lay": 0,
+    "nomes": {
+     "pgrise": 1
+    }
+   },
+   "abriu": "section#vitrine,div.scrim,aside.panel",
+   "fecha": {
+    "n": 2,
+    "fim": 300,
+    "lay": 0,
+    "nomes": {
+     "pgrise": 1,
+     "tr:opacity+transform+computedOffset": 1
+    },
+    "fechou": true
+   }
+  },
+  {
+   "tela": "site catálogo",
+   "k": "card",
+   "txt": "LLEGÓ ESTA SEMANA SL2210 UV4",
+   "abre": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {}
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "site catálogo",
+   "k": "fav",
+   "txt": "Agregar a favoritos: Solar h",
+   "abre": {
+    "n": 9,
+    "fim": 2120,
+    "lay": 0,
+    "nomes": {
+     "pop": 1,
+     "fade": 1,
+     "tr:opacity+transform+computedOffset": 4,
+     "tr:stroke+computedOffset": 2,
+     "tr:fill+computedOffset": 1
+    }
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "site catálogo",
+   "k": "ABRIR PEÇA 45ms",
+   "txt": "",
+   "abre": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {}
+   },
+   "abriu": "",
+   "fecha": null
+  },
+  {
+   "tela": "site catálogo",
+   "k": "ABRIR PEÇA 300ms",
+   "txt": "",
+   "abre": {
+    "n": 0,
+    "fim": 0,
+    "lay": 0,
+    "nomes": {}
+   },
+   "abriu": "",
+   "fecha": null
+  }
+ ],
+ "semfim": {
+  "app inicio": {},
+  "app estoque": {},
+  "app vendas": {},
+  "app caixa": {},
+  "app ped": {},
+  "app clientes": {},
+  "app hist": {},
+  "app dash": {},
+  "app dia": {},
+  "app fx": {},
+  "app desp": {},
+  "app notif": {},
+  "app ajustes": {},
+  "site início": {
+   "ulinp i.": 1
+  },
+  "site catálogo": {
+   "ulinp i.": 5
+  },
+  "site peça": {
+   "ulinp i.": 1
+  },
+  "site tema natal": {
+   "evcai i.fl": 7,
+   "ulinp i.": 1
+  },
+  "site tema halloween": {
+   "evasa svg.": 2,
+   "ulinp i.": 1
+  },
+  "site tema bf": {
+   "ulinp i.": 1
+  },
+  "site tema anonovo-d": {
+   "evpis i.br": 7,
+   "ulinp i.": 1
+  },
+  "site tema anonovo-n": {
+   "evpis i.br": 7,
+   "ulinp i.": 1
+  },
+  "site tema maes": {
+   "evcai i.pt": 7,
+   "ulinp i.": 1
+  },
+  "site tema pais": {
+   "evpis i.br": 6,
+   "ulinp i.": 1
+  }
+ }
+}
