@@ -2163,3 +2163,11 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - AVISO dado ao dono: não existe giro real de nenhuma peça; os ângulos do esboço são SIMULADOS inclinando a foto de frente (até 35°); só o zoom é da foto real. Câmera falsa (verde) no esboço do app.
 - olho.js: computador 0 pioras; celular parado 0 pioras; celular rolado "toque<40" 1 → 3, mas os 2 a mais são "Comparar" e "Compartir" que JÁ existem pequenos e só entraram na tela porque a página desceu 55 px (falha antiga, não criada pela proposta).
 - Não testado: temáticas, 3 letras, tablet, espanhol/português além do es-PY, celular real. Falta um giro real do dono para medir peso e fluidez. Nada implementado.
+
+### S260 · 360 com o giro REAL do dono + controles redesenhados — ESBOÇO (14/11/2026 02:18), aguardando
+- DONO mandou um vídeo de giro (esboço; altura e ângulo ainda serão ajustados com o tripé) e o conceito: o sistema grava até completar as informações, pega a frente e a 3/4 sozinho, fecha a câmera quando detecta tudo certo, e padroniza o perfil de TODOS os produtos (mesmo ângulo, distância e manuseio no site). Pediu elaborar mais e melhorar o desenho dos botões e do manuseio do 360 no site.
+- O vídeo original NÃO entrou no projeto (ficou em /tmp/s260_in). Medido: 11,6 s, ~150° de giro (~13°/s; volta inteira ≈ 27 s), frente achada sozinha por simetria em 1,7 s, haste sai do quadro no perfil, 36 quadros tratados ≈ 570 kB (vídeo 5 MB). Tratamento: work/s260/trata.py (fundo branco, mesmo recorte; sobra halo fraco do prato).
+- Esboço com quadros REAIS (work/s260/gera.py): régua fina com paradas FRENTE · 3/4 · PERFIL no lugar da fileira de botões; ampliar só por gesto; um ícone "ver em grande"; dica que some; giro lento de chegada. Folhas s260_site_celular_peca, s260_site_celular_manuseio, s260_site_pc_peca, s260_giro_tratado; vídeo s260_video_site_peca_giratoria_real.mp4.
+- olho.js: computador 0 pioras; celular parado 0 pioras; celular rolado: os mesmos 2 botões pequenos antigos (Comparar, Compartir) entram na tela.
+- Elaboração do conceito em docs/ESTUDO-ESTUDIO-14-11.md (lista ao vivo, fecha sozinho, perfil padrão da loja, padronização, refazer peças antigas).
+- Não testado: temáticas, 3 letras, tablet, celular real; a peça do vídeo aparece numa página de amostra com nome e preço de outra peça. Nada implementado.

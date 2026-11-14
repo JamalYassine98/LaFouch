@@ -35,3 +35,32 @@ Só leitura do código (`src/97-estudio.js`, `97-estudio-giro.js`, `97-giro-site
 - O que "completo" quer dizer para você: girar com o dedo no site, mais ângulos de foto, vídeo melhor, ou tudo.
 - Peso: 36 quadros por cor pesam mais que um vídeo; preciso medir com um giro real seu antes de prometer tamanho e velocidade no site.
 - Não vi o giro funcionando (o simulador não tem prato nem câmera real) nem as telas de resultado.
+
+## S260 (14/11 02:18) · O giro real do dono, o conceito dele e o desenho novo dos controles
+
+### O vídeo que o dono mandou (medido)
+- 1080×1920, 30 quadros por segundo, 11,6 s, 5 MB. A peça gira cerca de 150° (de −22° até 131° em relação à frente), a uns 13° por segundo: uma volta inteira nessa velocidade leva perto de 27 s.
+- A frente foi achada SOZINHA pela simetria (quadro de 1,7 s; nota 0,39 contra ~0,2 dos vizinhos). 3/4 e perfil saem contando o ângulo a partir dela.
+- Fundo filmado em cinza-lilás; o tratamento (`work/s260/trata.py`) deixa branco e mantém o mesmo recorte em todos os quadros. Sobra um halo fraco da borda do prato e as lentes transparentes clareiam demais.
+- No perfil a haste sai do quadro: falta distância (o dono já avisou que altura e ângulo serão ajustados com o tripé).
+- Peso medido: 70 quadros de 720×480 = 1,1 MB; 36 quadros ≈ 570 kB; o 1º quadro ≈ 16 kB. O vídeo original pesa 5 MB.
+
+### Conceito do dono (registrado)
+1. O sistema vai gravando até completar as informações.
+2. Com isso ele mesmo pega a frente e a 3/4.
+3. Se detectar tudo certo, fecha a câmera sozinho.
+4. Quando entram peças novas, o sistema padroniza o perfil de todos os produtos: mesmo ângulo, mesma distância, mesmo manuseio no site.
+
+### Como eu elaboro esse conceito
+- **Lista ao vivo do que já tem:** enquanto grava, o app marca Frente, 3/4, Perfil e Volta completa conforme acha cada um; o anel de 0–360° enche. Quando tudo está marcado e a qualidade passa (foco, peça inteira no quadro, velocidade), a câmera fecha com uma confirmação curta. Nada de botão de parar.
+- **Avisa o que impede de completar**, no momento: "a haste está saindo do quadro — afaste", "prato rápido demais", "fundo escuro".
+- **Perfil padrão da loja:** a primeira peça boa define distância, altura e tamanho. Em toda peça nova o app compara com esse perfil e orienta antes de gravar ("afaste um pouco", "suba o celular").
+- **Padronização depois de gravar:** ângulo zero = frente achada pela simetria; os mesmos 36 ângulos; mesma largura da peça de frente dentro do quadro; mesma linha das lentes na vertical; mesmo nível; mesmo branco. Assim toda peça gira igual no site, e trocar de cor ou de peça mantém o ângulo.
+- **Peças antigas:** quando o padrão muda, o app refaz o recorte das que já existem para todas ficarem iguais.
+
+### Controles no site — desenho novo (S260)
+- Sai a fileira de 4 botões do S259. Entra uma **régua fina** sob a foto, com marcas e três paradas escritas (FRENTE · 3/4 · PERFIL); o ponto mostra o ângulo; tocar numa parada faz a peça girar até lá; arrastar a peça ou a régua gira. Com a volta inteira filmada, a régua vira um ciclo sem começo nem fim.
+- **Ampliar é por gesto** (pinça, toque duplo, roda do mouse), sem botão.
+- **Um único ícone** (canto de cima, espelhando o coração): "ver em grande" — tela inteira branca, peça grande, a mesma régua, ✕ para fechar.
+- A dica "Arrastá para girar" aparece uma vez e some no primeiro toque. Ao chegar, a peça gira devagar até a 3/4 e volta para a frente.
+- Folhas: `work/s260/s260_site_celular_peca.jpg`, `s260_site_celular_manuseio.jpg`, `s260_site_pc_peca.jpg`, `s260_giro_tratado.jpg`; vídeo `s260_video_site_peca_giratoria_real.mp4` (14 s, quadros reais).
