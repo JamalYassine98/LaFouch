@@ -21,10 +21,10 @@ Como foi feito: `work/s253/inv.py` leu o código inteiro e listou cada animaçã
 | | Site | App |
 |---|---|---|
 | Animações desenhadas | 91 | 137 |
-| Manter | 29 | 31 |
-| Ajustar (curva/tempo) | 47 | 71 |
+| Manter | 31 | 31 |
+| Ajustar (curva/tempo) | 30 | 70 |
 | Trocar (quique, balanço, tremida, sem fim, carregador) | 11 | 32 |
-| Apagar (sem uso) | 4 | 3 |
+| Apagar (sem uso) | 19 | 4 |
 | Transições | 250 | 166 |
 | Tempos diferentes nas transições | 28 | 22 |
 | Transições sem a curva de luxo | 201 | 143 |
@@ -39,7 +39,7 @@ Como foi feito: `work/s253/inv.py` leu o código inteiro e listou cada animaçã
 - **Decisão sua:** mostrar um "Cancelar" discreto depois de 4 s (hoje não existe; é função nova).
 
 ### 3.2 · O leitor do código da haste (hoje: amador)
-- **Hoje (visto no simulador com câmera falsa):** tela preta, o vídeo só numa faixa, quatro cantos brancos grossos, uma linha rosa-neon que varre sem parar (1,5 s, animando posição), "Analisando código" com os pontinhos, a régua de zoom no visual azul padrão do navegador, botão branco de disparo e ícone de galeria. Há um controle branco vertical à esquerda da faixa cuja função não identifiquei no simulador.
+- **Hoje (visto no simulador com câmera falsa):** tela preta, o vídeo só numa faixa, quatro cantos brancos grossos, uma linha rosa-neon que varre sem parar (1,5 s, animando posição), "Analisando código" com os pontinhos, a régua de zoom no visual azul padrão do navegador, botão branco de disparo e ícone de galeria. A "pílula" branca à esquerda da faixa é o canto de cima-esquerda desenhado com 104 px de altura em vez de 30 (os outros três têm 30): parece defeito, não função.
 - **Luxo:** o botão "Ler haste" cresce até virar o leitor (origem) e o leitor encolhe de volta ao fechar; o vídeo ocupa a tela inteira com um véu escuro suave fora da faixa; cantos finos (1,5 px) que respiram só enquanto procura; sai a linha neon; quando acha o texto, a faixa ganha um fio claro e o código lido aparece em serifada acima dela (0,32 s) com uma vibração curta; zoom vira uma régua fina própria (1× · 2× · 3×) na cor do texto; a dica some sozinha em 3 s; ✕ e galeria no padrão dos botões novos. Todas as funções ficam.
 
 ## 4 · Interações, uma a uma (hoje → luxo)
@@ -58,8 +58,8 @@ Como foi feito: `work/s253/inv.py` leu o código inteiro e listou cada animaçã
 | S9 | "Adicionado à sacola" | janela aparece em 0,42 s com check em 0,4–0,6 s | nasce do botão Comprar e vai para a sacola; 0,46 / 0,3 s |
 | S10 | Destaque (carrossel) | foto aproxima em 6,2 s, linha de tempo de 6 s | manter; troca de slide com cruzamento de 0,46 s |
 | S11 | WhatsApp | 2 pulsos (já feito); vira aba animando largura e altura | mesmo visual, animando escala e deslocamento |
-| S12 | Página da peça · palco | flutua (5,5 s), brilho (4,5 s), reflexo (3 s), respiração (2,6–3,4 s) e sombra, todos sem fim; entrada de 0,9 a 1,6 s | a peça assenta uma vez em 0,46 s e fica parada; brilho passa 1 vez ao abrir. **Decisão sua:** esses efeitos são escolhidos por peça (`data-fx`); recomendo 1 passada só |
-| S13 | Capa (hero), lema e selo | fundo se move em 14–17 s sem fim; selo gira em 9 s sem fim; textos entram em 1,2 s | fundo e selo parados; textos entram em fila em 0,46 s |
+| S12 | ~~Palco da peça~~ | **CORRIGIDO 14/11:** flutuar, brilho, reflexo e respirar existem no código mas pertencem ao palco antigo do Início, que está escondido; a página da peça de hoje não tem nenhum efeito sem fim | apagar o código antigo; nada a decidir |
+| S13 | ~~Capa, lema e selo~~ | **CORRIGIDO 14/11:** também são da capa antiga, escondida hoje | apagar o código antigo |
 | S14 | Abertura do site | logo em 3 tempos (1,2 · 1,0 · 0,8 s) + saída 0,8 s | 1 vez por visita, até 1,2 s no total |
 | S15 | Pedido confirmado | check com brilho que estoura a 1,8×, anel girando sem fim, coração 1,2 s, confete, etiqueta que balança sem fim | check desenhado em 0,46 s, valor em serifada, etiqueta parada. **Decisão sua:** tirar o confete (recomendo) |
 | S16 | Conta criada | check com anel de 0,9 s e giro de 0,7 s | o mesmo check do S15 |
@@ -68,7 +68,7 @@ Como foi feito: `work/s253/inv.py` leu o código inteiro e listou cada animaçã
 | S19 | Temáticas | enfeites encerram aos 10 s | manter |
 | S20 | Puxar para atualizar e carregadores | anel 0,8–1,0 s + ícone que pulsa 1,4 s | o carregador único |
 | S21 | Avisos (toast) | aparece em 0,2 s | sobe 8 px e aparece em 0,32 s; sai em 0,2 s |
-| S22 | Botão Comprar (brilho) | brilho passa a cada 4,2 s sem fim, animando posição | 1 passada quando o botão entra na tela |
+| S22 | ~~Brilho do botão da capa~~ | **CORRIGIDO 14/11:** é da capa antiga, escondida hoje | apagar o código antigo |
 | S23 | Etiqueta de estoque e Últimas unidades | pulso sem fim | manter o das Últimas (seu pedido); a etiqueta respira igual |
 | S24 | Trocar tema, olho da senha, opções do pagamento | 0,6 · 0,35 · 0,22 s | só curva e tempos |
 
@@ -92,7 +92,7 @@ Como foi feito: `work/s253/inv.py` leu o código inteiro e listou cada animaçã
 | A15 | Nuvem | botão pulsa sem fim pedindo ação (1,3 s, com sombra), brilho que varre, salto de 0,6 s | estado calmo: ponto + frase; 2 pulsos de transparência |
 | A16 | Apagar | "segurar para apagar" enche animando largura (0,9 s); tampa da lixeira 1,3 s | enche por escala; tampa em 0,46 s |
 | A17 | Chips, abas e marcações | chip escolhido estoura a 1,2×; pílula das abas anima posição e largura | sem estouro; pílula por deslocamento |
-| A18 | Toque nos botões | onda de tinta (0,6 s) em vários botões | **Decisão sua:** tirar a onda e ficar só o afundar (recomendo) |
+| A18 | ~~Onda de tinta no toque~~ | **CORRIGIDO 14/11:** já foi desligada na v465 (os botões só afundam); sobrou o código | apagar o código que sobrou |
 | A19 | Site dentro do app | botão do site com onda que estoura a 2,4×; luz de 1 s; ponto "ao vivo" com sombra | sem onda; ponto respira por transparência |
 | A20 | Números e barras | números contam em 0,9 s; barras de meta crescem em 0,7 a 3 s animando largura; brilho na meta batida | contam em 0,48 s só ao entrar; barras por escala em 0,46 s; meta batida = fio claro |
 | A21 | Senha e segurança | cartão 0,35 s, teclas, ficha 0,55 s | só curva e tempos |
@@ -106,7 +106,7 @@ Como foi feito: `work/s253/inv.py` leu o código inteiro e listou cada animaçã
 |---|---|---|---|---|
 | `amsp` | `.amsp` | 2.2 s · sem fim ·  | **Ajustar** | Deixa de ser sem fim: 1 ou 2 passadas e repousa. |
 | `amtk` | `.amtk` | 2.6 s · sem fim ·  | **Ajustar** | Deixa de ser sem fim: 1 ou 2 passadas e repousa. |
-| `arr` | `.arrive` | 1 s · efeito pesado, longa, curva padrão | **Ajustar** | Troca brilho/sombra animada por transparência; encurta para 0,46 s; curva de luxo. |
+| `arr` | `.arrive` | 1 s · efeito pesado, longa, curva padrão | **Apagar** | Código antigo que NÃO aparece hoje (conferido em 14/11: capa/palco antigos do Início estão escondidos). |
 | `cadd` | `.cadk .c` | 0.4/0.6 s · curva padrão | **Ajustar** | Só a curva de luxo e um dos 3 tempos (0,2 · 0,32 · 0,46 s). |
 | `cadf` | `.cad` | 0.2 s · curva padrão | **Ajustar** | Só a curva de luxo e um dos 3 tempos (0,2 · 0,32 · 0,46 s). |
 | `cadp` | `.cadb` | 0.42 s · curva com mola | **Trocar** | Sai o quique: chega ao lugar desacelerando, sem passar do ponto. |
@@ -118,11 +118,11 @@ Como foi feito: `work/s253/inv.py` leu o código inteiro e listou cada animaçã
 | `ccup` | `.ccok h2` | 0.5 s · curva padrão | **Ajustar** | Só a curva de luxo e um dos 3 tempos (0,2 · 0,32 · 0,46 s). |
 | `cfall` | `#pkok .cf` | tempo por variável | **Manter** | Dentro do padrão; só confirma a curva. |
 | `ckpop` | `#layer .cfo.on::after` | 0.22 s · curva com mola | **Trocar** | Sai o quique: chega ao lugar desacelerando, sem passar do ponto. |
-| `ctash` | `.cta .shn` | 4.2 s · sem fim · mexe no tamanho/posição | **Ajustar** | Deixa de ser sem fim: 1 ou 2 passadas e repousa; anima deslocamento/escala em vez de largura/posição (mesmo visual, mais liso). |
-| `draw` | `.motto::after` | 1.2 s · longa, curva padrão | **Ajustar** | Encurta para 0,46 s; curva de luxo. |
+| `ctash` | `.cta .shn` | 4.2 s · sem fim · mexe no tamanho/posição | **Apagar** | Código antigo que NÃO aparece hoje (conferido em 14/11: capa/palco antigos do Início estão escondidos). |
+| `draw` | `.motto::after` | 1.2 s · longa, curva padrão | **Apagar** | Código antigo que NÃO aparece hoje (conferido em 14/11: capa/palco antigos do Início estão escondidos). |
 | `dsup` | `#dsh .dsp` | 0.28 s | **Manter** | Dentro do padrão; só confirma a curva. |
-| `efd` | `.stage[data-cx][data-fx~=cascata] .tag` | 0.6 s · curva padrão | **Ajustar** | Só a curva de luxo e um dos 3 tempos (0,2 · 0,32 · 0,46 s). |
-| `efi` | `.stage[data-cx][data-fx~=cascata] img.pf` | 1 s · longa | **Ajustar** | Encurta para 0,46 s. |
+| `efd` | `.stage[data-cx][data-fx~=cascata] .tag` | 0.6 s · curva padrão | **Apagar** | Código antigo que NÃO aparece hoje (conferido em 14/11: capa/palco antigos do Início estão escondidos). |
+| `efi` | `.stage[data-cx][data-fx~=cascata] img.pf` | 1 s · longa | **Apagar** | Código antigo que NÃO aparece hoje (conferido em 14/11: capa/palco antigos do Início estão escondidos). |
 | `evasa` | `.evfx .mo svg` | 0.28 s · sem fim ·  | **Manter** | Manter: já encerra com os enfeites aos 10 s. |
 | `evbri` | `.evfx .sh` | 3.2 s · longa, curva padrão | **Manter** | Manter: 1 passada. |
 | `evcai` | `.evfx .fl` | tempo por variável · sem fim ·  | **Manter** | Manter: já encerra sozinho aos 10 s. |
@@ -135,9 +135,9 @@ Como foi feito: `work/s253/inv.py` leu o código inteiro e listou cada animaçã
 | `farIr` | `.fcar.in .far.r` | 2.6 s · sem fim ·  | **Ajustar** | Deixa de ser sem fim: 1 ou 2 passadas e repousa. |
 | `farTl` | `.fcar.in .far.l.tap` | 0.45 s · quica, efeito pesado, curva padrão | **Trocar** | Sai o quique: chega ao lugar desacelerando, sem passar do ponto; troca brilho/sombra animada por transparência; curva de luxo. |
 | `farTr` | `.fcar.in .far.r.tap` | 0.45 s · quica, efeito pesado, curva padrão | **Trocar** | Sai o quique: chega ao lugar desacelerando, sem passar do ponto; troca brilho/sombra animada por transparência; curva de luxo. |
-| `fl` | `.hero::before` | 14/17 s · sem fim ·  | **Ajustar** | Deixa de ser sem fim: 1 ou 2 passadas e repousa. |
-| `flo` | `.stage>svg,.stage>img` | 5.5 s · sem fim ·  | **Ajustar** | Deixa de ser sem fim: 1 ou 2 passadas e repousa. |
-| `fup` | `.stage[data-cx][data-fx~=cascata]` | 0.9 s · longa | **Ajustar** | Encurta para 0,46 s. |
+| `fl` | `.hero::before` | 14/17 s · sem fim ·  | **Apagar** | Código antigo que NÃO aparece hoje (conferido em 14/11: capa/palco antigos do Início estão escondidos). |
+| `flo` | `.stage>svg,.stage>img` | 5.5 s · sem fim ·  | **Apagar** | Código antigo que NÃO aparece hoje (conferido em 14/11: capa/palco antigos do Início estão escondidos). |
+| `fup` | `.stage[data-cx][data-fx~=cascata]` | 0.9 s · longa | **Apagar** | Código antigo que NÃO aparece hoje (conferido em 14/11: capa/palco antigos do Início estão escondidos). |
 | `gzac` | `#gw .gzbt.acende .gzgo` | 0.5 s · curva padrão | **Manter** | Padrão próprio da Mochi, já aprovado; só entra na curva de luxo. |
 | `gzgl` | `#gw .gzav.gzbr` | 1.6 s · sem fim · efeito pesado | **Manter** | Padrão próprio da Mochi, já aprovado; só entra na curva de luxo. |
 | `gzpis` | `#gw .gzmu.gzpis` | 1.4 s · sem fim · efeito pesado | **Manter** | Padrão próprio da Mochi, já aprovado; só entra na curva de luxo. |
@@ -145,7 +145,7 @@ Como foi feito: `work/s253/inv.py` leu o código inteiro e listou cada animaçã
 | `hb` | `#pkok .hrt` | 1.2 s · longa, curva padrão | **Ajustar** | Encurta para 0,46 s; curva de luxo. |
 | `hdkb` | `#hdst .hdi img` | 6.2 s · longa, curva padrão | **Manter** | Manter: aproximação lenta da foto do Destaque (é o tempo do slide). |
 | `hdpg` | `#hdst .hdots button.on::after` | 6 s · longa, curva padrão | **Manter** | Manter: linha de tempo do slide. |
-| `hin` | `.hero h1,.hero p,.cta .btn,.gar` | 1.2 s · longa | **Ajustar** | Encurta para 0,46 s. |
+| `hin` | `.hero h1,.hero p,.cta .btn,.gar` | 1.2 s · longa | **Apagar** | Código antigo que NÃO aparece hoje (conferido em 14/11: capa/palco antigos do Início estão escondidos). |
 | `hlvIn` | `#home .hlv` | 0.5 s | **Manter** | Dentro do padrão; só confirma a curva. |
 | `imgin` | `.pf` | 0.7 s · longa, curva padrão | **Ajustar** | Encurta para 0,46 s; curva de luxo. |
 | `iout` | `#intro` | 0.8 s · longa, curva padrão | **Ajustar** | Encurta para 0,46 s; curva de luxo. |
@@ -174,20 +174,20 @@ Como foi feito: `work/s253/inv.py` leu o código inteiro e listou cada animaçã
 | `pkup` | `</style><style id="s201">.amwrap` | 0.4/0.45/0.5 s · curva padrão | **Ajustar** | Só a curva de luxo e um dos 3 tempos (0,2 · 0,32 · 0,46 s). |
 | `pop` | `.badge.pop` | 0.5 s · quica, curva padrão | **Trocar** | Sai o quique: chega ao lugar desacelerando, sem passar do ponto; curva de luxo. |
 | `ptrG` | `#ptr5.gira svg` | 0.8 s · sem fim | **Trocar** | Vira o carregador único: anel fino (1,5 px) na cor do texto, 1 volta por segundo; ou a linha de progresso fina quando há contagem. |
-| `resp` | `lf-site.js:3617` | 2.6 s · sem fim ·  | **Ajustar** | Deixa de ser sem fim: 1 ou 2 passadas e repousa. |
+| `resp` | `lf-site.js:3617` | 2.6 s · sem fim ·  | **Manter** | Respiração e sombra da Mochi (padrão próprio). |
 | `reveal` | `—` | tempo por variável · efeito pesado | **Apagar** | Não é usada em lugar nenhum. |
-| `rfl` | `.stage .rfl i` | 3 s · sem fim · mexe no tamanho/posição | **Ajustar** | Deixa de ser sem fim: 1 ou 2 passadas e repousa; anima deslocamento/escala em vez de largura/posição (mesmo visual, mais liso). |
+| `rfl` | `.stage .rfl i` | 3 s · sem fim · mexe no tamanho/posição | **Apagar** | Código antigo que NÃO aparece hoje (conferido em 14/11: capa/palco antigos do Início estão escondidos). |
 | `ring` | `.wa` | 3 s · sem fim · efeito pesado | **Manter** | Manter: já limitado a 2 voltas (S235). |
 | `rise` | `#cmpbar` | 0.35/0.4/0.5 s · curva padrão | **Ajustar** | Só a curva de luxo e um dos 3 tempos (0,2 · 0,32 · 0,46 s). |
-| `rsp` | `.stage[data-fx~=resp] img.pf` | 3.4 s · sem fim ·  | **Ajustar** | Deixa de ser sem fim: 1 ou 2 passadas e repousa. |
-| `sg` | `.seal` | 9 s · sem fim ·  | **Ajustar** | Deixa de ser sem fim: 1 ou 2 passadas e repousa. |
-| `shd` | `.stage` | 1.6 s · efeito pesado, longa, curva padrão | **Ajustar** | Troca brilho/sombra animada por transparência; encurta para 0,46 s; curva de luxo. |
-| `shine` | `.stage .shine,.ph .shine` | 4.5 s · sem fim ·  | **Ajustar** | Deixa de ser sem fim: 1 ou 2 passadas e repousa. |
-| `sin` | `.stage` | 1.1 s · longa | **Ajustar** | Encurta para 0,46 s. |
+| `rsp` | `.stage[data-fx~=resp] img.pf` | 3.4 s · sem fim ·  | **Apagar** | Código antigo que NÃO aparece hoje (conferido em 14/11: capa/palco antigos do Início estão escondidos). |
+| `sg` | `.seal` | 9 s · sem fim ·  | **Apagar** | Código antigo que NÃO aparece hoje (conferido em 14/11: capa/palco antigos do Início estão escondidos). |
+| `shd` | `.stage` | 1.6 s · efeito pesado, longa, curva padrão | **Apagar** | Código antigo que NÃO aparece hoje (conferido em 14/11: capa/palco antigos do Início estão escondidos). |
+| `shine` | `.stage .shine,.ph .shine` | 4.5 s · sem fim ·  | **Apagar** | Código antigo que NÃO aparece hoje (conferido em 14/11: capa/palco antigos do Início estão escondidos). |
+| `sin` | `.stage` | 1.1 s · longa | **Apagar** | Código antigo que NÃO aparece hoje (conferido em 14/11: capa/palco antigos do Início estão escondidos). |
 | `slide` | `.panel` | 0.3 s · curva padrão | **Ajustar** | Só a curva de luxo e um dos 3 tempos (0,2 · 0,32 · 0,46 s). |
 | `sofd` | `#dsh .dsp.dspc` | 0.18/0.2/0.25 s · curva padrão | **Ajustar** | Só a curva de luxo e um dos 3 tempos (0,2 · 0,32 · 0,46 s). |
 | `soin` | `#sov .sopn` | 0.32 s | **Manter** | Dentro do padrão; só confirma a curva. |
-| `somb` | `lf-site.js:3619` | 2.6 s · sem fim ·  | **Ajustar** | Deixa de ser sem fim: 1 ou 2 passadas e repousa. |
+| `somb` | `lf-site.js:3619` | 2.6 s · sem fim ·  | **Manter** | Respiração e sombra da Mochi (padrão próprio). |
 | `spin` | `—` | tempo por variável ·  | **Apagar** | Não é usada em lugar nenhum. |
 | `swap` | `#theme.spin svg` | 0.6 s · curva com mola | **Trocar** | Sai o quique: chega ao lugar desacelerando, sem passar do ponto. |
 | `tbeat` | `.tring svg` | 1.4 s · sem fim ·  | **Ajustar** | Deixa de ser sem fim: 1 ou 2 passadas e repousa. |
@@ -321,7 +321,7 @@ Como foi feito: `work/s253/inv.py` leu o código inteiro e listou cada animaçã
 | `pulinho2` | `.sino.toca i` | 0.4 s · quica, curva padrão | **Trocar** | Sai o quique: chega ao lugar desacelerando, sem passar do ponto; curva de luxo. |
 | `pulinhoN` | `—` | tempo por variável · quica | **Apagar** | Não é usada em lugar nenhum. |
 | `qphIn` | `vai entrar (barra e Início) */ #mainnav .qph` | 0.22 s | **Manter** | Dentro do padrão; só confirma a curva. |
-| `ripa` | `.rip` | 0.6 s · curva padrão | **Ajustar** | Só a curva de luxo e um dos 3 tempos (0,2 · 0,32 · 0,46 s). |
+| `ripa` | `.rip` | 0.6 s · curva padrão | **Apagar** | Código antigo que NÃO aparece hoje (conferido em 14/11: a onda de toque foi desligada na v465). |
 | `shBrilho` | `.shA.pri .shI` | 1.2 s · efeito pesado, longa, curva padrão | **Ajustar** | Troca brilho/sombra animada por transparência; encurta para 0,46 s; curva de luxo. |
 | `shSobe` | `.shAp.in .shA` | 0.45 s · curva com mola | **Trocar** | Sai o quique: chega ao lugar desacelerando, sem passar do ponto. |
 | `shVoa` | `.shA.voa .shI` | 0.4 s | **Manter** | Dentro do padrão; só confirma a curva. |
@@ -376,16 +376,19 @@ Regra única: os 3 tempos e a curva de luxo. As que hoje mexem em tamanho ou pos
 - Estúdio, marketing (vídeo/Status), nota de compra, lotes, atacado, câmbio em uso, modo cliente, senha/biometria: li o código, não abri cada tela.
 - No site: checkout completo, pagamento, pedido confirmado, teste de rosto e Mochi em uso — só pelo código.
 - Fluidez real: nada foi visto em celular de verdade.
+- **O inventário lê o código, não a tela:** três coisas que apontei (palco da peça, capa/selo, onda de toque) existem no código mas não aparecem hoje. Conferi as demais "sem fim" do site no Início, catálogo e peça: só o ponto das Últimas roda.
 - A classificação da lista completa é automática (nome, tempo, curva, o que anima); pode haver erro pontual — já errei uma vez hoje ao chamar de "sem fim" os enfeites das temáticas, que encerram aos 10 s.
 
-## 8 · Decisões que são suas
+## 8 · Decisões que são suas (atualizado em 14/11 01:10)
 
-1. Efeitos do palco da peça (flutuar, brilho, reflexo, respirar): 1 passada só, ou manter sem fim?
-2. Confete no pedido confirmado: tirar?
-3. Onda de tinta no toque dos botões do app: tirar?
-4. Atalhos balançando no modo editar do Início: trocar por "subir com sombra"?
-5. "Cancelar" na tela de carregando depois de 4 s (função nova)?
-6. Mochi: manter o padrão próprio (recomendo) ou entrar na regra geral?
+1. ~~Efeitos do palco da peça~~ — **não existe mais na tela** (código antigo escondido). Nada a decidir; apagar.
+2. Confete no pedido confirmado — **APROVADO tirar.**
+3. ~~Onda de tinta no toque~~ — **já estava desligada** desde a v465. Nada a decidir; apagar o resto do código.
+4. Atalhos balançando no modo editar do Início → vídeo `work/s254/s254_video_app_editar_inicio.mp4`.
+5. "Cancelar" na tela de carregando → vídeo `work/s254/s254_video_app_carregando.mp4`.
+6. Mochi: padrão próprio ou regra geral → vídeo `work/s254/s254_video_site_mochi.mp4`.
+
+Exemplo extra: leitor da haste → `work/s254/s254_video_app_leitor_haste.mp4`.
 
 ## 9 · Ordem proposta para implementar (cada passo com esboço em vídeo antes, onde ainda não há)
 

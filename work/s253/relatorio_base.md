@@ -28,7 +28,7 @@ Como foi feito: `work/s253/inv.py` leu o código inteiro e listou cada animaçã
 - **Decisão sua:** mostrar um "Cancelar" discreto depois de 4 s (hoje não existe; é função nova).
 
 ### 3.2 · O leitor do código da haste (hoje: amador)
-- **Hoje (visto no simulador com câmera falsa):** tela preta, o vídeo só numa faixa, quatro cantos brancos grossos, uma linha rosa-neon que varre sem parar (1,5 s, animando posição), "Analisando código" com os pontinhos, a régua de zoom no visual azul padrão do navegador, botão branco de disparo e ícone de galeria. Há um controle branco vertical à esquerda da faixa cuja função não identifiquei no simulador.
+- **Hoje (visto no simulador com câmera falsa):** tela preta, o vídeo só numa faixa, quatro cantos brancos grossos, uma linha rosa-neon que varre sem parar (1,5 s, animando posição), "Analisando código" com os pontinhos, a régua de zoom no visual azul padrão do navegador, botão branco de disparo e ícone de galeria. A "pílula" branca à esquerda da faixa é o canto de cima-esquerda desenhado com 104 px de altura em vez de 30 (os outros três têm 30): parece defeito, não função.
 - **Luxo:** o botão "Ler haste" cresce até virar o leitor (origem) e o leitor encolhe de volta ao fechar; o vídeo ocupa a tela inteira com um véu escuro suave fora da faixa; cantos finos (1,5 px) que respiram só enquanto procura; sai a linha neon; quando acha o texto, a faixa ganha um fio claro e o código lido aparece em serifada acima dela (0,32 s) com uma vibração curta; zoom vira uma régua fina própria (1× · 2× · 3×) na cor do texto; a dica some sozinha em 3 s; ✕ e galeria no padrão dos botões novos. Todas as funções ficam.
 
 ## 4 · Interações, uma a uma (hoje → luxo)
@@ -47,8 +47,8 @@ Como foi feito: `work/s253/inv.py` leu o código inteiro e listou cada animaçã
 | S9 | "Adicionado à sacola" | janela aparece em 0,42 s com check em 0,4–0,6 s | nasce do botão Comprar e vai para a sacola; 0,46 / 0,3 s |
 | S10 | Destaque (carrossel) | foto aproxima em 6,2 s, linha de tempo de 6 s | manter; troca de slide com cruzamento de 0,46 s |
 | S11 | WhatsApp | 2 pulsos (já feito); vira aba animando largura e altura | mesmo visual, animando escala e deslocamento |
-| S12 | Página da peça · palco | flutua (5,5 s), brilho (4,5 s), reflexo (3 s), respiração (2,6–3,4 s) e sombra, todos sem fim; entrada de 0,9 a 1,6 s | a peça assenta uma vez em 0,46 s e fica parada; brilho passa 1 vez ao abrir. **Decisão sua:** esses efeitos são escolhidos por peça (`data-fx`); recomendo 1 passada só |
-| S13 | Capa (hero), lema e selo | fundo se move em 14–17 s sem fim; selo gira em 9 s sem fim; textos entram em 1,2 s | fundo e selo parados; textos entram em fila em 0,46 s |
+| S12 | ~~Palco da peça~~ | **CORRIGIDO 14/11:** flutuar, brilho, reflexo e respirar existem no código mas pertencem ao palco antigo do Início, que está escondido; a página da peça de hoje não tem nenhum efeito sem fim | apagar o código antigo; nada a decidir |
+| S13 | ~~Capa, lema e selo~~ | **CORRIGIDO 14/11:** também são da capa antiga, escondida hoje | apagar o código antigo |
 | S14 | Abertura do site | logo em 3 tempos (1,2 · 1,0 · 0,8 s) + saída 0,8 s | 1 vez por visita, até 1,2 s no total |
 | S15 | Pedido confirmado | check com brilho que estoura a 1,8×, anel girando sem fim, coração 1,2 s, confete, etiqueta que balança sem fim | check desenhado em 0,46 s, valor em serifada, etiqueta parada. **Decisão sua:** tirar o confete (recomendo) |
 | S16 | Conta criada | check com anel de 0,9 s e giro de 0,7 s | o mesmo check do S15 |
@@ -57,7 +57,7 @@ Como foi feito: `work/s253/inv.py` leu o código inteiro e listou cada animaçã
 | S19 | Temáticas | enfeites encerram aos 10 s | manter |
 | S20 | Puxar para atualizar e carregadores | anel 0,8–1,0 s + ícone que pulsa 1,4 s | o carregador único |
 | S21 | Avisos (toast) | aparece em 0,2 s | sobe 8 px e aparece em 0,32 s; sai em 0,2 s |
-| S22 | Botão Comprar (brilho) | brilho passa a cada 4,2 s sem fim, animando posição | 1 passada quando o botão entra na tela |
+| S22 | ~~Brilho do botão da capa~~ | **CORRIGIDO 14/11:** é da capa antiga, escondida hoje | apagar o código antigo |
 | S23 | Etiqueta de estoque e Últimas unidades | pulso sem fim | manter o das Últimas (seu pedido); a etiqueta respira igual |
 | S24 | Trocar tema, olho da senha, opções do pagamento | 0,6 · 0,35 · 0,22 s | só curva e tempos |
 
@@ -81,7 +81,7 @@ Como foi feito: `work/s253/inv.py` leu o código inteiro e listou cada animaçã
 | A15 | Nuvem | botão pulsa sem fim pedindo ação (1,3 s, com sombra), brilho que varre, salto de 0,6 s | estado calmo: ponto + frase; 2 pulsos de transparência |
 | A16 | Apagar | "segurar para apagar" enche animando largura (0,9 s); tampa da lixeira 1,3 s | enche por escala; tampa em 0,46 s |
 | A17 | Chips, abas e marcações | chip escolhido estoura a 1,2×; pílula das abas anima posição e largura | sem estouro; pílula por deslocamento |
-| A18 | Toque nos botões | onda de tinta (0,6 s) em vários botões | **Decisão sua:** tirar a onda e ficar só o afundar (recomendo) |
+| A18 | ~~Onda de tinta no toque~~ | **CORRIGIDO 14/11:** já foi desligada na v465 (os botões só afundam); sobrou o código | apagar o código que sobrou |
 | A19 | Site dentro do app | botão do site com onda que estoura a 2,4×; luz de 1 s; ponto "ao vivo" com sombra | sem onda; ponto respira por transparência |
 | A20 | Números e barras | números contam em 0,9 s; barras de meta crescem em 0,7 a 3 s animando largura; brilho na meta batida | contam em 0,48 s só ao entrar; barras por escala em 0,46 s; meta batida = fio claro |
 | A21 | Senha e segurança | cartão 0,35 s, teclas, ficha 0,55 s | só curva e tempos |
@@ -109,16 +109,19 @@ Regra única: os 3 tempos e a curva de luxo. As que hoje mexem em tamanho ou pos
 - Estúdio, marketing (vídeo/Status), nota de compra, lotes, atacado, câmbio em uso, modo cliente, senha/biometria: li o código, não abri cada tela.
 - No site: checkout completo, pagamento, pedido confirmado, teste de rosto e Mochi em uso — só pelo código.
 - Fluidez real: nada foi visto em celular de verdade.
+- **O inventário lê o código, não a tela:** três coisas que apontei (palco da peça, capa/selo, onda de toque) existem no código mas não aparecem hoje. Conferi as demais "sem fim" do site no Início, catálogo e peça: só o ponto das Últimas roda.
 - A classificação da lista completa é automática (nome, tempo, curva, o que anima); pode haver erro pontual — já errei uma vez hoje ao chamar de "sem fim" os enfeites das temáticas, que encerram aos 10 s.
 
-## 8 · Decisões que são suas
+## 8 · Decisões que são suas (atualizado em 14/11 01:10)
 
-1. Efeitos do palco da peça (flutuar, brilho, reflexo, respirar): 1 passada só, ou manter sem fim?
-2. Confete no pedido confirmado: tirar?
-3. Onda de tinta no toque dos botões do app: tirar?
-4. Atalhos balançando no modo editar do Início: trocar por "subir com sombra"?
-5. "Cancelar" na tela de carregando depois de 4 s (função nova)?
-6. Mochi: manter o padrão próprio (recomendo) ou entrar na regra geral?
+1. ~~Efeitos do palco da peça~~ — **não existe mais na tela** (código antigo escondido). Nada a decidir; apagar.
+2. Confete no pedido confirmado — **APROVADO tirar.**
+3. ~~Onda de tinta no toque~~ — **já estava desligada** desde a v465. Nada a decidir; apagar o resto do código.
+4. Atalhos balançando no modo editar do Início → vídeo `work/s254/s254_video_app_editar_inicio.mp4`.
+5. "Cancelar" na tela de carregando → vídeo `work/s254/s254_video_app_carregando.mp4`.
+6. Mochi: padrão próprio ou regra geral → vídeo `work/s254/s254_video_site_mochi.mp4`.
+
+Exemplo extra: leitor da haste → `work/s254/s254_video_app_leitor_haste.mp4`.
 
 ## 9 · Ordem proposta para implementar (cada passo com esboço em vídeo antes, onde ainda não há)
 

@@ -4,8 +4,11 @@ A = os.path.dirname(os.path.abspath(__file__)) + '/'
 D = json.load(open(A + 'inventario.json'))
 MANTER = {'ulinp': 'Manter sem fim (pedido do dono: pulso suave das Últimas unidades).', 'evcai': 'Manter: já encerra sozinho aos 10 s.', 'evpis': 'Manter: já encerra sozinho aos 10 s.', 'evasa': 'Manter: já encerra com os enfeites aos 10 s.', 'evbri': 'Manter: 1 passada.', 'evvoa': 'Manter.',
           'wap': 'Manter: já limitado a 2 voltas (S235).', 'ring': 'Manter: já limitado a 2 voltas (S235).', 'hdkb': 'Manter: aproximação lenta da foto do Destaque (é o tempo do slide).', 'hdpg': 'Manter: linha de tempo do slide.', 'pktm': 'Manter: é o relógio de 30 min do pagamento, não é enfeite.', 'mlAnel': 'Manter: anel de "segurar 5 s para sair" do modo cliente (funcional).', 'avBar': 'Manter: linha de tempo do aviso; só afinar.', 'lfbar': 'Manter: linha de tempo; só afinar.', 'lfpl': 'Manter: ponto "ao vivo" (é estado); trocar o brilho por respiração de transparência.', 'lfEntra': 'Manter até entrar a troca de tela com direção (S252).'}
+MORTO = {'site': set('flo rfl rsp shine shd sin efd efi fup sg fl hin draw ctash arr'.split()), 'app': {'ripa'}}
 def decide(app, l):
     n = l['nome']; f = [x.split(' (')[0] for x in l['falhas']]
+    if n in MORTO[app]: return 'Apagar', 'Código antigo que NÃO aparece hoje (conferido em 14/11: ' + ('capa/palco antigos do Início estão escondidos' if app == 'site' else 'a onda de toque foi desligada na v465') + ').'
+    if n in ('resp', 'somb'): return 'Manter', 'Respiração e sombra da Mochi (padrão próprio).'
     if n in MANTER: return 'Manter', MANTER[n]
     if n.startswith('gz'): return 'Manter', 'Padrão próprio da Mochi, já aprovado; só entra na curva de luxo.'
     if 'SEM USO' in f: return 'Apagar', 'Não é usada em lugar nenhum.'
