@@ -55,12 +55,12 @@
     return '<button type="button" class="dOp' + (on ? ' on' : '') + '" data-act="' + act + '" data-id="' + id + '"' + (on ? ' aria-current="true"' : '') + '><span><b>' + nome + '</b><small>' + sub + '</small></span><i aria-hidden="true">' + (on ? '✓' : seta ? '›' : '') + '</i></button>';
   }
   ACT.dVer = function () {
-    lfaAbre('dFolha', '<div class="dFt"><span>VER</span><button type="button" class="dFx" data-act="dFecha" aria-label="Fechar">×</button></div>' + DTABS.map(function (t) {
+    lfaAbre('dFolha', '<div class="dFt"><span>VER</span></div>' + DTABS.map(function (t) {
       return dOpHtml('dVerEsc', t[0], t[1], DT_FRASE[t[0]], S.dTab === t[0], true);
     }).join(''));
   };
   ACT.dPer = function () {
-    lfaAbre('dFolha', '<div class="dFt"><span>PERÍODO</span><button type="button" class="dFx" data-act="dFecha" aria-label="Fechar">×</button></div>' + PER_OP.map(function (o) {
+    lfaAbre('dFolha', '<div class="dFt"><span>PERÍODO</span></div>' + PER_OP.map(function (o) {
       return dOpHtml('dPerEsc', o[0], o[1], perDatas(o[0]), S.per === o[0], false);
     }).join('') + dOpHtml('dPerEsc', 'custom', 'Escolher datas', S.per === 'custom' ? perDatas('custom') : 'de um dia até outro', S.per === 'custom', true));
   };

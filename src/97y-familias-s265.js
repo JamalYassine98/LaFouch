@@ -46,29 +46,10 @@
     var v = $('v-caixa');
     if (!v || S.view !== 'caixa') return;
     famZera();
-    var h1 = v.querySelector('.top h1'), cr = v.querySelector('.top .crumb');
-    if (h1) h1.textContent = 'Dinheiro';
-    if (cr) cr.textContent = 'Caixa, contas do mês e câmbio.';
+    // S360 (esboço 28, aprovado 15/11/2026): a tela é só o caixa (título "Caixa"); Contas do mês e Câmbio ficam nas telas deles.
     if (v.querySelector('.famS')) return;
     var mv = famAcha(v, /^Movimentos/);
     if (mv) famCorta(mv, 300, 'mov', 'Ver todos os movimentos ›');
-    var c2 = document.createElement('div'), c3 = document.createElement('div');
-    c2.className = 'famC famC2'; c3.className = 'famC famC3';
-    famDesenha(renderDesp);
-    var d = $('v-desp');
-    c2.appendChild(famRot('Contas do mês'));
-    if (d) {
-      var k = d.querySelector('.kpis'), cp = famAcha(d, /^Contas para pagar/);
-      if (k) c2.appendChild(famCopia(k));
-      if (cp) c2.appendChild(famCopia(cp));
-    }
-    c2.appendChild(famBtn('Ver todas as despesas ›', 'view', 'desp'));
-    famDesenha(renderFx);
-    var f = $('v-fx');
-    c3.appendChild(famRot('Câmbio'));
-    if (f) ['.fxTop', '.fxRepo'].forEach(function (q) { var e = f.querySelector(q); if (e) c3.appendChild(famCopia(e)); });
-    c3.appendChild(famBtn('Ver câmbio e trocas ›', 'view', 'fx'));
-    famColunas(v, c2, c3);
   }
   var _rcFam = renderCaixa;
   renderCaixa = function () {

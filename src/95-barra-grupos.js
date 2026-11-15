@@ -149,7 +149,7 @@
         '<div class="hint" style="margin:0">' + BARRA_NOME[a] + ' e ' + BARRA_NOME[b] + ' passam a ficar juntos num só botão da barra. As telas aparecem como abas no topo.</div>' +
         '<input class="in" id="grpNome" maxlength="18" value="' + esc(grpNomePadrao(a, b)) + '" aria-label="Nome do grupo">' +
         '<button type="button" class="go" data-act="grpCria">Criar grupo</button>' +
-        '<button type="button" class="chip" data-act="grpFecha">Cancelar</button>'
+        '<button type="button" class="chip grpCentro" data-act="grpFecha">Cancelar</button>'
     );
   }
   function grpGerirAbre(gid) {
@@ -166,14 +166,9 @@
         g.itens.map(function (x) {
           return '<div class="grow"><span>' + BARRA_NOME[x] + '</span><button type="button" class="chip" data-act="grpTirar" data-id="' + x + '">Tirar</button></div>';
         }).join('') +
-        (livres.length
-          ? '<div class="lbl" style="margin:0">Adicionar botão <span style="font-weight:400">(ou arraste do Início até o grupo)</span></div><div class="gadd">' +
-            livres.map(function (x) {
-              return '<button type="button" class="chip" data-act="grpPoe" data-id="' + x + '">+ ' + BARRA_NOME[x] + '</button>';
-            }).join('') + '</div>'
-          : '') +
+        // S360 (esboço 36, aprovado 15/11/2026): sem o bloco "Adicionar botão"; para pôr uma tela no grupo, arrasta-se o atalho do Início até ele.
         '<button type="button" class="go" data-act="grpSalva">Salvar</button>' +
-        '<button type="button" class="chip" data-act="grpDesfazer">Desfazer o grupo</button>'
+        '<button type="button" class="chip grpCentro" data-act="grpDesfazer">Desfazer o grupo</button>'
     );
   }
   function grpNomeLe(g, padrao) {

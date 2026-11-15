@@ -3510,6 +3510,27 @@ async def main():
             if not ok: falhas.append('modo loja sair com PIN'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # S360 (15/11/2026, "implementar tudo" lote 1): esboços 28, 29, 36, 37, 46, 48 e os números do Início.
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              L.setView('caixa'); await w(500); const v = document.getElementById('v-caixa');
+              const caixa = v.querySelector('.top h1').textContent.trim() === 'Caixa' && !/CONTAS DO MÊS|CÂMBIO/i.test(v.innerText) && /Movimentos/.test(v.innerText);
+              const l0 = Math.round(v.getBoundingClientRect().width); v.querySelector('.top button').click(); await w(450);
+              const larg = Math.round(v.getBoundingClientRect().width) === l0 && document.documentElement.classList.contains('lfTrava'); if (S.cxMenu) v.querySelector('.top button').click(); await w(300);
+              S.dTab = 'giro'; L.setView('dash'); await w(700); const ks = [...document.getElementById('dtabBody').children].filter(e => e.offsetParent);
+              const vaos = ks.slice(0, -1).map((e, i) => Math.round(ks[i + 1].getBoundingClientRect().top - e.getBoundingClientRect().bottom)); const sep = vaos.length >= 3 && vaos.every(x => x === 18);
+              L.ACT.dVer(); await w(400); const semX = !document.querySelector('.dFx') && /VER/.test(document.body.innerText); L.ACT.dFecha(); await w(400);
+              L.setView('inicio'); S.inicioFant = true; L.render(); await w(300); const r = document.querySelector('[data-act=inicioReset]');
+              const link = !!r && r.className === 'lkTx' && getComputedStyle(r).backgroundColor === 'rgba(0, 0, 0, 0)' && r.getBoundingClientRect().height >= 44; S.inicioFant = false; L.render(); await w(1300);
+              L.setView('vendas'); await w(500); L.setView('inicio'); await w(200); const t1 = document.querySelector('#v-inicio .tl[data-id=hist] .tp').innerText; await w(1200);
+              const semRecontar = t1 === document.querySelector('#v-inicio .tl[data-id=hist] .tp').innerText;
+              return [caixa, larg, sep, semX, link, semRecontar]; }""")
+            total += 1
+            ok = got == [True] * 6 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S360: Caixa só com o caixa, menu sem mudar larguras, cartões separados, folha sem ×, link no lugar do botão cinza, Início sem recontar')
+            if not ok: falhas.append('S360 lote 1'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # S332 (15/11/2026, opção A): a cópia do site do MODO LOJA se atualiza sozinha (sem APK). Aparelho falso (Capacitor + Filesystem em memória):
             # baixa tudo, reescreve os caminhos para a pasta nova, o modo loja abre de lá e dá sinal de vida; 2ª busca "em dia";
             # versão seguinte baixa só os textos (binário igual é copiado); cópia estragada é descartada e volta a do APK.

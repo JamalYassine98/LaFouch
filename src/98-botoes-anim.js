@@ -109,15 +109,24 @@
       } catch (eRo) {}
     }
     // 4 e 7. Início: botões entram em cascata e os números contam subindo.
+    var CN_VISTO = {};
     function contaNumeros(el, dur) {
       var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT),
         n,
         l = [];
       // .noconta: códigos de peça, pedidos e horários não contam (guardião, recentes)
       while ((n = w.nextNode())) if (/\d/.test(n.nodeValue) && !(n.parentNode && n.parentNode.closest && n.parentNode.closest('.noconta'))) l.push(n);
-      l.forEach(function (node) {
+      l.forEach(function (node, ix) {
         var orig = node.nodeValue,
-          t0 = performance.now();
+          t0 = performance.now(),
+          pai = node.parentNode,
+          // S360 (aprovado 15/11/2026): só conta na 1ª vez ou quando o valor mudou; e a linha não muda de altura enquanto conta
+          dono = pai && pai.closest ? pai.closest('[data-id],[id]') : null,
+          chave = ((dono && (dono.getAttribute('data-id') || dono.id)) || '') + '|' + orig.replace(/\d[\d.,]*/g, '#');
+        if (CN_VISTO[chave] === orig) return;
+        CN_VISTO[chave] = orig;
+        var hFixa = pai && pai.offsetHeight;
+        if (hFixa) pai.style.minHeight = hFixa + 'px';
         function passo(t) {
           var k = Math.min(1, (t - t0) / (dur || 900)),
             e = 1 - Math.pow(1 - k, 3);
@@ -132,6 +141,7 @@
                 })
               : orig;
           if (k < 1) requestAnimationFrame(passo);
+          else if (hFixa) pai.style.minHeight = '';
         }
         requestAnimationFrame(passo);
       });

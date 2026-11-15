@@ -196,7 +196,7 @@
         }, 0);
     var today = dayKey(Date.now());
     var h =
-      (k < today ? '<div class="top" style="justify-content:flex-end"><button class="tx" data-act="daytoday">Voltar para hoje</button></div>' : '') +
+      (k < today ? '<div class="top" style="justify-content:flex-end"><button type="button" class="lkTx" data-act="daytoday">Voltar para hoje</button></div>' : '') +
       '<section class="card col"><div class="dayrow"><button class="ic" data-act="dayprev" aria-label="Dia anterior">‹</button><button class="btn-sc dtxt" data-act="daycal" aria-label="Escolher a data no calendário" style="flex:1 1 auto;font-size:15px">' +
       fmtDay(k) +
       ' ▾</button><button class="ic" data-act="daynext" aria-label="Próximo dia"' +

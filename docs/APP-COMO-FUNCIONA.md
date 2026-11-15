@@ -275,3 +275,13 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - Tela (`src/97-atualiza-apk.js`, bloco "WINDOWS"): `pcOlha` lê o estado e preenche o mesmo `APK.*`; o cartão "Atualização do app" usa o MESMO botão único e os mesmos textos do celular.
 - `build-windows.yml`: roda o teste e publica o instalador na release `apk` (apaga o anterior). `.gitattributes`: `www/loja/** -text`.
 - Precisa instalar UMA vez, à mão, um instalador novo (o antigo não tem essas peças). NÃO testado no Windows real; o instalador não é assinado (o Windows pode avisar "editor desconhecido").
+
+## S360 (16/11/2026, v527 · 5.19.0) — "implementar tudo", lote 1 (esboços 28, 29, 36, 37, 46, 48)
+- **Caixa** (`src/97y-familias-s265.js`, `famDinheiro`): a tela voltou a ser só o caixa — título "Caixa", No caixa agora, Objetivos e Movimentos (cortado com "Ver todos os movimentos ›"). Saíram as cópias "Contas do mês" e "Câmbio" (ficam em Despesas e Câmbio). O botão da barra continua "Dinheiro".
+- **Trava de rolagem** (`www/style.css`, `html.lfTrava body`): `width:auto` no lugar de `width:100%` — com o body fixo a largura continua descontando as margens, então abrir folha, janela ou menu não alarga mais a tela em 16 px (valia para TODA folha, não só o menu do Caixa).
+- **Abas do Dashboard** (`#dtabBody`): coluna com 18 px entre os blocos (antes era bloco sem espaço: cartões colados em Resumo, Reservas, Giro, Preços e Online).
+- **Folhas "Ver" e "Período"** (`src/98-dash-cabecalho.js`): sem o botão "×"; fecham arrastando ou tocando fora. `ACT.dFecha` continua existindo.
+- **Janelas do grupo** (`src/95-barra-grupos.js`): "Cancelar" e "Desfazer o grupo" centralizados (classe `grpCentro`); saiu o bloco "Adicionar botão" — para pôr uma tela no grupo, arrasta-se o atalho do Início até ele (`ACT.grpPoe` continua existindo para esse arrasto).
+- **Links de texto** (classe nova `lkTx`): "Restaurar padrão" (Início, modo de editar) e "Voltar para hoje" (dia) — antes usavam `class="tx"`, que não tem estilo de botão, e o sistema desenhava o botão cinza.
+- **Números do Início** (`contaNumeros` em `src/98-botoes-anim.js`): só contam na 1ª vez ou quando o valor muda (memória `CN_VISTO` por atalho + formato do texto); durante a contagem a linha guarda a altura final e os algarismos têm largura igual (o nome do atalho não sobe nem desce).
+- Teste novo em `tests/run.py`: "S360: Caixa só com o caixa, menu sem mudar larguras, cartões separados, folha sem ×, link no lugar do botão cinza, Início sem recontar".

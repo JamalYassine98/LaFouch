@@ -193,7 +193,7 @@
           return tileHtml('data-act="inicioAdd" data-id="' + id + '" aria-label="Voltar ' + D[id][0] + '"', id, D[id][0], null, 'fant', false);
         })
         .join('');
-      if (oc.length) extra = '<div class="sel" style="justify-content:center"><button type="button" class="tx" data-act="inicioReset">Restaurar padrão</button></div>';
+      if (oc.length) extra = '<div class="sel" style="justify-content:center"><button type="button" class="lkTx" data-act="inicioReset">Restaurar padrão</button></div>';
     }
     // v441: no lugar da faixa "N avisos urgentes" (os avisos continuam no sino), a busca única
     var faixa = buscaHtml();

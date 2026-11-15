@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 526;
+  var APP_BUILD = 527;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.18.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.19.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -22633,7 +22633,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           return tileHtml('data-act="inicioAdd" data-id="' + id + '" aria-label="Voltar ' + D[id][0] + '"', id, D[id][0], null, 'fant', false);
         })
         .join('');
-      if (oc.length) extra = '<div class="sel" style="justify-content:center"><button type="button" class="tx" data-act="inicioReset">Restaurar padrão</button></div>';
+      if (oc.length) extra = '<div class="sel" style="justify-content:center"><button type="button" class="lkTx" data-act="inicioReset">Restaurar padrão</button></div>';
     }
     // v441: no lugar da faixa "N avisos urgentes" (os avisos continuam no sino), a busca única
     var faixa = buscaHtml();
@@ -23921,7 +23921,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         }, 0);
     var today = dayKey(Date.now());
     var h =
-      (k < today ? '<div class="top" style="justify-content:flex-end"><button class="tx" data-act="daytoday">Voltar para hoje</button></div>' : '') +
+      (k < today ? '<div class="top" style="justify-content:flex-end"><button type="button" class="lkTx" data-act="daytoday">Voltar para hoje</button></div>' : '') +
       '<section class="card col"><div class="dayrow"><button class="ic" data-act="dayprev" aria-label="Dia anterior">‹</button><button class="btn-sc dtxt" data-act="daycal" aria-label="Escolher a data no calendário" style="flex:1 1 auto;font-size:15px">' +
       fmtDay(k) +
       ' ▾</button><button class="ic" data-act="daynext" aria-label="Próximo dia"' +
@@ -25169,7 +25169,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         '<div class="hint" style="margin:0">' + BARRA_NOME[a] + ' e ' + BARRA_NOME[b] + ' passam a ficar juntos num só botão da barra. As telas aparecem como abas no topo.</div>' +
         '<input class="in" id="grpNome" maxlength="18" value="' + esc(grpNomePadrao(a, b)) + '" aria-label="Nome do grupo">' +
         '<button type="button" class="go" data-act="grpCria">Criar grupo</button>' +
-        '<button type="button" class="chip" data-act="grpFecha">Cancelar</button>'
+        '<button type="button" class="chip grpCentro" data-act="grpFecha">Cancelar</button>'
     );
   }
   function grpGerirAbre(gid) {
@@ -25186,14 +25186,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         g.itens.map(function (x) {
           return '<div class="grow"><span>' + BARRA_NOME[x] + '</span><button type="button" class="chip" data-act="grpTirar" data-id="' + x + '">Tirar</button></div>';
         }).join('') +
-        (livres.length
-          ? '<div class="lbl" style="margin:0">Adicionar botão <span style="font-weight:400">(ou arraste do Início até o grupo)</span></div><div class="gadd">' +
-            livres.map(function (x) {
-              return '<button type="button" class="chip" data-act="grpPoe" data-id="' + x + '">+ ' + BARRA_NOME[x] + '</button>';
-            }).join('') + '</div>'
-          : '') +
+        // S360 (esboço 36, aprovado 15/11/2026): sem o bloco "Adicionar botão"; para pôr uma tela no grupo, arrasta-se o atalho do Início até ele.
         '<button type="button" class="go" data-act="grpSalva">Salvar</button>' +
-        '<button type="button" class="chip" data-act="grpDesfazer">Desfazer o grupo</button>'
+        '<button type="button" class="chip grpCentro" data-act="grpDesfazer">Desfazer o grupo</button>'
     );
   }
   function grpNomeLe(g, padrao) {
@@ -44510,29 +44505,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var v = $('v-caixa');
     if (!v || S.view !== 'caixa') return;
     famZera();
-    var h1 = v.querySelector('.top h1'), cr = v.querySelector('.top .crumb');
-    if (h1) h1.textContent = 'Dinheiro';
-    if (cr) cr.textContent = 'Caixa, contas do mês e câmbio.';
+    // S360 (esboço 28, aprovado 15/11/2026): a tela é só o caixa (título "Caixa"); Contas do mês e Câmbio ficam nas telas deles.
     if (v.querySelector('.famS')) return;
     var mv = famAcha(v, /^Movimentos/);
     if (mv) famCorta(mv, 300, 'mov', 'Ver todos os movimentos ›');
-    var c2 = document.createElement('div'), c3 = document.createElement('div');
-    c2.className = 'famC famC2'; c3.className = 'famC famC3';
-    famDesenha(renderDesp);
-    var d = $('v-desp');
-    c2.appendChild(famRot('Contas do mês'));
-    if (d) {
-      var k = d.querySelector('.kpis'), cp = famAcha(d, /^Contas para pagar/);
-      if (k) c2.appendChild(famCopia(k));
-      if (cp) c2.appendChild(famCopia(cp));
-    }
-    c2.appendChild(famBtn('Ver todas as despesas ›', 'view', 'desp'));
-    famDesenha(renderFx);
-    var f = $('v-fx');
-    c3.appendChild(famRot('Câmbio'));
-    if (f) ['.fxTop', '.fxRepo'].forEach(function (q) { var e = f.querySelector(q); if (e) c3.appendChild(famCopia(e)); });
-    c3.appendChild(famBtn('Ver câmbio e trocas ›', 'view', 'fx'));
-    famColunas(v, c2, c3);
   }
   var _rcFam = renderCaixa;
   renderCaixa = function () {
@@ -45846,15 +45822,24 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       } catch (eRo) {}
     }
     // 4 e 7. Início: botões entram em cascata e os números contam subindo.
+    var CN_VISTO = {};
     function contaNumeros(el, dur) {
       var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT),
         n,
         l = [];
       // .noconta: códigos de peça, pedidos e horários não contam (guardião, recentes)
       while ((n = w.nextNode())) if (/\d/.test(n.nodeValue) && !(n.parentNode && n.parentNode.closest && n.parentNode.closest('.noconta'))) l.push(n);
-      l.forEach(function (node) {
+      l.forEach(function (node, ix) {
         var orig = node.nodeValue,
-          t0 = performance.now();
+          t0 = performance.now(),
+          pai = node.parentNode,
+          // S360 (aprovado 15/11/2026): só conta na 1ª vez ou quando o valor mudou; e a linha não muda de altura enquanto conta
+          dono = pai && pai.closest ? pai.closest('[data-id],[id]') : null,
+          chave = ((dono && (dono.getAttribute('data-id') || dono.id)) || '') + '|' + orig.replace(/\d[\d.,]*/g, '#');
+        if (CN_VISTO[chave] === orig) return;
+        CN_VISTO[chave] = orig;
+        var hFixa = pai && pai.offsetHeight;
+        if (hFixa) pai.style.minHeight = hFixa + 'px';
         function passo(t) {
           var k = Math.min(1, (t - t0) / (dur || 900)),
             e = 1 - Math.pow(1 - k, 3);
@@ -45869,6 +45854,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
                 })
               : orig;
           if (k < 1) requestAnimationFrame(passo);
+          else if (hFixa) pai.style.minHeight = '';
         }
         requestAnimationFrame(passo);
       });
@@ -47578,12 +47564,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return '<button type="button" class="dOp' + (on ? ' on' : '') + '" data-act="' + act + '" data-id="' + id + '"' + (on ? ' aria-current="true"' : '') + '><span><b>' + nome + '</b><small>' + sub + '</small></span><i aria-hidden="true">' + (on ? '✓' : seta ? '›' : '') + '</i></button>';
   }
   ACT.dVer = function () {
-    lfaAbre('dFolha', '<div class="dFt"><span>VER</span><button type="button" class="dFx" data-act="dFecha" aria-label="Fechar">×</button></div>' + DTABS.map(function (t) {
+    lfaAbre('dFolha', '<div class="dFt"><span>VER</span></div>' + DTABS.map(function (t) {
       return dOpHtml('dVerEsc', t[0], t[1], DT_FRASE[t[0]], S.dTab === t[0], true);
     }).join(''));
   };
   ACT.dPer = function () {
-    lfaAbre('dFolha', '<div class="dFt"><span>PERÍODO</span><button type="button" class="dFx" data-act="dFecha" aria-label="Fechar">×</button></div>' + PER_OP.map(function (o) {
+    lfaAbre('dFolha', '<div class="dFt"><span>PERÍODO</span></div>' + PER_OP.map(function (o) {
       return dOpHtml('dPerEsc', o[0], o[1], perDatas(o[0]), S.per === o[0], false);
     }).join('') + dOpHtml('dPerEsc', 'custom', 'Escolher datas', S.per === 'custom' ? perDatas('custom') : 'de um dia até outro', S.per === 'custom', true));
   };

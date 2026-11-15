@@ -2016,7 +2016,7 @@ html[data-tema="claro"]{--accent:#8d3a69;--accent-fg:#8d3a69;--accent-soft:#f6e9
 
 /* v469 trava única de rolagem: janela aberta = a tela de baixo não rola */
 html.lfTrava,html.lfTrava body{overflow:hidden!important;overscroll-behavior:none}
-html.lfTrava body{position:fixed;left:0;right:0;width:100%}
+html.lfTrava body{position:fixed;left:0;right:0;width:auto}
 .modal,.lfa-sh,.ljJn,.lfEspCx{overscroll-behavior:contain}
 /* v469 contador sem quadrado: ao tocar só as letras mudam, suave */
 #kCont{outline:none!important;-webkit-tap-highlight-color:transparent}
@@ -2488,3 +2488,9 @@ html{overscroll-behavior-y:none}
 /* S327 (15/11/2026) · Preços sem emoji; toque do "Este mês" */
 .cntL>span.cntI{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;border:1px solid var(--line);color:var(--sub);flex:none;font-size:0}
 .dHdP{min-height:44px;display:inline-flex;align-items:center;gap:4px}
+
+/* S360 (15/11/2026): esboço 37 — links de texto no lugar dos botões cinzas; esboço 36 — Cancelar/Desfazer no centro; esboço 46 — cartões separados nas abas do Dashboard; esboço 29 — abrir folha ou menu não muda larguras (trava: width:auto); números do Início com algarismos de largura igual */
+.lkTx{background:none;border:0;min-height:44px;padding:0 8px;color:var(--fg);font:inherit;font-size:15px;font-weight:500;text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--line);cursor:pointer}
+.modal-box .chip.grpCentro{align-self:center}
+#dtabBody{display:flex;flex-direction:column;gap:18px}#dtabBody>*{margin-top:0;margin-bottom:0}
+#v-inicio .tl .tp,#v-inicio .tl .tn{font-variant-numeric:tabular-nums}
