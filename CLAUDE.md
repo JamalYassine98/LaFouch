@@ -16,6 +16,11 @@
 - Subir a versão do cache em www/sw.js (lafouch-vNNN) a cada release. JUNTO, atualizar docs/novidades.json ("nome" = versão que o dono vê, "build" = o mesmo NNN, "notas" = o que mudou) — sem isso o app atualiza mas continua mostrando o nome antigo (bug de 13/11/2026: ficou preso em 5.9.0 da v501 à v506).
 - DESIGNER/PORTEIRO (13/11/2026): testar TODAS as condições antes de esboço ou publicação: SITE = tema claro + todas as temáticas (o site não tem tema escuro); APP = claro e escuro; as 3 letras, celular/tablet/PC até 2560, logado/deslogado, com e sem biometria, contraste do texto.
 - DESIGN DE LUXO EM TUDO (14/11/2026, regra do dono): todo o design do app e do site segue a ideia de luxo aprovada, em TODOS os dispositivos (celular, tablet, PC) e, no app, claro e escuro. Para aplicar esse padrão o dono dispensou esboço; o que for função/tela nova que ele nunca viu continua sendo avisado antes.
+- APROVADO ≠ IMPLEMENTAR (15/11/2026, ordem do dono — vale acima de qualquer regra anterior, inclusive "pare de fazer perguntas e só implementa" de 14/11 e a dispensa de esboço do DESIGN DE LUXO):
+  - "Aprovado" = SÓ guardar em docs/MEMORIA-PROJETO.md como aprovado. NÃO implementar, NÃO publicar.
+  - Só implementar quando o dono escrever "implementar" (para aquele item).
+  - "Implementar tudo" = implementar TUDO o que está aprovado na memória, em sequência, SEM consultar o dono; só parar por ação/segredo dele, gasto ou teste que falha; listar no final o que ficou de fora.
+  - Na dúvida se uma mensagem autoriza implementar: não implementar; guardar e avisar o que ficou aprovado e esperando.
 - REGRA DE OURO (04/11/2026): sempre esboço primeiro (INCLUSIVE correção de bug); implementar só quando o dono avisar; guardar o aprovado em docs/MEMORIA-PROJETO.md; entregar EXATAMENTE o esboço aprovado, sem mudanças não pedidas.
 
 ## Economia de tokens (pedido do dono, 11/11/2026)

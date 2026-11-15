@@ -2641,3 +2641,9 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Testado no simulador (escuro e claro): nenhum emoji na tela de Preços, 30 ícones de traço; "Enviar no…" em contorno nas cores do tema; tests/run.py 292/292. NÃO testado: celular real; a altura do "Este mês" não foi medida depois da mudança (só a regra foi escrita).
 - Pente do padrão de controles: TERMINADO para o que o simulador mostra. Não vistos: Mensagens, Analisador, Temática, Atacado, Online (páginas em branco no simulador), venda no Catálogo e detalhe do pedido.
 - PRÓXIMO: animações, lote A (abas e seletores), com vídeo antes de publicar.
+
+### S328 (15/11/2026 10:50) — REGRA DO DONO: aprovado ≠ implementar
+- DONO: "não quero que implemente nada; quando eu digo aprovado é para guardar na memória; só implementa quando eu digo implementar; se eu digo implementar tudo tem que implementar tudo que está aprovado na memória sem me consultar." Gravado no CLAUDE.md (regra "APROVADO ≠ IMPLEMENTAR"), acima das regras anteriores.
+- O que eu publiquei só com "aprovado", sem a palavra "implementar" (fica no ar; reverter só se o dono mandar): site S313, S318, S320 (telas de pagamento, 14–15/11); app v520 (padrão de controles, sem Recentes) e v521 (Preços sem emoji, botão em contorno).
+- APROVADO E ESPERANDO "implementar" (lista viva — manter atualizada): transferência no modo automático (S319, pronta no código, desligada; depende também do robô/funções do dono); giro (itens do bloco 4); app: leitor da haste de luxo, janelas num padrão só, capa do grupo com resumo, cor/grau entre Catálogo e Inventário, ajustes de PC, Nuvem enxuta, resto do relatório de movimento; site: janelas de luxo e limpeza técnica (item 22); Mochi; designer explorador.
+- Em esboço (NÃO aprovado ainda): animações do app em 3 lotes (A abas e seletores, B janelas e telas, C listas/toques/carregando) — o dono disse "Sim" para ver o vídeo do lote A.
