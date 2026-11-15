@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 523;
+  var APP_BUILD = 524;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.16.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.17.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -29106,6 +29106,104 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       return arqGrava(novo);
     });
   }
+  // ===== S334 (15/11/2026, pedido do dono): a atualização do app cuida do APK também =====
+  // Quando o dono manda gerar um APK, o build-apk.yml (com a chave FIXA) publica o arquivo LaFouch-<build>.apk na "release" apk do GitHub.
+  // Aqui (só no APK que tem o plugin LfInstall): o app vê se esse APK é mais novo que o instalado (número EMB do index.html que veio
+  // no APK), baixa para o cache (no Wi-Fi sozinho; nos dados móveis só quando o dono toca) e o cartão "Atualização do app" mostra
+  // "Aplicativo novo pronto · Toque para instalar". Tocar abre o instalador do Android, que sempre pede a confirmação.
+  var APK_API = 'https://api.github.com/repos/JamalYassine98/LaFouch/releases/tags/apk';
+  var APK = { emb: 0, n: 0, url: '', tam: 0, est: '', msg: '', t: 0, busy: false, avisou: 0 }; // est: '' · tem · baixa · pronto · erro
+  function apkNat() {
+    var C = window.Capacitor, P = C && C.isNativePlatform && C.isNativePlatform() && C.Plugins;
+    return P && P.LfInstall && P.Filesystem && P.Filesystem.downloadFile ? P : null;
+  }
+  function apkCel() {
+    var c = navigator.connection || {};
+    return c.type === 'cellular' || c.saveData === true;
+  }
+  function apkNome() { return 'LaFouch-' + APK.n + '.apk'; }
+  function apkPronto() {
+    APK.est = 'pronto';
+    APK.msg = '';
+    if (APK.avisou !== APK.n) {
+      APK.avisou = APK.n;
+      try { lfaToast('<b>Aplicativo novo pronto</b><br>Ajustes › Atualização para instalar.', 4500); } catch (e) {}
+    }
+  }
+  function apkBaixa() {
+    var P = apkNat();
+    if (!P || APK.est === 'baixa' || !APK.n) return Promise.resolve(APK.est);
+    APK.est = 'baixa';
+    APK.msg = '';
+    updRender();
+    var caminho = 'apk/' + apkNome();
+    return P.Filesystem.rmdir({ path: 'apk', directory: 'CACHE', recursive: true }).catch(function () {})
+      .then(function () { return P.Filesystem.downloadFile({ url: APK.url, path: caminho, directory: 'CACHE', recursive: true }); })
+      .then(function () { return P.Filesystem.stat({ path: caminho, directory: 'CACHE' }); })
+      .then(function (s) {
+        // nunca oferece arquivo cortado
+        if (!s || +s.size !== APK.tam) throw new Error('arquivo incompleto');
+        apkPronto();
+      })
+      .catch(function (e) { APK.est = 'erro'; APK.msg = 'Não consegui baixar o aplicativo (' + ((e && e.message) || 'erro') + '). Toque para tentar de novo.'; })
+      .then(function () { updRender(); return APK.est; });
+  }
+  // manual = o dono tocou em "Buscar atualização"
+  function apkBusca(manual) {
+    var P = apkNat();
+    if (!P || APK.busy || APK.est === 'baixa' || !navigator.onLine) return Promise.resolve('sem');
+    APK.busy = true;
+    APK.t = Date.now();
+    return fetch('index.html', { cache: 'no-store' }).then(function (r) { return r.text(); })
+      .then(function (t) {
+        APK.emb = +((t.match(/var EMB=(\d+)/) || [])[1]) || 0;
+        if (!APK.emb) throw new Error('sem número');
+        return fetch(APK_API, { cache: 'no-store', headers: { Accept: 'application/vnd.github+json' } });
+      })
+      .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+      .then(function (rel) {
+        var a = ((rel && rel.assets) || []).map(function (x) { var m = /^LaFouch-(\d+)\.apk$/.exec(String(x.name || '')); return m && x.state !== 'starter' ? { n: +m[1], url: String(x.browser_download_url || ''), tam: +x.size || 0 } : null; })
+          .filter(Boolean).sort(function (x, y) { return y.n - x.n; })[0];
+        if (!a || a.n <= APK.emb || a.tam < 1000000 || a.url.indexOf('https://github.com/JamalYassine98/LaFouch/releases/download/') !== 0) {
+          APK.est = ''; APK.n = 0;
+          return P.Filesystem.rmdir({ path: 'apk', directory: 'CACHE', recursive: true }).catch(function () {}).then(function () { return 'em dia'; });
+        }
+        APK.n = a.n; APK.url = a.url; APK.tam = a.tam;
+        return P.Filesystem.stat({ path: 'apk/' + apkNome(), directory: 'CACHE' }).then(function (s) { return +s.size === a.tam; }, function () { return false; }).then(function (ja) {
+          if (ja) { apkPronto(); return 'pronto'; }
+          if (apkCel() && !manual) { APK.est = 'tem'; return 'tem'; }
+          APK.busy = false;
+          return apkBaixa();
+        });
+      })
+      .catch(function () { return 'erro'; })
+      .then(function (r) { APK.busy = false; updRender(); return r; });
+  }
+  ACT.apkgo = function () {
+    var P = apkNat();
+    if (!P) return;
+    if (APK.est === 'pronto') {
+      P.LfInstall.instalar({ nome: apkNome() }).catch(function (e) {
+        APK.est = 'erro';
+        APK.msg = 'O instalador não abriu (' + ((e && e.message) || 'erro') + '). Toque para baixar de novo.';
+        updRender();
+      });
+    } else if (APK.est === 'tem' || APK.est === 'erro') apkBaixa();
+  };
+  // linha do APK dentro do cartão "Atualização do app" (vazio quando não há APK novo)
+  function apkLinha() {
+    if (!APK.est || !APK.n) return '';
+    var mb = (APK.tam / 1048576).toFixed(0) + ' MB',
+      tit = { tem: 'Aplicativo novo disponível', baixa: 'Baixando o aplicativo…', pronto: 'Aplicativo novo pronto', erro: 'Aplicativo novo disponível' }[APK.est],
+      sub = { tem: 'Toque para baixar · ' + mb, baixa: mb + ' · pode continuar usando', pronto: 'Toque para instalar · o Android pede para confirmar', erro: 'Toque para baixar · ' + mb }[APK.est],
+      ico = APK.est === 'baixa' ? '<span class="lfa-spin">↻</span>' : '⬇';
+    return '<button type="button" class="bsolid new" data-act="apkgo"' + (APK.est === 'baixa' ? ' disabled' : '') + '><span class="bi">' + ico + '</span><span class="bt2"><b>' + tit + '</b><span>' + sub + '</span></span></button>' +
+      (APK.msg ? '<div class="note n-info" role="status">' + esc(APK.msg) + '</div>' : '');
+  }
+  if (!/#test/.test(location.hash)) {
+    setTimeout(function () { apkBusca(false); }, 60000);
+    setInterval(function () { if (!document.hidden && Date.now() - APK.t > 4 * 3600 * 1000) apkBusca(false); }, 600000);
+  } else window.__apk = { busca: apkBusca, estado: APK, linha: apkLinha };
   // ===== S332 (15/11/2026, "opção A" aprovada pelo dono): a cópia do site do MODO LOJA também se atualiza sozinha, sem APK =====
   // O build grava www/loja/manifest.json (versão do site + lista de arquivos com tamanho e resumo). No aparelho (só no APK, que tem
   // o plugin Filesystem), o app compara com a cópia que veio no APK e com a última baixada; se o site mudou, baixa a cópia nova para
@@ -29277,7 +29375,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       })
       .catch(function (e) { fim(manual ? 'Não consegui buscar agora (' + ((e && e.message) || 'erro') + '). Tente de novo mais tarde.' : ''); });
   }
-  ACT.updbusca = function () { UPD.msg = ''; updBusca(true); updRender(); };
+  ACT.updbusca = function () { UPD.msg = ''; updBusca(true); apkBusca(true); updRender(); };
   // Janela de atualização: confirmar (com o que muda) -> atualizando (barra) -> pronto.
   ACT.updagora = function () {
     var m = updMarca(), v = UPD.pronta || +m.v || 0, nt = (m.notas || []).map(function (t) { return '<div style="display:flex;gap:8px"><span style="color:var(--accent-fg)">•</span><span>' + esc(t) + '</span></div>'; }).join('');
@@ -29328,7 +29426,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<div class="hint" style="margin:0">O app procura sozinho (ao abrir e a cada poucas horas) e avisa quando a nova está pronta. Nada muda enquanto você vende.</div>' +
       '<div class="vrow"><span>Versão <b>' + esc(APP_NOME) + '</b> <small>(' + APP_BUILD + ')</small></span><span>' + ult + '</span></div>' +
       '<button type="button" class="bsolid' + (est === 'ok' ? ' ok' : est === 'novo' ? ' new' : '') + '" data-act="' + (est === 'novo' ? 'updagora' : 'updbusca') + '"' + (est === 'busca' ? ' disabled' : '') + '><span class="bi">' + ico + '</span><span class="bt2"><b>' + tit + '</b><span>' + sub + '</span></span></button>' +
-      (UPD.msg && est !== 'ok' && est !== 'busca' && est !== 'novo' ? '<div class="note n-info" role="status">' + esc(UPD.msg) + '</div>' : '') + '</section>';
+      (UPD.msg && est !== 'ok' && est !== 'busca' && est !== 'novo' ? '<div class="note n-info" role="status">' + esc(UPD.msg) + '</div>' : '') + apkLinha() + '</section>';
   }
   // Confirma que a cópia baixada abriu bem (zera as tentativas) e agenda as buscas automáticas.
   setTimeout(function () {

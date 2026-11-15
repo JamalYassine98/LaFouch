@@ -909,6 +909,28 @@
     ]
    },
    {
+    "nome": "ggIn",
+    "props": [
+     "opacity"
+    ],
+    "usos": [
+     {
+      "onde": "/* S301 giro girável na página da peça */\n.big>video.ggv",
+      "dur": 0.32,
+      "sf": false,
+      "curva": "cubic-bezier(.16,1,.3,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.32
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
     "nome": "gzac",
     "props": [
      "transform"
@@ -1271,6 +1293,31 @@
     ]
    },
    {
+    "nome": "lfresp",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#grid .card .ph .ulin i",
+      "dur": 2.6,
+      "sf": true,
+      "curva": "ease-in-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     2.6
+    ],
+    "semfim": true,
+    "carga": false,
+    "falhas": [
+     "SEM FIM fora de \"carregando\""
+    ]
+   },
+   {
     "nome": "lfsoGrow",
     "props": [
      "border-radius",
@@ -1558,7 +1605,7 @@
     ],
     "usos": [
      {
-      "onde": "lf-site.js:3623",
+      "onde": "lf-site.js:3636",
       "dur": 0.16,
       "sf": false,
       "curva": "ease-in-out",
@@ -1676,7 +1723,7 @@
       "tipo": "css"
      },
      {
-      "onde": "lf-site.js:1678",
+      "onde": "lf-site.js:1662",
       "dur": 0.9,
       "sf": true,
       "curva": "linear",
@@ -1835,13 +1882,87 @@
     "falhas": []
    },
    {
+    "nome": "pyin",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "#pkok .pyXb>*,#pkok .pyXb>a.vend,#pkok .pyXb>.pgs,#pkok .pyXb>.pgx",
+      "dur": 0.36,
+      "sf": false,
+      "curva": "cubic-bezier(.16,1,.3,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.36
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "pzin",
+    "props": [
+     "max-height",
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": "vante\" entra suave (padrão de luxo) e brilha uma vez*/\n#pkok #pgcl.zin",
+      "dur": 0.56,
+      "sf": false,
+      "curva": "cubic-bezier(.16,1,.3,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.56
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "MEXE NO TAMANHO/POSIÇÃO (max-height)"
+    ]
+   },
+   {
+    "nome": "pzlu",
+    "props": [
+     "background-color"
+    ],
+    "usos": [
+     {
+      "onde": "#pkok #pgcl.zin .zA",
+      "dur": 1.8,
+      "sf": false,
+      "curva": "ease-out",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     1.8
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (1.8s)",
+     "CURVA PADRÃO (ease-out)"
+    ]
+   },
+   {
     "nome": "resp",
     "props": [
      "transform"
     ],
     "usos": [
      {
-      "onde": "lf-site.js:3617",
+      "onde": "lf-site.js:3630",
       "dur": 2.6,
       "sf": true,
       "curva": "ease-in-out",
@@ -2089,7 +2210,7 @@
       "tipo": "css"
      },
      {
-      "onde": "lf-site.js:1117",
+      "onde": "lf-site.js:1092",
       "dur": 4.5,
       "sf": true,
       "curva": "ease-in-out",
@@ -2233,7 +2354,7 @@
     ],
     "usos": [
      {
-      "onde": "lf-site.js:3619",
+      "onde": "lf-site.js:3632",
       "dur": 2.6,
       "sf": true,
       "curva": "ease-in-out",
@@ -3128,6 +3249,24 @@
     "curva": null
    },
    {
+    "onde": "#pkok .pyXh svg",
+    "prop": "transform",
+    "dur": 0.36,
+    "curva": "cubic-bezier(.16,1,.3,1)"
+   },
+   {
+    "onde": "#pkok .pyXh svg",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": "#pkok .zf i",
+    "prop": "width",
+    "dur": 1.0,
+    "curva": "linear"
+   },
+   {
     "onde": ".stage .tag",
     "prop": "opacity",
     "dur": 0.22,
@@ -3416,6 +3555,24 @@
     "curva": "ease"
    },
    {
+    "onde": ": o menu fecha em 0,2 s (antes 0,53 s) */\n#drw:not(.on) .dpn",
+    "prop": "transform",
+    "dur": 0.2,
+    "curva": "cubic-bezier(.4,0,.2,1)"
+   },
+   {
+    "onde": "#drw:not(.on)",
+    "prop": "visibility",
+    "dur": 0.0,
+    "curva": "linear"
+   },
+   {
+    "onde": "#drw:not(.on) .dsc",
+    "prop": "opacity",
+    "dur": 0.2,
+    "curva": "cubic-bezier(.4,0,.2,1)"
+   },
+   {
     "onde": "/*REDES-RODAPE*/\n.so",
     "prop": "background",
     "dur": 0.2,
@@ -3480,6 +3637,36 @@
     "prop": "transform",
     "dur": 0.28,
     "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": "/* S301 giro girável na página da peça */\n.big>video.ggv",
+    "prop": "transform",
+    "dur": 0.35,
+    "curva": "cubic-bezier(.2,.8,.2,1)"
+   },
+   {
+    "onde": ".big.dg>video.ggv",
+    "prop": "none",
+    "dur": null,
+    "curva": null
+   },
+   {
+    "onde": ".ggp",
+    "prop": "opacity",
+    "dur": 0.32,
+    "curva": "cubic-bezier(.16,1,.3,1)"
+   },
+   {
+    "onde": ".ggp",
+    "prop": "transform",
+    "dur": 0.32,
+    "curva": "cubic-bezier(.16,1,.3,1)"
+   },
+   {
+    "onde": ".ggp",
+    "prop": "none",
+    "dur": null,
+    "curva": null
    },
    {
     "onde": ".vtit",
@@ -3921,8 +4108,8 @@
    }
   ],
   "js": {
-   "animate(": 48,
-   "requestAnimationFrame": 50,
+   "animate(": 56,
+   "requestAnimationFrame": 53,
    "setInterval": 20,
    "style.transition=": 25,
    "style.animation=": 5
@@ -4164,7 +4351,7 @@
       "tipo": "css"
      },
      {
-      "onde": "88-movimento.js:41",
+      "onde": "88-movimento.js:28",
       "dur": 0.28,
       "sf": false,
       "curva": "ease-out",
@@ -4732,6 +4919,28 @@
     ]
    },
    {
+    "nome": "gtFio",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".gtL.gtIn .gtRw button.on::after",
+      "dur": 0.32,
+      "sf": false,
+      "curva": "cubic-bezier(.16,1,.3,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.32
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
     "nome": "impG",
     "props": [
      "transform"
@@ -4929,6 +5138,105 @@
     ]
    },
    {
+    "nome": "lcAnda",
+    "props": [
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lcBar i",
+      "dur": 12.0,
+      "sf": false,
+      "curva": "cubic-bezier(.1,.7,.2,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     12.0
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": [
+     "LONGA (12s)"
+    ]
+   },
+   {
+    "nome": "lcFundo",
+    "props": [
+     "background"
+    ],
+    "usos": [
+     {
+      "onde": "/* ===== S254 · cartão de carregando ===== */\n#loadFoto.lcOv",
+      "dur": 0.32,
+      "sf": false,
+      "curva": "cubic-bezier(.16,1,.3,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.32
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "lcNasce",
+    "props": [
+     "opacity",
+     "transform"
+    ],
+    "usos": [
+     {
+      "onde": ".lcCard",
+      "dur": 0.32,
+      "sf": false,
+      "curva": "cubic-bezier(.16,1,.3,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 1,
+    "durs": [
+     0.32
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
+    "nome": "lcTx",
+    "props": [
+     "opacity"
+    ],
+    "usos": [
+     {
+      "onde": ".lcTx.lcIn",
+      "dur": 0.24,
+      "sf": false,
+      "curva": "cubic-bezier(.16,1,.3,1)",
+      "tipo": "css"
+     },
+     {
+      "onde": ".lcX",
+      "dur": 0.32,
+      "sf": false,
+      "curva": "cubic-bezier(.16,1,.3,1)",
+      "tipo": "css"
+     }
+    ],
+    "nusos": 2,
+    "durs": [
+     0.24,
+     0.32
+    ],
+    "semfim": false,
+    "carga": false,
+    "falhas": []
+   },
+   {
     "nome": "lfBrilha",
     "props": [
      "filter"
@@ -5098,10 +5406,17 @@
    {
     "nome": "lfSobe",
     "props": [
-     "opacity",
+     "filter",
      "transform"
     ],
     "usos": [
+     {
+      "onde": ".twrap .tl",
+      "dur": 0.32,
+      "sf": false,
+      "curva": "cubic-bezier(.16,1,.3,1)",
+      "tipo": "css"
+     },
      {
       "onde": ".lfVazio b",
       "dur": 0.45,
@@ -5117,14 +5432,15 @@
       "tipo": "css"
      }
     ],
-    "nusos": 2,
+    "nusos": 3,
     "durs": [
+     0.32,
      0.45
     ],
     "semfim": false,
     "carga": false,
     "falhas": [
-     "CURVA PADRÃO (ease)"
+     "EFEITO PESADO (filter)"
     ]
    },
    {
@@ -7199,16 +7515,16 @@
     ],
     "usos": [
      {
-      "onde": ".slideL",
-      "dur": 0.38,
+      "onde": ".slideL,.view.lxIr,.view.slideL.enter,.view.lxIr.enter",
+      "dur": 0.36,
       "sf": false,
-      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "curva": "cubic-bezier(.16,1,.3,1)",
       "tipo": "css"
      }
     ],
     "nusos": 1,
     "durs": [
-     0.38
+     0.36
     ],
     "semfim": false,
     "carga": false,
@@ -7222,16 +7538,16 @@
     ],
     "usos": [
      {
-      "onde": ".slideR",
-      "dur": 0.38,
+      "onde": ".slideR,.view.lxVolta,.view.slideR.enter,.view.lxVolta.enter",
+      "dur": 0.36,
       "sf": false,
-      "curva": "cubic-bezier(.2,.8,.2,1)",
+      "curva": "cubic-bezier(.16,1,.3,1)",
       "tipo": "css"
      }
     ],
     "nusos": 1,
     "durs": [
-     0.38
+     0.36
     ],
     "semfim": false,
     "carga": false,
@@ -7375,23 +7691,13 @@
     "props": [
      "transform"
     ],
-    "usos": [
-     {
-      "onde": ".twrap .tl",
-      "dur": 0.5,
-      "sf": true,
-      "curva": "ease-in-out",
-      "tipo": "css"
-     }
-    ],
-    "nusos": 1,
-    "durs": [
-     0.5
-    ],
-    "semfim": true,
+    "usos": [],
+    "nusos": 0,
+    "durs": [],
+    "semfim": false,
     "carga": false,
     "falhas": [
-     "SEM FIM fora de \"carregando\""
+     "SEM USO (apagar)"
     ]
    }
   ],
@@ -8363,6 +8669,12 @@
     "curva": "ease-out"
    },
    {
+    "onde": "#loadFoto.lcOv.sai",
+    "prop": "opacity",
+    "dur": 0.2,
+    "curva": "cubic-bezier(.4,0,.2,1)"
+   },
+   {
     "onde": "var sk = btn('chip', opts.skipTxt || 'Pular', function ()",
     "prop": "opacity",
     "dur": 0.25,
@@ -8395,7 +8707,7 @@
   ],
   "js": {
    "animate(": 49,
-   "requestAnimationFrame": 42,
+   "requestAnimationFrame": 41,
    "setInterval": 40,
    "style.transition=": 45,
    "style.animation=": 9

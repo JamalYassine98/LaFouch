@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -17,6 +17,29 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
+
+      # S334 (15/11/2026): chave FIXA de assinatura, para o APK novo instalar POR CIMA do antigo (sem "conflito de pacote").
+      # A chave nunca fica no projeto: é criada aqui na 1a vez e guardada CIFRADA (arquivo chave.enc da release "apk"),
+      # trancada pela frase do segredo APK_CHAVE, que só o dono conhece. Sem o segredo, o APK sai com chave provisória (como antes).
+      - name: Chave fixa do APK
+        env:
+          APK_CHAVE: ${{ secrets.APK_CHAVE }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p ~/.android
+          if [ -z "$APK_CHAVE" ]; then echo "::warning::Sem o segredo APK_CHAVE: APK assinado com chave provisoria (da conflito ao instalar por cima)"; exit 0; fi
+          gh release view apk >/dev/null 2>&1 || gh release create apk --title "APK do app La Fouch" --notes "Arquivos do aplicativo, gerados automaticamente. Nao apagar o arquivo chave.enc."
+          NOMES=$(gh release view apk --json assets --jq '.assets[].name')
+          if echo "$NOMES" | grep -qx 'chave.enc'; then
+            gh release download apk -p chave.enc -O chave.enc
+            openssl enc -d -aes-256-cbc -pbkdf2 -iter 600000 -pass env:APK_CHAVE -in chave.enc -out ~/.android/debug.keystore || { echo "::error::A frase do segredo APK_CHAVE nao abre a chave guardada (a frase foi trocada?)"; exit 1; }
+          else
+            keytool -genkeypair -keystore ~/.android/debug.keystore -storetype PKCS12 -storepass android -keypass android -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 20000 -dname "CN=La Fouch, O=La Fouch, C=PY"
+            openssl enc -aes-256-cbc -pbkdf2 -iter 600000 -salt -pass env:APK_CHAVE -in ~/.android/debug.keystore -out chave.enc
+            gh release upload apk chave.enc
+          fi
+          keytool -list -keystore ~/.android/debug.keystore -storepass android | grep -i 'SHA' || { echo "::error::A chave guardada nao abriu"; exit 1; }
+          echo "CHAVE_FIXA=1" >> "$GITHUB_ENV"
 
       - uses: actions/setup-node@v4
         with:
@@ -108,6 +131,18 @@ jobs:
         with:
           name: LaFouch-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
+
+      # S334: com a chave fixa, o APK vai para a release "apk" (LaFouch-<build>.apk); o app instalado acha, baixa e oferece instalar.
+      - name: Publicar o APK para a atualizacao dentro do app
+        if: env.CHAVE_FIXA == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          N=$(grep -o 'lafouch-v[0-9]*' www/sw.js | head -1 | grep -o '[0-9]*$')
+          test -n "$N"
+          cp android/app/build/outputs/apk/debug/app-debug.apk "LaFouch-$N.apk"
+          for a in $(gh release view apk --json assets --jq '.assets[].name' | grep '^LaFouch-.*\.apk$' || true); do gh release delete-asset apk "$a" -y; done
+          gh release upload apk "LaFouch-$N.apk" --clobber
 
   site:
     needs: build

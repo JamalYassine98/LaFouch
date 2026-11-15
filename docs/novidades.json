@@ -1,8 +1,8 @@
 {
- "nome": "5.16.0",
+ "nome": "5.17.0",
  "notas": [
-  "Modo loja se atualiza sozinho: quando o site muda, o app baixa a cópia nova do catálogo (sem precisar de APK) e continua funcionando sem internet.",
-  "Se a cópia baixada tiver problema, o app volta sozinho para a que veio no aplicativo."
+  "A atualização do app cuida do aplicativo (APK) também: quando há um APK novo, ele aparece em Ajustes › Atualização para baixar e instalar.",
+  "O APK passa a ter assinatura fixa: o novo instala por cima do antigo, sem desinstalar (depois de configurar a frase da chave no GitHub)."
  ],
- "build": 523
+ "build": 524
 }

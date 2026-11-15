@@ -68,7 +68,7 @@
       })
       .catch(function (e) { fim(manual ? 'Não consegui buscar agora (' + ((e && e.message) || 'erro') + '). Tente de novo mais tarde.' : ''); });
   }
-  ACT.updbusca = function () { UPD.msg = ''; updBusca(true); updRender(); };
+  ACT.updbusca = function () { UPD.msg = ''; updBusca(true); apkBusca(true); updRender(); };
   // Janela de atualização: confirmar (com o que muda) -> atualizando (barra) -> pronto.
   ACT.updagora = function () {
     var m = updMarca(), v = UPD.pronta || +m.v || 0, nt = (m.notas || []).map(function (t) { return '<div style="display:flex;gap:8px"><span style="color:var(--accent-fg)">•</span><span>' + esc(t) + '</span></div>'; }).join('');
@@ -119,7 +119,7 @@
       '<div class="hint" style="margin:0">O app procura sozinho (ao abrir e a cada poucas horas) e avisa quando a nova está pronta. Nada muda enquanto você vende.</div>' +
       '<div class="vrow"><span>Versão <b>' + esc(APP_NOME) + '</b> <small>(' + APP_BUILD + ')</small></span><span>' + ult + '</span></div>' +
       '<button type="button" class="bsolid' + (est === 'ok' ? ' ok' : est === 'novo' ? ' new' : '') + '" data-act="' + (est === 'novo' ? 'updagora' : 'updbusca') + '"' + (est === 'busca' ? ' disabled' : '') + '><span class="bi">' + ico + '</span><span class="bt2"><b>' + tit + '</b><span>' + sub + '</span></span></button>' +
-      (UPD.msg && est !== 'ok' && est !== 'busca' && est !== 'novo' ? '<div class="note n-info" role="status">' + esc(UPD.msg) + '</div>' : '') + '</section>';
+      (UPD.msg && est !== 'ok' && est !== 'busca' && est !== 'novo' ? '<div class="note n-info" role="status">' + esc(UPD.msg) + '</div>' : '') + apkLinha() + '</section>';
   }
   // Confirma que a cópia baixada abriu bem (zera as tentativas) e agenda as buscas automáticas.
   setTimeout(function () {

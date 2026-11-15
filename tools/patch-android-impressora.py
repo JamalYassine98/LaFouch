@@ -11,6 +11,7 @@ pkg = os.path.join(andr, 'app/src/main/java/com/lafouch/app')
 os.makedirs(pkg, exist_ok=True)
 shutil.copy('android-extra/LfPrinterPlugin.java', os.path.join(pkg, 'LfPrinterPlugin.java'))
 shutil.copy('android-extra/LfSharePlugin.java', os.path.join(pkg, 'LfSharePlugin.java'))  # v427: compartilhar direto no app
+shutil.copy('android-extra/LfInstallPlugin.java', os.path.join(pkg, 'LfInstallPlugin.java'))  # S334: instalar o APK novo de dentro do app
 for f in ('LfNotifPlugin.java', 'LfNotifService.java', 'LfBarsPlugin.java'):  # v450: PIX automático pelo Nubank · v464: barras do Android no tema
     shutil.copy('android-extra/' + f, os.path.join(pkg, f))
 
@@ -37,6 +38,10 @@ if 'LfBarsPlugin' not in s:
     s = s.replace('registerPlugin(LfNotifPlugin.class);', 'registerPlugin(LfNotifPlugin.class);\n        registerPlugin(LfBarsPlugin.class);', 1)
     open(ma, 'w').write(s)
 assert 'registerPlugin(LfBarsPlugin.class)' in s, 'MainActivity sem o LfBars'
+if 'LfInstallPlugin' not in s:
+    s = s.replace('registerPlugin(LfBarsPlugin.class);', 'registerPlugin(LfBarsPlugin.class);\n        registerPlugin(LfInstallPlugin.class);', 1)
+    open(ma, 'w').write(s)
+assert 'registerPlugin(LfInstallPlugin.class)' in s, 'MainActivity sem o LfInstall'
 
 # Permissões
 mf = os.path.join(andr, 'app/src/main/AndroidManifest.xml')
@@ -49,6 +54,7 @@ perms = [
     '<uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />',
     '<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />',
     '<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />',
+    '<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />',  # S334: abrir o instalador com o APK novo
     '<uses-feature android:name="android.hardware.bluetooth" android:required="false" />',
 ]
 add = [p for p in perms if re.search(r'android:name="([^"]+)"', p).group(1) not in m]

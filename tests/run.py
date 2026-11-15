@@ -3560,6 +3560,41 @@ async def main():
             if not ok: falhas.append('modo loja atualização'); print('        veio', got, r1, r2, r3, r4, pg.erros)
             await pg.close()
 
+            # S334 (15/11/2026): a atualização do app cuida do APK. Aparelho falso (plugins LfInstall + Filesystem):
+            # APK mais novo na release → baixa sozinho no Wi-Fi e o cartão mostra "Aplicativo novo pronto"; tocar abre o instalador;
+            # nos dados móveis espera o toque; arquivo cortado não é oferecido; APK apk_igual ao instalado = nada aparece.
+            pg = await pagina()
+            EMBN = int(re.search(r'var EMB=(\d+)', open(os.path.join(RAIZ, 'www', 'index.html')).read()).group(1))
+            rel = {'n': EMBN + 1, 'tam': 18500000}
+            async def ghapi(route):
+                await route.fulfill(json={'tag_name': 'apk', 'assets': [{'name': 'chave.enc', 'size': 2800, 'browser_download_url': 'https://github.com/JamalYassine98/LaFouch/releases/download/apk/chave.enc'},
+                  {'name': 'LaFouch-%d.apk' % rel['n'], 'size': rel['tam'], 'state': 'uploaded', 'browser_download_url': 'https://github.com/JamalYassine98/LaFouch/releases/download/apk/LaFouch-%d.apk' % rel['n']}]}, headers={'access-control-allow-origin': '*'})
+            await pg.context.route(re.compile(r'api\.github\.com/repos/JamalYassine98/LaFouch/releases/tags/apk'), ghapi)
+            got = await pg.evaluate("""async (tam) => { const L = window.__LF, w = ms => new Promise(r => setTimeout(r, ms)); const A = window.__apk, log = { baixou: [], instalou: [], tamReal: tam, arq: {} };
+              window.Capacitor = { isNativePlatform: () => true, Plugins: { LfInstall: { instalar: async o => { log.instalou.push(o.nome); return { ok: true }; } }, Filesystem: {
+                downloadFile: async o => { log.baixou.push(o.url); log.arq[o.path] = log.tamReal; return { path: o.path }; }, stat: async o => { if (!(o.path in log.arq)) throw new Error('não existe'); return { size: log.arq[o.path] }; }, rmdir: async o => { log.arq = {}; } } } };
+              const cel = t => Object.defineProperty(navigator, 'connection', { value: { type: t }, configurable: true });
+              L.setView('ajustes'); await w(300);
+              cel('wifi'); const r1 = await A.busca(false); const h1 = A.linha();
+              const wifi = r1 === 'pronto' && log.baixou.length === 1 && /releases\\/download\\/apk\\/LaFouch-\\d+\\.apk$/.test(log.baixou[0]) && /Aplicativo novo pronto/.test(h1) && /data-act="apkgo"/.test(h1);
+              L.ACT.apkgo(); await w(100); const instala = log.instalou.length === 1 && log.instalou[0] === 'LaFouch-' + A.estado.n + '.apk';
+              const r1b = await A.busca(false); const semBaixarDeNovo = r1b === 'pronto' && log.baixou.length === 1;
+              log.arq = {}; A.estado.est = ''; cel('cellular'); const r2 = await A.busca(false); const h2 = A.linha();
+              const dados = r2 === 'tem' && log.baixou.length === 1 && /Toque para baixar · 18 MB/.test(h2);
+              L.ACT.apkgo(); await w(200); const toque = A.estado.est === 'pronto' && log.baixou.length === 2;
+              log.arq = {}; A.estado.est = ''; log.tamReal = 1234; cel('wifi'); const r3 = await A.busca(false); const cortado = r3 === 'erro' && !/pronto/.test(A.linha()) && /Toque para baixar/.test(A.linha());
+              L.ACT.apkgo(); await w(100); const naoInstala = log.instalou.length === 1;
+              delete window.Capacitor; const semApk = await A.busca(false);
+              return [wifi, instala, semBaixarDeNovo, dados, toque, cortado, naoInstala, semApk === 'sem']; }""", rel['tam'])
+            rel['n'] = EMBN
+            apk_igual = await pg.evaluate("""async () => { const A = window.__apk; let apagou = 0; window.Capacitor = { isNativePlatform: () => true, Plugins: { LfInstall: { instalar: async () => ({}) }, Filesystem: { downloadFile: async () => ({}), stat: async () => { throw new Error('x'); }, rmdir: async () => { apagou++; } } } };
+              A.estado.est = ''; const r = await A.busca(true); delete window.Capacitor; return [r === 'em dia', A.linha() === '', apagou === 1]; }""")
+            total += 1
+            ok = got == [True] * 8 and apk_igual == [True] * 3 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Atualização do APK: acha o APK novo, baixa (Wi-Fi sozinho, dados só no toque), oferece instalar, recusa arquivo cortado')
+            if not ok: falhas.append('atualização do APK'); print('        veio', got, apk_igual, pg.erros)
+            await pg.close()
+
             # Estúdio × Adicionar (v442): botão "Fotografar antes de cadastrar" + Giro; Adicionar com faixa de 2 abas que lembra a aba; foto aguardando leva a 3/4 junto; selos por cor; Completar fotos abre o Estúdio
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
