@@ -1,0 +1,385 @@
+{
+"Início": [
+{
+"t": "343 peças da compra de 31/12 sem detalhe",
+"toque": true,
+"blocoTemBotao": false,
+"bloco": "343 peças da compra de 31/12 sem d"
+},
+{
+"t": "24 para fotografar",
+"toque": true,
+"blocoTemBotao": false,
+"bloco": ""
+},
+{
+"t": "5 a repor",
+"toque": true,
+"blocoTemBotao": false,
+"bloco": ""
+},
+{
+"t": "Conferir estoque",
+"toque": true,
+"blocoTemBotao": false,
+"bloco": ""
+}
+],
+"Catálogo": [],
+"Inventário": [
+{
+"t": "15 preços para corrigir",
+"toque": true,
+"blocoTemBotao": true,
+"bloco": "Todos os produtos por referência"
+},
+{
+"t": "2 perto do mínimo · 8 abaixo do custo · 5 sem custo",
+"toque": true,
+"blocoTemBotao": true,
+"bloco": "Todos os produtos por referência"
+},
+{
+"t": "Corrigir ›",
+"toque": true,
+"blocoTemBotao": true,
+"bloco": "Todos os produtos por referência"
+},
+{
+"t": "baixo, repor",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "Todos os produtos por referência"
+}
+],
+"Dinheiro": [
+{
+"t": "O dinheiro em caixa está abaixo do que deveria estar separado. Evite retiradas até repor.",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "G$ 1.850.000"
+},
+{
+"t": "para pagar as contas (rateio: 171 peças por mês, ajuste em Ajustes)",
+"toque": false,
+"blocoTemBotao": false,
+"bloco": "CADA PEÇA VENDIDA SEPARA"
+},
+{
+"t": "Contas para pagar",
+"toque": false,
+"blocoTemBotao": false,
+"bloco": "Contas para pagar"
+},
+{
+"t": "venceu há 3 dias",
+"toque": false,
+"blocoTemBotao": false,
+"bloco": "Contas para pagar"
+},
+{
+"t": "vence hoje",
+"toque": false,
+"blocoTemBotao": false,
+"bloco": "Contas para pagar"
+},
+{
+"t": "vence em 5 dias",
+"toque": false,
+"blocoTemBotao": false,
+"bloco": "Contas para pagar"
+},
+{
+"t": "Faltam US$ 2.684",
+"toque": true,
+"blocoTemBotao": true,
+"bloco": "REPOSIÇÃO"
+},
+{
+"t": "Registrar troca",
+"toque": true,
+"blocoTemBotao": true,
+"bloco": "REPOSIÇÃO"
+}
+],
+"Despesas": [
+{
+"t": "para pagar as contas (rateio: 171 peças por mês, ajuste em Ajustes)",
+"toque": false,
+"blocoTemBotao": false,
+"bloco": "CADA PEÇA VENDIDA SEPARA"
+},
+{
+"t": "Contas para pagar",
+"toque": false,
+"blocoTemBotao": false,
+"bloco": "Contas para pagar"
+},
+{
+"t": "venceu há 3 dias",
+"toque": false,
+"blocoTemBotao": false,
+"bloco": "Contas para pagar"
+},
+{
+"t": "vence hoje",
+"toque": false,
+"blocoTemBotao": false,
+"bloco": "Contas para pagar"
+},
+{
+"t": "vence em 5 dias",
+"toque": false,
+"blocoTemBotao": false,
+"bloco": "Contas para pagar"
+},
+{
+"t": "Vence todo dia 5. Altere e veja o efeito antes de salvar.",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "Aluguel da loja"
+},
+{
+"t": "Vence todo dia 15. Valor muda todo mês. Atualize quando a conta chegar.",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "Luz"
+},
+{
+"t": "Vence todo dia 10. Altere e veja o efeito antes de salvar.",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "Internet"
+},
+{
+"t": "Vence todo dia 12. Valor muda todo mês. Atualize quando a conta chegar.",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "Contas de casa"
+},
+{
+"t": "Vence todo dia 5. Altere e veja o efeito antes de salvar.",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "Salário (retirada)"
+},
+{
+"t": "Vence todo dia 20. Altere e veja o efeito antes de salvar.",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "Contador"
+},
+{
+"t": "Vence todo dia 1. Altere e veja o efeito antes de salvar.",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "Provisão de imprevistos"
+},
+{
+"t": "A provisão de G$ 200.000 por mês é consumida pelos gastos inesperados que você registrar.",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "Imprevistos do mês"
+},
+{
+"t": "Registrar imprevisto",
+"toque": true,
+"blocoTemBotao": true,
+"bloco": "Imprevistos do mês"
+}
+],
+"Câmbio": [
+{
+"t": "Faltam US$ 2.684",
+"toque": true,
+"blocoTemBotao": true,
+"bloco": "REPOSIÇÃO"
+},
+{
+"t": "Registrar troca",
+"toque": true,
+"blocoTemBotao": true,
+"bloco": "REPOSIÇÃO"
+}
+],
+"Clientes": [],
+"Pedidos": [],
+"Dashboard (dia)": [],
+"Resumo": [
+{
+"t": "Para repor o estoque",
+"toque": false,
+"blocoTemBotao": false,
+"bloco": "Para repor o estoque"
+},
+{
+"t": "Reposição coberta. Depois de repor, sobram",
+"toque": false,
+"blocoTemBotao": false,
+"bloco": "Para repor o estoque"
+},
+{
+"t": "diferença do que ainda falta trocar",
+"toque": false,
+"blocoTemBotao": false,
+"bloco": "Colchão de segurança"
+},
+{
+"t": "Cada venda nova separa um colchão novo. Quando o dólar estiver barato, o app avisa para trocar.",
+"toque": false,
+"blocoTemBotao": false,
+"bloco": "Colchão de segurança"
+}
+],
+"Reservas": [
+{
+"t": "Registrar retirada (Caixa)",
+"toque": true,
+"blocoTemBotao": true,
+"bloco": "Seu mês"
+}
+],
+"Giro": [
+{
+"t": "O que vende e o que está parado · US$ 1 = G$ 6.487",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "NO ESTOQUE"
+},
+{
+"t": "Parado 60+ dias",
+"toque": false,
+"blocoTemBotao": false,
+"bloco": "PARADO 60+ DIAS"
+},
+{
+"t": "5 produto(s) vão acabar logo",
+"toque": true,
+"blocoTemBotao": true,
+"bloco": "Lista de compras"
+},
+{
+"t": "Acabando · 9",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "Sobrando"
+}
+],
+"Preços": [
+{
+"t": "faltam 82 peças",
+"toque": false,
+"blocoTemBotao": false,
+"bloco": "52%"
+},
+{
+"t": "Abaixo do piso",
+"toque": false,
+"blocoTemBotao": false,
+"bloco": "16"
+},
+{
+"t": "Preço abaixo do piso",
+"toque": true,
+"blocoTemBotao": true,
+"bloco": "Preço abaixo do piso"
+}
+],
+"Online (aba)": [],
+"Histórico": [
+{
+"t": "Fechar o dia agora",
+"toque": true,
+"blocoTemBotao": true,
+"bloco": "Fechamento do caixa"
+}
+],
+"Ajustes": [
+{
+"t": ". Toque no som para trocar, em ▶ para ouvir; a chave liga ou desliga o aviso.",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "Sons e avisos"
+},
+{
+"t": "Cliente mandou o comprovante para conferir",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "Sons e avisos"
+},
+{
+"t": "Bom momento para trocar dinheiro",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "Sons e avisos"
+},
+{
+"t": "Os dados ficam só neste celular. Guarde uma cópia de vez em quando (e antes de trocar de aparelho).",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": ""
+}
+],
+"Notificações": [
+{
+"t": "venceu há 3 dias",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "Contas de casa"
+},
+{
+"t": "Caixa de hoje não bate",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "Caixa de hoje não bate"
+},
+{
+"t": "Conferir",
+"toque": true,
+"blocoTemBotao": true,
+"bloco": "Caixa de hoje não bate"
+},
+{
+"t": "Peça sem custo (lucro errado) · 11",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "Peça sem custo (lucro errado) · 11"
+},
+{
+"t": "Lote sem detalhe · 343",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "Lote sem detalhe · 343"
+},
+{
+"t": "vence hoje",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "Luz"
+},
+{
+"t": "vence em 5 dias",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "Contador"
+},
+{
+"t": "Fechar o dia?",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "Fechar o dia?"
+},
+{
+"t": "Repor mercadoria",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "Repor mercadoria"
+},
+{
+"t": "5 produto(s) vão acabar logo",
+"toque": false,
+"blocoTemBotao": true,
+"bloco": "Repor mercadoria"
+}
+]
+}
