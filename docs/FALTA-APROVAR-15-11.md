@@ -4,7 +4,7 @@ Conferência pedida pelo dono ("o que discutimos e esqueci de falar aprovado?").
 
 ## A · Discutido e SEM decisão do dono
 1. **Abas da Minha conta (vídeo do dono, 15/11)** — pílula e arrastar já aprovados; faltam: conteúdo que some seco, conteúdo entrando sempre pela esquerda, altura do cartão que pula, "Cargando…" trocando no meio (seção 6 de docs/PROBLEMAS-ANIMACAO-SITE-E-APP-15-11.md).
-2. **Painel do site no escuro (S338)** — definir a cor que falta (botões brancos), escurecer o rosa dos filtros escolhidos, portão medir o painel no claro e no escuro.
+2. **Painel do site no escuro (S338), o que sobrou** — a cor dos botões brancos foi APROVADA em 15/11 15:00; faltam: escurecer o rosa dos filtros escolhidos e o portão medir o painel no claro e no escuro.
 3. **Volta do segundo plano, parte 2 (regra única de volta)** — parado de propósito: espera a medição do gravador (parte 1, já aprovada).
 4. **GitHub Pages × "não é para loja"** — o site e o app estão hospedados num serviço cujas regras dizem que não é para comércio; avisado em 14/11, sem decisão.
 
@@ -22,6 +22,7 @@ Conferência pedida pelo dono ("o que discutimos e esqueci de falar aprovado?").
 
 ## C · APROVADO, esperando "implementar"
 - **Site como tela do app (painel integrado)** — item 6 de 13/11, aprovado em 14/11 00:08 (esboço S242). ERRO MEU: saiu da minha lista depois do "implementar tudo" de 14/11 e eu disse em 15/11 que nunca tinha sido aprovado. Está aprovado.
+- De 15/11 15:00: painel do site no escuro (cor de cartão: Vitrine, Ajustes, "Sair" — esboços 16 e 17); barra de escolher peças com a frase em 2 linhas (esboço 18); barra fechada sai da tela e sair do Catálogo desfaz a escolha (esboço 19).
 - De 15/11: conserto das cópias do painel no site (conta/sacola pelo menu); botão da página já aberta não reanima; detector de cópias no portão; Filtros do inventário sem "Ver N peças"/"Cancelar"; trilho único arrastável em app e site; regra lógica da pílula + 4 provas no portão; soluções da lista de animações (site e app); gravador de engasgos no modo administrador; animações do app lote A (abas e seletores).
 - De antes: transferência no modo automático (pronta, desligada; depende também do robô/funções do dono); giro e Estúdio (bloco 4: Estúdio em vídeo/automático, tutorial, 19 melhorias, aprender o prato); app — leitor da haste de luxo, janelas num padrão só, capa do grupo com resumo, cor/grau entre Catálogo e Inventário, PC (ação ao lado do título, Inventário largura toda, Ajustes em 2 colunas), Nuvem enxuta, resto do relatório de movimento; site — janelas de luxo e limpeza técnica (item 22); Mochi (movimento calmo, boca no mudo; depois vozes, com autorização de créditos); designer explorador.
 
