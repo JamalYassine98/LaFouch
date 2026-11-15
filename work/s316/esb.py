@@ -4,14 +4,19 @@ from playwright.sync_api import sync_playwright
 from PIL import Image,ImageDraw,ImageFont
 OUT='/home/claude/lafouch/work/s316/';T='/tmp/s316/'
 F=lambda s,bd=False:ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans%s.ttf'%('-Bold' if bd else ''),s)
-OLHO=open('/home/claude/lafouch/work/kit/olho.js').read();NOVO=open(OUT+'novo.js').read()
+OLHO=open('/home/claude/lafouch/work/kit/olho.js').read();NOVO=open(OUT+'novo2.js').read()
 CONTA="""()=>{const b=document.querySelector('[data-id=kitped1]');if(!b)return 'sem cartão';const g=getComputedStyle(b);
-  const d=document.createElement('div');d.style.cssText='position:relative;border:'+g.border+';border-radius:'+g.borderRadius+';background:'+g.backgroundColor+';margin:'+g.margin;
-  b.style.border='0';b.style.margin='0';b.style.background='none';b.style.width='100%';b.style.paddingBottom='34px';
-  b.insertAdjacentHTML('beforeend','<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-left:2px;margin-right:-6px;color:var(--mu)"><path d="M9 5l7 7-7 7"/></svg>');
-  const tb=b.querySelector('b');if(tb)tb.style.whiteSpace='nowrap';
-  b.replaceWith(d);d.appendChild(b);
-  const c=document.createElement('button');c.type='button';c.textContent='Cancelar';c.style.cssText='position:absolute;right:'+g.paddingRight+';bottom:0;min-height:44px;padding:0 0 0 14px;background:none;border:0;color:var(--mu);font:500 13px Inter,system-ui,sans-serif;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;cursor:pointer';d.appendChild(c);return 'ok'}"""
+  // cartão em duas linhas alinhadas: (1) pedido · estado · ›   (2) data/forma/entrega · Cancelar — as duas na mesma linha de base, "Cancelar" alinhado à direita com o estado
+  const d=document.createElement('div');d.className=b.className;d.style.cssText='display:block;text-align:left;width:100%;box-sizing:border-box;cursor:pointer';
+  const t=b.querySelector('b'),m=b.querySelector('small'),e=b.querySelector('em');
+  const l1=document.createElement('div');l1.style.cssText='display:flex;align-items:center;justify-content:space-between;gap:10px';
+  const dir=document.createElement('span');dir.style.cssText='display:inline-flex;align-items:center;gap:6px;flex:none';dir.appendChild(e);
+  dir.insertAdjacentHTML('beforeend','<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:var(--mu);margin-right:-4px"><path d="M9 5l7 7-7 7"/></svg>');
+  t.style.cssText='white-space:nowrap;display:block';l1.append(t,dir);
+  const l2=document.createElement('div');l2.style.cssText='display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-top:6px';
+  m.style.cssText='display:block;margin:0';
+  const c=document.createElement('button');c.type='button';c.textContent='Cancelar';c.style.cssText='flex:none;margin:-14px 16px -14px 0;min-height:44px;padding:0 0 0 14px;background:none;border:0;color:var(--mu);font:'+getComputedStyle(m).font+';text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;cursor:pointer';
+  l2.append(m,c);d.append(l1,l2);b.replaceWith(d);return 'ok'}"""
 def olho(pg,w,sel):
     r=set()
     for rola in (0,1):
@@ -37,9 +42,9 @@ def prancha(nome,titulo,sub,cols):
     for i,(im,(p,r)) in enumerate(zip(ims,cols)):
         x=g+i*(w+g);d.text((x,170),r,font=F(34,True),fill='#8d3a69' if i else '#1d1418');S.paste(im,(x,top));d.rectangle([x-1,top-1,x+w,top+h],outline='#cfc6cb')
     S.save(OUT+nome,quality=88);print(' ',nome)
-TELAS=[('1-pagar-pix.jpg','Tela de pagar · PIX (refeita)','A ficha da reserva: começa pela peça; o fio dourado da contagem divide o cartão; uma ação cheia.',dict(minutos=2),0),
-       ('2-pagar-transferencia.jpg','Tela de pagar · Transferência Paraguai (refeita)','Mesma ficha: dados do Banco Familiar em linhas com "Copiar"; a ação cheia é enviar o comprovante.',dict(minutos=2,pag='alias'),0),
-       ('3-minha-conta-pedidos.jpg','Minha conta › Pedidos · pedido ainda não pago','Tocar no pedido leva a pagar; "Cancelar" dentro do pedido, pequeno e na cor do texto.',dict(minutos=2),1)]
+TELAS=[('1-pagar-pix.jpg','Tela de pagar · PIX','Linhas de recibo no lugar do total gigante e da peça; uma ação cheia; o fio dourado marca a reserva.',dict(minutos=2),0),
+       ('2-pagar-transferencia.jpg','Tela de pagar · Transferência Paraguai','O mesmo desenho: cada dado numa linha com "Copiar"; a ação cheia é enviar o comprovante.',dict(minutos=2,pag='alias'),0),
+       ('3-minha-conta-pedidos.jpg','Minha conta › Pedidos · pedido ainda não pago','Duas linhas alinhadas: pedido e estado em cima; data e "Cancelar" embaixo, na mesma linha de base.',dict(minutos=2),1)]
 with sync_playwright() as pw:
     for nome,tit,sub,kw,conta in TELAS:
         a,fa,_=tela(pw,kw,conta,0);b,fb,inf=tela(pw,kw,conta,1);print(nome,'altura',inf,'novas falhas x hoje:',sorted(fb-fa) or 'nenhuma')
