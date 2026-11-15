@@ -1,0 +1,298 @@
+{
+"vit_e": {
+"ilegiveis": [
+[
+"Sair",
+1.13
+],
+[
+"Ordem do catálogo",
+1.13
+],
+[
+"Equilibrada",
+2.86
+],
+[
+"›",
+2.86
+],
+[
+"Precisa de atenção",
+1.13
+],
+[
+"3 coisas para olhar",
+2.86
+],
+[
+"›",
+2.86
+],
+[
+"Opiniões para revisar",
+1.13
+],
+[
+"nada para revisar",
+2.86
+],
+[
+"›",
+2.86
+]
+],
+"altura": 844,
+"largura": 390,
+"erros": [
+"Cannot read properties of undefined (reading 'length') @ TypeError: Cannot read properties of undefined (reading 'length') |     at http://localhost:8813/admin.html:860:127"
+]
+},
+"prod_e": {
+"ilegiveis": [
+[
+"Sair",
+1.13
+],
+[
+"Todos",
+2.99
+],
+[
+"📷",
+2.85
+],
+[
+"📷",
+2.85
+],
+[
+"📷",
+2.85
+],
+[
+"📷",
+2.85
+],
+[
+"📷",
+2.85
+]
+],
+"altura": 844,
+"largura": 390,
+"erros": [
+"Cannot read properties of undefined (reading 'length') @ TypeError: Cannot read properties of undefined (reading 'length') |     at http://localhost:8813/admin.html:860:127"
+]
+},
+"msg_e": {
+"ilegiveis": [
+[
+"Sair",
+1.13
+],
+[
+"Todas",
+2.99
+]
+],
+"altura": 844,
+"largura": 390,
+"erros": [
+"Cannot read properties of undefined (reading 'length') @ TypeError: Cannot read properties of undefined (reading 'length') |     at http://localhost:8813/admin.html:860:127"
+]
+},
+"tem_e": {
+"ilegiveis": [
+[
+"Sair",
+1.13
+]
+],
+"altura": 844,
+"largura": 390,
+"erros": [
+"Cannot read properties of undefined (reading 'length') @ TypeError: Cannot read properties of undefined (reading 'length') |     at http://localhost:8813/admin.html:860:127"
+]
+},
+"anl_e": {
+"ilegiveis": [
+[
+"Sair",
+1.13
+],
+[
+"7 dias",
+2.99
+]
+],
+"altura": 844,
+"largura": 390,
+"erros": [
+"Cannot read properties of undefined (reading 'length') @ TypeError: Cannot read properties of undefined (reading 'length') |     at http://localhost:8813/admin.html:860:127"
+]
+},
+"cfg_e": {
+"ilegiveis": [
+[
+"Sair",
+1.13
+],
+[
+"Entrega · transportadoras",
+1.13
+],
+[
+"Preço do frete que o clien",
+2.86
+],
+[
+"›",
+2.86
+],
+[
+"Avaliações dos clientes",
+1.13
+],
+[
+"›",
+2.86
+],
+[
+"Inscritos em novidades (e-",
+1.13
+],
+[
+"›",
+2.86
+],
+[
+"Se você desligar",
+1.13
+],
+[
+"›",
+2.86
+],
+[
+"Github (vídeo e fotos do d",
+1.13
+],
+[
+"Os arquivos ficam guardado",
+2.86
+],
+[
+"›",
+2.86
+],
+[
+"Segurança",
+1.13
+],
+[
+"Carregando…",
+2.86
+],
+[
+"›",
+2.86
+],
+[
+"Conta",
+1.13
+],
+[
+"›",
+2.86
+]
+],
+"altura": 844,
+"largura": 390,
+"erros": [
+"Cannot read properties of undefined (reading 'length') @ TypeError: Cannot read properties of undefined (reading 'length') |     at http://localhost:8813/admin.html:860:127"
+]
+},
+"vit_c": {
+"ilegiveis": [],
+"altura": 844,
+"largura": 390,
+"erros": [
+"Cannot read properties of undefined (reading 'length') @ TypeError: Cannot read properties of undefined (reading 'length') |     at http://localhost:8813/admin.html:860:127"
+]
+},
+"prod_c": {
+"ilegiveis": [
+[
+"📷",
+2.85
+],
+[
+"📷",
+2.85
+],
+[
+"📷",
+2.85
+],
+[
+"📷",
+2.85
+],
+[
+"📷",
+2.85
+]
+],
+"altura": 844,
+"largura": 390,
+"erros": [
+"Cannot read properties of undefined (reading 'length') @ TypeError: Cannot read properties of undefined (reading 'length') |     at http://localhost:8813/admin.html:860:127"
+]
+},
+"msg_c": {
+"ilegiveis": [],
+"altura": 844,
+"largura": 390,
+"erros": [
+"Cannot read properties of undefined (reading 'length') @ TypeError: Cannot read properties of undefined (reading 'length') |     at http://localhost:8813/admin.html:860:127"
+]
+},
+"tem_c": {
+"ilegiveis": [
+[
+"Ativar",
+1.07
+],
+[
+"Nenhum",
+1
+],
+[
+"Salvar evento",
+1
+]
+],
+"altura": 844,
+"largura": 390,
+"erros": [
+"Cannot read properties of undefined (reading 'length') @ TypeError: Cannot read properties of undefined (reading 'length') |     at http://localhost:8813/admin.html:860:127"
+]
+},
+"anl_c": {
+"ilegiveis": [],
+"altura": 844,
+"largura": 390,
+"erros": [
+"Cannot read properties of undefined (reading 'length') @ TypeError: Cannot read properties of undefined (reading 'length') |     at http://localhost:8813/admin.html:860:127"
+]
+},
+"cfg_c": {
+"ilegiveis": [],
+"altura": 844,
+"largura": 390,
+"erros": [
+"Cannot read properties of undefined (reading 'length') @ TypeError: Cannot read properties of undefined (reading 'length') |     at http://localhost:8813/admin.html:860:127"
+]
+}
+}
