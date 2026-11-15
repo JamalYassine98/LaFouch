@@ -2505,3 +2505,10 @@ html{overscroll-behavior-y:none}
 .egLista span{color:rgba(255,255,255,.55);font-size:13px;transition:color .4s}.egLista span.on{color:#fff}
 .egLista span::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;border:1px solid currentColor;margin-right:6px;vertical-align:1px}.egLista span.on::before{background:#fff}
 .egPara{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);min-width:120px;min-height:44px;padding:0 22px;border-radius:999px;border:1px solid rgba(255,255,255,.7);background:rgba(0,0,0,.28);color:#fff;font:inherit;font-size:15px}
+
+/* S361 · "Tratando o giro": andamento em tela cheia, no tema do app */
+.egTrat{position:fixed;inset:0;z-index:372;background:var(--bg);color:var(--fg);display:grid;place-items:center;padding:24px}
+.egTc{display:flex;flex-direction:column;align-items:center;gap:10px;max-width:320px;text-align:center}
+.egTc h3{margin:14px 0 0;font-size:20px;font-weight:600}.egTc p{margin:0;font-size:15px;color:var(--mute)}.egTc .egTs{font-size:13px;margin-bottom:10px}
+.egAnel.egAnelT{position:relative;left:auto;bottom:auto;transform:none;width:96px;height:96px}
+.egAnelT circle{fill:none}.egAnelT .egA0{stroke:var(--line)}.egAnelT .egA1{stroke:var(--fg);transition:stroke-dashoffset .4s linear}.egAnelT b{color:var(--fg);font-size:17px}

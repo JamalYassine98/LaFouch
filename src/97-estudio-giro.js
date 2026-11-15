@@ -97,7 +97,9 @@
           var video = new Blob(ch, { type: mt || 'video/webm' });
           if (!volta) lfToast('Não deu a volta inteira: no site vai o vídeo simples. Grave de novo deixando o prato dar uma volta.');
           setTimeout(function () {
-            estGiroEscolhe(ctx, Q, video);
+            // S361: com a volta inteira, o app trata o giro e tira a frente e a 3/4 sozinho; sem a volta (ou se algo falhar), a escolha à mão de antes
+            if (volta && typeof giroTrata === 'function' && window.VideoEncoder) estGiroAuto(ctx, Q, video, volta);
+            else estGiroEscolhe(ctx, Q, video);
           }, 300);
         };
         rec.start(500);
@@ -106,6 +108,65 @@
       .catch(function () {
         lfToast('Não consegui abrir a câmera');
       });
+  }
+  // S361 · "um giro = tudo": trata o giro na hora (andamento na tela) e tira a frente e a 3/4 do próprio giro.
+  var EG_FASE = { volta: ['Conferindo a volta', 0, 0.06], fundo: ['Aprendendo o fundo', 0.06, 0.04], mede: ['Achando a frente', 0.1, 0.42], grava: ['Fundo branco em cada grau', 0.52, 0.48] };
+  function estGiroAuto(ctx, Q, video, volta) {
+    var ov = document.createElement('div'), parou = false;
+    ov.className = 'egTrat';
+    ov.innerHTML = '<div class="egTc"><div class="egAnel egAnelT" aria-hidden="true"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19" class="egA0"/><circle cx="22" cy="22" r="19" class="egA1" id="egTa"/></svg><b id="egTp">0%</b></div>' +
+      '<h3>Tratando o giro</h3><p id="egTf">Conferindo a volta</p><p class="egTs">Deixe o app aberto. Em seguida saem a frente, a 3/4 e o giro do site.</p>' +
+      '<button class="lkTx" id="egTm" type="button">Escolher as fotos eu mesmo</button></div>';
+    document.body.appendChild(ov);
+    var manual = function () {
+      if (parou) return;
+      parou = true;
+      ov.remove();
+      estGiroEscolhe(ctx, Q, video);
+    };
+    ov.querySelector('#egTm').onclick = manual;
+    giroTrata(video, {
+      per: volta.per, fotos: [0, 45], // a frente e a 3/4 saem do giro JÁ tratado (fundo infinito, sombra natural)
+      para: function () { return parou; },
+      aviso: function (f, p) {
+        var e = EG_FASE[f]; if (!e || parou) return;
+        var t = e[1] + e[2] * p;
+        ov.querySelector('#egTa').style.strokeDashoffset = String(119.4 * (1 - t));
+        ov.querySelector('#egTp').textContent = Math.round(t * 100) + '%';
+        ov.querySelector('#egTf').textContent = e[0];
+      }
+    }).then(function (r) {
+      var abre = function (u) {
+        return new Promise(function (ok) {
+          if (!u) return ok(null);
+          var im = new Image();
+          im.onload = function () { ok(im); };
+          im.onerror = function () { ok(null); };
+          im.src = u;
+        });
+      };
+      return Promise.all([abre(r.fotos[0]), abre(r.fotos[45])]).then(function (ims) { return [r, ims]; });
+    }).then(function (rr) {
+      if (parou) return;
+      var r = rr[0], R1 = rr[1][0] ? estProcessa(rr[1][0]) : {}, R2 = rr[1][1] ? estProcessa(rr[1][1]) : {};
+      if (!R1.cv) return manual(); // não achou a peça na frente: escolha à mão
+      parou = true;
+      ov.remove();
+      if (ctx.k) {
+        estGrava(ctx.k, 'frente', R1);
+        if (R2.cv) estGrava(ctx.k, '34', R2);
+        estGiroGuarda(ctx.k, r.blob);
+        lfToast('Giro pronto: frente, 3/4 e giro salvos');
+        render();
+        if (ctx.fim) ctx.fim();
+        return;
+      }
+      var c2 = { nova: true, fotos: { frente: R1 }, fim: ctx.fim, giro: r.blob };
+      if (R2.cv) c2.fotos['34'] = R2;
+      estDestino(c2, ctx.fim);
+    }, function () {
+      manual();
+    });
   }
   // Escolha dos quadros: régua com a sugestão da frente; depois a 3/4.
   function estGiroEscolhe(ctx, Q, video) {
@@ -186,7 +247,9 @@
   function estGiroGuarda(k, video) {
     if (!video) return Promise.resolve();
     S.giros = S.giros || {};
+    var gnT = /gn=(\d+)/.exec(video.type || ''); // giro já tratado traz gn no tipo
     S.giros[k.split('|')[0]] = { k: k, ts: Date.now(), tipo: video.type }; // sem n = ainda não tratado
+    if (gnT) S.giros[k.split('|')[0]].n = +gnT[1];
     saveSoon();
     return idbDo('hq', 'readwrite', function (o) {
       return o.put(video, 'giro|' + k.split('|')[0]);

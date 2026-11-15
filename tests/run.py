@@ -3547,7 +3547,9 @@ async def main():
               const b = new Blob([new Uint8Array(10)], { type: 'video/mp4' });
               S.giros = { T1: { k: 'T1|x', n: 360 }, T2: { k: 'T2|x', cru: 'giro-curto' } };
               const p1 = await L.giroPrepara('T1', b), p2 = await L.giroPrepara('T2', b);
-              const caminhos = p1.n === 360 && p1.blob === b && p2.n === 0;
+              const bt = new Blob([new Uint8Array(10)], { type: 'video/mp4;gn=360' }); S.giros.T3 = { k: 'T3|x' };
+              const p3 = await L.giroPrepara('T3', bt); // giro tratado na hora da gravação: reconhecido pelo tipo, não é tratado de novo
+              const caminhos = p1.n === 360 && p1.blob === b && p2.n === 0 && p3.n === 360 && p3.blob === bt && typeof L.estGiroAuto === 'function';
               return [typeof window.giroTrata === 'function', fecha, naoFecha, campos, caminhos]; }""")
             total += 1
             ok = got == [True] * 5 and not pg.erros

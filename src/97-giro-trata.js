@@ -4,7 +4,7 @@
   //   2) luz: divide cada imagem pelo fundo parado tirado do próprio giro (não recorta a peça);
   //   3) peça fora do centro do prato: mede o "passeio" (uma volta por volta) e tira, de lado e de altura;
   //   4) sobras longe da peça viram branco; perto da peça nada é mexido (a sombra natural fica);
-  //   5) reforça o contorno só nos graus mais moles; ponto de branco em 238;
+  //   5) ponto de branco em 238; a imagem final sai do vídeo no tamanho em que foi gravado (as medidas são feitas na metade);
   //   6) começa pela frente (o giro começa com a peça de frente), recorta 3:2 igual em todas as imagens e grava um vídeo em que
   //      TODA imagem é inteira (o site pula direto para qualquer grau) — 360 imagens, 30 por segundo, 960×640.
   // Uso: giroTrata(blob, { aviso: function (fase, parte) {} }).then(function (r) { r.blob, r.n, r.capa, r.info })
@@ -133,6 +133,7 @@
     o = o || {};
     var aviso = o.aviso || function () {}, vt_, v, W, H, P, cv, cx, t0, per, dur, fundo, fmin, fmax, suja, w2, h2;
     function pega(t) {
+      if (o.para && o.para()) return Promise.reject(new Error('cancelado'));
       return gtVai(v, Math.min(dur - 0.05, Math.max(0, t))).then(function () {
         cx.drawImage(v, 0, 0, W, H);
         return cx.getImageData(0, 0, W, H).data;
@@ -323,8 +324,8 @@
       var X0 = Math.max(0, Math.min(W - w, ccx - w / 2)), Y0 = Math.max(0, Math.min(H - h, ccy - h * 0.55));
       // 2ª passada: aplica e grava
       var sai = document.createElement('canvas'); sai.width = GT_SAI[0]; sai.height = GT_SAI[1];
-      var sx = sai.getContext('2d'), tmp = document.createElement('canvas'); tmp.width = W; tmp.height = H;
-      var tx = tmp.getContext('2d'), img = tx.createImageData(W, H), capa = null, enc, mux, alvoV, tipo, erroEnc = null, branco = 0;
+      var sx = sai.getContext('2d'), ES = v.videoWidth / W, fcv = document.createElement('canvas'); fcv.width = v.videoWidth; fcv.height = v.videoHeight;
+      var fxc = fcv.getContext('2d', { willReadFrequently: true }), rc = document.createElement('canvas'), rx = rc.getContext('2d'), fotosQ = o.fotos || [], fotos = {}, capa = null, enc, mux, alvoV, tipo, erroEnc = null, branco = 0;
       function codec() {
         // H.264 (mp4) toca em todo celular, inclusive iPhone; se o aparelho não souber gravar H.264, vai VP8 (webm)
         var av = { codec: 'avc1.42001f', width: GT_SAI[0], height: GT_SAI[1], bitrate: 4e6, framerate: 30, avc: { format: 'avc' } };
@@ -355,25 +356,37 @@
             var perto = new Float32Array(w2 * h2), dl = gtExtremo(pc.m, w2, h2, 15, true, Uint8Array);
             for (k = 0; k < w2 * h2; k++) perto[k] = dl[k];
             gtCaixa(perto, w2, h2, 5); gtCaixa(perto, w2, h2, 5);
-            var forca = Math.sqrt(alvo / Math.max(med[n][4], 1)) - 1; forca = forca < 0.03 ? 0 : Math.min(1.1, forca);
-            var dd = img.data, x, y;
-            for (y = 0; y < H; y++) for (x = 0; x < W; x++) {
-              k = y * W + x; var pr = perto[(y >> 1) * w2 + (x >> 1)];
-              for (c = 0; c < 3; c++) {
-                var q = k * 3 + c, val = t[q];
-                if (forca && x > 0 && y > 0 && x < W - 1 && y < H - 1) {
-                  var bor = (t[q] * 4 + t[q - 3] * 2 + t[q + 3] * 2 + t[q - W * 3] * 2 + t[q + W * 3] * 2 + t[q - W * 3 - 3] + t[q - W * 3 + 3] + t[q + W * 3 - 3] + t[q + W * 3 + 3]) / 16;
-                  val = val + forca * (val - bor);
+            // a imagem que sai vem do vídeo no tamanho em que foi gravado (as medidas é que são feitas na metade): só o recorte é tratado
+            var fx0 = Math.floor((X0 + hx.d[n]) * ES), fy0 = Math.floor((Y0 + hy.d[n]) * ES), fw = Math.round(w * ES), fh = Math.round(h * ES);
+            fxc.drawImage(v, 0, 0);
+            var ax0 = Math.max(0, fx0), ay0 = Math.max(0, fy0), ax1 = Math.min(v.videoWidth, fx0 + fw), ay1 = Math.min(v.videoHeight, fy0 + fh), aw = ax1 - ax0, ah = ay1 - ay0;
+            var fd = fxc.getImageData(ax0, ay0, aw, ah), dd = fd.data, x, y, X, Y, q, f, bb, r, pr, ig, v3 = [0, 0, 0];
+            for (Y = 0; Y < ah; Y++) {
+              y = Math.min(H - 1, ((ay0 + Y) / ES) | 0);
+              for (X = 0; X < aw; X++) {
+                x = Math.min(W - 1, ((ax0 + X) / ES) | 0); k = y * W + x; pr = perto[(y >> 1) * w2 + (x >> 1)];
+                var o4 = (Y * aw + X) * 4;
+                if (pr <= 0.002) { dd[o4] = dd[o4 + 1] = dd[o4 + 2] = 255; continue; }
+                ig = suja[k] ? 1 : 0;
+                for (c = 0; c < 3; c++) {
+                  q = k * 3 + c; f = dd[o4 + c];
+                  bb = f < fmin[q] ? fmin[q] : f > fmax[q] ? fmax[q] : f;
+                  r = f / bb / 0.985; v3[c] = r >= 1 ? 255 : r * 255;
+                  if (ig && Math.abs(f - fundo[q]) - Math.max(0.16 * fundo[q], 16) >= 0) ig = 0;
                 }
-                val = (val * pr + 255 * (1 - pr)) * (255 / 238);
-                dd[k * 4 + c] = val > 255 ? 255 : val < 0 ? 0 : val;
+                for (c = 0; c < 3; c++) {
+                  var val = ((ig ? 255 : v3[c]) * pr + 255 * (1 - pr)) * (255 / 238);
+                  dd[o4 + c] = val > 255 ? 255 : val;
+                }
               }
-              dd[k * 4 + 3] = 255;
             }
-            tx.putImageData(img, 0, 0);
+            if (rc.width !== aw || rc.height !== ah) { rc.width = aw; rc.height = ah; }
+            rx.putImageData(fd, 0, 0);
             sx.fillStyle = '#fff'; sx.fillRect(0, 0, GT_SAI[0], GT_SAI[1]);
             sx.imageSmoothingQuality = 'high';
-            sx.drawImage(tmp, X0 + hx.d[n], Y0 + hy.d[n], w, h, 0, 0, GT_SAI[0], GT_SAI[1]);
+            var kx = GT_SAI[0] / fw, ky = GT_SAI[1] / fh;
+            sx.drawImage(rc, (ax0 - fx0) * kx, (ay0 - fy0) * ky, aw * kx, ah * ky);
+            if (fotosQ.indexOf(j) >= 0) fotos[j] = sai.toDataURL('image/jpeg', 0.95);
             if (!j) capa = sai.toDataURL('image/jpeg', 0.86);
             var fr = new VideoFrame(sai, { timestamp: Math.round(j * 1e6 / 30), duration: Math.round(1e6 / 30) });
             enc.encode(fr, { keyFrame: true }); fr.close();
@@ -387,9 +400,23 @@
           return enc.flush();
         }).then(function () {
           mux.finalize();
+          // imagens inteiras do vídeo bruto nos graus pedidos (ex.: frente e 3/4 para as fotos da peça), no tamanho em que a câmera gravou
+          var qs = {}, lista = (o.quadros || []).slice();
+          function umQ() {
+            if (!lista.length) return Promise.resolve();
+            var g = lista.shift(), tq = t0 + ((frente + g) % GT_N) * per / GT_N;
+            return gtVai(v, Math.min(dur - 0.05, tq)).then(function () {
+              var c = document.createElement('canvas'); c.width = v.videoWidth; c.height = v.videoHeight; c.getContext('2d').drawImage(v, 0, 0);
+              qs[g] = c;
+              return umQ();
+            });
+          }
+          return umQ().then(function () { return qs; });
+        }).then(function (qs) {
           try { URL.revokeObjectURL(v.src); } catch (e) {}
           return {
-            blob: new Blob([alvoV.buffer], { type: tipo === 'mp4' ? 'video/mp4' : 'video/webm' }), n: GT_N, capa: capa, tipo: tipo,
+            quadros: qs, fotos: fotos,
+            blob: new Blob([alvoV.buffer], { type: (tipo === 'mp4' ? 'video/mp4' : 'video/webm') + ';gn=' + GT_N }), n: GT_N, /* gn no tipo: o giro tratado se reconhece mesmo depois de guardado no aparelho */ capa: capa, tipo: tipo,
             info: { frente: frente, casa: vt_.casa, meio: vt_.meio, volta: per, inicio: t0, passeioX: hx.amp, passeioY: hy.amp, recorte: [Math.round(X0), Math.round(Y0), Math.round(w), Math.round(h)], largura: W, altura: H }
           };
         });

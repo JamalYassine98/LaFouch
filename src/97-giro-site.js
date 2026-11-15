@@ -112,7 +112,8 @@
   // O tratado fica no lugar do bruto no aparelho (S.giros[ref].n = 360) e o site recebe gn → a peça passa a girar com o dedo.
   // Giro curto (gravado antes, 12 s) ou aparelho sem gravador: vai o vídeo simples como antes (sem gn → botão "360°").
   function giroPrepara(ref, b) {
-    var g = (S.giros && S.giros[ref]) || {};
+    var g = (S.giros && S.giros[ref]) || {}, gnT = /gn=(\d+)/.exec((b && b.type) || '');
+    if (!g.n && gnT) g.n = +gnT[1];
     if (g.n) return Promise.resolve({ blob: b, n: g.n });
     if (g.cru || typeof giroTrata !== 'function') return giroComprime(b).then(function (z) { return { blob: z, n: 0 }; });
     lfToast('Tratando o giro de ' + pn(ref) + '… deixe o app aberto');

@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 528;
+  var APP_BUILD = 529;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.20.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.21.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -32140,7 +32140,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           var video = new Blob(ch, { type: mt || 'video/webm' });
           if (!volta) lfToast('Não deu a volta inteira: no site vai o vídeo simples. Grave de novo deixando o prato dar uma volta.');
           setTimeout(function () {
-            estGiroEscolhe(ctx, Q, video);
+            // S361: com a volta inteira, o app trata o giro e tira a frente e a 3/4 sozinho; sem a volta (ou se algo falhar), a escolha à mão de antes
+            if (volta && typeof giroTrata === 'function' && window.VideoEncoder) estGiroAuto(ctx, Q, video, volta);
+            else estGiroEscolhe(ctx, Q, video);
           }, 300);
         };
         rec.start(500);
@@ -32149,6 +32151,65 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       .catch(function () {
         lfToast('Não consegui abrir a câmera');
       });
+  }
+  // S361 · "um giro = tudo": trata o giro na hora (andamento na tela) e tira a frente e a 3/4 do próprio giro.
+  var EG_FASE = { volta: ['Conferindo a volta', 0, 0.06], fundo: ['Aprendendo o fundo', 0.06, 0.04], mede: ['Achando a frente', 0.1, 0.42], grava: ['Fundo branco em cada grau', 0.52, 0.48] };
+  function estGiroAuto(ctx, Q, video, volta) {
+    var ov = document.createElement('div'), parou = false;
+    ov.className = 'egTrat';
+    ov.innerHTML = '<div class="egTc"><div class="egAnel egAnelT" aria-hidden="true"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19" class="egA0"/><circle cx="22" cy="22" r="19" class="egA1" id="egTa"/></svg><b id="egTp">0%</b></div>' +
+      '<h3>Tratando o giro</h3><p id="egTf">Conferindo a volta</p><p class="egTs">Deixe o app aberto. Em seguida saem a frente, a 3/4 e o giro do site.</p>' +
+      '<button class="lkTx" id="egTm" type="button">Escolher as fotos eu mesmo</button></div>';
+    document.body.appendChild(ov);
+    var manual = function () {
+      if (parou) return;
+      parou = true;
+      ov.remove();
+      estGiroEscolhe(ctx, Q, video);
+    };
+    ov.querySelector('#egTm').onclick = manual;
+    giroTrata(video, {
+      per: volta.per, fotos: [0, 45], // a frente e a 3/4 saem do giro JÁ tratado (fundo infinito, sombra natural)
+      para: function () { return parou; },
+      aviso: function (f, p) {
+        var e = EG_FASE[f]; if (!e || parou) return;
+        var t = e[1] + e[2] * p;
+        ov.querySelector('#egTa').style.strokeDashoffset = String(119.4 * (1 - t));
+        ov.querySelector('#egTp').textContent = Math.round(t * 100) + '%';
+        ov.querySelector('#egTf').textContent = e[0];
+      }
+    }).then(function (r) {
+      var abre = function (u) {
+        return new Promise(function (ok) {
+          if (!u) return ok(null);
+          var im = new Image();
+          im.onload = function () { ok(im); };
+          im.onerror = function () { ok(null); };
+          im.src = u;
+        });
+      };
+      return Promise.all([abre(r.fotos[0]), abre(r.fotos[45])]).then(function (ims) { return [r, ims]; });
+    }).then(function (rr) {
+      if (parou) return;
+      var r = rr[0], R1 = rr[1][0] ? estProcessa(rr[1][0]) : {}, R2 = rr[1][1] ? estProcessa(rr[1][1]) : {};
+      if (!R1.cv) return manual(); // não achou a peça na frente: escolha à mão
+      parou = true;
+      ov.remove();
+      if (ctx.k) {
+        estGrava(ctx.k, 'frente', R1);
+        if (R2.cv) estGrava(ctx.k, '34', R2);
+        estGiroGuarda(ctx.k, r.blob);
+        lfToast('Giro pronto: frente, 3/4 e giro salvos');
+        render();
+        if (ctx.fim) ctx.fim();
+        return;
+      }
+      var c2 = { nova: true, fotos: { frente: R1 }, fim: ctx.fim, giro: r.blob };
+      if (R2.cv) c2.fotos['34'] = R2;
+      estDestino(c2, ctx.fim);
+    }, function () {
+      manual();
+    });
   }
   // Escolha dos quadros: régua com a sugestão da frente; depois a 3/4.
   function estGiroEscolhe(ctx, Q, video) {
@@ -32229,7 +32290,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function estGiroGuarda(k, video) {
     if (!video) return Promise.resolve();
     S.giros = S.giros || {};
+    var gnT = /gn=(\d+)/.exec(video.type || ''); // giro já tratado traz gn no tipo
     S.giros[k.split('|')[0]] = { k: k, ts: Date.now(), tipo: video.type }; // sem n = ainda não tratado
+    if (gnT) S.giros[k.split('|')[0]].n = +gnT[1];
     saveSoon();
     return idbDo('hq', 'readwrite', function (o) {
       return o.put(video, 'giro|' + k.split('|')[0]);
@@ -35142,7 +35205,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // O tratado fica no lugar do bruto no aparelho (S.giros[ref].n = 360) e o site recebe gn → a peça passa a girar com o dedo.
   // Giro curto (gravado antes, 12 s) ou aparelho sem gravador: vai o vídeo simples como antes (sem gn → botão "360°").
   function giroPrepara(ref, b) {
-    var g = (S.giros && S.giros[ref]) || {};
+    var g = (S.giros && S.giros[ref]) || {}, gnT = /gn=(\d+)/.exec((b && b.type) || '');
+    if (!g.n && gnT) g.n = +gnT[1];
     if (g.n) return Promise.resolve({ blob: b, n: g.n });
     if (g.cru || typeof giroTrata !== 'function') return giroComprime(b).then(function (z) { return { blob: z, n: 0 }; });
     lfToast('Tratando o giro de ' + pn(ref) + '… deixe o app aberto');
@@ -35230,7 +35294,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   //   2) luz: divide cada imagem pelo fundo parado tirado do próprio giro (não recorta a peça);
   //   3) peça fora do centro do prato: mede o "passeio" (uma volta por volta) e tira, de lado e de altura;
   //   4) sobras longe da peça viram branco; perto da peça nada é mexido (a sombra natural fica);
-  //   5) reforça o contorno só nos graus mais moles; ponto de branco em 238;
+  //   5) ponto de branco em 238; a imagem final sai do vídeo no tamanho em que foi gravado (as medidas são feitas na metade);
   //   6) começa pela frente (o giro começa com a peça de frente), recorta 3:2 igual em todas as imagens e grava um vídeo em que
   //      TODA imagem é inteira (o site pula direto para qualquer grau) — 360 imagens, 30 por segundo, 960×640.
   // Uso: giroTrata(blob, { aviso: function (fase, parte) {} }).then(function (r) { r.blob, r.n, r.capa, r.info })
@@ -35359,6 +35423,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     o = o || {};
     var aviso = o.aviso || function () {}, vt_, v, W, H, P, cv, cx, t0, per, dur, fundo, fmin, fmax, suja, w2, h2;
     function pega(t) {
+      if (o.para && o.para()) return Promise.reject(new Error('cancelado'));
       return gtVai(v, Math.min(dur - 0.05, Math.max(0, t))).then(function () {
         cx.drawImage(v, 0, 0, W, H);
         return cx.getImageData(0, 0, W, H).data;
@@ -35549,8 +35614,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       var X0 = Math.max(0, Math.min(W - w, ccx - w / 2)), Y0 = Math.max(0, Math.min(H - h, ccy - h * 0.55));
       // 2ª passada: aplica e grava
       var sai = document.createElement('canvas'); sai.width = GT_SAI[0]; sai.height = GT_SAI[1];
-      var sx = sai.getContext('2d'), tmp = document.createElement('canvas'); tmp.width = W; tmp.height = H;
-      var tx = tmp.getContext('2d'), img = tx.createImageData(W, H), capa = null, enc, mux, alvoV, tipo, erroEnc = null, branco = 0;
+      var sx = sai.getContext('2d'), ES = v.videoWidth / W, fcv = document.createElement('canvas'); fcv.width = v.videoWidth; fcv.height = v.videoHeight;
+      var fxc = fcv.getContext('2d', { willReadFrequently: true }), rc = document.createElement('canvas'), rx = rc.getContext('2d'), fotosQ = o.fotos || [], fotos = {}, capa = null, enc, mux, alvoV, tipo, erroEnc = null, branco = 0;
       function codec() {
         // H.264 (mp4) toca em todo celular, inclusive iPhone; se o aparelho não souber gravar H.264, vai VP8 (webm)
         var av = { codec: 'avc1.42001f', width: GT_SAI[0], height: GT_SAI[1], bitrate: 4e6, framerate: 30, avc: { format: 'avc' } };
@@ -35581,25 +35646,37 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             var perto = new Float32Array(w2 * h2), dl = gtExtremo(pc.m, w2, h2, 15, true, Uint8Array);
             for (k = 0; k < w2 * h2; k++) perto[k] = dl[k];
             gtCaixa(perto, w2, h2, 5); gtCaixa(perto, w2, h2, 5);
-            var forca = Math.sqrt(alvo / Math.max(med[n][4], 1)) - 1; forca = forca < 0.03 ? 0 : Math.min(1.1, forca);
-            var dd = img.data, x, y;
-            for (y = 0; y < H; y++) for (x = 0; x < W; x++) {
-              k = y * W + x; var pr = perto[(y >> 1) * w2 + (x >> 1)];
-              for (c = 0; c < 3; c++) {
-                var q = k * 3 + c, val = t[q];
-                if (forca && x > 0 && y > 0 && x < W - 1 && y < H - 1) {
-                  var bor = (t[q] * 4 + t[q - 3] * 2 + t[q + 3] * 2 + t[q - W * 3] * 2 + t[q + W * 3] * 2 + t[q - W * 3 - 3] + t[q - W * 3 + 3] + t[q + W * 3 - 3] + t[q + W * 3 + 3]) / 16;
-                  val = val + forca * (val - bor);
+            // a imagem que sai vem do vídeo no tamanho em que foi gravado (as medidas é que são feitas na metade): só o recorte é tratado
+            var fx0 = Math.floor((X0 + hx.d[n]) * ES), fy0 = Math.floor((Y0 + hy.d[n]) * ES), fw = Math.round(w * ES), fh = Math.round(h * ES);
+            fxc.drawImage(v, 0, 0);
+            var ax0 = Math.max(0, fx0), ay0 = Math.max(0, fy0), ax1 = Math.min(v.videoWidth, fx0 + fw), ay1 = Math.min(v.videoHeight, fy0 + fh), aw = ax1 - ax0, ah = ay1 - ay0;
+            var fd = fxc.getImageData(ax0, ay0, aw, ah), dd = fd.data, x, y, X, Y, q, f, bb, r, pr, ig, v3 = [0, 0, 0];
+            for (Y = 0; Y < ah; Y++) {
+              y = Math.min(H - 1, ((ay0 + Y) / ES) | 0);
+              for (X = 0; X < aw; X++) {
+                x = Math.min(W - 1, ((ax0 + X) / ES) | 0); k = y * W + x; pr = perto[(y >> 1) * w2 + (x >> 1)];
+                var o4 = (Y * aw + X) * 4;
+                if (pr <= 0.002) { dd[o4] = dd[o4 + 1] = dd[o4 + 2] = 255; continue; }
+                ig = suja[k] ? 1 : 0;
+                for (c = 0; c < 3; c++) {
+                  q = k * 3 + c; f = dd[o4 + c];
+                  bb = f < fmin[q] ? fmin[q] : f > fmax[q] ? fmax[q] : f;
+                  r = f / bb / 0.985; v3[c] = r >= 1 ? 255 : r * 255;
+                  if (ig && Math.abs(f - fundo[q]) - Math.max(0.16 * fundo[q], 16) >= 0) ig = 0;
                 }
-                val = (val * pr + 255 * (1 - pr)) * (255 / 238);
-                dd[k * 4 + c] = val > 255 ? 255 : val < 0 ? 0 : val;
+                for (c = 0; c < 3; c++) {
+                  var val = ((ig ? 255 : v3[c]) * pr + 255 * (1 - pr)) * (255 / 238);
+                  dd[o4 + c] = val > 255 ? 255 : val;
+                }
               }
-              dd[k * 4 + 3] = 255;
             }
-            tx.putImageData(img, 0, 0);
+            if (rc.width !== aw || rc.height !== ah) { rc.width = aw; rc.height = ah; }
+            rx.putImageData(fd, 0, 0);
             sx.fillStyle = '#fff'; sx.fillRect(0, 0, GT_SAI[0], GT_SAI[1]);
             sx.imageSmoothingQuality = 'high';
-            sx.drawImage(tmp, X0 + hx.d[n], Y0 + hy.d[n], w, h, 0, 0, GT_SAI[0], GT_SAI[1]);
+            var kx = GT_SAI[0] / fw, ky = GT_SAI[1] / fh;
+            sx.drawImage(rc, (ax0 - fx0) * kx, (ay0 - fy0) * ky, aw * kx, ah * ky);
+            if (fotosQ.indexOf(j) >= 0) fotos[j] = sai.toDataURL('image/jpeg', 0.95);
             if (!j) capa = sai.toDataURL('image/jpeg', 0.86);
             var fr = new VideoFrame(sai, { timestamp: Math.round(j * 1e6 / 30), duration: Math.round(1e6 / 30) });
             enc.encode(fr, { keyFrame: true }); fr.close();
@@ -35613,9 +35690,23 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           return enc.flush();
         }).then(function () {
           mux.finalize();
+          // imagens inteiras do vídeo bruto nos graus pedidos (ex.: frente e 3/4 para as fotos da peça), no tamanho em que a câmera gravou
+          var qs = {}, lista = (o.quadros || []).slice();
+          function umQ() {
+            if (!lista.length) return Promise.resolve();
+            var g = lista.shift(), tq = t0 + ((frente + g) % GT_N) * per / GT_N;
+            return gtVai(v, Math.min(dur - 0.05, tq)).then(function () {
+              var c = document.createElement('canvas'); c.width = v.videoWidth; c.height = v.videoHeight; c.getContext('2d').drawImage(v, 0, 0);
+              qs[g] = c;
+              return umQ();
+            });
+          }
+          return umQ().then(function () { return qs; });
+        }).then(function (qs) {
           try { URL.revokeObjectURL(v.src); } catch (e) {}
           return {
-            blob: new Blob([alvoV.buffer], { type: tipo === 'mp4' ? 'video/mp4' : 'video/webm' }), n: GT_N, capa: capa, tipo: tipo,
+            quadros: qs, fotos: fotos,
+            blob: new Blob([alvoV.buffer], { type: (tipo === 'mp4' ? 'video/mp4' : 'video/webm') + ';gn=' + GT_N }), n: GT_N, /* gn no tipo: o giro tratado se reconhece mesmo depois de guardado no aparelho */ capa: capa, tipo: tipo,
             info: { frente: frente, casa: vt_.casa, meio: vt_.meio, volta: per, inicio: t0, passeioX: hx.amp, passeioY: hy.amp, recorte: [Math.round(X0), Math.round(Y0), Math.round(w), Math.round(h)], largura: W, altura: H }
           };
         });
@@ -50416,7 +50507,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       pixRecebido: pixRecebido, ofertaFim: ofertaFim, siteMaisVendidas: function () { MV_CACHE.ts = 0; return siteMaisVendidas(); }, compLeTexto: compLeTexto, fichaLinhas: fichaLinhas, impBytes: impBytes,
       loadMsg: loadMsg, animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, saidaSiteAtiva: saidaSiteAtiva, siteL2: siteL2, siteCupMax: siteCupMax, cupSimula: cupSimula, cupCaixaAplica: cupCaixaAplica, cupValeuHtml: cupValeuHtml, dstFraca: dstFraca, nvDestaque: nvDestaque, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, lmAvisaParada: lmAvisaParada, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
-      S: S, vitDocBody: vitDocBody, giroSiteFila: giroSiteFila, estGiro: estGiro, giroGv: giroGv, giroGn: giroGn, giroPrepara: giroPrepara, giroComprime: giroComprime, resSolta: resSolta, resOrfas: resOrfas, resEstSet: function (o) { RES_EST = o; }, vistasNaoVendidas: vistasNaoVendidas, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcComprarNovo: lcComprarNovo, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
+      S: S, vitDocBody: vitDocBody, giroSiteFila: giroSiteFila, estGiro: estGiro, estGiroAuto: estGiroAuto, giroGv: giroGv, giroGn: giroGn, giroPrepara: giroPrepara, giroComprime: giroComprime, resSolta: resSolta, resOrfas: resOrfas, resEstSet: function (o) { RES_EST = o; }, vistasNaoVendidas: vistasNaoVendidas, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcComprarNovo: lcComprarNovo, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,
       grpTot: grpTot, grpFalta: grpFalta, effCusto: effCusto, parseLote: parseLote, parsePedido: parsePedido, parseHaste: parseHaste,
       parseVote: parseVote, flatParse: flatParse, numAmt: numAmt, hKey: hKey, lev: lev, normRef: normRef,
