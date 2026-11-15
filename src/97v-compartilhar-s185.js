@@ -27,12 +27,13 @@
     w.className = 's185';
     tx.parentNode.insertBefore(w, $('ebTr'));
     var pinta = function () {
-      var M = E.para === 'cli' ? [['link', '🔗 Link com foto', E.pecas.length > 1 ? 'várias: seleção' : '1 peça: prévia'], ['cart', '🖼️ Cartões', 'post ou story'], ['capa', '📣 Capa de status', 'até 4 peças + link']] : [['pdf', '📄 Catálogo PDF', 'tabela de atacado'], ['plan', '📊 Planilha', 'para o lojista']];
+      var M = E.para === 'cli' ? [['link', 'Link com foto', E.pecas.length > 1 ? 'várias: seleção' : '1 peça: prévia'], ['cart', 'Cartões', 'post ou story'], ['capa', 'Capa de status', 'até 4 peças + link']] : [['pdf', 'Catálogo PDF', 'tabela de atacado'], ['plan', 'Planilha', 'para o lojista']];
       if (!M.some(function (m) { return m[0] === E.modo; })) E.modo = M[0][0];
       w.innerHTML =
-        '<div class="lbl">TIPO DE ENVIO</div><div class="s185Seg"><button type="button" data-p="cli" class="' + (E.para === 'cli' ? 'on' : '') + '">Cliente (varejo)</button><button type="button" data-p="loj" class="' + (E.para === 'loj' ? 'on' : '') + '">Lojista (atacado)</button></div>' +
+        '<div class="lbl">TIPO DE ENVIO</div><div class="s185Seg lfAbas" id="s185Tabs" role="tablist"><button type="button" data-p="cli" class="' + (E.para === 'cli' ? 'on' : '') + '">Cliente (varejo)</button><button type="button" data-p="loj" class="' + (E.para === 'loj' ? 'on' : '') + '">Lojista (atacado)</button></div>' +
         '<div class="lbl">O QUE MANDAR</div><div class="s185G">' + M.map(function (m) { return '<button type="button" data-m="' + m[0] + '" class="' + (E.modo === m[0] ? 'on' : '') + '"><b>' + m[1] + '</b><small>' + m[2] + '</small></button>'; }).join('') + '</div>' +
         (E.para === 'loj' ? '<div class="lbl">TABELA</div><select class="in" id="s185Tab">' + tabLista().filter(function (t) { return !t.pub; }).map(function (t) { return '<option value="' + t.id + '"' + (t.id === E.tab ? ' selected' : '') + '>' + esc(t.nome) + '</option>'; }).join('') + '</select>' : '');
+      if (window.lfLinhaAbas) window.lfLinhaAbas('s185Tabs', '.on'); // S324: abas padrão
       var cartao = E.modo === 'cart';
       ['ebTr', 'ebEst'].forEach(function (id) { var x = $(id); if (x) x.hidden = !cartao; });
       var dica = document.querySelector('.ebJn .ebDica');

@@ -74,12 +74,13 @@
     pn.innerHTML = alt ? (t === 'his' ? fnHist(ref) : t === 'sit' ? fnSite(ref) : fnPreco(ref)) : '';
     var cur = alt ? t : modo === 'venda' ? 'ven' : 'est';
     [].forEach.call(det.querySelectorAll('.fnTabs button'), function (b) { b.classList.toggle('on', b.getAttribute('data-id') === cur); });
+    if (window.lfLinhaAbas) window.lfLinhaAbas('fnAbas', '.on'); // S324: abas padrão na ficha
   }
   function fnBarHtml(ref, modo) {
     var de = modo === 'venda' ? 'Catálogo' : 'Inventário';
     return '<div class="fnBar" data-ref="' + esc(ref) + '" data-modo="' + modo + '"><div class="fnCam"><span>' + de + '</span><i>›</i><b>' + esc(ref) + '</b>' +
       (S.fnLista && S.fnLista.length > 1 && S.fnLista.indexOf(ref) >= 0 ? '<small>' + (S.fnLista.indexOf(ref) + 1) + ' de ' + S.fnLista.length + '</small>' : '') + '</div>' +
-      (modo === 'venda' ? '' : '<div class="fnTabs fnTabs4" role="tablist">' + [['est', 'Estoque'], ['his', 'Histórico'], ['sit', 'Site'], ['pre', 'Preço']].map(function (x) { return '<button type="button" data-act="fnTab" data-id="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>') +
+      (modo === 'venda' ? '' : '<div class="fnTabs lfAbas n2" id="fnAbas" role="tablist">' + [['est', 'Estoque'], ['his', 'Histórico'], ['sit', 'Site'], ['pre', 'Preço']].map(function (x) { return '<button type="button" data-act="fnTab" data-id="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>') +
       // S267 (14/11/2026): um papel por lugar. Catálogo = só vender (sem abas); Inventário = só a ficha (sem "Vender"). Atalhos levam a MESMA peça de um para o outro.
       '<div class="fnAt">' + (modo === 'venda' ? '<button type="button" class="fnLk" data-act="fnTab" data-id="est">Ver a ficha no Inventário ›</button>' : '<button type="button" class="fnLk" data-act="fnTab" data-id="ven">Vender no Catálogo ›</button><button type="button" class="fnLk" data-act="fnEstudio">Fotografar no Estúdio ›</button>') + '</div></div>';
   }

@@ -588,7 +588,7 @@
         (S.pedidos.some(function (p) { return p.teste; }) ? ' · <button type="button" class="pdLink" data-act="pedteste">' + (S._pedTst ? 'Apagar os testes? Toque de novo' : 'Apagar pedidos de teste') + '</button>' : '') +
         '</div></div></div>';
     h += pedEsperaHtml();
-    h += '<div class="pdSeg" role="group" aria-label="Situação dos pedidos">';
+    h += '<div class="pdSeg lfAbas" id="pdTabs" role="group" aria-label="Situação dos pedidos">'; // S324: abas padrão do app (linha que desliza)
     fl.forEach(function (f) {
       h +=
         '<button type="button" class="' + (gAtual === f[0] ? 'on ' : '') + (f[3] || '') + '" data-act="pedf" data-id="' + f[0] + '" aria-pressed="' + (gAtual === f[0]) + '">' + f[1] + (f[2] ? ' <b>' + f[2] + '</b>' : '') + '</button>';

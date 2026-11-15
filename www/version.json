@@ -1,1 +1,1 @@
-{"v":519,"nat":1,"nome":"5.14.3","notas":["O app reconhece a confirmação sozinha das transferências do Banco Familiar (quando o robô e a função estiverem atualizados)."]}
+{"v":520,"nat":1,"nome":"5.15.0","notas":["Botões e abas no mesmo padrão: Pedidos, Compartilhar e a ficha da peça usam as abas de linha fina; Clientes, Dinheiro e Dashboard foram alinhados.","Textos que não davam para ler (Compartilhar e outras janelas) agora aparecem nos dois temas.","A faixa \"Recentes\" saiu do Início."]}

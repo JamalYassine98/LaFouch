@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 519;
+  var APP_BUILD = 520;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.14.3'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.15.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -22662,7 +22662,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var semFoto = nSf
       ? '<section class="card inFotos" data-act="semfoto" role="button" tabindex="0"><span class="inFotIc" aria-hidden="true">' + ico('est', 20) + '</span><span class="inFotTx"><b>' + (novas ? novas + (novas === 1 ? ' peça nova para fotografar' : ' peças novas para fotografar') : nSf + (nSf === 1 ? ' modelo sem foto' : ' modelos sem foto')) + '</b><small>' + (novas ? 'da compra · já estão na fila do Estúdio' : 'todo produto precisa de foto · já estão na fila do Estúdio') + '</small></span><button type="button" class="inFotB" data-act="semfoto" id="btnSemFoto">Fotografar</button></section>'
       : '';
-    el.innerHTML = (typeof nvBemVindoHtml === 'function' ? nvBemVindoHtml() : '') + faixa + (typeof recentesHtml === 'function' ? recentesHtml() : '') + (typeof temaCardHtml === 'function' ? temaCardHtml() : '') + (typeof guardInicioHtml === 'function' ? guardInicioHtml() : '') + pend + semFoto + (typeof semanaSiteHtml === 'function' ? semanaSiteHtml() : '') +
+    el.innerHTML = (typeof nvBemVindoHtml === 'function' ? nvBemVindoHtml() : '') + faixa + /* S324 (dono, 15/11/2026): faixa "Recentes" removida do Início */ '' + (typeof temaCardHtml === 'function' ? temaCardHtml() : '') + (typeof guardInicioHtml === 'function' ? guardInicioHtml() : '') + pend + semFoto + (typeof semanaSiteHtml === 'function' ? semanaSiteHtml() : '') +
       '<div class="hero" data-act="inicio" data-id="hoje" role="button" tabindex="0"><span class="hi">' + ico('hero', 26) + '</span><span><small>Vendido hoje · ' + h.n + ' venda(s)</small><b>' + gs(h.v) + '</b></span><span class="hg">›</span></div>' +
       '<div class="tgrid' + (ed ? ' editando' : '') + '">' + grid + '</div>' + extra;
   }
@@ -26231,7 +26231,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         (S.pedidos.some(function (p) { return p.teste; }) ? ' · <button type="button" class="pdLink" data-act="pedteste">' + (S._pedTst ? 'Apagar os testes? Toque de novo' : 'Apagar pedidos de teste') + '</button>' : '') +
         '</div></div></div>';
     h += pedEsperaHtml();
-    h += '<div class="pdSeg" role="group" aria-label="Situação dos pedidos">';
+    h += '<div class="pdSeg lfAbas" id="pdTabs" role="group" aria-label="Situação dos pedidos">'; // S324: abas padrão do app (linha que desliza)
     fl.forEach(function (f) {
       h +=
         '<button type="button" class="' + (gAtual === f[0] ? 'on ' : '') + (f[3] || '') + '" data-act="pedf" data-id="' + f[0] + '" aria-pressed="' + (gAtual === f[0]) + '">' + f[1] + (f[2] ? ' <b>' + f[2] + '</b>' : '') + '</button>';
@@ -26534,7 +26534,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     });
     render();
   };
-  // ===== Reserva de peças do site (10 min) + baixa automática na entrega. =====
+  // ===== Reserva de peças do site (30 min) + baixa automática na entrega. =====
   // O app (dono) fala com a função "reserva" na nuvem; quem decide hora e estoque é sempre o servidor.
   // Tudo é opcional: se a função estiver desligada ou sem internet, o app segue como antes.
   function resUrl() {
@@ -27611,7 +27611,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var el = $('v-clientes');
     if (!el || S.view !== 'clientes') return;
     var h = '<div class="top"><div><h1>Clientes</h1><div class="crumb">Quem compra na loja e no atacado.</div></div>' +
-      '<div class="tabs"><button class="mini" data-act="clinovo">+ Novo cliente</button><button class="mini ghost" data-act="ataNovo">Acesso atacado</button><button class="mini ghost" data-act="ataLotes">Lotes</button><button class="mini ghost" data-act="cupAbre">Cartões</button></div></div>';
+      '<button type="button" class="pgAc" data-act="clinovo">+ Novo cliente</button>' + // S324: ação da página ao lado do título (como "+ Adicionar"); o resto em links com "›"
+      '<div class="lkRow"><button type="button" class="lkGo" data-act="ataNovo">Acesso atacado ›</button><button type="button" class="lkGo" data-act="ataLotes">Lotes ›</button><button type="button" class="lkGo" data-act="cupAbre">Cartões ›</button></div></div>';
     var c = S.cliSel === 'novo' ? { id: 0, nome: '', tel: '', ruc: '', obs: '' } : cliAtual();
     if (c) {
       var ps = c.id ? cliPedidos(c) : [],
@@ -43735,12 +43736,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     pn.innerHTML = alt ? (t === 'his' ? fnHist(ref) : t === 'sit' ? fnSite(ref) : fnPreco(ref)) : '';
     var cur = alt ? t : modo === 'venda' ? 'ven' : 'est';
     [].forEach.call(det.querySelectorAll('.fnTabs button'), function (b) { b.classList.toggle('on', b.getAttribute('data-id') === cur); });
+    if (window.lfLinhaAbas) window.lfLinhaAbas('fnAbas', '.on'); // S324: abas padrão na ficha
   }
   function fnBarHtml(ref, modo) {
     var de = modo === 'venda' ? 'Catálogo' : 'Inventário';
     return '<div class="fnBar" data-ref="' + esc(ref) + '" data-modo="' + modo + '"><div class="fnCam"><span>' + de + '</span><i>›</i><b>' + esc(ref) + '</b>' +
       (S.fnLista && S.fnLista.length > 1 && S.fnLista.indexOf(ref) >= 0 ? '<small>' + (S.fnLista.indexOf(ref) + 1) + ' de ' + S.fnLista.length + '</small>' : '') + '</div>' +
-      (modo === 'venda' ? '' : '<div class="fnTabs fnTabs4" role="tablist">' + [['est', 'Estoque'], ['his', 'Histórico'], ['sit', 'Site'], ['pre', 'Preço']].map(function (x) { return '<button type="button" data-act="fnTab" data-id="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>') +
+      (modo === 'venda' ? '' : '<div class="fnTabs lfAbas n2" id="fnAbas" role="tablist">' + [['est', 'Estoque'], ['his', 'Histórico'], ['sit', 'Site'], ['pre', 'Preço']].map(function (x) { return '<button type="button" data-act="fnTab" data-id="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>') +
       // S267 (14/11/2026): um papel por lugar. Catálogo = só vender (sem abas); Inventário = só a ficha (sem "Vender"). Atalhos levam a MESMA peça de um para o outro.
       '<div class="fnAt">' + (modo === 'venda' ? '<button type="button" class="fnLk" data-act="fnTab" data-id="est">Ver a ficha no Inventário ›</button>' : '<button type="button" class="fnLk" data-act="fnTab" data-id="ven">Vender no Catálogo ›</button><button type="button" class="fnLk" data-act="fnEstudio">Fotografar no Estúdio ›</button>') + '</div></div>';
   }
@@ -43907,12 +43909,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     w.className = 's185';
     tx.parentNode.insertBefore(w, $('ebTr'));
     var pinta = function () {
-      var M = E.para === 'cli' ? [['link', '🔗 Link com foto', E.pecas.length > 1 ? 'várias: seleção' : '1 peça: prévia'], ['cart', '🖼️ Cartões', 'post ou story'], ['capa', '📣 Capa de status', 'até 4 peças + link']] : [['pdf', '📄 Catálogo PDF', 'tabela de atacado'], ['plan', '📊 Planilha', 'para o lojista']];
+      var M = E.para === 'cli' ? [['link', 'Link com foto', E.pecas.length > 1 ? 'várias: seleção' : '1 peça: prévia'], ['cart', 'Cartões', 'post ou story'], ['capa', 'Capa de status', 'até 4 peças + link']] : [['pdf', 'Catálogo PDF', 'tabela de atacado'], ['plan', 'Planilha', 'para o lojista']];
       if (!M.some(function (m) { return m[0] === E.modo; })) E.modo = M[0][0];
       w.innerHTML =
-        '<div class="lbl">TIPO DE ENVIO</div><div class="s185Seg"><button type="button" data-p="cli" class="' + (E.para === 'cli' ? 'on' : '') + '">Cliente (varejo)</button><button type="button" data-p="loj" class="' + (E.para === 'loj' ? 'on' : '') + '">Lojista (atacado)</button></div>' +
+        '<div class="lbl">TIPO DE ENVIO</div><div class="s185Seg lfAbas" id="s185Tabs" role="tablist"><button type="button" data-p="cli" class="' + (E.para === 'cli' ? 'on' : '') + '">Cliente (varejo)</button><button type="button" data-p="loj" class="' + (E.para === 'loj' ? 'on' : '') + '">Lojista (atacado)</button></div>' +
         '<div class="lbl">O QUE MANDAR</div><div class="s185G">' + M.map(function (m) { return '<button type="button" data-m="' + m[0] + '" class="' + (E.modo === m[0] ? 'on' : '') + '"><b>' + m[1] + '</b><small>' + m[2] + '</small></button>'; }).join('') + '</div>' +
         (E.para === 'loj' ? '<div class="lbl">TABELA</div><select class="in" id="s185Tab">' + tabLista().filter(function (t) { return !t.pub; }).map(function (t) { return '<option value="' + t.id + '"' + (t.id === E.tab ? ' selected' : '') + '>' + esc(t.nome) + '</option>'; }).join('') + '</select>' : '');
+      if (window.lfLinhaAbas) window.lfLinhaAbas('s185Tabs', '.on'); // S324: abas padrão
       var cartao = E.modo === 'cart';
       ['ebTr', 'ebEst'].forEach(function (id) { var x = $(id); if (x) x.hidden = !cartao; });
       var dica = document.querySelector('.ebJn .ebDica');
@@ -45097,6 +45100,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       abaAnt[id] = { x: x, w: w };
     }
 
+    window.lfLinhaAbas = linhaAbas; // S324: janelas que se desenham sozinhas (Compartilhar, ficha da peça) chamam a mesma linha
+
     // ---------- h. (v474, aprovado em vídeo 08/11) foto do cartão vira a foto do produto — IGUAL no Catálogo e no Inventário ----------
     // Abrir: cartão afunda (CSS) → o fundo da tela do produto cresce a partir do cartão enquanto a foto voa até o lugar dela
     // (380 ms, sem esticar: caixa branca + contain) → o conteúdo aparece quando a foto chega (180 ms, sobe 14 px).
@@ -45445,6 +45450,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         fotosVarre();
         if (S.view === 'fx') fxDepois();
         linhaAbas('eTabs', '.chip.on');
+        linhaAbas('pdTabs', '.on'); // S324: Pedidos usa as mesmas abas
         expandeDepois();
         buscaCascata();
         metaConfere();

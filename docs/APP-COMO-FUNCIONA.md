@@ -230,3 +230,12 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - Função (`functions/pix.js`): `DOM_PY` aceita itau.com.py e familiar.com.py; grava `banco:'familiar'` na confirmação; as esperas da loja continuam nascendo como `banco:'itau'` no app e valem para os dois. O arquivo principal das funções não mudou.
 - App (`97z-pix-email.js`): o texto "Transferência confirmada pelo e-mail do Banco Familiar" aparece para `itau` e `familiar`.
 - PARA VALER: o dono precisa (1) colar o robô novo no Apps Script da conta da loja e (2) publicar a função (`firebase deploy --only functions:pix`, no computador). Depois de um teste real: `TRF_AUTO=true` no site.
+
+## v520 / 5.15.0 (15/11/2026) — padrão de controles do app (S324)
+- Regra: docs/DESIGN-SITE-E-APP.md › "Padrão de controles do APP" (Aba, Opção, Filtro, Ação). Tela nova usa só essas quatro peças.
+- **Abas padrão** = classe `.lfAbas` (nível 2: `.lfAbas.n2`) + a linha que desliza (`linhaAbas(id, sel)` em `src/98-anim-novas.js`, exposta como `window.lfLinhaAbas`). Usam: Inventário (`#eTabs`, já existia), Pedidos (`#pdTabs`, mantém a classe `pdSeg` para os testes; chamada em `depois()`), Compartilhar › Tipo de envio (`#s185Tabs`, chamada no `pinta()`), ficha da peça (`#fnAbas`, mantém a classe `fnTabs`). Com "reduzir movimento" a linha vira um sublinhado fixo.
+- **Opções** do Compartilhar (`.s185G`): cores do app, sem emoji. **Ação cheia única** da janela: `#ebEnv`.
+- **Clientes:** "+ Novo cliente" = `.pgAc` ao lado do título; "Acesso atacado ›", "Lotes ›", "Cartões ›" = `.lkGo` dentro de `.lkRow`.
+- **Dinheiro:** botão de ícone quadrado arredondado; "+ Novo objetivo" em contorno. **Dashboard:** título serifado.
+- **Cores:** `:root` ganhou apelidos (`--card`, `--card2`, `--mu`, `--mut`, `--muted`, `--tx`, `--text`, `--soft`, `--ac`, `--acc`) apontando para as cores reais; antes 49 regras caíam no branco (texto ilegível em Compartilhar e outras janelas).
+- **Início:** a faixa "Recentes" não é mais desenhada (`recentesHtml` continua no código, sem uso; `S.recentes` continua sendo gravado).

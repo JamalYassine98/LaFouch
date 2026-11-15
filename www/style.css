@@ -676,13 +676,13 @@ button:not(:disabled):active.go,.go:not(:disabled):active{box-shadow:0 0 0 6px #
 
 /*PED2*/
 .pdLink{background:none;border:none;color:var(--accent-fg);font:inherit;padding:0;cursor:pointer;text-decoration:none}
-.pdSeg{display:flex;gap:7px;overflow-x:auto;margin:2px 0 12px;padding-bottom:2px;scrollbar-width:none}
-.pdSeg::-webkit-scrollbar{display:none}
-.pdSeg button{flex:none;min-height:42px;padding:0 14px;border-radius:999px;background:var(--panel);border:1px solid var(--line);color:var(--fg);font-size:13px;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
-.pdSeg button b{background:var(--panel2);border-radius:999px;padding:1px 8px;font-size:12px}
-.pdSeg button.on{background:linear-gradient(135deg,#c0629c,#8a3a73);border-color:transparent;color:#fff;font-weight:700}
-.pdSeg button.on b{background:rgba(255,255,255,.22)}
-.pdSeg button.w b{background:var(--warn);color:#241a05}
+
+
+
+
+
+
+
 .pdCard,.pdCd{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:14px;margin-bottom:12px}
 .pdCard{animation:pdIn .35s ease both}
 .pdLin{display:flex;gap:11px;align-items:center}
@@ -1853,7 +1853,7 @@ html[data-tema="claro"]{--accent:#8d3a69;--accent-fg:#8d3a69;--accent-soft:#f6e9
 .mn:active{transform:scale(.94)!important;transition-duration:.1s!important}
 .rip{display:none!important}
 /* selecionados: ameixa bem escuro, sem degradê */
-.chip.on,.chip[aria-pressed="true"],.pdSeg button.on,.gtabs button.on,.catbar3 .cb3.on{background:var(--sel-bg)!important;background-image:none!important;border:1px solid var(--sel-bd)!important;color:var(--pri)!important;box-shadow:none!important}
+.chip.on,.chip[aria-pressed="true"],.gtabs button.on,.catbar3 .cb3.on{background:var(--sel-bg)!important;background-image:none!important;border:1px solid var(--sel-bd)!important;color:var(--pri)!important;box-shadow:none!important}
 /* Início: quadrados iguais, cores suaves */
 .hero{background:var(--sel-bg)!important;background-image:none!important;border:1px solid var(--sel-bd)!important;color:var(--fg)!important;box-shadow:none!important}
 .hero *{box-shadow:none!important;text-shadow:none!important}
@@ -2174,8 +2174,8 @@ body.modoCli #selBar{display:none!important}
 .guardL b{font-weight:600}
 /* S185 compartilhar */
 .s185{display:flex;flex-direction:column;gap:8px;margin:0 0 10px}.s185 .lbl{margin:4px 0 0}
-.s185Seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--card2,rgba(0,0,0,.05));border-radius:12px;padding:4px}
-.s185Seg button{border:0;background:none;border-radius:9px;padding:9px;font-weight:600;color:var(--mu)}.s185Seg button.on{background:var(--card,#fff);color:var(--ac,#8d3a69);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+
+
 .s185G{display:grid;grid-template-columns:1fr 1fr;gap:8px}.s185G button{text-align:left;border:1.5px solid var(--line);background:var(--card,#fff);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:2px;color:inherit}
 .s185G button.on{border-color:var(--ac,#8d3a69);background:color-mix(in srgb,var(--ac,#8d3a69) 8%,var(--card,#fff))}.s185G small{color:var(--mu);font-size:12px}
 #s185Print{display:none}
@@ -2187,9 +2187,9 @@ body.modoCli #selBar{display:none!important}
 .fnBar{display:flex;flex-direction:column;gap:8px;margin:0 0 10px}
 .fnCam{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--mu);white-space:nowrap;min-height:28px;overflow:hidden}.fnCam b{color:var(--tx,inherit);font-weight:600}.fnCam i{font-style:normal;opacity:.6}.fnCam small{margin-left:auto;font-size:12px}
 .fnVolta{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:var(--card,#fff);color:inherit;font-size:18px;line-height:1;display:grid;place-items:center;padding:0}
-.fnTabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;background:var(--card2,rgba(0,0,0,.05));border-radius:12px;padding:3px}
-.fnTabs button{border:0;background:none;border-radius:9px;padding:8px 2px;font-family:inherit;font-size:13px;font-weight:600;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.fnTabs button.on{background:var(--card,#fff);color:var(--ac,#8d3a69);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+
+
+
 .fnAlt>*:not(.fnBar):not(.fnPane){display:none!important}
 .fnPn .sl small{display:block;color:var(--mu);font-size:12px}
 .fnFab{position:sticky;bottom:calc(82px + env(safe-area-inset-bottom));margin:12px 0 0 auto;display:block;border:0;border-radius:999px;background:var(--ac,#8d3a69);color:#fff;font-family:inherit;font-size:15px;font-weight:600;padding:12px 20px;box-shadow:0 8px 22px rgba(0,0,0,.22);z-index:5}
@@ -2362,7 +2362,7 @@ html.mlOn,html.mlOn body{overflow:hidden}
 #v-ped .top .crumb,#v-fx .top .crumb{opacity:1!important}
 
 /* ===== S267 (14/11/2026) · um papel por lugar: Catálogo só vende, Inventário só a ficha, atalhos entre Catálogo, Inventário e Estúdio ===== */
-.fnTabs.fnTabs4{grid-template-columns:repeat(4,minmax(0,1fr))}
+
 .fnAt{display:flex;flex-wrap:wrap;gap:0 10px;justify-content:space-around}
 .fnLk{min-height:44px;padding:0;border:0;background:none;color:var(--fg);font-family:inherit;font-size:13.5px;font-weight:500;text-decoration:none!important;white-space:nowrap}
 .fiBtn{background:var(--panel)}
@@ -2452,3 +2452,34 @@ html{overscroll-behavior-y:none}
 .vtG b{font-size:15px;font-weight:600;overflow-wrap:anywhere}
 .vtB{display:block;width:100%;min-height:48px;margin-top:16px;border-radius:999px;background:transparent;color:var(--fg);border:1px solid color-mix(in srgb,currentColor 26%,transparent);font-family:inherit;font-size:15px;font-weight:600}
 .vtB:active,.vtL:active,.vtE:active{transform:scale(.98)}
+
+/* ===== S324 (15/11/2026) · PADRÃO DE CONTROLES DO APP (docs/DESIGN-SITE-E-APP.md) ===== */
+/* cores que as regras antigas pediam e NÃO existiam (caíam no branco): apelidos para as cores reais do app, nos dois temas */
+:root{--card:var(--panel2);--card2:var(--panel);--mu:var(--mute);--mut:var(--mute);--muted:var(--mute);--tx:var(--fg);--text:var(--fg);--soft:var(--accent-soft);--ac:var(--accent);--acc:var(--accent)}
+.gLink,.fiN,.fiPe .fiH,.guardT svg,.guardOk svg{color:var(--accent-fg)}
+/* 1 · ABA: troca o que a tela mostra; a linha desliza (linhaAbas) */
+.lfAbas{display:flex;flex-wrap:nowrap;gap:22px;position:relative;border-bottom:1px solid var(--line2);overflow-x:auto;scrollbar-width:none;margin:2px 0 14px;padding:0;background:none;border-radius:0}
+.lfAbas::-webkit-scrollbar{display:none}
+.lfAbas>button{flex:none;min-height:44px;padding:10px 0;border:0;border-radius:0;background:none;box-shadow:none;color:var(--sub);font:inherit;font-size:15px;font-weight:500;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.lfAbas>button.on{color:var(--accent-fg)}
+.lfAbas:not(.lfLinhaOn)>button.on{box-shadow:inset 0 -2px 0 var(--accent)}
+.lfAbas>button b{font-size:13px;font-weight:500;color:var(--mute);background:none;padding:0}
+.lfAbas>button.w b{background:var(--warn);color:#241a05;border-radius:999px;padding:1px 7px;font-weight:600}
+.lfAbas.n2{gap:20px;margin:6px 0 12px}
+.lfAbas.n2>button{font-size:14px}
+/* 2 · OPÇÃO: escolher uma coisa num formulário */
+.s185G button{background:var(--panel2);border:1px solid var(--line);color:var(--fg);padding:12px}
+.s185G button.on{border-color:var(--accent);background:var(--accent-soft)}
+.s185G small{color:var(--mute)}
+/* 4 · AÇÃO: uma cheia por janela; a de página em pílula de contorno ao lado do título; terciárias em link com "›" */
+#ebEnv.ebEnv{border:0!important;background:linear-gradient(135deg,#b4528a,#a2447c 55%,#7d3361)!important;color:#fff!important;box-shadow:0 6px 16px rgba(162,68,124,.35)!important}
+.pgAc{flex:none;min-height:44px;padding:0 16px;border:1px solid color-mix(in srgb,var(--fg) 28%,transparent);border-radius:999px;background:none;color:var(--fg);font:inherit;font-weight:600;font-size:15px}
+.lkRow{flex:1 0 100%;display:flex;flex-wrap:wrap;gap:0 20px;margin:2px 0 6px}
+.lkGo{flex:none;min-height:44px;padding:0;border:0;background:none;color:var(--fg);font:inherit;font-weight:500;font-size:15px}
+#v-clientes .top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:12px}
+#v-clientes .top>div:first-child{flex:1 1 0;min-width:0}
+#v-caixa .top .ic{border-radius:14px}
+.obNovo{border:1px solid color-mix(in srgb,var(--fg) 28%,transparent);border-radius:999px;min-height:44px;font-weight:600}
+/* título de tela sempre serifado (o Dashboard fugia) */
+.dHdT{font-family:Fraunces,Georgia,"Times New Roman",serif;font-size:28px;font-weight:500;letter-spacing:-.01em}
+.dHdT i{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;font-size:18px}

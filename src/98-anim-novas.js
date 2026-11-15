@@ -185,6 +185,8 @@
       abaAnt[id] = { x: x, w: w };
     }
 
+    window.lfLinhaAbas = linhaAbas; // S324: janelas que se desenham sozinhas (Compartilhar, ficha da peça) chamam a mesma linha
+
     // ---------- h. (v474, aprovado em vídeo 08/11) foto do cartão vira a foto do produto — IGUAL no Catálogo e no Inventário ----------
     // Abrir: cartão afunda (CSS) → o fundo da tela do produto cresce a partir do cartão enquanto a foto voa até o lugar dela
     // (380 ms, sem esticar: caixa branca + contain) → o conteúdo aparece quando a foto chega (180 ms, sobe 14 px).
@@ -533,6 +535,7 @@
         fotosVarre();
         if (S.view === 'fx') fxDepois();
         linhaAbas('eTabs', '.chip.on');
+        linhaAbas('pdTabs', '.on'); // S324: Pedidos usa as mesmas abas
         expandeDepois();
         buscaCascata();
         metaConfere();
