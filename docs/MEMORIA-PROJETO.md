@@ -2596,3 +2596,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Dono pediu o esboço da tela de transferência para quando o robô do Banco Familiar estiver ligado (TRF_AUTO=true). Arquivo work/s319/transferencia-automatica.jpg (esb.py: Publicado hoje/manual × Proposta ao abrir × Proposta depois de 1 min; a proposta é o código real com TRF_AUTO=true numa cópia isolada).
 - Proposta: sem botão cheio; linhas Valor exato [Copiar] · Alias (celular) [Copiar] · Titular · Reservada + fio; pé do cartão com "Transfira o valor exato pelo app do seu banco." (linha NOVA, só no esboço: ao aprovar, incluir no ramo TRF_AUTO do pkPagar); estado com círculo "Confirmamos sozinhos assim que a transferência chegar."; "Já transferi, enviar comprovante" vira linha depois de 1 min; ajuda.
 - olho.js: nenhuma falha nova x hoje. Só celular 390, claro, PT. NADA implementado/ligado: ligar depende de o dono colar o robô, publicar as funções e de um teste real.
+
+### S320 (15/11/2026 09:15) — transferência automática APROVADA + entrada suave da linha do comprovante
+- DONO: "Aprovado" (S319), com um detalhe: animação suave para o cliente perceber o "enviar comprovante". Implementado para PIX e transferência: a linha desce/aparece em 0,56 s (curva de luxo) e brilha em dourado uma vez; só quando aparece com a tela aberta. Vídeo e quadros: work/s320/comprovante-aparece.mp4 e comprovante-aparece-quadros.jpg (tela real).
+- O ramo automático da transferência ficou pronto no código (com a linha de orientação), mas TRF_AUTO continua false.
+- Testado no simulador (celular 390): a linha entra, brilha, assenta; a tela continua cabendo (879/879); olho.js sem falha nova real; porteiro. NÃO testado: celular real.
