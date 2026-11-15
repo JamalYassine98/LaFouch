@@ -1,0 +1,356 @@
+[
+{
+"nome": "A conta pelo botão do topo",
+"max": 1,
+"dup_ms": null,
+"fim": {
+"t": 1608,
+"n": 1,
+"p": [
+[
+"aside.panel",
+13,
+88,
+1
+]
+],
+"filhos": 1,
+"irmaos": []
+},
+"meio": null
+},
+{
+"nome": "B conta pelo menu",
+"max": 1,
+"dup_ms": null,
+"fim": {
+"t": 1608,
+"n": 1,
+"p": [
+[
+"aside.panel",
+13,
+88,
+1
+]
+],
+"filhos": 1,
+"irmaos": []
+},
+"meio": null
+},
+{
+"nome": "C sacola pelo botão",
+"max": 1,
+"dup_ms": null,
+"fim": {
+"t": 1613,
+"n": 1,
+"p": [
+[
+"aside.panel.cartp",
+0,
+71,
+1
+]
+],
+"filhos": 1,
+"irmaos": []
+},
+"meio": null
+},
+{
+"nome": "D conta aberta → tocar em Direcciones",
+"max": 1,
+"dup_ms": null,
+"fim": {
+"t": 1609,
+"n": 1,
+"p": [
+[
+"aside.panel",
+13,
+88,
+1
+]
+],
+"filhos": 1,
+"irmaos": []
+},
+"meio": null
+},
+{
+"nome": "E conta aberta → sacola",
+"max": 1,
+"dup_ms": null,
+"fim": {
+"t": 1607,
+"n": 1,
+"p": [
+[
+"aside.panel.cartp",
+0,
+71,
+1
+]
+],
+"filhos": 1,
+"irmaos": []
+},
+"meio": null
+},
+{
+"nome": "F sacola aberta → conta",
+"max": 1,
+"dup_ms": null,
+"fim": {
+"t": 1610,
+"n": 1,
+"p": [
+[
+"aside.panel",
+13,
+88,
+1
+]
+],
+"filhos": 1,
+"irmaos": []
+},
+"meio": null
+},
+{
+"nome": "G conta aberta → conta de novo",
+"max": 1,
+"dup_ms": null,
+"fim": {
+"t": 1602,
+"n": 1,
+"p": [
+[
+"aside.panel",
+13,
+88,
+1
+]
+],
+"filhos": 1,
+"irmaos": []
+},
+"meio": null
+},
+{
+"nome": "I conta aberta → menu → Mi cuenta",
+"max": 4,
+"dup_ms": [
+3,
+536
+],
+"fim": {
+"t": 1603,
+"n": 1,
+"p": [
+[
+"aside.panel",
+13,
+88,
+1
+]
+],
+"filhos": 1,
+"irmaos": []
+},
+"meio": {
+"t": 270,
+"n": 4,
+"p": [
+[
+"aside.panel",
+13,
+98,
+0
+],
+[
+"aside.panel (FORA do #layer: DIV)",
+118,
+92,
+0.97
+],
+[
+"aside.panel (FORA do #layer: DIV)",
+18,
+91,
+1
+],
+[
+"aside.panel (FORA do #layer: DIV)",
+18,
+96,
+0.46
+]
+],
+"filhos": 1,
+"irmaos": []
+}
+},
+{
+"nome": "J conta aberta → voltar do celular",
+"max": 1,
+"dup_ms": null,
+"fim": {
+"t": 1601,
+"n": 0,
+"p": [],
+"filhos": 0,
+"irmaos": []
+},
+"meio": null
+},
+{
+"nome": "K conta → Direcciones → voltar do celular",
+"max": 1,
+"dup_ms": null,
+"fim": {
+"t": 1612,
+"n": 0,
+"p": [],
+"filhos": 0,
+"irmaos": []
+},
+"meio": null
+},
+{
+"nome": "L sacola aberta → sacola de novo",
+"max": 1,
+"dup_ms": null,
+"fim": {
+"t": 1604,
+"n": 1,
+"p": [
+[
+"aside.panel.cartp",
+0,
+71,
+1
+]
+],
+"filhos": 1,
+"irmaos": []
+},
+"meio": null
+},
+{
+"nome": "M sacola aberta → menu → Mi cuenta",
+"max": 4,
+"dup_ms": [
+13,
+446
+],
+"fim": {
+"t": 1613,
+"n": 1,
+"p": [
+[
+"aside.panel",
+13,
+88,
+1
+]
+],
+"filhos": 1,
+"irmaos": []
+},
+"meio": {
+"t": 179,
+"n": 4,
+"p": [
+[
+"aside.panel",
+13,
+98,
+0
+],
+[
+"aside.panel.cartp (FORA do #layer: DIV)",
+271,
+71,
+1
+],
+[
+"aside.panel.cartp (FORA do #layer: DIV)",
+13,
+71,
+1
+],
+[
+"aside.panel (FORA do #layer: DIV)",
+18,
+96,
+0.46
+]
+],
+"filhos": 1,
+"irmaos": []
+}
+},
+{
+"nome": "N peça aberta → conta",
+"max": 1,
+"dup_ms": null,
+"fim": {
+"t": 1602,
+"n": 1,
+"p": [
+[
+"aside.panel",
+13,
+88,
+1
+]
+],
+"filhos": 1,
+"irmaos": []
+},
+"meio": null
+},
+{
+"nome": "O peça aberta → sacola",
+"max": 1,
+"dup_ms": null,
+"fim": {
+"t": 1611,
+"n": 1,
+"p": [
+[
+"aside.panel.cartp",
+0,
+71,
+1
+]
+],
+"filhos": 1,
+"irmaos": []
+},
+"meio": null
+},
+{
+"nome": "P conta aberta, em Direcciones → conta de novo",
+"max": 1,
+"dup_ms": null,
+"fim": {
+"t": 1610,
+"n": 1,
+"p": [
+[
+"aside.panel",
+13,
+88,
+1
+]
+],
+"filhos": 1,
+"irmaos": []
+},
+"meio": null
+}
+]
