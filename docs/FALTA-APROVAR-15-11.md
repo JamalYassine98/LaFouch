@@ -13,6 +13,7 @@ Conferência pedida pelo dono ("o que discutimos e esqueci de falar aprovado?").
 5. **3 animações novas da Mochi (S202, 13/11)** — comemora, espreguiça, joinha: ficaram "aguardando OK".
 6. **Ideias guardadas do site (S214/S215, 13/11) — "ainda NÃO aprovadas"**: preços alinhados nos cartões, categorias à vista só no PC, um só caminho na página da peça, fios finos/mais ar, foto maior no Destaque, escala única de letras e espaços. (O WhatsApp inteiro e o toque 44 já foram resolvidos por outro caminho.)
 7. **Frete automático por transportadora (13/11)** — guardado; depende de o dono falar com PedidosYa/Tiemsa/MCGroup sobre integração.
+8a. **Modo loja em tela larga (15/11)** — publicado FORA do esboço: no PC/tablet deitado a barra "Meu pedido" virou pílula no canto direito do topo (embaixo tapava o "Quero este"). Avisado ao dono; ele ainda não disse se fica.
 
 ## B · Falta EU trazer proposta ou esboço (não é esquecimento do dono)
 8. Atacado num lugar só no app (hoje: mensagens no painel, preços em Vendas, versão no Compartilhar, acesso em Clientes).
@@ -20,7 +21,7 @@ Conferência pedida pelo dono ("o que discutimos e esqueci de falar aprovado?").
 10. Tarjetas da Minha conta não carregam no celular do dono: investigar a causa.
 11. Detector de cópias também no app: desenho.
 12. Grupo de telas como uma interface inteira (pedido de 14/11 03:55: "pensada como se as telas fossem uma coisa só"): só a troca das pílulas por palavras em linha foi feita; a CAPA do grupo (aprovada) e a interface inteira não.
-13. Bugs do teste de 15/11 (S339): barra "Toque nas peças" que não sai da tela, letra embaixo do botão, modo de escolher que não se desfaz ao sair do Catálogo, cabeçalho do grupo em cima do painel.
+13. Bugs do teste de 15/11 (S339): barra "Toque nas peças" que não sai da tela, letra embaixo do botão, modo de escolher que não se desfaz ao sair do Catálogo, cabeçalho do grupo em cima do painel. → 15/11 15:00: as três correções da barra foram APROVADAS (seção C); continua faltando proposta só para o cabeçalho do grupo em cima do painel.
 
 ## C · APROVADO, esperando "implementar"
 - **Site como tela do app (painel integrado)** — item 6 de 13/11, aprovado em 14/11 00:08 (esboço S242). ERRO MEU: saiu da minha lista depois do "implementar tudo" de 14/11 e eu disse em 15/11 que nunca tinha sido aprovado. Está aprovado.
