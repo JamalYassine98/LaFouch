@@ -60,3 +60,17 @@ Regra: **cada número mora numa tela só**; nas outras entra, no máximo, uma li
 - **Sem resposta visível, a conferir no desenho:** Histórico › Fechar o dia › "Adiar lembrete (2 h)"; Dashboard (dia) › "Escolher a data" (abre o calendário do sistema, que o robô não vê).
 - **Alarme falso do robô (funcionam):** as 8 linhas de Ajustes (só respondem ao dedo, não ao clique por programa); opção que já estava escolhida (Varejo, G$, Padrão, Paraguaio, 30 dias, "Produtos"); "Limpar" sem nada para limpar; "Salvar"/"Registrar" com o formulário vazio; − e + de quantidade (o robô ignora números).
 - **Fora da varredura, de propósito** (para não disparar nada): sair, apagar/excluir, restaurar, backup/importar/exportar, imprimir, instalar, nuvem, câmera/foto, Pix/pagar/finalizar venda, enviar/compartilhar/WhatsApp, modo cliente/loja. E: Loja online (painel do site), o que fica a 3 toques de profundidade, tablet e PC, tema claro.
+
+## 7. Segunda passada (S358, 15/11 — aprovada pelo dono às 19:01)
+`work/s352/passada2.py`: leu o que há DENTRO de 72 blocos, janelas e folhas (os que a varredura abriu) e cruzou com as telas; mediu as suspeitas. Celular, tema escuro.
+**Repetições novas (medidas):**
+1. **Lista de preços a corrigir em dois lugares, e com contagem diferente**: Inventário › "15 preços para corrigir" e Preços › "Preço abaixo do piso · 16 produto(s)" mostram as mesmas peças e preços (G$ 40.500, 45.000, 56.500, 60.000…), mas uma diz 15 e a outra 16. Além de repetida, uma das duas conta errado (não investiguei qual).
+2. **Dashboard (dia) › "Despesas do dia"** abre a lista inteira das contas do mês — a mesma da tela Despesas.
+3. **Duas conferências de caixa**: Dinheiro › "Conferir" e Histórico › "Fechar o dia agora" pedem os mesmos saldos (G$ 1.850.000, US$ 320, R$ 1.400).
+4. **Reservas › "Ver para onde vai"** repete o guardado dos Objetivos (G$ 2.310.000), que é do Dinheiro; **Reservas › "Detalhes do mês"** repete o vendido do mês (já vai para o Dashboard pelo 45a/45d).
+**Suspeitas conferidas:**
+- "Guardião" do Início abre a mesma tela das Notificações (título "Pendências") → duas a três entradas para a mesma tela (não consegui acionar o sino nem o atalho "Pendências" pelo robô).
+- "Fornecedores" do Início abre o Inventário na aba Fornecedores; o cartão "343 peças da compra… sem detalhe" leva ao mesmo lugar → três entradas.
+- "Contagem" abre o Inventário; "Estúdio" abre uma janela; "Giro" abre a aba Giro. São entradas, não cópias.
+**Proposta para os 4 itens novos (aguardando o dono):** (1) a lista de preços a corrigir mora só em Preços; no Inventário fica a linha que leva lá; investigar e igualar a contagem; (2) no Dashboard, "Despesas do dia" vira uma linha com o valor do dia que leva a Despesas; (3) uma conferência de caixa só (a do Dinheiro); "Fechar o dia" usa a mesma; (4) "Ver para onde vai" mostra só o que é de Reservas, com linha para os Objetivos.
+**NÃO feito nesta passada:** a ficha da peça aba por aba (meu leitor não conseguiu abrir as abas), o painel do site (Loja online), tablet e computador, tema claro, e o que fica a 3 toques de profundidade.
