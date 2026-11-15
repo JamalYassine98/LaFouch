@@ -33,7 +33,8 @@
 .za a{display:flex;align-items:center;justify-content:space-between;min-height:52px;padding:0 2px;border-top:1px solid var(--ln);color:var(--tx);font:500 15px Inter,system-ui,sans-serif;text-decoration:none}
 .za a:last-child{border-bottom:1px solid var(--ln)}
 .za a svg{color:var(--mu);flex:none}
-#pkok.zz .tm{margin:14px 2px 0;text-align:left;max-width:none}`;
+#pkok.zz .tm{margin:14px 2px 0;text-align:left;max-width:none}
+@media (min-width:800px){#pkok.zz .zw{max-width:720px}.zG{display:grid;grid-template-columns:300px 1fr}.zQ{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:26px 20px;border-right:1px solid var(--ln)}.zQ svg{width:232px!important;height:232px!important;border-radius:10px;background:#fff}.zE{display:flex;flex-direction:column}.zE .zm{margin-top:auto}.zP.zO{background:none;color:#14713c;border:1.5px solid #1f8f4e}}`;
   document.head.appendChild(st);
   const bar = document.createElement('div'); bar.id = 'zb'; bar.style.top = topo + 'px';
   bar.innerHTML = '<button type="button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span>Minha conta</span></button>';
@@ -43,7 +44,9 @@
   const reserva = L('Reservada para você por', tempo) + '<div class="zf"><i style="width:' + pct + '%"></i></div>';
   let corpo, estado, acoes = '';
   if (pix) {
-    corpo = L('Valor', valor) + reserva +
+    if (innerWidth >= 800) corpo = '<div class="zG"><div class="zQ"><span id="zqr"></span><div class="zl" style="margin:12px 0 0;text-align:center">Abra o app do seu banco no celular<br>e leia o QR.</div></div><div class="zE">' + L('Valor', valor) + reserva +
+      '<div class="zm"><div class="zl" style="margin:0 0 10px">Prefere copiar? Cole no app do banco, em “Pix copia e cola”.</div><button type="button" class="zP zO">Copiar código PIX</button></div></div></div>';
+    else corpo = L('Valor', valor) + reserva +
       '<div class="zm"><button type="button" class="zP">Copiar código PIX</button><div class="zl">Cole no app do seu banco, em “Pix copia e cola”. O valor já vai no código.</div></div>' +
       '<div class="zq"><span>Vai pagar por outro aparelho?<br>Leia o QR com o app do banco.</span><span id="zqr"></span></div>';
     estado = '<div class="zs"><span class="spn"></span><span>Confirmamos sozinhos assim que o PIX chegar.</span></div>';

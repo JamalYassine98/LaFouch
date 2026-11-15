@@ -46,6 +46,21 @@ TELAS=[('1-pagar-pix.jpg','Tela de pagar · PIX','Linhas de recibo no lugar do t
        ('2-pagar-transferencia.jpg','Tela de pagar · Transferência Paraguai','O mesmo desenho: cada dado numa linha com "Copiar"; a ação cheia é enviar o comprovante.',dict(minutos=2,pag='alias'),0),
        ('3-minha-conta-pedidos.jpg','Minha conta › Pedidos · pedido ainda não pago','Duas linhas alinhadas: pedido e estado em cima; data e "Cancelar" embaixo, na mesma linha de base.',dict(minutos=2),1)]
 with sync_playwright() as pw:
-    for nome,tit,sub,kw,conta in TELAS:
+    for nome,tit,sub,kw,conta in ([] if os.environ.get('PC') else TELAS):
         a,fa,_=tela(pw,kw,conta,0);b,fb,inf=tela(pw,kw,conta,1);print(nome,'altura',inf,'novas falhas x hoje:',sorted(fb-fa) or 'nenhuma')
         prancha(nome,tit,sub,[(a,'PUBLICADO HOJE'),(b,'PROPOSTA')])
+
+# PC (regra: Hoje em cima, Proposta embaixo)
+def prancha_pc(nome,titulo,sub,a,b):
+    A=Image.open(a);B=Image.open(b);w,h=A.size;g=40;W=w+2*g;H=150+2*(h+70)+g
+    S=Image.new('RGB',(W,H),'#f1eef0');d=ImageDraw.Draw(S)
+    d.text((g,30),titulo,font=F(34,True),fill='#1d1418');d.text((g,80),sub,font=F(21),fill='#55484f')
+    y=130
+    for im,r,c in ((A,'PUBLICADO HOJE','#1d1418'),(B,'PROPOSTA','#8d3a69')):
+        d.text((g,y),r,font=F(26,True),fill=c);S.paste(im,(g,y+44));d.rectangle([g-1,y+43,g+w,y+44+h],outline='#cfc6cb');y+=h+70
+    S.save(OUT+nome,quality=88);print(' ',nome)
+if os.environ.get('PC'):
+    with sync_playwright() as pw:
+        kw=dict(minutos=2,W=1440,H=900)
+        a,fa,_=tela(pw,kw,0,0);b,fb,inf=tela(pw,kw,0,1);print('pc altura',inf,'novas falhas x hoje:',sorted(fb-fa) or 'nenhuma')
+        prancha_pc('4-pagar-pix-computador.jpg','Tela de pagar · PIX · computador','No computador o QR é o caminho principal: grande, para ler com o celular. Copiar fica como alternativa.',a,b)
