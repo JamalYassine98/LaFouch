@@ -188,3 +188,19 @@ Vídeo de 10 s, 60 quadros/s, 7 trocas de aba. Medido quadro a quadro (quadros e
 ## 7. Tocar o botão da página em que já se está
 - **Hoje (medido)**: na sacola, tocar o carrinho de novo DESTRÓI e recria a página, que entra de novo pelo lado (desloca 390 px). Na conta, o painel também é recriado (fica na mesma aba), sem deslize.
 - **A solução do item 1 não cobria isso** (cobria só janela → outra janela). Acréscimo proposto: tocar o botão da página aberta não recria nem anima nada; só rola para o topo.
+
+## 8. Pílula que não assenta — causa lida no código e correção LÓGICA (proposta, aguarda o dono)
+- **Causa** (`js/lf-site.js`, S288): a troca de aba REDESENHA o painel inteiro e simula a pílula com três coisas soltas: (1) uma pílula provisória `i.mcPl`, criada na hora e animada 360 ms (com `width` quando as abas têm larguras diferentes); (2) o fundo do botão `.on`, que assume quando a provisória é APAGADA no fim — a passagem de bastão é o pulo de 1 quadro (medido ~110 ms depois de a pílula parecer parada = fim dos 360 ms); (3) a cor das letras trocada por RELÓGIO (atraso 60 ms + 200 ms), sem ligação com onde a pílula está. A cauda longa da curva (.16,1,.3,1) em 360 ms faz os últimos ~9 px levarem ~150 ms: é o "arrastar".
+- **Regra lógica (vale para todo seletor de app e site)**: a seleção é UM objeto só.
+  1. Uma pílula permanente por trilho: nunca é criada nem apagada, nunca passa o lugar para outro elemento. O botão escolhido não tem fundo próprio.
+  2. Uma medida só: a posição/largura da pílula sai sempre da medida do botão escolhido; refaz a medida quando muda tamanho de tela, letra, idioma ou fonte carregada.
+  3. Só `transform` (deslocar + esticar); nada de left/width.
+  4. A letra é recortada pela pílula (camada de letras claras presa dentro dela): cor certa em todo quadro, sem relógio.
+  5. Trocar de opção não redesenha o trilho; só o conteúdo.
+  6. Assentar: a 60 % do tempo faltam no máximo 2 px (curva de luxo, 0,28–0,30 s para trajeto curto — a definir em vídeo).
+- **Prova no portão (para não se repetir)**: em TODO seletor, nos 3 idiomas e larguras: (a) no fim, pílula = botão escolhido com erro ≤ 0,5 px; (b) depois de parar, nenhum quadro muda (detector do pulo); (c) letra sobre a pílula com contraste ≥ 4,5 em todos os quadros; (d) arrastar funciona. Defeito plantado: a troca de hoje tem de reprovar em (b) e (c).
+
+## 9. Engasgos ao voltar do segundo plano (site) — NÃO reproduzido; proposta
+- Simulado (`work/s330/volta.py`): ir para segundo plano e voltar não gerou quadro longo nem redesenho (1 nó). O simulador não reproduz o que o Android faz (descartar fotos e camadas da memória, segurar relógios e soltá-los juntos) e no kit a rede da loja é cortada. Causa real ainda NÃO provada.
+- O que o código tem e pode causar: 19 relógios (`setInterval`), um deles a cada 1 s; ao voltar, busca de estoque/peça e possível redesenho da vitrine; faixa que anda por `scrollLeft` com salto de tempo; ~30 animações sem fim no CSS; 18 usos de desfoque de fundo/`will-change`.
+- **Proposta em 2 passos**: (1) MEDIR no celular do dono: gravador só no modo administrador, que ao voltar anota quadros acima de 50 ms e o que rodou; sem custo, nada muda para o cliente. (2) Regra única de "volta": em segundo plano TUDO pausa (relógios e animações sem fim, por uma classe só); ao voltar espera 300 ms, faz UMA sincronização, só redesenha o que mudou e nunca enquanto o dedo está na tela; saltos de tempo limitados; fotos visíveis decodificadas antes de animar.
