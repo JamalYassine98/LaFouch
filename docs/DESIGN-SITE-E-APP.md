@@ -59,3 +59,13 @@ O designer olha como um profissional de loja online (conversão primeiro) e o ki
 - ecom.js (10): "cortado", "apagado", "largura"; kit.py confere de novo DEPOIS DE ROLAR E PARAR. Estudo geral: work/s214/estudo.py (4 telas × 6 tamanhos × 5 posições).
 - Categoria é NAVEGAÇÃO (onde estou), filtro é REFINO (dentro da categoria). Não repetir categoria como abas no catálogo do celular (S213 retirado): já existe no ☰ e na caixa Filtros.
 - 13/11 (dono): REPROVADO mudar os botões — "Ver modelo" continua contorno vinho e "Comprar" continua com o degradê de hoje. Não propor "um só tipo de botão" de novo. As demais ideias do S214 estão só guardadas (work/s214), sem aprovação.
+
+## Padrão de controles do APP (15/11/2026 — esboços S321/S323; 3 telas APROVADAS pelo dono, 3 aguardando)
+Antes havia pelo menos 7 desenhos de seletor para a mesma função (.chip, .tab, .seg, .pdSeg, .s185Seg, .fnTabs, abas de linha) e dezenas de botões avulsos. O padrão tem 4 peças; tela nova usa só estas.
+1. **ABA** — troca o que a tela mostra, no mesmo lugar. Texto 15 px (dentro de um cartão: 14 px), cor `--sub`; ativa em `--accent-fg` com a linha de 2 px `--accent` que DESLIZA até a aba tocada (`.nav.lfLinhaOn > .chip` + `i.lfLinha`). Contador ao lado em `--mute`; aviso = ponto âmbar. Toque de 44 px. Onde: Inventário (Produtos · Fornecedores · Reposição), Pedidos (Agir agora · Em andamento · Feitos), Compartilhar (Cliente · Lojista), ficha da peça (Estoque · Histórico · Site · Preço).
+2. **OPÇÃO** — escolher uma coisa dentro de um formulário. Cartão `--panel2` com borda `--line`; escolhida = borda `--accent` + fundo `--accent-soft`. Título 600 + subtítulo `--mute`. Sem emoji.
+3. **FILTRO** — liga/desliga numa lista (`.chip` em pílula, 40 px; ligado = `--accent-soft` + borda `--accent`).
+4. **AÇÃO** — (a) principal: cheia vinho (degradê do `.btn`), UMA por tela ou janela; (b) de página (criar): pílula de contorno ao lado do título ("+ Adicionar", "+ Novo cliente"); (c) secundária: contorno; (d) terciária: link com "›" ("Vender no Catálogo ›", "Lotes ›"); (e) ícone: quadrado arredondado de 44 px; (f) perigo: vermelho só dentro da confirmação.
+- **Cores:** só as do app (`--panel`, `--panel2`, `--line`, `--fg`, `--sub`, `--mute`, `--accent`, `--accent-fg`, `--accent-soft`). As 49 regras que usam nomes que não existem (`--card`, `--mu`, `--ac`…) recebem apelidos no `:root`; contraste mínimo 4,5 nos dois temas.
+- **Título de tela:** serifado (Fraunces 500, 28 px). O Dashboard fugia.
+- Já no padrão, sem mudança: Ajustes (linhas com "›") e Despesas.
