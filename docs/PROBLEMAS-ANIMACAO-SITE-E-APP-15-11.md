@@ -173,3 +173,18 @@ Curva de luxo aprovada: entrada `cubic-bezier(.16,1,.3,1)`, saída `cubic-bezier
 - **Hoje**: nenhum trilho do app arrasta. `.trk` em 9 arquivos (peça, faixas, vendas Varejo/Atacado, novo modelo, brindes, câmbio, ajustes, catálogo, marketing, graus/cor); `.nav`+`.chip` em 7 arquivos (entre eles Ordem e Faixa dos Filtros, que nem têm pílula deslizante: o fundo PULA); abas `.lfAbas` em 3. Site: abas da conta (`.mct`) e 3 `.seg`, sem arrastar.
 - **Solução**: UM componente de trilho para app e site (pílula com `transform`, toque + arrastar, solta no mais próximo, curva de luxo); todos os seletores acima passam a usá-lo. Esboço: `work/s330/10-trilho-arrastar-quadros.jpg`.
 - **Filtros do inventário**: sem "Ver N peças" e "Cancelar"; filtro vale na hora, contagem ao lado do título, fecha arrastando para baixo ou tocando fora. Esboços: `work/s330/9-filtros-escuro.jpg` e `9-filtros-claro.jpg`.
+
+## 6. Vídeo do dono (celular real, 15/11 11:26) — abas da Minha conta no site
+Vídeo de 10 s, 60 quadros/s, 7 trocas de aba. Medido quadro a quadro (quadros em `work/s330/11-video-dono-troca-de-aba-quadros.jpg`). Não há quadro perdido (maior intervalo 17 ms): o defeito é do desenho da animação, não do aparelho.
+1. **Texto ilegível durante a troca**: a letra não acompanha a pílula. A aba de chegada fica com letra ESCURA sobre o vinho por ~130 ms e só depois clareia; a aba de saída fica apagada (cinza) e a pílula corta as palavras ao meio em duas cores. Solução: a cor da letra é recortada pela própria pílula (uma camada de letras brancas presa dentro dela), nunca por tempo.
+2. **A pílula não assenta**: chega em ~130 ms e fica se arrastando mais ~130 ms; ~110 ms depois de parar dá um PULO de 1 quadro (muda tamanho/posição). Causa provável: anima `left`/`width` e depois o script acerta a medida. Solução: `transform` na curva de luxo, 0,36 s, medida calculada antes de sair; sem acerto no fim.
+3. **Conteúdo some seco**: o conteúdo antigo desaparece em 1 quadro (o cartão fica vazio e encolhe) e o novo entra. Solução: saída curta (0,12 s) e entrada cruzadas; altura do cartão anima junto.
+4. **Conteúdo entra sempre pela ESQUERDA**, mesmo indo para uma aba à direita (Pedidos → Tarjetas). Solução: entra do lado da aba tocada (igual ao lote A do app).
+5. **Altura do cartão pula** (Direcciones → Perfil cresce de uma vez; o botão "Agregar dirección" some seco).
+6. **"Cargando…" troca para o aviso no meio da entrada** e uma barra cinza pisca 1 quadro embaixo do cartão. Solução: o estado de carregando ocupa o mesmo lugar e troca com cruzamento.
+7. Fora da animação: Tarjetas mostra "No se pudieron cargar tus tarjetas ahora" — as tarjetas não carregaram no celular (verificar a causa).
+8. A pílula não arrasta com o dedo (regra nova).
+
+## 7. Tocar o botão da página em que já se está
+- **Hoje (medido)**: na sacola, tocar o carrinho de novo DESTRÓI e recria a página, que entra de novo pelo lado (desloca 390 px). Na conta, o painel também é recriado (fica na mesma aba), sem deslize.
+- **A solução do item 1 não cobria isso** (cobria só janela → outra janela). Acréscimo proposto: tocar o botão da página aberta não recria nem anima nada; só rola para o topo.
