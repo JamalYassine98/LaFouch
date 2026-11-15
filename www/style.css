@@ -2494,3 +2494,14 @@ html{overscroll-behavior-y:none}
 .modal-box .chip.grpCentro{align-self:center}
 #dtabBody{display:flex;flex-direction:column;gap:18px}#dtabBody>*{margin-top:0;margin-bottom:0}
 #v-inicio .tl .tp,#v-inicio .tl .tn{font-variant-numeric:tabular-nums}
+
+/* S361 · sistema de 360°: anel da volta, lista do que o giro já tem e Parar (câmera do giro no Estúdio) */
+.egAnel{position:absolute;left:50%;bottom:118px;transform:translateX(-50%);width:76px;height:76px;display:grid;place-items:center;pointer-events:none}
+.egAnel svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.egAnel circle{fill:rgba(0,0,0,.28);stroke-width:2}.egAnel .egA0{stroke:rgba(255,255,255,.28)}
+.egAnel .egA1{fill:none;stroke:#fff;stroke-linecap:round;stroke-dasharray:119.4;stroke-dashoffset:119.4;transition:stroke-dashoffset .5s linear}
+.egAnel b{position:relative;color:#fff;font-size:15px;font-weight:500;font-variant-numeric:tabular-nums}
+.egLista{position:absolute;left:0;right:0;bottom:78px;display:flex;justify-content:center;gap:14px;pointer-events:none}
+.egLista span{color:rgba(255,255,255,.55);font-size:13px;transition:color .4s}.egLista span.on{color:#fff}
+.egLista span::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;border:1px solid currentColor;margin-right:6px;vertical-align:1px}.egLista span.on::before{background:#fff}
+.egPara{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);min-width:120px;min-height:44px;padding:0 22px;border-radius:999px;border:1px solid rgba(255,255,255,.7);background:rgba(0,0,0,.28);color:#fff;font:inherit;font-size:15px}

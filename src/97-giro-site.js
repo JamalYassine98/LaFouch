@@ -108,6 +108,29 @@
         });
       });
   }
+  // S361 (sistema de 360°): antes de mandar, o app TRATA o giro (fundo branco, peça centrada, começa pela frente, 360 imagens inteiras).
+  // O tratado fica no lugar do bruto no aparelho (S.giros[ref].n = 360) e o site recebe gn → a peça passa a girar com o dedo.
+  // Giro curto (gravado antes, 12 s) ou aparelho sem gravador: vai o vídeo simples como antes (sem gn → botão "360°").
+  function giroPrepara(ref, b) {
+    var g = (S.giros && S.giros[ref]) || {};
+    if (g.n) return Promise.resolve({ blob: b, n: g.n });
+    if (g.cru || typeof giroTrata !== 'function') return giroComprime(b).then(function (z) { return { blob: z, n: 0 }; });
+    lfToast('Tratando o giro de ' + pn(ref) + '… deixe o app aberto');
+    S.giroTrat = { ref: ref, fase: 'volta', parte: 0 };
+    return giroTrata(b, { aviso: function (f, p) { S.giroTrat = { ref: ref, fase: f, parte: p }; } }).then(function (r) {
+      S.giroTrat = null;
+      return idbDo('hq', 'readwrite', function (o) { return o.put(r.blob, 'giro|' + ref); }).then(function () {
+        if (S.giros && S.giros[ref]) { S.giros[ref].n = r.n; S.giros[ref].tipo = r.blob.type; }
+        saveSoon();
+        return { blob: r.blob, n: r.n };
+      });
+    }, function (e) {
+      S.giroTrat = null;
+      if (S.giros && S.giros[ref]) S.giros[ref].cru = String((e && e.message) || 'erro').slice(0, 30); // não tenta tratar de novo a cada envio
+      saveSoon();
+      return giroComprime(b).then(function (z) { return { blob: z, n: 0 }; });
+    });
+  }
   function giroEnvia(ref) {
     return estGiroLe(ref).then(function (b) {
       if (!b) {
@@ -115,18 +138,19 @@
         saveSoon();
         return;
       }
-      return giroComprime(b).then(function (z) {
-        var ext = /mp4/.test(z.type) ? 'mp4' : 'webm',
+      return giroPrepara(ref, b).then(function (pr) {
+        var z = pr.blob,
+          ext = /mp4/.test(z.type) ? 'mp4' : 'webm',
           path = 'media/giro/' + giroArq(ref) + '.' + ext,
           antes = S.giroSite[ref] && S.giroSite[ref].p;
         return giroB64(z).then(function (b64) {
           return giroChama({ acao: 'put', path: path, b64: b64, msg: 'Giro 360°: ' + ref }).then(function () {
             if (antes && antes !== path) giroChama({ acao: 'del', path: antes }).catch(function () {});
-            S.giroSite[ref] = { p: path, v: Date.now() };
+            S.giroSite[ref] = { p: path, v: Date.now(), n: pr.n || 0 };
             delete S.giroPend[ref];
             if (S.site && S.site[ref]) vitFila(ref, 'upd');
             saveSoon();
-            lfToast('Giro de ' + pn(ref) + ' enviado: aparece no site em cerca de 1 minuto');
+            lfToast(pr.n ? 'Giro de ' + pn(ref) + ' pronto: em cerca de 1 minuto a peça gira no site' : 'Giro de ' + pn(ref) + ' enviado: aparece no site em cerca de 1 minuto');
           });
         });
       });
@@ -164,4 +188,9 @@
   function giroGv(ref) {
     var g = S.giroSite && S.giroSite[ref];
     return g && g.p ? g.p + '?v=' + g.v : '';
+  }
+  // quantas imagens tem a volta tratada (campo gn do produto no site; 0 = vídeo simples)
+  function giroGn(ref) {
+    var g = S.giroSite && S.giroSite[ref];
+    return (g && g.p && g.n) || 0;
   }

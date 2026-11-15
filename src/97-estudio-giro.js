@@ -39,7 +39,11 @@
       .then(function (s) {
         var ov = document.createElement('div');
         ov.className = 'estCam';
-        ov.innerHTML = '<div class="ecVf" style="top:0;bottom:0"><video autoplay playsinline muted></video><div class="ecTag">Comece com a peça de frente · ligue o prato · 12 s</div></div>';
+        ov.innerHTML = '<div class="ecVf" style="top:0;bottom:0"><video autoplay playsinline muted></video><div class="ecTag">Peça no centro do prato · ligue o prato</div>' +
+          // S361 (sistema de 360°): anel da volta + o que o giro já tem; a câmera fecha sozinha quando a volta fecha
+          '<div class="egAnel" aria-hidden="true"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19" class="egA0"/><circle cx="22" cy="22" r="19" class="egA1" id="egArc"/></svg><b id="egGr">0°</b></div>' +
+          '<div class="egLista" id="egLs"><span data-g="0">Frente</span><span data-g="45">3/4</span><span data-g="90">Perfil</span><span data-g="360">Volta</span></div>' +
+          '<button class="egPara" id="egPara" type="button">Parar</button></div>';
         document.body.appendChild(ov);
         var v = ov.querySelector('video');
         v.srcObject = s;
@@ -52,8 +56,30 @@
         rec.ondataavailable = function (e) {
           if (e.data && e.data.size) ch.push(e.data);
         };
+        // uma foto por segundo para a escolha da frente e da 3/4, e uma assinatura a cada meio segundo para saber quando a volta fechou
+        var ass = [], asC = mkCanvas(48, 27), asX = asC.getContext('2d', { willReadFrequently: true }), t0g = Date.now(), tique = 0, volta = null, parou = false,
+          arc = ov.querySelector('#egArc'), gr = ov.querySelector('#egGr'), ls = ov.querySelector('#egLs'), MAXS = 75;
+        var para = function () {
+          if (parou) return;
+          parou = true;
+          clearInterval(pega);
+          if (rec.state === 'recording') rec.stop();
+        };
+        ov.querySelector('#egPara').onclick = para;
         var pega = setInterval(function () {
           if (!v.videoWidth) return;
+          var seg = (Date.now() - t0g) / 1000;
+          ass.push(gtAssina(v, asX));
+          if (!volta && ass.length >= 24 && ass.length % 2 === 0) volta = gtFechou(ass, 0.5);
+          // antes de saber quanto dura a volta, o anel anda pelo tempo típico do prato (40 s)
+          var graus = Math.min(360, Math.round(360 * seg / (volta ? volta.per : 40)));
+          if (!volta && graus > 350) graus = 350;
+          arc.style.strokeDashoffset = String(119.4 * (1 - graus / 360));
+          gr.textContent = graus + '°';
+          [].forEach.call(ls.children, function (c) { c.classList.toggle('on', graus >= +c.dataset.g); });
+          tg.textContent = volta ? 'Volta completa' : seg < 3 ? 'Gravando · não toque no prato' : 'Gravando a volta inteira';
+          if (volta || seg >= MAXS) return para();
+          if (tique++ % 2) return;
           cap.width = v.videoWidth;
           cap.height = v.videoHeight;
           cap.getContext('2d').drawImage(v, 0, 0);
@@ -62,28 +88,20 @@
           Q.push({ sim: sim, b: null, t: thumbOf(cap) });
           cap.toBlob(function (bl) {
             if (Q[i]) Q[i].b = bl;
-          }, 'image/jpeg', 0.92);
-        }, 250);
+          }, 'image/jpeg', 0.9);
+        }, 500);
         rec.onstop = function () {
           clearInterval(pega);
           s.getTracks().forEach(function (t) { t.stop(); });
           ov.remove();
           var video = new Blob(ch, { type: mt || 'video/webm' });
+          if (!volta) lfToast('Não deu a volta inteira: no site vai o vídeo simples. Grave de novo deixando o prato dar uma volta.');
           setTimeout(function () {
             estGiroEscolhe(ctx, Q, video);
           }, 300);
         };
         rec.start(500);
-        var n = 12,
-          tg = ov.querySelector('.ecTag'),
-          iv = setInterval(function () {
-            n--;
-            tg.textContent = 'Gravando · ' + n + ' s';
-            if (n <= 0) {
-              clearInterval(iv);
-              rec.stop();
-            }
-          }, 1000);
+        var tg = ov.querySelector('.ecTag');
       })
       .catch(function () {
         lfToast('Não consegui abrir a câmera');
@@ -168,7 +186,7 @@
   function estGiroGuarda(k, video) {
     if (!video) return Promise.resolve();
     S.giros = S.giros || {};
-    S.giros[k.split('|')[0]] = { k: k, ts: Date.now(), tipo: video.type };
+    S.giros[k.split('|')[0]] = { k: k, ts: Date.now(), tipo: video.type }; // sem n = ainda não tratado
     saveSoon();
     return idbDo('hq', 'readwrite', function (o) {
       return o.put(video, 'giro|' + k.split('|')[0]);

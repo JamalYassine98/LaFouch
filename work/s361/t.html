@@ -1,0 +1,3 @@
+<!doctype html><meta charset="utf-8"><body><script src="trata.js"></script><script>
+window.roda=async function(arq,o){const b=await (await fetch(arq)).blob();const t0=performance.now();let ult='';const r=await giroTrata(b,Object.assign({aviso:(f,p)=>{const s=f+' '+Math.round(p*100);if(s!==ult&&Math.round(p*100)%25===0){ult=s;console.log(s,Math.round((performance.now()-t0)/1000)+'s')}}},o||{}));window.__r=r;const buf=new Uint8Array(await r.blob.arrayBuffer());let bin='';for(let i=0;i<buf.length;i+=32768)bin+=String.fromCharCode.apply(null,buf.subarray(i,i+32768));return {seg:Math.round((performance.now()-t0)/1000),tipo:r.tipo,bytes:r.blob.size,info:r.info,capa:r.capa,b64:btoa(bin)}}
+</script>

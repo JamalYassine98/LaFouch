@@ -1,0 +1,401 @@
+  // ===== Tratamento do giro DENTRO do app (S361, 16/11/2026 — sistema de 360° aprovado em 14/11; o resultado de referência é o giro da BR44118) =====
+  // É o trata_giro2.py (work/s294) refeito para o navegador, sem servidor e sem custo:
+  //   1) acha sozinho quanto tempo dura UMA volta do prato (compara o vídeo com ele mesmo);
+  //   2) luz: divide cada imagem pelo fundo parado tirado do próprio giro (não recorta a peça);
+  //   3) peça fora do centro do prato: mede o "passeio" (uma volta por volta) e tira, de lado e de altura;
+  //   4) sobras longe da peça viram branco; perto da peça nada é mexido (a sombra natural fica);
+  //   5) reforça o contorno só nos graus mais moles; ponto de branco em 238;
+  //   6) começa pela frente (o giro começa com a peça de frente), recorta 3:2 igual em todas as imagens e grava um vídeo em que
+  //      TODA imagem é inteira (o site pula direto para qualquer grau) — 360 imagens, 30 por segundo, 960×640.
+  // Uso: giroTrata(blob, { aviso: function (fase, parte) {} }).then(function (r) { r.blob, r.n, r.capa, r.info })
+  var GT_W = 960, // largura de trabalho (o vídeo do celular vem em 1920; metade guarda a nitidez que o site mostra)
+    GT_N = 360,
+    GT_SAI = [960, 640];
+  function gtLib(nome, arq) {
+    return new Promise(function (ok, no) {
+      if (window[nome]) return ok(window[nome]);
+      var s = document.createElement('script');
+      s.src = 'giro/' + arq;
+      s.onload = function () { window[nome] ? ok(window[nome]) : no(new Error('biblioteca ' + nome)); };
+      s.onerror = function () { no(new Error('biblioteca ' + nome)); };
+      document.head.appendChild(s);
+    });
+  }
+  function gtVideo(blob) {
+    return new Promise(function (ok, no) {
+      var v = document.createElement('video');
+      v.muted = true; v.playsInline = true; v.preload = 'auto';
+      v.src = URL.createObjectURL(blob);
+      v.onloadedmetadata = function () {
+        // vídeos gravados pelo navegador podem vir sem duração: pular para o fim obriga o navegador a medir
+        if (isFinite(v.duration) && v.duration > 0) return ok(v);
+        v.onseeked = function () { v.onseeked = null; v.currentTime = 0; ok(v); };
+        v.currentTime = 1e7;
+      };
+      v.onerror = function () { no(new Error('vídeo')); };
+    });
+  }
+  function gtVai(v, t) {
+    return new Promise(function (ok) {
+      var feito = false, fim = function () { if (!feito) { feito = true; v.removeEventListener('seeked', fim); ok(); } };
+      if (Math.abs(v.currentTime - t) < 1e-4 && v.readyState >= 2) return ok();
+      v.addEventListener('seeked', fim);
+      v.currentTime = t;
+      setTimeout(fim, 4000);
+    });
+  }
+  // soma corrida: média numa janela de raio r, nas duas direções (aproxima o desfoque)
+  function gtCaixa(a, W, H, r) {
+    var b = new Float32Array(a.length), x, y, s, i, n = 2 * r + 1;
+    for (y = 0; y < H; y++) {
+      s = 0;
+      for (x = -r; x <= r; x++) s += a[y * W + Math.min(W - 1, Math.max(0, x))];
+      for (x = 0; x < W; x++) {
+        b[y * W + x] = s / n;
+        s += a[y * W + Math.min(W - 1, x + r + 1)] - a[y * W + Math.max(0, x - r)];
+      }
+    }
+    for (x = 0; x < W; x++) {
+      s = 0;
+      for (y = -r; y <= r; y++) s += b[Math.min(H - 1, Math.max(0, y)) * W + x];
+      for (y = 0; y < H; y++) {
+        a[y * W + x] = s / n;
+        s += b[Math.min(H - 1, y + r + 1) * W + x] - b[Math.max(0, y - r) * W + x];
+      }
+    }
+    return a;
+  }
+  // menor (sinal -1) ou maior (sinal 1) valor numa janela quadrada de raio r
+  function gtExtremo(a, W, H, r, maior, Tipo) {
+    var b = new Tipo(a.length), c = new Tipo(a.length), x, y, k, m, v;
+    for (y = 0; y < H; y++) for (x = 0; x < W; x++) {
+      m = a[y * W + x];
+      for (k = Math.max(0, x - r); k <= Math.min(W - 1, x + r); k++) { v = a[y * W + k]; if (maior ? v > m : v < m) m = v; }
+      b[y * W + x] = m;
+    }
+    for (y = 0; y < H; y++) for (x = 0; x < W; x++) {
+      m = b[y * W + x];
+      for (k = Math.max(0, y - r); k <= Math.min(H - 1, y + r); k++) { v = b[k * W + x]; if (maior ? v > m : v < m) m = v; }
+      c[y * W + x] = m;
+    }
+    return c;
+  }
+  // pedaços ligados de uma máscara: devolve os rótulos e a área de cada um
+  function gtPedacos(m, W, H) {
+    var lab = new Int32Array(W * H), area = [0], pilha = new Int32Array(W * H), n = 0, i, p, t, x, y, q;
+    for (i = 0; i < W * H; i++) {
+      if (!m[i] || lab[i]) continue;
+      n++; area[n] = 0; t = 0; pilha[t++] = i; lab[i] = n;
+      while (t) {
+        p = pilha[--t]; area[n]++; x = p % W; y = (p - x) / W;
+        for (var dy = -1; dy <= 1; dy++) for (var dx = -1; dx <= 1; dx++) {
+          if (!dx && !dy) continue;
+          var xx = x + dx, yy = y + dy;
+          if (xx < 0 || yy < 0 || xx >= W || yy >= H) continue;
+          q = yy * W + xx;
+          if (m[q] && !lab[q]) { lab[q] = n; pilha[t++] = q; }
+        }
+      }
+    }
+    return { lab: lab, area: area, n: n };
+  }
+  // assinatura pequena de uma imagem (48×27 tons de cinza) e a duração de UMA volta a partir de uma fila de assinaturas:
+  // a distância no tempo que melhor "casa" o vídeo com ele mesmo. casa = diferença nessa distância; meio = diferença típica.
+  var GT_SW = 48, GT_SH = 27;
+  function gtAssina(fonte, x2) {
+    x2.drawImage(fonte, 0, 0, GT_SW, GT_SH);
+    var d = x2.getImageData(0, 0, GT_SW, GT_SH).data, g = new Float32Array(GT_SW * GT_SH);
+    for (var k = 0; k < g.length; k++) g[k] = (d[k * 4] + d[k * 4 + 1] + d[k * 4 + 2]) / 3;
+    return g;
+  }
+  function gtVolta(ass, passo) {
+    var n = ass.length, melhor = 0, mv = 1e9, lista = [], T0 = Math.round(8 / passo);
+    for (var T = T0; T <= n - Math.round(3 / passo); T++) {
+      var s = 0, c = 0;
+      for (var a = 0; a + T < n; a++) { var A = ass[a], Bq = ass[a + T], dd = 0; for (var k = 0; k < A.length; k++) dd += Math.abs(A[k] - Bq[k]); s += dd / A.length; c++; }
+      s /= c; lista.push([T, s]);
+      if (s < mv) { mv = s; melhor = T; }
+    }
+    if (!lista.length) return { per: 0, casa: 1e9, meio: 0 };
+    var ix = melhor - T0, f = 0; // afina entre os vizinhos (parábola)
+    if (ix > 0 && ix < lista.length - 1) { var y0 = lista[ix - 1][1], y1 = lista[ix][1], y2 = lista[ix + 1][1], den = y0 - 2 * y1 + y2; if (den > 1e-9) f = 0.5 * (y0 - y2) / den; }
+    // diferença típica entre imagens afastadas de 2 a 6 s (a peça em outro ângulo)
+    var m = 0, mc = 0;
+    for (var q = Math.round(2 / passo); q <= Math.round(6 / passo); q++) for (a = 0; a + q < n; a += 2) { A = ass[a]; Bq = ass[a + q]; dd = 0; for (k = 0; k < A.length; k++) dd += Math.abs(A[k] - Bq[k]); m += dd / A.length; mc++; }
+    return { per: (melhor + f) * passo, casa: mv, meio: mc ? m / mc : 0, borda: ix <= 0 || ix >= lista.length - 1 };
+  }
+  // a volta fechou? (usado ao vivo pela câmera do Estúdio para fechar sozinha)
+  function gtFechou(ass, passo) {
+    var v = gtVolta(ass, passo);
+    return v.per > 0 && !v.borda && v.meio > 0.8 && v.casa < v.meio * 0.5 && ass.length * passo >= v.per + 3.5 ? v : null;
+  }
+  function giroTrata(blob, o) {
+    o = o || {};
+    var aviso = o.aviso || function () {}, vt_, v, W, H, P, cv, cx, t0, per, dur, fundo, fmin, fmax, suja, w2, h2;
+    function pega(t) {
+      return gtVai(v, Math.min(dur - 0.05, Math.max(0, t))).then(function () {
+        cx.drawImage(v, 0, 0, W, H);
+        return cx.getImageData(0, 0, W, H).data;
+      });
+    }
+    // 1) duração de uma volta: assinaturas pequenas ao longo do vídeo e a distância que melhor "casa" o vídeo com ele mesmo
+    function acha_volta() {
+      var c2 = document.createElement('canvas'); c2.width = GT_SW; c2.height = GT_SH;
+      var x2 = c2.getContext('2d', { willReadFrequently: true }), passo = 0.5, ass = [], n = Math.floor((dur - 0.2) / passo), i = 0;
+      function um() {
+        if (i >= n) return Promise.resolve();
+        return gtVai(v, i * passo).then(function () {
+          var g = gtAssina(v, x2);
+          ass.push(g); i++; aviso('volta', i / n);
+          return um();
+        });
+      }
+      return um().then(function () { return gtVolta(ass, passo); });
+    }
+    function monta_fundo() {
+      var K = 24, am = [], i = 0;
+      function um() {
+        if (i >= K) return Promise.resolve();
+        return pega(t0 + i * per / K).then(function (d) {
+          var a = new Uint8Array(P * 3);
+          for (var k = 0; k < P; k++) { a[k * 3] = d[k * 4]; a[k * 3 + 1] = d[k * 4 + 1]; a[k * 3 + 2] = d[k * 4 + 2]; }
+          am.push(a); i++; aviso('fundo', i / K);
+          return um();
+        });
+      }
+      return um().then(function () {
+        var meio = new Float32Array(P * 3), parado = new Uint8Array(P), ord = new Uint8Array(K), j, k, q, x;
+        fundo = new Float32Array(P * 3);
+        var iF = Math.round((K - 1) * 0.92), iM = K >> 1, iA = Math.round(K * 0.75), iB = Math.round(K * 0.2);
+        for (k = 0; k < P; k++) {
+          var esp = 0;
+          for (var c = 0; c < 3; c++) {
+            q = k * 3 + c;
+            for (j = 0; j < K; j++) { x = am[j][q]; var z = j - 1; while (z >= 0 && ord[z] > x) { ord[z + 1] = ord[z]; z--; } ord[z + 1] = x; }
+            fundo[q] = ord[iF]; meio[q] = ord[iM];
+            if (ord[iA] - ord[iB] > esp) esp = ord[iA] - ord[iB];
+          }
+          parado[k] = esp < 14 ? 1 : 0;
+        }
+        am = null;
+        // zonas "sujas" do fundo parado (costura da tenda, fita): onde o fundo foge do tom da parede em volta
+        var liso = [0, 1, 2].map(function (c) { var a = new Float32Array(P); for (var k = 0; k < P; k++) a[k] = fundo[k * 3 + c]; gtCaixa(a, W, H, 9); gtCaixa(a, W, H, 9); return a; });
+        var sj = new Uint8Array(P);
+        for (k = 0; k < P; k++) {
+          var mx = 0;
+          for (c = 0; c < 3; c++) { var d2 = Math.abs(meio[k * 3 + c] / (liso[c][k] + 1) - 1); if (d2 > mx) mx = d2; }
+          sj[k] = mx > 0.08 && parado[k] ? 1 : 0;
+        }
+        suja = gtExtremo(sj, W, H, 1, true, Uint8Array);
+        for (k = 0; k < P; k++) if (suja[k]) { fundo[k * 3] = meio[k * 3]; fundo[k * 3 + 1] = meio[k * 3 + 1]; fundo[k * 3 + 2] = meio[k * 3 + 2]; }
+        fmin = new Float32Array(P * 3); fmax = new Float32Array(P * 3);
+        for (c = 0; c < 3; c++) {
+          var a = new Float32Array(P);
+          for (k = 0; k < P; k++) a[k] = fundo[k * 3 + c] + 1;
+          var mn = gtExtremo(a, W, H, 2, false, Float32Array), mxx = gtExtremo(a, W, H, 2, true, Float32Array);
+          for (k = 0; k < P; k++) { fundo[k * 3 + c] = a[k]; fmin[k * 3 + c] = mn[k]; fmax[k * 3 + c] = mxx[k]; }
+        }
+      });
+    }
+    // luz: imagem ÷ fundo (com folga), resultado em 0–255 por canal
+    function trata(d) {
+      var t = new Uint8ClampedArray(P * 3), k, c, q, f, b, r;
+      for (k = 0; k < P; k++) {
+        var igual = suja[k] ? 1 : 0;
+        for (c = 0; c < 3; c++) {
+          q = k * 3 + c; f = d[k * 4 + c];
+          b = f < fmin[q] ? fmin[q] : f > fmax[q] ? fmax[q] : f;
+          r = f / b / 0.985;
+          t[q] = r >= 1 ? 255 : r * 255;
+          if (igual && Math.abs(f - fundo[q]) - Math.max(0.16 * fundo[q], 16) >= 0) igual = 0;
+        }
+        if (igual) { t[k * 3] = t[k * 3 + 1] = t[k * 3 + 2] = 255; }
+      }
+      return t;
+    }
+    // a peça inteira (meia resolução): tudo o que não é branco e está ligado ao miolo mais escuro
+    function peca(t) {
+      var mn = new Uint8Array(w2 * h2), x, y, k, i;
+      for (y = 0; y < h2; y++) for (x = 0; x < w2; x++) {
+        var m = 255;
+        for (var yy = 0; yy < 2; yy++) for (var xx = 0; xx < 2; xx++) {
+          k = ((y * 2 + yy) * W + x * 2 + xx) * 3;
+          var u = Math.min(t[k], t[k + 1], t[k + 2]); if (u < m) m = u;
+        }
+        mn[y * w2 + x] = m;
+      }
+      var nu, lims = [125, 170, 200], soma = 0;
+      for (var L = 0; L < 3; L++) {
+        nu = new Uint8Array(w2 * h2);
+        for (i = 0; i < w2 * h2; i++) nu[i] = mn[i] < lims[L] ? 1 : 0;
+        nu = gtExtremo(gtExtremo(nu, w2, h2, 1, false, Uint8Array), w2, h2, 1, true, Uint8Array); // abre: some o ponto solto
+        soma = 0;
+        for (y = 0; y < h2; y++) for (x = 0; x < w2; x++) { i = y * w2 + x; if (x < w2 * 0.06 || x >= w2 * 0.94 || y < h2 * 0.15) nu[i] = 0; soma += nu[i]; }
+        if (soma > 100) break;
+      }
+      var pc = gtPedacos(nu, w2, h2), maior = 0;
+      for (i = 1; i <= pc.n; i++) if (pc.area[i] > maior) maior = pc.area[i];
+      var corte = Math.max(38, maior * 0.02);
+      for (i = 0; i < w2 * h2; i++) nu[i] = nu[i] && pc.area[pc.lab[i]] > corte ? 1 : 0;
+      var tudo = new Uint8Array(w2 * h2);
+      for (i = 0; i < w2 * h2; i++) tudo[i] = mn[i] < 232 ? 1 : 0;
+      var liga = gtExtremo(nu, w2, h2, 9, true, Uint8Array), p2 = gtPedacos(tudo, w2, h2), toca = new Uint8Array(p2.n + 1);
+      for (i = 0; i < w2 * h2; i++) if (liga[i] && p2.lab[i]) toca[p2.lab[i]] = 1;
+      var m2 = new Uint8Array(w2 * h2), x0 = w2, x1 = -1, y0 = h2, y1 = -1;
+      for (y = 0; y < h2; y++) for (x = 0; x < w2; x++) {
+        i = y * w2 + x;
+        if ((p2.lab[i] && toca[p2.lab[i]]) || nu[i]) { m2[i] = 1; if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+      }
+      return { m: m2, x0: x0 * 2, x1: x1 * 2 + 1, y0: y0 * 2, y1: y1 * 2 + 1, achou: x1 >= 0 && (x1 - x0) * (y1 - y0) > 12 };
+    }
+    // nitidez do contorno (variação do "relevo" em volta da peça)
+    function nitidez(t, pm) {
+      var s = 0, s2 = 0, n = 0, x, y, k;
+      for (y = 2; y < H - 2; y += 2) for (x = 2; x < W - 2; x += 2) {
+        if (!pm[(y >> 1) * w2 + (x >> 1)]) continue;
+        k = (y * W + x) * 3;
+        var g = 4 * t[k + 1] - t[k + 1 - 3] - t[k + 1 + 3] - t[k + 1 - W * 3] - t[k + 1 + W * 3];
+        s += g; s2 += g * g; n++;
+      }
+      return n ? s2 / n - (s / n) * (s / n) : 1;
+    }
+    return gtVideo(blob).then(function (vid) {
+      v = vid; dur = v.duration;
+      W = GT_W; H = Math.round((GT_W * v.videoHeight / v.videoWidth) / 2) * 2; P = W * H; w2 = W >> 1; h2 = H >> 1;
+      cv = document.createElement('canvas'); cv.width = W; cv.height = H; cx = cv.getContext('2d', { willReadFrequently: true });
+      return o.per ? { per: o.per, casa: 0, meio: 1 } : acha_volta();
+    }).then(function (vt) {
+      vt_ = vt; per = vt.per; t0 = o.t0 != null ? o.t0 : Math.max(0, Math.min(1, dur - per - 0.2));
+      if (!(per > 6) || vt.borda || !(vt.casa < vt.meio * 0.6) || t0 + per > dur + 0.3) throw new Error('giro-curto'); // não deu uma volta inteira
+      return monta_fundo().then(function () {
+        // 1ª passada: onde a peça está em cada grau, e a nitidez
+        var med = [], n = 0;
+        function um() {
+          if (n >= GT_N) return Promise.resolve();
+          return pega(t0 + n * per / GT_N).then(function (d) {
+            var t = trata(d), pc = peca(t);
+            if (!pc.achou) med.push(med.length ? med[med.length - 1].slice() : [W / 2, H / 2, 10, 10, 1, 1e9, 0.5]);
+            else {
+              // simetria (a frente e as costas são as vistas mais simétricas) e onde ficam os pontos mais baixos da peça:
+              // perto do meio = aros = FRENTE; nas pontas = hastes vindo para a câmera = costas
+              var bw = pc.x1 - pc.x0, bh = pc.y1 - pc.y0, sim = 0, ns = 0, xx, yy, ka, kb;
+              for (yy = pc.y0; yy <= pc.y1; yy += 2) for (xx = 0; xx < bw / 2; xx += 2) {
+                ka = (yy * W + pc.x0 + xx) * 3 + 1; kb = (yy * W + pc.x1 - xx) * 3 + 1;
+                sim += Math.abs(t[ka] - t[kb]); ns++;
+              }
+              var lado = 0, nl = 0, ylim = (pc.y1 - bh * 0.12) / 2, xm = (pc.x0 + pc.x1) / 4;
+              for (yy = Math.ceil(ylim); yy < h2; yy++) for (xx = 0; xx < w2; xx++) if (pc.m[yy * w2 + xx]) { lado += Math.abs(xx - xm); nl++; }
+              med.push([(pc.x0 + pc.x1) / 2, (pc.y0 + pc.y1) / 2, bw, bh, nitidez(t, gtExtremo(pc.m, w2, h2, 2, true, Uint8Array)), ns ? sim / ns / Math.max(bw, 1) : 1e9, nl ? lado / nl / Math.max(bw / 2, 1) : 0.5]);
+            }
+            n++; aviso('mede', n / GT_N);
+            return um();
+          });
+        }
+        return um().then(function () { return med; });
+      });
+    }).then(function (med) {
+      // passeio = a parte que dá UMA volta por volta
+      function harm(ix) {
+        var a = 0, b = 0;
+        for (var n = 0; n < GT_N; n++) { var th = n * 2 * Math.PI / GT_N; a += med[n][ix] * Math.cos(th); b += med[n][ix] * Math.sin(th); }
+        a *= 2 / GT_N; b *= 2 / GT_N;
+        var out = new Float32Array(GT_N);
+        for (n = 0; n < GT_N; n++) { th = n * 2 * Math.PI / GT_N; out[n] = a * Math.cos(th) + b * Math.sin(th); }
+        return { d: out, amp: Math.sqrt(a * a + b * b) };
+      }
+      var hx = harm(0), hy = harm(1), bx0 = 1e9, bx1 = -1e9, by0 = 1e9, by1 = -1e9, nits = [], n;
+      for (n = 0; n < GT_N; n++) {
+        bx0 = Math.min(bx0, med[n][0] - med[n][2] / 2 - hx.d[n]); bx1 = Math.max(bx1, med[n][0] + med[n][2] / 2 - hx.d[n]);
+        by0 = Math.min(by0, med[n][1] - med[n][3] / 2 - hy.d[n]); by1 = Math.max(by1, med[n][1] + med[n][3] / 2 - hy.d[n]);
+        nits.push(med[n][4]);
+      }
+      // frente: a vista mais simétrica; entre ela e a oposta, a que tem os pontos mais baixos perto do meio
+      var frente = 0;
+      if (o.frente == null) {
+        var cand = 0, n2;
+        for (n = 1; n < GT_N; n++) if (med[n][5] < med[cand][5]) cand = n;
+        var outro = (cand + GT_N / 2) % GT_N, jan = function (i) { var q = 0; for (var d = -4; d <= 4; d++) q += med[(i + d + GT_N) % GT_N][6]; return q / 9; };
+        frente = jan(cand) <= jan(outro) ? cand : outro;
+      } else frente = o.frente;
+      var alvo = nits.slice().sort(function (a, b) { return a - b; })[Math.round(GT_N * 0.7)];
+      var ccx = (bx0 + bx1) / 2, ccy = (by0 + by1) / 2, w = (bx1 - bx0) * 1.12, h = Math.max((by1 - by0) * 1.45, w / 1.5);
+      w = Math.min(Math.max(w, h * 1.5), W, H * 1.5); h = w / 1.5;
+      var X0 = Math.max(0, Math.min(W - w, ccx - w / 2)), Y0 = Math.max(0, Math.min(H - h, ccy - h * 0.55));
+      // 2ª passada: aplica e grava
+      var sai = document.createElement('canvas'); sai.width = GT_SAI[0]; sai.height = GT_SAI[1];
+      var sx = sai.getContext('2d'), tmp = document.createElement('canvas'); tmp.width = W; tmp.height = H;
+      var tx = tmp.getContext('2d'), img = tx.createImageData(W, H), capa = null, enc, mux, alvoV, tipo, erroEnc = null, branco = 0;
+      function codec() {
+        // H.264 (mp4) toca em todo celular, inclusive iPhone; se o aparelho não souber gravar H.264, vai VP8 (webm)
+        var av = { codec: 'avc1.42001f', width: GT_SAI[0], height: GT_SAI[1], bitrate: 4e6, framerate: 30, avc: { format: 'avc' } };
+        var vp = { codec: 'vp8', width: GT_SAI[0], height: GT_SAI[1], bitrate: 6e6, framerate: 30 };
+        if (!window.VideoEncoder) return Promise.reject(new Error('sem-gravador'));
+        return VideoEncoder.isConfigSupported(av).then(function (r) { return r.supported ? ['mp4', av] : null; }, function () { return null; }).then(function (r) {
+          if (r) return r;
+          return VideoEncoder.isConfigSupported(vp).then(function (q) { if (!q.supported) throw new Error('sem-gravador'); return ['webm', vp]; });
+        });
+      }
+      return codec().then(function (cc) {
+        tipo = cc[0];
+        return gtLib(tipo === 'mp4' ? 'Mp4Muxer' : 'WebMMuxer', tipo === 'mp4' ? 'mp4-muxer.js' : 'webm-muxer.js').then(function (Lib) {
+          alvoV = new Lib.ArrayBufferTarget();
+          mux = tipo === 'mp4' ? new Lib.Muxer({ target: alvoV, video: { codec: 'avc', width: GT_SAI[0], height: GT_SAI[1] }, fastStart: 'in-memory' })
+            : new Lib.Muxer({ target: alvoV, video: { codec: 'V_VP8', width: GT_SAI[0], height: GT_SAI[1], frameRate: 30 } });
+          enc = new VideoEncoder({ output: function (ch, meta) { mux.addVideoChunk(ch, meta); }, error: function (e) { erroEnc = e; } });
+          enc.configure(cc[1]);
+        });
+      }).then(function () {
+        var j = 0;
+        function um() {
+          if (j >= GT_N || erroEnc) return Promise.resolve();
+          var n = (frente + j) % GT_N;
+          return pega(t0 + n * per / GT_N).then(function (d) {
+            var t = trata(d), pc = peca(t), k, c;
+            // perto da peça (e ~30 px em volta) fica como a câmera viu; longe vira branco, com passagem suave
+            var perto = new Float32Array(w2 * h2), dl = gtExtremo(pc.m, w2, h2, 15, true, Uint8Array);
+            for (k = 0; k < w2 * h2; k++) perto[k] = dl[k];
+            gtCaixa(perto, w2, h2, 5); gtCaixa(perto, w2, h2, 5);
+            var forca = Math.sqrt(alvo / Math.max(med[n][4], 1)) - 1; forca = forca < 0.03 ? 0 : Math.min(1.1, forca);
+            var dd = img.data, x, y;
+            for (y = 0; y < H; y++) for (x = 0; x < W; x++) {
+              k = y * W + x; var pr = perto[(y >> 1) * w2 + (x >> 1)];
+              for (c = 0; c < 3; c++) {
+                var q = k * 3 + c, val = t[q];
+                if (forca && x > 0 && y > 0 && x < W - 1 && y < H - 1) {
+                  var bor = (t[q] * 4 + t[q - 3] * 2 + t[q + 3] * 2 + t[q - W * 3] * 2 + t[q + W * 3] * 2 + t[q - W * 3 - 3] + t[q - W * 3 + 3] + t[q + W * 3 - 3] + t[q + W * 3 + 3]) / 16;
+                  val = val + forca * (val - bor);
+                }
+                val = (val * pr + 255 * (1 - pr)) * (255 / 238);
+                dd[k * 4 + c] = val > 255 ? 255 : val < 0 ? 0 : val;
+              }
+              dd[k * 4 + 3] = 255;
+            }
+            tx.putImageData(img, 0, 0);
+            sx.fillStyle = '#fff'; sx.fillRect(0, 0, GT_SAI[0], GT_SAI[1]);
+            sx.imageSmoothingQuality = 'high';
+            sx.drawImage(tmp, X0 + hx.d[n], Y0 + hy.d[n], w, h, 0, 0, GT_SAI[0], GT_SAI[1]);
+            if (!j) capa = sai.toDataURL('image/jpeg', 0.86);
+            var fr = new VideoFrame(sai, { timestamp: Math.round(j * 1e6 / 30), duration: Math.round(1e6 / 30) });
+            enc.encode(fr, { keyFrame: true }); fr.close();
+            j++; aviso('grava', j / GT_N);
+            // não deixa a fila do gravador crescer sem limite
+            return enc.encodeQueueSize > 8 ? new Promise(function (r) { setTimeout(r, 30); }).then(um) : um();
+          });
+        }
+        return um().then(function () {
+          if (erroEnc) throw erroEnc;
+          return enc.flush();
+        }).then(function () {
+          mux.finalize();
+          try { URL.revokeObjectURL(v.src); } catch (e) {}
+          return {
+            blob: new Blob([alvoV.buffer], { type: tipo === 'mp4' ? 'video/mp4' : 'video/webm' }), n: GT_N, capa: capa, tipo: tipo,
+            info: { frente: frente, casa: vt_.casa, meio: vt_.meio, volta: per, inicio: t0, passeioX: hx.amp, passeioY: hy.amp, recorte: [Math.round(X0), Math.round(Y0), Math.round(w), Math.round(h)], largura: W, altura: H }
+          };
+        });
+      });
+    });
+  }
+  window.giroTrata = giroTrata;
+  window.__gtVolta = gtVolta;
+  window.__gtFechou = gtFechou;

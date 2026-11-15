@@ -3531,6 +3531,30 @@ async def main():
             if not ok: falhas.append('S360 lote 1'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # S361 (sistema de 360°): o app trata o giro e manda gn para o site. Aqui: o detector da volta (sem vídeo), os campos novos e o caminho antigo.
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S;
+              // filas de assinaturas inventadas: uma "peça" que dá a volta a cada 20 s, uma cena parada e meia volta só
+              const faz = (seg, per, ruido) => { const a = []; for (let i = 0; i < seg * 2; i++) { const g = new Float32Array(48 * 27), th = 2 * Math.PI * (i * 0.5) / per;
+                for (let k = 0; k < g.length; k++) g[k] = 150 + (per ? 40 * Math.sin(th + k * 0.37) * Math.cos(k * 0.11) : 0) + ruido * Math.sin(i * 7.1 + k * 3.3); a.push(g); } return a; };
+              const v1 = window.__gtFechou(faz(26, 20, 0.6), 0.5), v2 = window.__gtFechou(faz(40, 0, 0.6), 0.5), v3 = window.__gtFechou(faz(14, 20, 0.6), 0.5), v4 = window.__gtFechou(faz(30, 20, 0.6), 0.5);
+              const fecha = !!v1 && Math.abs(v1.per - 20) < 0.6 && !!v4, naoFecha = v2 === null && v3 === null;
+              // campos do site: sem giro tratado gn = 0; com giro tratado gn = 360 e vai no documento
+              S.giroSite = { T1: { p: 'media/giro/T1.mp4', v: 5 } }; const g0 = L.giroGn('T1');
+              S.giroSite.T1.n = 360; const g1 = L.giroGn('T1'), doc = L.vitDocBody('T1', { gv: L.giroGv('T1'), gn: L.giroGn('T1'), gvc: 0 });
+              const campos = g0 === 0 && g1 === 360 && doc.gn === 360 && doc.gvc === 0 && /T1\.mp4\?v=5/.test(doc.gv);
+              // giro já tratado não é tratado de novo; giro marcado como "cru" segue pelo caminho antigo (vídeo simples, gn 0)
+              const b = new Blob([new Uint8Array(10)], { type: 'video/mp4' });
+              S.giros = { T1: { k: 'T1|x', n: 360 }, T2: { k: 'T2|x', cru: 'giro-curto' } };
+              const p1 = await L.giroPrepara('T1', b), p2 = await L.giroPrepara('T2', b);
+              const caminhos = p1.n === 360 && p1.blob === b && p2.n === 0;
+              return [typeof window.giroTrata === 'function', fecha, naoFecha, campos, caminhos]; }""")
+            total += 1
+            ok = got == [True] * 5 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S361: giro 360° — a volta fecha sozinha (e não fecha parado nem pela metade), gn/gvc vão para o site, giro tratado não é refeito')
+            if not ok: falhas.append('S361 giro 360'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # S332 (15/11/2026, opção A): a cópia do site do MODO LOJA se atualiza sozinha (sem APK). Aparelho falso (Capacitor + Filesystem em memória):
             # baixa tudo, reescreve os caminhos para a pasta nova, o modo loja abre de lá e dá sinal de vida; 2ª busca "em dia";
             # versão seguinte baixa só os textos (binário igual é copiado); cópia estragada é descartada e volta a do APK.

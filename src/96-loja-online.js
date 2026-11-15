@@ -200,7 +200,10 @@
       gq: vitGraus(ref).map(function (g) { return g.q; }),
       // v475 (aprovado 09/11): graus de CADA cor, na ordem de 'cores' e de 'gr' (texto "q,q,q" por cor; o site risca o grau que não tem na cor)
       gc: vitGrausCor(ref, cs),
-      gv: giroGv(ref)
+      gv: giroGv(ref),
+      // S361: giro tratado → quantas imagens tem a volta (o site deixa girar com o dedo) e de qual cor é o giro (0 = primeira)
+      gn: giroGn(ref),
+      gvc: 0
     };
   }
   function vitFila(ref, op) {
@@ -208,7 +211,7 @@
     S.vitPend[ref] = op;
     saveSoon();
   }
-  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'desc', 'gr', 'gq', 'gc', 'gv', 'fv', 'fm', 'mr', 'l2', 'cmx', 'pol'];
+  var VIT_CAMPOS = ['nome', 'tipo', 'n', 'de', 'est', 'aviso', 'tag', 'mat', 'gen', 'cor', 'cores', 'cn', 'qs', 'raio', 'med', 'rosto', 'uv', 'cad', 'lib', 'desc', 'gr', 'gq', 'gc', 'gv', 'gn', 'gvc', 'fv', 'fm', 'mr', 'l2', 'cmx', 'pol'];
   function vitFotos(ref) {
     return vitCores(ref).map(function (c) {
       return S.fotos[ref + '|' + c.cor];
