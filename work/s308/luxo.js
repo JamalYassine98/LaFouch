@@ -14,7 +14,7 @@
     // "Mais opções" sem caixa: título serifado em itálico vinho + seta; aberto, as opções descem em linhas centradas separadas por fios curtos (o mesmo fio da contagem)
     '#pkok .lxX{flex:0 0 auto;align-self:center;box-sizing:border-box;margin:14px auto 0;display:flex;flex-direction:column;align-items:center;border:0;background:none}' +
     '#pkok .lxXh{display:inline-flex!important;align-items:center;justify-content:center;gap:8px;width:auto;min-height:44px;margin:0!important;padding:0 16px!important;background:none!important;border:0!important;box-shadow:none!important;color:#8d3a69!important;font-style:italic;font-weight:400!important;font-size:18px!important;letter-spacing:.01em;text-decoration:none!important;cursor:pointer}#pkok .lxXh svg{color:#8d3a69;flex:0 0 auto;margin-top:3px}' +
-    '#pkok .lxXi{position:relative;display:flex!important;align-items:center;justify-content:center;width:100%;min-height:50px;margin:0!important;padding:0 18px!important;background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;color:#3a2c33!important;font-family:inherit;font-weight:400!important;font-size:15px!important;letter-spacing:.01em;text-decoration:none!important;box-sizing:border-box}#pkok .lxXi:before{content:"";position:absolute;top:0;left:50%;width:120px;margin-left:-60px;height:1px;background:rgba(141,58,105,.22)}#pkok .lxXi.r{color:#a3352c!important}' +
+    '#pkok .lxXi{position:relative;display:flex!important;align-items:center;justify-content:center;width:100%;min-height:50px;margin:0!important;padding:0 18px!important;background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;color:#3a2c33!important;font-family:inherit;font-weight:400!important;font-size:15px!important;letter-spacing:.01em;text-decoration:none!important;box-sizing:border-box}#pkok .lxXi:before{content:"";position:absolute;top:0;left:50%;width:120px;margin-left:-60px;height:1px;background:rgba(60,30,45,.14)}#pkok .lxXi.r{color:#a3352c!important}' +
     '#pkok .pgau.lx{margin:18px auto 2px!important;justify-content:center;font-size:14px;color:#6e6067;max-width:300px}';
   document.head.appendChild(st);
   const cl = o.querySelector('#pgcl');
@@ -26,12 +26,13 @@
     const g = document.createElement('div'); g.className = 'lxG'; au.after(g);
     cl.hidden = false; cl.className = ''; cl.style.cssText = 'margin:0'; cl.innerHTML = '<label for="pgf" class="lxL">Já paguei · enviar comprovante</label>'; g.append(cl);
     const v = o.querySelector('a.vend'), d = o.querySelector('.pgs'), x = o.querySelector('.pgx');
+    const gd = getComputedStyle(d), gx = getComputedStyle(x), PAD = { ff: gd.fontFamily, fs: gd.fontSize, fw: gd.fontWeight, cor: gd.color, verm: gx.color };
     // "Mais opções" = linha que expande (seta ⌄ / ⌃); aberta vira um cartão branco com as três opções em linhas
     const SETA = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + (aberto ? 'M6 15l6-6 6 6' : 'M6 9l6 6 6-6') + '"/></svg>';
     const cx = document.createElement('div'); cx.className = 'lxX' + (aberto ? ' ab' : ''); cx.style.width = w; g.after(cx);
-    const m = document.createElement('button'); m.type = 'button'; m.className = 'lxXh'; m.setAttribute('aria-expanded', aberto ? 'true' : 'false'); m.innerHTML = '<span>Mais opções</span>' + SETA; m.style.fontFamily = getComputedStyle(o.querySelector('h2')).fontFamily; cx.append(m);
+    const m = document.createElement('button'); m.type = 'button'; m.className = 'lxXh'; m.setAttribute('aria-expanded', aberto ? 'true' : 'false'); m.innerHTML = '<span>Mais opções</span>' + SETA; m.style.cssText = 'font-family:' + PAD.ff + ';font-size:' + PAD.fs + '!important;font-weight:' + PAD.fw + '!important;font-style:normal;color:' + PAD.cor + '!important'; m.querySelector('svg').style.color = PAD.cor; cx.append(m);
     d.textContent = 'Pagar depois'; v.textContent = 'Falar com um vendedor';
-    [d, v, x].forEach((e) => { e.className = 'lxXi' + (e === x ? ' r' : ''); e.removeAttribute('style'); if (aberto) cx.append(e); else e.remove(); });
+    [d, v, x].forEach((e) => { e.className = 'lxXi' + (e === x ? ' r' : ''); e.style.cssText = 'font-family:' + PAD.ff + ';font-size:' + PAD.fs + '!important;font-weight:' + PAD.fw + '!important;color:' + (e === x ? PAD.verm : PAD.cor) + '!important'; if (aberto) cx.append(e); else e.remove(); });
     return 'pagar';
   }
   const wa = o.querySelector('.pkb a.pkw');
