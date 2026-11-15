@@ -33,3 +33,18 @@ Conferência pedida pelo dono ("o que discutimos e esqueci de falar aprovado?").
 - Colar o robô do Banco Familiar no Apps Script e publicar as funções `pix` e `reserva`; transferência de teste.
 - Gravar o giro definitivo.
 - Instalar o LaFouch-524.apk (última desinstalação) e o instalador do Windows 526; conferir o modo loja no aparelho.
+
+## E · APROVADOS que EU ESQUECI (saíram das minhas listas sem serem feitos) — guardados em 15/11 15:01 para o comando de implementar
+Conferido no código e nos documentos "como funciona": não há registro de feito para nenhum deles.
+1. **Painel do site como tela do app** (aprovado 14/11 00:08; esboço S242, celular e PC).
+2. **Entradas secas → entrada suave** e **tela vazia com o próximo passo** (itens 17 e 18, aprovados 14/11 00:19; vídeos S251).
+3. **Venda em poucos toques / modo balcão** (14/11 04:30; ideia aprovada em texto, SEM esboço).
+4. **Lista + ficha lado a lado em tablet e computador** (14/11 04:30; SEM esboço próprio — há o desenho de Produtos no PC do S242).
+5. **Computador: teclado e leitor de código** (14/11 04:30; SEM esboço).
+6. **Desfazer no lugar de "tem certeza?"** (14/11 04:30; SEM esboço; não conferi tela por tela onde ainda há pergunta).
+7. **Início enxuto** (14/11 04:30; desenho no S228).
+8. **Dashboard com 3 números na frente** (14/11 04:30; SEM esboço).
+9. **Temática em 2 níveis no site + modo loja com a temática do site** (14/11 01:00–04:30; regras do S224 publicadas, os 2 níveis não).
+10. **Site: colunas iguais Início × catálogo e monitor em 4 colunas no centro** (13/11 20:50, S216/S217).
+Os itens 3, 4, 5, 6 e 8 foram aprovados como ideia, sem tela desenhada: pela regra, ganham esboço antes de entrar no "implementar tudo".
+Não são esquecimento (estavam na lista, parados de propósito ou por ordem do dono): capa do grupo, leitor da haste, janelas num padrão só, Nuvem enxuta, PC ação ao lado do título, Mochi, giro/Estúdio, designer explorador, transferência automática.
