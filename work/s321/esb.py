@@ -10,17 +10,23 @@ ABAS=".s21t{display:flex;gap:22px;position:relative;border-bottom:1px solid var(
 LINHA="(sel)=>{const c=document.querySelector(sel),o=c.querySelector('button.on'),i=document.createElement('i');i.className='lfLinha';c.appendChild(i);const a=c.getBoundingClientRect(),b=o.getBoundingClientRect();i.style.left=(b.left-a.left)+'px';i.style.width=b.width+'px'}"
 PED="()=>{const s=document.createElement('style');s.textContent=%r;document.head.appendChild(s);const c=document.querySelector('.pdSeg');c.className='s21t';c.id='s21p';(%s)('#s21p');return 'ok'}"%(ABAS,LINHA)
 COMP="()=>{const s=document.createElement('style');s.textContent=%r+%r+'.s185G button{background:var(--panel2)!important;border:1px solid var(--line)!important;color:var(--fg)!important;padding:12px!important}.s185G button.on{border-color:var(--accent)!important;background:var(--accent-soft)!important}.s185G small{color:var(--mute)!important}.s21go{border:0!important;background:linear-gradient(135deg,#b4528a,#a2447c 55%%,#7d3361)!important;color:#fff!important;box-shadow:0 6px 16px rgba(162,68,124,.35)!important}';document.head.appendChild(s);const c=document.querySelector('.s185Seg');c.className='s21t';c.id='s21c';(%s)('#s21c');document.querySelectorAll('.s185G b').forEach(b=>{b.textContent=b.textContent.replace(/^[^A-Za-zÀ-ú]+/,'')});const g=[...document.querySelectorAll('.ebJn button')].find(b=>/Enviar no/.test(b.innerText));if(g)g.classList.add('s21go');return 'ok'}"%(APELIDOS,ABAS,LINHA)
+FICHA="()=>{const s=document.createElement('style');s.textContent=%r+%r+'#s21f{gap:20px;margin:6px 0 12px}#s21f button{font-size:14px}';document.head.appendChild(s);const c=document.querySelector('.fnTabs');c.className='s21t';c.id='s21f';(%s)('#s21f');return 'ok'}"%(APELIDOS,ABAS,LINHA)
+def ficha(pg,w):
+    pg.evaluate("()=>{const c=[...document.querySelectorAll('#v-estoque .pcard')];(c[1]||c[0]).click()}");w(1200)
+    pg.evaluate("()=>{const c=[...document.querySelectorAll('#v-estoque .pcard')].filter(x=>x.offsetParent);c[0].click()}");w(1500)
+    pg.evaluate("()=>{const t=document.querySelector('.fnTabs');t&&t.scrollIntoView({block:'center'})}");w(500)
 def comp(pg,w):
     pg.click('#cjSh');w(600);pg.evaluate("()=>{[...document.querySelectorAll('#v-vendas .pcard')].slice(1,2).forEach(x=>x.click())}");w(500);pg.evaluate("()=>{const g=document.querySelector('.ebGo');g&&g.click()}");w(1300)
 def tela(pw,qual,escuro,prop):
-    b,pg,w=base.abre(pw,'ped' if qual=='ped' else 'vendas',escuro)
+    b,pg,w=base.abre(pw,{'ped':'ped','comp':'vendas','ficha':'estoque'}[qual],escuro)
     if qual=='comp': comp(pg,w)
-    if prop: print('  inj:',pg.evaluate(PED if qual=='ped' else COMP));w(500)
+    if qual=='ficha': ficha(pg,w)
+    if prop: print('  inj:',pg.evaluate({'ped':PED,'comp':COMP,'ficha':FICHA}[qual]));w(500)
     p=T+'%s_%d_%d.png'%(qual,escuro,prop);pg.screenshot(path=p)
     # contraste do texto dos botões da janela/abas (mínimo 4,5)
     r=pg.evaluate("""(q)=>{const lum=c=>{const m=c.match(/[\\d.]+/g).map(Number);const f=v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)};return .2126*f(m[0])+.7152*f(m[1])+.0722*f(m[2])};
       const fundo=e=>{for(let x=e;x;x=x.parentElement){const b=getComputedStyle(x).backgroundColor,m=b.match(/[\\d.]+/g);if(m&&(m.length<4||+m[3]>.5))return b}return 'rgb(255,255,255)'};
-      return [...document.querySelectorAll(q)].filter(e=>e.offsetParent).map(e=>{const a=lum(getComputedStyle(e).color),b=lum(fundo(e));return (e.innerText||'').trim().slice(0,18)+' '+((Math.max(a,b)+.05)/(Math.min(a,b)+.05)).toFixed(1)})}""",'.s185G b,.s185G small,.s185Seg button,#s21c button,#s21p button,.pdSeg button' )
+      return [...document.querySelectorAll(q)].filter(e=>e.offsetParent).map(e=>{const a=lum(getComputedStyle(e).color),b=lum(fundo(e));return (e.innerText||'').trim().slice(0,18)+' '+((Math.max(a,b)+.05)/(Math.min(a,b)+.05)).toFixed(1)})}""",'.s185G b,.s185G small,.s185Seg button,#s21c button,#s21p button,.pdSeg button,.fnTabs button,#s21f button' )
     b.close();return p,r
 def prancha(nome,titulo,sub,cols):
     ims=[Image.open(p) for p,_ in cols];w,h=ims[0].size;g=40;top=250;W=g+len(ims)*(w+g);H=top+h+g
@@ -29,9 +35,11 @@ def prancha(nome,titulo,sub,cols):
     for i,(im,(p,r)) in enumerate(zip(ims,cols)):
         x=g+i*(w+g);d.text((x,170),r,font=F(34,True),fill='#8d3a69' if i else '#1d1418');S.paste(im,(x,top));d.rectangle([x-1,top-1,x+w,top+h],outline='#cfc6cb')
     S.save(OUT+nome,quality=88);print(' ',nome)
+SO=os.environ.get('SO')
 with sync_playwright() as pw:
-    for qual,tit,sub in (('ped','Pedidos online','As três situações viram as abas padrão do app (as mesmas de Produtos · Fornecedores · Reposição).'),
-                         ('comp','Compartilhar','Tudo legível; "Tipo de envio" nas abas padrão; opções sem emoji; um botão cheio.')):
+    for qual,tit,sub in [x for x in (('ped','Pedidos online','As três situações viram as abas padrão do app (as mesmas de Produtos · Fornecedores · Reposição).'),
+                         ('comp','Compartilhar','Tudo legível; "Tipo de envio" nas abas padrão; opções sem emoji; um botão cheio.'),
+                         ('ficha','Ficha da peça (Inventário)','Estoque · Histórico · Site · Preço nas abas padrão, no lugar da pílula branca.')) if not SO or x[0]==SO]:
         for esc,tema in ((True,'escuro'),(False,'claro')):
             a,ra=tela(pw,qual,esc,0);b,rb=tela(pw,qual,esc,1);print(qual,tema,'contraste hoje:',ra,'| proposta:',rb)
-            prancha('%s-%s.jpg'%('1-pedidos' if qual=='ped' else '2-compartilhar',tema),tit+' · tema '+tema,sub,[(a,'HOJE'),(b,'PROPOSTA')])
+            prancha('%s-%s.jpg'%({'ped':'1-pedidos','comp':'2-compartilhar','ficha':'3-ficha-da-peca'}[qual],tema),tit+' · tema '+tema,sub,[(a,'HOJE'),(b,'PROPOSTA')])

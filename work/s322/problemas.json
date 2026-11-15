@@ -1,0 +1,602 @@
+{
+"fora da curva de luxo": [
+[
+"tela inicio",
+"lfEntra em #v-inicio",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"tela inicio",
+"cas em div.hero",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"tela inicio",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"tela inicio",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"tela inicio",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"tela inicio",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"tela inicio",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"tela inicio",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"tela inicio",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"tela inicio",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"tela inicio",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"tela estoque",
+"transição: em i.lfLinha",
+"cubic-bezier(0.2, 0.9, 0.3, 1)"
+],
+[
+"tela ped",
+"lfDesenha em path",
+"ease-in-out"
+],
+[
+"tela ped",
+"lfDesenha em path",
+"ease-in-out"
+],
+[
+"tela ped",
+"lfSobe em b",
+"ease"
+],
+[
+"tela ped",
+"lfSobe em span",
+"ease"
+],
+[
+"tela clientes",
+"lfDesenha em circle",
+"ease-in-out"
+],
+[
+"tela clientes",
+"lfDesenha em path",
+"ease-in-out"
+],
+[
+"tela clientes",
+"lfSobe em b",
+"ease"
+],
+[
+"tela clientes",
+"lfSobe em span",
+"ease"
+],
+[
+"voltar ao início",
+"cas em div.hero",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"voltar ao início",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"voltar ao início",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"voltar ao início",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"voltar ao início",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"voltar ao início",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"voltar ao início",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"voltar ao início",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"voltar ao início",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"voltar ao início",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"inventário: trocar de aba (Fornecedores)",
+"transição:left em div.lfPill",
+"cubic-bezier(0.2, 1.25, 0.35, 1)"
+],
+[
+"inventário: trocar de aba (Fornecedores)",
+"transição:width em div.lfPill",
+"cubic-bezier(0.2, 1.25, 0.35, 1)"
+],
+[
+"inventário: trocar de aba (Fornecedores)",
+"transição: em i.lfLinha",
+"cubic-bezier(0.2, 0.9, 0.3, 1)"
+],
+[
+"inventário: voltar à aba Produtos",
+"transição:left em div.lfPill",
+"cubic-bezier(0.2, 1.25, 0.35, 1)"
+],
+[
+"inventário: voltar à aba Produtos",
+"transição:width em div.lfPill",
+"cubic-bezier(0.2, 1.25, 0.35, 1)"
+],
+[
+"inventário: voltar à aba Produtos",
+"transição:opacity em img.lfOk",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"inventário: voltar à aba Produtos",
+"transição:transform em img.lfOk",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"inventário: voltar à aba Produtos",
+"enterUp em #listCard",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"inventário: abrir uma peça",
+"transição:opacity em img.lfOk",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"inventário: abrir uma peça",
+"transição:transform em img.lfOk",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"inventário: abrir uma peça",
+"transição:opacity em img.lfOk",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"inventário: abrir uma peça",
+"transição:transform em img.lfOk",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"inventário: fechar a peça (voltar)",
+"cas em div.hero",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"inventário: fechar a peça (voltar)",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"inventário: fechar a peça (voltar)",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"inventário: fechar a peça (voltar)",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"inventário: fechar a peça (voltar)",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"inventário: fechar a peça (voltar)",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"inventário: fechar a peça (voltar)",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"inventário: fechar a peça (voltar)",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"inventário: fechar a peça (voltar)",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"inventário: fechar a peça (voltar)",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"catálogo: abrir uma peça",
+"enterUp em #vDetail",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"catálogo: abrir uma peça",
+"transição: em #vDetail",
+"ease-out"
+],
+[
+"catálogo: abrir uma peça",
+"transição: em div.lfFundo",
+"cubic-bezier(0.2, 0.9, 0.3, 1)"
+],
+[
+"catálogo: abrir uma peça",
+"transição: em div.lfVoa",
+"cubic-bezier(0.2, 0.9, 0.3, 1)"
+],
+[
+"catálogo: voltar",
+"enterUp em #vListCard",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"compartilhar: abrir a janela",
+"transição:box-shadow em button.pcard",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"compartilhar: abrir a janela",
+"transição:transform em button.pcard",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"compartilhar: abrir a janela",
+"transição:transform em #ebBar",
+"cubic-bezier(0.3, 1.3, 0.5, 1)"
+],
+[
+"compartilhar: abrir a janela",
+"transição:opacity em div.ljBk.anim",
+"ease"
+],
+[
+"compartilhar: abrir a janela",
+"transição:transform em div.ljJn.ebJn",
+"cubic-bezier(0.2, 1.25, 0.4, 1)"
+],
+[
+"compartilhar: fechar a janela",
+"cas em div.hero",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"compartilhar: fechar a janela",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"compartilhar: fechar a janela",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"compartilhar: fechar a janela",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"compartilhar: fechar a janela",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"compartilhar: fechar a janela",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"compartilhar: fechar a janela",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"pedidos: trocar para Feitos",
+"lfDesenha em path",
+"ease-in-out"
+],
+[
+"pedidos: trocar para Feitos",
+"lfDesenha em path",
+"ease-in-out"
+],
+[
+"pedidos: trocar para Feitos",
+"lfSobe em b",
+"ease"
+],
+[
+"pedidos: trocar para Feitos",
+"lfSobe em span",
+"ease"
+],
+[
+"início: fechar o sino",
+"cas em div.hero",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"início: fechar o sino",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"início: fechar o sino",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"início: fechar o sino",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"início: fechar o sino",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"início: fechar o sino",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+[
+"início: fechar o sino",
+"cas em button.tl",
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+]
+],
+"duas ou mais animações no mesmo elemento ao mesmo tempo": [
+[
+"tela inicio",
+"button.tl",
+[
+"cas",
+"cas",
+"cas",
+"cas"
+]
+],
+[
+"tela ped",
+"path",
+[
+"lfDesenha",
+"lfDesenha"
+]
+],
+[
+"voltar ao início",
+"button.tl",
+[
+"cas",
+"cas",
+"cas",
+"cas"
+]
+],
+[
+"inventário: fechar a peça (voltar)",
+"button.tl",
+[
+"cas",
+"cas",
+"cas",
+"cas"
+]
+],
+[
+"compartilhar: fechar a janela",
+"button.tl",
+[
+"cas",
+"cas",
+"cas",
+"cas"
+]
+],
+[
+"pedidos: trocar para Feitos",
+"path",
+[
+"lfDesenha",
+"lfDesenha"
+]
+],
+[
+"início: fechar o sino",
+"button.tl",
+[
+"cas",
+"cas",
+"cas",
+"cas"
+]
+]
+],
+"mexe em tamanho/posição (trava em celular fraco)": [
+[
+"tela estoque",
+"transição: em i.lfLinha",
+[
+"left",
+"width"
+]
+],
+[
+"inventário: trocar de aba (Fornecedores)",
+"transição:left em div.lfPill",
+[
+"left"
+]
+],
+[
+"inventário: trocar de aba (Fornecedores)",
+"transição:width em div.lfPill",
+[
+"width"
+]
+],
+[
+"inventário: trocar de aba (Fornecedores)",
+"transição: em i.lfLinha",
+[
+"left",
+"width"
+]
+],
+[
+"inventário: voltar à aba Produtos",
+"transição:left em div.lfPill",
+[
+"left"
+]
+],
+[
+"inventário: voltar à aba Produtos",
+"transição:width em div.lfPill",
+[
+"width"
+]
+],
+[
+"catálogo: abrir uma peça",
+"transição: em div.lfFundo",
+[
+"height",
+"left",
+"top",
+"width"
+]
+],
+[
+"catálogo: abrir uma peça",
+"transição: em div.lfVoa",
+[
+"height",
+"left",
+"top",
+"width"
+]
+]
+],
+"longa (mais de 0,7 s)": [
+[
+"tela ped",
+"lfDesenha em path",
+1000
+],
+[
+"tela ped",
+"lfDesenha em path",
+1000
+],
+[
+"tela clientes",
+"lfDesenha em circle",
+1000
+],
+[
+"tela clientes",
+"lfDesenha em path",
+1000
+],
+[
+"pedidos: trocar para Feitos",
+"lfDesenha em path",
+1000
+],
+[
+"pedidos: trocar para Feitos",
+"lfDesenha em path",
+1000
+]
+],
+"quica (passa do ponto e volta)": [
+[
+"inventário: trocar de aba (Fornecedores)",
+"transição:left em div.lfPill",
+"cubic-bezier(0.2, 1.25, 0.35, 1)"
+],
+[
+"inventário: trocar de aba (Fornecedores)",
+"transição:width em div.lfPill",
+"cubic-bezier(0.2, 1.25, 0.35, 1)"
+],
+[
+"inventário: voltar à aba Produtos",
+"transição:left em div.lfPill",
+"cubic-bezier(0.2, 1.25, 0.35, 1)"
+],
+[
+"inventário: voltar à aba Produtos",
+"transição:width em div.lfPill",
+"cubic-bezier(0.2, 1.25, 0.35, 1)"
+],
+[
+"compartilhar: abrir a janela",
+"transição:transform em #ebBar",
+"cubic-bezier(0.3, 1.3, 0.5, 1)"
+],
+[
+"compartilhar: abrir a janela",
+"transição:transform em div.ljJn.ebJn",
+"cubic-bezier(0.2, 1.25, 0.4, 1)"
+]
+]
+}

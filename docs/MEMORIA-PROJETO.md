@@ -2609,3 +2609,9 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Esboço (work/s321/esb.py, app real, escuro e claro): 1-pedidos-escuro/claro.jpg (pílulas → abas padrão), 2-compartilhar-escuro/claro.jpg (legível; "Tipo de envio" em abas; opções sem emoji; "Enviar no WA Business" cheio). Contraste da proposta ≥ 4,8.
 - Animação: plano em 3 lotes, cada um com vídeo curto antes de publicar — A abas e seletores (linha desliza, conteúdo vem do lado da aba); B janelas/folhas (sobe 0,46 s, fecha 0,3 s, fundo recua); C listas, toques e carregando (fila de 22 ms, sem quique). Base: relatório S253 já aprovado (app: 71 ajustar, 32 trocar, 3 apagar).
 - "Recentes": remoção é ordem direta; vai junto na mesma versão do app (um só teste de 10 min). NADA implementado ainda.
+
+### S322 (15/11/2026 09:45) — ESTUDO das animações do app + 3º esboço (aguardando o dono)
+- DONO: "quero os esboços primeiro" e "estude todas as animações atualmente e verifique por problemas".
+- Estudo: docs/ESTUDO-ANIMACOES-APP-15-11.md (work/s322/anima.py mede o que roda em 26 passos no simulador + inventário do código). Principais problemas: (1) o app quase não usa a curva de luxo (curva antiga .2,.8,.2,1 em lfEntra e cas); (2) ainda há quique (pílula das abas 1,25; janela de Compartilhar 1,25; barra de seleção 1,3); (3) a transição dos botões está definida DUAS vezes no style.css e a segunda apaga a primeira; (4) abas e "peça voando" animam left/width/top/height; (5) lfDesenha de 1,0 s; (6) 7 sem fim fora de carregando e 4 sem uso no código. Respeita "reduzir movimento". Não visto: Estúdio, leitor, carregando, venda, tablet/PC, tema claro, celular real.
+- Esboço novo: work/s321/3-ficha-da-peca-escuro/claro.jpg (Estoque · Histórico · Site · Preço nas abas padrão). Censo dos botões por tela feito (dezenas de classes avulsas); Clientes/Dinheiro/Dashboard/Despesas/Ajustes ainda SEM esboço — segundo lote se o dono aprovar o padrão.
+- NADA implementado.

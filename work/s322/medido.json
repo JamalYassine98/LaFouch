@@ -1,0 +1,3668 @@
+{
+"normal": [
+{
+"passo": "tela inicio",
+"ini": [
+{
+"n": "lfEntra",
+"el": "#v-inicio",
+"dur": 200,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "div.hero",
+"dur": 240,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 12,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 24,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 36,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 48,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 60,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 72,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 84,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 96,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 108,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 120,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 132,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 144,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 156,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 168,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 180,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 180,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+}
+],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "tela vendas",
+"ini": [
+{
+"n": "transição:opacity",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"opacity"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:transform",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "slideInL",
+"el": "#v-vendas",
+"dur": 360,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.16, 1, 0.3, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+}
+],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "tela estoque",
+"ini": [
+{
+"n": "slideInL",
+"el": "#v-estoque",
+"dur": 360,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.16, 1, 0.3, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "transição:",
+"el": "i.lfLinha",
+"dur": 380,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.9, 0.3, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"left",
+"width"
+],
+"vis": true,
+"estado": "running"
+}
+],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "tela ped",
+"ini": [
+{
+"n": "slideInL",
+"el": "#v-ped",
+"dur": 360,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.16, 1, 0.3, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "lfDesenha",
+"el": "path",
+"dur": 1000,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"ease-in-out"
+],
+"props": [
+"strokeDashoffset"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "lfDesenha",
+"el": "path",
+"dur": 1000,
+"atraso": 350,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"ease-in-out"
+],
+"props": [
+"strokeDashoffset"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "lfSobe",
+"el": "b",
+"dur": 450,
+"atraso": 900,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"ease"
+],
+"props": [
+"filter",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "lfSobe",
+"el": "span",
+"dur": 450,
+"atraso": 1050,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"ease"
+],
+"props": [
+"filter",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "transição:",
+"el": "i.lfLinha",
+"dur": 380,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.9, 0.3, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"left",
+"width"
+],
+"vis": false,
+"estado": "running"
+}
+],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "tela clientes",
+"ini": [
+{
+"n": "slideInL",
+"el": "#v-clientes",
+"dur": 360,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.16, 1, 0.3, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "lfDesenha",
+"el": "circle",
+"dur": 1000,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"ease-in-out"
+],
+"props": [
+"strokeDashoffset"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "lfDesenha",
+"el": "path",
+"dur": 1000,
+"atraso": 350,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"ease-in-out"
+],
+"props": [
+"strokeDashoffset"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "lfSobe",
+"el": "b",
+"dur": 450,
+"atraso": 900,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"ease"
+],
+"props": [
+"filter",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "lfSobe",
+"el": "span",
+"dur": 450,
+"atraso": 1050,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"ease"
+],
+"props": [
+"filter",
+"transform"
+],
+"vis": true,
+"estado": "running"
+}
+],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "tela caixa",
+"ini": [
+{
+"n": "slideInL",
+"el": "#v-caixa",
+"dur": 360,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.16, 1, 0.3, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+}
+],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "tela hist",
+"ini": [
+{
+"n": "slideInL",
+"el": "#v-hist",
+"dur": 360,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.16, 1, 0.3, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+}
+],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "tela dash",
+"ini": [
+{
+"n": "slideInL",
+"el": "#v-dash",
+"dur": 360,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.16, 1, 0.3, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+}
+],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "tela ajustes",
+"ini": [
+{
+"n": "slideInL",
+"el": "#v-ajustes",
+"dur": 360,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.16, 1, 0.3, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+}
+],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "tela fx",
+"ini": [
+{
+"n": "slideInL",
+"el": "#v-fx",
+"dur": 360,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.16, 1, 0.3, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+}
+],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "tela desp",
+"ini": [
+{
+"n": "slideInL",
+"el": "#v-desp",
+"dur": 360,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.16, 1, 0.3, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "chkPop",
+"el": "svg",
+"dur": 280,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 1.25, 0.35, 1)"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "chkPop",
+"el": "svg",
+"dur": 280,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 1.25, 0.35, 1)"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "chkPop",
+"el": "svg",
+"dur": 280,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 1.25, 0.35, 1)"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "chkPop",
+"el": "svg",
+"dur": 280,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 1.25, 0.35, 1)"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:",
+"el": "i",
+"dur": 800,
+"atraso": 120,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.9, 0.25, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:",
+"el": "i",
+"dur": 800,
+"atraso": 210,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.9, 0.25, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:",
+"el": "i",
+"dur": 800,
+"atraso": 300,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.9, 0.25, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:",
+"el": "i",
+"dur": 800,
+"atraso": 390,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.9, 0.25, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:",
+"el": "i",
+"dur": 800,
+"atraso": 480,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.9, 0.25, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:",
+"el": "i",
+"dur": 800,
+"atraso": 570,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.9, 0.25, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:",
+"el": "i",
+"dur": 800,
+"atraso": 120,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.9, 0.25, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:",
+"el": "i",
+"dur": 800,
+"atraso": 210,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.9, 0.25, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:",
+"el": "i",
+"dur": 800,
+"atraso": 300,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.9, 0.25, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:",
+"el": "i",
+"dur": 800,
+"atraso": 390,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.9, 0.25, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:",
+"el": "i",
+"dur": 800,
+"atraso": 480,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.9, 0.25, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:",
+"el": "i",
+"dur": 800,
+"atraso": 570,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.9, 0.25, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+}
+],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "voltar ao início",
+"ini": [
+{
+"n": "slideInR",
+"el": "#v-inicio",
+"dur": 360,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.16, 1, 0.3, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "div.hero",
+"dur": 240,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 12,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 24,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 36,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 48,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 60,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 72,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 84,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 96,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 108,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 120,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 132,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 144,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 156,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 168,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 180,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 180,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+}
+],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "inventário: trocar de aba (Fornecedores)",
+"ini": [
+{
+"n": "transição:left",
+"el": "div.lfPill",
+"dur": 300,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 1.25, 0.35, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"left"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "transição:width",
+"el": "div.lfPill",
+"dur": 300,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 1.25, 0.35, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"width"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "transição:",
+"el": "i.lfLinha",
+"dur": 380,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.9, 0.3, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"left",
+"width"
+],
+"vis": true,
+"estado": "running"
+}
+],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "inventário: voltar à aba Produtos",
+"ini": [
+{
+"n": "transição:left",
+"el": "div.lfPill",
+"dur": 300,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 1.25, 0.35, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"left"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "transição:width",
+"el": "div.lfPill",
+"dur": 300,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 1.25, 0.35, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"width"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "transição:opacity",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"opacity"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "transição:transform",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "transição:opacity",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"opacity"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:transform",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:opacity",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"opacity"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:transform",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:opacity",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"opacity"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:transform",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:opacity",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"opacity"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:transform",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:opacity",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"opacity"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:transform",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:opacity",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"opacity"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:transform",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:opacity",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"opacity"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:transform",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:opacity",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"opacity"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:transform",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:opacity",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"opacity"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:transform",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:opacity",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"opacity"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:transform",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:opacity",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"opacity"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:transform",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:opacity",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"opacity"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:transform",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:opacity",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"opacity"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:transform",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "enterUp",
+"el": "#listCard",
+"dur": 260,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+}
+],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "inventário: abrir uma peça",
+"ini": [
+{
+"n": "transição:opacity",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"opacity"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "transição:transform",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "transição:opacity",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"opacity"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "transição:transform",
+"el": "img.lfOk",
+"dur": 450,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": true,
+"estado": "running"
+}
+],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "inventário: fechar a peça (voltar)",
+"ini": [
+{
+"n": "slideInR",
+"el": "#v-inicio",
+"dur": 360,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.16, 1, 0.3, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "div.hero",
+"dur": 240,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 12,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 24,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 36,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 48,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 60,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 72,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 84,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 96,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 108,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 120,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 132,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 144,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 156,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 168,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 180,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 180,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "transição:",
+"el": "i.lfLinha",
+"dur": 380,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.9, 0.3, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"left",
+"width"
+],
+"vis": false,
+"estado": "running"
+}
+],
+"quadros": {
+"quadros": 56,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "catálogo: abrir uma peça",
+"ini": [
+{
+"n": "enterUp",
+"el": "#vDetail",
+"dur": 260,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "transição:",
+"el": "#vDetail",
+"dur": 180,
+"atraso": 330,
+"it": 1,
+"curva": "ease-out",
+"curvasKf": [
+"linear"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "transição:",
+"el": "div.lfFundo",
+"dur": 380,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.9, 0.3, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"height",
+"left",
+"top",
+"width",
+"borderRadius"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "transição:",
+"el": "div.lfVoa",
+"dur": 380,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.9, 0.3, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"height",
+"left",
+"top",
+"width"
+],
+"vis": true,
+"estado": "running"
+}
+],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "catálogo: voltar",
+"ini": [
+{
+"n": "enterUp",
+"el": "#vListCard",
+"dur": 260,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+}
+],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "catálogo: tocar em Compartilhar (barra de seleção)",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "compartilhar: abrir a janela",
+"ini": [
+{
+"n": "transição:box-shadow",
+"el": "button.pcard",
+"dur": 200,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"boxShadow"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "transição:transform",
+"el": "button.pcard",
+"dur": 140,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "transição:transform",
+"el": "#ebBar",
+"dur": 320,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.3, 1.3, 0.5, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "transição:opacity",
+"el": "div.ljBk.anim",
+"dur": 320,
+"atraso": 0,
+"it": 1,
+"curva": "ease",
+"curvasKf": [
+"linear"
+],
+"props": [
+"opacity"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "transição:transform",
+"el": "div.ljJn.ebJn",
+"dur": 400,
+"atraso": 0,
+"it": 1,
+"curva": "cubic-bezier(0.2, 1.25, 0.4, 1)",
+"curvasKf": [
+"linear"
+],
+"props": [
+"transform"
+],
+"vis": true,
+"estado": "running"
+}
+],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "compartilhar: trocar Cliente → Lojista",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "compartilhar: fechar a janela",
+"ini": [
+{
+"n": "slideInR",
+"el": "#v-inicio",
+"dur": 360,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.16, 1, 0.3, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "div.hero",
+"dur": 240,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 12,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 24,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 36,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 48,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 60,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 72,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 84,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 96,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 108,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 120,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 132,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 144,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 156,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 168,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 180,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 180,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+}
+],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "pedidos: trocar para Feitos",
+"ini": [
+{
+"n": "lfDesenha",
+"el": "path",
+"dur": 1000,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"ease-in-out"
+],
+"props": [
+"strokeDashoffset"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "lfDesenha",
+"el": "path",
+"dur": 1000,
+"atraso": 350,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"ease-in-out"
+],
+"props": [
+"strokeDashoffset"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "lfSobe",
+"el": "b",
+"dur": 450,
+"atraso": 900,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"ease"
+],
+"props": [
+"filter",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "lfSobe",
+"el": "span",
+"dur": 450,
+"atraso": 1050,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"ease"
+],
+"props": [
+"filter",
+"transform"
+],
+"vis": true,
+"estado": "running"
+}
+],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "início: abrir o sino (avisos)",
+"ini": [
+{
+"n": "slideInL",
+"el": "#v-notif",
+"dur": 360,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.16, 1, 0.3, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+}
+],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "início: fechar o sino",
+"ini": [
+{
+"n": "slideInR",
+"el": "#v-inicio",
+"dur": 360,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.16, 1, 0.3, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "div.hero",
+"dur": 240,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 0,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 12,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 24,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 36,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 48,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 60,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": true,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 72,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 84,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 96,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 108,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 120,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 132,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 144,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 156,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 168,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 180,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+},
+{
+"n": "cas",
+"el": "button.tl",
+"dur": 240,
+"atraso": 180,
+"it": 1,
+"curva": "linear",
+"curvasKf": [
+"cubic-bezier(0.2, 0.8, 0.2, 1)"
+],
+"props": [
+"opacity",
+"transform"
+],
+"vis": false,
+"estado": "running"
+}
+],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "início: tocar na busca",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+}
+],
+"reduzir": [
+{
+"passo": "tela inicio",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "tela vendas",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "tela estoque",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "tela ped",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "tela clientes",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "tela caixa",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "tela hist",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "tela dash",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "tela ajustes",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "tela fx",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "tela desp",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "voltar ao início",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "inventário: trocar de aba (Fornecedores)",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "inventário: voltar à aba Produtos",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "inventário: abrir uma peça",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "inventário: fechar a peça (voltar)",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "catálogo: abrir uma peça",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "catálogo: voltar",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "catálogo: tocar em Compartilhar (barra de seleção)",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "compartilhar: abrir a janela",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "compartilhar: trocar Cliente → Lojista",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "compartilhar: fechar a janela",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "pedidos: trocar para Feitos",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "início: abrir o sino (avisos)",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "início: fechar o sino",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+},
+{
+"passo": "início: tocar na busca",
+"ini": [],
+"quadros": {
+"quadros": 55,
+"perdidos": 0,
+"pior": 17
+},
+"fim": []
+}
+]
+}
