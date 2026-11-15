@@ -1,0 +1,381 @@
+[
+{
+"view": "inicio",
+"ebSel": null,
+"telas_visiveis": [
+"v-inicio"
+],
+"grupo": "",
+"abas_grupo": null,
+"barra": null,
+"painel": null,
+"nav": [
+0,
+777,
+390,
+67
+],
+"topo_em_x": "",
+"passo": "inicio"
+},
+{
+"view": "inicio",
+"ebSel": null,
+"telas_visiveis": [
+"v-inicio"
+],
+"grupo": "",
+"abas_grupo": null,
+"barra": null,
+"painel": null,
+"nav": [
+0,
+777,
+390,
+67
+],
+"topo_em_x": "",
+"passo": "grupo Inventário+Catálogo"
+},
+{
+"view": "vendas",
+"ebSel": null,
+"telas_visiveis": [
+"v-vendas"
+],
+"grupo": "LOJA E ESTOQUE\nInventário\nCatálogo\n⋯",
+"abas_grupo": [
+24,
+120,
+342,
+64
+],
+"barra": null,
+"painel": null,
+"nav": [
+0,
+777,
+390,
+67
+],
+"topo_em_x": "",
+"passo": "abrir-catalogo no grupo"
+},
+{
+"view": "vendas",
+"ebSel": 0,
+"telas_visiveis": [
+"v-vendas"
+],
+"grupo": "LOJA E ESTOQUE\nInventário\nCatálogo\n⋯",
+"abas_grupo": [
+24,
+120,
+342,
+64
+],
+"barra": {
+"classe": "ebBar in",
+"caixa": [
+12,
+708,
+366,
+60
+],
+"texto": "Toque nas peças que quer mandar",
+"texto_caixa": [
+63,
+728,
+163,
+20
+],
+"botao_caixa": [
+236,
+717,
+133,
+42
+],
+"texto_em_cima_do_botao": false,
+"x_caixa": [
+25,
+721,
+28,
+34
+]
+},
+"painel": null,
+"nav": [
+0,
+777,
+390,
+67
+],
+"topo_em_x": "ebX",
+"passo": "compartilhar sem peça"
+},
+{
+"view": "vendas",
+"ebSel": null,
+"telas_visiveis": [
+"v-vendas"
+],
+"grupo": "LOJA E ESTOQUE\nInventário\nCatálogo\n⋯",
+"abas_grupo": [
+24,
+120,
+342,
+64
+],
+"barra": {
+"classe": "ebBar",
+"caixa": [
+12,
+792,
+366,
+60
+],
+"texto": "Toque nas peças que quer mandar",
+"texto_caixa": [
+63,
+812,
+163,
+20
+],
+"botao_caixa": [
+236,
+801,
+133,
+42
+],
+"texto_em_cima_do_botao": false,
+"x_caixa": [
+25,
+805,
+28,
+34
+]
+},
+"painel": null,
+"nav": [
+0,
+777,
+390,
+67
+],
+"topo_em_x": "ebX",
+"passo": "tocar no × da barra"
+},
+{
+"view": "vendas",
+"ebSel": 0,
+"telas_visiveis": [
+"v-vendas"
+],
+"grupo": "LOJA E ESTOQUE\nInventário\nCatálogo\n⋯",
+"abas_grupo": [
+24,
+120,
+342,
+64
+],
+"barra": {
+"classe": "ebBar in",
+"caixa": [
+12,
+708,
+366,
+60
+],
+"texto": "Toque nas peças que quer mandar",
+"texto_caixa": [
+63,
+728,
+163,
+20
+],
+"botao_caixa": [
+236,
+717,
+133,
+42
+],
+"texto_em_cima_do_botao": false,
+"x_caixa": [
+25,
+721,
+28,
+34
+]
+},
+"painel": null,
+"nav": [
+0,
+777,
+390,
+67
+],
+"topo_em_x": "ebX",
+"passo": "compartilhar de novo"
+},
+{
+"view": "inicio",
+"ebSel": 0,
+"telas_visiveis": [
+"v-inicio"
+],
+"grupo": "",
+"abas_grupo": null,
+"barra": {
+"classe": "ebBar",
+"caixa": [
+12,
+792,
+366,
+60
+],
+"texto": "Toque nas peças que quer mandar",
+"texto_caixa": [
+63,
+812,
+163,
+20
+],
+"botao_caixa": [
+236,
+801,
+133,
+42
+],
+"texto_em_cima_do_botao": false,
+"x_caixa": [
+25,
+805,
+28,
+34
+]
+},
+"painel": null,
+"nav": [
+0,
+777,
+390,
+67
+],
+"topo_em_x": "ebX",
+"passo": "ir ao Início"
+},
+{
+"view": "onl",
+"ebSel": 0,
+"telas_visiveis": [
+"v-onl"
+],
+"grupo": "LOJA E ESTOQUE\nInventário\nCatálogo\n⋯",
+"abas_grupo": [
+24,
+120,
+342,
+64
+],
+"barra": {
+"classe": "ebBar",
+"caixa": [
+12,
+792,
+366,
+60
+],
+"texto": "Toque nas peças que quer mandar",
+"texto_caixa": [
+63,
+812,
+163,
+20
+],
+"botao_caixa": [
+236,
+801,
+133,
+42
+],
+"texto_em_cima_do_botao": false,
+"x_caixa": [
+25,
+805,
+28,
+34
+]
+},
+"painel": [
+24,
+216,
+342,
+679
+],
+"nav": [
+0,
+777,
+390,
+67
+],
+"topo_em_x": "ebX",
+"passo": "tocar em Atacado"
+},
+{
+"view": "onl",
+"ebSel": null,
+"telas_visiveis": [
+"v-onl"
+],
+"grupo": "LOJA E ESTOQUE\nInventário\nCatálogo\n⋯",
+"abas_grupo": [
+24,
+120,
+342,
+64
+],
+"barra": {
+"classe": "ebBar",
+"caixa": [
+12,
+792,
+366,
+60
+],
+"texto": "Toque nas peças que quer mandar",
+"texto_caixa": [
+63,
+812,
+163,
+20
+],
+"botao_caixa": [
+236,
+801,
+133,
+42
+],
+"texto_em_cima_do_botao": false,
+"x_caixa": [
+25,
+805,
+28,
+34
+]
+},
+"painel": [
+24,
+216,
+342,
+679
+],
+"nav": [
+0,
+777,
+390,
+67
+],
+"topo_em_x": "ebX",
+"passo": "tocar no × depois do Atacado"
+}
+]

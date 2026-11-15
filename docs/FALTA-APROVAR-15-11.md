@@ -1,6 +1,6 @@
 # O que falta decidir e o que está aprovado esperando — 15/11/2026 14:45
 
-Conferência pedida pelo dono ("o que discutimos e esqueci de falar aprovado?"). Lida a memória de 13/11 23:42 (quando tudo o que estava pendente foi juntado em docs/FALTA-APROVAR-13-11.md e aprovado) até agora. O que é anterior a essa data vale pelo que aquele relatório juntou.
+Conferência pedida pelo dono ("o que discutimos e esqueci de falar aprovado?"). 2ª passada (pedido das 14:45): lida a memória de 12/11 até agora. Tudo o que foi aprovado em 12/11 entrou no "implementar tudo" de 12/11 (17:25–23:40); o que sobrou está abaixo.
 
 ## A · Discutido e SEM decisão do dono
 1. **Abas da Minha conta (vídeo do dono, 15/11)** — pílula e arrastar já aprovados; faltam: conteúdo que some seco, conteúdo entrando sempre pela esquerda, altura do cartão que pula, "Cargando…" trocando no meio (seção 6 de docs/PROBLEMAS-ANIMACAO-SITE-E-APP-15-11.md).
@@ -8,16 +8,25 @@ Conferência pedida pelo dono ("o que discutimos e esqueci de falar aprovado?").
 3. **Volta do segundo plano, parte 2 (regra única de volta)** — parado de propósito: espera a medição do gravador (parte 1, já aprovada).
 4. **GitHub Pages × "não é para loja"** — o site e o app estão hospedados num serviço cujas regras dizem que não é para comércio; avisado em 14/11, sem decisão.
 
+5. **3 animações novas da Mochi (S202, 13/11)** — comemora, espreguiça, joinha: ficaram "aguardando OK".
+6. **Ideias guardadas do site (S214/S215, 13/11) — "ainda NÃO aprovadas"**: preços alinhados nos cartões, categorias à vista só no PC, um só caminho na página da peça, fios finos/mais ar, foto maior no Destaque, escala única de letras e espaços. (O WhatsApp inteiro e o toque 44 já foram resolvidos por outro caminho.)
+7. **Frete automático por transportadora (13/11)** — guardado; depende de o dono falar com PedidosYa/Tiemsa/MCGroup sobre integração.
+
 ## B · Falta EU trazer proposta ou esboço (não é esquecimento do dono)
-5. Atacado num lugar só no app (hoje: mensagens no painel, preços em Vendas, versão no Compartilhar, acesso em Clientes).
-6. Animações do app, lotes B (janelas e telas) e C (listas, toques, carregando): vídeos.
-7. Tarjetas da Minha conta não carregam no celular do dono: investigar a causa.
-8. Detector de cópias também no app: desenho.
+8. Atacado num lugar só no app (hoje: mensagens no painel, preços em Vendas, versão no Compartilhar, acesso em Clientes).
+9. Animações do app, lotes B (janelas e telas) e C (listas, toques, carregando): vídeos.
+10. Tarjetas da Minha conta não carregam no celular do dono: investigar a causa.
+11. Detector de cópias também no app: desenho.
+12. Grupo de telas como uma interface inteira (pedido de 14/11 03:55: "pensada como se as telas fossem uma coisa só"): só a troca das pílulas por palavras em linha foi feita; a CAPA do grupo (aprovada) e a interface inteira não.
+13. Bugs do teste de 15/11 (S339): barra "Toque nas peças" que não sai da tela, letra embaixo do botão, modo de escolher que não se desfaz ao sair do Catálogo, cabeçalho do grupo em cima do painel.
 
 ## C · APROVADO, esperando "implementar"
 - **Site como tela do app (painel integrado)** — item 6 de 13/11, aprovado em 14/11 00:08 (esboço S242). ERRO MEU: saiu da minha lista depois do "implementar tudo" de 14/11 e eu disse em 15/11 que nunca tinha sido aprovado. Está aprovado.
 - De 15/11: conserto das cópias do painel no site (conta/sacola pelo menu); botão da página já aberta não reanima; detector de cópias no portão; Filtros do inventário sem "Ver N peças"/"Cancelar"; trilho único arrastável em app e site; regra lógica da pílula + 4 provas no portão; soluções da lista de animações (site e app); gravador de engasgos no modo administrador; animações do app lote A (abas e seletores).
 - De antes: transferência no modo automático (pronta, desligada; depende também do robô/funções do dono); giro e Estúdio (bloco 4: Estúdio em vídeo/automático, tutorial, 19 melhorias, aprender o prato); app — leitor da haste de luxo, janelas num padrão só, capa do grupo com resumo, cor/grau entre Catálogo e Inventário, PC (ação ao lado do título, Inventário largura toda, Ajustes em 2 colunas), Nuvem enxuta, resto do relatório de movimento; site — janelas de luxo e limpeza técnica (item 22); Mochi (movimento calmo, boca no mudo; depois vozes, com autorização de créditos); designer explorador.
+
+- **Aprovados em 14/11 04:30 ("aprovado tudo, absolutamente tudo") SEM registro de feito — eu tinha deixado fora da lista**: venda em poucos toques / modo balcão; lista + ficha lado a lado em tablet e PC; teclado e leitor de código no PC; desfazer no lugar de "tem certeza?"; Início enxuto; Dashboard com 3 números; temática em 2 níveis no site e modo loja com a temática do site; Mochi no computador partes 2 e 3 (60 cm, estimativa, reconhecimento do aparelho); colunas iguais Início × catálogo e monitor em 4 colunas (S216/S217); "designer entra no porteiro" + as 9 melhorias (virou o designer explorador).
+- RETIRADOS pelo dono (não voltam): Produtos = Catálogo + Inventário juntos; chave Vender/Cuidar; abas entre telas irmãs; selo Nº 1 e os substitutos A/B; "Ver modelo" cheio e "Comprar" liso; barra de baixo fixa.
 
 ## D · Depende de ação do dono
 - Colar o robô do Banco Familiar no Apps Script e publicar as funções `pix` e `reserva`; transferência de teste.
