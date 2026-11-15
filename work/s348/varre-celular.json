@@ -9,5 +9,159 @@
 "alt": 760,
 "arrastar": false,
 "fora": true
+},
+{
+"tela": "vendas",
+"botao": "Ajustes do catálogo",
+"folha": ".ljJn.cjJn",
+"titulo": "Ajustes do catálogo",
+"embaixo": true,
+"alca": true,
+"alt": 579,
+"arrastar": false,
+"fora": true
+},
+{
+"tela": "caixa",
+"botao": "+ Novo objetivo",
+"folha": ".cxAcao.on",
+"titulo": "Novo objetivo",
+"embaixo": true,
+"alca": true,
+"alt": 306,
+"arrastar": false,
+"fora": true
+},
+{
+"tela": "fx",
+"botao": "DÓLAR G$ 6.487 — estável",
+"folha": ".fjJn.in",
+"titulo": "Dólar · G$ 6.487",
+"embaixo": true,
+"alca": true,
+"alt": 427,
+"arrastar": true,
+"fora": true
+},
+{
+"tela": "fx",
+"botao": "REAL G$ 1.196 ▼ 0,7% 7 dias",
+"folha": ".fjJn.in",
+"titulo": "Real · G$ 1.196",
+"embaixo": true,
+"alca": true,
+"alt": 427,
+"arrastar": true,
+"fora": true
+},
+{
+"tela": "fx",
+"botao": "DÓLAR EM REAIS R$ 5,43 ▲ 0,9% 7 dias",
+"folha": ".fjJn.in",
+"titulo": "Dólar em reais · R$ 5,43",
+"embaixo": true,
+"alca": true,
+"alt": 427,
+"arrastar": true,
+"fora": true
+},
+{
+"tela": "fx",
+"botao": "REPOSIÇÃO Normal › Faltam US$ 2.684 US",
+"folha": ".fjJn.in",
+"titulo": "Por que está normal",
+"embaixo": true,
+"alca": true,
+"alt": 547,
+"arrastar": true,
+"fora": true
+},
+{
+"tela": "fx",
+"botao": "Registrar troca ›",
+"folha": ".fjJn.in",
+"titulo": "Registrar troca",
+"embaixo": true,
+"alca": true,
+"alt": 676,
+"arrastar": true,
+"fora": true
+},
+{
+"tela": "fx",
+"botao": "Últimas trocas 12 ›",
+"folha": ".fjJn.in",
+"titulo": "Últimas trocas",
+"embaixo": true,
+"alca": true,
+"alt": 538,
+"arrastar": true,
+"fora": true
+},
+{
+"tela": "fx",
+"botao": "Preços no site cotação da loja travada",
+"folha": ".fjJn.in",
+"titulo": "Preços no site",
+"embaixo": true,
+"alca": true,
+"alt": 388,
+"arrastar": true,
+"fora": true
+},
+{
+"tela": "fx",
+"botao": "Como o app te protege colchão 13,0% ›",
+"folha": ".fjJn.in",
+"titulo": "Como o app te protege",
+"embaixo": true,
+"alca": true,
+"alt": 548,
+"arrastar": true,
+"fora": true
+},
+{
+"tela": "clientes",
+"botao": "Acesso atacado ›",
+"folha": ".ljJn.anim",
+"titulo": "Novo acesso atacado",
+"embaixo": true,
+"alca": true,
+"alt": 581,
+"arrastar": false,
+"fora": true
+},
+{
+"tela": "clientes",
+"botao": "Lotes ›",
+"folha": ".ljJn.anim",
+"titulo": "Lotes de atacado",
+"embaixo": true,
+"alca": true,
+"alt": 213,
+"arrastar": false,
+"fora": true
+},
+{
+"tela": "notif",
+"botao": "Ver",
+"folha": ".ljJn.anim",
+"titulo": "🖤 Black Friday",
+"embaixo": true,
+"alca": true,
+"alt": 329,
+"arrastar": false,
+"fora": true
+},
+{
+"tela": "notif",
+"botao": "Ver todas as conferências do Guardião ",
+"folha": ".ljJn.anim",
+"titulo": "Guardião",
+"embaixo": true,
+"alca": true,
+"alt": 760,
+"arrastar": false,
+"fora": true
 }
 ]

@@ -1,0 +1,68 @@
+[
+{
+"folha": "Filtros do inventário",
+"abriu": false,
+"passos": [
+"ok"
+]
+},
+{
+"folha": "Compartilhar (preço)",
+"abriu": false,
+"passos": [
+"ok",
+null,
+"ok"
+]
+},
+{
+"folha": "Conferir o caixa",
+"abriu": false,
+"passos": [
+"ok"
+]
+},
+{
+"folha": "Retirar do caixa",
+"abriu": true,
+"el": ".cxAcao.on",
+"alca": true,
+"arrastar": false,
+"fora": true
+},
+{
+"folha": "Novo cliente",
+"abriu": false,
+"passos": [
+"ok"
+]
+},
+{
+"folha": "Cartões",
+"abriu": false,
+"passos": [
+"ok"
+]
+},
+{
+"folha": "Folha da peça",
+"abriu": false,
+"passos": [
+"ok"
+]
+},
+{
+"folha": "Nova despesa",
+"abriu": false,
+"passos": [
+"ok"
+]
+},
+{
+"folha": "Atualização",
+"abriu": false,
+"passos": [
+"ok"
+]
+}
+]
