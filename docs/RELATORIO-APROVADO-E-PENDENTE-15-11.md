@@ -44,8 +44,14 @@ Feito lendo a lista viva inteira (`docs/FALTA-APROVAR-15-11.md`, 124 linhas). Na
 - **Desfazer no lugar da pergunta** (34); a pergunta fica só no que não volta.
 - Animações de luxo lotes A, B e C; números do Início contam só na 1ª vez e com altura fixa; trilho único arrastável; regra lógica da pílula + 4 provas; gravador de engasgos; regra da volta do segundo plano (ajusta com a medição); detector de cópias no portão (site e app); soluções da lista de animações.
 
+### Sistema de 360° (giro) — aprovado em 14/11, esperando "implementar" (acrescentado em 16/11: no relatório original estava resumido numa linha só, "giro e Estúdio (bloco 4)")
+- **Aprovado**: Estúdio com o giro como caminho principal (um giro = frente, 3/4, perfil e a volta), câmera automática que fecha sozinha, padrão da loja, fundo infinito e sombras naturais, aprender o prato giratório, tratamento só pela luz, tutorial novo e as 19 melhorias do Estúdio (S261–S263); no site, a peça giratória: arrastar para girar, "Vista inicial", trocar de cor no mesmo ângulo, dica ao abrir, em **vídeo direto** (decisão de 14/11 13:32, depois do teste no Xiaomi).
+- **Já publicado**: a página da peça do site já gira quando o produto tem o giro tratado (S301) — ainda sem efeito para o cliente, porque nenhuma peça tem o giro tratado; página de teste e conferidor em lafouch.com/teste-giro/.
+- **Falta fazer (grande, não começado)**: o APP tratar o giro e publicar no site — hoje o tratamento só existe no meu computador (`trata_giro2.py`). É o "Estúdio em vídeo" do bloco 4.
+- **Depende de você**: gravar o giro definitivo (altura e ângulo com o tripé).
+
 ### De antes de 15/11 (continuam aprovados)
-- Entradas suaves e telas vazias com o próximo passo; 3 animações da Mochi; Mochi no computador partes 2 e 3; giro e Estúdio (bloco 4); leitor da haste de luxo; janelas num padrão só; Nuvem enxuta; PC (ação ao lado do título, Inventário largura toda, Ajustes em 2 colunas); transferência automática; frete automático (depende das transportadoras).
+- Entradas suaves e telas vazias com o próximo passo; 3 animações da Mochi; Mochi no computador partes 2 e 3; leitor da haste de luxo; janelas num padrão só; Nuvem enxuta; PC (ação ao lado do título, Inventário largura toda, Ajustes em 2 colunas); transferência automática; frete automático (depende das transportadoras).
 
 ## 2. FALTA VOCÊ DECIDIR
 1. **Esboço 41** (grupo "Loja e estoque" com a flecha): a ideia está aprovada; o desenho não recebeu resposta.
