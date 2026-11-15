@@ -15,6 +15,8 @@ Conferência pedida pelo dono ("o que discutimos e esqueci de falar aprovado?").
 7. **Frete automático por transportadora (13/11)** — guardado; depende de o dono falar com PedidosYa/Tiemsa/MCGroup sobre integração.
 8a. **Modo loja em tela larga (15/11)** — publicado FORA do esboço: no PC/tablet deitado a barra "Meu pedido" virou pílula no canto direito do topo (embaixo tapava o "Quero este"). Avisado ao dono; ele ainda não disse se fica.
 
+**15/11 15:07 — DONO: "Todos os itens aprovado" → os itens 1 a 8a desta seção passam a APROVADOS, esperando "implementar".** Observações: 3 (regra de volta) continua dependendo da medição do gravador para ser ajustada; 4 (hospedagem) está aprovado TRATAR — a proposta de para onde mudar ainda é minha; 7 (frete automático) depende das transportadoras; 6 (ideias do site de 13/11) tem esboço S214/S215, com "Ver modelo" cheio e "Comprar" liso REPROVADOS (não entram).
+
 ## B · Falta EU trazer proposta ou esboço (não é esquecimento do dono)
 8. Atacado num lugar só no app (hoje: mensagens no painel, preços em Vendas, versão no Compartilhar, acesso em Clientes).
 9. Animações do app, lotes B (janelas e telas) e C (listas, toques, carregando): vídeos.
@@ -51,3 +53,12 @@ Conferido no código e nos documentos "como funciona": não há registro de feit
 10. **Site: colunas iguais Início × catálogo e monitor em 4 colunas no centro** (13/11 20:50, S216/S217).
 Os itens 3, 4, 5, 6 e 8 foram aprovados como ideia, sem tela desenhada: pela regra, ganham esboço antes de entrar no "implementar tudo".
 Não são esquecimento (estavam na lista, parados de propósito ou por ordem do dono): capa do grupo, leitor da haste, janelas num padrão só, Nuvem enxuta, PC ação ao lado do título, Mochi, giro/Estúdio, designer explorador, transferência automática.
+
+## F · Propostas elaboradas em 15/11 15:15 (docs/PROPOSTAS-15-11.md) — esperando decisão do dono
+- Tarjetas: causa achada (chave de login de 1 hora não renovada no pedido dos cartões) + conserto + prova no portão.
+- Atacado num lugar só: tela "Atacado" do app com 4 blocos (precisa de esboço).
+- Grupo como tela inteira: capa com resumos; 8 telas primeiro (precisa de esboço).
+- Cabeçalho do grupo só quando a tela é do grupo.
+- Detector de cópias no app.
+- Lotes B e C de animação: vídeos por fazer.
+- Hospedagem: A Cloudflare Pages (recomendada) · B Firebase Hosting · C ficar.
