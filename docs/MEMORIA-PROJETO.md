@@ -2532,3 +2532,9 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Dono pediu um vídeo simples de como o sistema é agora (work/s307/filme.py → pagamento-hoje.mp4; telas reais, relógio adiantado): 0 min sem botão · 10 min aparece "Envie o comprovante" · comprovante enviado · 30 min "Reserva encerrada" (só WhatsApp).
 - Hoje existe UM botão de comprovante só (a dúvida "2 botões" veio da minha proposta de repetir o botão na tela "Reserva encerrada").
 - PENDENTE DE APROVAÇÃO (dono disse, mas pediu para ver o esboço antes): botão do comprovante a partir de 1 minuto; comprovante enviado segura a peça (já é assim, 12 h) e o dono confere na mão quando o sistema não reconhecer. NÃO implementado.
+
+### S308 (14/11/2026) — ESBOÇO "menos botões no pagamento" (aguardando o dono)
+- Dono: "tem botão demais nessas abas de pagamento, o que sugere?" → aceitou ver o esboço. Arquivos: work/s308/1-pagar.jpg, 2-reserva-encerrada.jpg, 3-comprovante-enviado.jpg (gerador esb.py + prop.js, telas reais).
+- Proposta: (1) pagar: "Copiar código" + "Já paguei · enviar comprovante" (a partir de 1 min, pedido do dono) + link "Mais opções" (Pagar depois / Falar com um vendedor / Cancelar pedido); (2) reserva encerrada: botão verde vira "Já paguei · enviar comprovante" (no lugar do WhatsApp), links Reservar de novo e Voltar ao catálogo; (3) comprovante enviado: só "Voltar ao catálogo"; WhatsApp só se o envio falhar.
+- Correção minha: a tela de pagar NÃO tem "fechar"; por isso "Pagar depois" e "Voltar ao catálogo" continuam existindo (eu tinha dito que sumiriam).
+- olho.js parado e rolado: nenhuma falha nova x hoje. Só celular 390, tema claro, PT, PIX. NÃO feito: transferência, temáticas, tablet/PC, espanhol. NADA implementado.
