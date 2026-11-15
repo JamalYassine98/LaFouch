@@ -2634,3 +2634,10 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Consequência: Estúdio ("Começar") e Preços ("Aceitar tudo") JÁ estão certos (B1) — sem mudança; Marketing: as pílulas do "Objetivo do mês" são filtros no padrão — sem mudança. O 3º lote ficou só com Preços SEM EMOJI (botões "Calculadora de preço" e "E se…?"; ícones de traço nas linhas no lugar de ⬆️ 🖤 📦).
 - Esboços (work/s326/esb.py, escuro e claro): 7-precos-*.jpg; 8-compartilhar-botao-*.jpg (publicado cheio × regra B1) para o dono decidir. Minha recomendação: voltar ao B1 (o app inteiro usa; um botão cheio sozinho quebra o padrão).
 - REGRA PARA MIM: antes de escrever qualquer padrão, procurar na memória decisões anteriores do dono sobre o mesmo elemento (grep por "botão principal", "APROVADO", "REPROVADO").
+
+### S327 (15/11/2026 10:34–10:55) — app v521 / 5.15.1 PUBLICADO
+- DONO: "Preços sem emoji aprovado" e perguntou qual botão eu recomendo. Recomendei e apliquei o CONTORNO (B1), decisão minha anotada: é a regra dele de 08/11 e o app inteiro usa; o cheio da v520 foi erro meu.
+- Feito: Preços sem emoji (`cntIco`, botões só com texto); `#ebEnv` de volta ao B1; "Este mês" (`.dHdP`) com 44 px de toque. Detalhes em docs/APP-COMO-FUNCIONA.md (v521).
+- Testado no simulador (escuro e claro): nenhum emoji na tela de Preços, 30 ícones de traço; "Enviar no…" em contorno nas cores do tema; tests/run.py 292/292. NÃO testado: celular real; a altura do "Este mês" não foi medida depois da mudança (só a regra foi escrita).
+- Pente do padrão de controles: TERMINADO para o que o simulador mostra. Não vistos: Mensagens, Analisador, Temática, Atacado, Online (páginas em branco no simulador), venda no Catálogo e detalhe do pedido.
+- PRÓXIMO: animações, lote A (abas e seletores), com vídeo antes de publicar.

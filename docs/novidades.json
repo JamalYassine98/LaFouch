@@ -1,9 +1,8 @@
 {
- "nome": "5.15.0",
+ "nome": "5.15.1",
  "notas": [
-  "Botões e abas no mesmo padrão: Pedidos, Compartilhar e a ficha da peça usam as abas de linha fina; Clientes, Dinheiro e Dashboard foram alinhados.",
-  "Textos que não davam para ler (Compartilhar e outras janelas) agora aparecem nos dois temas.",
-  "A faixa \"Recentes\" saiu do Início."
+  "Preços sem emoji: botões só com texto e ícones de traço fino nas linhas.",
+  "O botão \"Enviar\" do Compartilhar voltou ao contorno rosa, como os outros botões principais."
  ],
- "build": 520
+ "build": 521
 }

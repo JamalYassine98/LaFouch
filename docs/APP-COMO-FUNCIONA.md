@@ -239,3 +239,8 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - **Dinheiro:** botão de ícone quadrado arredondado; "+ Novo objetivo" em contorno. **Dashboard:** título serifado.
 - **Cores:** `:root` ganhou apelidos (`--card`, `--card2`, `--mu`, `--mut`, `--muted`, `--tx`, `--text`, `--soft`, `--ac`, `--acc`) apontando para as cores reais; antes 49 regras caíam no branco (texto ilegível em Compartilhar e outras janelas).
 - **Início:** a faixa "Recentes" não é mais desenhada (`recentesHtml` continua no código, sem uso; `S.recentes` continua sendo gravado).
+
+## v521 / 5.15.1 (15/11/2026) — Preços sem emoji; botão principal de volta ao B1 (S327)
+- `src/97z2-contador.js`: `cntIco(x)` desenha o ícone de traço fino das linhas de "Para decidir" (subir, oferta, volta, atacado, data temática) no lugar do emoji (`x.ic` continua existindo nos dados, sem uso na tela); botões "Calculadora de preço" e "E se…?" sem emoji.
+- `#ebEnv` ("Enviar no…" do Compartilhar) voltou ao botão principal padrão `.go` = B1 (contorno rosa fino; regra do dono de 08/11/2026).
+- `.dHdP` ("Este mês" dos números) com 44 px de toque.

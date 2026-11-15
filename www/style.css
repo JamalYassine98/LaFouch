@@ -2472,7 +2472,7 @@ html{overscroll-behavior-y:none}
 .s185G button.on{border-color:var(--accent);background:var(--accent-soft)}
 .s185G small{color:var(--mute)}
 /* 4 · AÇÃO: uma cheia por janela; a de página em pílula de contorno ao lado do título; terciárias em link com "›" */
-#ebEnv.ebEnv{border:0!important;background:linear-gradient(135deg,#b4528a,#a2447c 55%,#7d3361)!important;color:#fff!important;box-shadow:0 6px 16px rgba(162,68,124,.35)!important}
+/* S327: "Enviar no…" volta ao B1 (contorno rosa fino), regra do dono de 08/11 para todo botão principal — o cheio da v520 foi erro */
 .pgAc{flex:none;min-height:44px;padding:0 16px;border:1px solid color-mix(in srgb,var(--fg) 28%,transparent);border-radius:999px;background:none;color:var(--fg);font:inherit;font-weight:600;font-size:15px}
 .lkRow{flex:1 0 100%;display:flex;flex-wrap:wrap;gap:0 20px;margin:2px 0 6px}
 .lkGo{flex:none;min-height:44px;padding:0;border:0;background:none;color:var(--fg);font:inherit;font-weight:500;font-size:15px}
@@ -2483,3 +2483,6 @@ html{overscroll-behavior-y:none}
 /* título de tela sempre serifado (o Dashboard fugia) */
 .dHdT{font-family:Fraunces,Georgia,"Times New Roman",serif;font-size:28px;font-weight:500;letter-spacing:-.01em}
 .dHdT i{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;font-size:18px}
+/* S327 (15/11/2026) · Preços sem emoji; toque do "Este mês" */
+.cntL>span.cntI{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;border:1px solid var(--line);color:var(--sub);flex:none;font-size:0}
+.dHdP{min-height:44px;display:inline-flex;align-items:center;gap:4px}

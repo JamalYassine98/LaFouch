@@ -21,6 +21,14 @@
     return { mg: mg, dmg: mgB == null ? null : mg - mgB, porPeca: porPeca, cob: cob, falta: falta, abx: abx, tm: tm, mes: m };
   }
   // decisões: preço automático (mesma lista e mesmas regras do paPlano) + tema que está chegando + atacado com margem baixa
+  // S327 (15/11/2026): as linhas de "Para decidir" usam ícone de traço fino no lugar do emoji (padrão de controles do app)
+  function cntIco(x) {
+    var k = x.t === 'ata' ? 'cx' : x.t === 'tema' ? 'dt' : x.m && x.m.kind === 'oferta' ? 'dn' : x.m && x.m.kind === 'fim' ? 'vt' : 'up';
+    var P = { up: '<path d="M12 19V5M6 11l6-6 6 6"/>', dn: '<path d="M12 5v14M6 13l6 6 6-6"/>', vt: '<path d="M9 14l-4-4 4-4"/><path d="M5 10h9a5 5 0 0 1 0 10h-3"/>',
+      cx: '<path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>', dt: '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/>' };
+    return '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + P[k] + '</svg>';
+  }
+
   function cntDecisoes() {
     var L = [];
     try { paPlano().forEach(function (m) { L.push({ t: 'pa', m: m, ic: m.kind === 'oferta' ? '⬇️' : m.kind === 'fim' ? '↩️' : '⬆️', tit: (m.kind === 'oferta' ? 'Oferta ' : m.kind === 'fim' ? 'Volta ao preço ' : 'Subir ') + m.ref, sub: m.mot, v: gs(m.para) }); }); } catch (e) {}
@@ -68,10 +76,10 @@
       '<div class="cntG">' + cntKpi('Margem média real', Math.round(s.mg) + '%', s.dmg == null ? '' : '<span style="color:' + (s.dmg >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + (s.dmg >= 0 ? '▲ ' : '▼ ') + Math.abs(Math.round(s.dmg)) + ' pts</span>') +
       cntKpi('Lucro por peça', gs(s.porPeca)) + cntKpi('Contas do mês cobertas', s.cob + '%', s.falta ? 'faltam ' + s.falta + ' peças' : '') + cntKpi('Abaixo do piso', String(s.abx), '', s.abx ? 'var(--bad)' : 'var(--ok)') + '</div>' +
       '<section class="card col cntD"><div class="lbl">PARA DECIDIR ESTA SEMANA · ' + D.length + '</div>' +
-      (D.length ? D.map(function (x, i) { return '<div class="cntL"><span>' + x.ic + '</span><div><b>' + esc(x.tit) + '</b><small>' + esc(x.sub || '') + '</small></div>' + (x.act ? '<button type="button" class="cntV' + (x.t === 'ata' ? ' r' : '') + '" data-act="' + x.act + '">' + x.v + '</button>' : '<em>' + x.v + '</em>') + '<span class="cntUm" hidden>' + (x.t === 'pa' ? '<button type="button" class="mini" data-act="cntAceita" data-id="' + i + '">Aceitar</button><button type="button" class="mini ghost" data-act="cntIgnora" data-id="' + i + '">Agora não</button>' : '') + '</span></div>'; }).join('') +
+      (D.length ? D.map(function (x, i) { return '<div class="cntL"><span class="cntI">' + cntIco(x) + '</span><div><b>' + esc(x.tit) + '</b><small>' + esc(x.sub || '') + '</small></div>' + (x.act ? '<button type="button" class="cntV' + (x.t === 'ata' ? ' r' : '') + '" data-act="' + x.act + '">' + x.v + '</button>' : '<em>' + x.v + '</em>') + '<span class="cntUm" hidden>' + (x.t === 'pa' ? '<button type="button" class="mini" data-act="cntAceita" data-id="' + i + '">Aceitar</button><button type="button" class="mini ghost" data-act="cntIgnora" data-id="' + i + '">Agora não</button>' : '') + '</span></div>'; }).join('') +
         (D.some(function (x) { return x.t === 'pa'; }) ? '<div class="cntB"><button type="button" class="go" data-act="cntTudo">Aceitar tudo</button><button type="button" class="mini ghost" data-act="cntUmPorUm">Ver um por um</button></div>' : '') : '<div class="hint" style="margin:6px 0 0;text-align:center">Nada para decidir agora. ✓</div>') + '</section>' +
       (dsc ? '<section class="card cntQ">' + esc(dsc) + '</section>' : '') +
-      '<div class="cntB"><button type="button" class="mini ghost" data-act="cntCalc">🧮 Calculadora de preço</button><button type="button" class="mini ghost" data-act="cntEse">💬 E se…?</button></div></div>';
+      '<div class="cntB"><button type="button" class="mini ghost" data-act="cntCalc">Calculadora de preço</button><button type="button" class="mini ghost" data-act="cntEse">E se…?</button></div></div>';
   }
   ACT.cntUmPorUm = function () { document.querySelectorAll('.cntUm').forEach(function (e) { e.hidden = false; }); var b = document.querySelector('[data-act="cntUmPorUm"]'); if (b) b.remove(); };
   ACT.cntAceita = function (i) { var x = cntDecisoes()[+i]; if (!x || x.t !== 'pa') return; paAplica(x.m); saveSoon(); lfToast('✓ ' + x.tit + ' → ' + x.v); render(); };
