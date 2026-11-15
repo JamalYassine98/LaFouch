@@ -4,7 +4,7 @@ from playwright.sync_api import sync_playwright
 from PIL import Image,ImageDraw,ImageFont
 OUT='/home/claude/lafouch/work/s308/';T='/tmp/s308/'
 F=lambda s,bd=False:ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans%s.ttf'%('-Bold' if bd else ''),s)
-OLHO=open('/home/claude/lafouch/work/kit/olho.js').read();PROP=open(OUT+'prop.js').read()
+OLHO=open('/home/claude/lafouch/work/kit/olho.js').read();LX=os.environ.get('ESB')=='luxo';PROP=open(OUT+('luxo' if LX else 'prop')+'.js').read()  # ESB=luxo → versão de luxo (S309)
 def olho(pg,w):
     r=[]
     for rola in (0,1):
@@ -26,11 +26,11 @@ def prancha(nome,titulo,sub,cols):
     d.text((g,34),titulo,font=F(44,True),fill='#1d1418');d.text((g,98),sub,font=F(27),fill='#55484f')
     for i,(im,(p,r)) in enumerate(zip(ims,cols)):
         x=g+i*(w+g);d.text((x,170),r,font=F(34,True),fill='#8d3a69' if i else '#1d1418');S.paste(im,(x,top));d.rectangle([x-1,top-1,x+w,top+h],outline='#cfc6cb')
-    S.convert('RGB').save(OUT+nome,quality=86);print('  ',nome,S.size)
+    S.convert('RGB').save(OUT+('luxo-' if LX else '')+nome,quality=86);print('  ',nome,S.size)
 with sync_playwright() as pw:
-    TELAS=[('1-pagar.jpg','Tela de pagar (PIX) · 2 min depois do pedido','Hoje: 4 botões e o comprovante só aos 10 min.  Proposta: 2 botões + "Mais opções".',dict(minutos=2),1250,[(None,'HOJE'),(False,'PROPOSTA'),(True,'PROPOSTA · Mais opções aberto')]),
-           ('2-reserva-encerrada.jpg','Reserva encerrada (30 min sem pagar)','Hoje: quem pagou vai para o WhatsApp.  Proposta: envia o comprovante aqui mesmo.',dict(minutos=31),0,[(None,'HOJE'),(False,'PROPOSTA')]),
-           ('3-comprovante-enviado.jpg','Comprovante enviado','Hoje: 2 saídas.  Proposta: 1 (o WhatsApp só aparece se o envio falhar).',dict(minutos=2,comp=True),0,[(None,'HOJE'),(False,'PROPOSTA')])]
+    TELAS=[('1-pagar.jpg','Tela de pagar (PIX) · 2 min depois do pedido',('Luxo: uma ação cheia (copiar), contagem calma numa linha, o resto em link fino.' if LX else 'Hoje: 4 botões e o comprovante só aos 10 min.  Proposta: 2 botões + "Mais opções".'),dict(minutos=2),1250,[(None,'HOJE'),(False,'LUXO' if LX else 'PROPOSTA'),(True,('LUXO' if LX else 'PROPOSTA')+' · Mais opções aberto')]),
+           ('2-reserva-encerrada.jpg','Reserva encerrada (30 min sem pagar)',('Luxo: a ação cheia recupera a venda; quem já pagou envia o comprovante pelo link.' if LX else 'Hoje: quem pagou vai para o WhatsApp.  Proposta: envia o comprovante aqui mesmo.'),dict(minutos=31),0,[(None,'HOJE'),(False,'LUXO' if LX else 'PROPOSTA')]),
+           ('3-comprovante-enviado.jpg','Comprovante enviado',('Luxo: uma saída só, texto mais curto.' if LX else 'Hoje: 2 saídas.  Proposta: 1 (o WhatsApp só aparece se o envio falhar).'),dict(minutos=2,comp=True),0,[(None,'HOJE'),(False,'LUXO' if LX else 'PROPOSTA')])]
     for nome,tit,sub,kw,alto,cols in TELAS:
         print(nome);res=[];hoje=None
         for prop,rot in cols:
