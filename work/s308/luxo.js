@@ -27,6 +27,16 @@
     cl.hidden = false; cl.className = ''; cl.style.cssText = 'margin:0'; cl.innerHTML = '<label for="pgf" class="lxL">Já paguei · enviar comprovante</label>'; g.append(cl);
     const v = o.querySelector('a.vend'), d = o.querySelector('.pgs'), x = o.querySelector('.pgx');
     const gd = getComputedStyle(d), gx = getComputedStyle(x), PAD = { ff: gd.fontFamily, fs: gd.fontSize, fw: gd.fontWeight, cor: gd.color, verm: gx.color };
+    if (aberto === 'direto') { // S310: sem "Mais opções" — o menu do topo já tira o cliente da tela; sobram dois links lado a lado e um aviso curto
+      const est = 'font-family:' + PAD.ff + ';font-size:' + PAD.fs + '!important;font-weight:' + PAD.fw + '!important;text-decoration:none!important;min-height:44px;display:inline-flex!important;align-items:center;padding:0 14px!important;margin:0!important;background:none!important;border:0!important;box-shadow:none!important;width:auto;';
+      const fl = document.createElement('div'); fl.style.cssText = 'flex:0 0 auto;display:flex;align-items:center;justify-content:center;margin:12px auto 0'; g.after(fl);
+      v.textContent = 'Falar com um vendedor'; v.className = ''; v.style.cssText = est + 'color:' + PAD.cor + '!important';
+      x.className = ''; x.style.cssText = est + 'color:' + PAD.verm + '!important';
+      const sep = document.createElement('i'); sep.style.cssText = 'width:1px;height:16px;background:rgba(60,30,45,.18);flex:0 0 auto';
+      fl.append(v, sep, x); d.remove();
+      const nt = document.createElement('p'); nt.textContent = 'Pode sair desta tela: o pedido continua em Minha conta.'; nt.style.cssText = 'flex:0 0 auto;margin:6px auto 0;font-size:13px;line-height:1.4;color:#6e6067;text-align:center'; fl.after(nt);
+      return 'pagar-direto';
+    }
     // "Mais opções" = linha que expande (seta ⌄ / ⌃); aberta vira um cartão branco com as três opções em linhas
     const SETA = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + (aberto ? 'M6 15l6-6 6 6' : 'M6 9l6 6 6-6') + '"/></svg>';
     const cx = document.createElement('div'); cx.className = 'lxX' + (aberto ? ' ab' : ''); cx.style.width = w; g.after(cx);
