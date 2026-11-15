@@ -1,0 +1,79 @@
+[
+{
+"folha": "Filtros do inventário",
+"abriu": false
+},
+{
+"folha": "Ajustes do catálogo",
+"abriu": true,
+"alca": true,
+"fecha_arrastando": false,
+"fecha_tocando_fora": true,
+"el": "ljJn cjJn anim",
+"titulo": "Ajustes do catálogo"
+},
+{
+"folha": "Compartilhar",
+"abriu": false
+},
+{
+"folha": "Novo objetivo",
+"abriu": true,
+"alca": true,
+"fecha_arrastando": false,
+"fecha_tocando_fora": true,
+"el": "cxAcao on",
+"titulo": "Novo objetivo"
+},
+{
+"folha": "Retirar do caixa",
+"abriu": true,
+"alca": true,
+"fecha_arrastando": false,
+"fecha_tocando_fora": true,
+"el": "cxAcao on",
+"titulo": "Retirada do dono"
+},
+{
+"folha": "Conferir o caixa",
+"abriu": false
+},
+{
+"folha": "Novo cliente",
+"abriu": false
+},
+{
+"folha": "Acesso atacado",
+"abriu": true,
+"alca": true,
+"fecha_arrastando": false,
+"fecha_tocando_fora": true,
+"el": "ljJn anim",
+"titulo": "Novo acesso atacado"
+},
+{
+"folha": "Lotes",
+"abriu": true,
+"alca": true,
+"fecha_arrastando": false,
+"fecha_tocando_fora": true,
+"el": "ljJn anim",
+"titulo": "Lotes de atacado"
+},
+{
+"folha": "Cartões",
+"abriu": false
+},
+{
+"folha": "Folha da peça (vender)",
+"abriu": false
+},
+{
+"folha": "Atualização: confirmar",
+"abriu": false
+},
+{
+"folha": "Nova despesa",
+"abriu": false
+}
+]
