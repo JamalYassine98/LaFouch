@@ -1,4 +1,4 @@
-  // ===== Reserva de peças do site (10 min) + baixa automática na entrega. =====
+  // ===== Reserva de peças do site (30 min) + baixa automática na entrega. =====
   // O app (dono) fala com a função "reserva" na nuvem; quem decide hora e estoque é sempre o servidor.
   // Tudo é opcional: se a função estiver desligada ou sem internet, o app segue como antes.
   function resUrl() {

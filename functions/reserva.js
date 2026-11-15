@@ -4,7 +4,7 @@
 // Reserva válida = paga, ou ainda dentro do prazo (exp). Quem decide a hora é SEMPRE o servidor.
 'use strict';
 
-const PRAZO_MS = 15 * 60 * 1000; // PIX: 15 minutos para pagar
+const PRAZO_MS = 30 * 60 * 1000; // PIX: 30 minutos para pagar (14/11/2026, dono: "permitir a reserva para 30 minutos"; antes 15)
 const PRAZO_ITAU_MS = 30 * 60 * 1000; // Itaú (transferência): 30 minutos (07/11/2026)
 const COMP_MS = 12 * 3600 * 1000; // comprovante enviado: segura a peça até o dono conferir
 const MAX_ITENS = 30;

@@ -78,7 +78,7 @@ const T0 = 1_000_000_000_000;
     await Promise.all([1, 2, 3].map(() => R.reservar(db, T0, 'PAAA1', [{ ref: 'SL1', cor: 'Rosa', q: 1 }])));
     assert.strictEqual(disp(db, 'Rosa', T0), 1);
   });
-  await teste('prazo (15 min PIX) sem pagar: a peça volta; antes disso continua presa', async () => {
+  await teste('prazo (30 min PIX) sem pagar: a peça volta; antes disso continua presa', async () => {
     const db = novo([1, 0]);
     await R.reservar(db, T0, 'PAAA1', [{ ref: 'SL1', cor: 'Rosa', q: 1 }]);
     await rej(R.reservar(db, T0 + R.PRAZO_MS - 1, 'PBBB1', [{ ref: 'SL1', cor: 'Rosa', q: 1 }]), 'esgotado');
@@ -103,13 +103,13 @@ const T0 = 1_000_000_000_000;
     await rej(R.reservar(db, T0 + 3 * 3600 * 1000, 'PBBB1', [{ ref: 'SL1', cor: 'Rosa', q: 1 }]), 'esgotado');
     await R.reservar(db, T0 + 13 * 3600 * 1000, 'PBBB1', [{ ref: 'SL1', cor: 'Rosa', q: 1 }]);
   });
-  await teste('pagou depois dos prazo (15 min PIX) e a peça ainda está livre: o pagamento reserva de novo', async () => {
+  await teste('pagou depois dos prazo (30 min PIX) e a peça ainda está livre: o pagamento reserva de novo', async () => {
     const db = novo([1, 0]);
     await R.reservar(db, T0, 'PAAA1', [{ ref: 'SL1', cor: 'Rosa', q: 1 }]);
-    await R.pagar(db, T0 + 30 * 60000, 'PAAA1', [{ ref: 'SL1', cor: 'Rosa', q: 1 }]);
-    assert.strictEqual(disp(db, 'Rosa', T0 + 30 * 60000), 0);
+    await R.pagar(db, T0 + 45 * 60000, 'PAAA1', [{ ref: 'SL1', cor: 'Rosa', q: 1 }]);
+    assert.strictEqual(disp(db, 'Rosa', T0 + 45 * 60000), 0);
   });
-  await teste('pagou depois dos prazo (15 min PIX) e a peça já foi para outra pessoa: avisa o dono ("expirou")', async () => {
+  await teste('pagou depois dos prazo (30 min PIX) e a peça já foi para outra pessoa: avisa o dono ("expirou")', async () => {
     const db = novo([1, 0]);
     await R.reservar(db, T0, 'PAAA1', [{ ref: 'SL1', cor: 'Rosa', q: 1 }]);
     await R.reservar(db, T0 + R.PRAZO_MS + 60000, 'PBBB1', [{ ref: 'SL1', cor: 'Rosa', q: 1 }]);
@@ -139,7 +139,7 @@ const T0 = 1_000_000_000_000;
     await R.liberar(db, T0 + 5, 'PAAA1', ['SL1']);
     assert.strictEqual(disp(db, 'Rosa', T0 + 6), 2);
   });
-  await teste('comprovante recusado: volta ao prazo normal de prazo (15 min PIX)', async () => {
+  await teste('comprovante recusado: volta ao prazo normal de prazo (30 min PIX)', async () => {
     const db = novo([1, 0]); const it = [{ ref: 'SL1', cor: 'Rosa', q: 1 }];
     await R.reservar(db, T0, 'PAAA1', it); await R.pagar(db, T0 + 1, 'PAAA1', it); await R.recusar(db, T0 + 2, 'PAAA1', ['SL1']);
     await rej(R.reservar(db, T0 + 5 * 60000, 'PBBB1', it), 'esgotado');

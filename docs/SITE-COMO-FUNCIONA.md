@@ -134,3 +134,5 @@ Ler antes de mexer no site. Atualizar este arquivo SEMPRE que o site mudar (estr
 - Montagem: `product()` chama `ggMonta` e um observador de `#layer` monta de novo quando a página da peça é redesenhada por outro caminho. `var GG` não leva `=null` de propósito (ao abrir direto em `?ref=` o giro começa antes dessa linha rodar).
 - CSS no `index.html` (bloco "S301"): `.big>video.ggv`, `.big.gg`, `.ggp`, `.ggd`. Traduções: "Deslize para girar", "Vista inicial", "Voltar à vista inicial".
 - Teste: `work/s301/teste_peca.py` (lafouch) — usa uma cópia local com um interruptor só do simulador que finge `gv`/`gn` numa peça.
+
+- **Reserva de 30 min (S306, 14/11/2026, pedido do dono):** PIX e transferência seguram a peça 30 min (`functions/reserva.js`, `PRAZO_MS` = `PRAZO_ITAU_MS` = 30 min; antes PIX 15). O relógio da tela usa o prazo que o servidor devolve (`rx`). O link "Envie o comprovante" continua aparecendo aos 10 min (PIX; transferência na hora enquanto `TRF_AUTO=false`), ou seja, 20 min antes de a reserva vencer; comprovante enviado segura a peça 12 h (`COMP_MS`). Textos "10 minutos" das telas "Reserva encerrada" e "Acabou de esgotar" → "30 minutos".

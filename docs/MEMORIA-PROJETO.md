@@ -2522,3 +2522,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
   · valor a menos continua sem confirmar sozinho. Confirmação guarda `de` (pagador) e `por` ('nome'/'hora') quando houve desempate.
 - Testado: functions/teste-pix.js (tudo ok, 7 provas novas) e leitura do texto do e-mail no simulador. NÃO testado: e-mail real do banco (o texto exato da linha do pagador vem das fotos do dono) nem transferência real.
 - Só vale depois de o dono colar o robô novo e publicar a função (`firebase deploy --only functions:pix`).
+
+### S306 (14/11/2026) — reserva de 30 minutos (decisão do dono)
+- Dono: "Então permitir a reserva para 30 minutos" (para o comprovante aparecer antes de a peça voltar ao site). Feito: `functions/reserva.js` PRAZO_MS 15 → 30 min (transferência já era 30); textos do site "10 minutos" → "30 minutos".
+- CORREÇÃO MINHA: eu tinha dito que a reserva vencia aos 10 min junto com o botão do comprovante; o código real era 15 min (PIX) e 30 min (transferência) — só o TEXTO do site dizia 10. O botão do comprovante segue aos 10 min; enviar o comprovante já segurava a peça por 12 h.
+- Testado: functions/teste-reserva.js 22/22; porteiro do site. NÃO testado no celular nem com pedido real. O prazo novo do PIX só vale depois de o dono publicar a função `reserva`.
