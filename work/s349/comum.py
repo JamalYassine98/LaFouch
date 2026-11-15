@@ -33,5 +33,12 @@ def olho(pg):
     except Exception as e: return set()
 import re as _re
 _n=lambda x:_re.sub(r'\d+','#',x)
+def _it(o):
+    r=set()
+    for x in o:
+        try: t=eval(x)
+        except Exception: r.add(_n(x));continue
+        for i in (t[1] or ['']): r.add(_n(str(t[0])+'|'+str(i)))
+    return r
 def novos(o0,o1):
-    a=set(_n(x) for x in o0);return sorted(x for x in o1 if _n(x) not in a) or 'nenhum'
+    a=_it(o0);return sorted(_it(o1)-a) or 'nenhum'

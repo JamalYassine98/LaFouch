@@ -1,0 +1,283 @@
+{
+ "Inventário": [
+  {
+   "b": "+ Adicionar",
+   "r": "ok",
+   "h": 44,
+   "w": 117
+  },
+  {
+   "b": "Produtos",
+   "r": "nada mudou",
+   "h": 41,
+   "w": 64
+  },
+  {
+   "b": "Fornecedores 1",
+   "r": "ok",
+   "h": 41,
+   "w": 119
+  },
+  {
+   "b": "Reposição",
+   "r": "ok",
+   "h": 41,
+   "w": 74
+  },
+  {
+   "b": "EM ESTOQUE (FILTRO) 470 toque para contar",
+   "r": "ok",
+   "h": 109,
+   "w": 171
+  },
+  {
+   "b": "Buscar com a câmera",
+   "r": "ok",
+   "h": 44,
+   "w": 44
+  },
+  {
+   "b": "Filtros e ordem",
+   "r": "ok",
+   "h": 42,
+   "w": 42
+  },
+  {
+   "b": "! 15 preços para corrigir 2 perto do mínimo ",
+   "r": "ok",
+   "h": 81,
+   "w": 342
+  },
+  {
+   "b": "Lote Kazwini Pré-graduados G$ 25.000 343 em ",
+   "r": "ok",
+   "h": 256,
+   "w": 165
+  }
+ ],
+ "Câmbio": [
+  {
+   "b": "Cotação da casa offline",
+   "r": "ok",
+   "h": 20,
+   "w": 128
+  },
+  {
+   "b": "DÓLAR G$ 6.487 — estável",
+   "r": "ok",
+   "h": 85,
+   "w": 304
+  },
+  {
+   "b": "REAL G$ 1.196 ▼ 0,7% 7 dias",
+   "r": "ok",
+   "h": 86,
+   "w": 304
+  },
+  {
+   "b": "DÓLAR EM REAIS R$ 5,43 ▲ 0,9% 7 dias",
+   "r": "ok",
+   "h": 86,
+   "w": 304
+  },
+  {
+   "b": "REPOSIÇÃO Normal › Faltam US$ 2.684 US$ 320 ",
+   "r": "ok",
+   "h": 131,
+   "w": 340
+  },
+  {
+   "b": "Registrar troca ›",
+   "r": "ok",
+   "h": 52,
+   "w": 304
+  },
+  {
+   "b": "Últimas trocas 12 ›",
+   "r": "ok",
+   "h": 49,
+   "w": 304
+  },
+  {
+   "b": "Preços no site cotação da loja travada ›",
+   "r": "ok",
+   "h": 70,
+   "w": 304
+  },
+  {
+   "b": "Como o app te protege colchão 13,0% ›",
+   "r": "ok",
+   "h": 70,
+   "w": 304
+  }
+ ],
+ "Loja online": [],
+ "Reservas": [
+  {
+   "b": "Reservas ⌄",
+   "r": "ok",
+   "h": 48,
+   "w": 118
+  },
+  {
+   "b": "G$",
+   "r": "nada mudou",
+   "h": 40,
+   "w": 56
+  },
+  {
+   "b": "R$",
+   "r": "ok",
+   "h": 40,
+   "w": 56
+  },
+  {
+   "b": "US$",
+   "r": "ok",
+   "h": 40,
+   "w": 56
+  },
+  {
+   "b": "Esconder ⌃",
+   "r": "ok",
+   "h": 34,
+   "w": 101
+  },
+  {
+   "b": "Registrar retirada (Caixa)",
+   "r": "ok",
+   "h": 34,
+   "w": 183
+  },
+  {
+   "b": "Detalhes do mês receitas, despesas e resulta",
+   "r": "ok",
+   "h": 69,
+   "w": 340
+  },
+  {
+   "b": "Lucro real do mês G$ 2.198.074 de G$ 3.797.5",
+   "r": "ok",
+   "h": 69,
+   "w": 340
+  },
+  {
+   "b": "SL2201 · Óculos solar Ray-Ban …",
+   "r": "ok",
+   "h": 68,
+   "w": 209
+  },
+  {
+   "b": "YS8815 · Óculos solar #14",
+   "r": "ok",
+   "h": 48,
+   "w": 187
+  },
+  {
+   "b": "SP58110 · Óculos de leitura Kaz…",
+   "r": "ok",
+   "h": 68,
+   "w": 209
+  },
+  {
+   "b": "Próximos 30 dias Saldo G$ 5.388.304 · contas",
+   "r": "ok",
+   "h": 69,
+   "w": 340
+  }
+ ],
+ "Online (aba)": [
+  {
+   "b": "Online ⌄",
+   "r": "ok",
+   "h": 48,
+   "w": 94
+  },
+  {
+   "b": "Painel completo ›",
+   "r": "ok",
+   "h": 32,
+   "w": 136
+  }
+ ],
+ "Notificações": [
+  {
+   "b": "Ver margem",
+   "r": "ok",
+   "h": 44,
+   "w": 109
+  },
+  {
+   "b": "Ver conta",
+   "r": "ok",
+   "h": 44,
+   "w": 92
+  },
+  {
+   "b": "Ver preços",
+   "r": "ok",
+   "h": 44,
+   "w": 100
+  },
+  {
+   "b": "Conferir",
+   "r": "ok",
+   "h": 44,
+   "w": 83
+  },
+  {
+   "b": "SP57765",
+   "r": "ok",
+   "h": 47,
+   "w": 74
+  },
+  {
+   "b": "Ver",
+   "r": "ok",
+   "h": 44,
+   "w": 52
+  },
+  {
+   "b": "Completar",
+   "r": "ok",
+   "h": 44,
+   "w": 98
+  },
+  {
+   "b": "Fechar",
+   "r": "ok",
+   "h": 44,
+   "w": 74
+  },
+  {
+   "b": "Ver reposição",
+   "r": "ok",
+   "h": 44,
+   "w": 120
+  },
+  {
+   "b": "Fazer",
+   "r": "ok",
+   "h": 44,
+   "w": 66
+  },
+  {
+   "b": "Ver",
+   "r": "ok",
+   "h": 44,
+   "w": 52
+  },
+  {
+   "b": "Ver todas as conferências do Guardião ›",
+   "r": "ok",
+   "h": 46,
+   "w": 342
+  },
+  {
+   "b": "Limpar histórico",
+   "r": "ok",
+   "h": 44,
+   "w": 128
+  }
+ ]
+}

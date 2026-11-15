@@ -1,0 +1,4455 @@
+{
+"Início": {
+"txt": [
+[
+"Guardião · 6 coisas para olhar",
+"T"
+],
+[
+"343 peças da compra de 31/12 sem detalhe",
+"T"
+],
+[
+"já estão no estoque · toque para detalhar",
+"t"
+],
+[
+"Vendido hoje · 3 venda(s)",
+"t"
+],
+[
+"G$ 147.500",
+"T"
+],
+[
+"Câmbio",
+"B"
+],
+[
+"G$ 6.487",
+"t"
+],
+[
+"Estúdio",
+"B"
+],
+[
+"24 para fotografar",
+"t"
+],
+[
+"Despesas",
+"B"
+],
+[
+"G$ 4.200.000/mês",
+"t"
+],
+[
+"Histórico",
+"B"
+],
+[
+"1910 vendas",
+"t"
+],
+[
+"Dashboard",
+"B"
+],
+[
+"Resumo",
+"t"
+],
+[
+"Reservas",
+"B"
+],
+[
+"Livre e separado",
+"t"
+],
+[
+"Giro",
+"B"
+],
+[
+"5 a repor",
+"t"
+],
+[
+"Preços",
+"B"
+],
+[
+"3 faixas",
+"t"
+],
+[
+"Pedidos online",
+"B"
+],
+[
+"0 novos",
+"t"
+],
+[
+"Mensagens",
+"B"
+],
+[
+"Contato e atacado",
+"t"
+],
+[
+"Analisador",
+"B"
+],
+[
+"Visitas do site",
+"t"
+],
+[
+"Temática",
+"B"
+],
+[
+"Calendário do site",
+"t"
+],
+[
+"Atacado",
+"B"
+],
+[
+"Orçamentos",
+"t"
+],
+[
+"Clientes",
+"B"
+],
+[
+"0 cadastrados",
+"t"
+],
+[
+"Contagem",
+"B"
+],
+[
+"Conferir estoque",
+"t"
+],
+[
+"Fornecedores",
+"B"
+],
+[
+"Compras",
+"t"
+],
+[
+"Marketing",
+"B"
+],
+[
+"Posts, vídeos e plano",
+"t"
+]
+],
+"alt": 1377
+},
+"Catálogo": {
+"txt": [
+[
+"Catálogo",
+"T"
+],
+[
+"Escolha a peça e venda.",
+"t"
+],
+[
+"peças",
+"t"
+],
+[
+"· Varejo · G$",
+"t"
+]
+],
+"alt": 6079
+},
+"Inventário": {
+"txt": [
+[
+"Inventário",
+"T"
+],
+[
+"Grupo Pré-graduados › Grau › Formato › Referência",
+"t"
+],
+[
+"+ Adicionar",
+"T"
+],
+[
+"Produtos",
+"T"
+],
+[
+"Fornecedores",
+"T"
+],
+[
+"Reposição",
+"T"
+],
+[
+"Em estoque (filtro)",
+"B"
+],
+[
+"toque para contar",
+"t"
+],
+[
+"Referências",
+"B"
+],
+[
+"470 peças · Todos",
+"t"
+],
+[
+"15 preços para corrigir",
+"B"
+],
+[
+"2 perto do mínimo · 8 abaixo do custo · 5 sem custo",
+"t"
+],
+[
+"Corrigir ›",
+"B"
+],
+[
+"Esgotado",
+"t"
+],
+[
+"some do catálogo ·",
+"t"
+],
+[
+"baixo, repor",
+"t"
+]
+],
+"alt": 3279
+},
+"Dinheiro": {
+"txt": [
+[
+"Dinheiro",
+"T"
+],
+[
+"Caixa, contas do mês e câmbio.",
+"t"
+],
+[
+"No caixa agora",
+"B"
+],
+[
+"Guarani",
+"T"
+],
+[
+"moeda base",
+"t"
+],
+[
+"G$ 1.850.000",
+"T"
+],
+[
+"Dólar",
+"T"
+],
+[
+"≈ G$ 2.075.840",
+"t"
+],
+[
+"US$ 320,00",
+"T"
+],
+[
+"Real",
+"T"
+],
+[
+"≈ G$ 1.674.065",
+"t"
+],
+[
+"R$ 1.400,00",
+"T"
+],
+[
+"Total aproximado",
+"t"
+],
+[
+"G$ 5.599.905",
+"B"
+],
+[
+"O que está livre e o que já tem dono ficam no",
+"t"
+],
+[
+"Dashboard",
+"t"
+],
+[
+", aba Reservas.",
+"t"
+],
+[
+"Objetivos da loja",
+"T"
+],
+[
+"guardado",
+"t"
+],
+[
+"G$ 2.310.000",
+"B"
+],
+[
+"Diga o que quer para a loja (reforma, vitrine, ar-condicionado…). Cada venda guarda um pou",
+"t"
+],
+[
+"+ Novo objetivo",
+"B"
+],
+[
+"O dinheiro em caixa está abaixo do que deveria estar separado. Evite retiradas até repor.",
+"t"
+],
+[
+"Movimentos",
+"T"
+],
+[
+"Escola",
+"t"
+],
+[
+"12/11 às 17:23 ·",
+"t"
+],
+[
+"desfazer",
+"t"
+],
+[
+"G$ 590.000",
+"B"
+],
+[
+"Tinta da fachada (objetivo)",
+"t"
+],
+[
+"07/11 às 16:39",
+"t"
+],
+[
+"G$ 15.000",
+"B"
+],
+[
+"Escola",
+"t"
+],
+[
+"13/10 às 17:45 ·",
+"t"
+],
+[
+"desfazer",
+"t"
+],
+[
+"G$ 420.000",
+"B"
+],
+[
+"Compras de casa",
+"t"
+],
+[
+"13/09 às 17:46 ·",
+"t"
+],
+[
+"desfazer",
+"t"
+],
+[
+"G$ 530.000",
+"B"
+],
+[
+"Mercado",
+"t"
+],
+[
+"14/08 às 17:12 ·",
+"t"
+],
+[
+"desfazer",
+"t"
+],
+[
+"G$ 600.000",
+"B"
+],
+[
+"Compras de casa",
+"t"
+],
+[
+"15/07 às 17:20 ·",
+"t"
+],
+[
+"desfazer",
+"t"
+],
+[
+"G$ 440.000",
+"B"
+],
+[
+"Escola",
+"t"
+],
+[
+"15/06 às 17:06 ·",
+"t"
+],
+[
+"desfazer",
+"t"
+],
+[
+"G$ 680.000",
+"B"
+],
+[
+"Ver todos os movimentos ›",
+"B"
+],
+[
+"Contas do mês",
+"B"
+],
+[
+"Total obrigatório por mês",
+"B"
+],
+[
+"G$ 4.200.000",
+"T"
+],
+[
+"Cada peça vendida separa",
+"B"
+],
+[
+"G$ 24.561",
+"T"
+],
+[
+"para pagar as contas (rateio: 171 peças por mês, ajuste em Ajustes)",
+"t"
+],
+[
+"Contas para pagar",
+"T"
+],
+[
+"Contas de casa",
+"t"
+],
+[
+"venceu há 3 dias",
+"t"
+],
+[
+"· informe o valor desta fatura",
+"t"
+],
+[
+"G$ 1.000.000",
+"B"
+],
+[
+"vence hoje",
+"t"
+],
+[
+"· informe o valor desta fatura",
+"t"
+],
+[
+"G$ 180.000",
+"B"
+],
+[
+"Contador",
+"t"
+],
+[
+"vence em 5 dias",
+"t"
+],
+[
+"G$ 300.000",
+"B"
+],
+[
+"Ver todas as despesas ›",
+"B"
+],
+[
+"Câmbio",
+"B"
+],
+[
+"Dólar",
+"B"
+],
+[
+"G$ 6.487",
+"T"
+],
+[
+"— estável",
+"t"
+],
+[
+"Real",
+"B"
+],
+[
+"G$ 1.196",
+"T"
+],
+[
+"▼ 0,7%",
+"t"
+],
+[
+"7 dias",
+"t"
+],
+[
+"Dólar em reais",
+"B"
+],
+[
+"R$ 5,43",
+"T"
+],
+[
+"▲ 0,9%",
+"B"
+],
+[
+"7 dias",
+"t"
+],
+[
+"Reposição",
+"B"
+],
+[
+"Normal ›",
+"B"
+],
+[
+"Faltam US$ 2.684",
+"T"
+],
+[
+"US$ 320 de US$ 3.004",
+"t"
+],
+[
+"Registrar troca",
+"T"
+],
+[
+"Ver câmbio e trocas ›",
+"B"
+]
+],
+"alt": 2702
+},
+"Despesas": {
+"txt": [
+[
+"Despesas",
+"T"
+],
+[
+"Contas do mês e quanto cada venda separa.",
+"t"
+],
+[
+"Total obrigatório por mês",
+"B"
+],
+[
+"G$ 4.200.000",
+"T"
+],
+[
+"Cada peça vendida separa",
+"B"
+],
+[
+"G$ 24.561",
+"T"
+],
+[
+"para pagar as contas (rateio: 171 peças por mês, ajuste em Ajustes)",
+"t"
+],
+[
+"Contas para pagar",
+"T"
+],
+[
+"Contas de casa",
+"t"
+],
+[
+"venceu há 3 dias",
+"t"
+],
+[
+"· informe o valor desta fatura",
+"t"
+],
+[
+"G$ 1.000.000",
+"B"
+],
+[
+"vence hoje",
+"t"
+],
+[
+"· informe o valor desta fatura",
+"t"
+],
+[
+"G$ 180.000",
+"B"
+],
+[
+"Contador",
+"t"
+],
+[
+"vence em 5 dias",
+"t"
+],
+[
+"G$ 300.000",
+"B"
+],
+[
+"Por grupo",
+"T"
+],
+[
+"Loja · G$ 1.200.000",
+"t"
+],
+[
+"Casa · G$ 1.000.000",
+"t"
+],
+[
+"Salário · G$ 1.500.000",
+"t"
+],
+[
+"Contador · G$ 300.000",
+"t"
+],
+[
+"Imprevistos · G$ 200.000",
+"t"
+],
+[
+"Loja",
+"B"
+],
+[
+"Aluguel da loja",
+"T"
+],
+[
+"fixa",
+"t"
+],
+[
+"Salvar",
+"T"
+],
+[
+"Vence todo dia 5. Altere e veja o efeito antes de salvar.",
+"t"
+],
+[
+"Histórico: 18/06 G$ 850.000 → G$ 900.000 (+5,9%)",
+"t"
+],
+[
+"variável",
+"t"
+],
+[
+"Salvar",
+"T"
+],
+[
+"Vence todo dia 15. Valor muda todo mês. Atualize quando a conta chegar.",
+"t"
+],
+[
+"Histórico: 06/10 G$ 165.000 → G$ 180.000 (+9,1%)",
+"t"
+],
+[
+"Internet",
+"T"
+],
+[
+"fixa",
+"t"
+],
+[
+"Salvar",
+"T"
+],
+[
+"Vence todo dia 10. Altere e veja o efeito antes de salvar.",
+"t"
+],
+[
+"Casa",
+"B"
+],
+[
+"Contas de casa",
+"T"
+],
+[
+"variável",
+"t"
+],
+[
+"Salvar",
+"T"
+],
+[
+"Vence todo dia 12. Valor muda todo mês. Atualize quando a conta chegar.",
+"t"
+],
+[
+"Histórico: 16/10 G$ 1.100.000 → G$ 1.000.000 (−9,1%)",
+"t"
+],
+[
+"Salário",
+"B"
+],
+[
+"Salário (retirada)",
+"T"
+],
+[
+"fixa",
+"t"
+],
+[
+"Salvar",
+"T"
+],
+[
+"Vence todo dia 5. Altere e veja o efeito antes de salvar.",
+"t"
+],
+[
+"Contador",
+"B"
+],
+[
+"Contador",
+"T"
+],
+[
+"fixa",
+"t"
+],
+[
+"Salvar",
+"T"
+],
+[
+"Vence todo dia 20. Altere e veja o efeito antes de salvar.",
+"t"
+],
+[
+"Histórico: 06/09 G$ 250.000 → G$ 300.000 (+20,0%)",
+"t"
+],
+[
+"Imprevistos",
+"B"
+],
+[
+"Provisão de imprevistos",
+"T"
+],
+[
+"fixa",
+"t"
+],
+[
+"Salvar",
+"T"
+],
+[
+"Vence todo dia 1. Altere e veja o efeito antes de salvar.",
+"t"
+],
+[
+"Imprevistos do mês",
+"T"
+],
+[
+"A provisão de G$ 200.000 por mês é consumida pelos gastos inesperados que você registrar.",
+"t"
+],
+[
+"Gasto G$ 60.000 de G$ 200.000. Resta G$ 140.000.",
+"t"
+],
+[
+"Conserto da vitrine",
+"t"
+],
+[
+"09/11",
+"t"
+],
+[
+"G$ 60.000",
+"B"
+],
+[
+"A provisão começa do zero todo mês. Os imprevistos de meses anteriores ficam guardados no ",
+"t"
+],
+[
+"Registrar imprevisto",
+"T"
+],
+[
+"Nova despesa",
+"T"
+],
+[
+"Adicionar",
+"T"
+],
+[
+"Contas pagas neste mês",
+"T"
+],
+[
+"4 conta(s) paga(s)",
+"t"
+]
+],
+"alt": 3960
+},
+"Câmbio": {
+"txt": [
+[
+"Câmbio",
+"T"
+],
+[
+"Cotação do dia e trocas de moeda.",
+"t"
+],
+[
+"Cotação da casa",
+"t"
+],
+[
+"Dólar",
+"B"
+],
+[
+"G$ 6.487",
+"T"
+],
+[
+"— estável",
+"t"
+],
+[
+"Real",
+"B"
+],
+[
+"G$ 1.196",
+"T"
+],
+[
+"▼ 0,7%",
+"t"
+],
+[
+"7 dias",
+"t"
+],
+[
+"Dólar em reais",
+"B"
+],
+[
+"R$ 5,43",
+"T"
+],
+[
+"▲ 0,9%",
+"B"
+],
+[
+"7 dias",
+"t"
+],
+[
+"Reposição",
+"B"
+],
+[
+"Normal ›",
+"B"
+],
+[
+"Faltam US$ 2.684",
+"T"
+],
+[
+"US$ 320 de US$ 3.004",
+"t"
+],
+[
+"Registrar troca",
+"T"
+],
+[
+"Últimas trocas",
+"T"
+],
+[
+"12 ›",
+"t"
+],
+[
+"Preços no site",
+"T"
+],
+[
+"cotação da loja travada",
+"t"
+],
+[
+"Como o app te protege",
+"T"
+],
+[
+"colchão 13,0%",
+"t"
+]
+],
+"alt": 1104
+},
+"Clientes": {
+"txt": [
+[
+"Clientes",
+"T"
+],
+[
+"Quem compra na loja e no atacado.",
+"t"
+],
+[
+"+ Novo cliente",
+"T"
+],
+[
+"Acesso atacado ›",
+"T"
+],
+[
+"Lotes ›",
+"T"
+],
+[
+"Cartões ›",
+"T"
+],
+[
+"Nenhum cliente ainda",
+"T"
+],
+[
+"Eles entram sozinhos quando você salva um pedido online, ou toque em “+ Novo cliente”.",
+"t"
+]
+],
+"alt": 844
+},
+"Pedidos": {
+"txt": [
+[
+"Pedidos online",
+"T"
+],
+[
+"Pedidos que chegaram pelo site.",
+"t"
+],
+[
+"Buscando pedidos… ·",
+"t"
+],
+[
+"Verificar agora",
+"t"
+],
+[
+"Agir agora",
+"T"
+],
+[
+"Em andamento",
+"T"
+],
+[
+"Feitos",
+"T"
+],
+[
+"Nenhum pedido ainda",
+"T"
+],
+[
+"Quando um cliente fizer um pedido no site, ele aparece aqui sozinho.",
+"t"
+]
+],
+"alt": 844
+},
+"Loja online": {
+"txt": [],
+"alt": 891
+},
+"Dashboard (dia)": {
+"txt": [
+[
+"Dashboard",
+"T"
+],
+[
+"O dia, os dias anteriores e os números do mês.",
+"t"
+],
+[
+"15/11/2026 ▾",
+"T"
+],
+[
+"Domingo, 15 de novembro de 2026",
+"T"
+],
+[
+"Vendido",
+"B"
+],
+[
+"G$ 147.500",
+"T"
+],
+[
+"3 peça(s) em 3 venda(s)",
+"t"
+],
+[
+"Entrou: G$ 45.000 + US$ 9,01 + R$ 35,45",
+"t"
+],
+[
+"Lucro livre",
+"B"
+],
+[
+"G$ 51.423",
+"T"
+],
+[
+"depois de separar tudo",
+"t"
+],
+[
+"Contas do dia",
+"B"
+],
+[
+"G$ 140.000",
+"T"
+],
+[
+"1/30 de G$ 4.200.000 por mês",
+"t"
+],
+[
+"Gastos extras",
+"B"
+],
+[
+"G$ 0",
+"T"
+],
+[
+"imprevistos e melhorias",
+"t"
+],
+[
+"Câmbio do dia",
+"T"
+],
+[
+"Vendas do dia",
+"B"
+],
+[
+"Venda",
+"t"
+],
+[
+"1× BR44118 C1 · Preto",
+"T"
+],
+[
+"V-1909 · 15/11 às 01:32 · Armações",
+"t"
+],
+[
+"R$ 35,45",
+"T"
+],
+[
+"≈ G$ 42.500",
+"t"
+],
+[
+"Ocultar detalhes",
+"B"
+],
+[
+"Estornar",
+"B"
+],
+[
+"Recebido",
+"t"
+],
+[
+"R$ 35,45 (câmbio G$ 1.199)",
+"B"
+],
+[
+"Troco devolvido",
+"t"
+],
+[
+"sem troco",
+"B"
+],
+[
+"Forma de pagamento",
+"t"
+],
+[
+"Dinheiro",
+"B"
+],
+[
+"Câmbio no dia",
+"t"
+],
+[
+"G$ 6.499 por US$ (hoje G$ 6.487, −0,2%)",
+"B"
+],
+[
+"Custo pago",
+"t"
+],
+[
+"US$ 1,90",
+"B"
+],
+[
+"Custo de reposição",
+"t"
+],
+[
+"US$ 2,40",
+"B"
+],
+[
+"Reposição separada",
+"t"
+],
+[
+"G$ 15.598",
+"B"
+],
+[
+"Contas separadas",
+"t"
+],
+[
+"G$ 11.500 (G$ 11.500 por peça)",
+"B"
+],
+[
+"Colchão (12,0%)",
+"t"
+],
+[
+"G$ 1.872",
+"B"
+],
+[
+"Caixa de melhorias",
+"t"
+],
+[
+"G$ 1.000",
+"B"
+],
+[
+"Lucro livre",
+"t"
+],
+[
+"G$ 12.530",
+"B"
+],
+[
+"Preço mínimo seguro na hora",
+"t"
+],
+[
+"G$ 27.098 por peça",
+"B"
+],
+[
+"Ver todas as vendas do dia ›",
+"B"
+],
+[
+"Despesas do dia",
+"T"
+],
+[
+"As contas do mês entram divididas por 30. Os gastos extras entram no dia em que foram feit",
+"t"
+],
+[
+"Fechamento do dia",
+"T"
+],
+[
+"Vendido",
+"t"
+],
+[
+"G$ 147.500",
+"B"
+],
+[
+"Reposição separada",
+"t"
+],
+[
+"G$ 50.693 (US$ 7,80)",
+"B"
+],
+[
+"Contas separadas",
+"t"
+],
+[
+"G$ 34.500",
+"B"
+],
+[
+"Colchão separado",
+"t"
+],
+[
+"G$ 6.084",
+"B"
+],
+[
+"Caixa de melhorias",
+"t"
+],
+[
+"G$ 3.000",
+"B"
+],
+[
+"Lucro livre",
+"t"
+],
+[
+"G$ 51.423",
+"B"
+],
+[
+"Gastos extras (imprevistos e melhorias)",
+"t"
+],
+[
+"−G$ 0",
+"B"
+],
+[
+"Lucro livre depois dos gastos extras",
+"B"
+],
+[
+"G$ 51.423",
+"B"
+],
+[
+"Dias anteriores",
+"B"
+],
+[
+"Ver todos os dias ›",
+"B"
+],
+[
+"Números do mês",
+"B"
+],
+[
+"Vendido",
+"B"
+],
+[
+"G$ 3.253.000",
+"T"
+],
+[
+"R$ 326,50",
+"T"
+],
+[
+"US$ 23,55",
+"T"
+],
+[
+"≈ G$ 3.797.500 · 90 peça(s) em 68 venda(s)",
+"t"
+],
+[
+"Separar das vendas",
+"B"
+],
+[
+"G$ 1.830.600",
+"T"
+],
+[
+"R$ 326,50",
+"T"
+],
+[
+"US$ 23,55",
+"T"
+],
+[
+"62,5% do vendido",
+"t"
+],
+[
+"Lucro livre",
+"B"
+],
+[
+"G$ 1.422.400",
+"T"
+],
+[
+"37,5% do vendido",
+"t"
+],
+[
+"Ver todos os números ›",
+"B"
+]
+],
+"alt": 3430
+},
+"Resumo": {
+"txt": [
+[
+"Resumo",
+"T"
+],
+[
+"Este mês",
+"T"
+],
+[
+"1 a 15 de novembro · US$ 1 = G$ 6.487",
+"t"
+],
+[
+"Vendido",
+"B"
+],
+[
+"G$ 3.253.000",
+"T"
+],
+[
+"R$ 326,50",
+"T"
+],
+[
+"US$ 23,55",
+"T"
+],
+[
+"≈ G$ 3.797.500 · 90 peça(s) em 68 venda(s)",
+"t"
+],
+[
+"Separar das vendas",
+"B"
+],
+[
+"G$ 1.830.600",
+"T"
+],
+[
+"R$ 326,50",
+"T"
+],
+[
+"US$ 23,55",
+"T"
+],
+[
+"62,5% do vendido",
+"t"
+],
+[
+"Lucro livre",
+"B"
+],
+[
+"G$ 1.422.400",
+"T"
+],
+[
+"37,5% do vendido",
+"t"
+],
+[
+"Dólar hoje",
+"B"
+],
+[
+"G$ 6.487",
+"T"
+],
+[
+"por US$ 1",
+"t"
+],
+[
+"R$ 5,42",
+"T"
+],
+[
+"por US$ 1 ·",
+"t"
+],
+[
+"ver câmbio",
+"t"
+],
+[
+"Para repor o estoque",
+"T"
+],
+[
+"Reposição:",
+"t"
+],
+[
+"US$ 172,40",
+"B"
+],
+[
+". Do que você recebeu, nesta ordem:",
+"t"
+],
+[
+"Dólar recebido",
+"t"
+],
+[
+"já está em dólar e fica para a mercadoria",
+"t"
+],
+[
+"US$ 23,55",
+"B"
+],
+[
+"Trocar",
+"t"
+],
+[
+"R$ 326,50",
+"B"
+],
+[
+"US$ 60,18",
+"B"
+],
+[
+"cotação de mercado R$ 5,43 por US$ 1",
+"t"
+],
+[
+"R$ 326,50",
+"B"
+],
+[
+"Trocar",
+"t"
+],
+[
+"G$ 575.200",
+"B"
+],
+[
+"US$ 88,67",
+"B"
+],
+[
+"cotação de mercado G$ 6.487 por US$ 1",
+"t"
+],
+[
+"G$ 575.200",
+"B"
+],
+[
+"Reposição coberta. Depois de repor, sobram",
+"t"
+],
+[
+"G$ 2.677.800",
+"B"
+],
+[
+"para as contas, o colchão e o seu lucro.",
+"t"
+],
+[
+"Colchão de segurança",
+"T"
+],
+[
+"Reserva contra a alta do dólar. Em dólar ele não perde valor.",
+"t"
+],
+[
+"Já em dólar",
+"t"
+],
+[
+"protegido",
+"t"
+],
+[
+"US$ 0,00",
+"B"
+],
+[
+"Ainda não trocado",
+"t"
+],
+[
+"espera o dólar ficar barato (em guaranis)",
+"t"
+],
+[
+"G$ 3.268.433",
+"B"
+],
+[
+"Cobrindo a alta do dólar agora",
+"t"
+],
+[
+"diferença do que ainda falta trocar",
+"t"
+],
+[
+"− US$ 138,12",
+"B"
+],
+[
+"Cada venda nova separa um colchão novo. Quando o dólar estiver barato, o app avisa para tr",
+"t"
+],
+[
+"Quanto separar do que você vendeu",
+"T"
+],
+[
+"Cada conta na sua moeda; o dólar vai para a mercadoria e o colchão sai de cada moeda na pr",
+"t"
+],
+[
+"Vendido",
+"t"
+],
+[
+"entrou no período",
+"t"
+],
+[
+"G$ 3.253.000",
+"B"
+],
+[
+"R$ 326,50",
+"B"
+],
+[
+"US$ 23,55",
+"B"
+],
+[
+"Reposição",
+"t"
+],
+[
+"dólar primeiro, depois real, resto em guarani",
+"t"
+],
+[
+"G$ 575.200",
+"t"
+],
+[
+"R$ 326,50",
+"t"
+],
+[
+"US$ 23,55",
+"t"
+],
+[
+"Contas",
+"t"
+],
+[
+"cada uma na sua moeda",
+"t"
+],
+[
+"G$ 1.032.000",
+"t"
+],
+[
+"Colchão",
+"t"
+],
+[
+"proporcional ao que sobrou",
+"t"
+],
+[
+"G$ 133.300",
+"t"
+],
+[
+"Objetivos",
+"t"
+],
+[
+"da loja",
+"t"
+],
+[
+"G$ 90.000",
+"t"
+],
+[
+"Lucro livre",
+"t"
+],
+[
+"o que sobrou",
+"t"
+],
+[
+"G$ 1.422.400",
+"B"
+],
+[
+"Vendas do período",
+"T"
+],
+[
+"Cada venda com o valor exato recebido, na moeda de cada pagamento. Entrou no total:",
+"t"
+],
+[
+"G$ 3.253.000 + US$ 23,55 + R$ 326,50",
+"B"
+],
+[
+"1× Armação Gucci de metal feminino C1 · Preto",
+"t"
+],
+[
+"15/11 às 01:32",
+"t"
+],
+[
+"R$ 35,45",
+"B"
+],
+[
+"1× Armação Armani de acetato feminino C2 · Vinho",
+"t"
+],
+[
+"15/11 às 01:31",
+"t"
+],
+[
+"G$ 45.000",
+"B"
+],
+[
+"1× Óculos solar Kazwini de tr90 feminino C3 · Tartaruga",
+"t"
+],
+[
+"15/11 às 01:10",
+"t"
+],
+[
+"US$ 9,01",
+"B"
+],
+[
+"1× Óculos de leitura de plástico feminino +3.50 · Bege translúcido",
+"t"
+],
+[
+"14/11 às 18:26",
+"t"
+],
+[
+"US$ 3,75",
+"B"
+],
+[
+"1× Óculos de leitura de acetato unissex +0.75 · Preto",
+"t"
+],
+[
+"14/11 às 16:02",
+"t"
+],
+[
+"G$ 25.000",
+"B"
+],
+[
+"1× Óculos solar Kazwini de tr90 feminino C3 · Tartaruga",
+"t"
+],
+[
+"14/11 às 12:37",
+"t"
+],
+[
+"G$ 60.000",
+"B"
+],
+[
+"1× Óculos de leitura Kazwini de acetato masculino +0.75 · Preto",
+"t"
+],
+[
+"14/11 às 10:12",
+"t"
+],
+[
+"US$ 3,30",
+"B"
+],
+[
+"1× Óculos solar #14 C2 · Verde",
+"t"
+],
+[
+"13/11 às 16:18",
+"t"
+],
+[
+"G$ 60.000",
+"B"
+],
+[
+"1× Óculos solar #13 C4 · Marrom",
+"t"
+],
+[
+"13/11 às 13:06",
+"t"
+],
+[
+"G$ 57.000",
+"B"
+],
+[
+"1× Óculos solar Kazwini de tr90 feminino C1 · Preto",
+"t"
+],
+[
+"13/11 às 12:20",
+"t"
+],
+[
+"G$ 54.500",
+"B"
+],
+[
+"2× Óculos de leitura de plástico feminino +1.50 · Bege translúcido",
+"t"
+],
+[
+"13/11 às 11:17",
+"t"
+],
+[
+"G$ 50.000",
+"B"
+],
+[
+"1× Óculos de leitura de acetato unissex +0.75 · Preto",
+"t"
+],
+[
+"13/11 às 10:07",
+"t"
+],
+[
+"G$ 22.500",
+"B"
+],
+[
+"1× Óculos de leitura Kazwini de acetato masculino +2.00 · Preto",
+"t"
+],
+[
+"12/11 às 17:34",
+"t"
+],
+[
+"G$ 22.500",
+"B"
+],
+[
+"2× Óculos de leitura de plástico feminino +1.50 · Bege translúcido",
+"t"
+],
+[
+"12/11 às 15:05",
+"t"
+],
+[
+"US$ 7,49",
+"B"
+],
+[
+"1× Óculos de leitura de acetato unissex +1.50 · Tartaruga",
+"t"
+],
+[
+"12/11 às 12:42",
+"t"
+],
+[
+"G$ 22.000",
+"B"
+],
+[
+"1× Óculos de leitura de acetato unissex +1.75 · Preto",
+"t"
+],
+[
+"12/11 às 12:32",
+"t"
+],
+[
+"G$ 25.000",
+"B"
+],
+[
+"2× Óculos solar #13 C1 · Preto",
+"t"
+],
+[
+"12/11 às 12:09",
+"t"
+],
+[
+"G$ 120.000",
+"B"
+],
+[
+"3× Óculos de leitura de plástico feminino +2.00 · Bege translúcido",
+"t"
+],
+[
+"11/11 às 18:02",
+"t"
+],
+[
+"G$ 75.000",
+"B"
+],
+[
+"3× Óculos solar #13 C1 · Preto",
+"t"
+],
+[
+"11/11 às 18:01",
+"t"
+],
+[
+"G$ 180.000",
+"B"
+],
+[
+"1× Óculos de leitura de acetato unissex +2.50 · Tartaruga",
+"t"
+],
+[
+"11/11 às 15:39",
+"t"
+],
+[
+"G$ 25.000",
+"B"
+],
+[
+"Mostrando as 20 mais recentes de 68.",
+"t"
+],
+[
+"Ver tudo no Histórico",
+"t"
+],
+[
+"Meta do mês",
+"t"
+],
+[
+"meta G$ 3.049.000",
+"t"
+],
+[
+"G$ 1.408.491",
+"T"
+],
+[
+"Atrasado · no ritmo de hoje fecha o mês em",
+"t"
+],
+[
+"G$ 2.816.982",
+"B"
+],
+[
+"Para chegar lá:",
+"t"
+],
+[
+"~6,1 peças por dia",
+"B"
+],
+[
+"até o fim do mês",
+"t"
+],
+[
+"Passou da meta → metade vai para os Objetivos da loja",
+"t"
+]
+],
+"alt": 3929
+},
+"Reservas": {
+"txt": [
+[
+"Reservas",
+"T"
+],
+[
+"Caixa, contas e reserva · US$ 1 = G$ 6.487",
+"t"
+],
+[
+"Livre para você",
+"B"
+],
+[
+"já descontadas reposição, contas, colchão e melhorias",
+"t"
+],
+[
+"Guaranis",
+"t"
+],
+[
+"G$ 0",
+"B"
+],
+[
+"Faltam",
+"t"
+],
+[
+"G$ 18.567.232",
+"B"
+],
+[
+"para cobrir as reservas.",
+"t"
+],
+[
+"Total convertido no câmbio de hoje",
+"t"
+],
+[
+"G$ 0",
+"T"
+],
+[
+"Câmbio de hoje: R$ 1 = G$ 1.196 · US$ 1 = R$ 5,43 = G$ 6.487",
+"t"
+],
+[
+"De G$ 5.599.905 na carteira, G$ 5.599.905 já têm dono: reposição, contas, colchão e melhor",
+"t"
+],
+[
+"Reposição de mercadoria",
+"t"
+],
+[
+"G$ 19.484.678",
+"B"
+],
+[
+"Contas do mês",
+"t"
+],
+[
+"G$ 0",
+"B"
+],
+[
+"Colchão de segurança",
+"t"
+],
+[
+"G$ 3.268.433",
+"B"
+],
+[
+"Objetivos da loja",
+"t"
+],
+[
+"G$ 2.310.000",
+"B"
+],
+[
+"Esconder ⌃",
+"t"
+],
+[
+"Seu mês",
+"T"
+],
+[
+"Resultado da loja",
+"t"
+],
+[
+"vendas menos reposição e contas",
+"t"
+],
+[
+"G$ 1.559.420",
+"B"
+],
+[
+"Retirado por você",
+"t"
+],
+[
+"de G$ 1.399.032 de lucro livre",
+"t"
+],
+[
+"G$ 2.090.000",
+"B"
+],
+[
+"Sobra do mês",
+"t"
+],
+[
+"G$ -530.580",
+"B"
+],
+[
+"Registrar retirada (Caixa)",
+"t"
+],
+[
+"Detalhes do mês",
+"T"
+],
+[
+"receitas, despesas e resultado",
+"t"
+],
+[
+"Resultado de novembro",
+"T"
+],
+[
+"Compara com outubro e com novembro de 2025.",
+"t"
+],
+[
+"Exportar",
+"T"
+],
+[
+"Vendas",
+"t"
+],
+[
+"mês passado G$ 7.523.500 (−50%) · nov/25 G$ 6.580.500 (−42%)",
+"t"
+],
+[
+"G$ 3.797.500",
+"B"
+],
+[
+"Descontos de cupons (já fora das vendas)",
+"t"
+],
+[
+"mês passado G$ 0 · nov/25 G$ 0",
+"t"
+],
+[
+"G$ 0",
+"B"
+],
+[
+"Custo de repor a mercadoria vendida",
+"t"
+],
+[
+"mês passado G$ 2.154.966 (−48%) · nov/25 G$ 1.891.836 (−41%)",
+"t"
+],
+[
+"G$ 1.111.160",
+"B"
+],
+[
+"Taxas de maquininha",
+"t"
+],
+[
+"mês passado G$ 45.220 (−29%) · nov/25 G$ 53.340 (−40%)",
+"t"
+],
+[
+"G$ 31.920",
+"B"
+],
+[
+"Contas da loja pagas",
+"t"
+],
+[
+"mês passado G$ 1.485.000 (−31%) · nov/25 G$ 1.384.000 (−26%)",
+"t"
+],
+[
+"G$ 1.020.000",
+"B"
+],
+[
+"Imprevistos",
+"t"
+],
+[
+"mês passado G$ 0 · nov/25 G$ 0",
+"t"
+],
+[
+"G$ 60.000",
+"B"
+],
+[
+"Brindes comprados",
+"t"
+],
+[
+"mês passado G$ 0 · nov/25 G$ 0",
+"t"
+],
+[
+"G$ 0",
+"B"
+],
+[
+"Caixa de melhorias usada",
+"t"
+],
+[
+"mês passado G$ 0 · nov/25 G$ 0",
+"t"
+],
+[
+"G$ 15.000",
+"B"
+],
+[
+"Perdas de estoque (contagem e descarte)",
+"t"
+],
+[
+"mês passado G$ 3.014 (−100%) · nov/25 G$ 0",
+"t"
+],
+[
+"G$ 0",
+"B"
+],
+[
+"Câmbio nas trocas (dólar mais caro que o separado)",
+"t"
+],
+[
+"mês passado G$ 0 · nov/25 G$ 0",
+"t"
+],
+[
+"G$ 0",
+"B"
+],
+[
+"Resultado da loja",
+"B"
+],
+[
+"mês passado G$ 3.835.300 (−59%) · nov/25 G$ 3.251.324 (−52%)",
+"t"
+],
+[
+"G$ 1.559.420",
+"B"
+],
+[
+"Retiradas do dono (inclui contas de casa e pessoais)",
+"t"
+],
+[
+"mês passado G$ 2.928.000 (−29%) · nov/25 G$ 2.552.000 (−18%)",
+"t"
+],
+[
+"G$ 2.090.000",
+"B"
+],
+[
+"Sobra do mês",
+"B"
+],
+[
+"mês passado G$ 907.300 (−158%) · nov/25 G$ 699.324 (−176%)",
+"t"
+],
+[
+"G$ -530.580",
+"B"
+],
+[
+"Lucro real do mês",
+"T"
+],
+[
+"G$ 2.198.074 de G$ 3.797.500 vendidos",
+"t"
+],
+[
+"G$ 2.198.074",
+"T"
+],
+[
+"de G$ 3.797.500 vendidos · 58%",
+"t"
+],
+[
+"IVA das vendas",
+"t"
+],
+[
+"− G$ 345.234",
+"B"
+],
+[
+"Custo + IVA da compra",
+"t"
+],
+[
+"− G$ 1.222.272",
+"B"
+],
+[
+"Taxas do pagamento",
+"t"
+],
+[
+"− G$ 31.920",
+"B"
+],
+[
+"Frete das entregas",
+"t"
+],
+[
+"G$ 0",
+"B"
+],
+[
+"Descontos (cupom, Leve 2)",
+"t"
+],
+[
+"− G$ 0",
+"B"
+],
+[
+"O frete das compras já está dentro do custo de cada peça.",
+"t"
+],
+[
+"MAIS LUCRO REAL",
+"B"
+],
+[
+"SL2201 · Óculos solar Ray-Ban …",
+"t"
+],
+[
+"G$ 31.998 / un",
+"B"
+],
+[
+"YS8815 · Óculos solar #14",
+"t"
+],
+[
+"G$ 31.505 / un",
+"B"
+],
+[
+"MENOS LUCRO REAL",
+"B"
+],
+[
+"SP58110 · Óculos de leitura Kaz…",
+"t"
+],
+[
+"G$ 16.383 / un",
+"B"
+],
+[
+"Próximos 30 dias",
+"T"
+],
+[
+"Saldo G$ 5.388.304 · contas em PYG pedem troca",
+"t"
+]
+],
+"alt": 2915
+},
+"Giro": {
+"txt": [
+[
+"Giro",
+"T"
+],
+[
+"O que vende e o que está parado · US$ 1 = G$ 6.487",
+"t"
+],
+[
+"No estoque",
+"B"
+],
+[
+"US$ 420",
+"T"
+],
+[
+"a custo, sem estojos",
+"t"
+],
+[
+"Parado 60+ dias",
+"B"
+],
+[
+"US$ 172",
+"T"
+],
+[
+"41% do investido",
+"t"
+],
+[
+"Lista de compras",
+"T"
+],
+[
+"5 produto(s) vão acabar logo",
+"t"
+],
+[
+"Sem cor. Pré-graduados por grau. Cobre ~45 dias, corrigido pela estação. Ajuste com − e +.",
+"t"
+],
+[
+"Sobrando",
+"T"
+],
+[
+"em mercadoria acima do ideal · 14 peças",
+"t"
+],
+[
+"US$ 41",
+"T"
+],
+[
+"Acabando · 9",
+"B"
+],
+[
+"Óculos solar #13",
+"t"
+],
+[
+"Solares · Intermediário",
+"t"
+],
+[
+"Ideal 58 · Tem 9 · restam ~7 dias",
+"t"
+],
+[
+"Óculos solar Kazwini de tr90 feminino",
+"t"
+],
+[
+"Solares · Luxo",
+"t"
+],
+[
+"Ideal 37 · Tem 8 · restam ~10 dias",
+"t"
+],
+[
+"Óculos solar #14",
+"t"
+],
+[
+"Solares · Intermediário",
+"t"
+],
+[
+"Ideal 20 · Tem 4 · restam ~9 dias",
+"t"
+],
+[
+"Óculos de leitura de plástico feminino",
+"t"
+],
+[
+"Pré-graduados · Econômico",
+"t"
+],
+[
+"+2.00",
+"B"
+],
+[
+"Ideal 11 · Tem 2 · restam ~9 dias",
+"t"
+],
+[
+"Óculos de leitura de plástico feminino",
+"t"
+],
+[
+"Pré-graduados · Econômico",
+"t"
+],
+[
+"+3.50",
+"B"
+],
+[
+"Ideal 3 · Tem 1 · restam ~15 dias",
+"t"
+],
+[
+"Óculos de leitura de acetato unissex",
+"t"
+],
+[
+"Pré-graduados · Luxo",
+"t"
+],
+[
+"+1.75",
+"B"
+],
+[
+"Ideal 7 · Tem 0 · restam ~0 dias",
+"t"
+],
+[
+"Óculos de leitura de acetato unissex",
+"t"
+],
+[
+"Pré-graduados · Luxo",
+"t"
+],
+[
+"+2.50",
+"B"
+],
+[
+"Ideal 8 · Tem 3 · restam ~18 dias",
+"t"
+],
+[
+"Óculos de leitura #15",
+"t"
+],
+[
+"Pré-graduados · Econômico",
+"t"
+],
+[
+"+2.00",
+"B"
+],
+[
+"Ideal 5 · Tem 2 · restam ~20 dias",
+"t"
+],
+[
+"Óculos de leitura Kazwini de acetato masculino",
+"t"
+],
+[
+"Pré-graduados · Luxo",
+"t"
+],
+[
+"+0.75",
+"B"
+],
+[
+"Ideal 9 · Tem 3 · restam ~16 dias",
+"t"
+],
+[
+"Época chegando · 13",
+"B"
+],
+[
+"Óculos de leitura de acetato unissex",
+"t"
+],
+[
+"Pré-graduados · Luxo",
+"t"
+],
+[
+"+0.75",
+"B"
+],
+[
+"a época vende 26% mais · Ideal 9 · Tem 4",
+"t"
+],
+[
+"Óculos de leitura de acetato unissex",
+"t"
+],
+[
+"Pré-graduados · Luxo",
+"t"
+],
+[
+"+1.00",
+"B"
+],
+[
+"a época vende 26% mais · Ideal 6 · Tem 5",
+"t"
+],
+[
+"Óculos de leitura de acetato unissex",
+"t"
+],
+[
+"Pré-graduados · Luxo",
+"t"
+],
+[
+"+1.25",
+"B"
+],
+[
+"a época vende 26% mais · Ideal 9 · Tem 6",
+"t"
+],
+[
+"Óculos de leitura de acetato unissex",
+"t"
+],
+[
+"Pré-graduados · Luxo",
+"t"
+],
+[
+"+1.75",
+"B"
+],
+[
+"a época vende 26% mais · Ideal 6 · Tem 5",
+"t"
+],
+[
+"Óculos de leitura de plástico feminino",
+"t"
+],
+[
+"Pré-graduados · Econômico",
+"t"
+],
+[
+"+1.00",
+"B"
+],
+[
+"a época vende 26% mais · Ideal 8 · Tem 3",
+"t"
+],
+[
+"Óculos de leitura de plástico feminino",
+"t"
+],
+[
+"Pré-graduados · Econômico",
+"t"
+],
+[
+"+1.50",
+"B"
+],
+[
+"a época vende 26% mais · Ideal 8 · Tem 4",
+"t"
+],
+[
+"Óculos de leitura de acetato unissex",
+"t"
+],
+[
+"Pré-graduados · Luxo",
+"t"
+],
+[
+"+1.50",
+"B"
+],
+[
+"a época vende 26% mais · Ideal 7 · Tem 3",
+"t"
+],
+[
+"Óculos de leitura #15",
+"t"
+],
+[
+"Pré-graduados · Econômico",
+"t"
+],
+[
+"+1.50",
+"B"
+],
+[
+"a época vende 26% mais · Ideal 8 · Tem 3",
+"t"
+],
+[
+"Óculos de leitura #15",
+"t"
+],
+[
+"Pré-graduados · Econômico",
+"t"
+],
+[
+"+2.50",
+"B"
+],
+[
+"a época vende 26% mais · Ideal 6 · Tem 3",
+"t"
+],
+[
+"Óculos de leitura Kazwini de acetato masculino",
+"t"
+],
+[
+"Pré-graduados · Luxo",
+"t"
+],
+[
+"+1.25",
+"B"
+],
+[
+"a época vende 26% mais · Ideal 4 · Tem 2",
+"t"
+],
+[
+"Óculos de leitura Kazwini de acetato masculino",
+"t"
+],
+[
+"Pré-graduados · Luxo",
+"t"
+],
+[
+"+2.00",
+"B"
+],
+[
+"a época vende 26% mais · Ideal 6 · Tem 4",
+"t"
+],
+[
+"Armação Gucci de metal feminino",
+"t"
+],
+[
+"Armações · Econômico",
+"t"
+],
+[
+"a época vende 56% mais · Ideal 11 · Tem 9",
+"t"
+],
+[
+"Armação Armani de acetato feminino",
+"t"
+],
+[
+"Armações · Luxo",
+"t"
+],
+[
+"a época vende 56% mais · Ideal 8 · Tem 5",
+"t"
+],
+[
+"Sobrando · 4",
+"B"
+],
+[
+"Armação #11",
+"t"
+],
+[
+"Armações · Intermediário",
+"t"
+],
+[
+"Ideal 2 · Tem 7 ·",
+"t"
+],
+[
+"Sobra 5",
+"B"
+],
+[
+"· acaba em ~271 dias",
+"t"
+],
+[
+"Vai virar parada · colocar em oferta?",
+"t"
+],
+[
+"US$ 16",
+"B"
+],
+[
+"Oferta ›",
+"B"
+],
+[
+"Armação #10",
+"t"
+],
+[
+"Armações · Intermediário",
+"t"
+],
+[
+"Ideal 3 · Tem 7 ·",
+"t"
+],
+[
+"Sobra 4",
+"B"
+],
+[
+"· acaba em ~105 dias",
+"t"
+],
+[
+"Vai virar parada · colocar em oferta?",
+"t"
+],
+[
+"US$ 13",
+"B"
+],
+[
+"Oferta ›",
+"B"
+],
+[
+"Armação Ray-Ban de metal masculino",
+"t"
+],
+[
+"Armações · Intermediário",
+"t"
+],
+[
+"Ideal 5 · Tem 8 ·",
+"t"
+],
+[
+"Sobra 3",
+"B"
+],
+[
+"· acaba em ~78 dias",
+"t"
+],
+[
+"US$ 7",
+"B"
+],
+[
+"Armação Gucci de metal feminino",
+"t"
+],
+[
+"Armações · Econômico",
+"t"
+],
+[
+"Ideal 7 · Tem 9 ·",
+"t"
+],
+[
+"Sobra 2",
+"B"
+],
+[
+"· acaba em ~59 dias",
+"t"
+],
+[
+"US$ 5",
+"B"
+],
+[
+"Total",
+"T"
+],
+[
+"US$ 425",
+"T"
+],
+[
+"reposição US$ 3.004",
+"t"
+],
+[
+"Cabe no dinheiro da reposição (sobram US$ 2.579).",
+"t"
+],
+[
+"Marcar como pedido",
+"T"
+],
+[
+"Mandar ao fornecedor",
+"T"
+],
+[
+"Vitrine da semana",
+"T"
+],
+[
+"diga quantos lugares tem a vitrine",
+"t"
+],
+[
+"Para sugerir o que entra e o que sai, preciso saber o tamanho da vitrine.",
+"t"
+],
+[
+"Quantos lugares (peças) cabem na vitrine?",
+"t"
+],
+[
+"Salvar",
+"T"
+],
+[
+"Retorno do estoque",
+"T"
+],
+[
+"cada US$ 1 investido rendeu US$ 0,98 em 30 dias",
+"t"
+],
+[
+"Dinheiro no estoque",
+"T"
+],
+[
+"Quanto do que você investiu está parado e quanto o estoque rende.",
+"t"
+],
+[
+"Investido em estoque",
+"t"
+],
+[
+"a custo, sem estojos e brindes",
+"t"
+],
+[
+"US$ 419,70",
+"B"
+],
+[
+"Parado há 60 dias ou mais",
+"t"
+],
+[
+"41% do investido",
+"t"
+],
+[
+"US$ 171,50",
+"B"
+],
+[
+"Retorno do estoque (30 dias)",
+"t"
+],
+[
+"cada US$ 1 investido rendeu US$ 0,98 de lucro livre",
+"t"
+],
+[
+"98,0%",
+"B"
+],
+[
+"Curva ABC",
+"T"
+],
+[
+"quais produtos dão 80% do lucro (90 dias)",
+"t"
+]
+],
+"alt": 7148
+},
+"Preços": {
+"txt": [
+[
+"Preços",
+"T"
+],
+[
+"Margem e preço por tipo · US$ 1 = G$ 6.487",
+"t"
+],
+[
+"Contador",
+"T"
+],
+[
+"revisado agora",
+"t"
+],
+[
+"Margem média real",
+"t"
+],
+[
+"▼ 1 pts",
+"t"
+],
+[
+"Lucro por peça",
+"t"
+],
+[
+"G$ 24.747",
+"T"
+],
+[
+"Contas do mês cobertas",
+"t"
+],
+[
+"faltam 81 peças",
+"t"
+],
+[
+"Abaixo do piso",
+"t"
+],
+[
+"PARA DECIDIR ESTA SEMANA · 30",
+"B"
+],
+[
+"Subir YM7721",
+"B"
+],
+[
+"dólar ou custo subiu · estava dando prejuízo",
+"t"
+],
+[
+"G$ 81.000",
+"B"
+],
+[
+"Subir YM7735",
+"B"
+],
+[
+"dólar ou custo subiu · estava dando prejuízo",
+"t"
+],
+[
+"G$ 81.000",
+"B"
+],
+[
+"Subir YM7790",
+"B"
+],
+[
+"dólar ou custo subiu · estava dando prejuízo",
+"t"
+],
+[
+"G$ 81.000",
+"B"
+],
+[
+"Subir YS8801",
+"B"
+],
+[
+"dólar ou custo subiu",
+"t"
+],
+[
+"G$ 66.000",
+"B"
+],
+[
+"Subir YS8815",
+"B"
+],
+[
+"dólar ou custo subiu",
+"t"
+],
+[
+"G$ 66.000",
+"B"
+],
+[
+"Black Friday em 12 dias",
+"B"
+],
+[
+"sugestão do tema pronta",
+"t"
+],
+[
+"Atacado SP57765 com margem -11%",
+"B"
+],
+[
+"Óptica · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Atacado SP58110 com margem -11%",
+"B"
+],
+[
+"Óptica · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Atacado SP60627 com margem -11%",
+"B"
+],
+[
+"Óptica · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Atacado SP59002 com margem -11%",
+"B"
+],
+[
+"Óptica · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Atacado BR44118 com margem 6%",
+"B"
+],
+[
+"Óptica · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Atacado BR44120 com margem 6%",
+"B"
+],
+[
+"Óptica · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Atacado BR44133 com margem 6%",
+"B"
+],
+[
+"Óptica · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Atacado SL2201 com margem 6%",
+"B"
+],
+[
+"Óptica · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Atacado SL2210 com margem 6%",
+"B"
+],
+[
+"Óptica · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Atacado YM7721 com margem -1%",
+"B"
+],
+[
+"Óptica · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Atacado YM7735 com margem -1%",
+"B"
+],
+[
+"Óptica · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Atacado YM7790 com margem -1%",
+"B"
+],
+[
+"Óptica · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Atacado YS8801 com margem 7%",
+"B"
+],
+[
+"Óptica · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Atacado YS8815 com margem 7%",
+"B"
+],
+[
+"Óptica · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Atacado SP61200 com margem -11%",
+"B"
+],
+[
+"Óptica · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Atacado SP57765 com margem -11%",
+"B"
+],
+[
+"Vendedor · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Atacado SP58110 com margem -11%",
+"B"
+],
+[
+"Vendedor · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Atacado SP60627 com margem -11%",
+"B"
+],
+[
+"Vendedor · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Atacado SP59002 com margem -11%",
+"B"
+],
+[
+"Vendedor · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Atacado BR44118 com margem 6%",
+"B"
+],
+[
+"Vendedor · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Atacado BR44120 com margem 6%",
+"B"
+],
+[
+"Vendedor · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Atacado BR44133 com margem 6%",
+"B"
+],
+[
+"Vendedor · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Atacado SL2201 com margem 6%",
+"B"
+],
+[
+"Vendedor · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Atacado SL2210 com margem 6%",
+"B"
+],
+[
+"Vendedor · abaixo de 10%",
+"t"
+],
+[
+"ajustar",
+"B"
+],
+[
+"Aceitar tudo",
+"T"
+],
+[
+"Ver um por um",
+"T"
+],
+[
+"Calculadora de preço",
+"T"
+],
+[
+"E se…?",
+"T"
+],
+[
+"REGRAS DO CONTADOR",
+"B"
+],
+[
+"Preço automático",
+"T"
+],
+[
+"desligado",
+"t"
+],
+[
+"Preço automático desligado · ligue em Ajustes",
+"t"
+],
+[
+"Lucro do mês",
+"t"
+],
+[
+"meta G$ 3.048.890",
+"t"
+],
+[
+"G$ 1.408.491",
+"T"
+],
+[
+"46% · no ritmo atual chega a 92% até o fim do mês",
+"t"
+],
+[
+"Pré-graduados · preço fixo",
+"T"
+],
+[
+"Econômica G$ 25.000 · Luxo G$ 25.000",
+"t"
+],
+[
+"O app escolhe a linha de cada peça sozinho. O preço não muda sozinho.",
+"t"
+],
+[
+"Linha econômica (G$)",
+"T"
+],
+[
+"Linha luxo (G$)",
+"T"
+],
+[
+"Preço abaixo do piso",
+"T"
+],
+[
+"16 produto(s) com o câmbio de hoje",
+"t"
+],
+[
+"Preço abaixo do piso hoje",
+"T"
+],
+[
+"Com o câmbio e as contas de hoje, o preço de tabela destes produtos não cobre o piso da fa",
+"t"
+],
+[
+"Óculos de leitura de acetato unissex",
+"t"
+],
+[
+"Pré-graduados · Luxo",
+"t"
+],
+[
+"tabela G$ 25.000 · piso G$ 56.500",
+"t"
+],
+[
+"G$ -31.500",
+"B"
+],
+[
+"Óculos de leitura Kazwini de acetato masculino",
+"t"
+],
+[
+"Pré-graduados · Luxo",
+"t"
+],
+[
+"tabela G$ 25.000 · piso G$ 56.500",
+"t"
+],
+[
+"G$ -31.500",
+"B"
+],
+[
+"Óculos de leitura de plástico feminino",
+"t"
+],
+[
+"Pré-graduados · Econômico",
+"t"
+],
+[
+"tabela G$ 25.000 · piso G$ 40.500",
+"t"
+],
+[
+"G$ -15.500",
+"B"
+],
+[
+"Óculos de leitura de acetato unissex",
+"t"
+],
+[
+"Pré-graduados · Luxo",
+"t"
+],
+[
+"tabela G$ 25.000 · piso G$ 56.500",
+"t"
+],
+[
+"G$ -31.500",
+"B"
+],
+[
+"Armação Gucci de metal feminino",
+"t"
+],
+[
+"Armações · Econômico",
+"t"
+],
+[
+"tabela G$ 45.000 · piso G$ 60.500",
+"t"
+],
+[
+"G$ -15.500",
+"B"
+],
+[
+"Armação Ray-Ban de metal masculino",
+"t"
+],
+[
+"Armações · Intermediário",
+"t"
+],
+[
+"tabela G$ 45.000 · piso G$ 70.500",
+"t"
+],
+[
+"G$ -25.500",
+"B"
+],
+[
+"Armação Armani de acetato feminino",
+"t"
+],
+[
+"Armações · Luxo",
+"t"
+],
+[
+"tabela G$ 45.000 · piso G$ 84.500",
+"t"
+],
+[
+"G$ -39.500",
+"B"
+],
+[
+"Óculos solar Ray-Ban de metal masculino",
+"t"
+],
+[
+"Solares · Intermediário",
+"t"
+],
+[
+"tabela G$ 60.000 · piso G$ 78.000",
+"t"
+],
+[
+"G$ -18.000",
+"B"
+],
+[
+"Contas, taxas e meta",
+"T"
+],
+[
+"o que entra no custo de cada peça",
+"t"
+]
+],
+"alt": 4924
+},
+"Online (aba)": {
+"txt": [
+[
+"Online",
+"T"
+],
+[
+"undefined · US$ 1 = G$ 6.487",
+"t"
+],
+[
+"Pedidos do site · 7 dias",
+"t"
+],
+[
+"Peças vistas · 30 dias",
+"t"
+],
+[
+"MAIS VISTAS",
+"B"
+],
+[
+"Ainda sem vistas (precisa da nuvem ligada).",
+"t"
+],
+[
+"Painel completo ›",
+"B"
+]
+],
+"alt": 844
+},
+"Histórico": {
+"txt": [
+[
+"Histórico",
+"T"
+],
+[
+"Todas as vendas, dia por dia.",
+"t"
+],
+[
+"Filtros",
+"B"
+],
+[
+"Tipo de movimento",
+"B"
+],
+[
+"Venda",
+"t"
+],
+[
+"Estorno",
+"t"
+],
+[
+"Conta paga",
+"t"
+],
+[
+"Retirada",
+"t"
+],
+[
+"Imprevisto",
+"t"
+],
+[
+"Melhorias",
+"t"
+],
+[
+"Compra de lote",
+"t"
+],
+[
+"Descarte",
+"t"
+],
+[
+"Conferência",
+"t"
+],
+[
+"Câmbio / estoque",
+"t"
+],
+[
+"Forma de pagamento",
+"B"
+],
+[
+"Dinheiro",
+"t"
+],
+[
+"Maquininha débito",
+"t"
+],
+[
+"Maquininha crédito",
+"t"
+],
+[
+"Faixa",
+"B"
+],
+[
+"Econômico",
+"t"
+],
+[
+"Intermediário",
+"t"
+],
+[
+"Luxo",
+"t"
+],
+[
+"Moeda",
+"B"
+],
+[
+"Valor em G$",
+"B"
+],
+[
+"Limpar tudo",
+"t"
+],
+[
+"Fechamento do caixa",
+"T"
+],
+[
+"Hoje ainda aberto. Fecha sozinho depois das 17h, ou feche agora se a loja fechou mais cedo",
+"t"
+],
+[
+"Fechar o dia agora",
+"T"
+],
+[
+"Novembro de 2026",
+"B"
+],
+[
+"Mês todo: G$ 3.797.500 em 68 venda(s) · lucro livre G$ 1.399.032",
+"t"
+],
+[
+"Outubro de 2026",
+"B"
+],
+[
+"Mês todo: G$ 7.523.500 em 158 venda(s) · lucro livre G$ 2.792.026",
+"t"
+],
+[
+"Carregar mais 30 dias (385 dia(s) com movimento)",
+"T"
+]
+],
+"alt": 6869
+},
+"Ajustes": {
+"txt": [
+[
+"Ajustes",
+"T"
+],
+[
+"Aparelho, loja, site e segurança.",
+"t"
+],
+[
+"Impressora",
+"T"
+],
+[
+"Nenhuma",
+"t"
+],
+[
+"Nenhuma conectada",
+"t"
+],
+[
+"Procurar impressora",
+"T"
+],
+[
+"Preço automático",
+"T"
+],
+[
+"Desligado",
+"t"
+],
+[
+"Preço automático",
+"T"
+],
+[
+"desligado · você define os preços à mão",
+"t"
+],
+[
+"Tema",
+"T"
+],
+[
+"Auto",
+"t"
+],
+[
+"Automático segue o aparelho. Vale só neste aparelho.",
+"t"
+],
+[
+"Auto",
+"B"
+],
+[
+"Segurança",
+"T"
+],
+[
+"Desligada",
+"t"
+],
+[
+"Abrir o app com digital ou rosto. O PIN de emergência abre o app se a biometria falhar.",
+"t"
+],
+[
+"Usar biometria",
+"T"
+],
+[
+"Neste app não encontrei o componente de biometria. Instale o APK novo. (este app está roda",
+"t"
+],
+[
+"Pedidos do site",
+"T"
+],
+[
+"Baixa manual",
+"t"
+],
+[
+"Define o que o app faz quando você marca um pedido do site como entregue.",
+"t"
+],
+[
+"Baixa automática",
+"T"
+],
+[
+"Desligada: ao entregar, você registra a venda e baixa o estoque à mão.",
+"t"
+],
+[
+"Transportadoras do Delivery",
+"T"
+],
+[
+"Preço que o cliente vê no site (vazio = pago na entrega). Desligue a que não está atendend",
+"t"
+],
+[
+"PedidosYa Envíos",
+"t"
+],
+[
+"em até 60 min",
+"t"
+],
+[
+"Bolt Envío",
+"t"
+],
+[
+"em até 60 min",
+"t"
+],
+[
+"Tiemsa",
+"t"
+],
+[
+"1 a 2 dias úteis",
+"t"
+],
+[
+"MCGroup",
+"t"
+],
+[
+"1 a 2 dias úteis",
+"t"
+],
+[
+"Salvar no site",
+"T"
+],
+[
+"Sons e avisos",
+"T"
+],
+[
+"Ligados",
+"t"
+],
+[
+"Vale só para este aparelho:",
+"t"
+],
+[
+"Este computador",
+"B"
+],
+[
+". Toque no som para trocar, em ▶ para ouvir; a chave liga ou desliga o aviso.",
+"t"
+],
+[
+"Pedidos do site",
+"B"
+],
+[
+"Pedido novo",
+"T"
+],
+[
+"Cliente fez um pedido no site",
+"t"
+],
+[
+"🔔 Caixa registradora",
+"B"
+],
+[
+"Comprovante enviado",
+"T"
+],
+[
+"Cliente mandou o comprovante para conferir",
+"t"
+],
+[
+"🔔 Sino",
+"B"
+],
+[
+"Pagamento aprovado",
+"T"
+],
+[
+"Quando o Pagopar estiver ligado",
+"t"
+],
+[
+"🔔 Moeda",
+"B"
+],
+[
+"Cliente cancelou",
+"T"
+],
+[
+"Cancelamento feito pelo site",
+"t"
+],
+[
+"🔔 Suave",
+"B"
+],
+[
+"Estoque e dinheiro",
+"B"
+],
+[
+"Peça voltou",
+"T"
+],
+[
+"Peça esgotada voltou ao estoque (lista de espera)",
+"t"
+],
+[
+"🔔 Suave",
+"B"
+],
+[
+"Dólar barato",
+"T"
+],
+[
+"Bom momento para trocar dinheiro",
+"t"
+],
+[
+"🔕 Sem som",
+"B"
+],
+[
+"Silêncio",
+"B"
+],
+[
+"Silêncio fora do horário",
+"T"
+],
+[
+"Sem som nem vibração",
+"t"
+],
+[
+"Testar",
+"B"
+],
+[
+"Enviar aviso de teste",
+"T"
+],
+[
+"Toca o som de “Pedido novo”",
+"t"
+],
+[
+"Atualização",
+"T"
+],
+[
+"5.18.0",
+"t"
+],
+[
+"O app procura sozinho (ao abrir e a cada poucas horas) e avisa quando a nova está pronta. ",
+"t"
+],
+[
+"Versão",
+"t"
+],
+[
+"5.18.0",
+"T"
+],
+[
+"(526)",
+"t"
+],
+[
+"Buscar atualização",
+"T"
+],
+[
+"Toque para procurar agora",
+"t"
+],
+[
+"Cópias e nuvem",
+"T"
+],
+[
+"Nenhuma cópia",
+"t"
+],
+[
+"Voltar no tempo",
+"T"
+],
+[
+"mudanças de produto guardadas neste aparelho",
+"t"
+],
+[
+"Backup",
+"T"
+],
+[
+"Os dados ficam só neste celular. Guarde uma cópia de vez em quando (e antes de trocar de a",
+"t"
+],
+[
+"Nenhum backup feito ainda.",
+"t"
+],
+[
+"Exportar backup",
+"T"
+],
+[
+"Importar backup",
+"T"
+],
+[
+"Nuvem",
+"T"
+],
+[
+"Cópia de segurança automática (até 1 h depois de qualquer mudança; guarda a última de cada",
+"t"
+],
+[
+"Conectar à nuvem",
+"T"
+],
+[
+"Pagamento automático",
+"T"
+],
+[
+"Desligado",
+"t"
+],
+[
+"PIX pelo Nubank",
+"T"
+],
+[
+"só no app do Android (precisa do APK novo)",
+"t"
+],
+[
+"Última notificação lida",
+"t"
+],
+[
+"nenhuma",
+"B"
+],
+[
+"Transferência (Banco Familiar): por enquanto com comprovante (o app lê o valor).",
+"t"
+],
+[
+"Imprimir pedidos pagos sozinho",
+"T"
+],
+[
+"conecte uma impressora neste aparelho",
+"t"
+],
+[
+"Versão 5.18.0",
+"t"
+]
+],
+"alt": 887
+},
+"Notificações": {
+"txt": [
+[
+"Pendências",
+"T"
+],
+[
+"O que precisa de você agora.",
+"t"
+],
+[
+"Guardião · precisa de você agora · 6",
+"B"
+],
+[
+"Margem da loja em 2,0%",
+"T"
+],
+[
+"O dólar está 2,4% acima da menor cotação de 14 dias. Dólar da loja: G$ 6.600.",
+"t"
+],
+[
+"Ver margem",
+"B"
+],
+[
+"Contas de casa",
+"T"
+],
+[
+"venceu há 3 dias",
+"t"
+],
+[
+"Ver conta",
+"B"
+],
+[
+"Preço ficou perigoso",
+"T"
+],
+[
+"9 produto(s) com preço que não cobre custo e contas",
+"t"
+],
+[
+"Ver preços",
+"B"
+],
+[
+"Caixa de hoje não bate",
+"T"
+],
+[
+"Sem vendas há mais de 1 hora",
+"t"
+],
+[
+"Conferir",
+"B"
+],
+[
+"Peça sem custo (lucro errado) · 11",
+"T"
+],
+[
+"SP57765",
+"t"
+],
+[
+"SP58110",
+"t"
+],
+[
+"SP60627",
+"t"
+],
+[
+"Lote sem detalhe · 343",
+"T"
+],
+[
+"Completar",
+"B"
+],
+[
+"Para acompanhar · 6",
+"B"
+],
+[
+"vence hoje",
+"t"
+],
+[
+"Ver conta",
+"B"
+],
+[
+"Contador",
+"T"
+],
+[
+"vence em 5 dias",
+"t"
+],
+[
+"Ver conta",
+"B"
+],
+[
+"Fechar o dia?",
+"T"
+],
+[
+"Sem vendas há mais de 1 hora",
+"t"
+],
+[
+"Fechar",
+"B"
+],
+[
+"Repor mercadoria",
+"T"
+],
+[
+"5 produto(s) vão acabar logo",
+"t"
+],
+[
+"Ver reposição",
+"B"
+],
+[
+"Backup",
+"T"
+],
+[
+"ainda não guardou fora do celular",
+"t"
+],
+[
+"Fazer",
+"B"
+],
+[
+"Black Friday em 12 dias",
+"T"
+],
+[
+"sugestão de desconto pronta",
+"t"
+],
+[
+"Ver todas as conferências do Guardião ›",
+"B"
+],
+[
+"Histórico",
+"B"
+],
+[
+"Margem da loja subiu para 2,0%",
+"T"
+],
+[
+"O dólar está 2,4% acima da menor cotação de 14 dias. Dólar da loja: G$ 6.600.",
+"t"
+],
+[
+"15/11 17:24",
+"t"
+],
+[
+"Limpar histórico",
+"t"
+]
+],
+"alt": 1936
+}
+}

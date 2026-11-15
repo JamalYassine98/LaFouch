@@ -1,0 +1,841 @@
+{
+ "Início": {
+  "tit": [],
+  "par": [],
+  "peq": [],
+  "alt": 1377,
+  "bot": 20,
+  "abertos": 0
+ },
+ "Catálogo": {
+  "tit": [
+   "Catálogo"
+  ],
+  "par": [],
+  "peq": [],
+  "alt": 6079,
+  "bot": 43,
+  "abertos": 0
+ },
+ "Inventário": {
+  "tit": [
+   "Inventário"
+  ],
+  "par": [
+   [
+    "EM ESTOQUE (FILTRO)",
+    "470"
+   ],
+   [
+    "REFERÊNCIAS",
+    "16"
+   ]
+  ],
+  "peq": [],
+  "alt": 3279,
+  "bot": 59,
+  "abertos": 0
+ },
+ "Dinheiro": {
+  "tit": [
+   "Dinheiro",
+   "Objetivos da loja",
+   "Movimentos",
+   "Contas para pagar"
+  ],
+  "par": [
+   [
+    "Escola 12/11 às 17:23",
+    "G$ 590.000"
+   ],
+   [
+    "Tinta da fachada (objetivo) 07/11 às 16:",
+    "G$ 15.000"
+   ],
+   [
+    "Escola 13/10 às 17:45",
+    "G$ 420.000"
+   ],
+   [
+    "Compras de casa 13/09 às 17:46",
+    "G$ 530.000"
+   ],
+   [
+    "Mercado 14/08 às 17:12",
+    "G$ 600.000"
+   ],
+   [
+    "Compras de casa 15/07 às 17:20",
+    "G$ 440.000"
+   ],
+   [
+    "Escola 15/06 às 17:06",
+    "G$ 680.000"
+   ],
+   [
+    "TOTAL OBRIGATÓRIO POR MÊS",
+    "G$ 4.200.000"
+   ],
+   [
+    "CADA PEÇA VENDIDA SEPARA",
+    "G$ 24.561"
+   ],
+   [
+    "Contas de casa venceu há 3 dias",
+    "G$ 1.000.000"
+   ],
+   [
+    "Luz vence hoje",
+    "G$ 180.000"
+   ],
+   [
+    "Contador vence em 5 dias",
+    "G$ 300.000"
+   ],
+   [
+    "CONTAS DO MÊS",
+    ""
+   ],
+   [
+    "CÂMBIO",
+    ""
+   ],
+   [
+    "DÓLAR",
+    ""
+   ],
+   [
+    "REAL",
+    ""
+   ],
+   [
+    "DÓLAR EM REAIS",
+    ""
+   ],
+   [
+    "REPOSIÇÃO",
+    ""
+   ]
+  ],
+  "peq": [],
+  "alt": 844,
+  "bot": 31,
+  "abertos": 1
+ },
+ "Despesas": {
+  "tit": [
+   "Despesas",
+   "Contas para pagar",
+   "Por grupo",
+   "Imprevistos do mês",
+   "Nova despesa"
+  ],
+  "par": [
+   [
+    "TOTAL OBRIGATÓRIO POR MÊS",
+    "G$ 4.200.000"
+   ],
+   [
+    "CADA PEÇA VENDIDA SEPARA",
+    "G$ 24.561"
+   ],
+   [
+    "Contas de casa venceu há 3 dias",
+    "G$ 1.000.000"
+   ],
+   [
+    "Luz vence hoje",
+    "G$ 180.000"
+   ],
+   [
+    "Contador vence em 5 dias",
+    "G$ 300.000"
+   ],
+   [
+    "Conserto da vitrine 09/11",
+    "G$ 60.000"
+   ],
+   [
+    "LOJA",
+    ""
+   ],
+   [
+    "CASA",
+    ""
+   ],
+   [
+    "SALÁRIO",
+    ""
+   ],
+   [
+    "CONTADOR",
+    ""
+   ],
+   [
+    "IMPREVISTOS",
+    ""
+   ]
+  ],
+  "peq": [],
+  "alt": 3960,
+  "bot": 25,
+  "abertos": 3
+ },
+ "Câmbio": {
+  "tit": [
+   "Câmbio"
+  ],
+  "par": [
+   [
+    "DÓLAR",
+    ""
+   ],
+   [
+    "REAL",
+    ""
+   ],
+   [
+    "DÓLAR EM REAIS",
+    ""
+   ],
+   [
+    "REPOSIÇÃO",
+    ""
+   ]
+  ],
+  "peq": [],
+  "alt": 1104,
+  "bot": 9,
+  "abertos": 0
+ },
+ "Clientes": {
+  "tit": [
+   "Clientes"
+  ],
+  "par": [],
+  "peq": [],
+  "alt": 844,
+  "bot": 4,
+  "abertos": 0
+ },
+ "Pedidos": {
+  "tit": [
+   "Pedidos online"
+  ],
+  "par": [],
+  "peq": [],
+  "alt": 844,
+  "bot": 4,
+  "abertos": 0
+ },
+ "Loja online": {
+  "tit": [],
+  "par": [],
+  "peq": [],
+  "alt": 891,
+  "bot": 1,
+  "abertos": 0
+ },
+ "Dashboard (dia)": {
+  "tit": [
+   "Dashboard",
+   "Domingo, 15 de novembro de 2026",
+   "Câmbio do dia",
+   "Despesas do dia",
+   "Fechamento do dia"
+  ],
+  "par": [
+   [
+    "VENDIDO",
+    "G$ 147.500"
+   ],
+   [
+    "LUCRO LIVRE",
+    "G$ 51.423"
+   ],
+   [
+    "CONTAS DO DIA",
+    "G$ 140.000"
+   ],
+   [
+    "GASTOS EXTRAS",
+    "G$ 0"
+   ],
+   [
+    "Recebido",
+    "R$ 35,45 (câmbio G$ 1.19"
+   ],
+   [
+    "Troco devolvido",
+    "sem troco"
+   ],
+   [
+    "Forma de pagamento",
+    "Dinheiro"
+   ],
+   [
+    "Câmbio no dia",
+    "G$ 6.499 por US$ (hoje G"
+   ],
+   [
+    "Custo pago",
+    "US$ 1,90"
+   ],
+   [
+    "Custo de reposição",
+    "US$ 2,40"
+   ],
+   [
+    "Reposição separada",
+    "G$ 15.598"
+   ],
+   [
+    "Contas separadas",
+    "G$ 11.500 (G$ 11.500 por"
+   ],
+   [
+    "Colchão (12,0%)",
+    "G$ 1.872"
+   ],
+   [
+    "Caixa de melhorias",
+    "G$ 1.000"
+   ],
+   [
+    "Lucro livre",
+    "G$ 12.530"
+   ],
+   [
+    "Preço mínimo seguro na hora",
+    "G$ 27.098 por peça"
+   ],
+   [
+    "Vendido",
+    "G$ 147.500"
+   ],
+   [
+    "Reposição separada",
+    "G$ 50.693 (US$ 7,80)"
+   ],
+   [
+    "Contas separadas",
+    "G$ 34.500"
+   ],
+   [
+    "Colchão separado",
+    "G$ 6.084"
+   ],
+   [
+    "Caixa de melhorias",
+    "G$ 3.000"
+   ],
+   [
+    "Lucro livre",
+    "G$ 51.423"
+   ],
+   [
+    "Gastos extras (imprevistos e melhorias)",
+    "−G$ 0"
+   ],
+   [
+    "Lucro livre depois dos gastos extras",
+    "G$ 51.423"
+   ],
+   [
+    "VENDIDO",
+    "G$ 3.253.000 R$ 326,50 U"
+   ],
+   [
+    "SEPARAR DAS VENDAS",
+    "G$ 1.830.600 R$ 326,50 U"
+   ],
+   [
+    "LUCRO LIVRE",
+    "G$ 1.422.400"
+   ],
+   [
+    "VENDAS DO DIA",
+    ""
+   ],
+   [
+    "DIAS ANTERIORES",
+    ""
+   ],
+   [
+    "NÚMEROS DO MÊS",
+    ""
+   ]
+  ],
+  "peq": [
+   "‹ 15/11/2026 ▾ → campo de 28×44 px"
+  ],
+  "alt": 3430,
+  "bot": 17,
+  "abertos": 1
+ },
+ "Resumo": {
+  "tit": [
+   "Para repor o estoque",
+   "Colchão de segurança",
+   "Quanto separar do que você vendeu",
+   "Vendas do período"
+  ],
+  "par": [
+   [
+    "VENDIDO",
+    "G$ 3.253.000 R$ 326,50 U"
+   ],
+   [
+    "SEPARAR DAS VENDAS",
+    "G$ 1.830.600 R$ 326,50 U"
+   ],
+   [
+    "LUCRO LIVRE",
+    "G$ 1.422.400"
+   ],
+   [
+    "DÓLAR HOJE",
+    "G$ 6.487"
+   ],
+   [
+    "Dólar recebido já está em dólar e fica p",
+    "US$ 23,55"
+   ],
+   [
+    "Trocar R$ 326,50 por US$ 60,18 cotação d",
+    "R$ 326,50"
+   ],
+   [
+    "Trocar G$ 575.200 por US$ 88,67 cotação ",
+    "G$ 575.200"
+   ],
+   [
+    "Já em dólar protegido",
+    "US$ 0,00"
+   ],
+   [
+    "Ainda não trocado espera o dólar ficar b",
+    "G$ 3.268.433"
+   ],
+   [
+    "Cobrindo a alta do dólar agora diferença",
+    "− US$ 138,12"
+   ],
+   [
+    "1× Armação Gucci de metal feminino C1",
+    "R$ 35,45"
+   ],
+   [
+    "1× Armação Armani de acetato feminino C2",
+    "G$ 45.000"
+   ],
+   [
+    "1× Óculos solar Kazwini de tr90 feminino",
+    "US$ 9,01"
+   ],
+   [
+    "1× Óculos de leitura de plástico feminin",
+    "US$ 3,75"
+   ],
+   [
+    "1× Óculos de leitura de acetato unissex ",
+    "G$ 25.000"
+   ],
+   [
+    "1× Óculos solar Kazwini de tr90 feminino",
+    "G$ 60.000"
+   ],
+   [
+    "1× Óculos de leitura Kazwini de acetato ",
+    "US$ 3,30"
+   ],
+   [
+    "1× Óculos solar #14 C2",
+    "G$ 60.000"
+   ],
+   [
+    "1× Óculos solar #13 C4",
+    "G$ 57.000"
+   ],
+   [
+    "1× Óculos solar Kazwini de tr90 feminino",
+    "G$ 54.500"
+   ],
+   [
+    "2× Óculos de leitura de plástico feminin",
+    "G$ 50.000"
+   ],
+   [
+    "1× Óculos de leitura de acetato unissex ",
+    "G$ 22.500"
+   ],
+   [
+    "1× Óculos de leitura Kazwini de acetato ",
+    "G$ 22.500"
+   ],
+   [
+    "2× Óculos de leitura de plástico feminin",
+    "US$ 7,49"
+   ],
+   [
+    "1× Óculos de leitura de acetato unissex ",
+    "G$ 22.000"
+   ],
+   [
+    "1× Óculos de leitura de acetato unissex ",
+    "G$ 25.000"
+   ],
+   [
+    "2× Óculos solar #13 C1",
+    "G$ 120.000"
+   ],
+   [
+    "3× Óculos de leitura de plástico feminin",
+    "G$ 75.000"
+   ],
+   [
+    "3× Óculos solar #13 C1",
+    "G$ 180.000"
+   ],
+   [
+    "1× Óculos de leitura de acetato unissex ",
+    "G$ 25.000"
+   ]
+  ],
+  "peq": [],
+  "alt": 3929,
+  "bot": 4,
+  "abertos": 0
+ },
+ "Reservas": {
+  "tit": [
+   "Resultado de novembro"
+  ],
+  "par": [
+   [
+    "Guaranis",
+    "G$ 0"
+   ],
+   [
+    "Reposição de mercadoria",
+    "G$ 19.484.678"
+   ],
+   [
+    "Contas do mês",
+    "G$ 0"
+   ],
+   [
+    "Colchão de segurança",
+    "G$ 3.268.433"
+   ],
+   [
+    "Objetivos da loja",
+    "G$ 2.310.000"
+   ],
+   [
+    "Resultado da loja vendas menos reposição",
+    "G$ 1.559.420"
+   ],
+   [
+    "Retirado por você de G$ 1.399.032 de luc",
+    "G$ 2.090.000"
+   ],
+   [
+    "Sobra do mês",
+    "G$ -530.580"
+   ],
+   [
+    "Vendas mês passado G$ 7.523.500 (−50%)",
+    "G$ 3.797.500"
+   ],
+   [
+    "Descontos de cupons (já fora das vendas)",
+    "G$ 0"
+   ],
+   [
+    "Custo de repor a mercadoria vendida mês ",
+    "G$ 1.111.160"
+   ],
+   [
+    "Taxas de maquininha mês passado G$ 45.22",
+    "G$ 31.920"
+   ],
+   [
+    "Contas da loja pagas mês passado G$ 1.48",
+    "G$ 1.020.000"
+   ],
+   [
+    "Imprevistos mês passado G$ 0",
+    "G$ 60.000"
+   ],
+   [
+    "Brindes comprados mês passado G$ 0",
+    "G$ 0"
+   ],
+   [
+    "Caixa de melhorias usada mês passado G$ ",
+    "G$ 15.000"
+   ],
+   [
+    "Perdas de estoque (contagem e descarte) ",
+    "G$ 0"
+   ],
+   [
+    "Câmbio nas trocas (dólar mais caro que o",
+    "G$ 0"
+   ],
+   [
+    "Resultado da loja mês passado G$ 3.835.3",
+    "Resultado da loja"
+   ],
+   [
+    "Retiradas do dono (inclui contas de casa",
+    "G$ 2.090.000"
+   ],
+   [
+    "Sobra do mês mês passado G$ 907.300 (−15",
+    "Sobra do mês"
+   ],
+   [
+    "IVA das vendas",
+    "− G$ 345.234"
+   ],
+   [
+    "Custo + IVA da compra",
+    "− G$ 1.222.272"
+   ],
+   [
+    "Taxas do pagamento",
+    "− G$ 31.920"
+   ],
+   [
+    "Frete das entregas",
+    "G$ 0"
+   ],
+   [
+    "Descontos (cupom, Leve 2)",
+    "− G$ 0"
+   ],
+   [
+    "SL2201",
+    "G$ 31.998 / un"
+   ],
+   [
+    "YS8815",
+    "G$ 31.505 / un"
+   ],
+   [
+    "SP58110",
+    "G$ 16.383 / un"
+   ],
+   [
+    "LIVRE PARA VOCÊ",
+    ""
+   ]
+  ],
+  "peq": [],
+  "alt": 2915,
+  "bot": 13,
+  "abertos": 3
+ },
+ "Giro": {
+  "tit": [
+   "Dinheiro no estoque"
+  ],
+  "par": [
+   [
+    "NO ESTOQUE",
+    "US$ 420"
+   ],
+   [
+    "PARADO 60+ DIAS",
+    "US$ 172"
+   ],
+   [
+    "Investido em estoque a custo, sem estojo",
+    "US$ 419,70"
+   ],
+   [
+    "Parado há 60 dias ou mais 41% do investi",
+    "US$ 171,50"
+   ],
+   [
+    "Retorno do estoque (30 dias) cada US$ 1 ",
+    "98,0%"
+   ]
+  ],
+  "peq": [
+   "Para sugerir o que entra e o que sai, pr → campo de 28×52 px"
+  ],
+  "alt": 7148,
+  "bot": 54,
+  "abertos": 3
+ },
+ "Preços": {
+  "tit": [
+   "Preço abaixo do piso hoje"
+  ],
+  "par": [
+   [
+    "Óculos de leitura de acetato unissex Pré",
+    "G$ -31.500"
+   ],
+   [
+    "Óculos de leitura Kazwini de acetato mas",
+    "G$ -31.500"
+   ],
+   [
+    "Óculos de leitura de plástico feminino P",
+    "G$ -15.500"
+   ],
+   [
+    "Óculos de leitura de acetato unissex Pré",
+    "G$ -31.500"
+   ],
+   [
+    "Armação Gucci de metal feminino Armações",
+    "G$ -15.500"
+   ],
+   [
+    "Armação Ray-Ban de metal masculino Armaç",
+    "G$ -25.500"
+   ],
+   [
+    "Armação Armani de acetato feminino Armaç",
+    "G$ -39.500"
+   ],
+   [
+    "Óculos solar Ray-Ban de metal masculino ",
+    "G$ -18.000"
+   ],
+   [
+    "PARA DECIDIR ESTA SEMANA · 30",
+    ""
+   ],
+   [
+    "REGRAS DO CONTADOR",
+    ""
+   ]
+  ],
+  "peq": [],
+  "alt": 4924,
+  "bot": 44,
+  "abertos": 3
+ },
+ "Online (aba)": {
+  "tit": [],
+  "par": [
+   [
+    "Pedidos do site",
+    "0"
+   ],
+   [
+    "Peças vistas",
+    "0"
+   ],
+   [
+    "MAIS VISTAS",
+    ""
+   ]
+  ],
+  "peq": [],
+  "alt": 844,
+  "bot": 2,
+  "abertos": 0
+ },
+ "Histórico": {
+  "tit": [
+   "Histórico"
+  ],
+  "par": [
+   [
+    "TIPO DE MOVIMENTO",
+    ""
+   ],
+   [
+    "FORMA DE PAGAMENTO",
+    ""
+   ],
+   [
+    "FAIXA",
+    ""
+   ],
+   [
+    "MOEDA",
+    ""
+   ],
+   [
+    "VALOR EM G$",
+    ""
+   ],
+   [
+    "NOVEMBRO DE 2026",
+    ""
+   ],
+   [
+    "OUTUBRO DE 2026",
+    ""
+   ]
+  ],
+  "peq": [],
+  "alt": 6869,
+  "bot": 56,
+  "abertos": 1
+ },
+ "Ajustes": {
+  "tit": [
+   "Ajustes",
+   "Backup",
+   "Nuvem"
+  ],
+  "par": [
+   [
+    "Última notificação lida",
+    "nenhuma"
+   ],
+   [
+    "Pedidos do site",
+    ""
+   ],
+   [
+    "Estoque e dinheiro",
+    ""
+   ],
+   [
+    "Silêncio",
+    ""
+   ],
+   [
+    "Testar",
+    ""
+   ]
+  ],
+  "peq": [],
+  "alt": 887,
+  "bot": 39,
+  "abertos": 27
+ },
+ "Notificações": {
+  "tit": [
+   "Pendências"
+  ],
+  "par": [
+   [
+    "GUARDIÃO · PRECISA DE VOCÊ AGORA · 6",
+    ""
+   ],
+   [
+    "PARA ACOMPANHAR · 6",
+    ""
+   ],
+   [
+    "HISTÓRICO",
+    ""
+   ]
+  ],
+  "peq": [],
+  "alt": 1936,
+  "bot": 17,
+  "abertos": 0
+ }
+}

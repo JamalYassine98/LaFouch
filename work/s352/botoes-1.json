@@ -1,0 +1,440 @@
+{
+ "Catálogo": [
+  {
+   "b": "Buscar com a câmera",
+   "r": "ok",
+   "h": 44,
+   "w": 44
+  },
+  {
+   "b": "Ajustes do catálogo",
+   "r": "ok",
+   "h": 40,
+   "w": 40
+  },
+  {
+   "b": "Lote Kazwini G$ 25.000",
+   "r": "ok",
+   "h": 65,
+   "w": 304
+  }
+ ],
+ "Despesas": [
+  {
+   "b": "Pago neste mês. Toque para desfazer",
+   "r": "ok",
+   "h": 40,
+   "w": 40
+  },
+  {
+   "b": "Salvar",
+   "r": "ok",
+   "h": 44,
+   "w": 79
+  },
+  {
+   "b": "Remover Aluguel da loja",
+   "r": "ok",
+   "h": 44,
+   "w": 44
+  },
+  {
+   "b": "Marcar como paga neste mês",
+   "r": "ok",
+   "h": 40,
+   "w": 40
+  },
+  {
+   "b": "Remover Luz",
+   "r": "ok",
+   "h": 44,
+   "w": 44
+  },
+  {
+   "b": "Remover Internet",
+   "r": "ok",
+   "h": 44,
+   "w": 44
+  },
+  {
+   "b": "Remover Contas de casa",
+   "r": "ok",
+   "h": 44,
+   "w": 44
+  },
+  {
+   "b": "Remover Salário (retirada)",
+   "r": "ok",
+   "h": 44,
+   "w": 44
+  },
+  {
+   "b": "Remover Contador",
+   "r": "ok",
+   "h": 44,
+   "w": 44
+  },
+  {
+   "b": "Remover Provisão de imprevistos",
+   "r": "ok",
+   "h": 44,
+   "w": 44
+  },
+  {
+   "b": "Remover imprevisto Conserto da vitrine",
+   "r": "ok",
+   "h": 32,
+   "w": 32
+  },
+  {
+   "b": "Registrar imprevisto",
+   "r": "ok",
+   "h": 44,
+   "w": 179
+  },
+  {
+   "b": "Adicionar",
+   "r": "ok",
+   "h": 44,
+   "w": 103
+  },
+  {
+   "b": "Contas pagas neste mês 4 conta(s) paga(s) ⌄",
+   "r": "ok",
+   "h": 69,
+   "w": 340
+  }
+ ],
+ "Pedidos": [
+  {
+   "b": "Verificar agora",
+   "r": "nada mudou",
+   "h": 44,
+   "w": 94
+  },
+  {
+   "b": "Agir agora",
+   "r": "nada mudou",
+   "h": 44,
+   "w": 74
+  },
+  {
+   "b": "Em andamento",
+   "r": "nada mudou",
+   "h": 44,
+   "w": 106
+  },
+  {
+   "b": "Feitos",
+   "r": "nada mudou",
+   "h": 44,
+   "w": 43
+  }
+ ],
+ "Resumo": [
+  {
+   "b": "Resumo ⌄",
+   "r": "ok",
+   "h": 48,
+   "w": 110
+  },
+  {
+   "b": "Este mês ⌄",
+   "r": "ok",
+   "h": 44,
+   "w": 80
+  },
+  {
+   "b": "Ver tudo no Histórico",
+   "r": "ok",
+   "h": 45,
+   "w": 135
+  }
+ ],
+ "Preços": [
+  {
+   "b": "Preços ⌄",
+   "r": "ok",
+   "h": 48,
+   "w": 93
+  },
+  {
+   "b": "ver",
+   "r": "ok",
+   "h": 28,
+   "w": 30
+  },
+  {
+   "b": "ajustar",
+   "r": "ok",
+   "h": 28,
+   "w": 55
+  },
+  {
+   "b": "Aceitar tudo",
+   "r": "ok",
+   "h": 52,
+   "w": 304
+  },
+  {
+   "b": "Ver um por um",
+   "r": "ok",
+   "h": 44,
+   "w": 140
+  },
+  {
+   "b": "Calculadora de preço",
+   "r": "ok",
+   "h": 44,
+   "w": 189
+  },
+  {
+   "b": "E se…?",
+   "r": "ok",
+   "h": 44,
+   "w": 86
+  },
+  {
+   "b": "Preço automático desligado ⌃",
+   "r": "ok",
+   "h": 69,
+   "w": 340
+  },
+  {
+   "b": "Pré-graduados · preço fixo Econômica G$ 25.0",
+   "r": "ok",
+   "h": 69,
+   "w": 340
+  },
+  {
+   "b": "Preço abaixo do piso 16 produto(s) com o câm",
+   "r": "ok",
+   "h": 69,
+   "w": 340
+  },
+  {
+   "b": "Contas, taxas e meta o que entra no custo de",
+   "r": "ok",
+   "h": 69,
+   "w": 340
+  }
+ ],
+ "Ajustes": [
+  {
+   "b": "Impressora Nenhuma",
+   "r": "ok",
+   "h": 60,
+   "w": 340
+  },
+  {
+   "b": "impProcurar",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 48,
+   "w": 268
+  },
+  {
+   "b": "Preço automático Desligado",
+   "r": "ok",
+   "h": 60,
+   "w": 340
+  },
+  {
+   "b": "paTog",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 59,
+   "w": 268
+  },
+  {
+   "b": "Tema Auto",
+   "r": "ok",
+   "h": 60,
+   "w": 340
+  },
+  {
+   "b": "",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 40,
+   "w": 85
+  },
+  {
+   "b": "Claro",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 40,
+   "w": 85
+  },
+  {
+   "b": "Escuro",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 40,
+   "w": 85
+  },
+  {
+   "b": "Segurança Desligada",
+   "r": "ok",
+   "h": 60,
+   "w": 340
+  },
+  {
+   "b": "Pedidos do site Baixa manual",
+   "r": "ok",
+   "h": 60,
+   "w": 340
+  },
+  {
+   "b": "pedbaixa",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 75,
+   "w": 268
+  },
+  {
+   "b": "PedidosYa Envíos ligada",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 28,
+   "w": 46
+  },
+  {
+   "b": "Bolt Envío ligada",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 28,
+   "w": 46
+  },
+  {
+   "b": "Tiemsa ligada",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 28,
+   "w": 46
+  },
+  {
+   "b": "MCGroup ligada",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 28,
+   "w": 46
+  },
+  {
+   "b": "frtSalva",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 52,
+   "w": 268
+  },
+  {
+   "b": "Sons e avisos Ligados",
+   "r": "ok",
+   "h": 60,
+   "w": 340
+  },
+  {
+   "b": "Escolher o som de Pedido novo",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 40,
+   "w": 196
+  },
+  {
+   "b": "Ouvir o som de Pedido novo",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 38,
+   "w": 38
+  },
+  {
+   "b": "Escolher o som de Comprovante enviado",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 40,
+   "w": 196
+  },
+  {
+   "b": "Ouvir o som de Comprovante enviado",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 38,
+   "w": 38
+  },
+  {
+   "b": "Escolher o som de Pagamento aprovado",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 40,
+   "w": 196
+  },
+  {
+   "b": "Ouvir o som de Pagamento aprovado",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 38,
+   "w": 38
+  },
+  {
+   "b": "Escolher o som de Cliente cancelou",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 40,
+   "w": 196
+  },
+  {
+   "b": "Ouvir o som de Cliente cancelou",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 38,
+   "w": 38
+  },
+  {
+   "b": "Escolher o som de Peça voltou",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 40,
+   "w": 196
+  },
+  {
+   "b": "Ouvir o som de Peça voltou",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 38,
+   "w": 38
+  },
+  {
+   "b": "Escolher o som de Dólar barato",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 40,
+   "w": 242
+  },
+  {
+   "b": "Atualização 5.18.0",
+   "r": "ok",
+   "h": 60,
+   "w": 340
+  },
+  {
+   "b": "updbusca",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 71,
+   "w": 268
+  },
+  {
+   "b": "Cópias e nuvem Nenhuma cópia",
+   "r": "ok",
+   "h": 60,
+   "w": 340
+  },
+  {
+   "b": "vtAbre",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 61,
+   "w": 268
+  },
+  {
+   "b": "bkexp",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 45,
+   "w": 130
+  },
+  {
+   "b": "bkimp",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 45,
+   "w": 130
+  },
+  {
+   "b": "nvEntrar",
+   "r": "não deu para tocar (tampado ou fora da tela)",
+   "h": 44,
+   "w": 268
+  },
+  {
+   "b": "Pagamento automático Desligado",
+   "r": "ok",
+   "h": 60,
+   "w": 340
+  }
+ ]
+}
