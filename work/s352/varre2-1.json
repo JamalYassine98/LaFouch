@@ -1,0 +1,499 @@
+[
+{
+"tela": "Giro",
+"caminho": [
+"Giro ⌄"
+],
+"r": "abriu",
+"w": 70,
+"h": 48
+},
+{
+"tela": "Giro",
+"caminho": [
+"Giro ⌄",
+"Fechar"
+],
+"r": "mudou",
+"w": 22,
+"h": 30
+},
+{
+"tela": "Giro",
+"caminho": [
+"Giro ⌄",
+"Resumo Quanto vendeu e quanto separar ›"
+],
+"r": "navegou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Giro",
+"caminho": [
+"Giro ⌄",
+"Reservas Caixa, contas e reserva ›"
+],
+"r": "navegou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Giro",
+"caminho": [
+"Giro ⌄",
+"Giro O que vende e o que está parado ✓"
+],
+"r": "mudou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Giro",
+"caminho": [
+"Giro ⌄",
+"Preços Margem e preço por tipo ›"
+],
+"r": "navegou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Giro",
+"caminho": [
+"Giro ⌄",
+"Online Como o site está indo ›"
+],
+"r": "navegou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Giro",
+"caminho": [
+"Lista de compras 5 produto(s) vão acabar log"
+],
+"r": "abriu",
+"w": 340,
+"h": 69
+},
+{
+"tela": "Giro",
+"caminho": [
+"Lista de compras 5 produto(s) vão acabar log",
+"Menos"
+],
+"r": "nada",
+"w": 32,
+"h": 44
+},
+{
+"tela": "Giro",
+"caminho": [
+"Lista de compras 5 produto(s) vão acabar log",
+"Mais"
+],
+"r": "nada",
+"w": 32,
+"h": 44
+},
+{
+"tela": "Giro",
+"caminho": [
+"Lista de compras 5 produto(s) vão acabar log",
+"Oferta ›"
+],
+"r": "navegou",
+"w": 86,
+"h": 44
+},
+{
+"tela": "Giro",
+"caminho": [
+"Lista de compras 5 produto(s) vão acabar log",
+"Marcar como pedido"
+],
+"r": "abriu",
+"w": 246,
+"h": 52
+},
+{
+"tela": "Giro",
+"caminho": [
+"Vitrine da semana diga quantos lugares tem a"
+],
+"r": "abriu",
+"w": 340,
+"h": 69
+},
+{
+"tela": "Giro",
+"caminho": [
+"Vitrine da semana diga quantos lugares tem a",
+"Salvar"
+],
+"r": "abriu",
+"w": 268,
+"h": 52
+},
+{
+"tela": "Giro",
+"caminho": [
+"Retorno do estoque cada US$ 1 investido rend"
+],
+"r": "abriu",
+"w": 340,
+"h": 69
+},
+{
+"tela": "Giro",
+"caminho": [
+"Curva ABC quais produtos dão 80% do lucro (9"
+],
+"r": "abriu",
+"w": 340,
+"h": 69
+},
+{
+"tela": "Dinheiro",
+"caminho": [
+"Ações do caixa"
+],
+"r": "abriu",
+"w": 44,
+"h": 44
+},
+{
+"tela": "Dinheiro",
+"caminho": [
+"Dashboard"
+],
+"r": "navegou",
+"w": 77,
+"h": 45
+},
+{
+"tela": "Dinheiro",
+"caminho": [
+"+ Novo objetivo"
+],
+"r": "abriu",
+"w": 304,
+"h": 44
+},
+{
+"tela": "Dinheiro",
+"caminho": [
+"+ Novo objetivo",
+"Guardar objetivo"
+],
+"r": "abriu",
+"w": 362,
+"h": 46
+},
+{
+"tela": "Dinheiro",
+"caminho": [
+"desfazer"
+],
+"r": "mudou",
+"w": 65,
+"h": 45
+},
+{
+"tela": "Dinheiro",
+"caminho": [
+"Ver todos os movimentos ›"
+],
+"r": "mudou",
+"w": 304,
+"h": 46
+},
+{
+"tela": "Dinheiro",
+"caminho": [
+"Ver todas as despesas ›"
+],
+"r": "navegou",
+"w": 342,
+"h": 46
+},
+{
+"tela": "Dinheiro",
+"caminho": [
+"DÓLAR G$ 6.487 — estável"
+],
+"r": "nada",
+"w": 304,
+"h": 85
+},
+{
+"tela": "Dinheiro",
+"caminho": [
+"REAL G$ 1.196 ▼ 0,7% 7 dias"
+],
+"r": "nada",
+"w": 304,
+"h": 86
+},
+{
+"tela": "Dinheiro",
+"caminho": [
+"DÓLAR EM REAIS R$ 5,43 ▲ 0,9% 7 dias"
+],
+"r": "nada",
+"w": 304,
+"h": 86
+},
+{
+"tela": "Dinheiro",
+"caminho": [
+"REPOSIÇÃO Normal › Faltam US$ 2.684 US$ 320 "
+],
+"r": "nada",
+"w": 340,
+"h": 131
+},
+{
+"tela": "Dinheiro",
+"caminho": [
+"Registrar troca ›"
+],
+"r": "nada",
+"w": 304,
+"h": 52
+},
+{
+"tela": "Resumo",
+"caminho": [
+"Resumo ⌄"
+],
+"r": "abriu",
+"w": 110,
+"h": 48
+},
+{
+"tela": "Resumo",
+"caminho": [
+"Resumo ⌄",
+"Fechar"
+],
+"r": "mudou",
+"w": 22,
+"h": 30
+},
+{
+"tela": "Resumo",
+"caminho": [
+"Resumo ⌄",
+"Resumo Quanto vendeu e quanto separar ✓"
+],
+"r": "mudou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Resumo",
+"caminho": [
+"Resumo ⌄",
+"Reservas Caixa, contas e reserva ›"
+],
+"r": "navegou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Resumo",
+"caminho": [
+"Resumo ⌄",
+"Giro O que vende e o que está parado ›"
+],
+"r": "navegou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Resumo",
+"caminho": [
+"Resumo ⌄",
+"Preços Margem e preço por tipo ›"
+],
+"r": "navegou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Resumo",
+"caminho": [
+"Resumo ⌄",
+"Online Como o site está indo ›"
+],
+"r": "navegou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Resumo",
+"caminho": [
+"Este mês ⌄"
+],
+"r": "abriu",
+"w": 80,
+"h": 44
+},
+{
+"tela": "Resumo",
+"caminho": [
+"Este mês ⌄",
+"Fechar"
+],
+"r": "mudou",
+"w": 22,
+"h": 30
+},
+{
+"tela": "Resumo",
+"caminho": [
+"Este mês ⌄",
+"Hoje domingo, 15 de novembro"
+],
+"r": "mudou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Resumo",
+"caminho": [
+"Este mês ⌄",
+"Esta semana 9 a 15 de novembro"
+],
+"r": "mudou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Resumo",
+"caminho": [
+"Este mês ⌄",
+"Este mês 1 a 15 de novembro ✓"
+],
+"r": "mudou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Resumo",
+"caminho": [
+"Este mês ⌄",
+"Últimos 30 dias 17 de outubro a 15 de novemb"
+],
+"r": "mudou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Resumo",
+"caminho": [
+"Este mês ⌄",
+"Escolher datas de um dia até outro ›"
+],
+"r": "mudou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Resumo",
+"caminho": [
+"Ver tudo no Histórico"
+],
+"r": "navegou",
+"w": 135,
+"h": 45
+},
+{
+"tela": "Clientes",
+"caminho": [
+"+ Novo cliente"
+],
+"r": "abriu",
+"w": 138,
+"h": 44
+},
+{
+"tela": "Clientes",
+"caminho": [
+"+ Novo cliente",
+"Cancelar"
+],
+"r": "mudou",
+"w": 40,
+"h": 40
+},
+{
+"tela": "Clientes",
+"caminho": [
+"+ Novo cliente",
+"Paraguaio"
+],
+"r": "nada",
+"w": 148,
+"h": 40
+},
+{
+"tela": "Clientes",
+"caminho": [
+"+ Novo cliente",
+"Estrangeiro"
+],
+"r": "mudou",
+"w": 146,
+"h": 40
+},
+{
+"tela": "Clientes",
+"caminho": [
+"+ Novo cliente",
+"Salvar"
+],
+"r": "mudou",
+"w": 304,
+"h": 52
+},
+{
+"tela": "Clientes",
+"caminho": [
+"Acesso atacado ›"
+],
+"r": "abriu",
+"w": 125,
+"h": 44
+},
+{
+"tela": "Clientes",
+"caminho": [
+"Lotes ›"
+],
+"r": "abriu",
+"w": 49,
+"h": 44
+},
+{
+"tela": "Clientes",
+"caminho": [
+"Lotes ›",
+"+ Criar lote"
+],
+"r": "abriu",
+"w": 326,
+"h": 52
+},
+{
+"tela": "Clientes",
+"caminho": [
+"Cartões ›"
+],
+"r": "abriu",
+"w": 66,
+"h": 44
+}
+]

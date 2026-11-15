@@ -49,3 +49,14 @@ Regra: **cada número mora numa tela só**; nas outras entra, no máximo, uma li
 6. "Preço automático" fica só em Preços; em Ajustes vira uma linha que leva até lá.
 7. Corrigir o campo da Vitrine e o "Verificar agora" sem resposta.
 8. Telas compridas (Giro, Preços, Histórico): blocos fechados por padrão, como já é no Giro, e o mesmo desenho de linhas do esboço 35.
+
+## 6. Varredura COMPLETA dos botões (S352, 15/11 19:40) — substitui o item 4
+`work/s352/varre2.py` (4 partes): 362 toques em 17 telas, em dois níveis (o botão e, quando ele abre bloco/janela/folha, cada botão novo que apareceu). Resultado: 320 fizeram algo; 42 "nada mudou". Os 42 foram lidos um a um e os duvidosos conferidos com toque de dedo (`work/s352/confere.py`):
+- **Não funcionam de verdade (confirmado com o dedo):**
+  1. **Despesas › "Contas pagas neste mês ⌄"** — tocar não abre nada.
+  2. **Dinheiro › cartões Dólar, Real, Dólar em reais, Reposição e "Registrar troca ›"** — são cópias mortas dos blocos do Câmbio (na tela Câmbio os mesmos abrem). Somem com o esboço 28 (aprovado).
+  3. **Pedidos › "Verificar agora"** — nenhuma resposta na tela.
+  4. **Giro › Vitrine da semana** — campo de 28 px (item 3).
+- **Sem resposta visível, a conferir no desenho:** Histórico › Fechar o dia › "Adiar lembrete (2 h)"; Dashboard (dia) › "Escolher a data" (abre o calendário do sistema, que o robô não vê).
+- **Alarme falso do robô (funcionam):** as 8 linhas de Ajustes (só respondem ao dedo, não ao clique por programa); opção que já estava escolhida (Varejo, G$, Padrão, Paraguaio, 30 dias, "Produtos"); "Limpar" sem nada para limpar; "Salvar"/"Registrar" com o formulário vazio; − e + de quantidade (o robô ignora números).
+- **Fora da varredura, de propósito** (para não disparar nada): sair, apagar/excluir, restaurar, backup/importar/exportar, imprimir, instalar, nuvem, câmera/foto, Pix/pagar/finalizar venda, enviar/compartilhar/WhatsApp, modo cliente/loja. E: Loja online (painel do site), o que fica a 3 toques de profundidade, tablet e PC, tema claro.

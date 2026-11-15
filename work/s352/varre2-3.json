@@ -1,0 +1,799 @@
+[
+{
+"tela": "Despesas",
+"caminho": [
+"Pago neste mês. Toque para desfazer"
+],
+"r": "mudou",
+"w": 40,
+"h": 40
+},
+{
+"tela": "Despesas",
+"caminho": [
+"Salvar"
+],
+"r": "nada",
+"w": 79,
+"h": 44
+},
+{
+"tela": "Despesas",
+"caminho": [
+"Remover Aluguel da loja"
+],
+"r": "abriu",
+"w": 44,
+"h": 44
+},
+{
+"tela": "Despesas",
+"caminho": [
+"Marcar como paga neste mês"
+],
+"r": "mudou",
+"w": 40,
+"h": 40
+},
+{
+"tela": "Despesas",
+"caminho": [
+"Remover Luz"
+],
+"r": "abriu",
+"w": 44,
+"h": 44
+},
+{
+"tela": "Despesas",
+"caminho": [
+"Remover Internet"
+],
+"r": "abriu",
+"w": 44,
+"h": 44
+},
+{
+"tela": "Despesas",
+"caminho": [
+"Remover Contas de casa"
+],
+"r": "abriu",
+"w": 44,
+"h": 44
+},
+{
+"tela": "Despesas",
+"caminho": [
+"Remover Salário (retirada)"
+],
+"r": "abriu",
+"w": 44,
+"h": 44
+},
+{
+"tela": "Despesas",
+"caminho": [
+"Remover Contador"
+],
+"r": "abriu",
+"w": 44,
+"h": 44
+},
+{
+"tela": "Despesas",
+"caminho": [
+"Remover Provisão de imprevistos"
+],
+"r": "abriu",
+"w": 44,
+"h": 44
+},
+{
+"tela": "Despesas",
+"caminho": [
+"Remover imprevisto Conserto da vitrine"
+],
+"r": "mudou",
+"w": 32,
+"h": 32
+},
+{
+"tela": "Despesas",
+"caminho": [
+"Registrar imprevisto"
+],
+"r": "nada",
+"w": 179,
+"h": 44
+},
+{
+"tela": "Despesas",
+"caminho": [
+"Adicionar"
+],
+"r": "mudou",
+"w": 103,
+"h": 44
+},
+{
+"tela": "Despesas",
+"caminho": [
+"Contas pagas neste mês 4 conta(s) paga(s) ⌄"
+],
+"r": "nada",
+"w": 340,
+"h": 69
+},
+{
+"tela": "Reservas",
+"caminho": [
+"Reservas ⌄"
+],
+"r": "abriu",
+"w": 118,
+"h": 48
+},
+{
+"tela": "Reservas",
+"caminho": [
+"Reservas ⌄",
+"Fechar"
+],
+"r": "mudou",
+"w": 22,
+"h": 30
+},
+{
+"tela": "Reservas",
+"caminho": [
+"Reservas ⌄",
+"Resumo Quanto vendeu e quanto separar ›"
+],
+"r": "navegou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Reservas",
+"caminho": [
+"Reservas ⌄",
+"Reservas Caixa, contas e reserva ✓"
+],
+"r": "mudou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Reservas",
+"caminho": [
+"Reservas ⌄",
+"Giro O que vende e o que está parado ›"
+],
+"r": "navegou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Reservas",
+"caminho": [
+"Reservas ⌄",
+"Preços Margem e preço por tipo ›"
+],
+"r": "navegou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Reservas",
+"caminho": [
+"Reservas ⌄",
+"Online Como o site está indo ›"
+],
+"r": "navegou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Reservas",
+"caminho": [
+"G$"
+],
+"r": "nada",
+"w": 56,
+"h": 40
+},
+{
+"tela": "Reservas",
+"caminho": [
+"R$"
+],
+"r": "mudou",
+"w": 56,
+"h": 40
+},
+{
+"tela": "Reservas",
+"caminho": [
+"R$",
+"Próximos 30 dias Saldo R$ 4.506 · contas em "
+],
+"r": "abriu",
+"w": 340,
+"h": 69
+},
+{
+"tela": "Reservas",
+"caminho": [
+"US$"
+],
+"r": "mudou",
+"w": 56,
+"h": 40
+},
+{
+"tela": "Reservas",
+"caminho": [
+"US$",
+"Próximos 30 dias Saldo US$ 818 · contas em P"
+],
+"r": "abriu",
+"w": 340,
+"h": 69
+},
+{
+"tela": "Reservas",
+"caminho": [
+"Ver para onde vai ⌄"
+],
+"r": "abriu",
+"w": 151,
+"h": 34
+},
+{
+"tela": "Reservas",
+"caminho": [
+"Ver para onde vai ⌄",
+"Esconder ⌃"
+],
+"r": "mudou",
+"w": 101,
+"h": 34
+},
+{
+"tela": "Reservas",
+"caminho": [
+"Registrar retirada (Caixa)"
+],
+"r": "navegou",
+"w": 183,
+"h": 34
+},
+{
+"tela": "Reservas",
+"caminho": [
+"Detalhes do mês receitas, despesas e resulta"
+],
+"r": "abriu",
+"w": 340,
+"h": 69
+},
+{
+"tela": "Reservas",
+"caminho": [
+"Lucro real do mês G$ 2.198.074 de G$ 3.797.5"
+],
+"r": "abriu",
+"w": 340,
+"h": 69
+},
+{
+"tela": "Reservas",
+"caminho": [
+"Lucro real do mês G$ 2.198.074 de G$ 3.797.5",
+"SL2201 · Óculos solar Ray-Ban …"
+],
+"r": "navegou",
+"w": 209,
+"h": 68
+},
+{
+"tela": "Reservas",
+"caminho": [
+"Lucro real do mês G$ 2.198.074 de G$ 3.797.5",
+"YS8815 · Óculos solar #14"
+],
+"r": "navegou",
+"w": 187,
+"h": 48
+},
+{
+"tela": "Reservas",
+"caminho": [
+"Lucro real do mês G$ 2.198.074 de G$ 3.797.5",
+"SP58110 · Óculos de leitura Kaz…"
+],
+"r": "navegou",
+"w": 209,
+"h": 68
+},
+{
+"tela": "Reservas",
+"caminho": [
+"Próximos 30 dias Saldo G$ 5.388.271 · contas"
+],
+"r": "abriu",
+"w": 340,
+"h": 69
+},
+{
+"tela": "Reservas",
+"caminho": [
+"Próximos 30 dias Saldo G$ 5.388.271 · contas",
+"30 dias"
+],
+"r": "nada",
+"w": 88,
+"h": 44
+},
+{
+"tela": "Reservas",
+"caminho": [
+"Próximos 30 dias Saldo G$ 5.388.271 · contas",
+"Editar despesas"
+],
+"r": "navegou",
+"w": 106,
+"h": 45
+},
+{
+"tela": "Início",
+"caminho": [
+"Guardião · 6 coisas para olhar ›"
+],
+"r": "navegou",
+"w": 342,
+"h": 59
+},
+{
+"tela": "Início",
+"caminho": [
+"343 peças da compra de 31/12 sem detalhe já "
+],
+"r": "navegou",
+"w": 342,
+"h": 88
+},
+{
+"tela": "Início",
+"caminho": [
+"Vendido hoje · 3 venda(s) G$ 147.500 ›"
+],
+"r": "navegou",
+"w": 342,
+"h": 83
+},
+{
+"tela": "Início",
+"caminho": [
+"Despesas G$ 4.200.000/mês"
+],
+"r": "navegou",
+"w": 107,
+"h": 134
+},
+{
+"tela": "Início",
+"caminho": [
+"Histórico 1910 vendas"
+],
+"r": "navegou",
+"w": 107,
+"h": 117
+},
+{
+"tela": "Início",
+"caminho": [
+"Dashboard Resumo"
+],
+"r": "navegou",
+"w": 107,
+"h": 117
+},
+{
+"tela": "Início",
+"caminho": [
+"Reservas Livre e separado"
+],
+"r": "navegou",
+"w": 107,
+"h": 117
+},
+{
+"tela": "Início",
+"caminho": [
+"Giro 5 a repor"
+],
+"r": "navegou",
+"w": 107,
+"h": 117
+},
+{
+"tela": "Início",
+"caminho": [
+"Preços 3 faixas"
+],
+"r": "navegou",
+"w": 107,
+"h": 117
+},
+{
+"tela": "Início",
+"caminho": [
+"Pedidos online 0 novos"
+],
+"r": "navegou",
+"w": 107,
+"h": 117
+},
+{
+"tela": "Início",
+"caminho": [
+"Mensagens Contato e atacado"
+],
+"r": "navegou",
+"w": 107,
+"h": 117
+},
+{
+"tela": "Início",
+"caminho": [
+"Analisador Visitas do site"
+],
+"r": "navegou",
+"w": 107,
+"h": 117
+},
+{
+"tela": "Início",
+"caminho": [
+"Temática Calendário do site"
+],
+"r": "navegou",
+"w": 107,
+"h": 117
+},
+{
+"tela": "Início",
+"caminho": [
+"Atacado Orçamentos"
+],
+"r": "navegou",
+"w": 107,
+"h": 117
+},
+{
+"tela": "Início",
+"caminho": [
+"Clientes 0 cadastrados"
+],
+"r": "navegou",
+"w": 107,
+"h": 117
+},
+{
+"tela": "Início",
+"caminho": [
+"Contagem Conferir estoque"
+],
+"r": "navegou",
+"w": 107,
+"h": 117
+},
+{
+"tela": "Início",
+"caminho": [
+"Fornecedores Compras"
+],
+"r": "navegou",
+"w": 107,
+"h": 134
+},
+{
+"tela": "Início",
+"caminho": [
+"Marketing Posts, vídeos e plano"
+],
+"r": "abriu",
+"w": 107,
+"h": 134
+},
+{
+"tela": "Início",
+"caminho": [
+"Marketing Posts, vídeos e plano",
+"Girar o parado"
+],
+"r": "mudou",
+"w": 176,
+"h": 38
+},
+{
+"tela": "Início",
+"caminho": [
+"Marketing Posts, vídeos e plano",
+"Novos clientes BR"
+],
+"r": "mudou",
+"w": 176,
+"h": 38
+},
+{
+"tela": "Início",
+"caminho": [
+"Marketing Posts, vídeos e plano",
+"Mais solar"
+],
+"r": "mudou",
+"w": 176,
+"h": 38
+},
+{
+"tela": "Início",
+"caminho": [
+"Marketing Posts, vídeos e plano",
+"Lançamentos"
+],
+"r": "mudou",
+"w": 176,
+"h": 38
+},
+{
+"tela": "Início",
+"caminho": [
+"Marketing Posts, vídeos e plano",
+"Óculos solar #13 35 vendidas em 30 dias · ép"
+],
+"r": "abriu",
+"w": 358,
+"h": 56
+},
+{
+"tela": "Início",
+"caminho": [
+"Marketing Posts, vídeos e plano",
+"Post"
+],
+"r": "abriu",
+"w": 115,
+"h": 40
+},
+{
+"tela": "Início",
+"caminho": [
+"Marketing Posts, vídeos e plano",
+"Story"
+],
+"r": "abriu",
+"w": 115,
+"h": 40
+},
+{
+"tela": "Início",
+"caminho": [
+"Marketing Posts, vídeos e plano",
+"Status"
+],
+"r": "abriu",
+"w": 115,
+"h": 40
+},
+{
+"tela": "Início",
+"caminho": [
+"Marketing Posts, vídeos e plano",
+"Carrossel"
+],
+"r": "abriu",
+"w": 115,
+"h": 40
+},
+{
+"tela": "Início",
+"caminho": [
+"Marketing Posts, vídeos e plano",
+"Vídeo"
+],
+"r": "abriu",
+"w": 115,
+"h": 40
+},
+{
+"tela": "Início",
+"caminho": [
+"Marketing Posts, vídeos e plano",
+"Roteiro"
+],
+"r": "abriu",
+"w": 115,
+"h": 40
+},
+{
+"tela": "Início",
+"caminho": [
+"Marketing Posts, vídeos e plano",
+"Feito"
+],
+"r": "mudou",
+"w": 26,
+"h": 26
+},
+{
+"tela": "Início",
+"caminho": [
+"Marketing Posts, vídeos e plano",
+"Seg · Post · 20h Peça do objetivo — Óculos s"
+],
+"r": "abriu",
+"w": 324,
+"h": 44
+},
+{
+"tela": "Início",
+"caminho": [
+"Marketing Posts, vídeos e plano",
+"Ter · Status · 12h Status do dia — Óculos so"
+],
+"r": "abriu",
+"w": 324,
+"h": 44
+},
+{
+"tela": "Início",
+"caminho": [
+"Marketing Posts, vídeos e plano",
+"Qua · Carrossel · 20h Carrossel com 4 peças "
+],
+"r": "abriu",
+"w": 324,
+"h": 44
+},
+{
+"tela": "Início",
+"caminho": [
+"Marketing Posts, vídeos e plano",
+"Qui · Story · 20h Bastidores / chegada — Ócu"
+],
+"r": "abriu",
+"w": 324,
+"h": 44
+},
+{
+"tela": "Início",
+"caminho": [
+"Marketing Posts, vídeos e plano",
+"Sex · Vídeo · 20h Vídeo de 15 s — Óculos de "
+],
+"r": "abriu",
+"w": 324,
+"h": 44
+},
+{
+"tela": "Início",
+"caminho": [
+"Marketing Posts, vídeos e plano",
+"Sáb · Post · 20h Oferta ou mais vendido — Ar"
+],
+"r": "abriu",
+"w": 324,
+"h": 44
+},
+{
+"tela": "Início",
+"caminho": [
+"Marketing Posts, vídeos e plano",
+"LISTAS POR PERFIL"
+],
+"r": "mudou",
+"w": 358,
+"h": 17
+},
+{
+"tela": "Início",
+"caminho": [
+"Marketing Posts, vídeos e plano",
+"RESULTADOS"
+],
+"r": "mudou",
+"w": 358,
+"h": 17
+},
+{
+"tela": "Início",
+"caminho": [
+"Marketing Posts, vídeos e plano",
+"KIT DA MARCA"
+],
+"r": "mudou",
+"w": 358,
+"h": 17
+},
+{
+"tela": "Online (aba)",
+"caminho": [
+"Online ⌄"
+],
+"r": "abriu",
+"w": 94,
+"h": 48
+},
+{
+"tela": "Online (aba)",
+"caminho": [
+"Online ⌄",
+"Fechar"
+],
+"r": "mudou",
+"w": 22,
+"h": 30
+},
+{
+"tela": "Online (aba)",
+"caminho": [
+"Online ⌄",
+"Resumo Quanto vendeu e quanto separar ›"
+],
+"r": "navegou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Online (aba)",
+"caminho": [
+"Online ⌄",
+"Reservas Caixa, contas e reserva ›"
+],
+"r": "navegou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Online (aba)",
+"caminho": [
+"Online ⌄",
+"Giro O que vende e o que está parado ›"
+],
+"r": "navegou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Online (aba)",
+"caminho": [
+"Online ⌄",
+"Preços Margem e preço por tipo ›"
+],
+"r": "navegou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Online (aba)",
+"caminho": [
+"Online ⌄",
+"Online Como o site está indo ✓"
+],
+"r": "mudou",
+"w": 354,
+"h": 75
+},
+{
+"tela": "Online (aba)",
+"caminho": [
+"Painel completo ›"
+],
+"r": "navegou",
+"w": 136,
+"h": 32
+}
+]

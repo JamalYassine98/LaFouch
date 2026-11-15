@@ -1,0 +1,1356 @@
+[
+{
+"tela": "Ajustes",
+"caminho": [
+"Impressora Nenhuma"
+],
+"r": "nada",
+"w": 340,
+"h": 60
+},
+{
+"tela": "Ajustes",
+"caminho": [
+"Preço automático Desligado"
+],
+"r": "nada",
+"w": 340,
+"h": 60
+},
+{
+"tela": "Ajustes",
+"caminho": [
+"Tema Auto"
+],
+"r": "nada",
+"w": 340,
+"h": 60
+},
+{
+"tela": "Ajustes",
+"caminho": [
+"Segurança Desligada"
+],
+"r": "nada",
+"w": 340,
+"h": 60
+},
+{
+"tela": "Ajustes",
+"caminho": [
+"Pedidos do site Baixa manual"
+],
+"r": "nada",
+"w": 340,
+"h": 60
+},
+{
+"tela": "Ajustes",
+"caminho": [
+"Sons e avisos Ligados"
+],
+"r": "nada",
+"w": 340,
+"h": 60
+},
+{
+"tela": "Ajustes",
+"caminho": [
+"Atualização 5.18.0"
+],
+"r": "nada",
+"w": 340,
+"h": 60
+},
+{
+"tela": "Ajustes",
+"caminho": [
+"Pagamento automático Desligado"
+],
+"r": "nada",
+"w": 340,
+"h": 60
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Ir para uma data"
+],
+"r": "mudou",
+"w": 46,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Filtros"
+],
+"r": "abriu",
+"w": 67,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Filtros",
+"Venda"
+],
+"r": "abriu",
+"w": 68,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Filtros",
+"Estorno"
+],
+"r": "abriu",
+"w": 77,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Filtros",
+"Conta paga"
+],
+"r": "mudou",
+"w": 100,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Filtros",
+"Retirada"
+],
+"r": "mudou",
+"w": 80,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Filtros",
+"Imprevisto"
+],
+"r": "mudou",
+"w": 94,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Filtros",
+"Melhorias"
+],
+"r": "mudou",
+"w": 90,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Filtros",
+"Compra de lote"
+],
+"r": "mudou",
+"w": 124,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Filtros",
+"Descarte"
+],
+"r": "mudou",
+"w": 85,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Filtros",
+"Conferência"
+],
+"r": "mudou",
+"w": 104,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Filtros",
+"Dinheiro"
+],
+"r": "abriu",
+"w": 81,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Filtros",
+"Maquininha débito"
+],
+"r": "abriu",
+"w": 143,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Filtros",
+"Maquininha crédito"
+],
+"r": "abriu",
+"w": 147,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Filtros",
+"Econômico"
+],
+"r": "abriu",
+"w": 98,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Filtros",
+"Intermediário"
+],
+"r": "abriu",
+"w": 111,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Filtros",
+"Luxo"
+],
+"r": "abriu",
+"w": 59,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Filtros",
+"G$"
+],
+"r": "abriu",
+"w": 48,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Filtros",
+"US$"
+],
+"r": "abriu",
+"w": 56,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Filtros",
+"R$"
+],
+"r": "abriu",
+"w": 46,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Filtros",
+"Limpar tudo"
+],
+"r": "nada",
+"w": 304,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Fechar o dia agora"
+],
+"r": "mudou",
+"w": 304,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Fechar o dia agora",
+"Conferir o caixa"
+],
+"r": "navegou",
+"w": 129,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Fechar o dia agora",
+"Adiar lembrete (2 h)"
+],
+"r": "nada",
+"w": 152,
+"h": 44
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Abrir o dia 15/11/2026"
+],
+"r": "navegou",
+"w": 342,
+"h": 160
+},
+{
+"tela": "Histórico",
+"caminho": [
+"Carregar mais 30 dias (385 dia(s) com movime"
+],
+"r": "abriu",
+"w": 342,
+"h": 45
+},
+{
+"tela": "Inventário",
+"caminho": [
+"+ Adicionar"
+],
+"r": "abriu",
+"w": 117,
+"h": 44
+},
+{
+"tela": "Inventário",
+"caminho": [
+"+ Adicionar",
+"Fechar"
+],
+"r": "mudou",
+"w": 83,
+"h": 44
+},
+{
+"tela": "Inventário",
+"caminho": [
+"+ Adicionar",
+"Ler haste"
+],
+"r": "abriu",
+"w": 159,
+"h": 92
+},
+{
+"tela": "Inventário",
+"caminho": [
+"+ Adicionar",
+"BR44118 Preto"
+],
+"r": "abriu",
+"w": 104,
+"h": 112
+},
+{
+"tela": "Inventário",
+"caminho": [
+"+ Adicionar",
+"BR44133 Vinho"
+],
+"r": "abriu",
+"w": 104,
+"h": 112
+},
+{
+"tela": "Inventário",
+"caminho": [
+"+ Adicionar",
+"SP58110 Pré-graduado"
+],
+"r": "abriu",
+"w": 104,
+"h": 112
+},
+{
+"tela": "Inventário",
+"caminho": [
+"+ Adicionar",
+"Chegou mercadoria"
+],
+"r": "abriu",
+"w": 326,
+"h": 56
+},
+{
+"tela": "Inventário",
+"caminho": [
+"+ Adicionar",
+"Preencher à mão"
+],
+"r": "mudou",
+"w": 326,
+"h": 56
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Produtos"
+],
+"r": "nada",
+"w": 64,
+"h": 41
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Fornecedores 1"
+],
+"r": "mudou",
+"w": 119,
+"h": 41
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Fornecedores 1",
+"Editar"
+],
+"r": "abriu",
+"w": 68,
+"h": 34
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Fornecedores 1",
+"Remover lote"
+],
+"r": "abriu",
+"w": 32,
+"h": 32
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Fornecedores 1",
+"Ver peças (57)"
+],
+"r": "abriu",
+"w": 139,
+"h": 44
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Reposição"
+],
+"r": "abriu",
+"w": 74,
+"h": 41
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Reposição",
+"Graus de leitura 8 em falta · 2 com pouco Ve"
+],
+"r": "abriu",
+"w": 304,
+"h": 67
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Reposição",
+"Menos um pacote de +0.25"
+],
+"r": "mudou",
+"w": 48,
+"h": 48
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Reposição",
+"Mais um pacote de +0.25"
+],
+"r": "mudou",
+"w": 48,
+"h": 48
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Reposição",
+"Gerar lista de compra"
+],
+"r": "mudou",
+"w": 282,
+"h": 52
+},
+{
+"tela": "Inventário",
+"caminho": [
+"EM ESTOQUE (FILTRO) 470 toque para contar"
+],
+"r": "abriu",
+"w": 171,
+"h": 109
+},
+{
+"tela": "Inventário",
+"caminho": [
+"EM ESTOQUE (FILTRO) 470 toque para contar",
+"EM ESTOQUE (FILTRO) 470 contando · toque par"
+],
+"r": "abriu",
+"w": 171,
+"h": 109
+},
+{
+"tela": "Inventário",
+"caminho": [
+"EM ESTOQUE (FILTRO) 470 toque para contar",
+"Fechar"
+],
+"r": "abriu",
+"w": 83,
+"h": 44
+},
+{
+"tela": "Inventário",
+"caminho": [
+"EM ESTOQUE (FILTRO) 470 toque para contar",
+"−"
+],
+"r": "mudou",
+"w": 48,
+"h": 48
+},
+{
+"tela": "Inventário",
+"caminho": [
+"EM ESTOQUE (FILTRO) 470 toque para contar",
+"+"
+],
+"r": "mudou",
+"w": 48,
+"h": 48
+},
+{
+"tela": "Inventário",
+"caminho": [
+"EM ESTOQUE (FILTRO) 470 toque para contar",
+"Está tudo certo"
+],
+"r": "mudou",
+"w": 123,
+"h": 44
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Filtros e ordem"
+],
+"r": "abriu",
+"w": 42,
+"h": 42
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Filtros e ordem",
+"Limpar"
+],
+"r": "nada",
+"w": 46,
+"h": 32
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Filtros e ordem",
+"Padrão"
+],
+"r": "nada",
+"w": 114,
+"h": 38
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Filtros e ordem",
+"A a Z"
+],
+"r": "mudou",
+"w": 114,
+"h": 38
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Filtros e ordem",
+"Z a A"
+],
+"r": "mudou",
+"w": 114,
+"h": 38
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Filtros e ordem",
+"Todas"
+],
+"r": "nada",
+"w": 86,
+"h": 38
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Filtros e ordem",
+"Econômico"
+],
+"r": "mudou",
+"w": 86,
+"h": 38
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Filtros e ordem",
+"Intermediário"
+],
+"r": "mudou",
+"w": 86,
+"h": 38
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Filtros e ordem",
+"Luxo"
+],
+"r": "mudou",
+"w": 86,
+"h": 38
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Filtros e ordem",
+"Todos 470"
+],
+"r": "nada",
+"w": 173,
+"h": 44
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Filtros e ordem",
+"Pré-graduados 400"
+],
+"r": "mudou",
+"w": 173,
+"h": 44
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Filtros e ordem",
+"Armações 39"
+],
+"r": "mudou",
+"w": 173,
+"h": 44
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Filtros e ordem",
+"Solares 31"
+],
+"r": "mudou",
+"w": 173,
+"h": 44
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Filtros e ordem",
+"! Preço a corrigir 15"
+],
+"r": "mudou",
+"w": 173,
+"h": 44
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Filtros e ordem",
+"Pouco estoque 0"
+],
+"r": "mudou",
+"w": 173,
+"h": 44
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Filtros e ordem",
+"Esgotado 0"
+],
+"r": "mudou",
+"w": 173,
+"h": 44
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Filtros e ordem",
+"Encalhada 0"
+],
+"r": "mudou",
+"w": 173,
+"h": 44
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Filtros e ordem",
+"Ver 470 peças"
+],
+"r": "mudou",
+"w": 186,
+"h": 50
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Filtros e ordem",
+"Cancelar"
+],
+"r": "mudou",
+"w": 158,
+"h": 50
+},
+{
+"tela": "Inventário",
+"caminho": [
+"! 15 preços para corrigir 2 perto do mínimo "
+],
+"r": "abriu",
+"w": 342,
+"h": 81
+},
+{
+"tela": "Inventário",
+"caminho": [
+"! 15 preços para corrigir 2 perto do mínimo ",
+"Usar G$ 56.500"
+],
+"r": "mudou",
+"w": 121,
+"h": 36
+},
+{
+"tela": "Inventário",
+"caminho": [
+"! 15 preços para corrigir 2 perto do mínimo ",
+"Informar"
+],
+"r": "mudou",
+"w": 75,
+"h": 36
+},
+{
+"tela": "Inventário",
+"caminho": [
+"! 15 preços para corrigir 2 perto do mínimo ",
+"Usar os sugeridos (10)"
+],
+"r": "mudou",
+"w": 186,
+"h": 52
+},
+{
+"tela": "Inventário",
+"caminho": [
+"! 15 preços para corrigir 2 perto do mínimo ",
+"Fechar"
+],
+"r": "mudou",
+"w": 157,
+"h": 52
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Lote Kazwini Pré-graduados G$ 25.000 343 em "
+],
+"r": "abriu",
+"w": 165,
+"h": 256
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Lote Kazwini Pré-graduados G$ 25.000 343 em ",
+"Ficha 4/6"
+],
+"r": "abriu",
+"w": 81,
+"h": 25
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Lote Kazwini Pré-graduados G$ 25.000 343 em ",
+"Estoque"
+],
+"r": "mudou",
+"w": 54,
+"h": 44
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Lote Kazwini Pré-graduados G$ 25.000 343 em ",
+"Histórico"
+],
+"r": "abriu",
+"w": 60,
+"h": 44
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Lote Kazwini Pré-graduados G$ 25.000 343 em ",
+"Site"
+],
+"r": "abriu",
+"w": 25,
+"h": 44
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Lote Kazwini Pré-graduados G$ 25.000 343 em ",
+"Preço"
+],
+"r": "abriu",
+"w": 38,
+"h": 44
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Lote Kazwini Pré-graduados G$ 25.000 343 em ",
+"Vender no Catálogo ›"
+],
+"r": "navegou",
+"w": 136,
+"h": 44
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Lote Kazwini Pré-graduados G$ 25.000 343 em ",
+"Voltar"
+],
+"r": "mudou",
+"w": 44,
+"h": 44
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Lote Kazwini Pré-graduados G$ 25.000 343 em ",
+"Editar"
+],
+"r": "abriu",
+"w": 44,
+"h": 44
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Lote Kazwini Pré-graduados G$ 25.000 343 em ",
+"% Oferta"
+],
+"r": "abriu",
+"w": 274,
+"h": 46
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Lote Kazwini Pré-graduados G$ 25.000 343 em ",
+"No site"
+],
+"r": "abriu",
+"w": 46,
+"h": 28
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Lote Kazwini Pré-graduados G$ 25.000 343 em ",
+"Lucro real G$ 22.727"
+],
+"r": "mudou",
+"w": 266,
+"h": 21
+},
+{
+"tela": "Inventário",
+"caminho": [
+"Lote Kazwini Pré-graduados G$ 25.000 343 em ",
+"De onde vem o preço · G$ 25.000"
+],
+"r": "mudou",
+"w": 266,
+"h": 28
+},
+{
+"tela": "Notificações",
+"caminho": [
+"Ver margem"
+],
+"r": "navegou",
+"w": 109,
+"h": 44
+},
+{
+"tela": "Notificações",
+"caminho": [
+"Ver conta"
+],
+"r": "navegou",
+"w": 92,
+"h": 44
+},
+{
+"tela": "Notificações",
+"caminho": [
+"Ver preços"
+],
+"r": "navegou",
+"w": 100,
+"h": 44
+},
+{
+"tela": "Notificações",
+"caminho": [
+"Conferir"
+],
+"r": "navegou",
+"w": 83,
+"h": 44
+},
+{
+"tela": "Notificações",
+"caminho": [
+"SP57765"
+],
+"r": "navegou",
+"w": 74,
+"h": 47
+},
+{
+"tela": "Notificações",
+"caminho": [
+"Ver"
+],
+"r": "navegou",
+"w": 52,
+"h": 44
+},
+{
+"tela": "Notificações",
+"caminho": [
+"Completar"
+],
+"r": "navegou",
+"w": 98,
+"h": 44
+},
+{
+"tela": "Notificações",
+"caminho": [
+"Fechar"
+],
+"r": "nada",
+"w": 74,
+"h": 44
+},
+{
+"tela": "Notificações",
+"caminho": [
+"Ver reposição"
+],
+"r": "navegou",
+"w": 120,
+"h": 44
+},
+{
+"tela": "Notificações",
+"caminho": [
+"Fazer"
+],
+"r": "navegou",
+"w": 66,
+"h": 44
+},
+{
+"tela": "Notificações",
+"caminho": [
+"Ver"
+],
+"r": "abriu",
+"w": 52,
+"h": 44
+},
+{
+"tela": "Notificações",
+"caminho": [
+"Ver todas as conferências do Guardião ›"
+],
+"r": "abriu",
+"w": 342,
+"h": 46
+},
+{
+"tela": "Notificações",
+"caminho": [
+"Ver todas as conferências do Guardião ›",
+"Silenciar 7 dias"
+],
+"r": "abriu",
+"w": 55,
+"h": 25
+},
+{
+"tela": "Notificações",
+"caminho": [
+"Limpar histórico"
+],
+"r": "mudou",
+"w": 128,
+"h": 44
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Ajustes do catálogo"
+],
+"r": "abriu",
+"w": 40,
+"h": 40
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Ajustes do catálogo",
+"Limpar"
+],
+"r": "nada",
+"w": 51,
+"h": 32
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Ajustes do catálogo",
+"Varejo"
+],
+"r": "nada",
+"w": 83,
+"h": 42
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Ajustes do catálogo",
+"Atacado"
+],
+"r": "mudou",
+"w": 83,
+"h": 42
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Ajustes do catálogo",
+"G$"
+],
+"r": "nada",
+"w": 55,
+"h": 42
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Ajustes do catálogo",
+"R$"
+],
+"r": "mudou",
+"w": 55,
+"h": 42
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Ajustes do catálogo",
+"US$"
+],
+"r": "mudou",
+"w": 55,
+"h": 42
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Ajustes do catálogo",
+"Mais vendidos"
+],
+"r": "mudou",
+"w": 130,
+"h": 40
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Ajustes do catálogo",
+"Cartões"
+],
+"r": "nada",
+"w": 51,
+"h": 42
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Ajustes do catálogo",
+"Lista"
+],
+"r": "nada",
+"w": 51,
+"h": 42
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Ajustes do catálogo",
+"Solar"
+],
+"r": "mudou",
+"w": 115,
+"h": 40
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Ajustes do catálogo",
+"Grau"
+],
+"r": "abriu",
+"w": 115,
+"h": 40
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Ajustes do catálogo",
+"Armação"
+],
+"r": "mudou",
+"w": 115,
+"h": 40
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Ajustes do catálogo",
+"Feminino"
+],
+"r": "mudou",
+"w": 115,
+"h": 40
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Ajustes do catálogo",
+"Masculino"
+],
+"r": "mudou",
+"w": 115,
+"h": 40
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Ajustes do catálogo",
+"Unissex"
+],
+"r": "mudou",
+"w": 115,
+"h": 40
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Ajustes do catálogo",
+"50 mil"
+],
+"r": "mudou",
+"w": 85,
+"h": 40
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Ajustes do catálogo",
+"Mais"
+],
+"r": "mudou",
+"w": 85,
+"h": 40
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Ajustes do catálogo",
+"Oferta"
+],
+"r": "mudou",
+"w": 115,
+"h": 40
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Ajustes do catálogo",
+"Novidade"
+],
+"r": "mudou",
+"w": 115,
+"h": 40
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Ajustes do catálogo",
+"Encalhada"
+],
+"r": "mudou",
+"w": 115,
+"h": 40
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Ajustes do catálogo",
+"Ver 470 peças"
+],
+"r": "mudou",
+"w": 195,
+"h": 48
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Ajustes do catálogo",
+"Cancelar"
+],
+"r": "mudou",
+"w": 154,
+"h": 48
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Lote Kazwini G$ 25.000"
+],
+"r": "abriu",
+"w": 304,
+"h": 65
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Lote Kazwini G$ 25.000",
+"Ver a ficha no Inventário ›"
+],
+"r": "navegou",
+"w": 165,
+"h": 44
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Lote Kazwini G$ 25.000",
+"Voltar"
+],
+"r": "mudou",
+"w": 44,
+"h": 44
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Lote Kazwini G$ 25.000",
+"· Sem detalhe 343 un."
+],
+"r": "nada",
+"w": 304,
+"h": 48
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Lote Kazwini G$ 25.000",
+"Diminuir quantidade"
+],
+"r": "nada",
+"w": 28,
+"h": 48
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Lote Kazwini G$ 25.000",
+"Aumentar quantidade"
+],
+"r": "nada",
+"w": 28,
+"h": 48
+},
+{
+"tela": "Catálogo",
+"caminho": [
+"Lote Kazwini G$ 25.000",
+"Vender · G$ 25.000"
+],
+"r": "mudou",
+"w": 170,
+"h": 52
+}
+]
