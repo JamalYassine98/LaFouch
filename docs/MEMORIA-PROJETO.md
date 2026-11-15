@@ -2687,3 +2687,10 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
   - SITE v1794755165 (porteiro 180 provas, 0 falhas): modo loja com topo só logo + busca, "Meu pedido" em barra embaixo só com peça ("Chamar um vendedor ›"), sem faixa delivery/pagamento/retirada, Para lojistas, novidades, endereço/links/termos e sem o cartão AJUDA. Fora do esboço (decidido por mim, avisado ao dono): em telas ≥ 900 px a barra vira pílula no canto direito do topo, porque embaixo tapava o "Quero este".
   - ATENÇÃO: a parte do SITE só aparece no modo loja do aparelho com APK novo ou quando a opção A for implementada (a cópia é de 13/11). Só o conserto do PIN chega sozinho.
   - Conferido no simulador (work/s330/ver_loja.py): 390 pt, 360 es, 820, 1366; com 0 e 2 peças, peça aberta, janela Meu pedido. NÃO testado: celular/tablet real, biometria real, giro 2 min.
+
+### S332 (15/11/2026 12:22) — DONO: "Implementar opção A e depois gerar apk" → IMPLEMENTADO (app v523 · 5.16.0) e APK pedido
+- Opção A: o modo loja baixa sozinho a cópia nova do site (src/97-atualiza-loja.js; build.js grava www/loja/manifest.json; mlAbre usa a cópia baixada se for mais nova que a do APK; cópia que não dá sinal de vida em 9 s é descartada). Detalhes em docs/APP-COMO-FUNCIONA.md (S332). 294/294 testes, com teste novo de aparelho falso.
+- Rotina nova (escrita no CLAUDE.md): depois de publicar o SITE, rodar `node build.js` no lafouch e subir www/loja/.
+- APK: gerado a pedido do dono (regra de 27/10 continua: só quando ele pede). O APK novo já leva o modo loja limpo (S331) e o manifesto.
+- NÃO testado em aparelho real: a descida da cópia usa o Filesystem do Android (gravar, copiar, abrir a pasta pelo endereço do app). Se falhar, o modo loja continua com a cópia do APK (sem piorar). Como conferir no aparelho: publicar uma mudança no site + node build.js, abrir o app com internet por ~1 min e entrar no modo loja.
+- Windows e navegador: o modo loja continua só com a cópia do instalador (sem Filesystem).

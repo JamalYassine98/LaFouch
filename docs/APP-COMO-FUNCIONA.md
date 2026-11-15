@@ -249,3 +249,10 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - `html.mlOn #lockScr{z-index:2147483600}`: com o modo loja aberto, a tela do PIN/biometria fica POR CIMA do catálogo (`#mlWrap` é 2147483000; antes o PIN abria atrás e não dava para sair). "Cancelar" volta ao catálogo.
 - Teste novo em `tests/run.py`: "Modo loja com PIN" (PIN por cima, Cancelar volta, desligar fecha).
 - A cópia do site (`www/loja/`) foi refeita com o modo loja limpo (ver docs/SITE-COMO-FUNCIONA.md, S331); ela só chega ao aparelho com APK novo.
+
+## S332 (15/11/2026, v523 · 5.16.0) — Modo loja se atualiza sozinho ("opção A")
+- `build.js` grava `www/loja/manifest.json` (`v` = versão do site em `catalogo/version.json`; `files` = [caminho, tamanho, resumo]). O GitHub Pages publica `www/` inteiro, então a cópia fica em `…github.io/LaFouch/loja/`.
+- `src/97-atualiza-loja.js` (`ljuBusca`, 40 s depois de abrir e a cada 4 h; só no APK, que tem o plugin Filesystem): compara o manifesto de fora com a cópia do APK (`LJU.emb`, lida de `loja/manifest.json` pelo `mlConfere`; APK antigo = 0) e com a última baixada (`localStorage.lf_lju` = `{v, dir, pre, ok, files}`). Se o site é mais novo, baixa para `lojaupd/<versão>/` na pasta de dados do app; em `loja.html` e `js/*.js` troca os caminhos `/loja/...` pelo endereço dessa pasta (`Capacitor.convertFileSrc`); binário com o mesmo resumo é copiado da cópia anterior. Só marca `ok` depois de tudo chegar inteiro; cópias velhas são apagadas (nunca com o modo loja aberto).
+- `mlAbre` usa `ljuSrc()` (cópia baixada, se mais nova que a do APK). Sem sinal de vida ("pronto") em 9 s: `ljuRuim()` descarta e o modo loja reabre com a cópia do APK; essa versão não é baixada de novo.
+- No navegador e no Windows nada muda (sem Filesystem). NÃO testado em aparelho real: só com aparelho falso no teste "Modo loja se atualiza sozinho".
+- Rotina: toda vez que o SITE for publicado, rodar `node build.js` aqui e subir `www/loja/` (senão o modo loja não recebe a mudança).

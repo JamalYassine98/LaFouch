@@ -6,6 +6,7 @@
 - ESBOÇOS SEPARADOS (13/11/2026, pedido do dono): UM ARQUIVO POR TELA (Hoje × Proposta lado a lado no celular; PC Hoje em cima e Proposta embaixo). Nunca juntar várias telas numa imagem só (não dá para ler). Gerador: work/s210/esb.py.
 - ATLAS (13/11/2026, pedido do dono): antes de qualquer esboço ou análise do site, ler docs/ATLAS-SITE.md (medidas reais em 16 aparelhos, movimentos, falhas) e usar as fotos de work/atlas/img — não inventar tela do zero. Todo esboço passa pelo work/kit/olho.js (parado e depois de rolar) e NÃO pode criar falha nova em relação ao 'hoje'; testar a própria proposta antes de mandar.
 - ESBOÇOS: usar o design guardado e o kit (docs/DESIGN-SITE-E-APP.md, work/kit/kit.py) — telas reais, só injetar o que muda, 1 prévia (pedido do dono, 12/11/2026).
+- MODO LOJA (15/11/2026, opção A do dono): depois de publicar o SITE, rodar `node build.js` neste repositório e subir `www/loja/` (com o manifest.json) — é assim que a cópia do site do modo loja chega aos aparelhos sem APK.
 - Site (lafouch.com): antes de mexer, leia docs/SITE-COMO-FUNCIONA.md; ao atualizar ou modificar o site, atualize esse arquivo no mesmo commit (pedido do dono, 11/11/2026).
 
 - ATUALIZAÇÃO 27/10/2026: o dono mandou NÃO gerar APK nem instalador do Windows (economizar tokens). Só gerar quando ele pedir. Continua valendo: testes, sw.js, commit/push em main.

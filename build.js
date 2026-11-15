@@ -56,6 +56,11 @@ if (!process.argv.includes('--check')) {
     copia(path.join(SITE, 'index.html'), path.join(LJ, 'loja.html'), true);
     pasta('js', true); pasta('p'); pasta(path.join('media', 'i'));
     ['favicon-48.png', 'icon-192.png'].forEach((f) => { if (fs.existsSync(path.join(SITE, f))) copia(path.join(SITE, f), path.join(LJ, f)); });
-    console.log('www/loja/ (modo loja) copiado do site');
+    // S332: lista da cópia (versão do site + cada arquivo com tamanho e resumo) para a atualização automática do modo loja
+    const lista = []; const anda = (d, rel) => { for (const f of fs.readdirSync(d).sort()) { const a = path.join(d, f), r = rel ? rel + '/' + f : f; if (fs.statSync(a).isDirectory()) anda(a, r); else if (r !== 'manifest.json') { const b = fs.readFileSync(a); lista.push([r, b.length, require('crypto').createHash('md5').update(b).digest('hex').slice(0, 10)]); } } };
+    anda(LJ, '');
+    let sv = 0; try { sv = +JSON.parse(fs.readFileSync(path.join(SITE, 'version.json'), 'utf8')).v || 0; } catch (e) {}
+    fs.writeFileSync(path.join(LJ, 'manifest.json'), JSON.stringify({ v: sv, files: lista }));
+    console.log('www/loja/ (modo loja) copiado do site · versão ' + sv + ' · ' + lista.length + ' arquivos');
   }
 }

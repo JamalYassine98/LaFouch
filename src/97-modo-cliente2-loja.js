@@ -63,18 +63,25 @@
   var mlTem = null;
   function mlConfere() {
     if (mlTem !== null) return Promise.resolve(mlTem);
-    return fetch('loja/loja.html', { cache: 'no-store' }).then(function (r) { mlTem = !!(r && r.ok); return mlTem; }, function () { mlTem = false; return false; });
+    // S332: a versão da cópia que veio no APK (APK antigo não tem o manifesto = 0); a cópia baixada só vale se for mais nova
+    return fetch('loja/manifest.json', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : {}; }).then(function (m) { LJU.emb = +m.v || 0; }, function () { LJU.emb = 0; }).then(function () {
+      return fetch('loja/loja.html', { cache: 'no-store' });
+    }).then(function (r) { mlTem = !!(r && r.ok); return mlTem; }, function () { mlTem = false; return false; });
   }
   function mlAbre() {
     if (document.getElementById('mlWrap')) return;
     if (mlTem !== true) { mlConfere().then(function (ok) { if (ok && S.modoCli && mcLigado()) mlAbre(); }); return; }
     var w = document.createElement('div');
     w.id = 'mlWrap';
-    w.innerHTML = '<iframe id="mlFr" title="Catálogo da loja" src="loja/loja.html?loja=1&nosync" allow="autoplay"></iframe>' +
+    // S332: abre a cópia baixada pela atualização automática quando ela é mais nova que a do APK
+    var bx = ljuSrc();
+    w.innerHTML = '<iframe id="mlFr" title="Catálogo da loja" src="' + (bx || 'loja/loja.html?loja=1&nosync') + '" allow="autoplay"></iframe>' +
       '<div class="logo-top mlHot" aria-hidden="true"><span class="brand"><svg class="mlAnel" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17"/></svg></span></div>';
     document.body.appendChild(w);
     ML.fr = w.querySelector('iframe');
     document.documentElement.classList.add('mlOn');
+    // a cópia baixada não deu sinal de vida: marca como ruim e volta para a que veio no APK (o relógio abaixo reabre sozinho)
+    if (bx) setTimeout(function () { if (document.getElementById('mlWrap') === w && !ML.ok) { ljuRuim(); mlFecha(); } }, 9000);
   }
   function mlFecha() {
     var w = document.getElementById('mlWrap');

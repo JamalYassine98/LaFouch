@@ -3510,6 +3510,56 @@ async def main():
             if not ok: falhas.append('modo loja sair com PIN'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # S332 (15/11/2026, opção A): a cópia do site do MODO LOJA se atualiza sozinha (sem APK). Aparelho falso (Capacitor + Filesystem em memória):
+            # baixa tudo, reescreve os caminhos para a pasta nova, o modo loja abre de lá e dá sinal de vida; 2ª busca "em dia";
+            # versão seguinte baixa só os textos (binário igual é copiado); cópia estragada é descartada e volta a do APK.
+            pg = await pagina()
+            LJD = os.path.join(RAIZ, 'www', 'loja'); mfl = json.load(open(os.path.join(LJD, 'manifest.json'))); V0 = mfl['v']
+            disco = {}; pedidos = []; versao = {'v': V0 + 1}
+            MIME = {'html': 'text/html', 'js': 'text/javascript', 'png': 'image/png', 'jpg': 'image/jpeg', 'json': 'application/json'}
+            async def gh(route):
+                rel = route.request.url.split('/LaFouch/loja/')[1].split('?')[0]; pedidos.append(rel)
+                if rel == 'manifest.json': await route.fulfill(json={'v': versao['v'], 'files': mfl['files']}, headers={'access-control-allow-origin': '*'})
+                else: await route.fulfill(body=open(os.path.join(LJD, rel), 'rb').read(), content_type=MIME.get(rel.rsplit('.', 1)[-1], 'application/octet-stream'), headers={'access-control-allow-origin': '*'})
+            async def arq(route):
+                rel = route.request.url.split('/_capacitor_file_/data/files/')[1].split('?')[0]
+                if rel in disco: await route.fulfill(body=disco[rel], content_type=MIME.get(rel.rsplit('.', 1)[-1], 'application/octet-stream'))
+                else: await route.fulfill(status=404, body='')
+            await pg.context.route(re.compile(r'jamalyassine98\.github\.io/LaFouch/loja/'), gh)
+            await pg.context.route(re.compile(r'/_capacitor_file_/'), arq)
+            import base64 as _b64
+            async def py_grava(path, data, enc): disco[path] = data.encode('utf8') if enc == 'utf8' else _b64.b64decode(data)
+            async def py_copia(de, para):
+                if de not in disco: raise Exception('sem origem')
+                disco[para] = disco[de]
+            async def py_apaga(pasta):
+                for k in [k for k in disco if k.startswith(pasta + '/')]: del disco[k]
+            async def py_lista(pasta): return sorted({k[len(pasta) + 1:].split('/')[0] for k in disco if k.startswith(pasta + '/')})
+            await pg.expose_function('pyGrava', py_grava); await pg.expose_function('pyCopia', py_copia); await pg.expose_function('pyApaga', py_apaga); await pg.expose_function('pyLista', py_lista)
+            await pg.evaluate("""() => { window.__LF.S.pinHash = ''; window.__LF.S.bioOn = false;
+              window.Capacitor = { isNativePlatform: () => true, convertFileSrc: u => u.replace('file://', '/_capacitor_file_'), Plugins: { Filesystem: {
+                writeFile: o => window.pyGrava(o.path, o.data, o.encoding || ''), copy: o => window.pyCopia(o.from, o.to), mkdir: async () => ({}), getUri: async o => ({ uri: 'file:///data/files/' + o.path }),
+                rmdir: o => window.pyApaga(o.path), readdir: async o => ({ files: (await window.pyLista(o.path)).map(n => ({ name: n })) }) } } }; }""")
+            r1 = await pg.evaluate("async () => { const L = window.__LF; L.ACT.mcLiga(); for (let i = 0; i < 40 && !document.getElementById('mlWrap'); i++) await new Promise(r => setTimeout(r, 150)); const apk = document.getElementById('mlFr').getAttribute('src'); L.mcSair(); await new Promise(r => setTimeout(r, 900)); return [apk, await window.__lju.busca(), window.__lju.estado.emb]; }")
+            pre = f'/_capacitor_file_/data/files/lojaupd/{V0 + 1}'
+            html1 = disco.get(f'lojaupd/{V0 + 1}/loja.html', b'').decode('utf8', 'ignore')
+            baixou = r1[0].startswith('loja/loja.html') and r1[1] == f'baixada {V0 + 1}' and r1[2] == V0 and len([k for k in disco if k.startswith(f'lojaupd/{V0 + 1}/')]) == len(mfl['files'])
+            reescrito = (pre + '/js/lf-site.js') in html1 and '"/loja/js/' not in html1 and disco.get(f'lojaupd/{V0 + 1}/favicon-48.png') == open(os.path.join(LJD, 'favicon-48.png'), 'rb').read()
+            r2 = await pg.evaluate("async () => { const L = window.__LF, w = ms => new Promise(r => setTimeout(r, ms)); L.ACT.mcLiga(); for (let i = 0; i < 40 && !document.getElementById('mlWrap'); i++) await w(150); await w(10500); const f = document.getElementById('mlFr'); let vivo = false; try { vivo = !!f.contentDocument.getElementById('lojab') && f.contentDocument.documentElement.classList.contains('lojamodo'); } catch (e) {} const src = f ? f.getAttribute('src') : ''; const dia = await window.__lju.busca(); L.mcSair(); await w(900); return [src, vivo, window.__lju.marca().ok, dia]; }")
+            abre = r2[0].startswith(pre + '/loja.html') and r2[1] and r2[2] == 1 and r2[3] == 'em dia'
+            versao['v'] = V0 + 2; pedidos.clear()
+            r3 = await pg.evaluate("() => window.__lju.busca()")
+            so_texto = r3 == f'baixada {V0 + 2}' and sorted(p for p in pedidos if p != 'manifest.json') == ['js/lf-i18n.js', 'js/lf-site.js', 'loja.html'] and len([k for k in disco if k.startswith(f'lojaupd/{V0 + 2}/')]) == len(mfl['files']) and not any(k.startswith(f'lojaupd/{V0 + 1}/') for k in disco)
+            disco[f'lojaupd/{V0 + 2}/loja.html'] = b'<!doctype html><html><body>estragado</body></html>'
+            r4 = await pg.evaluate("async () => { const L = window.__LF, w = ms => new Promise(r => setTimeout(r, ms)); L.ACT.mcLiga(); for (let i = 0; i < 40 && !document.getElementById('mlWrap'); i++) await w(150); const s1 = document.getElementById('mlFr').getAttribute('src'); await w(10800); const f = document.getElementById('mlFr'); const s2 = f ? f.getAttribute('src') : ''; const m = window.__lju.marca(); L.mcSair(); await w(900); try { localStorage.removeItem('lf_modoCli'); localStorage.removeItem('lf_lju'); } catch (e) {} delete window.Capacitor; return [s1, s2, m.ruim, !!m.ok, await window.__lju.busca()]; }")
+            volta = r4[0].startswith(f'/_capacitor_file_/data/files/lojaupd/{V0 + 2}/') and r4[1].startswith('loja/loja.html') and r4[2] == V0 + 2 and r4[3] is False and r4[4] == 'sem'
+            total += 1
+            got = [baixou, reescrito, abre, so_texto, volta]
+            ok = got == [True] * 5 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Modo loja se atualiza sozinho: baixa a cópia do site, abre dela, só textos na versão seguinte, cópia estragada volta para a do APK')
+            if not ok: falhas.append('modo loja atualização'); print('        veio', got, r1, r2, r3, r4, pg.erros)
+            await pg.close()
+
             # Estúdio × Adicionar (v442): botão "Fotografar antes de cadastrar" + Giro; Adicionar com faixa de 2 abas que lembra a aba; foto aguardando leva a 3/4 junto; selos por cor; Completar fotos abre o Estúdio
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
