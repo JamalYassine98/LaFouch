@@ -62,3 +62,6 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - Detector de cópias no app.
 - Lotes B e C de animação: vídeos por fazer.
 - Hospedagem: A Cloudflare Pages (recomendada) · B Firebase Hosting · C ficar.
+
+**15/11 15:11 — DONO: itens 1, 4 e 5 das propostas APROVADOS (esperando "implementar")**: tarjetas com a renovação do login + prova "conta aberta há mais de 1 hora"; cabeçalho do grupo só quando a tela é do grupo; detector de cópias no app. Para os outros (tela Atacado, capa do grupo, lotes B e C) pediu ESBOÇOS. Hospedagem: perguntou por que não pode comércio (respondido com a regra do GitHub Pages; sem decisão).
+- 15/11 15:25: esboços enviados e ESPERANDO decisão — tela Atacado (work/s343/21-…) e capa do grupo (work/s343/22-…), celular claro e escuro. Faltam: PC/tablet dos dois e os vídeos dos lotes B e C.
