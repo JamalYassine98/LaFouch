@@ -2694,3 +2694,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - APK: gerado a pedido do dono (regra de 27/10 continua: só quando ele pede). O APK novo já leva o modo loja limpo (S331) e o manifesto.
 - NÃO testado em aparelho real: a descida da cópia usa o Filesystem do Android (gravar, copiar, abrir a pasta pelo endereço do app). Se falhar, o modo loja continua com a cópia do APK (sem piorar). Como conferir no aparelho: publicar uma mudança no site + node build.js, abrir o app com internet por ~1 min e entrar no modo loja.
 - Windows e navegador: o modo loja continua só com a cópia do instalador (sem Filesystem).
+- S332b (15/11/2026 12:50): APK gerado com sucesso (execução 43730900269, v523 · 5.16.0, 16,9 MB; testes do servidor passaram; a mesma execução publicou www/ com a cópia e o manifesto do modo loja). Falta o dono instalar e conferir no aparelho.
