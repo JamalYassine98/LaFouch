@@ -1,4 +1,6 @@
-# O que falta decidir e o que está aprovado esperando — 15/11/2026 14:45
+# LISTA VIVA — o que falta decidir e o que está aprovado esperando (aberta em 15/11/2026)
+
+**Regra do dono (15/11 15:04): esta lista não é refeita. Só se acrescenta item e se marca o que foi publicado (com a versão). Limpar só quando o dono disser "limpar a lista".**
 
 Conferência pedida pelo dono ("o que discutimos e esqueci de falar aprovado?"). 2ª passada (pedido das 14:45): lida a memória de 12/11 até agora. Tudo o que foi aprovado em 12/11 entrou no "implementar tudo" de 12/11 (17:25–23:40); o que sobrou está abaixo.
 

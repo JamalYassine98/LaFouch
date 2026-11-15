@@ -22,6 +22,7 @@
   - Só implementar quando o dono escrever "implementar" (para aquele item).
   - "Implementar tudo" = implementar TUDO o que está aprovado na memória, em sequência, SEM consultar o dono; só parar por ação/segredo dele, gasto ou teste que falha; listar no final o que ficou de fora.
   - Na dúvida se uma mensagem autoriza implementar: não implementar; guardar e avisar o que ficou aprovado e esperando.
+- LISTA VIVA DE PENDÊNCIAS (15/11/2026, ordem do dono): a lista é docs/FALTA-APROVAR-15-11.md. NUNCA refazer, resumir de cabeça nem trocar a lista enquanto houver pendências — só ACRESCENTAR itens e MARCAR o que foi publicado (com o número da versão). Todo "aprovado" entra nela na hora. Só limpar ou recomeçar a lista quando o dono disser "limpar a lista". Antes de "implementar tudo" e antes de dizer o que falta, ler a lista inteira no arquivo.
 - REGRA DE OURO (04/11/2026): sempre esboço primeiro (INCLUSIVE correção de bug); implementar só quando o dono avisar; guardar o aprovado em docs/MEMORIA-PROJETO.md; entregar EXATAMENTE o esboço aprovado, sem mudanças não pedidas.
 
 ## Economia de tokens (pedido do dono, 11/11/2026)
