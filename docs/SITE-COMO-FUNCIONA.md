@@ -152,3 +152,10 @@ Ler antes de mexer no site. Atualizar este arquivo SEMPRE que o site mudar (estr
 
 - **Linha do comprovante com entrada suave (S320, 15/11/2026, pedido do dono):** quando `#pgcl` aparece com a tela de pagar já aberta (1 min depois do pedido), ganha a classe `zin`: a linha desce e aparece em 0,56 s na curva de luxo (`pzin`) e a `.zA` brilha em dourado uma vez (`pzlu`, 1,8 s). Quem abre a tela depois de 1 min já vê a linha parada. Respeita "reduzir movimento".
 - **Transferência automática (S319, aprovada em 15/11/2026, DESLIGADA):** com `TRF_AUTO=true` a tela de transferência fica sem botão cheio: linhas com "Copiar", pé do cartão "Transfira o valor exato pelo app do seu banco.", círculo "Confirmamos sozinhos assim que a transferência chegar." e a linha "Já transferi, enviar comprovante" depois de 1 min. Só ligar depois de o dono instalar o robô, publicar as funções e de um teste real.
+
+## S331 (15/11/2026) — Modo loja (site dentro do app) limpo
+- Só vale com `html.lojamodo` (endereço `?loja=1` dentro do app); o site público não muda.
+- Topo: só logo + busca. Saiu a etiqueta "LOJA · todo o estoque"; "Meu pedido" saiu do topo (tapava a busca).
+- `#lojab[data-n]`: barra fixa embaixo com `#lojap` ("Meu pedido · N peças" + "Chamar um vendedor ›"; es: "Mi pedido · N piezas" / "Llamar a un vendedor ›"). Some com 0 peças (`[data-n="0"]`) e enquanto a janela Meu pedido está aberta. Tocar abre a janela Meu pedido (onde fica o botão que chama). Em telas de 900 px ou mais a barra vira pílula no canto direito do topo (embaixo ela tapava o "Quero este").
+- Somem no modo loja: `#home>.htr` (delivery/pagamento/retirada), `#hloj` + `.hata` (Para lojistas), `section.hnews` (novidades por WhatsApp/e-mail), `.lfft` (endereço, links, termos) e o cartão AJUDA do "Comece por aqui" (`[data-gpan="como"]`; no PC a grade fica com 2 colunas). `main` ganha 84 px embaixo para a barra não tapar o fim.
+- A cópia do modo loja no aparelho só muda com APK novo (até a "opção A" — atualização automática da cópia — ser implementada).

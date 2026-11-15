@@ -2245,6 +2245,8 @@ body.modoCli #selBar{display:none!important}
 /* S181 modo loja: o site em tela cheia por cima do app; o logo escondido (segurar 5 s) fica por cima do logo do site */
 html.mlOn,html.mlOn body{overflow:hidden}
 #mlWrap{position:fixed;inset:0;z-index:2147483000;background:#fff}
+/* S331: no modo loja a tela do PIN/biometria abre POR CIMA do catálogo (antes abria atrás e não dava para sair) */
+html.mlOn #lockScr{z-index:2147483600}
 #mlWrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
 #mlWrap .mlHot{position:absolute;top:calc(env(safe-area-inset-top,0px) + 4px);left:50%;transform:translateX(-50%);width:150px;height:64px;z-index:2;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;touch-action:manipulation}
 #mlWrap .mlHot .brand{display:block;width:100%;height:100%;position:relative}

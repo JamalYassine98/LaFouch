@@ -244,3 +244,8 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - `src/97z2-contador.js`: `cntIco(x)` desenha o ícone de traço fino das linhas de "Para decidir" (subir, oferta, volta, atacado, data temática) no lugar do emoji (`x.ic` continua existindo nos dados, sem uso na tela); botões "Calculadora de preço" e "E se…?" sem emoji.
 - `#ebEnv` ("Enviar no…" do Compartilhar) voltou ao botão principal padrão `.go` = B1 (contorno rosa fino; regra do dono de 08/11/2026).
 - `.dHdP` ("Este mês" dos números) com 44 px de toque.
+
+## S331 (15/11/2026, v522 · 5.15.2) — Modo loja: sair com PIN
+- `html.mlOn #lockScr{z-index:2147483600}`: com o modo loja aberto, a tela do PIN/biometria fica POR CIMA do catálogo (`#mlWrap` é 2147483000; antes o PIN abria atrás e não dava para sair). "Cancelar" volta ao catálogo.
+- Teste novo em `tests/run.py`: "Modo loja com PIN" (PIN por cima, Cancelar volta, desligar fecha).
+- A cópia do site (`www/loja/`) foi refeita com o modo loja limpo (ver docs/SITE-COMO-FUNCIONA.md, S331); ela só chega ao aparelho com APK novo.

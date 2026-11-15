@@ -3490,6 +3490,26 @@ async def main():
             if not ok: falhas.append('modo cliente'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # S331 (15/11/2026): MODO LOJA com PIN — a tela do PIN abre POR CIMA do catálogo (antes abria atrás: não dava para sair); Cancelar volta ao catálogo; PIN certo sai
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              S.pinHash = 'x'; const bio0 = S.bioOn; S.bioOn = false; L.ACT.mcLiga();
+              for (let i = 0; i < 40 && !document.getElementById('mlWrap'); i++) await w(150);
+              const aberto = !!document.getElementById('mlWrap');
+              const noMeio = () => { const e = document.elementFromPoint(innerWidth / 2, innerHeight / 2); return e && e.closest('#lockScr') ? 'pin' : e && e.closest('#mlWrap') ? 'catalogo' : 'outro'; };
+              const antes = noMeio();
+              L.mcSair(); await w(350); const porCima = noMeio() === 'pin';
+              document.getElementById('lockCancel').click(); await w(350);
+              const cancela = noMeio() === 'catalogo' && S.modoCli === true && !!document.getElementById('mlWrap');
+              try { localStorage.removeItem('lf_modoCli'); } catch (e) {} document.getElementById('lockScr').hidden = true; S.modoCli = false; document.body.classList.remove('modoCli', 'mcAberto'); S.pinHash = ''; S.bioOn = bio0;
+              await w(900); const fechou = !document.getElementById('mlWrap');
+              return [aberto, antes === 'catalogo', porCima, cancela, fechou]; }""")
+            total += 1
+            ok = got == [True] * 5 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Modo loja com PIN: a tela do PIN abre por cima do catálogo, Cancelar volta, desligar fecha')
+            if not ok: falhas.append('modo loja sair com PIN'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Estúdio × Adicionar (v442): botão "Fotografar antes de cadastrar" + Giro; Adicionar com faixa de 2 abas que lembra a aba; foto aguardando leva a 3/4 junto; selos por cor; Completar fotos abre o Estúdio
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

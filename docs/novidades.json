@@ -1,8 +1,8 @@
 {
- "nome": "5.15.1",
+ "nome": "5.15.2",
  "notas": [
-  "Preços sem emoji: botões só com texto e ícones de traço fino nas linhas.",
-  "O botão \"Enviar\" do Compartilhar voltou ao contorno rosa, como os outros botões principais."
+  "Modo loja: a tela do PIN agora abre por cima do catálogo — dá para sair com PIN ou digital ligados.",
+  "Modo loja mais limpo (chega com a próxima cópia do site): topo só com logo e busca, \"Meu pedido\" em barra embaixo e sem informações de entrega, atacado, novidades e ajuda."
  ],
- "build": 521
+ "build": 522
 }
