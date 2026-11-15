@@ -3589,10 +3589,20 @@ async def main():
             rel['n'] = EMBN
             apk_igual = await pg.evaluate("""async () => { const A = window.__apk; let apagou = 0; window.Capacitor = { isNativePlatform: () => true, Plugins: { LfInstall: { instalar: async () => ({}) }, Filesystem: { downloadFile: async () => ({}), stat: async () => { throw new Error('x'); }, rmdir: async () => { apagou++; } } } };
               A.estado.est = ''; const r = await A.busca(true); delete window.Capacitor; return [r === 'em dia', A.linha() === '' && !/apkgo/.test(window.__upd.card()), apagou === 1]; }""")
+            # S337: WINDOWS — o programa do PC entrega o estado; a tela usa o mesmo botão único e manda "instalar" com o cabeçalho próprio
+            pcs = {'est': 'baixa', 'pedidos': []}
+            async def pcrota(route):
+                rq = route.request; pcs['pedidos'].append((rq.method, rq.url.split('/__pc/')[1], rq.headers.get('x-lafouch', '')))
+                await route.fulfill(json={'pc': True, 'emb': EMBN, 'n': EMBN + 3, 'tam': 92000000, 'est': pcs['est'], 'msg': '', 'loja': 0})
+            await pg.context.route(re.compile(r'/__pc/'), pcrota)
+            pc1 = await pg.evaluate("async () => { const A = window.__apk; await A.pc(0); const h = window.__upd.card(); return [A.pcx.on, /Baixando a atualização/.test(h) && /disabled/.test(h) && (h.match(/<button/g) || []).length === 1]; }")
+            pcs['est'] = 'pronto'
+            pc2 = await pg.evaluate("async () => { const L = window.__LF, A = window.__apk, w = ms => new Promise(r => setTimeout(r, ms)); await A.pc(0); const h = window.__upd.card(); const um = /Atualização pronta/.test(h) && /Toque para instalar/.test(h) && /data-act=\"apkgo\"/.test(h) && (h.match(/<button/g) || []).length === 1; L.ACT.apkgo(); await w(200); L.ACT.updbusca(); await w(200); A.pcx.on = false; A.estado.est = ''; A.estado.n = 0; return [um]; }")
+            pc_ok = pc1 == [True, True] and pc2 == [True] and ('POST', 'instalar', '1') in pcs['pedidos'] and ('POST', 'buscar', '1') in pcs['pedidos']
             total += 1
-            ok = got == [True] * 8 and apk_igual == [True] * 3 and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'Atualização do APK: acha o APK novo, baixa (Wi-Fi sozinho, dados só no toque), oferece instalar, recusa arquivo cortado')
-            if not ok: falhas.append('atualização do APK'); print('        veio', got, apk_igual, pg.erros)
+            ok = got == [True] * 8 and apk_igual == [True] * 3 and pc_ok and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Atualização do APK e do Windows: acha o novo, baixa (Wi-Fi sozinho, dados só no toque), um botão só, recusa arquivo cortado; no PC segue o programa')
+            if not ok: falhas.append('atualização do APK'); print('        veio', got, apk_igual, pc1, pc2, pcs['pedidos'], pg.erros)
             await pg.close()
 
             # Estúdio × Adicionar (v442): botão "Fotografar antes de cadastrar" + Giro; Adicionar com faixa de 2 abas que lembra a aba; foto aguardando leva a 3/4 junto; selos por cor; Completar fotos abre o Estúdio

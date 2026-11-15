@@ -1,6 +1,8 @@
 // La Fouch para Windows: abre o mesmo app (pasta www) numa janela própria.
 // Um servidor local na porta fixa mantém os dados do app entre uma abertura e outra.
 const { app, BrowserWindow, Menu, shell, Tray, nativeImage } = require('electron');
+const { spawn } = require('child_process');
+const os = require('os');
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
@@ -15,13 +17,30 @@ const TIPOS = {
   '.ico': 'image/x-icon', '.traineddata': 'application/octet-stream', '.gz': 'application/gzip'
 };
 
+// S337: atualização do modo loja e do instalador (desktop/pc-atualiza.js)
+const PC = require('./pc-atualiza').criar({ raiz: RAIZ, dados: app.getPath('userData'), tmp: path.join(os.tmpdir(), 'LaFouch') });
+function instalar(arq) {
+  // abre o instalador (ele instala por cima) e fecha o app para os arquivos poderem ser trocados
+  try { spawn(arq, [], { detached: true, stdio: 'ignore' }).unref(); } catch (e) { return; }
+  saindo = true;
+  setTimeout(() => app.quit(), 800);
+}
+function atualizaSozinho() {
+  const roda = () => { PC.buscaLoja().catch(() => {}); PC.buscaInstalador().catch(() => {}); };
+  setTimeout(roda, 45000);
+  setInterval(roda, 4 * 3600 * 1000);
+}
+
 function servidor() {
   return new Promise((ok) => {
     const s = http.createServer((req, res) => {
       let p = decodeURIComponent((req.url || '/').split('?')[0]);
       if (p === '/') p = '/index.html';
-      const f = path.normalize(path.join(RAIZ, p));
-      if (!f.startsWith(RAIZ)) { res.writeHead(403); return res.end(); }
+      // S337: pedidos da atualização (só da própria janela: outra página aberta no computador não consegue mandar instalar nada)
+      const og = req.headers.origin || '', origemOk = (!og || og === 'http://127.0.0.1:' + PORTA) && (req.headers.host || '') === '127.0.0.1:' + PORTA;
+      if (PC.atende(req, res, p, origemOk, instalar)) return;
+      const f = PC.arquivo(p); // /loja/ vem da cópia baixada do site quando ela é mais nova que a do instalador
+      if (!f) { res.writeHead(403); return res.end(); }
       fs.readFile(f, (e, d) => {
         if (e) { res.writeHead(404); return res.end('Não encontrado'); }
         res.writeHead(200, { 'Content-Type': TIPOS[path.extname(f).toLowerCase()] || 'application/octet-stream' });
@@ -35,6 +54,7 @@ function servidor() {
 
 async function abrir() {
   await servidor();
+  atualizaSozinho();
   Menu.setApplicationMenu(null);
   // backgroundThrottling desligado: com a janela escondida o app continua buscando pedidos do site e avisando
   const w = new BrowserWindow({ width: 1180, height: 820, minWidth: 420, title: 'La Fouch', autoHideMenuBar: true, backgroundColor: '#0f1216', webPreferences: { backgroundThrottling: false } });

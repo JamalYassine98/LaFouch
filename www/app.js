@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 525;
+  var APP_BUILD = 526;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.17.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.18.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -29148,8 +29148,38 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       .catch(function (e) { APK.est = 'erro'; APK.msg = 'Não consegui baixar o aplicativo (' + ((e && e.message) || 'erro') + '). Toque para tentar de novo.'; })
       .then(function () { updRender(); return APK.est; });
   }
+  // ----- S337: WINDOWS. O programa do PC (desktop/main.js + pc-atualiza.js) procura e baixa o instalador novo sozinho; a tela só
+  // lê o estado (/__pc/estado) e usa o MESMO botão e os mesmos textos do celular. "Instalar" abre o instalador do Windows.
+  var PCX = { on: false, loja: 0 };
+  function pcPede(caminho, post) {
+    return fetch('/__pc/' + caminho, post ? { method: 'POST', headers: { 'X-LaFouch': '1' }, cache: 'no-store' } : { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); });
+  }
+  function pcAplica(e) {
+    if (!e || e.pc !== true) return;
+    var antes = APK.est;
+    PCX.on = true;
+    PCX.loja = +e.loja || 0;
+    APK.emb = +e.emb || 0; APK.n = +e.n || 0; APK.tam = +e.tam || 0;
+    APK.est = APK.n ? String(e.est || '') : '';
+    APK.msg = String(e.msg || '');
+    if (APK.est === 'pronto' && antes !== 'pronto') apkPronto();
+    updRender();
+  }
+  // lê o estado; enquanto está baixando (ou logo depois de pedir a busca) olha de novo a cada 3 s
+  function pcOlha(k) {
+    return pcPede('estado').then(function (e) {
+      pcAplica(e);
+      if (PCX.on && (APK.est === 'baixa' || k > 0)) setTimeout(function () { pcOlha((k || 0) - 1); }, 3000);
+      return APK.est;
+    }).catch(function () { return ''; });
+  }
   // manual = o dono tocou em "Buscar atualização"
   function apkBusca(manual) {
+    if (PCX.on) {
+      APK.t = Date.now();
+      return pcPede('buscar', true).then(function (e) { pcAplica(e); setTimeout(function () { pcOlha(5); }, 2500); return APK.est || 'em dia'; }).catch(function () { return 'erro'; });
+    }
     var P = apkNat();
     if (!P || APK.busy || APK.est === 'baixa' || !navigator.onLine) return Promise.resolve('sem');
     APK.busy = true;
@@ -29180,6 +29210,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       .then(function (r) { APK.busy = false; updRender(); return r; });
   }
   ACT.apkgo = function () {
+    if (PCX.on) {
+      if (APK.est === 'pronto') pcPede('instalar', true).catch(function () { APK.est = 'erro'; APK.msg = 'O instalador não abriu. Toque para baixar de novo.'; updRender(); });
+      else if (APK.est === 'erro' || APK.est === 'tem') apkBusca(true);
+      return;
+    }
     var P = apkNat();
     if (!P) return;
     if (APK.est === 'pronto') {
@@ -29197,7 +29232,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   if (!/#test/.test(location.hash)) {
     setTimeout(function () { apkBusca(false); }, 60000);
     setInterval(function () { if (!document.hidden && Date.now() - APK.t > 4 * 3600 * 1000) apkBusca(false); }, 600000);
-  } else window.__apk = { busca: apkBusca, estado: APK, linha: apkLinha };
+    // Windows: a janela do programa abre em 127.0.0.1; o programa procura sozinho, a tela só acompanha
+    if (location.hostname === '127.0.0.1') { setTimeout(function () { pcOlha(0); }, 6000); setInterval(function () { if (PCX.on) pcOlha(0); }, 600000); }
+  } else window.__apk = { busca: apkBusca, estado: APK, linha: apkLinha, pc: pcOlha, pcx: PCX };
   // ===== S332 (15/11/2026, "opção A" aprovada pelo dono): a cópia do site do MODO LOJA também se atualiza sozinha, sem APK =====
   // O build grava www/loja/manifest.json (versão do site + lista de arquivos com tamanho e resumo). No aparelho (só no APK, que tem
   // o plugin Filesystem), o app compara com a cópia que veio no APK e com a última baixada; se o site mudou, baixa a cópia nova para
@@ -37771,7 +37808,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     ML.fr = w.querySelector('iframe');
     document.documentElement.classList.add('mlOn');
     // a cópia baixada não deu sinal de vida: marca como ruim e volta para a que veio no APK (o relógio abaixo reabre sozinho)
-    if (bx) setTimeout(function () { if (document.getElementById('mlWrap') === w && !ML.ok) { ljuRuim(); mlFecha(); } }, 9000);
+    // S337: no Windows a cópia baixada fica com o programa (mesmo endereço); se ela não abrir, avisa o programa para descartar
+    var pcl = PCX.on && PCX.loja;
+    if (bx || pcl) setTimeout(function () { if (document.getElementById('mlWrap') === w && !ML.ok) { if (bx) ljuRuim(); else { PCX.loja = 0; pcPede('loja-ruim', true).catch(function () {}); } mlFecha(); } }, 9000);
   }
   function mlFecha() {
     var w = document.getElementById('mlWrap');

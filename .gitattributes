@@ -1,0 +1,2 @@
+# S337: a cópia do site do modo loja tem de ficar byte a byte igual em qualquer sistema (os tamanhos estão no manifest.json)
+www/loja/** -text

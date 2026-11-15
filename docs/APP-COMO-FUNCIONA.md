@@ -266,3 +266,12 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 
 ## S335 (15/11/2026, v525 · 5.17.1) — Atualização num botão só
 - Pedido do dono: sem botão separado para o APK. No `updCard` o botão único tem prioridade para o APK (`APK.est`): "Atualização disponível · Toque para baixar · N MB" → "Baixando a atualização…" → "Atualização pronta · Toque para instalar" (`data-act="apkgo"`); sem APK novo, vale o comportamento de antes (buscar / atualização normal pronta / versão mais nova). `apkLinha()` ficou só com o aviso de erro. A linha "Atualização" da lista de Ajustes mostra "Pronta" quando o APK está baixado.
+
+## S337 (15/11/2026, v526 · 5.18.0) — Windows se atualiza por inteiro, com o mesmo botão
+- `desktop/pc-atualiza.js` (sem Electron; teste `node desktop/teste-pc.js`, que também roda no fluxo do Windows) + `desktop/main.js`:
+  - **Modo loja**: `buscaLoja()` (45 s depois de abrir e a cada 4 h) lê o mesmo `loja/manifest.json`; se o site é mais novo que a cópia do instalador, monta `userData/lojaupd/<versão>/` (copia do instalador o que não mudou, baixa o resto, confere tamanhos) e o servidor local passa a servir `/loja/` de lá (`PC.arquivo`). Cópia que não abre: a tela manda `POST /__pc/loja-ruim` e volta a do instalador.
+  - **Instalador**: `buscaInstalador()` procura `LaFouch-Setup-<build>.exe` na release `apk`; se o build é maior que o instalado (`EMB`), baixa para a pasta temporária e fica `pronto`. O endereço nunca vem da tela: só vale arquivo da release do repositório da loja, com o tamanho conferido.
+  - Pedidos da tela: `GET /__pc/estado`, `POST /__pc/buscar | instalar | loja-ruim` (só da própria janela: confere Origin/Host e o cabeçalho `X-LaFouch`). `instalar` abre o instalador e fecha o programa.
+- Tela (`src/97-atualiza-apk.js`, bloco "WINDOWS"): `pcOlha` lê o estado e preenche o mesmo `APK.*`; o cartão "Atualização do app" usa o MESMO botão único e os mesmos textos do celular.
+- `build-windows.yml`: roda o teste e publica o instalador na release `apk` (apaga o anterior). `.gitattributes`: `www/loja/** -text`.
+- Precisa instalar UMA vez, à mão, um instalador novo (o antigo não tem essas peças). NÃO testado no Windows real; o instalador não é assinado (o Windows pode avisar "editor desconhecido").

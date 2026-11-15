@@ -3,6 +3,9 @@ name: Gerar instalador para Windows
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   windows:
     runs-on: windows-latest
@@ -16,6 +19,9 @@ jobs:
       - name: Montar o app (junta os modulos de src/ em www/app.js)
         run: node build.js
 
+      - name: Teste da atualizacao do Windows (modo loja e instalador)
+        run: node desktop/teste-pc.js
+
       - name: Gerar o instalador
         working-directory: desktop
         run: |
@@ -26,3 +32,19 @@ jobs:
         with:
           name: La-Fouch-Windows
           path: desktop/dist/*.exe
+
+      # S337 (15/11/2026): o instalador vai para a release "apk" (LaFouch-Setup-<build>.exe); o programa instalado acha, baixa e oferece
+      # no mesmo botao de atualizacao do app.
+      - name: Publicar o instalador para a atualizacao dentro do app
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          N=$(grep -o 'lafouch-v[0-9]*' www/sw.js | head -1 | grep -o '[0-9]*$')
+          test -n "$N"
+          EXE=$(ls desktop/dist/*.exe | head -1)
+          test -s "$EXE"
+          cp "$EXE" "LaFouch-Setup-$N.exe"
+          gh release view apk >/dev/null 2>&1 || gh release create apk --title "APK do app La Fouch" --notes "Arquivos do aplicativo, gerados automaticamente. Nao apagar o arquivo chave.enc."
+          for a in $(gh release view apk --json assets --jq '.assets[].name' | grep '^LaFouch-Setup-.*\.exe$' || true); do gh release delete-asset apk "$a" -y; done
+          gh release upload apk "LaFouch-Setup-$N.exe" --clobber
