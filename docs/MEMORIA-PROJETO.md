@@ -2527,3 +2527,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Dono: "Então permitir a reserva para 30 minutos" (para o comprovante aparecer antes de a peça voltar ao site). Feito: `functions/reserva.js` PRAZO_MS 15 → 30 min (transferência já era 30); textos do site "10 minutos" → "30 minutos".
 - CORREÇÃO MINHA: eu tinha dito que a reserva vencia aos 10 min junto com o botão do comprovante; o código real era 15 min (PIX) e 30 min (transferência) — só o TEXTO do site dizia 10. O botão do comprovante segue aos 10 min; enviar o comprovante já segurava a peça por 12 h.
 - Testado: functions/teste-reserva.js 22/22; porteiro do site. NÃO testado no celular nem com pedido real. O prazo novo do PIX só vale depois de o dono publicar a função `reserva`.
+
+### S307 (14/11/2026) — vídeo "pagamento hoje" (pedido do dono) + pedido pendente do botão
+- Dono pediu um vídeo simples de como o sistema é agora (work/s307/filme.py → pagamento-hoje.mp4; telas reais, relógio adiantado): 0 min sem botão · 10 min aparece "Envie o comprovante" · comprovante enviado · 30 min "Reserva encerrada" (só WhatsApp).
+- Hoje existe UM botão de comprovante só (a dúvida "2 botões" veio da minha proposta de repetir o botão na tela "Reserva encerrada").
+- PENDENTE DE APROVAÇÃO (dono disse, mas pediu para ver o esboço antes): botão do comprovante a partir de 1 minuto; comprovante enviado segura a peça (já é assim, 12 h) e o dono confere na mão quando o sistema não reconhecer. NÃO implementado.
