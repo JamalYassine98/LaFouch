@@ -1,8 +1,7 @@
 {
- "nome": "5.17.0",
+ "nome": "5.17.1",
  "notas": [
-  "A atualização do app cuida do aplicativo (APK) também: quando há um APK novo, ele aparece em Ajustes › Atualização para baixar e instalar.",
-  "O APK passa a ter assinatura fixa: o novo instala por cima do antigo, sem desinstalar (depois de configurar a frase da chave no GitHub)."
+  "Atualização num botão só: o aplicativo novo (APK) aparece no mesmo botão de atualizar, como uma atualização qualquer."
  ],
- "build": 524
+ "build": 525
 }

@@ -3561,7 +3561,7 @@ async def main():
             await pg.close()
 
             # S334 (15/11/2026): a atualização do app cuida do APK. Aparelho falso (plugins LfInstall + Filesystem):
-            # APK mais novo na release → baixa sozinho no Wi-Fi e o cartão mostra "Aplicativo novo pronto"; tocar abre o instalador;
+            # APK mais novo na release → baixa sozinho no Wi-Fi e o botão do cartão vira "Atualização pronta" (um botão só); tocar abre o instalador;
             # nos dados móveis espera o toque; arquivo cortado não é oferecido; APK apk_igual ao instalado = nada aparece.
             pg = await pagina()
             EMBN = int(re.search(r'var EMB=(\d+)', open(os.path.join(RAIZ, 'www', 'index.html')).read()).group(1))
@@ -3575,20 +3575,20 @@ async def main():
                 downloadFile: async o => { log.baixou.push(o.url); log.arq[o.path] = log.tamReal; return { path: o.path }; }, stat: async o => { if (!(o.path in log.arq)) throw new Error('não existe'); return { size: log.arq[o.path] }; }, rmdir: async o => { log.arq = {}; } } } };
               const cel = t => Object.defineProperty(navigator, 'connection', { value: { type: t }, configurable: true });
               L.setView('ajustes'); await w(300);
-              cel('wifi'); const r1 = await A.busca(false); const h1 = A.linha();
-              const wifi = r1 === 'pronto' && log.baixou.length === 1 && /releases\\/download\\/apk\\/LaFouch-\\d+\\.apk$/.test(log.baixou[0]) && /Aplicativo novo pronto/.test(h1) && /data-act="apkgo"/.test(h1);
+              cel('wifi'); const r1 = await A.busca(false); const h1 = window.__upd.card();
+              const wifi = r1 === 'pronto' && log.baixou.length === 1 && /releases\\/download\\/apk\\/LaFouch-\\d+\\.apk$/.test(log.baixou[0]) && /Atualização pronta/.test(h1) && /data-act="apkgo"/.test(h1) && (h1.match(/<button/g) || []).length === 1;
               L.ACT.apkgo(); await w(100); const instala = log.instalou.length === 1 && log.instalou[0] === 'LaFouch-' + A.estado.n + '.apk';
               const r1b = await A.busca(false); const semBaixarDeNovo = r1b === 'pronto' && log.baixou.length === 1;
-              log.arq = {}; A.estado.est = ''; cel('cellular'); const r2 = await A.busca(false); const h2 = A.linha();
+              log.arq = {}; A.estado.est = ''; cel('cellular'); const r2 = await A.busca(false); const h2 = window.__upd.card();
               const dados = r2 === 'tem' && log.baixou.length === 1 && /Toque para baixar · 18 MB/.test(h2);
               L.ACT.apkgo(); await w(200); const toque = A.estado.est === 'pronto' && log.baixou.length === 2;
-              log.arq = {}; A.estado.est = ''; log.tamReal = 1234; cel('wifi'); const r3 = await A.busca(false); const cortado = r3 === 'erro' && !/pronto/.test(A.linha()) && /Toque para baixar/.test(A.linha());
+              log.arq = {}; A.estado.est = ''; log.tamReal = 1234; cel('wifi'); const r3 = await A.busca(false); const cortado = r3 === 'erro' && !/Atualização pronta/.test(window.__upd.card()) && /Toque para baixar/.test(window.__upd.card()) && /Não consegui baixar/.test(A.linha());
               L.ACT.apkgo(); await w(100); const naoInstala = log.instalou.length === 1;
               delete window.Capacitor; const semApk = await A.busca(false);
               return [wifi, instala, semBaixarDeNovo, dados, toque, cortado, naoInstala, semApk === 'sem']; }""", rel['tam'])
             rel['n'] = EMBN
             apk_igual = await pg.evaluate("""async () => { const A = window.__apk; let apagou = 0; window.Capacitor = { isNativePlatform: () => true, Plugins: { LfInstall: { instalar: async () => ({}) }, Filesystem: { downloadFile: async () => ({}), stat: async () => { throw new Error('x'); }, rmdir: async () => { apagou++; } } } };
-              A.estado.est = ''; const r = await A.busca(true); delete window.Capacitor; return [r === 'em dia', A.linha() === '', apagou === 1]; }""")
+              A.estado.est = ''; const r = await A.busca(true); delete window.Capacitor; return [r === 'em dia', A.linha() === '' && !/apkgo/.test(window.__upd.card()), apagou === 1]; }""")
             total += 1
             ok = got == [True] * 8 and apk_igual == [True] * 3 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Atualização do APK: acha o APK novo, baixa (Wi-Fi sozinho, dados só no toque), oferece instalar, recusa arquivo cortado')

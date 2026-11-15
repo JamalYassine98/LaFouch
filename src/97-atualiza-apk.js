@@ -1,8 +1,8 @@
   // ===== S334 (15/11/2026, pedido do dono): a atualização do app cuida do APK também =====
   // Quando o dono manda gerar um APK, o build-apk.yml (com a chave FIXA) publica o arquivo LaFouch-<build>.apk na "release" apk do GitHub.
   // Aqui (só no APK que tem o plugin LfInstall): o app vê se esse APK é mais novo que o instalado (número EMB do index.html que veio
-  // no APK), baixa para o cache (no Wi-Fi sozinho; nos dados móveis só quando o dono toca) e o cartão "Atualização do app" mostra
-  // "Aplicativo novo pronto · Toque para instalar". Tocar abre o instalador do Android, que sempre pede a confirmação.
+  // no APK), baixa para o cache (no Wi-Fi sozinho; nos dados móveis só quando o dono toca) e o botão do cartão "Atualização do app" vira
+  // "Atualização pronta · Toque para instalar" (S335: um botão só, como uma atualização qualquer). Tocar abre o instalador do Android, que sempre pede a confirmação.
   var APK_API = 'https://api.github.com/repos/JamalYassine98/LaFouch/releases/tags/apk';
   var APK = { emb: 0, n: 0, url: '', tam: 0, est: '', msg: '', t: 0, busy: false, avisou: 0 }; // est: '' · tem · baixa · pronto · erro
   function apkNat() {
@@ -19,7 +19,7 @@
     APK.msg = '';
     if (APK.avisou !== APK.n) {
       APK.avisou = APK.n;
-      try { lfaToast('<b>Aplicativo novo pronto</b><br>Ajustes › Atualização para instalar.', 4500); } catch (e) {}
+      try { lfaToast('<b>Atualização pronta</b><br>Ajustes › Atualização para instalar.', 4500); } catch (e) {}
     }
   }
   function apkBaixa() {
@@ -82,15 +82,9 @@
       });
     } else if (APK.est === 'tem' || APK.est === 'erro') apkBaixa();
   };
-  // linha do APK dentro do cartão "Atualização do app" (vazio quando não há APK novo)
+  // S335: o APK usa o MESMO botão do cartão "Atualização do app" (updCard); aqui fica só o aviso de erro, quando há
   function apkLinha() {
-    if (!APK.est || !APK.n) return '';
-    var mb = (APK.tam / 1048576).toFixed(0) + ' MB',
-      tit = { tem: 'Aplicativo novo disponível', baixa: 'Baixando o aplicativo…', pronto: 'Aplicativo novo pronto', erro: 'Aplicativo novo disponível' }[APK.est],
-      sub = { tem: 'Toque para baixar · ' + mb, baixa: mb + ' · pode continuar usando', pronto: 'Toque para instalar · o Android pede para confirmar', erro: 'Toque para baixar · ' + mb }[APK.est],
-      ico = APK.est === 'baixa' ? '<span class="lfa-spin">↻</span>' : '⬇';
-    return '<button type="button" class="bsolid new" data-act="apkgo"' + (APK.est === 'baixa' ? ' disabled' : '') + '><span class="bi">' + ico + '</span><span class="bt2"><b>' + tit + '</b><span>' + sub + '</span></span></button>' +
-      (APK.msg ? '<div class="note n-info" role="status">' + esc(APK.msg) + '</div>' : '');
+    return APK.n && APK.est && APK.msg ? '<div class="note n-info" role="status">' + esc(APK.msg) + '</div>' : '';
   }
   if (!/#test/.test(location.hash)) {
     setTimeout(function () { apkBusca(false); }, 60000);

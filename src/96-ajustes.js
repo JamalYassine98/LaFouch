@@ -174,7 +174,7 @@
       ped: { t: 'Pedidos do site', r: S.baixaAuto ? 'Baixa automática' : 'Baixa manual', h: achar('baixaCard') + (typeof fretesCard === 'function' ? fretesCard() : '') },
       av: { t: 'Sons e avisos', r: av.q ? 'Silêncio ligado' : 'Ligados', h: achar('avisosCard') + resto },
       sync: sy ? { t: 'Sincronização', r: sy[1], al: sy[0] === 'bad' || sy[0] === 'warn', h: syncCard() } : null,
-      upd: { t: 'Atualização', r: upN ? (um.nome || upN) + ' pronta' : APP_NOME, al: !!upN, h: updCard() },
+      upd: { t: 'Atualização', r: APK.n && APK.est === 'pronto' ? 'Pronta' : upN ? (um.nome || upN) + ' pronta' : APP_NOME, al: !!upN || (APK.n && APK.est === 'pronto'), h: updCard() },
       pauto: { t: 'Pagamento automático', r: S.pixAuto ? 'PIX ligado' : 'Desligado', h: pautoCard() },
       bk: { t: 'Cópias e nuvem', r: bkd < 0 ? 'Nenhuma cópia' : bkd === 0 ? 'Hoje' : 'Há ' + bkd + (bkd === 1 ? ' dia' : ' dias'), al: bkd < 0 || bkd > 7, h: backupHtml().replace(/<\/section>$/, nv + '</section>') }
     };

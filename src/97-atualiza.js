@@ -115,11 +115,18 @@
       tit = { busca: 'Buscando…', novo: 'Atualização ' + esc(m.nome || novo) + ' pronta', ok: 'Você está na versão mais nova', parado: 'Buscar atualização' }[est],
       sub = { busca: 'Procurando versão nova', novo: 'Toque para instalar', ok: 'Versão ' + APP_NOME + (UPD.ult ? ' · agora mesmo' : ''), parado: 'Toque para procurar agora' }[est],
       ult = UPD.ult ? 'Última busca ' + fh(UPD.ult) : '';
+    // S335 (15/11/2026, pedido do dono): um botão só. O APK novo aparece NESTE botão, como uma atualização qualquer, e tem prioridade (ele já traz a atualização normal dentro).
+    var ak = APK.n ? APK.est : '', mb = (APK.tam / 1048576).toFixed(0) + ' MB';
+    if (ak) {
+      ico = ak === 'baixa' ? '<span class="lfa-spin">↻</span>' : '⬇';
+      tit = { tem: 'Atualização disponível', erro: 'Atualização disponível', baixa: 'Baixando a atualização…', pronto: 'Atualização pronta' }[ak];
+      sub = { tem: 'Toque para baixar · ' + mb, erro: 'Toque para baixar · ' + mb, baixa: mb + ' · pode continuar usando', pronto: 'Toque para instalar' }[ak];
+    }
     return '<section class="card col" id="updCard"><h2 style="margin:0;font-size:16px">Atualização do app</h2>' +
       '<div class="hint" style="margin:0">O app procura sozinho (ao abrir e a cada poucas horas) e avisa quando a nova está pronta. Nada muda enquanto você vende.</div>' +
       '<div class="vrow"><span>Versão <b>' + esc(APP_NOME) + '</b> <small>(' + APP_BUILD + ')</small></span><span>' + ult + '</span></div>' +
-      '<button type="button" class="bsolid' + (est === 'ok' ? ' ok' : est === 'novo' ? ' new' : '') + '" data-act="' + (est === 'novo' ? 'updagora' : 'updbusca') + '"' + (est === 'busca' ? ' disabled' : '') + '><span class="bi">' + ico + '</span><span class="bt2"><b>' + tit + '</b><span>' + sub + '</span></span></button>' +
-      (UPD.msg && est !== 'ok' && est !== 'busca' && est !== 'novo' ? '<div class="note n-info" role="status">' + esc(UPD.msg) + '</div>' : '') + apkLinha() + '</section>';
+      '<button type="button" class="bsolid' + (ak ? ' new' : est === 'ok' ? ' ok' : est === 'novo' ? ' new' : '') + '" data-act="' + (ak ? 'apkgo' : est === 'novo' ? 'updagora' : 'updbusca') + '"' + (est === 'busca' || ak === 'baixa' ? ' disabled' : '') + '><span class="bi">' + ico + '</span><span class="bt2"><b>' + tit + '</b><span>' + sub + '</span></span></button>' +
+      (ak ? apkLinha() : UPD.msg && est !== 'ok' && est !== 'busca' && est !== 'novo' ? '<div class="note n-info" role="status">' + esc(UPD.msg) + '</div>' : '') + '</section>';
   }
   // Confirma que a cópia baixada abriu bem (zera as tentativas) e agenda as buscas automáticas.
   setTimeout(function () {

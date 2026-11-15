@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 524;
+  var APP_BUILD = 525;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.17.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.17.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -26983,7 +26983,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       ped: { t: 'Pedidos do site', r: S.baixaAuto ? 'Baixa automática' : 'Baixa manual', h: achar('baixaCard') + (typeof fretesCard === 'function' ? fretesCard() : '') },
       av: { t: 'Sons e avisos', r: av.q ? 'Silêncio ligado' : 'Ligados', h: achar('avisosCard') + resto },
       sync: sy ? { t: 'Sincronização', r: sy[1], al: sy[0] === 'bad' || sy[0] === 'warn', h: syncCard() } : null,
-      upd: { t: 'Atualização', r: upN ? (um.nome || upN) + ' pronta' : APP_NOME, al: !!upN, h: updCard() },
+      upd: { t: 'Atualização', r: APK.n && APK.est === 'pronto' ? 'Pronta' : upN ? (um.nome || upN) + ' pronta' : APP_NOME, al: !!upN || (APK.n && APK.est === 'pronto'), h: updCard() },
       pauto: { t: 'Pagamento automático', r: S.pixAuto ? 'PIX ligado' : 'Desligado', h: pautoCard() },
       bk: { t: 'Cópias e nuvem', r: bkd < 0 ? 'Nenhuma cópia' : bkd === 0 ? 'Hoje' : 'Há ' + bkd + (bkd === 1 ? ' dia' : ' dias'), al: bkd < 0 || bkd > 7, h: backupHtml().replace(/<\/section>$/, nv + '</section>') }
     };
@@ -29109,8 +29109,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // ===== S334 (15/11/2026, pedido do dono): a atualização do app cuida do APK também =====
   // Quando o dono manda gerar um APK, o build-apk.yml (com a chave FIXA) publica o arquivo LaFouch-<build>.apk na "release" apk do GitHub.
   // Aqui (só no APK que tem o plugin LfInstall): o app vê se esse APK é mais novo que o instalado (número EMB do index.html que veio
-  // no APK), baixa para o cache (no Wi-Fi sozinho; nos dados móveis só quando o dono toca) e o cartão "Atualização do app" mostra
-  // "Aplicativo novo pronto · Toque para instalar". Tocar abre o instalador do Android, que sempre pede a confirmação.
+  // no APK), baixa para o cache (no Wi-Fi sozinho; nos dados móveis só quando o dono toca) e o botão do cartão "Atualização do app" vira
+  // "Atualização pronta · Toque para instalar" (S335: um botão só, como uma atualização qualquer). Tocar abre o instalador do Android, que sempre pede a confirmação.
   var APK_API = 'https://api.github.com/repos/JamalYassine98/LaFouch/releases/tags/apk';
   var APK = { emb: 0, n: 0, url: '', tam: 0, est: '', msg: '', t: 0, busy: false, avisou: 0 }; // est: '' · tem · baixa · pronto · erro
   function apkNat() {
@@ -29127,7 +29127,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     APK.msg = '';
     if (APK.avisou !== APK.n) {
       APK.avisou = APK.n;
-      try { lfaToast('<b>Aplicativo novo pronto</b><br>Ajustes › Atualização para instalar.', 4500); } catch (e) {}
+      try { lfaToast('<b>Atualização pronta</b><br>Ajustes › Atualização para instalar.', 4500); } catch (e) {}
     }
   }
   function apkBaixa() {
@@ -29190,15 +29190,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       });
     } else if (APK.est === 'tem' || APK.est === 'erro') apkBaixa();
   };
-  // linha do APK dentro do cartão "Atualização do app" (vazio quando não há APK novo)
+  // S335: o APK usa o MESMO botão do cartão "Atualização do app" (updCard); aqui fica só o aviso de erro, quando há
   function apkLinha() {
-    if (!APK.est || !APK.n) return '';
-    var mb = (APK.tam / 1048576).toFixed(0) + ' MB',
-      tit = { tem: 'Aplicativo novo disponível', baixa: 'Baixando o aplicativo…', pronto: 'Aplicativo novo pronto', erro: 'Aplicativo novo disponível' }[APK.est],
-      sub = { tem: 'Toque para baixar · ' + mb, baixa: mb + ' · pode continuar usando', pronto: 'Toque para instalar · o Android pede para confirmar', erro: 'Toque para baixar · ' + mb }[APK.est],
-      ico = APK.est === 'baixa' ? '<span class="lfa-spin">↻</span>' : '⬇';
-    return '<button type="button" class="bsolid new" data-act="apkgo"' + (APK.est === 'baixa' ? ' disabled' : '') + '><span class="bi">' + ico + '</span><span class="bt2"><b>' + tit + '</b><span>' + sub + '</span></span></button>' +
-      (APK.msg ? '<div class="note n-info" role="status">' + esc(APK.msg) + '</div>' : '');
+    return APK.n && APK.est && APK.msg ? '<div class="note n-info" role="status">' + esc(APK.msg) + '</div>' : '';
   }
   if (!/#test/.test(location.hash)) {
     setTimeout(function () { apkBusca(false); }, 60000);
@@ -29422,11 +29416,18 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       tit = { busca: 'Buscando…', novo: 'Atualização ' + esc(m.nome || novo) + ' pronta', ok: 'Você está na versão mais nova', parado: 'Buscar atualização' }[est],
       sub = { busca: 'Procurando versão nova', novo: 'Toque para instalar', ok: 'Versão ' + APP_NOME + (UPD.ult ? ' · agora mesmo' : ''), parado: 'Toque para procurar agora' }[est],
       ult = UPD.ult ? 'Última busca ' + fh(UPD.ult) : '';
+    // S335 (15/11/2026, pedido do dono): um botão só. O APK novo aparece NESTE botão, como uma atualização qualquer, e tem prioridade (ele já traz a atualização normal dentro).
+    var ak = APK.n ? APK.est : '', mb = (APK.tam / 1048576).toFixed(0) + ' MB';
+    if (ak) {
+      ico = ak === 'baixa' ? '<span class="lfa-spin">↻</span>' : '⬇';
+      tit = { tem: 'Atualização disponível', erro: 'Atualização disponível', baixa: 'Baixando a atualização…', pronto: 'Atualização pronta' }[ak];
+      sub = { tem: 'Toque para baixar · ' + mb, erro: 'Toque para baixar · ' + mb, baixa: mb + ' · pode continuar usando', pronto: 'Toque para instalar' }[ak];
+    }
     return '<section class="card col" id="updCard"><h2 style="margin:0;font-size:16px">Atualização do app</h2>' +
       '<div class="hint" style="margin:0">O app procura sozinho (ao abrir e a cada poucas horas) e avisa quando a nova está pronta. Nada muda enquanto você vende.</div>' +
       '<div class="vrow"><span>Versão <b>' + esc(APP_NOME) + '</b> <small>(' + APP_BUILD + ')</small></span><span>' + ult + '</span></div>' +
-      '<button type="button" class="bsolid' + (est === 'ok' ? ' ok' : est === 'novo' ? ' new' : '') + '" data-act="' + (est === 'novo' ? 'updagora' : 'updbusca') + '"' + (est === 'busca' ? ' disabled' : '') + '><span class="bi">' + ico + '</span><span class="bt2"><b>' + tit + '</b><span>' + sub + '</span></span></button>' +
-      (UPD.msg && est !== 'ok' && est !== 'busca' && est !== 'novo' ? '<div class="note n-info" role="status">' + esc(UPD.msg) + '</div>' : '') + apkLinha() + '</section>';
+      '<button type="button" class="bsolid' + (ak ? ' new' : est === 'ok' ? ' ok' : est === 'novo' ? ' new' : '') + '" data-act="' + (ak ? 'apkgo' : est === 'novo' ? 'updagora' : 'updbusca') + '"' + (est === 'busca' || ak === 'baixa' ? ' disabled' : '') + '><span class="bi">' + ico + '</span><span class="bt2"><b>' + tit + '</b><span>' + sub + '</span></span></button>' +
+      (ak ? apkLinha() : UPD.msg && est !== 'ok' && est !== 'busca' && est !== 'novo' ? '<div class="note n-info" role="status">' + esc(UPD.msg) + '</div>' : '') + '</section>';
   }
   // Confirma que a cópia baixada abriu bem (zera as tentativas) e agenda as buscas automáticas.
   setTimeout(function () {

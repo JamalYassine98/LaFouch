@@ -1,1 +1,1 @@
-{"v":524,"nat":1,"nome":"5.17.0","notas":["A atualização do app cuida do aplicativo (APK) também: quando há um APK novo, ele aparece em Ajustes › Atualização para baixar e instalar.","O APK passa a ter assinatura fixa: o novo instala por cima do antigo, sem desinstalar (depois de configurar a frase da chave no GitHub)."]}
+{"v":525,"nat":1,"nome":"5.17.1","notas":["Atualização num botão só: o aplicativo novo (APK) aparece no mesmo botão de atualizar, como uma atualização qualquer."]}
