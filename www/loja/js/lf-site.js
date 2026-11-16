@@ -3647,14 +3647,14 @@ var MOCHI_CSS=`
 .mochi{position:absolute;left:0;top:0;will-change:transform;z-index:6}
 /* S88: corpo, inclinação, espelho e óculos andam pelo mesmo relógio do esqueleto (molas), sem transições CSS em degraus */
 .mochi .sq,.mochi .tilt{transform-origin:60px 124px}
-.mochi .resp{transform-origin:60px 124px;animation:resp 2.6s ease-in-out infinite}
-@keyframes resp{0%,100%{transform:translateY(0) scale(1,1)}50%{transform:translateY(-2.5px) scale(1.012,.988)}}
-.mochi .sombra{transform-origin:60px 125px;animation:somb 2.6s ease-in-out infinite}
+.mochi .resp{transform-origin:60px 124px;animation:resp 4s ease-in-out infinite}
+@keyframes resp{0%,100%{transform:translateY(0) scale(1,1)}50%{transform:translateY(-1.5px) scale(1.008,.992)}}
+.mochi .sombra{transform-origin:60px 125px;animation:somb 4s ease-in-out .15s infinite}
 @keyframes somb{0%,100%{transform:scale(1)}50%{transform:scale(.94)}}
-.mochi .pup{transition:transform .35s ease}
+.mochi .pup{transition:transform .22s cubic-bezier(.16,1,.3,1)}
 .mochi .pis{transform-origin:60px 83px}
-.mochi .pis.p{animation:pisca .16s ease-in-out}
-@keyframes pisca{50%{transform:scaleY(.08)}}
+.mochi .pis.p{animation:pisca .2s cubic-bezier(.3,0,.3,1)}
+@keyframes pisca{35%{transform:scaleY(.08)}}
 .mochi .olhos,.mochi .olhosF,.mochi .olhosZ,.mochi .bW,.mochi .bO,.mochi .bF,.mochi .bH,.mochi .bY,.mochi .pon{transition:opacity .22s ease}
 @media (prefers-reduced-motion:reduce){.mochi .resp,.mochi .sombra{animation:none}}
 `;
@@ -3733,7 +3733,7 @@ function Mochi(host,x,y){const el=document.createElement('div');el.className='mo
  const N={aBe:q('.aBe'),aBd:q('.aBd'),aFe:q('.aFe'),aFd:q('.aFd'),mke:q('.mke'),mkd:q('.mkd'),pon:q('.ponT'),oclT:q('.oclT'),espT:q('.espT'),fog:q('.fog'),itB:q('.itB'),itF:q('.itF'),pulo:q('.pulo'),pe1:q('.pe1'),pe2:q('.pe2')};
  const S={ae:35,ad:40,te:35,td:40,ve:0,vd:0,Le:30,Ld:30,g:null,res:{gr:0,gy:0,mr:0,my:0,oy:0,orr:0,oo:1},lastIt:'',lastFog:''};
  /* molas (S88): alvo + velocidade; k = força, d = amortecimento */
- const MOL={sx:{v:1,t:1,w:0,k:.2,d:.7},sy:{v:1,t:1,w:0,k:.2,d:.7},ti:{v:0,t:0,w:0,k:.09,d:.8},es:{v:0,t:0,w:0,k:.13,d:.86},ob:{v:0,t:0,w:0,k:.12,d:.8},fx:{v:1,t:1,w:0,k:.1,d:.76}};
+ const MOL={sx:{v:1,t:1,w:0,k:.09,d:.55},sy:{v:1,t:1,w:0,k:.09,d:.55},ti:{v:0,t:0,w:0,k:.045,d:.7},es:{v:0,t:0,w:0,k:.05,d:.74},ob:{v:0,t:0,w:0,k:.05,d:.74},fx:{v:1,t:1,w:0,k:.07,d:.6}};
  const mola=(m,n)=>{if(RM.matches){m.v=m.t;m.w=0;return}for(let i=0;i<n;i++){m.w+=(m.t-m.v)*m.k;m.w*=m.d;m.v+=m.w}};
  const nS=q('.sq'),nT=q('.tilt'),nE=q('.esp'),nO=q('.ocl');M.rot=null;
  M.bracos=function(e,d){if(e!=null)S.te=-e;if(d!=null)S.td=d;if(RM.matches){S.ae=S.te;S.ad=S.td}};
@@ -3759,14 +3759,14 @@ function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpo
  let raf=0,t0=performance.now(),lt=t0;
  function frame(now){if(!el.isConnected){raf=0;return}raf=requestAnimationFrame(frame);const dt=Math.min(3,(now-lt)/16.67);lt=now;
   /* braços seguem o alvo com mola (passa um pouquinho e volta, como .34,1.45) */
-  for(const c of ['e','d']){const k='a'+c,t='t'+c,v='v'+c;if(RM.matches){S[k]=S[t];S[v]=0;continue}for(let i=0;i<Math.round(dt)||i<1;i++){S[v]+=(S[t]-S[k])*.09;S[v]*=.74;S[k]+=S[v]}}
+  for(const c of ['e','d']){const k='a'+c,t='t'+c,v='v'+c;if(RM.matches){S[k]=S[t];S[v]=0;continue}for(let i=0;i<Math.round(dt)||i<1;i++){S[v]+=(S[t]-S[k])*.045;S[v]*=.7;S[k]+=S[v]}}
   let ae=S.ae,ad=S.ad,Le=30,Ld=30,fE=null,fD=null,o={};const g=S.g;
   if(g){const tt=(now-g.t0)/1000;o=g.def.f(Math.min(tt,g.def.dur),g.s,{leve:RM.matches})||{};if(o.ae!=null)ae=o.ae;if(o.ad!=null)ad=o.ad;if(o.Le!=null)Le=o.Le;if(o.Ld!=null)Ld=o.Ld;fE=o.fE;fD=o.fD;
    if(tt>=g.def.dur){S.g=null;if(o.ae!=null){S.ae=ae;S.ve=0}if(o.ad!=null){S.ad=ad;S.vd=0}faceSet(null);g.cb&&g.cb()}}
   armSet(-1,ae,Le,fE);armSet(1,ad,Ld,fD);
   const R=S.res;for(const k of ['gr','gy','mr','my','oy','orr']){if(o[k]!=null)R[k]=o[k];else R[k]*=.86}if(o.oo!=null)R.oo=o.oo;else R.oo+=(1-R.oo)*.2;
   const nf=Math.max(1,Math.round(dt));for(const k in MOL)mola(MOL[k],nf);
-  nS.style.transform=`scale(${MOL.sx.v.toFixed(4)},${MOL.sy.v.toFixed(4)})`;nT.style.transform=`rotate(${(M.rot!=null?M.rot:MOL.ti.v).toFixed(2)}deg)`;nE.style.transform=`rotate(${MOL.es.v.toFixed(2)}deg)`;nE.style.transformOrigin='60px 58px';
+  nS.style.transform=`scale(${(1+(MOL.sx.v-1)*.3).toFixed(4)},${(1+(MOL.sy.v-1)*.3).toFixed(4)})`;nT.style.transform=`rotate(${(M.rot!=null?M.rot:MOL.ti.v).toFixed(2)}deg)`;nE.style.transform=`rotate(${MOL.es.v.toFixed(2)}deg)`;nE.style.transformOrigin='60px 58px';
   N.oclT.setAttribute('transform',`translate(0 ${(R.gy+R.oy+MOL.ob.v).toFixed(2)}) rotate(${(R.gr+R.orr).toFixed(2)} 60 83)`);N.oclT.setAttribute('opacity',R.oo.toFixed(3));N.espT.setAttribute('transform',`translate(0 ${R.my.toFixed(2)}) rotate(${R.mr.toFixed(2)} 60 58)`);
   const fog=fogL(75,'lfmzD',o.fogD||0,86,79)+fogL(45,'lfmzE',o.fogE||0,56,79);if(fog!==S.lastFog){N.fog.innerHTML=fog;S.lastFog=fog}
   const it=(o.itB||'')+'|'+(o.itF||'');if(it!==S.lastIt){N.itB.innerHTML=o.itB||'';N.itF.innerHTML=o.itF||'';S.lastIt=it}
@@ -3780,7 +3780,7 @@ function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpo
  M.emGesto=function(){return !!S.g};M.gestoUsa=function(c){return !!(S.g&&(S.g.def.mao||'').indexOf(c)>=0)};
  M.paraGesto=function(){const g=S.g;if(!g)return;S.g=null;faceSet(null);S.lastIt='x'};
  M.olha=function(dx,dy){q('.pup').style.transform=`translate(${(dx||0)*(MOL.fx.t<0?-2.4:2.4)}px,${(dy||0)*1.6}px)`};
- M.cara=function(e){M.exp=e;face0=null;faceSet(S.g?null:null)};
+ M.cara=function(e){if(e===M.exp)return;M.exp=e;face0=null;M.pisca();setTimeout(()=>faceSet(null),70)};
  /* ponteiro de mãozinha com cabo vinho (S58 A + S70): a haste estica até o comprimento todo */
  M.vara=function(on){q('.pon').style.opacity=on?1:0;M.ponOn=!!on;if(!on)M.estica(0,0)};
  M.len=0;M.estica=function(Lh,ms,ex){const h=q('.haste'),g=q('.luva'),FULL=34.3;const alvo=ex?cl(Lh,0,FULL):Lh>0?FULL:0;const ap=x=>{M.len=x;h.setAttribute('d',`M36.7 0 H${(36.7+x).toFixed(2)}`);g.setAttribute('transform',`translate(${(36.7+x).toFixed(2)} 0) scale(.75)`)};
@@ -3790,7 +3790,7 @@ function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpo
  /* S91: vira de lado (mola: o corpo afina, passa pelo meio e abre do outro lado, com um balancinho) */
  M.vira=function(f){f=f<0?-1:1;if(MOL.fx.t===f)return;MOL.fx.t=f;M.empurra(f*-2.2);M.oculosPulo(-1)};M.virado=function(){return MOL.fx.t<0};
  /* desliza com um tiquinho de passada e volta (S88) */
- M.mv=0;M.para=function(){M.mv++};M.flutua=function(nx,ny,dur,fim){const tk=++M.mv,x0=M.x,y0=M.y,t1=performance.now();dur=dur||520;if(RM.matches){M.pos(nx,ny);fim&&fim();return}M.amassa(.96,1.05);const f=n=>{if(tk!==M.mv)return;let t=Math.min(1,(n-t1)/dur),c=1.5,e=1+(c+1)*Math.pow(t-1,3)+c*Math.pow(t-1,2);M.pos(x0+(nx-x0)*e,y0+(ny-y0)*e);if(t>.5)M.amassa(1,1);if(t<1)requestAnimationFrame(f);else fim&&fim()};requestAnimationFrame(f)};M.empurra=function(v){MOL.ti.w+=v};
+ M.mv=0;M.para=function(){M.mv++};M.flutua=function(nx,ny,dur,fim){const tk=++M.mv,x0=M.x,y0=M.y,t1=performance.now();const _d=Math.hypot(nx-M.x,ny-M.y);dur=Math.round(Math.min(1200,Math.max(360,300+_d*2.1)));if(_d>40)M.olhaVai(Math.sign(nx-M.x)||0,Math.sign(ny-M.y)*.6,dur+250);if(RM.matches){M.pos(nx,ny);fim&&fim();return}M.amassa(.96,1.05);const f=n=>{if(tk!==M.mv)return;let t=Math.min(1,(n-t1)/dur),e=t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;M.pos(x0+(nx-x0)*e,y0+(ny-y0)*e);if(t>.5)M.amassa(1,1);if(t<1)requestAnimationFrame(f);else fim&&fim()};requestAnimationFrame(f)};M.empurra=function(v){MOL.ti.w+=v};
  /* espelho: um toque de velocidade e a mola faz o balanço amortecido */
  M.espelho=function(f){MOL.es.w+=(f||1)*-7};M.oculosPulo=function(v){MOL.ob.w+=v};
  M.ajustaOculos=function(){M.gesto('ajusta')};
@@ -3803,18 +3803,29 @@ function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpo
  const L_IDLE={limpa:()=>M.gesto('limpa'),espreguica:()=>M.gesto('espreguica'),cantarola:()=>{M.onCanta&&M.onCanta()},palminha:()=>M.gesto('palminha'),bocejo:()=>M.gesto('bocejo'),tchau:()=>M.gesto('tchau'),
    pulinho:()=>M.gesto('pulinho'),danca:()=>M.gesto('danca'),tapinha:()=>M.gesto('tapinha'),pisca2:()=>{M.pisca();setTimeout(()=>M.pisca(),230)}};
  let ult='';const vida=()=>{clearTimeout(ot);ot=setTimeout(()=>{if(!el.isConnected)return;if(M.ocioso&&!M.fal&&!S.g&&!M.preso){const L=M.modo==='trab'?T_IDLE:L_IDLE,ks=Object.keys(L).filter(k=>k!==ult&&!(M.ponOn&&M.modo!=='trab'&&/limpa|palminha|espreguica|danca|tchau/.test(k)));
-   if(!RM.matches||/olha|pisca2|inclina/.test(ks.join())){let k=ks[Math.floor(Math.random()*ks.length)];if(RM.matches)k=['olha','pisca2'][Math.floor(Math.random()*2)];ult=k;(L[k]||T_IDLE[k])()}}vida()},2200+Math.random()*1800)};vida();
+   if(!RM.matches||/olha|pisca2|inclina/.test(ks.join())){let k=ks[Math.floor(Math.random()*ks.length)];if(RM.matches)k=['olha','pisca2'][Math.floor(Math.random()*2)];ult=k;(L[k]||T_IDLE[k])()}}vida()},10000+Math.random()*6000)};vida();
  M.olhaPara=function(x,y){const r=el.getBoundingClientRect(),cx=r.left+r.width*.45,cy=r.top+r.height*.5,dx=x-cx,dy=y-cy,d=Math.hypot(dx,dy)||1;M.olha(dx/d,dy/d);clearTimeout(M._ol);M._ol=setTimeout(()=>M.olha(0,0),900)};
- M.pisca=function(){const p=q('.pis');p.classList.remove('p');void p.getBBox;requestAnimationFrame(()=>p.classList.add('p'))};
- const piv=setInterval(()=>{if(!el.isConnected){clearInterval(piv);return}if(M.exp!=='f')M.pisca()},3200+Math.random()*1200);
- let ft=0;M.fala=function(ms){M.fal=1;clearTimeout(ft);clearTimeout(M._ff);const bO=q('.bO'),bW=q('.bW');let k=0;const tik=()=>{if(!M.fal)return;const ab=(k++%3)!==2;bO.style.opacity=ab?1:0;bW.style.opacity=ab||M.exp==='f'?0:1;if(M.exp==='f')bO.style.opacity=0;ft=setTimeout(tik,110+Math.random()*90)};tik();
+ (function mo(){setTimeout(()=>{if(!el.isConnected)return;if(!M.fal&&q('.pup').style.transform.indexOf('(0px')>=0)M.olhaVai((Math.random()-.5)*1.1,(Math.random()-.4)*.7,900);mo()},4000+Math.random()*3000)})();M.pisca=function(){const p=q('.pis');p.classList.remove('p');void p.getBBox;requestAnimationFrame(()=>p.classList.add('p'))};
+ (function pv(){setTimeout(()=>{if(!el.isConnected)return;if(M.exp!=='f'){M.pisca();if(Math.random()<.2)setTimeout(()=>M.pisca(),260)}pv()},2500+Math.random()*3500)})();
+ let ft=0;M.fala=function(ms){M.fal=1;clearTimeout(ft);clearTimeout(M._ff);const bO=q('.bO'),bW=q('.bW');let k=0;const tik=()=>{if(!M.fal)return;const ab=M.rel?(k++%3)!==2:false;bO.style.opacity=ab?1:0;bW.style.opacity=ab||M.exp==='f'?0:1;if(M.exp==='f')bO.style.opacity=0;ft=setTimeout(tik,110+Math.random()*90)};tik();
   M._ff=setTimeout(()=>M.calou(),ms)};
  M.calou=function(){M.fal=0;clearTimeout(ft);clearTimeout(M._ff);q('.bO').style.opacity=0;if(M.exp!=='f'&&!face0)q('.bW').style.opacity=1};
  M.amassa=function(sx,sy){MOL.sx.t=sx;MOL.sy.t=sy};M.amassaJa=function(sx,sy){MOL.sx.v=MOL.sx.t=sx;MOL.sy.v=MOL.sy.t=sy;MOL.sx.w=MOL.sy.w=0};
- M.pula=function(nx,ny,dur,alt,fim){dur=dur||700;alt=alt==null?40:alt;const tk=++M.mv,x0=M.x,y0=M.y;M.amassa(1.12,.86);
-  setTimeout(()=>{if(tk!==M.mv)return;M.amassa(.9,1.12);const t1=performance.now();const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
-   const f=n=>{if(tk!==M.mv)return;let t=Math.min(1,(n-t1)/dur),e=ease(t);M.pos(x0+(nx-x0)*e,y0+(ny-y0)*e-Math.sin(Math.PI*t)*alt);if(t>.45&&t<.6)M.amassa(1,1);
-    if(t<1)requestAnimationFrame(f);else{M.amassa(1.14,.84);setTimeout(()=>M.amassa(.97,1.04),140);setTimeout(()=>M.amassa(1,1),280);fim&&fim()}};requestAnimationFrame(f)},150)};
+/* S370 (aprovado em vídeo, 16/11): olhar que volta sozinho, boca pelo volume da voz e salto com tempo e altura pela distância */
+ M.olhaVai=function(dx,dy,ms){M.olha(dx,dy);const tr=q('.pup').style.transform;setTimeout(()=>{if(q('.pup').style.transform===tr)M.olha(0,0)},ms)};
+ M.falaVol=function(a){try{const bO=q('.bO'),bW=q('.bW');const AC0=window.__lfAc;if(!a._an){if(!AC0||AC0.state!=='running')return false;const sr=AC0.createMediaElementSource(a);a._an=AC0.createAnalyser();a._an.fftSize=512;sr.connect(a._an);a._an.connect(AC0.destination)}else if(!AC0||AC0.state!=='running')return false;M.fal=1;clearTimeout(ft);const an=a._an,buf=new Uint8Array(an.fftSize);let ab=-1,ult=0;bO.style.transformBox='fill-box';bO.style.transformOrigin='center';
+   const lp=n=>{if(!M.fal||a.paused||a.ended)return;an.getByteTimeDomainData(buf);let e=0;for(let i=0;i<buf.length;i++){const v=(buf[i]-128)/128;e+=v*v}e=Math.sqrt(e/buf.length);const al=e>.1?2:e>.03?1:0;
+    if(al!==ab&&n-ult>60){ab=al;ult=n;const fe=M.exp==='f';bO.style.opacity=ab&&!fe?1:0;bO.style.transform=ab===1?'scale(.82,.5)':'';bW.style.opacity=ab||fe?0:1}requestAnimationFrame(lp)};requestAnimationFrame(lp);return true}catch(_){return false}};
+ /* salto: tempo e altura pela distância; de lado constante, sobe e cai como gravidade; olha e inclina antes; sombra fica no chão e encolhe; percurso curto vira deslize */
+ M.pula=function(nx,ny,dur,alt,fim){const x0=M.x,y0=M.y,dx=nx-x0,dy=ny-y0,dist=Math.hypot(dx,dy);if(dist<56){M.flutua(nx,ny,0,fim);return}
+  dur=Math.round(Math.min(1050,Math.max(460,340+dist*1.55)));alt=Math.min(96,Math.max(16,dist*.26));const tk=++M.mv,sb=q('.sombra'),ku=sb?(sb.getBoundingClientRect().width/68||1):1;
+  M.olhaVai(Math.sign(dx)||0,Math.sign(dy)*.6,dur+650);M.inclina((dx>0?1:-1)*3);
+  setTimeout(()=>{if(tk!==M.mv)return;M.amassa(1.1,.88);
+   setTimeout(()=>{if(tk!==M.mv)return;M.amassa(.92,1.1);const t1=performance.now();if(sb){sb.style.animation='none';sb.style.transformBox='fill-box';sb.style.transformOrigin='center'}
+    const solta=()=>{if(sb){sb.style.transform='';sb.style.animation=''}},f=n=>{if(tk!==M.mv){solta();return}const t=Math.min(1,(n-t1)/dur),h=4*t*(1-t)*alt;M.pos(x0+dx*t,y0+dy*t-h);
+     if(sb)sb.style.transform=`translateY(${(h/ku).toFixed(1)}px) scale(${(1-Math.min(.45,h/170)).toFixed(3)})`;
+     if(t>.4&&t<.6)M.amassa(1,1);else if(t>.82)M.amassa(.95,1.07);
+     if(t<1)requestAnimationFrame(f);else{solta();M.inclina(0);M.amassa(1.13,.85);setTimeout(()=>{if(tk===M.mv)M.amassa(1,1)},120);fim&&fim()}};requestAnimationFrame(f)},170)},110)};
  M.desliza=function(nx,ny,dur){const x0=M.x,y0=M.y,t1=performance.now();dur=dur||600;const f=n=>{let t=Math.min(1,(n-t1)/dur),e=1-Math.pow(1-t,3);M.pos(x0+(nx-x0)*e,y0+(ny-y0)*e);if(t<1)requestAnimationFrame(f)};requestAnimationFrame(f)};
  /* S101: mira o ponteiro — o braço gira com a mola e a haste estica/encolhe até o comprimento pedido (telescópica) */
  M.mira=function(a,len,ms){M.bracos(null,a);const h=q('.haste'),g=q('.luva'),ap=x=>{M.len=x;h.setAttribute('d',`M36.7 0 H${(36.7+x).toFixed(2)}`);g.setAttribute('transform',`translate(${(36.7+x).toFixed(2)} 0) scale(.75)`)};
@@ -3856,7 +3867,7 @@ function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpo
       for(var i=0;i<ps.length;){var ach=0;for(var j=ps.length;j>i;j--){var f=VZ.m[ps.slice(i,j).join(' ')];if(f){fs=fs.concat(f);i=j;ach=1;break}}if(!ach)return false}
       var k=0,my=FID,toca=function(){if(!Z.el||my!==FID)return;if(k>=fs.length){fim();return}var f=fs[k++],a=VZ.a=new Audio(VC.tem[f]||vcU(f));a.muted=mudo();a.onended=toca;a.onerror=toca;
           /* S108-1: a boca só mexe quando o som realmente sai (e para se o som parar) */
-          a.onplaying=function(){if(my===FID&&Z.m&&!PZ.on)Z.m.fala(Math.max(1500,((a.duration||8)-(a.currentTime||0))*1000+600))};a.onpause=a.onwaiting=function(){if(Z.m)Z.m.calou()};
+          a.onplaying=function(){if(my===FID&&Z.m&&!PZ.on)(Z.m.falaVol(a))||(Z.m.rel=1,0)||Z.m.fala(Math.max(1500,((a.duration||8)-(a.currentTime||0))*1000+600))};a.onpause=a.onwaiting=function(){if(Z.m)Z.m.calou()};
           var p=a.play();if(p&&p.catch)p.catch(function(er){if(er&&er.name==='NotAllowedError')somBloq(true);fim()})};if(VZ.a)try{VZ.a.pause()}catch(_){}
       Z.vzEsp=1;vcPronto(fs,function(){Z.vzEsp=0;if(!Z.el||my!==FID)return;if(PZ.on){PZ.fila.push(function(){if(Z.el&&my===FID)toca()});return}toca()});return true}
     var FID=0;
@@ -3882,7 +3893,7 @@ function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpo
       var b=Z.el&&Z.el.querySelector('#gzbal'),t=String(dz||h).replace(/<[^>]+>/g,''),id=++FID,est=Math.min(7000,700+t.length*62);
       if(b&&!(dz&&b.classList.contains('on')&&b.innerHTML===h)){b.classList.remove('on');setTimeout(function(){if(!Z.el||id!==FID)return;b.innerHTML=h;b.classList.add('on');if(q('#gzjan').hidden)lay()},120)}
       Z.falando=true;var bt=q('#gzbt');if(bt&&perg)bt.classList.add('esp');Z.ocup=Date.now()+est;var boca=function(){if(Z.m&&id===FID)Z.m.fala(est+4000)};
-      var feito=false,fim=function(){if(feito||id!==FID)return;feito=true;Z.falando=false;Z.ocup=0;if(Z.m)Z.m.calou();var bt=q('#gzbt');if(bt&&bt.classList.contains('esp')&&!Z.troca){bt.classList.remove('esp');bt.classList.remove('acende');void bt.offsetWidth;bt.classList.add('acende')}
+      var feito=false,fim=function(){if(feito||id!==FID)return;feito=true;if(Z.m)Z.m.rel=0;Z.falando=false;Z.ocup=0;if(Z.m)Z.m.calou();var bt=q('#gzbt');if(bt&&bt.classList.contains('esp')&&!Z.troca){bt.classList.remove('esp');bt.classList.remove('acende');void bt.offsetWidth;bt.classList.add('acende')}
         var p=Z.pend;Z.pend=null;if(cb)cb();var df=Z.depoisFala;Z.depoisFala=null;if(df)df();if(p!=null&&Z.fase==='teste')responde(p)};
       Z.falaT0=vt();var lim=vt()+est+4500,seg=function(){if(feito||id!==FID)return;if(Z.vzEsp){lim=vt()+est+4500}if(vt()<lim){setTimeout(seg,400);return}fim()};setTimeout(seg,est+4500);
       if(VZ.a)try{VZ.a.pause()}catch(_){}try{speechSynthesis.cancel()}catch(_){}
@@ -3890,7 +3901,7 @@ function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpo
       if(!Z.vm)Z.vm=VZ.st==='ok'&&VZ.m?'arq':'cel';
       Z.ultT=t;
       if(Z.vm==='arq'){if(falaArq(t,fim))return;boca();setTimeout(fim,est);return}
-      try{var u=new SpeechSynthesisUtterance(t.replace(/\+(\d)[.,](\d\d)/g,function(m,a,b){return gfala(a+'.'+b)}));u.lang=ES?'es-ES':'pt-BR';u.onend=fim;u.onerror=fim;u.onstart=boca;
+      try{var u=new SpeechSynthesisUtterance(t.replace(/\+(\d)[.,](\d\d)/g,function(m,a,b){return gfala(a+'.'+b)}));u.lang=ES?'es-ES':'pt-BR';u.onend=fim;u.onerror=fim;u.onstart=function(){if(Z.m)Z.m.rel=1;boca()};
         var vs=speechSynthesis.getVoices().filter(function(v){return v.lang&&v.lang.toLowerCase().indexOf(ES?'es':'pt')===0}),nota=function(v){return (/natural|neural|online|premium|enhanced|google/i.test(v.name)?4:0)+(!v.localService?2:0)+((ES?/419|PY|AR|MX|US/:/BR/).test(v.lang)?1:0)};vs.sort(function(a,b){return nota(b)-nota(a)});if(vs.length)u.voice=vs[0];u.rate=1;speechSynthesis.speak(u)}catch(_){boca();setTimeout(fim,est)}}
     var DIT={};function diz(k,t,forte){var n=Date.now();if(Z.falando||PZ.on)return;if(!forte){if(DIT[k]&&n-DIT[k]<10000)return;if(n<(Z.ocup||0))return}DIT[k]=n;fala(t)}
     function aoChegar(fr,est,fn,ok){var t0=vt(),a0=VZ.a,w=function(){if(!ok())return;var a=VZ.a;if(a0&&a===a0&&a.duration&&isFinite(a.duration)){if(a.currentTime/a.duration>=fr||a.ended){fn();return}}else if(vt()-t0>=fr*est){fn();return}setTimeout(w,80)};setTimeout(function(){a0=VZ.a&&!VZ.a.ended&&!VZ.a.paused?VZ.a:null;w()},140)}
@@ -4073,6 +4084,8 @@ function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpo
     function distOk(){return Z.d>=dLo()&&Z.d<=dHi()}
     function ajustaDist(cb){if(!Z.pc||Z.semCam||!Z.st||!Z.d||Date.now()-(Z.rosto||0)>1500||distOk()){cb();return}
       fala(T(Z.d>dHi()?'Chegue um pouquinho mais perto da tela.':'Afaste-se um pouquinho da tela.'),function(){var t0=Date.now();(function w(){if(!Z.m||Z.fase!=='prep')return;if(distOk()||Date.now()-t0>5000){cb();return}Z.tc=setTimeout(w,250)})()})}
+    /* S370: o analisador de volume (para a boca) só existe depois de um toque da pessoa e só é usado se estiver rodando */
+    function acToca(){try{var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;window.__lfAc=window.__lfAc||new AC();if(window.__lfAc.state==='suspended')window.__lfAc.resume()}catch(_){}}
     function naIntro(){return !!(Z.m&&Z.fase==='intro'&&!Z.vaiCom)}
     /* ponta do dedo do ponteiro em relação ao canto do Mochi (px), com ele virado para a esquerda: braço no ângulo a (graus), haste com len */
     function ponta(a,len){var k=L.k,r=60.7+len,c=Math.cos(a*Math.PI/180),n=Math.sin(a*Math.PI/180),u=98+r*c+3.2*n,v=92+r*n-3.2*c;return [(120-u+6)*k,(v-24)*k]}
@@ -4323,7 +4336,7 @@ function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpo
         Z.tm=setTimeout(laco,350)},function(){Z.tm=setTimeout(laco,600)})}
     function perto(g){var G=navGraus(),b='',d=1e9;G.forEach(function(x){var k=Math.abs(gn(x)-g);if(k<d-1e-9){d=k;b=x}});return b}
     document.addEventListener('pointerdown',function(e){if(Z.el&&Z.bloq&&Z.el.contains(e.target)&&!(e.target.closest&&e.target.closest('[data-gz=mudo]')))somLibera()},true);
-    document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('[data-gzopen],[data-gz]');if(t&&t.getAttribute('data-gz')==='mudo'&&Z.bloq){e.preventDefault();e.stopPropagation();somLibera();return}if(!t)return;
+    document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('[data-gzopen],[data-gz]');if(t&&t.getAttribute('data-gz')==='mudo'&&Z.bloq){e.preventDefault();e.stopPropagation();somLibera();return}if(!t)return;acToca();
       if(t.hasAttribute('data-gzopen')){e.preventDefault();e.stopPropagation();var dw=$('drw');
         /* S56: pelo menu, o menu fecha por completo (e o histórico assenta) antes de a tela do grau entrar */
         /* S69: no celular o menu pode demorar a fechar — ele é fechado e escondido à força antes de a tela do grau abrir */

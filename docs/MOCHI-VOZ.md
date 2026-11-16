@@ -66,3 +66,8 @@ Custo estimado (1 crédito ≈ 1 letra no eleven_v3; gravar em cena custa a cena
 2. Dono confirma os textos e o teto de créditos.
 3. Gravar em cena com a receita acima, conferir pelo perfil, publicar em lista-teste + página de escuta.
 4. Dono ouve tudo → só então ligar no site.
+
+## 7. Falas do computador gravadas (16/11/2026, S369b)
+- 11 falas × 2 idiomas, 6 cenas, até 3 tentativas, melhor versão por frase: 1.006 créditos (teto do dono 6.000). Gravador: `work/s369/grava.py` (chave só por variável de ambiente).
+- Limites usados = faixa medida nas falas já aprovadas com as mesmas ferramentas: tom 250–370 Hz, semelhança ≥ 0,84 (cena ≥ 0,90), pausa ≤ 450 ms, silêncio ≤ 80 ms no começo e ≤ 260 ms no fim, volume −19,7 a −17 LUFS, pico < 0,62. Falas no site agora: PT 195, ES 181.
+- Aprovadas de ouvido pelo dono em 16/11 06:26 (inclusive as 4 em espanhol que saíram com ressalva de medida: pausa de 0,49 s, tom 242 Hz e ritmo mais rápido que o PT).
