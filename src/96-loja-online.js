@@ -366,7 +366,9 @@
   }
   function vitUm(ref, op) {
     if (op === 'del' || !S.site || !S.site[ref]) {
-      var dels = [vitApi('DELETE', 'produtos/' + ref).catch(function () {})];
+      // S376 (16/11/2026): se a nuvem recusar ou não responder ao tirar a peça do site, a retirada NÃO é dada por feita — fica na fila e tenta de novo
+      // (antes o erro era engolido: a peça excluída continuava à venda no site e o app nunca mais tentava; caso PY-566 do dono). "Não existe" (404) conta como feito.
+      var dels = [vitApi('DELETE', 'produtos/' + ref).catch(function (e) { if (e && e.status === 404) return; throw e; })];
       for (var k = 0; k < 8; k++) dels.push(vitApi('DELETE', 'fotos/' + ref + (k ? '~' + k : '')).catch(function () {}));
       return Promise.all(dels).then(function () {
         delete S.vitFoto[ref];

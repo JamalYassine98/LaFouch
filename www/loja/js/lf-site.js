@@ -3828,7 +3828,7 @@ function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpo
  M.amassa=function(sx,sy){MOL.sx.t=sx;MOL.sy.t=sy};M.amassaJa=function(sx,sy){MOL.sx.v=MOL.sx.t=sx;MOL.sy.v=MOL.sy.t=sy;MOL.sx.w=MOL.sy.w=0};
 /* S370 (aprovado em vídeo, 16/11): olhar que volta sozinho, boca pelo volume da voz e salto com tempo e altura pela distância */
  M.olhaVai=function(dx,dy,ms){M.olha(dx,dy);const tr=q('.pup').style.transform;setTimeout(()=>{if(q('.pup').style.transform===tr)M.olha(0,0)},ms)};
- M.falaVol=function(a){try{const bO=q('.bO'),bW=q('.bW');const AC0=window.__lfAc;if(!a._an){if(!AC0||AC0.state!=='running')return false;const sr=AC0.createMediaElementSource(a);a._an=AC0.createAnalyser();a._an.fftSize=512;sr.connect(a._an);a._an.connect(AC0.destination)}else if(!AC0||AC0.state!=='running')return false;M.fal=1;clearTimeout(ft);const an=a._an,buf=new Uint8Array(an.fftSize);let ab=-1,ult=0;bO.style.transformBox='fill-box';bO.style.transformOrigin='center';
+ M.falaVol=function(a){try{/* S376: som vindo de outro endereço (modo loja buscando a voz no site, ainda sem guardar no aparelho) não passa pelo analisador — ele o deixaria mudo */if(new URL(a.src,location.href).origin!==location.origin)return false;const bO=q('.bO'),bW=q('.bW');const AC0=window.__lfAc;if(!a._an){if(!AC0||AC0.state!=='running')return false;const sr=AC0.createMediaElementSource(a);a._an=AC0.createAnalyser();a._an.fftSize=512;sr.connect(a._an);a._an.connect(AC0.destination)}else if(!AC0||AC0.state!=='running')return false;M.fal=1;clearTimeout(ft);const an=a._an,buf=new Uint8Array(an.fftSize);let ab=-1,ult=0;bO.style.transformBox='fill-box';bO.style.transformOrigin='center';
    const lp=n=>{if(!M.fal||a.paused||a.ended)return;an.getByteTimeDomainData(buf);let e=0;for(let i=0;i<buf.length;i++){const v=(buf[i]-128)/128;e+=v*v}e=Math.sqrt(e/buf.length);const al=e>.1?2:e>.03?1:0;
     if(al!==ab&&n-ult>60){ab=al;ult=n;const fe=M.exp==='f';bO.style.opacity=ab&&!fe?1:0;bO.style.transform=ab===1?'scale(.82,.5)':'';bW.style.opacity=ab||fe?0:1}requestAnimationFrame(lp)};requestAnimationFrame(lp);return true}catch(_){return false}};
  /* salto: tempo e altura pela distância; de lado constante, sobe e cai como gravidade; olha e inclina antes; sombra fica no chão e encolhe; percurso curto vira deslize */
@@ -3852,7 +3852,7 @@ function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpo
     return Mochi})();
 
     /* ---------- voz (S66: a fala nunca é cortada; áudios gravados da voz do Mochi; senão a voz mais natural do celular) ---------- */
-    var VZ={m:null,a:null,st:'carr',esp:[]};/* S163: st = carr (baixando a lista) · ok · sem (sem voz gravada) */function vzPronta(st){VZ.st=st;var f=VZ.esp;VZ.esp=[];f.forEach(function(x){x()})}try{fetch('/loja/media/voz/'+(ES?'es':'pt')+'/lista.json',{cache:'no-cache'}).then(function(r){return r.ok?r.json():null}).then(function(j){VZ.m=j;vzPronta(j?'ok':'sem');vcNavega()}).catch(function(){vzPronta('sem')})}catch(_){vzPronta('sem')}
+    var VZ={m:null,a:null,st:'carr',esp:[]};/* S163: st = carr (baixando a lista) · ok · sem (sem voz gravada) */function vzPronta(st){VZ.st=st;var f=VZ.esp;VZ.esp=[];f.forEach(function(x){x()})}try{fetch('https://lafouch.com/media/voz/'+(ES?'es':'pt')+'/lista.json',{cache:'no-cache'}).then(function(r){return r.ok?r.json():null}).then(function(j){VZ.m=j;vzPronta(j?'ok':'sem');vcNavega()}).catch(function(){vzPronta('sem')})}catch(_){vzPronta('sem')}
     /* 10/11 S108-1 (aprovado): a voz do Mochi fica PRONTA ANTES, sem baixar a qualidade (MP3 128k, como gravado).
        - navegando na loja com Wi-Fi (celular parado): baixa tudo em silêncio, uma por vez; no 4G/economia de dados não baixa (iPhone não diz se é Wi-Fi → só na consulta)
        - consulta abre: o que faltar baixa na hora, na ordem das falas (entrada, câmera e preparo primeiro), 2 por vez
@@ -3860,7 +3860,7 @@ function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpo
        - antes de cada fala o site garante que o áudio chegou; se faltar, anel "Preparando a voz do Mochi…" — nunca boca sem som
        - a câmera inteligente (13 MB) também só baixa antes no Wi-Fi */
     var VC={nm:'lf-voz-'+(ES?'es':'pt'),pr:{},fila:[],rod:0,max:1,tem:{}};
-    function vcU(f){return '/loja/media/voz/'+(ES?'es':'pt')+'/'+f}
+    function vcU(f){return 'https://lafouch.com/media/voz/'+(ES?'es':'pt')+'/'+f}
     function vcTodos(){if(!VZ.m)return [];var vi={},L=[];Object.keys(VZ.m).forEach(function(k){[].concat(VZ.m[k]).forEach(function(f){if(!vi[f]){vi[f]=1;L.push(f)}})});return L}
     function vcBaixa(f){if(VC.pr[f])return VC.pr[f];var u=vcU(f);
       var pr=VC.pr[f]=(window.caches?caches.open(VC.nm).then(function(c){return c.match(u).then(function(r){if(r)return r;return fetch(u).then(function(x){if(!x.ok)throw new Error('voz '+x.status);return c.put(u,x.clone()).catch(function(){}).then(function(){return x})})})}):fetch(u).then(function(x){if(!x.ok)throw new Error('voz');return x}))
@@ -4576,7 +4576,24 @@ function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpo
   (function(){var a=$('tA'),b=$('tB'),sh=document.getElementById('shP');if(!a||!sh||!sh.getTotalLength)return;
     var L=sh.getTotalLength();a.setAttribute('textLength',L-1);b.setAttribute('textLength',L-1);b.setAttribute('startOffset',-L);
     if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-    var off=0;(function tick(){off=(off+.22)%L;a.setAttribute('startOffset',off);b.setAttribute('startOffset',off-L);requestAnimationFrame(tick)})()})();
+    /* S376 (aprovado 16/11 08:24): o texto do selo só gira quando o selo está na tela; fora dela (ou com a página em segundo plano) fica parado e não gasta nada */
+    var off=0,vis=false,rod=false,sv=a.closest?a.closest('svg'):null;
+    function tick(){if(!vis||document.hidden){rod=false;return}off=(off+.22)%L;a.setAttribute('startOffset',off);b.setAttribute('startOffset',off-L);requestAnimationFrame(tick)}
+    function liga(){if(!rod&&vis&&!document.hidden){rod=true;requestAnimationFrame(tick)}}
+    if('IntersectionObserver' in window&&sv){new IntersectionObserver(function(es){vis=es[es.length-1].isIntersecting;liga()}).observe(sv)}else{vis=true;liga()}
+    document.addEventListener('visibilitychange',liga)})();
+  /* S376 (aprovado 16/11 08:24): medidor para diagnóstico no aparelho do dono — só aparece com ?medir=1 no endereço. Mostra quadros por segundo (agora e o pior segundo), o quadro mais demorado,
+     quantas vezes o processador travou mais de 50 ms e os mesmos números só enquanto a tela rola. Não guarda nem envia nada. */
+  (function(){if(!/[?&]medir=1/.test(location.search))return;
+    var d=document.createElement('div');d.id='lfmed';d.setAttribute('aria-hidden','true');d.style.cssText='position:fixed;left:8px;top:8px;z-index:2147483600;max-width:calc(100% - 16px);background:rgba(17,13,20,.92);color:#fff;font:600 12px/1.45 ui-monospace,Menlo,monospace;padding:8px 10px;border-radius:10px;pointer-events:none;white-space:pre-line';
+    var ini=function(){document.body.appendChild(d)};if(document.body)ini();else document.addEventListener('DOMContentLoaded',ini);
+    var u=performance.now(),n=0,t1=u,fps=0,pior=999,maxq=0,lt=0,ltms=0,rolT=0,rn=0,rms=0,rmax=0,abre=Math.round(u);
+    try{new PerformanceObserver(function(l){l.getEntries().forEach(function(e){lt++;ltms+=e.duration})}).observe({entryTypes:['longtask']})}catch(_){}
+    addEventListener('scroll',function(){rolT=performance.now()},{passive:true,capture:true});
+    (function f(t){var dt=t-u;u=t;n++;if(dt>maxq&&t-abre>1500)maxq=dt;if(t-rolT<250){rn++;rms+=dt;if(dt>rmax)rmax=dt}
+      if(t-t1>=1000){fps=Math.round(n*1000/(t-t1));if(t-abre>3000&&fps<pior)pior=fps;n=0;t1=t;
+        d.textContent='Medidor La Fouch\n'+fps+' quadros/s agora · pior segundo '+(pior===999?'—':pior)+'\nquadro mais demorado '+Math.round(maxq)+' ms\ntravadas do processador '+lt+' ('+Math.round(ltms)+' ms)\nrolando: '+(rn?Math.round(rn*1000/rms)+' quadros/s · pior '+Math.round(rmax)+' ms':'role a tela')+'\naparelho: '+(navigator.hardwareConcurrency||'?')+' núcleos · '+(navigator.deviceMemory||'?')+' GB · tela x'+(window.devicePixelRatio||1)}
+      requestAnimationFrame(f)})(u)})();
 
   /* ===== bloco 8 (11/11/2026): Temática automática (calendário) + contagem anônima do Analisador ===== */
   /* calendário automático da Temática (11/11/2026, S134): datas do comércio; o painel guarda só o estado (config/site.cal) */

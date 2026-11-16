@@ -49,7 +49,9 @@ if (process.argv.includes('--check')) {
 if (!process.argv.includes('--check')) {
   const SITE = path.join(__dirname, '..', 'catalogo'), LJ = path.join(__dirname, 'www', 'loja');
   if (fs.existsSync(path.join(SITE, 'index.html'))) {
-    const muda = (t) => t.replace(/(["'(])\/(js|media|p|lfx)\//g, '$1/loja/$2/');
+    // S376 (16/11/2026, aprovado: Mochi com voz no modo loja): as vozes NÃO entram na cópia — são 378 arquivos e o atualizador dos APKs já instalados recusa lista com mais de 400
+    // (a cópia tem 103). No modo loja a voz é buscada no site (lafouch.com) e fica guardada no aparelho pelo próprio site; sem internet na 1ª vez, a Mochi fala só pelo balão.
+    const muda = (t) => t.replace(/(["'(])\/(js|media|p|lfx)\//g, '$1/loja/$2/').replace(/\/loja\/media\/voz\//g, 'https://lafouch.com/media/voz/').replace("connect-src 'self' ", "connect-src 'self' https://lafouch.com ");
     const copia = (de, para, txt) => { fs.mkdirSync(path.dirname(para), { recursive: true }); if (txt) fs.writeFileSync(para, muda(fs.readFileSync(de, 'utf8'))); else fs.copyFileSync(de, para); };
     const pasta = (rel, txt) => { const d = path.join(SITE, rel); if (!fs.existsSync(d)) return; for (const f of fs.readdirSync(d)) { const a = path.join(d, f); if (fs.statSync(a).isFile()) copia(a, path.join(LJ, rel, f), txt); } };
     fs.rmSync(LJ, { recursive: true, force: true });
