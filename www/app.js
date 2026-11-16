@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 543;
+  var APP_BUILD = 544;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.33.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.33.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -47273,12 +47273,15 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       'pointerdown',
       function (e) {
         if (S.inicioEd || S.view === 'dia') return;
-        var el = e.target.closest && e.target.closest('#v-inicio .tl[data-act="inicio"],#mainnav .mn,#dFolha .dOp[data-act="grpVerEsc"]');
+        var el = e.target.closest && e.target.closest('#v-inicio .tl[data-act="inicio"],#mainnav .mn,#dFolha .dOp[data-act="grpVerEsc"],#dFolha .dOp[data-act="dVerEsc"]');
         if (!el) return;
         var id = el.getAttribute('data-id'),
-          fo = el.classList.contains('dOp') ? S._gAt : null;
+          dv = el.getAttribute('data-act') === 'dVerEsc',
+          fo = el.classList.contains('dOp') ? (dv ? 'dash' : S._gAt) : null;
         if (!id || id === 'inicio') return;
-        if (el.classList.contains('dOp') && !(fo && grpGet(fo) && grpGet(fo).itens.indexOf(id) >= 0)) return;
+        // S374 (bug do dono 16/11 10:05): a folha do Dashboard também deixa arrastar a tela para a barra (não é grupo: nada sai de lugar nenhum)
+        if (dv && !BARRA_NOME[id]) return;
+        if (el.classList.contains('dOp') && !dv && !(fo && grpGet(fo) && grpGet(fo).itens.indexOf(id) >= 0)) return;
         dg = { el: el, id: id, folha: fo, deBarra: el.classList.contains('mn'), x0: e.clientX, y0: e.clientY, cx: e.clientX, cy: e.clientY, on: false, mouse: e.pointerType === 'mouse' };
         // dedo: segurar um instante; mouse: basta puxar
         if (!dg.mouse) dg.t = setTimeout(inicia, 380);
@@ -51606,6 +51609,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (id === 'g:site' && S.view === 'onl' && grpGet('g:site')) return true; // painel aberto = família Site
     if (id === 'vendas' && S.view === 'onl' && grpGet('g:site')) return false;
     return _navOn374b.apply(this, arguments);
+  };
+
+  // bug do dono (16/11 10:05): soltar um arraste na folha do Dashboard não pode abrir a tela
+  var _dVerEsc374 = ACT.dVerEsc;
+  ACT.dVerEsc = function () {
+    if (window.__barraSegurou && window.__barraSegurou()) return;
+    return _dVerEsc374.apply(this, arguments);
   };
   // ===== S370 (16/11/2026) — lote 8: trilho que ARRASTA (regra do dono, 15/11/2026) =====
   // Todo seletor em trilho (.trk com a pílula .trkTh e os botões .trkB) aceita o dedo (ou o mouse) arrastando a pílula,

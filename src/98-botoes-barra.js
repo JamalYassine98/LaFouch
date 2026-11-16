@@ -292,12 +292,15 @@
       'pointerdown',
       function (e) {
         if (S.inicioEd || S.view === 'dia') return;
-        var el = e.target.closest && e.target.closest('#v-inicio .tl[data-act="inicio"],#mainnav .mn,#dFolha .dOp[data-act="grpVerEsc"]');
+        var el = e.target.closest && e.target.closest('#v-inicio .tl[data-act="inicio"],#mainnav .mn,#dFolha .dOp[data-act="grpVerEsc"],#dFolha .dOp[data-act="dVerEsc"]');
         if (!el) return;
         var id = el.getAttribute('data-id'),
-          fo = el.classList.contains('dOp') ? S._gAt : null;
+          dv = el.getAttribute('data-act') === 'dVerEsc',
+          fo = el.classList.contains('dOp') ? (dv ? 'dash' : S._gAt) : null;
         if (!id || id === 'inicio') return;
-        if (el.classList.contains('dOp') && !(fo && grpGet(fo) && grpGet(fo).itens.indexOf(id) >= 0)) return;
+        // S374 (bug do dono 16/11 10:05): a folha do Dashboard também deixa arrastar a tela para a barra (não é grupo: nada sai de lugar nenhum)
+        if (dv && !BARRA_NOME[id]) return;
+        if (el.classList.contains('dOp') && !dv && !(fo && grpGet(fo) && grpGet(fo).itens.indexOf(id) >= 0)) return;
         dg = { el: el, id: id, folha: fo, deBarra: el.classList.contains('mn'), x0: e.clientX, y0: e.clientY, cx: e.clientX, cy: e.clientY, on: false, mouse: e.pointerType === 'mouse' };
         // dedo: segurar um instante; mouse: basta puxar
         if (!dg.mouse) dg.t = setTimeout(inicia, 380);

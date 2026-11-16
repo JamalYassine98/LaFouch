@@ -407,3 +407,6 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 ## S374b (16/11/2026, v543 · 5.33.0) — Site como tela do app (S242)
 - `#v-site` criado por `src/98z-s374.js` (`renderSite`): 4 cartões `.stN` (Pedidos em aberto + novos, Mensagens e atacado de `S.pnlRes`, Avisos do site, Vitrine = peças publicadas em `S.site`) e linhas `.stL` (Destaque da semana → painel `vit`, Temática → `tem`, Marketing → `mkAbre`, Ajustes do site → `cfg`, Abrir a loja → lafouch.com). `ACT.stAbre` abre a parte do painel (`onlPainel`). Sem resumo do painel ainda: "—" e "abra para atualizar".
 - Família Site: `site` entra na frente (`FAM7`, e `S.fam7b` para quem já tinha a família). `navOn`: com `S.view === 'onl'` a família Site fica marcada e Vender não.
+
+## S374c (16/11/2026, v544 · 5.33.1) — bug: arrastar da folha do Dashboard
+- A folha VER do Dashboard (`ACT.dVer`, linhas `dVerEsc`) não é grupo: o arraste do esboço 51 só aceitava `grpVerEsc`. Agora aceita também `dVerEsc` (com `dg.folha = 'dash'`; nada sai de grupo), só para telas que existem na barra (`BARRA_NOME`). `ACT.dVerEsc` ignora o clique que o navegador dispara ao soltar.

@@ -206,3 +206,5 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - 16/11/2026 10:10 · DONO pediu 6 botões no Início ("dividir só um pouco mais"); escolheu ver a opção A → ESBOÇO 59 enviado, ESPERANDO decisão (work/s374/esb59.py): **59a** Início com Resultados (dia, mês, histórico) · Giro e preços (giro, preços, reservas) · Site (pedidos, mensagens, analisador) · Marketing (marketing, temática) · Clientes · Atacado; barra igual · **59b** a flecha das 4 famílias novas (Marketing abre a lista no próprio Início, porque as 2 telas são janelas). Olho sem achado novo.
 
 - 16/11/2026 10:04 · DONO: "Aprovado" → ESBOÇO 59 (59a/59b, Início com 6 botões) APROVADO, esperando "implementar". Antes disso ele vai relatar um bug do app.
+
+- 16/11/2026 · ✔ BUG do dono (10:05: "não consigo arrastar o botão pro menu rápido na família Dashboard") CORRIGIDO e PUBLICADO app v544 / 5.33.1 — a folha do Dashboard não é grupo e o arraste só aceitava as folhas de grupo. 307/307 testes. NÃO testado no celular.

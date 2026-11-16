@@ -150,3 +150,10 @@
     if (id === 'vendas' && S.view === 'onl' && grpGet('g:site')) return false;
     return _navOn374b.apply(this, arguments);
   };
+
+  // bug do dono (16/11 10:05): soltar um arraste na folha do Dashboard não pode abrir a tela
+  var _dVerEsc374 = ACT.dVerEsc;
+  ACT.dVerEsc = function () {
+    if (window.__barraSegurou && window.__barraSegurou()) return;
+    return _dVerEsc374.apply(this, arguments);
+  };

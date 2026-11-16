@@ -2691,13 +2691,17 @@ async def main():
             await pg.evaluate("() => { const S = window.__LF.S; S.grupos[0].itens = ['estoque', 'lotes']; window.__LF.render(); window.__LF.ACT.grpVer(); }"); await pg.wait_for_timeout(500)
             await arrasta2('#dFolha .dOp[data-id="lotes"]', '#mainnav .mn[data-id="ajustes"]', 200)
             k4 = await pg.evaluate("() => { const S = window.__LF.S; return [S.barra, S.grupos.length]; }")
+            # bug do dono (16/11 10:05): a folha do Dashboard também deixa levar uma tela para a barra
+            await pg.evaluate("() => { const S = window.__LF.S; S.barra = ['vendas', 'estoque', 'caixa', 'ajustes']; S.dTab = 'giro'; window.__LF.setView('dash'); window.__LF.render(); window.__LF.ACT.dVer(); }"); await pg.wait_for_timeout(500)
+            await arrasta2('#dFolha .dOp[data-act=dVerEsc][data-id="prec"]', '#mainnav .mn[data-id="ajustes"]', 200)
+            k5 = await pg.evaluate("() => [window.__LF.S.barra, window.__LF.S.dTab, window.__LF.S.view]")
             total += 1
             ok = (k1[0] == ['vendas', 'g:51', 'caixa', 'lotes'] and k1[1] == ['estoque', 'cont'] and k1[2] and k1[3] and 'on' in k1[4] and k1[5] == 'estoque' and not k1[6]
                   and k2 == [['vendas', 'g:51', 'caixa', 'ajustes'], ['estoque', 'lotes', 'cont']]
                   and k3 == [['vendas', 'g:51', 'caixa', 'ajustes'], ['estoque', 'lotes', 'cont'], 'estoque', False]
-                  and k4 == [['vendas', 'estoque', 'caixa', 'lotes'], 0] and not pg.erros)
+                  and k4 == [['vendas', 'estoque', 'caixa', 'lotes'], 0] and k5 == [['vendas', 'estoque', 'caixa', 'prec'], 'giro', 'dash'] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'S371: arrastar uma tela da folha da flecha para a barra (troca, fora não muda, Desfazer, grupo de 2 se desfaz)')
-            if not ok: falhas.append('tela do grupo para a barra'); print('        veio', k1, k2, k3, k4, pg.erros)
+            if not ok: falhas.append('tela do grupo para a barra'); print('        veio', k1, k2, k3, k4, k5, pg.erros)
             await pg.close()
             # S370 (esboços 31 e 33): computador — lista e ficha lado a lado; "/" busca, Enter abre a 1ª, "?" atalhos; leitor de código abre a peça para vender
             ctxPC = await b.new_context(viewport={'width': 1440, 'height': 900}, color_scheme='dark', service_workers='block')
