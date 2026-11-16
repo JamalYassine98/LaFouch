@@ -2543,3 +2543,4 @@ html{overscroll-behavior-y:none}
 .pcNaTela .pcFt .go{flex:1.2}
 .pcNaTela .pcFe{flex:1;min-height:50px;border-radius:14px;background:none;border:1px solid var(--line);color:var(--fg)}
 .pcNaTela .pcUsa{min-height:44px}.esLn.slVai{min-height:44px;border-top:0;padding:4px 0}
+.note .esLn.slVai{color:inherit}.note .esLn.slVai i{color:inherit}

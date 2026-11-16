@@ -17,7 +17,7 @@
       mg = a.vendido ? (a.lucro / a.vendido) * 100 : 0, mgB = b.vendido ? (b.lucro / b.vendido) * 100 : null,
       cob = tm > 0 ? Math.max(0, Math.round((m.lucro / tm) * 100)) : 0,
       falta = tm > m.lucro && porPeca > 0 ? Math.ceil((tm - m.lucro) / porPeca) : 0,
-      abx = typeof abaixoDoPiso === 'function' ? abaixoDoPiso().length : 0;
+      abx = typeof invPrecosAcorrigir === 'function' ? invPrecosAcorrigir().length : typeof abaixoDoPiso === 'function' ? abaixoDoPiso().length : 0; /* S364: a mesma contagem da lista "Preços para corrigir" */
     return { mg: mg, dmg: mgB == null ? null : mg - mgB, porPeca: porPeca, cob: cob, falta: falta, abx: abx, tm: tm, mes: m };
   }
   // decisões: preço automático (mesma lista e mesmas regras do paPlano) + tema que está chegando + atacado com margem baixa
@@ -58,7 +58,7 @@
     var t = lrSoma(vs);
     return '"Este mês os descontos (cupons, Leve 2, ofertas) custaram ' + gs(t.desc) + ' e trouxeram ' + vs.length + (vs.length === 1 ? ' venda' : ' vendas') + '. ' + (t.lucro > 0 ? 'Valeu a pena: lucro líquido +' + gs(t.lucro) + '."' : 'Não compensou: deram ' + gs(t.lucro) + ' de lucro."');
   }
-  function cntKpi(rot, v, sub, cor) { return '<div class="cntK"><small>' + rot + '</small><b' + (cor ? ' style="color:' + cor + '"' : '') + '>' + v + '</b>' + (sub ? '<i>' + sub + '</i>' : '') + '</div>'; }
+  function cntKpi(rot, v, sub, cor, act, id) { return '<div class="cntK"' + (act ? ' data-act="' + act + '" data-id="' + (id || '') + '" role="button" tabindex="0" style="cursor:pointer"' : '') + '><small>' + rot + '</small><b' + (cor ? ' style="color:' + cor + '"' : '') + '>' + v + '</b>' + (sub ? '<i>' + sub + '</i>' : '') + '</div>'; }
   function cntFechHtml(ano, mes) {
     var t = lrMes(ano, mes), nm = new Date(ano, mes, 1).toLocaleDateString('pt-BR', { month: 'long' }), por = {};
     if (!t.qty) return '';
@@ -74,7 +74,7 @@
     return '<div class="cnt">' +
       '<div class="cntHd"><span class="cntAv">C</span><div><b>Contador</b><small>revisado ' + (S.pAuto && S.pAuto.ult ? fd(S.pAuto.ult) + ' ' + fh(S.pAuto.ult) : 'agora') + '</small></div></div>' + fech +
       '<div class="cntG">' + cntKpi('Margem média real', Math.round(s.mg) + '%', s.dmg == null ? '' : '<span style="color:' + (s.dmg >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + (s.dmg >= 0 ? '▲ ' : '▼ ') + Math.abs(Math.round(s.dmg)) + ' pts</span>') +
-      cntKpi('Lucro por peça', gs(s.porPeca)) + cntKpi('Contas do mês cobertas', s.cob + '%', s.falta ? 'faltam ' + s.falta + ' peças' : '') + cntKpi('Abaixo do piso', String(s.abx), '', s.abx ? 'var(--bad)' : 'var(--ok)') + '</div>' +
+      cntKpi('Lucro por peça', gs(s.porPeca)) + cntKpi('Contas do mês cobertas', s.cob + '%', s.falta ? 'faltam ' + s.falta + ' peças' : '', '', s.falta ? 'view' : '', 'desp') + cntKpi('Preços para corrigir', String(s.abx), '', s.abx ? 'var(--bad)' : 'var(--ok)', s.abx ? 'pcAbre' : '', '') + '</div>' +
       '<section class="card col cntD"><div class="lbl">PARA DECIDIR ESTA SEMANA · ' + D.length + '</div>' +
       (D.length ? D.map(function (x, i) { return '<div class="cntL"><span class="cntI">' + cntIco(x) + '</span><div><b>' + esc(x.tit) + '</b><small>' + esc(x.sub || '') + '</small></div>' + (x.act ? '<button type="button" class="cntV' + (x.t === 'ata' ? ' r' : '') + '" data-act="' + x.act + '">' + x.v + '</button>' : '<em>' + x.v + '</em>') + '<span class="cntUm" hidden>' + (x.t === 'pa' ? '<button type="button" class="mini" data-act="cntAceita" data-id="' + i + '">Aceitar</button><button type="button" class="mini ghost" data-act="cntIgnora" data-id="' + i + '">Agora não</button>' : '') + '</span></div>'; }).join('') +
         (D.some(function (x) { return x.t === 'pa'; }) ? '<div class="cntB"><button type="button" class="go" data-act="cntTudo">Aceitar tudo</button><button type="button" class="mini ghost" data-act="cntUmPorUm">Ver um por um</button></div>' : '') : '<div class="hint" style="margin:6px 0 0;text-align:center">Nada para decidir agora. ✓</div>') + '</section>' +

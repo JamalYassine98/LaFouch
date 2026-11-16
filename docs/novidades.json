@@ -1,10 +1,9 @@
 {
- "nome": "5.23.0",
+ "nome": "5.24.0",
  "notas": [
-  "Dashboard › Detalhes ganhou a linha “Resultado do mês” (resultado da loja, retirado, sobra, detalhes e lucro real). Saiu de Reservas, que ficou só com o que está livre para você.",
-  "Histórico só lista os dias: o “Fechamento do caixa” passou para o Dashboard › Hoje. “Despesas do dia” virou uma linha que leva a Despesas.",
-  "Preços para corrigir: uma lista só, em Dashboard › Preços, com a mesma contagem do aviso do Inventário (antes 15 e 16).",
-  "Ajustes › “Preço automático” e Reservas › “Objetivos da loja” agora só levam à tela dona do assunto."
+  "Toda folha fecha do mesmo jeito: a faixa de cima inteira arrasta para baixo (dedo e mouse), tocar fora fecha e, no computador, Esc fecha. Vale para Filtros, Caixa, Câmbio, janelas e folhas.",
+  "Excluir um produto não pergunta mais: exclui na hora e o aviso fica 5 segundos com “Desfazer”, que devolve peças, fotos e preço.",
+  "Frases que pedem ação agora levam até ela: conta a pagar marca como paga, o colchão abre o Câmbio já preenchido, “Preços para corrigir” abre a lista e o aviso do caixa leva às Reservas."
  ],
- "build": 531
+ "build": 532
 }

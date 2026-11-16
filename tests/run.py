@@ -546,10 +546,18 @@ async def main():
             e1 = [await pg.locator('#edSalvar').count(), await pg.locator('#edNext').count(), await pg.locator('#edExcluir').count(), await pg.locator('#edCores').count()]
             await pg.click('#edTab1'); await pg.wait_for_timeout(450)
             e3 = await pg.locator('#edCodigo').count()
-            await pg.click('#edLixeira'); await pg.wait_for_timeout(300)
-            e2 = await pg.locator('#edLixoAviso').count()
-            await checa('janela Editar igual ao cadastro: código à esquerda e tipo à direita, etapas livres (Modelo/Cores e fotos), Salvar alterações fixo, lixeira e excluir com confirmação', e0[:5] == [1, 1, 1, 1, 1] and cx and e1 == [1, 0, 0, 1] and e3 == 1 and e2 == 1, [e0, cx, e1, e3, e2])
-            await pg.evaluate(ED(1)); await pg.locator('#editModal button:text-is("Fechar")').last.click(); await pg.wait_for_timeout(300)
+            # S364 (esboço 34): a lixeira exclui na hora, sem pergunta, e "Desfazer" devolve o produto com as peças
+            pg2 = await abrir('sem', 'Hexagonal')  # em outra página, para não fechar a ficha desta
+            await pg2.locator('#detail button[aria-label="Editar"]').click(); await pg2.wait_for_timeout(400)
+            nAntes = await pg2.evaluate("() => window.__LF.S.items.length")
+            await pg2.click('#edLixeira'); await pg2.wait_for_timeout(500)
+            dz = [await pg2.locator('#edLixoAviso').count(), await pg2.evaluate("() => window.__LF.S.items.length"), await pg2.locator('[data-act=prodDesfaz]').count()]
+            await pg2.click('[data-act=prodDesfaz]'); await pg2.wait_for_timeout(500)
+            dz.append(await pg2.evaluate("() => window.__LF.S.items.length"))
+            e2 = 1 if (dz[0] == 0 and dz[1] < nAntes and dz[2] == 1 and dz[3] == nAntes and not pg2.erros) else 0
+            await pg2.close()
+            await checa('janela Editar igual ao cadastro: código à esquerda e tipo à direita, etapas livres (Modelo/Cores e fotos), Salvar alterações fixo, lixeira que exclui na hora com Desfazer', e0[:5] == [1, 1, 1, 1, 1] and cx and e1 == [1, 0, 0, 1] and e3 == 1 and e2 == 1, [e0, cx, e1, e3, e2])
+            if await pg.locator('#editModal button:text-is("Fechar")').count(): await pg.locator('#editModal button:text-is("Fechar")').last.click(); await pg.wait_for_timeout(300)
 
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
             await pg.evaluate(ED(1)); await pg.fill('#descTa', 'Polarizado, mola flexível'); await pg.evaluate(ED(4)); await pg.locator('#editModal #edSalvar').click(); await pg.wait_for_timeout(300)
@@ -3599,6 +3607,56 @@ async def main():
             ok = got == [True] * 5 + ['dash,prec'] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'S363: Resultado do mês no Dashboard, Reservas e Histórico sem repetição, fechamento em Hoje, Preço automático leva a Preços')
             if not ok: falhas.append('S363 redundâncias'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # S364 (PORTÃO da folha única): cada tipo de folha fecha arrastando com o mouse de 3 pontos da faixa de cima (esquerda, meio, direita) e com Esc.
+            VIS = "s => { const e = [...document.querySelectorAll(s)].filter(e => { const r = e.getBoundingClientRect(), c = getComputedStyle(e); return !e.hidden && c.display !== 'none' && c.visibility !== 'hidden' && r.height > 60 && r.top < innerHeight - 40; }).pop(); if (!e) return null; const r = e.getBoundingClientRect(); return [r.left, r.top, r.width]; }"
+            LIVRE = "a => { const e = document.elementFromPoint(a[0], a[1]); return !(e && e.closest('button,a,input,select,textarea,label,[data-act],[role=button],[role=switch]')); }"
+            FOLHAS = [('janela', 'vendas', "() => document.getElementById('cjAj').click()", '.ljJn'), ('caixa', 'caixa', "() => window.__LF.ACT.cxabre('mel')", '.cxAcao.on'),
+                      ('filtros', 'estoque', "() => [...document.querySelectorAll('#v-estoque button')].find(b => /Filtros e ordem/.test(b.getAttribute('aria-label') || '')).click()", '#filtBox'),
+                      ('câmbio', 'fx', "() => document.querySelector('[data-act=fjAbre]').click()", '.fjJn'), ('período', 'dash', "() => document.querySelector('#v-dash .dHdP').click()", '.lfa-sh')]
+            ruins = []
+            pg = await pagina()
+            for nome, tela, abre, sel in FOLHAS:
+                for onde in ('esq', 'meio', 'dir', 'esc'):
+                    await pg.evaluate("t => window.__LF.setView(t)", tela); await pg.wait_for_timeout(350)
+                    await pg.evaluate(abre); await pg.wait_for_timeout(900)
+                    v = await pg.evaluate(VIS, sel)
+                    if not v: ruins.append(nome + ' não abriu'); continue
+                    if onde == 'esc': await pg.keyboard.press('Escape')
+                    else:
+                        x = v[0] + {'esq': 26, 'meio': v[2] / 2, 'dir': v[2] - 26}[onde]; y = None
+                        for yy in (v[1] + 14, v[1] + 30, v[1] + 46, v[1] + 8, v[1] + 58):
+                            if await pg.evaluate(LIVRE, [x, yy]): y = yy; break
+                        if y is None: await pg.keyboard.press('Escape'); await pg.wait_for_timeout(700); continue
+                        await pg.mouse.move(x, y); await pg.mouse.down()
+                        for k in range(1, 7): await pg.mouse.move(x, y + k * 45); await pg.wait_for_timeout(20)
+                        await pg.mouse.up()
+                    await pg.wait_for_timeout(900)
+                    if await pg.evaluate(VIS, sel): ruins.append(nome + ' ' + onde); await pg.keyboard.press('Escape'); await pg.wait_for_timeout(600)
+            total += 1
+            ok = not ruins and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S364 PORTÃO: toda folha fecha arrastando de 3 pontos da faixa de cima e com Esc (janela, caixa, filtros, câmbio, período)')
+            if not ok: falhas.append('S364 folha única'); print('        veio', ruins, pg.erros)
+            await pg.close()
+
+            # S364: toques que levam à ação — conta a pagar marca como paga, colchão leva ao Câmbio, Preços leva à lista e às contas
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, sl = ms => new Promise(r => setTimeout(r, ms));
+              L.setView('desp'); await sl(500);
+              const cc = () => [...document.querySelectorAll('#v-desp section')].find(x => /^Contas para pagar/.test(x.innerText.trim()));
+              let contas = true; const c0 = cc();
+              if (c0) { const n = c0.querySelectorAll('.slVai[data-act=exppay]').length; c0.querySelector('.slVai[data-act=exppay]').click(); await sl(400); const c1 = cc(); contas = n > 0 && (c1 ? c1.querySelectorAll('.slVai[data-act=exppay]').length : 0) === n - 1; }
+              S.dTab = 'prec'; L.setView('dash'); await sl(500);
+              const ks = [...document.querySelectorAll('#v-dash .cntK')]; const kp = ks.find(k => /Preços para corrigir/.test(k.innerText));
+              const n1 = +(kp.querySelector('b').innerText), precos = !n1 || kp.dataset.act === 'pcAbre';
+              if (n1) { kp.click(); await sl(500); }
+              const lista = !n1 || document.querySelectorAll('#v-dash .pcNaTela .pcLi').length === n1;
+              return [contas, precos, lista, typeof L.ACT.d48Res === 'function' && typeof L.ACT.prodDesfaz === 'function']; }""")
+            total += 1
+            ok = got == [True] * 4 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S364: toques que levam à ação (conta a pagar, preços para corrigir com a mesma contagem da lista)')
+            if not ok: falhas.append('S364 toques'); print('        veio', got, pg.erros)
             await pg.close()
 
             # S332 (15/11/2026, opção A): a cópia do site do MODO LOJA se atualiza sozinha (sem APK). Aparelho falso (Capacitor + Filesystem em memória):

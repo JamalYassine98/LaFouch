@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 531;
+  var APP_BUILD = 532;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.23.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.24.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -2231,9 +2231,33 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       var hbtn = mk('div', '');
       hbtn.style.cssText = 'display:flex;gap:8px;align-items:center';
       if (!f.bulk) {
-        var lx = btn('tab ibtn edLixo' + (S.pdAsk ? ' on' : ''), '', function () {
-          S.pdAsk = !S.pdAsk;
+        // S364 (esboço 34, aprovado 15/11): a lixeira exclui na hora e o aviso fica 5 s com "Desfazer" (sem a pergunta "Excluir este produto?")
+        var lx = btn('tab ibtn edLixo', '', function () {
+          var todosX = S.items.filter(function (i) { return i.ref === ref && !i.bulk; }),
+            volta = { ref: ref, itens: S.items.slice(), fotos: {}, desc: S.desc[ref], pprice: S.pprice && S.pprice[ref], pcanal: S.pcanal && S.pcanal[ref], site: !!(S.site && S.site[ref]), elog: S.elog.length, open: S.open };
+          Object.keys(S.fotos).forEach(function (k) {
+            if (k.slice(0, k.indexOf('|')) === ref) volta.fotos[k] = S.fotos[k];
+          });
+          exclusaoEstoque(todosX, 'produto excluído');
+          S.items = S.items.filter(function (i) { return !(i.ref === ref && !i.bulk); });
+          Object.keys(volta.fotos).forEach(function (k) { delete S.fotos[k]; });
+          limpaRefExcluido(ref);
+          delete S.desc[ref];
+          zerar();
+          S.detCor = '';
+          S.detVr = null;
+          S.detRow = null;
+          S.selItem = null;
+          S.qty = 1;
+          S.open = '';
+          S.det = false;
+          S.pdAsk = false;
+          S.msg = '';
+          saveSoon();
           render();
+          window.__prodVolta = volta;
+          lfaToast('<span class="lfa-ic">' + lfaSvg('trash') + '</span><div style="flex:1"><b>Produto excluído</b><div class="cd" style="--cd:5s"></div></div><button type="button" class="pdLink" data-act="prodDesfaz" style="font-weight:700;min-height:44px;min-width:44px;padding:0 6px;display:inline-flex;align-items:center">Desfazer</button>', 5000, 'b').setAttribute('data-prod-toast', '1');
+          setTimeout(function () { if (window.__prodVolta === volta) window.__prodVolta = null; }, 5600);
         });
         lx.id = 'edLixeira';
         lx.innerHTML =
@@ -12340,7 +12364,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           (a.urgente ? ' · <b style="color:var(--bad)">URGENTE</b>' : '') +
           (a.ok ? '' : ' · ' + esc(a.dica)),
         expTexto(a.e)
-      );
+      ) + '<button type="button" class="esLn slVai" data-act="exppay" data-id="' + a.e.id + '"><span class="g"><b style="font-weight:500">Marcar ' + esc(a.e.nome) + ' como paga</b></span><i aria-hidden="true">›</i></button>';
     });
     return h + '</div></section>';
   }
@@ -13347,7 +13371,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       usos.map(function (x) {
         return '<div class="sl"><span>Usado para cobrir a alta<small>' + fd(x.ts) + (x.nota ? ' · ' + esc(x.nota) : '') + '</small></span><b style="color:var(--warn)">− ' + usd(x.usd) + '</b></div>';
       }).join('') +
-      '<div class="hint" style="margin:0">Cada venda nova separa um colchão novo. Quando o dólar estiver barato, o app avisa para trocar.</div></section>'
+      '<div class="hint" style="margin:0">Cada venda nova separa um colchão novo. Quando o dólar estiver barato, o app avisa para trocar.</div>' +
+      (falta > 500 ? '<button type="button" class="esLn slVai" data-act="d48Troca" data-id="pyg|' + Math.round(falta) + '"><span class="g"><b style="font-weight:500">Trocar ' + gs(Math.round(falta)) + ' por dólar no Câmbio</b></span><i aria-hidden="true">›</i></button>' : '') + '</section>'
     );
   }
   // Custo, no câmbio de cada venda, dos dólares de reposição de a até b (as vendas mais antigas primeiro).
@@ -25535,7 +25560,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     html += objCardHtml(); // v425: Objetivos da loja (antiga caixa de melhorias)
     if (r.livre < 0)
       html +=
-        '<div class="note n-bad">O dinheiro em caixa está abaixo do que deveria estar separado. Evite retiradas até repor.</div>';
+        '<div class="note n-bad">O dinheiro em caixa está abaixo do que deveria estar separado. Evite retiradas até repor.' + '<button type="button" class="esLn slVai" data-act="d48Res" data-id=""><span class="g"><b style="font-weight:500">Ver o que falta repor</b></span><i aria-hidden="true">›</i></button>' + '</div>';
     // Caixa limpo: saldo e movimentos à vista; Retirar, Melhorias e Conferir abrem em gaveta pelo ícone do topo
     var acao = S.cxAcao || '';
     if (S.cxMsg !== S._cxMsgVis) {
@@ -45524,7 +45549,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       mg = a.vendido ? (a.lucro / a.vendido) * 100 : 0, mgB = b.vendido ? (b.lucro / b.vendido) * 100 : null,
       cob = tm > 0 ? Math.max(0, Math.round((m.lucro / tm) * 100)) : 0,
       falta = tm > m.lucro && porPeca > 0 ? Math.ceil((tm - m.lucro) / porPeca) : 0,
-      abx = typeof abaixoDoPiso === 'function' ? abaixoDoPiso().length : 0;
+      abx = typeof invPrecosAcorrigir === 'function' ? invPrecosAcorrigir().length : typeof abaixoDoPiso === 'function' ? abaixoDoPiso().length : 0; /* S364: a mesma contagem da lista "Preços para corrigir" */
     return { mg: mg, dmg: mgB == null ? null : mg - mgB, porPeca: porPeca, cob: cob, falta: falta, abx: abx, tm: tm, mes: m };
   }
   // decisões: preço automático (mesma lista e mesmas regras do paPlano) + tema que está chegando + atacado com margem baixa
@@ -45565,7 +45590,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var t = lrSoma(vs);
     return '"Este mês os descontos (cupons, Leve 2, ofertas) custaram ' + gs(t.desc) + ' e trouxeram ' + vs.length + (vs.length === 1 ? ' venda' : ' vendas') + '. ' + (t.lucro > 0 ? 'Valeu a pena: lucro líquido +' + gs(t.lucro) + '."' : 'Não compensou: deram ' + gs(t.lucro) + ' de lucro."');
   }
-  function cntKpi(rot, v, sub, cor) { return '<div class="cntK"><small>' + rot + '</small><b' + (cor ? ' style="color:' + cor + '"' : '') + '>' + v + '</b>' + (sub ? '<i>' + sub + '</i>' : '') + '</div>'; }
+  function cntKpi(rot, v, sub, cor, act, id) { return '<div class="cntK"' + (act ? ' data-act="' + act + '" data-id="' + (id || '') + '" role="button" tabindex="0" style="cursor:pointer"' : '') + '><small>' + rot + '</small><b' + (cor ? ' style="color:' + cor + '"' : '') + '>' + v + '</b>' + (sub ? '<i>' + sub + '</i>' : '') + '</div>'; }
   function cntFechHtml(ano, mes) {
     var t = lrMes(ano, mes), nm = new Date(ano, mes, 1).toLocaleDateString('pt-BR', { month: 'long' }), por = {};
     if (!t.qty) return '';
@@ -45581,7 +45606,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return '<div class="cnt">' +
       '<div class="cntHd"><span class="cntAv">C</span><div><b>Contador</b><small>revisado ' + (S.pAuto && S.pAuto.ult ? fd(S.pAuto.ult) + ' ' + fh(S.pAuto.ult) : 'agora') + '</small></div></div>' + fech +
       '<div class="cntG">' + cntKpi('Margem média real', Math.round(s.mg) + '%', s.dmg == null ? '' : '<span style="color:' + (s.dmg >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + (s.dmg >= 0 ? '▲ ' : '▼ ') + Math.abs(Math.round(s.dmg)) + ' pts</span>') +
-      cntKpi('Lucro por peça', gs(s.porPeca)) + cntKpi('Contas do mês cobertas', s.cob + '%', s.falta ? 'faltam ' + s.falta + ' peças' : '') + cntKpi('Abaixo do piso', String(s.abx), '', s.abx ? 'var(--bad)' : 'var(--ok)') + '</div>' +
+      cntKpi('Lucro por peça', gs(s.porPeca)) + cntKpi('Contas do mês cobertas', s.cob + '%', s.falta ? 'faltam ' + s.falta + ' peças' : '', '', s.falta ? 'view' : '', 'desp') + cntKpi('Preços para corrigir', String(s.abx), '', s.abx ? 'var(--bad)' : 'var(--ok)', s.abx ? 'pcAbre' : '', '') + '</div>' +
       '<section class="card col cntD"><div class="lbl">PARA DECIDIR ESTA SEMANA · ' + D.length + '</div>' +
       (D.length ? D.map(function (x, i) { return '<div class="cntL"><span class="cntI">' + cntIco(x) + '</span><div><b>' + esc(x.tit) + '</b><small>' + esc(x.sub || '') + '</small></div>' + (x.act ? '<button type="button" class="cntV' + (x.t === 'ata' ? ' r' : '') + '" data-act="' + x.act + '">' + x.v + '</button>' : '<em>' + x.v + '</em>') + '<span class="cntUm" hidden>' + (x.t === 'pa' ? '<button type="button" class="mini" data-act="cntAceita" data-id="' + i + '">Aceitar</button><button type="button" class="mini ghost" data-act="cntIgnora" data-id="' + i + '">Agora não</button>' : '') + '</span></div>'; }).join('') +
         (D.some(function (x) { return x.t === 'pa'; }) ? '<div class="cntB"><button type="button" class="go" data-act="cntTudo">Aceitar tudo</button><button type="button" class="mini ghost" data-act="cntUmPorUm">Ver um por um</button></div>' : '') : '<div class="hint" style="margin:6px 0 0;text-align:center">Nada para decidir agora. ✓</div>') + '</section>' +
@@ -49979,6 +50004,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.dMoeda = S.dMoeda === 'pyg' ? 'brl' : S.dMoeda === 'brl' ? 'usd' : 'pyg';
     render();
   };
+  ACT.d48Res = function () { S.dTab = 'din'; setView('dash'); };
   ACT.d48Abre = function (k) {
     S._d48[k] = !S._d48[k];
     render();
@@ -50181,6 +50207,126 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   // quem abre o Dashboard com o período em "Hoje" cai nos blocos do dia; "Ver todos os números" deixou de existir
   ACT.famNum = function () { S.dTab = 'hoje'; if (S.per === 'hoje') S.per = 'mes'; setView('dash'); };
+  // ===== S364 (16/11/2026) · UMA FOLHA SÓ — regra aprovada em 15/11 16:04 e corrigida em 15/11 16:54 =====
+  // Toda folha do app fecha do mesmo jeito: a FAIXA DE CIMA inteira arrasta para baixo (dedo e mouse), tocar fora fecha e Esc fecha.
+  // Cada tipo de folha continua com o seu código; este módulo só completa o que faltava em cada um:
+  //   .ljJn (janela): arrastava só pela alça/título → agora a faixa de cima inteira, e Esc;
+  //   .cxAcao (Caixa): no dedo só pela alça de 5 px; com mouse não → faixa inteira, dedo e mouse, e Esc;
+  //   .fjJn (Câmbio): com mouse não fechava → mouse e Esc;
+  //   #filtBox (Filtros): não fechava arrastando nem tocando fora → os dois, e Esc (vale o que foi escolhido);
+  //   folhas lfa (Ver, Período, preços…): mouse e Esc.
+  var FU_FAIXA = 64, // altura da faixa de cima que arrasta
+    FU_FECHA = 90, // quanto precisa descer para fechar
+    FU_TIPOS = [
+      { s: '.ljJn', proprio: '.ljPuxa,.ljHd', f: function (e) { var b = e.previousElementSibling; if (b && b.classList.contains('ljBk')) b.click(); } },
+      { s: '.lfa-ov:not(.lfa-full):not(.sai) > .lfa-sh', toque: 1, f: function (e) { lfaFecha(e.parentNode.id); } },
+      { s: '.cxAcao.on', proprioDedo: '.cxPuxa', f: function () { ACT.cxfecha(); } },
+      { s: '#v-fx .fjJn', toque: 1, f: function () { ACT.fjFecha(); } },
+      { s: '#filtBox', f: function () { filtClose(false); } }
+    ],
+    FU_FIXAS = { atvOv: 1, apEspera: 1, 'lfa-folha': 1 };
+  function fuVisivel(e) {
+    if (!e || e.hidden) return false;
+    var r = e.getBoundingClientRect(), c = getComputedStyle(e);
+    return c.display !== 'none' && c.visibility !== 'hidden' && r.height > 60 && r.top < innerHeight - 40;
+  }
+  // a folha (e o tipo dela) em que o ponto está; sem ponto, a folha de cima
+  function fuAcha(alvo) {
+    for (var i = 0; i < FU_TIPOS.length; i++) {
+      var t = FU_TIPOS[i], e = null;
+      if (alvo) { e = alvo.closest ? alvo.closest(t.s) : null; }
+      else { var l = document.querySelectorAll(t.s); for (var k = l.length - 1; k >= 0; k--) if (fuVisivel(l[k])) { e = l[k]; break; } }
+      if (e && fuVisivel(e) && !(e.parentNode && FU_FIXAS[e.parentNode.id])) return { e: e, t: t };
+    }
+    return null;
+  }
+  function fuComeca(alvo, y, dedo) {
+    if (!alvo || !alvo.closest || alvo.closest('button,a,input,select,textarea,label,[data-act],[role="button"],[role="switch"]')) return null;
+    var a = fuAcha(alvo);
+    if (!a || y - a.e.getBoundingClientRect().top > FU_FAIXA || a.e.scrollTop > 0) return null;
+    if (a.t.proprio && alvo.closest(a.t.proprio)) return null; // esse pedaço a própria folha já arrasta
+    if (dedo && a.t.proprioDedo && alvo.closest(a.t.proprioDedo)) return null;
+    if (dedo && a.t.toque) return null; // no dedo essa folha já fecha arrastando
+    return { e: a.e, t: a.t, y0: y, dy: 0, ant: a.e.style.transition };
+  }
+  function fuMove(st, y) {
+    st.dy = Math.max(0, y - st.y0);
+    if (st.dy > 4) {
+      st.mexeu = true;
+      st.e.style.transition = 'none';
+      st.e.style.transform = 'translateY(' + Math.round(st.dy) + 'px)';
+    }
+  }
+  function fuSolta(st) {
+    var e = st.e;
+    if (st.dy > FU_FECHA) {
+      try { st.t.f(e); } catch (x) {}
+      setTimeout(function () { e.style.transition = st.ant || ''; e.style.transform = ''; }, 420);
+    } else if (st.mexeu) {
+      e.style.transition = 'transform .28s cubic-bezier(.16,1,.3,1)';
+      e.style.transform = '';
+      setTimeout(function () { e.style.transition = st.ant || ''; }, 300);
+    }
+    if (st.mexeu) {
+      // o arrasto não vira toque no que estiver embaixo
+      var para = function (ev) { ev.stopPropagation(); ev.preventDefault(); };
+      document.addEventListener('click', para, true);
+      setTimeout(function () { document.removeEventListener('click', para, true); }, 60);
+    }
+  }
+  (function () {
+    var m = null, d = null;
+    // mouse
+    document.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      m = fuComeca(e.target, e.clientY, false);
+    }, true);
+    document.addEventListener('pointermove', function (e) { if (m && e.pointerType === 'mouse') fuMove(m, e.clientY); }, true);
+    document.addEventListener('pointerup', function (e) { if (m && e.pointerType === 'mouse') { var s = m; m = null; fuSolta(s); } }, true);
+    // dedo
+    document.addEventListener('touchstart', function (e) { d = e.touches.length === 1 ? fuComeca(e.target, e.touches[0].clientY, true) : null; }, { passive: true, capture: true });
+    document.addEventListener('touchmove', function (e) { if (d) fuMove(d, e.touches[0].clientY); }, { passive: true, capture: true });
+    document.addEventListener('touchend', function () { if (d) { var s = d; d = null; fuSolta(s); } }, true);
+    document.addEventListener('touchcancel', function () { if (d) { d.dy = 0; var s = d; d = null; fuSolta(s); } }, true);
+    // Esc fecha a folha de cima
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape' || e.defaultPrevented) return;
+      var a = fuAcha(null);
+      if (!a) return;
+      e.preventDefault();
+      try { a.t.f(a.e); } catch (x) {}
+    });
+    // Filtros: tocar fora fecha (vale o que foi escolhido)
+    document.addEventListener('click', function (e) {
+      var f = document.getElementById('filtBox');
+      if (!f || !S.filtOpen || !fuVisivel(f) || !e.target.closest) return;
+      if (e.target.closest('#filtBox,#btnFilt,[aria-label*="Filtros"],.lfa-ov,.ljJn,.ljBk,.modal')) return;
+      filtClose(false);
+    }, true);
+  })();
+  window.__fuAcha = function () { var a = fuAcha(null); return a ? a.t.s : ''; };
+  // S364 (esboço 34) · desfazer a exclusão de um produto: volta tudo o que saiu (peças, fotos, descrição, preço, site) e tira o registro do histórico
+  ACT.prodDesfaz = function () {
+    var v = window.__prodVolta;
+    window.__prodVolta = null;
+    var t = document.querySelector('[data-prod-toast]');
+    if (t) t.remove();
+    if (!v) return;
+    S.items = v.itens;
+    Object.keys(v.fotos).forEach(function (k) {
+      S.fotos[k] = v.fotos[k];
+      S.fotosRest = S.fotosRest || {};
+      S.fotosRest[k] = 1;
+    });
+    if (v.desc != null) S.desc[v.ref] = v.desc;
+    if (v.pprice) { S.pprice = S.pprice || {}; S.pprice[v.ref] = v.pprice; }
+    if (v.pcanal) { S.pcanal = S.pcanal || {}; S.pcanal[v.ref] = v.pcanal; }
+    S.elog.length = Math.min(S.elog.length, v.elog);
+    if (v.site) { S.site = S.site || {}; S.site[v.ref] = 1; if (typeof vitFila === 'function') vitFila(v.ref, 'upd'); }
+    saveSoon();
+    render();
+    lfToast('Produto de volta');
+  };
   // ===== Render geral e persistência (localStorage + IndexedDB). =====
   // Redesenha o app e agenda o salvamento.
   var RENDER_TICK = 0;

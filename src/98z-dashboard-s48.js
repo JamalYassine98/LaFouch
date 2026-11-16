@@ -24,6 +24,7 @@
     S.dMoeda = S.dMoeda === 'pyg' ? 'brl' : S.dMoeda === 'brl' ? 'usd' : 'pyg';
     render();
   };
+  ACT.d48Res = function () { S.dTab = 'din'; setView('dash'); };
   ACT.d48Abre = function (k) {
     S._d48[k] = !S._d48[k];
     render();

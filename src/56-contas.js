@@ -152,7 +152,7 @@
           (a.urgente ? ' · <b style="color:var(--bad)">URGENTE</b>' : '') +
           (a.ok ? '' : ' · ' + esc(a.dica)),
         expTexto(a.e)
-      );
+      ) + '<button type="button" class="esLn slVai" data-act="exppay" data-id="' + a.e.id + '"><span class="g"><b style="font-weight:500">Marcar ' + esc(a.e.nome) + ' como paga</b></span><i aria-hidden="true">›</i></button>';
     });
     return h + '</div></section>';
   }

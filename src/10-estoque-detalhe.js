@@ -805,9 +805,33 @@
       var hbtn = mk('div', '');
       hbtn.style.cssText = 'display:flex;gap:8px;align-items:center';
       if (!f.bulk) {
-        var lx = btn('tab ibtn edLixo' + (S.pdAsk ? ' on' : ''), '', function () {
-          S.pdAsk = !S.pdAsk;
+        // S364 (esboço 34, aprovado 15/11): a lixeira exclui na hora e o aviso fica 5 s com "Desfazer" (sem a pergunta "Excluir este produto?")
+        var lx = btn('tab ibtn edLixo', '', function () {
+          var todosX = S.items.filter(function (i) { return i.ref === ref && !i.bulk; }),
+            volta = { ref: ref, itens: S.items.slice(), fotos: {}, desc: S.desc[ref], pprice: S.pprice && S.pprice[ref], pcanal: S.pcanal && S.pcanal[ref], site: !!(S.site && S.site[ref]), elog: S.elog.length, open: S.open };
+          Object.keys(S.fotos).forEach(function (k) {
+            if (k.slice(0, k.indexOf('|')) === ref) volta.fotos[k] = S.fotos[k];
+          });
+          exclusaoEstoque(todosX, 'produto excluído');
+          S.items = S.items.filter(function (i) { return !(i.ref === ref && !i.bulk); });
+          Object.keys(volta.fotos).forEach(function (k) { delete S.fotos[k]; });
+          limpaRefExcluido(ref);
+          delete S.desc[ref];
+          zerar();
+          S.detCor = '';
+          S.detVr = null;
+          S.detRow = null;
+          S.selItem = null;
+          S.qty = 1;
+          S.open = '';
+          S.det = false;
+          S.pdAsk = false;
+          S.msg = '';
+          saveSoon();
           render();
+          window.__prodVolta = volta;
+          lfaToast('<span class="lfa-ic">' + lfaSvg('trash') + '</span><div style="flex:1"><b>Produto excluído</b><div class="cd" style="--cd:5s"></div></div><button type="button" class="pdLink" data-act="prodDesfaz" style="font-weight:700;min-height:44px;min-width:44px;padding:0 6px;display:inline-flex;align-items:center">Desfazer</button>', 5000, 'b').setAttribute('data-prod-toast', '1');
+          setTimeout(function () { if (window.__prodVolta === volta) window.__prodVolta = null; }, 5600);
         });
         lx.id = 'edLixeira';
         lx.innerHTML =
