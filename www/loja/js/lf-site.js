@@ -1254,6 +1254,8 @@
     return acFetch(RES_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b),signal:ct?ct.signal:undefined}).then(function(r){clearTimeout(tm);if(r.status>=500||r.status===404)return null;return r.json().catch(function(){return null})},function(){clearTimeout(tm);return null})}
   function resItens(its){return (its||[]).map(function(i){return {ref:i.ref,cor:i.cor||'',q:i.q}})}
   function resLeft(e){if(!e||!e.rx)return 0;return Math.max(0,e.rx-(Date.now()+(e.rd||0)))}
+  /* S394: preço da linha como aparece na tela (moeda do cliente), para o e-mail do pedido */
+  function pvLin(u,q){try{var b=window.LFI&&LFI.cur==='BRL',v=(b?LFI.pv(u):Math.round(u))*q;return (b?'R$ ':'Gs. ')+String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g,'.')}catch(_){return ''}}
   function pkEnviar(doc,id){
     /* 13/11: corta os textos no limite das regras do Firestore (endereço longo não pode derrubar o pedido) */
     var LIM={nome:79,tel:29,email:199,doc:29,obsC:199,endE:299,refE:199,depE:79,cidade:79};Object.keys(LIM).forEach(function(k){if(typeof doc[k]==='string'&&doc[k].length>LIM[k])doc[k]=doc[k].slice(0,LIM[k])});
@@ -1795,7 +1797,7 @@
     var vb=TESTE?1:valorBRL();
     var doc=st.pkdoc&&retry?st.pkdoc:{ts:Date.now(),nome:c.nome,tel:c.tel,pais:c.pais,cod:cod,lang:(window.LFI&&LFI.lang)||'pt',moeda:(window.LFI&&LFI.cur)||'',total:Math.round(total()),rosto:ff?ff.nome:'',
       nac:c.nac,doc:c.doc,nasc:c.nasc,email:c.email||'',obsC:c.obs||'',cidade:c.cidade,end:c.end||'',ent:ent,endE:ent==='delivery'?endE:'',refE:'',pag:pag,brl:vb,teste:!!TESTE,
-      itens:ks.map(function(k){var p=find(k);return {ref:p.ref,nome:p.nome,q:st.cart[k],cor:(p.cores&&p.cores.length>1)?corNome(p,st.cor[k]||0):'',grau:(p.gr&&p.gr.length)?p.gr[st.gr[k]||0]:'',preco:Math.round(p.n)}})};
+      itens:ks.map(function(k){var p=find(k);return {ref:p.ref,nome:p.nome,q:st.cart[k],cor:(p.cores&&p.cores.length>1)?corNome(p,st.cor[k]||0):'',grau:(p.gr&&p.gr.length)?p.gr[st.gr[k]||0]:'',preco:Math.round(p.n),pv:pvLin(p.n,st.cart[k])}})};
     st.pkdoc=doc;
     pkTela('<div class="pkl"></div><div class="pkc"><div class="pks"></div></div><h2 style="animation-delay:0s">Enviando seu pedido…</h2>').className='pkw0';
     var rxo=null;
@@ -2074,7 +2076,7 @@
       endE:ent==='delivery'&&E?E.end+', '+E.cidade+(E.dep?' · '+E.dep:''):'',refE:ent==='delivery'&&E?E.ref||'':'',depE:ent==='delivery'&&E?E.dep||'':'',
       
       /* S197: o final único sempre DESCONTA (o cliente nunca paga a mais) */pag:pag,uq:uq,brl:pag==='pix'?Math.round((vb0-uq/100)*100)/100:vb0,pagar:pag==='alias'?base-uq:0,teste:!!TESTE,
-      itens:ks.map(function(k){var p=find(k);return {ref:p.ref,nome:p.nome,q:st.cart[k],cor:(p.cores&&p.cores.length>1)?corNome(p,st.cor[k]||0):'',grau:(p.gr&&p.gr.length)?p.gr[st.gr[k]||0]:'',preco:Math.round(p.n-(DV==='l2'?(L2.por[k]||0):0)/st.cart[k]-(DV==='cup'?(CI.por[k]||0):0)/st.cart[k]),l2:DV==='l2'?L2.por[k]||0:0,cd:DV==='cup'?CI.por[k]||0:0}})},DV==='cup'&&st.cup?{cup:st.cup.cod,cupd:CI.d}:{})})();
+      itens:ks.map(function(k){var p=find(k);return {ref:p.ref,nome:p.nome,q:st.cart[k],cor:(p.cores&&p.cores.length>1)?corNome(p,st.cor[k]||0):'',grau:(p.gr&&p.gr.length)?p.gr[st.gr[k]||0]:'',preco:Math.round(p.n-(DV==='l2'?(L2.por[k]||0):0)/st.cart[k]-(DV==='cup'?(CI.por[k]||0):0)/st.cart[k]),l2:DV==='l2'?L2.por[k]||0:0,cd:DV==='cup'?CI.por[k]||0:0,pv:pvLin(p.n-(DV==='l2'?(L2.por[k]||0):0)/st.cart[k]-(DV==='cup'?(CI.por[k]||0):0)/st.cart[k],st.cart[k])}})},DV==='cup'&&st.cup?{cup:st.cup.cod,cupd:CI.d}:{})})();
     st.pkdoc=doc;
     if(!retry)lsS('lf_ent',ent==='delivery'?{ent:'delivery',tr:st.tr||'',i:st.endIdx|0}:{ent:'loja'});
     pkTela('<div class="pkl"></div><div class="pkc"><div class="pks"></div></div><h2 style="animation-delay:0s">Enviando seu pedido…</h2>').className='pkw0';
