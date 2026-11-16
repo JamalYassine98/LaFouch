@@ -2942,3 +2942,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Dono viu os retratos de como era (57a–57f), pediu padrão de luxo, corrigiu o LOGO (usar sempre o logo de verdade do site: escudo + LA FOUCH + Tudo em Óculos, nunca só o escudo com texto digitado) e pediu dois e-mails novos: pedido recebido e pagamento confirmado COM O TOKEN.
 - Aprovou "tudo" (inclusive: token no assunto; "Obrigada por voltar"; link de sair nas novidades; link "Enviar para uma amiga"; idioma pelo `lang` do pedido).
 - Implementado no servidor; depende do deploy das funções por ele. Detalhes em docs/SITE-COMO-FUNCIONA.md (S393). Não feito (sem esboço): e-mail de cancelamento.
+- 16/11/2026 18:12 · DONO aprovou o esboço 74 (Câmbio). Esperando "implementar". A família Dinheiro (Caixa, Despesas, Câmbio) fica completa com ele.
