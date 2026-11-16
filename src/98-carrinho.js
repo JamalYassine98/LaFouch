@@ -92,6 +92,8 @@
     bar.hidden = !(emVendas && S.cart.length && !S.cartOpen);
     card.hidden = !(emVendas && ped);
     $('pagHead').hidden = !(emVendas && pag);
+    $('sumB').classList.toggle('pagLux', !!(emVendas && pag)); // S365 (esboço 39): total em destaque no Pagamento
+    if ($('pagMais')) $('pagMais').hidden = !(emVendas && pag);
     if (!bar.hidden)
       bar.innerHTML =
         '<div style="display:flex;gap:4px;flex:0 0 auto">' + cartFoto(S.cart[0], 40) + '</div><div style="flex:1 1 140px"><b>Pedido: ' + cartPecas() + ' peça(s)</b><div class="hint" style="margin:2px 0 0">' + gs(cartSub()) + ' pelos preços combinados</div></div>' +

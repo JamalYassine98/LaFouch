@@ -10,11 +10,29 @@
       desc = (s.cup && s.cup.desc > 0 ? s.cup.desc : 0) + (+s.l2d || 0),
       ivaV = Math.round(preco - preco / (1 + LR_IVA)),
       custo = Math.round(+s.rep || 0),
-      ivaC = Math.round(custo * lrIvaCompra()),
+      ivaC = 0, // S365 (conta única de lucro, aprovada 15/11 15:42): o IVA da compra NÃO é gasto
       taxa = Math.round(+s.taxa || 0),
       freteV = Math.round(+s.freteLoja || 0),
       lucro = preco - ivaV - custo - ivaC - taxa - freteV;
     return { preco: preco + desc, desc: desc, ivaV: ivaV, custo: custo, ivaC: ivaC, taxa: taxa, freteV: freteV, lucro: lucro, qty: +s.qty || 1 };
+  }
+  // S365 · A CONTA ÚNICA DE LUCRO de uma peça: preço − IVA da venda − custo da peça (com o frete da compra) − taxa do pagamento.
+  // Custo = o de hoje (custo em dólar × câmbio da loja). Repor a peça, contas e colchão ficam só na conta do piso/trava.
+  function lucroCustoGs(ref) {
+    var it = itemDoRef(ref) || (S.items || []).filter(function (x) { return x.ref === ref; })[0];
+    if (!it) return 0;
+    var c = Math.round((Number(effCusto(it)) || 0) * ((S.fx && S.fx.pyg) || 0));
+    if (c > 0) return c;
+    // peça sem custo próprio cadastrado: vale o custo que o app já usa para ela no piso (o do tipo)
+    try { var pp = pisoPeca(it); return pp && pp.rep > 0 ? Math.round(pp.rep) : 0; } catch (e) { return 0; }
+  }
+  function lucroUnico(ref, preco, taxa) {
+    return lrVenda({ price: +preco || 0, rep: lucroCustoGs(ref), taxa: +taxa || 0, qty: 1 }).lucro;
+  }
+  // até quanto dá para descer sem perder (lucro zero): preço mínimo = custo × 1,10
+  function lucroDesceAte(ref, preco) {
+    var c = lucroCustoGs(ref);
+    return preco > 0 ? Math.max(0, Math.floor((1 - (c * (1 + LR_IVA)) / preco) * 100)) : 0;
   }
   function lrSoma(L) {
     var t = { preco: 0, desc: 0, ivaV: 0, custo: 0, ivaC: 0, taxa: 0, freteV: 0, lucro: 0, qty: 0, vendido: 0 };
@@ -66,14 +84,9 @@
   };
   // ficha da peça: "Lucro real" com a última venda (ou o preço de hoje) + simulações
   function lucroPecaHtml(ref) {
-    var vs = (S.sales || []).filter(function (s) { return s.ref === ref && !s.estorno; }).sort(function (a, b) { return b.ts - a.ts; }),
-      base = vs[0] ? Object.assign({}, vs[0], { qty: 1, price: Math.round((vs[0].price + ((vs[0].cup && vs[0].cup.desc) || 0)) / (vs[0].qty || 1)), rep: Math.round((vs[0].rep || 0) / (vs[0].qty || 1)), taxa: 0, cup: null, l2d: 0, freteLoja: 0 }) : null;
-    if (!base) {
-      var it = (S.items || []).filter(function (x) { return x.ref === ref; })[0], p = it && typeof precoTab === 'function' ? precoTab(it) : 0;
-      if (!it || !p) return '';
-      var fx = (S.fx && S.fx.pyg) || 0, cu = it.usd != null ? it.usd : it.custo != null ? it.custo : 0;
-      base = { price: p, rep: Math.round(cu * fx), qty: 1, taxa: 0 };
-    }
+    var it = itemDoRef(ref) || (S.items || []).filter(function (x) { return x.ref === ref; })[0], p = it ? (typeof tFor === 'function' ? tFor(it).price : precoTab(it)) : 0;
+    if (!it || !(p > 0)) return '';
+    var base = { price: p, rep: lucroCustoGs(ref), qty: 1, taxa: 0 };
     var r = lrVenda(base), pct = r.preco ? Math.round((r.lucro / r.preco) * 100) : 0;
     var sim = function (o) { return lrVenda(Object.assign({}, base, o)).lucro; };
     var c10 = Math.floor((base.price * 0.1) / 1000) * 1000, l2 = base.price - Math.ceil((base.price * 0.7) / 1000) * 1000;
@@ -81,7 +94,7 @@
       '<details class="card col lrcard"><summary style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:8px"><b>Lucro real</b><b style="color:' + (r.lucro >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + gs(r.lucro) + '</b></summary>' +
       '<b style="display:block;margin:10px 0 4px;font-size:12px;letter-spacing:.1em;color:var(--mu)">CADA VENDA DESTA PEÇA</b>' +
       lrLinha('Preço de venda', gs(r.preco)) + lrLinha('− IVA da venda (10%)', '− ' + gs(r.ivaV)) + lrLinha('− Custo (+ frete da compra)', '− ' + gs(r.custo)) +
-      lrLinha('− IVA da compra', '− ' + gs(r.ivaC)) + lrLinha('− Taxa do pagamento', '− ' + gs(r.taxa)) +
+      (r.taxa ? lrLinha('− Taxa do pagamento', '− ' + gs(r.taxa)) : '') +
       '<div class="sl" style="border-top:1px solid var(--line);padding-top:8px"><span><b>Lucro real</b></span><b style="color:' + (r.lucro >= 0 ? 'var(--ok)' : 'var(--bad)') + ';font-size:18px">' + gs(r.lucro) + '</b></div>' +
       '<div class="hint">' + pct + '% do preço</div>' +
       '<b style="display:block;margin:12px 0 4px;font-size:12px;letter-spacing:.1em;color:var(--mu)">SE VENDER COM…</b>' +

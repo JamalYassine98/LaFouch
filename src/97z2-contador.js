@@ -91,15 +91,17 @@
     if (!it || isSimple(it.tipo) || !(effCusto(it) > 0)) return '';
     var p = tFor(it).price, pp = pisoPeca(it), fx = cntFx(), tx = Math.round(p * cntTaxaPct()), lu = p - pp.rep - pp.contas - pp.colch - tx, f = faixaOf(ref);
     if (!(p > 0)) return '';
-    var seg = [['Repor a peça', pp.rep, '#7a2a59'], ['Contas da loja', pp.contas, '#c4567f'], ['Colchão do dólar', pp.colch, '#e6a4c8'], ['Taxa média', tx, '#dcc6d3'], ['Lucro', Math.max(0, lu), '#1f8a4c']];
-    var tab = tabLista().filter(function (T) { return !T.pub; })[0], ata = tab ? precoTab(it, tab.id) : 0, desce = Math.max(0, Math.floor(((p - pp.trava) / p) * 100));
+    // S365: a barra mostra a conta única de lucro (IVA da venda, custo da peça, lucro); repor/contas/colchão ficam nas linhas do piso e da trava
+    var cuG = lucroCustoGs(ref), ivG = Math.round(p - p / 1.1); lu = lucroUnico(ref, p);
+    var seg = [['IVA da venda', ivG, '#c4567f'], ['Custo da peça', cuG, '#7a2a59'], ['Lucro', Math.max(0, lu), '#1f8a4c']];
+    var tab = tabLista().filter(function (T) { return !T.pub; })[0], ata = tab ? precoTab(it, tab.id) : 0, desce = lucroDesceAte(ref, p);
     return '<details class="card cntP"><summary>De onde vem o preço · <b>' + gs(p) + '</b></summary>' +
       '<div class="cntBar">' + seg.map(function (x) { return x[1] > 0 ? '<i style="flex:' + x[1] + ';background:' + x[2] + '"></i>' : ''; }).join('') + '</div>' +
       '<div class="cntLeg">' + seg.map(function (x) { return '<span><i style="background:' + x[2] + '"></i>' + x[0] + ' ' + gs(x[1]) + '</span>'; }).join('') + '</div>' +
       lrLinha('Piso (não perde) <small>repor + contas + colchão</small>', gs(pp.piso)) + lrLinha('Trava (perde se vender abaixo)', gs(pp.trava)) +
       (f ? lrLinha('Faixa de margem <small>' + esc(f.nome) + ' · ' + f.margem + '%</small>', gs(pp.piso)) : '') +
       (typeof sitePreco === 'function' ? lrLinha('Site', gs(sitePreco(p))) : '') + (ata > 0 && fx ? lrLinha('Atacado <small>' + esc(tab.nome) + '</small>', 'US$ ' + (ata / fx).toFixed(2).replace('.', ',')) : '') +
-      '<div class="cntQ" style="margin-top:8px">💬 "Pode dar até ' + desce + '% de desconto sem perder dinheiro.' + (lu > 0 ? ' Com 20% ainda sobra ' + gs(Math.round(p * 0.8 - pp.trava - tx)) + ' de lucro."' : '"') + '</div></details>';
+      '<div class="cntQ" style="margin-top:8px">💬 "Pode dar até ' + desce + '% de desconto sem perder dinheiro.' + (lucroUnico(ref, p * 0.8) > 0 ? ' Com 20% ainda sobra ' + gs(lucroUnico(ref, p * 0.8)) + ' de lucro."' : '"') + '</div></details>';
   }
   var _rdCnt = renderDetail;
   renderDetail = function (ref, opt) {

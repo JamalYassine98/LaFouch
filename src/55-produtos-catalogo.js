@@ -207,7 +207,7 @@
       s2 = r ? r.st : '';
     if (s2 === 'r') return { cl: 'r', html: '<div class="ofHd">Prejuízo · abaixo da trava (' + gs(trava) + ')</div>' };
     if (s2 === 'w') return { cl: 'w', html: '<div class="ofHd">Atenção · abaixo do piso (' + gs(piso) + ')</div>' };
-    return { cl: 'o', html: '<div class="ofRow"><span class="ofTag">' + (v <= piso ? 'Na margem' : 'Acima do piso') + '</span><b>lucro ' + gs(v - trava) + ' por peça</b></div>' };
+    return { cl: 'o', html: '<div class="ofRow"><span class="ofTag">' + (v <= piso ? 'Na margem' : 'Acima do piso') + '</span><b>lucro ' + gs(lucroUnico(ref, v)) + ' por peça</b></div>' };
   }
 
   // ---------- oferta: o Inventário manda; o app avisa piso/trava e publica no catálogo e no site
@@ -361,7 +361,7 @@
       else if (s2 === 'w')
         h =
           '<div class="ofHd">Atenção · abaixo do piso</div><div class="ofRow"><span>Piso (sua margem)</span><b>' + gs(piso) + '</b></div><div class="ofRow"><span>Trava</span><b>' + gs(trava) + '</b></div><div class="ofTx">Cobre a reposição e as contas, mas fica ' + gs(piso - v) + ' abaixo da margem. Lucro: ' + gs(v - trava) + '.</div>';
-      else h = '<div class="ofRow"><span class="ofTag">' + (v <= piso ? 'Na margem' : 'Acima do piso') + '</span><b>lucro ' + gs(v - trava) + ' por peça</b></div>';
+      else h = '<div class="ofRow"><span class="ofTag">' + (v <= piso ? 'Na margem' : 'Acima do piso') + '</span><b>lucro ' + gs(lucroUnico(ref, v)) + ' por peça</b></div>';
       st.innerHTML = h;
       if (s2 === 'r' && piso && piso < base) {
         ok.textContent = 'Ajustar para preço seguro (' + gs(piso) + ')';

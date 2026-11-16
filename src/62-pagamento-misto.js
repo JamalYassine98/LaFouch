@@ -223,7 +223,7 @@
         ex.appendChild(pmLinha(x, i, S.pagX, 'Valor recebido'));
       });
       ex.appendChild(
-        btn('chip add', '+ Outra moeda', function () {
+        btn('esTx', '+ Receber parte em outra moeda', function () {
           S.pagX.push({ m: S.moeda === 'pyg' ? 'brl' : 'pyg', v: '', r: '' });
           S.pagMisto = true;
           S.rec = null;

@@ -953,7 +953,7 @@ async def main():
             await pg.evaluate("() => { const S = window.__LF.S; S.qty = 5; window.__LF.render(); }"); await pg.wait_for_timeout(200)
             await pg.locator('#vDetail .vsale .go').click(); await pg.wait_for_timeout(300)
             cart = await pg.evaluate("() => window.__LF.S.cart.map(l => [l.it.lote, l.qty])")
-            await pg.evaluate("() => { const S = window.__LF.S; S.cart = []; S.vTipo = 'sem'; S.vRef = 'sem|AR1'; S.vSel = null; window.__LF.render(); }"); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => { const S = window.__LF.S; S.cart = []; S.cartOpen = false; S.vTipo = 'sem'; S.vRef = 'sem|AR1'; S.vSel = null; window.__LF.render(); }"); await pg.wait_for_timeout(300)
             arm = await pg.evaluate("() => [...document.querySelectorAll('#vDetail .ccard')].map(x => x.innerText.replace(/\\s+/g,' '))")
             await pg.locator('#vDetail .ccard', has_text='Bege').click(); await pg.wait_for_timeout(300)
             selcor = await pg.evaluate("() => window.__LF.S.vSel && window.__LF.S.vSel.cor")
@@ -2696,7 +2696,7 @@ async def main():
               const it = S.items.filter(i => i.qty >= 1 && L.tFor(i).price > 0)[0];
               S.cart = [{it, qty: 1, preco: null}]; S.cartOpen = true; S.moeda = 'brl'; S.rate1 = ''; S.rec = null; S.pagMisto = false; S.pagX = [];
               L.setView('vendas'); L.render();
-              const antes = !!document.getElementById('pmTog'), btn = document.querySelector('#pmExtra .chip.add');
+              const antes = !!document.getElementById('pmTog'), btn = document.querySelector('#pmExtra .esTx');
               btn.click(); const linhas = document.querySelectorAll('#pmExtra .card').length, cambioLinha = document.querySelectorAll('#pmExtra .card input').length;
               const ph = document.getElementById('rate1In').placeholder, lbl = document.querySelector('#rate1B .lbl').textContent;
               const u = L.fxLoja('usd');
@@ -3657,6 +3657,30 @@ async def main():
             ok = got == [True] * 4 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'S364: toques que levam à ação (conta a pagar, preços para corrigir com a mesma contagem da lista)')
             if not ok: falhas.append('S364 toques'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # S365 (lote 4): conta única de lucro (exemplo do dono), venda em 3 toques e Pagamento de luxo.
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, sl = ms => new Promise(r => setTimeout(r, ms));
+              const r = p => L.lrVenda({ price: p, rep: 14453, taxa: 0, qty: 1 }).lucro;
+              const exemplo = r(105000) === 81002 && r(94500) === 71456 && r(84000) === 61911;
+              const it = S.items.find(i => !i.bulk && L.effCusto(i) > 0 && i.qty > 0 && L.tFor(i).price > 0 && L.lucroPecaHtml(i.ref)), ref = it.ref, p = L.tFor(it).price, u = L.lucroUnico(ref, p);
+              const card = L.lucroPecaHtml(ref), barra = L.cntPrecoHtml(ref);
+              const igual = card.includes(L.gs(u)) && (!barra || barra.includes('Lucro ' + L.gs(Math.max(0, u)))) && !/IVA da compra/.test(card);
+              L.setView('vendas'); await sl(500); document.querySelector('#vRows .pcard[data-ref]').click(); await sl(700);
+              [...document.querySelectorAll('button')].filter(e => e.offsetParent && /^Vender/.test(e.innerText.trim())).pop().click(); await sl(800);
+              const vis = e => !!e && e.offsetParent !== null;
+              const tres = S.cartOpen && S.cartStep === 'pag' && vis(document.getElementById('sgo')) && vis(document.getElementById('pagMais'));
+              const f = [...document.querySelectorAll('#formaChips .trkB')], m = [...document.querySelectorAll('#moedas .trkB')];
+              const trilhos = f.length >= 2 && m.length === 3 && !document.querySelector('#formaChips .chip, #moedas .chip') && document.getElementById('formaTx').hidden;
+              const ordem = !!(document.getElementById('recIn').compareDocumentPosition(document.getElementById('cliPickB')) & 4) && getComputedStyle(document.getElementById('tot')).fontSize === '40px';
+              document.getElementById('pagMais').click(); await sl(500);
+              const volta = !S.cartOpen && S.cart.length === 1;
+              return [exemplo, igual, tres, trilhos, ordem, volta]; }""")
+            total += 1
+            ok = got == [True] * 6 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S365: lucro único (81.002 · 71.456 · 61.911; cartão = barra), venda em 3 toques, Pagamento com trilhos, total em destaque e cliente depois do valor')
+            if not ok: falhas.append('S365 lote 4'); print('        veio', got, pg.erros)
             await pg.close()
 
             # S332 (15/11/2026, opção A): a cópia do site do MODO LOJA se atualiza sozinha (sem APK). Aparelho falso (Capacitor + Filesystem em memória):

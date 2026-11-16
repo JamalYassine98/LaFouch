@@ -129,25 +129,29 @@
     S._recv = v;
     var mo = $('moedas');
     mo.textContent = '';
+    var moTh = document.createElement('span');
+    moTh.className = 'trkTh';
+    mo.appendChild(moTh); // S365 (esboço 39): trilho único
     [
       ['pyg', 'G$ Guarani'],
       ['brl', 'R$ Real'],
       ['usd', 'US$ Dólar']
     ].forEach(function (x) {
-      mo.appendChild(
-        btn(
-          'chip' + (m === x[0] ? ' on' : ''),
-          x[1],
-          function () {
-            S.moeda = x[0];
-            S.rate1 = '';
-            S.rec = null;
-            render();
-          },
-          m === x[0]
-        )
+      var b = btn(
+        'trkB' + (m === x[0] ? ' on' : ''),
+        x[1],
+        function () {
+          S.moeda = x[0];
+          S.rate1 = '';
+          S.rec = null;
+          render();
+        },
+        m === x[0]
       );
+      b.dataset.m = x[0];
+      mo.appendChild(b);
     });
+    trkMarca(mo, m);
     renderForma();
     $('recIn').value = S.pagMisto && S.rec == null ? '' : inVal(v, m);
     pmRender();

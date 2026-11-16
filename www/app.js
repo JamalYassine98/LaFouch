@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 532;
+  var APP_BUILD = 533;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.24.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.25.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -2040,7 +2040,18 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       });
       pl0.setAttribute('aria-label', 'Aumentar quantidade');
       var vb0 = btn('go', 'Vender' + (ptv ? ' · ' + gs(ptv * vq) : ''), function () {
+        var n0 = S.cart.length;
         $('sCartAdd').click();
+        // S365 (esboço 32, aprovado 15/11): peça → Vender → Finalizar venda. O Pagamento abre direto; "+ Adicionar outra peça" volta ao Catálogo com o pedido guardado.
+        if (S.cart.length && (S.cart.length > n0 || n0)) {
+          S.cartOpen = true;
+          S.cartStep = 'pag';
+          S.rec = null;
+          S._descOk = '';
+          S.msg = '';
+          render();
+          window.scrollTo(0, 0);
+        }
       });
       sb.appendChild(mn0);
       sb.appendChild(qn);
@@ -11747,7 +11758,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       s2 = r ? r.st : '';
     if (s2 === 'r') return { cl: 'r', html: '<div class="ofHd">Prejuízo · abaixo da trava (' + gs(trava) + ')</div>' };
     if (s2 === 'w') return { cl: 'w', html: '<div class="ofHd">Atenção · abaixo do piso (' + gs(piso) + ')</div>' };
-    return { cl: 'o', html: '<div class="ofRow"><span class="ofTag">' + (v <= piso ? 'Na margem' : 'Acima do piso') + '</span><b>lucro ' + gs(v - trava) + ' por peça</b></div>' };
+    return { cl: 'o', html: '<div class="ofRow"><span class="ofTag">' + (v <= piso ? 'Na margem' : 'Acima do piso') + '</span><b>lucro ' + gs(lucroUnico(ref, v)) + ' por peça</b></div>' };
   }
 
   // ---------- oferta: o Inventário manda; o app avisa piso/trava e publica no catálogo e no site
@@ -11901,7 +11912,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       else if (s2 === 'w')
         h =
           '<div class="ofHd">Atenção · abaixo do piso</div><div class="ofRow"><span>Piso (sua margem)</span><b>' + gs(piso) + '</b></div><div class="ofRow"><span>Trava</span><b>' + gs(trava) + '</b></div><div class="ofTx">Cobre a reposição e as contas, mas fica ' + gs(piso - v) + ' abaixo da margem. Lucro: ' + gs(v - trava) + '.</div>';
-      else h = '<div class="ofRow"><span class="ofTag">' + (v <= piso ? 'Na margem' : 'Acima do piso') + '</span><b>lucro ' + gs(v - trava) + ' por peça</b></div>';
+      else h = '<div class="ofRow"><span class="ofTag">' + (v <= piso ? 'Na margem' : 'Acima do piso') + '</span><b>lucro ' + gs(lucroUnico(ref, v)) + ' por peça</b></div>';
       st.innerHTML = h;
       if (s2 === 'r' && piso && piso < base) {
         ok.textContent = 'Ajustar para preço seguro (' + gs(piso) + ')';
@@ -13587,21 +13598,28 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function renderForma() {
     var box = $('formaChips');
     if (!box) return;
+    // S365 (esboço 39): um trilho só; o nome curto no trilho e a taxa da maquininha embaixo, só quando ela é a escolhida
     box.textContent = '';
-    var cur = formaSel();
+    var cur = formaSel(), th = document.createElement('span');
+    th.className = 'trkTh';
+    box.appendChild(th);
     S.formas.forEach(function (f) {
-      box.appendChild(
-        btn(
-          'chip' + (cur.id === f.id ? ' on' : ''),
-          f.nome + (f.taxa > 0 ? ' · ' + String(f.taxa).replace('.', ',') + '%' : ''),
-          function () {
-            S.forma = f.id;
-            render();
-          },
-          cur.id === f.id
-        )
-      );
+      var curto = String(f.nome).replace(/^maquininha\s+/i, ''), b;
+      curto = curto.charAt(0).toUpperCase() + curto.slice(1);
+      b = btn('trkB' + (cur.id === f.id ? ' on' : ''), curto, function () {
+        S.forma = f.id;
+        render();
+      }, cur.id === f.id);
+      b.dataset.m = f.id;
+      b.setAttribute('aria-label', f.nome + (f.taxa > 0 ? ', taxa de ' + String(f.taxa).replace('.', ',') + '%' : ''));
+      box.appendChild(b);
     });
+    trkMarca(box, cur.id);
+    var tx = $('formaTx');
+    if (tx) {
+      tx.hidden = !(cur.taxa > 0);
+      tx.textContent = cur.taxa > 0 ? cur.nome + ': taxa de ' + String(cur.taxa).replace('.', ',') + '%' : '';
+    }
   }
   // ===== Segurança (PIN e biometria ao abrir) e cópias automáticas dos dados. =====
   S.pinHash = '';
@@ -15189,7 +15207,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         ex.appendChild(pmLinha(x, i, S.pagX, 'Valor recebido'));
       });
       ex.appendChild(
-        btn('chip add', '+ Outra moeda', function () {
+        btn('esTx', '+ Receber parte em outra moeda', function () {
           S.pagX.push({ m: S.moeda === 'pyg' ? 'brl' : 'pyg', v: '', r: '' });
           S.pagMisto = true;
           S.rec = null;
@@ -25432,25 +25450,29 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S._recv = v;
     var mo = $('moedas');
     mo.textContent = '';
+    var moTh = document.createElement('span');
+    moTh.className = 'trkTh';
+    mo.appendChild(moTh); // S365 (esboço 39): trilho único
     [
       ['pyg', 'G$ Guarani'],
       ['brl', 'R$ Real'],
       ['usd', 'US$ Dólar']
     ].forEach(function (x) {
-      mo.appendChild(
-        btn(
-          'chip' + (m === x[0] ? ' on' : ''),
-          x[1],
-          function () {
-            S.moeda = x[0];
-            S.rate1 = '';
-            S.rec = null;
-            render();
-          },
-          m === x[0]
-        )
+      var b = btn(
+        'trkB' + (m === x[0] ? ' on' : ''),
+        x[1],
+        function () {
+          S.moeda = x[0];
+          S.rate1 = '';
+          S.rec = null;
+          render();
+        },
+        m === x[0]
       );
+      b.dataset.m = x[0];
+      mo.appendChild(b);
     });
+    trkMarca(mo, m);
     renderForma();
     $('recIn').value = S.pagMisto && S.rec == null ? '' : inVal(v, m);
     pmRender();
@@ -45173,11 +45195,29 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       desc = (s.cup && s.cup.desc > 0 ? s.cup.desc : 0) + (+s.l2d || 0),
       ivaV = Math.round(preco - preco / (1 + LR_IVA)),
       custo = Math.round(+s.rep || 0),
-      ivaC = Math.round(custo * lrIvaCompra()),
+      ivaC = 0, // S365 (conta única de lucro, aprovada 15/11 15:42): o IVA da compra NÃO é gasto
       taxa = Math.round(+s.taxa || 0),
       freteV = Math.round(+s.freteLoja || 0),
       lucro = preco - ivaV - custo - ivaC - taxa - freteV;
     return { preco: preco + desc, desc: desc, ivaV: ivaV, custo: custo, ivaC: ivaC, taxa: taxa, freteV: freteV, lucro: lucro, qty: +s.qty || 1 };
+  }
+  // S365 · A CONTA ÚNICA DE LUCRO de uma peça: preço − IVA da venda − custo da peça (com o frete da compra) − taxa do pagamento.
+  // Custo = o de hoje (custo em dólar × câmbio da loja). Repor a peça, contas e colchão ficam só na conta do piso/trava.
+  function lucroCustoGs(ref) {
+    var it = itemDoRef(ref) || (S.items || []).filter(function (x) { return x.ref === ref; })[0];
+    if (!it) return 0;
+    var c = Math.round((Number(effCusto(it)) || 0) * ((S.fx && S.fx.pyg) || 0));
+    if (c > 0) return c;
+    // peça sem custo próprio cadastrado: vale o custo que o app já usa para ela no piso (o do tipo)
+    try { var pp = pisoPeca(it); return pp && pp.rep > 0 ? Math.round(pp.rep) : 0; } catch (e) { return 0; }
+  }
+  function lucroUnico(ref, preco, taxa) {
+    return lrVenda({ price: +preco || 0, rep: lucroCustoGs(ref), taxa: +taxa || 0, qty: 1 }).lucro;
+  }
+  // até quanto dá para descer sem perder (lucro zero): preço mínimo = custo × 1,10
+  function lucroDesceAte(ref, preco) {
+    var c = lucroCustoGs(ref);
+    return preco > 0 ? Math.max(0, Math.floor((1 - (c * (1 + LR_IVA)) / preco) * 100)) : 0;
   }
   function lrSoma(L) {
     var t = { preco: 0, desc: 0, ivaV: 0, custo: 0, ivaC: 0, taxa: 0, freteV: 0, lucro: 0, qty: 0, vendido: 0 };
@@ -45229,14 +45269,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   // ficha da peça: "Lucro real" com a última venda (ou o preço de hoje) + simulações
   function lucroPecaHtml(ref) {
-    var vs = (S.sales || []).filter(function (s) { return s.ref === ref && !s.estorno; }).sort(function (a, b) { return b.ts - a.ts; }),
-      base = vs[0] ? Object.assign({}, vs[0], { qty: 1, price: Math.round((vs[0].price + ((vs[0].cup && vs[0].cup.desc) || 0)) / (vs[0].qty || 1)), rep: Math.round((vs[0].rep || 0) / (vs[0].qty || 1)), taxa: 0, cup: null, l2d: 0, freteLoja: 0 }) : null;
-    if (!base) {
-      var it = (S.items || []).filter(function (x) { return x.ref === ref; })[0], p = it && typeof precoTab === 'function' ? precoTab(it) : 0;
-      if (!it || !p) return '';
-      var fx = (S.fx && S.fx.pyg) || 0, cu = it.usd != null ? it.usd : it.custo != null ? it.custo : 0;
-      base = { price: p, rep: Math.round(cu * fx), qty: 1, taxa: 0 };
-    }
+    var it = itemDoRef(ref) || (S.items || []).filter(function (x) { return x.ref === ref; })[0], p = it ? (typeof tFor === 'function' ? tFor(it).price : precoTab(it)) : 0;
+    if (!it || !(p > 0)) return '';
+    var base = { price: p, rep: lucroCustoGs(ref), qty: 1, taxa: 0 };
     var r = lrVenda(base), pct = r.preco ? Math.round((r.lucro / r.preco) * 100) : 0;
     var sim = function (o) { return lrVenda(Object.assign({}, base, o)).lucro; };
     var c10 = Math.floor((base.price * 0.1) / 1000) * 1000, l2 = base.price - Math.ceil((base.price * 0.7) / 1000) * 1000;
@@ -45244,7 +45279,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<details class="card col lrcard"><summary style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:8px"><b>Lucro real</b><b style="color:' + (r.lucro >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + gs(r.lucro) + '</b></summary>' +
       '<b style="display:block;margin:10px 0 4px;font-size:12px;letter-spacing:.1em;color:var(--mu)">CADA VENDA DESTA PEÇA</b>' +
       lrLinha('Preço de venda', gs(r.preco)) + lrLinha('− IVA da venda (10%)', '− ' + gs(r.ivaV)) + lrLinha('− Custo (+ frete da compra)', '− ' + gs(r.custo)) +
-      lrLinha('− IVA da compra', '− ' + gs(r.ivaC)) + lrLinha('− Taxa do pagamento', '− ' + gs(r.taxa)) +
+      (r.taxa ? lrLinha('− Taxa do pagamento', '− ' + gs(r.taxa)) : '') +
       '<div class="sl" style="border-top:1px solid var(--line);padding-top:8px"><span><b>Lucro real</b></span><b style="color:' + (r.lucro >= 0 ? 'var(--ok)' : 'var(--bad)') + ';font-size:18px">' + gs(r.lucro) + '</b></div>' +
       '<div class="hint">' + pct + '% do preço</div>' +
       '<b style="display:block;margin:12px 0 4px;font-size:12px;letter-spacing:.1em;color:var(--mu)">SE VENDER COM…</b>' +
@@ -45623,15 +45658,17 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!it || isSimple(it.tipo) || !(effCusto(it) > 0)) return '';
     var p = tFor(it).price, pp = pisoPeca(it), fx = cntFx(), tx = Math.round(p * cntTaxaPct()), lu = p - pp.rep - pp.contas - pp.colch - tx, f = faixaOf(ref);
     if (!(p > 0)) return '';
-    var seg = [['Repor a peça', pp.rep, '#7a2a59'], ['Contas da loja', pp.contas, '#c4567f'], ['Colchão do dólar', pp.colch, '#e6a4c8'], ['Taxa média', tx, '#dcc6d3'], ['Lucro', Math.max(0, lu), '#1f8a4c']];
-    var tab = tabLista().filter(function (T) { return !T.pub; })[0], ata = tab ? precoTab(it, tab.id) : 0, desce = Math.max(0, Math.floor(((p - pp.trava) / p) * 100));
+    // S365: a barra mostra a conta única de lucro (IVA da venda, custo da peça, lucro); repor/contas/colchão ficam nas linhas do piso e da trava
+    var cuG = lucroCustoGs(ref), ivG = Math.round(p - p / 1.1); lu = lucroUnico(ref, p);
+    var seg = [['IVA da venda', ivG, '#c4567f'], ['Custo da peça', cuG, '#7a2a59'], ['Lucro', Math.max(0, lu), '#1f8a4c']];
+    var tab = tabLista().filter(function (T) { return !T.pub; })[0], ata = tab ? precoTab(it, tab.id) : 0, desce = lucroDesceAte(ref, p);
     return '<details class="card cntP"><summary>De onde vem o preço · <b>' + gs(p) + '</b></summary>' +
       '<div class="cntBar">' + seg.map(function (x) { return x[1] > 0 ? '<i style="flex:' + x[1] + ';background:' + x[2] + '"></i>' : ''; }).join('') + '</div>' +
       '<div class="cntLeg">' + seg.map(function (x) { return '<span><i style="background:' + x[2] + '"></i>' + x[0] + ' ' + gs(x[1]) + '</span>'; }).join('') + '</div>' +
       lrLinha('Piso (não perde) <small>repor + contas + colchão</small>', gs(pp.piso)) + lrLinha('Trava (perde se vender abaixo)', gs(pp.trava)) +
       (f ? lrLinha('Faixa de margem <small>' + esc(f.nome) + ' · ' + f.margem + '%</small>', gs(pp.piso)) : '') +
       (typeof sitePreco === 'function' ? lrLinha('Site', gs(sitePreco(p))) : '') + (ata > 0 && fx ? lrLinha('Atacado <small>' + esc(tab.nome) + '</small>', 'US$ ' + (ata / fx).toFixed(2).replace('.', ',')) : '') +
-      '<div class="cntQ" style="margin-top:8px">💬 "Pode dar até ' + desce + '% de desconto sem perder dinheiro.' + (lu > 0 ? ' Com 20% ainda sobra ' + gs(Math.round(p * 0.8 - pp.trava - tx)) + ' de lucro."' : '"') + '</div></details>';
+      '<div class="cntQ" style="margin-top:8px">💬 "Pode dar até ' + desce + '% de desconto sem perder dinheiro.' + (lucroUnico(ref, p * 0.8) > 0 ? ' Com 20% ainda sobra ' + gs(lucroUnico(ref, p * 0.8)) + ' de lucro."' : '"') + '</div></details>';
   }
   var _rdCnt = renderDetail;
   renderDetail = function (ref, opt) {
@@ -47605,6 +47642,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     bar.hidden = !(emVendas && S.cart.length && !S.cartOpen);
     card.hidden = !(emVendas && ped);
     $('pagHead').hidden = !(emVendas && pag);
+    $('sumB').classList.toggle('pagLux', !!(emVendas && pag)); // S365 (esboço 39): total em destaque no Pagamento
+    if ($('pagMais')) $('pagMais').hidden = !(emVendas && pag);
     if (!bar.hidden)
       bar.innerHTML =
         '<div style="display:flex;gap:4px;flex:0 0 auto">' + cartFoto(S.cart[0], 40) + '</div><div style="flex:1 1 140px"><b>Pedido: ' + cartPecas() + ' peça(s)</b><div class="hint" style="margin:2px 0 0">' + gs(cartSub()) + ' pelos preços combinados</div></div>' +
@@ -50900,7 +50939,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       pixRecebido: pixRecebido, ofertaFim: ofertaFim, siteMaisVendidas: function () { MV_CACHE.ts = 0; return siteMaisVendidas(); }, compLeTexto: compLeTexto, fichaLinhas: fichaLinhas, impBytes: impBytes,
       loadMsg: loadMsg, animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, saidaSiteAtiva: saidaSiteAtiva, siteL2: siteL2, siteCupMax: siteCupMax, cupSimula: cupSimula, cupCaixaAplica: cupCaixaAplica, cupValeuHtml: cupValeuHtml, dstFraca: dstFraca, nvDestaque: nvDestaque, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, lmAvisaParada: lmAvisaParada, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
-      S: S, vitDocBody: vitDocBody, giroSiteFila: giroSiteFila, estGiro: estGiro, estGiroAuto: estGiroAuto, giroGv: giroGv, giroGn: giroGn, giroPrepara: giroPrepara, giroComprime: giroComprime, resSolta: resSolta, resOrfas: resOrfas, resEstSet: function (o) { RES_EST = o; }, vistasNaoVendidas: vistasNaoVendidas, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcComprarNovo: lcComprarNovo, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
+      S: S, vitDocBody: vitDocBody, giroSiteFila: giroSiteFila, lucroUnico: lucroUnico, lucroDesceAte: lucroDesceAte, lucroCustoGs: lucroCustoGs, lrVenda: lrVenda, lucroPecaHtml: lucroPecaHtml, cntPrecoHtml: cntPrecoHtml, ofertaTexto: ofertaTexto, estGiro: estGiro, estGiroAuto: estGiroAuto, giroGv: giroGv, giroGn: giroGn, giroPrepara: giroPrepara, giroComprime: giroComprime, resSolta: resSolta, resOrfas: resOrfas, resEstSet: function (o) { RES_EST = o; }, vistasNaoVendidas: vistasNaoVendidas, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcComprarNovo: lcComprarNovo, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,
       grpTot: grpTot, grpFalta: grpFalta, effCusto: effCusto, parseLote: parseLote, parsePedido: parsePedido, parseHaste: parseHaste,
       parseVote: parseVote, flatParse: flatParse, numAmt: numAmt, hKey: hKey, lev: lev, normRef: normRef,

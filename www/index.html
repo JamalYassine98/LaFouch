@@ -182,11 +182,11 @@ html[data-tema="claro"] #lfIntro{background:#f4f1f4;--lg:url(logo-app-claro.png)
       <div id="sumB" class="col" style="gap:12px">
         <div class="sum"><span class="hint" style="margin:0" id="unit"></span><b style="font-size:22px" id="tot"></b></div>
         <div id="payB" class="col" style="gap:12px">
-        <div id="cliPickB"><div class="lbl">Cliente (opcional)</div><div id="cliPick" class="col" style="gap:8px"></div></div>
         <div id="brB" hidden><div class="lbl">Brinde</div><div class="nav" id="brChips"></div></div>
-        <div><div class="lbl">Pagamento</div><div class="nav" id="formaChips" role="group" aria-label="Forma de pagamento"></div></div>
-        <div><div class="lbl">Recebido em</div><div class="nav" id="moedas"></div></div>
+        <div><div class="lbl">Pagamento</div><div class="trk" id="formaChips" role="group" aria-label="Forma de pagamento"></div><div class="hint esHt" id="formaTx" hidden></div></div>
+        <div><div class="lbl">Recebido em</div><div class="trk" id="moedas" role="group" aria-label="Moeda recebida"></div></div>
         <div><div class="lbl">Valor recebido</div><input class="in" id="recIn" inputmode="decimal" data-in="rec" aria-label="Valor recebido"><div class="hint" id="recH" role="status"></div></div>
+        <div id="cliPickB"><div class="lbl">Cliente (opcional)</div><div id="cliPick" class="col" style="gap:8px"></div></div>
         <div id="pagMixB" class="col" style="gap:10px">
           <div id="rate1B" hidden><div class="lbl">Câmbio desta moeda (opcional)</div><input class="in" id="rate1In" inputmode="numeric" aria-label="Câmbio desta moeda em guaranis" autocomplete="off"></div>
           <div id="pmExtra" class="col" style="gap:10px"></div>
@@ -198,6 +198,7 @@ html[data-tema="claro"] #lfIntro{background:#f4f1f4;--lg:url(logo-app-claro.png)
       </div>
         <button class="go" id="sCartAdd" type="button"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-5px;margin-right:8px"><path d="M5 8h14l-1 12H6zM9 8V6a3 3 0 0 1 6 0v2"/></svg>Adicionar pedido</button>
         <button class="go" id="sgo">Finalizar venda</button>
+        <button type="button" class="esMais" id="pagMais" data-act="cartclose" hidden>+ Adicionar outra peça ao pedido</button>
         <div id="vmsg" role="status" style="color:var(--ok);font-size:14px"></div>
       </section>
     </div>
@@ -288,7 +289,7 @@ html[data-tema="claro"] #lfIntro{background:#f4f1f4;--lg:url(logo-app-claro.png)
 <section id="notaOv" class="catov" aria-label="Venda registrada" hidden></section>
   <div id="notaCf" class="notacf" hidden></div>
   <div id="notaPrint" aria-hidden="true"></div>
-  <script>/*LOADER*/(function(){var EMB=532,d=document,m=null;try{m=JSON.parse(localStorage.getItem('lf_upd')||'null')}catch(e){}
+  <script>/*LOADER*/(function(){var EMB=533,d=document,m=null;try{m=JSON.parse(localStorage.getItem('lf_upd')||'null')}catch(e){}
 function std(){var s=d.createElement('script');s.src='app.js';d.body.appendChild(s)}
 if(!m||!(m.v>EMB)||!window.caches||(m.tent||0)>=2){if(m&&m.v>EMB&&(m.tent||0)>=2){try{localStorage.removeItem('lf_upd');caches.delete('lafouch-upd')}catch(e){}}std();return}
 try{localStorage.setItem('lf_upd',JSON.stringify({v:m.v,tent:(m.tent||0)+1}))}catch(e){}

@@ -37,19 +37,26 @@
   function renderForma() {
     var box = $('formaChips');
     if (!box) return;
+    // S365 (esboço 39): um trilho só; o nome curto no trilho e a taxa da maquininha embaixo, só quando ela é a escolhida
     box.textContent = '';
-    var cur = formaSel();
+    var cur = formaSel(), th = document.createElement('span');
+    th.className = 'trkTh';
+    box.appendChild(th);
     S.formas.forEach(function (f) {
-      box.appendChild(
-        btn(
-          'chip' + (cur.id === f.id ? ' on' : ''),
-          f.nome + (f.taxa > 0 ? ' · ' + String(f.taxa).replace('.', ',') + '%' : ''),
-          function () {
-            S.forma = f.id;
-            render();
-          },
-          cur.id === f.id
-        )
-      );
+      var curto = String(f.nome).replace(/^maquininha\s+/i, ''), b;
+      curto = curto.charAt(0).toUpperCase() + curto.slice(1);
+      b = btn('trkB' + (cur.id === f.id ? ' on' : ''), curto, function () {
+        S.forma = f.id;
+        render();
+      }, cur.id === f.id);
+      b.dataset.m = f.id;
+      b.setAttribute('aria-label', f.nome + (f.taxa > 0 ? ', taxa de ' + String(f.taxa).replace('.', ',') + '%' : ''));
+      box.appendChild(b);
     });
+    trkMarca(box, cur.id);
+    var tx = $('formaTx');
+    if (tx) {
+      tx.hidden = !(cur.taxa > 0);
+      tx.textContent = cur.taxa > 0 ? cur.nome + ': taxa de ' + String(cur.taxa).replace('.', ',') + '%' : '';
+    }
   }

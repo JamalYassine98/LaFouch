@@ -614,7 +614,18 @@
       });
       pl0.setAttribute('aria-label', 'Aumentar quantidade');
       var vb0 = btn('go', 'Vender' + (ptv ? ' · ' + gs(ptv * vq) : ''), function () {
+        var n0 = S.cart.length;
         $('sCartAdd').click();
+        // S365 (esboço 32, aprovado 15/11): peça → Vender → Finalizar venda. O Pagamento abre direto; "+ Adicionar outra peça" volta ao Catálogo com o pedido guardado.
+        if (S.cart.length && (S.cart.length > n0 || n0)) {
+          S.cartOpen = true;
+          S.cartStep = 'pag';
+          S.rec = null;
+          S._descOk = '';
+          S.msg = '';
+          render();
+          window.scrollTo(0, 0);
+        }
       });
       sb.appendChild(mn0);
       sb.appendChild(qn);
