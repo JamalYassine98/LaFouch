@@ -52,19 +52,13 @@
   // Reposição: a aba do Inventário vira tela da família Peças
   var _inicioGo374 = inicioGo;
   inicioGo = function (id) {
-    if (id === 'repo') {
-      S.lotesView = false;
-      S.cont = false;
-      S.repoView = true;
-      return setView('estoque');
-    }
+    if (id === 'repo') return lcIrGiro();
     if (id === 'estoque' && S.view !== 'estoque') S.repoView = false;
     return _inicioGo374.apply(this, arguments);
   };
   var _navOn374 = navOn;
   navOn = function (id) {
-    if (id === 'repo') return S.view === 'estoque' && !!S.repoView && !S.lotesView;
-    if (id === 'estoque' && S.view === 'estoque' && S.repoView && grpPlana().indexOf('repo') >= 0) return false;
+    if (id === 'repo') return S.view === 'dash' && S.dTab === 'giro';
     return _navOn374.apply(this, arguments);
   };
 
@@ -216,6 +210,30 @@
     if (seta) seta.animate([{ transform: 'rotate(' + (abre ? 0 : 180) + 'deg)' }, { transform: 'rotate(' + (abre ? 180 : 0) + 'deg)' }], { duration: d, easing: EZ74 });
     a.onfinish = function () { caixa.style.overflow = ''; if (fim) fim(); };
   }
+  // guarda a altura da página enquanto um bloco fecha; ao rolar para cima o espaço de baixo vai sumindo
+  var segH = 0;
+  function lfSegura(h) {
+    segH = Math.max(segH, Math.ceil(h));
+    document.body.style.minHeight = segH + 'px';
+  }
+  function lfSolta() {
+    if (!segH) return;
+    var y = window.scrollY + window.innerHeight;
+    if (y < segH - 1) {
+      segH = Math.ceil(y);
+      document.body.style.minHeight = segH + 'px';
+      document.body.style.minHeight = '';
+      if (document.documentElement.scrollHeight < segH) document.body.style.minHeight = segH + 'px';
+      else segH = 0;
+    }
+  }
+  window.addEventListener('scroll', lfSolta, { passive: true });
+  var _setView74 = setView;
+  setView = function () {
+    segH = 0;
+    document.body.style.minHeight = '';
+    return _setView74.apply(this, arguments);
+  };
   function lfRedesenha() {
     if (S.view === 'dash') renderDash();
     else render();
@@ -230,11 +248,40 @@
       if (sec._fechando) return;
       sec._fechando = 1;
       sec.classList.remove('on');
-      lfFoldAnim(b0, b0.firstElementChild, sec.querySelector('.fxC'), false, function () { S.dfold[id] = false; lfRedesenha(); });
+      // S374 (dono 16/11 15:51: "ao retrair o app dá scroll até o topo"): o título do bloco fica parado na tela enquanto fecha;
+      // se ele estava acima da tela (lendo a lista), desce junto até o topo, como na Apple — a página não pula.
+      var hd = sec.querySelector('.fxH'), t0 = hd ? hd.getBoundingClientRect().top : 0, ini = performance.now();
+      // onde o título vai parar: no lugar (ou no topo, se estava acima da tela). Vídeo do dono 16/11 16:02 (Curva ABC no fim
+      // do Giro): ao fechar, a página ficava menor que a tela e pulava para o topo. Agora a página guarda o espaço de baixo
+      // (lfSegura) e o título fica onde estava; o espaço some sozinho quando ele rola para cima.
+      var yQ = t0 >= 76 ? window.scrollY : window.scrollY + t0 - 76, alvo = t0 + (window.scrollY - yQ);
+      lfSegura(yQ + window.innerHeight);
+      var segura = function (k) {
+        var h2 = document.querySelector('section.fxF[data-fx="' + id + '"] .fxH');
+        if (!h2) return;
+        var quer = t0 + (alvo - t0) * k, agora = h2.getBoundingClientRect().top;
+        if (Math.abs(agora - quer) > 0.5) window.scrollBy({ top: agora - quer, behavior: 'instant' });
+      };
+      var passo = function () {
+        if (!sec._fechando) return;
+        var k = Math.min(1, (performance.now() - ini) / 280);
+        segura(k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+        if (k < 1) requestAnimationFrame(passo);
+      };
+      if (hd && !REDUCED) { document.documentElement.style.overflowAnchor = 'none'; requestAnimationFrame(passo); }
+      lfFoldAnim(b0, b0.firstElementChild, sec.querySelector('.fxC'), false, function () { sec._fechando = 0; S.dfold[id] = false; lfRedesenha(); if (hd) { segura(1); requestAnimationFrame(function () { segura(1); }); setTimeout(function () { segura(1); document.documentElement.style.overflowAnchor = ''; }, 160); } });
       return;
     }
     S.dfold[id] = true;
+    // ao abrir, o título também não sai do lugar (o redesenho no celular pode zerar a rolagem)
+    var hA = sec && sec.querySelector('.fxH'), tA = hA ? hA.getBoundingClientRect().top : null;
+    var fica = function () {
+      var h3 = document.querySelector('section.fxF[data-fx="' + id + '"] .fxH');
+      if (h3 && tA !== null) { var d3 = h3.getBoundingClientRect().top - tA; if (Math.abs(d3) > 0.5) window.scrollBy({ top: d3, behavior: 'instant' }); }
+    };
     lfRedesenha();
+    fica();
+    requestAnimationFrame(fica);
     var s2 = document.querySelector('section.fxF[data-fx="' + id + '"]'), b = s2 && s2.querySelector('.fxB');
     if (b) lfFoldAnim(b, b.firstElementChild, s2.querySelector('.fxC'), true);
   };
@@ -342,4 +389,35 @@
       if (gp) { gp.itens = gp.itens.filter(function (x) { return ['lotes', 'repo', 'cont'].indexOf(x) < 0; }); gp.frase = 'Inventário e estúdio'; }
     }
     return _iniLista74.apply(this, arguments);
+  };
+
+  // ===== S374 · UMA lista de compras só (dono 16/11 15:51 "existem duas listas"; 16:02 "Aprovado"; 16:07 "implementar tudo") =====
+  // A aba Reposição sai do Inventário; no lugar, a linha "Lista de compras · N acabando ›" leva ao Giro › Lista de compras.
+  // Os pacotes dos pré-graduados entram na lista do Giro (linha "Pré-graduados em pacotes de N", 97-lista-compras.js).
+  function lcIrGiro() {
+    S.repoView = false;
+    S.lotesView = false;
+    S.cont = false;
+    S.dTab = 'giro';
+    S.dfold = S.dfold || {};
+    S.dfold.rep = true;
+    return setView('dash');
+  }
+  window.__lcIrGiro = lcIrGiro;
+  ACT.lcIrGiro = function () { lcIrGiro(); };
+  var _rEA74 = renderEstoqueAbas;
+  renderEstoqueAbas = function () {
+    if (S.repoView) { S.repoView = false; setTimeout(lcIrGiro, 0); }
+    var r = _rEA74.apply(this, arguments);
+    var t = $('eTabR');
+    if (t) t.remove();
+    var tb = $('eTabs'), ln = $('lcIrInv');
+    if (tb && S.view === 'estoque' && !S.lotesView) {
+      var n = 0;
+      try { var L = lcLista(); n = L.acab.length + L.epoca.length; } catch (e) {}
+      if (!ln) { ln = document.createElement('div'); ln.id = 'lcIrInv'; tb.after(ln); }
+      ln.innerHTML = '<button type="button" class="lcT" data-act="lcIrGiro">Lista de compras' + (n ? ' · ' + n + ' acabando' : '') + ' ›</button>';
+      ln.hidden = false;
+    } else if (ln) ln.hidden = true;
+    return r;
   };

@@ -67,7 +67,7 @@
   var BU_FUN = [
     ['vendas', 'Catálogo (vender)', 'Barra › Catálogo', 'venda vender cobrar balcao carrinho'],
     ['estoque', 'Inventário', 'Barra › Inventário', 'estoque pecas produtos cadastro'],
-    ['repo', 'Reposição', 'Inventário › Reposição', 'repor comprar lista de compra pacotes grau leitura o que o site pediu'],
+    ['repo', 'Lista de compras', 'Giro › Lista de compras', 'repor comprar lista de compra pacotes grau leitura o que o site pediu'],
     ['lotes', 'Fornecedores e lotes', 'Inventário › Fornecedores', 'compra lote fornecedor kazwini'],
     ['novo', 'Cadastrar peça nova', 'Inventário › +', 'novo cadastrar adicionar entrada'],
     ['cont', 'Contagem do estoque', 'Inventário › Contagem', 'contar conferir inventario'],
@@ -162,9 +162,7 @@
     } else if (k === 'desp') setView('desp');
     else if (k === 'fun') {
       if (v === 'repo') {
-        S.repoView = true;
-        S.lotesView = false;
-        setView('estoque');
+        if (window.__lcIrGiro) window.__lcIrGiro();
       } else if (v === 'parado') {
         S.dTab = 'giro';
         S.dfold = S.dfold || {};

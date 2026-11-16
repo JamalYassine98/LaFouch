@@ -1,9 +1,8 @@
 {
- "nome": "5.36.0",
+ "nome": "5.36.1",
  "notas": [
-  "Giro › Lista de compras mais limpa: cada peça em 2 linhas (nome e \"Tem 9 · ~7 dias\"), agrupada por tipo, só os 5 mais urgentes (\"ver os 14 ›\") e o valor sobrando no título.",
-  "Botões da lista no padrão de luxo: − n + num seletor só, \"Oferta ›\" e \"como calcula ›\" em texto, um só botão principal (Marcar como pedido).",
-  "Painel do site sem a caixa: ocupa a largura toda e o título fica no tamanho das outras telas."
+  "Uma lista de compras só: a aba Reposição saiu do Inventário; a linha \"Lista de compras ›\" leva ao Giro, que agora mostra os pré-graduados em pacotes.",
+  "Fechar um bloco no fim da página não pula mais para o topo: o título fica onde estava."
  ],
- "build": 549
+ "build": 550
 }

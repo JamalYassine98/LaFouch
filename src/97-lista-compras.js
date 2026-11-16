@@ -318,6 +318,20 @@
     };
     h += sec('Acabando', L.acab);
     h += sec('Época chegando', L.epoca);
+    // pré-graduados em pacotes (veio da antiga aba Reposição do Inventário): soma por grau e arredonda no pacote
+    var pk = typeof packPre === 'function' ? packPre() : 20, pg = {}, gs = [];
+    L.todos.forEach(function (x) {
+      if (!x.grau || !(x.q > 0)) return;
+      if (pg[x.grau] == null) { pg[x.grau] = 0; gs.push(x.grau); }
+      pg[x.grau] += x.q;
+    });
+    if (gs.length) {
+      gs.sort(function (a, b) { return parseFloat(a) - parseFloat(b); });
+      h += '<div class="lcPk"><span>Pré-graduados em pacotes de ' + pk + '</span><small>' + gs.map(function (g) {
+        var p = Math.ceil(pg[g] / pk);
+        return '<span class="lcPkG"><b class="lcG">' + esc(g) + '</b> ' + p + (p === 1 ? ' pacote' : ' pacotes') + '</span>';
+      }).join('') + '</small></div>';
+    }
     if (L.sobra.length) h += '<div class="lcSec lcSecS"><span>Sobrando · ' + L.sobra.length + '</span><b>' + usd0(L.parado) + '</b></div>' + lcGrupos(L.sobra, lcSobraLinha);
     if (L.nao.length)
       h += '<div class="lcSec"><span>Não recompre · ' + L.nao.length + '</span></div><div class="split">' + L.nao.map(function (x) {

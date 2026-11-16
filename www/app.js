@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 549;
+  var APP_BUILD = 550;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.36.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.36.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -29891,7 +29891,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   var BU_FUN = [
     ['vendas', 'Catálogo (vender)', 'Barra › Catálogo', 'venda vender cobrar balcao carrinho'],
     ['estoque', 'Inventário', 'Barra › Inventário', 'estoque pecas produtos cadastro'],
-    ['repo', 'Reposição', 'Inventário › Reposição', 'repor comprar lista de compra pacotes grau leitura o que o site pediu'],
+    ['repo', 'Lista de compras', 'Giro › Lista de compras', 'repor comprar lista de compra pacotes grau leitura o que o site pediu'],
     ['lotes', 'Fornecedores e lotes', 'Inventário › Fornecedores', 'compra lote fornecedor kazwini'],
     ['novo', 'Cadastrar peça nova', 'Inventário › +', 'novo cadastrar adicionar entrada'],
     ['cont', 'Contagem do estoque', 'Inventário › Contagem', 'contar conferir inventario'],
@@ -29986,9 +29986,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     } else if (k === 'desp') setView('desp');
     else if (k === 'fun') {
       if (v === 'repo') {
-        S.repoView = true;
-        S.lotesView = false;
-        setView('estoque');
+        if (window.__lcIrGiro) window.__lcIrGiro();
       } else if (v === 'parado') {
         S.dTab = 'giro';
         S.dfold = S.dfold || {};
@@ -37122,6 +37120,20 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     };
     h += sec('Acabando', L.acab);
     h += sec('Época chegando', L.epoca);
+    // pré-graduados em pacotes (veio da antiga aba Reposição do Inventário): soma por grau e arredonda no pacote
+    var pk = typeof packPre === 'function' ? packPre() : 20, pg = {}, gs = [];
+    L.todos.forEach(function (x) {
+      if (!x.grau || !(x.q > 0)) return;
+      if (pg[x.grau] == null) { pg[x.grau] = 0; gs.push(x.grau); }
+      pg[x.grau] += x.q;
+    });
+    if (gs.length) {
+      gs.sort(function (a, b) { return parseFloat(a) - parseFloat(b); });
+      h += '<div class="lcPk"><span>Pré-graduados em pacotes de ' + pk + '</span><small>' + gs.map(function (g) {
+        var p = Math.ceil(pg[g] / pk);
+        return '<span class="lcPkG"><b class="lcG">' + esc(g) + '</b> ' + p + (p === 1 ? ' pacote' : ' pacotes') + '</span>';
+      }).join('') + '</small></div>';
+    }
     if (L.sobra.length) h += '<div class="lcSec lcSecS"><span>Sobrando · ' + L.sobra.length + '</span><b>' + usd0(L.parado) + '</b></div>' + lcGrupos(L.sobra, lcSobraLinha);
     if (L.nao.length)
       h += '<div class="lcSec"><span>Não recompre · ' + L.nao.length + '</span></div><div class="split">' + L.nao.map(function (x) {
@@ -51532,19 +51544,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // Reposição: a aba do Inventário vira tela da família Peças
   var _inicioGo374 = inicioGo;
   inicioGo = function (id) {
-    if (id === 'repo') {
-      S.lotesView = false;
-      S.cont = false;
-      S.repoView = true;
-      return setView('estoque');
-    }
+    if (id === 'repo') return lcIrGiro();
     if (id === 'estoque' && S.view !== 'estoque') S.repoView = false;
     return _inicioGo374.apply(this, arguments);
   };
   var _navOn374 = navOn;
   navOn = function (id) {
-    if (id === 'repo') return S.view === 'estoque' && !!S.repoView && !S.lotesView;
-    if (id === 'estoque' && S.view === 'estoque' && S.repoView && grpPlana().indexOf('repo') >= 0) return false;
+    if (id === 'repo') return S.view === 'dash' && S.dTab === 'giro';
     return _navOn374.apply(this, arguments);
   };
 
@@ -51696,6 +51702,30 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (seta) seta.animate([{ transform: 'rotate(' + (abre ? 0 : 180) + 'deg)' }, { transform: 'rotate(' + (abre ? 180 : 0) + 'deg)' }], { duration: d, easing: EZ74 });
     a.onfinish = function () { caixa.style.overflow = ''; if (fim) fim(); };
   }
+  // guarda a altura da página enquanto um bloco fecha; ao rolar para cima o espaço de baixo vai sumindo
+  var segH = 0;
+  function lfSegura(h) {
+    segH = Math.max(segH, Math.ceil(h));
+    document.body.style.minHeight = segH + 'px';
+  }
+  function lfSolta() {
+    if (!segH) return;
+    var y = window.scrollY + window.innerHeight;
+    if (y < segH - 1) {
+      segH = Math.ceil(y);
+      document.body.style.minHeight = segH + 'px';
+      document.body.style.minHeight = '';
+      if (document.documentElement.scrollHeight < segH) document.body.style.minHeight = segH + 'px';
+      else segH = 0;
+    }
+  }
+  window.addEventListener('scroll', lfSolta, { passive: true });
+  var _setView74 = setView;
+  setView = function () {
+    segH = 0;
+    document.body.style.minHeight = '';
+    return _setView74.apply(this, arguments);
+  };
   function lfRedesenha() {
     if (S.view === 'dash') renderDash();
     else render();
@@ -51710,11 +51740,40 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (sec._fechando) return;
       sec._fechando = 1;
       sec.classList.remove('on');
-      lfFoldAnim(b0, b0.firstElementChild, sec.querySelector('.fxC'), false, function () { S.dfold[id] = false; lfRedesenha(); });
+      // S374 (dono 16/11 15:51: "ao retrair o app dá scroll até o topo"): o título do bloco fica parado na tela enquanto fecha;
+      // se ele estava acima da tela (lendo a lista), desce junto até o topo, como na Apple — a página não pula.
+      var hd = sec.querySelector('.fxH'), t0 = hd ? hd.getBoundingClientRect().top : 0, ini = performance.now();
+      // onde o título vai parar: no lugar (ou no topo, se estava acima da tela). Vídeo do dono 16/11 16:02 (Curva ABC no fim
+      // do Giro): ao fechar, a página ficava menor que a tela e pulava para o topo. Agora a página guarda o espaço de baixo
+      // (lfSegura) e o título fica onde estava; o espaço some sozinho quando ele rola para cima.
+      var yQ = t0 >= 76 ? window.scrollY : window.scrollY + t0 - 76, alvo = t0 + (window.scrollY - yQ);
+      lfSegura(yQ + window.innerHeight);
+      var segura = function (k) {
+        var h2 = document.querySelector('section.fxF[data-fx="' + id + '"] .fxH');
+        if (!h2) return;
+        var quer = t0 + (alvo - t0) * k, agora = h2.getBoundingClientRect().top;
+        if (Math.abs(agora - quer) > 0.5) window.scrollBy({ top: agora - quer, behavior: 'instant' });
+      };
+      var passo = function () {
+        if (!sec._fechando) return;
+        var k = Math.min(1, (performance.now() - ini) / 280);
+        segura(k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+        if (k < 1) requestAnimationFrame(passo);
+      };
+      if (hd && !REDUCED) { document.documentElement.style.overflowAnchor = 'none'; requestAnimationFrame(passo); }
+      lfFoldAnim(b0, b0.firstElementChild, sec.querySelector('.fxC'), false, function () { sec._fechando = 0; S.dfold[id] = false; lfRedesenha(); if (hd) { segura(1); requestAnimationFrame(function () { segura(1); }); setTimeout(function () { segura(1); document.documentElement.style.overflowAnchor = ''; }, 160); } });
       return;
     }
     S.dfold[id] = true;
+    // ao abrir, o título também não sai do lugar (o redesenho no celular pode zerar a rolagem)
+    var hA = sec && sec.querySelector('.fxH'), tA = hA ? hA.getBoundingClientRect().top : null;
+    var fica = function () {
+      var h3 = document.querySelector('section.fxF[data-fx="' + id + '"] .fxH');
+      if (h3 && tA !== null) { var d3 = h3.getBoundingClientRect().top - tA; if (Math.abs(d3) > 0.5) window.scrollBy({ top: d3, behavior: 'instant' }); }
+    };
     lfRedesenha();
+    fica();
+    requestAnimationFrame(fica);
     var s2 = document.querySelector('section.fxF[data-fx="' + id + '"]'), b = s2 && s2.querySelector('.fxB');
     if (b) lfFoldAnim(b, b.firstElementChild, s2.querySelector('.fxC'), true);
   };
@@ -51822,6 +51881,37 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (gp) { gp.itens = gp.itens.filter(function (x) { return ['lotes', 'repo', 'cont'].indexOf(x) < 0; }); gp.frase = 'Inventário e estúdio'; }
     }
     return _iniLista74.apply(this, arguments);
+  };
+
+  // ===== S374 · UMA lista de compras só (dono 16/11 15:51 "existem duas listas"; 16:02 "Aprovado"; 16:07 "implementar tudo") =====
+  // A aba Reposição sai do Inventário; no lugar, a linha "Lista de compras · N acabando ›" leva ao Giro › Lista de compras.
+  // Os pacotes dos pré-graduados entram na lista do Giro (linha "Pré-graduados em pacotes de N", 97-lista-compras.js).
+  function lcIrGiro() {
+    S.repoView = false;
+    S.lotesView = false;
+    S.cont = false;
+    S.dTab = 'giro';
+    S.dfold = S.dfold || {};
+    S.dfold.rep = true;
+    return setView('dash');
+  }
+  window.__lcIrGiro = lcIrGiro;
+  ACT.lcIrGiro = function () { lcIrGiro(); };
+  var _rEA74 = renderEstoqueAbas;
+  renderEstoqueAbas = function () {
+    if (S.repoView) { S.repoView = false; setTimeout(lcIrGiro, 0); }
+    var r = _rEA74.apply(this, arguments);
+    var t = $('eTabR');
+    if (t) t.remove();
+    var tb = $('eTabs'), ln = $('lcIrInv');
+    if (tb && S.view === 'estoque' && !S.lotesView) {
+      var n = 0;
+      try { var L = lcLista(); n = L.acab.length + L.epoca.length; } catch (e) {}
+      if (!ln) { ln = document.createElement('div'); ln.id = 'lcIrInv'; tb.after(ln); }
+      ln.innerHTML = '<button type="button" class="lcT" data-act="lcIrGiro">Lista de compras' + (n ? ' · ' + n + ' acabando' : '') + ' ›</button>';
+      ln.hidden = false;
+    } else if (ln) ln.hidden = true;
+    return r;
   };
   // ===== S370 (16/11/2026) — lote 8: trilho que ARRASTA (regra do dono, 15/11/2026) =====
   // Todo seletor em trilho (.trk com a pílula .trkTh e os botões .trkB) aceita o dedo (ou o mouse) arrastando a pílula,

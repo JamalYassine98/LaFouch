@@ -2778,3 +2778,7 @@ section.card.fxF>.fxB .fxI>.card:first-child{border-top:0!important;padding-top:
 #grpTabs.gtF .dHdT i{font-size:15px}
 .sbox iframe{border:0;border-radius:0}
 @media (max-width:760px){#siteBox:not(.full){width:100vw;margin:0 0 0 calc(50% - 50vw)}}
+/* S374 · uma lista de compras só: linha no Inventário que leva ao Giro, e os pacotes dos pré-graduados na lista */
+#lcIrInv{margin:-2px 0 6px}#lcIrInv .lcT{background:none;border:0;padding:10px 0;min-height:44px;font:inherit;font-weight:600;color:var(--accent-fg);cursor:pointer}
+#lcCard .lcPk{display:flex;flex-direction:column;gap:6px;text-align:left;border-top:1px solid var(--line);padding:12px 0 4px;margin-top:6px}
+#lcCard .lcPk>span{font-size:13px;font-weight:600;color:var(--sub)}#lcCard .lcPk small{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--fg)}#lcCard .lcPkG{white-space:nowrap}

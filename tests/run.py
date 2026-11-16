@@ -1035,23 +1035,17 @@ async def main():
             filtro = await pg.evaluate("() => window.__LF.S.q")
             await pg.click('#btnGraus'); await pg.wait_for_timeout(450)
             await pg.locator('#grFolha .gcell', has_text='+1.50').click(); await pg.wait_for_timeout(500)
-            await pg.click('#eTabR'); await pg.wait_for_timeout(300)
-            atalho0 = await pg.evaluate("() => !!document.querySelector('#repoView #grRepo')")
-            rep = await pg.evaluate("""() => ({ vis: !document.getElementById('repoView').hidden, lista: document.getElementById('listCard').hidden, mapa: document.getElementById('mapaB').hidden,
-                itens: [...document.querySelectorAll('#repoView .repit[data-g]')].map(r => r.dataset.g + ':' + r.querySelector('.st2 i').innerText) })""")
-            await pg.locator('#repoView .repit[data-g="+3.50"] button[aria-label^="Mais"]').click(); await pg.wait_for_timeout(200)
-            await pg.click('#repGerar'); await pg.wait_for_timeout(200)
-            txt = await pg.evaluate("() => document.querySelector('#repoView .replist').innerText")
-            await pg.click('#eTabP'); await pg.wait_for_timeout(300)
-            volta = await pg.evaluate("() => [document.getElementById('repoView').hidden, document.getElementById('listCard').hidden]")
-            ok = (botao and atalho0 and mapa.count('r:0') == 12 and mapa.count('y:5') == 2 and 'y:2' in mapa and 'g:12' in mapa and abas == ['Produtos', 'Fornecedores 1', 'Reposição'] and kl is True
-                  and filtro == '+1.50' and rep['vis'] and rep['lista'] and rep['mapa']
-                  and rep['itens'][0] == '+0.50:1' and '+3.50:1' in rep['itens'] and '+3.00:0' in rep['itens'] and '+1.50:0' in rep['itens']
-                  and '+3.50 · 2 pacotes de 24' in txt and 'Total: 336 peças' in txt
-                  and volta == [True, False] and not pg.erros)
+            # S374: a aba Reposição saiu; a linha "Lista de compras ›" leva ao Giro › Lista de compras (uma lista só)
+            linha = await pg.evaluate("() => { const b = document.querySelector('#lcIrInv [data-act=lcIrGiro]'); return !!b && !document.getElementById('eTabR'); }")
+            await pg.click('#lcIrInv [data-act=lcIrGiro]'); await pg.wait_for_timeout(400)
+            giro = await pg.evaluate("() => { const S = window.__LF.S; return [S.view, S.dTab, !!S.dfold.rep, !!document.getElementById('lcCard'), S.repoView]; }")
+            await pg.evaluate("() => { const L = window.__LF; L.S.repoView = true; L.setView('estoque'); }"); await pg.wait_for_timeout(400)
+            antiga = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.dTab]")
+            ok = (botao and mapa.count('r:0') == 12 and mapa.count('y:5') == 2 and 'y:2' in mapa and 'g:12' in mapa and abas == ['Produtos', 'Fornecedores 1'] and kl is True
+                  and filtro == '+1.50' and linha and giro == ['dash', 'giro', True, True, False] and antiga == ['dash', 'giro'] and not pg.erros)
             total += 1
-            print(('  ok  ' if ok else ' FALHA ') + 'Estoque: abas, mapa de graus e lista de compra em pacotes')
-            if not ok: falhas.append('estoque abas'); print('        veio', botao, atalho0, mapa, abas, kl, filtro, rep, txt, volta, pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'Estoque: abas (sem Reposição), mapa de graus e a linha da lista de compras que leva ao Giro')
+            if not ok: falhas.append('estoque abas'); print('        veio', botao, mapa, abas, kl, filtro, linha, giro, antiga, pg.erros)
             await pg.close()
 
             # v469: contador sem quadrado, barra Selecionar/lixeira fora, trava única de rolagem
@@ -3992,6 +3986,23 @@ async def main():
             if not ok: falhas.append('busca unica'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # S374 (esboço 69): fechar um bloco no fim da página não pula para o topo (o título fica no lugar)
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              S.dTab = 'giro'; S.dfold = { abc: true }; L.setView('dash'); await w(400);
+              scrollTo({ top: 99999, behavior: 'instant' }); await w(200);
+              const h = () => document.querySelector('section.fxF[data-fx=abc] .fxH'), t0 = h().getBoundingClientRect().top, y0 = scrollY;
+              h().click(); await w(900);
+              const t1 = h().getBoundingClientRect().top, fechou = !S.dfold.abc;
+              for (let i = 0; i < 40; i++) { scrollBy({ top: -40, behavior: 'instant' }); await w(10); }
+              await w(100); const solto = scrollY === 0 && !document.body.style.minHeight;
+              return [y0 > 0, fechou, Math.abs(t1 - t0) < 3, solto]; }""")
+            total += 1
+            ok = got == [True, True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Fechar bloco no fim da página: o título fica no lugar e o espaço some ao rolar para cima')
+            if not ok: falhas.append('fechar sem pulo'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Lista de compras sem excesso (v440): Sobrando (ideal × tem × sobra, dinheiro parado), avise-me no topo, aviso antes de pedir, miniaturas, bloco do pedido na Entrada
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
@@ -4025,7 +4036,7 @@ async def main():
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
               S.dTab = 'giro'; S.dfold.rep = true; S.dfold.vit = true; L.setView('dash'); await w(300);
               const c = document.getElementById('lcCard'), secs = [...c.querySelectorAll('.lcSec')].map(e => e.textContent.split(' ')[0]);
-              const graus = c.querySelectorAll('.lcG').length > 0, b0 = c.querySelector('.lcQ b').textContent;
+              const graus = c.querySelectorAll('.lcG').length > 0 && /pacotes? de \d+|pacote/.test((c.querySelector('.lcPk') || {}).textContent || ''), b0 = c.querySelector('.lcQ b').textContent;
               c.querySelector('[data-act=lcMais]').click(); await w(150);
               const b1 = document.querySelector('#lcCard .lcQ b').textContent, tot = /reposição/.test(document.querySelector('#lcCard .lcTot').textContent);
               const n0 = document.querySelectorAll('#lcCard .lcQ').length;

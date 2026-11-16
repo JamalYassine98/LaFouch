@@ -427,6 +427,11 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - Contas sempre pelo custo: sai "Como dividir as contas entre as peças"; `S.rat66` passa todos para `S.rateio = 'custo'` uma vez. O `</div>` a mais de `precosMetaHtml` saiu (empurrava as taxas para fora do cartão).
 - Botões (65): ações de linha `.cntV`/`.lxT` em rosa com "›", sem sublinhado; `.pcUsa` (Usar G$ …/Informar) em contorno neutro; principal `.go` ("Corrigir os N de uma vez"); "%" dentro do campo (`.pc66`).
 
+## S374i (16/11/2026, v550 · 5.36.1) — uma lista de compras só e esboço 69
+- Inventário: a aba Reposição (`#eTabR`) saiu; `renderEstoqueAbas` (98z-s374.js) põe a linha `#lcIrInv` "Lista de compras · N acabando ›" (`ACT.lcIrGiro`) que abre Dashboard › Giro com a Lista de compras aberta. Qualquer caminho antigo para `S.repoView` (busca única, pseudo-id `repo` na barra/Início) vai para o Giro. O código antigo da Reposição (14-estoque-abas.js) continua, sem entrada.
+- Giro › Lista de compras: linha `.lcPk` "Pré-graduados em pacotes de N" — soma por grau o que a lista pede e arredonda no pacote (`packPre`: 20 ou 24, pelo último lote).
+- Blocos que abrem como na Apple (`ACT.dfold`, esboço 69): ao fechar, o título fica parado (se estava acima da tela, desce até 76 px); `lfSegura` guarda a altura da página (`body.minHeight`) para não pular quando a página fica menor que a tela, e `lfSolta` (rolagem) vai tirando o espaço quando a pessoa rola para cima; `setView` zera. As rolagens usam `behavior:'instant'` (o `html` tem `scroll-behavior:smooth`).
+
 ## S374h (16/11/2026, v549 · 5.36.0) — esboços 67, 68 e 60a
 - Giro › Lista de compras (src/97-lista-compras.js): peça em 2 andares — nome com o grau na etiqueta (`lcNomeL`) e "Tem N · ~N dias" (`lcMot` tira o "Ideal"); peças agrupadas pelo tipo (`lcGrupos`, título `.lcGr`); em cada seção só as 5 mais urgentes + "ver os N ›" (`ACT.lcTodos`, `S.lcTodos`, não é salvo); a caixa "Sobrando" saiu: o valor parado fica no título `.lcSec.lcSecS b`; o parágrafo do topo virou "como calcula ›" (`ACT.lcCalc`, `S.lcCalc`).
 - Botões (padrão de controles): "Marcar como pedido" = único principal; "Mandar ao fornecedor" e o "Salvar" da vitrine = secundária neutra; "Oferta ›" (`.lcOf`) e "como calcula ›" (`.lcT`) = texto rosa; − n + = um seletor só (`.lcQ`, botões de 40 px dentro de 44 px).
