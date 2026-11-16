@@ -4359,7 +4359,7 @@ function filSet(lado,ang,L,vis){const G=lado<0?(N._fE||(N._fE=q('.filE'))):(N._f
     function wkFalha(){if(Z.wk){try{clearTimeout(Z.wk.to);Z.wk.w.terminate()}catch(_){}Z.wk=null}window.__lfWkFalhou=1;if(!Z.mp)mpLoad().then(function(lm){Z.mp=lm},function(){})}
     function laco(){if(!Z.el||!Z.st)return;var v=Z.v,fa=Z.fa,wkOk=!!(Z.wk&&Z.wk.ok);if(!v.videoWidth||(!Z.mp&&!fa&&!wkOk)){Z.tm=setTimeout(laco,250);return}
       /* S383: a cópia da imagem para medir a claridade é feita a cada 4 medições quando o leitor de rosto novo está em uso (ele não precisa dela); o leitor antigo usa essa cópia sempre */
-      Z.lzN=(Z.lzN||0)+1;var W=320,H=Math.round(W*v.videoHeight/v.videoWidth),cv=Z.cv||(Z.cv=document.createElement('canvas')),fazLuz=!Z.mp||Z.lzN%4===1;if(fazLuz){cv.width=W;cv.height=H;var cx=cv.getContext('2d',{willReadFrequently:true});cx.drawImage(v,0,0,W,H)}
+      Z.lzN=(Z.lzN||0)+1;var W=320,H=Math.round(W*v.videoHeight/v.videoWidth),cv=Z.cv||(Z.cv=document.createElement('canvas')),fazLuz=!(Z.mp||wkOk)||Z.lzN%4===1;if(fazLuz){cv.width=W;cv.height=H;var cx=cv.getContext('2d',{willReadFrequently:true});cx.drawImage(v,0,0,W,H)}
       /* S89 D: brilho do meio da imagem (nada é gravado) */
       if(fazLuz)try{var dd=cx.getImageData(W*.2|0,H*.15|0,W*.6|0,H*.7|0).data,sm=0,nn=0;for(var ii=0;ii<dd.length;ii+=64){sm+=dd[ii]*.299+dd[ii+1]*.587+dd[ii+2]*.114;nn++}var lu=window.__lfFakeLum!=null?window.__lfFakeLum:sm/nn;Z.lum=Z.lum==null?lu:Z.lum*.6+lu*.4;
         if(Z.fase==='teste'&&!Z.luzP){Z.lzT++;if(escuro())Z.lzE++}}catch(_){}
