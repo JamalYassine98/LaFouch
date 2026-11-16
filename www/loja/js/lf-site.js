@@ -3283,12 +3283,12 @@
     if(!CFG._f)return;/* o cache sozinho nunca liga a tela de manutenção: espera a confirmação da nuvem */
     /* prévia do botão "Cliente" no painel: mostra a vitrine como se estivesse no ar, mesmo desligado (para montar a vitrine) */
     if(/[?&]cliente/.test(location.search)&&window.parent!==window){var pv=document.getElementById('prvb');if(m)m.remove();document.documentElement.style.overflow='';
-      if(!pv){pv=document.createElement('div');pv.id='prvb';pv.innerHTML='<span>Prévia · os clientes ainda não veem</span><button type="button">Pôr no ar</button>';pv.querySelector('button').onclick=function(){try{window.parent.postMessage({lfPorNoAr:1},location.origin)}catch(_){}};document.body.appendChild(pv)}return}
+      if(!pv){pv=document.createElement('div');pv.id='prvb';pv.innerHTML='<span>Prévia · os clientes ainda não veem</span><button type="button">Pôr no ar</button>';pv.querySelector('button').onclick=function(){try{window.parent.postMessage({lfPorNoAr:1},location.origin)}catch(_){}};document.body.appendChild(pv)}dgPoe();return}
     (ADM||(ADM=isAdm())).then(function(adm){
       if(CFG.ativo!==false)return;m=document.getElementById('manut');ab=document.getElementById('admb');
       if(adm){if(m)m.remove();document.documentElement.style.overflow='';
         if(!ab){ab=document.createElement('div');ab.id='admb';document.body.appendChild(ab)}
-        ab.innerHTML='<b>Modo administrador</b><span>O site está desligado para os clientes. Só você vê o catálogo.</span>'+(window.parent!==window?'':'<a href="admin.html">Abrir painel</a>');return}
+        ab.innerHTML='<b>Modo administrador</b><span>O site está desligado para os clientes. Só você vê o catálogo.</span>'+(window.parent!==window?'':'<a href="admin.html">Abrir painel</a>');dgPoe();return}
       if(!m){m=document.createElement('div');m.id='manut';m.setAttribute('role','alertdialog');m.setAttribute('aria-modal','true');document.body.appendChild(m)}
       m.innerHTML='<div class="mlogo" aria-hidden="true"></div><h2>Estamos atualizando o catálogo</h2><p>'+esc(CFG.aviso||'Voltamos já! Enquanto isso, fale com a gente pelo WhatsApp.')+'</p><a class="btn w ic" target="_blank" rel="noopener" href="https://wa.me/'+NUM_LOJA+'"><span>Falar com a loja</span>'+WAI+'</a>';
       document.documentElement.style.overflow='hidden'})}
@@ -3501,18 +3501,25 @@
   function estLoop(){clearInterval(ESTT);ESTT=0;if(CFG.reserva!==true)return;ESTT=setInterval(function(){if(!document.hidden)syncEstoque()},20000)}
   /* 08/11: site ao vivo — a cada 20 s confere um único campo (config/site.pv, o app troca ao publicar); só se mudou busca os produtos de novo */
   var PV=null,PVT=0,PVN=0;
+  /* S374: diagnóstico pedido pelo dono — com o site desligado, a faixa da prévia (painel) e a do administrador dizem quando o catálogo foi lido da nuvem, quantas peças vieram,
+     quando foi a última conferência e quando o app mandou a última mudança (config/site.pv). Só texto; não muda nada do funcionamento. */
+  var DG={};
+  function dgH(t){if(!t)return '—';var d=new Date(t),z=function(n){return (n<10?'0':'')+n};return z(d.getHours())+':'+z(d.getMinutes())+':'+z(d.getSeconds())}
+  function dgD(t){if(!t)return 'nunca';var d=new Date(t),z=function(n){return (n<10?'0':'')+n};return z(d.getDate())+'/'+z(d.getMonth()+1)+' '+dgH(t)}
+  function dgTxt(){return 'Diagnóstico · catálogo lido '+dgH(DG.lido)+' · '+(DG.n==null?'?':DG.n)+' peças na nuvem · '+P.length+' no site · conferido '+dgH(DG.conf)+' · último envio do app '+dgD(DG.pv)+(DG.err?' · falhou: '+DG.err:'')}
+  function dgPoe(){try{[['prvb','prvd'],['admb','admd']].forEach(function(x){var b=document.getElementById(x[0]);if(!b)return;var e=document.getElementById(x[1]);if(!e){e=document.createElement('small');e.id=x[1];e.className='lfdg';b.appendChild(e)}e.textContent=dgTxt()})}catch(_){}}
   function prodVivo(){if(document.hidden)return;
-    fbg('config/site').then(function(d){var c=fbd(d)||{},pv=c.pv||0;PVN++;
+    fbg('config/site').then(function(d){var c=fbd(d)||{},pv=c.pv||0;PVN++;DG.conf=Date.now();DG.pv=pv;DG.err='';dgPoe();
       if(PV===null)PV=+(CFG&&CFG.pv)||0;
       /* sem o sinal do app (versão antiga), confere os produtos a cada minuto */
       if(pv?pv===PV:PVN%3)return;PV=pv;
-      return fbg('produtos?pageSize=300').then(function(j){if(!j||!j.documents)return;var sj=JSON.stringify(j.documents);if(sj===prodVivo.ult)return;prodVivo.ult=sj;try{localStorage.setItem('lf_pdocs',sj)}catch(_){}syncProds(j.documents)})}).catch(function(){})}
+      return fbg('produtos?pageSize=300').then(function(j){if(!j||!j.documents)return;DG.lido=Date.now();DG.n=j.documents.length;var sj=JSON.stringify(j.documents);if(sj===prodVivo.ult){dgPoe();return}prodVivo.ult=sj;try{localStorage.setItem('lf_pdocs',sj)}catch(_){}syncProds(j.documents);dgPoe()})}).catch(function(){DG.err='a nuvem não respondeu às '+dgH(Date.now());dgPoe()})}
   function prodVivoLiga(){if(PVT)return;PVT=setInterval(prodVivo,20000);document.addEventListener('visibilitychange',function(){if(!document.hidden)prodVivo()})}
   function redraw(){drawGen();drawChips();drawFaces();drawGrid();drawBag();setHero()}
   function syncRun(){
     var pp=fbg('produtos?pageSize=300');pp.catch(function(){});
     fbg('config/site').then(function(d){CFG=Object.assign({ativo:true},fbd(d),{_f:1});try{localStorage.setItem('lf_cfg',JSON.stringify(CFG))}catch(_){}manut();applyCot();setHero()},function(){}).then(function(){
-      return pp}).then(function(j){if(j&&j.documents){try{prodVivo.ult=JSON.stringify(j.documents);localStorage.setItem('lf_pdocs',prodVivo.ult)}catch(_){}syncProds(j.documents)}}).catch(function(){}).then(function(){var l=document.getElementById('prevld');if(l)l.remove();syncEstoque().then(function(){estLoop();if(prodVivo.ult)favVolta()});prodVivoLiga()})}
+      return pp}).then(function(j){DG.pv=+(CFG&&CFG.pv)||0;if(j&&j.documents){DG.lido=Date.now();DG.n=j.documents.length;try{prodVivo.ult=JSON.stringify(j.documents);localStorage.setItem('lf_pdocs',prodVivo.ult)}catch(_){}syncProds(j.documents)}}).catch(function(){DG.err='os produtos não vieram às '+dgH(Date.now())}).then(function(){dgPoe();var l=document.getElementById('prevld');if(l)l.remove();syncEstoque().then(function(){estLoop();if(prodVivo.ult)favVolta()});prodVivoLiga()})}
   (ADM||(ADM=isAdm())).then(function(a){if(a&&!LF_ADM&&window.parent!==window){LF_ADM=true;document.documentElement.classList.add('adm');redraw()}});
   manut();try{var qv=new URLSearchParams(location.search).get('video');if(qv)setTimeout(function(){var st=$('stage');st.hidden=false;st.setAttribute('data-sig','q');applyVideo(qv)},300)}catch(_){}
   if(!/[?&]nosync/.test(location.search))setTimeout(syncRun,50);
