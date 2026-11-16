@@ -782,6 +782,28 @@ def p7_painel_contraste(p):
             else: passou(P7, t)
         finally: b.close()
 
+def p7_csp(p):
+    # S390 (16/11/2026): a regra de segurança (CSP) não pode barrar endereço que o site usa. O login com Google ficou 4 dias quebrado (auth/internal-error)
+    # porque a regra não liberava apis.google.com nem a moldura do firebaseapp.com — e o simulador, sem internet, não acusava.
+    b = p.chromium.launch(executable_path='/opt/pw-browsers/chromium', args=['--no-sandbox'])
+    try:
+        c = b.new_context(viewport={'width': 390, 'height': 844}, is_mobile=True, has_touch=True)
+        c.route('**/*', lambda r: r.continue_() if r.request.url.startswith('http://localhost') else r.abort())
+        pg = c.new_page(); pg.add_init_script("window.__csp=[];document.addEventListener('securitypolicyviolation',e=>window.__csp.push(e.effectiveDirective+' '+e.blockedURI))")
+        pg.goto(URL); pg.wait_for_timeout(2500)
+        js = open('js/lf-site.js', encoding='utf8').read(); import re as _r
+        proj = (_r.search(r"p:'([a-z0-9-]+)'", js[js.find('FB='):js.find('FB=') + 400]) or [None, 'lafouch-2f6bd'])[1]
+        # 1) o que o login com Google precisa (só se o site usa a janela do Google)
+        if 'signInWithPopup' in js:
+            pg.evaluate("(pj)=>{const s=document.createElement('script');s.src='https://apis.google.com/js/api.js';document.head.appendChild(s);const f=document.createElement('iframe');f.style.display='none';f.src='https://'+pj+'.firebaseapp.com/__/auth/iframe';document.body.appendChild(f)}", proj)
+        # 2) todo programa de fora que o site carrega sozinho (add('https://…'))
+        for u in sorted(set(_r.findall(r"add\('(https://[^']+\.js)'", js))):
+            pg.evaluate("(u)=>{const s=document.createElement('script');s.src=u;document.head.appendChild(s)}", u)
+        pg.wait_for_timeout(1200); v = sorted(set(pg.evaluate('()=>window.__csp')))
+        if v: falha(P7, 'Regra de segurança (CSP) não barra o que o site usa', 'barrado: ' + ' | '.join(v[:5]), pg)
+        else: passou(P7, 'Regra de segurança (CSP) não barra o que o site usa')
+    finally: b.close()
+
 def p7_varredura(p):
     # passa por todos os botões e links visíveis do Início (celular e computador): nenhum erro, nada travado, nada mais largo que a tela
     for W, H in ((390, 844), (1440, 900)):
@@ -899,7 +921,7 @@ with sync_playwright() as p:
      print('parte 7 · olho do dono')
      for nome, fn in (('rodapé', p7_rodape), ('teste da ajuda', p7_teste_ajuda), ('foto e mouse', p7_foto_mouse), ('tamanho e letras', p7_tamanho), ('Mochi com braços', p7_mochi_bracos),
                       ('Mi cuenta', p7_conta_spam), ('Tarjetas 1 hora', p7_tarjetas_1h), ('idioma', p7_idioma), ('endereço', p7_endereco), ('código', p7_codigo), ('ícone da conta', p7_icone_conta),
-                      ('Últimas N', p7_ultimas), ('dica', p7_dica), ('animações', p7_animacoes), ('painel claro e escuro', p7_painel_contraste), ('texto sobreposto', p7_sobreposto), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
+                      ('Últimas N', p7_ultimas), ('dica', p7_dica), ('animações', p7_animacoes), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
          print(' ', nome); prova(P7, nome, fn, p)
     if '5' in PARTES:
      print('parte 5 · situações difíceis')
