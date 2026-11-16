@@ -6,7 +6,7 @@ srv=subprocess.Popen(['python3','-m','http.server','8916','-d','/home/claude/cat
 try:
   with sync_playwright() as p:
     b,pg,er=base.abre(p,W=390,H=844,ls={'t_perm':'granted','t_semmp':'1'});cdp=pg.context.new_cdp_session(pg);cdp.send('Network.enable');cdp.send('Network.setBlockedURLs',{'urls':['https://*','wss://*']});  # sem rota do Playwright: rota desliga a memória do navegador, e a prova precisa dela
-    cdp.send('Emulation.setCPUThrottlingRate',{'rate':4});pg.add_init_script("sessionStorage.setItem('lf_ni','1');(()=>{const o=CanvasRenderingContext2D.prototype.drawImage;window.__dv=0;CanvasRenderingContext2D.prototype.drawImage=function(a){if(a&&a.tagName==='VIDEO')window.__dv++;return o.apply(this,arguments)};const c=window.createImageBitmap;window.__cb=0;window.createImageBitmap=function(){window.__cb++;return c.apply(this,arguments)}})()");w=pg.wait_for_timeout
+    cdp.send('Emulation.setCPUThrottlingRate',{'rate':4});pg.add_init_script("sessionStorage.setItem('lf_ni','1');(()=>{const o=CanvasRenderingContext2D.prototype.drawImage;window.__dv=0;CanvasRenderingContext2D.prototype.drawImage=function(a){if(a&&a.tagName==='VIDEO')window.__dv++;return o.apply(this,arguments)};const c=window.createImageBitmap;window.__cb=0;window.createImageBitmap=function(a){window.__cb++;if(a&&a.tagName==='VIDEO')window.__vid=a;return c.apply(this,arguments)}})()");w=pg.wait_for_timeout
     for vis in (1,):
         pg.goto('http://localhost:8916/?medir=1');w(4000);pg.evaluate("()=>window.__lfGzAbre()");w(6000)
         print('visita',vis,'| na abertura, antes de Começar: preparado antes =',pg.evaluate("()=>window.__lfCedo||0"))
@@ -14,6 +14,6 @@ try:
         while time.time()-t0<70 and json.loads(pg.evaluate(base.S))['f']!='teste': w(300)
         w(10000);tx=pg.evaluate("()=>document.querySelector('#lfmed').textContent").split('\n')
         print('   fase',json.loads(pg.evaluate(base.S))['f'],'| trabalhador',pg.evaluate("()=>window.__lfCam&&[window.__lfCam.fora,window.__lfCam.del,Math.round(window.__lfCam.lms||0)]"),'| falhou',pg.evaluate("()=>!!window.__lfWkFalhou"))
-        print('   medições enviadas ao trabalhador:',pg.evaluate('()=>window.__cb'),'| cópias da câmera no fio principal:',pg.evaluate('()=>window.__dv'));print('   ',' / '.join(tx[8:12])[:330])
+        print('   claridade pelo trabalhador:',pg.evaluate('()=>window.__lfLuT'),'| pela conta antiga, na mesma câmera:',pg.evaluate("()=>{const v=window.__vid;if(!v)return null;const o=CanvasRenderingContext2D.prototype.drawImage;const W=320,H=Math.round(W*v.videoHeight/v.videoWidth),cv=document.createElement('canvas');cv.width=W;cv.height=H;const cx=cv.getContext('2d',{willReadFrequently:true});const n0=window.__dv;cx.drawImage(v,0,0,W,H);window.__dv=n0;const dd=cx.getImageData(W*.2|0,H*.15|0,W*.6|0,H*.7|0).data;let sm=0,nn=0;for(let ii=0;ii<dd.length;ii+=64){sm+=dd[ii]*.299+dd[ii+1]*.587+dd[ii+2]*.114;nn++}return sm/nn}"));print('   pedidos de imagem (rosto + claridade):',pg.evaluate('()=>window.__cb'),'| cópias da câmera no fio principal:',pg.evaluate('()=>window.__dv'));print('   ',' / '.join(tx[8:12])[:330])
     print('erros',[e for e in er if 'net::' not in e and 'Failed to load' not in e and 'XNNPACK' not in e][:3]);b.close()
 finally: srv.terminate()
