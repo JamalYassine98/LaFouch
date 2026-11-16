@@ -30,7 +30,8 @@ with sync_playwright() as pw:
             if prop: oo.append(olho(pg));pg.add_style_tag(content=CSS60);w(500)
             p=T+'p60_%d_%d.png'%(esc,prop);pg.screenshot(path=p);fs.append(p);oo.append(olho(pg));b.close()
         print('60a',tema,'achados novos:',novos(oo[0]|oo[1],oo[2]))
-        prancha('60a-app-painel-sem-caixa-%s.jpg'%tema,'App · Site › Mensagens (painel do site) · passo 1 · tema '+tema,['Hoje: o painel aparece numa caixa com borda e cantos, mais estreita que a tela, e o título "Mensagens ⌄" fica pequeno.','Proposta: o painel ocupa a largura toda, sem borda nem cantos, e o título tem o tamanho das outras telas. O conteúdo do painel ainda é o do site (passo 2: virar tela do app, uma parte por vez).','No desenho o painel mostra a tela de entrar (o simulador não tem a sua conta); no celular aparece o conteúdo.'],*fs)
+        prancha('60a-app-painel-sem-caixa-%s.jpg'%tema,'App · Site › Mensagens (painel do site) · passo 1 · tema '+tema,['Hoje: o painel aparece numa caixa com borda e cantos, mais estreita que a tela, e o título "Mensagens ⌄" fica pequeno.','Proposta: o painel ocupa a largura toda, sem borda nem cantos, e o título tem o tamanho das outras telas (a flecha abre Site, Pedidos, Mensagens e Analisador). O conteúdo ainda é o do site; no passo 2 cada parte vira tela do app.','No desenho o painel mostra a tela de entrar (o simulador não tem a sua conta); no celular aparece o conteúdo.'],*fs)
+        if '60b' not in sys.argv: continue
         fs=[];oo=[]
         for prop in (0,1):
             b,pg,w=abre(pw,esc);pg.evaluate("()=>{const L=window.__LF;L.S.dTab='giro';L.setView('dash')}");w(900);pg.evaluate("()=>window.__LF.ACT.dVer()");w(700)
