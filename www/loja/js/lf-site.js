@@ -4295,7 +4295,7 @@ function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpo
     /* S69: resultado = a lente mais fraca com que leu a bula, com a faixa provável (±0,25) e "na dúvida, o menor" */
     function resultado(G,pp){try{window.__lfGm&&window.__lfGm(G)}catch(_){}var esc0=Z.escuro||(Z.lzT>5&&Z.lzE/Z.lzT>.5);fimTeste();var GQ=G,m=Z.m,lo=gf(Math.max(.25,G-.25)),hi=gf(Math.min(4,G+.25)),ppH='';
       /* S95 E: quadro + ponto próximo. Combinam (até 0,25) = um grau só; não combinam = faixa entre os dois e o sugerido é o menor */
-      if(pp){var pv=Math.max(.25,pp.pp);if(!pp.ok){lo=gf(Math.min(G,pv));hi=gf(Math.max(G,pv));G=Math.min(G,pv)}}
+      /* S381 (aprovado 16/11 10:31): o quadro de leitura manda. Ponto próximo que não combina (diferença maior que 0,25) é deixado de lado — antes ele puxava a sugestão para o menor (caso do dono: quadro +2.50, sugerido +0.25) */if(pp&&!pp.ok)pp=null;
       Z.G=G;Z.g=G;
       if(pp){
         ppH='<p class="gzp gzpp">'+T('Quadro de leitura:')+' '+gf(GQ)+'<br>'+T('Ponto próximo:')+' '+(pp.pp?gf(pp.pp):T('não precisa'))+(pp.ok?' <b>✓ '+T('combinam')+'</b>':'')+'</p>'}
@@ -4337,21 +4337,22 @@ function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpo
         if(Z.fase==='teste'&&!Z.luzP){Z.lzT++;if(escuro())Z.lzE++}}catch(_){}
       /* S95 A / S98: íris (11,7 mm em quase todo adulto) na imagem grande (até 1280 px) */
       /* para não pesar no celular: a 1ª leitura é na imagem inteira (640 px); depois, só um recorte em volta do rosto, na resolução cheia (os olhos ficam com muito mais pontos) */
-      if(Z.mp){var VW=v.videoWidth,VH=v.videoHeight,bx=Z.bx,sx=0,sy=0,sw=VW,sh=VH,S2=640;
-        if(bx){var cxm=bx[0]+bx[2]/2,cym=bx[1]+bx[3]/2,lado=Math.min(VW,VH,Math.max(bx[2],bx[3])*1.7);sw=sh=lado;sx=Math.max(0,Math.min(VW-lado,cxm-lado/2));sy=Math.max(0,Math.min(VH-lado,cym-lado/2));S2=Math.min(512,Math.round(lado))}
+      if(Z.mp){var VW=v.videoWidth,VH=v.videoHeight,bx=Z.bx,sx=0,sy=0,sw=VW,sh=VH,S2=640,u3=hist10.slice(-3),calmo=Z.fase==='teste'&&u3.length===3&&Math.max.apply(null,u3)-Math.min.apply(null,u3)<=2&&u3[2]>=dLo()&&u3[2]<=dHi()&&Date.now()-(Z.rosto||0)<2500;
+        if(bx){var cxm=bx[0]+bx[2]/2,cym=bx[1]+bx[3]/2,lado=Math.min(VW,VH,Math.max(bx[2],bx[3])*1.7);sw=sh=lado;sx=Math.max(0,Math.min(VW-lado,cxm-lado/2));sy=Math.max(0,Math.min(VH-lado,cym-lado/2));S2=Math.min(calmo?320:512,Math.round(lado))}
         var W2=bx?S2:Math.min(640,VW),H2=bx?S2:Math.round(W2*VH/VW),c2=Z.cv2||(Z.cv2=document.createElement('canvas'));c2.width=W2;c2.height=H2;c2.getContext('2d').drawImage(v,sx,sy,sw,sh,0,0,W2,H2);
         Z.mpk=sw/W2;var r=null;try{r=Z.mp.detect(c2)}catch(_){r=null}var P=r&&r.faceLandmarks&&r.faceLandmarks[0],n=Date.now();
         if(P&&P.length>=478){var kx=sw/W2,ky=sh/H2;/* pixels do recorte → pixels da imagem da câmera */
           var ir=function(c){return (Math.hypot((P[c+1].x-P[c+3].x)*W2*kx,(P[c+1].y-P[c+3].y)*H2*ky)+Math.hypot((P[c+2].x-P[c+4].x)*W2*kx,(P[c+2].y-P[c+4].y)*H2*ky))/2},a=ir(468),b=ir(473);
           var x0=1,y0=1,x1=0,y1=0;P.forEach(function(p){if(p.x<x0)x0=p.x;if(p.y<y0)y0=p.y;if(p.x>x1)x1=p.x;if(p.y>y1)y1=p.y});Z.bx=[sx+x0*sw,sy+y0*sh,(x1-x0)*sw,(y1-y0)*sh];
-          var mn=Math.min(a,b),mx=Math.max(a,b),ok=mn>5&&mn/mx>.8,di=ok?(a+b)/2:mx,f2=(VW/2)/Math.tan(31*Math.PI/180);
+          var mn=Math.min(a,b),mx=Math.max(a,b),ok=mn>5&&mn/mx>.8,di=ok?(a+b)/2:mx,f2=(Math.max(VW,VH)/2)/Math.tan(31*Math.PI/180);/* S381: lado maior (imagem em pé no celular) */
           if(di>3)poeMedida(f2*1.17/di,ok)}
         else{Z.bx=null;if(n-(Z.rosto||0)>2000)chip(T('Não vejo o seu rosto'))}
-        Z.tm=setTimeout(laco,350);return}
+        try{window.__lfCam={w:VW,h:VH,del:MP.del||'?',d:Z.d,ms:calmo?1000:350}}catch(_){}
+        Z.tm=setTimeout(laco,calmo?1000:350);return}
       fa.detectSingleFace(cv,new fa.TinyFaceDetectorOptions({inputSize:224,scoreThreshold:.4})).withFaceLandmarks(!FA.full).then(function(r){if(!Z.el||!Z.st)return;var n=Date.now();
         if(r&&r.landmarks){var P=r.landmarks.positions,c=function(a,b){var x=0,y=0;for(var i=a;i<=b;i++){x+=P[i].x;y+=P[i].y}return [x/(b-a+1),y/(b-a+1)]},e1=c(36,41),e2=c(42,47),ipd=Math.hypot(e1[0]-e2[0],e1[1]-e2[1]);
           /* distância entre os olhos varia muito de pessoa para pessoa: a medida vale para a etiqueta, mas fica "em dúvida" (nunca tira a resposta do cliente) */
-          var f=(W/2)/Math.tan(31*Math.PI/180);poeMedida(f*6.3/ipd,false)}
+          var f=(Math.max(W,H)/2)/Math.tan(31*Math.PI/180);poeMedida(f*6.3/ipd,false)}
         else if(n-(Z.rosto||0)>2000)chip(T('Não vejo o seu rosto'));
         Z.tm=setTimeout(laco,350)},function(){Z.tm=setTimeout(laco,600)})}
     function perto(g){var G=navGraus(),b='',d=1e9;G.forEach(function(x){var k=Math.abs(gn(x)-g);if(k<d-1e-9){d=k;b=x}});return b}
@@ -4597,7 +4598,7 @@ function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpo
     addEventListener('scroll',function(){rolT=performance.now()},{passive:true,capture:true});
     (function f(t){var dt=t-u;u=t;n++;if(dt>maxq&&t-abre>1500)maxq=dt;if(t-rolT<250){rn++;rms+=dt;if(dt>rmax)rmax=dt}
       if(t-t1>=1000){fps=Math.round(n*1000/(t-t1));if(t-abre>3000&&fps<pior)pior=fps;n=0;t1=t;
-        d.textContent='Medidor La Fouch\n'+fps+' quadros/s agora · pior segundo '+(pior===999?'—':pior)+'\nquadro mais demorado '+Math.round(maxq)+' ms\ntravadas do processador '+lt+' ('+Math.round(ltms)+' ms)\nrolando: '+(rn?Math.round(rn*1000/rms)+' quadros/s · pior '+Math.round(rmax)+' ms':'role a tela')+'\naparelho: '+(navigator.hardwareConcurrency||'?')+' núcleos · '+(navigator.deviceMemory||'?')+' GB · tela x'+(window.devicePixelRatio||1)}
+        d.textContent='Medidor La Fouch\n'+fps+' quadros/s agora · pior segundo '+(pior===999?'—':pior)+'\nquadro mais demorado '+Math.round(maxq)+' ms\ntravadas do processador '+lt+' ('+Math.round(ltms)+' ms)\nrolando: '+(rn?Math.round(rn*1000/rms)+' quadros/s · pior '+Math.round(rmax)+' ms':'role a tela')+(window.__lfCam?'\ncâmera '+window.__lfCam.w+'×'+window.__lfCam.h+' · leitor '+(window.__lfCam.del==='GPU'?'placa de vídeo':window.__lfCam.del==='CPU'?'processador':'?')+' · mede a cada '+(window.__lfCam.ms/1000)+' s\ndistância lida '+(window.__lfCam.d?Math.round(window.__lfCam.d)+' cm':'—'):'')+'\naparelho: '+(navigator.hardwareConcurrency||'?')+' núcleos · '+(navigator.deviceMemory||'?')+' GB · tela x'+(window.devicePixelRatio||1)}
       requestAnimationFrame(f)})(u)})();
 
   /* ===== bloco 8 (11/11/2026): Temática automática (calendário) + contagem anônima do Analisador ===== */
