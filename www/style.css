@@ -2727,3 +2727,9 @@ html{overscroll-behavior-y:none}
 /* S374 (esboço 58b): semana fechada no Histórico */
 .hSem{grid-column:1/-1;display:flex;align-items:center;gap:8px;width:100%;text-align:left;color:inherit;font:inherit;padding:12px 14px;min-height:52px;cursor:pointer;border:0}
 .hSem .ecNm{flex:1;min-width:0}.hSem .ecNm b{display:block;font-size:15px}.hSem .ecNm small{display:block;color:var(--mute);font-size:12.5px;margin-top:2px}.hSem .ecCh{font-size:20px;color:var(--mute)}
+/* S374 (S242): tela Site do app */
+.stG{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:4px 0 14px}
+.stN{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;color:var(--fg);font:inherit;cursor:pointer;min-height:104px}
+.stN small{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:600}.stN b{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}.stN span{font-size:13.5px;color:var(--mute)}
+.stLs{padding:2px 16px}.stL .stV{color:var(--mute);font-size:13.5px;white-space:nowrap;max-width:46%;overflow:hidden;text-overflow:ellipsis}
+@media (min-width:1024px){.stG{grid-template-columns:repeat(4,minmax(0,1fr))}}

@@ -67,3 +67,86 @@
     if (id === 'estoque' && S.view === 'estoque' && S.repoView && grpPlana().indexOf('repo') >= 0) return false;
     return _navOn374.apply(this, arguments);
   };
+
+  // ===== S374 · Site como tela do app (esboço S242, aprovado 14/11 00:08) =====
+  // A família Site abre uma tela própria: Pedidos, Mensagens, Avisos do site e Vitrine em cartões; o resto em linhas
+  // que abrem a parte certa do painel dentro do app. Com o painel aberto, a barra marca Site (não Vender).
+  if (!$('v-site')) {
+    var _vs = document.createElement('div');
+    _vs.id = 'v-site';
+    _vs.className = 'view';
+    _vs.hidden = true;
+    var _vp = $('v-ped');
+    if (_vp && _vp.parentNode) _vp.parentNode.insertBefore(_vs, _vp);
+    else document.querySelector('.wrap') && document.querySelector('.wrap').appendChild(_vs);
+  }
+  if (!VIEWS.some(function (v) { return v[0] === 'site'; })) VIEWS.push(['site', 'Site']);
+  BARRA_NOME.site = 'Site';
+  GRP_FRASE.site = 'Pedidos, mensagens, avisos e vitrine';
+  if (!ICO_D.site) ICO_D.site = ICO_D.onl;
+  FAM7[2].itens.unshift('site');
+  function siteNum(n, tit, sub, act, id) {
+    return '<button type="button" class="stN" data-act="' + act + '" data-id="' + id + '"><small>' + tit + '</small><b>' + (n == null ? '—' : n) + '</b><span>' + esc(sub) + '</span></button>';
+  }
+  function siteLin(tit, val, act, id) {
+    return '<button type="button" class="ataL stL" data-act="' + act + '" data-id="' + id + '"><span><b>' + esc(tit) + '</b></span>' + (val ? '<small class="stV">' + esc(val) + '</small>' : '') + '<i aria-hidden="true">›</i></button>';
+  }
+  function renderSite() {
+    var el = $('v-site');
+    if (!el || S.view !== 'site') return;
+    var r = S.pnlRes || null,
+      peds = (S.pedidos || []).filter(function (p) { return p.st !== 'ent' && p.st !== 'canc'; }),
+      novos = pedNovos(),
+      pub = Object.keys(S.site || {}).filter(function (k) { return S.site[k]; }).length,
+      tem = pnlFaixa('tem')[0];
+    el.innerHTML = '<div class="top"><div><h1>Site</h1><div class="crumb">A loja online por dentro do app.</div></div></div>' +
+      '<div class="stG">' +
+      siteNum(peds.length, 'Pedidos', novos ? novos + (novos === 1 ? ' novo para separar' : ' novos para separar') : 'nenhum novo', 'stAbre', 'ped') +
+      siteNum(r ? r.msg : null, 'Mensagens', r ? (r.ata ? r.ata + ' de atacado' : 'nenhuma de atacado') : 'abra para atualizar', 'stAbre', 'msg') +
+      siteNum(r ? r.av : null, 'Avisos do site', 'Analisador', 'stAbre', 'anl') +
+      siteNum(pub, 'Vitrine', pub === 1 ? 'peça publicada' : 'peças publicadas', 'stAbre', 'prod') +
+      '</div><div class="card stLs">' +
+      siteLin('Destaque da semana', '', 'stAbre', 'vit') +
+      siteLin('Temática', tem, 'stAbre', 'tem') +
+      siteLin('Marketing', 'posts, vídeos e plano', 'stAbre', 'mkt') +
+      siteLin('Ajustes do site', 'frete, PIX, idioma', 'stAbre', 'cfg') +
+      siteLin('Abrir a loja como o cliente vê', '', 'stLoja', '') +
+      '</div>';
+  }
+  var _render374 = render;
+  render = function () {
+    var r = _render374.apply(this, arguments);
+    try { renderSite(); } catch (e) {}
+    return r;
+  };
+  ACT.stAbre = function (id) {
+    if (id === 'ped') return setView('ped');
+    if (id === 'mkt') return mkAbre();
+    onlPainel(id);
+  };
+  ACT.stLoja = function () {
+    try { window.open('https://lafouch.com/', '_blank', 'noopener'); } catch (e) {}
+  };
+  // a família Site já existente ganha a tela Site na frente (uma vez)
+  var _iniLista374b = iniLista;
+  iniLista = function () {
+    var l = _iniLista374b.apply(this, arguments);
+    if (!S.fam7b) {
+      S.fam7b = true;
+      var g = grpGet('g:site');
+      if (g && g.itens.indexOf('site') < 0) g.itens.unshift('site');
+    }
+    return l;
+  };
+  var _inicioGo374b = inicioGo;
+  inicioGo = function (id) {
+    if (id === 'site') return setView('site');
+    return _inicioGo374b.apply(this, arguments);
+  };
+  var _navOn374b = navOn;
+  navOn = function (id) {
+    if (id === 'site') return S.view === 'site';
+    if (id === 'g:site' && S.view === 'onl' && grpGet('g:site')) return true; // painel aberto = família Site
+    if (id === 'vendas' && S.view === 'onl' && grpGet('g:site')) return false;
+    return _navOn374b.apply(this, arguments);
+  };

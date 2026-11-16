@@ -423,6 +423,16 @@ async def main():
                   and f4 == [4, 'vendas,g:pecas,g:din,ajustes'] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'S374: 7 famílias (barra Vender · Peças · Dinheiro; Início Dashboard · Site · Clientes; Reposição na flecha de Peças)')
             if not ok: falhas.append('7 famílias'); print('        veio', f1, f2, f3, f4, pg.erros)
+            # S374 (S242): Site é tela do app; com o painel aberto a barra não marca Vender
+            await pg.evaluate("() => window.__LF.setView('inicio')"); await pg.wait_for_timeout(400)
+            await pg.locator('#v-inicio .tl[data-id="g:site"]').click(); await pg.wait_for_timeout(700)
+            s1 = await pg.evaluate("() => [window.__LF.S.view, document.querySelectorAll('#v-site .stN').length, document.querySelectorAll('#v-site .stL').length]")
+            await pg.locator('#v-site .stN[data-id=msg]').click(); await pg.wait_for_timeout(700)
+            s2 = await pg.evaluate("() => [window.__LF.S.view, !!document.querySelector('#mainnav .mn.on[data-id=vendas]')]")
+            total += 1
+            ok = s1 == ['site', 4, 5] and s2 == ['onl', False] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S374: tela Site do app (4 números e 5 linhas); painel aberto não marca Vender')
+            if not ok: falhas.append('tela Site'); print('        veio', s1, s2, pg.erros)
             await pg.close()
 
             # contas, lotes e leitor

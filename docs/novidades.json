@@ -1,10 +1,7 @@
 {
- "nome": "5.32.0",
+ "nome": "5.33.0",
  "notas": [
-  "As 7 famílias: na barra ficam Vender, Peças e Dinheiro; no Início, Dashboard, Site e Clientes. Tocar no título com a flecha abre as outras telas da família; os avisos ficam no sino.",
-  "Despesas: cada conta é uma linha que abre ao tocar; Imprevistos e Nova despesa também. Histórico: esta semana e a passada abertas, as anteriores em uma linha por semana.",
-  "Inventário: o aviso de preços virou o número \"! 15 preços ›\" na linha da contagem; o Início não repete o aviso do lote sem detalhe (fica no Guardião).",
-  "Correções: o campo da Vitrine (Giro) tem a largura certa, \"Contas pagas neste mês\" abre, e \"Verificar agora\" (Pedidos) responde. Abrir uma peça anima mais leve."
+  "Site agora é uma tela do app: pedidos, mensagens, avisos do site e vitrine em cartões; destaque, temática, marketing, ajustes do site e \"abrir a loja\" em linhas. Com o painel aberto, a barra não marca mais Vender."
  ],
- "build": 542
+ "build": 543
 }

@@ -403,3 +403,7 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - **57a** Início sem o cartão "N peças … sem detalhe" (mora no Guardião). **57b** Inventário: `invAviso` põe `#invInfo .ifNum` ("! N preços ›", `pcAbre`) no lugar do cartão `#invFix`.
 - **58a** Despesas: `expCard` fechado = linha `.ecF` (pagar ✓ · nome · tipo/vencimento · valor ⌄, `ACT.despAb`, `S.despAb`); aberto = edição de sempre. Imprevistos e Nova despesa em `dFold('imp'|'nova')`. **58b** Histórico: dias antes da segunda-feira da semana passada viram `.hSem` por semana (e mês), `ACT.hSem`, `S.hSem`.
 - 39e/39f: já estavam no app (Pagamento de luxo do lote 4).
+
+## S374b (16/11/2026, v543 · 5.33.0) — Site como tela do app (S242)
+- `#v-site` criado por `src/98z-s374.js` (`renderSite`): 4 cartões `.stN` (Pedidos em aberto + novos, Mensagens e atacado de `S.pnlRes`, Avisos do site, Vitrine = peças publicadas em `S.site`) e linhas `.stL` (Destaque da semana → painel `vit`, Temática → `tem`, Marketing → `mkAbre`, Ajustes do site → `cfg`, Abrir a loja → lafouch.com). `ACT.stAbre` abre a parte do painel (`onlPainel`). Sem resumo do painel ainda: "—" e "abra para atualizar".
+- Família Site: `site` entra na frente (`FAM7`, e `S.fam7b` para quem já tinha a família). `navOn`: com `S.view === 'onl'` a família Site fica marcada e Vender não.
