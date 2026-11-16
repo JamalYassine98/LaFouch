@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 534;
+  var APP_BUILD = 535;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.25.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.26.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -31092,7 +31092,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         (S.cartCup.lim ? '<small>' + S.cartCup.lim + ' peça(s) sem cupom (furaria o piso)</small>' : '<small>✓ válido · nunca abaixo do piso</small>') +
         '</span><span style="display:flex;gap:6px;align-items:center"><b>− ' + gs(S.cartCup.desc) + '</b><button type="button" class="chip" data-act="cupCxX" aria-label="Tirar o código" style="min-height:36px;width:36px;padding:0;justify-content:center">×</button></span></div>'
       );
-    return '<div class="cupCxR"><input class="in" id="cupCxIn" placeholder="🎟️ Código de desconto (LF-XXXX)" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Código de desconto"><button type="button" class="mini" data-act="cupCx">Aplicar</button></div>';
+    return ''; // S367: o código não se digita mais no Pedido; aplica-se em Clientes › Cartões › "Aplicar no pedido"
   }
   function cupCaixaAplica(c, primeira) {
     var tot = 0,
@@ -31282,7 +31282,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<button type="button" class="go" id="cevOk">Publicar e baixar post + story</button>' +
       '<div class="lbl">Proteções (sempre ligadas)</div><div class="hint" style="margin:0;line-height:1.6">✓ Boas-vindas: 1 por e-mail e 1 por telefone, só para quem nunca comprou<br>✓ Código pessoal fica preso ao telefone do 1º uso<br>✓ Cupom do evento: 1 vez por pessoa e até o limite total<br>✓ Amiga: prêmio só depois de pago + 7 dias, até 5 por mês<br>✓ Nunca abaixo do piso · 1 código por compra · vale o maior desconto<br>✓ Teto do mês: ao chegar, pausa códigos novos (os entregues valem)<br>✓ Muitas tentativas erradas: o código trava sozinho por 24 h<br>✓ Percentual que não cabe no estoque: o app não deixa criar e sugere outro</div>' +
       '<div class="lbl">Códigos ativos</div>' + (j.cupons || []).filter(function (x) { return x.estado === 'ok' && x.tipo !== 'bv'; }).slice(0, 20).map(function (x) {
-        return '<div class="sl"><span>' + CUP_IC[x.tipo] + ' ' + esc(x.cod) + ' · ' + x.pct + '%<small>' + esc(x.nome || x.tel || x.email || CUP_N[x.tipo]) + (x.fim ? ' · até ' + fd(x.fim) : '') + (x.tipo === 'ev' ? ' · ' + x.usos + ' de ' + x.max : '') + '</small></span><button type="button" class="mini ghost" data-cupcan="' + esc(x.cod) + '">Cancelar</button></div>';
+        return '<div class="sl"><span>' + CUP_IC[x.tipo] + ' ' + esc(x.cod) + ' · ' + x.pct + '%<small>' + esc(x.nome || x.tel || x.email || CUP_N[x.tipo]) + (x.fim ? ' · até ' + fd(x.fim) : '') + (x.tipo === 'ev' ? ' · ' + x.usos + ' de ' + x.max : '') + '</small></span><span style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end"><button type="button" class="mini" data-cupusa="' + esc(x.cod) + '">Aplicar no pedido</button><button type="button" class="mini ghost" data-cupcan="' + esc(x.cod) + '">Cancelar</button></span></div>';
       }).join('') +
       '</div>';
     var sim = function () {
@@ -31314,6 +31314,30 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         });
     };
     c.onclick = function (e) {
+      // S367: aplicar o cupom que o cliente pediu no pedido aberto
+      var u = e.target.closest('[data-cupusa]');
+      if (u) {
+        var cu = u.getAttribute('data-cupusa');
+        if (!S.cart.length) return popErr('Monte o pedido primeiro: escolha a peça no Catálogo e toque em Vender. Depois volte aqui e aplique o cupom.');
+        u.disabled = true;
+        cupApi({ acao: 'ver', cod: cu, tel: '', email: '' })
+          .then(function (j) {
+            u.disabled = false;
+            if (!j || !j.ok) return popErr(cupMotivo(j && j.motivo, j && j.cupom));
+            cupCaixaAplica(j.cupom, true);
+            var bk = document.querySelector('.ljBk');
+            if (bk) bk.click();
+            S.cartOpen = true;
+            S.cartStep = 'ped';
+            setView('vendas');
+            lfToast('✓ Cupom ' + j.cupom.cod + ' aplicado no pedido');
+          })
+          .catch(function () {
+            u.disabled = false;
+            popErr('Sem internet para conferir o cupom.');
+          });
+        return;
+      }
       var d = e.target.closest('[data-cupdes],[data-cupcan]');
       if (!d) return;
       var cod = d.getAttribute('data-cupdes') || d.getAttribute('data-cupcan'),
@@ -47703,19 +47727,17 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function cartPainel(card) {
     var h =
       '<div style="display:flex;align-items:center;gap:10px"><h2 style="margin:0;font-size:20px">Pedido · ' + cartPecas() + ' peça(s)</h2></div>' +
-      tabCartHtml() +
-      '<div class="hint" style="margin:0">O piso é conferido sobre o total. Você pode mudar o preço de uma peça (desconto maior numa, menos em outra) e o app confere se o total ainda cobre tudo.</div><div class="split">';
+      '<div class="split">'; // S367: sem Tabela, sem Cliente e sem campo de preço (pedido do dono)
     S.cart.forEach(function (l, i) {
       var pp = pisoPeca(l.it),
         tab = precoTab(l.it, l.tab || S.tabAtiva) * l.qty,
         v = cartLinhaPreco(l);
       h +=
         '<div class="sl" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">' + cartFoto(l, 56) + '<span style="flex:1 1 140px">' + esc(cartDesc(l)) +
-        '<small>Tabela ' + gs(tab) + ' · piso ' + gs(pp.piso * l.qty) + '</small></span>' +
-        '<span style="display:flex;gap:6px;align-items:center"><button type="button" class="step" style="min-height:36px;width:36px" data-act="cartmn" data-id="' + i + '" aria-label="Menos uma peça">−</button>' +
-        '<button type="button" class="step" style="min-height:36px;width:36px" data-act="cartpl" data-id="' + i + '" aria-label="Mais uma peça">+</button></span>' +
-        '<input class="in" inputmode="' + mpMode() + '" data-in="cartpreco" data-id="' + i + '" value="' + gsParaCampo(v) + '" aria-label="Preço combinado de ' + esc(cartDesc(l)) + ' em ' + mpSim() + '" style="flex:0 1 130px;width:130px">' +
-        '<button type="button" class="chip" style="flex:0 0 40px;width:40px;padding:0;justify-content:center" data-act="cartrm" data-id="' + i + '" aria-label="Tirar do pedido">×</button></div>';
+        '<small>' + gs(v) + (v !== tab ? ' · de ' + gs(tab) : '') + '</small></span>' +
+        '<span style="display:flex;gap:6px;align-items:center"><button type="button" class="step" style="min-height:40px;width:40px" data-act="cartmn" data-id="' + i + '" aria-label="Menos uma peça">−</button>' +
+        '<button type="button" class="step" style="min-height:40px;width:40px" data-act="cartpl" data-id="' + i + '" aria-label="Mais uma peça">+</button>' +
+        '<button type="button" class="chip" style="flex:0 0 40px;width:40px;min-height:40px;padding:0;justify-content:center" data-act="cartrm" data-id="' + i + '" aria-label="Tirar do pedido">×</button></span></div>';
     });
     if (S.cartCup && typeof cupCaixaAplica === 'function') cupCaixaAplica(S.cartCup);
     h += '</div>' + cartSugHtml() + (typeof cupCaixaHtml === 'function' ? cupCaixaHtml() : '') + '<button type="button" id="cartSlot" data-act="cartclose" style="min-height:56px;border:2px dashed var(--line);border-radius:12px;background:transparent;color:var(--accent-fg);font:inherit;font-weight:700;width:100%">＋ Adicionar produto</button>' +
@@ -48123,7 +48145,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       sub = cartSub();
     if (l2)
       h +=
-        '<div class="cSug"><span><b>Leve 2: + ' + esc(pn(l2.it.ref)) + ' por ' + gs(l2.por) + '</b><small>de ' + gs(l2.de) + ' · total ' + gs(sub + l2.por) + '</small></span><button type="button" class="cSugB" data-act="cartL2">Pôr</button><button type="button" class="cSugX" data-act="cartSugX" data-id="l2" aria-label="Ignorar">×</button></div>';
+        '<div class="cSug"><span><small style="margin:0 0 2px">Sugestão para oferecer ao cliente</small><b>Leve 2: + ' + esc(pn(l2.it.ref)) + ' por ' + gs(l2.por) + '</b><small>de ' + gs(l2.de) + ' · total ' + gs(sub + l2.por) + '</small></span><button type="button" class="cSugB" data-act="cartL2">Cliente aceitou</button><button type="button" class="cSugX" data-act="cartSugX" data-id="l2" aria-label="Ignorar">×</button></div>';
     if (br)
       h +=
         '<div class="cSug"><span><b>Brinde: ' + esc(br.nome.toLowerCase()) + '</b><small>custa ' + gs(br.custo) + ' para você</small></span><button type="button" class="cSugB" data-act="cartBr">Pôr</button><button type="button" class="cSugX" data-act="cartSugX" data-id="br" aria-label="Ignorar">×</button></div>';

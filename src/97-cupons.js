@@ -56,7 +56,7 @@
         (S.cartCup.lim ? '<small>' + S.cartCup.lim + ' peça(s) sem cupom (furaria o piso)</small>' : '<small>✓ válido · nunca abaixo do piso</small>') +
         '</span><span style="display:flex;gap:6px;align-items:center"><b>− ' + gs(S.cartCup.desc) + '</b><button type="button" class="chip" data-act="cupCxX" aria-label="Tirar o código" style="min-height:36px;width:36px;padding:0;justify-content:center">×</button></span></div>'
       );
-    return '<div class="cupCxR"><input class="in" id="cupCxIn" placeholder="🎟️ Código de desconto (LF-XXXX)" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Código de desconto"><button type="button" class="mini" data-act="cupCx">Aplicar</button></div>';
+    return ''; // S367: o código não se digita mais no Pedido; aplica-se em Clientes › Cartões › "Aplicar no pedido"
   }
   function cupCaixaAplica(c, primeira) {
     var tot = 0,
@@ -246,7 +246,7 @@
       '<button type="button" class="go" id="cevOk">Publicar e baixar post + story</button>' +
       '<div class="lbl">Proteções (sempre ligadas)</div><div class="hint" style="margin:0;line-height:1.6">✓ Boas-vindas: 1 por e-mail e 1 por telefone, só para quem nunca comprou<br>✓ Código pessoal fica preso ao telefone do 1º uso<br>✓ Cupom do evento: 1 vez por pessoa e até o limite total<br>✓ Amiga: prêmio só depois de pago + 7 dias, até 5 por mês<br>✓ Nunca abaixo do piso · 1 código por compra · vale o maior desconto<br>✓ Teto do mês: ao chegar, pausa códigos novos (os entregues valem)<br>✓ Muitas tentativas erradas: o código trava sozinho por 24 h<br>✓ Percentual que não cabe no estoque: o app não deixa criar e sugere outro</div>' +
       '<div class="lbl">Códigos ativos</div>' + (j.cupons || []).filter(function (x) { return x.estado === 'ok' && x.tipo !== 'bv'; }).slice(0, 20).map(function (x) {
-        return '<div class="sl"><span>' + CUP_IC[x.tipo] + ' ' + esc(x.cod) + ' · ' + x.pct + '%<small>' + esc(x.nome || x.tel || x.email || CUP_N[x.tipo]) + (x.fim ? ' · até ' + fd(x.fim) : '') + (x.tipo === 'ev' ? ' · ' + x.usos + ' de ' + x.max : '') + '</small></span><button type="button" class="mini ghost" data-cupcan="' + esc(x.cod) + '">Cancelar</button></div>';
+        return '<div class="sl"><span>' + CUP_IC[x.tipo] + ' ' + esc(x.cod) + ' · ' + x.pct + '%<small>' + esc(x.nome || x.tel || x.email || CUP_N[x.tipo]) + (x.fim ? ' · até ' + fd(x.fim) : '') + (x.tipo === 'ev' ? ' · ' + x.usos + ' de ' + x.max : '') + '</small></span><span style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end"><button type="button" class="mini" data-cupusa="' + esc(x.cod) + '">Aplicar no pedido</button><button type="button" class="mini ghost" data-cupcan="' + esc(x.cod) + '">Cancelar</button></span></div>';
       }).join('') +
       '</div>';
     var sim = function () {
@@ -278,6 +278,30 @@
         });
     };
     c.onclick = function (e) {
+      // S367: aplicar o cupom que o cliente pediu no pedido aberto
+      var u = e.target.closest('[data-cupusa]');
+      if (u) {
+        var cu = u.getAttribute('data-cupusa');
+        if (!S.cart.length) return popErr('Monte o pedido primeiro: escolha a peça no Catálogo e toque em Vender. Depois volte aqui e aplique o cupom.');
+        u.disabled = true;
+        cupApi({ acao: 'ver', cod: cu, tel: '', email: '' })
+          .then(function (j) {
+            u.disabled = false;
+            if (!j || !j.ok) return popErr(cupMotivo(j && j.motivo, j && j.cupom));
+            cupCaixaAplica(j.cupom, true);
+            var bk = document.querySelector('.ljBk');
+            if (bk) bk.click();
+            S.cartOpen = true;
+            S.cartStep = 'ped';
+            setView('vendas');
+            lfToast('✓ Cupom ' + j.cupom.cod + ' aplicado no pedido');
+          })
+          .catch(function () {
+            u.disabled = false;
+            popErr('Sem internet para conferir o cupom.');
+          });
+        return;
+      }
       var d = e.target.closest('[data-cupdes],[data-cupcan]');
       if (!d) return;
       var cod = d.getAttribute('data-cupdes') || d.getAttribute('data-cupcan'),

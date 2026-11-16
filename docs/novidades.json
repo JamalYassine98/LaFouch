@@ -1,10 +1,10 @@
 {
- "nome": "5.25.1",
+ "nome": "5.26.0",
  "notas": [
-  "Pagamento: corrigido o bloco cinza que cobria a tela no celular (o trilho novo dependia de uma parte do app que o aparelho ainda não tinha atualizado).",
-  "Preços: o interruptor do “Preço automático” voltou. “Corrigir os N de uma vez” vem antes da lista.",
-  "Black Friday: o app usa a data da Black Friday CDE (19 a 22 de novembro). Quando a regra do tema não dá desconto para nenhuma peça, o Contador e o Guardião dizem isso e mostram o porquê.",
-  "Dashboard sem o que é do Câmbio (colchão e trocas do dia). Pedido sem a flecha de voltar."
+  "Pedido mais simples: saíram o campo de mudar o preço da peça, a escolha de Cliente e a Tabela de atacado.",
+  "“Leve 2” virou uma sugestão para você oferecer ao cliente; se ele aceitar, toque em “Cliente aceitou”.",
+  "O código do cupom não se digita mais no Pedido. Quando o cliente pedir, vá em Clientes › Cartões e toque em “Aplicar no pedido” no cupom dele.",
+  "Site: em Minha conta › Cartões, tocar no cupom pergunta se quer usar; aceito, ele entra no carrinho e o cliente vai para o catálogo."
  ],
- "build": 534
+ "build": 535
 }

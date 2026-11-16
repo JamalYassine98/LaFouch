@@ -1184,8 +1184,7 @@ async def main():
             await pg.evaluate("() => { if (document.getElementById('lfa-folha') && document.getElementById('lfa-folha').innerHTML) window.__folha.vitrine(); }"); await pg.wait_for_timeout(300)
             await pg.evaluate("() => document.getElementById('sCartAdd').click()"); await pg.wait_for_timeout(300)
             await pg.locator('[data-act=cartopen]').click(); await pg.wait_for_timeout(300)
-            await pg.locator('#cartCard input[data-in=cartpreco]').first.fill('1000'); await pg.wait_for_timeout(200)
-            u2 = await pg.evaluate("() => [document.getElementById('cartCard').hidden, document.querySelectorAll('#cartCard input[data-in=cartpreco]').length, window.__LF.S.cart[0].preco, document.activeElement.getAttribute('data-in'), document.getElementById('pisoSt').textContent.length > 0]")
+            u2 = await pg.evaluate("() => [document.getElementById('cartCard').hidden, document.querySelectorAll('#cartCard input, #cartCard select').length, document.querySelectorAll('#cartCard [data-act=cartrm]').length, /Tabela:|Cliente…/.test(document.getElementById('cartCard').innerText)]")  # S367: sem campo de preço, sem Tabela, sem Cliente, sem código
             u4 = await pg.evaluate("() => ['qtyB','payB','sgo','sCartAdd'].map(i => document.getElementById(i).offsetParent !== null)")
             u4s = await pg.evaluate("() => [!!document.getElementById('cartSlot'), !!document.getElementById('cartConf'), document.getElementById('pagHead').hidden]")
             await pg.locator('#cartConf').click(); await pg.wait_for_timeout(300)
@@ -1199,9 +1198,9 @@ async def main():
             await pg.locator('[data-act=cartopen]').click(); await pg.wait_for_timeout(300)
             await pg.locator('[data-act=cartclear]').click(); await pg.wait_for_timeout(300)
             u3 = await pg.evaluate("() => [window.__LF.S.cart.length, window.__LF.S.cartOpen, document.getElementById('cartCard').hidden, document.getElementById('cartBar').hidden]")
-            ok = u1 == [False, True, 1] and u2 == [False, 2, 1000, 'cartpreco', True] and u3 == [0, False, True, True] and u4 == [False, False, False, False] and u4s == [True, True, True] and u6 == [True, [True, True], False, True] and u7 == [False, True, True] and u5 == [False, False, False, False] and not pg.erros
+            ok = u1 == [False, True, 1] and u2 == [False, 0, 2, False] and u3 == [0, False, True, True] and u4 == [False, False, False, False] and u4s == [True, True, True] and u6 == [True, [True, True], False, True] and u7 == [False, True, True] and u5 == [False, False, False, False] and not pg.erros
             total += 1
-            print(('  ok  ' if ok else ' FALHA ') + 'tela Vendas: carrinho (adicionar, abrir, mudar preço, esvaziar)')
+            print(('  ok  ' if ok else ' FALHA ') + 'tela Vendas: carrinho (adicionar, abrir, sem campos de preço/tabela/cliente/código, esvaziar)')
             if not ok: falhas.append('carrinho tela'); print('        veio', u1, u2, u3, u4, u4s, u6, u7, u5, pg.erros)
             await pg.close()
 
@@ -3087,6 +3086,7 @@ async def main():
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, n = Date.now(), D = 864e5;
               const it = S.items.find(i => i.qty > 0 && (i.tipo === 'pre' || i.tipo === 'solar')), ref = it.ref;
+              S.sales = S.sales.filter(s => s.ts < n);  // S367: os dados de teste têm vendas 'de hoje' com hora fixa; rodando de madrugada elas ficavam no futuro e o teste falhava (visto 16/11 01:15, também na v534)
               const p0 = L.sitePrecoOferta(ref, 380000, 0, it.tipo).n;
               S.saidaSite = {[ref]: {tipo: it.tipo, n: 1000, ini: n, ate: n + 7 * D, max: 3}};
               const p1 = L.sitePrecoOferta(ref, 380000, 0, it.tipo), a1 = !!L.saidaSiteAtiva(ref);
@@ -3622,6 +3622,7 @@ async def main():
                     await pg.evaluate("t => window.__LF.setView(t)", tela); await pg.wait_for_timeout(350)
                     await pg.evaluate(abre); await pg.wait_for_timeout(900)
                     v = await pg.evaluate(VIS, sel)
+                    if not v: await pg.evaluate(abre); await pg.wait_for_timeout(1500); v = await pg.evaluate(VIS, sel)  # máquina carregada: 2ª tentativa
                     if not v: ruins.append(nome + ' não abriu'); continue
                     if onde == 'esc': await pg.keyboard.press('Escape')
                     else:

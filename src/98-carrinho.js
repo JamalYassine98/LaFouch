@@ -127,19 +127,17 @@
   function cartPainel(card) {
     var h =
       '<div style="display:flex;align-items:center;gap:10px"><h2 style="margin:0;font-size:20px">Pedido · ' + cartPecas() + ' peça(s)</h2></div>' +
-      tabCartHtml() +
-      '<div class="hint" style="margin:0">O piso é conferido sobre o total. Você pode mudar o preço de uma peça (desconto maior numa, menos em outra) e o app confere se o total ainda cobre tudo.</div><div class="split">';
+      '<div class="split">'; // S367: sem Tabela, sem Cliente e sem campo de preço (pedido do dono)
     S.cart.forEach(function (l, i) {
       var pp = pisoPeca(l.it),
         tab = precoTab(l.it, l.tab || S.tabAtiva) * l.qty,
         v = cartLinhaPreco(l);
       h +=
         '<div class="sl" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">' + cartFoto(l, 56) + '<span style="flex:1 1 140px">' + esc(cartDesc(l)) +
-        '<small>Tabela ' + gs(tab) + ' · piso ' + gs(pp.piso * l.qty) + '</small></span>' +
-        '<span style="display:flex;gap:6px;align-items:center"><button type="button" class="step" style="min-height:36px;width:36px" data-act="cartmn" data-id="' + i + '" aria-label="Menos uma peça">−</button>' +
-        '<button type="button" class="step" style="min-height:36px;width:36px" data-act="cartpl" data-id="' + i + '" aria-label="Mais uma peça">+</button></span>' +
-        '<input class="in" inputmode="' + mpMode() + '" data-in="cartpreco" data-id="' + i + '" value="' + gsParaCampo(v) + '" aria-label="Preço combinado de ' + esc(cartDesc(l)) + ' em ' + mpSim() + '" style="flex:0 1 130px;width:130px">' +
-        '<button type="button" class="chip" style="flex:0 0 40px;width:40px;padding:0;justify-content:center" data-act="cartrm" data-id="' + i + '" aria-label="Tirar do pedido">×</button></div>';
+        '<small>' + gs(v) + (v !== tab ? ' · de ' + gs(tab) : '') + '</small></span>' +
+        '<span style="display:flex;gap:6px;align-items:center"><button type="button" class="step" style="min-height:40px;width:40px" data-act="cartmn" data-id="' + i + '" aria-label="Menos uma peça">−</button>' +
+        '<button type="button" class="step" style="min-height:40px;width:40px" data-act="cartpl" data-id="' + i + '" aria-label="Mais uma peça">+</button>' +
+        '<button type="button" class="chip" style="flex:0 0 40px;width:40px;min-height:40px;padding:0;justify-content:center" data-act="cartrm" data-id="' + i + '" aria-label="Tirar do pedido">×</button></span></div>';
     });
     if (S.cartCup && typeof cupCaixaAplica === 'function') cupCaixaAplica(S.cartCup);
     h += '</div>' + cartSugHtml() + (typeof cupCaixaHtml === 'function' ? cupCaixaHtml() : '') + '<button type="button" id="cartSlot" data-act="cartclose" style="min-height:56px;border:2px dashed var(--line);border-radius:12px;background:transparent;color:var(--accent-fg);font:inherit;font-weight:700;width:100%">＋ Adicionar produto</button>' +
@@ -547,7 +545,7 @@
       sub = cartSub();
     if (l2)
       h +=
-        '<div class="cSug"><span><b>Leve 2: + ' + esc(pn(l2.it.ref)) + ' por ' + gs(l2.por) + '</b><small>de ' + gs(l2.de) + ' · total ' + gs(sub + l2.por) + '</small></span><button type="button" class="cSugB" data-act="cartL2">Pôr</button><button type="button" class="cSugX" data-act="cartSugX" data-id="l2" aria-label="Ignorar">×</button></div>';
+        '<div class="cSug"><span><small style="margin:0 0 2px">Sugestão para oferecer ao cliente</small><b>Leve 2: + ' + esc(pn(l2.it.ref)) + ' por ' + gs(l2.por) + '</b><small>de ' + gs(l2.de) + ' · total ' + gs(sub + l2.por) + '</small></span><button type="button" class="cSugB" data-act="cartL2">Cliente aceitou</button><button type="button" class="cSugX" data-act="cartSugX" data-id="l2" aria-label="Ignorar">×</button></div>';
     if (br)
       h +=
         '<div class="cSug"><span><b>Brinde: ' + esc(br.nome.toLowerCase()) + '</b><small>custa ' + gs(br.custo) + ' para você</small></span><button type="button" class="cSugB" data-act="cartBr">Pôr</button><button type="button" class="cSugX" data-act="cartSugX" data-id="br" aria-label="Ignorar">×</button></div>';
