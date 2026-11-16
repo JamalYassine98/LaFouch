@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 547;
+  var APP_BUILD = 548;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.35.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.35.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -40756,7 +40756,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   setInterval(fichaCheck, 15000);
   // ===== Preço automático (v422, aprovado 04/11/2026) =====
   // Um interruptor. O app revisa toda segunda e explica cada ajuste; o dono só desfaz ou trava (cadeado no produto).
-  // Regras fixas: preço normal revisa no máximo 1 vez por mês (só se o dólar/custo mudou de verdade ou se vende muito rápido);
+  // Regras fixas: preço normal revisa no máximo 1 vez por mês (só se o dólar/custo mudou de verdade; vender rápido NÃO sobe o preço — S374);
   // o dia a dia fica com as OFERTAS AUTOMÁTICAS em degraus para parados (60 dias −5%, 75 −10%, 90 −15%, 120 = piso),
   // que voltam ao normal quando a peça volta a vender. Nunca abaixo do piso; no máximo 10% por semana (prejuízo corrige na hora);
   // de 500 em 500; não mexe em pedido aberto; pré-graduados têm preço fixo; produto sem custo fica de fora; cadeado sempre vence.
@@ -40887,8 +40887,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           return;
         }
       }
-      // 4. vende rápido: sobe 5% (no máximo 1 vez por mês e nunca em semana fraca)
-      if (!fraca && !emOf && !ign('sobe')) {
+      // 4. (S374, dono 16/11 12:20: "se tá vendendo bem é pra manter") vende rápido NÃO sobe mais o preço
+      if (false && !fraca && !emOf && !ign('sobe')) {
         var ult = (S.pAuto.mudas || []).filter(function (m) {
           return m.ref === ref && (m.kind === 'preco' || m.kind === 'sobe') && !m.desf;
         }).pop();
@@ -51461,7 +51461,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // Barra: Início · Vender · Peças · Dinheiro · Ajustes. Início: Dashboard · Site · Clientes. Avisos = sino (Pendências).
   // Cada família é um grupo comum (dá para tirar/pôr telas e desfazer em "Gerenciar grupo"); entra UMA vez (S.fam7).
   var FAM7 = [
-    { id: 'g:pecas', nome: 'Peças', ico: 'estoque', frase: 'Inventário, fornecedores, reposição, contagem e estúdio', itens: ['estoque', 'lotes', 'repo', 'cont', 'est'] },
+    { id: 'g:pecas', nome: 'Peças', ico: 'estoque', frase: 'Inventário e estúdio', itens: ['estoque', 'est'] }, // S374 (esboço 63): Fornecedores, Reposição e Contagem moram dentro do Inventário
     { id: 'g:din', nome: 'Dinheiro', ico: 'caixa', frase: 'Caixa, despesas e câmbio', itens: ['caixa', 'desp', 'fx'] },
     { id: 'g:site', nome: 'Site', ico: 'onl', frase: 'Pedidos, mensagens, analisador e temática', itens: ['ped', 'msg', 'anl', 'tem', 'mkt'] },
     { id: 'g:cli', nome: 'Clientes', ico: 'cli', frase: 'Clientes e atacado', itens: ['cli', 'ata'] }
@@ -51785,6 +51785,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   var _iniLista74 = iniLista;
   iniLista = function () {
     if (!S.rat66) { S.rat66 = true; S.rateio = 'custo'; }
+    // 63: a família Peças fica só com Inventário e Estúdio (uma vez)
+    if (!S.fam63) {
+      S.fam63 = true;
+      var gp = grpGet('g:pecas');
+      if (gp) { gp.itens = gp.itens.filter(function (x) { return ['lotes', 'repo', 'cont'].indexOf(x) < 0; }); gp.frase = 'Inventário e estúdio'; }
+    }
     return _iniLista74.apply(this, arguments);
   };
   // ===== S370 (16/11/2026) — lote 8: trilho que ARRASTA (regra do dono, 15/11/2026) =====

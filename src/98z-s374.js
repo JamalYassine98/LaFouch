@@ -11,7 +11,7 @@
   // Barra: Início · Vender · Peças · Dinheiro · Ajustes. Início: Dashboard · Site · Clientes. Avisos = sino (Pendências).
   // Cada família é um grupo comum (dá para tirar/pôr telas e desfazer em "Gerenciar grupo"); entra UMA vez (S.fam7).
   var FAM7 = [
-    { id: 'g:pecas', nome: 'Peças', ico: 'estoque', frase: 'Inventário, fornecedores, reposição, contagem e estúdio', itens: ['estoque', 'lotes', 'repo', 'cont', 'est'] },
+    { id: 'g:pecas', nome: 'Peças', ico: 'estoque', frase: 'Inventário e estúdio', itens: ['estoque', 'est'] }, // S374 (esboço 63): Fornecedores, Reposição e Contagem moram dentro do Inventário
     { id: 'g:din', nome: 'Dinheiro', ico: 'caixa', frase: 'Caixa, despesas e câmbio', itens: ['caixa', 'desp', 'fx'] },
     { id: 'g:site', nome: 'Site', ico: 'onl', frase: 'Pedidos, mensagens, analisador e temática', itens: ['ped', 'msg', 'anl', 'tem', 'mkt'] },
     { id: 'g:cli', nome: 'Clientes', ico: 'cli', frase: 'Clientes e atacado', itens: ['cli', 'ata'] }
@@ -335,5 +335,11 @@
   var _iniLista74 = iniLista;
   iniLista = function () {
     if (!S.rat66) { S.rat66 = true; S.rateio = 'custo'; }
+    // 63: a família Peças fica só com Inventário e Estúdio (uma vez)
+    if (!S.fam63) {
+      S.fam63 = true;
+      var gp = grpGet('g:pecas');
+      if (gp) { gp.itens = gp.itens.filter(function (x) { return ['lotes', 'repo', 'cont'].indexOf(x) < 0; }); gp.frase = 'Inventário e estúdio'; }
+    }
     return _iniLista74.apply(this, arguments);
   };

@@ -1,6 +1,6 @@
   // ===== Preço automático (v422, aprovado 04/11/2026) =====
   // Um interruptor. O app revisa toda segunda e explica cada ajuste; o dono só desfaz ou trava (cadeado no produto).
-  // Regras fixas: preço normal revisa no máximo 1 vez por mês (só se o dólar/custo mudou de verdade ou se vende muito rápido);
+  // Regras fixas: preço normal revisa no máximo 1 vez por mês (só se o dólar/custo mudou de verdade; vender rápido NÃO sobe o preço — S374);
   // o dia a dia fica com as OFERTAS AUTOMÁTICAS em degraus para parados (60 dias −5%, 75 −10%, 90 −15%, 120 = piso),
   // que voltam ao normal quando a peça volta a vender. Nunca abaixo do piso; no máximo 10% por semana (prejuízo corrige na hora);
   // de 500 em 500; não mexe em pedido aberto; pré-graduados têm preço fixo; produto sem custo fica de fora; cadeado sempre vence.
@@ -131,8 +131,8 @@
           return;
         }
       }
-      // 4. vende rápido: sobe 5% (no máximo 1 vez por mês e nunca em semana fraca)
-      if (!fraca && !emOf && !ign('sobe')) {
+      // 4. (S374, dono 16/11 12:20: "se tá vendendo bem é pra manter") vende rápido NÃO sobe mais o preço
+      if (false && !fraca && !emOf && !ign('sobe')) {
         var ult = (S.pAuto.mudas || []).filter(function (m) {
           return m.ref === ref && (m.kind === 'preco' || m.kind === 'sobe') && !m.desf;
         }).pop();

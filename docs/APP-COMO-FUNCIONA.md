@@ -426,3 +426,7 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - Contador (`contadorHtml` embrulhado no 98z-s374): sai "Subir N preços" (e cada peça dele — estão dentro dos preços a corrigir); "Aceitar os N preços" só fica se sobrar oferta/volta; linha `.x66L` "N preços para corrigir · X com sugestão · Y sem custo ⌄" (`ACT.x66`, `S.x66ab`) abre a lista (`pcCorpo(true)`) ali mesmo; o número "Preços para corrigir" do Contador abre a mesma lista; o Inventário (`ACT.pcAbre`) abre Preços com a lista aberta.
 - Contas sempre pelo custo: sai "Como dividir as contas entre as peças"; `S.rat66` passa todos para `S.rateio = 'custo'` uma vez. O `</div>` a mais de `precosMetaHtml` saiu (empurrava as taxas para fora do cartão).
 - Botões (65): ações de linha `.cntV`/`.lxT` em rosa com "›", sem sublinhado; `.pcUsa` (Usar G$ …/Informar) em contorno neutro; principal `.go` ("Corrigir os N de uma vez"); "%" dentro do campo (`.pc66`).
+
+## S374g (16/11/2026, v548 · 5.35.1) — esboço 63 e preço automático
+- `FAM7` Peças = `[estoque, est]`; `S.fam63` tira lotes, repo e cont da família de quem já tinha (continuam: abas do Inventário e "toque para contar").
+- `paPlano` regra 4 (vende rápido sobe 5%) desligada (dono 16/11 12:20).

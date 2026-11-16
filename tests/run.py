@@ -413,15 +413,15 @@ async def main():
             await pg.locator('#mainnav .mn[data-id="g:pecas"]').click(); await pg.wait_for_timeout(600)
             await pg.evaluate("() => window.__LF.ACT.grpVer()"); await pg.wait_for_timeout(500)
             f2 = await pg.evaluate("() => [window.__LF.S.view, [...document.querySelectorAll('#dFolha [data-act=grpVerEsc]')].map(b => b.getAttribute('data-id'))]")
-            await pg.locator('#dFolha [data-act=grpVerEsc][data-id=repo]').click(); await pg.wait_for_timeout(700)
-            f3 = await pg.evaluate("() => [window.__LF.S.view, !!window.__LF.S.repoView, document.querySelector('#mainnav .mn[data-id=\\'g:pecas\\']').classList.contains('on')]")
+            await pg.evaluate("() => window.__LF.lfaFecha('dFolha')"); await pg.wait_for_timeout(400)
+            f3 = await pg.evaluate("() => [window.__LF.S.view, document.querySelector('#mainnav .mn[data-id=\\'g:pecas\\']').classList.contains('on')]")  # S374 (63): Reposição saiu da flecha (é aba do Inventário)
             await pg.evaluate("() => { window.__LF.render(); window.__LF.render(); }")
             f4 = await pg.evaluate("() => [window.__LF.S.grupos.filter(g => g.fam).length, window.__LF.S.barra.join(',')]")
             total += 1
             ok = (f1[0] == ['vendas', 'g:pecas', 'g:din', 'ajustes'] and f1[1] == ['g:res', 'g:gp', 'g:site', 'g:mkt', 'cli', 'ata'] and f1[2] == ['Início', 'Vender', 'Peças', 'Dinheiro', 'Ajustes']
-                  and f1[3] == ['g:res', 'g:gp', 'g:site', 'g:mkt', 'cli', 'ata'] and f2 == ['estoque', ['estoque', 'lotes', 'repo', 'cont', 'est']] and f3 == ['estoque', True, True]
+                  and f1[3] == ['g:res', 'g:gp', 'g:site', 'g:mkt', 'cli', 'ata'] and f2 == ['estoque', ['estoque', 'est']] and f3 == ['estoque', True]
                   and f4 == [6, 'vendas,g:pecas,g:din,ajustes'] and not pg.erros)
-            print(('  ok  ' if ok else ' FALHA ') + 'S374: famílias (barra Vender · Peças · Dinheiro; Início com 6 botões do esboço 59; Reposição na flecha de Peças)')
+            print(('  ok  ' if ok else ' FALHA ') + 'S374: famílias (barra Vender · Peças · Dinheiro; Início com 6 botões do esboço 59; Peças só com Inventário e Estúdio — 63)')
             if not ok: falhas.append('7 famílias'); print('        veio', f1, f2, f3, f4, pg.erros)
             # S374 (esboço 59): Giro e preços abre o Giro e a flecha mostra Giro, Preços e Reservas; Marketing abre a lista
             await pg.evaluate("() => window.__LF.setView('inicio')"); await pg.wait_for_timeout(400)
@@ -1446,6 +1446,16 @@ async def main():
             print(('  ok  ' if ok else ' FALHA ') + 'preço automático: oferta em degraus para parados, desfazer não refaz, cadeado, pré-graduado e sem custo de fora')
             if not ok: falhas.append('preco automatico'); print('        veio', pa, pg.erros)
             total += 1
+            # S374 (dono 16/11 12:20): peça que vende rápido NÃO sobe de preço
+            vr = await pg.evaluate("""() => { const L = window.__LF, S = L.S, D = 864e5, now = Date.now(); S.pTrava = {}; S.pAuto = {on: true, ult: 0, mudas: [], ign: {}};
+              S.items = [{tipo:'sem', ref:'VR1', grau:'', cor:'Preto', qty:2, fmt:'', med:'', vr:'', custo:2}]; S.pprice = {VR1: {novo: 400000}};
+              S.sales = [1, 2, 3, 4, 5].map(i => ({id:'V' + i, ts: now - i * D, ref:'VR1', tipo:'sem', qty:1, price:400000}));
+              S.elog = [{ts: now - 40 * D, tipo:'sem', ref:'VR1', cor:'Preto', qty:7}];
+              return L.paPlano().filter(m => m.ref === 'VR1').map(m => m.kind); }""")
+            total += 1
+            ok = 'sobe' not in vr and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S374: preço automático não sobe o preço de peça que vende rápido')
+            if not ok: falhas.append('nao sobe'); print('        veio', vr, pg.erros)
             await pg.close()
 
             # Cliente achou caro: viu caras e abriu uma barata -> catálogo desce de linha com o mesmo estilo; parecidas mais em conta; Leve 2 e Brinde no pedido; limite secreto
