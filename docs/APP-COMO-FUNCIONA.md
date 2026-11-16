@@ -427,6 +427,12 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - Contas sempre pelo custo: sai "Como dividir as contas entre as peças"; `S.rat66` passa todos para `S.rateio = 'custo'` uma vez. O `</div>` a mais de `precosMetaHtml` saiu (empurrava as taxas para fora do cartão).
 - Botões (65): ações de linha `.cntV`/`.lxT` em rosa com "›", sem sublinhado; `.pcUsa` (Usar G$ …/Informar) em contorno neutro; principal `.go` ("Corrigir os N de uma vez"); "%" dentro do campo (`.pc66`).
 
+## S374j (16/11/2026, v551 · 5.37.0) — esboços 70 (Hoje), 71 (Histórico) e 72 (Caixa)
+- Venda (93-historico.js, cartão de venda usado em Hoje e no dia): sem o selo "Venda" ("pedido" vira texto pequeno); ações em `.nav.vAc`: "Ver detalhes ›" texto rosa e "Estornar" perigo em texto (44 px; o 2º toque "Confirmar estorno" continua).
+- Hoje: o cartão "Contas do dia ›" (`.kpiLk`, `data-act=view desp`) leva a Despesas; a janela "Despesas do dia" sai (97y-familias-s265.js); o cartão "Fechamento do caixa" com "Fechar o dia agora" não é mais posto (98z-dashboard-s48.js) — o fechamento automático (98-fechamento.js) continua.
+- Histórico (97-hist-busca.js): busca `.hBusca` sem cartão, ícones `.ic71` (calendário, filtros); dia `hDiaCard` em 2 linhas (`.d71`), sem pílulas e sem o dólar; mês `.m71`; semana partida entre 2 meses com as datas do mês; plurais `hPl`; "Carregar mais 30 dias ›" (`.mais71`); semana aberta fica num `.hSemB` e abre/fecha com `window.__lfFold` (a animação dos blocos, 98z-s374.js).
+- Caixa (95-caixa.js): "Livre e reservado ›" (`ACT.cxReservas` → Dashboard › Reservas) no lugar do link no meio da frase; "Desfazer" (`.cxDes`, 44 px) nos movimentos (também em 57-financas.js); aviso `.note.n-bad` discreto; títulos na mesma letra.
+
 ## S374i (16/11/2026, v550 · 5.36.1) — uma lista de compras só e esboço 69
 - Inventário: a aba Reposição (`#eTabR`) saiu; `renderEstoqueAbas` (98z-s374.js) põe a linha `#lcIrInv` "Lista de compras · N acabando ›" (`ACT.lcIrGiro`) que abre Dashboard › Giro com a Lista de compras aberta. Qualquer caminho antigo para `S.repoView` (busca única, pseudo-id `repo` na barra/Início) vai para o Giro. O código antigo da Reposição (14-estoque-abas.js) continua, sem entrada.
 - Giro › Lista de compras: linha `.lcPk` "Pré-graduados em pacotes de N" — soma por grau o que a lista pede e arredonda no pacote (`packPre`: 20 ou 24, pelo último lote).

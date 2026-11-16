@@ -115,19 +115,22 @@
   }
   var MES_NOME = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
   // Cartão de um dia.
+  // S374 (esboço 71, aprovado 16/11 17:01): plural certo no lugar de "(s)"
+  function hPl(n, um, varios) { return n + ' ' + (n === 1 ? um : varios); }
+  // S374 (esboço 71): o dia em 2 linhas — data · dia da semana, valor, › / "8 vendas · 1 despesa · lucro livre"; sem pílulas e sem o dólar
   function hDiaCard(k, today) {
     var st = dayStats(k),
       d = new Date(dayEnd(k)),
-      wd = d.toLocaleDateString('pt-BR', { weekday: 'short' }).replace('.', '');
+      wd = d.toLocaleDateString('pt-BR', { weekday: 'short' }).replace('.', ''),
+      mt = [hPl(st.n, 'venda', 'vendas') + (st.est ? ' (' + hPl(st.est, 'estornada', 'estornadas') + ')' : '')];
+    if (st.extra) mt.push('<span class="w">gastos ' + gs(st.extra) + '</span>');
+    else if (st.nd) mt.push('<span class="w">' + hPl(st.nd, 'despesa', 'despesas') + '</span>');
+    if (st.outros) mt.push(hPl(st.outros, 'outro', 'outros'));
+    mt.push('lucro livre ' + gs(st.liv));
     return (
-      '<button class="pcard" data-act="opendia" data-id="' + k + '" aria-label="Abrir o dia ' + fmtDay(k) + '" style="gap:10px;padding:14px">' +
-      '<span style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><b style="font-size:18px">' + fmtDay(k).slice(0, 5) + (k === today ? ' · hoje' : '') +
-      '</b><span class="hint" style="margin:0;text-transform:capitalize">' + wd + '</span></span>' +
-      '<span style="font-size:22px;font-weight:800;font-variant-numeric:tabular-nums">' + gs(st.vend) + '</span>' +
-      '<span class="pills"><span class="cell">' + st.n + ' venda(s)' + (st.est ? ' · ' + st.est + ' estornada(s)' : '') + '</span>' +
-      (st.extra || st.nd ? '<span class="cell low">' + (st.extra ? 'gastos ' + gs(st.extra) : st.nd + ' despesa(s)') + '</span>' : '') +
-      (st.outros ? '<span class="cell">' + st.outros + ' outro(s)</span>' : '') + '</span>' +
-      '<span class="hint" style="margin:0">' + (st.fx ? 'Dólar G$ ' + dots(st.fx.p.pyg) : 'Sem cotação') + ' · lucro livre ' + gs(st.liv) + '</span></button>'
+      '<button class="pcard hDia" data-act="opendia" data-id="' + k + '" aria-label="Abrir o dia ' + fmtDay(k) + '">' +
+      '<span class="d71"><span class="dt">' + fmtDay(k).slice(0, 5) + (k === today ? ' · hoje' : '') + '<small>' + wd + '</small></span>' +
+      '<span class="vl">' + gs(st.vend) + '</span><span class="ch" aria-hidden="true">›</span><span class="mt">' + mt.join(' · ') + '</span></span></button>'
     );
   }
   // Lista (dias com resumo por mês, ou resultados da busca).
@@ -153,7 +156,7 @@
     // S374 (esboço 58b): esta semana e a passada abertas; as anteriores viram uma linha por semana (total · vendas · dias) que abre
     var seg = function (k) { var d = new Date(k + 'T12:00:00'); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return dayKey(d.getTime()); },
       lim = (function () { var d = new Date(seg(today) + 'T12:00:00'); d.setDate(d.getDate() - 7); return dayKey(d.getTime()); })(),
-      sem = {}, semFeita = {};
+      sem = {}, semFeita = {}, semAb = '';
     S.hSem = S.hSem || {};
     vis.forEach(function (k) {
       if (k >= lim) return;
@@ -164,6 +167,7 @@
     vis.forEach(function (k) {
       var ym = k.slice(0, 7);
       if (ym !== mes) {
+        if (semAb) { html += '</div>'; semAb = ''; }
         if (mes) html += '</div>';
         mes = ym;
         var tv = 0, tn = 0, tl = 0;
@@ -174,30 +178,52 @@
         });
         html +=
           '<div class="lbl" style="margin:14px 0 6px">' + cap1(MES_NOME[+ym.slice(5) - 1]) + ' de ' + ym.slice(0, 4) +
-          '</div><div class="hint" style="margin:0 0 8px">Mês todo: ' + gs(tv) + ' em ' + tn + ' venda(s) · lucro livre ' + gs(tl) +
+          '</div><div class="m71"><span>' + hPl(tn, 'venda', 'vendas') + ' · lucro livre ' + gs(tl) + '</span><b>' + gs(tv) + '</b>' +
           '</div><div class="list" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">';
       }
       if (k < lim) {
         var g = seg(k) + '|' + ym;
         if (!semFeita[g]) {
           semFeita[g] = 1;
+          if (semAb) { html += '</div>'; semAb = ''; }
+          // S374 (esboço 71): semana partida entre 2 meses mostra só as datas deste mês
           var d0 = new Date(seg(k) + 'T12:00:00'), d1 = new Date(d0.getTime() + 6 * DAY), dd = function (d) { return ('0' + d.getDate()).slice(-2) + '/' + ('0' + (d.getMonth() + 1)).slice(-2); }, ab = !!S.hSem[g];
-          html += '<button type="button" class="card hSem" data-act="hSem" data-id="' + g + '" aria-expanded="' + ab + '"><span class="ecNm"><b>Semana ' + dd(d0) + ' a ' + dd(d1) + '</b><small>' + gs(sem[g].v) + ' · ' + sem[g].n + ' venda(s) · ' + sem[g].d + ' dia(s)</small></span><span class="ecCh" aria-hidden="true">' + (ab ? '⌃' : '⌄') + '</span></button>';
+          var m0 = new Date(+ym.slice(0, 4), +ym.slice(5) - 1, 1, 12), m1 = new Date(+ym.slice(0, 4), +ym.slice(5), 0, 12);
+          if (d0 < m0) d0 = m0;
+          if (d1 > m1) d1 = m1;
+          html += '<button type="button" class="card hSem" data-act="hSem" data-id="' + g + '" aria-expanded="' + ab + '"><span class="ecNm"><b>Semana ' + (dd(d0) === dd(d1) ? dd(d0) : dd(d0) + ' a ' + dd(d1)) + '</b><small>' + gs(sem[g].v) + ' · ' + hPl(sem[g].n, 'venda', 'vendas') + ' · ' + hPl(sem[g].d, 'dia', 'dias') + '</small></span><span class="ecCh" aria-hidden="true">⌄</span></button>';
+          if (ab) { html += '<div class="hSemB" data-sem="' + g + '">'; semAb = g; }
         }
         if (!S.hSem[g]) return;
-      }
+      } else if (semAb) { html += '</div>'; semAb = ''; }
       html += hDiaCard(k, today);
     });
+    if (semAb) html += '</div>';
     if (mes) html += '</div>';
     var mais = keys.length - vis.length;
     if (mais > 0)
-      html += '<button type="button" class="mini" data-act="hmais" style="margin-top:12px">Carregar mais 30 dias (' + mais + ' dia(s) com movimento)</button>';
+      html += '<div class="mais71"><button type="button" class="lcT" data-act="hmais">Carregar mais 30 dias ›</button><small>' + hPl(mais, 'dia', 'dias') + ' com movimento</small></div>';
     return html;
   }
+  // S374: a semana abre e fecha como na Apple (mesma animação dos blocos)
   ACT.hSem = function (g) {
     S.hSem = S.hSem || {};
-    S.hSem[g] = !S.hSem[g];
+    var q = function () { return document.querySelector('#hRes .hSemB[data-sem="' + g + '"]'); },
+      bt = function () { return document.querySelector('#hRes .hSem[data-id="' + g + '"]'); },
+      an = typeof window.__lfFold === 'function' ? window.__lfFold : null;
+    if (S.hSem[g]) {
+      var c = q(), b0 = bt();
+      if (an && c) {
+        if (b0) b0.setAttribute('aria-expanded', 'false');
+        return an(c, c, b0 && b0.querySelector('.ecCh'), false, function () { S.hSem[g] = false; histLista(); });
+      }
+      S.hSem[g] = false;
+      return histLista();
+    }
+    S.hSem[g] = true;
     histLista();
+    var c2 = q(), b2 = bt();
+    if (an && c2) an(c2, c2, b2 && b2.querySelector('.ecCh'), true);
   };
   // Redesenha só a lista (mantém o campo de busca com o foco).
   function histLista() {
@@ -211,9 +237,10 @@
     var ativo = hFiltrando();
     el.innerHTML =
       '<div class="top"><div><h1>Histórico</h1><div class="crumb">Todas as vendas, dia por dia.</div></div></div>' +
-      '<section class="card col" style="gap:10px"><div class="sel"><input class="in" id="hq" type="search" data-in="hq" placeholder="Buscar produto ou conta" value="' + esc(S.hq) + '" aria-label="Buscar no histórico" style="flex:1">' +
-      '<button type="button" class="chip" data-act="hcal" aria-label="Ir para uma data" title="Ir para uma data" style="min-width:44px">📅</button>' +
-      '<button type="button" class="chip' + (S.hFopen || ativo ? ' on' : '') + '" data-act="hfopen" aria-expanded="' + !!S.hFopen + '">Filtros</button></div>' +
+      // S374 (esboço 71): busca sem a caixa em volta; 📅 e "Filtros" viram ícones de linha (44 px), como no Inventário
+      '<section class="col hBusca" style="gap:10px"><div class="sel"><input class="in" id="hq" type="search" data-in="hq" placeholder="Buscar produto ou conta" value="' + esc(S.hq) + '" aria-label="Buscar no histórico" style="flex:1">' +
+      '<button type="button" class="ic71" data-act="hcal" aria-label="Ir para uma data" title="Ir para uma data"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></button>' +
+      '<button type="button" class="ic71' + (S.hFopen || ativo ? ' on' : '') + '" data-act="hfopen" aria-label="Filtros" aria-expanded="' + !!S.hFopen + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button></div>' +
       '<input type="date" class="in" id="hDate" data-in="hdate" max="' + dayKey(Date.now()) + '" aria-label="Ir para o dia" hidden></section>' +
       (window.__revBannerHtml ? window.__revBannerHtml() : '') +
       (S.hFopen ? '<div id="hFil">' + hFiltrosHtml() + '</div>' : '') +

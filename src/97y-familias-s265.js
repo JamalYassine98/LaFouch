@@ -75,7 +75,8 @@
       if (c && !S._fam['r' + i] && c.children.length > 1) {
         c.classList.add('famRec');
         // S363: "Despesas do dia" não abre mais a lista (é a mesma da tela Despesas): a linha leva até lá
-        if (i === 1) { c.setAttribute('data-act', 'view'); c.setAttribute('data-id', 'desp'); } else { c.setAttribute('data-act', 'famAbre'); c.setAttribute('data-id', 'r' + i); }
+        // S374 (esboço 70, aprovado 16/11 16:57): a janela "Despesas do dia" sai (repetia "Contas do dia"; o cartão Contas do dia › leva a Despesas)
+        if (i === 1) { c.remove(); return; } else { c.setAttribute('data-act', 'famAbre'); c.setAttribute('data-id', 'r' + i); }
         c.setAttribute('role', 'button'); c.setAttribute('tabindex', '0');
       }
     });

@@ -258,7 +258,8 @@
         })
         .join('') +
       '<div class="cxTot"><span>Total aproximado</span><b>' + gs(Math.round(r.wal)) + '</b></div>' +
-      '<div class="hint cxDica">O que está livre e o que já tem dono ficam no <a href="#dash" data-act="view" data-id="dash" style="color:var(--accent-fg)">Dashboard</a>, aba Reservas.</div></section>';
+      // S374 (esboço 72): o link no meio da frase vira a linha "Livre e reservado ›" (leva ao Dashboard › Reservas)
+      '<button type="button" class="lcT cxLr" data-act="cxReservas">Livre e reservado ›</button></section>';
     html += objCardHtml(); // v425: Objetivos da loja (antiga caixa de melhorias)
     if (r.livre < 0)
       html +=
@@ -292,7 +293,7 @@
         ? mov
             .slice(0, 10)
             .map(function (x) {
-              return '<div class="sl"><span>' + esc(x.nome) + '<small>' + fd(x.ts) + ' às ' + fh(x.ts) + (x.des ? ' · <a href="#" data-act="rtdes" data-id="' + x.des + '" style="color:var(--accent-fg)">desfazer</a>' : '') + '</small></span><b>' + x.val + '</b></div>';
+              return '<div class="sl"><span>' + esc(x.nome) + '<small>' + fd(x.ts) + ' às ' + fh(x.ts) + (x.des ? ' · <button type="button" class="cxDes" data-act="rtdes" data-id="' + x.des + '">Desfazer</button>' : '') + '</small></span><b>' + x.val + '</b></div>';
             })
             .join('')
         : '<div class="hint" style="margin:0">Nenhum movimento ainda.</div>') +

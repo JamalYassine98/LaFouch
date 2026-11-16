@@ -3741,14 +3741,14 @@ async def main():
               S.dTab = 'din'; L.setView('dash'); L.render(); await sl(500); const tr = document.getElementById('dtabBody').textContent;
               const reservas = !/Seu mês|Detalhes do mês|Lucro real do mês/.test(tr);
               L.setView('hist'); await sl(500); const hist = !/Fechamento do caixa/.test(document.getElementById('v-hist').textContent);
-              L.inicioGo('hoje'); await sl(600); const hoje = /Fechamento do caixa/.test(document.getElementById('v-dia').textContent);
+              L.inicioGo('hoje'); await sl(600); const vd = document.getElementById('v-dia'); const hoje = !/Fechamento do caixa|Despesas do dia/.test(vd.textContent) && !vd.querySelector('[data-act=fechar]') && !!vd.querySelector('.kpiLk[data-act=view][data-id=desp]');  // S374 (esboço 70): sem fechar manual e sem a janela Despesas do dia
               L.setView('ajustes'); await sl(500); const r = document.querySelector('.ajS[data-k=pa]'); const rot = r.querySelector('.ajRes').textContent === 'em Preços';
               return [tem && abre, reservas, hist, hoje, rot]; }""")
             await pg.locator('.ajS[data-k=pa] .ajR').click(); await pg.wait_for_timeout(500)
             got.append(await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.dTab].join()"))
             total += 1
             ok = got == [True] * 5 + ['dash,prec'] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'S363: Resultado do mês no Dashboard, Reservas e Histórico sem repetição, fechamento em Hoje, Preço automático leva a Preços')
+            print(('  ok  ' if ok else ' FALHA ') + 'S363/S374: Resultado do mês no Dashboard, Reservas e Histórico sem repetição, Hoje sem fechar manual nem Despesas do dia, Preço automático leva a Preços')
             if not ok: falhas.append('S363 redundâncias'); print('        veio', got, pg.erros)
             await pg.close()
 

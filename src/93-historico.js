@@ -233,7 +233,7 @@
       '<div class="kpi"><div class="lbl">Lucro livre</div><b style="color:var(--ok)">' +
       gs(liv) +
       '</b><div class="hint">depois de separar tudo</div></div>' +
-      '<div class="kpi"><div class="lbl">Contas do dia</div><b style="color:var(--warn)">' +
+      '<div class="kpi kpiLk" data-act="view" data-id="desp" role="button" tabindex="0"><div class="lbl">Contas do dia ›</div><b style="color:var(--warn)">' +
       gs(rateio) +
       '</b><div class="hint">1/30 de ' +
       gs(tm) +
@@ -487,7 +487,7 @@
     h +=
       '<div class="card col" style="padding:14px;' +
       (s.estorno ? 'opacity:.7' : '') +
-      '"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center"><div><span class="cell">' + (s.carrinho ? 'Venda (pedido)' : 'Venda') + '</span><div style="margin-top:6px"><b style="' +
+      '"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center"><div>' + (s.carrinho ? '<span class="hint" style="margin:0">pedido</span>' : '') + '<div><b style="' +
       (s.estorno ? 'text-decoration:line-through' : '') +
       '">' +
       esc(descOf(s)) +
@@ -507,12 +507,12 @@
       (gs(s.price) !== exatoDe(s) ? '<div class="hint" style="margin:2px 0 0">≈ ' + gs(s.price) + '</div>' : '') +
       '</div></div>';
     h +=
-      '<div class="nav"><button class="btn-sc p" data-act="hopen" data-id="' +
+      '<div class="nav vAc"><button class="btn-sc p" data-act="hopen" data-id="' +
       s.id +
       '" aria-expanded="' +
       open +
       '">' +
-      (open ? 'Ocultar detalhes' : 'Ver detalhes') +
+      (open ? 'Ocultar detalhes' : 'Ver detalhes ›') +
       '</button>' +
       (s.estorno
         ? ''

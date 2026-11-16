@@ -178,7 +178,8 @@
     var cdia = [].filter.call(v.querySelectorAll('section,.card,.famRec'), function (e) { return /^Câmbio (do dia|feito neste dia)/.test((e.textContent || '').trim()); });
     cdia.forEach(function (e) { e.remove(); });
     // S363 (esboço 45b): o "Fechamento do caixa" saiu do Histórico e fica aqui, no dia de hoje
-    if (typeof fechoHtml === 'function' && !v.querySelector('.d48Fecho')) {
+    // S374 (esboço 70, dono 16/11 16:54): sai o "Fechar o dia agora" manual com o cartão — o dia fecha sozinho depois das 17h
+    if (false && typeof fechoHtml === 'function' && !v.querySelector('.d48Fecho')) {
       var fd = document.createElement('div');
       fd.className = 'd48Fecho'; fd.innerHTML = fechoHtml();
       var c2a = v.querySelector('.famC2');

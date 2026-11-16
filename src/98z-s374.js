@@ -234,6 +234,7 @@
     document.body.style.minHeight = '';
     return _setView74.apply(this, arguments);
   };
+  window.__lfFold = lfFoldAnim;
   function lfRedesenha() {
     if (S.view === 'dash') renderDash();
     else render();
@@ -420,4 +421,10 @@
       ln.hidden = false;
     } else if (ln) ln.hidden = true;
     return r;
+  };
+
+  // S374 (esboço 72): Caixa › "Livre e reservado ›" abre o Dashboard na aba Reservas
+  ACT.cxReservas = function () {
+    S.dTab = 'din';
+    setView('dash');
   };

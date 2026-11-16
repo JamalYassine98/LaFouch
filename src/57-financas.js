@@ -455,9 +455,9 @@
         fd(x.ts) +
         ' às ' +
         fh(x.ts) +
-        ' · <a href="#" data-act="rtdes" data-id="' +
+        ' · <button type="button" class="cxDes" data-act="rtdes" data-id="' +
         x.ts +
-        '" style="color:var(--accent-fg)">desfazer</a></small></span><b>' +
+        '">Desfazer</button></small></span><b>' +
         fmtM(x.orig, x.moeda) +
         '</b></div>';
     });
