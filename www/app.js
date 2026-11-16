@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 535;
+  var APP_BUILD = 536;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.26.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.27.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -4690,7 +4690,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   $('btnFilt').onclick = function () {
     if (S.filtOpen) {
-      filtClose(true);
+      filtClose(false); // S370: vale o que foi escolhido (sem "Ver N peças"/"Cancelar")
       return;
     }
     FSNAP = { selSet: (S.selSet || []).slice() };
@@ -4707,7 +4707,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     filtClose(true);
   };
   $('filtPanel').addEventListener('click', function (e) {
-    if (e.target === $('filtPanel')) filtClose(true);
+    if (e.target === $('filtPanel')) filtClose(false);
   });
   var LSNAP = null;
   $('kLot').onclick = function () {
@@ -22619,7 +22619,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
     var l = Array.isArray(S.inicioT) ? S.inicioT : INI_PADRAO;
     return l.filter(function (id, i) {
-      return INI_TODOS.indexOf(id) >= 0 && l.indexOf(id) === i;
+      return (INI_TODOS.indexOf(id) >= 0 || !!grpGet(id)) && l.indexOf(id) === i;
     });
   }
   function iniDados() {
@@ -22666,13 +22666,14 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (document.activeElement && document.activeElement.id === 'buQ' && el.contains(document.activeElement)) return;
     var h = vendidoHoje(),
       D = iniDados(),
-      B = grpPlana(),
+      B = grpPlana().concat(grpIniItens()),
       L = iniLista().filter(function (id) {
         return B.indexOf(id) < 0;
       }),
       ed = !!S.inicioEd;
     var grid = L.map(function (id, i) {
       var t = D[id];
+      if (grpGet(id)) return grpTileHtml(grpGet(id), ed);
       if (!ed) return tileHtml('data-act="inicio" data-id="' + id + '"', id, t[0], t[1], '', false);
       return (
         '<div class="twrap" data-k="' + id + '">' +
@@ -22726,15 +22727,29 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<div class="hero" data-act="inicio" data-id="hoje" role="button" tabindex="0"><span class="hi">' + ico('hero', 26) + '</span><span><small>Vendido hoje · ' + h.n + ' venda(s)</small><b>' + gs(h.v) + '</b></span><span class="hg">›</span></div>' +
       '<div class="tgrid' + (ed ? ' editando' : '') + '">' + grid + '</div>' + extra;
   }
+  // S370 (esboço 44): azulejo de um grupo do Início — o ícone próprio do par, o nome do grupo e as telas embaixo
+  function grpTileHtml(g, ed) {
+    var par = g.itens.length >= 2 ? grpIcoPar(g.itens[0], g.itens[1], 24) : '',
+      ic = par || g.itens.slice(0, 2).map(function (x) { return ico(x, 16); }).join(''),
+      fx = g.itens.map(function (x) { return BARRA_NOME[x] || x; }).join(' · '),
+      av = grpAviso(g);
+    var h = '<button type="button" class="tl tlG" ' + (ed ? 'disabled' : 'data-act="inicio" data-id="' + g.id + '"') + ' aria-label="Grupo ' + esc(g.nome) + ': ' + esc(fx) + '">' +
+      '<span class="ti' + (par ? '' : ' tiG') + '">' + ic + '</span><span class="tn">' + esc(g.nome) + '</span><span class="tp' + (av ? ' w' : '') + '">' + (av ? av + ' novos' : esc(fx)) + '</span></button>';
+    if (!ed) return h;
+    return '<div class="twrap" data-k="' + g.id + '">' + h + '<div class="tedit"><button type="button" class="x" data-act="grpGerir" data-id="' + g.id + '" aria-label="Gerenciar grupo ' + esc(g.nome) + '">⋯</button></div></div>';
+  }
   /* toque num azulejo da tela Início */
   function inicioGo(id) {
+    if (grpGet(id)) return grpAbre(grpGet(id));
     if (id === 'hoje' || id === 'din' || id === 'giro' || id === 'prec') {
       S.dTab = id;
       setView('dash');
     } else if (id === 'cat') {
       S.catOpen = true;
       setView('vendas');
-    } else if (id === 'msg' || id === 'anl' || id === 'tem' || id === 'ata') {
+    } else if (id === 'ata') {
+      setView('ata');
+    } else if (id === 'msg' || id === 'anl' || id === 'tem') {
       onlPainel(id);
     } else if (id === 'mkt') {
       mkAbre();
@@ -22794,7 +22809,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (id === 'lotes') return v === 'estoque' && !!S.lotesView;
     if (id === 'vendas') return (v === 'vendas' && !(S.catOpen && grpPlana().indexOf('cat') >= 0)) || (v === 'onl' && grpPlana().indexOf('onl') < 0);
     if (id === 'estoque') return v === 'estoque' && !(S.lotesView && grpPlana().indexOf('lotes') >= 0);
-    if (id === 'msg' || id === 'anl' || id === 'tem' || id === 'ata') return v === 'onl' && S.onlAba === id;
+    if (id === 'ata') return v === 'ata'; // S370 (esboço 23): Atacado é tela do app
+    if (id === 'msg' || id === 'anl' || id === 'tem') return v === 'onl' && S.onlAba === id;
     if (id === 'cont' || id === 'novo') return false;
     return v === id;
   }
@@ -25098,6 +25114,29 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     });
     return o;
   }
+  // S370 (esboço 44, aprovado 15/11/2026): grupos também entre os atalhos do Início (o id do grupo fica em S.inicioT)
+  function grpIni() {
+    return (Array.isArray(S.inicioT) ? S.inicioT : []).filter(function (id) { return !!grpGet(id); });
+  }
+  function grpNoIni(gid) {
+    return grpIni().indexOf(gid) >= 0 && barraLista().indexOf(gid) < 0;
+  }
+  // telas que estão dentro de algum grupo do Início
+  function grpIniItens() {
+    var o = [];
+    grpIni().forEach(function (id) { o = o.concat(grpGet(id).itens); });
+    return o;
+  }
+  // o grupo da tela aberta (barra primeiro, depois Início)
+  function grpAtivo() {
+    if (S.view === 'inicio' || S.view === 'notif') return null;
+    var g = null;
+    barraLista().concat(grpIni()).forEach(function (id) {
+      var x = grpGet(id);
+      if (x && !g && navOn(id)) g = x;
+    });
+    return g;
+  }
   function grpAviso(g) {
     return g.itens.indexOf('ped') >= 0 ? pedNovos() : 0;
   }
@@ -25118,33 +25157,16 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     inicioGo(t);
   }
   // Abas do grupo no topo da tela.
+  // S370 (esboço 41, aprovado 15/11/2026): as abas do topo saem; o título da tela ganha a flecha (⌄) e abre a folha VER
+  // com as telas do grupo e "Gerenciar grupo" (a mesma mecânica do Dashboard). O desenho do título é feito em grpTitulo().
   function grpAbasRender() {
     var el = $('grpTabs');
     if (!el) return;
-    var g = null;
-    if (S.view !== 'inicio' && S.view !== 'notif')
-      barraLista().forEach(function (id) {
-        var x = grpGet(id);
-        if (x && !g && navOn(id)) g = x;
-      });
-    if (!g) {
-      el.hidden = true;
-      el.textContent = '';
-      return;
-    }
-    // S269 (14/11/2026): no lugar das pílulas, o nome do grupo em cima e as telas como palavras em linha, com fio fino sob a ativa
-    var h = '<span class="gtNm">' + esc(g.nome) + '</span><span class="gtRw">', ativa = '';
-    g.itens.forEach(function (t) {
-      var on = navOn(t),
-        n = t === 'ped' ? pedNovos() : 0;
-      if (on) { g.ult = t; ativa = t; }
-      h += '<button type="button" class="' + (on ? 'on' : '') + '" data-act="grpTela" data-id="' + t + '" aria-pressed="' + on + '">' + BARRA_NOME[t] + (n ? ' <b>' + n + '</b>' : '') + '</button>';
-    });
-    h += '</span><button type="button" class="gmais" data-act="grpGerir" data-id="' + g.id + '" aria-label="Gerenciar grupo ' + esc(g.nome) + '">⋯</button>';
-    el.hidden = false;
-    el.className = 'gtabs gtL' + (ativa && S._gtUlt && S._gtUlt !== g.id + ':' + ativa ? ' gtIn' : ''); // o fio só se move quando a tela do grupo muda
-    S._gtUlt = g.id + ':' + ativa;
-    el.innerHTML = h;
+    var g = grpAtivo();
+    S._gAt = g ? g.id : null;
+    if (g) g.itens.forEach(function (t) { if (navOn(t)) g.ult = t; });
+    el.hidden = true;
+    el.textContent = '';
   }
   // Coloca o botão no lugar do grupo na barra (ou no Início se a barra estiver cheia).
   function grpSolta(B, pos, ids) {
@@ -25159,6 +25181,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.barra = barraLista().filter(function (x) {
       return x !== id;
     });
+    if (Array.isArray(S.inicioT)) S.inicioT = S.inicioT.filter(function (x) { return x !== id; });
     var eraAuto = g.nome === grpNomeAuto(g.itens);
     g.itens.push(id);
     if (eraAuto) g.nome = grpNomeAuto(g.itens); // o nome sugerido acompanha o grupo; nome escrito pelo dono não é trocado
@@ -25167,6 +25190,17 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function grpTira(gid, id) {
     var g = grpGet(gid);
     if (!g) return;
+    if (grpNoIni(gid)) {
+      var L = iniLista().slice(),
+        k = L.indexOf(gid);
+      g.itens = g.itens.filter(function (x) { return x !== id; });
+      if (g.itens.length < 2) {
+        S.grupos = S.grupos.filter(function (x) { return x !== g; });
+        L.splice.apply(L, [k, 1].concat(g.itens, [id]));
+      } else L.splice(k + 1, 0, id);
+      S.inicioT = L;
+      return;
+    }
     var B = barraLista().slice(),
       i = B.indexOf(gid);
     g.itens = g.itens.filter(function (x) {
@@ -25185,6 +25219,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function grpDesfaz(gid) {
     var g = grpGet(gid);
     if (!g) return;
+    if (grpNoIni(gid)) {
+      var L = iniLista().slice();
+      L.splice.apply(L, [L.indexOf(gid), 1].concat(g.itens));
+      S.grupos = S.grupos.filter(function (x) { return x !== g; });
+      S.inicioT = L;
+      return;
+    }
     var B = barraLista().slice(),
       i = B.indexOf(gid);
     B.splice(i, 1);
@@ -25226,7 +25267,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S._gn = { a: a, b: b };
     grpJanela(
       '<div style="display:flex;align-items:center;gap:12px">' + grpIcones([a, b]) + '<b style="font-size:19px">Novo grupo</b></div>' +
-        '<div class="hint" style="margin:0">' + BARRA_NOME[a] + ' e ' + BARRA_NOME[b] + ' passam a ficar juntos num só botão da barra. As telas aparecem como abas no topo.</div>' +
+        '<div class="hint" style="margin:0">' + BARRA_NOME[a] + ' e ' + BARRA_NOME[b] + ' passam a ficar juntos num só botão da barra. Para trocar de tela, toque no título (⌄).</div>' +
         '<input class="in" id="grpNome" maxlength="18" value="' + esc(grpNomePadrao(a, b)) + '" aria-label="Nome do grupo">' +
         '<button type="button" class="go" data-act="grpCria">Criar grupo</button>' +
         '<button type="button" class="chip grpCentro" data-act="grpFecha">Cancelar</button>'
@@ -25310,6 +25351,17 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
   };
   ACT.grpDesfazer = function () {
+    if (grpNoIni(S._gg)) {
+      var gt = document.querySelector('#v-inicio .tl[data-id="' + S._gg + '"]'),
+        it = (grpGet(S._gg) || {}).itens || [],
+        r0 = gt ? gt.getBoundingClientRect() : null;
+      grpDesfaz(S._gg);
+      ACT.grpFecha();
+      if (S.view !== 'inicio') setView('inicio');
+      render();
+      grpIniAbre(it, r0);
+      return;
+    }
     var gb = $('mainnav').querySelector('.mn[data-id="' + S._gg + '"]'),
       gg = grpGet(S._gg),
       desf = gg && gb ? { itens: gg.itens.slice(), r: gb.getBoundingClientRect() } : null;
@@ -27672,7 +27724,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!el || S.view !== 'clientes') return;
     var h = '<div class="top"><div><h1>Clientes</h1><div class="crumb">Quem compra na loja e no atacado.</div></div>' +
       '<button type="button" class="pgAc" data-act="clinovo">+ Novo cliente</button>' + // S324: ação da página ao lado do título (como "+ Adicionar"); o resto em links com "›"
-      '<div class="lkRow"><button type="button" class="lkGo" data-act="ataNovo">Acesso atacado ›</button><button type="button" class="lkGo" data-act="ataLotes">Lotes ›</button><button type="button" class="lkGo" data-act="cupAbre">Cartões ›</button></div></div>';
+      '<div class="lkRow"><button type="button" class="lkGo" data-act="inicio" data-id="ata">Atacado ›</button><button type="button" class="lkGo" data-act="cupAbre">Cartões ›</button></div></div>';
     var c = S.cliSel === 'novo' ? { id: 0, nome: '', tel: '', ruc: '', obs: '' } : cliAtual();
     if (c) {
       var ps = c.id ? cliPedidos(c) : [],
@@ -30499,6 +30551,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   // Depois de cada desenho do Catálogo: texto da linha, bolinha e o progresso do atacado.
   function cjDepois() {
+    // S370 (esboço 26): o modo Atacado do Catálogo saiu; quem tinha ficado nele volta ao varejo
+    if (!tabDe(S.tabAtiva).pub && !S.modoCli) {
+      S.tabAtiva = 'pub';
+      setTimeout(render, 0);
+    }
     cjMonta();
     var rs = $('cjRs');
     if (!rs) return;
@@ -30559,8 +30616,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             return '<button type="button" class="chip cjC" data-g="' + g + '" data-v="' + v + '">' + (ico || '') + '<span>' + esc(txt) + '</span></button>';
           };
         c.innerHTML =
-          '<div class="cjG2"><div><div class="lbl">Preço</div><div class="trk" id="cjTP"><span class="trkTh"></span><button type="button" class="trkB" data-m="v">Varejo</button><button type="button" class="trkB" data-m="a">Atacado</button></div></div>' +
-          '<div><div class="lbl">Moeda</div><div class="trk" id="cjTM"><span class="trkTh"></span><button type="button" class="trkB" data-m="pyg">G$</button><button type="button" class="trkB" data-m="brl">R$</button><button type="button" class="trkB" data-m="usd">US$</button></div></div></div>' +
+          // S370 (esboço 26, aprovado 15/11/2026): o Catálogo é só varejo — a chave Varejo | Atacado saiu (atacado é pela conta/link do lojista)
+          '<div class="cjG1"><div><div class="lbl">Moeda</div><div class="trk" id="cjTM"><span class="trkTh"></span><button type="button" class="trkB" data-m="pyg">G$</button><button type="button" class="trkB" data-m="brl">R$</button><button type="button" class="trkB" data-m="usd">US$</button></div></div></div>' +
           '<div class="hint cjMh" id="cjMh"></div>' +
           '<div class="cjVc"><div class="lbl" style="margin:0">Ver como</div><div class="cjVd">' + chip('sit', 'mais', 'Mais vendidos', CJ_ICO.mais) + '<div class="trk cjTV" id="cjTV"><span class="trkTh"></span><button type="button" class="trkB" data-m="g" aria-label="Cartões"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></button><button type="button" class="trkB" data-m="l" aria-label="Lista"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></button></div></div></div>' +
           '<div class="lbl">Tipo</div><div class="cjR cjR' + Math.min(4, tiposL.length) + '">' + tiposL.map(function (t) { return chip('tipos', t[0], t[1], CJ_ICO[t[0]]); }).join('') + '</div>' +
@@ -30568,9 +30625,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           '<div class="lbl">Para quem</div><div class="cjR cjR3">' + chip('pub', 'F', 'Feminino', CJ_ICO.F) + chip('pub', 'M', 'Masculino', CJ_ICO.M) + chip('pub', 'U', 'Unissex', CJ_ICO.U) + '</div>' +
           '<div class="lbl">Preço até</div><div class="cjR cjR4" id="cjAte">' + CJ_ATE.map(function (v, i) { return chip('ate', v, ateTxt(v), i === 0 ? CJ_ICO.moeda : ''); }).join('') + '</div>' +
           '<div class="lbl">Situação</div><div class="cjR cjR3">' + chip('sit', 'of', 'Oferta', CJ_ICO.of) + chip('sit', 'nov', 'Novidade', CJ_ICO.nov) + chip('sit', 'enc', 'Encalhada', CJ_ICO.enc) + '</div>' +
-          '<div class="cjFt"><button type="button" class="go cjVer" id="cjVer">Ver <span class="cjOdo" id="cjN"><span>0</span></span> peças</button><button type="button" class="mini cjSec" id="cjCanc">Cancelar</button></div>';
+          // S370: sem "Ver N peças" e "Cancelar" (mesma regra dos Filtros do inventário): cada toque vale na hora; fecha arrastando ou tocando fora
+          '<div class="hint cjCt" id="cjCt" aria-live="polite"><span class="cjOdo" id="cjN"><span>0</span></span> peças</div>';
         var pinta = function (primeira) {
-          trkMarca($('cjTP'), D.atac ? 'a' : 'v');
           trkMarca($('cjTM'), D.moeda);
           trkMarca($('cjTV'), D.modo);
           [].forEach.call(c.querySelectorAll('.cjC'), function (b) {
@@ -30600,15 +30657,17 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           gr.innerHTML = soPre && gl.length ? '<div class="lbl">Grau</div><div class="cjGrau">' + gl.map(function (g) { return '<button type="button" class="chip cjGc' + (D.grau === g ? ' on' : '') + '" data-gr="' + esc(g) + '">' + esc(g) + '</button>'; }).join('') + '</div>' : '';
           var n = cjConta({ tipos: D.tipos, pub: D.pub, ate: D.ate, sit: D.sit }, D.grau);
           if (primeira) $('cjN').innerHTML = '<span>' + n + '</span>';
-          else lfOdo($('cjN'), n);
+          else {
+            lfOdo($('cjN'), n);
+            cjAplica(D);
+          }
         };
         c.addEventListener('click', function (e) {
           var b = e.target.closest('button');
           if (!b) return;
           if (b.classList.contains('trkB')) {
             var t = b.parentNode.id;
-            if (t === 'cjTP') D.atac = b.dataset.m === 'a';
-            else if (t === 'cjTM') D.moeda = b.dataset.m;
+            if (t === 'cjTM') D.moeda = b.dataset.m;
             else if (t === 'cjTV') D.modo = b.dataset.m;
             pinta();
             return;
@@ -30631,11 +30690,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             pinta();
             return;
           }
-          if (b.id === 'cjCanc') J.fecha();
-          if (b.id === 'cjVer') {
-            cjAplica(D);
-            setTimeout(J.fecha, 120);
-          }
         });
         setTimeout(function () {
           pinta(true);
@@ -30655,14 +30709,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     };
   }
   function cjAplica(D) {
-    var era = !tabDe(S.tabAtiva).pub;
-    if (D.atac !== era) {
-      if (D.atac) S.tabAtiva = S._ultAtac && tabDe(S._ultAtac).on !== false ? S._ultAtac : 'a1';
-      else {
-        S._ultAtac = S._ultAtacAtual;
-        S.tabAtiva = 'pub';
-      }
-    }
+    if (!tabDe(S.tabAtiva).pub) S.tabAtiva = 'pub'; // S370: o Catálogo é só varejo
     S.vMoeda = D.moeda;
     if (!S.vModo) S.vModo = {};
     S.vModo.v = D.modo;
@@ -31818,6 +31865,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return !it || it.bulk;
   }
   function ebDecora() {
+    if (S.ebSel && S.view !== 'vendas') S.ebSel = null; // S370 (esboço 19): sair do Catálogo desfaz a escolha
     var sel = S.ebSel || [];
     [].forEach.call(document.querySelectorAll('#vRows .pcard[data-ref]'), function (c) {
       var on = sel.indexOf(c.dataset.ref) >= 0;
@@ -44789,8 +44837,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function s185Liga(E, J, app) {
     var tx = $('ebTx');
     if (!tx || $('s185')) return;
-    E.para = 'cli';
-    E.modo = 'link';
+    // S370 (esboço 25): sem "Tipo de envio" — pelo Catálogo é sempre Cliente (varejo); Lojista abre pela tela Atacado › Tabela
+    E.para = S._s185Para === 'loj' ? 'loj' : 'cli';
+    S._s185Para = null;
+    E.modo = E.para === 'loj' ? 'pdf' : 'link';
     E.tab = (S.tabelas || []).filter(function (t) { return t.on !== false && /^a/.test(t.id); })[0];
     E.tab = E.tab ? E.tab.id : 'opt';
     var w = document.createElement('div');
@@ -44801,10 +44851,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       var M = E.para === 'cli' ? [['link', 'Link com foto', E.pecas.length > 1 ? 'várias: seleção' : '1 peça: prévia'], ['cart', 'Cartões', 'post ou story'], ['capa', 'Capa de status', 'até 4 peças + link']] : [['pdf', 'Catálogo PDF', 'tabela de atacado'], ['plan', 'Planilha', 'para o lojista']];
       if (!M.some(function (m) { return m[0] === E.modo; })) E.modo = M[0][0];
       w.innerHTML =
-        '<div class="lbl">TIPO DE ENVIO</div><div class="s185Seg lfAbas" id="s185Tabs" role="tablist"><button type="button" data-p="cli" class="' + (E.para === 'cli' ? 'on' : '') + '">Cliente (varejo)</button><button type="button" data-p="loj" class="' + (E.para === 'loj' ? 'on' : '') + '">Lojista (atacado)</button></div>' +
-        '<div class="lbl">O QUE MANDAR</div><div class="s185G">' + M.map(function (m) { return '<button type="button" data-m="' + m[0] + '" class="' + (E.modo === m[0] ? 'on' : '') + '"><b>' + m[1] + '</b><small>' + m[2] + '</small></button>'; }).join('') + '</div>' +
+        '<div class="lbl">' + (E.para === 'loj' ? 'PARA O LOJISTA · O QUE MANDAR' : 'O QUE MANDAR') + '</div><div class="s185G">' + M.map(function (m) { return '<button type="button" data-m="' + m[0] + '" class="' + (E.modo === m[0] ? 'on' : '') + '"><b>' + m[1] + '</b><small>' + m[2] + '</small></button>'; }).join('') + '</div>' +
         (E.para === 'loj' ? '<div class="lbl">TABELA</div><select class="in" id="s185Tab">' + tabLista().filter(function (t) { return !t.pub; }).map(function (t) { return '<option value="' + t.id + '"' + (t.id === E.tab ? ' selected' : '') + '>' + esc(t.nome) + '</option>'; }).join('') + '</select>' : '');
-      if (window.lfLinhaAbas) window.lfLinhaAbas('s185Tabs', '.on'); // S324: abas padrão
       var cartao = E.modo === 'cart';
       ['ebTr', 'ebEst'].forEach(function (id) { var x = $(id); if (x) x.hidden = !cartao; });
       var dica = document.querySelector('.ebJn .ebDica');
@@ -46942,6 +46990,25 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         });
         if (ts) ts.classList.add('troca');
         dg.troca = ts;
+        // S370 (esboço 44): parado sobre outro atalho, um anel se fecha em volta dele (0,3 s); fechado = soltar junta os dois
+        var tk = ts && !grpGet(dg.id) ? ts.getAttribute('data-id') : null;
+        if (tk !== dg.rk) {
+          clearTimeout(dg.rt);
+          [].slice.call(document.querySelectorAll('#v-inicio .tl.qjT,#v-inicio .tl.qjOk')).forEach(function (el) { el.classList.remove('qjT', 'qjOk'); });
+          dg.rk = tk;
+          dg.juntaT = null;
+          if (tk) {
+            ts.classList.add('qjT');
+            dg.rt = setTimeout(function () {
+              if (dg && dg.rk === tk) {
+                dg.juntaT = tk;
+                ts.classList.add('qjOk');
+                vibrar(12);
+                quadro();
+              }
+            }, 300);
+          }
+        }
       }
       var B = barraLista();
       lugarBarra(o, B);
@@ -46964,6 +47031,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       l.forEach(function (s, i) {
         s.classList.toggle('qj', dg.junta > 0 && i === dg.junta);
       });
+      if (dg.g) dg.g.classList.toggle('qgJ', !!dg.rk); // S370: sobre o alvo o atalho encolhe ao lado dele, e o anel aparece
       if (dg.junta > 0) {
         var al = B[dg.junta - 1];
         dica(grpGet(al) ? 'Solte para juntar ao grupo ' + barraNome(al) : 'Solte para juntar com ' + barraNome(al));
@@ -46971,8 +47039,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         dica('Solte para adicionar ao grupo ' + barraNome(B[o.k - 1]));
       } else if (!dg.deBarra && o.zona === 'lixo') {
         dica('Solte para ocultar este botão');
+      } else if (!dg.deBarra && dg.troca && dg.juntaT) {
+        dica(grpGet(dg.juntaT) ? 'Solte para pôr no grupo ' + barraNome(dg.juntaT) : 'Solte para juntar com ' + barraNome(dg.juntaT));
       } else if (!dg.deBarra && dg.troca) {
-        dica('Solte para trocar de lugar');
+        dica(grpGet(dg.id) ? 'Solte para trocar de lugar' : 'Solte para trocar de lugar · segure para juntar');
       } else if (dg.deBarra) {
         dica(o.zona === 'barra' ? (o.k > 0 ? 'Solte para trocar de lugar · segure para juntar' : 'Arraste para fora para tirar da barra') : 'Solte aqui para tirar da barra');
       } else if (B.length < BARRA_MAX) {
@@ -47142,14 +47212,15 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       });
       var lx = $('inLixo');
       if (lx) lx.classList.remove('on', 'perto');
-      [].slice.call(document.querySelectorAll('#v-inicio .tl.troca')).forEach(function (el) {
-        el.classList.remove('troca');
+      [].slice.call(document.querySelectorAll('#v-inicio .tl.troca,#v-inicio .tl.qjT,#v-inicio .tl.qjOk')).forEach(function (el) {
+        el.classList.remove('troca', 'qjT', 'qjOk');
       });
     }
     function fim(ev) {
       if (!dg) return;
       clearTimeout(dg.t);
       clearTimeout(dg.ht);
+      clearTimeout(dg.rt);
       var d = dg;
       if (!d.on) {
         dg = null;
@@ -47167,7 +47238,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         troca = '',
         pend = null,
         alvoG = o.zona === 'barra' && o.k > 0 ? B[o.k - 1] : null;
-      if (d.deBarra && grpGet(d.id) && Math.abs(d.cx - d.x0) + Math.abs(d.cy - d.y0) < 14 && ev && ev.type === 'pointerup') {
+      if (grpGet(d.id) && Math.abs(d.cx - d.x0) + Math.abs(d.cy - d.y0) < 14 && ev && ev.type === 'pointerup') {
         // segurou o grupo sem mexer: gerenciar
         volta = true;
         pend = ['ger', d.id];
@@ -47182,6 +47253,20 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           volta = true;
           pend = ['novo', alvoG, d.id];
         }
+      } else if (!d.deBarra && o.zona === 'fora' && d.juntaT && d.troca && d.troca.getAttribute('data-id') === d.juntaT && ev && ev.type === 'pointerup') {
+        // S370 (esboço 44): o anel fechou — junta os dois atalhos do Início num grupo
+        var gh = d.g,
+          alvoEl = d.troca;
+        d.g = null;
+        limpa();
+        dg = null;
+        dicaOff();
+        if (alvoEl) alvoEl.classList.remove('troca');
+        grpIniJunta(d.id, d.juntaT, gh, alvoEl, function () {});
+        return;
+      } else if (!d.deBarra && o.zona === 'lixo' && grpGet(d.id)) {
+        volta = true;
+        msg = 'Para desfazer o grupo: segure nele › Desfazer o grupo';
       } else if (!d.deBarra && o.zona === 'lixo') {
         oculta = true;
       } else if (!d.deBarra && o.zona === 'fora' && d.troca) {
@@ -47310,6 +47395,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         return;
       }
       S.barra = B;
+      // um grupo do Início que foi para a barra sai do Início
+      if (!d.deBarra && grpGet(d.id) && B.indexOf(d.id) >= 0 && Array.isArray(S.inicioT)) S.inicioT = S.inicioT.filter(function (x) { return x !== d.id; });
       if (g && !REDUCED && o.zona === 'barra' && o.k >= 0) {
         var sr = slots()[o.k] ? slots()[o.k].getBoundingClientRect() : null;
         if (sr) {
@@ -49465,11 +49552,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         return '<button type="button" class="tab' + (on ? ' on' : '') + '" data-act="invSit" data-id="' + s[0] + '" aria-pressed="' + on + '">' + (s[0] === 'preco' ? '<b class="pSin ex">!</b> ' : '') + '<span>' + s[1] + '</span><em>' + n + '</em></button>';
       }).join('');
     }
+    // S370 (aprovado 15/11/2026): sem "Ver N peças" e "Cancelar" — cada toque vale na hora; fecha arrastando, tocando fora ou Esc
     var ap = $('filtApply');
-    if (ap && S.filtOpen) {
-      var np = invPecas();
-      ap.textContent = 'Ver ' + np + (np === 1 ? ' peça' : ' peças');
-    }
+    if (ap && ap.parentNode && ap.parentNode.style.display !== 'none') ap.parentNode.style.display = 'none';
   }
   // abrir a folha: vários tipos de uma vez (o botão "Selecionar vários" sai)
   (function () {
@@ -50067,6 +50152,183 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.view = 'inicio';
     saveSoon();
   }
+  // ===== S370 (16/11/2026) — esboços 23 e 27 (aprovados 15/11/2026): tela ATACADO do próprio app =====
+  // Antes: o atalho Atacado abria o painel do site; os lotes ficavam em Clientes › Lotes; o envio a lojista no Compartilhar do Catálogo.
+  // Agora: uma tela do app com 4 abas — Mensagens (pedidos de orçamento do site + pedidos das contas), Lojistas (contas),
+  // Lotes e Tabela (enviar catálogo a um lojista, ver a tabela como o lojista vê, editar as tabelas). "+ Novo acesso" ao lado do título.
+  // A estrutura é criada aqui (app.js), nunca só no index.html (o aparelho pode estar com o index antigo).
+  if (!$('v-ata')) {
+    var _va = document.createElement('div');
+    _va.id = 'v-ata';
+    _va.className = 'view';
+    _va.hidden = true;
+    var _vc = $('v-clientes');
+    if (_vc && _vc.parentNode) _vc.parentNode.insertBefore(_va, _vc.nextSibling);
+    else document.querySelector('.wrap') && document.querySelector('.wrap').appendChild(_va);
+  }
+  if (!VIEWS.some(function (v) { return v[0] === 'ata'; })) VIEWS.push(['ata', 'Atacado']);
+  S.ataAba = S.ataAba || 'msg';
+  var ATA_ABAS = [['msg', 'Mensagens'], ['loj', 'Lojistas'], ['lot', 'Lotes'], ['tab', 'Tabela']];
+  // mensagens de atacado que chegaram pelo site (a mesma lista do painel › Mensagens, só as de atacado)
+  function ataMsgBusca() {
+    if (ataMsgBusca.on || !S.nuvem || !S.nuvem.rt || navigator.onLine === false || typeof nvToken !== 'function') return;
+    ataMsgBusca.on = 1;
+    nvToken().then(function (t) {
+      return fetch('https://southamerica-east1-' + nvCfg().p + '.cloudfunctions.net/mensagem', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: JSON.stringify({ acao: 'lista', n: 200 }) }).then(function (r) { return r.json(); });
+    }).then(function (j) {
+      ataMsgBusca.on = 0;
+      if (!j || !j.ok) { S._ataMsgErr = 1; return; }
+      S._ataMsgErr = 0;
+      S.ataMsgs = (j.itens || []).filter(function (m) { return m && m.tipo === 'atacado'; }).slice(0, 100);
+      S._ataMsgTs = Date.now();
+      if (S.view === 'ata') renderAtacado();
+    }, function () { ataMsgBusca.on = 0; S._ataMsgErr = 1; if (S.view === 'ata') renderAtacado(); });
+  }
+  function ataHa(ts) {
+    var m = Math.max(0, Math.round((Date.now() - (+ts || 0)) / 60000));
+    if (m < 60) return 'há ' + Math.max(1, m) + ' min';
+    var h = Math.round(m / 60);
+    if (h < 24) return 'há ' + h + ' h';
+    var d = Math.round(h / 24);
+    return d === 1 ? 'ontem' : 'há ' + d + ' dias';
+  }
+  function ataLinha(act, id, tit, sub, n) {
+    return '<button type="button" class="ataL" data-act="' + act + '" data-id="' + esc(String(id)) + '"><span><b>' + esc(tit) + '</b><small>' + esc(sub) + '</small></span>' + (n ? '<em>' + n + '</em>' : '') + '<i aria-hidden="true">›</i></button>';
+  }
+  function ataMsgItens() {
+    var o = [];
+    (S.ataMsgs || []).forEach(function (m) {
+      o.push({ k: 'm', id: m.id, ts: m.ts || 0, tit: m.nome || 'Lojista', sub: (m.qtd ? 'Quer ' + m.qtd + (/\d$/.test(m.qtd) ? ' peças' : '') : 'Pediu orçamento') + (m.procura && m.procura.length ? ' · ' + m.procura.join(', ') : '') + ' · ' + ataHa(m.ts), novo: (m.est || 'novo') === 'novo' });
+    });
+    Object.keys(S.ataPeds || {}).forEach(function (k) {
+      // avisos das contas de atacado (pedido confirmado, aviso de volta, aparelho novo…), gravados pela função atacado
+      var p = S.ataPeds[k] || {},
+        c = (S.ataContas || {})[p.conta] || {},
+        d = String(p.d || 'Pedido de atacado');
+      o.push({ k: 'p', id: k, ts: +p.ts || 0, tit: c.nome || p.nome || 'Lojista', sub: d.charAt(0).toUpperCase() + d.slice(1) + ' · ' + ataHa(p.ts), novo: !p.visto });
+    });
+    return o.sort(function (a, b) { return b.ts - a.ts; });
+  }
+  function ataCorpo() {
+    var a = S.ataAba, h = '';
+    if (a === 'msg') {
+      var L = ataMsgItens();
+      if (!S._ataMsgTs || Date.now() - S._ataMsgTs > 120000) ataMsgBusca();
+      var sel = ataPC() ? (S.ataMsgs || []).filter(function (m) { return m.id === S._ataSel; })[0] || (S.ataMsgs || [])[0] : null;
+      h = L.length
+        ? '<section class="card ataLs">' + L.map(function (x) { return ataLinha(x.k === 'm' ? 'ataMsgAbre' : 'ataPedAbre', x.id, x.tit, x.sub, x.novo ? 1 : 0).replace('class="ataL"', 'class="ataL' + (sel && sel.id === x.id ? ' on' : '') + '"'); }).join('') + '</section>'
+        : '<div class="ataVz">' + (S._ataMsgErr && !(S.ataMsgs || []).length ? 'Sem conexão com a nuvem agora. As mensagens de lojistas aparecem aqui quando o app estiver conectado.' : 'Nenhuma mensagem de lojista ainda.') + '</div>';
+      h += '<p class="ataNt">Mensagens e pedidos de lojistas que chegam pelo site.</p>';
+      if (sel) h = '<div class="ataDuo"><div>' + h + '</div><div class="ataDet"><h2>' + esc(sel.nome || 'Lojista') + '</h2>' + ataMsgDetHtml(sel) + '</div></div>';
+    } else if (a === 'loj') {
+      var C = Object.keys(S.ataContas || {}).map(function (k) { return S.ataContas[k]; }).filter(function (c) { return c && !c.cancelada; });
+      h = C.length
+        ? '<section class="card ataLs">' + C.map(function (c) {
+            var ap = (c.aparelhos || []).length;
+            return ataLinha('ataLojAbre', c.id, c.nome || 'Lojista', (c.pausada ? 'Pausada · ' : '') + 'Tabela ' + tabDe(c.tab).nome + ' · ' + ap + (ap === 1 ? ' aparelho' : ' aparelhos'), 0);
+          }).join('') + '</section>'
+        : '<div class="ataVz">Nenhum lojista com acesso ainda. Toque em “+ Novo acesso” para criar o primeiro.</div>';
+      h += '<p class="ataNt">Cada lojista compra pelo link da conta dele, com a tabela e o mínimo do atacado.</p>';
+    } else if (a === 'lot') {
+      var T = Object.keys(S.ataLotes || {}).map(function (k) { return S.ataLotes[k]; }).filter(Boolean).sort(function (x, y) { return (y.ts || 0) - (x.ts || 0); });
+      h = T.length
+        ? '<section class="card ataLs">' + T.map(function (L) {
+            var n = (L.contas || []).length, st = ataLoteSt(L), d = L.ate ? Math.ceil((L.ate - Date.now()) / DAY) : 0;
+            return ataLinha('ataLoteAbre', L.id, L.nome || 'Lote', (st === 'Ativo' ? 'Aberto' : st) + ' · ' + n + (n === 1 ? ' loja' : ' lojas') + (st === 'Ativo' && d > 0 ? ' · vence em ' + d + (d === 1 ? ' dia' : ' dias') : ''), 0);
+          }).join('') + '</section>'
+        : '<div class="ataVz">Nenhum lote ainda.</div>';
+      h += '<button type="button" class="lkTx ataMais" data-act="ataLoteNovo">+ Criar lote</button>';
+    } else {
+      h = '<section class="card ataLs">' +
+        ataLinha('ataEnvLoj', '', 'Enviar catálogo a um lojista', 'Abre o Compartilhar já em Lojista (catálogo PDF ou planilha)', 0) +
+        ataLinha('ataVerTab', '', 'Ver a tabela de atacado', 'Os preços como o lojista vê', 0) +
+        ataLinha('tabedit', '', 'Editar tabelas', 'Margem, mínimo e frete de cada tabela', 0) +
+        '</section><p class="ataNt">O lojista compra pelo link da conta dele, com o mínimo do atacado.</p>';
+    }
+    return h;
+  }
+  function renderAtacado() {
+    var el = $('v-ata');
+    if (!el || S.view !== 'ata') return;
+    var tabs = '<div class="s185Seg lfAbas ataTabs" id="ataTabs" role="tablist">' + ATA_ABAS.map(function (t) {
+      var nn = t[0] === 'msg' ? ataMsgItens().filter(function (x) { return x.novo; }).length : 0;
+      return '<button type="button" role="tab" data-act="ataAba" data-id="' + t[0] + '" class="' + (S.ataAba === t[0] ? 'on' : '') + '" aria-selected="' + (S.ataAba === t[0]) + '">' + t[1] + (nn ? ' <b class="ataBd">' + nn + '</b>' : '') + '</button>';
+    }).join('') + '</div>';
+    el.innerHTML = '<div class="top"><div><h1>Atacado</h1><div class="crumb">Lojistas, lotes e pedidos em quantidade.</div></div><button type="button" class="pgAc" data-act="ataNovo">+ Novo acesso</button></div>' + tabs + '<div id="ataCorpo">' + ataCorpo() + '</div>';
+    if (window.lfLinhaAbas) window.lfLinhaAbas('ataTabs', '.on');
+  }
+  var _render23 = render;
+  render = function () {
+    var r = _render23.apply(this, arguments);
+    try { renderAtacado(); } catch (e) {}
+    return r;
+  };
+  ACT.ataAba = function (id) {
+    if (S.ataAba === id) return;
+    S.ataAba = id;
+    renderAtacado();
+    var c = $('ataCorpo');
+    if (c && typeof animEnter === 'function') animEnter(c);
+  };
+  ACT.ataLojAbre = function (id) { if (typeof ataJanela === 'function') ataJanela(id); };
+  function ataPC() { return window.innerWidth >= 1024; }
+  function ataMsgDetHtml(m) {
+    var tel = String(m.tel || '').replace(/\D/g, '');
+    return '<section class="card col" style="gap:0">' +
+          [['Quantidade', m.qtd], ['Procura', (m.procura || []).join(', ')], ['País', m.pais], ['Telefone', m.tel], ['E-mail', m.email], ['Código', m.cod], ['Viu no site', (m.vistos || []).join(', ')], ['Favoritos', (m.favs || []).join(', ')], ['Chegou', ataHa(m.ts)]]
+            .filter(function (r) { return r[1]; }).map(function (r) { return '<div class="sl"><span>' + r[0] + '</span><b>' + esc(String(r[1])) + '</b></div>'; }).join('') +
+          '</section>' +
+          (tel ? '<a class="go" style="display:flex;justify-content:center;text-decoration:none" href="https://wa.me/' + tel + '" target="_blank" rel="noopener">Responder no WhatsApp</a>' : '') +
+          '<button type="button" class="lkTx" data-act="ataNovo" style="display:block;margin:12px auto 0">Criar acesso para este lojista ›</button>';
+  }
+  ACT.ataMsgAbre = function (id) {
+    var m = (S.ataMsgs || []).filter(function (x) { return x.id === id; })[0];
+    if (!m) return;
+    // esboço 30: no computador a mensagem abre ao lado da lista
+    if (ataPC()) { S._ataSel = id; return renderAtacado(); }
+    lfJanela({ titulo: m.nome || 'Lojista', monta: function (box) { box.innerHTML = ataMsgDetHtml(m); } });
+  };
+  ACT.ataPedAbre = function (id) {
+    var p = (S.ataPeds || {})[id];
+    if (!p) return;
+    p.visto = true;
+    saveSoon();
+    if (p.lote && typeof ataLoteJanela === 'function' && S.ataLotes[p.lote]) return ataLoteJanela(p.lote);
+    if (p.conta && typeof ataJanela === 'function' && S.ataContas[p.conta]) return ataJanela(p.conta);
+    renderAtacado();
+  };
+  function ataRefsEstoque() {
+    var v = {};
+    (S.items || []).forEach(function (it) { if (it.qty > 0 && !it.bulk && !(S.ataPub && S.ataPub[it.ref] === false)) v[it.ref] = 1; });
+    return Object.keys(v);
+  }
+  ACT.ataEnvLoj = function () {
+    var r = ataRefsEstoque();
+    if (!r.length) return lfToast('Sem peças em estoque para mandar.');
+    S._s185Para = 'loj';
+    ebAbre(r);
+  };
+  ACT.ataVerTab = function () {
+    var tabs = tabLista().filter(function (t) { return !t.pub && t.on !== false; });
+    if (!tabs.length) return lfToast('Nenhuma tabela de atacado ativa.');
+    var E = { tab: tabs[0].id, pecas: ataRefsEstoque().map(function (r) { return { ref: r, nome: pn(r) }; }) };
+    lfJanela({
+      titulo: 'Tabela de atacado',
+      monta: function (box) {
+        var pinta = function () {
+          var L = s185Linhas(E), T = tabDe(E.tab);
+          box.innerHTML =
+            '<select class="in" id="ataTbSel" aria-label="Tabela">' + tabs.map(function (t) { return '<option value="' + t.id + '"' + (t.id === E.tab ? ' selected' : '') + '>' + esc(t.nome) + '</option>'; }).join('') + '</select>' +
+            '<p class="ataNt">' + (T.min ? 'Mínimo do pedido: US$ ' + T.min + ' · ' : '') + L.length + ' linhas · como o lojista vê</p>' +
+            '<section class="card ataLs">' + L.slice(0, 300).map(function (r) {
+              return '<div class="ataTb"><span><b>' + esc(r.ref + ' · ' + r.nome) + '</b><small>' + esc((r.cor ? r.cor + ' · ' : '') + r.q + (r.q === 1 ? ' peça' : ' peças') + (r.graus ? ' · ' + r.graus : '')) + '</small></span><b>US$ ' + esc(String(r.usd)) + '</b></div>';
+            }).join('') + '</section>';
+          $('ataTbSel').onchange = function () { E.tab = this.value; pinta(); };
+        };
+        pinta();
+      }
+    });
+  };
   // ===== S362 (16/11/2026) · DASHBOARD FINAL — esboço 48, aprovado em 15/11 18:48 (work/s356/48-…) + moedas (15/11 18:56 e 19:01) =====
   // Uma tela "Dashboard ⌄". O período se escolhe no seletor do topo (o que já existia): em "Hoje" aparecem os blocos do dia;
   // nos outros períodos, 3 números (Vendido, Lucro livre, Meta do mês), "O que fazer agora" e os detalhes em linhas que abrem.
@@ -50419,6 +50681,209 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     render();
     lfToast('Produto de volta');
   };
+  // ===== S370 (16/11/2026) — esboço 41 (grupo com a flecha no lugar das abas) e esboço 44 (juntar atalhos do Início) =====
+  // 41: numa tela de grupo, o título da tela ganha "⌄"; tocar abre a folha VER com as telas do grupo e "Gerenciar grupo".
+  // 44: no Início, segurar um atalho (0,4 s) e levá-lo sobre outro; um anel se fecha em volta do alvo (0,3 s); soltando
+  //     com o anel fechado, o atalho viaja em arco, os dois se fundem no ícone do par e o aviso "Grupo criado · Desfazer" fica 5 s.
+  //     Soltar antes do anel fechar continua trocando os dois de lugar (como antes). Desfazer o grupo: cada atalho volta ao seu lugar.
+  var GRP_FRASE = {
+    vendas: 'Escolha a peça e venda', estoque: 'Cadastro, estoque e preço de cada peça', caixa: 'O dinheiro da loja', fx: 'Cotação do dia e trocas de moeda',
+    desp: 'Contas do mês e quanto cada venda separa', hist: 'Todas as vendas, dia por dia', hoje: 'Os números do período', din: 'Livre e separado',
+    giro: 'O que vende e o que está parado', prec: 'Margem e preço por tipo', cat: 'Catálogo pelo WhatsApp', ajustes: 'Aparelho, loja, site e segurança',
+    ped: 'Pedidos que chegaram pelo site', onl: 'Catálogo e site', cli: 'Quem compra na loja e no atacado', cont: 'Conferir o estoque', lotes: 'Compras e fornecedores',
+    novo: 'Cadastrar produto', notif: 'O que precisa de você agora', mkt: 'Posts, vídeos e plano', est: 'Fotos das peças', msg: 'Contato e atacado',
+    anl: 'Visitas do site', tem: 'Calendário do site', ata: 'Orçamentos'
+  };
+  function grpVerHtml(g) {
+    var h = '<div class="dFt"><span>VER</span></div>';
+    g.itens.forEach(function (t) {
+      var on = navOn(t);
+      h += dOpHtml('grpVerEsc', t, BARRA_NOME[t] || t, GRP_FRASE[t] || '', on, true);
+    });
+    return h + dOpHtml('grpGerirV', g.id, 'Gerenciar grupo', 'Nome e telas de "' + esc(g.nome) + '"', false, true);
+  }
+  ACT.grpVer = function () {
+    var g = grpGet(S._gAt);
+    if (!g) return;
+    lfaAbre('dFolha', grpVerHtml(g));
+  };
+  ACT.grpVerEsc = function (id) {
+    lfaFecha('dFolha');
+    if (navOn(id)) return;
+    inicioGo(id);
+  };
+  ACT.grpGerirV = function (gid) {
+    lfaFecha('dFolha');
+    grpGerirAbre(gid);
+  };
+  // no Dashboard o título já tem a flecha: as outras telas do grupo entram na mesma folha
+  var _dVer41 = ACT.dVer;
+  ACT.dVer = function () {
+    _dVer41.apply(this, arguments);
+    var g = grpGet(S._gAt),
+      o = $('dFolha'),
+      sh = o && o.querySelector('.lfa-sh');
+    if (!g || !sh) return;
+    var DASH = ['hoje', 'din', 'giro', 'prec', 'hist'],
+      fora = g.itens.filter(function (t) { return DASH.indexOf(t) < 0; }),
+      h = fora.map(function (t) { return dOpHtml('grpVerEsc', t, BARRA_NOME[t] || t, GRP_FRASE[t] || '', false, true); }).join('');
+    sh.insertAdjacentHTML('beforeend', h + dOpHtml('grpGerirV', g.id, 'Gerenciar grupo', 'Nome e telas de "' + esc(g.nome) + '"', false, true));
+  };
+  // ---------- o título da tela com a flecha ----------
+  var grpObs = null;
+  function grpTituloLimpa(manter) {
+    [].forEach.call(document.querySelectorAll('[data-grpv]'), function (h) {
+      if (h === manter) return;
+      var c = h.querySelector('.grpChv');
+      if (c) c.remove();
+      ['data-act', 'role', 'tabindex', 'data-grpv', 'aria-haspopup'].forEach(function (a) { h.removeAttribute(a); });
+      h.classList.remove('grpH');
+      var t = h.closest('.top');
+      if (t) t.classList.remove('grpTop');
+    });
+  }
+  function grpTitulo() {
+    var g = grpGet(S._gAt),
+      gt = $('grpTabs'),
+      v = g ? $('v-' + S.view) : null,
+      h = v && !v.querySelector('.dHdT') ? v.querySelector('.top h1') : null;
+    if (grpObs) grpObs.disconnect();
+    try {
+      grpTituloLimpa(h);
+      if (gt && !(g && v && !h && !v.querySelector('.dHdT'))) {
+        if (!gt.hidden) { gt.hidden = true; gt.textContent = ''; }
+      }
+      if (!g || !v) return;
+      if (h) {
+        if (!h.querySelector('.grpChv')) {
+          h.insertAdjacentHTML('beforeend', ' <i class="grpChv" aria-hidden="true">⌄</i>');
+          h.setAttribute('data-act', 'grpVer');
+          h.setAttribute('data-grpv', '1');
+          h.setAttribute('role', 'button');
+          h.setAttribute('tabindex', '0');
+          h.setAttribute('aria-haspopup', 'dialog');
+          h.classList.add('grpH');
+          var tp = h.closest('.top');
+          if (tp) tp.classList.add('grpTop');
+        }
+      } else if (!v.querySelector('.dHdT') && gt) {
+        // tela sem título próprio (painel do site): o título com a flecha fica no lugar onde eram as abas
+        var nm = BARRA_NOME[g.ult] || g.nome;
+        if (gt.hidden || !gt.querySelector('.dHdT') || gt.getAttribute('data-nm') !== nm) {
+          gt.className = 'gtabs gtF';
+          gt.setAttribute('data-nm', nm);
+          gt.innerHTML = '<div class="dHd"><button type="button" class="dHdT" data-act="grpVer" aria-haspopup="dialog">' + esc(nm) + ' <i aria-hidden="true">⌄</i></button></div>';
+          gt.hidden = false;
+        }
+      }
+    } finally {
+      grpObsLiga();
+    }
+  }
+  function grpObsLiga() {
+    if (!window.MutationObserver) return;
+    var w = document.querySelector('.wrap');
+    if (!w) return;
+    if (!grpObs)
+      grpObs = new MutationObserver(function () {
+        if (grpTitulo._q) return;
+        grpTitulo._q = true;
+        requestAnimationFrame(function () {
+          grpTitulo._q = false;
+          try { grpTitulo(); } catch (e) {}
+        });
+      });
+    grpObs.observe(w, { childList: true, subtree: true });
+  }
+  var _render41 = render;
+  render = function () {
+    var r = _render41.apply(this, arguments);
+    try { grpTitulo(); } catch (e) {}
+    return r;
+  };
+  // teclado: Enter/Espaço no título abre a folha
+  document.addEventListener('keydown', function (e) {
+    var t = e.target;
+    if ((e.key === 'Enter' || e.key === ' ') && t && t.getAttribute && t.getAttribute('data-grpv')) {
+      e.preventDefault();
+      ACT.grpVer();
+    }
+  });
+  // ---------- esboço 44: juntar dois atalhos do Início ----------
+  function grpIniCria(arrastado, alvo) {
+    var antes = { t: iniLista().slice(), g: JSON.parse(JSON.stringify(S.grupos || [])) },
+      L = iniLista().slice(),
+      gid;
+    if (grpGet(alvo)) {
+      if (!grpAdd(alvo, arrastado)) return null;
+      gid = alvo;
+    } else {
+      gid = 'g:' + Date.now().toString(36);
+      S.grupos.push({ id: gid, nome: grpNomeAuto([alvo, arrastado]), itens: [alvo, arrastado] });
+      L[L.indexOf(alvo)] = gid;
+      S.inicioT = L.filter(function (x) { return x !== arrastado; });
+    }
+    return { gid: gid, antes: antes };
+  }
+  // ghost = o atalho que está sendo arrastado; alvoEl = o atalho de baixo
+  function grpIniJunta(arrastado, alvo, ghost, alvoEl, pronto) {
+    var r = alvoEl ? alvoEl.getBoundingClientRect() : null,
+      novo = !grpGet(alvo),
+      res = grpIniCria(arrastado, alvo);
+    if (!res) return pronto(false);
+    var fim = function () {
+      if (ghost) ghost.remove();
+      pronto(true);
+      render();
+      var t = document.querySelector('#v-inicio .tl[data-id="' + res.gid + '"]');
+      if (t && t.animate && !REDUCED) {
+        var ti = t.querySelector('.ti');
+        t.animate([{ transform: 'scale(.86)' }, { transform: 'scale(1.06)' }, { transform: 'scale(1)' }], { duration: 420, easing: 'cubic-bezier(.2,.8,.2,1)' });
+        if (ti) ti.animate([{ opacity: 0, transform: 'scale(.6) rotate(-10deg)' }, { opacity: 1, transform: 'scale(1) rotate(0)' }], { duration: 380, easing: 'ease-out' });
+      }
+      try { vibrar(20); } catch (e) {}
+      lfDesfazer(novo ? 'Grupo criado' : BARRA_NOME[arrastado] + ' entrou no grupo', function () {
+        S.inicioT = res.antes.t;
+        S.grupos = res.antes.g;
+        render();
+      }, 5000);
+    };
+    if (REDUCED || !ghost || !r || !ghost.animate) return fim();
+    // o ícone viaja em arco até o outro e some dentro dele (os dois se fundem)
+    var g0 = ghost.getBoundingClientRect(),
+      dx = r.left + r.width / 2 - (g0.left + g0.width / 2),
+      dy = r.top + r.height / 2 - (g0.top + g0.height / 2);
+    ghost.style.transition = 'none';
+    var an = ghost.animate(
+      [
+        { transform: 'translate(0,0) scale(1)', opacity: 1 },
+        { transform: 'translate(' + dx * 0.55 + 'px,' + (dy * 0.55 - 46) + 'px) scale(.72)', opacity: 1, offset: 0.55 },
+        { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(.35)', opacity: 0 }
+      ],
+      { duration: 420, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' }
+    );
+    if (alvoEl && alvoEl.animate) alvoEl.animate([{ transform: 'scale(1)' }, { transform: 'scale(1)', offset: 0.7 }, { transform: 'scale(.9)' }], { duration: 420 });
+    an.onfinish = fim;
+  }
+  // 44b: o grupo se abre e cada atalho volta ao seu lugar (0,6 s)
+  function grpIniAbre(itens, r0) {
+    if (REDUCED || !r0 || !itens) return;
+    itens.forEach(function (id, k) {
+      var t = document.querySelector('#v-inicio .tl[data-id="' + id + '"]');
+      if (!t || !t.animate) return;
+      var r = t.getBoundingClientRect(),
+        dx = r0.left + r0.width / 2 - (r.left + r.width / 2),
+        dy = r0.top + r0.height / 2 - (r.top + r.height / 2);
+      t.animate(
+        [
+          { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(.5)', opacity: 0 },
+          { transform: 'translate(' + dx * 0.4 + 'px,' + dy * 0.4 + 'px) scale(.9)', opacity: 1, offset: 0.45 },
+          { transform: 'translate(0,0) scale(1)', opacity: 1 }
+        ],
+        { duration: 600, delay: k * 60, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' }
+      );
+    });
+  }
   // ===== Render geral e persistência (localStorage + IndexedDB). =====
   // Redesenha o app e agenda o salvamento.
   var RENDER_TICK = 0;

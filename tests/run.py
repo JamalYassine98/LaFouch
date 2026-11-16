@@ -941,10 +941,10 @@ async def main():
             tabs = await pg.evaluate("() => [...document.querySelectorAll('.cjC[data-g=tipos] span')].map(b => b.innerText)")
             await pg.click('.cjC[data-v=pre]'); await pg.wait_for_timeout(300)
             graus = await pg.evaluate("() => [...document.querySelectorAll('.cjGc')].map(b => b.textContent)")
-            await pg.click('.cjGc[data-gr="+1.50"]'); await pg.click('#cjVer'); await pg.wait_for_timeout(600)
+            await pg.click('.cjGc[data-gr="+1.50"]'); await pg.keyboard.press('Escape'); await pg.wait_for_timeout(600)
             so150 = await pg.evaluate("() => [...document.querySelectorAll('#vRows .pcard')].map(c => c.dataset.ref)")
             semcod = await pg.evaluate("() => !document.getElementById('vRows').innerText.includes('Código ')")
-            await pg.click('#cjAj'); await pg.wait_for_timeout(500); await pg.click('#cjLimpa'); await pg.click('#cjVer'); await pg.wait_for_timeout(600)
+            await pg.click('#cjAj'); await pg.wait_for_timeout(500); await pg.click('#cjLimpa'); await pg.keyboard.press('Escape'); await pg.wait_for_timeout(600)
             await pg.locator('#vRows .pcard[data-ref="T1"]').click(); await pg.wait_for_timeout(400)
             await pg.evaluate("() => { if (document.getElementById('lfa-folha') && document.getElementById('lfa-folha').innerHTML) window.__folha.vitrine(); }"); await pg.wait_for_timeout(300)
             det = await pg.evaluate("""() => { const d = document.getElementById('vDetail');
@@ -1050,10 +1050,10 @@ async def main():
             f1 = await pg.evaluate("""async () => { const w = ms => new Promise(r => setTimeout(r, ms)); const S = window.__LF.S; const c = [...document.querySelectorAll('#rows .pcard[data-ref]')].find(x => !/Lote|modelos/.test(x.innerText));
               c.click(); await w(400); const durante = [S.todos, S.det, /×/.test(document.getElementById('fsum').innerText)]; S.det = false; S.open = ''; window.__LF.render(); await w(300); return durante.concat([S.todos]); }""")
             await pg.click('#btnFilt'); await pg.wait_for_timeout(400)
-            n0 = await pg.evaluate("() => document.getElementById('filtApply').innerText")
+            n0 = await pg.evaluate("() => String(document.querySelectorAll('#rows .pcard[data-ref]').length)")
             await pg.click('#fSit [data-id="preco"]'); await pg.wait_for_timeout(400)
-            n1 = await pg.evaluate("() => [document.getElementById('filtApply').innerText, window.__LF.S.multi, [...document.querySelectorAll('#rows .pcard[data-ref]')].length]")
-            await pg.click('#filtApply'); await pg.wait_for_timeout(300)
+            n1 = await pg.evaluate("() => [String(document.querySelectorAll('#rows .pcard[data-ref]').length), window.__LF.S.multi, [...document.querySelectorAll('#rows .pcard[data-ref]')].length, getComputedStyle(document.getElementById('filtApply').parentNode).display]")
+            await pg.keyboard.press('Escape'); await pg.wait_for_timeout(300)
             await pg.evaluate("() => window.__LF.ACT.invLimpa()"); await pg.wait_for_timeout(300)
             await pg.click('#invFix'); await pg.wait_for_timeout(500)
             antes = await pg.evaluate("() => document.querySelectorAll('#v-dash .pcNaTela .pcLi').length")
@@ -1061,7 +1061,7 @@ async def main():
             if ref1: await pg.click('#v-dash .pcNaTela [data-act=pcUsa]'); await pg.wait_for_timeout(500)
             depois = await pg.evaluate("(r) => [document.querySelectorAll('#v-dash .pcNaTela .pcLi').length, !!(window.__LF.S.pprice[r] && window.__LF.S.pprice[r].novo)]", ref1)
             total += 1
-            ok = v1 == [True, True, True, True, True] and f1 == [False, True, False, True] and n0 != n1[0] and n1[1] is True and n1[2] > 0 and ref1 and depois == [antes - 1, True] and not pg.erros
+            ok = v1 == [True, True, True, True, True] and f1 == [False, True, False, True] and n0 != n1[0] and n1[1] is True and n1[2] > 0 and n1[3] == 'none' and ref1 and depois == [antes - 1, True] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'v471: Inventário limpo — busca do Catálogo, sinal no preço, Situação, preços para corrigir (Usar X), abrir peça não liga filtro')
             if not ok: falhas.append('v471 inventario limpo'); print('        veio', v1, f1, n0, n1, antes, ref1, depois, pg.erros)
             await pg.close()
@@ -1559,10 +1559,12 @@ async def main():
             r2 = await pg.evaluate("() => window.__LF.S.view")
             await pg.evaluate("() => { window.__LF.S.view = 'inicio'; window.__LF.render(); }"); await pg.wait_for_timeout(200)
             await pg.locator('#v-inicio .tl[data-id="ata"]').click(); await pg.wait_for_timeout(300)
-            r3 = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.onlAba, (document.getElementById('lojaFrame') || {}).getAttribute ? document.getElementById('lojaFrame').getAttribute('src') : '']")
+            r3 = await pg.evaluate("() => [window.__LF.S.view, (document.querySelector('#v-ata h1') || {}).textContent, document.querySelectorAll('#ataTabs button').length]")
+            await pg.locator('#ataTabs button[data-id="tab"]').click(); await pg.wait_for_timeout(300)
+            r3.append(await pg.evaluate("() => [...document.querySelectorAll('#ataCorpo .ataL b')].map(b => b.textContent)"))
             total += 1
-            ok = r == 'estoque' and r2 == 'inicio' and r3[0] == 'onl' and r3[1] == 'ata' and 'aba=msg&mf=atacado' in (r3[2] or '') and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'v-b9: voltar do celular volta para a tela anterior; atalho Atacado abre o painel em Mensagens › Atacado')
+            ok = r == 'estoque' and r2 == 'inicio' and r3[0] == 'ata' and r3[1] == 'Atacado' and r3[2] == 4 and r3[3][:2] == ['Enviar catálogo a um lojista', 'Ver a tabela de atacado'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'v-b9 + S370: voltar do celular volta para a tela anterior; atalho Atacado abre a tela Atacado do app (4 abas)')
             if not ok: falhas.append('v-b9 voltar'); print('        veio', r, r2, r3, pg.erros)
             await pg.close()
 
@@ -2086,7 +2088,7 @@ async def main():
               L.setView('vendas'); L.render();
               return {pub, a1, a10, opt, fg, sg: sg && sg.T.id, sub, chip: (document.getElementById('vInfo') || {}).innerText, msg: L.tabMensagem([]).slice(0, 60)}; }""")
             total += 1
-            ok = tb['pub'] > 0 and 0 < tb['a10'] <= tb['a1'] <= tb['opt'] <= tb['pub'] and tb['fg'] >= tb['opt'] and tb['fg'] <= tb['pub'] and tb['sg'] and 'Atacado 1K ▾' in (tb['chip'] or '') and 'Olá' in tb['msg'] and not pg.erros
+            ok = tb['pub'] > 0 and 0 < tb['a10'] <= tb['a1'] <= tb['opt'] <= tb['pub'] and tb['fg'] >= tb['opt'] and tb['fg'] <= tb['pub'] and tb['sg'] and 'Atacado' not in (tb['chip'] or '') and 'Olá' in tb['msg'] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'tabelas de preço: ordem das margens, sugestão, chip e mensagem')
             if not ok: falhas.append('tabelas'); print('        veio', tb, pg.erros)
             await pg.close()
@@ -2104,27 +2106,14 @@ async def main():
             ok = ps['a'] and not ps['b'] and ps['c'] and not ps['d'] and ps['e'] and ps['mod'] == 0 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'preço estável do site: trava, alta >3%, 30 dias com 2%, arredonda 1.000 para cima')
             if not ok: falhas.append('preco site'); print('        veio', ps, pg.erros)
-            await pg.evaluate("() => { const L = window.__LF; L.S.tabAtiva = 'pub'; L.setView('vendas'); L.render(); }")
-            sm = await pg.evaluate("""() => { const q = t => [...document.querySelectorAll('#vTabBar .trkB')].find(b => b.innerText === t);
-              q('Atacado').click(); const a = window.__LF.S.tabAtiva; q('Varejo').click(); const v = window.__LF.S.tabAtiva; return {a, v}; }""")
+            # S370 (esboço 26): o modo Atacado do Catálogo saiu — quem estava numa tabela de atacado volta ao varejo e a janela não tem a chave
+            sm = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms)); S.cart = []; S.tabAtiva = 'a1'; L.setView('vendas'); L.render(); await w(300);
+              const t = S.tabAtiva; document.getElementById('cjAj').click(); await w(500); const ch = !!document.getElementById('cjTP');
+              document.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape', bubbles: true})); await w(400); return {t, ch}; }""")
             total += 1
-            ok = sm['a'] != 'pub' and sm['v'] == 'pub' and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'vendas: seletor Varejo | Atacado troca a tabela')
-            if not ok: falhas.append('seletor mercado'); print('        veio', sm, pg.erros)
-            at = await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.fx.pyg = 6000; S.pprice = {TB1: {novo: 400000, ant: 0}}; S.cart = []; S.vModo = {v:'l'}; S.tabAtiva = 'a1';
-              S.items = [{tipo:'solar',ref:'TB1',grau:'',cor:'Preto',qty:400,fmt:'',med:'',vr:'',lote:'',custo:20}];
-              try { localStorage.setItem('lf_modo_v', 'l'); } catch (e) {} L.setView('vendas'); L.render(); document.getElementById('vRows').classList.add('vlist'); L.render();
-              const st = document.querySelector('#vRows .pcard[data-ref=TB1] .vstep'); if (!st) return {sem: 1};
-              const p = () => st.querySelector('.vs-p') || document.querySelector('#vRows .vs-p');
-              const clica = el => { el.dispatchEvent(new PointerEvent('pointerdown', {bubbles: true})); el.dispatchEvent(new PointerEvent('pointerup', {bubbles: true})); };
-              clica(document.querySelector('#vRows .vs-p')); clica(document.querySelector('#vRows .vs-p')); clica(document.querySelector('#vRows .vs-m'));
-              const q1 = S.cart.length && S.cart[0].qty; const riscado = !!document.querySelector('#vRows .vriscado'); document.querySelector('#vRows .vs-n').click();
-              const kb = !!document.getElementById('atacN'); document.getElementById('atacN').value = '50'; document.getElementById('atacOk').click();
-              return {q1, kb, q2: S.cart.length && S.cart[0].qty, riscado, total: !!document.querySelector('#vRows .vtotl'), prog: !!document.querySelector('#vTabBar .vprog')}; }""")
-            total += 1
-            ok = at.get('q1') == 1 and at.get('kb') and at.get('q2') == 50 and at.get('riscado') and at.get('total') and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'atacado: − N + , teclado numérico e preço riscado')
-            if not ok: falhas.append('atacado stepper'); print('        veio', at, pg.erros)
+            ok = sm['t'] == 'pub' and sm['ch'] is False and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S370: Catálogo só varejo (sem a chave Varejo | Atacado)')
+            if not ok: falhas.append('catalogo so varejo'); print('        veio', sm, pg.erros)
             gs_ = await pg.evaluate("""async () => { const L = window.__LF, S = L.S; S.cart = []; S.tabAtiva = 'pub';
               S.items = [{tipo:'solar',ref:'GA1',grau:'',cor:'Preto',qty:5,fmt:'',med:'',vr:'',lote:'',custo:20},{tipo:'solar',ref:'GB2',grau:'',cor:'Preto',qty:5,fmt:'',med:'',vr:'',lote:'',custo:20}];
               S.vRef = 'solar|GA1'; S.vModo = {v:'g'}; L.setView('vendas'); L.render();
@@ -2352,9 +2341,9 @@ async def main():
             r0 = await pg.evaluate("() => document.querySelector('#vRows .vpreco') ? document.querySelector('#vRows .vpreco').textContent : ''")
             await pg.click('#cjAj'); await pg.wait_for_timeout(600); await pg.click('#cjTM .trkB[data-m=usd]'); await pg.wait_for_timeout(200)
             hint = await pg.evaluate("() => !document.getElementById('cjMh').hidden")
-            await pg.click('#cjVer'); await pg.wait_for_timeout(600)
+            await pg.keyboard.press('Escape'); await pg.wait_for_timeout(600)
             r1 = await pg.evaluate("() => [document.querySelector('#vRows .vpreco').textContent, true]"); r1[1] = hint
-            await pg.click('#cjAj'); await pg.wait_for_timeout(600); await pg.click('#cjTM .trkB[data-m=pyg]'); await pg.click('#cjVer'); await pg.wait_for_timeout(600)
+            await pg.click('#cjAj'); await pg.wait_for_timeout(600); await pg.click('#cjTM .trkB[data-m=pyg]'); await pg.keyboard.press('Escape'); await pg.wait_for_timeout(600)
             r2 = await pg.evaluate("() => document.querySelector('#vRows .vpreco').textContent")
             total += 1
             ok = r0.startswith('G$') and r1[0].startswith('US$') and r1[1] is True and r2 == r0 and not pg.erros
@@ -2603,7 +2592,8 @@ async def main():
             gid = r2['barra'][-1] if r2['barra'] else ''
             if not gid.startswith('g:'): print('        (sem grupo)', r0, r1, r2, pg.erros)
             await pg.locator('#mainnav .mn[data-id="%s"]' % gid).click(); await pg.wait_for_timeout(500)
-            r3 = await pg.evaluate("() => [window.__LF.S.view, document.getElementById('grpTabs').hidden, [...document.querySelectorAll('#grpTabs button')].length]")
+            r3 = await pg.evaluate("() => { document.querySelector('#v-caixa .top h1[data-grpv]') && document.querySelector('#v-caixa .top h1[data-grpv]').click(); return [window.__LF.S.view, document.getElementById('grpTabs').hidden, document.querySelectorAll('#dFolha .dOp').length]; }")
+            await pg.evaluate("() => window.__LF.ACT.dFecha()"); await pg.wait_for_timeout(400)
             await pg.evaluate("() => window.__LF.setView('inicio')"); await pg.wait_for_timeout(500)
             await arrasta2('#v-inicio .tl[data-id="giro"]', '#mainnav .mn[data-id="%s"]' % gid, 100)
             r4 = await pg.evaluate("() => [window.__LF.S.grupos.map(g => g.itens), window.__LF.S.barra]")
@@ -2618,12 +2608,27 @@ async def main():
             ok = r0[0] == ['vendas', 'estoque', 'ajustes', 'caixa'] and not r0[1]
             ok = (ok and r1[0] and r1[1] == 'Ajustes do caixa'
                   and r2['g'] == [['caixa', 'ajustes']] and r2['nav'][:3] == ['inicio', 'vendas', 'estoque'] and len(r2['nav']) == 4 and r2['ic'] == 1 and r2['gi'] == 0
-                  and r3[0] in ('caixa',) and r3[1] is False and r3[2] == 3
+                  and r3[0] in ('caixa',) and r3[1] is True and r3[2] == 3
                   and r4[0] == [['caixa', 'ajustes', 'giro']]
                   and r5[0] == [['caixa', 'ajustes']] and 'giro' in r5[1]
                   and r6[0] == 0 and 'caixa' in r6[1] and not r6[2] and not pg.erros)
-            print(('  ok  ' if ok else ' FALHA ') + 'grupos: juntar segurando, abas no topo, adicionar do Início, tirar e dissolver')
+            print(('  ok  ' if ok else ' FALHA ') + 'grupos: juntar segurando, título com a flecha (esboço 41), adicionar do Início, tirar e dissolver')
             if not ok: falhas.append('grupos barra'); print('        veio', r0, r1, r2, r3, r4, r5, r6, pg.erros)
+            # S370 (esboço 44): no Início, segurar um atalho sobre outro até o anel fechar junta os dois; soltar rápido só troca de lugar
+            await pg.evaluate("() => { const S = window.__LF.S; S.grupos = []; S.barra = null; S.inicioT = null; window.__LF.setView('inicio'); }"); await pg.wait_for_timeout(500)
+            await arrasta2('#v-inicio .tl[data-id="giro"]', '#v-inicio .tl[data-id="prec"]', 600)
+            await pg.wait_for_timeout(600)
+            j1 = await pg.evaluate("() => { const S = window.__LF.S; const g = S.grupos[0]; return [g && g.itens, g && g.nome, g && S.inicioT.indexOf(g.id) >= 0, S.inicioT.indexOf('giro'), !!document.querySelector('#v-inicio .tl.tlG'), document.getElementById('lfDesf').className]; }")
+            gi = await pg.evaluate("() => window.__LF.S.grupos[0] && window.__LF.S.grupos[0].id")
+            if gi: await pg.locator('#v-inicio .tl[data-id="%s"]' % gi).click(); await pg.wait_for_timeout(600)
+            j2 = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S._gAt]")
+            await pg.evaluate("g => { window.__LF.S._gg = g; window.__LF.ACT.grpDesfazer(); }", gi); await pg.wait_for_timeout(900)
+            j3 = await pg.evaluate("() => [window.__LF.S.grupos.length, window.__LF.S.view, window.__LF.S.inicioT.indexOf('giro') >= 0, window.__LF.S.inicioT.indexOf('prec') >= 0]")
+            total += 1
+            ok = (j1[0] == ['prec', 'giro'] and j1[1] == 'Preço e giro' and j1[2] and j1[3] < 0 and j1[4] and 'on' in j1[5]
+                  and j2 == ['dash', gi] and j3 == [0, 'inicio', True, True] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'S370: juntar dois atalhos do Início (anel), abrir o grupo e desfazer')
+            if not ok: falhas.append('grupo no Início'); print('        veio', j1, j2, j3, pg.erros)
             await pg.close()
 
             # Produtos: preço antigo → novo, canais, aviso de piso e aplicar em grupo (Reajustar)
@@ -3098,7 +3103,7 @@ async def main():
             if not ok: falhas.append('saida site'); print('        veio', got, pg.erros)
             await pg.close()
 
-            # Catálogo (v427): janela de ajustes — rascunho só vale no "Ver", Cancelar desfaz, filtros e bolinha
+            # Catálogo (S370, esboço 26): janela de ajustes — sem a chave Varejo|Atacado; cada toque vale na hora (sem Ver/Cancelar), filtros e bolinha
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
               S.items = [{tipo:'solar',ref:'Q1',grau:'',cor:'Preto',qty:2,custo:5},{tipo:'solar',ref:'Q2',grau:'',cor:'Preto',qty:3,custo:5},{tipo:'pre',ref:'Q3',grau:'+1.00',cor:'Preto',qty:4,custo:1}];
@@ -3108,16 +3113,13 @@ async def main():
               document.getElementById('cjAj').click(); await w(500);
               document.querySelector('.cjC[data-v=solar]').click(); document.querySelector('.cjC[data-v=F]').click(); await w(450);
               const nJ = document.getElementById('cjN').textContent;
-              document.getElementById('cjCanc').click(); await w(500);
-              const canc = [S.cjF.tipos.length, document.querySelectorAll('.ljJn').length];
-              document.getElementById('cjAj').click(); await w(500);
-              document.querySelector('.cjC[data-v=solar]').click(); document.querySelector('.cjC[data-v=F]').click(); await w(100);
-              document.getElementById('cjVer').click(); await w(500);
+              const canc = [S.cjF.tipos.length, document.querySelectorAll('#cjTP,#cjVer,#cjCanc').length];
+              document.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape', bubbles: true})); await w(500);
               const n1 = document.querySelector('#vInfo').textContent, dot = document.getElementById('cjDot').classList.contains('in');
               return [n0, nJ, canc, n1, dot, S.cjF.tipos, S.cjF.pub]; }""")
             total += 1
-            ok = not got[0].startswith('2 ') and got[1] == '2' and got[2] == [0, 0] and got[3].startswith('2') and got[4] is True and got[5] == ['solar'] and got[6] == ['F'] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'catálogo: janela de ajustes (rascunho, Cancelar desfaz, filtros, bolinha)')
+            ok = not got[0].startswith('2 ') and got[1] == '2' and got[2] == [1, 0] and got[3].startswith('2') and got[4] is True and got[5] == ['solar'] and got[6] == ['F'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'catálogo: janela de ajustes (sem Atacado, vale na hora, filtros, bolinha)')
             if not ok: falhas.append('janela ajustes'); print('        veio', got, pg.erros)
             await pg.close()
 

@@ -211,7 +211,7 @@
     if (!el || S.view !== 'clientes') return;
     var h = '<div class="top"><div><h1>Clientes</h1><div class="crumb">Quem compra na loja e no atacado.</div></div>' +
       '<button type="button" class="pgAc" data-act="clinovo">+ Novo cliente</button>' + // S324: ação da página ao lado do título (como "+ Adicionar"); o resto em links com "›"
-      '<div class="lkRow"><button type="button" class="lkGo" data-act="ataNovo">Acesso atacado ›</button><button type="button" class="lkGo" data-act="ataLotes">Lotes ›</button><button type="button" class="lkGo" data-act="cupAbre">Cartões ›</button></div></div>';
+      '<div class="lkRow"><button type="button" class="lkGo" data-act="inicio" data-id="ata">Atacado ›</button><button type="button" class="lkGo" data-act="cupAbre">Cartões ›</button></div></div>';
     var c = S.cliSel === 'novo' ? { id: 0, nome: '', tel: '', ruc: '', obs: '' } : cliAtual();
     if (c) {
       var ps = c.id ? cliPedidos(c) : [],

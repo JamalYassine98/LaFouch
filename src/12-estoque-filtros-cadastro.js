@@ -356,7 +356,7 @@
   }
   $('btnFilt').onclick = function () {
     if (S.filtOpen) {
-      filtClose(true);
+      filtClose(false); // S370: vale o que foi escolhido (sem "Ver N peças"/"Cancelar")
       return;
     }
     FSNAP = { selSet: (S.selSet || []).slice() };
@@ -373,7 +373,7 @@
     filtClose(true);
   };
   $('filtPanel').addEventListener('click', function (e) {
-    if (e.target === $('filtPanel')) filtClose(true);
+    if (e.target === $('filtPanel')) filtClose(false);
   });
   var LSNAP = null;
   $('kLot').onclick = function () {

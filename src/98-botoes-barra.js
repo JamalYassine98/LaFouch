@@ -95,6 +95,25 @@
         });
         if (ts) ts.classList.add('troca');
         dg.troca = ts;
+        // S370 (esboço 44): parado sobre outro atalho, um anel se fecha em volta dele (0,3 s); fechado = soltar junta os dois
+        var tk = ts && !grpGet(dg.id) ? ts.getAttribute('data-id') : null;
+        if (tk !== dg.rk) {
+          clearTimeout(dg.rt);
+          [].slice.call(document.querySelectorAll('#v-inicio .tl.qjT,#v-inicio .tl.qjOk')).forEach(function (el) { el.classList.remove('qjT', 'qjOk'); });
+          dg.rk = tk;
+          dg.juntaT = null;
+          if (tk) {
+            ts.classList.add('qjT');
+            dg.rt = setTimeout(function () {
+              if (dg && dg.rk === tk) {
+                dg.juntaT = tk;
+                ts.classList.add('qjOk');
+                vibrar(12);
+                quadro();
+              }
+            }, 300);
+          }
+        }
       }
       var B = barraLista();
       lugarBarra(o, B);
@@ -117,6 +136,7 @@
       l.forEach(function (s, i) {
         s.classList.toggle('qj', dg.junta > 0 && i === dg.junta);
       });
+      if (dg.g) dg.g.classList.toggle('qgJ', !!dg.rk); // S370: sobre o alvo o atalho encolhe ao lado dele, e o anel aparece
       if (dg.junta > 0) {
         var al = B[dg.junta - 1];
         dica(grpGet(al) ? 'Solte para juntar ao grupo ' + barraNome(al) : 'Solte para juntar com ' + barraNome(al));
@@ -124,8 +144,10 @@
         dica('Solte para adicionar ao grupo ' + barraNome(B[o.k - 1]));
       } else if (!dg.deBarra && o.zona === 'lixo') {
         dica('Solte para ocultar este botão');
+      } else if (!dg.deBarra && dg.troca && dg.juntaT) {
+        dica(grpGet(dg.juntaT) ? 'Solte para pôr no grupo ' + barraNome(dg.juntaT) : 'Solte para juntar com ' + barraNome(dg.juntaT));
       } else if (!dg.deBarra && dg.troca) {
-        dica('Solte para trocar de lugar');
+        dica(grpGet(dg.id) ? 'Solte para trocar de lugar' : 'Solte para trocar de lugar · segure para juntar');
       } else if (dg.deBarra) {
         dica(o.zona === 'barra' ? (o.k > 0 ? 'Solte para trocar de lugar · segure para juntar' : 'Arraste para fora para tirar da barra') : 'Solte aqui para tirar da barra');
       } else if (B.length < BARRA_MAX) {
@@ -295,14 +317,15 @@
       });
       var lx = $('inLixo');
       if (lx) lx.classList.remove('on', 'perto');
-      [].slice.call(document.querySelectorAll('#v-inicio .tl.troca')).forEach(function (el) {
-        el.classList.remove('troca');
+      [].slice.call(document.querySelectorAll('#v-inicio .tl.troca,#v-inicio .tl.qjT,#v-inicio .tl.qjOk')).forEach(function (el) {
+        el.classList.remove('troca', 'qjT', 'qjOk');
       });
     }
     function fim(ev) {
       if (!dg) return;
       clearTimeout(dg.t);
       clearTimeout(dg.ht);
+      clearTimeout(dg.rt);
       var d = dg;
       if (!d.on) {
         dg = null;
@@ -320,7 +343,7 @@
         troca = '',
         pend = null,
         alvoG = o.zona === 'barra' && o.k > 0 ? B[o.k - 1] : null;
-      if (d.deBarra && grpGet(d.id) && Math.abs(d.cx - d.x0) + Math.abs(d.cy - d.y0) < 14 && ev && ev.type === 'pointerup') {
+      if (grpGet(d.id) && Math.abs(d.cx - d.x0) + Math.abs(d.cy - d.y0) < 14 && ev && ev.type === 'pointerup') {
         // segurou o grupo sem mexer: gerenciar
         volta = true;
         pend = ['ger', d.id];
@@ -335,6 +358,20 @@
           volta = true;
           pend = ['novo', alvoG, d.id];
         }
+      } else if (!d.deBarra && o.zona === 'fora' && d.juntaT && d.troca && d.troca.getAttribute('data-id') === d.juntaT && ev && ev.type === 'pointerup') {
+        // S370 (esboço 44): o anel fechou — junta os dois atalhos do Início num grupo
+        var gh = d.g,
+          alvoEl = d.troca;
+        d.g = null;
+        limpa();
+        dg = null;
+        dicaOff();
+        if (alvoEl) alvoEl.classList.remove('troca');
+        grpIniJunta(d.id, d.juntaT, gh, alvoEl, function () {});
+        return;
+      } else if (!d.deBarra && o.zona === 'lixo' && grpGet(d.id)) {
+        volta = true;
+        msg = 'Para desfazer o grupo: segure nele › Desfazer o grupo';
       } else if (!d.deBarra && o.zona === 'lixo') {
         oculta = true;
       } else if (!d.deBarra && o.zona === 'fora' && d.troca) {
@@ -463,6 +500,8 @@
         return;
       }
       S.barra = B;
+      // um grupo do Início que foi para a barra sai do Início
+      if (!d.deBarra && grpGet(d.id) && B.indexOf(d.id) >= 0 && Array.isArray(S.inicioT)) S.inicioT = S.inicioT.filter(function (x) { return x !== d.id; });
       if (g && !REDUCED && o.zona === 'barra' && o.k >= 0) {
         var sr = slots()[o.k] ? slots()[o.k].getBoundingClientRect() : null;
         if (sr) {

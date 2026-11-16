@@ -2555,3 +2555,55 @@ html{overscroll-behavior-y:none}
 .fjColch>section{background:none!important;border:0!important;padding:0 0 14px!important;box-shadow:none!important;margin:0!important}
 .pcNaTela .pcFtTopo{margin:0 0 8px}.pcNaTela .pcVazio{margin:0 0 6px}
 #formaChips,#moedas{position:relative}
+/* S370 (esboço 41): título da tela do grupo com a flecha */
+.grpH{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.grpH:active{opacity:.6}
+.grpH .grpChv{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;font-style:normal;font-size:18px;font-weight:600;color:var(--mute);margin-left:4px;vertical-align:middle}
+.grpTop .crumb:not([id]){display:none}
+.gtabs.gtF{display:block;border:0;margin:2px 0 10px;overflow:visible}
+/* S370 (esboço 44): anel que se fecha em volta do atalho alvo (0,3 s) e grupo no Início */
+@property --qjA{syntax:'<angle>';inherits:false;initial-value:0deg}
+.tl.qjT{position:relative}
+.tl.qjT::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;background:conic-gradient(var(--pri) var(--qjA),transparent 0);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:qjAnel .3s linear forwards;pointer-events:none}
+.tl.qjOk::after{--qjA:360deg;animation:none}
+.tl.qjOk{transform:scale(1.06)}
+@keyframes qjAnel{to{--qjA:360deg}}
+.tlG .ti.tiG{display:inline-flex;gap:2px;align-items:center}
+@media (prefers-reduced-motion:reduce){.tl.qjT::after{animation-duration:.01s}}
+.qghost.qgJ{transform:translate(-46%,-46%) scale(.46) rotate(-4deg)!important;opacity:.92;transition:transform .16s cubic-bezier(.2,.8,.2,1),opacity .16s}
+/* S370 (esboço 26): Ajustes do catálogo sem a chave Varejo | Atacado e sem "Ver N peças"/"Cancelar" */
+.cjG1 .lbl{margin-top:0}.cjG1 .trk{width:100%}
+.cjCt{text-align:center;margin:16px 0 2px;color:var(--mute)}
+/* S370 (esboços 23 e 27): tela Atacado do app */
+.ataTabs{margin:14px 0 16px}
+.ataLs{padding:0 16px;display:block}
+.ataL{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line2,var(--line));padding:14px 0;color:var(--fg);min-height:56px}
+.ataL:last-child{border-bottom:0}
+.ataL span{flex:1;min-width:0}.ataL b{display:block;font-weight:600;font-size:16px}.ataL small{display:block;color:var(--mute);font-size:13.5px;margin-top:3px}
+.ataL em{font-style:normal;min-width:24px;height:24px;border-radius:12px;background:var(--sel-bg,var(--accent-soft));color:var(--pri);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.ataL i{font-style:normal;color:var(--mute);font-size:18px}
+.ataNt{color:var(--mute);font-size:14px;margin:14px 2px}
+.ataVz{color:var(--mute);text-align:center;padding:28px 12px}
+.ataMais{display:block;margin:6px 2px}
+.ataTb{display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line2,var(--line));padding:11px 0}
+.ataTb span{flex:1;min-width:0}.ataTb small{display:block;color:var(--mute);font-size:12.5px;margin-top:2px}
+/* S370 (esboços 18 e 19): frase da barra em até 2 linhas, nunca embaixo do botão; fechada, sai inteira da tela */
+.ebBar .ebN{white-space:normal!important;line-height:1.25;overflow-wrap:anywhere}
+.ebBar:not(.in){transform:translateY(calc(100% + 140px))!important;visibility:hidden;pointer-events:none;transition:transform .32s cubic-bezier(.4,0,.2,1),visibility 0s .32s}
+.ataBd{display:inline-flex;min-width:18px;height:18px;border-radius:9px;align-items:center;justify-content:center;background:#e8b04a;color:#241a05;font-size:11px;font-weight:700;margin-left:4px;padding:0 5px}
+.ataL.on b{color:var(--pri)}
+@media (min-width:1024px){.ataDuo{display:grid;grid-template-columns:minmax(300px,2fr) 3fr;gap:24px;align-items:start}.ataDet{border:1px solid var(--line);border-radius:18px;padding:18px 20px;background:var(--panel)}.ataDet h2{font-family:Fraunces,Georgia,serif;font-weight:500;margin:0 0 10px}.ataDet>.card{border:0;background:none;padding:0}}
+#v-ata .top{flex-wrap:nowrap;align-items:flex-start;gap:12px}#v-ata .top>div{min-width:0;flex:1}
+#ataTabs .ataBd{background:#e8b04a!important;color:#241a05!important}
+.ataDet .sl{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line2,var(--line))}.ataDet .go{margin-top:16px}
+/* S370 (esboço 31): lista + ficha lado a lado no tablet e no computador */
+#v-estoque>.main.invDuo{grid-template-columns:minmax(300px,2fr) minmax(0,3fr)!important;gap:24px;align-items:start}
+.main.invDuo>#detail{position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto;margin:0}
+.main.invDuo #rows .pcard.invAb{outline:1.5px solid var(--pri);outline-offset:-1.5px}
+/* S370 (esboço 33): teclado no computador */
+.kbSl{position:absolute;right:52px;top:50%;transform:translateY(-50%);font:600 12px/1 ui-monospace,Menlo,monospace;color:var(--mute);border:1px solid var(--line);border-radius:6px;padding:3px 6px;pointer-events:none}
+#kbAj .lfa-sh{max-width:420px}
+.kbAjT{font-family:Fraunces,Georgia,serif;font-size:22px;margin:0 0 8px}
+.kbAjL{display:flex;align-items:center;gap:16px;padding:10px 0;border-bottom:1px solid var(--line2,var(--line))}
+.kbAjL kbd{min-width:44px;text-align:center;font:600 13px/1 ui-monospace,Menlo,monospace;border:1px solid var(--line);border-radius:6px;padding:5px 7px;color:var(--fg)}
+.kbAjN{color:var(--mute);font-size:13px;margin:12px 0 0}

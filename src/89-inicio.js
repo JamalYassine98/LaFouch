@@ -119,7 +119,7 @@
     }
     var l = Array.isArray(S.inicioT) ? S.inicioT : INI_PADRAO;
     return l.filter(function (id, i) {
-      return INI_TODOS.indexOf(id) >= 0 && l.indexOf(id) === i;
+      return (INI_TODOS.indexOf(id) >= 0 || !!grpGet(id)) && l.indexOf(id) === i;
     });
   }
   function iniDados() {
@@ -166,13 +166,14 @@
     if (document.activeElement && document.activeElement.id === 'buQ' && el.contains(document.activeElement)) return;
     var h = vendidoHoje(),
       D = iniDados(),
-      B = grpPlana(),
+      B = grpPlana().concat(grpIniItens()),
       L = iniLista().filter(function (id) {
         return B.indexOf(id) < 0;
       }),
       ed = !!S.inicioEd;
     var grid = L.map(function (id, i) {
       var t = D[id];
+      if (grpGet(id)) return grpTileHtml(grpGet(id), ed);
       if (!ed) return tileHtml('data-act="inicio" data-id="' + id + '"', id, t[0], t[1], '', false);
       return (
         '<div class="twrap" data-k="' + id + '">' +
@@ -226,15 +227,29 @@
       '<div class="hero" data-act="inicio" data-id="hoje" role="button" tabindex="0"><span class="hi">' + ico('hero', 26) + '</span><span><small>Vendido hoje · ' + h.n + ' venda(s)</small><b>' + gs(h.v) + '</b></span><span class="hg">›</span></div>' +
       '<div class="tgrid' + (ed ? ' editando' : '') + '">' + grid + '</div>' + extra;
   }
+  // S370 (esboço 44): azulejo de um grupo do Início — o ícone próprio do par, o nome do grupo e as telas embaixo
+  function grpTileHtml(g, ed) {
+    var par = g.itens.length >= 2 ? grpIcoPar(g.itens[0], g.itens[1], 24) : '',
+      ic = par || g.itens.slice(0, 2).map(function (x) { return ico(x, 16); }).join(''),
+      fx = g.itens.map(function (x) { return BARRA_NOME[x] || x; }).join(' · '),
+      av = grpAviso(g);
+    var h = '<button type="button" class="tl tlG" ' + (ed ? 'disabled' : 'data-act="inicio" data-id="' + g.id + '"') + ' aria-label="Grupo ' + esc(g.nome) + ': ' + esc(fx) + '">' +
+      '<span class="ti' + (par ? '' : ' tiG') + '">' + ic + '</span><span class="tn">' + esc(g.nome) + '</span><span class="tp' + (av ? ' w' : '') + '">' + (av ? av + ' novos' : esc(fx)) + '</span></button>';
+    if (!ed) return h;
+    return '<div class="twrap" data-k="' + g.id + '">' + h + '<div class="tedit"><button type="button" class="x" data-act="grpGerir" data-id="' + g.id + '" aria-label="Gerenciar grupo ' + esc(g.nome) + '">⋯</button></div></div>';
+  }
   /* toque num azulejo da tela Início */
   function inicioGo(id) {
+    if (grpGet(id)) return grpAbre(grpGet(id));
     if (id === 'hoje' || id === 'din' || id === 'giro' || id === 'prec') {
       S.dTab = id;
       setView('dash');
     } else if (id === 'cat') {
       S.catOpen = true;
       setView('vendas');
-    } else if (id === 'msg' || id === 'anl' || id === 'tem' || id === 'ata') {
+    } else if (id === 'ata') {
+      setView('ata');
+    } else if (id === 'msg' || id === 'anl' || id === 'tem') {
       onlPainel(id);
     } else if (id === 'mkt') {
       mkAbre();
@@ -294,7 +309,8 @@
     if (id === 'lotes') return v === 'estoque' && !!S.lotesView;
     if (id === 'vendas') return (v === 'vendas' && !(S.catOpen && grpPlana().indexOf('cat') >= 0)) || (v === 'onl' && grpPlana().indexOf('onl') < 0);
     if (id === 'estoque') return v === 'estoque' && !(S.lotesView && grpPlana().indexOf('lotes') >= 0);
-    if (id === 'msg' || id === 'anl' || id === 'tem' || id === 'ata') return v === 'onl' && S.onlAba === id;
+    if (id === 'ata') return v === 'ata'; // S370 (esboço 23): Atacado é tela do app
+    if (id === 'msg' || id === 'anl' || id === 'tem') return v === 'onl' && S.onlAba === id;
     if (id === 'cont' || id === 'novo') return false;
     return v === id;
   }

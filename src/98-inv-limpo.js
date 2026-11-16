@@ -191,11 +191,9 @@
         return '<button type="button" class="tab' + (on ? ' on' : '') + '" data-act="invSit" data-id="' + s[0] + '" aria-pressed="' + on + '">' + (s[0] === 'preco' ? '<b class="pSin ex">!</b> ' : '') + '<span>' + s[1] + '</span><em>' + n + '</em></button>';
       }).join('');
     }
+    // S370 (aprovado 15/11/2026): sem "Ver N peças" e "Cancelar" — cada toque vale na hora; fecha arrastando, tocando fora ou Esc
     var ap = $('filtApply');
-    if (ap && S.filtOpen) {
-      var np = invPecas();
-      ap.textContent = 'Ver ' + np + (np === 1 ? ' peça' : ' peças');
-    }
+    if (ap && ap.parentNode && ap.parentNode.style.display !== 'none') ap.parentNode.style.display = 'none';
   }
   // abrir a folha: vários tipos de uma vez (o botão "Selecionar vários" sai)
   (function () {

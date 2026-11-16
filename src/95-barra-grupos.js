@@ -18,6 +18,29 @@
     });
     return o;
   }
+  // S370 (esboço 44, aprovado 15/11/2026): grupos também entre os atalhos do Início (o id do grupo fica em S.inicioT)
+  function grpIni() {
+    return (Array.isArray(S.inicioT) ? S.inicioT : []).filter(function (id) { return !!grpGet(id); });
+  }
+  function grpNoIni(gid) {
+    return grpIni().indexOf(gid) >= 0 && barraLista().indexOf(gid) < 0;
+  }
+  // telas que estão dentro de algum grupo do Início
+  function grpIniItens() {
+    var o = [];
+    grpIni().forEach(function (id) { o = o.concat(grpGet(id).itens); });
+    return o;
+  }
+  // o grupo da tela aberta (barra primeiro, depois Início)
+  function grpAtivo() {
+    if (S.view === 'inicio' || S.view === 'notif') return null;
+    var g = null;
+    barraLista().concat(grpIni()).forEach(function (id) {
+      var x = grpGet(id);
+      if (x && !g && navOn(id)) g = x;
+    });
+    return g;
+  }
   function grpAviso(g) {
     return g.itens.indexOf('ped') >= 0 ? pedNovos() : 0;
   }
@@ -38,33 +61,16 @@
     inicioGo(t);
   }
   // Abas do grupo no topo da tela.
+  // S370 (esboço 41, aprovado 15/11/2026): as abas do topo saem; o título da tela ganha a flecha (⌄) e abre a folha VER
+  // com as telas do grupo e "Gerenciar grupo" (a mesma mecânica do Dashboard). O desenho do título é feito em grpTitulo().
   function grpAbasRender() {
     var el = $('grpTabs');
     if (!el) return;
-    var g = null;
-    if (S.view !== 'inicio' && S.view !== 'notif')
-      barraLista().forEach(function (id) {
-        var x = grpGet(id);
-        if (x && !g && navOn(id)) g = x;
-      });
-    if (!g) {
-      el.hidden = true;
-      el.textContent = '';
-      return;
-    }
-    // S269 (14/11/2026): no lugar das pílulas, o nome do grupo em cima e as telas como palavras em linha, com fio fino sob a ativa
-    var h = '<span class="gtNm">' + esc(g.nome) + '</span><span class="gtRw">', ativa = '';
-    g.itens.forEach(function (t) {
-      var on = navOn(t),
-        n = t === 'ped' ? pedNovos() : 0;
-      if (on) { g.ult = t; ativa = t; }
-      h += '<button type="button" class="' + (on ? 'on' : '') + '" data-act="grpTela" data-id="' + t + '" aria-pressed="' + on + '">' + BARRA_NOME[t] + (n ? ' <b>' + n + '</b>' : '') + '</button>';
-    });
-    h += '</span><button type="button" class="gmais" data-act="grpGerir" data-id="' + g.id + '" aria-label="Gerenciar grupo ' + esc(g.nome) + '">⋯</button>';
-    el.hidden = false;
-    el.className = 'gtabs gtL' + (ativa && S._gtUlt && S._gtUlt !== g.id + ':' + ativa ? ' gtIn' : ''); // o fio só se move quando a tela do grupo muda
-    S._gtUlt = g.id + ':' + ativa;
-    el.innerHTML = h;
+    var g = grpAtivo();
+    S._gAt = g ? g.id : null;
+    if (g) g.itens.forEach(function (t) { if (navOn(t)) g.ult = t; });
+    el.hidden = true;
+    el.textContent = '';
   }
   // Coloca o botão no lugar do grupo na barra (ou no Início se a barra estiver cheia).
   function grpSolta(B, pos, ids) {
@@ -79,6 +85,7 @@
     S.barra = barraLista().filter(function (x) {
       return x !== id;
     });
+    if (Array.isArray(S.inicioT)) S.inicioT = S.inicioT.filter(function (x) { return x !== id; });
     var eraAuto = g.nome === grpNomeAuto(g.itens);
     g.itens.push(id);
     if (eraAuto) g.nome = grpNomeAuto(g.itens); // o nome sugerido acompanha o grupo; nome escrito pelo dono não é trocado
@@ -87,6 +94,17 @@
   function grpTira(gid, id) {
     var g = grpGet(gid);
     if (!g) return;
+    if (grpNoIni(gid)) {
+      var L = iniLista().slice(),
+        k = L.indexOf(gid);
+      g.itens = g.itens.filter(function (x) { return x !== id; });
+      if (g.itens.length < 2) {
+        S.grupos = S.grupos.filter(function (x) { return x !== g; });
+        L.splice.apply(L, [k, 1].concat(g.itens, [id]));
+      } else L.splice(k + 1, 0, id);
+      S.inicioT = L;
+      return;
+    }
     var B = barraLista().slice(),
       i = B.indexOf(gid);
     g.itens = g.itens.filter(function (x) {
@@ -105,6 +123,13 @@
   function grpDesfaz(gid) {
     var g = grpGet(gid);
     if (!g) return;
+    if (grpNoIni(gid)) {
+      var L = iniLista().slice();
+      L.splice.apply(L, [L.indexOf(gid), 1].concat(g.itens));
+      S.grupos = S.grupos.filter(function (x) { return x !== g; });
+      S.inicioT = L;
+      return;
+    }
     var B = barraLista().slice(),
       i = B.indexOf(gid);
     B.splice(i, 1);
@@ -146,7 +171,7 @@
     S._gn = { a: a, b: b };
     grpJanela(
       '<div style="display:flex;align-items:center;gap:12px">' + grpIcones([a, b]) + '<b style="font-size:19px">Novo grupo</b></div>' +
-        '<div class="hint" style="margin:0">' + BARRA_NOME[a] + ' e ' + BARRA_NOME[b] + ' passam a ficar juntos num só botão da barra. As telas aparecem como abas no topo.</div>' +
+        '<div class="hint" style="margin:0">' + BARRA_NOME[a] + ' e ' + BARRA_NOME[b] + ' passam a ficar juntos num só botão da barra. Para trocar de tela, toque no título (⌄).</div>' +
         '<input class="in" id="grpNome" maxlength="18" value="' + esc(grpNomePadrao(a, b)) + '" aria-label="Nome do grupo">' +
         '<button type="button" class="go" data-act="grpCria">Criar grupo</button>' +
         '<button type="button" class="chip grpCentro" data-act="grpFecha">Cancelar</button>'
@@ -230,6 +255,17 @@
     }
   };
   ACT.grpDesfazer = function () {
+    if (grpNoIni(S._gg)) {
+      var gt = document.querySelector('#v-inicio .tl[data-id="' + S._gg + '"]'),
+        it = (grpGet(S._gg) || {}).itens || [],
+        r0 = gt ? gt.getBoundingClientRect() : null;
+      grpDesfaz(S._gg);
+      ACT.grpFecha();
+      if (S.view !== 'inicio') setView('inicio');
+      render();
+      grpIniAbre(it, r0);
+      return;
+    }
     var gb = $('mainnav').querySelector('.mn[data-id="' + S._gg + '"]'),
       gg = grpGet(S._gg),
       desf = gg && gb ? { itens: gg.itens.slice(), r: gb.getBoundingClientRect() } : null;

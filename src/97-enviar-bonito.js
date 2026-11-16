@@ -87,6 +87,7 @@
     return !it || it.bulk;
   }
   function ebDecora() {
+    if (S.ebSel && S.view !== 'vendas') S.ebSel = null; // S370 (esboço 19): sair do Catálogo desfaz a escolha
     var sel = S.ebSel || [];
     [].forEach.call(document.querySelectorAll('#vRows .pcard[data-ref]'), function (c) {
       var on = sel.indexOf(c.dataset.ref) >= 0;

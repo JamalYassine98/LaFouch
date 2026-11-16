@@ -91,6 +91,11 @@
   }
   // Depois de cada desenho do Catálogo: texto da linha, bolinha e o progresso do atacado.
   function cjDepois() {
+    // S370 (esboço 26): o modo Atacado do Catálogo saiu; quem tinha ficado nele volta ao varejo
+    if (!tabDe(S.tabAtiva).pub && !S.modoCli) {
+      S.tabAtiva = 'pub';
+      setTimeout(render, 0);
+    }
     cjMonta();
     var rs = $('cjRs');
     if (!rs) return;
@@ -151,8 +156,8 @@
             return '<button type="button" class="chip cjC" data-g="' + g + '" data-v="' + v + '">' + (ico || '') + '<span>' + esc(txt) + '</span></button>';
           };
         c.innerHTML =
-          '<div class="cjG2"><div><div class="lbl">Preço</div><div class="trk" id="cjTP"><span class="trkTh"></span><button type="button" class="trkB" data-m="v">Varejo</button><button type="button" class="trkB" data-m="a">Atacado</button></div></div>' +
-          '<div><div class="lbl">Moeda</div><div class="trk" id="cjTM"><span class="trkTh"></span><button type="button" class="trkB" data-m="pyg">G$</button><button type="button" class="trkB" data-m="brl">R$</button><button type="button" class="trkB" data-m="usd">US$</button></div></div></div>' +
+          // S370 (esboço 26, aprovado 15/11/2026): o Catálogo é só varejo — a chave Varejo | Atacado saiu (atacado é pela conta/link do lojista)
+          '<div class="cjG1"><div><div class="lbl">Moeda</div><div class="trk" id="cjTM"><span class="trkTh"></span><button type="button" class="trkB" data-m="pyg">G$</button><button type="button" class="trkB" data-m="brl">R$</button><button type="button" class="trkB" data-m="usd">US$</button></div></div></div>' +
           '<div class="hint cjMh" id="cjMh"></div>' +
           '<div class="cjVc"><div class="lbl" style="margin:0">Ver como</div><div class="cjVd">' + chip('sit', 'mais', 'Mais vendidos', CJ_ICO.mais) + '<div class="trk cjTV" id="cjTV"><span class="trkTh"></span><button type="button" class="trkB" data-m="g" aria-label="Cartões"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></button><button type="button" class="trkB" data-m="l" aria-label="Lista"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg></button></div></div></div>' +
           '<div class="lbl">Tipo</div><div class="cjR cjR' + Math.min(4, tiposL.length) + '">' + tiposL.map(function (t) { return chip('tipos', t[0], t[1], CJ_ICO[t[0]]); }).join('') + '</div>' +
@@ -160,9 +165,9 @@
           '<div class="lbl">Para quem</div><div class="cjR cjR3">' + chip('pub', 'F', 'Feminino', CJ_ICO.F) + chip('pub', 'M', 'Masculino', CJ_ICO.M) + chip('pub', 'U', 'Unissex', CJ_ICO.U) + '</div>' +
           '<div class="lbl">Preço até</div><div class="cjR cjR4" id="cjAte">' + CJ_ATE.map(function (v, i) { return chip('ate', v, ateTxt(v), i === 0 ? CJ_ICO.moeda : ''); }).join('') + '</div>' +
           '<div class="lbl">Situação</div><div class="cjR cjR3">' + chip('sit', 'of', 'Oferta', CJ_ICO.of) + chip('sit', 'nov', 'Novidade', CJ_ICO.nov) + chip('sit', 'enc', 'Encalhada', CJ_ICO.enc) + '</div>' +
-          '<div class="cjFt"><button type="button" class="go cjVer" id="cjVer">Ver <span class="cjOdo" id="cjN"><span>0</span></span> peças</button><button type="button" class="mini cjSec" id="cjCanc">Cancelar</button></div>';
+          // S370: sem "Ver N peças" e "Cancelar" (mesma regra dos Filtros do inventário): cada toque vale na hora; fecha arrastando ou tocando fora
+          '<div class="hint cjCt" id="cjCt" aria-live="polite"><span class="cjOdo" id="cjN"><span>0</span></span> peças</div>';
         var pinta = function (primeira) {
-          trkMarca($('cjTP'), D.atac ? 'a' : 'v');
           trkMarca($('cjTM'), D.moeda);
           trkMarca($('cjTV'), D.modo);
           [].forEach.call(c.querySelectorAll('.cjC'), function (b) {
@@ -192,15 +197,17 @@
           gr.innerHTML = soPre && gl.length ? '<div class="lbl">Grau</div><div class="cjGrau">' + gl.map(function (g) { return '<button type="button" class="chip cjGc' + (D.grau === g ? ' on' : '') + '" data-gr="' + esc(g) + '">' + esc(g) + '</button>'; }).join('') + '</div>' : '';
           var n = cjConta({ tipos: D.tipos, pub: D.pub, ate: D.ate, sit: D.sit }, D.grau);
           if (primeira) $('cjN').innerHTML = '<span>' + n + '</span>';
-          else lfOdo($('cjN'), n);
+          else {
+            lfOdo($('cjN'), n);
+            cjAplica(D);
+          }
         };
         c.addEventListener('click', function (e) {
           var b = e.target.closest('button');
           if (!b) return;
           if (b.classList.contains('trkB')) {
             var t = b.parentNode.id;
-            if (t === 'cjTP') D.atac = b.dataset.m === 'a';
-            else if (t === 'cjTM') D.moeda = b.dataset.m;
+            if (t === 'cjTM') D.moeda = b.dataset.m;
             else if (t === 'cjTV') D.modo = b.dataset.m;
             pinta();
             return;
@@ -223,11 +230,6 @@
             pinta();
             return;
           }
-          if (b.id === 'cjCanc') J.fecha();
-          if (b.id === 'cjVer') {
-            cjAplica(D);
-            setTimeout(J.fecha, 120);
-          }
         });
         setTimeout(function () {
           pinta(true);
@@ -247,14 +249,7 @@
     };
   }
   function cjAplica(D) {
-    var era = !tabDe(S.tabAtiva).pub;
-    if (D.atac !== era) {
-      if (D.atac) S.tabAtiva = S._ultAtac && tabDe(S._ultAtac).on !== false ? S._ultAtac : 'a1';
-      else {
-        S._ultAtac = S._ultAtacAtual;
-        S.tabAtiva = 'pub';
-      }
-    }
+    if (!tabDe(S.tabAtiva).pub) S.tabAtiva = 'pub'; // S370: o Catálogo é só varejo
     S.vMoeda = D.moeda;
     if (!S.vModo) S.vModo = {};
     S.vModo.v = D.modo;
