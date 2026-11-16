@@ -161,3 +161,14 @@ Ler antes de mexer no site. Atualizar este arquivo SEMPRE que o site mudar (estr
 - A cópia do modo loja no aparelho só muda com APK novo (até a "opção A" — atualização automática da cópia — ser implementada).
 
 - 16/11 S367 (ordem do dono): **Minha conta › Cartões**: tocar no cartão disponível (ou no botão "Usar este cupom") abre a pergunta `#cpov` ("Usar este cupom?" · "Usar cupom" / "Agora não"; fecha com Esc ou tocando fora). Aceito: `cupAplica` guarda o cupom (`lf_cup`, entra sozinho no carrinho), fecha a conta e leva ao catálogo (`#vitrine`, `cupVaiCatalogo`). Antes o botão "Usar no meu carrinho" aplicava sem perguntar e abria o carrinho. Frases novas em `js/lf-i18n.js`. Conferido com serviço de cupons fingido em PT, ES (390) e PC (1366): work/s367/cup.py.
+
+- 16/11 S369 (Mochi no computador, partes 2 e 3 de 3 — aprovado em 13/11, "implemente" do dono em 16/11): `js/lf-site.js`, tudo atrás de `Z.pc` (= `ehPc()`, lido em `intro()` e `camera()`):
+  - distância 60 cm ("um braço"): textos e etiqueta (`chipDist()`), limites `dLo()/dHi()` = 45–75 cm (celular 20–38), `longeDemais` com 79 cm;
+  - letra: `kLetra()` = `Z.kd` × `Z.kb`. `Z.kd` = distância/30 (2 sem webcam; com webcam a distância medida, entre 45 e 75, fixada no começo do quadro em `teste()`); aplicado em `lente()`, `bulaCabe()` e na linha do ponto próximo;
+  - `Z.kb` = `kbAparelho()`: reconhecimento silencioso do iPhone/iPad (ponto da tela 0,166/0,156 mm no iPhone, 0,192/0,156 no iPad; referência 0,188 mm = média dos Android) → letra até 1,25× maior; outros aparelhos = 1;
+  - `ajustaDist()`: antes do quadro, com webcam e fora de 45–75 cm, a Mochi pede UMA vez "mais perto"/"mais longe" e espera até 5 s;
+  - sem a segunda medida (ponto próximo) no computador (`fimQuadro`); resultado com o parágrafo `.gzest` "No computador este resultado é uma estimativa…" e a mesma fala depois do "Pronto!";
+  - `qrVai()`: na entrada a Mochi fala "Este teste fica melhor no celular", pula até o lado do cartão do código (que surge nesse momento), aponta o código (a ponta é conferida pela posição real da luva e corrigida), volta ao Começar dizendo "…ou seguimos aqui, como preferir" e segue o `chamaComecar` de sempre. Sem espaço à direita do cartão ou com movimento reduzido: o cartão aparece e ela não vai;
+  - `falaSeq()`: falas em sequência (uma por vez) para misturar frase já gravada com frase nova;
+  - 14 frases novas em `js/lf-i18n.js`. VOZ: as falas novas ainda NÃO estão gravadas (a chave do dono ficou sem saldo) — no computador elas aparecem só no balão; gravador pronto em `work/s369/grava.py`.
+  - Provas: `work/s369/prova.py` (pc · cel · iph) e `work/s369/prova_cam.py` (webcam de mentira).

@@ -24,3 +24,6 @@ Para a próxima sessão: ler este arquivo, depois `docs/FALTA-APROVAR-15-11.md` 
 - Antes de tirar um controle por "redundância", conferir que ele existe na outra tela.
 - Todo esboço já sai no padrão de luxo (sem caixas, linhas finas, número em letra de título, ações secundárias como texto, um só botão por tela).
 - Suíte inteira uma vez por publicação; antes, atualizar os testes que cobram desenho substituído. Scripts de edição em arquivo .py; nunca comentário `//` no meio de linha.
+
+## Voz da Mochi no computador (S369, sessão antiga)
+- Fluxo publicado no site (1794806381). Voz NÃO gravada: a chave do dono ficou sem cota; quando ele liberar, rodar `work/s369/grava.py` (teto 6.000 créditos), página de escuta, OK de ouvido, e só então lista.json.
