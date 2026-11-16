@@ -2715,3 +2715,15 @@ html{overscroll-behavior-y:none}
 .qgF .mi{display:flex}.qgF .mi svg{width:22px;height:22px}
 #dFolha .dOp.qLev{transform:scale(1.025);box-shadow:0 14px 36px rgba(0,0,0,.28);border-radius:14px;background:var(--panel2);transition:transform .14s var(--lux-out,ease-out),box-shadow .14s}
 #dFolha .dOp{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+/* S374 (esboço 57b): número dos preços a corrigir na linha da contagem do Inventário */
+#invInfo .ifNum{background:none;border:0;padding:0 2px;margin:0 0 0 4px;color:var(--warn);font:inherit;font-weight:600;white-space:nowrap;cursor:pointer;min-height:32px}
+#invInfo .ifNum::before{content:'· ';color:var(--mute);font-weight:400}
+/* S374 (esboço 58a): conta de Despesas como linha que abre */
+.ecF{padding:6px 14px}.ecF.on{padding:6px 14px 14px}
+.ecRow{display:flex;align-items:center;gap:10px;min-height:48px}
+.ecTog{flex:1;min-width:0;display:flex;align-items:center;gap:8px;background:none;border:0;padding:6px 0;color:inherit;text-align:left;font:inherit;cursor:pointer;min-height:44px}
+.ecTog .ecNm{flex:1;min-width:0}.ecTog .ecNm b{display:block}.ecTog .ecNm small{display:block;color:var(--mute);font-size:12.5px;margin-top:2px}
+.ecTog .ecVl{font-variant-numeric:tabular-nums;white-space:nowrap}.ecTog .ecCh{font-size:20px;color:var(--mute)}
+/* S374 (esboço 58b): semana fechada no Histórico */
+.hSem{grid-column:1/-1;display:flex;align-items:center;gap:8px;width:100%;text-align:left;color:inherit;font:inherit;padding:12px 14px;min-height:52px;cursor:pointer;border:0}
+.hSem .ecNm{flex:1;min-width:0}.hSem .ecNm b{display:block;font-size:15px}.hSem .ecNm small{display:block;color:var(--mute);font-size:12.5px;margin-top:2px}.hSem .ecCh{font-size:20px;color:var(--mute)}

@@ -223,6 +223,25 @@
       e.innerHTML = '<img alt="" src="' + src + '" style="width:100%;height:100%;object-fit:contain;display:block">';
       return e;
     }
+    // S374 (esboço 56): o voo anda só com transform (foto, escala igual nos dois lados: não estica) e clip-path (fundo e moldura).
+    // A camada fica no tamanho MAIOR dos dois retângulos; nada de left/top/width/height por quadro.
+    function fR(r) { return { x: r.left, y: r.top, w: r.width, h: r.height }; }
+    function fG(A, B) { return B.w * B.h >= A.w * A.h ? B : A; }
+    function voaFundo(e, ra, rb, radA, radB, dur) {
+      var A = fR(ra), B = fR(rb), G = fG(A, B);
+      e.style.left = G.x + 'px'; e.style.top = G.y + 'px'; e.style.width = G.w + 'px'; e.style.height = G.h + 'px'; e.style.borderRadius = '0';
+      var ins = function (R, rad) { return 'inset(' + (R.y - G.y) + 'px ' + (G.x + G.w - R.x - R.w) + 'px ' + (G.y + G.h - R.y - R.h) + 'px ' + (R.x - G.x) + 'px round ' + (rad || '0px') + ')'; };
+      return e.animate([{ clipPath: ins(A, radA) }, { clipPath: ins(B, radB) }], { duration: dur, easing: FE, fill: 'forwards' });
+    }
+    function voaFoto(e, ra, rb, dur) {
+      var A = fR(ra), B = fR(rb), G = fG(A, B);
+      e.style.left = '0px'; e.style.top = '0px'; e.style.width = G.w + 'px'; e.style.height = G.h + 'px'; e.style.borderRadius = '0'; e.style.transformOrigin = '0 0';
+      var q = function (R) {
+        var k = Math.max(R.w / G.w, R.h / G.h), ix = (G.w - R.w / k) / 2, iy = (G.h - R.h / k) / 2;
+        return { transform: 'translate(' + (R.x + R.w / 2 - (G.w * k) / 2) + 'px,' + (R.y + R.h / 2 - (G.h * k) / 2) + 'px) scale(' + k + ')', clipPath: 'inset(' + iy + 'px ' + ix + 'px ' + iy + 'px ' + ix + 'px round ' + 8 / k + 'px)' };
+      };
+      return e.animate([q(A), q(B)], { duration: dur, easing: FE, fill: 'forwards' });
+    }
     function fSemMov() {
       return REDUCED || S.modoCli || S.selMode || (S.selP && S.selP.length) || (S.vSel && S.vSel.length && S.vSelMode) || S.ebSel;
     }
@@ -272,13 +291,13 @@
           if (!alvo || !ai) { limpa(); return; }
           var r1 = alvo.getBoundingClientRect(), W = window.innerWidth, H = window.innerHeight;
           ai.style.visibility = 'hidden';
-          bg.animate([fRet(a.card), { left: '0px', top: '0px', width: W + 'px', height: H + 'px', borderRadius: '0px' }], { duration: 380, easing: FE, fill: 'forwards' });
+          voaFundo(bg, a.card, { left: 0, top: 0, width: W, height: H }, a.rad, '0px', 380);
           an.play();
           var fim = function () {
             ai.style.visibility = '';
             limpa();
           };
-          fl.animate([fRet(a.box), fRet(r1)], { duration: 380, easing: FE, fill: 'forwards' }).onfinish = function () {
+          voaFoto(fl, a.box, r1, 380).onfinish = function () {
             if (an.playState === 'finished') fim();
             else an.onfinish = fim;
           };
@@ -328,8 +347,8 @@
           }
           var r0 = pb.getBoundingClientRect();
           if (ci) ci.style.visibility = 'hidden';
-          bg.animate([{ left: '0px', top: '0px', width: W + 'px', height: H + 'px', borderRadius: '0px' }, { left: cr.left + 'px', top: cr.top + 'px', width: cr.width + 'px', height: cr.height + 'px', borderRadius: getComputedStyle(c).borderRadius }], { duration: 340, easing: FE, fill: 'forwards' });
-          fl.animate([fRet(f.box), fRet(r0)], { duration: 340, easing: FE, fill: 'forwards' }).onfinish = function () {
+          voaFundo(bg, { left: 0, top: 0, width: W, height: H }, cr, '0px', getComputedStyle(c).borderRadius, 340);
+          voaFoto(fl, f.box, r0, 340).onfinish = function () {
             if (ci) ci.style.visibility = '';
             limpa();
           };

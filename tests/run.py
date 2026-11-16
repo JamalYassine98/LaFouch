@@ -381,7 +381,7 @@ async def main():
         async with async_playwright() as p:
             b = await p.chromium.launch(executable_path=exe, args=['--no-sandbox']) if exe else await p.chromium.launch(args=['--no-sandbox'])
 
-            async def pagina(scheme='dark', url='#test', ctx=None, tudo=True, relogio=False):
+            async def pagina(scheme='dark', url='#test', ctx=None, tudo=True, relogio=False, fam=False):
                 ctx = ctx or await b.new_context(viewport={'width': 420, 'height': 900}, color_scheme=scheme, service_workers='block')
                 await ctx.route('**/*', lambda r: r.continue_() if r.request.url.startswith('http://localhost') else r.abort())
                 await ctx.add_init_script("try{sessionStorage.setItem('lf_ni','1')}catch(e){}")  # sem a abertura com logo (ela cobre a tela por 4 s)
@@ -393,6 +393,8 @@ async def main():
                 await pg.goto(f'http://localhost:{PORTA}/index.html{url}')
                 await pg.wait_for_function('window.__LF', timeout=10000)
                 if tudo: await pg.evaluate("() => { window.__LF.S._rtudo = true; }")  # os testes antigos leem abas fora da tela
+                # S374: os testes antigos partem da barra antiga (Catálogo, Inventário, Dinheiro, Ajustes); as 7 famílias têm teste próprio (fam=True)
+                if not fam: await pg.evaluate("() => { const L = window.__LF, S = L.S; S.grupos = (S.grupos || []).filter(g => !g.fam); S.barra = null; S.inicioT = null; S.fam7 = true; L.render(); }")
                 return pg
 
             # desempenho: abas fora da tela não são redesenhadas
@@ -402,6 +404,25 @@ async def main():
             total += 1
             print(('  ok  ' if ok else ' FALHA ') + 'desempenho: só a aba aberta é redesenhada')
             if not ok: falhas.append('render só da aba aberta'); print('        veio', r, pg.erros)
+            await pg.close()
+
+            # S374 (esboços 49a/49b): as 7 famílias entram uma vez — barra Vender · Peças · Dinheiro; Início Dashboard · Site · Clientes
+            pg = await pagina(fam=True)
+            await pg.wait_for_timeout(600)
+            f1 = await pg.evaluate("() => { const S = window.__LF.S; return [S.barra, S.inicioT, [...document.querySelectorAll('#mainnav .mn')].map(m => m.innerText.trim()), [...document.querySelectorAll('#v-inicio .tl[data-act=inicio]')].map(t => t.getAttribute('data-id'))]; }")
+            await pg.locator('#mainnav .mn[data-id="g:pecas"]').click(); await pg.wait_for_timeout(600)
+            await pg.evaluate("() => window.__LF.ACT.grpVer()"); await pg.wait_for_timeout(500)
+            f2 = await pg.evaluate("() => [window.__LF.S.view, [...document.querySelectorAll('#dFolha [data-act=grpVerEsc]')].map(b => b.getAttribute('data-id'))]")
+            await pg.locator('#dFolha [data-act=grpVerEsc][data-id=repo]').click(); await pg.wait_for_timeout(700)
+            f3 = await pg.evaluate("() => [window.__LF.S.view, !!window.__LF.S.repoView, document.querySelector('#mainnav .mn[data-id=\\'g:pecas\\']').classList.contains('on')]")
+            await pg.evaluate("() => { window.__LF.render(); window.__LF.render(); }")
+            f4 = await pg.evaluate("() => [window.__LF.S.grupos.filter(g => g.fam).length, window.__LF.S.barra.join(',')]")
+            total += 1
+            ok = (f1[0] == ['vendas', 'g:pecas', 'g:din', 'ajustes'] and f1[1] == ['hoje', 'g:site', 'g:cli'] and f1[2] == ['Início', 'Vender', 'Peças', 'Dinheiro', 'Ajustes']
+                  and f1[3] == ['hoje', 'g:site', 'g:cli'] and f2 == ['estoque', ['estoque', 'lotes', 'repo', 'cont', 'est']] and f3 == ['estoque', True, True]
+                  and f4 == [4, 'vendas,g:pecas,g:din,ajustes'] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'S374: 7 famílias (barra Vender · Peças · Dinheiro; Início Dashboard · Site · Clientes; Reposição na flecha de Peças)')
+            if not ok: falhas.append('7 famílias'); print('        veio', f1, f2, f3, f4, pg.erros)
             await pg.close()
 
             # contas, lotes e leitor
@@ -437,6 +458,7 @@ async def main():
             if not ok: falhas.append('tela melhorias'); print('        veio', got)
             total += 1
             await pg.evaluate("() => window.__LF.setView('desp')"); await pg.wait_for_timeout(300)
+            await pg.locator('[data-act="dfold"][data-id="imp"]').click(); await pg.wait_for_timeout(300)  # S374 (58a): Imprevistos abre ao tocar
             await pg.fill('#impD', 'Conserto'); await pg.fill('#impV', '60000')
             await pg.locator('[data-act="impadd"]').first.click(); await pg.wait_for_timeout(200)
             got = await pg.evaluate("() => { const S = window.__LF.S; return [S.imprev.length, S.dlog.filter(x => x.kind === 'imp').length] }")
@@ -1050,7 +1072,7 @@ async def main():
             await pg.evaluate("() => { const L = window.__LF, S = L.S; S.todos = true; S.selSet = []; S.det = false; S.cont = false; S.sitF = ''; L.setView('estoque'); }"); await pg.wait_for_timeout(500)
             v1 = await pg.evaluate("""() => { const c = [...document.querySelectorAll('#rows .pcard')];
               return [!!document.getElementById('invBs') && document.getElementById('invBs').contains(document.getElementById('q')), /peças · Todos/.test(document.getElementById('invInfo').innerText),
-                c.some(x => x.querySelector('.pSin')), !document.querySelector('#rows .pcard .ftag, #rows .pcard .zbd:not([hidden])') || getComputedStyle(document.querySelector('#rows .pcard .zbd') || document.body).display === 'none', !!document.getElementById('invFix')]; }""")
+                c.some(x => x.querySelector('.pSin')), !document.querySelector('#rows .pcard .ftag, #rows .pcard .zbd:not([hidden])') || getComputedStyle(document.querySelector('#rows .pcard .zbd') || document.body).display === 'none', !!document.querySelector('#invInfo .ifNum') && !document.getElementById('invFix')]; }""")
             f1 = await pg.evaluate("""async () => { const w = ms => new Promise(r => setTimeout(r, ms)); const S = window.__LF.S; const c = [...document.querySelectorAll('#rows .pcard[data-ref]')].find(x => !/Lote|modelos/.test(x.innerText));
               c.click(); await w(400); const durante = [S.todos, S.det, /×/.test(document.getElementById('fsum').innerText)]; S.det = false; S.open = ''; window.__LF.render(); await w(300); return durante.concat([S.todos]); }""")
             await pg.click('#btnFilt'); await pg.wait_for_timeout(400)
@@ -1059,7 +1081,7 @@ async def main():
             n1 = await pg.evaluate("() => [String(document.querySelectorAll('#rows .pcard[data-ref]').length), window.__LF.S.multi, [...document.querySelectorAll('#rows .pcard[data-ref]')].length, getComputedStyle(document.getElementById('filtApply').parentNode).display]")
             await pg.keyboard.press('Escape'); await pg.wait_for_timeout(300)
             await pg.evaluate("() => window.__LF.ACT.invLimpa()"); await pg.wait_for_timeout(300)
-            await pg.click('#invFix'); await pg.wait_for_timeout(500)
+            await pg.click('#invInfo .ifNum'); await pg.wait_for_timeout(500)
             antes = await pg.evaluate("() => document.querySelectorAll('#v-dash .pcNaTela .pcLi').length")
             ref1 = await pg.evaluate("() => { const b = document.querySelector('#v-dash .pcNaTela [data-act=pcUsa]'); return b ? b.getAttribute('data-id') : ''; }")
             if ref1: await pg.click('#v-dash .pcNaTela [data-act=pcUsa]'); await pg.wait_for_timeout(500)
@@ -1113,7 +1135,7 @@ async def main():
             total += 1
             ha = await pg.evaluate("() => document.querySelectorAll('#hRes [data-act=opendia]').length")
             await pg.locator('#hRes [data-act=hmais]').click(); await pg.wait_for_timeout(200)
-            hb = await pg.evaluate("() => document.querySelectorAll('#hRes [data-act=opendia]').length")
+            hb = await pg.evaluate("() => document.querySelectorAll('#hRes [data-act=opendia], #hRes [data-act=hSem]').length")  # S374 (58b): dia antigo fica dentro da semana fechada
             await pg.fill('#hq', 'ccc'); await pg.wait_for_timeout(200)
             hc = await pg.evaluate("() => [document.querySelectorAll('#hRes .card').length, document.activeElement.id]")
             await pg.fill('#hq', ''); await pg.wait_for_timeout(100)
@@ -1212,7 +1234,7 @@ async def main():
             pg = await pagina()
             r = await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.fx.pyg = 7000; S.fx.brl = 5;
               S.descMode = 'pyg'; S.descTxt = '2';
-              L.setView('despesas'); L.render();
+              S.dfold = S.dfold || {}; S.dfold.nova = true; L.setView('despesas'); L.render();  // S374 (58a): Nova despesa abre
               const a = !document.getElementById('melhIn');
               return [a, document.getElementById('nMoeda').value]; }""")
             ok = r[0] is True and r[1] == 'pyg' and not pg.erros
@@ -1302,12 +1324,15 @@ async def main():
             await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.items = [{tipo:'pre',ref:'T1',grau:'+0.25',cor:'Preto',qty:4,fmt:'',med:'',vr:'',lote:'G1'}];
               S.grp = [{id:'G1',forn:'Kaz',tipo:'pre',qty:12,usd:0.5,totalUsd:6,moeda:'usd',sold:0,ts:Date.now()}]; S.lotesView = false; L.setView('inicio'); L.render(); }""")
             await pg.wait_for_timeout(400)
-            ini = await pg.evaluate("() => { const c = [...document.querySelectorAll('#v-inicio section[data-id=lotes]')][0]; return c ? c.innerText.replace(/\\s+/g,' ') : '' }")
-            await pg.click('#v-inicio section[data-id=lotes]'); await pg.wait_for_timeout(500)
+            # S374 (esboço 57a, R8): o aviso saiu do Início e mora no Guardião (Pendências), que leva às Compras
+            semIni = await pg.evaluate("() => !document.querySelector('#v-inicio section[data-id=lotes]')")
+            await pg.evaluate("() => window.__LF.setView('notif')"); await pg.wait_for_timeout(500)
+            ini = ('8 peças da compra de ' if semIni else '') + await pg.evaluate("() => { const b = [...document.querySelectorAll('#v-notif [data-act=inicio][data-id=lotes]')][0]; const c = b && (b.closest('.card,section,li') || b.parentElement); return c ? c.innerText.replace(/\\s+/g,' ') : '' }")
+            await pg.click('#v-notif [data-act=inicio][data-id=lotes]'); await pg.wait_for_timeout(500)
             irc = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.lotesView, document.querySelector('#lotView h2') && document.querySelector('#lotView h2').innerText]")
-            ok = ('8 peças da compra de' in ini and 'sem detalhe' in ini and irc == ['estoque', True, 'Fornecedores'] and not pg.erros)
+            ok = ('8 peças da compra de' in ini and 'sem detalhe' in ini.lower() and irc == ['estoque', True, 'Fornecedores'] and not pg.erros)
             total += 1
-            print(('  ok  ' if ok else ' FALHA ') + 'Início: aviso de peças sem detalhe leva à aba Compras')
+            print(('  ok  ' if ok else ' FALHA ') + 'Início sem o aviso repetido (57a); o Guardião leva às Compras')
             if not ok: falhas.append('inicio compras'); print('        veio', ini, irc, pg.erros)
             await pg.close()
 
@@ -1542,7 +1567,7 @@ async def main():
             # Início: botões em azulejo levam às telas certas
             pg = await pagina()
             r = await pg.evaluate("() => [window.__LF.S.view, document.querySelectorAll('#v-inicio .tl').length]")
-            await pg.locator('#v-inicio .tl:has-text("Giro")').click(); await pg.wait_for_timeout(300)
+            await pg.locator('#v-inicio .tl[data-id=giro]').click(); await pg.wait_for_timeout(300)
             r2 = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.dTab]")
             await pg.locator('#mainnav button:has-text("Início")').click(); await pg.wait_for_timeout(300)
             await pg.locator('#mainnav button[data-id="estoque"]').click(); await pg.wait_for_timeout(300)
@@ -1579,7 +1604,7 @@ async def main():
             await pg.evaluate("() => { window.__LF.S.dTab = 'hoje'; window.__LF.setView('dash'); }"); await pg.wait_for_timeout(500)
             r2 = await pg.evaluate("() => document.querySelectorAll('#v-dash .dHd button').length")  # v465: abas viraram o botão "Resumo ⌄"
             await pg.evaluate("""() => { const L = window.__LF, S = L.S, h = Date.now();
-              S.imprev = [{ts: h, desc: 'A', valor: 1000}, {ts: h, desc: 'B', valor: 2000}]; S.dlog = []; L.setView('desp'); }""")
+              S.imprev = [{ts: h, desc: 'A', valor: 1000}, {ts: h, desc: 'B', valor: 2000}]; S.dlog = []; S.dfold = S.dfold || {}; S.dfold.imp = true; L.setView('desp'); }""")
             await pg.wait_for_timeout(300)
             await pg.locator('[data-act=impdel]').first.scroll_into_view_if_needed()
             bx = await pg.locator('[data-act=impdel]').first.bounding_box()
@@ -2403,7 +2428,7 @@ async def main():
             r = await pg.evaluate("""() => { const L = window.__LF, S = L.S, h = Date.now(), mes = h - 40 * 86400000;
               S.imprev = [{ts: mes, desc: 'Antigo', valor: 100000}, {ts: h, desc: 'Errado', valor: 5000}];
               S.dlog = [{ts: mes, kind: 'imp', desc: 'Antigo', valor: 100000}, {ts: h, kind: 'imp', desc: 'Errado', valor: 5000}];
-              L.setView('desp'); return 1; }""")
+              S.dfold = S.dfold || {}; S.dfold.imp = true; L.setView('desp'); return 1; }""")
             await pg.wait_for_timeout(300)
             t1 = await pg.inner_text('#v-desp')
             btn = pg.locator('[data-act=impdel]')
@@ -2529,11 +2554,19 @@ async def main():
                 await pg.evaluate("(v) => document.querySelector((v === 'vendas' ? '#vDetail' : '#detail') + ' .tab.ibtn[aria-label=Voltar]').click()", v_)
                 await pg.wait_for_timeout(1000)
             sobra = await pg.evaluate("() => document.querySelectorAll('.lfVoa,.lfFundo').length")
+            # S374 (esboço 56): durante o voo a camada da foto não muda de tamanho — só transform e recorte
+            await pg.evaluate("() => window.__LF.setView('vendas')"); await pg.wait_for_timeout(700)
+            voo = await pg.evaluate("""async () => { const w = ms => new Promise(r => setTimeout(r, ms)); const c = [...document.querySelectorAll('#v-vendas .pcard[data-ref]')].find((c, i) => i > 1 && c.querySelector('.pbox img')); c.querySelector('.pbox').click();
+              await w(90); const v = document.querySelector('.lfVoa'), f = document.querySelector('.lfFundo'); if (!v || !f) return ['sem camada'];
+              const a = [v.style.width, getComputedStyle(v).transform, f.style.width, getComputedStyle(f).clipPath]; await w(90); const b = [v.style.width, getComputedStyle(v).transform, f.style.width, getComputedStyle(f).clipPath];
+              return [a[0] === b[0], a[1] !== b[1] && a[1] !== 'none', a[2] === b[2], a[3] !== b[3]]; }""")
+            await pg.wait_for_timeout(900)
+            fotos.append(voo)
             total += 1
             ok = (blocos == 2 and a1 == 'Preto +1.25 x5|Preto +2.00 x4|Tartaruga +0.75 x1' and a2 == 'Preto +1.25 x5|Preto +2.00 x2|Tartaruga +0.75 x1|Tartaruga +2.00 x2'
                   and a3 == 'Preto +1.25 x5|Preto +1.50 x1|Preto +2.00 x2|Preto +3.00 x1|Tartaruga +0.75 x1|Tartaruga +2.00 x2'
                   and a4 == 'Preto +1.25 x5|Preto +1.50 x1|Preto +2.00 x2|Tartaruga +0.75 x1|Tartaruga +2.00 x2' and el.endswith('+3.00:-1') and cu and sb
-                  and fotos[0][1:] == fotos[1][1:] and fotos[0][3] == 0 and sobra == 0 and not pg.erros)  # S267 (14/11/2026): o Catálogo não tem mais as abas, então a foto fica mais alta lá; tamanho e animação continuam iguais
+                  and fotos[0][1:] == fotos[1][1:] and fotos[0][3] == 0 and sobra == 0 and fotos[2] == [True, True, True, True] and not pg.erros)  # S374: voo por transform; S267 (14/11/2026): o Catálogo não tem mais as abas, então a foto fica mais alta lá; tamanho e animação continuam iguais
             print(('  ok  ' if ok else ' FALHA ') + 'v474: graus por cor (trocar/mudar de cor/adicionar/tirar/custo), barra de seleção padrão, foto abre igual no Catálogo e no Inventário')
             if not ok: falhas.append('v474 graus/barra/foto'); print('        veio', blocos, a1, a2, a3, a4, el, cu, sb, fotos, sobra, pg.erros)
             await pg.close()

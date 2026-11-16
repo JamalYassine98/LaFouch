@@ -9,28 +9,15 @@
   function expCard(e) {
     var last = e.hist[e.hist.length - 1],
       paid = !!(e.paid && e.paid[ymNow()]);
+    // S374 (esboço 58a): cada conta é uma linha (pagar · nome · tipo e vencimento · valor ⌄); tocar abre a edição de sempre
+    S.despAb = S.despAb || {};
+    var chkB = '<button type="button" class="chk' + (paid ? ' on' : '') + '" data-act="exppay" data-id="' + e.id + '" aria-pressed="' + paid + '" aria-label="' + (paid ? 'Pago neste mês. Toque para desfazer' : 'Marcar como paga neste mês') + '">' + (paid ? ICO.chk : '') + '</button>';
+    var sub58 = (e.tipo === 'fixa' ? 'fixa' : 'variável') + (expMoeda(e) !== 'pyg' ? (expMoeda(e) === 'usd' ? ' · em dólar' : ' · em real') : '') + (e.dia ? ' · vence dia ' + e.dia : '');
+    var ab58 = !!S.despAb[e.id];
+    var tog = '<button type="button" class="ecTog" data-act="despAb" data-id="' + e.id + '" aria-expanded="' + ab58 + '"><span class="ecNm"><b' + (paid ? ' class="paga-nome"' : '') + '>' + esc(e.nome) + '</b><small>' + sub58 + '</small></span><b class="ecVl">' + gs(e.valor) + '</b><span class="ecCh" aria-hidden="true">' + (ab58 ? '⌃' : '⌄') + '</span></button>';
+    if (!ab58) return '<div class="card cdel ecF" id="ec-' + e.id + '" style="background:var(--panel2)"><div class="ecRow">' + chkB + tog + '</div></div>';
     var h =
-      '<div class="card col cdel" id="ec-' + e.id + '" style="background:var(--panel2);padding:14px"><div style="display:flex;align-items:center;gap:10px"><button type="button" class="chk' +
-      (paid ? ' on' : '') +
-      '" data-act="exppay" data-id="' +
-      e.id +
-      '" aria-pressed="' +
-      paid +
-      '" aria-label="' +
-      (paid ? 'Pago neste mês. Toque para desfazer' : 'Marcar como paga neste mês') +
-      '">' +
-      (paid ? ICO.chk : '') +
-      '</button><div style="min-width:0"><b' +
-      (paid ? ' class="paga-nome"' : '') +
-      '>' +
-      esc(e.nome) +
-      '</b> <span class="cell">' +
-      (e.tipo === 'fixa' ? 'fixa' : 'variável') +
-      '</span>' +
-      (expMoeda(e) !== 'pyg'
-        ? ' <span class="cell">' + (expMoeda(e) === 'usd' ? 'em dólar' : 'em real') + '</span>'
-        : '') +
-      '</div></div>';
+      '<div class="card col cdel ecF on" id="ec-' + e.id + '" style="background:var(--panel2)"><div class="ecRow">' + chkB + tog + '</div>';
     h +=
       '<div class="sel" style="flex-wrap:wrap"><input class="in" id="ev-' +
       e.id +
@@ -201,7 +188,8 @@
         '</section>';
     });
     html +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Imprevistos do mês</h2><div class="hint" style="margin:2px 0 0">A provisão de ' +
+      dFold('imp', 'Imprevistos do mês', 'Gasto ' + gs(gasto) + ' de ' + gs(imp) + (impLista.length ? ' · ' + impLista.length + ' registrado(s)' : ''), gasto > imp ? 'var(--bad)' : 'var(--sub)',
+      '<section class="card col"><div><div class="hint" style="margin:0">A provisão de ' +
       gs(imp) +
       ' por mês é consumida pelos gastos inesperados que você registrar.</div></div>' +
       '<div class="bar"><i style="width:' +
@@ -232,15 +220,15 @@
         })
         .join('') +
       '<div class="hint" style="margin:0">A provisão começa do zero todo mês. Os imprevistos de meses anteriores ficam guardados no Histórico.</div>' +
-      '<div class="sel" style="flex-wrap:wrap"><input class="in" id="impD" placeholder="O que aconteceu" style="flex:2 1 180px;width:auto" aria-label="Descrição do imprevisto"><input class="in" id="impV" inputmode="' + mpMode() + '" placeholder="Valor em ' + mpSim() + '" style="flex:1 1 120px;width:auto" aria-label="Valor do imprevisto"><button class="mini" data-act="impadd">Registrar imprevisto</button></div></section>';
+      '<div class="sel" style="flex-wrap:wrap"><input class="in" id="impD" placeholder="O que aconteceu" style="flex:2 1 180px;width:auto" aria-label="Descrição do imprevisto"><input class="in" id="impV" inputmode="' + mpMode() + '" placeholder="Valor em ' + mpSim() + '" style="flex:1 1 120px;width:auto" aria-label="Valor do imprevisto"><button class="mini" data-act="impadd">Registrar imprevisto</button></div></section>');
     html +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Nova despesa</h2><div class="sel" style="flex-wrap:wrap"><input class="in" id="nName" placeholder="Nome (ex.: Água)" style="flex:2 1 160px;width:auto" aria-label="Nome da despesa"><select class="in" id="nCat" aria-label="Grupo" style="flex:1 1 130px;width:auto">' +
+      dFold('nova', '+ Nova despesa', 'Água, luz, aluguel… fixa ou variável', 'var(--sub)', '<section class="card col"><div class="sel" style="flex-wrap:wrap"><input class="in" id="nName" placeholder="Nome (ex.: Água)" style="flex:2 1 160px;width:auto" aria-label="Nome da despesa"><select class="in" id="nCat" aria-label="Grupo" style="flex:1 1 130px;width:auto">' +
       cats
         .map(function (c) {
           return '<option value="' + c + '">' + CATS[c] + '</option>';
         })
         .join('') +
-      '</select><select class="in" id="nTipo" aria-label="Tipo" style="flex:1 1 110px;width:auto"><option value="fixa">Fixa</option><option value="variavel">Variável</option></select><select class="in" id="nMoeda" aria-label="Moeda" style="flex:1 1 90px;width:auto">' + opcoesMoeda() + '</select><input class="in" id="nVal" inputmode="decimal" placeholder="Valor" style="flex:1 1 110px;width:auto" aria-label="Valor"><input class="in" id="nDia" inputmode="numeric" maxlength="2" placeholder="Dia do vencimento" style="flex:1 1 90px;width:auto" aria-label="Dia do vencimento"><button class="mini" data-act="expadd">Adicionar</button></div><div class="hint" id="nH" role="status"></div></section>';
+      '</select><select class="in" id="nTipo" aria-label="Tipo" style="flex:1 1 110px;width:auto"><option value="fixa">Fixa</option><option value="variavel">Variável</option></select><select class="in" id="nMoeda" aria-label="Moeda" style="flex:1 1 90px;width:auto">' + opcoesMoeda() + '</select><input class="in" id="nVal" inputmode="decimal" placeholder="Valor" style="flex:1 1 110px;width:auto" aria-label="Valor"><input class="in" id="nDia" inputmode="numeric" maxlength="2" placeholder="Dia do vencimento" style="flex:1 1 90px;width:auto" aria-label="Dia do vencimento"><button class="mini" data-act="expadd">Adicionar</button></div><div class="hint" id="nH" role="status"></div></section>');
     // v425: a caixa de melhorias virou Objetivos da loja (Caixa); o valor por venda é automático
     var pmk = ymNow(),
       pays = (S.cpay || []).filter(function (x) {

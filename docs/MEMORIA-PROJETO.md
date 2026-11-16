@@ -2890,3 +2890,5 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - 16/11/2026 08:18 · DONO: "Aprovado" → ESBOÇO 51 APROVADO (arrastar uma tela da folha da flecha direto para a barra; barra cheia = troca, o que sai volta ao Início; grupo com 1 tela se desfaz; aviso com Desfazer). Esperando "implementar".
 
 - 16/11/2026 08:40 · DONO: "Aprovado as 7 famílias" → ESBOÇOS 49a/49b APROVADOS (barra: Vender, Peças, Dinheiro; Início: Dashboard, Site, Clientes; flecha em cada família; Avisos = sino). Esperando "implementar".
+
+- S374 (16/11/2026): v542 publicado (7 famílias, 50a–c, 56, 57a/b, 58a/b). LIÇÃO: has-text do Playwright não diferencia maiúsculas — a frase nova do Dashboard ("… giro e preços") fez o teste achar 2 "Giro"; nos testes, procurar atalho por data-id. Os testes antigos partem da barra antiga (pagina(fam=False) desfaz as famílias); as famílias têm teste próprio.

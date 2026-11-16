@@ -584,7 +584,7 @@
       h =
         '<div class="top"><div><h1>Pedidos online</h1><div class="crumb">Pedidos que chegaram pelo site.<br>' +
         (PED_INFO.ts ? (PED_INFO.err ? '<span style="color:var(--bad)">Não consegui buscar os pedidos: ' + esc(PED_INFO.err) + '</span>' : 'Última busca às ' + fh(PED_INFO.ts)) : 'Buscando pedidos…') +
-        ' · <button type="button" class="pdLink" data-act="pedver">Verificar agora</button>' +
+        ' · <button type="button" class="pdLink" data-act="pedverAgora">Verificar agora</button>' +
         (S.pedidos.some(function (p) { return p.teste; }) ? ' · <button type="button" class="pdLink" data-act="pedteste">' + (S._pedTst ? 'Apagar os testes? Toque de novo' : 'Apagar pedidos de teste') + '</button>' : '') +
         '</div></div></div>';
     h += pedEsperaHtml();
@@ -800,6 +800,22 @@
     S.pedProd = null;
     setView('ped');
     pedSync();
+  };
+  // S374 (esboço 50c): "Verificar agora" responde no aviso do app
+  ACT.pedverAgora = function () {
+    var ocupado = S._pedSync && Date.now() - (S._pedT || 0) < 30000;
+    S.pedF = 'novo';
+    S.pedSel = null;
+    S.pedProd = null;
+    if (ocupado) {
+      lfToast('Já estou verificando…');
+      return;
+    }
+    pedSync().then(function (n) {
+      render();
+      if (PED_INFO && PED_INFO.err) lfToast('Não deu para verificar agora');
+      else lfToast(n ? 'Verificado agora · ' + n + (n === 1 ? ' pedido novo' : ' pedidos novos') : 'Verificado agora · nenhum pedido novo');
+    });
   };
   ACT.pedab = function (id) {
     S.pedSel = id;

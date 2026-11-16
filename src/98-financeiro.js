@@ -330,7 +330,9 @@
   };
   ACT.dfold = function (id) {
     S.dfold[id] = !S.dfold[id];
-    renderDash();
+    // S374 (esboço 50b): a mesma linha que abre também serve fora do Dashboard (Despesas, Histórico)
+    if (S.view === 'dash') renderDash();
+    else render();
     if (S.dfold[id]) {
       var b = document.querySelector('[data-act="dfold"][data-id="' + id + '"]'),
         sec = b && b.closest('section');

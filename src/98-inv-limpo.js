@@ -230,35 +230,30 @@
   };
 
   // ---------- Preços para corrigir ----------
+  // S374 (esboço 57b, R8): o aviso mora em Pendências e em Preços; no Inventário fica só o número na linha da contagem
   function invAviso() {
     var rows = $('rows');
     if (!rows) return;
-    var av = $('invFix'),
+    var av = $('invFix');
+    if (av) av.remove();
+    var info = $('invInfo'),
+      n = info && info.querySelector('.ifNum'),
       mostra = S.view === 'estoque' && !S.lotesView && !S.repoView && !S.cont && !S.det && !S.selMode && !S.pdMode && S.sitF !== 'preco';
-    var L = mostra ? invPrecosAcorrigir() : [];
+    var L = mostra && info ? invPrecosAcorrigir() : [];
     if (!L.length) {
-      if (av) av.remove();
+      if (n) n.remove();
       return;
     }
-    if (!av) {
-      av = document.createElement('div');
-      av.id = 'invFix';
-      av.className = 'invFix';
-      av.setAttribute('role', 'button');
-      av.tabIndex = 0;
-      av.setAttribute('data-act', 'pcAbre');
+    if (!n) {
+      n = document.createElement('button');
+      n.type = 'button';
+      n.className = 'ifNum';
+      n.setAttribute('data-act', 'pcAbre');
+      info.appendChild(n);
     }
-    if (av.nextSibling !== rows) rows.parentNode.insertBefore(av, rows);
-    var c = { r: 0, w: 0, c: 0, p: 0 };
-    L.forEach(function (x) {
-      c[x.pb.k]++;
-    });
-    var det = [];
-    if (c.w) det.push(c.w + ' perto do mínimo');
-    if (c.r) det.push(c.r + ' abaixo do custo');
-    if (c.p) det.push(c.p + ' sem preço');
-    if (c.c) det.push(c.c + ' sem custo');
-    av.innerHTML = '<span class="ifIc" aria-hidden="true">!</span><span class="ifTx"><b>' + L.length + (L.length === 1 ? ' preço para corrigir' : ' preços para corrigir') + '</b><small>' + det.join(' · ') + '</small></span><span class="ifVer">Corrigir ›</span>';
+    var t = '! ' + L.length + (L.length === 1 ? ' preço ›' : ' preços ›');
+    if (n.textContent !== t) n.textContent = t;
+    n.setAttribute('aria-label', L.length + (L.length === 1 ? ' preço para corrigir' : ' preços para corrigir') + ' · abrir Preços');
   }
   // S363 (2ª passada, item 1): a lista de preços a corrigir mora só em Dashboard › Preços (pcCorpo(true)); no Inventário fica a linha que leva lá.
   function pcCorpo(naTela) {

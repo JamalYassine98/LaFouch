@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 541;
+  var APP_BUILD = 542;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.31.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.32.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -22659,7 +22659,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       fx: ['Câmbio', [gsRaw(Math.round(ratePyg('usd'))), '']],
       desp: ['Despesas', [gs(totalMensal()) + '/mês', 'w']],
       hist: ['Histórico', [S.sales.length + ' vendas', '']],
-      hoje: ['Dashboard', ['Resumo', '']],
+      hoje: ['Dashboard', ['Dia, mês, reservas, giro e preços', '']], // S374 (49a)
       din: ['Reservas', ['Livre e separado', 'g']],
       giro: ['Giro', [rep + ' a repor', rep ? 'w' : '']],
       prec: ['Preços', [(S.faixas || []).length + ' faixas', '']],
@@ -22733,6 +22733,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       pend = semDet
         ? '<section class="card" data-act="inicio" data-id="lotes" role="button" tabindex="0" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px;border-left:4px solid var(--warn);margin-bottom:12px;cursor:pointer"><div><b style="font-size:15px">' + semDet + (semDet === 1 ? ' peça' : ' peças') + ' da compra' + (semDia ? ' de ' + ('0' + semDia.getDate()).slice(-2) + '/' + ('0' + (semDia.getMonth() + 1)).slice(-2) : '') + ' sem detalhe</b><div class="hint" style="margin:2px 0 0">já estão no estoque · toque para detalhar</div></div><span class="chip on" style="color:var(--warn)">' + semDet + '</span></section>'
         : '';
+    pend = ''; // S374 (esboço 57a, R8): o aviso do lote sem detalhe mora só no Guardião
     // v465 (Estúdio extra 1): peças novas de uma compra entram sozinhas na fila do Estúdio e o Início avisa
     var nSf = fotoPendModelos(),
       novas = 0,
@@ -22750,12 +22751,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   // S370 (esboço 44): azulejo de um grupo do Início — o ícone próprio do par, o nome do grupo e as telas embaixo
   function grpTileHtml(g, ed) {
-    var par = g.itens.length >= 2 ? grpIcoPar(g.itens[0], g.itens[1], 24) : '',
+    var par = g.ico ? ico(g.ico, 24) : g.itens.length >= 2 ? grpIcoPar(g.itens[0], g.itens[1], 24) : '', // S374: família tem ícone próprio
       ic = par || g.itens.slice(0, 2).map(function (x) { return ico(x, 16); }).join(''),
       fx = g.itens.map(function (x) { return BARRA_NOME[x] || x; }).join(' · '),
       av = grpAviso(g);
     var h = '<button type="button" class="tl tlG" ' + (ed ? 'disabled' : 'data-act="inicio" data-id="' + g.id + '"') + ' aria-label="Grupo ' + esc(g.nome) + ': ' + esc(fx) + '">' +
-      '<span class="ti' + (par ? '' : ' tiG') + '">' + ic + '</span><span class="tn">' + esc(g.nome) + '</span><span class="tp' + (av ? ' w' : '') + '">' + (av ? av + ' novos' : esc(fx)) + '</span></button>';
+      '<span class="ti' + (par ? '' : ' tiG') + '">' + ic + '</span><span class="tn">' + esc(g.nome) + '</span><span class="tp' + (av ? ' w' : '') + '">' + (av ? av + ' novos' : esc(g.frase && g.fam ? g.frase : fx)) + '</span></button>';
     if (!ed) return h;
     return '<div class="twrap" data-k="' + g.id + '">' + h + '<div class="tedit"><button type="button" class="x" data-act="grpGerir" data-id="' + g.id + '" aria-label="Gerenciar grupo ' + esc(g.nome) + '">⋯</button></div></div>';
   }
@@ -23091,7 +23092,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         else inicioGo(v[0]);
       });
       var gg = grpGet(v[0]),
-        pi = gg && gg.itens.length > 1 ? grpIcoPar(gg.itens[0], gg.itens[1], 24) : '';
+        pi = gg && gg.ico ? ico(gg.ico, 24) : gg && gg.itens.length > 1 ? grpIcoPar(gg.itens[0], gg.itens[1], 24) : ''; // S374: família tem ícone próprio
       b.innerHTML = gg
         ? '<span class="mi' + (pi ? '' : ' gi') + '">' + (pi || gg.itens.slice(0, 2).map(function (x) { return '<i>' + ico(x, 17) + '</i>'; }).join('')) + (grpAviso(gg) ? '<em class="bd">' + grpAviso(gg) + '</em>' : '') + '</span><span>' + esc(v[1]) + '</span>'
         : '<span class="mi">' + ico(v[0], 22) + '</span><span>' + v[1] + '</span>';
@@ -23578,28 +23579,15 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function expCard(e) {
     var last = e.hist[e.hist.length - 1],
       paid = !!(e.paid && e.paid[ymNow()]);
+    // S374 (esboço 58a): cada conta é uma linha (pagar · nome · tipo e vencimento · valor ⌄); tocar abre a edição de sempre
+    S.despAb = S.despAb || {};
+    var chkB = '<button type="button" class="chk' + (paid ? ' on' : '') + '" data-act="exppay" data-id="' + e.id + '" aria-pressed="' + paid + '" aria-label="' + (paid ? 'Pago neste mês. Toque para desfazer' : 'Marcar como paga neste mês') + '">' + (paid ? ICO.chk : '') + '</button>';
+    var sub58 = (e.tipo === 'fixa' ? 'fixa' : 'variável') + (expMoeda(e) !== 'pyg' ? (expMoeda(e) === 'usd' ? ' · em dólar' : ' · em real') : '') + (e.dia ? ' · vence dia ' + e.dia : '');
+    var ab58 = !!S.despAb[e.id];
+    var tog = '<button type="button" class="ecTog" data-act="despAb" data-id="' + e.id + '" aria-expanded="' + ab58 + '"><span class="ecNm"><b' + (paid ? ' class="paga-nome"' : '') + '>' + esc(e.nome) + '</b><small>' + sub58 + '</small></span><b class="ecVl">' + gs(e.valor) + '</b><span class="ecCh" aria-hidden="true">' + (ab58 ? '⌃' : '⌄') + '</span></button>';
+    if (!ab58) return '<div class="card cdel ecF" id="ec-' + e.id + '" style="background:var(--panel2)"><div class="ecRow">' + chkB + tog + '</div></div>';
     var h =
-      '<div class="card col cdel" id="ec-' + e.id + '" style="background:var(--panel2);padding:14px"><div style="display:flex;align-items:center;gap:10px"><button type="button" class="chk' +
-      (paid ? ' on' : '') +
-      '" data-act="exppay" data-id="' +
-      e.id +
-      '" aria-pressed="' +
-      paid +
-      '" aria-label="' +
-      (paid ? 'Pago neste mês. Toque para desfazer' : 'Marcar como paga neste mês') +
-      '">' +
-      (paid ? ICO.chk : '') +
-      '</button><div style="min-width:0"><b' +
-      (paid ? ' class="paga-nome"' : '') +
-      '>' +
-      esc(e.nome) +
-      '</b> <span class="cell">' +
-      (e.tipo === 'fixa' ? 'fixa' : 'variável') +
-      '</span>' +
-      (expMoeda(e) !== 'pyg'
-        ? ' <span class="cell">' + (expMoeda(e) === 'usd' ? 'em dólar' : 'em real') + '</span>'
-        : '') +
-      '</div></div>';
+      '<div class="card col cdel ecF on" id="ec-' + e.id + '" style="background:var(--panel2)"><div class="ecRow">' + chkB + tog + '</div>';
     h +=
       '<div class="sel" style="flex-wrap:wrap"><input class="in" id="ev-' +
       e.id +
@@ -23770,7 +23758,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         '</section>';
     });
     html +=
-      '<section class="card col"><div><h2 style="margin:0;font-size:16px">Imprevistos do mês</h2><div class="hint" style="margin:2px 0 0">A provisão de ' +
+      dFold('imp', 'Imprevistos do mês', 'Gasto ' + gs(gasto) + ' de ' + gs(imp) + (impLista.length ? ' · ' + impLista.length + ' registrado(s)' : ''), gasto > imp ? 'var(--bad)' : 'var(--sub)',
+      '<section class="card col"><div><div class="hint" style="margin:0">A provisão de ' +
       gs(imp) +
       ' por mês é consumida pelos gastos inesperados que você registrar.</div></div>' +
       '<div class="bar"><i style="width:' +
@@ -23801,15 +23790,15 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         })
         .join('') +
       '<div class="hint" style="margin:0">A provisão começa do zero todo mês. Os imprevistos de meses anteriores ficam guardados no Histórico.</div>' +
-      '<div class="sel" style="flex-wrap:wrap"><input class="in" id="impD" placeholder="O que aconteceu" style="flex:2 1 180px;width:auto" aria-label="Descrição do imprevisto"><input class="in" id="impV" inputmode="' + mpMode() + '" placeholder="Valor em ' + mpSim() + '" style="flex:1 1 120px;width:auto" aria-label="Valor do imprevisto"><button class="mini" data-act="impadd">Registrar imprevisto</button></div></section>';
+      '<div class="sel" style="flex-wrap:wrap"><input class="in" id="impD" placeholder="O que aconteceu" style="flex:2 1 180px;width:auto" aria-label="Descrição do imprevisto"><input class="in" id="impV" inputmode="' + mpMode() + '" placeholder="Valor em ' + mpSim() + '" style="flex:1 1 120px;width:auto" aria-label="Valor do imprevisto"><button class="mini" data-act="impadd">Registrar imprevisto</button></div></section>');
     html +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Nova despesa</h2><div class="sel" style="flex-wrap:wrap"><input class="in" id="nName" placeholder="Nome (ex.: Água)" style="flex:2 1 160px;width:auto" aria-label="Nome da despesa"><select class="in" id="nCat" aria-label="Grupo" style="flex:1 1 130px;width:auto">' +
+      dFold('nova', '+ Nova despesa', 'Água, luz, aluguel… fixa ou variável', 'var(--sub)', '<section class="card col"><div class="sel" style="flex-wrap:wrap"><input class="in" id="nName" placeholder="Nome (ex.: Água)" style="flex:2 1 160px;width:auto" aria-label="Nome da despesa"><select class="in" id="nCat" aria-label="Grupo" style="flex:1 1 130px;width:auto">' +
       cats
         .map(function (c) {
           return '<option value="' + c + '">' + CATS[c] + '</option>';
         })
         .join('') +
-      '</select><select class="in" id="nTipo" aria-label="Tipo" style="flex:1 1 110px;width:auto"><option value="fixa">Fixa</option><option value="variavel">Variável</option></select><select class="in" id="nMoeda" aria-label="Moeda" style="flex:1 1 90px;width:auto">' + opcoesMoeda() + '</select><input class="in" id="nVal" inputmode="decimal" placeholder="Valor" style="flex:1 1 110px;width:auto" aria-label="Valor"><input class="in" id="nDia" inputmode="numeric" maxlength="2" placeholder="Dia do vencimento" style="flex:1 1 90px;width:auto" aria-label="Dia do vencimento"><button class="mini" data-act="expadd">Adicionar</button></div><div class="hint" id="nH" role="status"></div></section>';
+      '</select><select class="in" id="nTipo" aria-label="Tipo" style="flex:1 1 110px;width:auto"><option value="fixa">Fixa</option><option value="variavel">Variável</option></select><select class="in" id="nMoeda" aria-label="Moeda" style="flex:1 1 90px;width:auto">' + opcoesMoeda() + '</select><input class="in" id="nVal" inputmode="decimal" placeholder="Valor" style="flex:1 1 110px;width:auto" aria-label="Valor"><input class="in" id="nDia" inputmode="numeric" maxlength="2" placeholder="Dia do vencimento" style="flex:1 1 90px;width:auto" aria-label="Dia do vencimento"><button class="mini" data-act="expadd">Adicionar</button></div><div class="hint" id="nH" role="status"></div></section>');
     // v425: a caixa de melhorias virou Objetivos da loja (Caixa); o valor por venda é automático
     var pmk = ymNow(),
       pays = (S.cpay || []).filter(function (x) {
@@ -26360,7 +26349,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       h =
         '<div class="top"><div><h1>Pedidos online</h1><div class="crumb">Pedidos que chegaram pelo site.<br>' +
         (PED_INFO.ts ? (PED_INFO.err ? '<span style="color:var(--bad)">Não consegui buscar os pedidos: ' + esc(PED_INFO.err) + '</span>' : 'Última busca às ' + fh(PED_INFO.ts)) : 'Buscando pedidos…') +
-        ' · <button type="button" class="pdLink" data-act="pedver">Verificar agora</button>' +
+        ' · <button type="button" class="pdLink" data-act="pedverAgora">Verificar agora</button>' +
         (S.pedidos.some(function (p) { return p.teste; }) ? ' · <button type="button" class="pdLink" data-act="pedteste">' + (S._pedTst ? 'Apagar os testes? Toque de novo' : 'Apagar pedidos de teste') + '</button>' : '') +
         '</div></div></div>';
     h += pedEsperaHtml();
@@ -26576,6 +26565,22 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.pedProd = null;
     setView('ped');
     pedSync();
+  };
+  // S374 (esboço 50c): "Verificar agora" responde no aviso do app
+  ACT.pedverAgora = function () {
+    var ocupado = S._pedSync && Date.now() - (S._pedT || 0) < 30000;
+    S.pedF = 'novo';
+    S.pedSel = null;
+    S.pedProd = null;
+    if (ocupado) {
+      lfToast('Já estou verificando…');
+      return;
+    }
+    pedSync().then(function (n) {
+      render();
+      if (PED_INFO && PED_INFO.err) lfToast('Não deu para verificar agora');
+      else lfToast(n ? 'Verificado agora · ' + n + (n === 1 ? ' pedido novo' : ' pedidos novos') : 'Verificado agora · nenhum pedido novo');
+    });
   };
   ACT.pedab = function (id) {
     S.pedSel = id;
@@ -36037,6 +36042,17 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       vis = keys.filter(function (k) { return k >= corte; }),
       html = '',
       mes = '';
+    // S374 (esboço 58b): esta semana e a passada abertas; as anteriores viram uma linha por semana (total · vendas · dias) que abre
+    var seg = function (k) { var d = new Date(k + 'T12:00:00'); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return dayKey(d.getTime()); },
+      lim = (function () { var d = new Date(seg(today) + 'T12:00:00'); d.setDate(d.getDate() - 7); return dayKey(d.getTime()); })(),
+      sem = {}, semFeita = {};
+    S.hSem = S.hSem || {};
+    vis.forEach(function (k) {
+      if (k >= lim) return;
+      var g = seg(k) + '|' + k.slice(0, 7), st = dayStats(k);
+      sem[g] = sem[g] || { v: 0, n: 0, d: 0 };
+      sem[g].v += st.vend; sem[g].n += st.n; sem[g].d++;
+    });
     vis.forEach(function (k) {
       var ym = k.slice(0, 7);
       if (ym !== mes) {
@@ -36053,6 +36069,15 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           '</div><div class="hint" style="margin:0 0 8px">Mês todo: ' + gs(tv) + ' em ' + tn + ' venda(s) · lucro livre ' + gs(tl) +
           '</div><div class="list" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">';
       }
+      if (k < lim) {
+        var g = seg(k) + '|' + ym;
+        if (!semFeita[g]) {
+          semFeita[g] = 1;
+          var d0 = new Date(seg(k) + 'T12:00:00'), d1 = new Date(d0.getTime() + 6 * DAY), dd = function (d) { return ('0' + d.getDate()).slice(-2) + '/' + ('0' + (d.getMonth() + 1)).slice(-2); }, ab = !!S.hSem[g];
+          html += '<button type="button" class="card hSem" data-act="hSem" data-id="' + g + '" aria-expanded="' + ab + '"><span class="ecNm"><b>Semana ' + dd(d0) + ' a ' + dd(d1) + '</b><small>' + gs(sem[g].v) + ' · ' + sem[g].n + ' venda(s) · ' + sem[g].d + ' dia(s)</small></span><span class="ecCh" aria-hidden="true">' + (ab ? '⌃' : '⌄') + '</span></button>';
+        }
+        if (!S.hSem[g]) return;
+      }
       html += hDiaCard(k, today);
     });
     if (mes) html += '</div>';
@@ -36061,6 +36086,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       html += '<button type="button" class="mini" data-act="hmais" style="margin-top:12px">Carregar mais 30 dias (' + mais + ' dia(s) com movimento)</button>';
     return html;
   }
+  ACT.hSem = function (g) {
+    S.hSem = S.hSem || {};
+    S.hSem[g] = !S.hSem[g];
+    histLista();
+  };
   // Redesenha só a lista (mantém o campo de busca com o foco).
   function histLista() {
     var b = $('hRes');
@@ -43905,7 +43935,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       return (
         h +
         '<div class="hint" style="margin:0">Para sugerir o que entra e o que sai, preciso saber o tamanho da vitrine.</div></div>' +
-        '<label class="hint" style="margin:0" for="vtLug">Quantos lugares (peças) cabem na vitrine?</label><div style="display:flex;gap:8px"><input class="in" id="vtLug" type="number" inputmode="numeric" min="1" max="200" placeholder="ex.: 12" style="flex:1"><button type="button" class="go" data-act="vitLug">Salvar</button></div></section>'
+        '<label class="hint" style="margin:0" for="vtLug">Quantos lugares (peças) cabem na vitrine?</label><div style="display:flex;gap:8px"><input class="in" id="vtLug" type="number" inputmode="numeric" min="1" max="200" placeholder="ex.: 12" style="flex:1 1 auto;min-width:0;width:auto"><button type="button" class="go" data-act="vitLug" style="flex:none;width:auto;padding:0 26px">Salvar</button></div></section>'
       );
     var V = vitSugestao(),
       quando = S.vit.ts ? 'trocada em ' + new Date(S.vit.ts).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) : 'ainda não registrada';
@@ -46110,6 +46140,25 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       e.innerHTML = '<img alt="" src="' + src + '" style="width:100%;height:100%;object-fit:contain;display:block">';
       return e;
     }
+    // S374 (esboço 56): o voo anda só com transform (foto, escala igual nos dois lados: não estica) e clip-path (fundo e moldura).
+    // A camada fica no tamanho MAIOR dos dois retângulos; nada de left/top/width/height por quadro.
+    function fR(r) { return { x: r.left, y: r.top, w: r.width, h: r.height }; }
+    function fG(A, B) { return B.w * B.h >= A.w * A.h ? B : A; }
+    function voaFundo(e, ra, rb, radA, radB, dur) {
+      var A = fR(ra), B = fR(rb), G = fG(A, B);
+      e.style.left = G.x + 'px'; e.style.top = G.y + 'px'; e.style.width = G.w + 'px'; e.style.height = G.h + 'px'; e.style.borderRadius = '0';
+      var ins = function (R, rad) { return 'inset(' + (R.y - G.y) + 'px ' + (G.x + G.w - R.x - R.w) + 'px ' + (G.y + G.h - R.y - R.h) + 'px ' + (R.x - G.x) + 'px round ' + (rad || '0px') + ')'; };
+      return e.animate([{ clipPath: ins(A, radA) }, { clipPath: ins(B, radB) }], { duration: dur, easing: FE, fill: 'forwards' });
+    }
+    function voaFoto(e, ra, rb, dur) {
+      var A = fR(ra), B = fR(rb), G = fG(A, B);
+      e.style.left = '0px'; e.style.top = '0px'; e.style.width = G.w + 'px'; e.style.height = G.h + 'px'; e.style.borderRadius = '0'; e.style.transformOrigin = '0 0';
+      var q = function (R) {
+        var k = Math.max(R.w / G.w, R.h / G.h), ix = (G.w - R.w / k) / 2, iy = (G.h - R.h / k) / 2;
+        return { transform: 'translate(' + (R.x + R.w / 2 - (G.w * k) / 2) + 'px,' + (R.y + R.h / 2 - (G.h * k) / 2) + 'px) scale(' + k + ')', clipPath: 'inset(' + iy + 'px ' + ix + 'px ' + iy + 'px ' + ix + 'px round ' + 8 / k + 'px)' };
+      };
+      return e.animate([q(A), q(B)], { duration: dur, easing: FE, fill: 'forwards' });
+    }
     function fSemMov() {
       return REDUCED || S.modoCli || S.selMode || (S.selP && S.selP.length) || (S.vSel && S.vSel.length && S.vSelMode) || S.ebSel;
     }
@@ -46159,13 +46208,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           if (!alvo || !ai) { limpa(); return; }
           var r1 = alvo.getBoundingClientRect(), W = window.innerWidth, H = window.innerHeight;
           ai.style.visibility = 'hidden';
-          bg.animate([fRet(a.card), { left: '0px', top: '0px', width: W + 'px', height: H + 'px', borderRadius: '0px' }], { duration: 380, easing: FE, fill: 'forwards' });
+          voaFundo(bg, a.card, { left: 0, top: 0, width: W, height: H }, a.rad, '0px', 380);
           an.play();
           var fim = function () {
             ai.style.visibility = '';
             limpa();
           };
-          fl.animate([fRet(a.box), fRet(r1)], { duration: 380, easing: FE, fill: 'forwards' }).onfinish = function () {
+          voaFoto(fl, a.box, r1, 380).onfinish = function () {
             if (an.playState === 'finished') fim();
             else an.onfinish = fim;
           };
@@ -46215,8 +46264,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           }
           var r0 = pb.getBoundingClientRect();
           if (ci) ci.style.visibility = 'hidden';
-          bg.animate([{ left: '0px', top: '0px', width: W + 'px', height: H + 'px', borderRadius: '0px' }, { left: cr.left + 'px', top: cr.top + 'px', width: cr.width + 'px', height: cr.height + 'px', borderRadius: getComputedStyle(c).borderRadius }], { duration: 340, easing: FE, fill: 'forwards' });
-          fl.animate([fRet(f.box), fRet(r0)], { duration: 340, easing: FE, fill: 'forwards' }).onfinish = function () {
+          voaFundo(bg, { left: 0, top: 0, width: W, height: H }, cr, '0px', getComputedStyle(c).borderRadius, 340);
+          voaFoto(fl, f.box, r0, 340).onfinish = function () {
             if (ci) ci.style.visibility = '';
             limpa();
           };
@@ -48877,7 +48926,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   ACT.dfold = function (id) {
     S.dfold[id] = !S.dfold[id];
-    renderDash();
+    // S374 (esboço 50b): a mesma linha que abre também serve fora do Dashboard (Despesas, Histórico)
+    if (S.view === 'dash') renderDash();
+    else render();
     if (S.dfold[id]) {
       var b = document.querySelector('[data-act="dfold"][data-id="' + id + '"]'),
         sec = b && b.closest('section');
@@ -49692,35 +49743,30 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
 
   // ---------- Preços para corrigir ----------
+  // S374 (esboço 57b, R8): o aviso mora em Pendências e em Preços; no Inventário fica só o número na linha da contagem
   function invAviso() {
     var rows = $('rows');
     if (!rows) return;
-    var av = $('invFix'),
+    var av = $('invFix');
+    if (av) av.remove();
+    var info = $('invInfo'),
+      n = info && info.querySelector('.ifNum'),
       mostra = S.view === 'estoque' && !S.lotesView && !S.repoView && !S.cont && !S.det && !S.selMode && !S.pdMode && S.sitF !== 'preco';
-    var L = mostra ? invPrecosAcorrigir() : [];
+    var L = mostra && info ? invPrecosAcorrigir() : [];
     if (!L.length) {
-      if (av) av.remove();
+      if (n) n.remove();
       return;
     }
-    if (!av) {
-      av = document.createElement('div');
-      av.id = 'invFix';
-      av.className = 'invFix';
-      av.setAttribute('role', 'button');
-      av.tabIndex = 0;
-      av.setAttribute('data-act', 'pcAbre');
+    if (!n) {
+      n = document.createElement('button');
+      n.type = 'button';
+      n.className = 'ifNum';
+      n.setAttribute('data-act', 'pcAbre');
+      info.appendChild(n);
     }
-    if (av.nextSibling !== rows) rows.parentNode.insertBefore(av, rows);
-    var c = { r: 0, w: 0, c: 0, p: 0 };
-    L.forEach(function (x) {
-      c[x.pb.k]++;
-    });
-    var det = [];
-    if (c.w) det.push(c.w + ' perto do mínimo');
-    if (c.r) det.push(c.r + ' abaixo do custo');
-    if (c.p) det.push(c.p + ' sem preço');
-    if (c.c) det.push(c.c + ' sem custo');
-    av.innerHTML = '<span class="ifIc" aria-hidden="true">!</span><span class="ifTx"><b>' + L.length + (L.length === 1 ? ' preço para corrigir' : ' preços para corrigir') + '</b><small>' + det.join(' · ') + '</small></span><span class="ifVer">Corrigir ›</span>';
+    var t = '! ' + L.length + (L.length === 1 ? ' preço ›' : ' preços ›');
+    if (n.textContent !== t) n.textContent = t;
+    n.setAttribute('aria-label', L.length + (L.length === 1 ? ' preço para corrigir' : ' preços para corrigir') + ' · abrir Preços');
   }
   // S363 (2ª passada, item 1): a lista de preços a corrigir mora só em Dashboard › Preços (pcCorpo(true)); no Inventário fica a linha que leva lá.
   function pcCorpo(naTela) {
@@ -51408,6 +51454,75 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     });
     var b = document.querySelector('.cnt [data-act="c52Ver"][data-id="' + gi + '"]');
     if (b) b.closest('.cntL').remove();
+  };
+  // ===== S374 (16/11/2026): esboços 50a–c, 57a/b, 58a/b =====
+  // 58a: abrir/fechar uma conta em Despesas
+  ACT.despAb = function (id) {
+    S.despAb = S.despAb || {};
+    S.despAb[id] = !S.despAb[id];
+    render();
+    if (S.despAb[id]) animEnter && animEnter($('ec-' + id));
+  };
+
+  // ===== S374 · esboços 49a/49b (aprovados 16/11 08:40): as 7 famílias =====
+  // Barra: Início · Vender · Peças · Dinheiro · Ajustes. Início: Dashboard · Site · Clientes. Avisos = sino (Pendências).
+  // Cada família é um grupo comum (dá para tirar/pôr telas e desfazer em "Gerenciar grupo"); entra UMA vez (S.fam7).
+  var FAM7 = [
+    { id: 'g:pecas', nome: 'Peças', ico: 'estoque', frase: 'Inventário, fornecedores, reposição, contagem e estúdio', itens: ['estoque', 'lotes', 'repo', 'cont', 'est'] },
+    { id: 'g:din', nome: 'Dinheiro', ico: 'caixa', frase: 'Caixa, despesas e câmbio', itens: ['caixa', 'desp', 'fx'] },
+    { id: 'g:site', nome: 'Site', ico: 'onl', frase: 'Pedidos, mensagens, analisador e temática', itens: ['ped', 'msg', 'anl', 'tem', 'mkt'] },
+    { id: 'g:cli', nome: 'Clientes', ico: 'cli', frase: 'Clientes e atacado', itens: ['cli', 'ata'] }
+  ];
+  BARRA_NOME.vendas = 'Vender';
+  if (!ICO_D.repo) ICO_D.repo = ICO_D.giro || ICO_D.lotes;
+  BARRA_NOME.repo = 'Reposição';
+  GRP_FRASE.lotes = 'Compras e lotes';
+  GRP_FRASE.repo = 'O que comprar, com a lista do Giro';
+  GRP_FRASE.caixa = 'O dinheiro da loja, por moeda';
+  GRP_FRASE.desp = 'Contas do mês e imprevistos';
+  GRP_FRASE.fx = 'Cotações e trocas';
+  GRP_FRASE.ped = 'O que chegou pelo site';
+  GRP_FRASE.anl = 'Visitas e avisos do site';
+  GRP_FRASE.ata = 'Lojistas, lotes e tabela';
+  function fam7Aplica() {
+    if (S.fam7) return;
+    S.fam7 = true;
+    var tudo = [];
+    FAM7.forEach(function (f) { tudo = tudo.concat(f.itens); });
+    S.grupos = (S.grupos || []).filter(function (g) {
+      return !FAM7.some(function (f) { return f.id === g.id; }) && !g.itens.some(function (x) { return tudo.indexOf(x) >= 0; });
+    }).concat(FAM7.map(function (f) { return { id: f.id, nome: f.nome, ico: f.ico, frase: f.frase, fam: 1, itens: f.itens.slice() }; }));
+    S.barra = ['vendas', 'g:pecas', 'g:din', 'ajustes'];
+    S.inicioT = ['hoje', 'g:site', 'g:cli'];
+  }
+  var _iniLista374 = iniLista;
+  iniLista = function () {
+    var l = _iniLista374.apply(this, arguments);
+    if (S.fam7) return l;
+    fam7Aplica();
+    _iniLista374.apply(this, arguments); // as entradas únicas antigas rodam aqui e podem devolver atalhos soltos
+    var den = [];
+    (S.grupos || []).forEach(function (g) { den = den.concat(g.itens); });
+    S.inicioT = S.inicioT.filter(function (x) { return den.indexOf(x) < 0; });
+    return _iniLista374.apply(this, arguments);
+  };
+  // Reposição: a aba do Inventário vira tela da família Peças
+  var _inicioGo374 = inicioGo;
+  inicioGo = function (id) {
+    if (id === 'repo') {
+      S.lotesView = false;
+      S.cont = false;
+      S.repoView = true;
+      return setView('estoque');
+    }
+    if (id === 'estoque' && S.view !== 'estoque') S.repoView = false;
+    return _inicioGo374.apply(this, arguments);
+  };
+  var _navOn374 = navOn;
+  navOn = function (id) {
+    if (id === 'repo') return S.view === 'estoque' && !!S.repoView && !S.lotesView;
+    if (id === 'estoque' && S.view === 'estoque' && S.repoView && grpPlana().indexOf('repo') >= 0) return false;
+    return _navOn374.apply(this, arguments);
   };
   // ===== S370 (16/11/2026) — lote 8: trilho que ARRASTA (regra do dono, 15/11/2026) =====
   // Todo seletor em trilho (.trk com a pílula .trkTh e os botões .trkB) aceita o dedo (ou o mouse) arrastando a pílula,

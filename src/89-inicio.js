@@ -138,7 +138,7 @@
       fx: ['Câmbio', [gsRaw(Math.round(ratePyg('usd'))), '']],
       desp: ['Despesas', [gs(totalMensal()) + '/mês', 'w']],
       hist: ['Histórico', [S.sales.length + ' vendas', '']],
-      hoje: ['Dashboard', ['Resumo', '']],
+      hoje: ['Dashboard', ['Dia, mês, reservas, giro e preços', '']], // S374 (49a)
       din: ['Reservas', ['Livre e separado', 'g']],
       giro: ['Giro', [rep + ' a repor', rep ? 'w' : '']],
       prec: ['Preços', [(S.faixas || []).length + ' faixas', '']],
@@ -212,6 +212,7 @@
       pend = semDet
         ? '<section class="card" data-act="inicio" data-id="lotes" role="button" tabindex="0" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px;border-left:4px solid var(--warn);margin-bottom:12px;cursor:pointer"><div><b style="font-size:15px">' + semDet + (semDet === 1 ? ' peça' : ' peças') + ' da compra' + (semDia ? ' de ' + ('0' + semDia.getDate()).slice(-2) + '/' + ('0' + (semDia.getMonth() + 1)).slice(-2) : '') + ' sem detalhe</b><div class="hint" style="margin:2px 0 0">já estão no estoque · toque para detalhar</div></div><span class="chip on" style="color:var(--warn)">' + semDet + '</span></section>'
         : '';
+    pend = ''; // S374 (esboço 57a, R8): o aviso do lote sem detalhe mora só no Guardião
     // v465 (Estúdio extra 1): peças novas de uma compra entram sozinhas na fila do Estúdio e o Início avisa
     var nSf = fotoPendModelos(),
       novas = 0,
@@ -229,12 +230,12 @@
   }
   // S370 (esboço 44): azulejo de um grupo do Início — o ícone próprio do par, o nome do grupo e as telas embaixo
   function grpTileHtml(g, ed) {
-    var par = g.itens.length >= 2 ? grpIcoPar(g.itens[0], g.itens[1], 24) : '',
+    var par = g.ico ? ico(g.ico, 24) : g.itens.length >= 2 ? grpIcoPar(g.itens[0], g.itens[1], 24) : '', // S374: família tem ícone próprio
       ic = par || g.itens.slice(0, 2).map(function (x) { return ico(x, 16); }).join(''),
       fx = g.itens.map(function (x) { return BARRA_NOME[x] || x; }).join(' · '),
       av = grpAviso(g);
     var h = '<button type="button" class="tl tlG" ' + (ed ? 'disabled' : 'data-act="inicio" data-id="' + g.id + '"') + ' aria-label="Grupo ' + esc(g.nome) + ': ' + esc(fx) + '">' +
-      '<span class="ti' + (par ? '' : ' tiG') + '">' + ic + '</span><span class="tn">' + esc(g.nome) + '</span><span class="tp' + (av ? ' w' : '') + '">' + (av ? av + ' novos' : esc(fx)) + '</span></button>';
+      '<span class="ti' + (par ? '' : ' tiG') + '">' + ic + '</span><span class="tn">' + esc(g.nome) + '</span><span class="tp' + (av ? ' w' : '') + '">' + (av ? av + ' novos' : esc(g.frase && g.fam ? g.frase : fx)) + '</span></button>';
     if (!ed) return h;
     return '<div class="twrap" data-k="' + g.id + '">' + h + '<div class="tedit"><button type="button" class="x" data-act="grpGerir" data-id="' + g.id + '" aria-label="Gerenciar grupo ' + esc(g.nome) + '">⋯</button></div></div>';
   }

@@ -70,7 +70,7 @@
         else inicioGo(v[0]);
       });
       var gg = grpGet(v[0]),
-        pi = gg && gg.itens.length > 1 ? grpIcoPar(gg.itens[0], gg.itens[1], 24) : '';
+        pi = gg && gg.ico ? ico(gg.ico, 24) : gg && gg.itens.length > 1 ? grpIcoPar(gg.itens[0], gg.itens[1], 24) : ''; // S374: família tem ícone próprio
       b.innerHTML = gg
         ? '<span class="mi' + (pi ? '' : ' gi') + '">' + (pi || gg.itens.slice(0, 2).map(function (x) { return '<i>' + ico(x, 17) + '</i>'; }).join('')) + (grpAviso(gg) ? '<em class="bd">' + grpAviso(gg) + '</em>' : '') + '</span><span>' + esc(v[1]) + '</span>'
         : '<span class="mi">' + ico(v[0], 22) + '</span><span>' + v[1] + '</span>';

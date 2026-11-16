@@ -133,7 +133,7 @@
       return (
         h +
         '<div class="hint" style="margin:0">Para sugerir o que entra e o que sai, preciso saber o tamanho da vitrine.</div></div>' +
-        '<label class="hint" style="margin:0" for="vtLug">Quantos lugares (peças) cabem na vitrine?</label><div style="display:flex;gap:8px"><input class="in" id="vtLug" type="number" inputmode="numeric" min="1" max="200" placeholder="ex.: 12" style="flex:1"><button type="button" class="go" data-act="vitLug">Salvar</button></div></section>'
+        '<label class="hint" style="margin:0" for="vtLug">Quantos lugares (peças) cabem na vitrine?</label><div style="display:flex;gap:8px"><input class="in" id="vtLug" type="number" inputmode="numeric" min="1" max="200" placeholder="ex.: 12" style="flex:1 1 auto;min-width:0;width:auto"><button type="button" class="go" data-act="vitLug" style="flex:none;width:auto;padding:0 26px">Salvar</button></div></section>'
       );
     var V = vitSugestao(),
       quando = S.vit.ts ? 'trocada em ' + new Date(S.vit.ts).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) : 'ainda não registrada';

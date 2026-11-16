@@ -150,6 +150,17 @@
       vis = keys.filter(function (k) { return k >= corte; }),
       html = '',
       mes = '';
+    // S374 (esboço 58b): esta semana e a passada abertas; as anteriores viram uma linha por semana (total · vendas · dias) que abre
+    var seg = function (k) { var d = new Date(k + 'T12:00:00'); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return dayKey(d.getTime()); },
+      lim = (function () { var d = new Date(seg(today) + 'T12:00:00'); d.setDate(d.getDate() - 7); return dayKey(d.getTime()); })(),
+      sem = {}, semFeita = {};
+    S.hSem = S.hSem || {};
+    vis.forEach(function (k) {
+      if (k >= lim) return;
+      var g = seg(k) + '|' + k.slice(0, 7), st = dayStats(k);
+      sem[g] = sem[g] || { v: 0, n: 0, d: 0 };
+      sem[g].v += st.vend; sem[g].n += st.n; sem[g].d++;
+    });
     vis.forEach(function (k) {
       var ym = k.slice(0, 7);
       if (ym !== mes) {
@@ -166,6 +177,15 @@
           '</div><div class="hint" style="margin:0 0 8px">Mês todo: ' + gs(tv) + ' em ' + tn + ' venda(s) · lucro livre ' + gs(tl) +
           '</div><div class="list" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">';
       }
+      if (k < lim) {
+        var g = seg(k) + '|' + ym;
+        if (!semFeita[g]) {
+          semFeita[g] = 1;
+          var d0 = new Date(seg(k) + 'T12:00:00'), d1 = new Date(d0.getTime() + 6 * DAY), dd = function (d) { return ('0' + d.getDate()).slice(-2) + '/' + ('0' + (d.getMonth() + 1)).slice(-2); }, ab = !!S.hSem[g];
+          html += '<button type="button" class="card hSem" data-act="hSem" data-id="' + g + '" aria-expanded="' + ab + '"><span class="ecNm"><b>Semana ' + dd(d0) + ' a ' + dd(d1) + '</b><small>' + gs(sem[g].v) + ' · ' + sem[g].n + ' venda(s) · ' + sem[g].d + ' dia(s)</small></span><span class="ecCh" aria-hidden="true">' + (ab ? '⌃' : '⌄') + '</span></button>';
+        }
+        if (!S.hSem[g]) return;
+      }
       html += hDiaCard(k, today);
     });
     if (mes) html += '</div>';
@@ -174,6 +194,11 @@
       html += '<button type="button" class="mini" data-act="hmais" style="margin-top:12px">Carregar mais 30 dias (' + mais + ' dia(s) com movimento)</button>';
     return html;
   }
+  ACT.hSem = function (g) {
+    S.hSem = S.hSem || {};
+    S.hSem[g] = !S.hSem[g];
+    histLista();
+  };
   // Redesenha só a lista (mantém o campo de busca com o foco).
   function histLista() {
     var b = $('hRes');
