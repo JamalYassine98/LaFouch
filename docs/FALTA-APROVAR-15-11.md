@@ -281,3 +281,4 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - 16/11/2026 17:18 · DONO: "Implementar tudo" → 70, 71 e 72.
 - 16/11/2026 · ✔ PUBLICADO app v551 / 5.37.0: esboço 70 (Hoje) ✔ v551 · esboço 71 (Histórico, com as semanas abrindo como na Apple) ✔ v551 · esboço 72 (Caixa) ✔ v551.
 
+- 16/11 17:31 — DONO: "Implementar" (login com Google, erro auth/internal-error) → ✔ **SITE publicado (1794861676; www/loja atualizado)**: CSP libera apis.google.com e a moldura do firebaseapp.com. Causa: CSP de 12/11, não a Cloudflare. ESPERANDO o dono confirmar o login no aparelho. Proposta minha (sem ordem): prova no portão para a CSP.
