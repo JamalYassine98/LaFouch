@@ -2609,3 +2609,20 @@ html{overscroll-behavior-y:none}
 .kbAjN{color:var(--mute);font-size:13px;margin:12px 0 0}
 @media (max-width:1599px){.main.invDuo #detail .detgrid{grid-template-columns:minmax(0,1fr)}.main.invDuo #detail .pbox{max-height:260px}}
 .main.invDuo #rows.list,.main.invDuo #rows{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+/* S370 · lote 8 (aprovado 15/11/2026, docs/PROBLEMAS-ANIMACAO-SITE-E-APP-15-11.md §4): uma curva de luxo só, sem quique */
+:root{--lux-in:cubic-bezier(.16,1,.3,1);--lux-out:cubic-bezier(.4,0,.2,1);--mola:var(--lux-in)}
+.enter{animation-timing-function:var(--lux-in)}
+.view.enter{animation-timing-function:var(--lux-in)}
+.cascata .tl,.cascata .hero{animation-timing-function:var(--lux-in);animation-duration:.42s}
+.lfVazio svg path,.lfVazio svg circle,.lfVazio svg rect{animation-duration:.6s;animation-timing-function:var(--lux-out)}
+.lfVazio b{animation-delay:.45s;animation-timing-function:var(--lux-in)}.lfVazio span{animation-delay:.55s;animation-timing-function:var(--lux-in)}
+.cjOdo>span{transition-timing-function:var(--lux-in)}
+.ljJn.anim{transition:transform .36s var(--lux-in)}
+.ljBk.anim{transition:opacity .32s var(--lux-out)}
+.shAp.in .shA{animation-timing-function:var(--lux-in)}
+.lfEspCx{animation-timing-function:var(--lux-in)}
+.ebBar{transition:transform .32s var(--lux-in)}
+.go,.mini,.btn,.btn-sc,.chip,.tl,.mn,.pdB1,.bsolid,.tab,.trkB,.ib{transition:transform .28s var(--lux-in),background-color .18s var(--lux-out),border-color .18s var(--lux-out),color .18s var(--lux-out)!important}
+.lfPill{transition-timing-function:var(--lux-in)!important}
+/* S370 · lote 8: trilho arrastável */
+.trk{touch-action:pan-y}.trk.trkArr{cursor:grabbing}.trk.trkArr .trkB{pointer-events:none}

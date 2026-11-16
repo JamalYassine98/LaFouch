@@ -1,9 +1,10 @@
 {
- "nome": "5.28.0",
+ "nome": "5.28.1",
  "notas": [
-  "Tablet e computador: no Inventário, com uma peça aberta, a lista fica à esquerda e a ficha à direita. Tocar em outra peça troca a ficha sem sair do lugar.",
-  "Computador: “/” vai para a busca, Enter abre a primeira peça, “V” vende a peça aberta, Esc fecha a janela ou a ficha e “?” mostra a lista de atalhos.",
-  "Leitor de código no computador: leia a etiqueta em qualquer tela; a peça abre no Catálogo, pronta para vender."
+  "Animações de luxo: uma curva só em todo o app, sem quique (botões, janelas, barra de escolher peças, pílulas, contagens).",
+  "Seletores em trilho (Moeda, Varejo/Atacado nas peças, faixas e outros): dá para arrastar a pílula com o dedo, além de tocar.",
+  "Os atalhos do Início entram em cascata só na primeira vez; ao voltar para o Início eles já estão no lugar.",
+  "O desenho das telas vazias ficou mais curto (0,6 s)."
  ],
- "build": 537
+ "build": 538
 }

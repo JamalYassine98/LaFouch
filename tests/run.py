@@ -2654,6 +2654,22 @@ async def main():
             print(('  ok  ' if ok else ' FALHA ') + 'S370: computador — lista e ficha lado a lado, teclado (/ ? Esc) e leitor de código')
             if not ok: falhas.append('pc lado a lado e teclado'); print('        veio', d1, d2, k1, k2, k3, pg.erros)
             await pg.close(); await ctxPC.close()
+            # S370 (lote 8): trilho arrasta — puxar a pílula da Moeda (Ajustes do catálogo) até US$ escolhe US$; e a curva de luxo, sem quique
+            pg = await pagina()
+            await pg.evaluate("() => window.__LF.setView('vendas')"); await pg.wait_for_timeout(500)
+            await pg.click('#cjAj'); await pg.wait_for_timeout(600)
+            p0 = await pg.evaluate("() => { const a = document.querySelector('#cjTM .trkB[data-m=pyg]').getBoundingClientRect(), b = document.querySelector('#cjTM .trkB[data-m=usd]').getBoundingClientRect(); return [a.x + a.width / 2, a.y + a.height / 2, b.x + b.width / 2]; }")
+            await pg.mouse.move(p0[0], p0[1]); await pg.mouse.down()
+            for k in range(1, 13): await pg.mouse.move(p0[0] + (p0[2] - p0[0]) * k / 12, p0[1]); await pg.wait_for_timeout(16)
+            await pg.mouse.up(); await pg.wait_for_timeout(500)
+            t1 = await pg.evaluate("() => [window.__LF.S.vMoeda, getComputedStyle(document.documentElement).getPropertyValue('--mola').trim()]")
+            await pg.keyboard.press('Escape'); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => { window.__LF.S.vMoeda = 'pyg'; window.__LF.render(); }")
+            total += 1
+            ok = t1[0] == 'usd' and '1.25' not in t1[1] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S370: trilho arrasta (Moeda) e curva de luxo sem quique')
+            if not ok: falhas.append('trilho arrasta'); print('        veio', p0, t1, pg.erros)
+            await pg.close()
 
             # Produtos: preço antigo → novo, canais, aviso de piso e aplicar em grupo (Reajustar)
             pg = await pagina()

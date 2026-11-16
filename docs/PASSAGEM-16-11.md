@@ -27,3 +27,7 @@ Para a próxima sessão: ler este arquivo, depois `docs/FALTA-APROVAR-15-11.md` 
 
 ## Voz da Mochi no computador (S369, sessão antiga)
 - Fluxo publicado no site (1794806381). Voz NÃO gravada: a chave do dono ficou sem cota; quando ele liberar, rodar `work/s369/grava.py` (teto 6.000 créditos), página de escuta, OK de ouvido, e só então lista.json.
+
+## Continuação do "implementar tudo" (S370, 16/11 ~01:30–04:30)
+- Publicados: v536 (lotes 5 e 6), v537 (lote 7), v538 (lote 8 parte 1). O que falta, na ordem: ver a linha "FALTA do implementar tudo" no fim de `docs/FALTA-APROVAR-15-11.md`.
+- Antes de cada push: `git fetch --depth=20 origin main` + rebase (há outra sessão publicando); `git pull` no catalogo antes de `node build.js`.

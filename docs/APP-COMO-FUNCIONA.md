@@ -360,3 +360,11 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - **Teclado** (só fora de campos de texto): `/` foca a busca da tela (`#vq`, `#q`, `#buQ`), Enter na busca abre a 1ª peça, `V` toca no "Vender…" visível, Esc (quando nenhuma janela está aberta) fecha a ficha do Inventário ou a peça do Catálogo, `?` abre/fecha a folha `#kbAj`. No computador (≥ 1024 px e mouse) as buscas mostram a tecla `/` (`.kbSl`).
 - **Leitor de código**: teclas a ≤ 45 ms uma da outra terminando em Enter = leitura; se o código é a referência de uma peça, `fnAbreVenda(ref)` (Catálogo, pronta para vender) em qualquer tela; se o leitor escreveu dentro de uma busca, o código sai do campo. Código desconhecido fora de campo: aviso "Código … não encontrado".
 - Testado no simulador (PC 1440, tablet 820, celular 420). **Não testado** com leitor de verdade nem no celular.
+
+## S370c (16/11/2026, v538 · 5.28.1) — "Implementar tudo", lote 8 (parte 1: curva de luxo e trilho que arrasta)
+- **Uma curva só** (`www/style.css`, bloco "S370 · lote 8"): `--lux-in: cubic-bezier(.16,1,.3,1)`, `--lux-out: cubic-bezier(.4,0,.2,1)` e `--mola` passou a ser a curva de luxo (todas as regras que usavam a mola com quique deixaram de quicar). Sobrescritos: `.enter`, `.view.enter`, `.cascata`, `.cjOdo`, `.ljJn`/`.ljBk` (janelas), `.shA`, `.lfEspCx`, `#ebBar`, transição dos botões (`.go,.mini,.chip,.tl,.mn…`) e `.lfPill`. Transições escritas no JS (`97-folha.js`, `97-sync2.js`) também.
+- **Cascata do Início** (`animInicio`, `98-botoes-anim.js`): só na primeira entrada; ao voltar não repete.
+- **Telas vazias** (`.lfVazio`): desenho em 0,6 s (era 1 s) e textos logo depois.
+- **Trilho arrasta** (`src/98z-trilho-s370.js`): em todo `.trk` com `.trkTh`, arrastar a pílula na horizontal a move (só `transform`); ao soltar vale o botão mais perto (`click()` do botão, então cada tela continua igual); arrastar na vertical é rolagem. O clique que vem depois do arrasto é ignorado.
+- NÃO feito neste lote (fica para a continuação): o voo da ficha com transform (`lfVoa`/`lfFundo` ainda animam top/left/width/height); abas em linha (`.lfAbas`) e as pílulas do site arrastando; a pílula "um objeto só" com letra recortada; as 4 provas do portão; lotes B e C dos vídeos além da curva.
+- Testado no simulador (celular, mouse e toque). **Não testado no celular.**

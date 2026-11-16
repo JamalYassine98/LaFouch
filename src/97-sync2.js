@@ -103,7 +103,7 @@
         o.style.background = 'rgba(0,0,0,0)';
         setTimeout(function () { o.remove(); }, REDUCED ? 0 : 230);
       } else {
-        s.style.transition = 'transform .3s cubic-bezier(.2,1.25,.35,1)';
+        s.style.transition = 'transform .3s var(--lux-in,cubic-bezier(.16,1,.3,1))'; // S370: sem quique
         s.style.transform = '';
         o.style.background = '';
       }

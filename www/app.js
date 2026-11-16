@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 537;
+  var APP_BUILD = 538;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.28.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.28.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -34622,7 +34622,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         ov.style.background = 'rgba(0,0,0,0)';
         setTimeout(folhaFecha, REDUCED ? 0 : 200);
       } else {
-        sh.style.transition = 'transform .3s var(--mola,cubic-bezier(.2,1.25,.35,1))';
+        sh.style.transition = 'transform .3s var(--lux-in,cubic-bezier(.16,1,.3,1))'; // S370: sem quique
         sh.style.transform = '';
       }
     }
@@ -42564,7 +42564,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         o.style.background = 'rgba(0,0,0,0)';
         setTimeout(function () { o.remove(); }, REDUCED ? 0 : 230);
       } else {
-        s.style.transition = 'transform .3s cubic-bezier(.2,1.25,.35,1)';
+        s.style.transition = 'transform .3s var(--lux-in,cubic-bezier(.16,1,.3,1))'; // S370: sem quique
         s.style.transform = '';
         o.style.background = '';
       }
@@ -46578,6 +46578,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     window.animInicio = function () {
       var v = $('v-inicio');
       if (REDUCED || !v || S.inicioEd) return;
+      // S370 (lote 8, aprovado 15/11/2026): a cascata dos atalhos só na PRIMEIRA entrada no Início; ao voltar não repete
+      if (animInicio._ja) return;
+      animInicio._ja = 1;
       v.classList.remove('cascata');
       void v.offsetWidth;
       v.querySelectorAll('.tl').forEach(function (t, i) {
@@ -51022,6 +51025,67 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     try { kbMarca(); } catch (e) {}
     return r;
   };
+  // ===== S370 (16/11/2026) — lote 8: trilho que ARRASTA (regra do dono, 15/11/2026) =====
+  // Todo seletor em trilho (.trk com a pílula .trkTh e os botões .trkB) aceita o dedo (ou o mouse) arrastando a pílula,
+  // além do toque. Ao soltar, vale o botão mais perto (o mesmo clique de sempre, então cada tela continua igual).
+  // A pílula anda só com transform. Ainda NÃO cobertos: abas em linha (.lfAbas) e as pílulas do site.
+  (function () {
+    var D = null, sup = 0;
+    function botoes(trk) {
+      return [].filter.call(trk.querySelectorAll('.trkB'), function (b) { return b.offsetWidth > 0 && !b.disabled; });
+    }
+    document.addEventListener('pointerdown', function (e) {
+      if (e.button > 0) return;
+      var trk = e.target.closest && e.target.closest('.trk');
+      if (!trk || !trk.querySelector('.trkTh') || S.modoCli) return;
+      var L = botoes(trk);
+      if (L.length < 2) return;
+      var on = trk.querySelector('.trkB.on') || L[0];
+      D = { trk: trk, th: trk.querySelector('.trkTh'), L: L, x0: e.clientX, y0: e.clientY, base: on.offsetLeft - 3, w: on.offsetWidth, ativo: false, id: e.pointerId };
+    }, true);
+    document.addEventListener('pointermove', function (e) {
+      if (!D || e.pointerId !== D.id) return;
+      var dx = e.clientX - D.x0, dy = e.clientY - D.y0;
+      if (!D.ativo) {
+        if (Math.abs(dy) > 10 && Math.abs(dy) > Math.abs(dx)) { D = null; return; } // é rolagem da tela
+        if (Math.abs(dx) < 7) return;
+        D.ativo = true;
+        D.th.style.transition = 'width .2s var(--lux-in,cubic-bezier(.16,1,.3,1))';
+        D.trk.classList.add('trkArr');
+      }
+      var min = D.L[0].offsetLeft - 3, ult = D.L[D.L.length - 1], max = ult.offsetLeft - 3 + ult.offsetWidth - D.w,
+        x = Math.max(min, Math.min(max, D.base + dx));
+      D.th.style.transform = 'translateX(' + x + 'px)';
+      e.preventDefault();
+    }, true);
+    function fim(e) {
+      if (!D) return;
+      var d = D;
+      D = null;
+      if (!d.ativo) return;
+      sup = Date.now();
+      d.trk.classList.remove('trkArr');
+      d.th.style.transition = '';
+      var m = /translateX\(([-\d.]+)px\)/.exec(d.th.style.transform || ''),
+        cx = (m ? +m[1] : d.base) + 3 + d.w / 2,
+        best = d.L[0], bd = 1e9;
+      d.L.forEach(function (b) {
+        var c = b.offsetLeft + b.offsetWidth / 2, k = Math.abs(c - cx);
+        if (k < bd) { bd = k; best = b; }
+      });
+      if (best.classList.contains('on')) {
+        d.th.style.transform = 'translateX(' + (best.offsetLeft - 3) + 'px)';
+        d.th.style.width = best.offsetWidth + 'px';
+      } else best.click();
+      try { vibrar(8); } catch (x) {}
+    }
+    document.addEventListener('pointerup', fim, true);
+    document.addEventListener('pointercancel', function () { if (D && D.ativo) { D.trk.classList.remove('trkArr'); D.th.style.transition = ''; var on = D.trk.querySelector('.trkB.on'); if (on) D.th.style.transform = 'translateX(' + (on.offsetLeft - 3) + 'px)'; } D = null; }, true);
+    // o clique que o navegador manda depois de arrastar não pode escolher outra opção
+    document.addEventListener('click', function (e) {
+      if (Date.now() - sup < 350 && e.isTrusted && e.target.closest && e.target.closest('.trk')) { e.stopPropagation(); e.preventDefault(); }
+    }, true);
+  })();
   // ===== Render geral e persistência (localStorage + IndexedDB). =====
   // Redesenha o app e agenda o salvamento.
   var RENDER_TICK = 0;

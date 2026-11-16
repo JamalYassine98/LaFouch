@@ -150,6 +150,9 @@
     window.animInicio = function () {
       var v = $('v-inicio');
       if (REDUCED || !v || S.inicioEd) return;
+      // S370 (lote 8, aprovado 15/11/2026): a cascata dos atalhos só na PRIMEIRA entrada no Início; ao voltar não repete
+      if (animInicio._ja) return;
+      animInicio._ja = 1;
       v.classList.remove('cascata');
       void v.offsetWidth;
       v.querySelectorAll('.tl').forEach(function (t, i) {

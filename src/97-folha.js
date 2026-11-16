@@ -106,7 +106,7 @@
         ov.style.background = 'rgba(0,0,0,0)';
         setTimeout(folhaFecha, REDUCED ? 0 : 200);
       } else {
-        sh.style.transition = 'transform .3s var(--mola,cubic-bezier(.2,1.25,.35,1))';
+        sh.style.transition = 'transform .3s var(--lux-in,cubic-bezier(.16,1,.3,1))'; // S370: sem quique
         sh.style.transform = '';
       }
     }
