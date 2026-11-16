@@ -179,9 +179,12 @@
       var x = on.offsetLeft,
         w = on.offsetWidth,
         a = abaAnt[id];
-      ln.style.left = x + 'px';
+      // S370 (lote 8): a linha anda só com transform (deslocar + esticar), curva de luxo; nada de left/width animados
+      ln.style.left = '0px';
       ln.style.width = w + 'px';
-      if (a && (a.x !== x || a.w !== w) && ln.animate) ln.animate([{ left: a.x + 'px', width: a.w + 'px' }, { left: x + 'px', width: w + 'px' }], { duration: 380, easing: 'cubic-bezier(.2,.9,.3,1)' });
+      ln.style.transformOrigin = '0 0';
+      ln.style.transform = 'translateX(' + x + 'px)';
+      if (a && (a.x !== x || a.w !== w) && ln.animate) ln.animate([{ transform: 'translateX(' + a.x + 'px) scaleX(' + (a.w / Math.max(1, w)).toFixed(4) + ')' }, { transform: 'translateX(' + x + 'px)' }], { duration: 340, easing: 'cubic-bezier(.16,1,.3,1)' });
       abaAnt[id] = { x: x, w: w };
     }
 

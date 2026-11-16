@@ -103,15 +103,19 @@
           dg.rk = tk;
           dg.juntaT = null;
           if (tk) {
-            ts.classList.add('qjT');
+            // passando por cima não junta: o anel só começa depois de 0,15 s parado no alvo e fecha em 0,3 s
             dg.rt = setTimeout(function () {
-              if (dg && dg.rk === tk) {
-                dg.juntaT = tk;
-                ts.classList.add('qjOk');
-                vibrar(12);
-                quadro();
-              }
-            }, 300);
+              if (!dg || dg.rk !== tk) return;
+              ts.classList.add('qjT');
+              dg.rt = setTimeout(function () {
+                if (dg && dg.rk === tk) {
+                  dg.juntaT = tk;
+                  ts.classList.add('qjOk');
+                  vibrar(12);
+                  quadro();
+                }
+              }, 300);
+            }, 150);
           }
         }
       }

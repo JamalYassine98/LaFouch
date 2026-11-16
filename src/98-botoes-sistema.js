@@ -108,29 +108,26 @@
   // ===== Barras de abas/segmentos: UMA animação só — a pílula desliza do botão antigo para o novo. =====
   (function () {
     var ULT = {};
+    // S370 (lote 8, regra lógica da pílula aprovada 15/11): UMA pílula permanente por barra (nunca criada e apagada a cada troca),
+    // medida sempre do botão escolhido, andando só com transform (deslocar + esticar); o botão escolhido não tem fundo próprio.
     function pilula(box) {
       var on = box.querySelector(':scope > .on');
       if (!on || !on.offsetWidth) return;
       var id = box.id,
         r = { l: on.offsetLeft, t: on.offsetTop, w: on.offsetWidth, h: on.offsetHeight },
-        a = ULT[id];
+        a = ULT[id],
+        pl = box.querySelector(':scope > .lfPill');
       ULT[id] = r;
-      if (!a || REDUCED || (a.l === r.l && a.t === r.t && a.w === r.w)) return;
-      var pl = document.createElement('div');
-      pl.className = 'lfPill';
-      pl.style.cssText = 'left:' + a.l + 'px;top:' + a.t + 'px;width:' + a.w + 'px;height:' + a.h + 'px';
-      box.insertBefore(pl, box.firstChild);
-      on.classList.add('semfundo');
-      pl.getBoundingClientRect();
-      pl.style.transition = 'left .3s var(--mola), top .3s var(--mola), width .3s var(--mola), height .3s var(--mola)';
-      pl.style.left = r.l + 'px';
-      pl.style.top = r.t + 'px';
-      pl.style.width = r.w + 'px';
-      pl.style.height = r.h + 'px';
-      setTimeout(function () {
-        pl.remove();
-        on.classList.remove('semfundo');
-      }, 320);
+      if (!pl) {
+        pl = document.createElement('div');
+        pl.className = 'lfPill';
+        pl.setAttribute('aria-hidden', 'true');
+      }
+      if (box.firstChild !== pl) box.insertBefore(pl, box.firstChild);
+      box.classList.add('lfPillOn');
+      pl.style.cssText = 'left:0;top:0;width:' + r.w + 'px;height:' + r.h + 'px;transform-origin:0 0;transform:translate(' + r.l + 'px,' + r.t + 'px)';
+      if (!a || REDUCED || (a.l === r.l && a.t === r.t && a.w === r.w) || !pl.animate) return;
+      pl.animate([{ transform: 'translate(' + a.l + 'px,' + a.t + 'px) scaleX(' + (a.w / r.w).toFixed(4) + ')' }, { transform: 'translate(' + r.l + 'px,' + r.t + 'px)' }], { duration: 300, easing: 'cubic-bezier(.16,1,.3,1)' });
     }
     ['eTabs'].forEach(function (id) {
       var box = document.getElementById(id);

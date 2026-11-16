@@ -2660,3 +2660,53 @@ html{overscroll-behavior-y:none}
 #v-dash .cnt.lx .lxT.m{color:var(--mute)!important;text-decoration-color:var(--line)}
 #v-dash .cnt.lx .cntB{justify-content:center;gap:22px;margin-top:6px}#v-dash .cnt.lx .cntD .cntB{flex-direction:column;align-items:stretch;gap:4px;margin-top:14px}#v-dash .cnt.lx .cntD .cntB .lxT{align-self:center}
 .cnt .c52Oc{display:none!important}
+/* S370 (lote 8): pílula permanente — o botão escolhido não tem fundo próprio */
+.lfPillOn>.chip.on,.lfPillOn>.chip[aria-pressed="true"]{background:transparent!important;border-color:transparent!important;box-shadow:none!important;position:relative;z-index:1}
+.lfPillOn{position:relative}
+#eTabs>.lfPill{background:none!important;border:0!important;border-bottom:2px solid var(--accent)!important;border-radius:0!important}
+#eTabs.lfPillOn>.chip.on{box-shadow:none!important}
+/* S370 (item 7 de 13/11, esboços work/s244): computador — ação ao lado do título; Inventário na largura toda */
+@media (min-width:1024px){
+.view>.top{justify-content:flex-start!important;gap:28px;align-items:center}
+.view>.top>div:first-child{flex:0 1 auto!important}
+#v-estoque.pcLarga #eLinha{display:flex;align-items:flex-end;gap:28px;border-bottom:1px solid var(--line2,var(--line));margin:4px 0 18px}
+#v-estoque.pcLarga #eLinha #eTabs{flex:1;border-bottom:0;margin:0!important}
+#v-estoque.pcLarga #eLinha #kpisE{display:flex!important;gap:28px;margin:0 0 8px!important;flex:none;border:0!important}
+#v-estoque.pcLarga #eLinha #kpisE #kLot:not([hidden]){border-top:0!important}
+#v-estoque.pcLarga #eLinha .kpi{display:flex!important;flex-direction:row-reverse;align-items:baseline;gap:8px;padding:0!important;background:none!important;border:0!important;min-height:0!important}
+#v-estoque.pcLarga #eLinha .kpi .lbl{margin:0;font-size:11px}
+#v-estoque.pcLarga #eLinha .kpi b{font-size:22px}
+#v-estoque.pcLarga #eLinha .kpi small,#v-estoque.pcLarga #eLinha .kpi .hint{display:none}
+#v-estoque.pcLarga .pcBusca{max-width:none!important}
+}
+.lfVazio.lfVazioJa svg path,.lfVazio.lfVazioJa svg circle,.lfVazio.lfVazioJa svg rect,.lfVazio.lfVazioJa b,.lfVazio.lfVazioJa span{animation:none!important;stroke-dashoffset:0!important;opacity:1!important;transform:none!important}
+/* S370 (item 15 de 13/11): toda janela/folha abre em 0,32 s e fecha em 0,2 s, na curva de luxo */
+.lfa-ov:not(.lfa-full)>.lfa-sh{animation-duration:.32s;animation-timing-function:var(--lux-in)}
+.lfa-ov.sai{animation-duration:.2s!important}.lfa-ov.sai .lfa-sh{animation-duration:.2s!important;animation-timing-function:var(--lux-out)!important}
+.ljJn.anim{transition:transform .32s var(--lux-in)}
+/* S370 (item 11): Cópias e nuvem enxuta */
+.nvx{padding:0!important;gap:0!important}
+.nvxE{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:none;border:0;padding:14px 4px;border-bottom:1px solid var(--line);color:var(--fg)}
+.nvxE i{width:10px;height:10px;border-radius:50%;margin-top:9px;background:var(--ok,#1f8a4c)}.nvxE i.w{background:var(--warn,#c88a1a)}
+.nvxE b{display:block;font-family:Fraunces,Georgia,serif;font-weight:500;font-size:22px}.nvxE small{color:var(--mute)}
+.nvxL{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;border-bottom:1px solid var(--line);padding:16px 4px;color:var(--fg);text-align:left;min-height:56px}
+.nvxL:last-child{border-bottom:0}.nvxL span{flex:1;font-size:16px}.nvxL small{color:var(--mute);font-size:13.5px}.nvxL i{font-style:normal;color:var(--mute)}
+/* S370 (S262): câmera do Estúdio automática — 6 coisas na tela; o resto em "Controles manuais" */
+.ecSimples #ecT2,.ecSimples #ecPk,.ecSimples #ecHist,.ecSimples:not(.ecMedir) #ecMsg,.ecSimples .ecChips,.ecSimples #ecPro,.ecSimples #ecDial,.ecSimples #ecLens,.ecSimples #ecLvl,.ecSimples #ecAuto{display:none!important}
+.ecSimples:not(.ecMedir) #ecFundo{display:none!important}
+.ecSimples.ecVerHist #ecHist{display:block!important}.ecSimples.ecVerPro #ecPro,.ecSimples.ecVerPro #ecDial{display:block!important}.ecSimples.ecVerLente #ecLens{display:flex!important}
+.ecSimples .ecTop{justify-content:space-between}.ecSimples .ecMan{margin-left:auto;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;padding:0}
+.ecSimples .ecGd i{border-color:#fff}.ecSimples .ecGd.ok262 i{border-color:#2fe08f}
+.ecFrase{position:absolute;left:16px;right:16px;bottom:14px;display:flex;align-items:center;justify-content:center;gap:10px;background:rgba(20,20,22,.78);color:#fff;border-radius:999px;padding:12px 18px;font-family:Fraunces,Georgia,serif;font-size:16px;text-align:center}
+.ecFrase i{width:9px;height:9px;border-radius:50%;background:#e9b04a;flex:none}.ecFrase.ok i{background:#2fe08f}
+#c262Sh .c262T b{display:block;font-family:Fraunces,Georgia,serif;font-weight:500;font-size:22px}#c262Sh .c262T small{color:var(--mute)}
+#c262Sh .c262L{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:14px 2px;color:var(--fg);min-height:52px}
+#c262Sh .c262L span{flex:1}#c262Sh .c262L small{color:var(--mute);font-size:13px;text-align:right}#c262Sh .c262L i{font-style:normal;color:var(--mute)}
+/* S370 (S263): tutorial do Estúdio em 4 passos */
+.estTut263 .t263S{color:var(--mute);margin:0 0 12px}
+.estTut263 .t263P{display:flex;gap:16px;align-items:flex-start;background:var(--panel2,var(--card));border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:10px}
+.estTut263 .t263P svg{flex:none;color:var(--fg);margin-top:4px}
+.estTut263 .t263P small{display:block;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.estTut263 .t263P b{display:block;font-family:Fraunces,Georgia,serif;font-weight:500;font-size:18px;margin:4px 0 2px}.estTut263 .t263P span{color:var(--mute);font-size:14px}
+.estTut263 .t263L{margin:16px 0 4px}
+.estTut263 .t263Q{display:grid;grid-template-columns:1fr 1.2fr;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:14px}.estTut263 .t263Q b{font-weight:500}.estTut263 .t263Q span{color:var(--mute)}

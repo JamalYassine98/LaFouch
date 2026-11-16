@@ -30,6 +30,8 @@
       fecha: function () {
         if (!aberta) return;
         aberta = false;
+        jn.style.transitionDuration = '.2s'; // S370 (item 15 de 13/11): toda janela fecha em 0,2 s
+        jn.style.transitionTimingFunction = 'cubic-bezier(.4,0,.2,1)';
         pos(H() + 30, !REDUCED);
         bk.style.pointerEvents = 'none';
         setTimeout(function () {

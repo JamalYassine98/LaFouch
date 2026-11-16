@@ -13,7 +13,14 @@
       { s: '.lfa-ov:not(.lfa-full):not(.sai) > .lfa-sh', toque: 1, f: function (e) { lfaFecha(e.parentNode.id); } },
       { s: '.cxAcao.on', proprioDedo: '.cxPuxa', f: function () { ACT.cxfecha(); } },
       { s: '#v-fx .fjJn', toque: 1, f: function () { ACT.fjFecha(); } },
-      { s: '#filtBox', f: function () { filtClose(false); } }
+      { s: '#filtBox', f: function () { filtClose(false); } },
+      // S370 (lote 3): as caixas antigas (.modal) também — Grupo, Descrição das peças, Lote. PIN, Desconto e o cadastro (Adicionar) ficam de fora (decisão ou trabalho em andamento).
+      { s: '.modal:not([hidden]):not(#pinModal):not(#dscModal):not(#addModal) > .modal-box', f: function (e) {
+          var m = e.parentNode, x = e.querySelector('[data-act="grpFecha"],#addClose,.x,[aria-label^="Fechar"]');
+          if (x) return x.click();
+          m.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+          if (!m.hidden && m.id === 'grpM') ACT.grpFecha();
+        } }
     ],
     FU_FIXAS = { atvOv: 1, apEspera: 1, 'lfa-folha': 1 };
   function fuVisivel(e) {

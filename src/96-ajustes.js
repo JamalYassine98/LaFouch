@@ -176,7 +176,7 @@
       sync: sy ? { t: 'Sincronização', r: sy[1], al: sy[0] === 'bad' || sy[0] === 'warn', h: syncCard() } : null,
       upd: { t: 'Atualização', r: APK.n && APK.est === 'pronto' ? 'Pronta' : upN ? (um.nome || upN) + ' pronta' : APP_NOME, al: !!upN || (APK.n && APK.est === 'pronto'), h: updCard() },
       pauto: { t: 'Pagamento automático', r: S.pixAuto ? 'PIX ligado' : 'Desligado', h: pautoCard() },
-      bk: { t: 'Cópias e nuvem', r: bkd < 0 ? 'Nenhuma cópia' : bkd === 0 ? 'Hoje' : 'Há ' + bkd + (bkd === 1 ? ' dia' : ' dias'), al: bkd < 0 || bkd > 7, h: backupHtml().replace(/<\/section>$/, nv + '</section>') }
+      bk: S.nuvem && S.nuvem.rt && typeof nuvemEnxutaHtml === 'function' ? nuvemEnxutaHtml() : { t: 'Cópias e nuvem', r: bkd < 0 ? 'Nenhuma cópia' : bkd === 0 ? 'Hoje' : 'Há ' + bkd + (bkd === 1 ? ' dia' : ' dias'), al: bkd < 0 || bkd > 7, h: backupHtml().replace(/<\/section>$/, nv + '</section>') }
     };
     h += ajListaHtml(secs);
     el.innerHTML = h;

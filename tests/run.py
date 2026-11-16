@@ -1036,10 +1036,12 @@ async def main():
             aj = await pg.evaluate("""async () => { const L = window.__LF, S = L.S; S.nuvem.rt = 'x'; S.nuvem.email = 'a@b.c'; S.nvLista = [{id: '2026-11-08', kb: 900}];
               S._syncAps = [{ap: 'APEU', nome: 'Celular', ts: Date.now()}, {ap: 'APXY', nome: 'PC', ts: Date.now()}]; S.aparelho = 'APEU'; L.setView('ajustes'); S._ajForce = true; L.render();
               await new Promise(r => setTimeout(r, 400)); const g = document.getElementById('ajGrp');
-              return [[...document.querySelectorAll('.ajS')].every(x => g.contains(x)), !!g.querySelector('.ajS[data-k="bk"] .apLn'), !!g.querySelector('.ajS[data-k="pauto"]')]; }""")
+              const lin = [...g.querySelectorAll('.ajS[data-k="bk"] .nvxL span')].map(x => x.textContent);
+              L.ACT.nvxAps(); await new Promise(r => setTimeout(r, 400));
+              return [[...document.querySelectorAll('.ajS')].every(x => g.contains(x)), !!document.querySelector('.ljJn .apLn') && lin.join('|') === 'Voltar no tempo|Lixeira|Aparelhos|Arquivo de backup', !!g.querySelector('.ajS[data-k="pauto"]')]; }""")
             total += 1
             ok = aj == [True, True, True] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'v470: Ajustes com a nuvem conectada — Aparelhos dentro de Cópias e nuvem, Pagamento automático no mesmo grupo')
+            print(('  ok  ' if ok else ' FALHA ') + 'v470 + S370: Ajustes com a nuvem conectada — Cópias e nuvem enxuta (estado + 4 linhas; Aparelhos abre), Pagamento automático no mesmo grupo')
             if not ok: falhas.append('v470 ajustes grupo'); print('        veio', aj, pg.erros)
             await pg.close()
 
@@ -3258,18 +3260,15 @@ async def main():
             if not ok: falhas.append('estudio nova peca'); print('        veio', got, pg.erros)
             await pg.close()
 
-            # Estúdio · Como fotografar (v436): guia com 4 abas e vídeo sem som
+            # Estúdio · Como fotografar (S370 · S263): quatro passos e "Se o app pedir", numa tela
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, w = ms => new Promise(r => setTimeout(r, ms));
               L.estAbre(); await w(200); document.querySelector('[data-e=ajuda]').click(); await w(400); document.querySelector('[data-act=estAj][data-id=tut]').click(); await w(500);
-              const j = document.querySelector('.estGuiaJn'), abas = [...j.querySelectorAll('.egTabs button')].map(b => b.textContent);
-              const n1 = j.querySelectorAll('.egIt').length; j.querySelector('[data-t=cam]').click(); await w(100);
-              const veloc = /Velocidade/.test(j.innerText); j.querySelector('[data-t=vid]').click(); await w(300);
-              const v = document.getElementById('egVid');
-              return [abas, n1 > 5, veloc, !!v && v.muted && /estudio-tutorial\.mp4/.test(v.src), j.querySelectorAll('.egPs').length]; }""")
+              const j = document.querySelector('.estTut263');
+              return [j ? j.querySelectorAll('.t263P').length : 0, j ? j.querySelectorAll('.t263Q').length : 0, j ? /Ligue o prato e toque em Começar/.test(j.innerText) : false]; }""")
             total += 1
-            ok = got == [['Estúdio', 'Câmera', 'Depois', '▶ Vídeo'], True, True, True, 8] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'Estúdio · Como fotografar: guia com 4 abas e vídeo sem som com os passos')
+            ok = got == [4, 4, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Estúdio · Como fotografar (S263): 4 passos e "Se o app pedir"')
             if not ok: falhas.append('estudio tutorial'); print('        veio', got, pg.erros)
             await pg.close()
 

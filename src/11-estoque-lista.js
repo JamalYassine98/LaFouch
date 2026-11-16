@@ -259,11 +259,11 @@
           );
           dz.appendChild(btn('mini', 'Cancelar', endDel));
         } else {
-          dz.appendChild(
-            mk('span', '', 'Apagar o tipo "' + dt.label + '"? Ele está vazio e sai da lista.')
-          );
-          dz.appendChild(
-            btn('mini', 'Sim, apagar', function () {
+          // S370 (esboço 34, lote 3): o tipo vazio sai na hora; o aviso fica 5 s com "Desfazer" (sem a pergunta)
+          dz.hidden = true;
+          var volta370 = { itens: S.items.slice(), del: S.tiposDel.slice(), tipo: S.tipo };
+          setTimeout(function () {
+              if (S.delTipo !== dt.id) return;
               S.items = S.items.filter(function (i) {
                 return i.tipo !== dt.id;
               });
@@ -278,11 +278,17 @@
               S.det = false;
               S.selItem = null;
               S.mode = 'venda';
-              S.msg = 'Tipo "' + dt.label + '" apagado.';
+              S.msg = '';
               render();
-            })
-          );
-          dz.appendChild(btn('mini', 'Cancelar', endDel));
+              lfDesfazer('Tipo "' + dt.label + '" apagado', function () {
+                S.items = volta370.itens;
+                S.tiposDel = volta370.del;
+                syncTipos();
+                S.tipo = volta370.tipo;
+                saveSoon();
+                render();
+              }, 5000);
+          }, 0);
         }
       }
     }

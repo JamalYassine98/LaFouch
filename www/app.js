@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 539;
+  var APP_BUILD = 540;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.29.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.30.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -3333,11 +3333,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           );
           dz.appendChild(btn('mini', 'Cancelar', endDel));
         } else {
-          dz.appendChild(
-            mk('span', '', 'Apagar o tipo "' + dt.label + '"? Ele está vazio e sai da lista.')
-          );
-          dz.appendChild(
-            btn('mini', 'Sim, apagar', function () {
+          // S370 (esboço 34, lote 3): o tipo vazio sai na hora; o aviso fica 5 s com "Desfazer" (sem a pergunta)
+          dz.hidden = true;
+          var volta370 = { itens: S.items.slice(), del: S.tiposDel.slice(), tipo: S.tipo };
+          setTimeout(function () {
+              if (S.delTipo !== dt.id) return;
               S.items = S.items.filter(function (i) {
                 return i.tipo !== dt.id;
               });
@@ -3352,11 +3352,17 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
               S.det = false;
               S.selItem = null;
               S.mode = 'venda';
-              S.msg = 'Tipo "' + dt.label + '" apagado.';
+              S.msg = '';
               render();
-            })
-          );
-          dz.appendChild(btn('mini', 'Cancelar', endDel));
+              lfDesfazer('Tipo "' + dt.label + '" apagado', function () {
+                S.items = volta370.itens;
+                S.tiposDel = volta370.del;
+                syncTipos();
+                S.tipo = volta370.tipo;
+                saveSoon();
+                render();
+              }, 5000);
+          }, 0);
         }
       }
     }
@@ -27110,7 +27116,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       sync: sy ? { t: 'Sincronização', r: sy[1], al: sy[0] === 'bad' || sy[0] === 'warn', h: syncCard() } : null,
       upd: { t: 'Atualização', r: APK.n && APK.est === 'pronto' ? 'Pronta' : upN ? (um.nome || upN) + ' pronta' : APP_NOME, al: !!upN || (APK.n && APK.est === 'pronto'), h: updCard() },
       pauto: { t: 'Pagamento automático', r: S.pixAuto ? 'PIX ligado' : 'Desligado', h: pautoCard() },
-      bk: { t: 'Cópias e nuvem', r: bkd < 0 ? 'Nenhuma cópia' : bkd === 0 ? 'Hoje' : 'Há ' + bkd + (bkd === 1 ? ' dia' : ' dias'), al: bkd < 0 || bkd > 7, h: backupHtml().replace(/<\/section>$/, nv + '</section>') }
+      bk: S.nuvem && S.nuvem.rt && typeof nuvemEnxutaHtml === 'function' ? nuvemEnxutaHtml() : { t: 'Cópias e nuvem', r: bkd < 0 ? 'Nenhuma cópia' : bkd === 0 ? 'Hoje' : 'Há ' + bkd + (bkd === 1 ? ' dia' : ' dias'), al: bkd < 0 || bkd > 7, h: backupHtml().replace(/<\/section>$/, nv + '</section>') }
     };
     h += ajListaHtml(secs);
     el.innerHTML = h;
@@ -36433,6 +36439,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       fecha: function () {
         if (!aberta) return;
         aberta = false;
+        jn.style.transitionDuration = '.2s'; // S370 (item 15 de 13/11): toda janela fecha em 0,2 s
+        jn.style.transitionTimingFunction = 'cubic-bezier(.4,0,.2,1)';
         pos(H() + 30, !REDUCED);
         bk.style.pointerEvents = 'none';
         setTimeout(function () {
@@ -46056,9 +46064,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       var x = on.offsetLeft,
         w = on.offsetWidth,
         a = abaAnt[id];
-      ln.style.left = x + 'px';
+      // S370 (lote 8): a linha anda só com transform (deslocar + esticar), curva de luxo; nada de left/width animados
+      ln.style.left = '0px';
       ln.style.width = w + 'px';
-      if (a && (a.x !== x || a.w !== w) && ln.animate) ln.animate([{ left: a.x + 'px', width: a.w + 'px' }, { left: x + 'px', width: w + 'px' }], { duration: 380, easing: 'cubic-bezier(.2,.9,.3,1)' });
+      ln.style.transformOrigin = '0 0';
+      ln.style.transform = 'translateX(' + x + 'px)';
+      if (a && (a.x !== x || a.w !== w) && ln.animate) ln.animate([{ transform: 'translateX(' + a.x + 'px) scaleX(' + (a.w / Math.max(1, w)).toFixed(4) + ')' }, { transform: 'translateX(' + x + 'px)' }], { duration: 340, easing: 'cubic-bezier(.16,1,.3,1)' });
       abaAnt[id] = { x: x, w: w };
     }
 
@@ -47022,15 +47033,19 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           dg.rk = tk;
           dg.juntaT = null;
           if (tk) {
-            ts.classList.add('qjT');
+            // passando por cima não junta: o anel só começa depois de 0,15 s parado no alvo e fecha em 0,3 s
             dg.rt = setTimeout(function () {
-              if (dg && dg.rk === tk) {
-                dg.juntaT = tk;
-                ts.classList.add('qjOk');
-                vibrar(12);
-                quadro();
-              }
-            }, 300);
+              if (!dg || dg.rk !== tk) return;
+              ts.classList.add('qjT');
+              dg.rt = setTimeout(function () {
+                if (dg && dg.rk === tk) {
+                  dg.juntaT = tk;
+                  ts.classList.add('qjOk');
+                  vibrar(12);
+                  quadro();
+                }
+              }, 300);
+            }, 150);
           }
         }
       }
@@ -47677,29 +47692,26 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // ===== Barras de abas/segmentos: UMA animação só — a pílula desliza do botão antigo para o novo. =====
   (function () {
     var ULT = {};
+    // S370 (lote 8, regra lógica da pílula aprovada 15/11): UMA pílula permanente por barra (nunca criada e apagada a cada troca),
+    // medida sempre do botão escolhido, andando só com transform (deslocar + esticar); o botão escolhido não tem fundo próprio.
     function pilula(box) {
       var on = box.querySelector(':scope > .on');
       if (!on || !on.offsetWidth) return;
       var id = box.id,
         r = { l: on.offsetLeft, t: on.offsetTop, w: on.offsetWidth, h: on.offsetHeight },
-        a = ULT[id];
+        a = ULT[id],
+        pl = box.querySelector(':scope > .lfPill');
       ULT[id] = r;
-      if (!a || REDUCED || (a.l === r.l && a.t === r.t && a.w === r.w)) return;
-      var pl = document.createElement('div');
-      pl.className = 'lfPill';
-      pl.style.cssText = 'left:' + a.l + 'px;top:' + a.t + 'px;width:' + a.w + 'px;height:' + a.h + 'px';
-      box.insertBefore(pl, box.firstChild);
-      on.classList.add('semfundo');
-      pl.getBoundingClientRect();
-      pl.style.transition = 'left .3s var(--mola), top .3s var(--mola), width .3s var(--mola), height .3s var(--mola)';
-      pl.style.left = r.l + 'px';
-      pl.style.top = r.t + 'px';
-      pl.style.width = r.w + 'px';
-      pl.style.height = r.h + 'px';
-      setTimeout(function () {
-        pl.remove();
-        on.classList.remove('semfundo');
-      }, 320);
+      if (!pl) {
+        pl = document.createElement('div');
+        pl.className = 'lfPill';
+        pl.setAttribute('aria-hidden', 'true');
+      }
+      if (box.firstChild !== pl) box.insertBefore(pl, box.firstChild);
+      box.classList.add('lfPillOn');
+      pl.style.cssText = 'left:0;top:0;width:' + r.w + 'px;height:' + r.h + 'px;transform-origin:0 0;transform:translate(' + r.l + 'px,' + r.t + 'px)';
+      if (!a || REDUCED || (a.l === r.l && a.t === r.t && a.w === r.w) || !pl.animate) return;
+      pl.animate([{ transform: 'translate(' + a.l + 'px,' + a.t + 'px) scaleX(' + (a.w / r.w).toFixed(4) + ')' }, { transform: 'translate(' + r.l + 'px,' + r.t + 'px)' }], { duration: 300, easing: 'cubic-bezier(.16,1,.3,1)' });
     }
     ['eTabs'].forEach(function (id) {
       var box = document.getElementById(id);
@@ -50359,6 +50371,113 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       }
     });
   };
+  // ===== S370 (16/11/2026) — S262 (câmera do Estúdio automática; aprovada 14/11, esboço work/s262) =====
+  // Na tela ficam 6 coisas: fechar, a etiqueta da peça, a moldura, UMA frase do que fazer, o disparo e a Galeria.
+  // Os controles técnicos (Medir fundo, 2 s, Peaking, gráfico de luz, ISO/velocidade/branco/foco/exposição, lente) não são
+  // apagados: ficam em "Controles manuais" (ícone no canto). O app continua medindo e ajustando sozinho como antes.
+  var C262_FRASE = {
+    fundo: 'Falta luz: acenda a luz da caixa',
+    dist: 'Aproxime ou afaste até a peça caber na moldura',
+    foco: 'Segure firme: a peça ainda não está nítida',
+    reto: 'Deixe o celular reto'
+  };
+  var C262_ICO = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>';
+  function c262Monta(ov) {
+    if (!ov || ov._c262) return;
+    ov._c262 = 1;
+    var tag = ov.querySelector('.ecTag'), medir = !!(tag && /Medir fundo/.test(tag.textContent || ''));
+    ov.classList.add('ecSimples');
+    if (medir) ov.classList.add('ecMedir');
+    var top = ov.querySelector('.ecTop');
+    if (top && !top.querySelector('.ecMan')) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'ecPill ecMan';
+      b.setAttribute('aria-label', 'Controles manuais');
+      b.innerHTML = C262_ICO;
+      b.onclick = function (e) { e.stopPropagation(); c262Manual(ov); };
+      top.appendChild(b);
+    }
+    var vf = ov.querySelector('.ecVf');
+    if (vf && !vf.querySelector('.ecFrase')) {
+      var f = document.createElement('div');
+      f.className = 'ecFrase';
+      f.setAttribute('role', 'status');
+      f.innerHTML = '<i></i><span>Abrindo a câmera…</span>';
+      vf.appendChild(f);
+    }
+    var tik = setInterval(function () {
+      if (!document.body.contains(ov)) return clearInterval(tik);
+      c262Frase(ov);
+    }, 300);
+  }
+  function c262Frase(ov) {
+    var f = ov.querySelector('.ecFrase'), ch = ov.querySelector('#ecChips');
+    if (!f || !ch) return;
+    var falta = null;
+    ['fundo', 'dist', 'foco', 'reto'].forEach(function (k) {
+      var s = ch.querySelector('[data-k="' + k + '"]');
+      if (!falta && s && !s.classList.contains('ok')) falta = k;
+    });
+    var txt = ov.classList.contains('ecMedir') ? 'Aponte só para a cartolina e toque em Medir fundo' : falta ? C262_FRASE[falta] : 'Tudo certo · pode fotografar';
+    if (f.lastChild.textContent !== txt) f.lastChild.textContent = txt;
+    f.classList.toggle('ok', !falta && !ov.classList.contains('ecMedir'));
+    var gd = ov.querySelector('.ecGd');
+    if (gd) gd.classList.toggle('ok262', !falta);
+  }
+  function c262Manual(ov) {
+    var on = function (id) { var e = ov.querySelector('#' + id); return !!(e && (e.classList.contains('on') || e.getAttribute('aria-pressed') === 'true')); },
+      L = [
+        ['c262Medir', 'Medir o fundo', 'automático na primeira peça'],
+        ['c262T2', 'Espera de 2 s antes da foto', on('ecT2') ? 'ligada' : 'desligada'],
+        ['c262Pk', 'Contorno do que está nítido', on('ecPk') ? 'ligado' : 'desligado'],
+        ['c262Hist', 'Gráfico de luz', ov.classList.contains('ecVerHist') ? 'na tela' : 'escondido'],
+        ['c262Pro', 'Sensibilidade, velocidade, branco, foco, exposição', ov.classList.contains('ecVerPro') ? 'na tela' : 'automáticos'],
+        ['c262Lente', 'Lente 1× ou 2×', ov.classList.contains('ecVerLente') ? 'na tela' : 'automática']
+      ];
+    var o = lfaAbre('c262Sh', '<div class="c262T"><b>Controles manuais</b><small>O app cuida de tudo sozinho. Mexa só se quiser.</small></div>' +
+      L.map(function (x) { return '<button type="button" class="c262L" data-act="' + x[0] + '"><span>' + x[1] + '</span><small>' + x[2] + '</small><i aria-hidden="true">›</i></button>'; }).join(''));
+    if (o) o.style.zIndex = '380';
+  }
+  function c262Ov() { return document.getElementById('estCam'); }
+  function c262Clica(id) { var ov = c262Ov(), e = ov && ov.querySelector('#' + id); if (e) e.click(); }
+  ACT.c262Medir = function () { lfaFecha('c262Sh'); c262Clica('ecFundo'); };
+  ACT.c262T2 = function () { c262Clica('ecT2'); var ov = c262Ov(); if (ov) c262Manual(ov); };
+  ACT.c262Pk = function () { c262Clica('ecPk'); var ov = c262Ov(); if (ov) c262Manual(ov); };
+  ['Hist', 'Pro', 'Lente'].forEach(function (k) {
+    ACT['c262' + k] = function () { var ov = c262Ov(); if (!ov) return; ov.classList.toggle('ecVer' + k); c262Manual(ov); };
+  });
+  if (window.MutationObserver)
+    new MutationObserver(function (m) {
+      m.forEach(function (x) { [].forEach.call(x.addedNodes, function (n) { if (n.id === 'estCam') c262Monta(n); }); });
+    }).observe(document.body, { childList: true });
+  // ===== S370 — S263 (tutorial novo do Estúdio; aprovado 14/11, esboço work/s263): quatro passos e "Se o app pedir" numa tela =====
+  var S263_ICO = {
+    prep: '<path d="M4 10h16v8H4zM8 10V8M12 10V6M16 10V8M6 4l1 2M18 4l-1 2"/>',
+    peca: '<rect x="3" y="7" width="7" height="5" rx="2"/><rect x="14" y="7" width="7" height="5" rx="2"/><path d="M10 9.5h4M4 17c3-2 13-2 16 0"/>',
+    giro: '<path d="M5 15c0 2 3 3 7 3s7-1 7-3-3-3-7-3-7 1-7 3zM12 12V7M8 5a4 4 0 0 1 8 0"/><path d="M16 3v2h-2"/>',
+    ok: '<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>'
+  };
+  estTutorial = function () {
+    var P = [
+      ['prep', '1 · Prepare', 'Acenda a luz da caixa', 'Celular no tripé, de frente para o prato.'],
+      ['peca', '2 · A peça', 'Ponha a peça no meio do prato', 'De frente para a câmera, hastes abertas.'],
+      ['giro', '3 · O giro', 'Ligue o prato e toque em Começar', 'O app grava, confere e fecha sozinho.'],
+      ['ok', '4 · Pronto', 'Confira e toque em Salvar', 'Fotos, giro e vídeo vão para a peça e para o site.']
+    ],
+      Q = [['“Falta luz”', 'acenda ou aproxime a luz da caixa'], ['“Afaste um pouco”', 'a peça está saindo do quadro'], ['“Prato rápido demais”', 'diminua a velocidade do prato'], ['“Deixe o prato vazio”', 'ele está medindo o fundo, 2 segundos']];
+    lfJanela({
+      titulo: 'Como fotografar',
+      cls: 'estGuiaJn estTut263',
+      monta: function (c) {
+        c.innerHTML = '<p class="t263S">Quatro passos. O resto o app faz sozinho.</p>' +
+          P.map(function (x) {
+            return '<div class="t263P"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + S263_ICO[x[0]] + '</svg><div><small>' + x[1] + '</small><b>' + x[2] + '</b><span>' + x[3] + '</span></div></div>';
+          }).join('') +
+          '<div class="lbl t263L">Se o app pedir</div>' + Q.map(function (x) { return '<div class="t263Q"><b>' + x[0] + '</b><span>' + x[1] + '</span></div>'; }).join('');
+      }
+    });
+  };
   // ===== S362 (16/11/2026) · DASHBOARD FINAL — esboço 48, aprovado em 15/11 18:48 (work/s356/48-…) + moedas (15/11 18:56 e 19:01) =====
   // Uma tela "Dashboard ⌄". O período se escolhe no seletor do topo (o que já existia): em "Hoje" aparecem os blocos do dia;
   // nos outros períodos, 3 números (Vendido, Lucro livre, Meta do mês), "O que fazer agora" e os detalhes em linhas que abrem.
@@ -50606,7 +50725,14 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       { s: '.lfa-ov:not(.lfa-full):not(.sai) > .lfa-sh', toque: 1, f: function (e) { lfaFecha(e.parentNode.id); } },
       { s: '.cxAcao.on', proprioDedo: '.cxPuxa', f: function () { ACT.cxfecha(); } },
       { s: '#v-fx .fjJn', toque: 1, f: function () { ACT.fjFecha(); } },
-      { s: '#filtBox', f: function () { filtClose(false); } }
+      { s: '#filtBox', f: function () { filtClose(false); } },
+      // S370 (lote 3): as caixas antigas (.modal) também — Grupo, Descrição das peças, Lote. PIN, Desconto e o cadastro (Adicionar) ficam de fora (decisão ou trabalho em andamento).
+      { s: '.modal:not([hidden]):not(#pinModal):not(#dscModal):not(#addModal) > .modal-box', f: function (e) {
+          var m = e.parentNode, x = e.querySelector('[data-act="grpFecha"],#addClose,.x,[aria-label^="Fechar"]');
+          if (x) return x.click();
+          m.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+          if (!m.hidden && m.id === 'grpM') ACT.grpFecha();
+        } }
     ],
     FU_FIXAS = { atvOv: 1, apEspera: 1, 'lfa-folha': 1 };
   function fuVisivel(e) {
@@ -50914,6 +51040,102 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       );
     });
   }
+  // ===== S370 (16/11/2026) — item 7 de 13/11 (aprovado 14/11 00:08; esboços work/s244) =====
+  // Computador (≥ 1024 px): a ação da página fica AO LADO do título (não no canto); o Inventário usa a largura toda —
+  // os dois números sobem para a linha das abas e a busca ocupa a largura inteira. O celular não muda.
+  function pcLarga() {
+    var v = $('v-estoque'), k = $('kpisE'), t = $('eTabs');
+    if (!v || !k || !t) return;
+    var on = window.innerWidth >= 1024 && S.view === 'estoque',
+      w = $('eLinha'),
+      q = $('q'),
+      bx = q && q.closest('div[style*="max-width"]');
+    if (on) {
+      if (!w) {
+        w = document.createElement('div');
+        w.id = 'eLinha';
+        t.parentNode.insertBefore(w, t);
+      }
+      if (t.parentNode !== w) w.appendChild(t);
+      if (k.parentNode !== w) w.appendChild(k);
+      v.classList.add('pcLarga');
+      if (bx) bx.classList.add('pcBusca');
+    } else if (w) {
+      w.parentNode.insertBefore(t, w);
+      var mn = v.querySelector(':scope > .main');
+      if (mn) mn.parentNode.insertBefore(k, mn);
+      else t.parentNode.insertBefore(k, t.nextSibling);
+      w.remove();
+      v.classList.remove('pcLarga');
+      if (bx) bx.classList.remove('pcBusca');
+    }
+  }
+  var _render244 = render;
+  render = function () {
+    var r = _render244.apply(this, arguments);
+    try { pcLarga(); } catch (e) {}
+    return r;
+  };
+  window.addEventListener('resize', function () { try { pcLarga(); } catch (e) {} });
+  // ===== S370 · item 17 de 13/11 (aprovado 14/11 00:19): o que aparecia SECO entra suave (filtros do Histórico, "+ Novo cliente") =====
+  var _hfo17 = ACT.hfopen;
+  ACT.hfopen = function () {
+    var r = _hfo17.apply(this, arguments);
+    if (S.hFopen) { var b = document.querySelector('#v-hist [data-act="hlimpar"]'), s = b && b.closest('section'); if (s) animEnter(s); }
+    return r;
+  };
+  var _cln17 = ACT.clinovo;
+  ACT.clinovo = function () {
+    var r = _cln17.apply(this, arguments);
+    var c = document.querySelector('#v-clientes #cNome');
+    if (c && c.closest('section')) animEnter(c.closest('section'));
+    return r;
+  };
+  // ===== S370 · item 18 de 13/11: o desenho da tela vazia acontece UMA vez por tela (não a cada redesenho / "Verificar agora") =====
+  var VAZ18 = {};
+  function vazio18() {
+    [].forEach.call(document.querySelectorAll('.view .lfVazio'), function (e) {
+      var v = e.closest('.view'), k = v ? v.id : '';
+      if (!k) return;
+      if (VAZ18[k] && !e.classList.contains('lfVazioJa')) e.classList.add('lfVazioJa');
+      if (!v.hidden) VAZ18[k] = 1;
+    });
+  }
+  var _render18 = render;
+  render = function () {
+    var r = _render18.apply(this, arguments);
+    try { vazio18(); } catch (e) {}
+    return r;
+  };
+  // ===== S370 · item 11 de 13/11 (aprovado 14/11 00:08; esboço work/s241/s241_celular_claro_nuvem.jpg): CÓPIAS E NUVEM ENXUTA =====
+  // Com a nuvem conectada: o estado ("Tudo salvo · há N min · N aparelhos") e 4 linhas que abrem o resto —
+  // Voltar no tempo · Lixeira · Aparelhos · Arquivo de backup. Sem nuvem continua como antes (é preciso o formulário de entrar).
+  function nvHa(ts) {
+    if (!ts) return 'sem cópia ainda';
+    var m = Math.max(0, Math.round((Date.now() - ts) / 60000));
+    return m < 1 ? 'agora' : m < 60 ? 'há ' + m + ' min' : m < 1440 ? 'há ' + Math.round(m / 60) + ' h' : 'há ' + Math.round(m / 1440) + (Math.round(m / 1440) === 1 ? ' dia' : ' dias');
+  }
+  function nvLinha(act, t, v) {
+    return '<button type="button" class="nvxL" data-act="' + act + '"><span>' + t + '</span><small>' + esc(v) + '</small><i aria-hidden="true">›</i></button>';
+  }
+  function nuvemEnxutaHtml() {
+    var ts = S.nuvem.ts || 0, rec = ts && Date.now() - ts < 2 * 3600e3,
+      ap = (S._syncAps || []).filter(function (x) { return x.ap; }).length,
+      lx = typeof fotoLixeira === 'function' ? fotoLixeira().length : 0,
+      vt = (S.elog || []).length ? (S.elog[S.elog.length - 1] || {}).ts : 0,
+      est = rec ? 'Tudo salvo' : ts ? 'Cópia antiga' : 'Ainda sem cópia';
+    var h = '<section class="card col nvx">' +
+      '<button type="button" class="nvxE" data-act="nvxNuvem"><i class="' + (rec ? 'ok' : 'w') + '" aria-hidden="true"></i><span><b>' + est + '</b><small>' + nvHa(ts) + (ap ? ' · ' + ap + (ap === 1 ? ' aparelho' : ' aparelhos') : '') + '</small></span></button>' +
+      nvLinha('vtAbre', 'Voltar no tempo', vt ? new Date(vt).toLocaleDateString('pt-BR') + ', ' + fh(vt) : 'abrir') +
+      nvLinha('fotolixabre', 'Lixeira', lx + (lx === 1 ? ' item' : ' itens')) +
+      nvLinha('nvxAps', 'Aparelhos', ap ? String(ap) : 'ver') +
+      nvLinha('nvxArq', 'Arquivo de backup', 'exportar ou importar') + '</section>';
+    return { t: 'Cópias e nuvem', r: est, al: !rec, h: h };
+  }
+  function nvxJanela(tit, html) { lfJanela({ titulo: tit, monta: function (box) { box.innerHTML = html; } }); }
+  ACT.nvxNuvem = function () { nvxJanela('Nuvem', nvCard()); };
+  ACT.nvxAps = function () { nvxJanela('Aparelhos', typeof apCardHtml === 'function' && apCardHtml() ? apCardHtml() : '<div class="hint">Só este aparelho.</div>'); };
+  ACT.nvxArq = function () { nvxJanela('Arquivo de backup', backupHtml()); };
   // ===== S370 (16/11/2026) — esboços 31 e 33 (aprovados 15/11/2026) =====
   // 31: tablet e computador (≥ 800 px): no Inventário com uma peça aberta, a lista fica à esquerda e a ficha à direita;
   //     tocar em outra peça troca a ficha sem sair do lugar. A ficha (#detail) é levada para dentro de .main pelo app.js.
@@ -51133,17 +51355,23 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // A pílula anda só com transform. Ainda NÃO cobertos: abas em linha (.lfAbas) e as pílulas do site.
   (function () {
     var D = null, sup = 0;
-    function botoes(trk) {
-      return [].filter.call(trk.querySelectorAll('.trkB'), function (b) { return b.offsetWidth > 0 && !b.disabled; });
+    // trilhos (.trk/.trkTh/.trkB) e barras com pílula permanente (#eTabs: .lfPill/.chip)
+    // (as abas em linha do Inventário rolam para o lado com o dedo: ficam só com o toque, senão o arrasto brigaria com a rolagem)
+    var TIPOS = [{ box: '.trk', th: '.trkTh', b: '.trkB', dx: -3 }];
+    function botoes(trk, t) {
+      return [].filter.call(trk.querySelectorAll(t.b), function (b) { return b.offsetWidth > 0 && !b.disabled; });
     }
+    function poe(d, x) { d.th.style.transform = 'translate(' + x + 'px,' + d.ty + 'px)'; }
     document.addEventListener('pointerdown', function (e) {
       if (e.button > 0) return;
-      var trk = e.target.closest && e.target.closest('.trk');
-      if (!trk || !trk.querySelector('.trkTh') || S.modoCli) return;
-      var L = botoes(trk);
+      if (S.modoCli || !e.target.closest) return;
+      var t = null, trk = null;
+      TIPOS.forEach(function (x) { if (!trk) { var k = e.target.closest(x.box); if (k && k.querySelector(x.th)) { trk = k; t = x; } } });
+      if (!trk) return;
+      var L = botoes(trk, t);
       if (L.length < 2) return;
-      var on = trk.querySelector('.trkB.on') || L[0];
-      D = { trk: trk, th: trk.querySelector('.trkTh'), L: L, x0: e.clientX, y0: e.clientY, base: on.offsetLeft - 3, w: on.offsetWidth, ativo: false, id: e.pointerId };
+      var on = L.filter(function (b) { return b.classList.contains('on'); })[0] || L[0];
+      D = { t: t, trk: trk, th: trk.querySelector(t.th), L: L, x0: e.clientX, y0: e.clientY, base: on.offsetLeft + t.dx, ty: t.dx ? 0 : on.offsetTop, w: on.offsetWidth, ativo: false, id: e.pointerId };
     }, true);
     document.addEventListener('pointermove', function (e) {
       if (!D || e.pointerId !== D.id) return;
@@ -51152,12 +51380,14 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         if (Math.abs(dy) > 10 && Math.abs(dy) > Math.abs(dx)) { D = null; return; } // é rolagem da tela
         if (Math.abs(dx) < 7) return;
         D.ativo = true;
-        D.th.style.transition = 'width .2s var(--lux-in,cubic-bezier(.16,1,.3,1))';
+        D.th.style.transition = 'none';
+        D.th.getAnimations && D.th.getAnimations().forEach(function (a) { a.cancel(); });
         D.trk.classList.add('trkArr');
       }
-      var min = D.L[0].offsetLeft - 3, ult = D.L[D.L.length - 1], max = ult.offsetLeft - 3 + ult.offsetWidth - D.w,
+      var min = D.L[0].offsetLeft + D.t.dx, ult = D.L[D.L.length - 1], max = ult.offsetLeft + D.t.dx + ult.offsetWidth - D.w,
         x = Math.max(min, Math.min(max, D.base + dx));
-      D.th.style.transform = 'translateX(' + x + 'px)';
+      if (D.t.dx) D.th.style.transform = 'translateX(' + x + 'px)';
+      else poe(D, x);
       e.preventDefault();
     }, true);
     function fim(e) {
@@ -51168,24 +51398,24 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       sup = Date.now();
       d.trk.classList.remove('trkArr');
       d.th.style.transition = '';
-      var m = /translateX\(([-\d.]+)px\)/.exec(d.th.style.transform || ''),
-        cx = (m ? +m[1] : d.base) + 3 + d.w / 2,
+      var m = /translate(?:X)?\(([-\d.]+)px/.exec(d.th.style.transform || ''),
+        cx = (m ? +m[1] : d.base) - d.t.dx + d.w / 2,
         best = d.L[0], bd = 1e9;
       d.L.forEach(function (b) {
         var c = b.offsetLeft + b.offsetWidth / 2, k = Math.abs(c - cx);
         if (k < bd) { bd = k; best = b; }
       });
       if (best.classList.contains('on')) {
-        d.th.style.transform = 'translateX(' + (best.offsetLeft - 3) + 'px)';
-        d.th.style.width = best.offsetWidth + 'px';
+        if (d.t.dx) { d.th.style.transform = 'translateX(' + (best.offsetLeft - 3) + 'px)'; d.th.style.width = best.offsetWidth + 'px'; }
+        else poe(d, best.offsetLeft);
       } else best.click();
       try { vibrar(8); } catch (x) {}
     }
     document.addEventListener('pointerup', fim, true);
-    document.addEventListener('pointercancel', function () { if (D && D.ativo) { D.trk.classList.remove('trkArr'); D.th.style.transition = ''; var on = D.trk.querySelector('.trkB.on'); if (on) D.th.style.transform = 'translateX(' + (on.offsetLeft - 3) + 'px)'; } D = null; }, true);
+    document.addEventListener('pointercancel', function () { if (D && D.ativo) { D.trk.classList.remove('trkArr'); D.th.style.transition = ''; var on = D.L.filter(function (b) { return b.classList.contains('on'); })[0]; if (on) { if (D.t.dx) D.th.style.transform = 'translateX(' + (on.offsetLeft - 3) + 'px)'; else poe(D, on.offsetLeft); } } D = null; }, true);
     // o clique que o navegador manda depois de arrastar não pode escolher outra opção
     document.addEventListener('click', function (e) {
-      if (Date.now() - sup < 350 && e.isTrusted && e.target.closest && e.target.closest('.trk')) { e.stopPropagation(); e.preventDefault(); }
+      if (Date.now() - sup < 350 && e.isTrusted && e.target.closest && e.target.closest('.trk,.lfPillOn')) { e.stopPropagation(); e.preventDefault(); }
     }, true);
   })();
   // ===== Render geral e persistência (localStorage + IndexedDB). =====

@@ -4,17 +4,23 @@
   // A pílula anda só com transform. Ainda NÃO cobertos: abas em linha (.lfAbas) e as pílulas do site.
   (function () {
     var D = null, sup = 0;
-    function botoes(trk) {
-      return [].filter.call(trk.querySelectorAll('.trkB'), function (b) { return b.offsetWidth > 0 && !b.disabled; });
+    // trilhos (.trk/.trkTh/.trkB) e barras com pílula permanente (#eTabs: .lfPill/.chip)
+    // (as abas em linha do Inventário rolam para o lado com o dedo: ficam só com o toque, senão o arrasto brigaria com a rolagem)
+    var TIPOS = [{ box: '.trk', th: '.trkTh', b: '.trkB', dx: -3 }];
+    function botoes(trk, t) {
+      return [].filter.call(trk.querySelectorAll(t.b), function (b) { return b.offsetWidth > 0 && !b.disabled; });
     }
+    function poe(d, x) { d.th.style.transform = 'translate(' + x + 'px,' + d.ty + 'px)'; }
     document.addEventListener('pointerdown', function (e) {
       if (e.button > 0) return;
-      var trk = e.target.closest && e.target.closest('.trk');
-      if (!trk || !trk.querySelector('.trkTh') || S.modoCli) return;
-      var L = botoes(trk);
+      if (S.modoCli || !e.target.closest) return;
+      var t = null, trk = null;
+      TIPOS.forEach(function (x) { if (!trk) { var k = e.target.closest(x.box); if (k && k.querySelector(x.th)) { trk = k; t = x; } } });
+      if (!trk) return;
+      var L = botoes(trk, t);
       if (L.length < 2) return;
-      var on = trk.querySelector('.trkB.on') || L[0];
-      D = { trk: trk, th: trk.querySelector('.trkTh'), L: L, x0: e.clientX, y0: e.clientY, base: on.offsetLeft - 3, w: on.offsetWidth, ativo: false, id: e.pointerId };
+      var on = L.filter(function (b) { return b.classList.contains('on'); })[0] || L[0];
+      D = { t: t, trk: trk, th: trk.querySelector(t.th), L: L, x0: e.clientX, y0: e.clientY, base: on.offsetLeft + t.dx, ty: t.dx ? 0 : on.offsetTop, w: on.offsetWidth, ativo: false, id: e.pointerId };
     }, true);
     document.addEventListener('pointermove', function (e) {
       if (!D || e.pointerId !== D.id) return;
@@ -23,12 +29,14 @@
         if (Math.abs(dy) > 10 && Math.abs(dy) > Math.abs(dx)) { D = null; return; } // é rolagem da tela
         if (Math.abs(dx) < 7) return;
         D.ativo = true;
-        D.th.style.transition = 'width .2s var(--lux-in,cubic-bezier(.16,1,.3,1))';
+        D.th.style.transition = 'none';
+        D.th.getAnimations && D.th.getAnimations().forEach(function (a) { a.cancel(); });
         D.trk.classList.add('trkArr');
       }
-      var min = D.L[0].offsetLeft - 3, ult = D.L[D.L.length - 1], max = ult.offsetLeft - 3 + ult.offsetWidth - D.w,
+      var min = D.L[0].offsetLeft + D.t.dx, ult = D.L[D.L.length - 1], max = ult.offsetLeft + D.t.dx + ult.offsetWidth - D.w,
         x = Math.max(min, Math.min(max, D.base + dx));
-      D.th.style.transform = 'translateX(' + x + 'px)';
+      if (D.t.dx) D.th.style.transform = 'translateX(' + x + 'px)';
+      else poe(D, x);
       e.preventDefault();
     }, true);
     function fim(e) {
@@ -39,23 +47,23 @@
       sup = Date.now();
       d.trk.classList.remove('trkArr');
       d.th.style.transition = '';
-      var m = /translateX\(([-\d.]+)px\)/.exec(d.th.style.transform || ''),
-        cx = (m ? +m[1] : d.base) + 3 + d.w / 2,
+      var m = /translate(?:X)?\(([-\d.]+)px/.exec(d.th.style.transform || ''),
+        cx = (m ? +m[1] : d.base) - d.t.dx + d.w / 2,
         best = d.L[0], bd = 1e9;
       d.L.forEach(function (b) {
         var c = b.offsetLeft + b.offsetWidth / 2, k = Math.abs(c - cx);
         if (k < bd) { bd = k; best = b; }
       });
       if (best.classList.contains('on')) {
-        d.th.style.transform = 'translateX(' + (best.offsetLeft - 3) + 'px)';
-        d.th.style.width = best.offsetWidth + 'px';
+        if (d.t.dx) { d.th.style.transform = 'translateX(' + (best.offsetLeft - 3) + 'px)'; d.th.style.width = best.offsetWidth + 'px'; }
+        else poe(d, best.offsetLeft);
       } else best.click();
       try { vibrar(8); } catch (x) {}
     }
     document.addEventListener('pointerup', fim, true);
-    document.addEventListener('pointercancel', function () { if (D && D.ativo) { D.trk.classList.remove('trkArr'); D.th.style.transition = ''; var on = D.trk.querySelector('.trkB.on'); if (on) D.th.style.transform = 'translateX(' + (on.offsetLeft - 3) + 'px)'; } D = null; }, true);
+    document.addEventListener('pointercancel', function () { if (D && D.ativo) { D.trk.classList.remove('trkArr'); D.th.style.transition = ''; var on = D.L.filter(function (b) { return b.classList.contains('on'); })[0]; if (on) { if (D.t.dx) D.th.style.transform = 'translateX(' + (on.offsetLeft - 3) + 'px)'; else poe(D, on.offsetLeft); } } D = null; }, true);
     // o clique que o navegador manda depois de arrastar não pode escolher outra opção
     document.addEventListener('click', function (e) {
-      if (Date.now() - sup < 350 && e.isTrusted && e.target.closest && e.target.closest('.trk')) { e.stopPropagation(); e.preventDefault(); }
+      if (Date.now() - sup < 350 && e.isTrusted && e.target.closest && e.target.closest('.trk,.lfPillOn')) { e.stopPropagation(); e.preventDefault(); }
     }, true);
   })();
