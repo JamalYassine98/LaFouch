@@ -748,6 +748,17 @@ exports.pedidoMail = onDocumentCreated({ document: 'pedidos/{id}', region: REGIA
 exports.pagoMail = onDocumentWritten({ document: 'reservas/{id}', region: REGIAO, secrets: [RESEND_KEY] }, async (ev) => {
   const antes = ev.data.before.exists ? ev.data.before.data() : {}, depois = ev.data.after.exists ? ev.data.after.data() : null;
   if (!depois || depois.pago !== true || antes.pago === true || depois.cancelado) return;
-  try { console.log('pagoMail', ev.params.id, JSON.stringify(await PedidoMail.aoPagar(pmDb, pmEnvia(), ev.params.id, depois.tok || ''))); }
+  try { console.log('pagoMail', ev.params.id, JSON.stringify(await PedidoMail.aoPagar(pmDb, pmEnvia(), ev.params.id, depois.tok || '', URL_COMP, Date.now()))); }
   catch (e) { console.error('pagoMail', ev.params.id, e && e.message); }
+});
+// comprovante: página do "Baixar comprovante" do e-mail — abre em qualquer aparelho, só com o id do pedido + o token certos
+const URL_COMP = 'https://' + REGIAO + '-' + process.env.GCLOUD_PROJECT + '.cloudfunctions.net/comprovante';
+exports.comprovante = onRequest({ region: REGIAO, cors: false, maxInstances: 3 }, async (req, res) => {
+  res.set('Content-Type', 'text/html; charset=utf-8'); res.set('Cache-Control', 'private, no-store'); res.set('X-Robots-Tag', 'noindex');
+  if (req.method !== 'GET') return res.status(405).send('');
+  try {
+    const h = await PedidoMail.comprovante(pmDb, String(req.query.p || ''), String(req.query.t || ''));
+    if (h) return res.send(h);
+  } catch (e) { console.error('comprovante', e && e.message); }
+  return res.status(404).send(Email.molde('Comprovante ' + Email.I('não encontrado'), Email.P('Este link não vale mais ou está incompleto. Abra o e-mail de pagamento confirmado e toque de novo em “Baixar comprovante”.') + Email.B('Ir para lafouch.com', 'https://lafouch.com')));
 });
