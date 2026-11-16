@@ -204,3 +204,5 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - 16/11/2026 · ✔ PUBLICADO app v543 / 5.33.0: **Site como tela do app** (S242, aprovado 14/11 00:08; pedido de novo 09:05) ✔ v543 · com o painel aberto a barra não marca mais Vender (marca a família Site) ✔ v543. 307/307 testes. NÃO testado no celular. Visitas do dia não entram no cartão (o painel não manda esse número para o app): o cartão mostra os avisos do Analisador.
 
 - 16/11/2026 10:10 · DONO pediu 6 botões no Início ("dividir só um pouco mais"); escolheu ver a opção A → ESBOÇO 59 enviado, ESPERANDO decisão (work/s374/esb59.py): **59a** Início com Resultados (dia, mês, histórico) · Giro e preços (giro, preços, reservas) · Site (pedidos, mensagens, analisador) · Marketing (marketing, temática) · Clientes · Atacado; barra igual · **59b** a flecha das 4 famílias novas (Marketing abre a lista no próprio Início, porque as 2 telas são janelas). Olho sem achado novo.
+
+- 16/11/2026 10:04 · DONO: "Aprovado" → ESBOÇO 59 (59a/59b, Início com 6 botões) APROVADO, esperando "implementar". Antes disso ele vai relatar um bug do app.
