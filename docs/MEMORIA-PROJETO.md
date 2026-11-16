@@ -2902,3 +2902,5 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - 16/11/2026 12:18 · DONO: "Aprovado" → ESBOÇO 64 (Preços de luxo + abrir como na Apple, 64a–64e) APROVADO, esperando "implementar".
 
 - 16/11/2026 12:20 · DONO: "Então tira isso, porque se tá vendendo bem é pra manter" → DECISÃO GUARDADA: o preço automático NÃO sobe mais o preço de peça que vende rápido (regra 4 de paPlano, +5%). Continua: proteção de prejuízo (dólar/custo), ofertas em degraus para parados e fim da oferta quando volta a vender. ESPERANDO "implementar".
+
+- 16/11/2026 12:23 · DONO: padronizar TODO o app no design de luxo, ABA POR ABA, com calma, analisando os botões e a hierarquia de cada uma. Base: "Padrão de controles do APP" (docs/DESIGN-SITE-E-APP.md, 15/11): principal = contorno rosa (.go) UMA por tela; secundária = contorno neutro; terciária = texto rosa com "›" sem sublinhado; OPÇÃO = cartões; FILTRO = pílula; ABA = linha que desliza. (Corrigi minha sugestão das 12:21: o principal NÃO é cheio — o cheio foi reprovado em 08/11.) ABA 1 = Preços → ESBOÇO 65 enviado, ESPERANDO decisão (work/s374/esb65.py, em cima do 64).
