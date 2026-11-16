@@ -2916,3 +2916,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - FALTA do "implementar tudo" na parte do SITE (não comecei): cópias do painel conta/sacola (conferir se o S371 e o lote 9 parte 1 já cobrem), janelas de luxo e limpeza técnica, temática em 2 níveis, ideias S214/S215, abas da Minha conta 1–6, pílulas do site arrastando, detector de cópias no portão.
 
 - 16/11/2026 13:13 · DONO: "a abertura abre piscando, não abre suave". CAUSA (minha, no desenho): o conteúdo começava a aparecer 40 ms depois e com o espaço já aberto (um vão vazio e depois o conteúdo surgindo = piscar), e a curva começava rápida demais. CORRIGIDO nos esboços 64 e 66: conteúdo visível desde o início (de 35% a 100%, sem atraso), crescendo junto com o cartão; curva suave (.45,0,.2,1) em 0,42 s (fechar 0,28 s); a seta gira no mesmo tempo. 64d e 66d refeitos (60 quadros/s).
+
+### 16/11/2026 13:35 — S384–S386: fluidez da Mochi resolvida (dono: "fluidez perfeita")
+- Caminho que funcionou: o dono testa primeiro num MODO DE TESTE por parâmetro na URL (clientes não veem), manda vídeo do medidor, e só então escreve "implementar". Repetir esse caminho para mudanças de desempenho.
+- Publicado como modo normal (1794847782): medição da câmera num trabalhador ao lado; leitor preparado na abertura (só com arquivo guardado ou Wi-Fi); contorno da Mochi calculado por conta. No aparelho dele: travadas 91 → 23 só com o trabalhador; depois das três, "fluidez perfeita".
+- Lições: trabalhador não mexe na tela (só contas); um só basta para a câmera; rota do Playwright desliga a memória do navegador (usar Network.setBlockedURLs nas provas de cache); medir antes de afirmar a causa (errei ao culpar o braço esticando — era a tabela do corpo).

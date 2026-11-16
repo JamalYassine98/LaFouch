@@ -8,7 +8,7 @@ try:
     for modo in ('normal','camt'):
         b,pg,er=base.abre(p,W=390,H=844,ls={'t_perm':'granted','t_semmp':'1'});pg.context.route('**/*',lambda r:r.continue_() if r.request.url.startswith('http://localhost') else r.abort())
         cdp=pg.context.new_cdp_session(pg);cdp.send('Emulation.setCPUThrottlingRate',{'rate':4})
-        pg.add_init_script("sessionStorage.setItem('lf_ni','1')");pg.goto('http://localhost:8915/?medir=1'+('&camt=1' if modo=='camt' else ''));w=pg.wait_for_timeout;w(4000);pg.evaluate("()=>window.__lfGzAbre()");w(3000);pg.click('#gzcom');t0=time.time()
+        pg.add_init_script("sessionStorage.setItem('lf_ni','1')");pg.goto('http://localhost:8915/?medir=1'+('' if modo=='camt' else '&camt=0'));w=pg.wait_for_timeout;w(4000);pg.evaluate("()=>window.__lfGzAbre()");w(3000);pg.click('#gzcom');t0=time.time()
         while time.time()-t0<70 and json.loads(pg.evaluate(base.S))['f']!='teste': w(300)
         w(12000);tx=pg.evaluate("()=>document.querySelector('#lfmed').textContent").split('\n')
         print('==',modo,'| fase',json.loads(pg.evaluate(base.S))['f'],'| etiqueta',json.loads(pg.evaluate(base.S))['chip'],'| trabalhador',pg.evaluate("()=>window.__lfCam&&[window.__lfCam.fora,window.__lfCam.del,Math.round(window.__lfCam.lms||0)]"),'| falhou',pg.evaluate("()=>!!window.__lfWkFalhou"))

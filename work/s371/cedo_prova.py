@@ -8,7 +8,7 @@ try:
     b,pg,er=base.abre(p,W=390,H=844,ls={'t_perm':'granted','t_semmp':'1'});cdp=pg.context.new_cdp_session(pg);cdp.send('Network.enable');cdp.send('Network.setBlockedURLs',{'urls':['https://*','wss://*']});  # sem rota do Playwright: rota desliga a memória do navegador, e a prova precisa dela
     cdp.send('Emulation.setCPUThrottlingRate',{'rate':4});pg.add_init_script("sessionStorage.setItem('lf_ni','1')");w=pg.wait_for_timeout
     for vis in (1,2):
-        pg.goto('http://localhost:8916/?medir=1&camt=1');w(4000);pg.evaluate("()=>window.__lfGzAbre()");w(6000)
+        pg.goto('http://localhost:8916/?medir=1');w(4000);pg.evaluate("()=>window.__lfGzAbre()");w(6000)
         print('visita',vis,'| na abertura, antes de Começar: preparado antes =',pg.evaluate("()=>window.__lfCedo||0"))
         pg.click('#gzcom');t0=time.time()
         while time.time()-t0<70 and json.loads(pg.evaluate(base.S))['f']!='teste': w(300)
