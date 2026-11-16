@@ -182,3 +182,9 @@ Ler antes de mexer no site. Atualizar este arquivo SEMPRE que o site mudar (estr
   - `M.cara`: a expressão troca atrás de uma piscada;
   - boca: `M.falaVol(a)` segue o volume do áudio (3 aberturas) por um analisador (`window.__lfAc`, criado em `acToca()` a cada toque na consulta); só é usado se já estiver rodando — senão vale a boca pelo relógio (`M.rel=1`), como antes. Sem som (mudo, bloqueado ou frase sem gravação) a boca fica fechada.
 - 16/11 S369b/S370 (voz): as 11 falas novas do computador em PT (`pt8_000–010.mp3`) e ES (`es9_000–010.mp3`), aprovadas de ouvido pelo dono, entraram em `media/voz/pt|es/lista.json` (195 e 181 falas). A página de escuta e as listas de teste foram apagadas.
+
+- 16/11 S371 (defeito visto pelo dono: Minha conta → menu → Minha conta de novo, "a animação buga"): causa — o item "Mi cuenta" do menu tem `href="#"` e por isso escapava do "menu = recomeçar" (S48 A); com a conta aberta por baixo, a tela fechava e abria 3 vezes, cada fechada deixando uma cópia de saída (`#lfGhost`) = imagem dobrada. Conserto em `js/lf-site.js`:
+  - `layer()` marca a tela de conta com `data-accn` (o nome em português, que não é traduzido); `contaNaTela()` diz se a tela de conta pedida já é a que está aberta (Iniciar sessão sem login, Minha conta com login);
+  - menu: com a própria conta já aberta por baixo, o item só fecha o menu (mesma regra do "Descubra o seu grau", S90); com OUTRA tela aberta (sacola, peça…), o item passa pelo "menu = recomeçar" como os demais;
+  - ícone da conta no topo com a conta já aberta: não redesenha (`contaJaAberta`).
+  - Provas: `work/s371/repro.py` (sequência do dono, quadro a quadro).

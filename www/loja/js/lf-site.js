@@ -719,7 +719,7 @@
     var l=$('layer'),am=/^<aside class="panel"[^>]*aria-label="(Conta criada|Iniciar sessão|Criar conta|Recuperar senha|Minha conta|Sua conta|Confirme seu e-mail)"/.exec(html);if(am){cls=(cls||'')+' center acc pg'+(/^(Iniciar sessão|Criar conta|Recuperar senha|Confirme seu e-mail)$/.test(am[1])?' auth':'');prodNext=true;html=pgBarAcc(am[1])+html}
     if(prodOpen&&!prodNext)prodLeave(false);
     var pgm=prodNext;prodNext=false;
-    l.innerHTML='<div class="scrim '+(cls||'')+'"'+(pgm?'':' data-close')+'>'+html+'</div>';
+    l.innerHTML='<div class="scrim '+(cls||'')+'"'+(am?' data-accn="'+am[1]+'"':'')+(pgm?'':' data-close')+'>'+html+'</div>';
     document.documentElement.classList.add('lock');var f=l.querySelector('button,input');if(f)f.focus();if(am)pgCart(0,0,'#acc',am[1])}
   function closeLayer(skip){var was=prodOpen,rf=prodRef;if(typeof camStop==="function")camStop();$('layer').innerHTML='';document.documentElement.classList.remove('lock');$('bagbtn').focus&&0;if(was)prodLeave(skip===true,rf)}
   /* página do produto: saída (restaura endereço e título; o catálogo continua exatamente onde estava) */
@@ -938,7 +938,11 @@
     /* 09/11 S48 A (aprovado): menu = recomeçar. O que abre pelo menu volta sempre ao Início ("‹ Início" e o voltar do celular).
        Com algo aberto por baixo (peça, catálogo, outra tela), o véu cobre, tudo fecha, o histórico volta ao começo e só então a tela pedida abre. */
     addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('#drw a[href^="#"],#drw [data-navcat],#drw [data-gzopen]');if(!a||window.__lfMenuGo)return;
-      var h=a.getAttribute('href')||'';if(!a.hasAttribute('data-navcat')&&!a.hasAttribute('data-gzopen')&&(h==='#'||h==='#topo'))return;
+      /* S371: "Mi cuenta" do menu (href="#") também recomeça como os outros itens — antes escapava daqui e, com a conta já aberta por baixo, a tela fechava e abria 3 vezes (imagem dobrada) */
+      var h=a.getAttribute('href')||'',dac=a.classList.contains('dacc')&&a.getAttribute('data-cta')==='minha';
+      /* com a própria conta já aberta por baixo, o item do menu só fecha o menu (mesma regra do "Descubra o seu grau", S90) */
+      if(dac&&contaNaTela()){e.preventDefault();e.stopImmediatePropagation();var xc=document.querySelector('#drw [data-dclose]');if(xc)xc.click();return}
+      if(!a.hasAttribute('data-navcat')&&!a.hasAttribute('data-gzopen')&&!dac&&(h==='#'||h==='#topo'))return;
       /* S90: com a consulta aberta, "Descubra o seu grau" no menu só fecha o menu */
       if(a.hasAttribute('data-gzopen')&&$('gw')){e.preventDefault();e.stopImmediatePropagation();var xx=document.querySelector('#drw [data-dclose]');if(xx)xx.click();return}
       var H=document.documentElement,ly=$('layer');if(!((ly&&ly.innerHTML.trim())||H.classList.contains('ppop')||$('gw')))return;
@@ -1588,6 +1592,10 @@
         :'<div class="gl">'+G_BADGE+'<span><b>'+LFI.tr('Conta do Google')+'</b><small>'+LFI.tr('Não sincronizada')+'</small></span></div><button type="button" class="gsb" data-cta="gsync">'+LFI.tr('Sincronizar')+'</button>'},
       function(){var el2=$('gcard');if(el2)el2.innerHTML='<div class="gl">'+G_BADGE+'<span><b>'+LFI.tr('Conta do Google')+'</b><small>'+LFI.tr('Não deu para verificar agora.')+'</small></span></div>'})}
   function estLabel(e){return {pagar:'Aguardando pagamento',comp:'Comprovante em análise',pago:'Pago · reservado',recusado:'Comprovante recusado',cancelado:'Pedido cancelado'}[e.est]||'Pedido enviado'}
+  /* S371 (16/11, defeito visto pelo dono): Minha conta aberta → menu → Minha conta de novo redesenhava a MESMA tela com a animação de entrada por cima da que já estava (imagem dobrada).
+     Pelo ícone do topo, se a tela pedida já é a que está aberta, ela fica como está. Pelo menu, o item passa pelo "menu = recomeçar" (ver S48 A, mais abaixo). */
+  function contaJaAberta(t){return !!(t&&t.id==='contabtn')&&contaNaTela()}
+  function contaNaTela(){try{var p=$('layer').querySelector('.scrim[data-accn]'),lb=p&&p.getAttribute('data-accn');if(!lb)return false;return !sessG()?lb==='Iniciar sessão':(getConta()?lb==='Minha conta':false)}catch(_){return false}}
   function minhaConta(){
     var c=getConta();if(!sessG()){entrarTela(false);return}if(!c){contaForm(false);return}
     var L=lsG('lf_ped',[]).slice().reverse(),ln=function(k,v){return v?'<div class="pfl"><small>'+k+'</small><span>'+esc(v)+'</span></div>':''};
@@ -2649,7 +2657,7 @@
     else if(a==='reset')authReset();
     else if(a==='olho'){var pi=t.parentNode.querySelector('input');if(pi){var sh=pi.type==='password';pi.type=sh?'text':'password';t.classList.toggle('on',sh);t.setAttribute('aria-pressed',sh?'true':'false');t.setAttribute('aria-label',sh?'Ocultar senha':'Mostrar senha')}}
     else if(a==='salvar')contaSalvar(t.getAttribute('data-volta')==='1');
-    else if(a==='minha')minhaConta();
+    else if(a==='minha'){if(!contaJaAberta(t))minhaConta()}
     else if(a==='google')gEntrar();
     else if(a==='gsync')gSync();
     else if(a==='gunlink')gUnlink(t.getAttribute('data-pw')==='1');else if(a==='gunlink2')gUnlink2(t.getAttribute('data-nopw')==='1');else if(a==='exc')excAbre();else if(a==='exc2')excFaz();
