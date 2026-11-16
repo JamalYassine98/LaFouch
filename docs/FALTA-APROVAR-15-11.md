@@ -221,3 +221,5 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - 16/11/2026 · ✔ PUBLICADO app v545 / 5.34.0: ESBOÇO 59 (Início com 6 botões: Resultados, Giro e preços, Site, Marketing, Clientes, Atacado) ✔ v545. 308/308 testes (na 1ª rodada o portão da folha única falhou 1 vez em "caixa esc"; sozinho passou 12/12 e a 2ª rodada inteira passou). NÃO testado no celular. O esboço 60 (painel) fica para refazer em cima das famílias novas (ordem do dono 10:40).
 
 - 16/11/2026 11:35 · ESBOÇO 60a REFEITO em cima do Início de 6 botões (v545), ESPERANDO decisão: painel sem a caixa, título no tamanho das telas. 60b RETIRADO (o Dashboard já não tem "Online" desde a v545: a flecha mostra as famílias Resultados e Giro e preços).
+
+- 16/11/2026 11:13 · DONO: "Aprovado" → ESBOÇO 60a APROVADO (painel sem a caixa, título no tamanho das telas), esperando "implementar". Antes ele quer ajustar outra coisa.

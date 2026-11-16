@@ -2894,3 +2894,5 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - S374 (16/11/2026): v542 publicado (7 famílias, 50a–c, 56, 57a/b, 58a/b). LIÇÃO: has-text do Playwright não diferencia maiúsculas — a frase nova do Dashboard ("… giro e preços") fez o teste achar 2 "Giro"; nos testes, procurar atalho por data-id. Os testes antigos partem da barra antiga (pagina(fam=False) desfaz as famílias); as famílias têm teste próprio.
 
 - 16/11/2026 10:04 · DONO: "Aprovado" → ESBOÇO 59 (59a/59b, Início com 6 botões) APROVADO, esperando "implementar". Antes disso ele vai relatar um bug do app.
+
+- 16/11/2026 11:13 · DONO: "Aprovado" → ESBOÇO 60a APROVADO (painel sem a caixa, título no tamanho das telas), esperando "implementar". Antes ele quer ajustar outra coisa.
