@@ -754,6 +754,34 @@ def p7_produto_topo(p):
             else: falha(P7, f'Peça aberta cobre a página de trás · {W}px', 'a página de trás (Destaque) aparece entre o topo e o caminho da peça', pg)
         finally: b.close()
 
+# S377 (aprovado 15/11 15:07): o portão abre o PAINEL do site (admin.html) no tema claro e no escuro e mede o contraste de todo texto visível de cada tela do painel.
+# Defeito plantado: tirar a regra ":root{--card:var(--s1)}" do admin.html (os botões voltam a ficar brancos com letra clara no escuro) — a prova tem de reprovar.
+PAINEL_MONTA = """()=>{document.querySelectorAll('#lock,#login,#totp,#trava').forEach(e=>e.hidden=true);const sh=document.getElementById('shell');sh.hidden=false;
+ const top=sh.querySelector('.top');if(!document.getElementById('pnx')){const x=document.createElement('button');x.id='pnx';x.className='pnx';x.style.display='inline-flex';x.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg>Sair';top.insertBefore(x,top.firstChild);const lg=top.querySelector('.logo');if(lg)lg.style.display='none'}
+ const I=p=>'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>';
+ const lin=(ic,t,s)=>'<button type="button" class="lin"><span class="lnic">'+ic+'</span><span class="lntx"><b>'+t+'</b><small>'+s+'</small></span><span class="lnch">›</span></button>';
+ ['c_ord','c_att'].forEach(id=>{const c=document.getElementById(id);if(c)c.hidden=true});[...document.querySelectorAll('#v_vit section.card')].filter(c=>/Preços e estoque/.test(c.textContent)).forEach(c=>c.hidden=true);
+ document.getElementById('vsub').textContent='20 produtos no ar · preços vêm do estoque';document.getElementById('dstb').innerHTML='<div class="mu sm">3 fotos em sequência</div>';
+ let b=document.querySelector('.p207l.vit');if(!b){b=document.createElement('div');b.className='p207l vit';const d=document.getElementById('c_dst');d.parentNode.insertBefore(b,d.nextSibling)}
+ b.innerHTML=lin(I('<path d="M3 6h18M6 12h12M10 18h4"/>'),'Ordem do catálogo','Equilibrada')+lin(I('<path d="M12 9v4M12 17h.01"/>'),'Precisa de atenção','tudo certo')+lin(I('<path d="M12 2l3 6.6 7 .8-5.2 4.8 1.5 7L12 17.7 5.7 21.2l1.5-7L2 9.4l7-.8z"/>'),'Opiniões para revisar','nada para revisar')}"""
+PAINEL_CONTR = """()=>{const lum=c=>{const m=c.match(/[\\d.]+/g).map(Number);const f=v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)};return .2126*f(m[0])+.7152*f(m[1])+.0722*f(m[2])};
+ const fundo=e=>{while(e){const c=getComputedStyle(e).backgroundColor;const m=c.match(/[\\d.]+/g);if(m&&(m.length<4||+m[3]>.5))return c;e=e.parentElement}return 'rgb(18,13,21)'};const o=[];
+ document.querySelectorAll('#shell *').forEach(e=>{if(!e.offsetParent)return;const t=[...e.childNodes].filter(n=>n.nodeType===3&&n.textContent.trim()).map(n=>n.textContent.trim()).join(' ');if(!t)return;const cs=getComputedStyle(e);const a=lum(cs.color),b=lum(fundo(e));const r=(Math.max(a,b)+.05)/(Math.min(a,b)+.05);if(r<3)o.push([t.slice(0,28),+r.toFixed(2),cs.color,fundo(e)])});return o}"""
+def p7_painel_contraste(p):
+    for esquema, nome in (('light', 'claro'), ('dark', 'escuro')):
+        b = p.chromium.launch(executable_path='/opt/pw-browsers/chromium', args=['--no-sandbox'])
+        try:
+            c = b.new_context(viewport={'width': 390, 'height': 844}, device_scale_factor=1, is_mobile=True, has_touch=True, color_scheme=esquema)
+            c.route('**/*', lambda r: r.continue_() if r.request.url.startswith('http://localhost') else r.abort())
+            pg = c.new_page(); pg.goto(URL + 'admin.html'); pg.wait_for_timeout(1500); pg.evaluate(PAINEL_MONTA); pg.wait_for_timeout(300); ruins = []
+            for v in pg.evaluate("()=>[...document.querySelectorAll('#shell main.page')].map(m=>m.id)"):
+                pg.evaluate("v=>{document.querySelectorAll('#shell main.page').forEach(m=>m.hidden=m.id!==v)}", v); pg.wait_for_timeout(120)
+                ruins += [f'{v}: "{x[0]}" {x[1]}' for x in pg.evaluate(PAINEL_CONTR)]
+            t = f'Painel · texto legível · tema {nome}'
+            if ruins: falha(P7, t, f'{len(ruins)} texto(s) com contraste abaixo de 3: ' + ' | '.join(ruins[:4]), pg)
+            else: passou(P7, t)
+        finally: b.close()
+
 def p7_varredura(p):
     # passa por todos os botões e links visíveis do Início (celular e computador): nenhum erro, nada travado, nada mais largo que a tela
     for W, H in ((390, 844), (1440, 900)):
@@ -871,7 +899,7 @@ with sync_playwright() as p:
      print('parte 7 · olho do dono')
      for nome, fn in (('rodapé', p7_rodape), ('teste da ajuda', p7_teste_ajuda), ('foto e mouse', p7_foto_mouse), ('tamanho e letras', p7_tamanho), ('Mochi com braços', p7_mochi_bracos),
                       ('Mi cuenta', p7_conta_spam), ('Tarjetas 1 hora', p7_tarjetas_1h), ('idioma', p7_idioma), ('endereço', p7_endereco), ('código', p7_codigo), ('ícone da conta', p7_icone_conta),
-                      ('Últimas N', p7_ultimas), ('dica', p7_dica), ('animações', p7_animacoes), ('texto sobreposto', p7_sobreposto), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
+                      ('Últimas N', p7_ultimas), ('dica', p7_dica), ('animações', p7_animacoes), ('painel claro e escuro', p7_painel_contraste), ('texto sobreposto', p7_sobreposto), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
          print(' ', nome); prova(P7, nome, fn, p)
     if '5' in PARTES:
      print('parte 5 · situações difíceis')
