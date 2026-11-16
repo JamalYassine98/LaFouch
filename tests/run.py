@@ -2659,6 +2659,8 @@ async def main():
             r4 = await pg.evaluate("() => [window.__LF.S.grupos.map(g => g.itens), window.__LF.S.barra]")
             await pg.evaluate("g => window.__LF.ACT ? 0 : 0", gid)
             await pg.evaluate("g => { document.querySelector('#mainnav .mn[data-id=\"' + g + '\"]').dispatchEvent(new MouseEvent('contextmenu', {bubbles: true, cancelable: true})); }", gid)
+            await pg.wait_for_timeout(200); semGer = await pg.evaluate("() => !document.getElementById('grpM')")  # S374 (61): segurar/botão direito no grupo da barra não abre o gerenciar
+            await pg.evaluate("g => window.__LF.ACT.grpGerir(g)", gid)
             await pg.wait_for_timeout(300)
             await pg.locator('#grpM [data-act="grpTirar"][data-id="giro"]').click(); await pg.wait_for_timeout(400)
             r5 = await pg.evaluate("() => [window.__LF.S.grupos.map(g => g.itens), window.__LF.S.barra]")
@@ -2671,7 +2673,7 @@ async def main():
                   and r3[0] in ('caixa',) and r3[1] is True and r3[2] == 3
                   and r4[0] == [['caixa', 'ajustes', 'giro']]
                   and r5[0] == [['caixa', 'ajustes']] and 'giro' in r5[1]
-                  and r6[0] == 0 and 'caixa' in r6[1] and not r6[2] and not pg.erros)
+                  and r6[0] == 0 and 'caixa' in r6[1] and not r6[2] and semGer and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'grupos: juntar segurando, título com a flecha (esboço 41), adicionar do Início, tirar e dissolver')
             if not ok: falhas.append('grupos barra'); print('        veio', r0, r1, r2, r3, r4, r5, r6, pg.erros)
             # S370 (esboço 44): no Início, segurar um atalho sobre outro até o anel fechar junta os dois; soltar rápido só troca de lugar
@@ -2689,6 +2691,18 @@ async def main():
                   and j2 == ['dash', gi] and j3 == [0, 'inicio', True, True] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'S370: juntar dois atalhos do Início (anel), abrir o grupo e desfazer')
             if not ok: falhas.append('grupo no Início'); print('        veio', j1, j2, j3, pg.erros)
+            # S374 (esboço 61): arrastar um grupo da barra para o Início leva o grupo inteiro (não desfaz); Desfazer volta
+            await pg.evaluate("() => { const S = window.__LF.S; S.grupos = [{ id: 'g:61', nome: 'Dupla', itens: ['caixa', 'fx'] }]; S.barra = ['vendas', 'estoque', 'g:61', 'ajustes']; S.inicioT = ['giro', 'prec']; window.__LF.setView('inicio'); window.__LF.render(); }"); await pg.wait_for_timeout(500)
+            await arrasta2('#mainnav .mn[data-id="g:61"]', '#v-inicio .tl[data-id="prec"]', 200)
+            await pg.wait_for_timeout(500)
+            n1 = await pg.evaluate("() => { const S = window.__LF.S; return [S.barra, S.inicioT, S.grupos.length && S.grupos[0].itens, !!document.querySelector('#v-inicio .tl[data-id=\"g:61\"]'), document.getElementById('lfDesf').className]; }")
+            await pg.locator('#lfDesf button').click(); await pg.wait_for_timeout(400)
+            n2 = await pg.evaluate("() => [window.__LF.S.barra, window.__LF.S.inicioT]")
+            total += 1
+            ok = (n1[0] == ['vendas', 'estoque', 'ajustes'] and 'g:61' in n1[1] and n1[2] == ['caixa', 'fx'] and n1[3] and 'on' in n1[4]
+                  and n2 == [['vendas', 'estoque', 'g:61', 'ajustes'], ['giro', 'prec']] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'S374 (61): grupo da barra vai inteiro para o Início; Desfazer volta')
+            if not ok: falhas.append('grupo para o Início'); print('        veio', n1, n2, pg.erros)
             # S371 (esboço 51): segurar uma tela na folha da flecha e soltar na barra (cheia = troca); fora da barra nada muda; Desfazer volta tudo
             PREP51 = "() => { const S = window.__LF.S; S.grupos = [{ id: 'g:51', nome: 'Peças', itens: ['estoque', 'lotes', 'cont'] }]; S.barra = ['vendas', 'g:51', 'caixa', 'ajustes']; S.inicioT = null; window.__LF.setView('estoque'); window.__LF.render(); }"
             await pg.evaluate(PREP51); await pg.wait_for_timeout(500)

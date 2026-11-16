@@ -2733,3 +2733,5 @@ html{overscroll-behavior-y:none}
 .stN small{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:600}.stN b{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}.stN span{font-size:13.5px;color:var(--mute)}
 .stLs{padding:2px 16px}.stL .stV{color:var(--mute);font-size:13.5px;white-space:nowrap;max-width:46%;overflow:hidden;text-overflow:ellipsis}
 @media (min-width:1024px){.stG{grid-template-columns:repeat(4,minmax(0,1fr))}}
+/* S374 (esboço 61): com o aviso de Desfazer na tela, o Início ganha folga embaixo (o aviso não tampa o botão que chegou) */
+body:has(#lfDesf.on) #v-inicio{padding-bottom:140px}

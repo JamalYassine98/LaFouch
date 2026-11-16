@@ -152,6 +152,8 @@
         dica(grpGet(dg.juntaT) ? 'Solte para pôr no grupo ' + barraNome(dg.juntaT) : 'Solte para juntar com ' + barraNome(dg.juntaT));
       } else if (!dg.deBarra && dg.troca) {
         dica(grpGet(dg.id) ? 'Solte para trocar de lugar' : 'Solte para trocar de lugar · segure para juntar');
+      } else if (dg.deBarra && grpGet(dg.id)) {
+        dica(o.zona === 'barra' ? (o.k > 0 ? 'Solte para trocar de lugar' : 'Arraste até o Início para levar o grupo') : 'Solte para levar o grupo ao Início');
       } else if (dg.deBarra) {
         dica(o.zona === 'barra' ? (o.k > 0 ? 'Solte para trocar de lugar · segure para juntar' : 'Arraste para fora para tirar da barra') : 'Solte aqui para tirar da barra');
       } else if (B.length < BARRA_MAX) {
@@ -189,7 +191,7 @@
     // v465: botão vindo da barra volta ao Início NO LUGAR onde soltar (quadrado tracejado entre os outros)
     function lugarInicio(o) {
       var antes = null,
-        on = dg && dg.deBarra && !grpGet(dg.id) && o.zona === 'fora' && dg.cIni && dg.cIni.length && S.view === 'inicio';
+        on = dg && dg.deBarra && o.zona === 'fora' && dg.cIni && dg.cIni.length && S.view === 'inicio';
       if (on) {
         var best = null,
           bd = 1e9;
@@ -386,9 +388,9 @@
         pend = null,
         alvoG = o.zona === 'barra' && o.k > 0 ? B[o.k - 1] : null;
       if (grpGet(d.id) && Math.abs(d.cx - d.x0) + Math.abs(d.cy - d.y0) < 14 && ev && ev.type === 'pointerup') {
-        // segurou o grupo sem mexer: gerenciar
+        // segurou o grupo sem mexer: nada abre (S374, esboço 61); no Início continua abrindo o gerenciar
         volta = true;
-        pend = ['ger', d.id];
+        if (!d.deBarra) pend = ['ger', d.id];
       } else if (d.deBarra && d.junta > 0 && d.junta === o.k && alvoG && alvoG !== d.id) {
         if (grpGet(alvoG)) {
           B.splice(B.indexOf(d.id), 1);
@@ -446,14 +448,21 @@
       } else {
         var i = B.indexOf(d.id);
         if (grpGet(d.id) && o.zona === 'fora') {
-          var desf = { itens: grpGet(d.id).itens.slice(), r: g ? g.getBoundingClientRect() : d.el.getBoundingClientRect() };
+          // S374 (esboço 61): o grupo inteiro vai para o Início, sem desfazer
+          var antes61 = { b: barraLista().slice(), i: Array.isArray(S.inicioT) ? S.inicioT.slice() : null };
+          B.splice(i, 1);
+          barraDevolve(d.id, d.iniAntes && d.iniAntes !== '__fim' ? d.iniAntes : null);
+          pt = d.id;
+          msg = '';
           setTimeout(function () {
-            if (typeof encDesfaz === 'function') encDesfaz(desf.itens, desf.r);
-          }, REDUCED ? 0 : 300);
-          if (g) g.style.opacity = '0';
-          grpDesfaz(d.id);
-          B = barraLista().slice();
-          msg = 'Grupo desfeito: os botões voltaram';
+            var t = document.querySelector('#v-inicio .tl[data-id="' + d.id + '"]');
+            if (t && t.scrollIntoView) t.scrollIntoView({ block: 'nearest', behavior: REDUCED ? 'auto' : 'smooth' });
+            lfDesfazer(nome + ' foi para o Início', function () {
+              S.barra = antes61.b;
+              S.inicioT = antes61.i;
+              render();
+            }, 5000);
+          }, REDUCED ? 20 : 320);
         } else if (o.zona === 'barra' && o.k > 0 && o.k - 1 !== i) {
           B.splice(i, 1);
           B.splice(o.k - 1, 0, d.id);
@@ -584,7 +593,8 @@
           S.grupos = a.g;
           render();
         }, 5000);
-      } else dica(msg, 2400);
+      } else if (msg) dica(msg, 2400);
+      else dicaOff();
     }
     document.addEventListener('pointerup', fim, true);
     document.addEventListener('pointercancel', fim, true);

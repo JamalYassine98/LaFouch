@@ -414,3 +414,8 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 ## S374d (16/11/2026, v545 · 5.34.0) — Início com 6 botões (esboço 59)
 - `FAM6` em `src/98z-s374.js`, uma vez (`S.fam6`, depois de `S.fam7`): grupos `g:res` (hoje, hist), `g:gp` (giro, prec, din), `g:site` (site, ped, msg, anl), `g:mkt` (mkt, tem); sai o `g:cli`. Início = `['g:res','g:gp','g:site','g:mkt','cli','ata']`. Barra igual.
 - `grpAbre(g:mkt)` abre a folha VER (as 2 telas são janelas). No Dashboard, `ACT.dVer` com família ativa (`g.fam`) mostra a folha da família (`grpVerHtml`) no lugar da folha antiga do Dashboard (sem a aba "Online").
+
+## S374e (16/11/2026, v546 · 5.34.1) — grupo da barra para o Início (esboço 61)
+- `98-botoes-barra.js` `fim()`: segurar um grupo DA BARRA sem mexer não abre mais o gerenciar (no Início continua). Grupo da barra solto fora da barra = sai da barra e entra no Início inteiro (`barraDevolve`, no lugar do espaço tracejado de `lugarInicio`, que agora vale para grupo também); `lfDesfazer` 5 s volta barra e Início. Dicas novas ("Arraste até o Início para levar o grupo").
+- `95-barra-grupos.js`: o `contextmenu` (segurar no Android / botão direito) num grupo da barra só bloqueia o menu do navegador — não abre o gerenciar. Gerenciar: flecha do título › "Gerenciar grupo".
+- CSS: `body:has(#lfDesf.on) #v-inicio{padding-bottom:140px}` (o aviso não tampa o botão que chegou).

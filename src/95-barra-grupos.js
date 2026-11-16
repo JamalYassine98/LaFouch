@@ -275,12 +275,10 @@
     // v443: o grupo vira as peças, desencaixa e cada uma volta ao seu lugar
     if (desf && typeof encDesfaz === 'function') encDesfaz(desf.itens, desf.r);
   };
-  // Botão direito (mouse) num grupo da barra abre o gerenciar.
+  // S374 (esboço 61, dono 16/11 11:15): segurar (ou botão direito) num grupo da barra NÃO abre mais o gerenciar;
+  // mudar ou desfazer o grupo fica na flecha do título › "Gerenciar grupo".
   document.addEventListener('contextmenu', function (e) {
     var b = e.target.closest && e.target.closest('#mainnav .mn');
     var id = b && b.getAttribute('data-id');
-    if (id && grpGet(id)) {
-      e.preventDefault();
-      grpGerirAbre(id);
-    }
+    if (id && grpGet(id)) e.preventDefault();
   });

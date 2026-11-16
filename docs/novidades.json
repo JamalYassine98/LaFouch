@@ -1,7 +1,7 @@
 {
- "nome": "5.34.0",
+ "nome": "5.34.1",
  "notas": [
-  "Início com 6 botões: Resultados (dia, mês e histórico), Giro e preços (giro, preços e reservas), Site, Marketing (marketing e temática), Clientes e Atacado. A barra de baixo não muda."
+  "Grupos na barra: segurar não abre mais a janela do grupo. Arraste o grupo até o Início para levá-lo inteiro para lá (não desfaz); o aviso tem Desfazer. Mudar ou desfazer o grupo: flecha do título › Gerenciar grupo."
  ],
- "build": 545
+ "build": 546
 }
