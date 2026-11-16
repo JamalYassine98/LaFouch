@@ -9,9 +9,9 @@ import comum;T='/tmp/s374/';OUT='/home/claude/lafouch/work/s374/'
 import kit
 from playwright.sync_api import sync_playwright
 from PIL import Image,ImageDraw
-PREP="""()=>{const L=window.__LF,S=L.S;S.pAuto=S.pAuto||{};S.pAuto.on=true;S.dTab='prec';S.dfold={pau:true,cfg:true,pgr:true,abp:false};L.setView('dash');return !!S.pAuto.on}"""
+PREP="""()=>{const L=window.__LF,S=L.S;S.pAuto=S.pAuto||{};S.pAuto.on=true;S.dTab='prec';S.dfold={pau:true,cfg:true,pgr:true,abp:true};L.setView('dash');return !!S.pAuto.on}"""
 CSS="""
-.fx64{padding:0!important;overflow:hidden}
+.fx64{padding:0!important;overflow:hidden;background:var(--panel)!important}
 .fx64>.fxH{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;text-align:left;background:none;border:0;padding:16px 18px;color:inherit;min-height:56px;font:inherit;cursor:pointer}
 .fx64>.fxH b{display:block;font-size:16px;font-weight:600}.fx64>.fxH small{display:block;color:var(--mute);font-size:13.5px;margin-top:3px}
 .fx64>.fxH i{font-style:normal;font-size:20px;color:var(--mute);transition:transform .38s cubic-bezier(.32,.72,0,1);display:inline-block}
