@@ -2944,3 +2944,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Implementado no servidor; depende do deploy das funções por ele. Detalhes em docs/SITE-COMO-FUNCIONA.md (S393). Não feito (sem esboço): e-mail de cancelamento.
 - 16/11/2026 18:12 · DONO aprovou o esboço 74 (Câmbio). Esperando "implementar". A família Dinheiro (Caixa, Despesas, Câmbio) fica completa com ele.
 - 16/11 18:19 — LIÇÃO (dono cobrou): entreguei o S393 com 2 diferenças do esboço aprovado e só avisei no fim. REGRA DE OURO vale inteira: se algo do esboço não dá para fazer do jeito desenhado, resolver primeiro (aqui dava: o site mandar o preço da linha; o comprovante sair do servidor) ou parar e perguntar. Nunca "entregar e avisar".
+- 16/11/2026 18:33 · DONO aprovou 75 + 75v (Ajustes). Chaves liga/desliga: manter as originais (não mexer). Esperando "implementar" (com o 74).
