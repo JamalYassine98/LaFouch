@@ -3,7 +3,7 @@
 #  AÇÃO principal = .go contorno fino rosa, UMA por tela ("Aceitar os 5 preços") · secundária = contorno neutro ("Corrigir os 10 de uma vez",
 #  "Usar G$ …", "Informar") · terciária = texto rosa com "›", sem sublinhado (por quê ›, ajustar tabela ›, ver um por um ›, Calculadora ›, E se…? ›)
 #  · OPÇÃO = cartões (Igual por peça · Proporcional ao custo) · campo com o "%" dentro.
-import sys;sys.argv=[sys.argv[0]]
+import sys;_ARGS=list(sys.argv);sys.argv=[sys.argv[0]]
 exec(open('/home/claude/lafouch/work/s374/esb64.py').read().split('with sync_playwright')[0])
 ABRE="()=>{document.querySelectorAll('.fx64').forEach(s=>{s.classList.add('on');s.querySelector('.fxB').style.height='auto';const I=s.querySelector('.fxI');I.style.opacity=1;I.style.transform='none'})}"
 CSS65="""
@@ -28,18 +28,33 @@ def prancha65(*a):
     g=globals();src=open('/home/claude/lafouch/work/s374/esb64.py').read();i=src.index('def prancha64');j=src.index('with sync_playwright')
     code=src[i:j].replace('def prancha64','def _p65').replace("(blocos fechados; abrem como na Apple)","(blocos abertos para comparar)")
     exec(code,g);return g['_p65'](*a)
+if '--partes' not in _ARGS:
+  with sync_playwright() as pw:
+      for esc,tema in ((True,'escuro'),(False,'claro')):
+          fs=[];hs=[];oo=[]
+          for prop in (0,1):
+              b,pg,w=ap.abre(pw,'inicio',esc);w(1200);tela(pg,w,1);pg.evaluate(ABRE);w(300)
+              if prop: pg.add_style_tag(content=CSS65);print('   js',pg.evaluate(JS65));w(400)
+              o=olho(pg)
+              for y in (900,1800,2700): pg.evaluate("y=>scrollTo(0,y)",y);w(250);o|=olho(pg)
+              oo.append(o);pg.evaluate("()=>scrollTo(0,0)");w(200)
+              hs.append(pg.evaluate("()=>document.documentElement.scrollHeight"));pg.add_style_tag(content='#mainnav,#sidenav{visibility:hidden!important}');w(100)
+              p=T+'b65_%d_%d.png'%(esc,prop);pg.screenshot(path=p,full_page=True);fs.append(p);b.close()
+          print('65',tema,'achados novos:',novos(oo[0],oo[1]))
+          prancha65('65-app-precos-botoes-padrao-%s.jpg'%tema,'App · Preços › botões no padrão de luxo (aba 1) · tema '+tema,
+            ['Hoje (já com o 64, blocos abertos para ver tudo): links sublinhados em rosa e em cinza, "Revisar agora" sem nada, "Usar G$ …" e "Informar" iguais ao botão principal, "Igual por peça | Proporcional" em bolinhas, o "%" fora do campo.',
+             'Proposta: 1 ação principal na tela (contorno rosa: "Aceitar os 5 preços"); ações secundárias em contorno neutro ("Corrigir os 10 de uma vez", "Usar G$ …", "Informar"); ações de linha em texto rosa com "›", sem sublinhado (por quê ›, ajustar tabela ›, ver um por um ›, Calculadora ›, E se…? ›); escolher = 2 cartões com título e frase; "%" dentro do campo.'],fs[0],fs[1],hs[0],hs[1])
+  
+# 65 por partes (dono 12:27: "muito pequeno"): Hoje × Proposta lado a lado, na tela do celular, uma parte por arquivo
+comum.OUT=OUT
+PARTES=[('1-contador','.cntD','Para decidir esta semana e ações de linha'),('2-corrigir','.fx64[data-fx=abp]','Preços para corrigir'),('3-lista','[data-act=pcInforma]','Preços para corrigir · fim da lista'),('4-contas','[data-act=ratsel],.op65','Contas, taxas e meta · escolher e taxas')]
 with sync_playwright() as pw:
     for esc,tema in ((True,'escuro'),(False,'claro')):
-        fs=[];hs=[];oo=[]
-        for prop in (0,1):
-            b,pg,w=ap.abre(pw,'inicio',esc);w(1200);tela(pg,w,1);pg.evaluate(ABRE);w(300)
-            if prop: pg.add_style_tag(content=CSS65);print('   js',pg.evaluate(JS65));w(400)
-            o=olho(pg)
-            for y in (900,1800,2700): pg.evaluate("y=>scrollTo(0,y)",y);w(250);o|=olho(pg)
-            oo.append(o);pg.evaluate("()=>scrollTo(0,0)");w(200)
-            hs.append(pg.evaluate("()=>document.documentElement.scrollHeight"));pg.add_style_tag(content='#mainnav,#sidenav{visibility:hidden!important}');w(100)
-            p=T+'b65_%d_%d.png'%(esc,prop);pg.screenshot(path=p,full_page=True);fs.append(p);b.close()
-        print('65',tema,'achados novos:',novos(oo[0],oo[1]))
-        prancha65('65-app-precos-botoes-padrao-%s.jpg'%tema,'App · Preços › botões no padrão de luxo (aba 1) · tema '+tema,
-          ['Hoje (já com o 64, blocos abertos para ver tudo): links sublinhados em rosa e em cinza, "Revisar agora" sem nada, "Usar G$ …" e "Informar" iguais ao botão principal, "Igual por peça | Proporcional" em bolinhas, o "%" fora do campo.',
-           'Proposta: 1 ação principal na tela (contorno rosa: "Aceitar os 5 preços"); ações secundárias em contorno neutro ("Corrigir os 10 de uma vez", "Usar G$ …", "Informar"); ações de linha em texto rosa com "›", sem sublinhado (por quê ›, ajustar tabela ›, ver um por um ›, Calculadora ›, E se…? ›); escolher = 2 cartões com título e frase; "%" dentro do campo.'],fs[0],fs[1],hs[0],hs[1])
+        for nome,sel,tit in PARTES:
+            fs=[]
+            for prop in (0,1):
+                b,pg,w=ap.abre(pw,'inicio',esc);w(1200);tela(pg,w,1);pg.evaluate(ABRE);w(300)
+                if prop: pg.add_style_tag(content=CSS65);pg.evaluate(JS65);w(400)
+                pg.evaluate("s=>{const e=document.querySelector(s);window.scrollTo({top:e.getBoundingClientRect().top+scrollY-150,behavior:'instant'})}",sel);w(400)
+                p=T+'pt65_%s_%d_%d.png'%(nome,esc,prop);pg.screenshot(path=p);fs.append(p);b.close()
+            prancha('65%s-app-precos-botoes-%s.jpg'%(nome[0]+'-'+nome[2:],tema),'App · Preços › botões (aba 1) · %s · tema %s'%(tit,tema),['Hoje: já com o esboço 64 aprovado (blocos abertos para ver os botões).','Proposta: 1 principal (contorno rosa) · secundária (contorno neutro) · ação de linha (rosa com "›", sem sublinhado) · escolher = cartões · "%" dentro do campo.'],*fs)
