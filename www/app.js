@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 530;
+  var APP_BUILD = 531;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.22.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.23.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -22012,7 +22012,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     h += contadorHtml();
     h += '<div class="lbl" style="margin:16px 4px 6px">REGRAS DO CONTADOR</div>';
     h += dFold('pau', 'Preço automático', S.pAuto && S.pAuto.on ? 'ligado · revisa toda segunda' : 'desligado', 'var(--sub)', precosAutoHtml());
-    if (!(S.pAuto && S.pAuto.on)) h += dFold('abp', 'Preço abaixo do piso', ab ? ab + ' produto(s) com o câmbio de hoje' : 'nenhum', ab ? 'var(--warn)' : 'var(--ok)', x3.abaixo);
+    // S363: uma lista só de preços a corrigir, com a mesma contagem do aviso do Inventário (antes: 15 lá e 16 aqui — aqui entrava o lote sem detalhe)
+    var pcN = typeof invPrecosAcorrigir === 'function' ? invPrecosAcorrigir().length : ab;
+    h += dFold('abp', 'Preços para corrigir', pcN ? pcN + (pcN === 1 ? ' peça' : ' peças') : 'nenhum', pcN ? 'var(--warn)' : 'var(--ok)', typeof pcCorpo === 'function' ? '<div class="pcNaTela">' + pcCorpo(true) + '</div>' : x3.abaixo);
     h += dFold('cfg', 'Contas, taxas e meta', 'o que entra no custo de cada peça', 'var(--sub)', precosCfgHtml() + pagamentoHtml());
     return h;
   }
@@ -22102,23 +22104,29 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '</div><div class="hint" style="margin:0">De ' + totFmt(r.wal) + ' na carteira, ' + totFmt(dono) + ' já têm dono: reposição, contas, colchão e melhorias.</div>' +
       (aberto
         ? '<div class="split">' +
-          [['Reposição de mercadoria', r.repGs, '#6cc3e0'], ['Contas do mês', r.con, '#a2447c'], ['Colchão de segurança', r.colch, '#e9c27a'], ['Objetivos da loja', r.melh, 'var(--info)']]
+          [['Reposição de mercadoria', r.repGs, '#6cc3e0'], ['Contas do mês', r.con, '#a2447c'], ['Colchão de segurança', r.colch, '#e9c27a']]
             .map(function (p) {
               return '<div class="sl"><span><span class="sp" style="background:' + p[2] + '"></span>' + p[0] + '</span><b>' + totFmt(p[1]) + '</b></div>';
             })
             .join('') +
+          '<button type="button" class="esLn slVai" data-act="view" data-id="caixa"><span class="g"><b style="font-weight:500">Objetivos da loja</b><small>guardado no Caixa</small></span><i aria-hidden="true">›</i></button>' +
           '</div>'
         : '') +
       '<div style="display:flex;justify-content:flex-end"><button type="button" class="chip" data-act="dfold" data-id="paraonde" aria-expanded="' + aberto + '" style="min-height:34px">' + (aberto ? 'Esconder ⌃' : 'Ver para onde vai ⌄') + '</button></div></section>';
-    h +=
-      '<section class="card col"><b style="font-size:16px">Seu mês</b>' +
-      '<div class="sl"><span>Resultado da loja<small>vendas menos reposição e contas</small></span><b>' + rFmt(rm, 'resultado') + '</b></div>' +
-      '<div class="sl"><span>Retirado por você<small>de ' + rFmt(rm, 'lucroLivre') + ' de lucro livre</small></span><b>' + rFmt(rm, 'retTotal') + '</b></div>' +
-      '<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span>Sobra do mês</span><b style="color:' + (rVal(rm, 'sobra') >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + rFmt(rm, 'sobra') + '</b></div>' +
-      '<div><button type="button" class="chip" data-act="view" data-id="caixa" style="min-height:34px">Registrar retirada (Caixa)</button></div></section>';
-    h += dFold('res', 'Detalhes do mês', 'receitas, despesas e resultado', rm.sobra >= 0 ? 'var(--ok)' : 'var(--bad)', resultadoHtml());
-    // S200: lucro real do mês (IVA da venda sai, IVA da compra vira custo, frete e descontos)
-    if (typeof lucroRealHtml === 'function') { var lrT = lrMes(new Date().getFullYear(), new Date().getMonth()); h += dFold('lr', 'Lucro real do mês', lrT.qty ? gs(lrT.lucro) + ' de ' + gs(lrT.vendido) + ' vendidos' : 'sem vendas ainda', lrT.lucro >= 0 ? 'var(--ok)' : 'var(--bad)', lucroRealHtml()); }
+    // S363 (esboços 45a/45d): o resultado do mês saiu de Reservas e mora no Dashboard › Detalhes › "Resultado do mês"
+    S._resMes = function () {
+      var h = '';
+      h +=
+        '<section class="card col"><b style="font-size:16px">Seu mês</b>' +
+        '<div class="sl"><span>Resultado da loja<small>vendas menos reposição e contas</small></span><b>' + rFmt(rm, 'resultado') + '</b></div>' +
+        '<div class="sl"><span>Retirado por você<small>de ' + rFmt(rm, 'lucroLivre') + ' de lucro livre</small></span><b>' + rFmt(rm, 'retTotal') + '</b></div>' +
+        '<div class="sl" style="border-top:1px solid var(--line);padding-top:10px"><span>Sobra do mês</span><b style="color:' + (rVal(rm, 'sobra') >= 0 ? 'var(--ok)' : 'var(--bad)') + '">' + rFmt(rm, 'sobra') + '</b></div>' +
+        '<div><button type="button" class="chip" data-act="view" data-id="caixa" style="min-height:34px">Registrar retirada (Caixa)</button></div></section>';
+      h += dFold('res', 'Detalhes do mês', 'receitas, despesas e resultado', rm.sobra >= 0 ? 'var(--ok)' : 'var(--bad)', resultadoHtml());
+      // S200: lucro real do mês (IVA da venda sai, IVA da compra vira custo, frete e descontos)
+      if (typeof lucroRealHtml === 'function') { var lrT = lrMes(new Date().getFullYear(), new Date().getMonth()); h += dFold('lr', 'Lucro real do mês', lrT.qty ? gs(lrT.lucro) + ' de ' + gs(lrT.vendido) + ' vendidos' : 'sem vendas ainda', lrT.lucro >= 0 ? 'var(--ok)' : 'var(--bad)', lucroRealHtml()); }
+      return h;
+    };
     h += dFold(
       'flx',
       'Próximos ' + (S.fluxoD || 30) + ' dias',
@@ -26972,7 +26980,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       av = typeof avPref === 'function' ? avPref() : {};
     var secs = {
       imp: { t: 'Impressora', r: imp ? 'Conectada' : 'Nenhuma', h: impCard() },
-      pa: { t: 'Preço automático', r: S.pAuto && S.pAuto.on ? 'Ligado' : 'Desligado', h: paSwitchHtml() },
+      pa: { t: 'Preço automático', r: 'em Preços', h: '<span></span>' }, // S363 (esboço 45c): a linha só leva a Preços (ajToca)
       tema: { t: 'Tema', r: { auto: 'Auto', claro: 'Claro', escuro: 'Escuro' }[tv] || 'Auto', h: temaCard() },
       seg: { t: 'Segurança', r: S.bioOn ? 'Biometria' : pinAtivo() ? 'PIN' : 'Desligada', h: segH },
       ped: { t: 'Pedidos do site', r: S.baixaAuto ? 'Baixa automática' : 'Baixa manual', h: achar('baixaCard') + (typeof fretesCard === 'function' ? fretesCard() : '') },
@@ -28747,6 +28755,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   // Abre/fecha no lugar (sem redesenhar a aba): a seta gira e o conteúdo desliza.
   function ajToca(s) {
+    if (s.dataset.k === 'pa') { S.dTab = 'prec'; S.dfold = Object.assign(S.dfold || {}, { pau: true }); return setView('dash'); } // S363: Preço automático mora em Preços
     var g = $('ajGrp'),
       abre = !s.classList.contains('on');
     [].forEach.call(g.querySelectorAll('.ajS.on'), function (x) {
@@ -35910,7 +35919,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<input type="date" class="in" id="hDate" data-in="hdate" max="' + dayKey(Date.now()) + '" aria-label="Ir para o dia" hidden></section>' +
       (window.__revBannerHtml ? window.__revBannerHtml() : '') +
       (S.hFopen ? '<div id="hFil">' + hFiltrosHtml() + '</div>' : '') +
-      fechoHtml() +
+      // S363 (esboço 45b): o Histórico só lista os dias; o "Fechamento do caixa" mora no Dashboard › Hoje
       '<div id="hRes">' + hListaHtml() + '</div>' +
       arqHtml() +
       (window.__revJanelaHtml ? window.__revJanelaHtml() : '');
@@ -45075,7 +45084,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       var c = famAcha(v, rx);
       if (c && !S._fam['r' + i] && c.children.length > 1) {
         c.classList.add('famRec');
-        c.setAttribute('data-act', 'famAbre'); c.setAttribute('data-id', 'r' + i); c.setAttribute('role', 'button'); c.setAttribute('tabindex', '0');
+        // S363: "Despesas do dia" não abre mais a lista (é a mesma da tela Despesas): a linha leva até lá
+        if (i === 1) { c.setAttribute('data-act', 'view'); c.setAttribute('data-id', 'desp'); } else { c.setAttribute('data-act', 'famAbre'); c.setAttribute('data-id', 'r' + i); }
+        c.setAttribute('role', 'button'); c.setAttribute('tabindex', '0');
       }
     });
     var c2 = document.createElement('div'), c3 = document.createElement('div');
@@ -48228,7 +48239,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   ACT.fechar = function () {
     fechoCria(dayKey(Date.now()), false);
-    if (S.view === 'hist') render();
+    if (S.view === 'hist' || S.view === 'dia') render(); // S363: o fechamento agora mora no Dashboard › Hoje
   };
   window.__fechoAuto = fechoAuto;
   window.__fechoHtml = fechoHtml;
@@ -49413,10 +49424,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (c.c) det.push(c.c + ' sem custo');
     av.innerHTML = '<span class="ifIc" aria-hidden="true">!</span><span class="ifTx"><b>' + L.length + (L.length === 1 ? ' preço para corrigir' : ' preços para corrigir') + '</b><small>' + det.join(' · ') + '</small></span><span class="ifVer">Corrigir ›</span>';
   }
-  function pcFolha() {
+  // S363 (2ª passada, item 1): a lista de preços a corrigir mora só em Dashboard › Preços (pcCorpo(true)); no Inventário fica a linha que leva lá.
+  function pcCorpo(naTela) {
     var L = invPrecosAcorrigir(),
       comSug = L.filter(function (x) { return x.pb.sug > 0; });
-    var h = '<h3 class="pcT">Preços para corrigir</h3>';
+    var h = naTela ? '' : '<h3 class="pcT">Preços para corrigir</h3>';
     if (!L.length) h += '<p class="pcVazio">Tudo certo: nenhum preço para corrigir.</p>';
     h += L.map(function (x) {
       var pb = x.pb,
@@ -49440,8 +49452,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }).join('');
     if (L.length)
       h += '<div class="pcTot"><span>' + L.length + (L.length === 1 ? ' peça' : ' peças') + ' · ' + comSug.length + ' com sugestão</span></div>';
-    h += '<div class="pcFt">' + (comSug.length ? '<button type="button" class="go" data-act="pcUsaTodos">Usar os sugeridos (' + comSug.length + ')</button>' : '') + '<button type="button" class="pcFe" data-act="pcFecha">Fechar</button></div>';
-    lfaAbre('pcFolha', h);
+    h += '<div class="pcFt">' + (comSug.length ? '<button type="button" class="go" data-act="pcUsaTodos">Usar os sugeridos (' + comSug.length + ')</button>' : '') + (naTela ? '' : '<button type="button" class="pcFe" data-act="pcFecha">Fechar</button>') + '</div>';
+    return h;
+  }
+  function pcFolha() {
+    if (S.view === 'dash') return render(); // em Preços a lista está na própria tela
+    lfaAbre('pcFolha', pcCorpo(false));
   }
   function pcPoe(ref, g) {
     var r = fxUsdLoja();
@@ -49458,7 +49474,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return true;
   }
   ACT.pcAbre = function () {
-    pcFolha();
+    S.dTab = 'prec';
+    S.dfold = Object.assign(S.dfold || {}, { abp: true });
+    setView('dash');
+    setTimeout(function () { var e = document.querySelector('#v-dash .pcLi'); if (e) try { e.scrollIntoView({ block: 'center' }); } catch (x) {} }, 350);
   };
   ACT.pcFecha = function () {
     lfaFecha('pcFolha');
@@ -50021,6 +50040,21 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var nota = B.querySelector('.note.n-ok,.note.n-bad,.note.n-warn'), n2 = nota ? nota.cloneNode(true) : null, trocas = [];
     var ls = document.createElement('section');
     ls.className = 'esLs';
+    // "Resultado do mês" (veio de Reservas): resultado da loja, retirado, sobra, detalhes e lucro real
+    try {
+      var tb0 = S.dTab, rmH = '';
+      if (typeof S._resMes !== 'function') return;
+      rmH = S._resMes();
+      if (rmH) {
+        var abR = !!S._d48.res, bR = document.createElement('button'), cR = document.createElement('div');
+        bR.type = 'button'; bR.className = 'esLn' + (abR ? ' on' : '');
+        bR.setAttribute('data-act', 'd48Abre'); bR.setAttribute('data-id', 'res'); bR.setAttribute('aria-expanded', abR ? 'true' : 'false');
+        bR.innerHTML = '<span class="g"><b>Resultado do mês</b><small>Lucro real, o que mais e o que menos rendeu</small></span><i aria-hidden="true">' + (abR ? '⌃' : '›') + '</i>';
+        cR.className = 'esCorpo esRes'; cR.innerHTML = rmH;
+        if (!abR) cR.hidden = true;
+        ls.appendChild(bR); ls.appendChild(cR);
+      }
+    } catch (e) {}
     cards.forEach(function (c, i) {
       var h = c.querySelector('h2'), t = d48Txt(h);
       if (!h) return;
@@ -50070,6 +50104,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   var _rd48 = renderDash;
   renderDash = function () {
     if (S.view === 'dash' && S.dTab === 'hoje' && S.per === 'hoje') S.per = 'mes'; // "Hoje" mora na tela do dia
+    if (S.view === 'dash' && S.dTab === 'hoje') { try { S.dTab = 'din'; _rd48.apply(this, arguments); } catch (e) {} S.dTab = 'hoje'; } // refaz a conta do "Resultado do mês" (S._resMes) com os dados de agora
     var r = _rd48.apply(this, arguments);
     try { d48Mes(); } catch (e) {}
     return r;
@@ -50093,6 +50128,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     hd.after(su);
     var c3 = v.querySelector('.famC3');
     if (c3) c3.remove();
+    // S363 (esboço 45b): o "Fechamento do caixa" saiu do Histórico e fica aqui, no dia de hoje
+    if (typeof fechoHtml === 'function' && !v.querySelector('.d48Fecho')) {
+      var fd = document.createElement('div');
+      fd.className = 'd48Fecho'; fd.innerHTML = fechoHtml();
+      var c2a = v.querySelector('.famC2');
+      if (fd.firstChild) { if (c2a) v.insertBefore(fd, c2a); else v.appendChild(fd); }
+    }
     var c2 = v.querySelector('.famC2');
     if (c2) {
       [].slice.call(c2.children).forEach(function (x) { if (!/Ver todos os dias/.test(d48Txt(x))) x.remove(); });

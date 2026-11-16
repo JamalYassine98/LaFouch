@@ -192,7 +192,7 @@
       '<input type="date" class="in" id="hDate" data-in="hdate" max="' + dayKey(Date.now()) + '" aria-label="Ir para o dia" hidden></section>' +
       (window.__revBannerHtml ? window.__revBannerHtml() : '') +
       (S.hFopen ? '<div id="hFil">' + hFiltrosHtml() + '</div>' : '') +
-      fechoHtml() +
+      // S363 (esboço 45b): o Histórico só lista os dias; o "Fechamento do caixa" mora no Dashboard › Hoje
       '<div id="hRes">' + hListaHtml() + '</div>' +
       arqHtml() +
       (window.__revJanelaHtml ? window.__revJanelaHtml() : '');

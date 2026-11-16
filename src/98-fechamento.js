@@ -96,7 +96,7 @@
   };
   ACT.fechar = function () {
     fechoCria(dayKey(Date.now()), false);
-    if (S.view === 'hist') render();
+    if (S.view === 'hist' || S.view === 'dia') render(); // S363: o fechamento agora mora no Dashboard › Hoje
   };
   window.__fechoAuto = fechoAuto;
   window.__fechoHtml = fechoHtml;

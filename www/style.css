@@ -2524,3 +2524,22 @@ html{overscroll-behavior-y:none}
 .esLs>.esCorpo{background:none!important;border:0!important;box-shadow:none!important;padding:4px 0 16px!important;margin:0!important;border-radius:0!important}
 .esLs>.esCorpo>div:first-child>h2{display:none}
 .esTr{display:flex;flex-direction:column;margin-top:10px}.esTr .esLn:first-of-type{border-top:0}
+.d48Fecho{display:contents}.esLs>.esRes>section{background:none!important;border:0!important;padding:0 0 12px!important;box-shadow:none!important}
+.esLs>.esRes .chip{min-height:44px!important}
+/* S363 · a lista de preços a corrigir dentro de Dashboard › Preços (mesmo desenho da folha) */
+.pcNaTela .pcT{margin:2px 0 8px;font-size:18px}
+.pcNaTela .pcVazio{color:var(--mute);font-size:14px}
+.pcNaTela .pcLi{display:flex;gap:11px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line2,rgba(127,127,127,.15))}
+.pcNaTela .pcLi img,.pcNaTela .pcSf{width:58px;height:40px;object-fit:contain;background:#fff;border-radius:8px;flex:none}
+.pcNaTela .pcSf{background:var(--line)}
+.pcNaTela .pcTx{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.pcNaTela .pcTx b{font-size:14px}
+.pcNaTela .pcTx small{font-size:12px;color:#e9c27a}.pcNaTela .pcTx small.r{color:#e0707a}
+.pcNaTela .pcTx span{font-size:12px;color:var(--mute)}
+.pcNaTela .pcUsa{border:1px solid var(--pri-bd,rgba(243,192,220,.38));background:none;color:var(--pri);border-radius:11px;padding:8px 10px;font-size:13px;font-weight:600;white-space:nowrap;flex:none}
+.pcNaTela .pcUsa:active{transform:scale(.95)}
+.pcNaTela .pcTot{display:flex;justify-content:space-between;font-size:13px;color:var(--mute);margin:12px 0 0}
+.pcNaTela .pcFt{display:flex;gap:10px;margin-top:14px}
+.pcNaTela .pcFt .go{flex:1.2}
+.pcNaTela .pcFe{flex:1;min-height:50px;border-radius:14px;background:none;border:1px solid var(--line);color:var(--fg)}
+.pcNaTela .pcUsa{min-height:44px}.esLn.slVai{min-height:44px;border-top:0;padding:4px 0}

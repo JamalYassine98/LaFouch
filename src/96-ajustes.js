@@ -168,7 +168,7 @@
       av = typeof avPref === 'function' ? avPref() : {};
     var secs = {
       imp: { t: 'Impressora', r: imp ? 'Conectada' : 'Nenhuma', h: impCard() },
-      pa: { t: 'Preço automático', r: S.pAuto && S.pAuto.on ? 'Ligado' : 'Desligado', h: paSwitchHtml() },
+      pa: { t: 'Preço automático', r: 'em Preços', h: '<span></span>' }, // S363 (esboço 45c): a linha só leva a Preços (ajToca)
       tema: { t: 'Tema', r: { auto: 'Auto', claro: 'Claro', escuro: 'Escuro' }[tv] || 'Auto', h: temaCard() },
       seg: { t: 'Segurança', r: S.bioOn ? 'Biometria' : pinAtivo() ? 'PIN' : 'Desligada', h: segH },
       ped: { t: 'Pedidos do site', r: S.baixaAuto ? 'Baixa automática' : 'Baixa manual', h: achar('baixaCard') + (typeof fretesCard === 'function' ? fretesCard() : '') },

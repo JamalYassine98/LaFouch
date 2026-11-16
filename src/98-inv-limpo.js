@@ -262,10 +262,11 @@
     if (c.c) det.push(c.c + ' sem custo');
     av.innerHTML = '<span class="ifIc" aria-hidden="true">!</span><span class="ifTx"><b>' + L.length + (L.length === 1 ? ' preço para corrigir' : ' preços para corrigir') + '</b><small>' + det.join(' · ') + '</small></span><span class="ifVer">Corrigir ›</span>';
   }
-  function pcFolha() {
+  // S363 (2ª passada, item 1): a lista de preços a corrigir mora só em Dashboard › Preços (pcCorpo(true)); no Inventário fica a linha que leva lá.
+  function pcCorpo(naTela) {
     var L = invPrecosAcorrigir(),
       comSug = L.filter(function (x) { return x.pb.sug > 0; });
-    var h = '<h3 class="pcT">Preços para corrigir</h3>';
+    var h = naTela ? '' : '<h3 class="pcT">Preços para corrigir</h3>';
     if (!L.length) h += '<p class="pcVazio">Tudo certo: nenhum preço para corrigir.</p>';
     h += L.map(function (x) {
       var pb = x.pb,
@@ -289,8 +290,12 @@
     }).join('');
     if (L.length)
       h += '<div class="pcTot"><span>' + L.length + (L.length === 1 ? ' peça' : ' peças') + ' · ' + comSug.length + ' com sugestão</span></div>';
-    h += '<div class="pcFt">' + (comSug.length ? '<button type="button" class="go" data-act="pcUsaTodos">Usar os sugeridos (' + comSug.length + ')</button>' : '') + '<button type="button" class="pcFe" data-act="pcFecha">Fechar</button></div>';
-    lfaAbre('pcFolha', h);
+    h += '<div class="pcFt">' + (comSug.length ? '<button type="button" class="go" data-act="pcUsaTodos">Usar os sugeridos (' + comSug.length + ')</button>' : '') + (naTela ? '' : '<button type="button" class="pcFe" data-act="pcFecha">Fechar</button>') + '</div>';
+    return h;
+  }
+  function pcFolha() {
+    if (S.view === 'dash') return render(); // em Preços a lista está na própria tela
+    lfaAbre('pcFolha', pcCorpo(false));
   }
   function pcPoe(ref, g) {
     var r = fxUsdLoja();
@@ -307,7 +312,10 @@
     return true;
   }
   ACT.pcAbre = function () {
-    pcFolha();
+    S.dTab = 'prec';
+    S.dfold = Object.assign(S.dfold || {}, { abp: true });
+    setView('dash');
+    setTimeout(function () { var e = document.querySelector('#v-dash .pcLi'); if (e) try { e.scrollIntoView({ block: 'center' }); } catch (x) {} }, 350);
   };
   ACT.pcFecha = function () {
     lfaFecha('pcFolha');

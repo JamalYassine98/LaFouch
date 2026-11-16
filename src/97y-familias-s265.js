@@ -74,7 +74,9 @@
       var c = famAcha(v, rx);
       if (c && !S._fam['r' + i] && c.children.length > 1) {
         c.classList.add('famRec');
-        c.setAttribute('data-act', 'famAbre'); c.setAttribute('data-id', 'r' + i); c.setAttribute('role', 'button'); c.setAttribute('tabindex', '0');
+        // S363: "Despesas do dia" não abre mais a lista (é a mesma da tela Despesas): a linha leva até lá
+        if (i === 1) { c.setAttribute('data-act', 'view'); c.setAttribute('data-id', 'desp'); } else { c.setAttribute('data-act', 'famAbre'); c.setAttribute('data-id', 'r' + i); }
+        c.setAttribute('role', 'button'); c.setAttribute('tabindex', '0');
       }
     });
     var c2 = document.createElement('div'), c3 = document.createElement('div');

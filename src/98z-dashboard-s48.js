@@ -85,6 +85,21 @@
     var nota = B.querySelector('.note.n-ok,.note.n-bad,.note.n-warn'), n2 = nota ? nota.cloneNode(true) : null, trocas = [];
     var ls = document.createElement('section');
     ls.className = 'esLs';
+    // "Resultado do mês" (veio de Reservas): resultado da loja, retirado, sobra, detalhes e lucro real
+    try {
+      var tb0 = S.dTab, rmH = '';
+      if (typeof S._resMes !== 'function') return;
+      rmH = S._resMes();
+      if (rmH) {
+        var abR = !!S._d48.res, bR = document.createElement('button'), cR = document.createElement('div');
+        bR.type = 'button'; bR.className = 'esLn' + (abR ? ' on' : '');
+        bR.setAttribute('data-act', 'd48Abre'); bR.setAttribute('data-id', 'res'); bR.setAttribute('aria-expanded', abR ? 'true' : 'false');
+        bR.innerHTML = '<span class="g"><b>Resultado do mês</b><small>Lucro real, o que mais e o que menos rendeu</small></span><i aria-hidden="true">' + (abR ? '⌃' : '›') + '</i>';
+        cR.className = 'esCorpo esRes'; cR.innerHTML = rmH;
+        if (!abR) cR.hidden = true;
+        ls.appendChild(bR); ls.appendChild(cR);
+      }
+    } catch (e) {}
     cards.forEach(function (c, i) {
       var h = c.querySelector('h2'), t = d48Txt(h);
       if (!h) return;
@@ -134,6 +149,7 @@
   var _rd48 = renderDash;
   renderDash = function () {
     if (S.view === 'dash' && S.dTab === 'hoje' && S.per === 'hoje') S.per = 'mes'; // "Hoje" mora na tela do dia
+    if (S.view === 'dash' && S.dTab === 'hoje') { try { S.dTab = 'din'; _rd48.apply(this, arguments); } catch (e) {} S.dTab = 'hoje'; } // refaz a conta do "Resultado do mês" (S._resMes) com os dados de agora
     var r = _rd48.apply(this, arguments);
     try { d48Mes(); } catch (e) {}
     return r;
@@ -157,6 +173,13 @@
     hd.after(su);
     var c3 = v.querySelector('.famC3');
     if (c3) c3.remove();
+    // S363 (esboço 45b): o "Fechamento do caixa" saiu do Histórico e fica aqui, no dia de hoje
+    if (typeof fechoHtml === 'function' && !v.querySelector('.d48Fecho')) {
+      var fd = document.createElement('div');
+      fd.className = 'd48Fecho'; fd.innerHTML = fechoHtml();
+      var c2a = v.querySelector('.famC2');
+      if (fd.firstChild) { if (c2a) v.insertBefore(fd, c2a); else v.appendChild(fd); }
+    }
     var c2 = v.querySelector('.famC2');
     if (c2) {
       [].slice.call(c2.children).forEach(function (x) { if (!/Ver todos os dias/.test(d48Txt(x))) x.remove(); });

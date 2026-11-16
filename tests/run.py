@@ -1048,10 +1048,10 @@ async def main():
             await pg.click('#filtApply'); await pg.wait_for_timeout(300)
             await pg.evaluate("() => window.__LF.ACT.invLimpa()"); await pg.wait_for_timeout(300)
             await pg.click('#invFix'); await pg.wait_for_timeout(500)
-            antes = await pg.evaluate("() => document.querySelectorAll('#pcFolha .pcLi').length")
-            ref1 = await pg.evaluate("() => { const b = document.querySelector('#pcFolha [data-act=pcUsa]'); return b ? b.getAttribute('data-id') : ''; }")
-            if ref1: await pg.click('#pcFolha [data-act=pcUsa]'); await pg.wait_for_timeout(500)
-            depois = await pg.evaluate("(r) => [document.querySelectorAll('#pcFolha .pcLi').length, !!(window.__LF.S.pprice[r] && window.__LF.S.pprice[r].novo)]", ref1)
+            antes = await pg.evaluate("() => document.querySelectorAll('#v-dash .pcNaTela .pcLi').length")
+            ref1 = await pg.evaluate("() => { const b = document.querySelector('#v-dash .pcNaTela [data-act=pcUsa]'); return b ? b.getAttribute('data-id') : ''; }")
+            if ref1: await pg.click('#v-dash .pcNaTela [data-act=pcUsa]'); await pg.wait_for_timeout(500)
+            depois = await pg.evaluate("(r) => [document.querySelectorAll('#v-dash .pcNaTela .pcLi').length, !!(window.__LF.S.pprice[r] && window.__LF.S.pprice[r].novo)]", ref1)
             total += 1
             ok = v1 == [True, True, True, True, True] and f1 == [False, True, False, True] and n0 != n1[0] and n1[1] is True and n1[2] > 0 and ref1 and depois == [antes - 1, True] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'v471: Inventário limpo — busca do Catálogo, sinal no preço, Situação, preços para corrigir (Usar X), abrir peça não liga filtro')
@@ -2922,7 +2922,7 @@ async def main():
             await checa('Dashboard: abre no Dashboard e a folha VER tem as 4 partes e o Histórico', 'Dashboard' in tx and all(t in tf for t in ['Dashboard', 'Reservas', 'Giro', 'Preços', 'Histórico']) and not pg.erros, [tx[:150], tf[:150], pg.erros])
             await pg.locator('#dFolha [data-act="dVerEsc"][data-id="din"]').first.click(); await pg.wait_for_timeout(500)
             tx = await pg.inner_text('#v-dash')
-            await checa('Dashboard Dinheiro: resultado e fluxo em linhas que abrem', 'LIVRE PARA VOCÊ' in tx.upper() and 'Seu mês' in tx and 'Detalhes do mês' in tx and 'Próximos' in tx and not pg.erros, [tx[:200], pg.erros])
+            await checa('Reservas: livre para você e próximos 30 dias; o resultado do mês foi para o Dashboard (S363)', 'LIVRE PARA VOCÊ' in tx.upper() and 'Seu mês' not in tx and 'Detalhes do mês' not in tx and 'Próximos' in tx and not pg.erros, [tx[:200], pg.erros])
             await pg.locator('[data-act="dfold"][data-id="flx"]').first.click(); await pg.wait_for_timeout(300)
             await pg.locator('[data-act="fluxod"][data-id="90"]').first.click(); await pg.wait_for_timeout(200)
             got = await pg.evaluate("() => window.__LF.S.fluxoD")
@@ -3579,6 +3579,26 @@ async def main():
             ok = got == [True] * 6 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'S362: Dashboard único — Hoje sem calendário, 3 números, sem cartões repetidos, linha abre, toque troca a moeda, seletor leva ao dia')
             if not ok: falhas.append('S362 dashboard'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # S363 (esboços 45a–45d): resultado do mês no Dashboard, Reservas sem ele, Histórico sem o fechamento (vai para Hoje), Preço automático só leva a Preços.
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, sl = ms => new Promise(r => setTimeout(r, ms));
+              S.dTab = 'hoje'; S.per = 'mes'; L.setView('dash'); await sl(700);
+              const ln = document.querySelector('#dtabBody .esLn[data-id=res]'); const tem = !!ln && /Resultado do mês/.test(ln.innerText) && ln.nextElementSibling.hidden; ln.click(); await sl(400);
+              const abre = /Sobra do mês/.test(document.querySelector('#dtabBody .esRes').innerText);
+              S.dTab = 'din'; L.setView('dash'); L.render(); await sl(500); const tr = document.getElementById('dtabBody').textContent;
+              const reservas = !/Seu mês|Detalhes do mês|Lucro real do mês/.test(tr);
+              L.setView('hist'); await sl(500); const hist = !/Fechamento do caixa/.test(document.getElementById('v-hist').textContent);
+              L.inicioGo('hoje'); await sl(600); const hoje = /Fechamento do caixa/.test(document.getElementById('v-dia').textContent);
+              L.setView('ajustes'); await sl(500); const r = document.querySelector('.ajS[data-k=pa]'); const rot = r.querySelector('.ajRes').textContent === 'em Preços';
+              return [tem && abre, reservas, hist, hoje, rot]; }""")
+            await pg.locator('.ajS[data-k=pa] .ajR').click(); await pg.wait_for_timeout(500)
+            got.append(await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.dTab].join()"))
+            total += 1
+            ok = got == [True] * 5 + ['dash,prec'] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S363: Resultado do mês no Dashboard, Reservas e Histórico sem repetição, fechamento em Hoje, Preço automático leva a Preços')
+            if not ok: falhas.append('S363 redundâncias'); print('        veio', got, pg.erros)
             await pg.close()
 
             # S332 (15/11/2026, opção A): a cópia do site do MODO LOJA se atualiza sozinha (sem APK). Aparelho falso (Capacitor + Filesystem em memória):
