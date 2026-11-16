@@ -2900,3 +2900,5 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - 16/11/2026 11:46 · DONO (print da flecha de Peças): "Remover fornecedores, reposição e contagem desta aba (são inúteis) e guarda na memória". DECISÃO GUARDADA: a lista da flecha da família Peças fica só com Inventário e Estúdio (+ Gerenciar grupo); Fornecedores e Reposição continuam como abas do Inventário e Contagem como "toque para contar" (as funções não saem). ESBOÇO 63 enviado, ESPERANDO "implementar" (work/s374/esb63.py). O 62 (Mensagens) segue esperando decisão.
 
 - 16/11/2026 12:18 · DONO: "Aprovado" → ESBOÇO 64 (Preços de luxo + abrir como na Apple, 64a–64e) APROVADO, esperando "implementar".
+
+- 16/11/2026 12:20 · DONO: "Então tira isso, porque se tá vendendo bem é pra manter" → DECISÃO GUARDADA: o preço automático NÃO sobe mais o preço de peça que vende rápido (regra 4 de paPlano, +5%). Continua: proteção de prejuízo (dólar/custo), ofertas em degraus para parados e fim da oferta quando volta a vender. ESPERANDO "implementar".
