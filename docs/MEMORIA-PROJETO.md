@@ -2937,3 +2937,8 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - 16/11/2026 17:16 · DONO aprovou o esboço 72 (Caixa). Esperando "implementar" (com 70 e 71). Próximas: Despesas e Câmbio.
 - 16/11 17:28 — DONO: "Guarda tudo na memória chamado projeto mochi" → criado **docs/PROJETO-MOCHI.md** (estado no ar, números do aparelho dele, decisões, o que espera aprovação — esboço 56 —, lições). Manter esse arquivo atualizado a cada mudança da Mochi.
 - 16/11 17:31 — LIÇÃO: a CSP de 12/11 quebrou o login com Google do site por 4 dias sem ninguém notar (o simulador não alcança o Google, o portão não tinha prova). Toda vez que mexer na CSP: listar os endereços que cada função usa (login Google = apis.google.com + <projeto>.firebaseapp.com) e provar com o evento securitypolicyviolation.
+
+### 16/11/2026 17:58 — S393: e-mails para o cliente (esboços 58a–58h aprovados e implementados)
+- Dono viu os retratos de como era (57a–57f), pediu padrão de luxo, corrigiu o LOGO (usar sempre o logo de verdade do site: escudo + LA FOUCH + Tudo em Óculos, nunca só o escudo com texto digitado) e pediu dois e-mails novos: pedido recebido e pagamento confirmado COM O TOKEN.
+- Aprovou "tudo" (inclusive: token no assunto; "Obrigada por voltar"; link de sair nas novidades; link "Enviar para uma amiga"; idioma pelo `lang` do pedido).
+- Implementado no servidor; depende do deploy das funções por ele. Detalhes em docs/SITE-COMO-FUNCIONA.md (S393). Não feito (sem esboço): e-mail de cancelamento.

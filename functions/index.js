@@ -281,7 +281,15 @@ exports.avaliacao = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 1
     return res.status(500).json({ ok: false, motivo: 'erro' });
   }
 });
+const Email = require('./email');
 exports.novidades = onRequest({ region: REGIAO, cors: true, maxInstances: 5, secrets: [RESEND_KEY] }, async (req, res) => {
+  // S393: link "Não quero mais receber" do e-mail de novidades (GET ?sair=<id da inscrição>) — marca sair=true e mostra uma página simples
+  if (req.method === 'GET' && req.query.sair) {
+    const id = String(req.query.sair).replace(/[^a-f0-9]/g, '').slice(0, 40), es = req.query.l === 'es';
+    try { if (id.length === 40) { const r = admin.firestore().doc('inscricoes/' + id); if ((await r.get()).exists) await r.set({ sair: true, sairTs: Date.now() }, { merge: true }); } } catch (e) { console.error('novidades sair', e); }
+    res.set('Content-Type', 'text/html; charset=utf-8');
+    return res.send(Email.molde(es ? 'Listo, ' + Email.I('saliste') : 'Pronto, você ' + Email.I('saiu'), Email.P(es ? 'No vas a recibir más las novedades de La Fouch por e-mail.' : 'Você não vai mais receber as novidades da La Fouch por e-mail.') + Email.B(es ? 'Ir a lafouch.com' : 'Ir para lafouch.com', 'https://lafouch.com')));
+  }
   if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
   const b = req.body && typeof req.body === 'object' ? req.body : {};
   try {
@@ -308,7 +316,10 @@ exports.novidades = onRequest({ region: REGIAO, cors: true, maxInstances: 5, sec
         const o = d.data(), em = String(o.email || '').toLowerCase();
         if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(em) || o.sair) continue;
         const es = o.lang === 'es';
-        const html = '<div style="font-family:Arial,sans-serif;max-width:520px"><div style="font:700 22px Georgia,serif;letter-spacing:2px;color:#7a2a59">LA FOUCH</div><h2 style="font-family:Georgia,serif">' + esc2(es ? b.tituloEs || b.titulo : b.titulo) + '</h2><p>' + esc2(es ? b.textoEs || b.texto : b.texto) + '</p><p><a href="https://lafouch.com" style="background:#7a2a59;color:#fff;padding:12px 20px;border-radius:999px;text-decoration:none">' + (es ? 'Ver en lafouch.com' : 'Ver em lafouch.com') + '</a></p><p style="color:#999;font-size:12px">' + (es ? 'Recibís este e-mail porque te inscribiste en las novedades de La Fouch. Para no recibir más, respondé SALIR.' : 'Você recebe este e-mail porque se inscreveu nas novidades da La Fouch. Para não receber mais, responda SAIR.') + '</p></div>';
+        // S393 (esboço 58e): molde dos e-mails + link para sair (o id da inscrição é o próprio id do documento)
+        const sair = 'https://' + REGIAO + '-' + process.env.GCLOUD_PROJECT + '.cloudfunctions.net/novidades?sair=' + d.id + (es ? '&l=es' : '');
+        const html = Email.molde(esc2(es ? b.tituloEs || b.titulo : b.titulo), Email.P(esc2(es ? b.textoEs || b.texto : b.texto)) + Email.B(es ? 'Ver en lafouch.com' : 'Ver em lafouch.com', 'https://lafouch.com'),
+          (es ? 'Recibís este e-mail porque te inscribiste en las novedades.' : 'Você recebe este e-mail porque se inscreveu nas novidades.') + ' <a href="' + sair + '" style="color:#8a7d84">' + (es ? 'No quiero recibir más' : 'Não quero mais receber') + '</a>');
         try {
           const r = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + chave, 'Content-Type': 'application/json' }, body: JSON.stringify({ from: 'La Fouch <nao-responda@lafouch.com>', reply_to: 'lafouch.eyewear@gmail.com', to: em, subject: String(es ? b.tituloEs || b.titulo : b.titulo).slice(0, 120), html }) });
           if (r.ok) n++;
@@ -695,4 +706,48 @@ exports.atacado = onRequest({ region: REGIAO, cors: CORS_SITE, maxInstances: 5, 
     console.error('atacado', e);
     return res.status(500).json({ ok: false, motivo: 'erro' });
   }
+});
+
+// ---------- S393 E-mails do pedido para o cliente (16/11/2026, esboços 58g e 58h) ----------
+// pedidoMail: pedido novo com e-mail → "Recebemos seu pedido" · pedido cancelado → apaga a cópia
+// pagoMail:   reserva ficou paga (PIX automático ou o dono confirmando no app) → "Pagamento confirmado" com o token, uma vez só
+const { onDocumentWritten } = require('firebase-functions/v2/firestore');
+const PedidoMail = require('./pedidomail');
+const ZAP_LOJA = 'https://wa.me/595983642241';
+const pmDb = {
+  get: async (id) => { const d = await fsx().doc('pedidoMail/' + id).get(); return d.exists ? d.data() : null; },
+  salva: (id, o) => fsx().doc('pedidoMail/' + id).set(o),
+  muda: (id, c) => fsx().doc('pedidoMail/' + id).update(c),
+  apaga: (id) => fsx().doc('pedidoMail/' + id).delete(),
+  pegaPago: (id) => fsx().runTransaction(async (tx) => {
+    const r = fsx().doc('pedidoMail/' + id), d = await tx.get(r);
+    if (!d.exists || d.data().pago) return null;
+    tx.update(r, { pago: true });
+    return d.data();
+  }),
+};
+const pmEnvia = () => {
+  let chave = '';
+  try { chave = RESEND_KEY.value() || ''; } catch (e) {}
+  return chave ? async (m) => {
+    const r = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + chave, 'Content-Type': 'application/json' },
+      body: JSON.stringify(Object.assign({ from: 'La Fouch <nao-responda@lafouch.com>', reply_to: 'lafouch.eyewear@gmail.com' }, m)) });
+    if (!r.ok) throw new Error('resend ' + r.status);
+  } : null;
+};
+exports.pedidoMail = onDocumentCreated({ document: 'pedidos/{id}', region: REGIAO, secrets: [RESEND_KEY] }, async (ev) => {
+  const f = (ev.data && ev.data.data()) || {};
+  try {
+    if (f.tipo === 'cancel') { if (f.ref && f.ref !== 'teste') await PedidoMail.aoCancelar(pmDb, String(f.ref).replace(/[^A-Za-z0-9_-]/g, '').slice(0, 40)); return; }
+    if (f.tipo) return;
+    let reserva = false;
+    try { reserva = await Reserva.ligada(fsx()); } catch (e) {}
+    console.log('pedidoMail', ev.params.id, JSON.stringify(await PedidoMail.aoCriar(pmDb, pmEnvia(), ev.params.id, f, reserva, ZAP_LOJA, Date.now())));
+  } catch (e) { console.error('pedidoMail', ev.params.id, e && e.message); }
+});
+exports.pagoMail = onDocumentWritten({ document: 'reservas/{id}', region: REGIAO, secrets: [RESEND_KEY] }, async (ev) => {
+  const antes = ev.data.before.exists ? ev.data.before.data() : {}, depois = ev.data.after.exists ? ev.data.after.data() : null;
+  if (!depois || depois.pago !== true || antes.pago === true || depois.cancelado) return;
+  try { console.log('pagoMail', ev.params.id, JSON.stringify(await PedidoMail.aoPagar(pmDb, pmEnvia(), ev.params.id, depois.tok || ''))); }
+  catch (e) { console.error('pagoMail', ev.params.id, e && e.message); }
 });

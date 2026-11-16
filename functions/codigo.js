@@ -4,6 +4,7 @@
 // O e-mail sai pelo Resend (segredo RESEND_KEY) como "La Fouch <nao-responda@lafouch.com>".
 'use strict';
 const crypto = require('crypto');
+const E = require('./email');
 
 const VALE = 10 * 60000, ESPERA = 45000, TENT = 5;
 class Falha extends Error {
@@ -18,17 +19,10 @@ const hash = (uid, c) => crypto.createHash('sha256').update(uid + ':' + c).diges
 const esc = (s) => String(s || '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 
 function emailHtml(nome, cod, es) {
-  const ola = es ? '¡Hola' : 'Olá', t1 = es ? 'Usa este código para confirmar tu e-mail:' : 'Use este código para confirmar seu e-mail:';
-  const t2 = es ? 'Vale por 10 minutos. Si no fuiste tú, ignora este e-mail.' : 'Vale por 10 minutos. Se não foi você, ignore este e-mail.';
   const pn = String(nome || '').trim().split(/\s+/)[0];
-  return '<!doctype html><html><body style="margin:0;background:#f3eef1;font-family:Arial,Helvetica,sans-serif;padding:24px 0">' +
-    '<div style="max-width:420px;margin:0 auto;background:#fff;border-radius:18px;padding:28px 24px;text-align:center">' +
-    '<img src="https://lafouch.com/icon-192.png" width="64" height="64" alt="La Fouch" style="border-radius:14px">' +
-    '<div style="font:600 22px Georgia,serif;color:#8d3a69;margin:10px 0 2px">La Fouch</div><div style="font-size:11px;letter-spacing:.18em;color:#a07090">TUDO EM ÓCULOS</div>' +
-    '<p style="font-size:16px;color:#222;margin:22px 0 6px">' + ola + (pn ? ', ' + esc(pn) : '') + (es ? '!' : '!') + '</p><p style="font-size:14px;color:#555;margin:0 0 14px">' + t1 + '</p>' +
-    '<div style="font:700 34px/1 \'Courier New\',monospace;letter-spacing:10px;color:#241a21;background:#f8f1f5;border-radius:14px;padding:16px 0">' + cod + '</div>' +
-    '<p style="font-size:13px;color:#777;margin:14px 0 0">' + t2 + '</p></div>' +
-    '<p style="max-width:420px;margin:12px auto 0;font-size:11px;color:#999;text-align:center">La Fouch · Ciudad del Este, Paraguay · lafouch.com</p></body></html>';
+  return E.molde(es ? 'Confirmá tu ' + E.I('e-mail') : 'Confirme seu ' + E.I('e-mail'),
+    E.P((es ? '¡Hola' : 'Olá') + (pn ? ', ' + esc(pn) : '') + (es ? '! Usá este código para terminar tu cuenta:' : '. Use este código para concluir sua conta:')) +
+    E.codigo(cod) + E.PQ(es ? 'Vale por 10 minutos. Si no fuiste vos, ignorá este e-mail.' : 'Vale por 10 minutos. Se não foi você, ignore este e-mail.'));
 }
 
 // db: { get(uid) -> {h, exp, t, n}|null, set(uid, obj), del(uid) }  ·  envia({to, subject, html, text}) -> Promise

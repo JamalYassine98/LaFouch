@@ -5,6 +5,7 @@
 //   db.salva(id, o) · db.get(id) · db.pendentes(ref) -> [{id, ...}] · db.muda(id, c) · db.contaEmail(email) -> n pendentes
 //   db.inscreve(email, lang)
 const crypto = require('crypto');
+const E = require('./email');
 
 class Falha extends Error {
   constructor(motivo, status) {
@@ -41,12 +42,12 @@ function mensagem(o, nome) {
   const n = limpa(nome || o.ref, 80);
   return {
     to: o.email,
-    subject: (es ? 'Volvió: ' : 'Voltou: ') + n + ' · La Fouch',
-    html:
-      '<div style="font-family:Arial,sans-serif;font-size:15px;color:#222">' +
-      '<p>' + (es ? '¡Buenas noticias! <b>' + n + '</b> está otra vez en stock.' : 'Boa notícia! <b>' + n + '</b> voltou ao estoque.') + '</p>' +
-      '<p><a href="' + link + '" style="display:inline-block;padding:10px 18px;border-radius:999px;background:#a44a7e;color:#fff;text-decoration:none;font-weight:bold">' + (es ? 'Ver la pieza' : 'Ver a peça') + '</a></p>' +
-      '<p style="color:#888;font-size:12px">' + (es ? 'Te avisamos una sola vez, como pediste.' : 'Avisamos uma vez só, como você pediu.') + '</p></div>',
+    subject: (es ? 'Volvió: ' : 'Voltou: ') + n,
+    html: E.molde(es ? 'Volvió al ' + E.I('stock') : 'Voltou ao ' + E.I('estoque'),
+      E.P(es ? 'La pieza que pediste que te avisemos está disponible otra vez:' : 'A peça que você pediu para avisar está disponível de novo:') +
+      '<div style="border-top:1px solid ' + E.LN + ';border-bottom:1px solid ' + E.LN + ';padding:18px 0;text-align:center"><div style="font:500 20px/1.3 ' + E.SE + ';color:' + E.T + '">' + E.esc(n) + '</div>' +
+      (n !== o.ref ? '<div style="font:13px ' + E.SA + ';color:' + E.S + ';margin-top:6px;letter-spacing:.06em">' + E.esc(o.ref) + '</div>' : '') + '</div>' +
+      E.B(es ? 'Ver la pieza' : 'Ver a peça', link) + E.PQ(es ? 'Te avisamos una sola vez, como pediste.' : 'Avisamos uma vez só, como você pediu.')),
   };
 }
 

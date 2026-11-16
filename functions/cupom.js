@@ -8,6 +8,7 @@
 // S194: SEM teto do mês.
 // Regra pura: o banco vem por "db" (ver index.js). Datas em ms.
 const crypto = require('crypto');
+const E = require('./email');
 class Falha extends Error { constructor(m, s) { super(m); this.motivo = m; this.status = s || 400; } }
 const DIA = 864e5;
 const LETRAS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // sem O/0 e I/1
@@ -277,15 +278,27 @@ async function meus(db, email, agora) {
   return { ok: true, cupons: (await db.doEmail(em)).filter((c) => c.st !== 'canc').map((c) => Object.assign(publico(c, agora), { usado: (c.usos || []).some((u) => u.st === 'ok' && u.email === em) }, c.tipo === 'am' ? { amigas: (c.usos || []).filter((u) => u.st === 'ok').length, ganhos: (c.premios || []).length, porMes: AMIGA_MES } : {})) };
 }
 function mail(c, es, am) {
-  const n = c.pct + '%', l = 'https://lafouch.com/?t=' + encodeURIComponent(c.cod), f = c.fim ? new Date(c.fim).toLocaleDateString(es ? 'es-PY' : 'pt-BR', { timeZone: 'America/Asuncion' }) : '';
-  const tit = c.tipo === 'fiel' ? (es ? '¡Gracias por ser cliente fiel! Tu regalo: ' + n + ' en tu próxima compra' : 'Obrigado por ser cliente fiel! Seu presente: ' + n + ' na próxima compra') : c.tipo === 'bv' ? (es ? '¡Bienvenida a La Fouch! Tu regalo: ' + n + ' en tu primera compra' : 'Bem-vinda à La Fouch! Seu presente: ' + n + ' na primeira compra') : (es ? 'Tu tarjeta: ' + n + ' en tu próxima compra' : 'Seu cartão: ' + n + ' na próxima compra');
-  const card = (x, t) => '<div style="border-radius:16px;background:#2b1a2a;color:#fff;padding:18px 20px;margin:12px 0;max-width:360px"><div style="font:600 12px Arial;letter-spacing:.2em;opacity:.8">LA FOUCH</div><div style="font:700 20px Georgia,serif;margin:8px 0">' + t + '</div><div style="font:700 26px monospace;letter-spacing:.1em">' + x.cod + '</div>' + (x.fim ? '<div style="font:12px Arial;opacity:.8;margin-top:6px">' + (es ? 'Válido hasta ' : 'Vale até ') + new Date(x.fim).toLocaleDateString(es ? 'es-PY' : 'pt-BR', { timeZone: 'America/Asuncion' }) + ' · ' + (es ? 'en lafouch.com y en la tienda' : 'em lafouch.com e na loja') + '</div>' : '') + '</div>';
+  const n = c.pct + '%', l = 'https://lafouch.com/?t=' + encodeURIComponent(c.cod);
+  const dt = (x) => new Date(x).toLocaleDateString(es ? 'es-PY' : 'pt-BR', { timeZone: 'America/Asuncion' });
+  const val = (x, loja) => x.fim ? (es ? 'Válido hasta ' : 'Vale até ') + dt(x.fim) + (loja ? ' · ' + (es ? 'en lafouch.com y en la tienda' : 'em lafouch.com e na loja') : '') : '';
+  const bv = c.tipo === 'bv', fiel = c.tipo === 'fiel';
+  // S393 (esboços 58b/58c): assuntos mais curtos; o molde é o de todos os e-mails
+  const tit = fiel ? (es ? 'Tu regalo de cliente fiel: ' + n + ' en tu próxima compra' : 'Seu presente de cliente fiel: ' + n + ' na próxima compra') : bv ? (es ? '¡Bienvenida a La Fouch! ' + n + ' en tu primera compra' : 'Bem-vinda à La Fouch: ' + n + ' na primeira compra') : (es ? 'Tu tarjeta: ' + n + ' en tu próxima compra' : 'Seu cartão: ' + n + ' na próxima compra');
+  const h1 = fiel ? (es ? 'Gracias por ' + E.I('volver') : 'Obrigada por ' + E.I('voltar')) : bv ? (es ? 'Bienvenida a ' + E.I('La Fouch') : 'Bem-vinda à ' + E.I('La Fouch')) : (es ? 'Tu ' + E.I('tarjeta') : 'Seu ' + E.I('cartão'));
+  const intro = fiel ? (es ? 'Sos cliente fiel. Tu regalo para la próxima compra:' : 'Você é cliente fiel. Seu presente para a próxima compra:') : bv ? (es ? 'Tu regalo para la primera compra:' : 'Seu presente para a primeira compra:') : (es ? 'Tu regalo para la próxima compra:' : 'Seu presente para a próxima compra:');
+  const rot = es ? 'TARJETA REGALO' : 'CARTÃO PRESENTE';
+  const regra = E.PQ(es ? 'Un código por compra. No se suma a OFERTA ni a “Llevá 2”: se aplica el descuento mayor.' : 'Um código por compra. Não soma com OFERTA nem com “Leve 2”: vale o maior desconto.');
+  let amiga = '';
+  if (am) {
+    const la = 'https://lafouch.com/?t=' + encodeURIComponent(am.cod);
+    const zap = 'https://wa.me/?text=' + encodeURIComponent((es ? 'Te regalo 10% en tu primera compra en La Fouch. Código ' : 'Um presente para você: 10% na primeira compra na La Fouch. Código ') + am.cod + ' · ' + la);
+    amiga = E.FIO() + E.P(es ? 'Y una para compartir: tu amiga gana 10% en su primera compra y vos ganás otra tarjeta.' : 'E um para compartilhar: sua amiga ganha 10% na primeira compra e você ganha outro cartão.') +
+      E.cartao(rot, es ? '10% para tu amiga' : '10% para sua amiga', am.cod, val(am, false), false) + E.LK(es ? 'Enviar a una amiga' : 'Enviar para uma amiga', zap);
+  }
   return {
     to: c.email,
     subject: tit,
-    html: '<div style="font-family:Arial,sans-serif;font-size:15px;color:#222"><p><b>' + tit + '</b></p>' + card(c, n + (c.tipo === 'bv' ? (es ? ' en tu primera compra' : ' na primeira compra') : (es ? ' en tu próxima compra' : ' na próxima compra'))) +
-      (am ? '<p>' + (es ? 'Y una para compartir: tu amiga gana 10% en su primera compra y vos ganás otra tarjeta de 10%.' : 'E um para compartilhar: sua amiga ganha 10% na primeira compra e você ganha outro cartão de 10%.') + '</p>' + card(am, es ? '10% para tu amiga' : '10% para sua amiga') : '') +
-      '<p><a href="' + l + '" style="display:inline-block;padding:10px 18px;border-radius:999px;background:#a44a7e;color:#fff;text-decoration:none;font-weight:bold">' + (es ? 'Usar ahora' : 'Usar agora') + '</a></p><p style="color:#888;font-size:12px">' + (es ? 'Un código por compra. No se suma a OFERTA ni a "Llevá 2": se aplica el descuento mayor.' : 'Um código por compra. Não soma com OFERTA nem com "Leve 2": vale o maior desconto.') + (f ? '' : '') + '</p></div>',
+    html: E.molde(h1, E.P(intro) + E.cartao(rot, n + (bv ? (es ? ' en tu primera compra' : ' na primeira compra') : (es ? ' en tu próxima compra' : ' na próxima compra')), c.cod, val(c, true), true) + E.B(es ? 'Usar ahora' : 'Usar agora', l) + amiga + regra),
   };
 }
 module.exports = { Falha, PADRAO, TETO_MES, AMIGA_MES, novoCod, codN, telN, vivo, ver, usar, boasVindas, proxima, confirma, libera, emitir, cancelar, destrava, lista, meus, mail };

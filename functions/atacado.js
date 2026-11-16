@@ -8,6 +8,7 @@
 // Regra pura: o banco vem por "db", o e-mail por "envia". Datas em ms.
 'use strict';
 const crypto = require('crypto');
+const E = require('./email');
 class Falha extends Error { constructor(m, s) { super(m); this.motivo = m; this.status = s || 400; } }
 const DIA = 864e5, VALE_COD = 10 * 60000, TENT = 5, TROCAS_AVISO = 2;
 const limpa = (t, n) => String(t == null ? '' : t).replace(/[\u0000-\u001f<>]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, n);
@@ -29,7 +30,7 @@ async function entrar(db, envia, b, agora, rnd) {
   if (c.codTs && agora - c.codTs < 45000) return { ok: false, motivo: 'espera' };
   const cod = String((rnd != null ? rnd : crypto.randomInt(0, 1e6))).padStart(6, '0');
   await db.muda(id, { codH: h(id + ':' + cod), codTs: agora, codT: 0 });
-  if (envia) await envia({ to: c.email, subject: 'La Fouch · tu código ' + cod, html: '<p>Tu código para entrar al catálogo mayorista de La Fouch: <b style="font-size:22px;letter-spacing:3px">' + cod + '</b></p><p>Vale 10 minutos.</p>' });
+  if (envia) await envia({ to: c.email, subject: cod + ' es tu código de La Fouch', html: E.molde('Tu código ' + E.I('mayorista'), E.P('Usá este código para entrar al catálogo mayorista:') + E.codigo(cod) + E.PQ('Vale por 10 minutos. Si no fuiste vos, ignorá este e-mail.')) });
   return { ok: true };
 }
 // 2) código + aparelho → token (aparelho novo entra se houver lugar; associada com troca ligada também troca o mais antigo? NÃO: o cliente remove em "Meus aparelhos")
