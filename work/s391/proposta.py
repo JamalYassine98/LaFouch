@@ -7,11 +7,12 @@ import comum;comum.OUT='/home/claude/lafouch/work/s391/'
 F=lambda s,bd=False:ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans%s.ttf'%('-Bold' if bd else ''),s)
 H=json.load(open('/tmp/s391/emails.json'));HJ={e['arq'][:3]:e for e in H}
 ic='data:image/png;base64,'+base64.b64encode(open('/home/claude/catalogo/icon-192.png','rb').read()).decode()
+lg='data:image/png;base64,'+base64.b64encode(open('/tmp/s391/logo.png','rb').read()).decode()
 V='#8d3a69';T='#1d1418';S='#6b5f66';LN='#eadfe6';SE="Georgia,'Times New Roman',serif";SA="Arial,Helvetica,sans-serif"
 def molde(titulo,corpo,rodape='',es=False):
     return ('<!doctype html><html><body style="margin:0;background:#fbf7fa;font-family:'+SA+';padding:28px 14px 22px">'
       '<div style="max-width:440px;margin:0 auto;background:#fff;border-radius:22px;padding:34px 26px 30px">'
-      '<div style="text-align:center"><img src="'+ic+'" width="46" height="46" alt="La Fouch" style="border-radius:12px"><div style="font:500 12px '+SA+';letter-spacing:.24em;color:'+V+';margin-top:10px">LA FOUCH</div></div>'
+      '<div style="text-align:center"><img src="'+lg+'" width="132" alt="La Fouch · Tudo em Óculos" style="display:inline-block"></div>'
       '<div style="height:1px;background:'+LN+';margin:22px 0 26px"></div>'
       '<h1 style="font:500 27px/1.22 '+SE+';color:'+T+';margin:0 0 14px;text-align:center">'+titulo+'</h1>'+corpo+'</div>'
       '<p style="max-width:440px;margin:16px auto 0;font:12px/1.6 '+SA+';color:#8a7d84;text-align:center">'+(rodape+'<br>' if rodape else '')+'La Fouch · Ciudad del Este, Paraguay · <a href="#" style="color:#8a7d84">lafouch.com</a></p></body></html>')
@@ -22,9 +23,9 @@ I=lambda t:'<i style="color:'+V+'">'+t+'</i>'
 PQ=lambda t:'<p style="font:12.5px/1.6 '+SA+';color:#8a7d84;margin:22px 0 0;text-align:center">'+t+'</p>'
 def codigo(c):
     return '<div style="border-top:1px solid '+LN+';border-bottom:1px solid '+LN+';padding:20px 0;margin:6px 0 0;text-align:center;font:500 38px/1 '+SE+';letter-spacing:.24em;color:'+T+';padding-left:.24em">'+c+'</div>'
-def cartao(tit,cod,val,cheio=True):
+def cartao(tit,cod,val,cheio=True,rot='CARTÃO PRESENTE'):
     bg,fg,sub,bd=('#2b1a2a','#fff','#d9c3d0','#2b1a2a') if cheio else ('#fff',T,S,LN)
-    return ('<div style="border-radius:18px;background:'+bg+';border:1px solid '+bd+';padding:22px 22px 20px;margin:8px 0 0"><div style="font:500 11px '+SA+';letter-spacing:.24em;color:'+sub+'">LA FOUCH</div>'
+    return ('<div style="border-radius:18px;background:'+bg+';border:1px solid '+bd+';padding:22px 22px 20px;margin:8px 0 0"><div style="font:500 11px '+SA+';letter-spacing:.2em;color:'+sub+'">'+rot+'</div>'
       '<div style="font:500 24px/1.2 '+SE+';color:'+fg+';margin:10px 0 14px">'+tit+'</div><div style="height:1px;background:'+('#4a3447' if cheio else LN)+'"></div>'
       '<div style="font:500 21px '+SE+';letter-spacing:.14em;color:'+fg+';margin:14px 0 6px">'+cod+'</div><div style="font:12.5px '+SA+';color:'+sub+'">'+val+'</div></div>')
 def linha(a,b,forte=False):
@@ -40,6 +41,11 @@ PR={
 PED=molde('Recebemos seu '+I('pedido'),P('Olá, Maria. Guardamos suas peças por 30 minutos enquanto você paga.')+'<div style="text-align:center;font:13px '+SA+';color:'+S+';letter-spacing:.06em;margin:0 0 6px">PEDIDO 7K2M9Q · 16/11/2026</div>'
   +'<table style="width:100%;border-collapse:collapse;border-top:1px solid '+LN+'">'+linha('Armação acetato preta GR3340 · 1 un.','R$ 95')+linha('Solar quadrado tartaruga · 1 un.','R$ 140')+linha('Entrega · Ciudad del Este','Grátis')+linha('Total','R$ 235',True)+'</table>'
   +'<p style="text-align:center;font:14px '+SA+';color:'+S+';margin:18px 0 0">Pagamento: <b style="color:'+T+'">PIX · aguardando</b></p>'+B('Ver meu pedido e pagar')+LK('Falar com a loja no WhatsApp'))
+PAGO=molde('Pagamento '+I('confirmado'),P('Obrigada pela preferência, Maria. Seu pedido está garantido.')
+  +'<div style="text-align:center;font:500 11px '+SA+';letter-spacing:.2em;color:'+S+';margin:4px 0 8px">SEU TOKEN</div>'+codigo('LF-7K2M9Q').replace('letter-spacing:.24em','letter-spacing:.12em').replace('padding-left:.24em','padding-left:.12em').replace('38px','32px')
+  +PQ('Mostre este token ao retirar ou receber o pedido.')
+  +'<table style="width:100%;border-collapse:collapse;border-top:1px solid '+LN+';margin-top:22px">'+linha('Pedido 7K2M9Q · 16/11/2026','2 peças')+linha('Entrega','PedidosYa')+linha('Pago por PIX','R$ 235',True)+'</table>'
+  +B('Ver meu pedido')+LK('Baixar comprovante'))
 def cabe(assunto):
     return ('<div style="padding:14px 16px 12px;border-bottom:1px solid #e6e1e4;background:#fff"><div style="font:600 19px Arial;color:#1d1418;line-height:1.3">'+html.escape(assunto)+'</div><div style="display:flex;gap:10px;align-items:center;margin-top:12px"><div style="width:38px;height:38px;border-radius:50%;background:#8d3a69;color:#fff;font:600 17px Arial;display:flex;align-items:center;justify-content:center">L</div><div><div style="font:600 14px Arial;color:#1d1418">La Fouch</div><div style="font:12px Arial;color:#6b5f66">nao-responda@lafouch.com · para mim</div></div></div></div>')
 def foto(pg,assunto,corpo,arq):
@@ -58,4 +64,7 @@ with sync_playwright() as p:
     pg.set_content('<body style="margin:0;background:#fff;font:15px Arial;color:#6b5f66"><div style="padding:120px 30px;text-align:center">Hoje este e-mail não existe.<br><br>O cliente só vê o pedido na tela do site.</div></body>');pg.screenshot(path='/tmp/s391/h.png',full_page=True)
     foto(pg,'Recebemos seu pedido 7K2M9Q',PED,'/tmp/s391/p.png');iguala('/tmp/s391/h.png','/tmp/s391/p.png')
     comum.prancha('58g-email-pedido-recebido.jpg','Esboço 58g · e-mail NOVO · pedido recebido',['Hoje: não existe; o cliente só vê o pedido na tela do site.','Proposta: resumo do pedido com as peças, o total, o estado do pagamento e um botão para voltar ao pedido.'],'/tmp/s391/h.png','/tmp/s391/p.png')
+    pg.set_content('<body style="margin:0;background:#fff;font:15px Arial;color:#6b5f66"><div style="padding:120px 30px;text-align:center">Hoje este e-mail não existe.<br><br>O token só aparece na tela do site, depois do pagamento.</div></body>');pg.screenshot(path='/tmp/s391/h.png',full_page=True)
+    foto(pg,'Pagamento confirmado · seu token LF-7K2M9Q',PAGO,'/tmp/s391/p.png');iguala('/tmp/s391/h.png','/tmp/s391/p.png')
+    comum.prancha('58h-email-pagamento-confirmado.jpg','Esboço 58h · e-mail NOVO · pagamento confirmado',['Hoje: não existe; o token só aparece na tela do site.','Proposta: sai sozinho quando o pagamento é confirmado (PIX automático ou confirmado por você no app), com o token do cliente em destaque.'],'/tmp/s391/h.png','/tmp/s391/p.png')
     b.close()
