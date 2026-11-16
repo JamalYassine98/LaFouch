@@ -14,7 +14,7 @@ CSS="""
 .fx64{padding:0!important;overflow:hidden;background:var(--panel)!important}
 .fx64>.fxH{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;text-align:left;background:none;border:0;padding:16px 18px;color:inherit;min-height:56px;font:inherit;cursor:pointer}
 .fx64>.fxH b{display:block;font-size:16px;font-weight:600}.fx64>.fxH small{display:block;color:var(--mute);font-size:13.5px;margin-top:3px}
-.fx64>.fxH i{font-style:normal;font-size:20px;color:var(--mute);transition:transform .38s cubic-bezier(.32,.72,0,1);display:inline-block}
+.fx64>.fxH i{font-style:normal;font-size:20px;color:var(--mute);transition:transform .42s cubic-bezier(.45,0,.2,1);display:inline-block}
 .fx64.on>.fxH i{transform:rotate(180deg)}
 .fx64>.fxB{height:0;overflow:hidden}
 .fx64>.fxB>.fxI{padding:0 18px 18px;opacity:0;transform:translateY(-6px)}
@@ -45,11 +45,11 @@ PROP="""()=>{const B=document.getElementById('dtabBody');const kids=[...B.childr
  const lbl=kids.find(e=>e.classList.contains('lbl'));
  B.innerHTML='';[cnt,lbl,paCard,fA,fC].filter(Boolean).forEach(e=>B.appendChild(e));
  // (5) abrir como na Apple
- const EZ='cubic-bezier(.32,.72,0,1)';
+ const EZ='cubic-bezier(.45,0,.2,1)';
  B.querySelectorAll('.fx64').forEach(s=>{s.querySelector('.fxH').onclick=()=>{const b=s.querySelector('.fxB'),I=s.querySelector('.fxI'),ab=!s.classList.contains('on');const h=I.scrollHeight;
   s.classList.toggle('on',ab);s.querySelector('.fxH').setAttribute('aria-expanded',ab);
-  b.animate([{height:(ab?0:h)+'px'},{height:(ab?h:0)+'px'}],{duration:ab?380:260,easing:EZ,fill:'forwards'});
-  I.animate([{opacity:ab?0:1,transform:'translateY('+(ab?-6:0)+'px)'},{opacity:ab?1:0,transform:'translateY('+(ab?0:-6)+'px)'}],{duration:ab?380:200,easing:EZ,fill:'forwards',delay:ab?40:0})}});
+  b.animate([{height:(ab?0:h)+'px'},{height:(ab?h:0)+'px'}],{duration:ab?420:280,easing:EZ,fill:'forwards'});
+  I.animate([{opacity:ab?.35:1,transform:'translateY('+(ab?-6:0)+'px)'},{opacity:ab?1:0,transform:'translateY('+(ab?0:-4)+'px)'}],{duration:ab?420:240,easing:EZ,fill:'both'})}});
  const nosso=e=>e.classList.contains('cnt')||e.classList.contains('lbl')||e.id==='paCard'||e.classList.contains('fx64');
  const mv=()=>{[...B.children].forEach(e=>{if(!nosso(e))fC.querySelector('.fxI').appendChild(e)});let x=B.nextElementSibling;while(x){const n=x.nextElementSibling;if(x.matches('section.card'))fC.querySelector('.fxI').appendChild(x);x=n}};new MutationObserver(mv).observe(B,{childList:true});new MutationObserver(mv).observe(V,{childList:true});
  return [!!meta,!!semana,pgr.length,abp.length,cfg.length,on]}"""

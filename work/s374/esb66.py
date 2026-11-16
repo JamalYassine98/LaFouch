@@ -13,8 +13,8 @@ JS66="""()=>{const D=document.querySelector('#v-dash .cntD');const fA=document.q
  const lbl=D.firstElementChild;D.insertBefore(l,lbl.nextSibling);
  const x=document.createElement('div');x.className='x66';x.innerHTML='<div class="x66i"></div>';[...I.children].forEach(c=>x.firstChild.appendChild(c));D.insertBefore(x,l.nextSibling);fA.remove();
  const go=x.querySelector('[data-act=pcUsaTodos]');if(go)go.style.cssText='';
- const EZ='cubic-bezier(.32,.72,0,1)';const tog=()=>{const ab=!x.classList.contains('on'),h=x.firstChild.scrollHeight;x.classList.toggle('on',ab);l.classList.toggle('on66',ab);
-  x.animate([{height:(ab?0:h)+'px'},{height:(ab?h:0)+'px'}],{duration:ab?380:260,easing:EZ,fill:'forwards'});x.firstChild.animate([{opacity:ab?0:1,transform:'translateY('+(ab?-6:0)+'px)'},{opacity:ab?1:0,transform:'none'}],{duration:ab?380:200,easing:EZ,fill:'forwards',delay:ab?40:0})};
+ const EZ='cubic-bezier(.45,0,.2,1)';const tog=()=>{const ab=!x.classList.contains('on'),h=x.firstChild.scrollHeight;x.classList.toggle('on',ab);l.classList.toggle('on66',ab);
+  x.animate([{height:(ab?0:h)+'px'},{height:(ab?h:0)+'px'}],{duration:ab?420:280,easing:EZ,fill:'forwards'});x.firstChild.animate([{opacity:ab?.35:1,transform:'translateY('+(ab?-6:0)+'px)'},{opacity:ab?1:0,transform:'translateY('+(ab?0:-4)+'px)'}],{duration:ab?420:240,easing:EZ,fill:'both'})};
  l.onclick=tog;const k=document.querySelector('#v-dash .cntK[data-act=pcAbre]');if(k){k.removeAttribute('data-act');k.style.cursor='pointer';k.onclick=tog}
  lbl.textContent=lbl.textContent.replace(/\d+\s*$/,String([...D.querySelectorAll('.cntL')].filter(e=>!e.closest('.x66')&&e.offsetParent).length));
  // (2) rateio: sai a escolha
@@ -22,7 +22,7 @@ JS66="""()=>{const D=document.querySelector('#v-dash .cntD');const fA=document.q
  if(t){let a=t.nextElementSibling;const fora=[t];while(a&&fora.length<3){fora.push(a);a=a.nextElementSibling}
   const h=document.createElement('div');h.className='hint';h.style.margin='4px 0 0';h.textContent='As contas do mês são divididas pelo custo: peça mais cara carrega mais.';t.parentNode.insertBefore(h,t);fora.forEach(e=>e.remove());tirou=fora.length}
  return [n,nT,nC,tirou]}"""
-CSS66="#v-dash .ch66{font-style:normal;font-size:20px;color:var(--mute);display:inline-block;transition:transform .38s cubic-bezier(.32,.72,0,1);flex:none}#v-dash .on66 .ch66{transform:rotate(180deg)}#v-dash .x66{height:0;overflow:hidden;margin:0 -2px}#v-dash .x66i{padding:4px 2px 14px}#v-dash .x66 [data-act=pcUsaTodos]{border-color:var(--pri-bd,rgba(243,192,220,.38))!important;color:var(--accent-fg)!important}"
+CSS66="#v-dash .ch66{font-style:normal;font-size:20px;color:var(--mute);display:inline-block;transition:transform .42s cubic-bezier(.45,0,.2,1);flex:none}#v-dash .on66 .ch66{transform:rotate(180deg)}#v-dash .x66{height:0;overflow:hidden;margin:0 -2px}#v-dash .x66i{padding:4px 2px 14px}#v-dash .x66 [data-act=pcUsaTodos]{border-color:var(--pri-bd,rgba(243,192,220,.38))!important;color:var(--accent-fg)!important}"
 ABRE66="()=>{const x=document.querySelector('.x66');x.classList.add('on');x.style.height='auto';x.firstChild.style.opacity=1;x.previousElementSibling.classList.add('on66')}"
 PARTES=[('a-contador','.cntD','O Contador com uma linha só para os preços',0),('b-lista-aberta','.x66','Tocar na linha: a lista abre no próprio Contador (como na Apple)',1),('c-contas','.op65,[data-act=ratsel]','Contas, taxas e meta sem "como dividir"',2)]
 with sync_playwright() as pw:

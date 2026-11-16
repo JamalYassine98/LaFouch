@@ -7,7 +7,7 @@ n=[0]
 def foto(pg,clip):
     pg.screenshot(path=D+'f%04d.png'%n[0],clip=clip);n[0]+=1
 def passo(pg,fx,dur,clip,abre=True):
-    pg.evaluate("f=>document.querySelector('.fx64[data-fx='+f+'] .fxH').click()",fx);pg.wait_for_timeout(16)
+    ok=pg.evaluate("f=>{const h=document.querySelector('.fx64[data-fx='+f+'] .fxH');if(!h)return [...document.querySelectorAll('.fx64')].map(s=>s.dataset.fx).join(',')||'nenhum';h.click();return 'ok'}",fx);print('  passo',fx,ok);pg.wait_for_timeout(16)
     pg.evaluate("()=>document.getAnimations().forEach(a=>{try{a.pause();a.currentTime=0}catch(e){}})")
     for k in range(0,int(dur*60/1000)+2):
         t=k*1000/60;pg.evaluate("t=>document.getAnimations().forEach(a=>{try{a.currentTime=t}catch(e){}})",t);foto(pg,clip)
@@ -17,13 +17,13 @@ with sync_playwright() as pw:
     pg.evaluate("()=>{const s=document.querySelector('.fx64[data-fx=abp]');window.scrollTo({top:s.getBoundingClientRect().top+scrollY-300,behavior:'instant'})}");w(500);print('  topo',pg.evaluate("()=>Math.round(document.querySelector('.fx64[data-fx=abp]').getBoundingClientRect().top)"))
     clip={'x':0,'y':0,'width':390,'height':844}
     for i in range(30): foto(pg,clip)
-    passo(pg,'cfg',420,clip)
+    passo(pg,'cfg',460,clip)
     for i in range(45): foto(pg,clip)
-    passo(pg,'cfg',300,clip,False)
+    passo(pg,'cfg',320,clip,False)
     for i in range(25): foto(pg,clip)
-    passo(pg,'abp',420,clip)
+    passo(pg,'abp',460,clip)
     for i in range(45): foto(pg,clip)
-    passo(pg,'abp',300,clip,False)
+    passo(pg,'abp',320,clip,False)
     for i in range(30): foto(pg,clip)
     b.close()
 out=OUT+'64d-app-so-a-animacao-60fps-escuro.mp4'
