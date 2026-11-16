@@ -428,3 +428,12 @@
     S.dTab = 'din';
     setView('dash');
   };
+
+  // S374 (esboço 73): Despesas › "+ Nova" abre (ou fecha) o formulário de nova despesa logo abaixo dos números
+  ACT.despNova = function () {
+    S.dfold = S.dfold || {};
+    if (S.dfold.nova) return ACT.dfold('nova');
+    ACT.dfold('nova');
+    var n = document.getElementById('nName');
+    if (n) { try { n.focus({ preventScroll: true }); } catch (e) {} }
+  };

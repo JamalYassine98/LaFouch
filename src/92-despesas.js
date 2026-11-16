@@ -101,16 +101,17 @@
         return a + o.x.valor;
       }, 0);
     var html =
-      '<div class="top"><div><h1>Despesas</h1><div class="crumb">Contas do mês e quanto cada venda separa.</div></div></div>';
+      // S374 (esboço 73, aprovado 16/11 17:43): "+ Nova" é a ação da página, no topo (abre o formulário logo abaixo dos números)
+      '<div class="top"><div><h1>Despesas</h1><div class="crumb">Contas do mês e quanto cada venda separa.</div></div><button type="button" class="nv73" data-act="despNova" aria-expanded="' + !!(S.dfold && S.dfold.nova) + '">+ Nova</button></div>';
     html +=
       '<section class="kpis"><div class="kpi"><div class="lbl">Total obrigatório por mês</div><b id="tmTot">' +
       gs(tm) +
       '</b></div>' +
       '<div class="kpi"><div class="lbl">Cada peça vendida separa</div><b id="tmPeca" style="color:var(--warn)">' +
       gs(contasPeca()) +
-      '</b><div class="hint">para pagar as contas (rateio: ' +
+      '</b><div class="hint">para pagar as contas · ' +
       volumeEfetivo() +
-      ' peças por mês, ajuste em Ajustes)</div></div></section>';
+      ' peças por mês (automático)</div></div></section><!--NOVA73-->';
     var ec = efeitoCambio(),
       rc = reservaCambioContas();
     if (contasEstrangeiras() > 0)
@@ -221,8 +222,8 @@
         .join('') +
       '<div class="hint" style="margin:0">A provisão começa do zero todo mês. Os imprevistos de meses anteriores ficam guardados no Histórico.</div>' +
       '<div class="sel" style="flex-wrap:wrap"><input class="in" id="impD" placeholder="O que aconteceu" style="flex:2 1 180px;width:auto" aria-label="Descrição do imprevisto"><input class="in" id="impV" inputmode="' + mpMode() + '" placeholder="Valor em ' + mpSim() + '" style="flex:1 1 120px;width:auto" aria-label="Valor do imprevisto"><button class="mini" data-act="impadd">Registrar imprevisto</button></div></section>');
-    html +=
-      dFold('nova', '+ Nova despesa', 'Água, luz, aluguel… fixa ou variável', 'var(--sub)', '<section class="card col"><div class="sel" style="flex-wrap:wrap"><input class="in" id="nName" placeholder="Nome (ex.: Água)" style="flex:2 1 160px;width:auto" aria-label="Nome da despesa"><select class="in" id="nCat" aria-label="Grupo" style="flex:1 1 130px;width:auto">' +
+    var nova73 =
+      dFold('nova', 'Nova despesa', 'Água, luz, aluguel… fixa ou variável', 'var(--sub)', '<section class="card col"><div class="sel" style="flex-wrap:wrap"><input class="in" id="nName" placeholder="Nome (ex.: Água)" style="flex:2 1 160px;width:auto" aria-label="Nome da despesa"><select class="in" id="nCat" aria-label="Grupo" style="flex:1 1 130px;width:auto">' +
       cats
         .map(function (c) {
           return '<option value="' + c + '">' + CATS[c] + '</option>';
@@ -235,6 +236,7 @@
         return x.ym === pmk;
       });
     html += dFold('pagas', 'Contas pagas neste mês', pays.length + ' conta(s) paga(s)', 'var(--sub)', contasPagasHtml());
+    html = html.replace('<!--NOVA73-->', S.dfold && S.dfold.nova ? nova73 : '');
     el.innerHTML = html;
   }
 

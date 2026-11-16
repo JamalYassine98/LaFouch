@@ -280,6 +280,8 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - 16/11 17:28 — DONO: "Guarda tudo na memória chamado projeto mochi" → ✔ docs/PROJETO-MOCHI.md criado. Esboço 56 continua ESPERANDO aprovação.
 - 16/11/2026 17:18 · DONO: "Implementar tudo" → 70, 71 e 72.
 - 16/11/2026 · ✔ PUBLICADO app v551 / 5.37.0: esboço 70 (Hoje) ✔ v551 · esboço 71 (Histórico, com as semanas abrindo como na Apple) ✔ v551 · esboço 72 (Caixa) ✔ v551.
+- 16/11/2026 17:43 · DONO: "Sim, aprovado e implementar tudo" → ESBOÇO 73 (Despesas) APROVADO com o ajuste: sem "Ajustar ›" (o número de peças por mês é automático) — a frase vira "para pagar as contas · N peças por mês (automático)".
+- 16/11/2026 · ✔ PUBLICADO app v552 / 5.37.1: esboço 73 (Despesas) ✔ v552.
 
 - 16/11 17:31 — DONO: "Implementar" (login com Google, erro auth/internal-error) → ✔ **SITE publicado (1794861676; www/loja atualizado)**: CSP libera apis.google.com e a moldura do firebaseapp.com. Causa: CSP de 12/11, não a Cloudflare. ESPERANDO o dono confirmar o login no aparelho. Proposta minha (sem ordem): prova no portão para a CSP.
 - 16/11 17:47 — DONO: login com Google "já funciona" (✔ S390 confirmado no aparelho); "pode incluir no porteiro" → ✔ prova nova `p7_csp` em work/fiscal/provas.py (porteiro = 184 provas): acusa quando a regra de segurança barra apis.google.com, a moldura do firebaseapp.com ou programa de fora que o site carrega; defeito plantado conferido.

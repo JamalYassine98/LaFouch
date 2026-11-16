@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 551;
+  var APP_BUILD = 552;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.37.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.37.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -12396,7 +12396,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           (a.urgente ? ' · <b style="color:var(--bad)">URGENTE</b>' : '') +
           (a.ok ? '' : ' · ' + esc(a.dica)),
         expTexto(a.e)
-      ) + '<button type="button" class="esLn slVai" data-act="exppay" data-id="' + a.e.id + '"><span class="g"><b style="font-weight:500">Marcar ' + esc(a.e.nome) + ' como paga</b></span><i aria-hidden="true">›</i></button>';
+      ) + '<button type="button" class="esLn slVai mpg73" data-act="exppay" data-id="' + a.e.id + '" aria-label="Marcar ' + esc(a.e.nome) + ' como paga"><span class="g"><b>Marcar como paga ›</b></span></button>'; // S374 (esboço 73): ação de linha em texto rosa
     });
     return h + '</div></section>';
   }
@@ -23669,16 +23669,17 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         return a + o.x.valor;
       }, 0);
     var html =
-      '<div class="top"><div><h1>Despesas</h1><div class="crumb">Contas do mês e quanto cada venda separa.</div></div></div>';
+      // S374 (esboço 73, aprovado 16/11 17:43): "+ Nova" é a ação da página, no topo (abre o formulário logo abaixo dos números)
+      '<div class="top"><div><h1>Despesas</h1><div class="crumb">Contas do mês e quanto cada venda separa.</div></div><button type="button" class="nv73" data-act="despNova" aria-expanded="' + !!(S.dfold && S.dfold.nova) + '">+ Nova</button></div>';
     html +=
       '<section class="kpis"><div class="kpi"><div class="lbl">Total obrigatório por mês</div><b id="tmTot">' +
       gs(tm) +
       '</b></div>' +
       '<div class="kpi"><div class="lbl">Cada peça vendida separa</div><b id="tmPeca" style="color:var(--warn)">' +
       gs(contasPeca()) +
-      '</b><div class="hint">para pagar as contas (rateio: ' +
+      '</b><div class="hint">para pagar as contas · ' +
       volumeEfetivo() +
-      ' peças por mês, ajuste em Ajustes)</div></div></section>';
+      ' peças por mês (automático)</div></div></section><!--NOVA73-->';
     var ec = efeitoCambio(),
       rc = reservaCambioContas();
     if (contasEstrangeiras() > 0)
@@ -23789,8 +23790,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         .join('') +
       '<div class="hint" style="margin:0">A provisão começa do zero todo mês. Os imprevistos de meses anteriores ficam guardados no Histórico.</div>' +
       '<div class="sel" style="flex-wrap:wrap"><input class="in" id="impD" placeholder="O que aconteceu" style="flex:2 1 180px;width:auto" aria-label="Descrição do imprevisto"><input class="in" id="impV" inputmode="' + mpMode() + '" placeholder="Valor em ' + mpSim() + '" style="flex:1 1 120px;width:auto" aria-label="Valor do imprevisto"><button class="mini" data-act="impadd">Registrar imprevisto</button></div></section>');
-    html +=
-      dFold('nova', '+ Nova despesa', 'Água, luz, aluguel… fixa ou variável', 'var(--sub)', '<section class="card col"><div class="sel" style="flex-wrap:wrap"><input class="in" id="nName" placeholder="Nome (ex.: Água)" style="flex:2 1 160px;width:auto" aria-label="Nome da despesa"><select class="in" id="nCat" aria-label="Grupo" style="flex:1 1 130px;width:auto">' +
+    var nova73 =
+      dFold('nova', 'Nova despesa', 'Água, luz, aluguel… fixa ou variável', 'var(--sub)', '<section class="card col"><div class="sel" style="flex-wrap:wrap"><input class="in" id="nName" placeholder="Nome (ex.: Água)" style="flex:2 1 160px;width:auto" aria-label="Nome da despesa"><select class="in" id="nCat" aria-label="Grupo" style="flex:1 1 130px;width:auto">' +
       cats
         .map(function (c) {
           return '<option value="' + c + '">' + CATS[c] + '</option>';
@@ -23803,6 +23804,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         return x.ym === pmk;
       });
     html += dFold('pagas', 'Contas pagas neste mês', pays.length + ' conta(s) paga(s)', 'var(--sub)', contasPagasHtml());
+    html = html.replace('<!--NOVA73-->', S.dfold && S.dfold.nova ? nova73 : '');
     el.innerHTML = html;
   }
 
@@ -51949,6 +51951,15 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   ACT.cxReservas = function () {
     S.dTab = 'din';
     setView('dash');
+  };
+
+  // S374 (esboço 73): Despesas › "+ Nova" abre (ou fecha) o formulário de nova despesa logo abaixo dos números
+  ACT.despNova = function () {
+    S.dfold = S.dfold || {};
+    if (S.dfold.nova) return ACT.dfold('nova');
+    ACT.dfold('nova');
+    var n = document.getElementById('nName');
+    if (n) { try { n.focus({ preventScroll: true }); } catch (e) {} }
   };
   // ===== S370 (16/11/2026) — lote 8: trilho que ARRASTA (regra do dono, 15/11/2026) =====
   // Todo seletor em trilho (.trk com a pílula .trkTh e os botões .trkB) aceita o dedo (ou o mouse) arrastando a pílula,

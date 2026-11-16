@@ -427,6 +427,10 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - Contas sempre pelo custo: sai "Como dividir as contas entre as peças"; `S.rat66` passa todos para `S.rateio = 'custo'` uma vez. O `</div>` a mais de `precosMetaHtml` saiu (empurrava as taxas para fora do cartão).
 - Botões (65): ações de linha `.cntV`/`.lxT` em rosa com "›", sem sublinhado; `.pcUsa` (Usar G$ …/Informar) em contorno neutro; principal `.go` ("Corrigir os N de uma vez"); "%" dentro do campo (`.pc66`).
 
+## S374k (16/11/2026, v552 · 5.37.1) — esboço 73 (Despesas)
+- 92-despesas.js: botão `.nv73` "+ Nova" no topo (`ACT.despNova`, 98z-s374.js) abre/fecha o bloco `nova` ("Nova despesa"), que só é desenhado aberto e fica logo abaixo dos números (marcador `<!--NOVA73-->`); o bloco do fim da página saiu. Frase do rateio: "para pagar as contas · N peças por mês (automático)" (o número já é automático; Ajustes só mostra).
+- 56-contas.js: "Marcar como paga ›" (`.mpg73`, texto rosa; o nome da conta vai no aria-label). Conta paga: círculo fino com ✓ verde e nome apagado, sem riscado (CSS).
+
 ## S374j (16/11/2026, v551 · 5.37.0) — esboços 70 (Hoje), 71 (Histórico) e 72 (Caixa)
 - Venda (93-historico.js, cartão de venda usado em Hoje e no dia): sem o selo "Venda" ("pedido" vira texto pequeno); ações em `.nav.vAc`: "Ver detalhes ›" texto rosa e "Estornar" perigo em texto (44 px; o 2º toque "Confirmar estorno" continua).
 - Hoje: o cartão "Contas do dia ›" (`.kpiLk`, `data-act=view desp`) leva a Despesas; a janela "Despesas do dia" sai (97y-familias-s265.js); o cartão "Fechamento do caixa" com "Fechar o dia agora" não é mais posto (98z-dashboard-s48.js) — o fechamento automático (98-fechamento.js) continua.

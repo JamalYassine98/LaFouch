@@ -3986,6 +3986,21 @@ async def main():
             if not ok: falhas.append('busca unica'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # S374 (esboço 73): Despesas — "+ Nova" no topo abre o formulário; sem "ajuste em Ajustes"; "Marcar como paga ›"
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              S.dfold = S.dfold || {}; S.dfold.nova = false; L.setView('desp'); await w(400);
+              const v = document.getElementById('v-desp'), sem0 = !document.getElementById('nName'), txt = !/ajuste em Ajustes/.test(v.textContent) && /\(automático\)/.test(v.textContent);
+              const mp = [...v.querySelectorAll('.mpg73')].every(b => /^Marcar como paga ›$/.test(b.innerText.trim()));
+              v.querySelector('[data-act=despNova]').click(); await w(700);
+              const abriu = !!document.getElementById('nName') && S.dfold.nova;
+              return [sem0, txt, mp, abriu]; }""")
+            total += 1
+            ok = got == [True] * 4 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'Despesas (73): "+ Nova" no topo abre o formulário, peças por mês automático, "Marcar como paga ›"')
+            if not ok: falhas.append('despesas 73'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # S374 (esboço 69): fechar um bloco no fim da página não pula para o topo (o título fica no lugar)
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

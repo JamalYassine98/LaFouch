@@ -2813,3 +2813,13 @@ section.card.fxF>.fxB .fxI>.card:first-child{border-top:0!important;padding-top:
 #v-caixa .note.n-bad{background:var(--panel)!important;border:1px solid var(--line)!important;color:var(--bad,#e07a7a)!important}
 #v-caixa .note.n-bad .slVai{color:var(--accent-fg)!important}#v-caixa .note.n-bad .slVai b{font-weight:600!important}
 .cxDes{background:none;border:0;padding:0 2px;margin:-14px 0;min-height:44px;font:inherit;font-weight:600;color:var(--accent-fg);cursor:pointer;display:inline-flex;align-items:center}
+/* S374 · esboço 73 (Despesas, aprovado 16/11 17:43): "+ Nova" no topo, "Marcar como paga ›" texto rosa, conta paga sem círculo cheio nem riscado */
+#v-desp>.top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.nv73{flex:none;border:1px solid var(--line);background:none;color:var(--fg);border-radius:999px;height:44px;padding:0 18px;font:inherit;font-weight:600;margin-top:6px;cursor:pointer}
+.nv73[aria-expanded=true]{border-color:var(--accent);color:var(--accent-fg)}
+.esLn.slVai.mpg73{justify-content:flex-start!important;min-height:44px;margin-top:-6px}
+.esLn.slVai.mpg73 b{color:var(--accent-fg)!important;font-weight:600!important}
+#v-desp h2{font-family:inherit!important;font-size:16px!important;font-weight:600!important;letter-spacing:0}
+#v-desp .chk.on{background:none!important;border:1.5px solid var(--ok)!important;color:var(--ok)!important}
+#v-desp .chk{border-width:1.5px!important}
+#v-desp .paga-nome{text-decoration:none!important;color:var(--mute)!important;font-weight:600}
