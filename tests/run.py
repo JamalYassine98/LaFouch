@@ -2334,7 +2334,7 @@ async def main():
             r = await pg.evaluate("""() => { const t = document.getElementById('v-dia').innerText;
               return [!!document.querySelector('[data-act=hback]'), !!document.querySelector('[data-act=closedia]'), !!document.querySelector('[data-act=daycal]'), !!document.querySelector('[data-act=daytoday]'), t.includes('G$ 90.000'), t.includes('Câmbio feito neste dia'), document.querySelectorAll('#mainnav .mn').length]; }""")
             total += 1
-            ok = r == [False, False, True, False, True, True, 5] and not pg.erros
+            ok = r == [False, False, False, False, True, True, 5] and not pg.erros  # S362: hoje não tem mais o calendário (dia que não é hoje: Histórico)
             print(('  ok  ' if ok else ' FALHA ') + 'histórico do dia: valor exato, câmbio e botões novos')
             if not ok: falhas.append('hist dia'); print('        veio', r, pg.erros)
             await pg.close()
@@ -2753,7 +2753,7 @@ async def main():
             r = await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.sales = []; S.items = [{tipo:'pre', ref:'T1', grau:'+1', cor:'P', qty:5}];
               L.addSale(S.items[0], 1, {moeda:'pyg', recebido:25000, forma:'din'}); L.addSale(S.items[0], 1, {moeda:'brl', recebido:20, forma:'din'});
               S.dTab = 'hoje'; S.dPer = 'hoje'; L.setView('dash'); L.render();
-              const t = document.getElementById('v-dash').innerText; return [t.includes('Vendas do período'), t.includes('G$ 25.000'), t.includes('R$ 20'), (t.match(/1× /g) || []).length]; }""")
+              const t = document.getElementById('v-dash').textContent; return [t.includes('Vendas do período'), t.includes('G$ 25.000'), t.includes('R$ 20'), (t.match(/1× /g) || []).length]; }""")
             total += 1
             ok = r[0] and r[1] and r[2] and r[3] >= 2 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Resumo: vendas do período separadas, cada uma na moeda recebida')
@@ -2826,10 +2826,10 @@ async def main():
             pg = await pagina(relogio=True)
             await pg.evaluate("() => { const L = window.__LF; L.S.dTab = 'hoje'; L.setView('dash'); }"); await pg.wait_for_timeout(400)
             r = await pg.evaluate("""() => { const k = [...document.querySelectorAll('#v-dash .kpi')].map(x => x.innerText);
-              return [k[0].includes('R$') && k[0].includes('US$') && k[0].includes('G$'), k[1].includes('R$') && k[1].includes('G$'), k[2].includes('G$'), document.getElementById('v-dash').innerText.includes('Atenção agora'), document.getElementById('v-dash').innerText.includes('Para repor o estoque')]; }""")
+              return [k[0].includes('Entrou:') && k[0].includes('R$') && k[0].includes('US$') && k[0].includes('G$'), /lucro livre/i.test(k[1]) && k[1].includes('G$'), /meta do mês/i.test(k[2]), document.getElementById('v-dash').innerText.includes('Atenção agora'), !document.getElementById('v-dash').textContent.includes('Para repor o estoque') && !!document.querySelector('#dtabBody [data-sep]')]; }""")
             total += 1
             ok = r == [True, True, True, False, True] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'Resumo: Vendido/Separar/Lucro por moeda, sem "Atenção agora", com "Para repor o estoque"')
+            print(('  ok  ' if ok else ' FALHA ') + 'Dashboard: Vendido com as moedas em "Entrou", Lucro livre e Meta; sem "Atenção agora"; repor virou toque na tabela')
             if not ok: falhas.append('resumo moedas'); print('        veio', r, pg.erros)
             await pg.close()
 
@@ -2875,7 +2875,7 @@ async def main():
             total += 1
             await pg.evaluate("() => { window.__LF.S.dTab = 'hoje'; window.__LF.setView('dash'); }"); await pg.wait_for_timeout(300)
             tx = await pg.inner_text('#v-dash')
-            ok = 'Meta do mês' in tx and not pg.erros
+            ok = 'meta do mês' in tx.lower() and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Dashboard: mostra meta do mês')
             if not ok: falhas.append('dash meta'); print('        veio', tx[:200], pg.erros)
             await pg.close()
@@ -2919,7 +2919,7 @@ async def main():
             tx = await pg.inner_text('#v-dash')
             await pg.locator('[data-act="dVer"]').first.click(); await pg.wait_for_timeout(500)
             tf = await pg.inner_text('#dFolha')
-            await checa('Dashboard: abre no Resumo e a folha VER tem as 4 partes', 'Resumo' in tx and all(t in tf for t in ['Resumo', 'Reservas', 'Giro', 'Preços']) and not pg.erros, [tx[:150], tf[:150], pg.erros])
+            await checa('Dashboard: abre no Dashboard e a folha VER tem as 4 partes e o Histórico', 'Dashboard' in tx and all(t in tf for t in ['Dashboard', 'Reservas', 'Giro', 'Preços', 'Histórico']) and not pg.erros, [tx[:150], tf[:150], pg.erros])
             await pg.locator('#dFolha [data-act="dVerEsc"][data-id="din"]').first.click(); await pg.wait_for_timeout(500)
             tx = await pg.inner_text('#v-dash')
             await checa('Dashboard Dinheiro: resultado e fluxo em linhas que abrem', 'LIVRE PARA VOCÊ' in tx.upper() and 'Seu mês' in tx and 'Detalhes do mês' in tx and 'Próximos' in tx and not pg.erros, [tx[:200], pg.erros])
@@ -3555,6 +3555,30 @@ async def main():
             ok = got == [True] * 5 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'S361: giro 360° — a volta fecha sozinha (e não fecha parado nem pela metade), gn/gvc vão para o site, giro tratado não é refeito')
             if not ok: falhas.append('S361 giro 360'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # S362 (esboço 48 + moedas): Dashboard único. Hoje = blocos do dia sem calendário; outro período = 3 números, linhas que abrem, trocas com toque.
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, sl = ms => new Promise(r => setTimeout(r, ms)), q = s => document.querySelector(s);
+              L.inicioGo('hoje'); await sl(700);
+              const v = document.getElementById('v-dia');
+              const hoje = S.view === 'dia' && /^Dashboard/.test(v.querySelector('.dHdT').innerText) && /^Hoje/.test(v.querySelector('.dHdP').innerText) &&
+                ![...v.querySelectorAll('button')].some(e => /^\\d\\d\\/\\d\\d\\/\\d{4}/.test(e.innerText.trim())) && !v.querySelector('.famC3');
+              L.ACT.dPerEsc('mes'); await sl(900);
+              const B = document.getElementById('dtabBody'), ks = [...B.querySelectorAll('.kpis .kpi')].map(k => k.querySelector('.lbl').innerText.trim().toLowerCase());
+              const tres = S.view === 'dash' && ks.length === 3 && /^vendido/.test(ks[0]) && /^lucro livre/.test(ks[1]) && /^meta do mês/.test(ks[2]) && /^Dashboard/.test(q('#v-dash .dHdT').innerText) && !/US\\$ 1 =/.test(q('#v-dash .dHdS').innerText);
+              const txt = B.innerText, semRep = !/Separar das vendas|Para repor o estoque|Dólar hoje/.test(txt) && !!B.querySelector('.esLs');
+              const ln = [...B.querySelectorAll('.esLs > .esLn')].find(e => /Quanto separar/.test(e.innerText)); const fechado = ln.nextElementSibling.hidden === true; ln.click(); await sl(500);
+              const ln2 = [...document.querySelectorAll('#dtabBody .esLs > .esLn')].find(e => /Quanto separar/.test(e.innerText)); const abre = fechado && ln2.nextElementSibling.hidden === false;
+              const b0 = q('#dtabBody .kpis .kpi > b'), g = b0.innerText; b0.click(); await sl(400); const r = q('#dtabBody .kpis .kpi > b').innerText; q('#dtabBody .kpis .kpi > b').click(); await sl(300); q('#dtabBody .kpis .kpi > b').click(); await sl(300);
+              const moeda = /^G\\$/.test(g) && /^R\\$/.test(r) && q('#dtabBody .kpis .kpi > b').innerText === g;
+              L.ACT.dPerEsc('hoje'); await sl(600); const volta = S.view === 'dia';
+              L.ACT.dVerEsc('din'); await sl(600); const ver = S.view === 'dash' && S.dTab === 'din';
+              return [hoje, tres, semRep, abre, moeda, volta && ver]; }""")
+            total += 1
+            ok = got == [True] * 6 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S362: Dashboard único — Hoje sem calendário, 3 números, sem cartões repetidos, linha abre, toque troca a moeda, seletor leva ao dia')
+            if not ok: falhas.append('S362 dashboard'); print('        veio', got, pg.erros)
             await pg.close()
 
             # S332 (15/11/2026, opção A): a cópia do site do MODO LOJA se atualiza sozinha (sem APK). Aparelho falso (Capacitor + Filesystem em memória):

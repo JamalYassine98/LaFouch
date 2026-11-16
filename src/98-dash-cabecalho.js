@@ -45,7 +45,7 @@
       h =
         '<div class="dHd"><button type="button" class="dHdT" data-act="dVer" aria-haspopup="dialog">' + t[1] + ' <i aria-hidden="true">⌄</i></button>' +
         (resumo ? '<button type="button" class="dHdP" data-act="dPer" aria-haspopup="dialog">' + perRotulo() + ' <i aria-hidden="true">⌄</i></button>' : '') +
-        '</div><div class="dHdS">' + (resumo ? esc(perDatas(S.per)) + ' · ' : esc(DT_FRASE[t[0]]) + ' · ') + cam + '</div>';
+        '</div><div class="dHdS">' + (resumo ? esc(perDatas(S.per)) : esc(DT_FRASE[t[0]])) + '</div>'; // S362: a linha "US$ 1 = …" saiu do topo (o câmbio mora na tela Câmbio)
     if (resumo && S.per === 'custom')
       h +=
         '<div class="sel dHdD" style="flex-wrap:wrap"><input class="in" type="date" data-pdat="de" value="' + esc(S.perDe) + '" aria-label="Data inicial" style="flex:1 1 140px;width:auto"><input class="in" type="date" data-pdat="ate" value="' + esc(S.perAte) + '" aria-label="Data final" style="flex:1 1 140px;width:auto"></div>';

@@ -2512,3 +2512,15 @@ html{overscroll-behavior-y:none}
 .egTc h3{margin:14px 0 0;font-size:20px;font-weight:600}.egTc p{margin:0;font-size:15px;color:var(--mute)}.egTc .egTs{font-size:13px;margin-bottom:10px}
 .egAnel.egAnelT{position:relative;left:auto;bottom:auto;transform:none;width:96px;height:96px}
 .egAnelT circle{fill:none}.egAnelT .egA0{stroke:var(--line)}.egAnelT .egA1{stroke:var(--fg);transition:stroke-dashoffset .4s linear}.egAnelT b{color:var(--fg);font-size:17px}
+
+/* S362 · Dashboard final (esboço 48): 3 números, "o que fazer agora" e detalhes em linhas que abrem */
+.esLs{background:var(--panel2);border:1px solid var(--line);border-radius:18px;padding:4px 16px;display:flex;flex-direction:column}
+.esLn{display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 0;border:0;border-top:1px solid var(--line);background:none;width:100%;text-align:left;color:var(--fg);font:inherit;cursor:pointer}
+.esLn:first-child{border-top:0}.esLn .g{flex:1;min-width:0}.esLn b{display:block;font-weight:600;font-size:15px}.esLn small{display:block;color:var(--mute);font-size:13px;margin-top:2px}.esLn i{font-style:normal;color:var(--mute);font-size:18px}
+.esTit{font:600 12px/1 inherit;letter-spacing:.08em;color:var(--mute);margin:4px 2px -8px}
+#dtabBody .kpis.es3 .kpi>b{font-size:26px!important;line-height:1.2!important;display:block;overflow-wrap:anywhere}#dtabBody .kpis.es3 .kpi>b[data-act]{cursor:pointer;min-height:40px;display:flex!important;align-items:center}#dtabBody .kpis.es3 .kpi .mtBar{margin:10px 0 8px}
+#dtabBody .kpis.es3{grid-template-columns:minmax(0,1fr)!important}
+@media(min-width:900px){#dtabBody .kpis.es3{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+.esLs>.esCorpo{background:none!important;border:0!important;box-shadow:none!important;padding:4px 0 16px!important;margin:0!important;border-radius:0!important}
+.esLs>.esCorpo>div:first-child>h2{display:none}
+.esTr{display:flex;flex-direction:column;margin-top:10px}.esTr .esLn:first-of-type{border-top:0}
