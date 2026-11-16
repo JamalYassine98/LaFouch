@@ -157,3 +157,49 @@
     if (window.__barraSegurou && window.__barraSegurou()) return;
     return _dVerEsc374.apply(this, arguments);
   };
+
+  // ===== S374 · esboço 59 (aprovado 16/11 10:04, "implementa" 10:40): Início com 6 botões =====
+  // Resultados (dia, mês, histórico) · Giro e preços (giro, preços, reservas) · Site (site, pedidos, mensagens, analisador)
+  // · Marketing (marketing, temática) · Clientes · Atacado. A barra não muda. Entra UMA vez (S.fam6).
+  var FAM6 = [
+    { id: 'g:res', nome: 'Resultados', ico: 'hoje', frase: 'Dia, mês e histórico', itens: ['hoje', 'hist'] },
+    { id: 'g:gp', nome: 'Giro e preços', ico: 'giro', frase: 'Giro, preços e reservas', itens: ['giro', 'prec', 'din'] },
+    { id: 'g:site', nome: 'Site', ico: 'onl', frase: 'Pedidos, mensagens e analisador', itens: ['site', 'ped', 'msg', 'anl'] },
+    { id: 'g:mkt', nome: 'Marketing', ico: 'mkt', frase: 'Posts, vídeos e temática', itens: ['mkt', 'tem'] }
+  ];
+  GRP_FRASE.ata = 'Lojistas, lotes e tabela';
+  function fam6Aplica() {
+    if (S.fam6) return;
+    S.fam6 = true;
+    var ids = ['g:site', 'g:cli', 'g:res', 'g:gp', 'g:mkt'], tudo = [];
+    FAM6.forEach(function (f) { tudo = tudo.concat(f.itens); });
+    S.grupos = (S.grupos || []).filter(function (g) {
+      return ids.indexOf(g.id) < 0 && !g.itens.some(function (x) { return tudo.indexOf(x) >= 0; });
+    }).concat(FAM6.map(function (f) { return { id: f.id, nome: f.nome, ico: f.ico, frase: f.frase, fam: 1, itens: f.itens.slice() }; }));
+    // o que estava na barra e agora mora numa família do Início sai da barra (a barra das famílias não muda)
+    if (Array.isArray(S.barra)) S.barra = S.barra.filter(function (x) { return tudo.indexOf(x) < 0 && ids.indexOf(x) < 0; });
+    S.inicioT = ['g:res', 'g:gp', 'g:site', 'g:mkt', 'cli', 'ata'];
+  }
+  var _iniLista59 = iniLista;
+  iniLista = function () {
+    var l = _iniLista59.apply(this, arguments);
+    if (S.fam6 || !S.fam7) return l;
+    fam6Aplica();
+    return _iniLista59.apply(this, arguments);
+  };
+  // Marketing e Temática abrem em janela: o botão da família abre a lista para escolher
+  var _grpAbre59 = grpAbre;
+  grpAbre = function (g) {
+    if (g && g.id === 'g:mkt' && g.fam) {
+      S._gAt = g.id;
+      return ACT.grpVer();
+    }
+    return _grpAbre59.apply(this, arguments);
+  };
+  // no Dashboard, a flecha de uma família (Resultados, Giro e preços) mostra as telas da família
+  var _dVer59 = ACT.dVer;
+  ACT.dVer = function () {
+    var g = grpGet(S._gAt);
+    if (g && g.fam) return lfaAbre('dFolha', grpVerHtml(g));
+    return _dVer59.apply(this, arguments);
+  };

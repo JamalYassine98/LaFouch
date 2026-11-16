@@ -1,7 +1,7 @@
 {
- "nome": "5.33.1",
+ "nome": "5.34.0",
  "notas": [
-  "Correção: na flecha do Dashboard também dá para segurar uma tela (Reservas, Giro, Preços, Histórico…) e levar para a barra."
+  "Início com 6 botões: Resultados (dia, mês e histórico), Giro e preços (giro, preços e reservas), Site, Marketing (marketing e temática), Clientes e Atacado. A barra de baixo não muda."
  ],
- "build": 544
+ "build": 545
 }

@@ -418,11 +418,24 @@ async def main():
             await pg.evaluate("() => { window.__LF.render(); window.__LF.render(); }")
             f4 = await pg.evaluate("() => [window.__LF.S.grupos.filter(g => g.fam).length, window.__LF.S.barra.join(',')]")
             total += 1
-            ok = (f1[0] == ['vendas', 'g:pecas', 'g:din', 'ajustes'] and f1[1] == ['hoje', 'g:site', 'g:cli'] and f1[2] == ['Início', 'Vender', 'Peças', 'Dinheiro', 'Ajustes']
-                  and f1[3] == ['hoje', 'g:site', 'g:cli'] and f2 == ['estoque', ['estoque', 'lotes', 'repo', 'cont', 'est']] and f3 == ['estoque', True, True]
-                  and f4 == [4, 'vendas,g:pecas,g:din,ajustes'] and not pg.erros)
-            print(('  ok  ' if ok else ' FALHA ') + 'S374: 7 famílias (barra Vender · Peças · Dinheiro; Início Dashboard · Site · Clientes; Reposição na flecha de Peças)')
+            ok = (f1[0] == ['vendas', 'g:pecas', 'g:din', 'ajustes'] and f1[1] == ['g:res', 'g:gp', 'g:site', 'g:mkt', 'cli', 'ata'] and f1[2] == ['Início', 'Vender', 'Peças', 'Dinheiro', 'Ajustes']
+                  and f1[3] == ['g:res', 'g:gp', 'g:site', 'g:mkt', 'cli', 'ata'] and f2 == ['estoque', ['estoque', 'lotes', 'repo', 'cont', 'est']] and f3 == ['estoque', True, True]
+                  and f4 == [6, 'vendas,g:pecas,g:din,ajustes'] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'S374: famílias (barra Vender · Peças · Dinheiro; Início com 6 botões do esboço 59; Reposição na flecha de Peças)')
             if not ok: falhas.append('7 famílias'); print('        veio', f1, f2, f3, f4, pg.erros)
+            # S374 (esboço 59): Giro e preços abre o Giro e a flecha mostra Giro, Preços e Reservas; Marketing abre a lista
+            await pg.evaluate("() => window.__LF.setView('inicio')"); await pg.wait_for_timeout(400)
+            await pg.locator('#v-inicio .tl[data-id="g:gp"]').click(); await pg.wait_for_timeout(700)
+            await pg.evaluate("() => window.__LF.ACT.dVer()"); await pg.wait_for_timeout(500)
+            m1 = await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.dTab, [...document.querySelectorAll('#dFolha [data-act=grpVerEsc]')].map(b => b.getAttribute('data-id'))]")
+            await pg.evaluate("() => { window.__LF.lfaFecha('dFolha'); window.__LF.setView('inicio'); }"); await pg.wait_for_timeout(500)
+            await pg.locator('#v-inicio .tl[data-id="g:mkt"]').click(); await pg.wait_for_timeout(600)
+            m2 = await pg.evaluate("() => [window.__LF.S.view, [...document.querySelectorAll('#dFolha:not(.sai) [data-act=grpVerEsc]')].map(b => b.getAttribute('data-id'))]")
+            await pg.evaluate("() => window.__LF.lfaFecha('dFolha')"); await pg.wait_for_timeout(400)
+            total += 1
+            ok = m1 == ['dash', 'giro', ['giro', 'prec', 'din']] and m2 == ['inicio', ['mkt', 'tem']] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S374 (59): Giro e preços com a flecha certa; Marketing abre a lista das 2 telas')
+            if not ok: falhas.append('59 famílias'); print('        veio', m1, m2, pg.erros)
             # S374 (S242): Site é tela do app; com o painel aberto a barra não marca Vender
             await pg.evaluate("() => window.__LF.setView('inicio')"); await pg.wait_for_timeout(400)
             await pg.locator('#v-inicio .tl[data-id="g:site"]').click(); await pg.wait_for_timeout(700)

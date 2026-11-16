@@ -410,3 +410,7 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 
 ## S374c (16/11/2026, v544 · 5.33.1) — bug: arrastar da folha do Dashboard
 - A folha VER do Dashboard (`ACT.dVer`, linhas `dVerEsc`) não é grupo: o arraste do esboço 51 só aceitava `grpVerEsc`. Agora aceita também `dVerEsc` (com `dg.folha = 'dash'`; nada sai de grupo), só para telas que existem na barra (`BARRA_NOME`). `ACT.dVerEsc` ignora o clique que o navegador dispara ao soltar.
+
+## S374d (16/11/2026, v545 · 5.34.0) — Início com 6 botões (esboço 59)
+- `FAM6` em `src/98z-s374.js`, uma vez (`S.fam6`, depois de `S.fam7`): grupos `g:res` (hoje, hist), `g:gp` (giro, prec, din), `g:site` (site, ped, msg, anl), `g:mkt` (mkt, tem); sai o `g:cli`. Início = `['g:res','g:gp','g:site','g:mkt','cli','ata']`. Barra igual.
+- `grpAbre(g:mkt)` abre a folha VER (as 2 telas são janelas). No Dashboard, `ACT.dVer` com família ativa (`g.fam`) mostra a folha da família (`grpVerHtml`) no lugar da folha antiga do Dashboard (sem a aba "Online").
