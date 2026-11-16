@@ -223,3 +223,5 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - 16/11/2026 11:35 · ESBOÇO 60a REFEITO em cima do Início de 6 botões (v545), ESPERANDO decisão: painel sem a caixa, título no tamanho das telas. 60b RETIRADO (o Dashboard já não tem "Online" desde a v545: a flecha mostra as famílias Resultados e Giro e preços).
 
 - 16/11/2026 11:13 · DONO: "Aprovado" → ESBOÇO 60a APROVADO (painel sem a caixa, título no tamanho das telas), esperando "implementar". Antes ele quer ajustar outra coisa.
+
+- 16/11/2026 11:25 · DONO: segurar um grupo na barra não deve abrir "Gerenciar grupo"; arrastar o grupo da barra para o Início deve levar o grupo inteiro (sem desfazer). ESBOÇO 61 enviado, ESPERANDO decisão (work/s374/esb61.py): segure (levanta, nada abre) → arraste (espaço tracejado no Início) → solte (grupo inteiro no Início, barra com lugar livre, aviso com Desfazer; o Início ganha folga embaixo para o aviso não tampar o botão novo). Mudar/desfazer o grupo: flecha › Gerenciar grupo.
