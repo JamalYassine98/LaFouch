@@ -31,3 +31,6 @@ Para a próxima sessão: ler este arquivo, depois `docs/FALTA-APROVAR-15-11.md` 
 ## Continuação do "implementar tudo" (S370, 16/11 ~01:30–04:30)
 - Publicados: v536 (lotes 5 e 6), v537 (lote 7), v538 (lote 8 parte 1). O que falta, na ordem: ver a linha "FALTA do implementar tudo" no fim de `docs/FALTA-APROVAR-15-11.md`.
 - Antes de cada push: `git fetch --depth=20 origin main` + rebase (há outra sessão publicando); `git pull` no catalogo antes de `node build.js`.
+
+## Sessão do site, 16/11 até 12:30
+- Ver o bloco "S371–S383" no fim de docs/MEMORIA-PROJETO.md (publicado, lições de desempenho, preferências do dono, o que falta). Site no ar: 1794841643. Ferramentas: `?medir=1` no site; `work/s371/` (provas, perfil, medidor).
