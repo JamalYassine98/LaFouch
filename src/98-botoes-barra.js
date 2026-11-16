@@ -35,7 +35,7 @@
     document.addEventListener(
       'click',
       function (e) {
-        if (Date.now() - soltouEm < 450 && e.target.closest && e.target.closest('#v-inicio .tl,#mainnav .mn')) {
+        if (Date.now() - soltouEm < 450 && e.target.closest && e.target.closest('#v-inicio .tl,#mainnav .mn,#dFolha .dOp')) {
           e.stopPropagation();
           e.preventDefault();
         }
@@ -54,7 +54,7 @@
       return e;
     }
     function sobre(x, y) {
-      if (dg && !dg.deBarra && dg.on) {
+      if (dg && !dg.deBarra && !dg.folha && dg.on) {
         var lr = lixoEl().getBoundingClientRect();
         if (x >= lr.left - 24 && x <= lr.right + 24 && y >= lr.top - 24 && y <= lr.bottom + 24) return { zona: 'lixo', k: -1 };
       }
@@ -225,11 +225,43 @@
       var pai = (ref && ref.parentNode) || (dg.cIni[0] && dg.cIni[0].el.parentNode);
       if (pai) pai.insertBefore(ph, ref);
     }
+    // S371: a tela sai do grupo de onde foi arrastada; grupo com 1 tela se desfaz (a que sobra fica no lugar dele)
+    function grpSaiF(gid, id, B) {
+      var g = grpGet(gid);
+      if (!g) return B;
+      g.itens = g.itens.filter(function (x) { return x !== id; });
+      if (g.itens.length >= 2) return B;
+      var resto = g.itens[0],
+        k = B.indexOf(gid);
+      S.grupos = (S.grupos || []).filter(function (x) { return x !== g; });
+      if (k >= 0) {
+        if (resto) B[k] = resto;
+        else B.splice(k, 1);
+      } else if (Array.isArray(S.inicioT)) {
+        var L = S.inicioT.slice(),
+          j = L.indexOf(gid);
+        if (j >= 0) {
+          if (resto) L[j] = resto;
+          else L.splice(j, 1);
+        }
+        S.inicioT = L;
+      }
+      return B;
+    }
     function inicia() {
       if (!dg || dg.on) return;
       var src = dg.el,
         r = src.getBoundingClientRect(),
         g = src.cloneNode(true);
+      if (dg.folha) {
+        // S371 (esboço 51): a tela segurada na folha da flecha vira um botão da barra; a folha desce
+        g = document.createElement('div');
+        g.className = 'qgF';
+        g.innerHTML = '<span class="mi">' + ico(dg.id, 22) + '</span><span>' + esc(barraNome(dg.id)) + '</span>';
+        r = { left: dg.x0 - 46, top: dg.y0 - 32, width: 92, height: 64 };
+        src.classList.add('qLev');
+        setTimeout(function () { lfaFecha('dFolha'); }, REDUCED ? 0 : 140);
+      }
       g.classList.add('qghost');
       g.removeAttribute('data-act');
       g.style.cssText = 'left:' + r.left + 'px;top:' + r.top + 'px;width:' + r.width + 'px;height:' + r.height + 'px';
@@ -252,7 +284,7 @@
       src.classList.add('qorig');
       document.body.classList.add('arrastaBarra');
       barEl().classList.add('qd');
-      if (!dg.deBarra) lixoEl().classList.add('on');
+      if (!dg.deBarra && !dg.folha) lixoEl().classList.add('on');
       vibrar(15);
       quadro();
     }
@@ -260,11 +292,13 @@
       'pointerdown',
       function (e) {
         if (S.inicioEd || S.view === 'dia') return;
-        var el = e.target.closest && e.target.closest('#v-inicio .tl[data-act="inicio"],#mainnav .mn');
+        var el = e.target.closest && e.target.closest('#v-inicio .tl[data-act="inicio"],#mainnav .mn,#dFolha .dOp[data-act="grpVerEsc"]');
         if (!el) return;
-        var id = el.getAttribute('data-id');
+        var id = el.getAttribute('data-id'),
+          fo = el.classList.contains('dOp') ? S._gAt : null;
         if (!id || id === 'inicio') return;
-        dg = { el: el, id: id, deBarra: el.classList.contains('mn'), x0: e.clientX, y0: e.clientY, cx: e.clientX, cy: e.clientY, on: false, mouse: e.pointerType === 'mouse' };
+        if (el.classList.contains('dOp') && !(fo && grpGet(fo) && grpGet(fo).itens.indexOf(id) >= 0)) return;
+        dg = { el: el, id: id, folha: fo, deBarra: el.classList.contains('mn'), x0: e.clientX, y0: e.clientY, cx: e.clientX, cy: e.clientY, on: false, mouse: e.pointerType === 'mouse' };
         // dedo: segurar um instante; mouse: basta puxar
         if (!dg.mouse) dg.t = setTimeout(inicia, 380);
       },
@@ -336,6 +370,7 @@
         return;
       }
       soltouEm = Date.now();
+      var antesF = d.folha ? JSON.stringify({ b: barraLista(), i: S.inicioT, g: S.grupos }) : null;
       var o = ev && ev.type === 'pointerup' ? sobre(d.cx, d.cy) : { zona: 'cancel', k: -1 };
       var B = barraLista().slice(),
         nome = barraNome(d.id),
@@ -446,6 +481,18 @@
         encJunta(pend[1], pend[2], rA, rB, fecha);
         return;
       }
+      if (volta && d.folha) {
+        // S371: soltou fora da barra (ou no próprio grupo): nada muda, o botão some
+        if (g && !REDUCED) {
+          g.style.transition = 'opacity .2s, transform .2s';
+          g.style.opacity = '0';
+          g.style.transform = 'scale(.8)';
+          setTimeout(fecha, 210);
+        } else fecha();
+        if (msg) dica(msg, 2200);
+        else dicaOff();
+        return;
+      }
       if (volta) {
         if (g && !REDUCED) {
           var r = d.el.getBoundingClientRect();
@@ -503,6 +550,7 @@
         }
         return;
       }
+      if (d.folha) B = grpSaiF(d.folha, d.id, B);
       S.barra = B;
       // um grupo do Início que foi para a barra sai do Início
       if (!d.deBarra && grpGet(d.id) && B.indexOf(d.id) >= 0 && Array.isArray(S.inicioT)) S.inicioT = S.inicioT.filter(function (x) { return x !== d.id; });
@@ -524,7 +572,16 @@
         if (pt) popTile(pt);
         vibrar(20);
       }, REDUCED ? 0 : 280);
-      dica(msg, 2400);
+      if (antesF) {
+        dicaOff();
+        lfDesfazer(msg, function () {
+          var a = JSON.parse(antesF);
+          S.barra = a.b;
+          S.inicioT = a.i;
+          S.grupos = a.g;
+          render();
+        }, 5000);
+      } else dica(msg, 2400);
     }
     document.addEventListener('pointerup', fim, true);
     document.addEventListener('pointercancel', fim, true);
@@ -555,7 +612,7 @@
     });
     // pressionar e segurar não pode abrir menu do navegador nem selecionar texto
     document.addEventListener('contextmenu', function (e) {
-      if (dg || (e.target.closest && e.target.closest('#v-inicio .tl,#mainnav .mn'))) e.preventDefault();
+      if (dg || (e.target.closest && e.target.closest('#v-inicio .tl,#mainnav .mn,#dFolha .dOp'))) e.preventDefault();
     }, true);
     window.addEventListener('blur', solta);
     document.addEventListener('visibilitychange', solta);

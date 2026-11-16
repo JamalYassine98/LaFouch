@@ -25,6 +25,7 @@
     lfaAbre('dFolha', grpVerHtml(g));
   };
   ACT.grpVerEsc = function (id) {
+    if (window.__barraSegurou && window.__barraSegurou()) return; // S371: soltou um arraste
     lfaFecha('dFolha');
     if (navOn(id)) return;
     inicioGo(id);

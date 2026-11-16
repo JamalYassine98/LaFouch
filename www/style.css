@@ -2710,3 +2710,8 @@ html{overscroll-behavior-y:none}
 .estTut263 .t263P b{display:block;font-family:Fraunces,Georgia,serif;font-weight:500;font-size:18px;margin:4px 0 2px}.estTut263 .t263P span{color:var(--mute);font-size:14px}
 .estTut263 .t263L{margin:16px 0 4px}
 .estTut263 .t263Q{display:grid;grid-template-columns:1fr 1.2fr;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:14px}.estTut263 .t263Q b{font-weight:500}.estTut263 .t263Q span{color:var(--mute)}
+/* S371 (esboço 51): tela arrastada da folha da flecha vira um botão da barra */
+.qgF{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:var(--panel);color:var(--fg);border:1px solid var(--line);font-size:12px;font-weight:600}
+.qgF .mi{display:flex}.qgF .mi svg{width:22px;height:22px}
+#dFolha .dOp.qLev{transform:scale(1.025);box-shadow:0 14px 36px rgba(0,0,0,.28);border-radius:14px;background:var(--panel2);transition:transform .14s var(--lux-out,ease-out),box-shadow .14s}
+#dFolha .dOp{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}

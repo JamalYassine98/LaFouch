@@ -2633,6 +2633,28 @@ async def main():
                   and j2 == ['dash', gi] and j3 == [0, 'inicio', True, True] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'S370: juntar dois atalhos do Início (anel), abrir o grupo e desfazer')
             if not ok: falhas.append('grupo no Início'); print('        veio', j1, j2, j3, pg.erros)
+            # S371 (esboço 51): segurar uma tela na folha da flecha e soltar na barra (cheia = troca); fora da barra nada muda; Desfazer volta tudo
+            PREP51 = "() => { const S = window.__LF.S; S.grupos = [{ id: 'g:51', nome: 'Peças', itens: ['estoque', 'lotes', 'cont'] }]; S.barra = ['vendas', 'g:51', 'caixa', 'ajustes']; S.inicioT = null; window.__LF.setView('estoque'); window.__LF.render(); }"
+            await pg.evaluate(PREP51); await pg.wait_for_timeout(500)
+            await pg.evaluate("() => window.__LF.ACT.grpVer()"); await pg.wait_for_timeout(500)
+            await arrasta2('#dFolha .dOp[data-id="lotes"]', '#mainnav .mn[data-id="ajustes"]', 200)
+            k1 = await pg.evaluate("() => { const S = window.__LF.S; return [S.barra, S.grupos[0] && S.grupos[0].itens, S.barra.indexOf('ajustes') < 0, !document.querySelector('#dFolha:not(.sai)'), document.getElementById('lfDesf').className, S.view, !!document.querySelector('.qghost')]; }")
+            await pg.locator('#lfDesf button').click(); await pg.wait_for_timeout(400)
+            k2 = await pg.evaluate("() => { const S = window.__LF.S; return [S.barra, S.grupos[0] && S.grupos[0].itens]; }")
+            await pg.evaluate("() => window.__LF.ACT.grpVer()"); await pg.wait_for_timeout(500)
+            await arrasta2('#dFolha .dOp[data-id="cont"]', '#v-estoque .top h1', 200)
+            k3 = await pg.evaluate("() => { const S = window.__LF.S; return [S.barra, S.grupos[0] && S.grupos[0].itens, S.view, !!document.querySelector('.qghost')]; }")
+            # grupo com 2 telas: tirar uma desfaz o grupo e a que sobra fica no lugar dele
+            await pg.evaluate("() => { const S = window.__LF.S; S.grupos[0].itens = ['estoque', 'lotes']; window.__LF.render(); window.__LF.ACT.grpVer(); }"); await pg.wait_for_timeout(500)
+            await arrasta2('#dFolha .dOp[data-id="lotes"]', '#mainnav .mn[data-id="ajustes"]', 200)
+            k4 = await pg.evaluate("() => { const S = window.__LF.S; return [S.barra, S.grupos.length]; }")
+            total += 1
+            ok = (k1[0] == ['vendas', 'g:51', 'caixa', 'lotes'] and k1[1] == ['estoque', 'cont'] and k1[2] and k1[3] and 'on' in k1[4] and k1[5] == 'estoque' and not k1[6]
+                  and k2 == [['vendas', 'g:51', 'caixa', 'ajustes'], ['estoque', 'lotes', 'cont']]
+                  and k3 == [['vendas', 'g:51', 'caixa', 'ajustes'], ['estoque', 'lotes', 'cont'], 'estoque', False]
+                  and k4 == [['vendas', 'estoque', 'caixa', 'lotes'], 0] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'S371: arrastar uma tela da folha da flecha para a barra (troca, fora não muda, Desfazer, grupo de 2 se desfaz)')
+            if not ok: falhas.append('tela do grupo para a barra'); print('        veio', k1, k2, k3, k4, pg.erros)
             await pg.close()
             # S370 (esboços 31 e 33): computador — lista e ficha lado a lado; "/" busca, Enter abre a 1ª, "?" atalhos; leitor de código abre a peça para vender
             ctxPC = await b.new_context(viewport={'width': 1440, 'height': 900}, color_scheme='dark', service_workers='block')
