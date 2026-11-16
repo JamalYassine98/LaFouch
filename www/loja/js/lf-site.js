@@ -4325,7 +4325,8 @@ function filSet(lado,ang,L,vis){const G=lado<0?(N._fE||(N._fE=q('.filE'))):(N._f
     function liga(st){if(!Z.el){st.getTracks().forEach(function(t){t.stop()});return}if(Z.st&&Z.st!==st)cam();Z.st=st;Z.lum=null;Z.hd=[];hist10=[];Z.bx=null;var v=Z.v=document.createElement('video');v.muted=true;v.playsInline=true;v.setAttribute('playsinline','');v.srcObject=st;var p=v.play();if(p&&p.catch)p.catch(function(){});
       /* S98: distância pela íris (MediaPipe, roda no aparelho); enquanto não carrega, ou se falhar, usa a distância entre os olhos como antes */
       var vai=function(){if(Z.lacoOn||!Z.el||!Z.st)return;Z.lacoOn=1;laco()};Z.lacoOn=0;
-      (window.__lfFakeMp?Promise.resolve(window.__lfFakeMp):mpLoad()).then(function(lm){Z.mp=lm;vai()},function(){});
+      if(CAMT&&!window.__lfFakeMp&&window.Worker&&window.createImageBitmap)wkLiga().then(vai,function(){mpLoad().then(function(lm){Z.mp=lm;vai()},function(){})});
+      else (window.__lfFakeMp?Promise.resolve(window.__lfFakeMp):mpLoad()).then(function(lm){Z.mp=lm;vai()},function(){});
       (window.__lfFakeFa?Promise.resolve(window.__lfFakeFa):faLoad()).then(function(fa){Z.fa=fa;vai()},function(){if(!Z.mp)chip(chipDist())})}
     function medir(){if(Z.semCam){chip(chipDist());return}if(Z.st)return;abreCam().then(liga,function(){if(!Z.el)return;Z.semCam=1;chip(chipDist())})}
     var hist=[],med=function(a){var s=a.slice().sort(function(x,y){return x-y});return s[Math.floor(s.length/2)]};
@@ -4337,7 +4338,13 @@ function filSet(lado,ang,L,vis){const G=lado<0?(N._fE||(N._fE=q('.filE'))):(N._f
       if(escuro()){chip(T('Pouca luz'));return}
       /* S96: sem avisos falados; acima de 38 cm a etiqueta fica laranja (o cliente percebe sozinho) */
       if(Z.d>dHi())chip(Math.round(Z.d)+' cm',false,true);else if(Z.d<dLo())chip(Math.round(Z.d)+' cm');else chip(Math.round(Z.d)+' cm ✓',true)}
-    function laco(){if(!Z.el||!Z.st)return;var v=Z.v,fa=Z.fa;if(!v.videoWidth||(!Z.mp&&!fa)){Z.tm=setTimeout(laco,250);return}
+    /* S384 — modo de teste (?camt=1): a leitura do rosto num trabalhador ao lado. wkLiga cria e prepara; wkFalha desliga e volta ao leitor normal */
+    var CAMT=false;try{CAMT=/[?&]camt=1/.test(location.search)||sessionStorage.getItem('lf_camt')==='1';if(CAMT)sessionStorage.setItem('lf_camt','1')}catch(_){}
+    function wkLiga(){return new Promise(function(ok,no){if(Z.wk&&Z.wk.ok){ok();return}try{var base=new URL(FAB+'mp/',document.baseURI).href,w=new Worker(base+'mp-trab.js'),t=setTimeout(function(){try{w.terminate()}catch(_){}no(new Error('tempo'))},25000);
+      w.onmessage=function(e){var d=e.data;if(d.t==='ok'){clearTimeout(t);Z.wk={w:w,ok:true,del:d.del,id:0};MP.del=d.del;w.onmessage=function(e2){var c=Z.wk&&Z.wk.cb;if(e2.data.t==='r'&&c)c(e2.data)};ok()}else if(d.t==='erro'){clearTimeout(t);try{w.terminate()}catch(_){}no(new Error(d.m))}};
+      w.onerror=function(){clearTimeout(t);try{w.terminate()}catch(_){}no(new Error('trab'))};w.postMessage({t:'ini',base:base})}catch(e){no(e)}})}
+    function wkFalha(){if(Z.wk){try{clearTimeout(Z.wk.to);Z.wk.w.terminate()}catch(_){}Z.wk=null}window.__lfWkFalhou=1;if(!Z.mp)mpLoad().then(function(lm){Z.mp=lm},function(){})}
+    function laco(){if(!Z.el||!Z.st)return;var v=Z.v,fa=Z.fa,wkOk=!!(Z.wk&&Z.wk.ok);if(!v.videoWidth||(!Z.mp&&!fa&&!wkOk)){Z.tm=setTimeout(laco,250);return}
       /* S383: a cópia da imagem para medir a claridade é feita a cada 4 medições quando o leitor de rosto novo está em uso (ele não precisa dela); o leitor antigo usa essa cópia sempre */
       Z.lzN=(Z.lzN||0)+1;var W=320,H=Math.round(W*v.videoHeight/v.videoWidth),cv=Z.cv||(Z.cv=document.createElement('canvas')),fazLuz=!Z.mp||Z.lzN%4===1;if(fazLuz){cv.width=W;cv.height=H;var cx=cv.getContext('2d',{willReadFrequently:true});cx.drawImage(v,0,0,W,H)}
       /* S89 D: brilho do meio da imagem (nada é gravado) */
@@ -4345,18 +4352,26 @@ function filSet(lado,ang,L,vis){const G=lado<0?(N._fE||(N._fE=q('.filE'))):(N._f
         if(Z.fase==='teste'&&!Z.luzP){Z.lzT++;if(escuro())Z.lzE++}}catch(_){}
       /* S95 A / S98: íris (11,7 mm em quase todo adulto) na imagem grande (até 1280 px) */
       /* para não pesar no celular: a 1ª leitura é na imagem inteira (640 px); depois, só um recorte em volta do rosto, na resolução cheia (os olhos ficam com muito mais pontos) */
-      if(Z.mp){var VW=v.videoWidth,VH=v.videoHeight,bx=Z.bx,sx=0,sy=0,sw=VW,sh=VH,S2=640;/* S382: o ritmo calmo (1 s) do S381 foi retirado a pedido do dono — a medição volta a ser a cada 0,35 s */
+      if(Z.mp||wkOk){var VW=v.videoWidth,VH=v.videoHeight,bx=Z.bx,sx=0,sy=0,sw=VW,sh=VH,S2=640;/* S382: o ritmo calmo (1 s) do S381 foi retirado a pedido do dono — a medição volta a ser a cada 0,35 s */
         if(bx){var cxm=bx[0]+bx[2]/2,cym=bx[1]+bx[3]/2,lado=Math.min(VW,VH,Math.max(bx[2],bx[3])*1.7);sw=sh=lado;sx=Math.max(0,Math.min(VW-lado,cxm-lado/2));sy=Math.max(0,Math.min(VH-lado,cym-lado/2));S2=Math.min(512,Math.round(lado))}
-        var W2=bx?S2:Math.min(640,VW),H2=bx?S2:Math.round(W2*VH/VW),c2=Z.cv2||(Z.cv2=document.createElement('canvas'));c2.width=W2;c2.height=H2;c2.getContext('2d').drawImage(v,sx,sy,sw,sh,0,0,W2,H2);
-        Z.mpk=sw/W2;var r=null;try{r=Z.mp.detect(c2)}catch(_){r=null}var P=r&&r.faceLandmarks&&r.faceLandmarks[0],n=Date.now();
+        var W2=bx?S2:Math.min(640,VW),H2=bx?S2:Math.round(W2*VH/VW);Z.mpk=sw/W2;
+        var proc=function(P){var n=Date.now();
         if(P&&P.length>=478){var kx=sw/W2,ky=sh/H2;/* pixels do recorte → pixels da imagem da câmera */
           var ir=function(c){return (Math.hypot((P[c+1].x-P[c+3].x)*W2*kx,(P[c+1].y-P[c+3].y)*H2*ky)+Math.hypot((P[c+2].x-P[c+4].x)*W2*kx,(P[c+2].y-P[c+4].y)*H2*ky))/2},a=ir(468),b=ir(473);
           var x0=1,y0=1,x1=0,y1=0;P.forEach(function(p){if(p.x<x0)x0=p.x;if(p.y<y0)y0=p.y;if(p.x>x1)x1=p.x;if(p.y>y1)y1=p.y});Z.bx=[sx+x0*sw,sy+y0*sh,(x1-x0)*sw,(y1-y0)*sh];
           var mn=Math.min(a,b),mx=Math.max(a,b),ok=mn>5&&mn/mx>.8,di=ok?(a+b)/2:mx,f2=(Math.max(VW,VH)/2)/Math.tan(31*Math.PI/180);/* S381: lado maior (imagem em pé no celular) */
           if(di>3)poeMedida(f2*1.17/di,ok)}
         else{Z.bx=null;if(n-(Z.rosto||0)>2000)chip(T('Não vejo o seu rosto'))}
-        try{window.__lfCam={w:VW,h:VH,del:MP.del||'?',d:Z.d,ms:350}}catch(_){}
-        Z.tm=setTimeout(laco,350);return}
+        try{window.__lfCam={w:VW,h:VH,del:MP.del||'?',d:Z.d,ms:350,fora:!!(Z.wk&&Z.wk.ok),lms:Z.wk&&Z.wk.ms}}catch(_){}
+        Z.tm=setTimeout(laco,350)};
+        if(wkOk){var my=++Z.wk.id,st0=Z.st,wk0=Z.wk;
+          createImageBitmap(v,Math.round(sx),Math.round(sy),Math.round(sw),Math.round(sh),{resizeWidth:W2,resizeHeight:H2,resizeQuality:'medium'}).then(function(bm){
+            if(!Z.el||Z.st!==st0||Z.wk!==wk0){try{bm.close()}catch(_){}return}
+            wk0.cb=function(d){if(d.id!==my)return;clearTimeout(wk0.to);if(!Z.el||Z.st!==st0)return;if(d.erro){wkFalha();proc(null);return}var P=null;if(d.P){P=[];for(var i=0;i<478;i++)P.push({x:d.P[2*i],y:d.P[2*i+1]})}wk0.ms=d.ms;proc(P)};
+            wk0.to=setTimeout(function(){if(Z.wk!==wk0)return;wkFalha();if(Z.el&&Z.st===st0)proc(null)},8000);wk0.w.postMessage({t:'img',id:my,bm:bm},[bm])},
+            function(){wkFalha();if(Z.el&&Z.st===st0)Z.tm=setTimeout(laco,350)});return}
+        var c2=Z.cv2||(Z.cv2=document.createElement('canvas'));c2.width=W2;c2.height=H2;c2.getContext('2d').drawImage(v,sx,sy,sw,sh,0,0,W2,H2);
+        var r=null;try{r=Z.mp.detect(c2)}catch(_){r=null}proc(r&&r.faceLandmarks&&r.faceLandmarks[0]);return}
       fa.detectSingleFace(cv,new fa.TinyFaceDetectorOptions({inputSize:224,scoreThreshold:.4})).withFaceLandmarks(!FA.full).then(function(r){if(!Z.el||!Z.st)return;var n=Date.now();
         if(r&&r.landmarks){var P=r.landmarks.positions,c=function(a,b){var x=0,y=0;for(var i=a;i<=b;i++){x+=P[i].x;y+=P[i].y}return [x/(b-a+1),y/(b-a+1)]},e1=c(36,41),e2=c(42,47),ipd=Math.hypot(e1[0]-e2[0],e1[1]-e2[1]);
           /* distância entre os olhos varia muito de pessoa para pessoa: a medida vale para a etiqueta, mas fica "em dúvida" (nunca tira a resposta do cliente) */
@@ -4609,7 +4624,7 @@ function filSet(lado,ang,L,vis){const G=lado<0?(N._fE||(N._fE=q('.filE'))):(N._f
     addEventListener('scroll',function(){rolT=performance.now()},{passive:true,capture:true});
     (function f(t){var dt=t-u;u=t;n++;if(dt>maxq&&t-abre>1500)maxq=dt;if(t-rolT<250){rn++;rms+=dt;if(dt>rmax)rmax=dt}
       if(t-t1>=1000){fps=Math.round(n*1000/(t-t1));if(t-abre>3000&&fps<pior)pior=fps;n=0;t1=t;
-        d.textContent='Medidor La Fouch\n'+fps+' quadros/s agora · pior segundo '+(pior===999?'—':pior)+'\nquadro mais demorado '+Math.round(maxq)+' ms\ntravadas do processador '+lt+' ('+Math.round(ltms)+' ms)\nrolando: '+(rn?Math.round(rn*1000/rms)+' quadros/s · pior '+Math.round(rmax)+' ms':'role a tela')+(window.__lfCam?'\ncâmera '+window.__lfCam.w+'×'+window.__lfCam.h+' · leitor '+(window.__lfCam.del==='GPU'?'placa de vídeo':window.__lfCam.del==='CPU'?'processador':'?')+' · mede a cada '+(window.__lfCam.ms/1000)+' s\ndistância lida '+(window.__lfCam.d?Math.round(window.__lfCam.d)+' cm':'—'):'')+'\naparelho: '+(navigator.hardwareConcurrency||'?')+' núcleos · '+(navigator.deviceMemory||'?')+' GB · tela x'+(window.devicePixelRatio||1)+'\n'+window.__lfQuem()}
+        d.textContent='Medidor La Fouch\n'+fps+' quadros/s agora · pior segundo '+(pior===999?'—':pior)+'\nquadro mais demorado '+Math.round(maxq)+' ms\ntravadas do processador '+lt+' ('+Math.round(ltms)+' ms)\nrolando: '+(rn?Math.round(rn*1000/rms)+' quadros/s · pior '+Math.round(rmax)+' ms':'role a tela')+(window.__lfCam?'\ncâmera '+window.__lfCam.w+'×'+window.__lfCam.h+' · leitor '+(window.__lfCam.del==='GPU'?'placa de vídeo':window.__lfCam.del==='CPU'?'processador':'?')+(window.__lfCam.fora?' · AO LADO (teste)'+(window.__lfCam.lms?' '+Math.round(window.__lfCam.lms)+' ms':''):window.__lfWkFalhou?' · teste falhou, voltou ao normal':'')+' · mede a cada '+(window.__lfCam.ms/1000)+' s\ndistância lida '+(window.__lfCam.d?Math.round(window.__lfCam.d)+' cm':'—'):'')+'\naparelho: '+(navigator.hardwareConcurrency||'?')+' núcleos · '+(navigator.deviceMemory||'?')+' GB · tela x'+(window.devicePixelRatio||1)+'\n'+window.__lfQuem()}
       requestAnimationFrame(f)})(u)})();
 
   /* ===== bloco 8 (11/11/2026): Temática automática (calendário) + contagem anônima do Analisador ===== */
