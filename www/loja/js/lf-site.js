@@ -70,8 +70,10 @@
   function descVale(){var a=l2Info().d,c=cupInfo().d;return c>0&&c>=a?'cup':a>0?'l2':''}
   function descD(){var v=descVale();return v==='cup'?cupInfo().d:v==='l2'?l2Info().d:0}
   function descDD(){var v=descVale();return v==='cup'?cupInfo().dD:v==='l2'?l2Info().dD:0}
-  function cupFn(b){var o={method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)};if(b.acao==='meus'){var se=sessG();if(se&&se.idToken)o.headers.Authorization='Bearer '+se.idToken}
-    return fetch('https://southamerica-east1-'+FB.p+'.cloudfunctions.net/cupom',o).then(function(r){return r.json()})}
+  function cupFn(b){var o={method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)},go=function(){return fetch('https://southamerica-east1-'+FB.p+'.cloudfunctions.net/cupom',o).then(function(r){return r.json()})};
+    /* S370 (aprovado 15/11 15:11): os cartões usam a chave de login RENOVADA (idTok); a guardada vence em 1 hora */
+    if(b.acao==='meus')return idTok().then(function(t){o.headers.Authorization='Bearer '+t;return go()},function(){return {ok:false,motivo:'sessao'}});
+    return go()}
   function cupGuarda(c){st._cupErr='';st.cup=c?{cod:c.cod,pct:c.pct,tipo:c.tipo,fim:c.fim||0,min:c.min||0,restam:c.restam}:null;lsS('lf_cup',st.cup)}
   function cupTira(){cupGuarda(null)}
   var CUPI='<svg class="cupi" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5V7a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v1.5a2.5 2.5 0 0 0 0 5V17a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-3.5a2.5 2.5 0 0 0 0-5z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg>';
@@ -100,7 +102,7 @@
     return '<div class="cupp"><b>'+LFI.tr('Seu código vale aqui')+' ✓</b> · −'+LFI.fmtD(LFI.pv(x.d))+(x.lim?' ('+x.pct+'%)':'')+'</div>'}
   /* cartão virtual (Próxima compra) na tela de pagar e em Minha conta › Cartões */
   function pxHtml(c){if(!c)return '';var pend=c.estado==='pendente';return '<div class="pxc" id="pxcard"><small>LA FOUCH</small><b>'+c.pct+'% '+LFI.tr(c.tipo==='bv'?'na primeira compra':c.tipo==='am'?'para sua amiga':'na próxima compra')+'</b><code>'+esc(c.cod)+'</code><i>'+(pend?LFI.tr('Começa a valer quando confirmarmos o pagamento · fica em Minha conta › Cartões'):(c.fim?LFI.tr('Vale até')+' '+cupData(c.fim)+' · ':'')+LFI.tr('em lafouch.com e na loja'))+'</i></div>'}
-  function mtjCarrega(){var b=document.getElementById('mtj');if(!b)return;cupFn({acao:'meus'}).then(function(j){var b2=document.getElementById('mtj');if(!b2)return;if(!j||!j.ok){b2.innerHTML='<div class="note">'+LFI.tr('Não deu para carregar seus cartões agora.')+'</div>';return}
+  function mtjCarrega(){var b=document.getElementById('mtj');if(!b)return;cupFn({acao:'meus'}).then(function(j){var b2=document.getElementById('mtj');if(!b2)return;if(!j||!j.ok){b2.innerHTML='<div class="note">'+LFI.tr(j&&j.motivo==='sessao'?'Sua sessão terminou. Entre de novo para ver seus cartões.':'Não deu para carregar seus cartões agora.')+'</div>';return}
     var L=j.cupons||[];st._mtj=L;b2.innerHTML=L.length?L.map(function(c){var podeU=c.estado==='ok'&&!c.usado&&c.tipo!=='am';var est=c.usado||c.estado==='usado'?LFI.tr('Usado'):c.estado==='ok'?LFI.tr('Disponível'):c.estado==='pendente'?LFI.tr('Aguardando pagamento'):c.estado==='vencido'?LFI.tr('Vencido'):c.estado==='cedo'?LFI.tr('Ainda não começou'):LFI.tr('Indisponível');
       return '<div class="mtc"><div'+(podeU?' data-cupperg="'+esc(c.cod)+'" role="button" tabindex="0" style="cursor:pointer"':'')+'>'+pxHtml(c).replace(' id="pxcard"','')+'</div><div class="mtl"><span>'+LFI.tr('Estado')+': <b>'+est+'</b>'+(c.fim?' · '+LFI.tr('vence')+' '+cupData(c.fim):'')+'</span>'+(c.estado==='ok'&&!c.usado&&c.tipo!=='am'?'<button type="button" class="btn" data-cupperg="'+esc(c.cod)+'">'+LFI.tr('Usar este cupom')+'</button>':c.tipo==='am'?'<button type="button" class="cfx" data-cupcopy="'+esc(c.cod)+'">'+LFI.tr('Copiar para enviar')+'</button>':'')+'</div></div>'}).join(''):'<div class="note">'+LFI.tr('Você ainda não tem cartões. Eles chegam com a sua compra.')+'</div>'},function(){})}
   /* S367: pergunta antes de usar o cupom (Minha conta › Cartões) */
@@ -2741,7 +2743,13 @@
   $('q').addEventListener('input',function(e){setQ(e.target.value)});
   $('q2').addEventListener('input',function(e){setQ(e.target.value)});
   $('sort').addEventListener('change',function(e){st.sort=e.target.value;drawGrid()});
-  $('bagbtn').addEventListener('click',function(){st.step='cart';bag()});
+  /* S370 (aprovado 15/11): tocar o botão da página que já está aberta (sacola, Minha conta) não recria nem anima nada: só volta ao topo */
+  var _ly370=layer;layer=function(){st._ab='';return _ly370.apply(this,arguments)};
+  var _bag370=bag;bag=function(){var r=_bag370.apply(this,arguments);if($('layer').firstChild)st._ab='bag';return r};
+  var _mc370=minhaConta;minhaConta=function(){if(!arguments.length&&st._ab==='conta'&&$('layer').firstChild&&$('layer').querySelector('[aria-label="Minha conta"],.mct')){ab370Topo();return}var r=_mc370.apply(this,arguments);if($('layer').firstChild&&$('layer').querySelector('[aria-label="Minha conta"],.mct'))st._ab='conta';return r};
+  var _cl370=closeLayer;closeLayer=function(){st._ab='';return _cl370.apply(this,arguments)};
+  function ab370Topo(){var sc=document.querySelector('#layer .scrim')||document.querySelector('#layer .panel');try{if(sc)sc.scrollTo({top:0,behavior:'smooth'})}catch(_){if(sc)sc.scrollTop=0}}
+  $('bagbtn').addEventListener('click',function(){if(st._ab==='bag'&&st.step==='cart'&&$('layer').firstChild){ab370Topo();return}st.step='cart';bag()});
 
   var PAN={vitrine:'Catálogo',rosto:'Seu rosto',atacado:'Atacado',como:'Como comprar',duvidas:'Dúvidas'};
   function closePanels(){document.querySelectorAll('.sec.pop').forEach(function(e){e.classList.remove('pop')});document.documentElement.classList.remove('ppop');try{urlSync()}catch(_){}}

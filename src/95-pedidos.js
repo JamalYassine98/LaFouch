@@ -708,15 +708,8 @@
   };
   // Apaga os pedidos de teste (e os clientes que só existem por causa deles).
   ACT.pedteste = function () {
-    if (!S._pedTst) {
-      S._pedTst = true;
-      render();
-      setTimeout(function () {
-        S._pedTst = false;
-        render();
-      }, 3500);
-      return;
-    }
+    // S370 (esboço 34, lote 3): apaga na hora; "Desfazer" fica 5 s
+    var volta = { p: S.pedidos.slice(), c: S.clientes.slice() };
     S._pedTst = false;
     S.pedidos = S.pedidos.filter(function (p) {
       return !p.teste;
@@ -726,7 +719,12 @@
     });
     S.pedSel = null;
     render();
-    say('Pedidos de teste apagados.');
+    lfDesfazer('Pedidos de teste apagados', function () {
+      S.pedidos = volta.p;
+      S.clientes = volta.c;
+      saveSoon();
+      render();
+    }, 5000);
   };
   // Copia o token do pedido.
   ACT.pedcopia = function (id) {

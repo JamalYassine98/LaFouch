@@ -2626,3 +2626,37 @@ html{overscroll-behavior-y:none}
 .lfPill{transition-timing-function:var(--lux-in)!important}
 /* S370 · lote 8: trilho arrastável */
 .trk{touch-action:pan-y}.trk.trkArr{cursor:grabbing}.trk.trkArr .trkB{pointer-events:none}
+/* S370 (esboço 54): rota Catálogo → Carrinho → Pagamento, no padrão de luxo */
+#cartBar.cartLn{display:flex;align-items:center;gap:14px;padding:14px 2px;margin:0 0 16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:none;box-shadow:none;border-radius:0}
+#cartBar.cartLn[hidden]{display:none}
+.cartLnT{flex:1;min-width:0}.cartLnT b{display:block;font-weight:500;font-size:16px}.cartLnT small{color:var(--mute);font-size:13.5px}
+.cartLnV{font-weight:600;font-size:17px;white-space:nowrap}.cartLnA{font-size:16px}
+#cartCard .c54Hd{display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:14px}
+#cartCard .c54Hd h2{font-family:Fraunces,Georgia,serif;font-weight:500;font-size:26px;margin:0}#cartCard .c54Hd span{color:var(--mute)}
+.c54L{display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--line)}
+.c54Tx{flex:1;min-width:0}.c54Nm{display:flex;justify-content:space-between;gap:10px}.c54Nm span{font-size:16px}.c54Nm b{white-space:nowrap;font-weight:600}
+.c54Tx small{color:var(--mute);font-size:13px}
+.c54Ac{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
+.c54Q{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;height:44px}
+.c54Q button{width:44px;height:44px;background:none;border:0;color:var(--fg);font-size:20px}.c54Q b{min-width:24px;text-align:center;font-weight:500}
+.c54Sg{padding:16px 0;border-bottom:1px solid var(--line)}.c54Sg .lbl{margin:0 0 6px}.c54Sg b{display:block;font-weight:500;font-size:16px}.c54Sg small{color:var(--mute);font-size:13px}
+.c54SgA{display:flex;gap:24px;margin-top:10px}.c54SgA .lkTx.on{color:var(--pri)}
+.c54Mais{display:block;margin:18px auto 6px}
+.c54Tt{text-align:center;margin:12px 0 14px}.c54Tt span{display:block;color:var(--mute)}.c54Tt b{font-family:Fraunces,Georgia,serif;font-weight:500;font-size:40px}
+.c54Esv{display:block;margin:12px auto 0;color:var(--mute)}
+#pagHead .pagHd54{display:flex;align-items:baseline;justify-content:space-between}#pagHead .pagHd54 h2{font-family:Fraunces,Georgia,serif;font-weight:500;font-size:24px;margin:0}
+/* S370 (esboço 52): Preços no padrão de luxo */
+#v-dash .cnt.lx .cntG{gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+#v-dash .cnt.lx .cntK{background:none!important;border:0!important;border-radius:0!important;padding:16px 4px!important;gap:4px}
+#v-dash .cnt.lx .cntK:nth-child(odd){border-right:1px solid var(--line)!important;padding-right:14px!important}#v-dash .cnt.lx .cntK:nth-child(even){padding-left:16px!important}
+#v-dash .cnt.lx .cntK:nth-child(n+3){border-top:1px solid var(--line)!important}
+#v-dash .cnt.lx .cntK small{font-size:13px}#v-dash .cnt.lx .cntK b{font:400 28px/1.15 var(--display);letter-spacing:-.01em}
+#v-dash .cnt.lx .cntD{background:none!important;border:0!important;box-shadow:none!important;padding:8px 0 0!important;border-radius:0!important}
+#v-dash .cnt.lx .cntD .lbl{margin:10px 0 2px}
+#v-dash .cnt.lx .cntL{padding:16px 0;gap:14px;flex-wrap:nowrap;border-top:1px solid var(--line)}#v-dash .cnt.lx .cntD .lbl+.cntL{border-top:0}
+#v-dash .cnt.lx .cntL>span.cntI{display:none}#v-dash .cnt.lx .cntL>div{flex:1;min-width:0}
+#v-dash .cnt.lx .cntL b{font-weight:500;font-size:15px;display:block}#v-dash .cnt.lx .cntL small{display:block;color:var(--mute);font-size:13px;margin-top:2px}
+#v-dash .cnt.lx .cntV,#v-dash .cnt.lx .lxT{background:none;border:0;min-height:44px;min-width:44px;padding:0 2px;color:var(--accent-fg)!important;font:500 14px inherit;text-decoration:underline;text-underline-offset:4px;white-space:nowrap;flex:none}
+#v-dash .cnt.lx .lxT.m{color:var(--mute)!important;text-decoration-color:var(--line)}
+#v-dash .cnt.lx .cntB{justify-content:center;gap:22px;margin-top:6px}#v-dash .cnt.lx .cntD .cntB{flex-direction:column;align-items:stretch;gap:4px;margin-top:14px}#v-dash .cnt.lx .cntD .cntB .lxT{align-self:center}
+.cnt .c52Oc{display:none!important}

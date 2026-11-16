@@ -81,7 +81,7 @@
       bar.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between';
       card = mk('section', 'card col');
       card.id = 'cartCard';
-      card.setAttribute('aria-label', 'Pedido');
+      card.setAttribute('aria-label', 'Carrinho');
       ref.parentNode.insertBefore(card, ref);
       ref.parentNode.insertBefore(bar, card);
     }
@@ -92,12 +92,18 @@
     bar.hidden = !(emVendas && S.cart.length && !S.cartOpen);
     card.hidden = !(emVendas && ped);
     $('pagHead').hidden = !(emVendas && pag);
+    if (!$('pagHead').querySelector('.pagHd54')) $('pagHead').innerHTML = '<div class="pagHd54"><h2>Pagamento</h2><button type="button" class="lkTx" data-act="cartvolta">‹ Carrinho</button></div>'; // S370 (esboço 54c)
     $('sumB').classList.toggle('pagLux', !!(emVendas && pag)); // S365 (esboço 39): total em destaque no Pagamento
-    if ($('pagMais')) $('pagMais').hidden = !(emVendas && pag);
-    if (!bar.hidden)
+    if ($('pagMais')) $('pagMais').hidden = true; // S370 (esboço 54c): adicionar peça fica no Carrinho
+    // S370 (esboço 54a, aprovado 16/11/2026): uma linha fina "Carrinho · N peças · total · abrir" (o nome "Pedidos" fica só para os pedidos do site)
+    bar.className = 'cartLn';
+    bar.style.cssText = '';
+    if (!bar.hidden) {
+      var np = cartPecas();
       bar.innerHTML =
-        '<div style="display:flex;gap:4px;flex:0 0 auto">' + cartFoto(S.cart[0], 40) + '</div><div style="flex:1 1 140px"><b>Pedido: ' + cartPecas() + ' peça(s)</b><div class="hint" style="margin:2px 0 0">' + gs(cartSub()) + ' pelos preços combinados</div></div>' +
-        '<button type="button" class="btn-sc p" data-act="cartopen">Pedidos</button>';
+        '<span class="cartLnF">' + cartFoto(S.cart[0], 40) + '</span><span class="cartLnT"><b>Carrinho</b><small>' + np + (np === 1 ? ' peça' : ' peças') + '</small></span>' +
+        '<b class="cartLnV">' + gs(cartSub()) + '</b><button type="button" class="lkTx cartLnA" data-act="cartopen">abrir</button>';
+    }
     $('sCartAdd').hidden = S.cartOpen || !S._vsel;
     // a peça é escolhida e adicionada ao pedido; pagamento e finalização ficam na tela de pagamento
     // (o desconto não tem campo: é o que falta do valor recebido, confirmado ao finalizar)
@@ -124,26 +130,26 @@
       ? '<img src="' + src + '" alt="" style="' + st + '">'
       : '<span aria-hidden="true" style="' + st + ';display:inline-flex;align-items:center;justify-content:center;background:var(--panel2);color:var(--mute)"><svg width="' + Math.round(px * 0.6) + '" height="' + Math.round(px * 0.6) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6.5" cy="14" r="3.5"/><circle cx="17.5" cy="14" r="3.5"/><path d="M10 14c.7-.8 3.3-.8 4 0M3 14l1-5M21 14l-1-5"/></svg></span>';
   }
+  // S370 (esboço 54b = esboço 51 com o nome "Carrinho", aprovado 16/11/2026): padrão de luxo — sem caixas, linhas finas,
+  // quantidade num controle só (− N +), "Tirar"/"Dispensar"/"+ Adicionar outra peça"/"Esvaziar carrinho" como texto, total em destaque e UM botão.
   function cartPainel(card) {
-    var h =
-      '<div style="display:flex;align-items:center;gap:10px"><h2 style="margin:0;font-size:20px">Pedido · ' + cartPecas() + ' peça(s)</h2></div>' +
-      '<div class="split">'; // S367: sem Tabela, sem Cliente e sem campo de preço (pedido do dono)
+    var np = cartPecas(),
+      h = '<div class="c54Hd"><h2>Carrinho</h2><span>' + np + (np === 1 ? ' peça' : ' peças') + '</span></div><div class="c54Ls">';
     S.cart.forEach(function (l, i) {
-      var pp = pisoPeca(l.it),
-        tab = precoTab(l.it, l.tab || S.tabAtiva) * l.qty,
+      var tab = precoTab(l.it, l.tab || S.tabAtiva) * l.qty,
         v = cartLinhaPreco(l);
       h +=
-        '<div class="sl" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">' + cartFoto(l, 56) + '<span style="flex:1 1 140px">' + esc(cartDesc(l)) +
-        '<small>' + gs(v) + (v !== tab ? ' · de ' + gs(tab) : '') + '</small></span>' +
-        '<span style="display:flex;gap:6px;align-items:center"><button type="button" class="step" style="min-height:40px;width:40px" data-act="cartmn" data-id="' + i + '" aria-label="Menos uma peça">−</button>' +
-        '<button type="button" class="step" style="min-height:40px;width:40px" data-act="cartpl" data-id="' + i + '" aria-label="Mais uma peça">+</button>' +
-        '<button type="button" class="chip" style="flex:0 0 40px;width:40px;min-height:40px;padding:0;justify-content:center" data-act="cartrm" data-id="' + i + '" aria-label="Tirar do pedido">×</button></span></div>';
+        '<div class="c54L">' + cartFoto(l, 64) + '<div class="c54Tx"><div class="c54Nm"><span>' + esc(cartDesc(l).replace(/^\d+× /, '')) + '</span><b>' + gs(v) + '</b></div>' +
+        (v !== tab ? '<small>de ' + gs(tab) + '</small>' : '') +
+        '<div class="c54Ac"><span class="c54Q"><button type="button" data-act="cartmn" data-id="' + i + '" aria-label="Menos uma peça">−</button><b>' + l.qty + '</b><button type="button" data-act="cartpl" data-id="' + i + '" aria-label="Mais uma peça">+</button></span>' +
+        '<button type="button" class="lkTx" data-act="cartrm" data-id="' + i + '">Tirar</button></div></div></div>';
     });
     if (S.cartCup && typeof cupCaixaAplica === 'function') cupCaixaAplica(S.cartCup);
-    h += '</div>' + cartSugHtml() + (typeof cupCaixaHtml === 'function' ? cupCaixaHtml() : '') + '<button type="button" id="cartSlot" data-act="cartclose" style="min-height:56px;border:2px dashed var(--line);border-radius:12px;background:transparent;color:var(--accent-fg);font:inherit;font-weight:700;width:100%">＋ Adicionar produto</button>' +
-      '<div class="sum"><span class="lbl" style="margin:0">Total</span><b id="cartSub" style="font-size:26px">' + gs(cartSub()) + '</b></div>' +
-      '<button type="button" class="go" id="cartConf" data-act="cartconf">Confirmar pedido</button>' +
-      '<div><button type="button" class="chip" data-act="cartclear">Esvaziar pedido</button></div>';
+    h += '</div>' + cartSugHtml() + (typeof cupCaixaHtml === 'function' ? cupCaixaHtml() : '') +
+      '<button type="button" id="cartSlot" class="lkTx c54Mais" data-act="cartclose">+ Adicionar outra peça</button>' +
+      '<div class="c54Tt"><span>Total</span><b id="cartSub">' + gs(cartSub()) + '</b></div>' +
+      '<button type="button" class="go" id="cartConf" data-act="cartconf">Ir para o pagamento</button>' +
+      '<button type="button" class="lkTx c54Esv" data-act="cartclear">Esvaziar carrinho</button>';
     card.innerHTML = h;
   }
   // Recalcula total, desconto, pagamento e aviso de piso (sem refazer o painel).
@@ -156,7 +162,7 @@
     S.descTxt = '';
     var cs = $('cartSub');
     if (cs) cs.textContent = gs(sub);
-    $('unit').textContent = 'Pedido · ' + cartPecas() + ' peça(s)';
+    $('unit').textContent = 'Carrinho · ' + cartPecas() + (cartPecas() === 1 ? ' peça' : ' peças');
     $('tot').textContent = gs(sub);
     renderBrindeMotivo(null);
     renderMoeda();
@@ -384,7 +390,7 @@
     S.vSel = null;
     S.qty = 1;
     S.rec = null;
-    S.msg = 'Adicionado ao pedido.';
+    S.msg = 'Adicionado ao carrinho.';
     render();
     window.scrollTo(0, 0);
     setTimeout(function () {
@@ -545,10 +551,10 @@
       sub = cartSub();
     if (l2)
       h +=
-        '<div class="cSug"><span><small style="margin:0 0 2px">Sugestão para oferecer ao cliente</small><b>Leve 2: + ' + esc(pn(l2.it.ref)) + ' por ' + gs(l2.por) + '</b><small>de ' + gs(l2.de) + ' · total ' + gs(sub + l2.por) + '</small></span><button type="button" class="cSugB" data-act="cartL2">Cliente aceitou</button><button type="button" class="cSugX" data-act="cartSugX" data-id="l2" aria-label="Ignorar">×</button></div>';
+        '<div class="c54Sg"><div class="lbl">Sugestão para oferecer ao cliente</div><b>Leve 2: + ' + esc(pn(l2.it.ref)) + ' por ' + gs(l2.por) + '</b><small>de ' + gs(l2.de) + ' · total ' + gs(sub + l2.por) + '</small><div class="c54SgA"><button type="button" class="lkTx on" data-act="cartL2">Cliente aceitou</button><button type="button" class="lkTx" data-act="cartSugX" data-id="l2">Dispensar</button></div></div>';
     if (br)
       h +=
-        '<div class="cSug"><span><b>Brinde: ' + esc(br.nome.toLowerCase()) + '</b><small>custa ' + gs(br.custo) + ' para você</small></span><button type="button" class="cSugB" data-act="cartBr">Pôr</button><button type="button" class="cSugX" data-act="cartSugX" data-id="br" aria-label="Ignorar">×</button></div>';
+        '<div class="c54Sg"><div class="lbl">Sugestão para oferecer ao cliente</div><b>Brinde: ' + esc(br.nome.toLowerCase()) + '</b><small>custa ' + gs(br.custo) + ' para você</small><div class="c54SgA"><button type="button" class="lkTx on" data-act="cartBr">Cliente aceitou</button><button type="button" class="lkTx" data-act="cartSugX" data-id="br">Dispensar</button></div></div>';
     if (S.cartBrNome) h += '<div class="hint" style="margin:0">Brinde: ' + esc(S.cartBrNome.toLowerCase()) + '</div>';
     return h;
   }

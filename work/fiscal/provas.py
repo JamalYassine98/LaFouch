@@ -630,6 +630,35 @@ def p7_conta_spam(p):
         else: falha(P7, 'Mi cuenta · trocar de aba rápido sem chuva de animações', f'8 trocas rápidas dispararam {troca} animações', pg)
     finally: b.close()
 
+def p7_tarjetas_1h(p):
+    # S370 (aprovado 15/11 15:11): conta aberta há mais de 1 hora — os cartões renovam a chave de login (antes: "No se pudieron cargar tus tarjetas")
+    auth = json.dumps({'uid': 'kit', 'idToken': 'velha', 'refresh': 'kit', 'exp': 1000, 'ev': True, 'email': 'maria@exemplo.com'})
+    b, c, pg, E = novo(p, 390, 844, 'es-PY', ls=dict(LOG7, lf_auth=auth))
+    try:
+        vis = {}
+        H = {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': '*', 'Access-Control-Allow-Methods': 'POST, OPTIONS'}
+        def tok(r):
+            if r.request.method == 'OPTIONS': return r.fulfill(status=204, headers=H)
+            r.fulfill(status=200, content_type='application/json', headers=H, body=json.dumps({'id_token': vis.get('nova', 'nova'), 'refresh_token': 'kit', 'expires_in': '3600'}))
+        def cup(r):
+            if r.request.method == 'OPTIONS': return r.fulfill(status=204, headers=H)
+            try: corpo = json.loads(r.request.post_data or '{}')
+            except Exception: corpo = {}
+            if corpo.get('acao') == 'meus': vis['auth'] = r.request.headers.get('authorization', '')
+            r.fulfill(status=200, content_type='application/json', headers=H, body=json.dumps({'ok': r.request.headers.get('authorization', '') == 'Bearer ' + vis.get('nova', 'nova'), 'cupons': []}))
+        c.route('**securetoken.googleapis.com/**', tok); c.route('**/cupom', cup)
+        carrega(pg); pg.click('#contabtn'); pg.wait_for_timeout(1200)
+        pg.locator('#layer [data-a="cart"]').first.click(force=True); pg.wait_for_timeout(1500)
+        # passa mais 1 hora com a conta aberta: a chave guardada vence de novo e só a renovação dá a chave certa
+        vis['nova'] = 'nova2'
+        pg.evaluate("(()=>{const s=JSON.parse(localStorage.getItem('lf_auth'));s.exp=1000;s.idToken='velha2';localStorage.setItem('lf_auth',JSON.stringify(s))})()")
+        pg.locator('#layer [data-a="ends"]').first.click(force=True); pg.wait_for_timeout(700)
+        pg.locator('#layer [data-a="cart"]').first.click(force=True); pg.wait_for_timeout(1800)
+        t = pg.evaluate("(document.getElementById('mtj')||{}).innerText||''")
+        if vis.get('auth') == 'Bearer nova2' and not re.search(r'No se pudo|Não deu|sesión terminó', t): passou(P7, 'Mi cuenta · Tarjetas com a conta aberta há mais de 1 hora')
+        else: falha(P7, 'Mi cuenta · Tarjetas com a conta aberta há mais de 1 hora', f"chave mandada: {vis.get('auth', 'nenhuma')} · tela: {t[:80]}", pg)
+    finally: b.close()
+
 def p7_idioma(p):
     for W, H in ((390, 844), (1440, 900)):
         b, c, pg, E = novo(p, W, H, 'es-PY', touch=W < 700)
@@ -841,7 +870,7 @@ with sync_playwright() as p:
     if '7' in PARTES:
      print('parte 7 · olho do dono')
      for nome, fn in (('rodapé', p7_rodape), ('teste da ajuda', p7_teste_ajuda), ('foto e mouse', p7_foto_mouse), ('tamanho e letras', p7_tamanho), ('Mochi com braços', p7_mochi_bracos),
-                      ('Mi cuenta', p7_conta_spam), ('idioma', p7_idioma), ('endereço', p7_endereco), ('código', p7_codigo), ('ícone da conta', p7_icone_conta),
+                      ('Mi cuenta', p7_conta_spam), ('Tarjetas 1 hora', p7_tarjetas_1h), ('idioma', p7_idioma), ('endereço', p7_endereco), ('código', p7_codigo), ('ícone da conta', p7_icone_conta),
                       ('Últimas N', p7_ultimas), ('dica', p7_dica), ('animações', p7_animacoes), ('texto sobreposto', p7_sobreposto), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
          print(' ', nome); prova(P7, nome, fn, p)
     if '5' in PARTES:

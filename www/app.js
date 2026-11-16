@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 538;
+  var APP_BUILD = 539;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.28.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.29.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -2042,10 +2042,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       var vb0 = btn('go', 'Vender' + (ptv ? ' · ' + gs(ptv * vq) : ''), function () {
         var n0 = S.cart.length;
         $('sCartAdd').click();
-        // S365 (esboço 32, aprovado 15/11): peça → Vender → Finalizar venda. O Pagamento abre direto; "+ Adicionar outra peça" volta ao Catálogo com o pedido guardado.
+        // S370 (esboço 54, aprovado 16/11/2026): peça → Vender → CARRINHO → Ir para o pagamento → Finalizar (desfaz o salto direto da v533)
         if (S.cart.length && (S.cart.length > n0 || n0)) {
           S.cartOpen = true;
-          S.cartStep = 'pag';
+          S.cartStep = 'ped';
           S.rec = null;
           S._descOk = '';
           S.msg = '';
@@ -2649,8 +2649,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             cz = mk('div', 'note n-bad');
           cz.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:8px 0';
           cz.appendChild(mk('span', '', 'Excluir a cor "' + dCor + '"? Remove ' + xq + ' peça(s)' + (xc > 0 ? ' (' + usd(xc) + ' em custo)' : '') + ' e a foto dessa cor.' + (last ? ' Como é a única cor, o produto inteiro será excluído.' : '') + ' As vendas já feitas continuam no histórico.'));
-          cz.appendChild(
-            btn('mini edSim', 'Sim, excluir', function () {
+          // S370 (esboço 34, lote 3): a cor sai na hora e o aviso fica 5 s com "Desfazer" (sem a pergunta)
+          var excluiCor = function () {
+              var volta = { itens: S.items.slice(), foto: S.fotos[ref + '|' + dCor], desc: S.desc[ref], elog: S.elog.length, site: S.site && S.site[ref], pprice: S.pprice && S.pprice[ref], open: S.open, det: S.det };
               var xr = exclusaoEstoque(
                 S.items.filter(function (x) {
                   return x.tipo === f.tipo && x.ref === ref && x.cor === dCor;
@@ -2682,10 +2683,24 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
                 S.open = '';
                 S.det = false;
               }
-              S.msg = 'Cor "' + dCor + '" excluída de ' + ref + '.' + (xr.n ? ' Saíram ' + xr.n + ' peça(s), ' + usd(xr.usd) + ' em custo, registradas no histórico.' : '');
+              S.msg = '';
+              S.cdMode = false;
+              S.cdCor = '';
               render();
-            })
-          );
+              lfDesfazer('Cor "' + dCor + '" excluída' + (xr.n ? ' · ' + xr.n + ' peça(s)' : ''), function () {
+                S.items = volta.itens;
+                if (volta.foto) { S.fotos[ref + '|' + dCor] = volta.foto; S.fotosRest = S.fotosRest || {}; S.fotosRest[ref + '|' + dCor] = 1; }
+                if (volta.desc != null) S.desc[ref] = volta.desc;
+                if (volta.site) { S.site = S.site || {}; S.site[ref] = volta.site; }
+                if (volta.pprice) { S.pprice = S.pprice || {}; S.pprice[ref] = volta.pprice; }
+                S.elog.length = Math.min(S.elog.length, volta.elog);
+                S.open = volta.open;
+                S.det = volta.det;
+                saveSoon();
+                render();
+              }, 5000);
+            };
+          setTimeout(excluiCor, 0);
           cz.appendChild(
             btn('mini', 'Cancelar', function () {
               S.cdMode = false;
@@ -2693,7 +2708,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
               render();
             })
           );
-          cl0.appendChild(cz);
+          // S370: sem a pergunta na tela (a cor já sai e o aviso tem "Desfazer")
         }
       });
       // cores novas (ainda não salvas): mesma linha do cadastro
@@ -22632,7 +22647,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       rep = reposicao().length;
     } catch (e) {}
     return {
-      vendas: ['Catálogo', ct ? [ct + ' no pedido', 'g'] : ['Vendas · WhatsApp · Site', '']],
+      vendas: ['Catálogo', ct ? [ct + ' no carrinho', 'g'] : ['Vendas · WhatsApp · Site', '']],
       estoque: ['Inventário', [pecas + ' peças', rep ? 'w' : '']],
       caixa: ['Caixa', [gs(walletGs()), 'g']],
       fx: ['Câmbio', [gsRaw(Math.round(ratePyg('usd'))), '']],
@@ -26463,15 +26478,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   // Apaga os pedidos de teste (e os clientes que só existem por causa deles).
   ACT.pedteste = function () {
-    if (!S._pedTst) {
-      S._pedTst = true;
-      render();
-      setTimeout(function () {
-        S._pedTst = false;
-        render();
-      }, 3500);
-      return;
-    }
+    // S370 (esboço 34, lote 3): apaga na hora; "Desfazer" fica 5 s
+    var volta = { p: S.pedidos.slice(), c: S.clientes.slice() };
     S._pedTst = false;
     S.pedidos = S.pedidos.filter(function (p) {
       return !p.teste;
@@ -26481,7 +26489,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     });
     S.pedSel = null;
     render();
-    say('Pedidos de teste apagados.');
+    lfDesfazer('Pedidos de teste apagados', function () {
+      S.pedidos = volta.p;
+      S.clientes = volta.c;
+      saveSoon();
+      render();
+    }, 5000);
   };
   // Copia o token do pedido.
   ACT.pedcopia = function (id) {
@@ -27746,7 +27759,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         (c.id ? '<button type="button" class="mini ghost" data-act="ataConta" data-id="' + c.id + '">🏬 Conta Atacadista/Mayorista</button>' : '') +
         (c.id && c.aviso ? '<div class="hint" style="margin:0">Último aviso: ' + esc(c.aviso.canal) + ' · ' + esc(c.aviso.modelo) + ' · ' + fd(c.aviso.ts) + ' ' + fh(c.aviso.ts) + '</div>' : '') +
         (z ? '<a class="chip" href="' + z + '" target="_blank" rel="noopener" style="color:#25d366;width:100%;min-height:48px;justify-content:center;text-decoration:none;display:flex;align-items:center">' + CLI_WA + '<span style="margin-left:8px">Conversar no WhatsApp</span></a>' : '') +
-        (c.id ? '<div style="border-top:1px solid var(--line);margin-top:6px"></div><button type="button" data-act="clidel" style="color:#ff7b7b;background:transparent;border:0;min-height:44px;width:100%;font:inherit;cursor:pointer">' + (S._cliDel === c.id ? 'Remover mesmo?' : 'Remover') + '</button>' : '') +
+        (c.id ? '<div style="border-top:1px solid var(--line);margin-top:6px"></div><button type="button" data-act="clidel" style="color:#ff7b7b;background:transparent;border:0;min-height:44px;width:100%;font:inherit;cursor:pointer">' + 'Remover cliente' + '</button>' : '') +
         '</div>' +
         (ps.length
           ? '<div class="lbl" style="margin-top:6px">Pedidos</div>' +
@@ -27911,11 +27924,17 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   ACT.clidel = function () {
     var c = cliAtual();
     if (!c) return;
-    if (S._cliDel !== c.id) {
-      S._cliDel = c.id;
-      render();
-      return;
-    }
+    // S370 (esboço 34, lote 3): remove na hora e o aviso fica 5 s com "Desfazer" (sem "toque de novo")
+    var volta = { cli: S.clientes.slice(), peds: S.pedidos.filter(function (p) { return p.cliId === c.id; }) };
+    setTimeout(function () {
+      lfDesfazer('Cliente ' + (c.nome || '') + ' removido', function () {
+        S.clientes = volta.cli;
+        volta.peds.forEach(function (p) { p.cliId = c.id; });
+        S.cliSel = c.id;
+        saveSoon();
+        render();
+      }, 5000);
+    }, 0);
     S.pedidos.forEach(function (p) {
       if (p.cliId === c.id) p.cliId = 0;
     });
@@ -47773,7 +47792,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       bar.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between';
       card = mk('section', 'card col');
       card.id = 'cartCard';
-      card.setAttribute('aria-label', 'Pedido');
+      card.setAttribute('aria-label', 'Carrinho');
       ref.parentNode.insertBefore(card, ref);
       ref.parentNode.insertBefore(bar, card);
     }
@@ -47784,12 +47803,18 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     bar.hidden = !(emVendas && S.cart.length && !S.cartOpen);
     card.hidden = !(emVendas && ped);
     $('pagHead').hidden = !(emVendas && pag);
+    if (!$('pagHead').querySelector('.pagHd54')) $('pagHead').innerHTML = '<div class="pagHd54"><h2>Pagamento</h2><button type="button" class="lkTx" data-act="cartvolta">‹ Carrinho</button></div>'; // S370 (esboço 54c)
     $('sumB').classList.toggle('pagLux', !!(emVendas && pag)); // S365 (esboço 39): total em destaque no Pagamento
-    if ($('pagMais')) $('pagMais').hidden = !(emVendas && pag);
-    if (!bar.hidden)
+    if ($('pagMais')) $('pagMais').hidden = true; // S370 (esboço 54c): adicionar peça fica no Carrinho
+    // S370 (esboço 54a, aprovado 16/11/2026): uma linha fina "Carrinho · N peças · total · abrir" (o nome "Pedidos" fica só para os pedidos do site)
+    bar.className = 'cartLn';
+    bar.style.cssText = '';
+    if (!bar.hidden) {
+      var np = cartPecas();
       bar.innerHTML =
-        '<div style="display:flex;gap:4px;flex:0 0 auto">' + cartFoto(S.cart[0], 40) + '</div><div style="flex:1 1 140px"><b>Pedido: ' + cartPecas() + ' peça(s)</b><div class="hint" style="margin:2px 0 0">' + gs(cartSub()) + ' pelos preços combinados</div></div>' +
-        '<button type="button" class="btn-sc p" data-act="cartopen">Pedidos</button>';
+        '<span class="cartLnF">' + cartFoto(S.cart[0], 40) + '</span><span class="cartLnT"><b>Carrinho</b><small>' + np + (np === 1 ? ' peça' : ' peças') + '</small></span>' +
+        '<b class="cartLnV">' + gs(cartSub()) + '</b><button type="button" class="lkTx cartLnA" data-act="cartopen">abrir</button>';
+    }
     $('sCartAdd').hidden = S.cartOpen || !S._vsel;
     // a peça é escolhida e adicionada ao pedido; pagamento e finalização ficam na tela de pagamento
     // (o desconto não tem campo: é o que falta do valor recebido, confirmado ao finalizar)
@@ -47816,26 +47841,26 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       ? '<img src="' + src + '" alt="" style="' + st + '">'
       : '<span aria-hidden="true" style="' + st + ';display:inline-flex;align-items:center;justify-content:center;background:var(--panel2);color:var(--mute)"><svg width="' + Math.round(px * 0.6) + '" height="' + Math.round(px * 0.6) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6.5" cy="14" r="3.5"/><circle cx="17.5" cy="14" r="3.5"/><path d="M10 14c.7-.8 3.3-.8 4 0M3 14l1-5M21 14l-1-5"/></svg></span>';
   }
+  // S370 (esboço 54b = esboço 51 com o nome "Carrinho", aprovado 16/11/2026): padrão de luxo — sem caixas, linhas finas,
+  // quantidade num controle só (− N +), "Tirar"/"Dispensar"/"+ Adicionar outra peça"/"Esvaziar carrinho" como texto, total em destaque e UM botão.
   function cartPainel(card) {
-    var h =
-      '<div style="display:flex;align-items:center;gap:10px"><h2 style="margin:0;font-size:20px">Pedido · ' + cartPecas() + ' peça(s)</h2></div>' +
-      '<div class="split">'; // S367: sem Tabela, sem Cliente e sem campo de preço (pedido do dono)
+    var np = cartPecas(),
+      h = '<div class="c54Hd"><h2>Carrinho</h2><span>' + np + (np === 1 ? ' peça' : ' peças') + '</span></div><div class="c54Ls">';
     S.cart.forEach(function (l, i) {
-      var pp = pisoPeca(l.it),
-        tab = precoTab(l.it, l.tab || S.tabAtiva) * l.qty,
+      var tab = precoTab(l.it, l.tab || S.tabAtiva) * l.qty,
         v = cartLinhaPreco(l);
       h +=
-        '<div class="sl" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">' + cartFoto(l, 56) + '<span style="flex:1 1 140px">' + esc(cartDesc(l)) +
-        '<small>' + gs(v) + (v !== tab ? ' · de ' + gs(tab) : '') + '</small></span>' +
-        '<span style="display:flex;gap:6px;align-items:center"><button type="button" class="step" style="min-height:40px;width:40px" data-act="cartmn" data-id="' + i + '" aria-label="Menos uma peça">−</button>' +
-        '<button type="button" class="step" style="min-height:40px;width:40px" data-act="cartpl" data-id="' + i + '" aria-label="Mais uma peça">+</button>' +
-        '<button type="button" class="chip" style="flex:0 0 40px;width:40px;min-height:40px;padding:0;justify-content:center" data-act="cartrm" data-id="' + i + '" aria-label="Tirar do pedido">×</button></span></div>';
+        '<div class="c54L">' + cartFoto(l, 64) + '<div class="c54Tx"><div class="c54Nm"><span>' + esc(cartDesc(l).replace(/^\d+× /, '')) + '</span><b>' + gs(v) + '</b></div>' +
+        (v !== tab ? '<small>de ' + gs(tab) + '</small>' : '') +
+        '<div class="c54Ac"><span class="c54Q"><button type="button" data-act="cartmn" data-id="' + i + '" aria-label="Menos uma peça">−</button><b>' + l.qty + '</b><button type="button" data-act="cartpl" data-id="' + i + '" aria-label="Mais uma peça">+</button></span>' +
+        '<button type="button" class="lkTx" data-act="cartrm" data-id="' + i + '">Tirar</button></div></div></div>';
     });
     if (S.cartCup && typeof cupCaixaAplica === 'function') cupCaixaAplica(S.cartCup);
-    h += '</div>' + cartSugHtml() + (typeof cupCaixaHtml === 'function' ? cupCaixaHtml() : '') + '<button type="button" id="cartSlot" data-act="cartclose" style="min-height:56px;border:2px dashed var(--line);border-radius:12px;background:transparent;color:var(--accent-fg);font:inherit;font-weight:700;width:100%">＋ Adicionar produto</button>' +
-      '<div class="sum"><span class="lbl" style="margin:0">Total</span><b id="cartSub" style="font-size:26px">' + gs(cartSub()) + '</b></div>' +
-      '<button type="button" class="go" id="cartConf" data-act="cartconf">Confirmar pedido</button>' +
-      '<div><button type="button" class="chip" data-act="cartclear">Esvaziar pedido</button></div>';
+    h += '</div>' + cartSugHtml() + (typeof cupCaixaHtml === 'function' ? cupCaixaHtml() : '') +
+      '<button type="button" id="cartSlot" class="lkTx c54Mais" data-act="cartclose">+ Adicionar outra peça</button>' +
+      '<div class="c54Tt"><span>Total</span><b id="cartSub">' + gs(cartSub()) + '</b></div>' +
+      '<button type="button" class="go" id="cartConf" data-act="cartconf">Ir para o pagamento</button>' +
+      '<button type="button" class="lkTx c54Esv" data-act="cartclear">Esvaziar carrinho</button>';
     card.innerHTML = h;
   }
   // Recalcula total, desconto, pagamento e aviso de piso (sem refazer o painel).
@@ -47848,7 +47873,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.descTxt = '';
     var cs = $('cartSub');
     if (cs) cs.textContent = gs(sub);
-    $('unit').textContent = 'Pedido · ' + cartPecas() + ' peça(s)';
+    $('unit').textContent = 'Carrinho · ' + cartPecas() + (cartPecas() === 1 ? ' peça' : ' peças');
     $('tot').textContent = gs(sub);
     renderBrindeMotivo(null);
     renderMoeda();
@@ -48076,7 +48101,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.vSel = null;
     S.qty = 1;
     S.rec = null;
-    S.msg = 'Adicionado ao pedido.';
+    S.msg = 'Adicionado ao carrinho.';
     render();
     window.scrollTo(0, 0);
     setTimeout(function () {
@@ -48237,10 +48262,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       sub = cartSub();
     if (l2)
       h +=
-        '<div class="cSug"><span><small style="margin:0 0 2px">Sugestão para oferecer ao cliente</small><b>Leve 2: + ' + esc(pn(l2.it.ref)) + ' por ' + gs(l2.por) + '</b><small>de ' + gs(l2.de) + ' · total ' + gs(sub + l2.por) + '</small></span><button type="button" class="cSugB" data-act="cartL2">Cliente aceitou</button><button type="button" class="cSugX" data-act="cartSugX" data-id="l2" aria-label="Ignorar">×</button></div>';
+        '<div class="c54Sg"><div class="lbl">Sugestão para oferecer ao cliente</div><b>Leve 2: + ' + esc(pn(l2.it.ref)) + ' por ' + gs(l2.por) + '</b><small>de ' + gs(l2.de) + ' · total ' + gs(sub + l2.por) + '</small><div class="c54SgA"><button type="button" class="lkTx on" data-act="cartL2">Cliente aceitou</button><button type="button" class="lkTx" data-act="cartSugX" data-id="l2">Dispensar</button></div></div>';
     if (br)
       h +=
-        '<div class="cSug"><span><b>Brinde: ' + esc(br.nome.toLowerCase()) + '</b><small>custa ' + gs(br.custo) + ' para você</small></span><button type="button" class="cSugB" data-act="cartBr">Pôr</button><button type="button" class="cSugX" data-act="cartSugX" data-id="br" aria-label="Ignorar">×</button></div>';
+        '<div class="c54Sg"><div class="lbl">Sugestão para oferecer ao cliente</div><b>Brinde: ' + esc(br.nome.toLowerCase()) + '</b><small>custa ' + gs(br.custo) + ' para você</small><div class="c54SgA"><button type="button" class="lkTx on" data-act="cartBr">Cliente aceitou</button><button type="button" class="lkTx" data-act="cartSugX" data-id="br">Dispensar</button></div></div>';
     if (S.cartBrNome) h += '<div class="hint" style="margin:0">Brinde: ' + esc(S.cartBrNome.toLowerCase()) + '</div>';
     return h;
   }
@@ -51024,6 +51049,83 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var r = _render33.apply(this, arguments);
     try { kbMarca(); } catch (e) {}
     return r;
+  };
+  // ===== S370 (16/11/2026) — esboço 52 (Preços no padrão de luxo, aprovado 16/11 01:15) =====
+  // "Para decidir esta semana": uma linha por ASSUNTO — "Subir N preços · ver um por um" (as linhas de cada peça ficam
+  // guardadas e abrem no "ver um por um") e UMA linha por tabela de atacado ("Tabela X: N peças com margem baixa ·
+  // a menor está em N% · ajustar tabela"). Números sem caixa, linhas finas, ações como texto e um só botão principal.
+  var _cnt52 = contadorHtml;
+  contadorHtml = function () {
+    var html = _cnt52.apply(this, arguments);
+    try {
+      var w = document.createElement('div');
+      w.innerHTML = html;
+      var C = w.querySelector('.cnt'), D = w.querySelector('.cntD');
+      if (!C) return html;
+      C.classList.add('lx');
+      if (D) {
+        var g = {}, pa = {}, ordem = [];
+        [].forEach.call(D.querySelectorAll('.cntL'), function (l) {
+          var bb = l.querySelector('b'), sm = l.querySelector('small'),
+            b = bb ? bb.textContent.trim() : '', s = sm ? sm.textContent.trim() : '',
+            m = /^Atacado (\S+) com margem (-?\d+)%/.exec(b);
+          if (m) {
+            var tab = s.split(' · ')[0];
+            if (!g[tab]) { g[tab] = { n: 0, min: 999, l: l }; ordem.push(['g', tab]); } else l.classList.add('c52Oc');
+            g[tab].n++;
+            g[tab].min = Math.min(g[tab].min, +m[2]);
+            return;
+          }
+          var k = /^(Subir|Oferta|Volta ao preço) /.exec(b);
+          if (k) {
+            var t = k[1];
+            if (!pa[t]) { pa[t] = { n: 0, l: l, mot: s.split(' · ')[0], itens: [] }; ordem.push(['p', t]); }
+            pa[t].n++;
+            pa[t].itens.push(l);
+          }
+        });
+        Object.keys(g).forEach(function (t) {
+          var x = g[t], v = x.l.querySelector('.cntV');
+          x.l.querySelector('b').textContent = 'Tabela ' + t + ': ' + x.n + (x.n === 1 ? ' peça' : ' peças') + ' com margem baixa';
+          x.l.querySelector('small').textContent = 'abaixo de 10% · a menor está em ' + x.min + '%';
+          if (v) v.textContent = 'ajustar tabela';
+        });
+        var npa = 0;
+        Object.keys(pa).forEach(function (t, gi) {
+          var x = pa[t];
+          npa += x.n;
+          if (x.n < 2) return;
+          // a linha do assunto entra antes da primeira peça; as linhas de cada peça ficam guardadas (abrem no "ver um por um")
+          var cab = document.createElement('div');
+          cab.className = 'cntL c52G';
+          cab.innerHTML = '<span class="cntI"></span><div><b>' + esc({ Subir: 'Subir ' + x.n + ' preços', Oferta: 'Pôr ' + x.n + ' peças em oferta', 'Volta ao preço': x.n + ' peças voltam ao preço' }[t]) + '</b><small>' + esc(x.mot) + '</small></div>' +
+            '<button type="button" class="lxT" data-act="c52Ver" data-id="' + gi + '">ver um por um</button>';
+          x.l.parentNode.insertBefore(cab, x.l);
+          x.itens.forEach(function (l) { l.classList.add('c52Oc', 'c52P' + gi); });
+        });
+        // "Ver um por um" de baixo vira o da linha; o botão principal diz quantos preços aceita
+        var um = D.querySelector('.cntB [data-act="cntUmPorUm"]');
+        if (um) um.remove();
+        var ac = D.querySelector('.cntB .go');
+        if (ac && npa) ac.textContent = npa === 1 ? 'Aceitar o preço' : 'Aceitar os ' + npa + ' preços';
+        var n = [].filter.call(D.querySelectorAll('.cntL'), function (l) { return !l.classList.contains('c52Oc'); }).length,
+          lb = D.querySelector('.lbl');
+        if (lb) lb.textContent = lb.textContent.replace(/· \d+/, '· ' + n);
+      }
+      [].forEach.call(C.querySelectorAll('.cntB button'), function (b) { if (!b.classList.contains('go')) b.className = 'lxT m'; });
+      return w.innerHTML;
+    } catch (e) {
+      return html;
+    }
+  };
+  ACT.c52Ver = function (gi) {
+    [].forEach.call(document.querySelectorAll('.cnt .c52P' + gi), function (l) {
+      l.classList.remove('c52Oc');
+      var u = l.querySelector('.cntUm');
+      if (u) u.hidden = false;
+    });
+    var b = document.querySelector('.cnt [data-act="c52Ver"][data-id="' + gi + '"]');
+    if (b) b.closest('.cntL').remove();
   };
   // ===== S370 (16/11/2026) — lote 8: trilho que ARRASTA (regra do dono, 15/11/2026) =====
   // Todo seletor em trilho (.trk com a pílula .trkTh e os botões .trkB) aceita o dedo (ou o mouse) arrastando a pílula,

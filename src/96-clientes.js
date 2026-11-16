@@ -233,7 +233,7 @@
         (c.id ? '<button type="button" class="mini ghost" data-act="ataConta" data-id="' + c.id + '">🏬 Conta Atacadista/Mayorista</button>' : '') +
         (c.id && c.aviso ? '<div class="hint" style="margin:0">Último aviso: ' + esc(c.aviso.canal) + ' · ' + esc(c.aviso.modelo) + ' · ' + fd(c.aviso.ts) + ' ' + fh(c.aviso.ts) + '</div>' : '') +
         (z ? '<a class="chip" href="' + z + '" target="_blank" rel="noopener" style="color:#25d366;width:100%;min-height:48px;justify-content:center;text-decoration:none;display:flex;align-items:center">' + CLI_WA + '<span style="margin-left:8px">Conversar no WhatsApp</span></a>' : '') +
-        (c.id ? '<div style="border-top:1px solid var(--line);margin-top:6px"></div><button type="button" data-act="clidel" style="color:#ff7b7b;background:transparent;border:0;min-height:44px;width:100%;font:inherit;cursor:pointer">' + (S._cliDel === c.id ? 'Remover mesmo?' : 'Remover') + '</button>' : '') +
+        (c.id ? '<div style="border-top:1px solid var(--line);margin-top:6px"></div><button type="button" data-act="clidel" style="color:#ff7b7b;background:transparent;border:0;min-height:44px;width:100%;font:inherit;cursor:pointer">' + 'Remover cliente' + '</button>' : '') +
         '</div>' +
         (ps.length
           ? '<div class="lbl" style="margin-top:6px">Pedidos</div>' +
@@ -398,11 +398,17 @@
   ACT.clidel = function () {
     var c = cliAtual();
     if (!c) return;
-    if (S._cliDel !== c.id) {
-      S._cliDel = c.id;
-      render();
-      return;
-    }
+    // S370 (esboço 34, lote 3): remove na hora e o aviso fica 5 s com "Desfazer" (sem "toque de novo")
+    var volta = { cli: S.clientes.slice(), peds: S.pedidos.filter(function (p) { return p.cliId === c.id; }) };
+    setTimeout(function () {
+      lfDesfazer('Cliente ' + (c.nome || '') + ' removido', function () {
+        S.clientes = volta.cli;
+        volta.peds.forEach(function (p) { p.cliId = c.id; });
+        S.cliSel = c.id;
+        saveSoon();
+        render();
+      }, 5000);
+    }, 0);
     S.pedidos.forEach(function (p) {
       if (p.cliId === c.id) p.cliId = 0;
     });

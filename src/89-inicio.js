@@ -132,7 +132,7 @@
       rep = reposicao().length;
     } catch (e) {}
     return {
-      vendas: ['Catálogo', ct ? [ct + ' no pedido', 'g'] : ['Vendas · WhatsApp · Site', '']],
+      vendas: ['Catálogo', ct ? [ct + ' no carrinho', 'g'] : ['Vendas · WhatsApp · Site', '']],
       estoque: ['Inventário', [pecas + ' peças', rep ? 'w' : '']],
       caixa: ['Caixa', [gs(walletGs()), 'g']],
       fx: ['Câmbio', [gsRaw(Math.round(ratePyg('usd'))), '']],

@@ -616,10 +616,10 @@
       var vb0 = btn('go', 'Vender' + (ptv ? ' · ' + gs(ptv * vq) : ''), function () {
         var n0 = S.cart.length;
         $('sCartAdd').click();
-        // S365 (esboço 32, aprovado 15/11): peça → Vender → Finalizar venda. O Pagamento abre direto; "+ Adicionar outra peça" volta ao Catálogo com o pedido guardado.
+        // S370 (esboço 54, aprovado 16/11/2026): peça → Vender → CARRINHO → Ir para o pagamento → Finalizar (desfaz o salto direto da v533)
         if (S.cart.length && (S.cart.length > n0 || n0)) {
           S.cartOpen = true;
-          S.cartStep = 'pag';
+          S.cartStep = 'ped';
           S.rec = null;
           S._descOk = '';
           S.msg = '';
@@ -1223,8 +1223,9 @@
             cz = mk('div', 'note n-bad');
           cz.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:8px 0';
           cz.appendChild(mk('span', '', 'Excluir a cor "' + dCor + '"? Remove ' + xq + ' peça(s)' + (xc > 0 ? ' (' + usd(xc) + ' em custo)' : '') + ' e a foto dessa cor.' + (last ? ' Como é a única cor, o produto inteiro será excluído.' : '') + ' As vendas já feitas continuam no histórico.'));
-          cz.appendChild(
-            btn('mini edSim', 'Sim, excluir', function () {
+          // S370 (esboço 34, lote 3): a cor sai na hora e o aviso fica 5 s com "Desfazer" (sem a pergunta)
+          var excluiCor = function () {
+              var volta = { itens: S.items.slice(), foto: S.fotos[ref + '|' + dCor], desc: S.desc[ref], elog: S.elog.length, site: S.site && S.site[ref], pprice: S.pprice && S.pprice[ref], open: S.open, det: S.det };
               var xr = exclusaoEstoque(
                 S.items.filter(function (x) {
                   return x.tipo === f.tipo && x.ref === ref && x.cor === dCor;
@@ -1256,10 +1257,24 @@
                 S.open = '';
                 S.det = false;
               }
-              S.msg = 'Cor "' + dCor + '" excluída de ' + ref + '.' + (xr.n ? ' Saíram ' + xr.n + ' peça(s), ' + usd(xr.usd) + ' em custo, registradas no histórico.' : '');
+              S.msg = '';
+              S.cdMode = false;
+              S.cdCor = '';
               render();
-            })
-          );
+              lfDesfazer('Cor "' + dCor + '" excluída' + (xr.n ? ' · ' + xr.n + ' peça(s)' : ''), function () {
+                S.items = volta.itens;
+                if (volta.foto) { S.fotos[ref + '|' + dCor] = volta.foto; S.fotosRest = S.fotosRest || {}; S.fotosRest[ref + '|' + dCor] = 1; }
+                if (volta.desc != null) S.desc[ref] = volta.desc;
+                if (volta.site) { S.site = S.site || {}; S.site[ref] = volta.site; }
+                if (volta.pprice) { S.pprice = S.pprice || {}; S.pprice[ref] = volta.pprice; }
+                S.elog.length = Math.min(S.elog.length, volta.elog);
+                S.open = volta.open;
+                S.det = volta.det;
+                saveSoon();
+                render();
+              }, 5000);
+            };
+          setTimeout(excluiCor, 0);
           cz.appendChild(
             btn('mini', 'Cancelar', function () {
               S.cdMode = false;
@@ -1267,7 +1282,7 @@
               render();
             })
           );
-          cl0.appendChild(cz);
+          // S370: sem a pergunta na tela (a cor já sai e o aviso tem "Desfazer")
         }
       });
       // cores novas (ainda não salvas): mesma linha do cadastro

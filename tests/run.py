@@ -581,7 +581,9 @@ async def main():
             pg = await abrir('estojo', 'Estojo A')
             await pg.locator('#detail button[aria-label="Editar"]').click(); await pg.wait_for_timeout(300)
             await pg.evaluate(ED(2)); await pg.locator('#editModal .cfNm').first.click(); await pg.wait_for_timeout(200); await pg.locator('#editModal button:text-is("Excluir cor")').click(); await pg.wait_for_timeout(200)
-            await pg.locator('#editModal button:text-is("Sim, excluir")').click(); await pg.wait_for_timeout(400)
+            await pg.wait_for_timeout(300)  # S370 (esboço 34): a cor sai na hora, com "Desfazer" (sem "Sim, excluir")
+            if await pg.locator('#editModal button:text-is("Sim, excluir")').count(): await pg.locator('#editModal button:text-is("Sim, excluir")').click()
+            await pg.wait_for_timeout(400)
             got = await pg.evaluate("() => [window.__LF.S.items.filter(i => i.ref === 'Estojo A').map(i => i.cor), !!window.__LF.S.fotos['Estojo A|Preto'], !!document.getElementById('editModal')]")
             await checa('janela Editar: excluir a cor remove peças e foto dela', got == [['Marrom'], False, False], got)
 
@@ -1179,7 +1181,7 @@ async def main():
             await pg.locator('#vRows .pcard[data-ref="SP57765"]').click(); await pg.wait_for_timeout(300)
             await pg.evaluate("() => { if (document.getElementById('lfa-folha') && document.getElementById('lfa-folha').innerHTML) window.__folha.vitrine(); }"); await pg.wait_for_timeout(300)
             await pg.evaluate("() => document.getElementById('sCartAdd').click()"); await pg.wait_for_timeout(300)
-            u1 = await pg.evaluate("() => [document.getElementById('cartBar').hidden, document.getElementById('cartBar').textContent.indexOf('Pedido: 1') >= 0, window.__LF.S.cart.length]")
+            u1 = await pg.evaluate("() => [document.getElementById('cartBar').hidden, /Carrinho\s*1 peça/.test(document.getElementById('cartBar').textContent), window.__LF.S.cart.length]")
             await pg.locator('#vRows .pcard:not([data-ref="SP57765"])').first.click(); await pg.wait_for_timeout(300)
             await pg.evaluate("() => { if (document.getElementById('lfa-folha') && document.getElementById('lfa-folha').innerHTML) window.__folha.vitrine(); }"); await pg.wait_for_timeout(300)
             await pg.evaluate("() => document.getElementById('sCartAdd').click()"); await pg.wait_for_timeout(300)
@@ -3713,16 +3715,20 @@ async def main():
               L.setView('vendas'); await sl(500); document.querySelector('#vRows .pcard[data-ref]').click(); await sl(700);
               [...document.querySelectorAll('button')].filter(e => e.offsetParent && /^Vender/.test(e.innerText.trim())).pop().click(); await sl(800);
               const vis = e => !!e && e.offsetParent !== null;
-              const tres = S.cartOpen && S.cartStep === 'pag' && vis(document.getElementById('sgo')) && vis(document.getElementById('pagMais'));
+              // S370 (esboço 54): Vender abre o CARRINHO; "Ir para o pagamento" leva ao Pagamento, que não tem mais "+ Adicionar outra peça"
+              const noCarrinho = S.cartOpen && S.cartStep === 'ped' && vis(document.getElementById('cartCard')) && /Ir para o pagamento/.test(document.getElementById('cartConf').innerText);
+              document.getElementById('cartConf').click(); await sl(600);
+              const tres = noCarrinho && S.cartOpen && S.cartStep === 'pag' && vis(document.getElementById('sgo')) && !vis(document.getElementById('pagMais')) && /Carrinho/.test(document.getElementById('pagHead').innerText);
               const f = [...document.querySelectorAll('#formaChips .trkB')], m = [...document.querySelectorAll('#moedas .trkB')];
               const trilhos = f.length >= 2 && m.length === 3 && !document.querySelector('#formaChips .chip, #moedas .chip') && document.getElementById('formaTx').hidden;
               const ordem = !!(document.getElementById('recIn').compareDocumentPosition(document.getElementById('cliPickB')) & 4) && getComputedStyle(document.getElementById('tot')).fontSize === '40px';
-              document.getElementById('pagMais').click(); await sl(500);
+              document.querySelector('#pagHead [data-act=cartvolta]').click(); await sl(400);
+              document.getElementById('cartSlot').click(); await sl(500);
               const volta = !S.cartOpen && S.cart.length === 1;
               return [exemplo, igual, tres, trilhos, ordem, volta]; }""")
             total += 1
             ok = got == [True] * 6 and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'S365: lucro único (81.002 · 71.456 · 61.911; cartão = barra), venda em 3 toques, Pagamento com trilhos, total em destaque e cliente depois do valor')
+            print(('  ok  ' if ok else ' FALHA ') + 'S365/S370: lucro único (81.002 · 71.456 · 61.911; cartão = barra), rota Vender → Carrinho → Pagamento (54), Pagamento com trilhos, total em destaque e cliente depois do valor')
             if not ok: falhas.append('S365 lote 4'); print('        veio', got, pg.erros)
             await pg.close()
 

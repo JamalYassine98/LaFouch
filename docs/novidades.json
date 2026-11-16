@@ -1,10 +1,11 @@
 {
- "nome": "5.28.1",
+ "nome": "5.29.0",
  "notas": [
-  "Animações de luxo: uma curva só em todo o app, sem quique (botões, janelas, barra de escolher peças, pílulas, contagens).",
-  "Seletores em trilho (Moeda, Varejo/Atacado nas peças, faixas e outros): dá para arrastar a pílula com o dedo, além de tocar.",
-  "Os atalhos do Início entram em cascata só na primeira vez; ao voltar para o Início eles já estão no lugar.",
-  "O desenho das telas vazias ficou mais curto (0,6 s)."
+  "Venda: Catálogo → Carrinho → Pagamento. “Vender” põe a peça no Carrinho; lá você ajusta a quantidade, tira, aceita a sugestão ou adiciona outra peça, e toca em “Ir para o pagamento”.",
+  "No Catálogo, uma linha fina “Carrinho · N peças · total · abrir” leva de volta ao carrinho. “Pedidos” fica só para os pedidos do site.",
+  "O Pagamento ficou só com o pagamento; a volta é “‹ Carrinho”.",
+  "Preços no padrão de luxo: uma linha por assunto (“Subir 5 preços · ver um por um”, “Tabela Óptica: 15 peças com margem baixa · ajustar tabela”) e um só botão (“Aceitar os N preços”).",
+  "Excluir uma cor, remover um cliente e apagar os pedidos de teste agora é na hora, com “Desfazer” por 5 segundos (sem a pergunta)."
  ],
- "build": 538
+ "build": 539
 }
