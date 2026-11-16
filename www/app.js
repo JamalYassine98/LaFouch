@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 546;
+  var APP_BUILD = 547;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.34.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.35.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -13950,13 +13950,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       h +=
         '<div style="display:flex;gap:8px;align-items:center"><span style="flex:1 1 150px">' +
         esc(f.nome) +
-        '</span><input class="in" inputmode="decimal" data-aj="ptaxa" data-id="' +
+        '</span><span class="pc66"><input class="in" inputmode="decimal" data-aj="ptaxa" data-id="' +
         f.id +
         '" value="' +
         String(f.taxa).replace('.', ',') +
         '" aria-label="Taxa de ' +
         esc(f.nome) +
-        ' em porcentagem" style="max-width:100px"><span class="hint" style="margin:0">%</span></div>';
+        ' em porcentagem"><i aria-hidden="true">%</i></span></div>';
     });
     h += '</section>';
     return h;
@@ -21936,20 +21936,19 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!corpo) return '';
     var ab = !!S.dfold[id];
     return (
-      '<section class="card" style="padding:0"><button type="button" data-act="dfold" data-id="' +
+      '<section class="card fxF' + (ab ? ' on' : '') + '" data-fx="' + id + '"><button type="button" data-act="dfold" data-id="' +
       id +
       '" aria-expanded="' +
       ab +
-      '" style="display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;text-align:left;background:none;border:0;padding:14px;color:inherit;min-height:48px"><span style="min-width:0"><b style="font-size:15px">' +
+      '" class="fxH"><span style="min-width:0"><b style="font-size:15px">' +
       titulo +
       '</b><span class="hint" style="display:block;margin:2px 0 0;color:' +
       (cor || 'var(--sub)') +
       '">' +
       resumo +
-      '</span></span><span aria-hidden="true" style="font-size:20px;color:var(--mute)">' +
-      (ab ? '⌃' : '⌄') +
-      '</span></button></section>' +
-      (ab ? corpo : '')
+      '</span></span><i class="fxC" aria-hidden="true">⌄</i></button>' +
+      (ab ? '<div class="fxB"><div class="fxI">' + corpo + '</div></div>' : '') +
+      '</section>'
     );
   }
   // Itens do card "Atenção agora", por prioridade.
@@ -22084,11 +22083,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     // S188 (13/11): o Contador vem primeiro; as regras de sempre ficam recolhidas em "Regras do contador"
     h += contadorHtml();
     h += '<div class="lbl" style="margin:16px 4px 6px">REGRAS DO CONTADOR</div>';
-    h += dFold('pau', 'Preço automático', S.pAuto && S.pAuto.on ? 'ligado · revisa toda segunda' : 'desligado', 'var(--sub)', paSwitchHtml() + precosAutoHtml());
-    // S363: uma lista só de preços a corrigir, com a mesma contagem do aviso do Inventário (antes: 15 lá e 16 aqui — aqui entrava o lote sem detalhe)
-    var pcN = typeof invPrecosAcorrigir === 'function' ? invPrecosAcorrigir().length : ab;
-    h += dFold('abp', 'Preços para corrigir', pcN ? pcN + (pcN === 1 ? ' peça' : ' peças') : 'nenhum', pcN ? 'var(--warn)' : 'var(--ok)', typeof pcCorpo === 'function' ? '<div class="pcNaTela">' + pcCorpo(true) + '</div>' : x3.abaixo);
-    h += dFold('cfg', 'Contas, taxas e meta', 'o que entra no custo de cada peça', 'var(--sub)', precosCfgHtml() + pagamentoHtml());
+    // S374 (esboços 64–66): "Preço automático" uma vez só (o cartão com a chave); os preços a corrigir moram no Contador;
+    // a meta entra em "Contas, taxas e meta"; os pré-graduados viram uma linha do Contador.
+    h += paSwitchHtml() + precosAutoHtml();
+    h += dFold('cfg', 'Contas, taxas e meta', 'contas do mês, formas de pagamento e a meta', 'var(--sub)', paMetaHtml() + precosCfgHtml() + pagamentoHtml());
     return h;
   }
 
@@ -27041,18 +27039,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<div style="display:flex;gap:8px;align-items:center"><span style="flex:1 1 150px">Dias de loja aberta por mês</span><input class="in" inputmode="numeric" data-aj="dias" value="' +
       (S.diasLoja || 26) +
       '" style="max-width:90px"></div>';
-    h +=
-      '<div><div class="lbl">Como dividir as contas entre as peças</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="chip' +
-      (S.rateio !== 'custo' ? ' on' : '') +
-      '" data-act="ratsel" data-id="peca">Igual por peça</button><button class="chip' +
-      (S.rateio === 'custo' ? ' on' : '') +
-      '" data-act="ratsel" data-id="custo">Proporcional ao custo</button></div><div class="hint">' +
-      (S.rateio === 'custo'
-        ? 'Peça mais cara carrega mais das contas do mês; peça barata, menos. A soma continua sendo as contas do mês.'
-        : 'Toda peça carrega o mesmo valor das contas, seja barata ou cara.') +
-      '</div></div>';
+    // S374 (esboço 66): sem a escolha — as contas são divididas sempre pelo custo
+    h += '<div class="hint" style="margin:0">As contas do mês são divididas pelo custo: peça mais cara carrega mais.</div>';
     // v421: a faixa automática pelo custo saiu: a linha agora é sempre automática (53-linhas.js)
-    h += '</div></div>';
+    h += '</div>'; // S374: havia um </div> a mais (com o conteúdo dentro do cartão, ele empurrava as taxas para fora)
     return h;
   }
   // Preços e finanças (Dashboard › Preços): meta, faixas e rateio das contas. Os campos usam data-aj e valem em qualquer tela.
@@ -41004,9 +40994,13 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   // v424: o interruptor (e a prévia ao ligar) ficam em AJUSTES; os números e o desfazer ficam na aba Preços.
   function paSwitchHtml() {
     var on = !!(S.pAuto && S.pAuto.on),
+      fr = on ? paFraca() : null,
+      ns = on ? (S.pAuto.mudas || []).filter(function (m) { return Date.now() - m.ts <= 7 * DAY && !m.desf; }).length : 0,
       h =
         '<section class="card col paCard" id="paCard"><button type="button" class="paSw" data-act="paTog" role="switch" aria-checked="' + on + '"><span><b>Preço automático</b><small>' +
-        (on ? 'ligado · revisa toda segunda · os ajustes ficam logo abaixo' : 'desligado · você define os preços à mão') +
+        (on
+          ? 'ligado · revisa toda segunda · ' + (fr ? 'semana fraca: preços seguros, só os parados entram em oferta' : ns ? ns + (ns === 1 ? ' preço mudou' : ' preços mudaram') + ' nesta semana' : 'nenhum preço mudou nesta semana')
+          : 'desligado · você define os preços à mão') +
         '</small></span><span class="sw"><input type="checkbox" tabindex="-1" aria-hidden="true"' + (on ? ' checked' : '') + '><i></i></span></button></section>';
     if (S.paPrev) {
       var pv = paPrevia();
@@ -41017,21 +41011,26 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
     return h;
   }
+  // S374: a meta do mês, agora dentro de "Contas, taxas e meta"
+  function paMetaHtml() {
+    var lm = paLucroMes();
+    if (!(lm.metaG > 0)) return '';
+    var pct = Math.max(0, Math.min(1, lm.lucroG / lm.metaG));
+    return '<section class="card col"><div class="paMt"><span class="hint" style="margin:0">Lucro do mês</span><span class="hint" style="margin:0">meta ' + gs(lm.metaG) + '</span></div><b class="paBig">' + gs(lm.lucroG) + '</b>' +
+      '<div class="paBar"><i style="width:' + Math.round(pct * 100) + '%"></i></div><div class="hint" style="margin:0">' + Math.round(pct * 100) + '% · no ritmo atual chega a ' + Math.round((lm.proj / lm.metaG) * 100) + '% até o fim do mês</div></section>';
+  }
+  // S374: as duas linhas de preço dos pré-graduados (para a linha do Contador e a folha "ajustar")
+  function pgrPrecos() {
+    var F = S.faixas || [], fe = F[0], fl = F[F.length - 1], tp = tipoOf('pre');
+    if (!(tp && fe && fl)) return null;
+    return { e: (fe.precos && fe.precos.pre) || tp.price || 0, l: (fl.precos && fl.precos.pre) || tp.price || 0 };
+  }
   function precosAutoHtml() {
     var on = !!(S.pAuto && S.pAuto.on),
       fr = paFraca(),
       h = '';
-    h += on
-      ? '<div class="paEst"><i class="' + (fr ? 'w' : 'o') + '"></i>' + (fr ? 'Semana fraca na loja toda (' + fr.pct + '% abaixo do normal): preços seguros, só os parados entram em oferta' : 'Preço automático ligado · movimento normal') + '</div>'
-      : '<div class="paEst"><i class="w"></i>Preço automático desligado</div>';
-    var lm = paLucroMes();
-    if (lm.metaG > 0) {
-      var pct = Math.max(0, Math.min(1, lm.lucroG / lm.metaG));
-      h +=
-        '<section class="card col"><div class="paMt"><span class="hint" style="margin:0">Lucro do mês</span><span class="hint" style="margin:0">meta ' + gs(lm.metaG) + '</span></div><b class="paBig">' + gs(lm.lucroG) + '</b>' +
-        '<div class="paBar"><i style="width:' + Math.round(pct * 100) + '%"></i></div><div class="hint" style="margin:0">' + Math.round(pct * 100) + '% · no ritmo atual chega a ' + Math.round((lm.proj / lm.metaG) * 100) + '% até o fim do mês</div></section>';
-    }
-    if (on) {
+    // S374 (esboço 64): a faixa de estado saiu (o estado está na frase da chave) e a meta foi para "Contas, taxas e meta" (paMetaHtml)
+    if (on && ((S.pAuto.mudas || []).some(function (m) { return Date.now() - m.ts <= 7 * DAY; }) || S.paTodas)) {
       var semana = (S.pAuto.mudas || []).filter(function (m) {
         return Date.now() - m.ts <= 7 * DAY;
       }).reverse(),
@@ -41048,24 +41047,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (todas) h += '<button type="button" class="paLk" data-act="paTodas">Voltar</button>';
       h += '</section>';
     }
-    // pré-graduados: preço fixo em duas linhas
-    var F = S.faixas || [],
-      fe = F[0],
-      fl = F[F.length - 1],
-      tp = tipoOf('pre'),
-      pE = (fe && fe.precos && fe.precos.pre) || (tp && tp.price) || 0,
-      pL = (fl && fl.precos && fl.precos.pre) || (tp && tp.price) || 0;
-    if (tp && fe && fl) {
-      h += dFold(
-        'pgr',
-        'Pré-graduados · preço fixo',
-        'Econômica ' + gs(pE) + ' · Luxo ' + gs(pL),
-        'var(--sub)',
-        '<div class="col" style="gap:10px;padding:0 14px 14px"><div class="hint" style="margin:0">O app escolhe a linha de cada peça sozinho. O preço não muda sozinho.</div>' +
-          '<label class="paIn"><span>Linha econômica (G$)</span><input class="in" inputmode="numeric" data-aj="prePe" value="' + (pE ? pE.toLocaleString('pt-BR') : '') + '"></label>' +
-          '<label class="paIn"><span>Linha luxo (G$)</span><input class="in" inputmode="numeric" data-aj="prePl" value="' + (pL ? pL.toLocaleString('pt-BR') : '') + '"></label></div>'
-      );
-    }
+    // S374 (esboço 64): os pré-graduados saíram daqui e viraram uma linha do Contador (pgrLinha / ACT.pgrAjusta)
     var nt = Object.keys(S.pTrava || {}).filter(function (k) {
       return S.pTrava[k];
     });
@@ -49832,7 +49814,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   ACT.pcAbre = function () {
     S.dTab = 'prec';
-    S.dfold = Object.assign(S.dfold || {}, { abp: true });
+    S.x66ab = true; // S374 (esboço 66): a lista mora no Contador
     setView('dash');
     setTimeout(function () { var e = document.querySelector('#v-dash .pcLi'); if (e) try { e.scrollIntoView({ block: 'center' }); } catch (x) {} }, 350);
   };
@@ -51670,6 +51652,140 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var g = grpGet(S._gAt);
     if (g && g.fam) return lfaAbre('dFolha', grpVerHtml(g));
     return _dVer59.apply(this, arguments);
+  };
+
+  // ===== S374 · esboços 64–66 (aprovados 16/11 13:22, "implementar"): Preços de luxo + abrir como na Apple =====
+  var EZ74 = 'cubic-bezier(.45,0,.2,1)';
+  // abre/fecha um bloco (a altura cresce suave, o conteúdo já aparece e sobe 6 px, a seta gira). Menos movimento: direto.
+  function lfFoldAnim(caixa, interno, seta, abre, fim) {
+    if (REDUCED || !caixa || !caixa.animate) { if (fim) fim(); return; }
+    var h = (interno || caixa).scrollHeight, d = abre ? 420 : 280;
+    caixa.style.overflow = 'hidden';
+    var a = caixa.animate([{ height: (abre ? 0 : h) + 'px' }, { height: (abre ? h : 0) + 'px' }], { duration: d, easing: EZ74 });
+    if (interno) interno.animate([{ opacity: abre ? 0.35 : 1, transform: 'translateY(' + (abre ? -6 : 0) + 'px)' }, { opacity: abre ? 1 : 0, transform: 'translateY(' + (abre ? 0 : -4) + 'px)' }], { duration: abre ? d : 240, easing: EZ74, fill: 'both' });
+    if (seta) seta.animate([{ transform: 'rotate(' + (abre ? 0 : 180) + 'deg)' }, { transform: 'rotate(' + (abre ? 180 : 0) + 'deg)' }], { duration: d, easing: EZ74 });
+    a.onfinish = function () { caixa.style.overflow = ''; if (fim) fim(); };
+  }
+  function lfRedesenha() {
+    if (S.view === 'dash') renderDash();
+    else render();
+  }
+  ACT.dfold = function (id) {
+    S.dfold = S.dfold || {};
+    var sec = document.querySelector('section.fxF[data-fx="' + id + '"]');
+    if (S.dfold[id]) {
+      // fechar: anima primeiro e depois redesenha fechado
+      var b0 = sec && sec.querySelector('.fxB');
+      if (!b0) { S.dfold[id] = false; return lfRedesenha(); }
+      if (sec._fechando) return;
+      sec._fechando = 1;
+      sec.classList.remove('on');
+      lfFoldAnim(b0, b0.firstElementChild, sec.querySelector('.fxC'), false, function () { S.dfold[id] = false; lfRedesenha(); });
+      return;
+    }
+    S.dfold[id] = true;
+    lfRedesenha();
+    var s2 = document.querySelector('section.fxF[data-fx="' + id + '"]'), b = s2 && s2.querySelector('.fxB');
+    if (b) lfFoldAnim(b, b.firstElementChild, s2.querySelector('.fxC'), true);
+  };
+  // Despesas (58a): a conta cresce no lugar
+  var _despAb74 = ACT.despAb;
+  ACT.despAb = function (id) {
+    var c = $('ec-' + id), h0 = c ? c.offsetHeight : 0, ab = !(S.despAb && S.despAb[id]);
+    if (!ab && c && !REDUCED && c.animate) {
+      var ro = c.querySelector('.ecRow'), h1 = ro ? ro.offsetHeight + 12 : 60;
+      c.style.overflow = 'hidden';
+      var ch = c.querySelector('.ecCh');
+      if (ch) ch.animate([{ transform: 'rotate(180deg)' }, { transform: 'rotate(0)' }], { duration: 280, easing: EZ74 });
+      c.animate([{ height: h0 + 'px' }, { height: h1 + 'px' }], { duration: 280, easing: EZ74 }).onfinish = function () { _despAb74(id); };
+      return;
+    }
+    _despAb74(id);
+    var c2 = $('ec-' + id);
+    if (ab && c2 && !REDUCED && c2.animate) {
+      var h2 = c2.offsetHeight;
+      c2.style.overflow = 'hidden';
+      c2.animate([{ height: h0 + 'px' }, { height: h2 + 'px' }], { duration: 420, easing: EZ74 }).onfinish = function () { c2.style.overflow = ''; };
+      var ch2 = c2.querySelector('.ecCh');
+      if (ch2) ch2.animate([{ transform: 'rotate(0)' }, { transform: 'rotate(180deg)' }], { duration: 420, easing: EZ74 });
+    }
+  };
+  // Contador (66): os preços a corrigir numa linha só, que abre a lista ali mesmo; pré-graduados como linha (64)
+  var _cnt74 = contadorHtml;
+  contadorHtml = function () {
+    var html = _cnt74.apply(this, arguments);
+    try {
+      var w = document.createElement('div');
+      w.innerHTML = html;
+      var D = w.querySelector('.cntD');
+      if (!D) return html;
+      // "Subir N preços" (e cada peça dele) já está dentro dos preços a corrigir
+      [].forEach.call(D.querySelectorAll('.c52G'), function (g) {
+        var b = g.querySelector('b'), bt = g.querySelector('[data-act="c52Ver"]');
+        if (b && /^Subir /.test(b.textContent) && bt) {
+          [].forEach.call(D.querySelectorAll('.c52P' + bt.getAttribute('data-id')), function (l) { l.remove(); });
+          g.remove();
+        }
+      });
+      [].forEach.call(D.querySelectorAll('.cntL'), function (l) {
+        var b = l.querySelector('b');
+        if (b && /^Subir /.test(b.textContent) && !l.classList.contains('c52G')) l.remove();
+      });
+      // o botão "Aceitar os N preços" só fica se ainda houver ofertas/voltas para aceitar
+      var resto = [].filter.call(D.querySelectorAll('.cntL [data-act="cntAceita"]'), function () { return true; }).length,
+        ac = D.querySelector('[data-act="cntTudo"]');
+      if (ac) {
+        if (!resto) (ac.closest('.cntB') || ac).remove();
+        else ac.textContent = resto === 1 ? 'Aceitar o preço' : 'Aceitar os ' + resto + ' preços';
+      }
+      var L = typeof invPrecosAcorrigir === 'function' ? invPrecosAcorrigir() : [],
+        nS = L.filter(function (x) { return x.pb && x.pb.sug > 0; }).length,
+        lb = D.querySelector('.lbl'), ab = !!S.x66ab, ext = '';
+      if (L.length) {
+        var semC = L.filter(function (x) { return x.pb && x.pb.k === 'c'; }).length;
+        ext += '<div class="cntL x66L' + (ab ? ' on66' : '') + '" role="button" tabindex="0" data-act="x66" aria-expanded="' + ab + '"><span class="cntI" aria-hidden="true">!</span><div><b>' + L.length + (L.length === 1 ? ' preço para corrigir' : ' preços para corrigir') + '</b><small>' +
+          [nS ? nS + ' com sugestão do contador' : '', L.length - nS ? (L.length - nS) + (semC === L.length - nS ? ' sem custo' : ' sem sugestão') : ''].filter(Boolean).join(' · ') + '</small></div><i class="ch66" aria-hidden="true">⌄</i></div>';
+        if (ab && typeof pcCorpo === 'function') ext += '<div class="x66"><div class="x66i"><div class="pcNaTela">' + pcCorpo(true) + '</div></div></div>';
+      }
+      var pp = typeof pgrPrecos === 'function' ? pgrPrecos() : null;
+      var tpl = '<div class="cntL"><span class="cntI" aria-hidden="true"></span><div><b>Pré-graduados · preço por linha</b><small>Econômica ' + (pp ? gs(pp.e) : '') + ' · Luxo ' + (pp ? gs(pp.l) : '') + ' · o contador confere a margem</small></div><button type="button" class="cntV r" data-act="pgrAjusta">ajustar</button></div>';
+      if (lb) lb.insertAdjacentHTML('afterend', ext);
+      var fim = D.querySelector('.cntB');
+      if (pp) { if (fim) fim.insertAdjacentHTML('beforebegin', tpl); else D.insertAdjacentHTML('beforeend', tpl); }
+      var n = [].filter.call(D.querySelectorAll('.cntL'), function (l) { return !l.classList.contains('c52Oc') && !l.closest('.x66'); }).length;
+      if (lb) lb.textContent = lb.textContent.replace(/· \d+/, '· ' + n);
+      // o número "Preços para corrigir" do Contador abre a mesma lista
+      [].forEach.call(w.querySelectorAll('.cntK[data-act="pcAbre"]'), function (k) { k.setAttribute('data-act', 'x66'); });
+      return w.innerHTML;
+    } catch (e) {
+      return html;
+    }
+  };
+  ACT.x66 = function () {
+    var x = document.querySelector('#v-dash .x66'), l = document.querySelector('#v-dash .x66L');
+    if (S.x66ab && x) {
+      if (l) l.classList.remove('on66');
+      return lfFoldAnim(x, x.firstElementChild, l && l.querySelector('.ch66'), false, function () { S.x66ab = false; lfRedesenha(); });
+    }
+    S.x66ab = true;
+    if (S.view !== 'dash' || S.dTab !== 'prec') { S.dTab = 'prec'; return setView('dash'); }
+    lfRedesenha();
+    var x2 = document.querySelector('#v-dash .x66'), l2 = document.querySelector('#v-dash .x66L');
+    if (x2) lfFoldAnim(x2, x2.firstElementChild, l2 && l2.querySelector('.ch66'), true);
+  };
+  ACT.pgrAjusta = function () {
+    var pp = pgrPrecos();
+    if (!pp) return;
+    lfaAbre('dFolha', '<div class="dFt"><span>PRÉ-GRADUADOS</span></div><div class="col" style="gap:12px;padding:4px 4px 8px"><div class="hint" style="margin:0">O app escolhe a linha de cada peça sozinho; o contador confere a margem.</div>' +
+      '<label class="paIn"><span>Linha econômica (G$)</span><input class="in" inputmode="numeric" data-aj="prePe" value="' + (pp.e ? pp.e.toLocaleString('pt-BR') : '') + '"></label>' +
+      '<label class="paIn"><span>Linha luxo (G$)</span><input class="in" inputmode="numeric" data-aj="prePl" value="' + (pp.l ? pp.l.toLocaleString('pt-BR') : '') + '"></label></div>');
+  };
+  // 66: as contas são divididas sempre pelo custo (uma vez, para quem tinha "Igual por peça")
+  if (!S.rat66) { S.rat66 = true; S.rateio = 'custo'; }
+  var _iniLista74 = iniLista;
+  iniLista = function () {
+    if (!S.rat66) { S.rat66 = true; S.rateio = 'custo'; }
+    return _iniLista74.apply(this, arguments);
   };
   // ===== S370 (16/11/2026) — lote 8: trilho que ARRASTA (regra do dono, 15/11/2026) =====
   // Todo seletor em trilho (.trk com a pílula .trkTh e os botões .trkB) aceita o dedo (ou o mouse) arrastando a pílula,

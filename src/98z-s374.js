@@ -203,3 +203,137 @@
     if (g && g.fam) return lfaAbre('dFolha', grpVerHtml(g));
     return _dVer59.apply(this, arguments);
   };
+
+  // ===== S374 · esboços 64–66 (aprovados 16/11 13:22, "implementar"): Preços de luxo + abrir como na Apple =====
+  var EZ74 = 'cubic-bezier(.45,0,.2,1)';
+  // abre/fecha um bloco (a altura cresce suave, o conteúdo já aparece e sobe 6 px, a seta gira). Menos movimento: direto.
+  function lfFoldAnim(caixa, interno, seta, abre, fim) {
+    if (REDUCED || !caixa || !caixa.animate) { if (fim) fim(); return; }
+    var h = (interno || caixa).scrollHeight, d = abre ? 420 : 280;
+    caixa.style.overflow = 'hidden';
+    var a = caixa.animate([{ height: (abre ? 0 : h) + 'px' }, { height: (abre ? h : 0) + 'px' }], { duration: d, easing: EZ74 });
+    if (interno) interno.animate([{ opacity: abre ? 0.35 : 1, transform: 'translateY(' + (abre ? -6 : 0) + 'px)' }, { opacity: abre ? 1 : 0, transform: 'translateY(' + (abre ? 0 : -4) + 'px)' }], { duration: abre ? d : 240, easing: EZ74, fill: 'both' });
+    if (seta) seta.animate([{ transform: 'rotate(' + (abre ? 0 : 180) + 'deg)' }, { transform: 'rotate(' + (abre ? 180 : 0) + 'deg)' }], { duration: d, easing: EZ74 });
+    a.onfinish = function () { caixa.style.overflow = ''; if (fim) fim(); };
+  }
+  function lfRedesenha() {
+    if (S.view === 'dash') renderDash();
+    else render();
+  }
+  ACT.dfold = function (id) {
+    S.dfold = S.dfold || {};
+    var sec = document.querySelector('section.fxF[data-fx="' + id + '"]');
+    if (S.dfold[id]) {
+      // fechar: anima primeiro e depois redesenha fechado
+      var b0 = sec && sec.querySelector('.fxB');
+      if (!b0) { S.dfold[id] = false; return lfRedesenha(); }
+      if (sec._fechando) return;
+      sec._fechando = 1;
+      sec.classList.remove('on');
+      lfFoldAnim(b0, b0.firstElementChild, sec.querySelector('.fxC'), false, function () { S.dfold[id] = false; lfRedesenha(); });
+      return;
+    }
+    S.dfold[id] = true;
+    lfRedesenha();
+    var s2 = document.querySelector('section.fxF[data-fx="' + id + '"]'), b = s2 && s2.querySelector('.fxB');
+    if (b) lfFoldAnim(b, b.firstElementChild, s2.querySelector('.fxC'), true);
+  };
+  // Despesas (58a): a conta cresce no lugar
+  var _despAb74 = ACT.despAb;
+  ACT.despAb = function (id) {
+    var c = $('ec-' + id), h0 = c ? c.offsetHeight : 0, ab = !(S.despAb && S.despAb[id]);
+    if (!ab && c && !REDUCED && c.animate) {
+      var ro = c.querySelector('.ecRow'), h1 = ro ? ro.offsetHeight + 12 : 60;
+      c.style.overflow = 'hidden';
+      var ch = c.querySelector('.ecCh');
+      if (ch) ch.animate([{ transform: 'rotate(180deg)' }, { transform: 'rotate(0)' }], { duration: 280, easing: EZ74 });
+      c.animate([{ height: h0 + 'px' }, { height: h1 + 'px' }], { duration: 280, easing: EZ74 }).onfinish = function () { _despAb74(id); };
+      return;
+    }
+    _despAb74(id);
+    var c2 = $('ec-' + id);
+    if (ab && c2 && !REDUCED && c2.animate) {
+      var h2 = c2.offsetHeight;
+      c2.style.overflow = 'hidden';
+      c2.animate([{ height: h0 + 'px' }, { height: h2 + 'px' }], { duration: 420, easing: EZ74 }).onfinish = function () { c2.style.overflow = ''; };
+      var ch2 = c2.querySelector('.ecCh');
+      if (ch2) ch2.animate([{ transform: 'rotate(0)' }, { transform: 'rotate(180deg)' }], { duration: 420, easing: EZ74 });
+    }
+  };
+  // Contador (66): os preços a corrigir numa linha só, que abre a lista ali mesmo; pré-graduados como linha (64)
+  var _cnt74 = contadorHtml;
+  contadorHtml = function () {
+    var html = _cnt74.apply(this, arguments);
+    try {
+      var w = document.createElement('div');
+      w.innerHTML = html;
+      var D = w.querySelector('.cntD');
+      if (!D) return html;
+      // "Subir N preços" (e cada peça dele) já está dentro dos preços a corrigir
+      [].forEach.call(D.querySelectorAll('.c52G'), function (g) {
+        var b = g.querySelector('b'), bt = g.querySelector('[data-act="c52Ver"]');
+        if (b && /^Subir /.test(b.textContent) && bt) {
+          [].forEach.call(D.querySelectorAll('.c52P' + bt.getAttribute('data-id')), function (l) { l.remove(); });
+          g.remove();
+        }
+      });
+      [].forEach.call(D.querySelectorAll('.cntL'), function (l) {
+        var b = l.querySelector('b');
+        if (b && /^Subir /.test(b.textContent) && !l.classList.contains('c52G')) l.remove();
+      });
+      // o botão "Aceitar os N preços" só fica se ainda houver ofertas/voltas para aceitar
+      var resto = [].filter.call(D.querySelectorAll('.cntL [data-act="cntAceita"]'), function () { return true; }).length,
+        ac = D.querySelector('[data-act="cntTudo"]');
+      if (ac) {
+        if (!resto) (ac.closest('.cntB') || ac).remove();
+        else ac.textContent = resto === 1 ? 'Aceitar o preço' : 'Aceitar os ' + resto + ' preços';
+      }
+      var L = typeof invPrecosAcorrigir === 'function' ? invPrecosAcorrigir() : [],
+        nS = L.filter(function (x) { return x.pb && x.pb.sug > 0; }).length,
+        lb = D.querySelector('.lbl'), ab = !!S.x66ab, ext = '';
+      if (L.length) {
+        var semC = L.filter(function (x) { return x.pb && x.pb.k === 'c'; }).length;
+        ext += '<div class="cntL x66L' + (ab ? ' on66' : '') + '" role="button" tabindex="0" data-act="x66" aria-expanded="' + ab + '"><span class="cntI" aria-hidden="true">!</span><div><b>' + L.length + (L.length === 1 ? ' preço para corrigir' : ' preços para corrigir') + '</b><small>' +
+          [nS ? nS + ' com sugestão do contador' : '', L.length - nS ? (L.length - nS) + (semC === L.length - nS ? ' sem custo' : ' sem sugestão') : ''].filter(Boolean).join(' · ') + '</small></div><i class="ch66" aria-hidden="true">⌄</i></div>';
+        if (ab && typeof pcCorpo === 'function') ext += '<div class="x66"><div class="x66i"><div class="pcNaTela">' + pcCorpo(true) + '</div></div></div>';
+      }
+      var pp = typeof pgrPrecos === 'function' ? pgrPrecos() : null;
+      var tpl = '<div class="cntL"><span class="cntI" aria-hidden="true"></span><div><b>Pré-graduados · preço por linha</b><small>Econômica ' + (pp ? gs(pp.e) : '') + ' · Luxo ' + (pp ? gs(pp.l) : '') + ' · o contador confere a margem</small></div><button type="button" class="cntV r" data-act="pgrAjusta">ajustar</button></div>';
+      if (lb) lb.insertAdjacentHTML('afterend', ext);
+      var fim = D.querySelector('.cntB');
+      if (pp) { if (fim) fim.insertAdjacentHTML('beforebegin', tpl); else D.insertAdjacentHTML('beforeend', tpl); }
+      var n = [].filter.call(D.querySelectorAll('.cntL'), function (l) { return !l.classList.contains('c52Oc') && !l.closest('.x66'); }).length;
+      if (lb) lb.textContent = lb.textContent.replace(/· \d+/, '· ' + n);
+      // o número "Preços para corrigir" do Contador abre a mesma lista
+      [].forEach.call(w.querySelectorAll('.cntK[data-act="pcAbre"]'), function (k) { k.setAttribute('data-act', 'x66'); });
+      return w.innerHTML;
+    } catch (e) {
+      return html;
+    }
+  };
+  ACT.x66 = function () {
+    var x = document.querySelector('#v-dash .x66'), l = document.querySelector('#v-dash .x66L');
+    if (S.x66ab && x) {
+      if (l) l.classList.remove('on66');
+      return lfFoldAnim(x, x.firstElementChild, l && l.querySelector('.ch66'), false, function () { S.x66ab = false; lfRedesenha(); });
+    }
+    S.x66ab = true;
+    if (S.view !== 'dash' || S.dTab !== 'prec') { S.dTab = 'prec'; return setView('dash'); }
+    lfRedesenha();
+    var x2 = document.querySelector('#v-dash .x66'), l2 = document.querySelector('#v-dash .x66L');
+    if (x2) lfFoldAnim(x2, x2.firstElementChild, l2 && l2.querySelector('.ch66'), true);
+  };
+  ACT.pgrAjusta = function () {
+    var pp = pgrPrecos();
+    if (!pp) return;
+    lfaAbre('dFolha', '<div class="dFt"><span>PRÉ-GRADUADOS</span></div><div class="col" style="gap:12px;padding:4px 4px 8px"><div class="hint" style="margin:0">O app escolhe a linha de cada peça sozinho; o contador confere a margem.</div>' +
+      '<label class="paIn"><span>Linha econômica (G$)</span><input class="in" inputmode="numeric" data-aj="prePe" value="' + (pp.e ? pp.e.toLocaleString('pt-BR') : '') + '"></label>' +
+      '<label class="paIn"><span>Linha luxo (G$)</span><input class="in" inputmode="numeric" data-aj="prePl" value="' + (pp.l ? pp.l.toLocaleString('pt-BR') : '') + '"></label></div>');
+  };
+  // 66: as contas são divididas sempre pelo custo (uma vez, para quem tinha "Igual por peça")
+  if (!S.rat66) { S.rat66 = true; S.rateio = 'custo'; }
+  var _iniLista74 = iniLista;
+  iniLista = function () {
+    if (!S.rat66) { S.rat66 = true; S.rateio = 'custo'; }
+    return _iniLista74.apply(this, arguments);
+  };

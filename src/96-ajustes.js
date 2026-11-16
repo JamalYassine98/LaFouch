@@ -98,18 +98,10 @@
       '<div style="display:flex;gap:8px;align-items:center"><span style="flex:1 1 150px">Dias de loja aberta por mês</span><input class="in" inputmode="numeric" data-aj="dias" value="' +
       (S.diasLoja || 26) +
       '" style="max-width:90px"></div>';
-    h +=
-      '<div><div class="lbl">Como dividir as contas entre as peças</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="chip' +
-      (S.rateio !== 'custo' ? ' on' : '') +
-      '" data-act="ratsel" data-id="peca">Igual por peça</button><button class="chip' +
-      (S.rateio === 'custo' ? ' on' : '') +
-      '" data-act="ratsel" data-id="custo">Proporcional ao custo</button></div><div class="hint">' +
-      (S.rateio === 'custo'
-        ? 'Peça mais cara carrega mais das contas do mês; peça barata, menos. A soma continua sendo as contas do mês.'
-        : 'Toda peça carrega o mesmo valor das contas, seja barata ou cara.') +
-      '</div></div>';
+    // S374 (esboço 66): sem a escolha — as contas são divididas sempre pelo custo
+    h += '<div class="hint" style="margin:0">As contas do mês são divididas pelo custo: peça mais cara carrega mais.</div>';
     // v421: a faixa automática pelo custo saiu: a linha agora é sempre automática (53-linhas.js)
-    h += '</div></div>';
+    h += '</div>'; // S374: havia um </div> a mais (com o conteúdo dentro do cartão, ele empurrava as taxas para fora)
     return h;
   }
   // Preços e finanças (Dashboard › Preços): meta, faixas e rateio das contas. Os campos usam data-aj e valem em qualquer tela.

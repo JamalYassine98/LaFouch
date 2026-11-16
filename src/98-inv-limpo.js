@@ -308,7 +308,7 @@
   }
   ACT.pcAbre = function () {
     S.dTab = 'prec';
-    S.dfold = Object.assign(S.dfold || {}, { abp: true });
+    S.x66ab = true; // S374 (esboço 66): a lista mora no Contador
     setView('dash');
     setTimeout(function () { var e = document.querySelector('#v-dash .pcLi'); if (e) try { e.scrollIntoView({ block: 'center' }); } catch (x) {} }, 350);
   };

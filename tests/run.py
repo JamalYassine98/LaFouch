@@ -3748,6 +3748,22 @@ async def main():
             if not ok: falhas.append('S363 redundâncias'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # S374 (esboços 64–66): Preços — "Preço automático" uma vez, preços a corrigir só no Contador (abre ali), meta e taxas dentro de "Contas, taxas e meta", contas sempre pelo custo
+            pg = await pagina()
+            await pg.evaluate("() => { const L = window.__LF, S = L.S; S.pAuto = S.pAuto || {}; S.pAuto.on = true; S.rateio = 'peca'; S.rat66 = false; S.dfold = {}; S.x66ab = false; S.dTab = 'prec'; L.setView('dash'); L.render(); }"); await pg.wait_for_timeout(600)
+            q1 = await pg.evaluate("() => { const t = document.getElementById('v-dash').innerText; return [document.querySelectorAll('#v-dash #paCard').length, (t.match(/Preço automático/g) || []).length, !document.querySelector('#v-dash .paEst'), !document.querySelector('[data-act=dfold][data-id=pgr],[data-act=dfold][data-id=abp],[data-act=dfold][data-id=pau]'), !!document.querySelector('#v-dash .x66L'), !/Subir \\d+ preços/.test(t), !!document.querySelector('#v-dash [data-act=pgrAjusta]'), window.__LF.S.rateio]; }")
+            await pg.locator('#v-dash .x66L').click(); await pg.wait_for_timeout(600)
+            q2 = await pg.evaluate("() => [document.querySelectorAll('#v-dash .x66 .pcLi').length, document.querySelectorAll('#v-dash .x66 [data-act=pcUsaTodos]').length]")
+            await pg.locator('[data-act=dfold][data-id=cfg]').click(); await pg.wait_for_timeout(700)
+            q3 = await pg.evaluate("() => { const s = document.querySelector('section.fxF[data-fx=cfg]'); const t = s ? s.innerText : ''; return [!!s && !!s.querySelector('.fxB'), /Lucro do mês/.test(t), /Formas de pagamento/.test(t), !document.querySelector('[data-act=ratsel]'), document.querySelectorAll('#v-dash .pc66').length > 0]; }")
+            await pg.locator('[data-act=dfold][data-id=cfg]').click(); await pg.wait_for_timeout(700)
+            q4 = await pg.evaluate("() => [!!window.__LF.S.dfold.cfg, !document.querySelector('section.fxF[data-fx=cfg] .fxB')]")
+            total += 1
+            ok = (q1[0] == 1 and q1[1] == 1 and all(q1[2:7]) and q1[7] == 'custo' and q2[0] > 0 and q2[1] == 1 and all(q3) and q4 == [False, True] and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + 'S374 (64–66): Preços sem repetição, lista no Contador, meta e taxas no bloco, contas pelo custo, bloco abre e fecha no cartão')
+            if not ok: falhas.append('Preços 64–66'); print('        veio', q1, q2, q3, q4, pg.erros)
+            await pg.close()
+
             # S364 (PORTÃO da folha única): cada tipo de folha fecha arrastando com o mouse de 3 pontos da faixa de cima (esquerda, meio, direita) e com Esc.
             VIS = "s => { const e = [...document.querySelectorAll(s)].filter(e => { const r = e.getBoundingClientRect(), c = getComputedStyle(e); return !e.hidden && c.display !== 'none' && c.visibility !== 'hidden' && r.height > 60 && r.top < innerHeight - 40; }).pop(); if (!e) return null; const r = e.getBoundingClientRect(); return [r.left, r.top, r.width]; }"
             LIVRE = "a => { const e = document.elementFromPoint(a[0], a[1]); return !(e && e.closest('button,a,input,select,textarea,label,[data-act],[role=button],[role=switch]')); }"
@@ -3789,7 +3805,7 @@ async def main():
               if (c0) { const n = c0.querySelectorAll('.slVai[data-act=exppay]').length; c0.querySelector('.slVai[data-act=exppay]').click(); await sl(400); const c1 = cc(); contas = n > 0 && (c1 ? c1.querySelectorAll('.slVai[data-act=exppay]').length : 0) === n - 1; }
               S.dTab = 'prec'; L.setView('dash'); await sl(500);
               const ks = [...document.querySelectorAll('#v-dash .cntK')]; const kp = ks.find(k => /Preços para corrigir/.test(k.innerText));
-              const n1 = +(kp.querySelector('b').innerText), precos = !n1 || kp.dataset.act === 'pcAbre';
+              const n1 = +(kp.querySelector('b').innerText), precos = !n1 || kp.dataset.act === 'x66';  // S374 (66): o número abre a lista no Contador
               if (n1) { kp.click(); await sl(500); }
               const lista = !n1 || document.querySelectorAll('#v-dash .pcNaTela .pcLi').length === n1;
               return [contas, precos, lista, typeof L.ACT.d48Res === 'function' && typeof L.ACT.prodDesfaz === 'function']; }""")

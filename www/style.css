@@ -2735,3 +2735,18 @@ html{overscroll-behavior-y:none}
 @media (min-width:1024px){.stG{grid-template-columns:repeat(4,minmax(0,1fr))}}
 /* S374 (esboço 61): com o aviso de Desfazer na tela, o Início ganha folga embaixo (o aviso não tampa o botão que chegou) */
 body:has(#lfDesf.on) #v-inicio{padding-bottom:140px}
+/* S374 (esboços 64–66): bloco que abre DENTRO do próprio cartão, como na Apple */
+section.card.fxF{padding:0;overflow:hidden}
+section.card.fxF>.fxH{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;text-align:left;background:none;border:0;padding:16px 18px;color:inherit;min-height:56px;font:inherit;cursor:pointer}
+section.card.fxF .fxC,.ch66,.ecCh{font-style:normal;font-size:20px;color:var(--mute);display:inline-block;flex:none}
+section.card.fxF.on .fxC,.x66L.on66 .ch66{transform:rotate(180deg)}
+section.card.fxF>.fxB>.fxI{padding:0 18px 18px}
+section.card.fxF>.fxB .card{background:none!important;box-shadow:none!important;border:0!important;border-top:1px solid var(--line2,var(--line))!important;border-radius:0!important;padding:14px 0 0!important;margin:0!important}
+section.card.fxF>.fxB .fxI>.card:first-child{border-top:0!important;padding-top:0!important}
+#v-dash .x66L{cursor:pointer}#v-dash .x66{overflow:hidden}#v-dash .x66i{padding:4px 0 14px}
+/* S374 (esboço 65): botões de Preços no padrão — 1 principal (contorno rosa), secundária neutra, ação de linha rosa com "›" */
+#v-dash .cntV,#v-dash .lxT{text-decoration:none!important;color:var(--accent-fg)!important;font-weight:600}
+#v-dash .cntV::after,#v-dash .lxT::after{content:' ›'}
+#v-dash .cntB:has(.lxT.m){justify-content:flex-start!important;gap:22px!important}
+#v-dash .pcUsa{border-color:var(--line)!important;color:var(--fg)!important;background:none!important;font-weight:600}
+.pc66{position:relative;display:inline-block;width:110px;flex:none}.pc66 input{padding-right:34px!important;width:100%!important;max-width:110px}.pc66 i{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-style:normal;color:var(--mute);pointer-events:none}

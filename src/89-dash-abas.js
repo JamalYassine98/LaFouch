@@ -12,20 +12,19 @@
     if (!corpo) return '';
     var ab = !!S.dfold[id];
     return (
-      '<section class="card" style="padding:0"><button type="button" data-act="dfold" data-id="' +
+      '<section class="card fxF' + (ab ? ' on' : '') + '" data-fx="' + id + '"><button type="button" data-act="dfold" data-id="' +
       id +
       '" aria-expanded="' +
       ab +
-      '" style="display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;text-align:left;background:none;border:0;padding:14px;color:inherit;min-height:48px"><span style="min-width:0"><b style="font-size:15px">' +
+      '" class="fxH"><span style="min-width:0"><b style="font-size:15px">' +
       titulo +
       '</b><span class="hint" style="display:block;margin:2px 0 0;color:' +
       (cor || 'var(--sub)') +
       '">' +
       resumo +
-      '</span></span><span aria-hidden="true" style="font-size:20px;color:var(--mute)">' +
-      (ab ? '⌃' : '⌄') +
-      '</span></button></section>' +
-      (ab ? corpo : '')
+      '</span></span><i class="fxC" aria-hidden="true">⌄</i></button>' +
+      (ab ? '<div class="fxB"><div class="fxI">' + corpo + '</div></div>' : '') +
+      '</section>'
     );
   }
   // Itens do card "Atenção agora", por prioridade.
@@ -160,11 +159,10 @@
     // S188 (13/11): o Contador vem primeiro; as regras de sempre ficam recolhidas em "Regras do contador"
     h += contadorHtml();
     h += '<div class="lbl" style="margin:16px 4px 6px">REGRAS DO CONTADOR</div>';
-    h += dFold('pau', 'Preço automático', S.pAuto && S.pAuto.on ? 'ligado · revisa toda segunda' : 'desligado', 'var(--sub)', paSwitchHtml() + precosAutoHtml());
-    // S363: uma lista só de preços a corrigir, com a mesma contagem do aviso do Inventário (antes: 15 lá e 16 aqui — aqui entrava o lote sem detalhe)
-    var pcN = typeof invPrecosAcorrigir === 'function' ? invPrecosAcorrigir().length : ab;
-    h += dFold('abp', 'Preços para corrigir', pcN ? pcN + (pcN === 1 ? ' peça' : ' peças') : 'nenhum', pcN ? 'var(--warn)' : 'var(--ok)', typeof pcCorpo === 'function' ? '<div class="pcNaTela">' + pcCorpo(true) + '</div>' : x3.abaixo);
-    h += dFold('cfg', 'Contas, taxas e meta', 'o que entra no custo de cada peça', 'var(--sub)', precosCfgHtml() + pagamentoHtml());
+    // S374 (esboços 64–66): "Preço automático" uma vez só (o cartão com a chave); os preços a corrigir moram no Contador;
+    // a meta entra em "Contas, taxas e meta"; os pré-graduados viram uma linha do Contador.
+    h += paSwitchHtml() + precosAutoHtml();
+    h += dFold('cfg', 'Contas, taxas e meta', 'contas do mês, formas de pagamento e a meta', 'var(--sub)', paMetaHtml() + precosCfgHtml() + pagamentoHtml());
     return h;
   }
 

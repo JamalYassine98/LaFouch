@@ -238,9 +238,13 @@
   // v424: o interruptor (e a prévia ao ligar) ficam em AJUSTES; os números e o desfazer ficam na aba Preços.
   function paSwitchHtml() {
     var on = !!(S.pAuto && S.pAuto.on),
+      fr = on ? paFraca() : null,
+      ns = on ? (S.pAuto.mudas || []).filter(function (m) { return Date.now() - m.ts <= 7 * DAY && !m.desf; }).length : 0,
       h =
         '<section class="card col paCard" id="paCard"><button type="button" class="paSw" data-act="paTog" role="switch" aria-checked="' + on + '"><span><b>Preço automático</b><small>' +
-        (on ? 'ligado · revisa toda segunda · os ajustes ficam logo abaixo' : 'desligado · você define os preços à mão') +
+        (on
+          ? 'ligado · revisa toda segunda · ' + (fr ? 'semana fraca: preços seguros, só os parados entram em oferta' : ns ? ns + (ns === 1 ? ' preço mudou' : ' preços mudaram') + ' nesta semana' : 'nenhum preço mudou nesta semana')
+          : 'desligado · você define os preços à mão') +
         '</small></span><span class="sw"><input type="checkbox" tabindex="-1" aria-hidden="true"' + (on ? ' checked' : '') + '><i></i></span></button></section>';
     if (S.paPrev) {
       var pv = paPrevia();
@@ -251,21 +255,26 @@
     }
     return h;
   }
+  // S374: a meta do mês, agora dentro de "Contas, taxas e meta"
+  function paMetaHtml() {
+    var lm = paLucroMes();
+    if (!(lm.metaG > 0)) return '';
+    var pct = Math.max(0, Math.min(1, lm.lucroG / lm.metaG));
+    return '<section class="card col"><div class="paMt"><span class="hint" style="margin:0">Lucro do mês</span><span class="hint" style="margin:0">meta ' + gs(lm.metaG) + '</span></div><b class="paBig">' + gs(lm.lucroG) + '</b>' +
+      '<div class="paBar"><i style="width:' + Math.round(pct * 100) + '%"></i></div><div class="hint" style="margin:0">' + Math.round(pct * 100) + '% · no ritmo atual chega a ' + Math.round((lm.proj / lm.metaG) * 100) + '% até o fim do mês</div></section>';
+  }
+  // S374: as duas linhas de preço dos pré-graduados (para a linha do Contador e a folha "ajustar")
+  function pgrPrecos() {
+    var F = S.faixas || [], fe = F[0], fl = F[F.length - 1], tp = tipoOf('pre');
+    if (!(tp && fe && fl)) return null;
+    return { e: (fe.precos && fe.precos.pre) || tp.price || 0, l: (fl.precos && fl.precos.pre) || tp.price || 0 };
+  }
   function precosAutoHtml() {
     var on = !!(S.pAuto && S.pAuto.on),
       fr = paFraca(),
       h = '';
-    h += on
-      ? '<div class="paEst"><i class="' + (fr ? 'w' : 'o') + '"></i>' + (fr ? 'Semana fraca na loja toda (' + fr.pct + '% abaixo do normal): preços seguros, só os parados entram em oferta' : 'Preço automático ligado · movimento normal') + '</div>'
-      : '<div class="paEst"><i class="w"></i>Preço automático desligado</div>';
-    var lm = paLucroMes();
-    if (lm.metaG > 0) {
-      var pct = Math.max(0, Math.min(1, lm.lucroG / lm.metaG));
-      h +=
-        '<section class="card col"><div class="paMt"><span class="hint" style="margin:0">Lucro do mês</span><span class="hint" style="margin:0">meta ' + gs(lm.metaG) + '</span></div><b class="paBig">' + gs(lm.lucroG) + '</b>' +
-        '<div class="paBar"><i style="width:' + Math.round(pct * 100) + '%"></i></div><div class="hint" style="margin:0">' + Math.round(pct * 100) + '% · no ritmo atual chega a ' + Math.round((lm.proj / lm.metaG) * 100) + '% até o fim do mês</div></section>';
-    }
-    if (on) {
+    // S374 (esboço 64): a faixa de estado saiu (o estado está na frase da chave) e a meta foi para "Contas, taxas e meta" (paMetaHtml)
+    if (on && ((S.pAuto.mudas || []).some(function (m) { return Date.now() - m.ts <= 7 * DAY; }) || S.paTodas)) {
       var semana = (S.pAuto.mudas || []).filter(function (m) {
         return Date.now() - m.ts <= 7 * DAY;
       }).reverse(),
@@ -282,24 +291,7 @@
       if (todas) h += '<button type="button" class="paLk" data-act="paTodas">Voltar</button>';
       h += '</section>';
     }
-    // pré-graduados: preço fixo em duas linhas
-    var F = S.faixas || [],
-      fe = F[0],
-      fl = F[F.length - 1],
-      tp = tipoOf('pre'),
-      pE = (fe && fe.precos && fe.precos.pre) || (tp && tp.price) || 0,
-      pL = (fl && fl.precos && fl.precos.pre) || (tp && tp.price) || 0;
-    if (tp && fe && fl) {
-      h += dFold(
-        'pgr',
-        'Pré-graduados · preço fixo',
-        'Econômica ' + gs(pE) + ' · Luxo ' + gs(pL),
-        'var(--sub)',
-        '<div class="col" style="gap:10px;padding:0 14px 14px"><div class="hint" style="margin:0">O app escolhe a linha de cada peça sozinho. O preço não muda sozinho.</div>' +
-          '<label class="paIn"><span>Linha econômica (G$)</span><input class="in" inputmode="numeric" data-aj="prePe" value="' + (pE ? pE.toLocaleString('pt-BR') : '') + '"></label>' +
-          '<label class="paIn"><span>Linha luxo (G$)</span><input class="in" inputmode="numeric" data-aj="prePl" value="' + (pL ? pL.toLocaleString('pt-BR') : '') + '"></label></div>'
-      );
-    }
+    // S374 (esboço 64): os pré-graduados saíram daqui e viraram uma linha do Contador (pgrLinha / ACT.pgrAjusta)
     var nt = Object.keys(S.pTrava || {}).filter(function (k) {
       return S.pTrava[k];
     });

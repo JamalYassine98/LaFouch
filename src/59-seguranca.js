@@ -297,13 +297,13 @@
       h +=
         '<div style="display:flex;gap:8px;align-items:center"><span style="flex:1 1 150px">' +
         esc(f.nome) +
-        '</span><input class="in" inputmode="decimal" data-aj="ptaxa" data-id="' +
+        '</span><span class="pc66"><input class="in" inputmode="decimal" data-aj="ptaxa" data-id="' +
         f.id +
         '" value="' +
         String(f.taxa).replace('.', ',') +
         '" aria-label="Taxa de ' +
         esc(f.nome) +
-        ' em porcentagem" style="max-width:100px"><span class="hint" style="margin:0">%</span></div>';
+        ' em porcentagem"><i aria-hidden="true">%</i></span></div>';
     });
     h += '</section>';
     return h;
