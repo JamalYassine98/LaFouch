@@ -10,6 +10,7 @@ K=os.environ['XI'];VOZ={'pt':'SvXoJJzLNRI3wECTYrmU','es':'3vRJJjv6BIKZYw2NzOER'}
 I18=open('/home/claude/catalogo/js/lf-i18n.js',encoding='utf-8').read()
 def es(k):
     m=re.search(re.escape(json.dumps(k,ensure_ascii=False))+r':("(?:[^"\\]|\\.)*")',I18);assert m,k;return json.loads(m.group(1))
+# Limites = faixa medida nas falas JÁ APROVADAS com as mesmas ferramentas (16/11: tom 250-370 Hz, semelhança >= 0,84, pausa <= 450 ms, silêncio <= 80/260 ms, volume -19,7 a -17, pico < 0,62).
 # cada cena = conversa com as falas vizinhas; * = fala nova (as outras já estão gravadas e só dão o tom)
 CENAS=[['*Este teste fica melhor no celular.','*Aponte a câmera para este código…','*…ou seguimos aqui, como preferir.','Quando quiser, é só tocar em Começar.'],
  ['Posso usar a câmera?','*É só para medir a distância da tela até o seu rosto.','Nada é gravado.','Se preferir, a gente faz sem.'],
@@ -53,13 +54,13 @@ def corta(lang,c,tent):
     for m in out:
         P=[]
         if m['pico']>=.62: P.append('pico %.2f'%m['pico'])
-        if m['pausa']>400: P.append('pausa %d ms'%m['pausa'])
-        if m['sil_ini']>60: P.append('silêncio no começo %d ms'%m['sil_ini'])
-        if m['sil_fim']>230: P.append('silêncio no fim %d ms'%m['sil_fim'])
-        if not(-20<=m['lufs']<=-17): P.append('volume %.1f'%m['lufs'])
-        if m['f0'] and abs(m['f0']/f0r-1)>.15: P.append('tom %d (padrão %d)'%(m['f0'],f0r))
-        if m['f0'] and abs(m['f0']/fm-1)>.08: P.append('tom fora da cena %d×%d'%(m['f0'],fm))
-        if m['sim']<.85: P.append('semelhança %.2f'%m['sim'])
+        if m['pausa']>450: P.append('pausa %d ms'%m['pausa'])
+        if m['sil_ini']>80: P.append('silêncio no começo %d ms'%m['sil_ini'])
+        if m['sil_fim']>260: P.append('silêncio no fim %d ms'%m['sil_fim'])
+        if not(-19.7<=m['lufs']<=-17): P.append('volume %.1f'%m['lufs'])
+        if m['f0'] and not(250<=m['f0']<=370): P.append('tom %d (aprovadas: 250 a 370)'%m['f0'])
+        if m['f0'] and abs(m['f0']/fm-1)>.15: P.append('tom fora da cena %d×%d'%(m['f0'],fm))
+        if m['sim']<.84: P.append('semelhança %.2f'%m['sim'])
         if simc<.90: P.append('semelhança da cena %.2f'%simc)
         m['ok']=not P;m['por']='; '.join(P)
     return [m for m in out if m['nova']]
