@@ -3667,9 +3667,9 @@ var MOCHI_CSS=`
 .mochi{position:absolute;left:0;top:0;will-change:transform;z-index:6}
 /* S88: corpo, inclinação, espelho e óculos andam pelo mesmo relógio do esqueleto (molas), sem transições CSS em degraus */
 .mochi .sq,.mochi .tilt{transform-origin:60px 124px}
-.mochi .resp{transform-origin:60px 124px;animation:resp 4s ease-in-out infinite}
+.mochi .resp{transform-origin:60px 124px;animation:resp 4s steps(12,end) infinite}
 @keyframes resp{0%,100%{transform:translateY(0) scale(1,1)}50%{transform:translateY(-1.5px) scale(1.008,.992)}}
-.mochi .sombra{transform-origin:60px 125px;animation:somb 4s ease-in-out .15s infinite}
+.mochi .sombra{transform-origin:60px 125px;animation:somb 4s steps(12,end) .15s infinite}
 @keyframes somb{0%,100%{transform:scale(1)}50%{transform:scale(.94)}}
 .mochi .pup{transition:transform .22s cubic-bezier(.16,1,.3,1)}
 .mochi .pis{transform-origin:60px 83px}
@@ -3757,22 +3757,29 @@ function Mochi(host,x,y){const el=document.createElement('div');el.className='mo
  const mola=(m,n)=>{if(RM.matches){m.v=m.t;m.w=0;return}for(let i=0;i<n;i++){m.w+=(m.t-m.v)*m.k;m.w*=m.d;m.v+=m.w}};
  const nS=q('.sq'),nT=q('.tilt'),nE=q('.esp'),nO=q('.ocl');M.rot=null;
  M.bracos=function(e,d){if(e!=null)S.te=-e;if(d!=null)S.td=d;if(RM.matches){S.ae=S.te;S.ad=S.td}};
+ /* S383: só escreve no desenho o que mudou de valor (atributo: confere o que está lá; estilo: lembra o último que pôs) */
+ function SA(n,a,v){if(n.getAttribute(a)!==v)n.setAttribute(a,v)}
+ function ST(n,k,v){const c=n._st||(n._st={});if(c[k]!==v){c[k]=v;n.style[k]=v}}
  function armSet(lado,ang,L,fE){const c=lado<0?'e':'d',B=N['aB'+c],F=N['aF'+c],T=armT(lado,ang),p=ARMP(L);let op=cl((1.02-dentro(lado,ang,L))/.14,0,1);if(fE!=null)op=Math.max(op,fE);
-  if(B._p!==p){B.firstChild.setAttribute('d',p);B.lastChild.setAttribute('d',ARMH(L));const t=F.firstChild;t.children[0].setAttribute('d',p);t.children[1].setAttribute('d',p);t.children[2].setAttribute('d',ARMHF(L));N['mk'+c].firstChild.setAttribute('d',p);B._p=p}
-  B.setAttribute('transform',T);B.style.display=op<1?'':'none';F.firstChild.setAttribute('transform',T);N['mk'+c].setAttribute('transform',T);F.style.display=op>0?'':'none';F.setAttribute('opacity',op.toFixed(3));filSet(lado,ang,L,op<.5)}
-function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpoF');if(!G||!body)return;if(!vis){if(G._k!==''){G.innerHTML='';G._k=''}return}const key=ang.toFixed(1)+'|'+L.toFixed(1);if(G._k===key)return;G._k=key;
- const NS='http://www.w3.org/2000/svg';let A=filSet.a;if(!A){const sv=document.createElementNS(NS,'svg');sv.setAttribute('style','position:fixed;left:-20px;top:0;width:0;height:0;overflow:hidden');A=document.createElementNS(NS,'path');sv.appendChild(A);document.body.appendChild(sv);filSet.a=A}
- A.setAttribute('d',ARMP(L).replace('M0 -10','M-8 -10 L0 -10').replace(/ Z$/,' L-8 10 Z'));const sx=lado<0?22:98,rt=(lado<0?180-ang:ang)*Math.PI/180,c=Math.cos(rt),s=Math.sin(rt),f=lado<0?-1:1;
+  if(B._p!==p){SA(B.firstChild,'d',p);SA(B.lastChild,'d',ARMH(L));const t=F.firstChild;SA(t.children[0],'d',p);SA(t.children[1],'d',p);SA(t.children[2],'d',ARMHF(L));SA(N['mk'+c].firstChild,'d',p);B._p=p}
+  SA(B,'transform',T);ST(B,'display',op<1?'':'none');SA(F.firstChild,'transform',T);SA(N['mk'+c],'transform',T);ST(F,'display',op>0?'':'none');SA(F,'opacity',op.toFixed(3));filSet(lado,ang,L,op<.5)}
+function filSet(lado,ang,L,vis){const G=lado<0?(N._fE||(N._fE=q('.filE'))):(N._fD||(N._fD=q('.filD'))),body=N._cF||(N._cF=q('.corpoF'));if(!G||!body)return;if(!vis){if(G._k!==''){G.innerHTML='';G._k=''}return}const key=ang.toFixed(1)+'|'+L.toFixed(1);if(G._k===key)return;G._k=key;
+ const RC=filSet.rc||(filSet.rc=new Map()),kk=lado+'|'+key;if(RC.has(kk)){G.innerHTML=RC.get(kk);return}
+ const NS='http://www.w3.org/2000/svg';let A=filSet.a;if(!A){const sv=document.createElementNS(NS,'svg');SA(sv,'style','position:fixed;left:-20px;top:0;width:0;height:0;overflow:hidden');A=document.createElementNS(NS,'path');sv.appendChild(A);document.body.appendChild(sv);filSet.a=A}
+ SA(A,'d',ARMP(L).replace('M0 -10','M-8 -10 L0 -10').replace(/ Z$/,' L-8 10 Z'));const sx=lado<0?22:98,rt=(lado<0?180-ang:ang)*Math.PI/180,c=Math.cos(rt),s=Math.sin(rt),f=lado<0?-1:1;
  const toS=p=>{const y=p.y*f;return {x:sx+p.x*c-y*s,y:92+p.x*s+y*c}},toL=p=>{const dx=p.x-sx,dy=p.y-92;return {x:dx*c+dy*s,y:(-dx*s+dy*c)*f}};
  const inB=p=>body.isPointInFill(new DOMPoint(p.x,p.y)),inA=p=>A.isPointInFill(new DOMPoint(...Object.values(toL(p))));
- const La=A.getTotalLength(),Lb=body.getTotalLength(),n=90,r=2.6;const aP=t=>toS(A.getPointAtLength(((t%La)+La)%La)),bP=t=>body.getPointAtLength(((t%Lb)+Lb)%Lb);
+ /* S383: tabela de pontos do caminho (medida uma vez por forma) + interpolação — sem pedir ponto ao navegador a cada amostra */
+ const TB=filSet.tb||(filSet.tb={}),tab=(path,k)=>{let t=TB[k];if(!t){const Lt=path.getTotalLength(),m=Math.max(120,Math.ceil(Lt*2)),P=new Float32Array((m+1)*2);for(let i=0;i<=m;i++){const p=path.getPointAtLength(Lt*i/m);P[2*i]=p.x;P[2*i+1]=p.y}t=TB[k]={L:Lt,n:m,P:P}}return t},
+  pto=(t,u)=>{u=((u%t.L)+t.L)%t.L;const f=u/t.L*t.n,i=Math.min(t.n,Math.floor(f)),g=f-i,j=Math.min(t.n,i+1),P=t.P;return {x:P[2*i]+(P[2*j]-P[2*i])*g,y:P[2*i+1]+(P[2*j+1]-P[2*i+1])*g}};
+ const tA=tab(A,'a'+L.toFixed(1)),tB=tab(body,'b'),La=tA.L,Lb=tB.L,n=90,r=2.6;const aP=t=>toS(pto(tA,t)),bP=t=>pto(tB,t);
  let h='',prev=inB(aP(0));for(let i=1;i<=n;i++){const t=La*i/n,cur=inB(aP(t));if(cur!==prev){let lo=La*(i-1)/n,hi=t;for(let k=0;k<14;k++){const m=(lo+hi)/2;(inB(aP(m))===prev)?lo=m:hi=m}
    const tj=(lo+hi)/2,J=aP(tj),sa=prev?1:-1;if(!filSet.bs){filSet.bs=[];for(let k=0;k<400;k++){const u=Lb*k/400,p=body.getPointAtLength(u);filSet.bs.push([u,p.x,p.y])}}let tb=0,bd=1e9;for(const [u,x,y] of filSet.bs){const d=(x-J.x)**2+(y-J.y)**2;if(d<bd){bd=d;tb=u}}
    let sb=1;if(inA(bP(tb+1.5)))sb=-1;const a1=aP(tj+sa*1.5),b1=bP(tb+sb*1.5),ux=a1.x-J.x,uy=a1.y-J.y,vx=b1.x-J.x,vy=b1.y-J.y,
    th=Math.acos(Math.max(-1,Math.min(1,(ux*vx+uy*vy)/Math.hypot(ux,uy)/Math.hypot(vx,vy)))),rr=Math.min(9,Math.max(r,1.7/Math.tan(th/2)));
    const Ap=aP(tj+sa*rr),Bp=bP(tb+sb*rr);const F2=v=>v.toFixed(2),Q=`M${F2(Ap.x)} ${F2(Ap.y)} Q${F2(J.x)} ${F2(J.y)} ${F2(Bp.x)} ${F2(Bp.y)}`;
    const gid=`lfmfg${lado<0?"e":"d"}${i}`;h+=`<linearGradient id="${gid}" gradientUnits="userSpaceOnUse" x1="${F2(Ap.x)}" y1="${F2(Ap.y)}" x2="${F2(Bp.x)}" y2="${F2(Bp.y)}"><stop offset="0" stop-color="#e8c3d6"/><stop offset="1" stop-color="#ecc9da"/></linearGradient><path d="${Q} L${F2(J.x)} ${F2(J.y)}Z" fill="url(#${gid})" stroke="url(#${gid})" stroke-width=".3" stroke-linejoin="round"/><path d="${Q}" fill="none" stroke="url(#${gid})" stroke-width="1.5" stroke-linecap="butt"/>`}prev=cur}
- G.innerHTML=h}
+ if(RC.size>900)RC.clear();RC.set(kk,h);G.innerHTML=h}
  let face0=null;function faceSet(f){const k=f?Object.keys(f)[0]||'':'';if(k===face0)return;face0=k;const fz=k==='pisca'||k==='boc',ff=k==='feliz'||(!k&&M.exp==='f');
   q('.olhos').style.opacity=fz||ff?0:1;q('.olhosF').style.opacity=ff&&!fz?1:0;q('.olhosZ').style.opacity=fz?1:0;q('.bF').style.opacity=ff&&!fz&&k!=='boc'?1:0;q('.bH').style.opacity=k==='hmm'?1:0;q('.bY').style.opacity=k==='boc'?1:0;
   q('.bW').style.opacity=(ff||M.fal||k==='hmm'||k==='boc')?0:1;if(k==='olha')M.olha(0,0)}
@@ -3786,14 +3793,14 @@ function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpo
   armSet(-1,ae,Le,fE);armSet(1,ad,Ld,fD);
   const R=S.res;for(const k of ['gr','gy','mr','my','oy','orr']){if(o[k]!=null)R[k]=o[k];else R[k]*=.86}if(o.oo!=null)R.oo=o.oo;else R.oo+=(1-R.oo)*.2;
   const nf=Math.max(1,Math.round(dt));for(const k in MOL)mola(MOL[k],nf);
-  nS.style.transform=`scale(${(1+(MOL.sx.v-1)*.3).toFixed(4)},${(1+(MOL.sy.v-1)*.3).toFixed(4)})`;nT.style.transform=`rotate(${(M.rot!=null?M.rot:MOL.ti.v).toFixed(2)}deg)`;nE.style.transform=`rotate(${MOL.es.v.toFixed(2)}deg)`;nE.style.transformOrigin='60px 58px';
-  N.oclT.setAttribute('transform',`translate(0 ${(R.gy+R.oy+MOL.ob.v).toFixed(2)}) rotate(${(R.gr+R.orr).toFixed(2)} 60 83)`);N.oclT.setAttribute('opacity',R.oo.toFixed(3));N.espT.setAttribute('transform',`translate(0 ${R.my.toFixed(2)}) rotate(${R.mr.toFixed(2)} 60 58)`);
+  ST(nS,'transform',`scale(${(1+(MOL.sx.v-1)*.3).toFixed(4)},${(1+(MOL.sy.v-1)*.3).toFixed(4)})`);ST(nT,'transform',`rotate(${(M.rot!=null?M.rot:MOL.ti.v).toFixed(2)}deg)`);ST(nE,'transform',`rotate(${MOL.es.v.toFixed(2)}deg)`);ST(nE,'transformOrigin','60px 58px');
+  SA(N.oclT,'transform',`translate(0 ${(R.gy+R.oy+MOL.ob.v).toFixed(2)}) rotate(${(R.gr+R.orr).toFixed(2)} 60 83)`);SA(N.oclT,'opacity',R.oo.toFixed(3));SA(N.espT,'transform',`translate(0 ${R.my.toFixed(2)}) rotate(${R.mr.toFixed(2)} 60 58)`);
   const fog=fogL(75,'lfmzD',o.fogD||0,86,79)+fogL(45,'lfmzE',o.fogE||0,56,79);if(fog!==S.lastFog){N.fog.innerHTML=fog;S.lastFog=fog}
   const it=(o.itB||'')+'|'+(o.itF||'');if(it!==S.lastIt){N.itB.innerHTML=o.itB||'';N.itF.innerHTML=o.itF||'';S.lastIt=it}
-  const h=o.hop||0,sc=o.sc!=null?o.sc:1,sx=(o.sx||1)*sc,sy=(o.sy||1)*sc,ti=(o.tilt||0)+(o.rot||0);const fx=cl(MOL.fx.v,-1,1);N.pulo.setAttribute('transform',`translate(60 0) scale(${(Math.abs(fx)<.02?.02*Math.sign(fx||1):fx).toFixed(3)} 1) translate(-60 0) translate(60 124) translate(0 ${(-h).toFixed(2)}) rotate(${ti.toFixed(2)}) scale(${sx.toFixed(3)} ${sy.toFixed(3)}) translate(-60 -124)`);
-  const pe=o.pe||0;N.pe1.setAttribute('transform',`translate(0 ${(-Math.max(0,pe)).toFixed(2)})`);N.pe2.setAttribute('transform',`translate(0 ${(-Math.max(0,-pe)).toFixed(2)})`);
+  const h=o.hop||0,sc=o.sc!=null?o.sc:1,sx=(o.sx||1)*sc,sy=(o.sy||1)*sc,ti=(o.tilt||0)+(o.rot||0);const fx=cl(MOL.fx.v,-1,1);SA(N.pulo,'transform',`translate(60 0) scale(${(Math.abs(fx)<.02?.02*Math.sign(fx||1):fx).toFixed(3)} 1) translate(-60 0) translate(60 124) translate(0 ${(-h).toFixed(2)}) rotate(${ti.toFixed(2)}) scale(${sx.toFixed(3)} ${sy.toFixed(3)}) translate(-60 -124)`);
+  const pe=o.pe||0;SA(N.pe1,'transform',`translate(0 ${(-Math.max(0,pe)).toFixed(2)})`);SA(N.pe2,'transform',`translate(0 ${(-Math.max(0,-pe)).toFixed(2)})`);
   if(g)faceSet(o.face||null);
-  N.pon.setAttribute('transform',armT(1,ad))}
+  SA(N.pon,'transform',armT(1,ad))}
  raf=requestAnimationFrame(frame);
  /* gesto: começa dos ângulos atuais; só um por vez */
  M.gesto=function(nome,cb){const d=G[nome];if(!d)return false;if(S.g)M.paraGesto();S.g={def:d,t0:performance.now(),s:{ae:S.ae,ad:S.ad},cb};return true};
@@ -4331,14 +4338,15 @@ function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpo
       /* S96: sem avisos falados; acima de 38 cm a etiqueta fica laranja (o cliente percebe sozinho) */
       if(Z.d>dHi())chip(Math.round(Z.d)+' cm',false,true);else if(Z.d<dLo())chip(Math.round(Z.d)+' cm');else chip(Math.round(Z.d)+' cm ✓',true)}
     function laco(){if(!Z.el||!Z.st)return;var v=Z.v,fa=Z.fa;if(!v.videoWidth||(!Z.mp&&!fa)){Z.tm=setTimeout(laco,250);return}
-      var W=320,H=Math.round(W*v.videoHeight/v.videoWidth),cv=Z.cv||(Z.cv=document.createElement('canvas'));cv.width=W;cv.height=H;var cx=cv.getContext('2d',{willReadFrequently:true});cx.drawImage(v,0,0,W,H);
+      /* S383: a cópia da imagem para medir a claridade é feita a cada 4 medições quando o leitor de rosto novo está em uso (ele não precisa dela); o leitor antigo usa essa cópia sempre */
+      Z.lzN=(Z.lzN||0)+1;var W=320,H=Math.round(W*v.videoHeight/v.videoWidth),cv=Z.cv||(Z.cv=document.createElement('canvas')),fazLuz=!Z.mp||Z.lzN%4===1;if(fazLuz){cv.width=W;cv.height=H;var cx=cv.getContext('2d',{willReadFrequently:true});cx.drawImage(v,0,0,W,H)}
       /* S89 D: brilho do meio da imagem (nada é gravado) */
-      try{var dd=cx.getImageData(W*.2|0,H*.15|0,W*.6|0,H*.7|0).data,sm=0,nn=0;for(var ii=0;ii<dd.length;ii+=64){sm+=dd[ii]*.299+dd[ii+1]*.587+dd[ii+2]*.114;nn++}var lu=window.__lfFakeLum!=null?window.__lfFakeLum:sm/nn;Z.lum=Z.lum==null?lu:Z.lum*.6+lu*.4;
+      if(fazLuz)try{var dd=cx.getImageData(W*.2|0,H*.15|0,W*.6|0,H*.7|0).data,sm=0,nn=0;for(var ii=0;ii<dd.length;ii+=64){sm+=dd[ii]*.299+dd[ii+1]*.587+dd[ii+2]*.114;nn++}var lu=window.__lfFakeLum!=null?window.__lfFakeLum:sm/nn;Z.lum=Z.lum==null?lu:Z.lum*.6+lu*.4;
         if(Z.fase==='teste'&&!Z.luzP){Z.lzT++;if(escuro())Z.lzE++}}catch(_){}
       /* S95 A / S98: íris (11,7 mm em quase todo adulto) na imagem grande (até 1280 px) */
       /* para não pesar no celular: a 1ª leitura é na imagem inteira (640 px); depois, só um recorte em volta do rosto, na resolução cheia (os olhos ficam com muito mais pontos) */
-      if(Z.mp){var VW=v.videoWidth,VH=v.videoHeight,bx=Z.bx,sx=0,sy=0,sw=VW,sh=VH,S2=640,u3=hist10.slice(-3),calmo=Z.fase==='teste'&&u3.length===3&&Math.max.apply(null,u3)-Math.min.apply(null,u3)<=2&&u3[2]>=dLo()&&u3[2]<=dHi()&&Date.now()-(Z.rosto||0)<2500;
-        if(bx){var cxm=bx[0]+bx[2]/2,cym=bx[1]+bx[3]/2,lado=Math.min(VW,VH,Math.max(bx[2],bx[3])*1.7);sw=sh=lado;sx=Math.max(0,Math.min(VW-lado,cxm-lado/2));sy=Math.max(0,Math.min(VH-lado,cym-lado/2));S2=Math.min(calmo?320:512,Math.round(lado))}
+      if(Z.mp){var VW=v.videoWidth,VH=v.videoHeight,bx=Z.bx,sx=0,sy=0,sw=VW,sh=VH,S2=640;/* S382: o ritmo calmo (1 s) do S381 foi retirado a pedido do dono — a medição volta a ser a cada 0,35 s */
+        if(bx){var cxm=bx[0]+bx[2]/2,cym=bx[1]+bx[3]/2,lado=Math.min(VW,VH,Math.max(bx[2],bx[3])*1.7);sw=sh=lado;sx=Math.max(0,Math.min(VW-lado,cxm-lado/2));sy=Math.max(0,Math.min(VH-lado,cym-lado/2));S2=Math.min(512,Math.round(lado))}
         var W2=bx?S2:Math.min(640,VW),H2=bx?S2:Math.round(W2*VH/VW),c2=Z.cv2||(Z.cv2=document.createElement('canvas'));c2.width=W2;c2.height=H2;c2.getContext('2d').drawImage(v,sx,sy,sw,sh,0,0,W2,H2);
         Z.mpk=sw/W2;var r=null;try{r=Z.mp.detect(c2)}catch(_){r=null}var P=r&&r.faceLandmarks&&r.faceLandmarks[0],n=Date.now();
         if(P&&P.length>=478){var kx=sw/W2,ky=sh/H2;/* pixels do recorte → pixels da imagem da câmera */
@@ -4347,8 +4355,8 @@ function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpo
           var mn=Math.min(a,b),mx=Math.max(a,b),ok=mn>5&&mn/mx>.8,di=ok?(a+b)/2:mx,f2=(Math.max(VW,VH)/2)/Math.tan(31*Math.PI/180);/* S381: lado maior (imagem em pé no celular) */
           if(di>3)poeMedida(f2*1.17/di,ok)}
         else{Z.bx=null;if(n-(Z.rosto||0)>2000)chip(T('Não vejo o seu rosto'))}
-        try{window.__lfCam={w:VW,h:VH,del:MP.del||'?',d:Z.d,ms:calmo?1000:350}}catch(_){}
-        Z.tm=setTimeout(laco,calmo?1000:350);return}
+        try{window.__lfCam={w:VW,h:VH,del:MP.del||'?',d:Z.d,ms:350}}catch(_){}
+        Z.tm=setTimeout(laco,350);return}
       fa.detectSingleFace(cv,new fa.TinyFaceDetectorOptions({inputSize:224,scoreThreshold:.4})).withFaceLandmarks(!FA.full).then(function(r){if(!Z.el||!Z.st)return;var n=Date.now();
         if(r&&r.landmarks){var P=r.landmarks.positions,c=function(a,b){var x=0,y=0;for(var i=a;i<=b;i++){x+=P[i].x;y+=P[i].y}return [x/(b-a+1),y/(b-a+1)]},e1=c(36,41),e2=c(42,47),ipd=Math.hypot(e1[0]-e2[0],e1[1]-e2[1]);
           /* distância entre os olhos varia muito de pessoa para pessoa: a medida vale para a etiqueta, mas fica "em dúvida" (nunca tira a resposta do cliente) */
@@ -4591,14 +4599,17 @@ function filSet(lado,ang,L,vis){const G=q(lado<0?'.filE':'.filD'),body=q('.corpo
   /* S376 (aprovado 16/11 08:24): medidor para diagnóstico no aparelho do dono — só aparece com ?medir=1 no endereço. Mostra quadros por segundo (agora e o pior segundo), o quadro mais demorado,
      quantas vezes o processador travou mais de 50 ms e os mesmos números só enquanto a tela rola. Não guarda nem envia nada. */
   (function(){if(!/[?&]medir=1/.test(location.search))return;
-    var d=document.createElement('div');d.id='lfmed';d.setAttribute('aria-hidden','true');d.style.cssText='position:fixed;left:8px;top:8px;z-index:2147483600;max-width:calc(100% - 16px);background:rgba(17,13,20,.92);color:#fff;font:600 12px/1.45 ui-monospace,Menlo,monospace;padding:8px 10px;border-radius:10px;pointer-events:none;white-space:pre-line';
+    var d=document.createElement('div');d.id='lfmed';d.setAttribute('aria-hidden','true');d.style.cssText='position:fixed;left:8px;top:8px;z-index:2147483600;max-width:calc(100% - 16px);background:rgba(17,13,20,.92);color:#fff;font:600 10.5px/1.4 ui-monospace,Menlo,monospace;overflow-wrap:anywhere;padding:8px 10px;border-radius:10px;pointer-events:none;white-space:pre-line';
     var ini=function(){document.body.appendChild(d)};if(document.body)ini();else document.addEventListener('DOMContentLoaded',ini);
     var u=performance.now(),n=0,t1=u,fps=0,pior=999,maxq=0,lt=0,ltms=0,rolT=0,rn=0,rms=0,rmax=0,abre=Math.round(u);
     try{new PerformanceObserver(function(l){l.getEntries().forEach(function(e){lt++;ltms+=e.duration})}).observe({entryTypes:['longtask']})}catch(_){}
+    /* S382: quem travou — o navegador registra cada quadro longo com os trechos de programa que rodaram nele (nome da função, de onde foi chamada e quanto durou) */
+    var QT={},qn=0;try{new PerformanceObserver(function(l){l.getEntries().forEach(function(e){qn++;(e.scripts||[]).forEach(function(sc){if(sc.duration<8)return;var arq=String(sc.sourceURL||'').split('/').pop().split('?')[0]||'página',k=(sc.sourceFunctionName||'(sem nome)')+' ← '+String(sc.invoker||sc.invokerType||'').replace(/^.*\//,'').slice(0,34)+' ['+arq.slice(0,18)+']';var o=QT[k]||(QT[k]={n:0,t:0,m:0});o.n++;o.t+=sc.duration;if(sc.duration>o.m)o.m=sc.duration;if(sc.forcedStyleAndLayoutDuration>8){var k2='  arrumar a tela dentro de '+(sc.sourceFunctionName||'(sem nome)'),o2=QT[k2]||(QT[k2]={n:0,t:0,m:0});o2.n++;o2.t+=sc.forcedStyleAndLayoutDuration}})})}).observe({type:'long-animation-frame',buffered:true})}catch(_){QT=null}
+    window.__lfQuem=function(){if(!QT)return 'quem travou: este navegador não informa';var L=Object.keys(QT).map(function(k){return [k,QT[k]]}).sort(function(a,b){return b[1].t-a[1].t}).slice(0,6);return 'quem travou ('+qn+' quadros longos):'+(L.length?L.map(function(x){return '\n'+Math.round(x[1].t)+' ms · '+x[1].n+'× · '+x[0]}).join(''):' nada ainda')};
     addEventListener('scroll',function(){rolT=performance.now()},{passive:true,capture:true});
     (function f(t){var dt=t-u;u=t;n++;if(dt>maxq&&t-abre>1500)maxq=dt;if(t-rolT<250){rn++;rms+=dt;if(dt>rmax)rmax=dt}
       if(t-t1>=1000){fps=Math.round(n*1000/(t-t1));if(t-abre>3000&&fps<pior)pior=fps;n=0;t1=t;
-        d.textContent='Medidor La Fouch\n'+fps+' quadros/s agora · pior segundo '+(pior===999?'—':pior)+'\nquadro mais demorado '+Math.round(maxq)+' ms\ntravadas do processador '+lt+' ('+Math.round(ltms)+' ms)\nrolando: '+(rn?Math.round(rn*1000/rms)+' quadros/s · pior '+Math.round(rmax)+' ms':'role a tela')+(window.__lfCam?'\ncâmera '+window.__lfCam.w+'×'+window.__lfCam.h+' · leitor '+(window.__lfCam.del==='GPU'?'placa de vídeo':window.__lfCam.del==='CPU'?'processador':'?')+' · mede a cada '+(window.__lfCam.ms/1000)+' s\ndistância lida '+(window.__lfCam.d?Math.round(window.__lfCam.d)+' cm':'—'):'')+'\naparelho: '+(navigator.hardwareConcurrency||'?')+' núcleos · '+(navigator.deviceMemory||'?')+' GB · tela x'+(window.devicePixelRatio||1)}
+        d.textContent='Medidor La Fouch\n'+fps+' quadros/s agora · pior segundo '+(pior===999?'—':pior)+'\nquadro mais demorado '+Math.round(maxq)+' ms\ntravadas do processador '+lt+' ('+Math.round(ltms)+' ms)\nrolando: '+(rn?Math.round(rn*1000/rms)+' quadros/s · pior '+Math.round(rmax)+' ms':'role a tela')+(window.__lfCam?'\ncâmera '+window.__lfCam.w+'×'+window.__lfCam.h+' · leitor '+(window.__lfCam.del==='GPU'?'placa de vídeo':window.__lfCam.del==='CPU'?'processador':'?')+' · mede a cada '+(window.__lfCam.ms/1000)+' s\ndistância lida '+(window.__lfCam.d?Math.round(window.__lfCam.d)+' cm':'—'):'')+'\naparelho: '+(navigator.hardwareConcurrency||'?')+' núcleos · '+(navigator.deviceMemory||'?')+' GB · tela x'+(window.devicePixelRatio||1)+'\n'+window.__lfQuem()}
       requestAnimationFrame(f)})(u)})();
 
   /* ===== bloco 8 (11/11/2026): Temática automática (calendário) + contagem anônima do Analisador ===== */

@@ -1,0 +1,17 @@
+# S382 (16/11/2026 11:40): o dono prefere a medição frequente como era (o ritmo de 1 s não resolveu as travadas) — volta a 0,35 s e recorte de 512 px.
+# E o medidor passa a dizer QUEM travou: usa o registro de quadros longos do navegador (função e tempo de cada trecho de programa que segurou a tela).
+p='/home/claude/catalogo/js/lf-site.js';s=open(p,encoding='utf8').read()
+def tr(a,b,n=1):
+    global s;assert s.count(a)==n,(s.count(a),a[:80]);s=s.replace(a,b)
+tr(",u3=hist10.slice(-3),calmo=Z.fase==='teste'&&u3.length===3&&Math.max.apply(null,u3)-Math.min.apply(null,u3)<=2&&u3[2]>=dLo()&&u3[2]<=dHi()&&Date.now()-(Z.rosto||0)<2500;",";/* S382: o ritmo calmo (1 s) do S381 foi retirado a pedido do dono — a medição volta a ser a cada 0,35 s */")
+tr("S2=Math.min(calmo?320:512,Math.round(lado))}","S2=Math.min(512,Math.round(lado))}")
+tr("try{window.__lfCam={w:VW,h:VH,del:MP.del||'?',d:Z.d,ms:calmo?1000:350}}catch(_){}\n        Z.tm=setTimeout(laco,calmo?1000:350);return}","try{window.__lfCam={w:VW,h:VH,del:MP.del||'?',d:Z.d,ms:350}}catch(_){}\n        Z.tm=setTimeout(laco,350);return}")
+# medidor: quem travou
+tr("    try{new PerformanceObserver(function(l){l.getEntries().forEach(function(e){lt++;ltms+=e.duration})}).observe({entryTypes:['longtask']})}catch(_){}",
+"""    try{new PerformanceObserver(function(l){l.getEntries().forEach(function(e){lt++;ltms+=e.duration})}).observe({entryTypes:['longtask']})}catch(_){}
+    /* S382: quem travou — o navegador registra cada quadro longo com os trechos de programa que rodaram nele (nome da função, de onde foi chamada e quanto durou) */
+    var QT={},qn=0;try{new PerformanceObserver(function(l){l.getEntries().forEach(function(e){qn++;(e.scripts||[]).forEach(function(sc){if(sc.duration<8)return;var arq=String(sc.sourceURL||'').split('/').pop().split('?')[0]||'página',k=(sc.sourceFunctionName||'(sem nome)')+' ← '+String(sc.invoker||sc.invokerType||'').replace(/^.*\\//,'').slice(0,34)+' ['+arq.slice(0,18)+']';var o=QT[k]||(QT[k]={n:0,t:0,m:0});o.n++;o.t+=sc.duration;if(sc.duration>o.m)o.m=sc.duration;if(sc.forcedStyleAndLayoutDuration>8){var k2='  arrumar a tela dentro de '+(sc.sourceFunctionName||'(sem nome)'),o2=QT[k2]||(QT[k2]={n:0,t:0,m:0});o2.n++;o2.t+=sc.forcedStyleAndLayoutDuration}})})}).observe({type:'long-animation-frame',buffered:true})}catch(_){QT=null}
+    window.__lfQuem=function(){if(!QT)return 'quem travou: este navegador não informa';var L=Object.keys(QT).map(function(k){return [k,QT[k]]}).sort(function(a,b){return b[1].t-a[1].t}).slice(0,6);return 'quem travou ('+qn+' quadros longos):'+(L.length?L.map(function(x){return '\\n'+Math.round(x[1].t)+' ms · '+x[1].n+'× · '+x[0]}).join(''):' nada ainda')};""")
+tr("+'\\naparelho: '+(navigator.hardwareConcurrency||'?')+' núcleos · '+(navigator.deviceMemory||'?')+' GB · tela x'+(window.devicePixelRatio||1)}","+'\\naparelho: '+(navigator.hardwareConcurrency||'?')+' núcleos · '+(navigator.deviceMemory||'?')+' GB · tela x'+(window.devicePixelRatio||1)+'\\n'+window.__lfQuem()}")
+tr("d.style.cssText='position:fixed;left:8px;top:8px;z-index:2147483600;max-width:calc(100% - 16px);background:rgba(17,13,20,.92);color:#fff;font:600 12px/1.45 ui-monospace,Menlo,monospace;","d.style.cssText='position:fixed;left:8px;top:8px;z-index:2147483600;max-width:calc(100% - 16px);background:rgba(17,13,20,.92);color:#fff;font:600 10.5px/1.4 ui-monospace,Menlo,monospace;overflow-wrap:anywhere;")
+open(p,'w',encoding='utf8').write(s);print('ok')
