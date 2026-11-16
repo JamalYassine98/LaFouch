@@ -264,3 +264,6 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - 16/11 14:54 — ROBÔ DO PIX: dono montou na conta da loja e publicou as funções. ESPERANDO teste real (PIX Nubank; transferência Banco Familiar). Transferência automática no site continua desligada até ele escrever "implementar".
 - 16/11 15:19 — ✔ GitHub Pages do `catalogo` DESLIGADO pelo dono (print: "GitHub Pages is currently disabled"; domínio removido lá). O site agora só existe na Cloudflare Pages. Falta: dono confirmar lafouch.com no ar e mandar o medidor da Mochi.
 - 16/11 15:25 — DONO: "Implementar" (cópia da claridade 1 a cada 4 no modo ao lado; erro meu do S384, explicado a ele) → ✔ **SITE publicado (1794854284; www/loja atualizado)**. Porteiro 183/0. ESPERANDO o medidor dele em lafouch.com/?medir=1. Se sobrar: levar a claridade para o trabalhador (proposta 2, sem ordem).
+- 16/11/2026 14:55–15:28 · ESBOÇOS 67 (Giro › botões no padrão de luxo; "Mandar ao fornecedor" fica — o dono confundiu) e 68 (Lista de compras limpa: 2 andares, por tipo, 5 mais urgentes + "ver os 14 ›", Sobrando no título, "como calcula ›"). DONO: "Aprovado tudo, pode implementar tudo" → 67 e 68 APROVADOS e IMPLEMENTAR TUDO.
+- 16/11/2026 · ✔ PUBLICADO app v549 / 5.36.0: esboços 67 + 68 (Giro › Lista de compras) ✔ v549 · 60a (painel do site sem caixa, título 28 px) ✔ v549.
+

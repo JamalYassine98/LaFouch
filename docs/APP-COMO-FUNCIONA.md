@@ -427,6 +427,11 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - Contas sempre pelo custo: sai "Como dividir as contas entre as peças"; `S.rat66` passa todos para `S.rateio = 'custo'` uma vez. O `</div>` a mais de `precosMetaHtml` saiu (empurrava as taxas para fora do cartão).
 - Botões (65): ações de linha `.cntV`/`.lxT` em rosa com "›", sem sublinhado; `.pcUsa` (Usar G$ …/Informar) em contorno neutro; principal `.go` ("Corrigir os N de uma vez"); "%" dentro do campo (`.pc66`).
 
+## S374h (16/11/2026, v549 · 5.36.0) — esboços 67, 68 e 60a
+- Giro › Lista de compras (src/97-lista-compras.js): peça em 2 andares — nome com o grau na etiqueta (`lcNomeL`) e "Tem N · ~N dias" (`lcMot` tira o "Ideal"); peças agrupadas pelo tipo (`lcGrupos`, título `.lcGr`); em cada seção só as 5 mais urgentes + "ver os N ›" (`ACT.lcTodos`, `S.lcTodos`, não é salvo); a caixa "Sobrando" saiu: o valor parado fica no título `.lcSec.lcSecS b`; o parágrafo do topo virou "como calcula ›" (`ACT.lcCalc`, `S.lcCalc`).
+- Botões (padrão de controles): "Marcar como pedido" = único principal; "Mandar ao fornecedor" e o "Salvar" da vitrine = secundária neutra; "Oferta ›" (`.lcOf`) e "como calcula ›" (`.lcT`) = texto rosa; − n + = um seletor só (`.lcQ`, botões de 40 px dentro de 44 px).
+- Painel do site (60a): o iframe do painel sem borda nem cantos e, no celular (até 760 px), na largura toda; título da flecha (`#grpTabs.gtF .dHdT`) em 28 px serifado.
+
 ## S374g (16/11/2026, v548 · 5.35.1) — esboço 63 e preço automático
 - `FAM7` Peças = `[estoque, est]`; `S.fam63` tira lotes, repo e cont da família de quem já tinha (continuam: abas do Inventário e "toque para contar").
 - `paPlano` regra 4 (vende rápido sobe 5%) desligada (dono 16/11 12:20).

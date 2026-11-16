@@ -4002,7 +4002,7 @@ async def main():
               S.espera.push({ id: 'e1', ref: z.m.ref, nome: 'Ana', tel: '1', ts: Date.now(), av: false }, { id: 'e2', ref: z.m.ref, nome: 'Bia', tel: '2', ts: Date.now(), av: false });
               S.dTab = 'giro'; S.dfold.rep = true; L.setView('dash'); await w(300);
               Ls = L.lcLista(); const so = Ls.sobra.find(b => b.m.ref === a.m.ref);
-              const c = document.getElementById('lcCard'), topo = !!c.querySelector('.lcSobTop'), secS = /Sobrando/.test(c.textContent), mini = c.querySelectorAll('.lcTh').length > 0;
+              const c = document.getElementById('lcCard'), topo = /US\$/.test((c.querySelector('.lcSecS b') || {}).textContent || '') && !c.querySelector('.lcSobTop'), secS = /Sobrando/.test(c.textContent), mini = c.querySelectorAll('.lcTh').length > 0;
               const prim = Ls.acab[0] && Ls.acab[0].m.ref === z.m.ref && /2 clientes esperando/.test(Ls.acab[0].mot);
               // aviso antes de pedir
               const k = Ls.acab[0].k; S.lcQtd[k] = 40; L.render(); await w(100);

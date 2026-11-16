@@ -261,9 +261,16 @@
     var f = photoOf(ref);
     return '<span class="lcTh">' + (f ? '<img src="' + esc(f) + '" alt="">' : '<i>sem foto</i>') + '</span>';
   }
+  // S374 · esboço 68 (dono 16/11): linha de 2 andares — nome (+ grau na etiqueta) e "Tem 9 · ~7 dias"; tipo vira título do grupo.
+  function lcMot(x) {
+    return String(x.mot || '').replace(/Ideal \d+ · /, '').replace('restam ~', '~');
+  }
+  function lcNomeL(m, grau) {
+    return '<span class="lcN"><span>' + esc(pn(m.ref)) + '</span>' + (grau ? ' <b class="lcG">' + esc(grau) + '</b>' : '') + '</span>';
+  }
   function lcLinha(x) {
     return (
-      '<div class="sl lcL">' + lcThumb(x.m.ref) + '<span>' + dxNome(x.m) + (x.grau ? ' <b class="lcG">' + esc(x.grau) + '</b>' : '') + '<small' + (x.esp ? ' class="lcEsp"' : '') + '>' + esc(x.mot) + '</small></span>' +
+      '<div class="sl lcL">' + lcThumb(x.m.ref) + '<span>' + lcNomeL(x.m, x.grau) + '<small' + (x.esp ? ' class="lcEsp"' : '') + '>' + esc(lcMot(x)) + '</small></span>' +
       '<span class="lcQ"><button type="button" class="mini" data-act="lcMenos" data-id="' + esc(x.k) + '" aria-label="Menos">−</button><b>' + x.q + '</b><button type="button" class="mini" data-act="lcMais" data-id="' + esc(x.k) + '" aria-label="Mais">+</button></span></div>'
     );
   }
@@ -271,36 +278,50 @@
     var d = isFinite(b.dias) ? Math.round(b.dias) : 0,
       vira = d > 90;
     return (
-      '<div class="sl lcL">' + lcThumb(b.m.ref) + '<span>' + dxNome(b.m) + (b.grau ? ' <b class="lcG">' + esc(b.grau) + '</b>' : '') +
+      '<div class="sl lcL">' + lcThumb(b.m.ref) + '<span>' + lcNomeL(b.m, b.grau) +
       (b.of ? ' <span class="lcPill">oferta</span>' : '') + (b.aMais ? ' <span class="lcPill">veio +' + b.aMais + ' a mais</span>' : '') +
-      '<small>Ideal ' + b.ideal + ' · Tem ' + b.stock + ' · <b class="lcSo">Sobra ' + b.sobra + '</b>' + (d ? ' · acaba em ~' + d + ' dias' : '') + '</small>' +
+      '<small>Tem ' + b.stock + ' · <b class="lcSo">Sobra ' + b.sobra + '</b>' + (d ? ' · acaba em ~' + d + ' dias' : '') + '</small>' +
       (b.of ? '<small class="lcOfV">A oferta valeu? Economizou ' + usd(b.of.econ) + ' · ' + (vira ? 'ainda não: o extra está parado mais tempo do que a economia compensa' : 'sim, se vender no ritmo atual') + '</small>' : '') +
-      (vira ? '<small class="lcVira">Vai virar parada · colocar em oferta?</small>' : '') +
-      '</span><span class="lcV' + (vira ? ' bad' : '') + '">' + usd0(b.valor) + (vira ? '<button type="button" class="mini" data-act="lcOferta" data-id="' + esc(b.m.tipo + '|' + b.m.ref) + '">Oferta ›</button>' : '') + '</span></div>'
+      (vira ? '<small class="lcVira">vai virar parada</small>' : '') +
+      '</span><span class="lcV' + (vira ? ' bad' : '') + '">' + usd0(b.valor) + (vira ? '<button type="button" class="lcOf" data-act="lcOferta" data-id="' + esc(b.m.tipo + '|' + b.m.ref) + '">Oferta ›</button>' : '') + '</span></div>'
     );
+  }
+  // agrupa pelo tipo, na ordem em que aparece (a lista já vem do mais urgente)
+  function lcGrupos(l, fn) {
+    var ord = [], por = {};
+    l.forEach(function (x) {
+      var tp = tipoOf(x.m.tipo), t = tp ? tp.label : '';
+      if (!por[t]) { por[t] = []; ord.push(t); }
+      por[t].push(x);
+    });
+    return ord.map(function (t) {
+      return (t ? '<div class="lcGr">' + esc(t) + '</div>' : '') + '<div class="split">' + por[t].map(fn).join('') + '</div>';
+    }).join('');
   }
   function lcHtml() {
     var L = lcLista(),
       rp = fxRepo(),
-      h = '<section class="card col lcCard" id="lcCard"><div class="hint" style="margin:0">Sem cor. Pré-graduados por grau. Cobre ~45 dias, corrigido pela estação. Ajuste com − e +.</div>';
-    if (L.sobra.length)
-      h += '<div class="lcSobTop"><span><b>Sobrando</b><small>em mercadoria acima do ideal · ' + L.pecasSobra + (L.pecasSobra === 1 ? ' peça' : ' peças') + '</small></span><b>' + usd0(L.parado) + '</b></div>';
+      h = '<section class="card col lcCard" id="lcCard"><div class="lcTer"><button type="button" class="lcT" data-act="lcCalc">como calcula ›</button></div>' +
+        (S.lcCalc ? '<div class="hint lcCalcT" style="margin:0">Sem cor. Pré-graduados por grau. Cobre ~45 dias, corrigido pela estação. Ajuste com − e +. Sobrando = mercadoria acima do ideal.</div>' : '');
     h += lcPedHtml();
     if (L.novo.length)
       h += '<div class="lcNovo">' + L.novo.map(function (n) {
         return '<div><b>Comprar de novo:</b> ' + esc(n.v) + ' (' + (n.c === 'formato' ? 'formato' : 'material') + ') vende ' + (Math.round(n.r * 10) / 10).toString().replace('.', ',') + '× a média e você só tem ' + n.nm + (n.nm === 1 ? ' modelo' : ' modelos') + '.</div>';
       }).join('') + '</div>';
     if (!L.todos.length && !L.nao.length && !L.sobra.length) return h + '<div class="note n-ok">Nada para comprar agora.</div></section>';
-    var sec = function (t, l, cor) {
+    var todos = S.lcTodos || {};
+    var sec = function (t, l) {
       if (!l.length) return '';
-      return '<div class="lcSec" style="color:' + cor + '">' + t + ' · ' + l.length + '</div><div class="split">' + l.map(lcLinha).join('') + '</div>';
+      var ver = todos[t] || l.length <= 5 ? l : l.slice(0, 5);
+      return '<div class="lcSec"><span>' + t + ' · ' + l.length + '</span></div>' + lcGrupos(ver, lcLinha) +
+        (l.length > 5 ? '<div class="lcTer"><button type="button" class="lcT" data-act="lcTodos" data-id="' + t + '">' + (todos[t] ? 'mostrar só os 5 mais urgentes ›' : 'ver os ' + l.length + ' ›') + '</button></div>' : '');
     };
-    h += sec('Acabando', L.acab, 'var(--warn)');
-    h += sec('Época chegando', L.epoca, 'var(--accent-fg)');
-    if (L.sobra.length) h += '<div class="lcSec" style="color:var(--warn)">Sobrando · ' + L.sobra.length + '</div><div class="split">' + L.sobra.map(lcSobraLinha).join('') + '</div>';
+    h += sec('Acabando', L.acab);
+    h += sec('Época chegando', L.epoca);
+    if (L.sobra.length) h += '<div class="lcSec lcSecS"><span>Sobrando · ' + L.sobra.length + '</span><b>' + usd0(L.parado) + '</b></div>' + lcGrupos(L.sobra, lcSobraLinha);
     if (L.nao.length)
-      h += '<div class="lcSec" style="color:var(--sub)">Não recompre · ' + L.nao.length + '</div><div class="split">' + L.nao.map(function (x) {
-        return '<div class="sl"><span>' + dxNome(x.m) + '<small>' + esc(x.mot) + '</small></span></div>';
+      h += '<div class="lcSec"><span>Não recompre · ' + L.nao.length + '</span></div><div class="split">' + L.nao.map(function (x) {
+        return '<div class="sl lcL lcNao"><span>' + lcNomeL(x.m) + '<small>' + esc(x.mot) + '</small></span></div>';
       }).join('') + '</div>';
     if (L.todos.length) {
       var pct = rp.tot > 0 ? Math.min(100, Math.round((L.total / rp.tot) * 100)) : 0,
@@ -309,7 +330,7 @@
         '<div class="lcTot"><div style="display:flex;justify-content:space-between;align-items:baseline"><span>Total <b>' + usd0(L.total) + '</b></span><span class="hint" style="margin:0">reposição ' + usd0(rp.tot) + '</span></div>' +
         '<div class="lcBar"><i style="width:' + pct + '%;background:' + (sobra < 0 ? 'var(--warn)' : 'var(--ok)') + '"></i></div>' +
         '<div class="hint" style="margin:0">' + (rp.tot <= 0 ? 'Sem dinheiro de reposição guardado ainda.' : sobra >= 0 ? 'Cabe no dinheiro da reposição (sobram ' + usd0(sobra) + ').' : 'Passa ' + usd0(-sobra) + ' do dinheiro da reposição.') + '</div></div>' +
-        '<button type="button" class="go" data-act="lcPedir">Marcar como pedido</button><button type="button" class="mini" data-act="lcEnvia" style="width:100%">Mandar ao fornecedor</button>';
+        '<button type="button" class="go" data-act="lcPedir">Marcar como pedido</button><button type="button" class="mini lcEnv" data-act="lcEnvia" style="width:100%">Mandar ao fornecedor</button>';
     }
     return h + '</section>';
   }
@@ -350,6 +371,15 @@
     saveSoon();
     render();
   }
+  ACT.lcCalc = function () {
+    S.lcCalc = !S.lcCalc;
+    render();
+  };
+  ACT.lcTodos = function (t) {
+    S.lcTodos = S.lcTodos || {};
+    S.lcTodos[t] = !S.lcTodos[t];
+    render();
+  };
   ACT.lcMais = function (k) {
     lcMuda(k, 1);
   };

@@ -2750,3 +2750,31 @@ section.card.fxF>.fxB .fxI>.card:first-child{border-top:0!important;padding-top:
 #v-dash .cntB:has(.lxT.m){justify-content:flex-start!important;gap:22px!important}
 #v-dash .pcUsa{border-color:var(--line)!important;color:var(--fg)!important;background:none!important;font-weight:600}
 .pc66{position:relative;display:inline-block;width:110px;flex:none}.pc66 input{padding-right:34px!important;width:100%!important;max-width:110px}.pc66 i{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-style:normal;color:var(--mute);pointer-events:none}
+/* S374 · esboços 67 + 68 (dono 16/11): Giro › Lista de compras limpa e botões no padrão de luxo.
+   1 principal (Marcar como pedido) · secundária neutra (Mandar ao fornecedor, Salvar da vitrine) · "Oferta ›" e "como calcula ›" texto rosa ·
+   − n + num seletor só · texto à esquerda · peça em 2 andares agrupada por tipo · Sobrando com o valor no título. */
+#lcCard .sl.lcL{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line);text-align:left}
+#lcCard .split>.sl.lcL:first-child{border-top:0}
+#lcCard .sl.lcL.lcNao{grid-template-columns:minmax(0,1fr)}
+#lcCard .sl.lcL>span:nth-child(2),#lcCard .sl.lcL small{text-align:left}
+#lcCard .lcN{display:flex;flex-wrap:wrap;align-items:flex-start;gap:6px;font-size:15px;line-height:1.3;color:var(--fg)}
+#lcCard .lcN .lcG{flex:none}
+#lcCard .sl.lcL small{display:block;font-size:12.5px;color:var(--mute);margin-top:3px}
+#lcCard .sl.lcL small.lcVira{color:var(--bad,#e07a7a)}
+#lcCard .lcSec{display:flex;justify-content:space-between;align-items:baseline;text-align:left;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--sub);margin:20px 0 4px}
+#lcCard .lcSec b{letter-spacing:0;color:var(--warn);font-size:13px}
+#lcCard .lcGr{font-size:12.5px;font-weight:600;color:var(--sub);margin:12px 0 2px;text-align:left}
+#lcCard .lcTer{display:flex;justify-content:flex-start}
+#lcCard .lcT,#lcCard .lcOf{background:none;border:0;padding:10px 0;min-height:44px;font:inherit;font-weight:600;color:var(--accent-fg);cursor:pointer}
+#lcCard .lcV{display:flex;flex-direction:column;align-items:flex-end;gap:0;font-weight:600}
+#lcCard .lcOf{padding:4px 0}
+#lcCard .lcQ{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;height:44px;padding:0 2px;gap:0}
+#lcCard .lcQ .mini{border:0!important;background:none!important;box-shadow:none!important;width:40px;min-width:40px;height:40px;padding:0;color:var(--fg);font-size:18px}
+#lcCard .lcQ b{min-width:26px;text-align:center;font-weight:600}
+#lcCard .lcTot{background:var(--panel2);border:1px solid var(--line)}
+#lcCard .lcEnv,[data-act=vitLug]{border-color:var(--line)!important;color:var(--fg)!important;background:none!important}
+/* S374 · esboço 60a (dono 16/11 11:13): painel do site sem a caixa (borda, cantos) e título no tamanho das telas. */
+#grpTabs.gtF .dHdT{font-family:Fraunces,Georgia,'Times New Roman',serif;font-size:28px;font-weight:500;letter-spacing:-.01em}
+#grpTabs.gtF .dHdT i{font-size:15px}
+.sbox iframe{border:0;border-radius:0}
+@media (max-width:760px){#siteBox:not(.full){width:100vw;margin:0 0 0 calc(50% - 50vw)}}
