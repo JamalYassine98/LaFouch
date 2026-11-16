@@ -27,19 +27,21 @@
   }
   // sugestão: {grupos:[{rot,pct,n}], refs:{ref:pct}, lim, lucroAntes, lucroDepois, empata}
   function temaSugestao(t) {
-    var R = TEMA_REG[t.tema], top = temaTop3(), refs = {}, lim = 0, la = 0, ld = 0, nA = 0, fx = (S.fx && S.fx.pyg) || 0, G = {};
+    var R = TEMA_REG[t.tema], top = temaTop3(), refs = {}, lim = 0, la = 0, ld = 0, nA = 0, fx = (S.fx && S.fx.pyg) || 0, G = {}, fora = { grupo: 0, top: 0, novas: 0, piso: 0, total: 0 };
     (typeof paRefs === 'function' ? paRefs() : []).forEach(function (ref) {
       var it = itemDoRef(ref);
-      if (!it || paEstoque(ref) <= 0 || !R.g(it, ref)) return;
-      if (top.indexOf(ref) >= 0) return; // as 3 mais vendidas ficam sem desconto
-      if (S.cad && S.cad[ref] && Date.now() - S.cad[ref] < 30 * DAY) return; // novidades sem desconto
+      if (!it || paEstoque(ref) <= 0) return;
+      fora.total++;
+      if (!R.g(it, ref)) { fora.grupo++; return; }
+      if (top.indexOf(ref) >= 0) { fora.top++; return; } // as 3 mais vendidas ficam sem desconto
+      if (S.cad && S.cad[ref] && Date.now() - S.cad[ref] < 30 * DAY) { fora.novas++; return; } // novidades sem desconto
       var d = paParado(ref), pct = d >= 60 ? R.pp : R.p;
       if (d >= 60 && pct === R.p) pct += 0.05;
       if (R.max) pct = Math.min(pct, R.max);
       if (!(pct > 0)) return;
       var p = tFor(it).price, ps = typeof pisoDoRef === 'function' ? pisoDoRef(ref, it.tipo) : null, piso = ps && ps.pp ? ps.pp.piso : 0, n = Math.round(p * (1 - pct) / 1000) * 1000;
       if (piso && n < piso) { lim++; n = Math.ceil(piso / 1000) * 1000; pct = Math.max(0, 1 - n / p); }
-      if (!(pct > 0.009)) return;
+      if (!(pct > 0.009)) { fora.piso++; return; }
       refs[ref] = Math.round(pct * 100) / 100;
       var cu = (effCusto(it) || 0) * fx;
       la += p - cu; ld += n - cu; nA++;
@@ -48,7 +50,7 @@
       G[k].n++;
     });
     var mA = nA ? la / nA : 0, mD = nA ? ld / nA : 0;
-    return { grupos: Object.keys(G).map(function (k) { return G[k]; }), refs: refs, lim: lim, n: nA, lucroAntes: Math.round(mA), lucroDepois: Math.round(mD), empata: mD > 0 ? Math.max(0, Math.round((mA / mD - 1) * 100)) : 0 };
+    return { fora: fora, regra: R, grupos: Object.keys(G).map(function (k) { return G[k]; }), refs: refs, lim: lim, n: nA, lucroAntes: Math.round(mA), lucroDepois: Math.round(mD), empata: mD > 0 ? Math.max(0, Math.round((mA / mD - 1) * 100)) : 0 };
   }
   // vale no preço do site enquanto o tema dura (+5% na última semana para quem não vendeu)
   var _sopTema = siteOfPct;
@@ -82,6 +84,14 @@
     if (!temaCardHtml._c.n) return '';
     return '<section class="card temaC noconta"><span>' + t.ic + '</span><div><b>' + esc(t.nome) + (t.dias ? ' começa em ' + t.dias + ' dias' : ' começou') + '</b><small>Tenho uma sugestão de desconto para as peças do tema.</small></div><span class="temaB"><button type="button" class="gBtn" data-act="temaVer">Ver sugestão</button><button type="button" class="gMudo" data-act="temaNao">Agora não</button></span></section>';
   }
+  function temaForaHtml(sg) {
+    var f = sg.fora || {}, L = [];
+    if (f.grupo) L.push([f.grupo, sg.regra && sg.regra.rot === 'Paradas' ? 'venderam nos últimos 30 dias (não estão paradas)' : 'não são do grupo do tema']);
+    if (f.novas) L.push([f.novas, 'são novidades (cadastradas há menos de 30 dias)']);
+    if (f.top) L.push([f.top, 'estão entre as 3 mais vendidas']);
+    if (f.piso) L.push([f.piso, 'já estão no piso ou abaixo dele (não há o que descontar)']);
+    return L.map(function (x) { return '<div class="sl"><span>' + x[1] + '</span><b>' + x[0] + '</b></div>'; }).join('');
+  }
   ACT.temaNao = function () { var t = temaAtual(); if (t) { S.temaNao[temaAno(t)] = 1; saveSoon(); render(); } };
   ACT.temaDesfaz = function () { var o = S.temaOf; S.temaOf = null; saveSoon(); if (o && typeof vitFila === 'function') Object.keys(o.refs).forEach(function (r) { if (S.site && S.site[r]) vitFila(r, 'upd'); }); lfToast('Desconto do tema desfeito'); render(); };
   ACT.temaVer = function () {
@@ -92,7 +102,7 @@
       titulo: t.ic + ' ' + t.nome,
       monta: function (c) {
         c.innerHTML = '<div class="col" style="gap:12px;padding:0 16px 16px"><div class="hint" style="margin:0">' + fd(t.ini) + ' a ' + fd(t.fim) + ' · termina sozinho</div>' +
-          '<section class="card col"><div class="lbl">SUGESTÃO</div>' + (sg.grupos.length ? sg.grupos.map(function (g) { return '<div class="sl"><span>' + esc(g.rot) + '<small>' + g.n + ' peças</small></span><b>−' + g.pct + '%</b></div>'; }).join('') : '<div class="hint">Nenhuma peça do tema precisa de desconto agora.</div>') +
+          '<section class="card col"><div class="lbl">SUGESTÃO</div>' + (sg.grupos.length ? sg.grupos.map(function (g) { return '<div class="sl"><span>' + esc(g.rot) + '<small>' + g.n + ' peças</small></span><b>−' + g.pct + '%</b></div>'; }).join('') : '<div class="hint">Nenhuma peça entra no desconto pela regra de hoje' + (t.tema === 'bf' ? ' (Black Friday: só peças paradas há 30 dias ou mais)' : '') + '.</div>' + temaForaHtml(sg) + '<div class="hint" style="display:none">') +
           (sg.lim ? '<div class="hint" style="margin:6px 0 0">' + sg.lim + ' peça(s) ficam no piso (desconto menor).</div>' : '') + '<div class="hint" style="margin:6px 0 0">Novidades e as 3 mais vendidas ficam sem desconto. O cupom do evento não soma.</div></section>' +
           (sg.n ? '<section class="card col"><div class="lbl">SIMULAÇÃO</div><div class="sl"><span>Lucro médio por peça</span><b>' + gs(sg.lucroAntes) + ' → ' + gs(sg.lucroDepois) + '</b></div><div class="sl"><span>Para empatar</span><b>vender ' + sg.empata + '% a mais</b></div>' +
             '<div class="sl"><span>Orçamento do tema</span><span style="display:flex;gap:6px;align-items:center">US$ <input class="in" id="temaOrc" inputmode="decimal" style="width:90px" value="' + (S.temaOrc || '') + '"></span></div><div class="hint" id="temaOrcH" style="margin:0"></div>' +
@@ -118,7 +128,7 @@
   var _atTema = atencaoItens;
   atencaoItens = function () {
     var it = _atTema.apply(this, arguments);
-    try { var t = temaAtual(); if (t && t.tema !== 'halloween' && t.dias <= 20 && !S.temaNao[temaAno(t)] && !(S.temaOf && S.temaOf.tema === t.tema)) it.push({ t: t.nome + (t.dias ? ' em ' + t.dias + ' dias' : ''), s: 'sugestão de desconto pronta', c: 'var(--ac)', b: 'Ver', act: 'temaVer', id: '' }); } catch (e) {}
+    try { var t = temaAtual(); if (t && t.tema !== 'halloween' && t.dias <= 20 && !S.temaNao[temaAno(t)] && !(S.temaOf && S.temaOf.tema === t.tema)) it.push({ t: t.nome + (t.dias ? ' em ' + t.dias + ' dias' : ''), s: temaSugestao(t).n ? 'sugestão de desconto pronta' : 'nenhuma peça entra no desconto pela regra · veja por quê', c: 'var(--ac)', b: 'Ver', act: 'temaVer', id: '' }); } catch (e) {}
     return it;
   };
   // e-mail aos inscritos no começo do tema (1 vez; a função "novidades" guarda que já foi)

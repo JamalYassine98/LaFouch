@@ -34,10 +34,19 @@
     return moeda === 'pyg' ? Math.round(t) : Math.round(t * 100) / 100;
   }
   // Botões de forma de pagamento na tela de venda.
+  // S366: a estrutura do Pagamento de luxo é garantida aqui (não depende do index.html do aparelho, que pode ser o antigo)
+  function pagLuxArruma() {
+    var f = $('formaChips'), m = $('moedas'), cli = $('cliPickB'), mix = $('pagMixB'), go = $('sgo');
+    if (f) { f.className = 'trk'; if (!$('formaTx')) { var tx = document.createElement('div'); tx.className = 'hint esHt'; tx.id = 'formaTx'; tx.hidden = true; f.parentNode.appendChild(tx); } }
+    if (m) { m.className = 'trk'; m.setAttribute('role', 'group'); m.setAttribute('aria-label', 'Moeda recebida'); }
+    if (cli && mix && mix.parentNode && cli.nextElementSibling !== mix) mix.parentNode.insertBefore(cli, mix);
+    if (go && !$('pagMais')) { var b = document.createElement('button'); b.type = 'button'; b.className = 'esMais'; b.id = 'pagMais'; b.setAttribute('data-act', 'cartclose'); b.hidden = !(S.view === 'vendas' && S.cartOpen && S.cartStep !== 'ped'); b.textContent = '+ Adicionar outra peça ao pedido'; go.parentNode.insertBefore(b, go.nextSibling); }
+  }
   function renderForma() {
     var box = $('formaChips');
     if (!box) return;
     // S365 (esboço 39): um trilho só; o nome curto no trilho e a taxa da maquininha embaixo, só quando ela é a escolhida
+    pagLuxArruma();
     box.textContent = '';
     var cur = formaSel(), th = document.createElement('span');
     th.className = 'trkTh';

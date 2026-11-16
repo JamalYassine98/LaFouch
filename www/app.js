@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 533;
+  var APP_BUILD = 534;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.25.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.25.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -13595,10 +13595,19 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return moeda === 'pyg' ? Math.round(t) : Math.round(t * 100) / 100;
   }
   // Botões de forma de pagamento na tela de venda.
+  // S366: a estrutura do Pagamento de luxo é garantida aqui (não depende do index.html do aparelho, que pode ser o antigo)
+  function pagLuxArruma() {
+    var f = $('formaChips'), m = $('moedas'), cli = $('cliPickB'), mix = $('pagMixB'), go = $('sgo');
+    if (f) { f.className = 'trk'; if (!$('formaTx')) { var tx = document.createElement('div'); tx.className = 'hint esHt'; tx.id = 'formaTx'; tx.hidden = true; f.parentNode.appendChild(tx); } }
+    if (m) { m.className = 'trk'; m.setAttribute('role', 'group'); m.setAttribute('aria-label', 'Moeda recebida'); }
+    if (cli && mix && mix.parentNode && cli.nextElementSibling !== mix) mix.parentNode.insertBefore(cli, mix);
+    if (go && !$('pagMais')) { var b = document.createElement('button'); b.type = 'button'; b.className = 'esMais'; b.id = 'pagMais'; b.setAttribute('data-act', 'cartclose'); b.hidden = !(S.view === 'vendas' && S.cartOpen && S.cartStep !== 'ped'); b.textContent = '+ Adicionar outra peça ao pedido'; go.parentNode.insertBefore(b, go.nextSibling); }
+  }
   function renderForma() {
     var box = $('formaChips');
     if (!box) return;
     // S365 (esboço 39): um trilho só; o nome curto no trilho e a taxa da maquininha embaixo, só quando ela é a escolhida
+    pagLuxArruma();
     box.textContent = '';
     var cur = formaSel(), th = document.createElement('span');
     th.className = 'trkTh';
@@ -22054,7 +22063,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     // S188 (13/11): o Contador vem primeiro; as regras de sempre ficam recolhidas em "Regras do contador"
     h += contadorHtml();
     h += '<div class="lbl" style="margin:16px 4px 6px">REGRAS DO CONTADOR</div>';
-    h += dFold('pau', 'Preço automático', S.pAuto && S.pAuto.on ? 'ligado · revisa toda segunda' : 'desligado', 'var(--sub)', precosAutoHtml());
+    h += dFold('pau', 'Preço automático', S.pAuto && S.pAuto.on ? 'ligado · revisa toda segunda' : 'desligado', 'var(--sub)', paSwitchHtml() + precosAutoHtml());
     // S363: uma lista só de preços a corrigir, com a mesma contagem do aviso do Inventário (antes: 15 lá e 16 aqui — aqui entrava o lote sem detalhe)
     var pcN = typeof invPrecosAcorrigir === 'function' ? invPrecosAcorrigir().length : ab;
     h += dFold('abp', 'Preços para corrigir', pcN ? pcN + (pcN === 1 ? ' peça' : ' peças') : 'nenhum', pcN ? 'var(--warn)' : 'var(--ok)', typeof pcCorpo === 'function' ? '<div class="pcNaTela">' + pcCorpo(true) + '</div>' : x3.abaixo);
@@ -23312,7 +23321,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     el.innerHTML =
       head +
       '<div id="dtabBody">' +
-      dashCompose({ per: perHtml, kp: kpHtml, repor: reporHtml(sp), colch: colchaoSaldoHtml(), vend: vendHtml, sep: secSep, two: secTwo, margem: html }) +
+      dashCompose({ per: perHtml, kp: kpHtml, repor: reporHtml(sp), colch: '', vend: vendHtml, sep: secSep, two: secTwo, margem: html }) +
       '</div>';
   }
 
@@ -25449,6 +25458,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var v = S.rec != null ? S.rec : S.pagMisto ? 0 : a;
     S._recv = v;
     var mo = $('moedas');
+    if (typeof pagLuxArruma === 'function') pagLuxArruma();
     mo.textContent = '';
     var moTh = document.createElement('span');
     moTh.className = 'trkTh';
@@ -30313,6 +30323,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       ),
       ul = lt.length > 1 ? lt[lt.length - 1].usd / lt[lt.length - 2].usd - 1 : 0;
     return (
+      (typeof colchaoSaldoHtml === 'function' ? '<div class="fjColch">' + colchaoSaldoHtml() + '</div>' : '') + // S366: o saldo do colchão saiu do Dashboard e mora aqui
       '<div class="fjB"><span class="lbl">Cotação da loja</span><div>Casa <b>' + dots(Math.round(casa)) + '</b> → loja <b>' + dots(loja) + '</b> <span class="hint" style="display:inline;margin:0">(+1%, de 50 em 50)</span></div><div class="hint" style="margin:0">Seus preços usam a cotação da loja: se a casa subir até 1%, você não perde.</div></div>' +
       '<div class="fjB"><span class="lbl fjBl">Colchão de cada venda <b>' + pc(c.pct) + '</b></span><span class="fxBar"><i style="width:' + Math.round(((c.pct - 0.05) / 0.2) * 100) + '%;background:var(--accent)"></i></span><div class="hint fjMm" style="margin:0"><span>mín 5%</span><span>máx 25%</span></div>' +
       '<div class="hint" style="margin:0">Pior alta do dólar em ' + c.janela + ' dias (+' + pc(c.fx) + ') e alta do custo entre lotes (+' + pc(c.cost) + '). Separado em cada venda para repor mais caro se precisar.</div></div>' +
@@ -31355,6 +31366,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return { n: n, cabe: n ? cabe / base : 0, lim: lim, of: of, desc: base ? soma / base : 0, sug: sug };
   }
   // Próximo tema do calendário (as mesmas datas do painel) para sugerir o cupom do evento
+  var BF_CDE = { 2026: [19, 22] }; // ano → [primeiro dia, último dia] de novembro
   function cupTemaProx() {
     var ag = Date.now(),
       y = new Date().getFullYear(),
@@ -31367,7 +31379,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         bf = 1 + ((4 - n1.getDay() + 7) % 7) + 21 + 1,
         j1 = new Date(a, 5, 1),
         p2 = 1 + ((7 - j1.getDay()) % 7) + 7;
-      L.push({ tema: 'bf', nome: 'Black Friday', ic: '🖤', cod: 'BLACK10', ini: d(11, bf), fim: d(11, bf + 3, 1) });
+      // S366: a data que vale é a da Black Friday CDE (decisão do dono, 13/11/2026); sem data da Câmara para o ano, cai na sexta internacional
+      if (BF_CDE[a]) L.push({ tema: 'bf', nome: 'Black Friday', ic: '🖤', cod: 'BLACK10', ini: d(11, BF_CDE[a][0]), fim: d(11, BF_CDE[a][1], 1) });
+      else L.push({ tema: 'bf', nome: 'Black Friday', ic: '🖤', cod: 'BLACK10', ini: d(11, bf), fim: d(11, bf + 3, 1) });
       L.push({ tema: 'natal', nome: 'Natal', ic: '🎄', cod: 'NAVIDAD10', ini: d(12, 1), fim: d(12, 25, 1) });
       L.push({ tema: 'anonovo', nome: 'Ano Novo', ic: '🥂', cod: 'ANONUEVO10', ini: d(12, 26), fim: d(12, 31, 1) });
       L.push({ tema: 'maes', nome: 'Dia das Mães', ic: '💐', cod: 'MAMA10', ini: d(5, 1), fim: d(5, 15, 1) });
@@ -37693,6 +37707,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       var bf = new Date(Y, 10, 1);
       while (bf.getDay() !== 4) bf.setDate(bf.getDate() + 1);
       bf.setDate(bf.getDate() + 22);
+      if (BF_CDE[Y]) bf = new Date(Y, 10, BF_CDE[Y][0]);
       var p = mkPascoa(Y);
       [
         [new Date(Y, 0, 1), 'Ano Novo', 'BR/PY', 'solar para o verão'],
@@ -37709,7 +37724,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         [new Date(Y, 8, 15), 'Dia do Cliente', 'BR', 'agradecer e oferta curta'],
         [new Date(Y, 8, 21), 'Primavera / Día de la Juventud', 'PY', 'solar: começa o sol forte'],
         [new Date(Y, 9, 12), 'Dia das Crianças', 'BR', 'óculos infantis'],
-        [bf, 'Black Friday', 'BR/PY', 'super evento no site'],
+        [bf, BF_CDE[Y] ? 'Black Friday CDE' : 'Black Friday', 'BR/PY', 'super evento no site'],
         [new Date(Y, 11, 25), 'Natal', 'BR/PY', 'presente: embalagem e combo']
       ].forEach(function (x) {
         var dd = Math.round((x[0] - hoje) / DAY);
@@ -40862,7 +40877,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var on = !!(S.pAuto && S.pAuto.on),
       h =
         '<section class="card col paCard" id="paCard"><button type="button" class="paSw" data-act="paTog" role="switch" aria-checked="' + on + '"><span><b>Preço automático</b><small>' +
-        (on ? 'ligado · revisa toda segunda · os ajustes ficam em Dashboard › Preços' : 'desligado · você define os preços à mão') +
+        (on ? 'ligado · revisa toda segunda · os ajustes ficam logo abaixo' : 'desligado · você define os preços à mão') +
         '</small></span><span class="sw"><input type="checkbox" tabindex="-1" aria-hidden="true"' + (on ? ' checked' : '') + '><i></i></span></button></section>';
     if (S.paPrev) {
       var pv = paPrevia();
@@ -40879,7 +40894,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       h = '';
     h += on
       ? '<div class="paEst"><i class="' + (fr ? 'w' : 'o') + '"></i>' + (fr ? 'Semana fraca na loja toda (' + fr.pct + '% abaixo do normal): preços seguros, só os parados entram em oferta' : 'Preço automático ligado · movimento normal') + '</div>'
-      : '<div class="paEst"><i class="w"></i>Preço automático desligado · ligue em Ajustes</div>';
+      : '<div class="paEst"><i class="w"></i>Preço automático desligado</div>';
     var lm = paLucroMes();
     if (lm.metaG > 0) {
       var pct = Math.max(0, Math.min(1, lm.lucroG / lm.metaG));
@@ -41690,8 +41705,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         bf = 1 + ((4 - n1.getDay() + 7) % 7) + 21 + 1,
         j1 = new Date(y, 5, 1),
         p2 = 1 + ((7 - j1.getDay()) % 7) + 7;
-      if (y === 2026) L.push(['Black Friday CDE', d(11, 19), d(11, 22, 1)]);
-      L.push(['Black Friday', d(11, bf), d(11, bf, 1)], ['Natal', d(12, 1), d(12, 25, 1)], ['Ano Novo', d(12, 26), d(12, 31, 1)], ['Dia das Mães', d(5, 1), d(5, 15, 1)], ['Dia dos Pais', d(6, 1), d(6, p2, 1)]);
+      if (BF_CDE[y]) L.push(['Black Friday CDE', d(11, BF_CDE[y][0]), d(11, BF_CDE[y][1], 1)]);
+      else L.push(['Black Friday', d(11, bf), d(11, bf, 1)]);
+      L.push(['Natal', d(12, 1), d(12, 25, 1)], ['Ano Novo', d(12, 26), d(12, 31, 1)], ['Dia das Mães', d(5, 1), d(5, 15, 1)], ['Dia dos Pais', d(6, 1), d(6, p2, 1)]);
     });
     var at = L.filter(function (x) {
       return x[1] <= ag && ag <= x[2];
@@ -43942,19 +43958,21 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   // sugestão: {grupos:[{rot,pct,n}], refs:{ref:pct}, lim, lucroAntes, lucroDepois, empata}
   function temaSugestao(t) {
-    var R = TEMA_REG[t.tema], top = temaTop3(), refs = {}, lim = 0, la = 0, ld = 0, nA = 0, fx = (S.fx && S.fx.pyg) || 0, G = {};
+    var R = TEMA_REG[t.tema], top = temaTop3(), refs = {}, lim = 0, la = 0, ld = 0, nA = 0, fx = (S.fx && S.fx.pyg) || 0, G = {}, fora = { grupo: 0, top: 0, novas: 0, piso: 0, total: 0 };
     (typeof paRefs === 'function' ? paRefs() : []).forEach(function (ref) {
       var it = itemDoRef(ref);
-      if (!it || paEstoque(ref) <= 0 || !R.g(it, ref)) return;
-      if (top.indexOf(ref) >= 0) return; // as 3 mais vendidas ficam sem desconto
-      if (S.cad && S.cad[ref] && Date.now() - S.cad[ref] < 30 * DAY) return; // novidades sem desconto
+      if (!it || paEstoque(ref) <= 0) return;
+      fora.total++;
+      if (!R.g(it, ref)) { fora.grupo++; return; }
+      if (top.indexOf(ref) >= 0) { fora.top++; return; } // as 3 mais vendidas ficam sem desconto
+      if (S.cad && S.cad[ref] && Date.now() - S.cad[ref] < 30 * DAY) { fora.novas++; return; } // novidades sem desconto
       var d = paParado(ref), pct = d >= 60 ? R.pp : R.p;
       if (d >= 60 && pct === R.p) pct += 0.05;
       if (R.max) pct = Math.min(pct, R.max);
       if (!(pct > 0)) return;
       var p = tFor(it).price, ps = typeof pisoDoRef === 'function' ? pisoDoRef(ref, it.tipo) : null, piso = ps && ps.pp ? ps.pp.piso : 0, n = Math.round(p * (1 - pct) / 1000) * 1000;
       if (piso && n < piso) { lim++; n = Math.ceil(piso / 1000) * 1000; pct = Math.max(0, 1 - n / p); }
-      if (!(pct > 0.009)) return;
+      if (!(pct > 0.009)) { fora.piso++; return; }
       refs[ref] = Math.round(pct * 100) / 100;
       var cu = (effCusto(it) || 0) * fx;
       la += p - cu; ld += n - cu; nA++;
@@ -43963,7 +43981,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       G[k].n++;
     });
     var mA = nA ? la / nA : 0, mD = nA ? ld / nA : 0;
-    return { grupos: Object.keys(G).map(function (k) { return G[k]; }), refs: refs, lim: lim, n: nA, lucroAntes: Math.round(mA), lucroDepois: Math.round(mD), empata: mD > 0 ? Math.max(0, Math.round((mA / mD - 1) * 100)) : 0 };
+    return { fora: fora, regra: R, grupos: Object.keys(G).map(function (k) { return G[k]; }), refs: refs, lim: lim, n: nA, lucroAntes: Math.round(mA), lucroDepois: Math.round(mD), empata: mD > 0 ? Math.max(0, Math.round((mA / mD - 1) * 100)) : 0 };
   }
   // vale no preço do site enquanto o tema dura (+5% na última semana para quem não vendeu)
   var _sopTema = siteOfPct;
@@ -43997,6 +44015,14 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!temaCardHtml._c.n) return '';
     return '<section class="card temaC noconta"><span>' + t.ic + '</span><div><b>' + esc(t.nome) + (t.dias ? ' começa em ' + t.dias + ' dias' : ' começou') + '</b><small>Tenho uma sugestão de desconto para as peças do tema.</small></div><span class="temaB"><button type="button" class="gBtn" data-act="temaVer">Ver sugestão</button><button type="button" class="gMudo" data-act="temaNao">Agora não</button></span></section>';
   }
+  function temaForaHtml(sg) {
+    var f = sg.fora || {}, L = [];
+    if (f.grupo) L.push([f.grupo, sg.regra && sg.regra.rot === 'Paradas' ? 'venderam nos últimos 30 dias (não estão paradas)' : 'não são do grupo do tema']);
+    if (f.novas) L.push([f.novas, 'são novidades (cadastradas há menos de 30 dias)']);
+    if (f.top) L.push([f.top, 'estão entre as 3 mais vendidas']);
+    if (f.piso) L.push([f.piso, 'já estão no piso ou abaixo dele (não há o que descontar)']);
+    return L.map(function (x) { return '<div class="sl"><span>' + x[1] + '</span><b>' + x[0] + '</b></div>'; }).join('');
+  }
   ACT.temaNao = function () { var t = temaAtual(); if (t) { S.temaNao[temaAno(t)] = 1; saveSoon(); render(); } };
   ACT.temaDesfaz = function () { var o = S.temaOf; S.temaOf = null; saveSoon(); if (o && typeof vitFila === 'function') Object.keys(o.refs).forEach(function (r) { if (S.site && S.site[r]) vitFila(r, 'upd'); }); lfToast('Desconto do tema desfeito'); render(); };
   ACT.temaVer = function () {
@@ -44007,7 +44033,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       titulo: t.ic + ' ' + t.nome,
       monta: function (c) {
         c.innerHTML = '<div class="col" style="gap:12px;padding:0 16px 16px"><div class="hint" style="margin:0">' + fd(t.ini) + ' a ' + fd(t.fim) + ' · termina sozinho</div>' +
-          '<section class="card col"><div class="lbl">SUGESTÃO</div>' + (sg.grupos.length ? sg.grupos.map(function (g) { return '<div class="sl"><span>' + esc(g.rot) + '<small>' + g.n + ' peças</small></span><b>−' + g.pct + '%</b></div>'; }).join('') : '<div class="hint">Nenhuma peça do tema precisa de desconto agora.</div>') +
+          '<section class="card col"><div class="lbl">SUGESTÃO</div>' + (sg.grupos.length ? sg.grupos.map(function (g) { return '<div class="sl"><span>' + esc(g.rot) + '<small>' + g.n + ' peças</small></span><b>−' + g.pct + '%</b></div>'; }).join('') : '<div class="hint">Nenhuma peça entra no desconto pela regra de hoje' + (t.tema === 'bf' ? ' (Black Friday: só peças paradas há 30 dias ou mais)' : '') + '.</div>' + temaForaHtml(sg) + '<div class="hint" style="display:none">') +
           (sg.lim ? '<div class="hint" style="margin:6px 0 0">' + sg.lim + ' peça(s) ficam no piso (desconto menor).</div>' : '') + '<div class="hint" style="margin:6px 0 0">Novidades e as 3 mais vendidas ficam sem desconto. O cupom do evento não soma.</div></section>' +
           (sg.n ? '<section class="card col"><div class="lbl">SIMULAÇÃO</div><div class="sl"><span>Lucro médio por peça</span><b>' + gs(sg.lucroAntes) + ' → ' + gs(sg.lucroDepois) + '</b></div><div class="sl"><span>Para empatar</span><b>vender ' + sg.empata + '% a mais</b></div>' +
             '<div class="sl"><span>Orçamento do tema</span><span style="display:flex;gap:6px;align-items:center">US$ <input class="in" id="temaOrc" inputmode="decimal" style="width:90px" value="' + (S.temaOrc || '') + '"></span></div><div class="hint" id="temaOrcH" style="margin:0"></div>' +
@@ -44033,7 +44059,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   var _atTema = atencaoItens;
   atencaoItens = function () {
     var it = _atTema.apply(this, arguments);
-    try { var t = temaAtual(); if (t && t.tema !== 'halloween' && t.dias <= 20 && !S.temaNao[temaAno(t)] && !(S.temaOf && S.temaOf.tema === t.tema)) it.push({ t: t.nome + (t.dias ? ' em ' + t.dias + ' dias' : ''), s: 'sugestão de desconto pronta', c: 'var(--ac)', b: 'Ver', act: 'temaVer', id: '' }); } catch (e) {}
+    try { var t = temaAtual(); if (t && t.tema !== 'halloween' && t.dias <= 20 && !S.temaNao[temaAno(t)] && !(S.temaOf && S.temaOf.tema === t.tema)) it.push({ t: t.nome + (t.dias ? ' em ' + t.dias + ' dias' : ''), s: temaSugestao(t).n ? 'sugestão de desconto pronta' : 'nenhuma peça entra no desconto pela regra · veja por quê', c: 'var(--ac)', b: 'Ver', act: 'temaVer', id: '' }); } catch (e) {}
     return it;
   };
   // e-mail aos inscritos no começo do tema (1 vez; a função "novidades" guarda que já foi)
@@ -45601,7 +45627,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     try { paPlano().forEach(function (m) { L.push({ t: 'pa', m: m, ic: m.kind === 'oferta' ? '⬇️' : m.kind === 'fim' ? '↩️' : '⬆️', tit: (m.kind === 'oferta' ? 'Oferta ' : m.kind === 'fim' ? 'Volta ao preço ' : 'Subir ') + m.ref, sub: m.mot, v: gs(m.para) }); }); } catch (e) {}
     try {
       var t = typeof temaAtual === 'function' ? temaAtual() : null;
-      if (t && t.dias <= 20 && !(S.temaOf && S.temaOf.tema === t.tema) && !(S.temaNao && S.temaNao[temaAno(t)])) L.push({ t: 'tema', ic: t.ic || '🎉', tit: t.nome + ' em ' + t.dias + ' dias', sub: 'sugestão do tema pronta', v: 'ver', act: 'temaVer' });
+      if (t && t.dias <= 20 && !(S.temaOf && S.temaOf.tema === t.tema) && !(S.temaNao && S.temaNao[temaAno(t)])) L.push({ t: 'tema', ic: t.ic || '🎉', tit: t.nome + ' em ' + t.dias + ' dias', sub: (typeof temaSugestao === 'function' && !temaSugestao(t).n) ? 'nenhuma peça entra no desconto pela regra' : 'sugestão do tema pronta', v: (typeof temaSugestao === 'function' && !temaSugestao(t).n) ? 'por quê' : 'ver', act: 'temaVer' });
     } catch (e) {}
     try {
       var fx = cntFx(), vis = {};
@@ -47676,7 +47702,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   function cartPainel(card) {
     var h =
-      '<div style="display:flex;align-items:center;gap:10px"><button type="button" class="chip" data-act="cartclose" aria-label="Voltar" style="min-height:42px;width:42px;padding:0;justify-content:center;font-size:20px;flex:0 0 auto">←</button><h2 style="margin:0;font-size:20px">Pedido · ' + cartPecas() + ' peça(s)</h2></div>' +
+      '<div style="display:flex;align-items:center;gap:10px"><h2 style="margin:0;font-size:20px">Pedido · ' + cartPecas() + ' peça(s)</h2></div>' +
       tabCartHtml() +
       '<div class="hint" style="margin:0">O piso é conferido sobre o total. Você pode mudar o preço de uma peça (desconto maior numa, menos em outra) e o app confere se o total ainda cobre tudo.</div><div class="split">';
     S.cart.forEach(function (l, i) {
@@ -49494,6 +49520,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       comSug = L.filter(function (x) { return x.pb.sug > 0; });
     var h = naTela ? '' : '<h3 class="pcT">Preços para corrigir</h3>';
     if (!L.length) h += '<p class="pcVazio">Tudo certo: nenhum preço para corrigir.</p>';
+    // S366 (dono, 15/11 23:20: "não consigo corrigir todos de uma só vez"): na tela, o botão de corrigir todos vem ANTES da lista (antes só no fim, depois de rolar tudo)
+    if (naTela && comSug.length) h += '<div class="pcFt pcFtTopo"><button type="button" class="go" data-act="pcUsaTodos">Corrigir os ' + comSug.length + ' de uma vez</button></div>' + (comSug.length < L.length ? '<p class="pcVazio">' + (L.length - comSug.length) + ' sem custo cadastrado: o app não tem como sugerir; toque em “Informar” em cada uma.</p>' : '');
     h += L.map(function (x) {
       var pb = x.pb,
         ph = photoOf(x.ref),
@@ -49516,7 +49544,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }).join('');
     if (L.length)
       h += '<div class="pcTot"><span>' + L.length + (L.length === 1 ? ' peça' : ' peças') + ' · ' + comSug.length + ' com sugestão</span></div>';
-    h += '<div class="pcFt">' + (comSug.length ? '<button type="button" class="go" data-act="pcUsaTodos">Usar os sugeridos (' + comSug.length + ')</button>' : '') + (naTela ? '' : '<button type="button" class="pcFe" data-act="pcFecha">Fechar</button>') + '</div>';
+    h += '<div class="pcFt">' + (comSug.length && !naTela ? '<button type="button" class="go" data-act="pcUsaTodos">Usar os sugeridos (' + comSug.length + ')</button>' : '') + (naTela ? '' : '<button type="button" class="pcFe" data-act="pcFecha">Fechar</button>') + '</div>';
     return h;
   }
   function pcFolha() {
@@ -50193,6 +50221,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     hd.after(su);
     var c3 = v.querySelector('.famC3');
     if (c3) c3.remove();
+    // S366 (dono, 15/11 23:20): o que é do Câmbio sai do Dashboard — as trocas do dia estão em Câmbio › Últimas trocas
+    var cdia = [].filter.call(v.querySelectorAll('section,.card,.famRec'), function (e) { return /^Câmbio (do dia|feito neste dia)/.test((e.textContent || '').trim()); });
+    cdia.forEach(function (e) { e.remove(); });
     // S363 (esboço 45b): o "Fechamento do caixa" saiu do Histórico e fica aqui, no dia de hoje
     if (typeof fechoHtml === 'function' && !v.querySelector('.d48Fecho')) {
       var fd = document.createElement('div');

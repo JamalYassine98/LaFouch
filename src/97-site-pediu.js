@@ -127,8 +127,9 @@
         bf = 1 + ((4 - n1.getDay() + 7) % 7) + 21 + 1,
         j1 = new Date(y, 5, 1),
         p2 = 1 + ((7 - j1.getDay()) % 7) + 7;
-      if (y === 2026) L.push(['Black Friday CDE', d(11, 19), d(11, 22, 1)]);
-      L.push(['Black Friday', d(11, bf), d(11, bf, 1)], ['Natal', d(12, 1), d(12, 25, 1)], ['Ano Novo', d(12, 26), d(12, 31, 1)], ['Dia das Mães', d(5, 1), d(5, 15, 1)], ['Dia dos Pais', d(6, 1), d(6, p2, 1)]);
+      if (BF_CDE[y]) L.push(['Black Friday CDE', d(11, BF_CDE[y][0]), d(11, BF_CDE[y][1], 1)]);
+      else L.push(['Black Friday', d(11, bf), d(11, bf, 1)]);
+      L.push(['Natal', d(12, 1), d(12, 25, 1)], ['Ano Novo', d(12, 26), d(12, 31, 1)], ['Dia das Mães', d(5, 1), d(5, 15, 1)], ['Dia dos Pais', d(6, 1), d(6, p2, 1)]);
     });
     var at = L.filter(function (x) {
       return x[1] <= ag && ag <= x[2];

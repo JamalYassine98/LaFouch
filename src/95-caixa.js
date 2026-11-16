@@ -128,6 +128,7 @@
     var v = S.rec != null ? S.rec : S.pagMisto ? 0 : a;
     S._recv = v;
     var mo = $('moedas');
+    if (typeof pagLuxArruma === 'function') pagLuxArruma();
     mo.textContent = '';
     var moTh = document.createElement('span');
     moTh.className = 'trkTh';

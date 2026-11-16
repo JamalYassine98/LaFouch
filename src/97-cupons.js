@@ -330,6 +330,7 @@
     return { n: n, cabe: n ? cabe / base : 0, lim: lim, of: of, desc: base ? soma / base : 0, sug: sug };
   }
   // Próximo tema do calendário (as mesmas datas do painel) para sugerir o cupom do evento
+  var BF_CDE = { 2026: [19, 22] }; // ano → [primeiro dia, último dia] de novembro
   function cupTemaProx() {
     var ag = Date.now(),
       y = new Date().getFullYear(),
@@ -342,7 +343,9 @@
         bf = 1 + ((4 - n1.getDay() + 7) % 7) + 21 + 1,
         j1 = new Date(a, 5, 1),
         p2 = 1 + ((7 - j1.getDay()) % 7) + 7;
-      L.push({ tema: 'bf', nome: 'Black Friday', ic: '🖤', cod: 'BLACK10', ini: d(11, bf), fim: d(11, bf + 3, 1) });
+      // S366: a data que vale é a da Black Friday CDE (decisão do dono, 13/11/2026); sem data da Câmara para o ano, cai na sexta internacional
+      if (BF_CDE[a]) L.push({ tema: 'bf', nome: 'Black Friday', ic: '🖤', cod: 'BLACK10', ini: d(11, BF_CDE[a][0]), fim: d(11, BF_CDE[a][1], 1) });
+      else L.push({ tema: 'bf', nome: 'Black Friday', ic: '🖤', cod: 'BLACK10', ini: d(11, bf), fim: d(11, bf + 3, 1) });
       L.push({ tema: 'natal', nome: 'Natal', ic: '🎄', cod: 'NAVIDAD10', ini: d(12, 1), fim: d(12, 25, 1) });
       L.push({ tema: 'anonovo', nome: 'Ano Novo', ic: '🥂', cod: 'ANONUEVO10', ini: d(12, 26), fim: d(12, 31, 1) });
       L.push({ tema: 'maes', nome: 'Dia das Mães', ic: '💐', cod: 'MAMA10', ini: d(5, 1), fim: d(5, 15, 1) });

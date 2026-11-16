@@ -1192,7 +1192,7 @@ async def main():
             u6 = await pg.evaluate("() => [document.getElementById('cartCard').hidden, ['payB','sgo'].map(i => document.getElementById(i).offsetParent !== null), document.getElementById('pagHead').hidden, document.getElementById('tot').textContent.length > 0]")
             await pg.locator('#pagHead [data-act=cartvolta]').click(); await pg.wait_for_timeout(300)
             u7 = await pg.evaluate("() => [document.getElementById('cartCard').hidden, document.getElementById('vSaleCard').hidden, document.getElementById('pagHead').hidden]")
-            await pg.locator('#cartCard button[aria-label=Voltar]').click(); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => window.__LF.ACT.cartclose()"); await pg.wait_for_timeout(300)
             await pg.locator('#vRows .pcard').first.click(); await pg.wait_for_timeout(300)
             await pg.evaluate("() => { if (document.getElementById('lfa-folha') && document.getElementById('lfa-folha').innerHTML) window.__folha.vitrine(); }"); await pg.wait_for_timeout(300)
             u5 = await pg.evaluate("() => ['qtyB','payB','sgo','sCartAdd'].map(i => document.getElementById(i).offsetParent !== null)")
@@ -2342,7 +2342,7 @@ async def main():
             r = await pg.evaluate("""() => { const t = document.getElementById('v-dia').innerText;
               return [!!document.querySelector('[data-act=hback]'), !!document.querySelector('[data-act=closedia]'), !!document.querySelector('[data-act=daycal]'), !!document.querySelector('[data-act=daytoday]'), t.includes('G$ 90.000'), t.includes('Câmbio feito neste dia'), document.querySelectorAll('#mainnav .mn').length]; }""")
             total += 1
-            ok = r == [False, False, False, False, True, True, 5] and not pg.erros  # S362: hoje não tem mais o calendário (dia que não é hoje: Histórico)
+            ok = r == [False, False, False, False, True, False, 5] and not pg.erros  # S366: em hoje o "Câmbio do dia" saiu (mora no Câmbio) · S362: hoje não tem mais o calendário (dia que não é hoje: Histórico)
             print(('  ok  ' if ok else ' FALHA ') + 'histórico do dia: valor exato, câmbio e botões novos')
             if not ok: falhas.append('hist dia'); print('        veio', r, pg.erros)
             await pg.close()

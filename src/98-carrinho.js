@@ -126,7 +126,7 @@
   }
   function cartPainel(card) {
     var h =
-      '<div style="display:flex;align-items:center;gap:10px"><button type="button" class="chip" data-act="cartclose" aria-label="Voltar" style="min-height:42px;width:42px;padding:0;justify-content:center;font-size:20px;flex:0 0 auto">←</button><h2 style="margin:0;font-size:20px">Pedido · ' + cartPecas() + ' peça(s)</h2></div>' +
+      '<div style="display:flex;align-items:center;gap:10px"><h2 style="margin:0;font-size:20px">Pedido · ' + cartPecas() + ' peça(s)</h2></div>' +
       tabCartHtml() +
       '<div class="hint" style="margin:0">O piso é conferido sobre o total. Você pode mudar o preço de uma peça (desconto maior numa, menos em outra) e o app confere se o total ainda cobre tudo.</div><div class="split">';
     S.cart.forEach(function (l, i) {

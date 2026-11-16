@@ -34,7 +34,7 @@
     try { paPlano().forEach(function (m) { L.push({ t: 'pa', m: m, ic: m.kind === 'oferta' ? '⬇️' : m.kind === 'fim' ? '↩️' : '⬆️', tit: (m.kind === 'oferta' ? 'Oferta ' : m.kind === 'fim' ? 'Volta ao preço ' : 'Subir ') + m.ref, sub: m.mot, v: gs(m.para) }); }); } catch (e) {}
     try {
       var t = typeof temaAtual === 'function' ? temaAtual() : null;
-      if (t && t.dias <= 20 && !(S.temaOf && S.temaOf.tema === t.tema) && !(S.temaNao && S.temaNao[temaAno(t)])) L.push({ t: 'tema', ic: t.ic || '🎉', tit: t.nome + ' em ' + t.dias + ' dias', sub: 'sugestão do tema pronta', v: 'ver', act: 'temaVer' });
+      if (t && t.dias <= 20 && !(S.temaOf && S.temaOf.tema === t.tema) && !(S.temaNao && S.temaNao[temaAno(t)])) L.push({ t: 'tema', ic: t.ic || '🎉', tit: t.nome + ' em ' + t.dias + ' dias', sub: (typeof temaSugestao === 'function' && !temaSugestao(t).n) ? 'nenhuma peça entra no desconto pela regra' : 'sugestão do tema pronta', v: (typeof temaSugestao === 'function' && !temaSugestao(t).n) ? 'por quê' : 'ver', act: 'temaVer' });
     } catch (e) {}
     try {
       var fx = cntFx(), vis = {};

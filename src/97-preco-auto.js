@@ -240,7 +240,7 @@
     var on = !!(S.pAuto && S.pAuto.on),
       h =
         '<section class="card col paCard" id="paCard"><button type="button" class="paSw" data-act="paTog" role="switch" aria-checked="' + on + '"><span><b>Preço automático</b><small>' +
-        (on ? 'ligado · revisa toda segunda · os ajustes ficam em Dashboard › Preços' : 'desligado · você define os preços à mão') +
+        (on ? 'ligado · revisa toda segunda · os ajustes ficam logo abaixo' : 'desligado · você define os preços à mão') +
         '</small></span><span class="sw"><input type="checkbox" tabindex="-1" aria-hidden="true"' + (on ? ' checked' : '') + '><i></i></span></button></section>';
     if (S.paPrev) {
       var pv = paPrevia();
@@ -257,7 +257,7 @@
       h = '';
     h += on
       ? '<div class="paEst"><i class="' + (fr ? 'w' : 'o') + '"></i>' + (fr ? 'Semana fraca na loja toda (' + fr.pct + '% abaixo do normal): preços seguros, só os parados entram em oferta' : 'Preço automático ligado · movimento normal') + '</div>'
-      : '<div class="paEst"><i class="w"></i>Preço automático desligado · ligue em Ajustes</div>';
+      : '<div class="paEst"><i class="w"></i>Preço automático desligado</div>';
     var lm = paLucroMes();
     if (lm.metaG > 0) {
       var pct = Math.max(0, Math.min(1, lm.lucroG / lm.metaG));

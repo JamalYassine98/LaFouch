@@ -174,6 +174,9 @@
     hd.after(su);
     var c3 = v.querySelector('.famC3');
     if (c3) c3.remove();
+    // S366 (dono, 15/11 23:20): o que é do Câmbio sai do Dashboard — as trocas do dia estão em Câmbio › Últimas trocas
+    var cdia = [].filter.call(v.querySelectorAll('section,.card,.famRec'), function (e) { return /^Câmbio (do dia|feito neste dia)/.test((e.textContent || '').trim()); });
+    cdia.forEach(function (e) { e.remove(); });
     // S363 (esboço 45b): o "Fechamento do caixa" saiu do Histórico e fica aqui, no dia de hoje
     if (typeof fechoHtml === 'function' && !v.querySelector('.d48Fecho')) {
       var fd = document.createElement('div');

@@ -268,6 +268,8 @@
       comSug = L.filter(function (x) { return x.pb.sug > 0; });
     var h = naTela ? '' : '<h3 class="pcT">Preços para corrigir</h3>';
     if (!L.length) h += '<p class="pcVazio">Tudo certo: nenhum preço para corrigir.</p>';
+    // S366 (dono, 15/11 23:20: "não consigo corrigir todos de uma só vez"): na tela, o botão de corrigir todos vem ANTES da lista (antes só no fim, depois de rolar tudo)
+    if (naTela && comSug.length) h += '<div class="pcFt pcFtTopo"><button type="button" class="go" data-act="pcUsaTodos">Corrigir os ' + comSug.length + ' de uma vez</button></div>' + (comSug.length < L.length ? '<p class="pcVazio">' + (L.length - comSug.length) + ' sem custo cadastrado: o app não tem como sugerir; toque em “Informar” em cada uma.</p>' : '');
     h += L.map(function (x) {
       var pb = x.pb,
         ph = photoOf(x.ref),
@@ -290,7 +292,7 @@
     }).join('');
     if (L.length)
       h += '<div class="pcTot"><span>' + L.length + (L.length === 1 ? ' peça' : ' peças') + ' · ' + comSug.length + ' com sugestão</span></div>';
-    h += '<div class="pcFt">' + (comSug.length ? '<button type="button" class="go" data-act="pcUsaTodos">Usar os sugeridos (' + comSug.length + ')</button>' : '') + (naTela ? '' : '<button type="button" class="pcFe" data-act="pcFecha">Fechar</button>') + '</div>';
+    h += '<div class="pcFt">' + (comSug.length && !naTela ? '<button type="button" class="go" data-act="pcUsaTodos">Usar os sugeridos (' + comSug.length + ')</button>' : '') + (naTela ? '' : '<button type="button" class="pcFe" data-act="pcFecha">Fechar</button>') + '</div>';
     return h;
   }
   function pcFolha() {

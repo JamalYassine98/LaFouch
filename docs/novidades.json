@@ -1,9 +1,10 @@
 {
- "nome": "5.25.0",
+ "nome": "5.25.1",
  "notas": [
-  "Venda em 3 toques: peça, “Vender” e “Finalizar venda”. O Pagamento abre direto; “+ Adicionar outra peça ao pedido” volta ao Catálogo com o pedido guardado.",
-  "Pagamento no padrão de luxo: total em destaque, forma de pagamento e moeda cada uma num trilho só, cliente depois do valor; a taxa da maquininha aparece só quando ela é escolhida.",
-  "Uma conta só de lucro em todo o app: preço − IVA da venda − custo da peça − taxa do pagamento (o IVA da compra saiu). O selo, o cartão “Lucro real”, a barra “De onde vem o preço” e a frase do desconto mostram o mesmo número."
+  "Pagamento: corrigido o bloco cinza que cobria a tela no celular (o trilho novo dependia de uma parte do app que o aparelho ainda não tinha atualizado).",
+  "Preços: o interruptor do “Preço automático” voltou. “Corrigir os N de uma vez” vem antes da lista.",
+  "Black Friday: o app usa a data da Black Friday CDE (19 a 22 de novembro). Quando a regra do tema não dá desconto para nenhuma peça, o Contador e o Guardião dizem isso e mostram o porquê.",
+  "Dashboard sem o que é do Câmbio (colchão e trocas do dia). Pedido sem a flecha de voltar."
  ],
- "build": 533
+ "build": 534
 }

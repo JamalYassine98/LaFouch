@@ -337,7 +337,7 @@
     el.innerHTML =
       head +
       '<div id="dtabBody">' +
-      dashCompose({ per: perHtml, kp: kpHtml, repor: reporHtml(sp), colch: colchaoSaldoHtml(), vend: vendHtml, sep: secSep, two: secTwo, margem: html }) +
+      dashCompose({ per: perHtml, kp: kpHtml, repor: reporHtml(sp), colch: '', vend: vendHtml, sep: secSep, two: secTwo, margem: html }) +
       '</div>';
   }
 

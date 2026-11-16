@@ -2552,3 +2552,6 @@ html{overscroll-behavior-y:none}
 .esTx{align-self:flex-start;background:none;border:0;min-height:44px;padding:0 2px;color:var(--mute);font:500 14px inherit;text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--line);cursor:pointer}
 .esHt{color:var(--mute);font-size:13px;margin-top:6px}
 .esMais{display:block;width:100%;min-height:44px;margin-top:6px;background:none;border:0;color:var(--mute);font:500 14px inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.fjColch>section{background:none!important;border:0!important;padding:0 0 14px!important;box-shadow:none!important;margin:0!important}
+.pcNaTela .pcFtTopo{margin:0 0 8px}.pcNaTela .pcVazio{margin:0 0 6px}
+#formaChips,#moedas{position:relative}

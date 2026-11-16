@@ -160,7 +160,7 @@
     // S188 (13/11): o Contador vem primeiro; as regras de sempre ficam recolhidas em "Regras do contador"
     h += contadorHtml();
     h += '<div class="lbl" style="margin:16px 4px 6px">REGRAS DO CONTADOR</div>';
-    h += dFold('pau', 'Preço automático', S.pAuto && S.pAuto.on ? 'ligado · revisa toda segunda' : 'desligado', 'var(--sub)', precosAutoHtml());
+    h += dFold('pau', 'Preço automático', S.pAuto && S.pAuto.on ? 'ligado · revisa toda segunda' : 'desligado', 'var(--sub)', paSwitchHtml() + precosAutoHtml());
     // S363: uma lista só de preços a corrigir, com a mesma contagem do aviso do Inventário (antes: 15 lá e 16 aqui — aqui entrava o lote sem detalhe)
     var pcN = typeof invPrecosAcorrigir === 'function' ? invPrecosAcorrigir().length : ab;
     h += dFold('abp', 'Preços para corrigir', pcN ? pcN + (pcN === 1 ? ' peça' : ' peças') : 'nenhum', pcN ? 'var(--warn)' : 'var(--ok)', typeof pcCorpo === 'function' ? '<div class="pcNaTela">' + pcCorpo(true) + '</div>' : x3.abaixo);
