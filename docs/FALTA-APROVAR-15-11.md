@@ -183,3 +183,5 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - 16/11 08:24 — DONO, sobre o lag do site: (1) **APROVADO** — o selo da "Escolha da semana" só gira quando está na tela e fica parado fora dela; (2) **REPROVADO** — trocar o brilho dos ícones por contorno (não propor de novo); (3) perguntou se carregar a Mochi só ao abrir dá problema de sincronia da voz → respondido (não na sincronia; o risco é atraso na 1ª abertura e mais risco de defeito; recomendei só depois do medidor); sem decisão; (4) **APROVADO** — medidor escondido para diagnóstico no aparelho dele. Os dois aprovados esperam "implementar". Continuam esperando decisão: esboço 55 v2 (bolinha), vozes na cópia do modo loja, linha de diagnóstico na prévia do painel.
 
 - 16/11/2026 · ✔ ESBOÇO 51 PUBLICADO (app v541 / 5.31.0): arrastar uma tela da folha da flecha direto para a barra.
+
+- 16/11/2026 08:40 · DONO: "Aprovado as 7 famílias" → ESBOÇOS 49a/49b APROVADOS (barra: Vender, Peças, Dinheiro; Início: Dashboard, Site, Clientes; flecha em cada família; Avisos = sino). Esperando "implementar".

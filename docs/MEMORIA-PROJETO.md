@@ -2888,3 +2888,5 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - 16/11/2026 07:55: dono decidiu que a pílula "Meu pedido" (modo loja, tela larga, item 8a) fica como está; não mexer.
 
 - 16/11/2026 08:18 · DONO: "Aprovado" → ESBOÇO 51 APROVADO (arrastar uma tela da folha da flecha direto para a barra; barra cheia = troca, o que sai volta ao Início; grupo com 1 tela se desfaz; aviso com Desfazer). Esperando "implementar".
+
+- 16/11/2026 08:40 · DONO: "Aprovado as 7 famílias" → ESBOÇOS 49a/49b APROVADOS (barra: Vender, Peças, Dinheiro; Início: Dashboard, Site, Clientes; flecha em cada família; Avisos = sino). Esperando "implementar".
