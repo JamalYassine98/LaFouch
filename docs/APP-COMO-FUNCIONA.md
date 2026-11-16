@@ -354,3 +354,9 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - **Filtros do inventário**: sem "Ok"/"Cancelar" (`#filtApply` some); o botão Filtros e tocar fora fecham mantendo o escolhido.
 - **Barra de escolher peças (esboços 18 e 19)**: frase em até 2 linhas; fechada sai inteira da tela (`visibility:hidden`); `ebDecora` desfaz a escolha fora do Catálogo.
 - Testado no simulador (celular claro e escuro, computador 1440). **Não testado no celular.** A lista de mensagens depende da nuvem (função `mensagem` com a chave do dono): não consegui testar a leitura de verdade daqui.
+
+## S370b (16/11/2026, v537 · 5.28.0) — "Implementar tudo", lote 7 (esboços 31 e 33)
+- **Lista + ficha lado a lado** (`src/98z-pc-s31-s33.js`, `invDuo` depois de cada `render` e no `resize`): com ≥ 800 px, Inventário e uma peça aberta (`S.det`), o `#detail` é levado para dentro de `#v-estoque > .main` (classe `invDuo`: 2fr | 3fr), `#listCard` continua visível, o cartão aberto ganha `.invAb`; a ficha fica presa no topo (`position:sticky`) e, abaixo de 1600 px, em uma coluna. `prodTopo` não rola a tela nesse modo. Celular: como antes.
+- **Teclado** (só fora de campos de texto): `/` foca a busca da tela (`#vq`, `#q`, `#buQ`), Enter na busca abre a 1ª peça, `V` toca no "Vender…" visível, Esc (quando nenhuma janela está aberta) fecha a ficha do Inventário ou a peça do Catálogo, `?` abre/fecha a folha `#kbAj`. No computador (≥ 1024 px e mouse) as buscas mostram a tecla `/` (`.kbSl`).
+- **Leitor de código**: teclas a ≤ 45 ms uma da outra terminando em Enter = leitura; se o código é a referência de uma peça, `fnAbreVenda(ref)` (Catálogo, pronta para vender) em qualquer tela; se o leitor escreveu dentro de uma busca, o código sai do campo. Código desconhecido fora de campo: aviso "Código … não encontrado".
+- Testado no simulador (PC 1440, tablet 820, celular 420). **Não testado** com leitor de verdade nem no celular.

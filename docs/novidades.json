@@ -1,12 +1,9 @@
 {
- "nome": "5.27.0",
+ "nome": "5.28.0",
  "notas": [
-  "Grupos: as abas do topo saíram. Numa tela de grupo, toque no título (⌄) para ver as outras telas do grupo e “Gerenciar grupo”.",
-  "Início: segure um atalho e leve-o sobre outro; quando o anel fechar, solte — os dois viram um grupo com o ícone do par (“Desfazer” fica 5 s). Soltar antes do anel só troca de lugar.",
-  "Atacado virou tela do app, com 4 abas: Mensagens, Lojistas, Lotes e Tabela (enviar catálogo a um lojista, ver a tabela como o lojista vê, editar tabelas). No computador, a mensagem abre ao lado da lista.",
-  "Catálogo só varejo: saiu a chave Varejo | Atacado. O Compartilhar do Catálogo não pergunta mais o tipo de envio.",
-  "Ajustes do catálogo e Filtros do inventário valem na hora: saíram “Ver N peças” e “Cancelar”; fecham arrastando, tocando fora ou com Esc.",
-  "Barra de escolher peças: a frase quebra em 2 linhas; fechada, sai da tela; sair do Catálogo desfaz a escolha."
+  "Tablet e computador: no Inventário, com uma peça aberta, a lista fica à esquerda e a ficha à direita. Tocar em outra peça troca a ficha sem sair do lugar.",
+  "Computador: “/” vai para a busca, Enter abre a primeira peça, “V” vende a peça aberta, Esc fecha a janela ou a ficha e “?” mostra a lista de atalhos.",
+  "Leitor de código no computador: leia a etiqueta em qualquer tela; a peça abre no Catálogo, pronta para vender."
  ],
- "build": 536
+ "build": 537
 }

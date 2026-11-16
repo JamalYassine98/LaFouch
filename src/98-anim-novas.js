@@ -196,6 +196,8 @@
     // o produto abre sempre no topo da tela, com a barra inteira (Catálogo e Inventário)
     window.prodTopo = function (det) {
       if (!det || det.hidden) return;
+      // S370 (esboço 31): lista e ficha lado a lado — a tela não rola (a ficha fica presa no topo, ao lado da lista)
+      if (det.id === 'detail' && S.view === 'estoque' && window.innerWidth >= 800 && !S.lotesView && !S.cont) return;
       // 'instant': o CSS tem scroll-behavior:smooth; rolando suave a foto mediria fora do lugar
       window.scrollTo({ top: Math.max(0, det.getBoundingClientRect().top + window.scrollY - 12), left: 0, behavior: 'instant' });
     };
