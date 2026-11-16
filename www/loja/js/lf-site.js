@@ -2931,7 +2931,12 @@
       var sc=document.createElement('script');sc.type='module';sc.textContent='import('+JSON.stringify(base+'vision_bundle.mjs')+').then(function(V){window['+JSON.stringify(k)+'](V)},function(e){window['+JSON.stringify(k)+'](null,e)})';
       sc.onerror=function(){no(new Error('mp'))};document.head.appendChild(sc);setTimeout(function(){sc.remove()},0)}).then(function(V){
       return V.FilesetResolver.forVisionTasks(base.replace(/\/$/,'')).then(function(fs){
-        return V.FaceLandmarker.createFromOptions(fs,{baseOptions:{modelAssetPath:base+'face_landmarker.task',delegate:'CPU'},runningMode:'IMAGE',numFaces:1,outputFacialTransformationMatrixes:true})})
+        /* S380 (aprovado 16/11 10:38): a leitura do rosto tenta a placa de vídeo (bem mais leve para o processador, que é quem desenha a tela); se o aparelho não deixar criar,
+           ou se ela falhar 3 vezes seguidas ao medir, volta sozinha para o processador, como era */
+        var op=function(d){return {baseOptions:{modelAssetPath:base+'face_landmarker.task',delegate:d},runningMode:'IMAGE',numFaces:1,outputFacialTransformationMatrixes:true}},cpu=function(){MP.del='CPU';return V.FaceLandmarker.createFromOptions(fs,op('CPU'))};
+        if(window.__lfMpCpu)return cpu();
+        return V.FaceLandmarker.createFromOptions(fs,op('GPU')).then(function(lm){MP.del='GPU';var d0=lm.detect.bind(lm),fal=0,troca=null,pediu=0;
+          lm.detect=function(x){if(troca)return troca.detect(x);try{var r=d0(x);fal=0;return r}catch(e){if(++fal>=3&&!pediu){pediu=1;cpu().then(function(c){troca=c},function(){})}throw e}};return lm},cpu)})
     }).catch(function(e){MP.lib=null;throw e});
     return MP.lib}
   /* os 68 pontos de antes, tirados dos 478 (o queixo/mandíbula vem do contorno real) */
