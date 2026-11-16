@@ -2935,3 +2935,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - 16/11/2026 16:57 · DONO aprovou o esboço 70 (Hoje): sem janela Despesas do dia (Contas do dia › leva a Despesas), sem "Fechar o dia agora" manual (o dia fecha sozinho), Ver detalhes › / Estornar em texto. Esperando "implementar".
 - 16/11/2026 17:01 · DONO aprovou o esboço 71 (Histórico: busca com ícones, dia em 2 linhas sem pílulas, semana partida com datas do mês, plurais). Esperando "implementar".
 - 16/11/2026 17:16 · DONO aprovou o esboço 72 (Caixa). Esperando "implementar" (com 70 e 71). Próximas: Despesas e Câmbio.
+- 16/11 17:28 — DONO: "Guarda tudo na memória chamado projeto mochi" → criado **docs/PROJETO-MOCHI.md** (estado no ar, números do aparelho dele, decisões, o que espera aprovação — esboço 56 —, lições). Manter esse arquivo atualizado a cada mudança da Mochi.
