@@ -2884,3 +2884,5 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 
 - S370 (16/11/2026 ~07:40): fluidez da Mochi e falas do computador PUBLICADAS no site (1794824209). Regra técnica: a boca pelo volume usa um analisador de áudio que só é ligado ao som se já estiver rodando (criado em toque da pessoa) — nunca deixar o som depender dele (no iPhone um analisador parado emudece o áudio). Créditos ElevenLabs gastos: 1.006 de 6.000. As duas chaves ficaram escritas na conversa: pedir ao dono para apagá-las na ElevenLabs.
 - S370f (16/11/2026 06:55–): DONO "Implementa tudo menos a mochi" → PUBLICADO v540 (5.30.0). Ajuste meu: juntar atalhos só começa o anel depois de 0,15 s parado (um teste de troca falhou com o anel de 0,3 s puro). LIÇÃO: depois de `git stash pop` com conflito, NUNCA `git add -A` antes de resolver (comitei marcas de conflito na lista viva; corrigido no commit seguinte). O que falta: última linha "FALTA do implementar tudo menos a Mochi" da lista viva.
+
+- 16/11/2026 07:55: dono decidiu que a pílula "Meu pedido" (modo loja, tela larga, item 8a) fica como está; não mexer.
