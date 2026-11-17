@@ -2994,3 +2994,6 @@ Cupons são coisa delicada: programar com MUITA calma. O servidor recalcula pre�
 - 17/11/2026 14:45 · BUG do dono (vídeo 14:29): a Lista de compras aberta pisca quando outro bloco do Giro abre/fecha. Causa: o cartão usa a classe .lcCard, a mesma do cartão "carregando foto" (#loadFoto, 80-leitor-dialogos.js), que tem a animação de entrada lcNasce; cada redesenho a lista "nasce" de novo (opacidade 0→1 em 0,3 s, medido). Correção proposta: animação só em .lcOv .lcCard (ou .card.lcCard sem animação). Esboço 103 (quadros 0–200 ms, hoje × proposta) enviado. Esperando aprovação.
 - 17/11/2026 14:33 · DONO aprovou o 103 (lista de compras não pisca: animação só no cartão de carregar foto). Esperando "implementar" (com 98–102).
 - 17/11/2026 14:34 · REGRA DO DONO: "teste tudo, com calma" — guardada no CLAUDE.md (TESTAR TUDO COM CALMA).
+
+## REGRA DE OURO DOS TESTES (17/11/2026 14:38, ordem do dono)
+Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: cada tela mexida, cada regra de cupom (inclusive as tentativas de burlar), cada temática, celular/tablet/PC, logado/deslogado. Na dúvida, testar de novo; o que não deu para testar é dito ao dono. (Também no CLAUDE.md.)
