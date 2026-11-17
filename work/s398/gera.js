@@ -2,11 +2,17 @@
 const fs=require('fs'),E=require('/home/claude/lafouch/functions/email.js');
 const OURO='#d6b274',OURO2='#e9d3a6';
 // cartão de luxo: tema 'vinho' (do cliente), 'preto' (VIP), 'marfim' (para a amiga / boas-vindas)
-const EV={natal:['#b3263a','Natal'],maes:['#b8436f','Dia das Mães'],pais:['#906430','Dia dos Pais'],anonovo:['#8d703e','Ano-Novo'],bf:['#d41b44','Black Friday'],halloween:['#ae5115','Halloween']};
+// cartões de evento: paleta inteira da temática do site (bloco escuro --evb + cor clara do rótulo + destaque)
+const EV={natal:{n:'Natal',gr:'linear-gradient(135deg,#2a7049 0%,#1f5c3a 55%,#143d27 100%)',bg:'#1f5c3a',fio:'rgba(255,217,160,.6)',num:'#ffd9a0',tx:'#ffffff',sub:'#d3e3d8',logo:'LOGO_EV_natal'},
+ maes:{n:'Dia das Mães',gr:'linear-gradient(135deg,#c2507b 0%,#a83a64 55%,#8a2c50 100%)',bg:'#a83a64',fio:'rgba(255,209,223,.7)',num:'#ffd1df',tx:'#ffffff',sub:'#ffe9f0',logo:'LOGO_EV_maes'},
+ pais:{n:'Dia dos Pais',gr:'linear-gradient(135deg,#2b4169 0%,#1e2f4d 55%,#131f35 100%)',bg:'#1e2f4d',fio:'rgba(224,184,120,.65)',num:'#e0b878',tx:'#ffffff',sub:'#c6cfdd',logo:'LOGO_EV_pais'},
+ anonovo:{n:'Ano-Novo',gr:'linear-gradient(135deg,#24345a 0%,#16213a 55%,#0d1526 100%)',bg:'#16213a',fio:'rgba(227,200,143,.65)',num:'#e3c88f',tx:'#ffffff',sub:'#c3c9d6',logo:'LOGO_EV_anonovo'},
+ bf:{n:'Black Friday',gr:'linear-gradient(135deg,#242424 0%,#111111 60%,#000000 100%)',bg:'#111111',fio:'rgba(225,29,72,.95)',num:'#ffffff',tx:'#ffffff',sub:'#c9c9c9',logo:'LOGO_EV_bf'},
+ halloween:{n:'Halloween',gr:'linear-gradient(135deg,#5a2f72 0%,#2a1530 55%,#160c1a 100%)',bg:'#2a1530',fio:'rgba(226,113,29,.75)',num:'#f08a3c',tx:'#f3e9f5',sub:'#cdbcd3',logo:'LOGO_EV_halloween'}};
 function luxo(o){
-  const T={vinho:{bg:'#3a1830',gr:'linear-gradient(135deg,#55234a 0%,#33152b 55%,#1f0d1a 100%)',fio:'rgba(214,178,116,.6)',num:OURO2,tx:'#ffffff',sub:'#d9c3d0',logo:'LOGO_OURO'},
+  let T={vinho:{bg:'#3a1830',gr:'linear-gradient(135deg,#55234a 0%,#33152b 55%,#1f0d1a 100%)',fio:'rgba(214,178,116,.6)',num:OURO2,tx:'#ffffff',sub:'#d9c3d0',logo:'LOGO_OURO'},
            preto:{bg:'#17121a',gr:'linear-gradient(135deg,#2b2330 0%,#17121a 55%,#0c090e 100%)',fio:'rgba(214,178,116,.75)',num:OURO2,tx:'#ffffff',sub:'#c9bfc6',logo:'LOGO_OURO'},
-           marfim:{bg:'#fbf5ee',gr:'linear-gradient(135deg,#fffaf3 0%,#f6ebe0 100%)',fio:'rgba(169,133,74,.7)',num:o.cor||'#8d3a69',tx:'#2a1224',sub:'#7a6a72',logo:'LOGO_VINHO'}}[o.tema||'vinho'];
+           marfim:{bg:'#fbf5ee',gr:'linear-gradient(135deg,#fffaf3 0%,#f6ebe0 100%)',fio:'rgba(169,133,74,.7)',num:o.cor||'#8d3a69',tx:'#2a1224',sub:'#7a6a72',logo:'LOGO_VINHO'}}[o.tema||'vinho'];if(o.t)T=o.t;
   return '<div style="max-width:300px;margin:8px auto 0;border-radius:16px;background:'+T.bg+';background-image:'+T.gr+';padding:6px"><div style="border:1px solid '+T.fio+';border-radius:11px;padding:15px 16px 13px">'+
     '<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse"><tr><td style="vertical-align:middle"><img src="'+T.logo+'" width="82" alt="La Fouch" style="display:block;border:0"></td><td style="text-align:right;vertical-align:middle;font:500 11px Arial;letter-spacing:.16em;color:'+T.sub+'">'+o.rot+'</td></tr></table>'+
     '<div style="font:500 42px/1 '+E.SE+';color:'+T.num+';margin:18px 0 2px;letter-spacing:.01em">'+o.pct+'</div><div style="font:italic 16px/1.3 '+E.SE+';color:'+T.tx+'">'+o.tit+'</div>'+
@@ -35,5 +41,5 @@ const L=[
   assunto:'Um presente da La Fouch',html:m('Um presente para '+E.I('você'),E.P('Maria, este cartão é um agrado da La Fouch para a sua próxima compra:')+luxo({rot:'CARTÃO PRESENTE',pct:'20%',tit:'na próxima compra',nome:M,val:'VALE ATÉ 16/03/2027'})+E.B('Usar agora','#')+regra)},
  {arq:'61h-email-cupom-do-evento',nome:'cupom do evento que você gera no app',hoje:null,nota:'Hoje o cupom do evento é só um código (ex.: NAVIDAD10) que você divulga.<br><br>Não há cartão desenhado.',sub:['Hoje: só o código.','Proposta: vai no e-mail de novidades do evento. É o ÚNICO cartão com o código à vista, porque é público e serve para qualquer pessoa.'],
   assunto:'Navidad en La Fouch · 10% para você',html:m('Um presente de '+E.I('Natal'),E.P('Até 25 de dezembro, toda a loja com um presente para você:')+luxo({tema:'marfim',rot:'CUPOM DO EVENTO',pct:'10%',tit:'em toda a loja',cod:'NAVIDAD10',nome:'PARA TODOS',val:'ATÉ 25/12/2026'})+E.B('Usar agora','#'),'Você recebe este e-mail porque se inscreveu nas novidades. <a href="#" style="color:#8a7d84">Não quero mais receber</a>')}];
-fs.writeFileSync('/tmp/s398/ev.json',JSON.stringify(Object.keys(EV).map(k=>({k,n:EV[k][1],html:luxo({tema:k==='bf'?'preto':'marfim',cor:EV[k][0],rot:'CUPOM DO EVENTO',pct:k==='bf'?'20%':'10%',tit:'em toda a loja · '+EV[k][1],cod:{natal:'NAVIDAD10',maes:'MAMA10',pais:'PAPA10',anonovo:'2027',bf:'BLACK20',halloween:'HALLOWEEN10'}[k],nome:'PARA TODOS',val:'ATÉ '+{natal:'25/12/2026',maes:'15/05/2027',pais:'20/06/2027',anonovo:'06/01/2027',bf:'29/11/2026',halloween:'31/10/2027'}[k]})}))));
+fs.writeFileSync('/tmp/s398/ev.json',JSON.stringify(Object.keys(EV).map(k=>({k,n:EV[k].n,html:luxo({t:EV[k],rot:'CUPOM DO EVENTO',pct:k==='bf'?'20%':'10%',tit:'em toda a loja · '+EV[k].n,cod:{natal:'NAVIDAD10',maes:'MAMA10',pais:'PAPA10',anonovo:'2027',bf:'BLACK20',halloween:'HALLOWEEN10'}[k],nome:'PARA TODOS',val:'ATÉ '+{natal:'25/12/2026',maes:'15/05/2027',pais:'20/06/2027',anonovo:'06/01/2027',bf:'29/11/2026',halloween:'31/10/2027'}[k]})}))));
 fs.writeFileSync('/tmp/s398/e.json',JSON.stringify(L));console.log(L.length)
