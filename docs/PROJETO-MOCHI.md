@@ -43,6 +43,10 @@ Tudo sobre a Mochi (mascote e teste de leitura do site lafouch.com) num lugar s�
 
 - 17/11 17:59 — DONO aprovou os TEXTOS da etapa 'aproxime' (meio-termo: parar o celular OU tocar Embaçou, vale o que vier primeiro): 1 'Agora vou ver de quão perto você consegue ler. Aproxime o celular do rosto bem devagar, sem parar de ler as letras.' 2 'Quando as letras começarem a embaçar, pare o celular ali, ou me avise apertando o botão Embaçou.' 3 'Não embaçou? Tudo bem, já medi.' 4 'Pronto, medi! Pode afastar o celular.' Voz NÃO autorizada ainda (teto estimado ~1.600 créditos). Próximo: ESBOÇO 105 do meio-termo.
 
+- 17/11 18:20 — ESBOÇO 105 enviado (work/s410: edita105.py, video105.py, monta105.py): meio-termo da etapa 'aproxime' — parar (já aproximou 5 cm+, último 2 s varia até 1,2 cm, acima de 15 cm) mede sozinho; Embaçou continua; 'Não embaçou? Tudo bem, já medi.' quando chega a 15 cm sem parar. Falas novas só no balão (sem voz). ESPERANDO.
+
+- 17/11 18:20 — ESBOÇO 105 enviado (work/s410: edita105.py, video105.py, monta105.py): meio-termo da etapa 'aproxime' — parar (já aproximou 5 cm+, último 2 s varia até 1,2 cm, acima de 15 cm) mede sozinho; Embaçou continua; 'Não embaçou? Tudo bem, já medi.' quando chega a 15 cm sem parar. Falas novas só no balão (sem voz). ESPERANDO.
+
 ## 5. Lições minhas
 - Ao mexer numa parte, procurar tudo que depende dela (erro do S384 → S387).
 - Número estranho no medidor do dono se investiga na hora.
