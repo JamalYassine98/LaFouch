@@ -1,4 +1,4 @@
-# S410 · vídeo do ESBOÇO 105, HOJE × PROPOSTA no mesmo relógio (dois iframes), câmera de mentira com a distância comandada.
+# S410 · vídeo do ESBOÇO 107, HOJE × PROPOSTA no mesmo relógio (dois iframes), câmera de mentira com a distância comandada.
 # Cena 1: aproxima 30→20 cm e PARA (hoje espera o toque; proposta mede sozinha). Cena 2: vai até 13 cm sem parar nem tocar (não embaça).
 import os,subprocess,sys,time,shutil,glob,json,re
 sys.path.insert(0,'/home/claude/lafouch/work/testes');import base

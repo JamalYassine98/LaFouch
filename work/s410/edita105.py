@@ -1,4 +1,4 @@
-# S410 · ESBOÇO 105: etapa "aproxime" em meio-termo — PARAR o celular mede sozinho; o botão Embaçou continua; vale o que vier primeiro.
+# S410 · ESBOÇO 107: etapa "aproxime" em meio-termo — PARAR o celular mede sozinho; o botão Embaçou continua; vale o que vier primeiro.
 # Textos aprovados pelo dono 17/11 17:59. Só em CÓPIA até "implementar".  python3 edita105.py <lf-site.js>
 import sys,subprocess
 p=sys.argv[1];s=open(p,encoding='utf8').read()
