@@ -6,19 +6,19 @@ function luxo(o){
   const T={vinho:{bg:'#3a1830',gr:'linear-gradient(135deg,#55234a 0%,#33152b 55%,#1f0d1a 100%)',fio:'rgba(214,178,116,.6)',num:OURO2,tx:'#ffffff',sub:'#d9c3d0',logo:'LOGO_OURO'},
            preto:{bg:'#17121a',gr:'linear-gradient(135deg,#2b2330 0%,#17121a 55%,#0c090e 100%)',fio:'rgba(214,178,116,.75)',num:OURO2,tx:'#ffffff',sub:'#c9bfc6',logo:'LOGO_OURO'},
            marfim:{bg:'#fbf5ee',gr:'linear-gradient(135deg,#fffaf3 0%,#f6ebe0 100%)',fio:'rgba(169,133,74,.7)',num:'#8d3a69',tx:'#2a1224',sub:'#7a6a72',logo:'LOGO_VINHO'}}[o.tema||'vinho'];
-  return '<div style="border-radius:20px;background:'+T.bg+';background-image:'+T.gr+';padding:7px;margin:8px 0 0"><div style="border:1px solid '+T.fio+';border-radius:14px;padding:20px 20px 18px">'+
-    '<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse"><tr><td style="vertical-align:middle"><img src="'+T.logo+'" width="92" alt="La Fouch" style="display:block;border:0"></td><td style="text-align:right;vertical-align:middle;font:500 11px Arial;letter-spacing:.16em;color:'+T.sub+'">'+o.rot+'</td></tr></table>'+
-    '<div style="font:500 58px/1 '+E.SE+';color:'+T.num+';margin:30px 0 4px;letter-spacing:.01em">'+o.pct+'</div><div style="font:italic 19px/1.3 '+E.SE+';color:'+T.tx+'">'+o.tit+'</div>'+
-    (o.cod?'<div style="font:500 17px '+E.SE+';letter-spacing:.2em;color:'+T.tx+';margin-top:16px">'+o.cod+'</div>':'')+
-    '<div style="height:1px;background:'+T.fio+';opacity:.6;margin:24px 0 12px"></div>'+
+  return '<div style="max-width:300px;margin:8px auto 0;border-radius:16px;background:'+T.bg+';background-image:'+T.gr+';padding:6px"><div style="border:1px solid '+T.fio+';border-radius:11px;padding:15px 16px 13px">'+
+    '<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse"><tr><td style="vertical-align:middle"><img src="'+T.logo+'" width="82" alt="La Fouch" style="display:block;border:0"></td><td style="text-align:right;vertical-align:middle;font:500 11px Arial;letter-spacing:.16em;color:'+T.sub+'">'+o.rot+'</td></tr></table>'+
+    '<div style="font:500 42px/1 '+E.SE+';color:'+T.num+';margin:18px 0 2px;letter-spacing:.01em">'+o.pct+'</div><div style="font:italic 16px/1.3 '+E.SE+';color:'+T.tx+'">'+o.tit+'</div>'+
+    (o.cod?'<div style="font:500 17px '+E.SE+';letter-spacing:.2em;color:'+T.tx+';margin-top:10px">'+o.cod+'</div>':'')+
+    '<div style="height:1px;background:'+T.fio+';opacity:.6;margin:14px 0 9px"></div>'+
     '<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse"><tr><td style="font:500 11px Arial;letter-spacing:.1em;color:'+T.sub+'">'+o.nome+'</td><td style="text-align:right;font:500 11px Arial;letter-spacing:.1em;color:'+T.sub+'">'+o.val+'</td></tr></table></div></div>';
 }
 const bola=(on)=>'<span style="display:inline-block;width:11px;height:11px;border-radius:50%;margin:0 4px;'+(on?'background:#8d3a69':'border:1px solid #cdb9c5')+'"></span>';
 const metas='<div style="text-align:center;margin:0 0 4px">'+bola(1)+bola(0)+bola(0)+'</div><p style="font:14px/1.6 Arial;color:#6b5f66;margin:8px 0 0;text-align:center">1 amiga já comprou. Faltam 2 para o seu próximo presente.</p>';
 const M='MARIA GONZÁLEZ',regra=E.PQ('O desconto entra sozinho no seu carrinho. Não soma com OFERTA nem com “Leve 2”.');
-const m=(t,c,r)=>E.molde(t,c,r).replace(/<img src="https:\/\/lafouch.com\/media\/email\/logo.png" width="132"/,'<img src="LOGO_H" width="210"');
+const m=(t,c,r)=>E.molde(t,c,r);
 const L=[
- {arq:'61a-email-cartao-na-entrega',nome:'cartão de 10% na entrega da 1ª compra',hoje:'60a',sub:['Antes (esboço 60a): logo empilhado e cartão simples.','Agora: escudo à esquerda de LA FOUCH e cartão de luxo — fio dourado, número grande, nome do cliente e validade. Sem código à vista.'],
+ {arq:'61a-email-cartao-na-entrega',nome:'cartão de 10% na entrega da 1ª compra',hoje:'60a',sub:['Antes (esboço 60a): cartão simples.','Agora: o logo do e-mail continua o mesmo; o cartão é de luxo e menor — escudo à esquerda de LA FOUCH em dourado, fio dourado, nome e validade. Sem código à vista.'],
   assunto:'Sua compra chegou · um presente para a próxima',html:m('Sua compra '+E.I('chegou'),E.P('Obrigada pela preferência, Maria. Para a sua próxima compra, um presente:')+luxo({rot:'CARTÃO PRESENTE',pct:'10%',tit:'na próxima compra',nome:M,val:'VALE ATÉ 16/01/2027'})+E.B('Usar agora','#')+regra)},
  {arq:'61b-email-convite-da-amiga',nome:'convite da amiga (2 semanas depois, só 1ª compra)',hoje:'60b',sub:['Antes (esboço 60b): cartão claro simples.','Agora: cartão marfim com fio dourado, feito para ser dado de presente.'],
   assunto:'Um presente para uma amiga',html:m('Gostou dos seus '+E.I('óculos')+'?',E.P('Presenteie uma amiga: ela ganha 10% na primeira compra. Quando ela comprar, você também ganha um presente.')+luxo({tema:'marfim',rot:'PARA SUA AMIGA',pct:'10%',tit:'na primeira compra',nome:'UM PRESENTE DE MARIA',val:'VALE ATÉ 16/11/2027'})+E.B('Enviar para uma amiga','#'))},
