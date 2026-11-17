@@ -23,6 +23,7 @@ CENAS=[['*Agora vou ver de quão perto você consegue ler.','*Aproxime o celular
 CENAS.append(['*Agora vou ver de quão perto você consegue ler.','*Aproxime o celular do rosto bem devagar, sem parar de ler as letras.'])  # 4: as duas juntas, como cena (voz natural) e com a vírgula do Agora  # 2: regravação (dono 20:09): falada com vírgula depois do Agora, para o 'A' não começar alto
 def falado(t,lang):
     if lang=='pt': t=t.replace('Agora vou ver','Agora, vou ver')
+    if lang=='es': t=t.replace('Ahora voy a ver','Ahora, voy a ver')
     t=t.replace('"','').replace('…e ','… e ').replace('…y ','… y ').replace('…ou ','… ou ').replace('…o ','… o ')
     t=re.sub(r'^… ','',t);return t.replace('60 centímetros','sessenta centímetros' if lang=='pt' else 'sesenta centímetros')
 def gasto(): return int(open(gf).read()) if os.path.exists(gf) else 0
