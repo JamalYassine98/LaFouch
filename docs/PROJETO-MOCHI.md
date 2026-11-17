@@ -48,6 +48,8 @@ Tudo sobre a Mochi (mascote e teste de leitura do site lafouch.com) num lugar s�
 
 - 17/11 19:14 — DONO: **107 APROVADO** ('Perfeito!!'): meio-termo da etapa aproxime (parar mede sozinho + botão Embaçou), textos aprovados 17:59, balão reserva altura (não bate no quadro), Mochi desce junto, botão a 24 px do quadro, entra com mola + 2 halos na 2ª fala. ESPERANDO 'implementar' (primeiro modo de teste + medidor). Voz ainda NÃO autorizada. Ideia nova do dono: destacar com a mesma animação o botão que a Mochi cita na fala (ex.: 'Não consigo').
 
+- 17/11 19:28 — DONO: **108 APROVADO só para os botões do quadro**: 'Se estiver difícil, pode dizer que não consegue' → halo no Não consigo (e Embaçou no 107). O botão Começar FICA COMO HOJE (sem halo): 'os outros requerem foco no quadro, o halo dá o empurrãozinho'. ESPERANDO 'implementar'.
+
 ## 5. Lições minhas
 - Ao mexer numa parte, procurar tudo que depende dela (erro do S384 → S387).
 - Número estranho no medidor do dono se investiga na hora.
