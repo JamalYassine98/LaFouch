@@ -14,5 +14,12 @@ troca("if(a.length&&nn-(Z.rosto||0)<900&&Math.max.apply(null,a)<=15){",
  "if(a.length&&nn-(Z.rosto||0)<900&&Math.max.apply(null,a)<=15){")
 troca("if(bl){bl.innerHTML=T('Pronto, medi! Pode afastar o celular.');bl.classList.add('on')}",
  "if(bl){bl.innerHTML=d==null?T('Não embaçou? Tudo bem, já medi.'):T('Pronto, medi! Pode afastar o celular.');bl.classList.add('on')}")
+# balão não pode bater no quadro: reserva a altura da fala mais comprida da etapa ANTES de montar o quadro (o quadro desce o necessário e não pula depois)
+troca("function ppIni(G,n){var m=Z.m;if(!m)return;if(Z.lupa){Z.lupa=0;q('#gzfita').classList.remove('lupa');lay()}",
+ "function ppIni(G,n){var m=Z.m;if(!m)return;if(Z.lupa){Z.lupa=0;q('#gzfita').classList.remove('lupa')}"
+ "(function(){var bl=q('#gzbal');if(!bl)return;var o=bl.innerHTML,mh=0;bl.style.minHeight='';[T('Agora vou ver de quão perto você consegue ler. Aproxime o celular do rosto bem devagar, sem parar de ler as letras.'),T('Quando as letras começarem a embaçar, pare o celular ali, ou me avise apertando o botão Embaçou.')].forEach(function(t){bl.innerHTML=t;mh=Math.max(mh,bl.offsetHeight)});bl.innerHTML=o;bl.style.minHeight=mh+'px'})();lay();")
+# o quadro desceu: a Mochi desce junto (desliza até o lugar novo) e só então aponta a frase
+troca("botoes('pp');\n      if(Z.longe)volta();else{m.modo='trab';aponta()}","botoes('pp');\n      if(Z.longe)volta();else{m.modo='trab';var pq=L.Z.ponto;if(pq&&(Math.abs(m.x-pq[0])>2||Math.abs(m.y-pq[1])>2))m.flutua(pq[0],pq[1],420,aponta);else aponta()}")
+troca("function ppFim(pp){if(Z.fase!=='pp')return;","function ppFim(pp){if(Z.fase!=='pp')return;var bl0=q('#gzbal');if(bl0)bl0.style.minHeight='';")
 open(p,'w',encoding='utf8').write(s)
 r=subprocess.run(['node','-e',"new (require('vm').Script)(require('fs').readFileSync('%s','utf8'))"%p],capture_output=True,text=True);assert r.returncode==0,r.stderr[-400:];print('ok')
