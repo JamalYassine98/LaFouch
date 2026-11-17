@@ -1,0 +1,47 @@
+exec(open('ver.py').read().split("if __name__")[0])
+import copy
+def shot(pg,n,H=None):
+    if H: pg.set_viewport_size({'width':390,'height':H});pg.wait_for_timeout(300)
+    pg.screenshot(path=T+n+'.png')
+def carr(pg):
+    pg.evaluate("()=>{const x=[...document.querySelectorAll('button,a')].filter(e=>e.getBoundingClientRect().width>0).find(e=>/^Finalizar compra$/i.test((e.innerText||'').trim()));if(x)x.click();else document.querySelector('#bagbtn').click()}");pg.wait_for_timeout(1300)
+with sync_playwright() as pw:
+    # A) peça vinda da Exclusivo: cartão entra sozinho (66e)
+    b,pg,log=abre(pw)
+    pg.evaluate("()=>document.querySelector('#home .exs [data-exc]').click()");pg.wait_for_timeout(1500)
+    pg.evaluate("()=>document.querySelector('#grid .card [data-open]').click()");pg.wait_for_timeout(1500)
+    pg.evaluate("()=>{const x=[...document.querySelectorAll('#layer button')].find(e=>/Comprar/i.test(e.innerText||''));x&&x.click()}");pg.wait_for_timeout(1200)
+    carr(pg);print('A cup',pg.evaluate("()=>JSON.stringify(JSON.parse(localStorage.getItem('lf_cup')))"));shot(pg,'A_carrinho')
+    # B) folha de troca (74b)
+    pg.evaluate("()=>{const t=document.querySelector('#layer [data-cartroca]');t&&t.click()}");pg.wait_for_timeout(700);shot(pg,'B_folha')
+    pg.evaluate("()=>{const l=[...document.querySelectorAll('.sh label')];l[0].click()}");pg.wait_for_timeout(300);pg.evaluate("()=>document.querySelector('.sh [data-shok]').click()");pg.wait_for_timeout(900);shot(pg,'C_trocado')
+    print('C cup',pg.evaluate("()=>JSON.parse(localStorage.getItem('lf_cup')||'null')"))
+    print('erros A-C',[x for x in log if 'ERR_FAILED' not in x][:6]);b.close()
+    # D) catálogo comum: só sugere (65e)
+    b,pg,log=abre(pw)
+    pg.evaluate("()=>{const x=[...document.querySelectorAll('#home .hc[data-open]')].pop();x&&x.click()}");pg.wait_for_timeout(1500);shot(pg,'D_peca')
+    print('D selinho',pg.evaluate("()=>{const a=document.querySelector('#layer .acup');return a?a.textContent:null}"))
+    pg.evaluate("()=>{const x=[...document.querySelectorAll('#layer button')].find(e=>/Comprar/i.test(e.innerText||''));x&&x.click()}");pg.wait_for_timeout(1200)
+    carr(pg);shot(pg,'D_carrinho');print('D cup',pg.evaluate("()=>localStorage.getItem('lf_cup')"),'erros',[x for x in log if 'ERR_FAILED' not in x][:6]);b.close()
+    # E) presente especial
+    M2=copy.deepcopy(MEUS);M2['cupons']=[{'cod':'LF-PE01','tipo':'pe','pct':0,'estado':'ok','fim':F,'usado':False,'nome':'María González','max':1},M2['cupons'][2]]
+    b,pg,log=abre(pw,M2)
+    pg.evaluate("()=>{const x=[...document.querySelectorAll('#home .hc[data-open]')].find(e=>/KIT3C/.test(e.textContent));x&&x.click()}");pg.wait_for_timeout(1500)
+    pg.evaluate("()=>{const x=[...document.querySelectorAll('#layer button')].find(e=>/Comprar/i.test(e.innerText||''));x&&x.click()}");pg.wait_for_timeout(1200)
+    carr(pg);shot(pg,'E1_carrinho')
+    pg.evaluate("()=>{const t=document.querySelector('#layer [data-presesc]');t&&t.click()}");pg.wait_for_timeout(2200);shot(pg,'E2_aba_presente',1100)
+    print('E aba',pg.evaluate("()=>[document.querySelectorAll('#grid .card').length,document.querySelectorAll('#grid .gpt').length,(document.querySelector('#vitrine .exo2')||{}).textContent]"))
+    pg.set_viewport_size({'width':390,'height':844})
+    pg.evaluate("()=>{const x=[...document.querySelectorAll('#grid .card [data-open]')].find(e=>/SL2210/.test(e.closest('.card').textContent));x&&x.click()}");pg.wait_for_timeout(1800);shot(pg,'E3_carrinho_presente')
+    print('E pres',pg.evaluate("()=>localStorage.getItem('lf_pres')"),pg.evaluate("()=>!!document.querySelector('#layer .cipres')"),'erros',[x for x in log if 'ERR_FAILED' not in x][:6]);b.close()
+    # F) Minha conta › Cartões e Pedidos
+    M3=copy.deepcopy(MEUS);M3['vip']=1790000000000
+    b,pg,log=abre(pw,M3)
+    pg.evaluate("()=>localStorage.setItem('lf_ped',JSON.stringify([{id:'kitped1',cod:'4821',ts:Date.now()-9e6,total:100000,pagar:0,brl:75,ent:'loja',pag:'pix',est:'cancelado',itens:[{ref:'KIT3C',nome:'x',q:1}]}]))")
+    pg.evaluate("(document.querySelector('#contabtn')||{click(){}}).click()");pg.wait_for_timeout(900)
+    pg.evaluate("()=>{const t=[...document.querySelectorAll('#layer button,#layer [data-mct]')].find(b=>/Cart[õo]es/i.test(b.innerText||''));t&&t.click()}");pg.wait_for_timeout(2500);shot(pg,'F1_cartoes',1300)
+    pg.set_viewport_size({'width':390,'height':844})
+    pg.evaluate("()=>{const t=[...document.querySelectorAll('#layer button,#layer [data-mct]')].find(b=>/Pedidos/i.test(b.innerText||''));t&&t.click()}");pg.wait_for_timeout(1500);shot(pg,'F2_pedidos')
+    pg.evaluate("()=>{const t=document.querySelector('[data-rcz]');t&&t.click()}");pg.wait_for_timeout(900);shot(pg,'F3_pedidos_aberto')
+    pg.evaluate("()=>{const c=document.querySelector('#layer [data-close]');c&&c.click()}");pg.wait_for_timeout(600);pg.evaluate("()=>{const m=document.querySelector('.top .ib');m&&m.click()}");pg.wait_for_timeout(1200);shot(pg,'F4_menu')
+    print('F erros',[x for x in log if 'ERR_FAILED' not in x][:6]);b.close()

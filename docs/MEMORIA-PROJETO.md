@@ -2997,3 +2997,5 @@ Cupons são coisa delicada: programar com MUITA calma. O servidor recalcula pre�
 
 ## REGRA DE OURO DOS TESTES (17/11/2026 14:38, ordem do dono)
 Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: cada tela mexida, cada regra de cupom (inclusive as tentativas de burlar), cada temática, celular/tablet/PC, logado/deslogado. Na dúvida, testar de novo; o que não deu para testar é dito ao dono. (Também no CLAUDE.md.)
+
+- 17/11/2026 S409 IMPLEMENTADO ("implementar tudo"): servidor (cupom.js escada 9, VIP, aniversário, presente.js, conferePedido, regra pisos) e site v1794940082. Pendente: deploy do dono (functions + firestore:rules); app publicar pisos/{ref}.p e vipAte; tirar Leve 2 no app; botão cancelar reserva não paga.

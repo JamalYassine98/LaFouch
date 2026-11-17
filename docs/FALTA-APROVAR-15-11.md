@@ -442,3 +442,5 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - 17/11/2026 14:33 · DONO aprovou o 103 (lista de compras não pisca: animação só no cartão de carregar foto). Esperando "implementar" (com 98–102).
 - 17/11 14:38 — DONO: REGRA DE OURO gravada (CLAUDE.md + memória): testar tudo, com muita calma. Cor do selinho (dourado × rosa) ainda ESPERANDO a escolha dele.
 - 17/11 14:40 — DONO: **selinho DOURADO APROVADO** (83/81f), com as 3 regras: dourado só em coisas de cupom (selinho, palavra Exclusivo, detalhe dos cartões); no máximo um toque dourado por tela; selinho só de contorno fino, sem fundo, letra pequena, dourado escuro (#7a5a2a sobre contorno #d9c6a3) para leitura. 83b (vinho) retirado.
+
+- 17/11 — **PUBLICADO no site v1794940082 (S409)**: 68b, 68c (site; falta o app publicar vipAte), 68e–68h, 69a, 70a–70e, 71a–71e, 73f, 73g, 74a–c, 75a–c, 76a, 77a–d, 78a–g, 79 (regra de cor), 81f, 83 dourado, Leve 2 retirado, 'Tem um código?' retirado, reserva VIP 3 h, e-mail só de pedido pago cancelado. Servidor no GitHub (falta o dono fazer o deploy das functions + regras).
