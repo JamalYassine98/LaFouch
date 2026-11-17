@@ -1,0 +1,5 @@
+// S405 · 71e: cartão do presente especial em cada temática (pedido do dono 17/11 11:20). Nada implementado.
+const fs=require('fs'),E=require('/home/claude/lafouch/functions/email.js');
+const T=[['preto','PRESENTE ESPECIAL','sem evento'],['natal','NATAL','Natal'],['halloween','HALLOWEEN','Halloween'],['maes','DIA DAS MÃES','Dia das Mães'],['pais','DIA DOS PAIS','Dia dos Pais'],['anonovo','ANO-NOVO','Ano-Novo'],['bf','BLACK FRIDAY','Black Friday']];
+const c=(t)=>E.luxo(Object.assign(t[0]==='preto'?{tema:'preto'}:{ev:t[0]},{rot:t[1],pct:'Na compra de um,<br>leve outro de presente',tit:t[0]==='preto'?'vale para uma compra':'presente de '+t[2],nome:'MARÍA GONZÁLEZ',val:'ATÉ 17/03/2027'})).replace(/font:500 42px\/1 ([^;]+);color:([^;]+);margin:18px 0 2px;letter-spacing:.01em/,'font:500 22px/1.2 $1;color:$2;margin:16px 0 4px;letter-spacing:.01em').replace(/letter-spacing:.16em;color/,'letter-spacing:.1em;color');
+fs.writeFileSync('/tmp/s405/c.json',JSON.stringify(T.map(t=>({n:t[2],h:c(t)}))));console.log('ok');
