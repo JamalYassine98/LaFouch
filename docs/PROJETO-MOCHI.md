@@ -4,7 +4,7 @@ Tudo sobre a Mochi (mascote e teste de leitura do site lafouch.com) num lugar s�
 
 ## 1. O que está no ar (site 1794856943, hospedado na Cloudflare Pages)
 - Teste no celular (30 cm) e no computador (60 cm, resultado como estimativa).
-- Voz: 22 falas novas ligadas (pt 195 / es 181 no lista.json). Teto de créditos ElevenLabs dado pelo dono: 6.000 (1.720 gastos em 17/11). Nunca gravar sem ele autorizar o valor. Chave nunca no projeto.
+- Voz: 22 falas novas ligadas (pt 195 / es 181 no lista.json). Teto de créditos ElevenLabs dado pelo dono: 6.000 (2.137 gastos em 17/11). Nunca gravar sem ele autorizar o valor. Chave nunca no projeto.
 - Fluidez de movimento (S370): salto pela distância, flutuar, olhar que antecipa, boca pelo volume da voz. Não feito: mão chegando depois do braço.
 - Distância certa (S381): usa o lado maior da imagem da câmera. Conferido pelo dono (21–25 cm, câmera 720×1280).
 - Resultado (S381): o quadro de leitura manda; faixa provável = grau ± 0,25. Ponto próximo que não combina é descartado.
@@ -57,6 +57,8 @@ Tudo sobre a Mochi (mascote e teste de leitura do site lafouch.com) num lugar s�
 - 17/11 19:55 — DONO aprovou o ESPANHOL das 4 falas do 107: 1 'Ahora voy a ver de qué tan cerca podés leer. Acercá el celular a la cara bien despacio, sin dejar de leer las letras.' 2 'Cuando las letras empiecen a verse borrosas, dejá el celular quieto ahí, o avisame tocando el botón Se ve borroso.' 3 '¿No se puso borroso? Todo bien, ya medí.' 4 '¡Listo, medí! Podés alejar el celular.' E o botão Embaçou em espanhol passa de 'Se borroneó' para 'Se ve borroso'. Próximo: item 3 (voz, pedir autorização de créditos).
 
 - 17/11 20:02 — VOZ das 4 falas do 107 GRAVADA (dono autorizou até 1.764 créditos e mandou a chave às 19:57; chave NÃO guardada): work/s410/grava410.py, brutos em /home/claude/voz_s410 (fora do projeto), escolha em /home/claude/voz_s410/escolha/escolha.json. 3 tentativas: gastou 714 créditos (total ElevenLabs 1.720 de 6.000). Frases curtas ficaram abaixo da semelhança 0,84 (medida fraca em fala curta) — escolhi a melhor de cada. ESPERANDO o dono ouvir (mochi-falas-novas-pt/es.mp3). Nada no site.
+
+- 17/11 20:19 — DONO aprovou ES falas 1+2 = opção A (t31). VOZ DAS 4 FALAS DO 107 PRONTA (PT e ES; escolha em /home/claude/voz_s410/escolha/escolha.json; arquivos finais work/s410/mochi-falas-novas-pt/es-final.mp3). Gasto: 1.131 de 1.764 autorizados (ElevenLabs 2.137 de 6.000). Lições: gravar SEMPRE em cena (frase sozinha muda a voz; 'semelhança da cena' ≥0,90 pega); frase que começa com vogal depois de pausa sai 'Aa-' → vírgula depois da 1ª palavra ajuda; conferir nitidez (som até onde vai) comparando com fala aprovada de sons parecidos (frase sem 's' é naturalmente mais baixa, ex.: 'Pronto!' aprovado vai só até 1.700 Hz). Entra no site junto com o 'implementar' do 107. Próximo da lista: item 4 (modo de teste com 104, 107–110) — precisa do 'implementar' do dono.
 
 ## 5. Lições minhas
 - Ao mexer numa parte, procurar tudo que depende dela (erro do S384 → S387).
