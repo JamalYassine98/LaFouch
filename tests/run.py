@@ -433,8 +433,8 @@ async def main():
             m2 = await pg.evaluate("() => [window.__LF.S.view, [...document.querySelectorAll('#dFolha:not(.sai) [data-act=grpVerEsc]')].map(b => b.getAttribute('data-id'))]")
             await pg.evaluate("() => window.__LF.lfaFecha('dFolha')"); await pg.wait_for_timeout(400)
             total += 1
-            ok = m1 == ['dash', 'giro', ['giro', 'prec', 'din']] and m2 == ['inicio', ['mkt', 'tem', 'cup', 'anl']] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'S374 (59): Giro e preços com a flecha certa; Marketing abre a lista das 3 telas (com Cartões)')
+            ok = m1 == ['dash', 'giro', ['giro', 'prec', 'din']] and m2 == ['mkt', []] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S374 (59/98): Giro e preços com a flecha certa; Marketing abre a tela Marketing')
             if not ok: falhas.append('59 famílias'); print('        veio', m1, m2, pg.erros)
             # S374 (S242): Site é tela do app; com o painel aberto a barra não marca Vender
             await pg.evaluate("() => window.__LF.setView('inicio')"); await pg.wait_for_timeout(400)
@@ -1036,7 +1036,9 @@ async def main():
             await pg.click('#btnGraus'); await pg.wait_for_timeout(450)
             await pg.locator('#grFolha .gcell', has_text='+1.50').click(); await pg.wait_for_timeout(500)
             # S374: a aba Reposição saiu; a linha "Lista de compras ›" leva ao Giro › Lista de compras (uma lista só)
-            linha = await pg.evaluate("() => { const b = document.querySelector('#lcIrInv [data-act=lcIrGiro]'); return !!b && !document.getElementById('eTabR'); }")
+            # S374 (102c): a linha "Lista de compras ›" fica no fim da aba Fornecedores (não em Produtos)
+            await pg.evaluate("() => { const L = window.__LF; L.S.lotesView = true; L.render(); }"); await pg.wait_for_timeout(400)
+            linha = await pg.evaluate("() => { const l = document.getElementById('lcIrInv'), b = l && l.querySelector('[data-act=lcIrGiro]'); return !!b && !l.hidden && document.getElementById('v-estoque').lastElementChild === l && !document.getElementById('eTabR'); }")
             await pg.click('#lcIrInv [data-act=lcIrGiro]'); await pg.wait_for_timeout(400)
             giro = await pg.evaluate("() => { const S = window.__LF.S; return [S.view, S.dTab, !!S.dfold.rep, !!document.getElementById('lcCard'), S.repoView]; }")
             await pg.evaluate("() => { const L = window.__LF; L.S.repoView = true; L.setView('estoque'); }"); await pg.wait_for_timeout(400)
@@ -3668,7 +3670,7 @@ async def main():
               const l0 = Math.round(v.getBoundingClientRect().width); v.querySelector('.top button').click(); await w(450);
               const larg = Math.round(v.getBoundingClientRect().width) === l0 && document.documentElement.classList.contains('lfTrava'); if (S.cxMenu) v.querySelector('.top button').click(); await w(300);
               S.dTab = 'giro'; L.setView('dash'); await w(700); const ks = [...document.getElementById('dtabBody').children].filter(e => e.offsetParent);
-              const vaos = ks.slice(0, -1).map((e, i) => Math.round(ks[i + 1].getBoundingClientRect().top - e.getBoundingClientRect().bottom)); const sep = vaos.length >= 3 && vaos.every(x => x === 18);
+              const vaos = ks.slice(0, -1).map((e, i) => Math.round(ks[i + 1].getBoundingClientRect().top - e.getBoundingClientRect().bottom)); const sep = vaos.length >= 1 && vaos.every(x => x === 18); // S374 (99): os blocos agora ficam juntos num cartão
               L.ACT.dVer(); await w(400); const semX = !document.querySelector('.dFx') && /VER/.test(document.body.innerText); L.ACT.dFecha(); await w(400);
               L.setView('inicio'); S.inicioFant = true; L.render(); await w(300); const r = document.querySelector('[data-act=inicioReset]');
               const link = !!r && r.className === 'lkTx' && getComputedStyle(r).backgroundColor === 'rgba(0, 0, 0, 0)' && r.getBoundingClientRect().height >= 44; S.inicioFant = false; L.render(); await w(1300);
@@ -4053,12 +4055,33 @@ async def main():
             if not ok: falhas.append('site 94 97'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # S374 (98–103): catálogo de peças — blocos que abrem juntos num cartão (abrem e fecham), links no padrão, Marketing como tela, lista não pisca
+            pg = await pagina(fam=True)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              L.inicioGo('giro'); await w(500); const v = () => document.querySelector('.view:not([hidden])');
+              const soltos = [...v().querySelectorAll('section.card.fxF')].filter(x => !x.parentElement.classList.contains('g99')).length;
+              const q = id => document.querySelector('section.card.fxF[data-fx="' + id + '"]');
+              q('rep').querySelector('.fxH').click(); await w(700); const abre = !!q('rep').querySelector('.fxB') && q('rep').parentElement.classList.contains('g99');
+              const lc = document.getElementById('lcCard'), anim = lc ? getComputedStyle(lc).animationName : 'x';
+              q('rep').querySelector('.fxH').click(); await w(700); const fecha = !q('rep').querySelector('.fxB');
+              L.inicioGo('din'); await w(500); const po = !!q('paraonde') && !document.querySelector('[data-act=dfold].chip');
+              L.setView('caixa'); await w(400); const cx = [...v().querySelectorAll('.lk100.c101,.slVai.r100')].length >= 2;
+              L.inicioGo('hoje'); await w(400); const vd = [...v().querySelectorAll('.btn-sc.p')].every(b => b.classList.contains('inl'));
+              L.inicioGo('mkt'); await w(500); const mk = S.view === 'mkt' && !document.querySelector('.ljJn.mkJn') && document.querySelectorAll('#v-mkt .mkDtG details.mkDt').length === 3;
+              const d = document.querySelector('#v-mkt details.mkDt'); d.querySelector('summary').click(); await w(600); const mkA = d.open; d.querySelector('summary').click(); await w(600);
+              return [soltos, abre, anim, fecha, po, cx, vd, mk, mkA && !d.open]; }""")
+            total += 1
+            ok = got == [0, True, 'none', True, True, True, True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S374 (98–103): blocos juntos num cartão abrem e fecham, lista não pisca, links no padrão, Marketing como tela com 3 blocos')
+            if not ok: falhas.append('catalogo 98 103'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # S374 (esboço 73): Despesas — "+ Nova" no topo abre o formulário; sem "ajuste em Ajustes"; "Marcar como paga ›"
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
               S.dfold = S.dfold || {}; S.dfold.nova = false; L.setView('desp'); await w(400);
               const v = document.getElementById('v-desp'), sem0 = !document.getElementById('nName'), txt = !/ajuste em Ajustes/.test(v.textContent) && /\(automático\)/.test(v.textContent);
-              const mp = [...v.querySelectorAll('.mpg73')].every(b => /^Marcar como paga ›$/.test(b.innerText.trim()));
+              const mp = [...v.querySelectorAll('.mpg73')].every(b => /^Marcar como paga$/.test(b.innerText.trim()) && b.classList.contains('b100'));
               v.querySelector('[data-act=despNova]').click(); await w(700);
               const abriu = !!document.getElementById('nName') && S.dfold.nova;
               return [sem0, txt, mp, abriu]; }""")

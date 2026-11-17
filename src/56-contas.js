@@ -152,7 +152,7 @@
           (a.urgente ? ' · <b style="color:var(--bad)">URGENTE</b>' : '') +
           (a.ok ? '' : ' · ' + esc(a.dica)),
         expTexto(a.e)
-      ) + '<button type="button" class="esLn slVai mpg73" data-act="exppay" data-id="' + a.e.id + '" aria-label="Marcar ' + esc(a.e.nome) + ' como paga"><span class="g"><b>Marcar como paga ›</b></span></button>'; // S374 (esboço 73): ação de linha em texto rosa
+      ) + '<button type="button" class="esLn slVai mpg73 b100" data-act="exppay" data-id="' + a.e.id + '" aria-label="Marcar ' + esc(a.e.nome) + ' como paga"><span class="g"><b>Marcar como paga</b></span></button>'; // S374 (esboço 100d): é ação, não caminho → botão secundário, sem "›"
     });
     return h + '</div></section>';
   }

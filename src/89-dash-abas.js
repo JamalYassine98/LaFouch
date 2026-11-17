@@ -249,17 +249,17 @@
         })
         .join('') +
       '</div><div class="hint" style="margin:0">De ' + totFmt(r.wal) + ' na carteira, ' + totFmt(dono) + ' já têm dono: reposição, contas, colchão e melhorias.</div>' +
-      (aberto
-        ? '<div class="split">' +
+      '</section>' +
+      // S374 (esboço 99b2): "Ver para onde vai" é um bloco que abre no lugar, junto de "Próximos 30 dias"
+      dFold('paraonde', 'Ver para onde vai', 'o que já tem dono: reposição, contas, colchão', '',
+        '<div class="split">' +
           [['Reposição de mercadoria', r.repGs, '#6cc3e0'], ['Contas do mês', r.con, '#a2447c'], ['Colchão de segurança', r.colch, '#e9c27a']]
             .map(function (p) {
               return '<div class="sl"><span><span class="sp" style="background:' + p[2] + '"></span>' + p[0] + '</span><b>' + totFmt(p[1]) + '</b></div>';
             })
             .join('') +
           '<button type="button" class="esLn slVai" data-act="view" data-id="caixa"><span class="g"><b style="font-weight:500">Objetivos da loja</b><small>guardado no Caixa</small></span><i aria-hidden="true">›</i></button>' +
-          '</div>'
-        : '') +
-      '<div style="display:flex;justify-content:flex-end"><button type="button" class="chip" data-act="dfold" data-id="paraonde" aria-expanded="' + aberto + '" style="min-height:34px">' + (aberto ? 'Esconder ⌃' : 'Ver para onde vai ⌄') + '</button></div></section>';
+          '</div>');
     // S363 (esboços 45a/45d): o resultado do mês saiu de Reservas e mora no Dashboard › Detalhes › "Resultado do mês"
     S._resMes = function () {
       var h = '';

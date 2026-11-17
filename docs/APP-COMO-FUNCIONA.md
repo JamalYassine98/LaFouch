@@ -476,3 +476,13 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - O painel manda `lfSite` {on, mod, oc, dm, dnm, dt} → `S.siteRes`; a tela Site (`__renderSite95`) mostra o estado (ponto verde/cinza, abre Ajustes do site), "Prévia do site ›" (`ACT.stPrev` → painel abre a prévia `openCli`) e os 4 números (Pedidos, Mensagens, Modelos, Vitrine).
 - Ajustes: linha `site` ("Site · No ar/Desligado") → `ACT.ajSite()` (painel na aba cfg, sem família).
 - Biometria: `lfSess get` e `lfBio ask` só pedem PIN/biometria se o app estiver travado (`LOCK.locked`); com o app aberto e destravado o painel entra direto (a trava continua na abertura e na volta do segundo plano).
+
+## S374p (v557 · 17/11/2026) — catálogo de peças (98–103): mesma função = mesma aparência
+- Módulo `src/98z-s374d-padrao.js`, que roda depois de `render`, `renderDash` e `histLista` (`padTela`):
+  - `pad99`: blocos que abrem no lugar (`section.card.fxF`, contas `.card.ecF`, dias/semanas do Histórico) vão juntos num cartão `.g99` (Histórico: `.g99.h101`); "⌄" gira (CSS). Ajustes: `.ajCh` aponta para baixo e gira ao abrir, menos `site` ("›", leva a outra tela).
+  - `pad100`: links com "›": `.slVai` → `.r100` (rosa, centralizado); outros sem fundo/borda → `.lk100` + `.c101` (sozinho, centralizado) ou `.inl` (ao lado de outro botão, fica no lugar). `FORA100` lista o que não é link solto (linhas de lista, cartões, números…). Linhas de lista (`.fxRows .fxRow`) com título 16 px negrito e "›" parado.
+- Reservas: "Ver para onde vai" é `dFold('paraonde', …)` logo depois de "Livre para você" (junto de "Próximos 30 dias").
+- Despesas: "Marcar como paga" sem "›", classe `b100` (botão secundário).
+- 102: `#lcIrInv` ("Lista de compras · N acabando ›") só na aba Fornecedores (`S.lotesView`), no fim de `#v-estoque`, centralizado (`.c102`).
+- 98: Marketing é a tela `#v-mkt` (`renderMkt` → `mkMonta(c)`; antes era janela). `mkAbre()` = `setView('mkt')`; a família Marketing abre a última tela usada. "Listas por perfil", "Resultados" e "Kit da marca" ficam em `.mkDtG` e abrem com `lfFoldAnim`.
+- 103: `.card.lcCard{animation:none}` — a animação `lcNasce` é só do cartão "carregando foto" (`#loadFoto`), que usa a mesma classe.

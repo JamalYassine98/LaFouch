@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 556;
+  var APP_BUILD = 557;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.41.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.42.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -12397,7 +12397,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           (a.urgente ? ' · <b style="color:var(--bad)">URGENTE</b>' : '') +
           (a.ok ? '' : ' · ' + esc(a.dica)),
         expTexto(a.e)
-      ) + '<button type="button" class="esLn slVai mpg73" data-act="exppay" data-id="' + a.e.id + '" aria-label="Marcar ' + esc(a.e.nome) + ' como paga"><span class="g"><b>Marcar como paga ›</b></span></button>'; // S374 (esboço 73): ação de linha em texto rosa
+      ) + '<button type="button" class="esLn slVai mpg73 b100" data-act="exppay" data-id="' + a.e.id + '" aria-label="Marcar ' + esc(a.e.nome) + ' como paga"><span class="g"><b>Marcar como paga</b></span></button>'; // S374 (esboço 100d): é ação, não caminho → botão secundário, sem "›"
     });
     return h + '</div></section>';
   }
@@ -22177,17 +22177,17 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         })
         .join('') +
       '</div><div class="hint" style="margin:0">De ' + totFmt(r.wal) + ' na carteira, ' + totFmt(dono) + ' já têm dono: reposição, contas, colchão e melhorias.</div>' +
-      (aberto
-        ? '<div class="split">' +
+      '</section>' +
+      // S374 (esboço 99b2): "Ver para onde vai" é um bloco que abre no lugar, junto de "Próximos 30 dias"
+      dFold('paraonde', 'Ver para onde vai', 'o que já tem dono: reposição, contas, colchão', '',
+        '<div class="split">' +
           [['Reposição de mercadoria', r.repGs, '#6cc3e0'], ['Contas do mês', r.con, '#a2447c'], ['Colchão de segurança', r.colch, '#e9c27a']]
             .map(function (p) {
               return '<div class="sl"><span><span class="sp" style="background:' + p[2] + '"></span>' + p[0] + '</span><b>' + totFmt(p[1]) + '</b></div>';
             })
             .join('') +
           '<button type="button" class="esLn slVai" data-act="view" data-id="caixa"><span class="g"><b style="font-weight:500">Objetivos da loja</b><small>guardado no Caixa</small></span><i aria-hidden="true">›</i></button>' +
-          '</div>'
-        : '') +
-      '<div style="display:flex;justify-content:flex-end"><button type="button" class="chip" data-act="dfold" data-id="paraonde" aria-expanded="' + aberto + '" style="min-height:34px">' + (aberto ? 'Esconder ⌃' : 'Ver para onde vai ⌄') + '</button></div></section>';
+          '</div>');
     // S363 (esboços 45a/45d): o resultado do mês saiu de Reservas e mora no Dashboard › Detalhes › "Resultado do mês"
     S._resMes = function () {
       var h = '';
@@ -38044,7 +38044,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     lfJanela({
       titulo: 'Marketing',
       cls: 'mkJn',
-      monta: function (c, J) {
+      monta: function (c, J) { mkMonta(c, J); }
+    });
+  }
+  // S374 (esboço 98): o conteúdo do Marketing é montado por mkMonta — na tela do app (#v-mkt) ou, antigo, numa janela
+  function mkMonta(c, J) {
+    {
         var pinta = function () {
           var obj = mkObj(),
             P = mkPlano(),
@@ -38145,7 +38150,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           saveSoon();
         };
       }
-    });
   }
   // ---- criar ----
   function mkCria(fmt, refs, pid, depois) {
@@ -52207,6 +52211,184 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       stNum95(x ? x.mod : null, 'Modelos', x ? 'no ar' + (x.oc ? ' · ' + x.oc + (x.oc === 1 ? ' oculto' : ' ocultos') : '') : 'abra para atualizar', 'stAbre', 'prod') +
       stNum95(x ? (x.dm === 'nada' ? null : '✓') : null, 'Vitrine', x ? (x.dm === 'nada' ? 'sem destaque' : (x.dnm || 'destaque').toLowerCase()) : 'abra para atualizar', 'stAbre', 'vit') +
       '</div>';
+  };
+  // ===== S374 · catálogo de peças (aprovado 17/11/2026; "implementar tudo" 14:40) =====
+  // 99  ABRIR NO LUGAR: blocos que abrem (section.fxF, contas .ecF, dias/semanas do Histórico) juntos num cartão (.g99), em linhas;
+  //     "⌄" gira ao abrir (Ajustes também; "Site" continua "›" porque leva a outra tela). Reservas: "Ver para onde vai" é um bloco.
+  // 100/101 IR PARA OUTRA TELA: linha de lista com "›" parado; link solto rosa 15 px — sozinho = centralizado; ao lado de outro
+  //     botão = no lugar. "Marcar como paga" é ação → botão secundário.
+  // 102 "Lista de compras ›" no fim da aba Fornecedores. 98 Marketing como tela (#v-mkt).
+  function pad99(raiz) {
+    if (!raiz) return;
+    var vistos = [];
+    [].forEach.call(raiz.querySelectorAll('section.card.fxF, .card.ecF'), function (s) {
+      if (vistos.indexOf(s) >= 0 || (s.parentElement && s.parentElement.classList.contains('g99'))) return;
+      var run = [s], n = s.nextElementSibling;
+      while (n && n.matches('section.card.fxF, .card.ecF')) { run.push(n); n = n.nextElementSibling; }
+      var g = document.createElement('div');
+      g.className = 'g99';
+      s.parentNode.insertBefore(g, s);
+      run.forEach(function (x) { vistos.push(x); g.appendChild(x); });
+    });
+    // Histórico: dias e semanas de cada mês viram linhas de um cartão
+    [].forEach.call(raiz.querySelectorAll('.list'), function (l) {
+      var g = null;
+      [].slice.call(l.children).forEach(function (x) {
+        if (x.matches('.pcard.hDia, .card.hSem, .hSemB')) {
+          if (x.parentElement.classList.contains('g99')) return;
+          if (!g) { g = document.createElement('div'); g.className = 'g99 h101'; l.insertBefore(g, x); }
+          g.appendChild(x);
+        } else if (!x.classList.contains('g99')) g = null;
+      });
+    });
+  }
+  var FORA100 = '.fxRow,.ajR,.stL,.st96,.pv97,.dOp,.fxH,.pcard,.estFi,.ifNum,.kpi,.kpiLk,.stN,.mn,.lfaSh,.mkPb,.mkSt,.dHdT,.ataL,.rw77,.lcSecS,.lk77,.lfa-sh,.ljJn,#lcIrInv';
+  function pad100(raiz) {
+    if (!raiz) return;
+    [].forEach.call(raiz.querySelectorAll('.slVai:not(.mpg73)'), function (e) {
+      if (e._p100) return;
+      e._p100 = 1;
+      e.classList.add('r100');
+      var b = e.querySelector('b');
+      if (b && !/›/.test(b.textContent)) b.textContent = b.textContent.trim() + ' ›';
+    });
+    [].forEach.call(raiz.querySelectorAll('button,a'), function (e) {
+      if (e._p100) return;
+      var t = (e.textContent || '').trim();
+      if (!/›\s*$/.test(t) || t.length < 4) return;
+      if (e.closest(FORA100) || e.matches(FORA100)) return;
+      var s = getComputedStyle(e), pilula = e.matches('.gBtn,.chip,.lcT,.btn-sc');
+      if (s.backgroundColor !== 'rgba(0, 0, 0, 0)' && !pilula) return;
+      if (parseFloat(s.borderTopWidth) > 0 && s.borderTopStyle !== 'none' && !pilula) return;
+      e._p100 = 1;
+      var irm = [].filter.call(e.parentElement.children, function (x) { return x !== e && x.matches('button,a') && (x.textContent || '').trim(); });
+      e.classList.add('lk100');
+      e.classList.add(irm.length && !e.matches('.gBtn') ? 'inl' : 'c101');
+    });
+  }
+  function padTela() {
+    var v = document.querySelector('.view:not([hidden])');
+    if (!v) return;
+    try { pad99(v); pad100(v); } catch (e) {}
+  }
+  var _render99 = render;
+  render = function () {
+    var r = _render99.apply(this, arguments);
+    padTela();
+    return r;
+  };
+  var _renderDash99 = renderDash;
+  renderDash = function () {
+    var r = _renderDash99.apply(this, arguments);
+    padTela();
+    return r;
+  };
+
+  // 102: "Lista de compras ›" sai de Produtos e fica no fim da aba Fornecedores, centralizada
+  var _rEA102 = renderEstoqueAbas;
+  renderEstoqueAbas = function () {
+    var r = _rEA102.apply(this, arguments), ln = $('lcIrInv'), v = $('v-estoque');
+    if (!ln || !v) return r;
+    if (S.view === 'estoque' && S.lotesView) {
+      var n = 0;
+      try { var L = lcLista(); n = L.acab.length + L.epoca.length; } catch (e) {}
+      ln.innerHTML = '<button type="button" class="lcT" data-act="lcIrGiro">Lista de compras' + (n ? ' · ' + n + ' acabando' : '') + ' ›</button>';
+      ln.hidden = false;
+      ln.classList.add('c102');
+      if (v.lastElementChild !== ln) v.appendChild(ln);
+    } else ln.hidden = true;
+    return r;
+  };
+
+  // 98: Marketing é tela do app (#v-mkt); a família abre a tela como as outras
+  if (!$('v-mkt')) {
+    var _vm = document.createElement('div');
+    _vm.id = 'v-mkt';
+    _vm.className = 'view';
+    _vm.hidden = true;
+    var _vc = $('v-cup') || $('v-site');
+    if (_vc && _vc.parentNode) _vc.parentNode.insertBefore(_vm, _vc);
+  }
+  if (!VIEWS.some(function (v) { return v[0] === 'mkt'; })) VIEWS.push(['mkt', 'Marketing']);
+  BARRA_NOME.mkt = BARRA_NOME.mkt || 'Marketing';
+  function mkGrupa(c) {
+    var ds = [].slice.call(c.querySelectorAll(':scope > details.mkDt'));
+    if (!ds.length || c.querySelector(':scope > .mkDtG')) return;
+    var g = document.createElement('div');
+    g.className = 'mkDtG';
+    c.insertBefore(g, ds[0]);
+    ds.forEach(function (d) {
+      g.appendChild(d);
+      var fb = document.createElement('div'), fi = document.createElement('div');
+      fb.className = 'mkFb';
+      fi.className = 'mkFi';
+      [].slice.call(d.childNodes).forEach(function (n) { if (!(n.nodeType === 1 && n.tagName === 'SUMMARY')) fi.appendChild(n); });
+      fb.appendChild(fi);
+      d.appendChild(fb);
+    });
+  }
+  function renderMkt() {
+    var el = $('v-mkt');
+    if (!el || S.view !== 'mkt') return;
+    if (!el.getAttribute('data-ok')) {
+      el.setAttribute('data-ok', '1');
+      el.innerHTML = '<div class="top"><div><h1>Marketing</h1></div></div><div class="mk98" id="mkCorpo"></div>';
+      var c = $('mkCorpo');
+      mkKit();
+      mkMonta(c, { fecha: function () {} });
+      mkGrupa(c);
+      if (window.MutationObserver) new MutationObserver(function () { mkGrupa(c); }).observe(c, { childList: true });
+      // os 3 blocos abrem no lugar com a mesma animação dos outros blocos do app
+      c.addEventListener('click', function (e) {
+        var sm = e.target.closest('summary.mkSec');
+        if (!sm || !c.contains(sm)) return;
+        var d = sm.parentElement, fb = d.querySelector('.mkFb');
+        if (!fb) return;
+        e.preventDefault();
+        if (d._anim) return;
+        if (!d.open) {
+          d.open = true;
+          d._anim = 1;
+          lfFoldAnim(fb, fb.firstElementChild, null, true, function () { d._anim = 0; });
+        } else {
+          d._anim = 1;
+          d.classList.add('fecha');
+          lfFoldAnim(fb, fb.firstElementChild, null, false, function () { d.open = false; d.classList.remove('fecha'); d._anim = 0; });
+        }
+      });
+    }
+  }
+  var _render98 = render;
+  render = function () {
+    var r = _render98.apply(this, arguments);
+    try { renderMkt(); } catch (e) {}
+    return r;
+  };
+  mkAbre = function () {
+    S._gAt = 'g:mkt';
+    setView('mkt');
+  };
+  var _inicioGo98 = inicioGo;
+  inicioGo = function (id) {
+    if (id === 'mkt') return mkAbre();
+    return _inicioGo98.apply(this, arguments);
+  };
+  ACT.stAbre = (function (f) { return function (id) { if (id === 'mkt') return mkAbre(); return f.apply(this, arguments); }; })(ACT.stAbre);
+  var _grpAbre98 = grpAbre;
+  grpAbre = function (g) {
+    if (g && g.id === 'g:mkt' && g.fam) {
+      S._gAt = g.id;
+      var u = g.ult && g.itens.indexOf(g.ult) >= 0 ? g.ult : g.itens[0];
+      return inicioGo(u);
+    }
+    return _grpAbre98.apply(this, arguments);
+  };
+  // Histórico: a lista se redesenha sozinha (abrir/fechar semana, buscar) — reagrupa depois
+  var _histLista99 = histLista;
+  histLista = function () {
+    var r = _histLista99.apply(this, arguments);
+    padTela();
+    return r;
   };
   // ===== S370 (16/11/2026) — lote 8: trilho que ARRASTA (regra do dono, 15/11/2026) =====
   // Todo seletor em trilho (.trk com a pílula .trkTh e os botões .trkB) aceita o dedo (ou o mouse) arrastando a pílula,

@@ -2937,3 +2937,59 @@ button.rw77{cursor:pointer}
 #v-onl #siteBox{min-height:0}#v-onl #siteBox iframe{border:0;border-radius:0;background:transparent}
 #v-onl .top.onl95{margin-bottom:4px}
 #v-onl #siteBox{margin-top:-10px}
+
+/* ===== S374 catálogo de peças (98–103, aprovados 17/11/2026) ===== */
+/* 103: a animação de nascer é só do cartão "carregando foto" (a Lista de compras usa a mesma classe) */
+.card.lcCard{animation:none!important}
+/* 99 abrir no lugar */
+.g99{border:1px solid var(--line);background:var(--panel);border-radius:16px;overflow:hidden;margin:0 0 16px;box-shadow:none}
+.g99>section.card.fxF{margin:0!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;padding:0!important;border-bottom:1px solid var(--line)!important}
+.g99>section.card.fxF:last-child{border-bottom:0!important}
+.g99 .fxH,.r99{display:flex!important;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:60px;padding:12px 16px!important;background:none!important;border:0!important;border-radius:0!important;font:inherit;color:var(--fg);text-align:left}
+.g99 .fxH b{font-size:16px!important;font-weight:600}
+.g99 .fxC,.r99 i{font-style:normal;color:var(--mute);font-size:18px;transition:transform .25s;display:inline-block}
+.g99 .fxH[aria-expanded=true] .fxC{transform:rotate(180deg)}
+.g99 section.fxF>*:not(.fxH){padding-left:16px;padding-right:16px}
+#ajGrp .ajS:not([data-k=site]) .ajCh{transform:rotate(90deg)}#ajGrp .ajS.on:not([data-k=site]) .ajCh{transform:rotate(-90deg)}
+
+.g99>.card.ecF{margin:0!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;border-bottom:1px solid var(--line)!important}
+.g99>.card.ecF:last-child{border-bottom:0!important}
+
+/* 100/101 ir para outra tela */
+.lk100{display:block!important;width:auto!important;margin:6px auto 0!important;min-height:44px!important;padding:0 6px!important;background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;color:var(--accent-fg)!important;font:inherit;font-size:15px!important;font-weight:600!important;text-align:center!important;text-transform:none!important;letter-spacing:0!important}
+.lk100.inl{display:inline-flex!important;align-items:center;margin:0!important}
+.fxRows .fxRow{min-height:60px!important;padding:12px 16px!important}.fxRows .fxRow>span:first-child{font-size:16px!important;font-weight:600!important}
+.fxRows .fxRow .hint{color:var(--mute)!important;font-size:14px!important;font-weight:400!important}.fxRows .fxRow span span,.fxRows .fxRow small{font-weight:400!important}
+.slVai.r100{display:flex!important;align-items:center;justify-content:center;gap:0;width:100%;min-height:44px;background:none!important;border:0!important;color:var(--accent-fg)!important;font-weight:600;font-size:15px}
+.slVai.r100 b{font-weight:600!important}.slVai.r100 .g{flex:none!important;width:auto!important;text-align:center}.slVai.r100 i{display:none}
+.mpg73.b100{display:flex!important;width:fit-content!important;max-width:fit-content!important;align-self:flex-start;align-items:center;justify-content:center;min-height:44px!important;padding:0 18px!important;border:1px solid var(--line)!important;border-radius:999px!important;background:none!important;color:var(--fg)!important;width:auto!important}
+.view .mpg73.b100 .g b,.view .mpg73.b100 b{color:var(--fg)!important;font-weight:600!important;font-size:15px!important}
+
+.g99.h101>*{width:100%!important;max-width:none!important;box-sizing:border-box;margin:0!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;border-bottom:1px solid var(--line)!important}.g99.h101>*:last-child{border-bottom:0!important}
+.lk100.c101{display:block!important;margin:8px auto 0!important;text-align:center!important}
+
+
+/* 102 */
+#lcIrInv.c102{margin:10px 0 0;text-align:center}
+/* 98 Marketing como tela */
+#v-mkt .mk98{padding:0}
+#v-mkt .mk98 .mkObj{display:grid!important;grid-template-columns:1fr 1fr;gap:10px}
+#v-mkt .mk98 .mkObj .chip{min-height:48px;border-radius:14px!important;background:var(--panel)!important;border:1px solid var(--line)!important;color:var(--fg)!important;font-weight:500}
+#v-mkt .mk98 .mkObj .chip.on{border-color:var(--accent-fg)!important;color:var(--accent-fg)!important;font-weight:600;background:color-mix(in srgb,var(--accent-fg) 8%,var(--panel))!important}
+#v-mkt .mk98 .mini{min-height:44px!important}
+#v-mkt .mk98 .mkCk{width:44px!important;height:44px!important;min-width:44px;margin:-9px!important;border:0!important;background:radial-gradient(circle,transparent 11px,var(--line) 11.5px,var(--line) 12.5px,transparent 13px)!important}
+#v-mkt .mk98 .mkDt:not([open])>*:not(summary){display:none!important}
+#v-mkt .mk98 .mkPb small,#v-mkt .mk98 .mkPb span{white-space:normal!important;overflow:visible!important;text-overflow:clip!important;display:-webkit-box!important;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+#v-mkt .mk98 .mkDtG{margin-top:22px;border:1px solid var(--line);border-radius:16px;background:var(--panel);overflow:hidden}
+#v-mkt .mk98 .mkDt{margin:0!important;border-bottom:1px solid var(--line)}#v-mkt .mk98 .mkDt:last-child{border-bottom:0}
+#v-mkt .mk98 .mkDt>summary.mkSec{display:flex;align-items:center;justify-content:space-between;min-height:56px;margin:0!important;padding:0 16px;text-transform:none!important;letter-spacing:0!important;font-size:16px!important;font-weight:600!important;color:var(--fg)!important;list-style:none}
+#v-mkt .mk98 .mkDt>summary::-webkit-details-marker{display:none}
+#v-mkt .mk98 .mkDt>summary.mkSec::after{content:'›';font-size:20px;color:var(--mute);transition:transform .25s}
+#v-mkt .mk98 .mkDt[open]>summary.mkSec::after{transform:rotate(90deg)}
+
+#v-mkt .mk98 .mkDt>summary.mkSec::after{content:'⌄'!important;font-size:18px}
+#v-mkt .mk98 .mkDt[open]:not(.fecha)>summary.mkSec::after{transform:rotate(180deg)!important}
+#v-mkt .mk98 .mkFi{padding:0 16px 16px}
+.g99.h101 .hSemB{border-bottom:1px solid var(--line)}
+.g99.h101 .hSemB>*{width:100%!important;box-sizing:border-box;margin:0!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;border-top:1px solid var(--line)!important;padding-left:28px!important}
+#dtabBody>.g99,.col>.g99,.view>.g99{margin-bottom:0}

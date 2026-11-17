@@ -605,7 +605,12 @@
     lfJanela({
       titulo: 'Marketing',
       cls: 'mkJn',
-      monta: function (c, J) {
+      monta: function (c, J) { mkMonta(c, J); }
+    });
+  }
+  // S374 (esboço 98): o conteúdo do Marketing é montado por mkMonta — na tela do app (#v-mkt) ou, antigo, numa janela
+  function mkMonta(c, J) {
+    {
         var pinta = function () {
           var obj = mkObj(),
             P = mkPlano(),
@@ -706,7 +711,6 @@
           saveSoon();
         };
       }
-    });
   }
   // ---- criar ----
   function mkCria(fmt, refs, pid, depois) {
