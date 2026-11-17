@@ -13,7 +13,7 @@ CSS="""
 .fxRows .fxRow{min-height:60px!important;padding:12px 16px!important}.fxRows .fxRow>span:first-child{font-size:16px!important;font-weight:600!important}
 .fxRows .fxRow .hint{color:var(--mute)!important;font-size:14px!important;font-weight:400!important}.fxRows .fxRow span span,.fxRows .fxRow small{font-weight:400!important}
 .slVai.r100{display:flex!important;align-items:center;justify-content:center;gap:0;width:100%;min-height:44px;background:none!important;border:0!important;color:var(--accent-fg)!important;font-weight:600;font-size:15px}
-.slVai.r100 b{font-weight:600!important}.slVai.r100 i{display:none}
+.slVai.r100 b{font-weight:600!important}.slVai.r100 .g{flex:none!important;width:auto!important;text-align:center}.slVai.r100 i{display:none}
 .mpg73.b100{display:flex!important;width:fit-content!important;max-width:fit-content!important;align-self:flex-start;align-items:center;justify-content:center;min-height:44px!important;padding:0 18px!important;border:1px solid var(--line)!important;border-radius:999px!important;background:none!important;color:var(--fg)!important;width:auto!important}
 .view .mpg73.b100 .g b,.view .mpg73.b100 b{color:var(--fg)!important;font-weight:600!important;font-size:15px!important}
 """
@@ -22,7 +22,7 @@ JS=r"""()=>{const v=document.querySelector('.view:not([hidden])');let n=0;
  v.querySelectorAll('.btn-sc.p').forEach(e=>{e.classList.add('lk100','inl');n++});
  v.querySelectorAll('.slVai:not(.mpg73)').forEach(e=>{e.classList.add('r100');const b=e.querySelector('b');if(b&&!/›/.test(b.textContent))b.textContent=b.textContent.trim()+' ›';n++});
  v.querySelectorAll('.mpg73').forEach(e=>{e.classList.add('b100');const b=e.querySelector('b');if(b)b.textContent=b.textContent.replace(/\s*›\s*$/,'');n++});return n}"""
-CEN=[('a','caixa','Caixa',"()=>window.__LF.setView('caixa')","()=>{const e=document.querySelector('.view:not([hidden]) .slVai');scrollTo({top:e.getBoundingClientRect().top+scrollY-560,behavior:'instant'})}",
+CEN0=[('a','caixa','Caixa',"()=>window.__LF.setView('caixa')","()=>{const e=document.querySelector('.view:not([hidden]) .slVai');scrollTo({top:e.getBoundingClientRect().top+scrollY-560,behavior:'instant'})}",
       'Hoje: "Livre e reservado ›" à esquerda; "Ver o que falta repor" com a seta solta na ponta direita; "Ver todos os movimentos ›" em pílula.',
       'Proposta: os três no link solto único — rosa, 15 px, "›" colado, centralizados no fim do bloco.'),
      ('b','cambio','Câmbio',"()=>window.__LF.setView('fx')","()=>{const e=document.querySelector('.view:not([hidden]) .fxRows');scrollTo({top:e.getBoundingClientRect().top+scrollY-300,behavior:'instant'})}",
@@ -34,6 +34,7 @@ CEN=[('a','caixa','Caixa',"()=>window.__LF.setView('caixa')","()=>{const e=docum
      ('d','despesas','Despesas',"()=>window.__LF.setView('desp')","()=>{const e=document.querySelector('.view:not([hidden]) .mpg73');scrollTo({top:e.getBoundingClientRect().top+scrollY-300,behavior:'instant'})}",
       'Hoje: "Marcar como paga ›" tem a seta de "ir para outra tela", mas não leva a lugar nenhum — marca a conta como paga.',
       'Proposta: "Marcar como paga" vira botão secundário (contorno neutro, 44 px), sem "›" — é ação, não caminho.')]
+CEN=CEN0
 with sync_playwright() as pw:
     for esc,tema in ((True,'escuro'),(False,'claro')):
         for k,nm,tit,abre,rola,h,p_ in CEN:
