@@ -33,7 +33,7 @@ Tudo sobre a Mochi (mascote e teste de leitura do site lafouch.com) num lugar s�
 - 13:56: a etapa "aproxime até embaçar" FICA ("toque especial, os clientes adoraram"). 17:06: mas quer ela automática, mais rápida e com um botão só (ver 4).
 
 ## 4. Esperando o dono
-- **ESBOÇO 56a/56b (work/s389), enviado 17:25, SEM aprovação ainda:** etapa "aproxime até embaçar" com UM botão ("Embaçou") e UM toque; usa a distância daquele instante; botão trava ("Pronto") e a Mochi diz "Pronto, medi! Pode afastar o celular."; quem não toca e chega bem perto (ou passa o tempo) = "não embaça", concluído sozinho. Perguntas abertas: usar a distância de ~0,3 s antes do toque? manter a regra de só confirmar o quadro? gravar as 2 falas novas (créditos)?
+- ✔ 56a/56b APROVADO e PUBLICADO no S400 (17/11): botão único "Embaçou"; a fala nova aparece só no balão (voz não gravada, créditos). Texto original do esboço: etapa "aproxime até embaçar" com UM botão ("Embaçou") e UM toque; usa a distância daquele instante; botão trava ("Pronto") e a Mochi diz "Pronto, medi! Pode afastar o celular."; quem não toca e chega bem perto (ou passa o tempo) = "não embaça", concluído sozinho. Perguntas abertas: usar a distância de ~0,3 s antes do toque? manter a regra de só confirmar o quadro? gravar as 2 falas novas (créditos)?
 - Motivo dele: acha que essa etapa erra (nos prints de hoje nunca apareceu "✓ combinam") e pede duas vezes.
 - Mochi do modo loja: voz vem do site (não cabe na cópia); conferir no aparelho.
 
