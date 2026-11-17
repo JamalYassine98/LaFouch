@@ -71,3 +71,9 @@ Retrato tirado da lista viva (docs/FALTA-APROVAR-15-11.md), lida inteira. A list
 
 ## 6 · Retirados (não voltam)
 - 63c e-mail de reserva vencida · 65a entrada "Exclusivo" no menu · 66c e a fileira "Seus cartões" · 61c "Seu cartão cresceu" · cartão que cresce com a indicação · 20% como degrau da escada · 87 tutorial "Como fotografar" · BIMI (escudo no remetente) · frete grátis e desconto no frete do VIP · kit de cuidado, óculos de graça sem compra, status sem cartão.
+
+## 7 · Atualização 17/11 11:07 (vistoria final)
+- PDF com os 26 esboços aprovados, um por página: work/s404/vistoria-esbocos-aprovados-17-11.pdf.
+- Novos aprovados: 70a (nome em Minha conta para todos), 70b (menu do VIP), 70c (reserva VIP de 3 h), 70d/70e (reserva cancelada que abre para baixo; vídeo 70e-…-animacao.mp4).
+- Mudou: reserva do VIP 3 h (não 24 h); reserva vencida ou cancelada antes de pagar não gera e-mail; 63b só para pedido pago.
+- Sem decisão: 68b, 68c, 68e, 68f, 68g, 68h. Retirados: 68a, 68d, 69b, 69c, 69d.
