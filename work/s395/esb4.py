@@ -13,8 +13,8 @@ P_CART="""(L)=>{const b=document.getElementById('mtj');const bola=on=>'<i style=
   '<div style="height:1px;background:rgba(214,178,116,.4);margin:14px 0 9px"></div><div style="display:flex;justify-content:space-between;font:500 12.5px Inter,Arial;letter-spacing:.04em;white-space:nowrap;color:#d9c3d0"><span>MARÍA GONZÁLEZ</span><span>ATÉ 14/03/2027</span></div></div></div>';
  b.innerHTML='<div class="mtc">'+card+'<div class="mtl"><span>Estado: <b>Disponível</b></span><button type="button" class="cfx" style="min-height:44px;padding:0 14px">Usar agora</button></div></div>'+
  '<p class="note" style="margin:10px 2px 18px">Você tem 1 presente guardado. Ele chega quando este cartão for usado ou vencer.</p>'+
- '<div class="mtc"><div class="amct" style="margin-top:0"><div><span style="font-weight:600;color:#1d1418">Presenteie uma amiga</span><b></b></div><div><span>Ela ganha 10% na primeira compra. Quando ela comprar, você também ganha um presente.</span><b></b></div>'+
- '<div><span>'+bola(1)+bola(0)+bola(0)+'</span><b></b></div><div><span>1 amiga já comprou. Faltam 2 para o seu próximo presente.</span><b></b></div><a class="amwa" href="#">Enviar pelo WhatsApp</a></div></div>'}"""
+ '<div class="mtc"><div class="amct" style="margin-top:0"><div><span style="font-weight:600;color:#1d1418">Presenteie alguém especial</span><b></b></div><div><span>A pessoa ganha 10% na primeira compra. Quando ela comprar, você também ganha um presente.</span><b></b></div>'+
+ '<div><span>'+bola(1)+bola(0)+bola(0)+'</span><b></b></div><div><span>1 pessoa indicada já comprou. Faltam 2 para o seu próximo presente.</span><b></b></div><a class="amwa" href="#">Enviar pelo WhatsApp</a></div></div>'}"""
 def cheia(pg,arq,sel,H=None):
     h=H or pg.evaluate("(s)=>{const o=document.querySelector(s);const l=document.querySelector('#layer .scrim')||o;return Math.max(844,(o&&o.id==='pkok'?o.scrollHeight:(l?l.scrollHeight:0))+4)}",sel);pg.set_viewport_size({'width':390,'height':int(min(h,1500))});pg.wait_for_timeout(400);pg.screenshot(path=arq);return int(min(h,1500))
 with sync_playwright() as pw:
