@@ -46,6 +46,8 @@ Tudo sobre a Mochi (mascote e teste de leitura do site lafouch.com) num lugar s�
 - 17/11 18:20 — ESBOÇO 107 enviado (work/s410: edita105.py, video105.py, monta105.py): meio-termo da etapa 'aproxime' — parar (já aproximou 5 cm+, último 2 s varia até 1,2 cm, acima de 15 cm) mede sozinho; Embaçou continua; 'Não embaçou? Tudo bem, já medi.' quando chega a 15 cm sem parar. Falas novas só no balão (sem voz). ESPERANDO.
 
 
+- 17/11 19:14 — DONO: **107 APROVADO** ('Perfeito!!'): meio-termo da etapa aproxime (parar mede sozinho + botão Embaçou), textos aprovados 17:59, balão reserva altura (não bate no quadro), Mochi desce junto, botão a 24 px do quadro, entra com mola + 2 halos na 2ª fala. ESPERANDO 'implementar' (primeiro modo de teste + medidor). Voz ainda NÃO autorizada. Ideia nova do dono: destacar com a mesma animação o botão que a Mochi cita na fala (ex.: 'Não consigo').
+
 ## 5. Lições minhas
 - Ao mexer numa parte, procurar tudo que depende dela (erro do S384 → S387).
 - Número estranho no medidor do dono se investiga na hora.
