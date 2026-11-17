@@ -10,8 +10,8 @@ CSS=""".vst{max-width:300px;margin:0 auto 18px;border-radius:16px;background:#17
 .vst ul{list-style:none;margin:12px 0 0;padding:10px 0 0;border-top:1px solid rgba(214,178,116,.4)}.vst li{font:14px/1.5 Inter,system-ui,sans-serif;color:#e6dde2;padding:3px 0}.vst li i{font-style:normal;color:#d6b274;margin-right:8px}
 .vip1{position:absolute;top:8px;left:8px;z-index:3;padding:4px 9px;border-radius:999px;background:#17121a;border:1px solid rgba(214,178,116,.7);color:#e9d3a6;font:600 12px Inter,system-ui,sans-serif;letter-spacing:.06em}
 .vipn{margin:-4px 2px 12px;font:13.5px/1.5 Inter,system-ui,sans-serif;color:#6b5f66}.vipn b{color:#8a6a33;font-weight:600}
-.esc{display:flex;margin:4px 0 10px}.esc>div{flex:1;text-align:center}.esc i{display:block;width:34px;height:34px;box-sizing:border-box;margin:0 auto 6px;border-radius:50%;font:600 15px/30px Inter,system-ui,sans-serif;font-style:normal;border:2px solid #8d3a69;color:#8d3a69}
-.esc i.ok{background:#8d3a69;color:#fff;line-height:34px;border:0}.esc i.no{border:1px solid #d9cbd3;color:#9a8b93;line-height:32px}.esc b{display:block;font:500 17px Fraunces,Georgia,serif;color:#1d1418}.esc span{display:block;font:12.5px Inter,system-ui,sans-serif;color:#6b5f66}
+.esc{display:flex;margin:4px 0 10px}.esc>div{flex:1;text-align:center}.esc i{display:flex;align-items:center;justify-content:center;width:34px;height:34px;box-sizing:border-box;margin:0 auto 6px;border-radius:50%;font:600 15px/1 Inter,system-ui,sans-serif;font-style:normal;font-variant-numeric:tabular-nums;border:2px solid #8d3a69;color:#8d3a69;padding:2px 0 0}
+.esc i.ok{background:#8d3a69;color:#fff;border:0;padding:1px 0 0}.esc i.no{border:1px solid #d9cbd3;color:#9a8b93}.esc b{display:block;font:500 17px Fraunces,Georgia,serif;color:#1d1418}.esc span{display:block;font:12.5px Inter,system-ui,sans-serif;color:#6b5f66}
 .esd{text-align:center}.esd p{font:13.5px/1.5 Inter,system-ui,sans-serif;color:#6b5f66;margin:6px 0 0}"""
 def par(nome,abre,depois,H=844,prep=None):
     res=[]
