@@ -408,7 +408,9 @@
         k === S.vRef
       );
       card.dataset.ref = f.ref;
-      card.appendChild(photoBox(aberto && selI ? photoOf(f.ref, selI.cor) || photoOf(f.ref) : photoOf(f.ref), 'pbox'));
+      var pb88 = photoBox(aberto && selI ? photoOf(f.ref, selI.cor) || photoOf(f.ref) : photoOf(f.ref), 'pbox');
+      if (pb88.hidden || /\bnone\b/.test(pb88.className)) { pb88 = mk('div', 'pbox lt85'); pb88.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/></svg>'; } // S374 88: lote sem foto ganha o quadro de pacote
+      card.appendChild(pb88);
       var nmB = mk('b', '', pn(f.ref));
       if (multi) {
         var sb = mk('small', 'vsub', aberto ? varNome(selI) + ' · ' + gLivre(selI) + ' un.' : (nCor > 1 ? nCor + ' cores' : vsL.length > 1 ? vsL.length + ' opções' : varNome(vsL[0])) + ' · ' + vsL.reduce(function (a, x) { return a + gLivre(x); }, 0) + ' un.');
@@ -492,7 +494,8 @@
         tipo: groups[S.vRef][0].tipo
       });
       if (dsel) S.vSel = dsel;
-      vParecidas(groups[S.vRef][0].ref, groups[S.vRef][0].tipo);
+      if (S.modoCli) vParecidas(groups[S.vRef][0].ref, groups[S.vRef][0].tipo); // S374 90: "Parecidas" só no Modo cliente
+      else if (!$('vDetail').querySelector('.fi89')) { var fi89 = mk('button', 'fi89', 'Ficha no Inventário ›'); fi89.type = 'button'; fi89.setAttribute('data-act', 'fnTab'); fi89.setAttribute('data-id', 'est'); $('vDetail').appendChild(fi89); } // S374 89
     } else renderDetail('', { venda: true, host: $('vDetail') });
     var lines = (groups[S.vRef] || []).slice();
     if (lines.length && lines[0].tipo === 'pre')

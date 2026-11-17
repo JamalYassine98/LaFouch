@@ -461,3 +461,10 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 ## S374m (v554 · 17/11/2026) — Inventário (85) e Estúdio (86) no padrão de luxo
 - Inventário: `#btnAdd` virou o "+" redondo de 44 px (`.pl78`, como em Clientes); o número "Em estoque (filtro) ›" abre a contagem e só mostra frase enquanto conta ("contando · toque para fechar"); `.ifNum` = "N preços para corrigir ›" em amarelo, 44 px; cartão de lote (bulk) ganha `.pbox.lt85` com ícone de pacote. Fornecedores continua aba.
 - Estúdio: "?" (ajuda e ajustes, inclusive o tutorial) e "×" com 44 px; título "Na fila · N"; um só "Ver as N peças ›" (rosa) no fim (saíram "Ver todas ›" e "+ N peças"); "Ficha ›" e "Peça nova ›" em rosa; nomes em até 2 linhas. "Como fotografar ›" (87) recusado: o "?" já faz.
+
+## S374n (v555 · 17/11/2026) — Vender (88–92) no padrão de luxo
+- Ícones do Catálogo (`.cjIc`, `.mcBtn`, `.ibtn` Voltar/Compartilhar) redondos com contorno de 44 px. Lote sem foto ganha `.pbox.lt85` (pacote).
+- Peça: "−"/"+" de 44 px e "Vender · G$" na linha de baixo, largura toda; a barra `.vbar.vsale` não é mais sticky (rola com a página).
+- "Ver a ficha no Inventário ›" saiu do topo (`.fnAt` só no Inventário); no fim da peça entra `.fi89` "Ficha no Inventário ›" (data-act fnTab est).
+- "Parecidas" (`vParecidas`) só aparece no Modo cliente (iPad da loja).
+- Preço em cor de texto no Vender (`.vpreco`, `.vtotl`, `.vtPreco`); verde fica só para sinal de ok.

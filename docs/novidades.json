@@ -1,8 +1,8 @@
 {
- "nome": "5.39.0",
+ "nome": "5.40.0",
  "notas": [
-  "Inventário: \"+\" redondo no topo, \"Em estoque (filtro) ›\" abre a contagem, \"15 preços para corrigir ›\" em amarelo e o lote ganha o quadro com ícone de pacote.",
-  "Estúdio: \"?\" e \"×\" maiores, \"Ficha ›\" e \"Peça nova ›\" em rosa, um só \"Ver as N peças ›\" no fim da fila e nomes em até 2 linhas."
+  "Vender: ícones redondos no topo, \"−\" e \"+\" maiores com o \"Vender\" na linha de baixo, e a barra de vender fica no lugar (não segue mais a tela).",
+  "Vender: \"Ficha no Inventário ›\" no fim da peça; \"Parecidas\" só no Modo cliente; preço na cor do texto (o verde não briga mais com o rosa); lote com o quadro de pacote."
  ],
- "build": 554
+ "build": 555
 }

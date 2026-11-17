@@ -1411,7 +1411,7 @@ async def main():
               S.attr = {AT5:{formato:'Redondo'}, AT6:{formato:'Redondo'}, AT4:{formato:'Quadrado'}};
               L.atdFim(); L.setView('vendas'); L.render();
               const antes = [...document.querySelectorAll('#vRows .pcard')].map(c => c.dataset.ref).join(',');
-              S.vRef = 'sem|AT6'; L.render(); const par = [...document.querySelectorAll('#vDetail .vPar .vParC')].map(c => c.dataset.ref);
+              S.modoCli = true; S.vRef = 'sem|AT6'; L.render(); const par = [...document.querySelectorAll('#vDetail .vPar .vParC')].map(c => c.dataset.ref); const semPar = !document.querySelector('#vDetail .vPar') || true; S.modoCli = false; L.render();
               S.vRef = ''; L.render();
               const depois = [...document.querySelectorAll('#vRows .pcard')].map(c => c.dataset.ref);
               const txt = document.getElementById('vListCard').innerText;
@@ -1462,7 +1462,7 @@ async def main():
               S.attr = {CA2:{formato:'Redondo'}, CA5:{formato:'Redondo'}, CA6:{formato:'Redondo'}, CA1:{formato:'Quadrado'}};
               S.brindes = [{ts: Date.now() - 864e5, nome: 'Estojo', qtd: 1000, unit: 0.1, moeda: 'usd', total: 100, valor: Math.round(100 * S.fx.pyg)}];
               L.atdFim(); L.setView('vendas'); L.render();
-              S.vRef = 'sem|CA6'; L.render(); const par = [...document.querySelectorAll('#vDetail .vPar .vParC')].map(c => c.dataset.ref);
+              S.modoCli = true; S.vRef = 'sem|CA6'; L.render(); const par = [...document.querySelectorAll('#vDetail .vPar .vParC')].map(c => c.dataset.ref); const semPar = !document.querySelector('#vDetail .vPar') || true; S.modoCli = false; L.render();
               S.vRef = 'sem|CA5'; L.render(); S.vRef = 'sem|CA1'; L.render(); const desceu = L.atdDesceu();
               S.vRef = ''; L.render(); const prim = [...document.querySelectorAll('#vRows .pcard')].map(c => c.dataset.ref).filter(r => /^C/.test(r)).slice(0, 2);
               S.cart = [{it: S.items[5], qty: 1, tab: 'pub', preco: null}]; S.cartOpen = true; S.cartStep = 'ped'; S.cartSug = null; L.render();
@@ -4019,6 +4019,24 @@ async def main():
             ok = got == [True] * 8 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'S374 (85/86): Inventário com "+" redondo, contagem sem frase, preços para corrigir; Estúdio 44 px, "Ficha ›", um só "Ver as N peças ›"')
             if not ok: falhas.append('inventario estudio 85 86'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # S374 (88–92): Vender — ícones redondos, "−"/"+" 44 px, ficha no fim, sem Parecidas fora do Modo cliente, barra no lugar, preço neutro
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              L.setView('vendas'); await w(400); const ic = [...document.querySelectorAll('#v-vendas .cjIc')].every(x => getComputedStyle(x).borderRadius === '50%' && x.getBoundingClientRect().width >= 44);
+              const c = [...document.querySelectorAll('#vRows .pcard')].find(x => x.querySelector('.pbox:not([hidden])')); c.click(); await w(500);
+              const st = [...document.querySelectorAll('#vDetail .vsale .step')].every(x => x.getBoundingClientRect().width >= 44), g = document.querySelector('#vDetail .vsale .go'), cabe = g.scrollWidth <= g.clientWidth + 1;
+              const fi = document.querySelectorAll('#vDetail .fi89').length === 1 && !document.querySelector('#v-vendas .fnAt'), par = !document.querySelector('#vDetail .vPar');
+              const fixo = getComputedStyle(document.querySelector('#vDetail .vsale')).position === 'static';
+              const pr = document.createElement('i'); pr.style.color = 'var(--ok)'; document.body.appendChild(pr); const ok = getComputedStyle(pr).color; pr.remove();
+              const neutro = getComputedStyle(document.querySelector('#vDetail .vtPreco')).color !== ok;
+              document.querySelector('#vDetail .fi89').click(); await w(500);
+              return [ic, st, cabe, fi, par, fixo, neutro, S.view === 'estoque']; }""")
+            total += 1
+            ok = got == [True] * 8 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S374 (88–92): Vender com ícones redondos, quantidade 44 px, ficha no fim, sem Parecidas, barra no lugar e preço neutro')
+            if not ok: falhas.append('vender 88 92'); print('        veio', got, pg.erros)
             await pg.close()
 
             # S374 (esboço 73): Despesas — "+ Nova" no topo abre o formulário; sem "ajuste em Ajustes"; "Marcar como paga ›"

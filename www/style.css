@@ -2912,3 +2912,15 @@ button.rw77{cursor:pointer}
 .estLink,.estMais{color:var(--accent-fg)!important;font-weight:600;min-height:44px}
 .estMais{display:block;margin:0 auto}
 .estTx b{white-space:normal!important;overflow:visible!important;text-overflow:clip!important;display:-webkit-box!important;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+
+/* S374 88–92 — Vender: ícones redondos 44 px, quantidade 44 px com "Vender" embaixo, lote com quadro, ficha no fim, barra no lugar, preço neutro */
+#v-vendas .mcBtn,#v-vendas .cjIc,#v-vendas .ibtn{width:44px!important;height:44px!important;min-width:44px;border-radius:50%!important;background:none!important;border:1px solid var(--line)!important}
+#v-vendas .vsale{flex-wrap:wrap;justify-content:center}
+#v-vendas .vsale .step{min-width:44px!important;width:44px!important;flex:none}
+#v-vendas .vsale .step:first-child{margin-left:auto}#v-vendas .vsale .step:first-child~.step{margin-right:auto}
+#v-vendas .vsale .step~.go{flex:1 1 100%!important;min-width:0!important;margin-top:8px}
+#v-vendas .vbar.vsale{position:static!important}
+#v-vendas .pbox.lt85{display:grid;place-items:center;background:var(--panel2)!important;border:1px solid var(--line)}
+#v-vendas .pbox.lt85 svg{width:56px;height:56px;stroke:var(--sub);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+#v-vendas .fi89{display:block;margin:6px auto 0;min-height:44px;background:none;border:0;color:var(--accent-fg);font:inherit;font-size:15px;font-weight:600}
+#v-vendas .vpreco,#v-vendas .vtotl,#v-vendas .vtPreco{color:var(--fg)!important}

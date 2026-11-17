@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 554;
+  var APP_BUILD = 555;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.39.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.40.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -14407,7 +14407,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         k === S.vRef
       );
       card.dataset.ref = f.ref;
-      card.appendChild(photoBox(aberto && selI ? photoOf(f.ref, selI.cor) || photoOf(f.ref) : photoOf(f.ref), 'pbox'));
+      var pb88 = photoBox(aberto && selI ? photoOf(f.ref, selI.cor) || photoOf(f.ref) : photoOf(f.ref), 'pbox');
+      if (pb88.hidden || /\bnone\b/.test(pb88.className)) { pb88 = mk('div', 'pbox lt85'); pb88.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/></svg>'; } // S374 88: lote sem foto ganha o quadro de pacote
+      card.appendChild(pb88);
       var nmB = mk('b', '', pn(f.ref));
       if (multi) {
         var sb = mk('small', 'vsub', aberto ? varNome(selI) + ' · ' + gLivre(selI) + ' un.' : (nCor > 1 ? nCor + ' cores' : vsL.length > 1 ? vsL.length + ' opções' : varNome(vsL[0])) + ' · ' + vsL.reduce(function (a, x) { return a + gLivre(x); }, 0) + ' un.');
@@ -14491,7 +14493,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         tipo: groups[S.vRef][0].tipo
       });
       if (dsel) S.vSel = dsel;
-      vParecidas(groups[S.vRef][0].ref, groups[S.vRef][0].tipo);
+      if (S.modoCli) vParecidas(groups[S.vRef][0].ref, groups[S.vRef][0].tipo); // S374 90: "Parecidas" só no Modo cliente
+      else if (!$('vDetail').querySelector('.fi89')) { var fi89 = mk('button', 'fi89', 'Ficha no Inventário ›'); fi89.type = 'button'; fi89.setAttribute('data-act', 'fnTab'); fi89.setAttribute('data-id', 'est'); $('vDetail').appendChild(fi89); } // S374 89
     } else renderDetail('', { venda: true, host: $('vDetail') });
     var lines = (groups[S.vRef] || []).slice();
     if (lines.length && lines[0].tipo === 'pre')
@@ -44825,7 +44828,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       (S.fnLista && S.fnLista.length > 1 && S.fnLista.indexOf(ref) >= 0 ? '<small>' + (S.fnLista.indexOf(ref) + 1) + ' de ' + S.fnLista.length + '</small>' : '') + '</div>' +
       (modo === 'venda' ? '' : '<div class="fnTabs lfAbas n2" id="fnAbas" role="tablist">' + [['est', 'Estoque'], ['his', 'Histórico'], ['sit', 'Site'], ['pre', 'Preço']].map(function (x) { return '<button type="button" data-act="fnTab" data-id="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>') +
       // S267 (14/11/2026): um papel por lugar. Catálogo = só vender (sem abas); Inventário = só a ficha (sem "Vender"). Atalhos levam a MESMA peça de um para o outro.
-      '<div class="fnAt">' + (modo === 'venda' ? '<button type="button" class="fnLk" data-act="fnTab" data-id="est">Ver a ficha no Inventário ›</button>' : '<button type="button" class="fnLk" data-act="fnTab" data-id="ven">Vender no Catálogo ›</button><button type="button" class="fnLk" data-act="fnEstudio">Fotografar no Estúdio ›</button>') + '</div></div>';
+      (modo === 'venda' ? '' : '<div class="fnAt">') + (modo === 'venda' ? '' : '<button type="button" class="fnLk" data-act="fnTab" data-id="ven">Vender no Catálogo ›</button><button type="button" class="fnLk" data-act="fnEstudio">Fotografar no Estúdio ›</button>') + (modo === 'venda' ? '' : '</div>') + '</div>'; // S374 89: no Catálogo a ficha vai para o fim da peça
   }
   window.addEventListener('popstate', function () {
     setTimeout(function () {
