@@ -67,7 +67,7 @@
     // v469: sem quadrado; enquanto conta, as letras ficam rosa suave (CSS) e a dica diz como fechar
     $('kCont').style.outline = '';
     var kh = $('kCont').querySelector('.hint');
-    if (kh) kh.textContent = S.cont ? 'contando · toque para fechar' : 'toque para contar';
+    if (kh) { kh.textContent = S.cont ? 'contando · toque para fechar' : ''; kh.hidden = !S.cont; } // S374 85: sem a frase quando não conta
     if (!S.cont) return;
     $('listCard').hidden = true;
     $('detail').hidden = true;

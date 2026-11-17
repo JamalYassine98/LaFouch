@@ -852,6 +852,7 @@
         card.appendChild(bg);
       }
       if (!ri[0].bulk) card.appendChild(photoBox(photoOf(rr), 'pbox')); // v471: lote do fornecedor não tem foto
+      else { var lt85 = mk('div', 'pbox lt85'); lt85.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/></svg>'; card.appendChild(lt85); } // S374 85: lote com o mesmo quadro (ícone de pacote)
       card.appendChild(mk('b', '', pn(rr)));
       var encD = encDias(rr); // v426: parada 120+ dias
       if (encD) card.appendChild(mk('span', 'encTag', 'Encalhada · ' + encD + ' dias'));

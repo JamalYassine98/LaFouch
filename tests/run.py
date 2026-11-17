@@ -1064,7 +1064,7 @@ async def main():
             await pg.evaluate("() => document.getElementById('mTeste').remove()"); await pg.wait_for_timeout(250)
             tr2 = await pg.evaluate("() => [document.documentElement.classList.contains('lfTrava'), Math.round(window.scrollY)]")
             total += 1
-            ok = k1 == ['', 'contando · toque para fechar', True] and k2 == 'toque para contar' and barra and y0 > 100 and tr1 == [True, '-' + str(y0) + 'px'] and tr2 == [False, y0] and not pg.erros
+            ok = k1 == ['', 'contando · toque para fechar', True] and k2 == '' and barra and y0 > 100 and tr1 == [True, '-' + str(y0) + 'px'] and tr2 == [False, y0] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'v469: contador sem quadrado (cor suave), barra Selecionar/lixeira fora, janela aberta trava o fundo e devolve a posição')
             if not ok: falhas.append('v469 inventario'); print('        veio', k1, k2, barra, y0, tr1, tr2, pg.erros)
             await pg.close()
@@ -4001,6 +4001,24 @@ async def main():
             ok = got == [True] * 5 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'S374 (74/75/77/80b): Ajustes sem "Preço automático", Clientes com "+" e ficha de luxo, Cartões como tela do Marketing')
             if not ok: falhas.append('clientes luxo'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # S374 (85, 86): Inventário com "+" redondo, "Em estoque (filtro) ›" sem frase, "N preços para corrigir ›"; Estúdio 44 px, "Ficha ›", um só "Ver as N"
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              L.setView('estoque'); await w(400); const a = document.getElementById('btnAdd'), ra = a.getBoundingClientRect();
+              const mais = a.classList.contains('pl78') && Math.round(ra.width) === 44 && a.getAttribute('aria-label') === 'Adicionar';
+              const k = document.getElementById('kCont'), kk = /› *$/.test(k.querySelector('.lbl').textContent) && k.querySelector('.hint').hidden;
+              const n = document.querySelector('#invInfo .ifNum'), pr = !n || (/^\\d+ preços? para corrigir ›$/.test(n.textContent) && n.getBoundingClientRect().height >= 44);
+              const lt = [...document.querySelectorAll('#v-estoque .pcard')].every(p => p.querySelector('.pbox'));
+              L.estAbre(); await w(400); const ic = document.querySelector('.estIc').getBoundingClientRect().width >= 44 && document.querySelector('.estX').getBoundingClientRect().width >= 44;
+              const fi = [...document.querySelectorAll('.estFi')].every(x => x.textContent === 'Ficha ›'), td = !document.querySelector('.estLbl2 .estLink');
+              const F = document.querySelectorAll('.estIt').length, m = document.querySelector('.estMais'), vm = !m || /^Ver as \\d+ peças ›$/.test(m.textContent);
+              return [mais, kk, pr, lt, ic, fi, td, vm]; }""")
+            total += 1
+            ok = got == [True] * 8 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S374 (85/86): Inventário com "+" redondo, contagem sem frase, preços para corrigir; Estúdio 44 px, "Ficha ›", um só "Ver as N peças ›"')
+            if not ok: falhas.append('inventario estudio 85 86'); print('        veio', got, pg.erros)
             await pg.close()
 
             # S374 (esboço 73): Despesas — "+ Nova" no topo abre o formulário; sem "ajuste em Ajustes"; "Marcar como paga ›"

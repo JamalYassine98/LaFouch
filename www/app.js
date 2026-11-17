@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 553;
+  var APP_BUILD = 554;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.38.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.39.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -3926,6 +3926,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         card.appendChild(bg);
       }
       if (!ri[0].bulk) card.appendChild(photoBox(photoOf(rr), 'pbox')); // v471: lote do fornecedor não tem foto
+      else { var lt85 = mk('div', 'pbox lt85'); lt85.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/></svg>'; card.appendChild(lt85); } // S374 85: lote com o mesmo quadro (ícone de pacote)
       card.appendChild(mk('b', '', pn(rr)));
       var encD = encDias(rr); // v426: parada 120+ dias
       if (encD) card.appendChild(mk('span', 'encTag', 'Encalhada · ' + encD + ' dias'));
@@ -30878,7 +30879,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     // v469: sem quadrado; enquanto conta, as letras ficam rosa suave (CSS) e a dica diz como fechar
     $('kCont').style.outline = '';
     var kh = $('kCont').querySelector('.hint');
-    if (kh) kh.textContent = S.cont ? 'contando · toque para fechar' : 'toque para contar';
+    if (kh) { kh.textContent = S.cont ? 'contando · toque para fechar' : ''; kh.hidden = !S.cont; } // S374 85: sem a frase quando não conta
     if (!S.cont) return;
     $('listCard').hidden = true;
     $('detail').hidden = true;
@@ -33001,12 +33002,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         '<button type="button" class="go estGo" data-e="sessao"' + (F.length ? '' : ' disabled') + '>' + (F.length ? 'Começar · ' + F.length + (F.length === 1 ? ' peça na fila' : ' peças na fila') : 'Nada na fila') + '</button>' +
         '<button type="button" class="estLink" data-e="nova">Peça nova, ainda sem cadastro ›</button>' +
         (F.length
-          ? '<div class="estLbl estLbl2"><span>Na fila</span>' + (F.length > 6 ? '<button type="button" class="estLink" data-e="todas">' + (S.estTodas ? 'Mostrar menos' : 'Ver todas ›') + '</button>' : '') + '</div>' +
+          ? '<div class="estLbl estLbl2"><span>Na fila · ' + F.length + '</span></div>' + // S374 86: um só "Ver as N peças ›" no fim
             F.slice(0, mostra).map(function (x, j) {
               var ft = S.fotos && S.fotos[x.k];
-              return '<div class="estRw"><button type="button" class="estIt" data-i="' + j + '" data-ref="' + esc(x.ref) + '" data-cor="' + esc(x.cor) + '"><span class="estTh' + (ft ? '' : ' v') + '">' + (ft ? '<img src="' + esc(ft) + '" alt="">' : '') + '</span><span class="estTx"><b>' + esc(pn(x.ref)) + '</b><small>' + esc(x.cor) + ' · ' + (x.st === 'sem' ? 'sem foto' : x.st === 'nota' ? 'refazer: ' + esc(x.sub) : 'falta a foto de 3/4') + '</small></span></button><button type="button" class="estFi" data-e="ficha" data-ref="' + esc(x.ref) + '" aria-label="Ver a ficha de ' + esc(pn(x.ref)) + '">Ficha</button></div>';
+              return '<div class="estRw"><button type="button" class="estIt" data-i="' + j + '" data-ref="' + esc(x.ref) + '" data-cor="' + esc(x.cor) + '"><span class="estTh' + (ft ? '' : ' v') + '">' + (ft ? '<img src="' + esc(ft) + '" alt="">' : '') + '</span><span class="estTx"><b>' + esc(pn(x.ref)) + '</b><small>' + esc(x.cor) + ' · ' + (x.st === 'sem' ? 'sem foto' : x.st === 'nota' ? 'refazer: ' + esc(x.sub) : 'falta a foto de 3/4') + '</small></span></button><button type="button" class="estFi" data-e="ficha" data-ref="' + esc(x.ref) + '" aria-label="Ver a ficha de ' + esc(pn(x.ref)) + '">Ficha ›</button></div>';
             }).join('') +
-            (!S.estTodas && F.length > 6 ? '<button type="button" class="estMais" data-e="todas">+ ' + (F.length - 6) + (F.length - 6 === 1 ? ' peça' : ' peças') + '</button>' : '')
+            (F.length > 6 ? '<button type="button" class="estMais" data-e="todas">' + (S.estTodas ? 'Mostrar menos' : 'Ver as ' + F.length + ' peças ›') + '</button>' : '')
           : '<div class="estOk">Todas as peças com foto no padrão ✓</div>') +
         ((S.estPend || []).length
           ? '<div class="estLbl estLbl2"><span>Fotos aguardando cadastro · ' + S.estPend.length + '</span></div>' +
@@ -49862,7 +49863,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       n.setAttribute('data-act', 'pcAbre');
       info.appendChild(n);
     }
-    var t = '! ' + L.length + (L.length === 1 ? ' preço ›' : ' preços ›');
+    var t = L.length + (L.length === 1 ? ' preço para corrigir ›' : ' preços para corrigir ›'); // S374 85
     if (n.textContent !== t) n.textContent = t;
     n.setAttribute('aria-label', L.length + (L.length === 1 ? ' preço para corrigir' : ' preços para corrigir') + ' · abrir Preços');
   }

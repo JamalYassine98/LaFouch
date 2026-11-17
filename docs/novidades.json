@@ -1,10 +1,8 @@
 {
- "nome": "5.38.0",
+ "nome": "5.39.0",
  "notas": [
-  "Clientes: \"+\" redondo no topo; ficha nova com o nome no centro, atalhos WhatsApp e Avisar, dados em linhas e a linha da Conta atacadista.",
-  "Conta atacadista: janela nova — limite de aparelhos em − n +, chave com a frase certa, moeda em 3 partes, Pausar e Cancelar no fim.",
-  "Cartões de desconto viraram tela da família Marketing.",
-  "Câmbio: \"Registrar troca\" é o botão principal. Ajustes: sem \"Preço automático\", sons sem emoji e \"Buscar atualização\" com animação nova."
+  "Inventário: \"+\" redondo no topo, \"Em estoque (filtro) ›\" abre a contagem, \"15 preços para corrigir ›\" em amarelo e o lote ganha o quadro com ícone de pacote.",
+  "Estúdio: \"?\" e \"×\" maiores, \"Ficha ›\" e \"Peça nova ›\" em rosa, um só \"Ver as N peças ›\" no fim da fila e nomes em até 2 linhas."
  ],
- "build": 553
+ "build": 554
 }

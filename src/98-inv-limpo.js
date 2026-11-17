@@ -251,7 +251,7 @@
       n.setAttribute('data-act', 'pcAbre');
       info.appendChild(n);
     }
-    var t = '! ' + L.length + (L.length === 1 ? ' preço ›' : ' preços ›');
+    var t = L.length + (L.length === 1 ? ' preço para corrigir ›' : ' preços para corrigir ›'); // S374 85
     if (n.textContent !== t) n.textContent = t;
     n.setAttribute('aria-label', L.length + (L.length === 1 ? ' preço para corrigir' : ' preços para corrigir') + ' · abrir Preços');
   }

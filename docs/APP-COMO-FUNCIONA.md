@@ -457,3 +457,7 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 ## S374g (16/11/2026, v548 · 5.35.1) — esboço 63 e preço automático
 - `FAM7` Peças = `[estoque, est]`; `S.fam63` tira lotes, repo e cont da família de quem já tinha (continuam: abas do Inventário e "toque para contar").
 - `paPlano` regra 4 (vende rápido sobe 5%) desligada (dono 16/11 12:20).
+
+## S374m (v554 · 17/11/2026) — Inventário (85) e Estúdio (86) no padrão de luxo
+- Inventário: `#btnAdd` virou o "+" redondo de 44 px (`.pl78`, como em Clientes); o número "Em estoque (filtro) ›" abre a contagem e só mostra frase enquanto conta ("contando · toque para fechar"); `.ifNum` = "N preços para corrigir ›" em amarelo, 44 px; cartão de lote (bulk) ganha `.pbox.lt85` com ícone de pacote. Fornecedores continua aba.
+- Estúdio: "?" (ajuda e ajustes, inclusive o tutorial) e "×" com 44 px; título "Na fila · N"; um só "Ver as N peças ›" (rosa) no fim (saíram "Ver todas ›" e "+ N peças"); "Ficha ›" e "Peça nova ›" em rosa; nomes em até 2 linhas. "Como fotografar ›" (87) recusado: o "?" já faz.

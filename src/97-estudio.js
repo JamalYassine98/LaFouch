@@ -502,12 +502,12 @@
         '<button type="button" class="go estGo" data-e="sessao"' + (F.length ? '' : ' disabled') + '>' + (F.length ? 'Começar · ' + F.length + (F.length === 1 ? ' peça na fila' : ' peças na fila') : 'Nada na fila') + '</button>' +
         '<button type="button" class="estLink" data-e="nova">Peça nova, ainda sem cadastro ›</button>' +
         (F.length
-          ? '<div class="estLbl estLbl2"><span>Na fila</span>' + (F.length > 6 ? '<button type="button" class="estLink" data-e="todas">' + (S.estTodas ? 'Mostrar menos' : 'Ver todas ›') + '</button>' : '') + '</div>' +
+          ? '<div class="estLbl estLbl2"><span>Na fila · ' + F.length + '</span></div>' + // S374 86: um só "Ver as N peças ›" no fim
             F.slice(0, mostra).map(function (x, j) {
               var ft = S.fotos && S.fotos[x.k];
-              return '<div class="estRw"><button type="button" class="estIt" data-i="' + j + '" data-ref="' + esc(x.ref) + '" data-cor="' + esc(x.cor) + '"><span class="estTh' + (ft ? '' : ' v') + '">' + (ft ? '<img src="' + esc(ft) + '" alt="">' : '') + '</span><span class="estTx"><b>' + esc(pn(x.ref)) + '</b><small>' + esc(x.cor) + ' · ' + (x.st === 'sem' ? 'sem foto' : x.st === 'nota' ? 'refazer: ' + esc(x.sub) : 'falta a foto de 3/4') + '</small></span></button><button type="button" class="estFi" data-e="ficha" data-ref="' + esc(x.ref) + '" aria-label="Ver a ficha de ' + esc(pn(x.ref)) + '">Ficha</button></div>';
+              return '<div class="estRw"><button type="button" class="estIt" data-i="' + j + '" data-ref="' + esc(x.ref) + '" data-cor="' + esc(x.cor) + '"><span class="estTh' + (ft ? '' : ' v') + '">' + (ft ? '<img src="' + esc(ft) + '" alt="">' : '') + '</span><span class="estTx"><b>' + esc(pn(x.ref)) + '</b><small>' + esc(x.cor) + ' · ' + (x.st === 'sem' ? 'sem foto' : x.st === 'nota' ? 'refazer: ' + esc(x.sub) : 'falta a foto de 3/4') + '</small></span></button><button type="button" class="estFi" data-e="ficha" data-ref="' + esc(x.ref) + '" aria-label="Ver a ficha de ' + esc(pn(x.ref)) + '">Ficha ›</button></div>';
             }).join('') +
-            (!S.estTodas && F.length > 6 ? '<button type="button" class="estMais" data-e="todas">+ ' + (F.length - 6) + (F.length - 6 === 1 ? ' peça' : ' peças') + '</button>' : '')
+            (F.length > 6 ? '<button type="button" class="estMais" data-e="todas">' + (S.estTodas ? 'Mostrar menos' : 'Ver as ' + F.length + ' peças ›') + '</button>' : '')
           : '<div class="estOk">Todas as peças com foto no padrão ✓</div>') +
         ((S.estPend || []).length
           ? '<div class="estLbl estLbl2"><span>Fotos aguardando cadastro · ' + S.estPend.length + '</span></div>' +
