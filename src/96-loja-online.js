@@ -437,7 +437,7 @@
           reS({ rt: S.nuvem.rt });
           if (conf) lfaToast('<span class="lfa-ic">' + lfaSvg('check') + '</span><div><b>Acesso renovado</b><div class="hint" style="margin:0">Nuvem e painel conectados</div></div>', 2800, 'b');
         };
-        if (!trava) entrega(false);
+        if (!trava || !LOCK.locked) entrega(false); // S374 (17/11, dono): a biometria/PIN é só a da abertura do app; com o app aberto e destravado, o painel entra direto
         else
           mostrarLock(
             'confirm',
@@ -481,7 +481,7 @@
       var exige = !!(S.bioOn && bioPlugin() && pinAtivo());
       if (e.data.lfBio === 'check') re(exige ? 'yes' : 'no');
       else if (e.data.lfBio === 'ask') {
-        if (!exige) re('ok');
+        if (!exige || !LOCK.locked) re('ok'); // S374: com o app aberto e destravado não pede de novo
         else
           mostrarLock(
             'confirm',
@@ -547,7 +547,7 @@
       off.style.cssText = 'text-align:center;padding:22px';
       off.innerHTML = '<b style="font-size:17px">Sem internet</b><p style="color:var(--mu);margin:8px 0 14px">O painel do site só abre com internet, porque os dados ficam na nuvem.</p>';
       off.appendChild(btn('mini', 'Tentar de novo', function () {
-        $('lojaFrame').src = LOJA_URL;
+        $('lojaFrame').src = onlUrl();
         render();
       }));
       sb.appendChild(off);

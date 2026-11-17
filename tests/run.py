@@ -433,18 +433,18 @@ async def main():
             m2 = await pg.evaluate("() => [window.__LF.S.view, [...document.querySelectorAll('#dFolha:not(.sai) [data-act=grpVerEsc]')].map(b => b.getAttribute('data-id'))]")
             await pg.evaluate("() => window.__LF.lfaFecha('dFolha')"); await pg.wait_for_timeout(400)
             total += 1
-            ok = m1 == ['dash', 'giro', ['giro', 'prec', 'din']] and m2 == ['inicio', ['mkt', 'tem', 'cup']] and not pg.erros
+            ok = m1 == ['dash', 'giro', ['giro', 'prec', 'din']] and m2 == ['inicio', ['mkt', 'tem', 'cup', 'anl']] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'S374 (59): Giro e preços com a flecha certa; Marketing abre a lista das 3 telas (com Cartões)')
             if not ok: falhas.append('59 famílias'); print('        veio', m1, m2, pg.erros)
             # S374 (S242): Site é tela do app; com o painel aberto a barra não marca Vender
             await pg.evaluate("() => window.__LF.setView('inicio')"); await pg.wait_for_timeout(400)
             await pg.locator('#v-inicio .tl[data-id="g:site"]').click(); await pg.wait_for_timeout(700)
-            s1 = await pg.evaluate("() => [window.__LF.S.view, document.querySelectorAll('#v-site .stN').length, document.querySelectorAll('#v-site .stL').length]")
+            s1 = await pg.evaluate("() => [window.__LF.S.view, document.querySelectorAll('#v-site .stN').length, document.querySelectorAll('#v-site .stL').length, !!document.querySelector('#v-site .st96'), !!document.querySelector('#v-site .pv97')]")
             await pg.locator('#v-site .stN[data-id=msg]').click(); await pg.wait_for_timeout(700)
             s2 = await pg.evaluate("() => [window.__LF.S.view, !!document.querySelector('#mainnav .mn.on[data-id=vendas]')]")
             total += 1
-            ok = s1 == ['site', 4, 5] and s2 == ['onl', False] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'S374: tela Site do app (4 números e 5 linhas); painel aberto não marca Vender')
+            ok = s1 == ['site', 4, 0, True, True] and s2 == ['onl', False] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S374 (96/97): tela Site do app (estado + prévia, 4 números); painel aberto não marca Vender')
             if not ok: falhas.append('tela Site'); print('        veio', s1, s2, pg.erros)
             await pg.close()
 
@@ -1963,15 +1963,14 @@ async def main():
             await pg.evaluate("() => { window.__LF.S.pinHash = 'abc'; }")
             lg3 = await msg({'lfSess': 'get', 'id': '3'})
             trava = await pg.evaluate("() => !document.getElementById('lockScr').hidden")
-            await pg.evaluate("() => { document.getElementById('lockCancel').click(); }"); await pg.wait_for_timeout(200)
-            lg4 = await pg.evaluate("() => window.__sessUlt")
+            lg4 = await pg.evaluate("() => window.__sessUlt")  # S374 (17/11, dono): com o app aberto e destravado, o painel entra sem pedir o PIN de novo
             await pg.evaluate("() => { const S = window.__LF.S; S.pinHash = ''; S.nuvem.rt = ''; window.__sessUlt = 'nada'; }")
             lg5 = await msg({'lfSess': 'get', 'id': '5'})
             await msg({'lfSess': 'put', 'rt': 'R2-' + 'y' * 40, 'email': 'dono@lafouch.com'})
             lg6 = await pg.evaluate("() => [window.__LF.S.nuvem.rt.slice(0, 3), window.__LF.S.nuvem.email]")
             total += 1
-            ok = lg1 == {'rt': 'RT-' + 'x' * 40} and lg2 == 'nada' and lg3 == 'nada' and trava is True and lg4 == 'cancel' and lg5 == 'none' and lg6 == ['R2-', 'dono@lafouch.com']
-            print(('  ok  ' if ok else ' FALHA ') + 'login único: sessão só ao painel certo, PIN antes de entregar, painel entrega a sessão digitada')
+            ok = lg1 == {'rt': 'RT-' + 'x' * 40} and lg2 == 'nada' and lg3 == {'rt': 'RT-' + 'x' * 40} and trava is False and lg4 == {'rt': 'RT-' + 'x' * 40} and lg5 == 'none' and lg6 == ['R2-', 'dono@lafouch.com']
+            print(('  ok  ' if ok else ' FALHA ') + 'login único: sessão só ao painel certo, com o app destravado não pede PIN de novo, painel entrega a sessão digitada')
             if not ok: falhas.append('login-unico'); print('        veio', lg1, lg2, lg3, trava, lg4, lg5, lg6, pg.erros)
             await pg.close()
 
@@ -4037,6 +4036,21 @@ async def main():
             ok = got == [True] * 8 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'S374 (88–92): Vender com ícones redondos, quantidade 44 px, ficha no fim, sem Parecidas, barra no lugar e preço neutro')
             if not ok: falhas.append('vender 88 92'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # S374 (94–97): famílias Site/Marketing, painel com ?app=2 dentro da tela, linha Site em Ajustes
+            pg = await pagina(fam=True)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              L.render(); await w(200); const gs = (L.grpGet ? L.grpGet('g:site') : S.grupos.find(g => g.id === 'g:site')).itens.join(','), gm = (L.grpGet ? L.grpGet('g:mkt') : S.grupos.find(g => g.id === 'g:mkt')).itens.join(',');
+              L.inicioGo('prod'); await w(400); const fr = document.getElementById('lojaFrame'), url = fr ? fr.getAttribute('src') || '' : '', sb = document.getElementById('siteBox');
+              const dentro = S.view === 'onl' && /app=2/.test(url) && !sb.classList.contains('full') && S.onlAba === 'prod';
+              L.setView('ajustes'); await w(300); const aj = !!document.querySelector('.ajS[data-k=site]');
+              L.ACT.ajSite(); await w(300); const cfg = S.view === 'onl' && S.onlAba === 'cfg' && /Ajustes do site/.test((document.querySelector('#v-onl .onl95 h1') || {}).textContent || '');
+              return [gs, gm, dentro, aj, cfg]; }""")
+            total += 1
+            ok = got == ['site,ped,msg,vit,prod', 'mkt,tem,cup,anl', True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S374 (94–97): Site com Vitrine e Modelos, Analisador no Marketing, painel dentro da tela (?app=2), linha Site em Ajustes')
+            if not ok: falhas.append('site 94 97'); print('        veio', got, pg.erros)
             await pg.close()
 
             # S374 (esboço 73): Despesas — "+ Nova" no topo abre o formulário; sem "ajuste em Ajustes"; "Marcar como paga ›"

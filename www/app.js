@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 555;
+  var APP_BUILD = 556;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.40.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.41.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -27108,6 +27108,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       av = typeof avPref === 'function' ? avPref() : {};
     var secs = {
       imp: { t: 'Impressora', r: imp ? 'Conectada' : 'Nenhuma', h: impCard() },
+      site: { t: 'Site', r: (window.__siteEstado && window.__siteEstado()) || 'frete, PIX, idioma', h: '<span></span>' }, // S374 (95d)
       pa: { t: 'Preço automático', r: 'em Preços', h: '<span></span>' }, // S363 (esboço 45c): a linha só leva a Preços (ajToca)
       tema: { t: 'Tema', r: { auto: 'Auto', claro: 'Claro', escuro: 'Escuro' }[tv] || 'Auto', h: temaCard() },
       seg: { t: 'Segurança', r: S.bioOn ? 'Biometria' : pinAtivo() ? 'PIN' : 'Desligada', h: segH },
@@ -28403,7 +28404,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           reS({ rt: S.nuvem.rt });
           if (conf) lfaToast('<span class="lfa-ic">' + lfaSvg('check') + '</span><div><b>Acesso renovado</b><div class="hint" style="margin:0">Nuvem e painel conectados</div></div>', 2800, 'b');
         };
-        if (!trava) entrega(false);
+        if (!trava || !LOCK.locked) entrega(false); // S374 (17/11, dono): a biometria/PIN é só a da abertura do app; com o app aberto e destravado, o painel entra direto
         else
           mostrarLock(
             'confirm',
@@ -28447,7 +28448,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       var exige = !!(S.bioOn && bioPlugin() && pinAtivo());
       if (e.data.lfBio === 'check') re(exige ? 'yes' : 'no');
       else if (e.data.lfBio === 'ask') {
-        if (!exige) re('ok');
+        if (!exige || !LOCK.locked) re('ok'); // S374: com o app aberto e destravado não pede de novo
         else
           mostrarLock(
             'confirm',
@@ -28513,7 +28514,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       off.style.cssText = 'text-align:center;padding:22px';
       off.innerHTML = '<b style="font-size:17px">Sem internet</b><p style="color:var(--mu);margin:8px 0 14px">O painel do site só abre com internet, porque os dados ficam na nuvem.</p>';
       off.appendChild(btn('mini', 'Tentar de novo', function () {
-        $('lojaFrame').src = LOJA_URL;
+        $('lojaFrame').src = onlUrl();
         render();
       }));
       sb.appendChild(off);
@@ -28853,6 +28854,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     pa: AJ_SVG('<path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><circle cx="7.5" cy="7.5" r="1.5"/>'),
     tema: AJ_SVG('<path d="M12 21a9 9 0 1 1 9-9c0 2.5-2 3.5-4 3.5h-2a2 2 0 0 0-1.5 3.3c.4.5.5 1 .5 1.4 0 .5-.9.8-2 .8z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7.5" r="1"/><circle cx="15" cy="7.5" r="1"/>'),
     seg: AJ_SVG('<path d="M12 11v3M8.5 8.5A5 5 0 0 1 17 12v1.5M7 12c0 3 .5 5 1.5 7M12 7a5 5 0 0 0-5 5M16.5 17c-.3 1.2-.8 2.3-1.5 3.3M12 17.5c0 1-.3 2.2-.8 3"/><path d="M5.2 8A8 8 0 0 1 19.6 9.5"/>'),
+    site: AJ_SVG('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>'),
     ped: AJ_SVG('<circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>'),
     av: AJ_SVG('<path d="M10 5a2 2 0 1 1 4 0 7 7 0 0 1 4 6v3l2 3H4l2-3v-3a7 7 0 0 1 4-6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/>'),
     sync: AJ_SVG('<path d="M7 10h14l-4-4M17 14H3l4 4"/>'),
@@ -28862,7 +28864,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   var AJ_SETA = AJ_SVG('<path d="M9 6l6 6-6 6"/>'),
     AJ_ALCA = AJ_SVG('<path d="M5 9h14M5 15h14"/>'),
     // S374 (esboço 75): sai a linha "Preço automático › em Preços" (só levava a outra tela; mora em Preços)
-    AJ_PADRAO = ['imp', 'tema', 'seg', 'ped', 'av', 'sync', 'upd', 'bk'];
+    AJ_PADRAO = ['imp', 'tema', 'seg', 'site', 'ped', 'av', 'sync', 'upd', 'bk']; // S374 (esboço 95d): linha Site
   function ajOrdem() {
     var o = [];
     try {
@@ -28905,6 +28907,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   // Abre/fecha no lugar (sem redesenhar a aba): a seta gira e o conteúdo desliza.
   function ajToca(s) {
+    if (s.dataset.k === 'site') return ACT.ajSite(); // S374 (95d): abre os ajustes do site (painel integrado)
     if (s.dataset.k === 'pa') { S.dTab = 'prec'; S.dfold = Object.assign(S.dfold || {}, { pau: true }); return setView('dash'); } // S363: Preço automático mora em Preços
     var g = $('ajGrp'),
       abre = !s.classList.contains('on');
@@ -51648,6 +51651,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function renderSite() {
     var el = $('v-site');
     if (!el || S.view !== 'site') return;
+    if (window.__renderSite95) return window.__renderSite95(el); // S374 esboços 96/97
     var r = S.pnlRes || null,
       peds = (S.pedidos || []).filter(function (p) { return p.st !== 'ent' && p.st !== 'canc'; }),
       novos = pedNovos(),
@@ -52063,6 +52067,147 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return l;
   };
 
+  // ===== S374 · esboços 93–97 (aprovados 17/11/2026 10:36, "implementar tudo") =====
+  // 94: o painel do site vira tela do app (sem topo/barra/título próprios; cores do app; ?app=2 liga o modo integrado no painel).
+  // 95: Site = Site · Pedidos · Mensagens · Vitrine · Modelos; Marketing = Marketing · Temática · Cartões · Analisador;
+  //     Ajustes do app ganha a linha "Site" (abre os ajustes do painel). 96/97: tela Site com o estado do site + "Prévia do site ›".
+  BARRA_NOME.vit = 'Vitrine';
+  BARRA_NOME.prod = 'Modelos';
+  BARRA_NOME.pre = 'Prévia do site';
+  BARRA_NOME.cfg = 'Ajustes do site';
+  GRP_FRASE.site = 'Resumo da loja online';
+  GRP_FRASE.vit = 'Destaque da semana e ordem do catálogo';
+  GRP_FRASE.prod = 'O que aparece no site';
+  GRP_FRASE.anl = 'Visitas do site e o que trouxe cliente';
+  if (!ICO_D.vit) ICO_D.vit = ICO_D.onl;
+  if (!ICO_D.prod) ICO_D.prod = ICO_D.estoque || ICO_D.onl;
+  var PNL95 = ['vit', 'prod', 'pre', 'cfg'];
+  var _inicioGo95 = inicioGo;
+  inicioGo = function (id) {
+    if (PNL95.indexOf(id) >= 0) return onlPainel(id);
+    return _inicioGo95.apply(this, arguments);
+  };
+  var _navOn95 = navOn;
+  navOn = function (id) {
+    var noPnl = S.view === 'onl';
+    if (PNL95.indexOf(id) >= 0) return noPnl && S.onlAba === id;
+    if (noPnl && (S.onlAba === 'anl' || S.onlAba === 'tem')) {
+      if (id === 'g:site') return false;
+      if (id === 'g:mkt') return true;
+    }
+    if (noPnl && S.onlAba === 'cfg' && (id === 'g:site' || id === 'g:mkt')) return false;
+    return _navOn95.apply(this, arguments);
+  };
+  // famílias (uma vez): Analisador sai do Site e entra no Marketing; Vitrine e Modelos entram no Site
+  var _iniLista95 = iniLista;
+  iniLista = function () {
+    var l = _iniLista95.apply(this, arguments);
+    if (!S.fam95 && S.fam6) {
+      S.fam95 = true;
+      var g = grpGet('g:site'), m = grpGet('g:mkt');
+      if (g) {
+        var ext = g.itens.filter(function (x) { return ['site', 'ped', 'msg', 'anl', 'tem', 'mkt', 'vit', 'prod'].indexOf(x) < 0; });
+        g.itens = ['site', 'ped', 'msg', 'vit', 'prod'].concat(ext);
+        g.frase = 'Pedidos, mensagens, vitrine e modelos';
+      }
+      if (m) {
+        if (m.itens.indexOf('anl') < 0) m.itens.push('anl');
+        m.frase = 'Posts, vídeos, temática, cartões e visitas';
+      }
+      saveSoon();
+      l = _iniLista95.apply(this, arguments);
+    }
+    return l;
+  };
+  // painel integrado: sempre dentro da tela (nunca "tela cheia"), com ?app=2, altura até a barra de baixo
+  var _onlUrl95 = onlUrl;
+  onlUrl = function () {
+    var u = _onlUrl95.apply(this, arguments);
+    return u + (u.indexOf('?') < 0 ? '?' : '&') + 'app=2';
+  };
+  function sbAjusta() {
+    var s = $('siteBox');
+    if (!s || S.view !== 'onl') return;
+    var t = s.getBoundingClientRect().top + (window.scrollY || 0),
+      nb = $('mainnav'),
+      hb = nb && nb.offsetParent ? nb.getBoundingClientRect().height : 0;
+    s.style.height = Math.max(360, window.innerHeight - t - hb) + 'px';
+  }
+  window.addEventListener('resize', function () { try { sbAjusta(); } catch (e) {} });
+  function escuro95(c) {
+    var m = /^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})/i.exec(c || '');
+    return m ? parseInt(m[1], 16) * 0.3 + parseInt(m[2], 16) * 0.59 + parseInt(m[3], 16) * 0.11 < 128 : false;
+  }
+  function pnlTema() {
+    var f = $('lojaFrame');
+    if (!f || !f.contentWindow) return;
+    var r = getComputedStyle(document.documentElement), g = function (v) { return r.getPropertyValue(v).trim(); };
+    try {
+      f.contentWindow.postMessage({ lfTema: { bg: g('--bg'), s1: g('--panel'), s2: g('--panel2'), ln: g('--line'), tx: g('--fg'), mu: g('--mute'), ac: g('--accent-fg'), ok: g('--ok'), wn: g('--warn'), esc: escuro95(g('--bg')) }, lfSiteQ: 1 }, '*');
+    } catch (e) {}
+  }
+  var _rlo95 = renderLojaOnline;
+  renderLojaOnline = function () {
+    S.siteFull = false;
+    var r = _rlo95.apply(this, arguments),
+      el = $('v-onl');
+    if (el && S.view === 'onl') {
+      var tp = el.querySelector('.top.onl95'), tit = S.onlAba === 'cfg' ? 'Ajustes do site' : S.onlAba === 'pre' ? 'Prévia do site' : '';
+      if (S.onlAba === 'cfg') S._gAt = '';
+      if (tit) {
+        if (!tp) {
+          tp = mk('div', 'top onl95');
+          el.insertBefore(tp, $('siteBox'));
+        }
+        if (tp.getAttribute('data-t') !== tit) {
+          tp.setAttribute('data-t', tit);
+          tp.innerHTML = '<div><h1>' + esc(tit) + '</h1></div>';
+        }
+      } else if (tp) tp.remove();
+      requestAnimationFrame(sbAjusta);
+      pnlTema();
+    }
+    return r;
+  };
+  window.addEventListener('message', function (e) {
+    var f = $('lojaFrame');
+    if (!f || e.source !== f.contentWindow || !e.data) return;
+    if (e.data.lfPronto) { pnlTema(); return; }
+    var x = e.data.lfSite;
+    if (x && typeof x === 'object') {
+      var n = function (v) { return Math.max(0, Math.min(9999, Math.round(+v || 0))); };
+      S.siteRes = { on: x.on !== false, mod: n(x.mod), oc: n(x.oc), dm: String(x.dm || '').slice(0, 20), dnm: String(x.dnm || '').slice(0, 30), dt: String(x.dt || '').slice(0, 80), ts: Date.now() };
+      saveSoon();
+      if (S.view === 'site' || S.view === 'ajustes') render();
+    }
+  });
+  ACT.stPrev = function () { onlPainel('pre'); };
+  ACT.stEstado = function () { ACT.ajSite(); };
+  ACT.ajSite = function () { S._gAt = ''; onlPainel('cfg'); };
+  window.__siteEstado = function () {
+    var x = S.siteRes;
+    return x ? (x.on ? 'No ar' : 'Desligado') : '';
+  };
+  // tela Site (esboços 96/97): estado + prévia no mesmo cartão; 4 números (Pedidos, Mensagens, Modelos, Vitrine)
+  function stNum95(n, tit, sub, act, id) {
+    return '<button type="button" class="stN" data-act="' + act + '" data-id="' + id + '"><small>' + tit + '</small><b>' + (n == null ? '—' : n) + '</b><span>' + esc(sub) + '</span></button>';
+  }
+  window.__renderSite95 = function (el) {
+    var r = S.pnlRes || null, x = S.siteRes || null,
+      peds = (S.pedidos || []).filter(function (p) { return p.st !== 'ent' && p.st !== 'canc'; }),
+      novos = pedNovos(),
+      off = x && !x.on;
+    el.innerHTML = '<div class="top"><div><h1>Site</h1></div></div>' +
+      '<div class="cx97"><button type="button" class="st96' + (x ? (off ? ' off' : '') : ' nd') + '" data-act="stEstado"><i class="d" aria-hidden="true"></i><span><b>' +
+      (x ? (off ? 'Site desligado' : 'Site no ar') : 'Estado do site') + '</b><small>' + (x ? (off ? 'Ninguém vê o catálogo agora' : 'Os clientes veem o catálogo agora') : 'toque para conferir') + '</small></span><em aria-hidden="true">›</em></button>' +
+      '<button type="button" class="pv97" data-act="stPrev"><span><b>Prévia do site</b></span><small>preços e descontos</small><em aria-hidden="true">›</em></button></div>' +
+      '<div class="stG">' +
+      stNum95(peds.length, 'Pedidos', novos ? novos + (novos === 1 ? ' novo para separar' : ' novos para separar') : 'nenhum novo', 'stAbre', 'ped') +
+      stNum95(r ? r.msg : null, 'Mensagens', r ? (r.ata ? r.ata + ' de atacado' : 'nenhuma de atacado') : 'abra para atualizar', 'stAbre', 'msg') +
+      stNum95(x ? x.mod : null, 'Modelos', x ? 'no ar' + (x.oc ? ' · ' + x.oc + (x.oc === 1 ? ' oculto' : ' ocultos') : '') : 'abra para atualizar', 'stAbre', 'prod') +
+      stNum95(x ? (x.dm === 'nada' ? null : '✓') : null, 'Vitrine', x ? (x.dm === 'nada' ? 'sem destaque' : (x.dnm || 'destaque').toLowerCase()) : 'abra para atualizar', 'stAbre', 'vit') +
+      '</div>';
+  };
   // ===== S370 (16/11/2026) — lote 8: trilho que ARRASTA (regra do dono, 15/11/2026) =====
   // Todo seletor em trilho (.trk com a pílula .trkTh e os botões .trkB) aceita o dedo (ou o mouse) arrastando a pílula,
   // além do toque. Ao soltar, vale o botão mais perto (o mesmo clique de sempre, então cada tela continua igual).

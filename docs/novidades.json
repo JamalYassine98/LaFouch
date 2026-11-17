@@ -1,8 +1,9 @@
 {
- "nome": "5.40.0",
+ "nome": "5.41.0",
  "notas": [
-  "Vender: ícones redondos no topo, \"−\" e \"+\" maiores com o \"Vender\" na linha de baixo, e a barra de vender fica no lugar (não segue mais a tela).",
-  "Vender: \"Ficha no Inventário ›\" no fim da peça; \"Parecidas\" só no Modo cliente; preço na cor do texto (o verde não briga mais com o rosa); lote com o quadro de pacote."
+  "Site: o painel do site agora é tela do app — topo, barra e cores do app; Vitrine e Modelos entram na família Site e o Analisador vai para o Marketing.",
+  "Site: a tela mostra se o site está no ar ou desligado e tem \"Prévia do site ›\" (vê preços e descontos mesmo com o site desligado).",
+  "Ajustes ganha a linha \"Site\" (frete, PIX, idioma, ligar e desligar). Com o app aberto, o painel não pede a biometria de novo."
  ],
- "build": 555
+ "build": 556
 }

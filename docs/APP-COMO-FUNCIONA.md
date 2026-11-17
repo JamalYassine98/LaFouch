@@ -468,3 +468,11 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - "Ver a ficha no Inventário ›" saiu do topo (`.fnAt` só no Inventário); no fim da peça entra `.fi89` "Ficha no Inventário ›" (data-act fnTab est).
 - "Parecidas" (`vParecidas`) só aparece no Modo cliente (iPad da loja).
 - Preço em cor de texto no Vender (`.vpreco`, `.vtotl`, `.vtPreco`); verde fica só para sinal de ok.
+
+## S374o (v556 · 17/11/2026) — Site e painel do site integrados (93–97)
+- Módulo `src/98z-s374c-site.js`. Itens novos de família que abrem o painel: `vit` (Vitrine), `prod` (Modelos), `pre` (Prévia do site), `cfg` (Ajustes do site) → `onlPainel(id)`; `navOn` marca pelo `S.onlAba`.
+- Famílias (uma vez, `S.fam95`): Site = site, ped, msg, vit, prod; Marketing = mkt, tem, cup, anl.
+- Painel integrado: `onlUrl()` acrescenta `app=2`; `S.siteFull` fica sempre falso; `sbAjusta()` dá a altura do quadro até a barra de baixo; `pnlTema()` manda as cores do app (`lfTema`) quando o painel avisa `lfPronto`. Para `cfg` e `pre` o app põe o próprio título (`.top.onl95`).
+- O painel manda `lfSite` {on, mod, oc, dm, dnm, dt} → `S.siteRes`; a tela Site (`__renderSite95`) mostra o estado (ponto verde/cinza, abre Ajustes do site), "Prévia do site ›" (`ACT.stPrev` → painel abre a prévia `openCli`) e os 4 números (Pedidos, Mensagens, Modelos, Vitrine).
+- Ajustes: linha `site` ("Site · No ar/Desligado") → `ACT.ajSite()` (painel na aba cfg, sem família).
+- Biometria: `lfSess get` e `lfBio ask` só pedem PIN/biometria se o app estiver travado (`LOCK.locked`); com o app aberto e destravado o painel entra direto (a trava continua na abertura e na volta do segundo plano).

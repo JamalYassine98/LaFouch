@@ -2924,3 +2924,16 @@ button.rw77{cursor:pointer}
 #v-vendas .pbox.lt85 svg{width:56px;height:56px;stroke:var(--sub);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
 #v-vendas .fi89{display:block;margin:6px auto 0;min-height:44px;background:none;border:0;color:var(--accent-fg);font:inherit;font-size:15px;font-weight:600}
 #v-vendas .vpreco,#v-vendas .vtotl,#v-vendas .vtPreco{color:var(--fg)!important}
+/* S374 96/97 — tela Site: estado do site + prévia no mesmo cartão */
+#v-site .cx97{border:1px solid var(--line);background:var(--panel);border-radius:16px;margin:0 0 14px;overflow:hidden}
+#v-site .st96{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;margin:0;padding:12px 16px;border:0;background:none;color:var(--fg);font:inherit;text-align:left;cursor:pointer}
+#v-site .st96 i.d{flex:none;width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 18%,transparent)}
+#v-site .st96.off i.d,#v-site .st96.nd i.d{background:var(--mute);box-shadow:0 0 0 4px color-mix(in srgb,var(--mute) 18%,transparent)}
+#v-site .st96 span{flex:1;min-width:0}#v-site .st96 b{display:block;font-size:16px;font-weight:600}#v-site .st96 small{display:block;color:var(--mute);font-size:13px;margin-top:2px}
+#v-site .st96 em,#v-site .pv97 em{font-style:normal;color:var(--mute);font-size:18px}
+#v-site .pv97{display:flex;align-items:center;gap:12px;width:100%;min-height:52px;padding:12px 16px 12px 38px;border:0;border-top:1px solid var(--line);background:none;color:var(--fg);font:inherit;text-align:left;cursor:pointer}
+#v-site .pv97 span{flex:1}#v-site .pv97 b{font-size:16px;font-weight:600}#v-site .pv97 small{color:var(--mute);font-size:13px}
+/* S374 94 — painel do site integrado: dentro da tela, sem moldura; a altura vai até a barra de baixo (sbAjusta) */
+#v-onl #siteBox{min-height:0}#v-onl #siteBox iframe{border:0;border-radius:0;background:transparent}
+#v-onl .top.onl95{margin-bottom:4px}
+#v-onl #siteBox{margin-top:-10px}

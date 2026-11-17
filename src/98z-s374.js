@@ -88,6 +88,7 @@
   function renderSite() {
     var el = $('v-site');
     if (!el || S.view !== 'site') return;
+    if (window.__renderSite95) return window.__renderSite95(el); // S374 esboços 96/97
     var r = S.pnlRes || null,
       peds = (S.pedidos || []).filter(function (p) { return p.st !== 'ent' && p.st !== 'canc'; }),
       novos = pedNovos(),
