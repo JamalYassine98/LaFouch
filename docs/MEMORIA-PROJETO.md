@@ -2955,3 +2955,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - Funções novas a publicar pelo dono: `presentes` (agendada, 10h) e `entregaMail`; mudaram `reserva`, `cupom`, `novidades`, `limpeza`.
 - Fala da Mochi: nenhuma voz nova gravada (créditos); "Pronto, medi! Pode afastar o celular." aparece só no balão.
 - LIÇÃO: o app também chama "liberar" ao cancelar/apagar pedido; por isso a entrega só vale com a reserva paga e não cancelada.
+- 17/11/2026 07:43 · DONO aprovou o 85 (Inventário). Fornecedores fica como aba dentro do Inventário (não vira flecha). Esperando "implementar".
