@@ -45,3 +45,9 @@ Toda janela = janela de baixo (mesmo puxador, título 17 px negrito, cantos, fun
 
 ## 6. Ordem sugerida
 1) Janela de confirmação (110c) + as ações do grupo B. 2) Grupo A com "Desfazer". 3) Mesma aparência nas outras janelas (uma por vez, com esboço).
+
+## 7. Auditoria visual dos botões (17/11 19:20, work/s376/audita.py)
+Medido por programa em 46 telas/estados × claro e escuro (pedidos nos 6 estados, carrinho, clientes, atacado, Ajustes abertos, ficha da peça): texto quebrado, cortado, fora da tela, toque pequeno + olho. Depois olhei os suspeitos um por um.
+**Quebrados:** (1) Pedido aberto: "Assumir este pedido", "Marcar como pago" e "Imprimir ficha de separação" espremidos em 3 linhas (botão de 52 px; 4 dos 6 estados). (2) Lista de pedidos: nome cortado "Maria Ló…" com espaço sobrando. (3) Inventário: "470" e "16" em alturas diferentes. (4) Clientes: nome em letra de título serifada e selo "SITE" minúsculo serifado. (5) Início › editar: "⋯" e "✕" com 24 px (fácil errar). (6) Ficha da peça: "Ficha 4/6" (26 px), chave "No site" (28 px), "Lucro real" (22 px), "De onde vem o preço" (28 px) e abas Ficha/Site/Preço abaixo de 40 px. (7) Preços › Contador: números de "Margem média real" e "Contas do mês cobertas" desalinhados.
+**Fora do padrão (funcionam):** "Enviar token à cliente" verde cheio; "‹ Pedidos" e "Ficha do cliente" em pílula cinza; "% Oferta" rosa cheio; "Catálogo do produto" com título serifado.
+**Não coberto ainda:** janelas internas de cada fluxo (Câmbio, Caixa, cadastro, Estúdio, câmera/leitor, lotes, Marketing por dentro), tablet e PC.
