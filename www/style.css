@@ -2993,3 +2993,5 @@ button.rw77{cursor:pointer}
 .g99.h101 .hSemB{border-bottom:1px solid var(--line)}
 .g99.h101 .hSemB>*{width:100%!important;box-sizing:border-box;margin:0!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;border-top:1px solid var(--line)!important;padding-left:28px!important}
 #dtabBody>.g99,.col>.g99,.view>.g99{margin-bottom:0}
+/* S374 (104c): no Histórico, valor e "›" juntos no meio da linha; a frase de baixo só quebra entre as partes */
+.d71 .vl{grid-row:1/3;grid-column:2;align-self:center}.d71 .mt{grid-column:1/2}.d71 .mt .p104{white-space:nowrap}

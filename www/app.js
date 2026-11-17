@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 557;
+  var APP_BUILD = 558;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.42.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.42.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -36045,7 +36045,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return (
       '<button class="pcard hDia" data-act="opendia" data-id="' + k + '" aria-label="Abrir o dia ' + fmtDay(k) + '">' +
       '<span class="d71"><span class="dt">' + fmtDay(k).slice(0, 5) + (k === today ? ' · hoje' : '') + '<small>' + wd + '</small></span>' +
-      '<span class="vl">' + gs(st.vend) + '</span><span class="ch" aria-hidden="true">›</span><span class="mt">' + mt.join(' · ') + '</span></span></button>'
+      '<span class="vl">' + gs(st.vend) + '</span><span class="ch" aria-hidden="true">›</span><span class="mt">' + mt.map(function (x) { return '<span class="p104">' + x + '</span>'; }).join(' · ') + '</span></span></button>' // S374 (104c): a frase só quebra entre as partes
     );
   }
   // Lista (dias com resumo por mês, ou resultados da busca).

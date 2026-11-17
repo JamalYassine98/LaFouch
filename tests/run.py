@@ -4076,6 +4076,19 @@ async def main():
             if not ok: falhas.append('catalogo 98 103'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # S374 (104c): Histórico — valor e "›" na mesma altura; a frase de baixo não quebra no meio de um valor
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, w = ms => new Promise(r => setTimeout(r, ms));
+              L.inicioGo('hist'); await w(500); const ds = [...document.querySelectorAll('.d71')];
+              const al = ds.every(d => { const v = d.querySelector('.vl').getBoundingClientRect(), c = d.querySelector('.ch').getBoundingClientRect(); return Math.abs((v.top + v.bottom) / 2 - (c.top + c.bottom) / 2) <= 1; });
+              const inteiras = ds.every(d => [...d.querySelectorAll('.p104')].every(p => p.getClientRects().length === 1));
+              return [ds.length > 0, al, inteiras]; }""")
+            total += 1
+            ok = got == [True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S374 (104c): Histórico com valor e seta alinhados; a frase só quebra entre as partes')
+            if not ok: falhas.append('historico 104c'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # S374 (esboço 73): Despesas — "+ Nova" no topo abre o formulário; sem "ajuste em Ajustes"; "Marcar como paga ›"
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

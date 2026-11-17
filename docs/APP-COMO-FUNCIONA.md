@@ -486,3 +486,4 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - 102: `#lcIrInv` ("Lista de compras · N acabando ›") só na aba Fornecedores (`S.lotesView`), no fim de `#v-estoque`, centralizado (`.c102`).
 - 98: Marketing é a tela `#v-mkt` (`renderMkt` → `mkMonta(c)`; antes era janela). `mkAbre()` = `setView('mkt')`; a família Marketing abre a última tela usada. "Listas por perfil", "Resultados" e "Kit da marca" ficam em `.mkDtG` e abrem com `lfFoldAnim`.
 - 103: `.card.lcCard{animation:none}` — a animação `lcNasce` é só do cartão "carregando foto" (`#loadFoto`), que usa a mesma classe.
+- S374q (v558 · 17/11/2026, esboço 104c): Histórico — `.d71 .vl` ocupa as 2 linhas (centralizado com a "›"); a frase `.mt` tem cada parte em `.p104` (sem quebra dentro), separadas por " · ".

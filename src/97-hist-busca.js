@@ -130,7 +130,7 @@
     return (
       '<button class="pcard hDia" data-act="opendia" data-id="' + k + '" aria-label="Abrir o dia ' + fmtDay(k) + '">' +
       '<span class="d71"><span class="dt">' + fmtDay(k).slice(0, 5) + (k === today ? ' · hoje' : '') + '<small>' + wd + '</small></span>' +
-      '<span class="vl">' + gs(st.vend) + '</span><span class="ch" aria-hidden="true">›</span><span class="mt">' + mt.join(' · ') + '</span></span></button>'
+      '<span class="vl">' + gs(st.vend) + '</span><span class="ch" aria-hidden="true">›</span><span class="mt">' + mt.map(function (x) { return '<span class="p104">' + x + '</span>'; }).join(' · ') + '</span></span></button>' // S374 (104c): a frase só quebra entre as partes
     );
   }
   // Lista (dias com resumo por mês, ou resultados da busca).
