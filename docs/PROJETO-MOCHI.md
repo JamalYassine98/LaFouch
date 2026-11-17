@@ -60,8 +60,13 @@ Tudo sobre a Mochi (mascote e teste de leitura do site lafouch.com) num lugar s�
 
 - 17/11 20:19 — DONO aprovou ES falas 1+2 = opção A (t31). VOZ DAS 4 FALAS DO 107 PRONTA (PT e ES; escolha em /home/claude/voz_s410/escolha/escolha.json; arquivos finais work/s410/mochi-falas-novas-pt/es-final.mp3). Gasto: 1.131 de 1.764 autorizados (ElevenLabs 2.137 de 6.000). Lições: gravar SEMPRE em cena (frase sozinha muda a voz; 'semelhança da cena' ≥0,90 pega); frase que começa com vogal depois de pausa sai 'Aa-' → vírgula depois da 1ª palavra ajuda; conferir nitidez (som até onde vai) comparando com fala aprovada de sons parecidos (frase sem 's' é naturalmente mais baixa, ex.: 'Pronto!' aprovado vai só até 1.700 Hz). Entra no site junto com o 'implementar' do 107. Próximo da lista: item 4 (modo de teste com 104, 107–110) — precisa do 'implementar' do dono.
 
+- 17/11 20:44 — DONO: troca do 'Leu!'/'¡Leíste!' APROVADA SEM ESBOÇO: no momento da lente ('… Agora vou tirando um pouquinho de grau…') ela usa as mesmas comemorações já gravadas do quadro (rodízio 'ok': Isso!, Muito bem., Ótimo., …), PT e ES. Sem voz nova. ESPERANDO 'implementar' (junto com 104, 107–110). As gravações 'Muito bem!' novas NÃO serão usadas.
+- LIÇÃO / REGRA (dono 20:44: 'você devia ter me avisado antes de gastarmos os créditos'): ANTES de propor ou gravar qualquer fala, procurar na lista de falas já gravadas (media/voz/pt|es/lista.json e a página Falas da Mochi) se já existe uma igual ou que sirva, e avisar o dono antes de gastar crédito.
+
 ## 5. Lições minhas
 - Ao mexer numa parte, procurar tudo que depende dela (erro do S384 → S387).
 - Número estranho no medidor do dono se investiga na hora.
 - Rota do Playwright desliga a memória do navegador; `wait_for_function` precisa de função "()=>…" por causa da CSP; `__LFGZ.pp(G)` abre a etapa do ponto próximo direto nos testes.
 - 17/11 20:30 — Página 'Falas da Mochi' (artefato privado do dono, https://claude.ai/artifact/LSAuZQC8ukuR8yQqYR1DnH; fonte work/s410/falas/index.html): todas as falas gravadas com áudio, PT e ES, busca, 'Ouvir todas' por seção; seções Novas (7, entram com o 107), Em uso (PT 189, ES 181), Gravadas sem uso (PT 6, de versões antigas). Graus agrupados num item que abre.
+
+- Antes de gravar, procurar se a fala já existe gravada (17/11: gastei ~350 créditos tentando um "Muito bem!" que já existia como "Muito bem.").
