@@ -459,7 +459,7 @@
     if(isOf(p))return '<span class="'+c+' of">−'+pct5(p)+'%'+(tm?' · '+esc(temaNome(tm)):'')+'</span>';
     if(tm)return '<span class="'+c+' tm t-'+tm+'">'+esc(temaNome(tm))+'</span>';
     var k=0;if(k)return '<span class="'+c+' rk">Nº '+k+' '+(es?'en ':'em ')+((CATN[p.tipo]||['',''])[es?1:0])+'</span>';
-    if(isNovo(p)||p.aviso==='Chegou esta semana')return '<span class="'+c+' nv">'+LFI.tr('Chegou esta semana')+'</span>';return ''}
+    /* S402 (17/11/2026, ordem do dono): o selo "Chegou esta semana" saiu também do catálogo e do Início (da página da peça já tinha saído em 12/11) */return ''}
   function lista(){
     var q=st.q.trim().toLowerCase(),bq=btol(q);
     var fl=function(face){return P.filter(function(p){
