@@ -56,7 +56,7 @@ function pago(o, tok, comp) {
     to: o.email,
     subject: (es ? 'Pago confirmado · tu token ' : 'Pagamento confirmado · seu token ') + t,
     html: E.molde(es ? 'Pago ' + E.I('confirmado') : 'Pagamento ' + E.I('confirmado'),
-      E.P((es ? 'Gracias por tu preferencia' : 'Obrigada pela preferência') + (n ? ', ' + n : '') + '. ' + (es ? 'Tu pedido está asegurado.' : 'Seu pedido está garantido.')) +
+      E.P((es ? 'Gracias por tu preferencia' : 'Agradecemos a preferência') + (n ? ', ' + n : '') + '. ' + (es ? 'Tu pedido está asegurado.' : 'Seu pedido está garantido.')) +
       E.ROT(es ? 'TU TOKEN' : 'SEU TOKEN') + E.codigo(t, 0.12, 32) + E.PQ(es ? 'Mostrá este token al retirar o recibir el pedido.' : 'Mostre este token ao retirar ou receber o pedido.') +
       '<div style="height:22px"></div>' + E.tabela([E.linha('Pedido ' + E.esc(o.cod) + ' · ' + data(o, es), q + (q === 1 ? (es ? ' pieza' : ' peça') : (es ? ' piezas' : ' peças'))), E.linha(en[0], en[1]),
         E.linha(o.pag === 'pix' ? (es ? 'Pagado por PIX' : 'Pago por PIX') : (es ? 'Pagado por transferencia' : 'Pago por transferência'), valor(o), true)]) +

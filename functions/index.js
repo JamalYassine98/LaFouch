@@ -143,8 +143,18 @@ exports.reserva = onRequest(
       else if (acao === 'comp') r = await Reserva.comprovante(db, agora, b.pedido, b.itens);
       else if (acao === 'cancelar') r = await Reserva.liberar(db, agora, b.pedido, refs);
       else if (acao === 'pagar') r = await Reserva.pagar(db, agora, b.pedido, b.itens);
-      else if (acao === 'liberar') r = await Reserva.liberar(db, agora, b.pedido, refs);
-      else r = await Reserva.recusar(db, agora, b.pedido, refs);
+      else if (acao === 'liberar') {
+        r = await Reserva.liberar(db, agora, b.pedido, refs);
+        // S400 (17/11/2026): o app chama "liberar" quando o dono marca o pedido ENTREGUE (e também ao cancelar/apagar, mas aí a reserva
+        // já está marcada como cancelada). Pedido pago e não cancelado = entrega → nasce entregas/{pedido}, que dispara o presente por e-mail.
+        try {
+          const pid = String(b.pedido || '');
+          if (/^[A-Za-z0-9_-]{4,40}$/.test(pid)) {
+            const rs = await db.doc('reservas/' + pid).get(), o = rs.exists ? rs.data() : {};
+            if (o.pago === true && !o.cancelado) await db.doc('entregas/' + pid).create({ ts: agora }).catch(() => {});
+          }
+        } catch (e) { console.error('reserva entrega', e && e.message); }
+      } else r = await Reserva.recusar(db, agora, b.pedido, refs);
       return res.json(Object.assign({ ok: true, agora }, r));
     } catch (e) {
       if (e instanceof Reserva.Falha) return res.json({ ok: false, motivo: e.motivo, falta: e.extra.falta || [], agora });
@@ -311,6 +321,9 @@ exports.novidades = onRequest({ region: REGIAO, cors: true, maxInstances: 5, sec
       if (!chave) return res.status(500).json({ ok: false, motivo: 'sem-chave' });
       const esc2 = (t) => String(t || '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]).slice(0, 600);
       const q = await admin.firestore().collection('inscricoes').limit(1000).get();
+      // S400 (esboços 61h e 62): se o app mandar o código do cupom do evento (b.cupom), o e-mail leva o cartão do evento nas cores da temática
+      let cupEv = null;
+      try { const cd = String(b.cupom || '').toUpperCase().replace(/[^A-Z0-9-]/g, '').slice(0, 24); if (cd.length >= 4) { const c = await cupDb.get(cd); if (c && c.tipo === 'ev' && c.st !== 'canc') cupEv = c; } } catch (e) {}
       let n = 0;
       for (const d of q.docs) {
         const o = d.data(), em = String(o.email || '').toLowerCase();
@@ -318,7 +331,7 @@ exports.novidades = onRequest({ region: REGIAO, cors: true, maxInstances: 5, sec
         const es = o.lang === 'es';
         // S393 (esboço 58e): molde dos e-mails + link para sair (o id da inscrição é o próprio id do documento)
         const sair = 'https://' + REGIAO + '-' + process.env.GCLOUD_PROJECT + '.cloudfunctions.net/novidades?sair=' + d.id + (es ? '&l=es' : '');
-        const html = Email.molde(esc2(es ? b.tituloEs || b.titulo : b.titulo), Email.P(esc2(es ? b.textoEs || b.texto : b.texto)) + Email.B(es ? 'Ver en lafouch.com' : 'Ver em lafouch.com', 'https://lafouch.com'),
+        const html = Email.molde(esc2(es ? b.tituloEs || b.titulo : b.titulo), Email.P(esc2(es ? b.textoEs || b.texto : b.texto)) + (cupEv ? Cupom.blocoEvento(cupEv, es) : Email.B(es ? 'Ver en lafouch.com' : 'Ver em lafouch.com', 'https://lafouch.com')),
           (es ? 'Recibís este e-mail porque te inscribiste en las novedades.' : 'Você recebe este e-mail porque se inscreveu nas novidades.') + ' <a href="' + sair + '" style="color:#8a7d84">' + (es ? 'No quiero recibir más' : 'Não quero mais receber') + '</a>');
         try {
           const r = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + chave, 'Content-Type': 'application/json' }, body: JSON.stringify({ from: 'La Fouch <nao-responda@lafouch.com>', reply_to: 'lafouch.eyewear@gmail.com', to: em, subject: String(es ? b.tituloEs || b.titulo : b.titulo).slice(0, 120), html }) });
@@ -476,6 +489,12 @@ exports.limpeza = onSchedule({ schedule: '0 4 * * *', timeZone: FUSO, region: RE
   const r = await Limpeza.limpa(limpaDb, Date.now());
   console.log('limpeza', JSON.stringify(r));
 });
+// S400 (17/11/2026): todo dia às 10h do Paraguai — solta os presentes guardados que já podem sair (um por vez, 30 dias entre e-mails)
+// e manda os convites para indicar que completaram 2 semanas da entrega. A regra está em cupom.js (diario).
+exports.presentes = onSchedule({ schedule: '0 10 * * *', timeZone: FUSO, region: REGIAO, secrets: [RESEND_KEY] }, async () => {
+  const r = await require('./cupom').diario(cupDb, pmEnvia(), Date.now());
+  console.log('presentes', JSON.stringify(r));
+});
 
 // ---------- Cupons e cartões virtuais (12/11/2026, S174 v1+v2+v3) ----------
 const Cupom = require('./cupom');
@@ -527,6 +546,17 @@ const cupDb = {
   comUsoDe: async (pid) => (await fsx().collection('cupons').where('pids', 'array-contains', pid).get()).docs.map((d) => d.data()),
   todos: async () => (await fsx().collection('cupons').orderBy('ts', 'desc').limit(500).get()).docs.map((d) => d.data()),
   doEmail: async (em) => (await fsx().collection('cupons').where('email', '==', em).get()).docs.map((d) => d.data()),
+  // S400: um presente por vez, convite 2 semanas depois, indicações (tudo com um filtro só, sem índice composto)
+  doTel: async (tel) => (await fsx().collection('cupons').where('tel', '==', tel).get()).docs.map((d) => d.data()),
+  fila: async () => (await fsx().collection('cupons').where('st', '==', 'fila').limit(500).get()).docs.map((d) => d.data()),
+  convites: async (agora) => (await fsx().collection('cupons').where('st', '==', 'pend').limit(1000).get()).docs.map((d) => d.data()).filter((c) => c.tipo === 'am' && c.conv && c.conv <= agora),
+  cli: async (tel) => { const d = await fsx().doc('compradores/t' + tel).get(); return d.exists ? d.data() : null; },
+  cliMuda: (tel, o) => fsx().doc('compradores/t' + tel).set(o, { merge: true }),
+  indMais: (tel) => fsx().runTransaction(async (tx) => {
+    const r = fsx().doc('compradores/t' + tel), d = await tx.get(r), n = ((d.exists && d.data().ind) || 0) + 1;
+    tx.set(r, { ind: n }, { merge: true });
+    return n;
+  }),
 };
 exports.cupom = onRequest({ region: REGIAO, cors: true, maxInstances: 10, secrets: [RESEND_KEY] }, async (req, res) => {
   if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
@@ -558,7 +588,8 @@ exports.cupom = onRequest({ region: REGIAO, cors: true, maxInstances: 10, secret
     if (b.acao === 'caixa') return res.json(await Cupom.usar(cupDb, b, ipk, agora, true));
     if (b.acao === 'confirma') return res.json(await Cupom.confirma(cupDb, envia, b, agora));
     if (b.acao === 'libera') return res.json(await Cupom.libera(cupDb, b, agora));
-    if (b.acao === 'emitir') return res.json(await Cupom.emitir(cupDb, b, agora));
+    if (b.acao === 'emitir') return res.json(await Cupom.emitir(cupDb, b, agora, envia));
+    if (b.acao === 'entregue') { await Cupom.confirma(cupDb, envia, b, agora); return res.json(await Cupom.entregue(cupDb, envia, b, agora)); }
     if (b.acao === 'cancelar') return res.json(await Cupom.cancelar(cupDb, b));
     if (b.acao === 'destrava') return res.json(await Cupom.destrava(cupDb, b));
     if (b.acao === 'lista') return res.json(await Cupom.lista(cupDb, agora));
@@ -750,6 +781,15 @@ exports.pagoMail = onDocumentWritten({ document: 'reservas/{id}', region: REGIAO
   if (!depois || depois.pago !== true || antes.pago === true || depois.cancelado) return;
   try { console.log('pagoMail', ev.params.id, JSON.stringify(await PedidoMail.aoPagar(pmDb, pmEnvia(), ev.params.id, depois.tok || '', URL_COMP, Date.now()))); }
   catch (e) { console.error('pagoMail', ev.params.id, e && e.message); }
+});
+// S400 (17/11/2026): pedido ENTREGUE (entregas/{id} nasce no "liberar" de um pedido pago) → presente do cliente por e-mail.
+// confirma() antes, porque o pagamento automático (PIX pelo robô) pode não ter passado pelo "confirmar" do app; as duas são de uma vez só.
+exports.entregaMail = onDocumentCreated({ document: 'entregas/{id}', region: REGIAO, secrets: [RESEND_KEY] }, async (ev) => {
+  try {
+    const b = { pid: ev.params.id }, agora = Date.now();
+    await Cupom.confirma(cupDb, pmEnvia(), b, agora);
+    console.log('entregaMail', ev.params.id, JSON.stringify(await Cupom.entregue(cupDb, pmEnvia(), b, agora)));
+  } catch (e) { console.error('entregaMail', ev.params.id, e && e.message); }
 });
 // comprovante: página do "Baixar comprovante" do e-mail — abre em qualquer aparelho, só com o id do pedido + o token certos
 const URL_COMP = 'https://' + REGIAO + '-' + process.env.GCLOUD_PROJECT + '.cloudfunctions.net/comprovante';

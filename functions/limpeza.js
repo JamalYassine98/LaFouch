@@ -19,6 +19,9 @@ async function limpa(db, agora) {
   // S393: cópias de pedido para o e-mail do "pago" que nunca foram pagas (30 dias)
   r.pedidoMail = 0;
   for (const d of await db.velhos('pedidoMail', agora - 30 * 864e5)) { await db.apaga('pedidoMail', d.id); r.pedidoMail++; }
+  // S400: marcas de pedido entregue (só servem para disparar o presente uma vez)
+  r.entregas = 0;
+  for (const d of await db.velhos('entregas', agora - 30 * 864e5)) { await db.apaga('entregas', d.id); r.entregas++; }
   return r;
 }
 module.exports = { limpa, ANO, CAMPOS };
