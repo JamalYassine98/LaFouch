@@ -6,7 +6,7 @@ const OURO='#d6b274',OURO2='#e9d3a6';
 const EV={natal:{n:'Natal',gr:'linear-gradient(135deg,#2a7049 0%,#1f5c3a 55%,#143d27 100%)',bg:'#1f5c3a',fio:'rgba(255,217,160,.6)',num:'#ffd9a0',tx:'#ffffff',sub:'#d3e3d8',logo:'LOGO_EV_natal'},
  maes:{n:'Dia das Mães',gr:'linear-gradient(135deg,#c2507b 0%,#a83a64 55%,#8a2c50 100%)',bg:'#a83a64',fio:'rgba(255,209,223,.7)',num:'#ffd1df',tx:'#ffffff',sub:'#ffe9f0',logo:'LOGO_EV_maes'},
  pais:{n:'Dia dos Pais',gr:'linear-gradient(135deg,#2b4169 0%,#1e2f4d 55%,#131f35 100%)',bg:'#1e2f4d',fio:'rgba(224,184,120,.65)',num:'#e0b878',tx:'#ffffff',sub:'#c6cfdd',logo:'LOGO_EV_pais'},
- anonovo:{n:'Ano-Novo',gr:'linear-gradient(135deg,#24345a 0%,#16213a 55%,#0d1526 100%)',bg:'#16213a',fio:'rgba(227,200,143,.65)',num:'#e3c88f',tx:'#ffffff',sub:'#c3c9d6',logo:'LOGO_EV_anonovo'},
+ anonovo:{n:'Ano-Novo',gr:'linear-gradient(135deg,#fffdf8 0%,#f3ecdf 60%,#e9dcc3 100%)',bg:'#f6f2ea',fio:'rgba(168,133,74,.85)',num:'#8d703e',tx:'#1f1d1a',sub:'#66625a',logo:'LOGO_EV_anonovo'},
  bf:{n:'Black Friday',gr:'linear-gradient(135deg,#242424 0%,#111111 60%,#000000 100%)',bg:'#111111',fio:'rgba(225,29,72,.95)',num:'#ffffff',tx:'#ffffff',sub:'#c9c9c9',logo:'LOGO_EV_bf'},
  halloween:{n:'Halloween',gr:'linear-gradient(135deg,#5a2f72 0%,#2a1530 55%,#160c1a 100%)',bg:'#2a1530',fio:'rgba(226,113,29,.75)',num:'#f08a3c',tx:'#f3e9f5',sub:'#cdbcd3',logo:'LOGO_EV_halloween'}};
 function luxo(o){

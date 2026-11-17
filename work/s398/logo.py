@@ -17,5 +17,5 @@ def salva(S,arq,w):
 salva(monta(),'/tmp/s398/logo_h.png',560)                       # vinho, com o lema — topo dos e-mails
 salva(monta((214,178,116),False),'/tmp/s398/logo_ouro.png',360)   # dourado, sem lema — dentro dos cartões escuros
 salva(monta((141,58,105),False),'/tmp/s398/logo_vinho.png',360)   # vinho, sem lema — dentro dos cartões claros
-for k,c in {'natal':(255,217,160),'maes':(255,209,223),'pais':(224,184,120),'anonovo':(227,200,143),'bf':(255,255,255),'halloween':(240,138,60)}.items(): salva(monta(c,False),'/tmp/s398/logo_ev_'+k+'.png',360)   # cor clara de cada temática — cartões de evento
+for k,c in {'natal':(255,217,160),'maes':(255,209,223),'pais':(224,184,120),'anonovo':(141,112,62),'bf':(255,255,255),'halloween':(240,138,60)}.items(): salva(monta(c,False),'/tmp/s398/logo_ev_'+k+'.png',360)   # cor clara de cada temática — cartões de evento
 B=Image.new('RGB',(620,330),'#fff');L=Image.open('/tmp/s398/logo_h.png');B.paste(L,(30,20),L);D=Image.new('RGB',(400,110),'#2a1224');O=Image.open('/tmp/s398/logo_ouro.png');D.paste(O,(20,20),O);B.paste(D,(30,200));B.save('/tmp/s398/ver_logo.jpg');print(L.size,O.size)
