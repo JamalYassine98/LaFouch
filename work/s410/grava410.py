@@ -11,7 +11,7 @@ I18=open('/home/claude/catalogo/js/lf-i18n.js',encoding='utf-8').read()
 ESN={'Agora vou ver de quão perto você consegue ler.':'Ahora voy a ver de qué tan cerca podés leer.',
  'Aproxime o celular do rosto bem devagar, sem parar de ler as letras.':'Acercá el celular a la cara bien despacio, sin dejar de leer las letras.',
  'Quando as letras começarem a embaçar, pare o celular ali, ou me avise apertando o botão Embaçou.':'Cuando las letras empiecen a verse borrosas, dejá el celular quieto ahí, o avisame tocando el botón Se ve borroso.',
- 'Pronto, medi!':'¡Listo, medí!','Muito bem!':'¡Muy bien!','Agora vou tirando um pouquinho de grau, até achar o mais leve que ainda funciona.':'Ahora voy a ir sacando un poquito de graduación, hasta encontrar la más suave que todavía funciona.','Pode afastar o celular.':'Podés alejar el celular.','Não embaçou?':'¿No se puso borroso?','Tudo bem, já medi.':'Todo bien, ya medí.'}
+ 'Pronto, medi!':'¡Listo, medí!','Consegue ler a última frase?':'¿Podés leer la última frase?','Muito bem!':'¡Muy bien!','Agora vou tirando um pouquinho de grau, até achar o mais leve que ainda funciona.':'Ahora voy a ir sacando un poquito de graduación, hasta encontrar la más suave que todavía funciona.','Pode afastar o celular.':'Podés alejar el celular.','Não embaçou?':'¿No se puso borroso?','Tudo bem, já medi.':'Todo bien, ya medí.'}
 def es(k): return ESN[k]
 # Limites = faixa medida nas falas JÁ APROVADAS com as mesmas ferramentas (16/11: tom 250-370 Hz, semelhança >= 0,84, pausa <= 450 ms, silêncio <= 80/260 ms, volume -19,7 a -17, pico < 0,62).
 # cada cena = conversa com as falas vizinhas; * = fala nova (as outras já estão gravadas e só dão o tom)
@@ -21,7 +21,9 @@ CENAS=[['*Agora vou ver de quão perto você consegue ler.','*Aproxime o celular
  ['*Agora vou ver de quão perto você consegue ler.'],
  ['*Aproxime o celular do rosto bem devagar, sem parar de ler as letras.']]  # 3: regravação sozinha (dono 20:14: 'AaProxime' e áudio abafado) — sozinha mudou a voz (dono 20:15)
 CENAS.append(['*Agora vou ver de quão perto você consegue ler.','*Aproxime o celular do rosto bem devagar, sem parar de ler as letras.'])  # 4: as duas juntas, como cena (voz natural) e com a vírgula do Agora
-CENAS.append(['*Muito bem!','Agora vou tirando um pouquinho de grau, até achar o mais leve que ainda funciona.'])  # 5: no lugar de 'Leu!' (dono 20:30, opção B); a 2ª frase já está gravada e só dá o tom  # 2: regravação (dono 20:09): falada com vírgula depois do Agora, para o 'A' não começar alto
+CENAS.append(['*Muito bem!','Agora vou tirando um pouquinho de grau, até achar o mais leve que ainda funciona.'])  # 5: no lugar de 'Leu!'
+CENAS.append(['Consegue ler a última frase?','*Muito bem!','Agora vou tirando um pouquinho de grau, até achar o mais leve que ainda funciona.'])  # 6: 'Muito bem!' no MEIO da conversa (dono 20:35: 'mmuito'), para não começar do silêncio
+# (dono 20:30, opção B); a 2ª frase já está gravada e só dá o tom  # 2: regravação (dono 20:09): falada com vírgula depois do Agora, para o 'A' não começar alto
 def falado(t,lang):
     if lang=='pt': t=t.replace('Agora vou ver','Agora, vou ver')
     if lang=='es': t=t.replace('Ahora voy a ver','Ahora, voy a ver')
