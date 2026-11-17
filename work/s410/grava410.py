@@ -19,7 +19,8 @@ def es(k): return ESN[k]
 CENAS=[['*Agora vou ver de quão perto você consegue ler.','*Aproxime o celular do rosto bem devagar, sem parar de ler as letras.','*Quando as letras começarem a embaçar, pare o celular ali, ou me avise apertando o botão Embaçou.'],
  ['*Pronto, medi!','*Pode afastar o celular.','*Não embaçou?','*Tudo bem, já medi.'],
  ['*Agora vou ver de quão perto você consegue ler.'],
- ['*Aproxime o celular do rosto bem devagar, sem parar de ler as letras.']]  # 3: regravação sozinha (dono 20:14: 'AaProxime' e áudio abafado)  # 2: regravação (dono 20:09): falada com vírgula depois do Agora, para o 'A' não começar alto
+ ['*Aproxime o celular do rosto bem devagar, sem parar de ler as letras.']]  # 3: regravação sozinha (dono 20:14: 'AaProxime' e áudio abafado) — sozinha mudou a voz (dono 20:15)
+CENAS.append(['*Agora vou ver de quão perto você consegue ler.','*Aproxime o celular do rosto bem devagar, sem parar de ler as letras.'])  # 4: as duas juntas, como cena (voz natural) e com a vírgula do Agora  # 2: regravação (dono 20:09): falada com vírgula depois do Agora, para o 'A' não começar alto
 def falado(t,lang):
     if lang=='pt': t=t.replace('Agora vou ver','Agora, vou ver')
     t=t.replace('"','').replace('…e ','… e ').replace('…y ','… y ').replace('…ou ','… ou ').replace('…o ','… o ')
