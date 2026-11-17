@@ -34,5 +34,10 @@ const PED = { ts: Date.UTC(2026, 10, 16, 15), nome: 'Maria <b>Souza</b>', tel: '
   ok(caiu && db.m.P4 && db.m.P4.pago === false, 'se o envio do "pago" falha, fica para tentar de novo');
   await M.aoCancelar(db, 'P4'); ok(!db.m.P4, 'pedido cancelado apaga a cópia');
   r = await M.aoCriar(mem(), null, 'P5', PED, true, '', T); ok(r.semChave, 'sem a chave do Resend não quebra o pedido');
+  // S409 (63b): cancelado só manda e-mail se o pedido já estava pago; reserva vencida/cancelada antes de pagar = nenhum e-mail
+  db = mem(); env = []; await M.aoCriar(db, envia, 'C1', PED, true, '', T); r = await M.aoCancelar(db, 'C1', envia);
+  ok(!r.enviou && env.length === 1 && !db.m.C1, 'cancelado SEM pagar: nenhum e-mail (só o "recebemos" de antes)');
+  db = mem(); env = []; await M.aoCriar(db, envia, 'C2', PED, true, '', T); await M.aoPagar(db, envia, 'C2', 't'); r = await M.aoCancelar(db, 'C2', envia);
+  ok(r.enviou && env.length === 3 && /foi cancelado|fue cancelado/.test(env[2].subject) && /já tinha pago|ya habías pagado/.test(env[2].html), 'cancelado DEPOIS de pagar: e-mail 63b');
   console.log('pedidomail: ' + n + ' testes ok');
 })().catch((e) => { console.error('FALHOU', e.message); process.exit(1); });

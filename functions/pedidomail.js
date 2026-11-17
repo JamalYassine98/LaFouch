@@ -99,6 +99,30 @@ async function comprovante(db, id, tok) {
     E.tabela(L) + E.ROT('<span style="display:block;margin-top:22px">' + (es ? 'TU TOKEN' : 'SEU TOKEN') + '</span>') + E.codigo(o.tok, 0.12, 32) +
     E.PQ(es ? 'Para guardarlo: menú del navegador › Imprimir › Guardar como PDF.' : 'Para guardar: menu do navegador › Imprimir › Salvar como PDF.'));
 }
-// pedido cancelado: a cópia não serve mais
-async function aoCancelar(db, id) { if (await db.get(id)) await db.apaga(id); return { ok: true }; }
-module.exports = { copia, recebido, pago, aoCriar, aoPagar, aoCancelar, comprovante, valor };
+// 63b (S409): pedido cancelado — e-mail SÓ para pedido que já estava PAGO (reserva vencida ou cancelada antes de pagar não manda nada:
+// o cliente vê "Reserva cancelada" em Minha conta; evita spam e o limite de 100 e-mails/dia)
+function cancelado(o) {
+  const es = o.lang === 'es', n = pn(o);
+  const L = o.itens.map((i) => itemLinha(i, es));
+  L.push(E.linha('Total', valor(o), true));
+  return {
+    to: o.email,
+    subject: (es ? 'Tu pedido ' : 'Seu pedido ') + o.cod + (es ? ' fue cancelado' : ' foi cancelado'),
+    html: E.molde(es ? 'Pedido ' + E.I('cancelado') : 'Pedido ' + E.I('cancelado'),
+      E.P((es ? 'Hola' : 'Olá') + (n ? ', ' + n : '') + '. ' + (es ? 'Tu pedido fue cancelado.' : 'O seu pedido foi cancelado.')) +
+      '<div style="text-align:center;font:13px ' + E.SA + ';color:' + E.S + ';letter-spacing:.06em;margin:0 0 6px">PEDIDO ' + E.esc(o.cod) + ' · ' + data(o, es) + '</div>' + E.tabela(L) +
+      E.PQ(es ? 'Como ya habías pagado, hablá con la tienda: lo resolvemos enseguida.' : 'Como você já tinha pago, fale com a loja: resolvemos na hora.') +
+      E.B(es ? 'Hablar con la tienda por WhatsApp' : 'Falar com a loja no WhatsApp', 'https://wa.me/595983642241') + E.LK(es ? 'Ver el catálogo' : 'Ver o catálogo', 'https://lafouch.com')),
+    text: (es ? 'Tu pedido ' : 'Seu pedido ') + o.cod + (es ? ' fue cancelado.' : ' foi cancelado.'),
+  };
+}
+// pedido cancelado: manda o 63b só se já estava pago; a cópia não serve mais
+async function aoCancelar(db, id, envia) {
+  const o = await db.get(id);
+  if (!o) return { ok: true, fora: true };
+  let enviou = false;
+  if (o.pago && envia && !o.canc) { try { await db.muda(id, { canc: true }); await envia(cancelado(o)); enviou = true; } catch (e) {} }
+  await db.apaga(id);
+  return { ok: true, enviou };
+}
+module.exports = { copia, recebido, pago, cancelado, aoCriar, aoPagar, aoCancelar, comprovante, valor };

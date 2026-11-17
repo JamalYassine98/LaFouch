@@ -14,15 +14,32 @@
 //   · quem indica não ganha outro cartão: o cartão que já tem CRESCE (1 pessoa = 15% · 3 = 20%, teto · 5 = presente especial, aviso ao dono);
 //     sem cartão valendo, recebe um cartão novo (10% na 1ª indicação, como no esboço 61d; 20% na 3ª);
 //   · VIP: validade e número de compras escolhidos pelo dono (padrão 1 compra); os cartões que o dono gera vão por e-mail quando há e-mail.
+// S409 (17/11/2026, "implementar tudo" do dono — substitui as regras de indicação e o VIP acima):
+//   · ESCADA de indicação: 1 indicação que compra = cartão de 10% · mais 3 = cartão de 15% · mais 5 = "Na compra de um, leve outro de presente"
+//     (tipo 'pe', 120 dias, só no site) · recomeça. Cada prêmio é um CARTÃO SEPARADO, entra na fila "um presente por vez" (nada cresce; sai o 61c).
+//     Escada completa (9 indicações) = aviso ao dono para dar o cartão VIP.
+//   · sem cupom de boas-vindas (boasVindas responde 'fim');
+//   · VIP: padrão 20%; o status "Cliente VIP" fica para sempre (compradores.vip); cartão de aniversário 10% / 30 dias só para VIP (diario);
+//   · nenhum cartão mostra o código ao cliente (nem o do evento).
 // Regra pura: o banco vem por "db" (ver index.js). Datas em ms.
 const crypto = require('crypto');
 const E = require('./email');
 class Falha extends Error { constructor(m, s) { super(m); this.motivo = m; this.status = s || 400; } }
 const DIA = 864e5;
 const LETRAS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // sem O/0 e I/1
-const PADRAO = { bv: { pct: 5, dias: 30, min: 100000 }, px: { pct: 10, dias: 120, min: 0 }, am: { pct: 10, dias: 365, min: 0 }, vip: { pct: 15, dias: 120, min: 0 }, fiel: { pct: 10, dias: 120, min: 0, cada: 3 } };
+const PADRAO = { bv: { pct: 5, dias: 30, min: 100000 }, px: { pct: 10, dias: 120, min: 0 }, am: { pct: 10, dias: 365, min: 0 }, vip: { pct: 20, dias: 120, min: 0 }, fiel: { pct: 10, dias: 120, min: 0, cada: 3 }, pe: { pct: 0, dias: 120, min: 0 }, ani: { pct: 10, dias: 30, min: 0 } };
 const TETO_MES = 500000, AMIGA_MES = 5, TEL_DIF = 4, ERRADOS_HORA = 30;
-const CONVITE_DIAS = 14, ENTRE_PRESENTES = 30, META = { 1: 15, 3: 20 }, META_ESPECIAL = 5, SEM_CARTAO = { 1: 10, 3: 20 };
+const CONVITE_DIAS = 14, ENTRE_PRESENTES = 30;
+// escada (S409): posição dentro do ciclo de 9 indicações → prêmio. 1 = 10% · 4 (1+3) = 15% · 9 (1+3+5) = presente especial
+const CICLO = 9, PREMIO = { 1: 10, 4: 15, 9: 'pe' };
+const META = PREMIO; // nome antigo (exportado)
+function escada(n) {
+  // em que degrau a pessoa está agora e quantas indicações já contam nele (para as bolinhas)
+  const c = Math.max(0, n | 0) % CICLO;
+  if (c < 1) return { deg: 1, feitas: 0, tot: 1, n: n | 0 };
+  if (c < 4) return { deg: 2, feitas: c - 1, tot: 3, n: n | 0 };
+  return { deg: 3, feitas: c - 4, tot: 5, n: n | 0 };
+}
 const EMAIL_OK = /^[^\s@]{1,64}@[^\s@]{1,190}\.[a-z]{2,}$/i;
 const limpa = (t, n) => String(t == null ? '' : t).replace(/[\u0000-\u001f<>]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, n);
 const telN = (t) => String(t || '').replace(/\D/g, '').slice(-9); // compara pelos 9 últimos dígitos (com ou sem +595/0)
@@ -121,7 +138,10 @@ async function usar(db, b, ipk, agora, caixa) {
   if (!r.ok) return { ok: false, motivo: r.motivo, cupom: r.c || null };
   const c = r.raw, total = Math.max(0, Math.round(+b.total || 0)), desc = Math.max(0, Math.round(+b.desc || 0));
   if (c.min && total < c.min) return { ok: false, motivo: 'min', cupom: r.c };
-  if (desc > Math.round((total * c.pct) / 100) + 1000) throw new Falha('desc');
+  // S409: presente especial ('pe') só no site; o desconto é a peça de presente (nunca o carrinho inteiro: precisa sobrar a peça paga).
+  // A regra completa (peça paga, valor até o da peça paga, piso) é conferida de novo no pedido, com os preços do servidor (presente.js).
+  if (c.tipo === 'pe') { if (caixa) return { ok: false, motivo: 'site', cupom: r.c }; if (!(desc > 0) || desc >= total) throw new Falha('desc'); }
+  else if (desc > Math.round((total * c.pct) / 100) + 1000) throw new Falha('desc');
   const pid = limpa(b.pid, 40);
   if (!pid) throw new Falha('pid');
   const tel = telN(b.tel), em = emN(b.email);
@@ -157,15 +177,8 @@ async function usar(db, b, ipk, agora, caixa) {
 }
 // boas-vindas ao se inscrever (site)
 async function boasVindas(db, envia, b, agora) {
-  const em = emN(b.email), tel = telN(b.tel);
-  if (!EMAIL_OK.test(em)) throw new Falha('email');
-  if (await db.bvDe(em, tel)) return { ok: false, motivo: 'ja' };
-  if (await db.jaComprou(tel, em)) return { ok: false, motivo: 'cliente' };
-  if ((await teto(db, agora)).pausa) return { ok: false, motivo: 'pausa' };
-  if (db.trava && !(await db.trava('bv:' + em))) return { ok: false, motivo: 'ja' }; // 2 inscrições no mesmo segundo
-  const P = PADRAO.bv, c = await cria(db, { tipo: 'bv', pct: P.pct, fim: agora + P.dias * DIA, min: P.min, email: em, tel: tel || '' }, agora);
-  if (envia) try { await envia(mail(c, b.lang === 'es')); } catch (e) {}
-  return { ok: true, cupom: publico(c, agora) };
+  // S409 (17/11/2026, ordem do dono: "fica descontos demais"): não existe mais cupom de boas-vindas; a inscrição nas novidades continua
+  return { ok: false, motivo: 'fim' };
 }
 // site: o pedido saiu → cria o cartão "Próxima compra" PENDENTE (vale quando o app confirmar o pagamento)
 async function proxima(db, b, agora) {
@@ -209,7 +222,7 @@ async function confirma(db, envia, b, agora) {
   }
   return Object.assign({ ok: true }, out);
 }
-const pessoais = (L) => (L || []).filter((c) => c.tipo === 'px' || c.tipo === 'fiel');
+const pessoais = (L) => (L || []).filter((c) => c.tipo === 'px' || c.tipo === 'fiel' || c.tipo === 'pe');
 const nomeDe = (c) => limpa(c && c.nome, 60);
 // um presente por vez: solta o mais antigo da fila se a pessoa não tem cartão valendo e o último e-mail de presente foi há 30+ dias
 async function solta(db, envia, tel, agora) {
@@ -242,27 +255,19 @@ async function entregue(db, envia, b, agora) {
   if (primeira || fiel) { const c = await solta(db, envia, px.tel, agora); if (c) out.cartoes.push(c); }
   return out;
 }
-// quem indicou: o cartão que a pessoa já tem cresce; sem cartão valendo, recebe um novo. Devolve o código do cartão mexido (ou '').
+// S409 quem indicou: a cada degrau da escada nasce um cartão NOVO e separado, que entra na fila "um presente por vez" (solta decide quando sai
+// e manda o e-mail do degrau). Nada cresce. Escada completa = aviso ao dono. Devolve o código do cartão criado (ou '').
 async function premia(db, envia, por, agora) {
   const tel = telN(por && por.tel);
   if (!tel || !db.indMais) return '';
-  const n = await db.indMais(tel);
-  if (n === META_ESPECIAL) await aviso(db, agora, 'meta5', '5 indicações que compraram · presente especial a combinar com o cliente (final ' + tel.slice(-4) + ')');
-  if (!META[n]) return '';
+  const n = await db.indMais(tel), k = ((n - 1) % CICLO) + 1, p = PREMIO[k];
+  if (!p) return '';
   const L = pessoais(db.doTel ? await db.doTel(tel) : []), cli = (db.cli && (await db.cli(tel))) || {};
   const lang = (L.find((c) => c.lang) || {}).lang || 'pt', nome = cli.nome || nomeDe(L.find((c) => c.nome)), email = emN(por.email) || (L.find((c) => c.email) || {}).email || '';
-  const viva = L.filter((c) => c.st === 'ativo' && !vivo(c, agora)).sort((a, b) => b.pct - a.pct)[0];
-  if (viva) {
-    const muda = { pct: Math.max(viva.pct, META[n]), fim: agora + PADRAO.px.dias * DIA, ind: n };
-    await mudaT(db, viva.cod, () => ({ muda }));
-    if (envia && email) try { await envia(mailCresceu(Object.assign({}, viva, muda, { nome: viva.nome || nome, email }), lang === 'es', n)); } catch (e) {}
-    return viva.cod;
-  }
-  const fila = L.filter((c) => c.st === 'fila').sort((a, b) => a.ts - b.ts)[0];
-  if (fila) { await mudaT(db, fila.cod, (c) => ({ muda: { pct: Math.max(c.pct, META[n]), ind: n } })); return fila.cod; }
-  const c = await cria(db, { tipo: 'px', pct: SEM_CARTAO[n], fim: agora + PADRAO.px.dias * DIA, email, tel, de: 'ind:' + n, lang, nome }, agora);
-  if (db.cliMuda) await db.cliMuda(tel, { gm: agora });
-  if (envia && email) try { await envia(mailIndicou(c, lang === 'es', n)); } catch (e) {}
+  if (k === CICLO) await aviso(db, agora, 'escada', (nome ? nome + ' · ' : '') + 'completou a escada: ' + n + ' indicações que compraram (final ' + tel.slice(-4) + ') · dar o cartão VIP?');
+  const o = p === 'pe' ? { tipo: 'pe', pct: 0 } : { tipo: 'px', pct: p };
+  const c = await cria(db, Object.assign(o, { fim: agora + PADRAO[o.tipo].dias * DIA, email, tel, de: 'ind:' + k, ind: n, st: 'fila', lang, nome }), agora);
+  await solta(db, envia, tel, agora);
   return c.cod;
 }
 // todo dia (junto com a limpeza): solta os presentes guardados que já podem sair e manda os convites para indicar que venceram as 2 semanas
@@ -276,6 +281,16 @@ async function diario(db, envia, agora) {
     if (!(await mudaT(db, am.cod, (f) => (f.st === 'pend' ? { muda, r: true } : null)))) continue;
     out.convites++;
     if (envia && am.email) try { await envia(mailConvite(Object.assign({}, am, muda), am.lang === 'es')); } catch (e) {}
+  }
+  // S409 (esboços 67a/67b): aniversário do Cliente VIP (só VIP) → cartão de 10% por 30 dias, uma vez por ano, fora da fila (é presente da loja)
+  out.aniversarios = 0;
+  const hoje = new Date(agora).toLocaleDateString('pt-BR', { timeZone: 'America/Asuncion', day: '2-digit', month: '2-digit' }), ano = new Date(agora).toLocaleDateString('pt-BR', { timeZone: 'America/Asuncion', year: 'numeric' });
+  for (const v of ((db.vips ? await db.vips() : []) || [])) {
+    if (!v || !v.vip || !v.tel || v.nasc !== hoje || String(v.aniAno || '') === ano) continue;
+    if (db.cliMuda) await db.cliMuda(v.tel, { aniAno: ano });
+    const c = await cria(db, { tipo: 'ani', pct: PADRAO.ani.pct, fim: agora + PADRAO.ani.dias * DIA, max: 1, email: emN(v.email), tel: v.tel, de: 'ani:' + ano, lang: v.lang === 'es' ? 'es' : 'pt', nome: limpa(v.nome, 60) }, agora);
+    out.aniversarios++;
+    if (envia && c.email) try { await envia(mailAni(c, c.lang === 'es')); } catch (e) {}
   }
   return out;
 }
@@ -305,14 +320,21 @@ async function emitir(db, b, agora, envia) {
     const cod = limpa(b.cod, 16).toUpperCase().replace(/[^A-Z0-9]/g, '');
     if (cod.length < 4) throw new Falha('cod');
     Object.assign(o, { cod, ini: +b.ini || agora, fim: +b.fim || agora + 30 * DIA, max: Math.max(1, Math.min(1000, Math.round(+b.max || 50))), tel: '', email: '', tema: limpa(b.tema, 20) });
-  } else if (tipo === 'vip') Object.assign(o, { fim: +b.fim > agora ? +b.fim : agora + PADRAO.vip.dias * DIA, max: Math.max(1, Math.min(50, Math.round(+b.max || 1))) }); // validade e nº de compras: o dono escolhe; padrão 1 compra
+  } else if (tipo === 'vip') Object.assign(o, { fim: +b.fim > agora ? +b.fim : agora + PADRAO.vip.dias * DIA, max: Math.max(1, Math.min(50, Math.round(+b.max || 1))) }); // validade e nº de compras: o dono escolhe; padrão 1 compra · 20%
   else if (tipo === 'am') Object.assign(o, { fim: agora + PADRAO.am.dias * DIA, max: 0, por: { tel: o.tel, email: o.email }, tel: '' });
   else Object.assign(o, { fim: agora + PADRAO.px.dias * DIA, max: 1 });
   if (tipo !== 'ev') o.lang = b.lang === 'es' ? 'es' : 'pt';
   const c = await cria(db, o, agora);
-  // S400: o cartão que o dono gera vai por e-mail quando ele informa o e-mail do cliente (esboços 61f e 61g)
+  // S409: o VIP ganha o STATUS para sempre ("Cliente VIP desde …") e, se o dono informar, a data de aniversário (dd/mm) para o cartão de 10%
+  let novoVip = false;
+  if (tipo === 'vip' && o.tel && db.cliMuda) {
+    const cli = (db.cli && (await db.cli(o.tel))) || {}, nasc = /^\d{1,2}\/\d{1,2}/.exec(String(b.nasc || ''));
+    novoVip = !cli.vip;
+    try { await db.cliMuda(o.tel, Object.assign({ vip: cli.vip || agora }, o.nome ? { nome: cli.nome || o.nome } : {}, nasc ? { nasc: nasc[0].split('/').map((x) => x.padStart(2, '0')).join('/') } : {}, c.email ? { email: c.email } : {}, { lang: o.lang })); } catch (e) {}
+  }
+  // S400: o cartão que o dono gera vai por e-mail quando ele informa o e-mail do cliente (esboços 61f e 61g; S409: 68b)
   let enviou = false;
-  if (envia && c.email && (tipo === 'vip' || tipo === 'px')) try { await envia(tipo === 'vip' ? mailVip(c, c.lang === 'es') : mailLoja(c, c.lang === 'es')); enviou = true; } catch (e) {}
+  if (envia && c.email && (tipo === 'vip' || tipo === 'px')) try { await envia(tipo === 'vip' ? mailVip(c, c.lang === 'es', novoVip) : mailLoja(c, c.lang === 'es')); enviou = true; } catch (e) {}
   return { ok: true, cupom: publico(c, agora), cod: c.cod, enviou };
 }
 async function cancelar(db, b) {
@@ -344,7 +366,8 @@ async function meus(db, email, agora) {
   const L = (await db.doEmail(em)).filter((c) => c.st !== 'canc'), tel = (L.find((c) => c.tel) || {}).tel || '';
   const cli = (tel && db.cli && (await db.cli(tel))) || {};
   // S400: presentes guardados (fila) e convites que ainda não saíram não aparecem; a tela mostra só "você tem N presente(s) guardado(s)"
-  return { ok: true, guardados: L.filter((c) => c.st === 'fila').length, indicacoes: cli.ind || 0, nome: cli.nome || nomeDe(L.find((c) => c.nome)),
+  // S409: status Cliente VIP (para sempre, desde a data em que o dono deu o 1º cartão VIP) e a posição na escada (as bolinhas do degrau da vez)
+  return { ok: true, guardados: L.filter((c) => c.st === 'fila').length, indicacoes: cli.ind || 0, escada: escada(cli.ind || 0), vip: cli.vip || 0, nome: cli.nome || nomeDe(L.find((c) => c.nome)),
     cupons: L.filter((c) => c.st !== 'fila' && c.st !== 'pend').map((c) => Object.assign(publico(c, agora), { max: c.max || 0, nome: nomeDe(c), tema: c.tema || '', usado: (c.usos || []).some((u) => u.st === 'ok' && u.email === em) }, c.tipo === 'am' ? { amigas: (c.usos || []).filter((u) => u.st === 'ok').length, ganhos: (c.premios || []).length, porMes: AMIGA_MES } : {})) };
 }
 // ---------- e-mails dos cartões (S400, esboços 61a–61h): cartão de luxo, sem código à vista (o botão aplica sozinho), textos que servem para qualquer pessoa ----------
@@ -353,19 +376,17 @@ const link = (c) => 'https://lafouch.com/?t=' + encodeURIComponent(c.cod);
 const prim = (c) => E.esc(String((c && c.nome) || '').trim().split(/\s+/)[0]);
 const NOME = (c) => E.esc(String((c && c.nome) || '').toUpperCase());
 const vale = (c, es) => (c.fim ? (es ? 'VÁLIDO HASTA ' : 'VALE ATÉ ') + dt(c.fim, es) : '');
-const regraAuto = (es) => E.PQ(es ? 'El descuento entra solo en tu carrito. No se suma a OFERTA ni a “Llevá 2”.' : 'O desconto entra sozinho no seu carrinho. Não soma com OFERTA nem com “Leve 2”.');
+const regraAuto = (es) => E.PQ(es ? 'El descuento entra solo en tu carrito. No vale para piezas en OFERTA.' : 'O desconto entra sozinho no seu carrinho. Não vale para peças em OFERTA.'); // S409: sem "Leve 2" (retirado)
 const usarB = (c, es) => E.B(es ? 'Usar ahora' : 'Usar agora', link(c));
 const prox = (es) => (es ? 'en tu próxima compra' : 'na próxima compra');
 const cartaoP = (c, es, rot) => E.luxo({ rot: rot || (es ? 'TARJETA REGALO' : 'CARTÃO PRESENTE'), pct: c.pct + '%', tit: prox(es), nome: NOME(c), val: vale(c, es) });
-function metasTxt(n, es) {
-  const falta = n < 3 ? 3 - n : n < META_ESPECIAL ? META_ESPECIAL - n : 0;
-  const a = es ? (n === 1 ? '1 persona que indicaste ya compró.' : n + ' personas que indicaste ya compraron.') : (n === 1 ? '1 pessoa indicada já comprou.' : n + ' pessoas indicadas já compraram.');
-  return E.metas(n, a + (falta ? (es ? (falta === 1 ? ' Falta 1 para tu próximo regalo.' : ' Faltan ' + falta + ' para tu próximo regalo.') : (falta === 1 ? ' Falta 1 para o seu próximo presente.' : ' Faltam ' + falta + ' para o seu próximo presente.')) : ''));
-}
+// S409: escada da indicação no fim dos e-mails do degrau (68e/68f/63a) — o degrau da vez a partir do total de indicações
+function escadaTxt(n, es) { const e = escada(n); return E.escada(e.deg, e.feitas, es); }
 // 61a entrega da 1ª compra · 61e Cliente fiel · 61d (cartão da indicação que ficou guardado)
 function mailPresente(c, es, ind) {
   if (c.tipo === 'fiel') return mailFiel(c, es);
-  if (/^ind:/.test(c.de || '')) return mailIndicou(c, es, ind || +String(c.de).slice(4) || 1);
+  if (c.tipo === 'pe') return mailEspecial(c, es, c.ind || ind);
+  if (/^ind:/.test(c.de || '')) return mailIndicou(c, es, c.ind || ind || 1);
   const n = prim(c);
   return { to: c.email, subject: es ? 'Tu compra llegó · un regalo para la próxima' : 'Sua compra chegou · um presente para a próxima',
     html: E.molde(es ? 'Tu compra ' + E.I('llegó') : 'Sua compra ' + E.I('chegou'), E.P((es ? 'Gracias por tu preferencia' : 'Agradecemos a preferência') + (n ? ', ' + n : '') + '. ' + (es ? 'Para tu próxima compra, un regalo:' : 'Para a sua próxima compra, um presente:')) + cartaoP(c, es) + usarB(c, es) + regraAuto(es)) };
@@ -383,24 +404,48 @@ function mailConvite(am, es) {
     html: E.molde(es ? '¿Te gustaron tus ' + E.I('lentes') + '?' : 'Gostou dos seus ' + E.I('óculos') + '?', E.P(es ? 'Regalale a alguien especial: esa persona gana 10% en su primera compra. Cuando compre, vos también ganás un regalo.' : 'Presenteie alguém especial: a pessoa ganha 10% na primeira compra. Quando ela comprar, você também ganha um presente.') +
       E.luxo({ tema: 'marfim', rot: es ? 'PARA REGALAR' : 'PARA PRESENTEAR', pct: am.pct + '%', tit: es ? 'en la primera compra' : 'na primeira compra', nome: n ? (es ? 'UN REGALO DE ' : 'UM PRESENTE DE ') + n.toUpperCase() : '', val: vale(am, es) }) + E.B(es ? 'Enviar el regalo' : 'Enviar o presente', zap)) };
 }
-// 61c a pessoa indicada comprou e o cliente JÁ TINHA um cartão: é o mesmo cartão, que cresceu
-function mailCresceu(c, es, ind) {
-  return { to: c.email, subject: es ? 'Tu indicación compró · tu tarjeta creció' : 'Sua indicação comprou · seu cartão cresceu',
-    html: E.molde(es ? 'Tu tarjeta ' + E.I('creció') : 'Seu cartão ' + E.I('cresceu'), E.P(es ? 'La persona que indicaste compró en La Fouch. En agradecimiento, la tarjeta que ya tenías pasó a valer más:' : 'A pessoa que você indicou comprou na La Fouch. Em agradecimento, o cartão que você já tinha passou a valer mais:') + cartaoP(c, es, c.tipo === 'fiel' ? 'CLIENTE FIEL' : '') +
-      E.PQ(es ? 'Es la misma tarjeta, con el valor nuevo: reemplaza a la anterior y la validez fue renovada.' : 'É o mesmo cartão, com o valor novo: ele substitui o anterior e a validade foi renovada.') + usarB(c, es) + E.FIO() + metasTxt(ind, es)) };
-}
-// 61d a pessoa indicada comprou e o cliente NÃO tinha cartão valendo: cartão novo
+// 68e/68f (S409): degrau da escada — cartão NOVO e separado (10% na 1ª indicação, 15% depois de mais 3); embaixo, a escada com os próximos em surpresa
 function mailIndicou(c, es, ind) {
-  const n = prim(c);
+  const n = prim(c), k = +String(c.de || '').slice(4) || 1;
+  if (k >= 4) return { to: c.email, subject: es ? '3 indicaciones · una tarjeta de ' + c.pct + '% para vos' : '3 indicações · um cartão de ' + c.pct + '% para você',
+    html: E.molde(es ? '3 indicaciones más ' + E.I('compraron') : 'Mais 3 indicações ' + E.I('compraram'), E.P((n ? n + ', ' : '') + (es ? '3 personas más que indicaste ya compraron en La Fouch. En agradecimiento, una tarjeta nueva:' : 'mais 3 pessoas que você indicou já compraram na La Fouch. Em agradecimento, um cartão novo:')) + cartaoP(c, es) + usarB(c, es) +
+      E.PQ(es ? 'Es una tarjeta aparte: la que ya tenías sigue valiendo.' : 'É um cartão separado: o que você já tinha continua valendo.') + E.FIO() + escadaTxt(ind, es)) };
   return { to: c.email, subject: es ? 'Tu indicación compró · un regalo para vos' : 'Sua indicação comprou · um presente para você',
-    html: E.molde(es ? 'Tu indicación ' + E.I('compró') : 'Sua indicação ' + E.I('comprou'), E.P((es ? 'Gracias por indicar La Fouch' : 'Agradecemos por indicar a La Fouch') + (n ? ', ' + n : '') + '. ' + (es ? 'Tu regalo:' : 'Seu presente:')) + cartaoP(c, es) + usarB(c, es) + E.FIO() + metasTxt(ind, es)) };
+    html: E.molde(es ? 'Tu indicación ' + E.I('compró') : 'Sua indicação ' + E.I('comprou'), E.P((es ? 'Gracias por indicar La Fouch' : 'Agradecemos por indicar a La Fouch') + (n ? ', ' + n : '') + '. ' + (es ? 'Tu regalo:' : 'Seu presente:')) + cartaoP(c, es) + usarB(c, es) + E.FIO() + escadaTxt(ind, es)) };
+}
+// 63a (S409): último degrau — "Na compra de um, leve outro de presente" (só no site, 120 dias); cinco estrelas = as 5 indicações
+function mailEspecial(c, es, ind) {
+  const n = prim(c), est = '<div style="font:15px/1 Georgia,serif;letter-spacing:.42em;color:#d6b274;margin:18px 0 10px">✦✦✦✦✦</div>';
+  const cart = E.luxo({ tema: 'preto', rot: es ? '5 INDICACIONES' : '5 INDICAÇÕES', pct: es ? 'En la compra de uno,<br>llevá otro de regalo' : 'Na compra de um,<br>leve outro de presente', tit: es ? 'vale para una compra' : 'vale para uma compra', nome: NOME(c), val: vale(c, es) })
+    .replace(/font:500 42px\/1 ([^;]+);color:([^;]+);margin:18px 0 2px;letter-spacing:.01em/, 'font:500 24px/1.2 $1;color:$2;margin:0 0 4px;letter-spacing:.01em').replace('</table><div style="font:500 24px', '</table>' + est + '<div style="font:500 24px');
+  return { to: c.email, subject: es ? '5 indicaciones · un regalo especial para vos' : '5 indicações · um presente especial para você',
+    html: E.molde(es ? 'Un regalo ' + E.I('especial') : 'Um presente ' + E.I('especial'), E.P((n ? n + ', ' : '') + (es ? '5 personas que indicaste ya compraron en La Fouch. En agradecimiento, en tu próxima compra el segundo lente es regalo nuestro.' : '5 pessoas que você indicou já compraram na La Fouch. Em agradecimento, na sua próxima compra o segundo óculos é presente nosso.')) + cart +
+      E.B(es ? 'Elegir mi regalo' : 'Escolher meu presente', link(c)) + E.PQ(es ? 'Comprá un lente y elegí otro de regalo, entre las piezas que muestra el sitio. Vale una vez, solo en el sitio.' : 'Compre um óculos e escolha outro de presente, entre as peças que o site mostrar. Vale uma vez, só no site.') +
+      E.FIO() + E.P(es ? 'Completaste la escalera: gracias por recomendar La Fouch. Ahora empieza de nuevo.' : 'Você completou a escada: agradecemos por indicar a La Fouch. Agora ela recomeça.')) };
 }
 // 61f cartão VIP gerado pelo dono (validade e nº de compras escolhidos por ele; padrão 1 compra)
-function mailVip(c, es) {
+function mailVip(c, es, novo) {
   const n = prim(c), m = c.max || 1, tit = m === 1 ? (es ? 'en tu próxima compra' : 'na sua próxima compra') : (es ? 'en ' + m + ' compras' : 'em ' + m + ' compras');
-  return { to: c.email, subject: es ? 'Una tarjeta VIP para vos' : 'Um cartão VIP para você',
-    html: E.molde(es ? 'Sos ' + E.I('VIP') : 'Você é ' + E.I('VIP'), E.P((n ? n + ', ' : '') + (es ? (n ? 'La Fouch' : 'La Fouch') + ' preparó una tarjeta solo tuya, válida hasta ' : (n ? 'a La Fouch' : 'A La Fouch') + ' preparou um cartão só seu, válido até ') + dt(c.fim, es) + ':') +
-      E.luxo({ tema: 'preto', rot: es ? 'TARJETA VIP' : 'CARTÃO VIP', pct: c.pct + '%', tit, nome: NOME(c), val: vale(c, es) }) + usarB(c, es) + E.PQ(es ? 'Tarjeta personal, ligada a tu teléfono. No se suma a OFERTA ni a “Llevá 2”.' : 'Cartão pessoal, ligado ao seu telefone. Não soma com OFERTA nem com “Leve 2”.')) };
+  const cart = E.luxo({ tema: 'preto', rot: es ? 'TARJETA VIP' : 'CARTÃO VIP', pct: c.pct + '%', tit, nome: NOME(c), val: vale(c, es) });
+  const reg = E.PQ(es ? 'Tarjeta personal, ligada a tu teléfono. No se suma a OFERTA.' : 'Cartão pessoal, ligado ao seu telefone. Não soma com OFERTA.');
+  if (!novo) return { to: c.email, subject: es ? 'Una tarjeta VIP para vos' : 'Um cartão VIP para você',
+    html: E.molde(es ? 'Una tarjeta ' + E.I('VIP') : 'Um cartão ' + E.I('VIP'), E.P((n ? n + ', ' : '') + (es ? 'La Fouch preparó una tarjeta solo tuya:' : 'a La Fouch preparou um cartão só seu:')) + cart + usarB(c, es) + reg) };
+  // 68b: primeiro cartão VIP = o cliente passa a ser Cliente VIP (status para sempre) e conhece as vantagens
+  const V = es ? [['Novedades antes que nadie', 'Ves las piezas nuevas 48 horas antes, en el sitio.'], ['Reserva de 3 horas', 'Tus piezas quedan guardadas 3 horas mientras pagás.'], ['Atención prioritaria', 'En WhatsApp te atendemos primero.'], ['Regalo de cumpleaños', 'Una tarjeta de 10% en tu día.']]
+    : [['Novidades antes de todos', 'Você vê as peças novas 48 horas antes, no site.'], ['Reserva de 3 horas', 'Suas peças ficam guardadas por 3 horas enquanto você paga.'], ['Atendimento prioritário', 'No WhatsApp, você é atendido primeiro.'], ['Presente de aniversário', 'Um cartão de 10% no seu dia.']];
+  const lista = '<div style="text-align:center;font:500 20px ' + E.SE + ';color:#1d1418;margin:4px 0 12px">' + (es ? 'Lo que cambia para vos' : 'O que muda para você') + '</div><table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse">' +
+    V.map((x) => '<tr><td style="width:26px;vertical-align:top;padding:9px 0;font:15px Georgia,serif;color:#a9854a">✦</td><td style="padding:9px 0;border-bottom:1px solid #eee6ea"><div style="font:600 14.5px Arial;color:#1d1418">' + x[0] + '</div><div style="font:13.5px/1.5 Arial;color:#6b5f66;margin-top:2px">' + x[1] + '</div></td></tr>').join('') + '</table>';
+  return { to: c.email, subject: es ? 'Ahora sos Cliente VIP · La Fouch' : 'Você agora é Cliente VIP · La Fouch',
+    html: E.molde(es ? 'Ahora sos ' + E.I('Cliente VIP') : 'Você agora é ' + E.I('Cliente VIP'), E.P((n ? n + ', ' : '') + (es ? 'La Fouch preparó una tarjeta solo tuya y, desde hoy, sos parte de nuestros Clientes VIP.' : 'a La Fouch preparou um cartão só seu e, a partir de hoje, você faz parte dos nossos Clientes VIP.')) + cart + usarB(c, es) + E.FIO() + lista +
+      E.PQ(es ? 'El estado de Cliente VIP es tuyo y no vence. Tarjeta personal, ligada a tu teléfono; no se suma a OFERTA.' : 'O status de Cliente VIP é seu e não vence. Cartão pessoal, ligado ao seu telefone; não soma com OFERTA.')) };
+}
+// 67b (S409): aniversário do Cliente VIP — 10% por 30 dias, cartão preto com confete dourado (opção A)
+function mailAni(c, es) {
+  const n = prim(c);
+  return { to: c.email, subject: es ? 'Feliz cumpleaños · un regalo de La Fouch' : 'Feliz aniversário · um presente da La Fouch',
+    html: E.molde(es ? 'Feliz ' + E.I('cumpleaños') : 'Feliz ' + E.I('aniversário'), E.P((n ? n + ', ' : '') + (es ? 'hoy el regalo lo damos nosotros. Para festejar, una tarjeta solo tuya:' : 'hoje quem dá o presente somos nós. Para comemorar, um cartão só seu:')) +
+      E.luxo({ ev: 'ani', rot: es ? 'FELIZ CUMPLEAÑOS' : 'FELIZ ANIVERSÁRIO', pct: c.pct + '%', tit: es ? 'regalo de cumpleaños' : 'presente de aniversário', nome: NOME(c), val: vale(c, es) }) + usarB(c, es) +
+      E.PQ(es ? 'El descuento entra solo en tu carrito. No vale para piezas en OFERTA.' : 'O desconto entra sozinho no seu carrinho. Não vale para peças em OFERTA.')) };
 }
 // 61g cartão avulso gerado pelo dono (qualquer %)
 function mailLoja(c, es) {
@@ -408,11 +453,13 @@ function mailLoja(c, es) {
   return { to: c.email, subject: es ? 'Un regalo de La Fouch' : 'Um presente da La Fouch',
     html: E.molde(es ? 'Un regalo para ' + E.I('vos') : 'Um presente para ' + E.I('você'), E.P((n ? n + ', ' : '') + (es ? (n ? 'esta' : 'Esta') + ' tarjeta es una atención de La Fouch para tu próxima compra:' : (n ? 'este' : 'Este') + ' cartão é um agrado da La Fouch para a sua próxima compra:')) + cartaoP(c, es) + usarB(c, es) + regraAuto(es)) };
 }
-// 61h/62 cupom do evento dentro do e-mail de novidades do evento: o ÚNICO cartão com o código à vista; cores da temática do site
+// 61h/62 (S409): cupom do evento dentro do e-mail de novidades — nas cores da temática, SEM o código à vista (o botão aplica sozinho),
+// botão na cor da temática; a regra nunca diz "toda a loja"
 function blocoEvento(c, es) {
-  const ev = E.EV[c.tema] ? c.tema : '', nomeEv = ev ? (es ? E.EV[ev].es : E.EV[ev].n) : '';
-  return E.luxo({ ev, tema: 'marfim', rot: es ? 'CUPÓN DEL EVENTO' : 'CUPOM DO EVENTO', pct: c.pct + '%', tit: (es ? 'de descuento' : 'de desconto') + (nomeEv ? ' · ' + nomeEv : ''), cod: E.esc(c.cod), nome: es ? 'PARA TODOS' : 'PARA TODOS', val: c.fim ? (es ? 'HASTA ' : 'ATÉ ') + dt(c.fim, es) : '' }) +
-    usarB(c, es) + E.PQ(es ? 'Un código por compra. No vale para piezas en OFERTA ni para el “Llevá 2”.' : 'Um código por compra. Não vale para peças em OFERTA nem para o “Leve 2”.');
+  const ev = E.EV[c.tema] && c.tema !== 'ani' ? c.tema : '', t = ev ? E.EV[ev] : null, nomeEv = ev ? (es ? t.es : t.n) : '';
+  const bg = !t ? '' : ev === 'anonovo' ? t.num : t.bg, fg = !t ? '' : ev === 'halloween' ? t.num : '#ffffff';
+  return E.luxo({ ev, tema: 'marfim', rot: es ? 'CUPÓN DEL EVENTO' : 'CUPOM DO EVENTO', pct: c.pct + '%', tit: (es ? 'de descuento' : 'de desconto') + (nomeEv ? ' · ' + nomeEv : ''), nome: 'PARA TODOS', val: c.fim ? (es ? 'HASTA ' : 'ATÉ ') + dt(c.fim, es) : '' }) +
+    E.B(es ? 'Usar ahora' : 'Usar agora', link(c), bg, fg) + E.PQ(es ? 'El descuento entra solo en tu carrito. No vale para piezas en OFERTA.' : 'O desconto entra sozinho no seu carrinho. Não vale para peças em OFERTA.');
 }
 // boas-vindas (58b): continua mostrando o código, como aprovado; texto que serve para qualquer pessoa
 function mail(c, es, am) {
@@ -425,7 +472,7 @@ function mail(c, es, am) {
   const h1 = fiel ? (es ? 'Qué bueno tenerte de ' + E.I('vuelta') : 'Que bom ter você de ' + E.I('volta')) : bv ? (es ? 'Te damos la bienvenida a ' + E.I('La Fouch') : 'Boas-vindas à ' + E.I('La Fouch')) : (es ? 'Tu ' + E.I('tarjeta') : 'Seu ' + E.I('cartão'));
   const intro = fiel ? (es ? 'Sos cliente fiel. Tu regalo para la próxima compra:' : 'Você é cliente fiel. Seu presente para a próxima compra:') : bv ? (es ? 'Tu regalo para la primera compra:' : 'Seu presente para a primeira compra:') : (es ? 'Tu regalo para la próxima compra:' : 'Seu presente para a próxima compra:');
   const rot = es ? 'TARJETA REGALO' : 'CARTÃO PRESENTE';
-  const regra = E.PQ(es ? 'Un código por compra. No se suma a OFERTA ni a “Llevá 2”: se aplica el descuento mayor.' : 'Um código por compra. Não soma com OFERTA nem com “Leve 2”: vale o maior desconto.');
+  const regra = E.PQ(es ? 'Un código por compra. No vale para piezas en OFERTA.' : 'Um código por compra. Não vale para peças em OFERTA.');
   const amiga = '';
   return {
     to: c.email,
@@ -433,4 +480,4 @@ function mail(c, es, am) {
     html: E.molde(h1, E.P(intro) + E.cartao(rot, n + (bv ? (es ? ' en tu primera compra' : ' na primeira compra') : (es ? ' en tu próxima compra' : ' na próxima compra')), c.cod, val(c, true), true) + E.B(es ? 'Usar ahora' : 'Usar agora', l) + amiga + regra),
   };
 }
-module.exports = { Falha, PADRAO, TETO_MES, AMIGA_MES, CONVITE_DIAS, ENTRE_PRESENTES, META, novoCod, codN, telN, vivo, ver, usar, boasVindas, proxima, confirma, entregue, solta, premia, diario, libera, emitir, cancelar, destrava, lista, meus, mail, mailPresente, mailFiel, mailConvite, mailCresceu, mailIndicou, mailVip, mailLoja, blocoEvento };
+module.exports = { Falha, PADRAO, TETO_MES, AMIGA_MES, CONVITE_DIAS, ENTRE_PRESENTES, META, novoCod, codN, telN, vivo, ver, usar, boasVindas, proxima, confirma, entregue, solta, premia, diario, libera, emitir, cancelar, destrava, lista, meus, mail, mailPresente, mailFiel, mailConvite, mailIndicou, mailEspecial, mailVip, mailAni, mailLoja, blocoEvento, escada, CICLO, PREMIO };

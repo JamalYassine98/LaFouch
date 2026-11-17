@@ -49,6 +49,10 @@ service cloud.firestore {
       allow read: if true;
       allow write: if dono();
     }
+    // S409 (17/11/2026): piso de cada peça para o presente especial — o app grava; só o app e o servidor leem (o piso NUNCA vai para o site)
+    match /pisos/{d} {
+      allow read, write: if dono();
+    }
     match /config/{d} {
       allow read: if true;
       allow write: if dono();

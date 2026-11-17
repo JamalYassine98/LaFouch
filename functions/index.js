@@ -139,7 +139,27 @@ exports.reserva = onRequest(
       }
       const refs = (Array.isArray(b.itens) ? b.itens : []).map((i) => i && i.ref).filter(Boolean);
       let r;
-      if (acao === 'reservar') r = await Reserva.reservar(db, agora, b.pedido, b.itens, { pag: b.pag === 'alias' ? 'alias' : 'pix' });
+      if (acao === 'reservar') {
+        // S409 (70c): Cliente VIP tem 3 horas para pagar, UMA reserva longa por vez (as outras ficam com os 30 minutos de sempre)
+        let ate = 0;
+        try {
+          const tel = String(b.tel || '').replace(/\D/g, '').slice(-9), pid = String(b.pedido || '');
+          if (tel.length >= 6 && /^[A-Za-z0-9_-]{4,40}$/.test(pid)) {
+            const cl = await db.doc('compradores/t' + tel).get();
+            if (cl.exists && +cl.data().vip > 0) {
+              ate = await db.runTransaction(async (tx) => {
+                const ref = db.doc('vipRes/t' + tel), v = await tx.get(ref), o = v.exists ? v.data() : {};
+                if (o.pid && o.pid !== pid && +o.exp > agora) return 0; // já tem outra reserva longa aberta
+                const exp = o.pid === pid && +o.exp > agora ? +o.exp : agora + 3 * 3600000;
+                tx.set(ref, { pid, exp });
+                return exp;
+              });
+            }
+          }
+        } catch (e) { console.error('reserva vip', e && e.message); ate = 0; }
+        r = await Reserva.reservar(db, agora, b.pedido, b.itens, Object.assign({ pag: b.pag === 'alias' ? 'alias' : 'pix' }, ate ? { ate } : {}));
+        if (ate) r.vip = true;
+      }
       else if (acao === 'comp') r = await Reserva.comprovante(db, agora, b.pedido, b.itens);
       else if (acao === 'cancelar') r = await Reserva.liberar(db, agora, b.pedido, refs);
       else if (acao === 'pagar') r = await Reserva.pagar(db, agora, b.pedido, b.itens);
@@ -561,7 +581,42 @@ const cupDb = {
     tx.set(r, { ind: n }, { merge: true });
     return n;
   }),
+  // S409: Clientes VIP (status para sempre) — para o cartão de aniversário do diário
+  vips: async () => (await fsx().collection('compradores').where('vip', '>', 0).limit(2000).get()).docs.map((d) => Object.assign({ tel: d.id.replace(/^t/, '') }, d.data())),
 };
+// ---------- S409 (17/11/2026): o servidor confere TODO pedido do site (preços do catálogo, cartão, presente especial, piso) ----------
+// Fora da regra = pedido marcado "suspeito" na reserva (o robô do PIX/transferência NÃO confirma sozinho), aviso no app e no celular do dono.
+const Presente = require('./presente');
+exports.conferePedido = onDocumentCreated({ document: 'pedidos/{id}', region: REGIAO }, async (ev) => {
+  const f = (ev.data && ev.data.data()) || {};
+  if (f.tipo || f.teste) return;
+  try {
+    const db = fsx(), refs = Array.from(new Set((Array.isArray(f.itens) ? f.itens : []).map((i) => String((i && i.ref) || '')).filter((r) => /^[A-Za-z0-9_.-]{1,40}$/.test(r))));
+    const prods = {}, pisos = {};
+    for (const r of refs) { const d = await db.doc('produtos/' + r).get(); if (d.exists) prods[r] = Object.assign({ ref: r }, d.data()); }
+    let cup = null;
+    const cod = String(f.cup || '').toUpperCase().replace(/[^A-Z0-9-]/g, '').slice(0, 24);
+    if (cod) { const c = await db.doc('cupons/' + cod).get(); if (c.exists) cup = { tipo: c.data().tipo, pct: +c.data().pct || 0 }; else cup = { tipo: '?', pct: 0 }; }
+    const tel = String(f.tel || '').replace(/\D/g, '').slice(-9);
+    let vip = false;
+    if (tel.length >= 6) { const cl = await db.doc('compradores/t' + tel).get(); vip = !!(cl.exists && +cl.data().vip > 0); }
+    if ((f.itens || []).some((i) => i && i.pres)) {
+      // presente especial: precisa dos pisos de todas as peças do catálogo (a lista de candidatos)
+      const ps = await db.collection('produtos').get(), pz = await db.collection('pisos').get();
+      ps.docs.forEach((d) => { if (!prods[d.id]) prods[d.id] = Object.assign({ ref: d.id }, d.data()); });
+      pz.docs.forEach((d) => { pisos[d.id] = +d.data().p || 0; });
+    }
+    const r = Presente.confere(f, prods, pisos, cup, vip);
+    if (r.ok) return;
+    console.error('conferePedido SUSPEITO', ev.params.id, JSON.stringify(r));
+    await db.doc('reservas/' + ev.params.id).set({ suspeito: r.motivos.slice(0, 5).join(' · ').slice(0, 300), minimo: r.minimo }, { merge: true });
+    await db.collection('cupomAvisos').add({ ts: Date.now(), t: 'pedido', d: 'Pedido ' + String(f.cod || ev.params.id).slice(0, 8) + ' fora da regra: ' + r.motivos[0], cod: cod || '' });
+    const lista = await db.collection('dispositivos').get();
+    await Promise.all(lista.docs.map(async (d) => {
+      try { await admin.messaging().send({ token: d.id, notification: { title: '⚠️ Pedido ' + String(f.cod || '') + ' com valor fora da regra', body: 'Confira antes de aceitar o pagamento: ' + r.motivos[0] }, data: { tipo: 'suspeito', id: String(ev.params.id) }, android: { priority: 'high', notification: { channelId: 'pedidos_' + ((d.data() || {}).sn || 'sino'), tag: 'susp-' + ev.params.id } } }); } catch (e) {}
+    }));
+  } catch (e) { console.error('conferePedido', ev.params.id, e && e.message); }
+});
 exports.cupom = onRequest({ region: REGIAO, cors: true, maxInstances: 10, secrets: [RESEND_KEY] }, async (req, res) => {
   if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
   const b = req.body && typeof req.body === 'object' ? req.body : {};
@@ -580,6 +635,17 @@ exports.cupom = onRequest({ region: REGIAO, cors: true, maxInstances: 10, secret
     if (b.acao === 'usar') return res.json(await Cupom.usar(cupDb, b, ipk, agora, false));
     if (b.acao === 'bv') return res.json(await Cupom.boasVindas(cupDb, envia, b, agora));
     if (b.acao === 'proxima') return res.json(await Cupom.proxima(cupDb, b, agora));
+    // S409: quais peças podem ser o presente especial para as peças pagas do carrinho (o piso fica só no servidor; o site recebe só as refs)
+    if (b.acao === 'presentes') {
+      const pagas = (Array.isArray(b.pagas) ? b.pagas : []).map(String).filter((r) => /^[A-Za-z0-9_.-]{1,40}$/.test(r)).slice(0, 20);
+      const tel = String(b.tel || '').replace(/\D/g, '').slice(-9);
+      const [ps, pz, cl] = await Promise.all([fsx().collection('produtos').get(), fsx().collection('pisos').get(), tel.length >= 6 ? fsx().doc('compradores/t' + tel).get() : null]);
+      const prods = {}, pisos = {};
+      ps.docs.forEach((d) => { prods[d.id] = Object.assign({ ref: d.id }, d.data()); });
+      pz.docs.forEach((d) => { pisos[d.id] = +d.data().p || 0; });
+      const vip = !!(cl && cl.exists && +cl.data().vip > 0);
+      return res.json(Object.assign({ ok: true, vip }, Presente.podeSer(prods, pisos, pagas, vip)));
+    }
     if (b.acao === 'meus') {
       const m = /^Bearer (.+)$/.exec(req.get('Authorization') || '');
       if (!m) return res.status(401).json({ ok: false, motivo: 'login' });
@@ -618,14 +684,14 @@ const pixDb = {
       .map((d) => Object.assign({ id: d.id }, d.data())).filter((p) => p.tipo === 'site');
     for (const p of L) {
       const r = await fsx().doc('reservas/' + p.id).get(), o = r.exists ? r.data() : {};
-      p.pago = !!(o.pago || o.cancelado || p.ok);
+      p.pago = !!(o.pago || o.cancelado || p.ok || o.suspeito); // S409: pedido suspeito não é confirmado pelo robô (o dono confere)
     }
     return L;
   },
   pedidosItau: async (desde) => {
     const L = (await fsx().collection('pedidos').where('ts', '>=', desde).limit(400).get()).docs
       .map((d) => Object.assign({ id: d.id }, d.data())).filter((p) => p.pag === 'alias' && !p.tipo);
-    for (const p of L) { const r = await fsx().doc('reservas/' + p.id).get(), o = r.exists ? r.data() : {}; p.pago = !!(o.pago || o.cancelado || p.pixAuto); }
+    for (const p of L) { const r = await fsx().doc('reservas/' + p.id).get(), o = r.exists ? r.data() : {}; p.pago = !!(o.pago || o.cancelado || p.pixAuto || o.suspeito); } // S409: suspeito fica para o dono
     return L;
   },
   esperas: async (desde) => (await fsx().collection('pixEspera').where('ts', '>=', desde).limit(200).get()).docs.map((d) => Object.assign({ id: d.id }, d.data())).filter((e) => e.tipo !== 'site'),
@@ -773,7 +839,7 @@ const pmEnvia = () => {
 exports.pedidoMail = onDocumentCreated({ document: 'pedidos/{id}', region: REGIAO, secrets: [RESEND_KEY] }, async (ev) => {
   const f = (ev.data && ev.data.data()) || {};
   try {
-    if (f.tipo === 'cancel') { if (f.ref && f.ref !== 'teste') await PedidoMail.aoCancelar(pmDb, String(f.ref).replace(/[^A-Za-z0-9_-]/g, '').slice(0, 40)); return; }
+    if (f.tipo === 'cancel') { if (f.ref && f.ref !== 'teste') await PedidoMail.aoCancelar(pmDb, String(f.ref).replace(/[^A-Za-z0-9_-]/g, '').slice(0, 40), null); return; } // o cliente cancelou: sem e-mail
     if (f.tipo) return;
     let reserva = false;
     try { reserva = await Reserva.ligada(fsx()); } catch (e) {}
@@ -782,6 +848,12 @@ exports.pedidoMail = onDocumentCreated({ document: 'pedidos/{id}', region: REGIA
 });
 exports.pagoMail = onDocumentWritten({ document: 'reservas/{id}', region: REGIAO, secrets: [RESEND_KEY] }, async (ev) => {
   const antes = ev.data.before.exists ? ev.data.before.data() : {}, depois = ev.data.after.exists ? ev.data.after.data() : null;
+  // S409 (63b): o dono cancelou um pedido JÁ PAGO no app → e-mail "Pedido cancelado" (pedido não pago não manda nada)
+  if (depois && depois.cancelado && !antes.cancelado) {
+    try { console.log('cancelMail', ev.params.id, JSON.stringify(await PedidoMail.aoCancelar(pmDb, ev.params.id, depois.pago === true || antes.pago === true ? pmEnvia() : null))); }
+    catch (e) { console.error('cancelMail', ev.params.id, e && e.message); }
+    return;
+  }
   if (!depois || depois.pago !== true || antes.pago === true || depois.cancelado) return;
   try { console.log('pagoMail', ev.params.id, JSON.stringify(await PedidoMail.aoPagar(pmDb, pmEnvia(), ev.params.id, depois.tok || '', URL_COMP, Date.now()))); }
   catch (e) { console.error('pagoMail', ev.params.id, e && e.message); }
