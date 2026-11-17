@@ -19,7 +19,7 @@ LUX=r"""()=>{const v=document.getElementById('v-desp');const k=v.querySelector('
   return '<div class="cxL"><span><i style="display:inline-block;width:9px;height:9px;border-radius:3px;background:'+cor+';margin-right:10px;vertical-align:1px"></i>'+n+'</span><b style="font-size:16px;font-weight:600">'+val+'</b></div>'}).join('');
  const h='<section class="cxSaldo" aria-label="Contas do mês"><div class="cxLb">Contas do mês</div><div style="margin:12px 0 6px">'+bar+'</div>'+rows+'<div class="cxL"><span style="font-weight:600">Total por mês</span><b>'+tot+'</b></div>'+
   '<div class="cxL" style="border-bottom:0"><span>Cada peça vendida separa<small>'+hint+'</small></span><b style="color:var(--warn)">'+pc+'</b></div></section>';
- k.insertAdjacentHTML('beforebegin',h);k.remove();pg.remove();return 1}"""
+ k.insertAdjacentHTML('beforebegin',h);const st=document.createElement('style');st.textContent='.view section.cxSaldo{box-shadow:none!important}';document.head.appendChild(st);k.remove();pg.remove();return 1}"""
 with sync_playwright() as pw:
     for esc,tema in ((True,'escuro'),(False,'claro')):
         for k_,nm,rola in (('a','topo',"()=>scrollTo({top:0,behavior:'instant'})"),('b','contas',"()=>{const e=document.querySelector('#v-desp .ecF');scrollTo({top:e.getBoundingClientRect().top+scrollY-160,behavior:'instant'})}")):
@@ -32,4 +32,4 @@ with sync_playwright() as pw:
             print(k_,tema,'novos:',novos(oo[0],oo[1]))
             prancha('108%s-app-despesas-%s-%s.jpg'%(k_,nm,tema),'App · Despesas · %s · luxo · tema %s'%('topo' if k_=='a' else 'contas',tema),
               ['Hoje: dois cartões de números + cartão "Por grupo" com legenda + "Contas para pagar" repetindo contas dos grupos.',
-               'Proposta (igual ao Caixa): "CONTAS DO MÊS" com a barra, uma linha fina por grupo, o total em destaque e quanto cada peça separa, num bloco só. Sem conta repetida (106): o aviso fica na frase de baixo e o círculo marca como paga.'],*fs)
+               'Proposta (igual ao Caixa): "CONTAS DO MÊS" com a barra, uma linha fina por grupo, o total em destaque e quanto cada peça separa, num bloco só, sem sombra (no claro a sombra parecia uma borda encostando no texto). Sem conta repetida (106): o aviso fica na frase de baixo e o círculo marca como paga.'],*fs)
