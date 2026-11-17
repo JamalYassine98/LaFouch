@@ -54,6 +54,8 @@ Tudo sobre a Mochi (mascote e teste de leitura do site lafouch.com) num lugar s�
 
 - 17/11 19:53 — DONO: **110 APROVADO** (12 px também dos botões; cantinho de baixo centrado). ESPERANDO 'implementar' (com 104, 107, 108, 109). Próximo da lista: item 2, espanhol das 4 falas do 107.
 
+- 17/11 19:55 — DONO aprovou o ESPANHOL das 4 falas do 107: 1 'Ahora voy a ver de qué tan cerca podés leer. Acercá el celular a la cara bien despacio, sin dejar de leer las letras.' 2 'Cuando las letras empiecen a verse borrosas, dejá el celular quieto ahí, o avisame tocando el botón Se ve borroso.' 3 '¿No se puso borroso? Todo bien, ya medí.' 4 '¡Listo, medí! Podés alejar el celular.' E o botão Embaçou em espanhol passa de 'Se borroneó' para 'Se ve borroso'. Próximo: item 3 (voz, pedir autorização de créditos).
+
 ## 5. Lições minhas
 - Ao mexer numa parte, procurar tudo que depende dela (erro do S384 → S387).
 - Número estranho no medidor do dono se investiga na hora.
