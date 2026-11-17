@@ -13,5 +13,5 @@ with sync_playwright() as p:
     b=p.chromium.launch(executable_path='/opt/pw-browsers/chromium',args=['--no-sandbox']);pg=b.new_page(viewport={'width':690,'height':200},device_scale_factor=2);pg.set_content(h);pg.wait_for_timeout(300);pg.screenshot(path=T+'ev.png',full_page=True);b.close()
 im=Image.open(T+'ev.png').convert('RGB');w,hh=im.size;g=40;S=Image.new('RGB',(w+2*g,hh+266),'#f1eef0');d=ImageDraw.Draw(S)
 d.text((g,34),'Esboço 62 · cartões de evento, um por temática',font=comum.F(40,True),fill='#1d1418')
-for i,l in enumerate(['Cada cartão usa as cores da própria temática do site (fundo, fio, número e logo).','Único cartão com o código à vista, porque é público.','Códigos, valores e datas são exemplos: você define ao gerar.']): d.text((g,100+i*36),l,font=comum.F(25),fill='#55484f')
+for i,l in enumerate(['Cada cartão usa as cores da própria temática do site (fundo, fio, número e logo).','Único cartão com o código à vista, porque é público. Não vale para OFERTA nem “Leve 2” (regra de hoje).','Códigos, valores e datas são exemplos: você define ao gerar.']): d.text((g,100+i*36),l,font=comum.F(25),fill='#55484f')
 S.paste(im,(g,226));d.rectangle([g-1,225,g+w,226+hh],outline='#cfc6cb');S.save('/home/claude/lafouch/work/s398/62-cartoes-de-evento.jpg',quality=88);print(S.size)

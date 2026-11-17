@@ -5,7 +5,7 @@ from PIL import Image
 import comum;comum.OUT='/home/claude/lafouch/work/s398/'
 L=json.load(open('/tmp/s398/e.json'));T='/tmp/s398/'
 u=lambda f:'data:image/png;base64,'+base64.b64encode(open(f,'rb').read()).decode()
-LG={'https://lafouch.com/media/email/logo.png':u('/home/claude/catalogo/media/email/logo.png'),'LOGO_OURO':u(T+'logo_ouro.png'),'LOGO_VINHO':u(T+'logo_vinho.png')}
+LG={'https://lafouch.com/media/email/logo.png':u('/home/claude/catalogo/media/email/logo.png'),'LOGO_OURO':u(T+'logo_ouro.png'),'LOGO_VINHO':u(T+'logo_vinho.png'),'LOGO_EV_natal':u(T+'logo_ev_natal.png')}
 ANT={'60a':'/home/claude/lafouch/work/s396/60a-email-cartao-depois-da-entrega.jpg','60b':'/home/claude/lafouch/work/s396/60b-email-presente-para-amiga.jpg','60c':'/home/claude/lafouch/work/s396/60c-email-sua-amiga-comprou.jpg','60e':'/home/claude/lafouch/work/s396/60e-email-cliente-fiel.jpg'}
 E=open('/home/claude/lafouch/work/s396/esb.py').read();exec(E[E.index('def cabe'):E.index('with sync_playwright')].replace("e['html'].replace('https://lafouch.com/media/email/logo.png',lg)","troca(e['html'])"))
 def troca(h):
