@@ -334,7 +334,7 @@
   ACT.bkimp = function () {
     if ((S.sales.length || S.items.length) && !S.bkImpConf) {
       S.bkImpConf = true;
-      S.ajMsg = 'Importar substitui os dados deste aparelho. Toque de novo em Importar backup para continuar.';
+      S.ajMsg = 'Importar substitui os dados deste aparelho. Toque de novo em Importar para continuar.';
       S._ajForce = true;
       render();
       return;

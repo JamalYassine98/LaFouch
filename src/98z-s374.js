@@ -159,7 +159,7 @@
     { id: 'g:res', nome: 'Resultados', ico: 'hoje', frase: 'Dia, mês e histórico', itens: ['hoje', 'hist'] },
     { id: 'g:gp', nome: 'Giro e preços', ico: 'giro', frase: 'Giro, preços e reservas', itens: ['giro', 'prec', 'din'] },
     { id: 'g:site', nome: 'Site', ico: 'onl', frase: 'Pedidos, mensagens e analisador', itens: ['site', 'ped', 'msg', 'anl'] },
-    { id: 'g:mkt', nome: 'Marketing', ico: 'mkt', frase: 'Posts, vídeos e temática', itens: ['mkt', 'tem'] }
+    { id: 'g:mkt', nome: 'Marketing', ico: 'mkt', frase: 'Posts, vídeos, temática e cartões', itens: ['mkt', 'tem', 'cup'] }
   ];
   GRP_FRASE.ata = 'Lojistas, lotes e tabela';
   function fam6Aplica() {
@@ -437,3 +437,69 @@
     var n = document.getElementById('nName');
     if (n) { try { n.focus({ preventScroll: true }); } catch (e) {} }
   };
+
+  // ===== S374 · Cartões (de desconto) viram tela da família Marketing (esboço 80b, aprovado 17/11 06:22) =====
+  // Antes: janela por cima, aberta por "Cartões ›" em Clientes. Agora: tela "Cartões" na flecha de Marketing (Marketing, Temática, Cartões).
+  if (!$('v-cup')) {
+    var _vc = document.createElement('div');
+    _vc.id = 'v-cup';
+    _vc.className = 'view';
+    _vc.hidden = true;
+    var _vcl = $('v-clientes');
+    if (_vcl && _vcl.parentNode) _vcl.parentNode.insertBefore(_vc, _vcl.nextSibling);
+    else document.querySelector('.wrap') && document.querySelector('.wrap').appendChild(_vc);
+  }
+  if (!VIEWS.some(function (v) { return v[0] === 'cup'; })) VIEWS.push(['cup', 'Cartões']);
+  BARRA_NOME.cup = 'Cartões';
+  GRP_FRASE.cup = 'Cartões de desconto e cliente fiel';
+  if (!ICO_D.cup) ICO_D.cup = '<rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M3 10h18M7 15h4"/>';
+  var cupVista = '';
+  function renderCup() {
+    var el = $('v-cup');
+    if (!el || S.view !== 'cup') { cupVista = ''; return; }
+    if (cupVista) return; // já desenhada nesta visita (a carga é da nuvem)
+    cupVista = '1';
+    el.innerHTML = '<div class="top"><div><h1>Cartões</h1><div class="crumb">Cartões de desconto, cliente fiel e cupom do evento.</div></div></div><div id="cupTela"><div class="hint">Carregando…</div></div>';
+    cupCarrega(function (j, off) {
+      var c = $('cupTela');
+      if (!c) return;
+      if (!j) { c.innerHTML = '<div class="hint">Entre na nuvem (Ajustes › Cópias e nuvem) e conecte à internet para ver os cartões.</div>'; return; }
+      cupDesenha(c, j, off);
+    });
+  }
+  var _render374c = render;
+  render = function () {
+    var r = _render374c.apply(this, arguments);
+    try { renderCup(); } catch (e) {}
+    return r;
+  };
+  ACT.cupAbre = function () {
+    cupVista = '';
+    if (S.view === 'cup') { var el = $('v-cup'); if (el) el.innerHTML = ''; return renderCup(); }
+    setView('cup');
+  };
+  var _inicioGo374c = inicioGo;
+  inicioGo = function (id) {
+    if (id === 'cup') return ACT.cupAbre();
+    return _inicioGo374c.apply(this, arguments);
+  };
+  var _navOn374c = navOn;
+  navOn = function (id) {
+    if (id === 'cup') return S.view === 'cup';
+    return _navOn374c.apply(this, arguments);
+  };
+  // a família Marketing ganha a tela Cartões (uma vez)
+  var _iniLista374c = iniLista;
+  iniLista = function () {
+    var l = _iniLista374c.apply(this, arguments);
+    if (!S.fam80) {
+      var g = grpGet('g:mkt');
+      if (g) {
+        S.fam80 = true;
+        if (g.itens.indexOf('cup') < 0) g.itens.push('cup');
+        g.frase = 'Posts, vídeos, temática e cartões';
+      }
+    }
+    return l;
+  };
+

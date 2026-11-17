@@ -222,7 +222,7 @@
     return (
       '<div class="avcard' + (a[k] ? '' : ' off') + '"><div class="avtop"><span class="avico">' + AV_ICO[k] + '</span><span class="avtx"><b>' + t[1] + '</b><span class="hint" style="margin:2px 0 0;font-weight:400;display:block">' + t[2] + '</span></span>' +
       '<span class="sw"><input type="checkbox" role="switch" data-av="' + k + '"' + (a[k] ? ' checked' : '') + ' aria-label="' + t[1] + '"><i></i></span></div>' +
-      '<div class="avbot"><button type="button" class="avchip' + (a[k] && !mudo ? ' on' : '') + '" data-av="escolher" data-v="' + k + '" aria-label="Escolher o som de ' + t[1] + '">' + (mudo ? '🔕' : '🔔') + ' ' + avNome(a['s' + k]) + ' <i>▾</i></button>' +
+      '<div class="avbot"><button type="button" class="avchip' + (a[k] && !mudo ? ' on' : '') + '" data-av="escolher" data-v="' + k + '" aria-label="Escolher o som de ' + t[1] + '">' + avNome(a['s' + k]) + ' <i>▾</i></button>' +
       (mudo ? '' : '<button type="button" class="avplay" data-av="ouvir" data-v="' + a['s' + k] + '" aria-label="Ouvir o som de ' + t[1] + '">▶</button>') + '</div></div>'
     );
   }
@@ -246,7 +246,7 @@
           '<div class="hint" style="margin:6px 0 0">Rosa = silencioso. Fora dessa faixa o app avisa normalmente.</div>'
         : '') + '</div>' +
       '<div class="lbl" style="margin:6px 0 0">Testar</div>' +
-      '<button type="button" class="bsolid" data-av="teste"><span class="bi"><span class="ring">🔔</span></span><span class="bt2"><b>Enviar aviso de teste</b><span>Toca o som de “Pedido novo”</span></span></button><div class="hint" id="avmsg" style="margin:0" hidden></div></section>' +
+      '<button type="button" class="b75" data-av="teste">Enviar aviso de teste</button><div class="hint" style="margin:-4px 0 0;text-align:center">toca o som de “Pedido novo”</div><div class="hint" id="avmsg" style="margin:0" hidden></div></section>' +
       avJanelaHtml()
     );
   }

@@ -159,7 +159,7 @@
   function cliListaHtml() {
     var l = cliLista();
     if (!l.length)
-      return S.clientes.length ? '<div class="hint">Nenhum cliente com essa busca.</div>' : lfVazioHtml('<circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/>', 'Nenhum cliente ainda', 'Eles entram sozinhos quando você salva um pedido online, ou toque em “+ Novo cliente”.');
+      return S.clientes.length ? '<div class="hint">Nenhum cliente com essa busca.</div>' : lfVazioHtml('<circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/>', 'Nenhum cliente ainda', 'Eles entram sozinhos quando você salva um pedido online, ou toque no “+” ao lado do título.');
     return l
       .map(function (c) {
         var ps = cliPedidos(c),
@@ -196,57 +196,70 @@
     });
     if (!ord.length) return '';
     return (
-      '<div class="lbl" style="margin-top:6px">Compras</div>' +
+      '<div class="lb77">Compras · ' + ord.length + '</div><div class="gp77 cp77">' +
       ord
         .sort(function (a, b) { return b.ts - a.ts; })
         .map(function (v) {
-          return '<div class="sl"><span>' + fd(v.ts) + '<small>' + v.t.join(', ') + '</small></span><b>' + gs(v.tot) + '</b></div>';
+          return '<div class="rw77"><span class="tx"><b>' + v.t.join(', ') + '</b><small>' + fd(v.ts) + '</small></span><span class="vl">' + gs(v.tot) + '</span></div>';
         })
-        .join('')
+        .join('') + '</div>'
     );
   }
   function renderClientes() {
     cliSync();
     var el = $('v-clientes');
     if (!el || S.view !== 'clientes') return;
+    // S374 (esboços 81a + 77 + 84, aprovados 17/11 06:22): topo só com o "+" redondo (saem "Atacado ›" — botão próprio no Início — e
+    // "Cartões ›" — foram para Marketing); a lista continua como era; a ficha no padrão de luxo (nome centralizado na letra da lista,
+    // atalhos WhatsApp e Avisar, dados em linhas, 1 principal "Salvar", "Conta atacadista" em linha, compras, "Remover cliente" no centro).
     var h = '<div class="top"><div><h1>Clientes</h1><div class="crumb">Quem compra na loja e no atacado.</div></div>' +
-      '<button type="button" class="pgAc" data-act="clinovo">+ Novo cliente</button>' + // S324: ação da página ao lado do título (como "+ Adicionar"); o resto em links com "›"
-      '<div class="lkRow"><button type="button" class="lkGo" data-act="inicio" data-id="ata">Atacado ›</button><button type="button" class="lkGo" data-act="cupAbre">Cartões ›</button></div></div>';
+      '<button type="button" class="pl78" data-act="clinovo" aria-label="Novo cliente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div>';
     var c = S.cliSel === 'novo' ? { id: 0, nome: '', tel: '', ruc: '', obs: '' } : cliAtual();
     if (c) {
       var ps = c.id ? cliPedidos(c) : [],
-        z = c.id ? cliZap(c) : '';
+        z = c.id ? cliZap(c) : '',
+        et = c.id ? cliEtiquetas(c, ps).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase() : '',
+        rw = function (lab, campo) { return '<div class="rw77"><label>' + lab + '</label>' + campo + '</div>'; },
+        ata = c.id ? Object.keys(S.ataContas || {}).map(function (k) { return S.ataContas[k]; }).filter(function (x) { return String(x.cliId) === String(c.id) && !x.cancelada; })[0] : null,
+        sub = [];
+      if (et) sub.push(et.split(' ').map(function (w) { return w === 'fiel' ? '<span class="f77">cliente fiel</span>' : esc(w); }).join(' · '));
+      if (c.ts) sub.push('desde ' + fd(c.ts));
       h +=
-        '<section class="card col" style="gap:12px"><div style="display:flex;align-items:center;justify-content:space-between"><b style="font-size:17px">' + (c.id ? 'Ficha do cliente' : 'Novo cliente') + '</b>' +
-        '<button type="button" class="chip" data-act="clifecha" aria-label="' + (c.id ? 'Fechar' : 'Cancelar') + '" style="min-height:40px;width:40px;padding:0;justify-content:center;font-size:20px">×</button></div>' +
-        '<input class="in" id="cNome" placeholder="Nome" value="' + esc(c.nome) + '" autocomplete="off">' +
-        '<input class="in" id="cTel" type="tel" inputmode="tel" placeholder="Telefone / WhatsApp" value="' + esc(c.tel) + '">' +
-        '<input class="in" id="cEmail" type="email" inputmode="email" placeholder="E-mail (opcional, para avisos)" value="' + esc(c.email || '') + '" autocomplete="off">' +
-        cliDocHtml('c', c) +
-        '<select class="in selAl" id="cTab" aria-label="Tabela de preço do cliente"><option value="">Tabela de preço: padrão (Público)</option>' + tabLista().filter(function (T) { return !T.pub; }).map(function (T) { return '<option value="' + T.id + '"' + (c.tab === T.id ? ' selected' : '') + '>' + esc(T.nome) + '</option>'; }).join('') + '</select>' +
-        cliDupHtml(c) +
-        '<input class="in" id="cObs" placeholder="Observação (opcional)" value="' + esc(c.obs || '') + '">' +
-        '<div class="hint" id="cH" style="margin:0"></div>' +
-        '<div class="col" style="gap:12px;margin-top:6px"><button type="button" class="go" data-act="clisave">Salvar</button>' +
-        (c.id && (z || c.email) ? '<button type="button" class="go" data-act="cliavisa">Avisar cliente</button>' : '') +
-        /* S194: VIP saiu; o Cliente fiel chega sozinho a cada 3 compras pagas */
-        (c.id ? '<button type="button" class="mini ghost" data-act="ataConta" data-id="' + c.id + '">🏬 Conta Atacadista/Mayorista</button>' : '') +
-        (c.id && c.aviso ? '<div class="hint" style="margin:0">Último aviso: ' + esc(c.aviso.canal) + ' · ' + esc(c.aviso.modelo) + ' · ' + fd(c.aviso.ts) + ' ' + fh(c.aviso.ts) + '</div>' : '') +
-        (z ? '<a class="chip" href="' + z + '" target="_blank" rel="noopener" style="color:#25d366;width:100%;min-height:48px;justify-content:center;text-decoration:none;display:flex;align-items:center">' + CLI_WA + '<span style="margin-left:8px">Conversar no WhatsApp</span></a>' : '') +
-        (c.id ? '<div style="border-top:1px solid var(--line);margin-top:6px"></div><button type="button" data-act="clidel" style="color:#ff7b7b;background:transparent;border:0;min-height:44px;width:100%;font:inherit;cursor:pointer">' + 'Remover cliente' + '</button>' : '') +
+        '<section class="card col cf77" id="cliFicha"><button type="button" class="x77" data-act="clifecha" aria-label="' + (c.id ? 'Fechar' : 'Cancelar') + '">×</button>' +
+        '<div class="hd77"><h2>' + esc(c.id ? c.nome || 'Sem nome' : 'Novo cliente') + '</h2>' + (sub.length ? '<small>' + sub.join(' · ') + '</small>' : '') + '</div>' +
+        (c.id && (z || c.email)
+          ? '<div class="qa77">' + (z ? '<a href="' + z + '" target="_blank" rel="noopener" aria-label="Conversar no WhatsApp"><i class="wa77">' + CLI_WA + '</i>WhatsApp</a>' : '') +
+            '<button type="button" data-act="cliavisa" aria-label="Avisar cliente"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></i>Avisar</button></div>'
+          : '') +
+        '<div class="lb77">Dados</div><div class="gp77">' +
+        rw('Nome', '<input id="cNome" placeholder="Nome" value="' + esc(c.nome) + '" autocomplete="off">') +
+        rw('Telefone', '<input id="cTel" type="tel" inputmode="tel" placeholder="WhatsApp" value="' + esc(c.tel) + '">') +
+        rw('E-mail', '<input id="cEmail" type="email" inputmode="email" placeholder="opcional, para avisos" value="' + esc(c.email || '') + '" autocomplete="off">') +
+        '<div class="rw77 rwDoc">' + cliDocHtml('c', c) + '</div>' +
+        rw('Tabela', '<select id="cTab" aria-label="Tabela de preço do cliente"><option value="">Público (padrão)</option>' + tabLista().filter(function (T) { return !T.pub; }).map(function (T) { return '<option value="' + T.id + '"' + (c.tab === T.id ? ' selected' : '') + '>' + esc(T.nome) + '</option>'; }).join('') + '</select>') +
+        rw('Observação', '<input id="cObs" placeholder="opcional" value="' + esc(c.obs || '') + '">') +
         '</div>' +
+        cliDupHtml(c) +
+        '<div class="hint" id="cH" style="margin:6px 0 0"></div>' +
+        '<button type="button" class="go77" data-act="clisave">Salvar</button>' +
+        (c.id && c.aviso ? '<div class="hint" style="margin:8px 0 0;text-align:center">Último aviso: ' + esc(c.aviso.canal) + ' · ' + esc(c.aviso.modelo) + ' · ' + fd(c.aviso.ts) + ' ' + fh(c.aviso.ts) + '</div>' : '') +
+        (c.id
+          ? '<div class="lb77">Atacado</div><div class="gp77"><button type="button" class="rw77" data-act="ataConta" data-id="' + c.id + '"><span class="tx"><b>Conta atacadista</b><small>' + (ata ? 'catálogo com preço de atacado' : c.email ? 'criar o acesso ao catálogo de atacado' : 'precisa do e-mail do cliente') + '</small></span>' +
+            (ata ? '<span class="vl ' + (ata.pausada ? 'w77' : 'f77') + '">' + (ata.pausada ? 'Pausada' : 'Ativa') + '</span>' : '') + '<span class="ch">›</span></button></div>'
+          : '') +
         (ps.length
-          ? '<div class="lbl" style="margin-top:6px">Pedidos</div>' +
+          ? '<div class="lb77">Pedidos · ' + ps.length + '</div><div class="gp77 cp77">' +
             ps
               .slice()
               .sort(function (a, b) { return b.ts - a.ts; })
               .map(function (p) {
                 var tot = pedTotal(p);
-                return '<div class="sl"><span>Pedido ' + p.num + ' · ' + fd(p.ts) + '<small>' + p.itens.map(function (l) { return l.q + '× ' + esc(l.t); }).join(', ') + '</small></span><b>' + (tot ? gs(tot) : '') + '</b></div>';
+                return '<div class="rw77"><span class="tx"><b>Pedido ' + p.num + '</b><small>' + fd(p.ts) + ' · ' + p.itens.map(function (l) { return l.q + '× ' + esc(l.t); }).join(', ') + '</small></span><span class="vl">' + (tot ? gs(tot) : '') + '</span></div>';
               })
-              .join('')
+              .join('') + '</div>'
           : '') +
         cliComprasHtml(c) +
+        (c.id ? '<div class="dz77"><button type="button" class="r" data-act="clidel">Remover cliente</button></div>' : '') +
         '</section>';
     }
     // com o Novo cliente ou a ficha aberta, a busca e a lista ficam escondidas (voltam ao Salvar ou ×)

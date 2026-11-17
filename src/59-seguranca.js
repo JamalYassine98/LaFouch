@@ -175,7 +175,7 @@
       h =
         '<section class="card col"><div><h2 style="margin:0;font-size:16px">Backup</h2><div class="hint" style="margin:2px 0 0">Os dados ficam só neste celular. Guarde uma cópia de vez em quando (e antes de trocar de aparelho).</div></div><div class="hint" style="margin:0">' +
         (dias < 0 ? 'Nenhum backup feito ainda.' : 'Último backup: ' + (dias === 0 ? 'hoje' : 'há ' + dias + ' dia(s)') + '.') +
-        '</div><div style="display:flex;gap:8px"><button class="btn-sc" style="flex:1" data-act="bkexp">Exportar backup</button><button class="btn-sc" style="flex:1" data-act="bkimp">Importar backup</button></div>' +
+        '</div><div style="display:flex;gap:8px"><button class="btn-sc" style="flex:1" data-act="bkexp" aria-label="Exportar backup">Exportar</button><button class="btn-sc" style="flex:1" data-act="bkimp" aria-label="Importar backup">Importar</button></div>' +
         (S.bkText ? '<textarea class="in" readonly rows="5" style="width:100%;font-size:12px">' + esc(S.bkText) + '</textarea>' : '');
     h += '</section>';
     return h;

@@ -52,27 +52,32 @@
   }
   function ataConvAtivos() { var ag = Date.now(); return Object.keys(S.ataContas).filter(function (k) { var c = S.ataContas[k]; return c.tipo === 'visita' && !c.cancelada && c.fim > ag; }).length; }
   function ataTgl(on, act, id) { return '<button type="button" class="nfTg' + (on ? ' on' : '') + '" data-act="' + act + '" data-id="' + esc(id) + '" role="switch" aria-checked="' + !!on + '"><i></i></button>'; }
+  // S374 (esboço 77d/77e, aprovado 17/11): janela no padrão de luxo — topo com iniciais e estado, seções em linhas, limite − n +,
+  // chave com a frase do estado de verdade, moeda em 3 partes, "Enviar convite" principal, Pausar/Cancelar no fim, centralizados.
   function ataContaHtml(c) {
     var ag = Date.now(), st = c.cancelada ? 'Cancelada' : c.pausada ? 'Pausada' : c.tipo === 'visita' && c.fim < ag ? 'Vencida' : 'Ativa', ap = c.aparelhos || [], tr = ataTrocas30(c);
-    var ini = String(c.nome || '?').split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase();
-    return '<div class="col" style="gap:12px;padding:0 16px 16px">' +
-      '<section class="card ataTopo"><span class="ataAv">' + esc(ini) + '</span><div><b>' + esc(c.nome) + '</b><small>' + (c.tipo === 'visita' ? 'Visitante · ' : 'Cliente associado · ') + '<b style="color:' + (st === 'Ativa' ? 'var(--ok)' : 'var(--warn)') + '">' + st + '</b>' + (c.tipo === 'visita' ? ' · vence ' + fd(c.fim) : ' · não vence') + ' · ' + esc(tabDe(c.tab).nome) + '</small></div></section>' +
-      '<section class="card col" style="gap:0"><div class="lbl">APARELHOS · ' + ap.length + ' DE ' + (c.dispMax || 3) + '</div>' +
-      (ap.length ? ap.map(function (a) { return '<div class="sl"><span>' + esc(a.nome || 'Aparelho') + '<small>último uso ' + (a.ult ? fd(a.ult) + ' ' + fh(a.ult) : '—') + '</small></span><button type="button" class="gMudo" data-act="ataApRm" data-id="' + esc(c.id + '|' + a.id) + '">Remover</button></div>'; }).join('') : '<div class="hint" style="margin:6px 0">Ainda não entrou de nenhum aparelho.</div>') +
-      '<div class="sl"><span>Limite de aparelhos</span><span style="display:flex;gap:6px;align-items:center"><button type="button" class="gMudo" data-act="ataLim" data-id="' + esc(c.id) + '|-1">−</button><b>' + (c.dispMax || 3) + '</b><button type="button" class="gMudo" data-act="ataLim" data-id="' + esc(c.id) + '|1">+</button></span></div></section>' +
-      (tr > 2 && c.trocaOk !== false ? '<section class="card col ataAl"><b>Trocou de aparelho ' + tr + ' vezes em 30 dias</b><small>Pode ser que esteja repassando o acesso.</small><button type="button" class="gBtn" data-act="ataTroca" data-id="' + esc(c.id) + '" style="align-self:flex-start">Bloquear trocas</button></section>' : '') +
-      '<section class="card col" style="gap:0"><div class="lbl">O QUE CADA BOTÃO FAZ</div>' +
-      (c.tipo !== 'visita' ? '<div class="sl"><span><b>Cliente pode trocar aparelho</b><small>Desligado: ele não troca mais sozinho</small></span>' + ataTgl(c.trocaOk !== false, 'ataTroca', c.id) + '</div>' : '<div class="sl"><span><b>Cliente remove aparelho</b><small>Visitante nunca remove</small></span><b>Não</b></div>') +
-      '<div class="sl"><span><b>Pausar</b><small>Some o catálogo. Nada é apagado. Volta com 1 toque</small></span><button type="button" class="gBtn" data-act="ataPausa" data-id="' + esc(c.id) + '">' + (c.pausada ? 'Voltar' : 'Pausar') + '</button></div>' +
-      '<div class="sl"><span><b>Cancelar conta</b><small>Apaga o acesso. Para voltar, novo convite</small></span><button type="button" class="gBtn ataRm" data-act="ataCanc" data-id="' + esc(c.id) + '">Cancelar</button></div></section>' +
-      '<section class="card col" style="gap:0"><div class="lbl">MOEDA QUE ELE VÊ PRIMEIRO (ELE PODE TROCAR)</div><div class="ataRw" style="padding:8px 0">' + [['usd', 'US$'], ['gs', 'Gs.'], ['brl', 'R$']].map(function (m) { return '<button type="button" class="mini' + ((c.moeda || 'usd') === m[0] ? '' : ' ghost') + '" data-act="ataMoeda" data-id="' + esc(c.id + '|' + m[0]) + '">' + m[1] + '</button>'; }).join('') + '</div></section>' +
-      '<button type="button" class="mini ghost" data-act="ataLotes" style="align-self:center">📦 Lotes de atacado</button>' +
-      '<button type="button" class="go" data-act="ataEnvia" data-id="' + esc(c.id) + '">Enviar convite pelo WhatsApp</button></div>';
+    var ini = String(c.nome || '?').split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase(), lim = c.dispMax || 3, tro = c.trocaOk !== false;
+    return '<div class="ata77">' +
+      '<div class="hd77"><span class="av77 g">' + esc(ini) + '</span><h2>' + esc(c.nome) + '</h2><small>' + (c.tipo === 'visita' ? 'Visitante · ' : 'Cliente associado · ') + '<span class="' + (st === 'Ativa' ? 'f77' : 'w77') + '">' + st + '</span>' + (c.tipo === 'visita' ? ' · vence ' + fd(c.fim) : ' · não vence') + ' · ' + esc(tabDe(c.tab).nome) + '</small></div>' +
+      '<div class="lb77">Aparelhos</div><div class="gp77">' +
+      (ap.length ? ap.map(function (a) { return '<div class="rw77"><span class="tx"><b>' + esc(a.nome || 'Aparelho') + '</b><small>último uso ' + (a.ult ? fd(a.ult) + ' ' + fh(a.ult) : '—') + '</small></span><button type="button" class="lk77" data-act="ataApRm" data-id="' + esc(c.id + '|' + a.id) + '">Remover</button></div>'; }).join('') : '') +
+      '<div class="rw77"><span class="tx"><b>Em uso</b>' + (ap.length ? '' : '<small>ainda não entrou de nenhum aparelho</small>') + '</span><span class="vl">' + ap.length + ' de ' + lim + '</span></div>' +
+      '<div class="rw77"><span class="tx"><b>Limite</b></span><span class="st77"><button type="button" data-act="ataLim" data-id="' + esc(c.id) + '|-1" aria-label="Menos aparelhos">−</button><b>' + lim + '</b><button type="button" data-act="ataLim" data-id="' + esc(c.id) + '|1" aria-label="Mais aparelhos">+</button></span></div></div>' +
+      (tr > 2 && tro ? '<section class="card col ataAl" style="margin-top:12px"><b>Trocou de aparelho ' + tr + ' vezes em 30 dias</b><small>Pode ser que esteja repassando o acesso.</small><button type="button" class="lk77" data-act="ataTroca" data-id="' + esc(c.id) + '" style="align-self:flex-start;padding:0">Bloquear trocas ›</button></section>' : '') +
+      '<div class="lb77">Acesso</div><div class="gp77">' +
+      (c.tipo !== 'visita'
+        ? '<div class="rw77"><span class="tx"><b>Pode trocar de aparelho</b><small>' + (tro ? 'Ligado: ele troca sozinho, até o limite' : 'Desligado: ele não troca mais sozinho') + '</small></span>' + ataTgl(tro, 'ataTroca', c.id) + '</div>'
+        : '<div class="rw77"><span class="tx"><b>Remove aparelho</b><small>visitante nunca remove</small></span><span class="vl">Não</span></div>') + '</div>' +
+      '<div class="lb77">Moeda que ele vê primeiro</div><div class="sg77" role="group" aria-label="Moeda que ele vê primeiro (ele pode trocar)">' + [['usd', 'US$'], ['gs', 'Gs.'], ['brl', 'R$']].map(function (m) { return '<button type="button" class="' + ((c.moeda || 'usd') === m[0] ? 'on' : '') + '" data-act="ataMoeda" data-id="' + esc(c.id + '|' + m[0]) + '" aria-pressed="' + ((c.moeda || 'usd') === m[0]) + '">' + m[1] + '</button>'; }).join('') + '</div>' +
+      '<div style="margin-top:12px"><button type="button" class="lk77" data-act="ataLotes">Lotes de atacado ›</button></div>' +
+      '<button type="button" class="go77" data-act="ataEnvia" data-id="' + esc(c.id) + '">Enviar convite pelo WhatsApp</button>' +
+      '<div class="dz77"><button type="button" data-act="ataPausa" data-id="' + esc(c.id) + '">' + (c.pausada ? 'Voltar a conta' : 'Pausar conta') + '</button><small>' + (c.pausada ? 'o catálogo volta a aparecer' : 'o catálogo some; nada é apagado; volta com 1 toque') + '</small>' +
+      '<button type="button" class="r" data-act="ataCanc" data-id="' + esc(c.id) + '">Cancelar conta</button><small>apaga o acesso; para voltar, novo convite</small></div></div>';
   }
   function ataJanela(id) {
     var c = S.ataContas[id];
     if (!c) return;
-    lfJanela({ titulo: 'Conta Atacadista/Mayorista', monta: function (box) { box.innerHTML = ataContaHtml(c); ataLe(id).then(function (n) { if (n && document.body.contains(box)) box.innerHTML = ataContaHtml(n); }); } });
+    lfJanela({ titulo: 'Conta atacadista', monta: function (box) { box.innerHTML = ataContaHtml(c); ataLe(id).then(function (n) { if (n && document.body.contains(box)) box.innerHTML = ataContaHtml(n); }); } });
   }
   // ficha do cliente → criar ou abrir a conta associada
   ACT.ataConta = function (cliId) {

@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 552;
+  var APP_BUILD = 553;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.37.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.38.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -13828,7 +13828,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       h =
         '<section class="card col"><div><h2 style="margin:0;font-size:16px">Backup</h2><div class="hint" style="margin:2px 0 0">Os dados ficam só neste celular. Guarde uma cópia de vez em quando (e antes de trocar de aparelho).</div></div><div class="hint" style="margin:0">' +
         (dias < 0 ? 'Nenhum backup feito ainda.' : 'Último backup: ' + (dias === 0 ? 'hoje' : 'há ' + dias + ' dia(s)') + '.') +
-        '</div><div style="display:flex;gap:8px"><button class="btn-sc" style="flex:1" data-act="bkexp">Exportar backup</button><button class="btn-sc" style="flex:1" data-act="bkimp">Importar backup</button></div>' +
+        '</div><div style="display:flex;gap:8px"><button class="btn-sc" style="flex:1" data-act="bkexp" aria-label="Exportar backup">Exportar</button><button class="btn-sc" style="flex:1" data-act="bkimp" aria-label="Importar backup">Importar</button></div>' +
         (S.bkText ? '<textarea class="in" readonly rows="5" style="width:100%;font-size:12px">' + esc(S.bkText) + '</textarea>' : '');
     h += '</section>';
     return h;
@@ -27278,7 +27278,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   ACT.bkimp = function () {
     if ((S.sales.length || S.items.length) && !S.bkImpConf) {
       S.bkImpConf = true;
-      S.ajMsg = 'Importar substitui os dados deste aparelho. Toque de novo em Importar backup para continuar.';
+      S.ajMsg = 'Importar substitui os dados deste aparelho. Toque de novo em Importar para continuar.';
       S._ajForce = true;
       render();
       return;
@@ -27687,7 +27687,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function cliListaHtml() {
     var l = cliLista();
     if (!l.length)
-      return S.clientes.length ? '<div class="hint">Nenhum cliente com essa busca.</div>' : lfVazioHtml('<circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/>', 'Nenhum cliente ainda', 'Eles entram sozinhos quando você salva um pedido online, ou toque em “+ Novo cliente”.');
+      return S.clientes.length ? '<div class="hint">Nenhum cliente com essa busca.</div>' : lfVazioHtml('<circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/>', 'Nenhum cliente ainda', 'Eles entram sozinhos quando você salva um pedido online, ou toque no “+” ao lado do título.');
     return l
       .map(function (c) {
         var ps = cliPedidos(c),
@@ -27724,57 +27724,70 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     });
     if (!ord.length) return '';
     return (
-      '<div class="lbl" style="margin-top:6px">Compras</div>' +
+      '<div class="lb77">Compras · ' + ord.length + '</div><div class="gp77 cp77">' +
       ord
         .sort(function (a, b) { return b.ts - a.ts; })
         .map(function (v) {
-          return '<div class="sl"><span>' + fd(v.ts) + '<small>' + v.t.join(', ') + '</small></span><b>' + gs(v.tot) + '</b></div>';
+          return '<div class="rw77"><span class="tx"><b>' + v.t.join(', ') + '</b><small>' + fd(v.ts) + '</small></span><span class="vl">' + gs(v.tot) + '</span></div>';
         })
-        .join('')
+        .join('') + '</div>'
     );
   }
   function renderClientes() {
     cliSync();
     var el = $('v-clientes');
     if (!el || S.view !== 'clientes') return;
+    // S374 (esboços 81a + 77 + 84, aprovados 17/11 06:22): topo só com o "+" redondo (saem "Atacado ›" — botão próprio no Início — e
+    // "Cartões ›" — foram para Marketing); a lista continua como era; a ficha no padrão de luxo (nome centralizado na letra da lista,
+    // atalhos WhatsApp e Avisar, dados em linhas, 1 principal "Salvar", "Conta atacadista" em linha, compras, "Remover cliente" no centro).
     var h = '<div class="top"><div><h1>Clientes</h1><div class="crumb">Quem compra na loja e no atacado.</div></div>' +
-      '<button type="button" class="pgAc" data-act="clinovo">+ Novo cliente</button>' + // S324: ação da página ao lado do título (como "+ Adicionar"); o resto em links com "›"
-      '<div class="lkRow"><button type="button" class="lkGo" data-act="inicio" data-id="ata">Atacado ›</button><button type="button" class="lkGo" data-act="cupAbre">Cartões ›</button></div></div>';
+      '<button type="button" class="pl78" data-act="clinovo" aria-label="Novo cliente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div>';
     var c = S.cliSel === 'novo' ? { id: 0, nome: '', tel: '', ruc: '', obs: '' } : cliAtual();
     if (c) {
       var ps = c.id ? cliPedidos(c) : [],
-        z = c.id ? cliZap(c) : '';
+        z = c.id ? cliZap(c) : '',
+        et = c.id ? cliEtiquetas(c, ps).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase() : '',
+        rw = function (lab, campo) { return '<div class="rw77"><label>' + lab + '</label>' + campo + '</div>'; },
+        ata = c.id ? Object.keys(S.ataContas || {}).map(function (k) { return S.ataContas[k]; }).filter(function (x) { return String(x.cliId) === String(c.id) && !x.cancelada; })[0] : null,
+        sub = [];
+      if (et) sub.push(et.split(' ').map(function (w) { return w === 'fiel' ? '<span class="f77">cliente fiel</span>' : esc(w); }).join(' · '));
+      if (c.ts) sub.push('desde ' + fd(c.ts));
       h +=
-        '<section class="card col" style="gap:12px"><div style="display:flex;align-items:center;justify-content:space-between"><b style="font-size:17px">' + (c.id ? 'Ficha do cliente' : 'Novo cliente') + '</b>' +
-        '<button type="button" class="chip" data-act="clifecha" aria-label="' + (c.id ? 'Fechar' : 'Cancelar') + '" style="min-height:40px;width:40px;padding:0;justify-content:center;font-size:20px">×</button></div>' +
-        '<input class="in" id="cNome" placeholder="Nome" value="' + esc(c.nome) + '" autocomplete="off">' +
-        '<input class="in" id="cTel" type="tel" inputmode="tel" placeholder="Telefone / WhatsApp" value="' + esc(c.tel) + '">' +
-        '<input class="in" id="cEmail" type="email" inputmode="email" placeholder="E-mail (opcional, para avisos)" value="' + esc(c.email || '') + '" autocomplete="off">' +
-        cliDocHtml('c', c) +
-        '<select class="in selAl" id="cTab" aria-label="Tabela de preço do cliente"><option value="">Tabela de preço: padrão (Público)</option>' + tabLista().filter(function (T) { return !T.pub; }).map(function (T) { return '<option value="' + T.id + '"' + (c.tab === T.id ? ' selected' : '') + '>' + esc(T.nome) + '</option>'; }).join('') + '</select>' +
-        cliDupHtml(c) +
-        '<input class="in" id="cObs" placeholder="Observação (opcional)" value="' + esc(c.obs || '') + '">' +
-        '<div class="hint" id="cH" style="margin:0"></div>' +
-        '<div class="col" style="gap:12px;margin-top:6px"><button type="button" class="go" data-act="clisave">Salvar</button>' +
-        (c.id && (z || c.email) ? '<button type="button" class="go" data-act="cliavisa">Avisar cliente</button>' : '') +
-        /* S194: VIP saiu; o Cliente fiel chega sozinho a cada 3 compras pagas */
-        (c.id ? '<button type="button" class="mini ghost" data-act="ataConta" data-id="' + c.id + '">🏬 Conta Atacadista/Mayorista</button>' : '') +
-        (c.id && c.aviso ? '<div class="hint" style="margin:0">Último aviso: ' + esc(c.aviso.canal) + ' · ' + esc(c.aviso.modelo) + ' · ' + fd(c.aviso.ts) + ' ' + fh(c.aviso.ts) + '</div>' : '') +
-        (z ? '<a class="chip" href="' + z + '" target="_blank" rel="noopener" style="color:#25d366;width:100%;min-height:48px;justify-content:center;text-decoration:none;display:flex;align-items:center">' + CLI_WA + '<span style="margin-left:8px">Conversar no WhatsApp</span></a>' : '') +
-        (c.id ? '<div style="border-top:1px solid var(--line);margin-top:6px"></div><button type="button" data-act="clidel" style="color:#ff7b7b;background:transparent;border:0;min-height:44px;width:100%;font:inherit;cursor:pointer">' + 'Remover cliente' + '</button>' : '') +
+        '<section class="card col cf77" id="cliFicha"><button type="button" class="x77" data-act="clifecha" aria-label="' + (c.id ? 'Fechar' : 'Cancelar') + '">×</button>' +
+        '<div class="hd77"><h2>' + esc(c.id ? c.nome || 'Sem nome' : 'Novo cliente') + '</h2>' + (sub.length ? '<small>' + sub.join(' · ') + '</small>' : '') + '</div>' +
+        (c.id && (z || c.email)
+          ? '<div class="qa77">' + (z ? '<a href="' + z + '" target="_blank" rel="noopener" aria-label="Conversar no WhatsApp"><i class="wa77">' + CLI_WA + '</i>WhatsApp</a>' : '') +
+            '<button type="button" data-act="cliavisa" aria-label="Avisar cliente"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></i>Avisar</button></div>'
+          : '') +
+        '<div class="lb77">Dados</div><div class="gp77">' +
+        rw('Nome', '<input id="cNome" placeholder="Nome" value="' + esc(c.nome) + '" autocomplete="off">') +
+        rw('Telefone', '<input id="cTel" type="tel" inputmode="tel" placeholder="WhatsApp" value="' + esc(c.tel) + '">') +
+        rw('E-mail', '<input id="cEmail" type="email" inputmode="email" placeholder="opcional, para avisos" value="' + esc(c.email || '') + '" autocomplete="off">') +
+        '<div class="rw77 rwDoc">' + cliDocHtml('c', c) + '</div>' +
+        rw('Tabela', '<select id="cTab" aria-label="Tabela de preço do cliente"><option value="">Público (padrão)</option>' + tabLista().filter(function (T) { return !T.pub; }).map(function (T) { return '<option value="' + T.id + '"' + (c.tab === T.id ? ' selected' : '') + '>' + esc(T.nome) + '</option>'; }).join('') + '</select>') +
+        rw('Observação', '<input id="cObs" placeholder="opcional" value="' + esc(c.obs || '') + '">') +
         '</div>' +
+        cliDupHtml(c) +
+        '<div class="hint" id="cH" style="margin:6px 0 0"></div>' +
+        '<button type="button" class="go77" data-act="clisave">Salvar</button>' +
+        (c.id && c.aviso ? '<div class="hint" style="margin:8px 0 0;text-align:center">Último aviso: ' + esc(c.aviso.canal) + ' · ' + esc(c.aviso.modelo) + ' · ' + fd(c.aviso.ts) + ' ' + fh(c.aviso.ts) + '</div>' : '') +
+        (c.id
+          ? '<div class="lb77">Atacado</div><div class="gp77"><button type="button" class="rw77" data-act="ataConta" data-id="' + c.id + '"><span class="tx"><b>Conta atacadista</b><small>' + (ata ? 'catálogo com preço de atacado' : c.email ? 'criar o acesso ao catálogo de atacado' : 'precisa do e-mail do cliente') + '</small></span>' +
+            (ata ? '<span class="vl ' + (ata.pausada ? 'w77' : 'f77') + '">' + (ata.pausada ? 'Pausada' : 'Ativa') + '</span>' : '') + '<span class="ch">›</span></button></div>'
+          : '') +
         (ps.length
-          ? '<div class="lbl" style="margin-top:6px">Pedidos</div>' +
+          ? '<div class="lb77">Pedidos · ' + ps.length + '</div><div class="gp77 cp77">' +
             ps
               .slice()
               .sort(function (a, b) { return b.ts - a.ts; })
               .map(function (p) {
                 var tot = pedTotal(p);
-                return '<div class="sl"><span>Pedido ' + p.num + ' · ' + fd(p.ts) + '<small>' + p.itens.map(function (l) { return l.q + '× ' + esc(l.t); }).join(', ') + '</small></span><b>' + (tot ? gs(tot) : '') + '</b></div>';
+                return '<div class="rw77"><span class="tx"><b>Pedido ' + p.num + '</b><small>' + fd(p.ts) + ' · ' + p.itens.map(function (l) { return l.q + '× ' + esc(l.t); }).join(', ') + '</small></span><span class="vl">' + (tot ? gs(tot) : '') + '</span></div>';
               })
-              .join('')
+              .join('') + '</div>'
           : '') +
         cliComprasHtml(c) +
+        (c.id ? '<div class="dz77"><button type="button" class="r" data-act="clidel">Remover cliente</button></div>' : '') +
         '</section>';
     }
     // com o Novo cliente ou a ficha aberta, a busca e a lista ficam escondidas (voltam ao Salvar ou ×)
@@ -28844,7 +28857,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   };
   var AJ_SETA = AJ_SVG('<path d="M9 6l6 6-6 6"/>'),
     AJ_ALCA = AJ_SVG('<path d="M5 9h14M5 15h14"/>'),
-    AJ_PADRAO = ['imp', 'pa', 'tema', 'seg', 'ped', 'av', 'sync', 'upd', 'bk'];
+    // S374 (esboço 75): sai a linha "Preço automático › em Preços" (só levava a outra tela; mora em Preços)
+    AJ_PADRAO = ['imp', 'tema', 'seg', 'ped', 'av', 'sync', 'upd', 'bk'];
   function ajOrdem() {
     var o = [];
     try {
@@ -29584,6 +29598,19 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var c = document.getElementById('updCard');
     if (c && S.view === 'ajustes') c.outerHTML = updCard();
   }
+  // S374 (esboço 75v, aprovado 16/11 18:33): um botão só que muda no lugar — contorno neutro; ao buscar fica rosa com o anel fino
+  // girando e "Procurando…"; achou nada: "✓ Você está na versão mais nova" (o ✓ se desenha) + "agora mesmo"; achou: principal rosa.
+  // A troca de texto entra subindo 4 px (~0,2 s). Classe .up75 + estado (p75 parado · b75 busca · k75 ok · n75 novo/APK).
+  var UP75_ULT = '';
+  function updBotao75(est, ak, tit, sub) {
+    var st = ak ? (ak === 'baixa' ? 'b' : 'n') : { busca: 'b', ok: 'k', novo: 'n', parado: 'p' }[est],
+      txt = st === 'b' ? (ak ? tit : 'Procurando…') : st === 'k' ? 'Você está na versão mais nova' : st === 'n' ? (ak ? tit : 'Atualizar para ' + esc((updMarca().nome || UPD.pronta || '')) ) + ' ›' : 'Buscar atualização',
+      ico = st === 'b' ? '<i class="rg75" aria-hidden="true"></i>' : st === 'k' ? '<svg class="ck75" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" pathLength="1"/></svg>' : '',
+      muda = UP75_ULT && UP75_ULT !== st;
+    UP75_ULT = st;
+    return '<button type="button" class="up75 ' + st + '75' + (muda ? ' in75' : '') + '" data-act="' + (ak ? 'apkgo' : est === 'novo' ? 'updagora' : 'updbusca') + '"' + (st === 'b' ? ' disabled' : '') + '><span class="l75">' + ico + '<span>' + txt + '</span></span></button>' +
+      (st === 'k' ? '<div class="s75' + (muda ? ' in75' : '') + '">' + (UPD.ult ? 'agora mesmo' : 'Versão ' + esc(APP_NOME)) + '</div>' : st === 'n' || st === 'b' ? '<div class="s75">' + esc(sub) + '</div>' : '');
+  }
   function updCard() {
     var m = updMarca(),
       novo = UPD.pronta || (+m.v > APP_BUILD ? +m.v : 0),
@@ -29602,7 +29629,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return '<section class="card col" id="updCard"><h2 style="margin:0;font-size:16px">Atualização do app</h2>' +
       '<div class="hint" style="margin:0">O app procura sozinho (ao abrir e a cada poucas horas) e avisa quando a nova está pronta. Nada muda enquanto você vende.</div>' +
       '<div class="vrow"><span>Versão <b>' + esc(APP_NOME) + '</b> <small>(' + APP_BUILD + ')</small></span><span>' + ult + '</span></div>' +
-      '<button type="button" class="bsolid' + (ak ? ' new' : est === 'ok' ? ' ok' : est === 'novo' ? ' new' : '') + '" data-act="' + (ak ? 'apkgo' : est === 'novo' ? 'updagora' : 'updbusca') + '"' + (est === 'busca' || ak === 'baixa' ? ' disabled' : '') + '><span class="bi">' + ico + '</span><span class="bt2"><b>' + tit + '</b><span>' + sub + '</span></span></button>' +
+      updBotao75(est, ak, tit, sub) +
       (ak ? apkLinha() : UPD.msg && est !== 'ok' && est !== 'busca' && est !== 'novo' ? '<div class="note n-info" role="status">' + esc(UPD.msg) + '</div>' : '') + '</section>';
   }
   // Confirma que a cópia baixada abriu bem (zera as tentativas) e agenda as buscas automáticas.
@@ -41454,7 +41481,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return (
       '<div class="avcard' + (a[k] ? '' : ' off') + '"><div class="avtop"><span class="avico">' + AV_ICO[k] + '</span><span class="avtx"><b>' + t[1] + '</b><span class="hint" style="margin:2px 0 0;font-weight:400;display:block">' + t[2] + '</span></span>' +
       '<span class="sw"><input type="checkbox" role="switch" data-av="' + k + '"' + (a[k] ? ' checked' : '') + ' aria-label="' + t[1] + '"><i></i></span></div>' +
-      '<div class="avbot"><button type="button" class="avchip' + (a[k] && !mudo ? ' on' : '') + '" data-av="escolher" data-v="' + k + '" aria-label="Escolher o som de ' + t[1] + '">' + (mudo ? '🔕' : '🔔') + ' ' + avNome(a['s' + k]) + ' <i>▾</i></button>' +
+      '<div class="avbot"><button type="button" class="avchip' + (a[k] && !mudo ? ' on' : '') + '" data-av="escolher" data-v="' + k + '" aria-label="Escolher o som de ' + t[1] + '">' + avNome(a['s' + k]) + ' <i>▾</i></button>' +
       (mudo ? '' : '<button type="button" class="avplay" data-av="ouvir" data-v="' + a['s' + k] + '" aria-label="Ouvir o som de ' + t[1] + '">▶</button>') + '</div></div>'
     );
   }
@@ -41478,7 +41505,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           '<div class="hint" style="margin:6px 0 0">Rosa = silencioso. Fora dessa faixa o app avisa normalmente.</div>'
         : '') + '</div>' +
       '<div class="lbl" style="margin:6px 0 0">Testar</div>' +
-      '<button type="button" class="bsolid" data-av="teste"><span class="bi"><span class="ring">🔔</span></span><span class="bt2"><b>Enviar aviso de teste</b><span>Toca o som de “Pedido novo”</span></span></button><div class="hint" id="avmsg" style="margin:0" hidden></div></section>' +
+      '<button type="button" class="b75" data-av="teste">Enviar aviso de teste</button><div class="hint" style="margin:-4px 0 0;text-align:center">toca o som de “Pedido novo”</div><div class="hint" id="avmsg" style="margin:0" hidden></div></section>' +
       avJanelaHtml()
     );
   }
@@ -44315,27 +44342,32 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   function ataConvAtivos() { var ag = Date.now(); return Object.keys(S.ataContas).filter(function (k) { var c = S.ataContas[k]; return c.tipo === 'visita' && !c.cancelada && c.fim > ag; }).length; }
   function ataTgl(on, act, id) { return '<button type="button" class="nfTg' + (on ? ' on' : '') + '" data-act="' + act + '" data-id="' + esc(id) + '" role="switch" aria-checked="' + !!on + '"><i></i></button>'; }
+  // S374 (esboço 77d/77e, aprovado 17/11): janela no padrão de luxo — topo com iniciais e estado, seções em linhas, limite − n +,
+  // chave com a frase do estado de verdade, moeda em 3 partes, "Enviar convite" principal, Pausar/Cancelar no fim, centralizados.
   function ataContaHtml(c) {
     var ag = Date.now(), st = c.cancelada ? 'Cancelada' : c.pausada ? 'Pausada' : c.tipo === 'visita' && c.fim < ag ? 'Vencida' : 'Ativa', ap = c.aparelhos || [], tr = ataTrocas30(c);
-    var ini = String(c.nome || '?').split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase();
-    return '<div class="col" style="gap:12px;padding:0 16px 16px">' +
-      '<section class="card ataTopo"><span class="ataAv">' + esc(ini) + '</span><div><b>' + esc(c.nome) + '</b><small>' + (c.tipo === 'visita' ? 'Visitante · ' : 'Cliente associado · ') + '<b style="color:' + (st === 'Ativa' ? 'var(--ok)' : 'var(--warn)') + '">' + st + '</b>' + (c.tipo === 'visita' ? ' · vence ' + fd(c.fim) : ' · não vence') + ' · ' + esc(tabDe(c.tab).nome) + '</small></div></section>' +
-      '<section class="card col" style="gap:0"><div class="lbl">APARELHOS · ' + ap.length + ' DE ' + (c.dispMax || 3) + '</div>' +
-      (ap.length ? ap.map(function (a) { return '<div class="sl"><span>' + esc(a.nome || 'Aparelho') + '<small>último uso ' + (a.ult ? fd(a.ult) + ' ' + fh(a.ult) : '—') + '</small></span><button type="button" class="gMudo" data-act="ataApRm" data-id="' + esc(c.id + '|' + a.id) + '">Remover</button></div>'; }).join('') : '<div class="hint" style="margin:6px 0">Ainda não entrou de nenhum aparelho.</div>') +
-      '<div class="sl"><span>Limite de aparelhos</span><span style="display:flex;gap:6px;align-items:center"><button type="button" class="gMudo" data-act="ataLim" data-id="' + esc(c.id) + '|-1">−</button><b>' + (c.dispMax || 3) + '</b><button type="button" class="gMudo" data-act="ataLim" data-id="' + esc(c.id) + '|1">+</button></span></div></section>' +
-      (tr > 2 && c.trocaOk !== false ? '<section class="card col ataAl"><b>Trocou de aparelho ' + tr + ' vezes em 30 dias</b><small>Pode ser que esteja repassando o acesso.</small><button type="button" class="gBtn" data-act="ataTroca" data-id="' + esc(c.id) + '" style="align-self:flex-start">Bloquear trocas</button></section>' : '') +
-      '<section class="card col" style="gap:0"><div class="lbl">O QUE CADA BOTÃO FAZ</div>' +
-      (c.tipo !== 'visita' ? '<div class="sl"><span><b>Cliente pode trocar aparelho</b><small>Desligado: ele não troca mais sozinho</small></span>' + ataTgl(c.trocaOk !== false, 'ataTroca', c.id) + '</div>' : '<div class="sl"><span><b>Cliente remove aparelho</b><small>Visitante nunca remove</small></span><b>Não</b></div>') +
-      '<div class="sl"><span><b>Pausar</b><small>Some o catálogo. Nada é apagado. Volta com 1 toque</small></span><button type="button" class="gBtn" data-act="ataPausa" data-id="' + esc(c.id) + '">' + (c.pausada ? 'Voltar' : 'Pausar') + '</button></div>' +
-      '<div class="sl"><span><b>Cancelar conta</b><small>Apaga o acesso. Para voltar, novo convite</small></span><button type="button" class="gBtn ataRm" data-act="ataCanc" data-id="' + esc(c.id) + '">Cancelar</button></div></section>' +
-      '<section class="card col" style="gap:0"><div class="lbl">MOEDA QUE ELE VÊ PRIMEIRO (ELE PODE TROCAR)</div><div class="ataRw" style="padding:8px 0">' + [['usd', 'US$'], ['gs', 'Gs.'], ['brl', 'R$']].map(function (m) { return '<button type="button" class="mini' + ((c.moeda || 'usd') === m[0] ? '' : ' ghost') + '" data-act="ataMoeda" data-id="' + esc(c.id + '|' + m[0]) + '">' + m[1] + '</button>'; }).join('') + '</div></section>' +
-      '<button type="button" class="mini ghost" data-act="ataLotes" style="align-self:center">📦 Lotes de atacado</button>' +
-      '<button type="button" class="go" data-act="ataEnvia" data-id="' + esc(c.id) + '">Enviar convite pelo WhatsApp</button></div>';
+    var ini = String(c.nome || '?').split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase(), lim = c.dispMax || 3, tro = c.trocaOk !== false;
+    return '<div class="ata77">' +
+      '<div class="hd77"><span class="av77 g">' + esc(ini) + '</span><h2>' + esc(c.nome) + '</h2><small>' + (c.tipo === 'visita' ? 'Visitante · ' : 'Cliente associado · ') + '<span class="' + (st === 'Ativa' ? 'f77' : 'w77') + '">' + st + '</span>' + (c.tipo === 'visita' ? ' · vence ' + fd(c.fim) : ' · não vence') + ' · ' + esc(tabDe(c.tab).nome) + '</small></div>' +
+      '<div class="lb77">Aparelhos</div><div class="gp77">' +
+      (ap.length ? ap.map(function (a) { return '<div class="rw77"><span class="tx"><b>' + esc(a.nome || 'Aparelho') + '</b><small>último uso ' + (a.ult ? fd(a.ult) + ' ' + fh(a.ult) : '—') + '</small></span><button type="button" class="lk77" data-act="ataApRm" data-id="' + esc(c.id + '|' + a.id) + '">Remover</button></div>'; }).join('') : '') +
+      '<div class="rw77"><span class="tx"><b>Em uso</b>' + (ap.length ? '' : '<small>ainda não entrou de nenhum aparelho</small>') + '</span><span class="vl">' + ap.length + ' de ' + lim + '</span></div>' +
+      '<div class="rw77"><span class="tx"><b>Limite</b></span><span class="st77"><button type="button" data-act="ataLim" data-id="' + esc(c.id) + '|-1" aria-label="Menos aparelhos">−</button><b>' + lim + '</b><button type="button" data-act="ataLim" data-id="' + esc(c.id) + '|1" aria-label="Mais aparelhos">+</button></span></div></div>' +
+      (tr > 2 && tro ? '<section class="card col ataAl" style="margin-top:12px"><b>Trocou de aparelho ' + tr + ' vezes em 30 dias</b><small>Pode ser que esteja repassando o acesso.</small><button type="button" class="lk77" data-act="ataTroca" data-id="' + esc(c.id) + '" style="align-self:flex-start;padding:0">Bloquear trocas ›</button></section>' : '') +
+      '<div class="lb77">Acesso</div><div class="gp77">' +
+      (c.tipo !== 'visita'
+        ? '<div class="rw77"><span class="tx"><b>Pode trocar de aparelho</b><small>' + (tro ? 'Ligado: ele troca sozinho, até o limite' : 'Desligado: ele não troca mais sozinho') + '</small></span>' + ataTgl(tro, 'ataTroca', c.id) + '</div>'
+        : '<div class="rw77"><span class="tx"><b>Remove aparelho</b><small>visitante nunca remove</small></span><span class="vl">Não</span></div>') + '</div>' +
+      '<div class="lb77">Moeda que ele vê primeiro</div><div class="sg77" role="group" aria-label="Moeda que ele vê primeiro (ele pode trocar)">' + [['usd', 'US$'], ['gs', 'Gs.'], ['brl', 'R$']].map(function (m) { return '<button type="button" class="' + ((c.moeda || 'usd') === m[0] ? 'on' : '') + '" data-act="ataMoeda" data-id="' + esc(c.id + '|' + m[0]) + '" aria-pressed="' + ((c.moeda || 'usd') === m[0]) + '">' + m[1] + '</button>'; }).join('') + '</div>' +
+      '<div style="margin-top:12px"><button type="button" class="lk77" data-act="ataLotes">Lotes de atacado ›</button></div>' +
+      '<button type="button" class="go77" data-act="ataEnvia" data-id="' + esc(c.id) + '">Enviar convite pelo WhatsApp</button>' +
+      '<div class="dz77"><button type="button" data-act="ataPausa" data-id="' + esc(c.id) + '">' + (c.pausada ? 'Voltar a conta' : 'Pausar conta') + '</button><small>' + (c.pausada ? 'o catálogo volta a aparecer' : 'o catálogo some; nada é apagado; volta com 1 toque') + '</small>' +
+      '<button type="button" class="r" data-act="ataCanc" data-id="' + esc(c.id) + '">Cancelar conta</button><small>apaga o acesso; para voltar, novo convite</small></div></div>';
   }
   function ataJanela(id) {
     var c = S.ataContas[id];
     if (!c) return;
-    lfJanela({ titulo: 'Conta Atacadista/Mayorista', monta: function (box) { box.innerHTML = ataContaHtml(c); ataLe(id).then(function (n) { if (n && document.body.contains(box)) box.innerHTML = ataContaHtml(n); }); } });
+    lfJanela({ titulo: 'Conta atacadista', monta: function (box) { box.innerHTML = ataContaHtml(c); ataLe(id).then(function (n) { if (n && document.body.contains(box)) box.innerHTML = ataContaHtml(n); }); } });
   }
   // ficha do cliente → criar ou abrir a conta associada
   ACT.ataConta = function (cliId) {
@@ -51683,7 +51715,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     { id: 'g:res', nome: 'Resultados', ico: 'hoje', frase: 'Dia, mês e histórico', itens: ['hoje', 'hist'] },
     { id: 'g:gp', nome: 'Giro e preços', ico: 'giro', frase: 'Giro, preços e reservas', itens: ['giro', 'prec', 'din'] },
     { id: 'g:site', nome: 'Site', ico: 'onl', frase: 'Pedidos, mensagens e analisador', itens: ['site', 'ped', 'msg', 'anl'] },
-    { id: 'g:mkt', nome: 'Marketing', ico: 'mkt', frase: 'Posts, vídeos e temática', itens: ['mkt', 'tem'] }
+    { id: 'g:mkt', nome: 'Marketing', ico: 'mkt', frase: 'Posts, vídeos, temática e cartões', itens: ['mkt', 'tem', 'cup'] }
   ];
   GRP_FRASE.ata = 'Lojistas, lotes e tabela';
   function fam6Aplica() {
@@ -51961,6 +51993,72 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var n = document.getElementById('nName');
     if (n) { try { n.focus({ preventScroll: true }); } catch (e) {} }
   };
+
+  // ===== S374 · Cartões (de desconto) viram tela da família Marketing (esboço 80b, aprovado 17/11 06:22) =====
+  // Antes: janela por cima, aberta por "Cartões ›" em Clientes. Agora: tela "Cartões" na flecha de Marketing (Marketing, Temática, Cartões).
+  if (!$('v-cup')) {
+    var _vc = document.createElement('div');
+    _vc.id = 'v-cup';
+    _vc.className = 'view';
+    _vc.hidden = true;
+    var _vcl = $('v-clientes');
+    if (_vcl && _vcl.parentNode) _vcl.parentNode.insertBefore(_vc, _vcl.nextSibling);
+    else document.querySelector('.wrap') && document.querySelector('.wrap').appendChild(_vc);
+  }
+  if (!VIEWS.some(function (v) { return v[0] === 'cup'; })) VIEWS.push(['cup', 'Cartões']);
+  BARRA_NOME.cup = 'Cartões';
+  GRP_FRASE.cup = 'Cartões de desconto e cliente fiel';
+  if (!ICO_D.cup) ICO_D.cup = '<rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M3 10h18M7 15h4"/>';
+  var cupVista = '';
+  function renderCup() {
+    var el = $('v-cup');
+    if (!el || S.view !== 'cup') { cupVista = ''; return; }
+    if (cupVista) return; // já desenhada nesta visita (a carga é da nuvem)
+    cupVista = '1';
+    el.innerHTML = '<div class="top"><div><h1>Cartões</h1><div class="crumb">Cartões de desconto, cliente fiel e cupom do evento.</div></div></div><div id="cupTela"><div class="hint">Carregando…</div></div>';
+    cupCarrega(function (j, off) {
+      var c = $('cupTela');
+      if (!c) return;
+      if (!j) { c.innerHTML = '<div class="hint">Entre na nuvem (Ajustes › Cópias e nuvem) e conecte à internet para ver os cartões.</div>'; return; }
+      cupDesenha(c, j, off);
+    });
+  }
+  var _render374c = render;
+  render = function () {
+    var r = _render374c.apply(this, arguments);
+    try { renderCup(); } catch (e) {}
+    return r;
+  };
+  ACT.cupAbre = function () {
+    cupVista = '';
+    if (S.view === 'cup') { var el = $('v-cup'); if (el) el.innerHTML = ''; return renderCup(); }
+    setView('cup');
+  };
+  var _inicioGo374c = inicioGo;
+  inicioGo = function (id) {
+    if (id === 'cup') return ACT.cupAbre();
+    return _inicioGo374c.apply(this, arguments);
+  };
+  var _navOn374c = navOn;
+  navOn = function (id) {
+    if (id === 'cup') return S.view === 'cup';
+    return _navOn374c.apply(this, arguments);
+  };
+  // a família Marketing ganha a tela Cartões (uma vez)
+  var _iniLista374c = iniLista;
+  iniLista = function () {
+    var l = _iniLista374c.apply(this, arguments);
+    if (!S.fam80) {
+      var g = grpGet('g:mkt');
+      if (g) {
+        S.fam80 = true;
+        if (g.itens.indexOf('cup') < 0) g.itens.push('cup');
+        g.frase = 'Posts, vídeos, temática e cartões';
+      }
+    }
+    return l;
+  };
+
   // ===== S370 (16/11/2026) — lote 8: trilho que ARRASTA (regra do dono, 15/11/2026) =====
   // Todo seletor em trilho (.trk com a pílula .trkTh e os botões .trkB) aceita o dedo (ou o mouse) arrastando a pílula,
   // além do toque. Ao soltar, vale o botão mais perto (o mesmo clique de sempre, então cada tela continua igual).

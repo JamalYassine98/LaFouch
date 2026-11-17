@@ -18,7 +18,8 @@
   };
   var AJ_SETA = AJ_SVG('<path d="M9 6l6 6-6 6"/>'),
     AJ_ALCA = AJ_SVG('<path d="M5 9h14M5 15h14"/>'),
-    AJ_PADRAO = ['imp', 'pa', 'tema', 'seg', 'ped', 'av', 'sync', 'upd', 'bk'];
+    // S374 (esboço 75): sai a linha "Preço automático › em Preços" (só levava a outra tela; mora em Preços)
+    AJ_PADRAO = ['imp', 'tema', 'seg', 'ped', 'av', 'sync', 'upd', 'bk'];
   function ajOrdem() {
     var o = [];
     try {

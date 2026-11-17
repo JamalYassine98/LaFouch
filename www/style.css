@@ -2823,3 +2823,79 @@ section.card.fxF>.fxB .fxI>.card:first-child{border-top:0!important;padding-top:
 #v-desp .chk.on{background:none!important;border:1.5px solid var(--ok)!important;color:var(--ok)!important}
 #v-desp .chk{border-width:1.5px!important}
 #v-desp .paga-nome{text-decoration:none!important;color:var(--mute)!important;font-weight:600}
+/* S374 · esboço 74 (Câmbio, aprovado 16/11 18:12): "Registrar troca" = a principal (contorno rosa, largura toda), "Normal ›" em texto
+   na cor do estado (continua abrindo "Por que está normal"), cotações com "›". */
+#v-fx .fxLk{justify-content:center!important;border:1px solid var(--accent)!important;border-radius:999px!important;min-height:48px;margin-top:10px;font-weight:600}
+#v-fx .fxLk span{display:none}
+#v-fx .fxSelo{background:none!important;border:0!important;padding:0!important;font-weight:600;color:var(--sub)}
+#v-fx .fxSelo.n{color:var(--ok)!important}
+#v-fx .fxLin .fxVar::after{content:'  ›';color:var(--mute)}
+#v-fx .fxSelo.o{color:var(--ok)!important}#v-fx .fxSelo.w{color:var(--warn)!important}#v-fx .fxSelo.b{color:var(--bad,#e07a7a)!important}
+/* S374 · esboço 75 + 75v (Ajustes, aprovados 16/11 18:33). As chaves (liga/desliga) ficam as originais. */
+#v-ajustes .ajIc{background:none!important}
+#v-ajustes h2,#v-ajustes h3{font-family:inherit!important;font-size:16px!important;font-weight:600!important;letter-spacing:0}
+#v-ajustes .impBp{background:none!important;color:var(--accent-fg)!important;border-radius:999px;font-weight:600}
+#v-ajustes .avico{display:none!important}
+#v-ajustes .avbot .avchip{background:none!important;border:1px solid var(--line)!important;border-radius:999px!important;font-weight:600;min-height:44px}
+#v-ajustes .avbot .avplay{width:44px!important;height:44px!important;border:1px solid var(--line)!important;color:var(--fg)!important}
+#v-ajustes [data-act=bkexp],#v-ajustes [data-act=bkimp]{white-space:nowrap}
+#v-ajustes .paCard .hint{margin:0 0 12px!important}#v-ajustes .paCard .hint+.paSw,#v-ajustes .paCard .paSw+.paSw{margin-top:6px}
+#fretesCard{gap:12px!important}#fretesCard>div:first-child{margin-top:8px}
+.b75{width:100%;min-height:48px;border-radius:999px;border:1px solid var(--line);background:none;color:var(--fg);font:inherit;font-weight:600;cursor:pointer}
+.up75{position:relative;width:100%;min-height:48px;border-radius:999px;border:1px solid var(--line);background:none;color:var(--fg);font:inherit;font-weight:600;cursor:pointer;transition:border-color .3s cubic-bezier(.45,0,.2,1),transform .12s}
+.up75:active{transform:scale(.98)}
+.up75.b75x,.up75.b75{border-color:var(--accent)}
+.up75.n75{border-color:var(--accent);color:var(--accent-fg)}
+.up75[disabled]{opacity:1;cursor:default}
+.up75 .l75{display:inline-flex;align-items:center;justify-content:center;gap:10px}
+.rg75{width:15px;height:15px;border-radius:50%;border:1.6px solid color-mix(in srgb,var(--accent) 25%,transparent);border-top-color:var(--accent);animation:rg75 .9s linear infinite}
+@keyframes rg75{to{transform:rotate(360deg)}}
+.ck75{width:17px;height:17px;stroke:var(--ok);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
+.up75.in75 .ck75{animation:ck75 .32s cubic-bezier(.45,0,.2,1) .1s both}
+@keyframes ck75{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.up75.in75 .l75,.s75.in75{animation:in75 .22s cubic-bezier(.45,0,.2,1) both}
+@keyframes in75{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.s75{font-size:12.5px;color:var(--mute);text-align:center;margin-top:-2px}
+@media (prefers-reduced-motion:reduce){.rg75,.ck75,.l75,.s75{animation:none!important}}
+/* S374 · Clientes (esboços 81a + 77 + 84, aprovados 17/11 06:22): "+" redondo no topo; ficha no padrão de luxo. */
+#v-clientes>.top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.pl78{flex:none;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--fg);display:grid;place-items:center;margin-top:6px;cursor:pointer}
+.pl78 svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round}
+.cf77{position:relative;padding:18px 16px 20px!important;gap:0!important}
+.x77{position:absolute;right:14px;top:14px;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--fg);font-size:20px;cursor:pointer}
+.hd77{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 48px 4px;text-align:center}
+.hd77 h2{margin:0;font-family:var(--display),Georgia,serif;font-weight:400;font-size:26px;letter-spacing:0}
+.hd77 small{color:var(--mute);font-size:13px}
+.f77{color:var(--ok)}.w77{color:var(--warn)}
+.qa77{display:flex;justify-content:center;gap:28px;margin:16px 0 4px}
+.qa77>a,.qa77>button{display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:0;font:inherit;font-size:12.5px;color:var(--sub);text-decoration:none;cursor:pointer;min-width:64px}
+.qa77 i{width:48px;height:48px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-style:normal;color:var(--fg)}
+.qa77 svg{width:20px;height:20px}.qa77 .wa77{color:#25d366}
+.lb77{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--sub);margin:18px 4px 8px}
+.gp77{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.rw77{display:flex;align-items:center;gap:12px;padding:6px 16px;min-height:56px;width:100%;background:none;border:0;border-top:1px solid var(--line);font:inherit;color:var(--fg);text-align:left}
+.gp77>.rw77:first-child{border-top:0}
+button.rw77{cursor:pointer}
+.rw77 .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.rw77 .tx b{font-weight:600;font-size:15.5px}.rw77 .tx small{color:var(--mute);font-size:12.5px}
+.cp77 .rw77 .tx b{font-weight:500}
+.rw77 .ch{color:var(--mute);font-size:18px}.rw77 .vl{font-weight:600;white-space:nowrap}
+.rw77>label{flex:none;width:92px;color:var(--mute);font-size:13px}
+.rw77>input,.rw77>select{flex:1;min-width:0;height:44px;background:none;border:0;color:var(--fg);font:inherit;font-size:15px;text-align:right;padding:0;outline:none;-webkit-appearance:none;appearance:none}
+.rw77>select{text-align-last:right;cursor:pointer}
+.rw77>input::placeholder{color:var(--mute)}
+.rw77.rwDoc{flex-direction:column;align-items:stretch;gap:8px;padding:10px 16px 12px}
+.rw77.rwDoc .docF{display:flex;flex-direction:row;align-items:center;gap:12px}.rw77.rwDoc .docL{flex:none;width:92px;color:var(--mute);font-size:13px;margin:0;text-align:left}
+.rw77.rwDoc .docF .in{flex:1;min-width:0;height:44px;background:none!important;border:0!important;box-shadow:none!important;text-align:right;padding:0;font-size:15px}
+.go77{width:100%;min-height:50px;border-radius:999px;border:1px solid var(--accent);background:none;color:var(--accent-fg);font:inherit;font-weight:600;font-size:16px;margin-top:12px;cursor:pointer}
+.dz77{display:flex;flex-direction:column;align-items:center;gap:2px;margin-top:22px}
+.dz77 button{background:none;border:0;font:inherit;font-weight:600;min-height:44px;color:var(--fg);cursor:pointer}.dz77 button.r{color:var(--bad,#e07a7a)}.dz77 small{color:var(--mute);font-size:12px;margin:-8px 0 10px;text-align:center}
+/* S374 · janela Conta atacadista (77d/77e) */
+.ata77{padding:0 16px 20px}
+.av77{flex:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:13px;font-weight:600;color:var(--accent-fg);letter-spacing:.02em}
+.av77.g{width:64px;height:64px;font-size:20px;border:1.5px solid var(--accent)}
+.ata77 .hd77{padding:6px 0 4px}.ata77 .hd77 h2{font-family:inherit;font-weight:600;font-size:22px}
+.sg77{display:flex;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:3px}
+.sg77 button{flex:1;min-height:40px;border:0;background:none;border-radius:999px;font:inherit;font-weight:600;color:var(--mute);cursor:pointer}.sg77 button.on{background:var(--panel);color:var(--fg);box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.st77{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;height:44px}
+.st77 button{width:44px;height:42px;border:0;background:none;color:var(--fg);font-size:18px;cursor:pointer}.st77 b{min-width:24px;text-align:center}
+.lk77{background:none;border:0;font:inherit;font-weight:600;color:var(--accent-fg);min-height:44px;padding:0 4px;cursor:pointer}

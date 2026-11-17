@@ -107,6 +107,19 @@
     var c = document.getElementById('updCard');
     if (c && S.view === 'ajustes') c.outerHTML = updCard();
   }
+  // S374 (esboço 75v, aprovado 16/11 18:33): um botão só que muda no lugar — contorno neutro; ao buscar fica rosa com o anel fino
+  // girando e "Procurando…"; achou nada: "✓ Você está na versão mais nova" (o ✓ se desenha) + "agora mesmo"; achou: principal rosa.
+  // A troca de texto entra subindo 4 px (~0,2 s). Classe .up75 + estado (p75 parado · b75 busca · k75 ok · n75 novo/APK).
+  var UP75_ULT = '';
+  function updBotao75(est, ak, tit, sub) {
+    var st = ak ? (ak === 'baixa' ? 'b' : 'n') : { busca: 'b', ok: 'k', novo: 'n', parado: 'p' }[est],
+      txt = st === 'b' ? (ak ? tit : 'Procurando…') : st === 'k' ? 'Você está na versão mais nova' : st === 'n' ? (ak ? tit : 'Atualizar para ' + esc((updMarca().nome || UPD.pronta || '')) ) + ' ›' : 'Buscar atualização',
+      ico = st === 'b' ? '<i class="rg75" aria-hidden="true"></i>' : st === 'k' ? '<svg class="ck75" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" pathLength="1"/></svg>' : '',
+      muda = UP75_ULT && UP75_ULT !== st;
+    UP75_ULT = st;
+    return '<button type="button" class="up75 ' + st + '75' + (muda ? ' in75' : '') + '" data-act="' + (ak ? 'apkgo' : est === 'novo' ? 'updagora' : 'updbusca') + '"' + (st === 'b' ? ' disabled' : '') + '><span class="l75">' + ico + '<span>' + txt + '</span></span></button>' +
+      (st === 'k' ? '<div class="s75' + (muda ? ' in75' : '') + '">' + (UPD.ult ? 'agora mesmo' : 'Versão ' + esc(APP_NOME)) + '</div>' : st === 'n' || st === 'b' ? '<div class="s75">' + esc(sub) + '</div>' : '');
+  }
   function updCard() {
     var m = updMarca(),
       novo = UPD.pronta || (+m.v > APP_BUILD ? +m.v : 0),
@@ -125,7 +138,7 @@
     return '<section class="card col" id="updCard"><h2 style="margin:0;font-size:16px">Atualização do app</h2>' +
       '<div class="hint" style="margin:0">O app procura sozinho (ao abrir e a cada poucas horas) e avisa quando a nova está pronta. Nada muda enquanto você vende.</div>' +
       '<div class="vrow"><span>Versão <b>' + esc(APP_NOME) + '</b> <small>(' + APP_BUILD + ')</small></span><span>' + ult + '</span></div>' +
-      '<button type="button" class="bsolid' + (ak ? ' new' : est === 'ok' ? ' ok' : est === 'novo' ? ' new' : '') + '" data-act="' + (ak ? 'apkgo' : est === 'novo' ? 'updagora' : 'updbusca') + '"' + (est === 'busca' || ak === 'baixa' ? ' disabled' : '') + '><span class="bi">' + ico + '</span><span class="bt2"><b>' + tit + '</b><span>' + sub + '</span></span></button>' +
+      updBotao75(est, ak, tit, sub) +
       (ak ? apkLinha() : UPD.msg && est !== 'ok' && est !== 'busca' && est !== 'novo' ? '<div class="note n-info" role="status">' + esc(UPD.msg) + '</div>' : '') + '</section>';
   }
   // Confirma que a cópia baixada abriu bem (zera as tentativas) e agenda as buscas automáticas.

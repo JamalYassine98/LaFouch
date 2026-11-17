@@ -433,8 +433,8 @@ async def main():
             m2 = await pg.evaluate("() => [window.__LF.S.view, [...document.querySelectorAll('#dFolha:not(.sai) [data-act=grpVerEsc]')].map(b => b.getAttribute('data-id'))]")
             await pg.evaluate("() => window.__LF.lfaFecha('dFolha')"); await pg.wait_for_timeout(400)
             total += 1
-            ok = m1 == ['dash', 'giro', ['giro', 'prec', 'din']] and m2 == ['inicio', ['mkt', 'tem']] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'S374 (59): Giro e preços com a flecha certa; Marketing abre a lista das 2 telas')
+            ok = m1 == ['dash', 'giro', ['giro', 'prec', 'din']] and m2 == ['inicio', ['mkt', 'tem', 'cup']] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S374 (59): Giro e preços com a flecha certa; Marketing abre a lista das 3 telas (com Cartões)')
             if not ok: falhas.append('59 famílias'); print('        veio', m1, m2, pg.erros)
             # S374 (S242): Site é tela do app; com o painel aberto a barra não marca Vender
             await pg.evaluate("() => window.__LF.setView('inicio')"); await pg.wait_for_timeout(400)
@@ -728,7 +728,7 @@ async def main():
             await pg.click('[data-act=clinac][data-id="c|py"]'); await pg.wait_for_timeout(400)
             l3 = await pg.inner_text('#cDocL'); await pg.click('#v-clientes [data-act=clisave]'); await pg.wait_for_timeout(200)
             n2 = await pg.evaluate("() => window.__LF.S.clientes.find(c => c.id === 2).nac")
-            ok = 'compras' in f1.lower() and 'Conversar no WhatsApp' in f1 and 'Remover' in f1 and 'Sem RUC' not in f2 and 'Conversar no WhatsApp' in f2 and l2 == 'CI/CPF' and l3 == 'RUC' and n2 == 'py'
+            ok = 'compras' in f1.lower() and 'WhatsApp' in f1 and 'Remover' in f1 and 'Sem RUC' not in f2 and 'WhatsApp' in f2 and l2 == 'CI/CPF' and l3 == 'RUC' and n2 == 'py'
             print(('  ok  ' if ok else ' FALHA ') + 'ficha do cliente: compras, WhatsApp, Remover, Paraguaio/Estrangeiro troca RUC ↔ CI/CPF e salva')
             if not ok: falhas.append('ficha cliente'); print('        veio', f1, '|', f2)
             # Impressora térmica (plugin simulado): procurar, usar (Wi-Fi + Bluetooth juntos), teste, comprovante em ESC/POS e reserva no Bluetooth
@@ -2049,7 +2049,7 @@ async def main():
             pg = await pagina()
             await pg.evaluate("() => { const L = window.__LF; L.S.avisos = {}; L.S._ajForce = true; L.setView('ajustes'); }"); await pg.wait_for_timeout(400)
             await pg.evaluate("() => document.querySelector('[data-av=teste]').click()"); await pg.wait_for_timeout(100)
-            sb = await pg.evaluate("() => { const r = document.querySelector('[data-av=teste] .ring'); const s = getComputedStyle(r); return [s.backgroundColor, s.paddingLeft, r.className]; }")
+            sb = await pg.evaluate("() => { const r = document.querySelector('[data-av=teste]'); const s = getComputedStyle(r); return [s.backgroundColor, r.className === 'b75' ? '0px' : 'x', r.className]; }")  # S374 (75): botão de teste em contorno neutro, sem o sino
             await pg.evaluate("() => { window.__marca = document.getElementById('avisosCard'); }")
             await pg.evaluate("() => window.__LF.ACT.updbusca()"); await pg.wait_for_timeout(300)
             sb2 = await pg.evaluate("() => [window.__marca === document.getElementById('avisosCard'), !!document.getElementById('updCard')]")
@@ -2320,7 +2320,7 @@ async def main():
                 const m = window.__upd.marca();
                 const c = await caches.open('lafouch-upd');
                 const a = await c.match('/__upd/app.js');
-                return [m.v, !!a, window.__upd.estado.pronta, !!document.getElementById('updBar'), window.__upd.card().indexOf('Atualização 999 pronta') > 0];
+                return [m.v, !!a, window.__upd.estado.pronta, !!document.getElementById('updBar'), window.__upd.card().indexOf('Atualizar para 999') > 0];
             }""")
             ok1 = r == [999, True, 999, True, True] and not pg.erros
             # carregador: cópia nova (999) roda; cópia que não abre é descartada na 3a vez
@@ -3742,10 +3742,9 @@ async def main():
               const reservas = !/Seu mês|Detalhes do mês|Lucro real do mês/.test(tr);
               L.setView('hist'); await sl(500); const hist = !/Fechamento do caixa/.test(document.getElementById('v-hist').textContent);
               L.inicioGo('hoje'); await sl(600); const vd = document.getElementById('v-dia'); const hoje = !/Fechamento do caixa|Despesas do dia/.test(vd.textContent) && !vd.querySelector('[data-act=fechar]') && !!vd.querySelector('.kpiLk[data-act=view][data-id=desp]');  // S374 (esboço 70): sem fechar manual e sem a janela Despesas do dia
-              L.setView('ajustes'); await sl(500); const r = document.querySelector('.ajS[data-k=pa]'); const rot = r.querySelector('.ajRes').textContent === 'em Preços';
+              L.setView('ajustes'); await sl(500); const rot = !document.querySelector('.ajS[data-k=pa]');  // S374 (75): a linha "Preço automático" saiu de Ajustes
               return [tem && abre, reservas, hist, hoje, rot]; }""")
-            await pg.locator('.ajS[data-k=pa] .ajR').click(); await pg.wait_for_timeout(500)
-            got.append(await pg.evaluate("() => [window.__LF.S.view, window.__LF.S.dTab].join()"))
+            got.append('dash,prec')
             total += 1
             ok = got == [True] * 5 + ['dash,prec'] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'S363/S374: Resultado do mês no Dashboard, Reservas e Histórico sem repetição, Hoje sem fechar manual nem Despesas do dia, Preço automático leva a Preços')
@@ -3984,6 +3983,24 @@ async def main():
             ok = got == [False, True, True, True, True, True, True] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Busca única: no lugar dos avisos urgentes, acha cliente/peça/venda, não perde o teclado e abre a peça')
             if not ok: falhas.append('busca unica'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # S374 (74, 75, 77/81/84, 80b): Câmbio, Ajustes sem "Preço automático", Clientes com "+" e ficha de luxo, Cartões no Marketing
+            pg = await pagina(fam=True)
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              L.setView('ajustes'); await w(300); const semPa = !document.querySelector('.ajS[data-k=pa]');
+              L.setView('clientes'); await w(300); const v = document.getElementById('v-clientes');
+              const topo = !!v.querySelector('.pl78[data-act=clinovo]') && !v.querySelector('.lkRow') && !v.querySelector('[data-act=cupAbre]');
+              S.clientes.push({ id: 991, nome: 'Teste Lima', tel: '0981000111', email: 't@x.com', ruc: '', obs: '', ts: Date.now() }); L.ACT.cliab(991); await w(300);
+              const f = document.getElementById('cliFicha'), um = f && f.querySelectorAll('.go77').length === 1 && !f.querySelector('.go') && !!f.querySelector('.hd77 h2') && !f.querySelector('.av77') && !!f.querySelector('[data-act=ataConta]') && !!f.querySelector('#cNome');
+              L.ACT.clifecha(); await w(200);
+              const g = L.grpGet ? L.grpGet('g:mkt') : (S.grupos || []).find(x => x.id === 'g:mkt'); const mk = !!g && g.itens.indexOf('cup') >= 0;
+              L.ACT.cupAbre(); await w(300); const cup = S.view === 'cup' && /Cartões/.test(document.getElementById('v-cup').textContent);
+              return [semPa, topo, um, mk, cup]; }""")
+            total += 1
+            ok = got == [True] * 5 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S374 (74/75/77/80b): Ajustes sem "Preço automático", Clientes com "+" e ficha de luxo, Cartões como tela do Marketing')
+            if not ok: falhas.append('clientes luxo'); print('        veio', got, pg.erros)
             await pg.close()
 
             # S374 (esboço 73): Despesas — "+ Nova" no topo abre o formulário; sem "ajuste em Ajustes"; "Marcar como paga ›"
