@@ -18,7 +18,8 @@ def es(k): return ESN[k]
 # só as falas novas (sem vizinhas já gravadas, para caber no teto); cada frase vira um arquivo (a lista do site casa frase por frase)
 CENAS=[['*Agora vou ver de quão perto você consegue ler.','*Aproxime o celular do rosto bem devagar, sem parar de ler as letras.','*Quando as letras começarem a embaçar, pare o celular ali, ou me avise apertando o botão Embaçou.'],
  ['*Pronto, medi!','*Pode afastar o celular.','*Não embaçou?','*Tudo bem, já medi.'],
- ['*Agora vou ver de quão perto você consegue ler.']]  # 2: regravação (dono 20:09): falada com vírgula depois do Agora, para o 'A' não começar alto
+ ['*Agora vou ver de quão perto você consegue ler.'],
+ ['*Aproxime o celular do rosto bem devagar, sem parar de ler as letras.']]  # 3: regravação sozinha (dono 20:14: 'AaProxime' e áudio abafado)  # 2: regravação (dono 20:09): falada com vírgula depois do Agora, para o 'A' não começar alto
 def falado(t,lang):
     if lang=='pt': t=t.replace('Agora vou ver','Agora, vou ver')
     t=t.replace('"','').replace('…e ','… e ').replace('…y ','… y ').replace('…ou ','… ou ').replace('…o ','… o ')
