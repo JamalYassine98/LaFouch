@@ -64,3 +64,4 @@ Tudo sobre a Mochi (mascote e teste de leitura do site lafouch.com) num lugar s�
 - Ao mexer numa parte, procurar tudo que depende dela (erro do S384 → S387).
 - Número estranho no medidor do dono se investiga na hora.
 - Rota do Playwright desliga a memória do navegador; `wait_for_function` precisa de função "()=>…" por causa da CSP; `__LFGZ.pp(G)` abre a etapa do ponto próximo direto nos testes.
+- 17/11 20:30 — Página 'Falas da Mochi' (artefato privado do dono, https://claude.ai/artifact/LSAuZQC8ukuR8yQqYR1DnH; fonte work/s410/falas/index.html): todas as falas gravadas com áudio, PT e ES, busca, 'Ouvir todas' por seção; seções Novas (7, entram com o 107), Em uso (PT 189, ES 181), Gravadas sem uso (PT 6, de versões antigas). Graus agrupados num item que abre.
