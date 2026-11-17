@@ -151,7 +151,11 @@ exports.reserva = onRequest(
           const pid = String(b.pedido || '');
           if (/^[A-Za-z0-9_-]{4,40}$/.test(pid)) {
             const rs = await db.doc('reservas/' + pid).get(), o = rs.exists ? rs.data() : {};
-            if (o.pago === true && !o.cancelado) await db.doc('entregas/' + pid).create({ ts: agora }).catch(() => {});
+            if (o.pago === true && !o.cancelado) {
+              await db.doc('entregas/' + pid).create({ ts: agora }).catch(() => {});
+              // o site lê reservas/{pedido}: com "entregue" ele mostra "Entregue" e "Avaliar a compra ›" em Minha conta › Pedidos (esboço 59g)
+              if (!o.entregue) await db.doc('reservas/' + pid).set({ entregue: true, entTs: agora }, { merge: true });
+            }
           }
         } catch (e) { console.error('reserva entrega', e && e.message); }
       } else r = await Reserva.recusar(db, agora, b.pedido, refs);
