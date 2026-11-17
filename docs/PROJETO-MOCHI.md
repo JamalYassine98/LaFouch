@@ -39,6 +39,8 @@ Tudo sobre a Mochi (mascote e teste de leitura do site lafouch.com) num lugar s�
 
 - 17/11 15:50 — ESBOÇO 104 (work/s410: edita.py, video2.py) Mochi 'a mão chega depois do braço': o braço dobra de leve na ponta quando gira (até 16°) e endireita com mola; braço com o ponteiro fica reto (senão a luva solta). Vídeo Hoje × Proposta no mesmo relógio (normal + 0,4x) + imagem de 4 quadros. ESPERANDO; nada no site. Se aprovar: primeiro modo de teste por endereço + medidor no aparelho dele (a dobra redesenha o braço enquanto ele mexe).
 
+- 17/11 16:05 — DONO: **104 APROVADO** (Mochi: mão chega depois do braço; braço da varinha fica reto). Plano: primeiro modo de teste por endereço + medidor no aparelho dele, depois modo normal. ESPERANDO 'implementar'.
+
 ## 5. Lições minhas
 - Ao mexer numa parte, procurar tudo que depende dela (erro do S384 → S387).
 - Número estranho no medidor do dono se investiga na hora.
