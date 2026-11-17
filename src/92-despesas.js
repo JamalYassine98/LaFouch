@@ -13,8 +13,12 @@
     S.despAb = S.despAb || {};
     var chkB = '<button type="button" class="chk' + (paid ? ' on' : '') + '" data-act="exppay" data-id="' + e.id + '" aria-pressed="' + paid + '" aria-label="' + (paid ? 'Pago neste mês. Toque para desfazer' : 'Marcar como paga neste mês') + '">' + (paid ? ICO.chk : '') + '</button>';
     var sub58 = (e.tipo === 'fixa' ? 'fixa' : 'variável') + (expMoeda(e) !== 'pyg' ? (expMoeda(e) === 'usd' ? ' · em dólar' : ' · em real') : '') + (e.dia ? ' · vence dia ' + e.dia : '');
+    // S374 (esboço 106/108): conta que venceu ou vence logo mostra o aviso aqui (vermelho = venceu, amarelo = vence logo); o círculo marca como paga
+    var av106 = avisosVenc(7).filter(function (a) { return a.e.id === e.id; })[0];
+    if (av106 && !paid)
+      sub58 = '<span style="color:' + (av106.dias < 0 ? 'var(--bad)' : 'var(--warn)') + '">' + prazoTxt(av106.dias) + '</span>' + (av106.semValor ? ' · informe o valor' : '') + (av106.urgente ? ' · <b style="color:var(--bad)">URGENTE</b>' : '') + (av106.ok ? '' : ' · ' + esc(av106.dica));
     var ab58 = !!S.despAb[e.id];
-    var tog = '<button type="button" class="ecTog" data-act="despAb" data-id="' + e.id + '" aria-expanded="' + ab58 + '"><span class="ecNm"><b' + (paid ? ' class="paga-nome"' : '') + '>' + esc(e.nome) + '</b><small>' + sub58 + '</small></span><b class="ecVl">' + gs(e.valor) + '</b><span class="ecCh" aria-hidden="true">' + (ab58 ? '⌃' : '⌄') + '</span></button>';
+    var tog = '<button type="button" class="ecTog" data-act="despAb" data-id="' + e.id + '" aria-expanded="' + ab58 + '"><span class="ecNm"><b' + (paid ? ' class="paga-nome"' : '') + '>' + esc(e.nome) + '</b><small>' + sub58 + '</small></span><b class="ecVl">' + gs(e.valor) + '</b><span class="ecCh" aria-hidden="true">' + '⌄' + '</span></button>';
     if (!ab58) return '<div class="card cdel ecF" id="ec-' + e.id + '" style="background:var(--panel2)"><div class="ecRow">' + chkB + tog + '</div></div>';
     var h =
       '<div class="card col cdel ecF on" id="ec-' + e.id + '" style="background:var(--panel2)"><div class="ecRow">' + chkB + tog + '</div>';
@@ -103,15 +107,8 @@
     var html =
       // S374 (esboço 73, aprovado 16/11 17:43): "+ Nova" é a ação da página, no topo (abre o formulário logo abaixo dos números)
       '<div class="top"><div><h1>Despesas</h1><div class="crumb">Contas do mês e quanto cada venda separa.</div></div><button type="button" class="nv73" data-act="despNova" aria-expanded="' + !!(S.dfold && S.dfold.nova) + '">+ Nova</button></div>';
-    html +=
-      '<section class="kpis"><div class="kpi"><div class="lbl">Total obrigatório por mês</div><b id="tmTot">' +
-      gs(tm) +
-      '</b></div>' +
-      '<div class="kpi"><div class="lbl">Cada peça vendida separa</div><b id="tmPeca" style="color:var(--warn)">' +
-      gs(contasPeca()) +
-      '</b><div class="hint">para pagar as contas · ' +
-      volumeEfetivo() +
-      ' peças por mês (automático)</div></div></section><!--NOVA73-->';
+    html += '<!--KPI108-->';
+    var html108;
     var ec = efeitoCambio(),
       rc = reservaCambioContas();
     if (contasEstrangeiras() > 0)
@@ -131,51 +128,36 @@
         ' por mês (' +
         pc(colchao().pct) +
         '), já dividida nas peças.</div>';
-    html += avisosHtml();
-    var cats = ['loja', 'casa', 'pessoal', 'profissional', 'imprev'];
-    html +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Por grupo</h2><div class="bar">' +
+    // S374 (esboço 106/108): sem o cartão "Contas para pagar" — o aviso fica na linha da própria conta
+    var cats = ['loja', 'casa', 'pessoal', 'profissional', 'imprev'],
+      cores = ['#6cc3e0', '#a2447c', '#e9c27a', 'var(--info)', '#5fd39a'],
+      somas = cats.map(function (c) {
+        return S.exp
+          .filter(function (e) {
+            return e.cat === c;
+          })
+          .reduce(function (a, e) {
+            return a + e.valor;
+          }, 0);
+      });
+    // S374 (esboço 108, aprovado 17/11 18:15): o mesmo bloco do Caixa ("No caixa agora") — rótulo, barra, uma linha fina por grupo, total e quanto cada peça separa
+    html108 =
+      '<section class="cxSaldo cx108" aria-label="Contas do mês"><div class="cxLb">Contas do mês</div><div class="bar">' +
       cats
         .map(function (c, i) {
-          var v = S.exp
-            .filter(function (e) {
-              return e.cat === c;
-            })
-            .reduce(function (a, e) {
-              return a + e.valor;
-            }, 0);
-          return (
-            '<i style="width:' +
-            (tm ? (v / tm) * 100 : 0) +
-            '%;background:' +
-            ['#6cc3e0', '#a2447c', '#e9c27a', 'var(--info)', '#5fd39a'][i] +
-            '"></i>'
-          );
+          return '<i style="width:' + (tm ? (somas[i] / tm) * 100 : 0) + '%;background:' + cores[i] + '"></i>';
         })
         .join('') +
-      '</div><div class="nav">' +
+      '</div>' +
       cats
         .map(function (c, i) {
-          var v = S.exp
-            .filter(function (e) {
-              return e.cat === c;
-            })
-            .reduce(function (a, e) {
-              return a + e.valor;
-            }, 0);
-          if (!v) return '';
-          return (
-            '<span class="cell"><span class="sp" style="background:' +
-            ['#6cc3e0', '#a2447c', '#e9c27a', 'var(--info)', '#5fd39a'][i] +
-            '"></span>' +
-            CATS[c] +
-            ' · ' +
-            gs(v) +
-            '</span>'
-          );
+          if (!somas[i]) return '';
+          return '<div class="cxL g108"><span><i class="sp108" style="background:' + cores[i] + '"></i>' + CATS[c] + '</span><b>' + gs(somas[i]) + '</b></div>';
         })
         .join('') +
-      '</div></section>';
+      '<div class="cxL t108"><span>Total por mês</span><b id="tmTot">' + gs(tm) + '</b></div>' +
+      '<div class="cxL p108"><span>Cada peça vendida separa<small>' + volumeEfetivo() + ' peças por mês (automático)</small></span><b id="tmPeca" style="color:var(--warn)">' + gs(contasPeca()) + '</b></div></section>';
+    html = html.replace('<!--KPI108-->', html108 + '<!--NOVA73-->');
     cats.forEach(function (c) {
       var list = S.exp.filter(function (e) {
         return e.cat === c;

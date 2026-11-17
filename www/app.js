@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 558;
+  var APP_BUILD = 559;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.42.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.43.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -23015,7 +23015,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
               (x.acts && x.acts.length ? '<div class="ntAc">' + x.acts.map(function (a) { return '<button type="button" class="ntLk" data-act="' + a.act + '" data-id="' + esc(a.id) + '">' + esc(a.b) + '</button>'; }).join('') + '</div>' : '') + '</section>';
           })
           .join('') +
-        '<div class="sel" style="justify-content:center"><button type="button" class="chip" data-act="notifLimpa">Limpar histórico</button></div>'
+        '<div class="sel" style="justify-content:center"><button type="button" class="dz105" data-act="notifLimpa">Limpar histórico</button></div>'
       : '<div class="hint">Nenhum aviso ainda. Quando a margem ou o dólar mudarem, o registro aparece aqui.</div>';
     el.innerHTML = h;
     S.notifs.forEach(function (x) {
@@ -23585,8 +23585,12 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.despAb = S.despAb || {};
     var chkB = '<button type="button" class="chk' + (paid ? ' on' : '') + '" data-act="exppay" data-id="' + e.id + '" aria-pressed="' + paid + '" aria-label="' + (paid ? 'Pago neste mês. Toque para desfazer' : 'Marcar como paga neste mês') + '">' + (paid ? ICO.chk : '') + '</button>';
     var sub58 = (e.tipo === 'fixa' ? 'fixa' : 'variável') + (expMoeda(e) !== 'pyg' ? (expMoeda(e) === 'usd' ? ' · em dólar' : ' · em real') : '') + (e.dia ? ' · vence dia ' + e.dia : '');
+    // S374 (esboço 106/108): conta que venceu ou vence logo mostra o aviso aqui (vermelho = venceu, amarelo = vence logo); o círculo marca como paga
+    var av106 = avisosVenc(7).filter(function (a) { return a.e.id === e.id; })[0];
+    if (av106 && !paid)
+      sub58 = '<span style="color:' + (av106.dias < 0 ? 'var(--bad)' : 'var(--warn)') + '">' + prazoTxt(av106.dias) + '</span>' + (av106.semValor ? ' · informe o valor' : '') + (av106.urgente ? ' · <b style="color:var(--bad)">URGENTE</b>' : '') + (av106.ok ? '' : ' · ' + esc(av106.dica));
     var ab58 = !!S.despAb[e.id];
-    var tog = '<button type="button" class="ecTog" data-act="despAb" data-id="' + e.id + '" aria-expanded="' + ab58 + '"><span class="ecNm"><b' + (paid ? ' class="paga-nome"' : '') + '>' + esc(e.nome) + '</b><small>' + sub58 + '</small></span><b class="ecVl">' + gs(e.valor) + '</b><span class="ecCh" aria-hidden="true">' + (ab58 ? '⌃' : '⌄') + '</span></button>';
+    var tog = '<button type="button" class="ecTog" data-act="despAb" data-id="' + e.id + '" aria-expanded="' + ab58 + '"><span class="ecNm"><b' + (paid ? ' class="paga-nome"' : '') + '>' + esc(e.nome) + '</b><small>' + sub58 + '</small></span><b class="ecVl">' + gs(e.valor) + '</b><span class="ecCh" aria-hidden="true">' + '⌄' + '</span></button>';
     if (!ab58) return '<div class="card cdel ecF" id="ec-' + e.id + '" style="background:var(--panel2)"><div class="ecRow">' + chkB + tog + '</div></div>';
     var h =
       '<div class="card col cdel ecF on" id="ec-' + e.id + '" style="background:var(--panel2)"><div class="ecRow">' + chkB + tog + '</div>';
@@ -23675,15 +23679,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var html =
       // S374 (esboço 73, aprovado 16/11 17:43): "+ Nova" é a ação da página, no topo (abre o formulário logo abaixo dos números)
       '<div class="top"><div><h1>Despesas</h1><div class="crumb">Contas do mês e quanto cada venda separa.</div></div><button type="button" class="nv73" data-act="despNova" aria-expanded="' + !!(S.dfold && S.dfold.nova) + '">+ Nova</button></div>';
-    html +=
-      '<section class="kpis"><div class="kpi"><div class="lbl">Total obrigatório por mês</div><b id="tmTot">' +
-      gs(tm) +
-      '</b></div>' +
-      '<div class="kpi"><div class="lbl">Cada peça vendida separa</div><b id="tmPeca" style="color:var(--warn)">' +
-      gs(contasPeca()) +
-      '</b><div class="hint">para pagar as contas · ' +
-      volumeEfetivo() +
-      ' peças por mês (automático)</div></div></section><!--NOVA73-->';
+    html += '<!--KPI108-->';
+    var html108;
     var ec = efeitoCambio(),
       rc = reservaCambioContas();
     if (contasEstrangeiras() > 0)
@@ -23703,51 +23700,36 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         ' por mês (' +
         pc(colchao().pct) +
         '), já dividida nas peças.</div>';
-    html += avisosHtml();
-    var cats = ['loja', 'casa', 'pessoal', 'profissional', 'imprev'];
-    html +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Por grupo</h2><div class="bar">' +
+    // S374 (esboço 106/108): sem o cartão "Contas para pagar" — o aviso fica na linha da própria conta
+    var cats = ['loja', 'casa', 'pessoal', 'profissional', 'imprev'],
+      cores = ['#6cc3e0', '#a2447c', '#e9c27a', 'var(--info)', '#5fd39a'],
+      somas = cats.map(function (c) {
+        return S.exp
+          .filter(function (e) {
+            return e.cat === c;
+          })
+          .reduce(function (a, e) {
+            return a + e.valor;
+          }, 0);
+      });
+    // S374 (esboço 108, aprovado 17/11 18:15): o mesmo bloco do Caixa ("No caixa agora") — rótulo, barra, uma linha fina por grupo, total e quanto cada peça separa
+    html108 =
+      '<section class="cxSaldo cx108" aria-label="Contas do mês"><div class="cxLb">Contas do mês</div><div class="bar">' +
       cats
         .map(function (c, i) {
-          var v = S.exp
-            .filter(function (e) {
-              return e.cat === c;
-            })
-            .reduce(function (a, e) {
-              return a + e.valor;
-            }, 0);
-          return (
-            '<i style="width:' +
-            (tm ? (v / tm) * 100 : 0) +
-            '%;background:' +
-            ['#6cc3e0', '#a2447c', '#e9c27a', 'var(--info)', '#5fd39a'][i] +
-            '"></i>'
-          );
+          return '<i style="width:' + (tm ? (somas[i] / tm) * 100 : 0) + '%;background:' + cores[i] + '"></i>';
         })
         .join('') +
-      '</div><div class="nav">' +
+      '</div>' +
       cats
         .map(function (c, i) {
-          var v = S.exp
-            .filter(function (e) {
-              return e.cat === c;
-            })
-            .reduce(function (a, e) {
-              return a + e.valor;
-            }, 0);
-          if (!v) return '';
-          return (
-            '<span class="cell"><span class="sp" style="background:' +
-            ['#6cc3e0', '#a2447c', '#e9c27a', 'var(--info)', '#5fd39a'][i] +
-            '"></span>' +
-            CATS[c] +
-            ' · ' +
-            gs(v) +
-            '</span>'
-          );
+          if (!somas[i]) return '';
+          return '<div class="cxL g108"><span><i class="sp108" style="background:' + cores[i] + '"></i>' + CATS[c] + '</span><b>' + gs(somas[i]) + '</b></div>';
         })
         .join('') +
-      '</div></section>';
+      '<div class="cxL t108"><span>Total por mês</span><b id="tmTot">' + gs(tm) + '</b></div>' +
+      '<div class="cxL p108"><span>Cada peça vendida separa<small>' + volumeEfetivo() + ' peças por mês (automático)</small></span><b id="tmPeca" style="color:var(--warn)">' + gs(contasPeca()) + '</b></div></section>';
+    html = html.replace('<!--KPI108-->', html108 + '<!--NOVA73-->');
     cats.forEach(function (c) {
       var list = S.exp.filter(function (e) {
         return e.cat === c;
@@ -30288,7 +30270,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<b class="fxFal">' + (rp.falta > 0.5 ? 'Faltam ' + usd0(rp.falta) : 'Reposição completa') + '</b>' +
       '<span class="fxBar"><i style="width:' + (rp.tot > 0 ? Math.round((rp.tem / rp.tot) * 100) : 100) + '%"></i></span>' +
       '<span class="hint" style="margin:0">' + usd0(rp.tem) + ' de ' + usd0(rp.tot) + '</span></button>' +
-      '<button type="button" class="fxLk" data-act="fjAbre" data-id="troca">Registrar troca <span>›</span></button></section>';
+      '<button type="button" class="fxLk" data-act="fjAbre" data-id="troca">Registrar troca</button></section>';
     var n = (S.cambios || []).length,
       L = S.siteFx;
     h +=
@@ -51775,7 +51757,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     caixa.style.overflow = 'hidden';
     var a = caixa.animate([{ height: (abre ? 0 : h) + 'px' }, { height: (abre ? h : 0) + 'px' }], { duration: d, easing: EZ74 });
     if (interno) interno.animate([{ opacity: abre ? 0.35 : 1, transform: 'translateY(' + (abre ? -6 : 0) + 'px)' }, { opacity: abre ? 1 : 0, transform: 'translateY(' + (abre ? 0 : -4) + 'px)' }], { duration: abre ? d : 240, easing: EZ74, fill: 'both' });
-    if (seta) seta.animate([{ transform: 'rotate(' + (abre ? 0 : 180) + 'deg)' }, { transform: 'rotate(' + (abre ? 180 : 0) + 'deg)' }], { duration: d, easing: EZ74 });
+    if (seta) seta.animate([{ transform: 'rotate(' + (abre ? 0 : -180) + 'deg)' }, { transform: 'rotate(' + (abre ? -180 : 0) + 'deg)' }], { duration: d, easing: EZ74 });
     a.onfinish = function () { caixa.style.overflow = ''; if (fim) fim(); };
   }
   // guarda a altura da página enquanto um bloco fecha; ao rolar para cima o espaço de baixo vai sumindo
@@ -51862,7 +51844,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       var ro = c.querySelector('.ecRow'), h1 = ro ? ro.offsetHeight + 12 : 60;
       c.style.overflow = 'hidden';
       var ch = c.querySelector('.ecCh');
-      if (ch) ch.animate([{ transform: 'rotate(180deg)' }, { transform: 'rotate(0)' }], { duration: 280, easing: EZ74 });
+      if (ch) ch.animate([{ transform: 'rotate(-180deg)' }, { transform: 'rotate(0)' }], { duration: 280, easing: EZ74 });
       c.animate([{ height: h0 + 'px' }, { height: h1 + 'px' }], { duration: 280, easing: EZ74 }).onfinish = function () { _despAb74(id); };
       return;
     }
@@ -51873,7 +51855,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       c2.style.overflow = 'hidden';
       c2.animate([{ height: h0 + 'px' }, { height: h2 + 'px' }], { duration: 420, easing: EZ74 }).onfinish = function () { c2.style.overflow = ''; };
       var ch2 = c2.querySelector('.ecCh');
-      if (ch2) ch2.animate([{ transform: 'rotate(0)' }, { transform: 'rotate(180deg)' }], { duration: 420, easing: EZ74 });
+      if (ch2) ch2.animate([{ transform: 'rotate(0)' }, { transform: 'rotate(-180deg)' }], { duration: 420, easing: EZ74 });
     }
   };
   // Contador (66): os preços a corrigir numa linha só, que abre a lista ali mesmo; pré-graduados como linha (64)

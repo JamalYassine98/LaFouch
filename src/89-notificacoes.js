@@ -161,7 +161,7 @@
               (x.acts && x.acts.length ? '<div class="ntAc">' + x.acts.map(function (a) { return '<button type="button" class="ntLk" data-act="' + a.act + '" data-id="' + esc(a.id) + '">' + esc(a.b) + '</button>'; }).join('') + '</div>' : '') + '</section>';
           })
           .join('') +
-        '<div class="sel" style="justify-content:center"><button type="button" class="chip" data-act="notifLimpa">Limpar histórico</button></div>'
+        '<div class="sel" style="justify-content:center"><button type="button" class="dz105" data-act="notifLimpa">Limpar histórico</button></div>'
       : '<div class="hint">Nenhum aviso ainda. Quando a margem ou o dólar mudarem, o registro aparece aqui.</div>';
     el.innerHTML = h;
     S.notifs.forEach(function (x) {

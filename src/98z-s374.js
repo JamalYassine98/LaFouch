@@ -208,7 +208,7 @@
     caixa.style.overflow = 'hidden';
     var a = caixa.animate([{ height: (abre ? 0 : h) + 'px' }, { height: (abre ? h : 0) + 'px' }], { duration: d, easing: EZ74 });
     if (interno) interno.animate([{ opacity: abre ? 0.35 : 1, transform: 'translateY(' + (abre ? -6 : 0) + 'px)' }, { opacity: abre ? 1 : 0, transform: 'translateY(' + (abre ? 0 : -4) + 'px)' }], { duration: abre ? d : 240, easing: EZ74, fill: 'both' });
-    if (seta) seta.animate([{ transform: 'rotate(' + (abre ? 0 : 180) + 'deg)' }, { transform: 'rotate(' + (abre ? 180 : 0) + 'deg)' }], { duration: d, easing: EZ74 });
+    if (seta) seta.animate([{ transform: 'rotate(' + (abre ? 0 : -180) + 'deg)' }, { transform: 'rotate(' + (abre ? -180 : 0) + 'deg)' }], { duration: d, easing: EZ74 });
     a.onfinish = function () { caixa.style.overflow = ''; if (fim) fim(); };
   }
   // guarda a altura da página enquanto um bloco fecha; ao rolar para cima o espaço de baixo vai sumindo
@@ -295,7 +295,7 @@
       var ro = c.querySelector('.ecRow'), h1 = ro ? ro.offsetHeight + 12 : 60;
       c.style.overflow = 'hidden';
       var ch = c.querySelector('.ecCh');
-      if (ch) ch.animate([{ transform: 'rotate(180deg)' }, { transform: 'rotate(0)' }], { duration: 280, easing: EZ74 });
+      if (ch) ch.animate([{ transform: 'rotate(-180deg)' }, { transform: 'rotate(0)' }], { duration: 280, easing: EZ74 });
       c.animate([{ height: h0 + 'px' }, { height: h1 + 'px' }], { duration: 280, easing: EZ74 }).onfinish = function () { _despAb74(id); };
       return;
     }
@@ -306,7 +306,7 @@
       c2.style.overflow = 'hidden';
       c2.animate([{ height: h0 + 'px' }, { height: h2 + 'px' }], { duration: 420, easing: EZ74 }).onfinish = function () { c2.style.overflow = ''; };
       var ch2 = c2.querySelector('.ecCh');
-      if (ch2) ch2.animate([{ transform: 'rotate(0)' }, { transform: 'rotate(180deg)' }], { duration: 420, easing: EZ74 });
+      if (ch2) ch2.animate([{ transform: 'rotate(0)' }, { transform: 'rotate(-180deg)' }], { duration: 420, easing: EZ74 });
     }
   };
   // Contador (66): os preços a corrigir numa linha só, que abre a lista ali mesmo; pré-graduados como linha (64)

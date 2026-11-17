@@ -3804,9 +3804,10 @@ async def main():
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, sl = ms => new Promise(r => setTimeout(r, ms));
               L.setView('desp'); await sl(500);
-              const cc = () => [...document.querySelectorAll('#v-desp section')].find(x => /^Contas para pagar/.test(x.innerText.trim()));
-              let contas = true; const c0 = cc();
-              if (c0) { const n = c0.querySelectorAll('.slVai[data-act=exppay]').length; c0.querySelector('.slVai[data-act=exppay]').click(); await sl(400); const c1 = cc(); contas = n > 0 && (c1 ? c1.querySelectorAll('.slVai[data-act=exppay]').length : 0) === n - 1; }
+              // S374 (106/108): sem "Contas para pagar"; o aviso fica na linha da conta e o círculo marca como paga
+              const avs = () => document.querySelectorAll('#v-desp .ecF .ecNm small span').length;
+              let contas = ![...document.querySelectorAll('#v-desp section')].some(x => /^Contas para pagar/.test(x.innerText.trim())); const n = avs();
+              if (n) { const r = [...document.querySelectorAll('#v-desp .ecF')].find(x => x.querySelector('.ecNm small span')); r.querySelector('.chk').click(); await sl(400); contas = contas && avs() === n - 1; }
               S.dTab = 'prec'; L.setView('dash'); await sl(500);
               const ks = [...document.querySelectorAll('#v-dash .cntK')]; const kp = ks.find(k => /Preços para corrigir/.test(k.innerText));
               const n1 = +(kp.querySelector('b').innerText), precos = !n1 || kp.dataset.act === 'x66';  // S374 (66): o número abre a lista no Contador
@@ -4089,12 +4090,29 @@ async def main():
             if not ok: falhas.append('historico 104c'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # S374 (105, 108, 109): botões de ação, Despesas de luxo sem conta repetida, seta anti-horária
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              L.setView('desp'); await w(500); const v = document.getElementById('v-desp'), cx = v.querySelector('.cx108');
+              const bloco = !!cx && !v.querySelector('section.kpis') && !/Por grupo|Contas para pagar/.test(v.textContent) && /Total por mês/.test(cx.textContent) && /Cada peça vendida separa/.test(cx.textContent) && getComputedStyle(cx).boxShadow === 'none';
+              const nomes = [...v.querySelectorAll('.ecF .ecNm b')].map(b => b.textContent), unico = nomes.length === new Set(nomes).size;
+              const t = v.querySelector('.ecF .ecTog'); t.click(); await w(120);
+              const m = getComputedStyle(v.querySelector('.ecF.on .ecCh')).transform.match(/matrix\(([^,]+),\s*([^,]+)/), anti = !!m && +m[2] < -0.3;
+              L.setView('fx'); await w(500); const fx = document.querySelector('#v-fx .fxLk'), troca = !!fx && !/›/.test(fx.textContent) && getComputedStyle(fx).borderRadius === '14px';
+              L.setView('notif'); await w(500); const dz = document.querySelector('#v-notif .dz105'), limpa = !dz || (getComputedStyle(dz).fontSize === '15px' && dz.dataset.act === 'notifLimpa');
+              return [bloco, unico, anti, troca, limpa]; }""")
+            total += 1
+            ok = got == [True] * 5 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S374 (105/108/109): Despesas num bloco só sem conta repetida, botões de ação no padrão, seta gira anti-horário')
+            if not ok: falhas.append('despesas 108'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # S374 (esboço 73): Despesas — "+ Nova" no topo abre o formulário; sem "ajuste em Ajustes"; "Marcar como paga ›"
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
               S.dfold = S.dfold || {}; S.dfold.nova = false; L.setView('desp'); await w(400);
               const v = document.getElementById('v-desp'), sem0 = !document.getElementById('nName'), txt = !/ajuste em Ajustes/.test(v.textContent) && /\(automático\)/.test(v.textContent);
-              const mp = [...v.querySelectorAll('.mpg73')].every(b => /^Marcar como paga$/.test(b.innerText.trim()) && b.classList.contains('b100'));
+              const mp = !v.querySelector('.mpg73');  // S374 (106/108): não há mais "Marcar como paga" repetido
               v.querySelector('[data-act=despNova]').click(); await w(700);
               const abriu = !!document.getElementById('nName') && S.dfold.nova;
               return [sem0, txt, mp, abriu]; }""")

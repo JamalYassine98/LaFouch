@@ -1,7 +1,9 @@
 {
- "nome": "5.42.1",
+ "nome": "5.43.0",
  "notas": [
-  "Histórico: o valor do dia fica na mesma altura da seta, e a frase de baixo só quebra entre as partes (nunca no meio do \"lucro livre\")."
+  "Despesas: um bloco só \"Contas do mês\" (como no Caixa) com a barra, cada grupo, o total e quanto cada peça separa; cada conta aparece uma vez, com o aviso de vencimento na própria linha.",
+  "Botões: \"Registrar troca\" igual aos outros principais; \"Limpar histórico\" e \"Estornar\" em vermelho; links de ferramenta em rosa.",
+  "As setas que abrem no lugar giram no sentido anti-horário."
  ],
- "build": 558
+ "build": 559
 }

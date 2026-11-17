@@ -2995,3 +2995,21 @@ button.rw77{cursor:pointer}
 #dtabBody>.g99,.col>.g99,.view>.g99{margin-bottom:0}
 /* S374 (104c): no Histórico, valor e "›" juntos no meio da linha; a frase de baixo só quebra entre as partes */
 .d71 .vl{grid-row:1/3;grid-column:2;align-self:center}.d71 .mt{grid-column:1/2}.d71 .mt .p104{white-space:nowrap}
+/* S374 · 105 (aprovado 17/11 18:16): botões de ação — principal sem "›" com cantos 14 px; secundárias 15 px negrito; perigo em texto vermelho; links rosa */
+#v-notif .gBtn.ntGd.lk100,#v-notif .gBtn.ntGd.lk100 *{color:var(--accent-fg)!important}
+#v-fx .fxLk{border-radius:14px!important;min-height:52px!important;font-size:16px!important;font-weight:600!important}
+.obNovo,.mpg73.b100,.btn-sc.p:not(.lk100){font-size:15px!important;font-weight:600!important}
+.mpg73.b100 b,.view .mpg73.b100 .g b{font-weight:600!important}
+.btn-pe.p,.dz105{font-size:15px!important;font-weight:600!important;background:none!important;border:0!important;color:var(--bad)!important;min-height:44px;padding:0 4px!important;box-shadow:none!important;cursor:pointer;font-family:inherit}
+#v-dash .cnt.lx .lxT.m{color:var(--accent-fg)!important}
+/* S374 · 108 (aprovado 17/11 18:15): Despesas no desenho do Caixa; o bloco não tem caixa, então não tem sombra (no claro parecia uma borda) */
+.view section.cxSaldo{box-shadow:none!important}
+.cx108 .bar{margin:12px 0 6px}
+.cx108 .sp108{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:10px;vertical-align:1px}
+.cx108 .g108 b{font-size:16px;font-weight:600}
+.cx108 .t108 span{font-weight:600}
+.cx108 .p108{border-bottom:0}
+/* S374 · 109 (aprovado 17/11 18:21): a seta ⌄ gira no sentido anti-horário ao abrir */
+section.card.fxF.on .fxC,.x66L.on66 .ch66,.hSem[aria-expanded=true] .ecCh,.g99 .fxH[aria-expanded=true] .fxC{transform:rotate(-180deg)}
+#v-mkt .mk98 .mkDt[open]:not(.fecha)>summary.mkSec::after{transform:rotate(-180deg)!important}
+.ecF.on .ecTog .ecCh{transform:rotate(-180deg)} /* 109: Despesas usa a mesma seta girada */

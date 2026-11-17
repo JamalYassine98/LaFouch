@@ -253,7 +253,7 @@
       '<b class="fxFal">' + (rp.falta > 0.5 ? 'Faltam ' + usd0(rp.falta) : 'Reposição completa') + '</b>' +
       '<span class="fxBar"><i style="width:' + (rp.tot > 0 ? Math.round((rp.tem / rp.tot) * 100) : 100) + '%"></i></span>' +
       '<span class="hint" style="margin:0">' + usd0(rp.tem) + ' de ' + usd0(rp.tot) + '</span></button>' +
-      '<button type="button" class="fxLk" data-act="fjAbre" data-id="troca">Registrar troca <span>›</span></button></section>';
+      '<button type="button" class="fxLk" data-act="fjAbre" data-id="troca">Registrar troca</button></section>';
     var n = (S.cambios || []).length,
       L = S.siteFx;
     h +=
