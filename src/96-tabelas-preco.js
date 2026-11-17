@@ -147,18 +147,6 @@
     window.open('https://wa.me/?text=' + encodeURIComponent(tabMensagem(refs)), '_blank');
   };
   window.__precoTab = precoTab;
-  // Linha de tabela no pedido: tabela atual, cliente, sugestão de tabela melhor.
-  function tabCartHtml() {
-    var T = tabDe(S.cart[0] && S.cart[0].tab || S.tabAtiva),
-      sg = tabSugestao(),
-      cl = (S.clientes || []).filter(function (c) { return c.nome; }),
-      h = '<div class="hint" style="margin:0;display:flex;gap:8px;flex-wrap:wrap;align-items:center"><button type="button" class="chip on" data-act="tabsheet">Tabela: ' + esc(T.nome) + ' ▾</button>';
-    if (cl.length)
-      h += '<select class="in" data-in="tabcli" style="flex:1 1 140px;min-height:40px" aria-label="Cliente"><option value="">Cliente…</option>' + cl.map(function (c) { return '<option value="' + c.id + '"' + (String(S.cartCli) === String(c.id) ? ' selected' : '') + '>' + esc(c.nome) + (c.tab ? ' · ' + esc(tabDe(c.tab).nome) : '') + '</option>'; }).join('') + '</select>';
-    if (T.frete > 0) h += '<small style="flex:1 1 100%">Frete grátis: o frete já está embutido no preço.</small>';
-    if (sg) h += '<small style="flex:1 1 100%">Este pedido já alcança a tabela <b>' + esc(sg.T.nome) + '</b> e sai Gs. ' + sg.eco.toLocaleString('pt-BR') + ' mais barato. <button type="button" class="chip" data-act="tabpick" data-id="' + sg.T.id + '">Trocar</button></small>';
-    return h + '</div>';
-  }
   document.addEventListener('change', function (ev) {
     var t = ev.target;
     if (!t.getAttribute || t.getAttribute('data-in') !== 'tabcli') return;

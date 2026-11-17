@@ -205,7 +205,6 @@
       window.scrollTo({ top: Math.max(0, det.getBoundingClientRect().top + window.scrollY - 12), left: 0, behavior: 'instant' });
     };
     var ultCard = null;
-    function fRet(r) { return { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px' }; }
     function fDet(view) {
       if (view === 'vendas') return S.view === 'vendas' && S.vRef ? $('vDetail') : null;
       var d = $('detail');

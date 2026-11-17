@@ -11,7 +11,6 @@
     S.onlAba = v === 'onl' ? window.__onlAba || '' : '';
     window.__onlAba = '';
     S.view = v;
-    if (v !== 'vendas') S.catOpen = false; // a tela do WhatsApp só existe dentro da aba de vendas: ao sair, fecha
     S.msg = '';
     try {
       if (mudou && !window.__navVolta && location.hash !== '#' + v) history.pushState(null, '', '#' + v);
@@ -20,7 +19,7 @@
     render();
     window.scrollTo(0, 0);
     var dir = window.__slide || 0,
-      el = S.catOpen && $('catV') ? $('catV') : $('v-' + v),
+      el = $('v-' + v),
       lado = !REDUCED && el && dir;
     window.__slide = 0;
     if (lado) {

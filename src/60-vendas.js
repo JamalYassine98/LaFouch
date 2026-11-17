@@ -76,7 +76,6 @@
   }
   // Aba Vendas.
   function renderVendas() {
-    renderCatV();
     if (S.cartOpen) {
       S.vRef = '';
       S.vSel = null;

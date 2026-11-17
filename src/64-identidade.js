@@ -178,13 +178,6 @@
     });
     return Object.keys(s).sort();
   }
-  function slugNome(t) {
-    return String(t || '')
-      .normalize('NFD')
-      .replace(/[̀-ͯ]/g, '')
-      .replace(/[^\w-]+/g, '-')
-      .replace(/^-+|-+$/g, '');
-  }
   /* interruptor do Editar produto: libera o modelo (com todas as cores) para o catálogo online */
   // onda rosa no botão e luzinhas que sobem (curto), depois de liberar
   function siteOnda() {

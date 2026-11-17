@@ -1,9 +1,7 @@
 {
- "nome": "5.43.0",
+ "nome": "5.43.1",
  "notas": [
-  "Despesas: um bloco só \"Contas do mês\" (como no Caixa) com a barra, cada grupo, o total e quanto cada peça separa; cada conta aparece uma vez, com o aviso de vencimento na própria linha.",
-  "Botões: \"Registrar troca\" igual aos outros principais; \"Limpar histórico\" e \"Estornar\" em vermelho; links de ferramenta em rosa.",
-  "As setas que abrem no lugar giram no sentido anti-horário."
+  "Limpeza por dentro: saiu a tela antiga do WhatsApp (o envio de fotos é Catálogo › Compartilhar), funções e estilos que nada mais usava. Nada muda no que você vê."
  ],
- "build": 559
+ "build": 560
 }

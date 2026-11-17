@@ -174,14 +174,6 @@
     try { fnLinkifica(); } catch (e) {}
     return r;
   };
-  // 6 recentes embaixo da busca do Início
-  function recentesHtml() {
-    var L = (S.recentes || []).filter(function (r) { return r.k !== 'ref' || fnItem(r.id); });
-    if (!L.length) return '';
-    return '<div class="fnRec noconta"><small>RECENTES</small><div>' + L.map(function (r) {
-      return '<button type="button" class="fnChip" data-act="' + (r.k === 'ref' ? 'abreRef' : r.k === 'cli' ? 'cliab' : 'view') + '" data-id="' + esc(r.k === 'ped' ? 'ped' : r.id) + '">' + (r.k === 'ref' ? '👓 ' : r.k === 'cli' ? '👤 ' : '🧾 ') + esc(r.k === 'ref' ? r.id : r.n) + '</button>';
-    }).join('') + '</div></div>';
-  }
   // 3 números do Resumo que abrem o que está por trás + 4 aba Online
   DTABS.push(['onl', 'Online']);
   var _dcNav = dashCompose;

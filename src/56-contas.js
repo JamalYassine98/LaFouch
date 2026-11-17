@@ -133,26 +133,3 @@
       ? 'vence amanhã'
       : 'vence em ' + d + ' dias';
   }
-  // Cartão de avisos de vencimento (vazio se não houver nada).
-  function avisosHtml() {
-    var av = avisosVenc(7);
-    if (!av.length) return '';
-    var h =
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Contas para pagar</h2><div class="split">';
-    av.forEach(function (a) {
-      var cor = a.dias < 0 ? 'var(--bad)' : a.dias <= 2 ? 'var(--warn)' : 'var(--sub)';
-      h += dxRow(
-        esc(a.e.nome),
-        '<span style="color:' +
-          cor +
-          '">' +
-          prazoTxt(a.dias) +
-          '</span>' +
-          (a.semValor ? ' · informe o valor desta fatura' : '') +
-          (a.urgente ? ' · <b style="color:var(--bad)">URGENTE</b>' : '') +
-          (a.ok ? '' : ' · ' + esc(a.dica)),
-        expTexto(a.e)
-      ) + '<button type="button" class="esLn slVai mpg73 b100" data-act="exppay" data-id="' + a.e.id + '" aria-label="Marcar ' + esc(a.e.nome) + ' como paga"><span class="g"><b>Marcar como paga</b></span></button>'; // S374 (esboço 100d): é ação, não caminho → botão secundário, sem "›"
-    });
-    return h + '</div></section>';
-  }

@@ -130,9 +130,9 @@ TESTES = [
    const bom=JSON.parse(L.backupDados()); bom.d.items=[]; const e4=L.restaurarDados(JSON.stringify(bom));
    return [!!e1&&!!e2&&!!e3, igual, e4==='', S.items.length===0]""", [True, True, True, True]),
  ("v-b9: 4 botões novos (Mensagens, Analisador, Temática, Atacado) e as 82 combinações têm nome e ícone próprios", """
-   const V=['vendas','estoque','caixa','fx','desp','hist','hoje','din','giro','prec','cat','ajustes','ped','onl','cli','cont','lotes','novo','notif'],N=['msg','anl','tem','ata'];let n=0,ruim=[];
+   const V=['vendas','estoque','caixa','fx','desp','hist','hoje','din','giro','prec','ajustes','ped','onl','cli','cont','lotes','novo','notif'],N=['msg','anl','tem','ata'];let n=0,ruim=[];
    N.forEach((a,i)=>{V.concat(N.slice(i+1)).forEach(b=>{n++;const ic=L.grpIcoPar(a,b,24),nm=L.grpNomeSugerido(a,b);if(!ic||!nm||ic.indexOf('<g')<0&&ic.length<120)ruim.push(a+'+'+b)})});
-   return [n, ruim, L.grpNomeSugerido('tem','ata'), L.grpNomeSugerido('vendas','msg')]""", [82, [], 'Atacado nos eventos', 'Vendas e mensagens']),
+   return [n, ruim, L.grpNomeSugerido('tem','ata'), L.grpNomeSugerido('vendas','msg')]""", [78, [], 'Atacado nos eventos', 'Vendas e mensagens']),
  ("v-b9: faixas dos botões novos usam o resumo do painel (novas, avisos, próximo evento)", """
    const d=Date.now(); S.pnlRes=null; const a=[L.pnlFaixa('msg')[0],L.pnlFaixa('tem')[0]];
    S.pnlRes={msg:2,ata:1,av:3,prox:{nm:'Black Friday CDE',ini:d+7.5*864e5,fim:d+10*864e5}};
@@ -943,30 +943,16 @@ async def main():
             a = await pg.evaluate("() => [document.getElementById('vListCard').hidden, document.getElementById('vDetail').hidden, document.getElementById('vSaleCard').hidden]")
             await pg.locator('#vRows .pcard[data-ref="SP57765"]').click(); await pg.wait_for_timeout(300)
             await pg.evaluate("() => { if (document.getElementById('lfa-folha') && document.getElementById('lfa-folha').innerHTML) window.__folha.vitrine(); }"); await pg.wait_for_timeout(300)
-            cat1 = await pg.evaluate("() => document.getElementById('catV').hidden")
+            cat1 = True  # S377: a tela velha do WhatsApp (#catV) saiu
             b1 = await pg.evaluate("() => [document.getElementById('vListCard').hidden, document.getElementById('vDetail').hidden, document.getElementById('vSaleCard').hidden, !!document.querySelector('#vDetail button[aria-label=\\'Editar\\']'), document.querySelectorAll('#vDetail .pl.pick').length]")
             await pg.locator('#vDetail .pl.pick').nth(1).click(); await pg.wait_for_timeout(300)
             c = await pg.evaluate("() => { const S = window.__LF.S; return [S.vSel && S.vSel.grau, document.getElementById('spc').textContent.indexOf(S.vSel.grau) >= 0] }")
             await pg.locator('#vDetail button[aria-label="Voltar"]').click(); await pg.wait_for_timeout(300)
             d = await pg.evaluate("() => [document.getElementById('vListCard').hidden, document.getElementById('vDetail').hidden, window.__LF.S.vRef]")
-            cat2 = await pg.evaluate("() => document.getElementById('catV').hidden")
+            cat2 = True
             ok = cat1 is True and cat2 is True and a == [False, True, True] and b1 == [True, False, True, False, 4] and c == ['+1.00', True] and d == [False, True, ''] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'tela Vendas: produto abre em janela própria, escolhe a variante e volta à lista')
 
-            # Catálogo do WhatsApp: tela própria, só fotos, sem texto repetido
-            total += 1
-            card = await pg.evaluate("() => { const c = document.querySelector('#vRows .pcard'); return [c.querySelectorAll('.tag, .faixa').length, c.querySelectorAll('span.s').length, document.getElementById('vCatBtn') === null]; }")
-            await pg.evaluate("() => { window.__LF.S.catOpen = true; window.__LF.setView('vendas'); }"); await pg.wait_for_timeout(400)
-            cv = await pg.evaluate("() => { const g = document.querySelectorAll('#cvGal .gi'); return [document.getElementById('catV').hidden, g.length, document.querySelectorAll('#cvGal .gi b, #cvGal .gi span, #cvTipos').length, g.length ? g[0].querySelectorAll('.ck').length : 0, document.getElementById('cvSend').textContent]; }")
-            await pg.locator('#cvAll').click(); await pg.wait_for_timeout(300)
-            cv2 = await pg.evaluate("() => [document.querySelectorAll('#cvGal .ck').length, document.getElementById('cvSend').textContent]")
-            await pg.locator('#cvAll').click(); await pg.wait_for_timeout(300)
-            cv3 = await pg.evaluate("() => [document.querySelectorAll('#cvGal .ck').length, document.getElementById('cvSend').disabled]")
-            await pg.locator('#cvAll').click(); await pg.wait_for_timeout(200)
-            await pg.locator('#uniW .cb3').nth(0).click(); await pg.wait_for_timeout(300)
-            cv4 = await pg.evaluate("() => document.getElementById('catV').hidden")
-            ok = card[0] == 0 and card[1] == 0 and card[2] and cv[0] is False and cv[1] > 0 and cv[2] == 0 and cv[3] == 1 and cv2[0] == 0 and cv3[0] == cv[1] and cv3[1] is False and cv4 is True and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'catálogo do WhatsApp: tela própria só com fotos, Selecionar tudo e Fechar ' + ('' if ok else str([card, cv, cv2, cv3, cv4])))
             if not ok: falhas.append('vendas janela'); print('        veio', a, b1, c, d, pg.erros)
             await pg.close()
 
@@ -1976,24 +1962,6 @@ async def main():
             if not ok: falhas.append('login-unico'); print('        veio', lg1, lg2, lg3, trava, lg4, lg5, lg6, pg.erros)
             await pg.close()
 
-            # Aba WhatsApp: logo e sino aparecem; no app instalado o envio usa o compartilhamento nativo com as fotos
-            pg = await pagina()
-            await pg.evaluate("""() => { const L = window.__LF, S = L.S; S.items = [{tipo:'solar',ref:'WA1',grau:'',cor:'Preto',qty:2}, {tipo:'solar',ref:'WA2',grau:'',cor:'Rosa',qty:1}];
-                const png = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
-                S.fotos = {'WA1|Preto': png, 'WA2|Rosa': png}; window.__chamadas = [];
-                window.Capacitor = {Plugins: {Filesystem: {writeFile: async (o) => { window.__chamadas.push(['w', o.path, o.directory]); return {uri: 'file:///cache/' + o.path}; }}, Share: {share: async (o) => { window.__chamadas.push(['s', (o.files || []).length, o.text === undefined]); return {}; }}}};
-                L.setView('vendas'); S.catOpen = true; S.cvOff = {}; L.render(); }""")
-            await pg.wait_for_timeout(300)
-            wa1 = await pg.evaluate("() => { const h = document.querySelector('.wrap > .top.logo-top').getBoundingClientRect(), c = document.getElementById('catV').getBoundingClientRect(); return [[h.height, h.top, h.bottom, c.top].join('/'), !!document.getElementById('sino') && !document.getElementById('sino2'), document.getElementById('cvCount').textContent]; }")
-            await pg.evaluate("() => document.getElementById('cvSend').click()"); await pg.wait_for_timeout(700)
-            wa2 = await pg.evaluate("() => window.__chamadas.map(c => c[0]).join('') + '|' + window.__chamadas.filter(c => c[0] === 's').map(c => c.slice(1).join(',')).join('')")
-            total += 1
-            ok = wa1[0].split('/')[0] != '0' and float(wa1[0].split('/')[3]) >= float(wa1[0].split('/')[2]) - 1 and float(wa1[0].split('/')[1]) >= 0 and wa1[1] is True and wa1[2].startswith('2 de 2') and wa2 == 'wws|2,true' and not pg.erros
-            if not ok: print('        dbg', wa1)
-            print(('  ok  ' if ok else ' FALHA ') + 'aba WhatsApp: logo e sino do app visíveis, tela abaixo do cabeçalho; envio nativo de várias imagens')
-            if not ok: falhas.append('whatsapp'); print('        veio', wa1, wa2, pg.erros)
-            await pg.close()
-
             # "Depois" na atualização: a faixa some, mas o aviso urgente fica nas Notificações
             pg = await pagina()
             await pg.evaluate("() => { window.__upd.estado.pronta = 99999999999; document.querySelector('[data-act=updmais]') || 0; window.__LF.render(); }")
@@ -2058,20 +2026,6 @@ async def main():
             ok = sb[0] == 'rgba(0, 0, 0, 0)' and sb[1] == '0px' and sb2 == [True, True] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'botões teste/atualização sem estilo herdado nem redesenho')
             if not ok: falhas.append('botoes'); print('        veio', sb, sb2, pg.erros)
-            await pg.close()
-
-            # Sair da aba WhatsApp por outra aba (Caixa, Ajustes...) fecha a tela do WhatsApp
-            pg = await pagina()
-            await pg.evaluate("() => { const L = window.__LF; L.S.items = [{tipo:'solar',ref:'WA1',grau:'',cor:'Preto',qty:2}]; L.S.fotos = {'WA1|Preto': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=='}; L.setView('vendas'); L.S.catOpen = true; L.render(); }")
-            sa1 = await pg.evaluate("() => !document.getElementById('catV').hidden")
-            await pg.evaluate("() => window.__LF.setView('caixa')"); await pg.wait_for_timeout(300)
-            sa2 = await pg.evaluate("() => [document.getElementById('catV').hidden, document.body.classList.contains('catopen')]")
-            await pg.evaluate("() => window.__LF.setView('vendas')"); await pg.wait_for_timeout(300)
-            sa3 = await pg.evaluate("() => document.getElementById('catV').hidden")
-            total += 1
-            ok = sa1 is True and sa2 == [True, False] and sa3 is True and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'sair da aba WhatsApp pelo menu fecha a tela')
-            if not ok: falhas.append('sair whatsapp'); print('        veio', sa1, sa2, sa3, pg.erros)
             await pg.close()
 
             # Ajustes sem Lembretes/Nota fiscal; botões em família; troca de seção desliza

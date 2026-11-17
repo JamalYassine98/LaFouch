@@ -31,16 +31,16 @@ with sync_playwright() as pw:
   for esc in (False,True):
     for nome,js,abre in CENAS:
       if only and nome not in only.split(','): continue
-      b,pg,w=ap.abre(pw,'inicio',esc);w(400)
+      b,pg,w=ap.abre(pw,'inicio',esc,os.environ.get('DEV','celular'));w(400)
       pg.route('**/*googleapis.com/**',lambda r:r.fulfill(status=200,body='{"documents":[]}',content_type='application/json'))
       erros=[];pg.on('pageerror',lambda e:erros.append(str(e)[:120]))
       try:
         pg.evaluate(RICO);pg.evaluate(js);w(1500)
         if abre: pg.evaluate(ABRE);w(900)
         bt=pg.evaluate(BTN);ol=pg.evaluate(OLHO) or []
-        pg.screenshot(path='/tmp/s376/%s_%d.png'%(nome,esc),full_page=True)
+        pg.screenshot(path='/tmp/s376/%s%s_%d.png'%(os.environ.get('DEV',''),nome,esc),full_page=True)
       except Exception as e: bt=[];ol=[];erros.append('FALHOU '+str(e)[:100])
       res['%s|%s'%(nome,'escuro' if esc else 'claro')]={'btn':bt,'olho':ol,'erros':erros}
       print(nome,'escuro' if esc else 'claro',len(bt),'botões suspeitos ·',len(ol),'olho',('· ERRO '+erros[0]) if erros else '',flush=True)
       b.close()
-json.dump(res,open('res.json','w'),ensure_ascii=False,indent=0)
+json.dump(res,open(os.environ.get('OUT','res.json'),'w'),ensure_ascii=False,indent=0)

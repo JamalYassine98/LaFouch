@@ -628,45 +628,11 @@
     render();
   });
 
-  // ---------- Catálogo: uma barra de abas com ícone (Vendas · WhatsApp · Site), igual em todas as telas
-  function uniIr(qual) {
-    var ordem = { v: 0, w: 1, s: 2 },
-      ant = uniOn();
-    if (ant === qual) return; // já está nesta aba: nada acontece
-    window.__slide = ant && ant !== qual ? (ordem[qual] > ordem[ant] ? 1 : -1) : 0;
-    S.catOpen = qual === 'w';
-    S.repoView = false;
-    setView(qual === 's' ? 'onl' : 'vendas');
-  }
-  function uniOn() {
-    return S.view === 'vendas' ? (S.catOpen ? 'w' : 'v') : S.view === 'onl' ? 's' : '';
-  }
-  var CAT_ICO = {
-    v: '<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 11.5a2 2 0 0 0 2 1.5h7.6a2 2 0 0 0 2-1.5L21 7H6"/>',
-    w: '<path stroke-width="1.8" d="M12 2.6a9.4 9.4 0 0 0-8.1 14.2L2.6 21.4l4.9-1.3A9.4 9.4 0 1 0 12 2.6z"/><path fill="currentColor" stroke-width="1.6" transform="translate(6.5 6.3) scale(.46)" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>',
-    s: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/>'
-  };
+  // S377: a barra antiga Vendas · WhatsApp · Site saiu; só esconde os lugares dela que ainda existem na página
   function uniAbasFill() {
-    ['uniV', 'uniS', 'uniW'].forEach(function (id) {
+    ['uniV', 'uniS'].forEach(function (id) {
       var h = $(id);
-      if (!h) return;
-      if (id === 'uniV' || id === 'uniS') {
-        h.hidden = true; // Catálogo único: Varejo | Atacado + ícone do WhatsApp, sem a barra de abas; Site (Loja online) também sem a barra (v449)
-        return;
-      }
-      var on = uniOn();
-      if (h.getAttribute('data-k') === on && h.firstChild) return;
-      h.setAttribute('data-k', on);
-      h.textContent = '';
-      h.className = 'catbar3';
-      [['v', 'Vendas'], ['w', 'WhatsApp'], ['s', 'Site']].forEach(function (t) {
-        var b = btn('cb3' + (on === t[0] ? ' on' : ''), '', function () {
-          uniIr(t[0]);
-        }, on === t[0]);
-        b.innerHTML =
-          '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-          CAT_ICO[t[0]] + '</svg><span>' + t[1] + '</span>';
-        h.appendChild(b);
-      });
+      if (h) h.hidden = true;
     });
   }
+

@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 559;
+  var APP_BUILD = 560;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.43.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.43.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -7701,343 +7701,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   // ===== Categorias, formatos, cores, variações (C1–C6) e criação de tipos. =====
 
-  // ---------- navegação
-
-  // Data URL → Blob.
-  function dataToBlob(u, type) {
-    return fetch(u)
-      .then(function (r) {
-        return r.blob();
-      })
-      .then(function (b) {
-        if (!type || b.type === type) return b;
-        return new Promise(function (ok, no) {
-          var im = new Image();
-          im.onload = function () {
-            var c = document.createElement('canvas');
-            c.width = im.naturalWidth;
-            c.height = im.naturalHeight;
-            c.getContext('2d').drawImage(im, 0, 0);
-            c.toBlob(function (x) {
-              x ? ok(x) : no();
-            }, type);
-          };
-          im.onerror = no;
-          im.src = u;
-        });
-      });
-  }
-  // Filtros da aba WhatsApp: Todos · Novidades · Ofertas · Solares · Armações
-  function cvMarcaNovos() {
-    if (!S.novoEm) S.novoEm = {};
-    var base = !S.novoBase;
-    S.novoBase = true;
-    S.items.forEach(function (i) {
-      if (S.novoEm[i.ref] == null) S.novoEm[i.ref] = base ? 0 : Date.now();
-    });
-  }
-  function cvPassa(i) {
-    var f = S.cvF || 'all';
-    if (f === 'solar') return i.tipo === 'solar';
-    if (f === 'arm') return i.tipo === 'sem';
-    if (f === 'novi') return (S.novoEm || {})[i.ref] > Date.now() - 30 * 864e5;
-    if (f === 'ofer') {
-      var p = S.pprice && S.pprice[i.ref];
-      return !!(p && p.ant > 0 && p.novo > 0 && p.ant > p.novo);
-    }
-    return true;
-  }
-  // Categorias em uso.
-  function catList() {
-    var seen = {},
-      out = [];
-    S.items.forEach(function (i) {
-      if (
-        i.qty <= 0 ||
-        !TIPOS.some(function (x) {
-          return x.id === i.tipo;
-        }) ||
-        !cvPassa(i)
-      )
-        return;
-      var k = i.ref + '|' + i.cor;
-      if (!S.fotos[k] || seen[k]) return;
-      seen[k] = 1;
-      out.push({
-        k: k,
-        ref: i.ref,
-        cor: i.cor,
-        src: S.fotos[k],
-        cap: pubNome(i.ref) + (i.cor && i.cor !== 'Sem cor' ? ' · ' + i.cor : '')
-      });
-    });
-    return out;
-  }
-  // Tela de categorias por tipo.
-  function renderCatV() {
-    S.cvTipo = 'all';
-    if (!S.cvOff) S.cvOff = {};
-    cvMarcaNovos();
-    if (S.view !== 'vendas') S.catOpen = false;
-    $('catV').hidden = !S.catOpen;
-    document.body.classList.toggle('catopen', !!S.catOpen);
-    if (!S.catOpen) return;
-    if (document.scrollingElement) document.scrollingElement.scrollTop = 0;
-    cvPosiciona();
-    var L = catList(),
-      g = $('cvGal');
-    g.textContent = '';
-    var n = 0;
-    var ch = $('cvChips');
-    ch.textContent = '';
-    [['all', 'Todos'], ['novi', 'Novidades'], ['ofer', 'Ofertas'], ['solar', 'Solares'], ['arm', 'Armações']].forEach(function (c) {
-      ch.appendChild(
-        btn('chip' + ((S.cvF || 'all') === c[0] ? ' on' : ''), c[1], function () {
-          S.cvF = c[0];
-          render();
-        }, (S.cvF || 'all') === c[0])
-      );
-    });
-    L.forEach(function (o) {
-      var on = !S.cvOff[o.k];
-      if (on) n++;
-      var t = mk('div', 'gi');
-      t.style.cssText =
-        'cursor:pointer;position:relative;outline:' +
-        (on ? '2px solid var(--accent)' : '2px solid transparent') +
-        ';opacity:' +
-        (on ? 1 : 0.45);
-      t.setAttribute('role', 'button');
-      t.setAttribute('aria-pressed', on);
-      t.tabIndex = 0;
-      var im = mk('img');
-      im.src = o.src;
-      im.alt = 'Foto ' + o.cap;
-      t.appendChild(im);
-      if (on) t.appendChild(mk('i', 'ck', '✓'));
-      var tg = function () {
-        S.cvOff[o.k] = on;
-        render();
-      };
-      t.onclick = tg;
-      t.onkeydown = function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          tg();
-        }
-      };
-      g.appendChild(t);
-    });
-    $('cvCount').textContent = n + ' de ' + L.length + ' selecionados';
-    $('cvAll').textContent = n === L.length ? 'Limpar' : 'Selecionar tudo';
-    $('cvSend').disabled = !n;
-    $('cvMsgB').disabled = !n;
-    $('cvSend').textContent = n
-      ? 'Enviar ' + n + ' ' + (n === 1 ? 'imagem' : 'imagens')
-      : 'Enviar imagens';
-    $('cvH').textContent = L.length
-      ? 'No celular abre o compartilhamento e você escolhe o WhatsApp. No computador, as imagens são copiadas (uma por vez) ou baixadas.'
-      : 'Sem fotos de peças em estoque nesse tipo. Use "+ Adicionar produto" > "Tirar foto da peça".';
-  }
-  // A tela do WhatsApp fica logo abaixo do cabeçalho e dos botões do grupo (que continuam visíveis e iguais às outras abas).
-  function cvPosiciona() {
-    var cv = $('catV');
-    if (!cv || cv.hidden) return;
-    var gt = $('grpTabs'),
-      topo = document.querySelector('.wrap > .top.logo-top'),
-      ref = gt && !gt.hidden ? gt : topo;
-    if (!ref) return;
-    var r = ref.getBoundingClientRect(),
-      t = topo ? topo.getBoundingClientRect() : r;
-    cv.style.top = Math.max(0, Math.round(r.bottom + 18)) + 'px';
-    cv.style.paddingTop = '0';
-    cv.style.paddingLeft = Math.max(0, Math.round(t.left)) + 'px';
-    cv.style.paddingRight = Math.max(0, Math.round(window.innerWidth - t.right)) + 'px';
-  }
-  window.addEventListener('resize', cvPosiciona);
-  // direto no body: dentro de uma tela com animação o "fixed" deixa de ser da janela e a aba WhatsApp aparecia deslocada
-  if ($('catV') && $('catV').parentNode !== document.body) document.body.appendChild($('catV'));
-  $('cvAll').onclick = function () {
-    var L = catList(),
-      todos = L.every(function (o) {
-        return !S.cvOff[o.k];
-      });
-    L.forEach(function (o) {
-      S.cvOff[o.k] = todos;
-    });
-    render();
-  };
-  // Folha "Mensagem…": para quem, o que mostrar, prévia
-  $('cvMsgB').onclick = function () {
-    var o = S.cvCfg || (S.cvCfg = { para: 'cli', preco: true, cod: false, dePor: true });
-    var sel = catList().filter(function (x) {
-      return !S.cvOff[x.k];
-    });
-    if (!sel.length) return;
-    var ov = mk('div', 'modal'),
-      bx = mk('div', 'modal-box');
-    bx.style.maxWidth = '460px';
-    ov.appendChild(bx);
-    function desenha() {
-      bx.textContent = '';
-      bx.appendChild(mk('b', '', 'Mensagem das fotos'));
-      var pr = mk('div', 'nav');
-      pr.appendChild(mk('div', 'zlb', 'PARA QUEM'));
-      [['cli', 'Clientes'], ['atac', 'Atacadistas']].forEach(function (c) {
-        pr.appendChild(btn('chip' + (o.para === c[0] ? ' on' : ''), c[1], function () {
-          o.para = c[0];
-          desenha();
-        }, o.para === c[0]));
-      });
-      bx.appendChild(pr);
-      [['preco', 'Mostrar preço'], ['cod', 'Mostrar código do produto'], ['dePor', 'Mostrar "de/por" nas ofertas']].forEach(function (c) {
-        var l = mk('div', 'zl');
-        l.appendChild(mk('span', '', c[1]));
-        var sw = btn('zsw' + (o[c[0]] ? ' on' : ''), '', function () {
-          o[c[0]] = !o[c[0]];
-          desenha();
-        });
-        sw.setAttribute('role', 'switch');
-        sw.setAttribute('aria-checked', o[c[0]] ? 'true' : 'false');
-        sw.setAttribute('aria-label', c[1]);
-        l.appendChild(sw);
-        bx.appendChild(l);
-      });
-      var pv = mk('pre', 'replist', cvTexto(sel));
-      bx.appendChild(pv);
-      var ln = mk('div', '');
-      ln.style.cssText = 'display:flex;gap:8px;justify-content:flex-end';
-      ln.appendChild(btn('chip', 'Fechar', function () {
-        ov.remove();
-      }));
-      ln.appendChild(btn('mini', 'Enviar ' + sel.length + (sel.length === 1 ? ' foto' : ' fotos') + ' + mensagem', function () {
-        ov.remove();
-        $('cvSend').click();
-      }));
-      bx.appendChild(ln);
-    }
-    desenha();
-    document.body.appendChild(ov);
-  };
-  function cvTexto(sel) {
-    var o = S.cvCfg || {};
-    var linhas = sel.map(function (x) {
-      var t = x.cap;
-      if (o.cod) t = x.ref + ' · ' + t;
-      if (o.preco) {
-        var it = S.items.filter(function (i) {
-            return i.ref === x.ref;
-          })[0],
-          pr = it ? precoAtual(x.ref, it.tipo) : 0,
-          pp = S.pprice && S.pprice[x.ref];
-        if (pr > 0) t += ' — ' + (o.dePor && pp && pp.ant > pr ? 'de ' + gs(pp.ant) + ' por ' + gs(pr) : gs(pr));
-      }
-      return t;
-    });
-    return 'La Fouch · Tudo em Óculos\n' + linhas.join('\n');
-  }
-  $('cvSend').onclick = function () {
-    var m = $('cvMsg'),
-      sel = catList().filter(function (o) {
-        return !S.cvOff[o.k];
-      });
-    if (!sel.length) return;
-    m.textContent = 'Preparando…';
-    Promise.all(
-      sel.map(function (o) {
-        return dataToBlob(o.src, 'image/jpeg').then(function (b) {
-          return new File(
-            [b],
-            (slugNome(pubNome(o.ref)) || 'modelo') + '-' + slugNome(o.cor) + '.jpg',
-            { type: 'image/jpeg' }
-          );
-        });
-      })
-    )
-      .then(function (files) {
-        // No app instalado o compartilhamento do navegador não leva arquivos: usa o nativo (grava as fotos no cache e abre "Compartilhar com…")
-        var P = window.Capacitor && window.Capacitor.Plugins;
-        if (P && P.Filesystem && P.Share) {
-          var lerB64 = function (f) {
-            return new Promise(function (ok, no) {
-              var r = new FileReader();
-              r.onload = function () {
-                ok(String(r.result).split(',')[1] || '');
-              };
-              r.onerror = no;
-              r.readAsDataURL(f);
-            });
-          };
-          var uris = [],
-            job = Promise.resolve();
-          files.forEach(function (f, i) {
-            job = job.then(function () {
-              m.textContent = 'Preparando ' + (i + 1) + ' de ' + files.length + '…';
-              return lerB64(f)
-                .then(function (b64) {
-                  return P.Filesystem.writeFile({ path: 'envio/' + Date.now() + '-' + i + '-' + f.name, data: b64, directory: 'CACHE', recursive: true });
-                })
-                .then(function (r) {
-                  uris.push(r.uri);
-                });
-            });
-          });
-          return job
-            .then(function () {
-              // só as fotos vão no compartilhamento (o WhatsApp descarta as fotos quando junto vai um texto); a mensagem fica copiada para colar
-              try {
-                if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(cvTexto(sel)).catch(function () {});
-              } catch (e) {}
-              m.textContent = uris.length + ' foto(s) prontas. A mensagem foi copiada: cole na conversa se quiser.';
-              return P.Share.share({ title: 'La Fouch', files: uris, dialogTitle: 'Enviar pelo WhatsApp' });
-            })
-            .then(
-              function () {
-                m.textContent = 'Fotos enviadas para o compartilhamento. A mensagem está copiada para colar.';
-              },
-              function (e) {
-                m.textContent = /cancel/i.test((e && (e.message || e.name)) || '') ? '' : 'Não foi possível compartilhar.';
-              }
-            );
-        }
-        if (navigator.canShare && navigator.canShare({ files: files })) {
-          return navigator.share({
-            files: files,
-            text: cvTexto(sel)
-          }).then(
-            function () {
-              m.textContent = 'Enviado para o compartilhamento.';
-            },
-            function (e) {
-              m.textContent = e && e.name === 'AbortError' ? '' : 'Não foi possível compartilhar.';
-            }
-          );
-        }
-        var one = sel[0];
-        if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
-          return dataToBlob(one.src, 'image/png')
-            .then(function (pb) {
-              return navigator.clipboard.write([new ClipboardItem({ 'image/png': pb })]);
-            })
-            .then(
-              function () {
-                m.textContent =
-                  'Copiada a imagem de ' +
-                  one.cap +
-                  '. Cole no WhatsApp Web (Ctrl+V).' +
-                  (sel.length > 1 ? ' Para as outras, selecione uma por vez.' : '');
-              },
-              function () {
-                m.textContent = 'Não consegui copiar aqui. Use o celular ou salve as imagens.';
-              }
-            );
-        }
-        m.textContent = 'Este navegador não copia imagens. Use o celular para enviar.';
-      })
-      .catch(function () {
-        m.textContent = 'Não consegui preparar as imagens.';
-      });
-  };
+  // S377: a tela velha "Catálogo para WhatsApp" (#catV) saiu — o envio de fotos é Catálogo › Compartilhar
 
   /* variações C1..Cn: se o leitor achar uma maior que as existentes (ex.: C8), cria automaticamente */
   function ensureVar(v) {
@@ -12201,48 +11865,14 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     render();
   });
 
-  // ---------- Catálogo: uma barra de abas com ícone (Vendas · WhatsApp · Site), igual em todas as telas
-  function uniIr(qual) {
-    var ordem = { v: 0, w: 1, s: 2 },
-      ant = uniOn();
-    if (ant === qual) return; // já está nesta aba: nada acontece
-    window.__slide = ant && ant !== qual ? (ordem[qual] > ordem[ant] ? 1 : -1) : 0;
-    S.catOpen = qual === 'w';
-    S.repoView = false;
-    setView(qual === 's' ? 'onl' : 'vendas');
-  }
-  function uniOn() {
-    return S.view === 'vendas' ? (S.catOpen ? 'w' : 'v') : S.view === 'onl' ? 's' : '';
-  }
-  var CAT_ICO = {
-    v: '<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 11.5a2 2 0 0 0 2 1.5h7.6a2 2 0 0 0 2-1.5L21 7H6"/>',
-    w: '<path stroke-width="1.8" d="M12 2.6a9.4 9.4 0 0 0-8.1 14.2L2.6 21.4l4.9-1.3A9.4 9.4 0 1 0 12 2.6z"/><path fill="currentColor" stroke-width="1.6" transform="translate(6.5 6.3) scale(.46)" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>',
-    s: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/>'
-  };
+  // S377: a barra antiga Vendas · WhatsApp · Site saiu; só esconde os lugares dela que ainda existem na página
   function uniAbasFill() {
-    ['uniV', 'uniS', 'uniW'].forEach(function (id) {
+    ['uniV', 'uniS'].forEach(function (id) {
       var h = $(id);
-      if (!h) return;
-      if (id === 'uniV' || id === 'uniS') {
-        h.hidden = true; // Catálogo único: Varejo | Atacado + ícone do WhatsApp, sem a barra de abas; Site (Loja online) também sem a barra (v449)
-        return;
-      }
-      var on = uniOn();
-      if (h.getAttribute('data-k') === on && h.firstChild) return;
-      h.setAttribute('data-k', on);
-      h.textContent = '';
-      h.className = 'catbar3';
-      [['v', 'Vendas'], ['w', 'WhatsApp'], ['s', 'Site']].forEach(function (t) {
-        var b = btn('cb3' + (on === t[0] ? ' on' : ''), '', function () {
-          uniIr(t[0]);
-        }, on === t[0]);
-        b.innerHTML =
-          '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-          CAT_ICO[t[0]] + '</svg><span>' + t[1] + '</span>';
-        h.appendChild(b);
-      });
+      if (h) h.hidden = true;
     });
   }
+
   // ===== Contas em várias moedas, vencimentos e avisos. =====
   // Moeda de uma despesa: pyg (padrão), usd ou brl.
   function expMoeda(e) {
@@ -12377,29 +12007,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       : d === 1
       ? 'vence amanhã'
       : 'vence em ' + d + ' dias';
-  }
-  // Cartão de avisos de vencimento (vazio se não houver nada).
-  function avisosHtml() {
-    var av = avisosVenc(7);
-    if (!av.length) return '';
-    var h =
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Contas para pagar</h2><div class="split">';
-    av.forEach(function (a) {
-      var cor = a.dias < 0 ? 'var(--bad)' : a.dias <= 2 ? 'var(--warn)' : 'var(--sub)';
-      h += dxRow(
-        esc(a.e.nome),
-        '<span style="color:' +
-          cor +
-          '">' +
-          prazoTxt(a.dias) +
-          '</span>' +
-          (a.semValor ? ' · informe o valor desta fatura' : '') +
-          (a.urgente ? ' · <b style="color:var(--bad)">URGENTE</b>' : '') +
-          (a.ok ? '' : ' · ' + esc(a.dica)),
-        expTexto(a.e)
-      ) + '<button type="button" class="esLn slVai mpg73 b100" data-act="exppay" data-id="' + a.e.id + '" aria-label="Marcar ' + esc(a.e.nome) + ' como paga"><span class="g"><b>Marcar como paga</b></span></button>'; // S374 (esboço 100d): é ação, não caminho → botão secundário, sem "›"
-    });
-    return h + '</div></section>';
   }
   // ===== Finanças: resultado do mês, fluxo de caixa, retirada do dono, conferência de caixa, capital parado, dólar e preço perigoso. =====
   S.retiradas = []; // retiradas do dono: {ts, moeda, orig, valor, nota}
@@ -14075,7 +13682,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   }
   // Aba Vendas.
   function renderVendas() {
-    renderCatV();
     if (S.cartOpen) {
       S.vRef = '';
       S.vSel = null;
@@ -15537,13 +15143,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       if (c) s[c] = 1;
     });
     return Object.keys(s).sort();
-  }
-  function slugNome(t) {
-    return String(t || '')
-      .normalize('NFD')
-      .replace(/[̀-ͯ]/g, '')
-      .replace(/[^\w-]+/g, '-')
-      .replace(/^-+|-+$/g, '');
   }
   /* interruptor do Editar produto: libera o modelo (com todas as cores) para o catálogo online */
   // onda rosa no botão e luzinhas que sobem (curto), depois de liberar
@@ -17412,133 +17011,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         x.ref ? 'n-ok' : 'n-warn'
       );
     render();
-  }
-  // Segundo passo: foto da peça após ler o código.
-  function step2(pre) {
-    PRESET = pre && (pre.ref || pre.med || pre.vr) ? pre : null;
-    camOpen(
-      function (f) {
-        S.photoFor = null;
-        $('file').onchange({ target: { files: [f] } });
-      },
-      '2/2 · Foto da armação inteira',
-      {
-        gallery: true,
-        tip: 'Ponha a armação inteira sobre uma folha branca, dentro do retângulo. Toque na tela para focar.'
-      }
-    );
-  }
-  // Diálogo para confirmar o código lido.
-  function codeDialog(res, note) {
-    var ov = document.createElement('div');
-    ov.id = 'codeDlg';
-    ov.setAttribute('role', 'dialog');
-    ov.setAttribute('aria-modal', 'true');
-    ov.style.cssText =
-      'position:fixed;inset:0;z-index:320;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;padding:16px';
-    var bx = document.createElement('div');
-    bx.style.cssText =
-      'background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;width:min(94vw,440px);max-height:92vh;overflow:auto;display:flex;flex-direction:column;gap:10px';
-    bx.appendChild(mk('b', '', '1/2 · Código lido'));
-    var n = mk('div', 'hint', note);
-    n.style.color = res && res.ref ? 'var(--ok)' : 'var(--warn)';
-    bx.appendChild(n);
-    function fld(l, v, ph) {
-      bx.appendChild(mk('div', 'lbl', l));
-      var i = document.createElement('input');
-      i.className = 'in';
-      i.value = v || '';
-      i.placeholder = ph;
-      i.autocomplete = 'off';
-      bx.appendChild(i);
-      return i;
-    }
-    var fr = fld('Código (o que fica na haste)', res && res.ref, 'Ex.: PY-566'),
-      fm = fld('Medidas', res && res.med, 'Ex.: 55□19-142'),
-      vr = (res && res.vr) || '';
-    bx.appendChild(mk('div', 'lbl', 'Classificação de cor (opcional)'));
-    var cr = document.createElement('div');
-    cr.style.cssText = 'display:flex;gap:6px;flex-wrap:wrap';
-    function drawC() {
-      cr.textContent = '';
-      varChips(vr).forEach(function (c) {
-        cr.appendChild(
-          btn(
-            'chip' + (vr === c ? ' on' : ''),
-            c,
-            function () {
-              vr = vr === c ? '' : c;
-              drawC();
-            },
-            vr === c
-          )
-        );
-      });
-    }
-    drawC();
-    bx.appendChild(cr);
-    var go = btn('mini', 'Continuar: foto da armação inteira', function () {
-      ov.remove();
-      step2({
-        ref: fr.value.trim().toUpperCase().replace(/\s+/g, ''),
-        med: fm.value.trim(),
-        vr: vr
-      });
-    });
-    go.style.width = '100%';
-    var re = btn('chip', 'Refazer a leitura', function () {
-      ov.remove();
-      smartAdd();
-    });
-    re.style.cssText += ';width:100%;justify-content:center';
-    bx.appendChild(go);
-    bx.appendChild(re);
-    ov.appendChild(bx);
-    document.body.appendChild(ov);
-  }
-  // Adicionar peça: foto → leitura → cadastro.
-  function smartAdd() {
-    camOpen(
-      function (f) {
-        var st = document.createElement('div');
-        st.id = 'codeDlg';
-        st.style.cssText =
-          'position:fixed;inset:0;z-index:320;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px';
-        st.textContent = 'Lendo o código…';
-        document.body.appendChild(st);
-        (window.createImageBitmap ? createImageBitmap(f) : Promise.reject())
-          .then(function (bm) {
-            var c = mkCanvas(bm.width, bm.height);
-            c.getContext('2d').drawImage(bm, 0, 0);
-            return preRead(c);
-          })
-          .catch(function () {
-            return null;
-          })
-          .then(function (res) {
-            st.remove();
-            codeDialog(
-              res,
-              res && res.ref
-                ? 'Confira e corrija se precisar.'
-                : 'Não consegui ler o código' +
-                    (HERR ? ' (o leitor não iniciou: ' + HERR + ')' : '') +
-                    '. Digite abaixo, ou toque em Continuar para seguir só com a foto. O leitor precisa de internet na primeira vez.' +
-                    httpsHint()
-            );
-          });
-      },
-      '1/2 · Código da haste',
-      {
-        strip: true,
-        gallery: true,
-        tip: 'Aproxime a haste e alinhe o texto dentro da faixa. Toque na tela para focar.',
-        skip: function () {
-          step2(null);
-        },
-        skipTxt: 'Pular leitura'
-      }
-    );
   }
 
   /* leitura tolerante: junta o texto sem espaços/quebras e procura CÓDIGO + medidas (o quadradinho pode virar 0, 4 ou sumir) */
@@ -22583,7 +22055,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   ICO_D.tem = '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 12.6l1.2 2.3 2.5.4-1.8 1.7.4 2.5-2.3-1.2-2.3 1.2.4-2.5-1.8-1.7 2.5-.4z"/>';
   ICO_D.ata = '<rect x="3" y="12" width="8" height="8" rx="1"/><rect x="13" y="12" width="8" height="8" rx="1"/><rect x="8" y="3.5" width="8" height="8" rx="1"/>';
   var INI_PADRAO = ['estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'ajustes', 'ped', 'msg', 'anl', 'tem', 'ata', 'cli', 'cont', 'lotes'];
-  var INI_TODOS = INI_PADRAO.concat(['vendas', 'cat', 'onl', 'novo', 'notif']);
+  var INI_TODOS = INI_PADRAO.concat(['vendas', 'onl', 'novo', 'notif']); // S377: 'cat' (WhatsApp velho) saiu
   function iniLista() {
     // Vendas, Catálogo WhatsApp e Loja online passaram a ser abas de Produtos: saem do Início e da barra uma única vez
     if (!S.uniao1) {
@@ -22768,9 +22240,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (id === 'hoje' || id === 'din' || id === 'giro' || id === 'prec') {
       S.dTab = id;
       setView('dash');
-    } else if (id === 'cat') {
-      S.catOpen = true;
-      setView('vendas');
     } else if (id === 'ata') {
       setView('ata');
     } else if (id === 'msg' || id === 'anl' || id === 'tem') {
@@ -22828,10 +22297,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (gg) return gg.itens.some(navOn);
     if (id === 'inicio') return v === 'inicio';
     if (id === 'hoje' || id === 'din' || id === 'giro' || id === 'prec') return v === 'dash' && S.dTab === id;
-    if (id === 'cat') return v === 'vendas' && !!S.catOpen;
     if (id === 'cli') return v === 'clientes';
     if (id === 'lotes') return v === 'estoque' && !!S.lotesView;
-    if (id === 'vendas') return (v === 'vendas' && !(S.catOpen && grpPlana().indexOf('cat') >= 0)) || (v === 'onl' && grpPlana().indexOf('onl') < 0);
+    if (id === 'vendas') return v === 'vendas' || (v === 'onl' && grpPlana().indexOf('onl') < 0);
     if (id === 'estoque') return v === 'estoque' && !(S.lotesView && grpPlana().indexOf('lotes') >= 0);
     if (id === 'ata') return v === 'ata'; // S370 (esboço 23): Atacado é tela do app
     if (id === 'msg' || id === 'anl' || id === 'tem') return v === 'onl' && S.onlAba === id;
@@ -23035,7 +22503,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.onlAba = v === 'onl' ? window.__onlAba || '' : '';
     window.__onlAba = '';
     S.view = v;
-    if (v !== 'vendas') S.catOpen = false; // a tela do WhatsApp só existe dentro da aba de vendas: ao sair, fecha
     S.msg = '';
     try {
       if (mudou && !window.__navVolta && location.hash !== '#' + v) history.pushState(null, '', '#' + v);
@@ -23044,7 +22511,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     render();
     window.scrollTo(0, 0);
     var dir = window.__slide || 0,
-      el = S.catOpen && $('catV') ? $('catV') : $('v-' + v),
+      el = $('v-' + v),
       lado = !REDUCED && el && dir;
     window.__slide = 0;
     if (lado) {
@@ -28801,18 +28268,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     window.open('https://wa.me/?text=' + encodeURIComponent(tabMensagem(refs)), '_blank');
   };
   window.__precoTab = precoTab;
-  // Linha de tabela no pedido: tabela atual, cliente, sugestão de tabela melhor.
-  function tabCartHtml() {
-    var T = tabDe(S.cart[0] && S.cart[0].tab || S.tabAtiva),
-      sg = tabSugestao(),
-      cl = (S.clientes || []).filter(function (c) { return c.nome; }),
-      h = '<div class="hint" style="margin:0;display:flex;gap:8px;flex-wrap:wrap;align-items:center"><button type="button" class="chip on" data-act="tabsheet">Tabela: ' + esc(T.nome) + ' ▾</button>';
-    if (cl.length)
-      h += '<select class="in" data-in="tabcli" style="flex:1 1 140px;min-height:40px" aria-label="Cliente"><option value="">Cliente…</option>' + cl.map(function (c) { return '<option value="' + c.id + '"' + (String(S.cartCli) === String(c.id) ? ' selected' : '') + '>' + esc(c.nome) + (c.tab ? ' · ' + esc(tabDe(c.tab).nome) : '') + '</option>'; }).join('') + '</select>';
-    if (T.frete > 0) h += '<small style="flex:1 1 100%">Frete grátis: o frete já está embutido no preço.</small>';
-    if (sg) h += '<small style="flex:1 1 100%">Este pedido já alcança a tabela <b>' + esc(sg.T.nome) + '</b> e sai Gs. ' + sg.eco.toLocaleString('pt-BR') + ' mais barato. <button type="button" class="chip" data-act="tabpick" data-id="' + sg.T.id + '">Trocar</button></small>';
-    return h + '</div>';
-  }
   document.addEventListener('change', function (ev) {
     var t = ev.target;
     if (!t.getAttribute || t.getAttribute('data-in') !== 'tabcli') return;
@@ -44909,14 +44364,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     try { fnLinkifica(); } catch (e) {}
     return r;
   };
-  // 6 recentes embaixo da busca do Início
-  function recentesHtml() {
-    var L = (S.recentes || []).filter(function (r) { return r.k !== 'ref' || fnItem(r.id); });
-    if (!L.length) return '';
-    return '<div class="fnRec noconta"><small>RECENTES</small><div>' + L.map(function (r) {
-      return '<button type="button" class="fnChip" data-act="' + (r.k === 'ref' ? 'abreRef' : r.k === 'cli' ? 'cliab' : 'view') + '" data-id="' + esc(r.k === 'ped' ? 'ped' : r.id) + '">' + (r.k === 'ref' ? '👓 ' : r.k === 'cli' ? '👤 ' : '🧾 ') + esc(r.k === 'ref' ? r.id : r.n) + '</button>';
-    }).join('') + '</div></div>';
-  }
   // 3 números do Resumo que abrem o que está por trás + 4 aba Online
   DTABS.push(['onl', 'Online']);
   var _dcNav = dashCompose;
@@ -46200,7 +45647,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       window.scrollTo({ top: Math.max(0, det.getBoundingClientRect().top + window.scrollY - 12), left: 0, behavior: 'instant' });
     };
     var ultCard = null;
-    function fRet(r) { return { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px' }; }
     function fDet(view) {
       if (view === 'vendas') return S.view === 'vendas' && S.vRef ? $('vDetail') : null;
       var d = $('detail');

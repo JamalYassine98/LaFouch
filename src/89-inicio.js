@@ -60,7 +60,7 @@
   ICO_D.tem = '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 12.6l1.2 2.3 2.5.4-1.8 1.7.4 2.5-2.3-1.2-2.3 1.2.4-2.5-1.8-1.7 2.5-.4z"/>';
   ICO_D.ata = '<rect x="3" y="12" width="8" height="8" rx="1"/><rect x="13" y="12" width="8" height="8" rx="1"/><rect x="8" y="3.5" width="8" height="8" rx="1"/>';
   var INI_PADRAO = ['estoque', 'caixa', 'fx', 'desp', 'hist', 'hoje', 'din', 'giro', 'prec', 'ajustes', 'ped', 'msg', 'anl', 'tem', 'ata', 'cli', 'cont', 'lotes'];
-  var INI_TODOS = INI_PADRAO.concat(['vendas', 'cat', 'onl', 'novo', 'notif']);
+  var INI_TODOS = INI_PADRAO.concat(['vendas', 'onl', 'novo', 'notif']); // S377: 'cat' (WhatsApp velho) saiu
   function iniLista() {
     // Vendas, Catálogo WhatsApp e Loja online passaram a ser abas de Produtos: saem do Início e da barra uma única vez
     if (!S.uniao1) {
@@ -245,9 +245,6 @@
     if (id === 'hoje' || id === 'din' || id === 'giro' || id === 'prec') {
       S.dTab = id;
       setView('dash');
-    } else if (id === 'cat') {
-      S.catOpen = true;
-      setView('vendas');
     } else if (id === 'ata') {
       setView('ata');
     } else if (id === 'msg' || id === 'anl' || id === 'tem') {
@@ -305,10 +302,9 @@
     if (gg) return gg.itens.some(navOn);
     if (id === 'inicio') return v === 'inicio';
     if (id === 'hoje' || id === 'din' || id === 'giro' || id === 'prec') return v === 'dash' && S.dTab === id;
-    if (id === 'cat') return v === 'vendas' && !!S.catOpen;
     if (id === 'cli') return v === 'clientes';
     if (id === 'lotes') return v === 'estoque' && !!S.lotesView;
-    if (id === 'vendas') return (v === 'vendas' && !(S.catOpen && grpPlana().indexOf('cat') >= 0)) || (v === 'onl' && grpPlana().indexOf('onl') < 0);
+    if (id === 'vendas') return v === 'vendas' || (v === 'onl' && grpPlana().indexOf('onl') < 0);
     if (id === 'estoque') return v === 'estoque' && !(S.lotesView && grpPlana().indexOf('lotes') >= 0);
     if (id === 'ata') return v === 'ata'; // S370 (esboço 23): Atacado é tela do app
     if (id === 'msg' || id === 'anl' || id === 'tem') return v === 'onl' && S.onlAba === id;
