@@ -52,6 +52,8 @@ Tudo sobre a Mochi (mascote e teste de leitura do site lafouch.com) num lugar s�
 
 - 17/11 19:37 — DONO: **109 APROVADO** (passeio da Mochi só em cantinho que caiba inteiro na tela e a 12 px ou mais do balão; senão fica parada). ESPERANDO 'implementar' (junto com 104, 107, 108).
 
+- 17/11 19:53 — DONO: **110 APROVADO** (12 px também dos botões; cantinho de baixo centrado). ESPERANDO 'implementar' (com 104, 107, 108, 109). Próximo da lista: item 2, espanhol das 4 falas do 107.
+
 ## 5. Lições minhas
 - Ao mexer numa parte, procurar tudo que depende dela (erro do S384 → S387).
 - Número estranho no medidor do dono se investiga na hora.
