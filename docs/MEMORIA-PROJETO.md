@@ -2957,3 +2957,4 @@ Decisões do dono sobre a tela Venda confirmada (esboço "venda_confirmada_compr
 - LIÇÃO: o app também chama "liberar" ao cancelar/apagar pedido; por isso a entrega só vale com a reserva paga e não cancelada.
 - 17/11/2026 07:43 · DONO aprovou o 85 (Inventário). Fornecedores fica como aba dentro do Inventário (não vira flecha). Esperando "implementar".
 - 17/11/2026 08:08 · DONO aprovou o 86 (Estúdio): "?" e "×" de 44 px; um só "Ver as N peças ›" rosa no fim (sai "Ver todas ›" e "+ N peças"), título "NA FILA · N"; "Ficha ›" e "Peça nova ›" em rosa; nomes até 2 linhas; "Começar" continua o principal. Esperando "implementar". Esboço 87 (tutorial "Como fotografar ›" a 1 toque, abaixo de "Peça nova") enviado, esperando aprovação.
+- 17/11/2026 08:11 · DONO recusou o 87: "Tira esse como fotografar. O ? faz a mesma coisa". O tutorial continua só pelo "?" (86 fica como está). 87 DESCARTADO.
