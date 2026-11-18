@@ -47,3 +47,10 @@ Tudo o que está acima também aparece no tablet e no PC. Novos:
 30. **Depois de cancelar, a ficha do cliente volta a dizer "criar o acesso" e, ao tocar, CRIA OUTRA CONTA sozinha** (sem perguntar): ficam duas contas do mesmo cliente, uma cancelada e uma ativa.
 31. A pergunta "Cancelar a conta?" é a caixa cinza do navegador (já no esboço 111b7).
 Por que o meu passeio não pegou: ele toca cada botão uma vez e recomeça do zero; não repete o mesmo botão nem volta depois de cancelar. Regra nova para os próximos testes: tocar cada ação 3 vezes seguidas e refazer o caminho depois dela.
+
+## Do vídeo do dono (17/11 21:48)
+32. **Chave "No site" (ficha da peça): ao ligar, a bolinha branca some** e a chave fica só rosa até a tela redesenhar. Causa: a onda de brilho usa o mesmo `::after` que desenha a bolinha (`#edSiteBtn.lfwave:after` em style.css 397) e a classe `lfwave` nunca sai.
+33. **Aviso "Armação acetato roxa · No ar no site" cobre a barra de baixo** por ~3 s (`#lfSitePv` em bottom 14 px, por cima da barra).
+34. **Ajustes do site (painel dentro do app): a janela do painel abre presa dentro do quadro** — o fundo só escurece/borra o quadro, e a janela ("O site está fora do ar") fica cortada atrás da barra de baixo do app.
+35. **Controles do painel pouco intuitivos** (dono) — estudar e esboçar.
+Por que não peguei: o teste olhava a tela parada logo depois do toque, não DEPOIS da animação acabar; e não entrava nas janelas de dentro do painel do site (é outra página dentro do app).
