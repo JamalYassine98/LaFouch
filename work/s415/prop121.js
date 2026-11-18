@@ -9,8 +9,8 @@
     /* (2) selo sobre a foto, no canto de baixo à esquerda, numa pílula clara */
     "#home .hc:has(.hlin){position:relative}" +
     /* "Últimas N": vermelho como antes, SEM fundo, no canto de cima da foto (longe dos óculos), alinhado com o texto do cartão */
-    "#home .hc .hlin,#grid .card .ph .ulin{position:absolute!important;z-index:3;display:inline-flex;align-items:center;gap:6px;margin:0!important;padding:0!important;background:none!important;box-shadow:none!important;border-radius:0!important;font:700 11.5px/1.25 Inter,system-ui,sans-serif!important;letter-spacing:.02em!important;text-transform:none!important;color:#c62828!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;align-items:flex-start!important}" +
-    "#home .hc .hlin i,#grid .card .ph .ulin i{width:6px!important;height:6px!important;background:currentColor!important;margin-top:.4em}" +
+    "#home .hc .hlin,#grid .card .ph .ulin{position:absolute!important;z-index:3;display:inline-flex;align-items:center;gap:4px!important;margin:0!important;padding:0!important;background:none!important;box-shadow:none!important;border-radius:0!important;font:700 11.5px/1.25 Inter,system-ui,sans-serif!important;letter-spacing:.02em!important;text-transform:none!important;color:#c62828!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;align-items:flex-start!important;gap:4px!important}" +
+    "#home .hc .hlin i,#grid .card .ph .ulin i{width:6px!important;height:6px!important;background:currentColor!important;position:relative;top:-1px;margin-top:calc((1.25em - 6px) / 2)!important}" +
     "#grid .card .ph .ulin{bottom:auto!important}" +
     /* peça: coração sem o círculo branco (igual ao catálogo), toque continua 46 px */
     ".pgm .big .dfav,.modal .big .dfav{background:none!important;box-shadow:none!important;color:#7d2a5a}" +
