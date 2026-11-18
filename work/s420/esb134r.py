@@ -5,7 +5,8 @@ sys.path.insert(0,'/home/claude/lafouch/tools/teste-android');from telas import 
 D=dict(C)
 from playwright.sync_api import sync_playwright
 comum.OUT='/home/claude/lafouch/work/s420/r/';T='/tmp/s420/'
-CA="""#v-estoque .pl.pick{background:none!important;border:0!important;border-bottom:1px solid var(--line2)!important;border-radius:0!important;padding:0!important;min-height:44px!important;display:flex!important;justify-content:space-between!important;align-items:center!important;box-shadow:none!important;color:var(--fg)!important}
+CA="""#v-estoque .card.fnAlt,#v-estoque section.card[aria-label='Catálogo do produto'],#v-estoque [aria-label='Catálogo do produto'].card{background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding-left:0!important;padding-right:0!important}
+#v-estoque .pl.pick{background:none!important;border:0!important;border-bottom:1px solid var(--line2)!important;border-radius:0!important;padding:0!important;min-height:44px!important;display:flex!important;justify-content:space-between!important;align-items:center!important;box-shadow:none!important;color:var(--fg)!important}
 #v-estoque .pl.pick .cell{background:none!important;border:0!important;padding:0!important;margin-left:10px!important;color:var(--mute)!important;font-size:13px!important}
 #precoCard.zcd,#v-estoque .zcd{background:none!important;border:0!important;border-radius:0!important;padding:0!important}
 #precoCard .lbl{font-size:11px!important;letter-spacing:.14em!important;color:var(--mute)!important}
@@ -14,7 +15,8 @@ CA="""#v-estoque .pl.pick{background:none!important;border:0!important;border-bo
 #edSite.card{background:none!important;border:0!important;border-top:1px solid var(--line2)!important;border-bottom:1px solid var(--line2)!important;border-radius:0!important;padding:12px 0!important;box-shadow:none!important}
 #v-estoque details.card>summary{min-height:44px}#edSite .scLin{min-height:44px}#edSiteBtn{border:8px solid transparent!important;background-clip:padding-box!important;box-sizing:content-box!important;margin:-8px!important}
 #v-estoque details.card.lrcard,#v-estoque details.card.cntP{background:none!important;border:0!important;border-bottom:1px solid var(--line2)!important;border-radius:0!important;padding:13px 0!important;box-shadow:none!important}"""
-PN='''#v-estoque section.fnPn.card{background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:0!important}
+PN='''#v-estoque .card.fnAlt,#v-estoque section.card[aria-label='Catálogo do produto'],#v-estoque [aria-label='Catálogo do produto'].card{background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding-left:0!important;padding-right:0!important}
+#v-estoque section.fnPn.card{background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:0!important}
 #v-estoque .fnPn .lbl{font-size:11px!important;letter-spacing:.14em!important;color:var(--mute)!important;margin:0 0 2px!important}
 #v-estoque .fnPn .sl{min-height:44px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line2);margin:0!important;padding:0!important}
 #v-estoque .fnPn .hint{margin:10px 0 0!important}
@@ -55,23 +57,23 @@ def aba(t):
 JT="""()=>{const a=document.querySelector('#v-estoque .fnAt');const p=document.querySelector('#v-estoque .fnPane');if(!a||!p)return 0;p.after(a);[['display','flex'],['flex-direction','column'],['align-items','center'],['gap','0'],['margin','18px 0 8px']].forEach(q=>a.style.setProperty(q[0],q[1],'important'));return 1}"""
 CASOS=[('a','ficha-preco','Inventário · ficha da peça (preço)',lambda pg,w:[ (pg.evaluate(p),w(1100)) for p in FICHA],CA,JA,
   'Hoje: o preço e "No site" dentro de caixas; "% Oferta" rosa cheio; o aviso "PREJUÍZO · ABAIXO DA TRAVA" numa caixa vermelha; "Lucro real" e "De onde vem o preço" em cartões.',
-  'Proposta: sem as caixas; "% Oferta" vira botão secundário (pílula neutra); o aviso vira frase vermelha; "No site", "Lucro real" e "De onde vem o preço" em linhas finas (abrem como hoje). Pela regra dos links, "Vender no Catálogo ›" e "Fotografar no Estúdio ›" saem do alto e vão para o FIM da ficha, centralizados.'),
+  'Proposta: a ficha sai do cartão grande (fundo e largura iguais ao Dashboard); sem as caixas; "% Oferta" vira botão secundário (pílula neutra); o aviso vira frase vermelha; "No site", "Lucro real" e "De onde vem o preço" em linhas finas (abrem como hoje). Pela regra dos links, "Vender no Catálogo ›" e "Fotografar no Estúdio ›" saem do alto e vão para o FIM da ficha, centralizados.'),
  ('e','ficha-historico','Inventário · ficha da peça › Histórico',aba('Histórico'),PN,JT,
   'Hoje: "Vender no Catálogo ›" e "Fotografar no Estúdio ›" no alto; "Vendas" numa caixa dentro da ficha, com o texto mais para dentro que o resto.',
-  'Proposta: sem a caixa — "VENDAS" em versalete e as linhas finas começam na mesma margem da ficha; valor na coluna da direita. Os dois links vão para o fim, centralizados (igual à aba Estoque).'),
+  'Proposta: ficha sem o cartão grande (igual ao Dashboard); sem a caixa — "VENDAS" em versalete e as linhas finas começam na mesma margem da ficha; valor na coluna da direita. Os dois links vão para o fim, centralizados (igual à aba Estoque).'),
  ('f','ficha-site','Inventário · ficha da peça › Site',aba('Site'),PN,JT,
   'Hoje: "No site" numa caixa; "Ver no painel online ›" encostado à esquerda; os dois links no alto.',
-  'Proposta: sem a caixa, linhas finas na margem da ficha; "Ver no painel online ›" em texto rosa centralizado no fim do bloco (link sozinho); os dois links no fim, centralizados.'),
+  'Proposta: ficha sem o cartão grande (igual ao Dashboard); sem a caixa, linhas finas na margem da ficha; "Ver no painel online ›" em texto rosa centralizado no fim do bloco (link sozinho); os dois links no fim, centralizados.'),
  ('g','ficha-preco-aba','Inventário · ficha da peça › Preço',aba('Preço'),PN,JT,
   'Hoje: "Preço" numa caixa, mais para dentro que o resto; os dois links no alto.',
-  'Proposta: sem a caixa, linhas finas na margem da ficha, valores na coluna da direita; os dois links no fim, centralizados.'),
+  'Proposta: ficha sem o cartão grande (igual ao Dashboard); sem a caixa, linhas finas na margem da ficha, valores na coluna da direita; os dois links no fim, centralizados.'),
  ('b','fornecedores','Inventário · Fornecedores',lambda pg,w:[(pg.evaluate(p),w(1100)) for p in D['inventario-fornecedores']],CB,JB,
   'Hoje: cada compra num cartão com faixa colorida, "Editar" em caixa, lixeira e "Ver peças (57)" em pílula.',
   'Proposta: cada compra em linha fina; "Editar" em texto rosa e a lixeira sem caixa — os dois no MESMO centro da 1ª linha do nome, e o traço da lixeira termina na margem da direita (regra de alinhamento); "Ver peças (57) ›" em texto rosa, centralizado no fim da compra.'),
  ('c','adicionar','Inventário · "+" Adicionar',lambda pg,w:[(pg.evaluate(p),w(1100)) for p in D['inventario-novo']],'#addModal .adTiles .adTile{flex-direction:row!important;min-height:52px!important;border-radius:999px!important;background:none!important;padding:0 12px!important;gap:8px!important}#addModal .adTiles .adTile svg{width:20px!important;height:20px!important}',JC,
   'Hoje: caixa presa no alto, com "Fechar" e dois quadrados grandes ("Ler haste", "Foto").',
   'Proposta: a janela de baixo de sempre (arrasta ou toca fora para fechar, sem "Fechar"); "Ler haste" e "Foto" viram dois botões lado a lado com ícone; o resto igual.'),
- ('d','editar-produto','Inventário · Editar produto',editar,None,JD,
+ ('d','editar-produto','Inventário · Editar produto',editar,CA,JD,
   'Hoje: caixa presa no alto, com "Fechar" em caixa.',
   'Proposta: a janela de baixo de sempre; "Salvar alterações" é o principal (contorno rosa) e "Fechar sem salvar" fica em texto embaixo. As abas Modelo / Cores e fotos ficam iguais.')]
 BL=[['#v-estoque .fnPn','.sl,.lbl,.hint,.gBtn','aba'],['#v-estoque .detgrid>.col:last-child','.pl.pick,.lbl','graus'],['#lotView>section.card',':scope>div','compra']]
