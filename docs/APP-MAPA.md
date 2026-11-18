@@ -16,7 +16,7 @@ Manter ATUALIZADO a cada aprovação, mudança ou implementação (no mesmo comm
 | Criar/editar | janela de baixo, um "Salvar", sem × nem Fechar; "Sair sem salvar?" só se mudou (formulários). |
 | Confirmação | janela própria: botão vermelho + "Voltar" escrito embaixo. |
 | Campos | linha fina, nome à esquerda, valor à direita (P3). |
-| Escolher 2–5 opções | controle .trk do Pagamento/Marketing: fundo cinza, marca cinza que desliza (proposta 138, esperando). Exceção: Câmbio "Venda ⇅" botão único. |
+| Escolher 2–5 opções | padrão C suave (140C, aprovado): trilho quase invisível sem contorno, escolhida = placa da cor do cartão levemente elevada, 14 px; a placa desliza. Exceção: Câmbio "Venda ⇅" botão único. |
 | Botão secundário | contorno fino 1 px, sem fundo (.btn-sc de luxo). Principal: contorno rosa, largura toda. |
 | Links | "›" sai (outra tela ou janela de baixo); "⌄" abre no lugar. Link sozinho = centralizado no fim do bloco. |
 | Tela vazia | ícone + frase + explicação, centralizados (P5). |
@@ -47,17 +47,18 @@ Manter ATUALIZADO a cada aprovação, mudança ou implementação (no mesmo comm
 | 136b | Inventário › Fornecedores | lixeira usa a janela de confirmação única | work/s425 |
 | 136c | Inventário | "EM ESTOQUE (FILTRO) ⌄" | work/s425 |
 | 136d | Despesas › Nova despesa | janela de baixo, campos em linha, um Salvar | work/s425 |
+| 140C | todas as escolhas | padrão C suave (Pagamento, Marketing, Paraguaio/Estrangeiro, impressora, Retirada, Registrar troca, Livre para você) | work/s429 |
 Obs.: 132 na base é só visual (ao implementar, ligar as ações de verdade).
 
 ## 4. ESPERANDO decisão do dono (app)
-- 138 (substitui 137c/d/e/f/k/l): c Reservas 30/60/90 + Livre para você · d Novo acesso · e Usar G$/Informar · f Me lembra · l Dashboard moeda · m Retirada/Registrar troca (muda 135e/f) · o Paraguaio/Estrangeiro (todos os catbar3). "+ Receber parte em outra moeda" fica como hoje.
+- 138 (com a cara 140C): c Reservas 30/60/90 vira escolha · d Novo acesso vira escolha · e Usar G$/Informar · f Me lembra · l moeda do Dashboard. (138m/138o resolvidos pelo 140C.) "+ Receber parte em outra moeda" fica como hoje.
 - 137a sino/Ações do caixa redondos · 137b ficha Voltar/Editar redondos + toque 44 no "Ficha 4/6" · 137g Vitrine · 137h Conferir o caixa sem Fechar · 137i Novo objetivo "Salvar" · 137j "+ Criar lote".
 - Sugestões: "+" dentro do conteúdo (hoje texto; o dono rejeitou rosa centralizado no 137k) · "Salvar" só quando só salva dados, senão o verbo da ação.
 - Sobras da lista S384 (Catálogo, Marketing, Preços Contador) e varredura tablet/PC/letra grande.
 
 ## 5. Mudanças que o dono quer fazer em aprovados (18/11 19:37)
 (espaço para os pontos que ele vai mandar — anotar aqui e na lista viva)
-1. Barras deslizantes (todas as escolhas) harmoniosas com o design → 139 A e B reprovados; esboço 140: C suave · D fio rosa · E palavras (work/s429). Esperando escolha.
+1. Barras deslizantes harmoniosas → 139 A/B reprovados; **140C APROVADO** (na base).
 
 ## 6. Ferramentas
 - Simulador: work/s349/ap.py (abre(pw, tela, escuro, base=True)); telas e passos: tools/teste-android/telas.py.
