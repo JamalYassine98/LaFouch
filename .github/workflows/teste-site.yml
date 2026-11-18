@@ -40,6 +40,7 @@ jobs:
           script: |
             adb reverse tcp:8000 tcp:8000 && adb reverse tcp:8001 tcp:8001
             adb shell am set-debug-app --persistent com.android.chrome
+            adb shell pm grant com.android.chrome android.permission.POST_NOTIFICATIONS || true
             adb shell "echo '_ --disable-fre --no-default-browser-check --no-first-run --disable-features=SigninPromo' > /data/local/tmp/chrome-command-line"
             adb shell settings put system font_scale 1.0
             adb shell am start -n com.android.chrome/com.google.android.apps.chrome.Main -d http://127.0.0.1:8000/ && sleep 25
