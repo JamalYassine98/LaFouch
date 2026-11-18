@@ -54,3 +54,7 @@ Por que o meu passeio não pegou: ele toca cada botão uma vez e recomeça do ze
 34. **Ajustes do site (painel dentro do app): a janela do painel abre presa dentro do quadro** — o fundo só escurece/borra o quadro, e a janela ("O site está fora do ar") fica cortada atrás da barra de baixo do app.
 35. **Controles do painel pouco intuitivos** (dono) — estudar e esboçar.
 Por que não peguei: o teste olhava a tela parada logo depois do toque, não DEPOIS da animação acabar; e não entrava nas janelas de dentro do painel do site (é outra página dentro do app).
+
+## Decisão do dono (17/11 22:34) sobre os textos
+- ERRADOS (corrigir): nome cortado na lista de pedidos (112f) e os botões espremidos do pedido — "Marcar como pago", "Assumir este pedido", "Imprimir ficha de separação" (mesma causa: `.pdB2.txt` com 52 px; a correção do 110a vale para os três).
+- CORRETOS como estão (não mexer): "Intermediário" nos filtros, nome/selo SITE em Clientes, "Enviar no WhatsApp" em 2 linhas, "TERMINA EM (OPCIONAL)", "Código SP…" (itens 15–18 da lista).
