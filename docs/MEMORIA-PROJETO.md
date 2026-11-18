@@ -3075,3 +3075,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 18/11 09:22 — ESBOÇO 132 (Guardião) APROVADO, esperando "implementar".
 - 18/11 09:29 — 133 recusado: Novo cliente e listas do Atacado ficam como hoje (padrão 77/113).
 - 18/11 09:36 — ESBOÇO 133 APROVADO (Novo cliente/ficha e listas do Atacado sem fundo), esperando "implementar".
+- 18/11 09:53 — DONO: no 134b "Editar" e a lixeira não estão alinhados na margem direita NEM na altura entre si; anunciou uma REGRA NOVA DE ALINHAMENTO "para trabalhar com muita calma". Proposta de regra enviada (rascunho, ESPERANDO): margens comuns, coluna direita única, meio da linha para ícones/botões lado a lado, alinhar pela primeira letra (não pela caixa), medida por programa no olho/porteiro com tolerância 1 px.
