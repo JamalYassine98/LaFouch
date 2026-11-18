@@ -19,6 +19,9 @@ on:
       urls:
         description: sites de fora para comparar, nome|endereco separados por virgula (opcional)
         default: ''
+      portas:
+        description: versoes e portas (opcional; ex. hoje:8000,propA:8001,propB:8002 - a 8002 serve a mesma copia prop)
+        default: ''
       aparelhos:
         description: aparelhos LxA separados por virgula (vazio = os 17)
         default: ''
@@ -49,6 +52,7 @@ jobs:
           python3 tools/teste-site/prep.py site t "${{ inputs.props }}"
           (cd t/hoje && nohup python3 -m http.server 8000 >/dev/null 2>&1 &)
           (cd t/prop && nohup python3 -m http.server 8001 >/dev/null 2>&1 &)
+          (cd t/prop && nohup python3 -m http.server 8002 >/dev/null 2>&1 &)
           pip install playwright && python3 -m playwright install --with-deps chromium
       - name: Medir
         env:
@@ -57,7 +61,7 @@ jobs:
           LF_URLS: ${{ inputs.urls }}
           LF_FIM: ${{ inputs.fim }}
           LF_FOTOS: ${{ inputs.aparelhos != '' && '1' || '0' }}
-          LF_PORTAS: ${{ inputs.props != '' && 'hoje:8000,prop:8001' || 'hoje:8000' }}
+          LF_PORTAS: ${{ inputs.portas != '' && inputs.portas || (inputs.props != '' && 'hoje:8000,prop:8001' || 'hoje:8000') }}
         run: python3 tools/teste-site/analise.py site an ${{ matrix.parte[0] }} ${{ matrix.parte[1] }}
       - uses: actions/upload-artifact@v4
         if: always()
