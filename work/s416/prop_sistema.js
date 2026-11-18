@@ -5,7 +5,7 @@ window.__REGUA={"txt": {"SPAN.badge.ib|0": 11.03, "SPAN.hlb.hdt|DESTAQUE DA SEMA
    3) Telas: celular e tablet = como hoje (o site inteiro escala pela largura); computador = régua × 1,15 para TODOS os textos
       (hoje cada texto do computador tem um tamanho próprio, de 0,66× a 1,54× o do celular). */
 (() => {
-  const DEG = [11.5, 12.5, 14, 16, 18, 21, 24, 28, 36], F = 1.15, R = window.__REGUA || { txt: {}, papel: {} };
+  const DEG = [11.5, 12.5, 14, 16, 18, 21, 24, 28, 36], F = 1.2, R = window.__REGUA || { txt: {}, papel: {} };
   const perto = (v) => DEG.reduce((a, b) => (Math.abs(b - v) < Math.abs(a - v) || (Math.abs(b - v) === Math.abs(a - v) && b > a)) ? b : a);
   const papel = (e) => { const k = (e.className && e.className.baseVal === undefined ? e.className : '') + ' ' + (e.parentElement ? e.parentElement.className : ''); return (e.tagName + '.' + k.trim().split(/\s+/).slice(0, 3).join('.')).slice(0, 60); };
   function aplica() {
