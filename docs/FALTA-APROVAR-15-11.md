@@ -549,3 +549,4 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - Inventário: ficha da peça em caixa ("% Oferta" rosa cheio, aviso em caixa); Fornecedores em caixa com 3 botões; janela "Adicionar" com quadrados.
 - Catálogo: pagamento e peça em caixa.
 - Já na lista: Giro/Reservas (116), Câmbio (117), Pendências, Marketing, Preços Contador, Objetivos do Caixa.
+- (S384, refeito) As 3 "que não abriram" eram erro do meu teste, não do app. Dia do Histórico: abre o Dashboard do dia (seletor de data em caixa, "Voltar para hoje" sublinhado, números em caixas). Editar produto: janela presa no alto (as outras sobem de baixo), "Fechar" em caixa, abas Modelo/Cores em caixa. Contas do dia: leva a Despesas (esboço 70), já está no padrão.
