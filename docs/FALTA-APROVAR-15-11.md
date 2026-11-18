@@ -537,3 +537,15 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - 17/11/2026 23:20 · DONO no 117: prefere as cotações (Dólar, Real, Dólar em reais) como são HOJE → 117 v2 (117a2/117b2) enviado: cotações iguais a hoje; Reposição e "Mais" no padrão de luxo. Esperando aprovação.
 - 17/11/2026 23:25 · DONO: cotações como hoje "mas sem esse fundo quadrado" → 117a2/117b2 refeitos: mesmo desenho das cotações, sem o fundo/caixa. Esperando aprovação.
 - 17/11/2026 23:20 · DONO: 117 APROVADO (Câmbio: cotações no desenho de hoje sem o fundo; Reposição e Mais de luxo), esperando "implementar".
+
+## S384 (17/11) — checagem de luxo das telas de dentro (escuro, celular) — falta esboçar
+- Histórico: lista do mês e resultado da busca em caixas; filtros em caixa com chips.
+- Dashboard (hoje/semana/mês/datas): números em caixas; "O que fazer agora" em caixa verde; datas com campo do navegador.
+- Caixa: janela Conferir (botões iguais, sem principal rosa); Novo objetivo ("Guardar objetivo" cinza); Retirar (botão pequeno, aviso em caixa vermelha).
+- Câmbio: "Últimas trocas" com botão "Desfazer" em cada linha; "Registrar troca" com listas do navegador.
+- Guardião: seções em caixa, botões rosa cheios, "silenciar" sublinhado.
+- Clientes "Novo cliente": título centralizado com fonte diferente; formulário em caixa.
+- Atacado aba Tabela: lista em caixa.
+- Inventário: ficha da peça em caixa ("% Oferta" rosa cheio, aviso em caixa); Fornecedores em caixa com 3 botões; janela "Adicionar" com quadrados.
+- Catálogo: pagamento e peça em caixa.
+- Já na lista: Giro/Reservas (116), Câmbio (117), Pendências, Marketing, Preços Contador, Objetivos do Caixa.
