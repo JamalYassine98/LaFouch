@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Régua de letras do site · estudo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--vinho:#8d3a69;--vinho-esc:#6f2b52;--fundo:#faf6f8;--papel:#fff;--tx:#2a1f27;--mu:#6b5a66;--fio:#eadde4;--ok:#1f7a4c}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--fundo);color:var(--tx);font:400 15px/1.5 Inter,system-ui,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 16px 160px}
+h1{font:600 clamp(26px,4vw,38px)/1.1 Fraunces,Georgia,serif;margin:6px 0 8px;letter-spacing:-.01em}
+.lead{color:var(--mu);max-width:62ch;margin:0 0 18px}
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:0 0 22px}
+.num{background:var(--papel);border:1px solid var(--fio);border-radius:16px;padding:12px 14px}
+.num b{display:block;font:600 13px Inter;color:var(--mu)}
+.num span{font:600 22px Fraunces,serif}
+.num small{color:var(--mu)}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}
+.lbl{font:600 12px Inter;color:var(--mu);margin:14px 0 2px}
+.chip{border:1px solid var(--fio);background:var(--papel);color:var(--tx);border-radius:999px;padding:9px 14px;font:500 14px Inter;cursor:pointer;min-height:40px}
+.chip[aria-pressed=true]{background:var(--vinho);border-color:var(--vinho);color:#fff}
+.chip:focus-visible,.mk:focus-visible,.btn:focus-visible{outline:2px solid var(--vinho);outline-offset:2px}
+.palco{display:grid;gap:14px;margin-top:16px}
+.palco.lado{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.palco{grid-template-columns:minmax(0,1fr)}
+.quadro{background:var(--papel);border:1px solid var(--fio);border-radius:18px;padding:10px}
+.quadro h3{margin:2px 4px 8px;font:600 13px Inter;color:var(--mu)}
+.quadro h3 em{font-style:normal;color:var(--vinho)}
+.foto{position:relative;line-height:0;border-radius:10px;overflow:hidden;border:1px solid var(--fio)}
+.foto img{width:100%;height:auto;display:block}
+.mk{position:absolute;transform:translate(-100%,-50%);min-width:22px;height:18px;padding:0 4px;border-radius:9px;border:0;background:var(--vinho);color:#fff;font:700 10px/18px Inter;cursor:pointer;box-shadow:0 0 0 2px #fff;opacity:.92}
+.mk.sel{background:#d1356b;opacity:1;z-index:3;transform:translate(-100%,-50%) scale(1.25)}
+.sem .mk{display:none}
+.rola{overflow-x:auto;border-radius:10px}
+.zoom .foto{width:220%}
+.lista{margin-top:14px;background:var(--papel);border:1px solid var(--fio);border-radius:18px;padding:6px 10px}
+.lista h3{font:600 13px Inter;color:var(--mu);margin:8px 4px}
+.li{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:8px;align-items:center;width:100%;text-align:left;border:0;border-top:1px solid var(--fio);background:none;padding:10px 4px;font:400 14px Inter;color:var(--tx);cursor:pointer;min-height:44px}
+.li b{color:var(--vinho);font:700 13px Inter}
+.li span.n{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.li small{color:var(--mu);white-space:nowrap}
+.li.sel{background:#f6edf2}
+.ficha{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);width:min(560px,calc(100% - 24px));background:var(--papel);border:1px solid var(--fio);border-radius:20px;box-shadow:0 18px 50px rgba(42,31,39,.18);padding:14px 16px;display:none;z-index:20}
+.ficha.on{display:block}
+.ficha .cod{font:700 13px Inter;color:var(--vinho)}
+.ficha .t{font:600 17px Fraunces,serif;margin:2px 0 8px}
+.ficha table{width:100%;border-collapse:collapse;font-size:14px}
+.ficha td{padding:4px 0;border-bottom:1px solid var(--fio)}
+.ficha td:last-child{text-align:right;font-weight:600}
+.lin{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.btn{border:0;border-radius:999px;padding:10px 16px;font:600 14px Inter;cursor:pointer;min-height:42px}
+.btn.p{background:var(--vinho);color:#fff}.btn.s{background:#f3e9ee;color:var(--vinho-esc)}
+.msg{position:fixed;right:16px;bottom:16px;z-index:19;display:none}
+.msg.on{display:block}
+.caixa{position:fixed;inset:auto 12px 12px auto;width:min(420px,calc(100% - 24px));max-height:70vh;overflow:auto;background:var(--papel);border:1px solid var(--fio);border-radius:20px;box-shadow:0 18px 50px rgba(42,31,39,.18);padding:14px 16px;display:none;z-index:21}
+.caixa.on{display:block}
+.caixa h4{margin:0 0 8px;font:600 18px Fraunces,serif}
+.item{border-bottom:1px solid var(--fio);padding:8px 0}
+.item b{font:700 12px Inter;color:var(--vinho)}
+.item textarea{width:100%;margin-top:6px;border:1px solid var(--fio);border-radius:10px;padding:8px;font:400 14px Inter;resize:vertical;min-height:40px}
+.vazio{color:var(--mu)}
+.regua{margin-top:30px;background:var(--papel);border:1px solid var(--fio);border-radius:18px;padding:14px 16px}
+.regua h2{font:600 22px Fraunces,serif;margin:0 0 6px}
+.regua table{width:100%;border-collapse:collapse;font-size:14px}
+.regua th,.regua td{padding:7px 5px;font-size:13px;border-bottom:1px solid var(--fio);text-align:left}
+.regua td.amostra{white-space:nowrap}
+.ok{color:var(--ok);font-weight:600}
+@media (max-width:720px){.palco.lado{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Régua de letras do site</h1>
+  <p class="lead">Escolha o aparelho e a tela. Cada texto tem um código (T01, T02…). Toque no código para ver o tamanho de hoje e o da proposta, e junte na mensagem o que quiser mudar. No fim, copie a mensagem e cole no chat.</p>
+  <div class="nums" id="nums"></div>
+
+  <div class="lbl">Aparelho</div><div class="bar" id="apa"></div>
+  <div class="lbl">Tela</div><div class="bar" id="tel"></div>
+  <div class="lbl">Mostrar</div>
+  <div class="bar" id="ver">
+    <button class="chip" data-v="lado" aria-pressed="true">Hoje e proposta</button>
+    <button class="chip" data-v="hoje" aria-pressed="false">Só hoje</button>
+    <button class="chip" data-v="prop" aria-pressed="false">Só proposta</button>
+    <button class="chip" id="cods" aria-pressed="true">Códigos</button>
+    <button class="chip" id="zoom" aria-pressed="false">Ampliar foto</button>
+  </div>
+
+  <div class="palco lado" id="palco"></div>
+  <div class="lista" id="lista"></div>
+
+  <section class="regua">
+    <h2>Os 9 tamanhos da proposta</h2>
+    <p class="vazio" style="margin:0 0 8px">Hoje o site usa de 15 a 27 tamanhos diferentes por aparelho. Na proposta são 9 em todos. O celular fica praticamente igual (cada texto muda no máximo 1 px). No computador, tudo cresce na mesma proporção (×1,15).</p>
+    <div style="overflow-x:auto"><table id="tab"></table></div>
+  </section>
+</div>
+
+<div class="ficha" id="ficha" role="dialog" aria-label="Detalhe do texto"></div>
+<div class="msg on" id="msgb"><button class="btn p" id="abre">Mensagem (0)</button></div>
+<div class="caixa" id="caixa" role="dialog" aria-label="Mensagem"></div>
+
+<script>
+let D, ap = 390, te = 'inicio-1', ver = 'lado', sel = null, MSG = [];
+try { MSG = JSON.parse(localStorage.getItem('lfregua') || '[]'); } catch (e) { MSG = []; }
+const $ = (q) => document.querySelector(q);
+const salva = () => { try { localStorage.setItem('lfregua', JSON.stringify(MSG)); } catch (e) {} $('#abre').textContent = 'Mensagem (' + MSG.length + ')'; };
+const nomeAp = (w) => D.telas.find((t) => t.larg === w).aparelho;
+function grupos(v) { v = [...new Set(v.map((x) => Math.round(x * 10) / 10))].sort((a, b) => a - b); const g = []; v.forEach((x) => { if (g.length && x - g[g.length - 1][g[g.length - 1].length - 1] <= .35) g[g.length - 1].push(x); else g.push([x]); }); return g.length; }
+function nums() {
+  const L = [390, 768, 1440, 1920];
+  $('#nums').innerHTML = L.map((w) => { const T = D.telas.filter((t) => t.larg === w); const h = grupos(T.flatMap((t) => t.itens.map((i) => i.hoje))); const p = grupos(T.flatMap((t) => t.itens.filter((i) => i.prop).map((i) => i.prop))); return '<div class="num"><b>' + nomeAp(w) + '</b><span>' + h + ' → <span class="ok">' + p + '</span></span><br><small>tamanhos de letra (hoje → proposta)</small></div>'; }).join('');
+}
+function chips() {
+  const A = [...new Set(D.telas.map((t) => t.larg))];
+  $('#apa').innerHTML = A.map((w) => '<button class="chip" data-w="' + w + '" aria-pressed="' + (w === ap) + '">' + nomeAp(w) + '</button>').join('');
+  const ORD = ['inicio-1','inicio-2','inicio-3','catalogo','peca','carrinho','conta','menu','rodape']; const T = D.telas.filter((t) => t.larg === ap).sort((a, b) => ORD.indexOf(a.tela) - ORD.indexOf(b.tela));
+  if (!T.find((t) => t.tela === te)) te = T[0].tela;
+  $('#tel').innerHTML = T.map((t) => '<button class="chip" data-t="' + t.tela + '" aria-pressed="' + (t.tela === te) + '">' + t.nome + '</button>').join('');
+}
+function quadro(t, v) {
+  const xs = v === 'hoje' ? 'hx' : 'px', ys = v === 'hoje' ? 'hy' : 'py', hs = v === 'hoje' ? 'hh' : 'ph';
+  const mk = t.itens.filter((i) => i[xs] != null && i[ys] >= 0 && i[ys] < t.alt).map((i) => '<button class="mk' + (sel === i.cod ? ' sel' : '') + '" data-c="' + i.cod + '" style="left:' + (Math.max(2.4, i[xs] / t.larg * 100)) + '%;top:' + ((i[ys] + i[hs] / 2) / t.alt * 100) + '%" aria-label="' + i.cod + ' ' + i.txt.replace(/"/g, '') + '">' + i.cod.slice(1) + '</button>').join('');
+  return '<div class="quadro"><h3>' + (v === 'hoje' ? 'Hoje' : '<em>Proposta</em>') + ' · ' + t.aparelho + ' · ' + t.nome + '</h3><div class="rola"><div class="foto"><img alt="' + t.nome + ' ' + v + '" src="img/' + v + '_' + t.larg + '_' + t.tela + '.jpg">' + mk + '</div></div></div>';
+}
+function desenha() {
+  chips();
+  const t = D.telas.find((x) => x.larg === ap && x.tela === te);
+  const p = $('#palco'); p.className = 'palco' + (ver === 'lado' ? ' lado' : '') + ($('#cods').getAttribute('aria-pressed') === 'true' ? '' : ' sem');
+  p.innerHTML = ver === 'lado' ? quadro(t, 'hoje') + quadro(t, 'prop') : quadro(t, ver);
+  if ($('#zoom').getAttribute('aria-pressed') === 'true') p.classList.add('zoom');
+  $('#lista').innerHTML = '<h3>Textos desta tela (toque para ver o detalhe)</h3>' + t.itens.map((i) => '<button class="li' + (sel === i.cod ? ' sel' : '') + '" data-l="' + i.cod + '"><b>' + i.cod + '</b><span class="n">' + i.txt.replace(/</g, '&lt;') + '</span><small>' + i.hoje + ' → ' + (i.prop || '—') + ' px</small></button>').join('');
+}
+function ficha(c) {
+  const t = D.telas.find((x) => x.larg === ap && x.tela === te), i = t.itens.find((x) => x.cod === c); sel = c; desenha();
+  const ref = t.aparelho + ' · ' + t.nome + ' · ' + c;
+  $('#ficha').innerHTML = '<div class="cod">' + ref + '</div><div class="t">“' + i.txt + '”</div><table><tr><td>Tamanho hoje</td><td>' + i.hoje + ' px</td></tr><tr><td>Tamanho na proposta</td><td>' + (i.prop ? i.prop + ' px' : '—') + '</td></tr><tr><td>Papel no código</td><td style="font-weight:400;color:#6b5a66">' + i.papel + '</td></tr><tr><td>Letra</td><td>' + i.fam + ' ' + i.peso + '</td></tr></table><div class="lin"><button class="btn p" id="junta">Juntar à mensagem</button><button class="btn s" id="fecha">Fechar</button></div>';
+  $('#ficha').classList.add('on');
+  $('#junta').onclick = () => { if (!MSG.find((m) => m.ref === ref)) MSG.push({ ref, txt: i.txt, hoje: i.hoje, prop: i.prop, nota: '' }); salva(); $('#ficha').classList.remove('on'); caixa(); };
+  $('#fecha').onclick = () => { $('#ficha').classList.remove('on'); sel = null; desenha(); };
+}
+function texto() { return 'Régua de letras — pedidos:\n' + MSG.map((m) => '• ' + m.ref + ' (“' + m.txt + '”, hoje ' + m.hoje + ' px, proposta ' + (m.prop || '—') + ' px): ' + (m.nota || '(sem nota)')).join('\n'); }
+function caixa() {
+  const c = $('#caixa');
+  c.innerHTML = '<h4>Mensagem para o Claude</h4>' + (MSG.length ? MSG.map((m, k) => '<div class="item"><b>' + m.ref + '</b> “' + m.txt + '” · hoje ' + m.hoje + ' px → ' + (m.prop || '—') + ' px<textarea data-k="' + k + '" placeholder="O que quer? Ex.: maior, igual ao nome, tirar o negrito…">' + (m.nota || '') + '</textarea><button class="btn s" data-x="' + k + '" style="margin-top:6px">Tirar</button></div>').join('') : '<p class="vazio">Toque num código e em “Juntar à mensagem”.</p>') + '<div class="lin"><button class="btn p" id="copia">Copiar mensagem</button><button class="btn s" id="fc">Fechar</button></div><p class="vazio" id="ok" style="margin:6px 0 0"></p>';
+  c.classList.add('on');
+  c.querySelectorAll('textarea').forEach((a) => a.oninput = () => { MSG[+a.dataset.k].nota = a.value; salva(); });
+  c.querySelectorAll('[data-x]').forEach((b) => b.onclick = () => { MSG.splice(+b.dataset.x, 1); salva(); caixa(); });
+  $('#fc').onclick = () => c.classList.remove('on');
+  $('#copia').onclick = async () => { const s = texto(); try { await navigator.clipboard.writeText(s); $('#ok').textContent = 'Copiado. Cole no chat.'; } catch (e) { $('#ok').innerHTML = 'Não deu para copiar sozinho. Selecione e copie:<br><textarea style="width:100%;min-height:120px">' + s.replace(/</g, '&lt;') + '</textarea>'; } };
+}
+function tabela() {
+  const k = 390 / 406;
+  $('#tab').innerHTML = '<tr><th>Degrau</th><th>Celular 390</th><th>Tablet 768</th><th>Computador</th><th class="amostra">Amostra</th></tr>' + D.degraus.map((d, i) => '<tr><td>R' + (i + 1) + '</td><td>' + (d * k).toFixed(1) + ' px</td><td>' + (d * 1.2).toFixed(1) + ' px</td><td>' + (d * D.fatorPC).toFixed(1) + ' px</td><td class="amostra" style="font-size:' + Math.min(d, 22) + 'px">Armação</td></tr>').join('');
+}
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.w) { ap = +b.dataset.w; sel = null; $('#ficha').classList.remove('on'); desenha(); }
+  else if (b.dataset.t) { te = b.dataset.t; sel = null; $('#ficha').classList.remove('on'); desenha(); }
+  else if (b.dataset.v) { ver = b.dataset.v; document.querySelectorAll('#ver [data-v]').forEach((x) => x.setAttribute('aria-pressed', x === b)); desenha(); }
+  else if (b.id === 'cods') { b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') !== 'true'); desenha(); }
+  else if (b.classList.contains('mk')) ficha(b.dataset.c);
+  else if (b.dataset.l) ficha(b.dataset.l);
+  else if (b.id === 'zoom') { b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') !== 'true'); desenha(); }
+  else if (b.id === 'abre') caixa();
+});
+fetch('dados.json').then((r) => r.json()).then((d) => { D = d; nums(); tabela(); salva(); desenha(); }).catch(() => { $('#palco').innerHTML = '<p>Não deu para carregar os dados.</p>'; });
+</script>
+</body>
+</html>
