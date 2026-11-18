@@ -1,0 +1,3 @@
+marketing-post [None, True]
+marketing-listas FALHOU Connection timed out
+reconexao falhou WebView do app sem depuracao — parei aqui
