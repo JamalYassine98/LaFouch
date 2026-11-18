@@ -1,0 +1,2 @@
+marketing-post FALHOU Connection timed out
+reconexao falhou WebView do app sem depuracao — parei aqui
