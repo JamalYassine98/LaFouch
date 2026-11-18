@@ -32,3 +32,11 @@ Como achei: o programa abriu o app (celular, claro) e tocou com o dedo SÓ no qu
 
 ## Funcionam, mas fora do padrão
 22. "Enviar token à cliente" verde cheio · "‹ Pedidos" e "Ficha do cliente" pílula cinza · "% Oferta" rosa cheio · "Catálogo do produto" com título serifado · "PREJUÍZO · ABAIXO DA TRAVA" parece botão.
+
+## Tablet e PC (passeio terminado: tablet 201 telas, PC 158 telas)
+Tudo o que está acima também aparece no tablet e no PC. Novos:
+23. **PC · o sino de avisos flutua por cima da tela quando rola** — cobre "Status" no Marketing, "Lotes pendentes" no Inventário e o canto dos cartões (conferido olhando a tela).
+24. **PC · "15 preços para corrigir ›"** com toque de 25 px.
+25. **PC · Pedidos › Feitos**: a página rola sem ter nada embaixo.
+26. **Tablet e PC · faixa "🖤 Black Friday"** por cima de botões (barra de baixo, "Limpar histórico", "Ver todas as conferências do Guardião") — visto pelo programa; não consegui repetir na tela, confirmar no esboço.
+27. **Tablet · Dashboard › Hoje**: números "Vendido" e "Contas do dia" em alturas diferentes, e o conteúdo ocupa só metade da largura.

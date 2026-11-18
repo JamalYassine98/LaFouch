@@ -39,7 +39,7 @@ def fecha(c,cdp):
 def toca(pg,k):
   a=pg.evaluate(TOCA,k)
   if not a: return None
-  pg.wait_for_timeout(120);pg.touchscreen.tap(a['x'],a['y']);pg.wait_for_timeout(650);return a
+  pg.wait_for_timeout(120);(pg.mouse.click if DEV=='pc' else pg.touchscreen.tap)(a['x'],a['y']);pg.wait_for_timeout(650);return a
 fila=[[]];vis=set();n=0;t0=time.time()
 with sync_playwright() as pw:
   b=pw.chromium.launch(executable_path=kit.EXE,args=['--no-sandbox'])
