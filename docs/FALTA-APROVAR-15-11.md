@@ -575,3 +575,4 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 
 - 18/11 09:22 · REGRA NOVA do dono: esboços do site só com o site real (peças da nuvem, via GitHub Actions) e com todos os aprovados na base. 121, 130 e 131 foram feitos com a lista reserva do código → refazer antes de qualquer decisão (121 continua aprovado, mas a posição do "Últimas" precisa ser conferida no cartão real).
 - 18/11 09:22 — DONO: "Aprovado" → **ESBOÇO 132 APROVADO** (Guardião; só guardado, esperando "implementar").
+- 18/11 09:35 — ESBOÇO 133 (só para comparar, dono "Posso ver?") enviado, ESPERANDO: 133a Novo cliente no padrão do Caixa (título à esquerda na letra das janelas, campos em linhas finas sem o fundo do grupo) · 133b Atacado › Tabela sem o fundo do grupo (valeria para Lojistas/Lotes/Mensagens). Minha recomendação: manter como hoje (77 e 113 acabaram de ser aprovados e publicados). work/s419/esb133.py. Olho: nada novo.
