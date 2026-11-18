@@ -13,6 +13,9 @@ on:
       telas:
         description: telas (vazio = todas)
         default: ''
+      fim:
+        description: seletor para foto rolada ate ele (opcional)
+        default: ''
       aparelhos:
         description: aparelhos LxA separados por virgula (vazio = os 17)
         default: ''
@@ -48,6 +51,7 @@ jobs:
         env:
           LF_TELAS: ${{ inputs.telas }}
           LF_APARELHOS: ${{ inputs.aparelhos }}
+          LF_FIM: ${{ inputs.fim }}
           LF_FOTOS: ${{ inputs.aparelhos != '' && '1' || '0' }}
           LF_PORTAS: ${{ inputs.props != '' && 'hoje:8000,prop:8001' || 'hoje:8000' }}
         run: python3 tools/teste-site/analise.py site an ${{ matrix.parte[0] }} ${{ matrix.parte[1] }}
