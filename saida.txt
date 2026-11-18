@@ -1,0 +1,32 @@
+
+Have questions, feedback, or issues? Get support by visiting:
+  https://firebase.google.com/support/
+
+Uploading [android/app/build/outputs/apk/debug/app-debug.apk] to Firebase Test Lab...
+Uploading [android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk] to Firebase Test Lab...
+Raw results will be stored in your GCS bucket at [https://console.developers.google.com/storage/browser/test-lab-pmrim496ah18z-j5twv63284snu/lfs-44329525032/]
+
+Test [matrix-tovd3gvan57ca] has been created in the Google Cloud.
+Creating individual test executions...
+..............................done.
+Firebase Test Lab will execute your instrumentation test on 1 device(s). More devices may be added later if flaky test attempts are specified.
+
+Test results will be streamed to [ https://console.firebase.google.com/project/lafouch-teste/testlab/histories/bh.fe1f977be66d6467/matrices/7322730784128149092 ].
+15:16:47 Test is Pending
+15:17:36 Firebase Test Lab is deprecated and will be fully shut down on September 30, 2027. To maintain your testing workflows, you can migrate to the Developer Device Platform on Google Cloud. See the Developer Device Platform Migration Guide (https://docs.cloud.google.com/developer-device-platform/device-run/migrate) and FAQ (https://docs.cloud.google.com/developer-device-platform/troubleshooting) for more details.
+15:17:36 Starting attempt 1.
+15:17:36 Test is Running
+15:21:25 Starting attempt 1.
+15:21:25 Test is Pending
+15:21:49 Starting results processing. Attempt: 1
+15:21:49 Completed results processing. Time taken = 3 (secs)
+15:21:49 Test is Finished
+
+Instrumentation testing complete.
+
+More details are available at [ https://console.firebase.google.com/project/lafouch-teste/testlab/histories/bh.fe1f977be66d6467/matrices/7322730784128149092 ].
+┌─────────┬──────────────────────────┬─────────────────────┐
+│ OUTCOME │     TEST_AXIS_VALUE      │     TEST_DETAILS    │
+├─────────┼──────────────────────────┼─────────────────────┤
+│ Passed  │ SC-53C-36-pt_BR-portrait │ 1 test cases passed │
+└─────────┴──────────────────────────┴─────────────────────┘

@@ -1,0 +1,1 @@
+model=SC-53C,version=36,locale=pt_BR,orientation=portrait · catalogo main
