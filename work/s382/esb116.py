@@ -14,7 +14,9 @@ const cap=s=>s.charAt(0)+s.slice(1).toLowerCase();
 k.outerHTML=L.blk('Hoje',ks.map((x,i)=>L.lin(cap(x.l),x.b,x.h,x.c,x.ch,true,i==ks.length-1)).join(''));
 const sv=[...v.querySelectorAll('section.col')].find(x=>/Vendas do dia/i.test(x.innerText));
 const cards=[...sv.querySelectorAll(':scope > .card:not(.famOc)')];const link=sv.querySelector('.gBtn');
-const rows=cards.map((c,i)=>{const t=c.querySelector('b').innerText,s=c.querySelector('.hint').innerText.replace(/ · 17\/11 às/,' ·'),val=(c.innerText.match(/G\$ [\d.]+/)||[''])[0];return '<button type="button" style="all:unset;display:block;width:100%;cursor:pointer">'+L.lin(t,val,s,'',true,false,i==cards.length-1)+'</button>'}).join('');
+const rows=cards.map((c,i)=>{const t=c.querySelector('b').innerText,s=c.querySelector('.hint').innerText.replace(/ · 17\/11 às/,' ·'),val=(c.innerText.match(/G\$ [\d.]+/)||[''])[0];let r=L.lin(t,val,s,'',true,false,i==cards.length-1&&i>0).replace('›','<span style="display:inline-block;'+(i==0?'transform:rotate(-180deg)':'')+'">⌄</span>');
+ if(i==0){r=r.replace('border-bottom:1px','border-bottom:0');r+='<div style="padding:0 0 12px;border-bottom:1px solid var(--line2)">'+[['Recebido','G$ 58.000'],['Forma de pagamento','Dinheiro'],['Câmbio no dia','G$ 6.487 por US$'],['Custo pago','US$ 2,10'],['Lucro real','G$ 31.540']].map(x=>'<div style="display:flex;justify-content:space-between;font-size:13.5px;color:var(--sub);padding:5px 0"><span>'+x[0]+'</span><span style="color:var(--fg)">'+x[1]+'</span></div>').join('')+'<div style="text-align:center;margin-top:8px"><button type="button" class="dz105">Estornar venda</button></div></div>'}
+ return r}).join('');
 sv.outerHTML=L.blk('Vendas do dia · '+cards.length,rows+(link?'<button type="button" class="lk100 c101" style="display:block;margin:6px auto 0;background:none;border:0;color:var(--accent-fg);font-size:15px;font-weight:600;min-height:44px;font-family:inherit">'+link.innerText+'</button>':''));
 const fc=[...v.querySelectorAll('section.card')].find(x=>/Fechamento do dia/.test(x.innerText));
 const sl=[...fc.querySelectorAll('.sl')].map(x=>[x.querySelector('span').innerText,x.querySelector('b').innerText.replace(/\s*\(US\$[^)]*\)/,'')]);
@@ -38,7 +40,7 @@ const h='<section class="cxSaldo" style="margin:0 0 22px"><div class="cxLb" styl
 c.outerHTML=h;return 1"""
 CASOS=[('a','dashboard-resumo','Dashboard › Resumo (Hoje)',"()=>window.__LF.inicioGo('hoje')",RESUMO,
   'Hoje: 4 caixas empilhadas para os números, um cartão por venda (com Ver detalhes e Estornar) e o fechamento numa caixa com título dentro.',
-  'Proposta (igual ao Caixa/Despesas; todos os valores na mesma coluna à direita; reposição só em guaranis): bloco "HOJE" em linhas finas com os 4 números; "VENDAS DO DIA" uma linha por venda (toque abre o detalhe, onde ficam Ver detalhes e Estornar); "FECHAMENTO DO DIA" em linhas finas com o total em destaque.'),
+  'Proposta (igual ao Caixa/Despesas; todos os valores na mesma coluna à direita; reposição só em guaranis): bloco "HOJE" em linhas finas com os 4 números; "VENDAS DO DIA" uma linha por venda com ⌄: o toque abre o detalhe ali mesmo (como "Ver detalhes" hoje) e embaixo vem "Estornar venda" em vermelho, que pede confirmação (111b2); "FECHAMENTO DO DIA" em linhas finas com o total em destaque.'),
  ('b','giro','Giro',"()=>window.__LF.inicioGo('giro')",GIRO,
   'Hoje: "No estoque" e "Parado 60+ dias" em duas caixas.',
   'Proposta: bloco "ESTOQUE" com duas linhas finas e "›" (cada uma leva para o mesmo lugar de hoje). As linhas que abrem embaixo já estão no padrão.'),
