@@ -1,0 +1,3145 @@
+{
+"giro-lista-compras": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "dVer",
+"id": "",
+"txt": "Giro ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "dfold",
+"id": "rep",
+"txt": "Lista de compras 7 produto(s) vão acabar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-762 letras)"
+]
+},
+{
+"i": 8,
+"act": "lcCalc",
+"id": "",
+"txt": "como calcula ›",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+129 letras)"
+]
+},
+{
+"i": 9,
+"act": "lcMenos",
+"id": "solar|YS8801",
+"txt": "−",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 10,
+"act": "lcMais",
+"id": "solar|YS8801",
+"txt": "+",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 11,
+"act": "lcMenos",
+"id": "solar|SL2210",
+"txt": "−",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 12,
+"act": "lcMais",
+"id": "solar|SL2210",
+"txt": "+",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 13,
+"act": "lcMenos",
+"id": "solar|SL2201",
+"txt": "−",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 14,
+"act": "lcMais",
+"id": "solar|SL2201",
+"txt": "+",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 15,
+"act": "lcMenos",
+"id": "solar|YS8815",
+"txt": "−",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 16,
+"act": "lcMais",
+"id": "solar|YS8815",
+"txt": "+",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 17,
+"act": "lcMenos",
+"id": "pre|SP60627|+1.00",
+"txt": "−",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 18,
+"act": "lcMais",
+"id": "pre|SP60627|+1.00",
+"txt": "+",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 19,
+"act": "lcTodos",
+"id": "Acabando",
+"txt": "ver os 14 ›",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+582 letras)"
+]
+},
+{
+"i": 20,
+"act": "lcOferta",
+"id": "sem|YM7735",
+"txt": "Oferta ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 21,
+"act": "lcPedir",
+"id": "",
+"txt": "Marcar como pedido",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+136 letras)"
+]
+},
+{
+"i": 22,
+"act": "lcEnvia",
+"id": "",
+"txt": "Mandar ao fornecedor",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Mandar ao fornecedor\""
+]
+},
+{
+"i": 23,
+"act": "dfold",
+"id": "vit",
+"txt": "Vitrine da semana diga quantos lugares t",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+123 letras)"
+]
+},
+{
+"i": 24,
+"act": "dfold",
+"id": "ret",
+"txt": "Retorno do estoque cada US$ 1 investido ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+291 letras)"
+]
+},
+{
+"i": 25,
+"act": "dfold",
+"id": "abc",
+"txt": "Curva ABC quais produtos dão 80% do lucr",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+445 letras)"
+]
+}
+],
+"giro-vitrine": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "dVer",
+"id": "",
+"txt": "Giro ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "dfold",
+"id": "rep",
+"txt": "Lista de compras 7 produto(s) vão acabar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+762 letras)"
+]
+},
+{
+"i": 8,
+"act": "dfold",
+"id": "vit",
+"txt": "Vitrine da semana diga quantos lugares t",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-123 letras)"
+]
+},
+{
+"i": 9,
+"act": "vitLug",
+"id": "",
+"txt": "Salvar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+23 letras)"
+]
+},
+{
+"i": 10,
+"act": "dfold",
+"id": "ret",
+"txt": "Retorno do estoque cada US$ 1 investido ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+291 letras)"
+]
+},
+{
+"i": 11,
+"act": "dfold",
+"id": "abc",
+"txt": "Curva ABC quais produtos dão 80% do lucr",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+445 letras)"
+]
+}
+],
+"giro-retorno": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "dVer",
+"id": "",
+"txt": "Giro ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "dfold",
+"id": "rep",
+"txt": "Lista de compras 7 produto(s) vão acabar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+762 letras)"
+]
+},
+{
+"i": 8,
+"act": "dfold",
+"id": "vit",
+"txt": "Vitrine da semana diga quantos lugares t",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+123 letras)"
+]
+},
+{
+"i": 9,
+"act": "dfold",
+"id": "ret",
+"txt": "Retorno do estoque cada US$ 1 investido ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-291 letras)"
+]
+},
+{
+"i": 10,
+"act": "dfold",
+"id": "abc",
+"txt": "Curva ABC quais produtos dão 80% do lucr",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+445 letras)"
+]
+}
+],
+"giro-abc": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "dVer",
+"id": "",
+"txt": "Giro ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "dfold",
+"id": "rep",
+"txt": "Lista de compras 7 produto(s) vão acabar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+762 letras)"
+]
+},
+{
+"i": 8,
+"act": "dfold",
+"id": "vit",
+"txt": "Vitrine da semana diga quantos lugares t",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+123 letras)"
+]
+},
+{
+"i": 9,
+"act": "dfold",
+"id": "ret",
+"txt": "Retorno do estoque cada US$ 1 investido ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+291 letras)"
+]
+},
+{
+"i": 10,
+"act": "dfold",
+"id": "abc",
+"txt": "Curva ABC quais produtos dão 80% do lucr",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-445 letras)"
+]
+}
+],
+"giro-no-estoque": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "grpVer",
+"id": "",
+"txt": "Inventário ⌄",
+"tag": "H1",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "",
+"id": "",
+"txt": "Adicionar",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Adicionar\""
+]
+},
+{
+"i": 8,
+"act": "",
+"id": "",
+"txt": "Produtos",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 9,
+"act": "",
+"id": "",
+"txt": "Fornecedores 1",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-770 letras)"
+]
+},
+{
+"i": 10,
+"act": "",
+"id": "",
+"txt": "EM ESTOQUE (FILTRO) › 470",
+"tag": "BUTTON",
+"efeito": [
+"alterna"
+]
+},
+{
+"i": 11,
+"act": "",
+"id": "",
+"txt": "Buscar com a câmera",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Buscar com a câmera\""
+]
+},
+{
+"i": 12,
+"act": "pcAbre",
+"id": "",
+"txt": "15 preços para corrigir ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+]
+},
+{
+"i": 13,
+"act": "",
+"id": "",
+"txt": "Filtros e ordem",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Filtros do inventário\"",
+"alterna"
+]
+},
+{
+"i": 14,
+"act": "",
+"id": "",
+"txt": "Lote Kazwini Pré-graduados G$ 25.000 343",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-670 letras)"
+]
+},
+{
+"i": 15,
+"act": "",
+"id": "",
+"txt": "Óculos de leitura de acetato unissex 2 m",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-789 letras)"
+]
+},
+{
+"i": 16,
+"act": "",
+"id": "",
+"txt": "Óculos de leitura Kazwini de acetato mas",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-545 letras)"
+]
+},
+{
+"i": 17,
+"act": "",
+"id": "",
+"txt": "Óculos de leitura de plástico feminino C",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-525 letras)"
+]
+},
+{
+"i": 18,
+"act": "",
+"id": "",
+"txt": "Óculos de leitura #15 Pré-graduados G$ 2",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-575 letras)"
+]
+},
+{
+"i": 19,
+"act": "",
+"id": "",
+"txt": "Armação Gucci de metal feminino Código B",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-558 letras)"
+]
+},
+{
+"i": 20,
+"act": "",
+"id": "",
+"txt": "Armação Ray-Ban de metal masculino Códig",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-617 letras)"
+]
+},
+{
+"i": 21,
+"act": "",
+"id": "",
+"txt": "Armação Armani de acetato feminino Códig",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-617 letras)"
+]
+},
+{
+"i": 22,
+"act": "",
+"id": "",
+"txt": "Armação #10 Armações G$ 45.000! 7 em est",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-599 letras)"
+]
+},
+{
+"i": 23,
+"act": "",
+"id": "",
+"txt": "Armação #11 Armações G$ 45.000! 7 em est",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-589 letras)"
+]
+},
+{
+"i": 24,
+"act": "",
+"id": "",
+"txt": "Armação #12 Armações G$ 45.000! 3 em est",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-666 letras)"
+]
+},
+{
+"i": 25,
+"act": "",
+"id": "",
+"txt": "Óculos solar Ray-Ban de metal masculino ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-611 letras)"
+]
+},
+{
+"i": 26,
+"act": "",
+"id": "",
+"txt": "Óculos solar Kazwini de tr90 feminino Có",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-616 letras)"
+]
+},
+{
+"i": 27,
+"act": "",
+"id": "",
+"txt": "Óculos solar #13 Solares G$ 60.000! 9 em",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-610 letras)"
+]
+},
+{
+"i": 28,
+"act": "",
+"id": "",
+"txt": "Óculos solar #14 Solares G$ 60.000! 4 em",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-674 letras)"
+]
+}
+],
+"giro-parado": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "dVer",
+"id": "",
+"txt": "Giro ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "dfold",
+"id": "rep",
+"txt": "Lista de compras 7 produto(s) vão acabar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+762 letras)"
+]
+},
+{
+"i": 8,
+"act": "dfold",
+"id": "vit",
+"txt": "Vitrine da semana diga quantos lugares t",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+123 letras)"
+]
+},
+{
+"i": 9,
+"act": "dfold",
+"id": "ret",
+"txt": "Retorno do estoque cada US$ 1 investido ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+291 letras)"
+]
+},
+{
+"i": 10,
+"act": "dfold",
+"id": "abc",
+"txt": "Curva ABC quais produtos dão 80% do lucr",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+445 letras)"
+]
+}
+],
+"precos": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "dVer",
+"id": "",
+"txt": "Preços ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "view",
+"id": "desp",
+"txt": "Contas do mês cobertas 66% faltam 55 peç",
+"tag": "DIV",
+"efeito": [
+"leva → desp"
+]
+},
+{
+"i": 8,
+"act": "x66",
+"id": "",
+"txt": "Preços para corrigir 15",
+"tag": "DIV",
+"efeito": [
+"muda a tela (+1816 letras)"
+]
+},
+{
+"i": 9,
+"act": "x66",
+"id": "",
+"txt": "15 preços para corrigir 10 com sugestão ",
+"tag": "DIV",
+"efeito": [
+"muda a tela (+1816 letras)"
+]
+},
+{
+"i": 10,
+"act": "temaVer",
+"id": "",
+"txt": "por quê",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"🖤 Black Friday\""
+]
+},
+{
+"i": 11,
+"act": "tabsheet",
+"id": "",
+"txt": "ajustar tabela",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Tabela de preço\""
+]
+},
+{
+"i": 12,
+"act": "tabsheet",
+"id": "",
+"txt": "ajustar tabela",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Tabela de preço\""
+]
+},
+{
+"i": 13,
+"act": "pgrAjusta",
+"id": "",
+"txt": "ajustar",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"PRÉ-GRADUADOS\""
+]
+},
+{
+"i": 14,
+"act": "cntCalc",
+"id": "",
+"txt": "Calculadora de preço",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Calculadora de preço\""
+]
+},
+{
+"i": 15,
+"act": "cntEse",
+"id": "",
+"txt": "E se…?",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"E se…?\""
+]
+},
+{
+"i": 16,
+"act": "paTog",
+"id": "",
+"txt": "Preço automático desligado · você define",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+157 letras)"
+]
+},
+{
+"i": 17,
+"act": "dfold",
+"id": "cfg",
+"txt": "Contas, taxas e meta contas do mês, form",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+724 letras)"
+]
+}
+],
+"precos-corrigir": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "dVer",
+"id": "",
+"txt": "Preços ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "view",
+"id": "desp",
+"txt": "Contas do mês cobertas 66% faltam 55 peç",
+"tag": "DIV",
+"efeito": [
+"leva → desp"
+]
+},
+{
+"i": 8,
+"act": "x66",
+"id": "",
+"txt": "Preços para corrigir 15",
+"tag": "DIV",
+"efeito": [
+"muda a tela (-1816 letras)"
+]
+},
+{
+"i": 9,
+"act": "x66",
+"id": "",
+"txt": "15 preços para corrigir 10 com sugestão ",
+"tag": "DIV",
+"efeito": [
+"muda a tela (-1816 letras)"
+]
+},
+{
+"i": 10,
+"act": "pcUsaTodos",
+"id": "",
+"txt": "Corrigir os 10 de uma vez",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-1348 letras)"
+]
+},
+{
+"i": 11,
+"act": "pcUsa",
+"id": "SP57765",
+"txt": "Usar G$ 57.500",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-136 letras)"
+]
+},
+{
+"i": 12,
+"act": "pcUsa",
+"id": "SP58110",
+"txt": "Usar G$ 57.500",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-146 letras)"
+]
+},
+{
+"i": 13,
+"act": "pcUsa",
+"id": "SP60627",
+"txt": "Usar G$ 41.000",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-138 letras)"
+]
+},
+{
+"i": 14,
+"act": "pcUsa",
+"id": "SP59002",
+"txt": "Usar G$ 57.500",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-136 letras)"
+]
+},
+{
+"i": 15,
+"act": "pcUsa",
+"id": "YM7721",
+"txt": "Usar G$ 81.000",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-110 letras)"
+]
+},
+{
+"i": 16,
+"act": "pcUsa",
+"id": "YM7735",
+"txt": "Usar G$ 81.000",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-110 letras)"
+]
+},
+{
+"i": 17,
+"act": "pcUsa",
+"id": "YM7790",
+"txt": "Usar G$ 81.000",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-132 letras)"
+]
+},
+{
+"i": 18,
+"act": "pcUsa",
+"id": "SP61200",
+"txt": "Usar G$ 41.000",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-121 letras)"
+]
+},
+{
+"i": 19,
+"act": "pcUsa",
+"id": "YS8801",
+"txt": "Usar G$ 96.500",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-97 letras)"
+]
+},
+{
+"i": 20,
+"act": "pcUsa",
+"id": "YS8815",
+"txt": "Usar G$ 96.500",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-97 letras)"
+]
+},
+{
+"i": 21,
+"act": "pcInforma",
+"id": "BR44118",
+"txt": "Informar",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 22,
+"act": "pcInforma",
+"id": "BR44120",
+"txt": "Informar",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 23,
+"act": "pcInforma",
+"id": "BR44133",
+"txt": "Informar",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 24,
+"act": "pcInforma",
+"id": "SL2201",
+"txt": "Informar",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 25,
+"act": "pcInforma",
+"id": "SL2210",
+"txt": "Informar",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 26,
+"act": "temaVer",
+"id": "",
+"txt": "por quê",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"🖤 Black Friday\""
+]
+},
+{
+"i": 27,
+"act": "tabsheet",
+"id": "",
+"txt": "ajustar tabela",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Tabela de preço\""
+]
+},
+{
+"i": 28,
+"act": "tabsheet",
+"id": "",
+"txt": "ajustar tabela",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Tabela de preço\""
+]
+},
+{
+"i": 29,
+"act": "pgrAjusta",
+"id": "",
+"txt": "ajustar",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"PRÉ-GRADUADOS\""
+]
+},
+{
+"i": 30,
+"act": "cntCalc",
+"id": "",
+"txt": "Calculadora de preço",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Calculadora de preço\""
+]
+},
+{
+"i": 31,
+"act": "cntEse",
+"id": "",
+"txt": "E se…?",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"E se…?\""
+]
+},
+{
+"i": 32,
+"act": "paTog",
+"id": "",
+"txt": "Preço automático desligado · você define",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+157 letras)"
+]
+},
+{
+"i": 33,
+"act": "dfold",
+"id": "cfg",
+"txt": "Contas, taxas e meta contas do mês, form",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+724 letras)"
+]
+}
+],
+"precos-contas": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "dVer",
+"id": "",
+"txt": "Preços ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "view",
+"id": "desp",
+"txt": "Contas do mês cobertas 66% faltam 55 peç",
+"tag": "DIV",
+"efeito": [
+"leva → desp"
+]
+},
+{
+"i": 8,
+"act": "x66",
+"id": "",
+"txt": "Preços para corrigir 15",
+"tag": "DIV",
+"efeito": [
+"muda a tela (+1816 letras)"
+]
+},
+{
+"i": 9,
+"act": "x66",
+"id": "",
+"txt": "15 preços para corrigir 10 com sugestão ",
+"tag": "DIV",
+"efeito": [
+"muda a tela (+1816 letras)"
+]
+},
+{
+"i": 10,
+"act": "temaVer",
+"id": "",
+"txt": "por quê",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"🖤 Black Friday\""
+]
+},
+{
+"i": 11,
+"act": "tabsheet",
+"id": "",
+"txt": "ajustar tabela",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Tabela de preço\""
+]
+},
+{
+"i": 12,
+"act": "tabsheet",
+"id": "",
+"txt": "ajustar tabela",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Tabela de preço\""
+]
+},
+{
+"i": 13,
+"act": "pgrAjusta",
+"id": "",
+"txt": "ajustar",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"PRÉ-GRADUADOS\""
+]
+},
+{
+"i": 14,
+"act": "cntCalc",
+"id": "",
+"txt": "Calculadora de preço",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Calculadora de preço\""
+]
+},
+{
+"i": 15,
+"act": "cntEse",
+"id": "",
+"txt": "E se…?",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"E se…?\""
+]
+},
+{
+"i": 16,
+"act": "paTog",
+"id": "",
+"txt": "Preço automático desligado · você define",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+157 letras)"
+]
+},
+{
+"i": 17,
+"act": "dfold",
+"id": "cfg",
+"txt": "Contas, taxas e meta contas do mês, form",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-724 letras)"
+]
+}
+],
+"caixa-acoes": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-31 letras)"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "grpVer",
+"id": "",
+"txt": "Caixa ⌄",
+"tag": "H1",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "cxmenu",
+"id": "",
+"txt": "Ações do caixa",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-31 letras)"
+]
+},
+{
+"i": 8,
+"act": "cxabre",
+"id": "ret",
+"txt": "Retirar",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Retirada do dono\""
+]
+},
+{
+"i": 9,
+"act": "cxabre",
+"id": "mel",
+"txt": "Novo objetivo",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Novo objetivo\""
+]
+},
+{
+"i": 10,
+"act": "cxabre",
+"id": "cc",
+"txt": "Conferir",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Conferir o caixa\""
+]
+},
+{
+"i": 11,
+"act": "cxReservas",
+"id": "",
+"txt": "Livre e reservado ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+]
+},
+{
+"i": 12,
+"act": "cxabre",
+"id": "mel",
+"txt": "+ Novo objetivo",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Novo objetivo\""
+]
+},
+{
+"i": 13,
+"act": "d48Res",
+"id": "",
+"txt": "Ver o que falta repor ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+]
+},
+{
+"i": 14,
+"act": "rtdes",
+"id": "1794775380000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-22 letras)"
+]
+},
+{
+"i": 15,
+"act": "rtdes",
+"id": "1792182900000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-31 letras)"
+]
+},
+{
+"i": 16,
+"act": "rtdes",
+"id": "1789589100000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-31 letras)"
+]
+},
+{
+"i": 17,
+"act": "rtdes",
+"id": "1786997520000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-31 letras)"
+]
+},
+{
+"i": 18,
+"act": "rtdes",
+"id": "1784406660000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-23 letras)"
+]
+},
+{
+"i": 19,
+"act": "rtdes",
+"id": "1781815020000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-31 letras)"
+]
+},
+{
+"i": 20,
+"act": "famAbre",
+"id": "mov",
+"txt": "Ver todos os movimentos ›",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+92 letras)"
+]
+}
+],
+"caixa-retirar": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "grpVer",
+"id": "",
+"txt": "Caixa ⌄",
+"tag": "H1",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "cxmenu",
+"id": "",
+"txt": "Ações do caixa",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+31 letras)"
+]
+},
+{
+"i": 8,
+"act": "cxReservas",
+"id": "",
+"txt": "Livre e reservado ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+]
+},
+{
+"i": 9,
+"act": "cxabre",
+"id": "mel",
+"txt": "+ Novo objetivo",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Novo objetivo\""
+]
+},
+{
+"i": 10,
+"act": "d48Res",
+"id": "",
+"txt": "Ver o que falta repor ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+]
+},
+{
+"i": 11,
+"act": "cxfecha",
+"id": "",
+"txt": "",
+"tag": "DIV",
+"efeito": [
+"muda a tela (-607 letras)"
+]
+},
+{
+"i": 12,
+"act": "rtMoe",
+"id": "pyg",
+"txt": "G$",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 13,
+"act": "rtMoe",
+"id": "usd",
+"txt": "US$",
+"tag": "BUTTON",
+"efeito": [
+"alterna"
+]
+},
+{
+"i": 14,
+"act": "rtMoe",
+"id": "brl",
+"txt": "R$",
+"tag": "BUTTON",
+"efeito": [
+"alterna"
+]
+},
+{
+"i": 15,
+"act": "rtgo",
+"id": "",
+"txt": "Retirar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+29 letras)"
+]
+},
+{
+"i": 16,
+"act": "rtdes",
+"id": "1794775380000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-29 letras)"
+]
+},
+{
+"i": 17,
+"act": "rtdes",
+"id": "1792182900000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+49 letras)"
+]
+},
+{
+"i": 18,
+"act": "rtdes",
+"id": "1789589100000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+49 letras)"
+]
+},
+{
+"i": 19,
+"act": "rtdes",
+"id": "1786997520000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+49 letras)"
+]
+},
+{
+"i": 20,
+"act": "rtdes",
+"id": "1784406660000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+65 letras)"
+]
+},
+{
+"i": 21,
+"act": "rtdes",
+"id": "1794775380000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-29 letras)"
+]
+},
+{
+"i": 22,
+"act": "rtdes",
+"id": "1792182900000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+49 letras)"
+]
+},
+{
+"i": 23,
+"act": "rtdes",
+"id": "1789589100000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+49 letras)"
+]
+},
+{
+"i": 24,
+"act": "rtdes",
+"id": "1786997520000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+49 letras)"
+]
+},
+{
+"i": 25,
+"act": "rtdes",
+"id": "1784406660000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+65 letras)"
+]
+},
+{
+"i": 26,
+"act": "rtdes",
+"id": "1781815020000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+49 letras)"
+]
+},
+{
+"i": 27,
+"act": "famAbre",
+"id": "mov",
+"txt": "Ver todos os movimentos ›",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+123 letras)"
+]
+}
+],
+"caixa-novo-objetivo": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "grpVer",
+"id": "",
+"txt": "Caixa ⌄",
+"tag": "H1",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "cxmenu",
+"id": "",
+"txt": "Ações do caixa",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+31 letras)"
+]
+},
+{
+"i": 8,
+"act": "cxReservas",
+"id": "",
+"txt": "Livre e reservado ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+]
+},
+{
+"i": 9,
+"act": "cxabre",
+"id": "mel",
+"txt": "+ Novo objetivo",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 10,
+"act": "d48Res",
+"id": "",
+"txt": "Ver o que falta repor ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+]
+},
+{
+"i": 11,
+"act": "cxfecha",
+"id": "",
+"txt": "",
+"tag": "DIV",
+"efeito": [
+"muda a tela (-302 letras)"
+]
+},
+{
+"i": 12,
+"act": "obAdd",
+"id": "",
+"txt": "Guardar objetivo",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+31 letras)"
+]
+},
+{
+"i": 13,
+"act": "rtdes",
+"id": "1794775380000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+9 letras)"
+]
+},
+{
+"i": 14,
+"act": "rtdes",
+"id": "1792182900000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 15,
+"act": "rtdes",
+"id": "1789589100000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 16,
+"act": "rtdes",
+"id": "1786997520000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 17,
+"act": "rtdes",
+"id": "1784406660000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+8 letras)"
+]
+},
+{
+"i": 18,
+"act": "rtdes",
+"id": "1781815020000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 19,
+"act": "famAbre",
+"id": "mov",
+"txt": "Ver todos os movimentos ›",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+123 letras)"
+]
+}
+],
+"caixa-conferir": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "grpVer",
+"id": "",
+"txt": "Caixa ⌄",
+"tag": "H1",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "cxmenu",
+"id": "",
+"txt": "Ações do caixa",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+31 letras)"
+]
+},
+{
+"i": 8,
+"act": "cxReservas",
+"id": "",
+"txt": "Livre e reservado ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+]
+},
+{
+"i": 9,
+"act": "cxabre",
+"id": "mel",
+"txt": "+ Novo objetivo",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Novo objetivo\""
+]
+},
+{
+"i": 10,
+"act": "d48Res",
+"id": "",
+"txt": "Ver o que falta repor ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+]
+},
+{
+"i": 11,
+"act": "cxfecha",
+"id": "",
+"txt": "",
+"tag": "DIV",
+"efeito": [
+"muda a tela (-257 letras)"
+]
+},
+{
+"i": 12,
+"act": "ccgo",
+"id": "",
+"txt": "Conferir",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+29 letras)"
+]
+},
+{
+"i": 13,
+"act": "ccfechar",
+"id": "",
+"txt": "Fechar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-140 letras)"
+]
+},
+{
+"i": 14,
+"act": "rtdes",
+"id": "1794775380000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+9 letras)"
+]
+},
+{
+"i": 15,
+"act": "rtdes",
+"id": "1792182900000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 16,
+"act": "rtdes",
+"id": "1789589100000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 17,
+"act": "rtdes",
+"id": "1786997520000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 18,
+"act": "rtdes",
+"id": "1784406660000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+8 letras)"
+]
+},
+{
+"i": 19,
+"act": "rtdes",
+"id": "1781815020000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 20,
+"act": "famAbre",
+"id": "mov",
+"txt": "Ver todos os movimentos ›",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+123 letras)"
+]
+}
+],
+"caixa-reservado": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "dVer",
+"id": "",
+"txt": "Reservas ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "totm",
+"id": "pyg",
+"txt": "G$",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 8,
+"act": "totm",
+"id": "brl",
+"txt": "R$",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-16 letras)"
+]
+},
+{
+"i": 9,
+"act": "totm",
+"id": "usd",
+"txt": "US$",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-18 letras)"
+]
+},
+{
+"i": 10,
+"act": "dfold",
+"id": "paraonde",
+"txt": "Ver para onde vai o que já tem dono: rep",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+129 letras)"
+]
+},
+{
+"i": 11,
+"act": "dfold",
+"id": "flx",
+"txt": "Próximos 30 dias Saldo G$ 5.576.187 · co",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1132 letras)"
+]
+}
+],
+"caixa-movimentos": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "grpVer",
+"id": "",
+"txt": "Caixa ⌄",
+"tag": "H1",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "cxmenu",
+"id": "",
+"txt": "Ações do caixa",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+31 letras)"
+]
+},
+{
+"i": 8,
+"act": "cxReservas",
+"id": "",
+"txt": "Livre e reservado ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+]
+},
+{
+"i": 9,
+"act": "cxabre",
+"id": "mel",
+"txt": "+ Novo objetivo",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Novo objetivo\""
+]
+},
+{
+"i": 10,
+"act": "d48Res",
+"id": "",
+"txt": "Ver o que falta repor ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+]
+},
+{
+"i": 11,
+"act": "rtdes",
+"id": "1794775380000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+9 letras)"
+]
+},
+{
+"i": 12,
+"act": "rtdes",
+"id": "1792182900000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 13,
+"act": "rtdes",
+"id": "1789589100000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 14,
+"act": "rtdes",
+"id": "1786997520000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 15,
+"act": "rtdes",
+"id": "1784406660000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+8 letras)"
+]
+},
+{
+"i": 16,
+"act": "rtdes",
+"id": "1781815020000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 17,
+"act": "rtdes",
+"id": "1779222780000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 18,
+"act": "rtdes",
+"id": "1776630780000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+8 letras)"
+]
+}
+],
+"cambio-dolar": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "grpVer",
+"id": "",
+"txt": "Câmbio ⌄",
+"tag": "H1",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "fxModo",
+"id": "",
+"txt": "Venda",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Dólar · G$ 6.420\""
+]
+},
+{
+"i": 8,
+"act": "fjAbre",
+"id": "usd",
+"txt": "DÓLAR G$ 6.487 — estável",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+21 letras)"
+]
+},
+{
+"i": 9,
+"act": "fjAbre",
+"id": "brl",
+"txt": "REAL G$ 1.196 ▼ 0,7% 7 dias",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Real · G$ 1.196\""
+]
+},
+{
+"i": 10,
+"act": "fjAbre",
+"id": "arb",
+"txt": "DÓLAR EM REAIS R$ 5,43 ▲ 0,9% 7 dias",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Dólar em reais · R$ 5,43\""
+]
+},
+{
+"i": 11,
+"act": "fjAbre",
+"id": "repo",
+"txt": "Faltam US$ 2.804 Normal ›",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Por que está normal\""
+]
+},
+{
+"i": 12,
+"act": "fjAbre",
+"id": "troca",
+"txt": "Registrar troca",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Registrar troca\""
+]
+},
+{
+"i": 13,
+"act": "fjAbre",
+"id": "trocas",
+"txt": "Últimas trocas 12 ›",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Últimas trocas\""
+]
+},
+{
+"i": 14,
+"act": "fjAbre",
+"id": "site",
+"txt": "Preços no site cotação da loja travada ›",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Preços no site\""
+]
+},
+{
+"i": 15,
+"act": "fjAbre",
+"id": "prot",
+"txt": "Como o app te protege colchão 13,0% ›",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Como o app te protege\""
+]
+},
+{
+"i": 16,
+"act": "fjFecha",
+"id": "",
+"txt": "",
+"tag": "DIV",
+"efeito": [
+"muda a tela (-241 letras)"
+]
+},
+{
+"i": 17,
+"act": "fjPer",
+"id": "30",
+"txt": "30 dias",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+26 letras)"
+]
+},
+{
+"i": 18,
+"act": "fjPer",
+"id": "90",
+"txt": "90 dias",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+21 letras)"
+]
+},
+{
+"i": 19,
+"act": "fjPer",
+"id": "365",
+"txt": "1 ano",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+21 letras)"
+]
+}
+]
+}

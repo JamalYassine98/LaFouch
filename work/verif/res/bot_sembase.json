@@ -1,0 +1,836 @@
+{
+"guardiao": [
+{
+"i": 0,
+"act": "view",
+"id": "caixa",
+"txt": "Conferir",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 1,
+"act": "guardMudo",
+"id": "caixa",
+"txt": "silenciar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+787 letras)"
+]
+},
+{
+"i": 2,
+"act": "view",
+"id": "desp",
+"txt": "Ver",
+"tag": "BUTTON",
+"efeito": [
+"leva → desp"
+]
+},
+{
+"i": 3,
+"act": "guardMudo",
+"id": "contas",
+"txt": "silenciar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+787 letras)"
+]
+},
+{
+"i": 4,
+"act": "view",
+"id": "estoque",
+"txt": "Ver",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 5,
+"act": "guardMudo",
+"id": "custo",
+"txt": "silenciar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+787 letras)"
+]
+},
+{
+"i": 6,
+"act": "view",
+"id": "ajustes",
+"txt": "Fazer",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 7,
+"act": "guardMudo",
+"id": "bk",
+"txt": "silenciar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+787 letras)"
+]
+},
+{
+"i": 8,
+"act": "inicio",
+"id": "lotes",
+"txt": "Completar",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 9,
+"act": "guardMudo",
+"id": "lote",
+"txt": "silenciar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+787 letras)"
+]
+}
+],
+"atacado-tabela": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "ataNovo",
+"id": "",
+"txt": "+ Novo acesso",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Novo acesso ao atacado\""
+]
+},
+{
+"i": 7,
+"act": "ataAba",
+"id": "msg",
+"txt": "Mensagens",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-179 letras)"
+]
+},
+{
+"i": 8,
+"act": "ataAba",
+"id": "loj",
+"txt": "Lojistas",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-106 letras)"
+]
+},
+{
+"i": 9,
+"act": "ataAba",
+"id": "lot",
+"txt": "Lotes",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-237 letras)"
+]
+},
+{
+"i": 10,
+"act": "ataAba",
+"id": "tab",
+"txt": "Tabela",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 11,
+"act": "ataEnvLoj",
+"id": "",
+"txt": "Enviar catálogo a um lojista Abre o Comp",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Compartilhar\""
+]
+},
+{
+"i": 12,
+"act": "ataVerTab",
+"id": "",
+"txt": "Ver a tabela de atacado Os preços como o",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Tabela de atacado\""
+]
+},
+{
+"i": 13,
+"act": "tabedit",
+"id": "",
+"txt": "Editar tabelas Margem, mínimo e frete de",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Tabela de preço\""
+]
+}
+],
+"inventario-fornecedores": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "grpVer",
+"id": "",
+"txt": "Inventário ⌄",
+"tag": "H1",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "",
+"id": "",
+"txt": "Adicionar",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Adicionar\""
+]
+},
+{
+"i": 8,
+"act": "",
+"id": "",
+"txt": "Produtos",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+772 letras)"
+]
+},
+{
+"i": 9,
+"act": "",
+"id": "",
+"txt": "Fornecedores 1",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 10,
+"act": "",
+"id": "",
+"txt": "EM ESTOQUE (FILTRO) › 400",
+"tag": "BUTTON",
+"efeito": [
+"alterna"
+]
+},
+{
+"i": 11,
+"act": "",
+"id": "",
+"txt": "Editar",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Editar lote\""
+]
+},
+{
+"i": 12,
+"act": "",
+"id": "",
+"txt": "Remover lote",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+128 letras)"
+]
+},
+{
+"i": 13,
+"act": "",
+"id": "",
+"txt": "Ver peças (57)",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+710 letras)"
+]
+},
+{
+"i": 14,
+"act": "lcIrGiro",
+"id": "",
+"txt": "Lista de compras · 14 acabando ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+]
+}
+],
+"inventario-ficha": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "grpVer",
+"id": "",
+"txt": "Inventário ⌄",
+"tag": "H1",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "",
+"id": "",
+"txt": "Adicionar",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Adicionar\""
+]
+},
+{
+"i": 8,
+"act": "",
+"id": "",
+"txt": "Produtos",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 9,
+"act": "",
+"id": "",
+"txt": "Fornecedores 1",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-103 letras)"
+]
+},
+{
+"i": 10,
+"act": "",
+"id": "",
+"txt": "EM ESTOQUE (FILTRO) › 400",
+"tag": "BUTTON",
+"efeito": [
+"alterna"
+]
+},
+{
+"i": 11,
+"act": "fichaAbre",
+"id": "Lote Kazwini",
+"txt": "Ficha 4/6",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Ficha do produto\""
+]
+},
+{
+"i": 12,
+"act": "fnTab",
+"id": "est",
+"txt": "Estoque",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 13,
+"act": "fnTab",
+"id": "his",
+"txt": "Histórico",
+"tag": "BUTTON",
+"efeito": [
+"alterna"
+]
+},
+{
+"i": 14,
+"act": "fnTab",
+"id": "sit",
+"txt": "Site",
+"tag": "BUTTON",
+"efeito": [
+"alterna"
+]
+},
+{
+"i": 15,
+"act": "fnTab",
+"id": "pre",
+"txt": "Preço",
+"tag": "BUTTON",
+"efeito": [
+"alterna"
+]
+},
+{
+"i": 16,
+"act": "fnTab",
+"id": "ven",
+"txt": "Vender no Catálogo ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 17,
+"act": "fnEstudio",
+"id": "",
+"txt": "Fotografar no Estúdio ›",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+39 letras)"
+]
+},
+{
+"i": 18,
+"act": "",
+"id": "",
+"txt": "Voltar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+668 letras)"
+]
+},
+{
+"i": 19,
+"act": "",
+"id": "",
+"txt": "Editar",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Editar produto\""
+]
+},
+{
+"i": 20,
+"act": "",
+"id": "",
+"txt": "· Sem detalhesem foto 343 un.",
+"tag": "DIV",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 21,
+"act": "",
+"id": "",
+"txt": "% Oferta",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"OFERTA\""
+]
+},
+{
+"i": 22,
+"act": "",
+"id": "",
+"txt": "No site",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+26 letras)"
+]
+}
+],
+"inventario-editar": [
+{
+"i": 0,
+"act": "",
+"id": "",
+"txt": "Fechar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-88 letras)"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "",
+"txt": "Modelo",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "",
+"txt": "Cores e fotos",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-14 letras)"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "",
+"txt": "",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "",
+"txt": "Salvar alterações",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-69 letras)"
+]
+}
+],
+"inventario-novo": [
+{
+"i": 0,
+"act": "",
+"id": "",
+"txt": "Fechar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-135 letras)"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "",
+"txt": "Ler haste",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Leitor de código\""
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "",
+"txt": "Foto",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Foto da etiqueta, da caixa ou do pacote\""
+]
+},
+{
+"i": 3,
+"act": "enAbre",
+"id": "0",
+"txt": "BR44118 Preto",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Armação Gucci de metal feminino\""
+]
+},
+{
+"i": 4,
+"act": "enAbre",
+"id": "1",
+"txt": "BR44133 Vinho",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Armação Armani de acetato feminino\""
+]
+},
+{
+"i": 5,
+"act": "enAbre",
+"id": "2",
+"txt": "SP58110 Pré-graduado",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+359 letras)"
+]
+},
+{
+"i": 6,
+"act": "",
+"id": "",
+"txt": "Chegou mercadoria",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Chegou mercadoria\""
+]
+},
+{
+"i": 7,
+"act": "",
+"id": "",
+"txt": "Preencher à mão",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Novo modelo\""
+]
+}
+],
+"clientes": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "clinovo",
+"id": "",
+"txt": "Novo cliente",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+82 letras)"
+]
+}
+]
+}

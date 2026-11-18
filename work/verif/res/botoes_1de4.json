@@ -1,0 +1,3342 @@
+{
+"hist-lista": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "grpVer",
+"id": "",
+"txt": "Histórico ⌄",
+"tag": "H1",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "hcal",
+"id": "",
+"txt": "Ir para uma data",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 8,
+"act": "hfopen",
+"id": "",
+"txt": "Filtros",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+270 letras)"
+]
+},
+{
+"i": 9,
+"act": "opendia",
+"id": "2026-11-18",
+"txt": "18/11 · hojequa G$ 296.000 › 5 vendas · ",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 10,
+"act": "opendia",
+"id": "2026-11-17",
+"txt": "17/11ter G$ 271.000 › 6 vendas · lucro l",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 11,
+"act": "opendia",
+"id": "2026-11-16",
+"txt": "16/11seg G$ 326.500 › 8 vendas · 1 outro",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 12,
+"act": "opendia",
+"id": "2026-11-15",
+"txt": "15/11dom G$ 0 › 0 vendas · 1 despesa · l",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 13,
+"act": "opendia",
+"id": "2026-11-14",
+"txt": "14/11sáb G$ 132.000 › 4 vendas · lucro l",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 14,
+"act": "opendia",
+"id": "2026-11-13",
+"txt": "13/11sex G$ 244.000 › 5 vendas · 1 outro",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 15,
+"act": "opendia",
+"id": "2026-11-12",
+"txt": "12/11qui G$ 239.500 › 5 vendas · gastos ",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 16,
+"act": "opendia",
+"id": "2026-11-11",
+"txt": "11/11qua G$ 619.000 › 5 vendas · lucro l",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 17,
+"act": "opendia",
+"id": "2026-11-10",
+"txt": "10/11ter G$ 341.500 › 5 vendas · gastos ",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 18,
+"act": "opendia",
+"id": "2026-11-09",
+"txt": "09/11seg G$ 235.500 › 6 vendas · lucro l",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 19,
+"act": "hSem",
+"id": "2026-11-02|2026-11",
+"txt": "Semana 02/11 a 08/11 G$ 1.760.000 · 33 v",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+408 letras)"
+]
+},
+{
+"i": 20,
+"act": "hSem",
+"id": "2026-10-26|2026-11",
+"txt": "Semana 01/11 G$ 78.500 · 2 vendas · 1 di",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+66 letras)"
+]
+},
+{
+"i": 21,
+"act": "hSem",
+"id": "2026-10-26|2026-10",
+"txt": "Semana 26/10 a 31/10 G$ 1.321.500 · 29 v",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+352 letras)"
+]
+},
+{
+"i": 22,
+"act": "hSem",
+"id": "2026-10-19|2026-10",
+"txt": "Semana 19/10 a 25/10 G$ 1.506.500 · 32 v",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+435 letras)"
+]
+},
+{
+"i": 23,
+"act": "hmais",
+"id": "",
+"txt": "Carregar mais 30 dias ›",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+403 letras)"
+]
+}
+],
+"hist-dia": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "dVer",
+"id": "",
+"txt": "Dashboard ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "dPer",
+"id": "",
+"txt": "Hoje ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"PERÍODO\""
+]
+},
+{
+"i": 8,
+"act": "view",
+"id": "desp",
+"txt": "Contas do dia G$ 140.000 1/30 de G$ 4.20",
+"tag": "DIV",
+"efeito": [
+"leva → desp"
+]
+},
+{
+"i": 9,
+"act": "hopen",
+"id": "V-1923",
+"txt": "2× SL2201 C1 · Preto V-1923 · 18/11 às 0",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+101 letras)"
+]
+},
+{
+"i": 10,
+"act": "hopen",
+"id": "V-1920",
+"txt": "1× SL2210 C1 · Preto V-1920 · 18/11 às 0",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-49 letras)"
+]
+},
+{
+"i": 11,
+"act": "hopen",
+"id": "V-1922",
+"txt": "1× BR44133 C2 · Vinho V-1922 · 18/11 às ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-51 letras)"
+]
+},
+{
+"i": 12,
+"act": "hopen",
+"id": "V-1919",
+"txt": "1× SP57765 +1.00 · Preto V-1919 · 18/11 ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-48 letras)"
+]
+},
+{
+"i": 13,
+"act": "hopen",
+"id": "V-1921",
+"txt": "1× YS8801 C1 · Preto V-1921 · 18/11 às 0",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-49 letras)"
+]
+},
+{
+"i": 14,
+"act": "view",
+"id": "hist",
+"txt": "Dias anteriores no Histórico ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → hist"
+]
+}
+],
+"hist-semana": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "grpVer",
+"id": "",
+"txt": "Histórico ⌄",
+"tag": "H1",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "hcal",
+"id": "",
+"txt": "Ir para uma data",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 8,
+"act": "hfopen",
+"id": "",
+"txt": "Filtros",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-270 letras)"
+]
+},
+{
+"i": 9,
+"act": "hfil",
+"id": "tipo|venda",
+"txt": "Venda",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1339 letras)"
+]
+},
+{
+"i": 10,
+"act": "hfil",
+"id": "tipo|estorno",
+"txt": "Estorno",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1690 letras)"
+]
+},
+{
+"i": 11,
+"act": "hfil",
+"id": "tipo|pago",
+"txt": "Conta paga",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+812 letras)"
+]
+},
+{
+"i": 12,
+"act": "hfil",
+"id": "tipo|ret",
+"txt": "Retirada",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-228 letras)"
+]
+},
+{
+"i": 13,
+"act": "hfil",
+"id": "tipo|imp",
+"txt": "Imprevisto",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-670 letras)"
+]
+},
+{
+"i": 14,
+"act": "hfil",
+"id": "tipo|melh",
+"txt": "Melhorias",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-822 letras)"
+]
+},
+{
+"i": 15,
+"act": "hfil",
+"id": "tipo|lote",
+"txt": "Compra de lote",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-364 letras)"
+]
+},
+{
+"i": 16,
+"act": "hfil",
+"id": "tipo|descarte",
+"txt": "Descarte",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-762 letras)"
+]
+},
+{
+"i": 17,
+"act": "hfil",
+"id": "tipo|confcx",
+"txt": "Conferência",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-982 letras)"
+]
+},
+{
+"i": 18,
+"act": "hfil",
+"id": "tipo|outro",
+"txt": "Câmbio / estoque",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+761 letras)"
+]
+},
+{
+"i": 19,
+"act": "hfil",
+"id": "forma|din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1343 letras)"
+]
+},
+{
+"i": 20,
+"act": "hfil",
+"id": "forma|pix",
+"txt": "Pix",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1236 letras)"
+]
+},
+{
+"i": 21,
+"act": "hfil",
+"id": "forma|deb",
+"txt": "Maquininha débito",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1317 letras)"
+]
+},
+{
+"i": 22,
+"act": "hfil",
+"id": "forma|cre",
+"txt": "Maquininha crédito",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1236 letras)"
+]
+},
+{
+"i": 23,
+"act": "hfil",
+"id": "faixa|f1",
+"txt": "Econômico",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1262 letras)"
+]
+},
+{
+"i": 24,
+"act": "hfil",
+"id": "faixa|f2",
+"txt": "Intermediário",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1326 letras)"
+]
+},
+{
+"i": 25,
+"act": "hfil",
+"id": "faixa|f3",
+"txt": "Luxo",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1292 letras)"
+]
+},
+{
+"i": 26,
+"act": "hfil",
+"id": "moeda|pyg",
+"txt": "G$",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1228 letras)"
+]
+},
+{
+"i": 27,
+"act": "hfil",
+"id": "moeda|usd",
+"txt": "US$",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1609 letras)"
+]
+},
+{
+"i": 28,
+"act": "hfil",
+"id": "moeda|brl",
+"txt": "R$",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1479 letras)"
+]
+},
+{
+"i": 29,
+"act": "hlimpar",
+"id": "",
+"txt": "Limpar tudo",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 30,
+"act": "opendia",
+"id": "2026-11-18",
+"txt": "18/11 · hojequa G$ 296.000 › 5 vendas · ",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 31,
+"act": "opendia",
+"id": "2026-11-17",
+"txt": "17/11ter G$ 271.000 › 6 vendas · lucro l",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 32,
+"act": "opendia",
+"id": "2026-11-16",
+"txt": "16/11seg G$ 326.500 › 8 vendas · 1 outro",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 33,
+"act": "opendia",
+"id": "2026-11-15",
+"txt": "15/11dom G$ 0 › 0 vendas · 1 despesa · l",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 34,
+"act": "opendia",
+"id": "2026-11-14",
+"txt": "14/11sáb G$ 132.000 › 4 vendas · lucro l",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 35,
+"act": "opendia",
+"id": "2026-11-13",
+"txt": "13/11sex G$ 244.000 › 5 vendas · 1 outro",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 36,
+"act": "opendia",
+"id": "2026-11-12",
+"txt": "12/11qui G$ 239.500 › 5 vendas · gastos ",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 37,
+"act": "opendia",
+"id": "2026-11-11",
+"txt": "11/11qua G$ 619.000 › 5 vendas · lucro l",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 38,
+"act": "opendia",
+"id": "2026-11-10",
+"txt": "10/11ter G$ 341.500 › 5 vendas · gastos ",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 39,
+"act": "opendia",
+"id": "2026-11-09",
+"txt": "09/11seg G$ 235.500 › 6 vendas · lucro l",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+}
+],
+"hist-filtros": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "grpVer",
+"id": "",
+"txt": "Histórico ⌄",
+"tag": "H1",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "hcal",
+"id": "",
+"txt": "Ir para uma data",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 8,
+"act": "hfopen",
+"id": "",
+"txt": "Filtros",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-270 letras)"
+]
+},
+{
+"i": 9,
+"act": "hfil",
+"id": "tipo|venda",
+"txt": "Venda",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1339 letras)"
+]
+},
+{
+"i": 10,
+"act": "hfil",
+"id": "tipo|estorno",
+"txt": "Estorno",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1690 letras)"
+]
+},
+{
+"i": 11,
+"act": "hfil",
+"id": "tipo|pago",
+"txt": "Conta paga",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+812 letras)"
+]
+},
+{
+"i": 12,
+"act": "hfil",
+"id": "tipo|ret",
+"txt": "Retirada",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-228 letras)"
+]
+},
+{
+"i": 13,
+"act": "hfil",
+"id": "tipo|imp",
+"txt": "Imprevisto",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-670 letras)"
+]
+},
+{
+"i": 14,
+"act": "hfil",
+"id": "tipo|melh",
+"txt": "Melhorias",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-822 letras)"
+]
+},
+{
+"i": 15,
+"act": "hfil",
+"id": "tipo|lote",
+"txt": "Compra de lote",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-364 letras)"
+]
+},
+{
+"i": 16,
+"act": "hfil",
+"id": "tipo|descarte",
+"txt": "Descarte",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-762 letras)"
+]
+},
+{
+"i": 17,
+"act": "hfil",
+"id": "tipo|confcx",
+"txt": "Conferência",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-982 letras)"
+]
+},
+{
+"i": 18,
+"act": "hfil",
+"id": "tipo|outro",
+"txt": "Câmbio / estoque",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+761 letras)"
+]
+},
+{
+"i": 19,
+"act": "hfil",
+"id": "forma|din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1343 letras)"
+]
+},
+{
+"i": 20,
+"act": "hfil",
+"id": "forma|pix",
+"txt": "Pix",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1236 letras)"
+]
+},
+{
+"i": 21,
+"act": "hfil",
+"id": "forma|deb",
+"txt": "Maquininha débito",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1317 letras)"
+]
+},
+{
+"i": 22,
+"act": "hfil",
+"id": "forma|cre",
+"txt": "Maquininha crédito",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1236 letras)"
+]
+},
+{
+"i": 23,
+"act": "hfil",
+"id": "faixa|f1",
+"txt": "Econômico",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1262 letras)"
+]
+},
+{
+"i": 24,
+"act": "hfil",
+"id": "faixa|f2",
+"txt": "Intermediário",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1326 letras)"
+]
+},
+{
+"i": 25,
+"act": "hfil",
+"id": "faixa|f3",
+"txt": "Luxo",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1292 letras)"
+]
+},
+{
+"i": 26,
+"act": "hfil",
+"id": "moeda|pyg",
+"txt": "G$",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1228 letras)"
+]
+},
+{
+"i": 27,
+"act": "hfil",
+"id": "moeda|usd",
+"txt": "US$",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1609 letras)"
+]
+},
+{
+"i": 28,
+"act": "hfil",
+"id": "moeda|brl",
+"txt": "R$",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1479 letras)"
+]
+},
+{
+"i": 29,
+"act": "hlimpar",
+"id": "",
+"txt": "Limpar tudo",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 30,
+"act": "opendia",
+"id": "2026-11-18",
+"txt": "18/11 · hojequa G$ 296.000 › 5 vendas · ",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 31,
+"act": "opendia",
+"id": "2026-11-17",
+"txt": "17/11ter G$ 271.000 › 6 vendas · lucro l",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 32,
+"act": "opendia",
+"id": "2026-11-16",
+"txt": "16/11seg G$ 326.500 › 8 vendas · 1 outro",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 33,
+"act": "opendia",
+"id": "2026-11-15",
+"txt": "15/11dom G$ 0 › 0 vendas · 1 despesa · l",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 34,
+"act": "opendia",
+"id": "2026-11-14",
+"txt": "14/11sáb G$ 132.000 › 4 vendas · lucro l",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 35,
+"act": "opendia",
+"id": "2026-11-13",
+"txt": "13/11sex G$ 244.000 › 5 vendas · 1 outro",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 36,
+"act": "opendia",
+"id": "2026-11-12",
+"txt": "12/11qui G$ 239.500 › 5 vendas · gastos ",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 37,
+"act": "opendia",
+"id": "2026-11-11",
+"txt": "11/11qua G$ 619.000 › 5 vendas · lucro l",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 38,
+"act": "opendia",
+"id": "2026-11-10",
+"txt": "10/11ter G$ 341.500 › 5 vendas · gastos ",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 39,
+"act": "opendia",
+"id": "2026-11-09",
+"txt": "09/11seg G$ 235.500 › 6 vendas · lucro l",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+}
+],
+"hist-busca": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "grpVer",
+"id": "",
+"txt": "Histórico ⌄",
+"tag": "H1",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "hcal",
+"id": "",
+"txt": "Ir para uma data",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 8,
+"act": "hfopen",
+"id": "",
+"txt": "Filtros",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+270 letras)"
+]
+},
+{
+"i": 9,
+"act": "hopen",
+"id": "V-1923",
+"txt": "2× SL2201 C1 · Preto V-1923 · 18/11 às 0",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+385 letras)"
+]
+},
+{
+"i": 10,
+"act": "hopen",
+"id": "V-1920",
+"txt": "1× SL2210 C1 · Preto V-1920 · 18/11 às 0",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+406 letras)"
+]
+},
+{
+"i": 11,
+"act": "hopen",
+"id": "V-1917",
+"txt": "1× SL2201 C1 · Preto V-1917 · 17/11 às 1",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+389 letras)"
+]
+},
+{
+"i": 12,
+"act": "hopen",
+"id": "V-1918",
+"txt": "1× SL2210 C1 · Preto V-1918 · 17/11 às 1",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+406 letras)"
+]
+},
+{
+"i": 13,
+"act": "hopen",
+"id": "V-1910",
+"txt": "1× SL2210 C3 · Tartaruga V-1910 · 16/11 ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+406 letras)"
+]
+},
+{
+"i": 14,
+"act": "hopen",
+"id": "V-1905",
+"txt": "1× SP60627 +1.00 · Bege translúcido V-19",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+380 letras)"
+]
+},
+{
+"i": 15,
+"act": "hopen",
+"id": "V-1911",
+"txt": "1× SL2210 C1 · Preto V-1911 · 16/11 às 1",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+414 letras)"
+]
+},
+{
+"i": 16,
+"act": "hopen",
+"id": "V-1907",
+"txt": "1× SL2201 C1 · Preto V-1907 · 16/11 às 0",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+389 letras)"
+]
+},
+{
+"i": 17,
+"act": "hopen",
+"id": "V-1902",
+"txt": "1× SP60627 +3.50 · Bege translúcido V-19",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+402 letras)"
+]
+},
+{
+"i": 18,
+"act": "hopen",
+"id": "V-1904",
+"txt": "1× SL2210 C3 · Tartaruga V-1904 · 14/11 ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+415 letras)"
+]
+},
+{
+"i": 19,
+"act": "hopen",
+"id": "V-1898",
+"txt": "1× SL2210 C1 · Preto V-1898 · 13/11 às 1",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+389 letras)"
+]
+},
+{
+"i": 20,
+"act": "hopen",
+"id": "V-1899",
+"txt": "2× SP60627 +1.50 · Bege translúcido V-18",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+383 letras)"
+]
+},
+{
+"i": 21,
+"act": "hopen",
+"id": "V-1892",
+"txt": "2× SP60627 +1.50 · Bege translúcido V-18",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+405 letras)"
+]
+},
+{
+"i": 22,
+"act": "hopen",
+"id": "V-1886",
+"txt": "3× SP60627 +2.00 · Bege translúcido V-18",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+414 letras)"
+]
+},
+{
+"i": 23,
+"act": "hopen",
+"id": "V-1882",
+"txt": "1× SP60627 +2.00 · Bege translúcido V-18",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+411 letras)"
+]
+},
+{
+"i": 24,
+"act": "hopen",
+"id": "V-1881",
+"txt": "2× SL2201 C6 · Dourado V-1881 · 10/11 às",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+416 letras)"
+]
+},
+{
+"i": 25,
+"act": "hopen",
+"id": "V-1880",
+"txt": "3× SP60627 +1.00 · Bege translúcido V-18",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+389 letras)"
+]
+},
+{
+"i": 26,
+"act": "hopen",
+"id": "V-1879",
+"txt": "1× BR44118 C2 · Bege translúcido V-1879 ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+384 letras)"
+]
+},
+{
+"i": 27,
+"act": "hopen",
+"id": "V-1875",
+"txt": "1× SP60627 +3.50 · Bege translúcido V-18",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+385 letras)"
+]
+},
+{
+"i": 28,
+"act": "hopen",
+"id": "V-1867",
+"txt": "1× SL2210 C1 · Preto V-1867 · 07/11 às 1",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+389 letras)"
+]
+},
+{
+"i": 29,
+"act": "hopen",
+"id": "V-1868",
+"txt": "1× SL2210 C1 · Preto V-1868 · 07/11 às 1",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+389 letras)"
+]
+},
+{
+"i": 30,
+"act": "hopen",
+"id": "V-1869",
+"txt": "1× SL2201 C6 · Dourado V-1869 · 07/11 às",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+384 letras)"
+]
+},
+{
+"i": 31,
+"act": "hopen",
+"id": "V-1865",
+"txt": "1× SL2201 C6 · Dourado V-1865 · 06/11 às",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+389 letras)"
+]
+},
+{
+"i": 32,
+"act": "hopen",
+"id": "V-1864",
+"txt": "1× SL2201 C6 · Dourado V-1864 · 06/11 às",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+389 letras)"
+]
+},
+{
+"i": 33,
+"act": "hopen",
+"id": "V-1856",
+"txt": "1× SL2201 C6 · Dourado V-1856 · 04/11 às",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+389 letras)"
+]
+},
+{
+"i": 34,
+"act": "hopen",
+"id": "V-1854",
+"txt": "1× SL2201 C6 · Dourado V-1854 · 04/11 às",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+389 letras)"
+]
+},
+{
+"i": 35,
+"act": "hopen",
+"id": "V-1845",
+"txt": "1× SL2210 C1 · Preto V-1845 · 03/11 às 1",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+406 letras)"
+]
+},
+{
+"i": 36,
+"act": "hopen",
+"id": "V-1848",
+"txt": "1× SL2201 C6 · Dourado V-1848 · 03/11 às",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+389 letras)"
+]
+},
+{
+"i": 37,
+"act": "hopen",
+"id": "V-1847",
+"txt": "1× SP60627 +1.00 · Bege translúcido V-18",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+408 letras)"
+]
+},
+{
+"i": 38,
+"act": "hopen",
+"id": "V-1842",
+"txt": "1× SP60627 +2.00 · Bege translúcido V-18",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+409 letras)"
+]
+},
+{
+"i": 39,
+"act": "hmais",
+"id": "",
+"txt": "Mostrar mais (583)",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+2194 letras)"
+]
+}
+],
+"dash-semana": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "dVer",
+"id": "",
+"txt": "Dashboard ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "dPer",
+"id": "",
+"txt": "Esta semana ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"PERÍODO\""
+]
+},
+{
+"i": 8,
+"act": "d48Moeda",
+"id": "",
+"txt": "G$ 893.500",
+"tag": "B",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 9,
+"act": "d48Moeda",
+"id": "",
+"txt": "G$ 329.400",
+"tag": "B",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 10,
+"act": "d48Moeda",
+"id": "",
+"txt": "G$ 1.706.584",
+"tag": "B",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 11,
+"act": "d48Abre",
+"id": "res",
+"txt": "Resultado do mês Lucro real, o que mais ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+291 letras)"
+]
+},
+{
+"i": 12,
+"act": "d48Abre",
+"id": "c1",
+"txt": "Quanto separar do que você vendeu Cada c",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+536 letras)"
+]
+},
+{
+"i": 13,
+"act": "d48Abre",
+"id": "c2",
+"txt": "Vendas do período Cada venda com o valor",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1560 letras)"
+]
+}
+],
+"dash-mes": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "dVer",
+"id": "",
+"txt": "Dashboard ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "dPer",
+"id": "",
+"txt": "Este mês ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"PERÍODO\""
+]
+},
+{
+"i": 8,
+"act": "d48Moeda",
+"id": "",
+"txt": "G$ 4.543.500",
+"tag": "B",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 9,
+"act": "d48Moeda",
+"id": "",
+"txt": "G$ 1.705.100",
+"tag": "B",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 10,
+"act": "d48Moeda",
+"id": "",
+"txt": "G$ 1.706.584",
+"tag": "B",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 11,
+"act": "d48Abre",
+"id": "res",
+"txt": "Resultado do mês Lucro real, o que mais ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+291 letras)"
+]
+},
+{
+"i": 12,
+"act": "d48Abre",
+"id": "c1",
+"txt": "Quanto separar do que você vendeu Cada c",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+600 letras)"
+]
+},
+{
+"i": 13,
+"act": "d48Abre",
+"id": "c2",
+"txt": "Vendas do período Cada venda com o valor",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1691 letras)"
+]
+}
+],
+"dash-custom": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "dVer",
+"id": "",
+"txt": "Dashboard ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "dPer",
+"id": "",
+"txt": "Datas ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"PERÍODO\""
+]
+},
+{
+"i": 8,
+"act": "d48Moeda",
+"id": "",
+"txt": "G$ 2.415.500",
+"tag": "B",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 9,
+"act": "d48Moeda",
+"id": "",
+"txt": "G$ 916.000",
+"tag": "B",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 10,
+"act": "d48Moeda",
+"id": "",
+"txt": "G$ 1.706.584",
+"tag": "B",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 11,
+"act": "d48Abre",
+"id": "res",
+"txt": "Resultado do mês Lucro real, o que mais ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+291 letras)"
+]
+},
+{
+"i": 12,
+"act": "d48Abre",
+"id": "c1",
+"txt": "Quanto separar do que você vendeu Cada c",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+562 letras)"
+]
+},
+{
+"i": 13,
+"act": "d48Abre",
+"id": "c2",
+"txt": "Vendas do período Cada venda com o valor",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1611 letras)"
+]
+}
+],
+"dash-folha-periodo": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "dVer",
+"id": "",
+"txt": "Dashboard ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "dPer",
+"id": "",
+"txt": "Hoje ⌄",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 8,
+"act": "view",
+"id": "desp",
+"txt": "Contas do dia G$ 140.000 1/30 de G$ 4.20",
+"tag": "DIV",
+"efeito": [
+"leva → desp"
+]
+},
+{
+"i": 9,
+"act": "hopen",
+"id": "V-1923",
+"txt": "2× SL2201 C1 · Preto V-1923 · 18/11 às 0",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+101 letras)"
+]
+},
+{
+"i": 10,
+"act": "hopen",
+"id": "V-1920",
+"txt": "1× SL2210 C1 · Preto V-1920 · 18/11 às 0",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-49 letras)"
+]
+},
+{
+"i": 11,
+"act": "hopen",
+"id": "V-1922",
+"txt": "1× BR44133 C2 · Vinho V-1922 · 18/11 às ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-51 letras)"
+]
+},
+{
+"i": 12,
+"act": "hopen",
+"id": "V-1919",
+"txt": "1× SP57765 +1.00 · Preto V-1919 · 18/11 ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-48 letras)"
+]
+},
+{
+"i": 13,
+"act": "hopen",
+"id": "V-1921",
+"txt": "1× YS8801 C1 · Preto V-1921 · 18/11 às 0",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-49 letras)"
+]
+},
+{
+"i": 14,
+"act": "view",
+"id": "hist",
+"txt": "Dias anteriores no Histórico ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → hist"
+]
+},
+{
+"i": 15,
+"act": "dPerEsc",
+"id": "hoje",
+"txt": "Hoje quarta-feira, 18 de novembro ✓",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-188 letras)"
+]
+},
+{
+"i": 16,
+"act": "dPerEsc",
+"id": "semana",
+"txt": "Esta semana 16 a 18 de novembro",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+]
+},
+{
+"i": 17,
+"act": "dPerEsc",
+"id": "mes",
+"txt": "Este mês 1 a 18 de novembro",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+]
+},
+{
+"i": 18,
+"act": "dPerEsc",
+"id": "30",
+"txt": "Últimos 30 dias 20 de outubro a 18 de no",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+]
+},
+{
+"i": 19,
+"act": "dPerEsc",
+"id": "custom",
+"txt": "Escolher datas de um dia até outro ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+]
+}
+],
+"dash-folha-ver": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "dVer",
+"id": "",
+"txt": "Dashboard ⌄",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 7,
+"act": "dPer",
+"id": "",
+"txt": "Hoje ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"PERÍODO\""
+]
+},
+{
+"i": 8,
+"act": "view",
+"id": "desp",
+"txt": "Contas do dia G$ 140.000 1/30 de G$ 4.20",
+"tag": "DIV",
+"efeito": [
+"leva → desp"
+]
+},
+{
+"i": 9,
+"act": "hopen",
+"id": "V-1923",
+"txt": "2× SL2201 C1 · Preto V-1923 · 18/11 às 0",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+101 letras)"
+]
+},
+{
+"i": 10,
+"act": "hopen",
+"id": "V-1920",
+"txt": "1× SL2210 C1 · Preto V-1920 · 18/11 às 0",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-49 letras)"
+]
+},
+{
+"i": 11,
+"act": "hopen",
+"id": "V-1922",
+"txt": "1× BR44133 C2 · Vinho V-1922 · 18/11 às ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-51 letras)"
+]
+},
+{
+"i": 12,
+"act": "hopen",
+"id": "V-1919",
+"txt": "1× SP57765 +1.00 · Preto V-1919 · 18/11 ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-48 letras)"
+]
+},
+{
+"i": 13,
+"act": "hopen",
+"id": "V-1921",
+"txt": "1× YS8801 C1 · Preto V-1921 · 18/11 às 0",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-49 letras)"
+]
+},
+{
+"i": 14,
+"act": "view",
+"id": "hist",
+"txt": "Dias anteriores no Histórico ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → hist"
+]
+},
+{
+"i": 15,
+"act": "grpVerEsc",
+"id": "hoje",
+"txt": "Dashboard Os números do período ✓",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-126 letras)"
+]
+},
+{
+"i": 16,
+"act": "grpVerEsc",
+"id": "hist",
+"txt": "Histórico Todas as vendas, dia por dia ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → hist"
+]
+},
+{
+"i": 17,
+"act": "grpGerirV",
+"id": "g:res",
+"txt": "Gerenciar grupo Nome e telas de \"Resulta",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Grupo\""
+]
+}
+],
+"dash-contas-dia": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "grpVer",
+"id": "",
+"txt": "Despesas ⌄",
+"tag": "H1",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "despNova",
+"id": "",
+"txt": "+ Nova",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+125 letras)"
+]
+},
+{
+"i": 8,
+"act": "exppay",
+"id": "1",
+"txt": "Pago neste mês. Toque para desfazer",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 9,
+"act": "despAb",
+"id": "1",
+"txt": "Aluguel da loja fixa · vence dia 5 G$ 90",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+114 letras)"
+]
+},
+{
+"i": 10,
+"act": "exppay",
+"id": "2",
+"txt": "Marcar como paga neste mês",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-11 letras)"
+]
+},
+{
+"i": 11,
+"act": "despAb",
+"id": "2",
+"txt": "Luz venceu há 3 dias · informe o valor G",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+128 letras)"
+]
+},
+{
+"i": 12,
+"act": "exppay",
+"id": "3",
+"txt": "Pago neste mês. Toque para desfazer",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 13,
+"act": "despAb",
+"id": "3",
+"txt": "Internet fixa · vence dia 10 G$ 120.000 ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+66 letras)"
+]
+},
+{
+"i": 14,
+"act": "exppay",
+"id": "6",
+"txt": "Marcar como paga neste mês",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-11 letras)"
+]
+},
+{
+"i": 15,
+"act": "despAb",
+"id": "6",
+"txt": "Contas de casa venceu há 6 dias · inform",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+132 letras)"
+]
+},
+{
+"i": 16,
+"act": "exppay",
+"id": "5",
+"txt": "Pago neste mês. Toque para desfazer",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 17,
+"act": "despAb",
+"id": "5",
+"txt": "Salário (retirada) fixa · vence dia 5 G$",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+65 letras)"
+]
+},
+{
+"i": 18,
+"act": "exppay",
+"id": "4",
+"txt": "Marcar como paga neste mês",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+4 letras)"
+]
+},
+{
+"i": 19,
+"act": "despAb",
+"id": "4",
+"txt": "Contador vence em 2 dias G$ 300.000 ⌄",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+116 letras)"
+]
+},
+{
+"i": 20,
+"act": "exppay",
+"id": "7",
+"txt": "Pago neste mês. Toque para desfazer",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 21,
+"act": "despAb",
+"id": "7",
+"txt": "Provisão de imprevistos fixa · vence dia",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+65 letras)"
+]
+},
+{
+"i": 22,
+"act": "dfold",
+"id": "imp",
+"txt": "Imprevistos do mês Gasto G$ 60.000 de G$",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+299 letras)"
+]
+},
+{
+"i": 23,
+"act": "dfold",
+"id": "pagas",
+"txt": "Contas pagas neste mês 4 conta(s) paga(s",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+305 letras)"
+]
+}
+],
+"dash-ver-todas-vendas": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "dVer",
+"id": "",
+"txt": "Dashboard ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "dPer",
+"id": "",
+"txt": "Hoje ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"PERÍODO\""
+]
+},
+{
+"i": 8,
+"act": "view",
+"id": "desp",
+"txt": "Contas do dia G$ 140.000 1/30 de G$ 4.20",
+"tag": "DIV",
+"efeito": [
+"leva → desp"
+]
+},
+{
+"i": 9,
+"act": "hopen",
+"id": "V-1923",
+"txt": "2× SL2201 C1 · Preto V-1923 · 18/11 às 0",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+101 letras)"
+]
+},
+{
+"i": 10,
+"act": "hopen",
+"id": "V-1920",
+"txt": "1× SL2210 C1 · Preto V-1920 · 18/11 às 0",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-49 letras)"
+]
+},
+{
+"i": 11,
+"act": "hopen",
+"id": "V-1922",
+"txt": "1× BR44133 C2 · Vinho V-1922 · 18/11 às ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-51 letras)"
+]
+},
+{
+"i": 12,
+"act": "hopen",
+"id": "V-1919",
+"txt": "1× SP57765 +1.00 · Preto V-1919 · 18/11 ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-48 letras)"
+]
+},
+{
+"i": 13,
+"act": "hopen",
+"id": "V-1921",
+"txt": "1× YS8801 C1 · Preto V-1921 · 18/11 às 0",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-49 letras)"
+]
+},
+{
+"i": 14,
+"act": "view",
+"id": "hist",
+"txt": "Dias anteriores no Histórico ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → hist"
+]
+}
+],
+"dash-mes-vendido": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "grpVer",
+"id": "",
+"txt": "Histórico ⌄",
+"tag": "H1",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "hcal",
+"id": "",
+"txt": "Ir para uma data",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 8,
+"act": "hfopen",
+"id": "",
+"txt": "Filtros",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+270 letras)"
+]
+},
+{
+"i": 9,
+"act": "opendia",
+"id": "2026-11-18",
+"txt": "18/11 · hojequa G$ 296.000 › 5 vendas · ",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 10,
+"act": "opendia",
+"id": "2026-11-17",
+"txt": "17/11ter G$ 271.000 › 6 vendas · lucro l",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 11,
+"act": "opendia",
+"id": "2026-11-16",
+"txt": "16/11seg G$ 326.500 › 8 vendas · 1 outro",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 12,
+"act": "opendia",
+"id": "2026-11-15",
+"txt": "15/11dom G$ 0 › 0 vendas · 1 despesa · l",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 13,
+"act": "opendia",
+"id": "2026-11-14",
+"txt": "14/11sáb G$ 132.000 › 4 vendas · lucro l",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 14,
+"act": "opendia",
+"id": "2026-11-13",
+"txt": "13/11sex G$ 244.000 › 5 vendas · 1 outro",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 15,
+"act": "opendia",
+"id": "2026-11-12",
+"txt": "12/11qui G$ 239.500 › 5 vendas · gastos ",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 16,
+"act": "opendia",
+"id": "2026-11-11",
+"txt": "11/11qua G$ 619.000 › 5 vendas · lucro l",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 17,
+"act": "opendia",
+"id": "2026-11-10",
+"txt": "10/11ter G$ 341.500 › 5 vendas · gastos ",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 18,
+"act": "opendia",
+"id": "2026-11-09",
+"txt": "09/11seg G$ 235.500 › 6 vendas · lucro l",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+]
+},
+{
+"i": 19,
+"act": "hSem",
+"id": "2026-11-02|2026-11",
+"txt": "Semana 02/11 a 08/11 G$ 1.760.000 · 33 v",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+408 letras)"
+]
+},
+{
+"i": 20,
+"act": "hSem",
+"id": "2026-10-26|2026-11",
+"txt": "Semana 01/11 G$ 78.500 · 2 vendas · 1 di",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+66 letras)"
+]
+},
+{
+"i": 21,
+"act": "hSem",
+"id": "2026-10-26|2026-10",
+"txt": "Semana 26/10 a 31/10 G$ 1.321.500 · 29 v",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+352 letras)"
+]
+},
+{
+"i": 22,
+"act": "hSem",
+"id": "2026-10-19|2026-10",
+"txt": "Semana 19/10 a 25/10 G$ 1.506.500 · 32 v",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+435 letras)"
+]
+},
+{
+"i": 23,
+"act": "hmais",
+"id": "",
+"txt": "Carregar mais 30 dias ›",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+403 letras)"
+]
+}
+],
+"reservas-para-onde": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "dVer",
+"id": "",
+"txt": "Reservas ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "totm",
+"id": "pyg",
+"txt": "G$",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 8,
+"act": "totm",
+"id": "brl",
+"txt": "R$",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-24 letras)"
+]
+},
+{
+"i": 9,
+"act": "totm",
+"id": "usd",
+"txt": "US$",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-26 letras)"
+]
+},
+{
+"i": 10,
+"act": "dfold",
+"id": "paraonde",
+"txt": "Ver para onde vai o que já tem dono: rep",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-129 letras)"
+]
+},
+{
+"i": 11,
+"act": "view",
+"id": "caixa",
+"txt": "Objetivos da loja › guardado no Caixa",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 12,
+"act": "dfold",
+"id": "flx",
+"txt": "Próximos 30 dias Saldo G$ 5.576.187 · co",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+1132 letras)"
+]
+}
+],
+"reservas-30dias": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "13",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+]
+},
+{
+"i": 1,
+"act": "",
+"id": "inicio",
+"txt": "Início",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+]
+},
+{
+"i": 2,
+"act": "",
+"id": "vendas",
+"txt": "Vender",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+]
+},
+{
+"i": 3,
+"act": "",
+"id": "g:pecas",
+"txt": "Peças",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+]
+},
+{
+"i": 4,
+"act": "",
+"id": "g:din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+]
+},
+{
+"i": 5,
+"act": "",
+"id": "ajustes",
+"txt": "Ajustes",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+]
+},
+{
+"i": 6,
+"act": "dVer",
+"id": "",
+"txt": "Reservas ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"VER\""
+]
+},
+{
+"i": 7,
+"act": "totm",
+"id": "pyg",
+"txt": "G$",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 8,
+"act": "totm",
+"id": "brl",
+"txt": "R$",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-16 letras)"
+]
+},
+{
+"i": 9,
+"act": "totm",
+"id": "usd",
+"txt": "US$",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-18 letras)"
+]
+},
+{
+"i": 10,
+"act": "dfold",
+"id": "paraonde",
+"txt": "Ver para onde vai o que já tem dono: rep",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+129 letras)"
+]
+},
+{
+"i": 11,
+"act": "dfold",
+"id": "flx",
+"txt": "Próximos 30 dias Saldo G$ 5.576.187 · co",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (-1132 letras)"
+]
+},
+{
+"i": 12,
+"act": "fluxod",
+"id": "30",
+"txt": "30 dias",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+]
+},
+{
+"i": 13,
+"act": "fluxod",
+"id": "60",
+"txt": "60 dias",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+5 letras)"
+]
+},
+{
+"i": 14,
+"act": "fluxod",
+"id": "90",
+"txt": "90 dias",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela (+7 letras)"
+]
+},
+{
+"i": 15,
+"act": "view",
+"id": "desp",
+"txt": "Editar despesas",
+"tag": "A",
+"efeito": [
+"leva → desp"
+]
+}
+]
+}
