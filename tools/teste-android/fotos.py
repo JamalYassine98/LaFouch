@@ -18,7 +18,7 @@ for i in range(30):
     if ps: break
   except Exception: pass
   time.sleep(2)
-ws=websocket.create_connection(ps[0]['webSocketDebuggerUrl'],timeout=60,suppress_origin=True);N=[0]
+ws=websocket.create_connection(ps[0]['webSocketDebuggerUrl'],timeout=20,suppress_origin=True);N=[0]
 def cdp(m,**p):
   N[0]+=1;ws.send(json.dumps({'id':N[0],'method':m,'params':p}))
   while True:
@@ -36,11 +36,12 @@ def espera(js,t=25):
     time.sleep(.25)
   return False
 base=ev("()=>location.href.split('#')[0]")
+K=[0]
 log=open(os.path.join(OUT,'%s-log.txt'%TEMA),'w')
 for nome,passos in C:
   try:
-    ev("()=>{try{sessionStorage.setItem('lf_ni','1')}catch(e){};location.replace('about:blank')}");time.sleep(1)
-    cdp('Page.navigate',url=base+'#test');time.sleep(1)
+    ev("()=>{try{sessionStorage.setItem('lf_ni','1')}catch(e){};return 1}")
+    K[0]+=1;cdp('Page.navigate',url=base+'?r=%d#test'%K[0]);time.sleep(2)
     espera("()=>!!window.__LF");time.sleep(1.5)
     ok=[]
     for p in passos:
