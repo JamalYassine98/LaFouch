@@ -18,7 +18,7 @@ for i in range(30):
     if ps: break
   except Exception: pass
   time.sleep(2)
-ws=websocket.create_connection(ps[0]['webSocketDebuggerUrl'],timeout=60);N=[0]
+ws=websocket.create_connection(ps[0]['webSocketDebuggerUrl'],timeout=60,suppress_origin=True);N=[0]
 def cdp(m,**p):
   N[0]+=1;ws.send(json.dumps({'id':N[0],'method':m,'params':p}))
   while True:
