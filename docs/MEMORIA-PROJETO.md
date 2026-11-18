@@ -3074,3 +3074,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 18/11 — S418: publicado app v561 / 5.44.0 com tudo o que estava aprovado do app (110a, 110c, 111 A/B, 112c–f, 113a–e, 115, 116, 117, 123–126). Detalhes em APP-COMO-FUNCIONA (S418) e na lista viva.
 - 18/11 09:22 — ESBOÇO 132 (Guardião) APROVADO, esperando "implementar".
 - 18/11 09:29 — 133 recusado: Novo cliente e listas do Atacado ficam como hoje (padrão 77/113).
+- 18/11 09:36 — ESBOÇO 133 APROVADO (Novo cliente/ficha e listas do Atacado sem fundo), esperando "implementar".
