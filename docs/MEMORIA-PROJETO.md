@@ -3069,3 +3069,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 18/11 06:43 — ESBOÇO 123 (Histórico no padrão de luxo) APROVADO, esperando "implementar".
 - 18/11 07:00 — ESBOÇO 124 APROVADO, esperando "implementar".
 - 18/11 08:11 — ESBOÇO 125 APROVADO, esperando "implementar".
+- 18/11 08:15 — ESBOÇO 126 APROVADO com ajuste: sem o × em todas as janelas do Câmbio. Esperando "implementar".
