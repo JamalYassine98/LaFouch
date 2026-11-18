@@ -45,3 +45,4 @@
 - COTA NOS TESTES (14/11/2026, aprovado pelo dono): cota do plano é gasto. Nos testes de app e site, a medição por programa faz quase tudo; a IA só olha os suspeitos das telas MEXIDAS, dentro da sessão em que já se publica; nunca olha duas vezes a mesma tela sem mudança; cada achado vira regra/defeito plantado; usar recortes, não telas inteiras; nada de rodada agendada nem chave de IA paga. Detalhes em docs/MEMORIA-PROJETO.md ("ESTADO EM 14/11/2026 02:00").
 - ElevenLabs: nunca gravar (nem teste) sem o dono autorizar o valor em créditos.
 - Sempre dizer o que foi testado no simulador e o que NÃO foi testado no celular.
+- COMANDOS PARA O DONO (18/11/2026, pedido dele): sempre em blocos de código, UM comando por bloco (fácil de copiar no celular), na ordem, com 1 linha curta antes de cada um dizendo o que faz.
