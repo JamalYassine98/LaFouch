@@ -57,6 +57,7 @@ Obs.: 132 na base é só visual (ao implementar, ligar as ações de verdade).
 
 ## 5. Mudanças que o dono quer fazer em aprovados (18/11 19:37)
 (espaço para os pontos que ele vai mandar — anotar aqui e na lista viva)
+1. Barras deslizantes (todas as escolhas) harmoniosas com o design → esboço 139, opções A contorno fino × B linha rosa (work/s429). Esperando escolha.
 
 ## 6. Ferramentas
 - Simulador: work/s349/ap.py (abre(pw, tela, escuro, base=True)); telas e passos: tools/teste-android/telas.py.
