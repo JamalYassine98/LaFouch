@@ -589,3 +589,4 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - 18/11 10:41 — DONO: **TESTES EM APARELHOS REAIS** (celular, tablet, computador, notebook). Aguardando o dono escolher o caminho (Firebase Test Lab / computador dele / serviço pago).
 - 18/11 11:01 — DONO: "Esquece iPhone, vamos pro celular (e mais tarde pro PC)" → caminho A (Firebase Test Lab, celular Android real) agora; B (PC do dono) depois; sem iPhone. Esperando o dono criar a chave TESTLAB_CHAVE (projeto lafouch-teste).
 - 18/11 11:13 · DONO fez o deploy (Cloud Shell, pasta nova ~/lf-deploy): "Deploy complete!" (functions + firestore:rules do S409). Testes de transferência, PIX, marcar entregue e gravador ?medir=1: ele faz hoje à tarde. Lembrete pro futuro: no Cloud Shell o projeto está em ~/lf-deploy (para atualizar: cd ~/lf-deploy && git pull).
+- 18/11 11:20 — DONO: passos no navegador sempre com LINK DIRETO em bloco de código (CLAUDE.md).

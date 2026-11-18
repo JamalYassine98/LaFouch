@@ -3081,3 +3081,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 18/11/2026 S420 PUBLICADO (site 1795009087, porteiro 197/0): Mochi 104, 107–110, troca do Leu!, trilho único da Minha conta, gravador de engasgos (?medir=1, lf_grav), modo loja com a temática, provas p7_copias e p7_trilho. Detalhes em docs/SITE-COMO-FUNCIONA.md (S420) e na lista viva.
 - 18/11 10:41 — Regra TESTES EM APARELHOS REAIS (CLAUDE.md). Caminho a definir com o dono.
 - 18/11 11:01 — DONO: "Esquece iPhone, vamos pro celular (e mais tarde pro PC)" → caminho A (Firebase Test Lab, celular Android real) agora; B (PC do dono) depois; sem iPhone. Esperando o dono criar a chave TESTLAB_CHAVE (projeto lafouch-teste).
+- 18/11 11:20 — DONO: passos no navegador sempre com LINK DIRETO em bloco de código (CLAUDE.md).
