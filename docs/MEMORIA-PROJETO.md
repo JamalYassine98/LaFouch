@@ -3097,3 +3097,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 18/11 13:24 — DONO: "Aprovado" → ANIMAÇÕES A1–A6 entram nos padrões de luxo (CLAUDE.md).
 - 18/11 13:25 — DONO: "Aprovado" → padrões de luxo ganham W palavras, N números/datas, C cores com significado, T escala de letras e ícones, E estados iguais (CLAUDE.md). Próximo: montar o verificador de padrões (inventário por programa) e trazer a lista do que foge, com esboços.
 - 18/11 13:28 — DONO: não precisa regra de adaptação; "só me avise se algum design quebrou para ser analisado" → quando o verificador achar design quebrado (letra grande, tablet/PC, botão maior), AVISAR o dono com a tela para análise, sem consertar por conta própria.
+- 18/11 13:30 — DONO: "Sim, sempre dá uma olhada no que parece suspeito" → verificador: programa mede tudo; IA sempre olha os suspeitos; nesta varredura completa a IA olha 1 vez cada tela no celular claro/escuro (~140 fotos).
