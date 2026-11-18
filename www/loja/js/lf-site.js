@@ -2,28 +2,7 @@
 (function(){
   /* S181 (13/11): dentro do app (modo loja) o site mora em /loja/loja.html — o endereço nunca vira "/" (senão um recarregar abriria o app) */
   if(/[?&]loja=1/.test(location.search)&&window.parent!==window){(function(){var LJ=location.pathname;['pushState','replaceState'].forEach(function(k){var o=history[k];history[k]=function(s,t,u){try{if(u!=null){var x=new URL(u,location.href);x.pathname=LJ;if(!/[?&]loja=1/.test(x.search))x.search=(x.search?x.search+'&':'?')+'loja=1&nosync';u=x.pathname+x.search+x.hash}}catch(_){}return o.call(history,s,t,u)}})})()}
-  var P=[
-    {ref:'SL2210',gen:'f',nome:'Solar hexagonal preto',tipo:'solar',n:130000,cor:'#2a2d33',raio:26,aviso:'Chegou esta semana',tag:'NOVO',rosto:['oval', 'quadrado', 'alongado'],mat:'Acetato',med:[54, 17, 145],foto:'/loja/media/i/3c5853357cf4.jpg',cores:['#2a2d33']},
-    {ref:'AC1050',gen:'u',nome:'Armação acetato roxa',tipo:'armacao',n:118000,cor:'#4a2a55',raio:14,aviso:'Chegou esta semana',tag:'ACETATO',rosto:['redondo', 'oval', 'diamante'],mat:'Acetato',med:[50, 21, 145],foto:'/loja/media/i/80f4857cb1cf.jpg',cores:['#4a2a55']},
-    {ref:'AC1055',gen:'f',nome:'Armação redonda rosa',tipo:'armacao',n:105000,cor:'#e3a1ab',raio:40,aviso:'',tag:'ACETATO',rosto:['quadrado', 'alongado', 'diamante'],mat:'Acetato',med:[47, 22, 140],foto:'/loja/media/i/1e59e39c9c89.jpg',cores:['#e3a1ab']},
-    {ref:'GR3340',gen:'u',nome:'Óculos de leitura quadrado preto',tipo:'grau',n:98000,cor:'#1d1d1f',raio:8,aviso:'',tag:'GRAU',rosto:['redondo', 'oval', 'coracao'],mat:'Acetato',med:[50, 22, 145],foto:'/loja/media/i/b0ce33cc336d.jpg',cores:['#1d1d1f']},
-    {ref:'SL2250',gen:'m',nome:'Solar quadrado dourado',tipo:'solar',n:148000,cor:'#b08a4a',raio:10,aviso:'',tag:'METAL',rosto:['oval', 'coracao', 'alongado'],mat:'Metal',med:[54, 18, 145],foto:'/loja/media/i/8c1802baa300.jpg',cores:['#b08a4a']},
-    {ref:'SL2255',gen:'m',nome:'Solar esportivo polarizado',tipo:'solar',n:135000,cor:'#2a2d33',raio:6,aviso:'Últimas 2 unidades',tag:'SOLAR',rosto:['oval', 'quadrado', 'alongado'],mat:'Policarbonato',med:[58, 17, 140],foto:'/loja/media/i/9afe335de059.jpg',cores:['#2a2d33']},
-    {ref:'SL2260',gen:'u',nome:'Solar redondo preto',tipo:'solar',n:128000,cor:'#1d1d1f',raio:40,aviso:'',tag:'SOLAR',rosto:['quadrado', 'alongado', 'diamante'],mat:'Acetato',med:[49, 22, 145],foto:'/loja/media/i/440eab1a058d.jpg',cores:['#1d1d1f']},
-    {ref:'SL2265',gen:'f',nome:'Solar gatinho branco',tipo:'solar',n:132000,cor:'#d9d9d9',raio:24,aviso:'Chegou esta semana',tag:'NOVO',rosto:['oval', 'quadrado', 'diamante'],mat:'Acetato',med:[53, 20, 145],foto:'/loja/media/i/3716fea484c8.jpg',cores:['#d9d9d9']},
-    {ref:'SL2270',gen:'f',nome:'Solar hexagonal verde',tipo:'solar',n:142000,cor:'#b08a4a',raio:20,aviso:'',tag:'METAL',rosto:['redondo', 'oval', 'coracao'],mat:'Metal',med:[50, 20, 145],foto:'/loja/media/i/2c4d351d1f1c.jpg',cores:['#b08a4a']},
-    {ref:'SL2275',gen:'m',nome:'Solar quadrado tartaruga',tipo:'solar',n:150000,cor:'#6b4a2b',raio:12,aviso:'',tag:'SOLAR',rosto:['oval', 'alongado', 'coracao'],mat:'Acetato',med:[55, 19, 145],foto:'/loja/media/i/484683019e1e.jpg',cores:['#6b4a2b']},
-    {ref:'BR44140',gen:'f',nome:'Armação metal gatinho preta',tipo:'armacao',n:112000,cor:'#1d1d1f',raio:22,aviso:'Última unidade',tag:'METAL',rosto:['quadrado', 'redondo', 'diamante'],mat:'Metal',med:[54, 17, 140],foto:'/loja/media/i/5fb4b4ba4c26.jpg',cores:['#1d1d1f']},
-    {ref:'GR3350',gen:'u',nome:'Óculos de leitura transparente',tipo:'grau',n:115000,cor:'#cfd6dc',raio:8,aviso:'',tag:'GRAU',rosto:['redondo', 'oval', 'coracao'],mat:'Acetato',med:[50, 21, 145],foto:'/loja/media/i/b95b382e346d.jpg',cores:['#cfd6dc']},
-    {ref:'SL2280',gen:'m',nome:'Solar espelhado azul',tipo:'solar',n:138000,cor:'#2f6fd0',raio:6,aviso:'',tag:'SOLAR',rosto:['oval', 'quadrado', 'alongado'],mat:'Acetato',med:[57, 17, 145],foto:'/loja/media/i/f2c6969ac2c7.jpg',cores:['#2f6fd0']},
-    {ref:'SL2285',gen:'u',nome:'Solar redondo fino preto',tipo:'solar',n:126000,cor:'#1d1d1f',raio:40,aviso:'',tag:'SOLAR',rosto:['quadrado', 'alongado', 'diamante'],mat:'Metal e acetato',med:[47, 22, 140],foto:'/loja/media/i/dd88e5a9c300.jpg',cores:['#1d1d1f']},
-    {ref:'SL2290',gen:'u',nome:'Solar clássico tartaruga',tipo:'solar',n:130000,cor:'#6b4a2b',raio:14,aviso:'',tag:'SOLAR',rosto:['redondo', 'oval', 'coracao'],mat:'Acetato',med:[52, 20, 145],foto:'/loja/media/i/03b6e7db33ea.jpg',cores:['#6b4a2b']},
-    {ref:'SL2295',gen:'f',nome:'Solar aviador rosa',tipo:'solar',n:145000,cor:'#b0b5bb',raio:30,aviso:'Esgotado',tag:'SOLAR',rosto:['coracao', 'quadrado', 'oval'],mat:'Metal',med:[58, 14, 140],foto:'/loja/media/i/065360cddf6d.jpg',cores:['#b0b5bb']},
-    {ref:'BR44145',gen:'u',nome:'Armação metal redonda dourada',tipo:'armacao',n:119000,cor:'#b08a4a',raio:40,aviso:'Última unidade',tag:'METAL',rosto:['quadrado', 'diamante', 'alongado'],mat:'Metal',med:[46, 22, 140],foto:'/loja/media/i/3af2a18ebd86.jpg',cores:['#b08a4a']},
-    {ref:'GR3345',gen:'m',nome:'Óculos de leitura retangular tartaruga',tipo:'grau',n:96000,cor:'#7a3b2e',raio:6,aviso:'',tag:'GRAU',rosto:['redondo', 'oval', 'coracao'],mat:'Acetato',med:[52, 18, 145],foto:'/loja/media/i/64906105e7b5.jpg',cores:['#7a3b2e']},
-    {ref:'SL2300',gen:'f',nome:'Solar gatinho tartaruga',tipo:'solar',n:136000,cor:'#6b4a2b',raio:22,aviso:'',tag:'SOLAR',rosto:['quadrado', 'diamante', 'oval'],mat:'Acetato',med:[53, 19, 145],foto:'/loja/media/i/29039e804a4a.jpg',cores:['#6b4a2b']},
-    {ref:'SL2305',gen:'m',nome:'Solar aviador preto e dourado',tipo:'solar',n:168000,cor:'#2a2d33',raio:30,aviso:'Últimas 2 unidades',tag:'LUXO',rosto:['oval', 'quadrado', 'alongado'],mat:'Metal e acetato',med:[51, 21, 145],foto:'/loja/media/i/ed4a2a191ad1.jpg',cores:['#2a2d33']}
-  ];
+  var P=[];/* S422 (limpeza aprovada 18/11): a lista de 20 peças de exemplo saiu do site (nomes inventados e preços antigos). As peças vêm só da nuvem ou da última cópia guardada no aparelho (lf_pdocs); os testes injetam a lista de work/kit/pecas-teste.js na cópia de teste. */
   var ICON={ova:'<ellipse cx="30" cy="25" rx="23" ry="16"/><ellipse cx="90" cy="25" rx="23" ry="16"/><path d="M53 22Q60 17 67 22M7 20L2 17M113 20L118 17"/>',avi:'<path stroke-width="2.4" d="M52 11Q50 8 40 8Q18 7 10 15Q5 22 10 32Q16 43 33 43Q50 42 54 24Q55 14 52 11Z"/><path stroke-width="2.4" d="M68 11Q70 8 80 8Q102 7 110 15Q115 22 110 32Q104 43 87 43Q70 42 66 24Q65 14 68 11Z"/><path stroke-width="2.4" d="M52 10H68M55 20Q60 17 65 20"/>',ang:'<rect x="8" y="10" width="42" height="30" rx="3"/><rect x="70" y="10" width="42" height="30" rx="3"/><path d="M50 19Q60 14 70 19M8 15L1 11M112 15L119 11"/>',red:'<circle cx="30" cy="25" r="18"/><circle cx="90" cy="25" r="18"/><path d="M48 22Q60 16 72 22M12 20L3 15M108 20L117 15"/>',way:'<path d="M6 12H52V30Q52 40 40 40H18Q6 40 6 28Z"/><path d="M68 12H114V28Q114 40 102 40H80Q68 40 68 30Z"/><path d="M52 18Q60 14 68 18M6 16L0 12M114 16L120 12"/>',fin:'<ellipse cx="30" cy="25" rx="22" ry="16" stroke-width="1.6"/><ellipse cx="90" cy="25" rx="22" ry="16" stroke-width="1.6"/><path d="M52 23Q60 19 68 23" stroke-width="1.6"/>',alo:'<rect x="4" y="8" width="48" height="34" rx="9"/><rect x="68" y="8" width="48" height="34" rx="9"/><path d="M52 18Q60 13 68 18M4 14L0 11M116 14L120 11"/>',gat:'<path d="M6 16Q6 10 16 10H46Q54 10 52 24Q50 40 32 40Q6 40 6 16Z"/><path d="M68 24Q66 10 74 10H104Q114 10 114 16Q114 40 88 40Q70 40 68 24Z"/><path d="M52 16Q60 12 68 16M6 12L0 6M114 12L120 6"/>'};
   var FACES=[{"id": "oval", "nome": "Oval", "dica": "Armações de quase qualquer formato trazem equilíbrio e liberdade de escolha.", "ic": "way", "m": "/loja/media/i/428f6af5a765.png", "f": "/loja/media/i/bcdc589a95be.png", "wm": 0.64, "wf": 0.8375, "gm": [49.49, 53.8, 74.79], "gf": [49.3, 52.48, 55.0]}, {"id": "redondo", "nome": "Redondo", "dica": "Armações retangulares ou angulares trazem estrutura e alongam o rosto.", "ic": "ang", "m": "/loja/media/i/9ab7b593fca6.png", "f": "/loja/media/i/27767c040646.png", "wm": 0.6725, "wf": 0.85, "gm": [49.92, 54.07, 74.88], "gf": [49.93, 50.4, 57.98]}, {"id": "quadrado", "nome": "Quadrado", "dica": "Armações arredondadas ou ovais trazem suavidade e equilíbrio à mandíbula.", "ic": "ova", "m": "/loja/media/i/b57df54a8c85.png", "f": "/loja/media/i/283ae4caf0a7.png", "wm": 0.6325, "wf": 0.805, "gm": [49.65, 53.12, 75.65], "gf": [50.0, 52.54, 57.33]}, {"id": "alongado", "nome": "Alongado", "dica": "Armações grandes e largas trazem proporção e encurtam o rosto.", "ic": "alo", "m": "/loja/media/i/3ce001776234.png", "f": "/loja/media/i/1cd5b45bfb7a.png", "wm": 0.6125, "wf": 0.6275, "gm": [49.48, 52.94, 75.22], "gf": [47.49, 49.61, 71.8]}, {"id": "coracao", "nome": "Coração", "dica": "Armações aviador ou leves trazem equilíbrio e suavidade ao queixo.", "ic": "avi", "m": "/loja/media/i/93e9e7f328ca.png", "f": "/loja/media/i/f1e6a9689a21.png", "wm": 0.72, "wf": 0.71, "gm": [52.37, 54.68, 70.75], "gf": [49.6, 51.04, 64.29]}, {"id": "diamante", "nome": "Diamante", "dica": "Armações gatinho ou ovais trazem destaque e realce às maçãs do rosto.", "ic": "gat", "m": "/loja/media/i/21bdac22d73f.png", "f": "/loja/media/i/26554b09a3e5.png", "wm": 0.68, "wf": 0.6175, "gm": [47.93, 54.14, 67.52], "gf": [47.16, 56.31, 68.85]}];
   var TIPOS=[['todos','Todos'],['armacao','Armações'],['grau','Óculos de leitura'],['solar','Solares']];
@@ -42,9 +21,8 @@
   function find(ref){return P.filter(function(p){return p.ref===ref})[0]}
   function bruto(){return Object.keys(st.cart).reduce(function(a,k){return a+st.cart[k]*find(k).n},0)}
   function brutoD(){return Object.keys(st.cart).reduce(function(a,k){return a+st.cart[k]*LFI.pv(find(k).n)},0)}
-  /* Leve 2 (aprovado 11/11/2026): 30% na 2ª peça de cada par (a mais barata); só leitura e solar que o app liberou (l2: o piso não é furado) */
-  function l2Info(){var u=[];Object.keys(st.cart).forEach(function(k){var p=find(k);if(p&&p.l2===true&&p.aviso!=='Esgotado'&&(p.tipo==='grau'||p.tipo==='solar'))for(var i=0;i<st.cart[k];i++)u.push({k:k,n:p.n})});
-    u.sort(function(a,b){return b.n-a.n});var r={n:u.length,d:0,dD:0,por:{}};for(var i=1;i<u.length;i+=2){var x=u[i],v=Math.ceil(x.n*0.7/1000)*1000,dd=Math.max(0,x.n-v);r.d+=dd;r.dD+=Math.max(0,LFI.pv(x.n)-LFI.pv(v));r.por[x.k]=(r.por[x.k]||0)+dd}return r}
+  /* Leve 2: retirado em 17/11/2026 (ordem do dono) — nenhum desconto da 2ª peça; a função fica só porque as contas do carrinho a consultam */
+  function l2Info(){return {n:0,d:0,dD:0,por:{}}}
   /* Cupons (S174, aprovado 11/11/2026): 1 código por compra; não vale em peça em OFERTA ("ya tiene su mejor precio");
      em cada peça vale no máximo o % que o app liberou (cmx: nunca abaixo do piso); com "Leve 2" vale o maior desconto. */
   st.cup=lsG('lf_cup',null);
@@ -132,9 +110,7 @@
   document.addEventListener('keydown',function(e){var ov=document.getElementById('cpov');if(!ov)return;if(e.key==='Escape')ov.remove()});
   document.addEventListener('keydown',function(e){var a=document.activeElement;if((e.key==='Enter'||e.key===' ')&&a&&a.getAttribute&&a.getAttribute('role')==='button'&&a.hasAttribute('data-cupperg')&&!document.getElementById('cpov')){e.preventDefault();cupPergunta(a.getAttribute('data-cupperg'))}});
   /* boas-vindas depois de se inscrever nas novidades */
-  function bvMostra(c){var o=document.createElement('div');o.id='bvov';o.className='bvov';o.setAttribute('role','dialog');o.setAttribute('aria-modal','true');
-    o.innerHTML='<div class="bvb"><button type="button" class="x" data-bvx aria-label="'+LFI.tr('Fechar')+'">×</button><small>LA FOUCH</small><h3>'+LFI.tr('Bem-vinda à La Fouch!')+'</h3><p>'+LFI.tr('Obrigado por se inscrever nas novidades. Seu presente:')+'</p>'+pxHtml(c)+'<p class="cupn">'+LFI.tr('Vale 30 dias · em lafouch.com e na loja de CDE · também mandamos por e-mail')+'</p><button type="button" class="btn w" data-cupusar="'+esc(c.cod)+'">'+LFI.tr('Usar agora')+'</button><button type="button" class="cfx" data-cupcopy="'+esc(c.cod)+'">'+LFI.tr('Copiar código')+'</button></div>';
-    document.body.appendChild(o)}
+  
   document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('[data-cupok],[data-cupx],[data-cupusar],[data-cupcopy],[data-bvx]');if(!t)return;
     if(t.hasAttribute('data-cupok')){var i=document.getElementById('cupin');t.disabled=true;st._cupOpen=true;cupAplica(i&&i.value,function(j){t.disabled=false;st._cupErr=j&&j.ok?'':j?cupMsg(j.motivo,j.cupom):LFI.tr('Não deu para conferir o código agora. Tente de novo.');bag(true);var i2=document.getElementById('cupin');if(i2&&!(j&&j.ok)){i2.value=i&&i.value||'';i2.focus()}})}
     else if(t.hasAttribute('data-cupx')){cupTira();bag(true)}
@@ -487,7 +463,7 @@
     if(p.uv===undefined)p.uv=p.tipo==='solar'});
   if(LFI.lang==='es'){P.forEach(function(p){p.nome=LFI.tn(p.nome)});FACES.forEach(function(f){f.nome=LFI.tn(f.nome);f.dica=LFI.tn(f.dica)})}
   function faceMini(id){var f=FD[id];if(!f)return '';return '<svg viewBox="8 4 64 84" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round" aria-hidden="true"><path d="'+f.d+'"/></svg>'}
-  function faceName(id){var f=FACES.filter(function(x){return x.id===id})[0];return f?f.nome:id}
+  
   var UVI='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg>',MATI='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg>',LENI='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="12" r="4.5"/><circle cx="16" cy="12" r="4.5"/></svg>';
   /* S195: selos com ícone — gênero (♂ ♀ ⚥ em linha) e Polarizado (E4: sol afastado, 1 raio bate na lente e volta) */
   var GENI={m:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="14" r="5.5"/><path d="M14 10l6-6M15 4h5v5"/></svg>', f:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="5.5"/><path d="M12 14.5V22M8.5 18.5h7"/></svg>', u:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="12" r="4.8"/><path d="M14.4 8.6L19.5 3.5M16 3.5h3.5V7M11 16.8V22M8.5 19.5h5"/></svg>'},POLI='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="4.6" cy="6" r="1.9"/><path d="M4.6 2.4v.6M4.6 9v.6M1 6h.6M7.6 6h.6M2.1 3.5l.4.4M6.7 8.1l.4.4M2.1 8.5l.4-.4M6.7 3.9l.4-.4"/><path d="M9.4 8.6l5.4 3.4"/><path d="M14.8 12l-4.6 3.6"/><path d="M10.3 13.1l-.1 2.5 2.5.1"/><path d="M17.4 5.6c2.4 1.3 3.8 3.7 3.8 6.4s-1.4 5.1-3.8 6.4c-1.2-1.6-1.8-3.8-1.8-6.4s.6-4.8 1.8-6.4z"/></svg>';
@@ -780,7 +756,7 @@
   /* v453: botão de favoritos também na página da peça (o coração voa para ele, igual ao catálogo) */
   /* 08/11 (aprovado): comparar e compartilhar no topo, ao lado do coração de cima (mesmo botão redondo) */
   function pgActs(p){return '<button type="button" class="ib fbtn pgact'+(st.cmp.indexOf(p.ref)>=0?' on':'')+'" data-cmp="'+p.ref+'" aria-label="'+LFI.tr('Comparar')+'">'+CMPI+'</button><button type="button" class="ib fbtn pgact" data-share="'+p.ref+'" aria-label="'+LFI.tr('Compartilhar')+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 10.7l6.8-4M8.6 13.3l6.8 4"/></svg></button>'}
-  function pgFavBtn(){var n=Object.keys(st.fav).length;return '<button type="button" class="ib fbtn pgfav" id="ftogp" data-pgfav'+(n?'':' hidden')+' aria-label="'+LFI.tr('Meus favoritos')+'"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="'+FAV_HP+'"/></svg><b class="fcn">'+(n||'')+'</b></button>'}
+  
   function pgBarCart(){return '';var _x='<div class="pgbar"><button type="button" class="pgback" data-pgback="cart"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span>Voltar ao catálogo</span></button><span class="pgcr">Seu carrinho</span></div>'}
   function pgBarAcc(t){return '';var _x='<div class="pgbar"><button type="button" class="pgback" data-pgback="cart"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span>Voltar ao catálogo</span></button><span class="pgcr">'+t+'</span></div>'}
   function pgCart(re,pop,kind,ttl){
@@ -1133,14 +1109,7 @@
     buyH+
     '</div>'+relHtml(p)+'</div>','pg');pgInit(p,pop);try{ggMonta(p)}catch(_){}}
   /* celular: a reserva abre igual ao menu (painel desliza, fundo escurece, itens entram em sequência), vindo da direita */
-  function bagFx(){
-    if(!matchMedia('(max-width:699px)').matches||matchMedia('(prefers-reduced-motion: reduce)').matches||!Element.prototype.animate)return;
-    var pn=document.querySelector('#layer .panel');if(!pn)return;
-    var E='cubic-bezier(.2,.8,.2,1)',D=function(el,k,o){return el.animate(k,Object.assign({fill:'backwards'},o))};
-    pn.style.animation='none';
-    D(pn,[{transform:'translateX(102%)'},{transform:'none'}],{duration:280,easing:E});
-    var sc=pn.parentNode;if(sc)D(sc,[{backgroundColor:'rgba(0,0,0,0)'},{backgroundColor:getComputedStyle(sc).backgroundColor}],{duration:250});
-    Array.prototype.forEach.call(pn.children,function(c,k){if(k>0)D(c,[{translate:'18px 0',opacity:0},{translate:'0 0',opacity:1}],{duration:380,delay:80+k*45,easing:E})})}
+  
   function bag(re,pop){
     var ks=Object.keys(st.cart),lg=logado(),nq=ks.reduce(function(a,k){return a+st.cart[k]},0);
     if(re){var sc=document.querySelector('#layer .scrim'),top=sc?sc.scrollTop:0}
@@ -1354,7 +1323,7 @@
     if(pais==='ar'){if(d.indexOf('54')===0&&d.length>10)d=d.slice(2);d=d.replace(/^0+/,'');
       if(/^9[1-3]\d{9}$/.test(d))return '+54'+d;if(/^[1-3]\d{9}$/.test(d))return '+549'+d;return ''}
     return ''}
-  function foneErro(msg){var e=$('fze'),z=$('fz');if(e){e.textContent=msg||'';e.hidden=!msg}if(z)z.classList.toggle('bad',!!msg);if(msg){try{z.focus()}catch(_){}toast(msg)}}
+  
   function message(modo,ref){
     var t=mensagem(modo,ref);
     layer('<div class="modal msg" role="dialog" aria-modal="true" aria-label="Mensagem para a loja"><div class="det"><button class="x" data-close aria-label="Fechar">×</button><h2 style="font-size:28px">Assim chega no WhatsApp da loja</h2>'+(modo==='avise'&&find(ref)&&find(ref).foto?'<img src="'+find(ref).foto+'" alt="'+esc(find(ref).nome)+'" style="display:block;width:100%;max-height:200px;object-fit:contain;background:#fff;border-radius:14px;margin:0 0 10px">':'')+'<div class="bubble">'+esc(t)+'</div><div class="note">'+(modo==='lojista'?'Você vê logo que é um lojista e responde com as condições de atacado.':modo==='avise'?'Você anota o contato e chama o cliente quando repuser.':'A loja responde confirmando as peças separadas e o horário para o cliente provar.')+' Este é um protótipo: nada é enviado daqui.</div><a class="btn w" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(t)+'">Abrir o WhatsApp</a></div></div>','center');
@@ -1613,17 +1582,7 @@
      Pelo ícone do topo, se a tela pedida já é a que está aberta, ela fica como está. Pelo menu, o item passa pelo "menu = recomeçar" (ver S48 A, mais abaixo). */
   function contaJaAberta(t){return !!(t&&t.id==='contabtn')&&contaNaTela()}
   function contaNaTela(){try{var p=$('layer').querySelector('.scrim[data-accn]'),lb=p&&p.getAttribute('data-accn');if(!lb)return false;return !sessG()?lb==='Iniciar sessão':(getConta()?lb==='Minha conta':false)}catch(_){return false}}
-  function minhaConta(){
-    var c=getConta();if(!sessG()){entrarTela(false);return}if(!c){contaForm(false);return}
-    var L=lsG('lf_ped',[]).slice().reverse(),ln=function(k,v){return v?'<div class="pfl"><small>'+k+'</small><span>'+esc(v)+'</span></div>':''};
-    layer('<aside class="panel" role="dialog" aria-modal="true" aria-label="Minha conta"><div style="display:flex;align-items:center;justify-content:space-between"><h2 style="font-size:28px">Minha conta</h2><button class="x" data-close aria-label="Fechar" style="align-self:auto">×</button></div>'+
-      '<div class="cfc"><div class="pfh"><span class="pfa">'+esc(c.nome.charAt(0).toUpperCase())+'</span><span><b>'+esc(c.nome)+'</b>'+(c.user?'<small>@'+esc(c.user)+'</small>':'')+'</span></div>'+
-      ln('E-mail',c.email)+ln(nacInfo(c.nac).d,c.doc)+ln('Nascimento',c.nasc)+ln('WhatsApp',c.tel)+ln('Cidade',c.cidade)+ln('Endereço',c.end)+
-      '<button type="button" class="cfx" data-cta="conta" style="margin-top:8px">Editar dados</button></div>'+
-      '<div class="cfc gcd" id="gcard"><div class="gl">'+G_BADGE+'<span><b>Conta do Google</b><small>Verificando…</small></span></div></div>'+
-      '<div class="note"><b style="color:var(--tx)">Minhas reservas</b></div>'+
-      (L.length?L.map(function(e){return '<button type="button" class="cfp" data-cta="ped" data-id="'+esc(e.id)+'"><span><b>Pedido '+esc(e.cod)+(e.teste?' · teste':'')+'</b><small>'+new Date(e.ts).toLocaleDateString('pt-BR')+' · '+(e.ent==='delivery'?'Delivery':'Retirada na loja')+(e.est==='pago'?' · Código '+esc(e.tok||('LF-'+e.cod)):'')+'</small></span><em class="'+(e.est==='pago'?'ok':'')+'">'+estLabel(e)+'</em></button>'}).join(''):'<div class="note">Você ainda não fez nenhuma reserva.</div>')+
-      '<div class="sesv"><button type="button" class="bsair" data-cta="sair"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>'+LFI.tr('Sair da conta')+'</button><div class="zc"><p>'+LFI.tr('Quer apagar sua conta? Seus dados e endereços são apagados. Não dá para desfazer.')+'</p><button type="button" class="bexc" data-cta="exc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg>'+LFI.tr('Excluir minha conta')+'</button></div></div></aside>');gCard()}
+  var minhaConta;/* S422: a tela da conta é desenhada por mcTela() e aberta pela minhaConta() única (bloco S420/S422 do trilho) */
   /* endereço de entrega fora do Paraguai: avisa e não deixa seguir com delivery (sem internet/não achado: deixa seguir) */
   var ENDC={};
   function endConf(txt){var k=cdN(txt);if(ENDC[k])return Promise.resolve(ENDC[k]);
@@ -1656,21 +1615,7 @@
   document.addEventListener('input',function(e){if(e.target&&/^g[nzed]$/.test(e.target.id))gdSave()});
   function gTel(pais){var t=telItems();if(!t.some(function(x){return x.v===pais}))t.push({v:pais,s:'+'+(FN&&FN[pais]?FN[pais].c:''),l:paisNome(pais),q:paisNome(pais)});
     if(!FN)fnLoad().then(function(){if($('gpp')){cddTel('gpp');var z=$('gz');if(z){z.placeholder=fnEx($('gpp').value);if(z.value)fnVivo(z,'gpp','gzh')}}},function(){});return t}
-  function bagDados(){
-    var lg=logado(),c=lg?getConta():gConta(false),d=gdGet();
-    var py=lg?entPY(c):true,ent=py&&st.ent==='delivery'?'delivery':'loja',top;
-    if(lg)top='<div class="cfc"><div style="display:flex;justify-content:space-between;gap:8px"><b>'+esc(c.nome)+'</b><button type="button" class="cfx" data-cta="conta">Editar</button></div><div>'+esc(c.tel)+'</div><div style="color:var(--mu);font-size:13px">'+esc(c.email||'')+'</div><div class="note" style="margin:6px 0 0;color:#14803f;font-weight:600">✓ <span>Dados preenchidos da sua conta</span></div></div>';
-    else{var pais=c.pais,opt=function(v,f,n){return '<option value="'+v+'"'+(pais===v?' selected':'')+'>'+f+' '+n+'</option>'};
-      top='<div class="cfc"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b style="font-size:17px">Seus dados</b><button type="button" class="cfx" data-cta="entrar" data-volta="1">Já tenho conta · Entrar</button></div>'+
-      '<label class="cfl" for="gn">Nome completo</label><input class="field" id="gn" autocomplete="name" value="'+esc(d.nome||'')+'">'+
-      '<label class="cfl" for="gz">WhatsApp</label><div class="fzr">'+cdd('gpp','País do WhatsApp',pais,gTel(pais),'Buscar país ou código')+'<input class="field" id="gz" inputmode="tel" autocomplete="tel-national" placeholder="'+esc(fnEx(pais))+'" value="'+esc(d.tz||'')+'"></div><div class="cfh" id="gzh" hidden></div>'+
-      '<label class="cfl" for="ge">E-mail</label><input class="field" id="ge" type="email" inputmode="email" autocomplete="email" value="'+esc(d.email||'')+'">'+(EMAIL_ENVIA?'<div class="note" style="margin:6px 0 0">Enviamos para este e-mail o comprovante, o código de retirada e os dados do pedido.</div>':'')+
-      '<label class="cfl" for="gd">'+nacInfo(pais).d+' <span style="font-weight:500">(opcional, para a nota)</span></label><input class="field" id="gd" inputmode="'+(NAC[pais]?'numeric':'text')+'" autocomplete="off" placeholder="'+nacInfo(pais).ph+'" value="'+esc(d.doc||'')+'"></div>'}
-    return top+
-      '<div class="note"><b style="color:var(--tx)">Como você recebe?</b></div>'+
-      '<button type="button" class="cfo'+(ent==='loja'?' on':'')+'" data-ent="loja" aria-pressed="'+(ent==='loja')+'">'+cki('loja')+'<b>Retirar na loja</b><small>Venha quando quiser, seg a sáb, 7h30 às 15h</small></button>'+
-      (py?'<button type="button" class="cfo'+(ent==='delivery'?' on':'')+'" data-ent="delivery" aria-pressed="'+(ent==='delivery')+'">'+cki('delivery')+'<b>Delivery</b><small>Entrega pela transportadora. O frete é pago à transportadora na entrega.</small></button>':'<div class="note" style="margin:4px 0 0">'+esc(semDelivery(c.cpais))+' '+(lgS()==='es'?'Para tu ciudad, el pedido es con retiro en la tienda.':'Para a sua cidade, o pedido é com retirada na loja.')+'</div>')+
-      (ent==='delivery'?endBloco(c):'')}
+  
   /* PIX: código "copia e cola" e QR */
   function crc16(s){var c=0xFFFF;for(var i=0;i<s.length;i++){c^=s.charCodeAt(i)<<8;for(var j=0;j<8;j++)c=(c&0x8000)?((c<<1)^0x1021)&0xFFFF:(c<<1)&0xFFFF}return ('000'+c.toString(16).toUpperCase()).slice(-4)}
   function pixCode(v,txid){var f=function(i,x){return i+('0'+x.length).slice(-2)+x};
@@ -1683,7 +1628,7 @@
   var PKT=0;function pkStop(){clearInterval(PKT);PKT=0}
   function pkPoll(id,fn){pkStop();var go=function(){if(!$('pkok')){pkStop();return}fbg('reservas/'+encodeURIComponent(id)).then(function(d){var o=fbd(d);if($('pkok'))fn(o||{})}).catch(function(){})};go();PKT=setInterval(go,4000)}
   var PK_LOGO='<div class="pkl"></div>';
-  var ITAU={alias:'+595983642241',titular:'Jamal Ali Yassine'},TRF_AUTO=false /* 14/11: Banco Familiar — fica false até o robô ler o aviso do banco; enquanto isso o comprovante aparece na hora */;
+  var ITAU={alias:'+595983642241',titular:'Jamal Ali Yassine'};
   /* S318: voltar no padrão do site (igual ao "‹ Início" da página da peça); nas telas de pagamento leva a Minha conta › Pedidos */
   function pzBar(){return '<div class="zb"><button type="button" data-pzvolta><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span>Minha conta</span></button></div>'}
   function pzTopo(){var o=$('pkok'),t=document.querySelector('.top');if(!o||!t)return;var bb=o.querySelector('.zb');o.style.setProperty('--pzt',Math.round(t.getBoundingClientRect().bottom)+'px');var zz=parseFloat(getComputedStyle(document.body).zoom)||1;o.style.setProperty('--pzp',Math.round((bb?bb.getBoundingClientRect().bottom:t.getBoundingClientRect().bottom)/zz)+'px')}
@@ -1939,7 +1884,7 @@
     var m2=/^(mp|pp)p$/.exec(t.id);if(m2){var z=$(m2[1]+'z');if(z){z.placeholder=fnEx(t.value);if(z.value&&!/^(\+|00)/.test(z.value.trim()))fnVivo(z,t.id,m2[1]+'zh')}}});
   document.addEventListener('input',function(e){var t=e.target;if(!t||!t.id)return;var m=/^(mp|pp)z$/.exec(t.id);if(m){fnVivo(t,m[1]+'p',m[1]+'zh');pfG(m[1],'z',t.value)}var m2=/^(mp|pp)d$/.exec(t.id);if(m2){maskCampo(t,function(v){return maskDoc($(m2[1]+'a2').value,v,docTipo(m2[1],contaNorm(getConta())||{}))});pfG(m2[1],'d',t.value)}});
   function endLinha(a){return esc(a.end)+(a.cidade?', '+esc(a.cidade):'')+(a.dep?' · '+esc(a.dep):'')}
-  minhaConta=function(aba,edita){
+  var mcTela=function(aba,edita){
     var c=contaNorm(getConta());if(!sessG()){entrarTela(false);return}if(!c){c=contaMin(sessG())}
     st.mcAba=aba||st.mcAba||'perfil';var A=st.mcAba,h='';
     var tabs='<div class="mct" role="tablist">'+[['perfil','Perfil'],['ends','Endereços'],['peds','Pedidos'],['cart','Cartões']].map(function(x){return '<button type="button" role="tab" aria-selected="'+(A===x[0])+'" class="'+(A===x[0]?'on':'')+'" data-cta="mcaba" data-a="'+x[0]+'">'+x[1]+'</button>'}).join('')+'</div>';
@@ -1987,11 +1932,12 @@
     e.preventDefault();e.stopImmediatePropagation();var h=ci.offsetHeight;
     var a=ci.animate([{opacity:1,transform:'none',height:h+'px'},{opacity:0,transform:'translateX(18px)',height:h+'px',offset:.45},{opacity:0,transform:'translateX(18px)',height:'0px',marginTop:'0px',marginBottom:'0px',paddingTop:'0px',paddingBottom:'0px'}],{duration:340,easing:'ease',fill:'forwards'});
     a.onfinish=function(){t.__lfok=1;t.click()}},true);
-  var _mc0=minhaConta,_mcAba='';
-  minhaConta=function(aba,edita){var aberto=!!document.querySelector('#layer [aria-label="Minha conta"]');_mc0(aba,edita);if(window.__lfTk2){_mcAba=st.mcAba;return}if(!MOV())return;
+  var _mcAba='';
+  /* B1 (11/11): entrada suave da Minha conta; na troca de aba quem anima é o trilho (S420) */
+  function mcEntra(aberto){if(window.__lfTk2){_mcAba=st.mcAba;return}if(!MOV())return;
     var pn=document.querySelector('#layer [aria-label="Minha conta"]');if(!pn)return;var A=st.mcAba;
     var alvo=aberto?(A!==_mcAba?[].slice.call(pn.children).filter(function(e){return !/^(H2|DIV)$/.test(e.tagName)||!e.querySelector('h2')}).slice(1):[]):[].slice.call(pn.children);
-    alvo.forEach(function(e,k){e.animate([{transform:'translateY(12px)',opacity:0},{transform:'none',opacity:1}],{duration:380,delay:k*55,easing:EZ,fill:'backwards'})});_mcAba=A};
+    alvo.forEach(function(e,k){e.animate([{transform:'translateY(12px)',opacity:0},{transform:'none',opacity:1}],{duration:380,delay:k*55,easing:EZ,fill:'backwards'})});_mcAba=A}
   function mcSalvar(){var c=contaNorm(getConta())||{};document.querySelectorAll('#layer .field.bad').forEach(function(e){e.classList.remove('bad')});
     var nome=($('mn')||{value:''}).value.trim().replace(/\s+/g,' ');if(nome.length<3||nome.indexOf(' ')<0)return cfErro('Digite seu nome e sobrenome.','mn');
     var o=perfilLer(c,'mp',false);if(!o)return;Object.assign(c,o,{nome:nome});delete c.nasc;contaGrava(c).then(function(){toast('Dados salvos.');if(st.voltaPag){st.voltaPag=0;st.step='pag';bag()}})}
@@ -2783,7 +2729,6 @@
   /* S370 (aprovado 15/11): tocar o botão da página que já está aberta (sacola, Minha conta) não recria nem anima nada: só volta ao topo */
   var _ly370=layer;layer=function(){st._ab='';return _ly370.apply(this,arguments)};
   var _bag370=bag;bag=function(){var r=_bag370.apply(this,arguments);if($('layer').firstChild)st._ab='bag';return r};
-  var _mc370=minhaConta;minhaConta=function(){if(!arguments.length&&st._ab==='conta'&&$('layer').firstChild&&$('layer').querySelector('[aria-label="Minha conta"],.mct')){ab370Topo();return}var r=_mc370.apply(this,arguments);if($('layer').firstChild&&$('layer').querySelector('[aria-label="Minha conta"],.mct'))st._ab='conta';return r};
   var _cl370=closeLayer;closeLayer=function(){st._ab='';return _cl370.apply(this,arguments)};
   function ab370Topo(){var sc=document.querySelector('#layer .scrim')||document.querySelector('#layer .panel');try{if(sc)sc.scrollTo({top:0,behavior:'smooth'})}catch(_){if(sc)sc.scrollTop=0}}
   $('bagbtn').addEventListener('click',function(){if(st._ab==='bag'&&st.step==='cart'&&$('layer').firstChild){ab370Topo();return}st.step='cart';bag()});
@@ -2796,10 +2741,7 @@
     var ht=document.querySelector('.top');if(ht)document.documentElement.style.setProperty('--ht',ht.offsetHeight+'px');
     document.documentElement.classList.remove('bootp');el.classList.add('in');el.classList.add('pop');el.scrollTop=0;document.documentElement.classList.add('ppop');if(!quiet&&el.animate&&!matchMedia('(prefers-reduced-motion: reduce)').matches)el.animate([{translate:'0 26px',filter:'opacity(0)'},{translate:'0 0',filter:'opacity(1)'}],{duration:440,easing:'cubic-bezier(.2,.8,.2,1)'});
     try{urlSync()}catch(_){}}
-  function prefSync(){var r=document.documentElement,t=r.dataset.theme||'auto',lg='auto';try{var q=localStorage.getItem('lf_lang');if(q==='pt'||q==='es')lg=q}catch(_){}
-    document.querySelectorAll('#drw [data-lg]').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-lg')===lg)});
-    document.querySelectorAll('#drw [data-th]').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-th')===t)});
-    document.querySelectorAll('#drw [data-zs]').forEach(function(b){b.classList.toggle('on',+b.getAttribute('data-zs')===zi)})}
+  function prefSync(){/* S422: o menu antigo com trilhos saiu; Idioma e Tamanho do texto ficam nas listas com ✓ (#dsh) */}
   function fshSet(on){var d=$('fsh');d.classList.toggle('on',on);d.setAttribute('aria-hidden',on?'false':'true')}
   $('fbtn').addEventListener('click',function(){fshSet(true)});
   function vset(l){document.documentElement.classList.toggle('vlist',l);var b=$('vtog');if(b){var t=LFI.tr(l?'Ver como catálogo':'Ver como lista');b.setAttribute('aria-label',t);b.title=t}try{localStorage.setItem('lf_vista',l?'l':'g')}catch(_){}}
@@ -2811,8 +2753,8 @@
     c.addEventListener('mouseenter',function(e){if(!matchMedia('(hover:hover) and (pointer:fine)').matches)return;clearTimeout(tm);tm=setTimeout(function(){catSet(true,false)},160)});
     c.addEventListener('mouseleave',function(){clearTimeout(tm);if(c.classList.contains('pin'))return;tm=setTimeout(function(){catSet(false)},320)});
     c.querySelector('.arr').addEventListener('click',function(e){e.stopPropagation();var o=!c.classList.contains('open')||!c.classList.contains('pin');catSet(o,o)})})();
-  function drwSet(on){if(on){prefSync();if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.querySelectorAll('#drw nav a,#drw .dpf').forEach(function(a,i){if(a.animate)a.animate([{translate:'-18px 0',opacity:0},{translate:'0 0',opacity:1}],{duration:260,delay:Math.min(i*16,180),easing:'cubic-bezier(.16,1,.3,1)',fill:'backwards'})})}var d=$('drw');if(on){document.querySelectorAll('#drw nav>a,#drw .cat,#drw .dpf,#drw .dct').forEach(function(a){if(a.getAnimations)a.getAnimations().forEach(function(x){if(x.fill==='forwards'||x.effect&&x.effect.getTiming().fill==='forwards')x.cancel()})})}
-    if(!on){if(d.classList.contains('on')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){var xs=[].slice.call(document.querySelectorAll('#drw nav>a,#drw nav>.cat,#drw .dpf,#drw .dct'));xs.forEach(function(a,i){if(a.animate)a.animate([{translate:'0 0',opacity:1},{translate:'-16px 0',opacity:0}],{duration:200,delay:0,easing:'cubic-bezier(.4,0,.2,1)',fill:'forwards'})})}catSet(false)}
+  function drwSet(on){if(on){prefSync();if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.querySelectorAll('#drw nav a').forEach(function(a,i){if(a.animate)a.animate([{translate:'-18px 0',opacity:0},{translate:'0 0',opacity:1}],{duration:260,delay:Math.min(i*16,180),easing:'cubic-bezier(.16,1,.3,1)',fill:'backwards'})})}var d=$('drw');if(on){document.querySelectorAll('#drw nav>a,#drw .cat,#drw .dct').forEach(function(a){if(a.getAnimations)a.getAnimations().forEach(function(x){if(x.fill==='forwards'||x.effect&&x.effect.getTiming().fill==='forwards')x.cancel()})})}
+    if(!on){if(d.classList.contains('on')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){var xs=[].slice.call(document.querySelectorAll('#drw nav>a,#drw nav>.cat,#drw .dct'));xs.forEach(function(a,i){if(a.animate)a.animate([{translate:'0 0',opacity:1},{translate:'-16px 0',opacity:0}],{duration:200,delay:0,easing:'cubic-bezier(.4,0,.2,1)',fill:'forwards'})})}catSet(false)}
     if(on){var hh=document.querySelector('#drw .dhd');if(hh)hh.style.paddingTop='';dhdAlign()}if(on)document.documentElement.classList.add('lock');else if(!$('layer').innerHTML.trim())document.documentElement.classList.remove('lock');d.classList.toggle('on',on);d.setAttribute('aria-hidden',on?'false':'true')}
   $('mnb').addEventListener('click',function(){drwSet(true)});
   document.addEventListener('click',function(e){
@@ -3553,7 +3495,7 @@
   function syncRun(){
     var pp=fbg('produtos?pageSize=300');pp.catch(function(){});
     fbg('config/site').then(function(d){CFG=Object.assign({ativo:true},fbd(d),{_f:1});try{localStorage.setItem('lf_cfg',JSON.stringify(CFG))}catch(_){}manut();applyCot();setHero()},function(){}).then(function(){
-      return pp}).then(function(j){DG.pv=+(CFG&&CFG.pv)||0;if(j&&j.documents){DG.lido=Date.now();DG.n=j.documents.length;try{prodVivo.ult=JSON.stringify(j.documents);localStorage.setItem('lf_pdocs',prodVivo.ult)}catch(_){}syncProds(j.documents)}}).catch(function(){DG.err='os produtos não vieram às '+dgH(Date.now())}).then(function(){dgPoe();var l=document.getElementById('prevld');if(l)l.remove();syncEstoque().then(function(){estLoop();if(prodVivo.ult)favVolta()});prodVivoLiga()})}
+      return pp}).then(function(j){DG.pv=+(CFG&&CFG.pv)||0;if(j&&j.documents){DG.lido=Date.now();DG.n=j.documents.length;try{prodVivo.ult=JSON.stringify(j.documents);localStorage.setItem('lf_pdocs',prodVivo.ult)}catch(_){}syncProds(j.documents)}}).catch(function(){DG.err='os produtos não vieram às '+dgH(Date.now())}).then(function(){dgPoe();var l=document.getElementById('prevld');if(l){if(!P.length&&!PREV){l.innerHTML='<span>'+LFI.tr('Não deu para carregar as peças agora.')+'</span><button type="button" class="btn" onclick="location.reload()">'+LFI.tr('Tentar de novo')+'</button>'}else l.remove()}syncEstoque().then(function(){estLoop();if(prodVivo.ult)favVolta()});prodVivoLiga()})}
   (ADM||(ADM=isAdm())).then(function(a){if(a&&!LF_ADM&&window.parent!==window){LF_ADM=true;document.documentElement.classList.add('adm');redraw()}});
   manut();try{var qv=new URLSearchParams(location.search).get('video');if(qv)setTimeout(function(){var st=$('stage');st.hidden=false;st.setAttribute('data-sig','q');applyVideo(qv)},300)}catch(_){}
   if(!/[?&]nosync/.test(location.search))setTimeout(syncRun,50);
@@ -3579,7 +3521,7 @@
       try{if(t.hasAttribute('data-lg')){localStorage.setItem('lf_lang',t.getAttribute('data-lg'));localStorage.setItem('lf_cur','auto')}else localStorage.setItem('lf_cur',t.getAttribute('data-cu'));sessionStorage.setItem('lf_skip','1');sessionStorage.setItem('lf_drw','1')}catch(_){}
       var bg=getComputedStyle(document.body).backgroundColor,ov=document.createElement('div');ov.style.cssText='position:fixed;inset:0;z-index:99999;background:'+bg+';opacity:0;transition:opacity .28s ease;pointer-events:all';document.body.appendChild(ov);try{sessionStorage.setItem('lf_fade',bg)}catch(_){}requestAnimationFrame(function(){ov.style.opacity='1'});setTimeout(function(){location.reload()},300)},true)})();
   try{var _cd=PREV?null:JSON.parse(localStorage.getItem('lf_pdocs')||'null');if(_cd&&_cd.length)syncProds(_cd)}catch(_){}
-  if(PREV&&!/[?&]nosync/.test(location.search)){var _pl=document.createElement('div');_pl.id='prevld';_pl.setAttribute('role','status');_pl.innerHTML='<i></i><span>Carregando a vitrine atual…</span>';document.body.appendChild(_pl)}
+  if((PREV||!P.length)&&!/[?&]nosync/.test(location.search)){var _pl=document.createElement('div');_pl.id='prevld';_pl.setAttribute('role','status');_pl.innerHTML='<i></i><span>'+LFI.tr(PREV?'Carregando a vitrine atual…':'Carregando as peças…')+'</span>';document.body.appendChild(_pl)}
   drawGen();drawChips();drawFaces();drawBag();setHero();
 
   /* ===== 08/11 NAVEGAÇÃO 2 (aprovada: esboços navegacao3/4) =====
@@ -3595,16 +3537,7 @@
   var SRG=[];
   function srVistos(){var L=navVistos().map(find).filter(function(p){return p&&vis5(p)}).slice(0,3);if(!L.length)return '';
     return '<div class="srh">'+LFI.tr('VISTOS POR ÚLTIMO')+'</div><div class="srv">'+L.map(function(p){return '<button type="button" data-open="'+esc(p.ref)+'" aria-label="'+esc(p.nome)+'">'+img5(p)+'</button>'}).join('')+'</div>'}
-  function srSug(q){var f=btolFold(q).trim();SRG=[];if(f.length<2)return '';var C=[],vi={},poe=function(t,a,v){var k=btolFold(t);if(vi[k])return;vi[k]=1;C.push({t:t,a:a,v:v,k:k})};
-    [['grau','Leitura'],['solar','Solar'],['armacao','Armações'],['of','Ofertas']].forEach(function(x){poe(LFI.tr(x[1]),'c',x[0])});
-    var gs=navGraus(),dg=/[0-9+]/.test(f);if(!dg){var mid=gs.filter(function(g){return navGrN(g)>=1.5&&navGrN(g)<=2.5});gs=(mid.length?mid:gs).slice(0,1)}gs.forEach(function(g){poe(LFI.tr('Leitura')+' '+g,'g',g)});
-    cat5().forEach(function(p){if(p.nome)poe(p.nome,'q',p.nome)});
-    var ac=function(c){var i=c.k.indexOf(f);if(i<0)return -1;return i===0?0:/[^a-z0-9]/.test(c.k.charAt(i-1))?1:2};
-    var L=C.map(function(c){return [c,ac(c)]}).filter(function(x){return x[1]>=0&&x[1]<2}).sort(function(a,b){return a[1]-b[1]||a[0].t.length-b[0].t.length}).slice(0,4).map(function(x){return x[0]});
-    if(!L.length)return '';SRG=L;
-    return '<div class="srh">'+LFI.tr('SUGESTÕES')+'</div><div class="srs">'+L.map(function(c,i){var j=c.k.indexOf(f),t=c.t;
-      var h=t.length===c.k.length?esc(t.slice(0,j))+'<b>'+esc(t.slice(j,j+f.length))+'</b>'+esc(t.slice(j+f.length)):esc(t);
-      return '<button type="button" data-ssg="'+i+'">'+h+'</button>'}).join('')+'</div>'}
+  
   /* 3: filtro de grau em Leitura */
   st.fgr='';
   var _listaNv=lista;lista=function(){var r=_listaNv.apply(this,arguments);if(st.tipo==='grau'&&st.fgr)r=r.filter(function(p){return navTemGrau(p,st.fgr)});return r};
@@ -3954,7 +3887,7 @@ function filSet(lado,ang,L,vis,bd){bd=bd||0;const G=lado<0?(N._fE||(N._fE=q('.fi
       if(a&&!a.paused){var v0=a.volume,t0=performance.now();(function f(){var k=Math.min(1,(performance.now()-t0)/150);try{a.volume=v0*(1-k)}catch(_){}if(k<1)requestAnimationFrame(f);else try{a.pause()}catch(_){}})()}
       try{speechSynthesis.cancel()}catch(_){}if(Z.m)Z.m.calou();var bt=q('#gzbt');if(bt)bt.classList.remove('esp')}
     /* toque enquanto ele fala: vale assim que ele terminar a frase (só no teste de leitura) */
-    function apos(fn,bt){if(Z.falando){Z.depoisFala=fn;if(bt){bt.classList.add('gd');setTimeout(function(){bt.classList.remove('gd')},900)}return}fn()}
+    
     /* fala(h,cb,pergunta,dizer): cb roda quando ele TERMINA de falar. Se for pergunta, os botões ficam clarinhos até ele terminar. dizer = o que ele fala (se for diferente do balão) */
     function btLuz(t){var M2=[[T('Se estiver difícil, pode dizer que não consegue — sem problema.'),'#gw [data-gz=nao]']],s0=null;M2.forEach(function(x){if(t.indexOf(x[0])>=0)s0=x[1]});if(!s0)return;var t0=Date.now();setTimeout(function w(){var b=document.querySelector(s0);if(!b||!Z.m||Date.now()-t0>12000)return;if(RM.matches||!b.animate)return;b.animate([{boxShadow:'0 0 0 0 rgba(141,58,105,.6)'},{boxShadow:'0 0 0 20px rgba(141,58,105,0)'}],{duration:1100,iterations:2,easing:'cubic-bezier(.2,.7,.3,1)'})},1200)}
     function fala(h,cb,perg,dz){if(PZ.on){PZ.fila.push(function(){fala(h,cb,perg,dz)});return}
@@ -4357,8 +4290,7 @@ function filSet(lado,ang,L,vis,bd){bd=bd||0;const G=lado<0?(N._fE||(N._fE=q('.fi
     function avisos(){return '<div class="gzav"><p><b>'+T('Serve para:')+'</b> '+T('ler de perto — livro, celular, cardápio, costura.')+'</p><p><b>'+T('Não serve para:')+'</b> '+T('ver de longe ou dirigir.')+'</p>'+
       '<p><b>'+T('Miopia:')+'</b> '+T('óculos de leitura não corrigem. Se lê bem de perto sem óculos, não precisa deles.')+'</p><p><b>'+T('Astigmatismo:')+'</b> '+T('o óculos de leitura pronto não corrige. Pode até ajudar, mas o ideal é um óculos feito com a sua receita.')+'</p>'+
       '<p><b>'+T('Multifocal:')+'</b> '+T('é feito sob medida numa ótica, com receita. Este teste não consegue medir.')+'</p><p class="mu"><b>'+T('Não substitui o oftalmologista.')+'</b> '+T('Procure um se tiver dor de cabeça ao ler, visão dupla, um olho bem pior que o outro ou se a visão mudou de repente.')+'</p></div>'}
-    function confete(){if(RM.matches)return;var s=q('#gzstg'),C=['#8d3a69','#f3d6e4','#f2b24c','#7fc4a4'];for(var i=0;i<40;i++){var c=document.createElement('div');c.className='gzcf';c.style.left=(30+Math.random()*(s.clientWidth-60))+'px';c.style.top='120px';c.style.background=C[i%4];s.appendChild(c);
-      (function(c){var an=c.animate([{transform:'translate(0,0) rotate(0)',opacity:1},{transform:'translate('+((Math.random()-.5)*170)+'px,'+(260+Math.random()*220)+'px) rotate('+(Math.random()*720)+'deg)',opacity:0}],{duration:1800+Math.random()*900,easing:'cubic-bezier(.2,.6,.4,1)'});an.onfinish=function(){c.remove()}})(c)}}
+    
     /* S69: resultado = a lente mais fraca com que leu a bula, com a faixa provável (±0,25) e "na dúvida, o menor" */
     function resultado(G,pp){try{window.__lfGm&&window.__lfGm(G)}catch(_){}var esc0=Z.escuro||(Z.lzT>5&&Z.lzE/Z.lzT>.5);fimTeste();var GQ=G,m=Z.m,lo=gf(Math.max(.25,G-.25)),hi=gf(Math.min(4,G+.25)),ppH='';
       /* S95 E: quadro + ponto próximo. Combinam (até 0,25) = um grau só; não combinam = faixa entre os dois e o sugerido é o menor */
@@ -4481,13 +4413,7 @@ function filSet(lado,ang,L,vis,bd){bd=bd||0;const G=lado<0?(N._fE||(N._fE=q('.fi
     function gzPecaGrau(){var L=document.querySelector('#layer .dgr');if(!L)return;var p=find(prodRef),m=meu();if(!p||p.tipo!=='grau'||!p.gr||!m||L._ap===p.ref)return;L._ap=p.ref;
       var bs=[].slice.call(L.querySelectorAll('.gb')).filter(function(x){return x.style.display!=='none'&&!x.classList.contains('some')&&!x.classList.contains('nc')&&!x.classList.contains('x')}),bb=null,dd=1e9;
       bs.forEach(function(x){var z=Math.abs(gn(x.textContent)-gn(m));if(z<dd-1e-9||(bb&&Math.abs(z-dd)<1e-9&&gn(x.textContent)>gn(bb.textContent))){dd=z;bb=x}});if(bb&&!bb.classList.contains('on'))bb.click()}
-    function gzPeca(){return;var L=document.querySelector('#layer .dgr');if(!L)return;var p=find(prodRef);if(!p||p.tipo!=='grau'||!p.gr||!p.gr.length)return;
-      var b=document.querySelector('#layer .gzb'),m=meu();if(!b){b=document.createElement('button');b.type='button';b.className='gzb';b.setAttribute('data-gzopen','')}
-      if(L.nextSibling!==b)L.parentNode.insertBefore(b,L.nextSibling);
-      /* com o grau guardado, a peça já escolhe o grau mais perto que existe na cor (uma vez por peça) */
-      if(m&&b._ap!==p.ref){var bs=[].slice.call(L.querySelectorAll('.gb')).filter(function(x){return x.style.display!=='none'&&!x.classList.contains('some')&&!x.classList.contains('nc')&&!x.classList.contains('x')}),bb=null,dd=1e9;
-        bs.forEach(function(x){var z=Math.abs(gn(x.textContent)-gn(m));if(z<dd-1e-9||(Math.abs(z-dd)<1e-9&&gn(x.textContent)>gn(bb.textContent))){dd=z;bb=x}});b._ap=p.ref;if(bb&&!bb.classList.contains('on'))bb.click()}
-      b.innerHTML='<span>'+(m?T('Seu grau: ')+esc(m):T('Não sei o meu grau'))+'<small>'+(m?T('Refazer a ajuda com o grau'):T('Descubra em 1 minuto, com voz'))+'</small></span><i aria-hidden="true">›</i>'}
+    
     var _prGz=product;product=function(ref,pop){var r=_prGz.apply(this,arguments);/* 09/11 S44: o botão saiu da peça (fica a faixa na Leitura e o menu); com o grau guardado a peça ainda abre no grau mais perto */[0,320,950].forEach(function(t){setTimeout(function(){try{gzPecaGrau()}catch(_){}},t)});return r};
   })();
   /* 4: "Você estava vendo" — quem volta em outro dia (até 7 dias); some se o modelo esgotar ou sair */
@@ -4503,22 +4429,6 @@ function filSet(lado,ang,L,vis,bd){bd=bd||0;const G=lado<0?(N._fE||(N._fE=q('.fi
     if(!p||!vis5(p)||p.aviso==='Esgotado')return h;
     return '<button type="button" class="hlv" data-open="'+esc(p.ref)+'"><span class="hlvi">'+img5(p)+'</span><span class="hlvt"><small>'+LFI.tr('Você estava vendo')+'</small><b>'+esc(p.nome)+'</b></span><i aria-hidden="true">›</i></button>'+h};
   /* 5: âncora do cartão tocado; ao voltar, a lista fica exatamente onde estava (mesmo com fotos ainda carregando) */
-  /* S288 abas de Minha conta de luxo (aprovado S252): a pílula desliza até a aba tocada e o conteúdo vem do lado dela; a janela não refaz a entrada */
-  var _minhaContaLx=minhaConta;minhaConta=function(){if(window.__lfTrilho)return _minhaContaLx.apply(this,arguments)/* S420: o trilho único cuida da pílula e do conteúdo */;var m0=document.querySelector('#layer .mct'),o=m0&&m0.querySelector('button.on'),r0=null,de=-1,c0='';
-    if(o){var mr=m0.getBoundingClientRect(),r=o.getBoundingClientRect();r0=[r.left-mr.left,r.width,r.top-mr.top,r.height];de=[].indexOf.call(m0.querySelectorAll('button'),o);c0=getComputedStyle(o).backgroundColor}
-    var res=_minhaContaLx.apply(this,arguments);
-    try{var m=document.querySelector('#layer .mct'),n=m&&m.querySelector('button.on');if(!m||!n||de<0||!m.animate)return res;
-      var bs=m.querySelectorAll('button'),para=[].indexOf.call(bs,n),sc=m.closest('.scrim'),p=m.parentNode;if(sc)sc.classList.add('mcLx');
-      if(para===de||matchMedia('(prefers-reduced-motion: reduce)').matches)return res;
-      [].forEach.call(p.children,function(e){try{e.getAnimations().forEach(function(x){x.cancel()})}catch(_){}});
-      var X='cubic-bezier(.16,1,.3,1)',mr2=m.getBoundingClientRect(),nr=n.getBoundingClientRect(),v=bs[de],cv=getComputedStyle(v).color,cn=getComputedStyle(n).color;
-      var pl=document.createElement('i');pl.className='mcPl';pl.setAttribute('aria-hidden','true');pl.style.cssText='top:'+(nr.top-mr2.top-m.clientTop)+'px;height:'+nr.height+'px;left:'+(nr.left-mr2.left-m.clientLeft)+'px;width:'+nr.width+'px;background:'+c0;
-      m.classList.add('lx');m.insertBefore(pl,m.firstChild);
-      var dx=r0[0]-(nr.left-mr2.left),kf=Math.abs(r0[1]-nr.width)<1.5?[{transform:'translateX('+dx+'px)'},{transform:'none'}]:[{transform:'translateX('+dx+'px)',width:r0[1]+'px'},{transform:'none',width:nr.width+'px'}];
-      var an=pl.animate(kf,{duration:360,easing:X,fill:'both'}),fim=function(){if(pl.parentNode)pl.parentNode.removeChild(pl);m.classList.remove('lx')};an.onfinish=fim;setTimeout(fim,460);
-      n.animate([{color:cv},{color:cn}],{duration:200,delay:60,fill:'backwards'});v.animate([{color:cn},{color:cv}],{duration:160});
-      var s=para>de?1:-1,d=false;[].forEach.call(p.children,function(e){if(e===m){d=true;return}if(d)e.animate([{opacity:0,transform:'translateX('+(22*s)+'px)'},{opacity:1,transform:'none'}],{duration:360,easing:X,fill:'backwards'})})}catch(_){}
-    return res};
   /* ===== S420 TRILHO ÚNICO (aprovado 15/11: regra lógica da pílula S330f §8 + arrastar §5 + abas da Minha conta §6) =====
      A seleção é UM objeto só: uma pílula permanente por trilho (nunca criada/apagada na troca), medida do botão escolhido,
      só transform (deslocar + esticar o meio), letra branca recortada pela própria pílula (camada presa nela, clip-path),
@@ -4567,10 +4477,12 @@ function filSet(lado,ang,L,vis,bd){bd=bd||0;const G=lado<0?(N._fE||(N._fE=q('.fi
   window.__lfTrilho=lfTrilho;
   /* (os trilhos .seg do menu antigo estão escondidos desde o menu novo com listas ✓: hoje o único trilho visível do site é o da Minha conta) */
   /* Minha conta: trocar de aba NÃO redesenha o trilho (a mesma pílula segue), o conteúdo antigo sai em 0,12 s e o novo entra do lado da aba tocada */
-  var _mcTk=minhaConta;minhaConta=function(aba,edita){
+  /* S422: a Minha conta numa função só — S370 (já aberta: só sobe ao topo) → desenho (mcTela) → entrada B1 (mcEntra) → trilho único (S420) */
+  minhaConta=function(aba,edita){
+    if(!arguments.length&&st._ab==='conta'&&$('layer').firstChild&&$('layer').querySelector('[aria-label="Minha conta"],.mct')){ab370Topo();return}
     var m0=document.querySelector('#layer .mct'),pn0=m0&&m0.parentNode,A0=st.mcAba,troca=!!(m0&&m0.__tk&&typeof aba==='string'&&aba!==A0&&edita==null),velho=[],de=-1,y0=0,sc0=0;
     if(troca){var k=0,bs0=tkBts(m0);de=tkSel(m0.__tk);[].slice.call(pn0.children).forEach(function(e){if(k)velho.push(e);if(e===m0)k=1});y0=m0.offsetTop+m0.offsetHeight;var scr0=pn0.closest('.scrim');sc0=pn0.scrollTop}
-    window.__lfTk2=troca?1:0;var r;try{r=_mcTk.apply(this,arguments)}finally{window.__lfTk2=0}
+    window.__lfTk2=troca?1:0;var r;try{var aberto=!!document.querySelector('#layer [aria-label="Minha conta"]');mcTela(aba,edita);mcEntra(aberto);if($('layer').firstChild&&$('layer').querySelector('[aria-label="Minha conta"],.mct'))st._ab='conta'}finally{window.__lfTk2=0}
     var m=document.querySelector('#layer .mct'),pn=m&&m.parentNode;if(!m)return r;
     if(troca&&m!==m0){var nb=tkBts(m),ob=tkBts(m0);if(nb.length===ob.length){
         var scN=pn.closest('.scrim');if(scN)scN.classList.add('mcLx');
@@ -4841,9 +4753,7 @@ function filSet(lado,ang,L,vis,bd){bd=bd||0;const G=lado<0?(N._fE||(N._fE=q('.fi
       if(window.__lfMochiArms)window.__lfMochiArms(el.querySelector('svg'),{face:a[0],e:+a[1],d:+a[2]})})}
   var TICKET='<span class="amtk"><b>10%</b><i>✓</i></span>';
   function amMsg(cod){var l='lafouch.com/t/'+cod;return LFI.lang==='es'?'¡Hola! Te regalé 10% de descuento en La Fouch 👓\nSolo abrí: '+l+'\nel descuento entra solo al carrito':'Oi! Te dei 10% de desconto na La Fouch 👓\nÉ só abrir: '+l+'\no desconto já entra sozinho no carrinho'}
-  function amCard(c){return '<div class="amc"><div class="amfig">'+moFig('feliz',20,-10)+TICKET+'<i class="amsp a1">✦</i><i class="amsp a2">✦</i></div>'+
-    '<h3>'+LFI.tr('Presenteie uma amiga com 10%')+'</h3><p>'+LFI.tr('Ela ganha 10% na 1ª compra. Quando ela comprar, você ganha outro cupom de 10%.')+'</p>'+
-    '<code>'+esc(c.cod)+'</code><a class="amwa" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(amMsg(c.cod))+'">'+LFI.tr('Enviar pelo WhatsApp')+'</a></div>'}
+  
   /* S400 (17/11, esboço 59f): a tela de pedido pago não mostra mais cartão nenhum (o convite para indicar vai por e-mail 2 semanas depois da entrega) */
   /* Minha conta › Cartões: contador embaixo do cartão da amiga */
   var _mtj=mtjCarrega;mtjCarrega=function(){_mtj();var k=0,t=setInterval(function(){var b=document.getElementById('mtj');if(!b||++k>40){clearInterval(t);return}
@@ -4888,7 +4798,7 @@ function filSet(lado,ang,L,vis,bd){bd=bd||0;const G=lado<0?(N._fE||(N._fE=q('.fi
       var ev=L.filter(function(c){return c.tipo==='ev'})[0];if(ev)return ev;return L.slice().sort(function(a,b){return (a.fim||9e15)-(b.fim||9e15)})[0]}
     function descDe(c,p){return cVale(c,p)?Math.floor(p.n*c.pct/100/1000)*1000:0}
     /* sai o "Leve 2" (ordem do dono, 17/11): nenhum desconto da 2ª peça */
-    l2Info=function(){return {n:0,d:0,dD:0,por:{}}};
+    
     /* "Cupom disponível" (81f/83): só para quem tem um cartão que vale nesta peça */
     aceitaCup=function(p){return !!cardPara(p)};
 
