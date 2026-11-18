@@ -2,9 +2,9 @@
 Como achei: o programa abriu o app (celular, claro) e tocou com o dedo SÓ no que aparece na tela, a partir do Início e da barra de baixo, até 4 níveis: 290 telas diferentes, ~1.000 toques. Em cada tela mediu os botões (texto espremido, cortado, toque pequeno, apagado, tampado, fora do lugar). Depois conferi os principais olhando a tela. Falta: tablet e PC pelo mesmo caminho.
 
 ## Não funcionam direito
-1. **Caixa · "Ver o que falta repor ›"** (aviso no fim da tela): fica embaixo da barra de baixo e não dá para tocar — o toque cai em "Peças".
+1. ~~Caixa · "Ver o que falta repor ›" embaixo da barra~~ — RETIRADO (conferido 17/11 22:05): só acontecia com o menu "Ações do caixa" aberto, que trava a rolagem; fechando o menu o link aparece normal. Erro do teste.
 2. **Pedido aberto · "Assumir este pedido", "Marcar como pago", "Imprimir ficha de separação"**: espremidos em 3 linhas (botão de 52 px).
-3. **Editar peça · barra "Salvar alterações"**: fica por cima de botões da tela e da barra de baixo.
+3. ~~Editar peça · "Salvar alterações" por cima~~ — RETIRADO (conferido): é a janela de editar por cima da tela, como toda janela. Erro do teste.
 4. **Lista de pedidos · nome da cliente** cortado ("Maria Ló…") com espaço sobrando.
 
 ## Pequenos demais para o dedo (menos de 30 px)
