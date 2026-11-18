@@ -2,6 +2,23 @@
 
 **Regra do dono (15/11 15:04): esta lista não é refeita. Só se acrescenta item e se marca o que foi publicado (com a versão). Limpar só quando o dono disser "limpar a lista".**
 
+## SOBRAS — conferidas em 17/11/2026 (S411) no SITE REAL (cópia exata publicada, v1794940082, só toques na tela; lafouch.com ao vivo não abre desta máquina)
+| Sobra | Situação | Como conferi |
+|---|---|---|
+| Cópias do painel conta/sacola | ✔ feito (S371) | sacola aberta › menu › Minha conta: 0 cópias |
+| Painel do site no escuro + rosa dos filtros | ✔ feito (S375, S377) | histórico do site |
+| Colunas iguais S216/S217 | ✔ feito (S378) | histórico do site |
+| Painel do site como tela do app (S242) | ✔ feito (S374, ?app=2) | histórico do site |
+| Janelas: abrir/fechar | ✔ medido | sacola abre 460 ms/fecha 300; conta 280; menu 440/200; busca abre ~560/fecha ~320 |
+| Busca re-animando o catálogo | ✔ feito | fechar a busca: 0 cartões re-animados |
+| Temática em 2 níveis | ✘ não feita | evento Natal ligado pela config real: Início cheio; carrinho só com a faixa (sem nível próprio no código). ACHADO: no carrinho com evento a faixa verde COBRE o topo (logo e ícones cortados) |
+| Pílulas/abas do site arrastando | ✘ não feita | pílula das abas só desliza no toque; nenhum arrastar no código |
+| Detector de cópias no portão | ✘ não feito | provas.py/porteiro.py sem prova de cópias |
+| Abas da Minha conta 1–6 (vídeo) | ? não deu | precisa de conta logada (não tenho) |
+| Janelas de luxo e limpeza técnica | ? sem definição | não achei o que era na memória |
+| Ideias S214/S215 | — não aprovadas | memória 13/11 14:25: "NÃO IMPLEMENTAR", só guardadas |
+| Sobras do APP (lote 2, 3, 360°, seção C/E) | ⏳ falta conferir na tela | próxima etapa (www v559) |
+
 Conferência pedida pelo dono ("o que discutimos e esqueci de falar aprovado?"). 2ª passada (pedido das 14:45): lida a memória de 12/11 até agora. Tudo o que foi aprovado em 12/11 entrou no "implementar tudo" de 12/11 (17:25–23:40); o que sobrou está abaixo.
 
 ## A · Discutido e SEM decisão do dono
