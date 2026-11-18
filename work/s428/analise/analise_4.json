@@ -1,0 +1,884 @@
+[
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "inicio",
+  "pecas": 27,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {
+    "colados": [
+     3,
+     [
+      "1",
+      "2",
+      "3"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "inicio_390_844_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {
+    "cortado": [
+     2,
+     [
+      "Ver Solar quadrado tartaru",
+      "Armações"
+     ]
+    ]
+   },
+   "fora": [
+    "Ver Solar quadrado tartaruga",
+    "Armações"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "inicio_390_844_1.2.jpg"
+ },
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "catalogo",
+  "pecas": 16,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "catalogo_390_844_1.0.jpg",
+  "ate": 1.4,
+  "quebra": {
+   "escala": 1.5,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "0"
+     ]
+    ]
+   },
+   "fora": [
+    "0"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "catalogo_390_844_1.5.jpg"
+ },
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "peca",
+  "pecas": 16,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "peca_390_844_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "texto cortado": [
+     1,
+     [
+      "Armações"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "peca_390_844_1.1.jpg"
+ },
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "menu",
+  "pecas": 27,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "menu_390_844_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [
+    "Você estava vendo",
+    "Ver Solar quadrado tartaruga"
+   ],
+   "linha": [
+    "M (3→4 linhas)"
+   ]
+  },
+  "foto_quebra": "menu_390_844_1.2.jpg"
+ },
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "filtros",
+  "pecas": 16,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "filtros_390_844_1.0.jpg",
+  "ate": 1.4,
+  "quebra": {
+   "escala": 1.5,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "0"
+     ]
+    ]
+   },
+   "fora": [
+    "0"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "filtros_390_844_1.5.jpg"
+ },
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "carrinho",
+  "pecas": 16,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "carrinho_390_844_1.0.jpg",
+  "ate": 1.4,
+  "quebra": {
+   "escala": 1.5,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "1"
+     ]
+    ]
+   },
+   "fora": [
+    "1"
+   ],
+   "linha": [
+    "Finalizar compra (1→2 linhas)",
+    "Continuar comprando (1→2 linhas)"
+   ]
+  },
+  "foto_quebra": "carrinho_390_844_1.5.jpg"
+ },
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "conta",
+  "pecas": 27,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "conta_390_844_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [
+    "Você estava vendo",
+    "Ver Solar quadrado tartaruga",
+    "Armações"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "conta_390_844_1.2.jpg"
+ },
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "conta-cartoes",
+  "pecas": 27,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "conta-cartoes_390_844_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [
+    "Você estava vendo",
+    "Ver Solar quadrado tartaruga",
+    "Armações"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "conta-cartoes_390_844_1.2.jpg"
+ },
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "inicio",
+  "pecas": 27,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Armações ← Falar no WhatsApp"
+     ]
+    ],
+    "colados": [
+     2,
+     [
+      "2",
+      "3"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "inicio_412_915_1.0.jpg",
+  "ate": 1.2,
+  "quebra": {
+   "escala": 1.3,
+   "olho": {
+    "cortado": [
+     2,
+     [
+      "Ver Solar quadrado tartaru",
+      "Armações"
+     ]
+    ]
+   },
+   "fora": [
+    "Ver Solar quadrado tartaruga",
+    "Armações"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "inicio_412_915_1.3.jpg"
+ },
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "catalogo",
+  "pecas": 16,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "catalogo_412_915_1.0.jpg",
+  "ate": 1.4,
+  "quebra": {
+   "escala": 1.5,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "0"
+     ]
+    ]
+   },
+   "fora": [
+    "0"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "catalogo_412_915_1.5.jpg"
+ },
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "peca",
+  "pecas": 16,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "peca_412_915_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "texto cortado": [
+     1,
+     [
+      "Armações"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "peca_412_915_1.1.jpg"
+ },
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "menu",
+  "pecas": 27,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "menu_412_915_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [
+    "Você estava vendo",
+    "Ver Solar quadrado tartaruga"
+   ],
+   "linha": [
+    "M (3→4 linhas)"
+   ]
+  },
+  "foto_quebra": "menu_412_915_1.2.jpg"
+ },
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "filtros",
+  "pecas": 16,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "filtros_412_915_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {
+    "fileira torta": [
+     2,
+     [
+      "div. (2749 px)",
+      "div. alturas 822–4740"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "filtros_412_915_1.2.jpg"
+ },
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "carrinho",
+  "pecas": 16,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "carrinho_412_915_1.0.jpg",
+  "ate": 1.4,
+  "quebra": {
+   "escala": 1.5,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "1"
+     ]
+    ]
+   },
+   "fora": [
+    "1"
+   ],
+   "linha": [
+    "Finalizar compra (1→2 linhas)",
+    "Continuar comprando (1→2 linhas)"
+   ]
+  },
+  "foto_quebra": "carrinho_412_915_1.5.jpg"
+ },
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "conta",
+  "pecas": 27,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "conta_412_915_1.0.jpg",
+  "ate": 1.2,
+  "quebra": {
+   "escala": 1.3,
+   "olho": {},
+   "fora": [
+    "Você estava vendo",
+    "Ver Solar quadrado tartaruga",
+    "Armações"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "conta_412_915_1.3.jpg"
+ },
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "conta-cartoes",
+  "pecas": 27,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "conta-cartoes_412_915_1.0.jpg",
+  "ate": 1.2,
+  "quebra": {
+   "escala": 1.3,
+   "olho": {},
+   "fora": [
+    "Você estava vendo",
+    "Ver Solar quadrado tartaruga",
+    "Armações"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "conta-cartoes_412_915_1.3.jpg"
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "inicio",
+  "pecas": 27,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {
+    "colados": [
+     2,
+     [
+      "2",
+      "3"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "inicio_430_932_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {
+    "cortado": [
+     2,
+     [
+      "Ver Solar quadrado tartaru",
+      "Armações"
+     ]
+    ]
+   },
+   "fora": [
+    "Ver Solar quadrado tartaruga",
+    "Armações"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "inicio_430_932_1.2.jpg"
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "catalogo",
+  "pecas": 16,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "catalogo_430_932_1.0.jpg",
+  "ate": 1.4,
+  "quebra": {
+   "escala": 1.5,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "0"
+     ]
+    ]
+   },
+   "fora": [
+    "0"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "catalogo_430_932_1.5.jpg"
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "peca",
+  "pecas": 16,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "peca_430_932_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "texto cortado": [
+     1,
+     [
+      "Armações"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "peca_430_932_1.1.jpg"
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "menu",
+  "pecas": 27,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "menu_430_932_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [
+    "Você estava vendo",
+    "Ver Solar quadrado tartaruga"
+   ],
+   "linha": [
+    "M (3→4 linhas)"
+   ]
+  },
+  "foto_quebra": "menu_430_932_1.2.jpg"
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "filtros",
+  "pecas": 16,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "filtros_430_932_1.0.jpg",
+  "ate": 1.4,
+  "quebra": {
+   "escala": 1.5,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "0"
+     ]
+    ]
+   },
+   "fora": [
+    "0"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "filtros_430_932_1.5.jpg"
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "carrinho",
+  "pecas": 16,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "carrinho_430_932_1.0.jpg",
+  "ate": 1.4,
+  "quebra": {
+   "escala": 1.5,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "1"
+     ]
+    ]
+   },
+   "fora": [
+    "1"
+   ],
+   "linha": [
+    "Finalizar compra (1→2 linhas)",
+    "Continuar comprando (1→2 linhas)"
+   ]
+  },
+  "foto_quebra": "carrinho_430_932_1.5.jpg"
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "conta",
+  "pecas": 27,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "conta_430_932_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [
+    "Você estava vendo",
+    "Ver Solar quadrado tartaruga",
+    "Armações"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "conta_430_932_1.2.jpg"
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "conta-cartoes",
+  "pecas": 27,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "conta-cartoes_430_932_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [
+    "Você estava vendo",
+    "Ver Solar quadrado tartaruga",
+    "Armações"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "conta-cartoes_430_932_1.2.jpg"
+ },
+ {
+  "aparelho": "celular deitado",
+  "W": 844,
+  "H": 390,
+  "tela": "inicio",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "inicio_844_390_1.0.jpg",
+  "ate": 1.4,
+  "quebra": {
+   "escala": 1.5,
+   "olho": {},
+   "fora": [
+    "Solar gatinho tartaruga"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "inicio_844_390_1.5.jpg"
+ },
+ {
+  "aparelho": "celular deitado",
+  "W": 844,
+  "H": 390,
+  "tela": "catalogo",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "catalogo_844_390_1.0.jpg",
+  "ate": 2.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular deitado",
+  "W": 844,
+  "H": 390,
+  "tela": "peca",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "peca_844_390_1.0.jpg",
+  "ate": 1.2,
+  "quebra": {
+   "escala": 1.3,
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Favoritar ← Falar no WhatsApp"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "peca_844_390_1.3.jpg"
+ },
+ {
+  "aparelho": "celular deitado",
+  "W": 844,
+  "H": 390,
+  "tela": "menu",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "menu_844_390_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "M (3→4 linhas)"
+   ]
+  },
+  "foto_quebra": "menu_844_390_1.2.jpg"
+ },
+ {
+  "aparelho": "celular deitado",
+  "W": 844,
+  "H": 390,
+  "tela": "filtros",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "filtros_844_390_1.0.jpg",
+  "ate": 2.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular deitado",
+  "W": 844,
+  "H": 390,
+  "tela": "carrinho",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "carrinho_844_390_1.0.jpg",
+  "ate": 2.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular deitado",
+  "W": 844,
+  "H": 390,
+  "tela": "conta",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "conta_844_390_1.0.jpg",
+  "ate": 1.3,
+  "quebra": {
+   "escala": 1.4,
+   "olho": {},
+   "fora": [
+    "Você estava vendo"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "conta_844_390_1.4.jpg"
+ },
+ {
+  "aparelho": "celular deitado",
+  "W": 844,
+  "H": 390,
+  "tela": "conta-cartoes",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "conta-cartoes_844_390_1.0.jpg",
+  "ate": 1.3,
+  "quebra": {
+   "escala": 1.4,
+   "olho": {},
+   "fora": [
+    "Você estava vendo"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "conta-cartoes_844_390_1.4.jpg"
+ }
+]

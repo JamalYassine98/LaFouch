@@ -1,0 +1,948 @@
+[
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "inicio",
+  "pecas": 27,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {
+    "colados": [
+     2,
+     [
+      "2",
+      "3"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "inicio_600_960_1.0.jpg",
+  "ate": 1.3,
+  "quebra": {
+   "escala": 1.4,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "Ver Solar gatinho tartarug"
+     ]
+    ]
+   },
+   "fora": [
+    "Ver Solar gatinho tartaruga"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "inicio_600_960_1.4.jpg"
+ },
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "catalogo",
+  "pecas": 16,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {
+    "texto cortado": [
+     1,
+     [
+      "Últimas 3 unidades"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "catalogo_600_960_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "texto cortado": [
+     2,
+     [
+      "Últimas 3 unidades",
+      "Última unidade"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "catalogo_600_960_1.1.jpg"
+ },
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "peca",
+  "pecas": 16,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "peca_600_960_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Compartilhar ← Falar no WhatsApp"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "peca_600_960_1.1.jpg"
+ },
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "menu",
+  "pecas": 27,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "menu_600_960_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "Idioma (1→2 linhas)"
+   ]
+  },
+  "foto_quebra": "menu_600_960_1.1.jpg"
+ },
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "filtros",
+  "pecas": 16,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "filtros_600_960_1.0.jpg",
+  "ate": 1.6,
+  "quebra": {
+   "escala": 1.7,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "0"
+     ]
+    ]
+   },
+   "fora": [
+    "0"
+   ],
+   "linha": [
+    "Metal (3→4 linhas)",
+    "Acetato (3→4 linhas)"
+   ]
+  },
+  "foto_quebra": "filtros_600_960_1.7.jpg"
+ },
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "carrinho",
+  "pecas": 16,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "carrinho_600_960_1.0.jpg",
+  "ate": 1.6,
+  "quebra": {
+   "escala": 1.7,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "1"
+     ]
+    ]
+   },
+   "fora": [
+    "1"
+   ],
+   "linha": [
+    "Metal (3→4 linhas)",
+    "Acetato (3→4 linhas)"
+   ]
+  },
+  "foto_quebra": "carrinho_600_960_1.7.jpg"
+ },
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "conta",
+  "pecas": 27,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "conta_600_960_1.0.jpg",
+  "ate": 1.3,
+  "quebra": {
+   "escala": 1.4,
+   "olho": {},
+   "fora": [
+    "Você estava vendo",
+    "Ver Solar quadrado tartaruga"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "conta_600_960_1.4.jpg"
+ },
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "conta-cartoes",
+  "pecas": 27,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "conta-cartoes_600_960_1.0.jpg",
+  "ate": 1.3,
+  "quebra": {
+   "escala": 1.4,
+   "olho": {},
+   "fora": [
+    "Você estava vendo",
+    "Ver Solar quadrado tartaruga"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "conta-cartoes_600_960_1.4.jpg"
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "inicio",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {
+    "colados": [
+     2,
+     [
+      "2",
+      "3"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "inicio_768_1024_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "cortado": [
+     2,
+     [
+      "Óculos de leitura quadrado",
+      "7 modelos"
+     ]
+    ]
+   },
+   "fora": [
+    "Solar quadrado tartaruga",
+    "Óculos de leitura quadrado pre",
+    "7 modelos"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "inicio_768_1024_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "catalogo",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "catalogo_768_1024_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {
+    "texto cortado": [
+     1,
+     [
+      "Últimas 3 unidades"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "catalogo_768_1024_1.2.jpg"
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "peca",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "peca_768_1024_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "tampado": [
+     2,
+     [
+      "Comparar ← Falar no WhatsApp",
+      "Compartilhar ← Falar no WhatsApp"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "peca_768_1024_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "menu",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "menu_768_1024_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [
+    "Você estava vendo",
+    "Solar quadrado tartaruga",
+    "Óculos de leitura quadrado pre"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "menu_768_1024_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "filtros",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "filtros_768_1024_1.0.jpg",
+  "ate": 1.8,
+  "quebra": {
+   "escala": 1.9,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "0"
+     ]
+    ]
+   },
+   "fora": [
+    "0"
+   ],
+   "linha": [
+    "Metal (3→4 linhas)",
+    "Acetato (3→4 linhas)"
+   ]
+  },
+  "foto_quebra": "filtros_768_1024_1.9.jpg"
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "carrinho",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "carrinho_768_1024_1.0.jpg",
+  "ate": 1.8,
+  "quebra": {
+   "escala": 1.9,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "1"
+     ]
+    ]
+   },
+   "fora": [
+    "1"
+   ],
+   "linha": [
+    "Metal (3→4 linhas)",
+    "Acetato (3→4 linhas)"
+   ]
+  },
+  "foto_quebra": "carrinho_768_1024_1.9.jpg"
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "conta",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "conta_768_1024_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [
+    "Você estava vendo",
+    "Solar quadrado tartaruga",
+    "Óculos de leitura quadrado pre",
+    "7 modelos"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "conta_768_1024_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "conta-cartoes",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "conta-cartoes_768_1024_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [
+    "Você estava vendo",
+    "Solar quadrado tartaruga",
+    "Óculos de leitura quadrado pre",
+    "7 modelos"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "conta-cartoes_768_1024_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "inicio",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {
+    "colados": [
+     2,
+     [
+      "2",
+      "3"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "inicio_820_1180_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "7 modelos"
+     ]
+    ]
+   },
+   "fora": [
+    "7 modelos"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "inicio_820_1180_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "catalogo",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "catalogo_820_1180_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {
+    "texto cortado": [
+     1,
+     [
+      "Últimas 3 unidades"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "catalogo_820_1180_1.2.jpg"
+ },
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "peca",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {
+    "fileira torta": [
+     1,
+     [
+      "Ver Armação redonda rosa (18 px)"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "peca_820_1180_1.0.jpg",
+  "ate": 1.3,
+  "quebra": {
+   "escala": 1.4,
+   "olho": {
+    "tampado": [
+     2,
+     [
+      "Comparar ← Falar no WhatsApp",
+      "Compartilhar ← Falar no WhatsApp"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "peca_820_1180_1.4.jpg"
+ },
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "menu",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "menu_820_1180_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [
+    "Você estava vendo",
+    "7 modelos"
+   ],
+   "linha": [
+    "Tamanho do texto (2→4 linhas)"
+   ]
+  },
+  "foto_quebra": "menu_820_1180_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "filtros",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "filtros_820_1180_1.0.jpg",
+  "ate": 1.9,
+  "quebra": {
+   "escala": 2.0,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "0"
+     ]
+    ]
+   },
+   "fora": [
+    "0"
+   ],
+   "linha": [
+    "Metal (3→4 linhas)",
+    "Acetato (3→4 linhas)"
+   ]
+  },
+  "foto_quebra": "filtros_820_1180_2.0.jpg"
+ },
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "carrinho",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {
+    "fileira torta": [
+     1,
+     [
+      "Ver Armação redonda rosa (18 px)"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "carrinho_820_1180_1.0.jpg",
+  "ate": 1.9,
+  "quebra": {
+   "escala": 2.0,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "1"
+     ]
+    ]
+   },
+   "fora": [
+    "1"
+   ],
+   "linha": [
+    "Metal (3→4 linhas)",
+    "Acetato (3→4 linhas)"
+   ]
+  },
+  "foto_quebra": "carrinho_820_1180_2.0.jpg"
+ },
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "conta",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {
+    "fileira torta": [
+     1,
+     [
+      "Acetato (18 px)"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "conta_820_1180_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [
+    "Você estava vendo",
+    "7 modelos"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "conta_820_1180_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "conta-cartoes",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {
+    "fileira torta": [
+     1,
+     [
+      "Acetato (18 px)"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "conta-cartoes_820_1180_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [
+    "Você estava vendo",
+    "7 modelos"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "conta-cartoes_820_1180_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "inicio",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {
+    "colados": [
+     2,
+     [
+      "2",
+      "3"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "inicio_1024_768_1.0.jpg",
+  "ate": 2.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "catalogo",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "catalogo_1024_768_1.0.jpg",
+  "ate": 1.8,
+  "quebra": {
+   "escala": 1.9,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "Metal (3→4 linhas)",
+    "Acetato (3→4 linhas)"
+   ]
+  },
+  "foto_quebra": "catalogo_1024_768_1.9.jpg"
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "peca",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "peca_1024_768_1.0.jpg",
+  "ate": 1.6,
+  "quebra": {
+   "escala": 1.7,
+   "olho": {
+    "tampado": [
+     2,
+     [
+      "Comparar ← Falar no WhatsApp",
+      "Compartilhar ← Falar no WhatsApp"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "peca_1024_768_1.7.jpg"
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "menu",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "menu_1024_768_1.0.jpg",
+  "ate": 1.2,
+  "quebra": {
+   "escala": 1.3,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "Descubra o seu formato (1→2 linhas)"
+   ]
+  },
+  "foto_quebra": "menu_1024_768_1.3.jpg"
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "filtros",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "filtros_1024_768_1.0.jpg",
+  "ate": 1.8,
+  "quebra": {
+   "escala": 1.9,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "Metal (3→4 linhas)",
+    "Acetato (3→4 linhas)"
+   ]
+  },
+  "foto_quebra": "filtros_1024_768_1.9.jpg"
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "carrinho",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "carrinho_1024_768_1.0.jpg",
+  "ate": 1.8,
+  "quebra": {
+   "escala": 1.9,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "Metal (3→4 linhas)",
+    "Acetato (3→4 linhas)"
+   ]
+  },
+  "foto_quebra": "carrinho_1024_768_1.9.jpg"
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "conta",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "conta_1024_768_1.0.jpg",
+  "ate": 1.6,
+  "quebra": {
+   "escala": 1.7,
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Cartões ← Falar no WhatsApp"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "conta_1024_768_1.7.jpg"
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "conta-cartoes",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "conta-cartoes_1024_768_1.0.jpg",
+  "ate": 1.6,
+  "quebra": {
+   "escala": 1.7,
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Cartões ← Falar no WhatsApp"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "conta-cartoes_1024_768_1.7.jpg"
+ }
+]

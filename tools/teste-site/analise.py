@@ -19,6 +19,10 @@ TEL = [('inicio', '', []), ('catalogo', '?r=armazones', []), ('peca', '?r=armazo
        ('carrinho', '?r=armazones', [ABRE, "()=>{const b=document.querySelector('#layer .bb');b&&b.click()}"]),
        ('conta', '', ["()=>document.querySelector('#contabtn').click()"]),
        ('conta-cartoes', '', ["()=>document.querySelector('#contabtn').click()", "()=>{const b=document.querySelectorAll('#layer .mct>button');b[3]&&b[3].click()}"])]
+TF = [t for t in os.environ.get('LF_TELAS', '').split(',') if t]
+if TF: TEL = [x for x in TEL if x[0] in TF]
+PORTAS = [x.split(':') for x in os.environ.get('LF_PORTAS', 'hoje:8000').split(',') if x]
+AF = [a for a in os.environ.get('LF_APARELHOS', '').split(',') if a]
 ESC = [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0]
 QUEBRA = {'largura', 'cortado', 'texto cortado', 'texto sobre texto', 'tampado', 'fileira torta', 'colados'}
 CONTA = json.dumps({'nome': 'Maria González', 'email': 'maria@exemplo.com', 'tel': '+595 983 000 000', 'nac': 'py', 'doc': '1234567',
@@ -44,20 +48,20 @@ def olha(pg, marca=False):
 res = []
 with sync_playwright() as pw:
     b = pw.chromium.launch(args=['--no-sandbox'])
-    for nome, W, H, dpr in AP[i0:i1]:
+    for nome, W, H, dpr in [x for x in AP if not AF or str(x[1]) + 'x' + str(x[2]) in AF][i0:i1]:
         cel = W < 1100 or H < 500
         c = b.new_context(viewport={'width': W, 'height': H}, device_scale_factor=dpr, is_mobile=cel and W < 900, has_touch=cel, locale='pt-BR', service_workers='block')
         c.add_init_script(INIT); c.route('**/*', lambda r: r.abort() if any(x in r.request.url for x in BLOQ) else r.continue_())
-        for tela, url, acoes in TEL:
-            d = {'aparelho': nome, 'W': W, 'H': H, 'tela': tela}
+        for (versao, porta), (tela, url, acoes) in [(v, t) for t in TEL for v in PORTAS]:
+            d = {'aparelho': nome, 'W': W, 'H': H, 'tela': tela, 'versao': versao}
             try:
-                pg = c.new_page(); pg.goto('http://127.0.0.1:8000/' + url, wait_until='load', timeout=60000); pg.wait_for_timeout(4500)
+                pg = c.new_page(); pg.goto('http://127.0.0.1:%s/' % porta + url, wait_until='load', timeout=60000); pg.wait_for_timeout(4500)
                 d['pecas'] = pg.evaluate("()=>{try{return document.querySelectorAll('#grid .card,#home .hc').length}catch(_){return -1}}")
                 for a in acoes: pg.evaluate(a); pg.wait_for_timeout(1500)
                 z0 = pg.evaluate("()=>parseFloat(getComputedStyle(document.body).zoom)||1"); d['zoom0'] = z0
                 base, ex0 = olha(pg, True)
                 d['hoje'] = {'olho': {k: [v['n'], v.get('ex', [])[:3]] for k, v in base.items() if k in QUEBRA}, 'fora': ex0['fora']}
-                f = '%s_%d_%s_1.0.jpg' % (tela, W, H); pg.screenshot(path=OUT + '/img/' + f, type='jpeg', quality=62); d['foto1'] = f
+                f = '%s_%s_%d_%s_1.0.jpg' % (versao, tela, W, H); pg.screenshot(path=OUT + '/img/' + f, type='jpeg', quality=62); d['foto1'] = f
                 d['ate'] = 1.0; d['quebra'] = None
                 for s in (ESC[1:] if W < 1100 else []):
                     pg.evaluate("(z)=>{document.body.style.zoom=z;document.body.style.setProperty('--z',z);dispatchEvent(new Event('resize'))}", round(z0 * s, 3)); pg.wait_for_timeout(450)
@@ -66,7 +70,7 @@ with sync_playwright() as pw:
                     fora = [x for x in ex['fora'] if x not in ex0['fora']]
                     if novo or fora or ex['linha']:
                         d['quebra'] = {'escala': s, 'olho': novo, 'fora': fora, 'linha': ex['linha']}
-                        f = '%s_%d_%s_%.1f.jpg' % (tela, W, H, s); pg.screenshot(path=OUT + '/img/' + f, type='jpeg', quality=62); d['foto_quebra'] = f
+                        f = '%s_%s_%d_%s_%.1f.jpg' % (versao, tela, W, H, s); pg.screenshot(path=OUT + '/img/' + f, type='jpeg', quality=62); d['foto_quebra'] = f
                         break
                     d['ate'] = s
                 pg.close()

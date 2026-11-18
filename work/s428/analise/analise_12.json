@@ -1,0 +1,694 @@
+[
+ {
+  "aparelho": "notebook pequeno",
+  "W": 1280,
+  "H": 720,
+  "tela": "inicio",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "inicio_1280_720_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "notebook pequeno",
+  "W": 1280,
+  "H": 720,
+  "tela": "catalogo",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "catalogo_1280_720_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "notebook pequeno",
+  "W": 1280,
+  "H": 720,
+  "tela": "peca",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "peca_1280_720_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "notebook pequeno",
+  "W": 1280,
+  "H": 720,
+  "tela": "menu",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "menu_1280_720_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "notebook pequeno",
+  "W": 1280,
+  "H": 720,
+  "tela": "filtros",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "filtros_1280_720_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "notebook pequeno",
+  "W": 1280,
+  "H": 720,
+  "tela": "carrinho",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "carrinho_1280_720_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "notebook pequeno",
+  "W": 1280,
+  "H": 720,
+  "tela": "conta",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "conta_1280_720_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "notebook pequeno",
+  "W": 1280,
+  "H": 720,
+  "tela": "conta-cartoes",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "conta-cartoes_1280_720_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "notebook",
+  "W": 1366,
+  "H": 768,
+  "tela": "inicio",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "inicio_1366_768_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "notebook",
+  "W": 1366,
+  "H": 768,
+  "tela": "catalogo",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "catalogo_1366_768_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "notebook",
+  "W": 1366,
+  "H": 768,
+  "tela": "peca",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "peca_1366_768_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "notebook",
+  "W": 1366,
+  "H": 768,
+  "tela": "menu",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "menu_1366_768_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "notebook",
+  "W": 1366,
+  "H": 768,
+  "tela": "filtros",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "filtros_1366_768_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "notebook",
+  "W": 1366,
+  "H": 768,
+  "tela": "carrinho",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "carrinho_1366_768_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "notebook",
+  "W": 1366,
+  "H": 768,
+  "tela": "conta",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "conta_1366_768_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "notebook",
+  "W": 1366,
+  "H": 768,
+  "tela": "conta-cartoes",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "conta-cartoes_1366_768_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "notebook grande",
+  "W": 1536,
+  "H": 864,
+  "tela": "inicio",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "inicio_1536_864_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "notebook grande",
+  "W": 1536,
+  "H": 864,
+  "tela": "catalogo",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "catalogo_1536_864_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "notebook grande",
+  "W": 1536,
+  "H": 864,
+  "tela": "peca",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "peca_1536_864_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "notebook grande",
+  "W": 1536,
+  "H": 864,
+  "tela": "menu",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "menu_1536_864_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "notebook grande",
+  "W": 1536,
+  "H": 864,
+  "tela": "filtros",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "filtros_1536_864_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "notebook grande",
+  "W": 1536,
+  "H": 864,
+  "tela": "carrinho",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "carrinho_1536_864_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "notebook grande",
+  "W": 1536,
+  "H": 864,
+  "tela": "conta",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "conta_1536_864_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "notebook grande",
+  "W": 1536,
+  "H": 864,
+  "tela": "conta-cartoes",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "conta-cartoes_1536_864_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "monitor",
+  "W": 1920,
+  "H": 1080,
+  "tela": "inicio",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "inicio_1920_1080_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "monitor",
+  "W": 1920,
+  "H": 1080,
+  "tela": "catalogo",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {
+    "fileira torta": [
+     1,
+     [
+      "Comprar (56 px)"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "catalogo_1920_1080_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "monitor",
+  "W": 1920,
+  "H": 1080,
+  "tela": "peca",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {
+    "fileira torta": [
+     2,
+     [
+      "Ver Armação redonda rosa (15 px)",
+      "Comprar (56 px)"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "peca_1920_1080_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "monitor",
+  "W": 1920,
+  "H": 1080,
+  "tela": "menu",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "menu_1920_1080_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "monitor",
+  "W": 1920,
+  "H": 1080,
+  "tela": "filtros",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {
+    "fileira torta": [
+     1,
+     [
+      "Comprar (56 px)"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "filtros_1920_1080_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "monitor",
+  "W": 1920,
+  "H": 1080,
+  "tela": "carrinho",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {
+    "fileira torta": [
+     2,
+     [
+      "Ver Armação redonda rosa (15 px)",
+      "Comprar (56 px)"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "carrinho_1920_1080_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "monitor",
+  "W": 1920,
+  "H": 1080,
+  "tela": "conta",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "conta_1920_1080_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "monitor",
+  "W": 1920,
+  "H": 1080,
+  "tela": "conta-cartoes",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "conta-cartoes_1920_1080_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "monitor 2K",
+  "W": 2560,
+  "H": 1440,
+  "tela": "inicio",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {
+    "fileira torta": [
+     1,
+     [
+      "Acetato (15 px)"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "inicio_2560_1440_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "monitor 2K",
+  "W": 2560,
+  "H": 1440,
+  "tela": "catalogo",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {
+    "fileira torta": [
+     2,
+     [
+      "Ver Armação redonda rosa (15 px)",
+      "Comprar (56 px)"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "catalogo_2560_1440_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "monitor 2K",
+  "W": 2560,
+  "H": 1440,
+  "tela": "peca",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {
+    "fileira torta": [
+     3,
+     [
+      "Ver Armação redonda rosa (15 px)",
+      "Comprar (56 px)",
+      "Comprar (57 px)"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "peca_2560_1440_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "monitor 2K",
+  "W": 2560,
+  "H": 1440,
+  "tela": "menu",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {
+    "fileira torta": [
+     1,
+     [
+      "Acetato (14 px)"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "menu_2560_1440_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "monitor 2K",
+  "W": 2560,
+  "H": 1440,
+  "tela": "filtros",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {
+    "fileira torta": [
+     2,
+     [
+      "Ver Armação redonda rosa (14 px)",
+      "Comprar (56 px)"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "filtros_2560_1440_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "monitor 2K",
+  "W": 2560,
+  "H": 1440,
+  "tela": "carrinho",
+  "pecas": 16,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {
+    "fileira torta": [
+     3,
+     [
+      "Ver Armação redonda rosa (15 px)",
+      "Comprar (56 px)",
+      "Comprar (57 px)"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "carrinho_2560_1440_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "monitor 2K",
+  "W": 2560,
+  "H": 1440,
+  "tela": "conta",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {
+    "fileira torta": [
+     1,
+     [
+      "Acetato (15 px)"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "conta_2560_1440_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ },
+ {
+  "aparelho": "monitor 2K",
+  "W": 2560,
+  "H": 1440,
+  "tela": "conta-cartoes",
+  "pecas": 27,
+  "zoom0": 1,
+  "hoje": {
+   "olho": {
+    "fileira torta": [
+     1,
+     [
+      "Acetato (15 px)"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "conta-cartoes_2560_1440_1.0.jpg",
+  "ate": 1.0,
+  "quebra": null
+ }
+]

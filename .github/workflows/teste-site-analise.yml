@@ -7,6 +7,15 @@ on:
       ramo:
         description: ramo do catalogo
         default: main
+      props:
+        description: esboco a injetar na copia "prop" (vazio = so o site de hoje)
+        default: ''
+      telas:
+        description: telas (vazio = todas)
+        default: ''
+      aparelhos:
+        description: aparelhos LxA separados por virgula (vazio = os 17)
+        default: ''
 
 permissions:
   contents: write
@@ -31,9 +40,15 @@ jobs:
           s=s.replace('function manut(){','function manut(){CFG.ativo=true;',1)
           open(p,'w',encoding='utf-8').write(s)
           P
-          (cd site && nohup python3 -m http.server 8000 >/dev/null 2>&1 &)
+          python3 tools/teste-site/prep.py site t "${{ inputs.props }}"
+          (cd t/hoje && nohup python3 -m http.server 8000 >/dev/null 2>&1 &)
+          (cd t/prop && nohup python3 -m http.server 8001 >/dev/null 2>&1 &)
           pip install playwright && python3 -m playwright install --with-deps chromium
       - name: Medir
+        env:
+          LF_TELAS: ${{ inputs.telas }}
+          LF_APARELHOS: ${{ inputs.aparelhos }}
+          LF_PORTAS: ${{ inputs.props != '' && 'hoje:8000,prop:8001' || 'hoje:8000' }}
         run: python3 tools/teste-site/analise.py site an ${{ matrix.parte[0] }} ${{ matrix.parte[1] }}
       - uses: actions/upload-artifact@v4
         if: always()
