@@ -19,6 +19,7 @@ TEL = [('inicio', '', []), ('catalogo', '?r=armazones', []), ('peca', '?r=armazo
        ('carrinho', '?r=armazones', [ABRE, "()=>{const b=document.querySelector('#layer .bb');b&&b.click()}"]),
        ('conta', '', ["()=>document.querySelector('#contabtn').click()"]),
        ('conta-cartoes', '', ["()=>document.querySelector('#contabtn').click()", "()=>{const b=document.querySelectorAll('#layer .mct>button');b[3]&&b[3].click()}"])]
+if os.environ.get('LF_URLS'): TEL = [(x.split('|')[0], x.split('|')[1], []) for x in os.environ['LF_URLS'].split(',') if '|' in x]  # sites de fora (comparar)
 TF = [t for t in os.environ.get('LF_TELAS', '').split(',') if t]
 if TF: TEL = [x for x in TEL if x[0] in TF]
 PORTAS = [x.split(':') for x in os.environ.get('LF_PORTAS', 'hoje:8000').split(',') if x]
@@ -55,7 +56,7 @@ with sync_playwright() as pw:
         for (versao, porta), (tela, url, acoes) in [(v, t) for t in TEL for v in PORTAS]:
             d = {'aparelho': nome, 'W': W, 'H': H, 'tela': tela, 'versao': versao}
             try:
-                pg = c.new_page(); pg.goto('http://127.0.0.1:%s/' % porta + url, wait_until='load', timeout=60000); pg.wait_for_timeout(4500)
+                pg = c.new_page(); pg.goto(url if url.startswith('http') else 'http://127.0.0.1:%s/' % porta + url, wait_until='load', timeout=60000); pg.wait_for_timeout(4500)
                 d['pecas'] = pg.evaluate("()=>{try{return document.querySelectorAll('#grid .card,#home .hc').length}catch(_){return -1}}")
                 for a in acoes: pg.evaluate(a); pg.wait_for_timeout(1500)
                 z0 = pg.evaluate("()=>parseFloat(getComputedStyle(document.body).zoom)||1"); d['zoom0'] = z0
