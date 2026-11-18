@@ -31,3 +31,19 @@ Ferramenta: work/verif/roda.py (verif.js + alin2.js + kit/abas_dist.js + olho), 
 - P5 tela vazia: só Clientes tem ícone e centro; Atacado mistura centro + esquerda; Câmbio, ficha (Histórico) à esquerda sem ícone.
 ## Teste com defeito (meu)
 - Passos "hist-dia" (abre o Dashboard) e "giro-no-estoque" (abre o Inventário) estão errados em tools/teste-android/telas.py.
+
+## Inventário de FUNÇÃO dos botões (18/11 15:50) — work/verif/botoes.py
+1.179 toques em 63 telas (cada botão tocado numa página nova; Câmbio com a cotação da casa simulada). Efeitos: leva a outra tela 422 · abre janela 186 · muda no lugar 396 · alterna 18 · nada visível 157 (a maioria: dados de teste vazios ou o 132 da base, que é só visual).
+### Conferência do 135 (função de cada botão mexido)
+- "+ Nova" (Despesas) → abre o formulário de nova despesa = acrescenta ✓ ("+")
+- "+ Novo objetivo" (Caixa) → abre a janela Novo objetivo = acrescenta ✓
+- "+ Novo acesso" (Atacado) → abre a janela Novo acesso = acrescenta ✓
+- G$/US$/R$ (Retirada) e De/Para (Troca) → alternam a moeda ✓ (escolha de dois lados)
+- "Venda ⇅" (Câmbio) → alterna as cotações venda/compra ✓ (escolha de dois lados)
+- Pendências "Ver conta/Ver margem/Conferir/Ver preços" → levam a outra tela ✓ ("›")
+- "Ver o que falta repor ›" (Caixa) → leva ao Dashboard ✓
+### Achados novos
+- "›" que NÃO leva a outra tela (abre no lugar; pela regra dos links deveria ser "⌄"): Inventário › Fornecedores "Ver peças (57) ›", Histórico "Carregar mais 30 dias ›", Giro "como calcula ›" e "ver os 14 ›", Caixa "Ver todos os movimentos ›", ficha "Fotografar no Estúdio ›" (a conferir).
+- "›" que abre JANELA (não troca de tela): Câmbio (Reposição, Últimas trocas, Preços no site, Como o app te protege) e Pendências "Ver todas as conferências do Guardião ›" — perguntar se janela conta como "outra tela".
+- Valores do Dashboard são botões escondidos: tocar troca a moeda G$ → R$ → US$ (ACT.d48Moeda) sem nada dizendo isso (W "botão diz o que faz").
+- Carrinho "+ Adicionar outra peça" volta ao catálogo para escolher (acrescenta ✓); "+ Receber parte em outra moeda" abre um campo no lugar (acrescenta ✓); "− 1 +" é quantidade (função própria, fora do P1).
