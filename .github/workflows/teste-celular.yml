@@ -48,7 +48,7 @@ jobs:
           TELAS: ${{ inputs.telas }}
         run: |
           D=android/app/src/androidTest/java/com/lafouch/app; mkdir -p $D android/app/src/androidTest/assets
-          cp tools/teste-celular/PrintsTest.java $D/
+          rm -f $D/ExampleInstrumentedTest.java; find android/app/src/androidTest -name 'ExampleInstrumentedTest*' -delete; cp tools/teste-celular/PrintsTest.java $D/
           python3 -c "import json,os,sys;sys.path.insert(0,'tools/teste-android');from telas import C;w=[x for x in os.environ.get('TELAS','').split(',') if x];json.dump([c for c in C if not w or c[0] in w],open('android/app/src/androidTest/assets/telas.json','w'))"
           printf '\ndependencies {\n  androidTestImplementation "androidx.test:core:1.5.0"\n  androidTestImplementation "androidx.test:runner:1.5.2"\n  androidTestImplementation "androidx.test.ext:junit:1.1.5"\n}\n' >> android/app/build.gradle
           grep -n testInstrumentationRunner android/app/build.gradle || sed -i 's/defaultConfig {/defaultConfig {\n        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"/' android/app/build.gradle
@@ -86,9 +86,9 @@ jobs:
         run: |
           mkdir -p prints
           B=$(grep -o 'test-lab-[a-z0-9-]*' saida.txt | head -1); echo "bucket=$B"
-          if [ -n "$B" ]; then gsutil -m cp -r "gs://$B/lf-${{ github.run_id }}" res || true; fi
+          mkdir -p res; if [ -n "$B" ]; then gcloud storage ls -r "gs://$B/lf-${{ github.run_id }}/**" | head -80; gcloud storage cp -r "gs://$B/lf-${{ github.run_id }}" res/ || true; fi
           find res -name '*.png' -path '*lf*' -exec cp {} prints/ \; 2>/dev/null || true
-          find res -name 'logcat' -exec sh -c 'grep LFPRINT "$1" > prints/log.txt' _ {} \; 2>/dev/null || true
+          find res -name 'logcat*' -exec sh -c 'grep LFPRINT "$1" > prints/log.txt' _ {} \; 2>/dev/null || true
           cp saida.txt prints/ 2>/dev/null; echo "${{ steps.ap.outputs.dev }}" > prints/aparelho.txt; ls prints | head -200
       - name: Prints num ramo git (o download de artefato e bloqueado para a IA)
         if: always()
