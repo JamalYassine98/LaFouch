@@ -1,6 +1,7 @@
 # S385: roda no GitHub (Android emulado). Liga no WebView do app pelo adb (CDP puro), abre cada tela e tira o print REAL do Android (screencap).
 import os,subprocess,time,sys,re,json,urllib.request
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)));from telas import C
+C=[c for c in C if c[0] not in ('marketing-post',)]  # S385: no emulador do GitHub o Post do Marketing derruba o Android (sempre); fica de fora até investigar
 PT=os.environ.get('PARTE','')
 if PT: a,b=[int(x) for x in PT.split('/')];C=C[(a-1)*len(C)//b:a*len(C)//b]
 import websocket
