@@ -3082,3 +3082,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 18/11 10:41 — Regra TESTES EM APARELHOS REAIS (CLAUDE.md). Caminho a definir com o dono.
 - 18/11 11:01 — DONO: "Esquece iPhone, vamos pro celular (e mais tarde pro PC)" → caminho A (Firebase Test Lab, celular Android real) agora; B (PC do dono) depois; sem iPhone. Esperando o dono criar a chave TESTLAB_CHAVE (projeto lafouch-teste).
 - 18/11 11:20 — DONO: passos no navegador sempre com LINK DIRETO em bloco de código (CLAUDE.md).
+- 18/11/2026 11:50 DONO aprovou a limpeza do site em 3 fases (docs/ESTUDO-LIMPEZA-SITE-18-11.md); esperando "implementar".
