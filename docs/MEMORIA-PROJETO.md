@@ -3068,3 +3068,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 18/11 S385: teste no Android emulado FUNCIONA (GitHub, ramos prints-android-<tema>-<n>). 1ª rodada boa: 32 telas × claro/escuro, iguais ao simulador; data 01/11/2026 certa (confirma descartar o 114). O emulador do GitHub cai nas telas com muitas fotos (Inventário, Marketing, Catálogo) — testando outro modo de gráfico (-gpu guest). Prints não chegam por artefato (rede bloqueia), só pelo ramo git.
 - 18/11 06:43 — ESBOÇO 123 (Histórico no padrão de luxo) APROVADO, esperando "implementar".
 - 18/11 07:00 — ESBOÇO 124 APROVADO, esperando "implementar".
+- 18/11 08:11 — ESBOÇO 125 APROVADO, esperando "implementar".

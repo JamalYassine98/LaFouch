@@ -18,7 +18,7 @@ jobs:
       fail-fast: false
       matrix:
         tema: [claro, escuro]
-        parte: ['1/2', '2/2']
+        parte: ['1/4', '2/4', '3/4', '4/4']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
