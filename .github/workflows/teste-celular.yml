@@ -89,7 +89,7 @@ jobs:
           mkdir -p res; if [ -n "$B" ]; then gcloud storage ls -r "gs://$B/lf-${{ github.run_id }}/**" | head -80; gcloud storage cp -r "gs://$B/lf-${{ github.run_id }}" res/ || true; fi
           find res -name '*.png' -path '*lf*' -exec cp {} prints/ \; 2>/dev/null || true
           find res -name 'logcat*' -exec sh -c 'grep LFPRINT "$1" > prints/log.txt' _ {} \; 2>/dev/null || true
-          cp saida.txt prints/ 2>/dev/null; echo "${{ steps.ap.outputs.dev }}" > prints/aparelho.txt; ls prints | head -200
+          cp saida.txt modelos.txt prints/ 2>/dev/null; echo "${{ steps.ap.outputs.dev }}" > prints/aparelho.txt; ls prints | head -200
       - name: Prints num ramo git (o download de artefato e bloqueado para a IA)
         if: always()
         run: |
