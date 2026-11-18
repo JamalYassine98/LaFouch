@@ -8,18 +8,29 @@
     ".lx44:not(.lxb)::after,.lx44.lxb::before{content:'';position:absolute;top:calc(-1*var(--t));right:calc(-1*var(--r));bottom:calc(-1*var(--b));left:calc(-1*var(--l));}" +
     /* (2) selo sobre a foto, no canto de baixo à esquerda, numa pílula clara */
     "#home .hc:has(.hlin){position:relative}" +
-    "#home .hc .hlin{position:absolute;z-index:3;display:inline-flex;align-items:center;gap:6px;margin:0!important;padding:4px 9px 4px 8px;border-radius:999px;background:rgba(255,255,255,.92);box-shadow:0 1px 4px rgba(42,31,39,.10);font:600 11.5px/1.2 Inter,system-ui,sans-serif;letter-spacing:.01em;text-transform:none;color:#2a1f27;max-width:calc(100% - 16px)}" +
-    "#home .hc .hlin i{width:6px;height:6px;background:#b5482a;animation:lfresp 2.6s ease-in-out infinite}" +
-    "@media (prefers-reduced-motion:reduce){#home .hc .hlin i{animation:none}}";
+    /* "Últimas N": vermelho como antes, SEM fundo, no canto de cima da foto (longe dos óculos), alinhado com o texto do cartão */
+    "#home .hc .hlin,#grid .card .ph .ulin{position:absolute!important;z-index:3;display:inline-flex;align-items:center;gap:6px;margin:0!important;padding:0!important;background:none!important;box-shadow:none!important;border-radius:0!important;font:700 11.5px/1.25 Inter,system-ui,sans-serif!important;letter-spacing:.02em!important;text-transform:none!important;color:#c62828!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;align-items:flex-start!important}" +
+    "#home .hc .hlin i,#grid .card .ph .ulin i{width:6px!important;height:6px!important;background:currentColor!important;margin-top:.4em}" +
+    "#grid .card .ph .ulin{bottom:auto!important}" +
+    /* peça: coração sem o círculo branco (igual ao catálogo), toque continua 46 px */
+    ".pgm .big .dfav,.modal .big .dfav{background:none!important;box-shadow:none!important;color:#7d2a5a}" +
+    ".modal .big .dfav svg{width:24px;height:24px;filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 2px #fff)}" +
+    ".modal .big .dfav.on{background:none!important;color:var(--ac)}.modal .big .dfav.on svg{fill:currentColor}";
   document.head.appendChild(st);
   const toque = () => matchMedia('(pointer:coarse)').matches || innerWidth < 1100;
   const vis = (e) => { const r = e.getBoundingClientRect(); if (!r.width || !r.height) return false; for (let x = e; x && x !== document.body; x = x.parentElement) { const s = getComputedStyle(x); if (s.display === 'none' || s.visibility === 'hidden') return false; } return true; };
   function selos() {
-    document.querySelectorAll('#home .hc').forEach((c) => {
-      const s = c.querySelector('.hlin'), im = c.querySelector('.hci, img'); if (!s || !im) return;
-      const cr = c.getBoundingClientRect(), ir = (im.closest('.hci') || im).getBoundingClientRect(), z = cr.width / c.offsetWidth || 1;
-      s.style.left = ((ir.left - cr.left) / z + 8) + 'px'; s.style.top = ((ir.bottom - cr.top) / z - s.offsetHeight - 8) + 'px';
-    });
+    const poe = (c, s, ph) => {
+      const cr = c.getBoundingClientRect(), pr = ph.getBoundingClientRect(), z = cr.width / c.offsetWidth || 1;
+      const tx = c.querySelector('.hn,.nm,.ref') ; const esq = tx ? tx.getBoundingClientRect().left : pr.left + 12;
+      const base = s.offsetParent || c, br = base.getBoundingClientRect(), zb = br.width / base.offsetWidth || 1;
+      const fav = c.querySelector('.fav'); const lim = fav ? fav.getBoundingClientRect().left - 6 : pr.right - 12;
+      s.style.left = ((esq - br.left) / zb) + 'px'; s.style.top = ((pr.top - br.top) / zb + 16) + 'px';
+      s.style.maxWidth = Math.max(40, (lim - esq) / zb) + 'px';
+      const d = esq - s.getBoundingClientRect().left; if (Math.abs(d) > .5) s.style.left = (parseFloat(s.style.left) + d / zb) + 'px';
+    };
+    document.querySelectorAll('#home .hc').forEach((c) => { const s = c.querySelector('.hlin'), im = c.querySelector('.hci, img'); if (s && im) poe(c, s, im.closest('.hci') || im); });
+    document.querySelectorAll('#grid .card').forEach((c) => { const s = c.querySelector('.ph .ulin'), ph = c.querySelector('.ph'); if (s && ph) poe(c, s, ph); });
   }
   function areas() {
     document.querySelectorAll('.lx44').forEach((e) => e.classList.remove('lx44', 'lxpos', 'lxb'));
