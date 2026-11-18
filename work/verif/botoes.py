@@ -6,6 +6,8 @@ LM="()=>{const S=__LF.S;S.lm={usd:{v:6487,c:6420},brl:{v:1196,c:1180},eur:{v:710
 EXTRA=[('cambio',["()=>__LF.setView('fx')"]),('clientes',["()=>__LF.setView('clientes')"]),('atacado',["()=>__LF.inicioGo('ata')"]),('inicio',[]),('vender',["()=>__LF.setView('venda')"]),('ajustes',["()=>__LF.setView('ajustes')"])]
 PARTE=os.environ.get('PARTE','1/1');a,bb=[int(x) for x in PARTE.split('/')]
 TELAS=(C+EXTRA)[(a-1)*len(C+EXTRA)//bb:a*len(C+EXTRA)//bb]
+if os.environ.get('SO'):
+  TELAS=[t for t in C+EXTRA if t[0] in os.environ['SO'].split(',')]
 LISTA=r"""()=>{const vis=e=>{const r=e.getBoundingClientRect();const c=getComputedStyle(e);return r.width>2&&r.height>2&&c.visibility!='hidden'&&+c.opacity>0.05};
  const jan=[...document.querySelectorAll('.ljJn,.modal-box')].filter(vis).pop();
  return [...document.querySelectorAll('button,[role=button],a[href],[data-act]')].filter(e=>vis(e)&&!e.closest('nav.bnav,#bnav,.bnav')&&(!jan||jan.contains(e))).map((e,i)=>({i,act:e.dataset.act||'',id:e.dataset.id||'',txt:(e.innerText||e.getAttribute('aria-label')||e.title||'').trim().replace(/\s+/g,' ').slice(0,40),tag:e.tagName}))}"""
@@ -16,7 +18,7 @@ ESTADO=r"""()=>{const vis=e=>{const r=e.getBoundingClientRect();const c=getCompu
 def ctx(br):
   c=br.new_context(bypass_csp=True,viewport={'width':390,'height':844},device_scale_factor=1,is_mobile=True,has_touch=True,locale='pt-BR',color_scheme='dark',service_workers='block')
   c.route('**/*',lambda r: r.continue_() if r.request.url.startswith('http://localhost') or r.request.url.startswith('http://127.') else r.abort())
-  c.add_init_script("try{sessionStorage.setItem('lf_ni','1')}catch(e){}");c.add_init_script(base_app.script())
+  c.add_init_script("try{sessionStorage.setItem('lf_ni','1')}catch(e){}");(c.add_init_script(base_app.script()) if os.environ.get('BASE','1')=='1' else None)
   return c
 def abre(br,ps):
   c=ctx(br);pg=c.new_page();pg.goto('http://localhost:%d/index.html#test'%kit.PA);pg.wait_for_function('window.__LF',timeout=10000);pg.wait_for_timeout(700)
@@ -52,4 +54,4 @@ with sync_playwright() as pw:
       res.append(dict(b,efeito=ef));c.close()
     R[nome]=res;print(nome,len(res),flush=True)
   br.close()
-json.dump(R,open('/tmp/verif/botoes_%s.json'%PARTE.replace('/','de'),'w'),ensure_ascii=False,indent=0)
+json.dump(R,open(os.environ.get('OUTJ','/tmp/verif/botoes_%s.json'%PARTE.replace('/','de')),'w'),ensure_ascii=False,indent=0)

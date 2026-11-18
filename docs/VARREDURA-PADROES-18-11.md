@@ -47,3 +47,14 @@ Ferramenta: work/verif/roda.py (verif.js + alin2.js + kit/abas_dist.js + olho), 
 - "›" que abre JANELA (não troca de tela): Câmbio (Reposição, Últimas trocas, Preços no site, Como o app te protege) e Pendências "Ver todas as conferências do Guardião ›" — perguntar se janela conta como "outra tela".
 - Valores do Dashboard são botões escondidos: tocar troca a moeda G$ → R$ → US$ (ACT.d48Moeda) sem nada dizendo isso (W "botão diz o que faz").
 - Carrinho "+ Adicionar outra peça" volta ao catálogo para escolher (acrescenta ✓); "+ Receber parte em outra moeda" abre um campo no lugar (acrescenta ✓); "− 1 +" é quantidade (função própria, fora do P1).
+
+## Estudo da função dos botões nos esboços JÁ APROVADOS (18/11 18:20, sem a base, app de hoje)
+- 132 Guardião: Conferir/Ver/Fazer/Completar → levam a outra tela ✓ "›"; "silenciar" → silencia o item ✓. Atenção na implementação: a base 132 é só visual (os botões refeitos não fazem a ação) — o código de verdade tem de manter as ações.
+- 133b Atacado › Tabela: as 3 linhas abrem janela ✓ "›".
+- 133a Novo cliente: abre DENTRO da página → conflita com P2 (criar = janela de baixo). Decidir junto com o conflito 134d × P6.
+- 134a ficha: Vender no Catálogo › (leva) ✓; Fotografar no Estúdio › (abre a sessão de fotos) ✓; % Oferta (abre janela) ✓ pílula neutra; No site (alterna) ✓ chave; Ficha 4/6 (abre janela) ✓. AJUSTE: "Lucro real" e "De onde vem o preço" abrem no lugar → pela regra dos links mostram "⌄" (no esboço estão com ▶).
+- 134a/Inventário (fora do esboço): "EM ESTOQUE (FILTRO) ›" alterna um filtro na mesma tela → o "›" está errado.
+- 134b Fornecedores: Editar (abre janela) ✓; Ver peças (abre no lugar) → "⌄" ✓ já aprovado; Lista de compras › (leva) ✓. AJUSTE: a lixeira confirma DENTRO da linha; o resto do app usa a janela de confirmação única (S418).
+- 134c Adicionar: Ler haste/Foto (abrem janela) ✓; Chegou mercadoria › e Preencher à mão › (abrem janela) ✓.
+- 134d Editar produto: Salvar alterações (principal) ✓; "Fechar sem salvar" → conflito com P6 (pendente).
+- 135a–i: conferidos antes ✓.
