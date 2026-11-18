@@ -1,0 +1,30 @@
+1100 letra 0 inicio False || 
+1100 letra 0 peca False || fileira torta:Solar quadrado dourado (14 px) ## tampado:Solar hexagonal preto ← Toque para ampliar|Armação acetato roxa ← Toque para ampliar
+1100 letra 1 inicio False || 
+1100 letra 1 peca False || fileira torta:Solar quadrado dourado (16 px) ## tampado:Ver todos › ← Início|Solar hexagonal preto ← Toque para ampliar
+1100 letra 2 inicio False || 
+1100 letra 2 peca False || fileira torta:Solar quadrado dourado (18 px) ## tampado:Ver todos › ← Início|Solar hexagonal preto ← Toque para ampliar
+1366 letra 0 inicio False || 
+1366 letra 0 peca False || fileira torta:Solar quadrado dourado (15 px) ## tampado:Ver todos › ← Início|Solar hexagonal preto ← Toque para ampliar
+1366 letra 1 inicio False || 
+1366 letra 1 peca False || fileira torta:Solar quadrado dourado (16 px) ## tampado:Ver todos › ← Início|Solar hexagonal preto ← Toque para ampliar
+1366 letra 2 inicio False || 
+1366 letra 2 peca False || fileira torta:Solar quadrado dourado (18 px) ## tampado:Solar hexagonal preto ← Toque para ampliar|Armação acetato roxa ← Toque para ampliar
+1440 letra 0 inicio False || 
+1440 letra 0 peca False || fileira torta:Solar quadrado dourado (15 px) ## tampado:Solar hexagonal preto ← Toque para ampliar|Armação acetato roxa ← Toque para ampliar
+1440 letra 1 inicio False || 
+1440 letra 1 peca False || fileira torta:Solar quadrado dourado (17 px) ## tampado:Ver todos › ← Início|Solar hexagonal preto ← Toque para ampliar
+1440 letra 2 inicio False || 
+1440 letra 2 peca False || fileira torta:Solar quadrado dourado (18 px) ## tampado:Ver todos › ← Início|Solar hexagonal preto ← Toque para ampliar
+1920 letra 0 inicio False || 
+1920 letra 0 peca False || fileira torta:Solar quadrado dourado (15 px)|TESTE DE LEITURA (23 px) ## tampado:Solar hexagonal preto ← Toque para ampliar|Armação acetato roxa ← Toque para ampliar
+1920 letra 1 inicio False || 
+1920 letra 1 peca False || fileira torta:Solar quadrado dourado (16 px)|Solar redondo preto (13 px) ## tampado:Ver todos › ← Início|Solar hexagonal preto ← Toque para ampliar
+1920 letra 2 inicio False || 
+1920 letra 2 peca False || fileira torta:Solar quadrado dourado (17 px)|Solar redondo preto (14 px) ## tampado:Ver todos › ← Início|Solar hexagonal preto ← Toque para ampliar
+2560 letra 0 inicio False || fileira torta:Solar quadrado dourado (15 px)
+2560 letra 0 peca False || fileira torta:Solar quadrado dourado (15 px)|TESTE DE LEITURA (23 px) ## tampado:13 modelos ← Toque para ampliar|3 modelos ← Toque para ampliar
+2560 letra 1 inicio False || 
+2560 letra 1 peca False || fileira torta:Solar quadrado dourado (16 px)|TESTE DE LEITURA (26 px) ## tampado:13 modelos ← Início|3 modelos ← Início
+2560 letra 2 inicio False || 
+2560 letra 2 peca False || fileira torta:Solar quadrado dourado (17 px)|TESTE DE LEITURA (27 px) ## tampado:Solar hexagonal preto ← Toque para ampliar|Armação acetato roxa ← Toque para ampliar
