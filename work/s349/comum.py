@@ -42,3 +42,7 @@ def _it(o):
     return r
 def novos(o0,o1):
     a=_it(o0);return sorted(_it(o1)-a) or 'nenhum'
+ALIN=open('/home/claude/lafouch/work/kit/alin.js').read()
+def alin(pg,blocos):
+    try: return pg.evaluate(ALIN,blocos) or []
+    except Exception as e: return [{'r':'erro alin','ex':[str(e)[:120]]}]
