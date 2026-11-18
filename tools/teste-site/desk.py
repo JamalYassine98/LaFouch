@@ -19,7 +19,10 @@ with sync_playwright() as pw:
                 c.add_init_script(init_js(tema, letra))
                 pg = c.new_page(); er = []; pg.on('pageerror', lambda e: er.append(str(e)[:160]))
                 try:
-                    pg.goto('http://127.0.0.1:%d/' % (8000 if v == 'hoje' else 8001), wait_until='load'); pg.wait_for_timeout(2500)
+                    u = 'http://127.0.0.1:%d/' % (8000 if v == 'hoje' else 8001)
+                    try: pg.goto(u, wait_until='load', timeout=60000)
+                    except Exception: pg.goto(u, wait_until='load', timeout=60000)
+                    pg.wait_for_timeout(2500)
                     if alvo:
                         if alvo == '#home .hc': pg.evaluate("()=>document.querySelector('#home .hc').scrollIntoView({block:'center'})"); pg.wait_for_timeout(500)
                         bx = pg.locator(alvo).first.bounding_box(); x, y = bx['x'] + bx['width'] / 2, bx['y'] + min(bx['height'] / 2, 60)

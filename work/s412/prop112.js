@@ -8,5 +8,5 @@ const st=document.createElement('style');st.textContent=
 document.head.appendChild(st);
 const set=()=>{const z=parseFloat(getComputedStyle(document.body).zoom)||1;
  r.style.setProperty('--evh',(b&&getComputedStyle(b).display!=='none'?parseFloat(getComputedStyle(b).height):0)+'px');
- if(t)r.style.setProperty('--hth2',(t.getBoundingClientRect().height/z)+'px')};
+ if(t)r.style.setProperty('--hth2',parseFloat(getComputedStyle(t).height)+'px')};
 set();if(window.ResizeObserver){b&&new ResizeObserver(set).observe(b);t&&new ResizeObserver(set).observe(t)}addEventListener('resize',set)})()
