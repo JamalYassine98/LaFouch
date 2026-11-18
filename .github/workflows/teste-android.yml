@@ -26,6 +26,12 @@ jobs:
           node build.js
           npx cap add android
           npx cap sync android
+      - name: Firebase (igual ao APK de verdade; sem ele o app cai ao pedir avisos)
+        env:
+          GSJ: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          if [ -n "$GSJ" ]; then if printf '%s' "$GSJ" | grep -q '"project_info"'; then printf '%s' "$GSJ" > android/app/google-services.json; else echo "$GSJ" | base64 -d > android/app/google-services.json; fi; echo ok; else echo "::warning::sem GOOGLE_SERVICES_JSON"; fi
+          npx cap sync android
       - name: Compilar APK de teste (fica so aqui)
         working-directory: android
         run: chmod +x gradlew && for i in 1 2 3; do ./gradlew assembleDebug && break; sleep 60; done && test -s app/build/outputs/apk/debug/app-debug.apk
