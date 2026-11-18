@@ -1,0 +1,96 @@
+name: Teste do SITE em aparelhos de verdade (Android Chrome, Windows Edge/Chrome, Mac Safari) - so prints
+
+# S414 (sessao do SITE): compara "hoje" x "proposta" (esbocos injetados numa copia; nada vai para o ar).
+on:
+  workflow_dispatch:
+    inputs:
+      props:
+        description: esbocos a injetar (caminhos no repositorio, separados por virgula)
+        default: work/s412/prop112.js,work/s413/prop2.js
+
+permissions:
+  contents: read
+
+jobs:
+  android:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with: { repository: JamalYassine98/catalogo, path: site }
+      - name: Copias hoje e proposta
+        run: |
+          python3 tools/teste-site/prep.py site t "${{ inputs.props }}"
+          (cd t/hoje && nohup python3 -m http.server 8000 >/dev/null 2>&1 &)
+          (cd t/prop && nohup python3 -m http.server 8001 >/dev/null 2>&1 &)
+          pip install websocket-client
+      - name: Ligar KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules && sudo udevadm trigger --name-match=kvm
+      - name: Android emulado + Chrome
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: google_apis_playstore
+          arch: x86_64
+          profile: pixel_6
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -change-locale pt-BR
+          script: |
+            adb reverse tcp:8000 tcp:8000 && adb reverse tcp:8001 tcp:8001
+            adb shell am set-debug-app --persistent com.android.chrome
+            adb shell "echo '_ --disable-fre --no-default-browser-check --no-first-run --disable-features=SigninPromo' > /data/local/tmp/chrome-command-line"
+            adb shell settings put system font_scale 1.0
+            adb shell am start -n com.android.chrome/com.google.android.apps.chrome.Main -d http://127.0.0.1:8000/ && sleep 25
+            python3 tools/teste-site/android.py prints fonte100 || true
+            adb shell am force-stop com.android.chrome && adb shell settings put system font_scale 1.3
+            adb shell am start -n com.android.chrome/com.google.android.apps.chrome.Main -d http://127.0.0.1:8000/ && sleep 20
+            python3 tools/teste-site/android.py prints fonte130 || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: site-android, path: prints }
+
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with: { repository: JamalYassine98/catalogo, path: site }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Edge e Chrome instalados no Windows
+        shell: bash
+        run: |
+          pip install playwright
+          python tools/teste-site/prep.py site t "${{ inputs.props }}"
+          (cd t/hoje && python -m http.server 8000 >/dev/null 2>&1 &)
+          (cd t/prop && python -m http.server 8001 >/dev/null 2>&1 &)
+          sleep 2
+          python tools/teste-site/desk.py msedge prints 1366x768,1920x1080,2560x1440 || true
+          python tools/teste-site/desk.py chrome prints 1440x900 || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: site-windows, path: prints }
+
+  mac:
+    runs-on: macos-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with: { repository: JamalYassine98/catalogo, path: site }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Safari (motor WebKit) em iPhone e Mac
+        run: |
+          pip install playwright && python -m playwright install webkit
+          python tools/teste-site/prep.py site t "${{ inputs.props }}"
+          (cd t/hoje && python -m http.server 8000 >/dev/null 2>&1 &)
+          (cd t/prop && python -m http.server 8001 >/dev/null 2>&1 &)
+          sleep 2
+          python tools/teste-site/desk.py webkit prints 390x844,1440x900 || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: site-mac, path: prints }
