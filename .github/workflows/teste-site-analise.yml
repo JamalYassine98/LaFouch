@@ -1,0 +1,55 @@
+name: Analise CABE EM TODA TELA (site real, 17 aparelhos, letra 1x a 2x) - so medidas e prints
+
+# S428 (sessao do SITE, pedido do dono 18/11 15:00): mede o site publicado (pecas da nuvem) sem mudar nada no ar.
+on:
+  workflow_dispatch:
+    inputs:
+      ramo:
+        description: ramo do catalogo
+        default: main
+
+permissions:
+  contents: write
+
+jobs:
+  medir:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        parte: [[0, 4], [4, 8], [8, 12], [12, 17]]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with: { repository: JamalYassine98/catalogo, path: site, ref: '${{ inputs.ramo }}' }
+      - name: Copia do site (com o site aberto para medir, como o administrador ve)
+        run: |
+          python3 - <<'P'
+          p='site/js/lf-site.js';s=open(p,encoding='utf-8').read()
+          assert s.count('function manut(){')==1
+          s=s.replace('function manut(){','function manut(){CFG.ativo=true;',1)
+          open(p,'w',encoding='utf-8').write(s)
+          P
+          (cd site && nohup python3 -m http.server 8000 >/dev/null 2>&1 &)
+          pip install playwright && python3 -m playwright install --with-deps chromium
+      - name: Medir
+        run: python3 tools/teste-site/analise.py site an ${{ matrix.parte[0] }} ${{ matrix.parte[1] }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: 'analise-${{ matrix.parte[0] }}', path: an }
+
+  juntar:
+    needs: [medir]
+    if: always()
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { path: r }
+      - name: Gravar no ramo resultados-analise
+        run: |
+          cd r && git init -q && git checkout -q -b resultados-analise
+          git config user.name "teste-site" && git config user.email "teste-site@users.noreply.github.com"
+          echo "run ${{ github.run_id }} $(date -u)" > RODADA.txt
+          git add -A && git commit -q -m "analise cabe em toda tela (run ${{ github.run_id }})"
+          git push -f -q "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" resultados-analise
