@@ -1,0 +1,107 @@
+name: Teste do SITE no CELULAR REAL (Firebase Test Lab, projeto lafouch-teste; so prints)
+
+on:
+  workflow_dispatch:
+    inputs:
+      ramo:
+        description: ramo do repositorio catalogo (main = site no ar)
+        default: main
+      rotulo:
+        description: nome do resultado (ex. hoje, limpeza)
+        default: hoje
+      forma:
+        description: PHONE ou TABLET
+        default: PHONE
+      modelo:
+        description: 'aparelho (vazio = escolhe sozinho; ex. model=a14,version=34)'
+        default: ''
+      telas:
+        description: 'nomes das telas separados por virgula (vazio = todas)'
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency: { group: testlab, cancel-in-progress: false }
+
+jobs:
+  celular:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with: { path: lf }
+      - uses: actions/checkout@v4
+        with: { repository: JamalYassine98/catalogo, ref: '${{ inputs.ramo }}', path: catalogo }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 17 }
+      - name: Montar o app com a copia do site do ramo escolhido
+        working-directory: lf
+        run: |
+          npm install --legacy-peer-deps
+          node build.js
+          npx cap add android
+          npx cap sync android
+      - name: Firebase do app (igual ao APK de verdade)
+        working-directory: lf
+        env:
+          GSJ: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          if [ -n "$GSJ" ]; then if printf '%s' "$GSJ" | grep -q '"project_info"'; then printf '%s' "$GSJ" > android/app/google-services.json; else echo "$GSJ" | base64 -d > android/app/google-services.json; fi; fi
+          npx cap sync android
+      - name: Colocar o teste de prints do site
+        working-directory: lf
+        env:
+          TELAS: ${{ inputs.telas }}
+        run: |
+          D=android/app/src/androidTest/java/com/lafouch/app; mkdir -p $D android/app/src/androidTest/assets
+          find android/app/src/androidTest -name 'ExampleInstrumentedTest*' -delete; cp tools/teste-site-celular/SitePrintsTest.java $D/
+          python3 tools/teste-site-celular/telas_site.py android/app/src/androidTest/assets/telas_site.json "$TELAS"
+          printf '\ndependencies {\n  androidTestImplementation "androidx.test:core:1.5.0"\n  androidTestImplementation "androidx.test:runner:1.5.2"\n  androidTestImplementation "androidx.test.ext:junit:1.1.5"\n}\n' >> android/app/build.gradle
+          grep -n testInstrumentationRunner android/app/build.gradle || sed -i 's/defaultConfig {/defaultConfig {\n        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"/' android/app/build.gradle
+      - name: Compilar app + teste
+        working-directory: lf/android
+        run: chmod +x gradlew && for i in 1 2 3; do ./gradlew assembleDebug assembleDebugAndroidTest && break; sleep 60; done
+      - uses: google-github-actions/auth@v2
+        with: { credentials_json: '${{ secrets.TESTLAB_CHAVE }}' }
+      - uses: google-github-actions/setup-gcloud@v2
+      - name: Escolher o aparelho real
+        id: ap
+        working-directory: lf
+        env:
+          MOD: ${{ inputs.modelo }}
+          FORMA: ${{ inputs.forma }}
+        run: |
+          gcloud config set project lafouch-teste
+          if [ -n "$MOD" ]; then echo "dev=$MOD,locale=pt_BR,orientation=portrait" >> $GITHUB_OUTPUT; else
+          gcloud firebase test android models list --format=json > modelos.json
+          echo "dev=$(python3 tools/teste-celular/escolhe.py modelos.json $FORMA)" >> $GITHUB_OUTPUT; fi
+          cat $GITHUB_OUTPUT
+      - name: Rodar no aparelho real (12 min no maximo; a cota gratis e 30 min/dia, dividida com o teste do app)
+        working-directory: lf
+        run: |
+          gcloud firebase test android run --type instrumentation \
+            --app android/app/build/outputs/apk/debug/app-debug.apk \
+            --test android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
+            --test-targets "class com.lafouch.app.SitePrintsTest" \
+            --device ${{ steps.ap.outputs.dev }} \
+            --timeout 12m --no-record-video --no-performance-metrics \
+            --directories-to-pull /sdcard/Download/lf \
+            --results-dir lfs-${{ github.run_id }} 2>&1 | tee saida.txt || true
+      - name: Baixar os prints
+        if: always()
+        working-directory: lf
+        run: |
+          mkdir -p prints res
+          B=$(grep -o 'test-lab-[a-z0-9-]*' saida.txt | head -1); echo "bucket=$B"
+          if [ -n "$B" ]; then gcloud storage cp -r "gs://$B/lfs-${{ github.run_id }}" res/ || true; fi
+          find res -name '*.png' -path '*lf*' -exec cp {} prints/ \; 2>/dev/null || true
+          find res -name 'logcat*' -exec sh -c 'grep -E "LFPRINT|Capacitor/Console|chromium" "$1" > prints/log.txt' _ {} \; 2>/dev/null || true
+          cp saida.txt prints/ 2>/dev/null; echo "${{ steps.ap.outputs.dev }} · catalogo ${{ inputs.ramo }}" > prints/aparelho.txt; ls prints | head -100
+      - name: Prints num ramo git (o download de artefato e bloqueado para a IA)
+        if: always()
+        working-directory: lf
+        run: |
+          cd prints && git init -q -b prints-site-${{ inputs.rotulo }} && git add -A && git -c user.name=teste -c user.email=teste@users.noreply.github.com commit -qm "prints site ${{ inputs.rotulo }} $(date -u +%F_%H%M)" && git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" prints-site-${{ inputs.rotulo }}
