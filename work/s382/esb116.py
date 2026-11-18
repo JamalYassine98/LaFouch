@@ -5,10 +5,10 @@ from playwright.sync_api import sync_playwright
 comum.OUT='/home/claude/lafouch/work/s382/';T='/tmp/s382/'
 H=r"""
 window.__lux={
- lin:(a,b,sub,cor,chev,big,ult)=>'<div class="cxL" style="padding:13px 0;align-items:center'+(ult?';border-bottom:0':'')+'"><span>'+a+(sub?'<small>'+sub+'</small>':'')+'</span><span style="display:flex;align-items:center;gap:10px"><b style="font-size:'+(big?21:16)+'px;font-weight:'+(big?700:600)+';white-space:nowrap'+(cor?';color:'+cor:'')+'">'+b+'</b>'+(chev?'<span style="color:var(--mute);font-size:20px">›</span>':'')+'</span></div>',
+ lin:(a,b,sub,cor,chev,big,ult)=>'<div class="cxL" style="padding:13px 0;align-items:center'+(ult?';border-bottom:0':'')+'"><span>'+a+(sub?'<small>'+sub+'</small>':'')+'</span><span style="display:flex;align-items:center;gap:10px"><b style="font-size:'+(big?21:16)+'px;font-weight:'+(big?700:600)+';white-space:nowrap'+(cor?';color:'+cor:'')+'">'+b+'</b>'+(chev?'<span style="color:var(--mute);font-size:20px;width:10px;text-align:right">›</span>':(window.__luxAlinha?'<span style="width:10px"></span>':''))+'</span></div>',
  blk:(t,c,m)=>'<section class="cxSaldo" style="margin:'+(m||'0 0 22px')+'"><div class="cxLb">'+t+'</div>'+c+'</section>'};"""
 RESUMO=H+r"""
-const v=document.getElementById('v-dia'),L=window.__lux;const k=v.querySelector('section.kpis');
+window.__luxAlinha=1;const v=document.getElementById('v-dia'),L=window.__lux;const k=v.querySelector('section.kpis');
 const ks=[...k.querySelectorAll('.kpi')].map(x=>({l:x.querySelector('.lbl').innerText.replace('›','').trim(),ch:/›/.test(x.querySelector('.lbl').innerText),b:x.querySelector('b').innerText,h:((x.querySelector('.hint')||{}).innerText||'').split('\n')[0],c:getComputedStyle(x.querySelector('b')).color}));
 const cap=s=>s.charAt(0)+s.slice(1).toLowerCase();
 k.outerHTML=L.blk('Hoje',ks.map((x,i)=>L.lin(cap(x.l),x.b,x.h,x.c,x.ch,true,i==ks.length-1)).join(''));
@@ -17,8 +17,8 @@ const cards=[...sv.querySelectorAll(':scope > .card:not(.famOc)')];const link=sv
 const rows=cards.map((c,i)=>{const t=c.querySelector('b').innerText,s=c.querySelector('.hint').innerText.replace(/ · 17\/11 às/,' ·'),val=(c.innerText.match(/G\$ [\d.]+/)||[''])[0];return '<button type="button" style="all:unset;display:block;width:100%;cursor:pointer">'+L.lin(t,val,s,'',true,false,i==cards.length-1)+'</button>'}).join('');
 sv.outerHTML=L.blk('Vendas do dia · '+cards.length,rows+(link?'<button type="button" class="lk100 c101" style="display:block;margin:6px auto 0;background:none;border:0;color:var(--accent-fg);font-size:15px;font-weight:600;min-height:44px;font-family:inherit">'+link.innerText+'</button>':''));
 const fc=[...v.querySelectorAll('section.card')].find(x=>/Fechamento do dia/.test(x.innerText));
-const sl=[...fc.querySelectorAll('.sl')].map(x=>[x.querySelector('span').innerText,x.querySelector('b').innerText]);
-fc.outerHTML=L.blk('Fechamento do dia',sl.map((x,i)=>i==sl.length-1?'<div class="cxL" style="padding:13px 0;border-bottom:0"><span style="font-weight:600">'+x[0]+'</span><b style="font-size:21px;font-weight:700;white-space:nowrap">'+x[1]+'</b></div>':L.lin(x[0],x[1],'','',false,false,false)).join(''));
+const sl=[...fc.querySelectorAll('.sl')].map(x=>[x.querySelector('span').innerText,x.querySelector('b').innerText.replace(/\s*\(US\$[^)]*\)/,'')]);
+fc.outerHTML=L.blk('Fechamento do dia',sl.map((x,i)=>i==sl.length-1?'<div class="cxL" style="padding:13px 0;border-bottom:0;align-items:center"><span style="font-weight:600">'+x[0]+'</span><span style="display:flex;align-items:center;gap:10px"><b style="font-size:21px;font-weight:700;white-space:nowrap">'+x[1]+'</b><span style="width:10px"></span></span></div>':L.lin(x[0],x[1],'','',false,false,false)).join(''));
 return 1"""
 GIRO=H+r"""
 const v=document.querySelector('.view:not([hidden])'),L=window.__lux;const k=v.querySelector('section.kpis');
@@ -38,7 +38,7 @@ const h='<section class="cxSaldo" style="margin:0 0 22px"><div class="cxLb" styl
 c.outerHTML=h;return 1"""
 CASOS=[('a','dashboard-resumo','Dashboard › Resumo (Hoje)',"()=>window.__LF.inicioGo('hoje')",RESUMO,
   'Hoje: 4 caixas empilhadas para os números, um cartão por venda (com Ver detalhes e Estornar) e o fechamento numa caixa com título dentro.',
-  'Proposta (igual ao Caixa/Despesas): bloco "HOJE" em linhas finas com os 4 números; "VENDAS DO DIA" uma linha por venda (toque abre o detalhe, onde ficam Ver detalhes e Estornar); "FECHAMENTO DO DIA" em linhas finas com o total em destaque.'),
+  'Proposta (igual ao Caixa/Despesas; todos os valores na mesma coluna à direita; reposição só em guaranis): bloco "HOJE" em linhas finas com os 4 números; "VENDAS DO DIA" uma linha por venda (toque abre o detalhe, onde ficam Ver detalhes e Estornar); "FECHAMENTO DO DIA" em linhas finas com o total em destaque.'),
  ('b','giro','Giro',"()=>window.__LF.inicioGo('giro')",GIRO,
   'Hoje: "No estoque" e "Parado 60+ dias" em duas caixas.',
   'Proposta: bloco "ESTOQUE" com duas linhas finas e "›" (cada uma leva para o mesmo lugar de hoje). As linhas que abrem embaixo já estão no padrão.'),
