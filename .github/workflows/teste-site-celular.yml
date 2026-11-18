@@ -42,6 +42,7 @@ jobs:
         run: |
           npm install --legacy-peer-deps
           node build.js
+          cp tools/teste-site-celular/teste-previa.html www/loja/teste-previa.html
           npx cap add android
           npx cap sync android
       - name: Firebase do app (igual ao APK de verdade)

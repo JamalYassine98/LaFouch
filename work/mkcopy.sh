@@ -4,6 +4,8 @@ D=/tmp/$1; pkill -f "http.server $2" ; rm -rf $D && cp -r /home/claude/catalogo 
 python3 - "$D" <<'P'
 import sys
 p=sys.argv[1]+'/js/lf-site.js';j=open(p).read()
+# S422: a lista de exemplo saiu do site; a cópia de teste recebe as 20 peças de work/kit/pecas-teste.js
+j=j.replace('var P=[];',open('/home/claude/lafouch/work/kit/pecas-teste.js').read(),1)
 old="{ref:'GR3350',gen:'u',nome:'Óculos de leitura transparente',tipo:'grau',n:115000,cor:'#cfd6dc',raio:8,aviso:'',tag:'GRAU',rosto:['redondo', 'oval', 'coracao'],mat:'Acetato',med:[50, 21, 145],foto:'/media/i/b95b382e346d.jpg',cores:['#cfd6dc']}"
 new="{lib:1,fc:['/media/i/b95b382e346d.jpg','/media/i/b0ce33cc336d.jpg'],cn:['Transparente','Preto'],gr:['+1.00','+1.50','+2.00','+2.75','+3.00'],gq:[3,2,2,4,1],gc:['3,-,2,4,0','-,2,-,0,1'],ref:'GR3350',gen:'u',nome:'Óculos de leitura transparente',tipo:'grau',n:115000,cor:'#cfd6dc',raio:8,aviso:'',tag:'GRAU',rosto:['redondo', 'oval', 'coracao'],mat:'Acetato',med:[50, 21, 145],foto:'/media/i/b95b382e346d.jpg',cores:['#cfd6dc','#1d1d1f']}"
 j=j.replace(old,new)

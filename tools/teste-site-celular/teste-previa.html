@@ -1,0 +1,5 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>html,body{margin:0;height:100%;background:#fff}iframe{border:0;width:100%;height:100%;display:block}</style></head><body><iframe id="f"></iframe><script>
+/* S422: quadro da prévia para o teste no celular real (o site desligado só aparece para clientes como manutenção). Erros de JS da página ficam em f.contentWindow.__er */
+var u=new URLSearchParams(location.search).get('u')||'loja.html?cliente=1',f=document.getElementById('f');f.addEventListener('load',function(){},{once:true});
+f.src=u;var w0=setInterval(function(){try{var w=f.contentWindow;if(w&&!w.__er){w.__er=[];w.addEventListener('error',function(e){w.__er.push(String(e.message).slice(0,120))});w.addEventListener('unhandledrejection',function(e){w.__er.push('promessa: '+String(e.reason).slice(0,100))})}}catch(e){}},50);setTimeout(function(){clearInterval(w0)},4000)
+</script></body></html>

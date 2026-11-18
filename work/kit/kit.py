@@ -24,6 +24,7 @@ def prep_site():
     if os.path.isdir(SITE) and os.path.getmtime(SITE)>os.path.getmtime(os.path.join(SITE_SRC,'js','lf-site.js')): return
     shutil.rmtree(SITE,ignore_errors=True); shutil.copytree(SITE_SRC,SITE,ignore=shutil.ignore_patterns('.git'))
     import re; f=os.path.join(SITE,'js','lf-site.js'); s=open(f).read()
+    s=s.replace('var P=[];',open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'pecas-teste.js')).read(),1)  # S422: peças de exemplo só na cópia de teste
     g=lambda r: re.search(r"ref:'"+r+"'[^}]*foto:'([^']*)'",s).group(1)
     p="{ref:'KIT3C',gen:'f',nome:'Armação metal gatinho',tipo:'armacao',n:139000,cor:'#6b4a2b',raio:22,aviso:'',tag:'METAL',rosto:['quadrado','redondo'],mat:'Metal',med:[52,18,140],foto:'%s',fc:[null,'%s','%s'],cores:['#6b4a2b','#cfd6dc','#1d1d1f'],cn:['Tartaruga','Transparente','Preto'],qs:[2,3,2],lib:1,cad:9e12,cmx:20},\n"%(g('SL2275'),g('GR3350'),g('BR44140'))
     s=s.replace("var P=[\n","var P=[\n    "+p,1)

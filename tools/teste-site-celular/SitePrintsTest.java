@@ -43,6 +43,9 @@ public class SitePrintsTest {
 
   static String unq(String s) { return s == null ? "" : s.replaceAll("^\"|\"$", ""); }
 
+  // o site está desligado para clientes: o teste abre a PRÉVIA (loja.html?cliente=1 dentro de um quadro, como o painel do dono) e roda os passos dentro dela
+  String fr(String code) { return js("(function(){try{return document.getElementById('f').contentWindow.eval(" + org.json.JSONObject.quote(code) + ")}catch(e){return 'ERR '+e}})()"); }
+
   @Test
   public void prints() throws Exception {
     InputStream in = InstrumentationRegistry.getInstrumentation().getContext().getAssets().open("telas_site.json");
@@ -67,24 +70,24 @@ public class SitePrintsTest {
         sc.onActivity(a -> ((BridgeActivity) a).getBridge().getWebView().loadUrl(u0));
         Thread.sleep(1500);
         js("(function(){try{" + prep + "}catch(e){};return 1})()");
-        final String u = base + "/loja/loja.html" + rota;
+        final String src = "loja.html?cliente=1" + (rota.startsWith("?") ? "&" + rota.substring(1) : rota);
+        final String u = base + "/loja/teste-previa.html?u=" + java.net.URLEncoder.encode(src, "UTF-8");
         sc.onActivity(a -> ((BridgeActivity) a).getBridge().getWebView().loadUrl(u));
         Thread.sleep(1500);
-        js("window.__er=[];addEventListener('error',function(e){__er.push(String(e.message).slice(0,120))});addEventListener('unhandledrejection',function(e){__er.push('promessa: '+String(e.reason).slice(0,100))});1");
-        for (int t = 0; t < 120 && !"true".equals(js("!!document.querySelector('#home .hc,#grid .card,#gw,#atacado,#como')")); t++) Thread.sleep(250);
+        for (int t = 0; t < 120 && !"true".equals(fr("!!document.querySelector('#home .hc,#grid .card,#gw,#atacado,#como')")); t++) Thread.sleep(250);
         Thread.sleep(2500);
         StringBuilder ok = new StringBuilder();
         for (int j = 0; j < ps.length(); j++) {
-          ok.append(js("(function(){try{var r=(" + ps.getString(j) + ")();return r===undefined?'ok':r}catch(e){return 'ERR '+e}})()")).append(' ');
+          ok.append(fr("(function(){try{var r=(" + ps.getString(j) + ")();return r===undefined?'ok':r}catch(e){return 'ERR '+e}})()")).append(' ');
           Thread.sleep(1600);
         }
         Thread.sleep(600);
         sh("screencap -p " + DIR + "/" + String.format("%02d", i + 1) + "-" + nome + ".png");
-        String med = js("JSON.stringify({h:document.scrollingElement.scrollHeight,vis:[...document.querySelectorAll('body *')].filter(function(e){var r=e.getBoundingClientRect();return r.width&&r.height&&r.bottom>0&&r.top<innerHeight}).length,pecas:document.querySelectorAll('#home .hc,#grid .card').length,er:(window.__er||[]).slice(0,4)})");
+        String med = fr("JSON.stringify({h:document.scrollingElement.scrollHeight,vis:[...document.querySelectorAll('body *')].filter(function(e){var r=e.getBoundingClientRect();return r.width&&r.height&&r.bottom>0&&r.top<innerHeight}).length,pecas:document.querySelectorAll('#home .hc,#grid .card').length,er:(window.__er||[]).slice(0,4),manut:!!document.getElementById('manut')})");
         Log.i(T, nome + " " + ok + " " + med);
       } catch (Exception e) { Log.i(T, nome + " FALHOU " + e); }
     }
-    Log.i(T, "INFO " + js("JSON.stringify({ua:navigator.userAgent,lang:navigator.language,w:innerWidth,h:innerHeight,dpr:devicePixelRatio,versao:window.LF_BUILD})"));
+    Log.i(T, "INFO " + fr("JSON.stringify({ua:navigator.userAgent,lang:navigator.language,w:innerWidth,h:innerHeight,dpr:devicePixelRatio,versao:window.LF_BUILD})"));
     sc.close();
   }
 }
