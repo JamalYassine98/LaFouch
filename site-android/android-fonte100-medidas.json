@@ -1,0 +1,154 @@
+[
+ {
+  "tela": "inicio",
+  "larg": 412,
+  "alt": 786,
+  "dpr": 2.625,
+  "evento": "",
+  "faixa_cobre_topo": 0,
+  "vao_topo_tela": null,
+  "menu": 26,
+  "carrinho_dir": 382.1,
+  "icones_fora": [],
+  "rolagem_lateral": false,
+  "caso": "inicio",
+  "versao": "hoje",
+  "motor": "android-chrome",
+  "fonte_android": "fonte100",
+  "aparelho": {
+   "ua": "Mozilla/5.0 (Linux; Android 14; sdk_gphone64_x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Mobile Safari/537.36",
+   "w": 980,
+   "h": 1869,
+   "dpr": 2.625
+  }
+ },
+ {
+  "tela": "inicio",
+  "larg": 412,
+  "alt": 786,
+  "dpr": 2.625,
+  "evento": "",
+  "faixa_cobre_topo": 0,
+  "vao_topo_tela": null,
+  "menu": 26,
+  "carrinho_dir": 382.1,
+  "icones_fora": [],
+  "rolagem_lateral": false,
+  "caso": "inicio",
+  "versao": "prop",
+  "motor": "android-chrome",
+  "fonte_android": "fonte100",
+  "aparelho": {
+   "ua": "Mozilla/5.0 (Linux; Android 14; sdk_gphone64_x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Mobile Safari/537.36",
+   "w": 980,
+   "h": 1869,
+   "dpr": 2.625
+  }
+ },
+ {
+  "tela": "inicio",
+  "larg": 412,
+  "alt": 786,
+  "dpr": 2.625,
+  "evento": "",
+  "faixa_cobre_topo": 0,
+  "vao_topo_tela": null,
+  "menu": 26,
+  "carrinho_dir": 300.6,
+  "icones_fora": [],
+  "rolagem_lateral": false,
+  "caso": "inicio-letra2",
+  "versao": "hoje",
+  "motor": "android-chrome",
+  "fonte_android": "fonte100",
+  "aparelho": {
+   "ua": "Mozilla/5.0 (Linux; Android 14; sdk_gphone64_x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Mobile Safari/537.36",
+   "w": 980,
+   "h": 1869,
+   "dpr": 2.625
+  }
+ },
+ {
+  "tela": "inicio",
+  "larg": 412,
+  "alt": 786,
+  "dpr": 2.625,
+  "evento": "",
+  "faixa_cobre_topo": 0,
+  "vao_topo_tela": null,
+  "menu": 26,
+  "carrinho_dir": 300.6,
+  "icones_fora": [],
+  "rolagem_lateral": false,
+  "caso": "inicio-letra2",
+  "versao": "prop",
+  "motor": "android-chrome",
+  "fonte_android": "fonte100",
+  "aparelho": {
+   "ua": "Mozilla/5.0 (Linux; Android 14; sdk_gphone64_x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Mobile Safari/537.36",
+   "w": 980,
+   "h": 1869,
+   "dpr": 2.625
+  }
+ },
+ {
+  "tela": "inicio",
+  "larg": 412,
+  "alt": 786,
+  "dpr": 2.625,
+  "evento": "natal",
+  "faixa_cobre_topo": 0,
+  "vao_topo_tela": null,
+  "menu": 26,
+  "carrinho_dir": 382.1,
+  "icones_fora": [],
+  "rolagem_lateral": false,
+  "caso": "inicio-natal",
+  "versao": "hoje",
+  "motor": "android-chrome",
+  "fonte_android": "fonte100",
+  "aparelho": {
+   "ua": "Mozilla/5.0 (Linux; Android 14; sdk_gphone64_x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Mobile Safari/537.36",
+   "w": 980,
+   "h": 1869,
+   "dpr": 2.625
+  }
+ },
+ {
+  "tela": "inicio",
+  "larg": 412,
+  "alt": 786,
+  "dpr": 2.625,
+  "evento": "natal",
+  "faixa_cobre_topo": 0,
+  "vao_topo_tela": null,
+  "menu": 26,
+  "carrinho_dir": 382.1,
+  "icones_fora": [],
+  "rolagem_lateral": false,
+  "caso": "inicio-natal",
+  "versao": "prop",
+  "motor": "android-chrome",
+  "fonte_android": "fonte100",
+  "aparelho": {
+   "ua": "Mozilla/5.0 (Linux; Android 14; sdk_gphone64_x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Mobile Safari/537.36",
+   "w": 980,
+   "h": 1869,
+   "dpr": 2.625
+  }
+ },
+ {
+  "caso": "peca",
+  "versao": "hoje",
+  "motor": "android-chrome",
+  "fonte_android": "fonte100",
+  "falhou": "'NoneType' object is not subscriptable"
+ },
+ {
+  "caso": "peca",
+  "versao": "prop",
+  "motor": "android-chrome",
+  "fonte_android": "fonte100",
+  "falhou": "'NoneType' object is not subscriptable"
+ }
+]
