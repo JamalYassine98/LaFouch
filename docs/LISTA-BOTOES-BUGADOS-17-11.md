@@ -40,3 +40,10 @@ Tudo o que está acima também aparece no tablet e no PC. Novos:
 25. **PC · Pedidos › Feitos**: a página rola sem ter nada embaixo.
 26. **Tablet e PC · faixa "🖤 Black Friday"** por cima de botões (barra de baixo, "Limpar histórico", "Ver todas as conferências do Guardião") — visto pelo programa; não consegui repetir na tela, confirmar no esboço.
 27. **Tablet · Dashboard › Hoje**: números "Vendido" e "Contas do dia" em alturas diferentes, e o conteúdo ocupa só metade da largura.
+
+## Achado com a dica do dono (Clientes › Conta atacadista › Cancelar conta, várias vezes)
+28. **Cada toque abre uma janela NOVA por cima da antiga** — 3 toques em "Cancelar conta" = 4 janelas empilhadas (precisa fechar uma por uma). Acontece com toda ação da janela (Pausar, moeda, limite, trocar aparelho): `ataMuda` chama `ataJanela` de novo sem fechar a que está aberta.
+29. **Conta cancelada continua com "Cancelar conta", "Pausar", limite e convite ativos** — dá para cancelar de novo (e mandar convite de uma conta cancelada).
+30. **Depois de cancelar, a ficha do cliente volta a dizer "criar o acesso" e, ao tocar, CRIA OUTRA CONTA sozinha** (sem perguntar): ficam duas contas do mesmo cliente, uma cancelada e uma ativa.
+31. A pergunta "Cancelar a conta?" é a caixa cinza do navegador (já no esboço 111b7).
+Por que o meu passeio não pegou: ele toca cada botão uma vez e recomeça do zero; não repete o mesmo botão nem volta depois de cancelar. Regra nova para os próximos testes: tocar cada ação 3 vezes seguidas e refazer o caminho depois dela.
