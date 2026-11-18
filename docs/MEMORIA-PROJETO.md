@@ -3060,3 +3060,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 17/11/2026 23:20 · DONO: 117 APROVADO (Câmbio: cotações no desenho de hoje sem o fundo; Reposição e Mais de luxo), esperando "implementar".
 
 - 17/11 S384: checagem de luxo das telas de dentro feita (lista em docs/FALTA-APROVAR-15-11.md, bloco S384). As 3 que faltavam foram refeitas (erro do teste, não do app).
+- 17/11 S385: dono autorizou o teste no Android emulado no GitHub (APK só de teste, gasta minutos do Actions).
