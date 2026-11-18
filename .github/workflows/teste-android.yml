@@ -36,6 +36,19 @@ jobs:
       - name: Ferramenta CDP
         run: pip install websocket-client
       - name: Android emulado + prints
+        id: e1
+        continue-on-error: true
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: false
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -change-locale ${{ inputs.idioma }}
+          script: bash tools/teste-android/roda.sh
+      - name: Android emulado + prints (2a tentativa)
+        if: steps.e1.outcome == 'failure'
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 34
