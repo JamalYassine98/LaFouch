@@ -46,11 +46,12 @@ def espera(js,t=25):
     time.sleep(.25)
   return False
 base=ev("()=>location.href.split('#')[0]")
-K=[0]
+K=[0];ORIG=ev("()=>location.origin")
 log=open(os.path.join(OUT,'%s-log.txt'%TEMA),'w')
 for nome,passos in C:
   try:
-    ev("()=>{try{localStorage.clear();sessionStorage.clear();sessionStorage.setItem('lf_ni','1')}catch(e){};return 1}")
+    cdp('Storage.clearDataForOrigin',origin=ORIG,storageTypes='all')
+    ev("()=>{try{sessionStorage.clear();sessionStorage.setItem('lf_ni','1')}catch(e){};return 1}")
     K[0]+=1;cdp('Page.navigate',url=base+'?r=%d#test'%K[0]);time.sleep(2)
     espera("()=>!!window.__LF");time.sleep(1.5)
     ok=[]
