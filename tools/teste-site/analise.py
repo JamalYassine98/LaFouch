@@ -34,11 +34,12 @@ INIT = ("try{sessionStorage.setItem('lf_ni','1');localStorage.setItem('lf_lang',
 BLOQ = ('identitytoolkit', 'securetoken', 'google-analytics', 'googletagmanager', 'recaptcha', 'southamerica-east1-')
 # extra: (a) o que a pessoa vê e passa da borda da tela (fora de faixas que rolam de lado); (b) botão/link de 1 linha que virou 2+
 EXTRA = """(marca)=>{const W=document.documentElement.clientWidth,o={fora:[],linha:[]};const cs=e=>getComputedStyle(e);
- const rola=e=>{for(let p=e.parentElement;p&&p!==document.body;p=p.parentElement){const x=cs(p).overflowX;if(x==='auto'||x==='scroll')return true;if((x==='hidden'||x==='clip')&&p.getBoundingClientRect().width<W-40)return true}return false};
+ const rola=e=>{for(let p=e.parentElement;p&&p!==document.body;p=p.parentElement){const x=cs(p).overflowX,y=cs(p).overflowY;if((x==='auto'||x==='scroll')&&y!=='auto'&&y!=='scroll')return true;if((x==='hidden'||x==='clip')&&p.getBoundingClientRect().width<W-40)return true}return false};
  document.querySelectorAll('a,button,img,h1,h2,h3,p,label,input,select,[role=tab]').forEach(e=>{const r=e.getBoundingClientRect();if(!r.width||!r.height||r.bottom<0||r.top>innerHeight)return;
   if(e.closest('[aria-hidden="true"],#lfmed,#lfgrv')||cs(e).visibility==='hidden')return;const t=(e.innerText||e.alt||e.getAttribute('aria-label')||e.tagName).trim().split('\\n')[0].slice(0,30);
   const vis=()=>{const x=Math.min(W-2,Math.max(1,(Math.max(r.left,0)+Math.min(r.right,W))/2)),y=Math.min(innerHeight-2,Math.max(1,(Math.max(r.top,0)+Math.min(r.bottom,innerHeight))/2)),k=document.elementFromPoint(x,y);return !!k&&(k===e||e.contains(k)||k.contains(e))};
   if((r.right>W+1||r.left<-1)&&!rola(e)&&cs(e).position!=='fixed'&&vis())o.fora.push(t);
+  if(e.tagName!=='IMG'&&!rola(e)){for(let p=e.parentElement;p&&p!==document.body;p=p.parentElement){const x=cs(p).overflowX;if(x==='hidden'||x==='clip'||x==='auto'||x==='scroll'){const q=p.getBoundingClientRect();if((r.right>q.right+1.5||r.left<q.left-1.5)&&vis()){o.fora.push(t+' (cortado pela moldura)')}break}}}
   if(e.matches('a,button,[role=tab]')&&(e.innerText||'').trim()){const lh=parseFloat(cs(e).lineHeight)||parseFloat(cs(e).fontSize)*1.25;const rr=[...e.getClientRects()];
    let n=0;const w=document.createTreeWalker(e,NodeFilter.SHOW_TEXT);let tops=new Set();while(w.nextNode()){const g=document.createRange();g.selectNodeContents(w.currentNode);[...g.getClientRects()].forEach(q=>{if(q.width>1)tops.add(Math.round(q.top/4))})}
    n=tops.size;if(marca){e.dataset.lfl=n}else if(e.dataset.lfl&&n>+e.dataset.lfl)o.linha.push(t+' ('+e.dataset.lfl+'→'+n+' linhas)')}});
