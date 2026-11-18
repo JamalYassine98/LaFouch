@@ -521,3 +521,4 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - 17/11 21:50 — DONO: "janelas de luxo e limpeza técnica" = pedido dele à OUTRA sessão (botões e janelas de luxo + limpeza técnica do código) — não é sobra desta sessão.
 - 17/11/2026 22:26 · DONO: "Aprovado mas falta ajustes" — 113 (a–d) e 112c–f APROVADOS, esperando "implementar"; ele ainda vai dizer os ajustes que faltam.
 - 17/11/2026 22:40 · DONO: conta do atacado é criada ao tocar "Enviar convite" — "assim está bom". Pediu como apagar → proposta "Sim" → ESBOÇO 113e enviado: 113e1 conta CANCELADA ganha "Apagar a conta" (texto vermelho) embaixo de "Criar novo acesso"; 113e2 janela de confirmação (padrão 111: Não tem volta; some da lista, do aparelho e da nuvem; pedidos dele ficam no histórico; volta para Lojistas com "Conta apagada"). Esperando aprovação.
+- 17/11/2026 22:30 · DONO: 113e APROVADO (apagar conta de atacado cancelada), esperando "implementar".
