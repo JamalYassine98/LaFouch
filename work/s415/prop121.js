@@ -22,7 +22,9 @@
   function selos() {
     const poe = (c, s, ph) => {
       const cr = c.getBoundingClientRect(), pr = ph.getBoundingClientRect(), z = cr.width / c.offsetWidth || 1;
-      const tx = c.querySelector('.hn,.nm,.ref') ; const esq = tx ? tx.getBoundingClientRect().left : pr.left + 12;
+      const tx = c.querySelector('.hn,.nm,.ref'); let esq = pr.left + 12;
+      if (tx) { const w = document.createTreeWalker(tx, NodeFilter.SHOW_TEXT, { acceptNode: (n) => n.textContent.trim() ? 1 : 3 }); const n = w.nextNode();
+        if (n) { const rg = document.createRange(); rg.setStart(n, 0); rg.setEnd(n, 1); esq = rg.getBoundingClientRect().left; } else esq = tx.getBoundingClientRect().left; }
       const base = s.offsetParent || c, br = base.getBoundingClientRect(), zb = br.width / base.offsetWidth || 1;
       const fav = c.querySelector('.fav'); const lim = fav ? fav.getBoundingClientRect().left - 6 : pr.right - 12;
       s.style.left = ((esq - br.left) / zb) + 'px'; s.style.top = ((pr.top - br.top) / zb + 16) + 'px';
