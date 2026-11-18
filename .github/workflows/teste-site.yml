@@ -7,9 +7,18 @@ on:
       props:
         description: esbocos a injetar (caminhos no repositorio, separados por virgula)
         default: work/s412/prop112.js,work/s413/prop2.js
+      hoje:
+        description: injecoes tambem no hoje (opcional)
+        default: ''
+      casos:
+        description: arquivo json com os casos (opcional; vazio = os do 120/122)
+        default: ''
 
 permissions:
   contents: write
+
+env:
+  LF_CASOS: ${{ inputs.casos }}
 
 jobs:
   android:
@@ -21,7 +30,7 @@ jobs:
         with: { repository: JamalYassine98/catalogo, path: site }
       - name: Copias hoje e proposta
         run: |
-          python3 tools/teste-site/prep.py site t "${{ inputs.props }}"
+          python3 tools/teste-site/prep.py site t "${{ inputs.props }}" "${{ inputs.hoje }}"
           (cd t/hoje && nohup python3 -m http.server 8000 >/dev/null 2>&1 &)
           (cd t/prop && nohup python3 -m http.server 8001 >/dev/null 2>&1 &)
           pip install websocket-client
@@ -65,7 +74,7 @@ jobs:
         shell: bash
         run: |
           pip install playwright
-          python tools/teste-site/prep.py site t "${{ inputs.props }}"
+          python tools/teste-site/prep.py site t "${{ inputs.props }}" "${{ inputs.hoje }}"
           (cd t/hoje && python -m http.server 8000 >/dev/null 2>&1 &)
           (cd t/prop && python -m http.server 8001 >/dev/null 2>&1 &)
           sleep 2
@@ -87,7 +96,7 @@ jobs:
       - name: Safari (motor WebKit) em iPhone e Mac
         run: |
           pip install playwright && python -m playwright install webkit
-          python tools/teste-site/prep.py site t "${{ inputs.props }}"
+          python tools/teste-site/prep.py site t "${{ inputs.props }}" "${{ inputs.hoje }}"
           (cd t/hoje && python -m http.server 8000 >/dev/null 2>&1 &)
           (cd t/prop && python -m http.server 8001 >/dev/null 2>&1 &)
           sleep 2
