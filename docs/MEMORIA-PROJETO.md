@@ -3079,3 +3079,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 18/11 09:55 — REGRA DE ALINHAMENTO aprovada (CLAUDE.md). Ficha do produto: abas Histórico, Site e Preço entram no esboço 134.
 - 18/11 10:07 — Regra APP PRECISO E BASE APROVADA (CLAUDE.md). 134 refazer sobre a base com 132+133.
 - 18/11/2026 S420 PUBLICADO (site 1795009087, porteiro 197/0): Mochi 104, 107–110, troca do Leu!, trilho único da Minha conta, gravador de engasgos (?medir=1, lf_grav), modo loja com a temática, provas p7_copias e p7_trilho. Detalhes em docs/SITE-COMO-FUNCIONA.md (S420) e na lista viva.
+- 18/11 10:41 — Regra TESTES EM APARELHOS REAIS (CLAUDE.md). Caminho a definir com o dono.
