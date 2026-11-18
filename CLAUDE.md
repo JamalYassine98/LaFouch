@@ -2,6 +2,7 @@
 
 - APP: ler PRIMEIRO docs/APP-MAPA.md (estudo do app + todos os aprovados esperando, num lugar só; pedido do dono 18/11 19:37) e docs/APP-BOTOES.md (o que cada botão faz). Atualizar o mapa a cada aprovação/implementação, no mesmo commit.
 
+- ENVIAR O QUE JÁ EXISTE (18/11/2026 20:26, ordem do dono: "não repita esse erro"): pedido de esboço/arquivo que JÁ está guardado = mandar NA HORA o que existe (work/sNNN/…, docs/APP-MAPA.md diz onde). Gerar de novo só se faltar ou se o dono pedir; nesse caso mandar primeiro o que existe e avisar que o resto vem depois. Nunca deixar o dono esperando por rodada longa sem mandar nada.
 - Antes de qualquer trabalho, leia docs/MEMORIA-PROJETO.md (decisões do dono e pendências) e atualize-o a cada decisão nova.
 - App: antes de criar tela/botão/módulo, leia docs/APP-COMO-FUNCIONA.md e atualize-o no mesmo commit (pedido do dono, 12/11/2026).
 - SITE REAL E BASE APROVADA (18/11/2026, ordem do dono — vale para TODO esboço, medida ou análise do site):
