@@ -12,6 +12,7 @@ def conecta():
     pid=adb('shell','pidof','com.lafouch.app').strip().split(' ')[0]
     u=adb('shell','cat','/proc/net/unix');todos=re.findall(r'@(webview_devtools_remote_(\d+))',u)
     m=[a for a,b in todos if b==pid] or [a for a,b in sorted(todos,key=lambda x:-int(x[1]))]
+    if not pid and i%5==4: subprocess.run(['adb','shell','am','start','-n','com.lafouch.app/.MainActivity'],capture_output=True)
     if i%10==0: print('procura socket pid=%r achados=%r'%(pid,todos),flush=True)
     if m: sock=m[0];break
     time.sleep(2)
