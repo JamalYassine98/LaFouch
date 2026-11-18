@@ -56,7 +56,7 @@ jobs:
           arch: x86_64
           profile: pixel_6
           disable-animations: false
-          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -change-locale ${{ inputs.idioma }}
+          emulator-options: -no-window -gpu guest -no-snapshot -noaudio -no-boot-anim -change-locale ${{ inputs.idioma }}
           script: bash tools/teste-android/roda.sh ${{ matrix.tema }} ${{ matrix.parte }}
       - name: Android emulado + prints (2a tentativa)
         if: steps.e1.outcome == 'failure'
@@ -67,7 +67,7 @@ jobs:
           arch: x86_64
           profile: pixel_6
           disable-animations: false
-          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -change-locale ${{ inputs.idioma }}
+          emulator-options: -no-window -gpu guest -no-snapshot -noaudio -no-boot-anim -change-locale ${{ inputs.idioma }}
           script: bash tools/teste-android/roda.sh ${{ matrix.tema }} ${{ matrix.parte }}
       - uses: actions/upload-artifact@v4
         if: always()
