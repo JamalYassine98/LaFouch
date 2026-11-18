@@ -4,7 +4,7 @@
   const go=n=>{if(n.nodeType==3){if(n.textContent.trim()){const r=document.createRange();r.selectNodeContents(n);const rs=[...r.getClientRects()].filter(q=>q.width>.5);rs.forEach(add);lin+=rs.length;if(rs[0]&&tb==null){const f=parseFloat(cs(n.parentElement).fontSize);fs=f;tb=rs[0].bottom-0.21*f}}return}
    if(n.nodeType!=1)return;const c=cs(n);if(c.display=='none'||c.visibility=='hidden'||+c.opacity<.05)return;
    if(/^(path|circle|line|rect|polyline|polygon|ellipse|INPUT|IMG|SELECT)$/i.test(n.tagName)){add(n.getBoundingClientRect());return}
-   if((n!==el||n.tagName=='BUTTON')&&(c.backgroundColor!='rgba(0, 0, 0, 0)'||parseFloat(c.borderTopWidth)>0||(c.boxShadow&&c.boxShadow!='none'))&&n.getBoundingClientRect().height<80){add(n.getBoundingClientRect())}
+   if((c.backgroundColor!='rgba(0, 0, 0, 0)'||parseFloat(c.borderTopWidth)>0||(c.boxShadow&&c.boxShadow!='none'))&&n.getBoundingClientRect().height<80){add(n.getBoundingClientRect())}
    n.childNodes.forEach(go)};go(el);return ok?{l:L,r:R,t:T,b:B,c:(T+B)/2,base:tb,fs,soTexto:lin==1&&!el.querySelector('svg,input,select,button,img')&&!(cs(el).backgroundColor!='rgba(0, 0, 0, 0)')&&!(cs(el).boxShadow&&cs(el).boxShadow!='none')}:null};
  const ref=e=>{const j=e.closest('.ljCorpo')||e.closest('.ljJn,.modal-box')||e.closest('.wrap')||document.body;const c=cs(j),q=j.getBoundingClientRect();return [q.left+parseFloat(c.paddingLeft)+parseFloat(c.borderLeftWidth),q.right-parseFloat(c.paddingRight)-parseFloat(c.borderRightWidth)]};
  const nome=e=>(e.innerText||'').trim().replace(/\s+/g,' ').slice(0,34);
