@@ -6,6 +6,7 @@ D=dict(C)
 from playwright.sync_api import sync_playwright
 comum.OUT='/home/claude/lafouch/work/s420/r/';T='/tmp/s420/'
 CA="""#v-estoque .card.fnAlt,#v-estoque section.card[aria-label='Catálogo do produto'],#v-estoque [aria-label='Catálogo do produto'].card{background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding-left:0!important;padding-right:0!important}
+#v-estoque .fnBar{margin-bottom:8px!important}#v-estoque .fnPane:empty{display:none!important}
 #v-estoque .pl.pick{background:none!important;border:0!important;border-bottom:1px solid var(--line2)!important;border-radius:0!important;padding:0!important;min-height:44px!important;display:flex!important;justify-content:space-between!important;align-items:center!important;box-shadow:none!important;color:var(--fg)!important}
 #v-estoque .pl.pick .cell{background:none!important;border:0!important;padding:0!important;margin-left:10px!important;color:var(--mute)!important;font-size:13px!important}
 #precoCard.zcd,#v-estoque .zcd{background:none!important;border:0!important;border-radius:0!important;padding:0!important}
@@ -16,6 +17,7 @@ CA="""#v-estoque .card.fnAlt,#v-estoque section.card[aria-label='Catálogo do pr
 #v-estoque details.card>summary{min-height:44px}#edSite .scLin{min-height:44px}#edSiteBtn{border:8px solid transparent!important;background-clip:padding-box!important;box-sizing:content-box!important;margin:-8px!important}
 #v-estoque details.card.lrcard,#v-estoque details.card.cntP{background:none!important;border:0!important;border-bottom:1px solid var(--line2)!important;border-radius:0!important;padding:13px 0!important;box-shadow:none!important}"""
 PN='''#v-estoque .card.fnAlt,#v-estoque section.card[aria-label='Catálogo do produto'],#v-estoque [aria-label='Catálogo do produto'].card{background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding-left:0!important;padding-right:0!important}
+#v-estoque .fnBar{margin-bottom:8px!important}#v-estoque .fnPane:empty{display:none!important}
 #v-estoque section.fnPn.card{background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:0!important}
 #v-estoque .fnPn .lbl{font-size:11px!important;letter-spacing:.14em!important;color:var(--mute)!important;margin:0 0 2px!important}
 #v-estoque .fnPn .sl{min-height:44px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line2);margin:0!important;padding:0!important}
