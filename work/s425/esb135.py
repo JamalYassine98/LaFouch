@@ -51,10 +51,10 @@ CASOS=[
   'Hoje: números do resumo na letra de título (serifada); "Black Friday em 1 dias".',
   'Depois: números na letra do texto, como no Dashboard (T); "Black Friday em 1 dia" (W).'),
  ('i','cambio','Câmbio › Venda/Compra (1 botão)',["()=>{const S=__LF.S;S.lm={usd:{v:6487,c:6420},brl:{v:1196,c:1180},eur:{v:7100,c:7000},arb:{v:5.43,c:5.38},ts:Date.now(),hora:'15:00',fonte:'Sucursal Jebai'};__LF.setView('inicio');__LF.setView('fx');return 1}"],
-  '#v-fx .fxModo{min-height:44px!important;height:44px!important;padding:0 16px 0 18px!important;margin:0!important;gap:8px!important;border:1px solid var(--line)!important;font:600 15px/1 inherit!important;letter-spacing:.01em}#v-fx .fxModo svg{width:18px!important;height:18px!important;stroke-width:2!important;color:var(--sub)}#v-fx .fxTopo{align-items:flex-start!important}',
+  '#v-fx .fxModo{position:relative;min-height:0!important;height:36px!important;padding:0 13px 0 14px!important;margin:0!important;gap:6px!important;border:1px solid var(--line)!important;font:600 14px/1 inherit!important}#v-fx .fxModo::after{content:"";position:absolute;inset:-4px -2px}#v-fx .fxModo svg{width:16px!important;height:16px!important;stroke-width:2!important;color:var(--sub)}#v-fx .fxTopo{align-items:flex-start!important}',
   ['''()=>{const b=document.querySelector('#v-fx .fxModo');const h=document.querySelector('#v-fx h1');if(!b||!h)return;b.style.transform='none';const r=document.createRange();r.selectNodeContents(h);const q=[...r.getClientRects()][0];const bq=b.getBoundingClientRect();b.style.transform='translateY('+(((q.top+q.bottom)/2)-((bq.top+bq.bottom)/2)).toFixed(1)+'px)'}'''],
   'Hoje: o botão "Venda ⇅" alterna as cotações do topo entre a venda e a compra da casa; fica 7 px abaixo do centro do título, tem 38 px de altura (pede 44) e as setas são mais grossas que os outros ícones.',
-  'Depois: o MESMO botão único que alterna (Venda ⇅ / Compra ⇅), na versão de luxo: pílula neutra de 44 px como os outros secundários, letra 15 px, setas no traço e tamanho dos outros ícones (18 px, traço 2) em cinza, e no centro da linha do título (regra 2).'),
+  'Depois: o MESMO botão único que alterna (Venda ⇅ / Compra ⇅), do mesmo tamanho de hoje (36 px de desenho); a área de toque cresce por fora, invisível, até 44 px; setas no traço dos outros ícones (16 px, traço 2) em cinza; no centro da linha do título (regra 2).'),
 ]
 with sync_playwright() as pw:
   for k,nome,tit,ps,css,js,h,p in [c for c in CASOS if c[0] in (os.environ.get('SO') or 'abcdefghi')]:
