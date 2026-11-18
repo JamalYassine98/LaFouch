@@ -195,7 +195,21 @@
           return a + x.usd;
         }, 0);
     var today = dayKey(Date.now());
-    var h =
+    // S418 (esboço 124c): dia de antes = ‹ "Segunda, 16 de novembro ⌄" › numa linha e "Voltar para hoje ›" em rosa.
+    // Hoje continua com a marcação antiga, que o cabeçalho "Dashboard · Hoje" (98z-dashboard-s48) troca.
+    var dExt = (function (t) {
+      return t.charAt(0).toUpperCase() + t.slice(1);
+    })(new Date(dayEnd(k)).toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }));
+    var h;
+    if (k < today)
+      h =
+        '<div class="dy418"><button type="button" class="ic71" data-act="dayprev" aria-label="Dia anterior"><span>‹</span></button>' +
+        '<button type="button" class="dy418T" data-act="daycal" aria-label="Escolher a data no calendário">' + esc(dExt.replace('-feira', '').replace(/ de \d{4}$/, '')) + ' <i aria-hidden="true">⌄</i></button>' +
+        '<button type="button" class="ic71" data-act="daynext" aria-label="Próximo dia"><span>›</span></button>' +
+        '<input type="date" class="in" id="dayIn" data-in="day" value="' + k + '" max="' + today + '" aria-label="Escolher o dia" tabindex="-1"></div>' +
+        '<div class="dy418V"><button type="button" data-act="daytoday">Voltar para hoje ›</button></div>';
+    else {
+      h =
       (k < today ? '<div class="top" style="justify-content:flex-end"><button type="button" class="lkTx" data-act="daytoday">Voltar para hoje</button></div>' : '') +
       '<section class="card col"><div class="dayrow"><button class="ic" data-act="dayprev" aria-label="Dia anterior">‹</button><button class="btn-sc dtxt" data-act="daycal" aria-label="Escolher a data no calendário" style="flex:1 1 auto;font-size:15px">' +
       fmtDay(k) +
@@ -207,7 +221,7 @@
       '" max="' +
       today +
       '" aria-label="Escolher o dia" tabindex="-1"></div></section>';
-    h +=
+      h +=
       '<div><h2 style="margin:0;font-size:20px">' +
       (function (t) {
         return t.charAt(0).toUpperCase() + t.slice(1);
@@ -220,8 +234,9 @@
         })
       ) +
       '</h2></div>';
+    }
     h +=
-      '<section class="kpis"><div class="kpi"><div class="lbl">Vendido</div><b>' +
+      '<section class="kpis lux418" aria-label="O dia"><div class="cxLb">' + (k < today ? 'O dia' : 'Hoje') + '</div><div class="kpi"><div class="lbl">Vendido</div><b>' +
       gs(vend) +
       '</b><div class="hint">' +
       pcs +
@@ -233,7 +248,7 @@
       '<div class="kpi"><div class="lbl">Lucro livre</div><b style="color:var(--ok)">' +
       gs(liv) +
       '</b><div class="hint">depois de separar tudo</div></div>' +
-      '<div class="kpi kpiLk" data-act="view" data-id="desp" role="button" tabindex="0"><div class="lbl">Contas do dia ›</div><b style="color:var(--warn)">' +
+      '<div class="kpi kpiLk" data-act="view" data-id="desp" role="button" tabindex="0"><div class="lbl">Contas do dia</div><b style="color:var(--warn)">' +
       gs(rateio) +
       '</b><div class="hint">1/30 de ' +
       gs(tm) +
@@ -291,7 +306,7 @@
       '<section class="col"><div class="lbl" style="margin:6px 0 0">Vendas do dia</div>' +
       (sales.length
         ? sales.map(saleCard).join('')
-        : '<div class="note n-info">Nenhuma venda neste dia.</div>') +
+        : '<div class="vz418">Nenhuma venda neste dia.</div>') +
       '</section>';
     h +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Despesas do dia</h2><div class="hint" style="margin:2px 0 0">As contas do mês entram divididas por 30. Os gastos extras entram no dia em que foram feitos.</div></div><div style="overflow-x:auto"><table class="tb"><thead><tr><th>Conta</th><th>Grupo</th><th>Por mês</th><th>Parte do dia</th></tr></thead><tbody>' +
@@ -338,10 +353,10 @@
         el.map(elogCard).join('') +
         '</section>';
     h +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Fechamento do dia</h2><div class="split">' +
+      '<section class="card col fc418"><div class="cxLb">Fechamento do dia</div><div class="split">' +
       [
         ['Vendido', gs(vend)],
-        ['Reposição separada', gs(sumBy(ok, 'rep')) + ' (' + usd(sumBy(ok, 'repUSD')) + ')'],
+        ['Reposição separada', gs(sumBy(ok, 'rep'))], // S418 (116a): só em guaranis
         ['Contas separadas', gs(contasSep)],
         ['Colchão separado', gs(sumBy(ok, 'colch'))],
         ['Caixa de melhorias', gs(sumBy(ok, 'melh'))],
@@ -480,51 +495,23 @@
   function vendaNome(s) {
     return s.qty + '× ' + pn(s.ref) + ' ' + (s.tipo === 'pre' ? s.grau : s.vr || '') + (s.cor && s.cor !== 'Sem cor' ? ' · ' + s.cor : '');
   }
+  // S418 (esboços 116a2/123b/124c, aprovados 17–18/11): cada venda é uma linha fina com ⌄; o toque abre o detalhe
+  // ali mesmo e embaixo vem "Estornar venda" em vermelho (pede confirmação, 111b2). Mesma linha no Dia, na busca e no Histórico.
   function saleCard(s) {
     var open = S.hOpen === s.id,
       dx = S.fx.pyg / s.fx - 1,
-      h = '';
+      ex = exatoDe(s),
+      h = '<div class="sl418' + (open ? ' on' : '') + (s.estorno ? ' est' : '') + '">';
     h +=
-      '<div class="card col" style="padding:14px;' +
-      (s.estorno ? 'opacity:.7' : '') +
-      '"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center"><div>' + (s.carrinho ? '<span class="hint" style="margin:0">pedido</span>' : '') + '<div><b style="' +
-      (s.estorno ? 'text-decoration:line-through' : '') +
-      '">' +
-      esc(descOf(s)) +
-      '</b></div><div class="hint" style="margin:2px 0 0">' +
-      s.id +
-      ' · ' +
-      fd(s.ts) +
-      ' às ' +
-      fh(s.ts) +
-      ' · ' +
-      tipoOf(s.tipo).label +
-      (window.__vendaApHtml ? window.__vendaApHtml(s) : '') +
+      '<button type="button" class="sl418L" data-act="hopen" data-id="' + s.id + '" aria-expanded="' + open + '"><span class="t"><b>' +
+      (s.carrinho ? '<span class="pd">pedido · </span>' : '') + esc(descOf(s)) + '</b><small>' +
+      s.id + ' · ' + fd(s.ts) + ' às ' + fh(s.ts) + ' · ' + tipoOf(s.tipo).label + (window.__vendaApHtml ? window.__vendaApHtml(s) : '') +
       (s.estorno ? ' · <span style="color:var(--bad)">Estornada</span>' : '') +
-      '</div></div><div style="text-align:right"><b>' +
-      esc(exatoDe(s)) +
-      '</b>' +
-      (gs(s.price) !== exatoDe(s) ? '<div class="hint" style="margin:2px 0 0">≈ ' + gs(s.price) + '</div>' : '') +
-      '</div></div>';
-    h +=
-      '<div class="nav vAc"><button class="btn-sc p" data-act="hopen" data-id="' +
-      s.id +
-      '" aria-expanded="' +
-      open +
-      '">' +
-      (open ? 'Ocultar detalhes' : 'Ver detalhes ›') +
-      '</button>' +
-      (s.estorno
-        ? ''
-        : '<button class="btn-pe p' + (S.confEst === s.id ? ' arm' : '') + '" data-act="estorno" data-id="' +
-          s.id +
-          '">' +
-          (S.confEst === s.id ? 'Confirmar estorno' : 'Estornar') +
-          '</button>') +
-      '</div>';
+      '</small></span><span class="v"><b>' + esc(ex) + '</b>' + (gs(s.price) !== ex ? '<small>≈ ' + gs(s.price) + '</small>' : '') +
+      '</span><i class="ch" aria-hidden="true">⌄</i></button>';
     if (open)
       h +=
-        '<div class="split" style="border-top:1px solid var(--line);padding-top:10px">' +
+        '<div class="sl418D">' +
         [
           [
             'Recebido',
@@ -567,15 +554,10 @@
           ['Preço mínimo seguro na hora', gs(s.trava) + ' por peça']
         ]
           .map(function (r) {
-            return (
-              '<div class="sl"><span>' +
-              r[0] +
-              '</span><b style="text-align:right">' +
-              r[1] +
-              '</b></div>'
-            );
+            return '<div class="sl418R"><span>' + r[0] + '</span><b>' + r[1] + '</b></div>';
           })
           .join('') +
+        (s.estorno ? '' : '<div class="sl418E"><button type="button" class="dz105" data-act="estorno" data-id="' + s.id + '">Estornar venda</button></div>') +
         '</div>';
     return h + '</div>';
   }

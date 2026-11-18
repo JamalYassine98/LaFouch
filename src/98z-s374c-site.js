@@ -61,7 +61,7 @@
     if (!s || S.view !== 'onl') return;
     var t = s.getBoundingClientRect().top + (window.scrollY || 0),
       nb = $('mainnav'),
-      hb = nb && nb.offsetParent ? nb.getBoundingClientRect().height : 0;
+      hb = nb && getComputedStyle(nb).display !== 'none' ? nb.getBoundingClientRect().height : 0; // 112e: barra fixa não tem offsetParent
     s.style.height = Math.max(360, window.innerHeight - t - hb) + 'px';
   }
   window.addEventListener('resize', function () { try { sbAjusta(); } catch (e) {} });

@@ -139,7 +139,7 @@
     if (hFiltrando()) {
       var r = hFiltrar(hItens()),
         n = Math.min(r.length, S.hLim);
-      var h = '<div class="hint" style="margin:0">' + r.length + ' resultado(s)</div><div class="col">';
+      var h = '<div class="cxLb" style="margin:14px 0 2px">' + r.length + (r.length === 1 ? ' resultado' : ' resultados') + '</div><div class="col hb418">'; // S418 (123b)
       for (var i = 0; i < n; i++) h += '<div>' + r[i].html + '</div>';
       h += '</div>';
       if (r.length > n) h += '<button type="button" class="mini" data-act="hmais">Mostrar mais (' + (r.length - n) + ')</button>';

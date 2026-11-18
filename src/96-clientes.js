@@ -243,10 +243,7 @@
         '<div class="hint" id="cH" style="margin:6px 0 0"></div>' +
         '<button type="button" class="go77" data-act="clisave">Salvar</button>' +
         (c.id && c.aviso ? '<div class="hint" style="margin:8px 0 0;text-align:center">Último aviso: ' + esc(c.aviso.canal) + ' · ' + esc(c.aviso.modelo) + ' · ' + fd(c.aviso.ts) + ' ' + fh(c.aviso.ts) + '</div>' : '') +
-        (c.id
-          ? '<div class="lb77">Atacado</div><div class="gp77"><button type="button" class="rw77" data-act="ataConta" data-id="' + c.id + '"><span class="tx"><b>Conta atacadista</b><small>' + (ata ? 'catálogo com preço de atacado' : c.email ? 'criar o acesso ao catálogo de atacado' : 'precisa do e-mail do cliente') + '</small></span>' +
-            (ata ? '<span class="vl ' + (ata.pausada ? 'w77' : 'f77') + '">' + (ata.pausada ? 'Pausada' : 'Ativa') + '</span>' : '') + '<span class="ch">›</span></button></div>'
-          : '') +
+        // S418 (113a): o atacado sai da ficha do cliente — fica só na aba Atacado
         (ps.length
           ? '<div class="lb77">Pedidos · ' + ps.length + '</div><div class="gp77 cp77">' +
             ps

@@ -57,8 +57,14 @@
   function ataContaHtml(c) {
     var ag = Date.now(), st = c.cancelada ? 'Cancelada' : c.pausada ? 'Pausada' : c.tipo === 'visita' && c.fim < ag ? 'Vencida' : 'Ativa', ap = c.aparelhos || [], tr = ataTrocas30(c);
     var ini = String(c.nome || '?').split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase(), lim = c.dispMax || 3, tro = c.trocaOk !== false;
+    if (c.cancelada)
+      return '<div class="ata77">' +
+        '<div class="hd77"><span class="av77 g">' + esc(ini) + '</span><h2>' + esc(c.nome) + '</h2><small>' + (c.tipo === 'visita' ? 'Visitante · ' : 'Lojista fixo · ') + '<span class="w77">Cancelada' + (c.cancEm ? ' em ' + fd(c.cancEm) : '') + '</span></small></div>' +
+        '<p class="ata418P">O acesso ao catálogo de atacado foi apagado. Ele não entra mais por nenhum aparelho.</p>' +
+        '<button type="button" class="go77" data-act="ataRecria" data-id="' + esc(c.id) + '">Criar novo acesso</button><div class="ata418N">manda um convite novo pelo WhatsApp</div>' +
+        '<div class="dz77"><button type="button" class="r" data-act="ataApaga" data-id="' + esc(c.id) + '">Apagar a conta</button><small>some da lista; os pedidos dele continuam no histórico</small></div></div>';
     return '<div class="ata77">' +
-      '<div class="hd77"><span class="av77 g">' + esc(ini) + '</span><h2>' + esc(c.nome) + '</h2><small>' + (c.tipo === 'visita' ? 'Visitante · ' : 'Cliente associado · ') + '<span class="' + (st === 'Ativa' ? 'f77' : 'w77') + '">' + st + '</span>' + (c.tipo === 'visita' ? ' · vence ' + fd(c.fim) : ' · não vence') + ' · ' + esc(tabDe(c.tab).nome) + '</small></div>' +
+      '<div class="hd77"><span class="av77 g">' + esc(ini) + '</span><h2>' + esc(c.nome) + '</h2><small>' + (c.tipo === 'visita' ? 'Visitante · ' : 'Lojista fixo · ') + '<span class="' + (st === 'Ativa' ? 'f77' : 'w77') + '">' + st + '</span>' + (c.tipo === 'visita' ? ' · vence ' + fd(c.fim) : ' · não vence') + ' · ' + esc(tabDe(c.tab).nome) + '</small></div>' +
       '<div class="lb77">Aparelhos</div><div class="gp77">' +
       (ap.length ? ap.map(function (a) { return '<div class="rw77"><span class="tx"><b>' + esc(a.nome || 'Aparelho') + '</b><small>último uso ' + (a.ult ? fd(a.ult) + ' ' + fh(a.ult) : '—') + '</small></span><button type="button" class="lk77" data-act="ataApRm" data-id="' + esc(c.id + '|' + a.id) + '">Remover</button></div>'; }).join('') : '') +
       '<div class="rw77"><span class="tx"><b>Em uso</b>' + (ap.length ? '' : '<small>ainda não entrou de nenhum aparelho</small>') + '</span><span class="vl">' + ap.length + ' de ' + lim + '</span></div>' +
@@ -74,11 +80,64 @@
       '<div class="dz77"><button type="button" data-act="ataPausa" data-id="' + esc(c.id) + '">' + (c.pausada ? 'Voltar a conta' : 'Pausar conta') + '</button><small>' + (c.pausada ? 'o catálogo volta a aparecer' : 'o catálogo some; nada é apagado; volta com 1 toque') + '</small>' +
       '<button type="button" class="r" data-act="ataCanc" data-id="' + esc(c.id) + '">Cancelar conta</button><small>apaga o acesso; para voltar, novo convite</small></div></div>';
   }
+  // S418 (113d): uma janela só — cada ação atualiza a janela aberta no lugar, sem abrir outra por cima.
+  var ataJ = null;
   function ataJanela(id) {
     var c = S.ataContas[id];
     if (!c) return;
-    lfJanela({ titulo: 'Conta atacadista', monta: function (box) { box.innerHTML = ataContaHtml(c); ataLe(id).then(function (n) { if (n && document.body.contains(box)) box.innerHTML = ataContaHtml(n); }); } });
+    if (ataJ && document.body.contains(ataJ.box)) {
+      ataJ.id = id;
+      ataJ.box.innerHTML = ataContaHtml(c);
+      return;
+    }
+    lfJanela({
+      titulo: 'Conta atacadista',
+      aoFechar: function () {
+        ataJ = null;
+      },
+      monta: function (box, api) {
+        ataJ = { id: id, box: box, api: api };
+        box.innerHTML = ataContaHtml(c);
+        ataLe(id).then(function (n) {
+          if (n && ataJ && ataJ.box === box && ataJ.id === id && document.body.contains(box)) box.innerHTML = ataContaHtml(n);
+        });
+      }
+    });
   }
+  window.__ataJanela = ataJanela;
+  ACT.ataRecria = function (id) {
+    var o = S.ataContas[id];
+    if (!o) return;
+    var c = { id: ataId(), nome: o.nome, email: o.email, tel: o.tel || '', tipo: o.tipo === 'visita' ? 'visita' : 'assoc', tab: o.tab, dispMax: o.dispMax || 3, trocaOk: o.tipo !== 'visita', pausada: false, cancelada: false, refs: o.refs || [], cliId: o.cliId || '', ts: Date.now() };
+    if (c.tipo === 'visita') c.fim = Date.now() + ATA_DIAS * DAY;
+    ataGrava(c);
+    ataPublica(c.tab);
+    ataJanela(c.id);
+    if (S.view === 'ata') render();
+    ACT.ataEnvia(c.id);
+  };
+  ACT.ataApaga = function (id) {
+    var c = S.ataContas[id];
+    if (!c || !c.cancelada) return;
+    lfConfirma({
+      k: 'ataApaga' + id,
+      t: 'Apagar a conta?',
+      q: c.nome || '',
+      d: c.email || '',
+      f: 'Ela some da lista, deste aparelho e da nuvem. Os pedidos dele continuam no histórico.',
+      nv: 1,
+      b: 'Apagar a conta',
+      fn: function () {
+        delete S.ataContas[id];
+        saveSoon();
+        if (typeof nvApi === 'function' && S.nuvem && S.nuvem.rt) nvApi('DELETE', 'atacadoContas/' + encodeURIComponent(id)).catch(function () {});
+        if (ataJ && ataJ.api) ataJ.api.fecha();
+        S.ataAba = 'loj';
+        render();
+        lfToast('Conta apagada');
+      }
+    });
+  };
   // ficha do cliente → criar ou abrir a conta associada
   ACT.ataConta = function (cliId) {
     var cli = (S.clientes || []).filter(function (x) { return String(x.id) === String(cliId); })[0];
@@ -93,28 +152,77 @@
     }
     ataJanela(c.id);
   };
-  // novo acesso de visitante (convite de 3 dias)
+  // S418 (113b): "+ Novo acesso" escolhe Lojista fixo (não vence; busca um cliente ou cria um novo) ou Visitante (3 dias).
   ACT.ataNovo = function () {
-    if (ataConvAtivos() >= S.ataConvMax) { lfToast('Limite de ' + S.ataConvMax + ' convites ativos. Cancele um ou aumente o limite.'); return; }
+    var st = { tipo: 'fixo', q: '', cli: null, novo: false };
     lfJanela({
-      titulo: 'Novo acesso atacado',
-      monta: function (box) {
-        box.innerHTML = '<div class="col" style="gap:10px;padding:0 16px 16px"><div class="lbl">VISITANTE · AINDA NÃO É CLIENTE · VENCE EM ' + ATA_DIAS + ' DIAS</div>' +
-          '<input class="in" id="ataNm" placeholder="Nome (ex.: Óptica Sol · Pedro)"><input class="in" id="ataTel" inputmode="tel" placeholder="WhatsApp"><input class="in" id="ataEm" inputmode="email" placeholder="E-mail (recebe o código para entrar)">' +
-          '<select class="in" id="ataTab">' + tabLista().filter(function (t) { return !t.pub; }).map(function (t) { return '<option value="' + t.id + '">' + esc(t.nome) + '</option>'; }).join('') + '</select>' +
-          '<input class="in" id="ataRefs" placeholder="O que vê: códigos separados por vírgula (vazio = tudo)" value="' + esc((S.ebSel || []).join(', ')) + '">' +
-          '<div class="sl"><span>Aparelhos</span><b>3</b></div><div class="sl"><span>Dura</span><b>' + ATA_DIAS + ' dias (até ' + fd(Date.now() + ATA_DIAS * DAY) + ')</b></div><div class="sl"><span>Cliente remove aparelho</span><b>Não</b></div>' +
-          '<div class="hint" style="margin:0">Convites ativos: ' + ataConvAtivos() + ' de ' + S.ataConvMax + '</div>' +
-          '<button type="button" class="go" id="ataOk">Enviar convite</button></div>';
-        $('ataOk').onclick = function () {
-          var nm = $('ataNm').value.trim(), em = $('ataEm').value.trim().toLowerCase();
-          if (!nm || !/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(em)) { lfToast('Preencha o nome e um e-mail válido'); return; }
-          var refs = $('ataRefs').value.split(/[,\s]+/).map(function (r) { return r.trim().toUpperCase(); }).filter(Boolean);
-          var c = { id: ataId(), nome: nm, email: em, tel: $('ataTel').value.trim(), tipo: 'visita', tab: $('ataTab').value, dispMax: 3, trocaOk: false, pausada: false, cancelada: false, fim: Date.now() + ATA_DIAS * DAY, refs: refs, ts: Date.now() };
-          ataGrava(c);
-          ataPublica(c.tab);
-          ACT.ataEnvia(c.id);
+      titulo: 'Novo acesso ao atacado',
+      monta: function (box, api) {
+        var tabs = tabLista().filter(function (t) { return !t.pub; }).map(function (t) { return '<option value="' + t.id + '">' + esc(t.nome) + '</option>'; }).join('');
+        var pinta = function () {
+          var fx = st.tipo === 'fixo', h = '<div class="col" style="gap:10px;padding:0 0 16px">';
+          h += '<div class="ata418T" role="group" aria-label="Tipo de acesso">' +
+            '<button type="button" data-t="fixo" class="' + (fx ? 'on' : '') + '" aria-pressed="' + fx + '"><b>Lojista fixo</b><small>não vence</small></button>' +
+            '<button type="button" data-t="visita" class="' + (fx ? '' : 'on') + '" aria-pressed="' + !fx + '"><b>Visitante</b><small>vence em ' + ATA_DIAS + ' dias</small></button></div>';
+          if (fx) {
+            h += '<div class="cxLb" style="margin:8px 0 0">Cliente</div>';
+            if (st.cli) h += '<div class="ata418S"><span><b>' + esc(st.cli.nome || 'Cliente') + '</b><small>' + esc([st.cli.tel, st.cli.email].filter(Boolean).join(' · ') || 'sem contato') + '</small></span><button type="button" class="lk77" data-x="1">Trocar</button></div>' + (st.cli.email ? '' : '<input class="in" id="ataEm" inputmode="email" placeholder="E-mail do cliente (recebe o código para entrar)">');
+            else if (st.novo) h += '<input class="in" id="ataNm" placeholder="Nome (ex.: Óptica Sol · Pedro)" value="' + esc(st.q) + '"><input class="in" id="ataTel" inputmode="tel" placeholder="WhatsApp"><input class="in" id="ataEm" inputmode="email" placeholder="E-mail (recebe o código para entrar)">';
+            else {
+              var qn = cliNorm(st.q), qd = cliDig(st.q),
+                ms = st.q.trim().length >= 2 ? (S.clientes || []).filter(function (c) { return cliNorm(c.nome).indexOf(qn) >= 0 || (qd.length >= 3 && cliDig(c.tel).indexOf(qd) >= 0) || (c.email && String(c.email).toLowerCase().indexOf(st.q.trim().toLowerCase()) >= 0); }).slice(0, 4) : [];
+              h += '<input class="in" id="ataQ" placeholder="Buscar cliente: nome, telefone ou e-mail" value="' + esc(st.q) + '" autocomplete="off">';
+              if (st.q.trim().length >= 2)
+                h += '<div class="ata418M">' + ms.map(function (c) { return '<button type="button" data-c="' + c.id + '"><b>' + esc(c.nome || 'Cliente') + '</b><small>' + esc([c.tel, c.email].filter(Boolean).join(' · ')) + '</small></button>'; }).join('') +
+                  '<button type="button" data-n="1"><b>+ Novo cliente “' + esc(st.q.trim().slice(0, 18)) + (st.q.trim().length > 18 ? '…' : '') + '”</b></button></div>';
+            }
+          } else h += '<input class="in" id="ataNm" placeholder="Nome (ex.: Óptica Sol · Pedro)"><input class="in" id="ataTel" inputmode="tel" placeholder="WhatsApp"><input class="in" id="ataEm" inputmode="email" placeholder="E-mail (recebe o código para entrar)">';
+          h += '<select class="in" id="ataTab">' + tabs + '</select>' +
+            '<input class="in" id="ataRefs" placeholder="O que vê: códigos separados por vírgula (vazio = tudo)" value="' + esc((S.ebSel || []).join(', ')) + '">' +
+            '<div class="sl"><span>Aparelhos</span><b>3</b></div><div class="sl"><span>Dura</span><b>' + (fx ? 'não vence' : ATA_DIAS + ' dias (até ' + fd(Date.now() + ATA_DIAS * DAY) + ')') + '</b></div>' +
+            '<div class="sl"><span>' + (fx ? 'Pode trocar de aparelho' : 'Cliente remove aparelho') + '</span><b>' + (fx ? 'Sim, até o limite' : 'Não') + '</b></div>' +
+            (fx ? '' : '<div class="hint" style="margin:0">Convites ativos: ' + ataConvAtivos() + ' de ' + S.ataConvMax + '</div>') +
+            '<button type="button" class="go" id="ataOk">Enviar convite</button></div>';
+          box.innerHTML = h;
+          box.querySelectorAll('.ata418T button').forEach(function (b) { b.onclick = function () { st.tipo = b.dataset.t; pinta(); }; });
+          var q = $('ataQ');
+          if (q) {
+            q.oninput = function () { st.q = q.value; var pos = q.selectionStart; pinta(); var q2 = $('ataQ'); if (q2) { q2.focus(); try { q2.setSelectionRange(pos, pos); } catch (e) {} } };
+          }
+          box.querySelectorAll('.ata418M [data-c]').forEach(function (b) { b.onclick = function () { st.cli = (S.clientes || []).filter(function (c) { return String(c.id) === b.dataset.c; })[0] || null; pinta(); }; });
+          var bn = box.querySelector('.ata418M [data-n]');
+          if (bn) bn.onclick = function () { st.novo = true; pinta(); };
+          var bx = box.querySelector('[data-x]');
+          if (bx) bx.onclick = function () { st.cli = null; st.novo = false; pinta(); };
+          $('ataOk').onclick = function () {
+            var refs = $('ataRefs').value.split(/[,\s]+/).map(function (r) { return r.trim().toUpperCase(); }).filter(Boolean), tab = $('ataTab').value, emOk = function (e) { return /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(e || ''); };
+            if (st.tipo === 'visita') {
+              if (ataConvAtivos() >= S.ataConvMax) { lfToast('Limite de ' + S.ataConvMax + ' convites ativos. Cancele um ou aumente o limite.'); return; }
+              var nm = $('ataNm').value.trim(), em = $('ataEm').value.trim().toLowerCase();
+              if (!nm || !emOk(em)) { lfToast('Preencha o nome e um e-mail válido'); return; }
+              var v = { id: ataId(), nome: nm, email: em, tel: $('ataTel').value.trim(), tipo: 'visita', tab: tab, dispMax: 3, trocaOk: false, pausada: false, cancelada: false, fim: Date.now() + ATA_DIAS * DAY, refs: refs, ts: Date.now() };
+              ataGrava(v); ataPublica(v.tab); api.fecha(); if (S.view === 'ata') render(); ACT.ataEnvia(v.id);
+              return;
+            }
+            var cli = st.cli;
+            if (!cli) {
+              if (!st.novo) { lfToast('Escolha um cliente ou crie um novo'); return; }
+              var n2 = $('ataNm').value.trim(), e2 = $('ataEm').value.trim().toLowerCase();
+              if (!n2 || !emOk(e2)) { lfToast('Preencha o nome e um e-mail válido'); return; }
+              cli = { id: S.cliNext++, nome: n2, tel: $('ataTel').value.trim(), email: e2, ts: Date.now(), orig: 'atacado' };
+              S.clientes.push(cli);
+            } else if (!cli.email) {
+              var e3 = ($('ataEm') ? $('ataEm').value : '').trim().toLowerCase();
+              if (!emOk(e3)) { lfToast('Falta o e-mail do cliente (o código de entrada vai para ele)'); return; }
+              cli.email = e3;
+            }
+            var ja = Object.keys(S.ataContas).map(function (k) { return S.ataContas[k]; }).filter(function (x) { return String(x.cliId) === String(cli.id) && !x.cancelada; })[0];
+            if (ja) { api.fecha(); lfToast('Este cliente já tem uma conta ativa'); ataJanela(ja.id); return; }
+            var c = { id: ataId(), nome: cli.nome || 'Cliente', email: String(cli.email).toLowerCase(), tel: cli.tel || '', tipo: 'assoc', tab: tab, dispMax: 3, trocaOk: true, pausada: false, cancelada: false, refs: refs, cliId: String(cli.id), ts: Date.now() };
+            ataGrava(c); ataPublica(c.tab); saveSoon(); api.fecha(); if (S.view === 'ata') render(); ACT.ataEnvia(c.id);
+          };
         };
+        pinta();
       }
     });
   };
@@ -130,7 +238,7 @@
   ACT.ataMoeda = function (v) { var p = String(v).split('|'); ataMuda(p[0], { moeda: p[1] }); };
   ACT.ataTroca = function (id) { var c = S.ataContas[id]; if (c) ataMuda(id, { trocaOk: c.trocaOk === false }, c.trocaOk === false ? 'Trocas liberadas' : 'Trocas bloqueadas'); };
   ACT.ataPausa = function (id) { var c = S.ataContas[id]; if (c) ataMuda(id, { pausada: !c.pausada }, c.pausada ? 'Catálogo de volta' : 'Pausada: o catálogo sumiu'); };
-  ACT.ataCanc = function (id) { if (!window.confirm('Cancelar a conta? O acesso é apagado; para voltar, só com novo convite.')) return; ataMuda(id, { cancelada: true }, 'Conta cancelada'); };
+  ACT.ataCanc = function (id) { if (!window.confirm('Cancelar a conta? O acesso é apagado; para voltar, só com novo convite.')) return; ataMuda(id, { cancelada: true, cancEm: Date.now() }, 'Conta cancelada'); };
   ACT.ataLim = function (v) { var p = String(v).split('|'), c = S.ataContas[p[0]]; if (c) ataMuda(p[0], { dispMax: Math.max(1, Math.min(10, (c.dispMax || 3) + +p[1])) }); };
   ACT.ataApRm = function (v) {
     var p = String(v).split('|'), c = S.ataContas[p[0]];

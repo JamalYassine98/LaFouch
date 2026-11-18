@@ -135,7 +135,7 @@
           return Date.now() - c.ts <= 30 * DAY;
         });
       h +=
-        '<section class="kpis">' +
+        '<section class="kpis lux418 lxLk"><div class="cxLb">Estoque</div>' +
         kpi('No estoque', 'US$ ' + ce.total.toFixed(0), 'a custo, sem estojos') +
         kpi('Parado 60+ dias', 'US$ ' + ce.parado.toFixed(0), Math.round(ce.pct * 100) + '% do investido', 'color:' + (ce.pct > 0.3 ? 'var(--warn)' : 'inherit')) +
         '</section>';
@@ -234,21 +234,26 @@
         .join('');
     dono = Math.max(0, lv.wal - lv.livreEq);
     h +=
-      '<section class="card col"><div class="lbl" style="margin:0">Livre para você</div><div class="hint" style="margin:0">já descontadas reposição, contas, colchão e melhorias</div>' +
-      '<div class="split">' + (linhas || '<div class="sl"><span>Guaranis</span><b>G$ 0</b></div>') + '</div>' +
+      // S418 (esboço 116c): "LIVRE PARA VOCÊ" com a moeda no canto, o número em letra de título, aviso em frase, linhas e barra fina
+      '<section class="cxSaldo lv418"><div class="lv418H"><div class="cxLb">Livre para você</div>' +
+      (function () {
+        var m = S.totM === 'usd' || S.totM === 'brl' ? S.totM : 'pyg';
+        return '<div class="lv418M" role="group" aria-label="Moeda do total convertido">' + [['pyg', 'G$'], ['brl', 'R$'], ['usd', 'US$']].map(function (o) {
+          return '<button type="button" class="' + (o[0] === m ? 'on' : '') + '" aria-pressed="' + (o[0] === m) + '" data-act="totm" data-id="' + o[0] + '">' + o[1] + '</button>';
+        }).join('') + '</div>';
+      })() + '</div>' +
+      '<div class="lv418N" style="color:' + (lv.falta > 0 ? 'var(--bad)' : 'var(--ok)') + '">' + totFmt(lv.livreEq) + '</div>' +
       (lv.falta > 0
-        ? '<div class="note n-bad">Faltam <b>' + totFmt(lv.falta) + '</b> para cobrir as reservas.' + (lv.extraUsd > 0.004 ? ' O dólar extra da loja (' + usd0(lv.extraUsd) + ') pode ajudar.' : '') + '</div>'
-        : '') +
-      '<div class="hint" style="margin:6px 0 0">Total convertido no câmbio de hoje</div><b style="font-size:34px;color:' + (lv.falta > 0 ? 'var(--bad)' : 'var(--ok)') + '">' + totFmt(lv.livreEq) + '</b>' +
-      totBtn() +
-      '<div class="hint" style="margin:0">' + cambioHojeTxt() + '</div>' +
-      '<div class="bar">' +
+        ? '<div class="lv418F">Faltam ' + totFmt(lv.falta) + ' para cobrir as reservas.' + (lv.extraUsd > 0.004 ? ' O dólar extra da loja (' + usd0(lv.extraUsd) + ') pode ajudar.' : '') + '</div>'
+        : '<div class="lv418S">já descontadas reposição, contas, colchão e melhorias</div>') +
+      (linhas || '<div class="sl"><span>Guaranis</span><b>G$ 0</b></div>').replace(/class="sl"/g, 'class="cxL"') +
+      '<div class="bar lv418B">' +
       [[r.repGs, '#6cc3e0'], [r.con, '#a2447c'], [r.colch, '#e9c27a'], [r.melh, 'var(--info)'], [lv.livreEq, '#5fd39a']]
         .map(function (p) {
           return '<i style="width:' + part(p[0]) + '%;background:' + p[1] + '"></i>';
         })
         .join('') +
-      '</div><div class="hint" style="margin:0">De ' + totFmt(r.wal) + ' na carteira, ' + totFmt(dono) + ' já têm dono: reposição, contas, colchão e melhorias.</div>' +
+      '</div><div class="lv418X">De ' + totFmt(r.wal) + ' na carteira, ' + totFmt(dono) + ' já têm dono: reposição, contas, colchão e melhorias.<br>' + cambioHojeTxt() + '</div>' +
       '</section>' +
       // S374 (esboço 99b2): "Ver para onde vai" é um bloco que abre no lugar, junto de "Próximos 30 dias"
       dFold('paraonde', 'Ver para onde vai', 'o que já tem dono: reposição, contas, colchão', '',

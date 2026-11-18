@@ -431,35 +431,24 @@
       h =
         '<section class="card col"><div><h2 style="margin:0;font-size:16px">Retirada do dono</h2><div class="hint" style="margin:2px 0 0">Dinheiro que você tira da loja para você. Sai do caixa na moeda escolhida.</div></div>';
     var pct = r.lucroLivre > 0 ? r.retTotal / r.lucroLivre : r.retTotal > 0 ? 9 : 0;
+    // S418 (esboço 125c): aviso em frase (vermelho só se passou do lucro), moeda em G$·US$·R$, campos empilhados, "Retirar" principal
     h +=
-      '<div class="note ' +
-      (pct > 1 ? 'n-bad' : pct > 0.8 ? 'n-warn' : 'n-ok') +
-      '">Neste mês: lucro livre <b>' +
-      gs(r.lucroLivre) +
-      '</b> · retiradas <b>' +
-      gs(r.retTotal) +
-      '</b> (inclui contas pessoais e de casa pagas)' +
-      (pct > 1
-        ? '. Você retirou mais do que a loja lucrou: o excedente saiu do dinheiro da reposição e das contas.'
-        : '.') +
-      '</div>';
+      '<div class="rt418A' + (pct > 1 ? ' bad' : pct > 0.8 ? ' w' : '') + '">Neste mês: lucro livre <b>' + gs(r.lucroLivre) + '</b> · retiradas <b>' + gs(r.retTotal) + '</b> (inclui contas pessoais e de casa pagas)' +
+      (pct > 1 ? '. Você retirou mais do que a loja lucrou: o excedente saiu do dinheiro da reposição e das contas.' : '.') + '</div>';
+    var rm = S.rtMoe || 'pyg';
     h +=
-      '<div class="sel" style="flex-wrap:wrap"><select class="in" id="rtM" aria-label="Moeda da retirada" style="flex:1 1 90px;width:auto">' + opcoesMoeda() + '</select><input class="in" id="rtV" inputmode="decimal" placeholder="Valor" style="flex:1 1 110px;width:auto" aria-label="Valor da retirada"><input class="in" id="rtN" placeholder="Para quê (opcional)" style="flex:2 1 150px;width:auto" aria-label="Motivo da retirada"><button class="mini" data-act="rtgo">Retirar</button></div><div class="hint" id="rtH" role="status" style="margin:0">' +
-      esc(S.rtMsg || '') +
-      '</div>';
+      '<div class="cxLb cx418L">Moeda</div><div class="sg418" role="group" aria-label="Moeda da retirada">' +
+      [['pyg', 'G$'], ['usd', 'US$'], ['brl', 'R$']].map(function (o) {
+        return '<button type="button" class="' + (o[0] === rm ? 'on' : '') + '" aria-pressed="' + (o[0] === rm) + '" data-act="rtMoe" data-id="' + o[0] + '">' + o[1] + '</button>';
+      }).join('') + '</div><input type="hidden" id="rtM" value="' + rm + '">' +
+      '<div class="cxLb cx418L">Valor</div><input class="in" id="rtV" inputmode="decimal" placeholder="0" aria-label="Valor da retirada">' +
+      '<div class="cxLb cx418L">Para quê (opcional)</div><input class="in" id="rtN" placeholder="Ex.: mercado" aria-label="Motivo da retirada">' +
+      '<button type="button" class="pd418P" data-act="rtgo" style="margin-top:16px">Retirar</button><div class="hint" id="rtH" role="status" style="margin:0">' + esc(S.rtMsg || '') + '</div>';
+    if (S.retiradas.length) h += '<div class="cxLb cx418L">Últimas retiradas</div>';
     S.retiradas.slice(0, 5).forEach(function (x) {
       h +=
-        '<div class="sl"><span>' +
-        esc(x.nota || 'Retirada') +
-        '<small>' +
-        fd(x.ts) +
-        ' às ' +
-        fh(x.ts) +
-        ' · <button type="button" class="cxDes" data-act="rtdes" data-id="' +
-        x.ts +
-        '">Desfazer</button></small></span><b>' +
-        fmtM(x.orig, x.moeda) +
-        '</b></div>';
+        '<div class="cxL rt418L"><span>' + esc(x.nota || 'Retirada') + '<small>' + fd(x.ts) + ' às ' + fh(x.ts) +
+        ' · <button type="button" class="cxDes" data-act="rtdes" data-id="' + x.ts + '">Desfazer</button></small></span><b>' + fmtM(x.orig, x.moeda) + '</b></div>';
     });
     return h + '</section>';
   }
@@ -477,38 +466,29 @@
     if (!S.ccOpen) {
       return h + '<button class="mini" data-act="ccabrir">Conferir caixa</button></section>';
     }
-    h += '<div class="sel" style="flex-wrap:wrap">';
+    // S418 (esboço 125a): "O QUE VOCÊ CONTOU" — uma linha por moeda com o campo à direita
+    h += '<div class="cxLb cx418L">O que você contou</div>';
     [
       ['ccP', 'Guaranis', 'pyg'],
       ['ccU', 'Dólares', 'usd'],
       ['ccB', 'Reais', 'brl']
-    ].forEach(function (x) {
+    ].forEach(function (x, i) {
       h +=
-        '<div style="flex:1 1 120px"><div class="lbl">' +
-        x[1] +
-        ' (app: ' +
-        fmtM(S.cash[x[2]], x[2]) +
-        ')</div><input class="in" id="' +
-        x[0] +
-        '" inputmode="decimal" value="' +
-        (S.ccV && S.ccV[x[0]] != null ? S.ccV[x[0]] : inVal(S.cash[x[2]], x[2])) +
-        '" aria-label="' +
-        x[1] +
-        ' contados"></div>';
+        '<label class="cxL cc418"' + (i === 2 ? ' style="border-bottom:0"' : '') + '><span>' + x[1] + '<small>no app ' + fmtM(S.cash[x[2]], x[2]) + '</small></span><input class="in" id="' + x[0] + '" inputmode="decimal" value="' +
+        (S.ccV && S.ccV[x[0]] != null ? S.ccV[x[0]] : inVal(S.cash[x[2]], x[2])) + '" aria-label="' + x[1] + ' contados"></label>';
     });
-    h += '</div>';
     h +=
-      '<details style="margin:4px 0"><summary style="cursor:pointer;font-size:14px;color:var(--mute)">Reservas iniciais (só na primeira vez)</summary><div class="sel" style="flex-wrap:wrap;margin-top:8px">' +
+      '<details class="cc418D"><summary>Reservas iniciais (só na primeira vez) <i aria-hidden="true">⌄</i></summary>' +
       [
         ['ajR', 'Mercadoria (US$)', inVal(S.ini.rep, 'usd')],
         ['ajC', 'Colchão (' + mpSim() + ')', gsParaCampo(S.ini.colch)],
         ['ajM', 'Melhorias (' + mpSim() + ')', gsParaCampo(S.ini.melh)]
       ]
         .map(function (x) {
-          return '<div style="flex:1 1 120px"><div class="lbl">' + x[1] + '</div><input class="in" id="' + x[0] + '" inputmode="decimal" value="' + x[2] + '" aria-label="' + x[1] + '"></div>';
+          return '<label class="cxL cc418"><span>' + x[1] + '</span><input class="in" id="' + x[0] + '" inputmode="decimal" value="' + x[2] + '" aria-label="' + x[1] + '"></label>';
         })
         .join('') +
-      '</div></details>';
+      '</details>';
     if (S.ccRes)
       h +=
         '<div class="note ' +
@@ -516,10 +496,9 @@
         '" role="status">' +
         esc(S.ccRes.txt) +
         '</div>';
-    h += '<div class="sel" style="flex-wrap:wrap"><button class="mini" data-act="ccgo">Conferir</button>';
-    if (S.ccRes && !S.ccRes.ok)
-      h += '<button class="chip" data-act="ccadj">Ajustar o saldo do app para o que contei</button>';
-    return h + '<button class="chip" data-act="ccfechar">Fechar</button></div></section>';
+    h += '<button type="button" class="pd418P" data-act="ccgo" style="margin-top:14px">Conferir</button>';
+    if (S.ccRes && !S.ccRes.ok) h += '<button type="button" class="pd418S" data-act="ccadj">Ajustar o saldo do app para o que contei</button>';
+    return h + '<button type="button" class="cf418V" data-act="ccfechar">Fechar</button></section>';
   }
 
   // ---------- capital parado e retorno do estoque

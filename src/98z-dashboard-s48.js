@@ -42,9 +42,8 @@
           var cx = document.querySelector('.fjJn') || v;
           if (!cx || !p[1]) return;
           // o campo certo pela etiqueta: "Entreguei R$" (reposição) ou "Você troca (G$)" (outra troca)
-          var rx = p[0] === 'brl' ? /^Entreguei R\$/i : /^Você troca \(G\$\)/i, els = [].slice.call(cx.querySelectorAll('*')), ix = -1, inp = null;
-          els.some(function (e, i) { if (!e.children.length && rx.test((e.textContent || '').trim())) { ix = i; return true; } });
-          if (ix >= 0) for (var i = ix + 1; i < els.length; i++) if (els[i].tagName === 'INPUT') { inp = els[i]; break; }
+          // S418 (126b): os campos pelo id (a etiqueta mudou para linhas "Entreguei" / "Você troca")
+          var inp = p[0] === 'brl' ? cx.querySelector('input[data-in=trv]') : cx.querySelector('#trV');
           if (!inp) return;
           inp.value = p[0] === 'brl' ? (+p[1]).toFixed(2).replace('.', ',') : String(Math.round(+p[1]));
           inp.dispatchEvent(new Event('input', { bubbles: true }));
@@ -78,6 +77,10 @@
       mk.insertAdjacentHTML('beforeend', '<div class="hint">' + esc(meta) + '</div>');
     }
     ks.classList.add('es3');
+    // S418 (esboço 124a): números em linhas finas, com o período em versalete em cima
+    ks.classList.add('lux418', 'lxLk');
+    var pn = d48Txt(v.querySelector('.dHdP')).replace('⌄', '').trim();
+    ks.insertAdjacentHTML('afterbegin', '<div class="cxLb">' + esc(pn === 'Datas' ? 'No período' : pn) + '</div>');
     sep.remove();
     dol.remove();
     if (mk) ks.appendChild(mk);

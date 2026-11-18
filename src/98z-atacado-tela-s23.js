@@ -74,6 +74,11 @@
             return ataLinha('ataLojAbre', c.id, c.nome || 'Lojista', (c.pausada ? 'Pausada · ' : '') + 'Tabela ' + tabDe(c.tab).nome + ' · ' + ap + (ap === 1 ? ' aparelho' : ' aparelhos'), 0);
           }).join('') + '</section>'
         : '<div class="ataVz">Nenhum lojista com acesso ainda. Toque em “+ Novo acesso” para criar o primeiro.</div>';
+      // S418 (113c): as contas canceladas ficam num bloco que abre no lugar
+      var X = Object.keys(S.ataContas || {}).map(function (k) { return S.ataContas[k]; }).filter(function (c) { return c && c.cancelada; });
+      if (X.length)
+        h += '<section class="card ataLs" style="margin-top:12px"><button type="button" class="ataL ata418C' + (S._ataCanc ? ' on' : '') + '" data-act="ataCancAb" aria-expanded="' + !!S._ataCanc + '"><span><b>Canceladas</b><small>' + X.length + (X.length === 1 ? ' conta' : ' contas') + ' · não entram mais</small></span><i aria-hidden="true">⌄</i></button>' +
+          (S._ataCanc ? X.map(function (c) { return ataLinha('ataLojAbre', c.id, c.nome || 'Lojista', 'cancelada' + (c.cancEm ? ' em ' + fd(c.cancEm) : '') + ' · ver a conta', 0); }).join('') : '') + '</section>';
       h += '<p class="ataNt">Cada lojista compra pelo link da conta dele, com a tabela e o mínimo do atacado.</p>';
     } else if (a === 'lot') {
       var T = Object.keys(S.ataLotes || {}).map(function (k) { return S.ataLotes[k]; }).filter(Boolean).sort(function (x, y) { return (y.ts || 0) - (x.ts || 0); });
@@ -115,6 +120,10 @@
     renderAtacado();
     var c = $('ataCorpo');
     if (c && typeof animEnter === 'function') animEnter(c);
+  };
+  ACT.ataCancAb = function () {
+    S._ataCanc = !S._ataCanc;
+    render();
   };
   ACT.ataLojAbre = function (id) { if (typeof ataJanela === 'function') ataJanela(id); };
   function ataPC() { return window.innerWidth >= 1024; }

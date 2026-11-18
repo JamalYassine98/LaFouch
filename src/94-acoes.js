@@ -572,19 +572,7 @@
       S._recv = rv;
       updateRec();
     }
-    if (k === 'trDe' || k === 'trPara') {
-      var old = S.tr.de;
-      S.tr[k === 'trDe' ? 'de' : 'para'] = t.value;
-      if (S.tr.de === S.tr.para)
-        S.tr[k === 'trDe' ? 'para' : 'de'] = ['pyg', 'usd', 'brl'].filter(function (m) {
-          return m !== t.value;
-        })[0];
-      if (k === 'trDe' || S.tr.de !== old) S.tr.v = TR_INI[S.tr.de];
-      S.tr.rec = '';
-      S.tr.edited = false;
-      S.trConf = false;
-      render();
-    }
+    if (k === 'trDe' || k === 'trPara') trMoeda(k, t.value);
     if (k === 'trV') {
       S.tr.v = t.value;
       S.trConf = false;
@@ -674,3 +662,18 @@
   S.cambios = [{ ts: tAgo(7), de: 'pyg', para: 'usd', dado: 650000, rec: 100, difGs: -2500 }];
   S.tr = { de: 'pyg', para: 'usd', v: '300000', rec: '', edited: false };
   S.cxMsg = '';
+  // S418 (126b): troca de moeda da "Outra troca" (lista antiga ou os botões G$ · US$ · R$)
+  function trMoeda(k, val) {
+    var old = S.tr.de;
+    S.tr[k === 'trDe' ? 'de' : 'para'] = val;
+    if (S.tr.de === S.tr.para)
+      S.tr[k === 'trDe' ? 'para' : 'de'] = ['pyg', 'usd', 'brl'].filter(function (m) {
+        return m !== val;
+      })[0];
+    if (k === 'trDe' || S.tr.de !== old) S.tr.v = TR_INI[S.tr.de];
+    S.tr.rec = '';
+    S.tr.edited = false;
+    S.trConf = false;
+    render();
+  }
+  window.__trMoeda = trMoeda;

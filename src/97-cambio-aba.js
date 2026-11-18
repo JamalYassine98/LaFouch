@@ -249,18 +249,18 @@
       rp = vd.rp,
       se = FX_SELO[vd.k];
     h +=
-      '<section class="card fxRepo"><button type="button" class="fxRepoT" data-act="fjAbre" data-id="repo"><span class="fxRH"><span class="lbl">Reposição</span><span class="fxSelo ' + se[1] + '">' + se[0] + ' ›</span></span>' +
-      '<b class="fxFal">' + (rp.falta > 0.5 ? 'Faltam ' + usd0(rp.falta) : 'Reposição completa') + '</b>' +
+      // S418 (esboço 117, aprovado 17/11): "REPOSIÇÃO" e "MAIS" no padrão de luxo; as cotações ficam no desenho de hoje sem o fundo
+      '<section class="cxSaldo fx418"><div class="cxLb">Reposição</div><button type="button" class="fx418R" data-act="fjAbre" data-id="repo"><span class="n">' + (rp.falta > 0.5 ? 'Faltam ' + usd0(rp.falta) : 'Reposição completa') + '</span><span class="s ' + se[1] + '">' + se[0] + '</span><i aria-hidden="true">›</i></button>' +
       '<span class="fxBar"><i style="width:' + (rp.tot > 0 ? Math.round((rp.tem / rp.tot) * 100) : 100) + '%"></i></span>' +
-      '<span class="hint" style="margin:0">' + usd0(rp.tem) + ' de ' + usd0(rp.tot) + '</span></button>' +
-      '<button type="button" class="fxLk" data-act="fjAbre" data-id="troca">Registrar troca</button></section>';
+      '<div class="fx418H">' + usd0(rp.tem) + ' de ' + usd0(rp.tot) + '</div>' +
+      '<button type="button" class="fx418P" data-act="fjAbre" data-id="troca">Registrar troca</button></section>';
     var n = (S.cambios || []).length,
       L = S.siteFx;
     h +=
-      '<section class="card fxRows">' +
-      '<button type="button" class="fxRow" data-act="fjAbre" data-id="trocas"><span>Últimas trocas</span><span class="hint">' + n + ' ›</span></button>' +
-      '<button type="button" class="fxRow" data-act="fjAbre" data-id="site"><span>Preços no site<small>cotação da loja travada' + (L && L.ts ? ' desde ' + fd(L.ts) : '') + '</small></span><span class="hint">' + (L && L.usd ? gsRaw(L.usd) : '') + ' ›</span></button>' +
-      '<button type="button" class="fxRow" data-act="fjAbre" data-id="prot"><span>Como o app te protege<small>colchão ' + pc(colchao().pct) + '</small></span><span class="hint">›</span></button>' +
+      '<section class="cxSaldo fx418"><div class="cxLb">Mais</div>' +
+      '<button type="button" class="pr418 lk" data-act="fjAbre" data-id="trocas"><span>Últimas trocas</span><b>' + n + '</b><i aria-hidden="true">›</i></button>' +
+      '<button type="button" class="pr418 lk" data-act="fjAbre" data-id="site"><span>Preços no site<small>cotação da loja travada' + (L && L.ts ? ' desde ' + fd(L.ts) : '') + '</small></span><b>' + (L && L.usd ? gsRaw(L.usd) : '') + '</b><i aria-hidden="true">›</i></button>' +
+      '<button type="button" class="pr418 lk" data-act="fjAbre" data-id="prot"><span>Como o app te protege<small>colchão ' + pc(colchao().pct) + '</small></span><i aria-hidden="true">›</i></button>' +
       '</section>';
     if (S.fxJan) h += fjHtml(S.fxJan, vd);
     return h;
@@ -298,7 +298,7 @@
     }
     return (
       '<div class="fjBk' + (S._fjAnim ? ' in' : '') + '" data-act="fjFecha"></div><div class="fjJn' + (S._fjAnim ? ' in' : '') + '" role="dialog" aria-label="' + esc(tit.replace(/<[^>]+>/g, '')) + '">' +
-      '<div class="fjPuxa" aria-hidden="true"></div><div class="fjHd"><div><b>' + tit + '</b>' + (sub ? '<small>' + sub + '</small>' : '') + '</div><button type="button" class="fjX" data-act="fjFecha" aria-label="Fechar">×</button></div>' +
+      '<div class="fjPuxa" aria-hidden="true"></div><div class="fjHd"><div><b>' + tit + '</b>' + (sub ? '<small>' + sub + '</small>' : '') + '</div></div>' + // S418 (126): sem o ×; fecha puxando ou tocando fora
       '<div class="fjCorpo">' + corpo + '</div></div>'
     );
   }
@@ -407,16 +407,29 @@
       '<div class="fjB"><span class="lbl">Preços do site</span><div class="hint" style="margin:0">Cotação da loja + 2% de folga' + (L && L.usd ? ' (' + gsRaw(L.usd) + ')' : '') + ', travada: só muda quando a loja passar dela. Se o dólar cair muito, o app faz ofertas no site.</div></div>'
     );
   }
+  var MN418 = { pyg: 'guaranis', usd: 'dólares', brl: 'reais' };
+  ACT.trMoe = function (v) {
+    var p = String(v).split('|');
+    if (!/^(de|para)$/.test(p[0]) || !/^(pyg|usd|brl)$/.test(p[1])) return;
+    if (typeof window.__trMoeda === 'function') window.__trMoeda(p[0] === 'de' ? 'trDe' : 'trPara', p[1]);
+  };
   // "Registrar troca": sugestão de hoje (já preenchida) + outra troca.
   function trGavetaHtml() {
     var t = S.tr,
       ag = trocarAgoraHtml();
     return (
-      (ag ? '<div class="lbl" style="margin:0 0 6px">Sugestão de hoje</div>' + ag + '<div class="lbl" style="margin:14px 0 6px">Outra troca</div>' : '') +
-      '<div class="sel" style="flex-wrap:wrap">' + trSel('trDe', t.de) + '<button class="btn-sc" data-act="trflip" aria-label="Inverter as moedas">⇄ Inverter</button>' + trSel('trPara', t.para) + '</div>' +
-      '<div class="sel" style="flex-wrap:wrap"><div style="flex:1 1 140px"><div class="lbl">Você troca (' + MN[t.de] + ')</div><input class="in" id="trV" inputmode="decimal" data-in="trV" value="' + esc(t.v) + '" aria-label="Valor a trocar"></div>' +
-      '<div style="flex:1 1 140px"><div class="lbl">Você recebe (' + MN[t.para] + ')</div><input class="in" id="trRec" inputmode="decimal" data-in="trRec" value="' + esc(t.rec) + '" aria-label="Valor recebido na troca"></div></div>' +
-      '<div class="hint" id="trPrev" role="status" style="margin:0"></div><button class="go" data-act="trocar">Registrar troca</button>'
+      // S418 (esboço 126b): De e Para por toque (G$ · US$ · R$), "⇄ Inverter" em rosa, campos em linhas, "Registrar troca" principal
+      (ag ? '<div class="cxLb" style="margin:0 0 2px">Sugestão de hoje</div>' + ag + '<div class="cxLb" style="margin:22px 0 8px">Outra troca</div>' : '') +
+      ['de', 'para'].map(function (q) {
+        return '<div class="tr418"><span>' + (q === 'de' ? 'De' : 'Para') + '</span><div class="sg418" role="group" aria-label="' + (q === 'de' ? 'Trocar de' : 'Receber em') + '">' +
+          [['pyg', 'G$'], ['usd', 'US$'], ['brl', 'R$']].map(function (o) {
+            return '<button type="button" class="' + (t[q] === o[0] ? 'on' : '') + '" aria-pressed="' + (t[q] === o[0]) + '" data-act="trMoe" data-id="' + q + '|' + o[0] + '">' + o[1] + '</button>';
+          }).join('') + '</div></div>';
+      }).join('') +
+      '<div style="text-align:center"><button type="button" class="tr418I" data-act="trflip" aria-label="Inverter as moedas">⇄ Inverter</button></div>' +
+      '<label class="cxL cc418"><span>Você troca<small>em ' + MN418[t.de] + '</small></span><input class="in" id="trV" inputmode="decimal" data-in="trV" value="' + esc(t.v) + '" aria-label="Valor a trocar"></label>' +
+      '<label class="cxL cc418" style="border-bottom:0"><span>Você recebe<small>em ' + MN418[t.para] + '</small></span><input class="in" id="trRec" inputmode="decimal" data-in="trRec" value="' + esc(t.rec) + '" aria-label="Valor recebido na troca"></label>' +
+      '<div class="hint" id="trPrev" role="status" style="margin:0"></div><button type="button" class="fx418P" data-act="trocar">Registrar troca</button>'
     );
   }
   ACT.fjAbre = function (id) {

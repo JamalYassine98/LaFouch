@@ -48,7 +48,7 @@
         '</div><div class="dHdS">' + (resumo ? esc(perDatas(S.per)) : esc(DT_FRASE[t[0]])) + '</div>'; // S362: a linha "US$ 1 = …" saiu do topo (o câmbio mora na tela Câmbio)
     if (resumo && S.per === 'custom')
       h +=
-        '<div class="sel dHdD" style="flex-wrap:wrap"><input class="in" type="date" data-pdat="de" value="' + esc(S.perDe) + '" aria-label="Data inicial" style="flex:1 1 140px;width:auto"><input class="in" type="date" data-pdat="ate" value="' + esc(S.perAte) + '" aria-label="Data final" style="flex:1 1 140px;width:auto"></div>';
+        '<section class="cxSaldo dHdD"><div class="cxLb">Período</div><label class="cxL dD418"><span>De</span><input class="in" type="date" data-pdat="de" value="' + esc(S.perDe) + '" aria-label="Data inicial"></label><label class="cxL dD418"><span>Até</span><input class="in" type="date" data-pdat="ate" value="' + esc(S.perAte) + '" aria-label="Data final"></label></section>';
     return h;
   }
   function dOpHtml(act, id, nome, sub, on, seta) {

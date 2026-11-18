@@ -1142,17 +1142,17 @@ async def main():
             await pg.locator('#hRes [data-act=hmais]').click(); await pg.wait_for_timeout(200)
             hb = await pg.evaluate("() => document.querySelectorAll('#hRes [data-act=opendia], #hRes [data-act=hSem]').length")  # S374 (58b): dia antigo fica dentro da semana fechada
             await pg.fill('#hq', 'ccc'); await pg.wait_for_timeout(200)
-            hc = await pg.evaluate("() => [document.querySelectorAll('#hRes .card').length, document.activeElement.id]")
+            hc = await pg.evaluate("() => [document.querySelectorAll('#hRes .card, #hRes .sl418').length, document.activeElement.id]")
             await pg.fill('#hq', ''); await pg.wait_for_timeout(100)
             await pg.locator('[data-act=hfopen]').click(); await pg.wait_for_timeout(200)
             await pg.locator('[data-id=\'tipo|pago\']').click(); await pg.wait_for_timeout(200)
-            hd = await pg.evaluate("() => document.querySelectorAll('#hRes .card').length")
+            hd = await pg.evaluate("() => document.querySelectorAll('#hRes .card, #hRes .sl418').length")
             await pg.locator('[data-act=hlimpar]').click(); await pg.wait_for_timeout(100)
             await pg.locator('[data-id=\'forma|pix\']').click(); await pg.wait_for_timeout(200)
-            he = await pg.evaluate("() => document.querySelectorAll('#hRes .card').length")
+            he = await pg.evaluate("() => document.querySelectorAll('#hRes .card, #hRes .sl418').length")
             await pg.locator('[data-act=hlimpar]').click(); await pg.wait_for_timeout(100)
             await pg.locator('[data-id=\'tipo|estorno\']').click(); await pg.wait_for_timeout(200)
-            hf = await pg.evaluate("() => document.querySelectorAll('#hRes .card').length")
+            hf = await pg.evaluate("() => document.querySelectorAll('#hRes .card, #hRes .sl418').length")
             await pg.locator('[data-act=hlimpar]').click(); await pg.wait_for_timeout(100)
             await pg.evaluate("() => { const t = document.getElementById('hDate'); t.hidden = false; t.value = window.__LF.S.sales[0] && (function(){const d=new Date(); return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)})(); t.dispatchEvent(new Event('change',{bubbles:true})); }")
             await pg.wait_for_timeout(300)
@@ -1661,8 +1661,8 @@ async def main():
             det = txt2
             tokok = await pg.evaluate("() => /^LF-[A-Z2-9]{4}$/.test(window.__LF.S.pedidos[0].tok)")
             await pg.locator('[data-act=pedprod]').first.click(); await pg.wait_for_timeout(300)
-            jan = await pg.inner_text('#v-ped .modal')
-            await pg.locator('[data-act=pedprodx]').first.click(); await pg.locator('[data-act=pedav]').first.click(); await pg.wait_for_timeout(300)
+            jan = await pg.evaluate("() => [...document.querySelectorAll('.ljJn')].pop().innerText")  # S418 (115c): janela de baixo
+            await pg.evaluate("() => [...document.querySelectorAll('.ljBk')].pop().click()"); await pg.wait_for_timeout(450); await pg.locator('[data-act=pedav]').first.click(); await pg.wait_for_timeout(300)
             r2 = await pg.evaluate("() => [window.__LF.S.pedidos[0].st, window.__LF.S.pedF]")
             await pg.evaluate("() => { const S = window.__LF.S; S.pedidos[0].st = 'pronto'; S.pedF = 'pronto'; S.pedSel = S.pedidos[0].id; window.__LF.render(); }")
             await pg.locator('[data-act=pedav]').first.click(); await pg.wait_for_timeout(300)
@@ -1674,7 +1674,7 @@ async def main():
             tokflow = [st_err, 'não é o do pedido' in errtk, st_ok]
             total += 1
             ok = (n1 == 1 and n2 == 0 and r == [1, 'Maria souza', 2, 'novo', 'site', 1, '0981123456', True, True] and sorted(set(apagados)) == ['abc1', 'abc1c', 'abc2']
-                  and 'Conferir comprovante' in txt and 'TESTE' in txt and extra == ['comp', 'delivery', 'alias', True, 210000, '1234567-8', True] and 'Banco Familiar (alias)' in pagtxt and 'Delivery' in pagtxt and 'LF-' in txt2 and len(reservas) == 1 and reservas[0].startswith('reservas/abc1|') and 'pago' in reservas[0] and 'Nova' in det and 'novo pedido' not in txt.lower() and tokok and 'Maria souza' in det and 'Armação azul' in det
+                  and 'Conferir comprovante' in txt and 'TESTE' in txt and extra == ['comp', 'delivery', 'alias', True, 210000, '1234567-8', True] and 'Banco Familiar' in pagtxt and 'Delivery' in pagtxt and 'LF-' in txt2 and len(reservas) == 1 and reservas[0].startswith('reservas/abc1|') and 'pago' in reservas[0] and 'nova' in det.lower() and 'novo pedido' not in txt.lower() and tokok and 'Maria souza' in det and ('Armação azul' in det or 'AC1' in det)
                   and '3 peças' in jan and 'neste pedido' in jan.lower() and r2 == ['sep', 'sep'] and tokflow == ['pronto', True, 'ent'] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'pedidos do site: chegam sozinhos, cadastram o cliente, detalhe e janela da peça')
             if not ok: falhas.append('pedidos'); print('        veio', n1, n2, r, apagados, txt[:200], det[:200], jan[:200], r2, pg.erros)
@@ -1784,7 +1784,7 @@ async def main():
             # Assumir pedido automático ao agir; restaurar cópia pede para digitar RESTAURAR
             pg = await pagina()
             await pg.evaluate("() => { const L = window.__LF, S = L.S; S.syncOn = true; S.aparelho = 'APX1'; S.aparNome = 'PC da loja'; S.pedidos = [{id:'pq1', sid:'q1', num:'AB12', cli:'Ana', tel:'0981', itens:[{t:'x', ref:'R1', q:1, cor:'', preco:1000}], st:'novo', pg:'comp', orig:'site', ts: Date.now(), total:1000}]; S.pedSel = 'pq1'; L.setView('ped'); }"); await pg.wait_for_timeout(300)
-            await pg.evaluate("() => { const L = window.__LF; L.ACT ? 0 : 0; document.body.insertAdjacentHTML('beforeend', '<button id=ztp data-act=pedrecus data-id=pq1>x</button>'); document.getElementById('ztp').click(); }"); await pg.wait_for_timeout(300)
+            await pg.evaluate("() => { const L = window.__LF; L.ACT ? 0 : 0; document.body.insertAdjacentHTML('beforeend', '<button id=ztp data-act=pedrecus data-id=pq1>x</button>'); document.getElementById('ztp').click(); document.getElementById('ztp').click(); }"); await pg.wait_for_timeout(300)  # S418: recusar pede confirmação (2ª chamada confirma)
             as1 = await pg.evaluate("() => { const p = window.__LF.S.pedidos[0]; return p.assumido ? p.assumido.nome : null; }")
             await pg.evaluate("() => { window.__rf = 0; window.__restConfirma('Teste.', () => { window.__rf++; }); }"); await pg.wait_for_timeout(200)
             rs0 = await pg.evaluate("() => document.getElementById('restSim').disabled")
@@ -2228,11 +2228,11 @@ async def main():
             await pg.evaluate("""() => { const L = window.__LF, S = L.S; const b = (id, st, cli, min, pg) => ({id, num: id, sid: 's'+id, cli, tel: '0981000'+id, st, pg: pg || '', ts: Date.now() - min*60000, itens: [{t:'Armação', q:1, p:100000, ref:'X'}], orig: 'site'});
               S.pedidos = [b(1,'novo','Ana Gómez',90), b(2,'sep','Luz',10), b(3,'ent','Marcos',5000), b(4,'pronto','Rita',30)]; S.pedF = 'novo'; S.pedQ = ''; S.view = 'ped'; L.setView('ped'); }""")
             await pg.wait_for_timeout(300)
-            pd1 = await pg.evaluate("() => [[...document.querySelectorAll('#v-ped .pdSeg button')].map(b => b.innerText.replace(/\\s+/g, ' ')), document.querySelectorAll('#v-ped .pdCard').length, document.getElementById('v-ped').innerText.includes('há 1 h')]")
+            pd1 = await pg.evaluate("() => [[...document.querySelectorAll('#v-ped .pdSeg button')].map(b => b.innerText.replace(/\\s+/g, ' ')), document.querySelectorAll('#v-ped .pd418L').length, document.getElementById('v-ped').innerText.includes('há 1 h')]")
             await pg.evaluate("() => { window.__LF.S.pedF = 'sep'; window.__LF.render(); }"); await pg.wait_for_timeout(200)
-            pd2 = await pg.evaluate("() => document.querySelectorAll('#v-ped .pdCard').length")
+            pd2 = await pg.evaluate("() => document.querySelectorAll('#v-ped .pd418L').length")
             await pg.fill('#pedQ', 'rita'); await pg.wait_for_timeout(200)
-            pd3 = await pg.evaluate("() => document.querySelectorAll('#v-ped .pdCard').length")
+            pd3 = await pg.evaluate("() => document.querySelectorAll('#v-ped .pd418L').length")
             total += 1
             ok = pd1[0] == ['Agir agora 1', 'Em andamento 2', 'Feitos 1'] and pd1[1] == 1 and pd1[2] and pd2 == 2 and pd3 == 1 and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'pedidos online: abas por urgência, busca e tempo de espera')
@@ -2415,13 +2415,39 @@ async def main():
             t1 = await pg.inner_text('#v-desp')
             btn = pg.locator('[data-act=impdel]')
             n1 = await btn.count()
-            await btn.first.click(); await pg.wait_for_timeout(200)
-            await btn.first.click(); await pg.wait_for_timeout(300)
+            await btn.first.click(); await pg.wait_for_timeout(300)  # S418 (111 grupo A): remove na hora + Desfazer
             r2 = await pg.evaluate("() => [window.__LF.S.imprev.map(x => x.desc), window.__LF.S.dlog.map(x => x.desc)]")
             total += 1
             ok = 'Errado' in t1 and 'Antigo' not in t1 and n1 == 1 and r2 == [['Antigo'], ['Antigo']] and not pg.erros
-            print(('  ok  ' if ok else ' FALHA ') + 'imprevistos: só do mês na tela e remoção em dois toques')
+            print(('  ok  ' if ok else ' FALHA ') + 'imprevistos: só do mês na tela e remoção com Desfazer')
             if not ok: falhas.append('imprevistos'); print('        veio', n1, r2, pg.erros)
+            await pg.close()
+
+            # S418 (110c/111/113/115): janela de confirmação única, Desfazer, pedido em linhas e conta de atacado cancelada
+            pg = await pagina()
+            await pg.evaluate("() => { const L = window.__LF, S = L.S; const it = S.items.find(i => i.qty > 0 && !i.bulk); S.pedidos = [{id:91, num:91, cli:'Teste Um', tel:'0981', st:'novo', pg:'pagar', ts:Date.now(), itens:[{t:'x', ref:it.ref, q:1, preco:1000}], orig:'app', total:1000, ent:'loja'}]; S.pedF='novo'; L.setView('ped'); }"); await pg.wait_for_timeout(300)
+            q1 = await pg.evaluate("() => [document.querySelectorAll('#v-ped .pd418L').length, !!document.querySelector('#v-ped .pdCard')]")
+            await pg.evaluate("() => window.__LF.ACT.pedab(91)"); await pg.wait_for_timeout(200)
+            await pg.locator('[data-act=pedcanc]').click(); await pg.wait_for_timeout(450)
+            q2 = await pg.evaluate("() => { const j = [...document.querySelectorAll('.ljJn.lfCf')].pop(); return [j ? j.querySelector('.ljHd').innerText : '', window.__LF.S.pedidos[0].st]; }")
+            await pg.locator('.cf418V').last.click(); await pg.wait_for_timeout(450)
+            q3 = await pg.evaluate("() => window.__LF.S.pedidos[0].st")
+            await pg.locator('[data-act=pedcanc]').click(); await pg.wait_for_timeout(450); await pg.locator('.cf418B').last.click(); await pg.wait_for_timeout(300)
+            q4 = await pg.evaluate("() => window.__LF.S.pedidos[0].st")
+            await pg.locator('[data-act=peddel]').click(); await pg.wait_for_timeout(300)
+            q5 = await pg.evaluate("() => [window.__LF.S.pedidos.length, document.getElementById('lfDesf').classList.contains('on')]")
+            await pg.locator('#lfDesf button').click(); await pg.wait_for_timeout(300)
+            q6 = await pg.evaluate("() => window.__LF.S.pedidos.length")
+            await pg.evaluate("() => { const L = window.__LF, S = L.S; S.ataContas = {X1:{id:'X1', nome:'Loja Teste', email:'a@b.com', tipo:'assoc', tab:'opt', cancelada:true, cancEm:Date.now(), ts:1}}; S._ataCanc = true; S.ataAba = 'loj'; L.setView('ata'); }"); await pg.wait_for_timeout(300)
+            q7 = await pg.evaluate("() => document.getElementById('v-ata') ? document.getElementById('v-ata').innerText.includes('Canceladas') : 'sem-v-ata'")
+            await pg.evaluate("() => window.__LF.ACT.ataLojAbre('X1')"); await pg.wait_for_timeout(400)
+            q8 = await pg.evaluate("() => { const j = [...document.querySelectorAll('.ljJn')].pop(); return [!!j.querySelector('[data-act=ataRecria]'), !!j.querySelector('[data-act=ataApaga]'), !j.querySelector('[data-act=ataPausa]')]; }")
+            await pg.evaluate("() => window.__LF.ACT.ataApaga('X1')"); await pg.wait_for_timeout(400); await pg.locator('.cf418B').last.click(); await pg.wait_for_timeout(500)
+            q9 = await pg.evaluate("() => [!window.__LF.S.ataContas.X1, document.querySelectorAll('.ljJn').length]")
+            total += 1
+            ok = q1 == [1, False] and q2 == ['Cancelar a reserva?', 'novo'] and q3 == 'novo' and q4 == 'canc' and q5 == [0, True] and q6 == 1 and q7 is True and q8 == [True, True, True] and q9 == [True, 0] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S418: confirmação única, Desfazer, pedido em linhas e atacado cancelado (110c/111/113/115)')
+            if not ok: falhas.append('s418'); print('        veio', q1, q2, q3, q4, q5, q6, q7, q8, q9, pg.erros)
             await pg.close()
 
             # Acesso rápido: arrastar do Início para a barra de baixo (máx. 5), trocar, tirar e reordenar
@@ -2926,7 +2952,7 @@ async def main():
               const rm = L.resultadoMes(new Date().getFullYear(), new Date().getMonth()).cambio;
               L.trocarDesfazer();
               const des = [S.cash.brl, S.cash.usd, S.repQuitUsd, S.colchUsos.length, S.cambios.length];
-              return [pl.de, pl.sug, pl.rec, tela.includes('Entreguei') && tela.includes('Recebi US$'), tot, dep, falta, rm, des]; }""")
+              return [pl.de, pl.sug, pl.rec, tela.includes('Entreguei') && tela.includes('Recebi'), tot, dep, falta, rm, des]; }""")
             total += 1
             ok = r[0] == 'brl' and r[1] == 40 and r[2] == 7 and r[3] and r[4] == 7 and r[5] == [210, 7, 7, 5570, 1, 5570] and r[6] == 0 and r[7] == 5570 and r[8] == [250, 0, 0, 0, 0] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Trocar agora: plano redondo, perda de câmbio coberta pelo colchão, resultado e desfazer')
@@ -2936,7 +2962,7 @@ async def main():
             # Resumo por moeda, separação inteligente, notificações unificadas
             pg = await pagina(relogio=True)
             await pg.evaluate("() => { const L = window.__LF; L.S.dTab = 'hoje'; L.setView('dash'); }"); await pg.wait_for_timeout(400)
-            r = await pg.evaluate("""() => { const k = [...document.querySelectorAll('#v-dash .kpi')].map(x => x.innerText);
+            r = await pg.evaluate("""() => { const k = [...document.querySelectorAll('#v-dash .kpi')].map(x => x.textContent);  // S418 (124a): o "Entrou" fica no cartão, a linha fina mostra só a 1ª frase
               return [k[0].includes('Entrou:') && k[0].includes('R$') && k[0].includes('US$') && k[0].includes('G$'), /lucro livre/i.test(k[1]) && k[1].includes('G$'), /meta do mês/i.test(k[2]), document.getElementById('v-dash').innerText.includes('Atenção agora'), !document.getElementById('v-dash').textContent.includes('Para repor o estoque') && !!document.querySelector('#dtabBody [data-sep]')]; }""")
             total += 1
             ok = r == [True, True, True, False, True] and not pg.erros
@@ -3948,7 +3974,7 @@ async def main():
               L.setView('clientes'); await w(300); const v = document.getElementById('v-clientes');
               const topo = !!v.querySelector('.pl78[data-act=clinovo]') && !v.querySelector('.lkRow') && !v.querySelector('[data-act=cupAbre]');
               S.clientes.push({ id: 991, nome: 'Teste Lima', tel: '0981000111', email: 't@x.com', ruc: '', obs: '', ts: Date.now() }); L.ACT.cliab(991); await w(300);
-              const f = document.getElementById('cliFicha'), um = f && f.querySelectorAll('.go77').length === 1 && !f.querySelector('.go') && !!f.querySelector('.hd77 h2') && !f.querySelector('.av77') && !!f.querySelector('[data-act=ataConta]') && !!f.querySelector('#cNome');
+              const f = document.getElementById('cliFicha'), um = f && f.querySelectorAll('.go77').length === 1 && !f.querySelector('.go') && !!f.querySelector('.hd77 h2') && !f.querySelector('.av77') && !f.querySelector('[data-act=ataConta]') && !!f.querySelector('#cNome');  // S418 (113a): atacado só na aba Atacado
               L.ACT.clifecha(); await w(200);
               const g = L.grpGet ? L.grpGet('g:mkt') : (S.grupos || []).find(x => x.id === 'g:mkt'); const mk = !!g && g.itens.indexOf('cup') >= 0;
               L.ACT.cupAbre(); await w(300); const cup = S.view === 'cup' && /Cartões/.test(document.getElementById('v-cup').textContent);
@@ -4052,7 +4078,7 @@ async def main():
               const nomes = [...v.querySelectorAll('.ecF .ecNm b')].map(b => b.textContent), unico = nomes.length === new Set(nomes).size;
               const t = v.querySelector('.ecF .ecTog'); t.click(); await w(120);
               const m = getComputedStyle(v.querySelector('.ecF.on .ecCh')).transform.match(/matrix\(([^,]+),\s*([^,]+)/), anti = !!m && +m[2] < -0.3;
-              L.setView('fx'); await w(500); const fx = document.querySelector('#v-fx .fxLk'), troca = !!fx && !/›/.test(fx.textContent) && getComputedStyle(fx).borderRadius === '14px';
+              L.setView('fx'); await w(500); const fx = document.querySelector('#v-fx .fx418P'), troca  /* S418 (117) */ = !!fx && !/›/.test(fx.textContent) && getComputedStyle(fx).borderRadius === '14px';
               L.setView('notif'); await w(500); const dz = document.querySelector('#v-notif .dz105'), limpa = !dz || (getComputedStyle(dz).fontSize === '15px' && dz.dataset.act === 'notifLimpa');
               return [bloco, unico, anti, troca, limpa]; }""")
             total += 1

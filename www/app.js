@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 560;
+  var APP_BUILD = 561;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.43.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.44.0'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -12441,35 +12441,24 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       h =
         '<section class="card col"><div><h2 style="margin:0;font-size:16px">Retirada do dono</h2><div class="hint" style="margin:2px 0 0">Dinheiro que você tira da loja para você. Sai do caixa na moeda escolhida.</div></div>';
     var pct = r.lucroLivre > 0 ? r.retTotal / r.lucroLivre : r.retTotal > 0 ? 9 : 0;
+    // S418 (esboço 125c): aviso em frase (vermelho só se passou do lucro), moeda em G$·US$·R$, campos empilhados, "Retirar" principal
     h +=
-      '<div class="note ' +
-      (pct > 1 ? 'n-bad' : pct > 0.8 ? 'n-warn' : 'n-ok') +
-      '">Neste mês: lucro livre <b>' +
-      gs(r.lucroLivre) +
-      '</b> · retiradas <b>' +
-      gs(r.retTotal) +
-      '</b> (inclui contas pessoais e de casa pagas)' +
-      (pct > 1
-        ? '. Você retirou mais do que a loja lucrou: o excedente saiu do dinheiro da reposição e das contas.'
-        : '.') +
-      '</div>';
+      '<div class="rt418A' + (pct > 1 ? ' bad' : pct > 0.8 ? ' w' : '') + '">Neste mês: lucro livre <b>' + gs(r.lucroLivre) + '</b> · retiradas <b>' + gs(r.retTotal) + '</b> (inclui contas pessoais e de casa pagas)' +
+      (pct > 1 ? '. Você retirou mais do que a loja lucrou: o excedente saiu do dinheiro da reposição e das contas.' : '.') + '</div>';
+    var rm = S.rtMoe || 'pyg';
     h +=
-      '<div class="sel" style="flex-wrap:wrap"><select class="in" id="rtM" aria-label="Moeda da retirada" style="flex:1 1 90px;width:auto">' + opcoesMoeda() + '</select><input class="in" id="rtV" inputmode="decimal" placeholder="Valor" style="flex:1 1 110px;width:auto" aria-label="Valor da retirada"><input class="in" id="rtN" placeholder="Para quê (opcional)" style="flex:2 1 150px;width:auto" aria-label="Motivo da retirada"><button class="mini" data-act="rtgo">Retirar</button></div><div class="hint" id="rtH" role="status" style="margin:0">' +
-      esc(S.rtMsg || '') +
-      '</div>';
+      '<div class="cxLb cx418L">Moeda</div><div class="sg418" role="group" aria-label="Moeda da retirada">' +
+      [['pyg', 'G$'], ['usd', 'US$'], ['brl', 'R$']].map(function (o) {
+        return '<button type="button" class="' + (o[0] === rm ? 'on' : '') + '" aria-pressed="' + (o[0] === rm) + '" data-act="rtMoe" data-id="' + o[0] + '">' + o[1] + '</button>';
+      }).join('') + '</div><input type="hidden" id="rtM" value="' + rm + '">' +
+      '<div class="cxLb cx418L">Valor</div><input class="in" id="rtV" inputmode="decimal" placeholder="0" aria-label="Valor da retirada">' +
+      '<div class="cxLb cx418L">Para quê (opcional)</div><input class="in" id="rtN" placeholder="Ex.: mercado" aria-label="Motivo da retirada">' +
+      '<button type="button" class="pd418P" data-act="rtgo" style="margin-top:16px">Retirar</button><div class="hint" id="rtH" role="status" style="margin:0">' + esc(S.rtMsg || '') + '</div>';
+    if (S.retiradas.length) h += '<div class="cxLb cx418L">Últimas retiradas</div>';
     S.retiradas.slice(0, 5).forEach(function (x) {
       h +=
-        '<div class="sl"><span>' +
-        esc(x.nota || 'Retirada') +
-        '<small>' +
-        fd(x.ts) +
-        ' às ' +
-        fh(x.ts) +
-        ' · <button type="button" class="cxDes" data-act="rtdes" data-id="' +
-        x.ts +
-        '">Desfazer</button></small></span><b>' +
-        fmtM(x.orig, x.moeda) +
-        '</b></div>';
+        '<div class="cxL rt418L"><span>' + esc(x.nota || 'Retirada') + '<small>' + fd(x.ts) + ' às ' + fh(x.ts) +
+        ' · <button type="button" class="cxDes" data-act="rtdes" data-id="' + x.ts + '">Desfazer</button></small></span><b>' + fmtM(x.orig, x.moeda) + '</b></div>';
     });
     return h + '</section>';
   }
@@ -12487,38 +12476,29 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!S.ccOpen) {
       return h + '<button class="mini" data-act="ccabrir">Conferir caixa</button></section>';
     }
-    h += '<div class="sel" style="flex-wrap:wrap">';
+    // S418 (esboço 125a): "O QUE VOCÊ CONTOU" — uma linha por moeda com o campo à direita
+    h += '<div class="cxLb cx418L">O que você contou</div>';
     [
       ['ccP', 'Guaranis', 'pyg'],
       ['ccU', 'Dólares', 'usd'],
       ['ccB', 'Reais', 'brl']
-    ].forEach(function (x) {
+    ].forEach(function (x, i) {
       h +=
-        '<div style="flex:1 1 120px"><div class="lbl">' +
-        x[1] +
-        ' (app: ' +
-        fmtM(S.cash[x[2]], x[2]) +
-        ')</div><input class="in" id="' +
-        x[0] +
-        '" inputmode="decimal" value="' +
-        (S.ccV && S.ccV[x[0]] != null ? S.ccV[x[0]] : inVal(S.cash[x[2]], x[2])) +
-        '" aria-label="' +
-        x[1] +
-        ' contados"></div>';
+        '<label class="cxL cc418"' + (i === 2 ? ' style="border-bottom:0"' : '') + '><span>' + x[1] + '<small>no app ' + fmtM(S.cash[x[2]], x[2]) + '</small></span><input class="in" id="' + x[0] + '" inputmode="decimal" value="' +
+        (S.ccV && S.ccV[x[0]] != null ? S.ccV[x[0]] : inVal(S.cash[x[2]], x[2])) + '" aria-label="' + x[1] + ' contados"></label>';
     });
-    h += '</div>';
     h +=
-      '<details style="margin:4px 0"><summary style="cursor:pointer;font-size:14px;color:var(--mute)">Reservas iniciais (só na primeira vez)</summary><div class="sel" style="flex-wrap:wrap;margin-top:8px">' +
+      '<details class="cc418D"><summary>Reservas iniciais (só na primeira vez) <i aria-hidden="true">⌄</i></summary>' +
       [
         ['ajR', 'Mercadoria (US$)', inVal(S.ini.rep, 'usd')],
         ['ajC', 'Colchão (' + mpSim() + ')', gsParaCampo(S.ini.colch)],
         ['ajM', 'Melhorias (' + mpSim() + ')', gsParaCampo(S.ini.melh)]
       ]
         .map(function (x) {
-          return '<div style="flex:1 1 120px"><div class="lbl">' + x[1] + '</div><input class="in" id="' + x[0] + '" inputmode="decimal" value="' + x[2] + '" aria-label="' + x[1] + '"></div>';
+          return '<label class="cxL cc418"><span>' + x[1] + '</span><input class="in" id="' + x[0] + '" inputmode="decimal" value="' + x[2] + '" aria-label="' + x[1] + '"></label>';
         })
         .join('') +
-      '</div></details>';
+      '</details>';
     if (S.ccRes)
       h +=
         '<div class="note ' +
@@ -12526,10 +12506,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         '" role="status">' +
         esc(S.ccRes.txt) +
         '</div>';
-    h += '<div class="sel" style="flex-wrap:wrap"><button class="mini" data-act="ccgo">Conferir</button>';
-    if (S.ccRes && !S.ccRes.ok)
-      h += '<button class="chip" data-act="ccadj">Ajustar o saldo do app para o que contei</button>';
-    return h + '<button class="chip" data-act="ccfechar">Fechar</button></div></section>';
+    h += '<button type="button" class="pd418P" data-act="ccgo" style="margin-top:14px">Conferir</button>';
+    if (S.ccRes && !S.ccRes.ok) h += '<button type="button" class="pd418S" data-act="ccadj">Ajustar o saldo do app para o que contei</button>';
+    return h + '<button type="button" class="cf418V" data-act="ccfechar">Fechar</button></section>';
   }
 
   // ---------- capital parado e retorno do estoque
@@ -21535,7 +21514,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           return Date.now() - c.ts <= 30 * DAY;
         });
       h +=
-        '<section class="kpis">' +
+        '<section class="kpis lux418 lxLk"><div class="cxLb">Estoque</div>' +
         kpi('No estoque', 'US$ ' + ce.total.toFixed(0), 'a custo, sem estojos') +
         kpi('Parado 60+ dias', 'US$ ' + ce.parado.toFixed(0), Math.round(ce.pct * 100) + '% do investido', 'color:' + (ce.pct > 0.3 ? 'var(--warn)' : 'inherit')) +
         '</section>';
@@ -21634,21 +21613,26 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         .join('');
     dono = Math.max(0, lv.wal - lv.livreEq);
     h +=
-      '<section class="card col"><div class="lbl" style="margin:0">Livre para você</div><div class="hint" style="margin:0">já descontadas reposição, contas, colchão e melhorias</div>' +
-      '<div class="split">' + (linhas || '<div class="sl"><span>Guaranis</span><b>G$ 0</b></div>') + '</div>' +
+      // S418 (esboço 116c): "LIVRE PARA VOCÊ" com a moeda no canto, o número em letra de título, aviso em frase, linhas e barra fina
+      '<section class="cxSaldo lv418"><div class="lv418H"><div class="cxLb">Livre para você</div>' +
+      (function () {
+        var m = S.totM === 'usd' || S.totM === 'brl' ? S.totM : 'pyg';
+        return '<div class="lv418M" role="group" aria-label="Moeda do total convertido">' + [['pyg', 'G$'], ['brl', 'R$'], ['usd', 'US$']].map(function (o) {
+          return '<button type="button" class="' + (o[0] === m ? 'on' : '') + '" aria-pressed="' + (o[0] === m) + '" data-act="totm" data-id="' + o[0] + '">' + o[1] + '</button>';
+        }).join('') + '</div>';
+      })() + '</div>' +
+      '<div class="lv418N" style="color:' + (lv.falta > 0 ? 'var(--bad)' : 'var(--ok)') + '">' + totFmt(lv.livreEq) + '</div>' +
       (lv.falta > 0
-        ? '<div class="note n-bad">Faltam <b>' + totFmt(lv.falta) + '</b> para cobrir as reservas.' + (lv.extraUsd > 0.004 ? ' O dólar extra da loja (' + usd0(lv.extraUsd) + ') pode ajudar.' : '') + '</div>'
-        : '') +
-      '<div class="hint" style="margin:6px 0 0">Total convertido no câmbio de hoje</div><b style="font-size:34px;color:' + (lv.falta > 0 ? 'var(--bad)' : 'var(--ok)') + '">' + totFmt(lv.livreEq) + '</b>' +
-      totBtn() +
-      '<div class="hint" style="margin:0">' + cambioHojeTxt() + '</div>' +
-      '<div class="bar">' +
+        ? '<div class="lv418F">Faltam ' + totFmt(lv.falta) + ' para cobrir as reservas.' + (lv.extraUsd > 0.004 ? ' O dólar extra da loja (' + usd0(lv.extraUsd) + ') pode ajudar.' : '') + '</div>'
+        : '<div class="lv418S">já descontadas reposição, contas, colchão e melhorias</div>') +
+      (linhas || '<div class="sl"><span>Guaranis</span><b>G$ 0</b></div>').replace(/class="sl"/g, 'class="cxL"') +
+      '<div class="bar lv418B">' +
       [[r.repGs, '#6cc3e0'], [r.con, '#a2447c'], [r.colch, '#e9c27a'], [r.melh, 'var(--info)'], [lv.livreEq, '#5fd39a']]
         .map(function (p) {
           return '<i style="width:' + part(p[0]) + '%;background:' + p[1] + '"></i>';
         })
         .join('') +
-      '</div><div class="hint" style="margin:0">De ' + totFmt(r.wal) + ' na carteira, ' + totFmt(dono) + ' já têm dono: reposição, contas, colchão e melhorias.</div>' +
+      '</div><div class="lv418X">De ' + totFmt(r.wal) + ' na carteira, ' + totFmt(dono) + ' já têm dono: reposição, contas, colchão e melhorias.<br>' + cambioHojeTxt() + '</div>' +
       '</section>' +
       // S374 (esboço 99b2): "Ver para onde vai" é um bloco que abre no lugar, junto de "Próximos 30 dias"
       dFold('paraonde', 'Ver para onde vai', 'o que já tem dono: reposição, contas, colchão', '',
@@ -22866,10 +22850,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           rec = tin.rec != null ? tin.rec : String(x.rec),
           sim = x.de === 'pyg' ? 'G$' : 'R$';
         h +=
-          '<div class="card col" style="padding:10px;margin:0"><div class="lbl" style="margin:0">' + (x.tipo === 'repor' ? 'Reposição (necessário)' : 'Colchão (' + (dv && dv.barato ? 'aproveitar o momento' : 'quando o dólar estiver barato') + ')') + '</div>' +
-          '<div class="sel" style="flex-wrap:wrap;align-items:center"><span class="hint" style="margin:0">Entreguei ' + sim + '</span><input class="in" id="trv' + i + '" inputmode="' + (x.de === 'pyg' ? 'numeric' : 'decimal') + '" data-in="trv" data-id="' + i + '" value="' + esc(v) + '" style="flex:1 1 90px;width:auto" aria-label="Valor entregue em ' + sim + '">' +
-          '<span class="hint" style="margin:0">Recebi US$</span><input class="in" id="trr' + i + '" inputmode="decimal" data-in="trr" data-id="' + i + '" value="' + esc(rec) + '" style="flex:1 1 80px;width:auto" aria-label="Dólares recebidos"></div>' +
-          '<div class="hint" id="trh' + i + '" style="margin:0">' + trocaCotacaoTxt(x.de, v, rec) + '</div></div>';
+          // S418 (esboço 126b): a sugestão em linhas — Entreguei / Recebi com o campo à direita e a cotação embaixo
+          '<div class="cxLb cx418L">' + (x.tipo === 'repor' ? 'Reposição (necessário)' : 'Colchão (' + (dv && dv.barato ? 'aproveitar o momento' : 'quando o dólar estiver barato') + ')') + '</div>' +
+          '<label class="cxL cc418"><span>Entreguei<small>' + (x.de === 'pyg' ? 'em guaranis' : 'em reais') + '</small></span><input class="in" id="trv' + i + '" inputmode="' + (x.de === 'pyg' ? 'numeric' : 'decimal') + '" data-in="trv" data-id="' + i + '" value="' + esc(v) + '" aria-label="Valor entregue em ' + sim + '"></label>' +
+          '<label class="cxL cc418" style="border-bottom:0"><span>Recebi<small>em dólares</small></span><input class="in" id="trr' + i + '" inputmode="decimal" data-in="trr" data-id="' + i + '" value="' + esc(rec) + '" aria-label="Dólares recebidos"></label>' +
+          '<div class="hint" id="trh' + i + '" style="margin:0">' + trocaCotacaoTxt(x.de, v, rec) + '</div>';
       });
     } else {
       h += '<div class="hint" style="margin:0">Nada para trocar agora com o dinheiro em caixa.</div>';
@@ -23459,7 +23444,21 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           return a + x.usd;
         }, 0);
     var today = dayKey(Date.now());
-    var h =
+    // S418 (esboço 124c): dia de antes = ‹ "Segunda, 16 de novembro ⌄" › numa linha e "Voltar para hoje ›" em rosa.
+    // Hoje continua com a marcação antiga, que o cabeçalho "Dashboard · Hoje" (98z-dashboard-s48) troca.
+    var dExt = (function (t) {
+      return t.charAt(0).toUpperCase() + t.slice(1);
+    })(new Date(dayEnd(k)).toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }));
+    var h;
+    if (k < today)
+      h =
+        '<div class="dy418"><button type="button" class="ic71" data-act="dayprev" aria-label="Dia anterior"><span>‹</span></button>' +
+        '<button type="button" class="dy418T" data-act="daycal" aria-label="Escolher a data no calendário">' + esc(dExt.replace('-feira', '').replace(/ de \d{4}$/, '')) + ' <i aria-hidden="true">⌄</i></button>' +
+        '<button type="button" class="ic71" data-act="daynext" aria-label="Próximo dia"><span>›</span></button>' +
+        '<input type="date" class="in" id="dayIn" data-in="day" value="' + k + '" max="' + today + '" aria-label="Escolher o dia" tabindex="-1"></div>' +
+        '<div class="dy418V"><button type="button" data-act="daytoday">Voltar para hoje ›</button></div>';
+    else {
+      h =
       (k < today ? '<div class="top" style="justify-content:flex-end"><button type="button" class="lkTx" data-act="daytoday">Voltar para hoje</button></div>' : '') +
       '<section class="card col"><div class="dayrow"><button class="ic" data-act="dayprev" aria-label="Dia anterior">‹</button><button class="btn-sc dtxt" data-act="daycal" aria-label="Escolher a data no calendário" style="flex:1 1 auto;font-size:15px">' +
       fmtDay(k) +
@@ -23471,7 +23470,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '" max="' +
       today +
       '" aria-label="Escolher o dia" tabindex="-1"></div></section>';
-    h +=
+      h +=
       '<div><h2 style="margin:0;font-size:20px">' +
       (function (t) {
         return t.charAt(0).toUpperCase() + t.slice(1);
@@ -23484,8 +23483,9 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         })
       ) +
       '</h2></div>';
+    }
     h +=
-      '<section class="kpis"><div class="kpi"><div class="lbl">Vendido</div><b>' +
+      '<section class="kpis lux418" aria-label="O dia"><div class="cxLb">' + (k < today ? 'O dia' : 'Hoje') + '</div><div class="kpi"><div class="lbl">Vendido</div><b>' +
       gs(vend) +
       '</b><div class="hint">' +
       pcs +
@@ -23497,7 +23497,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<div class="kpi"><div class="lbl">Lucro livre</div><b style="color:var(--ok)">' +
       gs(liv) +
       '</b><div class="hint">depois de separar tudo</div></div>' +
-      '<div class="kpi kpiLk" data-act="view" data-id="desp" role="button" tabindex="0"><div class="lbl">Contas do dia ›</div><b style="color:var(--warn)">' +
+      '<div class="kpi kpiLk" data-act="view" data-id="desp" role="button" tabindex="0"><div class="lbl">Contas do dia</div><b style="color:var(--warn)">' +
       gs(rateio) +
       '</b><div class="hint">1/30 de ' +
       gs(tm) +
@@ -23555,7 +23555,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<section class="col"><div class="lbl" style="margin:6px 0 0">Vendas do dia</div>' +
       (sales.length
         ? sales.map(saleCard).join('')
-        : '<div class="note n-info">Nenhuma venda neste dia.</div>') +
+        : '<div class="vz418">Nenhuma venda neste dia.</div>') +
       '</section>';
     h +=
       '<section class="card col"><div><h2 style="margin:0;font-size:16px">Despesas do dia</h2><div class="hint" style="margin:2px 0 0">As contas do mês entram divididas por 30. Os gastos extras entram no dia em que foram feitos.</div></div><div style="overflow-x:auto"><table class="tb"><thead><tr><th>Conta</th><th>Grupo</th><th>Por mês</th><th>Parte do dia</th></tr></thead><tbody>' +
@@ -23602,10 +23602,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         el.map(elogCard).join('') +
         '</section>';
     h +=
-      '<section class="card col"><h2 style="margin:0;font-size:16px">Fechamento do dia</h2><div class="split">' +
+      '<section class="card col fc418"><div class="cxLb">Fechamento do dia</div><div class="split">' +
       [
         ['Vendido', gs(vend)],
-        ['Reposição separada', gs(sumBy(ok, 'rep')) + ' (' + usd(sumBy(ok, 'repUSD')) + ')'],
+        ['Reposição separada', gs(sumBy(ok, 'rep'))], // S418 (116a): só em guaranis
         ['Contas separadas', gs(contasSep)],
         ['Colchão separado', gs(sumBy(ok, 'colch'))],
         ['Caixa de melhorias', gs(sumBy(ok, 'melh'))],
@@ -23744,51 +23744,23 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function vendaNome(s) {
     return s.qty + '× ' + pn(s.ref) + ' ' + (s.tipo === 'pre' ? s.grau : s.vr || '') + (s.cor && s.cor !== 'Sem cor' ? ' · ' + s.cor : '');
   }
+  // S418 (esboços 116a2/123b/124c, aprovados 17–18/11): cada venda é uma linha fina com ⌄; o toque abre o detalhe
+  // ali mesmo e embaixo vem "Estornar venda" em vermelho (pede confirmação, 111b2). Mesma linha no Dia, na busca e no Histórico.
   function saleCard(s) {
     var open = S.hOpen === s.id,
       dx = S.fx.pyg / s.fx - 1,
-      h = '';
+      ex = exatoDe(s),
+      h = '<div class="sl418' + (open ? ' on' : '') + (s.estorno ? ' est' : '') + '">';
     h +=
-      '<div class="card col" style="padding:14px;' +
-      (s.estorno ? 'opacity:.7' : '') +
-      '"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center"><div>' + (s.carrinho ? '<span class="hint" style="margin:0">pedido</span>' : '') + '<div><b style="' +
-      (s.estorno ? 'text-decoration:line-through' : '') +
-      '">' +
-      esc(descOf(s)) +
-      '</b></div><div class="hint" style="margin:2px 0 0">' +
-      s.id +
-      ' · ' +
-      fd(s.ts) +
-      ' às ' +
-      fh(s.ts) +
-      ' · ' +
-      tipoOf(s.tipo).label +
-      (window.__vendaApHtml ? window.__vendaApHtml(s) : '') +
+      '<button type="button" class="sl418L" data-act="hopen" data-id="' + s.id + '" aria-expanded="' + open + '"><span class="t"><b>' +
+      (s.carrinho ? '<span class="pd">pedido · </span>' : '') + esc(descOf(s)) + '</b><small>' +
+      s.id + ' · ' + fd(s.ts) + ' às ' + fh(s.ts) + ' · ' + tipoOf(s.tipo).label + (window.__vendaApHtml ? window.__vendaApHtml(s) : '') +
       (s.estorno ? ' · <span style="color:var(--bad)">Estornada</span>' : '') +
-      '</div></div><div style="text-align:right"><b>' +
-      esc(exatoDe(s)) +
-      '</b>' +
-      (gs(s.price) !== exatoDe(s) ? '<div class="hint" style="margin:2px 0 0">≈ ' + gs(s.price) + '</div>' : '') +
-      '</div></div>';
-    h +=
-      '<div class="nav vAc"><button class="btn-sc p" data-act="hopen" data-id="' +
-      s.id +
-      '" aria-expanded="' +
-      open +
-      '">' +
-      (open ? 'Ocultar detalhes' : 'Ver detalhes ›') +
-      '</button>' +
-      (s.estorno
-        ? ''
-        : '<button class="btn-pe p' + (S.confEst === s.id ? ' arm' : '') + '" data-act="estorno" data-id="' +
-          s.id +
-          '">' +
-          (S.confEst === s.id ? 'Confirmar estorno' : 'Estornar') +
-          '</button>') +
-      '</div>';
+      '</small></span><span class="v"><b>' + esc(ex) + '</b>' + (gs(s.price) !== ex ? '<small>≈ ' + gs(s.price) + '</small>' : '') +
+      '</span><i class="ch" aria-hidden="true">⌄</i></button>';
     if (open)
       h +=
-        '<div class="split" style="border-top:1px solid var(--line);padding-top:10px">' +
+        '<div class="sl418D">' +
         [
           [
             'Recebido',
@@ -23831,15 +23803,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           ['Preço mínimo seguro na hora', gs(s.trava) + ' por peça']
         ]
           .map(function (r) {
-            return (
-              '<div class="sl"><span>' +
-              r[0] +
-              '</span><b style="text-align:right">' +
-              r[1] +
-              '</b></div>'
-            );
+            return '<div class="sl418R"><span>' + r[0] + '</span><b>' + r[1] + '</b></div>';
           })
           .join('') +
+        (s.estorno ? '' : '<div class="sl418E"><button type="button" class="dz105" data-act="estorno" data-id="' + s.id + '">Estornar venda</button></div>') +
         '</div>';
     return h + '</div>';
   }
@@ -24419,19 +24386,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       S._recv = rv;
       updateRec();
     }
-    if (k === 'trDe' || k === 'trPara') {
-      var old = S.tr.de;
-      S.tr[k === 'trDe' ? 'de' : 'para'] = t.value;
-      if (S.tr.de === S.tr.para)
-        S.tr[k === 'trDe' ? 'para' : 'de'] = ['pyg', 'usd', 'brl'].filter(function (m) {
-          return m !== t.value;
-        })[0];
-      if (k === 'trDe' || S.tr.de !== old) S.tr.v = TR_INI[S.tr.de];
-      S.tr.rec = '';
-      S.tr.edited = false;
-      S.trConf = false;
-      render();
-    }
+    if (k === 'trDe' || k === 'trPara') trMoeda(k, t.value);
     if (k === 'trV') {
       S.tr.v = t.value;
       S.trConf = false;
@@ -24521,6 +24476,21 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   S.cambios = [{ ts: tAgo(7), de: 'pyg', para: 'usd', dado: 650000, rec: 100, difGs: -2500 }];
   S.tr = { de: 'pyg', para: 'usd', v: '300000', rec: '', edited: false };
   S.cxMsg = '';
+  // S418 (126b): troca de moeda da "Outra troca" (lista antiga ou os botões G$ · US$ · R$)
+  function trMoeda(k, val) {
+    var old = S.tr.de;
+    S.tr[k === 'trDe' ? 'de' : 'para'] = val;
+    if (S.tr.de === S.tr.para)
+      S.tr[k === 'trDe' ? 'para' : 'de'] = ['pyg', 'usd', 'brl'].filter(function (m) {
+        return m !== val;
+      })[0];
+    if (k === 'trDe' || S.tr.de !== old) S.tr.v = TR_INI[S.tr.de];
+    S.tr.rec = '';
+    S.tr.edited = false;
+    S.trConf = false;
+    render();
+  }
+  window.__trMoeda = trMoeda;
   // ===== Ícone único e nome sugerido para cada par de telas que vira grupo (171 pares + 82 dos botões novos de 11/11/2026). =====
   // 39 pares têm desenho próprio (GI_MAO); nos demais, a tela de maior "recipiente" (GI_REC) é o contorno e a outra aparece dentro.
   var GI_ORD = ["vendas","estoque","caixa","fx","desp","hist","hoje","din","giro","prec","cat","ajustes","ped","onl","cli","cont","lotes","novo","notif"];
@@ -25555,32 +25525,29 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function pedPagando(p) {
     return p.st === 'novo' && (p.pg === 'pagar' || p.pg === 'comp');
   }
+  // S418 (110a + 115b3): uma principal (contorno rosa, largura toda), WhatsApp secundária, perigo em texto vermelho.
   function pedAcoes(p, lista) {
     var z = pedZap(p),
       pr = PED_ST.filter(function (s) {
         return s[0] === p.st;
       })[0],
-      h = '';
-    if (!lista && S.syncOn && p.st !== 'ent' && p.st !== 'canc') {
+      h = '<div class="pd418A">';
+    if (S.syncOn && p.st !== 'ent' && p.st !== 'canc') {
       if (p.assumido && p.assumido.ap !== S.aparelho) h += '<div class="pdMt" style="margin-bottom:8px">👤 Assumido por <b>' + esc(p.assumido.nome || 'outro aparelho') + '</b></div>';
-      else if (!p.assumido) h += '<button type="button" class="pdB2 txt" data-act="pedassumir" data-id="' + p.id + '" style="margin-bottom:8px">Assumir este pedido</button>';
+      else if (!p.assumido) h += '<button type="button" class="pd418S" data-act="pedassumir" data-id="' + p.id + '">Assumir este pedido</button>';
       else h += '<div class="pdMt" style="margin-bottom:8px">👤 Você assumiu este pedido · <button type="button" class="pdLink" data-act="pedliberar" data-id="' + p.id + '">Liberar</button></div>';
     }
-    h += '<div class="pdBtns">';
+    var dz = '';
     if (pedPagando(p)) {
-      if (lista) h += '<button type="button" class="pdB1" data-act="pedab" data-id="' + p.id + '">' + (p.pg === 'comp' ? 'Conferir comprovante' : 'Ver pedido') + '</button>';
-      else if (p.pg === 'comp') h += '<button type="button" class="pdB1" data-act="pedpago" data-id="' + p.id + '">✓ Confirmar pagamento</button><button type="button" class="pdB2 txt" data-act="pedrecus" data-id="' + p.id + '">Recusar</button>';
-      else {
-        h += '<button type="button" class="pdB2 txt" data-act="pedpago" data-id="' + p.id + '">Marcar como pago</button>';
-      }
-    } else if (pr && pr[2]) h += '<button type="button" class="pdB1" data-act="pedav" data-id="' + p.id + '">' + pr[2] + '</button>';
-    else if (p.st === 'canc' || p.st === 'ent')
-      h += '<button type="button" class="pdB2 txt" data-act="peddel" data-id="' + p.id + '">' + (S._pedDel === String(p.id) ? 'Remover?' : 'Remover') + '</button>';
-    if (z) h += '<a class="pdB2" href="' + z + '" target="_blank" rel="noopener" aria-label="WhatsApp">' + PD_ZAP + '</a>';
-    h += '</div>';
-    if (!lista && p.st !== 'canc' && p.st !== 'ent')
-      h += '<button type="button" class="pdCanc" data-act="pedcanc" data-id="' + p.id + '">Cancelar pedido</button>';
-    return h;
+      if (p.pg === 'comp') {
+        h += '<button type="button" class="pd418P" data-act="pedpago" data-id="' + p.id + '">✓ Confirmar pagamento</button>';
+        dz += '<button type="button" class="dz105" data-act="pedrecus" data-id="' + p.id + '">Recusar comprovante</button>';
+      } else h += '<button type="button" class="pd418P" data-act="pedpago" data-id="' + p.id + '">Marcar como pago</button>';
+    } else if (pr && pr[2]) h += '<button type="button" class="pd418P" data-act="pedav" data-id="' + p.id + '">' + pr[2] + '</button>';
+    if (z) h += '<a class="pd418S" href="' + z + '" target="_blank" rel="noopener">' + PD_ZAP + ' Falar no WhatsApp</a>';
+    if (p.st === 'canc' || p.st === 'ent') dz += '<button type="button" class="dz105" data-act="peddel" data-id="' + p.id + '">Remover pedido</button>';
+    else dz += '<button type="button" class="dz105" data-act="pedcanc" data-id="' + p.id + '">' + (p.pg === 'pago' ? 'Cancelar pedido' : 'Cancelar reserva') + '</button>';
+    return h + '<div class="pd418Dz">' + dz + '</div></div>';
   }
   function pedPassos(p) {
     var ix = { novo: 0, sep: 1, pronto: 2, ent: 3 }[p.st],
@@ -25595,22 +25562,28 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     return h + '</div>';
   }
   var PED_NAC = { py: '🇵🇾 Paraguaio · RUC', br: '🇧🇷 Brasileiro · CPF', ar: '🇦🇷 Argentino · DNI' };
-  // Pagamento e entrega do pedido do site.
+  // S418 (esboço 115b2/b3, aprovado 17/11): o pedido no padrão de luxo — blocos em versalete com linhas finas.
+  function pr418(a, b, sub, cls) {
+    return '<div class="pr418' + (cls ? ' ' + cls : '') + '"><span>' + a + (sub ? '<small>' + sub + '</small>' : '') + '</span>' + (b != null && b !== '' ? '<b>' + b + '</b>' : '') + '</div>';
+  }
   function pedPagto(p) {
     if (!p.pag && p.ent !== 'delivery') return '';
-    var est = pedEstado(p),
-      h = '<section class="pdCd"><div class="pdLb">Pagamento</div><div class="pdLin"><div style="flex:1;min-width:0"><b>' +
-        (p.pag === 'pix' ? 'PIX' + (p.brl ? ' · R$ ' + esc(String(p.brl).replace('.', ',')) : '') : p.pag === 'alias' ? 'Banco Familiar (alias)' + (p.pagar ? ' · ' + gs(p.pagar) : '') : 'Sem pagamento online') +
-        '</b><div class="pdMt">' + (pedTotal(p) ? gs(pedTotal(p)) : '') + '</div></div>' + (p.pg ? '<span class="pdPill ' + est[1] + '">' + est[0] + '</span>' : '') + '</div>';
-    if (p.pgAuto) h += '<div class="pdMt" style="margin-top:6px;color:var(--ok,#5fd38d)">✓ Confirmado sozinho pelo Nubank às ' + fh(p.pgAuto.ts) + ' (' + esc(p.pgAuto.txt || '') + ')</div>';
+    var tot = pedTotal(p),
+      h = '<section class="pd418B"><div class="cxLb">Pagamento</div>';
+    if (p.pag) {
+      h += pr418('Forma', p.pag === 'pix' ? 'PIX' : p.pag === 'alias' ? 'Banco Familiar' : 'Sem pagamento online');
+      if (tot) h += pr418('Valor do pedido', gs(tot));
+      if (p.pag === 'alias' && p.pagar) h += pr418('Valor exato da transferência', gs(p.pagar), 'final único para achar o pagamento');
+      if (p.pag === 'pix' && p.brl) h += pr418('Valor em reais', 'R$ ' + esc(String(p.brl).replace('.', ',')));
+    }
+    if (p.pgAuto) h += '<div class="pdMt" style="margin-top:8px;color:var(--ok,#5fd38d)">✓ Confirmado sozinho pelo Nubank às ' + fh(p.pgAuto.ts) + ' (' + esc(p.pgAuto.txt || '') + ')</div>';
     if (p.comp) {
       h += '<div class="pdMt" style="margin-top:10px">Comprovante enviado' + (p.compTs ? ' às ' + fh(p.compTs) : '') + '</div>' + compLeHtml(p) + '<img src="' + p.comp + '" alt="Comprovante" style="display:block;max-width:100%;max-height:420px;margin:6px auto 0;border-radius:10px">';
       compLeAgenda(p);
     }
-    h += '</section><section class="pdCd"><div class="pdLb">Entrega</div><b>' + (p.ent === 'delivery' ? 'Delivery (transportadora)' : 'Retirada na loja') + '</b>';
-    if (p.ent === 'delivery') h += '<div class="pdMt">' + esc(p.endE || '') + (p.refE ? ' · Ref.: ' + esc(p.refE) : '') + '</div><div class="pdMt">Frete: a cliente paga à transportadora na entrega.</div>';
-    if (p.pg === 'pago') h += '<button type="button" class="pdB2 txt" data-act="pedficha" data-id="' + p.id + '" style="margin-top:8px">' + (p.impresso ? 'Imprimir a ficha de novo' : 'Imprimir ficha de separação') + '</button>';
-    return h + '</section>';
+    h += '</section>';
+    if (p.pg === 'pago') h += '<button type="button" class="pd418S" data-act="pedficha" data-id="' + p.id + '">' + (p.impresso ? 'Imprimir a ficha de novo' : 'Imprimir ficha de separação') + '</button>';
+    return h;
   }
   function pedDetalhe(p) {
     var c = pedCliDe(p),
@@ -25619,13 +25592,15 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       tz = p.tok ? pedTokZap(p) : '',
       tot = pedTotal(p),
       est = pedEstado(p),
-      h = '<div class="top"><div><h1>Pedido ' + p.num + '</h1><div class="crumb">' + esc(p.cli || 'Sem nome') + ' · ' + fd(p.ts) + ' ' + fh(p.ts) + (p.orig === 'site' ? ' · Site' : '') + (p.teste ? ' · TESTE' : '') + '</div></div></div>';
+      quando = p.st === 'canc' && p.cancTs ? p.cancTs : p.ts,
+      h = '<div class="top"><div><h1>Pedido ' + p.num + (p.teste ? ' · TESTE' : '') + '</h1>' +
+        '<div class="pd418St ' + est[1] + '">' + esc(est[0].replace(/^[^A-Za-zÀ-ú]+/, '')) + (p.st === 'canc' && p.cancSite ? ' pelo cliente' : '') + ' · ' + fd(quando) + ' às ' + fh(quando) + '</div></div></div>';
     h += '<div class="sel"><button type="button" class="chip" data-act="pedfecha">‹ Pedidos</button></div>';
-    if (p.resAlerta && p.st !== 'canc') h += '<div class="pdAviso bad">' + esc(p.resAlerta) + '</div>';
-    if (p.baixa && p.baixa.falhas && p.baixa.falhas.length) h += '<div class="pdAviso bad">Baixa automática incompleta: ' + esc(p.baixa.falhas.join('; ')) + '</div>';
-    if (p.baixa && p.baixa.vendas && p.baixa.vendas.length) h += '<div class="pdAviso">Estoque baixado e venda registrada: ' + esc(p.baixa.vendas.join(', ')) + '.</div>';
-    if (p.st === 'canc') h += '<div class="pdAviso bad">Pedido cancelado' + (p.cancSite ? ' pelo cliente, no site' : '') + '.' + (p.tok ? ' O token ' + esc(p.tok) + ' não vale mais.' : '') + '</div>';
-    else h += pedPassos(p);
+    if (p.resAlerta && p.st !== 'canc') h += '<div class="pd418Av bad">' + esc(p.resAlerta) + '</div>';
+    if (p.baixa && p.baixa.falhas && p.baixa.falhas.length) h += '<div class="pd418Av bad">Baixa automática incompleta: ' + esc(p.baixa.falhas.join('; ')) + '</div>';
+    if (p.baixa && p.baixa.vendas && p.baixa.vendas.length) h += '<div class="pd418Av">Estoque baixado e venda registrada: ' + esc(p.baixa.vendas.join(', ')) + '.</div>';
+    if (p.st === 'canc' && p.tok) h += '<div class="pd418Av">O token ' + esc(p.tok) + ' não vale mais.</div>';
+    if (p.st !== 'canc') h += pedPassos(p);
     if (p.tok && p.st !== 'canc') {
       h +=
         '<div class="pdTok ' + (p.st === 'ent' ? 'usado' : '') + '"><div class="pdLb">Token de entrega · ' + esc(p.tokNome || p.cli || '') + '</div>' +
@@ -25637,27 +25612,28 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           (tz ? '<a class="pdB3" href="' + tz + '" target="_blank" rel="noopener">' + PD_ZAP + ' Enviar token à cliente</a>' : '') +
           '<button type="button" class="pdB2" data-act="pedcopia" data-id="' + p.id + '" aria-label="Copiar token">⧉</button></div>';
     }
-    h +=
-      '<section class="pdCd"><div class="pdLb">Cliente</div><div class="pdLin"><span class="pdAv">' + esc((p.cli || '?').charAt(0).toUpperCase()) + '</span><div><b>' +
-      esc(p.cli || 'Sem nome') + '</b><div class="pdMt">' + (p.tel ? esc(p.tel) : 'Sem telefone') +
-      (c ? ' · ' + (n <= 1 ? '1º pedido na La Fouch' : n + 'º pedido na La Fouch') : '') + '</div></div>' +
-      (p.cliNovo ? '<span class="pdPill ac">Nova</span>' : c ? '<span class="pdPill ok">Cadastrada</span>' : '') + '</div>' +
-      (p.nac ? '<div class="pdMt" style="margin-top:6px">' + PED_NAC[p.nac] + (p.doc ? ' ' + esc(p.doc) : '') + (p.nasc ? ' · nasc. ' + esc(p.nasc) : '') + '</div>' : '') +
-      (p.cidade || p.email || p.end ? '<div class="pdMt">' + esc([p.cidade, p.email, p.end].filter(Boolean).join(' · ')) + '</div>' : '') +
-      (c ? '<div class="sel" style="margin-top:10px"><button type="button" class="chip" data-act="pedcli" data-id="' + c.id + '">Ficha do cliente</button></div>' : '') +
-      '</section>';
+    var cliSub = [p.tel ? esc(p.tel) : 'Sem telefone', c ? (n <= 1 ? '1º pedido' : n + 'º pedido') : '', p.cliNovo ? 'nova' : ''].filter(Boolean).join(' · ');
+    h += '<section class="pd418B"><div class="cxLb">Cliente</div>' +
+      (c
+        ? '<button type="button" class="pr418 lk" data-act="pedcli" data-id="' + c.id + '"><span>' + esc(p.cli || 'Sem nome') + '<small>' + cliSub + '</small></span><i aria-hidden="true">›</i></button>'
+        : pr418(esc(p.cli || 'Sem nome'), '', cliSub));
+    if (p.nac) h += pr418(PED_NAC[p.nac].replace(/^\S+\s/, '').replace(/ · .*/, ''), esc(p.doc || ''), p.nasc ? 'nasc. ' + esc(p.nasc) : '');
+    if (p.cidade || p.email || p.end) h += pr418(esc([p.cidade, p.email, p.end].filter(Boolean).join(' · ')), '');
+    h += pr418('Entrega', p.ent === 'delivery' ? 'Delivery' : 'Retirada na loja', p.ent === 'delivery' ? esc(p.endE || '') + (p.refE ? ' · Ref.: ' + esc(p.refE) : '') + ' · frete pago à transportadora' : '');
+    h += '</section>';
     h += pedPagto(p);
-    h += '<section class="pdCd"><div class="pdLb">Peças do pedido</div>';
+    var q = pedQtd(p);
+    h += '<section class="pd418B"><div class="cxLb">Peças · ' + q + '</div>';
     p.itens.forEach(function (l, i) {
+      var nm = l.ref && S.items.some(function (x) { return x.ref === l.ref; }) ? pubNome(l.ref) : l.t || l.ref;
       h +=
-        '<button type="button" class="pdRow" data-act="pedprod" data-id="' + i + '">' + pedPeqImg(l, 'g') +
-        '<span style="flex:1;min-width:0"><b>' + esc(l.t || l.ref) + '</b><span class="pdMt" style="display:block">' + esc(l.ref || '') + (l.cor ? ' · ' + esc(l.cor) : '') + ' · ' + l.q + '×</span></span>' +
+        '<button type="button" class="pr418 pc" data-act="pedprod" data-id="' + i + '">' + pedPeqImg(l, 'g') +
+        '<span>' + esc(nm) + '<small>' + esc(l.ref || '') + (l.cor ? ' · ' + esc(l.cor) : '') + ' · ' + l.q + '×</small></span>' +
         (l.preco ? '<b>' + gs(l.preco * l.q) + '</b>' : '') + '</button>';
     });
-    // Leve 2 do site (11/11/2026): o preço das linhas já vem com o desconto; aqui só mostra quanto foi
-    if (p.cupd > 0) h += '<div class="pdTot"><span class="pdMt">Código ' + esc(p.cup || '') + ' (cupom do site)</span><b>− ' + gs(p.cupd) + '</b></div>';
-    if (p.l2 > 0) h += '<div class="pdTot"><span class="pdMt">Leve 2 do site (30% na 2ª peça)</span><b>− ' + gs(p.l2) + '</b></div>';
-    h += '<div class="pdTot"><span class="pdMt">Total</span><b>' + (tot ? gs(tot) : '—') + '</b></div></section>';
+    if (p.cupd > 0) h += pr418('Código ' + esc(p.cup || '') + ' (cupom do site)', '− ' + gs(p.cupd));
+    if (p.l2 > 0) h += pr418('Leve 2 do site (30% na 2ª peça)', '− ' + gs(p.l2));
+    h += pr418('<b style="font-size:15px;font-weight:600">Total</b>', tot ? gs(tot) : '—', '', 'tot') + '</section>';
     h += pedAcoes(p, false);
     return h;
   }
@@ -25671,37 +25647,6 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<div class="pdErro" id="pdErro" aria-live="polite"></div>' +
       '<div class="pdBtns" style="margin-top:14px"><button type="button" class="pdB2 txt" data-act="pedtokx" style="flex:none;width:110px">Voltar</button>' +
       '<button type="button" class="pdB1" id="pdEnt" data-act="pedentrega" data-id="' + p.id + '" disabled>Entregar</button></div></div></div>'
-    );
-  }
-  function pedJanelaProd(p) {
-    var l = p.itens[S.pedProd];
-    if (!l) return '';
-    var ref = l.ref,
-      its = ref
-        ? S.items.filter(function (i) {
-            return i.ref === ref;
-          })
-        : [],
-      est = its.reduce(function (a, i) {
-        return a + (i.qty > 0 ? i.qty : 0);
-      }, 0),
-      at = ref ? attrOf(ref) : {},
-      src = ref ? photoOf(ref) : '',
-      nome = ref && its.length ? pubNome(ref) : l.t;
-    return (
-      '<div class="modal" role="dialog" aria-modal="true" aria-label="Peça do pedido"><div class="modal-box">' +
-      '<div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:18px">' + esc(nome) + '</b><button type="button" class="x" data-act="pedprodx" aria-label="Fechar">×</button></div>' +
-      (src ? '<div style="background:#fff;border-radius:14px;padding:8px;text-align:center"><img src="' + src + '" alt="" style="max-width:100%;max-height:240px"></div>' : '') +
-      '<div class="hint" style="margin:0">' + esc(ref || '') + (l.cor ? ' · ' + esc(l.cor) : '') + '</div>' +
-      '<div class="tgrid g2">' +
-      '<div class="card"><div class="lbl" style="margin:0">Neste pedido</div><b>' + l.q + (l.q === 1 ? ' peça' : ' peças') + '</b></div>' +
-      '<div class="card"><div class="lbl" style="margin:0">No estoque</div><b>' + (its.length ? est + (est === 1 ? ' peça' : ' peças') : 'Fora do inventário') + '</b></div>' +
-      (l.preco ? '<div class="card"><div class="lbl" style="margin:0">Preço no pedido</div><b>' + gs(l.preco) + '</b></div>' : '') +
-      (at.material ? '<div class="card"><div class="lbl" style="margin:0">Material</div><b>' + esc(at.material) + '</b></div>' : '') +
-      (at.publico ? '<div class="card"><div class="lbl" style="margin:0">Público</div><b>' + esc(at.publico) + '</b></div>' : '') +
-      '</div>' +
-      (ref && its.length && est < l.q ? '<div class="hint" style="margin:0;color:#e0a21c">Estoque menor que o pedido.</div>' : '') +
-      '<button type="button" class="go" data-act="pedprodx">Fechar</button></div></div>'
     );
   }
   // Lista de espera: clientes que pediram aviso de peça esgotada; aparece quando a peça volta ao estoque.
@@ -25776,7 +25721,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var sel = S.pedSel != null ? pedAch(S.pedSel) : null;
     if (S.pedSel != null && !sel) S.pedSel = null;
     if (sel) {
-      el.innerHTML = pedDetalhe(sel) + (S.pedProd != null ? pedJanelaProd(sel) : '') + (S.pedTok != null && String(S.pedTok) === String(sel.id) ? pedJanelaTok(sel) : '');
+      el.innerHTML = pedDetalhe(sel) + (S.pedTok != null && String(S.pedTok) === String(sel.id) ? pedJanelaTok(sel) : '');
       if (S.pedTok != null)
         setTimeout(function () {
           var i = $('pdTokIn');
@@ -25826,28 +25771,16 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           return b.ts - a.ts;
         });
     if (!lista.length) h += S.pedidos.length ? '<div class="hint">Nenhum pedido nesta situação.</div>' : lfVazioHtml('<path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/>', 'Nenhum pedido ainda', 'Quando um cliente fizer um pedido no site, ele aparece aqui sozinho.');
+    // S418 (115a2): uma linha fina por pedido; as ações ficam dentro do pedido.
+    if (lista.length) h += '<div class="cxLb" style="margin:14px 0 2px">' + fl.filter(function (f) { return f[0] === gAtual; })[0][1] + ' · ' + lista.length + '</div>';
     lista.forEach(function (p) {
       var tot = pedTotal(p),
         est = pedEstado(p),
         q = pedQtd(p);
       h +=
-        '<section class="pdCard"><div data-act="pedab" data-id="' + p.id + '" style="cursor:pointer"><div class="pdLin"><span class="pdAv">' + esc((p.cli || '?').charAt(0).toUpperCase()) + '</span>' +
-        '<div style="min-width:0;flex:1"><div class="pdNm">' + esc(p.cli || 'Sem nome') + '</div><div class="pdMt">Pedido ' + p.num + ' · ' + fd(p.ts) + ' ' + fh(p.ts) + (p.orig === 'site' ? ' · Site' : '') + (p.teste ? ' · <b>TESTE</b>' : '') + (p.ent === 'delivery' ? ' · Delivery' : '') + '</div></div>' +
-        '<span class="pdPill ' + est[1] + '">' + est[0] + '</span></div>' +
-        pedEspera(p) +
-        '<div class="pdTh">' +
-        p.itens
-          .slice(0, 3)
-          .map(function (l) {
-            return pedPeqImg(l, '');
-          })
-          .join('') +
-        (p.itens.length > 3 ? '<span class="pdMais">+' + (p.itens.length - 3) + '</span>' : '') +
-        '<span class="pdTt"><small>' + q + (q === 1 ? ' peça' : ' peças') + '</small><b>' + (tot ? gs(tot) : '—') + '</b></span></div>' +
-        (p.tok && p.st !== 'canc' && p.st !== 'ent' ? '<div class="pdCod">Token <b>' + esc(p.tok) + '</b></div>' : '') +
-        '</div>' +
-        pedAcoes(p, true) +
-        '</section>';
+        '<div class="pd418L"><button type="button" class="pr418 lk" data-act="pedab" data-id="' + p.id + '"><span><span class="nm">' + esc(p.cli || 'Sem nome') + '</span><small>Pedido ' + p.num + ' · ' + fd(p.ts) + ' ' + fh(p.ts) + ' · ' + q + (q === 1 ? ' peça' : ' peças') + (p.teste ? ' · TESTE' : '') + (p.ent === 'delivery' ? ' · Delivery' : '') + (p.tok && p.st !== 'canc' && p.st !== 'ent' ? ' · token ' + esc(p.tok) : '') + '</small></span>' +
+        '<span class="vl"><b>' + (tot ? gs(tot) : '—') + '</b><small class="' + est[1] + '">' + esc(est[0].replace(/^[^A-Za-zÀ-ú✓]+/, '')) + '</small></span><i aria-hidden="true">›</i></button>' +
+        pedEspera(p) + '</div>';
     });
     el.innerHTML = h;
   }
@@ -26046,9 +25979,38 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     S.pedProd = null;
     render();
   };
+  // S418 (115c): a peça do pedido abre na janela de baixo de sempre (linhas finas e "Ver a peça no Inventário ›").
   ACT.pedprod = function (i) {
-    S.pedProd = +i;
-    render();
+    var p = S.pedSel != null ? pedAch(S.pedSel) : null,
+      l = p && p.itens[+i];
+    if (!l) return;
+    var ref = l.ref,
+      its = ref ? S.items.filter(function (x) { return x.ref === ref; }) : [],
+      est = its.reduce(function (a, x) { return a + (x.qty > 0 ? x.qty : 0); }, 0),
+      at = ref ? attrOf(ref) : {},
+      src = ref ? photoOf(ref) : '',
+      nome = ref && its.length ? pubNome(ref) : l.t;
+    lfJanela({
+      titulo: nome,
+      monta: function (c, api) {
+        c.innerHTML =
+          (src ? '<div class="pd418Ft"><img src="' + src + '" alt=""></div>' : '') +
+          '<div class="pdMt" style="margin:8px 0 2px">' + esc(ref || '') + (l.cor ? ' · ' + esc(l.cor) : '') + '</div>' +
+          pr418('Neste pedido', l.q + (l.q === 1 ? ' peça' : ' peças')) +
+          pr418('No estoque', its.length ? est + (est === 1 ? ' peça' : ' peças') : 'Fora do inventário') +
+          (l.preco ? pr418('Preço no pedido', gs(l.preco)) : '') +
+          (at.material ? pr418('Material', esc(at.material)) : '') +
+          (at.publico ? pr418('Público', esc(at.publico)) : '') +
+          (ref && its.length && est < l.q ? '<div class="pdMt" style="margin-top:8px;color:var(--warn)">Estoque menor que o pedido.</div>' : '') +
+          (its.length ? '<button type="button" class="pd418Lk">Ver a peça no Inventário ›</button>' : '');
+        var b = c.querySelector('.pd418Lk');
+        if (b)
+          b.onclick = function () {
+            api.fecha();
+            if (typeof fnAbreEstoque === 'function') fnAbreEstoque(ref);
+          };
+      }
+    });
   };
   ACT.pedprodx = function () {
     S.pedProd = null;
@@ -26085,6 +26047,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     pedAssumeAuto(p);
     if (!p) return;
     p.st = 'canc';
+    p.cancTs = Date.now();
     S.pedTok = null;
     S.pedF = 'canc';
     render();
@@ -27225,10 +27188,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         '<div class="hint" id="cH" style="margin:6px 0 0"></div>' +
         '<button type="button" class="go77" data-act="clisave">Salvar</button>' +
         (c.id && c.aviso ? '<div class="hint" style="margin:8px 0 0;text-align:center">Último aviso: ' + esc(c.aviso.canal) + ' · ' + esc(c.aviso.modelo) + ' · ' + fd(c.aviso.ts) + ' ' + fh(c.aviso.ts) + '</div>' : '') +
-        (c.id
-          ? '<div class="lb77">Atacado</div><div class="gp77"><button type="button" class="rw77" data-act="ataConta" data-id="' + c.id + '"><span class="tx"><b>Conta atacadista</b><small>' + (ata ? 'catálogo com preço de atacado' : c.email ? 'criar o acesso ao catálogo de atacado' : 'precisa do e-mail do cliente') + '</small></span>' +
-            (ata ? '<span class="vl ' + (ata.pausada ? 'w77' : 'f77') + '">' + (ata.pausada ? 'Pausada' : 'Ativa') + '</span>' : '') + '<span class="ch">›</span></button></div>'
-          : '') +
+        // S418 (113a): o atacado sai da ficha do cliente — fica só na aba Atacado
         (ps.length
           ? '<div class="lb77">Pedidos · ' + ps.length + '</div><div class="gp77 cp77">' +
             ps
@@ -29721,18 +29681,18 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       rp = vd.rp,
       se = FX_SELO[vd.k];
     h +=
-      '<section class="card fxRepo"><button type="button" class="fxRepoT" data-act="fjAbre" data-id="repo"><span class="fxRH"><span class="lbl">Reposição</span><span class="fxSelo ' + se[1] + '">' + se[0] + ' ›</span></span>' +
-      '<b class="fxFal">' + (rp.falta > 0.5 ? 'Faltam ' + usd0(rp.falta) : 'Reposição completa') + '</b>' +
+      // S418 (esboço 117, aprovado 17/11): "REPOSIÇÃO" e "MAIS" no padrão de luxo; as cotações ficam no desenho de hoje sem o fundo
+      '<section class="cxSaldo fx418"><div class="cxLb">Reposição</div><button type="button" class="fx418R" data-act="fjAbre" data-id="repo"><span class="n">' + (rp.falta > 0.5 ? 'Faltam ' + usd0(rp.falta) : 'Reposição completa') + '</span><span class="s ' + se[1] + '">' + se[0] + '</span><i aria-hidden="true">›</i></button>' +
       '<span class="fxBar"><i style="width:' + (rp.tot > 0 ? Math.round((rp.tem / rp.tot) * 100) : 100) + '%"></i></span>' +
-      '<span class="hint" style="margin:0">' + usd0(rp.tem) + ' de ' + usd0(rp.tot) + '</span></button>' +
-      '<button type="button" class="fxLk" data-act="fjAbre" data-id="troca">Registrar troca</button></section>';
+      '<div class="fx418H">' + usd0(rp.tem) + ' de ' + usd0(rp.tot) + '</div>' +
+      '<button type="button" class="fx418P" data-act="fjAbre" data-id="troca">Registrar troca</button></section>';
     var n = (S.cambios || []).length,
       L = S.siteFx;
     h +=
-      '<section class="card fxRows">' +
-      '<button type="button" class="fxRow" data-act="fjAbre" data-id="trocas"><span>Últimas trocas</span><span class="hint">' + n + ' ›</span></button>' +
-      '<button type="button" class="fxRow" data-act="fjAbre" data-id="site"><span>Preços no site<small>cotação da loja travada' + (L && L.ts ? ' desde ' + fd(L.ts) : '') + '</small></span><span class="hint">' + (L && L.usd ? gsRaw(L.usd) : '') + ' ›</span></button>' +
-      '<button type="button" class="fxRow" data-act="fjAbre" data-id="prot"><span>Como o app te protege<small>colchão ' + pc(colchao().pct) + '</small></span><span class="hint">›</span></button>' +
+      '<section class="cxSaldo fx418"><div class="cxLb">Mais</div>' +
+      '<button type="button" class="pr418 lk" data-act="fjAbre" data-id="trocas"><span>Últimas trocas</span><b>' + n + '</b><i aria-hidden="true">›</i></button>' +
+      '<button type="button" class="pr418 lk" data-act="fjAbre" data-id="site"><span>Preços no site<small>cotação da loja travada' + (L && L.ts ? ' desde ' + fd(L.ts) : '') + '</small></span><b>' + (L && L.usd ? gsRaw(L.usd) : '') + '</b><i aria-hidden="true">›</i></button>' +
+      '<button type="button" class="pr418 lk" data-act="fjAbre" data-id="prot"><span>Como o app te protege<small>colchão ' + pc(colchao().pct) + '</small></span><i aria-hidden="true">›</i></button>' +
       '</section>';
     if (S.fxJan) h += fjHtml(S.fxJan, vd);
     return h;
@@ -29770,7 +29730,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
     return (
       '<div class="fjBk' + (S._fjAnim ? ' in' : '') + '" data-act="fjFecha"></div><div class="fjJn' + (S._fjAnim ? ' in' : '') + '" role="dialog" aria-label="' + esc(tit.replace(/<[^>]+>/g, '')) + '">' +
-      '<div class="fjPuxa" aria-hidden="true"></div><div class="fjHd"><div><b>' + tit + '</b>' + (sub ? '<small>' + sub + '</small>' : '') + '</div><button type="button" class="fjX" data-act="fjFecha" aria-label="Fechar">×</button></div>' +
+      '<div class="fjPuxa" aria-hidden="true"></div><div class="fjHd"><div><b>' + tit + '</b>' + (sub ? '<small>' + sub + '</small>' : '') + '</div></div>' + // S418 (126): sem o ×; fecha puxando ou tocando fora
       '<div class="fjCorpo">' + corpo + '</div></div>'
     );
   }
@@ -29879,16 +29839,29 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<div class="fjB"><span class="lbl">Preços do site</span><div class="hint" style="margin:0">Cotação da loja + 2% de folga' + (L && L.usd ? ' (' + gsRaw(L.usd) + ')' : '') + ', travada: só muda quando a loja passar dela. Se o dólar cair muito, o app faz ofertas no site.</div></div>'
     );
   }
+  var MN418 = { pyg: 'guaranis', usd: 'dólares', brl: 'reais' };
+  ACT.trMoe = function (v) {
+    var p = String(v).split('|');
+    if (!/^(de|para)$/.test(p[0]) || !/^(pyg|usd|brl)$/.test(p[1])) return;
+    if (typeof window.__trMoeda === 'function') window.__trMoeda(p[0] === 'de' ? 'trDe' : 'trPara', p[1]);
+  };
   // "Registrar troca": sugestão de hoje (já preenchida) + outra troca.
   function trGavetaHtml() {
     var t = S.tr,
       ag = trocarAgoraHtml();
     return (
-      (ag ? '<div class="lbl" style="margin:0 0 6px">Sugestão de hoje</div>' + ag + '<div class="lbl" style="margin:14px 0 6px">Outra troca</div>' : '') +
-      '<div class="sel" style="flex-wrap:wrap">' + trSel('trDe', t.de) + '<button class="btn-sc" data-act="trflip" aria-label="Inverter as moedas">⇄ Inverter</button>' + trSel('trPara', t.para) + '</div>' +
-      '<div class="sel" style="flex-wrap:wrap"><div style="flex:1 1 140px"><div class="lbl">Você troca (' + MN[t.de] + ')</div><input class="in" id="trV" inputmode="decimal" data-in="trV" value="' + esc(t.v) + '" aria-label="Valor a trocar"></div>' +
-      '<div style="flex:1 1 140px"><div class="lbl">Você recebe (' + MN[t.para] + ')</div><input class="in" id="trRec" inputmode="decimal" data-in="trRec" value="' + esc(t.rec) + '" aria-label="Valor recebido na troca"></div></div>' +
-      '<div class="hint" id="trPrev" role="status" style="margin:0"></div><button class="go" data-act="trocar">Registrar troca</button>'
+      // S418 (esboço 126b): De e Para por toque (G$ · US$ · R$), "⇄ Inverter" em rosa, campos em linhas, "Registrar troca" principal
+      (ag ? '<div class="cxLb" style="margin:0 0 2px">Sugestão de hoje</div>' + ag + '<div class="cxLb" style="margin:22px 0 8px">Outra troca</div>' : '') +
+      ['de', 'para'].map(function (q) {
+        return '<div class="tr418"><span>' + (q === 'de' ? 'De' : 'Para') + '</span><div class="sg418" role="group" aria-label="' + (q === 'de' ? 'Trocar de' : 'Receber em') + '">' +
+          [['pyg', 'G$'], ['usd', 'US$'], ['brl', 'R$']].map(function (o) {
+            return '<button type="button" class="' + (t[q] === o[0] ? 'on' : '') + '" aria-pressed="' + (t[q] === o[0]) + '" data-act="trMoe" data-id="' + q + '|' + o[0] + '">' + o[1] + '</button>';
+          }).join('') + '</div></div>';
+      }).join('') +
+      '<div style="text-align:center"><button type="button" class="tr418I" data-act="trflip" aria-label="Inverter as moedas">⇄ Inverter</button></div>' +
+      '<label class="cxL cc418"><span>Você troca<small>em ' + MN418[t.de] + '</small></span><input class="in" id="trV" inputmode="decimal" data-in="trV" value="' + esc(t.v) + '" aria-label="Valor a trocar"></label>' +
+      '<label class="cxL cc418" style="border-bottom:0"><span>Você recebe<small>em ' + MN418[t.para] + '</small></span><input class="in" id="trRec" inputmode="decimal" data-in="trRec" value="' + esc(t.rec) + '" aria-label="Valor recebido na troca"></label>' +
+      '<div class="hint" id="trPrev" role="status" style="margin:0"></div><button type="button" class="fx418P" data-act="trocar">Registrar troca</button>'
     );
   }
   ACT.fjAbre = function (id) {
@@ -35491,7 +35464,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (hFiltrando()) {
       var r = hFiltrar(hItens()),
         n = Math.min(r.length, S.hLim);
-      var h = '<div class="hint" style="margin:0">' + r.length + ' resultado(s)</div><div class="col">';
+      var h = '<div class="cxLb" style="margin:14px 0 2px">' + r.length + (r.length === 1 ? ' resultado' : ' resultados') + '</div><div class="col hb418">'; // S418 (123b)
       for (var i = 0; i < n; i++) h += '<div>' + r[i].html + '</div>';
       h += '</div>';
       if (r.length > n) h += '<button type="button" class="mini" data-act="hmais">Mostrar mais (' + (r.length - n) + ')</button>';
@@ -39678,7 +39651,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<div><div class="lbl">O que quer para a loja</div><input class="in" id="obNome" placeholder="Ex.: Reforma da vitrine" maxlength="40" autocomplete="off" value="' + esc(OBJ.nome) + '"></div>' +
       '<div class="nvg2"><div><div class="lbl">Quanto custa</div><input class="in" id="obCusto" inputmode="numeric" placeholder="G$" autocomplete="off" value="' + esc(OBJ.custo) + '"></div>' +
       '<div><div class="lbl">Quero até</div><select class="in selAl" id="obAte">' + ops + '</select></div></div>' +
-      '<button type="button" class="btn go" data-act="obAdd" style="width:100%">Guardar objetivo</button></section>'
+      '<button type="button" class="pd418P" data-act="obAdd" style="margin-top:16px">Guardar objetivo</button></section>' // S418 (125b)
     );
   }
   ACT.obAdd = function () {
@@ -43795,8 +43768,14 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   function ataContaHtml(c) {
     var ag = Date.now(), st = c.cancelada ? 'Cancelada' : c.pausada ? 'Pausada' : c.tipo === 'visita' && c.fim < ag ? 'Vencida' : 'Ativa', ap = c.aparelhos || [], tr = ataTrocas30(c);
     var ini = String(c.nome || '?').split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase(), lim = c.dispMax || 3, tro = c.trocaOk !== false;
+    if (c.cancelada)
+      return '<div class="ata77">' +
+        '<div class="hd77"><span class="av77 g">' + esc(ini) + '</span><h2>' + esc(c.nome) + '</h2><small>' + (c.tipo === 'visita' ? 'Visitante · ' : 'Lojista fixo · ') + '<span class="w77">Cancelada' + (c.cancEm ? ' em ' + fd(c.cancEm) : '') + '</span></small></div>' +
+        '<p class="ata418P">O acesso ao catálogo de atacado foi apagado. Ele não entra mais por nenhum aparelho.</p>' +
+        '<button type="button" class="go77" data-act="ataRecria" data-id="' + esc(c.id) + '">Criar novo acesso</button><div class="ata418N">manda um convite novo pelo WhatsApp</div>' +
+        '<div class="dz77"><button type="button" class="r" data-act="ataApaga" data-id="' + esc(c.id) + '">Apagar a conta</button><small>some da lista; os pedidos dele continuam no histórico</small></div></div>';
     return '<div class="ata77">' +
-      '<div class="hd77"><span class="av77 g">' + esc(ini) + '</span><h2>' + esc(c.nome) + '</h2><small>' + (c.tipo === 'visita' ? 'Visitante · ' : 'Cliente associado · ') + '<span class="' + (st === 'Ativa' ? 'f77' : 'w77') + '">' + st + '</span>' + (c.tipo === 'visita' ? ' · vence ' + fd(c.fim) : ' · não vence') + ' · ' + esc(tabDe(c.tab).nome) + '</small></div>' +
+      '<div class="hd77"><span class="av77 g">' + esc(ini) + '</span><h2>' + esc(c.nome) + '</h2><small>' + (c.tipo === 'visita' ? 'Visitante · ' : 'Lojista fixo · ') + '<span class="' + (st === 'Ativa' ? 'f77' : 'w77') + '">' + st + '</span>' + (c.tipo === 'visita' ? ' · vence ' + fd(c.fim) : ' · não vence') + ' · ' + esc(tabDe(c.tab).nome) + '</small></div>' +
       '<div class="lb77">Aparelhos</div><div class="gp77">' +
       (ap.length ? ap.map(function (a) { return '<div class="rw77"><span class="tx"><b>' + esc(a.nome || 'Aparelho') + '</b><small>último uso ' + (a.ult ? fd(a.ult) + ' ' + fh(a.ult) : '—') + '</small></span><button type="button" class="lk77" data-act="ataApRm" data-id="' + esc(c.id + '|' + a.id) + '">Remover</button></div>'; }).join('') : '') +
       '<div class="rw77"><span class="tx"><b>Em uso</b>' + (ap.length ? '' : '<small>ainda não entrou de nenhum aparelho</small>') + '</span><span class="vl">' + ap.length + ' de ' + lim + '</span></div>' +
@@ -43812,11 +43791,64 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       '<div class="dz77"><button type="button" data-act="ataPausa" data-id="' + esc(c.id) + '">' + (c.pausada ? 'Voltar a conta' : 'Pausar conta') + '</button><small>' + (c.pausada ? 'o catálogo volta a aparecer' : 'o catálogo some; nada é apagado; volta com 1 toque') + '</small>' +
       '<button type="button" class="r" data-act="ataCanc" data-id="' + esc(c.id) + '">Cancelar conta</button><small>apaga o acesso; para voltar, novo convite</small></div></div>';
   }
+  // S418 (113d): uma janela só — cada ação atualiza a janela aberta no lugar, sem abrir outra por cima.
+  var ataJ = null;
   function ataJanela(id) {
     var c = S.ataContas[id];
     if (!c) return;
-    lfJanela({ titulo: 'Conta atacadista', monta: function (box) { box.innerHTML = ataContaHtml(c); ataLe(id).then(function (n) { if (n && document.body.contains(box)) box.innerHTML = ataContaHtml(n); }); } });
+    if (ataJ && document.body.contains(ataJ.box)) {
+      ataJ.id = id;
+      ataJ.box.innerHTML = ataContaHtml(c);
+      return;
+    }
+    lfJanela({
+      titulo: 'Conta atacadista',
+      aoFechar: function () {
+        ataJ = null;
+      },
+      monta: function (box, api) {
+        ataJ = { id: id, box: box, api: api };
+        box.innerHTML = ataContaHtml(c);
+        ataLe(id).then(function (n) {
+          if (n && ataJ && ataJ.box === box && ataJ.id === id && document.body.contains(box)) box.innerHTML = ataContaHtml(n);
+        });
+      }
+    });
   }
+  window.__ataJanela = ataJanela;
+  ACT.ataRecria = function (id) {
+    var o = S.ataContas[id];
+    if (!o) return;
+    var c = { id: ataId(), nome: o.nome, email: o.email, tel: o.tel || '', tipo: o.tipo === 'visita' ? 'visita' : 'assoc', tab: o.tab, dispMax: o.dispMax || 3, trocaOk: o.tipo !== 'visita', pausada: false, cancelada: false, refs: o.refs || [], cliId: o.cliId || '', ts: Date.now() };
+    if (c.tipo === 'visita') c.fim = Date.now() + ATA_DIAS * DAY;
+    ataGrava(c);
+    ataPublica(c.tab);
+    ataJanela(c.id);
+    if (S.view === 'ata') render();
+    ACT.ataEnvia(c.id);
+  };
+  ACT.ataApaga = function (id) {
+    var c = S.ataContas[id];
+    if (!c || !c.cancelada) return;
+    lfConfirma({
+      k: 'ataApaga' + id,
+      t: 'Apagar a conta?',
+      q: c.nome || '',
+      d: c.email || '',
+      f: 'Ela some da lista, deste aparelho e da nuvem. Os pedidos dele continuam no histórico.',
+      nv: 1,
+      b: 'Apagar a conta',
+      fn: function () {
+        delete S.ataContas[id];
+        saveSoon();
+        if (typeof nvApi === 'function' && S.nuvem && S.nuvem.rt) nvApi('DELETE', 'atacadoContas/' + encodeURIComponent(id)).catch(function () {});
+        if (ataJ && ataJ.api) ataJ.api.fecha();
+        S.ataAba = 'loj';
+        render();
+        lfToast('Conta apagada');
+      }
+    });
+  };
   // ficha do cliente → criar ou abrir a conta associada
   ACT.ataConta = function (cliId) {
     var cli = (S.clientes || []).filter(function (x) { return String(x.id) === String(cliId); })[0];
@@ -43831,28 +43863,77 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
     ataJanela(c.id);
   };
-  // novo acesso de visitante (convite de 3 dias)
+  // S418 (113b): "+ Novo acesso" escolhe Lojista fixo (não vence; busca um cliente ou cria um novo) ou Visitante (3 dias).
   ACT.ataNovo = function () {
-    if (ataConvAtivos() >= S.ataConvMax) { lfToast('Limite de ' + S.ataConvMax + ' convites ativos. Cancele um ou aumente o limite.'); return; }
+    var st = { tipo: 'fixo', q: '', cli: null, novo: false };
     lfJanela({
-      titulo: 'Novo acesso atacado',
-      monta: function (box) {
-        box.innerHTML = '<div class="col" style="gap:10px;padding:0 16px 16px"><div class="lbl">VISITANTE · AINDA NÃO É CLIENTE · VENCE EM ' + ATA_DIAS + ' DIAS</div>' +
-          '<input class="in" id="ataNm" placeholder="Nome (ex.: Óptica Sol · Pedro)"><input class="in" id="ataTel" inputmode="tel" placeholder="WhatsApp"><input class="in" id="ataEm" inputmode="email" placeholder="E-mail (recebe o código para entrar)">' +
-          '<select class="in" id="ataTab">' + tabLista().filter(function (t) { return !t.pub; }).map(function (t) { return '<option value="' + t.id + '">' + esc(t.nome) + '</option>'; }).join('') + '</select>' +
-          '<input class="in" id="ataRefs" placeholder="O que vê: códigos separados por vírgula (vazio = tudo)" value="' + esc((S.ebSel || []).join(', ')) + '">' +
-          '<div class="sl"><span>Aparelhos</span><b>3</b></div><div class="sl"><span>Dura</span><b>' + ATA_DIAS + ' dias (até ' + fd(Date.now() + ATA_DIAS * DAY) + ')</b></div><div class="sl"><span>Cliente remove aparelho</span><b>Não</b></div>' +
-          '<div class="hint" style="margin:0">Convites ativos: ' + ataConvAtivos() + ' de ' + S.ataConvMax + '</div>' +
-          '<button type="button" class="go" id="ataOk">Enviar convite</button></div>';
-        $('ataOk').onclick = function () {
-          var nm = $('ataNm').value.trim(), em = $('ataEm').value.trim().toLowerCase();
-          if (!nm || !/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(em)) { lfToast('Preencha o nome e um e-mail válido'); return; }
-          var refs = $('ataRefs').value.split(/[,\s]+/).map(function (r) { return r.trim().toUpperCase(); }).filter(Boolean);
-          var c = { id: ataId(), nome: nm, email: em, tel: $('ataTel').value.trim(), tipo: 'visita', tab: $('ataTab').value, dispMax: 3, trocaOk: false, pausada: false, cancelada: false, fim: Date.now() + ATA_DIAS * DAY, refs: refs, ts: Date.now() };
-          ataGrava(c);
-          ataPublica(c.tab);
-          ACT.ataEnvia(c.id);
+      titulo: 'Novo acesso ao atacado',
+      monta: function (box, api) {
+        var tabs = tabLista().filter(function (t) { return !t.pub; }).map(function (t) { return '<option value="' + t.id + '">' + esc(t.nome) + '</option>'; }).join('');
+        var pinta = function () {
+          var fx = st.tipo === 'fixo', h = '<div class="col" style="gap:10px;padding:0 0 16px">';
+          h += '<div class="ata418T" role="group" aria-label="Tipo de acesso">' +
+            '<button type="button" data-t="fixo" class="' + (fx ? 'on' : '') + '" aria-pressed="' + fx + '"><b>Lojista fixo</b><small>não vence</small></button>' +
+            '<button type="button" data-t="visita" class="' + (fx ? '' : 'on') + '" aria-pressed="' + !fx + '"><b>Visitante</b><small>vence em ' + ATA_DIAS + ' dias</small></button></div>';
+          if (fx) {
+            h += '<div class="cxLb" style="margin:8px 0 0">Cliente</div>';
+            if (st.cli) h += '<div class="ata418S"><span><b>' + esc(st.cli.nome || 'Cliente') + '</b><small>' + esc([st.cli.tel, st.cli.email].filter(Boolean).join(' · ') || 'sem contato') + '</small></span><button type="button" class="lk77" data-x="1">Trocar</button></div>' + (st.cli.email ? '' : '<input class="in" id="ataEm" inputmode="email" placeholder="E-mail do cliente (recebe o código para entrar)">');
+            else if (st.novo) h += '<input class="in" id="ataNm" placeholder="Nome (ex.: Óptica Sol · Pedro)" value="' + esc(st.q) + '"><input class="in" id="ataTel" inputmode="tel" placeholder="WhatsApp"><input class="in" id="ataEm" inputmode="email" placeholder="E-mail (recebe o código para entrar)">';
+            else {
+              var qn = cliNorm(st.q), qd = cliDig(st.q),
+                ms = st.q.trim().length >= 2 ? (S.clientes || []).filter(function (c) { return cliNorm(c.nome).indexOf(qn) >= 0 || (qd.length >= 3 && cliDig(c.tel).indexOf(qd) >= 0) || (c.email && String(c.email).toLowerCase().indexOf(st.q.trim().toLowerCase()) >= 0); }).slice(0, 4) : [];
+              h += '<input class="in" id="ataQ" placeholder="Buscar cliente: nome, telefone ou e-mail" value="' + esc(st.q) + '" autocomplete="off">';
+              if (st.q.trim().length >= 2)
+                h += '<div class="ata418M">' + ms.map(function (c) { return '<button type="button" data-c="' + c.id + '"><b>' + esc(c.nome || 'Cliente') + '</b><small>' + esc([c.tel, c.email].filter(Boolean).join(' · ')) + '</small></button>'; }).join('') +
+                  '<button type="button" data-n="1"><b>+ Novo cliente “' + esc(st.q.trim().slice(0, 18)) + (st.q.trim().length > 18 ? '…' : '') + '”</b></button></div>';
+            }
+          } else h += '<input class="in" id="ataNm" placeholder="Nome (ex.: Óptica Sol · Pedro)"><input class="in" id="ataTel" inputmode="tel" placeholder="WhatsApp"><input class="in" id="ataEm" inputmode="email" placeholder="E-mail (recebe o código para entrar)">';
+          h += '<select class="in" id="ataTab">' + tabs + '</select>' +
+            '<input class="in" id="ataRefs" placeholder="O que vê: códigos separados por vírgula (vazio = tudo)" value="' + esc((S.ebSel || []).join(', ')) + '">' +
+            '<div class="sl"><span>Aparelhos</span><b>3</b></div><div class="sl"><span>Dura</span><b>' + (fx ? 'não vence' : ATA_DIAS + ' dias (até ' + fd(Date.now() + ATA_DIAS * DAY) + ')') + '</b></div>' +
+            '<div class="sl"><span>' + (fx ? 'Pode trocar de aparelho' : 'Cliente remove aparelho') + '</span><b>' + (fx ? 'Sim, até o limite' : 'Não') + '</b></div>' +
+            (fx ? '' : '<div class="hint" style="margin:0">Convites ativos: ' + ataConvAtivos() + ' de ' + S.ataConvMax + '</div>') +
+            '<button type="button" class="go" id="ataOk">Enviar convite</button></div>';
+          box.innerHTML = h;
+          box.querySelectorAll('.ata418T button').forEach(function (b) { b.onclick = function () { st.tipo = b.dataset.t; pinta(); }; });
+          var q = $('ataQ');
+          if (q) {
+            q.oninput = function () { st.q = q.value; var pos = q.selectionStart; pinta(); var q2 = $('ataQ'); if (q2) { q2.focus(); try { q2.setSelectionRange(pos, pos); } catch (e) {} } };
+          }
+          box.querySelectorAll('.ata418M [data-c]').forEach(function (b) { b.onclick = function () { st.cli = (S.clientes || []).filter(function (c) { return String(c.id) === b.dataset.c; })[0] || null; pinta(); }; });
+          var bn = box.querySelector('.ata418M [data-n]');
+          if (bn) bn.onclick = function () { st.novo = true; pinta(); };
+          var bx = box.querySelector('[data-x]');
+          if (bx) bx.onclick = function () { st.cli = null; st.novo = false; pinta(); };
+          $('ataOk').onclick = function () {
+            var refs = $('ataRefs').value.split(/[,\s]+/).map(function (r) { return r.trim().toUpperCase(); }).filter(Boolean), tab = $('ataTab').value, emOk = function (e) { return /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(e || ''); };
+            if (st.tipo === 'visita') {
+              if (ataConvAtivos() >= S.ataConvMax) { lfToast('Limite de ' + S.ataConvMax + ' convites ativos. Cancele um ou aumente o limite.'); return; }
+              var nm = $('ataNm').value.trim(), em = $('ataEm').value.trim().toLowerCase();
+              if (!nm || !emOk(em)) { lfToast('Preencha o nome e um e-mail válido'); return; }
+              var v = { id: ataId(), nome: nm, email: em, tel: $('ataTel').value.trim(), tipo: 'visita', tab: tab, dispMax: 3, trocaOk: false, pausada: false, cancelada: false, fim: Date.now() + ATA_DIAS * DAY, refs: refs, ts: Date.now() };
+              ataGrava(v); ataPublica(v.tab); api.fecha(); if (S.view === 'ata') render(); ACT.ataEnvia(v.id);
+              return;
+            }
+            var cli = st.cli;
+            if (!cli) {
+              if (!st.novo) { lfToast('Escolha um cliente ou crie um novo'); return; }
+              var n2 = $('ataNm').value.trim(), e2 = $('ataEm').value.trim().toLowerCase();
+              if (!n2 || !emOk(e2)) { lfToast('Preencha o nome e um e-mail válido'); return; }
+              cli = { id: S.cliNext++, nome: n2, tel: $('ataTel').value.trim(), email: e2, ts: Date.now(), orig: 'atacado' };
+              S.clientes.push(cli);
+            } else if (!cli.email) {
+              var e3 = ($('ataEm') ? $('ataEm').value : '').trim().toLowerCase();
+              if (!emOk(e3)) { lfToast('Falta o e-mail do cliente (o código de entrada vai para ele)'); return; }
+              cli.email = e3;
+            }
+            var ja = Object.keys(S.ataContas).map(function (k) { return S.ataContas[k]; }).filter(function (x) { return String(x.cliId) === String(cli.id) && !x.cancelada; })[0];
+            if (ja) { api.fecha(); lfToast('Este cliente já tem uma conta ativa'); ataJanela(ja.id); return; }
+            var c = { id: ataId(), nome: cli.nome || 'Cliente', email: String(cli.email).toLowerCase(), tel: cli.tel || '', tipo: 'assoc', tab: tab, dispMax: 3, trocaOk: true, pausada: false, cancelada: false, refs: refs, cliId: String(cli.id), ts: Date.now() };
+            ataGrava(c); ataPublica(c.tab); saveSoon(); api.fecha(); if (S.view === 'ata') render(); ACT.ataEnvia(c.id);
+          };
         };
+        pinta();
       }
     });
   };
@@ -43868,7 +43949,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   ACT.ataMoeda = function (v) { var p = String(v).split('|'); ataMuda(p[0], { moeda: p[1] }); };
   ACT.ataTroca = function (id) { var c = S.ataContas[id]; if (c) ataMuda(id, { trocaOk: c.trocaOk === false }, c.trocaOk === false ? 'Trocas liberadas' : 'Trocas bloqueadas'); };
   ACT.ataPausa = function (id) { var c = S.ataContas[id]; if (c) ataMuda(id, { pausada: !c.pausada }, c.pausada ? 'Catálogo de volta' : 'Pausada: o catálogo sumiu'); };
-  ACT.ataCanc = function (id) { if (!window.confirm('Cancelar a conta? O acesso é apagado; para voltar, só com novo convite.')) return; ataMuda(id, { cancelada: true }, 'Conta cancelada'); };
+  ACT.ataCanc = function (id) { if (!window.confirm('Cancelar a conta? O acesso é apagado; para voltar, só com novo convite.')) return; ataMuda(id, { cancelada: true, cancEm: Date.now() }, 'Conta cancelada'); };
   ACT.ataLim = function (v) { var p = String(v).split('|'), c = S.ataContas[p[0]]; if (c) ataMuda(p[0], { dispMax: Math.max(1, Math.min(10, (c.dispMax || 3) + +p[1])) }); };
   ACT.ataApRm = function (v) {
     var p = String(v).split('|'), c = S.ataContas[p[0]];
@@ -47996,7 +48077,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
         '</div><div class="dHdS">' + (resumo ? esc(perDatas(S.per)) : esc(DT_FRASE[t[0]])) + '</div>'; // S362: a linha "US$ 1 = …" saiu do topo (o câmbio mora na tela Câmbio)
     if (resumo && S.per === 'custom')
       h +=
-        '<div class="sel dHdD" style="flex-wrap:wrap"><input class="in" type="date" data-pdat="de" value="' + esc(S.perDe) + '" aria-label="Data inicial" style="flex:1 1 140px;width:auto"><input class="in" type="date" data-pdat="ate" value="' + esc(S.perAte) + '" aria-label="Data final" style="flex:1 1 140px;width:auto"></div>';
+        '<section class="cxSaldo dHdD"><div class="cxLb">Período</div><label class="cxL dD418"><span>De</span><input class="in" type="date" data-pdat="de" value="' + esc(S.perDe) + '" aria-label="Data inicial"></label><label class="cxL dD418"><span>Até</span><input class="in" type="date" data-pdat="ate" value="' + esc(S.perAte) + '" aria-label="Data final"></label></section>';
     return h;
   }
   function dOpHtml(act, id, nome, sub, on, seta) {
@@ -49912,6 +49993,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             return ataLinha('ataLojAbre', c.id, c.nome || 'Lojista', (c.pausada ? 'Pausada · ' : '') + 'Tabela ' + tabDe(c.tab).nome + ' · ' + ap + (ap === 1 ? ' aparelho' : ' aparelhos'), 0);
           }).join('') + '</section>'
         : '<div class="ataVz">Nenhum lojista com acesso ainda. Toque em “+ Novo acesso” para criar o primeiro.</div>';
+      // S418 (113c): as contas canceladas ficam num bloco que abre no lugar
+      var X = Object.keys(S.ataContas || {}).map(function (k) { return S.ataContas[k]; }).filter(function (c) { return c && c.cancelada; });
+      if (X.length)
+        h += '<section class="card ataLs" style="margin-top:12px"><button type="button" class="ataL ata418C' + (S._ataCanc ? ' on' : '') + '" data-act="ataCancAb" aria-expanded="' + !!S._ataCanc + '"><span><b>Canceladas</b><small>' + X.length + (X.length === 1 ? ' conta' : ' contas') + ' · não entram mais</small></span><i aria-hidden="true">⌄</i></button>' +
+          (S._ataCanc ? X.map(function (c) { return ataLinha('ataLojAbre', c.id, c.nome || 'Lojista', 'cancelada' + (c.cancEm ? ' em ' + fd(c.cancEm) : '') + ' · ver a conta', 0); }).join('') : '') + '</section>';
       h += '<p class="ataNt">Cada lojista compra pelo link da conta dele, com a tabela e o mínimo do atacado.</p>';
     } else if (a === 'lot') {
       var T = Object.keys(S.ataLotes || {}).map(function (k) { return S.ataLotes[k]; }).filter(Boolean).sort(function (x, y) { return (y.ts || 0) - (x.ts || 0); });
@@ -49953,6 +50039,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     renderAtacado();
     var c = $('ataCorpo');
     if (c && typeof animEnter === 'function') animEnter(c);
+  };
+  ACT.ataCancAb = function () {
+    S._ataCanc = !S._ataCanc;
+    render();
   };
   ACT.ataLojAbre = function (id) { if (typeof ataJanela === 'function') ataJanela(id); };
   function ataPC() { return window.innerWidth >= 1024; }
@@ -50164,9 +50254,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           var cx = document.querySelector('.fjJn') || v;
           if (!cx || !p[1]) return;
           // o campo certo pela etiqueta: "Entreguei R$" (reposição) ou "Você troca (G$)" (outra troca)
-          var rx = p[0] === 'brl' ? /^Entreguei R\$/i : /^Você troca \(G\$\)/i, els = [].slice.call(cx.querySelectorAll('*')), ix = -1, inp = null;
-          els.some(function (e, i) { if (!e.children.length && rx.test((e.textContent || '').trim())) { ix = i; return true; } });
-          if (ix >= 0) for (var i = ix + 1; i < els.length; i++) if (els[i].tagName === 'INPUT') { inp = els[i]; break; }
+          // S418 (126b): os campos pelo id (a etiqueta mudou para linhas "Entreguei" / "Você troca")
+          var inp = p[0] === 'brl' ? cx.querySelector('input[data-in=trv]') : cx.querySelector('#trV');
           if (!inp) return;
           inp.value = p[0] === 'brl' ? (+p[1]).toFixed(2).replace('.', ',') : String(Math.round(+p[1]));
           inp.dispatchEvent(new Event('input', { bubbles: true }));
@@ -50200,6 +50289,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       mk.insertAdjacentHTML('beforeend', '<div class="hint">' + esc(meta) + '</div>');
     }
     ks.classList.add('es3');
+    // S418 (esboço 124a): números em linhas finas, com o período em versalete em cima
+    ks.classList.add('lux418', 'lxLk');
+    var pn = d48Txt(v.querySelector('.dHdP')).replace('⌄', '').trim();
+    ks.insertAdjacentHTML('afterbegin', '<div class="cxLb">' + esc(pn === 'Datas' ? 'No período' : pn) + '</div>');
     sep.remove();
     dol.remove();
     if (mk) ks.appendChild(mk);
@@ -51562,7 +51655,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     if (!s || S.view !== 'onl') return;
     var t = s.getBoundingClientRect().top + (window.scrollY || 0),
       nb = $('mainnav'),
-      hb = nb && nb.offsetParent ? nb.getBoundingClientRect().height : 0;
+      hb = nb && getComputedStyle(nb).display !== 'none' ? nb.getBoundingClientRect().height : 0; // 112e: barra fixa não tem offsetParent
     s.style.height = Math.max(360, window.innerHeight - t - hb) + 'px';
   }
   window.addEventListener('resize', function () { try { sbAjusta(); } catch (e) {} });
@@ -51817,6 +51910,295 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var r = _histLista99.apply(this, arguments);
     padTela();
     return r;
+  };
+  // ===== S418 (18/11/2026, esboços 110c e 111 aprovados 17/11): regras de confirmação pela consequência =====
+  // B = mexe com cliente/site/nuvem/dinheiro ou não tem volta → UMA janela de confirmação (lfConfirma).
+  // A = volta fácil e só mexe neste aparelho → faz na hora + "Desfazer".
+  // Somem: "tocar de novo", a caixa cinza do navegador e a pergunta dupla.
+  // o.k = chave da ação: chamar a mesma ação de novo com a janela aberta confirma (compatível com quem chamava 2×).
+  var cfAtual = null;
+  function lfConfirma(o) {
+    if (o.k && cfAtual && cfAtual.k === o.k) {
+      var f = cfAtual;
+      cfAtual = null;
+      f.api.fecha();
+      o.fn();
+      return;
+    }
+    var j = lfJanela({
+      titulo: o.t,
+      cls: 'lfCf',
+      aoFechar: function () {
+        if (cfAtual && cfAtual.api === j) cfAtual = null;
+      },
+      monta: function (c, api) {
+        c.innerHTML =
+          '<div class="cf418">' +
+          (o.q ? '<div class="cf418Q"><span>' + esc(o.q) + (o.d ? '<small>' + esc(o.d) + '</small>' : '') + '</span>' + (o.v ? '<b>' + esc(o.v) + '</b>' : '') + '</div>' : '') +
+          '<p class="cf418F">' + (o.nv ? '<b>Não tem volta.</b> ' : '') + esc(o.f || '') + '</p>' +
+          '<button type="button" class="cf418B">' + esc(o.b) + '</button>' +
+          '<button type="button" class="cf418V">Voltar</button></div>';
+        c.querySelector('.cf418B').onclick = function () {
+          cfAtual = null;
+          api.fecha();
+          o.fn();
+        };
+        c.querySelector('.cf418V').onclick = api.fecha;
+      }
+    });
+    cfAtual = { k: o.k, api: j };
+    return j;
+  }
+  window.__lfConfirma = lfConfirma;
+  (function () {
+    var A0 = {};
+    ['pedcanc', 'pedrecus', 'estorno', 'syncdesl', 'pinoff', 'nvSair', 'bkimp', 'ataCanc', 'ataLoteCanc', 'syncdesc', 'peddel', 'cartclear', 'notifLimpa', 'inicioReset', 'impdel'].forEach(function (k) {
+      A0[k] = ACT[k];
+    });
+    var semConfirm = function (fn) {
+      var c0 = window.confirm;
+      window.confirm = function () {
+        return true;
+      };
+      try {
+        fn();
+      } finally {
+        window.confirm = c0;
+      }
+    };
+    // ---------- grupo B
+    ACT.pedcanc = function (id) {
+      var p = pedAch(id);
+      if (!p) return;
+      var pago = p.pg === 'pago',
+        tot = pedTotal(p);
+      lfConfirma({
+        k: 'pedcanc'+id,
+        t: pago ? 'Cancelar o pedido?' : 'Cancelar a reserva?',
+        q: p.cli || 'Sem nome',
+        d: 'Pedido ' + p.num + (p.pag === 'pix' ? ' · PIX' : p.pag === 'alias' ? ' · Banco Familiar' : ''),
+        v: tot ? gs(tot) : '',
+        f: pago
+          ? 'A peça volta a ficar livre no site e ela vê o pedido cancelado. Combine com ela a devolução do dinheiro.'
+          : 'A peça volta a ficar livre no site e ela vê "Cancelado pela loja".',
+        b: pago ? 'Cancelar pedido' : 'Cancelar reserva',
+        fn: function () {
+          A0.pedcanc(id);
+        }
+      });
+    };
+    ACT.pedrecus = function (id) {
+      var p = pedAch(id);
+      if (!p) return;
+      var tot = pedTotal(p);
+      lfConfirma({
+        k: 'pedrecus'+id,
+        t: 'Recusar o comprovante?',
+        q: p.cli || 'Sem nome',
+        d: 'Pedido ' + p.num + (p.pag === 'pix' ? ' · PIX' : ''),
+        v: tot ? gs(tot) : '',
+        f: 'Ela recebe o aviso no site para mandar outro comprovante. A reserva continua valendo.',
+        b: 'Recusar comprovante',
+        fn: function () {
+          A0.pedrecus(id);
+        }
+      });
+    };
+    ACT.estorno = function (id) {
+      var s = S.sales.filter(function (x) {
+        return x.id === id;
+      })[0];
+      if (!s || s.estorno) return;
+      lfConfirma({
+        k: 'estorno'+id,
+        t: 'Estornar a venda?',
+        q: descOf(s),
+        d: s.id + ' · ' + fd(s.ts) + ' às ' + fh(s.ts),
+        v: exatoDe(s),
+        f: 'A peça volta para o estoque e o valor sai do caixa e dos resultados.',
+        nv: 1,
+        b: 'Estornar venda',
+        fn: function () {
+          S.confEst = id;
+          A0.estorno(id);
+        }
+      });
+    };
+    ACT.syncdesl = function () {
+      lfConfirma({
+        k: 'syncdesl',
+        t: 'Desligar a sincronização?',
+        q: 'Este aparelho',
+        d: 'para de receber e mandar mudanças',
+        f: 'Os outros aparelhos deixam de ver o que for feito aqui. O que já está neste celular continua.',
+        b: 'Desligar neste aparelho',
+        fn: function () {
+          S._syncDel = 1;
+          A0.syncdesl();
+        }
+      });
+    };
+    ACT.pinoff = function () {
+      lfConfirma({
+        k: 'pinoff',
+        t: 'Tirar o bloqueio do app?',
+        f: 'Qualquer pessoa com este celular na mão abre o app sem PIN, com vendas, caixa e clientes.',
+        b: 'Tirar o bloqueio',
+        fn: function () {
+          S.pinOffConf = true;
+          A0.pinoff();
+        }
+      });
+    };
+    ACT.nvSair = function () {
+      var n = S.nuvem || {};
+      lfConfirma({
+        k: 'nvSair',
+        t: 'Desconectar da nuvem?',
+        q: n.email || '',
+        d: n.ts ? 'última cópia: ' + fd(n.ts) + ' ' + fh(n.ts) : '',
+        f: 'A cópia automática para e a cotação da loja deixa de ir para o site. As cópias que já estão na nuvem continuam lá.',
+        b: 'Desconectar',
+        fn: function () {
+          A0.nvSair();
+        }
+      });
+    };
+    ACT.bkimp = function () {
+      lfConfirma({
+        k: 'bkimp',
+        t: 'Importar um backup?',
+        f: 'Os dados deste aparelho (peças, vendas, caixa, clientes) são trocados pelos do arquivo.',
+        nv: 1,
+        b: 'Escolher o arquivo',
+        fn: function () {
+          S.bkImpConf = false;
+          bkFile.click();
+        }
+      });
+    };
+    ACT.ataCanc = function (id) {
+      var c = (S.ataContas || {})[id];
+      if (!c) return;
+      lfConfirma({
+        k: 'ataCanc'+id,
+        t: 'Cancelar a conta atacadista?',
+        q: c.nome || '',
+        d: c.email || '',
+        f: 'O acesso ao catálogo de atacado é apagado. Para voltar, só com um convite novo.',
+        nv: 1,
+        b: 'Cancelar conta',
+        fn: function () {
+          semConfirm(function () {
+            A0.ataCanc(id);
+          });
+        }
+      });
+    };
+    ACT.ataLoteCanc = function (id) {
+      var L = (S.ataLotes || {})[id];
+      if (!L) return;
+      lfConfirma({
+        k: 'ataLote'+id,
+        t: 'Encerrar o lote?',
+        q: L.nome || 'Lote',
+        f: 'O link passa a mostrar "Lote finalizado". As peças separadas voltam para o estoque.',
+        b: 'Encerrar lote',
+        fn: function () {
+          semConfirm(function () {
+            A0.ataLoteCanc(id);
+          });
+        }
+      });
+    };
+    ACT.syncdesc = function (ap) {
+      if (!/^AP[A-Z0-9]{2,8}$/.test(ap || '')) return;
+      lfConfirma({
+        k: 'syncdesc'+ap,
+        t: 'Desconectar o aparelho?',
+        q: ap,
+        f: 'Esse aparelho para de receber as mudanças da loja e perde o acesso à nuvem.',
+        b: 'Desconectar',
+        fn: function () {
+          S._syncDesc = ap;
+          A0.syncdesc(ap);
+        }
+      });
+    };
+    // ---------- grupo A (faz na hora + Desfazer)
+    var copia = function (v) {
+      return JSON.parse(JSON.stringify(v == null ? null : v));
+    };
+    ACT.peddel = function (id) {
+      var p = pedAch(id);
+      if (!p) return;
+      var ix = S.pedidos.indexOf(p),
+        vol = copia(p);
+      S._pedDel = String(id);
+      A0.peddel(id);
+      lfDesfazer('Pedido ' + p.num + ' removido', function () {
+        S.pedidos.splice(Math.min(ix, S.pedidos.length), 0, vol);
+        saveSoon();
+        render();
+      });
+    };
+    ACT.cartclear = function () {
+      var vol = (S.cart || []).slice();
+      A0.cartclear();
+      if (vol.length)
+        lfDesfazer('Carrinho esvaziado', function () {
+          S.cart = vol;
+          render();
+        });
+    };
+    ACT.notifLimpa = function () {
+      var vol = (S.notifs || []).slice();
+      A0.notifLimpa();
+      if (vol.length)
+        lfDesfazer('Histórico limpo', function () {
+          S.notifs = vol;
+          saveSoon();
+          render();
+        });
+    };
+    ACT.inicioReset = function () {
+      var vol = { f: S.inicioFant, t: copia(S.inicioT), b: copia(S.barra), g: copia(S.grupos) };
+      A0.inicioReset();
+      lfDesfazer('Início voltou ao padrão', function () {
+        S.inicioFant = vol.f;
+        S.inicioT = vol.t;
+        S.barra = vol.b;
+        S.grupos = vol.g || [];
+        saveSoon();
+        render();
+      });
+    };
+    ACT.impdel = function (id) {
+      var x = S.imprev[+id];
+      if (!x) return;
+      var vi = copia(S.imprev),
+        vd = copia(S.dlog);
+      S._impDel = id;
+      A0.impdel(id);
+      lfDesfazer('Imprevisto removido', function () {
+        S.imprev = vi;
+        S.dlog = vd;
+        saveSoon();
+        render();
+      });
+    };
+  })();
+  // S418 (125c): moeda da retirada por toque (no lugar da lista do navegador)
+  ACT.rtMoe = function (m) {
+    if (!/^(pyg|usd|brl)$/.test(m)) return;
+    S.rtMoe = m;
+    var i = $('rtM');
+    if (i) i.value = m;
+    document.querySelectorAll('[data-act=rtMoe]').forEach(function (b) {
+      var on = b.getAttribute('data-id') === m;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
   };
   // ===== S370 (16/11/2026) — lote 8: trilho que ARRASTA (regra do dono, 15/11/2026) =====
   // Todo seletor em trilho (.trk com a pílula .trkTh e os botões .trkB) aceita o dedo (ou o mouse) arrastando a pílula,

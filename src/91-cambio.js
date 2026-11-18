@@ -31,10 +31,11 @@
           rec = tin.rec != null ? tin.rec : String(x.rec),
           sim = x.de === 'pyg' ? 'G$' : 'R$';
         h +=
-          '<div class="card col" style="padding:10px;margin:0"><div class="lbl" style="margin:0">' + (x.tipo === 'repor' ? 'Reposição (necessário)' : 'Colchão (' + (dv && dv.barato ? 'aproveitar o momento' : 'quando o dólar estiver barato') + ')') + '</div>' +
-          '<div class="sel" style="flex-wrap:wrap;align-items:center"><span class="hint" style="margin:0">Entreguei ' + sim + '</span><input class="in" id="trv' + i + '" inputmode="' + (x.de === 'pyg' ? 'numeric' : 'decimal') + '" data-in="trv" data-id="' + i + '" value="' + esc(v) + '" style="flex:1 1 90px;width:auto" aria-label="Valor entregue em ' + sim + '">' +
-          '<span class="hint" style="margin:0">Recebi US$</span><input class="in" id="trr' + i + '" inputmode="decimal" data-in="trr" data-id="' + i + '" value="' + esc(rec) + '" style="flex:1 1 80px;width:auto" aria-label="Dólares recebidos"></div>' +
-          '<div class="hint" id="trh' + i + '" style="margin:0">' + trocaCotacaoTxt(x.de, v, rec) + '</div></div>';
+          // S418 (esboço 126b): a sugestão em linhas — Entreguei / Recebi com o campo à direita e a cotação embaixo
+          '<div class="cxLb cx418L">' + (x.tipo === 'repor' ? 'Reposição (necessário)' : 'Colchão (' + (dv && dv.barato ? 'aproveitar o momento' : 'quando o dólar estiver barato') + ')') + '</div>' +
+          '<label class="cxL cc418"><span>Entreguei<small>' + (x.de === 'pyg' ? 'em guaranis' : 'em reais') + '</small></span><input class="in" id="trv' + i + '" inputmode="' + (x.de === 'pyg' ? 'numeric' : 'decimal') + '" data-in="trv" data-id="' + i + '" value="' + esc(v) + '" aria-label="Valor entregue em ' + sim + '"></label>' +
+          '<label class="cxL cc418" style="border-bottom:0"><span>Recebi<small>em dólares</small></span><input class="in" id="trr' + i + '" inputmode="decimal" data-in="trr" data-id="' + i + '" value="' + esc(rec) + '" aria-label="Dólares recebidos"></label>' +
+          '<div class="hint" id="trh' + i + '" style="margin:0">' + trocaCotacaoTxt(x.de, v, rec) + '</div>';
       });
     } else {
       h += '<div class="hint" style="margin:0">Nada para trocar agora com o dinheiro em caixa.</div>';
