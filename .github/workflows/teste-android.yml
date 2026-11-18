@@ -44,14 +44,7 @@ jobs:
           profile: pixel_6
           disable-animations: false
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -change-locale ${{ inputs.idioma }}
-          script: |
-            for i in 1 2 3 4 5 6 7 8 9 10; do sleep 10; adb shell pm list packages >/dev/null 2>&1 && adb install -r android/app/build/outputs/apk/debug/app-debug.apk && break; done
-            adb shell cmd uimode night no
-            adb shell monkey -p com.lafouch.app -c android.intent.category.LAUNCHER 1 && sleep 15
-            python3 tools/teste-android/fotos.py prints claro || true
-            adb shell cmd uimode night yes && sleep 3
-            adb shell am force-stop com.lafouch.app && adb shell monkey -p com.lafouch.app -c android.intent.category.LAUNCHER 1 && sleep 15
-            python3 tools/teste-android/fotos.py prints escuro || true
+          script: bash tools/teste-android/roda.sh
       - uses: actions/upload-artifact@v4
         if: always()
         with:
