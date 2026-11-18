@@ -7,6 +7,6 @@
     if(!o||(e.textContent!==o&&e.textContent!==e.getAttribute('data-lfc'))){o=e.textContent;e.setAttribute('data-lfo',o)}
     if(e.textContent!==o)e.textContent=o;if(e.scrollWidth<=e.clientWidth+1)return;
     var c=o.split('·')[0].trim().replace(/\s*›$/,'')+' ›';e.setAttribute('data-lfc',c);e.textContent=c}
-  var t=0;new MutationObserver(function(){cancelAnimationFrame(t);t=requestAnimationFrame(aj)}).observe(document.body,{childList:true,subtree:true,characterData:true});
+  var t=0;new MutationObserver(function(){if(t)return;t=requestAnimationFrame(function(){t=0;(aj)()})}).observe(document.body,{childList:true,subtree:true,characterData:true});
   addEventListener('resize',function(){requestAnimationFrame(aj)});aj();
 })();

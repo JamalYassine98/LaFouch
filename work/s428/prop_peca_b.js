@@ -9,5 +9,5 @@
     var c=m.querySelector(':scope>.lfcam');if(c&&c.__src===bar.innerHTML)return;if(!c){c=document.createElement('nav');c.className='lfcam';c.setAttribute('aria-label','Você está em');var ft=m.querySelector(':scope>.lfft');ft?m.insertBefore(c,ft):m.appendChild(c)}
     c.innerHTML=bar.innerHTML;c.__src=bar.innerHTML;
     c.querySelectorAll('button').forEach(function(b,i){b.addEventListener('click',function(e){e.preventDefault();var o=bar.querySelectorAll('button')[i];o&&o.click()})})})}
-  var t=0;new MutationObserver(function(){cancelAnimationFrame(t);t=requestAnimationFrame(poe)}).observe(document.body,{childList:true,subtree:true});poe();
+  var t=0;new MutationObserver(function(){if(t)return;t=requestAnimationFrame(function(){t=0;(poe)()})}).observe(document.body,{childList:true,subtree:true});poe();
 })();

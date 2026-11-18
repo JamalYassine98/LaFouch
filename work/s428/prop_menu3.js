@@ -10,6 +10,6 @@
     e.textContent=CURTO;e.setAttribute('data-lfc','1')}
   document.addEventListener('click',function(ev){var e=ev.target.closest&&ev.target.closest('#dacs');if(!e||!e.getAttribute('data-lfc'))return;
     setTimeout(function(){var b=document.querySelectorAll('#layer .mct>button');if(b[2])b[2].click()},700)},true);
-  var t=0;new MutationObserver(function(){cancelAnimationFrame(t);t=requestAnimationFrame(aj)}).observe(document.body,{childList:true,subtree:true,characterData:true});
+  var t=0;new MutationObserver(function(){if(t)return;t=requestAnimationFrame(function(){t=0;(aj)()})}).observe(document.body,{childList:true,subtree:true,characterData:true});
   addEventListener('resize',function(){requestAnimationFrame(aj)});aj();
 })();

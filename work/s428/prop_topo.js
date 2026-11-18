@@ -7,6 +7,6 @@
     var mg=Math.max(0,m.getBoundingClientRect().left);/* a mesma margem da esquerda vale para a direita */
     for(var k=0;k<4;k++){var r=b.getBoundingClientRect().right,lim=W-mg;if(r<=lim+1)break;var z=(parseFloat(t.style.zoom)||1)*(lim/r);t.style.zoom=Math.floor(z*1000)/1000}
     try{window.dispatchEvent(new Event('lf:topo'))}catch(_){}}
-  var t0=0;function logo(){cancelAnimationFrame(t0);t0=requestAnimationFrame(aj)}
+  var t0=0;function logo(){if(t0)return;t0=requestAnimationFrame(function(){t0=0;(aj)()})}
   addEventListener('resize',logo);new MutationObserver(logo).observe(document.body,{attributes:true,attributeFilter:['style']});logo();setTimeout(logo,900);setTimeout(logo,2600);
 })();

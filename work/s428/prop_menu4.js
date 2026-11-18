@@ -12,5 +12,5 @@
     card.classList.toggle('lflog',!!nm);if(V==='B')card.classList.toggle('lfsemav',!!nm);
     if(!nm||!/^(Olá|Hola),/.test(n.firstChild&&n.firstChild.nodeType===3?n.firstChild.nodeValue:'')){return}
     n.firstChild.nodeValue=nm;if(V==='A'&&av&&av.innerHTML.indexOf('<svg')<0)av.innerHTML=ICO;if(V==='B')card.classList.add('lfsemav')}
-  var t=0;new MutationObserver(function(){cancelAnimationFrame(t);t=requestAnimationFrame(aj)}).observe(document.body,{childList:true,subtree:true,characterData:true});aj();
+  var t=0;new MutationObserver(function(){if(t)return;t=requestAnimationFrame(function(){t=0;(aj)()})}).observe(document.body,{childList:true,subtree:true,characterData:true});aj();
 })();

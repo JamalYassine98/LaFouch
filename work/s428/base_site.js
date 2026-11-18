@@ -21,6 +21,6 @@
     el.setAttribute('data-lfw',String(W));
     if(mudou){el.style.paddingRight='4.01px';requestAnimationFrame(function(){el.style.paddingRight=''})}}
   function todas(){document.querySelectorAll('#layer .mct').forEach(cabe)}
-  var t=0;function logo(){cancelAnimationFrame(t);t=requestAnimationFrame(todas)}
+  var t=0;function logo(){if(t)return;t=requestAnimationFrame(function(){t=0;(todas)()})}
   new MutationObserver(logo).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['style']});addEventListener('resize',logo);
 })();

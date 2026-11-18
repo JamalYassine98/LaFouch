@@ -11,7 +11,7 @@
     for(var i=0;i<passos.length;i++){passos[i].forEach(function(e){if(e)e.style.display='none'});bk.style.maxWidth='62%';if(cabe(bar))return}
     cr.style.display='none';bk.style.maxWidth='100%'}
   function todas(){document.querySelectorAll('.pgbar').forEach(ajusta)}
-  var t=0;function logo(){cancelAnimationFrame(t);t=requestAnimationFrame(todas)}
+  var t=0;function logo(){if(t)return;t=requestAnimationFrame(function(){t=0;(todas)()})}
   new MutationObserver(logo).observe(document.body,{childList:true,subtree:true});
   addEventListener('resize',logo);logo();
 })();

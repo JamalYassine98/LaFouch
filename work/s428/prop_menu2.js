@@ -6,5 +6,5 @@
   function aj(){var e=document.getElementById('dacs');if(e&&e.textContent!=='Meus pedidos ›')e.textContent='Meus pedidos ›'}
   document.addEventListener('click',function(ev){var e=ev.target.closest&&ev.target.closest('#dacs');if(!e)return;
     setTimeout(function(){var b=document.querySelectorAll('#layer .mct>button');if(b[2])b[2].click()},700)},true);
-  var t=0;new MutationObserver(function(){cancelAnimationFrame(t);t=requestAnimationFrame(aj)}).observe(document.body,{childList:true,subtree:true,characterData:true});aj();
+  var t=0;new MutationObserver(function(){if(t)return;t=requestAnimationFrame(function(){t=0;(aj)()})}).observe(document.body,{childList:true,subtree:true,characterData:true});aj();
 })();
