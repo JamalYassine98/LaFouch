@@ -710,7 +710,7 @@
     if(prodOpen&&!prodNext)prodLeave(false);
     var pgm=prodNext;prodNext=false;
     l.innerHTML='<div class="scrim '+(cls||'')+'"'+(am?' data-accn="'+am[1]+'"':'')+(pgm?'':' data-close')+'>'+html+'</div>';
-    document.documentElement.classList.add('lock');var f=l.querySelector('button,input');if(f)f.focus();if(am)pgCart(0,0,'#acc',am[1])}
+    document.documentElement.classList.add('lock');var f=l.querySelector('button,input');if(f&&document.documentElement.classList.contains('kbd'))requestAnimationFrame(function(){setTimeout(function(){if(f.isConnected&&l.contains(f)&&!l.contains(document.activeElement))f.focus()},0)})/* S426: o foco no 1º botão só para quem usa teclado, depois de a tela ser desenhada (no toque o foco já acabava no fundo) */;if(am)pgCart(0,0,'#acc',am[1])}
   function closeLayer(skip){var was=prodOpen,rf=prodRef;if(typeof camStop==="function")camStop();$('layer').innerHTML='';document.documentElement.classList.remove('lock');$('bagbtn').focus&&0;if(was)prodLeave(skip===true,rf)}
   /* página do produto: saída (restaura endereço e título; o catálogo continua exatamente onde estava) */
   /* 08/11: com a vitrine aberta (html.ppop) a página de fundo — onde ficam o logo e o menu — fica sempre no topo.
@@ -1073,10 +1073,12 @@
     ['wheel','keydown'].forEach(function(ev){el.addEventListener(ev,bump,{passive:true})});
     el.addEventListener('mouseenter',down);el.addEventListener('mouseleave',up);
     el.addEventListener('scroll',function(){if(self){self=false;return}pos=el.scrollLeft;bump()},{passive:true});
+    /* S426: a largura é medida no máximo 1×/s e a faixa não anda fora da tela (antes media a cada quadro e obrigava a arrumar a tela) */
+    var half=0,hT=-1e9,vis=true;try{new IntersectionObserver(function(es){vis=es[es.length-1].isIntersecting}).observe(el)}catch(_){}
     function step(t){
       if(!el.isConnected)return;
       var dt=last?Math.min(64,t-last):16;last=t;
-      if(!touching&&Date.now()>hold&&!document.hidden){var half=el.scrollWidth/2;pos+=dt*0.024;if(half>0&&pos>=half)pos-=half;self=true;el.scrollLeft=pos}
+      if(vis&&!touching&&Date.now()>hold&&!document.hidden){if(t-hT>1000){half=el.scrollWidth/2;hT=t}pos+=dt*0.024;if(half>0&&pos>=half)pos-=half;self=true;el.scrollLeft=pos}
       requestAnimationFrame(step)}
     requestAnimationFrame(step)}
   var CARTI='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 3h2.6l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L20.5 7H6"/><circle cx="9.5" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>';
@@ -3735,7 +3737,7 @@ function Mochi(host,x,y){const el=document.createElement('div');el.className='mo
  function armSet(lado,ang,L,fE,bd){bd=Math.round((bd||0)*2)/2;const c=lado<0?'e':'d',B=N['aB'+c],F=N['aF'+c],T=armT(lado,ang),p=ARMP(L,bd);let op=cl((1.02-dentro(lado,ang,L))/.14,0,1);if(fE!=null)op=Math.max(op,fE);
   if(B._p!==p){SA(B.firstChild,'d',p);SA(B.lastChild,'d',ARMH(L,bd));const t=F.firstChild;SA(t.children[0],'d',p);SA(t.children[1],'d',p);SA(t.children[2],'d',ARMHF(L,bd));SA(N['mk'+c].firstChild,'d',p);B._p=p}
   SA(B,'transform',T);ST(B,'display',op<1?'':'none');SA(F.firstChild,'transform',T);SA(N['mk'+c],'transform',T);ST(F,'display',op>0?'':'none');SA(F,'opacity',op.toFixed(3));filSet(lado,ang,L,op<.5,bd)}
-function filSet(lado,ang,L,vis,bd){bd=bd||0;const G=lado<0?(N._fE||(N._fE=q('.filE'))):(N._fD||(N._fD=q('.filD'))),body=N._cF||(N._cF=q('.corpoF'));if(!G||!body)return;if(!vis){if(G._k!==''){G.innerHTML='';G._k=''}return}const key=ang.toFixed(1)+'|'+L.toFixed(1)+'|'+bd;if(G._k===key)return;G._k=key;
+function filSet(lado,ang,L,vis,bd){bd=Math.round((bd||0)/2)*2;/* S426: dobra em passos de 2° no contorno (mede o caminho uma vez por forma) */const G=lado<0?(N._fE||(N._fE=q('.filE'))):(N._fD||(N._fD=q('.filD'))),body=N._cF||(N._cF=q('.corpoF'));if(!G||!body)return;if(!vis){if(G._k!==''){G.innerHTML='';G._k=''}return}const key=ang.toFixed(1)+'|'+L.toFixed(1)+'|'+bd;if(G._k===key)return;G._k=key;
  const RC=filSet.rc||(filSet.rc=new Map()),kk=lado+'|'+key;if(RC.has(kk)){G.innerHTML=RC.get(kk);return}
  const NS='http://www.w3.org/2000/svg';let A=filSet.a;if(!A){const sv=document.createElementNS(NS,'svg');SA(sv,'style','position:fixed;left:-20px;top:0;width:0;height:0;overflow:hidden');A=document.createElementNS(NS,'path');sv.appendChild(A);document.body.appendChild(sv);filSet.a=A}
  SA(A,'d',ARMP(L,bd).replace('M0 -10','M-8 -10 L0 -10').replace(/ Z$/,' L-8 10 Z'));const sx=lado<0?22:98,rt=(lado<0?180-ang:ang)*Math.PI/180,c=Math.cos(rt),s=Math.sin(rt),f=lado<0?-1:1;
@@ -4322,9 +4324,10 @@ function filSet(lado,ang,L,vis,bd){bd=bd||0;const G=lado<0?(N._fE||(N._fE=q('.fi
     function liga(st){if(!Z.el){st.getTracks().forEach(function(t){t.stop()});return}if(Z.st&&Z.st!==st)cam();Z.st=st;Z.lum=null;Z.hd=[];hist10=[];Z.bx=null;var v=Z.v=document.createElement('video');v.muted=true;v.playsInline=true;v.setAttribute('playsinline','');v.srcObject=st;var p=v.play();if(p&&p.catch)p.catch(function(){});
       /* S98: distância pela íris (MediaPipe, roda no aparelho); enquanto não carrega, ou se falhar, usa a distância entre os olhos como antes */
       var vai=function(){if(Z.lacoOn||!Z.el||!Z.st)return;Z.lacoOn=1;laco()};Z.lacoOn=0;
-      if(CAMT&&!window.__lfFakeMp&&window.Worker&&window.createImageBitmap)wkLiga().then(vai,function(){mpLoad().then(function(lm){Z.mp=lm;vai()},function(){})});
-      else (window.__lfFakeMp?Promise.resolve(window.__lfFakeMp):mpLoad()).then(function(lm){Z.mp=lm;vai()},function(){});
-      (window.__lfFakeFa?Promise.resolve(window.__lfFakeFa):faLoad()).then(function(fa){Z.fa=fa;vai()},function(){if(!Z.mp)chip(chipDist())})}
+      var faVai=function(){if(Z.faP)return;Z.faP=1;(window.__lfFakeFa?Promise.resolve(window.__lfFakeFa):faLoad()).then(function(fa){Z.fa=fa;vai()},function(){if(!Z.mp)chip(chipDist())})};
+      /* S426: com o trabalhador ao lado o leitor antigo (face-api, ~1 s travando a tela ao carregar) só vem se o trabalhador falhar ou demorar mais de 8 s */
+      if(CAMT&&!window.__lfFakeMp&&window.Worker&&window.createImageBitmap){wkLiga().then(vai,function(){faVai();mpLoad().then(function(lm){Z.mp=lm;vai()},function(){})});setTimeout(function(){if(Z.el&&Z.st&&!(Z.wk&&Z.wk.ok)&&!Z.mp)faVai()},8000)}
+      else{(window.__lfFakeMp?Promise.resolve(window.__lfFakeMp):mpLoad()).then(function(lm){Z.mp=lm;vai()},function(){});faVai()}}
     function medir(){if(Z.semCam){chip(chipDist());return}if(Z.st)return;abreCam().then(liga,function(){if(!Z.el)return;Z.semCam=1;chip(chipDist())})}
     var hist=[],med=function(a){var s=a.slice().sort(function(x,y){return x-y});return s[Math.floor(s.length/2)]};
     var hist10=[];
@@ -4339,13 +4342,14 @@ function filSet(lado,ang,L,vis,bd){bd=bd||0;const G=lado<0?(N._fE||(N._fE=q('.fi
     var CAMT=true;try{if(/[?&]camt=0/.test(location.search))sessionStorage.setItem('lf_camt','0');else if(/[?&]camt=1/.test(location.search))sessionStorage.removeItem('lf_camt');CAMT=sessionStorage.getItem('lf_camt')!=='0'}catch(_){}window.__lfCamt=CAMT;
     /* S385 (teste): prepara o leitor na abertura — só se o arquivo já está guardado no aparelho ou a rede é Wi-Fi/cabo */
     function wkCedo(){if(window.__lfFakeMp||!window.Worker||!window.createImageBitmap||(Z.wk&&Z.wk.ok)||wkLiga.p)return;var vai=function(){window.__lfCedo=1;wkLiga().catch(function(){})},c=navigator.connection;
-      if(c&&!c.saveData&&(c.type==='wifi'||c.type==='ethernet')){vai();return}
+      /* S426 (travadas aprovadas 18/11): prepara já na abertura, enquanto ela fala — só não prepara com economia de dados ligada */
+      if(!c||!c.saveData){vai();return}
       try{fetch(new URL(FAB+'mp/face_landmarker.task',document.baseURI).href,{cache:'only-if-cached',mode:'same-origin'}).then(function(r){if(r&&r.ok)vai()},function(){})}catch(_){}}
     function wkLiga(){if(wkLiga.p)return wkLiga.p;var p=wkLiga0();wkLiga.p=p;var fim=function(){if(wkLiga.p===p)wkLiga.p=null};p.then(fim,fim);return p}
     function wkLiga0(){return new Promise(function(ok,no){if(Z.wk&&Z.wk.ok){ok();return}try{var base=new URL(FAB+'mp/',document.baseURI).href,w=new Worker(base+'mp-trab.js'),t=setTimeout(function(){try{w.terminate()}catch(_){}no(new Error('tempo'))},25000);
       w.onmessage=function(e){var d=e.data;if(d.t==='ok'){clearTimeout(t);Z.wk={w:w,ok:true,del:d.del,id:0,luz:!!d.luz};MP.del=d.del;w.onmessage=function(e2){var c=Z.wk&&Z.wk.cb;if(e2.data.t==='luz'){if(Z.wk&&Z.wk.w===w&&Z.el&&Z.st&&e2.data.lu!=null){var lu=window.__lfFakeLum!=null?window.__lfFakeLum:e2.data.lu;window.__lfLuT=e2.data.lu;Z.lum=Z.lum==null?lu:Z.lum*.6+lu*.4;if(Z.fase==='teste'&&!Z.luzP){Z.lzT++;if(escuro())Z.lzE++}}return}if(e2.data.t==='r'&&c)c(e2.data)};ok()}else if(d.t==='erro'){clearTimeout(t);try{w.terminate()}catch(_){}no(new Error(d.m))}};
       w.onerror=function(){clearTimeout(t);try{w.terminate()}catch(_){}no(new Error('trab'))};w.postMessage({t:'ini',base:base})}catch(e){no(e)}})}
-    function wkFalha(){if(Z.wk){try{clearTimeout(Z.wk.to);Z.wk.w.terminate()}catch(_){}Z.wk=null}window.__lfWkFalhou=1;if(!Z.mp)mpLoad().then(function(lm){Z.mp=lm},function(){})}
+    function wkFalha(){if(Z.wk){try{clearTimeout(Z.wk.to);Z.wk.w.terminate()}catch(_){}Z.wk=null}window.__lfWkFalhou=1;if(!Z.mp)mpLoad().then(function(lm){Z.mp=lm},function(){});if(!Z.fa&&!Z.faP){Z.faP=1;faLoad().then(function(fa){Z.fa=fa},function(){})}}
     function laco(){if(!Z.el||!Z.st)return;var v=Z.v,fa=Z.fa,wkOk=!!(Z.wk&&Z.wk.ok);if(!v.videoWidth||(!Z.mp&&!fa&&!wkOk)){Z.tm=setTimeout(laco,250);return}
       /* S383: a cópia da imagem para medir a claridade é feita a cada 4 medições quando o leitor de rosto novo está em uso (ele não precisa dela); o leitor antigo usa essa cópia sempre */
       Z.lzN=(Z.lzN||0)+1;var W=320,H=Math.round(W*v.videoHeight/v.videoWidth),cv=Z.cv||(Z.cv=document.createElement('canvas')),wkLuz=wkOk&&!!Z.wk.luz,fazLuz=!(Z.mp||wkOk)||(Z.lzN%4===1&&!wkLuz);if(fazLuz){cv.width=W;cv.height=H;var cx=cv.getContext('2d',{willReadFrequently:true});cx.drawImage(v,0,0,W,H)}
@@ -4587,6 +4591,8 @@ function filSet(lado,ang,L,vis,bd){bd=bd||0;const G=lado<0?(N._fE||(N._fE=q('.fi
   var LFQ_DB=null;function lfqDb(){if(LFQ_DB)return LFQ_DB;LFQ_DB=new Promise(function(ok){try{var r=indexedDB.open('lf_lfq',1);r.onupgradeneeded=function(){r.result.createObjectStore('q')};r.onsuccess=function(){ok(r.result)};r.onerror=function(){ok(null)}}catch(_){ok(null)}});return LFQ_DB}
   function lfqDbGet(k){return lfqDb().then(function(db){if(!db)return null;return new Promise(function(ok){try{var q=db.transaction('q').objectStore('q').get(k);q.onsuccess=function(){ok(q.result||null)};q.onerror=function(){ok(null)}}catch(_){ok(null)}})})}
   function lfqDbPut(k,b){lfqDb().then(function(db){if(!db||!b)return;try{db.transaction('q','readwrite').objectStore('q').put(b,k)}catch(_){}})}
+  /* S426 (travadas aprovadas 18/11): fila do enquadramento das fotos — uma por vez, cedendo a tela entre elas */
+  var LFQ_F=[],LFQ_R=0;function lfqFila(fn){LFQ_F.push(fn);if(LFQ_R)return;LFQ_R=1;var anda=function(){var t0=performance.now();while(LFQ_F.length&&performance.now()-t0<8){try{LFQ_F.shift()()}catch(_){}}if(LFQ_F.length)setTimeout(function(){requestAnimationFrame(anda)},0);else LFQ_R=0};requestAnimationFrame(anda)}
   function lfqFaz(im,src0){var cf=lfqCfg(im),src=src0||im.getAttribute('src')||'';im._lfqWant=src;if(!cf||!src||/^blob:/.test(src)){im.classList.remove('lfq0');return}
     var bw=im.clientWidth,bh=im.clientHeight;if(!(bw>4&&bh>4)){/* ainda invisível: enquadra quando aparecer */if(LFQ_RO){if(!im._lfqRo){im._lfqRo=1;LFQ_RO.observe(im)}}else im.classList.remove('lfq0');return}
     if(im._lfqRo&&LFQ_RO){im._lfqRo=0;LFQ_RO.unobserve(im)}
@@ -4599,13 +4605,13 @@ function filSet(lado,ang,L,vis,bd){bd=bd||0;const G=lado<0?(N._fE||(N._fE=q('.fi
     var I=new Image(),acaba=function(u,bl){var L=LFQ_PEND[key]||[];delete LFQ_PEND[key];LFQ_C[key]=u;if(bl)lfqDbPut(dk,bl);L.forEach(function(f){f(u)})};
     lfqDbGet(dk).then(function(bl){if(bl){acaba(URL.createObjectURL(bl));return}faz()});
     var faz=function(){
-    I.onload=function(){try{
+    I.onload=function(){lfqFila(function(){try{
         var b=lfqMede(I);if(!b)throw 0;var asp=nat?I.naturalWidth/I.naturalHeight:bw/bh,CW=Math.min(1000,Math.max(400,Math.round(bw*(window.devicePixelRatio||1)*1.15))),CH=Math.round(CW/asp);
         var fw=b.w*I.naturalWidth,fh=b.h*I.naturalHeight,sc=Math.min(CW*cf[1]/fw,CH*cf[2]/fh),c=document.createElement('canvas');c.width=CW;c.height=CH;var g=c.getContext('2d');
         g.fillStyle=b.bg;g.fillRect(0,0,CW,CH);g.imageSmoothingQuality='high';var dw=I.naturalWidth*sc,dh=I.naturalHeight*sc;
         g.drawImage(I,CW/2-(b.x+b.w/2)*dw,CH*cf[3]-(b.y+b.h/2)*dh,dw,dh);
         c.toBlob(function(bl){acaba(bl?URL.createObjectURL(bl):src,bl)},'image/jpeg',.9)
-      }catch(_){acaba(src)}};
+      }catch(_){acaba(src)}})};
     I.onerror=function(){acaba(src)};I.src=src}}
   function lfqVe(im,old){if(!im||im.tagName!=='IMG'||!im.matches(LFQ_SEL))return;var s0=im.getAttribute('src')||'';
     if(im._lfqMeu){im._lfqMeu=0;return}if(im._lfqRev){im._lfqRev=0;return}
@@ -4666,7 +4672,9 @@ function filSet(lado,ang,L,vis,bd){bd=bd||0;const G=lado<0?(N._fE||(N._fE=q('.fi
   (function(){if(!/[?&]medir=1/.test(location.search))return;
     var d=document.createElement('div');d.id='lfmed';d.setAttribute('aria-hidden','true');d.style.cssText='position:fixed;left:8px;top:8px;z-index:2147483600;max-width:calc(100% - 16px);background:rgba(17,13,20,.92);color:#fff;font:600 10.5px/1.4 ui-monospace,Menlo,monospace;overflow-wrap:anywhere;padding:8px 10px;border-radius:10px;pointer-events:none;white-space:pre-line';
     var ini=function(){document.body.appendChild(d)};if(document.body)ini();else document.addEventListener('DOMContentLoaded',ini);
-    var u=performance.now(),n=0,t1=u,fps=0,pior=999,maxq=0,lt=0,ltms=0,rolT=0,rn=0,rms=0,rmax=0,abre=Math.round(u);
+    var u=performance.now(),n=0,t1=u,fps=0,pior=999,maxq=0,lt=0,ltms=0,rolT=0,rn=0,rms=0,rmax=0,abre=Math.round(u),pula=0;
+    /* S426: o 1º quadro depois de voltar (outro app, login do Google) mede o tempo em que o site ficou fora — não é travada */
+    document.addEventListener('visibilitychange',function(){pula=2});
     try{new PerformanceObserver(function(l){l.getEntries().forEach(function(e){lt++;ltms+=e.duration})}).observe({entryTypes:['longtask']})}catch(_){}
     /* S382: quem travou — o navegador registra cada quadro longo com os trechos de programa que rodaram nele (nome da função, de onde foi chamada e quanto durou) */
     var QT={},qn=0;try{new PerformanceObserver(function(l){l.getEntries().forEach(function(e){qn++;(e.scripts||[]).forEach(function(sc){if(sc.duration<8)return;var arq=String(sc.sourceURL||'').split('/').pop().split('?')[0]||'página',k=(sc.sourceFunctionName||'(sem nome)')+' ← '+String(sc.invoker||sc.invokerType||'').replace(/^.*\//,'').slice(0,34)+' ['+arq.slice(0,18)+']';var o=QT[k]||(QT[k]={n:0,t:0,m:0});o.n++;o.t+=sc.duration;if(sc.duration>o.m)o.m=sc.duration;if(sc.forcedStyleAndLayoutDuration>8){var k2='  arrumar a tela dentro de '+(sc.sourceFunctionName||'(sem nome)'),o2=QT[k2]||(QT[k2]={n:0,t:0,m:0});o2.n++;o2.t+=sc.forcedStyleAndLayoutDuration}})})}).observe({type:'long-animation-frame',buffered:true})}catch(_){QT=null}
@@ -4681,7 +4689,7 @@ function filSet(lado,ang,L,vis,bd){bd=bd||0;const G=lado<0?(N._fE||(N._fE=q('.fi
     function gvFecha(){var v=GV;GV=null;var L=Object.keys(gvQuem).map(function(k){return [k,gvQuem[k]]}).sort(function(a,b){return b[1]-a[1]}).slice(0,2);
       var d0=new Date();GVL.push({h:('0'+d0.getHours()).slice(-2)+':'+('0'+d0.getMinutes()).slice(-2),q:v.q,p:Math.round(v.pior),a:v.anim,f:Math.round(v.fora/1000),w:L.map(function(x){return Math.round(x[1])+' ms '+x[0]}).join(' · ')});GVL=GVL.slice(-8);try{localStorage.setItem('lf_grav',JSON.stringify(GVL))}catch(_){}}
     addEventListener('scroll',function(){rolT=performance.now()},{passive:true,capture:true});
-    (function f(t){var dt=t-u;u=t;n++;if(GV){if(!GV.anim)try{GV.anim=document.getAnimations().length}catch(_){}if(!GV.um)GV.um=1;else if(dt>50){GV.q++;if(dt>GV.pior)GV.pior=dt}if(t-GV.t0>6000)gvFecha()}if(dt>maxq&&t-abre>1500)maxq=dt;if(t-rolT<250){rn++;rms+=dt;if(dt>rmax)rmax=dt}
+    (function f(t){var dt=t-u;u=t;if(pula){pula--;dt=16;t1=t;n=0}n++;if(GV){if(!GV.anim)try{GV.anim=document.getAnimations().length}catch(_){}if(!GV.um)GV.um=1;else if(dt>50){GV.q++;if(dt>GV.pior)GV.pior=dt}if(t-GV.t0>6000)gvFecha()}if(dt>maxq&&t-abre>1500)maxq=dt;if(t-rolT<250){rn++;rms+=dt;if(dt>rmax)rmax=dt}
       if(t-t1>=1000){fps=Math.round(n*1000/(t-t1));if(t-abre>3000&&fps<pior)pior=fps;n=0;t1=t;
         d.textContent='Medidor La Fouch\n'+fps+' quadros/s agora · pior segundo '+(pior===999?'—':pior)+'\nquadro mais demorado '+Math.round(maxq)+' ms\ntravadas do processador '+lt+' ('+Math.round(ltms)+' ms)\nrolando: '+(rn?Math.round(rn*1000/rms)+' quadros/s · pior '+Math.round(rmax)+' ms':'role a tela')+(window.__lfCam?'\ncâmera '+window.__lfCam.w+'×'+window.__lfCam.h+' · leitor '+(window.__lfCam.del==='GPU'?'placa de vídeo':window.__lfCam.del==='CPU'?'processador':'?')+(window.__lfCam.fora?' · AO LADO'+(window.__lfCedo?' · preparado antes':'')+(window.__lfCam.lms?' '+Math.round(window.__lfCam.lms)+' ms':''):window.__lfWkFalhou?' · ao lado falhou, voltou ao leitor antigo':'')+' · mede a cada '+(window.__lfCam.ms/1000)+' s\ndistância lida '+(window.__lfCam.d?Math.round(window.__lfCam.d)+' cm':'—'):'')+'\naparelho: '+(navigator.hardwareConcurrency||'?')+' núcleos · '+(navigator.deviceMemory||'?')+' GB · tela x'+(window.devicePixelRatio||1)+'\n'+window.__lfQuem()+'\n'+window.__lfGrav()}
       requestAnimationFrame(f)})(u);
@@ -4691,7 +4699,8 @@ function filSet(lado,ang,L,vis,bd){bd=bd||0;const G=lado<0?(N._fE||(N._fE=q('.fi
     var GR=[],GR0=Date.now(),grN=0,gp=performance.now(),rolando=0,rolT2=0;function grP(o){o.t=Math.round(performance.now());if(GR.length<6000)GR.push(o);else grN++}
     function grOnde(){var l=document.querySelector('#layer .scrim,#layer .panel'),a=l&&(l.getAttribute('data-accn')||(l.querySelector('[aria-label]')||{}).getAttribute&&l.querySelector('[aria-label]').getAttribute('aria-label')||l.className);
       if(document.getElementById('gw'))return 'Mochi'+(window.__LFGZ&&__LFGZ.Z?' · '+__LFGZ.Z.fase:'');if(a)return String(a).slice(0,40);var sp=document.querySelector('.sec.pop');if(sp)return sp.id;return location.search.indexOf('r=')>0?'catálogo':'início'}
-    (function fq(t){var dt=t-gp;gp=t;if(dt>25&&!document.hidden)grP({k:'quadro',ms:Math.round(dt),onde:grOnde(),rola:t-rolT2<300?1:0});requestAnimationFrame(fq)})(gp);
+    var gpula=0;document.addEventListener('visibilitychange',function(){gpula=2});
+    (function fq(t){var dt=t-gp;gp=t;if(gpula){gpula--;requestAnimationFrame(fq);return}if(dt>25&&!document.hidden)grP({k:'quadro',ms:Math.round(dt),onde:grOnde(),rola:t-rolT2<300?1:0});requestAnimationFrame(fq)})(gp);
     try{new PerformanceObserver(function(l){l.getEntries().forEach(function(e){grP({k:'quadro longo',ini:Math.round(e.startTime),ms:Math.round(e.duration),bloq:Math.round(e.blockingDuration||0),
       js:(e.scripts||[]).filter(function(x){return x.duration>=4}).slice(0,6).map(function(x){return {fn:x.sourceFunctionName||'(sem nome)',de:String(x.invoker||x.invokerType||'').slice(0,60),arq:String(x.sourceURL||'').split('/').pop().split('?')[0].slice(0,24),ms:Math.round(x.duration),tela:Math.round(x.forcedStyleAndLayoutDuration||0)}}),
       pintar:Math.round((e.startTime+e.duration)-(e.renderStart||e.startTime+e.duration)),estilo:Math.round(e.styleAndLayoutStart?(e.startTime+e.duration-e.styleAndLayoutStart):0)})})}).observe({type:'long-animation-frame'})}catch(_){}
@@ -5069,7 +5078,8 @@ function filSet(lado,ang,L,vis,bd){bd=bd||0;const G=lado<0?(N._fE||(N._fE=q('.fi
   })();
 })();
 /* 11/11 S176-2: altura da barra Comprar (posiciona o WhatsApp logo acima dela) */
-(function(){function u(){var b=document.querySelector('.buy');if(b&&b.offsetHeight)document.documentElement.style.setProperty('--buyh',b.offsetHeight+'px')}try{new MutationObserver(function(){setTimeout(u,60)}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});addEventListener('resize',u)}catch(_){}})();
+(function(){/* S426: a altura vem do ResizeObserver (sem obrigar o navegador a arrumar a tela fora de hora) */var ro=window.ResizeObserver?new ResizeObserver(function(es){var h=es[0]&&es[0].target.offsetHeight;if(h)document.documentElement.style.setProperty('--buyh',h+'px')}):null,ub=null;
+  function u(){var b=document.querySelector('.buy');if(!b)return;if(ro){if(b!==ub){if(ub)ro.unobserve(ub);ub=b;ro.observe(b)}return}if(b.offsetHeight)document.documentElement.style.setProperty('--buyh',b.offsetHeight+'px')}try{new MutationObserver(function(){setTimeout(u,60)}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});addEventListener('resize',u)}catch(_){}})();
 /* S170 (aprovado e implementado 11/11/2026): animação leve do tema no destaque, selo do tema nos 4 primeiros cards (no lugar da etiqueta), faixa do tema no catálogo, sem etiqueta NUEVO */
 (function(){
   var SELO={natal:'Presente ideal',anonovo:'Ano novo',maes:'Para a mamãe',pais:'Para o papai',bf:'Black Friday',halloween:'Halloween'};
