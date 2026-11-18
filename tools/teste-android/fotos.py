@@ -8,7 +8,7 @@ def cap(n): open(os.path.join(OUT,'%s-%s.png'%(TEMA,n)),'wb').write(subprocess.r
 def conecta():
   global ws
   sock=None
-  for i in range(60):
+  for i in range(20):
     pid=adb('shell','pidof','com.lafouch.app').strip().split(' ')[0]
     u=adb('shell','cat','/proc/net/unix');todos=re.findall(r'@(webview_devtools_remote_(\d+))',u)
     m=[a for a,b in todos if b==pid] or [a for a,b in sorted(todos,key=lambda x:-int(x[1]))]
@@ -58,6 +58,6 @@ for nome,passos in C:
   except Exception as e:
     log.write('%s FALHOU %s\n'%(nome,e));print(nome,'FALHOU',e,flush=True)
     try: subprocess.run(['adb','shell','am','start','-n','com.lafouch.app/.MainActivity']);time.sleep(10);conecta()
-    except Exception as e2: log.write('reconexao falhou %s\n'%e2)
+    except BaseException as e2: log.write('reconexao falhou %s — parei aqui\n'%e2);break
 info=ev("()=>({ua:navigator.userAgent,data:new Date(2026,10,17).toLocaleDateString(),lang:navigator.language,w:innerWidth,h:innerHeight,dpr:devicePixelRatio,escuro:matchMedia('(prefers-color-scheme: dark)').matches})")
 log.write('INFO %s\n'%info);print(info)
