@@ -1,6 +1,8 @@
 # S385: roda no GitHub (Android emulado). Liga no WebView do app pelo adb (CDP puro), abre cada tela e tira o print REAL do Android (screencap).
 import os,subprocess,time,sys,re,json,urllib.request
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)));from telas import C
+PT=os.environ.get('PARTE','')
+if PT: a,b=[int(x) for x in PT.split('/')];C=C[(a-1)*len(C)//b:a*len(C)//b]
 import websocket
 OUT=sys.argv[1];os.makedirs(OUT,exist_ok=True);TEMA=sys.argv[2]
 def adb(*a): return subprocess.run(['adb']+list(a),capture_output=True,text=True).stdout

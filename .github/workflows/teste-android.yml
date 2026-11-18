@@ -18,6 +18,7 @@ jobs:
       fail-fast: false
       matrix:
         tema: [claro, escuro]
+        parte: ['1/2', '2/2']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -56,7 +57,7 @@ jobs:
           profile: pixel_6
           disable-animations: false
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -change-locale ${{ inputs.idioma }}
-          script: bash tools/teste-android/roda.sh ${{ matrix.tema }}
+          script: bash tools/teste-android/roda.sh ${{ matrix.tema }} ${{ matrix.parte }}
       - name: Android emulado + prints (2a tentativa)
         if: steps.e1.outcome == 'failure'
         uses: reactivecircus/android-emulator-runner@v2
@@ -67,13 +68,13 @@ jobs:
           profile: pixel_6
           disable-animations: false
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -change-locale ${{ inputs.idioma }}
-          script: bash tools/teste-android/roda.sh ${{ matrix.tema }}
+          script: bash tools/teste-android/roda.sh ${{ matrix.tema }} ${{ matrix.parte }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: prints-android-${{ matrix.tema }}
+          name: prints-android-${{ matrix.tema }}-${{ strategy.job-index }}
           path: prints
       - name: Prints num ramo git (o download de artefato e bloqueado para a IA)
         if: always()
         run: |
-          mkdir -p prints && cd prints && git init -q -b prints-android-${{ matrix.tema }} && git add -A && git -c user.name=teste -c user.email=teste@users.noreply.github.com commit -qm "prints $(date -u +%F_%H%M)" && git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" prints-android-${{ matrix.tema }}
+          mkdir -p prints && cd prints && git init -q -b prints-android-${{ matrix.tema }}-${{ strategy.job-index }} && git add -A && git -c user.name=teste -c user.email=teste@users.noreply.github.com commit -qm "prints $(date -u +%F_%H%M)" && git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" prints-android-${{ matrix.tema }}-${{ strategy.job-index }}

@@ -8,6 +8,6 @@ for i in $(seq 1 12); do sleep 10; A shell pm list packages >/dev/null 2>&1 && A
 A shell pm grant com.lafouch.app android.permission.POST_NOTIFICATIONS
 if [ "$T" = escuro ]; then A shell cmd uimode night yes; else A shell cmd uimode night no; fi
 for i in $(seq 1 12); do A shell am start -W -n com.lafouch.app/.MainActivity && break; sleep 10; done; sleep 15
-timeout 1800 python3 tools/teste-android/fotos.py prints $T
+PARTE=$2 timeout 1800 python3 tools/teste-android/fotos.py prints $T
 A logcat -d -t 20000 > prints/$T-logcat.txt
 exit 0
