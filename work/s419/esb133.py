@@ -14,7 +14,7 @@ CB="""#v-ata section.card.ataLs{background:none!important;border:0!important;box
 #v-ata section.card.ataLs .ataL:last-child{border-bottom:0}"""
 CASOS=[('a','novo-cliente','Clientes · Novo cliente',["()=>__LF.setView('clientes')","()=>document.querySelector('[data-act=clinovo]').click()"],CA,
   'Hoje (esboço 77): título "Novo cliente" centralizado na letra de título; os campos num grupo com fundo arredondado.',
-  'Como seria no padrão do Caixa: título à esquerda na letra das janelas; "DADOS" em versalete e os campos em linhas finas, sem o fundo. Conteúdo e botões iguais.'),
+  'Proposta: título à esquerda na letra das janelas; "DADOS" em versalete e os campos em linhas finas, sem o fundo. O que aparece no campo vazio não repete o nome da linha: Nome → "Nome e sobrenome", Telefone → "0981 123 456" (o WhatsApp é este número).'),
  ('b','atacado-tabela','Atacado › Tabela',["()=>__LF.inicioGo('ata')","()=>__LF.ACT.ataAba('tab')"],CB,
   'Hoje: as 3 linhas dentro de um grupo com fundo arredondado.',
   'Como seria no padrão do Caixa: as mesmas 3 linhas finas, sem o fundo (igual ao "MAIS" do Câmbio). Valeria também para Lojistas, Lotes e Mensagens.')]
@@ -25,7 +25,9 @@ with sync_playwright() as pw:
       for prop in (0,1):
         b,pg,w=ap.abre(pw,'inicio',esc);w(400)
         for x in ps: pg.evaluate(x);w(1100)
-        if prop: pg.add_style_tag(content=css);w(400)
+        if prop:
+          pg.add_style_tag(content=css);w(400)
+          if k=='a': pg.evaluate("()=>{const n=document.getElementById('cNome'),t=document.getElementById('cTel');if(n)n.placeholder='Nome e sobrenome';if(t)t.placeholder='0981 123 456';return 1}")
         oo.append(olho(pg));fp=T+'c%s_%d_%d.png'%(k,esc,prop);pg.screenshot(path=fp);fs.append(fp);b.close()
       print(k,tema,'novos:',novos(oo[0],oo[1]))
       prancha('133%s-app-%s-%s.jpg'%(k,nome,tema),'App · %s · tema %s'%(tit,tema),[h,p],*fs)
