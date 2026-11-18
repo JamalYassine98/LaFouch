@@ -3113,3 +3113,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 18/11 15:59 — Limpeza do código velho da letra (3 tamanhos etc.) aprovada junto da S428; só implementar com 'implementar'.
 - 18/11 16:22 — DONO: NÃO tirar o botão flutuante do WhatsApp (recusou trocar por botões fixos). O 'WhatsApp tampa' continua como limite no celular pequeno; qualquer solução tem que manter o flutuante.
 - 18/11 17:43 — DONO: celulares pequenos saem do teste de letra aumentada (sem espaço de tela não dá para manter o design). Entendido como: telas de 320 e 360 px testadas só com a letra normal (lá nada pode cortar com 1×); teste de letra 1×–2× a partir de 375 px (iPhone, Xiaomi 13T, celular grande, Max, tablets).
+- 18/11 17:46 — APROVADO (não implementado): peça opção B (jeito Apple) — topo só '‹ Armações', caminho no fim da página. Base de esboço: work/s428/base_site.js + prop_peca_b.js.
