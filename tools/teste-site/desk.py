@@ -5,7 +5,7 @@ from playwright.sync_api import sync_playwright
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from casos import CASOS, init_js
 motor, OUT, tams = sys.argv[1], sys.argv[2], [tuple(map(int, t.split('x'))) for t in sys.argv[3].split(',')]
 os.makedirs(OUT, exist_ok=True)
-MED = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'medidas.js')).read()
+MED = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'medidas.js'), encoding='utf-8').read()
 BLOQ = ('firestore.googleapis.com', 'identitytoolkit', 'securetoken', 'firebaseinstallations', 'google-analytics', 'googletagmanager', 'recaptcha')
 res = []
 with sync_playwright() as pw:
@@ -30,4 +30,4 @@ with sync_playwright() as pw:
                     m = dict(caso=nome, versao=v, motor=motor, larg=W, falhou=str(e)[:200])
                 print(json.dumps(m, ensure_ascii=False), flush=True); res.append(m); c.close()
     b.close()
-json.dump(res, open(os.path.join(OUT, '%s-medidas.json' % motor), 'w'), ensure_ascii=False, indent=1)
+json.dump(res, open(os.path.join(OUT, '%s-medidas.json' % motor), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)

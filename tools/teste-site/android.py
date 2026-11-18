@@ -5,7 +5,7 @@ import os, subprocess, time, sys, re, json, urllib.request
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from casos import CASOS, init_js
 import websocket
 OUT, ROT = sys.argv[1], sys.argv[2]; os.makedirs(OUT, exist_ok=True)
-MED = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'medidas.js')).read()
+MED = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'medidas.js'), encoding='utf-8').read()
 def adb(*a): return subprocess.run(['adb'] + list(a), capture_output=True, text=True).stdout
 def cap(n): open(os.path.join(OUT, n + '.png'), 'wb').write(subprocess.run(['adb', 'exec-out', 'screencap', '-p'], capture_output=True).stdout)
 for i in range(60):

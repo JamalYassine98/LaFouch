@@ -8,8 +8,8 @@ shutil.rmtree(out, ignore_errors=True)
 ign = shutil.ignore_patterns('.git', 'p', 'modelo', 'teste-giro', 'promo.mp4', 'og')
 for nome in ('hoje', 'prop'):
     shutil.copytree(site, os.path.join(out, nome), ignore=ign)
-js = ''.join("addEventListener('DOMContentLoaded',()=>{%s});\n" % open(os.path.join(raiz, p.strip())).read() for p in props)
-f = os.path.join(out, 'prop', 'index.html'); h = open(f).read()
+js = ''.join("addEventListener('DOMContentLoaded',()=>{%s});\n" % open(os.path.join(raiz, p.strip()), encoding='utf-8').read() for p in props)
+f = os.path.join(out, 'prop', 'index.html'); h = open(f, encoding='utf-8').read()
 h = h.replace('</body>', '<script>/*ESBOCO*/\n' + js + '</script></body>', 1) if '</body>' in h else h + '<script>' + js + '</script>'
-open(f, 'w').write(h)
+open(f, 'w', encoding='utf-8').write(h)
 print('ok', props)
