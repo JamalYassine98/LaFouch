@@ -3128,3 +3128,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 18/11 19:14 — APROVADO (não implementado): cartão da conta no menu refinado (A) — nome sem 'Olá', ícone fino centralizado, rosa com conta/cinza sem conta.
 - 18/11/2026 19:48 · APROVADO 140C: padrão único das escolhas (barras deslizantes) = C suave, em todo o app (ver lista viva e docs/APP-MAPA.md).
 - 18/11/2026 19:55 · APROVADO 141: '+ Receber parte em outra moeda' no padrão do grupo dos '+' em texto.
+- 18/11 20:03 — APROVADO (não implementado): topo cresce com a letra só até caber (S428).
