@@ -5,20 +5,25 @@ import websocket
 OUT=sys.argv[1];os.makedirs(OUT,exist_ok=True);TEMA=sys.argv[2]
 def adb(*a): return subprocess.run(['adb']+list(a),capture_output=True,text=True).stdout
 def cap(n): open(os.path.join(OUT,'%s-%s.png'%(TEMA,n)),'wb').write(subprocess.run(['adb','exec-out','screencap','-p'],capture_output=True).stdout)
-sock=None
-for i in range(60):
-  m=re.findall(r'@(webview_devtools_remote_\d+)',adb('shell','cat','/proc/net/unix'))
-  if m: sock=m[0];break
-  time.sleep(2)
-assert sock,'WebView do app sem depuracao'
-adb('forward','tcp:9222','localabstract:'+sock)
-for i in range(30):
-  try:
-    ps=[p for p in json.load(urllib.request.urlopen('http://127.0.0.1:9222/json')) if p.get('type')=='page'];
-    if ps: break
-  except Exception: pass
-  time.sleep(2)
-ws=websocket.create_connection(ps[0]['webSocketDebuggerUrl'],timeout=20,suppress_origin=True);N=[0]
+def conecta():
+  global ws
+  sock=None
+  for i in range(60):
+    pid=adb('shell','pidof','com.lafouch.app').strip().split(' ')[0]
+    m=re.findall(r'@(webview_devtools_remote_%s)\b'%pid,adb('shell','cat','/proc/net/unix')) if pid else []
+    if m: sock=m[0];break
+    time.sleep(2)
+  assert sock,'WebView do app sem depuracao'
+  adb('forward','tcp:9222','localabstract:'+sock)
+  for i in range(30):
+    try:
+      ps=[p for p in json.load(urllib.request.urlopen('http://127.0.0.1:9222/json')) if p.get('type')=='page'];
+      if ps: break
+    except Exception: pass
+    time.sleep(2)
+  ws=websocket.create_connection(ps[0]['webSocketDebuggerUrl'],timeout=20,suppress_origin=True)
+  return ws
+N=[0];ws=conecta()
 def cdp(m,**p):
   N[0]+=1;ws.send(json.dumps({'id':N[0],'method':m,'params':p}))
   while True:
@@ -40,7 +45,7 @@ K=[0]
 log=open(os.path.join(OUT,'%s-log.txt'%TEMA),'w')
 for nome,passos in C:
   try:
-    ev("()=>{try{sessionStorage.setItem('lf_ni','1')}catch(e){};return 1}")
+    ev("()=>{try{localStorage.clear();sessionStorage.clear();sessionStorage.setItem('lf_ni','1')}catch(e){};return 1}")
     K[0]+=1;cdp('Page.navigate',url=base+'?r=%d#test'%K[0]);time.sleep(2)
     espera("()=>!!window.__LF");time.sleep(1.5)
     ok=[]
@@ -49,5 +54,7 @@ for nome,passos in C:
     time.sleep(.5);cap(nome);log.write('%s %s\n'%(nome,ok));log.flush();print(nome,ok,flush=True)
   except Exception as e:
     log.write('%s FALHOU %s\n'%(nome,e));print(nome,'FALHOU',e,flush=True)
+    try: subprocess.run(['adb','shell','am','start','-n','com.lafouch.app/.MainActivity']);time.sleep(10);conecta()
+    except Exception as e2: log.write('reconexao falhou %s\n'%e2)
 info=ev("()=>({ua:navigator.userAgent,data:new Date(2026,10,17).toLocaleDateString(),lang:navigator.language,w:innerWidth,h:innerHeight,dpr:devicePixelRatio,escuro:matchMedia('(prefers-color-scheme: dark)').matches})")
 log.write('INFO %s\n'%info);print(info)
