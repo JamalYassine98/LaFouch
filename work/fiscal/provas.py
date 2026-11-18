@@ -870,6 +870,56 @@ def p7_animacoes(p):
                 else: passou(P7, f'Animação · {nome} · {W}px', f'{len(Q)} quadros')
             finally: b.close()
 
+# S420 (aprovado 15/11): DETECTOR DE CÓPIAS — em nenhum quadro pode haver 2 painéis visíveis ao mesmo tempo (o fantasma do S330: conta/sacola abertas → menu → Minha conta)
+COPIAS_GRAVA = """(ms)=>new Promise(ok=>{const t0=performance.now();let mx=0,q2=0;const f=t=>{const n=[...document.querySelectorAll('#layer .panel,#layer .modal,body>.lfGhost .panel,#lfGhost .panel')].filter(e=>{const r=e.getBoundingClientRect(),c=getComputedStyle(e);return r.width>0&&r.height>0&&+c.opacity>.05&&c.visibility!=='hidden'}).length;if(n>mx)mx=n;if(n>=2)q2++;if(t-t0<ms)requestAnimationFrame(f);else ok([mx,q2])};requestAnimationFrame(f)})"""
+def p7_copias(p):
+    def pelo_menu(pg):
+        pg.evaluate("document.querySelector('#mnb').click()"); pg.wait_for_timeout(700)
+        pg.evaluate("()=>{const x=[...document.querySelectorAll('#drw a,#drw button')].filter(e=>e.offsetParent&&/Mi cuenta|Minha conta/i.test(e.innerText));(x[0]||{click(){}}).click()}")
+    CASOS = [('conta aberta → menu → Minha conta', lambda pg: (pg.click('#contabtn'), pg.wait_for_timeout(900)), pelo_menu),
+             ('sacola aberta → menu → Minha conta', lambda pg: (pg.click('#bagbtn'), pg.wait_for_timeout(900)), pelo_menu),
+             ('Minha conta tocada 3× seguidas', lambda pg: None, lambda pg: pg.evaluate("()=>{const b=document.querySelector('#contabtn');b.click();setTimeout(()=>b.click(),80);setTimeout(()=>b.click(),160)}")),
+             ('Minha conta · trocar de aba 4×', lambda pg: (pg.click('#contabtn'), pg.wait_for_timeout(900)), lambda pg: pg.evaluate("()=>{const b=document.querySelectorAll('#layer .mct>button');[1,2,3,0].forEach((i,k)=>setTimeout(()=>b[i]&&b[i].click(),k*90))}"))]
+    for W, H in ((390, 844), (1440, 900)):
+        for nome, prep, acao in CASOS:
+            b, c, pg, E = novo(p, W, H, 'es-PY', ls=LOG7, touch=W < 1000)
+            try:
+                carrega(pg); prep(pg); pg.evaluate("ms=>{window.__cp=(" + COPIAS_GRAVA + ")(ms)}", 1600); acao(pg)
+                mx, q2 = pg.evaluate("()=>window.__cp"); t = f'Sem cópias do painel · {nome} · {W}px'
+                if mx >= 2: falha(P7, t, f'{mx} painéis ao mesmo tempo em {q2} quadros', pg)
+                else: passou(P7, t, f'máximo {mx}')
+            finally: b.close()
+
+# S420 (aprovado 15/11, S330 §8): TRILHO = UM OBJETO SÓ — (a) no fim a pílula = botão escolhido (≤0,5 px); (b) depois de parar nenhum quadro descola;
+# (c) letra branca sobre a pílula com contraste ≥4,5; (d) arrastar escolhe a opção; e o trilho não é redesenhado na troca.
+TRK_GRAVA = """(sel)=>new Promise(ok=>{const T=document.querySelector(sel).__tk,Q=[];let n=0;const f=()=>{const c=T.c,b=T.el.querySelectorAll(':scope>button')[T.sel];Q.push([c.x,c.w,b.offsetLeft,b.offsetWidth]);if(++n<60)requestAnimationFrame(f);else ok(Q)};requestAnimationFrame(f)})"""
+TRK_CONTR = """(sel)=>{const T=document.querySelector(sel).__tk,c=getComputedStyle(T.t.children[T.sel]).color,b=getComputedStyle(T.p.children[1]).backgroundColor;const L=s=>{const v=s.match(/[\\d.]+/g).slice(0,3).map(x=>{x/=255;return x<=.03928?x/12.92:Math.pow((x+.055)/1.055,2.4)});return .2126*v[0]+.7152*v[1]+.0722*v[2]};const a=L(c),d=L(b);return (Math.max(a,d)+.05)/(Math.min(a,d)+.05)}"""
+def p7_trilho(p):
+    for W, H, lang, zi in ((390, 844, 'pt-BR', '0'), (390, 844, 'es-PY', '2'), (820, 1180, 'es-PY', '1'), (1440, 900, 'pt-BR', '0'), (320, 640, 'es-PY', '2')):
+        b, c, pg, E = novo(p, W, H, lang, ls=dict(LOG7, lf_zoom=zi), touch=W < 1000)
+        t = f'Trilho da Minha conta · {W}px · {lang[:2]} · letra {zi}'
+        try:
+            carrega(pg); pg.click('#contabtn'); pg.wait_for_timeout(1200)
+            if not pg.evaluate("()=>{const m=document.querySelector('#layer .mct');window.__m0=m;return !!(m&&m.__tk)}"): falha(P7, t, 'trilho único não montado', pg); continue
+            pr = []
+            for i in (1, 3, 0, 2):
+                pg.evaluate("i=>document.querySelectorAll('#layer .mct>button')[i].click()", i); Q = pg.evaluate(TRK_GRAVA, '#layer .mct')
+                x, w, bx, bw = Q[-1]
+                if abs(x - bx) > .5 or abs(w - bw) > .5: pr.append(f'(a) aba {i}: pílula fora do botão no fim')
+                pa = [k for k in range(1, len(Q)) if Q[k][:2] == Q[k - 1][:2] and abs(Q[k][0] - Q[k][2]) <= .5]
+                if pa and any(abs(q[0] - q[2]) > .5 or abs(q[1] - q[3]) > .5 for q in Q[pa[0]:]): pr.append(f'(b) aba {i}: descolou depois de parar')
+            if not pg.evaluate("()=>document.querySelector('#layer .mct')===window.__m0"): pr.append('o trilho foi redesenhado na troca')
+            cr = pg.evaluate(TRK_CONTR, '#layer .mct')
+            if cr < 4.5: pr.append(f'(c) letra sobre a pílula {cr:.2f}')
+            bx = pg.evaluate("()=>[...document.querySelectorAll('#layer .mct>button')].map(x=>{const r=x.getBoundingClientRect();return [r.left+r.width/2,r.top+r.height/2]})")
+            (x2, y2), (x0, y0) = bx[2], bx[0]; pg.mouse.move(x2, y2); pg.mouse.down()
+            for k in range(1, 13): pg.mouse.move(x2 + (x0 - x2) * k / 12, y2); pg.wait_for_timeout(16)
+            pg.mouse.up(); pg.wait_for_timeout(800)
+            if pg.evaluate("()=>document.querySelector('#layer .mct').__tk.sel") != 0: pr.append('(d) arrastar até a 1ª aba não escolheu a 1ª')
+            if pr: falha(P7, t, '; '.join(pr), pg)
+            else: passou(P7, t, f'contraste {cr:.1f}')
+        finally: b.close()
+
 # texto em cima de texto (13/11/2026): rola cada página inteira em celular/tablet/PC e nas letras normal/maior
 SOBRE = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'kit', 'sobre.js')).read()
 def p7_sobreposto(p):
@@ -921,7 +971,7 @@ with sync_playwright() as p:
      print('parte 7 · olho do dono')
      for nome, fn in (('rodapé', p7_rodape), ('teste da ajuda', p7_teste_ajuda), ('foto e mouse', p7_foto_mouse), ('tamanho e letras', p7_tamanho), ('Mochi com braços', p7_mochi_bracos),
                       ('Mi cuenta', p7_conta_spam), ('Tarjetas 1 hora', p7_tarjetas_1h), ('idioma', p7_idioma), ('endereço', p7_endereco), ('código', p7_codigo), ('ícone da conta', p7_icone_conta),
-                      ('Últimas N', p7_ultimas), ('dica', p7_dica), ('animações', p7_animacoes), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
+                      ('Últimas N', p7_ultimas), ('dica', p7_dica), ('animações', p7_animacoes), ('painel claro e escuro', p7_painel_contraste), ('regra de segurança', p7_csp), ('texto sobreposto', p7_sobreposto), ('cópias do painel', p7_copias), ('trilho único', p7_trilho), ('peça cobre', p7_produto_topo), ('varredura', p7_varredura)):
          print(' ', nome); prova(P7, nome, fn, p)
     if '5' in PARTES:
      print('parte 5 · situações difíceis')

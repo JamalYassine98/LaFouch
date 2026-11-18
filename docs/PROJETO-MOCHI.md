@@ -5,7 +5,7 @@ Tudo sobre a Mochi (mascote e teste de leitura do site lafouch.com) num lugar s�
 ## 1. O que está no ar (site 1794856943, hospedado na Cloudflare Pages)
 - Teste no celular (30 cm) e no computador (60 cm, resultado como estimativa).
 - Voz: 22 falas novas ligadas (pt 195 / es 181 no lista.json). Teto de créditos ElevenLabs dado pelo dono: 6.000 (2.137 gastos em 17/11). Nunca gravar sem ele autorizar o valor. Chave nunca no projeto.
-- Fluidez de movimento (S370): salto pela distância, flutuar, olhar que antecipa, boca pelo volume da voz. Não feito: mão chegando depois do braço.
+- Fluidez de movimento (S370): salto pela distância, flutuar, olhar que antecipa, boca pelo volume da voz. Mão chegando depois do braço: feito no S420 (18/11, site 1795009087).
 - Distância certa (S381): usa o lado maior da imagem da câmera. Conferido pelo dono (21–25 cm, câmera 720×1280).
 - Resultado (S381): o quadro de leitura manda; faixa provável = grau ± 0,25. Ponto próximo que não combina é descartado.
 - Medição a cada 0,35 s (o dono quer FREQUENTE; não espaçar).
@@ -70,3 +70,5 @@ Tudo sobre a Mochi (mascote e teste de leitura do site lafouch.com) num lugar s�
 - 17/11 20:30 — Página 'Falas da Mochi' (artefato privado do dono, https://claude.ai/artifact/LSAuZQC8ukuR8yQqYR1DnH; fonte work/s410/falas/index.html): todas as falas gravadas com áudio, PT e ES, busca, 'Ouvir todas' por seção; seções Novas (7, entram com o 107), Em uso (PT 189, ES 181), Gravadas sem uso (PT 6, de versões antigas). Graus agrupados num item que abre.
 
 - Antes de gravar, procurar se a fala já existe gravada (17/11: gastei ~350 créditos tentando um "Muito bem!" que já existia como "Muito bem.").
+
+- 18/11 S420 — PUBLICADOS (site 1795009087): 104, 107 (com a voz das 4 falas PT/ES), 108, 109, 110 e a troca do 'Leu!' pelas comemorações do rodízio. Testado no simulador (390/768/1440, pt/es, toques repetidos, botão escondido, fechar no meio e abrir de novo). NÃO testado no celular real: tempo da dobra do braço no Xiaomi (medir com ?medir=1).
