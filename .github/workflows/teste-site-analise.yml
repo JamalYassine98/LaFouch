@@ -48,6 +48,7 @@ jobs:
         env:
           LF_TELAS: ${{ inputs.telas }}
           LF_APARELHOS: ${{ inputs.aparelhos }}
+          LF_FOTOS: ${{ inputs.aparelhos != '' && '1' || '0' }}
           LF_PORTAS: ${{ inputs.props != '' && 'hoje:8000,prop:8001' || 'hoje:8000' }}
         run: python3 tools/teste-site/analise.py site an ${{ matrix.parte[0] }} ${{ matrix.parte[1] }}
       - uses: actions/upload-artifact@v4

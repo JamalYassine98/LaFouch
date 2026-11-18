@@ -66,6 +66,7 @@ with sync_playwright() as pw:
                 for s in (ESC[1:] if W < 1100 else []):
                     pg.evaluate("(z)=>{document.body.style.zoom=z;document.body.style.setProperty('--z',z);dispatchEvent(new Event('resize'))}", round(z0 * s, 3)); pg.wait_for_timeout(450)
                     cur, ex = olha(pg)
+                    if os.environ.get('LF_FOTOS') == '1': pg.screenshot(path=OUT + '/img/%s_%s_%d_%s_%.1f_passo.jpg' % (versao, tela, W, H, s), type='jpeg', quality=62)
                     novo = {k: [v['n'], v.get('ex', [])[:3]] for k, v in cur.items() if k in QUEBRA and v['n'] > (base[k]['n'] if k in base else 0)}
                     fora = [x for x in ex['fora'] if x not in ex0['fora']]
                     if novo or fora or ex['linha']:
