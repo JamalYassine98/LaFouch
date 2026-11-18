@@ -3130,3 +3130,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 18/11/2026 19:55 · APROVADO 141: '+ Receber parte em outra moeda' no padrão do grupo dos '+' em texto.
 - 18/11 20:03 — APROVADO (não implementado): topo cresce com a letra só até caber (S428).
 - 18/11 20:57 — DONO: 1,7× basta. Teto do teste de letra = 1,7× (não vai mais até 2,0×); meta: toda tela aguenta 1,7× sem quebrar (celular a partir de 375 px e tablet).
+- 18/11 20:59 — DONO (regra da letra): META 1,7×; se para chegar a 1,7× o design de luxo quebrar, aceitar 1,5× naquela tela (e dizer no envio).
