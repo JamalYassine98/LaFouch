@@ -1,5 +1,7 @@
 # Regras do projeto LaFouch
 
+- APP: ler PRIMEIRO docs/APP-MAPA.md (estudo do app + todos os aprovados esperando, num lugar só; pedido do dono 18/11 19:37) e docs/APP-BOTOES.md (o que cada botão faz). Atualizar o mapa a cada aprovação/implementação, no mesmo commit.
+
 - Antes de qualquer trabalho, leia docs/MEMORIA-PROJETO.md (decisões do dono e pendências) e atualize-o a cada decisão nova.
 - App: antes de criar tela/botão/módulo, leia docs/APP-COMO-FUNCIONA.md e atualize-o no mesmo commit (pedido do dono, 12/11/2026).
 - SITE REAL E BASE APROVADA (18/11/2026, ordem do dono — vale para TODO esboço, medida ou análise do site):
