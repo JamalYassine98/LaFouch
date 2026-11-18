@@ -574,3 +574,4 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - 18/11 09:30 — ESBOÇO 132 (item 5 da lista S384: Guardião) enviado, ESPERANDO (work/s419/esb132.py; 132a/132b, claro e escuro): grupos em versalete com linhas finas sem caixa; certo = ✓ verde à direita; pendente = número/! + "Ver ›"/"Conferir ›" em texto rosa; "Silenciar 7 dias" em texto cinza na linha de baixo (toque 44 px), sem sublinhado. Olho: nada novo. NÃO testado no celular real.
 
 - 18/11 09:22 · REGRA NOVA do dono: esboços do site só com o site real (peças da nuvem, via GitHub Actions) e com todos os aprovados na base. 121, 130 e 131 foram feitos com a lista reserva do código → refazer antes de qualquer decisão (121 continua aprovado, mas a posição do "Últimas" precisa ser conferida no cartão real).
+- 18/11 09:22 — DONO: "Aprovado" → **ESBOÇO 132 APROVADO** (Guardião; só guardado, esperando "implementar").
