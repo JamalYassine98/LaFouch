@@ -53,6 +53,7 @@ Obs.: 132 na base é só visual (ao implementar, ligar as ações de verdade).
 ## 4. ESPERANDO decisão do dono (app)
 - 138 (com a cara 140C): c Reservas 30/60/90 vira escolha · d Novo acesso vira escolha · e Usar G$/Informar · f Me lembra · l moeda do Dashboard. (138m/138o resolvidos pelo 140C.) "+ Receber parte em outra moeda" fica como hoje.
 - 137a sino/Ações do caixa redondos · 137b ficha Voltar/Editar redondos + toque 44 no "Ficha 4/6" · 137g Vitrine · 137h Conferir o caixa sem Fechar · 137i Novo objetivo "Salvar" · 137j "+ Criar lote".
+- 141: "+ Receber parte em outra moeda" igual ao grupo dos "+" em texto (branco, sem sublinhado, à esquerda).
 - Sugestões: "+" dentro do conteúdo (hoje texto; o dono rejeitou rosa centralizado no 137k) · "Salvar" só quando só salva dados, senão o verbo da ação.
 - Sobras da lista S384 (Catálogo, Marketing, Preços Contador) e varredura tablet/PC/letra grande.
 
