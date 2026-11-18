@@ -12,7 +12,7 @@ Manter ATUALIZADO a cada aprovação, mudança ou implementação (no mesmo comm
 ## 2. Padrões do app (resumo para decidir rápido)
 | Coisa | Padrão |
 |---|---|
-| Adicionar | "+" redondo ao lado do título (P1). Dentro do conteúdo: em discussão (ver 4). |
+| Adicionar | "+" redondo ao lado do título (P1). Dentro do conteúdo: "+ …" em texto branco, sem sublinhado, à esquerda (141). |
 | Criar/editar | janela de baixo, um "Salvar", sem × nem Fechar; "Sair sem salvar?" só se mudou (formulários). |
 | Confirmação | janela própria: botão vermelho + "Voltar" escrito embaixo. |
 | Campos | linha fina, nome à esquerda, valor à direita (P3). |
@@ -48,12 +48,12 @@ Manter ATUALIZADO a cada aprovação, mudança ou implementação (no mesmo comm
 | 136c | Inventário | "EM ESTOQUE (FILTRO) ⌄" | work/s425 |
 | 136d | Despesas › Nova despesa | janela de baixo, campos em linha, um Salvar | work/s425 |
 | 140C | todas as escolhas | padrão C suave (Pagamento, Marketing, Paraguaio/Estrangeiro, impressora, Retirada, Registrar troca, Livre para você) | work/s429 |
+| 141 | Pagamento | "+ Receber parte em outra moeda" branco, sem sublinhado, à esquerda (grupo dos "+" em texto) | work/s429 |
 Obs.: 132 na base é só visual (ao implementar, ligar as ações de verdade).
 
 ## 4. ESPERANDO decisão do dono (app)
 - 138 (com a cara 140C): c Reservas 30/60/90 vira escolha · d Novo acesso vira escolha · e Usar G$/Informar · f Me lembra · l moeda do Dashboard. (138m/138o resolvidos pelo 140C.) "+ Receber parte em outra moeda" fica como hoje.
 - 137a sino/Ações do caixa redondos · 137b ficha Voltar/Editar redondos + toque 44 no "Ficha 4/6" · 137g Vitrine · 137h Conferir o caixa sem Fechar · 137i Novo objetivo "Salvar" · 137j "+ Criar lote".
-- 141: "+ Receber parte em outra moeda" igual ao grupo dos "+" em texto (branco, sem sublinhado, à esquerda).
 - Sugestões: "+" dentro do conteúdo (hoje texto; o dono rejeitou rosa centralizado no 137k) · "Salvar" só quando só salva dados, senão o verbo da ação.
 - Sobras da lista S384 (Catálogo, Marketing, Preços Contador) e varredura tablet/PC/letra grande.
 
