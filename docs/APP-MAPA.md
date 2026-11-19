@@ -49,6 +49,7 @@ Manter ATUALIZADO a cada aprovação, mudança ou implementação (no mesmo comm
 | 136d | Despesas › Nova despesa | janela de baixo, campos em linha, um Salvar | work/s425 |
 | 140C | todas as escolhas | padrão C suave (Pagamento, Marketing, Paraguaio/Estrangeiro, impressora, Retirada, Registrar troca, Livre para você) | work/s429 |
 | 141 | Pagamento | "+ Receber parte em outra moeda" branco, sem sublinhado, à esquerda (grupo dos "+" em texto) | work/s429 |
+| 142st | Carrinho e Pagamento | título próprio + "‹ voltar"; sem cartão; campos em linha; aviso em frase; "+ Adicionar outra peça" centralizado sem sublinhado (142e/h/i/s/t) | work/s431 |
 Obs.: 132 na base é só visual (ao implementar, ligar as ações de verdade).
 
 ## 4. ESPERANDO decisão do dono (app)
@@ -56,6 +57,9 @@ Obs.: 132 na base é só visual (ao implementar, ligar as ações de verdade).
 - 137a sino/Ações do caixa redondos · 137b ficha Voltar/Editar redondos + toque 44 no "Ficha 4/6" · 137g Vitrine · 137h Conferir o caixa sem Fechar · 137i Novo objetivo "Salvar" · 137j "+ Criar lote".
 - Sugestões: "+" dentro do conteúdo (hoje texto; o dono rejeitou rosa centralizado no 137k) · "Salvar" só quando só salva dados, senão o verbo da ação.
 - Sobras da lista S384 (Catálogo, Marketing, Preços Contador) e varredura tablet/PC/letra grande.
+
+## 4b. Esperando (18/11 21:20)
+- 142a–d, f, g, j–r (correções da revisão das 48 telas, work/s431) e 138d (com a tabela embaixo de "O que vê"; 142r refeito por cima dele se aprovado).
 
 ## 5. Mudanças que o dono quer fazer em aprovados (18/11 19:37)
 (espaço para os pontos que ele vai mandar — anotar aqui e na lista viva)

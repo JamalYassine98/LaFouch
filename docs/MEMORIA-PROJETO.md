@@ -3138,3 +3138,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
   (4) PUBLICAR COM PLANO DE VOLTA: guardar a versão anterior; se quebrar, voltar na hora (site + modo loja), investigar com ?medir=1, virar teste fixo, avisar o dono; publicar em horário calmo e conferir no ar.
   Na implementação, mudar o código original no lugar (não por cima) e tirar o velho no mesmo passo.
 - 18/11/2026 21:12 · REGRAS APROVADAS: um título por tela (etapas = tela própria com ‹ voltar); grupo dos '+' em texto (esquerda entre campos, centralizado sozinho); posição do '⌄'.
+- 18/11/2026 21:18 · APROVADOS 142s/142t (+142e/h/i): Carrinho e Pagamento como telas próprias com ‹ voltar.
