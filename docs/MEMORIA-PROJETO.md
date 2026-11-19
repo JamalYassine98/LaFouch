@@ -3171,3 +3171,5 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - ✅ PUBLICADO v562 (5.45.0) em 19/11: src/99c-navegacao-s435.js + bloco S435 no style.css; o título com ⌄ de S370 (98z-grupo-flecha-s41) saiu. 318/318 testes; passada completa nas 64 telas (atual e aprovados) sem desalinhamento novo (só linhas antigas do Dashboard que agora cabem na tela). Não testado em aparelho real.
 
 - 19/11/2026 12:02 APROVADO (dono): CLAUDE.md reorganizado — ~45 regras soltas viraram 23 em 8 partes (trabalhar, decidir, esboços, código limpo, design, testar, publicar, segurança). Saíram: regra suspensa do APK (fica só o comando), alinhamento 1–11 (trocado por L1–L4), "luxo dispensa esboço", repetições, "3 letras" no site, atalhos COMPRIMA e tags. Cota nos testes resumida na regra 18. Antigo em work/obsoletos/CLAUDE-antigo-19-11.md.
+
+- 19/11/2026 12:14 (dono): o site está em "Estamos atualizando o catálogo" (fora do ar para clientes) DE PROPÓSITO — ele desligou no Painel. Fotos/testes do site real abrem como administrador (manut com CFG.ativo).
