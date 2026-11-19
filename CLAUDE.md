@@ -1,5 +1,7 @@
 # Regras do projeto LaFouch
 
+- VÁRIAS SESSÕES (19/11/2026, pedido do dono): antes de qualquer trabalho, ler docs/STATUS.md; registrar ali o que esta sessão vai mexer ("Em andamento") e, ao terminar, tirar a linha e anotar em "Últimas mudanças". Não mexer em tela/arquivo que outra sessão marcou.
+
 - APP: ler PRIMEIRO docs/APP-MAPA.md (estudo do app + todos os aprovados esperando, num lugar só; pedido do dono 18/11 19:37) e docs/APP-BOTOES.md (o que cada botão faz). Atualizar o mapa a cada aprovação/implementação, no mesmo commit.
 
 - INVENTÁRIO = MEMÓRIA DAS TELAS (18/11/2026 22:59, ordem do dono): uma passada COMPLETA (cada botão tocado várias vezes para ver se buga, cada detalhe de alinhamento, cada botão/campo/janela na sua família e como abre) grava DOIS inventários: (1) app atual 100% atualizado; (2) últimos aprovados (só a última versão de cada tela, base inteira). Perguntas são respondidas LENDO o inventário, sem repassar telas. Mudou algo = atualizar só aquele ponto, na hora. Alterar um botão = alterar a FAMÍLIA inteira: 1 consultar inventário (família + telas) · 2 esboço na família toda sobre os aprovados · 3 aprovado → inventário 2 · 4 "implementar" → regra da família num lugar só · 5 testar só as telas afetadas (toques repetidos, alinhamento, claro/escuro, celular/tablet/PC) · 6 atualizar inventário 1 · 7 inventário 1 tem que ficar igual ao 2, senão não publica · 8 LIMPAR o código: apagar as regras velhas daquela família, para não haver conflito com a nova.
