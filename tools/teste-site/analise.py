@@ -65,6 +65,9 @@ with sync_playwright() as pw:
                 base, ex0 = olha(pg, True)
                 d['hoje'] = {'olho': {k: [v['n'], v.get('ex', [])[:3]] for k, v in base.items() if k in QUEBRA}, 'fora': ex0['fora']}
                 f = '%s_%s_%d_%s_1.0.jpg' % (versao, tela, W, H); pg.screenshot(path=OUT + '/img/' + f, type='jpeg', quality=62); d['foto1'] = f
+                if os.environ.get('LF_FIM') and pg.evaluate("(q)=>{const e=document.querySelector(q);if(!e)return false;e.scrollIntoView({block:'center'});return true}", os.environ['LF_FIM']):
+                    pg.wait_for_timeout(300); pg.screenshot(path=OUT + '/img/%s_%s_%d_%s_1.0_fim.jpg' % (versao, tela, W, H), type='jpeg', quality=62)
+                    pg.evaluate("()=>{document.querySelectorAll('#layer .scrim,#drw,#drw *').forEach(x=>{if(x.scrollTop)x.scrollTop=0});scrollTo(0,0)}"); pg.wait_for_timeout(200)
                 d['ate'] = 1.0; d['quebra'] = None
                 for s in (ESC[1:] if W < 1100 else []):
                     pg.evaluate("(z)=>{document.body.style.zoom=z;document.body.style.setProperty('--z',z);dispatchEvent(new Event('resize'))}", round(z0 * s, 3)); pg.wait_for_timeout(450)
