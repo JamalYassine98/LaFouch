@@ -3161,3 +3161,5 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 19/11/2026 11:50 REGRA (dono): todo ajuste que deixar código morto (regra/estilo/função antiga que a nova substitui) APAGA esse código no MESMO passo, para não haver conflito com o código novo. Nada de regra nova por cima de regra velha.
 
 - 19/11/2026 11:52 ESCLARECIMENTO (dono) da regra das 11:50: "código morto" = o código que o ajuste SUBSTITUI, mesmo que ainda esteja em uso (ex.: botão vira redondo → apagar a regra que o deixava quadrado; não deixar as duas brigando). NÃO apagar função preparada que ainda não foi ligada/implementada para ser usada (ex.: coisa aprovada esperando, ganchos para recurso futuro) — na dúvida, conferir na memória/lista viva e perguntar.
+
+- 19/11/2026 11:53 ORDEM (dono): REORGANIZAR o projeto — ficou coisa demais e há várias que ele não quer mais. Acabou a regra de NÃO consultar ("implementar tudo sem perguntar"): agora tudo em PARTES bem estruturadas, consultando o dono a cada parte, para o código mais limpo possível, "como uma casa devidamente planejada". CLAUDE.md atualizado.

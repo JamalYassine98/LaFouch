@@ -29,7 +29,7 @@
 - APROVADO ≠ IMPLEMENTAR (15/11/2026, ordem do dono — vale acima de qualquer regra anterior, inclusive "pare de fazer perguntas e só implementa" de 14/11 e a dispensa de esboço do DESIGN DE LUXO):
   - "Aprovado" = SÓ guardar em docs/MEMORIA-PROJETO.md como aprovado. NÃO implementar, NÃO publicar.
   - Só implementar quando o dono escrever "implementar" (para aquele item).
-  - "Implementar tudo" = implementar TUDO o que está aprovado na memória, em sequência, SEM consultar o dono; só parar por ação/segredo dele, gasto ou teste que falha; listar no final o que ficou de fora.
+  - "Implementar tudo" = implementar o que está aprovado EM PARTES, consultando o dono a cada parte (19/11/2026 11:53, ordem do dono: acabou a regra de não consultar; trabalhar em partes bem estruturadas, como uma casa planejada).
   - Na dúvida se uma mensagem autoriza implementar: não implementar; guardar e avisar o que ficou aprovado e esperando.
 - LISTA VIVA DE PENDÊNCIAS (15/11/2026, ordem do dono): a lista é docs/FALTA-APROVAR-15-11.md. NUNCA refazer, resumir de cabeça nem trocar a lista enquanto houver pendências — só ACRESCENTAR itens e MARCAR o que foi publicado (com o número da versão). Todo "aprovado" entra nela na hora. Só limpar ou recomeçar a lista quando o dono disser "limpar a lista". Antes de "implementar tudo" e antes de dizer o que falta, ler a lista inteira no arquivo.
 - APP PRECISO E BASE APROVADA (18/11/2026 10:07, ordem do dono — vale para TODO esboço e teste do app): a base de todo esboço/teste do app é o app real + TODOS os ajustes já aprovados, mesmo os ainda não implementados (ler docs/FALTA-APROVAR-15-11.md e a memória). A proposta nova vai por cima dessa base e não pode desfazer nem contrariar nenhum aprovado. Listar no envio quais aprovados estão incluídos na base. Testes (olho, prova de alinhamento) rodam sobre essa base. A base fica em work/kit/base_app.py e o simulador (work/s349/ap.py) aplica sozinha; ao APROVAR um esboço, acrescentar o item lá na hora; ao IMPLEMENTAR, tirar no mesmo commit. Conferência simulador × celular real usa base=False.
@@ -50,7 +50,7 @@
 - Português, respostas curtas: no máximo 8 linhas, salvo se o dono pedir "detalhe".
 - Formato: 1 linha com o que fez ou propõe · lista curta só do que ele precisa decidir ou saber · 1 linha com o próximo passo ou a pergunta. Tabela só para comparar números.
 - Não repetir o pedido, não recapitular passos, não explicar o óbvio. Se faltar informação: UMA pergunta curta e parar.
-- "IMPLEMENTAR TUDO" (14/11/2026, pedido do dono): implementar tudo o que está aprovado em sequência, sem perguntar bloco a bloco; só parar por ação/segredo do dono, gasto, item sem esboço aprovado ou teste que falha; listar no final o que ficou de fora.
+- "IMPLEMENTAR TUDO": desde 19/11/2026 11:53 (ordem do dono) é feito em partes, consultando o dono a cada parte — a regra antiga de 14/11 ("sem perguntar bloco a bloco") saiu.
 - Palavras-chave do dono: ESBOÇO, IMPLEMENTAR, PUBLICAR, PARAR. Comandos podem vir em tags <tarefa> <onde> <modo> <limite> <contexto>; sem tags, extrair esses campos sozinho.
 - "COMPRIMA:" no começo da mensagem = não executar; só reescrever o texto dele no formato das tags, com o mínimo de palavras e sem perder decisão.
 - Usar a memória do projeto em vez de pedir histórico; ler trechos de arquivos, não arquivos inteiros; não reenviar arquivos que ele já tem.
