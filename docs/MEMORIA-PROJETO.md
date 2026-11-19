@@ -3200,3 +3200,6 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 19/11/2026 13:59 — Fechar × (149f) e Título (149t) aprovados, esperando "implementar". As 8 famílias da S435 aprovadas: 149v, 149l, 149i, 149d, 149a, 149t, 149f.
 - 19/11/2026 14:10 — Regra (dono, opção A): bloco com ação própria (+) ganha SUBTÍTULO 17 px; sem ação = versalete 12 px. Caixa "Objetivos da loja" vira subtítulo (142bA).
 - 19/11/2026 14:15 — DONO: "implementar 149v e 150i" → ✅ PUBLICADO v563 (5.46.0): 149v Família Voltar na Peça do Catálogo e na Ficha do Inventário; 150i Família Ícone redondo. 318/318 testes. O Pagamento do 149v espera o 142st (fica na base como 149v-pag). Não testado em aparelho real.
+
+### 19/11/2026 14:26 — P1 segurança da reserva APROVADA (esperando "implementar")
+- Cancelar da cliente só solta reserva não paga/sem comprovante; `estoque/` sem número do pedido; função aceita `itens` e `refs`. Esboço work/estudo-c/esboco_P1_*.jpg. Publicação da função: o dono roda `firebase deploy --only functions` no PC.
