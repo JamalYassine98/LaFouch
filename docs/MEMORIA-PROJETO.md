@@ -3221,3 +3221,5 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 19/11 19:45 — 149cam-F aprovado (câmera do Estúdio funciona como teste-giro/conferir: 10 itens, moldura branca→verde, uma frase que vai para o próximo problema, trava foco/luz/branco, gravação que para sozinha em 1:00). Foto Frente/3/4 continua.
 - 19/11 19:20 — 149cam-G aprovado (guias de alinhamento na imagem da câmera do Estúdio).
 - 19/11 19:23 — 149pg (pré-graduados na regra de todos; supera 04/11), 149sc (sem cabeçalho Contador), 149dup (Preços sem botões repetidos) aprovados.
+
+- 19/11/2026 19:20 Fila item 14 (urgente) publicado: site 1795127314 — interruptor do painel não some mais com o site fora do ar. Porteiro do site está quebrado ANTES desta mudança (43 falhas iguais sem a mudança: as provas não conseguem clicar no menu — ver depois).
