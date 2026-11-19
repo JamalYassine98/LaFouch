@@ -1,0 +1,1490 @@
+[
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "inicio",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {
+    "colados": [
+     2,
+     [
+      "2",
+      "3"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "hoje_inicio_412_915_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "inicio",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {
+    "colados": [
+     2,
+     [
+      "2",
+      "3"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "prop_inicio_412_915_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [
+    "Ver Solar gatinho tartaruga"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "prop_inicio_412_915_1.2.jpg"
+ },
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "catalogo",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Início ← 0"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "hoje_catalogo_412_915_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [
+    "Filtros (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_catalogo_412_915_1.1.jpg"
+ },
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "catalogo",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Início ← 0"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "prop_catalogo_412_915_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "peca",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_peca_412_915_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "texto cortado": [
+     1,
+     [
+      "Armações"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "hoje_peca_412_915_1.1.jpg"
+ },
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "peca",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_peca_412_915_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "menu",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_menu_412_915_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "Idioma (1→2 linhas)"
+   ]
+  },
+  "foto_quebra": "hoje_menu_412_915_1.1.jpg"
+ },
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "menu",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_menu_412_915_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "Idioma (1→2 linhas)"
+   ]
+  },
+  "foto_quebra": "prop_menu_412_915_1.1.jpg"
+ },
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "filtros",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_filtros_412_915_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "filtros",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_filtros_412_915_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "carrinho",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_carrinho_412_915_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "carrinho",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_carrinho_412_915_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "conta",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_conta_412_915_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [
+    "Cartões (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_conta_412_915_1.2.jpg"
+ },
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "conta",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_conta_412_915_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "conta-cartoes",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_conta-cartoes_412_915_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [
+    "Cartões (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_conta-cartoes_412_915_1.2.jpg"
+ },
+ {
+  "aparelho": "celular grande",
+  "W": 412,
+  "H": 915,
+  "tela": "conta-cartoes",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.01,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_conta-cartoes_412_915_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "inicio",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {
+    "colados": [
+     2,
+     [
+      "2",
+      "3"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "hoje_inicio_430_932_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "inicio",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {
+    "colados": [
+     2,
+     [
+      "2",
+      "3"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "prop_inicio_430_932_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Ver ofertas ← Falar no WhatsApp"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "prop_inicio_430_932_1.2.jpg"
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "catalogo",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Início ← 0"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "hoje_catalogo_430_932_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [
+    "Filtros (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_catalogo_430_932_1.1.jpg"
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "catalogo",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Início ← 0"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "prop_catalogo_430_932_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "peca",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_peca_430_932_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "texto cortado": [
+     1,
+     [
+      "Armações"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "hoje_peca_430_932_1.1.jpg"
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "peca",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_peca_430_932_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "menu",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_menu_430_932_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "M (3→4 linhas)"
+   ]
+  },
+  "foto_quebra": "hoje_menu_430_932_1.2.jpg"
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "menu",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_menu_430_932_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "filtros",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_filtros_430_932_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "filtros",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_filtros_430_932_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "carrinho",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_carrinho_430_932_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "carrinho",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_carrinho_430_932_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "conta",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_conta_430_932_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [
+    "Cartões",
+    "Cartões (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_conta_430_932_1.2.jpg"
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "conta",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_conta_430_932_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "conta-cartoes",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_conta-cartoes_430_932_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [
+    "Cartões",
+    "Cartões (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_conta-cartoes_430_932_1.2.jpg"
+ },
+ {
+  "aparelho": "iPhone Max",
+  "W": 430,
+  "H": 932,
+  "tela": "conta-cartoes",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.06,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_conta-cartoes_430_932_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "inicio",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {
+    "colados": [
+     2,
+     [
+      "2",
+      "3"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "hoje_inicio_600_960_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "Ver Solar quadrado tartaru"
+     ]
+    ]
+   },
+   "fora": [
+    "Ver Solar gatinho tartaruga"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_inicio_600_960_1.2.jpg"
+ },
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "inicio",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {
+    "colados": [
+     2,
+     [
+      "2",
+      "3"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "prop_inicio_600_960_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "catalogo",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Início ← 0"
+     ]
+    ],
+    "texto cortado": [
+     1,
+     [
+      "Últimas 3 unidades"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "hoje_catalogo_600_960_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "BLACK FRIDAY (4→5 linhas)"
+   ]
+  },
+  "foto_quebra": "hoje_catalogo_600_960_1.2.jpg"
+ },
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "catalogo",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Início ← 0"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "prop_catalogo_600_960_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "Última unidade (4→5 linhas)"
+   ]
+  },
+  "foto_quebra": "prop_catalogo_600_960_1.1.jpg"
+ },
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "peca",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_peca_600_960_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Compartilhar ← Falar no WhatsApp"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "hoje_peca_600_960_1.1.jpg"
+ },
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "peca",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_peca_600_960_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "Última unidade (4→5 linhas)"
+   ]
+  },
+  "foto_quebra": "prop_peca_600_960_1.1.jpg"
+ },
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "menu",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_menu_600_960_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "M (3→4 linhas)"
+   ]
+  },
+  "foto_quebra": "hoje_menu_600_960_1.2.jpg"
+ },
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "menu",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_menu_600_960_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "filtros",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_filtros_600_960_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "BLACK FRIDAY (4→5 linhas)"
+   ]
+  },
+  "foto_quebra": "hoje_filtros_600_960_1.2.jpg"
+ },
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "filtros",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_filtros_600_960_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "Última unidade (4→5 linhas)"
+   ]
+  },
+  "foto_quebra": "prop_filtros_600_960_1.1.jpg"
+ },
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "carrinho",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_carrinho_600_960_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "BLACK FRIDAY (4→5 linhas)"
+   ]
+  },
+  "foto_quebra": "hoje_carrinho_600_960_1.2.jpg"
+ },
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "carrinho",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_carrinho_600_960_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "Última unidade (4→5 linhas)"
+   ]
+  },
+  "foto_quebra": "prop_carrinho_600_960_1.1.jpg"
+ },
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "conta",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_conta_600_960_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "conta",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_conta_600_960_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "conta-cartoes",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_conta-cartoes_600_960_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "tablet pequeno",
+  "W": 600,
+  "H": 960,
+  "tela": "conta-cartoes",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.071,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_conta-cartoes_600_960_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "inicio",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {
+    "colados": [
+     2,
+     [
+      "2",
+      "3"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "hoje_inicio_768_1024_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "Óculos de leitura quadrado"
+     ]
+    ]
+   },
+   "fora": [
+    "BLACK FRIDAY",
+    "Estoque limitado: quando acaba",
+    "Óculos de leitura quadrado pre"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_inicio_768_1024_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "inicio",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {
+    "colados": [
+     2,
+     [
+      "2",
+      "3"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "prop_inicio_768_1024_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "Óculos de leitura quadrado"
+     ]
+    ]
+   },
+   "fora": [
+    "BLACK FRIDAY",
+    "Estoque limitado: quando acaba",
+    "Óculos de leitura quadrado pre"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "prop_inicio_768_1024_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "catalogo",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Início ← 0"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "hoje_catalogo_768_1024_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {
+    "texto cortado": [
+     1,
+     [
+      "Últimas 3 unidades"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "hoje_catalogo_768_1024_1.2.jpg"
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "catalogo",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Início ← 0"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "prop_catalogo_768_1024_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "Últimas 3 unidades (4→5 linhas)"
+   ]
+  },
+  "foto_quebra": "prop_catalogo_768_1024_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "peca",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_peca_768_1024_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "tampado": [
+     2,
+     [
+      "Comparar ← Falar no WhatsApp",
+      "Compartilhar ← Falar no WhatsApp"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "hoje_peca_768_1024_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "peca",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_peca_768_1024_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "Últimas 3 unidades (4→5 linhas)"
+   ]
+  },
+  "foto_quebra": "prop_peca_768_1024_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "menu",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_menu_768_1024_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "menu",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_menu_768_1024_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "filtros",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_filtros_768_1024_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "filtros",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_filtros_768_1024_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "Últimas 3 unidades (4→5 linhas)"
+   ]
+  },
+  "foto_quebra": "prop_filtros_768_1024_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "carrinho",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_carrinho_768_1024_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "carrinho",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_carrinho_768_1024_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "Últimas 3 unidades (4→5 linhas)"
+   ]
+  },
+  "foto_quebra": "prop_carrinho_768_1024_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "conta",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_conta_768_1024_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "Você estava vendo"
+     ]
+    ]
+   },
+   "fora": [
+    "Você estava vendo",
+    "Você estava vendo (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_conta_768_1024_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "conta",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_conta_768_1024_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "conta-cartoes",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_conta-cartoes_768_1024_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "Você estava vendo"
+     ]
+    ]
+   },
+   "fora": [
+    "Você estava vendo",
+    "Você estava vendo (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_conta-cartoes_768_1024_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad em pé",
+  "W": 768,
+  "H": 1024,
+  "tela": "conta-cartoes",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_conta-cartoes_768_1024_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ }
+]

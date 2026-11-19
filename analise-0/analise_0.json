@@ -1,0 +1,1380 @@
+[
+ {
+  "aparelho": "Xiaomi 13T do dono",
+  "W": 386,
+  "H": 858,
+  "tela": "inicio",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 0.95,
+  "hoje": {
+   "olho": {
+    "colados": [
+     3,
+     [
+      "1",
+      "2",
+      "3"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "hoje_inicio_386_858_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "Xiaomi 13T do dono",
+  "W": 386,
+  "H": 858,
+  "tela": "inicio",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 0.95,
+  "hoje": {
+   "olho": {
+    "colados": [
+     3,
+     [
+      "1",
+      "2",
+      "3"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "prop_inicio_386_858_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "Xiaomi 13T do dono",
+  "W": 386,
+  "H": 858,
+  "tela": "catalogo",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 0.95,
+  "hoje": {
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Início ← 0"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "hoje_catalogo_386_858_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [
+    "Filtros (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_catalogo_386_858_1.1.jpg"
+ },
+ {
+  "aparelho": "Xiaomi 13T do dono",
+  "W": 386,
+  "H": 858,
+  "tela": "catalogo",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 0.95,
+  "hoje": {
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Início ← 0"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "prop_catalogo_386_858_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "Xiaomi 13T do dono",
+  "W": 386,
+  "H": 858,
+  "tela": "peca",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 0.95,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_peca_386_858_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "texto cortado": [
+     1,
+     [
+      "Armações"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "hoje_peca_386_858_1.1.jpg"
+ },
+ {
+  "aparelho": "Xiaomi 13T do dono",
+  "W": 386,
+  "H": 858,
+  "tela": "peca",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 0.95,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_peca_386_858_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "Xiaomi 13T do dono",
+  "W": 386,
+  "H": 858,
+  "tela": "menu",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 0.95,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_menu_386_858_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "M (3→4 linhas)"
+   ]
+  },
+  "foto_quebra": "hoje_menu_386_858_1.2.jpg"
+ },
+ {
+  "aparelho": "Xiaomi 13T do dono",
+  "W": 386,
+  "H": 858,
+  "tela": "menu",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 0.95,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_menu_386_858_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "Xiaomi 13T do dono",
+  "W": 386,
+  "H": 858,
+  "tela": "filtros",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 0.95,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_filtros_386_858_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "Xiaomi 13T do dono",
+  "W": 386,
+  "H": 858,
+  "tela": "filtros",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 0.95,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_filtros_386_858_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "Xiaomi 13T do dono",
+  "W": 386,
+  "H": 858,
+  "tela": "carrinho",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 0.95,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_carrinho_386_858_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "Xiaomi 13T do dono",
+  "W": 386,
+  "H": 858,
+  "tela": "carrinho",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 0.95,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_carrinho_386_858_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "Xiaomi 13T do dono",
+  "W": 386,
+  "H": 858,
+  "tela": "conta",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 0.95,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_conta_386_858_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [
+    "Cartões",
+    "Cartões (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_conta_386_858_1.2.jpg"
+ },
+ {
+  "aparelho": "Xiaomi 13T do dono",
+  "W": 386,
+  "H": 858,
+  "tela": "conta",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 0.95,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_conta_386_858_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "Xiaomi 13T do dono",
+  "W": 386,
+  "H": 858,
+  "tela": "conta-cartoes",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 0.95,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_conta-cartoes_386_858_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [
+    "Cartões",
+    "Cartões (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_conta-cartoes_386_858_1.2.jpg"
+ },
+ {
+  "aparelho": "Xiaomi 13T do dono",
+  "W": 386,
+  "H": 858,
+  "tela": "conta-cartoes",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 0.95,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_conta-cartoes_386_858_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular pequeno",
+  "W": 320,
+  "H": 568,
+  "tela": "inicio",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 0.79,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_inicio_320_568_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular pequeno",
+  "W": 320,
+  "H": 568,
+  "tela": "inicio",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 0.79,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_inicio_320_568_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular pequeno",
+  "W": 320,
+  "H": 568,
+  "tela": "catalogo",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 0.79,
+  "hoje": {
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Início ← 0"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "hoje_catalogo_320_568_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [
+    "Filtros (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_catalogo_320_568_1.1.jpg"
+ },
+ {
+  "aparelho": "celular pequeno",
+  "W": 320,
+  "H": 568,
+  "tela": "catalogo",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 0.79,
+  "hoje": {
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Início ← 0"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "prop_catalogo_320_568_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular pequeno",
+  "W": 320,
+  "H": 568,
+  "tela": "peca",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 0.79,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_peca_320_568_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Compartilhar ← Falar no WhatsApp"
+     ]
+    ],
+    "colados": [
+     1,
+     [
+      "Falar no WhatsApp"
+     ]
+    ],
+    "texto cortado": [
+     1,
+     [
+      "Armações"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "hoje_peca_320_568_1.1.jpg"
+ },
+ {
+  "aparelho": "celular pequeno",
+  "W": 320,
+  "H": 568,
+  "tela": "peca",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 0.79,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_peca_320_568_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Compartilhar ← Falar no WhatsApp"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "prop_peca_320_568_1.1.jpg"
+ },
+ {
+  "aparelho": "celular pequeno",
+  "W": 320,
+  "H": 568,
+  "tela": "menu",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 0.79,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_menu_320_568_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "M (3→4 linhas)"
+   ]
+  },
+  "foto_quebra": "hoje_menu_320_568_1.2.jpg"
+ },
+ {
+  "aparelho": "celular pequeno",
+  "W": 320,
+  "H": 568,
+  "tela": "menu",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 0.79,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_menu_320_568_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular pequeno",
+  "W": 320,
+  "H": 568,
+  "tela": "filtros",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 0.79,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_filtros_320_568_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular pequeno",
+  "W": 320,
+  "H": 568,
+  "tela": "filtros",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 0.79,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_filtros_320_568_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular pequeno",
+  "W": 320,
+  "H": 568,
+  "tela": "carrinho",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 0.79,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_carrinho_320_568_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular pequeno",
+  "W": 320,
+  "H": 568,
+  "tela": "carrinho",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 0.79,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_carrinho_320_568_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular pequeno",
+  "W": 320,
+  "H": 568,
+  "tela": "conta",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 0.79,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_conta_320_568_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [
+    "Cartões",
+    "Cartões (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_conta_320_568_1.2.jpg"
+ },
+ {
+  "aparelho": "celular pequeno",
+  "W": 320,
+  "H": 568,
+  "tela": "conta",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 0.79,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_conta_320_568_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular pequeno",
+  "W": 320,
+  "H": 568,
+  "tela": "conta-cartoes",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 0.79,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_conta-cartoes_320_568_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [
+    "Cartões",
+    "Cartões (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_conta-cartoes_320_568_1.2.jpg"
+ },
+ {
+  "aparelho": "celular pequeno",
+  "W": 320,
+  "H": 568,
+  "tela": "conta-cartoes",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 0.79,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_conta-cartoes_320_568_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular",
+  "W": 360,
+  "H": 640,
+  "tela": "inicio",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 0.89,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_inicio_360_640_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular",
+  "W": 360,
+  "H": 640,
+  "tela": "inicio",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 0.89,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_inicio_360_640_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular",
+  "W": 360,
+  "H": 640,
+  "tela": "catalogo",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 0.89,
+  "hoje": {
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Início ← 0"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "hoje_catalogo_360_640_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [
+    "Filtros (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_catalogo_360_640_1.1.jpg"
+ },
+ {
+  "aparelho": "celular",
+  "W": 360,
+  "H": 640,
+  "tela": "catalogo",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 0.89,
+  "hoje": {
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Início ← 0"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "prop_catalogo_360_640_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular",
+  "W": 360,
+  "H": 640,
+  "tela": "peca",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 0.89,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_peca_360_640_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Compartilhar ← Falar no WhatsApp"
+     ]
+    ],
+    "colados": [
+     1,
+     [
+      "Falar no WhatsApp"
+     ]
+    ],
+    "texto cortado": [
+     1,
+     [
+      "Armações"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "hoje_peca_360_640_1.1.jpg"
+ },
+ {
+  "aparelho": "celular",
+  "W": 360,
+  "H": 640,
+  "tela": "peca",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 0.89,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_peca_360_640_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Compartilhar ← Falar no WhatsApp"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "prop_peca_360_640_1.1.jpg"
+ },
+ {
+  "aparelho": "celular",
+  "W": 360,
+  "H": 640,
+  "tela": "menu",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 0.89,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_menu_360_640_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "M (3→4 linhas)"
+   ]
+  },
+  "foto_quebra": "hoje_menu_360_640_1.2.jpg"
+ },
+ {
+  "aparelho": "celular",
+  "W": 360,
+  "H": 640,
+  "tela": "menu",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 0.89,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_menu_360_640_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular",
+  "W": 360,
+  "H": 640,
+  "tela": "filtros",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 0.89,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_filtros_360_640_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular",
+  "W": 360,
+  "H": 640,
+  "tela": "filtros",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 0.89,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_filtros_360_640_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular",
+  "W": 360,
+  "H": 640,
+  "tela": "carrinho",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 0.89,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_carrinho_360_640_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular",
+  "W": 360,
+  "H": 640,
+  "tela": "carrinho",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 0.89,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_carrinho_360_640_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular",
+  "W": 360,
+  "H": 640,
+  "tela": "conta",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 0.89,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_conta_360_640_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [
+    "Cartões (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_conta_360_640_1.2.jpg"
+ },
+ {
+  "aparelho": "celular",
+  "W": 360,
+  "H": 640,
+  "tela": "conta",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 0.89,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_conta_360_640_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "celular",
+  "W": 360,
+  "H": 640,
+  "tela": "conta-cartoes",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 0.89,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_conta-cartoes_360_640_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [
+    "Cartões (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_conta-cartoes_360_640_1.2.jpg"
+ },
+ {
+  "aparelho": "celular",
+  "W": 360,
+  "H": 640,
+  "tela": "conta-cartoes",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 0.89,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_conta-cartoes_360_640_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "inicio",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {
+    "colados": [
+     3,
+     [
+      "1",
+      "2",
+      "3"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "hoje_inicio_390_844_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Ver ofertas ← Falar no WhatsApp"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "hoje_inicio_390_844_1.2.jpg"
+ },
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "inicio",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {
+    "colados": [
+     3,
+     [
+      "1",
+      "2",
+      "3"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "prop_inicio_390_844_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Ver ofertas ← Falar no WhatsApp"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "prop_inicio_390_844_1.2.jpg"
+ },
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "catalogo",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Início ← 0"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "hoje_catalogo_390_844_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [
+    "Filtros (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_catalogo_390_844_1.1.jpg"
+ },
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "catalogo",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Início ← 0"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "prop_catalogo_390_844_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "peca",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_peca_390_844_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "texto cortado": [
+     1,
+     [
+      "Armações"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "hoje_peca_390_844_1.1.jpg"
+ },
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "peca",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_peca_390_844_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "menu",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_menu_390_844_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "M (3→4 linhas)"
+   ]
+  },
+  "foto_quebra": "hoje_menu_390_844_1.2.jpg"
+ },
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "menu",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_menu_390_844_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "filtros",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_filtros_390_844_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "filtros",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_filtros_390_844_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "carrinho",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_carrinho_390_844_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "carrinho",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_carrinho_390_844_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "conta",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_conta_390_844_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [
+    "Cartões",
+    "Cartões (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_conta_390_844_1.2.jpg"
+ },
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "conta",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_conta_390_844_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "conta-cartoes",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_conta-cartoes_390_844_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {},
+   "fora": [
+    "Cartões",
+    "Cartões (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_conta-cartoes_390_844_1.2.jpg"
+ },
+ {
+  "aparelho": "iPhone",
+  "W": 390,
+  "H": 844,
+  "tela": "conta-cartoes",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 0.96,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_conta-cartoes_390_844_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ }
+]

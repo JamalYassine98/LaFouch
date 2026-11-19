@@ -1,0 +1,712 @@
+[
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "inicio",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {
+    "colados": [
+     2,
+     [
+      "2",
+      "3"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "hoje_inicio_820_1180_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "7 modelos"
+     ]
+    ]
+   },
+   "fora": [
+    "7 modelos",
+    "7 modelos (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_inicio_820_1180_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "inicio",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {
+    "colados": [
+     2,
+     [
+      "2",
+      "3"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "prop_inicio_820_1180_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "7 modelos"
+     ]
+    ]
+   },
+   "fora": [
+    "7 modelos",
+    "7 modelos (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "prop_inicio_820_1180_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "catalogo",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Início ← 0"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "hoje_catalogo_820_1180_1.0.jpg",
+  "ate": 1.1,
+  "quebra": {
+   "escala": 1.2,
+   "olho": {
+    "texto cortado": [
+     1,
+     [
+      "Últimas 3 unidades"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "hoje_catalogo_820_1180_1.2.jpg"
+ },
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "catalogo",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Início ← 0"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "prop_catalogo_820_1180_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "Últimas 3 unidades (4→5 linhas)"
+   ]
+  },
+  "foto_quebra": "prop_catalogo_820_1180_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "peca",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_peca_820_1180_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "peca",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_peca_820_1180_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "Últimas 3 unidades (4→5 linhas)"
+   ]
+  },
+  "foto_quebra": "prop_peca_820_1180_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "menu",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_menu_820_1180_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "menu",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_menu_820_1180_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "filtros",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_filtros_820_1180_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "filtros",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_filtros_820_1180_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "Últimas 3 unidades (4→5 linhas)"
+   ]
+  },
+  "foto_quebra": "prop_filtros_820_1180_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "carrinho",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_carrinho_820_1180_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "carrinho",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_carrinho_820_1180_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "Últimas 3 unidades (4→5 linhas)"
+   ]
+  },
+  "foto_quebra": "prop_carrinho_820_1180_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "conta",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_conta_820_1180_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "Você estava vendo"
+     ]
+    ]
+   },
+   "fora": [
+    "Você estava vendo",
+    "Você estava vendo (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_conta_820_1180_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "conta",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_conta_820_1180_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "conta-cartoes",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_conta-cartoes_820_1180_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "cortado": [
+     1,
+     [
+      "Você estava vendo"
+     ]
+    ]
+   },
+   "fora": [
+    "Você estava vendo",
+    "Você estava vendo (cortado pela moldura)"
+   ],
+   "linha": []
+  },
+  "foto_quebra": "hoje_conta-cartoes_820_1180_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad Air em pé",
+  "W": 820,
+  "H": 1180,
+  "tela": "conta-cartoes",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_conta-cartoes_820_1180_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "inicio",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_inicio_1024_768_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "inicio",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_inicio_1024_768_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Ver ofertas ← Falar no WhatsApp"
+     ]
+    ]
+   },
+   "fora": [],
+   "linha": []
+  },
+  "foto_quebra": "prop_inicio_1024_768_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "catalogo",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Início ← 0"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "hoje_catalogo_1024_768_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "catalogo",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {
+    "tampado": [
+     1,
+     [
+      "Início ← 0"
+     ]
+    ]
+   },
+   "fora": []
+  },
+  "foto1": "prop_catalogo_1024_768_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "Últimas 3 unidades (4→5 linhas)"
+   ]
+  },
+  "foto_quebra": "prop_catalogo_1024_768_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "peca",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_peca_1024_768_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "peca",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_peca_1024_768_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "Últimas 3 unidades (4→5 linhas)"
+   ]
+  },
+  "foto_quebra": "prop_peca_1024_768_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "menu",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_menu_1024_768_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "menu",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_menu_1024_768_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "filtros",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_filtros_1024_768_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "filtros",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_filtros_1024_768_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "Últimas 3 unidades (4→5 linhas)"
+   ]
+  },
+  "foto_quebra": "prop_filtros_1024_768_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "carrinho",
+  "versao": "hoje",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_carrinho_1024_768_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "carrinho",
+  "versao": "prop",
+  "pecas": 16,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_carrinho_1024_768_1.0.jpg",
+  "ate": 1.0,
+  "quebra": {
+   "escala": 1.1,
+   "olho": {},
+   "fora": [],
+   "linha": [
+    "Últimas 3 unidades (4→5 linhas)"
+   ]
+  },
+  "foto_quebra": "prop_carrinho_1024_768_1.1.jpg"
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "conta",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_conta_1024_768_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "conta",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_conta_1024_768_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "conta-cartoes",
+  "versao": "hoje",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "hoje_conta-cartoes_1024_768_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ },
+ {
+  "aparelho": "iPad deitado",
+  "W": 1024,
+  "H": 768,
+  "tela": "conta-cartoes",
+  "versao": "prop",
+  "pecas": 27,
+  "zoom0": 1.2,
+  "hoje": {
+   "olho": {},
+   "fora": []
+  },
+  "foto1": "prop_conta-cartoes_1024_768_1.0.jpg",
+  "ate": 1.2,
+  "quebra": null
+ }
+]
