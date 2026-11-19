@@ -66,7 +66,8 @@ jobs:
           (cd t/hoje && nohup python3 -m http.server 8000 >/dev/null 2>&1 &)
           (cd t/prop && nohup python3 -m http.server 8001 >/dev/null 2>&1 &)
           (cd t/prop && nohup python3 -m http.server 8002 >/dev/null 2>&1 &)
-          pip install playwright && python3 -m playwright install --with-deps chromium
+          pip install playwright
+          for k in 1 2 3; do sudo apt-get update -qq || true; python3 -m playwright install --with-deps chromium && break; sleep 20; done
       - name: Medir
         env:
           LF_TELAS: ${{ inputs.telas }}
