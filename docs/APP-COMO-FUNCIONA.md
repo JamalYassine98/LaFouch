@@ -521,5 +521,5 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - `resApi` (src/95-reserva.js) manda SEMPRE `itens: [{ref, cor, q}]` (o nome que a função lê); `refs` não vai mais.
 - `resFlush` só tira da fila `S.resPend` quando a resposta é `ok` (null = fora do ar, `ok:false` = recusou → tenta de novo a cada 20 s).
 - `resLimpaParadas` (chamada no `resBusca`): uma única vez (`S.resLimpo1`, em PERSIST) põe na fila as reservas vencidas e não pagas da nuvem. Testes: "B2 soltar reserva" e "pedido entregue/cancelado" (corpo com `itens`).
-- Atenção (P1 da NUVEM): se a lista pública `estoque/` trocar o `pid` por código embaralhado, `resOrfas`/`resLimpaParadas` precisam do mesmo código — sai junto com o deploy da função.
+- P1 (v565): a lista pública traz `h` (20 hex do sha256 de `'lf-res|' + pedido`, igual a `H` em functions/reserva.js) em vez do `pid`. `resHMapa` calcula o código de todos os pedidos do app (e da fila) → `RES_HMAP`; `resSid(x)` = `pid` antigo ou o pedido do código. `resOrfas` e `resLimpaParadas` usam `resSid`; código que o app não conhece fica como está (a limpeza diária da função cuida).
 

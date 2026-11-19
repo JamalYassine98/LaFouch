@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 564;
+  var APP_BUILD = 565;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.46.1'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.46.2'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -26146,6 +26146,45 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     saveSoon();
     resFlush();
   }
+  // P1 (19/11): código de cada reserva na nuvem = 20 primeiros caracteres (hex) do sha256 de 'lf-res|' + número do pedido (igual a functions/reserva.js H)
+  var RES_HC = {}, // número do pedido → código
+    RES_HMAP = {}; // código → número do pedido (só dos pedidos que o app conhece)
+  function resH(sid) {
+    if (RES_HC[sid]) return Promise.resolve(RES_HC[sid]);
+    if (!window.crypto || !crypto.subtle || !window.TextEncoder) return Promise.resolve('');
+    return crypto.subtle.digest('SHA-256', new TextEncoder().encode('lf-res|' + sid)).then(function (b) {
+      var h = Array.prototype.map
+        .call(new Uint8Array(b), function (x) {
+          return ('0' + x.toString(16)).slice(-2);
+        })
+        .join('')
+        .slice(0, 20);
+      RES_HC[sid] = h;
+      return h;
+    }, function () {
+      return '';
+    });
+  }
+  function resHMapa() {
+    var sids = {};
+    (S.pedidos || []).forEach(function (p) {
+      if (p && p.sid) sids[p.sid] = 1;
+    });
+    Object.keys(S.resPend || {}).forEach(function (sid) {
+      sids[sid] = 1;
+    });
+    return Promise.all(
+      Object.keys(sids).map(function (sid) {
+        return resH(sid).then(function (h) {
+          if (h) RES_HMAP[h] = sid;
+        });
+      })
+    ).catch(function () {});
+  }
+  // de qual pedido é a reserva: o número antigo (pid) ou o código h de um pedido que o app conhece; '' = não sabe (não mexe)
+  function resSid(x) {
+    return (x && (x.pid || (x.h && RES_HMAP[x.h]))) || '';
+  }
   // Reserva PAGA de um pedido que não existe mais no app (apagado antes desta correção): segurava a peça para sempre.
   // Só solta depois de ver a mesma reserva órfã em duas buscas com 10 min de diferença (dá tempo da sincronização trazer o pedido).
   function resOrfas() {
@@ -26163,9 +26202,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     Object.keys(RES_EST).forEach(function (ref) {
       var r = RES_EST[ref];
       Object.keys(r).forEach(function (k) {
-        var x = r[k];
-        if (!x || !x.pago || !x.pid || tem[x.pid]) return;
-        var o = (vistas[x.pid] = vistas[x.pid] || { refs: {} });
+        var x = r[k],
+          sid = resSid(x);
+        if (!x || !x.pago || !sid || tem[sid]) return;
+        var o = (vistas[sid] = vistas[sid] || { refs: {} });
         o.refs[ref] = 1;
       });
     });
@@ -26306,16 +26346,19 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
             m = ((d.fields || {}).res || {}).mapValue;
           Object.keys(((m || {}).fields) || {}).forEach(function (k) {
             var f = m.fields[k].mapValue.fields || {};
-            res[k] = { pid: (f.pid || {}).stringValue, cor: (f.cor || {}).stringValue || '', q: +((f.q || {}).integerValue || 0), exp: +((f.exp || {}).integerValue || 0), pago: !!(f.pago || {}).booleanValue };
+            res[k] = { pid: (f.pid || {}).stringValue, h: (f.h || {}).stringValue || '', cor: (f.cor || {}).stringValue || '', q: +((f.q || {}).integerValue || 0), exp: +((f.exp || {}).integerValue || 0), pago: !!(f.pago || {}).booleanValue };
           });
           o[ref] = res;
         });
         RES_EST = o;
         RES_T = Date.now();
-        resLimpaParadas();
-        try {
-          resOrfas();
-        } catch (e) {}
+        // P1 (19/11): a lista pública não traz mais o número do pedido, só o código "h"; o app descobre de qual pedido é cada reserva
+        return resHMapa().then(function () {
+          resLimpaParadas();
+          try {
+            resOrfas();
+          } catch (e) {}
+        });
       })
       .catch(function () {});
   }
@@ -26328,9 +26371,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     Object.keys(RES_EST).forEach(function (ref) {
       var r = RES_EST[ref];
       Object.keys(r).forEach(function (k) {
-        var x = r[k];
-        if (!x || x.pago || !x.pid || !(x.exp > 0) || x.exp > agora) return;
-        (por[x.pid] = por[x.pid] || {})[ref] = 1;
+        var x = r[k],
+          sid = resSid(x);
+        if (!x || x.pago || !sid || !(x.exp > 0) || x.exp > agora) return;
+        (por[sid] = por[sid] || {})[ref] = 1;
       });
     });
     if (!S.resPend) S.resPend = {};

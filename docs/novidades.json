@@ -1,8 +1,7 @@
 {
- "nome": "5.46.1",
+ "nome": "5.46.2",
  "notas": [
-  "Reservas do site: ao cancelar, entregar ou recusar um pedido, a peça volta a ficar livre no site na hora (antes a reserva ficava presa na nuvem). Se a internet ou a nuvem falhar, o app tenta de novo sozinho.",
-  "As reservas vencidas que tinham ficado paradas na nuvem são limpas uma vez."
+  "Reservas do site mais seguras: a lista pública não mostra mais o número do pedido; o app reconhece cada reserva pelo código novo e continua soltando as que ficaram presas."
  ],
- "build": 564
+ "build": 565
 }

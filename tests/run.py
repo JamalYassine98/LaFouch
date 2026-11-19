@@ -3558,6 +3558,38 @@ async def main():
             if not ok: falhas.append('B2 soltar reserva'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # P1 no app (19/11/2026): a lista pública traz o código "h" (sha256 de 'lf-res|' + pedido), sem o número do pedido
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              const H = async sid => [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode('lf-res|' + sid)))].map(x => ('0' + x.toString(16)).slice(-2)).join('').slice(0, 20);
+              const nv0 = S.nuvem, f0 = window.fetch, agora = Date.now();
+              const ef = (h, exp, pago) => ({ mapValue: { fields: { h: { stringValue: h }, cor: { stringValue: '' }, q: { integerValue: '1' }, exp: { integerValue: String(exp) }, pago: { booleanValue: pago } } } });
+              const hC = await H('PCANC9'), hV = await H('PVENC8'), hX = await H('NINGUEM7'), hL = await H('PVIVO6');
+              const docs = { documents: [
+                { name: 'x/estoque/HH1', fields: { res: { mapValue: { fields: { [hC + '~']: ef(hC, 0, true), [hX + '~']: ef(hX, 0, true), [hL + '~']: ef(hL, 0, true) } } } } },
+                { name: 'x/estoque/HH2', fields: { res: { mapValue: { fields: { [hV + '~']: ef(hV, agora - 3600000, false), [hX + 'b~']: ef(hX, agora - 3600000, false) } } } } } ] };
+              window.fetch = async (u, o) => { u = String(u);
+                if (/securetoken/.test(u)) return new Response(JSON.stringify({ id_token: 't', refresh_token: 'teste' }), { status: 200 });
+                if (/cloudfunctions.net\\/reserva/.test(u)) return new Response(JSON.stringify({ ok: false }), { status: 200 });
+                if (/\\/estoque\\?/.test(u)) return new Response(JSON.stringify(docs), { status: 200 });
+                return new Response('{}', { status: 200 }); };
+              S.nuvem = { rt: 'teste' }; S.resPend = {}; S.resOrf = {}; delete S.resLimpo1; S._pedT = Date.now();
+              S.pedidos.push({ id: 'pH1', sid: 'PCANC9', orig: 'site', st: 'canc', itens: [{ ref: 'HH1', cor: '', q: 1 }] });
+              S.pedidos.push({ id: 'pH2', sid: 'PVENC8', orig: 'site', st: 'pag', itens: [{ ref: 'HH2', cor: '', q: 1 }] });
+              S.pedidos.push({ id: 'pH3', sid: 'PVIVO6', orig: 'site', st: 'pag', itens: [{ ref: 'HH1', cor: '', q: 1 }] });
+              await L.resBusca(); await w(200);
+              const vencida = !!S.resPend.PVENC8 && S.resPend.PVENC8.refs[0] === 'HH2';
+              const espera = !!S.resOrf.PCANC9 && !S.resPend.PCANC9 && !S.resOrf.PVIVO6 && !Object.keys(S.resOrf).some(k => k.length === 20);
+              S.resOrf.PCANC9 = Date.now() - 11 * 60000; S._pedT = Date.now(); await L.resBusca(); await w(200);
+              const orfa = !!S.resPend.PCANC9 && !S.resPend.PVIVO6 && !Object.keys(S.resPend).some(k => k.length === 20 || k === 'NINGUEM7');
+              window.fetch = f0; S.pedidos = S.pedidos.filter(p => !/^pH/.test(p.id)); S.resPend = {}; S.resOrf = {}; L.resEstSet({}); S.nuvem = nv0;
+              return [vencida, espera, orfa]; }""")
+            total += 1
+            ok = got == [True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'P1 no app: reserva com código h acha o pedido (vencida e órfã cancelada soltas); código desconhecido e pedido vivo ficam')
+            if not ok: falhas.append('P1 no app'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
