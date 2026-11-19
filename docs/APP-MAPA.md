@@ -82,3 +82,4 @@ Obs.: 132 na base é só visual (ao implementar, ligar as ações de verdade).
 - 149v Família Voltar (aprovado 19/11 12:33, esperando implementar): work/s437/esboco_voltar_*.jpg + work/s436/esboco_voltar_*.jpg.
 - 149l Família Link › (aprovado 19/11 13:16, esperando implementar): work/s437/esboco_link_*.jpg.
 - 149i Família Linha de lista (aprovado 19/11 13:31, esperando implementar): work/s437/esboco_linha_*.jpg.
+- 149d Família Dobra ⌄ (aprovado 19/11 13:34, esperando implementar): work/s437/esboco_dobra_historico_*.jpg.
