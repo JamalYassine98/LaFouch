@@ -3212,3 +3212,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 19/11 15:59 — Início refeito aprovado (149n): sino porta única, Vendido hoje em linha, quadrados|lista com troca no canto esquerdo.
 - 19/11/2026 16:20 — ✅ PUBLICADO v565 (5.46.2): item 7 P1 no app — src/95-reserva.js lê o código `h` da lista pública (sha256 'lf-res|'+pedido, 20 hex, igual ao functions/reserva.js H; conferido node × navegador), descobre o pedido pelos pedidos que o app conhece (`resHMapa`/`resSid`) e continua aceitando o `pid` antigo. Código desconhecido não é mexido (a limpeza diária da nuvem cuida). 320/320 testes (teste novo P1 no app). Não testado em aparelho real.
 - 19/11 16:09 — 149r aprovado: Reservas mora em Dinheiro (logo depois do Caixa); Preços com link Reservas ›.
+- 19/11 16:30 — 149p (Preço automático em Ajustes) e 149g (quadrados|lista em todos os grupos, uma escolha só, ícones rosa; sem grupo dentro de grupo) aprovados.
