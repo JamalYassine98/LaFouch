@@ -1,6 +1,6 @@
 # Regras do projeto LaFouch
 
-- VÁRIAS SESSÕES (19/11/2026, pedido do dono): antes de qualquer trabalho, ler docs/STATUS.md; registrar ali o que esta sessão vai mexer ("Em andamento") e, ao terminar, tirar a linha e anotar em "Últimas mudanças". Não mexer em tela/arquivo que outra sessão marcou.
+- VÁRIAS SESSÕES (19/11/2026, pedido do dono): antes de qualquer trabalho (e de novo antes de cada commit), puxar o mais novo (`git fetch --depth=20 origin main` + rebase) e ler docs/STATUS.md; registrar ali o que esta sessão vai mexer ("Em andamento") e, ao terminar, tirar a linha e anotar em "Últimas mudanças". Não mexer em tela/arquivo que outra sessão marcou.
 
 - APP: ler PRIMEIRO docs/APP-MAPA.md (estudo do app + todos os aprovados esperando, num lugar só; pedido do dono 18/11 19:37) e docs/APP-BOTOES.md (o que cada botão faz). Atualizar o mapa a cada aprovação/implementação, no mesmo commit.
 

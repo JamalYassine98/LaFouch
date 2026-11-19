@@ -1,7 +1,7 @@
 # STATUS — ponte entre as sessões (criado 19/11/2026 a pedido do dono)
 
 Para que várias sessões trabalhem ao mesmo tempo sem mexer na mesma coisa.
-**Toda sessão:** ler este arquivo antes de começar; ao começar, pôr a sua linha em "Em andamento"; ao terminar (ou parar), tirar a linha e escrever 1 linha em "Últimas mudanças". Commit + push na hora (`git fetch --depth=20 origin main` + rebase antes do push).
+**Toda sessão:** puxar o mais novo (`git fetch --depth=20 origin main` + rebase) e ler este arquivo antes de começar; ao começar, pôr a sua linha em "Em andamento"; ao terminar (ou parar), tirar a linha e escrever 1 linha em "Últimas mudanças". Commit + push na hora (`git fetch --depth=20 origin main` + rebase antes do push).
 Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sessão: NÃO mexer; avisar o dono.
 
 ## Onde está o estudo de cada parte (ler o que já existe, não refazer)
