@@ -3147,3 +3147,5 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 19/11/2026 09:49 — REGRA DO DONO (CÓPIA LIMPA): os aprovados deixam de ir "por cima" (injeções) — ficam escritos LIMPOS numa CÓPIA do site fora do ar (ramo `limpo` do repositório catalogo), já sem o código velho que substituem. Esboços novos partem dessa cópia (Hoje = lafouch.com no ar, Proposta = cópia limpa + o ajuste novo). Ajuste de um aprovado = editar a cópia (só a última versão existe). "Implementar" = a cópia vira o site publicado (conferência completa antes, plano de volta). Vale também para o APP (sessão do app: cópia limpa do app) — avisar a outra sessão pela memória.
 
 - 19/11/2026 · DONO liberou o acesso da sessão a lafouch.com, firestore, firebasestorage, identitytoolkit e testing.googleapis.com (conferido: todos respondem). Site real e fotos agora saem direto daqui; GitHub Actions só de reserva. Criado docs/STATUS.md (ponte entre as sessões, regra VÁRIAS SESSÕES no CLAUDE.md).
+
+- 19/11/2026 11:41 (dono): a peça AC1050 a R$ 5 no site é DE PROPÓSITO — serve para testar o pagamento. Não tratar como erro.
