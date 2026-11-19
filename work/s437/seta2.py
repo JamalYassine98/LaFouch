@@ -1,0 +1,3 @@
+exec(open('/home/claude/lafouch/work/s437/esb.py').read())
+J="""()=>{const e=document.querySelector('#v-caixa div.note.n-bad .esLn');if(!e)return;const P=(k,v)=>e.style.setProperty(k,v,'important');P('display','flex');P('justify-content','center');P('align-items','center');P('width','auto');P('margin-left','auto');P('margin-right','auto');P('gap','4px');e.querySelectorAll('b,i').forEach(x=>{x.style.setProperty('margin','0','important');x.style.setProperty('font-weight','600','important')})}"""
+caso('seta_caixa','Caixa (Conferir aberto)',C['caixa-conferir'],'[data-act=d48Res]',J,'Caixa · "Reservas ›"',C['caixa-acoes'][:1],'[data-act=cxReservas]','"›" cai para a linha de baixo','"Ver o que falta repor ›" numa linha só, centralizado','modelo da família Link ›')
