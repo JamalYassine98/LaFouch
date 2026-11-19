@@ -1,0 +1,9 @@
+exec(open('/home/claude/lafouch/work/s437/esb.py').read())
+C['ajustes']=["()=>window.__LF.setView('ajustes')"]
+J1="""()=>{const g=document.getElementById('ajGrp');if(!g)return;const P=(e,k,v)=>e.style.setProperty(k,v,'important');[['background','none'],['border','0'],['border-radius','0'],['box-shadow','none'],['padding','0']].forEach(q=>P(g,q[0],q[1]));
+ g.querySelectorAll('.ajR').forEach(r=>{P(r,'padding-left','0');P(r,'padding-right','0');P(r,'background','none')});g.querySelectorAll('.ajS').forEach(r=>{P(r,'background','none')});g.querySelectorAll('.ajS').forEach((s,i,a)=>{P(s,'border-bottom',i<a.length-1?'1px solid var(--line2)':'0');P(s,'border-top','0')})}"""
+J2="""()=>{const P=(e,k,v)=>e.style.setProperty(k,v,'important');document.querySelectorAll('.mkPb').forEach(b=>{const t=b.querySelector('b'),s=b.querySelector('small');if(t){P(t,'font-size','16px');P(t,'font-weight','500')}if(s){P(s,'font-size','13px');P(s,'color','var(--mute)');P(s,'white-space','nowrap');P(s,'overflow','hidden');P(s,'text-overflow','ellipsis');P(s,'display','block')}P(b,'min-width','0');P(b,'flex','1')});
+ document.querySelectorAll('.mkPi').forEach(r=>{P(r,'min-height','64px');P(r,'align-items','center');P(r,'border-bottom','1px solid var(--line2)')})}"""
+REF=["()=>{const b=document.querySelector(\"#mainnav .mn[data-id='g:din']\");b&&b.click()}"];R='modelo da família Linha de lista'
+#caso('linha_ajustes','Ajustes',C['ajustes'],'#ajGrp',J1,'Dinheiro (índice, hoje)',REF,'#v-grp .top','linhas dentro de um cartão (fundo + borda + cantos)','linhas finas direto na tela, sem cartão',R)
+caso('linha_marketing','Marketing',C['marketing'],'.mkPl',J2,'Dinheiro (índice, hoje)',REF,'#v-grp .top','plano da semana: título 14 px, linhas soltas','título 16 px, frase 13 px numa linha só, linha fina (64 px)',R)
