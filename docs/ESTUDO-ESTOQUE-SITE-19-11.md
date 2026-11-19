@@ -52,3 +52,11 @@ Conta que vale hoje: disponível no site = `qs[cor]` (B) − reservas vivas (C).
 1. Fazer P1 (segurança) primeiro, antes de tudo? (recomendado)
 2. A baixa automática está ligada no seu celular? Se sempre ligada, P2 pode ser só um aviso.
 3. Caminho 1 ou 2 — só depois do esboço da P4.
+
+## 7. Bugs que o dono viu no celular (19/11 13:41) — investigados só lendo + simulador; nada consertado
+| # | O que o dono viu | Causa achada | Prova |
+|---|---|---|---|
+| B1 | Pedido › tocar no nome da cliente → tela preta | `ACT.pedcli` abre a tela `'cli'`, que não existe; a de clientes se chama `'clientes'` (src/95-pedidos.js linha 835; certo em src/89-inicio.js 257) | simulador: depois do toque `S.view = 'cli'`, sem tela |
+| B2 | Cancelar pedido não "devolve" e continua reservado | no app o cancelar marca `canc` e manda soltar (`resSolta`). Na nuvem, a reserva do AC1050 **ainda existe** (vencida há ~67 h, por isso já não segura a peça: `produtos/AC1050` = 3, "Últimas 3 unidades"). Mais 6 reservas vencidas (SL2210, SL2275, SL2280, SL2300 ×3) nunca foram apagadas → o "liberar" do app não está chegando. Suspeita principal: `resApi` (src/95-reserva.js) só tenta de novo em erro 5xx/404; um 401/403 (login vencido) conta como "feito" e a fila é apagada sem soltar | leitura pública de `estoque/` e `produtos/AC1050` às 13:45 |
+| B3 | Grupo Site › "Site" parece pular para o outro "Site" | no simulador abre certo a tela Resumo (‹ SITE / Site). O grupo e a tela têm o MESMO nome, então parece que não saiu do lugar. No celular do dono a lista do grupo está sem o estilo (texto centralizado rosa, sem linhas) → o celular parece estar com o CSS antigo (cache) e o JS novo | foto do dono × simulador (work: /home/claude/sim, fora do projeto) |
+Falta saber (B2): onde aparece "reservado" — no app ou na página do pedido no site?
