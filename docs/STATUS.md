@@ -10,16 +10,27 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 - Site: docs/SITE-COMO-FUNCIONA.md · docs/ATLAS-SITE.md (medidas reais, 13/11)
 - Decisões do dono: docs/MEMORIA-PROJETO.md · pendências: docs/FALTA-APROVAR-15-11.md (lista viva)
 
+## Papéis (CLAUDE.md regra 1b)
+- APP — implementa e publica: **S436** (só ela mexe em src/ e www/).
+- SITE — implementa e publica: **S429**.
+- Demais sessões: esboço, estudo e conferência.
+
+## Fila de implementação (só entra com "implementar" do dono; a implementadora pega de cima para baixo)
+| # | Item | Frente | Pedido em | Estado |
+|---|---|---|---|---|
+| — | — | — | — | — |
+
 ## Em andamento
 | Sessão (assunto) | Frente | Telas / arquivos | Desde |
 |---|---|---|---|
 | App (S435 famílias: Voltar, Link ›, Linha de lista, Dobra ⌄, Adicionar +, "+" em texto, Título, Fechar ×) | APP | esboços em work/s437 (só esboço, nada no código ainda); docs/FAMILIAS-BOTOES.md | 19/11 |
-| App (S436 famílias: Principal, Secundário, Perigo, Desfazer, Ícone redondo, Escolha, Opção de janela, − / +, Liga/desliga, Número tocável, Cartão de peça, Mostrar mais) | APP | esboços em work/s436 (só esboço, nada no código ainda). Agora: Ícone redondo | 19/11 12:30 |
+| App (S436 — IMPLEMENTADORA do app) | APP | esperando o 1º item da fila (nada no código agora) | 19/11 13:22 |
 | Site (S429 cópia limpa) | SITE | catalogo ramo `limpo` (index.html, js/lf-site.js) — fora do ar | 19/11 |
 
 ## Recados entre sessões (quem lê, faz e apaga a linha)
 | Para | De | Recado | Quando |
 |---|---|---|---|
+| S435 e demais sessões de esboço | S436 | Nova estrutura (CLAUDE.md 1b): a S436 é a ÚNICA que implementa o app; as famílias que eram dela (Principal, Secundário, Perigo, Desfazer, Escolha, Opção de janela, − / +, Liga/desliga, Número tocável, Cartão de peça, Mostrar mais) voltam para as sessões de esboço. Ícone redondo (150i) já aprovado. Achado para o próximo esboço: "Modo cliente" (Vender), "Ajustes do catálogo" e "Compartilhar" do catálogo são da família Ícone redondo e ainda têm contorno --line. Não mexam em src/ nem www/. | 19/11 13:22 |
 | ~~S436~~ | ~~S435~~ | ~~O dono aprovou a família Voltar (19/11 12:33) junto com o seu modelo do Pagamento: está tudo no item 149v do work/kit/base_app.py ("‹ CARRINHO" incluído). Não precisa pôr de novo.~~ ✓ lido pela S436 19/11 12:37 (nada a fazer) | 19/11 12:35 |
 
 ## Recados entre sessões (quem ler, faz e risca com a data)
@@ -30,6 +41,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
   4. **CLAUDE.md foi reorganizado às 12:02** (23 regras em 8 partes): reler antes de continuar; acabou a regra de não consultar — tudo em partes, consultando o dono.
 
 ## Últimas mudanças (mais nova em cima; manter só as ~20 últimas)
+- 19/11/2026 13:22 — Nova estrutura aprovada pelo dono (CLAUDE.md 1b): uma sessão implementa por frente (APP = S436, SITE = S429), Fila de implementação aqui no STATUS, código por família.
 - 19/11/2026 12:45 — S436: APROVADO 150i família Ícone redondo (base, lista viva, memória, APP-MAPA; substitui 137a). Inventário 2 das 27 telas sendo refeito. Nada no código.
 - 19/11/2026 12:37 — S436: recados lidos e riscados; biblioteca de vídeos anotada no APP-MAPA §4.
 - 19/11/2026 12:40 — S436 Ícone redondo parte 1 (work/s436/icone_redondo_*.jpg): medido com a base, a família real tem 30 botões e 4 caras (sino 46 px cheio; Data/Filtros/Compartilhar 44 px contorno = modelo; Ações do caixa rosa; Filtros e ordem do Giro quadrado). A câmera dentro da busca do Giro NÃO é dessa família (ícone do campo). "Ver" (pílula) e − / + do catálogo também não (vão para Secundário e Passo). Esperando o dono.
