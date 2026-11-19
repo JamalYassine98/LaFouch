@@ -3231,3 +3231,5 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 19/11/2026 20:00 — DONO ("Excelente"): IDEIA APROVADA para esboço — UMA câmera só no Estúdio com escolha de dois lados "Foto | Vídeo" junto do disparo (em vez de duas câmeras e dois botões). Foto = 4 itens + disparo (Frente/3/4); Vídeo = os 10 itens do 149cam-F + "Gravar a volta" (as fotos saem do giro); Vídeo abre como padrão. Esboço 149cam-M pedido à sessão de esboço. ABERTO: o vídeo para aos 60 s fixos ou quando a volta fecha (com 60 s de limite). Item 15 parte 2 (149cam-F) espera o 149cam-M.
 - 19/11/2026 20:01 — DONO: o vídeo do giro PARA QUANDO A VOLTA FECHA ("para maior eficiência"), com 60 s de limite — resolve o ponto aberto do 149cam-M (o cronômetro do 149cam-F continua mostrando m:ss / 1:00 como limite).
 - 19/11 20:08 — 149cam-M2 aprovado: um ícone troca Foto/Vídeo; Galeria em ícone; Vídeo é o padrão.
+
+- 19/11/2026 20:34 (dono "Sim"): limpeza 1/5 aprovada e no ramo limpo — família WhatsApp num bloco só (/*FAMILIA-WHATSAPP*/); ao rolar a bola sai inteira; volta a animação bola↔lingueta do S239.

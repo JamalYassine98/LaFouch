@@ -303,3 +303,5 @@ Regra do dono 09:49: os aprovados ficam escritos no próprio código numa cópia
 - 19/11/2026 S430 estilos passo 1 (cópia limpa): 650 declarações que nunca valem (76 eram !important) saíram do index.html — medidor em work/s430/est (fonte.py + cascata.js + roda.py). Critério: casou, nunca ganhou e só perdeu para OUTRA regra escrita no index.html (nunca para estilo posto pelo programa nem inline); conferido elemento a elemento em 80 estados (5 tamanhos, logado/deslogado, temáticas, Mochi). Achados e corrigidos antes: regra .panel (o programa mede a janela antes) e cor da pílula das abas.
 
 - 19/11/2026 item 14 da Fila (urgente): admin.html, bloco S374 dos Ajustes — o filtro que transforma cartões em linhas passou de texto (`/está no ar/`) para `c.id!=='c_cfg'`; o cartão do interruptor (#c_cfg/#tgl) fica sempre no topo, ligado ou desligado (antes sumia com o site fora do ar e o dono não conseguia religar). Prova: work/site-painel/prova.py.
+
+- 19/11/2026 20:34 (dono "Sim"): limpeza 1/5 aprovada e no ramo limpo — família WhatsApp num bloco só (/*FAMILIA-WHATSAPP*/); ao rolar a bola sai inteira; volta a animação bola↔lingueta do S239.
