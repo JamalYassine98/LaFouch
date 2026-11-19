@@ -57,6 +57,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
   4. **CLAUDE.md foi reorganizado às 12:02** (23 regras em 8 partes): reler antes de continuar; acabou a regra de não consultar — tudo em partes, consultando o dono.
 
 ## Últimas mudanças (mais nova em cima; manter só as ~20 últimas)
+- 19/11/2026 16:10 — NUVEM · implementa: item 7 (APP v565) conferido — código h igual ao da nuvem. Lacuna achada (erro da especificação da P1): reserva PAGA de pedido APAGADO do app não é mais solta. ESBOÇO P1b work/estudo-c/esboco_P1b_orfas_*.jpg, esperando o dono.
 - 19/11/2026 16:20 — S436: ✅ PUBLICADO app v565 (5.46.2): item 7 P1 no app (código `h` das reservas). 320/320. P1 completo (nuvem + app).
 - 19/11/2026 15:46 — NUVEM · implementa: S1/S2 parte 1 publicada pelo dono e conferida. Itens 9 (SITE) e 10 (APP) liberados.
 - 19/11/2026 15:22 — S436: Test Lab celular real (SC-53C, Android 16): 5 telas da v563 no escuro, Passed, 58 s (1ª tentativa das 14:30 não rodou: o workflow troca "," por ";" em temas e o gcloud recusa — rodar UM tema por vez). Usado hoje: ~1 min de 30. Sino e Ações do caixa redondos conferidos no aparelho.
