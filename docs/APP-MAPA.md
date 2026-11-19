@@ -81,3 +81,4 @@ Obs.: 132 na base é só visual (ao implementar, ligar as ações de verdade).
 - Esboços aprovados: work/s434/146B-*, 147-1…147-8. Código: src/99c-navegacao-s435.js + bloco S435 no fim de www/style.css. Ver docs/APP-COMO-FUNCIONA.md.
 - 149v Família Voltar (aprovado 19/11 12:33, esperando implementar): work/s437/esboco_voltar_*.jpg + work/s436/esboco_voltar_*.jpg.
 - 149l Família Link › (aprovado 19/11 13:16, esperando implementar): work/s437/esboco_link_*.jpg.
+- 149i Família Linha de lista (aprovado 19/11 13:31, esperando implementar): work/s437/esboco_linha_*.jpg.

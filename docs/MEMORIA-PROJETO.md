@@ -3193,3 +3193,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 
 - 19/11/2026 12:39 (dono: "não faz sentido um cartão por compra?"): SIM — é a regra de hoje (S409: um cartão por compra, o site escolhe o de maior desconto). O texto "Um código por compra" estava no campo antigo "Tem um código?", substituído pelos Cartões; esse código velho saiu da cópia limpa (regra 12).
 - 19/11/2026 13:16 — Família Link › aprovada (149l), esperando "implementar": 15 px rosa 600 sem sublinhado, termina em › (Preços, Inventário, Reservas). Esboços work/s437/esboco_link_*.
+- 19/11/2026 13:31 — Família Linha de lista aprovada (149i), esperando "implementar": Ajustes sem cartão; Marketing plano 16/13 px numa linha. Esboços work/s437/esboco_linha_*.
