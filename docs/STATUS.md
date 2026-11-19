@@ -67,6 +67,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
   4. **CLAUDE.md foi reorganizado às 12:02** (23 regras em 8 partes): reler antes de continuar; acabou a regra de não consultar — tudo em partes, consultando o dono.
 
 ## Últimas mudanças (mais nova em cima; manter só as ~20 últimas)
+- 19/11/2026 21:05 — NUVEM · implementa: varredura de segurança parte 2 (só leitura): 16 portas da nuvem e as 3.173 imagens. Achados entregues ao dono fora do repositório. Nenhum dado de cliente real achado nas imagens.
 - 19/11/2026 21:20 — S436: ✅ PUBLICADO app v569 (5.48.0): item 15 parte 2 (câmera única Foto/Vídeo com o conferidor do giro). 324/324. Esperando o dono testar com a tenda.
 - 19/11/2026 20:05 — S436: ✅ PUBLICADO app v568 (5.47.0): item 15 parte 1 (149cam, desenho da câmera do Estúdio). 323/323. Esperando o dono testar no celular.
 - 19/11/2026 17:45 — S436: ✅ PUBLICADO app v567 (5.46.4): item 13 P1b no app (órfãs pagas pela nuvem + liberarH). 323/323.
