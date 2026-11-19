@@ -83,3 +83,4 @@ Obs.: 132 na base é só visual (ao implementar, ligar as ações de verdade).
 - 149l Família Link › (aprovado 19/11 13:16, esperando implementar): work/s437/esboco_link_*.jpg.
 - 149i Família Linha de lista (aprovado 19/11 13:31, esperando implementar): work/s437/esboco_linha_*.jpg.
 - 149d Família Dobra ⌄ (aprovado 19/11 13:34, esperando implementar): work/s437/esboco_dobra_historico_*.jpg.
+- 149a Famílias Adicionar + / "+" em texto (aprovado 19/11 13:42, esperando implementar): work/s437/esboco_mais_*.jpg.

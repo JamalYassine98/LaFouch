@@ -3195,3 +3195,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 19/11/2026 13:16 — Família Link › aprovada (149l), esperando "implementar": 15 px rosa 600 sem sublinhado, termina em › (Preços, Inventário, Reservas). Esboços work/s437/esboco_link_*.
 - 19/11/2026 13:31 — Família Linha de lista aprovada (149i), esperando "implementar": Ajustes sem cartão; Marketing plano 16/13 px numa linha. Esboços work/s437/esboco_linha_*.
 - 19/11/2026 13:34 — Família Dobra ⌄ aprovada (149d), esperando "implementar": semanas do Histórico na mesma margem. Esboço work/s437/esboco_dobra_historico_*.
+- 19/11/2026 13:42 — Famílias Adicionar + e "+" em texto aprovadas (149a), esperando "implementar". Esboços work/s437/esboco_mais_*.
