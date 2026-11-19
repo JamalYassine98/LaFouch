@@ -299,3 +299,5 @@ Regra do dono 09:49: os aprovados ficam escritos no próprio código numa cópia
 - Teste: workflow 422935671 com `ramo2=limpo` (hoje = main, prop = limpo); na cópia limpa a análise sobe a letra pela fonte da raiz.
 
 - S429 depósito (cópia limpa): saíram `promo.mp4` (teste de 4 s; o modo Vídeo do destaque continua) e a pasta `teste-giro/`. `lfx/face-api.js` + `lfx/model` FICAM: são a reserva da câmera do formato quando o leitor novo (lfx/mp) falha ou demora mais de 8 s.
+
+- 19/11/2026 S430 estilos passo 1 (cópia limpa): 650 declarações que nunca valem (76 eram !important) saíram do index.html — medidor em work/s430/est (fonte.py + cascata.js + roda.py). Critério: casou, nunca ganhou e só perdeu para OUTRA regra escrita no index.html (nunca para estilo posto pelo programa nem inline); conferido elemento a elemento em 80 estados (5 tamanhos, logado/deslogado, temáticas, Mochi). Achados e corrigidos antes: regra .panel (o programa mede a janela antes) e cor da pílula das abas.
