@@ -28,7 +28,7 @@ with sync_playwright() as pw:
             for bt in ('#sbtn', '#bagbtn', '#mnb'):
                 pg.tap(bt, force=True); pg.wait_for_timeout(1800)
                 if versao == 'hoje': pg.evaluate(FECHA[bt])
-                else: pg.tap(bt, force=True)
+                else: pg.tap('#lfx3b', force=True)
                 pg.wait_for_timeout(1300)
         else:
             pg.tap('#mnb', force=True); pg.wait_for_timeout(2500)
