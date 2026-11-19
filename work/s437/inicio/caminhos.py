@@ -13,6 +13,12 @@ B=r"""()=>{const P=(e,k,v)=>e&&e.style.setProperty(k,v,'important');const gr=doc
   const box=document.createElement('span');box.style.cssText='display:flex;flex-direction:column;gap:2px;flex:1;min-width:0;text-align:left';tn.parentNode.insertBefore(box,tn);box.appendChild(tn);box.appendChild(tp);tp.textContent=fr;
   [['font-size','16px'],['margin','0'],['text-align','left']].forEach(q=>P(tn,q[0],q[1]));[['font-size','13px'],['margin','0'],['padding','0'],['border','0'],['text-align','left'],['white-space','nowrap'],['overflow','hidden'],['text-overflow','ellipsis'],['color','var(--mute)']].forEach(q=>P(tp,q[0],q[1]));
   const s=document.createElement('span');s.textContent='›';s.style.cssText='font-size:22px;color:var(--mute);line-height:1';t.appendChild(s)})}"""
+TOG=r"""(modo)=>{const gr=document.querySelector('#v-inicio .tgrid');if(!gr||document.getElementById('iniTog'))return;
+ const h=document.createElement('div');h.id='iniTog';h.style.cssText='display:flex;align-items:center;justify-content:space-between;margin:24px 0 8px;height:44px';
+ const ic={g:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',l:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>'};
+ const b=(k,lab)=>`<button type="button" aria-label="${lab}" aria-pressed="${modo==k}" style="width:44px;height:32px;display:flex;align-items:center;justify-content:center;border:0;border-radius:9px;background:${modo==k?'var(--bg)':'none'};box-shadow:${modo==k?'0 1px 2px rgba(0,0,0,.25)':'none'};color:${modo==k?'var(--fg)':'var(--mute)'}">${ic[k]}</button>`;
+ h.innerHTML='<span style="font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--mute)">GRUPOS</span><span style="display:flex;padding:2px;border-radius:11px;background:color-mix(in srgb,var(--fg) 7%,transparent)">'+b('g','Ver em quadrados')+b('l','Ver em lista')+'</span>';
+ gr.parentNode.insertBefore(h,gr);gr.style.setProperty('margin-top','0','important')}"""
 A2=open('/home/claude/lafouch/work/verif/alin2.js').read()
 def tira(pg,nome):
   pg.add_style_tag(content='#nvBar{display:none!important}');pg.evaluate("()=>window.scrollTo(0,0)");pg.wait_for_timeout(300)
@@ -33,7 +39,8 @@ with sync_playwright() as pw:
     for L,tit,sub,js in CAM:
       b,pg,w=abre(pw,esc,[LM]+C['inicio'])
       for x in js: pg.evaluate(x)
+      if os.environ.get('TOG'): pg.evaluate(TOG,'g' if L=='A' else 'l')
       w(400);k=set((x['r'],x['ex'][0][:20]) for x in pg.evaluate(A2))
       print(L,n,'alinhamento novo:',sorted(k-k0) or 'nenhum','| sumiram:',len(k0-k))
       fp=tira(pg,'ini_%s_%s'%(L,n));b.close()
-      quadro2('esboco_inicio_%s_%s.jpg'%(L,n),esc,[('HOJE · Início','como está (com a base)',fh),('CAMINHO %s · %s'%(L,tit),sub,fp)])
+      quadro2(('esboco_inicio_alterna_%s_%s.jpg' if os.environ.get('TOG') else 'esboco_inicio_%s_%s.jpg')%(L,n),esc,[('HOJE · Início','como está (com a base)',fh),('CAMINHO %s · %s'%(L,tit),sub,fp)])
