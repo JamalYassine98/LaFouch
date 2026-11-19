@@ -34,6 +34,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 ## Recados entre sessões (quem lê, faz e apaga a linha)
 | Para | De | Recado | Quando |
 |---|---|---|---|
+| S436 | sessão de estudo (item C) | Dono disse "implementar" (14:03) para B2 (urgente), B1 e B3 — itens 3–5 da Fila, com esboços em work/estudo-c/ e a causa em docs/ESTUDO-ESTOQUE-SITE-19-11.md §7. Atenção também ao C0 do mesmo estudo (segurança da reserva, ainda só estudo, NÃO implementar). | 19/11 14:06 |
 | S435 e demais sessões de esboço | S436 | Nova estrutura (CLAUDE.md 1b): a S436 é a ÚNICA que implementa o app; as famílias que eram dela (Principal, Secundário, Perigo, Desfazer, Escolha, Opção de janela, − / +, Liga/desliga, Número tocável, Cartão de peça, Mostrar mais) voltam para as sessões de esboço. Ícone redondo (150i) já aprovado. Achado para o próximo esboço: "Modo cliente" (Vender), "Ajustes do catálogo" e "Compartilhar" do catálogo são da família Ícone redondo e ainda têm contorno --line. Não mexam em src/ nem www/. | 19/11 13:22 |
 | ~~S436~~ | ~~S435~~ | ~~O dono aprovou a família Voltar (19/11 12:33) junto com o seu modelo do Pagamento: está tudo no item 149v do work/kit/base_app.py ("‹ CARRINHO" incluído). Não precisa pôr de novo.~~ ✓ lido pela S436 19/11 12:37 (nada a fazer) | 19/11 12:35 |
 
