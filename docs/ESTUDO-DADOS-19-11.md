@@ -19,7 +19,7 @@ Limite: não vi os dados reais do celular do dono (tamanho, anos de vendas); a s
 |---|---|---|---|
 | A | Um "baú" único com 199 gavetas, regravado inteiro a cada mudança | fica lento com os anos; difícil saber o que é de quê; uma gaveta estragada pode afetar o resto | separar por assunto (Peças, Vendas, Dinheiro, Clientes, Site, Ajustes), cada um com a versão do seu formato |
 | B | A ficha de uma peça está espalhada em várias gavetas por código (nome, preço, piso, fotos, memória do modelo…) | apagar ou renomear uma peça deixar restos (já houve "limpaRefExcluido"/"S.excl" para isso) | uma ficha por peça com tudo dentro |
-| C | O site tem estoque em dois lugares (`produtos.est/qs` e `estoque/<ref>` das reservas) | os dois discordarem (peça "disponível" que não está) | uma fonte só de estoque para o site; `produtos` fica só com a vitrine |
+| C | O site tem estoque em dois lugares (`produtos.est/qs` e `estoque/<ref>` das reservas) | os dois discordarem (peça "disponível" que não está) | uma fonte só de estoque para o site; `produtos` fica só com a vitrine — **estudo e plano: docs/ESTUDO-ESTOQUE-SITE-19-11.md** |
 | D | Nomes curtos de campo no site (`n`, `est`, `fv`, `gq`, `l2`, `mv`…) | ninguém lembra o que é; erro ao mexer | dicionário dos campos num doc (sem mudar o formato) |
 | E | Fotos guardadas como texto dentro de documentos, em partes | limite de 1 MB por documento; pesa na leitura | guardar no Storage do Firebase (conferir custo antes) |
 | F | Regras com o dono fixo | funcionário/segundo usuário exige reescrever | papéis (dono, vendedor) quando chegar a hora |
