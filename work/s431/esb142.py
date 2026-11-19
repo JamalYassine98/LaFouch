@@ -27,9 +27,9 @@ CASOS=[
   'Hoje (134d): título "Editar produto" com serifa (as outras janelas não); botão "Salvar alterações"; "▸ MAIS DETALHES" com triângulo.',
   'Depois: título na letra das janelas (como "Novo cliente", "Nova despesa"); um "Salvar" (regra dos formulários); "MAIS DETALHES ⌄" (abre no lugar).'),
  ('e','carrinho-mais','Carrinho › "+ Adicionar outra peça" (grupo do 141)',D['catalogo-carrinho']+["()=>{const e=document.getElementById('cartSlot');e&&e.scrollIntoView({block:'center'})}"],
-  '#cartSlot{text-decoration:none!important;align-self:flex-start!important;margin-left:0!important;padding-left:0!important;text-align:left!important}',[],
+  '#cartSlot{text-decoration:none!important}',[],
   'Hoje: "+ Adicionar outra peça" centralizado e sublinhado — diferente do "+ Receber parte em outra moeda" aprovado no 141.',
-  'Depois: igual ao 141 — branco, sem sublinhado, encostado à esquerda.'),
+  'Depois: continua centralizado (sozinho no fim do bloco) e perde o sublinhado — regra do grupo dos "+" em texto.'),
  ('f','retirada-ordem','Caixa › Retirada (aprovado 135e) — ordem das moedas',D['caixa-retirar'],'',[ORD],
   'Hoje (135e): G$ · US$ · R$. No resto do app (Pagamento, Livre para você, Dashboard): G$ · R$ · US$.',
   'Depois: G$ · R$ · US$ em todo lugar (regra N). Vale também para Registrar troca (De/Para).'),
@@ -43,9 +43,9 @@ CASOS=[
   'Hoje: a tela inteira dentro de um cartão; "Valor recebido" e "Cliente" em caixas; aviso numa caixa vermelha.',
   'Depois: sem o cartão (como o Dashboard e a ficha aprovada 134); campos em linha fina (P3); aviso como frase vermelha (como o aviso do Caixa, 135b).'),
  ('i','carrinho','Catálogo › Carrinho',D['catalogo-carrinho'],
-  '#cartCard{background:none!important;border:0!important;box-shadow:none!important;padding-left:0!important;padding-right:0!important;border-radius:0!important}',[],
+  '#cartSlot{text-decoration:none!important}#cartCard{background:none!important;border:0!important;box-shadow:none!important;padding-left:0!important;padding-right:0!important;border-radius:0!important}',[],
   'Hoje: o carrinho inteiro dentro de um cartão.',
-  'Depois: sem o cartão, como as outras telas aprovadas; o resto igual (inclui o 142e).'),
+  'Depois: sem o cartão, como as outras telas aprovadas; junto com o 142e ("+ Adicionar outra peça" à esquerda, sem sublinhado).'),
  ('j','peca','Catálogo › Peça',D['catalogo-peca'],
   '#vDetail{background:none!important;border:0!important;box-shadow:none!important;padding-left:0!important;padding-right:0!important;border-radius:0!important}#vDetail .pl.pick{background:none!important;border:0!important;border-bottom:1px solid var(--line2)!important;border-radius:0!important;padding-left:0!important}#vDetail .vbar.vsale{background:none!important;border:0!important;box-shadow:none!important;padding-left:0!important;padding-right:0!important}#vDetail .vbar button:not(.go){border-radius:50%!important;background:none!important;border:1px solid var(--line)!important}',[],
   'Hoje: a peça dentro de um cartão; o grau numa caixa rosa; "−"/"+" quadrados numa caixa.',
@@ -83,6 +83,10 @@ CASOS=[
   'Hoje: a frase de dentro do campo "O que vê…" fica cortada ("vazio = tud").',
   'Depois: frase mais curta que cabe: "Códigos que vê (vazio = tudo)".'),
 ]
+_g={};exec(open('/home/claude/lafouch/work/s425/esb138.py').read().split('with sync_playwright')[0],_g)
+_d=[c for c in _g['CASOS'] if c[0]=='d'][0];comum.OUT='/home/claude/lafouch/work/s431/'
+for i,c in enumerate(CASOS):
+  if c[0]=='r': CASOS[i]=(c[0],c[1],c[2],c[3],_d[4],_d[5]+c[5],c[6],'Depois (por cima do 138d, com a tabela embaixo de "O que vê"): frase mais curta que cabe: "Códigos que vê (vazio = tudo)".')
 with sync_playwright() as pw:
   for k,nome,tit,ps,css,js,h,p in [c for c in CASOS if c[0] in (os.environ.get('SO') or 'abcdefghijklmnopqr')]:
     for esc,tema in ((True,'escuro'),(False,'claro')):
