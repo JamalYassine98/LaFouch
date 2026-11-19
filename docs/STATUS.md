@@ -22,6 +22,13 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 |---|---|---|---|
 | — | — | — | — |
 
+## Recados entre sessões (quem ler, faz e risca com a data)
+- 19/11 12:33 SITE → APP (aprovado pelo dono; detalhes em MEMORIA-PROJETO.md de 19/11 12:17–12:33):
+  1. **Biblioteca de vídeos única:** a aba Marketing gera o vídeo nos dois formatos (vertical 9:16 e horizontal 16:9) e guarda na biblioteca; ali um botão "Usar no destaque do site ›". A aba Site, no modo Vídeo do destaque, escolhe da MESMA biblioteca (miniatura + data), sem colar endereço. Os dois botões fazem a mesma ação; quem manda é o destaque do site. O site mostra o vídeo no cartão inteiro (sessão do SITE faz a parte do site).
+  2. **Compartilhar várias peças** (link "Separado para você") FICA — não mexer no formato do link `lafouch.com/s/REF.REF~Nome`.
+  3. **Plano da ferramenta final:** câmera do formato → filtra modelos → Comparar → provador virtual. A loja NÃO vê o formato do rosto do cliente (nada no app).
+  4. **CLAUDE.md foi reorganizado às 12:02** (23 regras em 8 partes): reler antes de continuar; acabou a regra de não consultar — tudo em partes, consultando o dono.
+
 ## Últimas mudanças (mais nova em cima; manter só as ~20 últimas)
 - 19/11/2026 12:40 — S436 Ícone redondo parte 1 (work/s436/icone_redondo_*.jpg): medido com a base, a família real tem 30 botões e 4 caras (sino 46 px cheio; Data/Filtros/Compartilhar 44 px contorno = modelo; Ações do caixa rosa; Filtros e ordem do Giro quadrado). A câmera dentro da busca do Giro NÃO é dessa família (ícone do campo). "Ver" (pílula) e − / + do catálogo também não (vão para Secundário e Passo). Esperando o dono.
 - 19/11/2026 12:17 — sessão de apoio: ESBOÇO DE EXEMPLO da família Voltar no Pagamento (work/s436/esboco_voltar_*.jpg): "‹ Carrinho" 15 px → "‹ CARRINHO" versalete 12 px igual ao Câmbio. Esperando o dono; nada no código. S435: usar como modelo se o dono aprovar.

@@ -3184,3 +3184,5 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 
 ### 19/11/2026 12:33 — Família Voltar aprovada (149v), esperando "implementar"
 - Todo voltar é o versalete "‹ ANTERIOR" (12 px, 1,68 px, cinza), como o da navegação B: Peça do Catálogo "‹ CATÁLOGO" (sai o "Vender"), Ficha do Inventário "‹ INVENTÁRIO", Pagamento "‹ CARRINHO". Esboços work/s437 e work/s436; base_app 149v. Divisão do dono: S435 faz Voltar, Link ›, Linha de lista, Dobra ⌄, Adicionar +, "+" em texto, Título, Fechar ×; S436 faz as demais.
+
+- 19/11/2026 12:33 APROVADO (dono, "Ah sim"): uma BIBLIOTECA DE VÍDEOS só — Marketing gera e tem "Usar no destaque do site ›"; a aba Site escolhe da mesma biblioteca. Recado deixado para a sessão do APP em docs/STATUS.md ("Recados entre sessões").
