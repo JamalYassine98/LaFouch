@@ -533,3 +533,9 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - `.ecTop`/`.ecBot` ficam no HTML só como gaveta dos controles manuais (escondidos). CSS: bloco "CÂMERA DO ESTÚDIO (149cam)" no fim do style.css. A câmera do giro (12 s) não usa isto.
 - Próximas partes do item 15: 149cam-F (funcionar como teste-giro/conferir) e 149cam-G (guias na imagem).
 
+## Câmera do Estúdio — modos Foto e Vídeo (149cam-F/M2/X, v569, 19/11/2026)
+- `estCam(ctx)` marca `ov.dataset.modo`: `video` (padrão), `foto` (ctx.modo='foto') ou `so-foto` (Medir fundo ou ctx.done). No Vídeo o LOOP de foto e o `dispara` não agem e o `c262Frase` não escreve.
+- `src/98z-camera-u149f.js` → `cam149Modos(ov)` (chamado pelo `cam149Monta`): ícone `.ecModo`, disparo do vídeo `.ecDispRec`/`#ecRec`, disparo da foto embrulhado em `.ecDispFoto` (com "Fotografar"), lista `.ecLista`, `.ecTrava`, `.ecCrono`. Conferência a cada 0,28 s com `medeQuadro`/`confereGiro` (cópia do work/s296/conferir.js). `ov.__c149` = última conferência (testes).
+- Gravar: `giroGrava(stream, video, {k, fim}, ui)` em src/97-estudio-giro.js (o `estGiro` agora só abre a câmera no Vídeo). Para quando `gtFechou` acha a volta ou em `GIRO_MAX` = 60 s; câmera fechada no meio = descarta. Depois `estGiroAuto`/`estGiroEscolhe` como antes.
+- `c149Cabe(ov)`: a coluna da esquerda (deitado) sobe `data-cabe` 0→3 até a frase e a lista caberem (regra 14 L4).
+

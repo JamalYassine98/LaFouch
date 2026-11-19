@@ -2339,10 +2339,6 @@ html{overscroll-behavior-y:none}
 .egAnel circle{fill:rgba(0,0,0,.28);stroke-width:2}.egAnel .egA0{stroke:rgba(255,255,255,.28)}
 .egAnel .egA1{fill:none;stroke:#fff;stroke-linecap:round;stroke-dasharray:119.4;stroke-dashoffset:119.4;transition:stroke-dashoffset .5s linear}
 .egAnel b{position:relative;color:#fff;font-size:15px;font-weight:500;font-variant-numeric:tabular-nums}
-.egLista{position:absolute;left:0;right:0;bottom:78px;display:flex;justify-content:center;gap:14px;pointer-events:none}
-.egLista span{color:rgba(255,255,255,.55);font-size:13px;transition:color .4s}.egLista span.on{color:#fff}
-.egLista span::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;border:1px solid currentColor;margin-right:6px;vertical-align:1px}.egLista span.on::before{background:#fff}
-.egPara{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);min-width:120px;min-height:44px;padding:0 22px;border-radius:999px;border:1px solid rgba(255,255,255,.7);background:rgba(0,0,0,.28);color:#fff;font:inherit;font-size:15px}
 
 /* S361 · "Tratando o giro": andamento em tela cheia, no tema do app */
 .egTrat{position:fixed;inset:0;z-index:372;background:var(--bg);color:var(--fg);display:grid;place-items:center;padding:24px}
@@ -3060,14 +3056,47 @@ body.nvRail .nvVs{display:none}
 #estCam.ecPD .ecVf{position:absolute;top:0;bottom:0;left:168px;right:120px;height:auto;width:auto;margin:0}
 #estCam.ecPD .ecL{left:max(16px,env(safe-area-inset-left));top:16px;bottom:16px;width:136px;flex-direction:column;gap:16px}
 #estCam.ecPD .ecL .ecPill{align-self:flex-start}
-#estCam.ecPD .ecR{right:max(0px,env(safe-area-inset-right));top:16px;bottom:16px;width:120px;flex-direction:column;align-items:center;justify-content:space-between}
+#estCam.ecPD .ecR{right:max(0px,env(safe-area-inset-right));top:16px;bottom:16px;width:120px;flex-direction:column;align-items:center;justify-content:flex-start}
 #estCam.ecPD .ecT,#estCam.ecPD .ecTg,#estCam.ecPD .ecM,#estCam.ecPD .ecB{display:none}
-#estCam.ecPE{--ecH:min(calc(100vw * 4 / 3),calc(100dvh - 104px - 72px - 128px))}
+#estCam.ecPE{--ecH:min(calc(100vw * 4 / 3),calc(100dvh - 104px - 72px - 144px))}
 #estCam.ecPE .ecVf{position:absolute;top:104px;left:0;right:0;height:var(--ecH);bottom:auto;margin:0}
 #estCam.ecPE .ecT{left:16px;right:16px;top:max(12px,env(safe-area-inset-top));height:44px;align-items:center;justify-content:space-between}
 #estCam.ecPE .ecTg{left:16px;right:16px;top:64px;height:32px;align-items:center;justify-content:center}
 #estCam.ecPE .ecTg .ecTag{text-align:center}
 #estCam.ecPE .ecM{left:24px;right:24px;top:calc(104px + var(--ecH) + 16px);height:56px;align-items:center;justify-content:center}
-#estCam.ecPE .ecB{left:0;right:0;bottom:max(24px,env(safe-area-inset-bottom));height:80px;align-items:center;justify-content:center;gap:48px}
+#estCam.ecPE .ecB{left:0;right:0;bottom:max(40px,env(safe-area-inset-bottom));height:80px;align-items:center;justify-content:center;gap:48px}
 #estCam.ecPE .ecB .ecEsp{width:63px}
 #estCam.ecPE .ecL,#estCam.ecPE .ecR{display:none}
+/* ===== CÂMERA DO ESTÚDIO — modos Foto e Vídeo (149cam-F + 149cam-M2 + 149camX, 19/11/2026): conferidor do giro como a teste-giro/conferir ===== */
+#estCam.ecP .ecRG{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px}
+#estCam.ecPE .ecB .ecPill{align-self:center}
+#estCam.ecP .ecDisp{position:relative;display:flex;flex-direction:column;align-items:center}
+#estCam.ecP .ecDisp small{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);white-space:nowrap;color:#fff;font-size:13px}
+#estCam.ecPD .ecDisp{margin-bottom:24px}
+#estCam.ecP[data-modo=video] .ecDispFoto,#estCam.ecP:not([data-modo=video]) .ecDispRec{display:none}
+#estCam.ecP .ecRec{width:74px;height:74px;border-radius:50%;padding:0;border:4px solid rgba(255,255,255,.38);background:transparent;display:flex;align-items:center;justify-content:center}
+#estCam.ecP .ecRec i{width:58px;height:58px;border-radius:50%;background:#4a141e;transition:all .25s cubic-bezier(.2,.7,.2,1)}
+#estCam.ecP .ecRec.pronto{border-color:#fff}#estCam.ecP .ecRec.pronto i{background:#d92d4b}
+#estCam.ecP.ecGrav .ecRec{border-color:#fff}#estCam.ecP.ecGrav .ecRec i{width:26px;height:26px;border-radius:4px;background:#d92d4b}
+#estCam.ecP .ecRec:disabled{opacity:1}
+#estCam.ecP .ecLista{display:flex;flex-direction:column;gap:4px;font-size:13px;line-height:18px;color:rgba(255,255,255,.88)}
+#estCam.ecP .ecLista span{display:flex;align-items:center;gap:8px;white-space:nowrap;overflow:hidden;min-width:0}
+#estCam.ecP .ecLista i{flex:0 0 16px;height:16px;border-radius:50%;border:1.5px solid rgba(255,255,255,.55);box-sizing:border-box;position:relative}
+#estCam.ecP .ecLista .ok i{border:0;background:#2fe08f}#estCam.ecP .ecLista .ok i::after{content:'';position:absolute;left:5px;top:3px;width:4px;height:7px;border:solid #0b2a19;border-width:0 2px 2px 0;transform:rotate(45deg)}
+#estCam.ecP .ecLista .ruim{color:#fff;font-weight:600}#estCam.ecP .ecLista .ruim i{border:0;background:#e9b04a}#estCam.ecP .ecLista .ruim i::after{content:'!';position:absolute;inset:0;color:#3a2a06;font:700 11px/16px system-ui;text-align:center}
+#estCam.ecP .ecTrava{font-size:12px;color:rgba(255,255,255,.6)}#estCam.ecP .ecTrava:empty{display:none}
+#estCam.ecP .ecFrase{font-family:inherit;font-weight:600}#estCam.ecP .ecFrase.ok{color:#2fe08f}
+#estCam.ecP .ecPainel .ecGal{border-radius:50%;width:44px;height:44px;padding:0;display:flex;align-items:center;justify-content:center}
+#estCam.ecP[data-modo=video] .ecVf::after{content:'';position:absolute;inset:0;border:3px solid rgba(255,255,255,.85);pointer-events:none;z-index:2;transition:border-color .25s cubic-bezier(.2,.7,.2,1)}
+#estCam.ecP.ecVok .ecVf::after{border-color:#2fe08f}
+#estCam.ecPD .ecL{overflow:hidden}
+#estCam.ecPD[data-cabe='1'] .ecFrase{font-size:14px}#estCam.ecPD[data-cabe='1'] .ecLista{gap:2px;font-size:12px}
+#estCam.ecPD[data-cabe='2'] .ecFrase{font-size:13px}#estCam.ecPD[data-cabe='2'] .ecLista{gap:0;font-size:12px;line-height:16px}#estCam.ecPD[data-cabe='2'] .ecL{gap:8px}
+#estCam.ecPD[data-cabe='3'] .ecFrase{font-size:12px}#estCam.ecPD[data-cabe='3'] .ecLista{gap:0;font-size:11px;line-height:15px}#estCam.ecPD[data-cabe='3'] .ecL{gap:6px}#estCam.ecPD[data-cabe='3'] .ecLista i{flex-basis:14px;height:14px}
+#estCam.ecPE .ecLista,#estCam.ecPE .ecTrava{display:none}
+#estCam.ecPE .ecM{flex-direction:column}
+#estCam.ecP[data-modo=video] .ecGd{display:none}
+#estCam.ecP .ecCrono{position:absolute;right:16px;top:16px;z-index:3;padding:6px 12px;border-radius:999px;background:#d92d4b;color:#fff;font-weight:600;font-size:14px;font-variant-numeric:tabular-nums}
+#estCam.ecP .ecCrono[hidden]{display:none}
+#estCam.ecP.ecGrav .ecModo,#estCam.ecP.ecGrav .ecGal{visibility:hidden}
+@media (prefers-reduced-motion:reduce){#estCam.ecP .ecRec i,#estCam.ecP[data-modo=video] .ecVf::after{transition:none}}

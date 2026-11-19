@@ -41,7 +41,7 @@
   }
   function c262Frase(ov) {
     var f = ov.querySelector('.ecFrase'), ch = ov.querySelector('#ecChips');
-    if (!f || !ch) return;
+    if (!f || !ch || ov.dataset.modo === 'video') return; // no Vídeo a frase é a do conferidor (149cam-F)
     var falta = null;
     ['fundo', 'dist', 'foco', 'reto'].forEach(function (k) {
       var s = ch.querySelector('[data-k="' + k + '"]');

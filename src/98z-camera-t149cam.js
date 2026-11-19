@@ -28,30 +28,39 @@
         fundo = ov.classList.contains('ecMedir') ? q('#ecFundo') : null,
         tag = q('.ecTag'),
         fr = q('.ecFrase'),
-        sh = q('.ecSh,.ecPronto'),
+        lista = q('.ecLista'),
+        trava = q('.ecTrava'),
+        modo = q('.ecModo'),
+        sh = q('.ecDispFoto') || q('.ecSh,.ecPronto'), // 149cam-F: o disparo da foto vem com o nome embaixo
+        rec = q('.ecDispRec'),
         gal = q('.ecGal'),
         poe = function (pai, els) {
           els.forEach(function (e) {
-            if (e && e.parentNode !== pai) pai.appendChild(e);
-            else if (e) pai.appendChild(e); // mantém a ordem
+            if (e) pai.appendChild(e); // sempre no fim: assim fica na ordem pedida
           });
         };
       ov.classList.toggle('ecPD', d);
       ov.classList.toggle('ecPE', !d);
       if (d) {
-        poe(P.ecL, [x, tag, fr]);
-        poe(P.ecR, [man, fundo, sh, gal]);
+        poe(P.ecL, [x, tag, fr, lista, trava]);
+        poe(P.ecR, [man, fundo, grupo]);
+        poe(grupo, [modo, sh, rec, gal]); // 149cam-M2: troca · disparo · Galeria empilhados no meio
       } else {
         poe(P.ecT, [x, fundo, man]);
         poe(P.ecTg, [tag]);
-        poe(P.ecM, [fr]);
-        poe(P.ecB, [esp, sh, gal]);
+        poe(P.ecM, [fr, lista, trava]);
+        poe(P.ecB, [modo || esp, sh, rec, gal]);
       }
     };
+    var grupo = document.createElement('div');
+    grupo.className = 'ecRG';
+    ov._arruma = arruma;
+    cam149Modos(ov); // 149cam-F/M2: modos Foto e Vídeo (98z-camera-u149f.js)
     arruma();
     var ro = function () {
       if (!document.body.contains(ov)) return removeEventListener('resize', ro);
       arruma();
+      if (typeof c149Cabe === 'function') c149Cabe(ov);
     };
     addEventListener('resize', ro);
     // o "Pronto" do Medir fundo troca o disparo depois de montado: arruma de novo quando a barra de baixo antiga ganha algo
@@ -60,4 +69,7 @@
       new MutationObserver(function () {
         arruma();
       }).observe(bot, { childList: true });
+  }
+  function cam149Arruma(ov) {
+    if (ov && ov._arruma) ov._arruma();
   }

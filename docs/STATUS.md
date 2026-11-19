@@ -41,7 +41,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 | Sessão (assunto) | Frente | Telas / arquivos | Desde |
 |---|---|---|---|
 | App (S435 famílias: Voltar, Link ›, Linha de lista, Dobra ⌄, Adicionar +, "+" em texto, Título, Fechar ×) | APP | esboços em work/s437 (só esboço, nada no código ainda); docs/FAMILIAS-BOTOES.md | 19/11 |
-| APP · implementa (S436) | APP | CÓDIGO item 15 parte 2 (149cam-F + M2 + X): src/97-estudio.js, src/97-estudio-giro.js, src/98z-camera-s262.js, src/98z-camera-t149cam.js, src/98z-camera-u149f.js (novo), www/style.css, tests/run.py, www/ | 19/11 20:25 |
+| APP · implementa (S436) | APP | item 15 parte 2 publicada (v569); esperando o teste do dono | 19/11 21:20 |
 | Site (S429 — IMPLEMENTADORA do site; cópia limpa) | SITE | catalogo ramo `limpo` (index.html, js/lf-site.js) — fora do ar; agora: limpeza dos estilos (regras escritas uma por cima da outra) | 19/11 |
 
 ## Recados entre sessões (quem lê, faz e apaga a linha)
@@ -67,6 +67,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
   4. **CLAUDE.md foi reorganizado às 12:02** (23 regras em 8 partes): reler antes de continuar; acabou a regra de não consultar — tudo em partes, consultando o dono.
 
 ## Últimas mudanças (mais nova em cima; manter só as ~20 últimas)
+- 19/11/2026 21:20 — S436: ✅ PUBLICADO app v569 (5.48.0): item 15 parte 2 (câmera única Foto/Vídeo com o conferidor do giro). 324/324. Esperando o dono testar com a tenda.
 - 19/11/2026 20:05 — S436: ✅ PUBLICADO app v568 (5.47.0): item 15 parte 1 (149cam, desenho da câmera do Estúdio). 323/323. Esperando o dono testar no celular.
 - 19/11/2026 17:45 — S436: ✅ PUBLICADO app v567 (5.46.4): item 13 P1b no app (órfãs pagas pela nuvem + liberarH). 323/323.
 - 19/11/2026 17:10 — NUVEM · implementa: CONFERIDO app v566 no simulador (sem a base, como publicado): Pedido › nome da cliente abre a ficha em Clientes, 3 toques seguidos em claro e escuro, com "‹ PEDIDOS". Item 10: o app grava o token em reservasTok com o login do dono (bate com as regras). Não testado em aparelho real.

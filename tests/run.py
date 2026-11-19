@@ -3656,6 +3656,36 @@ async def main():
             if not ok: falhas.append('P1b no app'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # 149cam-F/M2/X (19/11/2026): câmera do Estúdio com Vídeo (conferidor do giro) e Foto, um ícone troca; em pé não grava
+            pg = await pagina()
+            await pg.set_viewport_size({'width': 844, 'height': 390})
+            cena = """() => { navigator.mediaDevices.getUserMedia = async function () { const cv = document.createElement('canvas'); cv.width = 1920; cv.height = 1080; const x = cv.getContext('2d');
+              const draw = () => { x.fillStyle = '#b4b4b2'; x.fillRect(0, 0, 1920, 1080); x.fillStyle = '#ececea'; x.fillRect(0, 640, 1920, 440);
+                const cx = 960, W = 1920 * 0.48, cy = 600, L = W * 0.3, ah = W * 0.17; x.strokeStyle = '#1d1d1f'; x.lineWidth = 14; x.lineJoin = 'round'; x.beginPath();
+                x.roundRect(cx - W * 0.33, cy - ah / 2, L, ah, 30); x.roundRect(cx + W * 0.03, cy - ah / 2, L, ah, 30); x.moveTo(cx - W * 0.03, cy - ah * 0.2); x.quadraticCurveTo(cx, cy - ah * 0.45, cx + W * 0.03, cy - ah * 0.2); x.moveTo(cx - W * 0.33, cy - ah * 0.3); x.lineTo(cx - W * 0.5, cy - ah * 0.45); x.moveTo(cx + W * 0.33, cy - ah * 0.3); x.lineTo(cx + W * 0.5, cy - ah * 0.45); x.stroke();
+                requestAnimationFrame(draw) }; draw(); return cv.captureStream(30) }; return 1 }"""
+            await pg.evaluate(cena)
+            await pg.evaluate("() => { window.__LF.ACT.estAbre(); }"); await pg.wait_for_timeout(600)
+            await pg.evaluate("() => document.querySelector('[data-e=nova]').click()"); await pg.wait_for_timeout(4500)
+            le = """() => { const o = document.getElementById('estCam'); if (!o) return null; const c = o.__c149, r = o.querySelector('#ecRec');
+              return [o.dataset.modo, o.querySelector('.ecTag').textContent, o.querySelectorAll('.ecLista span').length, !!(c && c.ok), !!r && !r.disabled, o.classList.contains('ecVok'),
+                (o.querySelector('.ecModo') || {}).getAttribute ? o.querySelector('.ecModo').getAttribute('aria-label') : '', getComputedStyle(o.querySelector('.ecDispFoto')).display, o.querySelector('.ecFrase').textContent] }"""
+            v1 = await pg.evaluate(le)
+            await pg.evaluate("() => document.querySelector('#estCam .ecModo').click()"); await pg.wait_for_timeout(600)
+            f1 = await pg.evaluate(le)
+            await pg.evaluate("() => document.querySelector('#estCam .ecModo').click()"); await pg.wait_for_timeout(300)
+            await pg.set_viewport_size({'width': 390, 'height': 844}); await pg.wait_for_timeout(2500)
+            e1 = await pg.evaluate(le)
+            await pg.evaluate("() => document.querySelector('#estCam [data-c=x]').click()"); await pg.wait_for_timeout(300)
+            fechou = await pg.evaluate("() => !document.getElementById('estCam')")
+            total += 1
+            ok = (v1 and v1[0] == 'video' and v1[1] == 'Giro · volta de 360°' and v1[2] == 10 and v1[3] and v1[4] and v1[5] and v1[6] == 'Mudar para foto' and v1[7] == 'none'
+                  and f1 and f1[0] == 'foto' and f1[2] == 4 and f1[6] == 'Mudar para vídeo' and f1[7] != 'none'
+                  and e1 and e1[0] == 'video' and not e1[4] and e1[8] == 'Deite o celular' and fechou and not pg.erros)
+            print(('  ok  ' if ok else ' FALHA ') + '149cam-F/M2: câmera do Estúdio — Vídeo confere os 10 itens e libera Gravar no verde; ícone troca para Foto (4 itens); em pé pede para deitar')
+            if not ok: falhas.append('camera estudio modos'); print('        veio', v1, f1, e1, fechou, pg.erros)
+            await pg.close()
+
             # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

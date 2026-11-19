@@ -664,6 +664,10 @@
     var ov = document.createElement('div');
     ov.id = 'estCam';
     ov.className = 'estCam';
+    // 149cam-F/M2 (19/11): a mesma câmera tem modo Foto e Vídeo (giro). Vídeo abre como padrão nas fotos de peça; Medir fundo e quem
+    // pede UMA foto de volta (ctx.done, ex.: foto da cor) ficam só em Foto. Quem troca o modo é o 98z-camera-u149f.js.
+    ov.dataset.modo = ctx.medir || ctx.done ? 'so-foto' : ctx.modo === 'foto' ? 'foto' : 'video';
+    ov._ctx = ctx;
     ov.innerHTML =
       '<div class="ecTop"><button type="button" class="ecPill" data-c="x" aria-label="Fechar">×</button><button type="button" class="ecPill" id="ecFundo" data-c="medir">Medir fundo</button><button type="button" class="ecPill" id="ecT2" data-c="t2">2s</button><button type="button" class="ecPill" id="ecPk" data-c="pk">Peaking</button></div>' +
       '<div class="ecVf"><video id="ecV" autoplay playsinline muted></video><canvas id="ecPkC"></canvas>' +
@@ -886,7 +890,7 @@
         }
         var vw = vid.videoWidth,
           vh = vid.videoHeight;
-        if (!vw || st.medindo || document.hidden) return;
+        if (!vw || st.medindo || document.hidden || ov.dataset.modo === 'video') return; // no Vídeo quem confere é o conferidor (149cam-F)
         var Wd = 96,
           Hd = Math.round((Wd * vh) / vw);
         an.width = Wd;
@@ -1245,6 +1249,7 @@
       msg('Escureci um pouco', 'ok');
     };
     var dispara = function () {
+      if (ov.dataset.modo === 'video') return; // no Vídeo o disparo é o "Gravar a volta" (149cam-F)
       var sh = $('ecSh');
       if (sh.disabled) return;
       sh.disabled = true;

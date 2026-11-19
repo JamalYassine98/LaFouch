@@ -31,83 +31,68 @@
       }
     return -s / (n || 1);
   }
+  // 149cam-F (19/11/2026): o giro não tem mais câmera própria — é o modo Vídeo da câmera do Estúdio (estCam, 98z-camera-u149f.js).
+  // estGiro abre essa câmera já em Vídeo; quem grava é giroGrava, com o stream e o vídeo da própria câmera.
   function estGiro(ctx) {
     ctx = ctx || {};
     if (!(navigator.mediaDevices && window.MediaRecorder)) return lfToast('Este aparelho não grava vídeo pelo app');
-    navigator.mediaDevices
-      .getUserMedia({ audio: false, video: { facingMode: { ideal: 'environment' }, width: { ideal: 1920 }, height: { ideal: 1080 } } })
-      .then(function (s) {
-        var ov = document.createElement('div');
-        ov.className = 'estCam';
-        ov.innerHTML = '<div class="ecVf" style="top:0;bottom:0"><video autoplay playsinline muted></video><div class="ecTag">Peça no centro do prato · ligue o prato</div>' +
-          // S361 (sistema de 360°): anel da volta + o que o giro já tem; a câmera fecha sozinha quando a volta fecha
-          '<div class="egAnel" aria-hidden="true"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19" class="egA0"/><circle cx="22" cy="22" r="19" class="egA1" id="egArc"/></svg><b id="egGr">0°</b></div>' +
-          '<div class="egLista" id="egLs"><span data-g="0">Frente</span><span data-g="45">3/4</span><span data-g="90">Perfil</span><span data-g="360">Volta</span></div>' +
-          '<button class="egPara" id="egPara" type="button">Parar</button></div>';
-        document.body.appendChild(ov);
-        var v = ov.querySelector('video');
-        v.srcObject = s;
-        var tipos = ['video/mp4;codecs=avc1', 'video/mp4', 'video/webm'],
-          mt = tipos.filter(function (t) { return MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t); })[0] || '',
-          rec = new MediaRecorder(s, mt ? { mimeType: mt, videoBitsPerSecond: 5000000 } : undefined),
-          ch = [],
-          Q = [],
-          cap = mkCanvas(16, 16);
-        rec.ondataavailable = function (e) {
-          if (e.data && e.data.size) ch.push(e.data);
-        };
-        // uma foto por segundo para a escolha da frente e da 3/4, e uma assinatura a cada meio segundo para saber quando a volta fechou
-        var ass = [], asC = mkCanvas(48, 27), asX = asC.getContext('2d', { willReadFrequently: true }), t0g = Date.now(), tique = 0, volta = null, parou = false,
-          arc = ov.querySelector('#egArc'), gr = ov.querySelector('#egGr'), ls = ov.querySelector('#egLs'), MAXS = 75;
-        var para = function () {
-          if (parou) return;
-          parou = true;
-          clearInterval(pega);
-          if (rec.state === 'recording') rec.stop();
-        };
-        ov.querySelector('#egPara').onclick = para;
-        var pega = setInterval(function () {
-          if (!v.videoWidth) return;
-          var seg = (Date.now() - t0g) / 1000;
-          ass.push(gtAssina(v, asX));
-          if (!volta && ass.length >= 24 && ass.length % 2 === 0) volta = gtFechou(ass, 0.5);
-          // antes de saber quanto dura a volta, o anel anda pelo tempo típico do prato (40 s)
-          var graus = Math.min(360, Math.round(360 * seg / (volta ? volta.per : 40)));
-          if (!volta && graus > 350) graus = 350;
-          arc.style.strokeDashoffset = String(119.4 * (1 - graus / 360));
-          gr.textContent = graus + '°';
-          [].forEach.call(ls.children, function (c) { c.classList.toggle('on', graus >= +c.dataset.g); });
-          tg.textContent = volta ? 'Volta completa' : seg < 3 ? 'Gravando · não toque no prato' : 'Gravando a volta inteira';
-          if (volta || seg >= MAXS) return para();
-          if (tique++ % 2) return;
-          cap.width = v.videoWidth;
-          cap.height = v.videoHeight;
-          cap.getContext('2d').drawImage(v, 0, 0);
-          var sim = estGiroSim(cap),
-            i = Q.length;
-          Q.push({ sim: sim, b: null, t: thumbOf(cap) });
-          cap.toBlob(function (bl) {
-            if (Q[i]) Q[i].b = bl;
-          }, 'image/jpeg', 0.9);
-        }, 500);
-        rec.onstop = function () {
-          clearInterval(pega);
-          s.getTracks().forEach(function (t) { t.stop(); });
-          ov.remove();
-          var video = new Blob(ch, { type: mt || 'video/webm' });
-          if (!volta) lfToast('Não deu a volta inteira: no site vai o vídeo simples. Grave de novo deixando o prato dar uma volta.');
-          setTimeout(function () {
-            // S361: com a volta inteira, o app trata o giro e tira a frente e a 3/4 sozinho; sem a volta (ou se algo falhar), a escolha à mão de antes
-            if (volta && typeof giroTrata === 'function' && window.VideoEncoder) estGiroAuto(ctx, Q, video, volta);
-            else estGiroEscolhe(ctx, Q, video);
-          }, 300);
-        };
-        rec.start(500);
-        var tg = ov.querySelector('.ecTag');
-      })
-      .catch(function () {
-        lfToast('Não consegui abrir a câmera');
-      });
+    estCam({ k: ctx.k || null, passo: 'frente', titulo: '', modo: 'video', fim: ctx.fim });
+  }
+  // Grava a volta com o stream da câmera aberta. Para sozinho quando a volta fecha (gtFechou) ou em 60 s (dono 19/11 20:01).
+  // ui.tick(seg, volta) a cada meio segundo; ui.fecha() fecha a câmera antes de tratar. Devolve { para }.
+  var GIRO_MAX = 60;
+  function giroGrava(s, v, ctx, ui) {
+    var tipos = ['video/mp4;codecs=avc1', 'video/mp4', 'video/webm'],
+      mt = tipos.filter(function (t) { return MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t); })[0] || '',
+      rec = new MediaRecorder(s, mt ? { mimeType: mt, videoBitsPerSecond: 5000000 } : undefined),
+      ch = [],
+      Q = [],
+      cap = mkCanvas(16, 16);
+    rec.ondataavailable = function (e) {
+      if (e.data && e.data.size) ch.push(e.data);
+    };
+    // uma foto por segundo para a escolha da frente e da 3/4, e uma assinatura a cada meio segundo para saber quando a volta fechou
+    var ass = [], asC = mkCanvas(48, 27), asX = asC.getContext('2d', { willReadFrequently: true }), t0g = Date.now(), tique = 0, volta = null, parou = false;
+    var para = function () {
+      if (parou) return;
+      parou = true;
+      clearInterval(pega);
+      if (rec.state === 'recording') rec.stop();
+    };
+    var pega = setInterval(function () {
+      if (!v.isConnected) return para();
+      if (!v.videoWidth) return;
+      var seg = (Date.now() - t0g) / 1000;
+      ass.push(gtAssina(v, asX));
+      if (!volta && ass.length >= 24 && ass.length % 2 === 0) volta = gtFechou(ass, 0.5);
+      if (ui && ui.tick) ui.tick(seg, volta);
+      if (volta || seg >= GIRO_MAX) return para();
+      if (tique++ % 2) return;
+      cap.width = v.videoWidth;
+      cap.height = v.videoHeight;
+      cap.getContext('2d').drawImage(v, 0, 0);
+      var sim = estGiroSim(cap),
+        i = Q.length;
+      Q.push({ sim: sim, b: null, t: thumbOf(cap) });
+      cap.toBlob(function (bl) {
+        if (Q[i]) Q[i].b = bl;
+      }, 'image/jpeg', 0.9);
+    }, 500);
+    rec.onstop = function () {
+      clearInterval(pega);
+      var fechou = !v.isConnected; // fechou a câmera (×) no meio da gravação: descarta, não trata
+      if (ui && ui.fecha) ui.fecha();
+      if (fechou) return;
+      var video = new Blob(ch, { type: mt || 'video/webm' });
+      if (!volta) lfToast('Não deu a volta inteira: no site vai o vídeo simples. Grave de novo deixando o prato dar uma volta.');
+      setTimeout(function () {
+        // S361: com a volta inteira, o app trata o giro e tira a frente e a 3/4 sozinho; sem a volta (ou se algo falhar), a escolha à mão de antes
+        if (volta && typeof giroTrata === 'function' && window.VideoEncoder) estGiroAuto(ctx, Q, video, volta);
+        else estGiroEscolhe(ctx, Q, video);
+      }, 300);
+    };
+    rec.start(500);
+    return { para: para };
   }
   // S361 · "um giro = tudo": trata o giro na hora (andamento na tela) e tira a frente e a 3/4 do próprio giro.
   var EG_FASE = { volta: ['Conferindo a volta', 0, 0.06], fundo: ['Aprendendo o fundo', 0.06, 0.04], mede: ['Achando a frente', 0.1, 0.42], grava: ['Fundo branco em cada grau', 0.52, 0.48] };

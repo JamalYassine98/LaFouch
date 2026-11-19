@@ -1,8 +1,9 @@
 {
- "nome": "5.47.0",
+ "nome": "5.48.0",
  "notas": [
-  "Câmera do Estúdio nova (parte 1): com o celular deitado a câmera ocupa a altura inteira; o fechar, o nome da peça e o aviso ficam à esquerda, fora da imagem, e ajustes, botão de foto e Galeria à direita.",
-  "Em pé: a imagem aparece inteira (3:4) com o aviso embaixo dela, sem tampar a peça. Muda sozinho quando você gira o celular."
+  "Câmera do Estúdio, parte 2: uma câmera só com Vídeo e Foto. Um ícone redondo troca o modo; a câmera abre no Vídeo.",
+  "Vídeo: confere ao vivo os 10 itens da página Conferir e gravar (celular deitado e parado, luz, peça no prato, distância, meio, altura, costura, foco e folga). Quando tudo fica verde, \"Gravar a volta\" acende; ao gravar trava foco, luz e branco e para sozinho quando a volta fecha (até 1 minuto). As fotos de frente e 3/4 saem do giro.",
+  "Foto: os 4 itens de sempre e o botão Fotografar. O × e a Galeria viraram ícones redondos."
  ],
- "build": 568
+ "build": 569
 }
