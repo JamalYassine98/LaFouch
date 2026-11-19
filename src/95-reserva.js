@@ -24,10 +24,9 @@
   // Chama a função como dono. Devolve a resposta, ou null se estiver fora do ar/desligada.
   function resApi(acao, p, extra) {
     if (!p || !p.sid || !S.nuvem || !S.nuvem.rt) return Promise.resolve(null);
-    var corpo = { acao: acao, pedido: p.sid };
-    if (acao === 'pagar') corpo.itens = resItensDe(p);
-    else corpo.refs = resRefsDe(p);
-    if (!(corpo.itens || corpo.refs).length) return Promise.resolve(null);
+    // B2 (19/11): a lista vai sempre em "itens" — o nome que a função lê (antes ia em "refs" ao liberar/recusar, chegava vazia e nada soltava)
+    var corpo = { acao: acao, pedido: p.sid, itens: resItensDe(p) };
+    if (!corpo.itens.length) return Promise.resolve(null);
     return nvToken()
       .then(function (t) {
         return fetch(resUrl(), { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: JSON.stringify(corpo) });
@@ -119,7 +118,7 @@
         return;
       }
       resApi('liberar', { sid: sid, itens: e.refs.map(function (r) { return { ref: r }; }) }).then(function (r) {
-        if (r === null) return; // tenta de novo no próximo ciclo
+        if (r === null || !r || r.ok === false) return; // B2: fora do ar OU a nuvem recusou → fica na fila e tenta de novo no próximo ciclo
         delete S.resPend[sid];
         saveSoon();
       });
@@ -232,11 +231,34 @@
         });
         RES_EST = o;
         RES_T = Date.now();
+        resLimpaParadas();
         try {
           resOrfas();
         } catch (e) {}
       })
       .catch(function () {});
+  }
+  // B2 (19/11): UMA vez, solta as reservas vencidas e não pagas que ficaram paradas na nuvem enquanto o "liberar" não chegava
+  // (vencidas já não seguram peça; é só limpeza). Depois disso o S.resLimpo1 fica marcado e não roda mais.
+  function resLimpaParadas() {
+    if (S.resLimpo1) return;
+    var agora = Date.now(),
+      por = {};
+    Object.keys(RES_EST).forEach(function (ref) {
+      var r = RES_EST[ref];
+      Object.keys(r).forEach(function (k) {
+        var x = r[k];
+        if (!x || x.pago || !x.pid || !(x.exp > 0) || x.exp > agora) return;
+        (por[x.pid] = por[x.pid] || {})[ref] = 1;
+      });
+    });
+    if (!S.resPend) S.resPend = {};
+    Object.keys(por).forEach(function (pid) {
+      if (!S.resPend[pid]) S.resPend[pid] = { refs: Object.keys(por[pid]), t: agora, ja: 1 };
+    });
+    S.resLimpo1 = 1;
+    saveSoon();
+    resFlush();
   }
   // Antes de fechar uma venda no balcão: confere de novo as reservas do site (no máximo 2,5 s de espera).
   var RES_T = 0;

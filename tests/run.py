@@ -2323,7 +2323,7 @@ async def main():
             libs = [c for c in chamadas if c.get('acao') == 'liberar']
             total += 1
             ok = (r1[:6] == [1, 1, 300000, 1, True, 0] and r2 == [0, 2, 1]
-                  and r3[:2] == [5, 2] and sorted(c['pedido'] for c in libs) == ['sidiv', 'sidum', 'sidum'] and all(c['refs'] == ['ZR1'] for c in libs) and not pg.erros)
+                  and r3[:2] == [5, 2] and sorted(c['pedido'] for c in libs) == ['sidiv', 'sidum', 'sidum'] and all([i['ref'] for i in c.get('itens', [])] == ['ZR1'] and 'refs' not in c for c in libs) and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'entrega de pedido do site: baixa o estoque, registra a venda e avisa quando falta peça')
             if not ok: falhas.append('baixa auto'); print('        veio', r1, r2, r3, libs, pg.erros)
             await pg.close()
@@ -3527,6 +3527,35 @@ async def main():
             ok = got == [True, True, True] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'Reserva presa: pedido apagado solta a peça; reserva paga órfã sai depois de 10 min; pedido vivo fica')
             if not ok: falhas.append('reserva presa'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # B2 (19/11/2026): o app manda a lista em "itens" ao liberar; recusa da nuvem (ok:false) fica na fila; vencidas paradas limpas UMA vez
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              const nv0 = S.nuvem, f0 = window.fetch, corpos = []; let resposta = { ok: false, motivo: 'itens' };
+              const agora = Date.now(), ef = (q, exp, pago, pid) => ({ mapValue: { fields: { pid: { stringValue: pid }, cor: { stringValue: '' }, q: { integerValue: String(q) }, exp: { integerValue: String(exp) }, pago: { booleanValue: pago } } } });
+              const docs = { documents: [
+                { name: 'x/estoque/VEN1', fields: { res: { mapValue: { fields: { 'PVENC1~': ef(1, agora - 3600000, false, 'PVENC1') } } } } },
+                { name: 'x/estoque/VIV2', fields: { res: { mapValue: { fields: { 'PVIVO2~': ef(1, agora + 600000, false, 'PVIVO2'), 'PPAGO3~': ef(1, agora - 3600000, true, 'PPAGO3') } } } } } ] };
+              window.fetch = async (u, o) => { u = String(u);
+                if (/securetoken/.test(u)) return new Response(JSON.stringify({ id_token: 't', refresh_token: 'teste' }), { status: 200 });
+                if (/cloudfunctions.net\\/reserva/.test(u)) { corpos.push(JSON.parse(o.body)); return new Response(JSON.stringify(resposta), { status: 200 }); }
+                if (/\\/estoque\\?/.test(u)) return new Response(JSON.stringify(docs), { status: 200 });
+                return new Response('{}', { status: 200 }); };
+              S.nuvem = { rt: 'teste' }; S.resPend = {}; S.resOrf = {}; delete S.resLimpo1; S.pedidos.push({ id: 'pB2', sid: 'PVIVO2', orig: 'site', st: 'pag', itens: [{ ref: 'VIV2', cor: '', q: 1 }] });
+              await L.resBusca(); await w(200);
+              const limpou = !!S.resPend.PVENC1 && !S.resPend.PVIVO2 && !S.resPend.PPAGO3 && S.resLimpo1 === 1;
+              const c1 = corpos.find(c => c.pedido === 'PVENC1'), itensOk = !!c1 && c1.acao === 'liberar' && Array.isArray(c1.itens) && c1.itens[0].ref === 'VEN1' && !('refs' in c1);
+              const ficou = !!S.resPend.PVENC1;  // a nuvem recusou → continua na fila
+              resposta = { ok: true }; L.resFlush(); await w(200);
+              const saiu = !S.resPend.PVENC1;
+              S.resPend = {}; await L.resBusca(); await w(200); const umaVez = !S.resPend.PVENC1;
+              window.fetch = f0; S.pedidos = S.pedidos.filter(p => p.id !== 'pB2'); S.resPend = {}; S.resOrf = {}; L.resEstSet({}); S.nuvem = nv0;
+              return [limpou, itensOk, ficou, saiu, umaVez]; }""")
+            total += 1
+            ok = got == [True, True, True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'B2 soltar reserva: lista em "itens"; recusa da nuvem fica na fila e tenta de novo; vencidas paradas limpas uma vez')
+            if not ok: falhas.append('B2 soltar reserva'); print('        veio', got, pg.erros)
             await pg.close()
 
             # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site

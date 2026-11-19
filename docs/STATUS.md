@@ -23,7 +23,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 |---|---|---|---|---|
 | 1 | 149v Família Voltar (Peça do Catálogo, Ficha do Inventário; o Pagamento depende do 142st, ainda não implementado) | APP | 19/11 13:31 | ✅ v563 (19/11) |
 | 2 | 150i Família Ícone redondo | APP | 19/11 13:31 | ✅ v563 (19/11) |
-| 3 | **B2 soltar reserva (URGENTE — bug)**: src/95-reserva.js `resApi` manda a lista em `itens` (como a função lê) para liberar e recusar; resposta `ok:false` não tira da fila (tenta de novo); limpar uma vez as 7 reservas vencidas paradas. Função da nuvem NÃO muda. Esboço work/estudo-c/esboco_B2_*.jpg; causa em docs/ESTUDO-ESTOQUE-SITE-19-11.md §7 | APP | 19/11 14:03 | fazendo (S436) |
+| 3 | **B2 soltar reserva (URGENTE — bug)**: src/95-reserva.js `resApi` manda a lista em `itens` (como a função lê) para liberar e recusar; resposta `ok:false` não tira da fila (tenta de novo); limpar uma vez as 7 reservas vencidas paradas. Função da nuvem NÃO muda. Esboço work/estudo-c/esboco_B2_*.jpg; causa em docs/ESTUDO-ESTOQUE-SITE-19-11.md §7 | APP | 19/11 14:03 | ✅ v564 (19/11) |
 | 4 | **B1 nome da cliente no pedido**: `ACT.pedcli` (src/95-pedidos.js) abre `clientes` com a ficha da cliente (hoje abre `cli`, que não existe). Esboço work/estudo-c/esboco_B1_*.jpg | APP | 19/11 14:03 | na fila |
 | 5 | **B3 "Site" → "Resumo"**: no grupo Site, a linha e o título da tela de resumo passam a "Resumo" (frase "Resumo da loja online" fica). Esboço work/estudo-c/esboco_B3_*.jpg | APP | 19/11 14:03 | na fila |
 | 6 | **P1 segurança da reserva — parte da NUVEM**: cancelar público só solta não paga/sem comprovante; `estoque/` sem número do pedido (campo `h`); função aceita `itens` e `refs`; limpeza diária arruma as paradas. Testes: reserva 29/29, endpoint 9/9, demais 14 suítes ok | NUVEM | 19/11 14:29 | ✅ publicado pelo dono 19/11 15:03 (Cloud Shell); conferido: cancelar com `refs` = ok:true; reserva vencida da AC1050 apagada; 4 paradas antigas saem na limpeza das 4h |
@@ -33,7 +33,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 | Sessão (assunto) | Frente | Telas / arquivos | Desde |
 |---|---|---|---|
 | App (S435 famílias: Voltar, Link ›, Linha de lista, Dobra ⌄, Adicionar +, "+" em texto, Título, Fechar ×) | APP | esboços em work/s437 (só esboço, nada no código ainda); docs/FAMILIAS-BOTOES.md | 19/11 |
-| APP · implementa (S436) | APP | CÓDIGO item 3 (B2): src/95-reserva.js, src/99-render-persistencia.js (PERSIST), tests/run.py, www/ | 19/11 14:40 |
+| APP · implementa (S436) | APP | esperando o dono para o item 4 (B1) | 19/11 15:20 |
 | Site (S429 — IMPLEMENTADORA do site; cópia limpa) | SITE | catalogo ramo `limpo` (index.html, js/lf-site.js) — fora do ar; agora: limpeza dos estilos (regras escritas uma por cima da outra) | 19/11 |
 
 ## Recados entre sessões (quem lê, faz e apaga a linha)
@@ -52,6 +52,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
   4. **CLAUDE.md foi reorganizado às 12:02** (23 regras em 8 partes): reler antes de continuar; acabou a regra de não consultar — tudo em partes, consultando o dono.
 
 ## Últimas mudanças (mais nova em cima; manter só as ~20 últimas)
+- 19/11/2026 15:20 — S436: ✅ PUBLICADO app v564 (5.46.1): B2 soltar reserva (itens, fila tenta de novo, vencidas limpas 1 vez). 319/319.
 - 19/11/2026 14:45 — NUVEM · implementa: P1 segurança da reserva no código (functions/reserva.js, index.js, testes). Testes 29/29 + 9/9 + 14 suítes ok. Falta o dono publicar; depois, item 7 (APP).
 - 19/11/2026 14:30 — Dono aprovou o papel NUVEM (CLAUDE.md 1b): a sessão "Estudo · dados" virou "NUVEM · implementa" (functions/ e firestore.rules). Demais sessões: não mexer nesses arquivos.
 - 19/11/2026 14:30 — S436: Test Lab (celular real) disparado para 6 telas da v563 (claro e escuro), 1ª rodada do dia — somar antes de outra (máx. 30 min/dia).

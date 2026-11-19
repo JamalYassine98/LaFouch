@@ -517,3 +517,9 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - **Voltar (149v, v563):** peça do Catálogo e ficha do Inventário usam o versalete `.nvVs.vltRow` ("‹ CATÁLOGO" / "‹ INVENTÁRIO", `aria-label="Voltar"`) em `src/10-estoque-detalhe.js`, no centro dos ícones da mesma linha; a animação de voltar (`98-anim-novas.js`) escuta `.vltRow`. O Pagamento ("‹ CARRINHO") depende do 142st (ainda na base, `149v-pag`). No tablet/PC esse cabeçalho continua escondido (vale a trilha "Catálogo › peça").
 - **Ícone redondo (150i, v563):** `#sino`, `#cxIc` (Ações do caixa), `.ic71` (Data, Filtros), `#v-vendas .ibtn.shBtn` (Compartilhar a peça) e `.vdir>.ic0` (Filtros e ordem do Giro): círculo 44 px, contorno `--line2`, sem fundo, ícone 20 px. Saíram as regras velhas: tamanho/fundo/raio 14 do `.sino`, `#cxIc svg` 26 px, `#v-caixa .top .ic` raio 14, caixa do `.ic71`. Ainda fora (contorno `--line`): Modo cliente `.mcBtn`, `.cjIc` do catálogo — esperando esboço.
 
+## Reserva do site — soltar (B2, v564, 19/11/2026)
+- `resApi` (src/95-reserva.js) manda SEMPRE `itens: [{ref, cor, q}]` (o nome que a função lê); `refs` não vai mais.
+- `resFlush` só tira da fila `S.resPend` quando a resposta é `ok` (null = fora do ar, `ok:false` = recusou → tenta de novo a cada 20 s).
+- `resLimpaParadas` (chamada no `resBusca`): uma única vez (`S.resLimpo1`, em PERSIST) põe na fila as reservas vencidas e não pagas da nuvem. Testes: "B2 soltar reserva" e "pedido entregue/cancelado" (corpo com `itens`).
+- Atenção (P1 da NUVEM): se a lista pública `estoque/` trocar o `pid` por código embaralhado, `resOrfas`/`resLimpaParadas` precisam do mesmo código — sai junto com o deploy da função.
+

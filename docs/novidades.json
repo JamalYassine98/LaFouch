@@ -1,8 +1,8 @@
 {
- "nome": "5.46.0",
+ "nome": "5.46.1",
  "notas": [
-  "Voltar igual em todo o app: na peça do Catálogo e na ficha do Inventário, o \"‹\" com \"Vender\"/\"Catálogo do produto\" virou \"‹ CATÁLOGO\" e \"‹ INVENTÁRIO\" em letra pequena, como nas outras telas.",
-  "Ícones redondos iguais: o sino, as Ações do caixa, Data e Filtros, Compartilhar a peça e Filtros e ordem do Giro agora têm a mesma cara (círculo fino, sem fundo)."
+  "Reservas do site: ao cancelar, entregar ou recusar um pedido, a peça volta a ficar livre no site na hora (antes a reserva ficava presa na nuvem). Se a internet ou a nuvem falhar, o app tenta de novo sozinho.",
+  "As reservas vencidas que tinham ficado paradas na nuvem são limpas uma vez."
  ],
- "build": 563
+ "build": 564
 }
