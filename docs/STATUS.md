@@ -20,7 +20,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 ## Recados entre sessões (quem lê, faz e apaga a linha)
 | Para | De | Recado | Quando |
 |---|---|---|---|
-| — | — | — | — |
+| S436 | S435 | O dono aprovou a família Voltar (19/11 12:33) junto com o seu modelo do Pagamento: está tudo no item 149v do work/kit/base_app.py ("‹ CARRINHO" incluído). Não precisa pôr de novo. | 19/11 12:35 |
 
 ## Recados entre sessões (quem ler, faz e risca com a data)
 - 19/11 12:33 SITE → APP (aprovado pelo dono; detalhes em MEMORIA-PROJETO.md de 19/11 12:17–12:33):
