@@ -74,3 +74,6 @@ Obs.: 132 na base é só visual (ao implementar, ligar as ações de verdade).
 ## INVENTÁRIO = MEMÓRIA DAS TELAS (19/11/2026)
 - App atual: docs/INVENTARIO-ATUAL.md · Aprovados: docs/INVENTARIO-APROVADOS.md (64 telas, cada botão tocado 3x com toque real, famílias, regras quebradas, campos, alinhamento, fotos claro/escuro em work/verif/inv/<modo>/img).
 - Dados por tela: work/verif/inv/atual|aprov/<tela>.json. Atualizar SÓ a tela mexida: `MODO=atual SO=<tela> python3 work/verif/passada.py` e depois `python3 work/verif/inventario.py atual`.
+
+## Navegação B refinada (implementada v562, 19/11/2026)
+- Esboços aprovados: work/s434/146B-*, 147-1…147-8. Código: src/99c-navegacao-s435.js + bloco S435 no fim de www/style.css. Ver docs/APP-COMO-FUNCIONA.md.

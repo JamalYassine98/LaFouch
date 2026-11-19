@@ -1,7 +1,7 @@
 {
 "tela": "ajustes",
 "modo": "atual",
-"quando": "19/11 02:20",
+"quando": "19/11 10:43",
 "passos": [
 "()=>__LF.setView('ajustes')"
 ],
@@ -140,7 +140,7 @@
 "fs": "15px"
 },
 {
-"t": "Atualização 5.44.0",
+"t": "Atualização 5.45.0",
 "act": "",
 "cara": "texto",
 "h": 60,
@@ -171,6 +171,17 @@
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -291,7 +302,7 @@
 "i": 7,
 "act": "",
 "id": "",
-"txt": "Atualização 5.44.0",
+"txt": "Atualização 5.45.0",
 "tag": "BUTTON",
 "efeito": [
 "alterna"
@@ -326,6 +337,20 @@
 ],
 "de_novo": [
 "alterna"
+],
+"bug": []
+},
+{
+"i": 10,
+"act": "nvVolta",
+"id": "",
+"txt": "‹",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+],
+"de_novo": [
+"nada visível"
 ],
 "bug": []
 }
@@ -465,7 +490,7 @@
 "fs": "15px"
 },
 {
-"t": "Atualização 5.44.0",
+"t": "Atualização 5.45.0",
 "act": "",
 "cara": "texto",
 "h": 60,
@@ -496,6 +521,17 @@
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -512,5 +548,5 @@
 "erros_js": [],
 "rola_vazio": 43
 },
-"seg": 73
+"seg": 86
 }

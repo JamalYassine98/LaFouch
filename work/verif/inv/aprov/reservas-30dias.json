@@ -1,7 +1,7 @@
 {
 "tela": "reservas-30dias",
 "modo": "aprov",
-"quando": "19/11 01:45",
+"quando": "19/11 10:57",
 "passos": [
 "()=>window.__LF.inicioGo('din')",
 "()=>{const e=[...document.querySelectorAll('.g99 .fxH,[data-act=dfold]')].filter(x=>x.getBoundingClientRect().height).filter(x=>/30 dias/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
@@ -75,11 +75,22 @@
 "fs": "11px"
 },
 {
-"t": "Reservas ⌄",
-"act": "dVer",
+"t": "‹ GIRO E PREÇOS",
+"act": "nvVolta",
 "cara": "texto",
-"h": 49,
-"w": 137,
+"h": 44,
+"w": 119,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Reservas",
+"act": "",
+"cara": "texto",
+"h": 32,
+"w": 117,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
@@ -130,7 +141,7 @@
 "fs": "15px"
 },
 {
-"t": "Próximos 30 dias Saldo G$ 6.514.684 · co",
+"t": "Próximos 30 dias Saldo G$ 6.454.632 · co",
 "act": "dfold",
 "cara": "texto",
 "h": 67,
@@ -172,6 +183,17 @@
 "borda": "rgb(42, 52, 65)",
 "bw": 1,
 "fs": "14px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -193,14 +215,22 @@
 {
 "r": "7 linha de base",
 "ex": [
-"Próximos 30 dias Saldo G$ 6.514.68",
+"Próximos 30 dias Saldo G$ 6.454.63",
 "Δ1.9px"
 ]
 }
 ],
-"olho": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Reservas"
+]
+}
+],
 "erros_js": [],
-"rola_vazio": 1162
+"rola_vazio": 1138
 },
 "vista": "dash",
 "toques": [
@@ -214,14 +244,22 @@
 },
 {
 "i": 1,
-"act": "dVer",
+"act": "nvVolta",
 "id": "",
-"txt": "Reservas ⌄",
+"txt": "‹ GIRO E PREÇOS",
 "tag": "BUTTON",
 "igual_a": "reservas-para-onde"
 },
 {
 "i": 2,
+"act": "",
+"id": "",
+"txt": "Reservas",
+"tag": "BUTTON",
+"igual_a": "reservas-para-onde"
+},
+{
+"i": 3,
 "act": "totm",
 "id": "pyg",
 "txt": "G$",
@@ -229,7 +267,7 @@
 "igual_a": "reservas-para-onde"
 },
 {
-"i": 3,
+"i": 4,
 "act": "totm",
 "id": "brl",
 "txt": "R$",
@@ -237,7 +275,7 @@
 "igual_a": "reservas-para-onde"
 },
 {
-"i": 4,
+"i": 5,
 "act": "totm",
 "id": "usd",
 "txt": "US$",
@@ -245,7 +283,7 @@
 "igual_a": "reservas-para-onde"
 },
 {
-"i": 5,
+"i": 6,
 "act": "dfold",
 "id": "paraonde",
 "txt": "Ver para onde vai o que já tem dono: rep",
@@ -253,29 +291,32 @@
 "igual_a": "reservas-para-onde"
 },
 {
-"i": 6,
+"i": 7,
 "act": "dfold",
 "id": "flx",
-"txt": "Próximos 30 dias Saldo G$ 6.514.684 · co",
+"txt": "Próximos 30 dias Saldo G$ 6.454.632 · co",
 "tag": "BUTTON",
 "igual_a": "reservas-para-onde"
 },
 {
-"i": 7,
+"i": 8,
 "act": "fluxod",
 "id": "30",
 "txt": "30 dias",
 "tag": "BUTTON",
 "efeito": [
-"nada visível"
+"muda a tela"
 ],
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
-"i": 8,
+"i": 9,
 "act": "fluxod",
 "id": "60",
 "txt": "60 dias",
@@ -286,10 +327,13 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
-"i": 9,
+"i": 10,
 "act": "fluxod",
 "id": "90",
 "txt": "90 dias",
@@ -300,10 +344,13 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
-"i": 10,
+"i": 11,
 "act": "view",
 "id": "desp",
 "txt": "Editar despesas",
@@ -314,7 +361,18 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → desp"
+],
 "bug": []
+},
+{
+"i": 12,
+"act": "nvVolta",
+"id": "",
+"txt": "‹",
+"tag": "BUTTON",
+"igual_a": "dash-mes"
 }
 ],
 "claro": {
@@ -386,11 +444,22 @@
 "fs": "11px"
 },
 {
-"t": "Reservas ⌄",
-"act": "dVer",
+"t": "‹ GIRO E PREÇOS",
+"act": "nvVolta",
 "cara": "texto",
-"h": 49,
-"w": 137,
+"h": 44,
+"w": 119,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Reservas",
+"act": "",
+"cara": "texto",
+"h": 32,
+"w": 117,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
@@ -441,7 +510,7 @@
 "fs": "15px"
 },
 {
-"t": "Próximos 30 dias Saldo G$ 6.514.648 · co",
+"t": "Próximos 30 dias Saldo G$ 6.456.174 · co",
 "act": "dfold",
 "cara": "texto",
 "h": 67,
@@ -483,6 +552,17 @@
 "borda": "rgb(217, 208, 216)",
 "bw": 1,
 "fs": "14px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -504,14 +584,22 @@
 {
 "r": "7 linha de base",
 "ex": [
-"Próximos 30 dias Saldo G$ 6.514.64",
+"Próximos 30 dias Saldo G$ 6.456.17",
 "Δ1.9px"
 ]
 }
 ],
-"olho": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Reservas"
+]
+}
+],
 "erros_js": [],
-"rola_vazio": 1162
+"rola_vazio": 1138
 },
-"seg": 44
+"seg": 56
 }

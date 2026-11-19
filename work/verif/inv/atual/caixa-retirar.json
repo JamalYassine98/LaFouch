@@ -1,7 +1,7 @@
 {
 "tela": "caixa-retirar",
 "modo": "atual",
-"quando": "19/11 02:05",
+"quando": "19/11 11:00",
 "passos": [
 "()=>window.__LF.setView('caixa')",
 "()=>{const e=[...document.querySelectorAll('[data-act=cxmenu]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}",
@@ -76,15 +76,15 @@
 "fs": "11px"
 },
 {
-"t": "Caixa ⌄",
-"act": "grpVer",
+"t": "‹ DINHEIRO",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 286,
-"cor": "rgb(231, 237, 245)",
-"borda": "rgb(231, 237, 245)",
+"h": 44,
+"w": 79,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "Ações do caixa",
@@ -98,11 +98,11 @@
 "fs": "15px"
 },
 {
-"t": "Livre e reservado ›",
+"t": "Reservas ›",
 "act": "cxReservas",
 "cara": "texto",
 "h": 44,
-"w": 124,
+"w": 71,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -305,6 +305,17 @@
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
 "fs": "13px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [
@@ -339,7 +350,7 @@
 {
 "r": "2 centro vertical",
 "ex": [
-"Caixa ⌄",
+"Caixa",
 "Δ6.0px"
 ]
 },
@@ -377,12 +388,12 @@
 "r": "texto sobre texto",
 "n": 1,
 "ex": [
-"G$ 2.164.612 × G$ 1.990.000"
+"G$ 2.165.011 × G$ 1.990.000"
 ]
 }
 ],
 "erros_js": [],
-"rola_vazio": 616
+"rola_vazio": 644
 },
 "vista": "caixa",
 "toques": [
@@ -396,6 +407,9 @@
 "nada visível"
 ],
 "de_novo": [
+"nada visível"
+],
+"terceiro": [
 "nada visível"
 ],
 "bug": []
@@ -412,6 +426,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"alterna"
+],
 "bug": []
 },
 {
@@ -426,6 +443,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"alterna"
+],
 "bug": []
 },
 {
@@ -439,6 +459,9 @@
 ],
 "de_novo": [
 "nada visível"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -552,15 +575,15 @@
 "fs": "11px"
 },
 {
-"t": "Caixa ⌄",
-"act": "grpVer",
+"t": "‹ DINHEIRO",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 286,
-"cor": "rgb(31, 26, 34)",
-"borda": "rgb(31, 26, 34)",
+"h": 44,
+"w": 79,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "Ações do caixa",
@@ -574,11 +597,11 @@
 "fs": "15px"
 },
 {
-"t": "Livre e reservado ›",
+"t": "Reservas ›",
 "act": "cxReservas",
 "cara": "texto",
 "h": 44,
-"w": 124,
+"w": 71,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -781,6 +804,17 @@
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
 "fs": "13px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [
@@ -815,7 +849,7 @@
 {
 "r": "2 centro vertical",
 "ex": [
-"Caixa ⌄",
+"Caixa",
 "Δ6.0px"
 ]
 },
@@ -853,12 +887,12 @@
 "r": "texto sobre texto",
 "n": 1,
 "ex": [
-"G$ 2.164.612 × G$ 1.990.000"
+"G$ 2.165.011 × G$ 1.990.000"
 ]
 }
 ],
 "erros_js": [],
-"rola_vazio": 616
+"rola_vazio": 644
 },
-"seg": 41
+"seg": 56
 }

@@ -259,7 +259,7 @@
         .join('') +
       '<div class="cxTot"><span>Total aproximado</span><b>' + gs(Math.round(r.wal)) + '</b></div>' +
       // S374 (esboço 72): o link no meio da frase vira a linha "Livre e reservado ›" (leva ao Dashboard › Reservas)
-      '<button type="button" class="lcT cxLr" data-act="cxReservas">Livre e reservado ›</button></section>';
+      '<button type="button" class="lcT cxLr" data-act="cxReservas">Reservas ›</button></section>';
     html += objCardHtml(); // v425: Objetivos da loja (antiga caixa de melhorias)
     if (r.livre < 0)
       html +=

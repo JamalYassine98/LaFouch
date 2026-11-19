@@ -1,7 +1,7 @@
 {
 "tela": "cambio-trocas",
 "modo": "aprov",
-"quando": "19/11 01:48",
+"quando": "19/11 11:00",
 "passos": [
 "()=>window.__LF.setView('fx')",
 "()=>window.__LF.ACT.fjAbre('trocas')"
@@ -75,15 +75,15 @@
 "fs": "11px"
 },
 {
-"t": "Câmbio ⌄",
-"act": "grpVer",
+"t": "‹ DINHEIRO",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 237,
-"cor": "rgb(231, 237, 245)",
-"borda": "rgb(231, 237, 245)",
+"h": 44,
+"w": 79,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "Venda",
@@ -271,6 +271,17 @@
 "borda": "rgb(203, 213, 225)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -278,7 +289,7 @@
 {
 "r": "7 linha de base",
 "ex": [
-"Câmbio ⌄ Venda",
+"Câmbio Venda",
 "Δ11.0px"
 ]
 },
@@ -357,6 +368,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -370,6 +384,9 @@
 ],
 "de_novo": [
 "nada visível"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -385,6 +402,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -394,12 +414,17 @@
 "txt": "Desfazer",
 "tag": "BUTTON",
 "efeito": [
-"muda a tela"
+"nada visível"
 ],
 "de_novo": [
 "nada visível"
 ],
-"bug": []
+"terceiro": [
+"muda a tela"
+],
+"bug": [
+"3º toque diferente do 1º"
+]
 },
 {
 "i": 4,
@@ -412,6 +437,9 @@
 ],
 "de_novo": [
 "nada visível"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -427,6 +455,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -441,6 +472,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -450,9 +484,12 @@
 "txt": "Desfazer",
 "tag": "BUTTON",
 "efeito": [
-"muda a tela"
+"nada visível"
 ],
 "de_novo": [
+"nada visível"
+],
+"terceiro": [
 "nada visível"
 ],
 "bug": []
@@ -527,15 +564,15 @@
 "fs": "11px"
 },
 {
-"t": "Câmbio ⌄",
-"act": "grpVer",
+"t": "‹ DINHEIRO",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 237,
-"cor": "rgb(31, 26, 34)",
-"borda": "rgb(31, 26, 34)",
+"h": 44,
+"w": 79,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "Venda",
@@ -615,7 +652,7 @@
 "fs": "15px"
 },
 {
-"t": "Preços no site cotação da loja travada ›",
+"t": "Preços no site cotação da loja travada d",
 "act": "fjAbre",
 "cara": "texto",
 "h": 69,
@@ -723,6 +760,17 @@
 "borda": "rgb(71, 85, 105)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -730,7 +778,7 @@
 {
 "r": "7 linha de base",
 "ex": [
-"Câmbio ⌄ Venda",
+"Câmbio Venda",
 "Δ11.0px"
 ]
 },
@@ -795,5 +843,5 @@
 "erros_js": [],
 "rola_vazio": 0
 },
-"seg": 80
+"seg": 96
 }

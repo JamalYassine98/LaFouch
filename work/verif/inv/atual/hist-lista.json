@@ -1,7 +1,7 @@
 {
 "tela": "hist-lista",
 "modo": "atual",
-"quando": "19/11 01:33",
+"quando": "19/11 09:50",
 "passos": [
 "()=>window.__LF.setView('hist')"
 ],
@@ -74,15 +74,15 @@
 "fs": "11px"
 },
 {
-"t": "Histórico ⌄",
-"act": "grpVer",
+"t": "‹ RESULTADOS",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 144,
-"cor": "rgb(231, 237, 245)",
-"borda": "rgb(231, 237, 245)",
+"h": 44,
+"w": 101,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "Ir para uma data",
@@ -109,165 +109,165 @@
 {
 "t": "19/11 · hojequi G$ 182.000 › 5 vendas · ",
 "act": "opendia",
-"cara": "barra grande",
-"h": 71,
+"cara": "texto",
+"h": 70,
 "w": 342,
 "cor": "rgb(231, 237, 245)",
-"borda": "rgb(42, 52, 65)",
-"bw": 1,
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
 "fs": "15px"
 },
 {
 "t": "18/11qua G$ 500.000 › 10 vendas · lucro ",
 "act": "opendia",
-"cara": "barra grande",
-"h": 71,
+"cara": "texto",
+"h": 70,
 "w": 342,
 "cor": "rgb(231, 237, 245)",
-"borda": "rgb(42, 52, 65)",
-"bw": 1,
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
 "fs": "15px"
 },
 {
 "t": "17/11ter G$ 459.000 › 7 vendas · 1 outro",
 "act": "opendia",
-"cara": "barra grande",
-"h": 89,
+"cara": "texto",
+"h": 88,
 "w": 342,
 "cor": "rgb(231, 237, 245)",
-"borda": "rgb(42, 52, 65)",
-"bw": 1,
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
 "fs": "15px"
 },
 {
 "t": "16/11seg G$ 148.500 › 4 vendas · 1 despe",
 "act": "opendia",
-"cara": "barra grande",
-"h": 89,
+"cara": "texto",
+"h": 88,
 "w": 342,
 "cor": "rgb(231, 237, 245)",
-"borda": "rgb(42, 52, 65)",
-"bw": 1,
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
 "fs": "15px"
 },
 {
 "t": "15/11dom G$ 23.000 › 1 venda · lucro liv",
 "act": "opendia",
-"cara": "barra grande",
-"h": 71,
+"cara": "texto",
+"h": 70,
 "w": 342,
 "cor": "rgb(231, 237, 245)",
-"borda": "rgb(42, 52, 65)",
-"bw": 1,
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
 "fs": "15px"
 },
 {
 "t": "14/11sáb G$ 502.000 › 11 vendas · 1 outr",
 "act": "opendia",
-"cara": "barra grande",
-"h": 89,
+"cara": "texto",
+"h": 88,
 "w": 342,
 "cor": "rgb(231, 237, 245)",
-"borda": "rgb(42, 52, 65)",
-"bw": 1,
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
 "fs": "15px"
 },
 {
 "t": "13/11sex G$ 257.500 › 6 vendas · gastos ",
 "act": "opendia",
-"cara": "barra grande",
-"h": 89,
+"cara": "texto",
+"h": 88,
 "w": 342,
 "cor": "rgb(231, 237, 245)",
-"borda": "rgb(42, 52, 65)",
-"bw": 1,
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
 "fs": "15px"
 },
 {
 "t": "12/11qui G$ 256.500 › 7 vendas · lucro l",
 "act": "opendia",
-"cara": "barra grande",
-"h": 71,
+"cara": "texto",
+"h": 70,
 "w": 342,
 "cor": "rgb(231, 237, 245)",
-"borda": "rgb(42, 52, 65)",
-"bw": 1,
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
 "fs": "15px"
 },
 {
 "t": "11/11qua G$ 194.000 › 3 vendas · gastos ",
 "act": "opendia",
-"cara": "barra grande",
-"h": 89,
+"cara": "texto",
+"h": 88,
 "w": 342,
 "cor": "rgb(231, 237, 245)",
-"borda": "rgb(42, 52, 65)",
-"bw": 1,
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
 "fs": "15px"
 },
 {
 "t": "10/11ter G$ 463.500 › 6 vendas · 1 despe",
 "act": "opendia",
-"cara": "barra grande",
-"h": 89,
+"cara": "texto",
+"h": 88,
 "w": 342,
 "cor": "rgb(231, 237, 245)",
-"borda": "rgb(42, 52, 65)",
-"bw": 1,
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
 "fs": "15px"
 },
 {
 "t": "09/11seg G$ 188.000 › 5 vendas · 1 outro",
 "act": "opendia",
-"cara": "barra grande",
-"h": 89,
+"cara": "texto",
+"h": 70,
 "w": 342,
 "cor": "rgb(231, 237, 245)",
-"borda": "rgb(42, 52, 65)",
-"bw": 1,
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
 "fs": "15px"
 },
 {
 "t": "Semana 02/11 a 08/11 G$ 2.595.500 · 42 v",
 "act": "hSem",
-"cara": "barra grande",
-"h": 78,
+"cara": "texto",
+"h": 79,
 "w": 342,
 "cor": "rgb(231, 237, 245)",
-"borda": "rgba(0, 0, 0, 0)",
+"borda": "rgb(231, 237, 245)",
 "bw": 0,
 "fs": "15px"
 },
 {
 "t": "Semana 01/11 G$ 120.000 · 2 vendas · 1 d",
 "act": "hSem",
-"cara": "barra grande",
+"cara": "texto",
 "h": 78,
 "w": 342,
 "cor": "rgb(231, 237, 245)",
-"borda": "rgba(0, 0, 0, 0)",
+"borda": "rgb(231, 237, 245)",
 "bw": 0,
 "fs": "15px"
 },
 {
 "t": "Semana 26/10 a 31/10 G$ 1.230.500 · 30 v",
 "act": "hSem",
-"cara": "barra grande",
-"h": 78,
+"cara": "texto",
+"h": 79,
 "w": 342,
 "cor": "rgb(231, 237, 245)",
-"borda": "rgba(0, 0, 0, 0)",
+"borda": "rgb(231, 237, 245)",
 "bw": 0,
 "fs": "15px"
 },
 {
 "t": "Semana 19/10 a 25/10 G$ 1.452.500 · 31 v",
 "act": "hSem",
-"cara": "barra grande",
+"cara": "texto",
 "h": 78,
 "w": 342,
 "cor": "rgb(231, 237, 245)",
-"borda": "rgba(0, 0, 0, 0)",
+"borda": "rgb(231, 237, 245)",
 "bw": 0,
 "fs": "15px"
 },
@@ -276,11 +276,22 @@
 "act": "hmais",
 "cara": "texto",
 "h": 44,
-"w": 157,
+"w": 169,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [
@@ -299,17 +310,9 @@
 }
 ],
 "alin": [],
-"olho": [
-{
-"r": "toque<40",
-"n": 1,
-"ex": [
-"Histórico ⌄"
-]
-}
-],
+"olho": [],
 "erros_js": [],
-"rola_vazio": 1070
+"rola_vazio": 979
 },
 "vista": "hist",
 "toques": [
@@ -329,15 +332,15 @@
 },
 {
 "i": 1,
-"act": "grpVer",
+"act": "nvVolta",
 "id": "",
-"txt": "Histórico ⌄",
-"tag": "H1",
+"txt": "‹ RESULTADOS",
+"tag": "BUTTON",
 "efeito": [
-"abre janela \"VER\""
+"leva → grp"
 ],
 "de_novo": [
-"nada visível"
+"sumiu"
 ],
 "bug": []
 },
@@ -592,6 +595,20 @@
 "muda a tela"
 ],
 "bug": []
+},
+{
+"i": 20,
+"act": "nvVolta",
+"id": "",
+"txt": "‹",
+"tag": "BUTTON",
+"efeito": [
+"leva → grp"
+],
+"de_novo": [
+"leva → inicio"
+],
+"bug": []
 }
 ],
 "claro": {
@@ -663,15 +680,15 @@
 "fs": "11px"
 },
 {
-"t": "Histórico ⌄",
-"act": "grpVer",
+"t": "‹ RESULTADOS",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 144,
-"cor": "rgb(31, 26, 34)",
-"borda": "rgb(31, 26, 34)",
+"h": 44,
+"w": 101,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "Ir para uma data",
@@ -698,165 +715,165 @@
 {
 "t": "19/11 · hojequi G$ 182.000 › 5 vendas · ",
 "act": "opendia",
-"cara": "barra grande",
-"h": 71,
+"cara": "texto",
+"h": 70,
 "w": 342,
 "cor": "rgb(31, 26, 34)",
-"borda": "rgb(217, 208, 216)",
-"bw": 1,
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
 "fs": "15px"
 },
 {
 "t": "18/11qua G$ 500.000 › 10 vendas · lucro ",
 "act": "opendia",
-"cara": "barra grande",
-"h": 71,
+"cara": "texto",
+"h": 70,
 "w": 342,
 "cor": "rgb(31, 26, 34)",
-"borda": "rgb(217, 208, 216)",
-"bw": 1,
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
 "fs": "15px"
 },
 {
 "t": "17/11ter G$ 459.000 › 7 vendas · 1 outro",
 "act": "opendia",
-"cara": "barra grande",
-"h": 89,
+"cara": "texto",
+"h": 88,
 "w": 342,
 "cor": "rgb(31, 26, 34)",
-"borda": "rgb(217, 208, 216)",
-"bw": 1,
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
 "fs": "15px"
 },
 {
 "t": "16/11seg G$ 148.500 › 4 vendas · 1 despe",
 "act": "opendia",
-"cara": "barra grande",
-"h": 89,
+"cara": "texto",
+"h": 88,
 "w": 342,
 "cor": "rgb(31, 26, 34)",
-"borda": "rgb(217, 208, 216)",
-"bw": 1,
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
 "fs": "15px"
 },
 {
 "t": "15/11dom G$ 23.000 › 1 venda · lucro liv",
 "act": "opendia",
-"cara": "barra grande",
-"h": 71,
+"cara": "texto",
+"h": 70,
 "w": 342,
 "cor": "rgb(31, 26, 34)",
-"borda": "rgb(217, 208, 216)",
-"bw": 1,
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
 "fs": "15px"
 },
 {
 "t": "14/11sáb G$ 502.000 › 11 vendas · 1 outr",
 "act": "opendia",
-"cara": "barra grande",
-"h": 89,
+"cara": "texto",
+"h": 88,
 "w": 342,
 "cor": "rgb(31, 26, 34)",
-"borda": "rgb(217, 208, 216)",
-"bw": 1,
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
 "fs": "15px"
 },
 {
 "t": "13/11sex G$ 257.500 › 6 vendas · gastos ",
 "act": "opendia",
-"cara": "barra grande",
-"h": 89,
+"cara": "texto",
+"h": 88,
 "w": 342,
 "cor": "rgb(31, 26, 34)",
-"borda": "rgb(217, 208, 216)",
-"bw": 1,
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
 "fs": "15px"
 },
 {
 "t": "12/11qui G$ 256.500 › 7 vendas · lucro l",
 "act": "opendia",
-"cara": "barra grande",
-"h": 71,
+"cara": "texto",
+"h": 70,
 "w": 342,
 "cor": "rgb(31, 26, 34)",
-"borda": "rgb(217, 208, 216)",
-"bw": 1,
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
 "fs": "15px"
 },
 {
 "t": "11/11qua G$ 194.000 › 3 vendas · gastos ",
 "act": "opendia",
-"cara": "barra grande",
-"h": 89,
+"cara": "texto",
+"h": 88,
 "w": 342,
 "cor": "rgb(31, 26, 34)",
-"borda": "rgb(217, 208, 216)",
-"bw": 1,
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
 "fs": "15px"
 },
 {
 "t": "10/11ter G$ 463.500 › 6 vendas · 1 despe",
 "act": "opendia",
-"cara": "barra grande",
-"h": 89,
+"cara": "texto",
+"h": 88,
 "w": 342,
 "cor": "rgb(31, 26, 34)",
-"borda": "rgb(217, 208, 216)",
-"bw": 1,
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
 "fs": "15px"
 },
 {
 "t": "09/11seg G$ 188.000 › 5 vendas · 1 outro",
 "act": "opendia",
-"cara": "barra grande",
-"h": 89,
+"cara": "texto",
+"h": 70,
 "w": 342,
 "cor": "rgb(31, 26, 34)",
-"borda": "rgb(217, 208, 216)",
-"bw": 1,
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
 "fs": "15px"
 },
 {
 "t": "Semana 02/11 a 08/11 G$ 2.595.500 · 42 v",
 "act": "hSem",
-"cara": "barra grande",
-"h": 78,
+"cara": "texto",
+"h": 79,
 "w": 342,
 "cor": "rgb(31, 26, 34)",
-"borda": "rgba(0, 0, 0, 0)",
+"borda": "rgb(31, 26, 34)",
 "bw": 0,
 "fs": "15px"
 },
 {
 "t": "Semana 01/11 G$ 120.000 · 2 vendas · 1 d",
 "act": "hSem",
-"cara": "barra grande",
+"cara": "texto",
 "h": 78,
 "w": 342,
 "cor": "rgb(31, 26, 34)",
-"borda": "rgba(0, 0, 0, 0)",
+"borda": "rgb(31, 26, 34)",
 "bw": 0,
 "fs": "15px"
 },
 {
 "t": "Semana 26/10 a 31/10 G$ 1.230.500 · 30 v",
 "act": "hSem",
-"cara": "barra grande",
-"h": 78,
+"cara": "texto",
+"h": 79,
 "w": 342,
 "cor": "rgb(31, 26, 34)",
-"borda": "rgba(0, 0, 0, 0)",
+"borda": "rgb(31, 26, 34)",
 "bw": 0,
 "fs": "15px"
 },
 {
 "t": "Semana 19/10 a 25/10 G$ 1.452.500 · 31 v",
 "act": "hSem",
-"cara": "barra grande",
+"cara": "texto",
 "h": 78,
 "w": 342,
 "cor": "rgb(31, 26, 34)",
-"borda": "rgba(0, 0, 0, 0)",
+"borda": "rgb(31, 26, 34)",
 "bw": 0,
 "fs": "15px"
 },
@@ -865,11 +882,22 @@
 "act": "hmais",
 "cara": "texto",
 "h": 44,
-"w": 157,
+"w": 169,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [
@@ -888,17 +916,9 @@
 }
 ],
 "alin": [],
-"olho": [
-{
-"r": "toque<40",
-"n": 1,
-"ex": [
-"Histórico ⌄"
-]
-}
-],
+"olho": [],
 "erros_js": [],
-"rola_vazio": 1070
+"rola_vazio": 979
 },
-"seg": 164
+"seg": 192
 }

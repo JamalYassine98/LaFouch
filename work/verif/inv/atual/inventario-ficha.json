@@ -1,7 +1,7 @@
 {
 "tela": "inventario-ficha",
 "modo": "atual",
-"quando": "19/11 01:57",
+"quando": "19/11 10:18",
 "passos": [
 "()=>window.__LF.setView('estoque')",
 "()=>{const e=[...document.querySelectorAll('#v-estoque .pcard[data-ref]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
@@ -75,15 +75,15 @@
 "fs": "11px"
 },
 {
-"t": "Inventário ⌄",
-"act": "grpVer",
+"t": "‹ PEÇAS",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 286,
-"cor": "rgb(231, 237, 245)",
-"borda": "rgb(231, 237, 245)",
+"h": 44,
+"w": 57,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "Adicionar",
@@ -260,6 +260,17 @@
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [
@@ -303,16 +314,15 @@
 "olho": [
 {
 "r": "toque<40",
-"n": 3,
+"n": 2,
 "ex": [
-"Ficha",
 "Site",
 "Preço"
 ]
 }
 ],
 "erros_js": [],
-"rola_vazio": 747
+"rola_vazio": 775
 },
 "vista": "estoque",
 "toques": [
@@ -326,11 +336,17 @@
 },
 {
 "i": 1,
-"act": "grpVer",
+"act": "nvVolta",
 "id": "",
-"txt": "Inventário ⌄",
-"tag": "H1",
-"igual_a": "inventario-fornecedores"
+"txt": "‹ PEÇAS",
+"tag": "BUTTON",
+"efeito": [
+"leva → grp"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
 },
 {
 "i": 2,
@@ -525,6 +541,14 @@
 "nada visível"
 ],
 "bug": []
+},
+{
+"i": 18,
+"act": "nvVolta",
+"id": "",
+"txt": "‹",
+"tag": "BUTTON",
+"igual_a": "inventario-fornecedores"
 }
 ],
 "claro": {
@@ -596,15 +620,15 @@
 "fs": "11px"
 },
 {
-"t": "Inventário ⌄",
-"act": "grpVer",
+"t": "‹ PEÇAS",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 286,
-"cor": "rgb(31, 26, 34)",
-"borda": "rgb(31, 26, 34)",
+"h": 44,
+"w": 57,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "Adicionar",
@@ -781,6 +805,17 @@
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [
@@ -824,16 +859,15 @@
 "olho": [
 {
 "r": "toque<40",
-"n": 3,
+"n": 2,
 "ex": [
-"Ficha",
 "Site",
 "Preço"
 ]
 }
 ],
 "erros_js": [],
-"rola_vazio": 747
+"rola_vazio": 775
 },
-"seg": 127
+"seg": 140
 }

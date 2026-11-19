@@ -1,7 +1,7 @@
 {
 "tela": "atacado-novo-acesso",
 "modo": "aprov",
-"quando": "19/11 02:04",
+"quando": "19/11 10:25",
 "passos": [
 "()=>__LF.inicioGo('ata')",
 "()=>__LF.ACT.ataNovo()"
@@ -215,5 +215,5 @@
 "erros_js": [],
 "rola_vazio": 0
 },
-"seg": 34
+"seg": 41
 }

@@ -1,7 +1,7 @@
 {
 "tela": "inventario-editar",
 "modo": "aprov",
-"quando": "19/11 01:59",
+"quando": "19/11 10:20",
 "passos": [
 "()=>window.__LF.setView('estoque')",
 "()=>{const e=[...document.querySelectorAll('#v-estoque .pcard[data-ref]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}",
@@ -256,5 +256,5 @@
 "erros_js": [],
 "rola_vazio": 0
 },
-"seg": 68
+"seg": 60
 }

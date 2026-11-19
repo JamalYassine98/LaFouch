@@ -1,7 +1,7 @@
 {
 "tela": "cambio-prot",
 "modo": "aprov",
-"quando": "19/11 01:49",
+"quando": "19/11 11:02",
 "passos": [
 "()=>window.__LF.setView('fx')",
 "()=>window.__LF.ACT.fjAbre('prot')"
@@ -75,15 +75,15 @@
 "fs": "11px"
 },
 {
-"t": "Câmbio ⌄",
-"act": "grpVer",
+"t": "‹ DINHEIRO",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 237,
-"cor": "rgb(231, 237, 245)",
-"borda": "rgb(231, 237, 245)",
+"h": 44,
+"w": 79,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "Venda",
@@ -185,7 +185,7 @@
 "fs": "15px"
 },
 {
-"t": "Trocar G$ 3.381.987 por dólar no Câmbio ",
+"t": "Trocar G$ 3.381.901 por dólar no Câmbio ",
 "act": "d48Troca",
 "cara": "texto",
 "h": 44,
@@ -194,6 +194,17 @@
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -201,7 +212,7 @@
 {
 "r": "7 linha de base",
 "ex": [
-"Câmbio ⌄ Venda",
+"Câmbio Venda",
 "Δ11.0px"
 ]
 },
@@ -271,14 +282,17 @@
 {
 "i": 0,
 "act": "d48Troca",
-"id": "pyg|3381987",
-"txt": "Trocar G$ 3.381.987 por dólar no Câmbio ",
+"id": "pyg|3381901",
+"txt": "Trocar G$ 3.381.901 por dólar no Câmbio ",
 "tag": "BUTTON",
 "efeito": [
 "abre janela \"Registrar troca\""
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"abre janela \"Registrar troca\""
 ],
 "bug": []
 }
@@ -352,15 +366,15 @@
 "fs": "11px"
 },
 {
-"t": "Câmbio ⌄",
-"act": "grpVer",
+"t": "‹ DINHEIRO",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 237,
-"cor": "rgb(31, 26, 34)",
-"borda": "rgb(31, 26, 34)",
+"h": 44,
+"w": 79,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "Venda",
@@ -462,7 +476,7 @@
 "fs": "15px"
 },
 {
-"t": "Trocar G$ 3.381.987 por dólar no Câmbio ",
+"t": "Trocar G$ 3.381.901 por dólar no Câmbio ",
 "act": "d48Troca",
 "cara": "texto",
 "h": 44,
@@ -471,6 +485,17 @@
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -478,7 +503,7 @@
 {
 "r": "7 linha de base",
 "ex": [
-"Câmbio ⌄ Venda",
+"Câmbio Venda",
 "Δ11.0px"
 ]
 },
@@ -543,5 +568,5 @@
 "erros_js": [],
 "rola_vazio": 0
 },
-"seg": 19
+"seg": 23
 }

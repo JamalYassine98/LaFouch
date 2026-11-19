@@ -1,7 +1,7 @@
 {
 "tela": "dash-mes",
 "modo": "aprov",
-"quando": "19/11 01:33",
+"quando": "19/11 11:21",
 "passos": [
 "()=>{window.__LF.S.per='mes';window.__LF.S.dTab='hoje';window.__LF.setView('dash')}"
 ],
@@ -74,29 +74,40 @@
 "fs": "11px"
 },
 {
-"t": "Dashboard ⌄",
-"act": "dVer",
+"t": "‹ RESULTADOS",
+"act": "nvVolta",
 "cara": "texto",
-"h": 49,
-"w": 164,
+"h": 44,
+"w": 101,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Dashboard",
+"act": "",
+"cara": "texto",
+"h": 32,
+"w": 144,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
 "fs": "28px"
 },
 {
-"t": "Este mês ⌄",
+"t": "Este mês ›",
 "act": "dPer",
 "cara": "texto",
 "h": 44,
-"w": 77,
+"w": 72,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
 "fs": "15px"
 },
 {
-"t": "G$ 5.806.500",
+"t": "G$ 5.889.500",
 "act": "d48Moeda",
 "cara": "texto",
 "h": 40,
@@ -107,7 +118,7 @@
 "fs": "26px"
 },
 {
-"t": "G$ 2.143.800",
+"t": "G$ 2.175.000",
 "act": "d48Moeda",
 "cara": "texto",
 "h": 40,
@@ -118,7 +129,7 @@
 "fs": "26px"
 },
 {
-"t": "G$ 2.190.785",
+"t": "G$ 2.191.487",
 "act": "d48Moeda",
 "cara": "texto",
 "h": 40,
@@ -160,6 +171,17 @@
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -177,11 +199,26 @@
 "Quanto separar do que você vendeu ",
 "Δ11.5px"
 ]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Vendas do período Cada venda com o",
+"Δ11.5px"
+]
 }
 ],
-"olho": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Dashboard"
+]
+}
+],
 "erros_js": [],
-"rola_vazio": 177
+"rola_vazio": 153
 },
 "vista": "dash",
 "toques": [
@@ -191,33 +228,29 @@
 "id": "notif",
 "txt": "12",
 "tag": "BUTTON",
-"efeito": [
-"leva → notif"
-],
-"de_novo": [
-"leva → dash"
-],
-"bug": []
+"igual_a": "dash-semana"
 },
 {
 "i": 1,
-"act": "dVer",
+"act": "nvVolta",
 "id": "",
-"txt": "Dashboard ⌄",
+"txt": "‹ RESULTADOS",
 "tag": "BUTTON",
-"efeito": [
-"abre janela \"VER\""
-],
-"de_novo": [
-"nada visível"
-],
-"bug": []
+"igual_a": "dash-semana"
 },
 {
 "i": 2,
+"act": "",
+"id": "",
+"txt": "Dashboard",
+"tag": "BUTTON",
+"igual_a": "dash-semana"
+},
+{
+"i": 3,
 "act": "dPer",
 "id": "",
-"txt": "Este mês ⌄",
+"txt": "Este mês ›",
 "tag": "BUTTON",
 "efeito": [
 "abre janela \"PERÍODO\""
@@ -225,19 +258,8 @@
 "de_novo": [
 "nada visível"
 ],
-"bug": []
-},
-{
-"i": 3,
-"act": "d48Moeda",
-"id": "",
-"txt": "G$ 5.806.500",
-"tag": "B",
-"efeito": [
-"nada visível"
-],
-"de_novo": [
-"sumiu"
+"terceiro": [
+"abre janela \"PERÍODO\""
 ],
 "bug": []
 },
@@ -245,59 +267,57 @@
 "i": 4,
 "act": "d48Moeda",
 "id": "",
-"txt": "G$ 2.143.800",
+"txt": "G$ 5.889.500",
 "tag": "B",
-"igual_a": "dash-mes"
+"igual_a": "dash-semana"
 },
 {
 "i": 5,
 "act": "d48Moeda",
 "id": "",
-"txt": "G$ 2.190.785",
+"txt": "G$ 2.175.000",
 "tag": "B",
-"igual_a": "dash-mes"
+"igual_a": "dash-semana"
 },
 {
 "i": 6,
-"act": "d48Abre",
-"id": "res",
-"txt": "Resultado do mês Lucro real, o que mais ",
-"tag": "BUTTON",
-"efeito": [
-"muda a tela"
-],
-"de_novo": [
-"muda a tela"
-],
-"bug": []
+"act": "d48Moeda",
+"id": "",
+"txt": "G$ 2.191.487",
+"tag": "B",
+"igual_a": "dash-semana"
 },
 {
 "i": 7,
 "act": "d48Abre",
-"id": "c1",
-"txt": "Quanto separar do que você vendeu Cada c",
+"id": "res",
+"txt": "Resultado do mês Lucro real, o que mais ",
 "tag": "BUTTON",
-"efeito": [
-"muda a tela"
-],
-"de_novo": [
-"muda a tela"
-],
-"bug": []
+"igual_a": "dash-semana"
 },
 {
 "i": 8,
 "act": "d48Abre",
+"id": "c1",
+"txt": "Quanto separar do que você vendeu Cada c",
+"tag": "BUTTON",
+"igual_a": "dash-semana"
+},
+{
+"i": 9,
+"act": "d48Abre",
 "id": "c2",
 "txt": "Vendas do período Cada venda com o valor",
 "tag": "BUTTON",
-"efeito": [
-"muda a tela"
-],
-"de_novo": [
-"muda a tela"
-],
-"bug": []
+"igual_a": "dash-semana"
+},
+{
+"i": 10,
+"act": "nvVolta",
+"id": "",
+"txt": "‹",
+"tag": "BUTTON",
+"igual_a": "dash-semana"
 }
 ],
 "claro": {
@@ -369,29 +389,40 @@
 "fs": "11px"
 },
 {
-"t": "Dashboard ⌄",
-"act": "dVer",
+"t": "‹ RESULTADOS",
+"act": "nvVolta",
 "cara": "texto",
-"h": 49,
-"w": 164,
+"h": 44,
+"w": 101,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Dashboard",
+"act": "",
+"cara": "texto",
+"h": 32,
+"w": 144,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
 "fs": "28px"
 },
 {
-"t": "Este mês ⌄",
+"t": "Este mês ›",
 "act": "dPer",
 "cara": "texto",
 "h": 44,
-"w": 77,
+"w": 72,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
 "fs": "15px"
 },
 {
-"t": "G$ 5.806.500",
+"t": "G$ 5.889.500",
 "act": "d48Moeda",
 "cara": "texto",
 "h": 40,
@@ -402,7 +433,7 @@
 "fs": "26px"
 },
 {
-"t": "G$ 2.143.800",
+"t": "G$ 2.175.000",
 "act": "d48Moeda",
 "cara": "texto",
 "h": 40,
@@ -413,7 +444,7 @@
 "fs": "26px"
 },
 {
-"t": "G$ 2.190.785",
+"t": "G$ 2.191.487",
 "act": "d48Moeda",
 "cara": "texto",
 "h": 40,
@@ -455,6 +486,17 @@
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -472,11 +514,26 @@
 "Quanto separar do que você vendeu ",
 "Δ11.5px"
 ]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Vendas do período Cada venda com o",
+"Δ11.5px"
+]
 }
 ],
-"olho": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Dashboard"
+]
+}
+],
 "erros_js": [],
-"rola_vazio": 177
+"rola_vazio": 153
 },
-"seg": 64
+"seg": 12
 }

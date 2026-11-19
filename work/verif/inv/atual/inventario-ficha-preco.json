@@ -1,7 +1,7 @@
 {
 "tela": "inventario-ficha-preco",
 "modo": "atual",
-"quando": "19/11 01:59",
+"quando": "19/11 11:09",
 "passos": [
 "()=>window.__LF.setView('estoque')",
 "()=>{const e=[...document.querySelectorAll('#v-estoque .pcard[data-ref]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}",
@@ -76,15 +76,15 @@
 "fs": "11px"
 },
 {
-"t": "Inventário ⌄",
-"act": "grpVer",
+"t": "‹ PEÇAS",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 286,
-"cor": "rgb(231, 237, 245)",
-"borda": "rgb(231, 237, 245)",
+"h": 44,
+"w": 57,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "Adicionar",
@@ -206,6 +206,17 @@
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -213,7 +224,7 @@
 {
 "r": "2 centro vertical",
 "ex": [
-"Inventário ⌄ Grupo Pré-graduados ›",
+"Inventário Grupo Pré-graduados › G",
 "Δ10.0px"
 ]
 }
@@ -221,9 +232,8 @@
 "olho": [
 {
 "r": "toque<40",
-"n": 4,
+"n": 3,
 "ex": [
-"Inventário ⌄",
 "Ficha",
 "Site",
 "Preço"
@@ -238,7 +248,7 @@
 }
 ],
 "erros_js": [],
-"rola_vazio": 82
+"rola_vazio": 110
 },
 "vista": "estoque",
 "toques": [
@@ -252,11 +262,11 @@
 },
 {
 "i": 1,
-"act": "grpVer",
+"act": "nvVolta",
 "id": "",
-"txt": "Inventário ⌄",
-"tag": "H1",
-"igual_a": "inventario-fornecedores"
+"txt": "‹ PEÇAS",
+"tag": "BUTTON",
+"igual_a": "inventario-ficha-historico"
 },
 {
 "i": 2,
@@ -296,7 +306,7 @@
 "id": "Lote Kazwini",
 "txt": "Ficha 4/6",
 "tag": "BUTTON",
-"igual_a": "inventario-ficha"
+"igual_a": "inventario-ficha-historico"
 },
 {
 "i": 7,
@@ -304,7 +314,7 @@
 "id": "est",
 "txt": "Estoque",
 "tag": "BUTTON",
-"igual_a": "inventario-ficha"
+"igual_a": "inventario-ficha-historico"
 },
 {
 "i": 8,
@@ -312,7 +322,7 @@
 "id": "his",
 "txt": "Histórico",
 "tag": "BUTTON",
-"igual_a": "inventario-ficha"
+"igual_a": "inventario-ficha-historico"
 },
 {
 "i": 9,
@@ -320,7 +330,7 @@
 "id": "sit",
 "txt": "Site",
 "tag": "BUTTON",
-"igual_a": "inventario-ficha"
+"igual_a": "inventario-ficha-historico"
 },
 {
 "i": 10,
@@ -328,7 +338,7 @@
 "id": "pre",
 "txt": "Preço",
 "tag": "BUTTON",
-"igual_a": "inventario-ficha"
+"igual_a": "inventario-ficha-historico"
 },
 {
 "i": 11,
@@ -336,7 +346,7 @@
 "id": "ven",
 "txt": "Vender no Catálogo ›",
 "tag": "BUTTON",
-"igual_a": "inventario-ficha"
+"igual_a": "inventario-ficha-historico"
 },
 {
 "i": 12,
@@ -344,7 +354,15 @@
 "id": "",
 "txt": "Fotografar no Estúdio ›",
 "tag": "BUTTON",
-"igual_a": "inventario-ficha"
+"igual_a": "inventario-ficha-historico"
+},
+{
+"i": 13,
+"act": "nvVolta",
+"id": "",
+"txt": "‹",
+"tag": "BUTTON",
+"igual_a": "inventario-fornecedores"
 }
 ],
 "claro": {
@@ -416,15 +434,15 @@
 "fs": "11px"
 },
 {
-"t": "Inventário ⌄",
-"act": "grpVer",
+"t": "‹ PEÇAS",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 286,
-"cor": "rgb(31, 26, 34)",
-"borda": "rgb(31, 26, 34)",
+"h": 44,
+"w": 57,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "Adicionar",
@@ -546,6 +564,17 @@
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -553,7 +582,7 @@
 {
 "r": "2 centro vertical",
 "ex": [
-"Inventário ⌄ Grupo Pré-graduados ›",
+"Inventário Grupo Pré-graduados › G",
 "Δ10.0px"
 ]
 }
@@ -561,9 +590,8 @@
 "olho": [
 {
 "r": "toque<40",
-"n": 4,
+"n": 3,
 "ex": [
-"Inventário ⌄",
 "Ficha",
 "Site",
 "Preço"
@@ -578,7 +606,7 @@
 }
 ],
 "erros_js": [],
-"rola_vazio": 82
+"rola_vazio": 110
 },
-"seg": 9
+"seg": 10
 }

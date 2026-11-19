@@ -1,7 +1,7 @@
 {
 "tela": "hist-dia",
 "modo": "atual",
-"quando": "19/11 01:36",
+"quando": "19/11 11:19",
 "passos": [
 "()=>window.__LF.setView('hist')",
 "()=>{const e=[...document.querySelectorAll('#v-hist [data-act=hday],#v-hist .d71,#v-hist [data-act=dayab]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
@@ -75,29 +75,40 @@
 "fs": "11px"
 },
 {
-"t": "Dashboard ⌄",
-"act": "dVer",
+"t": "‹ HISTÓRICO",
+"act": "nvVolta",
 "cara": "texto",
-"h": 49,
-"w": 164,
+"h": 44,
+"w": 88,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Dashboard",
+"act": "",
+"cara": "texto",
+"h": 32,
+"w": 144,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
 "fs": "28px"
 },
 {
-"t": "Hoje ⌄",
+"t": "Hoje ›",
 "act": "dPer",
 "cara": "texto",
 "h": 44,
-"w": 46,
-"cor": "rgb(231, 237, 245)",
-"borda": "rgb(231, 237, 245)",
+"w": 47,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
 "bw": 0,
 "fs": "15px"
 },
 {
-"t": "Contas do dia G$ 139.927 1/30 de G$ 4.20",
+"t": "Contas do dia G$ 139.845 1/30 de G$ 4.20",
 "act": "view",
 "cara": "texto",
 "h": 69,
@@ -172,13 +183,32 @@
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
 "alin": [],
-"olho": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Dashboard"
+]
+}
+],
 "erros_js": [],
-"rola_vazio": 803
+"rola_vazio": 779
 },
 "vista": "dia",
 "toques": [
@@ -194,27 +224,50 @@
 "de_novo": [
 "leva → dia"
 ],
+"terceiro": [
+"leva → notif"
+],
 "bug": []
 },
 {
 "i": 1,
-"act": "dVer",
+"act": "nvVolta",
 "id": "",
-"txt": "Dashboard ⌄",
+"txt": "‹ HISTÓRICO",
 "tag": "BUTTON",
 "efeito": [
-"abre janela \"VER\""
+"leva → hist"
 ],
 "de_novo": [
-"nada visível"
+"sumiu"
+],
+"terceiro": [
+"leva → hist"
 ],
 "bug": []
 },
 {
 "i": 2,
+"act": "",
+"id": "",
+"txt": "Dashboard",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"terceiro": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 3,
 "act": "dPer",
 "id": "",
-"txt": "Hoje ⌄",
+"txt": "Hoje ›",
 "tag": "BUTTON",
 "efeito": [
 "abre janela \"PERÍODO\""
@@ -222,10 +275,13 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"abre janela \"PERÍODO\""
+],
 "bug": []
 },
 {
-"i": 3,
+"i": 4,
 "act": "view",
 "id": "desp",
 "txt": "Contas do dia G$ 140.000 1/30 de G$ 4.20",
@@ -236,10 +292,13 @@
 "de_novo": [
 "—"
 ],
+"terceiro": [
+"sumiu"
+],
 "bug": []
 },
 {
-"i": 4,
+"i": 5,
 "act": "hopen",
 "id": "V-1966",
 "txt": "1× YS8801 C4 · Marrom V-1966 · 19/11 às ",
@@ -250,10 +309,13 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
-"i": 5,
+"i": 6,
 "act": "hopen",
 "id": "V-1968",
 "txt": "1× SP58110 +2.00 · Preto V-1968 · 19/11 ",
@@ -264,10 +326,13 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
-"i": 6,
+"i": 7,
 "act": "hopen",
 "id": "V-1969",
 "txt": "1× SP57765 +0.75 · Preto V-1969 · 19/11 ",
@@ -278,10 +343,13 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
-"i": 7,
+"i": 8,
 "act": "hopen",
 "id": "V-1967",
 "txt": "2× SP61200 +2.00 · Preto V-1967 · 19/11 ",
@@ -292,10 +360,13 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
-"i": 8,
+"i": 9,
 "act": "hopen",
 "id": "V-1965",
 "txt": "1× SP58110 +1.25 · Preto V-1965 · 19/11 ",
@@ -306,10 +377,13 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
-"i": 9,
+"i": 10,
 "act": "view",
 "id": "hist",
 "txt": "Dias anteriores no Histórico ›",
@@ -319,6 +393,26 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → hist"
+],
+"bug": []
+},
+{
+"i": 11,
+"act": "nvVolta",
+"id": "",
+"txt": "‹",
+"tag": "BUTTON",
+"efeito": [
+"leva → hist"
+],
+"de_novo": [
+"leva → grp"
+],
+"terceiro": [
+"leva → hist"
 ],
 "bug": []
 }
@@ -392,24 +486,35 @@
 "fs": "11px"
 },
 {
-"t": "Dashboard ⌄",
-"act": "dVer",
+"t": "‹ HISTÓRICO",
+"act": "nvVolta",
 "cara": "texto",
-"h": 49,
-"w": 164,
+"h": 44,
+"w": 88,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Dashboard",
+"act": "",
+"cara": "texto",
+"h": 32,
+"w": 144,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
 "fs": "28px"
 },
 {
-"t": "Hoje ⌄",
+"t": "Hoje ›",
 "act": "dPer",
 "cara": "texto",
 "h": 44,
-"w": 46,
-"cor": "rgb(31, 26, 34)",
-"borda": "rgb(31, 26, 34)",
+"w": 47,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
 "bw": 0,
 "fs": "15px"
 },
@@ -489,13 +594,32 @@
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
 "alin": [],
-"olho": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Dashboard"
+]
+}
+],
 "erros_js": [],
-"rola_vazio": 803
+"rola_vazio": 779
 },
-"seg": 94
+"seg": 99
 }

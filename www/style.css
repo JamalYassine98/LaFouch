@@ -2985,3 +2985,65 @@ section.card.fxF.on .fxC,.x66L.on66 .ch66,.hSem[aria-expanded=true] .ecCh,.g99 .
 .view button.fx418R .n{white-space:nowrap;font-size:24px!important;line-height:1.2}.view button.fx418R .s{font-size:13px!important;font-family:var(--sans,inherit)!important;white-space:nowrap}
 #dtabBody>section.kpis.lux418{margin:0!important}
 .view button.fx418R{text-align:left!important;justify-content:flex-start!important}.view button.fx418R .n{text-align:left!important;flex:1 1 auto}
+
+/* ===== S435 (19/11/2026) — NAVEGAÇÃO B REFINADA (esboços 146B e 147, aprovados e mandados implementar) ===== */
+/* movimentos: entra pela direita, volta pela esquerda, mesma curva e o mesmo tempo (0,25 s) em todo o app */
+.slideL,.view.lxIr,.view.slideL.enter,.view.lxIr.enter,.slideR,.view.lxVolta,.view.slideR.enter,.view.lxVolta.enter{animation-duration:.25s!important;animation-timing-function:cubic-bezier(.16,1,.3,1)!important}
+/* "‹ GRUPO" em versalete acima do título */
+.nvVs{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;min-height:44px;margin:-12px 0 -22px;padding:0;background:none;border:0;color:var(--mute);font:inherit;font-size:12px;font-weight:600;letter-spacing:1.68px;text-transform:uppercase;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.nvVs i{font-style:normal;font-size:16px;font-weight:400;letter-spacing:0;transform:translateY(-1px)}
+.nvVs:active{opacity:.6}
+/* índice do grupo: uma linha por tela, ícone + nome + frase + › */
+#v-grp .nvLista{display:flex;flex-direction:column;margin-top:4px}
+#v-grp .nvL{display:flex;align-items:center;gap:16px;min-height:64px;padding:12px 0;background:none;border:0;border-bottom:1px solid var(--line2,var(--line));color:var(--fg);font:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#v-grp .nvL:last-child{border-bottom:0}
+#v-grp .nvL:active{opacity:.6}
+#v-grp .nvIc{flex:none;display:flex;width:22px;color:var(--mute)}
+#v-grp .nvTx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+#v-grp .nvTx b{font-size:16px;font-weight:500}
+#v-grp .nvTx small{font-size:13px;color:var(--mute)}
+#v-grp .nvL>i{font-style:normal;font-size:20px;color:var(--mute)}
+#v-grp .nvGer{align-self:center;min-height:44px;margin-top:8px;background:none;border:0;color:var(--mute);font:inherit;font-size:14px;cursor:pointer}
+/* 147-7: o Dashboard usa o mesmo cabeçalho das outras telas (título 28 px a 0 do topo, frase 4 px abaixo) */
+.dHd{margin:0!important;align-items:flex-start!important}
+.dHd .dHdT{padding:0!important;line-height:1.15!important;min-height:0!important;cursor:default}
+.dHd .dHdT.nvT:active{opacity:1}
+.dHd .dHdP{margin:-6px 0!important;padding-right:0!important}
+.dHdS{font-size:13.5px!important;opacity:.85;margin:-14px 0 0!important}
+/* título pequeno no alto ao rolar */
+#nvBar{position:fixed;left:0;right:0;top:0;z-index:45;height:calc(52px + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px);display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--bg) 88%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);color:var(--fg);font-size:16px;font-weight:600;transform:translateY(-100%);opacity:0;pointer-events:none;transition:transform .25s cubic-bezier(.16,1,.3,1),opacity .25s cubic-bezier(.16,1,.3,1)}
+#nvBar.on{transform:none;opacity:1;pointer-events:auto}
+#nvBar .nvBk{position:absolute;left:8px;bottom:4px;width:44px;height:44px;background:none;border:0;color:var(--mute);font-size:26px;line-height:1;cursor:pointer}
+#nvBar .nvBk[hidden]{display:none}
+@media (prefers-reduced-motion:reduce){#nvBar{transition:none}}
+/* arrastar da borda: a tela de baixo aparece por trás */
+.nvSwBg{position:absolute;left:0;right:0;z-index:1;display:flex;flex-direction:column;gap:18px;transform:translateX(-30%);opacity:.55;pointer-events:none}
+/* 147-5: a janela Grupo é a janela de baixo, com o campo em linha */
+#grpM{align-items:flex-end!important;padding:0!important}
+#grpM .modal-box{margin:0!important;max-width:none!important;width:100%!important;border-radius:24px 24px 0 0!important;border-left:0!important;border-right:0!important;border-bottom:0!important;padding-top:28px!important;padding-bottom:calc(24px + env(safe-area-inset-bottom,0px))!important;position:relative;animation:nvSobe .25s cubic-bezier(.16,1,.3,1)}
+#grpM .modal-box::before{content:"";position:absolute;top:10px;left:50%;width:36px;height:4px;margin-left:-18px;border-radius:2px;background:var(--line2,var(--line))}
+#grpM .modal-box>div:first-child>:not(b){display:none!important}
+#grpM input.in{background:transparent!important;border:0!important;border-bottom:1px solid var(--line2,var(--line))!important;border-radius:0!important;padding-left:0!important;padding-right:0!important;box-shadow:none!important}
+@keyframes nvSobe{from{transform:translateY(100%)}to{transform:none}}
+@media (min-width:760px){#grpM{align-items:center!important}#grpM .modal-box{max-width:480px!important;border-radius:24px!important;border:1px solid var(--line)!important}#grpM .modal-box::before{display:none}}
+@media (prefers-reduced-motion:reduce){#grpM .modal-box{animation:none}}
+/* 147-8: PC e tablet — o índice vira a coluna da esquerda, com os grupos em versalete */
+#nvSide{display:none}
+body.nvRail{--rail:232px}
+body.nvRail .wrap{max-width:none;margin:0 0 0 var(--rail);padding:22px max(32px,calc((100vw/var(--lfz,1) - var(--rail) - 1320px)/2)) 40px}
+body.nvRail #mainnav{left:0;top:0;bottom:0;right:auto;transform:none;width:var(--rail);display:block;overflow-y:auto;border-radius:0;border:0;border-right:1px solid var(--line);box-shadow:none;padding:112px 0 0}
+body.nvRail #mainnav>.mn,body.nvRail #railX{display:none!important}
+body.nvRail #nvSide{display:flex;flex-direction:column;min-height:100%}
+body.nvRail .nvSl{display:flex;align-items:center;gap:16px;min-height:44px;width:100%;padding:0 24px;background:none;border:0;color:var(--fg);font:inherit;font-size:15px;text-align:left;cursor:pointer}
+body.nvRail .nvSl .mi{flex:none;display:flex;width:20px;color:var(--mute)}
+body.nvRail .nvSl.on{color:var(--accent-fg,var(--pri));font-weight:600}
+body.nvRail .nvSl.on .mi{color:var(--accent-fg,var(--pri))}
+body.nvRail .nvSl:hover{background:color-mix(in srgb,var(--line) 50%,transparent)}
+body.nvRail .nvSv{margin:16px 24px 4px;font-size:12px;font-weight:600;letter-spacing:1.68px;text-transform:uppercase;color:var(--mute)}
+body.nvRail .nvSfim{position:sticky;bottom:0;margin-top:auto;padding-top:8px;background:var(--panel);border-top:1px solid var(--line)}
+body.nvRail .top.logo-top{position:fixed;left:0;top:0;width:var(--rail);z-index:41;padding:24px 0 0;margin:0;pointer-events:none}
+body.nvRail .top.logo-top .brand,body.nvRail .top.logo-top .brand img{height:64px}
+body.nvRail .top.logo-top .brand{margin:0 auto;pointer-events:auto}
+body.nvRail .top.logo-top #sino{position:fixed;right:calc(32px/var(--lfz,1));top:calc(20px/var(--lfz,1));left:auto;pointer-events:auto}
+body.nvRail .view>.top{padding-right:70px}
+body.nvRail .nvVs{display:none}

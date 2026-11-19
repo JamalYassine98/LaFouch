@@ -1,7 +1,7 @@
 {
 "tela": "dash-contas-dia",
 "modo": "atual",
-"quando": "19/11 01:36",
+"quando": "19/11 10:49",
 "passos": [
 "()=>window.__LF.inicioGo('hoje')",
 "()=>{const e=[...document.querySelectorAll('#v-dia .kpi')].filter(x=>x.getBoundingClientRect().height).filter(x=>/Contas/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
@@ -75,15 +75,15 @@
 "fs": "11px"
 },
 {
-"t": "Despesas ⌄",
-"act": "grpVer",
+"t": "‹ DIA",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 144,
-"cor": "rgb(231, 237, 245)",
-"borda": "rgb(231, 237, 245)",
+"h": 44,
+"w": 35,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "+ Nova",
@@ -271,6 +271,17 @@
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -278,7 +289,7 @@
 {
 "r": "7 linha de base",
 "ex": [
-"Despesas ⌄ + Nova",
+"Despesas + Nova",
 "Δ5.1px"
 ]
 }
@@ -288,12 +299,12 @@
 "r": "toque<40",
 "n": 1,
 "ex": [
-"Despesas ⌄"
+"‹"
 ]
 }
 ],
 "erros_js": [],
-"rola_vazio": 1036
+"rola_vazio": 1064
 },
 "vista": "desp",
 "toques": [
@@ -309,19 +320,25 @@
 "de_novo": [
 "leva → desp"
 ],
+"terceiro": [
+"leva → notif"
+],
 "bug": []
 },
 {
 "i": 1,
-"act": "grpVer",
+"act": "nvVolta",
 "id": "",
-"txt": "Despesas ⌄",
-"tag": "H1",
+"txt": "‹ DIA",
+"tag": "BUTTON",
 "efeito": [
-"abre janela \"VER\""
+"leva → dia"
 ],
 "de_novo": [
-"nada visível"
+"sumiu"
+],
+"terceiro": [
+"leva → dia"
 ],
 "bug": []
 },
@@ -337,6 +354,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -346,10 +366,13 @@
 "txt": "Pago neste mês. Toque para desfazer",
 "tag": "BUTTON",
 "efeito": [
-"nada visível"
+"muda a tela"
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -365,6 +388,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -374,10 +400,13 @@
 "txt": "Marcar como paga neste mês",
 "tag": "BUTTON",
 "efeito": [
-"muda a tela"
+"nada visível"
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"nada visível"
 ],
 "bug": []
 },
@@ -393,6 +422,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -402,10 +434,13 @@
 "txt": "Pago neste mês. Toque para desfazer",
 "tag": "BUTTON",
 "efeito": [
-"nada visível"
+"muda a tela"
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -421,6 +456,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -430,10 +468,13 @@
 "txt": "Marcar como paga neste mês",
 "tag": "BUTTON",
 "efeito": [
-"muda a tela"
+"nada visível"
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"nada visível"
 ],
 "bug": []
 },
@@ -449,6 +490,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -458,10 +502,13 @@
 "txt": "Pago neste mês. Toque para desfazer",
 "tag": "BUTTON",
 "efeito": [
-"nada visível"
+"muda a tela"
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -475,6 +522,9 @@
 "muda a tela"
 ],
 "de_novo": [
+"muda a tela"
+],
+"terceiro": [
 "muda a tela"
 ],
 "bug": []
@@ -491,6 +541,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -505,6 +558,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -514,10 +570,13 @@
 "txt": "Pago neste mês. Toque para desfazer",
 "tag": "BUTTON",
 "efeito": [
-"nada visível"
+"muda a tela"
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -531,6 +590,9 @@
 "muda a tela"
 ],
 "de_novo": [
+"muda a tela"
+],
+"terceiro": [
 "muda a tela"
 ],
 "bug": []
@@ -547,6 +609,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -560,6 +625,26 @@
 ],
 "de_novo": [
 "muda a tela"
+],
+"terceiro": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 19,
+"act": "nvVolta",
+"id": "",
+"txt": "‹",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+],
+"de_novo": [
+"leva → inicio"
+],
+"terceiro": [
+"leva → dia"
 ],
 "bug": []
 }
@@ -633,15 +718,15 @@
 "fs": "11px"
 },
 {
-"t": "Despesas ⌄",
-"act": "grpVer",
+"t": "‹ DIA",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 144,
-"cor": "rgb(31, 26, 34)",
-"borda": "rgb(31, 26, 34)",
+"h": 44,
+"w": 35,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "+ Nova",
@@ -829,6 +914,17 @@
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -836,7 +932,7 @@
 {
 "r": "7 linha de base",
 "ex": [
-"Despesas ⌄ + Nova",
+"Despesas + Nova",
 "Δ5.1px"
 ]
 }
@@ -846,12 +942,12 @@
 "r": "toque<40",
 "n": 1,
 "ex": [
-"Despesas ⌄"
+"‹"
 ]
 }
 ],
 "erros_js": [],
-"rola_vazio": 1036
+"rola_vazio": 1064
 },
-"seg": 188
+"seg": 223
 }

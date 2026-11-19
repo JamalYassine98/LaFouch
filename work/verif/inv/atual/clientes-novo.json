@@ -1,7 +1,7 @@
 {
 "tela": "clientes-novo",
 "modo": "atual",
-"quando": "19/11 01:54",
+"quando": "19/11 11:03",
 "passos": [
 "()=>window.__LF.setView('clientes')",
 "()=>{const e=[...document.querySelectorAll('[data-act=clinovo]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
@@ -128,6 +128,17 @@
 "borda": "rgb(164, 74, 126)",
 "bw": 1,
 "fs": "16px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [
@@ -307,6 +318,9 @@
 "de_novo": [
 "leva → clientes"
 ],
+"terceiro": [
+"leva → notif"
+],
 "bug": []
 },
 {
@@ -319,6 +333,9 @@
 "nada visível"
 ],
 "de_novo": [
+"nada visível"
+],
+"terceiro": [
 "nada visível"
 ],
 "bug": []
@@ -335,6 +352,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -347,6 +367,9 @@
 "nada visível"
 ],
 "de_novo": [
+"nada visível"
+],
+"terceiro": [
 "nada visível"
 ],
 "bug": []
@@ -363,6 +386,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"alterna"
+],
 "bug": []
 },
 {
@@ -376,6 +402,26 @@
 ],
 "de_novo": [
 "nada visível"
+],
+"terceiro": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 6,
+"act": "nvVolta",
+"id": "",
+"txt": "‹",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+],
+"de_novo": [
+"nada visível"
+],
+"terceiro": [
+"leva → inicio"
 ],
 "bug": []
 }
@@ -502,6 +548,17 @@
 "borda": "rgb(141, 58, 105)",
 "bw": 1,
 "fs": "16px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [
@@ -667,5 +724,5 @@
 "erros_js": [],
 "rola_vazio": 57
 },
-"seg": 65
+"seg": 84
 }

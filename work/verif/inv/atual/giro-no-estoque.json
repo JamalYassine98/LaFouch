@@ -1,7 +1,7 @@
 {
 "tela": "giro-no-estoque",
 "modo": "atual",
-"quando": "19/11 01:53",
+"quando": "19/11 10:53",
 "passos": [
 "()=>window.__LF.inicioGo('giro')",
 "()=>{const e=[...document.querySelectorAll('.kpi')].filter(x=>x.getBoundingClientRect().height).filter(x=>/ESTOQUE|estoque/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
@@ -75,15 +75,15 @@
 "fs": "11px"
 },
 {
-"t": "Inventário ⌄",
-"act": "grpVer",
+"t": "‹ GIRO",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 286,
-"cor": "rgb(231, 237, 245)",
-"borda": "rgb(231, 237, 245)",
+"h": 44,
+"w": 45,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "Adicionar",
@@ -119,7 +119,7 @@
 "fs": "15px"
 },
 {
-"t": "EM ESTOQUE (FILTRO) › 469",
+"t": "EM ESTOQUE (FILTRO) › 470",
 "act": "",
 "cara": "texto",
 "h": 87,
@@ -326,6 +326,17 @@
 "borda": "rgb(42, 52, 65)",
 "bw": 1,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [
@@ -347,7 +358,7 @@
 {
 "r": "2 centro vertical",
 "ex": [
-"Inventário ⌄ Grupo Pré-graduados ›",
+"Inventário Grupo Pré-graduados › G",
 "Δ10.0px"
 ]
 },
@@ -361,24 +372,16 @@
 ],
 "olho": [
 {
-"r": "toque<40",
-"n": 1,
-"ex": [
-"Inventário ⌄"
-]
-},
-{
 "r": "fileira torta",
-"n": 3,
+"n": 2,
 "ex": [
 "EM ESTOQUE (FILTRO) › (4 px)",
-"Lote Kazwini (8 px)",
-"Óculos de leitura Kazwini  (22 px)"
+"Lote Kazwini (9 px)"
 ]
 }
 ],
 "erros_js": [],
-"rola_vazio": 2293
+"rola_vazio": 2320
 },
 "vista": "estoque",
 "toques": [
@@ -394,19 +397,25 @@
 "de_novo": [
 "leva → estoque"
 ],
+"terceiro": [
+"leva → notif"
+],
 "bug": []
 },
 {
 "i": 1,
-"act": "grpVer",
+"act": "nvVolta",
 "id": "",
-"txt": "Inventário ⌄",
-"tag": "H1",
+"txt": "‹ GIRO",
+"tag": "BUTTON",
 "efeito": [
-"abre janela \"VER\""
+"leva → dash"
 ],
 "de_novo": [
-"nada visível"
+"sumiu"
+],
+"terceiro": [
+"leva → dash"
 ],
 "bug": []
 },
@@ -422,6 +431,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"abre janela \"Adicionar\""
+],
 "bug": []
 },
 {
@@ -434,6 +446,9 @@
 "nada visível"
 ],
 "de_novo": [
+"nada visível"
+],
+"terceiro": [
 "nada visível"
 ],
 "bug": []
@@ -450,6 +465,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -464,9 +482,10 @@
 "de_novo": [
 "sumiu"
 ],
-"bug": [
-"3º toque diferente do 1º"
-]
+"terceiro": [
+"alterna"
+],
+"bug": []
 },
 {
 "i": 6,
@@ -479,6 +498,9 @@
 ],
 "de_novo": [
 "nada visível"
+],
+"terceiro": [
+"abre janela \"Buscar com a câmera\""
 ],
 "bug": []
 },
@@ -493,6 +515,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → dash"
 ],
 "bug": []
 },
@@ -509,6 +534,10 @@
 "de_novo": [
 "alterna"
 ],
+"terceiro": [
+"abre janela \"Filtros do inventário\"",
+"alterna"
+],
 "bug": []
 },
 {
@@ -522,6 +551,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -537,6 +569,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -550,6 +585,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -565,6 +603,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -578,6 +619,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -593,6 +637,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -606,6 +653,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -621,6 +671,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -634,6 +687,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -665,6 +721,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -678,6 +737,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -693,6 +755,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -702,6 +767,23 @@
 "txt": "Óculos solar #14 Solares G$ 60.000! 4 em",
 "tag": "BUTTON",
 "igual_a": "giro-no-estoque"
+},
+{
+"i": 24,
+"act": "nvVolta",
+"id": "",
+"txt": "‹",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+],
+"de_novo": [
+"leva → grp"
+],
+"terceiro": [
+"leva → dash"
+],
+"bug": []
 }
 ],
 "claro": {
@@ -773,15 +855,15 @@
 "fs": "11px"
 },
 {
-"t": "Inventário ⌄",
-"act": "grpVer",
+"t": "‹ GIRO",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 286,
-"cor": "rgb(31, 26, 34)",
-"borda": "rgb(31, 26, 34)",
+"h": 44,
+"w": 45,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "Adicionar",
@@ -1024,6 +1106,17 @@
 "borda": "rgb(217, 208, 216)",
 "bw": 1,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [
@@ -1045,7 +1138,7 @@
 {
 "r": "2 centro vertical",
 "ex": [
-"Inventário ⌄ Grupo Pré-graduados ›",
+"Inventário Grupo Pré-graduados › G",
 "Δ10.0px"
 ]
 },
@@ -1059,24 +1152,16 @@
 ],
 "olho": [
 {
-"r": "toque<40",
-"n": 1,
-"ex": [
-"Inventário ⌄"
-]
-},
-{
 "r": "fileira torta",
-"n": 3,
+"n": 2,
 "ex": [
 "EM ESTOQUE (FILTRO) › (4 px)",
-"Lote Kazwini (9 px)",
-"Óculos de leitura Kazwini  (22 px)"
+"Lote Kazwini (9 px)"
 ]
 }
 ],
 "erros_js": [],
-"rola_vazio": 2292
+"rola_vazio": 2320
 },
-"seg": 227
+"seg": 254
 }

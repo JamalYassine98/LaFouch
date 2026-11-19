@@ -1,0 +1,374 @@
+{
+"tela": "grp-dinheiro",
+"modo": "atual",
+"quando": "19/11 11:12",
+"passos": [
+"()=>{const b=document.querySelector(\"#mainnav .mn[data-id='g:din']\");b&&b.click()}"
+],
+"escuro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone quadrado",
+"h": 46,
+"w": 46,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Caixa O dinheiro da loja, por moeda ›",
+"act": "nvIr",
+"cara": "texto",
+"h": 44,
+"w": 342,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Despesas Contas do mês e imprevistos ›",
+"act": "nvIr",
+"cara": "texto",
+"h": 44,
+"w": 342,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Câmbio Cotações e trocas ›",
+"act": "nvIr",
+"cara": "texto",
+"h": 44,
+"w": 342,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Gerenciar grupo ›",
+"act": "nvGer",
+"cara": "texto",
+"h": 44,
+"w": 129,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
+}
+],
+"campos": [],
+"alin": [],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 0
+},
+"vista": "grp",
+"toques": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "12",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+],
+"de_novo": [
+"leva → grp"
+],
+"terceiro": [
+"leva → notif"
+],
+"bug": []
+},
+{
+"i": 1,
+"act": "nvIr",
+"id": "caixa",
+"txt": "Caixa O dinheiro da loja, por moeda ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+],
+"de_novo": [
+"sumiu"
+],
+"terceiro": [
+"leva → caixa"
+],
+"bug": []
+},
+{
+"i": 2,
+"act": "nvIr",
+"id": "desp",
+"txt": "Despesas Contas do mês e imprevistos ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → desp"
+],
+"de_novo": [
+"sumiu"
+],
+"terceiro": [
+"leva → desp"
+],
+"bug": []
+},
+{
+"i": 3,
+"act": "nvIr",
+"id": "fx",
+"txt": "Câmbio Cotações e trocas ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → fx"
+],
+"de_novo": [
+"sumiu"
+],
+"terceiro": [
+"leva → fx"
+],
+"bug": []
+},
+{
+"i": 4,
+"act": "nvGer",
+"id": "",
+"txt": "Gerenciar grupo ›",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Grupo\""
+],
+"de_novo": [
+"nada visível"
+],
+"terceiro": [
+"abre janela \"Grupo\""
+],
+"bug": []
+},
+{
+"i": 5,
+"act": "nvVolta",
+"id": "",
+"txt": "‹",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+],
+"de_novo": [
+"nada visível"
+],
+"terceiro": [
+"leva → inicio"
+],
+"bug": []
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone quadrado",
+"h": 46,
+"w": 46,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Caixa O dinheiro da loja, por moeda ›",
+"act": "nvIr",
+"cara": "texto",
+"h": 44,
+"w": 342,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Despesas Contas do mês e imprevistos ›",
+"act": "nvIr",
+"cara": "texto",
+"h": 44,
+"w": 342,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Câmbio Cotações e trocas ›",
+"act": "nvIr",
+"cara": "texto",
+"h": 44,
+"w": 342,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Gerenciar grupo ›",
+"act": "nvGer",
+"cara": "texto",
+"h": 44,
+"w": 129,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
+}
+],
+"campos": [],
+"alin": [],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 0
+},
+"seg": 44
+}

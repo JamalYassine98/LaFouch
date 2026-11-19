@@ -1,7 +1,7 @@
 {
 "tela": "dash-ver-todas-vendas",
 "modo": "aprov",
-"quando": "19/11 01:39",
+"quando": "19/11 11:22",
 "passos": [
 "()=>window.__LF.inicioGo('hoje')",
 "()=>{const e=[...document.querySelectorAll('#v-dia button')].filter(x=>x.getBoundingClientRect().height).filter(x=>/Ver todas as vendas/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
@@ -75,22 +75,22 @@
 "fs": "11px"
 },
 {
-"t": "Dashboard ⌄",
-"act": "dVer",
+"t": "Dashboard",
+"act": "",
 "cara": "texto",
-"h": 49,
-"w": 164,
+"h": 32,
+"w": 144,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
 "fs": "28px"
 },
 {
-"t": "Hoje ⌄",
+"t": "Hoje ›",
 "act": "dPer",
 "cara": "texto",
 "h": 44,
-"w": 46,
+"w": 41,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
@@ -172,13 +172,32 @@
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
 "fs": "13px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
 "alin": [],
-"olho": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Dashboard"
+]
+}
+],
 "erros_js": [],
-"rola_vazio": 797
+"rola_vazio": 745
 },
 "vista": "dia",
 "toques": [
@@ -188,41 +207,23 @@
 "id": "notif",
 "txt": "12",
 "tag": "BUTTON",
-"efeito": [
-"leva → notif"
-],
-"de_novo": [
-"leva → dia"
-],
-"bug": []
+"igual_a": "hist-dia"
 },
 {
 "i": 1,
-"act": "dVer",
+"act": "",
 "id": "",
-"txt": "Dashboard ⌄",
+"txt": "Dashboard",
 "tag": "BUTTON",
-"efeito": [
-"abre janela \"VER\""
-],
-"de_novo": [
-"nada visível"
-],
-"bug": []
+"igual_a": "hist-dia"
 },
 {
 "i": 2,
 "act": "dPer",
 "id": "",
-"txt": "Hoje ⌄",
+"txt": "Hoje ›",
 "tag": "BUTTON",
-"efeito": [
-"abre janela \"PERÍODO\""
-],
-"de_novo": [
-"nada visível"
-],
-"bug": []
+"igual_a": "hist-dia"
 },
 {
 "i": 3,
@@ -230,13 +231,7 @@
 "id": "desp",
 "txt": "Contas do dia G$ 140.000 1/30 de G$ 4.20",
 "tag": "DIV",
-"efeito": [
-"leva → desp"
-],
-"de_novo": [
-"sumiu"
-],
-"bug": []
+"igual_a": "hist-dia"
 },
 {
 "i": 4,
@@ -244,13 +239,7 @@
 "id": "V-1966",
 "txt": "1× YS8801 C4 · Marrom V-1966 · 19/11 às ",
 "tag": "BUTTON",
-"efeito": [
-"muda a tela"
-],
-"de_novo": [
-"muda a tela"
-],
-"bug": []
+"igual_a": "hist-dia"
 },
 {
 "i": 5,
@@ -258,13 +247,7 @@
 "id": "V-1968",
 "txt": "1× SP58110 +2.00 · Preto V-1968 · 19/11 ",
 "tag": "BUTTON",
-"efeito": [
-"muda a tela"
-],
-"de_novo": [
-"sumiu"
-],
-"bug": []
+"igual_a": "hist-dia"
 },
 {
 "i": 6,
@@ -272,13 +255,7 @@
 "id": "V-1969",
 "txt": "1× SP57765 +0.75 · Preto V-1969 · 19/11 ",
 "tag": "BUTTON",
-"efeito": [
-"muda a tela"
-],
-"de_novo": [
-"sumiu"
-],
-"bug": []
+"igual_a": "hist-dia"
 },
 {
 "i": 7,
@@ -286,13 +263,7 @@
 "id": "V-1967",
 "txt": "2× SP61200 +2.00 · Preto V-1967 · 19/11 ",
 "tag": "BUTTON",
-"efeito": [
-"muda a tela"
-],
-"de_novo": [
-"sumiu"
-],
-"bug": []
+"igual_a": "hist-dia"
 },
 {
 "i": 8,
@@ -300,13 +271,7 @@
 "id": "V-1965",
 "txt": "1× SP58110 +1.25 · Preto V-1965 · 19/11 ",
 "tag": "BUTTON",
-"efeito": [
-"muda a tela"
-],
-"de_novo": [
-"sumiu"
-],
-"bug": []
+"igual_a": "hist-dia"
 },
 {
 "i": 9,
@@ -314,13 +279,15 @@
 "id": "hist",
 "txt": "Dias anteriores no Histórico ›",
 "tag": "BUTTON",
-"efeito": [
-"leva → hist"
-],
-"de_novo": [
-"sumiu"
-],
-"bug": []
+"igual_a": "hist-dia"
+},
+{
+"i": 10,
+"act": "nvVolta",
+"id": "",
+"txt": "‹",
+"tag": "BUTTON",
+"igual_a": "hist-dia"
 }
 ],
 "claro": {
@@ -392,22 +359,22 @@
 "fs": "11px"
 },
 {
-"t": "Dashboard ⌄",
-"act": "dVer",
+"t": "Dashboard",
+"act": "",
 "cara": "texto",
-"h": 49,
-"w": 164,
+"h": 32,
+"w": 144,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
 "fs": "28px"
 },
 {
-"t": "Hoje ⌄",
+"t": "Hoje ›",
 "act": "dPer",
 "cara": "texto",
 "h": 44,
-"w": 46,
+"w": 41,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
@@ -483,19 +450,38 @@
 "t": "Dias anteriores no Histórico ›",
 "act": "view",
 "cara": "texto",
-"h": 44,
-"w": 208,
+"h": 46,
+"w": 342,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
-"fs": "15px"
+"fs": "13px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
 "alin": [],
-"olho": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Dashboard"
+]
+}
+],
 "erros_js": [],
-"rola_vazio": 803
+"rola_vazio": 745
 },
-"seg": 95
+"seg": 7
 }

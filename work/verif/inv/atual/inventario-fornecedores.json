@@ -1,7 +1,7 @@
 {
 "tela": "inventario-fornecedores",
 "modo": "atual",
-"quando": "19/11 01:55",
+"quando": "19/11 11:05",
 "passos": [
 "()=>window.__LF.setView('estoque')",
 "()=>{const e=[...document.querySelectorAll('#v-estoque button')].filter(x=>x.getBoundingClientRect().height).filter(x=>/Fornecedores/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
@@ -75,15 +75,15 @@
 "fs": "11px"
 },
 {
-"t": "Inventário ⌄",
-"act": "grpVer",
+"t": "‹ INVENTÁRIO",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 286,
-"cor": "rgb(231, 237, 245)",
-"borda": "rgb(231, 237, 245)",
+"h": 44,
+"w": 97,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "Adicionar",
@@ -172,6 +172,17 @@
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -179,7 +190,7 @@
 {
 "r": "2 centro vertical",
 "ex": [
-"Inventário ⌄ Grupo Pré-graduados ›",
+"Inventário Grupo Pré-graduados › G",
 "Δ10.0px"
 ]
 },
@@ -229,9 +240,8 @@
 },
 {
 "r": "toque<40",
-"n": 3,
+"n": 2,
 "ex": [
-"Inventário ⌄",
 "Editar",
 "Remover lote"
 ]
@@ -245,7 +255,7 @@
 }
 ],
 "erros_js": [],
-"rola_vazio": 57
+"rola_vazio": 85
 },
 "vista": "estoque",
 "toques": [
@@ -261,18 +271,24 @@
 "de_novo": [
 "leva → estoque"
 ],
+"terceiro": [
+"leva → notif"
+],
 "bug": []
 },
 {
 "i": 1,
-"act": "grpVer",
+"act": "nvVolta",
 "id": "",
-"txt": "Inventário ⌄",
-"tag": "H1",
+"txt": "‹ INVENTÁRIO",
+"tag": "BUTTON",
 "efeito": [
-"abre janela \"VER\""
+"nada visível"
 ],
 "de_novo": [
+"nada visível"
+],
+"terceiro": [
 "nada visível"
 ],
 "bug": []
@@ -289,6 +305,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"abre janela \"Adicionar\""
+],
 "bug": []
 },
 {
@@ -303,6 +322,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -315,6 +337,9 @@
 "nada visível"
 ],
 "de_novo": [
+"nada visível"
+],
+"terceiro": [
 "nada visível"
 ],
 "bug": []
@@ -331,6 +356,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"alterna"
+],
 "bug": []
 },
 {
@@ -345,6 +373,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"Editar lote\""
+],
 "bug": []
 },
 {
@@ -357,6 +388,9 @@
 "muda a tela"
 ],
 "de_novo": [
+"muda a tela"
+],
+"terceiro": [
 "muda a tela"
 ],
 "bug": []
@@ -373,6 +407,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -386,6 +423,26 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → dash"
+],
+"bug": []
+},
+{
+"i": 10,
+"act": "nvVolta",
+"id": "",
+"txt": "‹",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"terceiro": [
+"nada visível"
 ],
 "bug": []
 }
@@ -459,15 +516,15 @@
 "fs": "11px"
 },
 {
-"t": "Inventário ⌄",
-"act": "grpVer",
+"t": "‹ INVENTÁRIO",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 286,
-"cor": "rgb(31, 26, 34)",
-"borda": "rgb(31, 26, 34)",
+"h": 44,
+"w": 97,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "Adicionar",
@@ -556,6 +613,17 @@
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -563,7 +631,7 @@
 {
 "r": "2 centro vertical",
 "ex": [
-"Inventário ⌄ Grupo Pré-graduados ›",
+"Inventário Grupo Pré-graduados › G",
 "Δ10.0px"
 ]
 },
@@ -613,9 +681,8 @@
 },
 {
 "r": "toque<40",
-"n": 3,
+"n": 2,
 "ex": [
-"Inventário ⌄",
 "Editar",
 "Remover lote"
 ]
@@ -629,7 +696,7 @@
 }
 ],
 "erros_js": [],
-"rola_vazio": 57
+"rola_vazio": 85
 },
-"seg": 115
+"seg": 126
 }

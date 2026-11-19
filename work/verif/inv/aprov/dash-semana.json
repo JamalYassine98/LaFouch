@@ -1,7 +1,7 @@
 {
 "tela": "dash-semana",
 "modo": "aprov",
-"quando": "19/11 01:48",
+"quando": "19/11 11:20",
 "passos": [
 "()=>{window.__LF.S.per='semana';window.__LF.S.dTab='hoje';window.__LF.setView('dash')}"
 ],
@@ -74,29 +74,40 @@
 "fs": "11px"
 },
 {
-"t": "Dashboard ⌄",
-"act": "dVer",
+"t": "‹ RESULTADOS",
+"act": "nvVolta",
 "cara": "texto",
-"h": 49,
-"w": 164,
+"h": 44,
+"w": 101,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Dashboard",
+"act": "",
+"cara": "texto",
+"h": 32,
+"w": 144,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
 "fs": "28px"
 },
 {
-"t": "Esta semana ⌄",
+"t": "Esta semana ›",
 "act": "dPer",
 "cara": "texto",
 "h": 44,
 "w": 102,
-"cor": "rgb(231, 237, 245)",
-"borda": "rgb(231, 237, 245)",
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
 "bw": 0,
 "fs": "15px"
 },
 {
-"t": "G$ 1.289.500",
+"t": "G$ 1.287.920",
 "act": "d48Moeda",
 "cara": "texto",
 "h": 40,
@@ -107,7 +118,7 @@
 "fs": "26px"
 },
 {
-"t": "G$ 445.900",
+"t": "G$ 445.450",
 "act": "d48Moeda",
 "cara": "texto",
 "h": 40,
@@ -118,7 +129,7 @@
 "fs": "26px"
 },
 {
-"t": "G$ 2.190.678",
+"t": "G$ 2.188.786",
 "act": "d48Moeda",
 "cara": "texto",
 "h": 40,
@@ -160,6 +171,17 @@
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -186,9 +208,17 @@
 ]
 }
 ],
-"olho": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Dashboard"
+]
+}
+],
 "erros_js": [],
-"rola_vazio": 137
+"rola_vazio": 113
 },
 "vista": "dash",
 "toques": [
@@ -204,27 +234,50 @@
 "de_novo": [
 "leva → dash"
 ],
+"terceiro": [
+"leva → notif"
+],
 "bug": []
 },
 {
 "i": 1,
-"act": "dVer",
+"act": "nvVolta",
 "id": "",
-"txt": "Dashboard ⌄",
+"txt": "‹ RESULTADOS",
 "tag": "BUTTON",
 "efeito": [
-"abre janela \"VER\""
+"leva → grp"
 ],
 "de_novo": [
-"nada visível"
+"sumiu"
+],
+"terceiro": [
+"leva → grp"
 ],
 "bug": []
 },
 {
 "i": 2,
+"act": "",
+"id": "",
+"txt": "Dashboard",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"terceiro": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 3,
 "act": "dPer",
 "id": "",
-"txt": "Esta semana ⌄",
+"txt": "Esta semana ›",
 "tag": "BUTTON",
 "efeito": [
 "abre janela \"PERÍODO\""
@@ -232,10 +285,13 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"abre janela \"PERÍODO\""
+],
 "bug": []
 },
 {
-"i": 3,
+"i": 4,
 "act": "d48Moeda",
 "id": "",
 "txt": "G$ 1.289.500",
@@ -246,19 +302,8 @@
 "de_novo": [
 "sumiu"
 ],
-"bug": []
-},
-{
-"i": 4,
-"act": "d48Moeda",
-"id": "",
-"txt": "G$ 445.900",
-"tag": "B",
-"efeito": [
+"terceiro": [
 "nada visível"
-],
-"de_novo": [
-"sumiu"
 ],
 "bug": []
 },
@@ -266,12 +311,29 @@
 "i": 5,
 "act": "d48Moeda",
 "id": "",
-"txt": "G$ 2.190.678",
+"txt": "G$ 446.000",
+"tag": "B",
+"efeito": [
+"sumiu"
+],
+"de_novo": [
+"—"
+],
+"terceiro": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 6,
+"act": "d48Moeda",
+"id": "",
+"txt": "G$ 2.191.487",
 "tag": "B",
 "igual_a": "dash-semana"
 },
 {
-"i": 6,
+"i": 7,
 "act": "d48Abre",
 "id": "res",
 "txt": "Resultado do mês Lucro real, o que mais ",
@@ -282,10 +344,13 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
-"i": 7,
+"i": 8,
 "act": "d48Abre",
 "id": "c1",
 "txt": "Quanto separar do que você vendeu Cada c",
@@ -296,10 +361,13 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
-"i": 8,
+"i": 9,
 "act": "d48Abre",
 "id": "c2",
 "txt": "Vendas do período Cada venda com o valor",
@@ -309,6 +377,26 @@
 ],
 "de_novo": [
 "muda a tela"
+],
+"terceiro": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 10,
+"act": "nvVolta",
+"id": "",
+"txt": "‹",
+"tag": "BUTTON",
+"efeito": [
+"leva → grp"
+],
+"de_novo": [
+"leva → inicio"
+],
+"terceiro": [
+"leva → grp"
 ],
 "bug": []
 }
@@ -382,29 +470,40 @@
 "fs": "11px"
 },
 {
-"t": "Dashboard ⌄",
-"act": "dVer",
+"t": "‹ RESULTADOS",
+"act": "nvVolta",
 "cara": "texto",
-"h": 49,
-"w": 164,
+"h": 44,
+"w": 101,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Dashboard",
+"act": "",
+"cara": "texto",
+"h": 32,
+"w": 144,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
 "fs": "28px"
 },
 {
-"t": "Esta semana ⌄",
+"t": "Esta semana ›",
 "act": "dPer",
 "cara": "texto",
 "h": 44,
-"w": 102,
+"w": 96,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
 "fs": "15px"
 },
 {
-"t": "G$ 1.289.496",
+"t": "G$ 1.289.500",
 "act": "d48Moeda",
 "cara": "texto",
 "h": 40,
@@ -415,7 +514,7 @@
 "fs": "26px"
 },
 {
-"t": "G$ 446.198",
+"t": "G$ 445.700",
 "act": "d48Moeda",
 "cara": "texto",
 "h": 40,
@@ -426,7 +525,7 @@
 "fs": "26px"
 },
 {
-"t": "G$ 2.190.671",
+"t": "G$ 2.191.487",
 "act": "d48Moeda",
 "cara": "texto",
 "h": 40,
@@ -468,6 +567,17 @@
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -494,9 +604,17 @@
 ]
 }
 ],
-"olho": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Dashboard"
+]
+}
+],
 "erros_js": [],
-"rola_vazio": 137
+"rola_vazio": 113
 },
 "seg": 72
 }

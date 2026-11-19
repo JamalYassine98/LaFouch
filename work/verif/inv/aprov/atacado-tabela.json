@@ -1,7 +1,7 @@
 {
 "tela": "atacado-tabela",
 "modo": "aprov",
-"quando": "19/11 02:15",
+"quando": "19/11 11:09",
 "passos": [
 "()=>window.__LF.inicioGo('ata')",
 "()=>window.__LF.ACT.ataAba('tab')"
@@ -161,10 +161,29 @@
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
-"alin": [],
+"alin": [
+{
+"r": "2 centro vertical",
+"ex": [
+"Atacado Lojistas, lotes e pedidos ",
+"Δ4.2px"
+]
+}
+],
 "olho": [
 {
 "r": "toque<40",
@@ -185,7 +204,16 @@
 "id": "notif",
 "txt": "12",
 "tag": "BUTTON",
-"igual_a": "atacado-lojistas"
+"efeito": [
+"leva → notif"
+],
+"de_novo": [
+"leva → ata"
+],
+"terceiro": [
+"leva → notif"
+],
+"bug": []
 },
 {
 "i": 1,
@@ -193,7 +221,16 @@
 "id": "",
 "txt": "Novo acesso",
 "tag": "BUTTON",
-"igual_a": "atacado-lojistas"
+"efeito": [
+"abre janela \"Novo acesso ao atacado\""
+],
+"de_novo": [
+"muda a tela"
+],
+"terceiro": [
+"abre janela \"Novo acesso ao atacado\""
+],
+"bug": []
 },
 {
 "i": 2,
@@ -201,7 +238,16 @@
 "id": "msg",
 "txt": "Mensagens",
 "tag": "BUTTON",
-"igual_a": "atacado-lojistas"
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"nada visível"
+],
+"terceiro": [
+"muda a tela"
+],
+"bug": []
 },
 {
 "i": 3,
@@ -209,7 +255,16 @@
 "id": "loj",
 "txt": "Lojistas",
 "tag": "BUTTON",
-"igual_a": "atacado-lojistas"
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"nada visível"
+],
+"terceiro": [
+"muda a tela"
+],
+"bug": []
 },
 {
 "i": 4,
@@ -217,7 +272,16 @@
 "id": "lot",
 "txt": "Lotes",
 "tag": "BUTTON",
-"igual_a": "atacado-lojistas"
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"nada visível"
+],
+"terceiro": [
+"muda a tela"
+],
+"bug": []
 },
 {
 "i": 5,
@@ -225,7 +289,16 @@
 "id": "tab",
 "txt": "Tabela",
 "tag": "BUTTON",
-"igual_a": "atacado-lojistas"
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"terceiro": [
+"nada visível"
+],
+"bug": []
 },
 {
 "i": 6,
@@ -238,6 +311,9 @@
 ],
 "de_novo": [
 "muda a tela"
+],
+"terceiro": [
+"abre janela \"Compartilhar\""
 ],
 "bug": []
 },
@@ -253,6 +329,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"Tabela de atacado\""
+],
 "bug": []
 },
 {
@@ -266,6 +345,26 @@
 ],
 "de_novo": [
 "nada visível"
+],
+"terceiro": [
+"abre janela \"Tabela de preço\""
+],
+"bug": []
+},
+{
+"i": 9,
+"act": "nvVolta",
+"id": "",
+"txt": "‹",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+],
+"de_novo": [
+"nada visível"
+],
+"terceiro": [
+"leva → inicio"
 ],
 "bug": []
 }
@@ -425,6 +524,17 @@
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -449,5 +559,5 @@
 "erros_js": [],
 "rola_vazio": 0
 },
-"seg": 29
+"seg": 110
 }

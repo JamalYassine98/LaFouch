@@ -1,7 +1,7 @@
 {
 "tela": "clientes-novo",
 "modo": "aprov",
-"quando": "19/11 01:54",
+"quando": "19/11 11:04",
 "passos": [
 "()=>window.__LF.setView('clientes')",
 "()=>{const e=[...document.querySelectorAll('[data-act=clinovo]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
@@ -117,6 +117,17 @@
 "borda": "rgb(164, 74, 126)",
 "bw": 1,
 "fs": "16px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [
@@ -199,7 +210,15 @@
 "fs": "15px"
 }
 ],
-"alin": [],
+"alin": [
+{
+"r": "2 centro vertical",
+"ex": [
+"Clientes Quem compra na loja e no ",
+"Δ4.2px"
+]
+}
+],
 "olho": [],
 "erros_js": [],
 "rola_vazio": 0
@@ -218,6 +237,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"nada visível"
+],
 "bug": []
 },
 {
@@ -232,6 +254,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"alterna"
+],
 "bug": []
 },
 {
@@ -245,6 +270,9 @@
 ],
 "de_novo": [
 "nada visível"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 }
@@ -360,6 +388,17 @@
 "borda": "rgb(141, 58, 105)",
 "bw": 1,
 "fs": "16px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [
@@ -455,5 +494,5 @@
 "erros_js": [],
 "rola_vazio": 0
 },
-"seg": 38
+"seg": 43
 }

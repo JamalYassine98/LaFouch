@@ -1,7 +1,7 @@
 {
 "tela": "dash-folha-ver",
 "modo": "aprov",
-"quando": "19/11 01:35",
+"quando": "19/11 09:53",
 "passos": [
 "()=>window.__LF.inicioGo('hoje')",
 "()=>{const e=[...document.querySelectorAll('[data-act=dVer]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
@@ -9,74 +9,273 @@
 "escuro": {
 "botoes": [
 {
-"t": "Dashboard Os números do período ✓",
-"act": "grpVerEsc",
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
 "cara": "texto",
-"h": 75,
-"w": 354,
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dashboard",
+"act": "",
+"cara": "texto",
+"h": 32,
+"w": 144,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Hoje ›",
+"act": "dPer",
+"cara": "texto",
+"h": 44,
+"w": 41,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
 "fs": "15px"
 },
 {
-"t": "Histórico Todas as vendas, dia por dia ›",
-"act": "grpVerEsc",
+"t": "Contas do dia G$ 140.000 1/30 de G$ 4.20",
+"act": "view",
 "cara": "texto",
-"h": 75,
-"w": 354,
+"h": 69,
+"w": 342,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
 "fs": "15px"
 },
 {
-"t": "Gerenciar grupo Nome e telas de \"Resulta",
-"act": "grpGerirV",
+"t": "1× YS8801 C4 · Marrom V-1966 · 19/11 às ",
+"act": "hopen",
 "cara": "texto",
-"h": 75,
-"w": 354,
+"h": 69,
+"w": 342,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "1× SP58110 +2.00 · Preto V-1968 · 19/11 ",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SP57765 +0.75 · Preto V-1969 · 19/11 ",
+"act": "hopen",
+"cara": "texto",
+"h": 69,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "2× SP61200 +2.00 · Preto V-1967 · 19/11 ",
+"act": "hopen",
+"cara": "texto",
+"h": 69,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SP58110 +1.25 · Preto V-1965 · 19/11 ",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Dias anteriores no Histórico ›",
+"act": "view",
+"cara": "texto",
+"h": 46,
+"w": 342,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
-"alin": [
+"alin": [],
+"olho": [
 {
-"r": "7 linha de base",
+"r": "toque<40",
+"n": 1,
 "ex": [
-"Dashboard Os números do período ✓",
-"Δ10.6px"
-]
-},
-{
-"r": "7 linha de base",
-"ex": [
-"Histórico Todas as vendas, dia por",
-"Δ10.6px"
-]
-},
-{
-"r": "7 linha de base",
-"ex": [
-"Gerenciar grupo Nome e telas de \"R",
-"Δ10.6px"
+"Dashboard"
 ]
 }
 ],
-"olho": [],
 "erros_js": [],
-"rola_vazio": 0
+"rola_vazio": 745
 },
 "vista": "dia",
 "toques": [
 {
 "i": 0,
-"act": "grpVerEsc",
-"id": "hoje",
-"txt": "Dashboard Os números do período ✓",
+"act": "view",
+"id": "notif",
+"txt": "12",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+],
+"de_novo": [
+"leva → dia"
+],
+"bug": []
+},
+{
+"i": 1,
+"act": "",
+"id": "",
+"txt": "Dashboard",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 2,
+"act": "dPer",
+"id": "",
+"txt": "Hoje ›",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"PERÍODO\""
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 3,
+"act": "view",
+"id": "desp",
+"txt": "Contas do dia G$ 140.000 1/30 de G$ 4.20",
+"tag": "DIV",
+"efeito": [
+"leva → desp"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 4,
+"act": "hopen",
+"id": "V-1966",
+"txt": "1× YS8801 C4 · Marrom V-1966 · 19/11 às ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 5,
+"act": "hopen",
+"id": "V-1968",
+"txt": "1× SP58110 +2.00 · Preto V-1968 · 19/11 ",
 "tag": "BUTTON",
 "efeito": [
 "muda a tela"
@@ -87,10 +286,52 @@
 "bug": []
 },
 {
-"i": 1,
-"act": "grpVerEsc",
+"i": 6,
+"act": "hopen",
+"id": "V-1969",
+"txt": "1× SP57765 +0.75 · Preto V-1969 · 19/11 ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 7,
+"act": "hopen",
+"id": "V-1967",
+"txt": "2× SP61200 +2.00 · Preto V-1967 · 19/11 ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 8,
+"act": "hopen",
+"id": "V-1965",
+"txt": "1× SP58110 +1.25 · Preto V-1965 · 19/11 ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 9,
+"act": "view",
 "id": "hist",
-"txt": "Histórico Todas as vendas, dia por dia ›",
+"txt": "Dias anteriores no Histórico ›",
 "tag": "BUTTON",
 "efeito": [
 "leva → hist"
@@ -101,16 +342,16 @@
 "bug": []
 },
 {
-"i": 2,
-"act": "grpGerirV",
-"id": "g:res",
-"txt": "Gerenciar grupo Nome e telas de \"Resulta",
+"i": 10,
+"act": "nvVolta",
+"id": "",
+"txt": "‹",
 "tag": "BUTTON",
 "efeito": [
-"abre janela \"Grupo\""
+"leva → inicio"
 ],
 "de_novo": [
-"sumiu"
+"nada visível"
 ],
 "bug": []
 }
@@ -118,66 +359,195 @@
 "claro": {
 "botoes": [
 {
-"t": "Dashboard Os números do período ✓",
-"act": "grpVerEsc",
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
 "cara": "texto",
-"h": 75,
-"w": 354,
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dashboard",
+"act": "",
+"cara": "texto",
+"h": 32,
+"w": 144,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Hoje ›",
+"act": "dPer",
+"cara": "texto",
+"h": 44,
+"w": 41,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
 "fs": "15px"
 },
 {
-"t": "Histórico Todas as vendas, dia por dia ›",
-"act": "grpVerEsc",
+"t": "Contas do dia G$ 140.000 1/30 de G$ 4.20",
+"act": "view",
 "cara": "texto",
-"h": 75,
-"w": 354,
+"h": 69,
+"w": 342,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
 "fs": "15px"
 },
 {
-"t": "Gerenciar grupo Nome e telas de \"Resulta",
-"act": "grpGerirV",
+"t": "1× YS8801 C4 · Marrom V-1966 · 19/11 às ",
+"act": "hopen",
 "cara": "texto",
-"h": 75,
-"w": 354,
+"h": 69,
+"w": 342,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "1× SP58110 +2.00 · Preto V-1968 · 19/11 ",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SP57765 +0.75 · Preto V-1969 · 19/11 ",
+"act": "hopen",
+"cara": "texto",
+"h": 69,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "2× SP61200 +2.00 · Preto V-1967 · 19/11 ",
+"act": "hopen",
+"cara": "texto",
+"h": 69,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SP58110 +1.25 · Preto V-1965 · 19/11 ",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Dias anteriores no Histórico ›",
+"act": "view",
+"cara": "texto",
+"h": 46,
+"w": 342,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
-"alin": [
+"alin": [],
+"olho": [
 {
-"r": "7 linha de base",
+"r": "toque<40",
+"n": 1,
 "ex": [
-"Dashboard Os números do período ✓",
-"Δ10.6px"
-]
-},
-{
-"r": "7 linha de base",
-"ex": [
-"Histórico Todas as vendas, dia por",
-"Δ10.6px"
-]
-},
-{
-"r": "7 linha de base",
-"ex": [
-"Gerenciar grupo Nome e telas de \"R",
-"Δ10.6px"
+"Dashboard"
 ]
 }
 ],
-"olho": [],
 "erros_js": [],
-"rola_vazio": 0
+"rola_vazio": 745
 },
-"seg": 34
+"seg": 119
 }

@@ -1,7 +1,7 @@
 {
 "tela": "marketing-post",
 "modo": "aprov",
-"quando": "19/11 01:52",
+"quando": "19/11 11:02",
 "passos": [
 "()=>window.__LF.inicioGo('mkt')",
 "()=>{const e=[...document.querySelectorAll('#v-mkt button')].filter(x=>x.getBoundingClientRect().height).filter(x=>/^Post$/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
@@ -162,6 +162,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"nada visível"
+],
 "bug": []
 },
 {
@@ -175,6 +178,9 @@
 ],
 "de_novo": [
 "nada visível"
+],
+"terceiro": [
+"alterna"
 ],
 "bug": []
 },
@@ -190,6 +196,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"alterna"
+],
 "bug": []
 },
 {
@@ -203,6 +212,9 @@
 ],
 "de_novo": [
 "nada visível"
+],
+"terceiro": [
+"alterna"
 ],
 "bug": []
 },
@@ -218,6 +230,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"nada visível"
+],
 "bug": []
 },
 {
@@ -230,6 +245,9 @@
 "nada visível"
 ],
 "de_novo": [
+"nada visível"
+],
+"terceiro": [
 "nada visível"
 ],
 "bug": []
@@ -262,7 +280,12 @@
 "de_novo": [
 "sumiu"
 ],
-"bug": []
+"terceiro": [
+"nada visível"
+],
+"bug": [
+"3º toque diferente do 1º"
+]
 },
 {
 "i": 9,
@@ -275,6 +298,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 }
@@ -421,5 +447,5 @@
 "erros_js": [],
 "rola_vazio": 0
 },
-"seg": 90
+"seg": 91
 }

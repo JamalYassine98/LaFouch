@@ -1,7 +1,7 @@
 {
 "tela": "inventario-novo",
 "modo": "aprov",
-"quando": "19/11 02:00",
+"quando": "19/11 10:21",
 "passos": [
 "()=>window.__LF.setView('estoque')",
 "()=>{const e=[...document.querySelectorAll('#v-estoque button')].filter(x=>x.getBoundingClientRect().height).filter(x=>/^\\+$|Adicionar/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
@@ -105,11 +105,10 @@
 "olho": [
 {
 "r": "fileira torta",
-"n": 3,
+"n": 2,
 "ex": [
 "EM ESTOQUE (FILTRO) › (4 px)",
-"Lote Kazwini (9 px)",
-"Óculos de leitura Kazwini  (22 px)"
+"Lote Kazwini (9 px)"
 ]
 }
 ],
@@ -142,7 +141,7 @@
 "abre janela \"Foto da etiqueta, da caixa ou do pacote\""
 ],
 "de_novo": [
-"abre janela \"A câmera do app não abriu (NotFoundError\""
+"nada visível"
 ],
 "bug": []
 },
@@ -316,16 +315,15 @@
 "olho": [
 {
 "r": "fileira torta",
-"n": 3,
+"n": 2,
 "ex": [
 "EM ESTOQUE (FILTRO) › (4 px)",
-"Lote Kazwini (9 px)",
-"Óculos de leitura Kazwini  (22 px)"
+"Lote Kazwini (9 px)"
 ]
 }
 ],
 "erros_js": [],
 "rola_vazio": 0
 },
-"seg": 86
+"seg": 92
 }

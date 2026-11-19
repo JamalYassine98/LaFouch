@@ -1,7 +1,7 @@
 {
 "tela": "despesas-imprevistos",
 "modo": "atual",
-"quando": "19/11 02:11",
+"quando": "19/11 11:08",
 "passos": [
 "()=>window.__LF.setView('desp')",
 "()=>{const e=[...document.querySelectorAll('[data-act=dfold],.fxH')].filter(x=>x.getBoundingClientRect().height).filter(x=>/Imprevistos/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
@@ -75,15 +75,15 @@
 "fs": "11px"
 },
 {
-"t": "Despesas ⌄",
-"act": "grpVer",
+"t": "‹ DINHEIRO",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 144,
-"cor": "rgb(231, 237, 245)",
-"borda": "rgb(231, 237, 245)",
+"h": 44,
+"w": 79,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "+ Nova",
@@ -293,6 +293,17 @@
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [
@@ -327,22 +338,14 @@
 {
 "r": "7 linha de base",
 "ex": [
-"Despesas ⌄ + Nova",
+"Despesas + Nova",
 "Δ5.1px"
 ]
 }
 ],
-"olho": [
-{
-"r": "toque<40",
-"n": 1,
-"ex": [
-"Despesas ⌄"
-]
-}
-],
+"olho": [],
 "erros_js": [],
-"rola_vazio": 1444
+"rola_vazio": 1472
 },
 "vista": "desp",
 "toques": [
@@ -356,10 +359,10 @@
 },
 {
 "i": 1,
-"act": "grpVer",
+"act": "nvVolta",
 "id": "",
-"txt": "Despesas ⌄",
-"tag": "H1",
+"txt": "‹ DINHEIRO",
+"tag": "BUTTON",
 "igual_a": "despesas-nova"
 },
 {
@@ -497,10 +500,13 @@
 "txt": "✕",
 "tag": "BUTTON",
 "efeito": [
-"muda a tela"
+"nada visível"
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"nada visível"
 ],
 "bug": []
 },
@@ -511,10 +517,13 @@
 "txt": "Registrar imprevisto",
 "tag": "BUTTON",
 "efeito": [
-"nada visível"
+"muda a tela"
 ],
 "de_novo": [
 "nada visível"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -523,6 +532,14 @@
 "act": "dfold",
 "id": "pagas",
 "txt": "Contas pagas neste mês 4 conta(s) paga(s",
+"tag": "BUTTON",
+"igual_a": "despesas-nova"
+},
+{
+"i": 21,
+"act": "nvVolta",
+"id": "",
+"txt": "‹",
 "tag": "BUTTON",
 "igual_a": "despesas-nova"
 }
@@ -596,15 +613,15 @@
 "fs": "11px"
 },
 {
-"t": "Despesas ⌄",
-"act": "grpVer",
+"t": "‹ DINHEIRO",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 144,
-"cor": "rgb(31, 26, 34)",
-"borda": "rgb(31, 26, 34)",
+"h": 44,
+"w": 79,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "+ Nova",
@@ -814,6 +831,17 @@
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [
@@ -848,22 +876,14 @@
 {
 "r": "7 linha de base",
 "ex": [
-"Despesas ⌄ + Nova",
+"Despesas + Nova",
 "Δ5.1px"
 ]
 }
 ],
-"olho": [
-{
-"r": "toque<40",
-"n": 1,
-"ex": [
-"Despesas ⌄"
-]
-}
-],
+"olho": [],
 "erros_js": [],
-"rola_vazio": 1444
+"rola_vazio": 1472
 },
-"seg": 21
+"seg": 30
 }

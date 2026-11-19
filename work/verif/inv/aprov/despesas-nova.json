@@ -1,7 +1,7 @@
 {
 "tela": "despesas-nova",
 "modo": "aprov",
-"quando": "19/11 02:08",
+"quando": "19/11 11:04",
 "passos": [
 "()=>window.__LF.setView('desp')",
 "()=>{const e=[...document.querySelectorAll('[data-act=despNova]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
@@ -112,17 +112,9 @@
 }
 ],
 "alin": [],
-"olho": [
-{
-"r": "toque<40",
-"n": 1,
-"ex": [
-"Despesas ⌄"
-]
-}
-],
+"olho": [],
 "erros_js": [],
-"rola_vazio": 1050
+"rola_vazio": 1078
 },
 "vista": "desp",
 "toques": [
@@ -138,6 +130,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -151,6 +146,9 @@
 ],
 "de_novo": [
 "nada visível"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 }
@@ -261,17 +259,9 @@
 }
 ],
 "alin": [],
-"olho": [
-{
-"r": "toque<40",
-"n": 1,
-"ex": [
-"Despesas ⌄"
-]
-}
-],
+"olho": [],
 "erros_js": [],
-"rola_vazio": 1050
+"rola_vazio": 1078
 },
-"seg": 19
+"seg": 28
 }

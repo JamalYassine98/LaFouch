@@ -1,7 +1,7 @@
 {
 "tela": "inicio",
 "modo": "atual",
-"quando": "19/11 02:19",
+"quando": "19/11 11:10",
 "passos": [],
 "escuro": {
 "botoes": [
@@ -158,6 +158,17 @@
 "borda": "rgba(0, 0, 0, 0)",
 "bw": 1,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [
@@ -194,6 +205,9 @@
 "de_novo": [
 "leva → inicio"
 ],
+"terceiro": [
+"leva → notif"
+],
 "bug": []
 },
 {
@@ -207,6 +221,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → notif"
 ],
 "bug": []
 },
@@ -222,6 +239,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → dia"
+],
 "bug": []
 },
 {
@@ -231,10 +251,13 @@
 "txt": "Resultados Dia, mês e histórico",
 "tag": "BUTTON",
 "efeito": [
-"leva → dia"
+"leva → grp"
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → grp"
 ],
 "bug": []
 },
@@ -245,10 +268,13 @@
 "txt": "Giro e preços Giro, preços e reservas",
 "tag": "BUTTON",
 "efeito": [
-"leva → dash"
+"leva → grp"
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → grp"
 ],
 "bug": []
 },
@@ -259,10 +285,13 @@
 "txt": "Site Pedidos, mensagens, vitrine e model",
 "tag": "BUTTON",
 "efeito": [
-"leva → site"
+"leva → grp"
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → grp"
 ],
 "bug": []
 },
@@ -273,10 +302,13 @@
 "txt": "Marketing Posts, vídeos, temática, cartõ",
 "tag": "BUTTON",
 "efeito": [
-"leva → mkt"
+"leva → grp"
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → grp"
 ],
 "bug": []
 },
@@ -292,6 +324,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → clientes"
+],
 "bug": []
 },
 {
@@ -305,6 +340,26 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → ata"
+],
+"bug": []
+},
+{
+"i": 9,
+"act": "nvVolta",
+"id": "",
+"txt": "‹",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"terceiro": [
+"nada visível"
 ],
 "bug": []
 }
@@ -464,6 +519,17 @@
 "borda": "rgba(0, 0, 0, 0)",
 "bw": 1,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [
@@ -486,5 +552,5 @@
 "erros_js": [],
 "rola_vazio": 0
 },
-"seg": 51
+"seg": 67
 }

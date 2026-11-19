@@ -100,7 +100,7 @@ with sync_playwright() as pw:
             if ef3!=ef1: bug.append('3º toque diferente do 1º')
             if any('DUAS' in x for x in ef1+ef2+ef3): bug.append('abre duas janelas')
             if ERR: bug.append('erro JS: '+ERR[0])
-            toq.append(dict(b,efeito=ef1,de_novo=ef2,bug=bug))
+            toq.append(dict(b,efeito=ef1,de_novo=ef2,terceiro=ef3,bug=bug))
           except Exception as ex: toq.append(dict(b,efeito=['erro: '+str(ex)[:60]],bug=['falhou ao tocar']));sujo=True
         R['toques']=toq
       c.close()

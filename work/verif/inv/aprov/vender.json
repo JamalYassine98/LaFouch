@@ -1,7 +1,7 @@
 {
 "tela": "vender",
 "modo": "aprov",
-"quando": "19/11 02:20",
+"quando": "19/11 10:43",
 "passos": [
 "()=>__LF.setView('venda')"
 ],
@@ -72,6 +72,17 @@
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
 "fs": "11px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -93,6 +104,20 @@
 ],
 "de_novo": [
 "leva → venda"
+],
+"bug": []
+},
+{
+"i": 1,
+"act": "nvVolta",
+"id": "",
+"txt": "‹",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+],
+"de_novo": [
+"nada visível"
 ],
 "bug": []
 }
@@ -164,6 +189,17 @@
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
 "fs": "11px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -172,5 +208,5 @@
 "erros_js": [],
 "rola_vazio": 0
 },
-"seg": 11
+"seg": 20
 }

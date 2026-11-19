@@ -1,7 +1,7 @@
 {
 "tela": "dash-folha-periodo",
 "modo": "atual",
-"quando": "19/11 01:34",
+"quando": "19/11 09:52",
 "passos": [
 "()=>window.__LF.inicioGo('hoje')",
 "()=>window.__LF.ACT.dPer()"
@@ -237,5 +237,5 @@
 "erros_js": [],
 "rola_vazio": 0
 },
-"seg": 53
+"seg": 55
 }

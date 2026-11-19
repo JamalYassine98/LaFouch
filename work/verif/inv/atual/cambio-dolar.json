@@ -1,7 +1,7 @@
 {
 "tela": "cambio-dolar",
 "modo": "atual",
-"quando": "19/11 01:46",
+"quando": "19/11 10:57",
 "passos": [
 "()=>window.__LF.setView('fx')",
 "()=>window.__LF.ACT.fjAbre&&window.__LF.ACT.fjAbre('usd')"
@@ -75,15 +75,15 @@
 "fs": "11px"
 },
 {
-"t": "Câmbio ⌄",
-"act": "grpVer",
+"t": "‹ DINHEIRO",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 239,
-"cor": "rgb(231, 237, 245)",
-"borda": "rgb(231, 237, 245)",
+"h": 44,
+"w": 79,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "Venda",
@@ -216,6 +216,17 @@
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -223,7 +234,7 @@
 {
 "r": "7 linha de base",
 "ex": [
-"Câmbio ⌄ Venda",
+"Câmbio Venda",
 "Δ4.1px"
 ]
 },
@@ -310,6 +321,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -324,6 +338,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -337,6 +354,9 @@
 ],
 "de_novo": [
 "nada visível"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 }
@@ -410,15 +430,15 @@
 "fs": "11px"
 },
 {
-"t": "Câmbio ⌄",
-"act": "grpVer",
+"t": "‹ DINHEIRO",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 239,
-"cor": "rgb(31, 26, 34)",
-"borda": "rgb(31, 26, 34)",
+"h": 44,
+"w": 79,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "Venda",
@@ -498,7 +518,7 @@
 "fs": "15px"
 },
 {
-"t": "Preços no site cotação da loja travada d",
+"t": "Preços no site cotação da loja travada ›",
 "act": "fjAbre",
 "cara": "texto",
 "h": 69,
@@ -551,6 +571,17 @@
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -558,7 +589,7 @@
 {
 "r": "7 linha de base",
 "ex": [
-"Câmbio ⌄ Venda",
+"Câmbio Venda",
 "Δ4.1px"
 ]
 },
@@ -631,5 +662,5 @@
 "erros_js": [],
 "rola_vazio": 0
 },
-"seg": 36
+"seg": 38
 }

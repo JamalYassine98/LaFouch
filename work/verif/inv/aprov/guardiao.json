@@ -1,7 +1,7 @@
 {
 "tela": "guardiao",
 "modo": "aprov",
-"quando": "19/11 02:13",
+"quando": "19/11 10:35",
 "passos": [
 "()=>window.__LF.setView('notif')",
 "()=>{const e=[...document.querySelectorAll('[data-act=guardAbre]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
@@ -667,5 +667,5 @@
 "erros_js": [],
 "rola_vazio": 0
 },
-"seg": 44
+"seg": 46
 }

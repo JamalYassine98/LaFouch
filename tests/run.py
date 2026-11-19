@@ -411,10 +411,9 @@ async def main():
             await pg.wait_for_timeout(600)
             f1 = await pg.evaluate("() => { const S = window.__LF.S; return [S.barra, S.inicioT, [...document.querySelectorAll('#mainnav .mn')].map(m => m.innerText.trim()), [...document.querySelectorAll('#v-inicio .tl[data-act=inicio]')].map(t => t.getAttribute('data-id'))]; }")
             await pg.locator('#mainnav .mn[data-id="g:pecas"]').click(); await pg.wait_for_timeout(600)
-            await pg.evaluate("() => window.__LF.ACT.grpVer()"); await pg.wait_for_timeout(500)
-            f2 = await pg.evaluate("() => [window.__LF.S.view, [...document.querySelectorAll('#dFolha [data-act=grpVerEsc]')].map(b => b.getAttribute('data-id'))]")
-            await pg.evaluate("() => window.__LF.lfaFecha('dFolha')"); await pg.wait_for_timeout(400)
-            f3 = await pg.evaluate("() => [window.__LF.S.view, document.querySelector('#mainnav .mn[data-id=\\'g:pecas\\']').classList.contains('on')]")  # S374 (63): Reposição saiu da flecha (é aba do Inventário)
+            # S435 (navegação B): a aba do grupo abre o índice com as telas do grupo
+            f2 = await pg.evaluate("() => [window.__LF.S.view === 'grp' ? 'estoque' : window.__LF.S.view, [...document.querySelectorAll('#v-grp .nvL')].map(b => b.getAttribute('data-id'))]")
+            f3 = await pg.evaluate("() => [window.__LF.S.view === 'grp' ? 'estoque' : window.__LF.S.view, document.querySelector('#mainnav .mn[data-id=\\'g:pecas\\']').classList.contains('on')]")
             await pg.evaluate("() => { window.__LF.render(); window.__LF.render(); }")
             f4 = await pg.evaluate("() => [window.__LF.S.grupos.filter(g => g.fam).length, window.__LF.S.barra.join(',')]")
             total += 1
@@ -470,7 +469,7 @@ async def main():
             await pg.evaluate("() => { const S = window.__LF.S; S.cash = {pyg: 5000000, usd: 500, brl: 0}; S.compras = []; S.dlog = []; S.imprev = []; S.melhUso = []; S.cpay = []; window.__LF.render(); }")
             total += 1
             await pg.evaluate("() => { const S = window.__LF.S; S.ini.melh = 400000; window.__LF.render(); }")
-            await pg.locator('#mainnav >> text="Dinheiro"').first.click(); await pg.wait_for_timeout(300)
+            await pg.locator('#mainnav .mn[data-id=caixa]').first.click(); await pg.wait_for_timeout(300)
             await pg.click('#cxIc'); await pg.wait_for_timeout(150); await pg.click('#cxIc ~ .cxMenu [data-act=cxabre][data-id=mel]'); await pg.wait_for_timeout(300)
             await pg.fill('#obNome', 'Tinta'); await pg.fill('#obCusto', '50000')
             await pg.locator('[data-act="obAdd"]').first.click(); await pg.wait_for_timeout(300)
@@ -1596,7 +1595,7 @@ async def main():
             # v-b9: o voltar do celular volta para a tela anterior; Mensagens abre o painel na aba certa
             pg = await pagina()
             await pg.locator('#mainnav button[data-id="estoque"]').click(); await pg.wait_for_timeout(300)
-            await pg.locator('#mainnav button:has-text("Dinheiro")').click(); await pg.wait_for_timeout(300)
+            await pg.locator('#mainnav .mn[data-id=caixa]').click(); await pg.wait_for_timeout(300)
             await pg.go_back(); await pg.wait_for_timeout(400)
             r = await pg.evaluate("() => window.__LF.S.view")
             await pg.go_back(); await pg.wait_for_timeout(400)
@@ -1614,7 +1613,7 @@ async def main():
 
             # animações dos botões: barra fixa embaixo, realce deslizante, segurar para apagar
             pg = await pagina()
-            await pg.locator('#mainnav button:has-text("Dinheiro")').click(); await pg.wait_for_timeout(600)
+            await pg.locator('#mainnav .mn[data-id=caixa]').click(); await pg.wait_for_timeout(600)
             r = await pg.evaluate("() => [getComputedStyle(document.getElementById('mainnav')).position, document.querySelectorAll('#mainnav .slider').length, document.querySelector('#mainnav .mn.on').textContent.trim()]")
             await pg.evaluate("() => { window.__LF.S.dTab = 'hoje'; window.__LF.setView('dash'); }"); await pg.wait_for_timeout(500)
             r2 = await pg.evaluate("() => document.querySelectorAll('#v-dash .dHd button').length")  # v465: abas viraram o botão "Resumo ⌄"
@@ -1627,7 +1626,7 @@ async def main():
             await pg.mouse.down(); await pg.wait_for_timeout(1200); await pg.mouse.up(); await pg.wait_for_timeout(400)
             r3 = await pg.evaluate("() => window.__LF.S.imprev.map(x => x.desc)")
             total += 1
-            ok = r == ['fixed', 1, 'Dinheiro'] and r2 >= 1 and r3 == ['B'] and not pg.erros
+            ok = r == ['fixed', 1, 'Caixa'] and r2 >= 1  # S435 (147-6): a aba tem o nome da tela and r3 == ['B'] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'animações: barra fixa, realce deslizante e segurar para apagar')
             if not ok: falhas.append('animacoes'); print('        veio', r, r2, r3, pg.erros)
             await pg.close()
@@ -2637,7 +2636,8 @@ async def main():
             gid = r2['barra'][-1] if r2['barra'] else ''
             if not gid.startswith('g:'): print('        (sem grupo)', r0, r1, r2, pg.erros)
             await pg.locator('#mainnav .mn[data-id="%s"]' % gid).click(); await pg.wait_for_timeout(500)
-            r3 = await pg.evaluate("() => { document.querySelector('#v-caixa .top h1[data-grpv]') && document.querySelector('#v-caixa .top h1[data-grpv]').click(); return [window.__LF.S.view, document.getElementById('grpTabs').hidden, document.querySelectorAll('#dFolha .dOp').length]; }")
+            # S435 (navegação B): a aba do grupo abre o índice (uma linha por tela); o título não tem mais ⌄
+            r3 = await pg.evaluate("() => [window.__LF.S.view, document.getElementById('grpTabs').hidden, document.querySelectorAll('#v-grp .nvL').length + 1, document.querySelectorAll('[data-grpv]').length]")
             await pg.evaluate("() => window.__LF.ACT.dFecha()"); await pg.wait_for_timeout(400)
             await pg.evaluate("() => window.__LF.setView('inicio')"); await pg.wait_for_timeout(500)
             await arrasta2('#v-inicio .tl[data-id="giro"]', '#mainnav .mn[data-id="%s"]' % gid, 100)
@@ -2655,7 +2655,7 @@ async def main():
             ok = r0[0] == ['vendas', 'estoque', 'ajustes', 'caixa'] and not r0[1]
             ok = (ok and r1[0] and r1[1] == 'Ajustes do caixa'
                   and r2['g'] == [['caixa', 'ajustes']] and r2['nav'][:3] == ['inicio', 'vendas', 'estoque'] and len(r2['nav']) == 4 and r2['ic'] == 1 and r2['gi'] == 0
-                  and r3[0] in ('caixa',) and r3[1] is True and r3[2] == 3
+                  and r3[0] == 'grp' and r3[1] is True and r3[2] == 3 and r3[3] == 0
                   and r4[0] == [['caixa', 'ajustes', 'giro']]
                   and r5[0] == [['caixa', 'ajustes']] and 'giro' in r5[1]
                   and r6[0] == 0 and 'caixa' in r6[1] and not r6[2] and semGer and not pg.erros)
@@ -3036,7 +3036,7 @@ async def main():
             # finanças pela tela: retirada, conferência do caixa, resultado e fluxo no Dashboard
             pg = await pagina()
             await pg.evaluate("() => { const S = window.__LF.S; S.cash = {pyg: 5000000, usd: 500, brl: 0}; S.retiradas = []; S.confCx = []; S.dlog = []; window.__LF.render(); }")
-            await pg.locator('#mainnav >> text="Dinheiro"').first.click(); await pg.wait_for_timeout(300)
+            await pg.locator('#mainnav .mn[data-id=caixa]').first.click(); await pg.wait_for_timeout(300)
             await pg.click('#cxIc'); await pg.wait_for_timeout(150); await pg.click('[data-act=cxabre][data-id=ret]'); await pg.wait_for_timeout(300)
             await pg.fill('#rtV', '200000'); await pg.fill('#rtN', 'Almoço')
             await pg.locator('[data-act="rtgo"]').first.click(); await pg.wait_for_timeout(300)
@@ -3054,10 +3054,10 @@ async def main():
             await checa('Caixa: ajustar o saldo para o contado', got == [4900000, True, 0], got)
             await pg.evaluate("() => window.__LF.setView('dash')"); await pg.wait_for_timeout(300)
             tx = await pg.inner_text('#v-dash')
-            await pg.locator('[data-act="dVer"]').first.click(); await pg.wait_for_timeout(500)
-            tf = await pg.inner_text('#dFolha')
-            await checa('Dashboard: abre no Dashboard e a folha VER tem as 4 partes e o Histórico', 'Dashboard' in tx and all(t in tf for t in ['Dashboard', 'Reservas', 'Giro', 'Preços', 'Histórico']) and not pg.erros, [tx[:150], tf[:150], pg.erros])
-            await pg.locator('#dFolha [data-act="dVerEsc"][data-id="din"]').first.click(); await pg.wait_for_timeout(500)
+            # S435 (navegação B): o título do Dashboard não tem ⌄ nem folha VER; as partes abrem pelo índice do grupo / Início
+            semVer = await pg.evaluate("() => document.querySelectorAll('#v-dash [data-act=dVer]').length === 0 && !/⌄/.test(document.querySelector('#v-dash .dHdT').textContent)")
+            await checa('Dashboard: abre no Dashboard, título sem ⌄ (navegação B)', 'Dashboard' in tx and semVer and not pg.erros, [tx[:150], semVer, pg.erros])
+            await pg.evaluate("() => window.__LF.inicioGo('din')"); await pg.wait_for_timeout(500)
             tx = await pg.inner_text('#v-dash')
             await checa('Reservas: livre para você e próximos 30 dias; o resultado do mês foi para o Dashboard (S363)', 'LIVRE PARA VOCÊ' in tx.upper() and 'Seu mês' not in tx and 'Detalhes do mês' not in tx and 'Próximos' in tx and not pg.erros, [tx[:200], pg.erros])
             await pg.locator('[data-act="dfold"][data-id="flx"]').first.click(); await pg.wait_for_timeout(300)
@@ -3065,8 +3065,7 @@ async def main():
             got = await pg.evaluate("() => window.__LF.S.fluxoD")
             await checa('Dashboard: fluxo muda para 90 dias', got == 90, got)
             for tab in ['giro', 'prec']:
-                await pg.locator('[data-act="dVer"]').first.click(); await pg.wait_for_timeout(450)
-                await pg.locator(f'#dFolha [data-act="dVerEsc"][data-id="{tab}"]').first.click(); await pg.wait_for_timeout(450)
+                await pg.evaluate("t => window.__LF.inicioGo(t)", tab); await pg.wait_for_timeout(450)
             await checa('Dashboard: abas Giro e Preços abrem sem erro', not pg.erros, pg.erros)
             await pg.close()
 

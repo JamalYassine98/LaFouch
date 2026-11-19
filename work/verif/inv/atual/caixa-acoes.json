@@ -1,7 +1,7 @@
 {
 "tela": "caixa-acoes",
 "modo": "atual",
-"quando": "19/11 02:02",
+"quando": "19/11 10:57",
 "passos": [
 "()=>window.__LF.setView('caixa')",
 "()=>{const e=[...document.querySelectorAll('[data-act=cxmenu]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
@@ -75,15 +75,15 @@
 "fs": "11px"
 },
 {
-"t": "Caixa ⌄",
-"act": "grpVer",
+"t": "‹ DINHEIRO",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 286,
-"cor": "rgb(231, 237, 245)",
-"borda": "rgb(231, 237, 245)",
+"h": 44,
+"w": 79,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "Ações do caixa",
@@ -130,11 +130,11 @@
 "fs": "15px"
 },
 {
-"t": "Livre e reservado ›",
+"t": "Reservas ›",
 "act": "cxReservas",
 "cara": "texto",
 "h": 44,
-"w": 124,
+"w": 71,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -238,6 +238,17 @@
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
 "fs": "13px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -245,7 +256,7 @@
 {
 "r": "7 linha de base",
 "ex": [
-"Caixa ⌄ Retirar Novo objetivo Conf",
+"Caixa Retirar Novo objetivo Confer",
 "Δ54.0px"
 ]
 },
@@ -264,15 +275,7 @@
 ]
 }
 ],
-"olho": [
-{
-"r": "toque<40",
-"n": 1,
-"ex": [
-"Caixa ⌄"
-]
-}
-],
+"olho": [],
 "erros_js": [],
 "rola_vazio": 0
 },
@@ -290,19 +293,25 @@
 "de_novo": [
 "leva → caixa"
 ],
+"terceiro": [
+"leva → notif"
+],
 "bug": []
 },
 {
 "i": 1,
-"act": "grpVer",
+"act": "nvVolta",
 "id": "",
-"txt": "Caixa ⌄",
-"tag": "H1",
+"txt": "‹ DINHEIRO",
+"tag": "BUTTON",
 "efeito": [
-"abre janela \"VER\""
+"leva → grp"
 ],
 "de_novo": [
-"nada visível"
+"sumiu"
+],
+"terceiro": [
+"leva → grp"
 ],
 "bug": []
 },
@@ -316,6 +325,9 @@
 "muda a tela"
 ],
 "de_novo": [
+"muda a tela"
+],
+"terceiro": [
 "muda a tela"
 ],
 "bug": []
@@ -332,6 +344,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"abre janela \"Retirada do dono\""
+],
 "bug": []
 },
 {
@@ -345,6 +360,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"abre janela \"Novo objetivo\""
 ],
 "bug": []
 },
@@ -360,19 +378,25 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"abre janela \"Conferir o caixa\""
+],
 "bug": []
 },
 {
 "i": 6,
 "act": "cxReservas",
 "id": "",
-"txt": "Livre e reservado ›",
+"txt": "Reservas ›",
 "tag": "BUTTON",
 "efeito": [
 "leva → dash"
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → dash"
 ],
 "bug": []
 },
@@ -386,7 +410,10 @@
 "abre janela \"Novo objetivo\""
 ],
 "de_novo": [
-"nada visível"
+"muda a tela"
+],
+"terceiro": [
+"abre janela \"Novo objetivo\""
 ],
 "bug": []
 },
@@ -402,6 +429,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → dash"
+],
 "bug": []
 },
 {
@@ -415,6 +445,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -430,6 +463,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -443,6 +479,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -458,6 +497,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -471,6 +513,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -486,6 +531,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -499,6 +547,26 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 16,
+"act": "nvVolta",
+"id": "",
+"txt": "‹",
+"tag": "BUTTON",
+"efeito": [
+"leva → grp"
+],
+"de_novo": [
+"leva → inicio"
+],
+"terceiro": [
+"leva → grp"
 ],
 "bug": []
 }
@@ -572,15 +640,15 @@
 "fs": "11px"
 },
 {
-"t": "Caixa ⌄",
-"act": "grpVer",
+"t": "‹ DINHEIRO",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 286,
-"cor": "rgb(31, 26, 34)",
-"borda": "rgb(31, 26, 34)",
+"h": 44,
+"w": 79,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "Ações do caixa",
@@ -627,11 +695,11 @@
 "fs": "15px"
 },
 {
-"t": "Livre e reservado ›",
+"t": "Reservas ›",
 "act": "cxReservas",
 "cara": "texto",
 "h": 44,
-"w": 124,
+"w": 71,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -735,6 +803,17 @@
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
 "fs": "13px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -742,7 +821,7 @@
 {
 "r": "7 linha de base",
 "ex": [
-"Caixa ⌄ Retirar Novo objetivo Conf",
+"Caixa Retirar Novo objetivo Confer",
 "Δ54.0px"
 ]
 },
@@ -761,17 +840,9 @@
 ]
 }
 ],
-"olho": [
-{
-"r": "toque<40",
-"n": 1,
-"ex": [
-"Caixa ⌄"
-]
-}
-],
+"olho": [],
 "erros_js": [],
 "rola_vazio": 0
 },
-"seg": 154
+"seg": 177
 }

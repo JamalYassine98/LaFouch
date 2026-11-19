@@ -1,7 +1,7 @@
 {
 "tela": "clientes",
 "modo": "atual",
-"quando": "19/11 02:04",
+"quando": "19/11 10:25",
 "passos": [
 "()=>__LF.setView('clientes')"
 ],
@@ -83,6 +83,17 @@
 "borda": "rgba(243, 192, 220, 0.38)",
 "bw": 1,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [
@@ -128,6 +139,14 @@
 "act": "clinovo",
 "id": "",
 "txt": "Novo cliente",
+"tag": "BUTTON",
+"igual_a": "clientes-novo"
+},
+{
+"i": 2,
+"act": "nvVolta",
+"id": "",
+"txt": "‹",
 "tag": "BUTTON",
 "igual_a": "clientes-novo"
 }
@@ -210,6 +229,17 @@
 "borda": "rgba(141, 58, 105, 0.35)",
 "bw": 1,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [
@@ -240,5 +270,5 @@
 "erros_js": [],
 "rola_vazio": 0
 },
-"seg": 6
+"seg": 7
 }

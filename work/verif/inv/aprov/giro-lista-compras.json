@@ -1,7 +1,7 @@
 {
 "tela": "giro-lista-compras",
 "modo": "aprov",
-"quando": "19/11 01:50",
+"quando": "19/11 10:10",
 "passos": [
 "()=>window.__LF.inicioGo('giro')",
 "()=>{const e=[...document.querySelectorAll('.g99 .fxH')].filter(x=>x.getBoundingClientRect().height).filter(x=>/Lista de compras/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
@@ -75,11 +75,22 @@
 "fs": "11px"
 },
 {
-"t": "Giro ⌄",
-"act": "dVer",
+"t": "‹ GIRO E PREÇOS",
+"act": "nvVolta",
 "cara": "texto",
-"h": 49,
-"w": 77,
+"h": 44,
+"w": 119,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Giro",
+"act": "",
+"cara": "texto",
+"h": 32,
+"w": 57,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
@@ -293,6 +304,17 @@
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -305,9 +327,17 @@
 ]
 }
 ],
-"olho": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Giro"
+]
+}
+],
 "erros_js": [],
-"rola_vazio": 1430
+"rola_vazio": 1407
 },
 "vista": "dash",
 "toques": [
@@ -321,12 +351,26 @@
 },
 {
 "i": 1,
-"act": "dVer",
+"act": "nvVolta",
 "id": "",
-"txt": "Giro ⌄",
+"txt": "‹ GIRO E PREÇOS",
 "tag": "BUTTON",
 "efeito": [
-"abre janela \"VER\""
+"leva → grp"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 2,
+"act": "",
+"id": "",
+"txt": "Giro",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
 ],
 "de_novo": [
 "nada visível"
@@ -334,7 +378,7 @@
 "bug": []
 },
 {
-"i": 2,
+"i": 3,
 "act": "dfold",
 "id": "rep",
 "txt": "Lista de compras 8 produto(s) vão acabar",
@@ -348,7 +392,7 @@
 "bug": []
 },
 {
-"i": 3,
+"i": 4,
 "act": "lcCalc",
 "id": "",
 "txt": "como calcula ⌄",
@@ -362,27 +406,13 @@
 "bug": []
 },
 {
-"i": 4,
+"i": 5,
 "act": "lcMenos",
 "id": "solar|YS8801",
 "txt": "−",
 "tag": "BUTTON",
 "efeito": [
-"nada visível"
-],
-"de_novo": [
-"nada visível"
-],
-"bug": []
-},
-{
-"i": 5,
-"act": "lcMais",
-"id": "solar|YS8801",
-"txt": "+",
-"tag": "BUTTON",
-"efeito": [
-"nada visível"
+"muda a tela"
 ],
 "de_novo": [
 "nada visível"
@@ -391,12 +421,12 @@
 },
 {
 "i": 6,
-"act": "lcMenos",
-"id": "solar|SL2210",
-"txt": "−",
+"act": "lcMais",
+"id": "solar|YS8801",
+"txt": "+",
 "tag": "BUTTON",
 "efeito": [
-"nada visível"
+"muda a tela"
 ],
 "de_novo": [
 "nada visível"
@@ -405,12 +435,12 @@
 },
 {
 "i": 7,
-"act": "lcMais",
+"act": "lcMenos",
 "id": "solar|SL2210",
-"txt": "+",
+"txt": "−",
 "tag": "BUTTON",
 "efeito": [
-"nada visível"
+"muda a tela"
 ],
 "de_novo": [
 "nada visível"
@@ -419,12 +449,12 @@
 },
 {
 "i": 8,
-"act": "lcMenos",
-"id": "solar|SL2201",
-"txt": "−",
+"act": "lcMais",
+"id": "solar|SL2210",
+"txt": "+",
 "tag": "BUTTON",
 "efeito": [
-"nada visível"
+"muda a tela"
 ],
 "de_novo": [
 "nada visível"
@@ -433,12 +463,12 @@
 },
 {
 "i": 9,
-"act": "lcMais",
+"act": "lcMenos",
 "id": "solar|SL2201",
-"txt": "+",
+"txt": "−",
 "tag": "BUTTON",
 "efeito": [
-"nada visível"
+"muda a tela"
 ],
 "de_novo": [
 "nada visível"
@@ -447,12 +477,12 @@
 },
 {
 "i": 10,
-"act": "lcMenos",
-"id": "solar|YS8815",
-"txt": "−",
+"act": "lcMais",
+"id": "solar|SL2201",
+"txt": "+",
 "tag": "BUTTON",
 "efeito": [
-"nada visível"
+"muda a tela"
 ],
 "de_novo": [
 "nada visível"
@@ -461,12 +491,12 @@
 },
 {
 "i": 11,
-"act": "lcMais",
+"act": "lcMenos",
 "id": "solar|YS8815",
-"txt": "+",
+"txt": "−",
 "tag": "BUTTON",
 "efeito": [
-"nada visível"
+"muda a tela"
 ],
 "de_novo": [
 "nada visível"
@@ -475,12 +505,12 @@
 },
 {
 "i": 12,
-"act": "lcMenos",
-"id": "pre|SP57765|+0.75",
-"txt": "−",
+"act": "lcMais",
+"id": "solar|YS8815",
+"txt": "+",
 "tag": "BUTTON",
 "efeito": [
-"nada visível"
+"muda a tela"
 ],
 "de_novo": [
 "nada visível"
@@ -489,12 +519,12 @@
 },
 {
 "i": 13,
-"act": "lcMais",
+"act": "lcMenos",
 "id": "pre|SP57765|+0.75",
-"txt": "+",
+"txt": "−",
 "tag": "BUTTON",
 "efeito": [
-"nada visível"
+"muda a tela"
 ],
 "de_novo": [
 "nada visível"
@@ -503,6 +533,20 @@
 },
 {
 "i": 14,
+"act": "lcMais",
+"id": "pre|SP57765|+0.75",
+"txt": "+",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 15,
 "act": "lcTodos",
 "id": "Acabando",
 "txt": "ver os 18 ⌄",
@@ -516,7 +560,7 @@
 "bug": []
 },
 {
-"i": 15,
+"i": 16,
 "act": "lcOferta",
 "id": "sem|YM7721",
 "txt": "Oferta ›",
@@ -530,7 +574,7 @@
 "bug": []
 },
 {
-"i": 16,
+"i": 17,
 "act": "lcPedir",
 "id": "",
 "txt": "Marcar como pedido",
@@ -544,7 +588,7 @@
 "bug": []
 },
 {
-"i": 17,
+"i": 18,
 "act": "lcEnvia",
 "id": "",
 "txt": "Mandar ao fornecedor",
@@ -558,7 +602,7 @@
 "bug": []
 },
 {
-"i": 18,
+"i": 19,
 "act": "dfold",
 "id": "vit",
 "txt": "Vitrine da semana diga quantos lugares t",
@@ -572,7 +616,7 @@
 "bug": []
 },
 {
-"i": 19,
+"i": 20,
 "act": "dfold",
 "id": "ret",
 "txt": "Retorno do estoque cada US$ 1 investido ",
@@ -586,7 +630,7 @@
 "bug": []
 },
 {
-"i": 20,
+"i": 21,
 "act": "dfold",
 "id": "abc",
 "txt": "Curva ABC quais produtos dão 80% do lucr",
@@ -598,6 +642,14 @@
 "muda a tela"
 ],
 "bug": []
+},
+{
+"i": 22,
+"act": "nvVolta",
+"id": "",
+"txt": "‹",
+"tag": "BUTTON",
+"igual_a": "dash-semana"
 }
 ],
 "claro": {
@@ -669,11 +721,22 @@
 "fs": "11px"
 },
 {
-"t": "Giro ⌄",
-"act": "dVer",
+"t": "‹ GIRO E PREÇOS",
+"act": "nvVolta",
 "cara": "texto",
-"h": 49,
-"w": 77,
+"h": 44,
+"w": 119,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Giro",
+"act": "",
+"cara": "texto",
+"h": 32,
+"w": 57,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
@@ -887,6 +950,17 @@
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -899,9 +973,17 @@
 ]
 }
 ],
-"olho": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Giro"
+]
+}
+],
 "erros_js": [],
-"rola_vazio": 1430
+"rola_vazio": 1407
 },
-"seg": 190
+"seg": 222
 }

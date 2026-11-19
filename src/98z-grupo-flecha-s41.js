@@ -60,44 +60,8 @@
       if (t) t.classList.remove('grpTop');
     });
   }
-  function grpTitulo() {
-    var g = grpGet(S._gAt),
-      gt = $('grpTabs'),
-      v = g ? $('v-' + S.view) : null,
-      h = v && !v.querySelector('.dHdT') ? v.querySelector('.top h1') : null;
-    if (grpObs) grpObs.disconnect();
-    try {
-      grpTituloLimpa(h);
-      if (gt && !(g && v && !h && !v.querySelector('.dHdT'))) {
-        if (!gt.hidden) { gt.hidden = true; gt.textContent = ''; }
-      }
-      if (!g || !v) return;
-      if (h) {
-        if (!h.querySelector('.grpChv')) {
-          h.insertAdjacentHTML('beforeend', ' <i class="grpChv" aria-hidden="true">⌄</i>');
-          h.setAttribute('data-act', 'grpVer');
-          h.setAttribute('data-grpv', '1');
-          h.setAttribute('role', 'button');
-          h.setAttribute('tabindex', '0');
-          h.setAttribute('aria-haspopup', 'dialog');
-          h.classList.add('grpH');
-          var tp = h.closest('.top');
-          if (tp) tp.classList.add('grpTop');
-        }
-      } else if (!v.querySelector('.dHdT') && gt) {
-        // tela sem título próprio (painel do site): o título com a flecha fica no lugar onde eram as abas
-        var nm = BARRA_NOME[g.ult] || g.nome;
-        if (gt.hidden || !gt.querySelector('.dHdT') || gt.getAttribute('data-nm') !== nm) {
-          gt.className = 'gtabs gtF';
-          gt.setAttribute('data-nm', nm);
-          gt.innerHTML = '<div class="dHd"><button type="button" class="dHdT" data-act="grpVer" aria-haspopup="dialog">' + esc(nm) + ' <i aria-hidden="true">⌄</i></button></div>';
-          gt.hidden = false;
-        }
-      }
-    } finally {
-      grpObsLiga();
-    }
-  }
+  // S435 (19/11/2026): o título com ⌄ e a folha VER saíram — a navegação B (src/99c-navegacao-s435.js) define grpTitulo.
+  function grpTitulo() {}
   function grpObsLiga() {
     if (!window.MutationObserver) return;
     var w = document.querySelector('.wrap');

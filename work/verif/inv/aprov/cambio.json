@@ -1,7 +1,7 @@
 {
 "tela": "cambio",
 "modo": "aprov",
-"quando": "19/11 02:01",
+"quando": "19/11 11:08",
 "passos": [
 "()=>__LF.setView('fx')"
 ],
@@ -74,15 +74,15 @@
 "fs": "11px"
 },
 {
-"t": "Câmbio ⌄",
-"act": "grpVer",
+"t": "‹ DINHEIRO",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 237,
-"cor": "rgb(231, 237, 245)",
-"borda": "rgb(231, 237, 245)",
+"h": 44,
+"w": 79,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "Venda",
@@ -182,6 +182,17 @@
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -189,7 +200,7 @@
 {
 "r": "7 linha de base",
 "ex": [
-"Câmbio ⌄ Venda",
+"Câmbio Venda",
 "Δ11.0px"
 ]
 },
@@ -253,15 +264,14 @@
 "olho": [
 {
 "r": "toque<40",
-"n": 2,
+"n": 1,
 "ex": [
-"Câmbio ⌄",
 "Venda"
 ]
 }
 ],
 "erros_js": [],
-"rola_vazio": 176
+"rola_vazio": 204
 },
 "vista": "fx",
 "toques": [
@@ -277,19 +287,25 @@
 "de_novo": [
 "leva → fx"
 ],
+"terceiro": [
+"leva → notif"
+],
 "bug": []
 },
 {
 "i": 1,
-"act": "grpVer",
+"act": "nvVolta",
 "id": "",
-"txt": "Câmbio ⌄",
-"tag": "H1",
+"txt": "‹ DINHEIRO",
+"tag": "BUTTON",
 "efeito": [
-"abre janela \"VER\""
+"leva → grp"
 ],
 "de_novo": [
-"nada visível"
+"sumiu"
+],
+"terceiro": [
+"leva → grp"
 ],
 "bug": []
 },
@@ -305,6 +321,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -319,6 +338,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"Dólar · G$ 6.487\""
+],
 "bug": []
 },
 {
@@ -331,7 +353,10 @@
 "abre janela \"Real · G$ 1.196\""
 ],
 "de_novo": [
-"muda a tela"
+"nada visível"
+],
+"terceiro": [
+"abre janela \"Real · G$ 1.196\""
 ],
 "bug": []
 },
@@ -347,6 +372,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"Dólar em reais · R$ 5,43\""
+],
 "bug": []
 },
 {
@@ -359,7 +387,10 @@
 "abre janela \"Por que está normal\""
 ],
 "de_novo": [
-"nada visível"
+"muda a tela"
+],
+"terceiro": [
+"abre janela \"Por que está normal\""
 ],
 "bug": []
 },
@@ -373,7 +404,10 @@
 "abre janela \"Registrar troca\""
 ],
 "de_novo": [
-"nada visível"
+"muda a tela"
+],
+"terceiro": [
+"abre janela \"Registrar troca\""
 ],
 "bug": []
 },
@@ -389,6 +423,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"Últimas trocas\""
+],
 "bug": []
 },
 {
@@ -403,6 +440,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"Preços no site\""
+],
 "bug": []
 },
 {
@@ -416,6 +456,26 @@
 ],
 "de_novo": [
 "muda a tela"
+],
+"terceiro": [
+"abre janela \"Como o app te protege\""
+],
+"bug": []
+},
+{
+"i": 11,
+"act": "nvVolta",
+"id": "",
+"txt": "‹",
+"tag": "BUTTON",
+"efeito": [
+"leva → grp"
+],
+"de_novo": [
+"leva → inicio"
+],
+"terceiro": [
+"leva → grp"
 ],
 "bug": []
 }
@@ -489,15 +549,15 @@
 "fs": "11px"
 },
 {
-"t": "Câmbio ⌄",
-"act": "grpVer",
+"t": "‹ DINHEIRO",
+"act": "nvVolta",
 "cara": "texto",
-"h": 32,
-"w": 237,
-"cor": "rgb(31, 26, 34)",
-"borda": "rgb(31, 26, 34)",
+"h": 44,
+"w": 79,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
 "bw": 0,
-"fs": "28px"
+"fs": "12px"
 },
 {
 "t": "Venda",
@@ -597,6 +657,17 @@
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
 "fs": "15px"
+},
+{
+"t": "‹",
+"act": "nvVolta",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "26px"
 }
 ],
 "campos": [],
@@ -604,7 +675,7 @@
 {
 "r": "7 linha de base",
 "ex": [
-"Câmbio ⌄ Venda",
+"Câmbio Venda",
 "Δ11.0px"
 ]
 },
@@ -668,15 +739,14 @@
 "olho": [
 {
 "r": "toque<40",
-"n": 2,
+"n": 1,
 "ex": [
-"Câmbio ⌄",
 "Venda"
 ]
 }
 ],
 "erros_js": [],
-"rola_vazio": 176
+"rola_vazio": 204
 },
-"seg": 114
+"seg": 112
 }
