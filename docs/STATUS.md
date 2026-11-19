@@ -15,4 +15,5 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 | Site (S429 cópia limpa) | SITE | catalogo ramo `limpo` (index.html, js/lf-site.js) — fora do ar | 19/11 |
 
 ## Últimas mudanças (mais nova em cima; manter só as ~20 últimas)
+- 19/11/2026 — acesso direto à nuvem liberado pelo dono (CLAUDE.md e MEMORIA-PROJETO atualizados).
 - 19/11/2026 — criado este STATUS.md e a regra no CLAUDE.md.
