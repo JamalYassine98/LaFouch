@@ -23,7 +23,13 @@ with sync_playwright() as pw:
             c.add_init_script("(function(){var h=document.documentElement;function f(){if(h.hasAttribute('data-ev'))h.removeAttribute('data-ev');var b=document.getElementById('evbar');if(b)b.style.display='none'}new MutationObserver(f).observe(h,{attributes:true,attributeFilter:['data-ev'],childList:true,subtree:true});f()})()")
         c.add_init_script(INIT); c.route('**/*', lambda r: r.abort() if any(x in r.request.url for x in BLOQ) else r.continue_())
         pg = c.new_page(); pg.goto('http://127.0.0.1:%d/' % porta, wait_until='load', timeout=60000); pg.wait_for_timeout(4000)
-        if os.environ.get('LF_ROTEIRO') == 'tres':  # os 3 botões do topo: busca, carrinho e menu — abre, espera, fecha
+        if os.environ.get('LF_ROTEIRO') == 'rola':  # rolar o início devagar, parar, rolar de novo (para ver o WhatsApp)
+            pg.wait_for_timeout(1500)
+            for volta in range(2):
+                for k in range(8):
+                    pg.mouse.wheel(0, 110); pg.wait_for_timeout(120)
+                pg.wait_for_timeout(2200)
+        elif os.environ.get('LF_ROTEIRO') == 'tres':  # os 3 botões do topo: busca, carrinho e menu — abre, espera, fecha
             FECHA = {'#sbtn': "()=>{const c=document.querySelector('#sov [data-sox]');c&&c.click()}", '#bagbtn': "()=>{const c=document.querySelector('#layer button.x,#layer [aria-label=\"Fechar\"]');c&&c.click()}", '#mnb': "()=>{const c=document.querySelector('#drw [data-dclose]');c&&c.click()}"}
             for bt in ('#sbtn', '#bagbtn', '#mnb'):
                 pg.tap(bt, force=True); pg.wait_for_timeout(1800)
