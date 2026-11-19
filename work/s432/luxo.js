@@ -1,0 +1,5 @@
+()=>{/* P6/formulários: dentro de qualquer janela (elemento fixo), sem × e sem "Fechar"; confirmação mantém "Voltar" */
+const fixo=e=>{for(let p=e.parentElement;p&&p!==document.body;p=p.parentElement){if(getComputedStyle(p).position=='fixed')return true}return false};
+document.querySelectorAll('button').forEach(b=>{const t=b.textContent.trim();if((/^(Fechar|×|✕)$/.test(t)||b.getAttribute('aria-label')=='Fechar')&&fixo(b))b.style.setProperty('display','none','important')});
+/* P3: campo dentro de uma linha que já tem a linha fina -> o campo não leva outra linha; valor na margem direita */
+document.querySelectorAll('input:not([type=checkbox]):not([type=radio]):not([type=range])').forEach(i=>{let p=i.parentElement;for(let k=0;k<3&&p;k++,p=p.parentElement){const c=getComputedStyle(p);if(c.display=='flex'&&!c.flexDirection.startsWith('column')&&p.getBoundingClientRect().width>i.getBoundingClientRect().width+40){i.style.setProperty('border-bottom','0','important');p.style.setProperty('border-bottom','1px solid var(--line2)','important');break}}})}

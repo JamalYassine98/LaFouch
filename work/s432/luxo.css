@@ -1,0 +1,16 @@
+/* CAMADA ÚNICA DO PADRÃO DE LUXO — vale para TODAS as telas (nada de seletor de uma tela só) */
+/* P3 campos = linha fina */
+input.in,select.in,textarea.in,.view input:not([type=checkbox]):not([type=radio]):not([type=range]),.ljJn input:not([type=checkbox]):not([type=radio]),.fjJn input:not([type=checkbox]):not([type=radio]),.modal-box input:not([type=checkbox]):not([type=radio]){background-color:transparent!important;border:0!important;border-bottom:1px solid var(--line2)!important;border-radius:0!important;box-shadow:none!important;padding-left:0!important;padding-right:0!important}
+input:focus,select:focus,textarea:focus{outline:none!important;border-bottom-color:var(--accent-fg)!important}
+/* sem cartão em volta da tela */
+.view>.main>section.card,.view .main>.card.col,#vSaleCard,#cartCard,#vDetail{background:none!important;border:0!important;box-shadow:none!important;padding-left:0!important;padding-right:0!important;border-radius:0!important}
+/* ícones de ação redondos */
+.ib,.ic,.ibtn,#sino,.mcBtn{border-radius:50%!important}
+/* links e ações em texto: sem sublinhado */
+.lkTx{text-decoration:none!important}
+/* versalete único */
+.cxLb,.lbl,.view section>h2,.ljCorpo h2{font-size:12px!important;letter-spacing:1.68px!important}
+/* aviso = frase, sem caixa */
+.note.n-bad,.note.n-warn{background:none!important;padding:0!important;border-radius:0!important}
+/* secundário de sempre */
+.mini.ghost,.btn-sc{border-radius:14px!important;border:1px solid var(--sec-bd)!important;background:transparent!important}
