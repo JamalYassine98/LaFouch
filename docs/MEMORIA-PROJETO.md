@@ -3205,3 +3205,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - Cancelar da cliente só solta reserva não paga/sem comprovante; `estoque/` sem número do pedido; função aceita `itens` e `refs`. Esboço work/estudo-c/esboco_P1_*.jpg. Publicação da função: o dono roda `firebase deploy --only functions` no PC.
 
 - 19/11 14:30 — Campo de escrever opção B aprovado (149c, linha 45% / exemplo 55%). Ajuste em esboço (esboco_campo2_*): cursor rosa no início do exemplo, foco = linha rosa (sem caixa), valor alinhado à esquerda numa coluna e na linha de base do nome.
+- 19/11 14:38 — Ajuste 149c2 aprovado (cursor no eixo do exemplo, foco = linha rosa, valor em coluna). Em esboço 149c3: texto a 8 px da linha, toque 44 px, listas de escolha com seta fina.
