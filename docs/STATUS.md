@@ -23,6 +23,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 | — | — | — | — |
 
 ## Últimas mudanças (mais nova em cima; manter só as ~20 últimas)
+- 19/11/2026 12:40 — S436 Ícone redondo parte 1 (work/s436/icone_redondo_*.jpg): medido com a base, a família real tem 30 botões e 4 caras (sino 46 px cheio; Data/Filtros/Compartilhar 44 px contorno = modelo; Ações do caixa rosa; Filtros e ordem do Giro quadrado). A câmera dentro da busca do Giro NÃO é dessa família (ícone do campo). "Ver" (pílula) e − / + do catálogo também não (vão para Secundário e Passo). Esperando o dono.
 - 19/11/2026 12:17 — sessão de apoio: ESBOÇO DE EXEMPLO da família Voltar no Pagamento (work/s436/esboco_voltar_*.jpg): "‹ Carrinho" 15 px → "‹ CARRINHO" versalete 12 px igual ao Câmbio. Esperando o dono; nada no código. S435: usar como modelo se o dono aprovar.
 - 19/11/2026 11:50 — App v562 (5.45.0): NAVEGAÇÃO B refinada publicada (src/99c-navegacao-s435.js + bloco S435 do www/style.css; saiu o título com ⌄ de src/98z-grupo-flecha-s41.js). 318/318 testes; inventários (work/verif/inv, docs/INVENTARIO-*.md) refeitos. Não testado em aparelho real.
 - 19/11/2026 12:02 — CLAUDE.md REORGANIZADO (23 regras em 8 partes, aprovado pelo dono). Toda sessão: reler o CLAUDE.md antes de continuar.

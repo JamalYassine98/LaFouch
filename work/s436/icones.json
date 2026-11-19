@@ -1,0 +1,582 @@
+{
+ "inventario-fornecedores": [
+  {
+   "a": "Editar",
+   "achou": 1,
+   "cls": "tab",
+   "w": 55,
+   "h": 44,
+   "raio": 10,
+   "forma": "quadrado",
+   "borda": "0px rgb(243, 192, 220)",
+   "fundo": "rgba(0, 0, 0, 0)",
+   "icone": "sem svg",
+   "texto": "Editar",
+   "x": 263,
+   "y": 526
+  },
+  {
+   "a": "12",
+   "achou": 1,
+   "cls": "sino",
+   "w": 46,
+   "h": 46,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgb(22, 26, 32)",
+   "icone": "24px",
+   "texto": "12",
+   "x": 320,
+   "y": 41
+  }
+ ],
+ "guardiao": [
+  {
+   "a": "Ver",
+   "achou": 1,
+   "cls": "btn-sc p",
+   "w": 110,
+   "h": 44,
+   "raio": 999,
+   "forma": "círculo",
+   "borda": "0px rgb(243, 192, 220)",
+   "fundo": "rgba(0, 0, 0, 0)",
+   "icone": "sem svg",
+   "texto": "Ver margem ›",
+   "x": 256,
+   "y": 263
+  }
+ ],
+ "inventario-editar": [
+  {
+   "a": "",
+   "achou": 0
+  }
+ ],
+ "inventario-ficha": [
+  {
+   "a": "Ficha 4/6",
+   "achou": 0
+  }
+ ],
+ "inventario-ficha-historico": [
+  {
+   "a": "Ficha 4/6",
+   "achou": 0
+  }
+ ],
+ "pendencias": [
+  {
+   "a": "Ver",
+   "achou": 1,
+   "cls": "btn-sc p",
+   "w": 110,
+   "h": 44,
+   "raio": 999,
+   "forma": "círculo",
+   "borda": "0px rgb(243, 192, 220)",
+   "fundo": "rgba(0, 0, 0, 0)",
+   "icone": "sem svg",
+   "texto": "Ver margem ›",
+   "x": 256,
+   "y": 263
+  },
+  {
+   "a": "12",
+   "achou": 1,
+   "cls": "sino",
+   "w": 46,
+   "h": 46,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgb(22, 26, 32)",
+   "icone": "24px",
+   "texto": "12",
+   "x": 320,
+   "y": 41
+  }
+ ],
+ "giro-no-estoque": [
+  {
+   "a": "Buscar com a câmera",
+   "achou": 1,
+   "cls": "ic cam",
+   "w": 44,
+   "h": 44,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "0px rgb(203, 213, 225)",
+   "fundo": "rgba(0, 0, 0, 0)",
+   "icone": "26px",
+   "texto": "",
+   "x": 315,
+   "y": 454
+  },
+  {
+   "a": "Filtros e ordem",
+   "achou": 1,
+   "cls": "ic0",
+   "w": 42,
+   "h": 42,
+   "raio": 12,
+   "forma": "pílula/arredondado",
+   "borda": "0px rgb(203, 213, 225)",
+   "fundo": "rgba(0, 0, 0, 0)",
+   "icone": "22px",
+   "texto": "",
+   "x": 324,
+   "y": 514
+  },
+  {
+   "a": "12",
+   "achou": 1,
+   "cls": "sino",
+   "w": 46,
+   "h": 46,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgb(22, 26, 32)",
+   "icone": "24px",
+   "texto": "12",
+   "x": 320,
+   "y": 41
+  }
+ ],
+ "ajustes": [
+  {
+   "a": "12",
+   "achou": 1,
+   "cls": "sino",
+   "w": 46,
+   "h": 46,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgb(22, 26, 32)",
+   "icone": "24px",
+   "texto": "12",
+   "x": 320,
+   "y": 41
+  }
+ ],
+ "atacado-lojistas": [
+  {
+   "a": "12",
+   "achou": 1,
+   "cls": "sino",
+   "w": 46,
+   "h": 46,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgb(22, 26, 32)",
+   "icone": "24px",
+   "texto": "12",
+   "x": 320,
+   "y": 41
+  }
+ ],
+ "atacado-tabela": [
+  {
+   "a": "12",
+   "achou": 1,
+   "cls": "sino",
+   "w": 46,
+   "h": 46,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgb(22, 26, 32)",
+   "icone": "24px",
+   "texto": "12",
+   "x": 320,
+   "y": 41
+  }
+ ],
+ "caixa-acoes": [
+  {
+   "a": "12",
+   "achou": 1,
+   "cls": "sino",
+   "w": 46,
+   "h": 46,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgb(22, 26, 32)",
+   "icone": "24px",
+   "texto": "12",
+   "x": 320,
+   "y": 41
+  },
+  {
+   "a": "Ações do caixa",
+   "achou": 1,
+   "cls": "ic on",
+   "w": 44,
+   "h": 44,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "1px rgb(164, 74, 126)",
+   "fundo": "rgb(34, 20, 29)",
+   "icone": "26px",
+   "texto": "",
+   "x": 322,
+   "y": 143
+  }
+ ],
+ "cambio": [
+  {
+   "a": "12",
+   "achou": 1,
+   "cls": "sino",
+   "w": 46,
+   "h": 46,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgb(22, 26, 32)",
+   "icone": "24px",
+   "texto": "12",
+   "x": 320,
+   "y": 41
+  }
+ ],
+ "catalogo-carrinho": [
+  {
+   "a": "12",
+   "achou": 1,
+   "cls": "sino",
+   "w": 46,
+   "h": 46,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgb(22, 26, 32)",
+   "icone": "24px",
+   "texto": "12",
+   "x": 320,
+   "y": 41
+  }
+ ],
+ "catalogo-peca": [
+  {
+   "a": "−",
+   "achou": 1,
+   "cls": "step",
+   "w": 44,
+   "h": 48,
+   "raio": 10,
+   "forma": "quadrado",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgb(30, 36, 46)",
+   "icone": "sem svg",
+   "texto": "−",
+   "x": 127,
+   "y": 538
+  },
+  {
+   "a": "+",
+   "achou": 1,
+   "cls": "step",
+   "w": 44,
+   "h": 48,
+   "raio": 10,
+   "forma": "quadrado",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgb(30, 36, 46)",
+   "icone": "sem svg",
+   "texto": "+",
+   "x": 219,
+   "y": 538
+  },
+  {
+   "a": "Compartilhar esta peça",
+   "achou": 1,
+   "cls": "tab ibtn shBtn",
+   "w": 44,
+   "h": 44,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgba(0, 0, 0, 0)",
+   "icone": "20px",
+   "texto": "",
+   "x": 303,
+   "y": 242
+  }
+ ],
+ "clientes-novo": [
+  {
+   "a": "12",
+   "achou": 1,
+   "cls": "sino",
+   "w": 46,
+   "h": 46,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgb(22, 26, 32)",
+   "icone": "24px",
+   "texto": "12",
+   "x": 320,
+   "y": 41
+  }
+ ],
+ "dash-contas-dia": [
+  {
+   "a": "12",
+   "achou": 1,
+   "cls": "sino",
+   "w": 46,
+   "h": 46,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgb(22, 26, 32)",
+   "icone": "24px",
+   "texto": "12",
+   "x": 320,
+   "y": 41
+  }
+ ],
+ "dash-folha-ver": [
+  {
+   "a": "12",
+   "achou": 1,
+   "cls": "sino",
+   "w": 46,
+   "h": 46,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgb(22, 26, 32)",
+   "icone": "24px",
+   "texto": "12",
+   "x": 320,
+   "y": 41
+  }
+ ],
+ "dash-mes-vendido": [
+  {
+   "a": "12",
+   "achou": 1,
+   "cls": "sino",
+   "w": 46,
+   "h": 46,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgb(22, 26, 32)",
+   "icone": "24px",
+   "texto": "12",
+   "x": 320,
+   "y": 41
+  },
+  {
+   "a": "Ir para uma data",
+   "achou": 1,
+   "cls": "ic71",
+   "w": 44,
+   "h": 44,
+   "raio": 999,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgba(0, 0, 0, 0)",
+   "icone": "20px",
+   "texto": "",
+   "x": 270,
+   "y": 196
+  },
+  {
+   "a": "Filtros",
+   "achou": 1,
+   "cls": "ic71",
+   "w": 44,
+   "h": 44,
+   "raio": 999,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgba(0, 0, 0, 0)",
+   "icone": "20px",
+   "texto": "",
+   "x": 322,
+   "y": 196
+  }
+ ],
+ "dash-semana": [
+  {
+   "a": "12",
+   "achou": 1,
+   "cls": "sino",
+   "w": 46,
+   "h": 46,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgb(22, 26, 32)",
+   "icone": "24px",
+   "texto": "12",
+   "x": 320,
+   "y": 41
+  }
+ ],
+ "despesas-nova": [
+  {
+   "a": "12",
+   "achou": 1,
+   "cls": "sino",
+   "w": 46,
+   "h": 46,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgb(22, 26, 32)",
+   "icone": "24px",
+   "texto": "12",
+   "x": 320,
+   "y": 41
+  }
+ ],
+ "grp-dinheiro": [
+  {
+   "a": "12",
+   "achou": 1,
+   "cls": "sino",
+   "w": 46,
+   "h": 46,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgb(22, 26, 32)",
+   "icone": "24px",
+   "texto": "12",
+   "x": 320,
+   "y": 41
+  }
+ ],
+ "hist-dia": [
+  {
+   "a": "12",
+   "achou": 1,
+   "cls": "sino",
+   "w": 46,
+   "h": 46,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgb(22, 26, 32)",
+   "icone": "24px",
+   "texto": "12",
+   "x": 320,
+   "y": 41
+  }
+ ],
+ "hist-lista": [
+  {
+   "a": "12",
+   "achou": 1,
+   "cls": "sino",
+   "w": 46,
+   "h": 46,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgb(22, 26, 32)",
+   "icone": "24px",
+   "texto": "12",
+   "x": 320,
+   "y": 41
+  },
+  {
+   "a": "Ir para uma data",
+   "achou": 1,
+   "cls": "ic71",
+   "w": 44,
+   "h": 44,
+   "raio": 999,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgba(0, 0, 0, 0)",
+   "icone": "20px",
+   "texto": "",
+   "x": 270,
+   "y": 196
+  },
+  {
+   "a": "Filtros",
+   "achou": 1,
+   "cls": "ic71",
+   "w": 44,
+   "h": 44,
+   "raio": 999,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgba(0, 0, 0, 0)",
+   "icone": "20px",
+   "texto": "",
+   "x": 322,
+   "y": 196
+  }
+ ],
+ "inicio": [
+  {
+   "a": "12",
+   "achou": 1,
+   "cls": "sino",
+   "w": 46,
+   "h": 46,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgb(22, 26, 32)",
+   "icone": "24px",
+   "texto": "12",
+   "x": 320,
+   "y": 41
+  }
+ ],
+ "marketing": [
+  {
+   "a": "12",
+   "achou": 1,
+   "cls": "sino",
+   "w": 46,
+   "h": 46,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgb(22, 26, 32)",
+   "icone": "24px",
+   "texto": "12",
+   "x": 320,
+   "y": 41
+  }
+ ],
+ "vender": [
+  {
+   "a": "12",
+   "achou": 1,
+   "cls": "sino",
+   "w": 46,
+   "h": 46,
+   "raio": 50,
+   "forma": "círculo",
+   "borda": "1px rgb(42, 52, 65)",
+   "fundo": "rgb(22, 26, 32)",
+   "icone": "24px",
+   "texto": "12",
+   "x": 320,
+   "y": 41
+  }
+ ],
+ "marketing-post": [
+  {
+   "a": "",
+   "achou": 0
+  }
+ ]
+}
