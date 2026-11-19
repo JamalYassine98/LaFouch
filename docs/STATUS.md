@@ -14,6 +14,8 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 - APP — implementa e publica: **S436** (só ela mexe em src/ e www/).
 - SITE — implementa e publica: **S429**.
 - Demais sessões: esboço, estudo e conferência.
+- **Nomes das conversas no app do dono (aprovados 19/11 14:08)** — usar estes nomes ao falar com o dono:
+  - "APP · implementa" = S436 · "SITE · implementa" = S429 · "Esboço · famílias" = S435 · "Estudo · dados" = sessão de estudo do item C (docs/ESTUDO-ESTOQUE-SITE-19-11.md).
 
 ## Fila de implementação (só entra com "implementar" do dono; a implementadora pega de cima para baixo)
 | # | Item | Frente | Pedido em | Estado |
