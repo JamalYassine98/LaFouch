@@ -5,9 +5,16 @@
 const { onDocumentCreated } = require('firebase-functions/v2/firestore');
 const { onRequest } = require('firebase-functions/v2/https');
 const Reserva = require('./reserva');
+const Token = require('./token');
+const Conta = require('./conta');
 const admin = require('firebase-admin');
 
 admin.initializeApp();
+// S1/S2 (19/11): leitura/gravação simples para as regras puras de token.js e conta.js
+const tokDb = {
+  get: async (p) => { const d = await admin.firestore().doc(p).get(); return d.exists ? d.data() : null; },
+  set: (p, dados) => admin.firestore().doc(p).set(dados, { merge: true }),
+};
 
 // A região da função precisa ser a MESMA do banco Firestore (Firebase > Firestore > Dados > Local).
 const REGIAO = 'southamerica-east1';
@@ -130,6 +137,11 @@ exports.reserva = onRequest(
     const db = admin.firestore();
     const agora = Date.now(); // a hora é sempre a do servidor
     try {
+      // S1 (19/11): a cliente pede o token de entrega mostrando o telefone do pedido (o token não fica mais na página pública)
+      if (acao === 'token') {
+        const r = await Token.pedir(tokDb, agora, String(b.pedido || ''), String(b.tel || ''));
+        return res.json(Object.assign({ agora }, r));
+      }
       if (DO_DONO.indexOf(acao) >= 0) {
         if (!(await ehDono(req))) return res.status(403).json({ ok: false, motivo: 'sem-permissao' });
       } else if (PUBLICAS.indexOf(acao) < 0) {
@@ -183,6 +195,7 @@ exports.reserva = onRequest(
       } else r = await Reserva.recusar(db, agora, b.pedido, refs);
       return res.json(Object.assign({ ok: true, agora }, r));
     } catch (e) {
+      if (e instanceof Token.Falha) return res.json({ ok: false, motivo: e.motivo, agora });
       if (e instanceof Reserva.Falha) return res.json({ ok: false, motivo: e.motivo, falta: e.extra.falta || [], agora });
       console.error('reserva', acao, e);
       return res.status(500).json({ ok: false, motivo: 'erro' });
@@ -502,6 +515,31 @@ exports.login = onRequest({ region: REGIAO, cors: true, maxInstances: 3, secrets
   }
 });
 
+// ---------- S2 (19/11/2026): conta da cliente sem mostrar o e-mail ao público ----------
+// "livre": o nome de usuário está livre? · "entrar": nome + senha → a função acha o e-mail e faz o login por dentro.
+// A chave abaixo é a chave PÚBLICA do Firebase (a mesma que está no site); não é segredo.
+const FB_CHAVE_PUBLICA = 'AIzaSyAW-54tS1A_VL2EC9OJWFsw1EtboptpEvc';
+async function entraFirebase(email, senha) {
+  const r = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + FB_CHAVE_PUBLICA, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password: senha, returnSecureToken: true }) });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok || !j.idToken) throw new Error('login');
+  return j;
+}
+exports.conta = onRequest({ region: REGIAO, cors: ['https://lafouch.com', 'https://www.lafouch.com', 'http://localhost:8765', 'http://localhost:8766'], maxInstances: 5 }, async (req, res) => {
+  if (req.method !== 'POST') return res.status(405).json({ ok: false, motivo: 'metodo' });
+  const b = req.body && typeof req.body === 'object' ? req.body : {};
+  try {
+    if (b.acao === 'livre') return res.json(await Conta.livre(tokDb, String(b.user || '')));
+    if (b.acao === 'entrar') return res.json(await Conta.entrar(tokDb, entraFirebase, Date.now(), String(b.user || ''), b.senha));
+    return res.status(400).json({ ok: false, motivo: 'acao' });
+  } catch (e) {
+    if (e instanceof Conta.Falha) return res.status(e.status).json({ ok: false, motivo: e.motivo });
+    console.error('conta', e && e.message);
+    return res.status(500).json({ ok: false, motivo: 'erro' });
+  }
+});
+
 // ---------- Retenção de 12 meses (12/11/2026, bloco 5 item 8): roda sozinha todo dia às 4h do Paraguai ----------
 const { onSchedule } = require('firebase-functions/v2/scheduler');
 const Limpeza = require('./limpeza');
@@ -704,6 +742,8 @@ const pixDb = {
   esperas: async (desde) => (await fsx().collection('pixEspera').where('ts', '>=', desde).limit(200).get()).docs.map((d) => Object.assign({ id: d.id }, d.data())).filter((e) => e.tipo !== 'site'),
   confirmaPedido: async (id, o) => {
     const tok = crypto.randomBytes(6).toString('hex');
+    // S1 (19/11): grava também em reservasTok (troca em 3 partes; ver docs/STATUS.md item S1/S2).
+    await fsx().doc('reservasTok/' + id).set({ tok, pixAuto: o }, { merge: true });
     await fsx().doc('reservas/' + id).set({ pago: true, tok, pixAuto: o }, { merge: true });
     await fsx().doc('pixEspera/' + id).set({ ok: o }, { merge: true });
   },

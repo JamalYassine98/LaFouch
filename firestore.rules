@@ -87,6 +87,12 @@ service cloud.firestore {
       allow get: if true;
       allow create, update: if dono();
     }
+    // S1 (19/11/2026): token de entrega e dados do pagamento de cada pedido — só o dono (app) e o servidor.
+    // A cliente recebe o token pela função "reserva" (acao "token"), mostrando o telefone do pedido.
+    match /reservasTok/{d} {
+      allow read, write: if dono();
+    }
+    // S2: contaTent (tentativas de login por nome) não tem "match": fica fechada, só o servidor usa.
     match /backups/{d} {
       allow read, write: if dono();
     }
