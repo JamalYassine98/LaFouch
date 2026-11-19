@@ -13,7 +13,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 ## Em andamento
 | Sessão (assunto) | Frente | Telas / arquivos | Desde |
 |---|---|---|---|
-| App (S435 famílias de botões) | APP | só leitura do inventário: docs/FAMILIAS-BOTOES.md (novo), work/verif/familias2.py | 19/11 |
+| App (S435 famílias: Voltar, Link ›, Linha de lista, Dobra ⌄, Adicionar +, "+" em texto, Título, Fechar ×) | APP | esboços em work/s437 (só esboço, nada no código ainda); docs/FAMILIAS-BOTOES.md | 19/11 |
 | Site (S429 cópia limpa) | SITE | catalogo ramo `limpo` (index.html, js/lf-site.js) — fora do ar | 19/11 |
 
 ## Recados entre sessões (quem lê, faz e apaga a linha)
