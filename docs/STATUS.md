@@ -48,6 +48,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
   4. **CLAUDE.md foi reorganizado às 12:02** (23 regras em 8 partes): reler antes de continuar; acabou a regra de não consultar — tudo em partes, consultando o dono.
 
 ## Últimas mudanças (mais nova em cima; manter só as ~20 últimas)
+- 19/11/2026 14:30 — Estudo · dados: ESBOÇO P1 segurança da reserva (work/estudo-c/esboco_P1_*.jpg, docs/ESTUDO-ESTOQUE-SITE-19-11.md §8). Achado B2b: o "Cancelar" da cliente no site também não solta a peça. Esperando o dono; nada no código.
 - 19/11/2026 — S436: ✅ PUBLICADO app v563 (5.46.0): 149v Voltar (Peça e Ficha) + 150i Ícone redondo; 318/318 testes; inventários 1 e 2 refeitos nas 27 telas (iguais nas duas famílias). Pagamento do 149v espera o 142st. Conferência das telas mexidas: pedir a uma sessão de esboço.
 - 19/11/2026 14:05 — Sessão de estudo: dono disse "implementar" B1/B2/B3 → entraram na Fila (itens 3–5, B2 urgente) e na lista viva. Nada no código (S436 implementa).
 - 19/11/2026 13:50 — Sessão de estudo: 3 bugs do dono investigados (docs/ESTUDO-ESTOQUE-SITE-19-11.md §7, nada no código): B1 nome da cliente no pedido → tela inexistente `cli`; B2 CONFIRMADO: app manda `refs`, função só lê `itens` → nenhuma reserva é solta pelo app (cancelar, entregar, recusar); B3 grupo e tela com o mesmo nome "Site" + celular do dono com CSS antigo. ESBOÇOS prontos (work/estudo-c/esboco_B1/B2/B3_*.jpg, claro e escuro; gerador work/estudo-c/esb_bugs.py, app real + base de aprovados). Esperando o dono.
