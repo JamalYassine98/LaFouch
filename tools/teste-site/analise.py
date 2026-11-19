@@ -70,7 +70,7 @@ with sync_playwright() as pw:
                     pg.evaluate("()=>{document.querySelectorAll('#layer .scrim,#drw,#drw *').forEach(x=>{if(x.scrollTop)x.scrollTop=0});scrollTo(0,0)}"); pg.wait_for_timeout(200)
                 d['ate'] = 1.0; d['quebra'] = None
                 for s in (ESC[1:] if W < 1100 else []):
-                    pg.evaluate("(z)=>{document.body.style.zoom=z;document.body.style.setProperty('--z',z);dispatchEvent(new Event('resize'))}", round(z0 * s, 3)); pg.wait_for_timeout(450)
+                    pg.evaluate("([z,s])=>{if(typeof LFT==='function'){document.documentElement.style.fontSize=(16*s)+'px';dispatchEvent(new Event('resize'));return}document.body.style.zoom=z;document.body.style.setProperty('--z',z);dispatchEvent(new Event('resize'))}", [round(z0 * s, 3), s]); pg.wait_for_timeout(650)  # S429: na cópia limpa a letra vem do celular (fonte da raiz)
                     cur, ex = olha(pg)
                     if os.environ.get('LF_FOTOS') == '1': pg.screenshot(path=OUT + '/img/%s_%s_%d_%s_%.1f_passo.jpg' % (versao, tela, W, H, s), type='jpeg', quality=62)
                     if os.environ.get('LF_FIM') and pg.evaluate("(q)=>{const e=document.querySelector(q);if(!e)return false;e.scrollIntoView({block:'center'});return true}", os.environ['LF_FIM']):
