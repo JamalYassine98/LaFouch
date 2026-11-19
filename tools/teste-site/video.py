@@ -25,8 +25,9 @@ with sync_playwright() as pw:
             pg.evaluate("()=>{const p=document.querySelector('#drw .dpn');p.scrollBy({top:90,behavior:'smooth'})}"); pg.wait_for_timeout(350)
         pg.wait_for_timeout(1500)
         pg.evaluate("()=>{document.querySelector('#drw .dpn').scrollTo({top:0,behavior:'smooth'})}"); pg.wait_for_timeout(1800)
-        fecha = '#mnb' if versao == 'prop' else '#drw [data-dclose]'
-        pg.tap(fecha, force=True); pg.wait_for_timeout(2200)
+        if versao == 'prop': pg.tap('#mnb', force=True)
+        else: pg.evaluate("()=>document.querySelector('#drw [data-dclose]').click()")
+        pg.wait_for_timeout(2200)
         v = pg.video.path(); c.close()
         shutil.move(v, os.path.join(OUT, versao + '.webm')); shutil.rmtree(tmp, ignore_errors=True)
         print('ok', versao, flush=True)
