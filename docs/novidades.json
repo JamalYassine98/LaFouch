@@ -1,7 +1,8 @@
 {
- "nome": "5.46.4",
+ "nome": "5.47.0",
  "notas": [
-  "Reservas do site: se um pedido pago for apagado do app, a peça que ele segurava volta a ficar livre no site (o app confere com a nuvem e solta depois de 10 minutos)."
+  "Câmera do Estúdio nova (parte 1): com o celular deitado a câmera ocupa a altura inteira; o fechar, o nome da peça e o aviso ficam à esquerda, fora da imagem, e ajustes, botão de foto e Galeria à direita.",
+  "Em pé: a imagem aparece inteira (3:4) com o aviso embaixo dela, sem tampar a peça. Muda sozinho quando você gira o celular."
  ],
- "build": 567
+ "build": 568
 }

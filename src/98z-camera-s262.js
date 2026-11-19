@@ -37,6 +37,7 @@
       if (!document.body.contains(ov)) return clearInterval(tik);
       c262Frase(ov);
     }, 300);
+    cam149Monta(ov); // 149cam: desenho deitado / em pé (98z-camera-t149cam.js)
   }
   function c262Frase(ov) {
     var f = ov.querySelector('.ecFrase'), ch = ov.querySelector('#ecChips');

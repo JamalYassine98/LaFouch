@@ -528,3 +528,8 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - `ACT.pedcli(id)` (src/95-pedidos.js): abre a tela `clientes` com `S.cliSel = id` (ficha da cliente).
 - `pedReserva(p, campos)`: PATCH em `reservas/<sid>`; se `campos.tok`, também PATCH em `reservasTok/<sid>` (`{tok}`, só dono/servidor leem). Quando a NUVEM fizer a parte 3 (item 11), o `tok` deixa de ir para `reservas/` — tirar daqui no mesmo passo.
 
+## Câmera do Estúdio — desenho 149cam (v568, 19/11/2026)
+- `src/98z-camera-t149cam.js` → `cam149Monta(ov)` (chamado no fim do `c262Monta`): cria os painéis `.ecL/.ecR` (deitado) e `.ecT/.ecTg/.ecM/.ecB` (em pé) e põe neles o ×, ajustes (`.ecMan`), etiqueta (`.ecTag`), aviso (`.ecFrase`), disparo (`.ecSh` ou `.ecPronto` do Medir fundo), Galeria e, no Medir fundo, `#ecFundo`. Classe `ecPD` (deitado) / `ecPE` (em pé) pela tela; troca no `resize`.
+- `.ecTop`/`.ecBot` ficam no HTML só como gaveta dos controles manuais (escondidos). CSS: bloco "CÂMERA DO ESTÚDIO (149cam)" no fim do style.css. A câmera do giro (12 s) não usa isto.
+- Próximas partes do item 15: 149cam-F (funcionar como teste-giro/conferir) e 149cam-G (guias na imagem).
+

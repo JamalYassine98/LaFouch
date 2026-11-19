@@ -1560,7 +1560,6 @@ select.in.selAl{appearance:none;-webkit-appearance:none;padding:0 40px 0 12px;ba
 .estDest span:before{content:'✓ ';color:var(--ok)}
 .estBtns{display:flex;flex-direction:column;gap:8px}.estBtns .go{width:100%}.estBtns .mini{width:100%;height:44px}
 .estCam{position:fixed;inset:0;z-index:370;background:#000;color:#fff;display:flex;flex-direction:column}
-.ecTop{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:max(10px,env(safe-area-inset-top)) 12px 8px}
 .ecPill{background:rgba(255,255,255,.12);border:0;color:#fff;border-radius:99px;padding:7px 12px;font:inherit;font-size:12.5px;min-width:36px}
 .ecPill.on{background:var(--accent)}
 .ecVf{position:relative;flex:1;overflow:hidden;background:#111}
@@ -1582,7 +1581,6 @@ select.in.selAl{appearance:none;-webkit-appearance:none;padding:0 40px 0 12px;ba
 .ecPro button.sel b{color:var(--accent-fg)}.ecPro button.na{opacity:.4}
 .ecDial{padding:2px 22px 4px;display:flex;align-items:center;gap:10px}
 .ecDial input{flex:1;accent-color:var(--accent)}.ecDv{min-width:58px;text-align:right;font-size:13px;color:#fff}
-.ecBot{display:flex;align-items:center;justify-content:space-around;padding:10px 12px max(18px,env(safe-area-inset-bottom))}
 .ecLens{display:flex;gap:6px}.ecLens button{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.12);border:0;color:#fff;font:inherit;font-size:12.5px}
 .ecLens button.on{background:#fff;color:#000;font-weight:700}
 .ecSh{width:74px;height:74px;border-radius:50%;border:4px solid #fff;background:none;padding:0;display:flex;align-items:center;justify-content:center}
@@ -2534,9 +2532,8 @@ html{overscroll-behavior-y:none}
 .ecSimples #ecT2,.ecSimples #ecPk,.ecSimples #ecHist,.ecSimples:not(.ecMedir) #ecMsg,.ecSimples .ecChips,.ecSimples #ecPro,.ecSimples #ecDial,.ecSimples #ecLens,.ecSimples #ecLvl,.ecSimples #ecAuto{display:none!important}
 .ecSimples:not(.ecMedir) #ecFundo{display:none!important}
 .ecSimples.ecVerHist #ecHist{display:block!important}.ecSimples.ecVerPro #ecPro,.ecSimples.ecVerPro #ecDial{display:block!important}.ecSimples.ecVerLente #ecLens{display:flex!important}
-.ecSimples .ecTop{justify-content:space-between}.ecSimples .ecMan{margin-left:auto;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;padding:0}
+.ecSimples .ecMan{display:inline-flex;align-items:center;justify-content:center;padding:0}
 .ecSimples .ecGd i{border-color:#fff}.ecSimples .ecGd.ok262 i{border-color:#2fe08f}
-.ecFrase{position:absolute;left:16px;right:16px;bottom:14px;display:flex;align-items:center;justify-content:center;gap:10px;background:rgba(20,20,22,.78);color:#fff;border-radius:999px;padding:12px 18px;font-family:Fraunces,Georgia,serif;font-size:16px;text-align:center}
 .ecFrase i{width:9px;height:9px;border-radius:50%;background:#e9b04a;flex:none}.ecFrase.ok i{background:#2fe08f}
 #c262Sh .c262T b{display:block;font-family:Fraunces,Georgia,serif;font-weight:500;font-size:22px}#c262Sh .c262T small{color:var(--mute)}
 #c262Sh .c262L{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:14px 2px;color:var(--fg);min-height:52px}
@@ -3050,3 +3047,27 @@ body.nvRail .nvVs{display:none}
 /* ===== FAMÍLIA ÍCONE REDONDO (150i, 19/11/2026) — uma cara só: círculo 44 px, contorno fino, sem fundo, ícone 20 px ===== */
 #sino,#cxIc,.ic71,#v-vendas .ibtn.shBtn,.vdir>.ic0{width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;padding:0!important;border-radius:50%!important;border:1px solid var(--line2)!important;background:transparent!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;box-shadow:none!important}
 #sino svg,#cxIc svg,.ic71 svg,#v-vendas .ibtn.shBtn svg,.vdir>.ic0 svg{width:20px!important;height:20px!important}
+/* ===== CÂMERA DO ESTÚDIO (149cam, 19/11/2026) — deitado: câmera na altura inteira, × + etiqueta + aviso à esquerda, ajustes/disparo/Galeria à direita; em pé: × e ajustes em cima, etiqueta, imagem 3:4, aviso embaixo, disparo no centro e Galeria à direita ===== */
+#estCam.ecP{display:block;background:#000}
+#estCam.ecP .ecTop,#estCam.ecP .ecBot{display:none}
+#estCam.ecP .ecPainel{position:absolute;display:flex;z-index:5;color:#fff}
+#estCam.ecP .ecTag{position:static;transform:none;background:none;padding:0;color:rgba(255,255,255,.72);font-size:13px;line-height:1.35;white-space:normal;text-align:left;max-width:none;overflow:visible}
+#estCam.ecP .ecFrase{display:flex;align-items:flex-start;gap:8px;color:#fff;font-family:Fraunces,Georgia,serif;font-size:16px;line-height:1.35;text-align:left}
+#estCam.ecP .ecFrase i{flex:0 0 10px;margin-top:6px}
+#estCam.ecP .ecPainel .ecPill{position:static;margin:0;flex:0 0 auto;width:44px;height:44px;min-width:0;padding:0;display:flex;align-items:center;justify-content:center}
+#estCam.ecP .ecPainel #ecFundo{width:auto;padding:0 14px}
+#estCam.ecP .ecSh,#estCam.ecP .ecGal,#estCam.ecP .ecPronto{position:static;margin:0}
+#estCam.ecPD .ecVf{position:absolute;top:0;bottom:0;left:168px;right:120px;height:auto;width:auto;margin:0}
+#estCam.ecPD .ecL{left:max(16px,env(safe-area-inset-left));top:16px;bottom:16px;width:136px;flex-direction:column;gap:16px}
+#estCam.ecPD .ecL .ecPill{align-self:flex-start}
+#estCam.ecPD .ecR{right:max(0px,env(safe-area-inset-right));top:16px;bottom:16px;width:120px;flex-direction:column;align-items:center;justify-content:space-between}
+#estCam.ecPD .ecT,#estCam.ecPD .ecTg,#estCam.ecPD .ecM,#estCam.ecPD .ecB{display:none}
+#estCam.ecPE{--ecH:min(calc(100vw * 4 / 3),calc(100dvh - 104px - 72px - 128px))}
+#estCam.ecPE .ecVf{position:absolute;top:104px;left:0;right:0;height:var(--ecH);bottom:auto;margin:0}
+#estCam.ecPE .ecT{left:16px;right:16px;top:max(12px,env(safe-area-inset-top));height:44px;align-items:center;justify-content:space-between}
+#estCam.ecPE .ecTg{left:16px;right:16px;top:64px;height:32px;align-items:center;justify-content:center}
+#estCam.ecPE .ecTg .ecTag{text-align:center}
+#estCam.ecPE .ecM{left:24px;right:24px;top:calc(104px + var(--ecH) + 16px);height:56px;align-items:center;justify-content:center}
+#estCam.ecPE .ecB{left:0;right:0;bottom:max(24px,env(safe-area-inset-bottom));height:80px;align-items:center;justify-content:center;gap:48px}
+#estCam.ecPE .ecB .ecEsp{width:63px}
+#estCam.ecPE .ecL,#estCam.ecPE .ecR{display:none}
