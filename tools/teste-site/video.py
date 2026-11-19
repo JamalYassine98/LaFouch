@@ -19,6 +19,8 @@ with sync_playwright() as pw:
         tmp = os.path.join(OUT, 'tmp_' + versao)
         c = b.new_context(viewport={'width': W, 'height': H}, is_mobile=True, has_touch=True, locale='pt-BR', service_workers='block',
                           record_video_dir=tmp, record_video_size={'width': W, 'height': H})
+        if os.environ.get('LF_SEMTEMA') == '1':  # versão padrão da loja só neste teste: tira a temática (faixa e cores) nas duas versões
+            c.add_init_script("(function(){var h=document.documentElement;function f(){if(h.hasAttribute('data-ev'))h.removeAttribute('data-ev');var b=document.getElementById('evbar');if(b)b.style.display='none'}new MutationObserver(f).observe(h,{attributes:true,attributeFilter:['data-ev'],childList:true,subtree:true});f()})()")
         c.add_init_script(INIT); c.route('**/*', lambda r: r.abort() if any(x in r.request.url for x in BLOQ) else r.continue_())
         pg = c.new_page(); pg.goto('http://127.0.0.1:%d/' % porta, wait_until='load', timeout=60000); pg.wait_for_timeout(4000)
         pg.tap('#mnb', force=True); pg.wait_for_timeout(2500)

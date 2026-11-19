@@ -64,10 +64,11 @@ jobs:
           LF_URLS: ${{ inputs.urls }}
           LF_FIM: ${{ inputs.fim }}
           LF_VERS: ${{ inputs.portas }}
+          LF_SEMTEMA: ${{ inputs.video == '2' && '1' || '0' }}
           LF_FOTOS: ${{ inputs.aparelhos != '' && '1' || '0' }}
           LF_PORTAS: ${{ inputs.portas != '' && inputs.portas || (inputs.props != '' && 'hoje:8000,prop:8001' || 'hoje:8000') }}
         run: |
-          if [ "${{ inputs.video }}" = "1" ]; then
+          if [ "${{ inputs.video }}" = "1" ] || [ "${{ inputs.video }}" = "2" ]; then
             if [ "${{ matrix.parte[0] }}" = "0" ]; then python3 tools/teste-site/video.py an; else mkdir -p an; fi
           else
             python3 tools/teste-site/analise.py site an ${{ matrix.parte[0] }} ${{ matrix.parte[1] }}
