@@ -41,7 +41,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 | Sessão (assunto) | Frente | Telas / arquivos | Desde |
 |---|---|---|---|
 | App (S435 famílias: Voltar, Link ›, Linha de lista, Dobra ⌄, Adicionar +, "+" em texto, Título, Fechar ×) | APP | esboços em work/s437 (só esboço, nada no código ainda); docs/FAMILIAS-BOTOES.md | 19/11 |
-| APP · implementa (S436) | APP | item 15 parte 2 espera o esboço 149cam-M; livre para o próximo item | 19/11 20:00 |
+| APP · implementa (S436) | APP | CÓDIGO item 15 parte 2 (149cam-F + M2 + X): src/97-estudio.js, src/97-estudio-giro.js, src/98z-camera-s262.js, src/98z-camera-t149cam.js, src/98z-camera-u149f.js (novo), www/style.css, tests/run.py, www/ | 19/11 20:25 |
 | Site (S429 — IMPLEMENTADORA do site; cópia limpa) | SITE | catalogo ramo `limpo` (index.html, js/lf-site.js) — fora do ar; agora: limpeza dos estilos (regras escritas uma por cima da outra) | 19/11 |
 
 ## Recados entre sessões (quem lê, faz e apaga a linha)
