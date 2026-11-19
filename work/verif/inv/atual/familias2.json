@@ -118,24 +118,6 @@
 "faz": "leva → notif"
 },
 {
-"tela": "dash-folha-ver",
-"txt": "Contas do dia G$ 140.000 1/30 de G$ 4.20",
-"act": "view",
-"cara": "texto",
-"fs": "15px",
-"h": 69,
-"faz": "leva → desp"
-},
-{
-"tela": "dash-folha-ver",
-"txt": "Dias anteriores no Histórico ›",
-"act": "view",
-"cara": "texto",
-"fs": "13px",
-"h": 46,
-"faz": "leva → hist"
-},
-{
 "tela": "dash-mes-vendido",
 "txt": "12",
 "act": "view",
@@ -235,24 +217,6 @@
 "faz": "leva → notif"
 },
 {
-"tela": "hist-dia",
-"txt": "Contas do dia G$ 140.000 1/30 de G$ 4.20",
-"act": "view",
-"cara": "",
-"fs": "",
-"h": 0,
-"faz": "sumiu"
-},
-{
-"tela": "hist-dia",
-"txt": "Dias anteriores no Histórico ›",
-"act": "view",
-"cara": "texto",
-"fs": "15px",
-"h": 44,
-"faz": "leva → hist"
-},
-{
 "tela": "hist-lista",
 "txt": "12",
 "act": "view",
@@ -286,15 +250,6 @@
 "cara": "ícone quadrado",
 "fs": "15px",
 "h": 46,
-"faz": "leva → notif"
-},
-{
-"tela": "inicio",
-"txt": "Guardião · 7 coisas para olhar ›",
-"act": "view",
-"cara": "barra grande",
-"fs": "15px",
-"h": 59,
 "faz": "leva → notif"
 },
 {
@@ -371,75 +326,12 @@
 },
 {
 "tela": "pendencias",
-"txt": "Ver margem",
-"act": "view",
-"cara": "pílula",
-"fs": "15px",
-"h": 44,
-"faz": "leva → fx"
-},
-{
-"tela": "pendencias",
-"txt": "Ver conta",
-"act": "view",
-"cara": "pílula",
-"fs": "15px",
-"h": 44,
-"faz": "leva → desp"
-},
-{
-"tela": "pendencias",
-"txt": "Conferir",
-"act": "view",
-"cara": "pílula",
-"fs": "15px",
-"h": 44,
-"faz": "leva → caixa"
-},
-{
-"tela": "pendencias",
 "txt": "Ver",
 "act": "view",
 "cara": "pílula",
 "fs": "15px",
 "h": 44,
 "faz": "leva → estoque"
-},
-{
-"tela": "pendencias",
-"txt": "Fazer",
-"act": "view",
-"cara": "pílula",
-"fs": "15px",
-"h": 44,
-"faz": "leva → ajustes"
-},
-{
-"tela": "precos",
-"txt": "Contas do mês cobertas 86% faltam 23 peç",
-"act": "view",
-"cara": "caixa",
-"fs": "15px",
-"h": 109,
-"faz": "leva → desp"
-},
-{
-"tela": "reservas-30dias",
-"txt": "Editar despesas",
-"act": "view",
-"cara": "",
-"fs": "",
-"h": 0,
-"faz": "leva → desp"
-},
-{
-"tela": "reservas-para-onde",
-"txt": "Objetivos da loja › guardado no Caixa",
-"act": "view",
-"cara": "texto",
-"fs": "15px",
-"h": 51,
-"faz": "leva → caixa"
 },
 {
 "tela": "vender",
@@ -451,7 +343,7 @@
 "faz": "leva → notif"
 }
 ],
-"escolha": [
+"dobra": [
 {
 "tela": "ajustes",
 "txt": "Impressora Nenhuma",
@@ -481,6 +373,15 @@
 },
 {
 "tela": "ajustes",
+"txt": "Pedidos do site Baixa manual",
+"act": "",
+"cara": "texto",
+"fs": "15px",
+"h": 60,
+"faz": "alterna"
+},
+{
+"tela": "ajustes",
 "txt": "Sons e avisos Ligados",
 "act": "",
 "cara": "texto",
@@ -497,6 +398,1407 @@
 "h": 60,
 "faz": "alterna"
 },
+{
+"tela": "ajustes",
+"txt": "Cópias e nuvem Nenhuma cópia",
+"act": "",
+"cara": "texto",
+"fs": "15px",
+"h": 60,
+"faz": "alterna"
+},
+{
+"tela": "ajustes",
+"txt": "Pagamento automático Desligado",
+"act": "",
+"cara": "texto",
+"fs": "15px",
+"h": 60,
+"faz": "alterna"
+},
+{
+"tela": "caixa-reservado",
+"txt": "Ver para onde vai o que já tem dono: rep",
+"act": "dfold",
+"cara": "texto",
+"fs": "15px",
+"h": 67,
+"faz": "muda a tela"
+},
+{
+"tela": "caixa-reservado",
+"txt": "Próximos 30 dias Saldo G$ 6.456.174 · co",
+"act": "dfold",
+"cara": "texto",
+"fs": "15px",
+"h": 67,
+"faz": "sumiu"
+},
+{
+"tela": "dash-contas-dia",
+"txt": "Imprevistos do mês Gasto G$ 60.000 de G$",
+"act": "dfold",
+"cara": "texto",
+"fs": "15px",
+"h": 67,
+"faz": "muda a tela"
+},
+{
+"tela": "dash-contas-dia",
+"txt": "Contas pagas neste mês 4 conta(s) paga(s",
+"act": "dfold",
+"cara": "texto",
+"fs": "15px",
+"h": 67,
+"faz": "muda a tela"
+},
+{
+"tela": "dash-mes-vendido",
+"txt": "Semana 02/11 a 08/11 G$ 2.595.500 · 42 v",
+"act": "hSem",
+"cara": "texto",
+"fs": "15px",
+"h": 79,
+"faz": "muda a tela"
+},
+{
+"tela": "dash-mes-vendido",
+"txt": "Semana 01/11 G$ 120.000 · 2 vendas · 1 d",
+"act": "hSem",
+"cara": "texto",
+"fs": "15px",
+"h": 78,
+"faz": "muda a tela"
+},
+{
+"tela": "dash-mes-vendido",
+"txt": "Semana 26/10 a 31/10 G$ 1.230.500 · 30 v",
+"act": "hSem",
+"cara": "texto",
+"fs": "15px",
+"h": 79,
+"faz": "muda a tela"
+},
+{
+"tela": "dash-mes-vendido",
+"txt": "Semana 19/10 a 25/10 G$ 1.452.500 · 31 v",
+"act": "hSem",
+"cara": "texto",
+"fs": "15px",
+"h": 78,
+"faz": "muda a tela"
+},
+{
+"tela": "dash-semana",
+"txt": "Resultado do mês Lucro real, o que mais ",
+"act": "d48Abre",
+"cara": "texto",
+"fs": "15px",
+"h": 71,
+"faz": "muda a tela"
+},
+{
+"tela": "dash-semana",
+"txt": "Quanto separar do que você vendeu Cada c",
+"act": "d48Abre",
+"cara": "texto",
+"fs": "15px",
+"h": 71,
+"faz": "muda a tela"
+},
+{
+"tela": "dash-semana",
+"txt": "Vendas do período Cada venda com o valor",
+"act": "d48Abre",
+"cara": "texto",
+"fs": "15px",
+"h": 71,
+"faz": "muda a tela"
+},
+{
+"tela": "despesas-nova",
+"txt": "Nova despesa Água, luz, aluguel… fixa ou",
+"act": "dfold",
+"cara": "texto",
+"fs": "15px",
+"h": 67,
+"faz": "muda a tela"
+},
+{
+"tela": "despesas-nova",
+"txt": "Imprevistos do mês Gasto G$ 60.000 de G$",
+"act": "dfold",
+"cara": "texto",
+"fs": "15px",
+"h": 67,
+"faz": "muda a tela"
+},
+{
+"tela": "despesas-nova",
+"txt": "Contas pagas neste mês 4 conta(s) paga(s",
+"act": "dfold",
+"cara": "texto",
+"fs": "15px",
+"h": 67,
+"faz": "muda a tela"
+},
+{
+"tela": "giro-lista-compras",
+"txt": "Lista de compras 8 produto(s) vão acabar",
+"act": "dfold",
+"cara": "texto",
+"fs": "15px",
+"h": 67,
+"faz": "muda a tela"
+},
+{
+"tela": "giro-lista-compras",
+"txt": "Vitrine da semana diga quantos lugares t",
+"act": "dfold",
+"cara": "texto",
+"fs": "15px",
+"h": 67,
+"faz": "muda a tela"
+},
+{
+"tela": "giro-lista-compras",
+"txt": "Retorno do estoque cada US$ 1 investido ",
+"act": "dfold",
+"cara": "texto",
+"fs": "15px",
+"h": 67,
+"faz": "muda a tela"
+},
+{
+"tela": "giro-lista-compras",
+"txt": "Curva ABC quais produtos dão 80% do lucr",
+"act": "dfold",
+"cara": "texto",
+"fs": "15px",
+"h": 67,
+"faz": "muda a tela"
+},
+{
+"tela": "giro-retorno",
+"txt": "Lista de compras 8 produto(s) vão acabar",
+"act": "dfold",
+"cara": "texto",
+"fs": "15px",
+"h": 67,
+"faz": "muda a tela"
+},
+{
+"tela": "giro-retorno",
+"txt": "Vitrine da semana diga quantos lugares t",
+"act": "dfold",
+"cara": "texto",
+"fs": "15px",
+"h": 67,
+"faz": "muda a tela"
+},
+{
+"tela": "giro-retorno",
+"txt": "Retorno do estoque cada US$ 1 investido ",
+"act": "dfold",
+"cara": "texto",
+"fs": "15px",
+"h": 67,
+"faz": "muda a tela"
+},
+{
+"tela": "giro-retorno",
+"txt": "Curva ABC quais produtos dão 80% do lucr",
+"act": "dfold",
+"cara": "texto",
+"fs": "15px",
+"h": 67,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-lista",
+"txt": "Semana 02/11 a 08/11 G$ 2.595.500 · 42 v",
+"act": "hSem",
+"cara": "texto",
+"fs": "15px",
+"h": 79,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-lista",
+"txt": "Semana 01/11 G$ 120.000 · 2 vendas · 1 d",
+"act": "hSem",
+"cara": "texto",
+"fs": "15px",
+"h": 78,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-lista",
+"txt": "Semana 26/10 a 31/10 G$ 1.230.500 · 30 v",
+"act": "hSem",
+"cara": "texto",
+"fs": "15px",
+"h": 79,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-lista",
+"txt": "Semana 19/10 a 25/10 G$ 1.452.500 · 31 v",
+"act": "hSem",
+"cara": "texto",
+"fs": "15px",
+"h": 78,
+"faz": "muda a tela"
+},
+{
+"tela": "precos",
+"txt": "Contas, taxas e meta contas do mês, form",
+"act": "dfold",
+"cara": "texto",
+"fs": "15px",
+"h": 67,
+"faz": "muda a tela"
+},
+{
+"tela": "reservas-para-onde",
+"txt": "Ver para onde vai o que já tem dono: rep",
+"act": "dfold",
+"cara": "texto",
+"fs": "15px",
+"h": 67,
+"faz": "muda a tela"
+},
+{
+"tela": "reservas-para-onde",
+"txt": "Próximos 30 dias Saldo G$ 6.454.632 · co",
+"act": "dfold",
+"cara": "texto",
+"fs": "15px",
+"h": 67,
+"faz": "sumiu"
+}
+],
+"linha": [
+{
+"tela": "ajustes",
+"txt": "Site frete, PIX, idioma",
+"act": "",
+"cara": "texto",
+"fs": "15px",
+"h": 60,
+"faz": "leva → onl"
+},
+{
+"tela": "atacado-tabela",
+"txt": "Enviar catálogo a um lojista Abre o Comp",
+"act": "ataEnvLoj",
+"cara": "texto",
+"fs": "15px",
+"h": 94,
+"faz": "abre janela \"Compartilhar\""
+},
+{
+"tela": "atacado-tabela",
+"txt": "Ver a tabela de atacado Os preços como o",
+"act": "ataVerTab",
+"cara": "texto",
+"fs": "15px",
+"h": 75,
+"faz": "abre janela \"Tabela de atacado\""
+},
+{
+"tela": "atacado-tabela",
+"txt": "Editar tabelas Margem, mínimo e frete de",
+"act": "tabedit",
+"cara": "texto",
+"fs": "15px",
+"h": 74,
+"faz": "abre janela \"Tabela de preço\""
+},
+{
+"tela": "cambio",
+"txt": "DÓLAR G$ 6.487 — estável",
+"act": "fjAbre",
+"cara": "texto",
+"fs": "15px",
+"h": 85,
+"faz": "abre janela \"Dólar · G$ 6.487\""
+},
+{
+"tela": "cambio",
+"txt": "REAL G$ 1.196 ▼ 0,7% 7 dias",
+"act": "fjAbre",
+"cara": "barra grande",
+"fs": "15px",
+"h": 86,
+"faz": "abre janela \"Real · G$ 1.196\""
+},
+{
+"tela": "cambio",
+"txt": "DÓLAR EM REAIS R$ 5,43 ▲ 0,9% 7 dias",
+"act": "fjAbre",
+"cara": "barra grande",
+"fs": "15px",
+"h": 86,
+"faz": "abre janela \"Dólar em reais · R$ 5,43\""
+},
+{
+"tela": "cambio",
+"txt": "Faltam US$ 2.838 Normal ›",
+"act": "fjAbre",
+"cara": "texto",
+"fs": "15px",
+"h": 45,
+"faz": "abre janela \"Por que está normal\""
+},
+{
+"tela": "cambio",
+"txt": "Registrar troca",
+"act": "fjAbre",
+"cara": "barra grande",
+"fs": "16px",
+"h": 52,
+"faz": "abre janela \"Registrar troca\""
+},
+{
+"tela": "cambio",
+"txt": "Últimas trocas 12 ›",
+"act": "fjAbre",
+"cara": "texto",
+"fs": "15px",
+"h": 55,
+"faz": "abre janela \"Últimas trocas\""
+},
+{
+"tela": "cambio",
+"txt": "Preços no site cotação da loja travada ›",
+"act": "fjAbre",
+"cara": "texto",
+"fs": "15px",
+"h": 68,
+"faz": "abre janela \"Preços no site\""
+},
+{
+"tela": "cambio",
+"txt": "Como o app te protege colchão 13,0% ›",
+"act": "fjAbre",
+"cara": "texto",
+"fs": "15px",
+"h": 68,
+"faz": "abre janela \"Como o app te protege\""
+},
+{
+"tela": "catalogo-peca",
+"txt": "· Sem detalhe 343 un.",
+"act": "",
+"cara": "barra grande",
+"fs": "14px",
+"h": 48,
+"faz": "nada visível"
+},
+{
+"tela": "dash-contas-dia",
+"txt": "Aluguel da loja fixa · vence dia 5 G$ 90",
+"act": "despAb",
+"cara": "texto",
+"fs": "15px",
+"h": 54,
+"faz": "muda a tela"
+},
+{
+"tela": "dash-contas-dia",
+"txt": "Luz venceu há 4 dias · informe o valor G",
+"act": "despAb",
+"cara": "texto",
+"fs": "15px",
+"h": 72,
+"faz": "muda a tela"
+},
+{
+"tela": "dash-contas-dia",
+"txt": "Internet fixa · vence dia 10 G$ 120.000 ",
+"act": "despAb",
+"cara": "texto",
+"fs": "15px",
+"h": 54,
+"faz": "muda a tela"
+},
+{
+"tela": "dash-contas-dia",
+"txt": "Contas de casa venceu há 7 dias · inform",
+"act": "despAb",
+"cara": "texto",
+"fs": "15px",
+"h": 72,
+"faz": "muda a tela"
+},
+{
+"tela": "dash-contas-dia",
+"txt": "Salário (retirada) fixa · vence dia 5 G$",
+"act": "despAb",
+"cara": "texto",
+"fs": "15px",
+"h": 54,
+"faz": "muda a tela"
+},
+{
+"tela": "dash-contas-dia",
+"txt": "Contador vence amanhã G$ 300.000 ⌄",
+"act": "despAb",
+"cara": "texto",
+"fs": "15px",
+"h": 54,
+"faz": "muda a tela"
+},
+{
+"tela": "dash-contas-dia",
+"txt": "Provisão de imprevistos fixa · vence dia",
+"act": "despAb",
+"cara": "texto",
+"fs": "15px",
+"h": 76,
+"faz": "muda a tela"
+},
+{
+"tela": "dash-folha-ver",
+"txt": "Contas do dia G$ 140.000 1/30 de G$ 4.20",
+"act": "view",
+"cara": "texto",
+"fs": "15px",
+"h": 69,
+"faz": "leva → desp"
+},
+{
+"tela": "dash-folha-ver",
+"txt": "1× YS8801 C4 · Marrom V-1966 · 19/11 às ",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 69,
+"faz": "muda a tela"
+},
+{
+"tela": "dash-folha-ver",
+"txt": "1× SP58110 +2.00 · Preto V-1968 · 19/11 ",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 68,
+"faz": "muda a tela"
+},
+{
+"tela": "dash-folha-ver",
+"txt": "1× SP57765 +0.75 · Preto V-1969 · 19/11 ",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 69,
+"faz": "muda a tela"
+},
+{
+"tela": "dash-folha-ver",
+"txt": "2× SP61200 +2.00 · Preto V-1967 · 19/11 ",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 69,
+"faz": "muda a tela"
+},
+{
+"tela": "dash-folha-ver",
+"txt": "1× SP58110 +1.25 · Preto V-1965 · 19/11 ",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 68,
+"faz": "muda a tela"
+},
+{
+"tela": "dash-folha-ver",
+"txt": "Dias anteriores no Histórico ›",
+"act": "view",
+"cara": "texto",
+"fs": "13px",
+"h": 46,
+"faz": "leva → hist"
+},
+{
+"tela": "dash-mes-vendido",
+"txt": "19/11 · hojequi G$ 182.000 › 5 vendas · ",
+"act": "opendia",
+"cara": "texto",
+"fs": "15px",
+"h": 70,
+"faz": "leva → dia"
+},
+{
+"tela": "dash-mes-vendido",
+"txt": "18/11qua G$ 500.000 › 10 vendas · lucro ",
+"act": "opendia",
+"cara": "texto",
+"fs": "15px",
+"h": 70,
+"faz": "leva → dia"
+},
+{
+"tela": "dash-mes-vendido",
+"txt": "17/11ter G$ 459.000 › 7 vendas · 1 outro",
+"act": "opendia",
+"cara": "texto",
+"fs": "15px",
+"h": 88,
+"faz": "leva → dia"
+},
+{
+"tela": "dash-mes-vendido",
+"txt": "16/11seg G$ 148.500 › 4 vendas · 1 despe",
+"act": "opendia",
+"cara": "texto",
+"fs": "15px",
+"h": 88,
+"faz": "leva → dia"
+},
+{
+"tela": "dash-mes-vendido",
+"txt": "15/11dom G$ 23.000 › 1 venda · lucro liv",
+"act": "opendia",
+"cara": "texto",
+"fs": "15px",
+"h": 70,
+"faz": "leva → dia"
+},
+{
+"tela": "dash-mes-vendido",
+"txt": "14/11sáb G$ 502.000 › 11 vendas · 1 outr",
+"act": "opendia",
+"cara": "texto",
+"fs": "15px",
+"h": 88,
+"faz": "leva → dia"
+},
+{
+"tela": "dash-mes-vendido",
+"txt": "13/11sex G$ 257.500 › 6 vendas · gastos ",
+"act": "opendia",
+"cara": "texto",
+"fs": "15px",
+"h": 88,
+"faz": "leva → dia"
+},
+{
+"tela": "dash-mes-vendido",
+"txt": "12/11qui G$ 256.500 › 7 vendas · lucro l",
+"act": "opendia",
+"cara": "texto",
+"fs": "15px",
+"h": 70,
+"faz": "leva → dia"
+},
+{
+"tela": "dash-mes-vendido",
+"txt": "11/11qua G$ 194.000 › 3 vendas · gastos ",
+"act": "opendia",
+"cara": "texto",
+"fs": "15px",
+"h": 88,
+"faz": "leva → dia"
+},
+{
+"tela": "dash-mes-vendido",
+"txt": "10/11ter G$ 463.500 › 6 vendas · 1 despe",
+"act": "opendia",
+"cara": "texto",
+"fs": "15px",
+"h": 88,
+"faz": "leva → dia"
+},
+{
+"tela": "dash-mes-vendido",
+"txt": "09/11seg G$ 188.000 › 5 vendas · 1 outro",
+"act": "opendia",
+"cara": "texto",
+"fs": "15px",
+"h": 70,
+"faz": "leva → dia"
+},
+{
+"tela": "despesas-nova",
+"txt": "Aluguel da loja fixa · vence dia 5 G$ 90",
+"act": "despAb",
+"cara": "texto",
+"fs": "15px",
+"h": 54,
+"faz": "muda a tela"
+},
+{
+"tela": "despesas-nova",
+"txt": "Luz venceu há 4 dias · informe o valor G",
+"act": "despAb",
+"cara": "texto",
+"fs": "15px",
+"h": 72,
+"faz": "muda a tela"
+},
+{
+"tela": "despesas-nova",
+"txt": "Internet fixa · vence dia 10 G$ 120.000 ",
+"act": "despAb",
+"cara": "texto",
+"fs": "15px",
+"h": 54,
+"faz": "muda a tela"
+},
+{
+"tela": "despesas-nova",
+"txt": "Contas de casa venceu há 7 dias · inform",
+"act": "despAb",
+"cara": "texto",
+"fs": "15px",
+"h": 72,
+"faz": "muda a tela"
+},
+{
+"tela": "despesas-nova",
+"txt": "Salário (retirada) fixa · vence dia 5 G$",
+"act": "despAb",
+"cara": "texto",
+"fs": "15px",
+"h": 54,
+"faz": "muda a tela"
+},
+{
+"tela": "despesas-nova",
+"txt": "Contador vence amanhã G$ 300.000 ⌄",
+"act": "despAb",
+"cara": "texto",
+"fs": "15px",
+"h": 54,
+"faz": "muda a tela"
+},
+{
+"tela": "despesas-nova",
+"txt": "Provisão de imprevistos fixa · vence dia",
+"act": "despAb",
+"cara": "texto",
+"fs": "15px",
+"h": 76,
+"faz": "muda a tela"
+},
+{
+"tela": "giro-no-estoque",
+"txt": "Lote Kazwini Pré-graduados G$ 25.000 343",
+"act": "",
+"cara": "caixa",
+"fs": "15px",
+"h": 265,
+"faz": "muda a tela"
+},
+{
+"tela": "grp-dinheiro",
+"txt": "Caixa O dinheiro da loja, por moeda ›",
+"act": "nvIr",
+"cara": "texto",
+"fs": "15px",
+"h": 44,
+"faz": "leva → caixa"
+},
+{
+"tela": "grp-dinheiro",
+"txt": "Despesas Contas do mês e imprevistos ›",
+"act": "nvIr",
+"cara": "texto",
+"fs": "15px",
+"h": 44,
+"faz": "leva → desp"
+},
+{
+"tela": "grp-dinheiro",
+"txt": "Câmbio Cotações e trocas ›",
+"act": "nvIr",
+"cara": "texto",
+"fs": "15px",
+"h": 44,
+"faz": "leva → fx"
+},
+{
+"tela": "hist-busca",
+"txt": "2× SL2210 C3 · Tartaruga V-1964 · 18/11 ",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 68,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "1× SP60627 +1.00 · Bege translúcido V-19",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 90,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "1× SL2201 C6 · Dourado V-1948 · 17/11 às",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 69,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "1× SL2201 C1 · Preto V-1954 · 17/11 às 1",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 68,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "1× SL2201 C1 · Preto V-1949 · 17/11 às 1",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 69,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "1× BR44118 C2 · Bege translúcido V-1925 ",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 69,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "1× SP60627 +3.50 · Bege translúcido V-19",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 90,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "2× SP60627 +3.50 · Bege translúcido V-19",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 90,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "1× SP60627 +1.50 · Bege translúcido V-19",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 90,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "1× SP60627 +3.50 · Bege translúcido V-19",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 90,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "2× SL2201 C1 · Preto V-1917 · 11/11 às 1",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 69,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "2× SL2210 C3 · Tartaruga V-1911 · 10/11 ",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 68,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "1× SL2201 C6 · Dourado V-1913 · 10/11 às",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 68,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "2× SL2210 C1 · Preto V-1915 · 10/11 às 1",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 68,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "1× SL2201 C1 · Preto V-1907 · 09/11 às 0",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 68,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "1× SL2210 C3 · Tartaruga V-1899 · 07/11 ",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 69,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "1× SL2201 C1 · Preto V-1895 · 07/11 às 1",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 68,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "2× SL2210 C3 · Tartaruga V-1896 · 07/11 ",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 69,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "1× SP60627 +3.50 · Bege translúcido V-19",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 90,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "2× SL2210 C1 · Preto V-1898 · 07/11 às 0",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 68,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "3× SL2210 C3 · Tartaruga V-1886 · 06/11 ",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 69,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "1× SL2201 C6 · Dourado V-1891 · 06/11 às",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 68,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "1× SP60627 +2.00 · Bege translúcido V-18",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 90,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "2× SL2201 C6 · Dourado V-1880 · 05/11 às",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 68,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "1× SP60627 +2.00 · Bege translúcido V-18",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 90,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "1× SP60627 +1.00 · Bege translúcido V-18",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 90,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "1× SL2201 C6 · Dourado V-1871 · 03/11 às",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 68,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "1× SL2201 C1 · Preto V-1873 · 03/11 às 1",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 68,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "1× SP60627 +1.00 · Bege translúcido V-18",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 90,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-busca",
+"txt": "3× SP60627 +3.50 · Bege translúcido V-18",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 90,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-dia",
+"txt": "Contas do dia G$ 140.000 1/30 de G$ 4.20",
+"act": "view",
+"cara": "",
+"fs": "",
+"h": 0,
+"faz": "sumiu"
+},
+{
+"tela": "hist-dia",
+"txt": "1× YS8801 C4 · Marrom V-1966 · 19/11 às ",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 69,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-dia",
+"txt": "1× SP58110 +2.00 · Preto V-1968 · 19/11 ",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 68,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-dia",
+"txt": "1× SP57765 +0.75 · Preto V-1969 · 19/11 ",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 69,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-dia",
+"txt": "2× SP61200 +2.00 · Preto V-1967 · 19/11 ",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 69,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-dia",
+"txt": "1× SP58110 +1.25 · Preto V-1965 · 19/11 ",
+"act": "hopen",
+"cara": "texto",
+"fs": "15px",
+"h": 68,
+"faz": "muda a tela"
+},
+{
+"tela": "hist-dia",
+"txt": "Dias anteriores no Histórico ›",
+"act": "view",
+"cara": "texto",
+"fs": "15px",
+"h": 44,
+"faz": "leva → hist"
+},
+{
+"tela": "hist-lista",
+"txt": "19/11 · hojequi G$ 182.000 › 5 vendas · ",
+"act": "opendia",
+"cara": "texto",
+"fs": "15px",
+"h": 70,
+"faz": "leva → dia"
+},
+{
+"tela": "hist-lista",
+"txt": "18/11qua G$ 500.000 › 10 vendas · lucro ",
+"act": "opendia",
+"cara": "texto",
+"fs": "15px",
+"h": 70,
+"faz": "leva → dia"
+},
+{
+"tela": "hist-lista",
+"txt": "17/11ter G$ 459.000 › 7 vendas · 1 outro",
+"act": "opendia",
+"cara": "texto",
+"fs": "15px",
+"h": 88,
+"faz": "leva → dia"
+},
+{
+"tela": "hist-lista",
+"txt": "16/11seg G$ 148.500 › 4 vendas · 1 despe",
+"act": "opendia",
+"cara": "texto",
+"fs": "15px",
+"h": 88,
+"faz": "leva → dia"
+},
+{
+"tela": "hist-lista",
+"txt": "15/11dom G$ 23.000 › 1 venda · lucro liv",
+"act": "opendia",
+"cara": "texto",
+"fs": "15px",
+"h": 70,
+"faz": "leva → dia"
+},
+{
+"tela": "hist-lista",
+"txt": "14/11sáb G$ 502.000 › 11 vendas · 1 outr",
+"act": "opendia",
+"cara": "texto",
+"fs": "15px",
+"h": 88,
+"faz": "leva → dia"
+},
+{
+"tela": "hist-lista",
+"txt": "13/11sex G$ 257.500 › 6 vendas · gastos ",
+"act": "opendia",
+"cara": "texto",
+"fs": "15px",
+"h": 88,
+"faz": "leva → dia"
+},
+{
+"tela": "hist-lista",
+"txt": "12/11qui G$ 256.500 › 7 vendas · lucro l",
+"act": "opendia",
+"cara": "texto",
+"fs": "15px",
+"h": 70,
+"faz": "leva → dia"
+},
+{
+"tela": "hist-lista",
+"txt": "11/11qua G$ 194.000 › 3 vendas · gastos ",
+"act": "opendia",
+"cara": "texto",
+"fs": "15px",
+"h": 88,
+"faz": "leva → dia"
+},
+{
+"tela": "hist-lista",
+"txt": "10/11ter G$ 463.500 › 6 vendas · 1 despe",
+"act": "opendia",
+"cara": "texto",
+"fs": "15px",
+"h": 88,
+"faz": "leva → dia"
+},
+{
+"tela": "hist-lista",
+"txt": "09/11seg G$ 188.000 › 5 vendas · 1 outro",
+"act": "opendia",
+"cara": "texto",
+"fs": "15px",
+"h": 70,
+"faz": "leva → dia"
+},
+{
+"tela": "inicio",
+"txt": "Guardião · 7 coisas para olhar ›",
+"act": "view",
+"cara": "barra grande",
+"fs": "15px",
+"h": 59,
+"faz": "leva → notif"
+},
+{
+"tela": "inventario-ficha",
+"txt": "· Sem detalhesem foto 343 un.",
+"act": "",
+"cara": "barra grande",
+"fs": "14px",
+"h": 48,
+"faz": "nada visível"
+},
+{
+"tela": "inventario-fornecedores",
+"txt": "Lista de compras · 18 acabando ›",
+"act": "lcIrGiro",
+"cara": "texto",
+"fs": "15px",
+"h": 44,
+"faz": "leva → dash"
+},
+{
+"tela": "inventario-novo",
+"txt": "BR44118 Preto",
+"act": "enAbre",
+"cara": "caixa",
+"fs": "15px",
+"h": 113,
+"faz": "abre janela \"Armação Gucci de metal femi"
+},
+{
+"tela": "inventario-novo",
+"txt": "BR44133 Vinho",
+"act": "enAbre",
+"cara": "caixa",
+"fs": "15px",
+"h": 113,
+"faz": "abre janela \"Armação Armani de acetato f"
+},
+{
+"tela": "inventario-novo",
+"txt": "SP58110 Pré-graduado",
+"act": "enAbre",
+"cara": "caixa",
+"fs": "15px",
+"h": 113,
+"faz": "muda a tela"
+},
+{
+"tela": "marketing",
+"txt": "Seg · Post · 20h Peça do objetivo — Ócul",
+"act": "",
+"cara": "texto",
+"fs": "14px",
+"h": 46,
+"faz": "abre janela \"Post\""
+},
+{
+"tela": "marketing",
+"txt": "Ter · Status · 12h Status do dia — Óculo",
+"act": "",
+"cara": "texto",
+"fs": "14px",
+"h": 46,
+"faz": "abre janela \"Status\""
+},
+{
+"tela": "marketing",
+"txt": "Qua · Carrossel · 20h Carrossel com 4 pe",
+"act": "",
+"cara": "texto",
+"fs": "14px",
+"h": 63,
+"faz": "abre janela \"Carrossel\""
+},
+{
+"tela": "marketing",
+"txt": "Qui · Story · 20h Bastidores / chegada —",
+"act": "",
+"cara": "texto",
+"fs": "14px",
+"h": 46,
+"faz": "abre janela \"Story\""
+},
+{
+"tela": "marketing",
+"txt": "Sex · Vídeo · 20h Vídeo de 15 s — Óculos",
+"act": "",
+"cara": "texto",
+"fs": "14px",
+"h": 63,
+"faz": "abre janela \"Vídeo\""
+},
+{
+"tela": "marketing",
+"txt": "Sáb · Post · 20h Oferta ou mais vendido ",
+"act": "",
+"cara": "texto",
+"fs": "14px",
+"h": 63,
+"faz": "abre janela \"Post\""
+},
+{
+"tela": "pendencias",
+"txt": "SP57765",
+"act": "abreRef",
+"cara": "",
+"fs": "",
+"h": 0,
+"faz": "leva → estoque"
+},
+{
+"tela": "pendencias",
+"txt": "SP58110",
+"act": "abreRef",
+"cara": "",
+"fs": "",
+"h": 0,
+"faz": "leva → estoque"
+},
+{
+"tela": "pendencias",
+"txt": "SP60627",
+"act": "abreRef",
+"cara": "",
+"fs": "",
+"h": 0,
+"faz": "leva → estoque"
+},
+{
+"tela": "pendencias",
+"txt": "Ver todas as conferências do Guardião ›",
+"act": "guardAbre",
+"cara": "texto",
+"fs": "15px",
+"h": 44,
+"faz": "abre janela \"Guardião\""
+},
+{
+"tela": "precos",
+"txt": "Contas do mês cobertas 86% faltam 23 peç",
+"act": "view",
+"cara": "caixa",
+"fs": "15px",
+"h": 109,
+"faz": "leva → desp"
+},
+{
+"tela": "precos",
+"txt": "Preços para corrigir 15",
+"act": "x66",
+"cara": "caixa",
+"fs": "15px",
+"h": 109,
+"faz": "muda a tela"
+},
+{
+"tela": "precos",
+"txt": "15 preços para corrigir 10 com sugestão ",
+"act": "x66",
+"cara": "texto",
+"fs": "15px",
+"h": 75,
+"faz": "muda a tela"
+},
+{
+"tela": "reservas-para-onde",
+"txt": "Objetivos da loja › guardado no Caixa",
+"act": "view",
+"cara": "texto",
+"fs": "15px",
+"h": 51,
+"faz": "leva → caixa"
+}
+],
+"maistx": [
+{
+"tela": "atacado-lojistas",
+"txt": "+ Novo acesso",
+"act": "ataNovo",
+"cara": "pílula",
+"fs": "15px",
+"h": 44,
+"faz": "abre janela \"Novo acesso ao atacado\""
+},
+{
+"tela": "atacado-lotes",
+"txt": "+ Criar lote",
+"act": "ataLoteNovo",
+"cara": "texto",
+"fs": "15px",
+"h": 44,
+"faz": "abre janela \"Novo lote\""
+},
+{
+"tela": "atacado-tabela",
+"txt": "+ Novo acesso",
+"act": "ataNovo",
+"cara": "pílula",
+"fs": "15px",
+"h": 44,
+"faz": "abre janela \"Novo acesso ao atacado\""
+},
+{
+"tela": "catalogo-carrinho",
+"txt": "+ Adicionar outra peça",
+"act": "cartclose",
+"cara": "texto",
+"fs": "15px",
+"h": 44,
+"faz": "muda a tela"
+},
+{
+"tela": "catalogo-pagamento",
+"txt": "+ Receber parte em outra moeda",
+"act": "",
+"cara": "texto",
+"fs": "15px",
+"h": 44,
+"faz": "muda a tela"
+},
+{
+"tela": "dash-contas-dia",
+"txt": "+ Nova",
+"act": "despNova",
+"cara": "pílula",
+"fs": "15px",
+"h": 44,
+"faz": "muda a tela"
+},
+{
+"tela": "despesas-nova",
+"txt": "+ Nova",
+"act": "despNova",
+"cara": "pílula",
+"fs": "15px",
+"h": 44,
+"faz": "muda a tela"
+}
+],
+"escolha": [
 {
 "tela": "atacado-lojistas",
 "txt": "Mensagens",
@@ -531,6 +1833,24 @@
 "cara": "texto",
 "fs": "15px",
 "h": 44,
+"faz": "muda a tela"
+},
+{
+"tela": "atacado-novo-acesso",
+"txt": "Lojista fixo não vence",
+"act": "",
+"cara": "caixa",
+"fs": "15px",
+"h": 74,
+"faz": "nada visível"
+},
+{
+"tela": "atacado-novo-acesso",
+"txt": "Visitante vence em 3 dias",
+"act": "",
+"cara": "caixa",
+"fs": "15px",
+"h": 74,
 "faz": "muda a tela"
 },
 {
@@ -1335,1371 +2655,6 @@
 "faz": "muda a tela"
 }
 ],
-"linha": [
-{
-"tela": "ajustes",
-"txt": "Site frete, PIX, idioma",
-"act": "",
-"cara": "texto",
-"fs": "15px",
-"h": 60,
-"faz": "leva → onl"
-},
-{
-"tela": "atacado-novo-acesso",
-"txt": "Lojista fixo não vence",
-"act": "",
-"cara": "caixa",
-"fs": "15px",
-"h": 74,
-"faz": "nada visível"
-},
-{
-"tela": "atacado-novo-acesso",
-"txt": "Visitante vence em 3 dias",
-"act": "",
-"cara": "caixa",
-"fs": "15px",
-"h": 74,
-"faz": "muda a tela"
-},
-{
-"tela": "atacado-tabela",
-"txt": "Enviar catálogo a um lojista Abre o Comp",
-"act": "ataEnvLoj",
-"cara": "texto",
-"fs": "15px",
-"h": 94,
-"faz": "abre janela \"Compartilhar\""
-},
-{
-"tela": "atacado-tabela",
-"txt": "Ver a tabela de atacado Os preços como o",
-"act": "ataVerTab",
-"cara": "texto",
-"fs": "15px",
-"h": 75,
-"faz": "abre janela \"Tabela de atacado\""
-},
-{
-"tela": "atacado-tabela",
-"txt": "Editar tabelas Margem, mínimo e frete de",
-"act": "tabedit",
-"cara": "texto",
-"fs": "15px",
-"h": 74,
-"faz": "abre janela \"Tabela de preço\""
-},
-{
-"tela": "cambio",
-"txt": "DÓLAR G$ 6.487 — estável",
-"act": "fjAbre",
-"cara": "texto",
-"fs": "15px",
-"h": 85,
-"faz": "abre janela \"Dólar · G$ 6.487\""
-},
-{
-"tela": "cambio",
-"txt": "REAL G$ 1.196 ▼ 0,7% 7 dias",
-"act": "fjAbre",
-"cara": "barra grande",
-"fs": "15px",
-"h": 86,
-"faz": "abre janela \"Real · G$ 1.196\""
-},
-{
-"tela": "cambio",
-"txt": "DÓLAR EM REAIS R$ 5,43 ▲ 0,9% 7 dias",
-"act": "fjAbre",
-"cara": "barra grande",
-"fs": "15px",
-"h": 86,
-"faz": "abre janela \"Dólar em reais · R$ 5,43\""
-},
-{
-"tela": "cambio",
-"txt": "Faltam US$ 2.838 Normal ›",
-"act": "fjAbre",
-"cara": "texto",
-"fs": "15px",
-"h": 45,
-"faz": "abre janela \"Por que está normal\""
-},
-{
-"tela": "cambio",
-"txt": "Registrar troca",
-"act": "fjAbre",
-"cara": "barra grande",
-"fs": "16px",
-"h": 52,
-"faz": "abre janela \"Registrar troca\""
-},
-{
-"tela": "cambio",
-"txt": "Últimas trocas 12 ›",
-"act": "fjAbre",
-"cara": "texto",
-"fs": "15px",
-"h": 55,
-"faz": "abre janela \"Últimas trocas\""
-},
-{
-"tela": "cambio",
-"txt": "Preços no site cotação da loja travada ›",
-"act": "fjAbre",
-"cara": "texto",
-"fs": "15px",
-"h": 68,
-"faz": "abre janela \"Preços no site\""
-},
-{
-"tela": "cambio",
-"txt": "Como o app te protege colchão 13,0% ›",
-"act": "fjAbre",
-"cara": "texto",
-"fs": "15px",
-"h": 68,
-"faz": "abre janela \"Como o app te protege\""
-},
-{
-"tela": "catalogo-peca",
-"txt": "· Sem detalhe 343 un.",
-"act": "",
-"cara": "barra grande",
-"fs": "14px",
-"h": 48,
-"faz": "nada visível"
-},
-{
-"tela": "dash-contas-dia",
-"txt": "Aluguel da loja fixa · vence dia 5 G$ 90",
-"act": "despAb",
-"cara": "texto",
-"fs": "15px",
-"h": 54,
-"faz": "muda a tela"
-},
-{
-"tela": "dash-contas-dia",
-"txt": "Luz venceu há 4 dias · informe o valor G",
-"act": "despAb",
-"cara": "texto",
-"fs": "15px",
-"h": 72,
-"faz": "muda a tela"
-},
-{
-"tela": "dash-contas-dia",
-"txt": "Internet fixa · vence dia 10 G$ 120.000 ",
-"act": "despAb",
-"cara": "texto",
-"fs": "15px",
-"h": 54,
-"faz": "muda a tela"
-},
-{
-"tela": "dash-contas-dia",
-"txt": "Contas de casa venceu há 7 dias · inform",
-"act": "despAb",
-"cara": "texto",
-"fs": "15px",
-"h": 72,
-"faz": "muda a tela"
-},
-{
-"tela": "dash-contas-dia",
-"txt": "Salário (retirada) fixa · vence dia 5 G$",
-"act": "despAb",
-"cara": "texto",
-"fs": "15px",
-"h": 54,
-"faz": "muda a tela"
-},
-{
-"tela": "dash-contas-dia",
-"txt": "Contador vence amanhã G$ 300.000 ⌄",
-"act": "despAb",
-"cara": "texto",
-"fs": "15px",
-"h": 54,
-"faz": "muda a tela"
-},
-{
-"tela": "dash-contas-dia",
-"txt": "Provisão de imprevistos fixa · vence dia",
-"act": "despAb",
-"cara": "texto",
-"fs": "15px",
-"h": 76,
-"faz": "muda a tela"
-},
-{
-"tela": "dash-folha-ver",
-"txt": "1× YS8801 C4 · Marrom V-1966 · 19/11 às ",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 69,
-"faz": "muda a tela"
-},
-{
-"tela": "dash-folha-ver",
-"txt": "1× SP58110 +2.00 · Preto V-1968 · 19/11 ",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 68,
-"faz": "muda a tela"
-},
-{
-"tela": "dash-folha-ver",
-"txt": "1× SP57765 +0.75 · Preto V-1969 · 19/11 ",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 69,
-"faz": "muda a tela"
-},
-{
-"tela": "dash-folha-ver",
-"txt": "2× SP61200 +2.00 · Preto V-1967 · 19/11 ",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 69,
-"faz": "muda a tela"
-},
-{
-"tela": "dash-folha-ver",
-"txt": "1× SP58110 +1.25 · Preto V-1965 · 19/11 ",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 68,
-"faz": "muda a tela"
-},
-{
-"tela": "dash-mes-vendido",
-"txt": "19/11 · hojequi G$ 182.000 › 5 vendas · ",
-"act": "opendia",
-"cara": "texto",
-"fs": "15px",
-"h": 70,
-"faz": "leva → dia"
-},
-{
-"tela": "dash-mes-vendido",
-"txt": "18/11qua G$ 500.000 › 10 vendas · lucro ",
-"act": "opendia",
-"cara": "texto",
-"fs": "15px",
-"h": 70,
-"faz": "leva → dia"
-},
-{
-"tela": "dash-mes-vendido",
-"txt": "17/11ter G$ 459.000 › 7 vendas · 1 outro",
-"act": "opendia",
-"cara": "texto",
-"fs": "15px",
-"h": 88,
-"faz": "leva → dia"
-},
-{
-"tela": "dash-mes-vendido",
-"txt": "16/11seg G$ 148.500 › 4 vendas · 1 despe",
-"act": "opendia",
-"cara": "texto",
-"fs": "15px",
-"h": 88,
-"faz": "leva → dia"
-},
-{
-"tela": "dash-mes-vendido",
-"txt": "15/11dom G$ 23.000 › 1 venda · lucro liv",
-"act": "opendia",
-"cara": "texto",
-"fs": "15px",
-"h": 70,
-"faz": "leva → dia"
-},
-{
-"tela": "dash-mes-vendido",
-"txt": "14/11sáb G$ 502.000 › 11 vendas · 1 outr",
-"act": "opendia",
-"cara": "texto",
-"fs": "15px",
-"h": 88,
-"faz": "leva → dia"
-},
-{
-"tela": "dash-mes-vendido",
-"txt": "13/11sex G$ 257.500 › 6 vendas · gastos ",
-"act": "opendia",
-"cara": "texto",
-"fs": "15px",
-"h": 88,
-"faz": "leva → dia"
-},
-{
-"tela": "dash-mes-vendido",
-"txt": "12/11qui G$ 256.500 › 7 vendas · lucro l",
-"act": "opendia",
-"cara": "texto",
-"fs": "15px",
-"h": 70,
-"faz": "leva → dia"
-},
-{
-"tela": "dash-mes-vendido",
-"txt": "11/11qua G$ 194.000 › 3 vendas · gastos ",
-"act": "opendia",
-"cara": "texto",
-"fs": "15px",
-"h": 88,
-"faz": "leva → dia"
-},
-{
-"tela": "dash-mes-vendido",
-"txt": "10/11ter G$ 463.500 › 6 vendas · 1 despe",
-"act": "opendia",
-"cara": "texto",
-"fs": "15px",
-"h": 88,
-"faz": "leva → dia"
-},
-{
-"tela": "dash-mes-vendido",
-"txt": "09/11seg G$ 188.000 › 5 vendas · 1 outro",
-"act": "opendia",
-"cara": "texto",
-"fs": "15px",
-"h": 70,
-"faz": "leva → dia"
-},
-{
-"tela": "despesas-nova",
-"txt": "Aluguel da loja fixa · vence dia 5 G$ 90",
-"act": "despAb",
-"cara": "texto",
-"fs": "15px",
-"h": 54,
-"faz": "muda a tela"
-},
-{
-"tela": "despesas-nova",
-"txt": "Luz venceu há 4 dias · informe o valor G",
-"act": "despAb",
-"cara": "texto",
-"fs": "15px",
-"h": 72,
-"faz": "muda a tela"
-},
-{
-"tela": "despesas-nova",
-"txt": "Internet fixa · vence dia 10 G$ 120.000 ",
-"act": "despAb",
-"cara": "texto",
-"fs": "15px",
-"h": 54,
-"faz": "muda a tela"
-},
-{
-"tela": "despesas-nova",
-"txt": "Contas de casa venceu há 7 dias · inform",
-"act": "despAb",
-"cara": "texto",
-"fs": "15px",
-"h": 72,
-"faz": "muda a tela"
-},
-{
-"tela": "despesas-nova",
-"txt": "Salário (retirada) fixa · vence dia 5 G$",
-"act": "despAb",
-"cara": "texto",
-"fs": "15px",
-"h": 54,
-"faz": "muda a tela"
-},
-{
-"tela": "despesas-nova",
-"txt": "Contador vence amanhã G$ 300.000 ⌄",
-"act": "despAb",
-"cara": "texto",
-"fs": "15px",
-"h": 54,
-"faz": "muda a tela"
-},
-{
-"tela": "despesas-nova",
-"txt": "Provisão de imprevistos fixa · vence dia",
-"act": "despAb",
-"cara": "texto",
-"fs": "15px",
-"h": 76,
-"faz": "muda a tela"
-},
-{
-"tela": "giro-no-estoque",
-"txt": "Lote Kazwini Pré-graduados G$ 25.000 343",
-"act": "",
-"cara": "caixa",
-"fs": "15px",
-"h": 265,
-"faz": "muda a tela"
-},
-{
-"tela": "grp-dinheiro",
-"txt": "Caixa O dinheiro da loja, por moeda ›",
-"act": "nvIr",
-"cara": "texto",
-"fs": "15px",
-"h": 44,
-"faz": "leva → caixa"
-},
-{
-"tela": "grp-dinheiro",
-"txt": "Despesas Contas do mês e imprevistos ›",
-"act": "nvIr",
-"cara": "texto",
-"fs": "15px",
-"h": 44,
-"faz": "leva → desp"
-},
-{
-"tela": "grp-dinheiro",
-"txt": "Câmbio Cotações e trocas ›",
-"act": "nvIr",
-"cara": "texto",
-"fs": "15px",
-"h": 44,
-"faz": "leva → fx"
-},
-{
-"tela": "hist-busca",
-"txt": "2× SL2210 C3 · Tartaruga V-1964 · 18/11 ",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 68,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "1× SP60627 +1.00 · Bege translúcido V-19",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 90,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "1× SL2201 C6 · Dourado V-1948 · 17/11 às",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 69,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "1× SL2201 C1 · Preto V-1954 · 17/11 às 1",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 68,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "1× SL2201 C1 · Preto V-1949 · 17/11 às 1",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 69,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "1× BR44118 C2 · Bege translúcido V-1925 ",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 69,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "1× SP60627 +3.50 · Bege translúcido V-19",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 90,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "2× SP60627 +3.50 · Bege translúcido V-19",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 90,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "1× SP60627 +1.50 · Bege translúcido V-19",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 90,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "1× SP60627 +3.50 · Bege translúcido V-19",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 90,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "2× SL2201 C1 · Preto V-1917 · 11/11 às 1",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 69,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "2× SL2210 C3 · Tartaruga V-1911 · 10/11 ",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 68,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "1× SL2201 C6 · Dourado V-1913 · 10/11 às",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 68,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "2× SL2210 C1 · Preto V-1915 · 10/11 às 1",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 68,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "1× SL2201 C1 · Preto V-1907 · 09/11 às 0",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 68,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "1× SL2210 C3 · Tartaruga V-1899 · 07/11 ",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 69,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "1× SL2201 C1 · Preto V-1895 · 07/11 às 1",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 68,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "2× SL2210 C3 · Tartaruga V-1896 · 07/11 ",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 69,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "1× SP60627 +3.50 · Bege translúcido V-19",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 90,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "2× SL2210 C1 · Preto V-1898 · 07/11 às 0",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 68,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "3× SL2210 C3 · Tartaruga V-1886 · 06/11 ",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 69,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "1× SL2201 C6 · Dourado V-1891 · 06/11 às",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 68,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "1× SP60627 +2.00 · Bege translúcido V-18",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 90,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "2× SL2201 C6 · Dourado V-1880 · 05/11 às",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 68,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "1× SP60627 +2.00 · Bege translúcido V-18",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 90,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "1× SP60627 +1.00 · Bege translúcido V-18",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 90,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "1× SL2201 C6 · Dourado V-1871 · 03/11 às",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 68,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "1× SL2201 C1 · Preto V-1873 · 03/11 às 1",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 68,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "1× SP60627 +1.00 · Bege translúcido V-18",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 90,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-busca",
-"txt": "3× SP60627 +3.50 · Bege translúcido V-18",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 90,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-dia",
-"txt": "1× YS8801 C4 · Marrom V-1966 · 19/11 às ",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 69,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-dia",
-"txt": "1× SP58110 +2.00 · Preto V-1968 · 19/11 ",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 68,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-dia",
-"txt": "1× SP57765 +0.75 · Preto V-1969 · 19/11 ",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 69,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-dia",
-"txt": "2× SP61200 +2.00 · Preto V-1967 · 19/11 ",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 69,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-dia",
-"txt": "1× SP58110 +1.25 · Preto V-1965 · 19/11 ",
-"act": "hopen",
-"cara": "texto",
-"fs": "15px",
-"h": 68,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-lista",
-"txt": "19/11 · hojequi G$ 182.000 › 5 vendas · ",
-"act": "opendia",
-"cara": "texto",
-"fs": "15px",
-"h": 70,
-"faz": "leva → dia"
-},
-{
-"tela": "hist-lista",
-"txt": "18/11qua G$ 500.000 › 10 vendas · lucro ",
-"act": "opendia",
-"cara": "texto",
-"fs": "15px",
-"h": 70,
-"faz": "leva → dia"
-},
-{
-"tela": "hist-lista",
-"txt": "17/11ter G$ 459.000 › 7 vendas · 1 outro",
-"act": "opendia",
-"cara": "texto",
-"fs": "15px",
-"h": 88,
-"faz": "leva → dia"
-},
-{
-"tela": "hist-lista",
-"txt": "16/11seg G$ 148.500 › 4 vendas · 1 despe",
-"act": "opendia",
-"cara": "texto",
-"fs": "15px",
-"h": 88,
-"faz": "leva → dia"
-},
-{
-"tela": "hist-lista",
-"txt": "15/11dom G$ 23.000 › 1 venda · lucro liv",
-"act": "opendia",
-"cara": "texto",
-"fs": "15px",
-"h": 70,
-"faz": "leva → dia"
-},
-{
-"tela": "hist-lista",
-"txt": "14/11sáb G$ 502.000 › 11 vendas · 1 outr",
-"act": "opendia",
-"cara": "texto",
-"fs": "15px",
-"h": 88,
-"faz": "leva → dia"
-},
-{
-"tela": "hist-lista",
-"txt": "13/11sex G$ 257.500 › 6 vendas · gastos ",
-"act": "opendia",
-"cara": "texto",
-"fs": "15px",
-"h": 88,
-"faz": "leva → dia"
-},
-{
-"tela": "hist-lista",
-"txt": "12/11qui G$ 256.500 › 7 vendas · lucro l",
-"act": "opendia",
-"cara": "texto",
-"fs": "15px",
-"h": 70,
-"faz": "leva → dia"
-},
-{
-"tela": "hist-lista",
-"txt": "11/11qua G$ 194.000 › 3 vendas · gastos ",
-"act": "opendia",
-"cara": "texto",
-"fs": "15px",
-"h": 88,
-"faz": "leva → dia"
-},
-{
-"tela": "hist-lista",
-"txt": "10/11ter G$ 463.500 › 6 vendas · 1 despe",
-"act": "opendia",
-"cara": "texto",
-"fs": "15px",
-"h": 88,
-"faz": "leva → dia"
-},
-{
-"tela": "hist-lista",
-"txt": "09/11seg G$ 188.000 › 5 vendas · 1 outro",
-"act": "opendia",
-"cara": "texto",
-"fs": "15px",
-"h": 70,
-"faz": "leva → dia"
-},
-{
-"tela": "inventario-ficha",
-"txt": "· Sem detalhesem foto 343 un.",
-"act": "",
-"cara": "barra grande",
-"fs": "14px",
-"h": 48,
-"faz": "nada visível"
-},
-{
-"tela": "inventario-fornecedores",
-"txt": "Lista de compras · 18 acabando ›",
-"act": "lcIrGiro",
-"cara": "texto",
-"fs": "15px",
-"h": 44,
-"faz": "leva → dash"
-},
-{
-"tela": "inventario-novo",
-"txt": "BR44118 Preto",
-"act": "enAbre",
-"cara": "caixa",
-"fs": "15px",
-"h": 113,
-"faz": "abre janela \"Armação Gucci de metal femi"
-},
-{
-"tela": "inventario-novo",
-"txt": "BR44133 Vinho",
-"act": "enAbre",
-"cara": "caixa",
-"fs": "15px",
-"h": 113,
-"faz": "abre janela \"Armação Armani de acetato f"
-},
-{
-"tela": "inventario-novo",
-"txt": "SP58110 Pré-graduado",
-"act": "enAbre",
-"cara": "caixa",
-"fs": "15px",
-"h": 113,
-"faz": "muda a tela"
-},
-{
-"tela": "marketing",
-"txt": "Seg · Post · 20h Peça do objetivo — Ócul",
-"act": "",
-"cara": "texto",
-"fs": "14px",
-"h": 46,
-"faz": "abre janela \"Post\""
-},
-{
-"tela": "marketing",
-"txt": "Ter · Status · 12h Status do dia — Óculo",
-"act": "",
-"cara": "texto",
-"fs": "14px",
-"h": 46,
-"faz": "abre janela \"Status\""
-},
-{
-"tela": "marketing",
-"txt": "Qua · Carrossel · 20h Carrossel com 4 pe",
-"act": "",
-"cara": "texto",
-"fs": "14px",
-"h": 63,
-"faz": "abre janela \"Carrossel\""
-},
-{
-"tela": "marketing",
-"txt": "Qui · Story · 20h Bastidores / chegada —",
-"act": "",
-"cara": "texto",
-"fs": "14px",
-"h": 46,
-"faz": "abre janela \"Story\""
-},
-{
-"tela": "marketing",
-"txt": "Sex · Vídeo · 20h Vídeo de 15 s — Óculos",
-"act": "",
-"cara": "texto",
-"fs": "14px",
-"h": 63,
-"faz": "abre janela \"Vídeo\""
-},
-{
-"tela": "marketing",
-"txt": "Sáb · Post · 20h Oferta ou mais vendido ",
-"act": "",
-"cara": "texto",
-"fs": "14px",
-"h": 63,
-"faz": "abre janela \"Post\""
-},
-{
-"tela": "pendencias",
-"txt": "SP57765",
-"act": "abreRef",
-"cara": "",
-"fs": "",
-"h": 0,
-"faz": "leva → estoque"
-},
-{
-"tela": "pendencias",
-"txt": "SP58110",
-"act": "abreRef",
-"cara": "",
-"fs": "",
-"h": 0,
-"faz": "leva → estoque"
-},
-{
-"tela": "pendencias",
-"txt": "SP60627",
-"act": "abreRef",
-"cara": "",
-"fs": "",
-"h": 0,
-"faz": "leva → estoque"
-},
-{
-"tela": "pendencias",
-"txt": "Ver todas as conferências do Guardião ›",
-"act": "guardAbre",
-"cara": "texto",
-"fs": "15px",
-"h": 44,
-"faz": "abre janela \"Guardião\""
-},
-{
-"tela": "precos",
-"txt": "Preços para corrigir 15",
-"act": "x66",
-"cara": "caixa",
-"fs": "15px",
-"h": 109,
-"faz": "muda a tela"
-},
-{
-"tela": "precos",
-"txt": "15 preços para corrigir 10 com sugestão ",
-"act": "x66",
-"cara": "texto",
-"fs": "15px",
-"h": 75,
-"faz": "muda a tela"
-}
-],
-"dobra": [
-{
-"tela": "ajustes",
-"txt": "Pedidos do site Baixa manual",
-"act": "",
-"cara": "texto",
-"fs": "15px",
-"h": 60,
-"faz": "alterna"
-},
-{
-"tela": "ajustes",
-"txt": "Cópias e nuvem Nenhuma cópia",
-"act": "",
-"cara": "texto",
-"fs": "15px",
-"h": 60,
-"faz": "alterna"
-},
-{
-"tela": "ajustes",
-"txt": "Pagamento automático Desligado",
-"act": "",
-"cara": "texto",
-"fs": "15px",
-"h": 60,
-"faz": "alterna"
-},
-{
-"tela": "caixa-reservado",
-"txt": "Ver para onde vai o que já tem dono: rep",
-"act": "dfold",
-"cara": "texto",
-"fs": "15px",
-"h": 67,
-"faz": "muda a tela"
-},
-{
-"tela": "caixa-reservado",
-"txt": "Próximos 30 dias Saldo G$ 6.456.174 · co",
-"act": "dfold",
-"cara": "texto",
-"fs": "15px",
-"h": 67,
-"faz": "sumiu"
-},
-{
-"tela": "dash-contas-dia",
-"txt": "Imprevistos do mês Gasto G$ 60.000 de G$",
-"act": "dfold",
-"cara": "texto",
-"fs": "15px",
-"h": 67,
-"faz": "muda a tela"
-},
-{
-"tela": "dash-contas-dia",
-"txt": "Contas pagas neste mês 4 conta(s) paga(s",
-"act": "dfold",
-"cara": "texto",
-"fs": "15px",
-"h": 67,
-"faz": "muda a tela"
-},
-{
-"tela": "dash-mes-vendido",
-"txt": "Semana 02/11 a 08/11 G$ 2.595.500 · 42 v",
-"act": "hSem",
-"cara": "texto",
-"fs": "15px",
-"h": 79,
-"faz": "muda a tela"
-},
-{
-"tela": "dash-mes-vendido",
-"txt": "Semana 01/11 G$ 120.000 · 2 vendas · 1 d",
-"act": "hSem",
-"cara": "texto",
-"fs": "15px",
-"h": 78,
-"faz": "muda a tela"
-},
-{
-"tela": "dash-mes-vendido",
-"txt": "Semana 26/10 a 31/10 G$ 1.230.500 · 30 v",
-"act": "hSem",
-"cara": "texto",
-"fs": "15px",
-"h": 79,
-"faz": "muda a tela"
-},
-{
-"tela": "dash-mes-vendido",
-"txt": "Semana 19/10 a 25/10 G$ 1.452.500 · 31 v",
-"act": "hSem",
-"cara": "texto",
-"fs": "15px",
-"h": 78,
-"faz": "muda a tela"
-},
-{
-"tela": "dash-semana",
-"txt": "Resultado do mês Lucro real, o que mais ",
-"act": "d48Abre",
-"cara": "texto",
-"fs": "15px",
-"h": 71,
-"faz": "muda a tela"
-},
-{
-"tela": "dash-semana",
-"txt": "Quanto separar do que você vendeu Cada c",
-"act": "d48Abre",
-"cara": "texto",
-"fs": "15px",
-"h": 71,
-"faz": "muda a tela"
-},
-{
-"tela": "dash-semana",
-"txt": "Vendas do período Cada venda com o valor",
-"act": "d48Abre",
-"cara": "texto",
-"fs": "15px",
-"h": 71,
-"faz": "muda a tela"
-},
-{
-"tela": "despesas-nova",
-"txt": "Nova despesa Água, luz, aluguel… fixa ou",
-"act": "dfold",
-"cara": "texto",
-"fs": "15px",
-"h": 67,
-"faz": "muda a tela"
-},
-{
-"tela": "despesas-nova",
-"txt": "Imprevistos do mês Gasto G$ 60.000 de G$",
-"act": "dfold",
-"cara": "texto",
-"fs": "15px",
-"h": 67,
-"faz": "muda a tela"
-},
-{
-"tela": "despesas-nova",
-"txt": "Contas pagas neste mês 4 conta(s) paga(s",
-"act": "dfold",
-"cara": "texto",
-"fs": "15px",
-"h": 67,
-"faz": "muda a tela"
-},
-{
-"tela": "giro-lista-compras",
-"txt": "Lista de compras 8 produto(s) vão acabar",
-"act": "dfold",
-"cara": "texto",
-"fs": "15px",
-"h": 67,
-"faz": "muda a tela"
-},
-{
-"tela": "giro-lista-compras",
-"txt": "Vitrine da semana diga quantos lugares t",
-"act": "dfold",
-"cara": "texto",
-"fs": "15px",
-"h": 67,
-"faz": "muda a tela"
-},
-{
-"tela": "giro-lista-compras",
-"txt": "Retorno do estoque cada US$ 1 investido ",
-"act": "dfold",
-"cara": "texto",
-"fs": "15px",
-"h": 67,
-"faz": "muda a tela"
-},
-{
-"tela": "giro-lista-compras",
-"txt": "Curva ABC quais produtos dão 80% do lucr",
-"act": "dfold",
-"cara": "texto",
-"fs": "15px",
-"h": 67,
-"faz": "muda a tela"
-},
-{
-"tela": "giro-retorno",
-"txt": "Lista de compras 8 produto(s) vão acabar",
-"act": "dfold",
-"cara": "texto",
-"fs": "15px",
-"h": 67,
-"faz": "muda a tela"
-},
-{
-"tela": "giro-retorno",
-"txt": "Vitrine da semana diga quantos lugares t",
-"act": "dfold",
-"cara": "texto",
-"fs": "15px",
-"h": 67,
-"faz": "muda a tela"
-},
-{
-"tela": "giro-retorno",
-"txt": "Retorno do estoque cada US$ 1 investido ",
-"act": "dfold",
-"cara": "texto",
-"fs": "15px",
-"h": 67,
-"faz": "muda a tela"
-},
-{
-"tela": "giro-retorno",
-"txt": "Curva ABC quais produtos dão 80% do lucr",
-"act": "dfold",
-"cara": "texto",
-"fs": "15px",
-"h": 67,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-lista",
-"txt": "Semana 02/11 a 08/11 G$ 2.595.500 · 42 v",
-"act": "hSem",
-"cara": "texto",
-"fs": "15px",
-"h": 79,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-lista",
-"txt": "Semana 01/11 G$ 120.000 · 2 vendas · 1 d",
-"act": "hSem",
-"cara": "texto",
-"fs": "15px",
-"h": 78,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-lista",
-"txt": "Semana 26/10 a 31/10 G$ 1.230.500 · 30 v",
-"act": "hSem",
-"cara": "texto",
-"fs": "15px",
-"h": 79,
-"faz": "muda a tela"
-},
-{
-"tela": "hist-lista",
-"txt": "Semana 19/10 a 25/10 G$ 1.452.500 · 31 v",
-"act": "hSem",
-"cara": "texto",
-"fs": "15px",
-"h": 78,
-"faz": "muda a tela"
-},
-{
-"tela": "precos",
-"txt": "Contas, taxas e meta contas do mês, form",
-"act": "dfold",
-"cara": "texto",
-"fs": "15px",
-"h": 67,
-"faz": "muda a tela"
-},
-{
-"tela": "reservas-para-onde",
-"txt": "Ver para onde vai o que já tem dono: rep",
-"act": "dfold",
-"cara": "texto",
-"fs": "15px",
-"h": 67,
-"faz": "muda a tela"
-},
-{
-"tela": "reservas-para-onde",
-"txt": "Próximos 30 dias Saldo G$ 6.454.632 · co",
-"act": "dfold",
-"cara": "texto",
-"fs": "15px",
-"h": 67,
-"faz": "sumiu"
-}
-],
-"maistx": [
-{
-"tela": "atacado-lojistas",
-"txt": "+ Novo acesso",
-"act": "ataNovo",
-"cara": "pílula",
-"fs": "15px",
-"h": 44,
-"faz": "abre janela \"Novo acesso ao atacado\""
-},
-{
-"tela": "atacado-lotes",
-"txt": "+ Criar lote",
-"act": "ataLoteNovo",
-"cara": "texto",
-"fs": "15px",
-"h": 44,
-"faz": "abre janela \"Novo lote\""
-},
-{
-"tela": "atacado-tabela",
-"txt": "+ Novo acesso",
-"act": "ataNovo",
-"cara": "pílula",
-"fs": "15px",
-"h": 44,
-"faz": "abre janela \"Novo acesso ao atacado\""
-},
-{
-"tela": "catalogo-carrinho",
-"txt": "+ Adicionar outra peça",
-"act": "cartclose",
-"cara": "texto",
-"fs": "15px",
-"h": 44,
-"faz": "muda a tela"
-},
-{
-"tela": "catalogo-pagamento",
-"txt": "+ Receber parte em outra moeda",
-"act": "",
-"cara": "texto",
-"fs": "15px",
-"h": 44,
-"faz": "muda a tela"
-},
-{
-"tela": "dash-contas-dia",
-"txt": "+ Nova",
-"act": "despNova",
-"cara": "pílula",
-"fs": "15px",
-"h": 44,
-"faz": "muda a tela"
-},
-{
-"tela": "despesas-nova",
-"txt": "+ Nova",
-"act": "despNova",
-"cara": "pílula",
-"fs": "15px",
-"h": 44,
-"faz": "muda a tela"
-}
-],
 "prin": [
 {
 "tela": "atacado-novo-acesso",
@@ -2772,15 +2727,6 @@
 "fs": "16px",
 "h": 52,
 "faz": "muda a tela"
-},
-{
-"tela": "clientes-novo",
-"txt": "Novo cliente",
-"act": "clinovo",
-"cara": "ícone redondo",
-"fs": "15px",
-"h": 44,
-"faz": "nada visível"
 },
 {
 "tela": "clientes-novo",
@@ -3348,12 +3294,48 @@
 },
 {
 "tela": "pendencias",
+"txt": "Ver margem",
+"act": "view",
+"cara": "pílula",
+"fs": "15px",
+"h": 44,
+"faz": "leva → fx"
+},
+{
+"tela": "pendencias",
+"txt": "Ver conta",
+"act": "view",
+"cara": "pílula",
+"fs": "15px",
+"h": 44,
+"faz": "leva → desp"
+},
+{
+"tela": "pendencias",
+"txt": "Conferir",
+"act": "view",
+"cara": "pílula",
+"fs": "15px",
+"h": 44,
+"faz": "leva → caixa"
+},
+{
+"tela": "pendencias",
 "txt": "Completar",
 "act": "inicio",
 "cara": "pílula",
 "fs": "15px",
 "h": 44,
 "faz": "leva → estoque"
+},
+{
+"tela": "pendencias",
+"txt": "Fazer",
+"act": "view",
+"cara": "pílula",
+"fs": "15px",
+"h": 44,
+"faz": "leva → ajustes"
 },
 {
 "tela": "precos",
@@ -3372,6 +3354,15 @@
 "fs": "14px",
 "h": 44,
 "faz": "abre janela \"PRÉ-GRADUADOS\""
+},
+{
+"tela": "reservas-30dias",
+"txt": "Editar despesas",
+"act": "view",
+"cara": "",
+"fs": "",
+"h": 0,
+"faz": "leva → desp"
 }
 ],
 "desfaz": [
@@ -4279,6 +4270,44 @@
 "faz": "muda a tela"
 }
 ],
+"mais": [
+{
+"tela": "clientes-novo",
+"txt": "Novo cliente",
+"act": "clinovo",
+"cara": "ícone redondo",
+"fs": "15px",
+"h": 44,
+"faz": "nada visível"
+},
+{
+"tela": "despesas-nova",
+"txt": "Adicionar",
+"act": "expadd",
+"cara": "pílula",
+"fs": "15px",
+"h": 44,
+"faz": "muda a tela"
+},
+{
+"tela": "giro-no-estoque",
+"txt": "Adicionar",
+"act": "",
+"cara": "ícone redondo",
+"fs": "15px",
+"h": 44,
+"faz": "abre janela \"Adicionar\""
+},
+{
+"tela": "inventario-fornecedores",
+"txt": "Adicionar",
+"act": "",
+"cara": "ícone redondo",
+"fs": "15px",
+"h": 44,
+"faz": "abre janela \"Adicionar\""
+}
+],
 "mostra": [
 {
 "tela": "dash-mes-vendido",
@@ -4344,35 +4373,6 @@
 "fs": "15px",
 "h": 86,
 "faz": "alterna"
-}
-],
-"mais": [
-{
-"tela": "despesas-nova",
-"txt": "Adicionar",
-"act": "expadd",
-"cara": "pílula",
-"fs": "15px",
-"h": 44,
-"faz": "muda a tela"
-},
-{
-"tela": "giro-no-estoque",
-"txt": "Adicionar",
-"act": "",
-"cara": "ícone redondo",
-"fs": "15px",
-"h": 44,
-"faz": "abre janela \"Adicionar\""
-},
-{
-"tela": "inventario-fornecedores",
-"txt": "Adicionar",
-"act": "",
-"cara": "ícone redondo",
-"fs": "15px",
-"h": 44,
-"faz": "abre janela \"Adicionar\""
 }
 ],
 "cartao": [

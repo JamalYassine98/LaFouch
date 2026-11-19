@@ -5,17 +5,17 @@ Gerado de work/verif/inv/atual por work/verif/familias2.py (lê só o inventári
 | Família | Botões | Telas | Caras diferentes hoje | Regra da família |
 |---|---|---|---|---|
 | Voltar ‹ | 20 | 19 | 4 | versalete "‹ ANTERIOR" acima do título (navegação B) |
-| Link › (sai daqui) | 26 | 15 | 6 | texto + "›"; leva a outra tela ou abre a janela de baixo |
-| Linha de lista que abre | 112 | 20 | 7 | linha fina, texto à esquerda, valor e "›" à direita |
-| Dobra ⌄ (abre no lugar) | 32 | 11 | 1 | linha com "⌄" na margem direita; abre empurrando o resto |
-| Adicionar "+" redondo | 3 | 3 | 2 | "+" redondo ao lado do título (P1) |
+| Link › (sai daqui) | 31 | 16 | 7 | texto + "›"; leva a outra tela ou abre a janela de baixo |
+| Linha de lista que abre | 117 | 21 | 8 | linha fina, texto à esquerda, valor e "›" à direita |
+| Dobra ⌄ (abre no lugar) | 37 | 11 | 1 | linha com "⌄" na margem direita; abre empurrando o resto |
+| Adicionar "+" redondo | 4 | 4 | 2 | "+" redondo ao lado do título (P1) |
 | "+" em texto | 7 | 7 | 2 | "+ Nova…" branco, sem sublinhado; à esquerda entre campos, centrado sozinho |
-| Principal | 15 | 14 | 4 | um por janela/tela: contorno rosa, largura toda, 52 px |
+| Principal | 14 | 14 | 3 | um por janela/tela: contorno rosa, largura toda, 52 px |
 | Secundário | 26 | 8 | 6 | contorno fino, mesma altura do principal |
 | Perigo | 8 | 6 | 4 | vermelho; pede confirmação (janela com "Voltar") ou faz e dá "Desfazer" |
 | Desfazer | 16 | 3 | 2 | texto rosa no aviso de baixo / ao lado do item |
-| Ícone redondo | 50 | 30 | 13 | círculo 44 px, contorno fino, ícone do conjunto único |
-| Escolha (abas / dois lados) | 98 | 22 | 8 | barra deslizante C; 2–3 opções = escolha de dois lados (P4) |
+| Ícone redondo | 38 | 27 | 9 | círculo 44 px, contorno fino, ícone do conjunto único |
+| Escolha (abas / dois lados) | 95 | 22 | 9 | barra deslizante C; 2–3 opções = escolha de dois lados (P4) |
 | Opção de janela | 13 | 3 | 4 | linha da janela de baixo que escolhe (✓ na escolhida) |
 | Passo − / + | 14 | 2 | 2 | par − / + redondo, mesmo tamanho |
 | Liga / desliga | 24 | 7 | 6 | chave ou marcação; muda na hora |
@@ -50,10 +50,11 @@ Caras hoje: texto 12px (17) · texto 15px (1) · ícone redondo 14px (1) · íco
 - inventario-ficha · "Voltar" · ícone quadrado 14px · muda a tela
 - catalogo-peca · "Voltar" · ícone redondo 14px · muda a tela
 
-## Link › (sai daqui) — 26
+## Link › (sai daqui) — 31
 
-Caras hoje: texto 15px (12) · caixa 15px (6) · texto 14px (3) · texto 13px (2) · pílula 15px (2) · barra grande 15px (1)
+Caras hoje: texto 15px (12) · caixa 15px (6) · pílula 15px (6) · texto 14px (3) · texto 13px (2) · barra grande 15px (1) · ?  (1)
 
+- reservas-30dias · "Editar despesas" ·   · leva → desp
 - inicio · "Vendido hoje · 5 venda(s) G$ 182.000 ›" · barra grande 15px · leva → dia
 - inicio · "Resultados Dia, mês e histórico" · caixa 15px · leva → grp
 - inicio · "Giro e preços Giro, preços e reservas" · caixa 15px · leva → grp
@@ -62,7 +63,11 @@ Caras hoje: texto 15px (12) · caixa 15px (6) · texto 14px (3) · texto 13px (2
 - inicio · "Clientes 0 cadastrados" · caixa 15px · leva → clientes
 - inicio · "Atacado Orçamentos" · caixa 15px · leva → ata
 - inventario-fornecedores · "Ver peças (57)" · pílula 15px · muda a tela
+- pendencias · "Ver margem" · pílula 15px · leva → fx
+- pendencias · "Ver conta" · pílula 15px · leva → desp
+- pendencias · "Conferir" · pílula 15px · leva → caixa
 - pendencias · "Completar" · pílula 15px · leva → estoque
+- pendencias · "Fazer" · pílula 15px · leva → ajustes
 - caixa-acoes · "Reservas ›" · texto 15px · leva → dash
 - caixa-acoes · "Ver o que falta repor ›" · texto 14px · leva → dash
 - caixa-acoes · "Ver todos os movimentos ›" · texto 13px · muda a tela
@@ -81,10 +86,11 @@ Caras hoje: texto 15px (12) · caixa 15px (6) · texto 14px (3) · texto 13px (2
 - precos · "ajustar tabela" · texto 14px · abre janela "Tabela de preço"
 - precos · "ajustar" · texto 14px · abre janela "PRÉ-GRADUADOS"
 
-## Linha de lista que abre — 112
+## Linha de lista que abre — 117
 
-Caras hoje: texto 15px (91) · caixa 15px (7) · texto 14px (6) · ?  (3) · barra grande 15px (2) · barra grande 14px (2) · barra grande 16px (1)
+Caras hoje: texto 15px (94) · caixa 15px (6) · texto 14px (6) · ?  (4) · barra grande 15px (3) · barra grande 14px (2) · barra grande 16px (1) · texto 13px (1)
 
+- hist-dia · "Contas do dia G$ 140.000 1/30 de G$ 4.20" ·   · sumiu
 - pendencias · "SP57765" ·   · leva → estoque
 - pendencias · "SP58110" ·   · leva → estoque
 - pendencias · "SP60627" ·   · leva → estoque
@@ -92,13 +98,13 @@ Caras hoje: texto 15px (91) · caixa 15px (7) · texto 14px (6) · ?  (3) · bar
 - cambio · "DÓLAR EM REAIS R$ 5,43 ▲ 0,9% 7 dias" · barra grande 15px · abre janela "Dólar em reais · R$ 5,43"
 - cambio · "Registrar troca" · barra grande 16px · abre janela "Registrar troca"
 - catalogo-peca · "· Sem detalhe 343 un." · barra grande 14px · nada visível
+- inicio · "Guardião · 7 coisas para olhar ›" · barra grande 15px · leva → notif
 - inventario-ficha · "· Sem detalhesem foto 343 un." · barra grande 14px · nada visível
-- atacado-novo-acesso · "Lojista fixo não vence" · caixa 15px · nada visível
-- atacado-novo-acesso · "Visitante vence em 3 dias" · caixa 15px · muda a tela
 - giro-no-estoque · "Lote Kazwini Pré-graduados G$ 25.000 343" · caixa 15px · muda a tela
 - inventario-novo · "BR44118 Preto" · caixa 15px · abre janela "Armação Gucci de metal femi
 - inventario-novo · "BR44133 Vinho" · caixa 15px · abre janela "Armação Armani de acetato f
 - inventario-novo · "SP58110 Pré-graduado" · caixa 15px · muda a tela
+- precos · "Contas do mês cobertas 86% faltam 23 peç" · caixa 15px · leva → desp
 - precos · "Preços para corrigir 15" · caixa 15px · muda a tela
 - ajustes · "Site frete, PIX, idioma" · texto 15px · leva → onl
 - atacado-tabela · "Enviar catálogo a um lojista Abre o Comp" · texto 15px · abre janela "Compartilhar"
@@ -116,11 +122,13 @@ Caras hoje: texto 15px (91) · caixa 15px (7) · texto 14px (6) · ?  (3) · bar
 - dash-contas-dia · "Salário (retirada) fixa · vence dia 5 G$" · texto 15px · muda a tela
 - dash-contas-dia · "Contador vence amanhã G$ 300.000 ⌄" · texto 15px · muda a tela
 - dash-contas-dia · "Provisão de imprevistos fixa · vence dia" · texto 15px · muda a tela
+- dash-folha-ver · "Contas do dia G$ 140.000 1/30 de G$ 4.20" · texto 15px · leva → desp
 - dash-folha-ver · "1× YS8801 C4 · Marrom V-1966 · 19/11 às " · texto 15px · muda a tela
 - dash-folha-ver · "1× SP58110 +2.00 · Preto V-1968 · 19/11 " · texto 15px · muda a tela
 - dash-folha-ver · "1× SP57765 +0.75 · Preto V-1969 · 19/11 " · texto 15px · muda a tela
 - dash-folha-ver · "2× SP61200 +2.00 · Preto V-1967 · 19/11 " · texto 15px · muda a tela
 - dash-folha-ver · "1× SP58110 +1.25 · Preto V-1965 · 19/11 " · texto 15px · muda a tela
+- dash-folha-ver · "Dias anteriores no Histórico ›" · texto 13px · leva → hist
 - dash-mes-vendido · "19/11 · hojequi G$ 182.000 › 5 vendas · " · texto 15px · leva → dia
 - dash-mes-vendido · "18/11qua G$ 500.000 › 10 vendas · lucro " · texto 15px · leva → dia
 - dash-mes-vendido · "17/11ter G$ 459.000 › 7 vendas · 1 outro" · texto 15px · leva → dia
@@ -177,6 +185,7 @@ Caras hoje: texto 15px (91) · caixa 15px (7) · texto 14px (6) · ?  (3) · bar
 - hist-dia · "1× SP57765 +0.75 · Preto V-1969 · 19/11 " · texto 15px · muda a tela
 - hist-dia · "2× SP61200 +2.00 · Preto V-1967 · 19/11 " · texto 15px · muda a tela
 - hist-dia · "1× SP58110 +1.25 · Preto V-1965 · 19/11 " · texto 15px · muda a tela
+- hist-dia · "Dias anteriores no Histórico ›" · texto 15px · leva → hist
 - hist-lista · "19/11 · hojequi G$ 182.000 › 5 vendas · " · texto 15px · leva → dia
 - hist-lista · "18/11qua G$ 500.000 › 10 vendas · lucro " · texto 15px · leva → dia
 - hist-lista · "17/11ter G$ 459.000 › 7 vendas · 1 outro" · texto 15px · leva → dia
@@ -197,12 +206,18 @@ Caras hoje: texto 15px (91) · caixa 15px (7) · texto 14px (6) · ?  (3) · bar
 - marketing · "Sáb · Post · 20h Oferta ou mais vendido " · texto 14px · abre janela "Post"
 - pendencias · "Ver todas as conferências do Guardião ›" · texto 15px · abre janela "Guardião"
 - precos · "15 preços para corrigir 10 com sugestão " · texto 15px · muda a tela
+- reservas-para-onde · "Objetivos da loja › guardado no Caixa" · texto 15px · leva → caixa
 
-## Dobra ⌄ (abre no lugar) — 32
+## Dobra ⌄ (abre no lugar) — 37
 
-Caras hoje: texto 15px (32)
+Caras hoje: texto 15px (37)
 
+- ajustes · "Impressora Nenhuma" · texto 15px · alterna
+- ajustes · "Tema Auto" · texto 15px · alterna
+- ajustes · "Segurança Desligada" · texto 15px · alterna
 - ajustes · "Pedidos do site Baixa manual" · texto 15px · alterna
+- ajustes · "Sons e avisos Ligados" · texto 15px · alterna
+- ajustes · "Atualização 5.45.0" · texto 15px · alterna
 - ajustes · "Cópias e nuvem Nenhuma cópia" · texto 15px · alterna
 - ajustes · "Pagamento automático Desligado" · texto 15px · alterna
 - caixa-reservado · "Ver para onde vai o que já tem dono: rep" · texto 15px · muda a tela
@@ -235,11 +250,12 @@ Caras hoje: texto 15px (32)
 - reservas-para-onde · "Ver para onde vai o que já tem dono: rep" · texto 15px · muda a tela
 - reservas-para-onde · "Próximos 30 dias Saldo G$ 6.454.632 · co" · texto 15px · sumiu
 
-## Adicionar "+" redondo — 3
+## Adicionar "+" redondo — 4
 
-Caras hoje: ícone redondo 15px (2) · pílula 15px (1)
+Caras hoje: ícone redondo 15px (3) · pílula 15px (1)
 
 - despesas-nova · "Adicionar" · pílula 15px · muda a tela
+- clientes-novo · "Novo cliente" · ícone redondo 15px · nada visível
 - giro-no-estoque · "Adicionar" · ícone redondo 15px · abre janela "Adicionar"
 - inventario-fornecedores · "Adicionar" · ícone redondo 15px · abre janela "Adicionar"
 
@@ -255,9 +271,9 @@ Caras hoje: pílula 15px (4) · texto 15px (3)
 - catalogo-carrinho · "+ Adicionar outra peça" · texto 15px · muda a tela
 - catalogo-pagamento · "+ Receber parte em outra moeda" · texto 15px · muda a tela
 
-## Principal — 15
+## Principal — 14
 
-Caras hoje: barra grande 16px (11) · pílula 15px (2) · ícone redondo 15px (1) · caixa 16px (1)
+Caras hoje: barra grande 16px (11) · pílula 15px (2) · caixa 16px (1)
 
 - atacado-novo-acesso · "Enviar convite" · barra grande 16px · muda a tela
 - caixa-conferir · "Conferir" · barra grande 16px · muda a tela
@@ -273,7 +289,6 @@ Caras hoje: barra grande 16px (11) · pílula 15px (2) · ícone redondo 15px (1
 - giro-vitrine · "Salvar" · caixa 16px · muda a tela
 - despesas-conta · "Salvar" · pílula 15px · muda a tela
 - despesas-imprevistos · "Registrar imprevisto" · pílula 15px · muda a tela
-- clientes-novo · "Novo cliente" · ícone redondo 15px · nada visível
 
 ## Secundário — 26
 
@@ -340,30 +355,18 @@ Caras hoje: texto 12px (8) · texto 15px (8)
 - cambio-trocas · "Desfazer" · texto 15px · muda a tela
 - cambio-trocas · "Desfazer" · texto 15px · muda a tela
 
-## Ícone redondo — 50
+## Ícone redondo — 38
 
-Caras hoje: ícone quadrado 15px (22) · pílula 15px (6) · texto 15px (5) · ícone redondo 15px (5) · ícone quadrado 22px (2) · ?  (2) · pílula 12.5px (2) · ícone redondo 14px (1) · texto 13px (1) · pílula 13px (1) · barra grande 15px (1) · caixa 14px (1) · caixa 15px (1)
+Caras hoje: ícone quadrado 15px (22) · ícone redondo 15px (5) · ícone quadrado 22px (2) · texto 15px (2) · pílula 15px (2) · pílula 12.5px (2) · ícone redondo 14px (1) · pílula 13px (1) · caixa 14px (1)
 
-- hist-dia · "Contas do dia G$ 140.000 1/30 de G$ 4.20" ·   · sumiu
-- reservas-30dias · "Editar despesas" ·   · leva → desp
-- inicio · "Guardião · 7 coisas para olhar ›" · barra grande 15px · leva → notif
 - inventario-fornecedores · "Editar" · caixa 14px · abre janela "Editar lote"
-- precos · "Contas do mês cobertas 86% faltam 23 peç" · caixa 15px · leva → desp
 - guardiao · "Ver" · pílula 13px · leva → desp
 - inventario-editar · "" · pílula 15px · nada visível
 - inventario-ficha · "Ficha 4/6" · pílula 12.5px · abre janela "Ficha do produto"
 - inventario-ficha-historico · "Ficha 4/6" · pílula 12.5px · abre janela "Ficha do produto"
-- pendencias · "Ver margem" · pílula 15px · leva → fx
-- pendencias · "Ver conta" · pílula 15px · leva → desp
-- pendencias · "Conferir" · pílula 15px · leva → caixa
 - pendencias · "Ver" · pílula 15px · leva → estoque
-- pendencias · "Fazer" · pílula 15px · leva → ajustes
-- dash-folha-ver · "Contas do dia G$ 140.000 1/30 de G$ 4.20" · texto 15px · leva → desp
-- dash-folha-ver · "Dias anteriores no Histórico ›" · texto 13px · leva → hist
 - giro-no-estoque · "Buscar com a câmera" · texto 15px · abre janela "Buscar com a câmera"
 - giro-no-estoque · "Filtros e ordem" · texto 15px · abre janela "Filtros do inventário" / al
-- hist-dia · "Dias anteriores no Histórico ›" · texto 15px · leva → hist
-- reservas-para-onde · "Objetivos da loja › guardado no Caixa" · texto 15px · leva → caixa
 - ajustes · "12" · ícone quadrado 15px · leva → notif
 - atacado-lojistas · "12" · ícone quadrado 15px · leva → notif
 - atacado-tabela · "12" · ícone quadrado 15px · leva → notif
@@ -395,10 +398,12 @@ Caras hoje: ícone quadrado 15px (22) · pílula 15px (6) · texto 15px (5) · �
 - hist-lista · "Filtros" · ícone redondo 15px · muda a tela
 - marketing-post · "" · ícone redondo 15px · nada visível
 
-## Escolha (abas / dois lados) — 98
+## Escolha (abas / dois lados) — 95
 
-Caras hoje: texto 15px (37) · pílula 15px (18) · pílula 13px (17) · texto 14px (13) · caixa 13px (4) · pílula 14px (3) · ícone redondo 13px (3) · caixa 14px (3)
+Caras hoje: texto 15px (32) · pílula 15px (18) · pílula 13px (17) · texto 14px (13) · caixa 13px (4) · pílula 14px (3) · ícone redondo 13px (3) · caixa 14px (3) · caixa 15px (2)
 
+- atacado-novo-acesso · "Lojista fixo não vence" · caixa 15px · nada visível
+- atacado-novo-acesso · "Visitante vence em 3 dias" · caixa 15px · muda a tela
 - marketing · "Girar o parado" · caixa 13px · muda a tela
 - marketing · "Novos clientes BR" · caixa 13px · muda a tela
 - marketing · "Mais solar" · caixa 13px · muda a tela
@@ -444,11 +449,6 @@ Caras hoje: texto 15px (37) · pílula 15px (18) · pílula 13px (17) · texto 1
 - pendencias · "Ver preços" · pílula 15px · muda a tela
 - pendencias · "Ver reposição" · pílula 15px · muda a tela
 - reservas-para-onde · "G$" · pílula 14px · nada visível
-- ajustes · "Impressora Nenhuma" · texto 15px · alterna
-- ajustes · "Tema Auto" · texto 15px · alterna
-- ajustes · "Segurança Desligada" · texto 15px · alterna
-- ajustes · "Sons e avisos Ligados" · texto 15px · alterna
-- ajustes · "Atualização 5.45.0" · texto 15px · alterna
 - atacado-lojistas · "Mensagens" · texto 15px · muda a tela
 - atacado-lojistas · "Lojistas" · texto 15px · nada visível
 - atacado-lojistas · "Lotes" · texto 15px · muda a tela
