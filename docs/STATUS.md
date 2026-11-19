@@ -13,10 +13,10 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 | Sessão (assunto) | Frente | Telas / arquivos | Desde |
 |---|---|---|---|
 | App (S435 famílias de botões) | APP | só leitura do inventário: docs/FAMILIAS-BOTOES.md (novo), work/verif/familias2.py | 19/11 |
-| App (esboço de exemplo, sessão de apoio) | APP | só esboço do Voltar no Pagamento: work/s436/ (novo), não mexe no código | 19/11 12:15 |
 | Site (S429 cópia limpa) | SITE | catalogo ramo `limpo` (index.html, js/lf-site.js) — fora do ar | 19/11 |
 
 ## Últimas mudanças (mais nova em cima; manter só as ~20 últimas)
+- 19/11/2026 12:17 — sessão de apoio: ESBOÇO DE EXEMPLO da família Voltar no Pagamento (work/s436/esboco_voltar_*.jpg): "‹ Carrinho" 15 px → "‹ CARRINHO" versalete 12 px igual ao Câmbio. Esperando o dono; nada no código. S435: usar como modelo se o dono aprovar.
 - 19/11/2026 11:50 — App v562 (5.45.0): NAVEGAÇÃO B refinada publicada (src/99c-navegacao-s435.js + bloco S435 do www/style.css; saiu o título com ⌄ de src/98z-grupo-flecha-s41.js). 318/318 testes; inventários (work/verif/inv, docs/INVENTARIO-*.md) refeitos. Não testado em aparelho real.
 - 19/11/2026 12:02 — CLAUDE.md REORGANIZADO (23 regras em 8 partes, aprovado pelo dono). Toda sessão: reler o CLAUDE.md antes de continuar.
 - 19/11/2026 — Site S429: cópia limpa no ramo `limpo` do catalogo (fora do ar) com os aprovados no código; análise ganhou `ramo2` (hoje=main × prop=limpo). Em andamento até o "implementar".
