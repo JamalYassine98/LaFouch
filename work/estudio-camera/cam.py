@@ -7,7 +7,7 @@ FAKE=r"""(()=>{const md=navigator.mediaDevices||{};const orig=md.getUserMedia&&m
   const img=new Image();let ok=false;img.onload=()=>ok=true;
   const pega=()=>{if(window.__fkImg&&!img.src){img.src=window.__fkImg;return}try{const S=window.__LF&&__LF.S;const it=S&&S.items.find(i=>i.foto&&/^(data:|blob:|\/|http:\/\/localhost)/.test(i.foto)||i.fotos&&i.fotos.length);const f=it&&(it.foto||(it.fotos[0]&&(it.fotos[0].src||it.fotos[0])));if(f&&!img.src)img.src=f}catch(e){}};
   const draw=()=>{pega();const g=x.createRadialGradient(960,540,100,960,540,1100);g.addColorStop(0,'#f2f1ef');g.addColorStop(1,'#b9b6b2');x.fillStyle=g;x.fillRect(0,0,1920,1080);
-   if(ok){const s=Math.min(1100/img.width,700/img.height);const w=img.width*s,h=img.height*s;x.drawImage(img,960-w/2,560-h/2,w,h)}requestAnimationFrame(draw)};draw();
+   if(ok){const s=Math.min(1100/img.width,700/img.height);const w=img.width*s,h=img.height*s;x.drawImage(img,960-w/2+(window.__fkDx||0),560-h/2,w,h)}requestAnimationFrame(draw)};draw();
   return cv.captureStream(30)};
  if(navigator.mediaDevices)navigator.mediaDevices.getUserMedia=md.getUserMedia})()"""
 def abre(pw,W,H,esc=True,base=True):
