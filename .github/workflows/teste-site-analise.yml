@@ -45,11 +45,17 @@ jobs:
       - uses: actions/checkout@v4
         with: { repository: JamalYassine98/catalogo, path: site, ref: '${{ inputs.ramo }}' }
       - name: Copia do site (com o site aberto para medir, como o administrador ve)
+        env:
+          SEMTEMA: ${{ (inputs.video == '2' || inputs.video == '3') && '1' || '0' }}
         run: |
           python3 - <<'P'
           p='site/js/lf-site.js';s=open(p,encoding='utf-8').read()
           assert s.count('function manut(){')==1
           s=s.replace('function manut(){','function manut(){CFG.ativo=true;',1)
+          import os
+          if os.environ.get('SEMTEMA')=='1':
+              assert s.count('function evAtivo(){')==1
+              s=s.replace('function evAtivo(){','function evAtivo(){return null;',1)  # versao padrao da loja (so neste teste)
           open(p,'w',encoding='utf-8').write(s)
           P
           python3 tools/teste-site/prep.py site t "${{ inputs.props }}"
