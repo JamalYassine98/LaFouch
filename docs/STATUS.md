@@ -24,7 +24,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 | Sessão (assunto) | Frente | Telas / arquivos | Desde |
 |---|---|---|---|
 | App (S435 famílias: Voltar, Link ›, Linha de lista, Dobra ⌄, Adicionar +, "+" em texto, Título, Fechar ×) | APP | esboços em work/s437 (só esboço, nada no código ainda); docs/FAMILIAS-BOTOES.md | 19/11 |
-| App (S436 — IMPLEMENTADORA do app) | APP | esperando o 1º item da fila (nada no código agora) | 19/11 13:22 |
+| App (S436 — IMPLEMENTADORA do app) | APP | esperando o 1º item da fila (nada no código agora). | 19/11 13:25 |
 | Site (S429 cópia limpa) | SITE | catalogo ramo `limpo` (index.html, js/lf-site.js) — fora do ar | 19/11 |
 
 ## Recados entre sessões (quem lê, faz e apaga a linha)
@@ -41,6 +41,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
   4. **CLAUDE.md foi reorganizado às 12:02** (23 regras em 8 partes): reler antes de continuar; acabou a regra de não consultar — tudo em partes, consultando o dono.
 
 ## Últimas mudanças (mais nova em cima; manter só as ~20 últimas)
+- 19/11/2026 13:35 — S436: estudo da base de dados do app e do site (docs/ESTUDO-DADOS-19-11.md, só leitura): 4 pontos bons, 6 ideias A–F esperando o dono.
 - 19/11/2026 13:22 — Nova estrutura aprovada pelo dono (CLAUDE.md 1b): uma sessão implementa por frente (APP = S436, SITE = S429), Fila de implementação aqui no STATUS, código por família.
 - 19/11/2026 12:45 — S436: APROVADO 150i família Ícone redondo (base, lista viva, memória, APP-MAPA; substitui 137a). Inventário 2 das 27 telas sendo refeito. Nada no código.
 - 19/11/2026 12:37 — S436: recados lidos e riscados; biblioteca de vídeos anotada no APP-MAPA §4.
