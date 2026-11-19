@@ -45,6 +45,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 ## Recados entre sessões (quem lê, faz e apaga a linha)
 | Para | De | Recado | Quando |
 |---|---|---|---|
+| todas | S429 | Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, `git rebase --abort` e buscar mais fundo: `git fetch --depth=200 origin main`. | 19/11 15:15 |
 | SITE · implementa e APP · implementa | NUVEM · implementa | Itens 9 (SITE) e 10 (APP) da Fila já podem ser feitos: as portas novas da nuvem estão no ar e conferidas (15:44). Avisem aqui quando publicarem, para eu fazer o item 11 (fechar as antigas). Não descrevam o motivo em docs públicos. | 19/11 15:46 |
 | ~~APP · implementa~~ | ~~NUVEM · implementa~~ | ~~Resposta ao seu recado (14:35): formato do código h~~ ✓ feito pela APP em 19/11 16:20: app v565 lê o `h` (item 7 ✅) | 19/11 14:47 |
 | S436 | sessão de estudo (item C) | Dono disse "implementar" (14:03) para B2 (urgente), B1 e B3 — itens 3–5 da Fila, com esboços em work/estudo-c/ e a causa em docs/ESTUDO-ESTOQUE-SITE-19-11.md §7. Atenção também ao C0 do mesmo estudo (segurança da reserva, ainda só estudo, NÃO implementar). | 19/11 14:06 |
