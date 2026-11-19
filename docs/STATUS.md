@@ -24,7 +24,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 | 1 | 149v Família Voltar (Peça do Catálogo, Ficha do Inventário; o Pagamento depende do 142st, ainda não implementado) | APP | 19/11 13:31 | ✅ v563 (19/11) |
 | 2 | 150i Família Ícone redondo | APP | 19/11 13:31 | ✅ v563 (19/11) |
 | 3 | **B2 soltar reserva (URGENTE — bug)**: src/95-reserva.js `resApi` manda a lista em `itens` (como a função lê) para liberar e recusar; resposta `ok:false` não tira da fila (tenta de novo); limpar uma vez as 7 reservas vencidas paradas. Função da nuvem NÃO muda. Esboço work/estudo-c/esboco_B2_*.jpg; causa em docs/ESTUDO-ESTOQUE-SITE-19-11.md §7 | APP | 19/11 14:03 | ✅ v564 (19/11) |
-| 4 | **B1 nome da cliente no pedido**: `ACT.pedcli` (src/95-pedidos.js) abre `clientes` com a ficha da cliente (hoje abre `cli`, que não existe). Esboço work/estudo-c/esboco_B1_*.jpg | APP | 19/11 14:03 | na fila |
+| 4 | **B1 nome da cliente no pedido**: `ACT.pedcli` (src/95-pedidos.js) abre `clientes` com a ficha da cliente (hoje abre `cli`, que não existe). Esboço work/estudo-c/esboco_B1_*.jpg | APP | 19/11 14:03 | fazendo (S436) |
 | 5 | **B3 "Site" → "Resumo"**: no grupo Site, a linha e o título da tela de resumo passam a "Resumo" (frase "Resumo da loja online" fica). Esboço work/estudo-c/esboco_B3_*.jpg | APP | 19/11 14:03 | na fila |
 | 6 | **P1 segurança da reserva — parte da NUVEM**: cancelar público só solta não paga/sem comprovante; `estoque/` sem número do pedido (campo `h`); função aceita `itens` e `refs`; limpeza diária arruma as paradas. Testes: reserva 29/29, endpoint 9/9, demais 14 suítes ok | NUVEM | 19/11 14:29 | ✅ publicado pelo dono 19/11 15:03 (Cloud Shell); conferido: cancelar com `refs` = ok:true; reserva vencida da AC1050 apagada; 4 paradas antigas saem na limpeza das 4h |
 | 7 | **P1 — parte do APP** (depois do deploy do item 6): `resOrfas` em src/95-reserva.js passa a achar as reservas pelo código `h` = primeiros 20 caracteres do sha256 de `'lf-res|' + p.sid` (hoje usa `x.pid`, que não vem mais; sem isso as órfãs só não são soltas — nada quebra). Obs. para o item 3: a função agora também aceita `refs`; o que continua necessário é a resposta `ok:false` não sair da fila | APP | 19/11 14:29 | ✅ v565 (19/11) |
@@ -38,7 +38,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 |---|---|---|---|
 | NUVEM · implementa (P1b órfãs) | NUVEM | functions/reserva.js, functions/index.js (reserva), functions/teste-reserva.js, teste-endpoint.js | 19/11 16:12 |
 | App (S435 famílias: Voltar, Link ›, Linha de lista, Dobra ⌄, Adicionar +, "+" em texto, Título, Fechar ×) | APP | esboços em work/s437 (só esboço, nada no código ainda); docs/FAMILIAS-BOTOES.md | 19/11 |
-| APP · implementa (S436) | APP | esperando o dono para o item 4 (B1) | 19/11 16:20 |
+| APP · implementa (S436) | APP | CÓDIGO itens 4 (B1) e depois 10: src/95-pedidos.js, tests/run.py, www/ | 19/11 16:15 |
 | Site (S429 — IMPLEMENTADORA do site; cópia limpa) | SITE | catalogo ramo `limpo` (index.html, js/lf-site.js) — fora do ar; agora: limpeza dos estilos (regras escritas uma por cima da outra) | 19/11 |
 
 ## Recados entre sessões (quem lê, faz e apaga a linha)
