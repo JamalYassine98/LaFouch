@@ -1,0 +1,6 @@
+input.in,select.in,textarea.in,.view input:not([type=checkbox]):not([type=radio]):not([type=range]),.ljJn input:not([type=checkbox]):not([type=radio]),.fjJn input:not([type=checkbox]):not([type=radio]),.modal-box input:not([type=checkbox]):not([type=radio]){background-color:transparent!important;border:0!important;border-bottom:1px solid var(--line2)!important;border-radius:0!important;box-shadow:none!important;padding-left:0!important;padding-right:0!important}
+input:focus,select:focus,textarea:focus{outline:none!important;border-bottom-color:var(--accent-fg)!important}
+.view textarea,.ljJn textarea,.fjJn textarea,.modal-box textarea{background-color:transparent!important;border:0!important;border-bottom:1px solid var(--line2)!important;border-radius:0!important;box-shadow:none!important;padding-left:0!important;padding-right:0!important}
+/* B: só linha, mas linha clara + exemplo mais visível */
+.view input:not([type=checkbox]):not([type=radio]):not([type=range]),.view select,.view textarea,.ljJn input,.fjJn input,.modal-box input,.ljJn textarea,.fjJn textarea,.modal-box textarea,input.in,select.in,textarea.in{border-bottom:1.5px solid color-mix(in srgb,var(--fg) 45%,transparent)!important}
+input::placeholder,textarea::placeholder{color:color-mix(in srgb,var(--fg) 55%,transparent)!important}

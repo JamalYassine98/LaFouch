@@ -46,3 +46,11 @@ ALIN=open('/home/claude/lafouch/work/kit/alin.js').read()
 def alin(pg,blocos):
     try: return pg.evaluate(ALIN,blocos) or []
     except Exception as e: return [{'r':'erro alin','ex':[str(e)[:120]]}]
+
+# TRAVA (18/11/2026, pedido do dono "vive repetindo"): esboço com aviso novo do olho ou da prova de alinhamento NÃO vira prancha.
+# Só passa o que foi explicado no próprio caso (lista ok=[...] com o motivo). Sem isso, sai BLOQUEADO e não é enviado.
+def trava(k,nv,aa,ok=()):
+    nv=[x for x in (nv if isinstance(nv,list) else []) if not any(o in x for o in ok)]
+    ruim=(aa[1]>aa[0]) or bool(nv)
+    if ruim: print('BLOQUEADO',k,'olho novos:',nv,'alin hoje/depois:',aa,flush=True)
+    return not ruim

@@ -3203,3 +3203,5 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 
 ### 19/11/2026 14:26 — P1 segurança da reserva APROVADA (esperando "implementar")
 - Cancelar da cliente só solta reserva não paga/sem comprovante; `estoque/` sem número do pedido; função aceita `itens` e `refs`. Esboço work/estudo-c/esboco_P1_*.jpg. Publicação da função: o dono roda `firebase deploy --only functions` no PC.
+
+- 19/11 14:30 — Campo de escrever opção B aprovado (149c, linha 45% / exemplo 55%). Ajuste em esboço (esboco_campo2_*): cursor rosa no início do exemplo, foco = linha rosa (sem caixa), valor alinhado à esquerda numa coluna e na linha de base do nome.
