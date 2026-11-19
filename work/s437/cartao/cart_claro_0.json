@@ -1,0 +1,333 @@
+{
+"hist-lista": [],
+"hist-semana": [],
+"hist-busca": [],
+"dash-mes": [],
+"dash-folha-periodo": [],
+"dash-contas-dia": [
+{
+"cls": "div.g99",
+"id": "",
+"t": "Imprevistos do mês Gasto G$ 60.000 de G$ 200.000 ·",
+"x": 24,
+"y": 1670,
+"w": 342,
+"h": 137,
+"fundo": true,
+"lados": 4,
+"sombra": false,
+"rad": 16
+}
+],
+"dash-mes-vendido": [],
+"reservas-30dias": [
+{
+"cls": "div.note.n-warn",
+"id": "",
+"t": "Contas em PYG: precisa de G$ 5.180.000 e tem G$ 1.",
+"x": 58,
+"y": 1081,
+"w": 274,
+"h": 85,
+"fundo": true,
+"lados": 0,
+"sombra": false,
+"rad": 10
+},
+{
+"cls": "div.note.n-warn",
+"id": "",
+"t": "O dólar subiu desde essas vendas. Faltam G$ 20.064",
+"x": 58,
+"y": 1581,
+"w": 300,
+"h": 85,
+"fundo": true,
+"lados": 0,
+"sombra": false,
+"rad": 10
+}
+],
+"giro-vitrine": [],
+"giro-abc": [],
+"giro-parado": [],
+"precos-corrigir": [],
+"caixa-acoes": [
+{
+"cls": "div.cxMenu",
+"id": "",
+"t": "Retirar Novo objetivo Conferir",
+"x": 176,
+"y": 198,
+"w": 190,
+"h": 146,
+"fundo": true,
+"lados": 4,
+"sombra": true,
+"rad": 14
+}
+],
+"caixa-novo-objetivo": [
+{
+"cls": "div.cxBack.on",
+"id": "",
+"t": "",
+"x": 0,
+"y": 0,
+"w": 390,
+"h": 844,
+"fundo": true,
+"lados": 0,
+"sombra": false,
+"rad": 0
+},
+{
+"cls": "div.cxAcao.on",
+"id": "",
+"t": "Novo objetivo O QUE QUER PARA A LOJA QUANTO CUSTA ",
+"x": 0,
+"y": 522,
+"w": 390,
+"h": 322,
+"fundo": true,
+"lados": 1,
+"sombra": false,
+"rad": 22
+},
+{
+"cls": "section.card.col",
+"id": "",
+"t": "Novo objetivo O QUE QUER PARA A LOJA QUANTO CUSTA ",
+"x": 14,
+"y": 548,
+"w": 362,
+"h": 278,
+"fundo": false,
+"lados": 0,
+"sombra": true,
+"rad": 20
+}
+],
+"caixa-reservado": [],
+"cambio-dolar": [
+{
+"cls": "div.fjBk.in",
+"id": "",
+"t": "",
+"x": 0,
+"y": 0,
+"w": 390,
+"h": 844,
+"fundo": true,
+"lados": 4,
+"sombra": false,
+"rad": 10
+},
+{
+"cls": "div.fjJn.in",
+"id": "",
+"t": "Dólar · G$ 6.487 Guaranis por dólar (venda da casa",
+"x": 0,
+"y": 436,
+"w": 390,
+"h": 408,
+"fundo": true,
+"lados": 4,
+"sombra": true,
+"rad": 22
+}
+],
+"cambio-troca": [
+{
+"cls": "div.fjBk.in",
+"id": "",
+"t": "",
+"x": 0,
+"y": 0,
+"w": 390,
+"h": 844,
+"fundo": true,
+"lados": 4,
+"sombra": false,
+"rad": 10
+},
+{
+"cls": "div.fjJn.in",
+"id": "",
+"t": "Registrar troca SUGESTÃO DE HOJE Valores sugeridos",
+"x": 0,
+"y": 101,
+"w": 390,
+"h": 743,
+"fundo": true,
+"lados": 4,
+"sombra": true,
+"rad": 22
+}
+],
+"cambio-site": [
+{
+"cls": "div.fjBk.in",
+"id": "",
+"t": "",
+"x": 0,
+"y": 0,
+"w": 390,
+"h": 844,
+"fundo": true,
+"lados": 4,
+"sombra": false,
+"rad": 10
+},
+{
+"cls": "div.fjJn.in",
+"id": "",
+"t": "Preços no site US$ 1 NO SITE G$ 6.800 travada em 1",
+"x": 0,
+"y": 483,
+"w": 390,
+"h": 361,
+"fundo": true,
+"lados": 4,
+"sombra": true,
+"rad": 22
+}
+],
+"despesas-nova": [],
+"despesas-imprevistos": [
+{
+"cls": "div.g99",
+"id": "",
+"t": "Imprevistos do mês Gasto G$ 60.000 de G$ 200.000 ·",
+"x": 24,
+"y": 1670,
+"w": 342,
+"h": 545,
+"fundo": true,
+"lados": 4,
+"sombra": false,
+"rad": 16
+}
+],
+"guardiao": [],
+"marketing-post": [
+{
+"cls": "div.mkWhy",
+"id": "",
+"t": "Por que estas peças Óculos solar #13 26 vendidas e",
+"x": 16,
+"y": 144,
+"w": 358,
+"h": 82,
+"fundo": true,
+"lados": 0,
+"sombra": false,
+"rad": 12
+}
+],
+"clientes-novo": [
+{
+"cls": "section.card.col.cf77",
+"id": "cliFicha",
+"t": "Novo cliente DADOS Nome Telefone E-mail Paraguaio ",
+"x": 0,
+"y": 264,
+"w": 390,
+"h": 580,
+"fundo": true,
+"lados": 0,
+"sombra": true,
+"rad": 22
+}
+],
+"atacado-lotes": [],
+"inventario-fornecedores": [],
+"inventario-ficha-historico": [],
+"inventario-editar": [],
+"catalogo-carrinho": [],
+"catalogo-peca": [
+{
+"cls": "section.card.col",
+"id": "vDetail",
+"t": "Catálogo › Lote Kazwini 1 de 16 ‹ CATÁLOGO Lote Ka",
+"x": 24,
+"y": 192,
+"w": 342,
+"h": 593,
+"fundo": true,
+"lados": 4,
+"sombra": true,
+"rad": 20
+},
+{
+"cls": "div.pl.pick.picked",
+"id": "",
+"t": "· Sem detalhe 343 un.",
+"x": 43,
+"y": 502,
+"w": 304,
+"h": 48,
+"fundo": true,
+"lados": 4,
+"sombra": false,
+"rad": 10
+},
+{
+"cls": "div.vbar.vsale",
+"id": "",
+"t": "− 1 + Vender · G$ 25.000",
+"x": 43,
+"y": 564,
+"w": 304,
+"h": 136,
+"fundo": false,
+"lados": 4,
+"sombra": false,
+"rad": 14
+}
+],
+"clientes": [],
+"atacado-novo-acesso": [],
+"vender": [],
+"giro-vitrine2": [
+{
+"cls": "label.buIn",
+"id": "",
+"t": "",
+"x": 24,
+"y": 118,
+"w": 342,
+"h": 50,
+"fundo": true,
+"lados": 4,
+"sombra": false,
+"rad": 16
+},
+{
+"cls": "section.card.guardC.guard1.noconta",
+"id": "",
+"t": "Guardião · 7 coisas para olhar ›",
+"x": 24,
+"y": 198,
+"w": 342,
+"h": 59,
+"fundo": true,
+"lados": 3,
+"sombra": true,
+"rad": 4
+},
+{
+"cls": "div.hero",
+"id": "",
+"t": "Vendido hoje · 5 venda(s) G$ 182.000 ›",
+"x": 24,
+"y": 275,
+"w": 342,
+"h": 83,
+"fundo": true,
+"lados": 4,
+"sombra": true,
+"rad": 20
+}
+]
+}

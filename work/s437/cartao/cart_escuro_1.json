@@ -1,0 +1,545 @@
+{
+"hist-dia": [],
+"hist-filtros": [],
+"dash-semana": [],
+"dash-custom": [],
+"dash-folha-ver": [],
+"dash-ver-todas-vendas": [],
+"reservas-para-onde": [],
+"giro-lista-compras": [
+{
+"cls": "div.lcTot",
+"id": "",
+"t": "Total US$ 740 reposição US$ 3.158 Cabe no dinheiro",
+"x": 58,
+"y": 1869,
+"w": 292,
+"h": 121,
+"fundo": true,
+"lados": 4,
+"sombra": false,
+"rad": 12
+}
+],
+"giro-retorno": [],
+"giro-no-estoque": [
+{
+"cls": "div.bs",
+"id": "invBs",
+"t": "",
+"x": 24,
+"y": 449,
+"w": 342,
+"h": 54,
+"fundo": false,
+"lados": 4,
+"sombra": false,
+"rad": 18
+},
+{
+"cls": "div.pbox.lt85",
+"id": "",
+"t": "",
+"x": 33,
+"y": 578,
+"w": 147,
+"h": 147,
+"fundo": false,
+"lados": 4,
+"sombra": false,
+"rad": 8
+},
+{
+"cls": "div.pbox.lfOk",
+"id": "",
+"t": "",
+"x": 210,
+"y": 578,
+"w": 147,
+"h": 147,
+"fundo": true,
+"lados": 0,
+"sombra": false,
+"rad": 8
+},
+{
+"cls": "div.pbox.lfOk",
+"id": "",
+"t": "",
+"x": 33,
+"y": 855,
+"w": 147,
+"h": 147,
+"fundo": true,
+"lados": 0,
+"sombra": false,
+"rad": 8
+},
+{
+"cls": "div.pbox.lfOk",
+"id": "",
+"t": "",
+"x": 210,
+"y": 855,
+"w": 147,
+"h": 147,
+"fundo": true,
+"lados": 0,
+"sombra": false,
+"rad": 8
+},
+{
+"cls": "div.pbox.lfOk",
+"id": "",
+"t": "",
+"x": 33,
+"y": 1197,
+"w": 147,
+"h": 147,
+"fundo": true,
+"lados": 0,
+"sombra": false,
+"rad": 8
+},
+{
+"cls": "div.pbox.lfOk",
+"id": "",
+"t": "",
+"x": 210,
+"y": 1197,
+"w": 147,
+"h": 147,
+"fundo": true,
+"lados": 0,
+"sombra": false,
+"rad": 8
+},
+{
+"cls": "div.pbox.lfOk",
+"id": "",
+"t": "",
+"x": 33,
+"y": 1517,
+"w": 147,
+"h": 147,
+"fundo": true,
+"lados": 0,
+"sombra": false,
+"rad": 8
+},
+{
+"cls": "div.pbox.lfOk",
+"id": "",
+"t": "",
+"x": 210,
+"y": 1517,
+"w": 147,
+"h": 147,
+"fundo": true,
+"lados": 0,
+"sombra": false,
+"rad": 8
+},
+{
+"cls": "div.pbox.lfOk",
+"id": "",
+"t": "",
+"x": 33,
+"y": 1838,
+"w": 147,
+"h": 147,
+"fundo": true,
+"lados": 0,
+"sombra": false,
+"rad": 8
+},
+{
+"cls": "div.pbox.lfOk",
+"id": "",
+"t": "",
+"x": 210,
+"y": 1838,
+"w": 147,
+"h": 147,
+"fundo": true,
+"lados": 0,
+"sombra": false,
+"rad": 8
+},
+{
+"cls": "div.pbox.lfOk",
+"id": "",
+"t": "",
+"x": 33,
+"y": 2115,
+"w": 147,
+"h": 147,
+"fundo": true,
+"lados": 0,
+"sombra": false,
+"rad": 8
+},
+{
+"cls": "div.pbox.lfOk",
+"id": "",
+"t": "",
+"x": 210,
+"y": 2115,
+"w": 147,
+"h": 147,
+"fundo": true,
+"lados": 0,
+"sombra": false,
+"rad": 8
+}
+],
+"precos": [
+{
+"cls": "section.card.col.paCard",
+"id": "paCard",
+"t": "Preço automático desligado · você define os preços",
+"x": 24,
+"y": 1195,
+"w": 342,
+"h": 81,
+"fundo": true,
+"lados": 4,
+"sombra": true,
+"rad": 20
+}
+],
+"precos-contas": [
+{
+"cls": "section.card.col.paCard",
+"id": "paCard",
+"t": "Preço automático desligado · você define os preços",
+"x": 24,
+"y": 1195,
+"w": 342,
+"h": 81,
+"fundo": true,
+"lados": 4,
+"sombra": true,
+"rad": 20
+}
+],
+"caixa-retirar": [
+{
+"cls": "div.cxBack.on",
+"id": "",
+"t": "",
+"x": 0,
+"y": 0,
+"w": 390,
+"h": 844,
+"fundo": true,
+"lados": 0,
+"sombra": false,
+"rad": 0
+},
+{
+"cls": "div.cxAcao.on",
+"id": "",
+"t": "Retirada do dono Dinheiro que você tira da loja pa",
+"x": 0,
+"y": 101,
+"w": 390,
+"h": 743,
+"fundo": true,
+"lados": 1,
+"sombra": false,
+"rad": 22
+},
+{
+"cls": "section.card.col",
+"id": "",
+"t": "Retirada do dono Dinheiro que você tira da loja pa",
+"x": 14,
+"y": 127,
+"w": 362,
+"h": 1023,
+"fundo": false,
+"lados": 0,
+"sombra": true,
+"rad": 20
+}
+],
+"caixa-conferir": [
+{
+"cls": "div.cxBack.on",
+"id": "",
+"t": "",
+"x": 0,
+"y": 0,
+"w": 390,
+"h": 844,
+"fundo": true,
+"lados": 0,
+"sombra": false,
+"rad": 0
+},
+{
+"cls": "div.cxAcao.on",
+"id": "",
+"t": "Conferir o caixa Conte o dinheiro que você tem e c",
+"x": 0,
+"y": 300,
+"w": 390,
+"h": 544,
+"fundo": true,
+"lados": 1,
+"sombra": false,
+"rad": 22
+},
+{
+"cls": "section.card.col",
+"id": "",
+"t": "Conferir o caixa Conte o dinheiro que você tem e c",
+"x": 14,
+"y": 326,
+"w": 362,
+"h": 500,
+"fundo": false,
+"lados": 0,
+"sombra": true,
+"rad": 20
+}
+],
+"caixa-movimentos": [],
+"cambio-repo": [
+{
+"cls": "div.fjBk.in",
+"id": "",
+"t": "",
+"x": 0,
+"y": 0,
+"w": 390,
+"h": 844,
+"fundo": true,
+"lados": 4,
+"sombra": false,
+"rad": 10
+},
+{
+"cls": "div.fjJn.in",
+"id": "",
+"t": "Por que está normal Dólar na La Moneda Jebai (vend",
+"x": 0,
+"y": 299,
+"w": 390,
+"h": 545,
+"fundo": true,
+"lados": 4,
+"sombra": true,
+"rad": 22
+}
+],
+"cambio-trocas": [
+{
+"cls": "div.fjBk.in",
+"id": "",
+"t": "",
+"x": 0,
+"y": 0,
+"w": 390,
+"h": 844,
+"fundo": true,
+"lados": 4,
+"sombra": false,
+"rad": 10
+},
+{
+"cls": "div.fjJn.in",
+"id": "",
+"t": "Últimas trocas G$ 650.000 → US$ 100,90 09/11 às 13",
+"x": 0,
+"y": 316,
+"w": 390,
+"h": 528,
+"fundo": true,
+"lados": 4,
+"sombra": true,
+"rad": 22
+}
+],
+"cambio-prot": [
+{
+"cls": "div.fjBk.in",
+"id": "",
+"t": "",
+"x": 0,
+"y": 0,
+"w": 390,
+"h": 844,
+"fundo": true,
+"lados": 4,
+"sombra": false,
+"rad": 10
+},
+{
+"cls": "div.fjJn.in",
+"id": "",
+"t": "Como o app te protege Colchão de segurança Reserva",
+"x": 0,
+"y": 101,
+"w": 390,
+"h": 743,
+"fundo": true,
+"lados": 4,
+"sombra": true,
+"rad": 22
+},
+{
+"cls": "section.card.col",
+"id": "",
+"t": "Colchão de segurança Reserva contra a alta do dóla",
+"x": 20,
+"y": 166,
+"w": 350,
+"h": 318,
+"fundo": false,
+"lados": 0,
+"sombra": true,
+"rad": 20
+}
+],
+"despesas-conta": [
+{
+"cls": "div.g99",
+"id": "",
+"t": "Imprevistos do mês Gasto G$ 60.000 de G$ 200.000 ·",
+"x": 24,
+"y": 1827,
+"w": 342,
+"h": 137,
+"fundo": true,
+"lados": 4,
+"sombra": false,
+"rad": 16
+}
+],
+"pendencias": [
+{
+"cls": "section.card",
+"id": "",
+"t": "Margem da loja subiu para 2,0% O dólar está 2,4% a",
+"x": 24,
+"y": 1480,
+"w": 342,
+"h": 118,
+"fundo": true,
+"lados": 4,
+"sombra": true,
+"rad": 20
+}
+],
+"marketing": [
+{
+"cls": "div.mkDtG",
+"id": "",
+"t": "Listas por perfil Resultados Kit da marca",
+"x": 24,
+"y": 1282,
+"w": 342,
+"h": 172,
+"fundo": true,
+"lados": 4,
+"sombra": false,
+"rad": 16
+}
+],
+"marketing-listas": [
+{
+"cls": "div.mkDtG",
+"id": "",
+"t": "Listas por perfil Para as listas de transmissão do",
+"x": 24,
+"y": 1282,
+"w": 342,
+"h": 495,
+"fundo": true,
+"lados": 4,
+"sombra": false,
+"rad": 16
+}
+],
+"atacado-lojistas": [],
+"atacado-tabela": [],
+"inventario-ficha": [],
+"inventario-ficha-preco": [],
+"inventario-novo": [
+{
+"cls": "div.adLista",
+"id": "addMenuB",
+"t": "Chegou mercadoria Preencher à mão",
+"x": 19,
+"y": 695,
+"w": 352,
+"h": 114,
+"fundo": true,
+"lados": 4,
+"sombra": false,
+"rad": 16
+}
+],
+"catalogo-pagamento": [],
+"cambio": [],
+"clientes-novo": [
+{
+"cls": "section.card.col.cf77",
+"id": "cliFicha",
+"t": "Novo cliente DADOS Nome Telefone E-mail Paraguaio ",
+"x": 0,
+"y": 264,
+"w": 390,
+"h": 580,
+"fundo": true,
+"lados": 0,
+"sombra": true,
+"rad": 22
+}
+],
+"inicio": [
+{
+"cls": "label.buIn",
+"id": "",
+"t": "",
+"x": 24,
+"y": 118,
+"w": 342,
+"h": 50,
+"fundo": true,
+"lados": 4,
+"sombra": false,
+"rad": 16
+},
+{
+"cls": "section.card.guardC.guard1.noconta",
+"id": "",
+"t": "Guardião · 7 coisas para olhar ›",
+"x": 24,
+"y": 198,
+"w": 342,
+"h": 59,
+"fundo": true,
+"lados": 3,
+"sombra": true,
+"rad": 4
+},
+{
+"cls": "div.hero",
+"id": "",
+"t": "Vendido hoje · 5 venda(s) G$ 182.000 ›",
+"x": 24,
+"y": 275,
+"w": 342,
+"h": 83,
+"fundo": true,
+"lados": 4,
+"sombra": true,
+"rad": 20
+}
+],
+"ajustes": [],
+"grp-dinheiro": []
+}
