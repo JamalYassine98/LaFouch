@@ -3625,6 +3625,37 @@ async def main():
             if not ok: falhas.append('token reservasTok'); print('        veio', got, pg.erros)
             await pg.close()
 
+            # P1b no app (19/11/2026): reserva PAGA de pedido apagado — a nuvem devolve as órfãs pelos códigos conhecidos; solta com liberarH depois de 10 min
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              const H = async sid => [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode('lf-res|' + sid)))].map(x => ('0' + x.toString(16)).slice(-2)).join('').slice(0, 20);
+              const nv0 = S.nuvem, f0 = window.fetch, corpos = []; let respLib = { ok: false };
+              const hApagado = await H('APAGADO5'), hCanc = await H('PCANC4');
+              window.fetch = async (u, o) => { u = String(u);
+                if (/securetoken/.test(u)) return new Response(JSON.stringify({ id_token: 't', refresh_token: 'teste' }), { status: 200 });
+                if (/cloudfunctions.net\\/reserva/.test(u)) { const c = JSON.parse(o.body); corpos.push(c);
+                  if (c.acao === 'orfas') return new Response(JSON.stringify({ ok: true, orfas: [{ ref: 'ZZ9', h: hApagado, cor: '', q: 1 }, { ref: 'ZZ8', h: 'nao-e-codigo', cor: '', q: 1 }] }), { status: 200 });
+                  return new Response(JSON.stringify(c.acao === 'liberarH' ? respLib : { ok: true }), { status: 200 }); }
+                return new Response('{}', { status: 200 }); };
+              S.nuvem = { rt: 'teste' }; S.resPend = {}; S.resPendH = {}; S.resOrfH = {};
+              S.pedidos.push({ id: 'pQ1', sid: 'PCANC4', orig: 'site', st: 'canc', itens: [{ ref: 'ZZ1', cor: '', q: 1 }] });
+              L.resOtZera(); await L.resOrfasNuvem(); await w(100);
+              const c1 = corpos.find(c => c.acao === 'orfas'), mandou = !!c1 && c1.conhecidos.includes(hCanc) && !c1.conhecidos.includes(hApagado) && !('pedido' in c1);
+              const espera = !!S.resOrfH[hApagado] && !S.resPendH[hApagado] && Object.keys(S.resOrfH).length === 1;
+              L.resOtZera(); await L.resOrfasNuvem(); await w(100); const naoAntes = !S.resPendH[hApagado];
+              S.resOrfH[hApagado] = Date.now() - 11 * 60000; L.resOtZera(); await L.resOrfasNuvem(); await w(150);
+              const fila = !!S.resPendH[hApagado] && S.resPendH[hApagado].refs[0] === 'ZZ9';
+              const cl = corpos.filter(c => c.acao === 'liberarH'), lib = cl.length > 0 && cl[0].h === hApagado && cl[0].itens[0].ref === 'ZZ9';
+              const ficou = !!S.resPendH[hApagado];
+              respLib = { ok: true }; L.resFlushH(); await w(150); const saiu = !S.resPendH[hApagado];
+              window.fetch = f0; S.pedidos = S.pedidos.filter(p => p.id !== 'pQ1'); S.resPendH = {}; S.resOrfH = {}; S.nuvem = nv0;
+              return [mandou, espera, naoAntes, fila, lib, ficou, saiu]; }""")
+            total += 1
+            ok = got == [True] * 7 and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'P1b no app: órfã paga de pedido apagado vem da nuvem, espera 10 min e sai por liberarH (recusa fica na fila)')
+            if not ok: falhas.append('P1b no app'); print('        veio', got, pg.erros)
+            await pg.close()
+
             # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site
             pg = await pagina()
             got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));

@@ -27,6 +27,11 @@
     // B2 (19/11): a lista vai sempre em "itens" — o nome que a função lê (antes ia em "refs" ao liberar/recusar, chegava vazia e nada soltava)
     var corpo = { acao: acao, pedido: p.sid, itens: resItensDe(p) };
     if (!corpo.itens.length) return Promise.resolve(null);
+    return resChama(corpo);
+  }
+  // Chamada crua à função "reserva" como dono (P1b usa sem número de pedido). null = fora do ar/desligada.
+  function resChama(corpo) {
+    if (!S.nuvem || !S.nuvem.rt) return Promise.resolve(null);
     return nvToken()
       .then(function (t) {
         return fetch(resUrl(), { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: JSON.stringify(corpo) });
@@ -142,6 +147,52 @@
     });
     saveSoon();
     resFlush();
+    resOrfasNuvem();
+  }
+  // P1b (19/11): reserva PAGA de pedido APAGADO do app — a nuvem não mostra mais o número do pedido e o app não o tem.
+  // O app manda os códigos h de TODOS os pedidos que conhece (cancelados também) + os da fila; a nuvem devolve as pagas que não são
+  // de nenhum deles. Mesma regra de sempre: só solta a órfã vista de novo depois de 10 min (liberarH pelo código). No máximo a cada 5 min.
+  var RES_OT = 0;
+  function resOrfasNuvem() {
+    if (!S.nuvem || !S.nuvem.rt || navigator.onLine === false || Date.now() - RES_OT < 5 * 60000) return Promise.resolve();
+    RES_OT = Date.now();
+    var sids = {};
+    (S.pedidos || []).forEach(function (p) {
+      if (p && p.sid) sids[p.sid] = 1;
+    });
+    Object.keys(S.resPend || {}).forEach(function (sid) {
+      sids[sid] = 1;
+    });
+    return Promise.all(Object.keys(sids).map(resH))
+      .then(function (hs) {
+        var conhecidos = hs.filter(Boolean).concat(Object.keys(S.resPendH || {}));
+        return resChama({ acao: 'orfas', conhecidos: conhecidos });
+      })
+      .then(function (r) {
+        if (!r || r.ok === false || !Array.isArray(r.orfas)) return;
+        var agora = Date.now(),
+          vistas = {};
+        r.orfas.forEach(function (o) {
+          if (!o || !/^[0-9a-f]{20}$/.test(String(o.h || '')) || !o.ref) return;
+          (vistas[o.h] = vistas[o.h] || {})[o.ref] = 1;
+        });
+        S.resOrfH = S.resOrfH || {};
+        Object.keys(S.resOrfH).forEach(function (h) {
+          if (!vistas[h]) delete S.resOrfH[h];
+        });
+        Object.keys(vistas).forEach(function (h) {
+          var t0 = S.resOrfH[h];
+          if (!t0) S.resOrfH[h] = agora;
+          else if (agora - t0 >= 10 * 60000) {
+            delete S.resOrfH[h];
+            if (!S.resPendH) S.resPendH = {};
+            S.resPendH[h] = { refs: Object.keys(vistas[h]), t: agora };
+          }
+        });
+        saveSoon();
+        resFlushH();
+      })
+      .catch(function () {});
   }
   // ---- liberar só depois que o site já recebeu o estoque novo (senão a peça volta ao ar por um instante)
   function resFlush() {
@@ -164,6 +215,19 @@
       });
     });
   }
+  // P1b: fila das órfãs pelo código h (só sai quando a nuvem confirma)
+  function resFlushH() {
+    var pend = S.resPendH || {};
+    if (!Object.keys(pend).length || !S.nuvem || !S.nuvem.rt || navigator.onLine === false) return;
+    Object.keys(pend).forEach(function (h) {
+      resChama({ acao: 'liberarH', h: h, itens: pend[h].refs.map(function (r) { return { ref: r }; }) }).then(function (r) {
+        if (!r || r.ok === false) return;
+        delete S.resPendH[h];
+        saveSoon();
+      });
+    });
+  }
+  setInterval(resFlushH, 20000);
   setInterval(resFlush, 20000);
   setTimeout(resFlush, 8000);
   // ---- baixa automática: tira do estoque e registra a venda (venda de loja física NÃO entra aqui)

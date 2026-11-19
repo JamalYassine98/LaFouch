@@ -1,1 +1,1 @@
-{"v":566,"nat":1,"nome":"5.46.3","notas":["Pedido do site: tocar no nome da cliente abre a ficha dela em Clientes (antes abria uma tela vazia).","Pagamento confirmado: o token de entrega também fica guardado num lugar fechado da nuvem (passo 2 da segurança da conta e do token)."]}
+{"v":567,"nat":1,"nome":"5.46.4","notas":["Reservas do site: se um pedido pago for apagado do app, a peça que ele segurava volta a ficar livre no site (o app confere com a nuvem e solta depois de 10 minutos)."]}

@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 566;
+  var APP_BUILD = 567;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.46.3'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.46.4'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -26118,6 +26118,11 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     // B2 (19/11): a lista vai sempre em "itens" — o nome que a função lê (antes ia em "refs" ao liberar/recusar, chegava vazia e nada soltava)
     var corpo = { acao: acao, pedido: p.sid, itens: resItensDe(p) };
     if (!corpo.itens.length) return Promise.resolve(null);
+    return resChama(corpo);
+  }
+  // Chamada crua à função "reserva" como dono (P1b usa sem número de pedido). null = fora do ar/desligada.
+  function resChama(corpo) {
+    if (!S.nuvem || !S.nuvem.rt) return Promise.resolve(null);
     return nvToken()
       .then(function (t) {
         return fetch(resUrl(), { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + t }, body: JSON.stringify(corpo) });
@@ -26233,6 +26238,52 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     });
     saveSoon();
     resFlush();
+    resOrfasNuvem();
+  }
+  // P1b (19/11): reserva PAGA de pedido APAGADO do app — a nuvem não mostra mais o número do pedido e o app não o tem.
+  // O app manda os códigos h de TODOS os pedidos que conhece (cancelados também) + os da fila; a nuvem devolve as pagas que não são
+  // de nenhum deles. Mesma regra de sempre: só solta a órfã vista de novo depois de 10 min (liberarH pelo código). No máximo a cada 5 min.
+  var RES_OT = 0;
+  function resOrfasNuvem() {
+    if (!S.nuvem || !S.nuvem.rt || navigator.onLine === false || Date.now() - RES_OT < 5 * 60000) return Promise.resolve();
+    RES_OT = Date.now();
+    var sids = {};
+    (S.pedidos || []).forEach(function (p) {
+      if (p && p.sid) sids[p.sid] = 1;
+    });
+    Object.keys(S.resPend || {}).forEach(function (sid) {
+      sids[sid] = 1;
+    });
+    return Promise.all(Object.keys(sids).map(resH))
+      .then(function (hs) {
+        var conhecidos = hs.filter(Boolean).concat(Object.keys(S.resPendH || {}));
+        return resChama({ acao: 'orfas', conhecidos: conhecidos });
+      })
+      .then(function (r) {
+        if (!r || r.ok === false || !Array.isArray(r.orfas)) return;
+        var agora = Date.now(),
+          vistas = {};
+        r.orfas.forEach(function (o) {
+          if (!o || !/^[0-9a-f]{20}$/.test(String(o.h || '')) || !o.ref) return;
+          (vistas[o.h] = vistas[o.h] || {})[o.ref] = 1;
+        });
+        S.resOrfH = S.resOrfH || {};
+        Object.keys(S.resOrfH).forEach(function (h) {
+          if (!vistas[h]) delete S.resOrfH[h];
+        });
+        Object.keys(vistas).forEach(function (h) {
+          var t0 = S.resOrfH[h];
+          if (!t0) S.resOrfH[h] = agora;
+          else if (agora - t0 >= 10 * 60000) {
+            delete S.resOrfH[h];
+            if (!S.resPendH) S.resPendH = {};
+            S.resPendH[h] = { refs: Object.keys(vistas[h]), t: agora };
+          }
+        });
+        saveSoon();
+        resFlushH();
+      })
+      .catch(function () {});
   }
   // ---- liberar só depois que o site já recebeu o estoque novo (senão a peça volta ao ar por um instante)
   function resFlush() {
@@ -26255,6 +26306,19 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       });
     });
   }
+  // P1b: fila das órfãs pelo código h (só sai quando a nuvem confirma)
+  function resFlushH() {
+    var pend = S.resPendH || {};
+    if (!Object.keys(pend).length || !S.nuvem || !S.nuvem.rt || navigator.onLine === false) return;
+    Object.keys(pend).forEach(function (h) {
+      resChama({ acao: 'liberarH', h: h, itens: pend[h].refs.map(function (r) { return { ref: r }; }) }).then(function (r) {
+        if (!r || r.ok === false) return;
+        delete S.resPendH[h];
+        saveSoon();
+      });
+    });
+  }
+  setInterval(resFlushH, 20000);
   setInterval(resFlush, 20000);
   setTimeout(resFlush, 8000);
   // ---- baixa automática: tira do estoque e registra a venda (venda de loja física NÃO entra aqui)
@@ -52650,6 +52714,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       'baixaAuto', 'temaOf', 'temaRes', 'temaNao', 'temaOrc', 'temaMail', 'ataContas', 'ataPeds', 'ataLotes', 'cntFech', 'cntCalc', 'ataConvMax', 'fotoOk', 'fotoRev', 'ataPub', 'guardMudo', 'recentes', 'fnTab', 'fretes', 'ivaCompraPct', 'baixaAutoV', 'fechos', 'fechoAdia', 'espera',
       'resPend',
       'resLimpo1',
+      'resOrfH',
+      'resPendH',
       'resOrf',
       'pixAuto',
       'pixLog',
@@ -52877,7 +52943,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       pixRecebido: pixRecebido, ofertaFim: ofertaFim, siteMaisVendidas: function () { MV_CACHE.ts = 0; return siteMaisVendidas(); }, compLeTexto: compLeTexto, fichaLinhas: fichaLinhas, impBytes: impBytes,
       loadMsg: loadMsg, animGraficos: animGraficos, progAnim: progAnim, obturadorVoa: obturadorVoa, leitorVisor: leitorVisor, siteFx: siteFx, saidaSiteAtiva: saidaSiteAtiva, siteL2: siteL2, siteCupMax: siteCupMax, cupSimula: cupSimula, cupCaixaAplica: cupCaixaAplica, cupValeuHtml: cupValeuHtml, dstFraca: dstFraca, nvDestaque: nvDestaque, lfToast: lfToast, brTotais: brTotais, linhaDe: linhaDe, atdDesceu: atdDesceu, cartLeve2: cartLeve2, paPlano: paPlano, paRevisa: paRevisa, paDesfaz: paDesfaz, paFraca: paFraca, paParado: paParado, atdViu: atdViu, atdFim: atdFim, parecidas: parecidas, lmLer: lmLer, lmAvisaParada: lmAvisaParada, metaCardHtml: metaCardHtml, metaMes: metaMes, metaCalc: metaCalc, objPlano: objPlano, objExtra: objExtra, melhPecaAuto: melhPecaAuto, fxVeredito: fxVeredito, fxSerie: fxSerie, fxAbaHtml: fxAbaHtml, fxRepo: fxRepo, siteOfRevisa: siteOfRevisa, siteOfPct: siteOfPct, sitePrecoOferta: sitePrecoOferta, encalhadas: encalhadas, lmUsdLoja: lmUsdLoja, siteFxConfere: siteFxConfere, fxDaCasa: fxDaCasa, siteQueda: siteQueda, lmGrava: lmGrava, gsDeUsd: gsDeUsd, fpProcessa: fpProcessa, camOpen: camOpen, fpResultado: fpResultado, fpChaves: fpChaves, lcLista: lcLista, vitSugestao: vitSugestao, estProcessa: estProcessa, estFila: estFila, estResultado: estResultado, estAbre: estAbre, estDepoisFoto: estDepoisFoto, estDestino: estDestino, estTutorial: estTutorial, mkLegenda: mkLegenda, mkFatos: mkFatos, mkPlano: mkPlano, mkDatas: mkDatas, mkPascoa: mkPascoa,
       nvPack: nvPack, nvUnpack: nvUnpack, fotoPend: fotoPend, fotoPendModelos: fotoPendModelos, fotosFila: fotosFila, fmSigDe: fmSigDe, fmScore: fmScore, fmRank: fmRank, cpMenu: cpMenu, cpNota: cpNota, cpCria: cpCria, cpEntrada: cpEntrada, fmAnalisa: fmAnalisa, fmPecas: fmPecas, fmParecido: fmParecido, fmNaoAchei: fmNaoAchei, fmLeEtiqueta: fmLeEtiqueta,
-      S: S, vitDocBody: vitDocBody, giroSiteFila: giroSiteFila, lucroUnico: lucroUnico, lucroDesceAte: lucroDesceAte, lucroCustoGs: lucroCustoGs, lrVenda: lrVenda, lucroPecaHtml: lucroPecaHtml, cntPrecoHtml: cntPrecoHtml, ofertaTexto: ofertaTexto, estGiro: estGiro, estGiroAuto: estGiroAuto, giroGv: giroGv, giroGn: giroGn, giroPrepara: giroPrepara, giroComprime: giroComprime, resSolta: resSolta, resOrfas: resOrfas, resFlush: resFlush, resBusca: resBusca, resEstSet: function (o) { RES_EST = o; }, vistasNaoVendidas: vistasNaoVendidas, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcComprarNovo: lcComprarNovo, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
+      S: S, vitDocBody: vitDocBody, giroSiteFila: giroSiteFila, lucroUnico: lucroUnico, lucroDesceAte: lucroDesceAte, lucroCustoGs: lucroCustoGs, lrVenda: lrVenda, lucroPecaHtml: lucroPecaHtml, cntPrecoHtml: cntPrecoHtml, ofertaTexto: ofertaTexto, estGiro: estGiro, estGiroAuto: estGiroAuto, giroGv: giroGv, giroGn: giroGn, giroPrepara: giroPrepara, giroComprime: giroComprime, resSolta: resSolta, resOrfas: resOrfas, resFlush: resFlush, resBusca: resBusca, resOrfasNuvem: resOrfasNuvem, resFlushH: resFlushH, resOtZera: function () { RES_OT = 0; }, resEstSet: function (o) { RES_EST = o; }, vistasNaoVendidas: vistasNaoVendidas, mcInicio: mcInicio, mcSair: mcSair, mcAplica: mcAplica, cfSelos: cfSelos, renderDeNovo: renderDeNovo, setFoto: setFoto, lcPedResumoHtml: lcPedResumoHtml, lcComprarNovo: lcComprarNovo, lcForn: lcForn, arqRoda: arqRoda, arqVolta: arqVolta, arqCorte: arqCorte, arqCopia: arqCopia, salvarAgora: salvarAgora, siteFxConfere: siteFxConfere, sitePreco: sitePreco, precoTab: precoTab, tabSugestao: tabSugestao, tabAplicaCarrinho: tabAplicaCarrinho, tabMensagem: tabMensagem, pedCliente: pedCliente, cliAchar: cliAchar, fxMargemInfo: fxMargemInfo, fxLoja: fxLoja, identSync: identSync, nomeAuto: nomeAuto, numOf: numOf, attrOf: attrOf, setAttr: setAttr, pubNome: pubNome, identTxt: identTxt, calcSale: calcSale, colchao: colchao, reservas: reservas, conv: conv, ratePyg: ratePyg,
       walletGs: walletGs, parseDec: parseDec, gUnit: gUnit, gOwn: gOwn, gTot: gTot, grpDet: grpDet,
       grpTot: grpTot, grpFalta: grpFalta, effCusto: effCusto, parseLote: parseLote, parsePedido: parsePedido, parseHaste: parseHaste,
       parseVote: parseVote, flatParse: flatParse, numAmt: numAmt, hKey: hKey, lev: lev, normRef: normRef,
