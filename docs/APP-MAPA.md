@@ -50,12 +50,13 @@ Manter ATUALIZADO a cada aprovação, mudança ou implementação (no mesmo comm
 | 140C | todas as escolhas | padrão C suave (Pagamento, Marketing, Paraguaio/Estrangeiro, impressora, Retirada, Registrar troca, Livre para você) | work/s429 |
 | 141 | Pagamento | "+ Receber parte em outra moeda" branco, sem sublinhado, à esquerda (grupo dos "+" em texto) | work/s429 |
 | 142st | Carrinho e Pagamento | título próprio + "‹ voltar"; sem cartão; campos em linha; aviso em frase; "+ Adicionar outra peça" centralizado sem sublinhado (142e/h/i/s/t) | work/s431 |
+| 150i | Sino (21 telas), Caixa › Ações, Histórico/Mês vendido (Data, Filtros), Peça › Compartilhar, Giro › Filtros e ordem | família Ícone redondo: círculo 44 px, contorno fino, sem fundo, ícone 20 px (substitui o 137a) | work/s436/icone_redondo_* |
 Obs.: 132 na base é só visual (ao implementar, ligar as ações de verdade).
 
 ## 4. ESPERANDO decisão do dono (app)
 - IDEIA APROVADA, falta esboço (fase acabamento; dono 19/11 12:33, recado do SITE): BIBLIOTECA DE VÍDEOS única — a aba Marketing gera o vídeo nos dois formatos (9:16 e 16:9) e guarda na biblioteca, com "Usar no destaque do site ›"; a aba Site (modo Vídeo do destaque) escolhe da MESMA biblioteca (miniatura + data), sem colar endereço. Quem manda é o destaque do site. NÃO MEXER: link "Separado para você" (`lafouch.com/s/REF.REF~Nome`). NADA no app sobre o formato do rosto do cliente (a loja não vê).
 - 138 (com a cara 140C): c Reservas 30/60/90 vira escolha · d Novo acesso vira escolha · e Usar G$/Informar · f Me lembra · l moeda do Dashboard. (138m/138o resolvidos pelo 140C.) "+ Receber parte em outra moeda" fica como hoje.
-- 137a sino/Ações do caixa redondos · 137b ficha Voltar/Editar redondos + toque 44 no "Ficha 4/6" · 137g Vitrine · 137h Conferir o caixa sem Fechar · 137i Novo objetivo "Salvar" · 137j "+ Criar lote".
+- (137a substituído pelo 150i, 19/11) · 137b ficha Voltar/Editar redondos + toque 44 no "Ficha 4/6" · 137g Vitrine · 137h Conferir o caixa sem Fechar · 137i Novo objetivo "Salvar" · 137j "+ Criar lote".
 - Sugestões: "+" dentro do conteúdo (hoje texto; o dono rejeitou rosa centralizado no 137k) · "Salvar" só quando só salva dados, senão o verbo da ação.
 - Sobras da lista S384 (Catálogo, Marketing, Preços Contador) e varredura tablet/PC/letra grande.
 

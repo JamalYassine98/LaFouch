@@ -30,6 +30,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
   4. **CLAUDE.md foi reorganizado às 12:02** (23 regras em 8 partes): reler antes de continuar; acabou a regra de não consultar — tudo em partes, consultando o dono.
 
 ## Últimas mudanças (mais nova em cima; manter só as ~20 últimas)
+- 19/11/2026 12:45 — S436: APROVADO 150i família Ícone redondo (base, lista viva, memória, APP-MAPA; substitui 137a). Inventário 2 das 27 telas sendo refeito. Nada no código.
 - 19/11/2026 12:37 — S436: recados lidos e riscados; biblioteca de vídeos anotada no APP-MAPA §4.
 - 19/11/2026 12:40 — S436 Ícone redondo parte 1 (work/s436/icone_redondo_*.jpg): medido com a base, a família real tem 30 botões e 4 caras (sino 46 px cheio; Data/Filtros/Compartilhar 44 px contorno = modelo; Ações do caixa rosa; Filtros e ordem do Giro quadrado). A câmera dentro da busca do Giro NÃO é dessa família (ícone do campo). "Ver" (pílula) e − / + do catálogo também não (vão para Secundário e Passo). Esperando o dono.
 - 19/11/2026 12:17 — sessão de apoio: ESBOÇO DE EXEMPLO da família Voltar no Pagamento (work/s436/esboco_voltar_*.jpg): "‹ Carrinho" 15 px → "‹ CARRINHO" versalete 12 px igual ao Câmbio. Esperando o dono; nada no código. S435: usar como modelo se o dono aprovar.
