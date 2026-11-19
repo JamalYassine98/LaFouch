@@ -3139,3 +3139,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
   Na implementação, mudar o código original no lugar (não por cima) e tirar o velho no mesmo passo.
 - 18/11/2026 21:12 · REGRAS APROVADAS: um título por tela (etapas = tela própria com ‹ voltar); grupo dos '+' em texto (esquerda entre campos, centralizado sozinho); posição do '⌄'.
 - 18/11/2026 21:18 · APROVADOS 142s/142t (+142e/h/i): Carrinho e Pagamento como telas próprias com ‹ voltar.
+- 18/11 21:22 — DONO: letra no MÁXIMO 1,2× (substitui a meta 1,7×/1,5× das 20:59). O site segue a letra do celular até 1,2× e para aí. Com os aprovados, no Xiaomi todas as telas já aguentam 1,2×, menos o catálogo (precisa do esboço do catálogo: 'Filtros' corta em 1,1×).

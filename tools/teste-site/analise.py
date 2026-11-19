@@ -24,7 +24,7 @@ TF = [t for t in os.environ.get('LF_TELAS', '').split(',') if t]
 if TF: TEL = [x for x in TEL if x[0] in TF]
 PORTAS = [x.split(':') for x in os.environ.get('LF_PORTAS', 'hoje:8000').split(',') if x]
 AF = [a for a in os.environ.get('LF_APARELHOS', '').split(',') if a]
-ESC = [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7]  # teto 1,7× (dono 18/11 20:57)
+ESC = [1.0, 1.1, 1.2]  # teto 1,2× (dono 18/11 21:22)
 QUEBRA = {'largura', 'cortado', 'texto cortado', 'texto sobre texto', 'tampado', 'fileira torta', 'colados'}
 CONTA = json.dumps({'nome': 'Maria González', 'email': 'maria@exemplo.com', 'tel': '+595 983 000 000', 'nac': 'py', 'doc': '1234567',
                     'ends': [{'nome': 'Casa', 'cidade': 'Ciudad del Este', 'dep': 'Alto Paraná', 'end': 'Calle Los Lapachos 123'}]})
