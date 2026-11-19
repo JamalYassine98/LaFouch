@@ -26,11 +26,12 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 | 3 | **B2 soltar reserva (URGENTE — bug)**: src/95-reserva.js `resApi` manda a lista em `itens` (como a função lê) para liberar e recusar; resposta `ok:false` não tira da fila (tenta de novo); limpar uma vez as 7 reservas vencidas paradas. Função da nuvem NÃO muda. Esboço work/estudo-c/esboco_B2_*.jpg; causa em docs/ESTUDO-ESTOQUE-SITE-19-11.md §7 | APP | 19/11 14:03 | na fila |
 | 4 | **B1 nome da cliente no pedido**: `ACT.pedcli` (src/95-pedidos.js) abre `clientes` com a ficha da cliente (hoje abre `cli`, que não existe). Esboço work/estudo-c/esboco_B1_*.jpg | APP | 19/11 14:03 | na fila |
 | 5 | **B3 "Site" → "Resumo"**: no grupo Site, a linha e o título da tela de resumo passam a "Resumo" (frase "Resumo da loja online" fica). Esboço work/estudo-c/esboco_B3_*.jpg | APP | 19/11 14:03 | na fila |
+| 6 | **P1 segurança da reserva — parte da NUVEM**: cancelar público só solta não paga/sem comprovante; `estoque/` sem número do pedido (campo `h`); função aceita `itens` e `refs`; limpeza diária arruma as paradas. Testes: reserva 29/29, endpoint 9/9, demais 14 suítes ok | NUVEM | 19/11 14:29 | feito no código (commit desta linha) — **falta o dono publicar** (`firebase deploy --only functions`) |
+| 7 | **P1 — parte do APP** (depois do deploy do item 6): `resOrfas` em src/95-reserva.js passa a achar as reservas pelo código `h` = primeiros 20 caracteres do sha256 de `'lf-res|' + p.sid` (hoje usa `x.pid`, que não vem mais; sem isso as órfãs só não são soltas — nada quebra). Obs. para o item 3: a função agora também aceita `refs`; o que continua necessário é a resposta `ok:false` não sair da fila | APP | 19/11 14:29 | na fila |
 
 ## Em andamento
 | Sessão (assunto) | Frente | Telas / arquivos | Desde |
 |---|---|---|---|
-| NUVEM · implementa (P1 segurança da reserva) | NUVEM | functions/reserva.js, functions/index.js (reserva + limpeza), functions/teste-reserva.js, teste-endpoint.js | 19/11 14:30 |
 | App (S435 famílias: Voltar, Link ›, Linha de lista, Dobra ⌄, Adicionar +, "+" em texto, Título, Fechar ×) | APP | esboços em work/s437 (só esboço, nada no código ainda); docs/FAMILIAS-BOTOES.md | 19/11 |
 | APP · implementa (S436) | APP | esperando o dono para o item 3 (B2); v563 publicada | 19/11 14:35 |
 | Site (S429 — IMPLEMENTADORA do site; cópia limpa) | SITE | catalogo ramo `limpo` (index.html, js/lf-site.js) — fora do ar; agora: limpeza dos estilos (regras escritas uma por cima da outra) | 19/11 |
@@ -51,6 +52,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
   4. **CLAUDE.md foi reorganizado às 12:02** (23 regras em 8 partes): reler antes de continuar; acabou a regra de não consultar — tudo em partes, consultando o dono.
 
 ## Últimas mudanças (mais nova em cima; manter só as ~20 últimas)
+- 19/11/2026 14:45 — NUVEM · implementa: P1 segurança da reserva no código (functions/reserva.js, index.js, testes). Testes 29/29 + 9/9 + 14 suítes ok. Falta o dono publicar; depois, item 7 (APP).
 - 19/11/2026 14:30 — Dono aprovou o papel NUVEM (CLAUDE.md 1b): a sessão "Estudo · dados" virou "NUVEM · implementa" (functions/ e firestore.rules). Demais sessões: não mexer nesses arquivos.
 - 19/11/2026 14:30 — S436: Test Lab (celular real) disparado para 6 telas da v563 (claro e escuro), 1ª rodada do dia — somar antes de outra (máx. 30 min/dia).
 - 19/11/2026 14:30 — Estudo · dados: ESBOÇO P1 segurança da reserva (work/estudo-c/esboco_P1_*.jpg, docs/ESTUDO-ESTOQUE-SITE-19-11.md §8). Achado B2b: o "Cancelar" da cliente no site também não solta a peça. Esperando o dono; nada no código.

@@ -115,7 +115,7 @@ const T0 = 1_000_000_000_000;
     await R.reservar(db, T0 + R.PRAZO_MS + 60000, 'PBBB1', [{ ref: 'SL1', cor: 'Rosa', q: 1 }]);
     const f = await R.pagar(db, T0 + R.PRAZO_MS + 120000, 'PAAA1', [{ ref: 'SL1', cor: 'Rosa', q: 1 }]).catch((e) => e);
     assert.ok(f instanceof R.Falha && f.motivo === 'expirou');
-    assert.strictEqual(db.ler('estoque/SL1').res['PBBB1~rosa'].q, 1); // a outra reserva continua intacta
+    assert.strictEqual(db.ler('estoque/SL1').res[R.H('PBBB1') + '~rosa'].q, 1); // a outra reserva continua intacta
   });
   await teste('Itaú (alias): a reserva vale 30 min', async () => {
     const db = novo([1, 0]); const it = [{ ref: 'SL1', cor: 'Rosa', q: 1 }];
@@ -180,7 +180,54 @@ const T0 = 1_000_000_000_000;
     await R.reservar(db, T0, 'PAAA1', it); assert.ok(db.ler('estoque/SL1'));
     await R.liberar(db, T0 + 1, 'PAAA1', ['SL1']); assert.strictEqual(db.ler('estoque/SL1'), null);
     await R.reservar(db, T0 + 2, 'PAAA1', it); await R.reservar(db, T0 + R.PRAZO_MS * 3, 'PBBB1', it);
-    assert.deepStrictEqual(Object.keys(db.ler('estoque/SL1').res), ['PBBB1~rosa']);
+    assert.deepStrictEqual(Object.keys(db.ler('estoque/SL1').res), [R.H('PBBB1') + '~rosa']);
+  });
+
+  // ---- P1 (19/11/2026): segurança da reserva — tentativas de burlar
+  await teste('P1: a lista pública não mostra o número do pedido', async () => {
+    const db = novo([2, 0]); const it = [{ ref: 'SL1', cor: 'Rosa', q: 1 }];
+    await R.reservar(db, T0, 'PSEGREDO1', it); await R.pagar(db, T0, 'PSEGREDO1', it);
+    assert.ok(!JSON.stringify(db.ler('estoque/SL1')).includes('PSEGREDO1'));
+  });
+  await teste('P1: estranho NÃO consegue soltar reserva PAGA pelo cancelar público', async () => {
+    const db = novo([1, 0]); const it = [{ ref: 'SL1', cor: 'Rosa', q: 1 }];
+    await R.reservar(db, T0, 'PAAA1', it); await R.pagar(db, T0, 'PAAA1', it);
+    const r = await R.cancelar(db, T0 + 1, 'PAAA1', ['SL1']);
+    assert.strictEqual(r.presas, 1); assert.strictEqual(disp(db, 'Rosa', T0 + 1), 0);
+  });
+  await teste('P1: estranho NÃO consegue soltar reserva com comprovante enviado', async () => {
+    const db = novo([1, 0]); const it = [{ ref: 'SL1', cor: 'Rosa', q: 1 }];
+    await R.reservar(db, T0, 'PAAA1', it);
+    const e = db.ler('estoque/SL1'); Object.values(e.res)[0].comp = true; db.seed('estoque/SL1', e);
+    await R.cancelar(db, T0 + 1, 'PAAA1', ['SL1']);
+    assert.strictEqual(disp(db, 'Rosa', T0 + 1), 0);
+  });
+  await teste('P1: cliente cancela a própria reserva não paga: a peça volta', async () => {
+    const db = novo([1, 0]); const it = [{ ref: 'SL1', cor: 'Rosa', q: 1 }];
+    await R.reservar(db, T0, 'PAAA1', it); assert.strictEqual(disp(db, 'Rosa', T0), 0);
+    await R.cancelar(db, T0 + 1, 'PAAA1', ['SL1']); assert.strictEqual(disp(db, 'Rosa', T0 + 1), 1);
+  });
+  await teste('P1: o dono solta pelo app mesmo paga (cancelar/entregar)', async () => {
+    const db = novo([1, 0]); const it = [{ ref: 'SL1', cor: 'Rosa', q: 1 }];
+    await R.reservar(db, T0, 'PAAA1', it); await R.pagar(db, T0, 'PAAA1', it);
+    await R.liberar(db, T0 + 1, 'PAAA1', ['SL1']); assert.strictEqual(disp(db, 'Rosa', T0 + 1), 1);
+  });
+  await teste('P1: reserva no formato antigo (com número) continua valendo e some da lista ao ser mexida', async () => {
+    const db = novo([2, 0]);
+    db.seed('estoque/SL1', { res: { 'PVELHO1~rosa': { pid: 'PVELHO1', cor: 'Rosa', q: 1, exp: 0, pago: true, comp: true } } });
+    assert.strictEqual(disp(db, 'Rosa', T0), 1);
+    assert.strictEqual((await R.cancelar(db, T0, 'PVELHO1', ['SL1'])).presas, 1); // paga: a cliente não solta
+    assert.ok(!JSON.stringify(db.ler('estoque/SL1')).includes('PVELHO1')); // e o número saiu da lista
+    await R.reservar(db, T0, 'PNOVO1', [{ ref: 'SL1', cor: 'Rosa', q: 1 }]); assert.strictEqual(disp(db, 'Rosa', T0), 0);
+    await R.liberar(db, T0, 'PVELHO1', ['SL1']); assert.strictEqual(disp(db, 'Rosa', T0), 1); // o dono solta a antiga
+  });
+  await teste('P1: limpeza diária apaga reservas vencidas paradas e tira o número das antigas', async () => {
+    const db = novo([2, 0]);
+    db.seed('estoque/SL1', { res: { 'PX1~rosa': { pid: 'PX1', cor: 'Rosa', q: 1, exp: T0 - 1, pago: false } } });
+    db.seed('estoque/SL2', { res: { 'PX2~rosa': { pid: 'PX2', cor: 'Rosa', q: 1, exp: T0 + 9e5, pago: false } } });
+    const r = await R.arruma(db, T0, ['SL1', 'SL2', 'NADA']);
+    assert.strictEqual(r.mexidos, 2); assert.strictEqual(db.ler('estoque/SL1'), null);
+    assert.ok(!JSON.stringify(db.ler('estoque/SL2')).includes('PX2')); assert.strictEqual(Object.values(db.ler('estoque/SL2').res)[0].q, 1);
   });
   console.log(total - falhas.length + '/' + total + ' testes passaram' + (falhas.length ? '  |  FALHARAM: ' + falhas.join(' ; ') : ''));
   process.exit(falhas.length ? 1 : 0);

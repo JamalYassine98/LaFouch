@@ -137,7 +137,8 @@ exports.reserva = onRequest(
       } else if (!(await Reserva.ligada(db))) {
         return res.json({ ok: true, off: true });
       }
-      const refs = (Array.isArray(b.itens) ? b.itens : []).map((i) => i && i.ref).filter(Boolean);
+      // P1 (19/11): a lista pode vir em "itens" ([{ref}]) ou em "refs" (["REF"]) — o site e o app mandam "refs" ao cancelar/liberar
+      const refs = (Array.isArray(b.itens) && b.itens.length ? b.itens.map((i) => i && i.ref) : Array.isArray(b.refs) ? b.refs : []).filter(Boolean).map(String);
       let r;
       if (acao === 'reservar') {
         // S409 (70c): Cliente VIP tem 3 horas para pagar, UMA reserva longa por vez (as outras ficam com os 30 minutos de sempre)
@@ -161,7 +162,8 @@ exports.reserva = onRequest(
         if (ate) r.vip = true;
       }
       else if (acao === 'comp') r = await Reserva.comprovante(db, agora, b.pedido, b.itens);
-      else if (acao === 'cancelar') r = await Reserva.liberar(db, agora, b.pedido, refs);
+      // P1: a cliente só solta o que não foi pago nem tem comprovante (pago/comprovante: só o dono pelo app)
+      else if (acao === 'cancelar') r = await Reserva.cancelar(db, agora, b.pedido, refs);
       else if (acao === 'pagar') r = await Reserva.pagar(db, agora, b.pedido, b.itens);
       else if (acao === 'liberar') {
         r = await Reserva.liberar(db, agora, b.pedido, refs);
@@ -512,6 +514,11 @@ const limpaDb = {
 exports.limpeza = onSchedule({ schedule: '0 4 * * *', timeZone: FUSO, region: REGIAO }, async () => {
   const r = await Limpeza.limpa(limpaDb, Date.now());
   console.log('limpeza', JSON.stringify(r));
+  // P1 (19/11): reservas paradas — tira o número do pedido do formato antigo e apaga as vencidas
+  try {
+    const refs = (await admin.firestore().collection('estoque').listDocuments()).map((d) => d.id);
+    console.log('limpeza estoque', JSON.stringify(await Reserva.arruma(admin.firestore(), Date.now(), refs)));
+  } catch (e) { console.error('limpeza estoque', e && e.message); }
 });
 // S400 (17/11/2026): todo dia às 10h do Paraguai — solta os presentes guardados que já podem sair (um por vez, 30 dias entre e-mails)
 // e manda os convites para indicar que completaram 2 semanas da entrega. A regra está em cupom.js (diario).

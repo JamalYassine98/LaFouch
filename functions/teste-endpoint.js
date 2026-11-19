@@ -12,7 +12,9 @@ const fakeDb = {
 let tokenOk = null;
 const stubs = {
   'firebase-admin': { initializeApp() {}, firestore: () => fakeDb, messaging: () => ({}), auth: () => ({ verifyIdToken: async (t) => { if (t === 'dono') return { uid: 'jJzNDoMHtuRNOAF1GhJfNYDMlE63', email: 'jamalaliyassine@gmail.com' }; if (t === 'outro') return { uid: 'x', email: 'a@b.c' }; throw new Error('token'); } }) },
-  'firebase-functions/v2/firestore': { onDocumentCreated: () => () => {} },
+  // 19/11 (P1): o index.js ganhou outros gatilhos; qualquer um que não seja onRequest vira uma função vazia
+  'firebase-functions/v2/firestore': new Proxy({}, { get: () => () => () => {} }),
+  'firebase-functions/v2/scheduler': new Proxy({}, { get: () => () => () => {} }),
   'firebase-functions/v2/https': { onRequest: (opts, fn) => fn },
 };
 const orig = Module._load;
@@ -44,7 +46,14 @@ const it = [{ ref: 'SL1', cor: 'Rosa', q: 1 }];
   await teste('ações do dono exigem o token do dono (sem token, token de outra pessoa e token inválido são recusados)', async () => {
     for (const aut of ['', 'Bearer outro', 'Bearer lixo']) { const r = await chama({ acao: 'pagar', pedido: 'PAAA1', itens: it }, aut); assert.strictEqual(r.code, 403); }
     const r = await chama({ acao: 'pagar', pedido: 'PAAA1', itens: it }, 'Bearer dono'); assert.ok(r.ok);
-    assert.strictEqual(dados.get('estoque/SL1').res['PAAA1~rosa'].pago, true);
+    assert.strictEqual(dados.get('estoque/SL1').res[R.H('PAAA1') + '~rosa'].pago, true);
+  });
+  // ---- P1 (19/11/2026): pela porta de verdade, como um estranho faria
+  await teste('P1: estranho chama o cancelar público numa reserva PAGA: a peça continua segura', async () => {
+    const r1 = await chama({ acao: 'cancelar', pedido: 'PAAA1', itens: it }); assert.ok(r1.ok && r1.presas === 1);
+    const r2 = await chama({ acao: 'cancelar', pedido: 'PAAA1', refs: ['SL1'] }); assert.ok(r2.ok && r2.presas === 1);
+    assert.strictEqual(dados.get('estoque/SL1').res[R.H('PAAA1') + '~rosa'].pago, true);
+    assert.ok(!JSON.stringify(dados.get('estoque/SL1')).includes('PAAA1'));
   });
   await teste('um visitante não consegue chamar "pagar" fingindo ser cliente', async () => {
     const r = await chama({ acao: 'pagar', pedido: 'PZZZ1', itens: it }); assert.strictEqual(r.code, 403);
@@ -59,6 +68,15 @@ const it = [{ ref: 'SL1', cor: 'Rosa', q: 1 }];
   });
   await teste('dono libera o pedido ao entregar/cancelar', async () => {
     const r = await chama({ acao: 'liberar', pedido: 'PDDD1', itens: it }, 'Bearer dono'); assert.ok(r.ok); assert.strictEqual(dados.get('estoque/SL1'), undefined);
+  });
+  await teste('P1: cancelar da cliente e liberar do app com a lista em "refs" (como o site e o app mandam) soltam a peça', async () => {
+    dados.set('estoque/SL1', { res: {} });
+    await chama({ acao: 'reservar', pedido: 'PEEE1', itens: it });
+    const c = await chama({ acao: 'cancelar', pedido: 'PEEE1', refs: ['SL1'] }); assert.ok(c.ok && !c.presas);
+    assert.strictEqual(dados.get('estoque/SL1'), undefined);
+    await chama({ acao: 'reservar', pedido: 'PFFF1', itens: it }); await chama({ acao: 'pagar', pedido: 'PFFF1', itens: it }, 'Bearer dono');
+    const l = await chama({ acao: 'liberar', pedido: 'PFFF1', refs: ['SL1'] }, 'Bearer dono'); assert.ok(l.ok);
+    assert.strictEqual(dados.get('estoque/SL1'), undefined);
   });
   console.log(total - falhas.length + '/' + total + ' testes do endpoint passaram' + (falhas.length ? '  |  FALHARAM: ' + falhas.join(' ; ') : ''));
   process.exit(falhas.length ? 1 : 0);

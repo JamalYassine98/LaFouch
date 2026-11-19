@@ -1,5 +1,5 @@
 // Reserva de estoque do site (regra de negócio pura: não depende do Firebase, para dar para testar).
-// Documento estoque/<ref> = { res: { "<pedido>~<cor>": { pid, cor, q, exp, pago, comp } } }
+// Documento estoque/<ref> = { res: { "<código do pedido>~<cor>": { h, cor, q, exp, pago, comp } } } (h = código embaralhado; o número do pedido não fica público)
 // Disponível de uma cor = qs[cor] (peças físicas publicadas pelo app em produtos/<ref>) − reservas válidas.
 // Reserva válida = paga, ou ainda dentro do prazo (exp). Quem decide a hora é SEMPRE o servidor.
 'use strict';
@@ -19,8 +19,30 @@ class Falha extends Error {
 }
 
 const norm = (s) => String(s || '').trim().toLowerCase();
-const chave = (pid, cor) => pid + '~' + norm(cor);
+// P1 (19/11/2026, aprovado): a lista pública estoque/<ref> NÃO leva mais o número do pedido — só um código embaralhado (h).
+// O site só usa cor, q, exp e pago. Reserva no formato antigo (com pid) é convertida na primeira vez que o documento é mexido.
+const H = (pid) => require('crypto').createHash('sha256').update('lf-res|' + String(pid || '')).digest('hex').slice(0, 20);
+const chave = (pid, cor) => H(pid) + '~' + norm(cor);
+const mesmo = (r, pid) => !!r && (r.h === H(pid) || (r.pid != null && r.pid === pid));
 const valida = (r, agora) => !!r && (r.pago === true || +r.exp > agora);
+function normaliza(estq) {
+  const res = (estq && estq.res) || {}, out = {};
+  Object.keys(res).forEach((k) => {
+    const r = res[k];
+    if (!r) return;
+    if (r.pid != null) {
+      const n = Object.assign({}, r, { h: H(r.pid) });
+      delete n.pid;
+      out[n.h + '~' + norm(n.cor)] = n;
+    } else out[k] = r;
+  });
+  return { res: out };
+}
+function acha(estq, pid, cor) {
+  const res = (estq && estq.res) || {};
+  const k = Object.keys(res).find((x) => mesmo(res[x], pid) && norm(res[x].cor) === norm(cor));
+  return k ? res[k] : null;
+}
 
 // índice da cor em produtos/<ref>; produto de uma cor só aceita cor vazia
 function idxCor(prod, cor) {
@@ -40,13 +62,13 @@ function reservadoDe(estq, cor, agora, ignoraPid) {
   return Object.keys(res).reduce((a, k) => {
     const r = res[k];
     if (!valida(r, agora) || norm(r.cor) !== norm(cor)) return a;
-    if (ignoraPid && r.pid === ignoraPid) return a;
+    if (ignoraPid && mesmo(r, ignoraPid)) return a;
     return a + (+r.q || 0);
   }, 0);
 }
 
 function limpa(estq, agora) {
-  const res = (estq && estq.res) || {};
+  const res = normaliza(estq).res;
   Object.keys(res).forEach((k) => {
     if (!valida(res[k], agora)) delete res[k];
   });
@@ -112,7 +134,7 @@ async function reservar(db, agora, pid, itensBrutos, opcoes) {
       const e = limpa(estq, agora);
       const k = chave(pid, it.cor);
       const atual = e.res[k];
-      e.res[k] = { pid, cor: it.cor, q: it.q, exp: atual && atual.pago ? 0 : prazo, pago: !!(atual && atual.pago), comp: !!(atual && atual.comp) };
+      e.res[k] = { h: H(pid), cor: it.cor, q: it.q, exp: atual && atual.pago ? 0 : prazo, pago: !!(atual && atual.pago), comp: !!(atual && atual.comp) };
       guarda(tx, db, it.ref, e);
     });
     return { ok: true, exp: prazo };
@@ -125,7 +147,8 @@ async function comprovante(db, agora, pid, itensBrutos) {
   return r;
 }
 
-async function liberar(db, agora, pid, refs) {
+// soltar as reservas de um pedido. soQuemPode = só as que a cliente pode soltar sozinha (não paga e sem comprovante).
+async function soltar(db, agora, pid, refs, soCliente) {
   const lista = Array.from(new Set((refs || []).map(String))).filter((r) => /^[A-Za-z0-9_.-]{1,40}$/.test(r));
   if (!/^[A-Za-z0-9_-]{4,40}$/.test(String(pid || '')) || !lista.length || lista.length > MAX_ITENS) throw new Falha('itens');
   return db.runTransaction(async (tx) => {
@@ -134,19 +157,43 @@ async function liberar(db, agora, pid, refs) {
       const es = await tx.get(db.collection('estoque').doc(ref));
       if (es.exists) lidos.push({ ref, e: es.data() });
     }
+    let presas = 0;
     lidos.forEach(({ ref, e }) => {
-      const res = e.res || {};
-      let mexeu = false;
+      const res = normaliza(e).res;
+      let mexeu = !!Object.keys(e.res || {}).find((k) => e.res[k] && e.res[k].pid != null); // formato antigo: regrava sem o número
       Object.keys(res).forEach((k) => {
-        if (res[k].pid === pid) {
-          delete res[k];
-          mexeu = true;
-        }
+        if (!mesmo(res[k], pid)) return;
+        if (soCliente && (res[k].pago === true || res[k].comp === true)) { presas++; return; }
+        delete res[k];
+        mexeu = true;
       });
       if (mexeu) guarda(tx, db, ref, limpa({ res }, agora));
     });
-    return { ok: true };
+    return presas ? { ok: true, presas } : { ok: true };
   });
+}
+// dono (app): solta tudo do pedido (cancelado, apagado ou entregue)
+async function liberar(db, agora, pid, refs) {
+  return soltar(db, agora, pid, refs, false);
+}
+// cliente (site, ação pública): só solta o que ainda não foi pago nem tem comprovante — o resto só o dono solta
+async function cancelar(db, agora, pid, refs) {
+  return soltar(db, agora, pid, refs, true);
+}
+// limpeza diária: tira o número do pedido das reservas antigas e apaga as vencidas (documentos parados que ninguém mexeu)
+async function arruma(db, agora, refs) {
+  let mexidos = 0;
+  for (const ref of refs || []) {
+    await db.runTransaction(async (tx) => {
+      const es = await tx.get(db.collection('estoque').doc(ref));
+      if (!es.exists) return;
+      const e = es.data(), novo = limpa(e, agora);
+      if (JSON.stringify(novo) === JSON.stringify(e)) return;
+      guarda(tx, db, ref, novo);
+      mexidos++;
+    });
+  }
+  return { mexidos };
 }
 
 // -------- dono (app): pagamento confirmado / comprovante recusado --------
@@ -161,7 +208,7 @@ async function pagar(db, agora, pid, itensBrutos) {
     }
     const falta = [];
     lidos.forEach(({ it, prod, estq }) => {
-      const r = (estq.res || {})[chave(pid, it.cor)];
+      const r = acha(estq, pid, it.cor);
       if (r && (r.pago || valida(r, agora))) return; // já está segura
       if (!prod) return falta.push({ ref: it.ref, cor: it.cor, motivo: 'indisponivel', disp: 0 });
       const idx = idxCor(prod, it.cor);
@@ -171,7 +218,7 @@ async function pagar(db, agora, pid, itensBrutos) {
     if (falta.length) throw new Falha('expirou', { falta });
     lidos.forEach(({ it, estq }) => {
       const e = limpa(estq, agora);
-      e.res[chave(pid, it.cor)] = { pid, cor: it.cor, q: it.q, exp: 0, pago: true, comp: true };
+      e.res[chave(pid, it.cor)] = { h: H(pid), cor: it.cor, q: it.q, exp: 0, pago: true, comp: true };
       guarda(tx, db, it.ref, e);
     });
     return { ok: true };
@@ -192,7 +239,7 @@ async function recusar(db, agora, pid, refs) {
       let mexeu = false;
       Object.keys(e.res || {}).forEach((k) => {
         const r = e.res[k];
-        if (r.pid === pid) {
+        if (mesmo(r, pid)) {
           r.pago = false;
           r.comp = false;
           r.exp = agora + PRAZO_MS;
@@ -205,7 +252,7 @@ async function recusar(db, agora, pid, refs) {
   });
 }
 
-module.exports = { PRAZO_MS, COMP_MS, Falha, ligada, reservar, comprovante, liberar, pagar, recusar, disponivel: (prod, estq, cor, agora) => {
+module.exports = { PRAZO_MS, COMP_MS, Falha, H, ligada, reservar, comprovante, liberar, cancelar, arruma, pagar, recusar, disponivel: (prod, estq, cor, agora) => {
   const idx = idxCor(prod, cor);
   return idx < 0 ? 0 : fisico(prod, idx) - reservadoDe(estq, cor, agora);
 } };

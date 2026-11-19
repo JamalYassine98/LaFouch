@@ -62,7 +62,7 @@ Conta que vale hoje: disponível no site = `qs[cor]` (B) − reservas vivas (C).
 **B2 — causa CONFIRMADA (19/11 13:55):** o app manda o pedido de soltar com a lista em `refs` (src/95-reserva.js linhas 28–29, para liberar e recusar), mas a função só lê `itens` (functions/index.js linha 140). A lista chega vazia → a função responde "itens" (falha) → o app acha que deu certo e tira da fila. Resultado: **o app NUNCA consegue soltar reserva** — nem ao cancelar, nem ao entregar, nem ao recusar comprovante, nem as órfãs. Hoje não segura peça porque as 7 paradas não estavam pagas e já venceram; mas um pedido PAGO e entregue ficaria segurando a peça no site para sempre. O aviso de cancelado para o site chegou certo (`reservas/<pedido>` = cancelado). O dono viu "reservado" no site (página exata não confirmada).
 Os testes da função (functions/teste-reserva.js) chamam a regra direto, sem passar pela chamada do app — por isso não pegaram.
 
-## 8. ESBOÇO P1 — segurança da reserva (19/11 14:30, esperando o dono)
+## 8. P1 — segurança da reserva (aprovado 14:26, implementado 14:45 na nuvem; falta publicar)
 Esboço: work/estudo-c/esboco_P1_seguranca_reserva_{escuro,claro}.jpg (gerador esb_p1.py). Por dentro, sem tela nova.
 1. "Cancelar" da cliente (ação pública) só solta reserva não paga e sem comprovante; paga/com comprovante só o dono pelo app.
 2. A lista pública `estoque/` deixa de levar o número do pedido (vai um código embaralhado; o site só usa cor, quantidade e prazo). O app passa a achar as órfãs pelo mesmo código (1 ajuste em src/ → APP · implementa).
