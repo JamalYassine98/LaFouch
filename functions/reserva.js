@@ -180,6 +180,42 @@ async function liberar(db, agora, pid, refs) {
 async function cancelar(db, agora, pid, refs) {
   return soltar(db, agora, pid, refs, true);
 }
+// P1b (19/11/2026): reservas PAGAS de pedidos que o app não conhece mais (pedido apagado). Só o dono pede.
+// conhecidos = códigos h dos pedidos que o app ainda tem; devolve [{ ref, h, cor, q }] das pagas que não são de nenhum deles.
+async function orfas(db, refs, conhecidos) {
+  const sabe = new Set((conhecidos || []).map(String)), out = [];
+  for (const ref of refs || []) {
+    const es = await db.collection('estoque').doc(ref).get();
+    if (!es.exists) continue;
+    const res = normaliza(es.data()).res;
+    Object.keys(res).forEach((k) => {
+      const r = res[k];
+      if (r && r.pago === true && r.h && !sabe.has(r.h)) out.push({ ref, h: r.h, cor: r.cor || '', q: +r.q || 0 });
+    });
+  }
+  return { ok: true, orfas: out };
+}
+// P1b: o dono solta pelo código h (o app não tem mais o número do pedido)
+async function liberarH(db, agora, h, refs) {
+  const lista = Array.from(new Set((refs || []).map(String))).filter((r) => /^[A-Za-z0-9_.-]{1,40}$/.test(r));
+  if (!/^[0-9a-f]{20}$/.test(String(h || '')) || !lista.length || lista.length > MAX_ITENS) throw new Falha('itens');
+  return db.runTransaction(async (tx) => {
+    const lidos = [];
+    for (const ref of lista) {
+      const es = await tx.get(db.collection('estoque').doc(ref));
+      if (es.exists) lidos.push({ ref, e: es.data() });
+    }
+    lidos.forEach(({ ref, e }) => {
+      const res = normaliza(e).res;
+      let mexeu = false;
+      Object.keys(res).forEach((k) => {
+        if (res[k] && res[k].h === h) { delete res[k]; mexeu = true; }
+      });
+      if (mexeu) guarda(tx, db, ref, limpa({ res }, agora));
+    });
+    return { ok: true };
+  });
+}
 // limpeza diária: tira o número do pedido das reservas antigas e apaga as vencidas (documentos parados que ninguém mexeu)
 async function arruma(db, agora, refs) {
   let mexidos = 0;
@@ -252,7 +288,7 @@ async function recusar(db, agora, pid, refs) {
   });
 }
 
-module.exports = { PRAZO_MS, COMP_MS, Falha, H, ligada, reservar, comprovante, liberar, cancelar, arruma, pagar, recusar, disponivel: (prod, estq, cor, agora) => {
+module.exports = { PRAZO_MS, COMP_MS, Falha, H, ligada, reservar, comprovante, liberar, cancelar, arruma, orfas, liberarH, pagar, recusar, disponivel: (prod, estq, cor, agora) => {
   const idx = idxCor(prod, cor);
   return idx < 0 ? 0 : fisico(prod, idx) - reservadoDe(estq, cor, agora);
 } };

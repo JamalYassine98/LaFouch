@@ -115,7 +115,7 @@ exports.avisarChama = onDocumentCreated({ document: 'lojaChama/{id}', region: RE
 const DONO_UID = process.env.GCLOUD_PROJECT === 'lafouch-teste' ? 'uvYpqxPJZjTsSE9SACouW0nZH4d2' : 'jJzNDoMHtuRNOAF1GhJfNYDMlE63';
 const DONO_EMAIL = 'jamalaliyassine@gmail.com';
 const PUBLICAS = ['reservar', 'comp', 'cancelar'];
-const DO_DONO = ['pagar', 'liberar', 'recusar'];
+const DO_DONO = ['pagar', 'liberar', 'recusar', 'orfas', 'liberarH']; // P1b: orfas e liberarH só o dono
 
 async function ehDono(req) {
   const m = /^Bearer (.+)$/.exec(req.get('Authorization') || '');
@@ -177,6 +177,11 @@ exports.reserva = onRequest(
       // P1: a cliente só solta o que não foi pago nem tem comprovante (pago/comprovante: só o dono pelo app)
       else if (acao === 'cancelar') r = await Reserva.cancelar(db, agora, b.pedido, refs);
       else if (acao === 'pagar') r = await Reserva.pagar(db, agora, b.pedido, b.itens);
+      // P1b (19/11): reservas pagas que o app não conhece (pedido apagado) e soltar pelo código h
+      else if (acao === 'orfas') {
+        const todos = (await db.collection('estoque').listDocuments()).map((d) => d.id);
+        r = await Reserva.orfas(db, todos, Array.isArray(b.conhecidos) ? b.conhecidos.slice(0, 5000) : []);
+      } else if (acao === 'liberarH') r = await Reserva.liberarH(db, agora, String(b.h || ''), refs);
       else if (acao === 'liberar') {
         r = await Reserva.liberar(db, agora, b.pedido, refs);
         // S400 (17/11/2026): o app chama "liberar" quando o dono marca o pedido ENTREGUE (e também ao cancelar/apagar, mas aí a reserva

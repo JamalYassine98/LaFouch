@@ -6,7 +6,8 @@ const R = require('./reserva');
 // ---- Firestore de mentira (o mesmo do outro teste, resumido)
 const dados = new Map();
 const fakeDb = {
-  collection: (c) => ({ doc: (id) => ({ path: c + '/' + id, async get() { const d = dados.get(c + '/' + id); return { exists: !!d, data: () => d && JSON.parse(JSON.stringify(d)) }; } }) }),
+  collection: (c) => ({ doc: (id) => ({ path: c + '/' + id, async get() { const d = dados.get(c + '/' + id); return { exists: !!d, data: () => d && JSON.parse(JSON.stringify(d)) }; } }),
+    listDocuments: async () => [...dados.keys()].filter((k) => k.startsWith(c + '/')).map((k) => ({ id: k.slice(c.length + 1) })) }),
   async runTransaction(fn) { const grava = new Map(); const tx = { get: async (r) => { const d = dados.get(r.path); return { exists: !!d, data: () => d && JSON.parse(JSON.stringify(d)) }; }, set: (r, v) => grava.set(r.path, v), delete: (r) => grava.set(r.path, null) }; const out = await fn(tx); for (const [p, v] of grava) { if (v === null) dados.delete(p); else dados.set(p, JSON.parse(JSON.stringify(v))); } return out; },
 };
 let tokenOk = null;
@@ -68,6 +69,23 @@ const it = [{ ref: 'SL1', cor: 'Rosa', q: 1 }];
   });
   await teste('dono libera o pedido ao entregar/cancelar', async () => {
     const r = await chama({ acao: 'liberar', pedido: 'PDDD1', itens: it }, 'Bearer dono'); assert.ok(r.ok); assert.strictEqual(dados.get('estoque/SL1'), undefined);
+  });
+  await teste('P1b: estranho não consegue pedir a lista de órfãs nem soltar por código', async () => {
+    for (const aut of ['', 'Bearer outro']) {
+      assert.strictEqual((await chama({ acao: 'orfas', conhecidos: [] }, aut)).code, 403);
+      assert.strictEqual((await chama({ acao: 'liberarH', h: R.H('PAAA1'), refs: ['SL1'] }, aut)).code, 403);
+    }
+  });
+  await teste('P1b: pedido pago apagado do app → o dono acha a órfã e solta pelo código', async () => {
+    dados.set('estoque/SL1', { res: {} });
+    await chama({ acao: 'reservar', pedido: 'PGGG1', itens: it }); await chama({ acao: 'pagar', pedido: 'PGGG1', itens: it }, 'Bearer dono');
+    await chama({ acao: 'reservar', pedido: 'PHHH1', itens: [{ ref: 'SL1', cor: 'Preto', q: 1 }] });
+    const o = await chama({ acao: 'orfas', conhecidos: [] }, 'Bearer dono');
+    assert.ok(o.ok && o.orfas.length === 1 && o.orfas[0].h === R.H('PGGG1')); // a não paga (PHHH1) não entra
+    const o2 = await chama({ acao: 'orfas', conhecidos: [R.H('PGGG1')] }, 'Bearer dono'); assert.strictEqual(o2.orfas.length, 0); // conhecida: não mexe
+    assert.ok((await chama({ acao: 'liberarH', h: R.H('PGGG1'), refs: ['SL1'] }, 'Bearer dono')).ok);
+    assert.ok(!dados.get('estoque/SL1') || !Object.values(dados.get('estoque/SL1').res).some((x) => x.h === R.H('PGGG1')));
+    await chama({ acao: 'cancelar', pedido: 'PHHH1', refs: ['SL1'] });
   });
   await teste('P1: cancelar da cliente e liberar do app com a lista em "refs" (como o site e o app mandam) soltam a peça', async () => {
     dados.set('estoque/SL1', { res: {} });

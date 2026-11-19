@@ -32,11 +32,12 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 | 9 | **S1/S2 parte 2 — SITE** (depois do item 8 publicado): (a) entrar com NOME de usuário → POST `conta` {acao:"entrar", user, senha} em vez de ler `usuarios/` e entrar com e-mail (achaEmail, lf-site.js ~1463); (b) criar conta: "nome já usado" → `conta` {acao:"livre"} em vez de ler `usuarios/` (~1501); (c) token de entrega do pedido pago → POST `reserva` {acao:"token", pedido, tel do pedido} em vez de ler `tok` em `reservas/` (~1691, 1699, 1913, 1920). Endereço: https://southamerica-east1-lafouch-2f6bd.cloudfunctions.net/conta | SITE | 19/11 15:29 | na fila — pode começar (item 8 no ar) |
 | 10 | **S1/S2 parte 2 — APP** (depois do item 8 publicado): `pedReserva(p, {pago:true, tok})` (src/95-pedidos.js ~649) grava o `tok` em `reservasTok/<sid>` (o `pago` continua em `reservas/`). Ler o token: o app já tem `p.tok` | APP | 19/11 15:29 | na fila — pode começar (item 8 no ar) |
 | 11 | **S1/S2 parte 3 — NUVEM** (depois dos itens 9 e 10 publicados): parar de gravar `tok`/`pixAuto` em `reservas/`; mover os que já estão lá para `reservasTok/`; fechar a leitura pública de `usuarios/` | NUVEM | 19/11 15:29 | espera 9 e 10 |
+| 12 | **P1b órfãs — NUVEM** (dono: "implementar" 16:12; esboço work/estudo-c/esboco_P1b_*.jpg): ações só do dono na função `reserva`: `orfas` {conhecidos:[h…]} → {orfas:[{ref,h,cor,q}]} (só PAGAS); `liberarH` {h, refs:[…]} → solta pelo código. Testes endpoint 11/11 + todas as suítes ok | NUVEM | 19/11 16:12 | feito no código — falta o dono publicar (só functions) |
+| 13 | **P1b órfãs — APP** (depois do item 12 publicado): em `resOrfas` (src/95-reserva.js), mandar `orfas` com os `h` de TODOS os pedidos que o app tem (inclusive cancelados) + os da `S.resPend`; para cada órfã devolvida, a mesma regra de hoje (vista 2 vezes com 10 min) e então `liberarH` {h, refs}. Esboço work/estudo-c/esboco_P1b_*.jpg | APP | 19/11 16:12 | espera o 12 |
 
 ## Em andamento
 | Sessão (assunto) | Frente | Telas / arquivos | Desde |
 |---|---|---|---|
-| NUVEM · implementa (P1b órfãs) | NUVEM | functions/reserva.js, functions/index.js (reserva), functions/teste-reserva.js, teste-endpoint.js | 19/11 16:12 |
 | App (S435 famílias: Voltar, Link ›, Linha de lista, Dobra ⌄, Adicionar +, "+" em texto, Título, Fechar ×) | APP | esboços em work/s437 (só esboço, nada no código ainda); docs/FAMILIAS-BOTOES.md | 19/11 |
 | APP · implementa (S436) | APP | CÓDIGO itens 4 (B1) e depois 10: src/95-pedidos.js, tests/run.py, www/ | 19/11 16:15 |
 | Site (S429 — IMPLEMENTADORA do site; cópia limpa) | SITE | catalogo ramo `limpo` (index.html, js/lf-site.js) — fora do ar; agora: limpeza dos estilos (regras escritas uma por cima da outra) | 19/11 |
@@ -58,6 +59,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
   4. **CLAUDE.md foi reorganizado às 12:02** (23 regras em 8 partes): reler antes de continuar; acabou a regra de não consultar — tudo em partes, consultando o dono.
 
 ## Últimas mudanças (mais nova em cima; manter só as ~20 últimas)
+- 19/11/2026 16:20 — NUVEM · implementa: P1b órfãs no código (itens 12 e 13 da Fila). Falta o dono publicar; depois o item 13 (APP).
 - 19/11/2026 16:10 — NUVEM · implementa: item 7 (APP v565) conferido — código h igual ao da nuvem. Lacuna achada (erro da especificação da P1): reserva PAGA de pedido APAGADO do app não é mais solta. ESBOÇO P1b work/estudo-c/esboco_P1b_orfas_*.jpg, esperando o dono.
 - 19/11/2026 16:20 — S436: ✅ PUBLICADO app v565 (5.46.2): item 7 P1 no app (código `h` das reservas). 320/320. P1 completo (nuvem + app).
 - 19/11/2026 15:46 — NUVEM · implementa: S1/S2 parte 1 publicada pelo dono e conferida. Itens 9 (SITE) e 10 (APP) liberados.
