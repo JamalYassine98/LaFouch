@@ -52,6 +52,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
   4. **CLAUDE.md foi reorganizado às 12:02** (23 regras em 8 partes): reler antes de continuar; acabou a regra de não consultar — tudo em partes, consultando o dono.
 
 ## Últimas mudanças (mais nova em cima; manter só as ~20 últimas)
+- 19/11/2026 15:22 — S436: Test Lab celular real (SC-53C, Android 16): 5 telas da v563 no escuro, Passed, 58 s (1ª tentativa das 14:30 não rodou: o workflow troca "," por ";" em temas e o gcloud recusa — rodar UM tema por vez). Usado hoje: ~1 min de 30. Sino e Ações do caixa redondos conferidos no aparelho.
 - 19/11/2026 15:25 — NUVEM · implementa: varredura de segurança parte 1 (só leitura). Achados entregues ao dono FORA do repositório (o repositório é público); viram esboço antes de qualquer conserto. Nenhuma senha/chave secreta encontrada no código.
 - 19/11/2026 15:20 — S436: ✅ PUBLICADO app v564 (5.46.1): B2 soltar reserva (itens, fila tenta de novo, vencidas limpas 1 vez). 319/319.
 - 19/11/2026 14:45 — NUVEM · implementa: P1 segurança da reserva no código (functions/reserva.js, index.js, testes). Testes 29/29 + 9/9 + 14 suítes ok. Falta o dono publicar; depois, item 7 (APP).
