@@ -749,8 +749,5 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - 19/11 16:09 — DONO: "Aprovado" → RESERVAS EM DINHEIRO (149r): Dinheiro = Caixa · Reservas · Despesas · Câmbio; 'Giro e preços' = Giro e Preços; 'Reservas ›' nos Preços. Esboços work/s437/esboco_res_*. Base 149r. ESPERANDO "implementar". Dono perguntou se Giro e Preços podem ficar sozinhos.
 - 19/11 16:10 — DONO: Giro e Preços FICAM como grupo próprio ('6 botões é legal'); não vão para Peças. Início continua com 6 grupos.
 - 19/11 16:20 — ERRO MEU na base 149n achado e corrigido: o botão de troca quadrados|lista aparecia no canto de TODAS as telas (estava preso ao topo comum); agora só no Início. Os esboços esboco_res_* (Dinheiro, Giro e preços, Preços) mostram esse ícone por engano — ele NÃO faz parte do aprovado.
-<<<<<<< Updated upstream
 - 19/11 16:12 — DONO: "Implementar" → P1b RESERVAS ÓRFÃS (esboço work/estudo-c/esboco_P1b_*.jpg): ações só do dono `orfas` e `liberarH` na função reserva (feito no código 16:20, falta publicar) + ajuste do app (fila item 13).
-=======
 - 19/11 16:35 — DONO: troca quadrados|lista em TODOS os grupos (mesmo botão do canto, mesma função) + PROTEÇÃO: tela dentro de um grupo não pode virar outro grupo (sem grupo dentro de grupo; vale para 'Gerenciar grupo'). Esboços work/s437/esboco_modo_{dinheiro,giro,resultados,site}_* (hoje em lista × proposta em quadrados). Proposta minha: UMA escolha vale para o app todo (trocou num grupo, todos seguem). Achado: ícones da lista dos grupos são cinza e os da lista do Início rosa — igualar. ESPERANDO.
->>>>>>> Stashed changes
