@@ -15,8 +15,11 @@ def abre(pw,esc,passos):
     w(800)
   return b,pg,w
 def foto(pg,ancora,nome):
-  y=pg.evaluate("s=>{const e=[...document.querySelectorAll(s)].find(x=>x.getBoundingClientRect().height);if(!e)return 0;e.scrollIntoView({block:'start',behavior:'instant'});window.scrollBy(0,-110);return 1}",ancora)
-  pg.add_style_tag(content='#nvBar{display:none!important}');pg.wait_for_timeout(300);f=T+nome+'.png';pg.screenshot(path=f);return f
+  pg.add_style_tag(content='#nvBar,#mainnav{display:none!important}');pg.evaluate("()=>window.scrollTo(0,0)");pg.wait_for_timeout(300)
+  y=pg.evaluate("s=>{const e=[...document.querySelectorAll(s)].find(x=>x.getBoundingClientRect().height);if(!e)return 0;return e.getBoundingClientRect().top+window.scrollY}",ancora)
+  f0=T+nome+'_full.png';pg.screenshot(path=f0,full_page=True)
+  im=Image.open(f0);y0=max(0,int((y-110)*2));y0=min(y0,max(0,im.height-800))
+  f=T+nome+'.png';im.crop((0,y0,780,y0+800)).save(f);return f
 def quadro(arq,esc,q):  # q = [(titulo,sub,png),...]
   ims=[Image.open(p).convert('RGB').crop((0,0,780,800)) for _,_,p in q]
   g=40;W=g+len(ims)*(780+g);S=Image.new('RGB',(W,800+150),(17,20,26) if esc else (244,241,244));d=ImageDraw.Draw(S)
