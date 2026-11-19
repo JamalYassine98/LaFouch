@@ -13,6 +13,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 | Sessão (assunto) | Frente | Telas / arquivos | Desde |
 |---|---|---|---|
 | App (S435 famílias de botões) | APP | só leitura do inventário: docs/FAMILIAS-BOTOES.md (novo), work/verif/familias2.py | 19/11 |
+| App (esboço de exemplo, sessão de apoio) | APP | só esboço do Voltar no Pagamento: work/s436/ (novo), não mexe no código | 19/11 12:15 |
 | Site (S429 cópia limpa) | SITE | catalogo ramo `limpo` (index.html, js/lf-site.js) — fora do ar | 19/11 |
 
 ## Últimas mudanças (mais nova em cima; manter só as ~20 últimas)
