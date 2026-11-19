@@ -18,7 +18,8 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 ## Fila de implementação (só entra com "implementar" do dono; a implementadora pega de cima para baixo)
 | # | Item | Frente | Pedido em | Estado |
 |---|---|---|---|---|
-| — | — | — | — | — |
+| 1 | 149v Família Voltar (Peça do Catálogo, Ficha do Inventário; o Pagamento depende do 142st, ainda não implementado) | APP | 19/11 13:31 | fazendo (S436) |
+| 2 | 150i Família Ícone redondo | APP | 19/11 13:31 | na fila |
 
 ## Em andamento
 | Sessão (assunto) | Frente | Telas / arquivos | Desde |
