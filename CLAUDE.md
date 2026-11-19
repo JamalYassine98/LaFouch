@@ -21,8 +21,14 @@ Detalhes e histórico ficam em docs/MEMORIA-PROJETO.md; aqui só a regra viva, c
 10. **Base:** site/app REAL (peças e cartão da nuvem, acesso direto; Actions só de reserva) + TODOS os aprovados, mesmo não implementados. Listar no envio os aprovados incluídos. Proibido produto de exemplo.
 11. **Formato:** um arquivo por tela (celular Hoje × Proposta lado a lado; PC um em cima do outro); sem GIF (quadros lado a lado ou MP4). Usar o kit e as telas reais; todo esboço passa pelo olho e não pode criar falha nova.
 
-## 4. Código limpo
-12. **Ajuste apaga o que substitui** no mesmo passo (botão vira redondo → sai a regra que o deixava quadrado). Não apagar função preparada que ainda não foi ligada.
+## 4. Código limpo: lógica, nunca remendo (completada pelo dono 19/11 19:53)
+12. **Toda correção ou ajuste é uma lógica, não um remendo:**
+    a) **Causa:** achar a raiz do erro, não só o lugar onde ele aparece.
+    b) **Jeito natural:** fazer como seria se tivesse sido feito certo desde o começo (ex.: o Mochi aponta para a esquerda levantando o braço esquerdo, não espelhando o desenho).
+    c) **Um lugar só, vale para tudo:** a regra fica num ponto e serve para todas as telas e famílias (ex.: uma só medida do topo para todas as telas que abrem por cima; uma só ordem de camadas para faixa, topo, menu e janelas).
+    d) **Apaga o que substitui** no mesmo passo (botão vira redondo → sai a regra que o deixava quadrado). Correção que só acrescenta código é remendo: volta para (b). Não apagar função preparada que ainda não foi ligada.
+    e) **Trava:** cada erro corrigido ganha uma prova no porteiro, para não voltar em nenhuma tela.
+    Proposta que não passa em a–e não é mandada ao dono.
 13. **Família inteira:** mudar um botão = mudar a família toda, com a regra num lugar só (inventário 1 = app atual, inventário 2 = aprovados; só publica com os dois iguais).
 
 ## 5. Design de luxo (site e app, todos os aparelhos; app claro e escuro)
