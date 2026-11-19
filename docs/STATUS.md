@@ -42,7 +42,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
   4. **CLAUDE.md foi reorganizado às 12:02** (23 regras em 8 partes): reler antes de continuar; acabou a regra de não consultar — tudo em partes, consultando o dono.
 
 ## Últimas mudanças (mais nova em cima; manter só as ~20 últimas)
-- 19/11/2026 13:50 — Sessão de estudo: 3 bugs do dono investigados (docs/ESTUDO-ESTOQUE-SITE-19-11.md §7, nada no código): B1 nome da cliente no pedido → tela inexistente `cli`; B2 reservas canceladas/entregues nunca soltas na nuvem (7 vencidas paradas); B3 grupo e tela com o mesmo nome "Site" + celular do dono com CSS antigo. Esperando esboço/decisão.
+- 19/11/2026 13:50 — Sessão de estudo: 3 bugs do dono investigados (docs/ESTUDO-ESTOQUE-SITE-19-11.md §7, nada no código): B1 nome da cliente no pedido → tela inexistente `cli`; B2 CONFIRMADO: app manda `refs`, função só lê `itens` → nenhuma reserva é solta pelo app (cancelar, entregar, recusar); B3 grupo e tela com o mesmo nome "Site" + celular do dono com CSS antigo. Esperando esboço/decisão.
 - 19/11/2026 13:50 — Sessão de estudo: item C aprofundado (docs/ESTUDO-ESTOQUE-SITE-19-11.md, só leitura, nada no código). O estoque está em 3 lugares (produtos, estoque/ reservas, cópia do atacado); 8 casos C0–C7 e plano P1–P6. **C0 urgente:** `cancelar` público solta reserva PAGA só com o número do pedido, que é público em estoque/. Esperando o dono.
 - 19/11/2026 13:35 — S436: estudo da base de dados do app e do site (docs/ESTUDO-DADOS-19-11.md, só leitura): 4 pontos bons, 6 ideias A–F esperando o dono.
 - 19/11/2026 13:22 — Nova estrutura aprovada pelo dono (CLAUDE.md 1b): uma sessão implementa por frente (APP = S436, SITE = S429), Fila de implementação aqui no STATUS, código por família.
