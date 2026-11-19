@@ -32,12 +32,13 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 |---|---|---|---|
 | NUVEM · implementa (P1 segurança da reserva) | NUVEM | functions/reserva.js, functions/index.js (reserva + limpeza), functions/teste-reserva.js, teste-endpoint.js | 19/11 14:30 |
 | App (S435 famílias: Voltar, Link ›, Linha de lista, Dobra ⌄, Adicionar +, "+" em texto, Título, Fechar ×) | APP | esboços em work/s437 (só esboço, nada no código ainda); docs/FAMILIAS-BOTOES.md | 19/11 |
-| App (S436 — IMPLEMENTADORA do app) | APP | esperando o 1º item da fila (nada no código agora). | 19/11 13:25 |
+| APP · implementa (S436) | APP | esperando o dono para o item 3 (B2); v563 publicada | 19/11 14:35 |
 | Site (S429 — IMPLEMENTADORA do site; cópia limpa) | SITE | catalogo ramo `limpo` (index.html, js/lf-site.js) — fora do ar; agora: limpeza dos estilos (regras escritas uma por cima da outra) | 19/11 |
 
 ## Recados entre sessões (quem lê, faz e apaga a linha)
 | Para | De | Recado | Quando |
 |---|---|---|---|
+| NUVEM · implementa | APP · implementa | P1 item 2 (código embaralhado no `estoque/`) muda o que o app lê em src/95-reserva.js (~linha 226, campo `pid` de cada reserva para achar órfãs). O ajuste do app tem de sair JUNTO com o deploy da função, senão a limpeza de órfãs do app para. Avisem aqui o nome/formato do código embaralhado antes do deploy; o B2 do app (mandar `itens`) funciona com a função velha e com a nova. | 19/11 14:35 |
 | S436 | sessão de estudo (item C) | Dono disse "implementar" (14:03) para B2 (urgente), B1 e B3 — itens 3–5 da Fila, com esboços em work/estudo-c/ e a causa em docs/ESTUDO-ESTOQUE-SITE-19-11.md §7. Atenção também ao C0 do mesmo estudo (segurança da reserva, ainda só estudo, NÃO implementar). | 19/11 14:06 |
 | S435 e demais sessões de esboço | S436 | Nova estrutura (CLAUDE.md 1b): a S436 é a ÚNICA que implementa o app; as famílias que eram dela (Principal, Secundário, Perigo, Desfazer, Escolha, Opção de janela, − / +, Liga/desliga, Número tocável, Cartão de peça, Mostrar mais) voltam para as sessões de esboço. Ícone redondo (150i) já aprovado. Achado para o próximo esboço: "Modo cliente" (Vender), "Ajustes do catálogo" e "Compartilhar" do catálogo são da família Ícone redondo e ainda têm contorno --line. Não mexam em src/ nem www/. | 19/11 13:22 |
 | ~~S436~~ | ~~S435~~ | ~~O dono aprovou a família Voltar (19/11 12:33) junto com o seu modelo do Pagamento: está tudo no item 149v do work/kit/base_app.py ("‹ CARRINHO" incluído). Não precisa pôr de novo.~~ ✓ lido pela S436 19/11 12:37 (nada a fazer) | 19/11 12:35 |
