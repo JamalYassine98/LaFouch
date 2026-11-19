@@ -1,0 +1,425 @@
+{
+"tela": "marketing-post",
+"modo": "aprov",
+"quando": "19/11 01:52",
+"passos": [
+"()=>window.__LF.inicioGo('mkt')",
+"()=>{const e=[...document.querySelectorAll('#v-mkt button')].filter(x=>x.getBoundingClientRect().height).filter(x=>/^Post$/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
+],
+"escuro": {
+"botoes": [
+{
+"t": "Versão A",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 85,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Versão B",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 85,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "PT",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 56,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "ES",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 56,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "PT+ES",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 56,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "",
+"act": "",
+"cara": "ícone redondo",
+"h": 24,
+"w": 24,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgba(128, 128, 128, 0.4)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "",
+"act": "",
+"cara": "ícone redondo",
+"h": 24,
+"w": 24,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgba(128, 128, 128, 0.4)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "",
+"act": "",
+"cara": "ícone redondo",
+"h": 24,
+"w": 24,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgba(128, 128, 128, 0.4)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Postar agora",
+"act": "",
+"cara": "barra grande",
+"h": 52,
+"w": 358,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgba(243, 192, 220, 0.38)",
+"bw": 1,
+"fs": "16px"
+},
+{
+"t": "Me lembra às 20h",
+"act": "",
+"cara": "caixa",
+"h": 44,
+"w": 358,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(58, 65, 76)",
+"bw": 1,
+"fs": "15px"
+}
+],
+"campos": [
+{
+"tag": "TEXTAREA",
+"tipo": "textarea",
+"ph": "",
+"lab": "Por que estas peças",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 358,
+"h": 176,
+"x": 16,
+"alinh": "start",
+"fs": "15px"
+}
+],
+"alin": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 3,
+"ex": [
+"button.on",
+"button."
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 0
+},
+"vista": "mkt",
+"toques": [
+{
+"i": 0,
+"act": "",
+"id": "",
+"txt": "Versão A",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 1,
+"act": "",
+"id": "",
+"txt": "Versão B",
+"tag": "BUTTON",
+"efeito": [
+"alterna"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 2,
+"act": "",
+"id": "",
+"txt": "PT",
+"tag": "BUTTON",
+"efeito": [
+"alterna"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 3,
+"act": "",
+"id": "",
+"txt": "ES",
+"tag": "BUTTON",
+"efeito": [
+"alterna"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 4,
+"act": "",
+"id": "",
+"txt": "PT+ES",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 5,
+"act": "",
+"id": "",
+"txt": "",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 6,
+"act": "",
+"id": "",
+"txt": "",
+"tag": "BUTTON",
+"igual_a": "marketing-post"
+},
+{
+"i": 7,
+"act": "",
+"id": "",
+"txt": "",
+"tag": "BUTTON",
+"igual_a": "marketing-post"
+},
+{
+"i": 8,
+"act": "",
+"id": "",
+"txt": "Postar agora",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 9,
+"act": "",
+"id": "",
+"txt": "Me lembra às 20h",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "Versão A",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 85,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Versão B",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 85,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "PT",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 56,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "ES",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 56,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "PT+ES",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 56,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "",
+"act": "",
+"cara": "ícone redondo",
+"h": 24,
+"w": 24,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgba(128, 128, 128, 0.4)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "",
+"act": "",
+"cara": "ícone redondo",
+"h": 24,
+"w": 24,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgba(128, 128, 128, 0.4)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "",
+"act": "",
+"cara": "ícone redondo",
+"h": 24,
+"w": 24,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgba(128, 128, 128, 0.4)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Postar agora",
+"act": "",
+"cara": "barra grande",
+"h": 52,
+"w": 358,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgba(141, 58, 105, 0.35)",
+"bw": 1,
+"fs": "16px"
+},
+{
+"t": "Me lembra às 20h",
+"act": "",
+"cara": "caixa",
+"h": 44,
+"w": 358,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(216, 195, 208)",
+"bw": 1,
+"fs": "15px"
+}
+],
+"campos": [
+{
+"tag": "TEXTAREA",
+"tipo": "textarea",
+"ph": "",
+"lab": "Por que estas peças",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 358,
+"h": 176,
+"x": 16,
+"alinh": "start",
+"fs": "15px"
+}
+],
+"alin": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 3,
+"ex": [
+"button.on",
+"button."
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 0
+},
+"seg": 90
+}

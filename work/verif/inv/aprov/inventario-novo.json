@@ -1,0 +1,331 @@
+{
+"tela": "inventario-novo",
+"modo": "aprov",
+"quando": "19/11 02:00",
+"passos": [
+"()=>window.__LF.setView('estoque')",
+"()=>{const e=[...document.querySelectorAll('#v-estoque button')].filter(x=>x.getBoundingClientRect().height).filter(x=>/^\\+$|Adicionar/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
+],
+"escuro": {
+"botoes": [
+{
+"t": "Ler haste",
+"act": "",
+"cara": "pílula",
+"h": 52,
+"w": 171,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Foto",
+"act": "",
+"cara": "pílula",
+"h": 52,
+"w": 171,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "BR44118 Preto",
+"act": "enAbre",
+"cara": "caixa",
+"h": 113,
+"w": 112,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "BR44133 Vinho",
+"act": "enAbre",
+"cara": "caixa",
+"h": 113,
+"w": 112,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "SP58110 Pré-graduado",
+"act": "enAbre",
+"cara": "caixa",
+"h": 113,
+"w": 112,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Chegou mercadoria",
+"act": "",
+"cara": "texto",
+"h": 56,
+"w": 350,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15.5px"
+},
+{
+"t": "Preencher à mão",
+"act": "",
+"cara": "texto",
+"h": 56,
+"w": 350,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15.5px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Buscar peça, código, cor…",
+"lab": "",
+"cara": "linha",
+"fundo": false,
+"w": 239,
+"h": 52,
+"x": 68,
+"alinh": "start",
+"fs": "16px"
+}
+],
+"alin": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 3,
+"ex": [
+"EM ESTOQUE (FILTRO) › (4 px)",
+"Lote Kazwini (9 px)",
+"Óculos de leitura Kazwini  (22 px)"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 0
+},
+"vista": "estoque",
+"toques": [
+{
+"i": 0,
+"act": "",
+"id": "",
+"txt": "Ler haste",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Leitor de código\""
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 1,
+"act": "",
+"id": "",
+"txt": "Foto",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Foto da etiqueta, da caixa ou do pacote\""
+],
+"de_novo": [
+"abre janela \"A câmera do app não abriu (NotFoundError\""
+],
+"bug": []
+},
+{
+"i": 2,
+"act": "enAbre",
+"id": "0",
+"txt": "BR44118 Preto",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Armação Gucci de metal feminino\""
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 3,
+"act": "enAbre",
+"id": "1",
+"txt": "BR44133 Vinho",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Armação Armani de acetato feminino\""
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 4,
+"act": "enAbre",
+"id": "2",
+"txt": "SP58110 Pré-graduado",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 5,
+"act": "",
+"id": "",
+"txt": "Chegou mercadoria",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Chegou mercadoria\""
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 6,
+"act": "",
+"id": "",
+"txt": "Preencher à mão",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Novo modelo\""
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "Ler haste",
+"act": "",
+"cara": "pílula",
+"h": 52,
+"w": 171,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Foto",
+"act": "",
+"cara": "pílula",
+"h": 52,
+"w": 171,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "BR44118 Preto",
+"act": "enAbre",
+"cara": "caixa",
+"h": 113,
+"w": 112,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "BR44133 Vinho",
+"act": "enAbre",
+"cara": "caixa",
+"h": 113,
+"w": 112,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "SP58110 Pré-graduado",
+"act": "enAbre",
+"cara": "caixa",
+"h": 113,
+"w": 112,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Chegou mercadoria",
+"act": "",
+"cara": "texto",
+"h": 56,
+"w": 350,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15.5px"
+},
+{
+"t": "Preencher à mão",
+"act": "",
+"cara": "texto",
+"h": 56,
+"w": 350,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15.5px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Buscar peça, código, cor…",
+"lab": "",
+"cara": "linha",
+"fundo": false,
+"w": 239,
+"h": 52,
+"x": 68,
+"alinh": "start",
+"fs": "16px"
+}
+],
+"alin": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 3,
+"ex": [
+"EM ESTOQUE (FILTRO) › (4 px)",
+"Lote Kazwini (9 px)",
+"Óculos de leitura Kazwini  (22 px)"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 0
+},
+"seg": 86
+}

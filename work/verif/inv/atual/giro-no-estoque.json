@@ -1,0 +1,1082 @@
+{
+"tela": "giro-no-estoque",
+"modo": "atual",
+"quando": "19/11 01:53",
+"passos": [
+"()=>window.__LF.inicioGo('giro')",
+"()=>{const e=[...document.querySelectorAll('.kpi')].filter(x=>x.getBoundingClientRect().height).filter(x=>/ESTOQUE|estoque/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
+],
+"escuro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone quadrado",
+"h": 46,
+"w": 46,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Inventário ⌄",
+"act": "grpVer",
+"cara": "texto",
+"h": 32,
+"w": 286,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Adicionar",
+"act": "",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Produtos",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 61,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Fornecedores 1",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 112,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "EM ESTOQUE (FILTRO) › 469",
+"act": "",
+"cara": "texto",
+"h": 87,
+"w": 171,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Buscar com a câmera",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(203, 213, 225)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "15 preços para corrigir ›",
+"act": "pcAbre",
+"cara": "texto",
+"h": 44,
+"w": 151,
+"cor": "rgb(233, 194, 122)",
+"borda": "rgb(233, 194, 122)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "Filtros e ordem",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 42,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(203, 213, 225)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Lote Kazwini Pré-graduados G$ 25.000 343",
+"act": "",
+"cara": "caixa",
+"h": 265,
+"w": 165,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Óculos de leitura de acetato unissex 2 m",
+"act": "",
+"cara": "caixa",
+"h": 265,
+"w": 165,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Óculos de leitura Kazwini de acetato mas",
+"act": "",
+"cara": "caixa",
+"h": 330,
+"w": 165,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Óculos de leitura de plástico feminino C",
+"act": "",
+"cara": "caixa",
+"h": 330,
+"w": 165,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Óculos de leitura #15 Pré-graduados G$ 2",
+"act": "",
+"cara": "caixa",
+"h": 309,
+"w": 165,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Armação Gucci de metal feminino Código B",
+"act": "",
+"cara": "caixa",
+"h": 309,
+"w": 165,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Armação Ray-Ban de metal masculino Códig",
+"act": "",
+"cara": "caixa",
+"h": 309,
+"w": 165,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Armação Armani de acetato feminino Códig",
+"act": "",
+"cara": "caixa",
+"h": 309,
+"w": 165,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Armação #10 Armações G$ 45.000! 7 em est",
+"act": "",
+"cara": "caixa",
+"h": 265,
+"w": 165,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Armação #11 Armações G$ 45.000! 7 em est",
+"act": "",
+"cara": "caixa",
+"h": 265,
+"w": 165,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Armação #12 Armações G$ 45.000! 3 em est",
+"act": "",
+"cara": "caixa",
+"h": 309,
+"w": 165,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Óculos solar Ray-Ban de metal masculino ",
+"act": "",
+"cara": "caixa",
+"h": 309,
+"w": 165,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Óculos solar Kazwini de tr90 feminino Có",
+"act": "",
+"cara": "caixa",
+"h": 309,
+"w": 165,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Óculos solar #13 Solares G$ 60.000! 9 em",
+"act": "",
+"cara": "caixa",
+"h": 309,
+"w": 165,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Óculos solar #14 Solares G$ 60.000! 4 em",
+"act": "",
+"cara": "caixa",
+"h": 265,
+"w": 165,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Buscar peça, código, cor…",
+"lab": "",
+"cara": "linha",
+"fundo": false,
+"w": 239,
+"h": 52,
+"x": 68,
+"alinh": "start",
+"fs": "16px"
+}
+],
+"alin": [
+{
+"r": "2 centro vertical",
+"ex": [
+"Inventário ⌄ Grupo Pré-graduados ›",
+"Δ10.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"470 peças · Todos15 preços para co",
+"Δ-13.7px"
+]
+}
+],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Inventário ⌄"
+]
+},
+{
+"r": "fileira torta",
+"n": 3,
+"ex": [
+"EM ESTOQUE (FILTRO) › (4 px)",
+"Lote Kazwini (8 px)",
+"Óculos de leitura Kazwini  (22 px)"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 2293
+},
+"vista": "estoque",
+"toques": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "12",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+],
+"de_novo": [
+"leva → estoque"
+],
+"bug": []
+},
+{
+"i": 1,
+"act": "grpVer",
+"id": "",
+"txt": "Inventário ⌄",
+"tag": "H1",
+"efeito": [
+"abre janela \"VER\""
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 2,
+"act": "",
+"id": "",
+"txt": "Adicionar",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Adicionar\""
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 3,
+"act": "",
+"id": "",
+"txt": "Produtos",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 4,
+"act": "",
+"id": "",
+"txt": "Fornecedores 1",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 5,
+"act": "",
+"id": "",
+"txt": "EM ESTOQUE (FILTRO) › 470",
+"tag": "BUTTON",
+"efeito": [
+"alterna"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": [
+"3º toque diferente do 1º"
+]
+},
+{
+"i": 6,
+"act": "",
+"id": "",
+"txt": "Buscar com a câmera",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Buscar com a câmera\""
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 7,
+"act": "pcAbre",
+"id": "",
+"txt": "15 preços para corrigir ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 8,
+"act": "",
+"id": "",
+"txt": "Filtros e ordem",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Filtros do inventário\"",
+"alterna"
+],
+"de_novo": [
+"alterna"
+],
+"bug": []
+},
+{
+"i": 9,
+"act": "",
+"id": "",
+"txt": "Lote Kazwini Pré-graduados G$ 25.000 343",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 10,
+"act": "",
+"id": "",
+"txt": "Óculos de leitura de acetato unissex 2 m",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 11,
+"act": "",
+"id": "",
+"txt": "Óculos de leitura Kazwini de acetato mas",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 12,
+"act": "",
+"id": "",
+"txt": "Óculos de leitura de plástico feminino C",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 13,
+"act": "",
+"id": "",
+"txt": "Óculos de leitura #15 Pré-graduados G$ 2",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 14,
+"act": "",
+"id": "",
+"txt": "Armação Gucci de metal feminino Código B",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 15,
+"act": "",
+"id": "",
+"txt": "Armação Ray-Ban de metal masculino Códig",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 16,
+"act": "",
+"id": "",
+"txt": "Armação Armani de acetato feminino Códig",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 17,
+"act": "",
+"id": "",
+"txt": "Armação #10 Armações G$ 45.000! 7 em est",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 18,
+"act": "",
+"id": "",
+"txt": "Armação #11 Armações G$ 45.000! 7 em est",
+"tag": "BUTTON",
+"igual_a": "giro-no-estoque"
+},
+{
+"i": 19,
+"act": "",
+"id": "",
+"txt": "Armação #12 Armações G$ 45.000! 3 em est",
+"tag": "BUTTON",
+"igual_a": "giro-no-estoque"
+},
+{
+"i": 20,
+"act": "",
+"id": "",
+"txt": "Óculos solar Ray-Ban de metal masculino ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 21,
+"act": "",
+"id": "",
+"txt": "Óculos solar Kazwini de tr90 feminino Có",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 22,
+"act": "",
+"id": "",
+"txt": "Óculos solar #13 Solares G$ 60.000! 9 em",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 23,
+"act": "",
+"id": "",
+"txt": "Óculos solar #14 Solares G$ 60.000! 4 em",
+"tag": "BUTTON",
+"igual_a": "giro-no-estoque"
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone quadrado",
+"h": 46,
+"w": 46,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Inventário ⌄",
+"act": "grpVer",
+"cara": "texto",
+"h": 32,
+"w": 286,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Adicionar",
+"act": "",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Produtos",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 61,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Fornecedores 1",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 112,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "EM ESTOQUE (FILTRO) › 470",
+"act": "",
+"cara": "texto",
+"h": 86,
+"w": 171,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Buscar com a câmera",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(71, 85, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "15 preços para corrigir ›",
+"act": "pcAbre",
+"cara": "texto",
+"h": 44,
+"w": 151,
+"cor": "rgb(138, 90, 0)",
+"borda": "rgb(138, 90, 0)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "Filtros e ordem",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 42,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(71, 85, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Lote Kazwini Pré-graduados G$ 25.000 343",
+"act": "",
+"cara": "caixa",
+"h": 265,
+"w": 165,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Óculos de leitura de acetato unissex 2 m",
+"act": "",
+"cara": "caixa",
+"h": 265,
+"w": 165,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Óculos de leitura Kazwini de acetato mas",
+"act": "",
+"cara": "caixa",
+"h": 330,
+"w": 165,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Óculos de leitura de plástico feminino C",
+"act": "",
+"cara": "caixa",
+"h": 330,
+"w": 165,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Óculos de leitura #15 Pré-graduados G$ 2",
+"act": "",
+"cara": "caixa",
+"h": 309,
+"w": 165,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Armação Gucci de metal feminino Código B",
+"act": "",
+"cara": "caixa",
+"h": 309,
+"w": 165,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Armação Ray-Ban de metal masculino Códig",
+"act": "",
+"cara": "caixa",
+"h": 309,
+"w": 165,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Armação Armani de acetato feminino Códig",
+"act": "",
+"cara": "caixa",
+"h": 309,
+"w": 165,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Armação #10 Armações G$ 45.000! 7 em est",
+"act": "",
+"cara": "caixa",
+"h": 265,
+"w": 165,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Armação #11 Armações G$ 45.000! 7 em est",
+"act": "",
+"cara": "caixa",
+"h": 265,
+"w": 165,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Armação #12 Armações G$ 45.000! 3 em est",
+"act": "",
+"cara": "caixa",
+"h": 309,
+"w": 165,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Óculos solar Ray-Ban de metal masculino ",
+"act": "",
+"cara": "caixa",
+"h": 309,
+"w": 165,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Óculos solar Kazwini de tr90 feminino Có",
+"act": "",
+"cara": "caixa",
+"h": 309,
+"w": 165,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Óculos solar #13 Solares G$ 60.000! 9 em",
+"act": "",
+"cara": "caixa",
+"h": 309,
+"w": 165,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Óculos solar #14 Solares G$ 60.000! 4 em",
+"act": "",
+"cara": "caixa",
+"h": 265,
+"w": 165,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Buscar peça, código, cor…",
+"lab": "",
+"cara": "linha",
+"fundo": false,
+"w": 239,
+"h": 52,
+"x": 68,
+"alinh": "start",
+"fs": "16px"
+}
+],
+"alin": [
+{
+"r": "2 centro vertical",
+"ex": [
+"Inventário ⌄ Grupo Pré-graduados ›",
+"Δ10.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"470 peças · Todos15 preços para co",
+"Δ-13.7px"
+]
+}
+],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Inventário ⌄"
+]
+},
+{
+"r": "fileira torta",
+"n": 3,
+"ex": [
+"EM ESTOQUE (FILTRO) › (4 px)",
+"Lote Kazwini (9 px)",
+"Óculos de leitura Kazwini  (22 px)"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 2292
+},
+"seg": 227
+}

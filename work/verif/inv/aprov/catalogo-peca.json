@@ -1,0 +1,497 @@
+{
+"tela": "catalogo-peca",
+"modo": "aprov",
+"quando": "19/11 02:18",
+"passos": [
+"()=>window.__LF.setView('vendas')",
+"()=>{const e=[...document.querySelectorAll('#vRows .pcard[data-ref]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
+],
+"escuro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Modo cliente (iPad da loja)",
+"act": "mcLiga",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Voltar",
+"act": "",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "14px"
+},
+{
+"t": "Compartilhar esta peça",
+"act": "",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "14px"
+},
+{
+"t": "· Sem detalhe 343 un.",
+"act": "",
+"cara": "barra grande",
+"h": 48,
+"w": 304,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(164, 74, 126)",
+"bw": 1,
+"fs": "14px"
+},
+{
+"t": "−",
+"act": "",
+"cara": "ícone quadrado",
+"h": 48,
+"w": 44,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "22px"
+},
+{
+"t": "+",
+"act": "",
+"cara": "ícone quadrado",
+"h": 48,
+"w": 44,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "22px"
+},
+{
+"t": "Vender · G$ 25.000",
+"act": "",
+"cara": "barra grande",
+"h": 52,
+"w": 286,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgba(243, 192, 220, 0.38)",
+"bw": 1,
+"fs": "16px"
+},
+{
+"t": "Ficha no Inventário ›",
+"act": "fnTab",
+"cara": "texto",
+"h": 44,
+"w": 149,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "2 centro vertical",
+"ex": [
+"Catálogo Escolha a peça e venda.",
+"Δ6.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Vender",
+"Δ-19.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Vender",
+"Δ19.0px"
+]
+}
+],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 35
+},
+"vista": "vendas",
+"toques": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "12",
+"tag": "BUTTON",
+"igual_a": "catalogo-carrinho"
+},
+{
+"i": 1,
+"act": "mcLiga",
+"id": "",
+"txt": "Modo cliente (iPad da loja)",
+"tag": "BUTTON",
+"igual_a": "catalogo-carrinho"
+},
+{
+"i": 2,
+"act": "",
+"id": "",
+"txt": "Voltar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 3,
+"act": "",
+"id": "",
+"txt": "Compartilhar esta peça",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Compartilhar\""
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 4,
+"act": "",
+"id": "",
+"txt": "· Sem detalhe 343 un.",
+"tag": "DIV",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 5,
+"act": "",
+"id": "",
+"txt": "−",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 6,
+"act": "",
+"id": "",
+"txt": "+",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 7,
+"act": "",
+"id": "",
+"txt": "Vender · G$ 25.000",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 8,
+"act": "fnTab",
+"id": "est",
+"txt": "Ficha no Inventário ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Modo cliente (iPad da loja)",
+"act": "mcLiga",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Voltar",
+"act": "",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "14px"
+},
+{
+"t": "Compartilhar esta peça",
+"act": "",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "14px"
+},
+{
+"t": "· Sem detalhe 343 un.",
+"act": "",
+"cara": "barra grande",
+"h": 48,
+"w": 304,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(141, 58, 105)",
+"bw": 1,
+"fs": "14px"
+},
+{
+"t": "−",
+"act": "",
+"cara": "ícone quadrado",
+"h": 48,
+"w": 44,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "22px"
+},
+{
+"t": "+",
+"act": "",
+"cara": "ícone quadrado",
+"h": 48,
+"w": 44,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "22px"
+},
+{
+"t": "Vender · G$ 25.000",
+"act": "",
+"cara": "barra grande",
+"h": 52,
+"w": 286,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgba(141, 58, 105, 0.35)",
+"bw": 1,
+"fs": "16px"
+},
+{
+"t": "Ficha no Inventário ›",
+"act": "fnTab",
+"cara": "texto",
+"h": 44,
+"w": 149,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "2 centro vertical",
+"ex": [
+"Catálogo Escolha a peça e venda.",
+"Δ6.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Vender",
+"Δ-19.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Vender",
+"Δ19.0px"
+]
+}
+],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 35
+},
+"seg": 64
+}

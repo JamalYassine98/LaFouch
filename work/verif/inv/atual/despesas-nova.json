@@ -1,0 +1,1129 @@
+{
+"tela": "despesas-nova",
+"modo": "atual",
+"quando": "19/11 02:07",
+"passos": [
+"()=>window.__LF.setView('desp')",
+"()=>{const e=[...document.querySelectorAll('[data-act=despNova]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
+],
+"escuro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone quadrado",
+"h": 46,
+"w": 46,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Despesas ⌄",
+"act": "grpVer",
+"cara": "texto",
+"h": 32,
+"w": 144,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "+ Nova",
+"act": "despNova",
+"cara": "pílula",
+"h": 44,
+"w": 84,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(164, 74, 126)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Nova despesa Água, luz, aluguel… fixa ou",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 340,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Adicionar",
+"act": "expadd",
+"cara": "pílula",
+"h": 44,
+"w": 99,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Pago neste mês. Toque para desfazer",
+"act": "exppay",
+"cara": "ícone redondo",
+"h": 40,
+"w": 40,
+"cor": "rgb(95, 211, 154)",
+"borda": "rgb(95, 211, 154)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Aluguel da loja fixa · vence dia 5 G$ 90",
+"act": "despAb",
+"cara": "texto",
+"h": 54,
+"w": 262,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Marcar como paga neste mês",
+"act": "exppay",
+"cara": "ícone redondo",
+"h": 40,
+"w": 40,
+"cor": "rgba(0, 0, 0, 0)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Luz venceu há 4 dias · informe o valor G",
+"act": "despAb",
+"cara": "texto",
+"h": 72,
+"w": 262,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Pago neste mês. Toque para desfazer",
+"act": "exppay",
+"cara": "ícone redondo",
+"h": 40,
+"w": 40,
+"cor": "rgb(95, 211, 154)",
+"borda": "rgb(95, 211, 154)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Internet fixa · vence dia 10 G$ 120.000 ",
+"act": "despAb",
+"cara": "texto",
+"h": 54,
+"w": 262,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Marcar como paga neste mês",
+"act": "exppay",
+"cara": "ícone redondo",
+"h": 40,
+"w": 40,
+"cor": "rgba(0, 0, 0, 0)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Contas de casa venceu há 7 dias · inform",
+"act": "despAb",
+"cara": "texto",
+"h": 72,
+"w": 262,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Pago neste mês. Toque para desfazer",
+"act": "exppay",
+"cara": "ícone redondo",
+"h": 40,
+"w": 40,
+"cor": "rgb(95, 211, 154)",
+"borda": "rgb(95, 211, 154)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Salário (retirada) fixa · vence dia 5 G$",
+"act": "despAb",
+"cara": "texto",
+"h": 54,
+"w": 262,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Marcar como paga neste mês",
+"act": "exppay",
+"cara": "ícone redondo",
+"h": 40,
+"w": 40,
+"cor": "rgba(0, 0, 0, 0)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Contador vence amanhã G$ 300.000 ⌄",
+"act": "despAb",
+"cara": "texto",
+"h": 54,
+"w": 262,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Pago neste mês. Toque para desfazer",
+"act": "exppay",
+"cara": "ícone redondo",
+"h": 40,
+"w": 40,
+"cor": "rgb(95, 211, 154)",
+"borda": "rgb(95, 211, 154)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Provisão de imprevistos fixa · vence dia",
+"act": "despAb",
+"cara": "texto",
+"h": 76,
+"w": 262,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Imprevistos do mês Gasto G$ 60.000 de G$",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 340,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Contas pagas neste mês 4 conta(s) paga(s",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 340,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Nome (ex.: Água)",
+"lab": "Loja",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 272,
+"h": 44,
+"x": 59,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "SELECT",
+"tipo": "select-one",
+"ph": "",
+"lab": "Loja",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 142,
+"h": 44,
+"x": 59,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "SELECT",
+"tipo": "select-one",
+"ph": "",
+"lab": "Loja",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 122,
+"h": 44,
+"x": 209,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "SELECT",
+"tipo": "select-one",
+"ph": "",
+"lab": "Loja",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 272,
+"h": 44,
+"x": 59,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Valor",
+"lab": "Loja",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 272,
+"h": 44,
+"x": 59,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Dia do vencimento",
+"lab": "Loja",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 272,
+"h": 44,
+"x": 59,
+"alinh": "start",
+"fs": "15px"
+}
+],
+"alin": [
+{
+"r": "7 linha de base",
+"ex": [
+"Despesas ⌄ + Nova",
+"Δ5.1px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Nova despesa Água, luz, aluguel… f",
+"Δ-17.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Nova despesa Água, luz, aluguel… f",
+"Δ17.0px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Nova despesa Água, luz, aluguel… f",
+"Δ1.9px"
+]
+}
+],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Despesas ⌄"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 1465
+},
+"vista": "desp",
+"toques": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "12",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+],
+"de_novo": [
+"leva → desp"
+],
+"bug": []
+},
+{
+"i": 1,
+"act": "grpVer",
+"id": "",
+"txt": "Despesas ⌄",
+"tag": "H1",
+"efeito": [
+"abre janela \"VER\""
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 2,
+"act": "despNova",
+"id": "",
+"txt": "+ Nova",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 3,
+"act": "dfold",
+"id": "nova",
+"txt": "Nova despesa Água, luz, aluguel… fixa ou",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 4,
+"act": "expadd",
+"id": "",
+"txt": "Adicionar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 5,
+"act": "exppay",
+"id": "1",
+"txt": "Pago neste mês. Toque para desfazer",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 6,
+"act": "despAb",
+"id": "1",
+"txt": "Aluguel da loja fixa · vence dia 5 G$ 90",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 7,
+"act": "exppay",
+"id": "2",
+"txt": "Marcar como paga neste mês",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 8,
+"act": "despAb",
+"id": "2",
+"txt": "Luz venceu há 4 dias · informe o valor G",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 9,
+"act": "exppay",
+"id": "3",
+"txt": "Pago neste mês. Toque para desfazer",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 10,
+"act": "despAb",
+"id": "3",
+"txt": "Internet fixa · vence dia 10 G$ 120.000 ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 11,
+"act": "exppay",
+"id": "6",
+"txt": "Marcar como paga neste mês",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 12,
+"act": "despAb",
+"id": "6",
+"txt": "Contas de casa venceu há 7 dias · inform",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 13,
+"act": "exppay",
+"id": "5",
+"txt": "Pago neste mês. Toque para desfazer",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 14,
+"act": "despAb",
+"id": "5",
+"txt": "Salário (retirada) fixa · vence dia 5 G$",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 15,
+"act": "exppay",
+"id": "4",
+"txt": "Marcar como paga neste mês",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 16,
+"act": "despAb",
+"id": "4",
+"txt": "Contador vence amanhã G$ 300.000 ⌄",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 17,
+"act": "exppay",
+"id": "7",
+"txt": "Pago neste mês. Toque para desfazer",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 18,
+"act": "despAb",
+"id": "7",
+"txt": "Provisão de imprevistos fixa · vence dia",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 19,
+"act": "dfold",
+"id": "imp",
+"txt": "Imprevistos do mês Gasto G$ 60.000 de G$",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 20,
+"act": "dfold",
+"id": "pagas",
+"txt": "Contas pagas neste mês 4 conta(s) paga(s",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone quadrado",
+"h": 46,
+"w": 46,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Despesas ⌄",
+"act": "grpVer",
+"cara": "texto",
+"h": 32,
+"w": 144,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "+ Nova",
+"act": "despNova",
+"cara": "pílula",
+"h": 44,
+"w": 84,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Nova despesa Água, luz, aluguel… fixa ou",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 340,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Adicionar",
+"act": "expadd",
+"cara": "pílula",
+"h": 44,
+"w": 99,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Pago neste mês. Toque para desfazer",
+"act": "exppay",
+"cara": "ícone redondo",
+"h": 40,
+"w": 40,
+"cor": "rgb(20, 128, 63)",
+"borda": "rgb(20, 128, 63)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Aluguel da loja fixa · vence dia 5 G$ 90",
+"act": "despAb",
+"cara": "texto",
+"h": 54,
+"w": 262,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Marcar como paga neste mês",
+"act": "exppay",
+"cara": "ícone redondo",
+"h": 40,
+"w": 40,
+"cor": "rgba(0, 0, 0, 0)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Luz venceu há 4 dias · informe o valor G",
+"act": "despAb",
+"cara": "texto",
+"h": 72,
+"w": 262,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Pago neste mês. Toque para desfazer",
+"act": "exppay",
+"cara": "ícone redondo",
+"h": 40,
+"w": 40,
+"cor": "rgb(20, 128, 63)",
+"borda": "rgb(20, 128, 63)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Internet fixa · vence dia 10 G$ 120.000 ",
+"act": "despAb",
+"cara": "texto",
+"h": 54,
+"w": 262,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Marcar como paga neste mês",
+"act": "exppay",
+"cara": "ícone redondo",
+"h": 40,
+"w": 40,
+"cor": "rgba(0, 0, 0, 0)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Contas de casa venceu há 7 dias · inform",
+"act": "despAb",
+"cara": "texto",
+"h": 72,
+"w": 262,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Pago neste mês. Toque para desfazer",
+"act": "exppay",
+"cara": "ícone redondo",
+"h": 40,
+"w": 40,
+"cor": "rgb(20, 128, 63)",
+"borda": "rgb(20, 128, 63)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Salário (retirada) fixa · vence dia 5 G$",
+"act": "despAb",
+"cara": "texto",
+"h": 54,
+"w": 262,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Marcar como paga neste mês",
+"act": "exppay",
+"cara": "ícone redondo",
+"h": 40,
+"w": 40,
+"cor": "rgba(0, 0, 0, 0)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Contador vence amanhã G$ 300.000 ⌄",
+"act": "despAb",
+"cara": "texto",
+"h": 54,
+"w": 262,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Pago neste mês. Toque para desfazer",
+"act": "exppay",
+"cara": "ícone redondo",
+"h": 40,
+"w": 40,
+"cor": "rgb(20, 128, 63)",
+"borda": "rgb(20, 128, 63)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Provisão de imprevistos fixa · vence dia",
+"act": "despAb",
+"cara": "texto",
+"h": 76,
+"w": 262,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Imprevistos do mês Gasto G$ 60.000 de G$",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 340,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Contas pagas neste mês 4 conta(s) paga(s",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 340,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Nome (ex.: Água)",
+"lab": "Loja",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 272,
+"h": 44,
+"x": 59,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "SELECT",
+"tipo": "select-one",
+"ph": "",
+"lab": "Loja",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 142,
+"h": 44,
+"x": 59,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "SELECT",
+"tipo": "select-one",
+"ph": "",
+"lab": "Loja",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 122,
+"h": 44,
+"x": 209,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "SELECT",
+"tipo": "select-one",
+"ph": "",
+"lab": "Loja",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 272,
+"h": 44,
+"x": 59,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Valor",
+"lab": "Loja",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 272,
+"h": 44,
+"x": 59,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Dia do vencimento",
+"lab": "Loja",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 272,
+"h": 44,
+"x": 59,
+"alinh": "start",
+"fs": "15px"
+}
+],
+"alin": [
+{
+"r": "7 linha de base",
+"ex": [
+"Despesas ⌄ + Nova",
+"Δ5.1px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Nova despesa Água, luz, aluguel… f",
+"Δ-17.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Nova despesa Água, luz, aluguel… f",
+"Δ17.0px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Nova despesa Água, luz, aluguel… f",
+"Δ1.9px"
+]
+}
+],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Despesas ⌄"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 1465
+},
+"seg": 170
+}

@@ -1,0 +1,543 @@
+{
+"tela": "reservas-para-onde",
+"modo": "atual",
+"quando": "19/11 01:44",
+"passos": [
+"()=>window.__LF.inicioGo('din')",
+"()=>{const e=[...document.querySelectorAll('[data-act=dfold],.g99 .fxH')].filter(x=>x.getBoundingClientRect().height).filter(x=>/para onde/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
+],
+"escuro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone quadrado",
+"h": 46,
+"w": 46,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Reservas ⌄",
+"act": "dVer",
+"cara": "texto",
+"h": 49,
+"w": 137,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "G$",
+"act": "totm",
+"cara": "pílula",
+"h": 38,
+"w": 52,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "R$",
+"act": "totm",
+"cara": "texto",
+"h": 38,
+"w": 52,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(203, 213, 225)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "US$",
+"act": "totm",
+"cara": "texto",
+"h": 38,
+"w": 52,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(203, 213, 225)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Ver para onde vai o que já tem dono: rep",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 340,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Objetivos da loja › guardado no Caixa",
+"act": "view",
+"cara": "texto",
+"h": 51,
+"w": 272,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Próximos 30 dias Saldo G$ 6.516.226 · co",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 340,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "7 linha de base",
+"ex": [
+"LIVRE PARA VOCÊ G$ R$ US$",
+"Δ2.5px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Ver para onde vai o que já tem don",
+"Δ-17.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Ver para onde vai o que já tem don",
+"Δ17.0px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Ver para onde vai o que já tem don",
+"Δ1.9px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Próximos 30 dias Saldo G$ 6.516.22",
+"Δ-17.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Próximos 30 dias Saldo G$ 6.516.22",
+"Δ17.0px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Próximos 30 dias Saldo G$ 6.516.22",
+"Δ11.1px"
+]
+}
+],
+"olho": [
+{
+"r": "toque<40",
+"n": 3,
+"ex": [
+"G$",
+"R$",
+"US$"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 133
+},
+"vista": "dash",
+"toques": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "12",
+"tag": "BUTTON",
+"igual_a": "dash-mes"
+},
+{
+"i": 1,
+"act": "dVer",
+"id": "",
+"txt": "Reservas ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"VER\""
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 2,
+"act": "totm",
+"id": "pyg",
+"txt": "G$",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 3,
+"act": "totm",
+"id": "brl",
+"txt": "R$",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 4,
+"act": "totm",
+"id": "usd",
+"txt": "US$",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 5,
+"act": "dfold",
+"id": "paraonde",
+"txt": "Ver para onde vai o que já tem dono: rep",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 6,
+"act": "view",
+"id": "caixa",
+"txt": "Objetivos da loja › guardado no Caixa",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 7,
+"act": "dfold",
+"id": "flx",
+"txt": "Próximos 30 dias Saldo G$ 6.516.226 · co",
+"tag": "BUTTON",
+"efeito": [
+"sumiu"
+],
+"de_novo": [
+"—"
+],
+"bug": []
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone quadrado",
+"h": 46,
+"w": 46,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Reservas ⌄",
+"act": "dVer",
+"cara": "texto",
+"h": 49,
+"w": 137,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "G$",
+"act": "totm",
+"cara": "pílula",
+"h": 38,
+"w": 52,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "R$",
+"act": "totm",
+"cara": "texto",
+"h": 38,
+"w": 52,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(71, 85, 105)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "US$",
+"act": "totm",
+"cara": "texto",
+"h": 38,
+"w": 52,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(71, 85, 105)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Ver para onde vai o que já tem dono: rep",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 340,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Objetivos da loja › guardado no Caixa",
+"act": "view",
+"cara": "texto",
+"h": 51,
+"w": 272,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Próximos 30 dias Saldo G$ 6.514.684 · co",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 340,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "7 linha de base",
+"ex": [
+"LIVRE PARA VOCÊ G$ R$ US$",
+"Δ2.5px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Ver para onde vai o que já tem don",
+"Δ-17.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Ver para onde vai o que já tem don",
+"Δ17.0px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Ver para onde vai o que já tem don",
+"Δ1.9px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Próximos 30 dias Saldo G$ 6.514.68",
+"Δ-17.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Próximos 30 dias Saldo G$ 6.514.68",
+"Δ17.0px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Próximos 30 dias Saldo G$ 6.514.68",
+"Δ11.1px"
+]
+}
+],
+"olho": [
+{
+"r": "toque<40",
+"n": 3,
+"ex": [
+"G$",
+"R$",
+"US$"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 133
+},
+"seg": 66
+}

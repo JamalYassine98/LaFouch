@@ -1,0 +1,241 @@
+{
+"tela": "dash-folha-periodo",
+"modo": "aprov",
+"quando": "19/11 01:34",
+"passos": [
+"()=>window.__LF.inicioGo('hoje')",
+"()=>window.__LF.ACT.dPer()"
+],
+"escuro": {
+"botoes": [
+{
+"t": "Hoje quinta-feira, 19 de novembro ✓",
+"act": "dPerEsc",
+"cara": "texto",
+"h": 75,
+"w": 354,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Esta semana 16 a 19 de novembro",
+"act": "dPerEsc",
+"cara": "texto",
+"h": 75,
+"w": 354,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Este mês 1 a 19 de novembro",
+"act": "dPerEsc",
+"cara": "texto",
+"h": 75,
+"w": 354,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Últimos 30 dias 21 de outubro a 19 de no",
+"act": "dPerEsc",
+"cara": "texto",
+"h": 75,
+"w": 354,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Escolher datas de um dia até outro ›",
+"act": "dPerEsc",
+"cara": "texto",
+"h": 75,
+"w": 354,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "7 linha de base",
+"ex": [
+"Hoje quinta-feira, 19 de novembro ",
+"Δ10.6px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Escolher datas de um dia até outro",
+"Δ10.6px"
+]
+}
+],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 0
+},
+"vista": "dia",
+"toques": [
+{
+"i": 0,
+"act": "dPerEsc",
+"id": "hoje",
+"txt": "Hoje quinta-feira, 19 de novembro ✓",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 1,
+"act": "dPerEsc",
+"id": "semana",
+"txt": "Esta semana 16 a 19 de novembro",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 2,
+"act": "dPerEsc",
+"id": "mes",
+"txt": "Este mês 1 a 19 de novembro",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 3,
+"act": "dPerEsc",
+"id": "30",
+"txt": "Últimos 30 dias 21 de outubro a 19 de no",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 4,
+"act": "dPerEsc",
+"id": "custom",
+"txt": "Escolher datas de um dia até outro ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "Hoje quinta-feira, 19 de novembro ✓",
+"act": "dPerEsc",
+"cara": "texto",
+"h": 75,
+"w": 354,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Esta semana 16 a 19 de novembro",
+"act": "dPerEsc",
+"cara": "texto",
+"h": 75,
+"w": 354,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Este mês 1 a 19 de novembro",
+"act": "dPerEsc",
+"cara": "texto",
+"h": 75,
+"w": 354,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Últimos 30 dias 21 de outubro a 19 de no",
+"act": "dPerEsc",
+"cara": "texto",
+"h": 75,
+"w": 354,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Escolher datas de um dia até outro ›",
+"act": "dPerEsc",
+"cara": "texto",
+"h": 75,
+"w": 354,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "7 linha de base",
+"ex": [
+"Hoje quinta-feira, 19 de novembro ",
+"Δ10.6px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Escolher datas de um dia até outro",
+"Δ10.6px"
+]
+}
+],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 0
+},
+"seg": 53
+}

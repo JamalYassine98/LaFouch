@@ -1,0 +1,277 @@
+{
+"tela": "despesas-nova",
+"modo": "aprov",
+"quando": "19/11 02:08",
+"passos": [
+"()=>window.__LF.setView('desp')",
+"()=>{const e=[...document.querySelectorAll('[data-act=despNova]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
+],
+"escuro": {
+"botoes": [
+{
+"t": "Nova despesa Água, luz, aluguel… fixa ou",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 358,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Salvar",
+"act": "expadd",
+"cara": "barra grande",
+"h": 52,
+"w": 358,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(164, 74, 126)",
+"bw": 1,
+"fs": "16px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Nome (ex.: Água)",
+"lab": "Loja",
+"cara": "linha",
+"fundo": false,
+"w": 358,
+"h": 44,
+"x": 16,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "SELECT",
+"tipo": "select-one",
+"ph": "",
+"lab": "Loja",
+"cara": "linha",
+"fundo": false,
+"w": 134,
+"h": 44,
+"x": 16,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "SELECT",
+"tipo": "select-one",
+"ph": "",
+"lab": "Loja",
+"cara": "linha",
+"fundo": false,
+"w": 114,
+"h": 44,
+"x": 158,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "SELECT",
+"tipo": "select-one",
+"ph": "",
+"lab": "Loja",
+"cara": "linha",
+"fundo": false,
+"w": 94,
+"h": 44,
+"x": 280,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Valor",
+"lab": "Loja",
+"cara": "linha",
+"fundo": false,
+"w": 358,
+"h": 44,
+"x": 16,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Dia do vencimento",
+"lab": "Loja",
+"cara": "linha",
+"fundo": false,
+"w": 358,
+"h": 44,
+"x": 16,
+"alinh": "start",
+"fs": "15px"
+}
+],
+"alin": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Despesas ⌄"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 1050
+},
+"vista": "desp",
+"toques": [
+{
+"i": 0,
+"act": "dfold",
+"id": "nova",
+"txt": "Nova despesa Água, luz, aluguel… fixa ou",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 1,
+"act": "expadd",
+"id": "",
+"txt": "Salvar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "Nova despesa Água, luz, aluguel… fixa ou",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 358,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Salvar",
+"act": "expadd",
+"cara": "barra grande",
+"h": 52,
+"w": 358,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 1,
+"fs": "16px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Nome (ex.: Água)",
+"lab": "Loja",
+"cara": "linha",
+"fundo": false,
+"w": 358,
+"h": 44,
+"x": 16,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "SELECT",
+"tipo": "select-one",
+"ph": "",
+"lab": "Loja",
+"cara": "linha",
+"fundo": false,
+"w": 134,
+"h": 44,
+"x": 16,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "SELECT",
+"tipo": "select-one",
+"ph": "",
+"lab": "Loja",
+"cara": "linha",
+"fundo": false,
+"w": 114,
+"h": 44,
+"x": 158,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "SELECT",
+"tipo": "select-one",
+"ph": "",
+"lab": "Loja",
+"cara": "linha",
+"fundo": false,
+"w": 94,
+"h": 44,
+"x": 280,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Valor",
+"lab": "Loja",
+"cara": "linha",
+"fundo": false,
+"w": 358,
+"h": 44,
+"x": 16,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Dia do vencimento",
+"lab": "Loja",
+"cara": "linha",
+"fundo": false,
+"w": 358,
+"h": 44,
+"x": 16,
+"alinh": "start",
+"fs": "15px"
+}
+],
+"alin": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Despesas ⌄"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 1050
+},
+"seg": 19
+}

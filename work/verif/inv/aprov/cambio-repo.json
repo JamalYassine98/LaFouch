@@ -1,0 +1,601 @@
+{
+"tela": "cambio-repo",
+"modo": "aprov",
+"quando": "19/11 01:46",
+"passos": [
+"()=>window.__LF.setView('fx')",
+"()=>window.__LF.ACT.fjAbre('repo')"
+],
+"escuro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Câmbio ⌄",
+"act": "grpVer",
+"cara": "texto",
+"h": 32,
+"w": 237,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Venda",
+"act": "fxModo",
+"cara": "pílula",
+"h": 36,
+"w": 93,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "DÓLAR G$ 6.487 — estável",
+"act": "fjAbre",
+"cara": "texto",
+"h": 85,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "REAL G$ 1.196 ▼ 0,7% 7 dias",
+"act": "fjAbre",
+"cara": "barra grande",
+"h": 86,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(34, 42, 53)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "DÓLAR EM REAIS R$ 5,43 ▲ 0,9% 7 dias",
+"act": "fjAbre",
+"cara": "barra grande",
+"h": 86,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(34, 42, 53)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Faltam US$ 2.838 Normal ›",
+"act": "fjAbre",
+"cara": "texto",
+"h": 45,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Registrar troca",
+"act": "fjAbre",
+"cara": "barra grande",
+"h": 52,
+"w": 342,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(164, 74, 126)",
+"bw": 1,
+"fs": "16px"
+},
+{
+"t": "Últimas trocas 12 ›",
+"act": "fjAbre",
+"cara": "texto",
+"h": 56,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Preços no site cotação da loja travada ›",
+"act": "fjAbre",
+"cara": "texto",
+"h": 69,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Como o app te protege colchão 13,0% ›",
+"act": "fjAbre",
+"cara": "texto",
+"h": 69,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "30 dias",
+"act": "fjPer",
+"cara": "texto",
+"h": 42,
+"w": 115,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "90 dias",
+"act": "fjPer",
+"cara": "texto",
+"h": 42,
+"w": 115,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "1 ano",
+"act": "fjPer",
+"cara": "texto",
+"h": 42,
+"w": 115,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "14px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "7 linha de base",
+"ex": [
+"Câmbio ⌄ Venda",
+"Δ11.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"DÓLAR G$ 6.487 — estável",
+"Δ-7.1px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"DÓLAR G$ 6.487 — estável",
+"Δ20.1px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"REAL G$ 1.196 ▼ 0,7% 7 dias",
+"Δ-7.1px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"REAL G$ 1.196 ▼ 0,7% 7 dias",
+"Δ20.1px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"DÓLAR EM REAIS R$ 5,43 ▲ 0,9% 7 di",
+"Δ-7.2px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"DÓLAR EM REAIS R$ 5,43 ▲ 0,9% 7 di",
+"Δ20.1px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Últimas trocas 12 ›",
+"Δ2.4px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Preços no site cotação da loja tra",
+"Δ12.4px"
+]
+}
+],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 0
+},
+"vista": "fx",
+"toques": [
+{
+"i": 0,
+"act": "fjPer",
+"id": "30",
+"txt": "30 dias",
+"tag": "BUTTON",
+"igual_a": "cambio-dolar"
+},
+{
+"i": 1,
+"act": "fjPer",
+"id": "90",
+"txt": "90 dias",
+"tag": "BUTTON",
+"igual_a": "cambio-dolar"
+},
+{
+"i": 2,
+"act": "fjPer",
+"id": "365",
+"txt": "1 ano",
+"tag": "BUTTON",
+"igual_a": "cambio-dolar"
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Câmbio ⌄",
+"act": "grpVer",
+"cara": "texto",
+"h": 32,
+"w": 237,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Venda",
+"act": "fxModo",
+"cara": "pílula",
+"h": 36,
+"w": 93,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "DÓLAR G$ 6.487 — estável",
+"act": "fjAbre",
+"cara": "texto",
+"h": 85,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "REAL G$ 1.196 ▼ 0,7% 7 dias",
+"act": "fjAbre",
+"cara": "barra grande",
+"h": 86,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(230, 223, 229)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "DÓLAR EM REAIS R$ 5,43 ▲ 0,9% 7 dias",
+"act": "fjAbre",
+"cara": "barra grande",
+"h": 86,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(230, 223, 229)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Faltam US$ 2.838 Normal ›",
+"act": "fjAbre",
+"cara": "texto",
+"h": 45,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Registrar troca",
+"act": "fjAbre",
+"cara": "barra grande",
+"h": 52,
+"w": 342,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 1,
+"fs": "16px"
+},
+{
+"t": "Últimas trocas 12 ›",
+"act": "fjAbre",
+"cara": "texto",
+"h": 56,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Preços no site cotação da loja travada ›",
+"act": "fjAbre",
+"cara": "texto",
+"h": 69,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Como o app te protege colchão 13,0% ›",
+"act": "fjAbre",
+"cara": "texto",
+"h": 69,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "30 dias",
+"act": "fjPer",
+"cara": "texto",
+"h": 42,
+"w": 115,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "90 dias",
+"act": "fjPer",
+"cara": "texto",
+"h": 42,
+"w": 115,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "1 ano",
+"act": "fjPer",
+"cara": "texto",
+"h": 42,
+"w": 115,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "14px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "7 linha de base",
+"ex": [
+"Câmbio ⌄ Venda",
+"Δ11.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"DÓLAR G$ 6.487 — estável",
+"Δ-7.1px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"DÓLAR G$ 6.487 — estável",
+"Δ20.1px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"REAL G$ 1.196 ▼ 0,7% 7 dias",
+"Δ-7.1px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"REAL G$ 1.196 ▼ 0,7% 7 dias",
+"Δ20.1px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"DÓLAR EM REAIS R$ 5,43 ▲ 0,9% 7 di",
+"Δ-7.2px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"DÓLAR EM REAIS R$ 5,43 ▲ 0,9% 7 di",
+"Δ20.1px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Últimas trocas 12 ›",
+"Δ2.4px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Preços no site cotação da loja tra",
+"Δ12.4px"
+]
+}
+],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 0
+},
+"seg": 7
+}

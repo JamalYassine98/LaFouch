@@ -1,0 +1,365 @@
+{
+"tela": "giro-retorno",
+"modo": "aprov",
+"quando": "19/11 01:53",
+"passos": [
+"()=>window.__LF.inicioGo('giro')",
+"()=>{const e=[...document.querySelectorAll('.g99 .fxH')].filter(x=>x.getBoundingClientRect().height).filter(x=>/Retorno/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
+],
+"escuro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Giro ⌄",
+"act": "dVer",
+"cara": "texto",
+"h": 49,
+"w": 77,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Lista de compras 8 produto(s) vão acabar",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Vitrine da semana diga quantos lugares t",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Retorno do estoque cada US$ 1 investido ",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Curva ABC quais produtos dão 80% do lucr",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "7 linha de base",
+"ex": [
+"Lista de compras 8 produto(s) vão ",
+"Δ11.1px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Vitrine da semana diga quantos lug",
+"Δ11.1px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Retorno do estoque cada US$ 1 inve",
+"Δ1.9px"
+]
+}
+],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 180
+},
+"vista": "dash",
+"toques": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "12",
+"tag": "BUTTON",
+"igual_a": "dash-semana"
+},
+{
+"i": 1,
+"act": "dVer",
+"id": "",
+"txt": "Giro ⌄",
+"tag": "BUTTON",
+"igual_a": "giro-lista-compras"
+},
+{
+"i": 2,
+"act": "dfold",
+"id": "rep",
+"txt": "Lista de compras 8 produto(s) vão acabar",
+"tag": "BUTTON",
+"igual_a": "giro-lista-compras"
+},
+{
+"i": 3,
+"act": "dfold",
+"id": "vit",
+"txt": "Vitrine da semana diga quantos lugares t",
+"tag": "BUTTON",
+"igual_a": "giro-lista-compras"
+},
+{
+"i": 4,
+"act": "dfold",
+"id": "ret",
+"txt": "Retorno do estoque cada US$ 1 investido ",
+"tag": "BUTTON",
+"igual_a": "giro-lista-compras"
+},
+{
+"i": 5,
+"act": "dfold",
+"id": "abc",
+"txt": "Curva ABC quais produtos dão 80% do lucr",
+"tag": "BUTTON",
+"igual_a": "giro-lista-compras"
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Giro ⌄",
+"act": "dVer",
+"cara": "texto",
+"h": 49,
+"w": 77,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Lista de compras 8 produto(s) vão acabar",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Vitrine da semana diga quantos lugares t",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Retorno do estoque cada US$ 1 investido ",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Curva ABC quais produtos dão 80% do lucr",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "7 linha de base",
+"ex": [
+"Lista de compras 8 produto(s) vão ",
+"Δ11.1px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Vitrine da semana diga quantos lug",
+"Δ11.1px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Retorno do estoque cada US$ 1 inve",
+"Δ1.9px"
+]
+}
+],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 180
+},
+"seg": 7
+}

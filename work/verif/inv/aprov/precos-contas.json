@@ -1,0 +1,681 @@
+{
+"tela": "precos-contas",
+"modo": "aprov",
+"quando": "19/11 02:02",
+"passos": [
+"()=>window.__LF.inicioGo('prec')",
+"()=>{const e=[...document.querySelectorAll('button,[data-act]')].filter(x=>x.getBoundingClientRect().height).filter(x=>/Contas, taxas/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
+],
+"escuro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Preços ⌄",
+"act": "dVer",
+"cara": "texto",
+"h": 49,
+"w": 106,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Contas do mês cobertas 86% faltam 23 peç",
+"act": "view",
+"cara": "caixa",
+"h": 109,
+"w": 171,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Preços para corrigir 15",
+"act": "x66",
+"cara": "caixa",
+"h": 109,
+"w": 171,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "15 preços para corrigir 10 com sugestão ",
+"act": "x66",
+"cara": "texto",
+"h": 75,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "por quê",
+"act": "temaVer",
+"cara": "texto",
+"h": 44,
+"w": 59,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "ajustar tabela",
+"act": "tabsheet",
+"cara": "texto",
+"h": 44,
+"w": 98,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "ajustar tabela",
+"act": "tabsheet",
+"cara": "texto",
+"h": 44,
+"w": 98,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "ajustar",
+"act": "pgrAjusta",
+"cara": "texto",
+"h": 44,
+"w": 55,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Calculadora de preço",
+"act": "cntCalc",
+"cara": "texto",
+"h": 44,
+"w": 155,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "E se…?",
+"act": "cntEse",
+"cara": "texto",
+"h": 44,
+"w": 59,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Preço automático desligado · você define",
+"act": "paTog",
+"cara": "texto",
+"h": 43,
+"w": 304,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Contas, taxas e meta contas do mês, form",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "",
+"lab": "Dias de loja aberta por mês",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 90,
+"h": 44,
+"x": 242,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "",
+"lab": "Dinheiro",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 110,
+"h": 44,
+"x": 222,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "",
+"lab": "Pix",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 110,
+"h": 44,
+"x": 222,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "",
+"lab": "Maquininha débito",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 110,
+"h": 44,
+"x": 222,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "",
+"lab": "Maquininha crédito",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 110,
+"h": 44,
+"x": 222,
+"alinh": "start",
+"fs": "15px"
+}
+],
+"alin": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"Margem média real (19 px)",
+"Contas do mês cobertas (22 px)"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 1451
+},
+"vista": "dash",
+"toques": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "12",
+"tag": "BUTTON",
+"igual_a": "dash-semana"
+},
+{
+"i": 1,
+"act": "dVer",
+"id": "",
+"txt": "Preços ⌄",
+"tag": "BUTTON",
+"igual_a": "precos"
+},
+{
+"i": 2,
+"act": "view",
+"id": "desp",
+"txt": "Contas do mês cobertas 86% faltam 23 peç",
+"tag": "DIV",
+"igual_a": "precos"
+},
+{
+"i": 3,
+"act": "x66",
+"id": "",
+"txt": "Preços para corrigir 15",
+"tag": "DIV",
+"igual_a": "precos"
+},
+{
+"i": 4,
+"act": "x66",
+"id": "",
+"txt": "15 preços para corrigir 10 com sugestão ",
+"tag": "DIV",
+"igual_a": "precos"
+},
+{
+"i": 5,
+"act": "temaVer",
+"id": "",
+"txt": "por quê",
+"tag": "BUTTON",
+"igual_a": "precos"
+},
+{
+"i": 6,
+"act": "tabsheet",
+"id": "",
+"txt": "ajustar tabela",
+"tag": "BUTTON",
+"igual_a": "precos"
+},
+{
+"i": 7,
+"act": "tabsheet",
+"id": "",
+"txt": "ajustar tabela",
+"tag": "BUTTON",
+"igual_a": "precos"
+},
+{
+"i": 8,
+"act": "pgrAjusta",
+"id": "",
+"txt": "ajustar",
+"tag": "BUTTON",
+"igual_a": "precos"
+},
+{
+"i": 9,
+"act": "cntCalc",
+"id": "",
+"txt": "Calculadora de preço",
+"tag": "BUTTON",
+"igual_a": "precos"
+},
+{
+"i": 10,
+"act": "cntEse",
+"id": "",
+"txt": "E se…?",
+"tag": "BUTTON",
+"igual_a": "precos"
+},
+{
+"i": 11,
+"act": "paTog",
+"id": "",
+"txt": "Preço automático desligado · você define",
+"tag": "BUTTON",
+"igual_a": "precos"
+},
+{
+"i": 12,
+"act": "dfold",
+"id": "cfg",
+"txt": "Contas, taxas e meta contas do mês, form",
+"tag": "BUTTON",
+"igual_a": "precos"
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Preços ⌄",
+"act": "dVer",
+"cara": "texto",
+"h": 49,
+"w": 106,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Contas do mês cobertas 86% faltam 23 peç",
+"act": "view",
+"cara": "caixa",
+"h": 109,
+"w": 171,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Preços para corrigir 15",
+"act": "x66",
+"cara": "caixa",
+"h": 109,
+"w": 171,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "15 preços para corrigir 10 com sugestão ",
+"act": "x66",
+"cara": "texto",
+"h": 75,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "por quê",
+"act": "temaVer",
+"cara": "texto",
+"h": 44,
+"w": 59,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "ajustar tabela",
+"act": "tabsheet",
+"cara": "texto",
+"h": 44,
+"w": 98,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "ajustar tabela",
+"act": "tabsheet",
+"cara": "texto",
+"h": 44,
+"w": 98,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "ajustar",
+"act": "pgrAjusta",
+"cara": "texto",
+"h": 44,
+"w": 55,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Calculadora de preço",
+"act": "cntCalc",
+"cara": "texto",
+"h": 44,
+"w": 155,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "E se…?",
+"act": "cntEse",
+"cara": "texto",
+"h": 44,
+"w": 59,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Preço automático desligado · você define",
+"act": "paTog",
+"cara": "texto",
+"h": 43,
+"w": 304,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Contas, taxas e meta contas do mês, form",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "",
+"lab": "Dias de loja aberta por mês",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 90,
+"h": 44,
+"x": 242,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "",
+"lab": "Dinheiro",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 110,
+"h": 44,
+"x": 222,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "",
+"lab": "Pix",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 110,
+"h": 44,
+"x": 222,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "",
+"lab": "Maquininha débito",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 110,
+"h": 44,
+"x": 222,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "",
+"lab": "Maquininha crédito",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 110,
+"h": 44,
+"x": 222,
+"alinh": "start",
+"fs": "15px"
+}
+],
+"alin": [],
+"olho": [
+{
+"r": "fileira torta",
+"n": 2,
+"ex": [
+"Margem média real (19 px)",
+"Contas do mês cobertas (22 px)"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 1451
+},
+"seg": 11
+}

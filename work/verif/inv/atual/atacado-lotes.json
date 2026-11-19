@@ -1,0 +1,373 @@
+{
+"tela": "atacado-lotes",
+"modo": "atual",
+"quando": "19/11 02:14",
+"passos": [
+"()=>window.__LF.inicioGo('ata')",
+"()=>window.__LF.ACT.ataAba('lot')"
+],
+"escuro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone quadrado",
+"h": 46,
+"w": 46,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "+ Novo acesso",
+"act": "ataNovo",
+"cara": "pílula",
+"h": 44,
+"w": 133,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Mensagens",
+"act": "ataAba",
+"cara": "texto",
+"h": 44,
+"w": 78,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(203, 213, 225)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Lojistas",
+"act": "ataAba",
+"cara": "texto",
+"h": 44,
+"w": 53,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(203, 213, 225)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Lotes",
+"act": "ataAba",
+"cara": "texto",
+"h": 44,
+"w": 37,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Tabela",
+"act": "ataAba",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(203, 213, 225)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "+ Criar lote",
+"act": "ataLoteNovo",
+"cara": "texto",
+"h": 44,
+"w": 90,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [],
+"alin": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Lotes"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 0
+},
+"vista": "ata",
+"toques": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "12",
+"tag": "BUTTON",
+"igual_a": "atacado-lojistas"
+},
+{
+"i": 1,
+"act": "ataNovo",
+"id": "",
+"txt": "+ Novo acesso",
+"tag": "BUTTON",
+"igual_a": "atacado-lojistas"
+},
+{
+"i": 2,
+"act": "ataAba",
+"id": "msg",
+"txt": "Mensagens",
+"tag": "BUTTON",
+"igual_a": "atacado-lojistas"
+},
+{
+"i": 3,
+"act": "ataAba",
+"id": "loj",
+"txt": "Lojistas",
+"tag": "BUTTON",
+"igual_a": "atacado-lojistas"
+},
+{
+"i": 4,
+"act": "ataAba",
+"id": "lot",
+"txt": "Lotes",
+"tag": "BUTTON",
+"igual_a": "atacado-lojistas"
+},
+{
+"i": 5,
+"act": "ataAba",
+"id": "tab",
+"txt": "Tabela",
+"tag": "BUTTON",
+"igual_a": "atacado-lojistas"
+},
+{
+"i": 6,
+"act": "ataLoteNovo",
+"id": "",
+"txt": "+ Criar lote",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Novo lote\""
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone quadrado",
+"h": 46,
+"w": 46,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "+ Novo acesso",
+"act": "ataNovo",
+"cara": "pílula",
+"h": 44,
+"w": 133,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Mensagens",
+"act": "ataAba",
+"cara": "texto",
+"h": 44,
+"w": 78,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(71, 85, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Lojistas",
+"act": "ataAba",
+"cara": "texto",
+"h": 44,
+"w": 53,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(71, 85, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Lotes",
+"act": "ataAba",
+"cara": "texto",
+"h": 44,
+"w": 37,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Tabela",
+"act": "ataAba",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(71, 85, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "+ Criar lote",
+"act": "ataLoteNovo",
+"cara": "texto",
+"h": 44,
+"w": 90,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [],
+"alin": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Lotes"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 0
+},
+"seg": 12
+}

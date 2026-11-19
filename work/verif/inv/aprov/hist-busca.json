@@ -1,0 +1,1421 @@
+{
+"tela": "hist-busca",
+"modo": "aprov",
+"quando": "19/11 01:42",
+"passos": [
+"()=>window.__LF.setView('hist')",
+"()=>{const i=document.querySelector('#v-hist input');i.value='SL';i.dispatchEvent(new Event('input',{bubbles:true}));return 1}"
+],
+"escuro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Histórico ⌄",
+"act": "grpVer",
+"cara": "texto",
+"h": 32,
+"w": 144,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Ir para uma data",
+"act": "hcal",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Filtros",
+"act": "hfopen",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "2× SL2210 C3 · Tartaruga V-1964 · 18/11 ",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SP60627 +1.00 · Bege translúcido V-19",
+"act": "hopen",
+"cara": "texto",
+"h": 90,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SL2201 C6 · Dourado V-1948 · 17/11 às",
+"act": "hopen",
+"cara": "texto",
+"h": 69,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SL2201 C1 · Preto V-1954 · 17/11 às 1",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SL2201 C1 · Preto V-1949 · 17/11 às 1",
+"act": "hopen",
+"cara": "texto",
+"h": 69,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× BR44118 C2 · Bege translúcido V-1925 ",
+"act": "hopen",
+"cara": "texto",
+"h": 69,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SP60627 +3.50 · Bege translúcido V-19",
+"act": "hopen",
+"cara": "texto",
+"h": 90,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "2× SP60627 +3.50 · Bege translúcido V-19",
+"act": "hopen",
+"cara": "texto",
+"h": 90,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SP60627 +1.50 · Bege translúcido V-19",
+"act": "hopen",
+"cara": "texto",
+"h": 90,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SP60627 +3.50 · Bege translúcido V-19",
+"act": "hopen",
+"cara": "texto",
+"h": 90,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "2× SL2201 C1 · Preto V-1917 · 11/11 às 1",
+"act": "hopen",
+"cara": "texto",
+"h": 69,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "2× SL2210 C3 · Tartaruga V-1911 · 10/11 ",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SL2201 C6 · Dourado V-1913 · 10/11 às",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "2× SL2210 C1 · Preto V-1915 · 10/11 às 1",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SL2201 C1 · Preto V-1907 · 09/11 às 0",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SL2210 C3 · Tartaruga V-1899 · 07/11 ",
+"act": "hopen",
+"cara": "texto",
+"h": 69,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SL2201 C1 · Preto V-1895 · 07/11 às 1",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "2× SL2210 C3 · Tartaruga V-1896 · 07/11 ",
+"act": "hopen",
+"cara": "texto",
+"h": 69,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SP60627 +3.50 · Bege translúcido V-19",
+"act": "hopen",
+"cara": "texto",
+"h": 90,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "2× SL2210 C1 · Preto V-1898 · 07/11 às 0",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "3× SL2210 C3 · Tartaruga V-1886 · 06/11 ",
+"act": "hopen",
+"cara": "texto",
+"h": 69,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SL2201 C6 · Dourado V-1891 · 06/11 às",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SP60627 +2.00 · Bege translúcido V-18",
+"act": "hopen",
+"cara": "texto",
+"h": 90,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "2× SL2201 C6 · Dourado V-1880 · 05/11 às",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SP60627 +2.00 · Bege translúcido V-18",
+"act": "hopen",
+"cara": "texto",
+"h": 90,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SP60627 +1.00 · Bege translúcido V-18",
+"act": "hopen",
+"cara": "texto",
+"h": 90,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SL2201 C6 · Dourado V-1871 · 03/11 às",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SL2201 C1 · Preto V-1873 · 03/11 às 1",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SP60627 +1.00 · Bege translúcido V-18",
+"act": "hopen",
+"cara": "texto",
+"h": 90,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "3× SP60627 +3.50 · Bege translúcido V-18",
+"act": "hopen",
+"cara": "texto",
+"h": 90,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Mostrar mais (598)",
+"act": "hmais",
+"cara": "pílula",
+"h": 44,
+"w": 164,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "search",
+"ph": "Buscar produto ou conta",
+"lab": "",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 238,
+"h": 44,
+"x": 24,
+"alinh": "start",
+"fs": "15px"
+}
+],
+"alin": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Histórico ⌄"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 1873
+},
+"vista": "hist",
+"toques": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "12",
+"tag": "BUTTON",
+"igual_a": "hist-lista"
+},
+{
+"i": 1,
+"act": "grpVer",
+"id": "",
+"txt": "Histórico ⌄",
+"tag": "H1",
+"igual_a": "hist-lista"
+},
+{
+"i": 2,
+"act": "hcal",
+"id": "",
+"txt": "Ir para uma data",
+"tag": "BUTTON",
+"igual_a": "hist-lista"
+},
+{
+"i": 3,
+"act": "hfopen",
+"id": "",
+"txt": "Filtros",
+"tag": "BUTTON",
+"igual_a": "hist-lista"
+},
+{
+"i": 4,
+"act": "hopen",
+"id": "V-1964",
+"txt": "2× SL2210 C3 · Tartaruga V-1964 · 18/11 ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 5,
+"act": "hopen",
+"id": "V-1960",
+"txt": "1× SP60627 +1.00 · Bege translúcido V-19",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 6,
+"act": "hopen",
+"id": "V-1948",
+"txt": "1× SL2201 C6 · Dourado V-1948 · 17/11 às",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 7,
+"act": "hopen",
+"id": "V-1954",
+"txt": "1× SL2201 C1 · Preto V-1954 · 17/11 às 1",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 8,
+"act": "hopen",
+"id": "V-1949",
+"txt": "1× SL2201 C1 · Preto V-1949 · 17/11 às 1",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 9,
+"act": "hopen",
+"id": "V-1925",
+"txt": "1× BR44118 C2 · Bege translúcido V-1925 ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 10,
+"act": "hopen",
+"id": "V-1924",
+"txt": "1× SP60627 +3.50 · Bege translúcido V-19",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 11,
+"act": "hopen",
+"id": "V-1922",
+"txt": "2× SP60627 +3.50 · Bege translúcido V-19",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 12,
+"act": "hopen",
+"id": "V-1923",
+"txt": "1× SP60627 +1.50 · Bege translúcido V-19",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 13,
+"act": "hopen",
+"id": "V-1916",
+"txt": "1× SP60627 +3.50 · Bege translúcido V-19",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 14,
+"act": "hopen",
+"id": "V-1917",
+"txt": "2× SL2201 C1 · Preto V-1917 · 11/11 às 1",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 15,
+"act": "hopen",
+"id": "V-1911",
+"txt": "2× SL2210 C3 · Tartaruga V-1911 · 10/11 ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 16,
+"act": "hopen",
+"id": "V-1913",
+"txt": "1× SL2201 C6 · Dourado V-1913 · 10/11 às",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 17,
+"act": "hopen",
+"id": "V-1915",
+"txt": "2× SL2210 C1 · Preto V-1915 · 10/11 às 1",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 18,
+"act": "hopen",
+"id": "V-1907",
+"txt": "1× SL2201 C1 · Preto V-1907 · 09/11 às 0",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 19,
+"act": "hopen",
+"id": "V-1899",
+"txt": "1× SL2210 C3 · Tartaruga V-1899 · 07/11 ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 20,
+"act": "hopen",
+"id": "V-1895",
+"txt": "1× SL2201 C1 · Preto V-1895 · 07/11 às 1",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 21,
+"act": "hopen",
+"id": "V-1896",
+"txt": "2× SL2210 C3 · Tartaruga V-1896 · 07/11 ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 22,
+"act": "hopen",
+"id": "V-1901",
+"txt": "1× SP60627 +3.50 · Bege translúcido V-19",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 23,
+"act": "hopen",
+"id": "V-1898",
+"txt": "2× SL2210 C1 · Preto V-1898 · 07/11 às 0",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 24,
+"act": "hopen",
+"id": "V-1886",
+"txt": "3× SL2210 C3 · Tartaruga V-1886 · 06/11 ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 25,
+"act": "hopen",
+"id": "V-1891",
+"txt": "1× SL2201 C6 · Dourado V-1891 · 06/11 às",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 26,
+"act": "hopen",
+"id": "V-1881",
+"txt": "1× SP60627 +2.00 · Bege translúcido V-18",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 27,
+"act": "hopen",
+"id": "V-1880",
+"txt": "2× SL2201 C6 · Dourado V-1880 · 05/11 às",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 28,
+"act": "hopen",
+"id": "V-1876",
+"txt": "1× SP60627 +2.00 · Bege translúcido V-18",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 29,
+"act": "hopen",
+"id": "V-1878",
+"txt": "1× SP60627 +1.00 · Bege translúcido V-18",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 30,
+"act": "hopen",
+"id": "V-1871",
+"txt": "1× SL2201 C6 · Dourado V-1871 · 03/11 às",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 31,
+"act": "hopen",
+"id": "V-1873",
+"txt": "1× SL2201 C1 · Preto V-1873 · 03/11 às 1",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 32,
+"act": "hopen",
+"id": "V-1874",
+"txt": "1× SP60627 +1.00 · Bege translúcido V-18",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 33,
+"act": "hopen",
+"id": "V-1864",
+"txt": "3× SP60627 +3.50 · Bege translúcido V-18",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 34,
+"act": "hmais",
+"id": "",
+"txt": "Mostrar mais (598)",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Histórico ⌄",
+"act": "grpVer",
+"cara": "texto",
+"h": 32,
+"w": 144,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Ir para uma data",
+"act": "hcal",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Filtros",
+"act": "hfopen",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "2× SL2210 C3 · Tartaruga V-1964 · 18/11 ",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SP60627 +1.00 · Bege translúcido V-19",
+"act": "hopen",
+"cara": "texto",
+"h": 90,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SL2201 C6 · Dourado V-1948 · 17/11 às",
+"act": "hopen",
+"cara": "texto",
+"h": 69,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SL2201 C1 · Preto V-1954 · 17/11 às 1",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SL2201 C1 · Preto V-1949 · 17/11 às 1",
+"act": "hopen",
+"cara": "texto",
+"h": 69,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× BR44118 C2 · Bege translúcido V-1925 ",
+"act": "hopen",
+"cara": "texto",
+"h": 69,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SP60627 +3.50 · Bege translúcido V-19",
+"act": "hopen",
+"cara": "texto",
+"h": 90,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "2× SP60627 +3.50 · Bege translúcido V-19",
+"act": "hopen",
+"cara": "texto",
+"h": 90,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SP60627 +1.50 · Bege translúcido V-19",
+"act": "hopen",
+"cara": "texto",
+"h": 90,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SP60627 +3.50 · Bege translúcido V-19",
+"act": "hopen",
+"cara": "texto",
+"h": 90,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "2× SL2201 C1 · Preto V-1917 · 11/11 às 1",
+"act": "hopen",
+"cara": "texto",
+"h": 69,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "2× SL2210 C3 · Tartaruga V-1911 · 10/11 ",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SL2201 C6 · Dourado V-1913 · 10/11 às",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "2× SL2210 C1 · Preto V-1915 · 10/11 às 1",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SL2201 C1 · Preto V-1907 · 09/11 às 0",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SL2210 C3 · Tartaruga V-1899 · 07/11 ",
+"act": "hopen",
+"cara": "texto",
+"h": 69,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SL2201 C1 · Preto V-1895 · 07/11 às 1",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "2× SL2210 C3 · Tartaruga V-1896 · 07/11 ",
+"act": "hopen",
+"cara": "texto",
+"h": 69,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SP60627 +3.50 · Bege translúcido V-19",
+"act": "hopen",
+"cara": "texto",
+"h": 90,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "2× SL2210 C1 · Preto V-1898 · 07/11 às 0",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "3× SL2210 C3 · Tartaruga V-1886 · 06/11 ",
+"act": "hopen",
+"cara": "texto",
+"h": 69,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SL2201 C6 · Dourado V-1891 · 06/11 às",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SP60627 +2.00 · Bege translúcido V-18",
+"act": "hopen",
+"cara": "texto",
+"h": 90,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "2× SL2201 C6 · Dourado V-1880 · 05/11 às",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SP60627 +2.00 · Bege translúcido V-18",
+"act": "hopen",
+"cara": "texto",
+"h": 90,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SP60627 +1.00 · Bege translúcido V-18",
+"act": "hopen",
+"cara": "texto",
+"h": 90,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SL2201 C6 · Dourado V-1871 · 03/11 às",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SL2201 C1 · Preto V-1873 · 03/11 às 1",
+"act": "hopen",
+"cara": "texto",
+"h": 68,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "1× SP60627 +1.00 · Bege translúcido V-18",
+"act": "hopen",
+"cara": "texto",
+"h": 90,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "3× SP60627 +3.50 · Bege translúcido V-18",
+"act": "hopen",
+"cara": "texto",
+"h": 90,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Mostrar mais (598)",
+"act": "hmais",
+"cara": "pílula",
+"h": 44,
+"w": 164,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "search",
+"ph": "Buscar produto ou conta",
+"lab": "",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 238,
+"h": 44,
+"x": 24,
+"alinh": "start",
+"fs": "15px"
+}
+],
+"alin": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Histórico ⌄"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 1873
+},
+"seg": 390
+}

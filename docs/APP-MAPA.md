@@ -70,3 +70,7 @@ Obs.: 132 na base é só visual (ao implementar, ligar as ações de verdade).
 - Olho: work/kit/olho.js · alinhamento: work/verif/alin2.js · abas: work/kit/abas_dist.js.
 - Função dos botões: work/verif/botoes.py → work/verif/res/botoes_*.json · cara: work/verif/estilos.py → res/estilos.json · regerar docs/APP-BOTOES.md com o script do commit S425 (18/11 19:40).
 - Celular real: .github/workflows/teste-celular.yml (cota grátis 30 min/dia).
+
+## INVENTÁRIO = MEMÓRIA DAS TELAS (19/11/2026)
+- App atual: docs/INVENTARIO-ATUAL.md · Aprovados: docs/INVENTARIO-APROVADOS.md (64 telas, cada botão tocado 3x com toque real, famílias, regras quebradas, campos, alinhamento, fotos claro/escuro em work/verif/inv/<modo>/img).
+- Dados por tela: work/verif/inv/atual|aprov/<tela>.json. Atualizar SÓ a tela mexida: `MODO=atual SO=<tela> python3 work/verif/passada.py` e depois `python3 work/verif/inventario.py atual`.

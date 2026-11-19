@@ -1,0 +1,635 @@
+{
+"tela": "caixa-acoes",
+"modo": "aprov",
+"quando": "19/11 02:03",
+"passos": [
+"()=>window.__LF.setView('caixa')",
+"()=>{const e=[...document.querySelectorAll('[data-act=cxmenu]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
+],
+"escuro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Caixa ⌄",
+"act": "grpVer",
+"cara": "texto",
+"h": 32,
+"w": 286,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Ações do caixa",
+"act": "cxmenu",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(164, 74, 126)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Retirar",
+"act": "cxabre",
+"cara": "texto",
+"h": 44,
+"w": 176,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Novo objetivo",
+"act": "cxabre",
+"cara": "texto",
+"h": 44,
+"w": 176,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Conferir",
+"act": "cxabre",
+"cara": "texto",
+"h": 44,
+"w": 176,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Livre e reservado ›",
+"act": "cxReservas",
+"cara": "texto",
+"h": 44,
+"w": 124,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Novo objetivo",
+"act": "cxabre",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver o que falta repor ›",
+"act": "d48Res",
+"cara": "texto",
+"h": 56,
+"w": 342,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Ver todos os movimentos ⌄",
+"act": "famAbre",
+"cara": "texto",
+"h": 46,
+"w": 342,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "13px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "7 linha de base",
+"ex": [
+"Caixa ⌄ Retirar Novo objetivo Conf",
+"Δ54.0px"
+]
+}
+],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Caixa ⌄"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 0
+},
+"vista": "caixa",
+"toques": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "12",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+],
+"de_novo": [
+"leva → caixa"
+],
+"bug": []
+},
+{
+"i": 1,
+"act": "grpVer",
+"id": "",
+"txt": "Caixa ⌄",
+"tag": "H1",
+"efeito": [
+"abre janela \"VER\""
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 2,
+"act": "cxmenu",
+"id": "",
+"txt": "Ações do caixa",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 3,
+"act": "cxabre",
+"id": "ret",
+"txt": "Retirar",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Retirada do dono\""
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 4,
+"act": "cxabre",
+"id": "mel",
+"txt": "Novo objetivo",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Novo objetivo\""
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 5,
+"act": "cxabre",
+"id": "cc",
+"txt": "Conferir",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Conferir o caixa\""
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 6,
+"act": "cxReservas",
+"id": "",
+"txt": "Livre e reservado ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 7,
+"act": "cxabre",
+"id": "mel",
+"txt": "Novo objetivo",
+"tag": "BUTTON",
+"igual_a": "caixa-acoes"
+},
+{
+"i": 8,
+"act": "d48Res",
+"id": "",
+"txt": "Ver o que falta repor ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 9,
+"act": "rtdes",
+"id": "1794859560000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 10,
+"act": "rtdes",
+"id": "1792270080000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 11,
+"act": "rtdes",
+"id": "1789677960000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 12,
+"act": "famAbre",
+"id": "mov",
+"txt": "Ver todos os movimentos ⌄",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Caixa ⌄",
+"act": "grpVer",
+"cara": "texto",
+"h": 32,
+"w": 286,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Ações do caixa",
+"act": "cxmenu",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Retirar",
+"act": "cxabre",
+"cara": "texto",
+"h": 44,
+"w": 176,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Novo objetivo",
+"act": "cxabre",
+"cara": "texto",
+"h": 44,
+"w": 176,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Conferir",
+"act": "cxabre",
+"cara": "texto",
+"h": 44,
+"w": 176,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Livre e reservado ›",
+"act": "cxReservas",
+"cara": "texto",
+"h": 44,
+"w": 124,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Novo objetivo",
+"act": "cxabre",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver o que falta repor ›",
+"act": "d48Res",
+"cara": "texto",
+"h": 56,
+"w": 342,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Ver todos os movimentos ⌄",
+"act": "famAbre",
+"cara": "texto",
+"h": 46,
+"w": 342,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "13px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "7 linha de base",
+"ex": [
+"Caixa ⌄ Retirar Novo objetivo Conf",
+"Δ54.0px"
+]
+}
+],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Caixa ⌄"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 0
+},
+"seg": 120
+}

@@ -1,0 +1,326 @@
+{
+"tela": "inventario-editar",
+"modo": "atual",
+"quando": "19/11 02:00",
+"passos": [
+"()=>window.__LF.setView('estoque')",
+"()=>{const e=[...document.querySelectorAll('#v-estoque .pcard[data-ref]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}",
+"()=>{const e=[...document.querySelectorAll('button')].filter(x=>x.getBoundingClientRect().height).filter(x=>/^Editar|Editar produto/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
+],
+"escuro": {
+"botoes": [
+{
+"t": "Fechar",
+"act": "",
+"cara": "caixa",
+"h": 44,
+"w": 80,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "14px"
+},
+{
+"t": "Modelo",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 160,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Cores e fotos",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 160,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "",
+"act": "",
+"cara": "pílula",
+"h": 44,
+"w": 197,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Salvar alterações",
+"act": "",
+"cara": "barra grande",
+"h": 52,
+"w": 328,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgba(243, 192, 220, 0.38)",
+"bw": 1,
+"fs": "16px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Preço em US$",
+"lab": "PREÇO (US$)",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 274,
+"h": 44,
+"x": 58,
+"alinh": "start",
+"fs": "20px"
+},
+{
+"tag": "TEXTAREA",
+"tipo": "textarea",
+"ph": "Ex.: polarizado, mola flexível",
+"lab": "",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 328,
+"h": 89,
+"x": 31,
+"alinh": "start",
+"fs": "15px"
+}
+],
+"alin": [
+{
+"r": "7 linha de base",
+"ex": [
+"Editar produto Fechar",
+"Δ6.8px"
+]
+}
+],
+"olho": [
+{
+"r": "apagado",
+"n": 1,
+"ex": [
+"MAIS DETALHES"
+]
+},
+{
+"r": "tampado",
+"n": 1,
+"ex": [
+"Descrição do produto ← Salvar alterações"
+]
+},
+{
+"r": "toque<24",
+"n": 1,
+"ex": [
+"MAIS DETALHES"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 0
+},
+"vista": "estoque",
+"toques": [
+{
+"i": 0,
+"act": "",
+"id": "",
+"txt": "Fechar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 1,
+"act": "",
+"id": "",
+"txt": "Modelo",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 2,
+"act": "",
+"id": "",
+"txt": "Cores e fotos",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 3,
+"act": "",
+"id": "",
+"txt": "",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 4,
+"act": "",
+"id": "",
+"txt": "Salvar alterações",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "Fechar",
+"act": "",
+"cara": "caixa",
+"h": 44,
+"w": 80,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "14px"
+},
+{
+"t": "Modelo",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 160,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Cores e fotos",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 160,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "",
+"act": "",
+"cara": "pílula",
+"h": 44,
+"w": 197,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Salvar alterações",
+"act": "",
+"cara": "barra grande",
+"h": 52,
+"w": 328,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgba(141, 58, 105, 0.35)",
+"bw": 1,
+"fs": "16px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Preço em US$",
+"lab": "PREÇO (US$)",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 274,
+"h": 44,
+"x": 58,
+"alinh": "start",
+"fs": "20px"
+},
+{
+"tag": "TEXTAREA",
+"tipo": "textarea",
+"ph": "Ex.: polarizado, mola flexível",
+"lab": "",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 328,
+"h": 89,
+"x": 31,
+"alinh": "start",
+"fs": "15px"
+}
+],
+"alin": [
+{
+"r": "7 linha de base",
+"ex": [
+"Editar produto Fechar",
+"Δ6.8px"
+]
+}
+],
+"olho": [
+{
+"r": "apagado",
+"n": 1,
+"ex": [
+"MAIS DETALHES"
+]
+},
+{
+"r": "tampado",
+"n": 1,
+"ex": [
+"Descrição do produto ← Salvar alterações"
+]
+},
+{
+"r": "toque<24",
+"n": 1,
+"ex": [
+"MAIS DETALHES"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 0
+},
+"seg": 73
+}

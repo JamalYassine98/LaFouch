@@ -1,0 +1,864 @@
+{
+"tela": "caixa-retirar",
+"modo": "atual",
+"quando": "19/11 02:05",
+"passos": [
+"()=>window.__LF.setView('caixa')",
+"()=>{const e=[...document.querySelectorAll('[data-act=cxmenu]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}",
+"()=>{const e=[...document.querySelectorAll('button,[data-act]')].filter(x=>x.getBoundingClientRect().height).filter(x=>/^Retirar/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
+],
+"escuro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone quadrado",
+"h": 46,
+"w": 46,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Caixa ⌄",
+"act": "grpVer",
+"cara": "texto",
+"h": 32,
+"w": 286,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Ações do caixa",
+"act": "cxmenu",
+"cara": "ícone quadrado",
+"h": 44,
+"w": 44,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Livre e reservado ›",
+"act": "cxReservas",
+"cara": "texto",
+"h": 44,
+"w": 124,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "+ Novo objetivo",
+"act": "cxabre",
+"cara": "pílula",
+"h": 44,
+"w": 304,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver o que falta repor ›",
+"act": "d48Res",
+"cara": "texto",
+"h": 44,
+"w": 316,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "G$",
+"act": "rtMoe",
+"cara": "pílula",
+"h": 44,
+"w": 115,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(164, 74, 126)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "US$",
+"act": "rtMoe",
+"cara": "pílula",
+"h": 44,
+"w": 115,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(34, 42, 53)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "R$",
+"act": "rtMoe",
+"cara": "pílula",
+"h": 44,
+"w": 115,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(34, 42, 53)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Retirar",
+"act": "rtgo",
+"cara": "barra grande",
+"h": 52,
+"w": 362,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(164, 74, 126)",
+"bw": 1,
+"fs": "16px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Ver todos os movimentos ›",
+"act": "famAbre",
+"cara": "texto",
+"h": 46,
+"w": 304,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "13px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "0",
+"lab": "Retirada do dono",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 362,
+"h": 44,
+"x": 14,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Ex.: mercado",
+"lab": "Retirada do dono",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 362,
+"h": 44,
+"x": 14,
+"alinh": "start",
+"fs": "15px"
+}
+],
+"alin": [
+{
+"r": "2 centro vertical",
+"ex": [
+"Caixa ⌄",
+"Δ6.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Objetivos da loja guardado G$ 2.38",
+"Δ-19.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Objetivos da loja guardado G$ 2.38",
+"Δ19.0px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Retirada do mês 16/11 às 17:06 · D",
+"Δ11.0px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Retirada do mês 17/10 às 17:48 · D",
+"Δ11.0px"
+]
+}
+],
+"olho": [
+{
+"r": "texto sobre texto",
+"n": 1,
+"ex": [
+"G$ 2.164.612 × G$ 1.990.000"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 616
+},
+"vista": "caixa",
+"toques": [
+{
+"i": 0,
+"act": "rtMoe",
+"id": "pyg",
+"txt": "G$",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 1,
+"act": "rtMoe",
+"id": "usd",
+"txt": "US$",
+"tag": "BUTTON",
+"efeito": [
+"alterna"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 2,
+"act": "rtMoe",
+"id": "brl",
+"txt": "R$",
+"tag": "BUTTON",
+"efeito": [
+"alterna"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 3,
+"act": "rtgo",
+"id": "",
+"txt": "Retirar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 4,
+"act": "rtdes",
+"id": "1794859560000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"igual_a": "caixa-acoes"
+},
+{
+"i": 5,
+"act": "rtdes",
+"id": "1792270080000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"igual_a": "caixa-acoes"
+},
+{
+"i": 6,
+"act": "rtdes",
+"id": "1789677960000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"igual_a": "caixa-acoes"
+},
+{
+"i": 7,
+"act": "rtdes",
+"id": "1787084520000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"igual_a": "caixa-acoes"
+},
+{
+"i": 8,
+"act": "rtdes",
+"id": "1784492400000",
+"txt": "Desfazer",
+"tag": "BUTTON",
+"igual_a": "caixa-acoes"
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone quadrado",
+"h": 46,
+"w": 46,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Caixa ⌄",
+"act": "grpVer",
+"cara": "texto",
+"h": 32,
+"w": 286,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Ações do caixa",
+"act": "cxmenu",
+"cara": "ícone quadrado",
+"h": 44,
+"w": 44,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Livre e reservado ›",
+"act": "cxReservas",
+"cara": "texto",
+"h": 44,
+"w": 124,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "+ Novo objetivo",
+"act": "cxabre",
+"cara": "pílula",
+"h": 44,
+"w": 304,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver o que falta repor ›",
+"act": "d48Res",
+"cara": "texto",
+"h": 44,
+"w": 316,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "G$",
+"act": "rtMoe",
+"cara": "pílula",
+"h": 44,
+"w": 115,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "US$",
+"act": "rtMoe",
+"cara": "pílula",
+"h": 44,
+"w": 115,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(230, 223, 229)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "R$",
+"act": "rtMoe",
+"cara": "pílula",
+"h": 44,
+"w": 115,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(230, 223, 229)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Retirar",
+"act": "rtgo",
+"cara": "barra grande",
+"h": 52,
+"w": 362,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 1,
+"fs": "16px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Desfazer",
+"act": "rtdes",
+"cara": "texto",
+"h": 44,
+"w": 52,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Ver todos os movimentos ›",
+"act": "famAbre",
+"cara": "texto",
+"h": 46,
+"w": 304,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "13px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "0",
+"lab": "Retirada do dono",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 362,
+"h": 44,
+"x": 14,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Ex.: mercado",
+"lab": "Retirada do dono",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 362,
+"h": 44,
+"x": 14,
+"alinh": "start",
+"fs": "15px"
+}
+],
+"alin": [
+{
+"r": "2 centro vertical",
+"ex": [
+"Caixa ⌄",
+"Δ6.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Objetivos da loja guardado G$ 2.38",
+"Δ-19.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Objetivos da loja guardado G$ 2.38",
+"Δ19.0px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Retirada do mês 16/11 às 17:06 · D",
+"Δ11.0px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Retirada do mês 17/10 às 17:48 · D",
+"Δ11.0px"
+]
+}
+],
+"olho": [
+{
+"r": "texto sobre texto",
+"n": 1,
+"ex": [
+"G$ 2.164.612 × G$ 1.990.000"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 616
+},
+"seg": 41
+}

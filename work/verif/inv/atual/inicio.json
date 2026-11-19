@@ -1,0 +1,490 @@
+{
+"tela": "inicio",
+"modo": "atual",
+"quando": "19/11 02:19",
+"passos": [],
+"escuro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone quadrado",
+"h": 46,
+"w": 46,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Guardião · 7 coisas para olhar ›",
+"act": "view",
+"cara": "barra grande",
+"h": 59,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(141, 58, 105)",
+"bw": 2,
+"fs": "15px"
+},
+{
+"t": "Vendido hoje · 5 venda(s) G$ 182.000 ›",
+"act": "inicio",
+"cara": "barra grande",
+"h": 83,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Resultados Dia, mês e histórico",
+"act": "inicio",
+"cara": "caixa",
+"h": 152,
+"w": 107,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Giro e preços Giro, preços e reservas",
+"act": "inicio",
+"cara": "caixa",
+"h": 152,
+"w": 107,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Site Pedidos, mensagens, vitrine e model",
+"act": "inicio",
+"cara": "caixa",
+"h": 152,
+"w": 107,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Marketing Posts, vídeos, temática, cartõ",
+"act": "inicio",
+"cara": "caixa",
+"h": 152,
+"w": 107,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Clientes 0 cadastrados",
+"act": "inicio",
+"cara": "caixa",
+"h": 152,
+"w": 107,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Atacado Orçamentos",
+"act": "inicio",
+"cara": "caixa",
+"h": 152,
+"w": 107,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 1,
+"fs": "15px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "search",
+"ph": "Buscar peça, cliente, venda, p",
+"lab": "",
+"cara": "linha",
+"fundo": false,
+"w": 282,
+"h": 48,
+"x": 69,
+"alinh": "start",
+"fs": "16px"
+}
+],
+"alin": [],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 0
+},
+"vista": "inicio",
+"toques": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "12",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+],
+"de_novo": [
+"leva → inicio"
+],
+"bug": []
+},
+{
+"i": 1,
+"act": "view",
+"id": "notif",
+"txt": "Guardião · 7 coisas para olhar ›",
+"tag": "SECTION",
+"efeito": [
+"leva → notif"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 2,
+"act": "inicio",
+"id": "hoje",
+"txt": "Vendido hoje · 5 venda(s) G$ 182.000 ›",
+"tag": "DIV",
+"efeito": [
+"leva → dia"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 3,
+"act": "inicio",
+"id": "g:res",
+"txt": "Resultados Dia, mês e histórico",
+"tag": "BUTTON",
+"efeito": [
+"leva → dia"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 4,
+"act": "inicio",
+"id": "g:gp",
+"txt": "Giro e preços Giro, preços e reservas",
+"tag": "BUTTON",
+"efeito": [
+"leva → dash"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 5,
+"act": "inicio",
+"id": "g:site",
+"txt": "Site Pedidos, mensagens, vitrine e model",
+"tag": "BUTTON",
+"efeito": [
+"leva → site"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 6,
+"act": "inicio",
+"id": "g:mkt",
+"txt": "Marketing Posts, vídeos, temática, cartõ",
+"tag": "BUTTON",
+"efeito": [
+"leva → mkt"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 7,
+"act": "inicio",
+"id": "cli",
+"txt": "Clientes 0 cadastrados",
+"tag": "BUTTON",
+"efeito": [
+"leva → clientes"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 8,
+"act": "inicio",
+"id": "ata",
+"txt": "Atacado Orçamentos",
+"tag": "BUTTON",
+"efeito": [
+"leva → ata"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone quadrado",
+"h": 46,
+"w": 46,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Guardião · 7 coisas para olhar ›",
+"act": "view",
+"cara": "barra grande",
+"h": 59,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(141, 58, 105)",
+"bw": 2,
+"fs": "15px"
+},
+{
+"t": "Vendido hoje · 5 venda(s) G$ 182.000 ›",
+"act": "inicio",
+"cara": "barra grande",
+"h": 83,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Resultados Dia, mês e histórico",
+"act": "inicio",
+"cara": "caixa",
+"h": 152,
+"w": 107,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Giro e preços Giro, preços e reservas",
+"act": "inicio",
+"cara": "caixa",
+"h": 152,
+"w": 107,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Site Pedidos, mensagens, vitrine e model",
+"act": "inicio",
+"cara": "caixa",
+"h": 152,
+"w": 107,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Marketing Posts, vídeos, temática, cartõ",
+"act": "inicio",
+"cara": "caixa",
+"h": 152,
+"w": 107,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Clientes 0 cadastrados",
+"act": "inicio",
+"cara": "caixa",
+"h": 152,
+"w": 107,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Atacado Orçamentos",
+"act": "inicio",
+"cara": "caixa",
+"h": 152,
+"w": 107,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 1,
+"fs": "15px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "search",
+"ph": "Buscar peça, cliente, venda, p",
+"lab": "",
+"cara": "linha",
+"fundo": false,
+"w": 282,
+"h": 48,
+"x": 69,
+"alinh": "start",
+"fs": "16px"
+}
+],
+"alin": [],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 0
+},
+"seg": 51
+}

@@ -4,7 +4,8 @@ sys.path.insert(0,'/home/claude/lafouch/tools/teste-android');from telas import 
 from playwright.sync_api import sync_playwright
 comum.OUT='/home/claude/lafouch/work/s432/';T='/tmp/s432/';os.makedirs(T,exist_ok=True)
 A2=open('/home/claude/lafouch/work/verif/alin2.js').read();CSS=open('luxo.css').read();JS=open('luxo.js').read()
-t=sys.argv[1] if len(sys.argv)>1 else os.environ['TELA'];ps=dict(C)[t]
+t=os.environ['TELA'];ps=dict(C).get(t)
+if t=='catalogo-peca-cor': ps=["()=>window.__LF.setView('vendas')","()=>{const e=[...document.querySelectorAll('#vRows .pcard[data-ref]')].filter(x=>x.getBoundingClientRect().height&&/solar #13/i.test(x.textContent))[0];e&&e.click();return !!e}"]
 with sync_playwright() as pw:
   fs=[];oo=[];KS=[]
   for prop in (0,1):

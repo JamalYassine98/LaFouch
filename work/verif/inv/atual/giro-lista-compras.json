@@ -1,0 +1,935 @@
+{
+"tela": "giro-lista-compras",
+"modo": "atual",
+"quando": "19/11 01:49",
+"passos": [
+"()=>window.__LF.inicioGo('giro')",
+"()=>{const e=[...document.querySelectorAll('.g99 .fxH')].filter(x=>x.getBoundingClientRect().height).filter(x=>/Lista de compras/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
+],
+"escuro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone quadrado",
+"h": 46,
+"w": 46,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Giro ⌄",
+"act": "dVer",
+"cara": "texto",
+"h": 49,
+"w": 77,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Lista de compras 8 produto(s) vão acabar",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 340,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "como calcula ›",
+"act": "lcCalc",
+"cara": "texto",
+"h": 44,
+"w": 110,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "−",
+"act": "lcMenos",
+"cara": "texto",
+"h": 44,
+"w": 40,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "18px"
+},
+{
+"t": "+",
+"act": "lcMais",
+"cara": "texto",
+"h": 44,
+"w": 40,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "18px"
+},
+{
+"t": "−",
+"act": "lcMenos",
+"cara": "texto",
+"h": 44,
+"w": 40,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "18px"
+},
+{
+"t": "+",
+"act": "lcMais",
+"cara": "texto",
+"h": 44,
+"w": 40,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "18px"
+},
+{
+"t": "−",
+"act": "lcMenos",
+"cara": "texto",
+"h": 44,
+"w": 40,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "18px"
+},
+{
+"t": "+",
+"act": "lcMais",
+"cara": "texto",
+"h": 44,
+"w": 40,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "18px"
+},
+{
+"t": "−",
+"act": "lcMenos",
+"cara": "texto",
+"h": 44,
+"w": 40,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "18px"
+},
+{
+"t": "+",
+"act": "lcMais",
+"cara": "texto",
+"h": 44,
+"w": 40,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "18px"
+},
+{
+"t": "−",
+"act": "lcMenos",
+"cara": "texto",
+"h": 44,
+"w": 40,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "18px"
+},
+{
+"t": "+",
+"act": "lcMais",
+"cara": "texto",
+"h": 44,
+"w": 40,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "18px"
+},
+{
+"t": "ver os 18 ›",
+"act": "lcTodos",
+"cara": "texto",
+"h": 44,
+"w": 82,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Oferta ›",
+"act": "lcOferta",
+"cara": "texto",
+"h": 44,
+"w": 63,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Marcar como pedido",
+"act": "lcPedir",
+"cara": "barra grande",
+"h": 52,
+"w": 292,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgba(243, 192, 220, 0.38)",
+"bw": 1,
+"fs": "16px"
+},
+{
+"t": "Mandar ao fornecedor",
+"act": "lcEnvia",
+"cara": "pílula",
+"h": 44,
+"w": 292,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Vitrine da semana diga quantos lugares t",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 340,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Retorno do estoque cada US$ 1 investido ",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 340,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Curva ABC quais produtos dão 80% do lucr",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 340,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "1 coluna da direita",
+"ex": [
+"Lista de compras 8 produto(s) vão ",
+"Δ-17.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Lista de compras 8 produto(s) vão ",
+"Δ17.0px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Lista de compras 8 produto(s) vão ",
+"Δ1.9px"
+]
+}
+],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 1430
+},
+"vista": "dash",
+"toques": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "12",
+"tag": "BUTTON",
+"igual_a": "dash-semana"
+},
+{
+"i": 1,
+"act": "dVer",
+"id": "",
+"txt": "Giro ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"VER\""
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 2,
+"act": "dfold",
+"id": "rep",
+"txt": "Lista de compras 8 produto(s) vão acabar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 3,
+"act": "lcCalc",
+"id": "",
+"txt": "como calcula ›",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 4,
+"act": "lcMenos",
+"id": "solar|YS8801",
+"txt": "−",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 5,
+"act": "lcMais",
+"id": "solar|YS8801",
+"txt": "+",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 6,
+"act": "lcMenos",
+"id": "solar|SL2210",
+"txt": "−",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 7,
+"act": "lcMais",
+"id": "solar|SL2210",
+"txt": "+",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 8,
+"act": "lcMenos",
+"id": "solar|SL2201",
+"txt": "−",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 9,
+"act": "lcMais",
+"id": "solar|SL2201",
+"txt": "+",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 10,
+"act": "lcMenos",
+"id": "solar|YS8815",
+"txt": "−",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 11,
+"act": "lcMais",
+"id": "solar|YS8815",
+"txt": "+",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 12,
+"act": "lcMenos",
+"id": "pre|SP57765|+0.75",
+"txt": "−",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 13,
+"act": "lcMais",
+"id": "pre|SP57765|+0.75",
+"txt": "+",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 14,
+"act": "lcTodos",
+"id": "Acabando",
+"txt": "ver os 18 ›",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 15,
+"act": "lcOferta",
+"id": "sem|YM7721",
+"txt": "Oferta ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 16,
+"act": "lcPedir",
+"id": "",
+"txt": "Marcar como pedido",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 17,
+"act": "lcEnvia",
+"id": "",
+"txt": "Mandar ao fornecedor",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Mandar ao fornecedor\""
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 18,
+"act": "dfold",
+"id": "vit",
+"txt": "Vitrine da semana diga quantos lugares t",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 19,
+"act": "dfold",
+"id": "ret",
+"txt": "Retorno do estoque cada US$ 1 investido ",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 20,
+"act": "dfold",
+"id": "abc",
+"txt": "Curva ABC quais produtos dão 80% do lucr",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone quadrado",
+"h": 46,
+"w": 46,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Giro ⌄",
+"act": "dVer",
+"cara": "texto",
+"h": 49,
+"w": 77,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Lista de compras 8 produto(s) vão acabar",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 340,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "como calcula ›",
+"act": "lcCalc",
+"cara": "texto",
+"h": 44,
+"w": 110,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "−",
+"act": "lcMenos",
+"cara": "texto",
+"h": 44,
+"w": 40,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "18px"
+},
+{
+"t": "+",
+"act": "lcMais",
+"cara": "texto",
+"h": 44,
+"w": 40,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "18px"
+},
+{
+"t": "−",
+"act": "lcMenos",
+"cara": "texto",
+"h": 44,
+"w": 40,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "18px"
+},
+{
+"t": "+",
+"act": "lcMais",
+"cara": "texto",
+"h": 44,
+"w": 40,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "18px"
+},
+{
+"t": "−",
+"act": "lcMenos",
+"cara": "texto",
+"h": 44,
+"w": 40,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "18px"
+},
+{
+"t": "+",
+"act": "lcMais",
+"cara": "texto",
+"h": 44,
+"w": 40,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "18px"
+},
+{
+"t": "−",
+"act": "lcMenos",
+"cara": "texto",
+"h": 44,
+"w": 40,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "18px"
+},
+{
+"t": "+",
+"act": "lcMais",
+"cara": "texto",
+"h": 44,
+"w": 40,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "18px"
+},
+{
+"t": "−",
+"act": "lcMenos",
+"cara": "texto",
+"h": 44,
+"w": 40,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "18px"
+},
+{
+"t": "+",
+"act": "lcMais",
+"cara": "texto",
+"h": 44,
+"w": 40,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "18px"
+},
+{
+"t": "ver os 18 ›",
+"act": "lcTodos",
+"cara": "texto",
+"h": 44,
+"w": 82,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Oferta ›",
+"act": "lcOferta",
+"cara": "texto",
+"h": 44,
+"w": 63,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Marcar como pedido",
+"act": "lcPedir",
+"cara": "barra grande",
+"h": 52,
+"w": 292,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgba(141, 58, 105, 0.35)",
+"bw": 1,
+"fs": "16px"
+},
+{
+"t": "Mandar ao fornecedor",
+"act": "lcEnvia",
+"cara": "pílula",
+"h": 44,
+"w": 292,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Vitrine da semana diga quantos lugares t",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 340,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Retorno do estoque cada US$ 1 investido ",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 340,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Curva ABC quais produtos dão 80% do lucr",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 340,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "1 coluna da direita",
+"ex": [
+"Lista de compras 8 produto(s) vão ",
+"Δ-17.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Lista de compras 8 produto(s) vão ",
+"Δ17.0px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Lista de compras 8 produto(s) vão ",
+"Δ1.9px"
+]
+}
+],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 1430
+},
+"seg": 195
+}

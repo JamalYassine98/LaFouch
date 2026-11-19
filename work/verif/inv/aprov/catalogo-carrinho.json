@@ -1,0 +1,673 @@
+{
+"tela": "catalogo-carrinho",
+"modo": "aprov",
+"quando": "19/11 02:15",
+"passos": [
+"()=>{const S=window.__LF.S;S.cart=S.items.filter(i=>i.qty>0&&!i.bulk).slice(0,2).map(i=>({it:i,qty:1,tab:S.tabAtiva,preco:null}));window.__LF.setView('vendas')}",
+"()=>window.__LF.ACT.cartopen()"
+],
+"escuro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "‹ Catálogo",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 68,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Modo cliente (iPad da loja)",
+"act": "mcLiga",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "−",
+"act": "cartmn",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "20px"
+},
+{
+"t": "+",
+"act": "cartpl",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "20px"
+},
+{
+"t": "Tirar",
+"act": "cartrm",
+"cara": "texto",
+"h": 44,
+"w": 47,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "−",
+"act": "cartmn",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "20px"
+},
+{
+"t": "+",
+"act": "cartpl",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "20px"
+},
+{
+"t": "Tirar",
+"act": "cartrm",
+"cara": "texto",
+"h": 44,
+"w": 47,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "+ Adicionar outra peça",
+"act": "cartclose",
+"cara": "texto",
+"h": 44,
+"w": 167,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Ir para o pagamento",
+"act": "cartconf",
+"cara": "barra grande",
+"h": 52,
+"w": 342,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgba(243, 192, 220, 0.38)",
+"bw": 1,
+"fs": "16px"
+},
+{
+"t": "Esvaziar carrinho",
+"act": "cartclear",
+"cara": "texto",
+"h": 44,
+"w": 132,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "2 centro vertical",
+"ex": [
+"‹ Catálogo Carrinho 2 peças",
+"Δ1.8px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"SP57765 +0.75 · Preto G$ 25.000",
+"Δ2.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"− 1 + Tirar",
+"Δ-8.0px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"− 1 + Tirar",
+"Δ2.4px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"SP58110 +0.75 · Preto G$ 25.000",
+"Δ2.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"− 1 + Tirar",
+"Δ-8.0px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"− 1 + Tirar",
+"Δ2.4px"
+]
+}
+],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 60
+},
+"vista": "vendas",
+"toques": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "12",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+],
+"de_novo": [
+"leva → vendas"
+],
+"bug": []
+},
+{
+"i": 1,
+"act": "",
+"id": "",
+"txt": "‹ Catálogo",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 2,
+"act": "mcLiga",
+"id": "",
+"txt": "Modo cliente (iPad da loja)",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 3,
+"act": "cartmn",
+"id": "0",
+"txt": "−",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 4,
+"act": "cartpl",
+"id": "0",
+"txt": "+",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 5,
+"act": "cartrm",
+"id": "0",
+"txt": "Tirar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 6,
+"act": "cartmn",
+"id": "1",
+"txt": "−",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 7,
+"act": "cartpl",
+"id": "1",
+"txt": "+",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 8,
+"act": "cartrm",
+"id": "1",
+"txt": "Tirar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 9,
+"act": "cartclose",
+"id": "",
+"txt": "+ Adicionar outra peça",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 10,
+"act": "cartconf",
+"id": "",
+"txt": "Ir para o pagamento",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 11,
+"act": "cartclear",
+"id": "",
+"txt": "Esvaziar carrinho",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "‹ Catálogo",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 68,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Modo cliente (iPad da loja)",
+"act": "mcLiga",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "−",
+"act": "cartmn",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "20px"
+},
+{
+"t": "+",
+"act": "cartpl",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "20px"
+},
+{
+"t": "Tirar",
+"act": "cartrm",
+"cara": "texto",
+"h": 44,
+"w": 47,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "−",
+"act": "cartmn",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "20px"
+},
+{
+"t": "+",
+"act": "cartpl",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "20px"
+},
+{
+"t": "Tirar",
+"act": "cartrm",
+"cara": "texto",
+"h": 44,
+"w": 47,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "+ Adicionar outra peça",
+"act": "cartclose",
+"cara": "texto",
+"h": 44,
+"w": 167,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Ir para o pagamento",
+"act": "cartconf",
+"cara": "barra grande",
+"h": 52,
+"w": 342,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgba(141, 58, 105, 0.35)",
+"bw": 1,
+"fs": "16px"
+},
+{
+"t": "Esvaziar carrinho",
+"act": "cartclear",
+"cara": "texto",
+"h": 44,
+"w": 132,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "2 centro vertical",
+"ex": [
+"‹ Catálogo Carrinho 2 peças",
+"Δ1.8px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"SP57765 +0.75 · Preto G$ 25.000",
+"Δ2.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"− 1 + Tirar",
+"Δ-8.0px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"− 1 + Tirar",
+"Δ2.4px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"SP58110 +0.75 · Preto G$ 25.000",
+"Δ2.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"− 1 + Tirar",
+"Δ-8.0px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"− 1 + Tirar",
+"Δ2.4px"
+]
+}
+],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 60
+},
+"seg": 100
+}

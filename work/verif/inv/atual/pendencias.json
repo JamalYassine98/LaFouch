@@ -1,0 +1,844 @@
+{
+"tela": "pendencias",
+"modo": "atual",
+"quando": "19/11 02:11",
+"passos": [
+"()=>window.__LF.setView('notif')"
+],
+"escuro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone quadrado",
+"h": 46,
+"w": 46,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ver margem",
+"act": "view",
+"cara": "pílula",
+"h": 44,
+"w": 113,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver conta",
+"act": "view",
+"cara": "pílula",
+"h": 44,
+"w": 95,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver conta",
+"act": "view",
+"cara": "pílula",
+"h": 44,
+"w": 95,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Conferir",
+"act": "view",
+"cara": "pílula",
+"h": 44,
+"w": 85,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver preços",
+"act": "dtab",
+"cara": "pílula",
+"h": 44,
+"w": 103,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver",
+"act": "view",
+"cara": "pílula",
+"h": 44,
+"w": 53,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Completar",
+"act": "inicio",
+"cara": "pílula",
+"h": 44,
+"w": 100,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver conta",
+"act": "view",
+"cara": "pílula",
+"h": 44,
+"w": 95,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver reposição",
+"act": "dtab",
+"cara": "pílula",
+"h": 44,
+"w": 123,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Fazer",
+"act": "view",
+"cara": "pílula",
+"h": 44,
+"w": 67,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver",
+"act": "temaVer",
+"cara": "pílula",
+"h": 44,
+"w": 53,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver todas as conferências do Guardião ›",
+"act": "guardAbre",
+"cara": "texto",
+"h": 44,
+"w": 281,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Limpar histórico",
+"act": "notifLimpa",
+"cara": "texto",
+"h": 44,
+"w": 118,
+"cor": "rgb(255, 154, 154)",
+"borda": "rgb(255, 154, 154)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "1 coluna da direita",
+"ex": [
+"Margem da loja em 2,0% O dólar est",
+"Δ-19.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Margem da loja em 2,0% O dólar est",
+"Δ22.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Contas de casa venceu há 7 dias Ve",
+"Δ-19.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Contas de casa venceu há 7 dias Ve",
+"Δ22.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Luz venceu há 4 dias Ver conta",
+"Δ-19.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Luz venceu há 4 dias Ver conta",
+"Δ22.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Conferir o caixa ainda não conferi",
+"Δ-19.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Conferir o caixa ainda não conferi",
+"Δ22.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Preço ficou perigoso 9 produto(s) ",
+"Δ-19.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Preço ficou perigoso 9 produto(s) ",
+"Δ22.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Peça sem custo (lucro errado) · 11",
+"Δ-19.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Peça sem custo (lucro errado) · 11",
+"Δ22.0px"
+]
+}
+],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 984
+},
+"vista": "notif",
+"toques": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "12",
+"tag": "BUTTON",
+"efeito": [
+"leva → inicio"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 1,
+"act": "view",
+"id": "fx",
+"txt": "Ver margem",
+"tag": "BUTTON",
+"efeito": [
+"leva → fx"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 2,
+"act": "view",
+"id": "desp",
+"txt": "Ver conta",
+"tag": "BUTTON",
+"efeito": [
+"leva → desp"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 3,
+"act": "view",
+"id": "desp",
+"txt": "Ver conta",
+"tag": "BUTTON",
+"igual_a": "pendencias"
+},
+{
+"i": 4,
+"act": "view",
+"id": "caixa",
+"txt": "Conferir",
+"tag": "BUTTON",
+"efeito": [
+"leva → caixa"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 5,
+"act": "dtab",
+"id": "prec",
+"txt": "Ver preços",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 6,
+"act": "abreRef",
+"id": "SP57765",
+"txt": "SP57765",
+"tag": "A",
+"efeito": [
+"leva → estoque"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 7,
+"act": "abreRef",
+"id": "SP58110",
+"txt": "SP58110",
+"tag": "A",
+"efeito": [
+"leva → estoque"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 8,
+"act": "abreRef",
+"id": "SP60627",
+"txt": "SP60627",
+"tag": "A",
+"efeito": [
+"leva → estoque"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 9,
+"act": "view",
+"id": "estoque",
+"txt": "Ver",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 10,
+"act": "inicio",
+"id": "lotes",
+"txt": "Completar",
+"tag": "BUTTON",
+"efeito": [
+"leva → estoque"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 11,
+"act": "view",
+"id": "desp",
+"txt": "Ver conta",
+"tag": "BUTTON",
+"igual_a": "pendencias"
+},
+{
+"i": 12,
+"act": "dtab",
+"id": "giro",
+"txt": "Ver reposição",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 13,
+"act": "view",
+"id": "ajustes",
+"txt": "Fazer",
+"tag": "BUTTON",
+"efeito": [
+"leva → ajustes"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 14,
+"act": "temaVer",
+"id": "",
+"txt": "Ver",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"🖤 Black Friday\""
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 15,
+"act": "guardAbre",
+"id": "",
+"txt": "Ver todas as conferências do Guardião ›",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Guardião\""
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 16,
+"act": "notifLimpa",
+"id": "",
+"txt": "Limpar histórico",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone quadrado",
+"h": 46,
+"w": 46,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ver margem",
+"act": "view",
+"cara": "pílula",
+"h": 44,
+"w": 113,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver conta",
+"act": "view",
+"cara": "pílula",
+"h": 44,
+"w": 95,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver conta",
+"act": "view",
+"cara": "pílula",
+"h": 44,
+"w": 95,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Conferir",
+"act": "view",
+"cara": "pílula",
+"h": 44,
+"w": 85,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver preços",
+"act": "dtab",
+"cara": "pílula",
+"h": 44,
+"w": 103,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver",
+"act": "view",
+"cara": "pílula",
+"h": 44,
+"w": 53,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Completar",
+"act": "inicio",
+"cara": "pílula",
+"h": 44,
+"w": 100,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver conta",
+"act": "view",
+"cara": "pílula",
+"h": 44,
+"w": 95,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver reposição",
+"act": "dtab",
+"cara": "pílula",
+"h": 44,
+"w": 123,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Fazer",
+"act": "view",
+"cara": "pílula",
+"h": 44,
+"w": 67,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver",
+"act": "temaVer",
+"cara": "pílula",
+"h": 44,
+"w": 53,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver todas as conferências do Guardião ›",
+"act": "guardAbre",
+"cara": "texto",
+"h": 44,
+"w": 281,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Limpar histórico",
+"act": "notifLimpa",
+"cara": "texto",
+"h": 44,
+"w": 118,
+"cor": "rgb(161, 42, 42)",
+"borda": "rgb(161, 42, 42)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "1 coluna da direita",
+"ex": [
+"Margem da loja em 2,0% O dólar est",
+"Δ-19.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Margem da loja em 2,0% O dólar est",
+"Δ22.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Contas de casa venceu há 7 dias Ve",
+"Δ-19.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Contas de casa venceu há 7 dias Ve",
+"Δ22.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Luz venceu há 4 dias Ver conta",
+"Δ-19.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Luz venceu há 4 dias Ver conta",
+"Δ22.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Conferir o caixa ainda não conferi",
+"Δ-19.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Conferir o caixa ainda não conferi",
+"Δ22.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Preço ficou perigoso 9 produto(s) ",
+"Δ-19.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Preço ficou perigoso 9 produto(s) ",
+"Δ22.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Peça sem custo (lucro errado) · 11",
+"Δ-19.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Peça sem custo (lucro errado) · 11",
+"Δ22.0px"
+]
+}
+],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 984
+},
+"seg": 102
+}

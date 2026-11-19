@@ -1,0 +1,3 @@
+/* B: só linha, mas linha clara + exemplo mais visível */
+.view input:not([type=checkbox]):not([type=radio]):not([type=range]),.view select,.view textarea,.ljJn input,.fjJn input,.modal-box input,.ljJn textarea,.fjJn textarea,.modal-box textarea,input.in,select.in,textarea.in{border-bottom:1.5px solid color-mix(in srgb,var(--fg) 45%,transparent)!important}
+input::placeholder,textarea::placeholder{color:color-mix(in srgb,var(--fg) 55%,transparent)!important}

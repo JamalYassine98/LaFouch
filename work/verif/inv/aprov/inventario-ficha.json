@@ -1,0 +1,811 @@
+{
+"tela": "inventario-ficha",
+"modo": "aprov",
+"quando": "19/11 01:57",
+"passos": [
+"()=>window.__LF.setView('estoque')",
+"()=>{const e=[...document.querySelectorAll('#v-estoque .pcard[data-ref]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
+],
+"escuro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Inventário ⌄",
+"act": "grpVer",
+"cara": "texto",
+"h": 32,
+"w": 286,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Adicionar",
+"act": "",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Produtos",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 61,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Fornecedores 1",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 112,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "EM ESTOQUE (FILTRO) › 400",
+"act": "",
+"cara": "texto",
+"h": 86,
+"w": 171,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Ficha 4/6",
+"act": "fichaAbre",
+"cara": "pílula",
+"h": 26,
+"w": 77,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "12.5px"
+},
+{
+"t": "Estoque",
+"act": "fnTab",
+"cara": "texto",
+"h": 44,
+"w": 51,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Histórico",
+"act": "fnTab",
+"cara": "texto",
+"h": 44,
+"w": 57,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(203, 213, 225)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Site",
+"act": "fnTab",
+"cara": "texto",
+"h": 44,
+"w": 24,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(203, 213, 225)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Preço",
+"act": "fnTab",
+"cara": "texto",
+"h": 44,
+"w": 37,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(203, 213, 225)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Voltar",
+"act": "",
+"cara": "ícone quadrado",
+"h": 44,
+"w": 44,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "14px"
+},
+{
+"t": "Editar",
+"act": "",
+"cara": "ícone quadrado",
+"h": 44,
+"w": 44,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "14px"
+},
+{
+"t": "Sem detalhesem foto 343 un.",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "% Oferta",
+"act": "",
+"cara": "pílula",
+"h": 44,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "No site",
+"act": "",
+"cara": "pílula",
+"h": 44,
+"w": 62,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 8,
+"fs": "15px"
+},
+{
+"t": "Vender no Catálogo ›",
+"act": "fnTab",
+"cara": "texto",
+"h": 44,
+"w": 153,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Fotografar no Estúdio ›",
+"act": "fnEstudio",
+"cara": "texto",
+"h": 44,
+"w": 166,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Preço em US$",
+"lab": "PREÇO (US$)",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 342,
+"h": 44,
+"x": 24,
+"alinh": "start",
+"fs": "20px"
+}
+],
+"alin": [
+{
+"r": "2 centro vertical",
+"ex": [
+"No site cadastre ao menos uma cor",
+"Δ10.6px"
+]
+}
+],
+"olho": [
+{
+"r": "toque<40",
+"n": 3,
+"ex": [
+"Ficha",
+"Site",
+"Preço"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 668
+},
+"vista": "estoque",
+"toques": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "12",
+"tag": "BUTTON",
+"igual_a": "inventario-fornecedores"
+},
+{
+"i": 1,
+"act": "grpVer",
+"id": "",
+"txt": "Inventário ⌄",
+"tag": "H1",
+"igual_a": "inventario-fornecedores"
+},
+{
+"i": 2,
+"act": "",
+"id": "",
+"txt": "Adicionar",
+"tag": "BUTTON",
+"igual_a": "inventario-fornecedores"
+},
+{
+"i": 3,
+"act": "",
+"id": "",
+"txt": "Produtos",
+"tag": "BUTTON",
+"igual_a": "inventario-fornecedores"
+},
+{
+"i": 4,
+"act": "",
+"id": "",
+"txt": "Fornecedores 1",
+"tag": "BUTTON",
+"igual_a": "inventario-fornecedores"
+},
+{
+"i": 5,
+"act": "",
+"id": "",
+"txt": "EM ESTOQUE (FILTRO) › 400",
+"tag": "BUTTON",
+"igual_a": "inventario-fornecedores"
+},
+{
+"i": 6,
+"act": "fichaAbre",
+"id": "Lote Kazwini",
+"txt": "Ficha 4/6",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Ficha do produto\""
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 7,
+"act": "fnTab",
+"id": "est",
+"txt": "Estoque",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 8,
+"act": "fnTab",
+"id": "his",
+"txt": "Histórico",
+"tag": "BUTTON",
+"efeito": [
+"alterna"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 9,
+"act": "fnTab",
+"id": "sit",
+"txt": "Site",
+"tag": "BUTTON",
+"efeito": [
+"alterna"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 10,
+"act": "fnTab",
+"id": "pre",
+"txt": "Preço",
+"tag": "BUTTON",
+"efeito": [
+"alterna"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 11,
+"act": "",
+"id": "",
+"txt": "Voltar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 12,
+"act": "",
+"id": "",
+"txt": "Editar",
+"tag": "BUTTON",
+"igual_a": "inventario-fornecedores"
+},
+{
+"i": 13,
+"act": "",
+"id": "",
+"txt": "Sem detalhesem foto 343 un.",
+"tag": "DIV",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 14,
+"act": "",
+"id": "",
+"txt": "% Oferta",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"OFERTA\""
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 15,
+"act": "",
+"id": "",
+"txt": "No site",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 16,
+"act": "fnTab",
+"id": "ven",
+"txt": "Vender no Catálogo ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → vendas"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 17,
+"act": "fnEstudio",
+"id": "",
+"txt": "Fotografar no Estúdio ›",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Inventário ⌄",
+"act": "grpVer",
+"cara": "texto",
+"h": 32,
+"w": 286,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Adicionar",
+"act": "",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Produtos",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 61,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Fornecedores 1",
+"act": "",
+"cara": "texto",
+"h": 42,
+"w": 112,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "EM ESTOQUE (FILTRO) › 400",
+"act": "",
+"cara": "texto",
+"h": 86,
+"w": 171,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Ficha 4/6",
+"act": "fichaAbre",
+"cara": "pílula",
+"h": 26,
+"w": 77,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "12.5px"
+},
+{
+"t": "Estoque",
+"act": "fnTab",
+"cara": "texto",
+"h": 44,
+"w": 51,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Histórico",
+"act": "fnTab",
+"cara": "texto",
+"h": 44,
+"w": 57,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(71, 85, 105)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Site",
+"act": "fnTab",
+"cara": "texto",
+"h": 44,
+"w": 24,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(71, 85, 105)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Preço",
+"act": "fnTab",
+"cara": "texto",
+"h": 44,
+"w": 37,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(71, 85, 105)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Voltar",
+"act": "",
+"cara": "ícone quadrado",
+"h": 44,
+"w": 44,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "14px"
+},
+{
+"t": "Editar",
+"act": "",
+"cara": "ícone quadrado",
+"h": 44,
+"w": 44,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "14px"
+},
+{
+"t": "Sem detalhesem foto 343 un.",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "% Oferta",
+"act": "",
+"cara": "pílula",
+"h": 44,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "No site",
+"act": "",
+"cara": "pílula",
+"h": 44,
+"w": 62,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 8,
+"fs": "15px"
+},
+{
+"t": "Vender no Catálogo ›",
+"act": "fnTab",
+"cara": "texto",
+"h": 44,
+"w": 153,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Fotografar no Estúdio ›",
+"act": "fnEstudio",
+"cara": "texto",
+"h": 44,
+"w": 166,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Preço em US$",
+"lab": "PREÇO (US$)",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 342,
+"h": 44,
+"x": 24,
+"alinh": "start",
+"fs": "20px"
+}
+],
+"alin": [
+{
+"r": "2 centro vertical",
+"ex": [
+"No site cadastre ao menos uma cor",
+"Δ10.6px"
+]
+}
+],
+"olho": [
+{
+"r": "toque<40",
+"n": 3,
+"ex": [
+"Ficha",
+"Site",
+"Preço"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 668
+},
+"seg": 122
+}

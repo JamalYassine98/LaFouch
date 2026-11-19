@@ -1,0 +1,183 @@
+{
+"tela": "dash-folha-ver",
+"modo": "atual",
+"quando": "19/11 01:35",
+"passos": [
+"()=>window.__LF.inicioGo('hoje')",
+"()=>{const e=[...document.querySelectorAll('[data-act=dVer]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
+],
+"escuro": {
+"botoes": [
+{
+"t": "Dashboard Os números do período ✓",
+"act": "grpVerEsc",
+"cara": "texto",
+"h": 75,
+"w": 354,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Histórico Todas as vendas, dia por dia ›",
+"act": "grpVerEsc",
+"cara": "texto",
+"h": 75,
+"w": 354,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Gerenciar grupo Nome e telas de \"Resulta",
+"act": "grpGerirV",
+"cara": "texto",
+"h": 75,
+"w": 354,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "7 linha de base",
+"ex": [
+"Dashboard Os números do período ✓",
+"Δ10.6px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Histórico Todas as vendas, dia por",
+"Δ10.6px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Gerenciar grupo Nome e telas de \"R",
+"Δ10.6px"
+]
+}
+],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 0
+},
+"vista": "dia",
+"toques": [
+{
+"i": 0,
+"act": "grpVerEsc",
+"id": "hoje",
+"txt": "Dashboard Os números do período ✓",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 1,
+"act": "grpVerEsc",
+"id": "hist",
+"txt": "Histórico Todas as vendas, dia por dia ›",
+"tag": "BUTTON",
+"efeito": [
+"leva → hist"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 2,
+"act": "grpGerirV",
+"id": "g:res",
+"txt": "Gerenciar grupo Nome e telas de \"Resulta",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Grupo\""
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "Dashboard Os números do período ✓",
+"act": "grpVerEsc",
+"cara": "texto",
+"h": 75,
+"w": 354,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Histórico Todas as vendas, dia por dia ›",
+"act": "grpVerEsc",
+"cara": "texto",
+"h": 75,
+"w": 354,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Gerenciar grupo Nome e telas de \"Resulta",
+"act": "grpGerirV",
+"cara": "texto",
+"h": 75,
+"w": 354,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "7 linha de base",
+"ex": [
+"Dashboard Os números do período ✓",
+"Δ10.6px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Histórico Todas as vendas, dia por",
+"Δ10.6px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Gerenciar grupo Nome e telas de \"R",
+"Δ10.6px"
+]
+}
+],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 0
+},
+"seg": 31
+}

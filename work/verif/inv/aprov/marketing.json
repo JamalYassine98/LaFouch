@@ -1,0 +1,1026 @@
+{
+"tela": "marketing",
+"modo": "aprov",
+"quando": "19/11 01:50",
+"passos": [
+"()=>window.__LF.inicioGo('mkt')"
+],
+"escuro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Marketing ⌄",
+"act": "grpVer",
+"cara": "texto",
+"h": 32,
+"w": 161,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Girar o parado",
+"act": "",
+"cara": "caixa",
+"h": 48,
+"w": 166,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Novos clientes BR",
+"act": "",
+"cara": "caixa",
+"h": 48,
+"w": 166,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Mais solar",
+"act": "",
+"cara": "caixa",
+"h": 48,
+"w": 166,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Lançamentos",
+"act": "",
+"cara": "caixa",
+"h": 48,
+"w": 166,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Óculos solar #13 27 vendidas em 30 dias ",
+"act": "",
+"cara": "barra grande",
+"h": 75,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Post",
+"act": "",
+"cara": "pílula",
+"h": 44,
+"w": 110,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Story",
+"act": "",
+"cara": "pílula",
+"h": 44,
+"w": 110,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Status",
+"act": "",
+"cara": "pílula",
+"h": 44,
+"w": 110,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Carrossel",
+"act": "",
+"cara": "pílula",
+"h": 44,
+"w": 110,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Vídeo",
+"act": "",
+"cara": "pílula",
+"h": 44,
+"w": 110,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Roteiro",
+"act": "",
+"cara": "pílula",
+"h": 44,
+"w": 110,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Feito",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(255, 255, 255)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "Seg · Post · 20h Peça do objetivo — Ócul",
+"act": "",
+"cara": "texto",
+"h": 46,
+"w": 308,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Feito",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(255, 255, 255)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "Ter · Status · 12h Status do dia — Óculo",
+"act": "",
+"cara": "texto",
+"h": 46,
+"w": 308,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Feito",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(255, 255, 255)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "Qua · Carrossel · 20h Carrossel com 4 pe",
+"act": "",
+"cara": "texto",
+"h": 63,
+"w": 308,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Feito",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(255, 255, 255)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "Qui · Story · 20h Bastidores / chegada —",
+"act": "",
+"cara": "texto",
+"h": 46,
+"w": 308,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Feito",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(255, 255, 255)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "Sex · Vídeo · 20h Vídeo de 15 s — Óculos",
+"act": "",
+"cara": "texto",
+"h": 63,
+"w": 308,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Feito",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(255, 255, 255)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "Sáb · Post · 20h Oferta ou mais vendido ",
+"act": "",
+"cara": "texto",
+"h": 63,
+"w": 308,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "14px"
+}
+],
+"campos": [],
+"alin": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Marketing ⌄"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 618
+},
+"vista": "mkt",
+"toques": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "12",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+],
+"de_novo": [
+"leva → mkt"
+],
+"bug": []
+},
+{
+"i": 1,
+"act": "grpVer",
+"id": "",
+"txt": "Marketing ⌄",
+"tag": "H1",
+"efeito": [
+"abre janela \"VER\""
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 2,
+"act": "",
+"id": "",
+"txt": "Girar o parado",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 3,
+"act": "",
+"id": "",
+"txt": "Novos clientes BR",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 4,
+"act": "",
+"id": "",
+"txt": "Mais solar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 5,
+"act": "",
+"id": "",
+"txt": "Lançamentos",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 6,
+"act": "",
+"id": "",
+"txt": "Óculos solar #13 27 vendidas em 30 dias ",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Status\""
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 7,
+"act": "",
+"id": "",
+"txt": "Post",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Post\""
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 8,
+"act": "",
+"id": "",
+"txt": "Story",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Story\""
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 9,
+"act": "",
+"id": "",
+"txt": "Status",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Status\""
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 10,
+"act": "",
+"id": "",
+"txt": "Carrossel",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Carrossel\""
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 11,
+"act": "",
+"id": "",
+"txt": "Vídeo",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Vídeo\""
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 12,
+"act": "",
+"id": "",
+"txt": "Roteiro",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Roteiro de vídeo\""
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 13,
+"act": "",
+"id": "",
+"txt": "Feito",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 14,
+"act": "",
+"id": "",
+"txt": "Seg · Post · 20h Peça do objetivo — Ócul",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Post\""
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 15,
+"act": "",
+"id": "",
+"txt": "Feito",
+"tag": "BUTTON",
+"igual_a": "marketing"
+},
+{
+"i": 16,
+"act": "",
+"id": "",
+"txt": "Ter · Status · 12h Status do dia — Óculo",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Status\""
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 17,
+"act": "",
+"id": "",
+"txt": "Feito",
+"tag": "BUTTON",
+"igual_a": "marketing"
+},
+{
+"i": 18,
+"act": "",
+"id": "",
+"txt": "Qua · Carrossel · 20h Carrossel com 4 pe",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Carrossel\""
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 19,
+"act": "",
+"id": "",
+"txt": "Feito",
+"tag": "BUTTON",
+"igual_a": "marketing"
+},
+{
+"i": 20,
+"act": "",
+"id": "",
+"txt": "Qui · Story · 20h Bastidores / chegada —",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Story\""
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 21,
+"act": "",
+"id": "",
+"txt": "Feito",
+"tag": "BUTTON",
+"igual_a": "marketing"
+},
+{
+"i": 22,
+"act": "",
+"id": "",
+"txt": "Sex · Vídeo · 20h Vídeo de 15 s — Óculos",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Vídeo\""
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 23,
+"act": "",
+"id": "",
+"txt": "Feito",
+"tag": "BUTTON",
+"igual_a": "marketing"
+},
+{
+"i": 24,
+"act": "",
+"id": "",
+"txt": "Sáb · Post · 20h Oferta ou mais vendido ",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"Post\""
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Marketing ⌄",
+"act": "grpVer",
+"cara": "texto",
+"h": 32,
+"w": 161,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Girar o parado",
+"act": "",
+"cara": "caixa",
+"h": 48,
+"w": 166,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Novos clientes BR",
+"act": "",
+"cara": "caixa",
+"h": 48,
+"w": 166,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Mais solar",
+"act": "",
+"cara": "caixa",
+"h": 48,
+"w": 166,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Lançamentos",
+"act": "",
+"cara": "caixa",
+"h": 48,
+"w": 166,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Óculos solar #13 27 vendidas em 30 dias ",
+"act": "",
+"cara": "barra grande",
+"h": 75,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Post",
+"act": "",
+"cara": "pílula",
+"h": 44,
+"w": 110,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Story",
+"act": "",
+"cara": "pílula",
+"h": 44,
+"w": 110,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Status",
+"act": "",
+"cara": "pílula",
+"h": 44,
+"w": 110,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Carrossel",
+"act": "",
+"cara": "pílula",
+"h": 44,
+"w": 110,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Vídeo",
+"act": "",
+"cara": "pílula",
+"h": 44,
+"w": 110,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Roteiro",
+"act": "",
+"cara": "pílula",
+"h": 44,
+"w": 110,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Feito",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(255, 255, 255)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "Seg · Post · 20h Peça do objetivo — Ócul",
+"act": "",
+"cara": "texto",
+"h": 46,
+"w": 308,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Feito",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(255, 255, 255)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "Ter · Status · 12h Status do dia — Óculo",
+"act": "",
+"cara": "texto",
+"h": 46,
+"w": 308,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Feito",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(255, 255, 255)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "Qua · Carrossel · 20h Carrossel com 4 pe",
+"act": "",
+"cara": "texto",
+"h": 63,
+"w": 308,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Feito",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(255, 255, 255)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "Qui · Story · 20h Bastidores / chegada —",
+"act": "",
+"cara": "texto",
+"h": 46,
+"w": 308,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Feito",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(255, 255, 255)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "Sex · Vídeo · 20h Vídeo de 15 s — Óculos",
+"act": "",
+"cara": "texto",
+"h": 63,
+"w": 308,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Feito",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(255, 255, 255)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "Sáb · Post · 20h Oferta ou mais vendido ",
+"act": "",
+"cara": "texto",
+"h": 63,
+"w": 308,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "14px"
+}
+],
+"campos": [],
+"alin": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Marketing ⌄"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 618
+},
+"seg": 160
+}

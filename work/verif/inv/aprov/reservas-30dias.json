@@ -1,0 +1,517 @@
+{
+"tela": "reservas-30dias",
+"modo": "aprov",
+"quando": "19/11 01:45",
+"passos": [
+"()=>window.__LF.inicioGo('din')",
+"()=>{const e=[...document.querySelectorAll('.g99 .fxH,[data-act=dfold]')].filter(x=>x.getBoundingClientRect().height).filter(x=>/30 dias/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
+],
+"escuro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Reservas ⌄",
+"act": "dVer",
+"cara": "texto",
+"h": 49,
+"w": 137,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "G$",
+"act": "totm",
+"cara": "texto",
+"h": 42,
+"w": 67,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "R$",
+"act": "totm",
+"cara": "texto",
+"h": 42,
+"w": 67,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "US$",
+"act": "totm",
+"cara": "texto",
+"h": 42,
+"w": 67,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Ver para onde vai o que já tem dono: rep",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Próximos 30 dias Saldo G$ 6.514.684 · co",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "30 dias",
+"act": "fluxod",
+"cara": "caixa",
+"h": 44,
+"w": 84,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(164, 74, 126)",
+"bw": 1,
+"fs": "14px"
+},
+{
+"t": "60 dias",
+"act": "fluxod",
+"cara": "caixa",
+"h": 44,
+"w": 83,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "14px"
+},
+{
+"t": "90 dias",
+"act": "fluxod",
+"cara": "caixa",
+"h": 44,
+"w": 83,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "14px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "7 linha de base",
+"ex": [
+"LIVRE PARA VOCÊ G$ R$ US$",
+"Δ2.3px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Ver para onde vai o que já tem don",
+"Δ11.1px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Próximos 30 dias Saldo G$ 6.514.68",
+"Δ1.9px"
+]
+}
+],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 1162
+},
+"vista": "dash",
+"toques": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "12",
+"tag": "BUTTON",
+"igual_a": "dash-mes"
+},
+{
+"i": 1,
+"act": "dVer",
+"id": "",
+"txt": "Reservas ⌄",
+"tag": "BUTTON",
+"igual_a": "reservas-para-onde"
+},
+{
+"i": 2,
+"act": "totm",
+"id": "pyg",
+"txt": "G$",
+"tag": "BUTTON",
+"igual_a": "reservas-para-onde"
+},
+{
+"i": 3,
+"act": "totm",
+"id": "brl",
+"txt": "R$",
+"tag": "BUTTON",
+"igual_a": "reservas-para-onde"
+},
+{
+"i": 4,
+"act": "totm",
+"id": "usd",
+"txt": "US$",
+"tag": "BUTTON",
+"igual_a": "reservas-para-onde"
+},
+{
+"i": 5,
+"act": "dfold",
+"id": "paraonde",
+"txt": "Ver para onde vai o que já tem dono: rep",
+"tag": "BUTTON",
+"igual_a": "reservas-para-onde"
+},
+{
+"i": 6,
+"act": "dfold",
+"id": "flx",
+"txt": "Próximos 30 dias Saldo G$ 6.514.684 · co",
+"tag": "BUTTON",
+"igual_a": "reservas-para-onde"
+},
+{
+"i": 7,
+"act": "fluxod",
+"id": "30",
+"txt": "30 dias",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 8,
+"act": "fluxod",
+"id": "60",
+"txt": "60 dias",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 9,
+"act": "fluxod",
+"id": "90",
+"txt": "90 dias",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 10,
+"act": "view",
+"id": "desp",
+"txt": "Editar despesas",
+"tag": "A",
+"efeito": [
+"leva → desp"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Reservas ⌄",
+"act": "dVer",
+"cara": "texto",
+"h": 49,
+"w": 137,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "G$",
+"act": "totm",
+"cara": "texto",
+"h": 42,
+"w": 67,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "R$",
+"act": "totm",
+"cara": "texto",
+"h": 42,
+"w": 67,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "US$",
+"act": "totm",
+"cara": "texto",
+"h": 42,
+"w": 67,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Ver para onde vai o que já tem dono: rep",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Próximos 30 dias Saldo G$ 6.514.648 · co",
+"act": "dfold",
+"cara": "texto",
+"h": 67,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "30 dias",
+"act": "fluxod",
+"cara": "caixa",
+"h": 44,
+"w": 84,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(141, 58, 105)",
+"bw": 1,
+"fs": "14px"
+},
+{
+"t": "60 dias",
+"act": "fluxod",
+"cara": "caixa",
+"h": 44,
+"w": 83,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "14px"
+},
+{
+"t": "90 dias",
+"act": "fluxod",
+"cara": "caixa",
+"h": 44,
+"w": 83,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "14px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "7 linha de base",
+"ex": [
+"LIVRE PARA VOCÊ G$ R$ US$",
+"Δ2.3px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Ver para onde vai o que já tem don",
+"Δ11.1px"
+]
+},
+{
+"r": "7 linha de base",
+"ex": [
+"Próximos 30 dias Saldo G$ 6.514.64",
+"Δ1.9px"
+]
+}
+],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 1162
+},
+"seg": 44
+}

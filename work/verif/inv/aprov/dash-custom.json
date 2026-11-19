@@ -1,0 +1,488 @@
+{
+"tela": "dash-custom",
+"modo": "aprov",
+"quando": "19/11 01:49",
+"passos": [
+"()=>{window.__LF.S.per='custom';window.__LF.S.perDe='2026-11-01';window.__LF.S.perAte='2026-11-10';window.__LF.S.dTab='hoje';window.__LF.setView('dash')}"
+],
+"escuro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dashboard ⌄",
+"act": "dVer",
+"cara": "texto",
+"h": 49,
+"w": 164,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Datas ⌄",
+"act": "dPer",
+"cara": "texto",
+"h": 44,
+"w": 54,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "G$ 3.367.000",
+"act": "d48Moeda",
+"cara": "texto",
+"h": 40,
+"w": 156,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "26px"
+},
+{
+"t": "G$ 1.305.800",
+"act": "d48Moeda",
+"cara": "texto",
+"h": 40,
+"w": 156,
+"cor": "rgb(95, 211, 154)",
+"borda": "rgb(95, 211, 154)",
+"bw": 0,
+"fs": "26px"
+},
+{
+"t": "G$ 2.190.678",
+"act": "d48Moeda",
+"cara": "texto",
+"h": 40,
+"w": 156,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "26px"
+},
+{
+"t": "Resultado do mês Lucro real, o que mais ",
+"act": "d48Abre",
+"cara": "texto",
+"h": 71,
+"w": 342,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Quanto separar do que você vendeu Cada c",
+"act": "d48Abre",
+"cara": "texto",
+"h": 71,
+"w": 342,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Vendas do período Cada venda com o valor",
+"act": "d48Abre",
+"cara": "texto",
+"h": 71,
+"w": 342,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "date",
+"ph": "",
+"lab": "De",
+"cara": "linha",
+"fundo": false,
+"w": 140,
+"h": 25,
+"x": 226,
+"alinh": "right",
+"fs": "16px"
+},
+{
+"tag": "INPUT",
+"tipo": "date",
+"ph": "",
+"lab": "Até",
+"cara": "sem nada",
+"fundo": false,
+"w": 140,
+"h": 25,
+"x": 226,
+"alinh": "right",
+"fs": "16px"
+}
+],
+"alin": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 2,
+"ex": [
+"Data inicial",
+"Data final"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 323
+},
+"vista": "dash",
+"toques": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "12",
+"tag": "BUTTON",
+"igual_a": "dash-semana"
+},
+{
+"i": 1,
+"act": "dVer",
+"id": "",
+"txt": "Dashboard ⌄",
+"tag": "BUTTON",
+"igual_a": "dash-semana"
+},
+{
+"i": 2,
+"act": "dPer",
+"id": "",
+"txt": "Datas ⌄",
+"tag": "BUTTON",
+"efeito": [
+"abre janela \"PERÍODO\""
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 3,
+"act": "d48Moeda",
+"id": "",
+"txt": "G$ 3.367.000",
+"tag": "B",
+"igual_a": "dash-semana"
+},
+{
+"i": 4,
+"act": "d48Moeda",
+"id": "",
+"txt": "G$ 1.305.800",
+"tag": "B",
+"igual_a": "dash-semana"
+},
+{
+"i": 5,
+"act": "d48Moeda",
+"id": "",
+"txt": "G$ 2.190.678",
+"tag": "B",
+"igual_a": "dash-semana"
+},
+{
+"i": 6,
+"act": "d48Abre",
+"id": "res",
+"txt": "Resultado do mês Lucro real, o que mais ",
+"tag": "BUTTON",
+"igual_a": "dash-semana"
+},
+{
+"i": 7,
+"act": "d48Abre",
+"id": "c1",
+"txt": "Quanto separar do que você vendeu Cada c",
+"tag": "BUTTON",
+"igual_a": "dash-semana"
+},
+{
+"i": 8,
+"act": "d48Abre",
+"id": "c2",
+"txt": "Vendas do período Cada venda com o valor",
+"tag": "BUTTON",
+"igual_a": "dash-semana"
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dashboard ⌄",
+"act": "dVer",
+"cara": "texto",
+"h": 49,
+"w": 164,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Datas ⌄",
+"act": "dPer",
+"cara": "texto",
+"h": 44,
+"w": 54,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "G$ 3.367.000",
+"act": "d48Moeda",
+"cara": "texto",
+"h": 40,
+"w": 156,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "26px"
+},
+{
+"t": "G$ 1.305.800",
+"act": "d48Moeda",
+"cara": "texto",
+"h": 40,
+"w": 156,
+"cor": "rgb(20, 128, 63)",
+"borda": "rgb(20, 128, 63)",
+"bw": 0,
+"fs": "26px"
+},
+{
+"t": "G$ 2.190.678",
+"act": "d48Moeda",
+"cara": "texto",
+"h": 40,
+"w": 156,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "26px"
+},
+{
+"t": "Resultado do mês Lucro real, o que mais ",
+"act": "d48Abre",
+"cara": "texto",
+"h": 71,
+"w": 342,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Quanto separar do que você vendeu Cada c",
+"act": "d48Abre",
+"cara": "texto",
+"h": 71,
+"w": 342,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Vendas do período Cada venda com o valor",
+"act": "d48Abre",
+"cara": "texto",
+"h": 71,
+"w": 342,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "date",
+"ph": "",
+"lab": "De",
+"cara": "linha",
+"fundo": false,
+"w": 140,
+"h": 25,
+"x": 226,
+"alinh": "right",
+"fs": "16px"
+},
+{
+"tag": "INPUT",
+"tipo": "date",
+"ph": "",
+"lab": "Até",
+"cara": "sem nada",
+"fundo": false,
+"w": 140,
+"h": 25,
+"x": 226,
+"alinh": "right",
+"fs": "16px"
+}
+],
+"alin": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 2,
+"ex": [
+"Data inicial",
+"Data final"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 323
+},
+"seg": 21
+}

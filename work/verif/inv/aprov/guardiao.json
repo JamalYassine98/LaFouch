@@ -1,0 +1,671 @@
+{
+"tela": "guardiao",
+"modo": "aprov",
+"quando": "19/11 02:13",
+"passos": [
+"()=>window.__LF.setView('notif')",
+"()=>{const e=[...document.querySelectorAll('[data-act=guardAbre]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
+],
+"escuro": {
+"botoes": [
+{
+"t": "Silenciar 7 dias",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 84,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "12.5px"
+},
+{
+"t": "Conferir ›",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 67,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Silenciar 7 dias",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 84,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "12.5px"
+},
+{
+"t": "Ver ›",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Silenciar 7 dias",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 84,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "12.5px"
+},
+{
+"t": "Ver ›",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Silenciar 7 dias",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 84,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "12.5px"
+},
+{
+"t": "Fazer ›",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 49,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Silenciar 7 dias",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 84,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "12.5px"
+},
+{
+"t": "Completar ›",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 83,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "1 coluna da direita",
+"ex": [
+"Conferir o caixa ainda não conferi",
+"Δ-18.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Conferir o caixa ainda não conferi",
+"Δ16.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Contas vencendo em 3 dias Contas d",
+"Δ-22.3px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Contas vencendo em 3 dias Contas d",
+"Δ16.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Câmbio atualizado ✓ há 0 h",
+"Δ-16.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Câmbio atualizado ✓ há 0 h",
+"Δ16.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Fechamento do mês pronto ✓",
+"Δ-16.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Fechamento do mês pronto ✓",
+"Δ16.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Estoque negativo ✓",
+"Δ-16.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Estoque negativo ✓",
+"Δ16.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Peça sem custo (lucro errado) SP57",
+"Δ-22.3px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Peça sem custo (lucro errado) SP57",
+"Δ16.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Venda abaixo do piso sem motivo ✓",
+"Δ-16.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Venda abaixo do piso sem motivo ✓",
+"Δ16.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Peça publicada sem foto ✓",
+"Δ-16.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Peça publicada sem foto ✓",
+"Δ16.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Pedido pago não separado (+2 h) ✓",
+"Δ-16.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Pedido pago não separado (+2 h) ✓",
+"Δ16.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"PIX esperando há mais de 15 min ✓",
+"Δ-16.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"PIX esperando há mais de 15 min ✓",
+"Δ16.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Comprovante aguardando conferência",
+"Δ-16.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Comprovante aguardando conferência",
+"Δ16.0px"
+]
+}
+],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 0
+},
+"vista": "notif",
+"toques": [
+{
+"i": 0,
+"act": "",
+"id": "",
+"txt": "Silenciar 7 dias",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 1,
+"act": "",
+"id": "",
+"txt": "Conferir ›",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 2,
+"act": "",
+"id": "",
+"txt": "Silenciar 7 dias",
+"tag": "BUTTON",
+"igual_a": "guardiao"
+},
+{
+"i": 3,
+"act": "",
+"id": "",
+"txt": "Ver ›",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 4,
+"act": "",
+"id": "",
+"txt": "Silenciar 7 dias",
+"tag": "BUTTON",
+"igual_a": "guardiao"
+},
+{
+"i": 5,
+"act": "",
+"id": "",
+"txt": "Ver ›",
+"tag": "BUTTON",
+"igual_a": "guardiao"
+},
+{
+"i": 6,
+"act": "",
+"id": "",
+"txt": "Silenciar 7 dias",
+"tag": "BUTTON",
+"igual_a": "guardiao"
+},
+{
+"i": 7,
+"act": "",
+"id": "",
+"txt": "Fazer ›",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 8,
+"act": "",
+"id": "",
+"txt": "Silenciar 7 dias",
+"tag": "BUTTON",
+"igual_a": "guardiao"
+},
+{
+"i": 9,
+"act": "",
+"id": "",
+"txt": "Completar ›",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "Silenciar 7 dias",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 84,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "12.5px"
+},
+{
+"t": "Conferir ›",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 67,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Silenciar 7 dias",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 84,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "12.5px"
+},
+{
+"t": "Ver ›",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Silenciar 7 dias",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 84,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "12.5px"
+},
+{
+"t": "Ver ›",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 44,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Silenciar 7 dias",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 84,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "12.5px"
+},
+{
+"t": "Fazer ›",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 49,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Silenciar 7 dias",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 84,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "12.5px"
+},
+{
+"t": "Completar ›",
+"act": "",
+"cara": "texto",
+"h": 44,
+"w": 83,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [],
+"alin": [
+{
+"r": "1 coluna da direita",
+"ex": [
+"Conferir o caixa ainda não conferi",
+"Δ-18.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Conferir o caixa ainda não conferi",
+"Δ16.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Contas vencendo em 3 dias Contas d",
+"Δ-22.3px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Contas vencendo em 3 dias Contas d",
+"Δ16.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Câmbio atualizado ✓ há 0 h",
+"Δ-16.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Câmbio atualizado ✓ há 0 h",
+"Δ16.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Fechamento do mês pronto ✓",
+"Δ-16.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Fechamento do mês pronto ✓",
+"Δ16.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Estoque negativo ✓",
+"Δ-16.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Estoque negativo ✓",
+"Δ16.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Peça sem custo (lucro errado) SP57",
+"Δ-22.3px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Peça sem custo (lucro errado) SP57",
+"Δ16.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Venda abaixo do piso sem motivo ✓",
+"Δ-16.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Venda abaixo do piso sem motivo ✓",
+"Δ16.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Peça publicada sem foto ✓",
+"Δ-16.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Peça publicada sem foto ✓",
+"Δ16.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Pedido pago não separado (+2 h) ✓",
+"Δ-16.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Pedido pago não separado (+2 h) ✓",
+"Δ16.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"PIX esperando há mais de 15 min ✓",
+"Δ-16.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"PIX esperando há mais de 15 min ✓",
+"Δ16.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Comprovante aguardando conferência",
+"Δ-16.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Comprovante aguardando conferência",
+"Δ16.0px"
+]
+}
+],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 0
+},
+"seg": 44
+}

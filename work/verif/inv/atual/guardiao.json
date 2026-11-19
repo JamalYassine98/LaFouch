@@ -1,0 +1,387 @@
+{
+"tela": "guardiao",
+"modo": "atual",
+"quando": "19/11 02:13",
+"passos": [
+"()=>window.__LF.setView('notif')",
+"()=>{const e=[...document.querySelectorAll('[data-act=guardAbre]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
+],
+"escuro": {
+"botoes": [
+{
+"t": "Conferir",
+"act": "view",
+"cara": "pílula",
+"h": 32,
+"w": 76,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(255, 255, 255)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "silenciar",
+"act": "guardMudo",
+"cara": "texto",
+"h": 25,
+"w": 53,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Ver",
+"act": "view",
+"cara": "pílula",
+"h": 32,
+"w": 48,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(255, 255, 255)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "silenciar",
+"act": "guardMudo",
+"cara": "texto",
+"h": 25,
+"w": 53,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Ver",
+"act": "view",
+"cara": "pílula",
+"h": 32,
+"w": 48,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(255, 255, 255)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "silenciar",
+"act": "guardMudo",
+"cara": "texto",
+"h": 25,
+"w": 53,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Fazer",
+"act": "view",
+"cara": "pílula",
+"h": 32,
+"w": 60,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(255, 255, 255)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "silenciar",
+"act": "guardMudo",
+"cara": "texto",
+"h": 25,
+"w": 53,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Completar",
+"act": "inicio",
+"cara": "pílula",
+"h": 32,
+"w": 89,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(255, 255, 255)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "silenciar",
+"act": "guardMudo",
+"cara": "texto",
+"h": 25,
+"w": 53,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "12px"
+}
+],
+"campos": [],
+"alin": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 6,
+"ex": [
+"Conferir",
+"silenciar",
+"Ver"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 0
+},
+"vista": "notif",
+"toques": [
+{
+"i": 0,
+"act": "view",
+"id": "caixa",
+"txt": "Conferir",
+"tag": "BUTTON",
+"igual_a": "pendencias"
+},
+{
+"i": 1,
+"act": "guardMudo",
+"id": "caixa",
+"txt": "silenciar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 2,
+"act": "view",
+"id": "desp",
+"txt": "Ver",
+"tag": "BUTTON",
+"efeito": [
+"leva → desp"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 3,
+"act": "guardMudo",
+"id": "contas",
+"txt": "silenciar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 4,
+"act": "view",
+"id": "estoque",
+"txt": "Ver",
+"tag": "BUTTON",
+"igual_a": "pendencias"
+},
+{
+"i": 5,
+"act": "guardMudo",
+"id": "custo",
+"txt": "silenciar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 6,
+"act": "view",
+"id": "ajustes",
+"txt": "Fazer",
+"tag": "BUTTON",
+"igual_a": "pendencias"
+},
+{
+"i": 7,
+"act": "guardMudo",
+"id": "bk",
+"txt": "silenciar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 8,
+"act": "inicio",
+"id": "lotes",
+"txt": "Completar",
+"tag": "BUTTON",
+"igual_a": "pendencias"
+},
+{
+"i": 9,
+"act": "guardMudo",
+"id": "lote",
+"txt": "silenciar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"muda a tela"
+],
+"bug": []
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "Conferir",
+"act": "view",
+"cara": "pílula",
+"h": 32,
+"w": 76,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(255, 255, 255)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "silenciar",
+"act": "guardMudo",
+"cara": "texto",
+"h": 25,
+"w": 53,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Ver",
+"act": "view",
+"cara": "pílula",
+"h": 32,
+"w": 48,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(255, 255, 255)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "silenciar",
+"act": "guardMudo",
+"cara": "texto",
+"h": 25,
+"w": 53,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Ver",
+"act": "view",
+"cara": "pílula",
+"h": 32,
+"w": 48,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(255, 255, 255)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "silenciar",
+"act": "guardMudo",
+"cara": "texto",
+"h": 25,
+"w": 53,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Fazer",
+"act": "view",
+"cara": "pílula",
+"h": 32,
+"w": 60,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(255, 255, 255)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "silenciar",
+"act": "guardMudo",
+"cara": "texto",
+"h": 25,
+"w": 53,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "12px"
+},
+{
+"t": "Completar",
+"act": "inicio",
+"cara": "pílula",
+"h": 32,
+"w": 89,
+"cor": "rgb(255, 255, 255)",
+"borda": "rgb(255, 255, 255)",
+"bw": 0,
+"fs": "13px"
+},
+{
+"t": "silenciar",
+"act": "guardMudo",
+"cara": "texto",
+"h": 25,
+"w": 53,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "12px"
+}
+],
+"campos": [],
+"alin": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 6,
+"ex": [
+"Conferir",
+"silenciar",
+"Ver"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 0
+},
+"seg": 52
+}

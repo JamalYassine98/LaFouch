@@ -1,0 +1,1467 @@
+{
+"tela": "hist-filtros",
+"modo": "aprov",
+"quando": "19/11 01:42",
+"passos": [
+"()=>window.__LF.setView('hist')",
+"()=>{const e=[...document.querySelectorAll('#v-hist button')].filter(x=>x.getBoundingClientRect().height).filter(x=>/Filtr|filtr/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
+],
+"escuro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Histórico ⌄",
+"act": "grpVer",
+"cara": "texto",
+"h": 32,
+"w": 144,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(231, 237, 245)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Ir para uma data",
+"act": "hcal",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Filtros",
+"act": "hfopen",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(164, 74, 126)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Venda",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 66,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Estorno",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 75,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Conta paga",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 96,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Retirada",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 78,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Imprevisto",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 91,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Melhorias",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 87,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Compra de lote",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 118,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Descarte",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 82,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Conferência",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 100,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Câmbio / estoque",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 133,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Dinheiro",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 78,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Pix",
+"act": "hfil",
+"cara": "ícone redondo",
+"h": 44,
+"w": 48,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Maquininha débito",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 137,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Maquininha crédito",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 141,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Econômico",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 95,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Intermediário",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 107,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Luxo",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 58,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "G$",
+"act": "hfil",
+"cara": "ícone redondo",
+"h": 44,
+"w": 46,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "US$",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 53,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "R$",
+"act": "hfil",
+"cara": "ícone redondo",
+"h": 44,
+"w": 45,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Limpar tudo",
+"act": "hlimpar",
+"cara": "pílula",
+"h": 44,
+"w": 342,
+"cor": "rgb(203, 213, 225)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "19/11 · hojequi G$ 182.000 › 5 vendas · ",
+"act": "opendia",
+"cara": "barra grande",
+"h": 71,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "18/11qua G$ 500.000 › 10 vendas · lucro ",
+"act": "opendia",
+"cara": "barra grande",
+"h": 71,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "17/11ter G$ 459.000 › 7 vendas · 1 outro",
+"act": "opendia",
+"cara": "barra grande",
+"h": 89,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "16/11seg G$ 148.500 › 4 vendas · 1 despe",
+"act": "opendia",
+"cara": "barra grande",
+"h": 89,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "15/11dom G$ 23.000 › 1 venda · lucro liv",
+"act": "opendia",
+"cara": "barra grande",
+"h": 71,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "14/11sáb G$ 502.000 › 11 vendas · 1 outr",
+"act": "opendia",
+"cara": "barra grande",
+"h": 89,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "13/11sex G$ 257.500 › 6 vendas · gastos ",
+"act": "opendia",
+"cara": "barra grande",
+"h": 89,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "12/11qui G$ 256.500 › 7 vendas · lucro l",
+"act": "opendia",
+"cara": "barra grande",
+"h": 71,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "11/11qua G$ 194.000 › 3 vendas · gastos ",
+"act": "opendia",
+"cara": "barra grande",
+"h": 89,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "10/11ter G$ 463.500 › 6 vendas · 1 despe",
+"act": "opendia",
+"cara": "barra grande",
+"h": 89,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "09/11seg G$ 188.000 › 5 vendas · 1 outro",
+"act": "opendia",
+"cara": "barra grande",
+"h": 89,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Semana 02/11 a 08/11 G$ 2.595.500 · 42 v",
+"act": "hSem",
+"cara": "barra grande",
+"h": 78,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Semana 01/11 G$ 120.000 · 2 vendas · 1 d",
+"act": "hSem",
+"cara": "barra grande",
+"h": 78,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Semana 26/10 a 31/10 G$ 1.230.500 · 30 v",
+"act": "hSem",
+"cara": "barra grande",
+"h": 78,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Semana 19/10 a 25/10 G$ 1.452.500 · 31 v",
+"act": "hSem",
+"cara": "barra grande",
+"h": 78,
+"w": 342,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Carregar mais 30 dias ⌄",
+"act": "hmais",
+"cara": "texto",
+"h": 44,
+"w": 164,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "search",
+"ph": "Buscar produto ou conta",
+"lab": "",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 238,
+"h": 44,
+"x": 24,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "De",
+"lab": "",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 167,
+"h": 44,
+"x": 24,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Até",
+"lab": "",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 167,
+"h": 44,
+"x": 199,
+"alinh": "start",
+"fs": "15px"
+}
+],
+"alin": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Histórico ⌄"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 1769
+},
+"vista": "hist",
+"toques": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "12",
+"tag": "BUTTON",
+"igual_a": "hist-lista"
+},
+{
+"i": 1,
+"act": "grpVer",
+"id": "",
+"txt": "Histórico ⌄",
+"tag": "H1",
+"igual_a": "hist-lista"
+},
+{
+"i": 2,
+"act": "hcal",
+"id": "",
+"txt": "Ir para uma data",
+"tag": "BUTTON",
+"igual_a": "hist-lista"
+},
+{
+"i": 3,
+"act": "hfopen",
+"id": "",
+"txt": "Filtros",
+"tag": "BUTTON",
+"igual_a": "hist-lista"
+},
+{
+"i": 4,
+"act": "hfil",
+"id": "tipo|venda",
+"txt": "Venda",
+"tag": "BUTTON",
+"igual_a": "hist-semana"
+},
+{
+"i": 5,
+"act": "hfil",
+"id": "tipo|estorno",
+"txt": "Estorno",
+"tag": "BUTTON",
+"igual_a": "hist-semana"
+},
+{
+"i": 6,
+"act": "hfil",
+"id": "tipo|pago",
+"txt": "Conta paga",
+"tag": "BUTTON",
+"igual_a": "hist-semana"
+},
+{
+"i": 7,
+"act": "hfil",
+"id": "tipo|ret",
+"txt": "Retirada",
+"tag": "BUTTON",
+"igual_a": "hist-semana"
+},
+{
+"i": 8,
+"act": "hfil",
+"id": "tipo|imp",
+"txt": "Imprevisto",
+"tag": "BUTTON",
+"igual_a": "hist-semana"
+},
+{
+"i": 9,
+"act": "hfil",
+"id": "tipo|melh",
+"txt": "Melhorias",
+"tag": "BUTTON",
+"igual_a": "hist-semana"
+},
+{
+"i": 10,
+"act": "hfil",
+"id": "tipo|lote",
+"txt": "Compra de lote",
+"tag": "BUTTON",
+"igual_a": "hist-semana"
+},
+{
+"i": 11,
+"act": "hfil",
+"id": "tipo|descarte",
+"txt": "Descarte",
+"tag": "BUTTON",
+"igual_a": "hist-semana"
+},
+{
+"i": 12,
+"act": "hfil",
+"id": "tipo|confcx",
+"txt": "Conferência",
+"tag": "BUTTON",
+"igual_a": "hist-semana"
+},
+{
+"i": 13,
+"act": "hfil",
+"id": "tipo|outro",
+"txt": "Câmbio / estoque",
+"tag": "BUTTON",
+"igual_a": "hist-semana"
+},
+{
+"i": 14,
+"act": "hfil",
+"id": "forma|din",
+"txt": "Dinheiro",
+"tag": "BUTTON",
+"igual_a": "hist-semana"
+},
+{
+"i": 15,
+"act": "hfil",
+"id": "forma|pix",
+"txt": "Pix",
+"tag": "BUTTON",
+"igual_a": "hist-semana"
+},
+{
+"i": 16,
+"act": "hfil",
+"id": "forma|deb",
+"txt": "Maquininha débito",
+"tag": "BUTTON",
+"igual_a": "hist-semana"
+},
+{
+"i": 17,
+"act": "hfil",
+"id": "forma|cre",
+"txt": "Maquininha crédito",
+"tag": "BUTTON",
+"igual_a": "hist-semana"
+},
+{
+"i": 18,
+"act": "hfil",
+"id": "faixa|f1",
+"txt": "Econômico",
+"tag": "BUTTON",
+"igual_a": "hist-semana"
+},
+{
+"i": 19,
+"act": "hfil",
+"id": "faixa|f2",
+"txt": "Intermediário",
+"tag": "BUTTON",
+"igual_a": "hist-semana"
+},
+{
+"i": 20,
+"act": "hfil",
+"id": "faixa|f3",
+"txt": "Luxo",
+"tag": "BUTTON",
+"igual_a": "hist-semana"
+},
+{
+"i": 21,
+"act": "hfil",
+"id": "moeda|pyg",
+"txt": "G$",
+"tag": "BUTTON",
+"igual_a": "hist-semana"
+},
+{
+"i": 22,
+"act": "hfil",
+"id": "moeda|usd",
+"txt": "US$",
+"tag": "BUTTON",
+"igual_a": "hist-semana"
+},
+{
+"i": 23,
+"act": "hfil",
+"id": "moeda|brl",
+"txt": "R$",
+"tag": "BUTTON",
+"igual_a": "hist-semana"
+},
+{
+"i": 24,
+"act": "hlimpar",
+"id": "",
+"txt": "Limpar tudo",
+"tag": "BUTTON",
+"igual_a": "hist-semana"
+},
+{
+"i": 25,
+"act": "opendia",
+"id": "2026-11-19",
+"txt": "19/11 · hojequi G$ 182.000 › 5 vendas · ",
+"tag": "BUTTON",
+"igual_a": "hist-lista"
+},
+{
+"i": 26,
+"act": "opendia",
+"id": "2026-11-18",
+"txt": "18/11qua G$ 500.000 › 10 vendas · lucro ",
+"tag": "BUTTON",
+"igual_a": "hist-lista"
+},
+{
+"i": 27,
+"act": "opendia",
+"id": "2026-11-17",
+"txt": "17/11ter G$ 459.000 › 7 vendas · 1 outro",
+"tag": "BUTTON",
+"igual_a": "hist-lista"
+},
+{
+"i": 28,
+"act": "opendia",
+"id": "2026-11-16",
+"txt": "16/11seg G$ 148.500 › 4 vendas · 1 despe",
+"tag": "BUTTON",
+"igual_a": "hist-lista"
+},
+{
+"i": 29,
+"act": "opendia",
+"id": "2026-11-15",
+"txt": "15/11dom G$ 23.000 › 1 venda · lucro liv",
+"tag": "BUTTON",
+"igual_a": "hist-lista"
+},
+{
+"i": 30,
+"act": "opendia",
+"id": "2026-11-14",
+"txt": "14/11sáb G$ 502.000 › 11 vendas · 1 outr",
+"tag": "BUTTON",
+"igual_a": "hist-lista"
+},
+{
+"i": 31,
+"act": "opendia",
+"id": "2026-11-13",
+"txt": "13/11sex G$ 257.500 › 6 vendas · gastos ",
+"tag": "BUTTON",
+"igual_a": "hist-lista"
+},
+{
+"i": 32,
+"act": "opendia",
+"id": "2026-11-12",
+"txt": "12/11qui G$ 256.500 › 7 vendas · lucro l",
+"tag": "BUTTON",
+"igual_a": "hist-lista"
+},
+{
+"i": 33,
+"act": "opendia",
+"id": "2026-11-11",
+"txt": "11/11qua G$ 194.000 › 3 vendas · gastos ",
+"tag": "BUTTON",
+"igual_a": "hist-lista"
+},
+{
+"i": 34,
+"act": "opendia",
+"id": "2026-11-10",
+"txt": "10/11ter G$ 463.500 › 6 vendas · 1 despe",
+"tag": "BUTTON",
+"igual_a": "hist-lista"
+},
+{
+"i": 35,
+"act": "opendia",
+"id": "2026-11-09",
+"txt": "09/11seg G$ 188.000 › 5 vendas · 1 outro",
+"tag": "BUTTON",
+"igual_a": "hist-lista"
+},
+{
+"i": 36,
+"act": "hSem",
+"id": "2026-11-02|2026-11",
+"txt": "Semana 02/11 a 08/11 G$ 2.595.500 · 42 v",
+"tag": "BUTTON",
+"igual_a": "hist-lista"
+},
+{
+"i": 37,
+"act": "hSem",
+"id": "2026-10-26|2026-11",
+"txt": "Semana 01/11 G$ 120.000 · 2 vendas · 1 d",
+"tag": "BUTTON",
+"igual_a": "hist-lista"
+},
+{
+"i": 38,
+"act": "hSem",
+"id": "2026-10-26|2026-10",
+"txt": "Semana 26/10 a 31/10 G$ 1.230.500 · 30 v",
+"tag": "BUTTON",
+"igual_a": "hist-lista"
+},
+{
+"i": 39,
+"act": "hSem",
+"id": "2026-10-19|2026-10",
+"txt": "Semana 19/10 a 25/10 G$ 1.452.500 · 31 v",
+"tag": "BUTTON",
+"igual_a": "hist-lista"
+},
+{
+"i": 40,
+"act": "hmais",
+"id": "",
+"txt": "Carregar mais 30 dias ⌄",
+"tag": "BUTTON",
+"igual_a": "hist-lista"
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone redondo",
+"h": 46,
+"w": 46,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Histórico ⌄",
+"act": "grpVer",
+"cara": "texto",
+"h": 32,
+"w": 144,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
+"bw": 0,
+"fs": "28px"
+},
+{
+"t": "Ir para uma data",
+"act": "hcal",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Filtros",
+"act": "hfopen",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Venda",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 66,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Estorno",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 75,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Conta paga",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 96,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Retirada",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 78,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Imprevisto",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 91,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Melhorias",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 87,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Compra de lote",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 118,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Descarte",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 82,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Conferência",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 100,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Câmbio / estoque",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 133,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Dinheiro",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 78,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Pix",
+"act": "hfil",
+"cara": "ícone redondo",
+"h": 44,
+"w": 48,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Maquininha débito",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 137,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Maquininha crédito",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 141,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Econômico",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 95,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Intermediário",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 107,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Luxo",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 58,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "G$",
+"act": "hfil",
+"cara": "ícone redondo",
+"h": 44,
+"w": 46,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "US$",
+"act": "hfil",
+"cara": "pílula",
+"h": 44,
+"w": 53,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "R$",
+"act": "hfil",
+"cara": "ícone redondo",
+"h": 44,
+"w": 45,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "Limpar tudo",
+"act": "hlimpar",
+"cara": "pílula",
+"h": 44,
+"w": 342,
+"cor": "rgb(71, 85, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "13px"
+},
+{
+"t": "19/11 · hojequi G$ 182.000 › 5 vendas · ",
+"act": "opendia",
+"cara": "barra grande",
+"h": 71,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "18/11qua G$ 500.000 › 10 vendas · lucro ",
+"act": "opendia",
+"cara": "barra grande",
+"h": 71,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "17/11ter G$ 459.000 › 7 vendas · 1 outro",
+"act": "opendia",
+"cara": "barra grande",
+"h": 89,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "16/11seg G$ 148.500 › 4 vendas · 1 despe",
+"act": "opendia",
+"cara": "barra grande",
+"h": 89,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "15/11dom G$ 23.000 › 1 venda · lucro liv",
+"act": "opendia",
+"cara": "barra grande",
+"h": 71,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "14/11sáb G$ 502.000 › 11 vendas · 1 outr",
+"act": "opendia",
+"cara": "barra grande",
+"h": 89,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "13/11sex G$ 257.500 › 6 vendas · gastos ",
+"act": "opendia",
+"cara": "barra grande",
+"h": 89,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "12/11qui G$ 256.500 › 7 vendas · lucro l",
+"act": "opendia",
+"cara": "barra grande",
+"h": 71,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "11/11qua G$ 194.000 › 3 vendas · gastos ",
+"act": "opendia",
+"cara": "barra grande",
+"h": 89,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "10/11ter G$ 463.500 › 6 vendas · 1 despe",
+"act": "opendia",
+"cara": "barra grande",
+"h": 89,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "09/11seg G$ 188.000 › 5 vendas · 1 outro",
+"act": "opendia",
+"cara": "barra grande",
+"h": 89,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Semana 02/11 a 08/11 G$ 2.595.500 · 42 v",
+"act": "hSem",
+"cara": "barra grande",
+"h": 78,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Semana 01/11 G$ 120.000 · 2 vendas · 1 d",
+"act": "hSem",
+"cara": "barra grande",
+"h": 78,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Semana 26/10 a 31/10 G$ 1.230.500 · 30 v",
+"act": "hSem",
+"cara": "barra grande",
+"h": 78,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Semana 19/10 a 25/10 G$ 1.452.500 · 31 v",
+"act": "hSem",
+"cara": "barra grande",
+"h": 78,
+"w": 342,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgba(0, 0, 0, 0)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Carregar mais 30 dias ⌄",
+"act": "hmais",
+"cara": "texto",
+"h": 44,
+"w": 164,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "search",
+"ph": "Buscar produto ou conta",
+"lab": "",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 238,
+"h": 44,
+"x": 24,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "De",
+"lab": "",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 167,
+"h": 44,
+"x": 24,
+"alinh": "start",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Até",
+"lab": "",
+"cara": "caixa redonda",
+"fundo": true,
+"w": 167,
+"h": 44,
+"x": 199,
+"alinh": "start",
+"fs": "15px"
+}
+],
+"alin": [],
+"olho": [
+{
+"r": "toque<40",
+"n": 1,
+"ex": [
+"Histórico ⌄"
+]
+}
+],
+"erros_js": [],
+"rola_vazio": 1769
+},
+"seg": 7
+}

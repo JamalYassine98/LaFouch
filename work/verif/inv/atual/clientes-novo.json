@@ -1,0 +1,671 @@
+{
+"tela": "clientes-novo",
+"modo": "atual",
+"quando": "19/11 01:54",
+"passos": [
+"()=>window.__LF.setView('clientes')",
+"()=>{const e=[...document.querySelectorAll('[data-act=clinovo]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
+],
+"escuro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone quadrado",
+"h": 46,
+"w": 46,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Novo cliente",
+"act": "clinovo",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgba(243, 192, 220, 0.38)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "×",
+"act": "clifecha",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(231, 237, 245)",
+"borda": "rgb(42, 52, 65)",
+"bw": 1,
+"fs": "20px"
+},
+{
+"t": "Paraguaio",
+"act": "clinac",
+"cara": "pílula",
+"h": 40,
+"w": 133,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgba(243, 192, 220, 0.22)",
+"bw": 1,
+"fs": "14px"
+},
+{
+"t": "Estrangeiro",
+"act": "clinac",
+"cara": "texto",
+"h": 40,
+"w": 131,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Salvar",
+"act": "clisave",
+"cara": "barra grande",
+"h": 50,
+"w": 308,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(164, 74, 126)",
+"bw": 1,
+"fs": "16px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Nome",
+"lab": "Nome",
+"cara": "sem nada",
+"fundo": false,
+"w": 170,
+"h": 44,
+"x": 162,
+"alinh": "right",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "tel",
+"ph": "WhatsApp",
+"lab": "Telefone",
+"cara": "sem nada",
+"fundo": false,
+"w": 170,
+"h": 44,
+"x": 162,
+"alinh": "right",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "email",
+"ph": "opcional, para avisos",
+"lab": "E-mail",
+"cara": "sem nada",
+"fundo": false,
+"w": 170,
+"h": 44,
+"x": 162,
+"alinh": "right",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "80012345-6",
+"lab": "RUC",
+"cara": "sem nada",
+"fundo": false,
+"w": 170,
+"h": 44,
+"x": 162,
+"alinh": "right",
+"fs": "15px"
+},
+{
+"tag": "SELECT",
+"tipo": "select-one",
+"ph": "",
+"lab": "Tabela",
+"cara": "sem nada",
+"fundo": false,
+"w": 170,
+"h": 44,
+"x": 162,
+"alinh": "right",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "opcional",
+"lab": "Observação",
+"cara": "sem nada",
+"fundo": false,
+"w": 170,
+"h": 44,
+"x": 162,
+"alinh": "right",
+"fs": "15px"
+}
+],
+"alin": [
+{
+"r": "2 centro vertical",
+"ex": [
+"Clientes Quem compra na loja e no ",
+"Δ12.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Nome",
+"Δ-34.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Nome",
+"Δ34.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Telefone",
+"Δ-34.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Telefone",
+"Δ34.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"E-mail",
+"Δ-34.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"E-mail",
+"Δ34.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Tabela Público (padrão) Óptica Ven",
+"Δ-34.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Tabela Público (padrão) Óptica Ven",
+"Δ34.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Observação",
+"Δ-34.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Observação",
+"Δ34.0px"
+]
+}
+],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 57
+},
+"vista": "clientes",
+"toques": [
+{
+"i": 0,
+"act": "view",
+"id": "notif",
+"txt": "12",
+"tag": "BUTTON",
+"efeito": [
+"leva → notif"
+],
+"de_novo": [
+"leva → clientes"
+],
+"bug": []
+},
+{
+"i": 1,
+"act": "clinovo",
+"id": "",
+"txt": "Novo cliente",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 2,
+"act": "clifecha",
+"id": "",
+"txt": "×",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"sumiu"
+],
+"bug": []
+},
+{
+"i": 3,
+"act": "clinac",
+"id": "c|py",
+"txt": "Paraguaio",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 4,
+"act": "clinac",
+"id": "c|ex",
+"txt": "Estrangeiro",
+"tag": "BUTTON",
+"efeito": [
+"alterna"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+},
+{
+"i": 5,
+"act": "clisave",
+"id": "",
+"txt": "Salvar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"nada visível"
+],
+"bug": []
+}
+],
+"claro": {
+"botoes": [
+{
+"t": "12",
+"act": "view",
+"cara": "ícone quadrado",
+"h": 46,
+"w": 46,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Início",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Vender",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Peças",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Dinheiro",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Ajustes",
+"act": "",
+"cara": "texto",
+"h": 54,
+"w": 74,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "11px"
+},
+{
+"t": "Novo cliente",
+"act": "clinovo",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgba(141, 58, 105, 0.35)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "×",
+"act": "clifecha",
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(217, 208, 216)",
+"bw": 1,
+"fs": "20px"
+},
+{
+"t": "Paraguaio",
+"act": "clinac",
+"cara": "pílula",
+"h": 40,
+"w": 133,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgba(141, 58, 105, 0.25)",
+"bw": 1,
+"fs": "14px"
+},
+{
+"t": "Estrangeiro",
+"act": "clinac",
+"cara": "texto",
+"h": 40,
+"w": 131,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "14px"
+},
+{
+"t": "Salvar",
+"act": "clisave",
+"cara": "barra grande",
+"h": 50,
+"w": 308,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 1,
+"fs": "16px"
+}
+],
+"campos": [
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "Nome",
+"lab": "Nome",
+"cara": "sem nada",
+"fundo": false,
+"w": 170,
+"h": 44,
+"x": 162,
+"alinh": "right",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "tel",
+"ph": "WhatsApp",
+"lab": "Telefone",
+"cara": "sem nada",
+"fundo": false,
+"w": 170,
+"h": 44,
+"x": 162,
+"alinh": "right",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "email",
+"ph": "opcional, para avisos",
+"lab": "E-mail",
+"cara": "sem nada",
+"fundo": false,
+"w": 170,
+"h": 44,
+"x": 162,
+"alinh": "right",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "80012345-6",
+"lab": "RUC",
+"cara": "sem nada",
+"fundo": false,
+"w": 170,
+"h": 44,
+"x": 162,
+"alinh": "right",
+"fs": "15px"
+},
+{
+"tag": "SELECT",
+"tipo": "select-one",
+"ph": "",
+"lab": "Tabela",
+"cara": "sem nada",
+"fundo": false,
+"w": 170,
+"h": 44,
+"x": 162,
+"alinh": "right",
+"fs": "15px"
+},
+{
+"tag": "INPUT",
+"tipo": "text",
+"ph": "opcional",
+"lab": "Observação",
+"cara": "sem nada",
+"fundo": false,
+"w": 170,
+"h": 44,
+"x": 162,
+"alinh": "right",
+"fs": "15px"
+}
+],
+"alin": [
+{
+"r": "2 centro vertical",
+"ex": [
+"Clientes Quem compra na loja e no ",
+"Δ12.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Nome",
+"Δ-34.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Nome",
+"Δ34.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Telefone",
+"Δ-34.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Telefone",
+"Δ34.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"E-mail",
+"Δ-34.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"E-mail",
+"Δ34.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Tabela Público (padrão) Óptica Ven",
+"Δ-34.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Tabela Público (padrão) Óptica Ven",
+"Δ34.0px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Observação",
+"Δ-34.0px"
+]
+},
+{
+"r": "3 coluna da esquerda",
+"ex": [
+"Observação",
+"Δ34.0px"
+]
+}
+],
+"olho": [],
+"erros_js": [],
+"rola_vazio": 57
+},
+"seg": 65
+}

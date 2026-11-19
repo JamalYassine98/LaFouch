@@ -14,3 +14,11 @@ input:focus,select:focus,textarea:focus{outline:none!important;border-bottom-col
 .note.n-bad,.note.n-warn{background:none!important;padding:0!important;border-radius:0!important}
 /* secundário de sempre */
 .mini.ghost,.btn-sc{border-radius:14px!important;border:1px solid var(--sec-bd)!important;background:transparent!important}
+/* opção escolhida em lista (grau etc.) = linha fina, sem caixa rosa */
+.pl.pick{background:none!important;border:0!important;border-bottom:1px solid var(--line2)!important;border-radius:0!important;padding-left:0!important;padding-right:0!important;display:flex!important;justify-content:space-between!important}
+/* barras de ação sem caixa em volta */
+.vbar{background:none!important;border:0!important;box-shadow:none!important;padding-left:0!important;padding-right:0!important}
+/* conteúdo aberto com ⌄ começa na mesma margem (regra 3) */
+.fxI,.fxB,.fxI>section.card{padding-left:0!important;padding-right:0!important;margin-left:0!important;margin-right:0!important}
+/* textos longos (P3) também em linha fina */
+.view textarea,.ljJn textarea,.fjJn textarea,.modal-box textarea{background-color:transparent!important;border:0!important;border-bottom:1px solid var(--line2)!important;border-radius:0!important;box-shadow:none!important;padding-left:0!important;padding-right:0!important}
