@@ -19,6 +19,9 @@ on:
       urls:
         description: sites de fora para comparar, nome|endereco separados por virgula (opcional)
         default: ''
+      video:
+        description: 1 = grava o video hoje x proposta do menu no tamanho do Xiaomi (em vez da analise)
+        default: ''
       portas:
         description: versoes e portas (opcional; ex. hoje:8000,propA:8001,propB:8002 - a 8002 serve a mesma copia prop)
         default: ''
@@ -62,7 +65,12 @@ jobs:
           LF_FIM: ${{ inputs.fim }}
           LF_FOTOS: ${{ inputs.aparelhos != '' && '1' || '0' }}
           LF_PORTAS: ${{ inputs.portas != '' && inputs.portas || (inputs.props != '' && 'hoje:8000,prop:8001' || 'hoje:8000') }}
-        run: python3 tools/teste-site/analise.py site an ${{ matrix.parte[0] }} ${{ matrix.parte[1] }}
+        run: |
+          if [ "${{ inputs.video }}" = "1" ]; then
+            if [ "${{ matrix.parte[0] }}" = "0" ]; then python3 tools/teste-site/video.py an; else mkdir -p an; fi
+          else
+            python3 tools/teste-site/analise.py site an ${{ matrix.parte[0] }} ${{ matrix.parte[1] }}
+          fi
       - uses: actions/upload-artifact@v4
         if: always()
         with: { name: 'analise-${{ matrix.parte[0] }}', path: an }
