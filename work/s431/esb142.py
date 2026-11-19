@@ -82,13 +82,21 @@ CASOS=[
   ["()=>{const i=[...document.querySelectorAll('.ljJn input')].find(x=>/O que v/.test(x.placeholder));if(i)i.placeholder='Códigos que vê (vazio = tudo)'}"],
   'Hoje: a frase de dentro do campo "O que vê…" fica cortada ("vazio = tud").',
   'Depois: frase mais curta que cabe: "Códigos que vê (vazio = tudo)".'),
+ ('s','carrinho-titulo','Catálogo › Carrinho — um título por tela',D['catalogo-carrinho'],
+  '#vSaleCard,#cartCard{padding-top:0!important;margin-top:8px!important}#sumB{margin-top:0!important;padding-top:0!important}#cartSlot{text-decoration:none!important}#cartCard{background:none!important;border:0!important;box-shadow:none!important;padding-left:0!important;padding-right:0!important;border-radius:0!important}',["()=>{const bk=(txt,fn)=>{const t=document.querySelector('#v-vendas .top>div');if(!t||t.querySelector('.bk143'))return;const b=document.createElement('button');b.className='bk143';b.textContent='‹ '+txt;b.style.cssText='display:block;background:none;border:0;padding:0;margin:-8px 0 -2px;min-height:44px;text-align:left;color:var(--mute);font:inherit;font-size:15px;cursor:pointer';b.onclick=fn;t.prepend(b)};const h=document.querySelector('#v-vendas .top h1'),c=document.querySelector('#v-vendas .top .crumb'),hd=document.querySelector('#cartCard .c54Hd');if(!h||!hd)return;h.textContent='Carrinho';if(c)c.textContent=(hd.querySelector('span')||{}).textContent||'';hd.style.setProperty('display','none','important');bk('Catálogo',()=>document.getElementById('cartSlot').click())}"],
+  'Hoje: "Catálogo · Escolha a peça e venda" no alto e "Carrinho" como segundo título dentro da tela.',
+  'Depois: a tela é o Carrinho — título "Carrinho", "2 peças" embaixo e "‹ Catálogo" no alto para voltar (regra um título por tela). Por cima do 142i e do 142e.'),
+ ('t','pagamento-titulo','Catálogo › Pagamento — um título por tela',D['catalogo-pagamento'],
+  '#vSaleCard,#cartCard{padding-top:0!important;margin-top:8px!important}#sumB{margin-top:0!important;padding-top:0!important}#vSaleCard{background:none!important;border:0!important;box-shadow:none!important;padding-left:0!important;padding-right:0!important;border-radius:0!important}#payB input.in{background:none!important;border:0!important;border-bottom:1px solid var(--line2)!important;border-radius:0!important;box-shadow:none!important;padding-left:0!important}#pisoSt{background:none!important;padding:0!important;border-radius:0!important}',["()=>{const bk=(txt,fn)=>{const t=document.querySelector('#v-vendas .top>div');if(!t||t.querySelector('.bk143'))return;const b=document.createElement('button');b.className='bk143';b.textContent='‹ '+txt;b.style.cssText='display:block;background:none;border:0;padding:0;margin:-8px 0 -2px;min-height:44px;text-align:left;color:var(--mute);font:inherit;font-size:15px;cursor:pointer';b.onclick=fn;t.prepend(b)};const h=document.querySelector('#v-vendas .top h1'),c=document.querySelector('#v-vendas .top .crumb'),hd=document.querySelector('#pagHead .pagHd54');if(!h||!hd)return;h.textContent='Pagamento';if(c)c.textContent='Como o cliente paga';const vb=[...hd.querySelectorAll('button')].find(x=>/Carrinho/.test(x.textContent));document.getElementById('pagHead').style.setProperty('display','none','important');bk('Carrinho',()=>vb&&vb.click())}"],
+  'Hoje: "Catálogo · Escolha a peça e venda" no alto e "Pagamento ‹ Carrinho" como segundo título dentro da tela.',
+  'Depois: a tela é o Pagamento — título "Pagamento", "Como o cliente paga" embaixo e "‹ Carrinho" no alto para voltar. Por cima do 142h.'),
 ]
 _g={};exec(open('/home/claude/lafouch/work/s425/esb138.py').read().split('with sync_playwright')[0],_g)
 _d=[c for c in _g['CASOS'] if c[0]=='d'][0];comum.OUT='/home/claude/lafouch/work/s431/'
 for i,c in enumerate(CASOS):
   if c[0]=='r': CASOS[i]=(c[0],c[1],c[2],c[3],_d[4],_d[5]+c[5],c[6],'Depois (por cima do 138d, com a tabela embaixo de "O que vê"): frase mais curta que cabe: "Códigos que vê (vazio = tudo)".')
 with sync_playwright() as pw:
-  for k,nome,tit,ps,css,js,h,p in [c for c in CASOS if c[0] in (os.environ.get('SO') or 'abcdefghijklmnopqr')]:
+  for k,nome,tit,ps,css,js,h,p in [c for c in CASOS if c[0] in (os.environ.get('SO') or 'abcdefghijklmnopqrst')]:
     for esc,tema in ((True,'escuro'),(False,'claro')):
       fs=[];oo=[];aa=[]
       for prop in (0,1):
