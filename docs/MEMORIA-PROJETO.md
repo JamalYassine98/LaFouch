@@ -3220,3 +3220,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 19/11 18:39 — 149cam aprovado: câmera do Estúdio no jeito da teste-giro/conferir.html (deitado: câmera na altura inteira, controles nas laterais, aviso fora da imagem; em pé: aviso embaixo da imagem).
 - 19/11 19:45 — 149cam-F aprovado (câmera do Estúdio funciona como teste-giro/conferir: 10 itens, moldura branca→verde, uma frase que vai para o próximo problema, trava foco/luz/branco, gravação que para sozinha em 1:00). Foto Frente/3/4 continua.
 - 19/11 19:20 — 149cam-G aprovado (guias de alinhamento na imagem da câmera do Estúdio).
+- 19/11 19:23 — 149pg (pré-graduados na regra de todos; supera 04/11), 149sc (sem cabeçalho Contador), 149dup (Preços sem botões repetidos) aprovados.
