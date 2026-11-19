@@ -59,6 +59,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
   4. **CLAUDE.md foi reorganizado às 12:02** (23 regras em 8 partes): reler antes de continuar; acabou a regra de não consultar — tudo em partes, consultando o dono.
 
 ## Últimas mudanças (mais nova em cima; manter só as ~20 últimas)
+- 19/11/2026 17:10 — NUVEM · implementa: CONFERIDO app v566 no simulador (sem a base, como publicado): Pedido › nome da cliente abre a ficha em Clientes, 3 toques seguidos em claro e escuro, com "‹ PEDIDOS". Item 10: o app grava o token em reservasTok com o login do dono (bate com as regras). Não testado em aparelho real.
 - 19/11/2026 16:55 — S436: ✅ PUBLICADO app v566 (5.46.3): B1 (ficha da cliente pelo pedido) + item 10 (token em reservasTok). 322/322. Recado para NUVEM: no item 11, avisar a APP para tirar o `tok` de reservas/ no app no mesmo passo.
 - 19/11/2026 16:23 — NUVEM · implementa: P1b publicada pelo dono e conferida. Item 13 (APP) liberado.
 - 19/11/2026 16:20 — NUVEM · implementa: P1b órfãs no código (itens 12 e 13 da Fila). Falta o dono publicar; depois o item 13 (APP).
