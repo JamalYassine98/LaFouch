@@ -25,9 +25,10 @@
   var s=document.createElement('style');s.textContent=css;document.head.appendChild(s);
   function foto(tipo){var mapa={'tipo:solar':0,'tipo:grau':1,'tipo:armacao':2};var cats=[].slice.call(document.querySelectorAll('#home .hcat a img'));
     if(tipo in mapa&&cats[mapa[tipo]])return cats[mapa[tipo]].currentSrc||cats[mapa[tipo]].src;var h=document.querySelector('#hdst img,#home .hc img');return h?(h.currentSrc||h.src):''}
-  function vit(){if(V!=='vit')return;var n=document.querySelector('#drw .dnv');if(!n||n.__lfv)return;n.__lfv=1;
-    [].slice.call(n.querySelectorAll(':scope>a[data-mf^="tipo:"]')).forEach(function(a){var u=foto(a.getAttribute('data-mf'));if(!u)return;var i=document.createElement('img');i.className='lfvi';i.alt='';i.src=u;a.appendChild(i)});
-    var sec=[].slice.call(n.querySelectorAll(':scope>a:not(.dacc):not([data-mf])'));if(!sec.length)return;var g=document.createElement('div');g.className='lfv2';sec[0].parentNode.insertBefore(g,sec[0]);sec.forEach(function(a){g.appendChild(a)});
+  /* as fotos só existem depois que as peças da nuvem chegam: tenta de novo a cada abertura até ter todas */
+  function vit(){if(V!=='vit')return;var n=document.querySelector('#drw .dnv');if(!n)return;
+    [].slice.call(n.querySelectorAll(':scope>a[data-mf^="tipo:"]')).forEach(function(a){if(a.querySelector('.lfvi'))return;var u=foto(a.getAttribute('data-mf'));if(!u)return;var i=document.createElement('img');i.className='lfvi';i.alt='';i.src=u;a.appendChild(i)});
+    if(n.__lfv)return;n.__lfv=1;var sec=[].slice.call(n.querySelectorAll(':scope>a:not(.dacc):not([data-mf])'));if(!sec.length)return;var g=document.createElement('div');g.className='lfv2';sec[0].parentNode.insertBefore(g,sec[0]);sec.forEach(function(a){g.appendChild(a)});
     [].slice.call(n.querySelectorAll(':scope>small.dgl')).forEach(function(l,i){if(i>0)l.classList.add('lfv2h')})}
   var t=0;new MutationObserver(function(){if(t)return;t=requestAnimationFrame(function(){t=0;vit()})}).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class']});vit();
 })();
