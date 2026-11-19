@@ -36,6 +36,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 ## Em andamento
 | Sessão (assunto) | Frente | Telas / arquivos | Desde |
 |---|---|---|---|
+| NUVEM · implementa (P1b órfãs) | NUVEM | functions/reserva.js, functions/index.js (reserva), functions/teste-reserva.js, teste-endpoint.js | 19/11 16:12 |
 | App (S435 famílias: Voltar, Link ›, Linha de lista, Dobra ⌄, Adicionar +, "+" em texto, Título, Fechar ×) | APP | esboços em work/s437 (só esboço, nada no código ainda); docs/FAMILIAS-BOTOES.md | 19/11 |
 | APP · implementa (S436) | APP | esperando o dono para o item 4 (B1) | 19/11 16:20 |
 | Site (S429 — IMPLEMENTADORA do site; cópia limpa) | SITE | catalogo ramo `limpo` (index.html, js/lf-site.js) — fora do ar; agora: limpeza dos estilos (regras escritas uma por cima da outra) | 19/11 |
