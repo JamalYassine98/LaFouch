@@ -2,7 +2,7 @@
    - Celular: logo à esquerda; à direita busca, carrinho e ☰; sem ícone de conta no topo (fica no cartão do menu). PC (≥1100 px) não muda.
    - Busca, carrinho e menu abrem do MESMO jeito: uma folha que cobre a TELA TODA (inclusive logo e botões), com UMA animação só
      (esmaecer + subir 12 px, 0,28 s, mesma curva) e fecham com a mesma ao contrário (0,2 s). Os movimentos antigos de cada um ficam desligados.
-   - Um único × no canto de cima à direita (no lugar exato do ☰), igual nos 3. Respeita "reduzir movimento". */
+   - Um único × fixo no canto de cima à direita da tela (8 px da borda, área de toque 44 px), igual nos 3 e em qualquer temática. Respeita "reduzir movimento". */
 (function(){
   var PC=matchMedia('(min-width:1100px)'),RM=matchMedia('(prefers-reduced-motion: reduce)');
   var F='#drw.on .dpn,#sov.on .sopn,#layer .scrim.pg.lfct';
@@ -22,7 +22,7 @@
     '@keyframes lfsh{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}'+
     'html body #drw.lfap.lfap.lfap.lfap.on .dpn,html body #sov.on .sopn,html.v5 body #layer .scrim.pg.lfct{animation:lfsh .28s cubic-bezier(.2,.8,.2,1) both!important}'+
     '@media (prefers-reduced-motion:reduce){html body #drw.lfap.lfap.lfap.lfap.on .dpn,html body #sov.on .sopn,html.v5 body #layer .scrim.pg.lfct{animation:none!important}}'+
-    '#lfx3b{position:fixed;z-index:10090;width:40px;height:40px;border:0;background:none;color:var(--tx);display:none;align-items:center;justify-content:center;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}'+
+    '#lfx3b{position:fixed;top:calc(8px + env(safe-area-inset-top,0px));right:8px;z-index:10090;width:44px;height:44px;border:0;background:none;color:var(--tx);display:none;align-items:center;justify-content:center;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}'+
     'html.lfo #lfx3b{display:flex;animation:lfsh .28s cubic-bezier(.2,.8,.2,1) both}'+
   '}';
   var s=document.createElement('style');s.textContent=css;document.head.appendChild(s);
@@ -37,7 +37,6 @@
   function marca(){var sc=document.querySelector('#layer .scrim.pg');if(!sc)return;if(querCart&&!sc.classList.contains('lfct')){sc.classList.add('lfct');querCart=false}
     if(sc.classList.contains('lfct')&&!saindo&&sc.getAnimations)sc.getAnimations().forEach(function(a){if(!a.animationName)try{a.cancel()}catch(_){}})}
   function estado(){if(PC.matches||saindo)return;marca();var q=qual(),h=document.documentElement,era=h.classList.contains('lfo');
-    if(q&&!era){var m=document.getElementById('mnb');if(m){var r=m.getBoundingClientRect();xb.style.left=r.left+'px';xb.style.top=r.top+'px';xb.style.width=r.width+'px';xb.style.height=r.height+'px'}}
     h.classList.toggle('lfo',!!q)}
   function folha(q){return q==='menu'?document.querySelector('#drw .dpn'):q==='busca'?document.querySelector('#sov .sopn'):document.querySelector('#layer .scrim.pg.lfct')}
   function fechaNativo(q){var c=q==='menu'?document.querySelector('#drw [data-dclose]'):q==='busca'?document.querySelector('#sov [data-sox]'):document.querySelector('#layer .scrim.pg.lfct button.x');c&&c.click()}
