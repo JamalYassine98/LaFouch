@@ -3196,3 +3196,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 19/11/2026 13:31 — Família Linha de lista aprovada (149i), esperando "implementar": Ajustes sem cartão; Marketing plano 16/13 px numa linha. Esboços work/s437/esboco_linha_*.
 - 19/11/2026 13:34 — Família Dobra ⌄ aprovada (149d), esperando "implementar": semanas do Histórico na mesma margem. Esboço work/s437/esboco_dobra_historico_*.
 - 19/11/2026 13:42 — Famílias Adicionar + e "+" em texto aprovadas (149a), esperando "implementar". Esboços work/s437/esboco_mais_*.
+- 19/11/2026 13:57 — Conserto da seta aprovado: o 135b (Caixa) passa a centralizar "Ver o que falta repor ›" como texto+seta numa linha (base ajustada). Esboço work/s437/esboco_seta_caixa_*.
