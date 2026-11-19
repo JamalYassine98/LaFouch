@@ -13,9 +13,10 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 ## Papéis (CLAUDE.md regra 1b)
 - APP — implementa e publica: **S436** (só ela mexe em src/ e www/).
 - SITE — implementa e publica: **S429**.
+- NUVEM — implementa (functions/ e firestore.rules, segurança): **"NUVEM · implementa"** (antiga "Estudo · dados"); a publicação da função é o dono que roda no PC.
 - Demais sessões: esboço, estudo e conferência.
 - **Nomes das conversas no app do dono (aprovados 19/11 14:08)** — usar estes nomes ao falar com o dono:
-  - "APP · implementa" = S436 · "SITE · implementa" = S429 · "Esboço · famílias" = S435 · "Estudo · dados" = sessão de estudo do item C (docs/ESTUDO-ESTOQUE-SITE-19-11.md).
+  - "APP · implementa" = S436 · "SITE · implementa" = S429 · "Esboço · famílias" = S435 · "NUVEM · implementa" = sessão da nuvem e segurança (antiga "Estudo · dados"; estudo do item C em docs/ESTUDO-ESTOQUE-SITE-19-11.md).
 
 ## Fila de implementação (só entra com "implementar" do dono; a implementadora pega de cima para baixo)
 | # | Item | Frente | Pedido em | Estado |
@@ -48,6 +49,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
   4. **CLAUDE.md foi reorganizado às 12:02** (23 regras em 8 partes): reler antes de continuar; acabou a regra de não consultar — tudo em partes, consultando o dono.
 
 ## Últimas mudanças (mais nova em cima; manter só as ~20 últimas)
+- 19/11/2026 14:30 — Dono aprovou o papel NUVEM (CLAUDE.md 1b): a sessão "Estudo · dados" virou "NUVEM · implementa" (functions/ e firestore.rules). Demais sessões: não mexer nesses arquivos.
 - 19/11/2026 14:30 — S436: Test Lab (celular real) disparado para 6 telas da v563 (claro e escuro), 1ª rodada do dia — somar antes de outra (máx. 30 min/dia).
 - 19/11/2026 14:30 — Estudo · dados: ESBOÇO P1 segurança da reserva (work/estudo-c/esboco_P1_*.jpg, docs/ESTUDO-ESTOQUE-SITE-19-11.md §8). Achado B2b: o "Cancelar" da cliente no site também não solta a peça. Esperando o dono; nada no código.
 - 19/11/2026 — S436: ✅ PUBLICADO app v563 (5.46.0): 149v Voltar (Peça e Ficha) + 150i Ícone redondo; 318/318 testes; inventários 1 e 2 refeitos nas 27 telas (iguais nas duas famílias). Pagamento do 149v espera o 142st. Conferência das telas mexidas: pedir a uma sessão de esboço.
