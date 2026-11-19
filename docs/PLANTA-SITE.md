@@ -23,7 +23,7 @@ Para o dono marcar em cada item: **F** = fica · **S** = sai · **?** = quero ve
 ## 3. Peça
 14. Galeria com zoom e giro 360°
 15. Cores e graus
-16. Comparar ⚠ (pouco visível: ícone pequeno ao lado do compartilhar)
+16. Comparar — FICA, será refeito (caminho rosto → comparar → provador)
 17. Compartilhar
 18. Favoritar (coração)
 19. Medidas, material, "Aceita cupom"
@@ -54,7 +54,7 @@ Para o dono marcar em cada item: **F** = fica · **S** = sai · **?** = quero ve
 ## 7. Lojistas
 37. Atacado (pedido por WhatsApp)
 38. Conta Atacadista (link com código, preço em US$ e Gs.)
-39. "Separado para você" (link com peças escolhidas pela loja) ⚠
+39. "Separado para você" — FICA (par do compartilhar do app)
 
 ## 8. Aparência
 40. Temáticas (Natal, Halloween, Black Friday, Ano-novo, Mães, Pais) e faixa no topo
@@ -72,7 +72,7 @@ Para o dono marcar em cada item: **F** = fica · **S** = sai · **?** = quero ve
 50. Painel (admin.html)
 
 ## 10. Arquivos parados ⚠ (nada do site usa)
-51. promo.mp4
-52. pasta teste-giro (4,5 MB, página de teste do giro de 14/11)
-53. lfx/face-api.js + lfx/model (2,7 MB — leitor de rosto antigo; hoje usa o novo, lfx/mp)
-54. Código do "Leve 2" (retirado em 17/11, ficou só o texto morto)
+51. promo.mp4 — APAGADO na cópia limpa (modo Vídeo fica)
+52. pasta teste-giro — APAGADA na cópia limpa
+53. lfx/face-api.js + lfx/model — FICA: é a reserva da câmera quando o leitor novo falha
+54. Código do "Leve 2" — APAGADO na cópia limpa

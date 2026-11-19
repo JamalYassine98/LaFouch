@@ -3186,3 +3186,5 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - Todo voltar é o versalete "‹ ANTERIOR" (12 px, 1,68 px, cinza), como o da navegação B: Peça do Catálogo "‹ CATÁLOGO" (sai o "Vender"), Ficha do Inventário "‹ INVENTÁRIO", Pagamento "‹ CARRINHO". Esboços work/s437 e work/s436; base_app 149v. Divisão do dono: S435 faz Voltar, Link ›, Linha de lista, Dobra ⌄, Adicionar +, "+" em texto, Título, Fechar ×; S436 faz as demais.
 
 - 19/11/2026 12:33 APROVADO (dono, "Ah sim"): uma BIBLIOTECA DE VÍDEOS só — Marketing gera e tem "Usar no destaque do site ›"; a aba Site escolhe da mesma biblioteca. Recado deixado para a sessão do APP em docs/STATUS.md ("Recados entre sessões").
+
+- 19/11/2026 12:35 (dono "Sim"): depósito limpo na cópia `limpo` — saíram promo.mp4, teste-giro/ e o código do Leve 2 (texto do cupom virou "Um código por compra. Não vale em peça em OFERTA."). face-api FICOU (é reserva da câmera, conferido no código). Itens 1–50 da planta: ficam (o dono só tirou o depósito).
