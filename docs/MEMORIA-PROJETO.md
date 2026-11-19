@@ -3209,3 +3209,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 19/11 15:03 — 149c3 aprovado: família Campo de escrever completa (149c linha 45%/exemplo 55% + 149c2 cursor/foco/coluna + 149c3 texto a 8 px, seta fina).
 - 19/11/2026 15:20 — ✅ PUBLICADO v564 (5.46.1): B2 soltar reserva — src/95-reserva.js manda a lista em "itens" ao liberar/recusar/pagar (sai "refs"); resposta ok:false fica na fila e tenta de novo; resLimpaParadas solta UMA vez (S.resLimpo1) as reservas vencidas e não pagas paradas na nuvem. 319/319 testes (teste novo B2). Não testado em aparelho real nem contra a função de verdade (só simulada).
 - 19/11 15:35 — 149s aprovado (9 telas sem cartão). Início é a tela-central de navegação e NÃO segue a família cartão; dono vai refazer o Início.
+- 19/11 15:59 — Início refeito aprovado (149n): sino porta única, Vendido hoje em linha, quadrados|lista com troca no canto esquerdo.
