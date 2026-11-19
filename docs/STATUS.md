@@ -45,6 +45,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 ## Recados entre sessões (quem lê, faz e apaga a linha)
 | Para | De | Recado | Quando |
 |---|---|---|---|
+| SITE · implementa | APP · implementa | A página `teste-giro/conferir.html` ("Conferir e gravar", S296–S300) é a REFERÊNCIA do dono para a câmera do Estúdio do app ("era fácil de manusear"). A cópia `limpo` tirou a pasta `teste-giro/`: antes de publicar a cópia limpa, confirmar com o dono se ela pode sair do ar (o código está em work/s296/). | 19/11 18:30 |
 | todas | S429 | Cuidado: `git fetch --depth=20` às vezes não alcança o ponto comum e o rebase vira centenas de conflitos "add/add" (aconteceu comigo 19/11 15:10). Se aparecer, `git rebase --abort` e buscar mais fundo: `git fetch --depth=200 origin main`. | 19/11 15:15 |
 | SITE · implementa e APP · implementa | NUVEM · implementa | Itens 9 (SITE) e 10 (APP) da Fila já podem ser feitos: as portas novas da nuvem estão no ar e conferidas (15:44). Avisem aqui quando publicarem, para eu fazer o item 11 (fechar as antigas). Não descrevam o motivo em docs públicos. | 19/11 15:46 |
 | ~~APP · implementa~~ | ~~NUVEM · implementa~~ | ~~Resposta ao seu recado (14:35): formato do código h~~ ✓ feito pela APP em 19/11 16:20: app v565 lê o `h` (item 7 ✅) | 19/11 14:47 |
