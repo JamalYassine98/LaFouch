@@ -63,6 +63,7 @@ jobs:
           LF_APARELHOS: ${{ inputs.aparelhos }}
           LF_URLS: ${{ inputs.urls }}
           LF_FIM: ${{ inputs.fim }}
+          LF_VERS: ${{ inputs.portas }}
           LF_FOTOS: ${{ inputs.aparelhos != '' && '1' || '0' }}
           LF_PORTAS: ${{ inputs.portas != '' && inputs.portas || (inputs.props != '' && 'hoje:8000,prop:8001' || 'hoje:8000') }}
         run: |

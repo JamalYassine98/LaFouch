@@ -14,7 +14,8 @@ BLOQ = ('identitytoolkit', 'securetoken', 'google-analytics', 'googletagmanager'
 W, H = 386, 858
 with sync_playwright() as pw:
     b = pw.chromium.launch(args=['--no-sandbox'])
-    for versao, porta in (('hoje', 8000), ('prop', 8001)):
+    VERS = [(x.split(':')[0], int(x.split(':')[1])) for x in os.environ.get('LF_VERS', 'hoje:8000,prop:8001').split(',')]
+    for versao, porta in VERS:
         tmp = os.path.join(OUT, 'tmp_' + versao)
         c = b.new_context(viewport={'width': W, 'height': H}, is_mobile=True, has_touch=True, locale='pt-BR', service_workers='block',
                           record_video_dir=tmp, record_video_size={'width': W, 'height': H})
@@ -25,7 +26,7 @@ with sync_playwright() as pw:
             pg.evaluate("()=>{const p=document.querySelector('#drw .dpn');p.scrollBy({top:90,behavior:'smooth'})}"); pg.wait_for_timeout(350)
         pg.wait_for_timeout(1500)
         pg.evaluate("()=>{document.querySelector('#drw .dpn').scrollTo({top:0,behavior:'smooth'})}"); pg.wait_for_timeout(1800)
-        if versao == 'prop': pg.tap('#mnb', force=True)
+        if versao != 'hoje': pg.tap('#mnb', force=True)
         else: pg.evaluate("()=>document.querySelector('#drw [data-dclose]').click()")
         pg.wait_for_timeout(2200)
         v = pg.video.path(); c.close()
