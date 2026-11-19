@@ -23,14 +23,22 @@ with sync_playwright() as pw:
             c.add_init_script("(function(){var h=document.documentElement;function f(){if(h.hasAttribute('data-ev'))h.removeAttribute('data-ev');var b=document.getElementById('evbar');if(b)b.style.display='none'}new MutationObserver(f).observe(h,{attributes:true,attributeFilter:['data-ev'],childList:true,subtree:true});f()})()")
         c.add_init_script(INIT); c.route('**/*', lambda r: r.abort() if any(x in r.request.url for x in BLOQ) else r.continue_())
         pg = c.new_page(); pg.goto('http://127.0.0.1:%d/' % porta, wait_until='load', timeout=60000); pg.wait_for_timeout(4000)
-        pg.tap('#mnb', force=True); pg.wait_for_timeout(2500)
-        for k in range(10):
-            pg.evaluate("()=>{const p=document.querySelector('#drw .dpn');p.scrollBy({top:90,behavior:'smooth'})}"); pg.wait_for_timeout(350)
-        pg.wait_for_timeout(1500)
-        pg.evaluate("()=>{document.querySelector('#drw .dpn').scrollTo({top:0,behavior:'smooth'})}"); pg.wait_for_timeout(1800)
-        if versao != 'hoje': pg.tap('#mnb', force=True)
-        else: pg.evaluate("()=>document.querySelector('#drw [data-dclose]').click()")
-        pg.wait_for_timeout(2200)
+        if os.environ.get('LF_ROTEIRO') == 'tres':  # os 3 botões do topo: busca, carrinho e menu — abre, espera, fecha
+            FECHA = {'#sbtn': "()=>{const c=document.querySelector('#sov [data-sox]');c&&c.click()}", '#bagbtn': "()=>{const c=document.querySelector('#layer button.x,#layer [aria-label=\"Fechar\"]');c&&c.click()}", '#mnb': "()=>{const c=document.querySelector('#drw [data-dclose]');c&&c.click()}"}
+            for bt in ('#sbtn', '#bagbtn', '#mnb'):
+                pg.tap(bt, force=True); pg.wait_for_timeout(1800)
+                if versao == 'hoje': pg.evaluate(FECHA[bt])
+                else: pg.tap(bt, force=True)
+                pg.wait_for_timeout(1300)
+        else:
+            pg.tap('#mnb', force=True); pg.wait_for_timeout(2500)
+            for k in range(10):
+                pg.evaluate("()=>{const p=document.querySelector('#drw .dpn');p.scrollBy({top:90,behavior:'smooth'})}"); pg.wait_for_timeout(350)
+            pg.wait_for_timeout(1500)
+            pg.evaluate("()=>{document.querySelector('#drw .dpn').scrollTo({top:0,behavior:'smooth'})}"); pg.wait_for_timeout(1800)
+            if versao != 'hoje': pg.tap('#mnb', force=True)
+            else: pg.evaluate("()=>document.querySelector('#drw [data-dclose]').click()")
+            pg.wait_for_timeout(2200)
         v = pg.video.path(); c.close()
         shutil.move(v, os.path.join(OUT, versao + '.webm')); shutil.rmtree(tmp, ignore_errors=True)
         print('ok', versao, flush=True)
