@@ -14,6 +14,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 | Sessão (assunto) | Frente | Telas / arquivos | Desde |
 |---|---|---|---|
 | App (S435 famílias: Voltar, Link ›, Linha de lista, Dobra ⌄, Adicionar +, "+" em texto, Título, Fechar ×) | APP | esboços em work/s437 (só esboço, nada no código ainda); docs/FAMILIAS-BOTOES.md | 19/11 |
+| App (S436 famílias: Principal, Secundário, Perigo, Desfazer, Ícone redondo, Escolha, Opção de janela, − / +, Liga/desliga, Número tocável, Cartão de peça, Mostrar mais) | APP | esboços em work/s436 (só esboço, nada no código ainda). Agora: Ícone redondo | 19/11 12:30 |
 | Site (S429 cópia limpa) | SITE | catalogo ramo `limpo` (index.html, js/lf-site.js) — fora do ar | 19/11 |
 
 ## Recados entre sessões (quem lê, faz e apaga a linha)
