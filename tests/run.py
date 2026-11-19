@@ -1673,7 +1673,7 @@ async def main():
             tokflow = [st_err, 'não é o do pedido' in errtk, st_ok]
             total += 1
             ok = (n1 == 1 and n2 == 0 and r == [1, 'Maria souza', 2, 'novo', 'site', 1, '0981123456', True, True] and sorted(set(apagados)) == ['abc1', 'abc1c', 'abc2']
-                  and 'Conferir comprovante' in txt and 'TESTE' in txt and extra == ['comp', 'delivery', 'alias', True, 210000, '1234567-8', True] and 'Banco Familiar' in pagtxt and 'Delivery' in pagtxt and 'LF-' in txt2 and len(reservas) == 1 and reservas[0].startswith('reservas/abc1|') and 'pago' in reservas[0] and 'nova' in det.lower() and 'novo pedido' not in txt.lower() and tokok and 'Maria souza' in det and ('Armação azul' in det or 'AC1' in det)
+                  and 'Conferir comprovante' in txt and 'TESTE' in txt and extra == ['comp', 'delivery', 'alias', True, 210000, '1234567-8', True] and 'Banco Familiar' in pagtxt and 'Delivery' in pagtxt and 'LF-' in txt2 and len([x for x in reservas if x.startswith('reservas/')]) == 1 and [x for x in reservas if x.startswith('reservas/')][0].startswith('reservas/abc1|') and 'pago' in [x for x in reservas if x.startswith('reservas/')][0] and [x.split('|')[0] for x in reservas if x.startswith('reservasTok/')] == ['reservasTok/abc1'] and 'nova' in det.lower() and 'novo pedido' not in txt.lower() and tokok and 'Maria souza' in det and ('Armação azul' in det or 'AC1' in det)
                   and '3 peças' in jan and 'neste pedido' in jan.lower() and r2 == ['sep', 'sep'] and tokflow == ['pronto', True, 'ent'] and not pg.erros)
             print(('  ok  ' if ok else ' FALHA ') + 'pedidos do site: chegam sozinhos, cadastram o cliente, detalhe e janela da peça')
             if not ok: falhas.append('pedidos'); print('        veio', n1, n2, r, apagados, txt[:200], det[:200], jan[:200], r2, pg.erros)
@@ -3588,6 +3588,41 @@ async def main():
             ok = got == [True, True, True] and not pg.erros
             print(('  ok  ' if ok else ' FALHA ') + 'P1 no app: reserva com código h acha o pedido (vencida e órfã cancelada soltas); código desconhecido e pedido vivo ficam')
             if not ok: falhas.append('P1 no app'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # B1 (19/11/2026): tocar no nome da cliente no pedido abre a ficha dela em Clientes
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              S.clientes.push({ id: 987654, nome: 'Cliente B1', tel: '0981000111', ruc: '', obs: '' });
+              L.ACT.pedcli(987654); await w(300);
+              const f = document.getElementById('cliFicha'), r = [S.view, S.cliSel, !!f && f.getBoundingClientRect().height > 0 && /Cliente B1/.test(f.textContent || '') || !!f && [...f.querySelectorAll('input')].some(i => i.value === 'Cliente B1')];
+              S.clientes = S.clientes.filter(c => c.id !== 987654); S.cliSel = null; return r; }""")
+            total += 1
+            ok = got == ['clientes', 987654, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'B1: nome da cliente no pedido abre a ficha dela em Clientes')
+            if not ok: falhas.append('B1 cliente do pedido'); print('        veio', got, pg.erros)
+            await pg.close()
+
+            # S1/S2 parte 2 (19/11/2026): pagamento confirmado grava o token também em reservasTok/<pedido>
+            pg = await pagina()
+            got = await pg.evaluate("""async () => { const L = window.__LF, S = L.S, w = ms => new Promise(r => setTimeout(r, ms));
+              const nv0 = S.nuvem, f0 = window.fetch, ch = [];
+              window.fetch = async (u, o) => { u = String(u);
+                if (/securetoken/.test(u)) return new Response(JSON.stringify({ id_token: 't', refresh_token: 'teste' }), { status: 200 });
+                if (/firestore/.test(u)) ch.push([o.method, u.replace(/^.*documents\\//, ''), o.body ? JSON.parse(o.body) : null]);
+                return new Response('{}', { status: 200 }); };
+              S.nuvem = { rt: 'teste' };
+              S.pedidos.push({ id: 'pTK', num: 'pTK', sid: 'SIDTOK1', orig: 'site', st: 'novo', pg: 'pagar', itens: [{ ref: 'AAA1', cor: '', q: 1 }] });
+              L.ACT.pedpago('pTK'); await w(400);
+              const p = S.pedidos.find(x => x.id === 'pTK'), tok = p.tok;
+              const rTok = ch.find(c => c[0] === 'PATCH' && /^reservasTok\\/SIDTOK1\\?updateMask.fieldPaths=tok$/.test(c[1]));
+              const rRes = ch.find(c => c[0] === 'PATCH' && /^reservas\\/SIDTOK1\\?/.test(c[1]));
+              window.fetch = f0; S.pedidos = S.pedidos.filter(x => x.id !== 'pTK'); S.nuvem = nv0;
+              return [!!tok, !!rTok && rTok[2].fields.tok.stringValue === tok, !!rRes && rRes[2].fields.pago.booleanValue === true && rRes[2].fields.tok.stringValue === tok]; }""")
+            total += 1
+            ok = got == [True, True, True] and not pg.erros
+            print(('  ok  ' if ok else ' FALHA ') + 'S1/S2 parte 2: pagamento confirmado grava o token em reservasTok (e continua em reservas até a parte 3)')
+            if not ok: falhas.append('token reservasTok'); print('        veio', got, pg.erros)
             await pg.close()
 
             # Pagamento automático (v450): PIX do Nubank confirma o pedido com o valor único; 2 pedidos iguais não confirmam; comprovante confere; ficha sem "separado/embalado"; cancelar avisa o site

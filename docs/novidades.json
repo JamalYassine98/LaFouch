@@ -1,7 +1,8 @@
 {
- "nome": "5.46.2",
+ "nome": "5.46.3",
  "notas": [
-  "Reservas do site mais seguras: a lista pública não mostra mais o número do pedido; o app reconhece cada reserva pelo código novo e continua soltando as que ficaram presas."
+  "Pedido do site: tocar no nome da cliente abre a ficha dela em Clientes (antes abria uma tela vazia).",
+  "Pagamento confirmado: o token de entrega também fica guardado num lugar fechado da nuvem (passo 2 da segurança da conta e do token)."
  ],
- "build": 565
+ "build": 566
 }

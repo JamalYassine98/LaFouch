@@ -523,3 +523,7 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - `resLimpaParadas` (chamada no `resBusca`): uma única vez (`S.resLimpo1`, em PERSIST) põe na fila as reservas vencidas e não pagas da nuvem. Testes: "B2 soltar reserva" e "pedido entregue/cancelado" (corpo com `itens`).
 - P1 (v565): a lista pública traz `h` (20 hex do sha256 de `'lf-res|' + pedido`, igual a `H` em functions/reserva.js) em vez do `pid`. `resHMapa` calcula o código de todos os pedidos do app (e da fila) → `RES_HMAP`; `resSid(x)` = `pid` antigo ou o pedido do código. `resOrfas` e `resLimpaParadas` usam `resSid`; código que o app não conhece fica como está (a limpeza diária da função cuida).
 
+## Pedido do site — cliente e token (v566, 19/11/2026)
+- `ACT.pedcli(id)` (src/95-pedidos.js): abre a tela `clientes` com `S.cliSel = id` (ficha da cliente).
+- `pedReserva(p, campos)`: PATCH em `reservas/<sid>`; se `campos.tok`, também PATCH em `reservasTok/<sid>` (`{tok}`, só dono/servidor leem). Quando a NUVEM fizer a parte 3 (item 11), o `tok` deixa de ir para `reservas/` — tirar daqui no mesmo passo.
+

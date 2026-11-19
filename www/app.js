@@ -1071,9 +1071,9 @@ function svg(text,px){var M=make(text),n=M.length,b=4,d='';for(var y=0;y<n;y++)f
 window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={svg:svg,make:make};
 })();
   // Número desta versão do app (vem do sw.js na hora de montar) e da parte "nativa" (APK). Usado pela atualização automática.
-  var APP_BUILD = 565;
+  var APP_BUILD = 566;
   var APP_NAT = 1; // sobe só quando uma mudança precisa de APK novo (ex.: canais de som, permissões); aí a atualização automática espera o APK
-  var APP_NOME = '5.46.2'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
+  var APP_NOME = '5.46.3'; // nome da versão que o dono vê (ex.: 3.4); o número acima é o interno
   // ===== Marcação do menu Adicionar feita pelo app (v418) =====
   // A atualização automática troca só app.js e style.css; o index.html continua o do APK.
   // Por isso o menu é montado aqui: assim o celular recebe o desenho novo sem precisar de APK.
@@ -25791,7 +25791,17 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
           return 'updateMask.fieldPaths=' + k;
         })
         .join('&');
-    return nvApi('PATCH', 'reservas/' + encodeURIComponent(p.sid) + '?' + m, JSON.stringify({ fields: f }));
+    var r = nvApi('PATCH', 'reservas/' + encodeURIComponent(p.sid) + '?' + m, JSON.stringify({ fields: f }));
+    // S1/S2 parte 2 (19/11): o token de entrega vai também para reservasTok/<pedido> (só o dono e o servidor leem; o site pede à função).
+    // Por enquanto continua também em reservas/ (o site antigo ainda lê de lá); quem para de gravar lá é a parte 3 (NUVEM, item 11).
+    if (campos.tok)
+      r = Promise.all([
+        r,
+        nvApi('PATCH', 'reservasTok/' + encodeURIComponent(p.sid) + '?updateMask.fieldPaths=tok', JSON.stringify({ fields: { tok: { stringValue: String(campos.tok) } } }))
+      ]).then(function (x) {
+        return x[0];
+      });
+    return r;
   }
   function pedFalhaSite() {
     say('Marcado aqui, mas não consegui avisar o site (sem internet ou sem permissão no Firebase).');
@@ -26013,7 +26023,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
   ACT.pedcli = function (id) {
     S.cliSel = +id;
     S._cliDel = 0;
-    setView('cli');
+    setView('clientes'); // B1 (19/11): a tela é "clientes" ("cli" não existe e abria uma tela vazia)
     window.scrollTo(0, 0);
   };
   ACT.pedav = function (id) {

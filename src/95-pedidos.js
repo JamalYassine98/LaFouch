@@ -610,7 +610,17 @@
           return 'updateMask.fieldPaths=' + k;
         })
         .join('&');
-    return nvApi('PATCH', 'reservas/' + encodeURIComponent(p.sid) + '?' + m, JSON.stringify({ fields: f }));
+    var r = nvApi('PATCH', 'reservas/' + encodeURIComponent(p.sid) + '?' + m, JSON.stringify({ fields: f }));
+    // S1/S2 parte 2 (19/11): o token de entrega vai também para reservasTok/<pedido> (só o dono e o servidor leem; o site pede à função).
+    // Por enquanto continua também em reservas/ (o site antigo ainda lê de lá); quem para de gravar lá é a parte 3 (NUVEM, item 11).
+    if (campos.tok)
+      r = Promise.all([
+        r,
+        nvApi('PATCH', 'reservasTok/' + encodeURIComponent(p.sid) + '?updateMask.fieldPaths=tok', JSON.stringify({ fields: { tok: { stringValue: String(campos.tok) } } }))
+      ]).then(function (x) {
+        return x[0];
+      });
+    return r;
   }
   function pedFalhaSite() {
     say('Marcado aqui, mas não consegui avisar o site (sem internet ou sem permissão no Firebase).');
@@ -832,7 +842,7 @@
   ACT.pedcli = function (id) {
     S.cliSel = +id;
     S._cliDel = 0;
-    setView('cli');
+    setView('clientes'); // B1 (19/11): a tela é "clientes" ("cli" não existe e abria uma tela vazia)
     window.scrollTo(0, 0);
   };
   ACT.pedav = function (id) {
