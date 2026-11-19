@@ -12,7 +12,7 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 ## Em andamento
 | Sessão (assunto) | Frente | Telas / arquivos | Desde |
 |---|---|---|---|
-| — | — | — | — |
+| Site (S429 cópia limpa) | SITE | catalogo ramo `limpo` (index.html, js/lf-site.js) — fora do ar | 19/11 |
 
 ## Últimas mudanças (mais nova em cima; manter só as ~20 últimas)
 - 19/11/2026 — criado este STATUS.md e a regra no CLAUDE.md.
