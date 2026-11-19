@@ -2,6 +2,7 @@
 
 Para que várias sessões trabalhem ao mesmo tempo sem mexer na mesma coisa.
 **Toda sessão:** puxar o mais novo (`git fetch --depth=20 origin main` + rebase) e ler este arquivo antes de começar; ao começar, pôr a sua linha em "Em andamento"; ao terminar (ou parar), tirar a linha e escrever 1 linha em "Últimas mudanças". Commit + push na hora (`git fetch --depth=20 origin main` + rebase antes do push).
+Ler também "Recados": o que for para você, fazer e apagar a linha.
 Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sessão: NÃO mexer; avisar o dono.
 
 ## Onde está o estudo de cada parte (ler o que já existe, não refazer)
@@ -14,6 +15,11 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 |---|---|---|---|
 | App (S435 famílias de botões) | APP | só leitura do inventário: docs/FAMILIAS-BOTOES.md (novo), work/verif/familias2.py | 19/11 |
 | Site (S429 cópia limpa) | SITE | catalogo ramo `limpo` (index.html, js/lf-site.js) — fora do ar | 19/11 |
+
+## Recados entre sessões (quem lê, faz e apaga a linha)
+| Para | De | Recado | Quando |
+|---|---|---|---|
+| — | — | — | — |
 
 ## Últimas mudanças (mais nova em cima; manter só as ~20 últimas)
 - 19/11/2026 12:17 — sessão de apoio: ESBOÇO DE EXEMPLO da família Voltar no Pagamento (work/s436/esboco_voltar_*.jpg): "‹ Carrinho" 15 px → "‹ CARRINHO" versalete 12 px igual ao Câmbio. Esperando o dono; nada no código. S435: usar como modelo se o dono aprovar.
