@@ -1,7 +1,7 @@
 {
 "tela": "inventario-fornecedores",
 "modo": "atual",
-"quando": "19/11 11:05",
+"quando": "19/11 14:09",
 "passos": [
 "()=>window.__LF.setView('estoque')",
 "()=>{const e=[...document.querySelectorAll('#v-estoque button')].filter(x=>x.getBoundingClientRect().height).filter(x=>/Fornecedores/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
@@ -9,13 +9,13 @@
 "escuro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
-"cara": "ícone quadrado",
-"h": 46,
-"w": 46,
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
 "cor": "rgb(243, 192, 220)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -79,7 +79,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 97,
+"w": 102,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -101,7 +101,7 @@
 "act": "",
 "cara": "texto",
 "h": 42,
-"w": 61,
+"w": 65,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -112,7 +112,7 @@
 "act": "",
 "cara": "texto",
 "h": 42,
-"w": 112,
+"w": 119,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -134,7 +134,7 @@
 "act": "",
 "cara": "caixa",
 "h": 34,
-"w": 66,
+"w": 68,
 "cor": "rgb(203, 213, 225)",
 "borda": "rgb(42, 52, 65)",
 "bw": 1,
@@ -156,7 +156,7 @@
 "act": "",
 "cara": "pílula",
 "h": 44,
-"w": 132,
+"w": 140,
 "cor": "rgb(231, 237, 245)",
 "borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
 "bw": 1,
@@ -167,7 +167,7 @@
 "act": "lcIrGiro",
 "cara": "texto",
 "h": 44,
-"w": 223,
+"w": 238,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -191,7 +191,7 @@
 "r": "2 centro vertical",
 "ex": [
 "Inventário Grupo Pré-graduados › G",
-"Δ10.0px"
+"Δ10.5px"
 ]
 },
 {
@@ -212,7 +212,7 @@
 "r": "7 linha de base",
 "ex": [
 "Kazwini · Pré-graduados (leitura) ",
-"Δ6.8px"
+"Δ5.8px"
 ]
 },
 {
@@ -263,7 +263,7 @@
 "i": 0,
 "act": "view",
 "id": "notif",
-"txt": "12",
+"txt": "13",
 "tag": "BUTTON",
 "efeito": [
 "leva → notif"
@@ -450,13 +450,13 @@
 "claro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
-"cara": "ícone quadrado",
-"h": 46,
-"w": 46,
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
 "cor": "rgb(141, 58, 105)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -520,7 +520,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 97,
+"w": 102,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -542,7 +542,7 @@
 "act": "",
 "cara": "texto",
 "h": 42,
-"w": 61,
+"w": 65,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -553,7 +553,7 @@
 "act": "",
 "cara": "texto",
 "h": 42,
-"w": 112,
+"w": 119,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -575,7 +575,7 @@
 "act": "",
 "cara": "caixa",
 "h": 34,
-"w": 66,
+"w": 68,
 "cor": "rgb(71, 85, 105)",
 "borda": "rgb(217, 208, 216)",
 "bw": 1,
@@ -597,7 +597,7 @@
 "act": "",
 "cara": "pílula",
 "h": 44,
-"w": 132,
+"w": 140,
 "cor": "rgb(31, 26, 34)",
 "borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
 "bw": 1,
@@ -608,7 +608,7 @@
 "act": "lcIrGiro",
 "cara": "texto",
 "h": 44,
-"w": 223,
+"w": 238,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -632,7 +632,7 @@
 "r": "2 centro vertical",
 "ex": [
 "Inventário Grupo Pré-graduados › G",
-"Δ10.0px"
+"Δ10.5px"
 ]
 },
 {
@@ -653,7 +653,7 @@
 "r": "7 linha de base",
 "ex": [
 "Kazwini · Pré-graduados (leitura) ",
-"Δ6.8px"
+"Δ5.8px"
 ]
 },
 {
@@ -698,5 +698,5 @@
 "erros_js": [],
 "rola_vazio": 85
 },
-"seg": 126
+"seg": 100
 }

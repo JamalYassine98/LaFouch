@@ -2,20 +2,20 @@
 
 Memória das telas (regra do dono 18/11 22:59). Gerado por work/verif/passada.py + inventario.py. Atualizar só a tela que mudou: `MODO=aprov SO=<tela> python3 passada.py && python3 inventario.py aprov`.
 
-Telas: 65 · botões tocados (3x cada): 512 · fotos: work/verif/inv/aprov/img
+Telas: 66 · botões tocados (3x cada): 497 · fotos: work/verif/inv/aprov/img
 
 ## Famílias de botões
 
 | Família | Qtd | Cara mais comum | Fogem do padrão |
 |---|---|---|---|
-| texto/linha tocável | 160 | texto · 15px · abre/mexe no lugar | 136 |
+| texto/linha tocável | 151 | texto · 15px · abre/mexe no lugar | 130 |
 | linha de lista | 125 | texto · 15px · abre/mexe no lugar | 57 |
-| fechar/voltar | 44 | texto · 26px · leva a outra tela | 25 |
-| ícone | 39 | ícone redondo · 15px · leva a outra tela | 18 |
-| link › (sai daqui) | 39 | texto · 15px · leva a outra tela | 24 |
-| opção/pílula | 35 | pílula · 13px · abre/mexe no lugar | 17 |
+| fechar/voltar | 41 | texto · 26px · leva a outra tela | 23 |
+| ícone | 39 | ícone redondo · 15px · leva a outra tela | 19 |
+| link › (sai daqui) | 38 | texto · 15px · leva a outra tela | 23 |
+| opção/pílula | 34 | pílula · 13px · abre/mexe no lugar | 16 |
 | perigo/desfazer | 26 | ícone redondo · 15px · abre/mexe no lugar | 17 |
-| adicionar | 20 | ícone redondo · 15px · abre janela | 12 |
+| adicionar | 19 | ícone redondo · 15px · abre janela | 12 |
 | principal (salvar/confirmar) | 15 | barra grande · 16px · abre/mexe no lugar | 9 |
 | link ⌄ (abre no lugar) | 8 | texto · 15px · abre/mexe no lugar | 1 |
 | barra de baixo | 1 | texto · 15px · leva a outra tela | 0 |
@@ -60,7 +60,7 @@ Telas: 65 · botões tocados (3x cada): 512 · fotos: work/verif/inv/aprov/img
 - precos-contas · "Maquininha débito" · caixa redonda · 
 - precos-contas · "Maquininha crédito" · caixa redonda · 
 
-**botão só desenhado no esboço (ganha função ao implementar)** — 26
+**botão só desenhado no esboço (ganha função ao implementar)** — 27
 - marketing-post · "" · ícone redondo · sem efeito visível
 - atacado-novo-acesso · "Lojista fixo não vence" · caixa · sem efeito visível
 - caixa-reservado · "Reservas" · texto · sem efeito visível
@@ -71,6 +71,7 @@ Telas: 65 · botões tocados (3x cada): 512 · fotos: work/verif/inv/aprov/img
 - dash-semana · "Dashboard" · texto · sem efeito visível
 - giro-lista-compras · "Giro" · texto · sem efeito visível
 - giro-no-estoque · "Produtos" · texto · sem efeito visível
+- giro-no-estoque · "EM ESTOQUE (FILTRO) › 470" · None · sem efeito visível
 - giro-retorno · "Giro" · texto · sem efeito visível
 - guardiao · "Silenciar 7 dias" · texto · sem efeito visível
 - hist-dia · "Dashboard" · texto · sem efeito visível
@@ -88,7 +89,7 @@ Telas: 65 · botões tocados (3x cada): 512 · fotos: work/verif/inv/aprov/img
 - inventario-ficha · "Sem detalhesem foto 343 un." · texto · sem efeito visível
 - inventario-editar · "" · pílula · sem efeito visível
 
-**toque sem efeito visível (conferir à mão)** — 25
+**toque sem efeito visível (conferir à mão)** — 24
 - dash-contas-dia · "Marcar como paga neste mês" · ícone redondo · sem efeito visível
 - dash-contas-dia · "Marcar como paga neste mês" · ícone redondo · sem efeito visível
 - dash-mes-vendido · "Ir para uma data" · ícone redondo · sem efeito visível
@@ -96,18 +97,17 @@ Telas: 65 · botões tocados (3x cada): 512 · fotos: work/verif/inv/aprov/img
 - despesas-conta · "Marcar como paga neste mês" · ícone redondo · sem efeito visível
 - hist-lista · "Ir para uma data" · ícone redondo · sem efeito visível
 - atacado-lojistas · "Lojistas" · texto · sem efeito visível
-- atacado-tabela · "Tabela" · texto · sem efeito visível
 - caixa-reservado · "G$" · texto · sem efeito visível
 - caixa-retirar · "G$" · texto · sem efeito visível
 - clientes-novo · "Paraguaio" · texto · sem efeito visível
-- dash-semana · "G$ 1.289.500" · None · sem efeito visível
-- dash-semana · "G$ 446.000" · None · sem efeito visível
-- inventario-ficha-historico · "Histórico" · texto · sem efeito visível
+- dash-semana · "G$ 1.289.500" · texto · sem efeito visível
+- dash-semana · "G$ 445.400" · texto · sem efeito visível
 - inventario-ficha · "Estoque" · texto · sem efeito visível
 - reservas-para-onde · "G$" · texto · sem efeito visível
 - inicio · "‹" · texto · sem efeito visível
 - inventario-fornecedores · "‹ INVENTÁRIO" · texto · sem efeito visível
 - inventario-fornecedores · "‹" · texto · sem efeito visível
+- pendencias · "Ver preços ›" · texto · sem efeito visível
 - caixa-movimentos · "Desfazer" · texto · sem efeito visível
 - caixa-movimentos · "Desfazer" · texto · sem efeito visível
 - caixa-movimentos · "Desfazer" · texto · sem efeito visível
@@ -123,7 +123,7 @@ Telas: 65 · botões tocados (3x cada): 512 · fotos: work/verif/inv/aprov/img
 - dash-folha-periodo · "Este mês 1 a 19 de novembro" · texto · leva a outra tela
 - dash-folha-periodo · "Últimos 30 dias 21 de outubro a 19 " · texto · leva a outra tela
 - dash-folha-ver · "Contas do dia G$ 140.000 1/30 de G$" · texto · leva a outra tela
-- marketing · "Óculos solar #13 27 vendidas em 30 " · barra grande · abre janela
+- marketing · "Óculos solar #13 26 vendidas em 30 " · barra grande · abre janela
 - marketing · "Seg · Post · 20h Peça do objetivo —" · texto · abre janela
 - marketing · "Ter · Status · 12h Status do dia — " · texto · abre janela
 - marketing · "Qua · Carrossel · 20h Carrossel com" · texto · abre janela
@@ -137,14 +137,13 @@ Telas: 65 · botões tocados (3x cada): 512 · fotos: work/verif/inv/aprov/img
 - guardiao · "Ver ›" · texto · sem efeito visível
 - guardiao · "Fazer ›" · texto · sem efeito visível
 - guardiao · "Completar ›" · texto · sem efeito visível
-- inventario-ficha-historico · "Fotografar no Estúdio ›" · texto · abre/mexe no lugar
 - inventario-ficha · "Fotografar no Estúdio ›" · texto · abre/mexe no lugar
-- pendencias · "Ver preços ›" · texto · abre/mexe no lugar
+- pendencias · "Ver preços ›" · texto · sem efeito visível
+- pendencias · "Fechar ›" · texto · abre/mexe no lugar
 - pendencias · "Ver reposição ›" · texto · abre/mexe no lugar
 
-**ícone quadrado (aprovado: redondo, 137a)** — 3
+**ícone quadrado (aprovado: redondo, 137a)** — 2
 - catalogo-peca · "−" · ícone quadrado · sem efeito visível
-- inventario-ficha · "Voltar" · ícone quadrado · abre/mexe no lugar
 - catalogo-peca · "+" · ícone quadrado · sem efeito visível
 
 **"Fechar"/"×" em janela (P6: fecha arrastando)** — 2
@@ -174,6 +173,7 @@ Telas: 65 · botões tocados (3x cada): 512 · fotos: work/verif/inv/aprov/img
 - despesas-conta · "Marcar como paga neste mês" · ícone redondo 15px · sem efeito visível
 - despesas-conta · "Marcar como paga neste mês" · ícone redondo 15px · sem efeito visível
 - despesas-conta · "Marcar como paga neste mês" · ícone redondo 15px · abre/mexe no lugar
+- giro-no-estoque · "Filtros e ordem" · ícone redondo 15px · abre janela
 - hist-lista · "Ir para uma data" · ícone redondo 15px · sem efeito visível
 - hist-lista · "Filtros" · ícone redondo 15px · abre/mexe no lugar
 - hist-semana · "Pix" · ícone redondo 13px · abre/mexe no lugar
@@ -194,7 +194,6 @@ Telas: 65 · botões tocados (3x cada): 512 · fotos: work/verif/inv/aprov/img
 - atacado-lojistas · "Lojistas" · texto 15px · sem efeito visível
 - atacado-novo-acesso · "Lojista fixo não vence" · caixa 15px · sem efeito visível
 - atacado-novo-acesso · "Visitante vence em 3 dias" · caixa 15px · abre/mexe no lugar
-- atacado-tabela · "Tabela" · texto 15px · sem efeito visível
 - atacado-tabela · "Ver a tabela de atacado Os preços c" · texto 15px · abre janela
 - atacado-tabela · "Editar tabelas Margem, mínimo e fre" · texto 15px · abre janela
 - caixa-acoes · "Retirar" · texto 15px · abre janela
@@ -228,8 +227,8 @@ Telas: 65 · botões tocados (3x cada): 512 · fotos: work/verif/inv/aprov/img
 - clientes-novo · "Estrangeiro" · texto 14px · liga/desliga ou escolhe
 - dash-folha-ver · "Dashboard" · texto 28px · sem efeito visível
 - dash-semana · "Dashboard" · texto 28px · sem efeito visível
-- dash-semana · "G$ 1.289.500" · None None · sem efeito visível
-- dash-semana · "G$ 446.000" · None None · sem efeito visível
+- dash-semana · "G$ 1.289.500" · texto 26px · sem efeito visível
+- dash-semana · "G$ 445.400" · texto 26px · sem efeito visível
 - giro-lista-compras · "Giro" · texto 28px · sem efeito visível
 - giro-lista-compras · "−" · texto 18px · abre/mexe no lugar
 - giro-lista-compras · "−" · texto 18px · abre/mexe no lugar
@@ -237,9 +236,8 @@ Telas: 65 · botões tocados (3x cada): 512 · fotos: work/verif/inv/aprov/img
 - giro-lista-compras · "−" · texto 18px · abre/mexe no lugar
 - giro-lista-compras · "−" · texto 18px · abre/mexe no lugar
 - giro-no-estoque · "Produtos" · texto 15px · sem efeito visível
-- giro-no-estoque · "EM ESTOQUE (FILTRO) › 470" · texto 15px · liga/desliga ou escolhe
+- giro-no-estoque · "EM ESTOQUE (FILTRO) › 470" · None None · sem efeito visível
 - giro-no-estoque · "Buscar com a câmera" · texto 15px · abre janela
-- giro-no-estoque · "Filtros e ordem" · texto 15px · abre janela
 - giro-no-estoque · "Óculos de leitura Kazwini de acetat" · caixa 15px · abre/mexe no lugar
 - giro-no-estoque · "Óculos de leitura de plástico femin" · caixa 15px · abre/mexe no lugar
 - giro-no-estoque · "Armação Gucci de metal feminino Cód" · caixa 15px · abre/mexe no lugar
@@ -257,10 +255,6 @@ Telas: 65 · botões tocados (3x cada): 512 · fotos: work/verif/inv/aprov/img
 - inicio · "Atacado Orçamentos" · caixa 15px · leva a outra tela
 - inventario-editar · "Modelo" · texto 14px · sem efeito visível
 - inventario-editar · "Cores e fotos" · texto 14px · abre/mexe no lugar
-- inventario-ficha-historico · "Estoque" · texto 14px · abre/mexe no lugar
-- inventario-ficha-historico · "Histórico" · texto 14px · sem efeito visível
-- inventario-ficha-historico · "Site" · texto 14px · liga/desliga ou escolhe
-- inventario-ficha-historico · "Preço" · texto 14px · liga/desliga ou escolhe
 - inventario-ficha · "Estoque" · texto 14px · sem efeito visível
 - inventario-ficha · "Histórico" · texto 14px · liga/desliga ou escolhe
 - inventario-ficha · "Site" · texto 14px · liga/desliga ou escolhe
@@ -324,9 +318,8 @@ Telas: 65 · botões tocados (3x cada): 512 · fotos: work/verif/inv/aprov/img
 - caixa-conferir · "Fechar" · texto 15px · abre/mexe no lugar
 - caixa-reservado · "‹ CAIXA" · texto 12px · leva a outra tela
 - cambio · "‹ DINHEIRO" · texto 12px · leva a outra tela
-- catalogo-carrinho · "‹ Catálogo" · texto 15px · abre/mexe no lugar
+- catalogo-carrinho · "‹ CATÁLOGO" · texto 12px · abre/mexe no lugar
 - catalogo-pagamento · "‹ Carrinho" · texto 15px · abre/mexe no lugar
-- catalogo-peca · "Voltar" · ícone redondo 14px · abre/mexe no lugar
 - dash-contas-dia · "‹ DIA" · texto 12px · leva a outra tela
 - dash-mes-vendido · "‹ DASHBOARD" · texto 12px · leva a outra tela
 - dash-semana · "‹ RESULTADOS" · texto 12px · leva a outra tela
@@ -338,9 +331,8 @@ Telas: 65 · botões tocados (3x cada): 512 · fotos: work/verif/inv/aprov/img
 - hist-dia · "‹ HISTÓRICO" · texto 12px · leva a outra tela
 - hist-lista · "‹ RESULTADOS" · texto 12px · leva a outra tela
 - inicio · "‹" · texto 26px · sem efeito visível
-- inventario-ficha-historico · "‹ PEÇAS" · texto 12px · leva a outra tela
 - inventario-ficha · "‹ PEÇAS" · texto 12px · leva a outra tela
-- inventario-ficha · "Voltar" · ícone quadrado 14px · abre/mexe no lugar
+- inventario-ficha · "‹ INVENTÁRIO" · texto 12px · abre/mexe no lugar
 - inventario-fornecedores · "‹ INVENTÁRIO" · texto 12px · sem efeito visível
 - inventario-fornecedores · "‹" · texto 26px · sem efeito visível
 - marketing · "‹ MARKETING" · texto 12px · leva a outra tela
@@ -382,7 +374,6 @@ Telas: 65 · botões tocados (3x cada): 512 · fotos: work/verif/inv/aprov/img
 - dash-folha-ver · "Dias anteriores no Histórico ›" · texto 13px · leva a outra tela
 - dash-mes · "Este mês ›" · texto 15px · abre janela
 - dash-semana · "Esta semana ›" · texto 15px · abre janela
-- giro-no-estoque · "15 preços para corrigir ›" · texto 13px · leva a outra tela
 - grp-dinheiro · "Gerenciar grupo ›" · texto 15px · abre janela
 - guardiao · "Ver ›" · texto 15px · sem efeito visível
 - guardiao · "Fazer ›" · texto 15px · sem efeito visível
@@ -390,9 +381,9 @@ Telas: 65 · botões tocados (3x cada): 512 · fotos: work/verif/inv/aprov/img
 - hist-dia · "Hoje ›" · texto 15px · abre janela
 - inicio · "Guardião · 7 coisas para olhar ›" · barra grande 15px · leva a outra tela
 - inicio · "Vendido hoje · 5 venda(s) G$ 182.00" · barra grande 15px · leva a outra tela
-- inventario-ficha-historico · "Fotografar no Estúdio ›" · texto 15px · abre/mexe no lugar
 - inventario-ficha · "Fotografar no Estúdio ›" · texto 15px · abre/mexe no lugar
-- pendencias · "Ver preços ›" · texto 15px · abre/mexe no lugar
+- pendencias · "Ver preços ›" · texto 15px · sem efeito visível
+- pendencias · "Fechar ›" · texto 15px · abre/mexe no lugar
 - pendencias · "Ver reposição ›" · texto 15px · abre/mexe no lugar
 - pendencias · "Ver ›" · texto 15px · abre janela
 - pendencias · "Ver todas as conferências do Guardi" · texto 15px · abre janela
@@ -468,7 +459,7 @@ Telas: 65 · botões tocados (3x cada): 512 · fotos: work/verif/inv/aprov/img
 - hist-lista · "Semana 19/10 a 25/10 G$ 1.452.500 ·" · barra grande 15px · abre/mexe no lugar
 - inventario-ficha · "Sem detalhesem foto 343 un." · texto 14px · sem efeito visível
 - marketing-post · "Postar agora" · barra grande 16px · abre/mexe no lugar
-- marketing · "Óculos solar #13 27 vendidas em 30 " · barra grande 15px · abre janela
+- marketing · "Óculos solar #13 26 vendidas em 30 " · barra grande 15px · abre janela
 - marketing · "Seg · Post · 20h Peça do objetivo —" · texto 14px · abre janela
 - marketing · "Ter · Status · 12h Status do dia — " · texto 14px · abre janela
 - marketing · "Qua · Carrossel · 20h Carrossel com" · texto 14px · abre janela
@@ -484,7 +475,6 @@ Telas: 65 · botões tocados (3x cada): 512 · fotos: work/verif/inv/aprov/img
 - giro-lista-compras · "Mandar ao fornecedor" · pílula 15px · abre janela
 - hist-busca · "Mostrar mais (598)" · pílula 15px · abre/mexe no lugar
 - inventario-editar · "" · pílula 15px · sem efeito visível
-- inventario-ficha-historico · "Ficha 4/6" · pílula 12.5px · abre janela
 - inventario-ficha · "Ficha 4/6" · pílula 12.5px · abre janela
 - inventario-ficha · "% Oferta" · pílula 15px · abre janela
 - inventario-ficha · "No site" · pílula 15px · abre/mexe no lugar
@@ -510,7 +500,7 @@ Telas: 65 · botões tocados (3x cada): 512 · fotos: work/verif/inv/aprov/img
 - despesas-imprevistos · "✕" · 3º toque diferente do 1º · 1º ['muda a tela'] · de novo ['sumiu']
 - giro-no-estoque · "Adicionar" · abre duas janelas · 1º ['abre janela "Adicionar"', 'DUAS JANELAS'] · de novo ['nada visível']
 - inventario-fornecedores · "Adicionar" · abre duas janelas · 1º ['abre janela "Adicionar"', 'DUAS JANELAS'] · de novo ['nada visível']
-- marketing-post · "Postar agora" · 3º toque diferente do 1º · 1º ['muda a tela'] · de novo ['sumiu']
+- pendencias · "Ver preços ›" · 3º toque diferente do 1º · 1º ['nada visível'] · de novo ['muda a tela']
 
 ## Alinhamento (alin2) por tela
 
@@ -544,13 +534,12 @@ Telas: 65 · botões tocados (3x cada): 512 · fotos: work/verif/inv/aprov/img
 - cambio-troca (escuro): 13 — 1 coluna da direita; 2 centro vertical; 7 linha de base
 - cambio-trocas (claro): 9 — 1 coluna da direita; 7 linha de base
 - cambio-trocas (escuro): 9 — 1 coluna da direita; 7 linha de base
-- catalogo-carrinho (claro): 7 — 1 coluna da direita; 2 centro vertical; 7 linha de base
-- catalogo-carrinho (escuro): 7 — 1 coluna da direita; 2 centro vertical; 7 linha de base
+- catalogo-carrinho (claro): 5 — 1 coluna da direita; 2 centro vertical; 7 linha de base
+- catalogo-carrinho (escuro): 5 — 1 coluna da direita; 2 centro vertical; 7 linha de base
 - catalogo-pagamento (claro): 1 — 2 centro vertical
 - catalogo-pagamento (escuro): 1 — 2 centro vertical
-- catalogo-peca (claro): 3 — 1 coluna da direita; 2 centro vertical; 3 coluna da esquerda
-- catalogo-peca (escuro): 3 — 1 coluna da direita; 2 centro vertical; 3 coluna da esquerda
-- clientes-novo (claro): 1 — 2 centro vertical
+- catalogo-peca (claro): 4 — 1 coluna da direita; 2 centro vertical; 3 coluna da esquerda
+- catalogo-peca (escuro): 4 — 1 coluna da direita; 2 centro vertical; 3 coluna da esquerda
 - clientes-novo (escuro): 1 — 2 centro vertical
 - dash-contas-dia (claro): 1 — 2 centro vertical
 - dash-contas-dia (escuro): 1 — 2 centro vertical
@@ -567,8 +556,8 @@ Telas: 65 · botões tocados (3x cada): 512 · fotos: work/verif/inv/aprov/img
 - giro-abc (escuro): 4 — 7 linha de base
 - giro-lista-compras (claro): 1 — 7 linha de base
 - giro-lista-compras (escuro): 1 — 7 linha de base
-- giro-no-estoque (claro): 2 — 1 coluna da direita; 2 centro vertical
-- giro-no-estoque (escuro): 2 — 1 coluna da direita; 2 centro vertical
+- giro-no-estoque (claro): 2 — 2 centro vertical
+- giro-no-estoque (escuro): 2 — 2 centro vertical
 - giro-parado (claro): 4 — 7 linha de base
 - giro-parado (escuro): 4 — 7 linha de base
 - giro-retorno (claro): 4 — 7 linha de base
@@ -577,16 +566,16 @@ Telas: 65 · botões tocados (3x cada): 512 · fotos: work/verif/inv/aprov/img
 - giro-vitrine (escuro): 4 — 7 linha de base
 - guardiao (claro): 22 — 1 coluna da direita; 3 coluna da esquerda
 - guardiao (escuro): 22 — 1 coluna da direita; 3 coluna da esquerda
-- inventario-ficha (claro): 1 — 2 centro vertical
-- inventario-ficha (escuro): 1 — 2 centro vertical
+- inventario-ficha (claro): 2 — 2 centro vertical
+- inventario-ficha (escuro): 2 — 2 centro vertical
 - inventario-ficha-historico (claro): 1 — 2 centro vertical
 - inventario-ficha-historico (escuro): 1 — 2 centro vertical
 - inventario-ficha-preco (claro): 1 — 2 centro vertical
 - inventario-ficha-preco (escuro): 1 — 2 centro vertical
 - inventario-fornecedores (claro): 1 — 2 centro vertical
 - inventario-fornecedores (escuro): 1 — 2 centro vertical
-- pendencias (claro): 1 — 1 coluna da direita
-- pendencias (escuro): 1 — 1 coluna da direita
+- pendencias (claro): 3 — 1 coluna da direita
+- pendencias (escuro): 3 — 1 coluna da direita
 - reservas-30dias (claro): 3 — 7 linha de base
 - reservas-30dias (escuro): 3 — 7 linha de base
 - reservas-para-onde (claro): 3 — 7 linha de base

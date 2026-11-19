@@ -1,7 +1,7 @@
 {
 "tela": "catalogo-carrinho",
 "modo": "aprov",
-"quando": "19/11 10:37",
+"quando": "19/11 14:12",
 "passos": [
 "()=>{const S=window.__LF.S;S.cart=S.items.filter(i=>i.qty>0&&!i.bulk).slice(0,2).map(i=>({it:i,qty:1,tab:S.tabAtiva,preco:null}));window.__LF.setView('vendas')}",
 "()=>window.__LF.ACT.cartopen()"
@@ -9,13 +9,13 @@
 "escuro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
 "cara": "ícone redondo",
-"h": 46,
-"w": 46,
+"h": 44,
+"w": 44,
 "cor": "rgb(243, 192, 220)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -75,15 +75,15 @@
 "fs": "11px"
 },
 {
-"t": "‹ Catálogo",
+"t": "‹ CATÁLOGO",
 "act": "",
 "cara": "texto",
 "h": 44,
-"w": 68,
+"w": 91,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
-"fs": "15px"
+"fs": "12px"
 },
 {
 "t": "Modo cliente (iPad da loja)",
@@ -123,7 +123,7 @@
 "act": "cartrm",
 "cara": "texto",
 "h": 44,
-"w": 47,
+"w": 50,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
@@ -156,7 +156,7 @@
 "act": "cartrm",
 "cara": "texto",
 "h": 44,
-"w": 47,
+"w": 50,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
@@ -167,7 +167,7 @@
 "act": "cartclose",
 "cara": "texto",
 "h": 44,
-"w": 167,
+"w": 179,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
@@ -189,7 +189,7 @@
 "act": "cartclear",
 "cara": "texto",
 "h": 44,
-"w": 132,
+"w": 141,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -212,15 +212,8 @@
 {
 "r": "2 centro vertical",
 "ex": [
-"‹ Catálogo Carrinho 2 peças",
-"Δ1.8px"
-]
-},
-{
-"r": "7 linha de base",
-"ex": [
-"SP57765 +0.75 · Preto G$ 25.000",
-"Δ2.0px"
+"‹ CATÁLOGO Carrinho 2 peças",
+"Δ1.9px"
 ]
 },
 {
@@ -234,14 +227,7 @@
 "r": "7 linha de base",
 "ex": [
 "− 1 + Tirar",
-"Δ2.4px"
-]
-},
-{
-"r": "7 linha de base",
-"ex": [
-"SP58110 +0.75 · Preto G$ 25.000",
-"Δ2.0px"
+"Δ1.4px"
 ]
 },
 {
@@ -255,13 +241,13 @@
 "r": "7 linha de base",
 "ex": [
 "− 1 + Tirar",
-"Δ2.4px"
+"Δ1.4px"
 ]
 }
 ],
 "olho": [],
 "erros_js": [],
-"rola_vazio": 60
+"rola_vazio": 58
 },
 "vista": "vendas",
 "toques": [
@@ -269,7 +255,7 @@
 "i": 0,
 "act": "view",
 "id": "notif",
-"txt": "12",
+"txt": "13",
 "tag": "BUTTON",
 "efeito": [
 "leva → notif"
@@ -277,19 +263,25 @@
 "de_novo": [
 "leva → vendas"
 ],
+"terceiro": [
+"leva → notif"
+],
 "bug": []
 },
 {
 "i": 1,
 "act": "",
 "id": "",
-"txt": "‹ Catálogo",
+"txt": "‹ CATÁLOGO",
 "tag": "BUTTON",
 "efeito": [
 "muda a tela"
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -305,6 +297,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -317,6 +312,9 @@
 "nada visível"
 ],
 "de_novo": [
+"nada visível"
+],
+"terceiro": [
 "nada visível"
 ],
 "bug": []
@@ -333,6 +331,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"nada visível"
+],
 "bug": []
 },
 {
@@ -345,6 +346,9 @@
 "muda a tela"
 ],
 "de_novo": [
+"muda a tela"
+],
+"terceiro": [
 "muda a tela"
 ],
 "bug": []
@@ -361,6 +365,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"nada visível"
+],
 "bug": []
 },
 {
@@ -373,6 +380,9 @@
 "nada visível"
 ],
 "de_novo": [
+"nada visível"
+],
+"terceiro": [
 "nada visível"
 ],
 "bug": []
@@ -389,6 +399,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -402,6 +415,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -417,6 +433,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -430,6 +449,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -445,19 +467,22 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"leva → inicio"
+],
 "bug": []
 }
 ],
 "claro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
 "cara": "ícone redondo",
-"h": 46,
-"w": 46,
+"h": 44,
+"w": 44,
 "cor": "rgb(141, 58, 105)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -517,15 +542,15 @@
 "fs": "11px"
 },
 {
-"t": "‹ Catálogo",
+"t": "‹ CATÁLOGO",
 "act": "",
 "cara": "texto",
 "h": 44,
-"w": 68,
+"w": 91,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
-"fs": "15px"
+"fs": "12px"
 },
 {
 "t": "Modo cliente (iPad da loja)",
@@ -565,7 +590,7 @@
 "act": "cartrm",
 "cara": "texto",
 "h": 44,
-"w": 47,
+"w": 50,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
@@ -598,7 +623,7 @@
 "act": "cartrm",
 "cara": "texto",
 "h": 44,
-"w": 47,
+"w": 50,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
@@ -609,7 +634,7 @@
 "act": "cartclose",
 "cara": "texto",
 "h": 44,
-"w": 167,
+"w": 179,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
@@ -631,7 +656,7 @@
 "act": "cartclear",
 "cara": "texto",
 "h": 44,
-"w": 132,
+"w": 141,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -654,15 +679,8 @@
 {
 "r": "2 centro vertical",
 "ex": [
-"‹ Catálogo Carrinho 2 peças",
-"Δ1.8px"
-]
-},
-{
-"r": "7 linha de base",
-"ex": [
-"SP57765 +0.75 · Preto G$ 25.000",
-"Δ2.0px"
+"‹ CATÁLOGO Carrinho 2 peças",
+"Δ1.9px"
 ]
 },
 {
@@ -676,14 +694,7 @@
 "r": "7 linha de base",
 "ex": [
 "− 1 + Tirar",
-"Δ2.4px"
-]
-},
-{
-"r": "7 linha de base",
-"ex": [
-"SP58110 +0.75 · Preto G$ 25.000",
-"Δ2.0px"
+"Δ1.4px"
 ]
 },
 {
@@ -697,13 +708,13 @@
 "r": "7 linha de base",
 "ex": [
 "− 1 + Tirar",
-"Δ2.4px"
+"Δ1.4px"
 ]
 }
 ],
 "olho": [],
 "erros_js": [],
-"rola_vazio": 60
+"rola_vazio": 58
 },
-"seg": 107
+"seg": 112
 }

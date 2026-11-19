@@ -307,7 +307,7 @@
     }
     // voltar pelo botão da tela do produto: o conteúdo some primeiro, depois a tela volta para o cartão
     document.addEventListener('click', function (e) {
-      var b = e.target.closest && e.target.closest('#vDetail .tab.ibtn[aria-label="Voltar"],#detail .tab.ibtn[aria-label="Voltar"]');
+      var b = e.target.closest && e.target.closest('#vDetail .vltRow[aria-label="Voltar"],#detail .vltRow[aria-label="Voltar"]');
       if (!b || voltaOk) return;
       if (fSemMov()) return;
       var det = b.closest('#vDetail,#detail'), pb = det.querySelector('.pbox'), im = pb && pb.querySelector('img');

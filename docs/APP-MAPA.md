@@ -7,7 +7,7 @@ Manter ATUALIZADO a cada aprovação, mudança ou implementação (no mesmo comm
 - Botões de cada tela (o que cada um FAZ, tocado de verdade, e a CARA): docs/APP-BOTOES.md (63 telas, 1.179 toques). Dados brutos: work/verif/res/.
 - Achados da varredura dos padrões: docs/VARREDURA-PADROES-18-11.md.
 - Base aprovada (o que já foi aprovado e ainda não está no app, aplicada sozinha no simulador): work/kit/base_app.py.
-- Última versão publicada do app: v561 / 5.44.0 (18/11 08:16). Tudo aprovado ANTES dela foi publicado ou consta como sobra na lista viva.
+- Última versão publicada do app: v563 / 5.46.0 (19/11). Tudo aprovado ANTES dela foi publicado ou consta como sobra na lista viva.
 
 ## 2. Padrões do app (resumo para decidir rápido)
 | Coisa | Padrão |
@@ -50,7 +50,6 @@ Manter ATUALIZADO a cada aprovação, mudança ou implementação (no mesmo comm
 | 140C | todas as escolhas | padrão C suave (Pagamento, Marketing, Paraguaio/Estrangeiro, impressora, Retirada, Registrar troca, Livre para você) | work/s429 |
 | 141 | Pagamento | "+ Receber parte em outra moeda" branco, sem sublinhado, à esquerda (grupo dos "+" em texto) | work/s429 |
 | 142st | Carrinho e Pagamento | título próprio + "‹ voltar"; sem cartão; campos em linha; aviso em frase; "+ Adicionar outra peça" centralizado sem sublinhado (142e/h/i/s/t) | work/s431 |
-| 150i | Sino (21 telas), Caixa › Ações, Histórico/Mês vendido (Data, Filtros), Peça › Compartilhar, Giro › Filtros e ordem | família Ícone redondo: círculo 44 px, contorno fino, sem fundo, ícone 20 px (substitui o 137a) | work/s436/icone_redondo_* |
 Obs.: 132 na base é só visual (ao implementar, ligar as ações de verdade).
 
 ## 4. ESPERANDO decisão do dono (app)
@@ -79,7 +78,7 @@ Obs.: 132 na base é só visual (ao implementar, ligar as ações de verdade).
 
 ## Navegação B refinada (implementada v562, 19/11/2026)
 - Esboços aprovados: work/s434/146B-*, 147-1…147-8. Código: src/99c-navegacao-s435.js + bloco S435 no fim de www/style.css. Ver docs/APP-COMO-FUNCIONA.md.
-- 149v Família Voltar (aprovado 19/11 12:33, esperando implementar): work/s437/esboco_voltar_*.jpg + work/s436/esboco_voltar_*.jpg.
+- 149v Família Voltar — ✅ PUBLICADO v563 (Peça e Ficha); o Pagamento espera o 142st (base 149v-pag). 150i Ícone redondo ✅ PUBLICADO v563. Esboços: work/s437/esboco_voltar_*.jpg + work/s436/esboco_voltar_*.jpg.
 - 149l Família Link › (aprovado 19/11 13:16, esperando implementar): work/s437/esboco_link_*.jpg.
 - 149i Família Linha de lista (aprovado 19/11 13:31, esperando implementar): work/s437/esboco_linha_*.jpg.
 - 149d Família Dobra ⌄ (aprovado 19/11 13:34, esperando implementar): work/s437/esboco_dobra_historico_*.jpg.

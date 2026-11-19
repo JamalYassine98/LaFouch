@@ -1,7 +1,7 @@
 {
 "tela": "catalogo-peca",
 "modo": "atual",
-"quando": "19/11 10:41",
+"quando": "19/11 14:16",
 "passos": [
 "()=>window.__LF.setView('vendas')",
 "()=>{const e=[...document.querySelectorAll('#vRows .pcard[data-ref]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
@@ -9,13 +9,13 @@
 "escuro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
-"cara": "ícone quadrado",
-"h": 46,
-"w": 46,
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
 "cor": "rgb(243, 192, 220)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -86,15 +86,15 @@
 "fs": "15px"
 },
 {
-"t": "Voltar",
+"t": "‹ CATÁLOGO",
 "act": "",
-"cara": "ícone redondo",
+"cara": "texto",
 "h": 44,
-"w": 44,
-"cor": "rgb(203, 213, 225)",
-"borda": "rgb(42, 52, 65)",
-"bw": 1,
-"fs": "14px"
+"w": 91,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "12px"
 },
 {
 "t": "Compartilhar esta peça",
@@ -103,7 +103,7 @@
 "h": 44,
 "w": 44,
 "cor": "rgb(243, 192, 220)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "14px"
 },
@@ -156,7 +156,7 @@
 "act": "fnTab",
 "cara": "texto",
 "h": 44,
-"w": 149,
+"w": 160,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -180,21 +180,28 @@
 "r": "2 centro vertical",
 "ex": [
 "Catálogo Escolha a peça e venda.",
-"Δ8.0px"
+"Δ8.5px"
 ]
 },
 {
 "r": "1 coluna da direita",
 "ex": [
-"Vender",
+"‹ CATÁLOGO",
 "Δ-19.0px"
 ]
 },
 {
 "r": "3 coluna da esquerda",
 "ex": [
-"Vender",
+"‹ CATÁLOGO",
 "Δ19.0px"
+]
+},
+{
+"r": "2 centro vertical",
+"ex": [
+"‹ CATÁLOGO",
+"Δ1.6px"
 ]
 }
 ],
@@ -208,7 +215,7 @@
 "i": 0,
 "act": "view",
 "id": "notif",
-"txt": "12",
+"txt": "13",
 "tag": "BUTTON",
 "igual_a": "catalogo-carrinho"
 },
@@ -224,13 +231,16 @@
 "i": 2,
 "act": "",
 "id": "",
-"txt": "Voltar",
+"txt": "‹ CATÁLOGO",
 "tag": "BUTTON",
 "efeito": [
 "muda a tela"
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -246,6 +256,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"Compartilhar\""
+],
 "bug": []
 },
 {
@@ -258,6 +271,9 @@
 "nada visível"
 ],
 "de_novo": [
+"nada visível"
+],
+"terceiro": [
 "nada visível"
 ],
 "bug": []
@@ -274,6 +290,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"nada visível"
+],
 "bug": []
 },
 {
@@ -286,6 +305,9 @@
 "nada visível"
 ],
 "de_novo": [
+"nada visível"
+],
+"terceiro": [
 "nada visível"
 ],
 "bug": []
@@ -302,6 +324,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -315,6 +340,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → estoque"
 ],
 "bug": []
 },
@@ -330,13 +358,13 @@
 "claro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
-"cara": "ícone quadrado",
-"h": 46,
-"w": 46,
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
 "cor": "rgb(141, 58, 105)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -407,15 +435,15 @@
 "fs": "15px"
 },
 {
-"t": "Voltar",
+"t": "‹ CATÁLOGO",
 "act": "",
-"cara": "ícone redondo",
+"cara": "texto",
 "h": 44,
-"w": 44,
-"cor": "rgb(71, 85, 105)",
-"borda": "rgb(217, 208, 216)",
-"bw": 1,
-"fs": "14px"
+"w": 91,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "12px"
 },
 {
 "t": "Compartilhar esta peça",
@@ -424,7 +452,7 @@
 "h": 44,
 "w": 44,
 "cor": "rgb(141, 58, 105)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "14px"
 },
@@ -477,7 +505,7 @@
 "act": "fnTab",
 "cara": "texto",
 "h": 44,
-"w": 149,
+"w": 160,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -501,21 +529,28 @@
 "r": "2 centro vertical",
 "ex": [
 "Catálogo Escolha a peça e venda.",
-"Δ8.0px"
+"Δ8.5px"
 ]
 },
 {
 "r": "1 coluna da direita",
 "ex": [
-"Vender",
+"‹ CATÁLOGO",
 "Δ-19.0px"
 ]
 },
 {
 "r": "3 coluna da esquerda",
 "ex": [
-"Vender",
+"‹ CATÁLOGO",
 "Δ19.0px"
+]
+},
+{
+"r": "2 centro vertical",
+"ex": [
+"‹ CATÁLOGO",
+"Δ1.6px"
 ]
 }
 ],
@@ -523,5 +558,5 @@
 "erros_js": [],
 "rola_vazio": 35
 },
-"seg": 64
+"seg": 54
 }

@@ -1,20 +1,20 @@
 {
 "tela": "dash-semana",
 "modo": "atual",
-"quando": "19/11 11:20",
+"quando": "19/11 14:01",
 "passos": [
 "()=>{window.__LF.S.per='semana';window.__LF.S.dTab='hoje';window.__LF.setView('dash')}"
 ],
 "escuro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
-"cara": "ícone quadrado",
-"h": 46,
-"w": 46,
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
 "cor": "rgb(243, 192, 220)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -78,7 +78,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 101,
+"w": 108,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -89,7 +89,7 @@
 "act": "",
 "cara": "texto",
 "h": 32,
-"w": 144,
+"w": 119,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
@@ -100,7 +100,7 @@
 "act": "dPer",
 "cara": "texto",
 "h": 44,
-"w": 96,
+"w": 102,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
@@ -111,29 +111,29 @@
 "act": "d48Moeda",
 "cara": "texto",
 "h": 40,
-"w": 156,
+"w": 172,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
 "fs": "26px"
 },
 {
-"t": "G$ 445.700",
+"t": "G$ 445.400",
 "act": "d48Moeda",
 "cara": "texto",
 "h": 40,
-"w": 134,
+"w": 149,
 "cor": "rgb(95, 211, 154)",
 "borda": "rgb(95, 211, 154)",
 "bw": 0,
 "fs": "26px"
 },
 {
-"t": "G$ 2.191.487",
+"t": "G$ 2.192.770",
 "act": "d48Moeda",
 "cara": "texto",
 "h": 40,
-"w": 156,
+"w": 172,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
@@ -218,7 +218,7 @@
 }
 ],
 "erros_js": [],
-"rola_vazio": 113
+"rola_vazio": 153
 },
 "vista": "dash",
 "toques": [
@@ -226,7 +226,7 @@
 "i": 0,
 "act": "view",
 "id": "notif",
-"txt": "12",
+"txt": "13",
 "tag": "BUTTON",
 "efeito": [
 "leva → notif"
@@ -311,7 +311,7 @@
 "i": 5,
 "act": "d48Moeda",
 "id": "",
-"txt": "G$ 445.700",
+"txt": "G$ 445.400",
 "tag": "B",
 "efeito": [
 "nada visível"
@@ -328,7 +328,7 @@
 "i": 6,
 "act": "d48Moeda",
 "id": "",
-"txt": "G$ 2.191.487",
+"txt": "G$ 2.192.770",
 "tag": "B",
 "igual_a": "dash-semana"
 },
@@ -404,13 +404,13 @@
 "claro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
-"cara": "ícone quadrado",
-"h": 46,
-"w": 46,
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
 "cor": "rgb(141, 58, 105)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -474,7 +474,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 101,
+"w": 108,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -485,7 +485,7 @@
 "act": "",
 "cara": "texto",
 "h": 32,
-"w": 144,
+"w": 119,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
@@ -497,39 +497,39 @@
 "cara": "texto",
 "h": 44,
 "w": 102,
-"cor": "rgb(141, 58, 105)",
-"borda": "rgb(141, 58, 105)",
+"cor": "rgb(31, 26, 34)",
+"borda": "rgb(31, 26, 34)",
 "bw": 0,
 "fs": "15px"
 },
 {
-"t": "G$ 1.289.285",
+"t": "G$ 1.289.500",
 "act": "d48Moeda",
 "cara": "texto",
 "h": 40,
-"w": 156,
+"w": 172,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
 "fs": "26px"
 },
 {
-"t": "G$ 445.925",
+"t": "G$ 445.400",
 "act": "d48Moeda",
 "cara": "texto",
 "h": 40,
-"w": 134,
+"w": 149,
 "cor": "rgb(20, 128, 63)",
 "borda": "rgb(20, 128, 63)",
 "bw": 0,
 "fs": "26px"
 },
 {
-"t": "G$ 2.191.116",
+"t": "G$ 2.192.770",
 "act": "d48Moeda",
 "cara": "texto",
 "h": 40,
-"w": 156,
+"w": 172,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
@@ -614,7 +614,7 @@
 }
 ],
 "erros_js": [],
-"rola_vazio": 113
+"rola_vazio": 153
 },
-"seg": 75
+"seg": 77
 }

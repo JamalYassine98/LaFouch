@@ -1,7 +1,7 @@
 {
 "tela": "inventario-ficha-historico",
 "modo": "aprov",
-"quando": "19/11 11:06",
+"quando": "19/11 14:12",
 "passos": [
 "()=>window.__LF.setView('estoque')",
 "()=>{const e=[...document.querySelectorAll('#v-estoque .pcard[data-ref]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}",
@@ -10,13 +10,13 @@
 "escuro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
 "cara": "ícone redondo",
-"h": 46,
-"w": 46,
+"h": 44,
+"w": 44,
 "cor": "rgb(243, 192, 220)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -80,7 +80,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 57,
+"w": 61,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -102,7 +102,7 @@
 "act": "",
 "cara": "texto",
 "h": 42,
-"w": 61,
+"w": 65,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -113,7 +113,7 @@
 "act": "",
 "cara": "texto",
 "h": 42,
-"w": 112,
+"w": 119,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -135,7 +135,7 @@
 "act": "fichaAbre",
 "cara": "pílula",
 "h": 26,
-"w": 77,
+"w": 81,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(42, 52, 65)",
 "bw": 1,
@@ -146,7 +146,7 @@
 "act": "fnTab",
 "cara": "texto",
 "h": 44,
-"w": 51,
+"w": 54,
 "cor": "rgb(203, 213, 225)",
 "borda": "rgb(203, 213, 225)",
 "bw": 0,
@@ -157,7 +157,7 @@
 "act": "fnTab",
 "cara": "texto",
 "h": 44,
-"w": 57,
+"w": 60,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -168,7 +168,7 @@
 "act": "fnTab",
 "cara": "texto",
 "h": 44,
-"w": 24,
+"w": 25,
 "cor": "rgb(203, 213, 225)",
 "borda": "rgb(203, 213, 225)",
 "bw": 0,
@@ -179,7 +179,7 @@
 "act": "fnTab",
 "cara": "texto",
 "h": 44,
-"w": 37,
+"w": 39,
 "cor": "rgb(203, 213, 225)",
 "borda": "rgb(203, 213, 225)",
 "bw": 0,
@@ -190,7 +190,7 @@
 "act": "fnTab",
 "cara": "texto",
 "h": 44,
-"w": 153,
+"w": 165,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -201,7 +201,7 @@
 "act": "fnEstudio",
 "cara": "texto",
 "h": 44,
-"w": 166,
+"w": 178,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -225,7 +225,7 @@
 "r": "2 centro vertical",
 "ex": [
 "Inventário Grupo Pré-graduados › G",
-"Δ6.0px"
+"Δ4.9px"
 ]
 }
 ],
@@ -256,7 +256,7 @@
 "i": 0,
 "act": "view",
 "id": "notif",
-"txt": "12",
+"txt": "13",
 "tag": "BUTTON",
 "igual_a": "inventario-fornecedores"
 },
@@ -266,16 +266,7 @@
 "id": "",
 "txt": "‹ PEÇAS",
 "tag": "BUTTON",
-"efeito": [
-"leva → grp"
-],
-"de_novo": [
-"sumiu"
-],
-"terceiro": [
-"leva → grp"
-],
-"bug": []
+"igual_a": "inventario-ficha"
 },
 {
 "i": 2,
@@ -315,16 +306,7 @@
 "id": "Lote Kazwini",
 "txt": "Ficha 4/6",
 "tag": "BUTTON",
-"efeito": [
-"abre janela \"Ficha do produto\""
-],
-"de_novo": [
-"muda a tela"
-],
-"terceiro": [
-"abre janela \"Ficha do produto\""
-],
-"bug": []
+"igual_a": "inventario-ficha"
 },
 {
 "i": 7,
@@ -332,16 +314,7 @@
 "id": "est",
 "txt": "Estoque",
 "tag": "BUTTON",
-"efeito": [
-"muda a tela"
-],
-"de_novo": [
-"nada visível"
-],
-"terceiro": [
-"muda a tela"
-],
-"bug": []
+"igual_a": "inventario-ficha"
 },
 {
 "i": 8,
@@ -349,16 +322,7 @@
 "id": "his",
 "txt": "Histórico",
 "tag": "BUTTON",
-"efeito": [
-"nada visível"
-],
-"de_novo": [
-"nada visível"
-],
-"terceiro": [
-"nada visível"
-],
-"bug": []
+"igual_a": "inventario-ficha"
 },
 {
 "i": 9,
@@ -366,16 +330,7 @@
 "id": "sit",
 "txt": "Site",
 "tag": "BUTTON",
-"efeito": [
-"alterna"
-],
-"de_novo": [
-"nada visível"
-],
-"terceiro": [
-"alterna"
-],
-"bug": []
+"igual_a": "inventario-ficha"
 },
 {
 "i": 10,
@@ -383,16 +338,7 @@
 "id": "pre",
 "txt": "Preço",
 "tag": "BUTTON",
-"efeito": [
-"alterna"
-],
-"de_novo": [
-"nada visível"
-],
-"terceiro": [
-"alterna"
-],
-"bug": []
+"igual_a": "inventario-ficha"
 },
 {
 "i": 11,
@@ -400,16 +346,7 @@
 "id": "ven",
 "txt": "Vender no Catálogo ›",
 "tag": "BUTTON",
-"efeito": [
-"leva → vendas"
-],
-"de_novo": [
-"sumiu"
-],
-"terceiro": [
-"leva → vendas"
-],
-"bug": []
+"igual_a": "inventario-ficha"
 },
 {
 "i": 12,
@@ -417,16 +354,7 @@
 "id": "",
 "txt": "Fotografar no Estúdio ›",
 "tag": "BUTTON",
-"efeito": [
-"muda a tela"
-],
-"de_novo": [
-"nada visível"
-],
-"terceiro": [
-"muda a tela"
-],
-"bug": []
+"igual_a": "inventario-ficha"
 },
 {
 "i": 13,
@@ -440,13 +368,13 @@
 "claro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
 "cara": "ícone redondo",
-"h": 46,
-"w": 46,
+"h": 44,
+"w": 44,
 "cor": "rgb(141, 58, 105)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -510,7 +438,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 57,
+"w": 61,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -532,7 +460,7 @@
 "act": "",
 "cara": "texto",
 "h": 42,
-"w": 61,
+"w": 65,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -543,7 +471,7 @@
 "act": "",
 "cara": "texto",
 "h": 42,
-"w": 112,
+"w": 119,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -565,7 +493,7 @@
 "act": "fichaAbre",
 "cara": "pílula",
 "h": 26,
-"w": 77,
+"w": 81,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(217, 208, 216)",
 "bw": 1,
@@ -576,7 +504,7 @@
 "act": "fnTab",
 "cara": "texto",
 "h": 44,
-"w": 51,
+"w": 54,
 "cor": "rgb(71, 85, 105)",
 "borda": "rgb(71, 85, 105)",
 "bw": 0,
@@ -587,7 +515,7 @@
 "act": "fnTab",
 "cara": "texto",
 "h": 44,
-"w": 57,
+"w": 60,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -598,7 +526,7 @@
 "act": "fnTab",
 "cara": "texto",
 "h": 44,
-"w": 24,
+"w": 25,
 "cor": "rgb(71, 85, 105)",
 "borda": "rgb(71, 85, 105)",
 "bw": 0,
@@ -609,7 +537,7 @@
 "act": "fnTab",
 "cara": "texto",
 "h": 44,
-"w": 37,
+"w": 39,
 "cor": "rgb(71, 85, 105)",
 "borda": "rgb(71, 85, 105)",
 "bw": 0,
@@ -620,7 +548,7 @@
 "act": "fnTab",
 "cara": "texto",
 "h": 44,
-"w": 153,
+"w": 165,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -631,7 +559,7 @@
 "act": "fnEstudio",
 "cara": "texto",
 "h": 44,
-"w": 166,
+"w": 178,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -655,7 +583,7 @@
 "r": "2 centro vertical",
 "ex": [
 "Inventário Grupo Pré-graduados › G",
-"Δ5.2px"
+"Δ6.1px"
 ]
 }
 ],
@@ -680,5 +608,5 @@
 "erros_js": [],
 "rola_vazio": 123
 },
-"seg": 108
+"seg": 7
 }

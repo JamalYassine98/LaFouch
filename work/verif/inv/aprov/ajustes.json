@@ -1,20 +1,20 @@
 {
 "tela": "ajustes",
 "modo": "aprov",
-"quando": "19/11 10:43",
+"quando": "19/11 14:15",
 "passos": [
 "()=>__LF.setView('ajustes')"
 ],
 "escuro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
 "cara": "ícone redondo",
-"h": 46,
-"w": 46,
+"h": 44,
+"w": 44,
 "cor": "rgb(243, 192, 220)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -78,7 +78,7 @@
 "act": "",
 "cara": "texto",
 "h": 60,
-"w": 340,
+"w": 342,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
@@ -89,7 +89,7 @@
 "act": "",
 "cara": "texto",
 "h": 60,
-"w": 340,
+"w": 342,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
@@ -100,7 +100,7 @@
 "act": "",
 "cara": "texto",
 "h": 60,
-"w": 340,
+"w": 342,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
@@ -111,7 +111,7 @@
 "act": "",
 "cara": "texto",
 "h": 60,
-"w": 340,
+"w": 342,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
@@ -122,7 +122,7 @@
 "act": "",
 "cara": "texto",
 "h": 60,
-"w": 340,
+"w": 342,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
@@ -133,7 +133,7 @@
 "act": "",
 "cara": "texto",
 "h": 60,
-"w": 340,
+"w": 342,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
@@ -144,7 +144,7 @@
 "act": "",
 "cara": "texto",
 "h": 60,
-"w": 340,
+"w": 342,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
@@ -155,7 +155,7 @@
 "act": "",
 "cara": "texto",
 "h": 60,
-"w": 340,
+"w": 342,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
@@ -166,7 +166,7 @@
 "act": "",
 "cara": "texto",
 "h": 60,
-"w": 340,
+"w": 342,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
@@ -191,12 +191,12 @@
 "r": "rola sem ter o que rolar",
 "n": 1,
 "ex": [
-"conteúdo acaba em 793 px, página tem 887 px"
+"conteúdo acaba em 791 px, página tem 885 px"
 ]
 }
 ],
 "erros_js": [],
-"rola_vazio": 43
+"rola_vazio": 41
 },
 "vista": "ajustes",
 "toques": [
@@ -204,13 +204,16 @@
 "i": 0,
 "act": "view",
 "id": "notif",
-"txt": "12",
+"txt": "13",
 "tag": "BUTTON",
 "efeito": [
 "leva → notif"
 ],
 "de_novo": [
 "leva → ajustes"
+],
+"terceiro": [
+"leva → notif"
 ],
 "bug": []
 },
@@ -224,6 +227,9 @@
 "alterna"
 ],
 "de_novo": [
+"alterna"
+],
+"terceiro": [
 "alterna"
 ],
 "bug": []
@@ -240,6 +246,9 @@
 "de_novo": [
 "alterna"
 ],
+"terceiro": [
+"alterna"
+],
 "bug": []
 },
 {
@@ -252,6 +261,9 @@
 "alterna"
 ],
 "de_novo": [
+"alterna"
+],
+"terceiro": [
 "alterna"
 ],
 "bug": []
@@ -268,6 +280,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → onl"
+],
 "bug": []
 },
 {
@@ -280,6 +295,9 @@
 "alterna"
 ],
 "de_novo": [
+"alterna"
+],
+"terceiro": [
 "alterna"
 ],
 "bug": []
@@ -296,6 +314,9 @@
 "de_novo": [
 "alterna"
 ],
+"terceiro": [
+"alterna"
+],
 "bug": []
 },
 {
@@ -308,6 +329,9 @@
 "alterna"
 ],
 "de_novo": [
+"alterna"
+],
+"terceiro": [
 "alterna"
 ],
 "bug": []
@@ -324,6 +348,9 @@
 "de_novo": [
 "alterna"
 ],
+"terceiro": [
+"alterna"
+],
 "bug": []
 },
 {
@@ -336,6 +363,9 @@
 "alterna"
 ],
 "de_novo": [
+"alterna"
+],
+"terceiro": [
 "alterna"
 ],
 "bug": []
@@ -352,19 +382,22 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"leva → inicio"
+],
 "bug": []
 }
 ],
 "claro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
 "cara": "ícone redondo",
-"h": 46,
-"w": 46,
+"h": 44,
+"w": 44,
 "cor": "rgb(141, 58, 105)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -428,7 +461,7 @@
 "act": "",
 "cara": "texto",
 "h": 60,
-"w": 340,
+"w": 342,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
@@ -439,7 +472,7 @@
 "act": "",
 "cara": "texto",
 "h": 60,
-"w": 340,
+"w": 342,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
@@ -450,7 +483,7 @@
 "act": "",
 "cara": "texto",
 "h": 60,
-"w": 340,
+"w": 342,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
@@ -461,7 +494,7 @@
 "act": "",
 "cara": "texto",
 "h": 60,
-"w": 340,
+"w": 342,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
@@ -472,7 +505,7 @@
 "act": "",
 "cara": "texto",
 "h": 60,
-"w": 340,
+"w": 342,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
@@ -483,7 +516,7 @@
 "act": "",
 "cara": "texto",
 "h": 60,
-"w": 340,
+"w": 342,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
@@ -494,7 +527,7 @@
 "act": "",
 "cara": "texto",
 "h": 60,
-"w": 340,
+"w": 342,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
@@ -505,7 +538,7 @@
 "act": "",
 "cara": "texto",
 "h": 60,
-"w": 340,
+"w": 342,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
@@ -516,7 +549,7 @@
 "act": "",
 "cara": "texto",
 "h": 60,
-"w": 340,
+"w": 342,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
@@ -541,12 +574,12 @@
 "r": "rola sem ter o que rolar",
 "n": 1,
 "ex": [
-"conteúdo acaba em 793 px, página tem 887 px"
+"conteúdo acaba em 791 px, página tem 885 px"
 ]
 }
 ],
 "erros_js": [],
-"rola_vazio": 43
+"rola_vazio": 41
 },
-"seg": 86
+"seg": 72
 }

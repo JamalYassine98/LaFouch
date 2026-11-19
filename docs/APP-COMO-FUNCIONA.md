@@ -511,3 +511,9 @@ Cadastro (vários caminhos) → item no estoque → fotos (Estúdio OU fila 86 O
 - Voltar do Android: `Capacitor App 'backButton'` → `nvVoltarAndroid`: janela aberta (Esc) → passo de peça aberta (`history.back`) → `nvVolta` (pilha) → Início → "Sair do app?" (`lfConfirma`, `App.exitApp`). No navegador o voltar continua pelo endereço (`navVolta`).
 - PC e tablet (≥ 760 px, `body.nvRail`): `#nvSide` dentro do `#mainnav` com Início, cada grupo da barra em versalete com as telas, "Loja" (Pedidos, Clientes) e Ajustes fixo embaixo; os `.mn` e o `#railX` ficam escondidos; sem versalete.
 - CSS no fim de `www/style.css` (bloco S435): movimentos 0,25 s com a mesma curva, cabeçalho do Dashboard igual ao das outras telas, janela Grupo (`#grpM`) como janela de baixo.
+
+## Famílias de botões no código (19/11/2026, CLAUDE.md 1b e 13)
+- Cada família tem UM bloco no fim de `www/style.css` (comentário `FAMÍLIA …`). Mudar a cara de uma família = mexer só no bloco dela e apagar as regras velhas que ele substitui.
+- **Voltar (149v, v563):** peça do Catálogo e ficha do Inventário usam o versalete `.nvVs.vltRow` ("‹ CATÁLOGO" / "‹ INVENTÁRIO", `aria-label="Voltar"`) em `src/10-estoque-detalhe.js`, no centro dos ícones da mesma linha; a animação de voltar (`98-anim-novas.js`) escuta `.vltRow`. O Pagamento ("‹ CARRINHO") depende do 142st (ainda na base, `149v-pag`). No tablet/PC esse cabeçalho continua escondido (vale a trilha "Catálogo › peça").
+- **Ícone redondo (150i, v563):** `#sino`, `#cxIc` (Ações do caixa), `.ic71` (Data, Filtros), `#v-vendas .ibtn.shBtn` (Compartilhar a peça) e `.vdir>.ic0` (Filtros e ordem do Giro): círculo 44 px, contorno `--line2`, sem fundo, ícone 20 px. Saíram as regras velhas: tamanho/fundo/raio 14 do `.sino`, `#cxIc svg` 26 px, `#v-caixa .top .ic` raio 14, caixa do `.ic71`. Ainda fora (contorno `--line`): Modo cliente `.mcBtn`, `.cjIc` do catálogo — esperando esboço.
+

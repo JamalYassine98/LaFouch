@@ -1,7 +1,7 @@
 {
 "tela": "inventario-editar",
 "modo": "aprov",
-"quando": "19/11 10:20",
+"quando": "19/11 14:12",
 "passos": [
 "()=>window.__LF.setView('estoque')",
 "()=>{const e=[...document.querySelectorAll('#v-estoque .pcard[data-ref]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}",
@@ -36,7 +36,7 @@
 "act": "",
 "cara": "pílula",
 "h": 44,
-"w": 197,
+"w": 211,
 "cor": "rgb(231, 237, 245)",
 "borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
 "bw": 1,
@@ -116,6 +116,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"nada visível"
+],
 "bug": []
 },
 {
@@ -129,6 +132,9 @@
 ],
 "de_novo": [
 "nada visível"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -144,6 +150,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"nada visível"
+],
 "bug": []
 },
 {
@@ -157,6 +166,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 }
@@ -190,7 +202,7 @@
 "act": "",
 "cara": "pílula",
 "h": 44,
-"w": 197,
+"w": 211,
 "cor": "rgb(31, 26, 34)",
 "borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
 "bw": 1,
@@ -256,5 +268,5 @@
 "erros_js": [],
 "rola_vazio": 0
 },
-"seg": 60
+"seg": 46
 }

@@ -1,7 +1,7 @@
 {
 "tela": "inventario-ficha",
 "modo": "atual",
-"quando": "19/11 10:18",
+"quando": "19/11 14:11",
 "passos": [
 "()=>window.__LF.setView('estoque')",
 "()=>{const e=[...document.querySelectorAll('#v-estoque .pcard[data-ref]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
@@ -9,13 +9,13 @@
 "escuro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
-"cara": "ícone quadrado",
-"h": 46,
-"w": 46,
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
 "cor": "rgb(243, 192, 220)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -79,7 +79,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 57,
+"w": 61,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -101,7 +101,7 @@
 "act": "",
 "cara": "texto",
 "h": 42,
-"w": 61,
+"w": 65,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -112,7 +112,7 @@
 "act": "",
 "cara": "texto",
 "h": 42,
-"w": 112,
+"w": 119,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -134,7 +134,7 @@
 "act": "fichaAbre",
 "cara": "pílula",
 "h": 26,
-"w": 77,
+"w": 81,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(42, 52, 65)",
 "bw": 1,
@@ -145,7 +145,7 @@
 "act": "fnTab",
 "cara": "texto",
 "h": 44,
-"w": 51,
+"w": 54,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -156,7 +156,7 @@
 "act": "fnTab",
 "cara": "texto",
 "h": 44,
-"w": 57,
+"w": 60,
 "cor": "rgb(203, 213, 225)",
 "borda": "rgb(203, 213, 225)",
 "bw": 0,
@@ -167,7 +167,7 @@
 "act": "fnTab",
 "cara": "texto",
 "h": 44,
-"w": 24,
+"w": 25,
 "cor": "rgb(203, 213, 225)",
 "borda": "rgb(203, 213, 225)",
 "bw": 0,
@@ -178,7 +178,7 @@
 "act": "fnTab",
 "cara": "texto",
 "h": 44,
-"w": 37,
+"w": 39,
 "cor": "rgb(203, 213, 225)",
 "borda": "rgb(203, 213, 225)",
 "bw": 0,
@@ -189,7 +189,7 @@
 "act": "fnTab",
 "cara": "texto",
 "h": 44,
-"w": 153,
+"w": 165,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -200,22 +200,22 @@
 "act": "fnEstudio",
 "cara": "texto",
 "h": 44,
-"w": 166,
+"w": 178,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
 "fs": "15px"
 },
 {
-"t": "Voltar",
+"t": "‹ INVENTÁRIO",
 "act": "",
-"cara": "ícone quadrado",
+"cara": "texto",
 "h": 44,
-"w": 44,
-"cor": "rgb(203, 213, 225)",
-"borda": "rgb(42, 52, 65)",
-"bw": 1,
-"fs": "14px"
+"w": 102,
+"cor": "rgb(139, 155, 176)",
+"borda": "rgb(139, 155, 176)",
+"bw": 0,
+"fs": "12px"
 },
 {
 "t": "Editar",
@@ -292,22 +292,29 @@
 {
 "r": "1 coluna da direita",
 "ex": [
-"Catálogo do produto",
+"‹ INVENTÁRIO",
 "Δ-19.0px"
 ]
 },
 {
 "r": "3 coluna da esquerda",
 "ex": [
-"Catálogo do produto",
+"‹ INVENTÁRIO",
 "Δ19.0px"
 ]
 },
 {
 "r": "2 centro vertical",
 "ex": [
+"‹ INVENTÁRIO",
+"Δ1.6px"
+]
+},
+{
+"r": "2 centro vertical",
+"ex": [
 "No site cadastre ao menos uma cor",
-"Δ10.6px"
+"Δ10.1px"
 ]
 }
 ],
@@ -330,7 +337,7 @@
 "i": 0,
 "act": "view",
 "id": "notif",
-"txt": "12",
+"txt": "13",
 "tag": "BUTTON",
 "igual_a": "inventario-fornecedores"
 },
@@ -345,6 +352,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → grp"
 ],
 "bug": []
 },
@@ -392,6 +402,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"Ficha do produto\""
+],
 "bug": []
 },
 {
@@ -404,6 +417,9 @@
 "nada visível"
 ],
 "de_novo": [
+"nada visível"
+],
+"terceiro": [
 "nada visível"
 ],
 "bug": []
@@ -420,6 +436,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"alterna"
+],
 "bug": []
 },
 {
@@ -433,6 +452,9 @@
 ],
 "de_novo": [
 "nada visível"
+],
+"terceiro": [
+"alterna"
 ],
 "bug": []
 },
@@ -448,6 +470,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"alterna"
+],
 "bug": []
 },
 {
@@ -461,6 +486,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → vendas"
 ],
 "bug": []
 },
@@ -476,19 +504,25 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
 "i": 13,
 "act": "",
 "id": "",
-"txt": "Voltar",
+"txt": "‹ INVENTÁRIO",
 "tag": "BUTTON",
 "efeito": [
 "muda a tela"
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -512,6 +546,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"nada visível"
+],
 "bug": []
 },
 {
@@ -525,6 +562,9 @@
 ],
 "de_novo": [
 "nada visível"
+],
+"terceiro": [
+"abre janela \"OFERTA\""
 ],
 "bug": []
 },
@@ -540,6 +580,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -554,13 +597,13 @@
 "claro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
-"cara": "ícone quadrado",
-"h": 46,
-"w": 46,
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
 "cor": "rgb(141, 58, 105)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -624,7 +667,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 57,
+"w": 61,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -646,7 +689,7 @@
 "act": "",
 "cara": "texto",
 "h": 42,
-"w": 61,
+"w": 65,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -657,7 +700,7 @@
 "act": "",
 "cara": "texto",
 "h": 42,
-"w": 112,
+"w": 119,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -679,7 +722,7 @@
 "act": "fichaAbre",
 "cara": "pílula",
 "h": 26,
-"w": 77,
+"w": 81,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(217, 208, 216)",
 "bw": 1,
@@ -690,7 +733,7 @@
 "act": "fnTab",
 "cara": "texto",
 "h": 44,
-"w": 51,
+"w": 54,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -701,7 +744,7 @@
 "act": "fnTab",
 "cara": "texto",
 "h": 44,
-"w": 57,
+"w": 60,
 "cor": "rgb(71, 85, 105)",
 "borda": "rgb(71, 85, 105)",
 "bw": 0,
@@ -712,7 +755,7 @@
 "act": "fnTab",
 "cara": "texto",
 "h": 44,
-"w": 24,
+"w": 25,
 "cor": "rgb(71, 85, 105)",
 "borda": "rgb(71, 85, 105)",
 "bw": 0,
@@ -723,7 +766,7 @@
 "act": "fnTab",
 "cara": "texto",
 "h": 44,
-"w": 37,
+"w": 39,
 "cor": "rgb(71, 85, 105)",
 "borda": "rgb(71, 85, 105)",
 "bw": 0,
@@ -734,7 +777,7 @@
 "act": "fnTab",
 "cara": "texto",
 "h": 44,
-"w": 153,
+"w": 165,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -745,22 +788,22 @@
 "act": "fnEstudio",
 "cara": "texto",
 "h": 44,
-"w": 166,
+"w": 178,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
 "fs": "15px"
 },
 {
-"t": "Voltar",
+"t": "‹ INVENTÁRIO",
 "act": "",
-"cara": "ícone quadrado",
+"cara": "texto",
 "h": 44,
-"w": 44,
-"cor": "rgb(71, 85, 105)",
-"borda": "rgb(217, 208, 216)",
-"bw": 1,
-"fs": "14px"
+"w": 102,
+"cor": "rgb(107, 100, 114)",
+"borda": "rgb(107, 100, 114)",
+"bw": 0,
+"fs": "12px"
 },
 {
 "t": "Editar",
@@ -837,22 +880,29 @@
 {
 "r": "1 coluna da direita",
 "ex": [
-"Catálogo do produto",
+"‹ INVENTÁRIO",
 "Δ-19.0px"
 ]
 },
 {
 "r": "3 coluna da esquerda",
 "ex": [
-"Catálogo do produto",
+"‹ INVENTÁRIO",
 "Δ19.0px"
 ]
 },
 {
 "r": "2 centro vertical",
 "ex": [
+"‹ INVENTÁRIO",
+"Δ1.6px"
+]
+},
+{
+"r": "2 centro vertical",
+"ex": [
 "No site cadastre ao menos uma cor",
-"Δ10.6px"
+"Δ10.1px"
 ]
 }
 ],
@@ -869,5 +919,5 @@
 "erros_js": [],
 "rola_vazio": 775
 },
-"seg": 140
+"seg": 106
 }

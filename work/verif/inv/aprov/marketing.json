@@ -1,20 +1,20 @@
 {
 "tela": "marketing",
 "modo": "aprov",
-"quando": "19/11 10:09",
+"quando": "19/11 14:04",
 "passos": [
 "()=>window.__LF.inicioGo('mkt')"
 ],
 "escuro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
 "cara": "ícone redondo",
-"h": 46,
-"w": 46,
+"h": 44,
+"w": 44,
 "cor": "rgb(243, 192, 220)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -78,7 +78,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 94,
+"w": 100,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -129,7 +129,7 @@
 "fs": "13px"
 },
 {
-"t": "Óculos solar #13 27 vendidas em 30 dias ",
+"t": "Óculos solar #13 26 vendidas em 30 dias ",
 "act": "",
 "cara": "barra grande",
 "h": 75,
@@ -220,7 +220,7 @@
 "t": "Seg · Post · 20h Peça do objetivo — Ócul",
 "act": "",
 "cara": "texto",
-"h": 46,
+"h": 50,
 "w": 308,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
@@ -242,7 +242,7 @@
 "t": "Ter · Status · 12h Status do dia — Óculo",
 "act": "",
 "cara": "texto",
-"h": 46,
+"h": 50,
 "w": 308,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
@@ -264,7 +264,7 @@
 "t": "Qua · Carrossel · 20h Carrossel com 4 pe",
 "act": "",
 "cara": "texto",
-"h": 63,
+"h": 50,
 "w": 308,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
@@ -286,7 +286,7 @@
 "t": "Qui · Story · 20h Bastidores / chegada —",
 "act": "",
 "cara": "texto",
-"h": 46,
+"h": 50,
 "w": 308,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
@@ -308,7 +308,7 @@
 "t": "Sex · Vídeo · 20h Vídeo de 15 s — Óculos",
 "act": "",
 "cara": "texto",
-"h": 63,
+"h": 50,
 "w": 308,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
@@ -330,7 +330,7 @@
 "t": "Sáb · Post · 20h Oferta ou mais vendido ",
 "act": "",
 "cara": "texto",
-"h": 63,
+"h": 50,
 "w": 308,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
@@ -353,7 +353,7 @@
 "alin": [],
 "olho": [],
 "erros_js": [],
-"rola_vazio": 646
+"rola_vazio": 704
 },
 "vista": "mkt",
 "toques": [
@@ -361,13 +361,16 @@
 "i": 0,
 "act": "view",
 "id": "notif",
-"txt": "12",
+"txt": "13",
 "tag": "BUTTON",
 "efeito": [
 "leva → notif"
 ],
 "de_novo": [
 "leva → mkt"
+],
+"terceiro": [
+"leva → notif"
 ],
 "bug": []
 },
@@ -383,6 +386,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → grp"
+],
 "bug": []
 },
 {
@@ -396,6 +402,9 @@
 ],
 "de_novo": [
 "nada visível"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -411,6 +420,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -424,6 +436,9 @@
 ],
 "de_novo": [
 "nada visível"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -439,19 +454,25 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
 "i": 6,
 "act": "",
 "id": "",
-"txt": "Óculos solar #13 27 vendidas em 30 dias ",
+"txt": "Óculos solar #13 26 vendidas em 30 dias ",
 "tag": "BUTTON",
 "efeito": [
 "abre janela \"Status\""
 ],
 "de_novo": [
 "muda a tela"
+],
+"terceiro": [
+"abre janela \"Status\""
 ],
 "bug": []
 },
@@ -467,6 +488,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"Post\""
+],
 "bug": []
 },
 {
@@ -480,6 +504,9 @@
 ],
 "de_novo": [
 "muda a tela"
+],
+"terceiro": [
+"abre janela \"Story\""
 ],
 "bug": []
 },
@@ -495,6 +522,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"Status\""
+],
 "bug": []
 },
 {
@@ -508,6 +538,9 @@
 ],
 "de_novo": [
 "muda a tela"
+],
+"terceiro": [
+"abre janela \"Carrossel\""
 ],
 "bug": []
 },
@@ -523,6 +556,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"Vídeo\""
+],
 "bug": []
 },
 {
@@ -536,6 +572,9 @@
 ],
 "de_novo": [
 "muda a tela"
+],
+"terceiro": [
+"abre janela \"Roteiro de vídeo\""
 ],
 "bug": []
 },
@@ -551,6 +590,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -564,6 +606,9 @@
 ],
 "de_novo": [
 "muda a tela"
+],
+"terceiro": [
+"abre janela \"Post\""
 ],
 "bug": []
 },
@@ -587,6 +632,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"Status\""
+],
 "bug": []
 },
 {
@@ -608,6 +656,9 @@
 ],
 "de_novo": [
 "muda a tela"
+],
+"terceiro": [
+"abre janela \"Carrossel\""
 ],
 "bug": []
 },
@@ -631,6 +682,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"Story\""
+],
 "bug": []
 },
 {
@@ -652,6 +706,9 @@
 ],
 "de_novo": [
 "muda a tela"
+],
+"terceiro": [
+"abre janela \"Vídeo\""
 ],
 "bug": []
 },
@@ -675,6 +732,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"Post\""
+],
 "bug": []
 },
 {
@@ -689,19 +749,22 @@
 "de_novo": [
 "leva → inicio"
 ],
+"terceiro": [
+"leva → grp"
+],
 "bug": []
 }
 ],
 "claro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
 "cara": "ícone redondo",
-"h": 46,
-"w": 46,
+"h": 44,
+"w": 44,
 "cor": "rgb(141, 58, 105)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -765,7 +828,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 94,
+"w": 100,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -816,7 +879,7 @@
 "fs": "13px"
 },
 {
-"t": "Óculos solar #13 27 vendidas em 30 dias ",
+"t": "Óculos solar #13 26 vendidas em 30 dias ",
 "act": "",
 "cara": "barra grande",
 "h": 75,
@@ -907,7 +970,7 @@
 "t": "Seg · Post · 20h Peça do objetivo — Ócul",
 "act": "",
 "cara": "texto",
-"h": 46,
+"h": 50,
 "w": 308,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
@@ -929,7 +992,7 @@
 "t": "Ter · Status · 12h Status do dia — Óculo",
 "act": "",
 "cara": "texto",
-"h": 46,
+"h": 50,
 "w": 308,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
@@ -951,7 +1014,7 @@
 "t": "Qua · Carrossel · 20h Carrossel com 4 pe",
 "act": "",
 "cara": "texto",
-"h": 63,
+"h": 50,
 "w": 308,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
@@ -973,7 +1036,7 @@
 "t": "Qui · Story · 20h Bastidores / chegada —",
 "act": "",
 "cara": "texto",
-"h": 46,
+"h": 50,
 "w": 308,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
@@ -995,7 +1058,7 @@
 "t": "Sex · Vídeo · 20h Vídeo de 15 s — Óculos",
 "act": "",
 "cara": "texto",
-"h": 63,
+"h": 50,
 "w": 308,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
@@ -1017,7 +1080,7 @@
 "t": "Sáb · Post · 20h Oferta ou mais vendido ",
 "act": "",
 "cara": "texto",
-"h": 63,
+"h": 50,
 "w": 308,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
@@ -1040,7 +1103,7 @@
 "alin": [],
 "olho": [],
 "erros_js": [],
-"rola_vazio": 646
+"rola_vazio": 704
 },
-"seg": 191
+"seg": 160
 }

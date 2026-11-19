@@ -1,7 +1,7 @@
 {
 "tela": "marketing-post",
 "modo": "aprov",
-"quando": "19/11 11:02",
+"quando": "19/11 14:07",
 "passos": [
 "()=>window.__LF.inicioGo('mkt')",
 "()=>{const e=[...document.querySelectorAll('#v-mkt button')].filter(x=>x.getBoundingClientRect().height).filter(x=>/^Post$/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
@@ -57,7 +57,7 @@
 "act": "",
 "cara": "texto",
 "h": 42,
-"w": 56,
+"w": 57,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
@@ -281,11 +281,9 @@
 "sumiu"
 ],
 "terceiro": [
-"nada visível"
+"muda a tela"
 ],
-"bug": [
-"3º toque diferente do 1º"
-]
+"bug": []
 },
 {
 "i": 9,
@@ -356,7 +354,7 @@
 "act": "",
 "cara": "texto",
 "h": 42,
-"w": 56,
+"w": 57,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
@@ -447,5 +445,5 @@
 "erros_js": [],
 "rola_vazio": 0
 },
-"seg": 91
+"seg": 72
 }

@@ -1,7 +1,7 @@
 {
 "tela": "clientes-novo",
 "modo": "atual",
-"quando": "19/11 11:03",
+"quando": "19/11 14:08",
 "passos": [
 "()=>window.__LF.setView('clientes')",
 "()=>{const e=[...document.querySelectorAll('[data-act=clinovo]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
@@ -9,13 +9,13 @@
 "escuro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
-"cara": "ícone quadrado",
-"h": 46,
-"w": 46,
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
 "cor": "rgb(243, 192, 220)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -226,7 +226,7 @@
 "r": "2 centro vertical",
 "ex": [
 "Clientes Quem compra na loja e no ",
-"Δ12.0px"
+"Δ12.5px"
 ]
 },
 {
@@ -310,7 +310,7 @@
 "i": 0,
 "act": "view",
 "id": "notif",
-"txt": "12",
+"txt": "13",
 "tag": "BUTTON",
 "efeito": [
 "leva → notif"
@@ -429,13 +429,13 @@
 "claro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
-"cara": "ícone quadrado",
-"h": 46,
-"w": 46,
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
 "cor": "rgb(141, 58, 105)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -646,7 +646,7 @@
 "r": "2 centro vertical",
 "ex": [
 "Clientes Quem compra na loja e no ",
-"Δ12.0px"
+"Δ12.5px"
 ]
 },
 {
@@ -724,5 +724,5 @@
 "erros_js": [],
 "rola_vazio": 57
 },
-"seg": 84
+"seg": 63
 }

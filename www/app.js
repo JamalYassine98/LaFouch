@@ -1628,9 +1628,8 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     var head = mk('div', '');
     head.style.cssText =
       'display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center';
-    var hl = mk('div', '');
-    hl.style.cssText = 'display:flex;align-items:center;gap:10px';
-    var bk0 = btn('tab ibtn', '', function () {
+    // 149v família Voltar (19/11): "‹ CATÁLOGO" / "‹ INVENTÁRIO" em versalete, no lugar do "‹" + "Vender"/"Catálogo do produto"
+    var bk0 = btn('nvVs vltRow', '', function () {
       if (venda) {
         S.vRef = '';
         S.vSel = null;
@@ -1650,15 +1649,10 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
       render();
       window.scrollTo(0, 0);
     });
-    bk0.innerHTML =
-      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>';
+    bk0.innerHTML = '<i aria-hidden="true">‹</i>' + (venda ? 'Catálogo' : 'Inventário');
     bk0.setAttribute('aria-label', 'Voltar');
     bk0.title = 'Voltar';
-    hl.appendChild(bk0);
-    var h20 = mk('h2', '', venda ? 'Vender' : 'Catálogo do produto');
-    h20.style.cssText = 'margin:0;font-size:16px';
-    hl.appendChild(h20);
-    head.appendChild(hl);
+    head.appendChild(bk0);
     if (!venda && S.qEdRef !== ref) {
       S.qEdRef = ref;
       S.qEdit = false;
@@ -45830,7 +45824,7 @@ window.LFqr={svg:svg,make:make};if(typeof module!=='undefined')module.exports={s
     }
     // voltar pelo botão da tela do produto: o conteúdo some primeiro, depois a tela volta para o cartão
     document.addEventListener('click', function (e) {
-      var b = e.target.closest && e.target.closest('#vDetail .tab.ibtn[aria-label="Voltar"],#detail .tab.ibtn[aria-label="Voltar"]');
+      var b = e.target.closest && e.target.closest('#vDetail .vltRow[aria-label="Voltar"],#detail .vltRow[aria-label="Voltar"]');
       if (!b || voltaOk) return;
       if (fSemMov()) return;
       var det = b.closest('#vDetail,#detail'), pb = det.querySelector('.pbox'), im = pb && pb.querySelector('img');

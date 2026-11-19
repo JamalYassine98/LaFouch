@@ -1,7 +1,7 @@
 {
 "tela": "dash-mes-vendido",
 "modo": "aprov",
-"quando": "19/11 09:59",
+"quando": "19/11 14:01",
 "passos": [
 "()=>{window.__LF.S.per='mes';window.__LF.S.dTab='hoje';window.__LF.setView('dash')}",
 "()=>{const e=[...document.querySelectorAll('#v-dash .kpi')].filter(x=>x.getBoundingClientRect().height).filter(x=>/Vendido|VENDIDO/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
@@ -9,13 +9,13 @@
 "escuro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
 "cara": "ícone redondo",
-"h": 46,
-"w": 46,
+"h": 44,
+"w": 44,
 "cor": "rgb(243, 192, 220)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -79,7 +79,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 97,
+"w": 103,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -92,7 +92,7 @@
 "h": 44,
 "w": 44,
 "cor": "rgb(231, 237, 245)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -103,7 +103,7 @@
 "h": 44,
 "w": 44,
 "cor": "rgb(231, 237, 245)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -221,7 +221,7 @@
 "t": "09/11seg G$ 188.000 › 5 vendas · 1 outro",
 "act": "opendia",
 "cara": "texto",
-"h": 70,
+"h": 88,
 "w": 342,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
@@ -277,7 +277,7 @@
 "act": "hmais",
 "cara": "texto",
 "h": 44,
-"w": 176,
+"w": 187,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -313,7 +313,7 @@
 "alin": [],
 "olho": [],
 "erros_js": [],
-"rola_vazio": 979
+"rola_vazio": 973
 },
 "vista": "hist",
 "toques": [
@@ -321,13 +321,16 @@
 "i": 0,
 "act": "view",
 "id": "notif",
-"txt": "12",
+"txt": "13",
 "tag": "BUTTON",
 "efeito": [
 "leva → notif"
 ],
 "de_novo": [
 "leva → hist"
+],
+"terceiro": [
+"leva → notif"
 ],
 "bug": []
 },
@@ -343,6 +346,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"leva → dia"
+],
 "bug": []
 },
 {
@@ -355,6 +361,9 @@
 "nada visível"
 ],
 "de_novo": [
+"nada visível"
+],
+"terceiro": [
 "nada visível"
 ],
 "bug": []
@@ -371,6 +380,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -384,6 +396,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → dia"
 ],
 "bug": []
 },
@@ -399,6 +414,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → dia"
+],
 "bug": []
 },
 {
@@ -412,6 +430,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → dia"
 ],
 "bug": []
 },
@@ -427,6 +448,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → dia"
+],
 "bug": []
 },
 {
@@ -440,6 +464,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → dia"
 ],
 "bug": []
 },
@@ -455,6 +482,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → dia"
+],
 "bug": []
 },
 {
@@ -468,6 +498,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → dia"
 ],
 "bug": []
 },
@@ -483,6 +516,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → dia"
+],
 "bug": []
 },
 {
@@ -496,6 +532,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → dia"
 ],
 "bug": []
 },
@@ -511,6 +550,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → dia"
+],
 "bug": []
 },
 {
@@ -525,6 +567,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → dia"
+],
 "bug": []
 },
 {
@@ -537,6 +582,9 @@
 "muda a tela"
 ],
 "de_novo": [
+"muda a tela"
+],
+"terceiro": [
 "muda a tela"
 ],
 "bug": []
@@ -553,6 +601,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -565,6 +616,9 @@
 "muda a tela"
 ],
 "de_novo": [
+"muda a tela"
+],
+"terceiro": [
 "muda a tela"
 ],
 "bug": []
@@ -581,6 +635,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -593,6 +650,9 @@
 "muda a tela"
 ],
 "de_novo": [
+"muda a tela"
+],
+"terceiro": [
 "muda a tela"
 ],
 "bug": []
@@ -609,19 +669,22 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"leva → dia"
+],
 "bug": []
 }
 ],
 "claro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
 "cara": "ícone redondo",
-"h": 46,
-"w": 46,
+"h": 44,
+"w": 44,
 "cor": "rgb(141, 58, 105)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -685,7 +748,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 97,
+"w": 103,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -698,7 +761,7 @@
 "h": 44,
 "w": 44,
 "cor": "rgb(31, 26, 34)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -709,7 +772,7 @@
 "h": 44,
 "w": 44,
 "cor": "rgb(31, 26, 34)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -827,7 +890,7 @@
 "t": "09/11seg G$ 188.000 › 5 vendas · 1 outro",
 "act": "opendia",
 "cara": "texto",
-"h": 70,
+"h": 88,
 "w": 342,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
@@ -883,7 +946,7 @@
 "act": "hmais",
 "cara": "texto",
 "h": 44,
-"w": 176,
+"w": 187,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -919,7 +982,7 @@
 "alin": [],
 "olho": [],
 "erros_js": [],
-"rola_vazio": 979
+"rola_vazio": 973
 },
-"seg": 232
+"seg": 179
 }

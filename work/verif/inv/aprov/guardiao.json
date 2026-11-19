@@ -1,7 +1,7 @@
 {
 "tela": "guardiao",
 "modo": "aprov",
-"quando": "19/11 10:35",
+"quando": "19/11 14:09",
 "passos": [
 "()=>window.__LF.setView('notif')",
 "()=>{const e=[...document.querySelectorAll('[data-act=guardAbre]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
@@ -13,7 +13,7 @@
 "act": "",
 "cara": "texto",
 "h": 44,
-"w": 84,
+"w": 89,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -24,7 +24,7 @@
 "act": "",
 "cara": "texto",
 "h": 44,
-"w": 67,
+"w": 74,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -35,7 +35,7 @@
 "act": "",
 "cara": "texto",
 "h": 44,
-"w": 84,
+"w": 89,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -57,7 +57,7 @@
 "act": "",
 "cara": "texto",
 "h": 44,
-"w": 84,
+"w": 89,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -79,7 +79,7 @@
 "act": "",
 "cara": "texto",
 "h": 44,
-"w": 84,
+"w": 89,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -90,7 +90,7 @@
 "act": "",
 "cara": "texto",
 "h": 44,
-"w": 49,
+"w": 54,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -101,7 +101,7 @@
 "act": "",
 "cara": "texto",
 "h": 44,
-"w": 84,
+"w": 89,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -112,7 +112,7 @@
 "act": "",
 "cara": "texto",
 "h": 44,
-"w": 83,
+"w": 90,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -124,14 +124,14 @@
 {
 "r": "1 coluna da direita",
 "ex": [
-"Conferir o caixa ainda não conferi",
+"Caixa de hoje não bate Sem vendas ",
 "Δ-18.0px"
 ]
 },
 {
 "r": "3 coluna da esquerda",
 "ex": [
-"Conferir o caixa ainda não conferi",
+"Caixa de hoje não bate Sem vendas ",
 "Δ16.0px"
 ]
 },
@@ -139,7 +139,7 @@
 "r": "1 coluna da direita",
 "ex": [
 "Contas vencendo em 3 dias Contas d",
-"Δ-22.3px"
+"Δ-20.6px"
 ]
 },
 {
@@ -195,7 +195,7 @@
 "r": "1 coluna da direita",
 "ex": [
 "Peça sem custo (lucro errado) SP57",
-"Δ-22.3px"
+"Δ-20.6px"
 ]
 },
 {
@@ -294,6 +294,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"nada visível"
+],
 "bug": []
 },
 {
@@ -306,6 +309,9 @@
 "nada visível"
 ],
 "de_novo": [
+"nada visível"
+],
+"terceiro": [
 "nada visível"
 ],
 "bug": []
@@ -328,6 +334,9 @@
 "nada visível"
 ],
 "de_novo": [
+"nada visível"
+],
+"terceiro": [
 "nada visível"
 ],
 "bug": []
@@ -368,6 +377,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"nada visível"
+],
 "bug": []
 },
 {
@@ -390,6 +402,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"nada visível"
+],
 "bug": []
 }
 ],
@@ -400,7 +415,7 @@
 "act": "",
 "cara": "texto",
 "h": 44,
-"w": 84,
+"w": 89,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -411,7 +426,7 @@
 "act": "",
 "cara": "texto",
 "h": 44,
-"w": 67,
+"w": 74,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -422,7 +437,7 @@
 "act": "",
 "cara": "texto",
 "h": 44,
-"w": 84,
+"w": 89,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -444,7 +459,7 @@
 "act": "",
 "cara": "texto",
 "h": 44,
-"w": 84,
+"w": 89,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -466,7 +481,7 @@
 "act": "",
 "cara": "texto",
 "h": 44,
-"w": 84,
+"w": 89,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -477,7 +492,7 @@
 "act": "",
 "cara": "texto",
 "h": 44,
-"w": 49,
+"w": 54,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -488,7 +503,7 @@
 "act": "",
 "cara": "texto",
 "h": 44,
-"w": 84,
+"w": 89,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -499,7 +514,7 @@
 "act": "",
 "cara": "texto",
 "h": 44,
-"w": 83,
+"w": 90,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -511,14 +526,14 @@
 {
 "r": "1 coluna da direita",
 "ex": [
-"Conferir o caixa ainda não conferi",
+"Caixa de hoje não bate Sem vendas ",
 "Δ-18.0px"
 ]
 },
 {
 "r": "3 coluna da esquerda",
 "ex": [
-"Conferir o caixa ainda não conferi",
+"Caixa de hoje não bate Sem vendas ",
 "Δ16.0px"
 ]
 },
@@ -526,7 +541,7 @@
 "r": "1 coluna da direita",
 "ex": [
 "Contas vencendo em 3 dias Contas d",
-"Δ-22.3px"
+"Δ-20.6px"
 ]
 },
 {
@@ -582,7 +597,7 @@
 "r": "1 coluna da direita",
 "ex": [
 "Peça sem custo (lucro errado) SP57",
-"Δ-22.3px"
+"Δ-20.6px"
 ]
 },
 {

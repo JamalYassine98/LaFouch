@@ -1,7 +1,7 @@
 {
 "tela": "guardiao",
 "modo": "atual",
-"quando": "19/11 10:35",
+"quando": "19/11 14:12",
 "passos": [
 "()=>window.__LF.setView('notif')",
 "()=>{const e=[...document.querySelectorAll('[data-act=guardAbre]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
@@ -13,7 +13,7 @@
 "act": "view",
 "cara": "pílula",
 "h": 32,
-"w": 76,
+"w": 80,
 "cor": "rgb(255, 255, 255)",
 "borda": "rgb(255, 255, 255)",
 "bw": 0,
@@ -24,7 +24,7 @@
 "act": "guardMudo",
 "cara": "texto",
 "h": 25,
-"w": 53,
+"w": 55,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -35,7 +35,7 @@
 "act": "view",
 "cara": "pílula",
 "h": 32,
-"w": 48,
+"w": 50,
 "cor": "rgb(255, 255, 255)",
 "borda": "rgb(255, 255, 255)",
 "bw": 0,
@@ -46,7 +46,7 @@
 "act": "guardMudo",
 "cara": "texto",
 "h": 25,
-"w": 53,
+"w": 55,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -57,7 +57,7 @@
 "act": "view",
 "cara": "pílula",
 "h": 32,
-"w": 48,
+"w": 50,
 "cor": "rgb(255, 255, 255)",
 "borda": "rgb(255, 255, 255)",
 "bw": 0,
@@ -68,7 +68,7 @@
 "act": "guardMudo",
 "cara": "texto",
 "h": 25,
-"w": 53,
+"w": 55,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -79,7 +79,7 @@
 "act": "view",
 "cara": "pílula",
 "h": 32,
-"w": 60,
+"w": 63,
 "cor": "rgb(255, 255, 255)",
 "borda": "rgb(255, 255, 255)",
 "bw": 0,
@@ -90,7 +90,7 @@
 "act": "guardMudo",
 "cara": "texto",
 "h": 25,
-"w": 53,
+"w": 55,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -101,7 +101,7 @@
 "act": "inicio",
 "cara": "pílula",
 "h": 32,
-"w": 89,
+"w": 94,
 "cor": "rgb(255, 255, 255)",
 "borda": "rgb(255, 255, 255)",
 "bw": 0,
@@ -112,7 +112,7 @@
 "act": "guardMudo",
 "cara": "texto",
 "h": 25,
-"w": 53,
+"w": 55,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -157,6 +157,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -171,6 +174,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"leva → desp"
+],
 "bug": []
 },
 {
@@ -183,6 +189,9 @@
 "muda a tela"
 ],
 "de_novo": [
+"muda a tela"
+],
+"terceiro": [
 "muda a tela"
 ],
 "bug": []
@@ -207,6 +216,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -227,6 +239,9 @@
 "muda a tela"
 ],
 "de_novo": [
+"muda a tela"
+],
+"terceiro": [
 "muda a tela"
 ],
 "bug": []
@@ -251,6 +266,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 }
 ],
@@ -261,7 +279,7 @@
 "act": "view",
 "cara": "pílula",
 "h": 32,
-"w": 76,
+"w": 80,
 "cor": "rgb(255, 255, 255)",
 "borda": "rgb(255, 255, 255)",
 "bw": 0,
@@ -272,7 +290,7 @@
 "act": "guardMudo",
 "cara": "texto",
 "h": 25,
-"w": 53,
+"w": 55,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -283,7 +301,7 @@
 "act": "view",
 "cara": "pílula",
 "h": 32,
-"w": 48,
+"w": 50,
 "cor": "rgb(255, 255, 255)",
 "borda": "rgb(255, 255, 255)",
 "bw": 0,
@@ -294,7 +312,7 @@
 "act": "guardMudo",
 "cara": "texto",
 "h": 25,
-"w": 53,
+"w": 55,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -305,7 +323,7 @@
 "act": "view",
 "cara": "pílula",
 "h": 32,
-"w": 48,
+"w": 50,
 "cor": "rgb(255, 255, 255)",
 "borda": "rgb(255, 255, 255)",
 "bw": 0,
@@ -316,7 +334,7 @@
 "act": "guardMudo",
 "cara": "texto",
 "h": 25,
-"w": 53,
+"w": 55,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -327,7 +345,7 @@
 "act": "view",
 "cara": "pílula",
 "h": 32,
-"w": 60,
+"w": 63,
 "cor": "rgb(255, 255, 255)",
 "borda": "rgb(255, 255, 255)",
 "bw": 0,
@@ -338,7 +356,7 @@
 "act": "guardMudo",
 "cara": "texto",
 "h": 25,
-"w": 53,
+"w": 55,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -349,7 +367,7 @@
 "act": "inicio",
 "cara": "pílula",
 "h": 32,
-"w": 89,
+"w": 94,
 "cor": "rgb(255, 255, 255)",
 "borda": "rgb(255, 255, 255)",
 "bw": 0,
@@ -360,7 +378,7 @@
 "act": "guardMudo",
 "cara": "texto",
 "h": 25,
-"w": 53,
+"w": 55,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -383,5 +401,5 @@
 "erros_js": [],
 "rola_vazio": 0
 },
-"seg": 54
+"seg": 55
 }

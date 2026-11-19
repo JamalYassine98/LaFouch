@@ -1,7 +1,7 @@
 {
 "tela": "caixa-acoes",
 "modo": "atual",
-"quando": "19/11 10:57",
+"quando": "19/11 14:05",
 "passos": [
 "()=>window.__LF.setView('caixa')",
 "()=>{const e=[...document.querySelectorAll('[data-act=cxmenu]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
@@ -9,13 +9,13 @@
 "escuro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
-"cara": "ícone quadrado",
-"h": 46,
-"w": 46,
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
 "cor": "rgb(243, 192, 220)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -79,7 +79,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 79,
+"w": 83,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -88,11 +88,11 @@
 {
 "t": "Ações do caixa",
 "act": "cxmenu",
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "h": 44,
 "w": 44,
 "cor": "rgb(243, 192, 220)",
-"borda": "rgb(164, 74, 126)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -134,7 +134,7 @@
 "act": "cxReservas",
 "cara": "texto",
 "h": 44,
-"w": 71,
+"w": 77,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -167,7 +167,7 @@
 "act": "rtdes",
 "cara": "texto",
 "h": 44,
-"w": 52,
+"w": 56,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -178,7 +178,7 @@
 "act": "rtdes",
 "cara": "texto",
 "h": 44,
-"w": 52,
+"w": 56,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -189,7 +189,7 @@
 "act": "rtdes",
 "cara": "texto",
 "h": 44,
-"w": 52,
+"w": 56,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -200,7 +200,7 @@
 "act": "rtdes",
 "cara": "texto",
 "h": 44,
-"w": 52,
+"w": 56,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -211,7 +211,7 @@
 "act": "rtdes",
 "cara": "texto",
 "h": 44,
-"w": 52,
+"w": 56,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -222,7 +222,7 @@
 "act": "rtdes",
 "cara": "texto",
 "h": 44,
-"w": 52,
+"w": 56,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -257,7 +257,7 @@
 "r": "7 linha de base",
 "ex": [
 "Caixa Retirar Novo objetivo Confer",
-"Δ54.0px"
+"Δ56.0px"
 ]
 },
 {
@@ -285,7 +285,7 @@
 "i": 0,
 "act": "view",
 "id": "notif",
-"txt": "12",
+"txt": "13",
 "tag": "BUTTON",
 "efeito": [
 "leva → notif"
@@ -574,13 +574,13 @@
 "claro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
-"cara": "ícone quadrado",
-"h": 46,
-"w": 46,
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
 "cor": "rgb(141, 58, 105)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -644,7 +644,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 79,
+"w": 83,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -653,11 +653,11 @@
 {
 "t": "Ações do caixa",
 "act": "cxmenu",
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "h": 44,
 "w": 44,
 "cor": "rgb(141, 58, 105)",
-"borda": "rgb(141, 58, 105)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -699,7 +699,7 @@
 "act": "cxReservas",
 "cara": "texto",
 "h": 44,
-"w": 71,
+"w": 77,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -732,7 +732,7 @@
 "act": "rtdes",
 "cara": "texto",
 "h": 44,
-"w": 52,
+"w": 56,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -743,7 +743,7 @@
 "act": "rtdes",
 "cara": "texto",
 "h": 44,
-"w": 52,
+"w": 56,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -754,7 +754,7 @@
 "act": "rtdes",
 "cara": "texto",
 "h": 44,
-"w": 52,
+"w": 56,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -765,7 +765,7 @@
 "act": "rtdes",
 "cara": "texto",
 "h": 44,
-"w": 52,
+"w": 56,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -776,7 +776,7 @@
 "act": "rtdes",
 "cara": "texto",
 "h": 44,
-"w": 52,
+"w": 56,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -787,7 +787,7 @@
 "act": "rtdes",
 "cara": "texto",
 "h": 44,
-"w": 52,
+"w": 56,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -822,7 +822,7 @@
 "r": "7 linha de base",
 "ex": [
 "Caixa Retirar Novo objetivo Confer",
-"Δ54.0px"
+"Δ56.0px"
 ]
 },
 {
@@ -844,5 +844,5 @@
 "erros_js": [],
 "rola_vazio": 0
 },
-"seg": 177
+"seg": 138
 }

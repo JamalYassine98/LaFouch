@@ -1,7 +1,7 @@
 {
 "tela": "hist-lista",
 "modo": "aprov",
-"quando": "19/11 09:50",
+"quando": "19/11 13:56",
 "passos": [
 "()=>window.__LF.setView('hist')"
 ],
@@ -11,10 +11,10 @@
 "t": "12",
 "act": "view",
 "cara": "ícone redondo",
-"h": 46,
-"w": 46,
+"h": 44,
+"w": 44,
 "cor": "rgb(243, 192, 220)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -78,7 +78,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 101,
+"w": 108,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -91,7 +91,7 @@
 "h": 44,
 "w": 44,
 "cor": "rgb(231, 237, 245)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -102,7 +102,7 @@
 "h": 44,
 "w": 44,
 "cor": "rgb(231, 237, 245)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -110,7 +110,7 @@
 "t": "19/11 · hojequi G$ 182.000 › 5 vendas · ",
 "act": "opendia",
 "cara": "barra grande",
-"h": 71,
+"h": 89,
 "w": 342,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(42, 52, 65)",
@@ -121,7 +121,7 @@
 "t": "18/11qua G$ 500.000 › 10 vendas · lucro ",
 "act": "opendia",
 "cara": "barra grande",
-"h": 71,
+"h": 89,
 "w": 342,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(42, 52, 65)",
@@ -187,7 +187,7 @@
 "t": "12/11qui G$ 256.500 › 7 vendas · lucro l",
 "act": "opendia",
 "cara": "barra grande",
-"h": 71,
+"h": 89,
 "w": 342,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(42, 52, 65)",
@@ -276,7 +276,7 @@
 "act": "hmais",
 "cara": "texto",
 "h": 44,
-"w": 164,
+"w": 175,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -312,7 +312,7 @@
 "alin": [],
 "olho": [],
 "erros_js": [],
-"rola_vazio": 1122
+"rola_vazio": 1153
 },
 "vista": "hist",
 "toques": [
@@ -328,6 +328,9 @@
 "de_novo": [
 "leva → hist"
 ],
+"terceiro": [
+"leva → notif"
+],
 "bug": []
 },
 {
@@ -342,6 +345,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → grp"
+],
 "bug": []
 },
 {
@@ -354,6 +360,9 @@
 "nada visível"
 ],
 "de_novo": [
+"nada visível"
+],
+"terceiro": [
 "nada visível"
 ],
 "bug": []
@@ -370,6 +379,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -383,6 +395,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → dia"
 ],
 "bug": []
 },
@@ -398,6 +413,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → dia"
+],
 "bug": []
 },
 {
@@ -411,6 +429,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → dia"
 ],
 "bug": []
 },
@@ -426,6 +447,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → dia"
+],
 "bug": []
 },
 {
@@ -439,6 +463,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → dia"
 ],
 "bug": []
 },
@@ -454,6 +481,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → dia"
+],
 "bug": []
 },
 {
@@ -467,6 +497,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → dia"
 ],
 "bug": []
 },
@@ -482,6 +515,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → dia"
+],
 "bug": []
 },
 {
@@ -495,6 +531,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → dia"
 ],
 "bug": []
 },
@@ -510,6 +549,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → dia"
+],
 "bug": []
 },
 {
@@ -524,6 +566,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → dia"
+],
 "bug": []
 },
 {
@@ -536,6 +581,9 @@
 "muda a tela"
 ],
 "de_novo": [
+"muda a tela"
+],
+"terceiro": [
 "muda a tela"
 ],
 "bug": []
@@ -552,6 +600,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -564,6 +615,9 @@
 "muda a tela"
 ],
 "de_novo": [
+"muda a tela"
+],
+"terceiro": [
 "muda a tela"
 ],
 "bug": []
@@ -580,6 +634,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -592,6 +649,9 @@
 "muda a tela"
 ],
 "de_novo": [
+"muda a tela"
+],
+"terceiro": [
 "muda a tela"
 ],
 "bug": []
@@ -608,6 +668,9 @@
 "de_novo": [
 "leva → inicio"
 ],
+"terceiro": [
+"leva → grp"
+],
 "bug": []
 }
 ],
@@ -617,10 +680,10 @@
 "t": "12",
 "act": "view",
 "cara": "ícone redondo",
-"h": 46,
-"w": 46,
+"h": 44,
+"w": 44,
 "cor": "rgb(141, 58, 105)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -684,7 +747,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 101,
+"w": 108,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -697,7 +760,7 @@
 "h": 44,
 "w": 44,
 "cor": "rgb(31, 26, 34)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -708,7 +771,7 @@
 "h": 44,
 "w": 44,
 "cor": "rgb(31, 26, 34)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -716,7 +779,7 @@
 "t": "19/11 · hojequi G$ 182.000 › 5 vendas · ",
 "act": "opendia",
 "cara": "barra grande",
-"h": 71,
+"h": 89,
 "w": 342,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(217, 208, 216)",
@@ -727,7 +790,7 @@
 "t": "18/11qua G$ 500.000 › 10 vendas · lucro ",
 "act": "opendia",
 "cara": "barra grande",
-"h": 71,
+"h": 89,
 "w": 342,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(217, 208, 216)",
@@ -793,7 +856,7 @@
 "t": "12/11qui G$ 256.500 › 7 vendas · lucro l",
 "act": "opendia",
 "cara": "barra grande",
-"h": 71,
+"h": 89,
 "w": 342,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(217, 208, 216)",
@@ -882,7 +945,7 @@
 "act": "hmais",
 "cara": "texto",
 "h": 44,
-"w": 164,
+"w": 175,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -918,7 +981,7 @@
 "alin": [],
 "olho": [],
 "erros_js": [],
-"rola_vazio": 1122
+"rola_vazio": 1153
 },
-"seg": 198
+"seg": 147
 }

@@ -1,7 +1,7 @@
 {
 "tela": "hist-dia",
 "modo": "atual",
-"quando": "19/11 11:19",
+"quando": "19/11 13:59",
 "passos": [
 "()=>window.__LF.setView('hist')",
 "()=>{const e=[...document.querySelectorAll('#v-hist [data-act=hday],#v-hist .d71,#v-hist [data-act=dayab]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
@@ -11,11 +11,11 @@
 {
 "t": "12",
 "act": "view",
-"cara": "ícone quadrado",
-"h": 46,
-"w": 46,
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
 "cor": "rgb(243, 192, 220)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -79,7 +79,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 88,
+"w": 93,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -90,7 +90,7 @@
 "act": "",
 "cara": "texto",
 "h": 32,
-"w": 144,
+"w": 119,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
 "bw": 0,
@@ -101,14 +101,14 @@
 "act": "dPer",
 "cara": "texto",
 "h": 44,
-"w": 47,
+"w": 50,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
 "fs": "15px"
 },
 {
-"t": "Contas do dia G$ 139.845 1/30 de G$ 4.20",
+"t": "Contas do dia G$ 140.000 1/30 de G$ 4.20",
 "act": "view",
 "cara": "texto",
 "h": 69,
@@ -133,7 +133,7 @@
 "t": "1× SP58110 +2.00 · Preto V-1968 · 19/11 ",
 "act": "hopen",
 "cara": "texto",
-"h": 68,
+"h": 86,
 "w": 342,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
@@ -166,7 +166,7 @@
 "t": "1× SP58110 +1.25 · Preto V-1965 · 19/11 ",
 "act": "hopen",
 "cara": "texto",
-"h": 68,
+"h": 86,
 "w": 342,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
@@ -178,7 +178,7 @@
 "act": "view",
 "cara": "texto",
 "h": 44,
-"w": 208,
+"w": 223,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -208,7 +208,7 @@
 }
 ],
 "erros_js": [],
-"rola_vazio": 779
+"rola_vazio": 815
 },
 "vista": "dia",
 "toques": [
@@ -420,13 +420,13 @@
 "claro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
-"cara": "ícone quadrado",
-"h": 46,
-"w": 46,
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
 "cor": "rgb(141, 58, 105)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -490,7 +490,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 88,
+"w": 93,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -501,7 +501,7 @@
 "act": "",
 "cara": "texto",
 "h": 32,
-"w": 144,
+"w": 119,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
 "bw": 0,
@@ -512,7 +512,7 @@
 "act": "dPer",
 "cara": "texto",
 "h": 44,
-"w": 47,
+"w": 50,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -544,7 +544,7 @@
 "t": "1× SP58110 +2.00 · Preto V-1968 · 19/11 ",
 "act": "hopen",
 "cara": "texto",
-"h": 68,
+"h": 86,
 "w": 342,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
@@ -577,7 +577,7 @@
 "t": "1× SP58110 +1.25 · Preto V-1965 · 19/11 ",
 "act": "hopen",
 "cara": "texto",
-"h": 68,
+"h": 86,
 "w": 342,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(31, 26, 34)",
@@ -589,7 +589,7 @@
 "act": "view",
 "cara": "texto",
 "h": 44,
-"w": 208,
+"w": 223,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -619,7 +619,7 @@
 }
 ],
 "erros_js": [],
-"rola_vazio": 779
+"rola_vazio": 815
 },
 "seg": 99
 }

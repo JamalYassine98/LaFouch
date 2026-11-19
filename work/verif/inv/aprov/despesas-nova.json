@@ -1,7 +1,7 @@
 {
 "tela": "despesas-nova",
 "modo": "aprov",
-"quando": "19/11 11:04",
+"quando": "19/11 14:07",
 "passos": [
 "()=>window.__LF.setView('desp')",
 "()=>{const e=[...document.querySelectorAll('[data-act=despNova]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}"
@@ -114,7 +114,7 @@
 "alin": [],
 "olho": [],
 "erros_js": [],
-"rola_vazio": 1078
+"rola_vazio": 1073
 },
 "vista": "desp",
 "toques": [
@@ -261,7 +261,7 @@
 "alin": [],
 "olho": [],
 "erros_js": [],
-"rola_vazio": 1078
+"rola_vazio": 1073
 },
-"seg": 28
+"seg": 20
 }

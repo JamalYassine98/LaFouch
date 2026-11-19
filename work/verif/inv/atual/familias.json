@@ -2,97 +2,6 @@
 "regras": {
 "ícone quadrado (aprovado: redondo, 137a)": [
 {
-"tela": "ajustes",
-"act": "view",
-"txt": "12",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → notif"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 46
-},
-{
-"tela": "atacado-lojistas",
-"act": "view",
-"txt": "12",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → notif"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 46
-},
-{
-"tela": "atacado-tabela",
-"act": "view",
-"txt": "12",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → notif"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 46
-},
-{
-"tela": "caixa-acoes",
-"act": "view",
-"txt": "12",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → notif"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 46
-},
-{
-"tela": "caixa-acoes",
-"act": "cxmenu",
-"txt": "Ações do caixa",
-"faz": "abre/mexe no lugar",
-"efeito": [
-"muda a tela"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 44
-},
-{
-"tela": "cambio",
-"act": "view",
-"txt": "12",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → notif"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 46
-},
-{
-"tela": "catalogo-carrinho",
-"act": "view",
-"txt": "12",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → notif"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 46
-},
-{
 "tela": "catalogo-peca",
 "act": "",
 "txt": "−",
@@ -104,214 +13,6 @@
 "cor": "rgb(231, 237, 245)",
 "fs": "22px",
 "h": 48
-},
-{
-"tela": "clientes-novo",
-"act": "view",
-"txt": "12",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → notif"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 46
-},
-{
-"tela": "dash-contas-dia",
-"act": "view",
-"txt": "12",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → notif"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 46
-},
-{
-"tela": "dash-folha-ver",
-"act": "view",
-"txt": "12",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → notif"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 46
-},
-{
-"tela": "dash-mes-vendido",
-"act": "view",
-"txt": "12",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → notif"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 46
-},
-{
-"tela": "dash-semana",
-"act": "view",
-"txt": "12",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → notif"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 46
-},
-{
-"tela": "despesas-nova",
-"act": "view",
-"txt": "12",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → notif"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 46
-},
-{
-"tela": "giro-no-estoque",
-"act": "view",
-"txt": "12",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → notif"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 46
-},
-{
-"tela": "grp-dinheiro",
-"act": "view",
-"txt": "12",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → notif"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 46
-},
-{
-"tela": "hist-dia",
-"act": "view",
-"txt": "12",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → notif"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 46
-},
-{
-"tela": "hist-lista",
-"act": "view",
-"txt": "12",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → notif"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 46
-},
-{
-"tela": "inicio",
-"act": "view",
-"txt": "12",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → notif"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 46
-},
-{
-"tela": "inventario-fornecedores",
-"act": "view",
-"txt": "12",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → notif"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 46
-},
-{
-"tela": "marketing",
-"act": "view",
-"txt": "12",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → notif"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 46
-},
-{
-"tela": "pendencias",
-"act": "view",
-"txt": "12",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → inicio"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 46
-},
-{
-"tela": "vender",
-"act": "view",
-"txt": "12",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → notif"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 46
-},
-{
-"tela": "inventario-ficha",
-"act": "",
-"txt": "Voltar",
-"faz": "abre/mexe no lugar",
-"efeito": [
-"muda a tela"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(203, 213, 225)",
-"fs": "14px",
-"h": 44
 },
 {
 "tela": "catalogo-peca",
@@ -446,19 +147,6 @@
 "h": 74
 },
 {
-"tela": "atacado-tabela",
-"act": "ataAba",
-"txt": "Tabela",
-"faz": "sem efeito visível",
-"efeito": [
-"nada visível"
-],
-"cara": "texto",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 44
-},
-{
 "tela": "caixa-reservado",
 "act": "",
 "txt": "Reservas",
@@ -552,7 +240,7 @@
 {
 "tela": "dash-semana",
 "act": "d48Moeda",
-"txt": "G$ 445.700",
+"txt": "G$ 445.400",
 "faz": "sem efeito visível",
 "efeito": [
 "nada visível"
@@ -587,6 +275,19 @@
 "cor": "rgb(243, 192, 220)",
 "fs": "15px",
 "h": 42
+},
+{
+"tela": "giro-no-estoque",
+"act": "",
+"txt": "EM ESTOQUE (FILTRO) › 470",
+"faz": "sem efeito visível",
+"efeito": [
+"sumiu"
+],
+"cara": "texto",
+"cor": "rgb(231, 237, 245)",
+"fs": "15px",
+"h": 87
 },
 {
 "tela": "giro-retorno",
@@ -626,19 +327,6 @@
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
 "h": 42
-},
-{
-"tela": "inventario-ficha-historico",
-"act": "fnTab",
-"txt": "Histórico",
-"faz": "sem efeito visível",
-"efeito": [
-"nada visível"
-],
-"cara": "texto",
-"cor": "rgb(243, 192, 220)",
-"fs": "14px",
-"h": 44
 },
 {
 "tela": "inventario-ficha",
@@ -843,10 +531,10 @@
 "efeito": [
 "sumiu"
 ],
-"cara": null,
-"cor": null,
-"fs": null,
-"h": null
+"cara": "texto",
+"cor": "rgb(231, 237, 245)",
+"fs": "15px",
+"h": 69
 },
 {
 "tela": "inventario-ficha",
@@ -992,24 +680,24 @@
 "cor": "rgb(203, 213, 225)",
 "fs": "14px",
 "h": 44
-}
-],
-"adicionar fora do padrão (P1 \"+\" redondo / grupo \"+\" em texto)": [
+},
 {
-"tela": "atacado-lojistas",
-"act": "ataNovo",
-"txt": "+ Novo acesso",
-"faz": "abre janela",
+"tela": "pendencias",
+"act": "fechar",
+"txt": "Fechar",
+"faz": "abre/mexe no lugar",
 "efeito": [
-"abre janela \"Novo acesso ao atacado\""
+"muda a tela"
 ],
 "cara": "pílula",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
 "h": 44
-},
+}
+],
+"adicionar fora do padrão (P1 \"+\" redondo / grupo \"+\" em texto)": [
 {
-"tela": "atacado-tabela",
+"tela": "atacado-lojistas",
 "act": "ataNovo",
 "txt": "+ Novo acesso",
 "faz": "abre janela",
@@ -1154,19 +842,6 @@
 "h": 44
 },
 {
-"tela": "inventario-ficha-historico",
-"act": "fnEstudio",
-"txt": "Fotografar no Estúdio ›",
-"faz": "abre/mexe no lugar",
-"efeito": [
-"muda a tela"
-],
-"cara": "texto",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 44
-},
-{
 "tela": "inventario-ficha",
 "act": "fnEstudio",
 "txt": "Fotografar no Estúdio ›",
@@ -1275,7 +950,7 @@
 {
 "tela": "marketing",
 "act": "",
-"txt": "Óculos solar #13 27 vendidas em 30 dias ",
+"txt": "Óculos solar #13 26 vendidas em 30 dias ",
 "faz": "abre janela",
 "efeito": [
 "abre janela \"Status\""
@@ -1786,54 +1461,41 @@
 {
 "tela": "ajustes",
 "act": "view",
-"txt": "12",
+"txt": "13",
 "faz": "leva a outra tela",
 "efeito": [
 "leva → notif"
 ],
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "cor": "rgb(243, 192, 220)",
 "fs": "15px",
-"h": 46
+"h": 44
 },
 {
 "tela": "atacado-lojistas",
 "act": "view",
-"txt": "12",
+"txt": "13",
 "faz": "leva a outra tela",
 "efeito": [
 "leva → notif"
 ],
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "cor": "rgb(243, 192, 220)",
 "fs": "15px",
-"h": 46
-},
-{
-"tela": "atacado-tabela",
-"act": "view",
-"txt": "12",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → notif"
-],
-"cara": "ícone quadrado",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 46
+"h": 44
 },
 {
 "tela": "caixa-acoes",
 "act": "view",
-"txt": "12",
+"txt": "13",
 "faz": "leva a outra tela",
 "efeito": [
 "leva → notif"
 ],
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "cor": "rgb(243, 192, 220)",
 "fs": "15px",
-"h": 46
+"h": 44
 },
 {
 "tela": "caixa-acoes",
@@ -1843,7 +1505,7 @@
 "efeito": [
 "muda a tela"
 ],
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "cor": "rgb(243, 192, 220)",
 "fs": "15px",
 "h": 44
@@ -1851,28 +1513,28 @@
 {
 "tela": "cambio",
 "act": "view",
-"txt": "12",
+"txt": "13",
 "faz": "leva a outra tela",
 "efeito": [
 "leva → notif"
 ],
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "cor": "rgb(243, 192, 220)",
 "fs": "15px",
-"h": 46
+"h": 44
 },
 {
 "tela": "catalogo-carrinho",
 "act": "view",
-"txt": "12",
+"txt": "13",
 "faz": "leva a outra tela",
 "efeito": [
 "leva → notif"
 ],
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "cor": "rgb(243, 192, 220)",
 "fs": "15px",
-"h": 46
+"h": 44
 },
 {
 "tela": "catalogo-carrinho",
@@ -1916,15 +1578,15 @@
 {
 "tela": "clientes-novo",
 "act": "view",
-"txt": "12",
+"txt": "13",
 "faz": "leva a outra tela",
 "efeito": [
 "leva → notif"
 ],
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "cor": "rgb(243, 192, 220)",
 "fs": "15px",
-"h": 46
+"h": 44
 },
 {
 "tela": "dash-contas-dia",
@@ -1934,10 +1596,10 @@
 "efeito": [
 "leva → notif"
 ],
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "cor": "rgb(243, 192, 220)",
 "fs": "15px",
-"h": 46
+"h": 44
 },
 {
 "tela": "dash-contas-dia",
@@ -1986,23 +1648,23 @@
 "efeito": [
 "leva → notif"
 ],
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "cor": "rgb(243, 192, 220)",
 "fs": "15px",
-"h": 46
+"h": 44
 },
 {
 "tela": "dash-mes-vendido",
 "act": "view",
-"txt": "12",
+"txt": "13",
 "faz": "leva a outra tela",
 "efeito": [
 "leva → notif"
 ],
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "cor": "rgb(243, 192, 220)",
 "fs": "15px",
-"h": 46
+"h": 44
 },
 {
 "tela": "dash-mes-vendido",
@@ -2033,28 +1695,28 @@
 {
 "tela": "dash-semana",
 "act": "view",
-"txt": "12",
+"txt": "13",
 "faz": "leva a outra tela",
 "efeito": [
 "leva → notif"
 ],
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "cor": "rgb(243, 192, 220)",
 "fs": "15px",
-"h": 46
+"h": 44
 },
 {
 "tela": "despesas-nova",
 "act": "view",
-"txt": "12",
+"txt": "13",
 "faz": "leva a outra tela",
 "efeito": [
 "leva → notif"
 ],
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "cor": "rgb(243, 192, 220)",
 "fs": "15px",
-"h": 46
+"h": 44
 },
 {
 "tela": "despesas-nova",
@@ -2098,28 +1760,42 @@
 {
 "tela": "giro-no-estoque",
 "act": "view",
-"txt": "12",
+"txt": "13",
 "faz": "leva a outra tela",
 "efeito": [
 "leva → notif"
 ],
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "cor": "rgb(243, 192, 220)",
 "fs": "15px",
-"h": 46
+"h": 44
+},
+{
+"tela": "giro-no-estoque",
+"act": "",
+"txt": "Filtros e ordem",
+"faz": "abre janela",
+"efeito": [
+"abre janela \"Filtros do inventário\"",
+"alterna"
+],
+"cara": "ícone redondo",
+"cor": "rgb(203, 213, 225)",
+"fs": "15px",
+"h": 44
 },
 {
 "tela": "grp-dinheiro",
 "act": "view",
-"txt": "12",
+"txt": "13",
 "faz": "leva a outra tela",
 "efeito": [
 "leva → notif"
 ],
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "cor": "rgb(243, 192, 220)",
 "fs": "15px",
-"h": 46
+"h": 44
 },
 {
 "tela": "hist-dia",
@@ -2129,10 +1805,10 @@
 "efeito": [
 "leva → notif"
 ],
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "cor": "rgb(243, 192, 220)",
 "fs": "15px",
-"h": 46
+"h": 44
 },
 {
 "tela": "hist-lista",
@@ -2142,10 +1818,10 @@
 "efeito": [
 "leva → notif"
 ],
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "cor": "rgb(243, 192, 220)",
 "fs": "15px",
-"h": 46
+"h": 44
 },
 {
 "tela": "hist-lista",
@@ -2215,28 +1891,28 @@
 {
 "tela": "inicio",
 "act": "view",
-"txt": "12",
+"txt": "13",
 "faz": "leva a outra tela",
 "efeito": [
 "leva → notif"
 ],
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "cor": "rgb(243, 192, 220)",
 "fs": "15px",
-"h": 46
+"h": 44
 },
 {
 "tela": "inventario-fornecedores",
 "act": "view",
-"txt": "12",
+"txt": "13",
 "faz": "leva a outra tela",
 "efeito": [
 "leva → notif"
 ],
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "cor": "rgb(243, 192, 220)",
 "fs": "15px",
-"h": 46
+"h": 44
 },
 {
 "tela": "marketing-post",
@@ -2254,41 +1930,41 @@
 {
 "tela": "marketing",
 "act": "view",
-"txt": "12",
+"txt": "13",
 "faz": "leva a outra tela",
 "efeito": [
 "leva → notif"
 ],
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "cor": "rgb(243, 192, 220)",
 "fs": "15px",
-"h": 46
+"h": 44
 },
 {
 "tela": "pendencias",
 "act": "view",
-"txt": "12",
+"txt": "13",
 "faz": "leva a outra tela",
 "efeito": [
 "leva → inicio"
 ],
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "cor": "rgb(243, 192, 220)",
 "fs": "15px",
-"h": 46
+"h": 44
 },
 {
 "tela": "vender",
 "act": "view",
-"txt": "12",
+"txt": "13",
 "faz": "leva a outra tela",
 "efeito": [
 "leva → notif"
 ],
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "cor": "rgb(243, 192, 220)",
 "fs": "15px",
-"h": 46
+"h": 44
 }
 ],
 "texto/linha tocável": [
@@ -2486,58 +2162,6 @@
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
 "h": 74
-},
-{
-"tela": "atacado-tabela",
-"act": "ataAba",
-"txt": "Mensagens",
-"faz": "abre/mexe no lugar",
-"efeito": [
-"muda a tela"
-],
-"cara": "texto",
-"cor": "rgb(203, 213, 225)",
-"fs": "15px",
-"h": 44
-},
-{
-"tela": "atacado-tabela",
-"act": "ataAba",
-"txt": "Lojistas",
-"faz": "abre/mexe no lugar",
-"efeito": [
-"muda a tela"
-],
-"cara": "texto",
-"cor": "rgb(203, 213, 225)",
-"fs": "15px",
-"h": 44
-},
-{
-"tela": "atacado-tabela",
-"act": "ataAba",
-"txt": "Lotes",
-"faz": "abre/mexe no lugar",
-"efeito": [
-"muda a tela"
-],
-"cara": "texto",
-"cor": "rgb(203, 213, 225)",
-"fs": "15px",
-"h": 44
-},
-{
-"tela": "atacado-tabela",
-"act": "ataAba",
-"txt": "Tabela",
-"faz": "sem efeito visível",
-"efeito": [
-"nada visível"
-],
-"cara": "texto",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 44
 },
 {
 "tela": "atacado-tabela",
@@ -2919,7 +2543,7 @@
 {
 "tela": "dash-semana",
 "act": "d48Moeda",
-"txt": "G$ 445.700",
+"txt": "G$ 445.400",
 "faz": "sem efeito visível",
 "efeito": [
 "nada visível"
@@ -3102,9 +2726,9 @@
 "tela": "giro-no-estoque",
 "act": "",
 "txt": "EM ESTOQUE (FILTRO) › 470",
-"faz": "liga/desliga ou escolhe",
+"faz": "sem efeito visível",
 "efeito": [
-"alterna"
+"sumiu"
 ],
 "cara": "texto",
 "cor": "rgb(231, 237, 245)",
@@ -3123,20 +2747,6 @@
 "cor": "rgb(203, 213, 225)",
 "fs": "15px",
 "h": 44
-},
-{
-"tela": "giro-no-estoque",
-"act": "",
-"txt": "Filtros e ordem",
-"faz": "abre janela",
-"efeito": [
-"abre janela \"Filtros do inventário\"",
-"alterna"
-],
-"cara": "texto",
-"cor": "rgb(203, 213, 225)",
-"fs": "15px",
-"h": 42
 },
 {
 "tela": "giro-no-estoque",
@@ -3175,7 +2785,7 @@
 "cara": "caixa",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 309
+"h": 308
 },
 {
 "tela": "giro-no-estoque",
@@ -3188,7 +2798,7 @@
 "cara": "caixa",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 309
+"h": 308
 },
 {
 "tela": "giro-no-estoque",
@@ -3201,7 +2811,7 @@
 "cara": "caixa",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 309
+"h": 308
 },
 {
 "tela": "giro-no-estoque",
@@ -3214,7 +2824,7 @@
 "cara": "caixa",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 309
+"h": 330
 },
 {
 "tela": "giro-retorno",
@@ -3326,7 +2936,7 @@
 "txt": "Resultados Dia, mês e histórico",
 "faz": "leva a outra tela",
 "efeito": [
-"leva → grp"
+"leva → dia"
 ],
 "cara": "caixa",
 "cor": "rgb(231, 237, 245)",
@@ -3339,7 +2949,7 @@
 "txt": "Giro e preços Giro, preços e reservas",
 "faz": "leva a outra tela",
 "efeito": [
-"leva → grp"
+"leva → dash"
 ],
 "cara": "caixa",
 "cor": "rgb(231, 237, 245)",
@@ -3352,7 +2962,7 @@
 "txt": "Site Pedidos, mensagens, vitrine e model",
 "faz": "leva a outra tela",
 "efeito": [
-"leva → grp"
+"leva → site"
 ],
 "cara": "caixa",
 "cor": "rgb(231, 237, 245)",
@@ -3365,7 +2975,7 @@
 "txt": "Marketing Posts, vídeos, temática, cartõ",
 "faz": "leva a outra tela",
 "efeito": [
-"leva → grp"
+"leva → mkt"
 ],
 "cara": "caixa",
 "cor": "rgb(231, 237, 245)",
@@ -3423,58 +3033,6 @@
 "cor": "rgb(139, 155, 176)",
 "fs": "15px",
 "h": 42
-},
-{
-"tela": "inventario-ficha-historico",
-"act": "fnTab",
-"txt": "Estoque",
-"faz": "abre/mexe no lugar",
-"efeito": [
-"muda a tela"
-],
-"cara": "texto",
-"cor": "rgb(203, 213, 225)",
-"fs": "14px",
-"h": 44
-},
-{
-"tela": "inventario-ficha-historico",
-"act": "fnTab",
-"txt": "Histórico",
-"faz": "sem efeito visível",
-"efeito": [
-"nada visível"
-],
-"cara": "texto",
-"cor": "rgb(243, 192, 220)",
-"fs": "14px",
-"h": 44
-},
-{
-"tela": "inventario-ficha-historico",
-"act": "fnTab",
-"txt": "Site",
-"faz": "liga/desliga ou escolhe",
-"efeito": [
-"alterna"
-],
-"cara": "texto",
-"cor": "rgb(203, 213, 225)",
-"fs": "14px",
-"h": 44
-},
-{
-"tela": "inventario-ficha-historico",
-"act": "fnTab",
-"txt": "Preço",
-"faz": "liga/desliga ou escolhe",
-"efeito": [
-"alterna"
-],
-"cara": "texto",
-"cor": "rgb(203, 213, 225)",
-"fs": "14px",
-"h": 44
 },
 {
 "tela": "inventario-ficha",
@@ -4337,19 +3895,6 @@
 "h": 44
 },
 {
-"tela": "atacado-tabela",
-"act": "nvVolta",
-"txt": "‹",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → inicio"
-],
-"cara": "texto",
-"cor": "rgb(139, 155, 176)",
-"fs": "26px",
-"h": 44
-},
-{
 "tela": "caixa-acoes",
 "act": "nvVolta",
 "txt": "‹ DINHEIRO",
@@ -4456,14 +4001,14 @@
 {
 "tela": "catalogo-peca",
 "act": "",
-"txt": "Voltar",
+"txt": "‹ CATÁLOGO",
 "faz": "abre/mexe no lugar",
 "efeito": [
 "muda a tela"
 ],
-"cara": "ícone redondo",
-"cor": "rgb(203, 213, 225)",
-"fs": "14px",
+"cara": "texto",
+"cor": "rgb(139, 155, 176)",
+"fs": "12px",
 "h": 44
 },
 {
@@ -4766,19 +4311,6 @@
 "h": 44
 },
 {
-"tela": "inventario-ficha-historico",
-"act": "nvVolta",
-"txt": "‹ PEÇAS",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → grp"
-],
-"cara": "texto",
-"cor": "rgb(139, 155, 176)",
-"fs": "12px",
-"h": 44
-},
-{
 "tela": "inventario-ficha",
 "act": "nvVolta",
 "txt": "‹ PEÇAS",
@@ -4794,14 +4326,14 @@
 {
 "tela": "inventario-ficha",
 "act": "",
-"txt": "Voltar",
+"txt": "‹ INVENTÁRIO",
 "faz": "abre/mexe no lugar",
 "efeito": [
 "muda a tela"
 ],
-"cara": "ícone quadrado",
-"cor": "rgb(203, 213, 225)",
-"fs": "14px",
+"cara": "texto",
+"cor": "rgb(139, 155, 176)",
+"fs": "12px",
 "h": 44
 },
 {
@@ -4854,6 +4386,19 @@
 "cara": "texto",
 "cor": "rgb(139, 155, 176)",
 "fs": "26px",
+"h": 44
+},
+{
+"tela": "pendencias",
+"act": "fechar",
+"txt": "Fechar",
+"faz": "abre/mexe no lugar",
+"efeito": [
+"muda a tela"
+],
+"cara": "pílula",
+"cor": "rgb(231, 237, 245)",
+"fs": "15px",
 "h": 44
 },
 {
@@ -4919,19 +4464,6 @@
 "abre janela \"Novo lote\""
 ],
 "cara": "texto",
-"cor": "rgb(231, 237, 245)",
-"fs": "15px",
-"h": 44
-},
-{
-"tela": "atacado-tabela",
-"act": "ataNovo",
-"txt": "+ Novo acesso",
-"faz": "abre janela",
-"efeito": [
-"abre janela \"Novo acesso ao atacado\""
-],
-"cara": "pílula",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
 "h": 44
@@ -5721,32 +5253,6 @@
 "h": 83
 },
 {
-"tela": "inventario-ficha-historico",
-"act": "fnTab",
-"txt": "Vender no Catálogo ›",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → vendas"
-],
-"cara": "texto",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 44
-},
-{
-"tela": "inventario-ficha-historico",
-"act": "fnEstudio",
-"txt": "Fotografar no Estúdio ›",
-"faz": "abre/mexe no lugar",
-"efeito": [
-"muda a tela"
-],
-"cara": "texto",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 44
-},
-{
 "tela": "inventario-ficha",
 "act": "fnTab",
 "txt": "Vender no Catálogo ›",
@@ -6437,7 +5943,7 @@
 "cara": "texto",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 68
+"h": 86
 },
 {
 "tela": "dash-folha-ver",
@@ -6476,7 +5982,7 @@
 "cara": "texto",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 68
+"h": 86
 },
 {
 "tela": "dash-mes-vendido",
@@ -6619,7 +6125,7 @@
 "cara": "texto",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 70
+"h": 88
 },
 {
 "tela": "dash-mes-vendido",
@@ -6853,7 +6359,7 @@
 "cara": "caixa",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 309
+"h": 308
 },
 {
 "tela": "giro-no-estoque",
@@ -6879,7 +6385,7 @@
 "cara": "caixa",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 309
+"h": 330
 },
 {
 "tela": "giro-no-estoque",
@@ -6892,7 +6398,7 @@
 "cara": "caixa",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 309
+"h": 330
 },
 {
 "tela": "giro-retorno",
@@ -7331,10 +6837,10 @@
 "efeito": [
 "sumiu"
 ],
-"cara": null,
-"cor": null,
-"fs": null,
-"h": null
+"cara": "texto",
+"cor": "rgb(231, 237, 245)",
+"fs": "15px",
+"h": 69
 },
 {
 "tela": "hist-dia",
@@ -7360,7 +6866,7 @@
 "cara": "texto",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 68
+"h": 86
 },
 {
 "tela": "hist-dia",
@@ -7399,7 +6905,7 @@
 "cara": "texto",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 68
+"h": 86
 },
 {
 "tela": "hist-lista",
@@ -7409,10 +6915,10 @@
 "efeito": [
 "leva → dia"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 70
+"h": 89
 },
 {
 "tela": "hist-lista",
@@ -7422,10 +6928,10 @@
 "efeito": [
 "leva → dia"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 70
+"h": 89
 },
 {
 "tela": "hist-lista",
@@ -7435,10 +6941,10 @@
 "efeito": [
 "leva → dia"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 88
+"h": 89
 },
 {
 "tela": "hist-lista",
@@ -7448,10 +6954,10 @@
 "efeito": [
 "leva → dia"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 88
+"h": 89
 },
 {
 "tela": "hist-lista",
@@ -7461,10 +6967,10 @@
 "efeito": [
 "leva → dia"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 70
+"h": 71
 },
 {
 "tela": "hist-lista",
@@ -7474,10 +6980,10 @@
 "efeito": [
 "leva → dia"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 88
+"h": 89
 },
 {
 "tela": "hist-lista",
@@ -7487,10 +6993,10 @@
 "efeito": [
 "leva → dia"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 88
+"h": 89
 },
 {
 "tela": "hist-lista",
@@ -7500,10 +7006,10 @@
 "efeito": [
 "leva → dia"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 70
+"h": 89
 },
 {
 "tela": "hist-lista",
@@ -7513,10 +7019,10 @@
 "efeito": [
 "leva → dia"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 88
+"h": 89
 },
 {
 "tela": "hist-lista",
@@ -7526,10 +7032,10 @@
 "efeito": [
 "leva → dia"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 88
+"h": 89
 },
 {
 "tela": "hist-lista",
@@ -7539,10 +7045,10 @@
 "efeito": [
 "leva → dia"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 70
+"h": 89
 },
 {
 "tela": "hist-lista",
@@ -7552,10 +7058,10 @@
 "efeito": [
 "muda a tela"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 79
+"h": 78
 },
 {
 "tela": "hist-lista",
@@ -7565,7 +7071,7 @@
 "efeito": [
 "muda a tela"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
 "h": 78
@@ -7578,10 +7084,10 @@
 "efeito": [
 "muda a tela"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 79
+"h": 78
 },
 {
 "tela": "hist-lista",
@@ -7591,7 +7097,7 @@
 "efeito": [
 "muda a tela"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
 "h": 78
@@ -7625,7 +7131,7 @@
 {
 "tela": "marketing",
 "act": "",
-"txt": "Óculos solar #13 27 vendidas em 30 dias ",
+"txt": "Óculos solar #13 26 vendidas em 30 dias ",
 "faz": "abre janela",
 "efeito": [
 "abre janela \"Status\""
@@ -8223,19 +7729,6 @@
 "h": 44
 },
 {
-"tela": "inventario-ficha-historico",
-"act": "fichaAbre",
-"txt": "Ficha 4/6",
-"faz": "abre janela",
-"efeito": [
-"abre janela \"Ficha do produto\""
-],
-"cara": "pílula",
-"cor": "rgb(139, 155, 176)",
-"fs": "12.5px",
-"h": 26
-},
-{
 "tela": "inventario-ficha",
 "act": "fichaAbre",
 "txt": "Ficha 4/6",
@@ -8511,7 +8004,7 @@
 "efeito": [
 "muda a tela"
 ],
-"cara": "ícone quadrado",
+"cara": "ícone redondo",
 "cor": "rgb(243, 192, 220)",
 "fs": "15px",
 "h": 44
@@ -8658,6 +8151,20 @@
 "cor": "rgba(0, 0, 0, 0)",
 "fs": "15px",
 "h": 40
+},
+{
+"tela": "giro-no-estoque",
+"act": "",
+"txt": "Filtros e ordem",
+"faz": "abre janela",
+"efeito": [
+"abre janela \"Filtros do inventário\"",
+"alterna"
+],
+"cara": "ícone redondo",
+"cor": "rgb(203, 213, 225)",
+"fs": "15px",
+"h": 44
 },
 {
 "tela": "hist-lista",
@@ -8897,19 +8404,6 @@
 },
 {
 "tela": "atacado-tabela",
-"act": "ataAba",
-"txt": "Tabela",
-"faz": "sem efeito visível",
-"efeito": [
-"nada visível"
-],
-"cara": "texto",
-"cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 44
-},
-{
-"tela": "atacado-tabela",
 "act": "ataVerTab",
 "txt": "Ver a tabela de atacado Os preços como o",
 "faz": "abre janela",
@@ -9119,7 +8613,7 @@
 {
 "tela": "dash-semana",
 "act": "d48Moeda",
-"txt": "G$ 445.700",
+"txt": "G$ 445.400",
 "faz": "sem efeito visível",
 "efeito": [
 "nada visível"
@@ -9224,9 +8718,9 @@
 "tela": "giro-no-estoque",
 "act": "",
 "txt": "EM ESTOQUE (FILTRO) › 470",
-"faz": "liga/desliga ou escolhe",
+"faz": "sem efeito visível",
 "efeito": [
-"alterna"
+"sumiu"
 ],
 "cara": "texto",
 "cor": "rgb(231, 237, 245)",
@@ -9245,20 +8739,6 @@
 "cor": "rgb(203, 213, 225)",
 "fs": "15px",
 "h": 44
-},
-{
-"tela": "giro-no-estoque",
-"act": "",
-"txt": "Filtros e ordem",
-"faz": "abre janela",
-"efeito": [
-"abre janela \"Filtros do inventário\"",
-"alterna"
-],
-"cara": "texto",
-"cor": "rgb(203, 213, 225)",
-"fs": "15px",
-"h": 42
 },
 {
 "tela": "giro-no-estoque",
@@ -9297,7 +8777,7 @@
 "cara": "caixa",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 309
+"h": 308
 },
 {
 "tela": "giro-no-estoque",
@@ -9310,7 +8790,7 @@
 "cara": "caixa",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 309
+"h": 308
 },
 {
 "tela": "giro-no-estoque",
@@ -9323,7 +8803,7 @@
 "cara": "caixa",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 309
+"h": 308
 },
 {
 "tela": "giro-no-estoque",
@@ -9336,7 +8816,7 @@
 "cara": "caixa",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 309
+"h": 330
 },
 {
 "tela": "giro-retorno",
@@ -9435,7 +8915,7 @@
 "txt": "Resultados Dia, mês e histórico",
 "faz": "leva a outra tela",
 "efeito": [
-"leva → grp"
+"leva → dia"
 ],
 "cara": "caixa",
 "cor": "rgb(231, 237, 245)",
@@ -9448,7 +8928,7 @@
 "txt": "Giro e preços Giro, preços e reservas",
 "faz": "leva a outra tela",
 "efeito": [
-"leva → grp"
+"leva → dash"
 ],
 "cara": "caixa",
 "cor": "rgb(231, 237, 245)",
@@ -9461,7 +8941,7 @@
 "txt": "Site Pedidos, mensagens, vitrine e model",
 "faz": "leva a outra tela",
 "efeito": [
-"leva → grp"
+"leva → site"
 ],
 "cara": "caixa",
 "cor": "rgb(231, 237, 245)",
@@ -9474,7 +8954,7 @@
 "txt": "Marketing Posts, vídeos, temática, cartõ",
 "faz": "leva a outra tela",
 "efeito": [
-"leva → grp"
+"leva → mkt"
 ],
 "cara": "caixa",
 "cor": "rgb(231, 237, 245)",
@@ -9519,58 +8999,6 @@
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
 "h": 42
-},
-{
-"tela": "inventario-ficha-historico",
-"act": "fnTab",
-"txt": "Estoque",
-"faz": "abre/mexe no lugar",
-"efeito": [
-"muda a tela"
-],
-"cara": "texto",
-"cor": "rgb(203, 213, 225)",
-"fs": "14px",
-"h": 44
-},
-{
-"tela": "inventario-ficha-historico",
-"act": "fnTab",
-"txt": "Histórico",
-"faz": "sem efeito visível",
-"efeito": [
-"nada visível"
-],
-"cara": "texto",
-"cor": "rgb(243, 192, 220)",
-"fs": "14px",
-"h": 44
-},
-{
-"tela": "inventario-ficha-historico",
-"act": "fnTab",
-"txt": "Site",
-"faz": "liga/desliga ou escolhe",
-"efeito": [
-"alterna"
-],
-"cara": "texto",
-"cor": "rgb(203, 213, 225)",
-"fs": "14px",
-"h": 44
-},
-{
-"tela": "inventario-ficha-historico",
-"act": "fnTab",
-"txt": "Preço",
-"faz": "liga/desliga ou escolhe",
-"efeito": [
-"alterna"
-],
-"cara": "texto",
-"cor": "rgb(203, 213, 225)",
-"fs": "14px",
-"h": 44
 },
 {
 "tela": "inventario-ficha",
@@ -10409,14 +9837,14 @@
 {
 "tela": "catalogo-peca",
 "act": "",
-"txt": "Voltar",
+"txt": "‹ CATÁLOGO",
 "faz": "abre/mexe no lugar",
 "efeito": [
 "muda a tela"
 ],
-"cara": "ícone redondo",
-"cor": "rgb(203, 213, 225)",
-"fs": "14px",
+"cara": "texto",
+"cor": "rgb(139, 155, 176)",
+"fs": "12px",
 "h": 44
 },
 {
@@ -10589,19 +10017,6 @@
 "h": 44
 },
 {
-"tela": "inventario-ficha-historico",
-"act": "nvVolta",
-"txt": "‹ PEÇAS",
-"faz": "leva a outra tela",
-"efeito": [
-"leva → grp"
-],
-"cara": "texto",
-"cor": "rgb(139, 155, 176)",
-"fs": "12px",
-"h": 44
-},
-{
 "tela": "inventario-ficha",
 "act": "nvVolta",
 "txt": "‹ PEÇAS",
@@ -10617,14 +10032,14 @@
 {
 "tela": "inventario-ficha",
 "act": "",
-"txt": "Voltar",
+"txt": "‹ INVENTÁRIO",
 "faz": "abre/mexe no lugar",
 "efeito": [
 "muda a tela"
 ],
-"cara": "ícone quadrado",
-"cor": "rgb(203, 213, 225)",
-"fs": "14px",
+"cara": "texto",
+"cor": "rgb(139, 155, 176)",
+"fs": "12px",
 "h": 44
 },
 {
@@ -10667,6 +10082,19 @@
 "h": 44
 },
 {
+"tela": "pendencias",
+"act": "fechar",
+"txt": "Fechar",
+"faz": "abre/mexe no lugar",
+"efeito": [
+"muda a tela"
+],
+"cara": "pílula",
+"cor": "rgb(231, 237, 245)",
+"fs": "15px",
+"h": 44
+},
+{
 "tela": "reservas-para-onde",
 "act": "nvVolta",
 "txt": "‹ GIRO E PREÇOS",
@@ -10703,19 +10131,6 @@
 "abre janela \"Novo lote\""
 ],
 "cara": "texto",
-"cor": "rgb(231, 237, 245)",
-"fs": "15px",
-"h": 44
-},
-{
-"tela": "atacado-tabela",
-"act": "ataNovo",
-"txt": "+ Novo acesso",
-"faz": "abre janela",
-"efeito": [
-"abre janela \"Novo acesso ao atacado\""
-],
-"cara": "pílula",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
 "h": 44
@@ -11012,6 +10427,19 @@
 "link › (sai daqui)": [
 {
 "tela": "caixa-acoes",
+"act": "cxReservas",
+"txt": "Reservas ›",
+"faz": "leva a outra tela",
+"efeito": [
+"leva → dash"
+],
+"cara": "texto",
+"cor": "rgb(243, 192, 220)",
+"fs": "15px",
+"h": 44
+},
+{
+"tela": "caixa-acoes",
 "act": "d48Res",
 "txt": "Ver o que falta repor ›",
 "faz": "leva a outra tela",
@@ -11037,82 +10465,30 @@
 "h": 46
 },
 {
-"tela": "cambio",
-"act": "fjAbre",
-"txt": "Faltam US$ 2.838 Normal ›",
-"faz": "abre janela",
+"tela": "catalogo-peca",
+"act": "fnTab",
+"txt": "Ficha no Inventário ›",
+"faz": "leva a outra tela",
 "efeito": [
-"abre janela \"Por que está normal\""
+"leva → estoque"
 ],
 "cara": "texto",
-"cor": "rgb(231, 237, 245)",
-"fs": "15px",
-"h": 45
-},
-{
-"tela": "cambio",
-"act": "fjAbre",
-"txt": "Últimas trocas 12 ›",
-"faz": "abre janela",
-"efeito": [
-"abre janela \"Últimas trocas\""
-],
-"cara": "texto",
-"cor": "rgb(231, 237, 245)",
-"fs": "15px",
-"h": 55
-},
-{
-"tela": "cambio",
-"act": "fjAbre",
-"txt": "Preços no site cotação da loja travada ›",
-"faz": "abre janela",
-"efeito": [
-"abre janela \"Preços no site\""
-],
-"cara": "texto",
-"cor": "rgb(231, 237, 245)",
-"fs": "15px",
-"h": 68
-},
-{
-"tela": "cambio",
-"act": "fjAbre",
-"txt": "Como o app te protege colchão 13,0% ›",
-"faz": "abre janela",
-"efeito": [
-"abre janela \"Como o app te protege\""
-],
-"cara": "texto",
-"cor": "rgb(231, 237, 245)",
-"fs": "15px",
-"h": 68
-},
-{
-"tela": "dash-custom",
-"act": "dPer",
-"txt": "Datas ›",
-"faz": "abre janela",
-"efeito": [
-"abre janela \"PERÍODO\""
-],
-"cara": "texto",
-"cor": "rgb(231, 237, 245)",
+"cor": "rgb(243, 192, 220)",
 "fs": "15px",
 "h": 44
 },
 {
-"tela": "dash-folha-ver",
-"act": "dPer",
-"txt": "Hoje ›",
-"faz": "abre janela",
+"tela": "dash-folha-periodo",
+"act": "dPerEsc",
+"txt": "Escolher datas de um dia até outro ›",
+"faz": "leva a outra tela",
 "efeito": [
-"abre janela \"PERÍODO\""
+"leva → dash"
 ],
 "cara": "texto",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 44
+"h": 75
 },
 {
 "tela": "dash-folha-ver",
@@ -11137,32 +10513,6 @@
 ],
 "cara": "texto",
 "cor": "rgb(243, 192, 220)",
-"fs": "15px",
-"h": 44
-},
-{
-"tela": "dash-mes",
-"act": "dPer",
-"txt": "Este mês ›",
-"faz": "abre janela",
-"efeito": [
-"abre janela \"PERÍODO\""
-],
-"cara": "texto",
-"cor": "rgb(231, 237, 245)",
-"fs": "15px",
-"h": 44
-},
-{
-"tela": "dash-semana",
-"act": "dPer",
-"txt": "Esta semana ›",
-"faz": "abre janela",
-"efeito": [
-"abre janela \"PERÍODO\""
-],
-"cara": "texto",
-"cor": "rgb(231, 237, 245)",
 "fs": "15px",
 "h": 44
 },
@@ -11193,6 +10543,19 @@
 "h": 44
 },
 {
+"tela": "giro-lista-compras",
+"act": "lcOferta",
+"txt": "Oferta ›",
+"faz": "leva a outra tela",
+"efeito": [
+"leva → estoque"
+],
+"cara": "texto",
+"cor": "rgb(243, 192, 220)",
+"fs": "15px",
+"h": 44
+},
+{
 "tela": "giro-no-estoque",
 "act": "pcAbre",
 "txt": "15 preços para corrigir ›",
@@ -11207,11 +10570,37 @@
 },
 {
 "tela": "grp-dinheiro",
-"act": "nvGer",
-"txt": "Gerenciar grupo ›",
-"faz": "abre janela",
+"act": "nvIr",
+"txt": "Caixa O dinheiro da loja, por moeda ›",
+"faz": "leva a outra tela",
 "efeito": [
-"abre janela \"Grupo\""
+"leva → caixa"
+],
+"cara": "texto",
+"cor": "rgb(243, 192, 220)",
+"fs": "15px",
+"h": 44
+},
+{
+"tela": "grp-dinheiro",
+"act": "nvIr",
+"txt": "Despesas Contas do mês e imprevistos ›",
+"faz": "leva a outra tela",
+"efeito": [
+"leva → desp"
+],
+"cara": "texto",
+"cor": "rgb(243, 192, 220)",
+"fs": "15px",
+"h": 44
+},
+{
+"tela": "grp-dinheiro",
+"act": "nvIr",
+"txt": "Câmbio Cotações e trocas ›",
+"faz": "leva a outra tela",
+"efeito": [
+"leva → fx"
 ],
 "cara": "texto",
 "cor": "rgb(243, 192, 220)",
@@ -11220,11 +10609,11 @@
 },
 {
 "tela": "hist-dia",
-"act": "dPer",
-"txt": "Hoje ›",
-"faz": "abre janela",
+"act": "view",
+"txt": "Dias anteriores no Histórico ›",
+"faz": "leva a outra tela",
 "efeito": [
-"abre janela \"PERÍODO\""
+"leva → hist"
 ],
 "cara": "texto",
 "cor": "rgb(243, 192, 220)",
@@ -11271,12 +10660,12 @@
 "h": 83
 },
 {
-"tela": "inventario-ficha-historico",
-"act": "fnEstudio",
-"txt": "Fotografar no Estúdio ›",
-"faz": "abre/mexe no lugar",
+"tela": "inventario-ficha",
+"act": "fnTab",
+"txt": "Vender no Catálogo ›",
+"faz": "leva a outra tela",
 "efeito": [
-"muda a tela"
+"leva → vendas"
 ],
 "cara": "texto",
 "cor": "rgb(243, 192, 220)",
@@ -11297,12 +10686,12 @@
 "h": 44
 },
 {
-"tela": "pendencias",
-"act": "guardAbre",
-"txt": "Ver todas as conferências do Guardião ›",
-"faz": "abre janela",
+"tela": "inventario-fornecedores",
+"act": "lcIrGiro",
+"txt": "Lista de compras · 18 acabando ›",
+"faz": "leva a outra tela",
 "efeito": [
-"abre janela \"Guardião\""
+"leva → dash"
 ],
 "cara": "texto",
 "cor": "rgb(243, 192, 220)",
@@ -11844,7 +11233,7 @@
 "cara": "texto",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 70
+"h": 88
 },
 {
 "tela": "giro-lista-compras",
@@ -11896,7 +11285,7 @@
 "cara": "caixa",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 309
+"h": 308
 },
 {
 "tela": "giro-no-estoque",
@@ -11922,7 +11311,7 @@
 "cara": "caixa",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 309
+"h": 330
 },
 {
 "tela": "giro-no-estoque",
@@ -11935,7 +11324,7 @@
 "cara": "caixa",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 309
+"h": 330
 },
 {
 "tela": "hist-dia",
@@ -11945,10 +11334,10 @@
 "efeito": [
 "sumiu"
 ],
-"cara": null,
-"cor": null,
-"fs": null,
-"h": null
+"cara": "texto",
+"cor": "rgb(231, 237, 245)",
+"fs": "15px",
+"h": 69
 },
 {
 "tela": "hist-lista",
@@ -11958,10 +11347,10 @@
 "efeito": [
 "leva → dia"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 70
+"h": 89
 },
 {
 "tela": "hist-lista",
@@ -11971,10 +11360,10 @@
 "efeito": [
 "leva → dia"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 70
+"h": 89
 },
 {
 "tela": "hist-lista",
@@ -11984,10 +11373,10 @@
 "efeito": [
 "leva → dia"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 88
+"h": 89
 },
 {
 "tela": "hist-lista",
@@ -11997,10 +11386,10 @@
 "efeito": [
 "leva → dia"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 88
+"h": 89
 },
 {
 "tela": "hist-lista",
@@ -12010,10 +11399,10 @@
 "efeito": [
 "leva → dia"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 70
+"h": 71
 },
 {
 "tela": "hist-lista",
@@ -12023,10 +11412,10 @@
 "efeito": [
 "leva → dia"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 88
+"h": 89
 },
 {
 "tela": "hist-lista",
@@ -12036,10 +11425,10 @@
 "efeito": [
 "leva → dia"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 88
+"h": 89
 },
 {
 "tela": "hist-lista",
@@ -12049,10 +11438,10 @@
 "efeito": [
 "leva → dia"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 70
+"h": 89
 },
 {
 "tela": "hist-lista",
@@ -12062,10 +11451,10 @@
 "efeito": [
 "leva → dia"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 88
+"h": 89
 },
 {
 "tela": "hist-lista",
@@ -12075,10 +11464,10 @@
 "efeito": [
 "leva → dia"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 88
+"h": 89
 },
 {
 "tela": "hist-lista",
@@ -12088,10 +11477,62 @@
 "efeito": [
 "leva → dia"
 ],
-"cara": "texto",
+"cara": "barra grande",
 "cor": "rgb(231, 237, 245)",
 "fs": "15px",
-"h": 70
+"h": 89
+},
+{
+"tela": "hist-lista",
+"act": "hSem",
+"txt": "Semana 02/11 a 08/11 G$ 2.595.500 · 42 v",
+"faz": "abre/mexe no lugar",
+"efeito": [
+"muda a tela"
+],
+"cara": "barra grande",
+"cor": "rgb(231, 237, 245)",
+"fs": "15px",
+"h": 78
+},
+{
+"tela": "hist-lista",
+"act": "hSem",
+"txt": "Semana 01/11 G$ 120.000 · 2 vendas · 1 d",
+"faz": "abre/mexe no lugar",
+"efeito": [
+"muda a tela"
+],
+"cara": "barra grande",
+"cor": "rgb(231, 237, 245)",
+"fs": "15px",
+"h": 78
+},
+{
+"tela": "hist-lista",
+"act": "hSem",
+"txt": "Semana 26/10 a 31/10 G$ 1.230.500 · 30 v",
+"faz": "abre/mexe no lugar",
+"efeito": [
+"muda a tela"
+],
+"cara": "barra grande",
+"cor": "rgb(231, 237, 245)",
+"fs": "15px",
+"h": 78
+},
+{
+"tela": "hist-lista",
+"act": "hSem",
+"txt": "Semana 19/10 a 25/10 G$ 1.452.500 · 31 v",
+"faz": "abre/mexe no lugar",
+"efeito": [
+"muda a tela"
+],
+"cara": "barra grande",
+"cor": "rgb(231, 237, 245)",
+"fs": "15px",
+"h": 78
 },
 {
 "tela": "inventario-ficha",
@@ -12122,7 +11563,7 @@
 {
 "tela": "marketing",
 "act": "",
-"txt": "Óculos solar #13 27 vendidas em 30 dias ",
+"txt": "Óculos solar #13 26 vendidas em 30 dias ",
 "faz": "abre janela",
 "efeito": [
 "abre janela \"Status\""
@@ -12473,19 +11914,6 @@
 "h": 44
 },
 {
-"tela": "inventario-ficha-historico",
-"act": "fichaAbre",
-"txt": "Ficha 4/6",
-"faz": "abre janela",
-"efeito": [
-"abre janela \"Ficha do produto\""
-],
-"cara": "pílula",
-"cor": "rgb(139, 155, 176)",
-"fs": "12.5px",
-"h": 26
-},
-{
 "tela": "inventario-ficha",
 "act": "fichaAbre",
 "txt": "Ficha 4/6",
@@ -12718,6 +12146,17 @@
 ],
 [
 "nada visível"
+]
+],
+[
+"giro-no-estoque",
+"EM ESTOQUE (FILTRO) › 470",
+"3º toque diferente do 1º",
+[
+"sumiu"
+],
+[
+"—"
 ]
 ]
 ],

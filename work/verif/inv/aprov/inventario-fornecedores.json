@@ -1,7 +1,7 @@
 {
 "tela": "inventario-fornecedores",
 "modo": "aprov",
-"quando": "19/11 11:04",
+"quando": "19/11 14:08",
 "passos": [
 "()=>window.__LF.setView('estoque')",
 "()=>{const e=[...document.querySelectorAll('#v-estoque button')].filter(x=>x.getBoundingClientRect().height).filter(x=>/Fornecedores/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
@@ -9,13 +9,13 @@
 "escuro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
 "cara": "ícone redondo",
-"h": 46,
-"w": 46,
+"h": 44,
+"w": 44,
 "cor": "rgb(243, 192, 220)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -79,7 +79,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 97,
+"w": 102,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -101,7 +101,7 @@
 "act": "",
 "cara": "texto",
 "h": 42,
-"w": 61,
+"w": 65,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -112,7 +112,7 @@
 "act": "",
 "cara": "texto",
 "h": 42,
-"w": 112,
+"w": 119,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -134,7 +134,7 @@
 "act": "",
 "cara": "texto",
 "h": 44,
-"w": 53,
+"w": 55,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -156,7 +156,7 @@
 "act": "",
 "cara": "texto",
 "h": 44,
-"w": 114,
+"w": 121,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -167,7 +167,7 @@
 "act": "lcIrGiro",
 "cara": "texto",
 "h": 44,
-"w": 223,
+"w": 238,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -191,7 +191,7 @@
 "r": "2 centro vertical",
 "ex": [
 "Inventário Grupo Pré-graduados › G",
-"Δ3.1px"
+"Δ8.5px"
 ]
 }
 ],
@@ -220,7 +220,7 @@
 "i": 0,
 "act": "view",
 "id": "notif",
-"txt": "12",
+"txt": "13",
 "tag": "BUTTON",
 "efeito": [
 "leva → notif"
@@ -413,13 +413,13 @@
 "claro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
 "cara": "ícone redondo",
-"h": 46,
-"w": 46,
+"h": 44,
+"w": 44,
 "cor": "rgb(141, 58, 105)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -483,7 +483,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 97,
+"w": 102,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -505,7 +505,7 @@
 "act": "",
 "cara": "texto",
 "h": 42,
-"w": 61,
+"w": 65,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -516,7 +516,7 @@
 "act": "",
 "cara": "texto",
 "h": 42,
-"w": 112,
+"w": 119,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -538,7 +538,7 @@
 "act": "",
 "cara": "texto",
 "h": 44,
-"w": 53,
+"w": 55,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -560,7 +560,7 @@
 "act": "",
 "cara": "texto",
 "h": 44,
-"w": 114,
+"w": 121,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -571,7 +571,7 @@
 "act": "lcIrGiro",
 "cara": "texto",
 "h": 44,
-"w": 223,
+"w": 238,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -595,7 +595,7 @@
 "r": "2 centro vertical",
 "ex": [
 "Inventário Grupo Pré-graduados › G",
-"Δ2.2px"
+"Δ5.6px"
 ]
 }
 ],
@@ -618,5 +618,5 @@
 "erros_js": [],
 "rola_vazio": 86
 },
-"seg": 124
+"seg": 98
 }

@@ -1,20 +1,20 @@
 {
 "tela": "grp-dinheiro",
 "modo": "atual",
-"quando": "19/11 11:12",
+"quando": "19/11 14:19",
 "passos": [
 "()=>{const b=document.querySelector(\"#mainnav .mn[data-id='g:din']\");b&&b.click()}"
 ],
 "escuro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
-"cara": "ícone quadrado",
-"h": 46,
-"w": 46,
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
 "cor": "rgb(243, 192, 220)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -111,7 +111,7 @@
 "act": "nvGer",
 "cara": "texto",
 "h": 44,
-"w": 129,
+"w": 140,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -141,7 +141,7 @@
 "i": 0,
 "act": "view",
 "id": "notif",
-"txt": "12",
+"txt": "13",
 "tag": "BUTTON",
 "efeito": [
 "leva → notif"
@@ -243,13 +243,13 @@
 "claro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
-"cara": "ícone quadrado",
-"h": 46,
-"w": 46,
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
 "cor": "rgb(141, 58, 105)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -346,7 +346,7 @@
 "act": "nvGer",
 "cara": "texto",
 "h": 44,
-"w": 129,
+"w": 140,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -370,5 +370,5 @@
 "erros_js": [],
 "rola_vazio": 0
 },
-"seg": 44
+"seg": 36
 }

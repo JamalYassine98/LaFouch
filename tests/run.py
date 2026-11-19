@@ -2558,7 +2558,7 @@ async def main():
                 await pg.evaluate("(v) => { const c = [...document.querySelectorAll('#v-' + v + ' .pcard[data-ref]')].find((c, i) => i > 1 && c.querySelector('.pbox img')); c.querySelector('.pbox').click(); }", v_)
                 await pg.wait_for_timeout(1200)
                 fotos.append(await pg.evaluate("(v) => { const d = document.getElementById(v === 'vendas' ? 'vDetail' : 'detail'); const r = d.querySelector('.pbox').getBoundingClientRect(); return [Math.round(r.top), Math.round(r.width), Math.round(r.height), document.querySelectorAll('.lfVoa,.lfFundo').length]; }", v_))
-                await pg.evaluate("(v) => document.querySelector((v === 'vendas' ? '#vDetail' : '#detail') + ' .tab.ibtn[aria-label=Voltar]').click()", v_)
+                await pg.evaluate("(v) => document.querySelector((v === 'vendas' ? '#vDetail' : '#detail') + ' .vltRow[aria-label=Voltar]').click()", v_)
                 await pg.wait_for_timeout(1000)
             sobra = await pg.evaluate("() => document.querySelectorAll('.lfVoa,.lfFundo').length")
             # S374 (esboço 56): durante o voo a camada da foto não muda de tamanho — só transform e recorte

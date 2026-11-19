@@ -1,7 +1,7 @@
 {
 "tela": "inventario-editar",
 "modo": "atual",
-"quando": "19/11 10:20",
+"quando": "19/11 14:12",
 "passos": [
 "()=>window.__LF.setView('estoque')",
 "()=>{const e=[...document.querySelectorAll('#v-estoque .pcard[data-ref]')].filter(x=>x.getBoundingClientRect().height)[0];e&&e.click();return !!e}",
@@ -14,7 +14,7 @@
 "act": "",
 "cara": "caixa",
 "h": 44,
-"w": 80,
+"w": 83,
 "cor": "rgb(203, 213, 225)",
 "borda": "rgb(42, 52, 65)",
 "bw": 1,
@@ -47,7 +47,7 @@
 "act": "",
 "cara": "pílula",
 "h": 44,
-"w": 197,
+"w": 211,
 "cor": "rgb(231, 237, 245)",
 "borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
 "bw": 1,
@@ -98,7 +98,7 @@
 "r": "7 linha de base",
 "ex": [
 "Editar produto Fechar",
-"Δ6.8px"
+"Δ7.8px"
 ]
 }
 ],
@@ -142,6 +142,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -154,6 +157,9 @@
 "nada visível"
 ],
 "de_novo": [
+"nada visível"
+],
+"terceiro": [
 "nada visível"
 ],
 "bug": []
@@ -170,6 +176,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -182,6 +191,9 @@
 "nada visível"
 ],
 "de_novo": [
+"nada visível"
+],
+"terceiro": [
 "nada visível"
 ],
 "bug": []
@@ -198,6 +210,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 }
 ],
@@ -208,7 +223,7 @@
 "act": "",
 "cara": "caixa",
 "h": 44,
-"w": 80,
+"w": 83,
 "cor": "rgb(71, 85, 105)",
 "borda": "rgb(217, 208, 216)",
 "bw": 1,
@@ -241,7 +256,7 @@
 "act": "",
 "cara": "pílula",
 "h": 44,
-"w": 197,
+"w": 211,
 "cor": "rgb(31, 26, 34)",
 "borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
 "bw": 1,
@@ -292,7 +307,7 @@
 "r": "7 linha de base",
 "ex": [
 "Editar produto Fechar",
-"Δ6.8px"
+"Δ7.8px"
 ]
 }
 ],
@@ -322,5 +337,5 @@
 "erros_js": [],
 "rola_vazio": 0
 },
-"seg": 80
+"seg": 53
 }

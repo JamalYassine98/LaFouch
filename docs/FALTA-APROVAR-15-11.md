@@ -729,3 +729,4 @@ Não são esquecimento (estavam na lista, parados de propósito ou por ordem do 
 - 19/11 14:11 — DONO: "Aprovado" → 142c APROVADO (telas vazias de Lotes e Mensagens com o ícone do assunto: caixa e balão; "+ Criar lote" centralizado sem sublinhado = 149a). Base 142c. ESPERANDO "implementar".
 - 19/11 14:12 — DONO: "Aprovado" → 142d APROVADO (Editar produto: título na letra das janelas, um "Salvar", "MAIS DETALHES ⌄"). Base 142d. ESPERANDO "implementar".
 - 19/11 14:13 — DONO: "Aprovado" → 142f (Retirada: moedas G$ · R$ · US$) e 142g (Registrar troca: linha inteira, valor na margem direita, G$ · R$ · US$) APROVADOS. Base 142f/142g. ESPERANDO "implementar".
+- 19/11/2026 14:15 — DONO: "implementar 149v e 150i" → ✅ PUBLICADO v563 (5.46.0): 149v Família Voltar na Peça do Catálogo e na Ficha do Inventário; 150i Família Ícone redondo. 318/318 testes. O Pagamento do 149v espera o 142st (fica na base como 149v-pag). Não testado em aparelho real.

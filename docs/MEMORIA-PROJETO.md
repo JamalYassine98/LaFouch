@@ -3199,3 +3199,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 19/11/2026 13:57 — Conserto da seta aprovado: o 135b (Caixa) passa a centralizar "Ver o que falta repor ›" como texto+seta numa linha (base ajustada). Esboço work/s437/esboco_seta_caixa_*.
 - 19/11/2026 13:59 — Fechar × (149f) e Título (149t) aprovados, esperando "implementar". As 8 famílias da S435 aprovadas: 149v, 149l, 149i, 149d, 149a, 149t, 149f.
 - 19/11/2026 14:10 — Regra (dono, opção A): bloco com ação própria (+) ganha SUBTÍTULO 17 px; sem ação = versalete 12 px. Caixa "Objetivos da loja" vira subtítulo (142bA).
+- 19/11/2026 14:15 — DONO: "implementar 149v e 150i" → ✅ PUBLICADO v563 (5.46.0): 149v Família Voltar na Peça do Catálogo e na Ficha do Inventário; 150i Família Ícone redondo. 318/318 testes. O Pagamento do 149v espera o 142st (fica na base como 149v-pag). Não testado em aparelho real.

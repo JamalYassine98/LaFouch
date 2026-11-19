@@ -1,20 +1,20 @@
 {
 "tela": "marketing",
 "modo": "atual",
-"quando": "19/11 10:09",
+"quando": "19/11 14:04",
 "passos": [
 "()=>window.__LF.inicioGo('mkt')"
 ],
 "escuro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
-"cara": "ícone quadrado",
-"h": 46,
-"w": 46,
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
 "cor": "rgb(243, 192, 220)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -78,7 +78,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 94,
+"w": 100,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -129,7 +129,7 @@
 "fs": "13px"
 },
 {
-"t": "Óculos solar #13 27 vendidas em 30 dias ",
+"t": "Óculos solar #13 26 vendidas em 30 dias ",
 "act": "",
 "cara": "barra grande",
 "h": 75,
@@ -361,13 +361,16 @@
 "i": 0,
 "act": "view",
 "id": "notif",
-"txt": "12",
+"txt": "13",
 "tag": "BUTTON",
 "efeito": [
 "leva → notif"
 ],
 "de_novo": [
 "leva → mkt"
+],
+"terceiro": [
+"leva → notif"
 ],
 "bug": []
 },
@@ -383,6 +386,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → grp"
+],
 "bug": []
 },
 {
@@ -396,6 +402,9 @@
 ],
 "de_novo": [
 "nada visível"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -411,6 +420,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -424,6 +436,9 @@
 ],
 "de_novo": [
 "nada visível"
+],
+"terceiro": [
+"muda a tela"
 ],
 "bug": []
 },
@@ -439,19 +454,25 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
 "i": 6,
 "act": "",
 "id": "",
-"txt": "Óculos solar #13 27 vendidas em 30 dias ",
+"txt": "Óculos solar #13 26 vendidas em 30 dias ",
 "tag": "BUTTON",
 "efeito": [
 "abre janela \"Status\""
 ],
 "de_novo": [
 "muda a tela"
+],
+"terceiro": [
+"abre janela \"Status\""
 ],
 "bug": []
 },
@@ -467,6 +488,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"Post\""
+],
 "bug": []
 },
 {
@@ -480,6 +504,9 @@
 ],
 "de_novo": [
 "muda a tela"
+],
+"terceiro": [
+"abre janela \"Story\""
 ],
 "bug": []
 },
@@ -495,6 +522,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"Status\""
+],
 "bug": []
 },
 {
@@ -508,6 +538,9 @@
 ],
 "de_novo": [
 "muda a tela"
+],
+"terceiro": [
+"abre janela \"Carrossel\""
 ],
 "bug": []
 },
@@ -523,6 +556,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"Vídeo\""
+],
 "bug": []
 },
 {
@@ -536,6 +572,9 @@
 ],
 "de_novo": [
 "muda a tela"
+],
+"terceiro": [
+"abre janela \"Roteiro de vídeo\""
 ],
 "bug": []
 },
@@ -551,6 +590,9 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
@@ -564,6 +606,9 @@
 ],
 "de_novo": [
 "muda a tela"
+],
+"terceiro": [
+"abre janela \"Post\""
 ],
 "bug": []
 },
@@ -587,6 +632,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"Status\""
+],
 "bug": []
 },
 {
@@ -608,6 +656,9 @@
 ],
 "de_novo": [
 "muda a tela"
+],
+"terceiro": [
+"abre janela \"Carrossel\""
 ],
 "bug": []
 },
@@ -631,6 +682,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"Story\""
+],
 "bug": []
 },
 {
@@ -652,6 +706,9 @@
 ],
 "de_novo": [
 "muda a tela"
+],
+"terceiro": [
+"abre janela \"Vídeo\""
 ],
 "bug": []
 },
@@ -675,6 +732,9 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"Post\""
+],
 "bug": []
 },
 {
@@ -689,19 +749,22 @@
 "de_novo": [
 "leva → inicio"
 ],
+"terceiro": [
+"leva → grp"
+],
 "bug": []
 }
 ],
 "claro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
-"cara": "ícone quadrado",
-"h": 46,
-"w": 46,
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
 "cor": "rgb(141, 58, 105)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -765,7 +828,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 94,
+"w": 100,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -816,7 +879,7 @@
 "fs": "13px"
 },
 {
-"t": "Óculos solar #13 27 vendidas em 30 dias ",
+"t": "Óculos solar #13 26 vendidas em 30 dias ",
 "act": "",
 "cara": "barra grande",
 "h": 75,
@@ -1042,5 +1105,5 @@
 "erros_js": [],
 "rola_vazio": 646
 },
-"seg": 189
+"seg": 160
 }

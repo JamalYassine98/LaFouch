@@ -1,20 +1,20 @@
 {
 "tela": "pendencias",
 "modo": "aprov",
-"quando": "19/11 10:33",
+"quando": "19/11 14:07",
 "passos": [
 "()=>window.__LF.setView('notif')"
 ],
 "escuro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
 "cara": "ícone redondo",
-"h": 46,
-"w": 46,
+"h": 44,
+"w": 44,
 "cor": "rgb(243, 192, 220)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -78,7 +78,7 @@
 "act": "view",
 "cara": "texto",
 "h": 44,
-"w": 103,
+"w": 110,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -89,7 +89,7 @@
 "act": "view",
 "cara": "texto",
 "h": 44,
-"w": 85,
+"w": 92,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -100,18 +100,7 @@
 "act": "view",
 "cara": "texto",
 "h": 44,
-"w": 85,
-"cor": "rgb(243, 192, 220)",
-"borda": "rgb(243, 192, 220)",
-"bw": 0,
-"fs": "15px"
-},
-{
-"t": "Conferir ›",
-"act": "view",
-"cara": "texto",
-"h": 44,
-"w": 75,
+"w": 92,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -122,7 +111,18 @@
 "act": "dtab",
 "cara": "texto",
 "h": 44,
-"w": 93,
+"w": 101,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Conferir ›",
+"act": "view",
+"cara": "texto",
+"h": 44,
+"w": 82,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -144,7 +144,7 @@
 "act": "inicio",
 "cara": "texto",
 "h": 44,
-"w": 91,
+"w": 98,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -155,7 +155,18 @@
 "act": "view",
 "cara": "texto",
 "h": 44,
-"w": 85,
+"w": 92,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Fechar ›",
+"act": "fechar",
+"cara": "texto",
+"h": 44,
+"w": 72,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -166,7 +177,7 @@
 "act": "dtab",
 "cara": "texto",
 "h": 44,
-"w": 114,
+"w": 122,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -177,7 +188,7 @@
 "act": "view",
 "cara": "texto",
 "h": 44,
-"w": 57,
+"w": 62,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -199,7 +210,7 @@
 "act": "guardAbre",
 "cara": "texto",
 "h": 44,
-"w": 281,
+"w": 302,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -210,7 +221,7 @@
 "act": "notifLimpa",
 "cara": "texto",
 "h": 44,
-"w": 118,
+"w": 125,
 "cor": "rgb(255, 154, 154)",
 "borda": "rgb(255, 154, 154)",
 "bw": 0,
@@ -233,14 +244,28 @@
 {
 "r": "1 coluna da direita",
 "ex": [
+"Caixa de hoje não bate Sem vendas ",
+"Δ-39.4px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
 "Peça sem custo (lucro errado) · 11",
-"Δ-28.3px"
+"Δ-20.3px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Lote sem detalhe · 343 Completar ›",
+"Δ-33.7px"
 ]
 }
 ],
 "olho": [],
 "erros_js": [],
-"rola_vazio": 887
+"rola_vazio": 1000
 },
 "vista": "notif",
 "toques": [
@@ -248,13 +273,16 @@
 "i": 0,
 "act": "view",
 "id": "notif",
-"txt": "12",
+"txt": "13",
 "tag": "BUTTON",
 "efeito": [
 "leva → inicio"
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → inicio"
 ],
 "bug": []
 },
@@ -270,6 +298,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → fx"
+],
 "bug": []
 },
 {
@@ -284,6 +315,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → desp"
+],
 "bug": []
 },
 {
@@ -296,6 +330,25 @@
 },
 {
 "i": 4,
+"act": "dtab",
+"id": "prec",
+"txt": "Ver preços ›",
+"tag": "BUTTON",
+"efeito": [
+"nada visível"
+],
+"de_novo": [
+"muda a tela"
+],
+"terceiro": [
+"muda a tela"
+],
+"bug": [
+"3º toque diferente do 1º"
+]
+},
+{
+"i": 5,
 "act": "view",
 "id": "caixa",
 "txt": "Conferir ›",
@@ -306,19 +359,8 @@
 "de_novo": [
 "sumiu"
 ],
-"bug": []
-},
-{
-"i": 5,
-"act": "dtab",
-"id": "prec",
-"txt": "Ver preços ›",
-"tag": "BUTTON",
-"efeito": [
-"muda a tela"
-],
-"de_novo": [
-"nada visível"
+"terceiro": [
+"leva → caixa"
 ],
 "bug": []
 },
@@ -334,6 +376,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → estoque"
+],
 "bug": []
 },
 {
@@ -347,6 +392,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → estoque"
 ],
 "bug": []
 },
@@ -362,6 +410,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → estoque"
+],
 "bug": []
 },
 {
@@ -375,6 +426,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → estoque"
 ],
 "bug": []
 },
@@ -390,6 +444,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → estoque"
+],
 "bug": []
 },
 {
@@ -402,6 +459,23 @@
 },
 {
 "i": 12,
+"act": "fechar",
+"id": "",
+"txt": "Fechar ›",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"nada visível"
+],
+"terceiro": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 13,
 "act": "dtab",
 "id": "giro",
 "txt": "Ver reposição ›",
@@ -412,10 +486,13 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
-"i": 13,
+"i": 14,
 "act": "view",
 "id": "ajustes",
 "txt": "Fazer ›",
@@ -426,10 +503,13 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → ajustes"
+],
 "bug": []
 },
 {
-"i": 14,
+"i": 15,
 "act": "temaVer",
 "id": "",
 "txt": "Ver ›",
@@ -440,10 +520,13 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"🖤 Black Friday\""
+],
 "bug": []
 },
 {
-"i": 15,
+"i": 16,
 "act": "guardAbre",
 "id": "",
 "txt": "Ver todas as conferências do Guardião ›",
@@ -454,10 +537,13 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"Guardião\""
+],
 "bug": []
 },
 {
-"i": 16,
+"i": 17,
 "act": "notifLimpa",
 "id": "",
 "txt": "Limpar histórico",
@@ -468,10 +554,13 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
-"i": 17,
+"i": 18,
 "act": "nvVolta",
 "id": "",
 "txt": "‹",
@@ -482,19 +571,22 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"leva → inicio"
+],
 "bug": []
 }
 ],
 "claro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
 "cara": "ícone redondo",
-"h": 46,
-"w": 46,
+"h": 44,
+"w": 44,
 "cor": "rgb(141, 58, 105)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -558,7 +650,7 @@
 "act": "view",
 "cara": "texto",
 "h": 44,
-"w": 103,
+"w": 110,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -569,7 +661,7 @@
 "act": "view",
 "cara": "texto",
 "h": 44,
-"w": 85,
+"w": 92,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -580,18 +672,7 @@
 "act": "view",
 "cara": "texto",
 "h": 44,
-"w": 85,
-"cor": "rgb(141, 58, 105)",
-"borda": "rgb(141, 58, 105)",
-"bw": 0,
-"fs": "15px"
-},
-{
-"t": "Conferir ›",
-"act": "view",
-"cara": "texto",
-"h": 44,
-"w": 75,
+"w": 92,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -602,7 +683,18 @@
 "act": "dtab",
 "cara": "texto",
 "h": 44,
-"w": 93,
+"w": 101,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Conferir ›",
+"act": "view",
+"cara": "texto",
+"h": 44,
+"w": 82,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -624,7 +716,7 @@
 "act": "inicio",
 "cara": "texto",
 "h": 44,
-"w": 91,
+"w": 98,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -635,7 +727,18 @@
 "act": "view",
 "cara": "texto",
 "h": 44,
-"w": 85,
+"w": 92,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
+"bw": 0,
+"fs": "15px"
+},
+{
+"t": "Fechar ›",
+"act": "fechar",
+"cara": "texto",
+"h": 44,
+"w": 72,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -646,7 +749,7 @@
 "act": "dtab",
 "cara": "texto",
 "h": 44,
-"w": 114,
+"w": 122,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -657,7 +760,7 @@
 "act": "view",
 "cara": "texto",
 "h": 44,
-"w": 57,
+"w": 62,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -679,7 +782,7 @@
 "act": "guardAbre",
 "cara": "texto",
 "h": 44,
-"w": 281,
+"w": 302,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -690,7 +793,7 @@
 "act": "notifLimpa",
 "cara": "texto",
 "h": 44,
-"w": 118,
+"w": 125,
 "cor": "rgb(161, 42, 42)",
 "borda": "rgb(161, 42, 42)",
 "bw": 0,
@@ -713,14 +816,28 @@
 {
 "r": "1 coluna da direita",
 "ex": [
+"Caixa de hoje não bate Sem vendas ",
+"Δ-39.4px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
 "Peça sem custo (lucro errado) · 11",
-"Δ-28.3px"
+"Δ-20.3px"
+]
+},
+{
+"r": "1 coluna da direita",
+"ex": [
+"Lote sem detalhe · 343 Completar ›",
+"Δ-33.7px"
 ]
 }
 ],
 "olho": [],
 "erros_js": [],
-"rola_vazio": 887
+"rola_vazio": 1000
 },
-"seg": 108
+"seg": 123
 }

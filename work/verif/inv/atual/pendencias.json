@@ -1,20 +1,20 @@
 {
 "tela": "pendencias",
 "modo": "atual",
-"quando": "19/11 10:33",
+"quando": "19/11 14:11",
 "passos": [
 "()=>window.__LF.setView('notif')"
 ],
 "escuro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
-"cara": "ícone quadrado",
-"h": 46,
-"w": 46,
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
 "cor": "rgb(243, 192, 220)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -78,7 +78,7 @@
 "act": "view",
 "cara": "pílula",
 "h": 44,
-"w": 113,
+"w": 118,
 "cor": "rgb(231, 237, 245)",
 "borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
 "bw": 1,
@@ -87,61 +87,6 @@
 {
 "t": "Ver conta",
 "act": "view",
-"cara": "pílula",
-"h": 44,
-"w": 95,
-"cor": "rgb(231, 237, 245)",
-"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
-"bw": 1,
-"fs": "15px"
-},
-{
-"t": "Ver conta",
-"act": "view",
-"cara": "pílula",
-"h": 44,
-"w": 95,
-"cor": "rgb(231, 237, 245)",
-"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
-"bw": 1,
-"fs": "15px"
-},
-{
-"t": "Conferir",
-"act": "view",
-"cara": "pílula",
-"h": 44,
-"w": 85,
-"cor": "rgb(231, 237, 245)",
-"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
-"bw": 1,
-"fs": "15px"
-},
-{
-"t": "Ver preços",
-"act": "dtab",
-"cara": "pílula",
-"h": 44,
-"w": 103,
-"cor": "rgb(231, 237, 245)",
-"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
-"bw": 1,
-"fs": "15px"
-},
-{
-"t": "Ver",
-"act": "view",
-"cara": "pílula",
-"h": 44,
-"w": 53,
-"cor": "rgb(231, 237, 245)",
-"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
-"bw": 1,
-"fs": "15px"
-},
-{
-"t": "Completar",
-"act": "inicio",
 "cara": "pílula",
 "h": 44,
 "w": 100,
@@ -155,7 +100,73 @@
 "act": "view",
 "cara": "pílula",
 "h": 44,
-"w": 95,
+"w": 100,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver preços",
+"act": "dtab",
+"cara": "pílula",
+"h": 44,
+"w": 109,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Conferir",
+"act": "view",
+"cara": "pílula",
+"h": 44,
+"w": 90,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver",
+"act": "view",
+"cara": "pílula",
+"h": 44,
+"w": 55,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Completar",
+"act": "inicio",
+"cara": "pílula",
+"h": 44,
+"w": 106,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver conta",
+"act": "view",
+"cara": "pílula",
+"h": 44,
+"w": 100,
+"cor": "rgb(231, 237, 245)",
+"borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Fechar",
+"act": "fechar",
+"cara": "pílula",
+"h": 44,
+"w": 80,
 "cor": "rgb(231, 237, 245)",
 "borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
 "bw": 1,
@@ -166,7 +177,7 @@
 "act": "dtab",
 "cara": "pílula",
 "h": 44,
-"w": 123,
+"w": 130,
 "cor": "rgb(231, 237, 245)",
 "borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
 "bw": 1,
@@ -177,7 +188,7 @@
 "act": "view",
 "cara": "pílula",
 "h": 44,
-"w": 67,
+"w": 70,
 "cor": "rgb(231, 237, 245)",
 "borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
 "bw": 1,
@@ -188,7 +199,7 @@
 "act": "temaVer",
 "cara": "pílula",
 "h": 44,
-"w": 53,
+"w": 55,
 "cor": "rgb(231, 237, 245)",
 "borda": "color(srgb 0.905882 0.929412 0.960784 / 0.28)",
 "bw": 1,
@@ -199,7 +210,7 @@
 "act": "guardAbre",
 "cara": "texto",
 "h": 44,
-"w": 281,
+"w": 302,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -210,7 +221,7 @@
 "act": "notifLimpa",
 "cara": "texto",
 "h": 44,
-"w": 118,
+"w": 125,
 "cor": "rgb(255, 154, 154)",
 "borda": "rgb(255, 154, 154)",
 "bw": 0,
@@ -275,28 +286,28 @@
 {
 "r": "1 coluna da direita",
 "ex": [
-"Conferir o caixa ainda não conferi",
+"Preço ficou perigoso 9 produto(s) ",
 "Δ-19.0px"
 ]
 },
 {
 "r": "3 coluna da esquerda",
 "ex": [
-"Conferir o caixa ainda não conferi",
+"Preço ficou perigoso 9 produto(s) ",
 "Δ22.0px"
 ]
 },
 {
 "r": "1 coluna da direita",
 "ex": [
-"Preço ficou perigoso 9 produto(s) ",
+"Caixa de hoje não bate Sem vendas ",
 "Δ-19.0px"
 ]
 },
 {
 "r": "3 coluna da esquerda",
 "ex": [
-"Preço ficou perigoso 9 produto(s) ",
+"Caixa de hoje não bate Sem vendas ",
 "Δ22.0px"
 ]
 },
@@ -317,7 +328,7 @@
 ],
 "olho": [],
 "erros_js": [],
-"rola_vazio": 984
+"rola_vazio": 1141
 },
 "vista": "notif",
 "toques": [
@@ -325,13 +336,16 @@
 "i": 0,
 "act": "view",
 "id": "notif",
-"txt": "12",
+"txt": "13",
 "tag": "BUTTON",
 "efeito": [
 "leva → inicio"
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → inicio"
 ],
 "bug": []
 },
@@ -347,6 +361,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → fx"
+],
 "bug": []
 },
 {
@@ -361,6 +378,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → desp"
+],
 "bug": []
 },
 {
@@ -373,6 +393,23 @@
 },
 {
 "i": 4,
+"act": "dtab",
+"id": "prec",
+"txt": "Ver preços",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"nada visível"
+],
+"terceiro": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 5,
 "act": "view",
 "id": "caixa",
 "txt": "Conferir",
@@ -383,19 +420,8 @@
 "de_novo": [
 "sumiu"
 ],
-"bug": []
-},
-{
-"i": 5,
-"act": "dtab",
-"id": "prec",
-"txt": "Ver preços",
-"tag": "BUTTON",
-"efeito": [
-"muda a tela"
-],
-"de_novo": [
-"nada visível"
+"terceiro": [
+"leva → caixa"
 ],
 "bug": []
 },
@@ -411,6 +437,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → estoque"
+],
 "bug": []
 },
 {
@@ -424,6 +453,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → estoque"
 ],
 "bug": []
 },
@@ -439,6 +471,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → estoque"
+],
 "bug": []
 },
 {
@@ -452,6 +487,9 @@
 ],
 "de_novo": [
 "sumiu"
+],
+"terceiro": [
+"leva → estoque"
 ],
 "bug": []
 },
@@ -467,6 +505,9 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → estoque"
+],
 "bug": []
 },
 {
@@ -479,6 +520,23 @@
 },
 {
 "i": 12,
+"act": "fechar",
+"id": "",
+"txt": "Fechar",
+"tag": "BUTTON",
+"efeito": [
+"muda a tela"
+],
+"de_novo": [
+"nada visível"
+],
+"terceiro": [
+"muda a tela"
+],
+"bug": []
+},
+{
+"i": 13,
 "act": "dtab",
 "id": "giro",
 "txt": "Ver reposição",
@@ -489,10 +547,13 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
-"i": 13,
+"i": 14,
 "act": "view",
 "id": "ajustes",
 "txt": "Fazer",
@@ -503,10 +564,13 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"leva → ajustes"
+],
 "bug": []
 },
 {
-"i": 14,
+"i": 15,
 "act": "temaVer",
 "id": "",
 "txt": "Ver",
@@ -517,10 +581,13 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"🖤 Black Friday\""
+],
 "bug": []
 },
 {
-"i": 15,
+"i": 16,
 "act": "guardAbre",
 "id": "",
 "txt": "Ver todas as conferências do Guardião ›",
@@ -531,10 +598,13 @@
 "de_novo": [
 "muda a tela"
 ],
+"terceiro": [
+"abre janela \"Guardião\""
+],
 "bug": []
 },
 {
-"i": 16,
+"i": 17,
 "act": "notifLimpa",
 "id": "",
 "txt": "Limpar histórico",
@@ -545,10 +615,13 @@
 "de_novo": [
 "sumiu"
 ],
+"terceiro": [
+"muda a tela"
+],
 "bug": []
 },
 {
-"i": 17,
+"i": 18,
 "act": "nvVolta",
 "id": "",
 "txt": "‹",
@@ -559,19 +632,22 @@
 "de_novo": [
 "nada visível"
 ],
+"terceiro": [
+"leva → inicio"
+],
 "bug": []
 }
 ],
 "claro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
-"cara": "ícone quadrado",
-"h": 46,
-"w": 46,
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
 "cor": "rgb(141, 58, 105)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -635,7 +711,7 @@
 "act": "view",
 "cara": "pílula",
 "h": 44,
-"w": 113,
+"w": 118,
 "cor": "rgb(31, 26, 34)",
 "borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
 "bw": 1,
@@ -644,61 +720,6 @@
 {
 "t": "Ver conta",
 "act": "view",
-"cara": "pílula",
-"h": 44,
-"w": 95,
-"cor": "rgb(31, 26, 34)",
-"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
-"bw": 1,
-"fs": "15px"
-},
-{
-"t": "Ver conta",
-"act": "view",
-"cara": "pílula",
-"h": 44,
-"w": 95,
-"cor": "rgb(31, 26, 34)",
-"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
-"bw": 1,
-"fs": "15px"
-},
-{
-"t": "Conferir",
-"act": "view",
-"cara": "pílula",
-"h": 44,
-"w": 85,
-"cor": "rgb(31, 26, 34)",
-"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
-"bw": 1,
-"fs": "15px"
-},
-{
-"t": "Ver preços",
-"act": "dtab",
-"cara": "pílula",
-"h": 44,
-"w": 103,
-"cor": "rgb(31, 26, 34)",
-"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
-"bw": 1,
-"fs": "15px"
-},
-{
-"t": "Ver",
-"act": "view",
-"cara": "pílula",
-"h": 44,
-"w": 53,
-"cor": "rgb(31, 26, 34)",
-"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
-"bw": 1,
-"fs": "15px"
-},
-{
-"t": "Completar",
-"act": "inicio",
 "cara": "pílula",
 "h": 44,
 "w": 100,
@@ -712,7 +733,73 @@
 "act": "view",
 "cara": "pílula",
 "h": 44,
-"w": 95,
+"w": 100,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver preços",
+"act": "dtab",
+"cara": "pílula",
+"h": 44,
+"w": 109,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Conferir",
+"act": "view",
+"cara": "pílula",
+"h": 44,
+"w": 90,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver",
+"act": "view",
+"cara": "pílula",
+"h": 44,
+"w": 55,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Completar",
+"act": "inicio",
+"cara": "pílula",
+"h": 44,
+"w": 106,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Ver conta",
+"act": "view",
+"cara": "pílula",
+"h": 44,
+"w": 100,
+"cor": "rgb(31, 26, 34)",
+"borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
+"bw": 1,
+"fs": "15px"
+},
+{
+"t": "Fechar",
+"act": "fechar",
+"cara": "pílula",
+"h": 44,
+"w": 80,
 "cor": "rgb(31, 26, 34)",
 "borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
 "bw": 1,
@@ -723,7 +810,7 @@
 "act": "dtab",
 "cara": "pílula",
 "h": 44,
-"w": 123,
+"w": 130,
 "cor": "rgb(31, 26, 34)",
 "borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
 "bw": 1,
@@ -734,7 +821,7 @@
 "act": "view",
 "cara": "pílula",
 "h": 44,
-"w": 67,
+"w": 70,
 "cor": "rgb(31, 26, 34)",
 "borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
 "bw": 1,
@@ -745,7 +832,7 @@
 "act": "temaVer",
 "cara": "pílula",
 "h": 44,
-"w": 53,
+"w": 55,
 "cor": "rgb(31, 26, 34)",
 "borda": "color(srgb 0.121569 0.101961 0.133333 / 0.28)",
 "bw": 1,
@@ -756,7 +843,7 @@
 "act": "guardAbre",
 "cara": "texto",
 "h": 44,
-"w": 281,
+"w": 302,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -767,7 +854,7 @@
 "act": "notifLimpa",
 "cara": "texto",
 "h": 44,
-"w": 118,
+"w": 125,
 "cor": "rgb(161, 42, 42)",
 "borda": "rgb(161, 42, 42)",
 "bw": 0,
@@ -832,28 +919,28 @@
 {
 "r": "1 coluna da direita",
 "ex": [
-"Conferir o caixa ainda não conferi",
+"Preço ficou perigoso 9 produto(s) ",
 "Δ-19.0px"
 ]
 },
 {
 "r": "3 coluna da esquerda",
 "ex": [
-"Conferir o caixa ainda não conferi",
+"Preço ficou perigoso 9 produto(s) ",
 "Δ22.0px"
 ]
 },
 {
 "r": "1 coluna da direita",
 "ex": [
-"Preço ficou perigoso 9 produto(s) ",
+"Caixa de hoje não bate Sem vendas ",
 "Δ-19.0px"
 ]
 },
 {
 "r": "3 coluna da esquerda",
 "ex": [
-"Preço ficou perigoso 9 produto(s) ",
+"Caixa de hoje não bate Sem vendas ",
 "Δ22.0px"
 ]
 },
@@ -874,7 +961,7 @@
 ],
 "olho": [],
 "erros_js": [],
-"rola_vazio": 984
+"rola_vazio": 1141
 },
-"seg": 107
+"seg": 119
 }

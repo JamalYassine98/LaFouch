@@ -1,7 +1,7 @@
 {
 "tela": "giro-no-estoque",
 "modo": "aprov",
-"quando": "19/11 10:53",
+"quando": "19/11 14:02",
 "passos": [
 "()=>window.__LF.inicioGo('giro')",
 "()=>{const e=[...document.querySelectorAll('.kpi')].filter(x=>x.getBoundingClientRect().height).filter(x=>/ESTOQUE|estoque/.test(x.innerText||x.getAttribute('aria-label')||''))[0];e&&e.click();return !!e}"
@@ -9,13 +9,13 @@
 "escuro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
 "cara": "ícone redondo",
-"h": 46,
-"w": 46,
+"h": 44,
+"w": 44,
 "cor": "rgb(243, 192, 220)",
-"borda": "rgb(42, 52, 65)",
+"borda": "rgb(34, 42, 53)",
 "bw": 1,
 "fs": "15px"
 },
@@ -79,7 +79,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 45,
+"w": 48,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
@@ -101,7 +101,7 @@
 "act": "",
 "cara": "texto",
 "h": 42,
-"w": 61,
+"w": 65,
 "cor": "rgb(243, 192, 220)",
 "borda": "rgb(243, 192, 220)",
 "bw": 0,
@@ -112,17 +112,17 @@
 "act": "",
 "cara": "texto",
 "h": 42,
-"w": 112,
+"w": 119,
 "cor": "rgb(139, 155, 176)",
 "borda": "rgb(139, 155, 176)",
 "bw": 0,
 "fs": "15px"
 },
 {
-"t": "EM ESTOQUE (FILTRO) › 470",
+"t": "EM ESTOQUE (FILTRO) › 469",
 "act": "",
 "cara": "texto",
-"h": 86,
+"h": 87,
 "w": 171,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(231, 237, 245)",
@@ -145,21 +145,21 @@
 "act": "pcAbre",
 "cara": "texto",
 "h": 44,
-"w": 151,
-"cor": "rgb(233, 194, 122)",
-"borda": "rgb(233, 194, 122)",
+"w": 185,
+"cor": "rgb(243, 192, 220)",
+"borda": "rgb(243, 192, 220)",
 "bw": 0,
-"fs": "13px"
+"fs": "15px"
 },
 {
 "t": "Filtros e ordem",
 "act": "",
-"cara": "texto",
-"h": 42,
-"w": 42,
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
 "cor": "rgb(203, 213, 225)",
-"borda": "rgb(203, 213, 225)",
-"bw": 0,
+"borda": "rgb(34, 42, 53)",
+"bw": 1,
 "fs": "15px"
 },
 {
@@ -210,7 +210,7 @@
 "t": "Óculos de leitura #15 Pré-graduados G$ 2",
 "act": "",
 "cara": "caixa",
-"h": 309,
+"h": 308,
 "w": 165,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(42, 52, 65)",
@@ -221,7 +221,7 @@
 "t": "Armação Gucci de metal feminino Código B",
 "act": "",
 "cara": "caixa",
-"h": 309,
+"h": 308,
 "w": 165,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(42, 52, 65)",
@@ -232,7 +232,7 @@
 "t": "Armação Ray-Ban de metal masculino Códig",
 "act": "",
 "cara": "caixa",
-"h": 309,
+"h": 308,
 "w": 165,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(42, 52, 65)",
@@ -243,7 +243,7 @@
 "t": "Armação Armani de acetato feminino Códig",
 "act": "",
 "cara": "caixa",
-"h": 309,
+"h": 308,
 "w": 165,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(42, 52, 65)",
@@ -276,7 +276,7 @@
 "t": "Armação #12 Armações G$ 45.000! 3 em est",
 "act": "",
 "cara": "caixa",
-"h": 309,
+"h": 330,
 "w": 165,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(42, 52, 65)",
@@ -287,7 +287,7 @@
 "t": "Óculos solar Ray-Ban de metal masculino ",
 "act": "",
 "cara": "caixa",
-"h": 309,
+"h": 330,
 "w": 165,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(42, 52, 65)",
@@ -298,7 +298,7 @@
 "t": "Óculos solar Kazwini de tr90 feminino Có",
 "act": "",
 "cara": "caixa",
-"h": 309,
+"h": 330,
 "w": 165,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(42, 52, 65)",
@@ -309,7 +309,7 @@
 "t": "Óculos solar #13 Solares G$ 60.000! 9 em",
 "act": "",
 "cara": "caixa",
-"h": 309,
+"h": 330,
 "w": 165,
 "cor": "rgb(231, 237, 245)",
 "borda": "rgb(42, 52, 65)",
@@ -359,14 +359,14 @@
 "r": "2 centro vertical",
 "ex": [
 "Inventário Grupo Pré-graduados › G",
-"Δ1.9px"
+"Δ2.0px"
 ]
 },
 {
-"r": "1 coluna da direita",
+"r": "2 centro vertical",
 "ex": [
 "470 peças · Todos15 preços para co",
-"Δ-13.7px"
+"Δ22.4px"
 ]
 }
 ],
@@ -381,7 +381,7 @@
 }
 ],
 "erros_js": [],
-"rola_vazio": 2320
+"rola_vazio": 2382
 },
 "vista": "estoque",
 "toques": [
@@ -389,7 +389,7 @@
 "i": 0,
 "act": "view",
 "id": "notif",
-"txt": "12",
+"txt": "13",
 "tag": "BUTTON",
 "efeito": [
 "leva → notif"
@@ -481,13 +481,13 @@
 "txt": "EM ESTOQUE (FILTRO) › 470",
 "tag": "BUTTON",
 "efeito": [
-"alterna"
-],
-"de_novo": [
 "sumiu"
 ],
+"de_novo": [
+"—"
+],
 "terceiro": [
-"alterna"
+"sumiu"
 ],
 "bug": []
 },
@@ -793,13 +793,13 @@
 "claro": {
 "botoes": [
 {
-"t": "12",
+"t": "13",
 "act": "view",
 "cara": "ícone redondo",
-"h": 46,
-"w": 46,
+"h": 44,
+"w": 44,
 "cor": "rgb(141, 58, 105)",
-"borda": "rgb(217, 208, 216)",
+"borda": "rgb(230, 223, 229)",
 "bw": 1,
 "fs": "15px"
 },
@@ -863,7 +863,7 @@
 "act": "nvVolta",
 "cara": "texto",
 "h": 44,
-"w": 45,
+"w": 48,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -885,7 +885,7 @@
 "act": "",
 "cara": "texto",
 "h": 42,
-"w": 61,
+"w": 65,
 "cor": "rgb(141, 58, 105)",
 "borda": "rgb(141, 58, 105)",
 "bw": 0,
@@ -896,7 +896,7 @@
 "act": "",
 "cara": "texto",
 "h": 42,
-"w": 112,
+"w": 119,
 "cor": "rgb(107, 100, 114)",
 "borda": "rgb(107, 100, 114)",
 "bw": 0,
@@ -929,21 +929,21 @@
 "act": "pcAbre",
 "cara": "texto",
 "h": 44,
-"w": 151,
-"cor": "rgb(138, 90, 0)",
-"borda": "rgb(138, 90, 0)",
+"w": 185,
+"cor": "rgb(141, 58, 105)",
+"borda": "rgb(141, 58, 105)",
 "bw": 0,
-"fs": "13px"
+"fs": "15px"
 },
 {
 "t": "Filtros e ordem",
 "act": "",
-"cara": "texto",
-"h": 42,
-"w": 42,
+"cara": "ícone redondo",
+"h": 44,
+"w": 44,
 "cor": "rgb(71, 85, 105)",
-"borda": "rgb(71, 85, 105)",
-"bw": 0,
+"borda": "rgb(230, 223, 229)",
+"bw": 1,
 "fs": "15px"
 },
 {
@@ -994,7 +994,7 @@
 "t": "Óculos de leitura #15 Pré-graduados G$ 2",
 "act": "",
 "cara": "caixa",
-"h": 309,
+"h": 308,
 "w": 165,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(217, 208, 216)",
@@ -1005,7 +1005,7 @@
 "t": "Armação Gucci de metal feminino Código B",
 "act": "",
 "cara": "caixa",
-"h": 309,
+"h": 308,
 "w": 165,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(217, 208, 216)",
@@ -1016,7 +1016,7 @@
 "t": "Armação Ray-Ban de metal masculino Códig",
 "act": "",
 "cara": "caixa",
-"h": 309,
+"h": 308,
 "w": 165,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(217, 208, 216)",
@@ -1027,7 +1027,7 @@
 "t": "Armação Armani de acetato feminino Códig",
 "act": "",
 "cara": "caixa",
-"h": 309,
+"h": 308,
 "w": 165,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(217, 208, 216)",
@@ -1060,7 +1060,7 @@
 "t": "Armação #12 Armações G$ 45.000! 3 em est",
 "act": "",
 "cara": "caixa",
-"h": 309,
+"h": 330,
 "w": 165,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(217, 208, 216)",
@@ -1071,7 +1071,7 @@
 "t": "Óculos solar Ray-Ban de metal masculino ",
 "act": "",
 "cara": "caixa",
-"h": 309,
+"h": 330,
 "w": 165,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(217, 208, 216)",
@@ -1082,7 +1082,7 @@
 "t": "Óculos solar Kazwini de tr90 feminino Có",
 "act": "",
 "cara": "caixa",
-"h": 309,
+"h": 330,
 "w": 165,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(217, 208, 216)",
@@ -1093,7 +1093,7 @@
 "t": "Óculos solar #13 Solares G$ 60.000! 9 em",
 "act": "",
 "cara": "caixa",
-"h": 309,
+"h": 330,
 "w": 165,
 "cor": "rgb(31, 26, 34)",
 "borda": "rgb(217, 208, 216)",
@@ -1143,14 +1143,14 @@
 "r": "2 centro vertical",
 "ex": [
 "Inventário Grupo Pré-graduados › G",
-"Δ1.9px"
+"Δ4.3px"
 ]
 },
 {
-"r": "1 coluna da direita",
+"r": "2 centro vertical",
 "ex": [
 "470 peças · Todos15 preços para co",
-"Δ-13.7px"
+"Δ22.4px"
 ]
 }
 ],
@@ -1165,7 +1165,7 @@
 }
 ],
 "erros_js": [],
-"rola_vazio": 2320
+"rola_vazio": 2382
 },
-"seg": 257
+"seg": 189
 }
