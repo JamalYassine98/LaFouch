@@ -3206,3 +3206,4 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 
 - 19/11 14:30 — Campo de escrever opção B aprovado (149c, linha 45% / exemplo 55%). Ajuste em esboço (esboco_campo2_*): cursor rosa no início do exemplo, foco = linha rosa (sem caixa), valor alinhado à esquerda numa coluna e na linha de base do nome.
 - 19/11 14:38 — Ajuste 149c2 aprovado (cursor no eixo do exemplo, foco = linha rosa, valor em coluna). Em esboço 149c3: texto a 8 px da linha, toque 44 px, listas de escolha com seta fina.
+- 19/11 15:03 — 149c3 aprovado: família Campo de escrever completa (149c linha 45%/exemplo 55% + 149c2 cursor/foco/coluna + 149c3 texto a 8 px, seta fina).
