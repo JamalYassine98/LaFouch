@@ -3131,3 +3131,9 @@ Testar TUDO, com muita calma, antes de dizer que está pronto ou de publicar: ca
 - 18/11 20:03 — APROVADO (não implementado): topo cresce com a letra só até caber (S428).
 - 18/11 20:57 — DONO: 1,7× basta. Teto do teste de letra = 1,7× (não vai mais até 2,0×); meta: toda tela aguenta 1,7× sem quebrar (celular a partir de 375 px e tablet).
 - 18/11 20:59 — DONO (regra da letra): META 1,7×; se para chegar a 1,7× o design de luxo quebrar, aceitar 1,5× naquela tela (e dizer no envio).
+- 18/11 21:06 — DONO: "Aprovado suas ideias" → APROVADO (processo S428, esperando "implementar"):
+  (1) ORDEM: primeiro um pacote único = limpeza do código velho da letra (3 tamanhos, opção "Tamanho do texto", consertos só para letra grande, conta velha do --hth/--ht) + regra nova (site segue a letra do celular, cresce até 1,7× / aceita 1,5× se quebrar, para onde quebraria) + base aprovada (colada no topo, pílula sem emenda, abas que cabem); limpeza e regra nova vão JUNTAS ao ar. Depois refazer sobre o site limpo os esboços aprovados (peça B, menu v3, menu A, topo) e o do catálogo, e mandar de novo para conferir.
+  (2) TESTES: cada esboço = só o Xiaomi e só a tela mexida; conferência COMPLETA (todas as telas, celulares/tablets/PC, com e sem conta, PT/ES, temáticas, parado e depois de rolar) só antes de implementar/publicar.
+  (3) ALINHAMENTO: montar a prova de alinhamento (work/kit/alin.js) para os blocos do site (topo, menu, peça, catálogo, conta) e rodar em cada esboço e na conferência; falha vai ao dono com nº da regra e px.
+  (4) PUBLICAR COM PLANO DE VOLTA: guardar a versão anterior; se quebrar, voltar na hora (site + modo loja), investigar com ?medir=1, virar teste fixo, avisar o dono; publicar em horário calmo e conferir no ar.
+  Na implementação, mudar o código original no lugar (não por cima) e tirar o velho no mesmo passo.
