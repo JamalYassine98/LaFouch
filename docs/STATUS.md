@@ -33,13 +33,13 @@ Se a tela/arquivo que você vai mexer já está em "Em andamento" de outra sess�
 | 10 | **S1/S2 parte 2 — APP** (depois do item 8 publicado): `pedReserva(p, {pago:true, tok})` (src/95-pedidos.js ~649) grava o `tok` em `reservasTok/<sid>` (o `pago` continua em `reservas/`). Ler o token: o app já tem `p.tok` | APP | 19/11 15:29 | ✅ v566 (19/11) — grava em reservasTok E ainda em reservas/ (o site antigo lê de lá); tirar o de reservas/ junto com o item 11 |
 | 11 | **S1/S2 parte 3 — NUVEM** (depois dos itens 9 e 10 publicados): parar de gravar `tok`/`pixAuto` em `reservas/`; mover os que já estão lá para `reservasTok/`; fechar a leitura pública de `usuarios/` | NUVEM | 19/11 15:29 | espera 9 e 10 |
 | 12 | **P1b órfãs — NUVEM** (dono: "implementar" 16:12; esboço work/estudo-c/esboco_P1b_*.jpg): ações só do dono na função `reserva`: `orfas` {conhecidos:[h…]} → {orfas:[{ref,h,cor,q}]} (só PAGAS); `liberarH` {h, refs:[…]} → solta pelo código. Testes endpoint 11/11 + todas as suítes ok | NUVEM | 19/11 16:12 | ✅ publicado pelo dono 19/11 16:21; conferido: `orfas` sem login = sem-permissao |
-| 13 | **P1b órfãs — APP** (depois do item 12 publicado): em `resOrfas` (src/95-reserva.js), mandar `orfas` com os `h` de TODOS os pedidos que o app tem (inclusive cancelados) + os da `S.resPend`; para cada órfã devolvida, a mesma regra de hoje (vista 2 vezes com 10 min) e então `liberarH` {h, refs}. Esboço work/estudo-c/esboco_P1b_*.jpg | APP | 19/11 16:12 | na fila — pode começar (item 12 no ar) |
+| 13 | **P1b órfãs — APP** (depois do item 12 publicado): em `resOrfas` (src/95-reserva.js), mandar `orfas` com os `h` de TODOS os pedidos que o app tem (inclusive cancelados) + os da `S.resPend`; para cada órfã devolvida, a mesma regra de hoje (vista 2 vezes com 10 min) e então `liberarH` {h, refs}. Esboço work/estudo-c/esboco_P1b_*.jpg | APP | 19/11 16:12 | fazendo (S436) |
 
 ## Em andamento
 | Sessão (assunto) | Frente | Telas / arquivos | Desde |
 |---|---|---|---|
 | App (S435 famílias: Voltar, Link ›, Linha de lista, Dobra ⌄, Adicionar +, "+" em texto, Título, Fechar ×) | APP | esboços em work/s437 (só esboço, nada no código ainda); docs/FAMILIAS-BOTOES.md | 19/11 |
-| APP · implementa (S436) | APP | esperando o dono (fila: item 5 B3) | 19/11 16:55 |
+| APP · implementa (S436) | APP | CÓDIGO item 13 (P1b no app): src/95-reserva.js, src/99-render-persistencia.js (PERSIST), tests/run.py, www/ | 19/11 17:05 |
 | Site (S429 — IMPLEMENTADORA do site; cópia limpa) | SITE | catalogo ramo `limpo` (index.html, js/lf-site.js) — fora do ar; agora: limpeza dos estilos (regras escritas uma por cima da outra) | 19/11 |
 
 ## Recados entre sessões (quem lê, faz e apaga a linha)
